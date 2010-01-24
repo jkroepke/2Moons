@@ -597,8 +597,8 @@ class ShowFleetPages extends FleetFunctions
 						}
 					}
 
-					$fleet['start_time'] = $fleet['start_time'] + $nb + 1;
-					$fleet['end_time'] = $fleet['end_time'] + $nb + 1;
+					$fleet['start_time'] = $fleet['start_time'];
+					$fleet['end_time'] = $fleet['end_time'];
 				}
 			}
 		}
