@@ -1,0 +1,187 @@
+<?php
+
+##############################################################################
+# *																			 #
+# * XG PROYECT																 #
+# *  																		 #
+# * @copyright Copyright (C) 2008 - 2009 By lucky from Xtreme-gameZ.com.ar	 #
+# *																			 #
+# *																			 #
+# *  This program is free software: you can redistribute it and/or modify    #
+# *  it under the terms of the GNU General Public License as published by    #
+# *  the Free Software Foundation, either version 3 of the License, or       #
+# *  (at your option) any later version.									 #
+# *																			 #
+# *  This program is distributed in the hope that it will be useful,		 #
+# *  but WITHOUT ANY WARRANTY; without even the implied warranty of			 #
+# *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the			 #
+# *  GNU General Public License for more details.							 #
+# *																			 #
+##############################################################################
+
+if(!defined('INSIDE')){ die(header("location:../../"));}
+
+function ShowMessagesPage($CurrentUser, $CurrentPlanet)
+{
+	global $xgp_root, $phpEx, $game_config, $dpath, $lang, $db;
+
+	$MessCategory  	= request_var('messcat',0);
+	$MessPageMode  	= request_var('mode', '');
+	$DeleteWhat    	= request_var('deletemessages','');
+	$Send 		  	= request_var('send',0);
+	$OwnerID       	= request_var('id',0);
+	$Subject 		= request_var('subject','',true);
+	
+	$MessageType   	= array ( 0, 1, 2, 3, 4, 5, 15, 99, 100 );
+	$TitleColor    	= array ( 0 => '#FFFF00', 1 => '#FF6699', 2 => '#FF3300', 3 => '#FF9900', 4 => '#773399', 5 => '#009933', 15 => '#030070', 99 => '#007070', 100 => '#ABABAB');
+
+	$template		= new template();
+	
+	switch ($MessPageMode)
+	{
+		case 'write':
+			$template->page_header();
+			$template->page_footer();		
+			$OwnerRecord = $db->fetch_array($db->query("SELECT a.galaxy, a.system, a.planet, b.username, b.id_planet FROM ".PLANETS." as a, ".USERS." as b WHERE b.id = '".$OwnerID."' AND a.id = b.id_planet;"));
+
+			if (!$OwnerRecord)
+				message($lang['mg_error'],"javascript:window.close()","3", false, false);
+			
+			if ($Send)
+			{
+				$Owner   = $OwnerID;
+				$Message = makebr(request_var('text','',true));
+				$Sender  = $CurrentUser['id'];
+				$From    = $CurrentUser['username'] ." [".$CurrentUser['galaxy'].":".$CurrentUser['system'].":".$CurrentUser['planet']."]";
+				SendSimpleMessage($Owner, $Sender, '', 1, $From, $Subject, $Message);
+			}
+
+			$template->assign_vars(array(	
+				'mg_send_new'	=> $lang['mg_send_new'],
+				'mg_send_to'	=> $lang['mg_send_to'],
+				'mg_send'		=> $lang['mg_send'],
+				'mg_message'	=> $lang['mg_message'],
+				'mg_characters'	=> $lang['mg_characters'],
+				'mg_subject'	=> $lang['mg_subject'],
+				'subject'		=> (empty($Subject)) ? $lang['mg_no_subject'] : $Subject,
+				'id'			=> $OwnerID,
+				'username'		=> $OwnerRecord['username'],
+				'galaxy'		=> $OwnerRecord['galaxy'],
+				'system'		=> $OwnerRecord['system'],
+				'planet'		=> $OwnerRecord['planet'],
+			));
+			
+			$template->display("message_send_form.tpl");		
+		break;
+		case 'delete':
+			$DeleteWhat = request_var('deletemessages','');
+			if($DeleteWhat == 'deleteall')
+				$db->query("DELETE FROM ".MESSAGES." WHERE `message_owner` = '". $CurrentUser['id'] ."';");
+			elseif ($DeleteWhat == 'deletemarked')
+			{
+				$sql	= "";
+				foreach($_POST as $Message => $Answer)
+				{
+					if (preg_match("/delmes/i", $Message) && $Answer == 'on')
+					{
+						$sql	.= "DELETE FROM ".MESSAGES." WHERE `message_id` = '".str_replace("delmes", "", $Message)."' AND `message_owner` = '". $CurrentUser['id'] ."';";
+					}
+				}
+				$db->multi_query($sql);
+			}
+			elseif ($DeleteWhat == 'deleteunmarked')
+			{
+				foreach($_POST as $Message => $Answer)
+				{
+					$CurMess    = preg_match("/showmes/i", $Message);
+					$MessId     = str_replace("showmes", "", $Message);
+					$Selected   = "delmes".$MessId;
+					$IsSelected = $_POST[ $Selected ];
+					if (preg_match("/showmes/i", $Message) && !isset($IsSelected))
+					{
+						$MessHere = $db->query("SELECT message_type FROM ".MESSAGES." WHERE `message_id` = '". $MessId ."' AND `message_owner` = '". $CurrentUser['id'] ."';");
+						if ($MessHere)
+							$db->query("DELETE FROM ".MESSAGES." WHERE `message_id` = '".$MessId."';");
+
+					}
+				}
+			}
+			header("Location:game.php?page=messages");
+		break;
+		case 'show':
+			$UsrMess = $db->query("SELECT * FROM ".MESSAGES." WHERE `message_owner` = '".$CurrentUser['id']."'".(($MessCategory != 100) ? " AND `message_type` = '".$MessCategory."'" : "")." ORDER BY `message_time` DESC;");
+			$db->query("UPDATE ".USERS." SET `new_message` = '0' WHERE `id` = '".$CurrentUser['id']."';");
+				
+			while ($CurMess = $db->fetch_array($UsrMess))
+			{
+				$MessageList[$CurMess['message_id']]	= array(
+					'time'		=> date("d. M Y, H:i:s", $CurMess['message_time']),
+					'from'		=> $CurMess['message_from'],
+					'subject'	=> $CurMess['message_subject'],
+					'type'		=> $CurMess['message_type'],
+					'sender'	=> $CurMess['message_sender'],
+					'text'		=> $CurMess['message_text'],
+				);
+			}
+
+			
+			$template->assign_vars(array(	
+				'MessageList'						=> $MessageList,
+				'mg_message_title'					=> $lang['mg_message_title'],
+				'mg_action'							=> $lang['mg_action'],
+				'mg_date'							=> $lang['mg_date'],
+				'mg_from'							=> $lang['mg_from'],
+				'mg_subject'						=> $lang['mg_subject'],
+				'mg_show_only_header_spy_reports'	=> $lang['mg_show_only_header_spy_reports'],
+				'mg_delete_marked'					=> $lang['mg_delete_marked'],
+				'mg_delete_unmarked'				=> $lang['mg_delete_unmarked'],
+				'mg_delete_all'						=> $lang['mg_delete_all'],
+				'mg_confirm_delete'					=> $lang['mg_confirm_delete'],
+				'dpath'								=> $dpath,
+				'MessCategory'						=> $MessCategory,
+			));
+			$template->display("message_show.tpl");			
+		break;
+		default:
+			$template->page_header();
+			$template->page_topnav();
+			$template->page_leftmenu();
+			$template->page_planetmenu();
+			$template->page_footer();
+			
+			$UsrMess       = $db->query("SELECT `message_type` FROM ".MESSAGES." WHERE `message_owner` = '".$CurrentUser['id']."' ORDER BY `message_time` DESC;");
+			$GameOps = $db->query("SELECT `username`, `email` FROM ".USERS." WHERE `authlevel` != '0' ORDER BY `username` ASC;");
+
+			while ($CurMess = $db->fetch_array($UsrMess))
+			{
+				$MessType              = $CurMess['message_type'];
+				$TotalMess[$MessType] += 1;
+				$TotalMess[100]       += 1;
+			}
+
+			while($Ops = $db->fetch($GameOps))
+				$OpsList[]	= array(
+					'username'	=> $Ops['username'],
+					'email'	=> $Ops['email'],
+				);
+			
+			foreach($TitleColor as $MessageID => $MessageColor) {
+				$MessageList[$MessageID]	= array(
+					'color'		=> $MessageColor,
+					'total'		=> !empty($TotalMess[$MessageID]) ? $TotalMess[$MessageID] : 0,
+					'lang'		=> $lang['mg_type'][$MessageID],
+				);
+			}
+			
+			$template->assign_vars(array(	
+				'MessageList'		=> $MessageList,
+				'OpsList'			=> $OpsList,
+				'mg_overview'		=> $lang['mg_overview'],
+				'mg_game_operators'	=> $lang['mg_game_operators'],
+			));
+			
+			$template->display("message_overview.tpl");
+		break;
+	}
+}
+?>

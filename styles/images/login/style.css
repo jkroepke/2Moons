@@ -1,0 +1,1035 @@
+body { background: #000 url(images/starfield.gif); }
+
+.hr { background: url(images/horizontal-rule.png) left center repeat-x;}
+
+/* BACKGROUND ************************ */
+#background-content>.box { margin: 0px auto; }
+
+/* predefined backgrounds */
+.background-header { background-position: 50% 0%; background-repeat: no-repeat; }
+.background-footer { background-image: url(images/planet-blue.png); background-position: 50% 100%; background-repeat: no-repeat; }
+
+.planet_blue { background-image: url(images/planet-blue.png); }
+.planet_red { background-image: url(images/planet-red.png); background-position: 0px -40px; }
+
+/* GENERAL CONTENT *************************************************************************************************************************/
+.listing-header th, .listing-header td { background: url(images/listing-header_center.png) center bottom repeat-x; }
+
+.listing1 .listing-header td, .listing1 .listing-header th { background-image: url(images/listing1-header_center.png); } 
+
+/* BATTLE REPORTS *************************************************************************************************************************/
+.battle-report_info { background: url(images/battle-report_info_center.png) center top repeat-x; }
+.battle-report_attack { background: url(images/battle-report_attack_center.png) center top repeat-x; }
+.battle-report_defense { background: url(images/battle-report_defense_center.png) center top repeat-x; }
+
+/* SCRIPT SPECIFIC CONTENT *************************************************************************************************************************/
+.sorttable_noarrow .sorttable_header th, .sorttable_noarrow .sorttable_header td { background: url(images/arrow_both.gif) right center no-repeat;  padding-right: 10px; }
+.sorttable_noarrow .sorttable_header .sorttable_nosort { background-image: none;  padding-right: 10px; }
+.sorttable_noarrow .sorttable_header .sorttable_sorted { background: url(images/arrow_down.gif) right center no-repeat;  padding-right: 10px; }
+.sorttable_noarrow .sorttable_header .sorttable_sorted_reverse { background: url(images/arrow_up.gif) right center no-repeat; padding-right: 10px; }
+
+/* INPUTS *************************************************************************************************************************/
+input, textarea, select { font-size: 100%; font-family: verdana,arial; }
+
+.input-button { height: 20px; background: #082548 url(images/input-button_normal_center.png) top left repeat-x; padding: 0px 5px; padding-bottom: 4px; }
+.input-button:hover { background-position: bottom left; }
+.input-text { background: transparent url(images/input_normal_center.png); }
+.input-text:focus { color: #FFF; border-color: #777; }
+.input-numeric { background: transparent url(images/input_normal_center.png); }
+.input-numeric:focus { color: #FFF; border-color: #777; }
+.input-textarea { background: transparent url(images/input_normal_center.png);  }
+.input-textarea:focus { color: #FFF; border-color: #777; }
+.input-select:focus, select:focus { color: #FFF; border-color: #777; }
+
+.important .input-button { background-image: url(images/input-button_important_center.png); }
+.important .input-text { background-image: url(images/input_special_center.png); }
+.important .input-text:focus { border-color: #7F1F1F; }
+.important .input-numeric { background-image: url(images/input_special_center.png); }
+.important .input-numeric:focus { border-color: #7F1F1F; }
+.important .input-textarea { background-image: url(images/input_special_center.png); }
+.important .input-textarea:focus { border-color: #7F1F1F; }
+.important .input-select:focus, .important select:focus { border-color: #7F1F1F; }
+
+/* STARS *************************************************************************************************************************/
+.star{ width: 24px; height: 24px; background: transparent center center no-repeat; }
+
+.star_blue{ background-image: url(images/star_blue.png); }
+.star_blue-giant{ background-image: url(images/star_blue-giant.png); }
+.star_neutron{ background-image: url(images/star_neutron.png); }
+.star_orange{ background-image: url(images/star_orange.png); }
+.star_red{ background-image: url(images/star_red.png); }
+.star_red-giant{ background-image: url(images/star_red-giant.png); }
+.star_super-giant{ background-image: url(images/star_super-giant.png); }
+.star_white{ background-image: url(images/star_white.png); }
+.star_white-dwarf{ background-image: url(images/star_white-dwarf.png); }
+.star_worm-hole{ background-image: url(images/star_worm-hole.png); }
+.star_yellow{ background-image: url(images/star_yellow.png); }
+.star_black-hole{ background-image: url(images/star_black-hole.png); }
+
+/* ASTROS *************************************************************************************************************************/
+.astro { background: transparent 50% 50% no-repeat; }
+
+/* micro */
+.astro-micro .astro { width: 35px; height: 35px; }
+
+.astro-micro .astro_arid { background-image: url(images/astro_arid_micro.png);}
+.astro-micro .astro_asteroid { background-image: url(images/astro_asteroid_micro.png);}
+.astro-micro .astro_asteroid-belt { background-image: url(images/astro_asteroid-belt_micro.png);}
+.astro-micro .astro_craters { background-image: url(images/astro_craters_micro.png);}
+.astro-micro .astro_crystalline { background-image: url(images/astro_crystalline_micro.png);}
+.astro-micro .astro_earthly { background-image: url(images/astro_earthly_micro.png);}
+.astro-micro .astro_gaia { background-image: url(images/astro_gaia_micro.png);}
+.astro-micro .astro_gas-giant { width: 45px; height: 45px; background-image: url(images/astro_gas-giant_micro.png);}
+.astro-micro .astro_glacial { background-image: url(images/astro_glacial_micro.png);}
+.astro-micro .astro_magma { background-image: url(images/astro_magma_micro.png);}
+.astro-micro .astro_metallic { background-image: url(images/astro_metallic_micro.png);}
+.astro-micro .astro_oceanic { background-image: url(images/astro_oceanic_micro.png);}
+.astro-micro .astro_radioactive { background-image: url(images/astro_radioactive_micro.png);}
+.astro-micro .astro_rocky { background-image: url(images/astro_rocky_micro.png);}
+.astro-micro .astro_toxic { background-image: url(images/astro_toxic_micro.png);}
+.astro-micro .astro_tundra { background-image: url(images/astro_tundra_micro.png);}
+.astro-micro .astro_unknown { background-image: url(images/astro_unknown_micro.png);}
+.astro-micro .astro_volcanic { background-image: url(images/astro_volcanic_micro.png);}
+
+/* small */
+.astro-small .astro { width: 60px; height: 60px; }
+
+.astro-small .astro_arid { background-image: url(images/astro_arid_small.png);}
+.astro-small .astro_asteroid { background-image: url(images/astro_asteroid_small.png);}
+.astro-small .astro_asteroid-belt { background-image: url(images/astro_asteroid-belt_small.png);}
+.astro-small .astro_craters { background-image: url(images/astro_craters_small.png);}
+.astro-small .astro_crystalline { background-image: url(images/astro_crystalline_small.png);}
+.astro-small .astro_earthly { background-image: url(images/astro_earthly_small.png);}
+.astro-small .astro_gaia { background-image: url(images/astro_gaia_small.png);}
+.astro-small .astro_gas-giant { width: 105px; height: 105px; background-image: url(images/astro_gas-giant_small.png);}
+.astro-small .astro_glacial { background-image: url(images/astro_glacial_small.png);}
+.astro-small .astro_magma { background-image: url(images/astro_magma_small.png);}
+.astro-small .astro_metallic { background-image: url(images/astro_metallic_small.png);}
+.astro-small .astro_oceanic { background-image: url(images/astro_oceanic_small.png);}
+.astro-small .astro_radioactive { background-image: url(images/astro_radioactive_small.png);}
+.astro-small .astro_rocky { background-image: url(images/astro_rocky_small.png);}
+.astro-small .astro_toxic { background-image: url(images/astro_toxic_small.png);}
+.astro-small .astro_tundra { background-image: url(images/astro_tundra_small.png);}
+.astro-small .astro_unknown { background-image: url(images/astro_unknown_small.png);}
+.astro-small .astro_volcanic { background-image: url(images/astro_volcanic_small.png);}
+
+/* medium */
+.astro-medium .astro { width: 200px; height: 195px; }
+
+.astro-medium .astro_arid { background-image: url(images/astro_arid_medium.png);}
+.astro-medium .astro_asteroid { background-image: url(images/astro_asteroid_medium.png);}
+.astro-medium .astro_asteroid-belt { background-image: url(images/astro_asteroid-belt_medium.png);}
+.astro-medium .astro_craters { background-image: url(images/astro_craters_medium.png);}
+.astro-medium .astro_crystalline { background-image: url(images/astro_crystalline_medium.png);}
+.astro-medium .astro_earthly { background-image: url(images/astro_earthly_medium.png);}
+.astro-medium .astro_gaia { background-image: url(images/astro_gaia_medium.png);}
+.astro-medium .astro_gas-giant { background-image: url(images/astro_gas-giant_medium.png);}
+.astro-medium .astro_glacial { background-image: url(images/astro_glacial_medium.png);}
+.astro-medium .astro_magma { background-image: url(images/astro_magma_medium.png);}
+.astro-medium .astro_metallic { background-image: url(images/astro_metallic_medium.png);}
+.astro-medium .astro_oceanic { background-image: url(images/astro_oceanic_medium.png);}
+.astro-medium .astro_radioactive { background-image: url(images/astro_radioactive_medium.png);}
+.astro-medium .astro_rocky { background-image: url(images/astro_rocky_medium.png);}
+.astro-medium .astro_toxic { background-image: url(images/astro_toxic_medium.png);}
+.astro-medium .astro_tundra { background-image: url(images/astro_tundra_medium.png);}
+.astro-medium .astro_unknown { width: 240px; height: 240px; background-image: url(images/astro_unknown_medium.png);}
+.astro-medium .astro_volcanic { background-image: url(images/astro_volcanic_medium.png);}
+
+/* ITEMS *************************************************************************************************************************/
+.item { background: center center no-repeat; cursor: pointer; }
+
+.item-small .item { width: 50px; height: 50px; }
+
+/* small tech */
+.item-small .item_energy { background-image: url(images/item_energy.png); }
+.item-small .item_computer { background-image: url(images/item_computer.png); }
+.item-small .item_armour { background-image: url(images/item_armour.png); }
+.item-small .item_laser { background-image: url(images/item_laser.png); }
+.item-small .item_missiles { background-image: url(images/item_missiles.png); }
+.item-small .item_stellar-drive { background-image: url(images/item_stellar-drive.png); }
+.item-small .item_plasma { background-image: url(images/item_plasma.png); }
+.item-small .item_warp-drive { background-image: url(images/item_warp-drive.png); }
+.item-small .item_shielding { background-image: url(images/item_shielding.png); }
+.item-small .item_ion { background-image: url(images/item_ion.png); }
+.item-small .item_photon { background-image: url(images/item_photon.png); }
+.item-small .item_artificial-intelligence { background-image: url(images/item_artificial-intelligence.png); }
+.item-small .item_disruptor { background-image: url(images/item_disruptor.png); }
+.item-small .item_cybernetics { background-image: url(images/item_cybernetics.png); }
+.item-small .item_tachyon-communications { background-image: url(images/item_tachyon-communications.png); }
+
+/* small structures */
+.item-small .item_urban-structures { background-image: url(images/item_urban-structures.png); }
+.item-small .item_solar-plants { background-image: url(images/item_solar-plants.png); }
+.item-small .item_gas-plants { background-image: url(images/item_gas-plants.png); }
+.item-small .item_fusion-plants { background-image: url(images/item_fusion-plants.png); }
+.item-small .item_antimatter-plants { background-image: url(images/item_antimatter-plants.png); }
+.item-small .item_research-labs { background-image: url(images/item_research-labs.png); }
+.item-small .item_metal-refineries { background-image: url(images/item_metal-refineries.png); }
+.item-small .item_crystal-mines { background-image: url(images/item_crystal-mines.png); }
+.item-small .item_robotic-factories { background-image: url(images/item_robotic-factories.png); }
+.item-small .item_shipyards { background-image: url(images/item_shipyards.png); }
+.item-small .item_orbital-shipyards { background-image: url(images/item_orbital-shipyards.png); }
+.item-small .item_spaceports { background-image: url(images/item_spaceports.png); }
+.item-small .item_command-centers { background-image: url(images/item_command-centers.png); }
+.item-small .item_nanite-factories { background-image: url(images/item_nanite-factories.png); }
+.item-small .item_android-factories { background-image: url(images/item_android-factories.png); }
+.item-small .item_economic-centers { background-image: url(images/item_economic-centers.png); }
+.item-small .item_terraform { background-image: url(images/item_terraform.png); }
+.item-small .item_multi-level-platforms { background-image: url(images/item_multi-level-platforms.png); }
+.item-small .item_orbital-base { background-image: url(images/item_orbital-base.png); }
+.item-small .item_jump-gate { background-image: url(images/item_jump-gate.png); }
+.item-small .item_biosphere-modification { background-image: url(images/item_biosphere-modification.png); }
+.item-small .item_capital { background-image: url(images/item_capital.png); }
+
+/* small defenses */
+.item-small .item_barracks { background-image: url(images/item_barracks.png); }
+.item-small .item_laser-turrets { background-image: url(images/item_laser-turrets.png); }
+.item-small .item_missile-turrets { background-image: url(images/item_missile-turrets.png); }
+.item-small .item_plasma-turrets { background-image: url(images/item_plasma-turrets.png); }
+.item-small .item_ion-turrets { background-image: url(images/item_ion-turrets.png); }
+.item-small .item_photon-turrets { background-image: url(images/item_photon-turrets.png); }
+.item-small .item_disruptor-turrets { background-image: url(images/item_disruptor-turrets.png); }
+.item-small .item_deflection-shields { background-image: url(images/item_deflection-shields.png); }
+.item-small .item_planetary-shield { background-image: url(images/item_planetary-shield.png); }
+.item-small .item_planetary-ring { background-image: url(images/item_planetary-ring.png); }
+
+/* small production */
+.item-small .item_fighters { background-image: url(images/item_fighters.png); }
+.item-small .item_bombers { background-image: url(images/item_bombers.png); }
+.item-small .item_heavy-bombers { background-image: url(images/item_heavy-bombers.png); }
+.item-small .item_ion-bombers { background-image: url(images/item_ion-bombers.png); }
+.item-small .item_corvette { background-image: url(images/item_corvette.png); }
+.item-small .item_recycler { background-image: url(images/item_recycler.png); }
+.item-small .item_destroyer { background-image: url(images/item_destroyer.png); }
+.item-small .item_frigate { background-image: url(images/item_frigate.png); }
+.item-small .item_ion-frigate { background-image: url(images/item_ion-frigate.png); }
+.item-small .item_scout-ship { background-image: url(images/item_scout-ship.png); }
+.item-small .item_outpost-ship { background-image: url(images/item_outpost-ship.png); }
+.item-small .item_cruiser { background-image: url(images/item_cruiser.png); }
+.item-small .item_carrier { background-image: url(images/item_carrier.png); }
+.item-small .item_heavy-cruiser { background-image: url(images/item_heavy-cruiser.png); }
+.item-small .item_battleship { background-image: url(images/item_battleship.png); }
+.item-small .item_fleet-carrier { background-image: url(images/item_fleet-carrier.png); }
+.item-small .item_dreadnought { background-image: url(images/item_dreadnought.png); }
+.item-small .item_titan { background-image: url(images/item_titan.png); }
+.item-small .item_leviathan { background-image: url(images/item_leviathan.png); }
+.item-small .item_death-star { background-image: url(images/item_death-star.png); }
+
+.item-small .item_goods { background-image: url(images/item_goods.png); }
+
+/* item levels - to be implemented in the future */
+/*
+.item-level0 .item-small .item_goods { -moz-opacity: .3; }
+.item-level10 .item-small .item_goods { -moz-opacity: .5; }
+.item-level20 .item-small .item_goods { -moz-opacity: .7; }
+.item-level30 .item-small .item_goods { -moz-opacity: 1; }
+*/
+
+/* BUTTON DEFAULTS *************************************************************************************************************************/
+.button-left { background: top right no-repeat; }
+.button-center { background: top center repeat-x; }
+.button-right { background: top left no-repeat; }
+
+.button { height: 18px; border: none; }
+.button .button-left { width: 11px; }
+.button .button-right { width: 13px; }
+
+/* BUTTON *************************************************************************************************************************/
+
+/* normal */
+.button-normal, .button-normal a { background-color: transparent; }
+.button-normal .button-left { background-image: url(images/button_normal_left.png); }
+.button-normal .button-center { background-image: url(images/button_normal_center.png); }
+.button-normal .button-right { background-image: url(images/button_normal_right.png); }
+
+.button-normal-over, .button-normal-over a { background-color: transparent; }
+.button-normal-over .button-left { background-position: bottom right; background-image: url(images/button_normal_left.png); }
+.button-normal-over .button-center { background-position: bottom right; background-image: url(images/button_normal_center.png); }
+.button-normal-over .button-right { background-position: bottom left; background-image: url(images/button_normal_right.png); }
+
+.button-normal-active, .button-normal-active a { background-color: transparent; }
+.button-normal-active .button-left { background-image: url(images/button_normal-active_left.png); }
+.button-normal-active .button-center { background-image: url(images/button_normal-active_center.png); }
+.button-normal-active .button-right { background-image: url(images/button_normal-active_right.png); }
+
+/* disabled */
+.button-disabled, .button-disabled a { background-color: transparent; }
+.button-disabled .button-left { background-image: url(images/button_disabled_left.png); }
+.button-disabled .button-center { background-image: url(images/button_disabled_center.png); }
+.button-disabled .button-right { background-image: url(images/button_disabled_right.png); }
+
+.button-disabled-over, .button-disabled-over a { background-color: transparent; }
+.button-disabled-over .button-left { background-position: bottom right; background-image: url(images/button_disabled_left.png); }
+.button-disabled-over .button-center { background-position: bottom right; background-image: url(images/button_disabled_center.png); }
+.button-disabled-over .button-right { background-position: bottom left; background-image: url(images/button_disabled_right.png); }
+
+.button-disabled-active, .button-disabled-active a { background-color: transparent; }
+.button-disabled-active .button-left { background-image: url(images/button_disabled-active_left.png); }
+.button-disabled-active .button-center { background-image: url(images/button_disabled-active_center.png); }
+.button-disabled-active .button-right { background-image: url(images/button_disabled-active_right.png); }
+
+/* premium */
+.button-premium, .button-premium a { background-color: transparent; }
+.button-premium .button-left { background-image: url(images/button_premium_left.png); }
+.button-premium .button-center { background-image: url(images/button_premium_center.png); }
+.button-premium .button-right { background-image: url(images/button_premium_right.png); }
+
+.button-premium-over, .button-premium-over a { background-color: transparent; }
+.button-premium-over .button-left { background-position: bottom right; background-image: url(images/button_premium_left.png); }
+.button-premium-over .button-center { background-position: bottom right; background-image: url(images/button_premium_center.png); }
+.button-premium-over .button-right { background-position: bottom left; background-image: url(images/button_premium_right.png); }
+
+.button-premium-active, .button-premium-active a { background-color: transparent; }
+.button-premium-active .button-left { background-image: url(images/button_premium-active_left.png); }
+.button-premium-active .button-center { background-image: url(images/button_premium-active_center.png); }
+.button-premium-active .button-right { background-image: url(images/button_premium-active_right.png); }
+
+/* special */
+.button-special, .button-special a { background-color: transparent; }
+.button-special .button-left { background-image: url(images/button_special_left.png); }
+.button-special .button-center { background-image: url(images/button_special_center.png); }
+.button-special .button-right { background-image: url(images/button_special_right.png); }
+
+.button-special-over, .button-special-over a { background-color: transparent; }
+.button-special-over .button-left { background-position: bottom right; background-image: url(images/button_special_left.png); }
+.button-special-over .button-center { background-position: bottom right; background-image: url(images/button_special_center.png); }
+.button-special-over .button-right { background-position: bottom left; background-image: url(images/button_special_right.png); }
+
+.button-special-active, .button-special-active a { background-color: transparent; }
+.button-special-active .button-left { background-image: url(images/button_special-active_left.png); }
+.button-special-active .button-center { background-image: url(images/button_special-active_center.png); }
+.button-special-active .button-right { background-image: url(images/button_special-active_right.png); }
+
+/* important */
+.button-important, .button-important a { background-color: transparent; }
+.button-important .button-left { background-image: url(images/button_important_left.png); }
+.button-important .button-center { background-image: url(images/button_important_center.png); }
+.button-important .button-right { background-image: url(images/button_important_right.png); }
+
+.button-important-over, .button-important-over a { background-color: transparent; }
+.button-important-over .button-left { background-position: bottom right; background-image: url(images/button_important_left.png); }
+.button-important-over .button-center { background-position: bottom right; background-image: url(images/button_important_center.png); }
+.button-important-over .button-right { background-position: bottom left; background-image: url(images/button_important_right.png); }
+
+.button-important-active, .button-important-active a { background-color: transparent; }
+.button-important-active .button-left { background-image: url(images/button_important-active_left.png); }
+.button-important-active .button-center { background-image: url(images/button_important-active_center.png); }
+.button-important-active .button-right { background-image: url(images/button_important-active_right.png); }
+
+/* SMALL BUTTON  *************************************************************************************************************************/
+.small-button { height: 16px; border: none; }
+.small-button .button-left { width: 11px; }
+.small-button .button-right { width: 13px; }
+
+/* normal */
+.small-button-normal, .small-button-normal a { background-color: transparent; }
+.small-button-normal .button-left { background-image: url(images/small-button_normal_left.png); }
+.small-button-normal .button-center { background-image: url(images/small-button_normal_center.png); }
+.small-button-normal .button-right { background-image: url(images/small-button_normal_right.png); }
+
+.small-button-normal-over, .small-button-normal-over a { background-color: transparent; }
+.small-button-normal-over .button-left { background-position: bottom right; background-image: url(images/small-button_normal_left.png); }
+.small-button-normal-over .button-center { background-position: bottom right; background-image: url(images/small-button_normal_center.png); }
+.small-button-normal-over .button-right { background-position: bottom left; background-image: url(images/small-button_normal_right.png); }
+
+.small-button-normal-active, .small-button-normal-active a { background-color: transparent; }
+.small-button-normal-active .button-left { background-image: url(images/small-button_normal-active_left.png); }
+.small-button-normal-active .button-center { background-image: url(images/small-button_normal-active_center.png); }
+.small-button-normal-active .button-right { background-image: url(images/small-button_normal-active_right.png); }
+
+/* disabled */
+.small-button-disabled, .small-button-disabled a { background-color: transparent; }
+.small-button-disabled .button-left { background-image: url(images/small-button_disabled_left.png); }
+.small-button-disabled .button-center { background-image: url(images/small-button_disabled_center.png); }
+.small-button-disabled .button-right { background-image: url(images/small-button_disabled_right.png); }
+
+.small-button-disabled-over, .small-button-disabled-over a { background-color: transparent; }
+.small-button-disabled-over .button-left { background-position: bottom right; background-image: url(images/small-button_disabled_left.png); }
+.small-button-disabled-over .button-center { background-position: bottom right; background-image: url(images/small-button_disabled_center.png); }
+.small-button-disabled-over .button-right { background-position: bottom left; background-image: url(images/small-button_disabled_right.png); }
+
+.small-button-disabled-active, .small-button-disabled-active a { background-color: transparent; }
+.small-button-disabled-active .button-left { background-image: url(images/small-button_disabled-active_left.png); }
+.small-button-disabled-active .button-center { background-image: url(images/small-button_disabled-active_center.png); }
+.small-button-disabled-active .button-right { background-image: url(images/small-button_disabled-active_right.png); }
+
+/* premium */
+.small-button-premium, .small-button-premium a { background-color: transparent; }
+.small-button-premium .button-left { background-image: url(images/small-button_premium_left.png); }
+.small-button-premium .button-center { background-image: url(images/small-button_premium_center.png); }
+.small-button-premium .button-right { background-image: url(images/small-button_premium_right.png); }
+
+.small-button-premium-over, .small-button-premium-over a { background-color: transparent; }
+.small-button-premium-over .button-left { background-position: bottom right; background-image: url(images/small-button_premium_left.png); }
+.small-button-premium-over .button-center { background-position: bottom right; background-image: url(images/small-button_premium_center.png); }
+.small-button-premium-over .button-right { background-position: bottom left; background-image: url(images/small-button_premium_right.png); }
+
+.small-button-premium-active, .small-button-premium-active a { background-color: transparent; }
+.small-button-premium-active .button-left { background-image: url(images/small-button_premium-active_left.png); }
+.small-button-premium-active .button-center { background-image: url(images/small-button_premium-active_center.png); }
+.small-button-premium-active .button-right { background-image: url(images/small-button_premium-active_right.png); }
+
+/* special */
+.small-button-special, .small-button-special a { background-color: transparent; }
+.small-button-special .button-left { background-image: url(images/small-button_special_left.png); }
+.small-button-special .button-center { background-image: url(images/small-button_special_center.png); }
+.small-button-special .button-right { background-image: url(images/small-button_special_right.png); }
+
+.small-button-special-over, .small-button-special-over a { background-color: transparent; }
+.small-button-special-over .button-left { background-position: bottom right; background-image: url(images/small-button_special_left.png); }
+.small-button-special-over .button-center { background-position: bottom right; background-image: url(images/small-button_special_center.png); }
+.small-button-special-over .button-right { background-position: bottom left; background-image: url(images/small-button_special_right.png); }
+
+.small-button-special-active, .small-button-special-active a { background-color: transparent; }
+.small-button-special-active .button-left { background-image: url(images/small-button_special-active_left.png); }
+.small-button-special-active .button-center { background-image: url(images/small-button_special-active_center.png); }
+.small-button-special-active .button-right { background-image: url(images/small-button_special-active_right.png); }
+
+/* important */
+.small-button-important, .small-button-important a { background-color: transparent; }
+.small-button-important .button-left { background-image: url(images/small-button_important_left.png); }
+.small-button-important .button-center { background-image: url(images/small-button_important_center.png); }
+.small-button-important .button-right { background-image: url(images/small-button_important_right.png); }
+
+.small-button-important-over, .small-button-important-over a { background-color: transparent; }
+.small-button-important-over .button-left { background-position: bottom right; background-image: url(images/small-button_important_left.png); }
+.small-button-important-over .button-center { background-position: bottom right; background-image: url(images/small-button_important_center.png); }
+.small-button-important-over .button-right { background-position: bottom left; background-image: url(images/small-button_important_right.png); }
+
+.small-button-important-active, .small-button-important-active a { background-color: transparent; }
+.small-button-important-active .button-left { background-image: url(images/small-button_important-active_left.png); }
+.small-button-important-active .button-center { background-image: url(images/small-button_important-active_center.png); }
+.small-button-important-active .button-right { background-image: url(images/small-button_important-active_right.png); }
+
+/* COMMON BOX DEFAULTS *************************************************************************************************************************/
+.box { margin: 0px auto; border: none; background: transparent; }
+
+/* box simple */
+.box-left { background: center left no-repeat; }
+.box-center { background: center left repeat-x; }
+.box-right { background: center right no-repeat; }
+
+/* box complex */
+.box-header-left { background: top left no-repeat; }
+.box-header-center { background: top left repeat-x; }
+.box-header-right { background: top right no-repeat; }
+
+.box-content-left { background: top left repeat-y; }
+.box-content-center { background: top right repeat;  }
+.box-content-right { background: top right repeat-y; }
+
+.box-footer-left { background: bottom left no-repeat; }
+.box-footer-center { background: bottom right repeat-x; }
+.box-footer-right { background: bottom right no-repeat; }
+
+.box-title-left { background: top right no-repeat; }
+.box-title-center { background: top left repeat-x;  font-size: 90%; }
+.box-title-right { background: top left no-repeat; }
+
+.box-status-pad { height: 10px; }
+.box-status-left { background: bottom right no-repeat; }
+.box-status-center { background: bottom left repeat-x; }
+.box-status-right { background: bottom left no-repeat; }
+
+/* DEFAULT BOX *************************************************************************************************************************/
+.default_box-header { height: 12px; font-size: 1px; }
+.default_box-header-left { width: 14px; background-image: url(images/box_header_left.png); }
+.default_box-header-center { background-image: url(images/box_header_center.png); }
+.default_box-header-right { width: 14px; background-image: url(images/box_header_right.png); }
+
+.default_box-content-left { width: 14px; background-image: url(images/box_content_left.png); }
+.default_box-content-center { background-image: url(images/box_content_center.png); }
+.default_box-content-right { width: 14px; background-image: url(images/box_content_right.png); }
+
+.default_box-footer { height: 12px; font-size: 1px; }
+.default_box-footer-left { width: 14px; background-image: url(images/box_footer_left.png); }
+.default_box-footer-center { background-image: url(images/box_footer_center.png); }
+.default_box-footer-right { width: 14px; background-image: url(images/box_footer_right.png); }
+
+/* BOX 1 *************************************************************************************************************************/
+.box1_box-header { height: 27px; }
+.box1_box-header-left { width: 17px; background-image: url(images/box1_header_left.png); }
+.box1_box-header-center { background-image: url(images/box1_header_center.png); }
+.box1_box-header-right { width: 19px; background-image: url(images/box1_header_right.png); }
+
+.box1_box-content-left { width: 17px; background-image: url(images/box1_content_left.png); }
+.box1_box-content-center { background-image: url(images/box1_content_center.png); }
+.box1_box-content-right { width: 19px; background-image: url(images/box1_content_right.png); }
+
+.box1_box-footer { height: 19px; }
+.box1_box-footer-left { width: 17px; background-image: url(images/box1_footer_left.png); }
+.box1_box-footer-center { background-image: url(images/box1_footer_center.png); }
+.box1_box-footer-right { width: 19px; background-image: url(images/box1_footer_right.png); }
+
+.box1_box-title-center { text-transform: uppercase; }
+
+.box1_box-status-pad { height: 10px; }
+.box1_box-status-container { top: -16px; }
+.box1_box-status-center { font-size: 80%; color: #BBB; }
+
+.box1 .box1_content { position: relative; top: -5px; }
+
+/* BOX 2 *************************************************************************************************************************/
+.box2_box-header { height: 30px; }
+.box2_box-header-left { width: 19px; background-image: url(images/box2_header_left.png); }
+.box2_box-header-center { background-image: url(images/box2_header_center.png); }
+.box2_box-header-right { width: 19px; background-image: url(images/box2_header_right.png); }
+
+.box2_box-content-left { width: 19px; background-image: url(images/box2_content_left.png); }
+.box2_box-content-center { background-image: url(images/box2_content_center.png); }
+.box2_box-content-right { width: 19px; background-image: url(images/box2_content_right.png); }
+
+.box2_box-footer { height: 20px; }
+.box2_box-footer-left { width: 19px; background-image: url(images/box2_footer_left.png); }
+.box2_box-footer-center { background-image: url(images/box2_footer_center.png); }
+.box2_box-footer-right { width: 19px; background-image: url(images/box2_footer_right.png); }
+
+.box2_box-title-pad { height: 0px; }
+.box2_box-title-container { top: -27px; }
+.box2_box-title { height: 43px; min-width: 40%; }
+.box2_box-title-left { width: 39px; background-image: url(images/box2_title_left.png); }
+.box2_box-title-center { text-transform: uppercase; padding-top: 6px; background-image: url(images/box2_title_center.png); }
+.box2_box-title-right { width: 39px; background-image: url(images/box2_title_right.png); }
+
+.box2_box-status-pad { height: 10px; }
+.box2_box-status-container { top: -16px; }
+.box2_box-status-center { font-size: 80%; color: #BBB; }
+
+.box2 .box2_content { position: relative; top: -5px; }
+
+.box2 { margin-top: 17px; }
+#background-content>.box2 { margin-top: 17px; }
+
+/* BOX 3 *************************************************************************************************************************/
+.box3_box-header { height: 47px; }
+.box3_box-header-left { width: 32px; background-image: url(images/box3_header_left.png); }
+.box3_box-header-center { background-image: url(images/box3_header_center.png); }
+.box3_box-header-right { width: 34px; background-image: url(images/box3_header_right.png); }
+
+.box3_box-content-left { width: 16px; background-image: url(images/box3_content_left.png); }
+.box3_box-content-center { background-image: url(images/box3_content_center.png); }
+.box3_box-content-right { width: 16px; background-image: url(images/box3_content_right.png); }
+
+.box3_box-footer { height: 20px; }
+.box3_box-footer-left { width: 19px; background-image: url(images/box3_footer_left.png); }
+.box3_box-footer-center { background-image: url(images/box3_footer_center.png); }
+.box3_box-footer-right { width: 19px; background-image: url(images/box3_footer_right.png); }
+
+.box3_box-title-pad { height: 0px; }
+.box3_box-title-container { top: -15px; }
+.box3_box-title { height: 18px; min-width: 40%; }
+.box3_box-title-left { width: 39px; background-image: url(images/box3_title_left.png); }
+.box3_box-title-center { text-transform: uppercase; padding-top: 2px; background-image: url(images/box3_title_center.png); }
+.box3_box-title-right { width: 39px; background-image: url(images/box3_title_right.png); }
+
+.box3_box-status-pad { height: 7px; }
+.box3_box-status-container { top: -16px; }
+.box3_box-status-center { font-size: 80%; color: #BBB; }
+
+.box3 .box3_content { position: relative; top: -8px; }
+
+/* BOX 4 *************************************************************************************************************************/
+.box4_box-header { height: 16px; }
+.box4_box-header-left { width: 17px; background-image: url(images/box4_header_left.png); }
+.box4_box-header-center { background-image: url(images/box4_header_center.png); }
+.box4_box-header-right { width: 17px; background-image: url(images/box4_header_right.png); }
+
+.box4_box-content-left { width: 17px; background-image: url(images/box4_content_left.png); }
+.box4_box-content-center { background-image: url(images/box4_content_center.png); }
+.box4_box-content-right { width: 17px; background-image: url(images/box4_content_right.png); }
+
+.box4_box-footer { height: 17px; }
+.box4_box-footer-left { width: 17px; background-image: url(images/box4_footer_left.png); }
+.box4_box-footer-center { background-image: url(images/box4_footer_center.png); }
+.box4_box-footer-right { width: 17px; background-image: url(images/box4_footer_right.png); }
+
+.box4_box-title-pad { height: 20px; }
+.box4_box-title-container { top: 10px; }
+.box4_box-title-center { text-transform: uppercase; }
+
+.box4_box-status-pad { height: 17px; }
+.box4_box-status-container { top: -16px; }
+.box4_box-status-center { font-size: 80%; color: #BBB; }
+
+/* BOX 5 *************************************************************************************************************************/
+.box5_box-header { height: 43px; }
+.box5_box-header-left { width: 17px; background-image: url(images/box5_header_left.png); }
+.box5_box-header-center { background-image: url(images/box5_header_center.png); }
+.box5_box-header-right { width: 17px; background-image: url(images/box5_header_right.png); }
+
+.box5_box-content-left { width: 17px; background-image: url(images/box5_content_left.png); }
+.box5_box-content-center { background-image: url(images/box5_content_center.png); }
+.box5_box-content-right { width: 17px; background-image: url(images/box5_content_right.png); }
+
+.box5_box-footer { height: 23px; }
+.box5_box-footer-left { width: 17px; background-image: url(images/box5_footer_left.png); }
+.box5_box-footer-center { background-image: url(images/box5_footer_center.png); }
+.box5_box-footer-right { width: 17px; background-image: url(images/box5_footer_right.png); }
+
+.box5_box-title-pad { height: 5px; }
+.box5_box-title-container { top: 2px; }
+.box5_box-title-center { text-transform: uppercase; }
+
+.box5_box-status-pad { height: 11px; }
+.box5_box-status-container { top: -14px; }
+.box5_box-status-center { font-size: 80%; color: #BBB; }
+
+/* BOX 6 *************************************************************************************************************************/
+.box6_box-header { height: 26px; }
+.box6_box-header-left { width: 28px; background-image: url(images/box6_header_left.png); }
+.box6_box-header-center { background-image: url(images/box6_header_center.png); }
+.box6_box-header-right { width: 30px; background-image: url(images/box6_header_right.png); }
+
+.box6_box-content-left { width: 28px; background-image: url(images/box6_content_left.png); }
+.box6_box-content-center { background-image: url(images/box6_content_center.png); }
+.box6_box-content-right { width: 30px; background-image: url(images/box6_content_right.png); }
+
+.box6_box-footer { height: 27px; }
+.box6_box-footer-left { width: 28px; background-image: url(images/box6_footer_left.png); }
+.box6_box-footer-center { background-image: url(images/box6_footer_center.png); }
+.box6_box-footer-right { width: 30px; background-image: url(images/box6_footer_right.png); }
+
+.box6_box-title-pad { height: 25px; }
+.box6_box-title-container { top: 6px; }
+.box6_box-title { height: 30px; }
+.box6_box-title-left { width: 21px; background-image: url(images/box6_title_left.png); }
+.box6_box-title-center { text-transform: uppercase; padding-top: 8px; background-image: url(images/box6_title_center.png); }
+.box6_box-title-right { width: 20px; background-image: url(images/box6_title_right.png); }
+
+.box6_box-status-pad { height: 7px; }
+.box6_box-status-container { top: -11px; }
+.box6_box-status-center { font-size: 80%; color: #BBB; }
+
+/* FEEDBACK BOXES *************************************************************************************************************************/
+.feedback_icon { background-position: center center; background-repeat: no-repeat; }
+.feedback_icon div { width: 50px; height: 45px; }
+
+/* BOX ERROR *************************************************************************************************************************/
+.box-error .feedback_icon { background-image: url(images/icon_error.png); }
+
+.box-error_box-header { height: 28px; }
+.box-error_box-header-left { width: 29px; background-image: url(images/box-error_header_left.png); }
+.box-error_box-header-center { background-image: url(images/box-error_header_center.png); }
+.box-error_box-header-right { width: 29px; background-image: url(images/box-error_header_right.png); }
+
+.box-error_box-content-left { width: 29px; background-image: url(images/box-error_content_left.png); }
+.box-error_box-content-center { background-image: url(images/box-error_content_center.png); }
+.box-error_box-content-right { width: 29px; background-image: url(images/box-error_content_right.png); }
+
+.box-error_box-footer { height: 28px; }
+.box-error_box-footer-left { width: 29px; background-image: url(images/box-error_footer_left.png); }
+.box-error_box-footer-center { background-image: url(images/box-error_footer_center.png); }
+.box-error_box-footer-right { width: 29px; background-image: url(images/box-error_footer_right.png); }
+
+/* BOX WARNING *************************************************************************************************************************/
+.box-warning .feedback_icon { background-image: url(images/icon_warning.png); }
+
+.box-warning_box-header { height: 28px; }
+.box-warning_box-header-left { width: 29px; background-image: url(images/box-warning_header_left.png); }
+.box-warning_box-header-center { background-image: url(images/box-warning_header_center.png); }
+.box-warning_box-header-right { width: 29px; background-image: url(images/box-warning_header_right.png); }
+
+.box-warning_box-content-left { width: 29px; background-image: url(images/box-warning_content_left.png); }
+.box-warning_box-content-center { background-image: url(images/box-warning_content_center.png); }
+.box-warning_box-content-right { width: 29px; background-image: url(images/box-warning_content_right.png); }
+
+.box-warning_box-footer { height: 28px; }
+.box-warning_box-footer-left { width: 29px; background-image: url(images/box-warning_footer_left.png); }
+.box-warning_box-footer-center { background-image: url(images/box-warning_footer_center.png); }
+.box-warning_box-footer-right { width: 29px; background-image: url(images/box-warning_footer_right.png); }
+
+/* BOX MESSAGE *************************************************************************************************************************/
+.box-message .feedback_icon { background-image: url(images/icon_message.png); }
+
+.box-message_box-header { height: 28px; }
+.box-message_box-header-left { width: 29px; background-image: url(images/box-message_header_left.png); }
+.box-message_box-header-center { background-image: url(images/box-message_header_center.png); }
+.box-message_box-header-right { width: 29px; background-image: url(images/box-message_header_right.png); }
+
+.box-message_box-content-left { width: 29px; background-image: url(images/box-message_content_left.png); }
+.box-message_box-content-center { background-image: url(images/box-message_content_center.png); }
+.box-message_box-content-right { width: 29px; background-image: url(images/box-message_content_right.png); }
+
+.box-message_box-footer { height: 28px; }
+.box-message_box-footer-left { width: 29px; background-image: url(images/box-message_footer_left.png); }
+.box-message_box-footer-center { background-image: url(images/box-message_footer_center.png); }
+.box-message_box-footer-right { width: 29px; background-image: url(images/box-message_footer_right.png); }
+
+/* BOX TIP *************************************************************************************************************************/
+.box-tip .feedback_icon { background-image: url(images/icon_tip.png); }
+
+.box-tip_box-header { height: 28px; }
+.box-tip_box-header-left { width: 29px; background-image: url(images/box-tip_header_left.png); }
+.box-tip_box-header-center { background-image: url(images/box-tip_header_center.png); }
+.box-tip_box-header-right { width: 29px; background-image: url(images/box-tip_header_right.png); }
+
+.box-tip_box-content-left { width: 29px; background-image: url(images/box-tip_content_left.png); }
+.box-tip_box-content-center { background-image: url(images/box-tip_content_center.png); }
+.box-tip_box-content-right { width: 29px; background-image: url(images/box-tip_content_right.png); }
+
+.box-tip_box-footer { height: 28px; }
+.box-tip_box-footer-left { width: 29px; background-image: url(images/box-tip_footer_left.png); }
+.box-tip_box-footer-center { background-image: url(images/box-tip_footer_center.png); }
+.box-tip_box-footer-right { width: 29px; background-image: url(images/box-tip_footer_right.png); }
+
+/* GUILD/PLAYER PROFILE *************************************************************************************************************************/
+#profile { background: transparent; }
+
+.profile_box-header { height: 39px; }
+.profile_box-header-left { width: 45px; background-image: url(images/box-profile_header_left.png); }
+.profile_box-header-center { background-image: url(images/box-profile_header_center.png); }
+.profile_box-header-right { width: 45px; background-image: url(images/box-profile_header_right.png); }
+
+.profile_box-content {}
+.profile_box-content-left { width: 45px; background-image: url(images/box-profile_content_left.png); }
+.profile_box-content-center { background-image: url(images/box-profile_content_center.png); padding-top: 5px; }
+.profile_box-content-right { width: 45px; background-image: url(images/box-profile_content_right.png); }
+
+.profile_box-footer { height: 39px; }
+.profile_box-footer-left { width: 45px; background-image: url(images/box-profile_footer_left.png); }
+.profile_box-footer-center { background-image: url(images/box-profile_footer_center.png); }
+.profile_box-footer-right { width: 45px; background-image: url(images/box-profile_footer_right.png); }
+
+.profile_box-title-pad { height: 0px; }
+.profile_box-title-container { top: -17px; }
+.profile_box-title { height: 47px; min-width: 40%; }
+.profile_box-title-left { width: 41px; background-image: url(images/box-profile_title_left.png); }
+.profile_box-title-center { padding-top: 10px; background-image: url(images/box-profile_title_center.png); text-transform: none; }
+.profile_box-title-right { width: 41px; background-image: url(images/box-profile_title_right.png); }
+
+.profile_box-status-pad { height: 35px; }
+.profile_box-status-container { top: -58px; }
+.profile_box-status { height: 77px; min-width: 70%; }
+.profile_box-status-left { width: 60px; background-image: url(images/box-profile_status_left.png); }
+.profile_box-status-center { font-size: 90%; vertical-align: middle; padding-top: 8px; background-image: url(images/box-profile_status_center.png); }
+.profile_box-status-right { width: 60px; background-image: url(images/box-profile_status_right.png);}
+
+/* ASTRO DETAILS *************************************************************************************************************************/
+#astro-details { background: transparent; }
+#astro_specs { width: 150px; margin: auto; margin-bottom: 10px; line-height: 20px; white-space: nowrap;}
+
+.astro-details_box-header { height: 30px; }
+.astro-details_box-header-left { background-image: none; }
+.astro-details_box-header-center { background-image: none; }
+.astro-details_box-header-right { background-image: none; }
+
+.astro-details_box-content {}
+.astro-details_box-content-left { width: 23px; background-image: url(images/box-astro_content_left.png); background-position: right bottom; background-repeat: repeat-x;}
+.astro-details_box-content-center { background-image: url(images/box-astro_content_center.png); background-position: left bottom; background-repeat: repeat-x; }
+.astro-details_box-content-right { width: 23px; background-image: url(images/box-astro_content_right.png); background-position: left bottom; background-repeat: repeat-x;}
+
+.astro-details_box-footer { height: 37px; }
+.astro-details_box-footer-left { width: 23px; background-image: url(images/box-astro_footer_left.png); }
+.astro-details_box-footer-center { background-image: url(images/box-astro_footer_center.png); }
+.astro-details_box-footer-right { width: 23px; background-image: url(images/box-astro_footer_right.png); }
+
+.astro-details_box-title-pad { height: 0px; }
+.astro-details_box-title-container { top: -5px; }
+.astro-details_box-title { height: 30px; }
+.astro-details_box-title-left { width: 39px; background-image: none; }
+.astro-details_box-title-center { font-size: 120%; }
+.astro-details_box-title-right { width: 39px; background-image: none; }
+
+.astro-details_box-status-container { top: -13px; }
+
+/* MAP SYSTEM *************************************************************************************************************************/
+#map-system { background: transparent;  }
+
+#map-system .astro_container .description { font-size: 80%; color: #888; }
+
+.map-system_box-title-center { text-transform: none; }
+
+.map-system_box-header { height: 18px; }
+.map-system_box-header-left { width: 121px; background-image: url(images/box-system_header_left.png); }
+.map-system_box-header-center { background-image: url(images/box-system_header_center.png); }
+.map-system_box-header-right { width: 17px; background-image: url(images/box-system_header_right.png); }
+
+.map-system_box-content-left { width: 121px; background-image: url(images/box-system_content_left.png); }
+.map-system_box-content-center { background-image: url(images/box-system_content_center.png); }
+.map-system_box-content-right { width: 17px; background-image: url(images/box-system_content_right.png); }
+
+.map-system_box-footer { height: 18px; }
+.map-system_box-footer-left { width: 121px; background-image: url(images/box-system_footer_left.png); }
+.map-system_box-footer-center { background-image: url(images/box-system_footer_center.png); }
+.map-system_box-footer-right { width: 17px; background-image: url(images/box-system_footer_right.png); }
+
+.map-system_box-title-container { top: -18px; }
+
+#map-system { margin-top: 15px; }
+#background-content>#map-system { margin-top: 15px; }
+
+/* MAP REGION *************************************************************************************************************************/
+#map-region_content { background: transparent; border: none; margin: 0px; }
+
+#map-region .box-content-center { background: url(images/map-region_content.png) repeat top left; }
+
+#map-region .border1{ width: 62px; height: 62px; background: url(images/map-region_border1.png) no-repeat bottom right; }
+#map-region .border2{ width: 384px; height: 62px; background: url(images/map-region_border2.png) repeat-x bottom left; }
+#map-region .border3{ width: 62px; height: 62px; background: url(images/map-region_border3.png) no-repeat bottom left; }
+#map-region .border4{ width: 62px; height: 384px; background: url(images/map-region_border4.png) repeat-y top left; }
+#map-region .border5{ width: 62px; height: 62px; background: url(images/map-region_border5.png) no-repeat top left; }
+#map-region .border6{ width: 384px; height: 62px; background: url(images/map-region_border6.png) repeat-x top left; }
+#map-region .border7{ width: 62px; height: 62px; background: url(images/map-region_border7.png) no-repeat top right; }
+#map-region .border8{ width: 62px; height: 384px; background: url(images/map-region_border8.png) repeat-y top right; }
+
+/* buttons */
+#map-region .button { height: 24px; }
+#map-region .button .button-left { background-image: none; width: 11px; }
+#map-region .button .button-center { background-image: none; vertical-align: top; }
+#map-region .button .button-right { background-image: none; width: 13px; }
+
+#map-region .button-normal .button-left { display: none; }
+#map-region .button-normal .button-right { display: none; }
+
+#map-region .button-normal-over .button-left { display: none; }
+#map-region .button-normal-over .button-right { display: none; }
+
+#map-region .button-normal-active .button-left { display: none; }
+#map-region .button-normal-active .button-right { display: none; }
+
+#map-region .button-disabled .button-left { display: none; }
+#map-region .button-disabled .button-right { display: none; }
+
+#map-region .button-disabled-over .button-left { display: none; }
+#map-region .button-disabled-over .button-right { display: none; }
+
+/* top button */
+#map-region_top .button { width: 108px; height: 60px; margin: auto; }
+#map-region_top .button-normal .button-center { background-image: url(images/map-region_button-top_normal.png); }
+#map-region_top .button-normal-over .button-center { background-image: url(images/map-region_button-top_normal.png); background-position: bottom right; }
+#map-region_top .button-disabled .button-center { background-image: url(images/map-region_button-top_disabled.png); }
+#map-region_top .button-disabled-over .button-center { background-image: url(images/map-region_button-top_disabled.png); }
+
+/* right button */
+#map-region_right .button { width: 60px; height: 109px; margin: auto; }
+#map-region_right .button-normal .button-center { background-image: url(images/map-region_button-right_normal.png); }
+#map-region_right .button-normal-over .button-center { background-image: url(images/map-region_button-right_normal.png); background-position: bottom right; }
+#map-region_right .button-disabled .button-center { background-image: url(images/map-region_button-right_disabled.png); }
+#map-region_right .button-disabled-over .button-center { background-image: url(images/map-region_button-right_disabled.png); }
+
+/* bottom button */
+#map-region_bottom .button { width: 109px; height: 60px; margin: auto; }
+#map-region_bottom .button-normal .button-center { background-image: url(images/map-region_button-bottom_normal.png); }
+#map-region_bottom .button-normal-over .button-center { background-image: url(images/map-region_button-bottom_normal.png); background-position: bottom right; }
+#map-region_bottom .button-disabled .button-center { background-image: url(images/map-region_button-bottom_disabled.png); }
+#map-region_bottom .button-disabled-over .button-center { background-image: url(images/map-region_button-bottom_disabled.png); }
+
+/* left button */
+#map-region_left .button { width: 60px; height: 109px; margin: auto; }
+#map-region_left .button-normal .button-center { background-image: url(images/map-region_button-left_normal.png); }
+#map-region_left .button-normal-over .button-center { background-image: url(images/map-region_button-left_normal.png); background-position: bottom right; }
+#map-region_left .button-disabled .button-center { background-image: url(images/map-region_button-left_disabled.png); }
+#map-region_left .button-disabled-over .button-center { background-image: url(images/map-region_button-left_disabled.png); }
+
+/* MAP GALAXY *************************************************************************************************************************/
+#map-galaxy {}
+
+#map-galaxy_canvas .tile-normal{ border: none; }
+#map-galaxy_canvas .tile-over{ background: url(images/map-galaxy_content.png) no-repeat top left; }
+
+#map-galaxy .box-content-center {	background: url(images/map-galaxy_content.png) repeat top left; }
+
+#map-galaxy .border1{ width: 82px; height: 82px; background: url(images/map-galaxy_border1.png) no-repeat bottom right; }
+#map-galaxy .border2{ width: 480px; height: 82px; background: url(images/map-galaxy_border2.png) repeat-x bottom left; }
+#map-galaxy .border3{ width: 83px; height: 82px; background: url(images/map-galaxy_border3.png) no-repeat bottom left; }
+#map-galaxy .border4{ width: 83px; height: 480px; background: url(images/map-galaxy_border4.png) repeat-y top left; }
+#map-galaxy .border5{ width: 83px; height: 82px; background: url(images/map-galaxy_border5.png) no-repeat top left; }
+#map-galaxy .border6{ width: 480px; height: 82px; background: url(images/map-galaxy_border6.png) repeat-x top left; }
+#map-galaxy .border7{ width: 82px; height: 82px; background: url(images/map-galaxy_border7.png) no-repeat top right; }
+#map-galaxy .border8{ width: 82px; height: 480px; background: url(images/map-galaxy_border8.png) repeat-y top right; }
+
+/* buttons */
+#map-galaxy_canvas .map-galaxy_base-over { background: url(images/mark_anim.gif) center center  no-repeat; }
+#map-galaxy_canvas .map-galaxy_bookmark-over { background: url(images/mark_anim.gif) center center no-repeat;}
+#map-galaxy_canvas .map-galaxy_fleet-over { background: url(images/mark_anim.gif) center center no-repeat; }
+#map-galaxy_canvas .map-galaxy_origin-over { background: url(images/mark_anim.gif) center center no-repeat; }
+#map-galaxy_canvas .map-galaxy_progress-over { background: url(images/mark_anim.gif) center center no-repeat; }
+#map-galaxy_canvas .map-galaxy_destination-over { background: url(images/mark_anim.gif) center center  no-repeat; }
+
+/* MAP-GALAXY SMALL *************************************************************************************************************************/
+#map-galaxy-small{ width: 329px; height: 329px; background: url(images/map-galaxy-small.png) no-repeat left top; cursor: pointer; }
+
+/* LOCAL-HEADER *************************************************************************************************************************/
+#local-header select { font-size: 90%; font-weight: bold; width: 100%; margin: 1px; padding: 0px; }
+
+.local-header_box-header { height: 17px; }
+.local-header_box-header-left { width: 20px; background-image: url(images/local-header_header_left.png); }
+.local-header_box-header-center { background-image: url(images/local-header_header_center.png); }
+.local-header_box-header-right { width: 20px; background-image: url(images/local-header_header_right.png); }
+
+.local-header_box-content-left { width: 20px; background-image: url(images/local-header_content_left.png); background-position: right bottom; }
+.local-header_box-content-center { background-image: url(images/local-header_content_center.png); background-position: center bottom; }
+.local-header_box-content-right { width: 20px; background-image: url(images/local-header_content_right.png); background-position: left bottom; }
+
+.local-header_box-footer { height: 17px; }
+.local-header_box-footer-left { width: 20px; background-image: url(images/local-header_footer_left.png); }
+.local-header_box-footer-center { background-image: url(images/local-header_footer_center.png); }
+.local-header_box-footer-right { width: 20px; background-image: url(images/local-header_footer_right.png); }
+
+.local-header_box-status-pad { height: 0px; }
+.local-header_box-status-container { top: 0px; }
+.local-header_box-status { height: 11px; width: 100%; }
+.local-header_box-status-left { width: 6px; background-image: url(images/local-header_status_left.png); background-position: top right; }
+.local-header_box-status-center {}
+.local-header_box-status-right { width: 6px; background-image: url(images/local-header_status_right.png); background-position: top left; }
+
+#local-header { margin-bottom: 15px;}
+#background-content>#local-header { margin-bottom: 15px;}
+
+/* MAIN-HEADER-INFOBOX *************************************************************************************************************************/
+#main-header-infobox { height: 53px; margin: auto; }
+
+#main-header-infobox .box-left { width: 10px; background-image: url(images/main-header-infobox_left.png); }
+#main-header-infobox .box-center { background-image: url(images/main-header-infobox_center.png); }
+#main-header-infobox .box-right { width: 10px; background-image: url(images/main-header-infobox_right.png); }
+
+/* fields */
+#main-header-infobox .field { height: 18px;  }
+#main-header-infobox .field .field-left { width: 10px; }
+#main-header-infobox .field .field-center {}
+#main-header-infobox .field .field-right { width: 10px; }
+
+#main-header-infobox .field-normal .field-left { background-image: url(images/main-header-infobox_field_normal_left.png); }
+#main-header-infobox .field-normal .field-center { background-image: url(images/main-header-infobox_field_normal_center.png); }
+#main-header-infobox .field-normal .field-right { background-image: url(images/main-header-infobox_field_normal_right.png); }
+
+#main-header-infobox .field-active .field-left { background-image: url(images/main-header-infobox_field_active_left.html); }
+#main-header-infobox .field-active .field-center { background-image: url(images/main-header-infobox_field_active_center.html); }
+#main-header-infobox .field-active .field-right { background-image: url(images/main-header-infobox_field_active_right.html); }
+
+#main-header-infobox .field-disabled .field-left { background-image: url(images/main-header-infobox_field_disabled_left.png); }
+#main-header-infobox .field-disabled .field-center { background-image: url(images/main-header-infobox_field_disabled_center.png); }
+#main-header-infobox .field-disabled .field-right { background-image: url(images/main-header-infobox_field_disabled_right.png); }
+
+#main-header-infobox .field-premium .field-left { background-image: url(images/main-header-infobox_field_premium_left.png); }
+#main-header-infobox .field-premium .field-center { background-image: url(images/main-header-infobox_field_premium_center.png); }
+#main-header-infobox .field-premium .field-right { background-image: url(images/main-header-infobox_field_premium_right.png); }
+
+#main-header-infobox .field-special .field-left { background-image: url(images/main-header-infobox_field_special_left.png); }
+#main-header-infobox .field-special .field-center { background-image: url(images/main-header-infobox_field_special_center.png); }
+#main-header-infobox .field-special .field-right { background-image: url(images/main-header-infobox_field_special_right.png); }
+
+#main-header-infobox .field-important .field-left { background-image: url(images/main-header-infobox_field_important_left.png); }
+#main-header-infobox .field-important .field-center { background-image: url(images/main-header-infobox_field_important_center.png); }
+#main-header-infobox .field-important .field-right { background-image: url(images/main-header-infobox_field_important_right.png); }
+
+/* MAIN-HEADER-NAV *************************************************************************************************************************/
+#main-header-nav { margin-bottom: 8px; }
+#main-header-nav .box-left { width: 14px; background-image: url(images/main-header-nav_left.png); background-position: top right; }
+#main-header-nav .box-center { vertical-align: top; background-image: none; background-position: top center; }
+#main-header-nav .box-right { width: 14px; background-image: url(images/main-header-nav_right.png); background-position: top left; }
+
+/* MAIN-HEADER-NEWS *************************************************************************************************************************/
+#main-header-news { height: 23px; width: 100%; }
+
+#main-header-news .box-left { width: 14px; background-image: url(images/main-header-news_left.png); }
+#main-header-news .box-center { font-size: 80%; background-image: url(images/main-header-news_center.png); }
+#main-header-news .box-right { width: 13px; background-image: url(images/main-header-news_right.png); }
+
+/* MAIN-HEADER-LOGO *************************************************************************************************************************/
+#main-header-logo { width: 375px; height: 45px; background: url(images/main-header-logo.png) center top no-repeat; margin: auto;}
+
+/* MAIN-HEADER-SERVERS *************************************************************************************************************************/
+#main-header-servers { height: 23px; background: transparent; }
+
+#main-header-servers .box-left { width: 49px; background-image: url(images/main-header-servers_left.png); background-position: bottom right;}
+#main-header-servers .box-center { vertical-align: bottom; background-image: url(images/main-header-servers_center.png); background-position: bottom; }
+#main-header-servers .box-right { width: 53px; background-image: url(images/main-header-servers_right.png); background-position: bottom left; }
+
+#main-header-servers .menu-separator { width: 7px; }
+#main-header-servers .menu-separator div { display: block; background: transparent url(images/main-header-servers_separator.png) center center no-repeat; }
+
+/* buttons */
+#main-header-servers .button { height: 12px; font-size: 75%; }
+#main-header-servers .button .button-left { background-image: none; width: 6px; }
+#main-header-servers .button .button-center { font-weight: normal;  background-image: none; }
+#main-header-servers .button .button-right { background-image: none; width: 6px; }
+
+#main-header-servers .button-normal-over .button-left { background-image: url(images/main-header-servers_button_over_left.png); }
+#main-header-servers .button-normal-over .button-center { background-image: url(images/main-header-servers_button_over_center.png); }
+#main-header-servers .button-normal-over .button-right { background-image: url(images/main-header-servers_button_over_right.png); }
+
+
+/* TOP-HEADER *************************************************************************************************************************/
+#top-header_menu { background: transparent; border: none; }
+
+#top-header_server-time { font-size: 80%; padding-top: 4px; }
+
+#top-header .box-left { width: 25px; background-image: url(images/top-header_left.png); background-position: top;}
+#top-header .box-center { background-image: url(images/top-header_center.png); background-position: top; }
+#top-header .box-right { width: 25px; background-image: url(images/top-header_right.png); background-position: top; }
+
+#top-header .button-center { font-size: 80%; }
+
+#top-header .menu-separator { width: 11px; }
+#top-header .menu-separator div { display: block; background: transparent url(images/top-header_separator.png) center center no-repeat; }
+
+/* buttons */
+#top-header .button { height: 18px; }
+#top-header .button .button-left { background-image: none; width: 6px; }
+#top-header .button .button-center { background-image: none; }
+#top-header .button .button-right { background-image: none; width: 7px; }
+
+#top-header .button-normal .button-left { background-image: url(images/top-header_button_normal_left.png); }
+#top-header .button-normal .button-center { background-image: url(images/top-header_button_normal_center.png); }
+#top-header .button-normal .button-right { background-image: url(images/top-header_button_normal_right.png); }
+
+#top-header .button-normal-over .button-left { background-image: url(images/top-header_button_normal-over_left.png); }
+#top-header .button-normal-over .button-center { background-image: url(images/top-header_button_normal-over_center.png); }
+#top-header .button-normal-over .button-right { background-image: url(images/top-header_button_normal-over_right.png); }
+
+#top-header .button-normal-active .button-left { background-image: url(images/top-header_button_normal_left.png); }
+#top-header .button-normal-active .button-center { background-image: url(images/top-header_button_normal_center.png); }
+#top-header .button-normal-active .button-right { background-image: url(images/top-header_button_normal_right.png); }
+
+#top-header .button-disabled .button-left { background-image: url(images/top-header_button_disabled_left.png); }
+#top-header .button-disabled .button-center { background-image: url(images/top-header_button_disabled_center.png); }
+#top-header .button-disabled .button-right { background-image: url(images/top-header_button_disabled_right.png); }
+
+#top-header .button-disabled-over .button-left { background-image: url(images/top-header_button_disabled_left.png); }
+#top-header .button-disabled-over .button-center { background-image: url(images/top-header_button_disabled_center.png); }
+#top-header .button-disabled-over .button-right { background-image: url(images/top-header_button_disabled_right.png); }
+
+#top-header .button-disabled-active .button-left { background-image: url(images/top-header_button_disabled_left.png); }
+#top-header .button-disabled-active .button-center { background-image: url(images/top-header_button_disabled_center.png); }
+#top-header .button-disabled-active .button-right { background-image: url(images/top-header_button_disabled_right.png); }
+
+#top-header .button-premium .button-left { background-image: url(images/top-header_button_premium_left.png); }
+#top-header .button-premium .button-center { background-image: url(images/top-header_button_premium_center.png); }
+#top-header .button-premium .button-right { background-image: url(images/top-header_button_premium_right.png); }
+
+#top-header .button-premium-over .button-left { background-image: url(images/top-header_button_premium-over_left.png); }
+#top-header .button-premium-over .button-center { background-image: url(images/top-header_button_premium-over_center.png); }
+#top-header .button-premium-over .button-right { background-image: url(images/top-header_button_premium-over_right.png); }
+
+#top-header .button-premium-active .button-left { background-image: url(images/top-header_button_premium-over_left.png); }
+#top-header .button-premium-active .button-center { background-image: url(images/top-header_button_premium-over_center.png); }
+#top-header .button-premium-active .button-right { background-image: url(images/top-header_button_premium-over_right.png); }
+
+#top-header .button-special, #top-header .button-special a { color: #FFE96F; }
+
+#top-header .button-special .button-left { background-image: url(images/top-header_button_special_left.png); }
+#top-header .button-special .button-center { background-image: url(images/top-header_button_special_center.png); }
+#top-header .button-special .button-right { background-image: url(images/top-header_button_special_right.png); }
+
+#top-header .button-special-over .button-left { background-image: url(images/top-header_button_special-over_left.png); }
+#top-header .button-special-over .button-center { background-image: url(images/top-header_button_special-over_center.png); }
+#top-header .button-special-over .button-right { background-image: url(images/top-header_button_special-over_right.png); }
+
+#top-header .button-special-active .button-left { background-image: url(images/top-header_button_special-over_left.png); }
+#top-header .button-special-active .button-center { background-image: url(images/top-header_button_special-over_center.png); }
+#top-header .button-special-active .button-right { background-image: url(images/top-header_button_special-over_right.png); }
+
+#top-header .button-important, #top-header .button-important a { color: #FFE4DF; }
+
+#top-header .button-important .button-left { background-image: url(images/top-header_button_important_left.png); }
+#top-header .button-important .button-center { background-image: url(images/top-header_button_important_center.png); }
+#top-header .button-important .button-right { background-image: url(images/top-header_button_important_right.png); }
+
+#top-header .button-important-over .button-left { background-image: url(images/top-header_button_important-over_left.png); }
+#top-header .button-important-over .button-center { background-image: url(images/top-header_button_important-over_center.png); }
+#top-header .button-important-over .button-right { background-image: url(images/top-header_button_important-over_right.png); }
+
+#top-header .button-important-active .button-left { background-image: url(images/top-header_button_important-over_left.png); }
+#top-header .button-important-active .button-center { background-image: url(images/top-header_button_important-over_center.png); }
+#top-header .button-important-active .button-right { background-image: url(images/top-header_button_important-over_right.png); }
