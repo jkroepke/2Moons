@@ -2,9 +2,11 @@
 
 $lang['Version']     = 'Version';
 $lang['Description'] = 'Beschreibung';
+$revision = '$Date$';
+$version  = substr($revision, 7, -2);
 $lang['changelog']   = array(
 
-'RC5.0' => 'ShadoX 11.01.10
+'RC5.0' => 'ShadoX '.$version.'
 - NEW: Search-Engine
 - NEW: LOGIN
 - NEW: Change Name to 2Moons
