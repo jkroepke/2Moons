@@ -4,18 +4,12 @@ function change2(){
 	document.getElementById("lang_tcp").innerHTML	= "TCP-Port:";
 	document.getElementById("lang_udp").innerHTML	= "UDP-Port:";
 	document.getElementById("lang_to").innerHTML	= "Server Timeout:";
-	document.getElementsByName("ts_tcp")[0].value	= "8767";
-	document.getElementsByName("ts_udp")[0].value	= "51234";
-	document.getElementsByName("ts_to")[0].value	= "1";
 	document.getElementsByName("ts_v")[0].checked = true;
 }
 function change3(){
 	document.getElementById("lang_tcp").innerHTML	= "Server-Port:";
 	document.getElementById("lang_udp").innerHTML	= "Server-Telnet-Port:";
 	document.getElementById("lang_to").innerHTML	= "Server ID:";
-	document.getElementsByName("ts_tcp")[0].value	= "9987";
-	document.getElementsByName("ts_udp")[0].value	= "10011";
-	document.getElementsByName("ts_to")[0].value	= "1";
 	document.getElementsByName("ts_v")[1].checked = true;
 }
 </script>
