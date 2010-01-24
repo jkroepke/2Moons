@@ -19,7 +19,7 @@
 # *																			 #
 ##############################################################################
 
-$revision = '$Rev: 415 $';
+$revision = '$Rev$';
 $version  = substr($revision, 6, -2);
 
 setlocale (LC_ALL, 'de_DE@euro', 'de_DE', 'de', 'ge');
