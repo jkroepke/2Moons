@@ -36,6 +36,8 @@ if(!defined('INSTALL') || !defined('IN_ADMIN') || !defined('IN_CRON')){
 	define("STARTTIME",	microtime(true));
 }
 
+date_default_timezone_set("Europe/Berlin");
+
 error_reporting(E_ALL ^ E_NOTICE);
 
 $phpEx			= "php";
@@ -64,9 +66,6 @@ if(function_exists('ini_set')) {
 	ini_set('register_globals', "off");
 	ini_set('register_long_arrays', "off");
 }
-
-date_default_timezone_set("Europe/Berlin");
-
 
 if ($database)
 	$db = new DB_MySQLi($database["host"], $database["user"], $database["userpw"], $database["databasename"], $database["port"]);
