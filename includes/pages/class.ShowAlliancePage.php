@@ -252,7 +252,7 @@ class ShowAlliancePage
 							if ($yes == 1 && $_POST)
 							{
 								$atag	= request_var('atag' , '');
-								$aname	= request_var('aname', '');
+								$aname	= request_var('aname', '', true);
 								if ($atag == '')
 									message($lang['al_tag_required'], "game.php?page=alliance&mode=make",2);
 
@@ -917,7 +917,9 @@ class ShowAlliancePage
 							case 'name':
 								if ($ally['ally_owner'] != $CurrentUser['id'] && !$user_admin)
 									header("location:game.". $phpEx . "?page=alliance",2);
-									$al_name = request_var($lang['al_name'], '');
+									
+								$al_name = request_var($lang['al_name'], '', true);
+								
 								if ($al_name != '') {
 									$db->multi_query("UPDATE ".ALLIANCE." SET `ally_name` = '". $db->sql_escape($al_name) ."' WHERE `id` = '". $CurrentUser['ally_id'] ."';UPDATE ".USERS." SET `ally_name` = '". $db->sql_escape($al_name) ."' WHERE `ally_id` = '". $ally['id'] ."';");
 								}
