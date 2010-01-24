@@ -1,0 +1,22 @@
+<Files "config.php">
+Order Allow,Deny
+Deny from All
+</Files>
+
+<Files "common.php">
+Order Allow,Deny
+Deny from All
+</Files>
+
+<Files "extension.inc.php">
+Order Allow,Deny
+Deny from All
+</Files>
+
+#RewriteEngine on
+
+#RewriteRule ^styles/templates/ / [R]
+#RewriteRule ^adm/logs/ / [R]
+#RewriteRule ^language/ / [R]
+#RewriteRule ^includes/ / [R]
+#RewriteRule ^cache/ / [R]
