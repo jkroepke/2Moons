@@ -92,7 +92,7 @@ $QryTableConfig     .= ") ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 
 $QryInsertConfig     = "INSERT INTO `prefix_".CONFIG."` ";
 $QryInsertConfig    .= "(`config_name`           , `config_value`) VALUES ";
-$QryInsertConfig    .= "('VERSION'          	 , '4.3'), ";
+$QryInsertConfig    .= "('VERSION'          	 , '5.0'), ";
 $QryInsertConfig    .= "('users_amount'          , '0'), ";
 $QryInsertConfig    .= "('game_speed'            , '2500'), ";
 $QryInsertConfig    .= "('fleet_speed'           , '2500'), ";

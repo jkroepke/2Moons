@@ -3,7 +3,7 @@
 $lang['Version']     = 'Version';
 $lang['Description'] = 'Beschreibung';
 $revision = '$Date$';
-$version  = substr($revision, 7, -2);
+$version  = substr($revision, 7, -35);
 $lang['changelog']   = array(
 
 'RC5.0' => 'ShadoX '.$version.'
