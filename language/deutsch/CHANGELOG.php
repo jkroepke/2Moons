@@ -21,6 +21,8 @@ $lang['changelog']   = array(
 - ADD: Optimize Hall of Fame DB
 - ADD: Realtime Stats BETA
 - ADD: Abbruch Schiffswert
+- FIX: Wirtschaftssystem
+- FIX: Ress. - Page
 - FIX: DM-Untersuchung
 - FIX: Playercard
 - FIX: Speicheranzeige in Rohstoffe

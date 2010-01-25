@@ -172,19 +172,24 @@ function ShowResourcesPage($CurrentUser, $CurrentPlanet)
 	}
 	$parse['deuterium_max']        .= pretty_number($CurrentPlanet['deuterium_max'] / 1000) ."k</font>";
 
-	$parse['metal_total']           = colorNumber(pretty_number($CurrentPlanet['metal_perhour'] + $parse['metal_basic_income']));
-	$parse['crystal_total']         = colorNumber(pretty_number($CurrentPlanet['crystal_perhour'] + $parse['crystal_basic_income']));
-	$parse['deuterium_total']       = colorNumber(pretty_number($CurrentPlanet['deuterium_perhour'] + $parse['deuterium_basic_income']));
-	$parse['energy_total']          = colorNumber(pretty_number($CurrentPlanet['energy_max'] + $parse['energy_basic_income'] - abs($CurrentPlanet['energy_used'])));
+	$metal_total		            = $CurrentPlanet['metal_perhour'] + $parse['metal_basic_income'];
+	$crystal_total			        = $CurrentPlanet['crystal_perhour'] + $parse['crystal_basic_income'];
+	$deuterium_total  		        = $CurrentPlanet['deuterium_perhour'] + $parse['deuterium_basic_income'];
+	$energy_total					= $CurrentPlanet['energy_max'] + $parse['energy_basic_income'] - abs($CurrentPlanet['energy_used']);
 
-	$parse['daily_metal']           = floor($parse['metal_total']     * 24);
-	$parse['weekly_metal']          = floor($parse['metal_total']     * 24 * 7);
+	$parse['metal_total']           = colorNumber(pretty_number($metal_total));
+	$parse['crystal_total']         = colorNumber(pretty_number($crystal_total));
+	$parse['deuterium_total']       = colorNumber(pretty_number($deuterium_total));
+	$parse['energy_total']          = colorNumber(pretty_number($energy_total));
 
-	$parse['daily_crystal']         = floor($parse['crystal_total']   * 24);
-	$parse['weekly_crystal']        = floor($parse['crystal_total']   * 24 * 7);
+	$parse['daily_metal']           = floor($metal_total     * 24);
+	$parse['weekly_metal']          = floor($metal_total     * 24 * 7);
 
-	$parse['daily_deuterium']       = floor($parse['deuterium_total'] * 24);
-	$parse['weekly_deuterium']      = floor($parse['deuterium_total'] * 24 * 7);
+	$parse['daily_crystal']         = floor($crystal_total   * 24);
+	$parse['weekly_crystal']        = floor($crystal_total   * 24 * 7);
+
+	$parse['daily_deuterium']       = floor($deuterium_total * 24);
+	$parse['weekly_deuterium']      = floor($deuterium_total * 24 * 7);
 	$parse['daily_metal']           = colorNumber(pretty_number($parse['daily_metal']));
 	$parse['weekly_metal']          = colorNumber(pretty_number($parse['weekly_metal']));
 
