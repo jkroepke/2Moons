@@ -97,7 +97,7 @@
 <td colspan="3" class="c" width="100%">Sonstiges</td>
 </tr>
 <tr>
-<th><a href="javascript:f('game.php?page=buddy&amp;mode=2&amp;u={$id}','');" title="{$pl_buddy}">{$pl_buddy}</a></th><th colspan="2"><a href="javascript:f('game.php?page=messages&amp;mode=write&amp;id={$pl_buddy}');" title="{$pl_message}">{$pl_message}</a></th>
+<th><a href="javascript:f('game.php?page=buddy&amp;mode=2&amp;u={$id}','');" title="{$pl_buddy}">{$pl_buddy}</a></th><th colspan="2"><a href="javascript:f('game.php?page=messages&amp;mode=write&amp;id={$id}');" title="{$pl_message}">{$pl_message}</a></th>
 </tr>
 </table>
 {include file="overall_footer.tpl"}
