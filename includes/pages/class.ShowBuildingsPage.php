@@ -36,7 +36,42 @@ class ShowBuildingsPage
 
 		return;
 	}
+	
+	private function GetRestPrice ($user, $planet, $Element, $userfactor = true)
+	{
+		global $pricelist, $resource, $lang;
 
+		if ($userfactor)
+		{
+			$level = ($planet[$resource[$Element]]) ? $planet[$resource[$Element]] : $user[$resource[$Element]];
+		}
+
+		$array = array(
+		'metal'      => $lang['Metal'],
+		'crystal'    => $lang['Crystal'],
+		'deuterium'  => $lang['Deuterium'],
+		'energy_max' => $lang['Energy']
+		);
+		$restprice	= array();
+		foreach ($array as $ResType => $ResTitle)
+		{
+			if ($pricelist[$Element][$ResType] != 0)
+			{
+				if ($userfactor)
+				{
+					$cost = floor($pricelist[$Element][$ResType] * pow($pricelist[$Element]['factor'], $level));
+				}
+				else
+				{
+					$cost = floor($pricelist[$Element][$ResType]);
+				}
+				$restprice[$ResTitle] = pretty_number(max($cost - $planet[$ResType],0));
+			}
+		}
+
+		return $restprice;
+	}
+	
 	private function CancelBuildingFromQueue (&$CurrentPlanet, &$CurrentUser)
 	{
 		$CurrentQueue  = $CurrentPlanet['b_building_id'];
@@ -401,6 +436,7 @@ class ShowBuildingsPage
 					'time'        	=> pretty_time(GetBuildingTime($CurrentUser, $CurrentPlanet, $Element)),
 					'EnergyNeed'	=> (isset($EnergyNeed)) ? sprintf(($EnergyNeed < 0) ? $lang['bd_need_engine'] : $lang['bd_more_engine'] , pretty_number(abs($EnergyNeed)), $lang['Energy']) : "",
 					'BuildLink'		=> $parse['click'],
+					'restprice'		=> $this->GetRestPrice($CurrentUser, $CurrentPlanet, $Element, true),
 				);
 			}
 		}
@@ -423,6 +459,7 @@ class ShowBuildingsPage
 			'Deuterium'				=> $lang['Deuterium'],
 			'bd_dismantle'			=> $lang['bd_dismantle'],
 			'fgf_time'				=> $lang['fgf_time'],
+			'bd_remaining'			=> $lang['bd_remaining'],
 			'bd_jump_gate_action'	=> $lang['bd_jump_gate_action'],
 		));
 			
