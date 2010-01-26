@@ -131,7 +131,7 @@ class ShowOptionsPage
 			$spio_anz 				= request_var('spio_anz', 5);
 			$settings_tooltiptime 	= request_var('settings_tooltiptime', '');
 			$settings_fleetactions 	= request_var('settings_fleetactions', '');
-			$settings_allylogo		= request_var('settings_allylogo', '');
+			$settings_planetmenu	= request_var('settings_planetmenu', '');
 			$settings_esp 			= request_var('settings_esp', '');
 			$settings_wri 			= request_var('settings_wri', '');
 			$settings_bud 			= request_var('settings_bud', '');
@@ -244,13 +244,13 @@ class ShowOptionsPage
 				$settings_rep = "0";
 			}
 
-			if ($settings_allylogo == 'on')
+			if ($settings_planetmenu == 'on')
 			{
-				$settings_allylogo = "1";
+				$settings_planetmenu = "1";
 			}
 			else
 			{
-				$settings_allylogo = "0";
+				$settings_planetmenu = "0";
 			}
 			// < ------------------------------------------------------------ MODO VACACIONES ------------------------------------------------------------ >
 			if ($urlaubs_modus == 'on')
@@ -310,7 +310,7 @@ class ShowOptionsPage
 			`spio_anz` = '".$db->sql_escape($spio_anz)."',
 			`settings_tooltiptime` = '".$settings_tooltiptime."',
 			`settings_fleetactions` = '".$settings_fleetactions."',
-			`settings_allylogo` = '".$settings_allylogo."',
+			`settings_planetmenu` = '".$settings_planetmenu."',
 			`settings_esp` = '".$settings_esp."',
 			`settings_wri` = '".$settings_wri."',
 			`settings_bud` = '".$settings_bud."',
@@ -383,7 +383,7 @@ class ShowOptionsPage
 				$parse['opt_fleet_data'] 	= $CurrentUser['settings_fleetactions'];
 				$parse['opt_sskin_data'] 	= ($CurrentUser['design'] == 1) ? " checked='checked'":'';
 				$parse['opt_noipc_data'] 	= ($CurrentUser['noipcheck'] == 1) ? " checked='checked'":'';
-				$parse['opt_allyl_data'] 	= ($CurrentUser['settings_allylogo'] == 1) ? " checked='checked'/":'';
+				$parse['opt_allyl_data'] 	= ($CurrentUser['settings_planetmenu'] == 1) ? " checked='checked'/":'';
 				$parse['opt_delac_data'] 	= ($CurrentUser['db_deaktjava'] == 1) ? " checked='checked'/":'';
 				$parse['user_settings_rep'] = ($CurrentUser['settings_rep'] == 1) ? " checked='checked'/":'';
 				$parse['user_settings_esp'] = ($CurrentUser['settings_esp'] == 1) ? " checked='checked'/":'';

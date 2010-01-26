@@ -1,0 +1,11 @@
+Für alle die per SVN Updaten:
+
+folgenden SQL-Befehl ausführen!:
+
+ALTER TABLE `uni1_users` CHANGE `settings_allylogo` `settings_planetmenu` TINYINT( 4 ) NOT NULL DEFAULT '1';
+ALTER TABLE `uni1_supp` CHANGE `text` `text` TEXT CHARACTER SET utf8 COLLATE utf8_bin NOT NULL;
+
+wie immer auch auf Präfixe achten!
+
+
+Für Neuinstallationen wird dies nicht gebraucht!

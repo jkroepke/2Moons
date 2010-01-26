@@ -1,4 +1,3 @@
-<br />
 <div id="content">
     <form action="game.php?page=options&mode=change" method="post">
     <table width="519" align="center">
@@ -65,7 +64,7 @@
         <th><input name="settings_fleetactions" maxlength="2" size="2" value="{opt_fleet_data}" type="text"></th>
     </tr><tr>
         <th>{op_show_ally_logo}</th>
-        <th><input name="settings_allylogo"{opt_allyl_data} type="checkbox" /></th>
+        <th><input name="settings_planetmenu"{opt_allyl_data} type="checkbox" /></th>
     </tr><tr>
         <td align="center" class="c">{op_shortcut}</td>
         <td align="center" class="c">{op_show}</td>

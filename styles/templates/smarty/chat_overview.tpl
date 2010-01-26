@@ -81,6 +81,8 @@ setInterval(showMessage,10000);
 </script>
 {if !$ctype}
 </div>
+{if $is_pmenu == 1}
 {include file="planet_menu.tpl"}
+{/if}
 {/if}
 {include file="overall_footer.tpl"}
