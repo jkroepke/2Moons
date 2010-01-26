@@ -458,7 +458,7 @@ abstract class FlyingFleetMissions {
 
 					$info_part2[$fleet_id2] = $weap1.$shields1.$armour1.$endtable1;
 
-					if ($data1['shield']['total'] > 0)
+					if ($data1['attack']['total'] > 0)
 					{
 						$html .= $info_part1[$fleet_id2].$info_part2[$fleet_id2];
 						$html .= "<br /><br />";

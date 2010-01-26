@@ -82,7 +82,7 @@ function display ($page, $topnav = true, $metatags = '', $AdminPage = false, $me
 		include_once($xgp_root . 'includes/functions/ShowLeftMenu.' . $phpEx);
 		$DisplayPage .= ShowLeftMenu ($user['authlevel']);
 	}
-    if ($menu && !$AdminPage)
+    if ($menu && !$AdminPage && $user['settings_planetmenu'] == 1)
     {
         include_once($xgp_root . 'includes/functions/ShowPlanetMenu.' . $phpEx);
         $DisplayPage .= ShowPlanetMenu ($user, $planetrow);

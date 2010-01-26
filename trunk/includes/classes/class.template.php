@@ -157,6 +157,7 @@ class template extends Smarty
 		$this->assign_vars(array(
 			'title'		=> $this->GameConfig['game_name'],
 			'dpath'		=> (isset($dpath)) ? $dpath : DEFAULT_SKINPATH,
+			'is_pmenu'	=> $this->player['settings_planetmenu'],
 		));
 	}
 	

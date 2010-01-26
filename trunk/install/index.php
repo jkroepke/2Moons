@@ -262,14 +262,15 @@ switch ($Mode) {
 			$Qry10 = "DELETE FROM ".CONFIG." WHERE `uni1_config`.`config_name` = 'Loteria' LIMIT 1;";
 			$Qry11 = "ALTER TABLE ".PLANETS." CHANGE `metal` `metal` DOUBLE(132,8) UNSIGNED NOT NULL DEFAULT '0.00000000', CHANGE `metal_perhour` `metal_perhour` INT(11) UNSIGNED NOT NULL DEFAULT '0', CHANGE `metal_max` `metal_max` BIGINT(20) UNSIGNED NULL DEFAULT '100000', CHANGE `crystal` `crystal` DOUBLE(132,8) UNSIGNED NOT NULL DEFAULT '0.00000000', CHANGE `crystal_perhour` `crystal_perhour` INT(11) UNSIGNED NOT NULL DEFAULT '0', CHANGE `crystal_max` `crystal_max` BIGINT(20) UNSIGNED NULL DEFAULT '100000', CHANGE `deuterium` `deuterium` DOUBLE(132,8) UNSIGNED NOT NULL DEFAULT '0.00000000', CHANGE `deuterium_perhour` `deuterium_perhour` INT(11) UNSIGNED NOT NULL DEFAULT '0', CHANGE `deuterium_max` `deuterium_max` BIGINT(20) UNSIGNED NULL DEFAULT '100000'";
 			$Qry12 = "ALTER TABLE ".SUPP." CHANGE `text` `text` TEXT CHARACTER SET utf8 COLLATE utf8_bin NOT NULL";
+			$Qry12 = "ALTER TABLE ".USERS." CHANGE `settings_allylogo` `settings_planetmenu` TINYINT( 4 ) NOT NULL DEFAULT '1';";
 			switch($_POST['version'])
 			{	
 				case '4.0':
 					makedirs(array('cache/', 'cache/UserBanner/'));
-					$QrysArray = $Qry1.$Qry2.$Qry3.$Qry4.$Qry5.$Qry6.$Qry7.$Qry8.$Qry9.$Qry10.$Qry11;
+					$QrysArray = $Qry1.$Qry2.$Qry3.$Qry4.$Qry5.$Qry6.$Qry7.$Qry8.$Qry9.$Qry10.$Qry11.$Qry12;
 				break;	
 				case '4.2':
-					$QrysArray = $Qry1.$Qry2.$Qry5.$Qry6.$Qry7.$Qry8.$Qry9.$Qry10.$Qry11;
+					$QrysArray = $Qry1.$Qry2.$Qry5.$Qry6.$Qry7.$Qry8.$Qry9.$Qry10.$Qry11.$Qry12;
 				break;
 			}	
 			$db->multi_query($QrysArray);
