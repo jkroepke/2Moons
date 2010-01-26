@@ -63,6 +63,7 @@ $lang['changelog']   = array(
 - FIX: Moon Building
 - FIX: Adminschutz
 - FIX: Schiffebauen ohne Schiffswerft
+- FIX: Umlaute in den Beschreibungen
 - DIV: Neue Methode zum Aufruf von Fleethandler
 - DIV: Neue Plantenbilder
 - DIV: Flexibilit&auml;t f&uuml;r einf&uuml;gen neue Geb&auml;ude erh&ouml;ht
