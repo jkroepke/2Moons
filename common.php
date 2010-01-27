@@ -44,7 +44,6 @@ $phpEx			= "php";
 $game_config   	= array();
 $user          	= array();
 $lang          	= array();
-$link          	= "";
 $IsUserChecked 	= false;
 
 

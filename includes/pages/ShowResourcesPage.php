@@ -125,10 +125,10 @@ function ShowResourcesPage($CurrentUser, $CurrentPlanet)
 	}
 
 
-	$metal_total		            = $CurrentPlanet['metal_perhour'] + $parse['metal_basic_income'];
-	$crystal_total			        = $CurrentPlanet['crystal_perhour'] + $parse['crystal_basic_income'];
-	$deuterium_total  		        = $CurrentPlanet['deuterium_perhour'] + $parse['deuterium_basic_income'];
-	$energy_total					= $CurrentPlanet['energy_max'] + $parse['energy_basic_income'] - abs($CurrentPlanet['energy_used']);
+	$metal_total		            = $CurrentPlanet['metal_perhour'] + $game_config['metal_basic_income'] * $game_config['resource_multiplier'];
+	$crystal_total			        = $CurrentPlanet['crystal_perhour'] + $game_config['crystal_basic_income'] * $game_config['resource_multiplier'];
+	$deuterium_total  		        = $CurrentPlanet['deuterium_perhour'] + $game_config['deuterium_basic_income'] * $game_config['resource_multiplier'];
+	$energy_total					= $CurrentPlanet['energy_max'] + $game_config['energy_basic_income'] * $game_config['resource_multiplier'] - abs($CurrentPlanet['energy_used']);
 
 	foreach($reslist['procent'] as $procent){
 		$OptionSelector[$procent]	= $procent."%";
