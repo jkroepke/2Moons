@@ -26,6 +26,9 @@ define('IN_ADMIN', true);
 $xgp_root = './../';
 include($xgp_root . 'extension.inc.php');
 include($xgp_root . 'common.' . $phpEx);
+include('AdminFunctions/Autorization.' . $phpEx);
+
+if ($EditUsers != 1) die();
 
 $parse = $lang;
 
