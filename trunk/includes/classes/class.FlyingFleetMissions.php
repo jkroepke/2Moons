@@ -2090,10 +2090,14 @@ abstract class FlyingFleetMissions {
 								}
 							}
 							$QryUpdateFleet  = "UPDATE ".FLEETS." SET ";
-							$QryUpdateFleet .= "`fleet_array` = '". $NewFleet ."', ";
+							$QryUpdateFleet .= "`fleet_array` = '". $NewFleet ."', ";			
 							$QryUpdateFleet .= "`fleet_amount` = `fleet_amount` - 1, ";
+							$QryUpdateFleet .= "`fleet_resource_metal` = '0' , ";
+							$QryUpdateFleet .= "`fleet_resource_crystal` = '0' , ";
+							$QryUpdateFleet .= "`fleet_resource_deuterium` = '0' , ";
 							$QryUpdateFleet .= "`fleet_mess` = '1' ";
-							$QryUpdateFleet .= "WHERE `fleet_id` = '". $FleetRow["fleet_id"] ."';";
+							$QryUpdateFleet .= "WHERE `fleet_id` = '". $FleetRow['fleet_id'] ."' ";
+							$QryUpdateFleet .= "LIMIT 1 ;";
 							$db->query($QryUpdateFleet);
 						}
 					}
