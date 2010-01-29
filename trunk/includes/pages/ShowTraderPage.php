@@ -25,143 +25,146 @@ function ShowTraderPage($CurrentPlanet)
 {
 	global $phpEx, $lang, $db;
 
-	$parse = $lang;
-	$ress = request_var('ress','');
-	if ( $ress != '')
+	$ress 		= request_var('ress', '');
+	$action 	= request_var('action', '');
+	$metal		= request_var('metal', 0);
+	$crystal 	= request_var('crystal', 0);
+	$deut		= request_var('deut', 0);
+	$template	= new template();
+	$template->page_header();
+	$template->page_topnav();
+	$template->page_leftmenu();
+	$template->page_planetmenu();
+	$template->page_header();
+	$template->page_footer();
+	if ($ress != '')
 	{
 		switch ($ress) {
 			case 'metal':
-			{
-				if ($_POST['cristal'] < 0 or $_POST['deut'] < 0)
+				if($action == "trade")
 				{
-					message($lang['tr_only_positive_numbers'], "game." . $phpEx . "?page=trader",1);
-				}
-				else
-				{
-					$necessaire   = (($_POST['cristal'] * 2) + ($_POST['deut'] * 4));
-
-					if ($CurrentPlanet['metal'] > $necessaire)
-					{
-						$QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
-						$QryUpdatePlanet .= "`metal` = `metal` - ".round($necessaire).", ";
-						$QryUpdatePlanet .= "`crystal` = `crystal` + ".round($_POST['cristal']).", ";
-						$QryUpdatePlanet .= "`deuterium` = `deuterium` + ".round($_POST['deut'])." ";
-						$QryUpdatePlanet .= "WHERE ";
-						$QryUpdatePlanet .= "`id` = '".$CurrentPlanet['id']."';";
-
-						$db->query($QryUpdatePlanet , 'planets');
-
-						$planetrow['metal']     -= $necessaire;
-						$CurrentPlanet['cristal']   += $_POST['cristal'];
-						$CurrentPlanet['deuterium'] += $_POST['deut'];
-
-					}
+					if ($crystal < 0 or $deut < 0)
+						message($lang['tr_only_positive_numbers'], "game." . $phpEx . "?page=trader",1);
 					else
 					{
-						message($lang['tr_not_enought_metal'], "game." . $phpEx . "?page=trader",1);
+						$trade	= ($crystal * 2 + $deut * 4);
+
+						if ($CurrentPlanet['crystal'] > $trade)
+						{
+							$CurrentPlanet['metal']     -= $trade;
+							$CurrentPlanet['crystal']   += $crystal;
+							$CurrentPlanet['deuterium'] += $deut;
+						}
+						else
+							message($lang['tr_not_enought_metal'], "game." . $phpEx . "?page=trader", 1);
 					}
+				} else {
+					$template->assign_vars(array(
+						'tr_resource'		=> $lang['tr_resource'],
+						'tr_sell_crystal'	=> $lang['tr_sell_crystal'],
+						'tr_amount'			=> $lang['tr_amount'],
+						'tr_exchange'		=> $lang['tr_exchange'],	
+						'tr_quota_exchange'	=> $lang['tr_quota_exchange'],
+						'Metal'				=> $lang['Metal'],
+						'Crystal'			=> $lang['Crystal'],
+						'Deuterium'			=> $lang['Deuterium'],
+						'mod_ma_res_a' 		=> 2,
+						'mod_ma_res_b' 		=> 4,
+						'ress' 				=> $ress,
+					));
+
+					$template->display("trader_metal.tpl");	
 				}
-				break;
-			}
-			case 'cristal':
-			{
-				if ($_POST['metal'] < 0 or $_POST['deut'] < 0)
+			break;
+			case 'crystal':
+				if($action == "trade")
 				{
-					message($lang['tr_only_positive_numbers'], "game." . $phpEx . "?page=trader",1);
-				}
-				else
-				{
-					$necessaire   = ((abs($_POST['metal']) * 0.5) + (abs($_POST['deut']) * 2));
-
-					if ($CurrentPlanet['crystal'] > $necessaire)
-					{
-						$QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
-						$QryUpdatePlanet .= "`metal` = `metal` + ".round($_POST['metal']).", ";
-						$QryUpdatePlanet .= "`crystal` = `crystal` - ".round($necessaire).", ";
-						$QryUpdatePlanet .= "`deuterium` = `deuterium` + ".round($_POST['deut'])." ";
-						$QryUpdatePlanet .= "WHERE ";
-						$QryUpdatePlanet .= "`id` = '".$CurrentPlanet['id']."';";
-
-						$db->query($QryUpdatePlanet);
-
-						$CurrentPlanet['metal']     += $_POST['metal'];
-						$CurrentPlanet['cristal']   -= $necessaire;
-						$CurrentPlanet['deuterium'] += $_POST['deut'];
-					}
+					if ($metal < 0 or $deut < 0)
+						message($lang['tr_only_positive_numbers'], "game." . $phpEx . "?page=trader",1);
 					else
 					{
-						message($lang['tr_not_enought_crystal'], "game." . $phpEx . "?page=trader",1);
+						$trade	= ($metal * 0.5 + $deut * 2);
+
+						if ($CurrentPlanet['metal'] > $trade)
+						{
+							$CurrentPlanet['metal']     += $metal;
+							$CurrentPlanet['crystal']   -= $trade;
+							$CurrentPlanet['deuterium'] += $deut;
+						}
+						else
+							message($lang['tr_not_enought_crystal'], "game." . $phpEx . "?page=trader", 1);
 					}
+				} else {
+					$template->assign_vars(array(
+						'tr_resource'		=> $lang['tr_resource'],
+						'tr_sell_deuterium'	=> $lang['tr_sell_deuterium'],
+						'tr_amount'			=> $lang['tr_amount'],
+						'tr_exchange'		=> $lang['tr_exchange'],	
+						'tr_quota_exchange'	=> $lang['tr_quota_exchange'],
+						'Metal'				=> $lang['Metal'],
+						'Crystal'			=> $lang['Crystal'],
+						'Deuterium'			=> $lang['Deuterium'],
+						'mod_ma_res_a' 		=> 0.5,
+						'mod_ma_res_b' 		=> 2,
+						'ress' 				=> $ress,
+					));
+
+					$template->display("trader_crystal.tpl");	
 				}
-				break;
-			}
+			break;
 			case 'deuterium':
-			{
-				if ($_POST['cristal'] < 0 or $_POST['metal'] < 0)
+				if($action == "trade")
 				{
-					message($lang['tr_only_positive_numbers'], "game." . $phpEx . "?page=trader",1);
-				}
-				else
-				{
-					$necessaire   = ((abs($_POST['metal']) * 0.25) + (abs($_POST['cristal']) * 0.5));
-
-					if ($CurrentPlanet['deuterium'] > $necessaire)
-					{
-						$QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
-						$QryUpdatePlanet .= "`metal` = `metal` + ".round($_POST['metal']).", ";
-						$QryUpdatePlanet .= "`crystal` = `crystal` + ".round($_POST['cristal']).", ";
-						$QryUpdatePlanet .= "`deuterium` = `deuterium` - ".round($necessaire)." ";
-						$QryUpdatePlanet .= "WHERE ";
-						$QryUpdatePlanet .= "`id` = '".$CurrentPlanet['id']."';";
-
-						$db->query($QryUpdatePlanet);
-
-						$CurrentPlanet['metal']     += $_POST['metal'];
-						$CurrentPlanet['cristal']   += $_POST['cristal'];
-						$CurrentPlanet['deuterium'] -= $necessaire;
-					}
+					if ($metal < 0 or $crystal < 0)
+						message($lang['tr_only_positive_numbers'], "game." . $phpEx . "?page=trader",1);
 					else
 					{
-						message($lang['tr_not_enought_deuterium'], "game." . $phpEx . "?page=trader",1);
+						$trade	= ($metal * 0.25 + $crystal * 0.5);
+
+						if ($CurrentPlanet['deuterium'] > $trade)
+						{
+							$CurrentPlanet['metal']     += $metal;
+							$CurrentPlanet['crystal']   += $crystal;
+							$CurrentPlanet['deuterium'] -= $trade;
+						}
+						else
+							message($lang['tr_not_enought_deuterium'], "game." . $phpEx . "?page=trader", 1);
 					}
+				} else {
+					$template->assign_vars(array(
+						'tr_resource'		=> $lang['tr_resource'],
+						'tr_sell_metal'		=> $lang['tr_sell_metal'],
+						'tr_amount'			=> $lang['tr_amount'],
+						'tr_exchange'		=> $lang['tr_exchange'],	
+						'tr_quota_exchange'	=> $lang['tr_quota_exchange'],
+						'Metal'				=> $lang['Metal'],
+						'Crystal'			=> $lang['Crystal'],
+						'Deuterium'			=> $lang['Deuterium'],
+						'mod_ma_res_a' 		=> 0.25,
+						'mod_ma_res_b' 		=> 0.5,
+						'ress' 				=> $ress,
+					));
+
+					$template->display("trader_deuterium.tpl");	
 				}
-				break;
-			}
+			break;
 		}
 
 		message($lang['tr_exchange_done'],"game." . $phpEx . "?page=trader",1);
 	}
 	else
 	{
-		if ($_POST['action'] != 2)
-		{
-			$template = gettemplate('trader/trader_main');
-		}
-		else
-		{
-			$parse['mod_ma_res'] = '1';
+		$template->assign_vars(array(
+			'tr_call_trader_who_buys'	=> $lang['tr_call_trader_who_buys'],
+			'tr_call_trader'			=> $lang['tr_call_trader'],
+			'tr_exchange_quota'			=> $lang['tr_exchange_quota'],
+			'tr_call_trader_submit'		=> $lang['tr_call_trader_submit'],
+			'Metal'						=> $lang['Metal'],
+			'Crystal'					=> $lang['Crystal'],
+			'Deuterium'					=> $lang['Deuterium'],
+		));
 
-			switch ($_POST['choix'])
-			{
-				case 'metal':
-				$template = gettemplate('trader/trader_metal');
-				$parse['mod_ma_res_a'] = '2';
-				$parse['mod_ma_res_b'] = '4';
-				break;
-				case 'cristal':
-				$template = gettemplate('trader/trader_cristal');
-				$parse['mod_ma_res_a'] = '0.5';
-				$parse['mod_ma_res_b'] = '2';
-				break;
-				case 'deut':
-				$template = gettemplate('trader/trader_deuterium');
-				$parse['mod_ma_res_a'] = '0.25';
-				$parse['mod_ma_res_b'] = '0.5';
-				break;
-			}
-		}
+		$template->display("trader_overview.tpl");
 	}
-
-	return display(parsetemplate($template,$parse));
 }
 ?>
