@@ -25,7 +25,7 @@ $version  = substr($revision, 6, -2);
 setlocale (LC_ALL, 'de_DE@euro', 'de_DE', 'de', 'ge');
 ignore_user_abort(true);
 
-if(!ini_get('safe_mode')) set_time_limit(0);
+if(!ini_get('safe_mode') && function_exists('set_time_limit')) set_time_limit(0);
 
 if((!file_exists($xgp_root . 'config.php') || filesize($xgp_root . 'config.php') == 0) && INSTALL != true)
 {

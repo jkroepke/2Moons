@@ -45,7 +45,7 @@ function ShowFleetACSPage($CurrentUser, $CurrentPlanet)
 		{
 			$new_eingeladen_mr = $aks_invited_mr.','.$added_user_id_mr;
 			$db->query("UPDATE ".AKS." SET `eingeladen` = '".$db->sql_escape($new_eingeladen_mr)."' ;");
-			$add_user_message_mr = "<font color=\"lime\">".$lang['fl_player']." ".$addname." ". $lang['fl_Add_to_attack'];
+			$add_user_message_mr = "<font color=\"lime\">".$lang['fl_player']." ".$addname." ". $lang['fl_add_to_attack'];
 		}
 		else
 		{
@@ -124,6 +124,7 @@ function ShowFleetACSPage($CurrentUser, $CurrentPlanet)
 			fleet_group = '" . $aks['id'] . "'
 			WHERE
 			fleet_id = '" . $fleetid . "';");
+			
 		}
 		else
 		{
@@ -243,7 +244,7 @@ function ShowFleetACSPage($CurrentUser, $CurrentPlanet)
 
 		while($row = $db->fetch_array($aks_madnessred))
 		{
-			$aks_code_mr  	.= $row['name'];
+			$aks_code_mr  	= $row['name'];
 			$aks_invited_mr .= $row['eingeladen'];
 		}
 
@@ -262,8 +263,7 @@ function ShowFleetACSPage($CurrentUser, $CurrentPlanet)
 				}
 			}
 		}
-
-		$parse['page2']					= $pageDos;
+		$parse['page2']					= isset($pageDos) ? $pageDos : "<option>".$CurrentUser['username']."</option>";
 		$parse['fleetid']				= request_var('fleetid','');
 		$parse['aks_invited_mr']		= $aks_invited_mr;
 		$parse['add_user_message_mr']	= $add_user_message_mr;
