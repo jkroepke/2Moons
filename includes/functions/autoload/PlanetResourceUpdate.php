@@ -170,7 +170,6 @@ function PlanetResourceUpdate ( $CurrentUser, &$CurrentPlanet, $UpdateTime, $Sim
 				if ($resource[$Element] != '')
 				{
 					$QryUpdatePlanet .= "`". $resource[$Element] ."` = '". $CurrentPlanet[$resource[$Element]] ."', ";
-					AddPointsToPlayer($CurrentUser['id'], $Element, $Count);
 				}
 			}
 		}

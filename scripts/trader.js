@@ -1,4 +1,5 @@
-function calcul(ress) {
+function calcul(ress) 
+{
 	switch(ress)
 	{
 		case 'metal':

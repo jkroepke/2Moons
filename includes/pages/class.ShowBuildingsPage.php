@@ -386,6 +386,13 @@ class ShowBuildingsPage
 			}
 		}
 		SetNextQueueElementOnTop($CurrentPlanet, $CurrentUser);
+		if (empty($CurrentPlanet['b_building_id']))
+		{
+			$db->query("UPDATE ".PLANETS." SET `b_building_id` = '0', `b_building` = '0' WHERE `id` = '".$CurrentPlanet['id']."';");
+        
+			$CurrentPlanet['b_building_id'] = "0";
+			$CurrentPlanet['b_building'] = 0;
+		}  
 		$Queue = $this->ShowBuildingQueue($CurrentPlanet, $CurrentUser);
 		$this->BuildingSavePlanetRecord($CurrentPlanet);
 

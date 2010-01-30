@@ -152,8 +152,8 @@ class PlanetResourceUpdate
 	function __destruct()
 	{
 		global $CurrentUser, $CurrentPlanet, $ProductionTime, $resource, $db;
+		
 		$Builded          = HandleElementBuildingQueue ( $CurrentUser, $CurrentPlanet, $ProductionTime );
-
 		$QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
 		$QryUpdatePlanet .= "`metal` = '"            . $CurrentPlanet['metal']             	."', ";
 		$QryUpdatePlanet .= "`crystal` = '"          . $CurrentPlanet['crystal']           	."', ";
@@ -175,7 +175,6 @@ class PlanetResourceUpdate
 				if ($resource[$Element] != '')
 				{
 					$QryUpdatePlanet .= "`". $resource[$Element] ."` = '". $CurrentPlanet[$resource[$Element]] ."', ";
-					AddPointsToPlayer($CurrentUser['id'], $Element, $Count);
 				}
 			}
 		}
