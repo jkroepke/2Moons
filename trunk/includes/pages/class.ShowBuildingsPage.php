@@ -358,13 +358,6 @@ class ShowBuildingsPage
 		
 		$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
 
-		$template	= new template();
-		$template->page_header();	
-		$template->page_topnav();
-		$template->page_leftmenu();
-		$template->page_planetmenu();
-		$template->page_footer();
-		
         $TheCommand   = request_var('cmd','');
         $Element      = request_var('building',0);
         $ListID       = request_var('listid',0);
@@ -388,10 +381,24 @@ class ShowBuildingsPage
 			}
 		}
 		SetNextQueueElementOnTop($CurrentPlanet, $CurrentUser);
-  
+		if (empty($CurrentPlanet['b_building_id']))
+		{
+			$db->query("UPDATE ".PLANETS." SET `b_building_id` = '0', `b_building` = '0' WHERE `id` = '".$CurrentPlanet['id']."';");
+        
+			$CurrentPlanet['b_building_id'] = "0";
+			$CurrentPlanet['b_building'] = 0;
+		}  
 		$Queue = $this->ShowBuildingQueue($CurrentPlanet, $CurrentUser);
 		$this->BuildingSavePlanetRecord($CurrentPlanet);
 
+		$template	= new template();
+		$template->set_vars($CurrentUser, $CurrentPlanet);
+		$template->page_header();	
+		$template->page_topnav();
+		$template->page_leftmenu();
+		$template->page_planetmenu();
+		$template->page_footer();
+		
 		$CanBuildElement 	= ($Queue['lenght'] < (MAX_BUILDING_QUEUE_SIZE)) ? true : false;
 		$BuildingPage       = "";
 		$CurrentMaxFields   = CalculateMaxPlanetFields($CurrentPlanet);

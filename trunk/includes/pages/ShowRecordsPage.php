@@ -30,11 +30,11 @@ function ShowRecordsPage($CurrentUser, $CurrentPlanet)
 	$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
 
 	$template	= new template();
+	$template->set_vars($CurrentUser, $CurrentPlanet);
 	$template->page_header();
 	$template->page_topnav();
 	$template->page_leftmenu();
 	$template->page_planetmenu();
-	$template->page_header();
 	$template->page_footer();
 	
 	foreach($RecordsArray as $ElementID => $ElementIDArray) {

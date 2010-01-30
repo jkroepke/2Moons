@@ -145,6 +145,7 @@ function ShowMessagesPage($CurrentUser, $CurrentPlanet)
 		default:
 			$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
 			
+			$template->set_vars($CurrentUser, $CurrentPlanet);
 			$template->page_header();
 			$template->page_topnav();
 			$template->page_leftmenu();

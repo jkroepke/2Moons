@@ -31,16 +31,13 @@ function ShowTraderPage($CurrentUser, $CurrentPlanet)
 	$deut		= request_var('deut', 0);
 
 	$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
-	
-	register_shutdown_function(array($PlanetRess,"SavePlanetToDB"), $CurrentUser, $CurrentPlanet) or die("Could not register shutdown function");
-	
 	$template	= new template();
 	$template->page_header();
 	$template->page_topnav();
 	$template->page_leftmenu();
 	$template->page_planetmenu();
 	$template->page_footer();
-	
+
 	if ($ress != '')
 	{
 		switch ($ress) {
@@ -48,7 +45,7 @@ function ShowTraderPage($CurrentUser, $CurrentPlanet)
 				if($action == "trade")
 				{
 					if ($crystal < 0 or $deut < 0)
-						message($lang['tr_only_positive_numbers'], "game." . $phpEx . "?page=trader",1);
+						$template->message($lang['tr_only_positive_numbers'], "game." . $phpEx . "?page=trader",1);
 					else
 					{
 						$trade	= ($crystal * 2 + $deut * 4);
@@ -58,10 +55,10 @@ function ShowTraderPage($CurrentUser, $CurrentPlanet)
 							$CurrentPlanet['metal']     -= $trade;
 							$CurrentPlanet['crystal']   += $crystal;
 							$CurrentPlanet['deuterium'] += $deut;
-							message($lang['tr_exchange_done'],"game." . $phpEx . "?page=trader",1);
+							$template->message($lang['tr_exchange_done'],"game." . $phpEx . "?page=trader",1);
 						}
 						else
-							message($lang['tr_not_enought_metal'], "game." . $phpEx . "?page=trader", 1);
+							$template->message($lang['tr_not_enought_metal'], "game." . $phpEx . "?page=trader", 1);
 					}
 				} else {
 					$template->assign_vars(array(
@@ -85,7 +82,7 @@ function ShowTraderPage($CurrentUser, $CurrentPlanet)
 				if($action == "trade")
 				{
 					if ($metal < 0 or $deut < 0)
-						message($lang['tr_only_positive_numbers'], "game." . $phpEx . "?page=trader",1);
+						$template->message($lang['tr_only_positive_numbers'], "game." . $phpEx . "?page=trader",1);
 					else
 					{
 						$trade	= ($metal * 0.5 + $deut * 2);
@@ -95,10 +92,10 @@ function ShowTraderPage($CurrentUser, $CurrentPlanet)
 							$CurrentPlanet['metal']     += $metal;
 							$CurrentPlanet['crystal']   -= $trade;
 							$CurrentPlanet['deuterium'] += $deut;
-							message($lang['tr_exchange_done'],"game." . $phpEx . "?page=trader",1);
+							$template->message($lang['tr_exchange_done'],"game." . $phpEx . "?page=trader",1);
 						}
 						else
-							message($lang['tr_not_enought_crystal'], "game." . $phpEx . "?page=trader", 1);
+							$template->message($lang['tr_not_enought_crystal'], "game." . $phpEx . "?page=trader", 1);
 					}
 				} else {
 					$template->assign_vars(array(
@@ -132,10 +129,10 @@ function ShowTraderPage($CurrentUser, $CurrentPlanet)
 							$CurrentPlanet['metal']     += $metal;
 							$CurrentPlanet['crystal']   += $crystal;
 							$CurrentPlanet['deuterium'] -= $trade;
-							message($lang['tr_exchange_done'],"game." . $phpEx . "?page=trader",1);
+							$template->message($lang['tr_exchange_done'],"game." . $phpEx . "?page=trader", 1);
 						}
 						else
-							message($lang['tr_not_enought_deuterium'], "game." . $phpEx . "?page=trader", 1);
+							$template->message($lang['tr_not_enought_deuterium'], "game." . $phpEx . "?page=trader", 1);
 					}
 				} else {
 					$template->assign_vars(array(
@@ -171,5 +168,7 @@ function ShowTraderPage($CurrentUser, $CurrentPlanet)
 
 		$template->show("trader_overview.tpl");
 	}
+	
+	$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 }
 ?>

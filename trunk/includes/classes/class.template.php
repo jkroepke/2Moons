@@ -27,6 +27,12 @@ class template extends Smarty
 		$this->setheader();
 	}
 	
+	public function set_vars($CurrentUser, $CurrentPlanet)
+	{
+		$this->planet				= $CurrentPlanet;
+		$this->player				= $CurrentUser;
+	}
+	
 	public function assign_vars($assign){
 		foreach($assign as $AssignName => $AssignContent) {
 			$this->assign($AssignName, $AssignContent);
@@ -179,6 +185,17 @@ class template extends Smarty
 			'sql_num'	=> ((!defined('INSTALL') || !defined('IN_ADMIN')) && $this->player['authlevel'] == 3 && $this->GameConfig['debug'] == 1) ? "<center><div id=\"footer\">SQL Abfragen:". $this->db->get_sql()." - Seiten generiert in ".round(microtime(true) - STARTTIME, 4)." Sekunden</div></center>" : "",
 		));
 		$this->display($file);
+	}
+	
+	public function message ($mes, $dest = false, $time = 3)
+	{
+		$this->assign_vars(array(
+			'mes'		=> $mes,
+			'gotoinsec'	=> $time,
+			'goto'		=> $dest,
+		));
+		
+		$this->show('error_message_body.tpl');
 	}
 }
 

@@ -92,8 +92,8 @@ if (INSTALL != true)
 		$game_config[$row['config_name']] = $row['config_value'];
 	}
 	$db->free_result($cfgresult);
-	define('DEFAULT_LANG'	, ($game_config['lang'] 	== '') ? "deutsch" : $game_config['lang']);
-	define('VERSION'		, ($game_config['VERSION'] == '') ? "" : "RC".$game_config['VERSION'].".".$version);
+	define('DEFAULT_LANG'	, (empty($game_config['lang']))    ? "deutsch" : $game_config['lang']);
+	define('VERSION'		, (empty($game_config['VERSION'])) ? "" : "RC".$game_config['VERSION'].".".$version);
 
 	includeLang('INGAME');
 
