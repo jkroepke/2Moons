@@ -149,7 +149,7 @@ class ResourceUpdate
 		}
 	}
 	
-	public function __destruct()
+	public function SavePlanetToDB($CurrentUser, $CurrentPlanet)
 	{
 		global $resource, $db;
 		$Builded          = HandleElementBuildingQueue ( $CurrentUser, $CurrentPlanet, $this->ProductionTime);

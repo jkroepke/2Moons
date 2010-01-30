@@ -55,6 +55,7 @@ class ShowSupportPage
 		$db->query("UPDATE ".SUPP." SET `text` = '".$db->sql_escape($text) ."',`status` = '3' WHERE `id` = '". $db->sql_escape($TicketID) ."';");
 		message($lang['sendit_a'],"game.php?page=support", 3);
 	}
+	
 	private function ShowSupportTickets($CurrentUser, $CurrentPlanet)
 	{
 		global $db, $lang;
@@ -62,6 +63,7 @@ class ShowSupportPage
 
 		$template	= new template();
 
+		$template->set_vars($CurrentUser, $CurrentPlanet);
 		$template->page_header();
 		$template->page_topnav();
 		$template->page_leftmenu();

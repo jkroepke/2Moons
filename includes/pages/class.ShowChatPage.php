@@ -63,9 +63,10 @@ class ShowChatPage
 		} elseif($mode == "call") {
 			$this->GetMessages($CurrentUser, $ctype);
 		} else {
-			
 			$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
 			$template	= new template();
+			
+				$template->set_vars($CurrentUser, $CurrentPlanet);
 			$template->page_header();
 			$template->page_footer();
 			
