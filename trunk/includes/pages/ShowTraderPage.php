@@ -24,12 +24,12 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 function ShowTraderPage($CurrentPlanet)
 {
 	global $phpEx, $lang, $db;
-
 	$ress 		= request_var('ress', '');
 	$action 	= request_var('action', '');
 	$metal		= request_var('metal', 0);
-	$crystal 	= request_var('crystal', 0);
+	$crystal 	= request_var('crystal', '');
 	$deut		= request_var('deut', 0);
+	
 	$template	= new template();
 	$template->page_header();
 	$template->page_topnav();
@@ -37,6 +37,7 @@ function ShowTraderPage($CurrentPlanet)
 	$template->page_planetmenu();
 	$template->page_header();
 	$template->page_footer();
+	
 	if ($ress != '')
 	{
 		switch ($ress) {
@@ -48,12 +49,14 @@ function ShowTraderPage($CurrentPlanet)
 					else
 					{
 						$trade	= ($crystal * 2 + $deut * 4);
-
-						if ($CurrentPlanet['crystal'] > $trade)
+						
+						if ($CurrentPlanet['metal'] > $trade)
 						{
 							$CurrentPlanet['metal']     -= $trade;
 							$CurrentPlanet['crystal']   += $crystal;
 							$CurrentPlanet['deuterium'] += $deut;
+							
+							message($lang['tr_exchange_done'],"game." . $phpEx . "?page=trader",1);
 						}
 						else
 							message($lang['tr_not_enought_metal'], "game." . $phpEx . "?page=trader", 1);
@@ -61,7 +64,7 @@ function ShowTraderPage($CurrentPlanet)
 				} else {
 					$template->assign_vars(array(
 						'tr_resource'		=> $lang['tr_resource'],
-						'tr_sell_crystal'	=> $lang['tr_sell_crystal'],
+						'tr_sell_metal'		=> $lang['tr_sell_metal'],
 						'tr_amount'			=> $lang['tr_amount'],
 						'tr_exchange'		=> $lang['tr_exchange'],	
 						'tr_quota_exchange'	=> $lang['tr_quota_exchange'],
@@ -85,11 +88,12 @@ function ShowTraderPage($CurrentPlanet)
 					{
 						$trade	= ($metal * 0.5 + $deut * 2);
 
-						if ($CurrentPlanet['metal'] > $trade)
+						if ($CurrentPlanet['crystal'] > $trade)
 						{
 							$CurrentPlanet['metal']     += $metal;
 							$CurrentPlanet['crystal']   -= $trade;
 							$CurrentPlanet['deuterium'] += $deut;
+							message($lang['tr_exchange_done'],"game." . $phpEx . "?page=trader",1);
 						}
 						else
 							message($lang['tr_not_enought_crystal'], "game." . $phpEx . "?page=trader", 1);
@@ -97,7 +101,7 @@ function ShowTraderPage($CurrentPlanet)
 				} else {
 					$template->assign_vars(array(
 						'tr_resource'		=> $lang['tr_resource'],
-						'tr_sell_deuterium'	=> $lang['tr_sell_deuterium'],
+						'tr_sell_crystal'	=> $lang['tr_sell_crystal'],
 						'tr_amount'			=> $lang['tr_amount'],
 						'tr_exchange'		=> $lang['tr_exchange'],	
 						'tr_quota_exchange'	=> $lang['tr_quota_exchange'],
@@ -126,6 +130,7 @@ function ShowTraderPage($CurrentPlanet)
 							$CurrentPlanet['metal']     += $metal;
 							$CurrentPlanet['crystal']   += $crystal;
 							$CurrentPlanet['deuterium'] -= $trade;
+							message($lang['tr_exchange_done'],"game." . $phpEx . "?page=trader",1);
 						}
 						else
 							message($lang['tr_not_enought_deuterium'], "game." . $phpEx . "?page=trader", 1);
@@ -133,7 +138,7 @@ function ShowTraderPage($CurrentPlanet)
 				} else {
 					$template->assign_vars(array(
 						'tr_resource'		=> $lang['tr_resource'],
-						'tr_sell_metal'		=> $lang['tr_sell_metal'],
+						'tr_sell_deuterium'	=> $lang['tr_sell_deuterium'],
 						'tr_amount'			=> $lang['tr_amount'],
 						'tr_exchange'		=> $lang['tr_exchange'],	
 						'tr_quota_exchange'	=> $lang['tr_quota_exchange'],
@@ -149,8 +154,6 @@ function ShowTraderPage($CurrentPlanet)
 				}
 			break;
 		}
-
-		message($lang['tr_exchange_done'],"game." . $phpEx . "?page=trader",1);
 	}
 	else
 	{

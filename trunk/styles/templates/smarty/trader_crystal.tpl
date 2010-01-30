@@ -19,11 +19,11 @@
         <th>1</th>
     </tr><tr>
         <th>{$Metal}</th>
-        <th><input name="metal" type="text" value="0" onkeyup="calcul({$ress})"></th>
+        <th><input name="metal" type="text" value="0" onkeyup="calcul('{$ress}')"></th>
         <th>{$mod_ma_res_a}</th>
     </tr><tr>
         <th>{$Deuterium}</th>
-        <th><input name="deut" type="text" value="0" onkeyup="calcul({$ress})"></th>
+        <th><input name="deut" type="text" value="0" onkeyup="calcul('{$ress}')"></th>
         <th>{$mod_ma_res_b}</th>
     </tr><tr>
         <th colspan="6"><input type="submit" value="{$tr_exchange}"></th>
