@@ -84,19 +84,22 @@ function ShowBuddyPage($CurrentUser)
 					'id'					=> $uid,
 				));
 				
-				$template->display("buddy_send_form.tpl");
+				$template->show("buddy_send_form.tpl");
 			}
 		break;
 		default:
-			$BuddyListRAW	= $db->query("SELECT a.`active`, a.`sender`, a.`id` as buddyid, a.`text`, b.`id`, b.`username`, b.`onlinetime`, b.`galaxy`, b.`system`, b.`planet`, b.`ally_id`, b.`ally_name` FROM ".BUDDY." as a, ".USERS." as b WHERE (a.`sender` = '".$CurrentUser['id']."' AND b.`id` = a.`owner`) OR (a.`owner` = '".$CurrentUser['id']."' AND b.`id` = a.`sender`);");
 
+			$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
+			
 			$template->page_header();
 			$template->page_topnav();
 			$template->page_leftmenu();
 			$template->page_planetmenu();
 			$template->page_header();
 			$template->page_footer();
-			
+			$BuddyListRAW	= $db->query("SELECT a.`active`, a.`sender`, a.`id` as buddyid, a.`text`, b.`id`, b.`username`, b.`onlinetime`, b.`galaxy`, b.`system`, b.`planet`, b.`ally_id`, b.`ally_name` FROM ".BUDDY." as a, ".USERS." as b WHERE (a.`sender` = '".$CurrentUser['id']."' AND b.`id` = a.`owner`) OR (a.`owner` = '".$CurrentUser['id']."' AND b.`id` = a.`sender`);");
+
+						
 			while($BuddyList = $db->fetch_array($BuddyListRAW))
 			{
 				if($BuddyList['active']	== 0)
@@ -172,7 +175,8 @@ function ShowBuddyPage($CurrentUser)
 				'bu_online'			=> $lang['bu_online'],
 			));
 			
-			$template->display("buddy_overview.tpl");
+			$template->show("buddy_overview.tpl");
+			$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 		break;
 	}
 }

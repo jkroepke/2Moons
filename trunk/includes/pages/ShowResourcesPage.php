@@ -24,6 +24,8 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 function ShowResourcesPage($CurrentUser, $CurrentPlanet)
 {
 	global $lang, $ProdGrid, $resource, $reslist, $game_config, $db;
+	
+	$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
 
 	$template	= new template();
 	$template->page_header();
@@ -167,7 +169,8 @@ function ShowResourcesPage($CurrentUser, $CurrentPlanet)
 		'rs_calculate'							=> $lang['rs_calculate'], 	
 	));
 	
-	$template->display("resources_overview.tpl");
+	$template->show("resources_overview.tpl");
+	$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 }
 
 ?>

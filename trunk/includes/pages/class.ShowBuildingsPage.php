@@ -349,20 +349,22 @@ class ShowBuildingsPage
 
 	public function ShowBuildingsPage (&$CurrentPlanet, $CurrentUser)
 	{
-		global $ProdGrid, $lang, $resource, $reslist, $phpEx, $dpath, $game_config, $_GET, $xgp_root;
+		global $ProdGrid, $lang, $resource, $reslist, $phpEx, $dpath, $game_config, $db, $xgp_root;
 
 		include_once($xgp_root . 'includes/functions/IsTechnologieAccessible.' . $phpEx);
 		include_once($xgp_root . 'includes/functions/GetElementPrice.' . $phpEx);
 
 		CheckPlanetUsedFields($CurrentPlanet);
+		
+		$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
 
 		$template	= new template();
-		$template->page_header();
-		$template->page_footer();	
+		$template->page_header();	
 		$template->page_topnav();
 		$template->page_leftmenu();
 		$template->page_planetmenu();
-
+		$template->page_footer();
+		
         $TheCommand   = request_var('cmd','');
         $Element      = request_var('building',0);
         $ListID       = request_var('listid',0);
@@ -386,13 +388,7 @@ class ShowBuildingsPage
 			}
 		}
 		SetNextQueueElementOnTop($CurrentPlanet, $CurrentUser);
-		if (empty($CurrentPlanet['b_building_id']))
-		{
-			$db->query("UPDATE ".PLANETS." SET `b_building_id` = '0', `b_building` = '0' WHERE `id` = '".$CurrentPlanet['id']."';");
-        
-			$CurrentPlanet['b_building_id'] = "0";
-			$CurrentPlanet['b_building'] = 0;
-		}  
+  
 		$Queue = $this->ShowBuildingQueue($CurrentPlanet, $CurrentUser);
 		$this->BuildingSavePlanetRecord($CurrentPlanet);
 
@@ -409,7 +405,7 @@ class ShowBuildingsPage
 				if(in_array($Element, $reslist['prod']))
 				{
 					$BuildLevel         	= $CurrentPlanet[$resource[$Element]];
-					$BuildLevelFactor       = $CurrentPlanet[$resource[$Element]."_porcent" ];
+					$BuildLevelFactor       = 10;
 					$BuildTemp              = $CurrentPlanet['temp_max'];
 					$Need 	                = floor(eval($ProdGrid[$Element]['formule']['energy']) * $game_config['resource_multiplier']) * (1 + ($CurrentUser['rpg_ingenieur'] * 0.05));
 					$BuildLevel			   += 1;
@@ -470,7 +466,8 @@ class ShowBuildingsPage
 			'bd_jump_gate_action'	=> $lang['bd_jump_gate_action'],
 		));
 			
-		$template->display("buildings_overview.tpl");
+		$template->show("buildings_overview.tpl");
+		$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 	}
 }
 ?>

@@ -71,7 +71,7 @@ function ShowMessagesPage($CurrentUser, $CurrentPlanet)
 				'planet'		=> $OwnerRecord['planet'],
 			));
 			
-			$template->display("message_send_form.tpl");		
+			$template->show("message_send_form.tpl");		
 		break;
 		case 'delete':
 			$DeleteWhat = request_var('deletemessages','');
@@ -140,15 +140,17 @@ function ShowMessagesPage($CurrentUser, $CurrentPlanet)
 				'dpath'								=> $dpath,
 				'MessCategory'						=> $MessCategory,
 			));
-			$template->display("message_show.tpl");			
+			$template->show("message_show.tpl");			
 		break;
 		default:
+			$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
+			
 			$template->page_header();
 			$template->page_topnav();
 			$template->page_leftmenu();
 			$template->page_planetmenu();
 			$template->page_footer();
-			
+	
 			$UsrMess       = $db->query("SELECT `message_type` FROM ".MESSAGES." WHERE `message_owner` = '".$CurrentUser['id']."' ORDER BY `message_time` DESC;");
 			$GameOps = $db->query("SELECT `username`, `email` FROM ".USERS." WHERE `authlevel` != '0' ORDER BY `username` ASC;");
 
@@ -180,7 +182,8 @@ function ShowMessagesPage($CurrentUser, $CurrentPlanet)
 				'mg_game_operators'	=> $lang['mg_game_operators'],
 			));
 			
-			$template->display("message_overview.tpl");
+			$template->show("message_overview.tpl");
+			$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 		break;
 	}
 }

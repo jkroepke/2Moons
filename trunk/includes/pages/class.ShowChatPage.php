@@ -51,7 +51,7 @@ class ShowChatPage
 		print $msg;
 	}
 	
-	public function ShowChatPage($CurrentUser){
+	public function ShowChatPage($CurrentUser, $CurrentPlanet){
 		global $game_config, $dpath, $lang, $db;
 
 		$mode 	= request_var('mode', '');
@@ -63,7 +63,8 @@ class ShowChatPage
 		} elseif($mode == "call") {
 			$this->GetMessages($CurrentUser, $ctype);
 		} else {
-		
+			
+			$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
 			$template	= new template();
 			$template->page_header();
 			$template->page_footer();
@@ -82,7 +83,8 @@ class ShowChatPage
 				'chat_message'	=> $lang['chat_message'],
 			));
 			
-			$template->display("chat_overview.tpl");
+			$template->show("chat_overview.tpl");
+			$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 		}
 	}
 

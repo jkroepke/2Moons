@@ -39,7 +39,7 @@ switch($page)
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'changelog':
 		include_once($xgp_root . 'includes/pages/ShowChangelogPage.' . $phpEx);
-		ShowChangelogPage();
+		ShowChangelogPage($user, $planetrow);
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'overview':
@@ -174,7 +174,7 @@ switch($page)
 		if($query['estado'] == 0 && $user['authlevel'] == 0) { message("Modul inaktiv.","game.php?page=overview"); }
  
 		include_once($xgp_root . 'includes/pages/ShowTraderPage.' . $phpEx);
-		ShowTraderPage($planetrow);
+		ShowTraderPage($user, $planetrow);
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'techtree':
@@ -282,7 +282,7 @@ switch($page)
 	// ----------------------------------------------------------------------------------------------------------------------------------------------//	
     case 'faq':
         include_once($xgp_root . 'includes/pages/ShowFAQ.' . $phpEx);
-        ShowFAQ();
+        ShowFAQ($user, $planetrow);
     break; 
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'logout':

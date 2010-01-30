@@ -24,13 +24,13 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 function ShowBannedPage()
 {
 	global $lang, $db;
+	$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
 
 	$template	= new template();
 	$template->page_header();
 	$template->page_topnav();
 	$template->page_leftmenu();
 	$template->page_planetmenu();
-	$template->page_header();
 	$template->page_footer();
 
 	$query = $db->query("SELECT * FROM ".BANNED." ORDER BY `id`;");
@@ -60,6 +60,7 @@ function ShowBannedPage()
 		'bn_by'						=> $lang['bn_by'],
 	));
 	
-	$template->display("banned_overview.tpl");
+	$template->show("banned_overview.tpl");
+	$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 }
 ?>
