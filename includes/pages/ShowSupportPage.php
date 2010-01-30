@@ -58,7 +58,8 @@ class ShowSupportPage
 	private function ShowSupportTickets($CurrentUser, $CurrentPlanet)
 	{
 		global $db, $lang;
-		
+		$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
+
 		$template	= new template();
 
 		$template->page_header();
@@ -96,7 +97,8 @@ class ShowSupportPage
 			'ticket_new'			=> $lang['ticket_new'],		
 		));
 			
-		$template->display("support_overview.tpl");	
+		$template->show("support_overview.tpl");
+		$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);	
 	}
 }
 ?>

@@ -47,9 +47,11 @@ function ShowTopKB($CurrentUser, $CurrentPlanet)
 				'report'	=> stripslashes(str_replace($ship, $shipname, $RaportRAW["raport"])),
 			));
 			
-			$template->display("topkb_report.tpl");
+			$template->show("topkb_report.tpl");
 		break;
 		default:
+			$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
+
 			$template->page_header();
 			$template->page_topnav();
 			$template->page_leftmenu();
@@ -82,7 +84,8 @@ function ShowTopKB($CurrentUser, $CurrentPlanet)
 				'TopKBList'		=> $TopKBList,
 			));
 			
-			$template->display("topkb_overview.tpl");
+			$template->show("topkb_overview.tpl");
+			$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 		break;
 	}
 }

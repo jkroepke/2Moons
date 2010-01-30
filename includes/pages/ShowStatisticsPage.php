@@ -24,13 +24,14 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 function ShowStatisticsPage($CurrentUser)
 {
 	global $game_config, $dpath, $lang, $db;
+	
+	$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
 
 	$template	= new template();
 	$template->page_header();
 	$template->page_topnav();
 	$template->page_leftmenu();
 	$template->page_planetmenu();
-	$template->page_header();
 	$template->page_footer();
 
 	$who   	= request_var('who', 1);
@@ -177,6 +178,7 @@ function ShowStatisticsPage($CurrentUser)
 		'st_in_the_positions'	=> $lang['st_in_the_positions'],
 	));
 	
-	$template->display("stat_overview.tpl");
+	$template->show("stat_overview.tpl");
+	$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 }
 ?>

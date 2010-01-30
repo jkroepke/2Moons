@@ -109,11 +109,6 @@ class template extends Smarty
 	
 	public function page_topnav()
 	{
-		if($this->player['urlaubs_modus'] == 0)
-			new PlanetResourceUpdate($this->player, $this->planet, time());
-		else
-			$this->db->query("UPDATE ".PLANETS." SET `deuterium_sintetizer_porcent` = 0, `metal_mine_porcent` = 0, `crystal_mine_porcent` = 0 WHERE id_owner = ".$this->player['id']);
-		
 		$this->playerplanets	= SortUserPlanets($this->player);
 		
 		foreach($this->playerplanets as $CurPlanetID => $CurPlanet)
@@ -164,7 +159,6 @@ class template extends Smarty
 	public function page_footer()
 	{
 		$this->assign_vars(array(
-			'sql_num'	=> ((!defined('INSTALL') || !defined('IN_ADMIN')) && $this->player['authlevel'] == 3 && $this->GameConfig['debug'] == 1) ? "<center><div id=\"footer\">SQL Abfragen:". $this->db->get_sql()." - Seiten generiert in ".round(microtime(true) - STARTTIME, 4)." Sekunden</div></center>" : "",
 			'cron'		=> ((time() >= ($this->GameConfig['stat_last_update'] + (60 * $this->GameConfig['stat_update_time']))) ? "<img src=\"cronjobs.php?cron=stats\" alt=\"\" height=\"1\" width=\"1\">" : "").((time() >= ($this->GameConfig['stat_last_db_update'] + (60 * 60 * 24))) ? "<img src=\"cronjobs.php?cron=opdb\" alt=\"\" height=\"1\" width=\"1\">" : ""),
 		));
 	}
@@ -178,6 +172,13 @@ class template extends Smarty
 			header('Cache-Control: private, no-store, no-cache, must-revalidate, max-age=0');
 			header('Cache-Control: post-check=0, pre-check=0', false); 
 		}
+	}
+	public function show($file)
+	{
+		$this->assign_vars(array(
+			'sql_num'	=> ((!defined('INSTALL') || !defined('IN_ADMIN')) && $this->player['authlevel'] == 3 && $this->GameConfig['debug'] == 1) ? "<center><div id=\"footer\">SQL Abfragen:". $this->db->get_sql()." - Seiten generiert in ".round(microtime(true) - STARTTIME, 4)." Sekunden</div></center>" : "",
+		));
+		$this->display($file);
 	}
 }
 

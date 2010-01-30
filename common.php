@@ -56,7 +56,7 @@ require_once($xgp_root . 'includes/constants.'.$phpEx);
 require_once($xgp_root . 'includes/GeneralFunctions.'.$phpEx);
 require_once($xgp_root . 'includes/vars.'.$phpEx);
 require_once($xgp_root . 'includes/classes/class.template.'.$phpEx);
-require_once($xgp_root . 'includes/classes/class.PlanetResourceUpdate.'.$phpEx);
+require_once($xgp_root . 'includes/classes/class.PlanetRessUpdate.'.$phpEx);
 
 set_error_handler('msg_handler', E_ALL);
 

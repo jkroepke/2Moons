@@ -26,6 +26,8 @@ function ShowRecordsPage($CurrentUser, $CurrentPlanet)
 	global $lang, $resource, $db, $game_config;
 
 	require_once($xgp_root."cache/CacheRecords.php");
+	
+	$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
 
 	$template	= new template();
 	$template->page_header();
@@ -79,7 +81,8 @@ function ShowRecordsPage($CurrentUser, $CurrentPlanet)
 		'player'		=> $lang['rec_playe'],
 	));
 	
-	$template->display("records_overview.tpl");
+	$template->show("records_overview.tpl");
+	$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 }
 
 ?> 

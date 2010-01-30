@@ -21,7 +21,7 @@
 
 if(!defined('INSIDE')){ die(header("location:../../"));}
 
-function ShowTraderPage($CurrentPlanet)
+function ShowTraderPage($CurrentUser, $CurrentPlanet)
 {
 	global $phpEx, $lang, $db;
 	$ress 		= request_var('ress', '');
@@ -29,13 +29,16 @@ function ShowTraderPage($CurrentPlanet)
 	$metal		= request_var('metal', 0);
 	$crystal 	= request_var('crystal', '');
 	$deut		= request_var('deut', 0);
+
+	$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
+	
+	register_shutdown_function(array($PlanetRess,"SavePlanetToDB"), $CurrentUser, $CurrentPlanet) or die("Could not register shutdown function");
 	
 	$template	= new template();
 	$template->page_header();
 	$template->page_topnav();
 	$template->page_leftmenu();
 	$template->page_planetmenu();
-	$template->page_header();
 	$template->page_footer();
 	
 	if ($ress != '')
@@ -55,7 +58,6 @@ function ShowTraderPage($CurrentPlanet)
 							$CurrentPlanet['metal']     -= $trade;
 							$CurrentPlanet['crystal']   += $crystal;
 							$CurrentPlanet['deuterium'] += $deut;
-							
 							message($lang['tr_exchange_done'],"game." . $phpEx . "?page=trader",1);
 						}
 						else
@@ -76,7 +78,7 @@ function ShowTraderPage($CurrentPlanet)
 						'ress' 				=> $ress,
 					));
 
-					$template->display("trader_metal.tpl");	
+					$template->show("trader_metal.tpl");	
 				}
 			break;
 			case 'crystal':
@@ -113,7 +115,7 @@ function ShowTraderPage($CurrentPlanet)
 						'ress' 				=> $ress,
 					));
 
-					$template->display("trader_crystal.tpl");	
+					$template->show("trader_crystal.tpl");	
 				}
 			break;
 			case 'deuterium':
@@ -150,7 +152,7 @@ function ShowTraderPage($CurrentPlanet)
 						'ress' 				=> $ress,
 					));
 
-					$template->display("trader_deuterium.tpl");	
+					$template->show("trader_deuterium.tpl");	
 				}
 			break;
 		}
@@ -167,7 +169,7 @@ function ShowTraderPage($CurrentPlanet)
 			'Deuterium'					=> $lang['Deuterium'],
 		));
 
-		$template->display("trader_overview.tpl");
+		$template->show("trader_overview.tpl");
 	}
 }
 ?>

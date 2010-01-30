@@ -106,7 +106,7 @@ function ShowPlayerCard($CurrentUser)
 		'pl_etc'		=> $lang['pl_etc'],
 	));
 	
-	$template->display("playercard_overview.tpl");
+	$template->show("playercard_overview.tpl");
 
 }
 ?>

@@ -23,7 +23,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 function ShowFAQ()
 {
 	global $lang;
-	includeLang('FAQ');
+	$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
 
 	$template	= new template();
 	$template->page_header();
@@ -31,12 +31,14 @@ function ShowFAQ()
 	$template->page_leftmenu();
 	$template->page_planetmenu();
 	$template->page_footer();
-		
+
+	includeLang('FAQ');		
 	$template->assign_vars(array(	
 		'FAQList'		=> $lang['faq'],
 		'faq_overview'	=> $lang['faq_overview'],
 	));
 	
-	$template->display("faq_overview.tpl");
+	$template->show("faq_overview.tpl");
+	$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 }
 ?>

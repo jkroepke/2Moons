@@ -73,7 +73,7 @@ class ShowNotesPage
 			'nt_back'			=> $lang['nt_back'],
 		));
 		
-		$template->display('notes_send_form.tpl');
+		$template->show('notes_send_form.tpl');
 	}
 
 	private function ShowNotes($CurrentUserID)
@@ -110,7 +110,7 @@ class ShowNotesPage
 			'text'				=> $Note['text'],
 		));
 		
-		$template->display('notes_edit_form.tpl');
+		$template->show('notes_edit_form.tpl');
 
 	}
 	
@@ -148,7 +148,7 @@ class ShowNotesPage
 			'nt_you_dont_have_notes'	=> $lang['nt_you_dont_have_notes'],
 		));
 		
-		$template->display('notes_body.tpl');
+		$template->show('notes_body.tpl');
 	}
 				
 	public function ShowNotesPage($CurrentUser)

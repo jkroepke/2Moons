@@ -24,13 +24,14 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 function ShowTechTreePage($CurrentUser, $CurrentPlanet)
 {
 	global $resource, $requeriments, $lang;
+	
+	$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
 
 	$template	= new template();
 	$template->page_header();
 	$template->page_topnav();
 	$template->page_leftmenu();
 	$template->page_planetmenu();
-	$template->page_header();
 	$template->page_footer();
 	
 	foreach($lang['tech'] as $Element => $ElementName)
@@ -61,6 +62,7 @@ function ShowTechTreePage($CurrentUser, $CurrentPlanet)
 		'tt_lvl'			=> $lang['tt_lvl'],
 	));
 
-	$template->display("techtree_overview.tpl");
+	$template->show("techtree_overview.tpl");
+	$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 }
 ?>

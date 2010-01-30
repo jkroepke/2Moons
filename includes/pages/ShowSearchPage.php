@@ -24,17 +24,17 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 function ShowSearchPage()
 {
 	global $dpath, $lang, $db;
+			$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
 
-	$type 		= request_var('type','');
-	$searchtext = request_var('searchtext','');
 	$template	= new template();
 	$template->page_header();
 	$template->page_topnav();
 	$template->page_leftmenu();
 	$template->page_planetmenu();
-	$template->page_header();
 	$template->page_footer();	
 	
+	$type 		= request_var('type','');
+	$searchtext = request_var('searchtext','');
 	switch($type) {
 		case 'playername':
 			$search = $db->query("SELECT a.id, a.username, a.ally_id, a.ally_name, a.galaxy, a.system, a.planet, b.name, c.total_rank FROM ".USERS." as a, ".PLANETS." as b, ".STATPOINTS." as c WHERE c.stat_type = 1 AND c.id_owner = a.id AND a.username LIKE '%".$db->sql_escape($searchtext)."%' AND a.id_planet = b.id LIMIT 25;");
@@ -116,6 +116,7 @@ function ShowSearchPage()
 		'sh_points'					=> $lang['sh_points'],
 	));
 	
-	$template->display("search_body.tpl");
+	$template->show("search_body.tpl");
+	$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 }
 ?>
