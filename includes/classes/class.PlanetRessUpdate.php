@@ -21,7 +21,7 @@
 
 class ResourceUpdate
 {
-	function __construct($CurrentUser, &$CurrentPlanet, $Simul = false)
+	function __construct($CurrentUser, &$CurrentPlanet)
 	{
 		global $ProdGrid, $resource, $reslist, $game_config;
 

@@ -12,7 +12,7 @@ class template extends Smarty
 		$this->allow_php_templates	= true;
 		$this->force_compile 		= false;
 		$this->caching 				= false;
-		$this->compile_check		= true;
+		$this->compile_check		= false;
 		$this->template_dir 		= $xgp_root . TEMPLATE_DIR."smarty/";
 		$this->compile_dir 			= $xgp_root ."cache/";
 		$this->config_dir 			= $xgp_root ."includes/classes/configs/";
@@ -132,9 +132,9 @@ class template extends Smarty
 			'metal_max'			=> pretty_number($this->planet["metal_max"]),
 			'crystal_max'		=> pretty_number($this->planet["crystal_max"]),
 			'deuterium_max' 	=> pretty_number($this->planet["deuterium_max"]),
-			'js_metal_hr'		=> $this->planet['metal_perhour'],
-			'js_crystal_hr'		=> $this->planet['crystal_perhour'],
-			'js_deuterium_hr'	=> $this->planet['deuterium_perhour'],
+			'js_metal_hr'		=> $this->planet['metal_perhour'] + $this->GameConfig['metal_basic_income'],
+			'js_crystal_hr'		=> $this->planet['crystal_perhour'] + $this->GameConfig['crystal_basic_income'],
+			'js_deuterium_hr'	=> $this->planet['deuterium_perhour'] + $this->GameConfig['deuterium_basic_income'],
 			'js_res_multiplier'	=> $this->GameConfig['resource_multiplier'],
 			'current_panet'		=> "?".$_SERVER['QUERY_STRING']."&amp;cp=".$this->player['current_planet']."&amp;re=0",
 			'tn_vacation_mode'	=> $this->lang['tn_vacation_mode'],
