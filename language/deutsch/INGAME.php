@@ -1389,7 +1389,7 @@ $lang['pl_destroy']    						= "%s war an folgenden Zerst&ouml;rungen beteiligt"
 $lang['pl_unitsshot']    					= "Geschossene Units";
 $lang['pl_unitslose']    					= "Verlorene Units";
 $lang['pl_dermetal']    					= "Gesamt Tr&uuml;mmerfeld Metall";
-$lang['pl_dercrytal']   					= "Gesamt Tr&uuml;mmerfeld Kristall";
+$lang['pl_dercrystal']   					= "Gesamt Tr&uuml;mmerfeld Kristall";
 $lang['pl_etc']   							= "Sonstiges";
 
 //----------------------------------------------------------------------------//

@@ -185,15 +185,15 @@ class ShowAlliancePage
 				$loosprozent		= 100 / $gesamtkaempfe * $gesamtloos;
 				$drawsprozent		= 100 / $gesamtkaempfe * $gesamtdraw;
 			}                               
-			$parse['allystat'] = "	<tr><td class=c colspan=2>".$lang['al_Allyquote']."</th></tr>
-			<tr><th>".$lang['Gesamtk']."</th><th align=\"right\">" . pretty_number( $gesamtkaempfe ) . "</th></tr>
-			<tr><th>".$lang['Siege']."</th><th>" . pretty_number( $gesamtwins ) . " (" . round($siegprozent, 2) . " % )</th></tr>
-			<tr><th>".$lang['Loosi']."</th><th>" . pretty_number( $gesamtloos ) . " (" . round($loosprozent, 2) . " % )</th></tr>
-			<tr><th>".$lang['Drawp']."</th><th>" . pretty_number( $gesamtdraw ) . " (" . round($drawsprozent, 2) . " % )</th></tr>
-			<tr><th>".$lang['unitsshut']."</th><th>" . pretty_number( $gesamtdesunits     ) . "</th></tr>
-			<tr><th>".$lang['unitsloos']."</th><th>" . pretty_number( $gesamtlostunits ) . "</th></tr>
-			<tr><th>".$lang['tfmetall']."</th><th>" . pretty_number( $gesamtmetal ) . "</th></tr>
-			<tr><th>".$lang['tfkristall']."</th><th>" . pretty_number( $gesamtkbcrystal ) . "</th></tr>";
+			$parse['allystat'] = "	<tr><td class=\"c\" colspan=\"2\">".$lang['al_Allyquote']."</th></tr>
+			<tr><th>".$lang['pl_totalfight']."</th><th align=\"right\">" . pretty_number( $gesamtkaempfe ) . "</th></tr>
+			<tr><th>".$lang['pl_fightwon']."</th><th>" . pretty_number( $gesamtwins ) . " (" . round($siegprozent, 2) . " % )</th></tr>
+			<tr><th>".$lang['pl_fightlose']."</th><th>" . pretty_number( $gesamtloos ) . " (" . round($loosprozent, 2) . " % )</th></tr>
+			<tr><th>".$lang['pl_fightdraw']."</th><th>" . pretty_number( $gesamtdraw ) . " (" . round($drawsprozent, 2) . " % )</th></tr>
+			<tr><th>".$lang['pl_unitsshot']."</th><th>" . pretty_number( $gesamtdesunits     ) . "</th></tr>
+			<tr><th>".$lang['pl_unitslose']."</th><th>" . pretty_number( $gesamtlostunits ) . "</th></tr>
+			<tr><th>".$lang['pl_dermetal']."</th><th>" . pretty_number( $gesamtmetal ) . "</th></tr>
+			<tr><th>".$lang['pl_dercrystal']."</th><th>" . pretty_number( $gesamtkbcrystal ) . "</th></tr>";
 			$db->free_result($allymember);
 		}
 		display(parsetemplate(gettemplate('alliance/alliance_ainfo'), $parse));
@@ -1164,15 +1164,14 @@ class ShowAlliancePage
 							$loosprozent            = 100 / $gesamtkaempfe * $gesamtloos;
 							$drawsprozent           = 100 / $gesamtkaempfe * $gesamtdraw;
 						}                               
-						$lang['allystat'] = "	<tr><td class=c colspan=2>".$lang['al_Allyquote']."</th></tr>
-						<tr><th>".$lang['Gesamtk']."</th><th align=\"right\">" . pretty_number( $gesamtkaempfe ) . "</th></tr>
-						<tr><th>".$lang['Siege']."</th><th>" . pretty_number( $gesamtwins ) . " (" . round($siegprozent, 2) . " % )</th></tr>
-						<tr><th>".$lang['Loosi']."</th><th>" . pretty_number( $gesamtloos ) . " (" . round($loosprozent, 2) . " % )</th></tr>
-						<tr><th>".$lang['Drawp']."</th><th>" . pretty_number( $gesamtdraw ) . " (" . round($drawsprozent, 2) . " % )</th></tr>
-						<tr><th>".$lang['unitsshut']."</th><th>" . pretty_number( $gesamtdesunits     ) . "</th></tr>
-						<tr><th>".$lang['unitsloos']."</th><th>" . pretty_number( $gesamtlostunits ) . "</th></tr>
-						<tr><th>".$lang['tfmetall']."</th><th>" . pretty_number( $gesamtmetal ) . "</th></tr>
-						<tr><th>".$lang['tfkristall']."</th><th>" . pretty_number( $gesamtkbcrystal ) . "</th></tr>";
+						$lang['allystat'] = "<tr><td class=\"c\" colspan=\"2\">".$lang['al_Allyquote']."</th></tr><tr><th>".$lang['pl_totalfight']."</th><th align=\"right\">" . pretty_number( $gesamtkaempfe ) . "</th></tr>
+						<tr><th>".$lang['pl_fightwon']."</th><th>" . pretty_number( $gesamtwins ) . " (" . round($siegprozent, 2) . " % )</th></tr>
+						<tr><th>".$lang['pl_fightlose']."</th><th>" . pretty_number( $gesamtloos ) . " (" . round($loosprozent, 2) . " % )</th></tr>
+						<tr><th>".$lang['pl_fightdraw']."</th><th>" . pretty_number( $gesamtdraw ) . " (" . round($drawsprozent, 2) . " % )</th></tr>
+						<tr><th>".$lang['pl_unitsshot']."</th><th>" . pretty_number( $gesamtdesunits     ) . "</th></tr>
+						<tr><th>".$lang['pl_unitslose']."</th><th>" . pretty_number( $gesamtlostunits ) . "</th></tr>
+						<tr><th>".$lang['pl_dermetal']."</th><th>" . pretty_number( $gesamtmetal ) . "</th></tr>
+						<tr><th>".$lang['pl_dercrystal']."</th><th>" . pretty_number( $gesamtkbcrystal ) . "</th></tr>";
 						display(parsetemplate(gettemplate('alliance/alliance_frontpage'), $lang));
 					break;
 				}
