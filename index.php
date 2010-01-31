@@ -76,7 +76,7 @@ switch ($page) {
 				$Body = "Hallo ".$ExistMail['username'].",<br /><br />";
 				$Body .= "dein Passwort für " . $game_config ['game_name'] . " lautet:<br /><br />";
 				$Body .= $NewPass . "<br /><br />";
-				$Body .= "Du kannst dich damit unter " . REALPATH . " einloggen.<br /><br />";
+				$Body .= "Du kannst dich damit unter http://".$_SERVER['SERVER_NAME'].$_SERVER["PHP_SELF"] . " einloggen.<br /><br />";
 				$Body .= "Wir verschicken Passwörter nur an die von dir im Spiel angegebenen Mailadressen. Solltest du diese Mail nicht angefordert haben kannst du sie also einfach ignorieren.<br /><br />";
 				$Body .= "Wir wünschen dir weiterhin viel Erfolg beim Spielen von " . $game_config ['game_name'] . "!<br /><br />";
 				$Body .= "Dein " . $game_config ['game_name'] . "-Team<br /><br />";
@@ -182,7 +182,7 @@ switch ($page) {
 
 					$MailSubject 	= $lang['reg_mail_message_pass'];
 					$MailRAW		= file_get_contents("./language/deutsch/email/email_vaild_reg.txt");
-					$MailContent	= sprintf($MailRAW, $UserName, $game_config['game_name'], REALPATH ,$clef, $UserPass, ADMINEMAIL);
+					$MailContent	= sprintf($MailRAW, $UserName, $game_config['game_name'], "http://".$_SERVER['SERVER_NAME'].$_SERVER["PHP_SELF"] ,$clef, $UserPass, ADMINEMAIL);
 		
 					MailSend($UserEmail, $UserName, $MailSubject, $MailContent);
 					$QryInsertUser = "INSERT INTO " . USERS_VALID . " SET ";

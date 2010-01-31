@@ -375,7 +375,7 @@ $lang['rs_weekly']							= 'Pro Woche';
 $lang['of_recruit']							= 'Erwerben';
 $lang['of_max_lvl']							= 'Max. Level';
 $lang['of_available_points']				= 'Verf&uuml;gbare Punkte:';
-$lang['of_points_per_thousand_darkmatter']	= '(1 Punkt pro 500 %s)';
+$lang['of_points_per_thousand_darkmatter']	= '(1 Punkt pro %d %s)';
 $lang['of_lvl']								= 'Level';
 
 //----------------------------------------------------------------------------//

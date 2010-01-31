@@ -69,6 +69,8 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	
 	define('STORAGE_FACTOR'			  , 1.0);
 	
+	define('DM_PRO_OFFICIER_LEVEL'	  , 1000);
+	
 	// INITIAL RESOURCE OF NEW PLANETS
 	
 	define('BUILD_METAL'              ,    500);

@@ -52,80 +52,72 @@ class ShowOfficierPage
 		}
 	}
 
-	public function ShowOfficierPage ( &$CurrentUser )
+	public function UpdateOfficier($CurrentUser)
+	{
+		global $db, $reslist, $resource, $phpEx;
+		$Selected    = request_var('offi', 0);
+		if ((floor($CurrentUser['darkmatter'] / DM_PRO_OFFICIER_LEVEL)) > 0 && in_array($Selected, $reslist['officier']) && $this->IsOfficierAccessible($CurrentUser, $Selected) == 1)
+		{
+			$CurrentUser[$resource[$Selected]] += 1;
+			$CurrentUser['darkmatter']         -= DM_PRO_OFFICIER_LEVEL;
+			$QryUpdateUser  = "UPDATE ".USERS." SET ";
+			$QryUpdateUser .= "`darkmatter` = '". $CurrentUser['darkmatter'] ."', ";
+			$QryUpdateUser .= "`".$resource[$Selected]."` = '". $CurrentUser[$resource[$Selected]] ."' ";
+			$QryUpdateUser .= "WHERE ";
+			$QryUpdateUser .= "`id` = '". $CurrentUser['id'] ."';";
+			$db->query($QryUpdateUser);
+		}
+		
+		header("Location:game.".$phpEx."?page=officier");
+	}
+	
+	public function ShowOfficierPage($CurrentUser, $CurrentPlanet)
 	{
 		global $resource, $reslist, $lang, $db;
-		$parse 	= $lang;
-		$bloc	= $lang;
-		$parse['of_points_per_thousand_darkmatter'] = sprintf($lang['of_points_per_thousand_darkmatter'], $lang['Darkmatter']);
-		if ($_GET['mode'] == 2)
+		
+		$action    = request_var('action', '');
+		
+		if ($action == "send")
+			$this->UpdateOfficier($CurrentUser);
+		
+		$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
+
+		$template	= new template();
+		$template->set_vars($CurrentUser, $CurrentPlanet);
+		$template->page_header();
+		$template->page_topnav();
+		$template->page_leftmenu();
+		$template->page_planetmenu();
+		$template->page_footer();
+		
+
+		foreach($reslist['officier'] as $Key => $Element)
 		{
-			if ((floor($CurrentUser['darkmatter'] / 500)) > 0)
+			if (($Result = $this->IsOfficierAccessible ($CurrentUser, $Element)) !== 0)
 			{
-				$Selected    = request_var('offi',0);
-				if ( in_array($Selected, $reslist['officier']) )
-				{
-					$Result = $this->IsOfficierAccessible ( $CurrentUser, $Selected );
-
-					if ( $Result == 1 )
-					{
-						$CurrentUser[$resource[$Selected]] += 1;
-						$CurrentUser['darkmatter']         -= 500;
-
-						$QryUpdateUser  = "UPDATE ".USERS." SET ";
-						$QryUpdateUser .= "`darkmatter` = '". $CurrentUser['darkmatter'] ."', ";
-						$QryUpdateUser .= "`".$resource[$Selected]."` = '". $CurrentUser[$resource[$Selected]] ."' ";
-						$QryUpdateUser .= "WHERE ";
-						$QryUpdateUser .= "`id` = '". $CurrentUser['id'] ."';";
-						$db->query($QryUpdateUser);
-					}
-					else
-					{
-						header("location:game.php?page=officier");
-					}
-				}
+				$OfficierList[]	= array(
+					'id' 	 	=> $Element,
+					'level'  	=> $CurrentUser[$resource[$Element]],
+					'name'		=> $lang['tech'][$Element],
+					'desc'  	=> $lang['res']['descriptions'][$Element],	
+					'Result'	=> $Result,
+				);
 			}
-			else
-			{
-				header("location:game.php?page=officier");
-			}
-
-			header("location:game.php?page=officier");
-
-		}
-		else
-		{
-			$parse['alv_points']   	= floor($CurrentUser['darkmatter'] / 500);
-			foreach($lang['tech'] as $Element => $ElementName)
-			{
-				$Result = $this->IsOfficierAccessible ($CurrentUser, $Element);
-				if ($Result != 0 && $Element >= 601)
-				{
-					$bloc['off_id']       = $Element;
-					$bloc['off_lvl']      = ($CurrentUser[$resource[$Element]]==0) ? 0 : $CurrentUser[$resource[$Element]];
-					$bloc['off_name']	  = $ElementName;
-					$bloc['off_desc']     = $lang['res']['descriptions'][$Element];
-
-					if ($Result == 1 && $parse['alv_points'] >= 1)
-					{
-						$bloc['off_link'] = "<a href=\"game.php?page=officier&mode=2&offi=".$Element."\"><font color=\"#00ff00\">".$lang['of_recruit']."</font>";
-					}
-					elseif($Result == 1 && $parse['alv_points'] == 0)
-					{
-						$bloc['off_link'] = "<font color=\"red\">".$lang['of_recruit']."</font>";
-					}
-					else
-					{
-						$bloc['off_link'] = "<font color=\"red\">".$lang['of_max_lvl']."</font>";
-					}
-
-					$parse['disp_off_tbl'] .= parsetemplate( gettemplate('officier/officier_row'), $bloc );
-				}
-			}
-			$page = parsetemplate( gettemplate('officier/officier_table'), $parse);
 		}
 
-		display($page);
+		$template->assign_vars(array(	
+			'OfficierList'			=> $OfficierList,
+			'user_darkmatter'		=> floor($CurrentUser['darkmatter'] / DM_PRO_OFFICIER_LEVEL),
+			'of_max_lvl'			=> $lang['of_max_lvl'],
+			'of_recruit'			=> $lang['of_recruit'],
+			'of_darkmatter' 		=> sprintf($lang['of_points_per_thousand_darkmatter'], DM_PRO_OFFICIER_LEVEL, $lang['Darkmatter']),
+			'of_available_points'	=> $lang['of_available_points'],
+			'alv_points'			=> $lang['alv_points'],
+			'of_lvl'				=> $lang['of_lvl'],
+		));
+		
+		$template->show("officier_overview.tpl");
+		$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 	}
 }
 ?>
