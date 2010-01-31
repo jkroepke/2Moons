@@ -1,0 +1,48 @@
+{include file="overall_header.tpl"}
+{include file="overall_topnav.tpl"}
+{include file="left_menu.tpl"}
+<div id="content">
+    <table width="80%" align="center">
+    <tr>
+        <td class="c" colspan="3">{$of_available_points} {$alv_points} {$of_darkmatter}</td>
+    </tr>
+	{foreach item=OfficierInfo from=$OfficierList}
+		<tr>
+			<th class="l" rowspan="2" width="120">
+				<a href="javascript:info({$OfficierInfo.id});">
+					<img border="0" src="styles/images/officiers/{$OfficierInfo.id}.jpg" alt="{$OfficierInfo.name}" align="top" width="120" height="120">
+				</a>
+			</th>
+			<td class="c">
+				<img src="./styles/images/transparent.gif" alt="" width="0" height="0">&nbsp;<a href="javascript:info({$OfficierInfo.id});">{$OfficierInfo.name}</a> ({$of_lvl} {$OfficierInfo.level})
+			</td>
+		</tr>
+		<tr>
+			<td colspan="1" class="l">
+				<table border="0" cellpadding="0" cellspacing="0">
+					<tbody>
+						<tr>
+							<td style="text-align:left;width:10px"><img src="./styles/images/transparent.gif" alt="" width="0" height="100"></td>
+							<td style="text-align:left;width:90%">{$OfficierInfo.desc}</td>
+							<td style="text-align:center;vertical-align:middle;width:100px">
+							{if $OfficierInfo.Result == 1}
+								{if $user_darkmatter >= 1}
+									<a href="?page=officier&amp;offi={$OfficierInfo.id}&amp;action=send"><font color="#00ff00">{$of_recruit}</font></a>
+								{else}<font color="red">{$of_recruit}</font>{/if}
+							{else}<font color="red">{$of_max_lvl}</font>{/if}
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2"><img src="./styles/images/transparent.gif" alt="" width="1" height="10"></td>
+		</tr>
+	{/foreach}
+    </table>
+</div>
+{if $is_pmenu == 1}
+{include file="planet_menu.tpl"}
+{/if}
+{include file="overall_footer.tpl"}
