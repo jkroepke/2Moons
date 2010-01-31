@@ -20,7 +20,7 @@
 
 if(!defined('INSIDE')){ die(header("location:../../"));}
 
-function ShowFAQ()
+function ShowFAQ($CurrentUser, $CurrentPlanet)
 {
 	global $lang;
 	$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);

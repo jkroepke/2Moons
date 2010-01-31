@@ -21,23 +21,29 @@
 
 if(!defined('INSIDE')){ die(header("location:../../"));}
 
-function ShowChangelogPage()
+
+function ShowChangelogPage($CurrentUser, $CurrentPlanet)
 {
 	global $lang;
+	$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
 
-	includeLang('CHANGELOG');
+	$template	= new template();
 
-	foreach($lang['changelog'] as $a => $b)
-	{
-		$parse['version_number'] = $a;
-		$parse['description'] = makebr($b);
+	$template->set_vars($CurrentUser, $CurrentPlanet);
+	$template->page_header();
+	$template->page_topnav();
+	$template->page_leftmenu();
+	$template->page_planetmenu();
+	$template->page_footer();
 
-		$body .= parsetemplate(gettemplate('changelog/changelog_table'), $parse);
-	}
-
-	$parse 			= $lang;
-	$parse['body'] 	= $body;
-
-	return display(parsetemplate(gettemplate('changelog/changelog_body'), $parse));
+	includeLang('CHANGELOG');	
+	$template->assign_vars(array(	
+		'ChangelogList'	=> array_map('makebr',$lang['changelog']),
+		'Version'		=> $lang['Version'],
+		'Description'	=> $lang['Description'],
+	));
+	
+	$template->show("changelog_overview.tpl");
+	$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 }
 ?>
