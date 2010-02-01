@@ -21,7 +21,7 @@
 
 if(!defined('INSIDE')){ die(header("location:../../"));}
 
-function ShowBuddyPage($CurrentUser)
+function ShowBuddyPage($CurrentUser, $CurrentPlanet)
 {
 	global $lang, $db;
 
@@ -140,7 +140,7 @@ function ShowBuddyPage($CurrentUser)
 						'name'			=> $BuddyList['username'],
 						'allyid'		=> $BuddyList['ally_id'],
 						'allyname'		=> $BuddyList['ally_name'],
-						'onlinetime'	=> floor((time() - $BuddyList['onlinetime'] / 60)),
+						'onlinetime'	=> floor((time() - $BuddyList['onlinetime']) / 60),
 						'galaxy'		=> $BuddyList['galaxy'],
 						'system'		=> $BuddyList['system'],
 						'planet'		=> $BuddyList['planet'],
@@ -173,6 +173,7 @@ function ShowBuddyPage($CurrentUser)
 				'bu_disconnected'	=> $lang['bu_disconnected'],
 				'bu_delete'			=> $lang['bu_delete'],
 				'bu_online'			=> $lang['bu_online'],
+				'bu_connected'		=> $lang['bu_connected'],
 			));
 			
 			$template->show("buddy_overview.tpl");

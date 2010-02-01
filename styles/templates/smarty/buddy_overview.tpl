@@ -52,9 +52,9 @@
 <th>{if {$MyBuddyInfo.allyname}}<a href="game.php?page=alliance&amp;mode=ainfo&amp;a={$MyBuddyInfo.allyid}">{$MyBuddyInfo.allyname}</a>{else}-{/if}</th>
 <th><a href="game.php?page=galaxy&amp;mode=3&amp;galaxy={$MyBuddyInfo.galaxy}&amp;system={$MyBuddyInfo.system}">{$MyBuddyInfo.galaxy}:{$MyBuddyInfo.system}:{$MyBuddyInfo.planet}</a></th>
 <th>
-{if {$MyBuddyInfo.onlinetime} < 4}
+{if $MyBuddyInfo.onlinetime < 4}
 <font color="lime">{$bu_connected}</font>
-{elseif {$MyBuddyInfo.onlinetime} >= 4 && {$MyBuddyInfo.onlinetime} <= 15}
+{elseif $MyBuddyInfo.onlinetime >= 4 && $MyBuddyInfo.onlinetime <= 15}
 <font color="yellow">{$MyBuddyInfo.onlinetime} {$bu_minutes}</font>
 {else}
 <font color="red">{$bu_disconnected}</font>
