@@ -31,7 +31,7 @@ class template extends Smarty
 	
 	public function loadscript($script)
 	{
-		$this->script[]	= $script;
+		$this->script[]				= $script;
 	}
 	
 	public function set_vars($CurrentUser, $CurrentPlanet)
@@ -51,7 +51,7 @@ class template extends Smarty
 		foreach($this->playerplanets as $PlanetQuery)
 		{
 			$Planetlist[$PlanetQuery['id']]	= array(
-				'url'		=> "?".htmlentities($_SERVER['QUERY_STRING'])."&amp;cp=".$PlanetQuery['id']."&amp;re=0",
+				'url'		=> "?page=".$this->phpself."&amp;cp=".$PlanetQuery['id']."&amp;re=0",
 				'name'		=> $PlanetQuery['name'].(($PlanetQuery['planet_type'] == 3) ? " (".$this->lang['fcm_moon'].")":""),
 				'image'		=> $PlanetQuery['image'],
 				'galaxy'	=> $PlanetQuery['galaxy'],
@@ -123,10 +123,11 @@ class template extends Smarty
 	public function page_topnav()
 	{
 		$this->playerplanets	= SortUserPlanets($this->player);
+		$this->phpself			= request_var('page', '');
 		
 		foreach($this->playerplanets as $CurPlanetID => $CurPlanet)
 		{
-			$SelectorVaules[]	= "?".$_SERVER['QUERY_STRING']."&amp;cp=".$CurPlanet['id']."&amp;re=0";
+			$SelectorVaules[]	= "?page=".$this->phpself."&amp;cp=".$CurPlanet['id']."&amp;re=0";
 			$SelectorNames[]	= $CurPlanet['name'].(($CurPlanet['planet_type'] == 3) ? " (" . $this->lang['fcm_moon'] . ")":"")."&nbsp;[".$CurPlanet['galaxy'].":".$CurPlanet['system'].":".$CurPlanet['planet']."]&nbsp;&nbsp;";
 		}
 		
@@ -143,7 +144,7 @@ class template extends Smarty
 			'js_crystal_hr'		=> $this->planet['crystal_perhour'] + $this->GameConfig['crystal_basic_income'],
 			'js_deuterium_hr'	=> $this->planet['deuterium_perhour'] + $this->GameConfig['deuterium_basic_income'],
 			'js_res_multiplier'	=> $this->GameConfig['resource_multiplier'],
-			'current_panet'		=> "?".$_SERVER['QUERY_STRING']."&amp;cp=".$this->player['current_planet']."&amp;re=0",
+			'current_panet'		=> "?page=".$this->phpself."&amp;cp=".$this->player['current_planet']."&amp;re=0",
 			'tn_vacation_mode'	=> $this->lang['tn_vacation_mode'],
 			'tn_delete_mode'	=> $this->lang['tn_delete_mode'],
 			'vacation'			=> $this->player['urlaubs_modus'] ? date('d.m.Y h:i:s',$this->player['urlaubs_until']) : false,

@@ -27,8 +27,8 @@ function ShowTraderPage($CurrentUser, $CurrentPlanet)
 	$ress 		= request_var('ress', '');
 	$action 	= request_var('action', '');
 	$metal		= request_var('metal', 0);
-	$crystal 	= request_var('crystal', '');
-	$deut		= request_var('deut', 0);
+	$crystal 	= request_var('crystal', 0);
+	$deut		= request_var('deuterium', 0);
 
 	$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
 	$template	= new template();
