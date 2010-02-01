@@ -64,7 +64,9 @@ class CheckSession
 
 			if ($IsUserChecked == false)
 			{
-				setcookie ($game_config['COOKIE_NAME'], $NextCookie, $ExpireTime, "/", "", 0);
+				if(!headers_sent()) 
+					setcookie($game_config['COOKIE_NAME'], $NextCookie, $ExpireTime, "/", "", 0);
+				
 				$QryUpdateUser  = "UPDATE ".USERS." SET ";
 				$QryUpdateUser .= "`onlinetime` = '". time() ."', ";
 				$QryUpdateUser .= "`current_page` = '". addslashes($_SERVER['REQUEST_URI']) ."', ";

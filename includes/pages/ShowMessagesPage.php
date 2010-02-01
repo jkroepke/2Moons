@@ -32,8 +32,8 @@ function ShowMessagesPage($CurrentUser, $CurrentPlanet)
 	$OwnerID       	= request_var('id',0);
 	$Subject 		= request_var('subject','',true);
 	
-	$MessageType   	= array ( 0, 1, 2, 3, 4, 5, 15, 99, 100 );
-	$TitleColor    	= array ( 0 => '#FFFF00', 1 => '#FF6699', 2 => '#FF3300', 3 => '#FF9900', 4 => '#773399', 5 => '#009933', 15 => '#030070', 99 => '#007070', 100 => '#ABABAB');
+	$MessageType   	= array ( 0, 1, 2, 3, 4, 5, 15, 99, 100, 999);
+	$TitleColor    	= array ( 0 => '#FFFF00', 1 => '#FF6699', 2 => '#FF3300', 3 => '#FF9900', 4 => '#773399', 5 => '#009933', 15 => '#030070', 99 => '#007070', 100 => '#ABABAB', 999 => '#CCCCCC');
 
 	$template		= new template();
 	
@@ -109,21 +109,38 @@ function ShowMessagesPage($CurrentUser, $CurrentPlanet)
 			header("Location:game.php?page=messages");
 		break;
 		case 'show':
-			$UsrMess = $db->query("SELECT * FROM ".MESSAGES." WHERE `message_owner` = '".$CurrentUser['id']."'".(($MessCategory != 100) ? " AND `message_type` = '".$MessCategory."'" : "")." ORDER BY `message_time` DESC;");
-			$db->query("UPDATE ".USERS." SET `new_message` = '0' WHERE `id` = '".$CurrentUser['id']."';");
-				
-			while ($CurMess = $db->fetch_array($UsrMess))
+			if($MessCategory == 999)
 			{
-				$MessageList[$CurMess['message_id']]	= array(
-					'time'		=> date("d. M Y, H:i:s", $CurMess['message_time']),
-					'from'		=> $CurMess['message_from'],
-					'subject'	=> $CurMess['message_subject'],
-					'type'		=> $CurMess['message_type'],
-					'sender'	=> $CurMess['message_sender'],
-					'text'		=> $CurMess['message_text'],
-				);
+				$UsrMess = $db->query("SELECT * FROM ".MESSAGES." WHERE `message_sender` = '".$CurrentUser['id']."' ORDER BY `message_time` DESC;");
+					
+				while ($CurMess = $db->fetch_array($UsrMess))
+				{
+					$CurrUsername	= $db->fetch_array($db->query("SELECT `username`, `galaxy`, `system`, `planet` FROM ".USERS." WHERE id = '".$CurMess['message_owner']."';"));
+					
+					$MessageList[$CurMess['message_id']]	= array(
+						'time'		=> date("d. M Y, H:i:s", $CurMess['message_time']),
+						'from'		=> $CurrUsername['username']." [".$CurrUsername['galaxy'].":".$CurrUsername['system'].":".$CurrUsername['planet']."]",
+						'subject'	=> $CurMess['message_subject'],
+						'type'		=> $CurMess['message_type'],
+						'text'		=> $CurMess['message_text'],
+					);
+				}			
+			} else {
+				$UsrMess = $db->query("SELECT * FROM ".MESSAGES." WHERE `message_owner` = '".$CurrentUser['id']."'".(($MessCategory != 100) ? " AND `message_type` = '".$MessCategory."'" : "")." ORDER BY `message_time` DESC;");
+				$db->query("UPDATE ".USERS." SET `new_message` = '0' WHERE `id` = '".$CurrentUser['id']."';");
+					
+				while ($CurMess = $db->fetch_array($UsrMess))
+				{
+					$MessageList[$CurMess['message_id']]	= array(
+						'time'		=> date("d. M Y, H:i:s", $CurMess['message_time']),
+						'from'		=> $CurMess['message_from'],
+						'subject'	=> $CurMess['message_subject'],
+						'type'		=> $CurMess['message_type'],
+						'sender'	=> $CurMess['message_sender'],
+						'text'		=> $CurMess['message_text'],
+					);
+				}
 			}
-
 			
 			$template->assign_vars(array(	
 				'MessageList'						=> $MessageList,
@@ -131,6 +148,7 @@ function ShowMessagesPage($CurrentUser, $CurrentPlanet)
 				'mg_action'							=> $lang['mg_action'],
 				'mg_date'							=> $lang['mg_date'],
 				'mg_from'							=> $lang['mg_from'],
+				'mg_to'								=> $lang['mg_to'],
 				'mg_subject'						=> $lang['mg_subject'],
 				'mg_show_only_header_spy_reports'	=> $lang['mg_show_only_header_spy_reports'],
 				'mg_delete_marked'					=> $lang['mg_delete_marked'],
@@ -152,20 +170,21 @@ function ShowMessagesPage($CurrentUser, $CurrentPlanet)
 			$template->page_planetmenu();
 			$template->page_footer();
 	
-			$UsrMess       = $db->query("SELECT `message_type` FROM ".MESSAGES." WHERE `message_owner` = '".$CurrentUser['id']."' ORDER BY `message_time` DESC;");
-			$GameOps = $db->query("SELECT `username`, `email` FROM ".USERS." WHERE `authlevel` != '0' ORDER BY `username` ASC;");
+			$UsrMess 	= $db->query("SELECT m.`message_type`, c.count FROM ".MESSAGES." as m, (SELECT COUNT(*) as count FROM ".MESSAGES." WHERE message_sender = '".$CurrentUser['id']."') as c WHERE m.`message_owner` = '".$CurrentUser['id']."';");
+			$GameOps 	= $db->query("SELECT `username`, `email` FROM ".USERS." WHERE `authlevel` != '0' ORDER BY `username` ASC;");
 
 			while ($CurMess = $db->fetch_array($UsrMess))
 			{
 				$MessType              = $CurMess['message_type'];
 				$TotalMess[$MessType] += 1;
 				$TotalMess[100]       += 1;
+				$TotalMess[999]        = $CurMess['count'];
 			}
 
 			while($Ops = $db->fetch($GameOps))
 				$OpsList[]	= array(
 					'username'	=> $Ops['username'],
-					'email'	=> $Ops['email'],
+					'email'		=> $Ops['email'],
 				);
 			
 			foreach($TitleColor as $MessageID => $MessageColor) {

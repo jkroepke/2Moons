@@ -97,6 +97,6 @@ function pretty_time_update(div) {
 
 function ajax(datei, id) {
 	$.get(datei, function(data){
-		document.getElementById("frame").innerHTML = data;
+		$("#"+id).html(data);
 	});
 }
