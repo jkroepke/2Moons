@@ -11,7 +11,7 @@
           <select name="ress">
             <option value="metal">{$Metal}</option>
             <option value="crystal">{$Crystal}</option>
-            <option value="deut">{$Deuterium}</option>
+            <option value="deuterium">{$Deuterium}</option>
         </select>
         <br>
         {$tr_exchange_quota}<br><br>

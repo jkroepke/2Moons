@@ -4,7 +4,7 @@
 <div id="content">
     <table width="80%" align="center">
     <tr>
-        <td class="c" colspan="3">{$of_available_points} {$alv_points} {$of_darkmatter}</td>
+        <td class="c" colspan="3">{$of_available_points} {$user_darkmatter} {$of_darkmatter}</td>
     </tr>
 	{foreach item=OfficierInfo from=$OfficierList}
 		<tr>

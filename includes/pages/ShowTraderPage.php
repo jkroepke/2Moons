@@ -32,8 +32,11 @@ function ShowTraderPage($CurrentUser, $CurrentPlanet)
 
 	$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
 	$template	= new template();
-	$template->page_header();
+	$template->loadscript("trader.js");
+	$template->set_vars($CurrentUser, $CurrentPlanet);
 	$template->page_topnav();
+	
+	$template->page_header();
 	$template->page_leftmenu();
 	$template->page_planetmenu();
 	$template->page_footer();
