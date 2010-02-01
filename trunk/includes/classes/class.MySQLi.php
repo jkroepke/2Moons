@@ -85,10 +85,9 @@ class DB_mysqli extends Database
 	 */
 	public function query($sql)
 	{
-		//$queryTime = new Timer(microtime(1));
-	  	if($result = $this->mysqli->query($sql))
+		//echo $sql."\n";
+		if($result = $this->mysqli->query($sql))
 		{
-			//$this->qTime[$this->queryCount+1] = $queryTime->getTime(false);
 			$this->queryCount++;
 			return $result;
 		}

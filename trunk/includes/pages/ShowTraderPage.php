@@ -35,7 +35,6 @@ function ShowTraderPage($CurrentUser, $CurrentPlanet)
 	$template->loadscript("trader.js");
 	$template->set_vars($CurrentUser, $CurrentPlanet);
 	$template->page_topnav();
-	
 	$template->page_header();
 	$template->page_leftmenu();
 	$template->page_planetmenu();

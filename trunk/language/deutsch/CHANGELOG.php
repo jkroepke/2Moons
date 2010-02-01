@@ -19,7 +19,7 @@ $lang['changelog']   = array(
 - ADD: Cache for Records
 - ADD: Realtime-Ressanzeige
 - ADD: Optimize Hall of Fame DB
-- ADD: Realtime Stats BETA
+- ADD: Postausgang
 - ADD: Abbruch Schiffswert
 - FIX: Wirtschaftssystem
 - FIX: Ress. - Page
