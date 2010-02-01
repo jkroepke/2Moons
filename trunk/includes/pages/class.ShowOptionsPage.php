@@ -126,8 +126,8 @@ class ShowOptionsPage
 			// < ------------------------------------------------------------------- EL SKIN ------------------------------------------------------------------- >
 			$design 				= request_var('design', '');
 			$noipcheck 				= request_var('noipcheck', '');
-			$username 				= request_var('db_character', '');
-			$db_email 				= request_var('db_email', '');
+			$username 				= request_var('db_character', $CurrentUser['username']);
+			$db_email 				= request_var('db_email', $CurrentUser['email']);
 			$spio_anz 				= request_var('spio_anz', 5);
 			$settings_tooltiptime 	= request_var('settings_tooltiptime', '');
 			$settings_fleetactions 	= request_var('settings_fleetactions', '');
@@ -146,6 +146,7 @@ class ShowOptionsPage
 			$newpass1				= request_var('newpass1', '');
 			$newpass2				= request_var('newpass2', '');		
 			$hof					= request_var('hof', '');	
+			
 			if ($design == 'on')
 			{
 				$design = "1";
@@ -172,17 +173,7 @@ class ShowOptionsPage
 			{
 				$noipcheck = "0";
 			}
-			// < ------------------------------------------------------------- NOMBRE DE USUARIO ------------------------------------------------------------- >
-			if ($username == '')
-			{
-				$username = $CurrentUser['username'];
-			}
-			// < ------------------------------------------------------------- DIRECCION DE EMAIL ------------------------------------------------------------- >
 
-			if ($db_email == '')
-			{
-				$db_email = $CurrentUser['email'];
-			}
 			// < ------------------------------------------------------------- CANTIDAD DE SONDAS ------------------------------------------------------------- >
 			if (!is_numeric($spio_anz))
 			{
@@ -325,20 +316,25 @@ class ShowOptionsPage
 			{
 				$newpass = md5($newpass1);
 				$db->query("UPDATE ".USERS." SET `password` = '".$newpass."' WHERE `id` = '".$CurrentUser['id']."' LIMIT 1;");
-				setcookie(COOKIE_NAME, "", time()-100000, "/", "", 0);
+				setcookie($game_config['COOKIE_NAME'], "", time()-100000, "/", "", 0);
 				message($lang['op_password_changed'],"index.php",1);
 			}
 			// < ------------------------------------------------------- CAMBIO DE NOMBRE DE USUARIO ------------------------------------------------------ >
 			if ($CurrentUser['username'] != $username)
 			{
-				if (!ctype_alnum($UserName))
+				if (!ctype_alnum($username))
 					message($lang['op_user_name_no_alphanumeric'], "game.php?page=options", 1);
-
+				elseif($CurrentUser['uctime'] >= time() - (60 * 60 * 24 * 7))
+					message($lang['op_change_name_pro_week'], "game.php?page=options", 1);
+									
 				$query = $db->fetch_array($db->query("SELECT id FROM ".USERS." WHERE username='".$db->sql_escape($username)."';"));
-				if (!$query)
+				
+				if (!empty($query))
+					message($lang['op_change_name_exist'], "game.php?page=options", 1);
+				else 
 				{
-					$db->query("UPDATE ".USERS." SET username='".$db->sql_escape($username)."' WHERE id='".$CurrentUser['id']."' LIMIT 1;");
-					setcookie(COOKIE_NAME, "", time()-100000, "/", "", 0);
+					$db->query("UPDATE ".USERS." SET `username` = '".$db->sql_escape($username)."', `uctime` = '".time()."' WHERE `id`= '".$CurrentUser['id']."' LIMIT 1;");
+					setcookie($game_config['COOKIE_NAME'], "", time()-100000, "/", "", 0);
 					message($lang['op_username_changed'], "index.php", 1);
 				}
 			}
