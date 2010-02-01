@@ -17,7 +17,7 @@
 	{/if}
 	{if $PlanetInfo.Buildtime}
 		<br><span id="time_{$PlanetID}">{$PlanetInfo.Buildtime}</span>
-		<script type="text/javascript">var si_$PlanetID = window.setInterval('pretty_time_update("time_{$PlanetID}");', 1000);</script>
+		<script type="text/javascript">var si_{$PlanetID} = window.setInterval('pretty_time_update("time_{$PlanetID}");', 1000);</script>
 	{/if}
 	</a>
 	</div>

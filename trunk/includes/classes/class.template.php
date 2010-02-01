@@ -24,7 +24,14 @@ class template extends Smarty
 		$this->db					= $GLOBALS['db'];
 		$this->GameConfig			= $GLOBALS['game_config'];
 		
+		$this->script				= array();
+		
 		$this->setheader();
+	}
+	
+	public function loadscript($script)
+	{
+		$this->script[]	= $script;
 	}
 	
 	public function set_vars($CurrentUser, $CurrentPlanet)
@@ -159,6 +166,7 @@ class template extends Smarty
 			'title'		=> $this->GameConfig['game_name'],
 			'dpath'		=> (isset($dpath)) ? $dpath : DEFAULT_SKINPATH,
 			'is_pmenu'	=> $this->player['settings_planetmenu'],
+			'scripts'	=> $this->script,
 		));
 	}
 	
