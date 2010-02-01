@@ -66,11 +66,10 @@ switch ($page) {
 			} else {
 				$Caracters = "aazertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN1234567890";
 				$Count = strlen ( $Caracters );
-				$NewPass = "";
 				$Taille = 6;
 				for($i = 0; $i < $Taille; $i ++) {
 					$CaracterBoucle = rand ( 0, $Count - 1 );
-					$NewPass = $NewPass . substr ( $Caracters, $CaracterBoucle, 1 );
+					$NewPass = substr ( $Caracters, $CaracterBoucle, 1 );
 				}
 				
 				$Body = "Hallo ".$ExistMail['username'].",<br /><br />";
@@ -86,9 +85,7 @@ switch ($page) {
 					message ($lang["mail_sended_fail"], "./", 2, false, false );
 				
 				MailSend($usermail, $ExistMail['username'], $lang['mail_title'], $Body);
-			
-			$QryPassChange = "UPDATE ".USERS." SET `password` ='" . $NewPassSql . "' WHERE `email`='" . $db->sql_escape($usermail) . "' LIMIT 1;";
-				$db->query ( $QryPassChange );
+				$db->query ("UPDATE ".USERS." SET `password` ='" . md5($NewPass) . "' WHERE `username` = '" . $ExistMail['username'] . "' LIMIT 1;");
 			}
 		} else {
 			$parse ['forum_url'] = $game_config ['forum_url'];

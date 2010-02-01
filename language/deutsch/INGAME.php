@@ -823,6 +823,7 @@ $lang['mg_no_subject']						= 'Kein Betreff';
 $lang['mg_no_text']							= 'Kein Text angegeben';
 $lang['mg_msg_sended']						= 'Nachricht gesendet!';
 $lang['mg_delete_marked']					= 'Markierte Nachrichten l&ouml;schen';
+$lang['mg_delete_type_all']					= 'Alle Nachrichten dieses Typs l&ouml;schen';
 $lang['mg_delete_unmarked']					= 'Nicht Markierte Nachrichten l&ouml;schen';
 $lang['mg_delete_all']						= 'Alle Nachrichten l&ouml;schen';
 $lang['mg_show_only_header_spy_reports']	= 'Spionageberichte nur teilweise anzeigen';

@@ -23,7 +23,7 @@
 <th colspan="4">
 <select id="deletemessages" name="deletemessages">
 <option value="deletemarked">{$mg_delete_marked}</option>
-<option value="deleteunmarked">{$mg_delete_unmarked}</option>
+<option value="deleteunmarked">{$mg_delete_unmarked}</option><option value="deletetypeall">{$mg_delete_type_all}</option>
 <option value="deleteall">{$mg_delete_all}</option>
 </select><input name="mode" type="hidden" value="delete">
 <input value="{$mg_confirm_delete}" type="submit">

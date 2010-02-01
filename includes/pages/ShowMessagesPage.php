@@ -75,8 +75,11 @@ function ShowMessagesPage($CurrentUser, $CurrentPlanet)
 		break;
 		case 'delete':
 			$DeleteWhat = request_var('deletemessages','');
+			$MessType	= request_var('mess_type', 0);
 			if($DeleteWhat == 'deleteall')
 				$db->query("DELETE FROM ".MESSAGES." WHERE `message_owner` = '". $CurrentUser['id'] ."';");
+			elseif($DeleteWhat == 'deletetypeall')
+				$db->query("DELETE FROM ".MESSAGES." WHERE `message_owner` = '". $CurrentUser['id'] ."' AND `message_type` = '".$MessType."';");
 			elseif ($DeleteWhat == 'deletemarked')
 			{
 				$sql	= "";
@@ -152,6 +155,7 @@ function ShowMessagesPage($CurrentUser, $CurrentPlanet)
 				'mg_subject'						=> $lang['mg_subject'],
 				'mg_show_only_header_spy_reports'	=> $lang['mg_show_only_header_spy_reports'],
 				'mg_delete_marked'					=> $lang['mg_delete_marked'],
+				'mg_delete_type_all'				=> $lang['mg_delete_type_all'],
 				'mg_delete_unmarked'				=> $lang['mg_delete_unmarked'],
 				'mg_delete_all'						=> $lang['mg_delete_all'],
 				'mg_confirm_delete'					=> $lang['mg_confirm_delete'],
