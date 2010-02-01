@@ -14,7 +14,7 @@
 	<th class="l" width="40%">
 	<table width="100%">
 	<tr>
-		<td style="background-color: transparent;" align="left"><a href="game.php?page=infos&amp;gid={$TechInfo.id}">{$TechInfo.name}</a></td>
+		<td style="background-color: transparent;" align="left"><a href="javascript:info('{$TechInfo.id}');">{$TechInfo.name}</a></td>
 	</tr>
 	</table>
 	</th>
