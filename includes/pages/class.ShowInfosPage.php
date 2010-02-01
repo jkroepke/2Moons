@@ -201,7 +201,7 @@ class ShowInfosPage
 	{
 		global $ProdGrid, $resource, $game_config;
 
-		$BuildLevelFactor = $CurrentPlanet[ $resource[$BuildID]."_porcent" ];
+		$BuildLevelFactor = 10;
 		$BuildTemp        = $CurrentPlanet[ 'temp_max' ];
 		$CurrentBuildtLvl = $CurrentPlanet[ $resource[$BuildID] ];
 

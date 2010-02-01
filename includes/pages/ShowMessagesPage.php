@@ -174,17 +174,19 @@ function ShowMessagesPage($CurrentUser, $CurrentPlanet)
 			$template->page_planetmenu();
 			$template->page_footer();
 	
-			$UsrMess 	= $db->query("SELECT m.`message_type`, c.count FROM ".MESSAGES." as m, (SELECT COUNT(*) as count FROM ".MESSAGES." WHERE message_sender = '".$CurrentUser['id']."') as c WHERE m.`message_owner` = '".$CurrentUser['id']."';");
+			$UsrMess 	= $db->query("SELECT `message_type` FROM ".MESSAGES." WHERE `message_owner` = '".$CurrentUser['id']."';");
 			$GameOps 	= $db->query("SELECT `username`, `email` FROM ".USERS." WHERE `authlevel` != '0' ORDER BY `username` ASC;");
-
+			$MessOut	= $db->fetch_array($db->query("SELECT COUNT(*) as count FROM ".MESSAGES." WHERE message_sender = '".$CurrentUser['id']."';"));
+			
 			while ($CurMess = $db->fetch_array($UsrMess))
 			{
 				$MessType              = $CurMess['message_type'];
 				$TotalMess[$MessType] += 1;
 				$TotalMess[100]       += 1;
-				$TotalMess[999]        = $CurMess['count'];
 			}
 
+			$TotalMess[999]		= $MessOut['count'];
+			
 			while($Ops = $db->fetch($GameOps))
 				$OpsList[]	= array(
 					'username'	=> $Ops['username'],
