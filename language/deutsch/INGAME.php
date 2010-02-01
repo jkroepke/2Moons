@@ -1136,6 +1136,8 @@ $lang['op_sort_abc']						= 'Alphabet';
 $lang['op_sort_up']							= 'aufsteigend';
 $lang['op_sort_down']						= 'absteigend';
 $lang['op_user_name_no_alphanumeric']		= 'Bitte beim Username nur alphanumerische Zeichen eingeben!';
+$lang['op_change_name_pro_week']			= 'Sie K&ouml;nnen ihren Usernamen nur 1x pro Woche &auml;ndern';
+$lang['op_change_name_exist']				= 'Diese Name existiert bereits';
 
 //----------------------------------------------------------------------------//
 //BANNED
