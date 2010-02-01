@@ -321,15 +321,12 @@ class ShowOptionsPage
 			`db_deaktjava` = '".$db_deaktjava."'
 			WHERE `id` = '".$CurrentUser["id"]."' LIMIT 1;");
 			// < ------------------------------------------------------------- CAMBIO DE CLAVE ------------------------------------------------------------- >
-			if ($db_password == $CurrentUser["password"])
+			if (md5($db_password) == $CurrentUser["password"] && $newpass1 == $newpass2 && !empty($newpass1))
 			{
-				if ($newpass1 == $newpass2 && $newpass1 != '')
-				{
-					$newpass = md5($newpass1);
-					$db->query("UPDATE ".USERS." SET `password` = '".$newpass."' WHERE `id` = '".$CurrentUser['id']."' LIMIT 1;");
-					setcookie(COOKIE_NAME, "", time()-100000, "/", "", 0);
-					message($lang['op_password_changed'],"index.php",1);
-				}
+				$newpass = md5($newpass1);
+				$db->query("UPDATE ".USERS." SET `password` = '".$newpass."' WHERE `id` = '".$CurrentUser['id']."' LIMIT 1;");
+				setcookie(COOKIE_NAME, "", time()-100000, "/", "", 0);
+				message($lang['op_password_changed'],"index.php",1);
 			}
 			// < ------------------------------------------------------- CAMBIO DE NOMBRE DE USUARIO ------------------------------------------------------ >
 			if ($CurrentUser['username'] != $username)
@@ -384,7 +381,7 @@ class ShowOptionsPage
 				$parse['opt_sskin_data'] 	= ($CurrentUser['design'] == 1) ? " checked='checked'":'';
 				$parse['opt_noipc_data'] 	= ($CurrentUser['noipcheck'] == 1) ? " checked='checked'":'';
 				$parse['opt_allyl_data'] 	= ($CurrentUser['settings_planetmenu'] == 1) ? " checked='checked'/":'';
-				$parse['opt_delac_data'] 	= ($CurrentUser['db_deaktjava'] == 1) ? " checked='checked'/":'';
+				$parse['opt_delac_data'] 	= ($CurrentUser['db_deaktjava'] != 0) ? " checked='checked'/":'';
 				$parse['user_settings_rep'] = ($CurrentUser['settings_rep'] == 1) ? " checked='checked'/":'';
 				$parse['user_settings_esp'] = ($CurrentUser['settings_esp'] == 1) ? " checked='checked'/":'';
 				$parse['user_settings_wri'] = ($CurrentUser['settings_wri'] == 1) ? " checked='checked'/":'';

@@ -69,6 +69,7 @@ $lang['tech_rc'] = array (
 //----------------------------------------------------------------------------//
 //TOPNAV
 $lang['tn_vacation_mode']					= 'Sie sind im Urlaubsmodus ';
+$lang['tn_delete_mode']						= 'Ihr Account wir am %s automatiosch gel&ouml;scht!';
 
 //----------------------------------------------------------------------------//
 //LEFT MENU
