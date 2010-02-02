@@ -58,6 +58,9 @@
         <th><a title="{$op_deactivate_ipcheck_descrip}">{$op_deactivate_ipcheck}</a></th>
         <th><input name="noipcheck" type="checkbox" {if $opt_noipc_data == 1}checked="checked"{/if}></th>
     </tr><tr>
+        <th>{$op_show_planetmenu}</th>
+        <th><input name="settings_planetmenu" type="checkbox" {if $opt_allyl_data == 1}checked="checked"{/if}></th>
+    </tr><tr>
         <td class="c" colspan="2">{$op_galaxy_settings}</td>
     </tr><tr>
         <th><a title="{$op_spy_probes_number_descrip}">{$op_spy_probes_number}</a></th>
@@ -68,9 +71,6 @@
     </tr><tr>
         <th>{$op_max_fleets_messages}</th>
         <th><input name="settings_fleetactions" maxlength="2" size="2" value="{$opt_fleet_data}" type="text"></th>
-    </tr><tr>
-        <th>{$op_show_planetmenu}</th>
-        <th><input name="settings_planetmenu" type="checkbox" {if $opt_allyl_data == 1}checked="checked"{/if}></th>
     </tr><tr>
         <td align="center" class="c">{$op_shortcut}</td>
         <td align="center" class="c">{$op_show}</td>
