@@ -1253,8 +1253,10 @@ $lang['sys_destruc_null']        		   	= "Die Todessterne k&ouml;nnen ihre volle
 $lang['ccs_multiple_users']					= 'Cookie Fehler! Jemand hat sich mit deinem Account eingeloggt. L&ouml;sche deine Cookies und melde dich neu an. Wenn das Problem weiterhin besteht kontaktieren Sie den Administrator.';
 $lang['ccs_other_user']						= 'Cookie Fehler! L&ouml;sche deine Cookies und melde dich neu an. Wenn das Problem weiterhin besteht kontaktieren Sie den Administrator.';
 $lang['css_different_password']				= 'Cookie Fehler! L&ouml;sche deine Cookies und melde dich neu an. Wenn das Problem weiterhin besteht kontaktieren Sie den Administrator.';
-$lang['css_account_banned_message']			= 'Dein Account wurde gespeert';
-$lang['css_account_banned_expire']			= 'Gespeert:';
+$lang['css_account_banned_message']			= 'Dein Account wurde gespeert!';
+$lang['css_account_banned_expire']			= 'Du bist zum %s gespeert!';
+$lang['css_goto_homeside']					= '<a href="./index.php">Zur Startseite</a>';
+$lang['css_server_maintrace']				= 'Server Maintrace<br><br>Spiel zurzeit geschlossen.<br><br>Grund: %s';
 
 //----------------------------------------------------------------------------//
 //class.debug.php

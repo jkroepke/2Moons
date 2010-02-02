@@ -371,8 +371,7 @@ function msg_handler($errno, $msg_text, $errfile, $errline)
 			echo "<div style='border: 2px solid red; margin-left: 190.5px; margin-bottom: 1px; padding: 2px; color:#FFFFFF;'><b>[2Moons Debug] PHP Warning </b> in file <b>" . $errfile . "</b> on line <b>" . $errline . "</b>: <b>" . $msg_text . "</b></div>\n";
 			return;
 
-		break;
-		case E_USER_NOTICE:	
+		break;	
 		case E_STRICT:
 		case E_DEPRECATED:
 			echo "<div style='border: 2px solid red; margin-left: 190.5px; margin-bottom: 1px; padding: 2px;color:#FFFFFF;'><b>[2Moons Debug] PHP Notice </b> in file <b>" . $errfile . "</b> on line <b>" . $errline . "</b>: <b>" . $msg_text . "</b></div>\n";
@@ -405,7 +404,40 @@ function msg_handler($errno, $msg_text, $errfile, $errline)
 			echo '</tr>';
 			echo '</table>';
 			echo '</body>';			
-			echo '<html>';	
+			echo '</html>';	
+			exit;
+		break;
+		case E_USER_NOTICE:
+			echo '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">';
+			echo '<html>';
+			echo '<head>';
+			echo '<meta http-equiv="content-type" content="text/html; charset=UTF-8">';
+			echo '<meta http-equiv="content-script-type" content="text/javascript">';
+			echo '<meta http-equiv="content-style-type" content="text/css">';
+			echo '<meta http-equiv="content-language" content="de">';
+			echo '<title>'.$game_config['game_name'].' - FATAL ERROR</title>';
+			echo '<link rel="shortcut icon" href="./favicon.ico">';
+			echo '<link rel="stylesheet" type="text/css" href="styles/css/default.css">';
+			echo '<link rel="stylesheet" type="text/css" href="styles/css/formate.css">';
+			echo '<link rel="stylesheet" type="text/css" href="'.DEFAULT_SKINPATH.'formate.css">';
+			echo '<script type="text/javascript" src="scripts/overlib.js"></script>';
+			echo '<script language="JavaScript"> ';
+			echo 'function blockError(){return true;} ';
+			echo 'window.onerror = blockError; ';
+			echo '</script>';
+			echo '</head>';
+			echo '<body>';
+			echo '<table style="width:80%;position:absolute;top:30%;bottom:50%;left:10%;right:10%;" align="center">';
+			echo '<tr>';
+			echo '<td class="c">';
+			echo 'Informationen:';
+			echo '</td>';
+			echo '</tr>';
+            echo '<th class="errormessage"><b>' . $msg_text . '</b></th>';
+			echo '</tr>';
+			echo '</table>';
+			echo '</body>';			
+			echo '</html>';	
 			exit;
 		break;
 	}

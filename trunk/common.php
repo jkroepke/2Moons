@@ -110,7 +110,7 @@ if (INSTALL != true)
 		
 		if($game_config['game_disable'] == 0 && $user['authlevel'] == 0)
 		{
-			trigger_error($game_config['close_reason'], E_USER_ERROR);
+			trigger_error(sprintf($lang['css_server_maintrace'],$game_config['close_reason']), E_USER_NOTICE);
 		}
 		
 		if($game_config['stats_fly_lock'] == 0 && !defined('IN_ADMIN'))
