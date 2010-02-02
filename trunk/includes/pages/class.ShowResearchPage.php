@@ -96,13 +96,11 @@ class ShowResearchPage
 		'deuterium'  => $lang['Deuterium'],
 		'energy_max' => $lang['Energy']
 		);
-
-		$text  = $lang['bd_remaining'];
+		$restprice	= array();
 		foreach ($array as $ResType => $ResTitle)
 		{
 			if ($pricelist[$Element][$ResType] != 0)
 			{
-				$text .= "<br>".$ResTitle . ": <b>";
 				if ($userfactor)
 				{
 					$cost = floor($pricelist[$Element][$ResType] * pow($pricelist[$Element]['factor'], $level));
@@ -111,12 +109,11 @@ class ShowResearchPage
 				{
 					$cost = floor($pricelist[$Element][$ResType]);
 				}
-				$text .= pretty_number(max($cost - $planet[$ResType],0))."</b>";
+				$restprice[$ResTitle] = pretty_number(max($cost - $planet[$ResType],0));
 			}
 		}
-		$text .= "";
 
-		return $text;
+		return $restprice;
 	}
 
 	public function ShowResearchPage (&$CurrentPlanet, $CurrentUser, $InResearch, $ThePlanet)
@@ -126,21 +123,25 @@ class ShowResearchPage
 		include_once($xgp_root . 'includes/functions/IsTechnologieAccessible.' . $phpEx);
 		include_once($xgp_root . 'includes/functions/GetElementPrice.' . $phpEx);
 
-		$PageParse			= $lang;
-		$NoResearchMessage 	= "";
-		$bContinue         	= true;
+		$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
 
-			
-		if ($CurrentPlanet[$resource[31]] == 0)
-			message($lang['bd_lab_required'], '', '', true);
-
-		$CurrentPlanet[$resource[31]]	= $this->CheckAndGetLabLevel($CurrentUser, $CurrentPlanet);
-				
-		if (!$this->CheckLabSettingsInQueue ($CurrentPlanet))
-		{
-			$NoResearchMessage = $lang['bd_building_lab'];
-			$bContinue         = false;
+		$template	= new template();
+		$template->set_vars($CurrentUser, $CurrentPlanet);
+		$template->page_header();	
+		$template->page_topnav();
+		$template->page_leftmenu();
+		$template->page_planetmenu();
+		$template->page_footer();
+		
+		if ($CurrentPlanet[$resource[31]] == 0){
+			$template->message($lang['bd_lab_required']);
+			$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 		}
+		
+		$bContinue	= (!$this->CheckLabSettingsInQueue ($CurrentPlanet)) ? true : false;
+			
+		$CurrentPlanet[$resource[31]]	= $this->CheckAndGetLabLevel($CurrentUser, $CurrentPlanet);		
+		
 		$TheCommand			= request_var('cmd','');				
 		if (!empty($TheCommand))
 		{
@@ -215,63 +216,30 @@ class ShowResearchPage
 			}
 			else
 			{
-				exit(header("location:game.php?page=buildings&mode=research"));
+				exit(header("location:game.".$phpEx."?page=buildings&mode=research"));
 			}
 		}
-
-		$TechRowTPL = gettemplate('buildings/buildings_research_row');
-		$TechScrTPL = gettemplate('buildings/buildings_research_script');
 		
 		foreach($reslist['tech'] as $ID => $Element)
 		{
 			if (IsTechnologieAccessible($CurrentUser, $CurrentPlanet, $Element))
 			{
-				$parse                	 = $lang;
-				$parse['dpath']       	 = $dpath;
-				$parse['name']        	 = $lang['tech'][$Element];
-				$parse['image']       	 = $Element;
-				$parse['description'] 	 = $lang['res']['descriptions'][$Element];
-				$infodiv 				.= parsetemplate(gettemplate('buildings/buildings_research_info_row'), $parse);
-				$RowParse['dpath']       = $dpath;
-				$RowParse['tech_id']     = $Element;
-				$CurrentLevel        	 = $CurrentUser[$resource[$Element]];
-
-				if($Element == 106)
-				{
-					$RowParse['tech_level']  = ($CurrentLevel == 0) ? "" : " (". $lang['bd_lvl'] . " ".$CurrentLevel .")" ;
-					$RowParse['tech_level']  .= ($CurrentUser['rpg_espion'] == 0) ? "" : "<strong><font color=\"lime\"> +" . ($CurrentUser['rpg_espion'] * ESPION) . $lang['bd_spy']	. "</font></strong>";
-				}
-				elseif($Element == 108)
-				{
-					$RowParse['tech_level']  = ($CurrentLevel == 0) ? "" : " (". $lang['bd_lvl'] . " ".$CurrentLevel .")";
-					$RowParse['tech_level']  .= ($CurrentUser['rpg_commandant'] == 0) ? "" : "<strong><font color=\"lime\"> +" . ($CurrentUser['rpg_commandant'] * COMMANDANT) . $lang['bd_commander'] . "</font></strong>";
-				}
-				else
-					$RowParse['tech_level']  = ($CurrentLevel == 0) ? "" : " (". $lang['bd_lvl'] . " ".$CurrentLevel.")";
-					
-				$RowParse['tech_level']	.= (isset($pricelist[$Element]['max']) && $pricelist[$Element]['max'] != 255) ? " (Max. Level: ".$pricelist[$Element]['max'].")":"";
-				$RowParse['tech_name']   = $lang['tech'][$Element];
-				$RowParse['tech_descr']  = $lang['res']['descriptions'][$Element];
-				$RowParse['tech_price']  = GetElementPrice($CurrentUser, $CurrentPlanet, $Element);
-				$SearchTime              = GetBuildingTime($CurrentUser, $CurrentPlanet, $Element);
-				$RowParse['search_time'] = ShowBuildTime($SearchTime);
-				$RowParse['tech_restp']  = $this->GetRestPrice ($CurrentUser, $CurrentPlanet, $Element, true);
 				$CanBeDone               = IsElementBuyable($CurrentUser, $CurrentPlanet, $Element);
 		
 				if(isset($pricelist[$Element]['max']) && $CurrentUser[$resource[$Element]] >= $pricelist[$Element]['max'])
 				{
-					$TechnoLink  =	"<font color=#FF0000>".$lang['bd_maxlevel']."</font>";
+					$TechnoLink  =	"<font color=\"#FF0000\">".$lang['bd_maxlevel']."</font>";
 				}
 				elseif (!$InResearch)
 				{
 					$LevelToDo = 1 + $CurrentUser[$resource[$Element]];
 					if ($CanBeDone && $this->CheckLabSettingsInQueue($CurrentPlanet))
 					{
-						$TechnoLink = "<a href=\"game.php?page=buildings&mode=research&cmd=search&tech=".$Element."\"><font color=#00FF00>".$lang['bd_research'].(($LevelToDo == 1) ? "" : "<br>".$lang['bd_lvl']." ".$LevelToDo)."</font></a>";
+						$TechnoLink = "<a href=\"game.php?page=buildings&amp;mode=research&amp;cmd=search&amp;tech=".$Element."\"><font color=\"#00FF00\">".$lang['bd_research'].(($LevelToDo == 1) ? "" : "<br>".$lang['bd_lvl']." ".$LevelToDo)."</font></a>";
 					}
 					else
 					{
-						$TechnoLink = "<font color=#FF0000>".$lang['bd_research'].(($LevelToDo == 1) ? "" : "<br>".$lang['bd_lvl']." ".$LevelToDo)."</font>";
+						$TechnoLink = "<font color=\"#FF0000\">".$lang['bd_research'].(($LevelToDo == 1) ? "" : "<br>".$lang['bd_lvl']." ".$LevelToDo)."</font>";
 					}
 				}
 				else
@@ -281,38 +249,63 @@ class ShowResearchPage
 						$bloc       = $lang;
 						if ($ThePlanet['id'] != $CurrentPlanet['id'])
 						{
-							$bloc['tech_time']  = $ThePlanet["b_tech"] - time();
-							$bloc['tech_name']  = $lang['bd_on']."<br>". $ThePlanet["name"];
-							$bloc['tech_home']  = $ThePlanet["id"];
-							$bloc['tech_id']    = $ThePlanet["b_tech_id"];
-							$bloc['game_name']  = $game_config['game_name'];
-							$bloc['tech_lang']  = $lang['tech'][$CurrentPlanet["b_tech_id"]];
+							$template->assign_vars(array(
+								'tech_time'		=> $ThePlanet["b_tech"] - time(),
+								'tech_name'		=> $lang['bd_on']."<br>". $ThePlanet["name"],
+								'tech_home'		=> $ThePlanet["id"],
+								'tech_id'		=> $ThePlanet["b_tech_id"],
+								'game_name'		=> $game_config['game_name'],
+								'tech_lang'		=> $lang['tech'][$CurrentPlanet["b_tech_id"]],
+								'bd_cancel'		=> $lang['bd_cancel'],
+								'bd_ready'		=> $lang['bd_ready'],
+								'bd_continue'	=> $lang['bd_continue'],
+							));
 						}
 						else
 						{
-							$bloc['tech_time']  = $CurrentPlanet["b_tech"] - time();
-							$bloc['tech_name']  = "";
-							$bloc['game_name']  = $game_config['game_name'];
-							$bloc['tech_lang']  = $lang['tech'][$CurrentPlanet["b_tech_id"]];
-							$bloc['tech_home']  = $CurrentPlanet["id"];
-							$bloc['tech_id']    = $CurrentPlanet["b_tech_id"];
+							$template->assign_vars(array(
+								'tech_time'		=> $CurrentPlanet["b_tech"] - time(),
+								'tech_name'		=> "",
+								'game_name'		=> $game_config['game_name'],
+								'tech_lang'		=> $lang['tech'][$CurrentPlanet["b_tech_id"]],
+								'tech_home'		=> $CurrentPlanet["id"],
+								'tech_id'		=> $CurrentPlanet["b_tech_id"],					
+								'bd_cancel'		=> $lang['bd_cancel'],
+								'bd_ready'		=> $lang['bd_ready'],
+								'bd_continue'	=> $lang['bd_continue'],
+							));
 						}
-						$TechnoLink  = parsetemplate($TechScrTPL, $bloc);
+						$TechnoLink  = $template->fetch("buildings_research_script.tpl");
 					}
 					else
 					{
 						$TechnoLink  = "<center>-</center>";
 					}
 				}
-				$RowParse['tech_link']  = $TechnoLink;
-				$TechnoList            .= parsetemplate($TechRowTPL, $RowParse);
+				
+				$ResearchList[] = array(
+					'id'		=> $Element,
+					'maxinfo'	=> (isset($pricelist[$Element]['max']) && $pricelist[$Element]['max'] != 255) ? sprintf($lang['bd_max_lvl'], $pricelist[$Element]['max']):"",
+					'name'  	=> $lang['tech'][$Element],
+					'descr'  	=> $lang['res']['descriptions'][$Element],
+					'price'  	=> GetElementPrice($CurrentUser, $CurrentPlanet, $Element),					
+					'time' 		=> pretty_time(GetBuildingTime($CurrentUser, $CurrentPlanet, $Element)),
+					'restprice'	=> $this->GetRestPrice($CurrentUser, $CurrentPlanet, $Element, true),
+					'elvl'		=> ($Element == 106) ? ($CurrentUser['rpg_espion'] * ESPION) . $lang['bd_spy'] : (($Element == 108) ? ($CurrentUser['rpg_commandant'] * COMMANDANT).$lang['bd_commander'] : false),
+					'lvl'		=> $CurrentUser[$resource[$Element]],
+					'link'  	=> $TechnoLink,
+				);
 			}
 		}
-		$PageParse['infodiv']	  = $infodiv;
-		$PageParse['noresearch']  = $NoResearchMessage;
-		$PageParse['technolist']  = $TechnoList;
-		$Page                    .= parsetemplate(gettemplate('buildings/buildings_research'), $PageParse);
-
-		display($Page);
+		$template->assign_vars(array(
+			'ResearchList'			=> $ResearchList,
+			'IsLabinBuild'			=> $bContinue,
+			'bd_building_lab'		=> $lang['bd_building_lab'],
+			'bd_remaining'			=> $lang['bd_remaining'],			
+			'fgf_time'				=> $lang['fgf_time'],
+		));
+		
+		$template->show('buildings_research.tpl');
+		$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 	}
 }

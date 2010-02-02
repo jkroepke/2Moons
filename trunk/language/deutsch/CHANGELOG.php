@@ -39,7 +39,7 @@ $lang['changelog']   = array(
 - FIX: Intergal. Forschungsnetzwerk
 - FIX: Werte f&uuml;r den Verbrauch
 - FIX: Error-Handler
-- FIX: U-Mode & Adminschutz - Iraks
+- FIX: U-Mode &amp; Adminschutz - Iraks
 - FIX: AKS-BUG in der SendFleetBack Funktion
 - FIX: Flottenflugzeit
 - FIX: CAPTCHA
@@ -64,6 +64,8 @@ $lang['changelog']   = array(
 - FIX: Adminschutz
 - FIX: Schiffebauen ohne Schiffswerft
 - FIX: Anzeigefehler im KB Erstellung
+- FIX: Passwort vergessen
+- FIX: Passwort/Nichname &auml;ndern
 - FIX: Umlaute in den Beschreibungen
 - DIV: Neue Methode zum Aufruf von Fleethandler
 - DIV: Neue Plantenbilder
@@ -74,7 +76,7 @@ $lang['changelog']   = array(
 - DIV: Neue Formel f&uuml;r Solarsats, Deuterium, Planettemp und Felderanzahl
 - DIV: Sicherheit im Game erh&ouml;ht
 - DIV: Diverse Anpassungen am Game
-- DIV: Update jQuery to 1.4
+- DIV: Update jQuery to 1.4.1
 ',
 
 'RC4.2' => 'ShadoX 06.12.09
@@ -97,7 +99,7 @@ $lang['changelog']   = array(
 - FIX: Allianzr&auml;nge
 - FIX: max. Expiditionen / max. Haltezeit
 - FIX: Usernamen&uuml;berpr&uuml;fung bei der Registration
-- FIX: Registration close & Game Close
+- FIX: Registration close &amp; Game Close
 - FIX: AdminChatPage
 - FIX: Speicheranzeige in Rohstoffe korrigiert
 - FIX: Galaxy Allyname Crash
@@ -162,7 +164,7 @@ $lang['changelog']   = array(
 - DIV: Koords-Verliunkung zur Galaxie in Fleets
 - DIV: Skinoptimierungen
 - DIV: DB-Speicherzyp f&uuml;r Geb&auml;ude und Forschung von int(11) auf TINYINT(3) unsigned ge&auml;ndert
-- DIV: Anpassung an Internet Explorer (IE8) & Opera
+- DIV: Anpassung an Internet Explorer (IE8) &amp; Opera
 - DIV: Unn&ouml;tige SQL-Abfragen(SELECT * FROM) ge&auml;ndert
 - DIV: register_globals standartm&auml;ssig aus
 - DIV: Alle Tabellen werden nun 1x pro Tag Aufger&auml;mt (OPTIMIZE TABLE)
