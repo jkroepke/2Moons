@@ -88,33 +88,38 @@ class ShowOptionsPage
 		}
 	}
 	
-	public function ShowOptionsPage($CurrentUser)
+	public function ShowOptionsPage($CurrentUser, $CurrentPlanet)
 	{
 		global $game_config, $dpath, $lang, $db;
 
-		$mode = request_var('mode', '');
-		$exit = request_var('exit_modus', '');
-		if ($_POST && $mode == "exit")
+		$mode 			= request_var('mode', '');
+		$exit 			= request_var('exit_modus', '');
+		$db_deaktjava 	= request_var('db_deaktjava', '');
+		
+		if ($mode == "exit")
 		{
 			if ($exit == 'on' and $CurrentUser['urlaubs_until'] <= time())
-			{
-				$urlaubs_modus = "0";
-
-				$db->query("UPDATE ".USERS." SET
-				`urlaubs_modus` = '0',
-				`urlaubs_until` = '0'
-				WHERE `id` = '".$CurrentUser['id']."' LIMIT 1;");
-
-				die(header("location:game.php?page=options"));
-			}
+				$db->query("UPDATE ".USERS." SET `urlaubs_modus` = '0', `urlaubs_until` = '0' WHERE `id` = '".$CurrentUser['id']."' LIMIT 1;");
+			
+			if ($db_deaktjava == 'on')
+				$db->query("UPDATE ".USERS." SET `db_deaktjava` = '".time()."' WHERE `id` = '".$CurrentUser['id']."' LIMIT 1;");
 			else
-			{
-				$urlaubs_modus = "1";
-				die(header("location:game.php?page=options"));
-			}
+				$db->query("UPDATE ".USERS." SET `db_deaktjava` = '0' WHERE `id` = '".$CurrentUser['id']."' LIMIT 1;");
+			
+			die(header("location:game.php?page=options"));
 		}
-
-		if ($_POST && $mode == "change")
+		
+		$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
+		
+		$template	= new template();
+		$template->set_vars($CurrentUser, $CurrentPlanet);
+		$template->page_header();	
+		$template->page_topnav();
+		$template->page_leftmenu();
+		$template->page_planetmenu();
+		$template->page_footer();
+		
+		if ($mode == "change")
 		{
 			if ($CurrentUser['authlevel'] > 0)
 			{
@@ -138,7 +143,6 @@ class ShowOptionsPage
 			$settings_mis 			= request_var('settings_mis', '');
 			$settings_rep 			= request_var('settings_rep', '');
 			$urlaubs_modus 			= request_var('urlaubs_modus', '');
-			$db_deaktjava 			= request_var('db_deaktjava', '');
 			$SetSort  				= request_var('settings_sort' , '');
 			$SetOrder 				= request_var('settings_order', '');
 			$dpath    				= request_var('dpath', '');
@@ -248,7 +252,7 @@ class ShowOptionsPage
 			{
 				if($this->CheckIfIsBuilding($CurrentUser))
 				{
-					message($lang['op_cant_activate_vacation_mode'], "game.php?page=options",1);
+					$template->message($lang['op_cant_activate_vacation_mode'], "game.php?page=options",1);
 				}
 
 				$urlaubs_modus = "1";
@@ -317,76 +321,117 @@ class ShowOptionsPage
 				$newpass = md5($newpass1);
 				$db->query("UPDATE ".USERS." SET `password` = '".$newpass."' WHERE `id` = '".$CurrentUser['id']."' LIMIT 1;");
 				setcookie($game_config['COOKIE_NAME'], "", time()-100000, "/", "", 0);
-				message($lang['op_password_changed'],"index.php",1);
+				$template->message($lang['op_password_changed'],"index.php",1);
 			}
 			// < ------------------------------------------------------- CAMBIO DE NOMBRE DE USUARIO ------------------------------------------------------ >
-			if ($CurrentUser['username'] != $username)
+			elseif ($CurrentUser['username'] != $username)
 			{
 				if (!ctype_alnum($username))
-					message($lang['op_user_name_no_alphanumeric'], "game.php?page=options", 1);
+					$template->message($lang['op_user_name_no_alphanumeric'], "game.php?page=options", 1);
 				elseif($CurrentUser['uctime'] >= time() - (60 * 60 * 24 * 7))
-					message($lang['op_change_name_pro_week'], "game.php?page=options", 1);
-									
-				$query = $db->fetch_array($db->query("SELECT id FROM ".USERS." WHERE username='".$db->sql_escape($username)."';"));
-				
-				if (!empty($query))
-					message($lang['op_change_name_exist'], "game.php?page=options", 1);
-				else 
+					$template->message($lang['op_change_name_pro_week'], "game.php?page=options", 1);
+				else
 				{
-					$db->query("UPDATE ".USERS." SET `username` = '".$db->sql_escape($username)."', `uctime` = '".time()."' WHERE `id`= '".$CurrentUser['id']."' LIMIT 1;");
-					setcookie($game_config['COOKIE_NAME'], "", time()-100000, "/", "", 0);
-					message($lang['op_username_changed'], "index.php", 1);
+					$query = $db->fetch_array($db->query("SELECT id FROM ".USERS." WHERE username='".$db->sql_escape($username)."';"));
+					
+					if (!empty($query))
+						$template->message($lang['op_change_name_exist'], "game.php?page=options", 1);
+					else 
+					{
+						$db->query("UPDATE ".USERS." SET `username` = '".$db->sql_escape($username)."', `uctime` = '".time()."' WHERE `id`= '".$CurrentUser['id']."' LIMIT 1;");
+						setcookie($game_config['COOKIE_NAME'], "", time()-100000, "/", "", 0);
+						$template->message($lang['op_username_changed'], "index.php", 1);
+					}
 				}
 			}
-			message($lang['op_options_changed'], "game.php?page=options", 1);
+			else
+				$template->message($lang['op_options_changed'], "game.php?page=options", 1);
+			
+			$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 		}
 		else
 		{
-			$parse			= $lang;
-			$parse['dpath'] = $dpath;
-
-			if($CurrentUser['urlaubs_modus'])
+			if($CurrentUser['urlaubs_modus'] == 1)
 			{
-				$parse['opt_modev_data'] 	= ($CurrentUser['urlaubs_modus'] == 1)?" checked='checked'/":'';
-				$parse['opt_modev_exit'] 	= ($CurrentUser['urlaubs_modus'] == 0)?" checked='1'/":'';
-				$parse['vacation_until'] 	= date("d.m.Y G:i:s",$CurrentUser['urlaubs_until']);
-
-				display(parsetemplate(gettemplate('options/options_body_vmode'), $parse), false);
+				$template->assign_vars(array(	
+					'vacation_until'					=> date("d.m.Y G:i:s",$CurrentUser['urlaubs_until']),
+					'op_save_changes'					=> $lang['op_save_changes'],
+					'op_end_vacation_mode'				=> $lang['op_end_vacation_mode'],
+					'op_vacation_mode_active_message'	=> $lang['op_vacation_mode_active_message'],
+					'op_dlte_account_descrip'			=> $lang['op_dlte_account_descrip'],
+					'op_dlte_account'					=> $lang['op_dlte_account'],
+					'opt_delac_data'					=> $CurrentUser['db_deaktjava'],
+				));
+				$template->show("options_overview_vmode.tpl");
 			}
 			else
 			{
-				$parse['opt_lst_ord_data']   = "<option value =\"0\"". (($CurrentUser['planet_sort'] == 0) ? " selected": "") .">".$lang['op_sort_normal']."</option>";
-				$parse['opt_lst_ord_data']  .= "<option value =\"1\"". (($CurrentUser['planet_sort'] == 1) ? " selected": "") .">".$lang['op_sort_koords']."</option>";
-				$parse['opt_lst_ord_data']  .= "<option value =\"2\"". (($CurrentUser['planet_sort'] == 2) ? " selected": "") .">".$lang['op_sort_abc']."</option>";
-				$parse['opt_lst_cla_data']   = "<option value =\"0\"". (($CurrentUser['planet_sort_order'] == 0) ? " selected": "") .">".$lang['op_sort_up']."</option>";
-				$parse['opt_lst_cla_data']  .= "<option value =\"1\"". (($CurrentUser['planet_sort_order'] == 1) ? " selected": "") .">".$lang['op_sort_down']."</option>";
-
-				if ($CurrentUser['authlevel'] > 0)
-				{
-					$IsProtOn = $db->fetch_array($db->query("SELECT `id_level` FROM ".PLANETS." WHERE `id_owner` = '".$CurrentUser['id']."' LIMIT 1;"));
-					$parse['adm_pl_prot_data']   = ($IsProtOn['id_level'] > 0) ? " checked='checked'/":'';
-					$parse['opt_adm_frame']      = parsetemplate(gettemplate('options/options_admadd'), $parse);
-				}
-				$parse['opt_usern_data'] 	= $CurrentUser['username'];
-				$parse['opt_mail1_data'] 	= $CurrentUser['email'];
-				$parse['opt_mail2_data'] 	= $CurrentUser['email_2'];
-				$parse['opt_dpath_data'] 	= $CurrentUser['dpath'];
-				$parse['opt_probe_data'] 	= $CurrentUser['spio_anz'];
-				$parse['opt_toolt_data'] 	= $CurrentUser['settings_tooltiptime'];
-				$parse['opt_fleet_data'] 	= $CurrentUser['settings_fleetactions'];
-				$parse['opt_sskin_data'] 	= ($CurrentUser['design'] == 1) ? " checked='checked'":'';
-				$parse['opt_noipc_data'] 	= ($CurrentUser['noipcheck'] == 1) ? " checked='checked'":'';
-				$parse['opt_allyl_data'] 	= ($CurrentUser['settings_planetmenu'] == 1) ? " checked='checked'/":'';
-				$parse['opt_delac_data'] 	= ($CurrentUser['db_deaktjava'] != 0) ? " checked='checked'/":'';
-				$parse['user_settings_rep'] = ($CurrentUser['settings_rep'] == 1) ? " checked='checked'/":'';
-				$parse['user_settings_esp'] = ($CurrentUser['settings_esp'] == 1) ? " checked='checked'/":'';
-				$parse['user_settings_wri'] = ($CurrentUser['settings_wri'] == 1) ? " checked='checked'/":'';
-				$parse['user_settings_mis'] = ($CurrentUser['settings_mis'] == 1) ? " checked='checked'/":'';
-				$parse['user_settings_bud'] = ($CurrentUser['settings_bud'] == 1) ? " checked='checked'/":'';
-				$parse['opt_hof'] 			= ($CurrentUser['hof'] == 1) ? " checked='checked'/":'';
-				$parse['db_deaktjava']		= ($CurrentUser['db_deaktjava']  > 0) ? " checked='checked'/":'';
-
-				display(parsetemplate(gettemplate('options/options_body'), $parse));
+				$template->assign_vars(array(	
+					'opt_usern_data'					=> $CurrentUser['username'],
+					'opt_mail1_data'					=> $CurrentUser['email'],
+					'opt_mail2_data'					=> $CurrentUser['email_2'],
+					'opt_dpath_data'					=> $CurrentUser['dpath'],
+					'opt_probe_data'					=> $CurrentUser['spio_anz'],
+					'opt_toolt_data'					=> $CurrentUser['settings_tooltiptime'],
+					'opt_fleet_data'					=> $CurrentUser['settings_fleetactions'],
+					'opt_sskin_data'					=> $CurrentUser['design'],
+					'opt_noipc_data'					=> $CurrentUser['noipcheck'],
+					'opt_allyl_data'					=> $CurrentUser['settings_planetmenu'],
+					'opt_delac_data'					=> $CurrentUser['db_deaktjava'],
+					'user_settings_rep' 				=> $CurrentUser['settings_rep'],
+					'user_settings_esp' 				=> $CurrentUser['settings_esp'],
+					'user_settings_wri' 				=> $CurrentUser['settings_wri'],
+					'user_settings_mis' 				=> $CurrentUser['settings_mis'],
+					'user_settings_bud' 				=> $CurrentUser['settings_bud'],
+					'opt_hof'							=> $CurrentUser['hof'],
+					'db_deaktjava'						=> $CurrentUser['db_deaktjava'],
+					'adm_pl_prot_data'					=> $CurrentPlanet['id_level'],					
+					'user_authlevel'					=> $CurrentUser['authlevel'],					
+					'Selectors'							=> array('Sort' => array(0 => $lang['op_sort_normal'], 1 => $lang['op_sort_koords'], 2 => $lang['op_sort_abc']), 'SortUpDown' => array(0 => $lang['op_sort_up'], 1 => $lang['op_sort_down'])),
+					'planet_sort'						=> $CurrentUser['planet_sort'],
+					'planet_sort_order'					=> $CurrentUser['planet_sort_order'],
+					'uctime'							=> (time() - $CurrentUser['uctime'] >= (60 * 60 * 24 * 7)) ? true : false,
+					'op_admin_planets_protection'		=> $lang['op_admin_planets_protection'],
+					'op_admin_title_options'			=> $lang['op_admin_title_options'],
+					'op_user_data'						=> $lang['op_user_data'],
+					'op_username'						=> $lang['op_username'],
+					'op_old_pass'						=> $lang['op_old_pass'],
+					'op_new_pass'						=> $lang['op_new_pass'],
+					'op_repeat_new_pass'				=> $lang['op_repeat_new_pass'],
+					'op_email_adress_descrip'			=> $lang['op_email_adress_descrip'],
+					'op_email_adress'					=> $lang['op_email_adress'],
+					'op_permanent_email_adress'			=> $lang['op_permanent_email_adress'],
+					'op_general_settings'				=> $lang['op_general_settings'],
+					'op_sort_planets_by'				=> $lang['op_sort_planets_by'],
+					'op_sort_kind'						=> $lang['op_sort_kind'],
+					'op_skin_example'					=> $lang['op_skin_example'],
+					'op_show_skin'						=> $lang['op_show_skin'],
+					'op_active_build_messages'			=> $lang['op_active_build_messages'],
+					'op_deactivate_ipcheck_descrip'		=> $lang['op_deactivate_ipcheck_descrip'],
+					'op_deactivate_ipcheck'				=> $lang['op_deactivate_ipcheck'],
+					'op_galaxy_settings'				=> $lang['op_galaxy_settings'],
+					'op_spy_probes_number_descrip'		=> $lang['op_spy_probes_number_descrip'],
+					'op_spy_probes_number'				=> $lang['op_spy_probes_number'],
+					'op_seconds'						=> $lang['op_seconds'],
+					'op_toolt_data'						=> $lang['op_toolt_data'],
+					'op_max_fleets_messages'			=> $lang['op_max_fleets_messages'],
+					'op_show_planetmenu'				=> $lang['op_show_planetmenu'],
+					'op_shortcut'						=> $lang['op_shortcut'],
+					'op_show'							=> $lang['op_show'],
+					'op_spy'							=> $lang['op_spy'],
+					'op_write_message'					=> $lang['op_write_message'],
+					'op_add_to_buddy_list'				=> $lang['op_add_to_buddy_list'],
+					'op_missile_attack'					=> $lang['op_missile_attack'],
+					'op_send_report'					=> $lang['op_send_report'],
+					'op_vacation_delete_mode'			=> $lang['op_vacation_delete_mode'],
+					'op_activate_vacation_mode_descrip'	=> $lang['op_activate_vacation_mode_descrip'],
+					'op_activate_vacation_mode'			=> $lang['op_activate_vacation_mode'],
+					'op_dlte_account_descrip'			=> $lang['op_dlte_account_descrip'],
+					'op_dlte_account'					=> $lang['op_dlte_account'],
+					'op_save_changes'					=> $lang['op_save_changes'],
+				));
+				
+				$template->show("options_overview.tpl");
 			}
 		}
 	}
