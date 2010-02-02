@@ -9,7 +9,7 @@
             </tr>
             <tr>
                 <th>{$op_end_vacation_mode}</th>
-                <th><input type="checkbox" name="exit_modus"></th>
+                <th><input type="checkbox" name="exit_modus" {if !$is_deak_vacation}disabled{/if}></th>
             </tr><tr>
 				<th><a title="{$op_dlte_account_descrip}">{$op_dlte_account}</a></th>
 				<th><input name="db_deaktjava" type="checkbox" {if $opt_delac_data > 0}checked="checked"{/if}></th>
