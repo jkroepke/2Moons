@@ -108,7 +108,7 @@ if (SMARTY_SPL_AUTOLOAD && set_include_path(get_include_path() . PATH_SEPARATOR 
 */
 class Smarty extends Smarty_Internal_Data {
     // smarty version
-    const SMARTY_VERSION = 'Smarty3-b6'; 
+    const SMARTY_VERSION = 'Smarty3-b7'; 
     // auto literal on delimiters with whitspace
     public $auto_literal = true; 
     // display error on not assigned variables
@@ -230,13 +230,12 @@ class Smarty extends Smarty_Internal_Data {
         if (!empty($this->exception_handler))
         set_exception_handler($this->exception_handler); 
         // set default dirs
-        $this->template_dir = array($_SERVER['DOCUMENT_ROOT']."/styles/templates/");
-        $this->compile_dir = $_SERVER['DOCUMENT_ROOT']."/cache/compile/";
+        $this->template_dir = array('.' . DS . 'templates' . DS);
+        $this->compile_dir = '.' . DS . 'templates_c' . DS;
         $this->plugins_dir = array(SMARTY_PLUGINS_DIR);
-        $this->cache_dir = $_SERVER['DOCUMENT_ROOT']."/cache/";
+        $this->cache_dir = '.' . DS . 'cache' . DS;
         $this->config_dir = '.' . DS . 'configs' . DS;
         $this->debug_tpl = SMARTY_DIR . 'debug.tpl';
-
         if (!$this->debugging && $this->debugging_ctrl == 'URL') {
             if (isset($_SERVER['QUERY_STRING'])) {
                 $_query_string = $_SERVER['QUERY_STRING'];

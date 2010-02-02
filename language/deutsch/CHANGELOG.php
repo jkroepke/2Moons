@@ -3,10 +3,15 @@
 $lang['Version']     = 'Version';
 $lang['Description'] = 'Beschreibung';
 $revision = '$Date$';
-$version  = substr($revision, 7, -35);
+$version  = explode("-",substr($revision, 7, -35));
+
 $lang['changelog']   = array(
 
-'RC5.0b1' => 'ShadoX '.$version.'
+'RC5.0b2' => 'ShadoX '.$version[2].'.'.$version[1].'.'.substr($version[0],2,2).'
+- ADD: Accountl&ouml;schung w&auml;hrend des U-Modes
+- DIV: Update Smarty to 3.0b7
+',
+'RC5.0b1' => 'ShadoX 02.02.10
 - NEW: Search-Engine
 - NEW: LOGIN
 - NEW: Change Name to 2Moons
