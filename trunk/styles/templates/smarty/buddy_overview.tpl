@@ -20,8 +20,9 @@
 <th><a href="game.php?page=buddy&amp;mode=1&amp;sm=2&amp;bid={$OutRequestInfo.buddyid}">{$bu_accept}</a>
 <br><a href="game.php?page=buddy&amp;mode=1&amp;sm=1&amp;bid={$OutRequestInfo.buddyid}">{$bu_decline}</a></th>
 </tr>
+{foreachelse}
+<tr><th colspan="6">{$bu_no_request}</th></tr>
 {/foreach}
-{if {$smarty.foreach.OutRequestList.total} == 0}<tr><th colspan="6">{$bu_no_request}</th></tr>{/if}
 <tr><td class="c" colspan="6" style="text-align:center">{$bu_my_requests}</td></tr>
 <tr><td class="c">{$bu_player}</td>
 <td class="c">{$bu_alliance}</td>
@@ -36,8 +37,9 @@
 <th><a href="game.php?page=galaxy&amp;mode=3&amp;galaxy={$MyRequestInfo.galaxy}&amp;system={$MyRequestInfo.system}">{$MyRequestInfo.galaxy}:{$MyRequestInfo.system}:{$MyRequestInfo.planet}</a></th>
 <th>{$MyRequestInfo.text}</th>
 <th><a href="game.php?page=buddy&amp;mode=1&amp;sm=1&amp;bid={$MyRequestInfo.buddyid}">{$bu_cancel_request}</a></th></tr>
+{foreachelse}
+<tr><th colspan="6">{$bu_no_request}</th></tr>
 {/foreach}
-{if {$smarty.foreach.MyRequestList.total} == 0}<tr><th colspan="6">{$bu_no_request}</th></tr>{/if}
 <tr><td class="c" colspan="6" style="text-align:center">{$bu_partners}</td></tr>
 <tr>
 <td class="c">{$bu_player}</td>
@@ -61,8 +63,9 @@
 {/if}
 </th>
 <th><a href="game.php?page=buddy&amp;mode=1&amp;sm=1&amp;bid={$MyBuddyInfo.buddyid}">{$bu_delete}</a></th></tr>
+{foreachelse}
+<tr><th colspan="6">{$bu_no_buddys}</th></tr>
 {/foreach}
-{if {$smarty.foreach.MyBuddyList.total} == 0}<tr><th colspan="6">{$bu_no_buddys}</th></tr>{/if}
 </table></div>
 {if $is_pmenu == 1}
 {include file="planet_menu.tpl"}

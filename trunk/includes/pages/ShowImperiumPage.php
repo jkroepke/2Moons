@@ -21,69 +21,101 @@
 
 if(!defined('INSIDE')){ die(header("location:../../"));}
 
-function ShowImperiumPage($CurrentUser)
+function ShowImperiumPage($CurrentUser, $CurrentPlanet)
 {
 	global $lang, $resource, $reslist, $dpath, $db;
+
+	$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
+	$template	= new template();
+	$template->loadscript("trader.js");
+	$template->set_vars($CurrentUser, $CurrentPlanet);
+	$template->page_topnav();
+	$template->page_header();
+	$template->page_leftmenu();
+	$template->page_planetmenu();
+	$template->page_footer();
 	
-	$build = $fleet = $def = "";
-	foreach($reslist['build'] as $id => $gid){
-		$build .= ",`".$resource[$gid]."`";
+	$SQLArray 	= array_merge($reslist['build'], $reslist['fleet'], $reslist['defense']);
+	$Query		= "";
+	
+	foreach($SQLArray as $id => $gid){
+		$Query .= ",`".$resource[$gid]."`";
 	}
 	
-	foreach($reslist['fleet'] as $id => $gid){
-		$fleet .= ",`".$resource[$gid]."`";
-	}
 	
-	foreach($reslist['defense'] as $id => $gid){
-		$def .= ",`".$resource[$gid]."`";
-	}
-	
-	$planetsrow = $db->query("
+	$PlanetsRAW = $db->query("
 	SELECT `id`,`name`,`galaxy`,`system`,`planet`,`planet_type`,
-	`image`,`field_current`,`field_max`,`metal`,`metal_perhour`,
-	`crystal`,`crystal_perhour`,`deuterium`,`deuterium_perhour`,
-	`energy_used`,`energy_max` ".$build.$fleet.$def." FROM ".PLANETS." WHERE `id_owner` = '" . $CurrentUser['id'] . "' AND `destruyed` = 0;");
+	`image`,`field_current`,`field_max`,`metal`,`crystal`,`deuterium`,
+	`energy_used`,`energy_max` ".$Query." FROM ".PLANETS." WHERE `id_owner` = '" . $CurrentUser['id'] . "' AND `destruyed` = '0';");
 
-	$parse 	= $lang;
-	$planet = array();
 
-	while ($p = $db->fetch_array($planetsrow))
+	while ($Planet = $db->fetch_array($PlanetsRAW))
 	{
-		$planet[] = $p;
-	}
-
-	$parse['mount'] = count($planet) + 1;
-
-	foreach ($planet as $p)
-	{
-		$datat = array('<a href="game.php?page=overview&cp=' . $p['id'] . '&amp;re=0"><img src="' . $dpath . 'planeten/small/s_' . $p['image'] . '.jpg" border="0" height="80" width="80"></a>', $p['name'], "[<a href=\"game.php?page=galaxy&mode=3&galaxy={$p['galaxy']}&system={$p['system']}\">{$p['galaxy']}:{$p['system']}:{$p['planet']}</a>]", $p['field_current'] . '/' . $p['field_max'], '<a href="game.php?page=resources&cp=' . $p['id'] . '&amp;re=0&amp;planettype=' . $p['planet_type'] . '">' . pretty_number($p['metal']) . '</a> / ' . pretty_number($p['metal_perhour']), '<a href="game.php?page=resources&cp=' . $p['id'] . '&amp;re=0&amp;planettype=' . $p['planet_type'] . '">' . pretty_number($p['crystal']) . '</a> / ' . pretty_number($p['crystal_perhour']), '<a href="game.php?page=resources&cp=' . $p['id'] . '&amp;re=0&amp;planettype=' . $p['planet_type'] . '">' . pretty_number($p['deuterium']) . '</a> / ' . pretty_number($p['deuterium_perhour']), pretty_number($p['energy_max'] - $p['energy_used']) . ' / ' . pretty_number($p['energy_max']));
-		$f = array('file_images', 'file_names', 'file_coordinates', 'file_fields', 'file_metal', 'file_crystal', 'file_deuterium', 'file_energy');
-		for ($k = 0; $k < 8; $k++)
-		{
-			$data['text'] = $datat[$k];
-			$parse[$f[$k]] .= parsetemplate(gettemplate('empire/empire_row'), $data);
+		$InfoList	= array(
+			'id'			=> $Planet['id'],
+			'name'			=> $Planet['name'],
+			'image'			=> $Planet['image'],
+			'galaxy'		=> $Planet['galaxy'],
+			'system'		=> $Planet['system'],
+			'planet'		=> $Planet['planet'],
+			'field_current'	=> $Planet['field_current'],
+			'field_max'		=> $Planet['field_max'],
+			'metal'			=> pretty_number($Planet['metal']),
+			'crystal'		=> pretty_number($Planet['crystal']),
+			'deuterium'		=> pretty_number($Planet['deuterium']),
+			'energy_used'	=> pretty_number($Planet['energy_used']),
+			'energy_max'	=> pretty_number($Planet['energy_max']),
+		);
+		
+		foreach($reslist['build'] as $gid){
+			$BuildsList[$gid] = pretty_number($Planet[$resource[$gid]]);
+		}
+		
+		foreach($reslist['fleet'] as $gid){
+			$FleetsList[$gid] = pretty_number($Planet[$resource[$gid]]);
+		}
+		
+		foreach($reslist['defense'] as $gid){
+			$DefensesList[$gid] = pretty_number($Planet[$resource[$gid]]);
 		}
 
-		foreach ($resource as $i => $res)
-		{
-			$data['text'] = ($p[$resource[$i]] == 0 && $CurrentUser[$resource[$i]] == 0) ? '-' : ((in_array($i, $reslist['build'])) ? "<a href=\"game.php?page=buildings&cp={$p['id']}&amp;re=0&amp;planettype={$p['planet_type']}\">{$p[$resource[$i]]}</a>" : ((in_array($i, $reslist['tech'])) ? "<a href=\"game.php?page=buildings&mode=research&cp={$p['id']}&amp;re=0&amp;planettype={$p['planet_type']}\">{$CurrentUser[$resource[$i]]}</a>" : ((in_array($i, $reslist['fleet'])) ? "<a href=\"game.php?page=buildings&mode=fleet&cp={$p['id']}&amp;re=0&amp;planettype={$p['planet_type']}\">{$p[$resource[$i]]}</a>" : ((in_array($i, $reslist['defense'])) ? "<a href=\"game.php?page=buildings&mode=defense&cp={$p['id']}&amp;re=0&amp;planettype={$p['planet_type']}\">{$p[$resource[$i]]}</a>" : '-'))));
-			$r[$i] .= parsetemplate(gettemplate('empire/empire_row'), $data);
-		}
+		$PlanetsList[]	= array(
+			'InfoList'		=> $InfoList,
+			'BuildsList'	=> $BuildsList,
+			'FleetsList'	=> $FleetsList,
+			'DefensesList'	=> $DefensesList,
+		);
 	}
 
-	$m = array('build', 'tech', 'fleet', 'defense');
-
-	$n = array('building_row', 'technology_row', 'fleet_row', 'defense_row');
-
-	for ($j = 0; $j < 4; $j++)
-	{
-		foreach ($reslist[$m[$j]] as $a => $i)
-		{
-			$data['text'] = $lang['tech'][$i];
-			$parse[$n[$j]] .= "<tr>" . parsetemplate(gettemplate('empire/empire_row'), $data) . $r[$i] . "</tr>";
-		}
+	foreach($reslist['tech'] as $gid){
+		$ResearchList[$gid] = pretty_number($CurrentUser[$resource[$gid]]);
 	}
+		
+	$template->assign_vars(array(
+		'colspan'			=> count($PlanetsList) + 1,
+		'PlanetsList'		=> $PlanetsList,
+		'ResearchList'		=> $ResearchList,
+		'iv_imperium_title'	=> $lang['iv_imperium_title'],
+		'iv_planet'			=> $lang['iv_planet'],
+		'iv_name'			=> $lang['iv_name'],
+		'iv_coords'			=> $lang['iv_coords'],
+		'iv_fields'			=> $lang['iv_fields'],
+		'iv_resources'		=> $lang['iv_resources'],
+		'Metal'				=> $lang['Metal'],
+		'Crystal'			=> $lang['Crystal'],
+		'Deuterium'			=> $lang['Deuterium'],
+		'Energy'			=> $lang['Energy'],
+		'iv_buildings'		=> $lang['iv_buildings'],
+		'iv_technology'		=> $lang['iv_technology'],
+		'iv_ships'			=> $lang['iv_ships'],
+		'iv_defenses'		=> $lang['iv_defenses'],
+		'tech'				=> $lang['tech'],
+		'build'				=> $reslist['build'], 
+		'fleet'				=> $reslist['fleet'], 
+		'defense'			=> $reslist['defense'],
+		'research'			=> $reslist['tech'],
+	));
 
-	return display(parsetemplate(gettemplate('empire/empire_table'), $parse), false);
+	$template->show("empire_overview.tpl");
 }
 ?>
