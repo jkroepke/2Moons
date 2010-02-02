@@ -21,7 +21,7 @@
 
 if(!defined('INSIDE')){ die(header("location:../../"));}
 
-function ShowSearchPage()
+function ShowSearchPage($CurrentUser, $CurrentPlanet)
 {
 	global $dpath, $lang, $db;
 
