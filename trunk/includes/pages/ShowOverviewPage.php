@@ -125,7 +125,7 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 						$trafin = round($tsdata2["total_bytesreceived"] / 1024 / 1024, 2);
 						$trafout = round($tsdata2["total_bytessend"] / 1024 / 1024, 2);
 						$trafges = $trafin + $trafout;
-						$parse['ov_ts'] = "<tr><th>Teamspeak</th><th colspan=\"3\"><a href=\"teamspeak://".$game_config['ts_server'].":".$game_config['ts_udpport']."?username=".$CurrentUser['username']."\" alt=\"Teamspeak Connect\" name=\"Teamspeak Connect\">Connect</a>&nbsp;&bull;&nbsp;Online: " . $useronline . "/" . $maxusers . "&nbsp;&bull;&nbsp;Channels: " . $channels . "&nbsp;&bull;&nbsp;Traffic IN: " . $trafin . " MB&nbsp;&bull;&nbsp;Traffic Out: " . $trafout . " MB&nbsp;&bull;&nbsp;Traffic ges.: " . $trafges . " MB</th></tr>";
+						$parse['ov_ts'] = "<tr><th>Teamspeak</th><th colspan=\"3\"><a href=\"teamspeak://".$game_config['ts_server'].":".$game_config['ts_udpport']."?nickname=".$CurrentUser['username']."\" alt=\"Teamspeak Connect\" name=\"Teamspeak Connect\">Connect</a>&nbsp;&bull;&nbsp;Online: " . $useronline . "/" . $maxusers . "&nbsp;&bull;&nbsp;Channels: " . $channels . "&nbsp;&bull;&nbsp;Traffic IN: " . $trafin . " MB&nbsp;&bull;&nbsp;Traffic Out: " . $trafout . " MB&nbsp;&bull;&nbsp;Traffic ges.: " . $trafges . " MB</th></tr>";
 						$ts->disconnect();
 					} else {
 						$parse['ov_ts'] = "<tr><th>Teamspeak</th><th colspan=\"3\">Server&nbsp;zurzeit&nbsp;nicht&nbsp;erreichbar.&nbsp;Wir&nbsp;bitten&nbsp;um&nbsp;verst&auml;ndnis.</th></tr>";
