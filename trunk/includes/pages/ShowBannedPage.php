@@ -21,7 +21,7 @@
 
 if(!defined('INSIDE')){ die(header("location:../../"));}
 
-function ShowBannedPage()
+function ShowBannedPage($CurrentUser, $CurrentPlanet)
 {
 	global $lang, $db;
 	$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);

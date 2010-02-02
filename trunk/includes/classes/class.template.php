@@ -30,11 +30,10 @@ class template extends Smarty
 		$this->allow_php_templates	= true;
 		$this->force_compile 		= false;
 		$this->caching 				= false;
-		$this->compile_check		= false;
+		$this->compile_check		= true;
 		$this->template_dir 		= $xgp_root . TEMPLATE_DIR."smarty/";
 		$this->compile_dir 			= $xgp_root ."cache/";
 		$this->config_dir 			= $xgp_root ."includes/classes/configs/";
-		$this->cache_dir 			= $xgp_root ."cache/"; 
 		
 		$this->planet				= $GLOBALS['planetrow'];
 		$this->player				= $GLOBALS['user'];
@@ -75,6 +74,7 @@ class template extends Smarty
 				'galaxy'	=> $PlanetQuery['galaxy'],
 				'system'	=> $PlanetQuery['system'],
 				'planet'	=> $PlanetQuery['planet'],
+				'ptype'		=> $PlanetQuery['planet_type'],
 				'Buildtime'	=> ($PlanetQuery['b_building'] != 0 && $PlanetQuery['b_building'] - time() > 0) ? pretty_time($PlanetQuery['b_building'] - time()) : false,
 			);
 		}

@@ -12,8 +12,8 @@
 	<font color="#FFFF00">{$PlanetInfo.name}</font>
 	<font color="#FE9A2E"><br>[{$PlanetInfo.galaxy}:{$PlanetInfo.system}:{$PlanetInfo.planet}]</font>
 	{else}
-	<font color="#2e9afe">{$PlanetInfo.name}</font>
-	<font color="#58fa58"><br>[{$PlanetInfo.galaxy}:{$PlanetInfo.system}:{$PlanetInfo.planet}]</font>
+	{if $PlanetInfo.ptype == 3}<font color="#CCCCCC">{else}<font color="#2E9AFE">{/if}{$PlanetInfo.name}</font>
+	<font color="#58FA58"><br>[{$PlanetInfo.galaxy}:{$PlanetInfo.system}:{$PlanetInfo.planet}]</font>
 	{/if}
 	{if $PlanetInfo.Buildtime}
 		<br><span id="time_{$PlanetID}">{$PlanetInfo.Buildtime}</span>
