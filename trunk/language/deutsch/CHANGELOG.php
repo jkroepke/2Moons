@@ -6,7 +6,7 @@ $revision = '$Date$';
 $version  = substr($revision, 7, -35);
 $lang['changelog']   = array(
 
-'RC5.0' => 'ShadoX '.$version.'
+'RC5.0b1' => 'ShadoX '.$version.'
 - NEW: Search-Engine
 - NEW: LOGIN
 - NEW: Change Name to 2Moons

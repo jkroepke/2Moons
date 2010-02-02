@@ -2,22 +2,48 @@
 
 $lang['Version']     = 'Version';
 $lang['Description'] = 'Beschreibung';
+$revision = '$Date: 2010-02-02 09:14:21 +0100 (Di, 02 Feb 2010) $';
+$version  = substr($revision, 7, -35);
 $lang['changelog']   = array(
 
-'RC4.3' => 'ShadoX 23.12.09
+'RC5.0b1' => 'ShadoX '.$version.'
 - NEW: Search-Engine
 - NEW: LOGIN
-- ADD: Forschungsmaximum in var.php einstellbar
+- NEW: Change Name to 2Moons
+- ADD: Smarty-Template-Engine
+- ADD: Forschungsmaximum in vars.php einstellbar
+- ADD: fb-share
+- ADD: Planetenliste
+- ADD: Teampseak-Addon: Support f&uuml;r Teamspeak 3
+- ADD: Max. Auftr&auml;ge in Fleet/Def einstellbar (Standart: 10)
+- ADD: Cache for Records
+- ADD: Realtime-Ressanzeige
+- ADD: Optimize Hall of Fame DB
+- ADD: Postausgang
+- ADD: Abbruch Schiffswert
+- FIX: Wirtschaftssystem
+- FIX: Ress. - Page
 - FIX: DM-Untersuchung
 - FIX: Playercard
 - FIX: Speicheranzeige in Rohstoffe
 - FIX: Design
+- FIX: Pranger
+- FIX: Teamspeak-Overview
+- FIX: Useramount
+- FIX: Spioangebericht, -anzeige und -abwehr
+- FIX: Allianz Chat
 - FIX: TF-Entstehungs Bug bei Mondentstehung
 - FIX: CheckPlanetUsedFields
+- FIX: DeleteSelectedUser
 - FIX: Moon TF
-- FIX: U-Mode & Adminschutz - Iraks
+- FIX: Intergal. Forschungsnetzwerk
+- FIX: Werte f&uuml;r den Verbrauch
+- FIX: Error-Handler
+- FIX: U-Mode &amp; Adminschutz - Iraks
 - FIX: AKS-BUG in der SendFleetBack Funktion
 - FIX: Flottenflugzeit
+- FIX: CAPTCHA
+- FIX: Bug bei Mond- und Planetzerst&ouml;rung
 - FIX: Reyclerr&uuml;ckkehr
 - FIX: Kolonisierung: Mitgebrachte Ressis werden nun gutschreiben
 - FIX: Flottenverbrauch
@@ -26,16 +52,31 @@ $lang['changelog']   = array(
 - FIX: Diverse Flottencheats entfernt
 - FIX: Magic TF`s
 - FIX: ACP-fopen Error
-- DIV: Ingame-Output mit Tidy-Check, wenn vorhanden.
+- FIX: Opera Style Fix
+- FIX: Mondzerst&ouml;rung
+- FIX: Module-Addon
+- FIX: Support-Ticket
+- FIX: DM Untersuchungs Mission
+- FIX: Probleme mit der erstellung von Haputplaneten nach der mauellen Erstellung von Usern
+- FIX: Allianzmemberanzahl in ainfo
+- FIX: Noobschutz
+- FIX: Moon Building
+- FIX: Adminschutz
+- FIX: Schiffebauen ohne Schiffswerft
+- FIX: Anzeigefehler im KB Erstellung
+- FIX: Passwort vergessen
+- FIX: Passwort/Nichname &auml;ndern
+- FIX: Umlaute in den Beschreibungen
 - DIV: Neue Methode zum Aufruf von Fleethandler
 - DIV: Neue Plantenbilder
-- DIV: Flexibilit&auml;t f&uuml;r einf&uuml;gen neue Geb&auml;ude erh&ouml;ht;
+- DIV: Flexibilit&auml;t f&uuml;r einf&uuml;gen neue Geb&auml;ude erh&ouml;ht
 - DIV: Neue Formel f&uuml;r Speicherberechung
 - DIV: Info im ACP, wenn FlyingFleetHandler einen Fehler hatte
 - DIV: Useraktivierung per ACP
-- DIV: Neue Formel für Solarsats, Deuterium, Planettemp und Felderanzahl
+- DIV: Neue Formel f&uuml;r Solarsats, Deuterium, Planettemp und Felderanzahl
 - DIV: Sicherheit im Game erh&ouml;ht
 - DIV: Diverse Anpassungen am Game
+- DIV: Update jQuery to 1.4.1
 ',
 
 'RC4.2' => 'ShadoX 06.12.09
@@ -58,14 +99,14 @@ $lang['changelog']   = array(
 - FIX: Allianzr&auml;nge
 - FIX: max. Expiditionen / max. Haltezeit
 - FIX: Usernamen&uuml;berpr&uuml;fung bei der Registration
-- FIX: Registration close & Game Close
+- FIX: Registration close &amp; Game Close
 - FIX: AdminChatPage
 - FIX: Speicheranzeige in Rohstoffe korrigiert
 - FIX: Galaxy Allyname Crash
 - FIX: Statfunctions.php
 - DIV: Mails &uuml;ber SMTP-Auth
 - DIV: Chat-Class
-- DIV: &Uumel;berarbeitung Installer
+- DIV: &Uuml;berarbeitung Installer
 - DIV: Notes-Class
 - DIV: Chat-Interval auf 10 Sekunden gesetzt
 - DIV: Sicherheit im Game erh&ouml;ht
@@ -123,7 +164,7 @@ $lang['changelog']   = array(
 - DIV: Koords-Verliunkung zur Galaxie in Fleets
 - DIV: Skinoptimierungen
 - DIV: DB-Speicherzyp f&uuml;r Geb&auml;ude und Forschung von int(11) auf TINYINT(3) unsigned ge&auml;ndert
-- DIV: Anpassung an Internet Explorer (IE8) & Opera
+- DIV: Anpassung an Internet Explorer (IE8) &amp; Opera
 - DIV: Unn&ouml;tige SQL-Abfragen(SELECT * FROM) ge&auml;ndert
 - DIV: register_globals standartm&auml;ssig aus
 - DIV: Alle Tabellen werden nun 1x pro Tag Aufger&auml;mt (OPTIMIZE TABLE)
