@@ -1,0 +1,176 @@
+html{ height: 100%; font-size: 100%; }
+
+body { background: #000; font-size: 12px; font-family: verdana,arial; color: #FFF; margin: 0px; padding: 0px; height: 100%; text-align: center; }
+
+a{ color: #FFD700; text-decoration: none; }
+a:hover { text-decoration: underline; }	
+
+table { width: auto; border: none; text-align: left; }
+table, tr, td, th { font-size: 100%; padding: 0px; margin: 0px; border: none; border-spacing: 0px; border-collapse: collapse; empty-cells: show; vertical-align: middle; }
+th { text-align: center; }
+
+img { border: none; }
+
+form { margin: 0px; }
+
+.hr { height: 16px; border: none; width: 100%; border: none; margin: 5px auto; position: relative; }
+
+li { margin-left: 15px; }
+ul li { margin-left: 0px; }
+
+.spacer { font-size: 1px; }
+
+#background-content>code { display: block; text-align: left; white-space: pre;}
+
+/* GENERAL CONTENT ****************************************/
+.important { font-weight: bold; color: #FF0000; }
+.error { font-weight: bold; color: #FF0000; }
+.comment{ font-size: 90%; color: #BBB; }
+.hilite { color: #FFA500; }
+.inactive { font-weight: normal; color: #999; }
+.active { font-weight: bold; color: #FFF; }
+.row_active td, .row_active th { background: #272F3F; }
+.row_active .non-hilite { background: none; }
+.row_over td, .row_over th { background: #1D232F; }
+.row_over .non-hilite { background: none; }
+
+.centered { margin: auto; }
+div .centered { text-align: center; }
+.dropcap:first-letter { font-size: 140%; text-transform: uppercase; }
+
+.listing-header th, .listing-header td { height: 20px; padding-bottom: 4px; vertical-align: bottom; font-weight: bold;  vertical-align: bottom; }
+
+.listing { width: 100%; }
+.listing th, .listing td { border: 1px solid #444; border-width: 0px 0px 1px 0px; padding: 1px; padding-bottom: 2px; }
+.listing td { border-width: 0px 0px 1px 0px; }
+.listing .listing-header td, .listing .listing-header th { border: none; } 
+
+.listing1 { width: 100%; }
+.listing1 th, .listing1 td { border: 1px solid #444; border-width: 1px; padding: 1px; }
+.listing1 .listing-header td, .listing1 .listing-header th {  padding-bottom: 2px; } 
+
+.listing2 { width: 100%; }
+.listing2 th, .listing2 td { padding: 2px; }
+
+.listing3 { width: 100%; }
+.listing3 th, .listing3 td { padding: 1px 5px; }
+
+.layout { background: none; border: none; width: 100%; border-collapse: collapse; border-spacing: 0px; empty-cells: show; }
+
+/* GAME SPECIFIC CONTENT ****************************************/
+.events-structures { color: #D97E04; }
+.events-defenses { color: #55DA4E; }
+.events-research { color: #49D6FE; }
+.events-production { color: #DDD; }
+
+.player-self, .player-self a { color: #FFF; }
+.player-guild, .player-guild a { color: #55DA4E; }
+.player-npc, .player-npc a { color: #D97E04; }
+
+.location-fleet-self { border: 1px solid #FFF; border-width: 0px 0px 1px 0px; }
+
+/* SCRIPT SPECIFIC CONTENT ****************************************/
+.sorttable_header { cursor: pointer; }
+.sorttable_nosort { cursor: auto; }
+
+/* BATTLE REPORTS ****************************************/
+.battle-report { text-align: center; }
+
+.battle-report td, .battle-report th, .battle-report table { border: 1px solid #0B0D0F; }
+
+.battle-report_info { width: 380px; margin: auto; background: #173F5F; }
+.battle-report_attack { width: 580px; margin: auto; background: #112638; }
+.battle-report_defense { width: 580px; margin: auto; background: #112638; }
+
+/* STARS ****************************************/
+.star{ width: 24px; height: 24px; }
+
+.star_blue{ background: #505fa4; }
+.star_blue-giant{ background: #616a8c; }
+.star_neutron{ background: #444972; }
+.star_orange{ background: #c6be97; }
+.star_red{ background: #d5c1b4; }
+.star_red-giant{ background: #953021; }
+.star_super-giant{ background: #cc502f; }
+.star_white{ background: #fff; }
+.star_white-dwarf{ background: #eee4de; }
+.star_worm-hole{ background: #877999; }
+.star_yellow{ background: #ece5a0; }
+.star_black-hole{ background: #434344; }
+
+/* ASTROS ****************************************/
+.astro_arid { background: #b5a886; }
+.astro_asteroid { background: #6b6c67; }
+.astro_asteroid-belt { background: #464742; }
+.astro_craters { background: #e0cfc7; }
+.astro_crystalline { background: #db8550; }
+.astro_earthly { background: #162688; }
+.astro_gaia { background: #7863c2; }
+.astro_gas-giant { background: #e6af88; }
+.astro_glacial { background: #eceff6; }
+.astro_magma { background: #7b4a2a; }
+.astro_metallic { background: #78bfff; }
+.astro_oceanic { background: #78bfff; }
+.astro_radioactive { background: #e8b65f; }
+.astro_rocky { background: #707588; }
+.astro_toxic { background: #3f1308; }
+.astro_tundra { background: #e4e3d1; }
+.astro_unknown { background: #91b9c9; }
+.astro_volcanic { background: #927d63; }
+
+.astro-micro .astro { width: 35px; height: 35px; }
+
+.astro-small .astro { width: 60px; height: 60px; }
+
+.astro-medium .astro { width: 200px; height: 195px; }
+
+/* TOP-HEADER-OFFLINE ****************************************/
+#top-header-offline { width: 100%; height: 20px; background: #47494b url(../images/common_2-20/top-header-offline_center.png) center bottom repeat-x; border: 1px solid #333; border-width: 0px 0px 1px 0px; font-size: 10px; color: #AAA; }
+#top-header-offline a { color: inherit; } 
+
+/* menu */
+#top-header-offline .menu_container { text-align: left; font-size: 10px; vertical-align: bottom; }
+#top-header-offline .menu_container .box { margin-left: 10px; }
+
+#top-header-offline .menu-separator div { display: block; width: 8px; height: 20px; background: url(../images/common_2-20/top-header-offline_separator.png) bottom center no-repeat; }
+
+/* languages */
+#top-header-offline .languages_container { text-align: right; font-size: 10px; padding: 2px 10px; vertical-align: bottom; white-space: nowrap; }
+#top-header-offline .languages_container img { vertical-align: bottom; }
+
+#top-header-offline .flag_selected { font-weight: bold; color: #FFF; border: none; }
+
+/* buttons */
+#top-header-offline_menu .button { height: 20px; vertical-align: bottom; background-image: none; }
+#top-header-offline_menu .button .button-left { background-image: none; width: 6px; }
+#top-header-offline_menu .button .button-center { background-image: none; background-position: center bottom; }
+#top-header-offline_menu .button .button-right { background-image: none; width: 7px; }
+
+#top-header-offline_menu .button-normal-over .button-left { background-image: url(../images/common_2-20/top-header-offline_button_over_left.png); }
+#top-header-offline_menu .button-normal-over .button-center { color: #FFD700; background-image: url(../images/common_2-20/top-header-offline_button_over_center.png); }
+#top-header-offline_menu .button-normal-over .button-right { background-image: url(../images/common_2-20/top-header-offline_button_over_right.png); }
+
+/* ensure compatibility with v1 */
+#top-header-offline_menu .button { background-image: none; vertical-align: middle; background-color: transparent;  border: none; margin: 0px 2px; }
+#top-header-offline_menu .button-normal a { color: #AAA; }
+#top-header-offline_menu .button-normal a:hover { color: #FFD700; }
+
+#top-header-offline_menu .button-normal-active, #top-header-offline_menu .button-normal-active a { background: transparent; color: #FFF; }
+
+#top-header-offline .box { border: 0px; margin: 0px; background: transparent; }
+#top-header-offline .box_content { padding: 0px; background: transparent;}
+
+/* MISC ****************************************/
+
+/* language flags */
+.flag { vertical-align: text-bottom; }
+.flag_selected { border: 1px solid #6896BD; }
+
+/* blocked users */
+.blocked { background: #2F1717; color: red; }
+.blocked a { color: inherit; }
+
+/* messages */
+.unread { background: #35475F; }
+
+

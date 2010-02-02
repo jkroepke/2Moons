@@ -1,0 +1,487 @@
+#content {
+overflow : visible;
+position : absolute;
+height: 504px;
+left : 190px;
+width : 80% !important;
+top: 91px;
+}
+html, body {
+overflow : auto;
+}
+html {
+height : 100%;
+width : 100%;
+margin : 0;
+padding : 0;
+}
+.allymember {
+color : lime;
+}
+.noob {
+color : #a0ffa0;
+}
+.strong {
+color : #ffa0a0;
+}
+.vacation {
+color : #659ec7;
+}
+.inactive {
+color : #cccccc;
+}
+.longinactive {
+color : #999999;
+}
+.banned {
+text-decoration : line-through;
+}
+.ownattack {
+color : #66cc33;
+}
+.owncolony {
+color : #c1c1c1;
+}
+.owndeploy {
+color : #666666;
+}
+.owndestroy {
+color : #ffff99;
+}
+.ownespionage {
+color : #ffcc66;
+}
+.ownfederation {
+color : #cc6666;
+}
+.ownharvest {
+color : #ceff68;
+}
+.ownhold {
+color : #80a0c0;
+}
+.ownmissile {
+color : #ffcc66;
+}
+.owntransport {
+color : #a0ffa0;
+}
+.attack {
+color : red;
+}
+.colony {
+color : lime;
+}
+.deploy {
+color : lime;
+}
+.destroy {
+color : #d4a017;
+}
+.espionage {
+color : #ff6600;
+}
+.federation {
+color : red;
+}
+.harvest {
+color : lime;
+}
+.hold {
+color : #3399cc;
+}
+.missile {
+color : #ff6600;
+}
+.transport {
+color : lime;
+}
+.success {
+color : lime;
+}
+.error {
+color : red;
+}
+.warning {
+color : #FF8040;
+}
+.notice {
+color : yellow;
+}
+.return {
+color : #444444;
+}
+table, table tr th, td, th, p {
+font-weight : normal;
+empty-cells : show;
+background-color : transparent;
+}
+td, th, textarea, body, table, table table td, body center table tr td {
+font-family : Verdana, Tahoma, Helvetica, sans-serif;
+font-size : 10px;
+}
+img, p table, table table {
+border : 0;
+}
+body form table tr th table tr th {
+border : 0;
+text-align : left;
+}
+body form table th table input {
+width : 60px;
+}
+body {
+color : #cccccc;
+margin-top : 7px;
+margin-left : 0;
+background-color : #000000;
+background-image : url(img/bkd_page.gif);
+background-repeat : repeat;
+background-position : top left;
+}
+th.s, td.s {
+background-image : url(img/bkd_bg.gif);
+border : 1px solid #212121;
+}
+th, td.a, td.b, td.c, td.f, select, td.g, td.h, td.i, td.j, td.k, td.l, td.m, td.n, td.o, td.q, td.r, td.v, textarea, p td, body table td p {
+border : 1px solid #212121;
+font-size : 10px;
+font-family : Verdana, Tahoma, Helvetica, sans-serif;
+background-image : url(img/bkd_bg.gif);
+background-repeat : repeat-x;
+padding : 2px;
+}
+td.l {
+background-image : url(img/bkd_title.gif);
+background-repeat : repeat-x;
+}
+table.s {
+border : 0 solid #212121;
+font-size : 10px;
+font-family : Verdana, Tahoma, Helvetica, sans-serif;
+}
+body center table tr th.s table.s tr th {
+background-image : none;
+background-color : transparent;
+vertical-align : top;
+}
+input {
+margin : 2px;
+border : 1px solid #212121;
+font-size : 10px;
+font-family : Verdana, Tahoma, Helvetica, sans-serif;
+text-align : center;
+}
+td.c input {
+margin : 0;
+}
+table table td.l img {
+width : 120px !important ;
+height : 120px !important ;
+}
+#overDiv {
+border : 1px solid #666666;
+background-color : #212121;
+color : #666666;
+}
+div#menu {
+top : 0;
+left : 0;
+}
+#menu {
+background-image : url(img/bkd_navigation.png);
+background-position : 0;
+background-repeat : no-repeat;
+position: absolute !important;
+width : 192px;
+height : 769px;
+text-align : center;
+z-index : 1000;
+}
+#menu .p {
+color:#CCCCCC;
+left:35px;
+margin:0;
+padding:0;
+position:absolute;
+top:29px;
+white-space:nowrap;
+}
+#menu table {
+margin-top : 50px;
+}
+#menu table tr td div {
+background-image : url(img/td_test.jpg);
+background-position : 0 0;
+background-repeat : no-repeat;
+padding-top : 6px;
+padding-left : 0;
+text-align : left;
+}
+#menu img {
+width : 190px;
+height : 8px;
+background-position : left bottom;
+}
+#menu td {
+font-size : 10px;
+font-family : Verdana, Arial, Helvetica, sans-serif;
+background-color : transparent;
+}
+#menu table tr td div font font {
+color : #cccccc;
+}
+#menu div a {
+height : 100%;
+width : 100%;
+font-size : 10px;
+font-family : Verdana, Arial, Helvetica, sans-serif;
+padding-left : 20px;
+color : #cccccc;
+}
+#menu div a:link {
+height : 100%;
+width : 100%;
+font-size : 10px;
+font-family : Verdana, Arial, Helvetica, sans-serif;
+padding-left : 20px;
+color : #cccccc;
+}
+#menu div a:hover {
+height : 100%;
+width : 100%;
+font-size : 10px;
+text-decoration : none;
+font-family : Verdana, Arial, Helvetica, sans-serif;
+color : #cccccc;
+background-image : url(img/link_hover.jpg);
+background-position : 0;
+background-repeat : no-repeat;
+text-align : left;
+padding-left : 20px;
+}
+th {
+text-align : center;
+padding-left : 3px;
+padding-right : 3px;
+background-image : url(img/bkd_bg.gif);
+background-repeat : repeat-x;
+}
+td.c {
+text-align : left;
+font-weight : normal;
+color : #666666;
+padding-left : 3px;
+line-height : 18px;
+height : 22px;
+background-image : url(img/bkd_title.gif);
+}
+td.f, input, select, textarea {
+color : #cccccc;
+background-color : #393939;
+}
+textarea {
+width : 97%;
+}
+body form table tr td.k, body form table tr th {
+color : #cccccc;
+vertical-align : middle;
+margin : 0;
+padding : 0;
+}
+th[width="50%"]{
+vertical-align : top;
+}
+td.k input {
+text-align : center;
+color : #cccccc;
+border : 1px solid #212121;
+margin : 5px;
+padding : 0;
+height : 15px;
+background-color : #393939;
+}
+body form table tr td table tr td.k {
+vertical-align : top;
+margin : 0;
+padding : 0;
+background-image : url(img/bkd_bg.gif);
+background-repeat : repeat-x;
+}
+td.l {
+background-color : #000000;
+color : #777777;
+vertical-align : top;
+padding : 2px;
+background-image : url(img/bkd_bg.gif);
+background-repeat : repeat-x;
+line-height : 14px;
+}
+table.s th img {
+width : 88px;
+height : 88px;
+padding : 2px;
+border : 0;
+}
+div.z {
+font-weight : normal;
+color : #cccccc;
+}
+a {
+color : #cccccc;
+text-decoration : none;
+font-weight : normal;
+}
+a.s, a.t {
+color : #cccccc;
+}
+a:hover {
+color : #ceff68;
+text-decoration : underline;
+}
+body table tr td table tr td.l {
+line-height : 15px;
+background-color : #000000;
+}
+body table tr td table tr td.k {
+vertical-align : top;
+background-image : url(img/bkd_bg.gif);
+background-repeat : repeat-x;
+padding-top : 2px;
+line-height : 16px;
+}
+body table tr td table tr td.k div.z {
+padding-top : 2px;
+line-height : 16px;
+text-align : center;
+}
+h1 {
+font-size : 1px;
+font-family : Verdana, Tahoma, Helvetica, sans-serif;
+text-align : right;
+visibility : hidden;
+}
+body, body table tr td table tr td, body table tr th table tr td {
+font-family : Verdana, Tahoma, Helvetica, sans-serif;
+font-size : 10px;
+}
+body center table tr.flight th span.flight a[title]:after {
+content : " (" attr(title) ")";
+color : #aaaaaa;
+}
+body center table tr th font a[title]:after {
+content : " (" attr(title) ")";
+color : #FF8040;
+}
+table tr td p a img {
+visibility : hidden;
+height : 100%;
+width : 100%;
+}
+body center table tr td p font b {
+font-family : Verdana, Tahoma, Helvetica, sans-serif;
+font-size : 10px;
+color : #ceff68;
+}
+body center table tr td p a font u {
+font-family : Verdana, Tahoma, Helvetica, sans-serif;
+font-size : 10px;
+}
+body center table tr td p {
+border : 1px solid #212121 !important ;
+text-align : left;
+}
+body center table tr td p {
+font-family : Verdana, Tahoma, Helvetica, sans-serif;
+font-size : 10px;
+}
+body center table tr td p a font u {
+font-family : Verdana, Tahoma, Helvetica, sans-serif;
+font-size : 10px;
+color : #ceff68;
+}
+#menu table tr td center a img {
+visibility : visible !important ;
+width : 88px;
+height : 31px;
+}
+#menu table tr td center a img {
+visibility : visible !important ;
+width : 88px;
+height : 31px;
+}
+a[title~="Trümmerfeld:"]:after {
+content : " (" attr(title) ")";
+color : #ceff68;
+}
+a[title~="Geschwindigkeit:"]:after {
+content : " (" attr(title) ")";
+color : #ceff68;
+}
+a:focus {
+outline : none;
+border : none;
+}
+td.l table tbody tr td {
+background-color : transparent;
+}
+tr span a {
+color : white;
+}
+
+div#content center {
+width : auto;
+}
+#header_top {
+margin-left:95px;
+top : 0;
+text-align : center;
+height : auto;
+overflow : hidden !important;
+text-align: center;
+}
+div#menu img[src="styles/skins/darkness/gfx/ogame-produktion.jpg"] {
+height : 0;
+width : 0;
+}
+body table tr td table tr td.l + td.l + td.l {
+text-align : center;
+vertical-align : middle;
+}
+body table tr td table tr td.k, td.m {
+text-align : center;
+vertical-align : middle;
+}
+tr.header, table.header {
+width : 80%;
+overflow : hidden;
+}
+.header {
+overflow : hidden;
+vertical-align : middle;
+}
+#footer {
+background-color:#000000;
+background-position:center bottom;
+background-repeat:repeat;
+border:1px solid white;
+bottom:0px;
+position:fixed;
+margin-left:12.5%;
+margin-right:12.5%;
+text-align:center;
+width:75%;
+}
+#menu2 {
+overflow:auto;
+height:auto;
+width: 174px;
+background-color: transparent;
+position: fixed;
+top: 10px;
+right:20px;
+position: absolute;
+} 
+#menu2 a:hover {
+text-decoration:none;
+} 
