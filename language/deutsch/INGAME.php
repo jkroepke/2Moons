@@ -1107,15 +1107,15 @@ $lang['op_permanent_email_adress']			= 'Permanente E-Mail Adresse';
 $lang['op_general_settings']				= 'Generelle Einstellungen';
 $lang['op_sort_planets_by']					= 'Planeten sortieren nach';
 $lang['op_sort_kind']						= 'Sortierungsreihenfolge';
-$lang['op_skin_example']					= 'Grafikpfad (z.B. C:/xng/bilder/)';
+$lang['op_skin_example']					= 'Grafikpfad (z.B. C:/2moons/skins/)';
 $lang['op_show_skin']						= 'Skin anzeigen';
 $lang['op_deactivate_ipcheck']				= 'IP-Check deaktivieren';
 $lang['op_galaxy_settings']					= 'Galaxieansicht Einstellungen';
 $lang['op_spy_probes_number']				= 'Spionagesonden Anzahl';
-$lang['op_toolt_data']						= 'Zeige Tooltip f&uuml;';
+$lang['op_toolt_data']						= 'Zeige Tooltip f&uuml;r';
 $lang['op_seconds']							= 'Sekunden';
 $lang['op_max_fleets_messages']				= 'Maximale Flottennachrichten';
-$lang['op_show_ally_logo']					= 'Planetmen&uuml; anzeigen';
+$lang['op_show_planetmenu']					= 'Planetmen&uuml; anzeigen';
 $lang['op_shortcut']						= 'Shortcut';
 $lang['op_show']							= 'Anzeigen';
 $lang['op_spy']								= 'Spionieren';
@@ -1139,6 +1139,7 @@ $lang['op_sort_down']						= 'absteigend';
 $lang['op_user_name_no_alphanumeric']		= 'Bitte beim Username nur alphanumerische Zeichen eingeben!';
 $lang['op_change_name_pro_week']			= 'Sie K&ouml;nnen ihren Usernamen nur 1x pro Woche &auml;ndern';
 $lang['op_change_name_exist']				= 'Diese Name existiert bereits';
+$lang['op_active_build_messages']			= 'Baulistennachrichten akivieren';
 
 //----------------------------------------------------------------------------//
 //BANNED

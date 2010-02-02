@@ -11,6 +11,7 @@ function blockError(){return true;}
 
 $(document).ready(function () {
 	$('#content').css("top", $('#infobox').height()+91+"px");
+	$(".autocomplete").attr("autocomplete","off")
 });
 
 function f(target_url, win_name) {
