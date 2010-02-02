@@ -21,7 +21,7 @@
 
 if(!defined('INSIDE')){ die(header("location:../../"));}
 
-function ShowStatisticsPage($CurrentUser)
+function ShowStatisticsPage($CurrentUser, $CurrentPlanet)
 {
 	global $game_config, $dpath, $lang, $db;
 	
