@@ -136,6 +136,7 @@ class ShowResearchPage
 		if ($CurrentPlanet[$resource[31]] == 0){
 			$template->message($lang['bd_lab_required']);
 			$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
+			exit;
 		}
 		
 		$bContinue	= (!$this->CheckLabSettingsInQueue ($CurrentPlanet)) ? true : false;
