@@ -335,6 +335,7 @@ $lang['bd_no_more_fields']					= 'Planet ausgebaut!';
 $lang['bd_remaining']						= 'Fehlende Rohstoffe:';
 $lang['bd_lab_required']					= 'Du must zuerst ein Forschungslabor auf diesem Planeten Bauen!';
 $lang['bd_building_lab']					= 'Das Forschungslabor wird zurzeut ausgebaut!';
+$lang['bd_max_lvl']							= '(Max. Level: %s)';
 $lang['bd_lvl']								= 'Stufe';
 $lang['bd_spy']								= ' spy';
 $lang['bd_commander']						= ' commander';

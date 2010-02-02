@@ -68,7 +68,7 @@ class template extends Smarty
 		foreach($this->playerplanets as $PlanetQuery)
 		{
 			$Planetlist[$PlanetQuery['id']]	= array(
-				'url'		=> "?page=".$this->phpself."&amp;cp=".$PlanetQuery['id']."&amp;re=0",
+				'url'		=> $this->phpself."&amp;cp=".$PlanetQuery['id']."&amp;re=0",
 				'name'		=> $PlanetQuery['name'].(($PlanetQuery['planet_type'] == 3) ? " (".$this->lang['fcm_moon'].")":""),
 				'image'		=> $PlanetQuery['image'],
 				'galaxy'	=> $PlanetQuery['galaxy'],
@@ -141,11 +141,11 @@ class template extends Smarty
 	public function page_topnav()
 	{
 		$this->playerplanets	= SortUserPlanets($this->player);
-		$this->phpself			= request_var('page', '');
+		$this->phpself			= "?page=".request_var('page', '')."&amp;mode=".request_var('mode', '');
 		
 		foreach($this->playerplanets as $CurPlanetID => $CurPlanet)
 		{
-			$SelectorVaules[]	= "?page=".$this->phpself."&amp;cp=".$CurPlanet['id']."&amp;re=0";
+			$SelectorVaules[]	= $this->phpself."&amp;cp=".$CurPlanet['id']."&amp;re=0";
 			$SelectorNames[]	= $CurPlanet['name'].(($CurPlanet['planet_type'] == 3) ? " (" . $this->lang['fcm_moon'] . ")":"")."&nbsp;[".$CurPlanet['galaxy'].":".$CurPlanet['system'].":".$CurPlanet['planet']."]&nbsp;&nbsp;";
 		}
 		
@@ -162,7 +162,7 @@ class template extends Smarty
 			'js_crystal_hr'		=> $this->planet['crystal_perhour'] + $this->GameConfig['crystal_basic_income'],
 			'js_deuterium_hr'	=> $this->planet['deuterium_perhour'] + $this->GameConfig['deuterium_basic_income'],
 			'js_res_multiplier'	=> $this->GameConfig['resource_multiplier'],
-			'current_panet'		=> "?page=".$this->phpself."&amp;cp=".$this->player['current_planet']."&amp;re=0",
+			'current_panet'		=> $this->phpself."&amp;cp=".$this->player['current_planet']."&amp;re=0",
 			'tn_vacation_mode'	=> $this->lang['tn_vacation_mode'],
 			'vacation'			=> $this->player['urlaubs_modus'] ? date('d.m.Y h:i:s',$this->player['urlaubs_until']) : false,
 			'delete'			=> $this->player['db_deaktjava'] ? sprintf($this->lang['tn_delete_mode'], date('d. M Y\, h:i:s',$this->player['db_deaktjava'] + (60 * 60 * 24 * 7))) : false,
