@@ -9,9 +9,10 @@ window.onerror = blockError;
 
 function blockError(){return true;} 
 
+$(".autocomplete").attr("autocomplete","off");
+
 $(document).ready(function () {
 	$('#content').css("top", $('#infobox').height()+91+"px");
-	$(".autocomplete").attr("autocomplete","off")
 });
 
 function f(target_url, win_name) {
