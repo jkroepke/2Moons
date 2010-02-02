@@ -25,17 +25,6 @@ function ShowResourcesPage($CurrentUser, $CurrentPlanet)
 {
 	global $lang, $ProdGrid, $resource, $reslist, $game_config, $db;
 	
-	$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
-
-	$template	= new template();
-
-	$template->set_vars($CurrentUser, $CurrentPlanet);
-	$template->page_header();
-	$template->page_topnav();
-	$template->page_leftmenu();
-	$template->page_planetmenu();
-	$template->page_footer();
-	
 	if ($CurrentPlanet['planet_type'] == 3)
 	{
 		$game_config['metal_basic_income']     = 0;
@@ -69,7 +58,17 @@ function ShowResourcesPage($CurrentUser, $CurrentPlanet)
 		header("Location: game.php?page=resources");
 		exit;		
 	}
+	
+	$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
+	$template	= new template();
 
+	$template->set_vars($CurrentUser, $CurrentPlanet);
+	$template->page_header();
+	$template->page_topnav();
+	$template->page_leftmenu();
+	$template->page_planetmenu();
+	$template->page_footer();
+	
 	$BuildTemp                           = $CurrentPlanet['temp_max'];
 	
 	if ($CurrentPlanet['energy_max'] == 0 && $CurrentPlanet['energy_used'] > 0)
