@@ -278,10 +278,6 @@ class ShowResearchPage
 						}
 						$TechnoLink  = $template->fetch("buildings_research_script.tpl");
 					}
-					else
-					{
-						$TechnoLink  = "<center>-</center>";
-					}
 				}
 				
 				$ResearchList[] = array(
@@ -292,7 +288,7 @@ class ShowResearchPage
 					'price'  	=> GetElementPrice($CurrentUser, $CurrentPlanet, $Element),					
 					'time' 		=> pretty_time(GetBuildingTime($CurrentUser, $CurrentPlanet, $Element)),
 					'restprice'	=> $this->GetRestPrice($CurrentUser, $CurrentPlanet, $Element, true),
-					'elvl'		=> ($Element == 106) ? ($CurrentUser['rpg_espion'] * ESPION) . $lang['bd_spy'] : (($Element == 108) ? ($CurrentUser['rpg_commandant'] * COMMANDANT).$lang['bd_commander'] : false),
+					'elvl'		=> ($Element == 106) ? ($CurrentUser['rpg_espion'] * ESPION)." (".$lang['tech'][610].")" : (($Element == 108) ? ($CurrentUser['rpg_commandant'] * COMMANDANT)." (".$lang['tech'][611].")" : false),
 					'lvl'		=> $CurrentUser[$resource[$Element]],
 					'link'  	=> $TechnoLink,
 				);
@@ -303,6 +299,7 @@ class ShowResearchPage
 			'IsLabinBuild'			=> $bContinue,
 			'bd_building_lab'		=> $lang['bd_building_lab'],
 			'bd_remaining'			=> $lang['bd_remaining'],			
+			'bd_lvl'				=> $lang['bd_lvl'],			
 			'fgf_time'				=> $lang['fgf_time'],
 		));
 		

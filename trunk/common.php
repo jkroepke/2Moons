@@ -61,7 +61,7 @@ require_once($xgp_root . 'includes/classes/class.PlanetRessUpdate.'.$phpEx);
 set_error_handler('msg_handler', E_ALL);
 
 if(function_exists('ini_set')) {
-	ini_set('display_errors', 1);
+	ini_set('display_errors', true);
 	ini_set('register_globals', "off");
 	ini_set('register_long_arrays', "off");
 }
@@ -143,9 +143,9 @@ if (INSTALL != true)
 			
 			if(empty($planetrow)){
 				$db->query("UPDATE ".USERS." SET `current_planet` = `id_planet` WHERE `id` = '". $user['id'] ."' LIMIT 1");
-				exit(header("Location: game.php?page=overview"));
+				exit(header("Location: ".$xgp_root."game.".$phpEx."?page=overview"));
 			}
-			include($xgp_root . 'includes/functions/CheckPlanetUsedFields.' . $phpEx);
+			require_once($xgp_root . 'includes/functions/CheckPlanetUsedFields.' . $phpEx);
 			CheckPlanetUsedFields($planetrow);
 		}
 	}	

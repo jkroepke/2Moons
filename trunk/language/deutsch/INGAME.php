@@ -337,8 +337,6 @@ $lang['bd_lab_required']					= 'Du must zuerst ein Forschungslabor auf diesem Pl
 $lang['bd_building_lab']					= 'Das Forschungslabor wird zurzeut ausgebaut!';
 $lang['bd_max_lvl']							= '(Max. Level: %s)';
 $lang['bd_lvl']								= 'Stufe';
-$lang['bd_spy']								= ' spy';
-$lang['bd_commander']						= ' commander';
 $lang['bd_research']						= 'Forschung';
 $lang['bd_shipyard_required']				= 'Du musst zuerst eine Schiffswerft auf diesem Planeten Bauen!';
 $lang['bd_building_shipyard']				= 'Die Schiffswerft wird zurzeit ausgebaut!';
@@ -869,7 +867,7 @@ $lang['al_founder_cant_leave_alliance'] 	= 'Der Gr&uuml;nder darf die Allianz ni
 $lang['al_leave_sucess'] 					= 'Erfolgreich aus der Allianz %s ausgetreten.';
 $lang['al_do_you_really_want_to_go_out'] 	= 'Willst du wirklich aus %s austreten?';
 $lang['al_go_out_yes'] 						= 'Ja';
-$lang['al_circular_sended'] 				= 'Nachricht gesendet. Folgenden Spielern wurde die Mail gesendet:';
+$lang['al_circular_sended'] 				= "Nachricht gesendet.\nFolgenden Spielern wurde die Mail gesendet:";
 $lang['al_all_players'] 					= 'Alle Spieler';
 $lang['al_no_ranks_defined'] 				= 'Keine definierten R&auml;nge.'; 
 $lang['al_request_text']					= 'Bewerbungstext';
@@ -1152,6 +1150,7 @@ $lang['bn_reason']							= 'Grund';
 $lang['bn_from']							= 'Von';
 $lang['bn_until']							= 'Bis';
 $lang['bn_by']								= 'Von';
+$lang['bn_writemail']						= 'Mail an %s schreiben';
 
 //----------------------------------------------------------------------------//
 //SYSTEM
@@ -1256,7 +1255,7 @@ $lang['ccs_multiple_users']					= 'Cookie Fehler! Jemand hat sich mit deinem Acc
 $lang['ccs_other_user']						= 'Cookie Fehler! L&ouml;sche deine Cookies und melde dich neu an. Wenn das Problem weiterhin besteht kontaktieren Sie den Administrator.';
 $lang['css_different_password']				= 'Cookie Fehler! L&ouml;sche deine Cookies und melde dich neu an. Wenn das Problem weiterhin besteht kontaktieren Sie den Administrator.';
 $lang['css_account_banned_message']			= 'Dein Account wurde gespeert!';
-$lang['css_account_banned_expire']			= 'Du bist zum %s gespeert!';
+$lang['css_account_banned_expire']			= 'Du bist zum %s gespeert!<br><a href="./index.php?page=pranger">Pranger</a>';
 $lang['css_goto_homeside']					= '<a href="./index.php">Zur Startseite</a>';
 $lang['css_server_maintrace']				= 'Server Maintrace<br><br>Spiel zurzeit geschlossen.<br><br>Grund: %s';
 

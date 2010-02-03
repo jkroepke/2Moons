@@ -45,6 +45,7 @@ function ShowBannedPage($CurrentUser, $CurrentPlanet)
 			'to'		=> date("d. M Y H:i:s",$u['longer']),
 			'admin'		=> $u['author'],
 			'mail'		=> $u['email'],
+			'info'		=> sprintf($lang['bn_writemail'], $u['author']),
 		);
 	}
 	

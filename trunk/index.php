@@ -19,77 +19,63 @@
 # *                                                                          #
 ##############################################################################
 
-
 define('INSIDE', true );
 define('INSTALL', false );
 define('LOGIN', true );
+
 $InLogin = true;
 
 $xgp_root = './';
 
-include ($xgp_root . 'extension.inc.php');
-include ($xgp_root . 'common.' . $phpEx);
+include_once($xgp_root . 'extension.inc.php');
+include_once($xgp_root . 'common.' . $phpEx);
 
-includeLang ( 'PUBLIC' );
-$parse = $lang;
-$page = request_var ( 'page', '' );
-$mode = request_var ( 'mode', '' );
+includeLang ('PUBLIC');
 
 
-$parse['servername'] 	= $game_config['game_name'];
-$parse['forum_url'] 	= $game_config['forum_url'];
-$parse['game_url']		= REALPATH;
-$parse['jscap']			= ($game_config ['capaktiv'] === '1') ? "<script src=\"http://api.recaptcha.net/js/recaptcha_ajax.js\" type=\"text/javascript\"></script>
-<script type=\"text/javascript\">
-function showRecaptcha(element, themeName) {
-  Recaptcha.create(\"".$game_config['cappublic']."\", element, {
-        theme: themeName,
-        tabindex: 0,
-        callback: Recaptcha.focus_response_field
-  });
-}
-</script>
-":"";
-$getajax				= request_var ( 'getajax', 0 );
-$parse['game_captcha']	= $game_config ['capaktiv'];
-$parse['game_close']	= $game_config ['reg_closed'];
-$parse['header'] 		= (!$getajax) ? parsetemplate ( gettemplate ( 'public/index_header' ), $parse ):"";
-$parse['footer']	 	= (!$getajax) ? parsetemplate ( gettemplate ( 'public/index_footer' ), $parse ):"";
+//Syntax
+// array('URL_TO_UNI' => 'Name');
+$AvailableUnis	= array(
+	'./'	=> $lang['universe']." 1",
+);
+
+$template	= new template();
+$template->set_index();
+
+$page = request_var('page', '');
+$mode = request_var('mode', '');
 
 switch ($page) {
 	case 'lostpassword' :
 		$usermail = request_var ( 'email', '' );
-		if (! empty ( $_POST )) {
+		if ($mode == "send") {
 			$ExistMail = $db->fetch_array ( $db->query ( "SELECT `username` FROM " . USERS . " WHERE `email` = '" . $db->sql_escape($usermail) . "' LIMIT 1;" ) );
 			if (empty($ExistMail['username'])) {
-				message($lang ['mail_not_exist'], "index.php?page=lostpassword", 3, false, false );
+				message($lang['mail_not_exist'], "index.php?page=lostpassword", 3, false, false );
 			} else {
 				$Caracters = "aazertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN1234567890";
-				$Count = strlen ( $Caracters );
+				$Count = strlen($Caracters);
 				$Taille = 6;
 				for($i = 0; $i < $Taille; $i ++) {
 					$CaracterBoucle = rand ( 0, $Count - 1 );
 					$NewPass = substr ( $Caracters, $CaracterBoucle, 1 );
 				}
-				
-				$Body = "Hallo ".$ExistMail['username'].",<br /><br />";
-				$Body .= "dein Passwort für " . $game_config ['game_name'] . " lautet:<br /><br />";
-				$Body .= $NewPass . "<br /><br />";
-				$Body .= "Du kannst dich damit unter http://".$_SERVER['SERVER_NAME'].$_SERVER["PHP_SELF"] . " einloggen.<br /><br />";
-				$Body .= "Wir verschicken Passwörter nur an die von dir im Spiel angegebenen Mailadressen. Solltest du diese Mail nicht angefordert haben kannst du sie also einfach ignorieren.<br /><br />";
-				$Body .= "Wir wünschen dir weiterhin viel Erfolg beim Spielen von " . $game_config ['game_name'] . "!<br /><br />";
-				$Body .= "Dein " . $game_config ['game_name'] . "-Team<br /><br />";
-				
+
+				$MailRAW		= file_get_contents("./language/".$game_config['lang']."/email/email_lost_password.txt");
+				$MailContent	= sprintf($MailRAW, $ExistMail['username'], $game_config['game_name'], $NewPass, "http://".$_SERVER['SERVER_NAME'].$_SERVER["PHP_SELF"]);			
 			
 				if($game_config['smtp_host'] == '' || $game_config['smtp_port'] == '' || $game_config['smtp_user'] == '' || $game_config['smtp_pass'] == '')
-					message ($lang["mail_sended_fail"], "./", 2, false, false );
+					message($lang["mail_sended_fail"], "./", 2, false, false );
 				
-				MailSend($usermail, $ExistMail['username'], $lang['mail_title'], $Body);
-				$db->query ("UPDATE ".USERS." SET `password` ='" . md5($NewPass) . "' WHERE `username` = '" . $ExistMail['username'] . "' LIMIT 1;");
+				if(MailSend($usermail, $ExistMail['username'], $lang['mail_title'], $Body));
+					$db->query("UPDATE ".USERS." SET `password` ='" . md5($NewPass) . "' WHERE `username` = '".$ExistMail['username']."';");
 			}
 		} else {
-			$parse ['forum_url'] = $game_config ['forum_url'];
-			echo parsetemplate ( gettemplate ( 'public/lostpassword' ), $parse );
+			$template->assign_vars(array(
+				'email'	=> $lang['email'],
+				'send'	=> $lang['send'],
+			));
+			$template->display('public/lostpassword.tpl');
 		}
 		break;
 	case 'reg' :
@@ -100,59 +86,50 @@ switch ($page) {
 		}
 		switch ($mode) {
 			case 'send' :
-				$errors = 0;
-				$errorlist = "";
+			
+				$errors = "";
+				
+				$UserPass 	= request_var ('password', '');
+				$UserPass2 	= request_var ('password2', '');
+				$UserName 	= request_var ('character', '');
+				$UserEmail 	= request_var ('email', '');
+				$UserEmail2	= request_var ('email2', '');
+				$agbrules 	= request_var ('rgt', '');
+				$Exist['userv'] = $db->fetch_array($db->query("SELECT username, email FROM ".USERS." WHERE username = '".$db->sql_escape($UserName)."' OR email = '".$db->sql_escape($UserEmail)."';"));
+				$Exist['vaild'] = $db->fetch_array($db->query("SELECT username, email FROM ".USERS_VALID." WHERE username = '".$db->sql_escape($UserName)."' OR email = '".$db->sql_escape($UserEmail)."';"));
+				
 				if ($game_config ['capaktiv'] === '1') {
 					require_once ('includes/libs/reCAPTCHA/recaptchalib.php');
 					$privatekey = $game_config ['capprivate'];
 					$resp = recaptcha_check_answer ( $privatekey, $_SERVER ["REMOTE_ADDR"], request_var ( 'recaptcha_challenge_field', '' ), request_var ( 'recaptcha_response_field', '' ) );
-					if (!$resp->is_valid) {
-						$errorlist .= "Sicherheitscode falsch!<br />";
-						$errors ++;
-					}
+					if (!$resp->is_valid)
+						$errorlist .= $lang['wrong_captcha'];
 				}
 				
-				$UserPass 	= request_var ( 'passwrd', '' );
-				$UserName 	= request_var ( 'character', '' );
-				$UserEmail 	= request_var ( 'email', '' );
-				$agbrules 	= request_var ( 'rgt', '' );
-				$Exist['userv'] = $db->fetch_array($db->query("SELECT username, email FROM ".USERS." WHERE username = '".$db->sql_escape($UserName)."' OR email = '".$db->sql_escape($UserEmail)."';"));
-				$Exist['vaild'] = $db->fetch_array($db->query("SELECT username, email FROM ".USERS_VALID." WHERE username = '".$db->sql_escape($UserName)."' OR email = '".$db->sql_escape($UserEmail)."';"));
-				if (! is_email ( $UserEmail )) {
-					$errorlist .= $lang ['invalid_mail_adress'];
-					$errors ++;
-				}
+				if (!is_email($UserEmail)) 
+					$errors .= $lang['invalid_mail_adress'];
 				
-				if (! $UserName) {
-					$errorlist .= $lang ['empty_user_field'];
-					$errors ++;
-				}
+				if (!$UserName) 
+					$errors .= $lang['empty_user_field'];
 				
-				if (strlen ( $UserPass ) < 6) {
-					$errorlist .= $lang ['password_lenght_error'];
-					$errors ++;
-				}
+				if (strlen($UserPass) < 6)
+					$errors .= $lang['password_lenght_error'];				
+				if ($UserPass != $UserPass2)
+					$errors .= $lang['different_passwords'];				
 				
-				if (!ctype_alnum($UserName)) {
-					$errorlist .= $lang ['user_field_no_alphanumeric'];
-					$errors ++;
-				}
+				if ($UserEmail != $UserEmail2)
+					$errors .= $lang['different_mails'];
 				
-				if ($agbrules != 'on') {
-					$errorlist .= $lang ['terms_and_conditions'];
-					$errors ++;
-				}
+				if (!ctype_alnum($UserName))
+					$errors .= $lang['user_field_no_alphanumeric'];
+				if ($agbrules != 'on')
+					$errors .= $lang['terms_and_conditions'];
+				if ((isset($Exist['userv']['username']) || isset($Exist['vaild']['username']) && ($UserName == $Exist['userv']['username'] || $UserName == $Exist['vaild']['username'])))
+					$errors .= $lang['user_already_exists'];
+				if ((isset($Exist['userv']['email']) || isset($Exist['vaild']['email'])) && ($UserEmail == $Exist['userv']['email'] || $UserEmail == $Exist['vaild']['email']))
+					$errors .= $lang['mail_already_exists'];
 				
-				if ((isset($Exist['userv']['username']) || isset($Exist['vaild']['username']) && ($UserName == $Exist['userv']['username'] || $UserName == $Exist['vaild']['username']))) {
-					$errorlist .= $lang ['user_already_exists'];
-					$errors ++;
-				}
-				if ((isset($Exist['userv']['email']) || isset($Exist['vaild']['email'])) && ($UserEmail == $Exist['userv']['email'] || $UserEmail == $Exist['vaild']['email'])) {
-					$errorlist .= $lang ['mail_already_exists'];
-					$errors ++;
-				}
-				
-				if ($errors != 0) {
+				if (!empty($errors)) {
 					message ( $errorlist, "index.php?page=reg", "3", false, false );
 				} else {
 					$md5newpass = md5($UserPass);
@@ -178,8 +155,8 @@ switch ($page) {
 					}					
 
 					$MailSubject 	= $lang['reg_mail_message_pass'];
-					$MailRAW		= file_get_contents("./language/deutsch/email/email_vaild_reg.txt");
-					$MailContent	= sprintf($MailRAW, $UserName, $game_config['game_name'], "http://".$_SERVER['SERVER_NAME'].$_SERVER["PHP_SELF"] ,$clef, $UserPass, ADMINEMAIL);
+					$MailRAW		= file_get_contents("./language/".$game_config['lang']."/email/email_vaild_reg.txt");
+					$MailContent	= sprintf($MailRAW, $UserName, $game_config['game_name'], "http://".$_SERVER['SERVER_NAME'].$_SERVER["PHP_SELF"] ,$clef, $UserPass, $game_config['smtp_user']);
 		
 					MailSend($UserEmail, $UserName, $MailSubject, $MailContent);
 					$QryInsertUser = "INSERT INTO " . USERS_VALID . " SET ";
@@ -223,7 +200,7 @@ switch ($page) {
 				if($game_config['smtp_host'] != '' && $game_config['smtp_port'] != 0 && $game_config['smtp_user'] != '' && $game_config['smtp_pass'] != '')
 				{				
 					$MailSubject	= sprintf($lang['reg_mail_reg_done'], $game_config['game_name']);	
-					$MailRAW		= file_get_contents("./language/deutsch/email/email_reg_done.txt");
+					$MailRAW		= file_get_contents("./language/".$game_config['lang']."/email/email_reg_done.txt");
 					$MailContent	= sprintf($MailRAW, $UserName, $game_config['game_name']);	
 					MailSend($UserMail, $UserName, $MailSubject, $MailContent);
 				}
@@ -312,72 +289,175 @@ switch ($page) {
 				}
 			break;
 			default :
-				$parse ['servername'] = $game_config ['game_name'];
-				$parse ['forum_url'] = $game_config ['forum_url'];
-				echo parsetemplate ( gettemplate ( 'public/registry_form' ), $parse );
+				$template->assign_vars(array(
+					'server_message_reg'			=> $lang['server_message_reg'],
+					'register_at_reg'				=> $lang['register_at_reg'],
+					'user_reg'						=> $lang['user_reg'],
+					'pass_reg'						=> $lang['pass_reg'],
+					'pass2_reg'						=> $lang['pass2_reg'],
+					'email_reg'						=> $lang['email_reg'],
+					'email2_reg'					=> $lang['email2_reg'],
+					'captcha_reg'					=> $lang['captcha_reg'],
+					'register_now'					=> $lang['register_now'],
+					'accept_terms_and_conditions'	=> $lang['accept_terms_and_conditions'],
+					'captcha_reload'				=> $lang['captcha_reload'],
+					'captcha_help'					=> $lang['captcha_help'],
+					'captcha_get_image'				=> $lang['captcha_get_image'],
+					'captcha_reload'				=> $lang['captcha_reload'],
+					'captcha_get_audio'				=> $lang['captcha_get_audio'],
+				));
+				$template->display('public/registry_form.tpl');
 			break;
 		}
 		break;
 	case 'agb' :
-		echo parsetemplate ( gettemplate ( 'public/index_agb' ), $parse );
+		$template->assign_vars(array(
+			'agb'				=> $lang['agb'],
+			'agb_overview'		=> $lang['agb_overview'],
+		));
+		$template->display('public/index_agb.tpl');
 		break;
 	case 'rules' :
-		echo parsetemplate ( gettemplate ( 'public/index_rules' ), $parse );
+		$template->assign_vars(array(
+			'rules'				=> $lang['rules'],
+			'rules_overview'	=> $lang['rules_overview'],
+			'rules_info1'		=> sprintf($lang['rules_info1'], $game_config['forum_url']),
+			'rules_info2'		=> $lang['rules_info2'],
+		));
+		$template->display('public/index_rules.tpl');
 		break;
 	case 'screens' :
-		echo parsetemplate ( gettemplate ( 'public/index_screens' ), $parse );
+		$template->display('public/index_screens.tpl');
 		break;
-	case 'impressum' :
-		echo parsetemplate ( gettemplate ( 'public/index_impressum' ), $parse );
+	case 'top100' :
+		$top = $db->query("SELECT * FROM ".TOPKB." ORDER BY gesamtunits DESC LIMIT 100;");
+		while($data = $db->fetch_array($top)) {
+			$TopKBList[]	= array(
+				'result'	=> $data['fleetresult'],
+				'time'		=> date("D d M H:i:s", $data['time']),
+				'units'		=> pretty_number($data['gesamtunits']),
+				'rid'		=> $data['rid'],
+				'attacker'	=> $data['angreifer'],
+				'defender'	=> $data['defender'],
+				'result'	=> $data['fleetresult'],
+			);
+		}
+			
+		$template->assign_vars(array(	
+			'tkb_units'		=> $lang['tkb_units'],
+			'tkb_datum'		=> $lang['tkb_datum'],
+			'tkb_owners'	=> $lang['tkb_owners'],
+			'tkb_platz'		=> $lang['tkb_platz'],
+			'tkb_top'		=> $lang['tkb_top'],
+			'tkb_gratz'		=> $lang['tkb_gratz'],
+			'tkb_legende'	=> $lang['tkb_legende'],
+			'tkb_gewinner'	=> $lang['tkb_gewinner'],
+			'tkb_verlierer'	=> $lang['tkb_verlierer'],
+			'TopKBList'		=> $TopKBList,
+		));
+			
+		$template->display('public/index_top100.tpl');
+		break;
+	case 'pranger' :
+		$PrangerRAW = $db->query("SELECT * FROM ".BANNED." ORDER BY `id`;");
+
+		while($u = $db->fetch_array($PrangerRAW))
+		{
+			$PrangerList[]	= array(
+				'player'	=> $u['who'],
+				'theme'		=> $u['theme'],
+				'from'		=> date("d. M Y H:i:s",$u['time']),
+				'to'		=> date("d. M Y H:i:s",$u['longer']),
+				'admin'		=> $u['author'],
+				'mail'		=> $u['email'],
+				'info'		=> sprintf($lang['bn_writemail'], $u['author']),
+			);
+		}
+		
+		$template->assign_vars(array(	
+			'PrangerList'				=> $PrangerList,
+			'bn_no_players_banned'		=> $lang['bn_no_players_banned'],
+			'bn_exists'					=> $lang['bn_exists'],
+			'bn_players_banned'			=> $lang['bn_players_banned'],
+			'bn_players_banned_list'	=> $lang['bn_players_banned_list'],
+			'bn_player'					=> $lang['bn_player'],
+			'bn_reason'					=> $lang['bn_reason'],
+			'bn_from'					=> $lang['bn_from'],
+			'bn_until'					=> $lang['bn_until'],
+			'bn_by'						=> $lang['bn_by'],
+		));
+		
+		$template->display('public/index_pranger.tpl');
+		break;
+	case 'disclamer':
+		$template->assign_vars(array(
+			'disclamer'			=> $lang['disclamer'],
+			'disclamer_name'	=> $lang['disclamer_name'],
+			'disclamer_adress'	=> $lang['disclamer_adress'],
+			'disclamer_tel'		=> $lang['disclamer_tel'],
+			'disclamer_email'	=> $lang['disclamer_email'],
+		));
+		$template->display('public/index_disclamer.tpl');
 		break;
 	case 'news' :
-		$query = $db->query ("SELECT * FROM ".NEWS." ORDER BY id DESC;");
-		$news = "";
-		while ($NewsRow = $db->fetch($query)) {
-			$parse ['name']		= $NewsRow ['user'];
-			$parse ['title'] 	= $NewsRow ['title'];
-			$parse ['date'] 	= date ( "d.m.Y H:i:s", $NewsRow ['date'] );
-			$parse ['text'] 	= makebr($NewsRow['text']);
-			$news .= parsetemplate ( gettemplate ( 'public/index_news_rows' ), $parse );
+		$NewsRAW	= $db->query ("SELECT date,title,text,user FROM ".NEWS." ORDER BY id DESC;");
+		while ($NewsRow = $db->fetch($NewsRAW)) {
+			$NewsList[]	= array(
+				'title' => $NewsRow['title'],
+				'from' 	=> sprintf($lang['news_from'], date("d. M Y H:i:s", $NewsRow['date']), $NewsRow['user']),
+				'text' 	=> makebr($NewsRow['text']),
+			);
 		}
-		$parse ['news'] = $news;
-
-		echo parsetemplate ( gettemplate ( 'public/index_news_body' ), $parse );
+		
+		$template->assign_vars(array(
+			'NewsList'				=> $NewsList,
+			'news_overview'			=> $lang['news_overview'],
+			'news_does_not_exist'	=> $lang['news_does_not_exist'],
+		));
+		
+		$template->display('public/index_news.tpl');
 		break;
 	default :
 		if ($_POST) {
 			$luser = request_var ( 'username', '' );
 			$lpass = request_var ( 'password', '' );
-			$lre = request_var ( 'rememberme', 0 );
-			$login = $db->fetch_array ( $db->query ( "SELECT `id`,`username`,`password`,`banaday` FROM " . USERS . " WHERE `username` = '" . $db->sql_escape ( $luser ) . "' AND `password` = '" . md5 ( $lpass ) . "';" ) );
-			
-			if ($login ['banaday'] <= time () && $login ['banaday'] != '0') {
-				$db->multi_query ("UPDATE " . USERS . " SET `banaday` = '0', `bana` = '0' WHERE `username` = '" . $login ['username'] . "';DELETE FROM " . BANNED . " WHERE `who` = '" . $login ['username'] . "';" );
-			}
+			$login = $db->fetch_array($db->query("SELECT `id`,`username`,`password`,`banaday` FROM " . USERS . " WHERE `username` = '".$db->sql_escape($luser)."' AND `password` = '".md5($lpass)."';"));
 			
 			if ($login) {
-				if ($lre) {
-					$expiretime = time () + 31536000;
-					$rememberme = 1;
-				} else {
-					$expiretime = 0;
-					$rememberme = 0;
+				if ($login['banaday'] <= time () && $login['banaday'] != '0') {
+					$db->query("UPDATE " . USERS . " SET `banaday` = '0', `bana` = '0' WHERE `username` = '" . $login ['username'] . "';");
 				}
-				
-				@include ('config.php');
+			
+				$expiretime = 0;
+				$rememberme = 0;
+							
 				$cookie = $login ["id"] . "/%/" . $login ["username"] . "/%/" . md5 ( $login ["password"] . "--" . $dbsettings ["secretword"] ) . "/%/" . $rememberme;
-				setcookie ( $game_config ['COOKIE_NAME'], $cookie, $expiretime, "/", "", 0 );
+				setcookie($game_config ['COOKIE_NAME'], $cookie, $expiretime, "/", "", 0);
 				
 				$db->query ( "UPDATE `" . USERS . "` SET `current_planet` = `id_planet` WHERE `id` ='" . $login ["id"] . "';" );
-				
-				unset ( $dbsettings );
+
 				header ( "Location: ./game.php?page=overview" );
 				exit ();
 			} else {
-				message ( $lang ['login_error'], "./", 2, false, false );
+				message($lang['login_error'], "./", 2, false, false);
 			}
 		} else {
-			echo parsetemplate ( gettemplate ( 'public/index_body' ), $parse );
+			$template->assign_vars(array(
+				'AvailableUnis'			=> $AvailableUnis,
+				'welcome_to'			=> $lang['welcome_to'],
+				'server_description'	=> $lang['server_description'],
+				'server_infos'			=> $lang['server_infos'],
+				'login'					=> $lang['login'],
+				'login_info'			=> $lang['login_info'],
+				'user'					=> $lang['user'],
+				'pass'					=> $lang['pass'],
+				'lostpassword'			=> $lang['lostpassword'],
+				'register_now'			=> $lang['register_now'],
+				'screenshots'			=> $lang['screenshots'],
+				'chose_a_uni'			=> $lang['chose_a_uni'],
+				'universe'				=> $lang['universe'],
+			));
+			$template->display('public/index_body.tpl');
 		}
 	break;
 }

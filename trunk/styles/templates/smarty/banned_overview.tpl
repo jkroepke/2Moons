@@ -18,7 +18,7 @@
 		<th><center><b>{$PlayerInfo.theme}</b></center></th>
 		<th><center><b>{$PlayerInfo.from}</b></center></th>
 		<th><center><b>{$PlayerInfo.to}</b></center></th>
-		<th><center><b><a href="mailto:{$PlayerInfo.mail}" title="Mail an {$PlayerInfo.admin} schreiben\">{$PlayerInfo.admin}</a></b></center></th>
+		<th><center><b><a href="mailto:{$PlayerInfo.mail}" title="{$PlayerInfo.info}">{$PlayerInfo.admin}</a></b></center></th>
 	</tr>
 	{/foreach}
 	<tr><th colspan="5">{if {$smarty.foreach.Pranger.total} == 0}{$bn_no_players_banned}{else}{$bn_exists}{$smarty.foreach.Pranger.total}{$bn_players_banned}{/if}</th></tr>

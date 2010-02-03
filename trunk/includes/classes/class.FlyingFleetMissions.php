@@ -21,6 +21,23 @@
 
 abstract class FlyingFleetMissions {
 
+	public static function CheckPlanet(&$CurrentFleet)
+	{
+		global $db;
+		if($CurrentFleet['mess'] == 1 && !CheckPlanetIfExist($CurrentFleet['fleet_end_galaxy'], $CurrentFleet['fleet_end_system'], $CurrentFleet['fleet_end_planet'], $CurrentFleet['fleet_end_type']))
+		{
+			if($CurrentFleet['fleet_end_type'] == 3)
+				$CurrentFleet['fleet_end_type'] = 1;
+			else 
+			{
+				$UserMainPlanet	= $db->fetch_array($db->query("SELECT `galaxy`, `system`, `planet` FROM ".USERS." WHERE `id` = ".$CurrentFleet['fleet_owner'].";"));
+				$CurrentFleet['fleet_end_galaxy']	= $UserMainPlanet['galaxy'];
+				$CurrentFleet['fleet_end_system']	= $UserMainPlanet['system'];
+				$CurrentFleet['fleet_end_planet']	= $UserMainPlanet['planet'];
+			}
+		}
+	}
+
 	private static function calculateSteal ($attackFleets, $FleetRow, $defenderPlanet)
 	{
 		//Beute-Math by WOT-Game based on http://www.owiki.de/Beute
@@ -2070,7 +2087,7 @@ abstract class FlyingFleetMissions {
 				if ($iPlanetCount['kolo'] >= STANDART_PLAYER_PLANETS + ceil($PlayerTech[$resource[124]] / 2))
 				{
 					$TheMessage = $lang['sys_colo_arrival'] . $TargetAdress . $lang['sys_colo_maxcolo'] . (STANDART_PLAYER_PLANETS + ceil($PlayerTech[$resource[124]] / 2)) . $lang['sys_colo_planet'];
-					SendSimpleMessage ( $FleetRow['fleet_owner'], '', $FleetRow['fleet_start_time'], 0, $lang['sys_colo_mess_from'], $lang['sys_colo_mess_report'], $TheMessage);
+					SendSimpleMessage ( $FleetRow['fleet_owner'], '', $FleetRow['fleet_start_time'], 4, $lang['sys_colo_mess_from'], $lang['sys_colo_mess_report'], $TheMessage);
 					$db->query("UPDATE ".FLEETS." SET `fleet_mess` = '1' WHERE `fleet_id` = ". $FleetRow["fleet_id"].";");
 				}
 				else
@@ -2079,7 +2096,7 @@ abstract class FlyingFleetMissions {
 					if($NewOwnerPlanet == true )
 					{
 						$TheMessage = $lang['sys_colo_arrival'] . $TargetAdress . $lang['sys_colo_allisok'];
-						SendSimpleMessage ( $FleetRow['fleet_owner'], '', $FleetRow['fleet_start_time'], 0, $lang['sys_colo_mess_from'], $lang['sys_colo_mess_report'], $TheMessage);
+						SendSimpleMessage ( $FleetRow['fleet_owner'], '', $FleetRow['fleet_start_time'], 4, $lang['sys_colo_mess_from'], $lang['sys_colo_mess_report'], $TheMessage);
 						self::StoreGoodsToPlanet($FleetRow);
 						if ($FleetRow['fleet_amount'] == 1)
 							$db->query("DELETE FROM ".FLEETS." WHERE fleet_id=" . $FleetRow["fleet_id"].";");
@@ -2123,7 +2140,7 @@ abstract class FlyingFleetMissions {
 					else
 					{
 						$TheMessage = $lang['sys_colo_arrival'] . $TargetAdress . $lang['sys_colo_badpos'];
-						SendSimpleMessage ( $FleetRow['fleet_owner'], '', $FleetRow['fleet_start_time'], 0, $lang['sys_colo_mess_from'], $lang['sys_colo_mess_report'], $TheMessage);
+						SendSimpleMessage ( $FleetRow['fleet_owner'], '', $FleetRow['fleet_start_time'], 4, $lang['sys_colo_mess_from'], $lang['sys_colo_mess_report'], $TheMessage);
 						$db->query("UPDATE ".FLEETS." SET `fleet_mess` = '1' WHERE `fleet_id` = ". $FleetRow["fleet_id"].";");
 					}
 				}
@@ -2131,7 +2148,7 @@ abstract class FlyingFleetMissions {
 			else
 			{
 				$TheMessage = $lang['sys_colo_arrival'] . $TargetAdress . $lang['sys_colo_notfree'];
-				SendSimpleMessage ( $FleetRow['fleet_owner'], '', $FleetRow['fleet_end_time'], 0, $lang['sys_colo_mess_from'], $lang['sys_colo_mess_report'], $TheMessage);
+				SendSimpleMessage ( $FleetRow['fleet_owner'], '', $FleetRow['fleet_end_time'], 4, $lang['sys_colo_mess_from'], $lang['sys_colo_mess_report'], $TheMessage);
 				$db->query("UPDATE ".FLEETS." SET `fleet_mess` = '1' WHERE `fleet_id` = ". $FleetRow["fleet_id"].";");
 			}
 		}
@@ -2292,10 +2309,10 @@ abstract class FlyingFleetMissions {
 
 						foreach ($defender['def'] as $element => $amount)
 						{
-							$fleetArray .= '`'.$resource[$element].'`='.$amount.', ';
+							$fleetArray .= "`".$resource[$element]."` = '".$amount."', ";
 						}
 						$QryUpdateTarget  = "UPDATE ".PLANETS." SET ";
-						$QryUpdateTarget .= substr($fleetArray, 0, -1);
+						$QryUpdateTarget .= substr($fleetArray, 0, -2);
 						$QryUpdateTarget .= "WHERE ";
 						$QryUpdateTarget .= "`galaxy` = '". $FleetRow['fleet_end_galaxy'] ."' AND ";
 						$QryUpdateTarget .= "`system` = '". $FleetRow['fleet_end_system'] ."' AND ";
