@@ -1,6 +1,21 @@
-<script src="scripts/cntchar.js" type="text/javascript"></script>
-<br />
-    <form action="game.php?page=alliance&mode=circular&sendmail=1" method="POST">
+<script type="text/javascript" src="scripts/cntchar.js"></script>
+<script type="text/javascript">
+
+function check(){
+	if(document.message.text.value == '') {
+		alert('Gebe einen Text ein!');
+		return false;
+	} else {
+		$.post('game.php?page=alliance&mode=circular&sendmail=1', $('#message').serialize(), function(data){
+			alert(data);
+			window.close();
+		});
+		return true;
+	}
+}
+</script>
+<br>
+    <form name="message" id="message">
       <table width="530">
         <tr>
           <td class="c" colspan=2>{al_circular_send_ciruclar}</td>
@@ -23,7 +38,7 @@
           <td class="c"><a href="game.php?page=alliance">{al_back}</a></td>
           <td align="center" class="c">
             <input type="reset" value="{al_circular_reset}">
-            <input type="submit" value="{al_circular_send_submit}">
+            <input type="button" onClick="return check();" name="button" value="{al_circular_send_submit}">
           </td>
         </tr>
       </table>

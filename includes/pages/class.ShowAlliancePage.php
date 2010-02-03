@@ -581,12 +581,10 @@ class ShowAlliancePage
 							{
 								SendSimpleMessage($u['id'],$CurrentUser['id'],'',2,"Allianz ".$ally['ally_tag'],$CurrentUser['username'],$text);
 
-								$list .= "<br>".$u['username']." ";
+								$list .= "\n".$u['username'];
 							}
 
-							$page = $this->MessageForm($lang['al_circular_sended'],$list, "game.php?page=alliance", $lang['al_continue'], true);
-
-							display($page);
+							exit($lang['al_circular_sended'].$list);
 						}
 
 						$lang['r_list'] = "<option value=\"0\">".$lang['al_all_players']."</option>";

@@ -8,7 +8,7 @@
     <td colspan="4" class="c"><b>{$tkb_top}</b></td>
 </tr><tr>
     <th colspan="4">
-        <font color="orange">{$tkb_gratz}</font>
+        <font color="#E75B12">{$tkb_gratz}</font>
     </th>
 </tr><tr>
     <th><font color="lime">{$tkb_platz}</font></th>
@@ -19,7 +19,7 @@
 {foreach item=RowInfo key=RowNR from=$TopKBList}
 <tr>
     <th>{$RowNR + 1}</th>
-    <th><a href="javascript:f('?page=topkb&amp;mode=showkb&amp;rid={$RowInfo.rid}', '');">
+    <th><a href="javascript:f('?page=topkb&amp;mode=showkb&amp;rid={$RowInfo.rid}','');">
 	{if $RowInfo.result == "a"}
 	<font style="color:#00FF00">{$RowInfo.attacker}</font><b> VS </b><font style="color:#FF0000">{$RowInfo.defender}</font>
 	{elseif $RowInfo.result == "r"}
@@ -33,7 +33,7 @@
 </tr>
 {/foreach}
 <tr>
-<th colspan="4">{$tkb_legende}<font style="color:#00FF00">{$tkb_gewinner}</font><font style="color:#FF0000">{$tkb_verlierer}</font></tr></th>
+<th colspan="4">{$tkb_legende}<font style="color:#00FF00">{$tkb_gewinner}</font><font style="color:#FF0000">{$tkb_verlierer}</font></th></tr>
 </tbody>
 </table>
 </div>

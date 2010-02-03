@@ -1,7 +1,7 @@
 <div id="brp" class="z"></div>
 <script   type="text/javascript">
 v = new Date();
-var brp = document.getElementById('brp');
+var brp = $('#brp');
 
 function reseachtime(){ldelim}
 	n  = new Date();
@@ -10,7 +10,7 @@ function reseachtime(){ldelim}
 	m  = 0;
 	h  = 0;
 	if ( s < 0 ) {ldelim}
-		brp.innerHTML = '{$bd_ready}<br><a href=game.php?page=buildings&mode=research&cp={$tech_home}>{$bd_continue}</'+'a>';
+		brp.html('{$bd_ready}<br><a href=game.php?page=buildings&amp;mode=research&amp;cp={$tech_home}>{$bd_continue}</'+'a>)';
 		document.title = '{$bd_ready} - {$tech_lang} - {$game_name}';
 		document.location.href = "game.php?page=buildings&amp;mode=research";
 	{rdelim} else {ldelim}
@@ -18,7 +18,7 @@ function reseachtime(){ldelim}
 		if ( m > 59 ) { h = Math.floor( m / 60 ); m = m - h * 60; }
 		if ( s < 10 ) { s = "0" + s }
 		if ( m < 10 ) { m = "0" + m }
-		brp.innerHTML = h + ':' + m + ':' + s + '<br><a href=game.php?page=buildings&amp;mode=research&amp;cmd=cancel&amp;tech={$tech_id}>{$bd_cancel}<br>{$tech_name}</'+'a>';
+		brp.html(h + ':' + m + ':' + s + '<br><a href=game.php?page=buildings&amp;mode=research&amp;cmd=cancel&amp;tech={$tech_id}>{$bd_cancel}<br>{$tech_name}</'+'a>');
 		document.title = h + ':' + m + ':' + s + ' - {$tech_lang} - {$game_name}';
 	{rdelim}
 	window.setTimeout("reseachtime();",1000);

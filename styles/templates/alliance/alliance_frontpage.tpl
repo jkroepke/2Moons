@@ -22,7 +22,7 @@
             <th>{range}{alliance_admin}</th>
         </tr>
         <tr>
-            <th colspan="2"><a href="javascript:f('game.php?page=chat&chat_type=ally','');">Zum Allianz-Chat</a></th>
+            <th colspan="2"><a href="javascript:playercard('game.php?page=chat&amp;chat_type=ally','');">Zum Allianz-Chat</a></th>
         </tr> 		
         {requests}
         {send_circular_mail}

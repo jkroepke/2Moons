@@ -33,10 +33,11 @@ class FlyingFleetHandler extends FlyingFleetMissions
 		{
 			update_config('stats_fly_lock', time());
 			$db->multi_query("UNLOCK TABLES;LOCK TABLE ".AKS." WRITE, ".RW." WRITE, ".MESSAGES." WRITE, ".FLEETS." WRITE, ".PLANETS." WRITE, ".USERS." WRITE;");
-			
 			while ($CurrentFleet = $db->fetch_array($fleetquery))
 			{
-				switch ($CurrentFleet["fleet_mission"])
+				parent::CheckPlanet($CurrentFleet);
+
+				switch ($CurrentFleet['fleet_mission'])
 				{
 					case 1:
 						if(USE_NEW_BATTLE_ENGINE)

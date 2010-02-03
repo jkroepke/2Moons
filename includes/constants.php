@@ -77,6 +77,14 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	define('BUILD_CRISTAL'            ,    500);
 	define('BUILD_DEUTERIUM'          , 	 0);
 	
+	//	DISCLAMER INFOS
+
+	define('DICLAMER_NAME'            , "Edit constans.php!");
+	define('DICLAMER_ADRESS1'         , "Edit constans.php!");
+	define('DICLAMER_ADRESS2'         , "Edit constans.php!");
+	define('DICLAMER_TEL'     		  , "Edit constans.php!");
+	define('DICLAMER_EMAIL'    		  , "Edit constans.php!");
+	
 	// OFFICIERS DEFAULT VALUES
 	define('COMMANDANT'				  ,      3);
 	define('AMIRAL'				  	  ,   0.05);

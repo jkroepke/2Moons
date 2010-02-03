@@ -33,10 +33,9 @@ class template extends Smarty
 		$this->compile_check		= true;
 		$this->template_dir 		= $xgp_root . TEMPLATE_DIR."smarty/";
 		$this->compile_dir 			= $xgp_root ."cache/";
-		$this->config_dir 			= $xgp_root ."includes/classes/configs/";
 		
-		$this->planet				= $GLOBALS['planetrow'];
-		$this->player				= $GLOBALS['user'];
+		$this->planet				= (isset($GLOBALS['planetrow'])) ? $GLOBALS['planetrow'] : NULL;
+		$this->player				= (isset($GLOBALS['user'])) ? $GLOBALS['user'] : NULL;;
 		$this->lang					= $GLOBALS['lang'];
 		$this->db					= $GLOBALS['db'];
 		$this->GameConfig			= $GLOBALS['game_config'];
@@ -189,6 +188,34 @@ class template extends Smarty
 	}
 	
 	public function page_footer()
+	{
+		$this->assign_vars(array(
+			'cron'		=> ((time() >= ($this->GameConfig['stat_last_update'] + (60 * $this->GameConfig['stat_update_time']))) ? "<img src=\"cronjobs.php?cron=stats\" alt=\"\" height=\"1\" width=\"1\">" : "").((time() >= ($this->GameConfig['stat_last_db_update'] + (60 * 60 * 24))) ? "<img src=\"cronjobs.php?cron=opdb\" alt=\"\" height=\"1\" width=\"1\">" : ""),
+		));
+	}
+	
+	public function set_index()
+	{
+		$this->assign_vars(array(
+			'cappublic'			=> $this->GameConfig['cappublic'],
+			'servername' 		=> $this->GameConfig['game_name'],
+			'forum_url' 		=> $this->GameConfig['forum_url'],
+			'forum' 			=> $this->lang['forum'],
+			'register_closed'	=> $this->lang['register_closed'],
+			'menu_index'		=> $this->lang['menu_index'],
+			'menu_news'			=> $this->lang['menu_news'],
+			'menu_rules'		=> $this->lang['menu_rules'],
+			'menu_agb'			=> $this->lang['menu_agb'],
+			'menu_pranger'		=> $this->lang['menu_pranger'],
+			'menu_top100'		=> $this->lang['menu_top100'],
+			'menu_disclamer'	=> $this->lang['menu_disclamer'],
+			'game_captcha'		=> $this->GameConfig['capaktiv'],
+			'reg_close'			=> $this->GameConfig['reg_closed'],
+			'getajax'			=> request_var('getajax', 0),
+		));
+	}
+	
+	public function index_footer()
 	{
 		$this->assign_vars(array(
 			'cron'		=> ((time() >= ($this->GameConfig['stat_last_update'] + (60 * $this->GameConfig['stat_update_time']))) ? "<img src=\"cronjobs.php?cron=stats\" alt=\"\" height=\"1\" width=\"1\">" : "").((time() >= ($this->GameConfig['stat_last_db_update'] + (60 * 60 * 24))) ? "<img src=\"cronjobs.php?cron=opdb\" alt=\"\" height=\"1\" width=\"1\">" : ""),
