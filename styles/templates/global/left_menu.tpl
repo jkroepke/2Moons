@@ -177,7 +177,7 @@
           <tr>
             <td>
               <div align="center">
-                <a href='game.php?page=support'><font color="white">{supp_header}</font></a>
+                <a href='game.php?page=support'><font color="white">Support</font></a>
               </div>
             </td>
           </tr>
