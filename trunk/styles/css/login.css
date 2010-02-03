@@ -1,0 +1,26 @@
+#intro-logo { text-align: center; margin: 0px auto; margin-top: 5px; margin-bottom: 5px;} 
+#background-content { width: 100%; margin: 0px auto; margin-bottom: 22px; min-width: none; max-width: none; }
+#intro-menu {width: 350px;}
+.Estilo5 {color: #FF0000}
+html, body, .body{height:100%;width:100%;}
+
+.Estilo1 {
+        color: #FF0000;
+        font-weight: bold;
+}
+.Estilo3 {color: #FF0000; font-weight: bold; font-size: 18px; }
+.Estilo4 {color: #00FF00}
+.at300bs.at15t_expanded, .at300bs.at15t_compact {
+background:none!important;
+margin-right:4px;
+position:absolute;
+right:100px;
+}
+.at300bs {
+background:none !important;
+display:block;
+height:auto !important;
+line-height:16px !important;
+overflow:hidden;
+width:16px;
+}
