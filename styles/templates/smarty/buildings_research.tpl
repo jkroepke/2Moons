@@ -23,7 +23,7 @@
 								<td style="text-align:left;width:10px"><img src="./styles/images/transparent.gif" alt="" width="0" height="100"></td>
 								<td style="text-align:left;width:90%">{$ResearchInfoRow.descr}<br><br>{$ResearchInfoRow.price}</td>
 								<td style="text-align:center;vertical-align:middle;width:100px">
-								{if $ResearchInfoRow.link}{$ResearchInfoRow.link}{else}<center>-</center>{/if}
+								{$ResearchInfoRow.link}
 								</td>
 							</tr>
 						</tbody>
