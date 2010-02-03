@@ -3,18 +3,41 @@
                           <div id='logo_v2'></div>
                           <br />
                           <br /></center><table id='registration-inside' class='box-complex box box-compact box5' style="width:80%"><tr><td><table class='box5_box-header box-header'><tr><td class='box5_box-header-left box-header-left'>&nbsp;</td><td class='box5_box-header-center box-header-center'><div class='box5_box-title-wrapper box-title-wrapper'><div class='box5_box-title-container box-title-container'><table class='box5_box-title box-title'><tr><td class='box5_box-title-left box-title-left'>&nbsp;</td>
-<td class='box5_box-title-center box-title-center'>{$agb_overview}</td><td class='box5_box-title-right box-title-right'>&nbsp;</td></tr></table></div></div></td><td class='box5_box-header-right box-header-right'>&nbsp;</td></tr></table></td></tr><tr><td><table class='box5_box-content box-content'><tr><td class='box5_box-content-left box-content-left'>&nbsp;</td><td class='box5_box-content-center box-content-center'><div class='box5_content'><div class='box5_box-title-pad box-title-pad'>&nbsp;</div><table class='layout' cellpadding='5' width='80%'><tr><th colspan='2' width='80%'>
-{foreach name=MainSector item=Sector key=Name from=$agb}
-&sect;{$smarty.foreach.MainSector.iteration} {$Name}<br><br>
-{if is_array($Sector)}
-{foreach name=SubSector item=SubSector from=$Sector}
-{$smarty.foreach.MainSector.iteration}.{$smarty.foreach.SubSector.iteration} {$SubSector}<br><br>
-{/foreach}
-{else}
-{$Sector}<br><br>
-{/if}
-<br>
-{/foreach}
+<td class='box5_box-title-center box-title-center'>{$tkb_top}</td><td class='box5_box-title-right box-title-right'>&nbsp;</td></tr></table></div></div></td><td class='box5_box-header-right box-header-right'>&nbsp;</td></tr></table></td></tr><tr><td><table class='box5_box-content box-content'><tr><td class='box5_box-content-left box-content-left'>&nbsp;</td><td class='box5_box-content-center box-content-center'><div class='box5_content'><div class='box5_box-title-pad box-title-pad'>&nbsp;</div><table class='layout' cellpadding='5' width='80%'><tr><th colspan='2' width='80%'>
+	<br>
+	<table style="width:100%;text-align:center;padding-top:3px;">
+	<tbody>
+	<tr>
+		<td colspan="4">
+			<font color="#E75B12">{$tkb_gratz}</font>
+		</td>
+	</tr><tr>
+		<td><font color="lime">{$tkb_platz}</font></td>
+		<td><font color="lime">{$tkb_owners}</font></td>
+		<td><font color="lime">{$tkb_datum}</font></td>
+		<td><font color="lime">{$tkb_units}</font></td>
+	</tr>
+	{foreach item=RowInfo key=RowNR from=$TopKBList}
+	<tr>
+		<td>{$RowNR + 1}</td>
+		<td>
+		{if $RowInfo.result == "a"}
+		<font style="color:#00FF00">{$RowInfo.attacker}</font><font style="color:#FFFFFF"><b> VS </b></font><font style="color:#FF0000">{$RowInfo.defender}</font>
+		{elseif $RowInfo.result == "r"}
+		<font style="color:#FF0000">{$RowInfo.attacker}</font><font style="color:#FFFFFF"><b> VS </b></font><font style="color:#00FF00">{$RowInfo.defender}</font>
+		{else}
+		{$RowInfo.attacker}<b> VS </b>{$RowInfo.defender}
+		{/if}
+		</td>
+		<td>{$RowInfo.time}</td>
+		<td>{$RowInfo.units}</td>
+	</tr>
+	{/foreach}
+	<tr>
+	<td colspan="4">{$tkb_legende}<font style="color:#00FF00">{$tkb_gewinner}</font><font style="color:#FF0000">{$tkb_verlierer}</font></td>
+	</tr>
+	</tbody>
+	</table>
 </th></tr>
 </table></div></td><td class='box5_box-content-right box-content-right'>&nbsp;</td></tr></table></td></tr><tr><td><table class='box5_box-footer box-footer'><tr><td class='box5_box-footer-left box-footer-left'>&nbsp;</td><td class='box5_box-footer-center box-footer-center'>&nbsp;</td><td class='box5_box-footer-right box-footer-right'>&nbsp;</td></tr></table></td></tr></table><div class='box1_box-status-pad box-status-pad'>&nbsp;</div></div></td><td class='box1_box-content-right box-content-right'>&nbsp;</td></tr></table></td></tr><tr><td><table class='box1_box-footer box-footer'><tr><td class='box1_box-footer-left box-footer-left'>&nbsp;</td><td class='box1_box-footer-center box-footer-center'><div class='box1_box-status-wrapper box-status-wrapper'><div class='box1_box-status-container box-status-container'><table class='box1_box-status box-status'><tr><td class='box1_box-status-left box-status-left'>&nbsp;</td><td class='box1_box-status-center box-status-center'></td>
 <td class='box1_box-status-right box-status-right'>&nbsp;</td></tr></table></div></div></td><td class='box1_box-footer-right box-footer-right'>&nbsp;</td></tr></table>
