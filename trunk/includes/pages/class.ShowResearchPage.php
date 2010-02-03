@@ -278,6 +278,8 @@ class ShowResearchPage
 						}
 						$TechnoLink  = $template->fetch("buildings_research_script.tpl");
 					}
+					else
+						$TechnoLink  = "<center>-</center>";
 				}
 				
 				$ResearchList[] = array(

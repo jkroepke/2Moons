@@ -10,7 +10,7 @@ function reseachtime(){ldelim}
 	m  = 0;
 	h  = 0;
 	if ( s < 0 ) {ldelim}
-		brp.html('{$bd_ready}<br><a href=game.php?page=buildings&amp;mode=research&amp;cp={$tech_home}>{$bd_continue}</'+'a>)';
+		brp.html('{$bd_ready}<br><a href=game.php?page=buildings&amp;mode=research&amp;cp={$tech_home}>{$bd_continue}</'+'a>');
 		document.title = '{$bd_ready} - {$tech_lang} - {$game_name}';
 		document.location.href = "game.php?page=buildings&amp;mode=research";
 	{rdelim} else {ldelim}
