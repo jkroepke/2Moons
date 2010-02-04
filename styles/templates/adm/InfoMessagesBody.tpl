@@ -10,6 +10,7 @@ MySQL-Server-Version: {vMySQLs}
 Game Version: 2Moons {vGame}
 Game Addresse: http://{root}/
 Game Pfad: http://{gameroot}/index.php
+PHP-Extension nachladbar: {dl}
 Problem besteht seit Installation:
 Verwendeter Editor:
 Screenshot:

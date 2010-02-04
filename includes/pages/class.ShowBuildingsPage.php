@@ -97,13 +97,13 @@ class ShowBuildingsPage
 				}
 				$NewQueue        = implode(";", $QueueArray );
 				$ReturnValue     = true;
-				$BuildEndTime    = '0';
+				$BuildEndTime    = 0;
 			}
 			else
 			{
 				$NewQueue        = '0';
 				$ReturnValue     = false;
-				$BuildEndTime    = '0';
+				$BuildEndTime    = 0;
 			}
 
 			if ($BuildMode == 'destroy')
@@ -126,7 +126,7 @@ class ShowBuildingsPage
 		else
 		{
 			$NewQueue          = '0';
-			$BuildEndTime      = '0';
+			$BuildEndTime      = 0;
 			$ReturnValue       = false;
 		}
 
@@ -145,6 +145,9 @@ class ShowBuildingsPage
 			{
 				$QueueArray    = explode ( ";", $CurrentQueue );
 				$ActualCount   = count ( $QueueArray );
+				if($ActualCount <= 1)
+					exit(header("Location: game.php?page=buildings&cmd=cancel"));
+					
 				$ListIDArray   = explode ( ",", $QueueArray[$QueueID - 2] );
 				$BuildEndTime  = $ListIDArray[3];
 				for ($ID = $QueueID; $ID < $ActualCount; $ID++ )
@@ -316,7 +319,7 @@ class ShowBuildingsPage
 						if ($ListID == 1)
 						{
 							$ListIDRow .= "		<div id=\"blc\" class=\"z\">". $BuildTime ."<br>";
-							$ListIDRow .= "		<a href=\"game.php?page=buildings&amp;listid=". $ListID ."&amp;cmd=cancel&amp;planet=". $PlanetID ."\">".$lang['bd_interrupt']."</a></div>";
+							$ListIDRow .= "		<a href=\"game.php?page=buildings&amp;cmd=cancel\">".$lang['bd_interrupt']."</a></div>";
 							$ListIDRow .= "		<script type=\"text/javascript\">";
 							$ListIDRow .= "			pp = \"". $BuildTime ."\";\n";
 							$ListIDRow .= "			pk = \"". $ListID ."\";\n";
@@ -332,7 +335,7 @@ class ShowBuildingsPage
 						else
 						{
 							$ListIDRow .= "		<font color=\"red\">";
-							$ListIDRow .= "		<a href=\"game.php?page=buildings&amp;listid=". $ListID ."&amp;cmd=remove&amp;planet=". $PlanetID ."\">".$lang['bd_cancel']."</a></font>";
+							$ListIDRow .= "		<a href=\"game.php?page=buildings&amp;cmd=remove&amp;listid=". $ListID ."\">".$lang['bd_cancel']."</a></font>";
 						}
 						$ListIDRow .= "	</td>";
 						$ListIDRow .= "</tr>";
