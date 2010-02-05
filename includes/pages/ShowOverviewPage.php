@@ -54,9 +54,9 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 			{
 				$newname        = $db->sql_escape($_POST['newname']);
 
-				if (preg_match("/[^A-z0-9_\- ]/", $newname) == 1)
+				if (!ctype_alnum($newname) && !UTF8_SUPPORT)
 				{
-					message($lang['ov_newname_error'], "game.php?page=overview&mode=renameplanet",2);
+					message((UTF8_SUPPORT) ? $lang['ov_newname_no_space'] : $lang['ov_newname_alphanum'], "game.php?page=overview&mode=renameplanet",2);
 				}
 				if ($newname != "")
 				{

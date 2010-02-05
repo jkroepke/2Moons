@@ -67,6 +67,7 @@ $lang['invalid_mail_adress']		= 'Ung&uuml;ltige E-mail Adresse!<br>';
 $lang['empty_user_field']			= 'Bitte alle Felder ausfüllen!<br>';
 $lang['password_lenght_error']		= 'Das Passwort muss mindestens 4 Zeichen lang sein!<br>';
 $lang['user_field_no_alphanumeric']	= 'Bitte beim Username nur alphanumerische Zeichen eingeben!<br>';
+$lang['user_field_no_space']		= 'Bitte beim Username keine Leerzeichen eingeben!<br>';
 $lang['terms_and_conditions']		= 'Sie m&uuml;ssen die <a href="index.php?page=agb">AGB</a> und <a href="index.php?page=rules>Regeln</a> aktzeptieren!<br>';
 $lang['user_already_exists']		= 'Der Username ist bereits vergeben!<br>';
 $lang['mail_already_exists']		= 'Die E-mail Adresse ist bereits in Benutzung!<br>';

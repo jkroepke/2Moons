@@ -233,7 +233,7 @@ class ShowAlliancePage
 		if ($CurrentUser['ally_id'] != 0 && $CurrentUser['ally_request'] != 0)
 		{
 			$db->query("UPDATE `".USERS."` SET `ally_id` = 0 WHERE `id` = ".$CurrentUser['id'].";");
-			header("location:game.". $phpEx . "?page=alliance",2);
+			header("location:game.". $phpEx . "?page=alliance");
 		}
 		
 		switch($CurrentUser['ally_id']){
@@ -242,7 +242,7 @@ class ShowAlliancePage
 					case 'ainfo':
 						$allyrow = $db->fetch_array($db->query("SELECT * FROM ".ALLIANCE." WHERE ally_tag='".$db->sql_escape($tag)."' OR id='".$db->sql_escape($a)."';"));
 
-						if (!$allyrow) die(header("location:game.". $phpEx . "?page=alliance",2));
+						if (!$allyrow) die(header("location:game.". $phpEx . "?page=alliance"));
 						
 						$this->ainfo($allyrow);					
 					break;
@@ -259,9 +259,9 @@ class ShowAlliancePage
 								if ($aname == '')
 									message($lang['al_name_required'],"game.php?page=alliance&mode=make",2);
 
-								$tagquery = $db->fetch_array($db->query("SELECT `id` FROM `".ALLIANCE."` WHERE ally_tag='".$db->sql_escape($atag)."';"));
+								$tagquery = $db->fetch_array($db->query("SELECT `id` FROM `".ALLIANCE."` WHERE ally_tag = '".$db->sql_escape($atag)." OR ally_name = '".$db->sql_escape($aname)."';"));
 
-								if ($tagquery)
+								if (isset($tagquery))
 									message(str_replace('%s', $aname, $lang['al_already_exists'])."'","game.php?page=alliance&mode=make",2);
 								
 								$db->query("INSERT INTO ".ALLIANCE." SET
@@ -280,16 +280,14 @@ class ShowAlliancePage
 								`ally_register_time`='" . time() . "'
 								WHERE `id`='".$CurrentUser['id']."';");
 											
-								$page = $this->MessageForm(str_replace('%s', $_POST['atag'], $lang['al_created']),
-
-								str_replace('%s', $_POST['atag'], $lang['al_created']) . "<br><br>", "", $lang['al_continue']);
+								$page = $this->MessageForm(str_replace('%s', $atag, $lang['al_created']), str_replace('%s', $atag, $lang['al_created']) . "<br><br>", "", $lang['al_continue']);
 							}
 							else
 								$page .= parsetemplate(gettemplate('alliance/alliance_make'), $parse);
 
 							display($page);
 						} else {
-							header("location:game.". $phpEx . "?page=alliance",2);
+							header("location:game.". $phpEx . "?page=alliance");
 						}
 					break;
 					case 'search';
@@ -319,7 +317,7 @@ class ShowAlliancePage
 							}
 							display($page);
 						} else {
-							header("location:game.". $phpEx . "?page=alliance",2);
+							header("location:game.". $phpEx . "?page=alliance");
 						}
 					break;
 					case 'apply':
@@ -332,16 +330,16 @@ class ShowAlliancePage
 								$alianza = $db->fetch_array($db->query("SELECT `ally_request_notallow` FROM ".ALLIANCE." WHERE id='".$db->sql_escape($allyid)."';"));
 
 							if($alianza['ally_request_notallow'] == 1)
-								message($lang['al_alliance_closed'], "game.". $phpEx ."?page=alliance",2);
+								message($lang['al_alliance_closed'], "game.". $phpEx ."?page=alliance");
 							else
 							{
 								if (!is_numeric($allyid) || !$allyid || $CurrentUser['ally_request'] != 0 || $CurrentUser['ally_id'] != 0)
-									header("location:game.". $phpEx . "?page=alliance",2);
+									header("location:game.". $phpEx . "?page=alliance");
 
 								$allyrow = $db->fetch_array($db->query("SELECT ally_tag,ally_request FROM ".ALLIANCE." WHERE id='".$db->sql_escape($allyid)."';"));
 
 								if (!$allyrow)
-									header("location:game.". $phpEx . "?page=alliance",2);
+									header("location:game.". $phpEx . "?page=alliance");
 
 								extract($allyrow);
 
@@ -349,7 +347,7 @@ class ShowAlliancePage
 								{
 									$db->query("UPDATE ".USERS." SET `ally_request`='".$db->sql_escape($allyid)."', ally_request_text='" .$db->sql_escape($text). "', ally_register_time='" . time() . "' WHERE `id`='" . $CurrentUser['id'] . "';");
 
-									message($lang['al_request_confirmation_message'],"game.php?page=alliance",2);
+									message($lang['al_request_confirmation_message'],"game.php?page=alliance");
 								}
 								else
 									$text_apply = ($ally_request) ? $ally_request : $lang['al_default_request_text'];
@@ -362,7 +360,7 @@ class ShowAlliancePage
 								display(parsetemplate(gettemplate('alliance/alliance_applyform'), $parse));
 							}
 						} else {
-							header("location:game.". $phpEx . "?page=alliance",2);
+							header("location:game.". $phpEx . "?page=alliance");
 						}
 					break;
 					default:
@@ -453,19 +451,19 @@ class ShowAlliancePage
 				if (!$ally)
 				{
 					$db->query("UPDATE `".USERS."` SET `ally_id` = 0 WHERE `id` = ".$CurrentUser['id'].";");
-					header("location:game.". $phpEx . "?page=alliance",2);
+					header("location:game.". $phpEx . "?page=alliance");
 				}
 				switch($mode){
 					case 'ainfo':
 						$allyrow = $db->fetch_array($db->query("SELECT * FROM ".ALLIANCE." WHERE ally_tag='".$db->sql_escape($tag)."' OR id='".$db->sql_escape($a)."';"));
 
-						if (!$allyrow) die(header("location:game.". $phpEx . "?page=alliance",2));
+						if (!$allyrow) die(header("location:game.". $phpEx . "?page=alliance"));
 						
 						$this->ainfo($allyrow);	
 					break;
 					case 'exit':
 						if ($ally['ally_owner'] == $CurrentUser['id'])
-							message($lang['al_founder_cant_leave_alliance'],"game.php?page=alliance",2);
+							message($lang['al_founder_cant_leave_alliance'],"game.php?page=alliance");
 
 						if ($_GET['yes'] == 1)
 						{
@@ -484,7 +482,7 @@ class ShowAlliancePage
 					break;
 					case 'memberslist':
 						if ($ally['ally_owner'] != $CurrentUser['id'] && !$user_can_watch_memberlist)
-							header("location:game.". $phpEx . "?page=alliance",2);
+							header("location:game.". $phpEx . "?page=alliance");
 
 						if ($sort2 && $sort1)
 						{
@@ -563,7 +561,7 @@ class ShowAlliancePage
 					case 'circular':
 					
 						if ($ally['ally_owner'] != $CurrentUser['id'] && !$user_can_send_mails)
-							header("location:game.". $phpEx . "?page=alliance",2);
+							header("location:game.". $phpEx . "?page=alliance");
 
 						if ($sendmail == 1)
 						{
@@ -602,7 +600,7 @@ class ShowAlliancePage
 					case 'admin':
 						switch($edit) {
 							case 'rights':
-								if ($ally['ally_owner'] != $CurrentUser['id'] && !$user_can_edit_rights){ header("location:game.". $phpEx . "?page=alliance",2);exit;}
+								if ($ally['ally_owner'] != $CurrentUser['id'] && !$user_can_edit_rights){ header("location:game.". $phpEx . "?page=alliance");exit;}
 								
 								$rankname 	= request_var('newrangname', '');
 								$pid 		= $_POST['id'];			
@@ -697,12 +695,12 @@ class ShowAlliancePage
 							break;
 							case 'members':
 								if ($ally['ally_owner'] != $CurrentUser['id'] && $user_admin == false)
-									header("location:game.". $phpEx . "?page=alliance",2);
+									header("location:game.". $phpEx . "?page=alliance");
 
 								if (isset($kick))
 									{
 									if ($ally['ally_owner'] != $CurrentUser['id'] && !$user_can_kick)
-										header("location:game.". $phpEx . "?page=alliance",2);
+										header("location:game.". $phpEx . "?page=alliance");
 
 									$u = $db->fetch_array($db->query("SELECT ally_id,id FROM ".USERS." WHERE id='".$db->sql_escape($kick)."' LIMIT 1;"));
 
@@ -830,7 +828,7 @@ class ShowAlliancePage
 							break;
 							case 'requests':
 								if ($ally['ally_owner'] != $CurrentUser['id'] && !$user_bewerbungen_bearbeiten)
-									header("location:game.". $phpEx . "?page=alliance",2);
+									header("location:game.". $phpEx . "?page=alliance");
 
 								if ($_POST['action'] == $lang['al_acept_request'])
 								{
@@ -899,7 +897,7 @@ class ShowAlliancePage
 							break;
 							case 'tag':
 								if ($ally['ally_owner'] != $CurrentUser['id'] && !$user_admin)
-									header("location:game.". $phpEx . "?page=alliance",2);
+									header("location:game.". $phpEx . "?page=alliance");
 
 									$al_tag = request_var($lang['al_tag'], '');
 								if ($al_tag != '')
@@ -914,7 +912,7 @@ class ShowAlliancePage
 							break;
 							case 'name':
 								if ($ally['ally_owner'] != $CurrentUser['id'] && !$user_admin)
-									header("location:game.". $phpEx . "?page=alliance",2);
+									header("location:game.". $phpEx . "?page=alliance");
 									
 								$al_name = request_var($lang['al_name'], '', true);
 								
@@ -928,7 +926,7 @@ class ShowAlliancePage
 							break;
 							case 'exit':
 								if ($ally['ally_owner'] != $CurrentUser['id'] && !$user_can_exit_alliance)
-									header("location:game.". $phpEx . "?page=alliance",2);
+									header("location:game.". $phpEx . "?page=alliance");
 
 								$BorrarAlianza = $db->query("SELECT id FROM ".USERS." WHERE `ally_id`='".$ally['id']."';");
 
@@ -939,17 +937,17 @@ class ShowAlliancePage
 
 								$db->query("DELETE FROM ".ALLIANCE." WHERE id='".$ally['id']."' LIMIT 1;");
 
-								exit(header("location:game.". $phpEx . "?page=alliance",2));
+								exit(header("location:game.". $phpEx . "?page=alliance"));
 							break;
 							case 'transfer':
 								$postleader = request_var('newleader','');
 								if ($postleader != '')
 								{
 									$db->multi_query("UPDATE ".USERS." SET `ally_rank_id`='0' WHERE `id`='".$CurrentUser['id'].";UPDATE ".ALLIANCE." SET `ally_owner`='" . $db->sql_escape($postleader) . "' WHERE `id`='".$CurrentUser['ally_id'].";UPDATE ".USERS." SET `ally_rank_id`='0' WHERE `id`='" . $db->sql_escape($postleader) . "';");
-									exit(header("location:game.". $phpEx . "?page=alliance",2));
+									exit(header("location:game.". $phpEx . "?page=alliance"));
 								}
 								if ($ally['ally_owner'] != $CurrentUser['id'])
-									header("location:game.". $phpEx . "?page=alliance",2);
+									header("location:game.". $phpEx . "?page=alliance");
 								else
 								{
 									$listuser 		= $db->query("SELECT id,ally_rank_id,username FROM {{table}} WHERE ally_id='".$CurrentUser['ally_id']."';");
