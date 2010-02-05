@@ -52,8 +52,8 @@ class StatBanner {
 		$Query = $db->fetch_array($db->query("SELECT COUNT(a.id) AS count, a.username, b.build_points, b.fleet_points, b.defs_points, b.tech_points, b.total_points, b.total_rank, c.name, c.galaxy, c.system, c.planet FROM ".USERS." as a, ".STATPOINTS." as b, ".PLANETS." as c WHERE a.id = '".$id."' AND b.stat_type = '1' AND b.stat_code = '1' AND b.id_owner = '".$id."' AND c.id = a.id_planet;"));
 		// Variables
 		$b_univ   = $game_config['game_name'];
-		$b_user   = htmlspecialchars_decode($Query['username']);
-		$b_planet = htmlspecialchars_decode($Query['name']);
+		$b_user   = $Query['username'];
+		$b_planet = $Query['name'];
 		$b_xyz    = "[".$Query['galaxy'].":".$Query['system'].":".$Query['planet']."]";
 		$b_lvl    = "".$Query['total_rank']  ."/".$game_config['users_amount']."";
 		$b_build  = "".html_entity_decode($lang['st_buildings']) .": ".pretty_number($Query['build_points'])."";
@@ -109,15 +109,15 @@ class StatBanner {
 			$image  = imagecreatefrompng($xgp_root.$this->source);
 			// Variables
 			$b_univ   = $game_config['game_name'];
-			$b_user   = utf8_decode($Query['username']);
-			$b_planet = utf8_decode($Query['name']);
+			$b_user   = $Query['username'];
+			$b_planet = $Query['name'];
 			$b_xyz    = "[".$Query['galaxy'].":".$Query['system'].":".$Query['planet']."]";
-			$b_lvl    = "".$Query['total_rank']  ."/".$MaxUser."";
-			$b_build  = "".html_entity_decode($lang['st_buildings']) .": ".pretty_number($Query['build_points'])."";
-			$b_fleet  = "".html_entity_decode($lang['st_fleets']) .": ".pretty_number($Query['fleet_points'])."";
-			$b_def    = "".html_entity_decode($lang['st_defenses']) .": ".pretty_number($Query['defs_points'])."";
-			$b_search = "".html_entity_decode($lang['st_researh']) .": ".pretty_number($Query['tech_points'])."";
-			$b_total  = "".html_entity_decode($lang['st_points']) .": ".pretty_number($Query['total_points'])."";
+			$b_lvl    = $Query['total_rank']."/".$MaxUser;
+			$b_build  = html_entity_decode($lang['st_buildings']) .": ".pretty_number($Query['build_points']);
+			$b_fleet  = html_entity_decode($lang['st_fleets']) .": ".pretty_number($Query['fleet_points']);
+			$b_def    = html_entity_decode($lang['st_defenses']) .": ".pretty_number($Query['defs_points']);
+			$b_search = html_entity_decode($lang['st_researh']) .": ".pretty_number($Query['tech_points']);
+			$b_total  = html_entity_decode($lang['st_points']) .": ".pretty_number($Query['total_points']);
 
 
 			// Colors
@@ -133,6 +133,7 @@ class StatBanner {
 			// Today date
 			imagestring($image, 1, $this->CenterTextBanner($date,1,653), 65, $date, $select);
 			// Player name
+			// ImageTTFText($image, 9, 0, 15, 12,$select, $xgp_root."/scripts/banner.ttf",$b_user);
 			imagestring($image, 3, 15, 12, $b_user, $select);
 			// Player b_planet
 			imagestring($image, 3, 150, 12, "".$b_planet." ".$b_xyz."", $select);
@@ -144,7 +145,6 @@ class StatBanner {
 			imagestring($image, 2, 170, 30, $b_search, $select);
 			imagestring($image, 2, 170, 45, $b_def,  $select);
 			imagestring($image, 2, 15,  60, $b_total,  $select);
-
 			// Creat and delete banner
 			ImagePNG($image,$xgp_root.$this->path.$Query['id'].".png");
 			@chmod($xgp_root.$this->path.$Query['id'].".png",0777);

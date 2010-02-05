@@ -480,9 +480,9 @@ function MailSend($MailTarget, $MailTargetName, $MailSubject, $MailContent)
 		$mail->Port       = $game_config['smtp_port'];
 		$mail->Username   = $game_config['smtp_user'];
 		$mail->Password   = $game_config['smtp_pass'];
-		$mail->SetFrom(ADMINEMAIL_PREFIX."@".GetRealHostName(), $game_config['game_name']);
+		$mail->SetFrom(ADMINEMAIL, $game_config['game_name']);
 		$mail->AddAddress($MailTarget, $MailTargetName);
-		$mail->AddReplyTo(ADMINEMAIL_PREFIX."@".GetRealHostName(), $game_config['game_name']);
+		$mail->AddReplyTo(ADMINEMAIL, $game_config['game_name']);
 		$mail->Subject    = $MailSubject;
 		$mail->AltBody    = $MailContent;
 		$mail->MsgHTML(makebr($MailContent));
