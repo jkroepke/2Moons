@@ -25,7 +25,7 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	define('DEFAULT_SKINPATH' 		  , 'styles/skins/darkness/');
 	define('TEMPLATE_DIR'     		  , 'styles/templates/');
 	
-	define('ADMINEMAIL'               , "info@".GetRealHostName());
+	define('ADMINEMAIL_PREFIX'        , "info");
 	define('REALPATH'                 , "http://".$_SERVER['HTTP_HOST'].str_replace("\\","",dirname($_SERVER['SCRIPT_NAME'])."/"));
 	define('PHPEXT'                   , "php");
 	
@@ -87,7 +87,7 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	
 	// UTF-8 Support for Names
 	
-	define('UTF8_SUPPORT'          	  ,	false);	
+	define('UTF8_SUPPORT'          	  ,	true);	
 
 	// OFFICIERS DEFAULT VALUES
 	define('COMMANDANT'				  ,      3);
