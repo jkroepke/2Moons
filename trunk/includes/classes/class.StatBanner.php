@@ -109,8 +109,8 @@ class StatBanner {
 			$image  = imagecreatefrompng($xgp_root.$this->source);
 			// Variables
 			$b_univ   = $game_config['game_name'];
-			$b_user   = convert_cyr_string($Query['username'],"k","i");
-			$b_planet = htmlspecialchars_decode($Query['name']);
+			$b_user   = utf8_decode($Query['username']);
+			$b_planet = utf8_decode($Query['name']);
 			$b_xyz    = "[".$Query['galaxy'].":".$Query['system'].":".$Query['planet']."]";
 			$b_lvl    = "".$Query['total_rank']  ."/".$MaxUser."";
 			$b_build  = "".html_entity_decode($lang['st_buildings']) .": ".pretty_number($Query['build_points'])."";

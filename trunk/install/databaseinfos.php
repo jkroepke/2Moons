@@ -72,7 +72,7 @@ $QryTableBuddy      .= "`owner` int(11) NOT NULL default '0', ";
 $QryTableBuddy      .= "`active` tinyint(3) NOT NULL default '0', ";
 $QryTableBuddy      .= "`text` varchar(255) character set utf8, ";
 $QryTableBuddy      .= "PRIMARY KEY  (`id`) ";
-$QryTableBuddy      .= " ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$QryTableBuddy      .= ") ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 
 $QryTableChat        = "CREATE TABLE IF NOT EXISTS `prefix_".CHAT."` (";
 $QryTableChat       .= "`messageid` int(5) unsigned NOT NULL AUTO_INCREMENT,";
