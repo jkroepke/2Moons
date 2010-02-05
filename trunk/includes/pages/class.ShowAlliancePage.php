@@ -252,7 +252,7 @@ class ShowAlliancePage
 							if ($yes == 1 && $_POST)
 							{
 								$atag	= request_var('atag' , '');
-								$aname	= request_var('aname', '', true);
+								$aname	= request_var('aname', '', UTF8_SUPPORT);
 								if ($atag == '')
 									message($lang['al_tag_required'], "game.php?page=alliance&mode=make",2);
 
@@ -293,7 +293,7 @@ class ShowAlliancePage
 						}
 					break;
 					case 'search';
-						if( $CurrentUser['ally_request'] == 0)
+						if($CurrentUser['ally_request'] == 0)
 						{
 							$page = parsetemplate(gettemplate('alliance/alliance_searchform'), $parse);
 

@@ -25,7 +25,7 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	define('DEFAULT_SKINPATH' 		  , 'styles/skins/darkness/');
 	define('TEMPLATE_DIR'     		  , 'styles/templates/');
 	
-	define('ADMINEMAIL'               , "info@".str_replace("www.","",$_SERVER['HTTP_HOST']));
+	define('ADMINEMAIL'               , "info@".GetRealHostName());
 	define('REALPATH'                 , "http://".$_SERVER['HTTP_HOST'].str_replace("\\","",dirname($_SERVER['SCRIPT_NAME'])."/"));
 	define('PHPEXT'                   , "php");
 	
@@ -77,7 +77,7 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	define('BUILD_CRISTAL'            ,    500);
 	define('BUILD_DEUTERIUM'          , 	 0);
 	
-	//	DISCLAMER INFOS
+	//DISCLAMER INFOS
 
 	define('DICLAMER_NAME'            , "Edit constans.php!");
 	define('DICLAMER_ADRESS1'         , "Edit constans.php!");
@@ -85,6 +85,10 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	define('DICLAMER_TEL'     		  , "Edit constans.php!");
 	define('DICLAMER_EMAIL'    		  , "Edit constans.php!");
 	
+	// UTF-8 Support for Names
+	
+	define('UTF8_SUPPORT'          	  ,	false);	
+
 	// OFFICIERS DEFAULT VALUES
 	define('COMMANDANT'				  ,      3);
 	define('AMIRAL'				  	  ,   0.05);
