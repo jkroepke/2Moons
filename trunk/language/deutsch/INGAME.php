@@ -109,7 +109,8 @@ $lang['lm_support']							= 'Support';
 
 //----------------------------------------------------------------------------//
 //OVERVIEW
-$lang['ov_newname_error']					= 'Der Planetenname darf nur aus Zahlen und Buchstaben bestehen.';
+$lang['ov_newname_alphanum']				= 'Der Planetenname darf nur aus alphanumerische Zeichen bestehen.';
+$lang['ov_newname_no_space']				= 'Der Planetenname darf keine Leerzeichen enthalten.';
 $lang['ov_planet_abandoned']				= 'Planet erfolgreich aufgegeben!';
 $lang['ov_principal_planet_cant_abanone']	= 'Sie k&ouml;nnen nicht ihren Hauptplaneten l&ouml;schen!';
 $lang['ov_abandon_planet_not_possible']		= 'Kolonie nicht l&ouml;schbar, wenn Flottenaktivit&auml;ten zu oder von ihrer Kolonie stattfinden!';
@@ -1097,7 +1098,7 @@ $lang['op_admin_title_options']				= 'Administrator Optionen';
 $lang['op_admin_planets_protection']		= 'Adminschutz aktiveren';
 $lang['op_user_data']						= 'Benutzerdaten';
 $lang['op_username']						= 'Username';
-$lang['op_old_pass']						= 'Alles Passwort';
+$lang['op_old_pass']						= 'Altes Passwort';
 $lang['op_new_pass']						= 'neues Passwort (min. 8 Zeichen)';
 $lang['op_repeat_new_pass']					= 'neues Passwort (wiederhohlen)';
 $lang['op_email_adress']					= 'E-Mail Adresse';

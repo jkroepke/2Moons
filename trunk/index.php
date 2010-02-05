@@ -120,8 +120,12 @@ switch ($page) {
 				if ($UserEmail != $UserEmail2)
 					$errors .= $lang['different_mails'];
 				
-				if (!ctype_alnum($UserName))
-					$errors .= $lang['user_field_no_alphanumeric'];
+				if (CheckName($UserName)) {
+					if(UTF8_SUPPORT)
+						$errors .= $lang['user_field_no_space'];			
+					else
+						$errors .= $lang['user_field_no_alphanumeric'];	
+				}
 				if ($agbrules != 'on')
 					$errors .= $lang['terms_and_conditions'];
 				if ((isset($Exist['userv']['username']) || isset($Exist['vaild']['username']) && ($UserName == $Exist['userv']['username'] || $UserName == $Exist['vaild']['username'])))
@@ -130,7 +134,7 @@ switch ($page) {
 					$errors .= $lang['mail_already_exists'];
 				
 				if (!empty($errors)) {
-					message ( $errorlist, "index.php?page=reg", "3", false, false );
+					message($errors, "index.php?page=reg", "3", false, false );
 				} else {
 					$md5newpass = md5($UserPass);
 					
@@ -151,12 +155,12 @@ switch ($page) {
 						$QryInsertUser .= "`ip` = '" . $_SERVER ["REMOTE_ADDR"] . "'; ";
 						$db->query($QryInsertUser);
 						
-						exit(header("Location: index.php?page=reg&mode=valid&pseudo=" . $UserName . "&clef=" . $clef));
+						exit(header("Location: index.php?page=reg&mode=valid&id=".$md5newpass."&clef=" . $clef));
 					}					
 
 					$MailSubject 	= $lang['reg_mail_message_pass'];
 					$MailRAW		= file_get_contents("./language/".$game_config['lang']."/email/email_vaild_reg.txt");
-					$MailContent	= sprintf($MailRAW, $UserName, $game_config['game_name'], "http://".$_SERVER['SERVER_NAME'].$_SERVER["PHP_SELF"] ,$clef, $UserPass, $game_config['smtp_user']);
+					$MailContent	= sprintf($MailRAW, $UserName, $game_config['game_name'], "http://".$_SERVER['SERVER_NAME'].$_SERVER["PHP_SELF"], $clef, $UserPass, ADMINEMAIL_PREFIX."@".GetRealHostName(), $md5newpass);
 		
 					MailSend($UserEmail, $UserName, $MailSubject, $MailContent);
 					$QryInsertUser = "INSERT INTO " . USERS_VALID . " SET ";
@@ -171,10 +175,10 @@ switch ($page) {
 				}
 			break;
 			case 'valid' :		
-				$pseudo 	 = request_var('pseudo', '');
+				$pseudo 	 = request_var('id', '');
 				$clef 		 = request_var('clef', '');
 				$admin 	 	 = request_var('admin', 0);
-				$Valider	 = $db->fetch_array($db->query("SELECT username, password, email, ip FROM ".USERS_VALID." WHERE cle = '".$db->sql_escape($clef)."' AND username = '".$db->sql_escape($pseudo)."';"));
+				$Valider	 = $db->fetch_array($db->query("SELECT `username`, `password`, `email`, `ip` FROM ".USERS_VALID." WHERE `cle` = '".$db->sql_escape($clef)."' AND `password` = '".$db->sql_escape($pseudo)."';"));
 				
 				if($Valider == "") 
 					die(header("Location: ./"));

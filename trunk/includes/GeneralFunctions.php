@@ -543,4 +543,9 @@ function GetRealHostName()
 	return (count($array) == 3) ? $array[1].".".$array[2] : $_SERVER['HTTP_HOST'];
 }
 
+function CheckName($String)
+{
+	return((!ctype_alnum($String) && !UTF8_SUPPORT) || ctype_space($String)) ? false : true;
+}
+
 ?>
