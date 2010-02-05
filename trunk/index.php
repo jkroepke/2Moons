@@ -100,8 +100,7 @@ switch ($page) {
 				
 				if ($game_config ['capaktiv'] === '1') {
 					require_once ('includes/libs/reCAPTCHA/recaptchalib.php');
-					$privatekey = $game_config ['capprivate'];
-					$resp = recaptcha_check_answer ( $privatekey, $_SERVER ["REMOTE_ADDR"], request_var ( 'recaptcha_challenge_field', '' ), request_var ( 'recaptcha_response_field', '' ) );
+					$resp = recaptcha_check_answer($game_config['capprivate'], $_SERVER ["REMOTE_ADDR"], request_var ( 'recaptcha_challenge_field', '' ), request_var ( 'recaptcha_response_field', '' ) );
 					if (!$resp->is_valid)
 						$errorlist .= $lang['wrong_captcha'];
 				}
@@ -120,12 +119,9 @@ switch ($page) {
 				if ($UserEmail != $UserEmail2)
 					$errors .= $lang['different_mails'];
 				
-				if (CheckName($UserName)) {
-					if(UTF8_SUPPORT)
-						$errors .= $lang['user_field_no_space'];			
-					else
-						$errors .= $lang['user_field_no_alphanumeric'];	
-				}
+				if (CheckName($UserName))
+					$errors .= (UTF8_SUPPORT) ? $lang['user_field_no_space'] : $lang['user_field_no_alphanumeric'];			
+				
 				if ($agbrules != 'on')
 					$errors .= $lang['terms_and_conditions'];
 				if ((isset($Exist['userv']['username']) || isset($Exist['vaild']['username']) && ($UserName == $Exist['userv']['username'] || $UserName == $Exist['vaild']['username'])))

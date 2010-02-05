@@ -496,14 +496,18 @@ function MailSend($MailTarget, $MailTargetName, $MailSubject, $MailContent)
 	
 }
 
-function makebr($text){
-	//XHTML FIX for PHP 5.3.0
+function makebr($text, $xhtml = false)
+{
+    // XHTML FIX for PHP 5.3.0
+	// Danke an Meikel
 	
-	if(version_compare(PHP_VERSION, "5.3.0", ">="))
-		return nl2br($text, false);
-	else
-		return preg_replace("/(\r\n)+|(\n|\r)+/", "<br>", $text); 
-	
+    $BR = ($xhtml === true)
+        ? "<br />\n"  # XHTML konformer BR Tag
+        : "<br>\n";   # HTML 4 konformer BR Tag
+
+    return (version_compare(PHP_VERSION, "5.3.0", ">="))
+        ? nl2br($text, $xhtml)
+        : preg_replace("/(\r\n)+|(\n|\r)+/", $BR, $text); 
 }
 
 function CheckPlanetIfExist($Galaxy, $System, $Planet, $Planettype = 1)
