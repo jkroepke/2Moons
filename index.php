@@ -67,7 +67,7 @@ switch ($page) {
 				if($game_config['smtp_host'] == '' || $game_config['smtp_port'] == '' || $game_config['smtp_user'] == '' || $game_config['smtp_pass'] == '')
 					message($lang["mail_sended_fail"], "./", 2, false, false );
 				
-				if(MailSend($usermail, $ExistMail['username'], $lang['mail_title'], $Body));
+				if(MailSend($usermail, $ExistMail['username'], $lang['mail_title'], $MailContent));
 					$db->query("UPDATE ".USERS." SET `password` ='" . md5($NewPass) . "' WHERE `username` = '".$ExistMail['username']."';");
 			}
 		} else {
