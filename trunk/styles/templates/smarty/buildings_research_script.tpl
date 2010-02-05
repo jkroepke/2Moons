@@ -12,7 +12,7 @@ function reseachtime(){ldelim}
 	if ( s < 0 ) {ldelim}
 		brp.html('{$bd_ready}<br><a href=game.php?page=buildings&amp;mode=research&amp;cp={$tech_home}>{$bd_continue}</'+'a>');
 		document.title = '{$bd_ready} - {$tech_lang} - {$game_name}';
-		document.location.href = "game.php?page=buildings&amp;mode=research";
+		document.location.href = "game.php?page=buildings&mode=research";
 	{rdelim} else {ldelim}
 		if ( s > 59 ) { m = Math.floor( s / 60 ); s = s - m * 60; }
 		if ( m > 59 ) { h = Math.floor( m / 60 ); m = m - h * 60; }

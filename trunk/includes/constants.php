@@ -25,7 +25,8 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	define('DEFAULT_SKINPATH' 		  , 'styles/skins/darkness/');
 	define('TEMPLATE_DIR'     		  , 'styles/templates/');
 	
-	define('ADMINEMAIL_PREFIX'        , "info");
+    define('ADMINEMAIL'               , "info@".str_replace("www.","",$_SERVER['HTTP_HOST']));
+	
 	define('REALPATH'                 , "http://".$_SERVER['HTTP_HOST'].str_replace("\\","",dirname($_SERVER['SCRIPT_NAME'])."/"));
 	define('PHPEXT'                   , "php");
 	
