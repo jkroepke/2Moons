@@ -545,7 +545,7 @@ function GetRealHostName()
 
 function CheckName($String)
 {
-	return((!ctype_alnum($String) && !UTF8_SUPPORT) || ctype_space($String)) ? false : true;
+	return((ctype_alnum($String) && !UTF8_SUPPORT) || ctype_space($String)) ? true : false;
 }
 
 ?>
