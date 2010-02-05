@@ -31,7 +31,7 @@ $QryTableAks        .= "`planet` int(2) default NULL, ";
 $QryTableAks        .= "`planet_type` tinyint(1) default NULL, ";
 $QryTableAks        .= "`eingeladen` varchar(50) character set utf8 default NULL, ";
 $QryTableAks        .= "PRIMARY KEY  (`id`) ";
-$QryTableAks        .= ") ENGINE=MyISAM;";
+$QryTableAks        .= ") ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 
 $QryTableAlliance    = "CREATE TABLE IF NOT EXISTS `prefix_".ALLIANCE."` ( ";
 $QryTableAlliance   .= "`id` int(11) NOT NULL auto_increment, ";
@@ -51,7 +51,7 @@ $QryTableAlliance   .= "`ally_ranks` varchar(1000) character set utf8, ";
 $QryTableAlliance   .= "`ally_members` int(11) NOT NULL default '0', ";
 $QryTableAlliance   .= "`ally_stats` int(11) NOT NULL default '1', ";
 $QryTableAlliance   .= "PRIMARY KEY  (`id`) ";
-$QryTableAlliance   .= ") ENGINE=MyISAM;";
+$QryTableAlliance   .= ") ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 
 $QryTableBanned      = "CREATE TABLE IF NOT EXISTS `prefix_".BANNED."` ( ";
 $QryTableBanned     .= "`id` bigint(11) NOT NULL auto_increment, ";
@@ -63,7 +63,7 @@ $QryTableBanned     .= "`longer` int(11) NOT NULL default '0', ";
 $QryTableBanned     .= "`author` VARCHAR(64) character set utf8 NOT NULL default '', ";
 $QryTableBanned     .= "`email` VARCHAR(64) character set utf8 NOT NULL default '', ";
 $QryTableBanned     .= "KEY `ID` (`id`) ";
-$QryTableBanned     .= ") ENGINE=MyISAM;";
+$QryTableBanned     .= ") ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 
 $QryTableBuddy       = "CREATE TABLE IF NOT EXISTS `prefix_".BUDDY."` ( ";
 $QryTableBuddy      .= "`id` bigint(11) NOT NULL auto_increment, ";
@@ -72,7 +72,7 @@ $QryTableBuddy      .= "`owner` int(11) NOT NULL default '0', ";
 $QryTableBuddy      .= "`active` tinyint(3) NOT NULL default '0', ";
 $QryTableBuddy      .= "`text` varchar(255) character set utf8, ";
 $QryTableBuddy      .= "PRIMARY KEY  (`id`) ";
-$QryTableBuddy      .= ") ENGINE=MyISAM;";
+$QryTableBuddy      .= " ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 
 $QryTableChat        = "CREATE TABLE IF NOT EXISTS `prefix_".CHAT."` (";
 $QryTableChat       .= "`messageid` int(5) unsigned NOT NULL AUTO_INCREMENT,";
@@ -159,7 +159,7 @@ $QryTableErrors     .= "`error_type` varchar(32) character set utf8 NOT NULL def
 $QryTableErrors     .= "`error_text` text character set utf8, ";
 $QryTableErrors     .= "`error_page` varchar(32) character set utf8 NOT NULL default 'unknown', ";
 $QryTableErrors     .= "PRIMARY KEY  (`error_id`) ";
-$QryTableErrors     .= ") ENGINE=MyISAM;";
+$QryTableErrors     .= ") ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 
 $QryTableFleets      = "CREATE TABLE IF NOT EXISTS `prefix_".FLEETS."` ( ";
 $QryTableFleets     .= "`fleet_id` int(11) unsigned NOT NULL auto_increment, ";
@@ -188,7 +188,7 @@ $QryTableFleets     .= "`fleet_group` varchar (15) NOT NULL DEFAULT '0', ";
 $QryTableFleets     .= "`fleet_mess` int(11) NOT NULL default '0', ";
 $QryTableFleets     .= "`start_time` int(11) default NULL, ";
 $QryTableFleets     .= "PRIMARY KEY  (`fleet_id`) ";
-$QryTableFleets     .= ") ENGINE=MyISAM;";
+$QryTableFleets     .= ") ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 
 $QryTableMessages    = "CREATE TABLE IF NOT EXISTS `prefix_".MESSAGES."` ( ";
 $QryTableMessages   .= "`message_id` int(11) unsigned NOT NULL auto_increment, ";
@@ -200,7 +200,7 @@ $QryTableMessages   .= "`message_from` varchar(48) character set utf8 default NU
 $QryTableMessages   .= "`message_subject` varchar(48) character set utf8 default NULL, ";
 $QryTableMessages   .= "`message_text` text character set utf8, ";
 $QryTableMessages   .= "PRIMARY KEY  (`message_id`) ";
-$QryTableMessages   .= ") ENGINE=MyISAM;";
+$QryTableMessages   .= ") ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 
 $QryTableModulos     = "CREATE TABLE IF NOT EXISTS `prefix_".MODULE."` (";
 $QryTableModulos    .= "`id` int(5) NOT NULL AUTO_INCREMENT,";
@@ -244,7 +244,7 @@ $QryTableNotes      .= "`priority` tinyint(1) default NULL, ";
 $QryTableNotes      .= "`title` varchar(32) character set utf8 default NULL, ";
 $QryTableNotes      .= "`text` varchar(255) character set utf8, ";
 $QryTableNotes      .= "PRIMARY KEY  (`id`) ";
-$QryTableNotes      .= ") ENGINE=MyISAM;";
+$QryTableNotes      .= ") ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 
 $QryTablePlanets     = "CREATE TABLE IF NOT EXISTS `prefix_".PLANETS."` ( ";
 $QryTablePlanets    .= "`id` int(11) NOT NULL auto_increment, ";
@@ -344,7 +344,7 @@ $QryTablePlanets    .= "`der_metal` bigint(11) unsigned NOT NULL default '0', ";
 $QryTablePlanets    .= "`der_crystal` bigint(11) unsigned NOT NULL default '0', ";
 $QryTablePlanets    .= "`id_luna` int(11) NOT NULL default '0', ";
 $QryTablePlanets    .= "PRIMARY KEY  (`id`) ";
-$QryTablePlanets    .= ") ENGINE=MyISAM;";
+$QryTablePlanets    .= ") ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 
 $QryTableRw          = "CREATE TABLE IF NOT EXISTS `prefix_".RW."` ( ";
 $QryTableRw      	.= "`owners` VARCHAR(255) character set utf8 NOT NULL, ";
@@ -355,7 +355,7 @@ $QryTableRw         .= "`time` int(10) unsigned NOT NULL default '0', ";
 $QryTableRw         .= "UNIQUE KEY `rid` (`rid`), ";
 $QryTableRw         .= "KEY `time` (`time`), ";
 $QryTableRw         .= "FULLTEXT KEY `raport` (`raport`) ";
-$QryTableRw         .= ") ENGINE=MyISAM;";
+$QryTableRw         .= ") ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 
 $QryTableStatPoints  = "CREATE TABLE IF NOT EXISTS `prefix_".STATPOINTS."` ( ";
 $QryTableStatPoints .= "`id_owner` int(11) NOT NULL, ";
@@ -388,7 +388,7 @@ $QryTableStatPoints .= "KEY `BUILDS` (`build_points`), ";
 $QryTableStatPoints .= "KEY `DEFS` (`defs_points`), ";
 $QryTableStatPoints .= "KEY `FLEET` (`fleet_points`), ";
 $QryTableStatPoints .= "KEY `TOTAL` (`total_points`) ";
-$QryTableStatPoints .= ") ENGINE=MyISAM;";
+$QryTableStatPoints .= ") ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 
 $QryTableSupp 		 = "CREATE TABLE IF NOT EXISTS `prefix_".SUPP."` (";
 $QryTableSupp 		.= "`ID` int(11) NOT NULL auto_increment,";
@@ -398,7 +398,7 @@ $QryTableSupp 		.= "`subject` varchar(255) collate utf8_bin NOT NULL,";
 $QryTableSupp 		.= "`text` text character set utf8 NOT NULL default '',";
 $QryTableSupp 		.= "`status` int(1) NOT NULL,";
 $QryTableSupp 		.= "PRIMARY KEY  (`ID`)";
-$QryTableSupp 		.= ") ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
+$QryTableSupp 		.= ") ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 
 $QryTableTopKB 		 = "CREATE TABLE IF NOT EXISTS `prefix_".TOPKB."` (";
 $QryTableTopKB 		.= "`id` int(11)  NOT NULL AUTO_INCREMENT,";

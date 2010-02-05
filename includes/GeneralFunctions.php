@@ -480,9 +480,9 @@ function MailSend($MailTarget, $MailTargetName, $MailSubject, $MailContent)
 		$mail->Port       = $game_config['smtp_port'];
 		$mail->Username   = $game_config['smtp_user'];
 		$mail->Password   = $game_config['smtp_pass'];
-		$mail->SetFrom($game_config['smtp_user'], $game_config['game_name']);
+		$mail->SetFrom(ADMINEMAIL, $game_config['game_name']);
 		$mail->AddAddress($MailTarget, $MailTargetName);
-		$mail->AddReplyTo($game_config['smtp_user'], $game_config['game_name']);
+		$mail->AddReplyTo(ADMINEMAIL, $game_config['game_name']);
 		$mail->Subject    = $MailSubject;
 		$mail->AltBody    = $MailContent;
 		$mail->MsgHTML(makebr($MailContent));
@@ -535,6 +535,12 @@ function CheckNoobProtec($OwnerPlayer, $TargetPlayer, $TargetOnline)
 		$Noobplayer		= ((round($OwnerPlayer['total_points'] * 0.2) > $TargetPlayer['total_points'] && $IamNoobplayer) || ($TargetNoobplayer && !$IamNoobplayer)) ? true : false;
 	}
 	return array("NoobPlayer" => $Noobplayer, "StrongPlayer" => $StrongPlayer);
+}
+
+function GetRealHostName()
+{
+	$array = explode(".",$_SERVER['HTTP_HOST']);
+	return (count($array) == 3) ? $array[1].".".$array[2] : $_SERVER['HTTP_HOST'];
 }
 
 ?>

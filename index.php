@@ -91,7 +91,7 @@ switch ($page) {
 				
 				$UserPass 	= request_var ('password', '');
 				$UserPass2 	= request_var ('password2', '');
-				$UserName 	= request_var ('character', '');
+				$UserName 	= request_var ('character', '', UTF8_SUPPORT);
 				$UserEmail 	= request_var ('email', '');
 				$UserEmail2	= request_var ('email2', '');
 				$agbrules 	= request_var ('rgt', '');
