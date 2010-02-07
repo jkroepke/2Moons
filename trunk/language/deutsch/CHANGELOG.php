@@ -11,7 +11,9 @@ $lang['changelog']   = array(
 - ADD: Accountl&ouml;schung w&auml;hrend des U-Modes
 - ADD: UTF-8 Support for Names
 - FIX: Quere
-- FIX. Deuteriumberechung
+- FIX: Allianzerstellung
+- FIX: AKS in der Overview
+- FIX: Deuteriumberechung
 - DIV: Update Smarty to 3.0b7
 ',
 'RC5.0b1' => 'ShadoX 02.02.10
