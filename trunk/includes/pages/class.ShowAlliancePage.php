@@ -898,7 +898,7 @@ class ShowAlliancePage
 								if ($ally['ally_owner'] != $CurrentUser['id'] && !$user_admin)
 									header("location:game.". $phpEx . "?page=alliance");
 
-									$al_tag = request_var($lang['al_tag'], '');
+									$al_tag = request_var($lang['al_tag'], '', UTF8_SUPPORT);
 								if ($al_tag != '')
 								{
 									$db->query("UPDATE ".ALLIANCE." SET `ally_tag` = '". $db->sql_escape($al_tag) ."' WHERE `id` = '". $CurrentUser['ally_id'] ."';");
@@ -913,7 +913,7 @@ class ShowAlliancePage
 								if ($ally['ally_owner'] != $CurrentUser['id'] && !$user_admin)
 									header("location:game.". $phpEx . "?page=alliance");
 									
-								$al_name = request_var($lang['al_name'], '', true);
+								$al_name = request_var($lang['al_name'], '', UTF8_SUPPORT);
 								
 								if ($al_name != '') {
 									$db->multi_query("UPDATE ".ALLIANCE." SET `ally_name` = '". $db->sql_escape($al_name) ."' WHERE `id` = '". $CurrentUser['ally_id'] ."';UPDATE ".USERS." SET `ally_name` = '". $db->sql_escape($al_name) ."' WHERE `ally_id` = '". $ally['id'] ."';");
