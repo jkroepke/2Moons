@@ -259,7 +259,7 @@ class ShowAlliancePage
 								if ($aname == '')
 									message($lang['al_name_required'],"game.php?page=alliance&mode=make",2);
 
-								$tagquery = $db->fetch_array($db->query("SELECT `id` FROM `".ALLIANCE."` WHERE ally_tag = '".$db->sql_escape($atag)." OR ally_name = '".$db->sql_escape($aname)."';"));
+								$tagquery = $db->fetch_array($db->query("SELECT `id` FROM `".ALLIANCE."` WHERE ally_tag = '".$db->sql_escape($atag)."' OR ally_name = '".$db->sql_escape($aname)."';"));
 
 								if (isset($tagquery))
 									message(str_replace('%s', $aname, $lang['al_already_exists'])."'","game.php?page=alliance&mode=make",2);

@@ -196,20 +196,22 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 			{
 				$Record++;
 
-				$StartTime 	= $FleetRow['fleet_start_time'];
-				$StayTime 	= $FleetRow['fleet_end_stay'];
-				$EndTime 	= $FleetRow['fleet_end_time'];
+				$StartTime 		= $FleetRow['fleet_start_time'];
+				$StayTime 		= $FleetRow['fleet_end_stay'];
+				$EndTime 		= $FleetRow['fleet_end_time'];
 				/////// // ### LUCKY , CODES ARE BELOW
-				$hedefgalaksi = $FleetRow['fleet_end_galaxy'];
-				$hedefsistem = $FleetRow['fleet_end_system'];
-				$hedefgezegen = $FleetRow['fleet_end_planet'];
-				$mess = $FleetRow['fleet_mess'];
-				$filogrubu = $FleetRow['fleet_group'];
+				$hedefgalaksi 	= $FleetRow['fleet_end_galaxy'];
+				$hedefsistem 	= $FleetRow['fleet_end_system'];
+				$hedefgezegen 	= $FleetRow['fleet_end_planet'];
+				$mess 			= $FleetRow['fleet_mess'];
+				$filogrubu 		= $FleetRow['fleet_group'];
+				$id 			= $FleetRow['fleet_id'];
 				//////
 				$Label = "fs";
+				
 				if ($StartTime > time())
 				{
-					$fpage[$StartTime] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 0, true, $Label, $Record);
+					$fpage[$StartTime.$id] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 0, true, $Label, $Record);
 				}
 
 				if(($FleetRow['fleet_mission'] <> 4) && ($FleetRow['fleet_mission'] <> 10))
@@ -218,13 +220,13 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 
 					if ($StayTime > time())
 					{
-						$fpage[$StayTime] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 1, true, $Label, $Record);
+						$fpage[$StayTime.$id] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 1, true, $Label, $Record);
 					}
 					$Label = "fe";
 
 					if ($EndTime > time())
 					{
-						$fpage[$EndTime] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 2, true, $Label, $Record);
+						$fpage[$EndTime.$id] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 2, true, $Label, $Record);
 					}
 				}
 			}
@@ -248,6 +250,8 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 				$hedefgezegen = $FleetRow['fleet_end_planet'];
 				$mess = $FleetRow['fleet_mess'];
 				$filogrubu = $FleetRow['fleet_group'];
+				
+				$id 			= $FleetRow['fleet_id'];
 				///////
 				if (($FleetRow['fleet_mission'] == 2) && ($FleetRow['fleet_owner'] != $CurrentUser['id'])) {
 					$Record1++;
@@ -260,7 +264,7 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 
 					if ($StartTime > time()) {
 						$Label = "ofs";
-						$fpage[$StartTime] =$FlyingFleetsTable-> BuildFleetEventTable ($FleetRow, 0, false, $Label, $Record1);
+						$fpage[$StartTime.$id] =$FlyingFleetsTable-> BuildFleetEventTable ($FleetRow, 0, false, $Label, $Record1);
 					}
 
 					//	}
@@ -275,7 +279,7 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 					}
 					if ($StartTime > time()) {
 						$Label = "ofs";
-						$fpage[$StartTime] = $FlyingFleetsTable-> BuildFleetEventTable ($FleetRow, 0, false, $Label, $Record);
+						$fpage[$StartTime.$id] = $FlyingFleetsTable-> BuildFleetEventTable ($FleetRow, 0, false, $Label, $Record);
 					}
 
 				}
@@ -295,20 +299,21 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 					if ($FleetRow['fleet_mission'] != 8)
 					{
 						$Record++;
-						$StartTime = $FleetRow['fleet_start_time'];
-						$StayTime = $FleetRow['fleet_end_stay'];
+						$StartTime 	= $FleetRow['fleet_start_time'];
+						$StayTime 	= $FleetRow['fleet_end_stay'];
+						$id 		= $FleetRow['fleet_id'];
 
 						if ($StartTime > time())
 						{
 							$Label = "ofs";
-							$fpage[$StartTime] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 0, false, $Label, $Record);
+							$fpage[$StartTime.$id] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 0, false, $Label, $Record);
 						}
 						if ($FleetRow['fleet_mission'] == 5)
 						{
 							$Label = "oft";
 							if ($StayTime > time())
 							{
-								$fpage[$StayTime] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 1, false, $Label, $Record);
+								$fpage[$StayTime.$id] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 1, false, $Label, $Record);
 							}
 						}
 					}
