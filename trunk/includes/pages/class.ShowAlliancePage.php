@@ -272,13 +272,12 @@ class ShowAlliancePage
 								`ally_members`='1',
 								`ally_register_time`='" . time()."';");
 
-								$allyquery = $db->fetch_array($db->query("SELECT id FROM ".ALLIANCE." WHERE ally_tag='".$db->sql_escape($atag)."';"));
 
 								$db->query("UPDATE ".USERS." SET
-								`ally_id`='".$allyquery['id']."',
-								`ally_name`='".$db->sql_escape($aname)."',
-								`ally_register_time`='" . time() . "'
-								WHERE `id`='".$CurrentUser['id']."';");
+								`ally_id`= (SELECT `id` FROM ".ALLIANCE." WHERE ally_name = '".$db->sql_escape($aname)."'),
+								`ally_name` = '".$db->sql_escape($aname)."',
+								`ally_register_time` = '" . time() . "'
+								WHERE `id` = '".$CurrentUser['id']."';");
 											
 								$page = $this->MessageForm(str_replace('%s', $atag, $lang['al_created']), str_replace('%s', $atag, $lang['al_created']) . "<br><br>", "", $lang['al_continue']);
 							}
