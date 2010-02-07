@@ -124,7 +124,7 @@ class ShowOptionsPage
 			case "change":
 				$design 				= request_var('design', '');
 				$noipcheck 				= request_var('noipcheck', '');
-				$username 				= request_var('db_character', $CurrentUser['username']);
+				$username 				= request_var('db_character', $CurrentUser['username'], UTF8_SUPPORT);
 				$db_email 				= request_var('db_email', $CurrentUser['email']);
 				$spio_anz 				= request_var('spio_anz', 5);
 				$settings_tooltiptime 	= request_var('settings_tooltiptime', 1);
@@ -229,7 +229,7 @@ class ShowOptionsPage
 				}
 				elseif ($CurrentUser['username'] != $username)
 				{
-					if (!ctype_alnum($username))
+					if (CheckName($username))
 						$template->message($lang['op_user_name_no_alphanumeric'], "game.php?page=options", 1);
 					elseif($CurrentUser['uctime'] >= time() - (60 * 60 * 24 * 7))
 						$template->message($lang['op_change_name_pro_week'], "game.php?page=options", 1);
