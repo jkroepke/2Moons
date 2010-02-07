@@ -212,7 +212,7 @@ class ShowFleetPages extends FleetFunctions
 		{
 			$amount		 				= request_var('ship'.$ShipID, 0);
 			
-			if ($amount > $CurrentPlanet[$resource[$ShipID]] || $amount <= 0 || $ShipID == 210) continue;
+			if ($amount > $CurrentPlanet[$resource[$ShipID]] || $amount <= 0 || $ShipID == 212) continue;
 
 			$Fleet[$ShipID]				= $amount;
 			$FleetRoom			   	   += $pricelist[$ShipID]['capacity'] * $amount;
