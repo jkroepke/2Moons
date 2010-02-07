@@ -89,35 +89,32 @@ abstract class FleetFunctions
 	{
 		global $pricelist;
 		switch($Ship){
-			case "202":
+			case 202:
 				return $pricelist[$Ship]['speed'] * (($Player['impulse_motor_tech'] >= 5) ? (1 + (0.2 * $Player['impulse_motor_tech'])) : (1 + (0.1 * $Player['combustion_tech'])));
 			break;
-			case "203":
-			case "204":
-			case "209":
-			case "210":
+			case 203:
+			case 204:
+			case 209:
+			case 210:
 				return $pricelist[$Ship]['speed'] * (1 + (0.1 * $Player['combustion_tech']));
 			break;
-			case "205":
-			case "206":
-			case "208":
-			case "221":
-			case "222":
-			case "224":
+			case 205:
+			case 206:
+			case 208:
 				return $pricelist[$Ship]['speed'] * (1 + (0.2 * $Player['impulse_motor_tech']));
 			break;
-			case "211":
+			case 211:
 				return $pricelist[$Ship]['speed'] * (($Player['hyperspace_motor_tech'] >= 8) ? (1 + (0.3 * $Player['hyperspace_motor_tech'])) : (1 + (0.2 * $Player['impulse_motor_tech'])));
 			break;
-			case "207":
-			case "213":
-			case "214":
-			case "215":
-			case "216":
-			case "217":
-			case "218":
-			case "219":
-			case "220":
+			case 207:
+			case 213:
+			case 214:
+			case 215:
+			case 216:
+			case 217:
+			case 218:
+			case 219:
+			case 220:
 				return $pricelist[$Ship]['speed'] * (1 + (0.3 * $Player['hyperspace_motor_tech']));
 			break;
 		}
@@ -334,52 +331,25 @@ abstract class FleetFunctions
 		return $ShortCut;
 	}
 	
-	public static function GetColonyList($CurrentUser)
+	public static function GetColonyList($Colony)
 	{
 		global $lang, $db;
 
-		$ColonyList 	= "";
-		
-		$Colony 		= SortUserPlanets($CurrentUser);
-
-		if (count($Colony) > 1)
+		foreach($Colony as $CurPlanetID => $CurPlanet)
 		{
-			$i = 0;
-			$w = 0;
-			$tr = true;
-			foreach($Colony as $CurPlanetID => $CurPlanet)
-			{
-				if ($w == 0 && $tr)
-				{
-					$ColonyList .= "<tr height=\"20\">";
-					$tr = false;
-				} 
-				elseif ($w == 2)
-				{
-					$ColonyList .= "</tr>";
-					$w = 0;
-					$tr = true;
-				}
+			if ($CurPlanet['planet_type'] == 3)
+				$CurPlanet['name'] .= " ". $lang['fl_moon_shortcut'];
 
-				if ($CurPlanet['planet_type'] == 3)
-					$CurPlanet['name'] .= " ". $lang['fl_moon_shortcut'];
-
-				if (!($CurrentPlanet['galaxy'] == $CurPlanet['galaxy'] && $CurrentPlanet['system'] == $CurPlanet['system'] &&
-					$CurrentPlanet['planet'] == $CurPlanet['planet'] && $CurrentPlanet['planet_type'] == $CurPlanet['planet_type']))
-				{
-					$ColonyList .= "<th><a href=\"javascript:setTarget(". $CurPlanet['galaxy'] .",". $CurPlanet['system'] .",". $CurPlanet['planet'] .",". $CurPlanet['planet_type'] ."); shortInfo();\">". $CurPlanet['name'] ." ". $CurPlanet['galaxy'] .":". $CurPlanet['system'] .":". $CurPlanet['planet'] ."</a></th>";
-					$w++;
-					$i++;
-				}
-			}
-
-			if ($i % 2 != 0)
-				$ColonyList .= "<th>&nbsp;</th></tr>";
-			elseif ($w == 2)
-				$ColonyList .= "</tr>";
+			if ($CurrentPlanet['galaxy'] == $CurPlanet['galaxy'] && $CurrentPlanet['system'] == $CurPlanet['system'] && $CurrentPlanet['planet'] == $CurPlanet['planet'] && $CurrentPlanet['planet_type'] == $CurPlanet['planet_type']) continue;
+			
+			$ColonyList[] = array(
+				'galaxy'		=> $CurPlanet['galaxy'],
+				'system'		=> $CurPlanet['system'],
+				'planet'		=> $CurPlanet['planet'],
+				'planet_type'	=> $CurPlanet['planet_type'],
+				'name'			=> $CurPlanet['name'],
+			);	
 		}
-		else
-			$ColonyList .= "<th colspan=\"2\">".$lang['fl_no_colony']."</th>";
 			
 		return $ColonyList;
 	}
@@ -387,34 +357,23 @@ abstract class FleetFunctions
 	public static function IsAKS($CurrentUserID)
 	{
 		global $db;
-		$aks_madnessred = $db->query("SELECT * FROM ".AKS.";");
-
-		$aks_fleets_mr = '';
-
-		while($row = $db->fetch_array($aks_madnessred))
+		
+		$GetAKS 	= $db->query("SELECT * FROM ".AKS." WHERE `eingeladen` LIKE '%".$CurrentUserID."%';");
+		$AKSList	= array();
+		
+		while($row = $db->fetch_array($GetAKS))
 		{
-			$members = explode(",", $row['eingeladen']);
-			foreach($members as $a => $b)
-			{
-				if ($b == $CurrentUserID)
-				{
-					$aks_fleets_mr .= "<tr height=\"20\">";
-					$aks_fleets_mr .= "<th colspan=\"2\">";
-					$aks_fleets_mr .= "<a href=\"javascript:";
-					$aks_fleets_mr .= "setTarget(". $row['galaxy'] .",". $row['system'] .",". $row['planet'] ."); ";
-					$aks_fleets_mr .= "shortInfo(); ";
-					$aks_fleets_mr .= "setACS(". $row['id'] ."); ";
-					$aks_fleets_mr .= "setACS_target('"."g". $row['galaxy'] ."s". $row['system'] ."p". $row['planet'] ."t". $row['planet_type'] ."');";
-					$aks_fleets_mr .= "\">";
-					$aks_fleets_mr .= "(".$row['name'].")";
-					$aks_fleets_mr .= "</a>";
-					$aks_fleets_mr .= "</th>";
-					$aks_fleets_mr .= "</tr>";
-				}
-			}
+			$AKSList[]	= array(
+				'id'			=> $row['id'],
+				'name'			=> $row['name'],
+				'galaxy'		=> $row['galaxy'],
+				'system'		=> $row['system'],
+				'planet'		=> $row['planet'],
+				'planet_type'	=> $row['planet_type'],
+			);
 		}
-			
-		return (!empty($aks_fleets_mr) ? $aks_fleets_mr : "");
+		
+		return $AKSList;
 	}
 
 	public static function GetCurrentFleets($CurrentUserID, $Mission = 0)
@@ -488,27 +447,9 @@ abstract class FleetFunctions
 	{
 		global $resource, $pricelist, $reslist, $phpEx, $lang, $db;
 
-		$parse			= $lang;
 		$fleetid 		= $fleetid;
-		$addname		= request_var('addtogroup','');
+		$addname		= request_var('addtogroup','',UTF8_SUPPORT);
 		$aks_invited_mr	= request_var('aks_invited_mr',0);
-
-		if(!empty($addname))
-		{
-			$member_qry_mr 		= $db->fetch_array($db->query("SELECT `id` FROM ".USERS." WHERE `username` ='".$db->sql_escape($addname)."' ;"));
-			$added_user_id_mr 	= $member_qry_mr['id'];
-
-			if(empty($added_user_id_mr))
-				$add_user_message_mr = "<font color=\"red\">".$lang['fl_player']." ".$addname." ".$lang['fl_dont_exist'];
-			else
-			{
-				$new_eingeladen_mr = $aks_invited_mr.','.$added_user_id_mr;
-				$db->query("UPDATE ".AKS." SET `eingeladen` = '".$db->sql_escape($new_eingeladen_mr)."' ;");
-				$add_user_message_mr = "<font color=\"lime\">".$lang['fl_player']." ".$addname." ". $lang['fl_add_to_attack'];
-				$invite_message = $lang['fl_player'] . $CurrentUser['username'] . $lang['fl_acs_invitation_message'];
-				SendSimpleMessage ($added_user_id_mr, $CurrentUser['id'], time(), 1, $CurrentUser['username'], $lang['fl_acs_invitation_title'], $invite_message);
-			}
-		}
 
 		$query = $db->query("SELECT * FROM ".FLEETS." WHERE fleet_id = '" . $fleetid . "';");
 
@@ -526,7 +467,7 @@ abstract class FleetFunctions
 			$aks_code_mr 	= "AG".$rand;
 			$aks_invited_mr = $CurrentUser['id'];
 
-			$db->multi_query(
+			$db->query(
 			"INSERT INTO ".AKS." SET
 			`name` = '" . $aks_code_mr . "',
 			`teilnehmer` = '" . $CurrentUser['id'] . "',
@@ -537,11 +478,13 @@ abstract class FleetFunctions
 			`planet` = '" . $daten['fleet_end_planet'] . "',
 			`planet_type` = '" . $daten['fleet_end_type'] . "',
 			`eingeladen` = '" . $aks_invited_mr . "';
-			UPDATE ".FLEETS." SET
-			`fleet_group` = '" . $aks['id'] . "'
+			");
+
+			$db->query("UPDATE ".FLEETS." SET
+			`fleet_group` = (SELECT `id` FROM ".AKS." aks WHERE aks.name = '".$aks_code_mr."')
 			WHERE
 			`fleet_id` = '" . $fleetid . "';");
-
+			
 			$aks = array(
 				'name' 			=> $aks_code_mr,
 				'eingeladen' 	=> $CurrentUser['id'],
@@ -549,12 +492,36 @@ abstract class FleetFunctions
 		}
 		else
 		{
-			$aks = $db->query("SELECT `eingeladen`, `name` FROM ".AKS." WHERE `id` = '" . $fleet['fleet_group'] . "';");
+			$AKSRAW = $db->query("SELECT `id`, `eingeladen`, `name` FROM ".AKS." WHERE `id` = '" . $daten['fleet_group'] . "';");
 
-			if ($db->num_rows($aks) != 1)
+			if ($db->num_rows($AKSRAW) != 1)
 				exit(header("Location: game.".$phpEx."?page=fleet"));
+			
+			$aks	= $db->fetch_array($AKSRAW);
 		}
+		
+		if(!empty($addname))
+		{
+			$member_qry_mr 		= $db->fetch_array($db->query("SELECT `id` FROM ".USERS." WHERE `username` = '".$db->sql_escape($addname)."' ;"));
+			$added_user_id_mr 	= $member_qry_mr['id'];
+			
+			foreach(explode(",", $aks['eingeladen']) as $a => $b)
+			{
+				if (!empty($b) && $added_user_id_mr == $b)
+					header("Location: game.php?page=fleet&action=getakspage&fleetid=".$daten['fleet_id']);
+			}
 
+			if(empty($added_user_id_mr))
+				$add_user_message_mr = "<font color=\"red\">".$lang['fl_player']." ".$addname." ".$lang['fl_dont_exist'];
+			else
+			{
+				$aks['eingeladen'] = $aks_invited_mr.','.$added_user_id_mr;
+				$db->query("UPDATE ".AKS." SET `eingeladen` = '".$aks['eingeladen']."' WHERE `id` = '".$daten['fleet_group']."';");
+				$add_user_message_mr = "<font color=\"lime\">".$lang['fl_player']." ".$addname." ". $lang['fl_add_to_attack'];
+				$invite_message = $lang['fl_player'] . $CurrentUser['username'] . $lang['fl_acs_invitation_message'];
+				SendSimpleMessage ($added_user_id_mr, $CurrentUser['id'], time(), 1, $CurrentUser['username'], $lang['fl_acs_invitation_title'], $invite_message);
+			}
+		}
 		$members = explode(",", $aks['eingeladen']);
 		foreach($members as $a => $b)
 		{
