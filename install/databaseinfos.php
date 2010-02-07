@@ -35,8 +35,8 @@ $QryTableAks        .= ") ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 
 $QryTableAlliance    = "CREATE TABLE IF NOT EXISTS `prefix_".ALLIANCE."` ( ";
 $QryTableAlliance   .= "`id` int(11) NOT NULL auto_increment, ";
-$QryTableAlliance   .= "`ally_name` varchar(32) character set utf8 default '', ";
-$QryTableAlliance   .= "`ally_tag` varchar(8) character set utf8 default '', ";
+$QryTableAlliance   .= "`ally_name` varchar(50) character set utf8 default '', ";
+$QryTableAlliance   .= "`ally_tag` varchar(20) character set utf8 default '', ";
 $QryTableAlliance   .= "`ally_owner` int(11) NOT NULL default '0', ";
 $QryTableAlliance   .= "`ally_register_time` int(11) NOT NULL default '0', ";
 $QryTableAlliance   .= "`ally_description` text character set utf8, ";
