@@ -1,3 +1,7 @@
+function getStorageFaktor() {
+	return 1
+}
+
 function speed() {
 	var sp = document.getElementsByName("speed")[0].value;
 	return(sp);

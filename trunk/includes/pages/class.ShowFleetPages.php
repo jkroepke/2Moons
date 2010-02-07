@@ -87,12 +87,7 @@ class ShowFleetPages extends FleetFunctions
 		$planet         = request_var('planet', $CurrentPlanet['planet']);
 		$planettype     = request_var('planettype', $CurrentPlanet['planet_type']);
 		$target_mission = request_var('target_mission', 0);
-
-		$parse['flyingfleets']			= $MaxFlyingFleets - $MaxFlyingRaks;
-		$parse['maxfleets']				= $MaxFlottes;
-		$parse['currentexpeditions']	= $ExpeditionEnCours;
-		$parse['maxexpeditions']		= $EnvoiMaxExpedition;
-
+		
 		$CurrentFleets 		= $db->query("SELECT * FROM ".FLEETS." WHERE `fleet_owner` = '".$CurrentUser['id']."' AND `fleet_mission` <> 10;");
 		$CountCurrentFleets	= $db->num_rows($CurrentFleets);
 
@@ -195,7 +190,17 @@ class ShowFleetPages extends FleetFunctions
 	{
 		global $resource, $pricelist, $reslist, $phpEx, $db, $lang;
 
-		$parse 							= $lang;
+
+		$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
+		$template	= new template();
+		$template->set_vars($CurrentUser, $CurrentPlanet);
+		$template->loadscript('flotten.js');
+		$template->loadscript('ocnt.js');
+		$template->page_header();	
+		$template->page_topnav();
+		$template->page_leftmenu();
+		$template->page_planetmenu();
+		$template->page_footer();
 
 		$TargetGalaxy 					= request_var('galaxy', $CurrentPlanet['galaxy']);
 		$TargetSystem 					= request_var('system', $CurrentPlanet['system']);
@@ -207,44 +212,52 @@ class ShowFleetPages extends FleetFunctions
 		{
 			$amount		 				= request_var('ship'.$ShipID, 0);
 			
-			if ($amount > $CurrentPlanet[$resource[$ShipID]] || $amount <= 0) continue;
+			if ($amount > $CurrentPlanet[$resource[$ShipID]] || $amount <= 0 || $ShipID == 210) continue;
 
 			$Fleet[$ShipID]				= $amount;
 			$FleetRoom			   	   += $pricelist[$ShipID]['capacity'] * $amount;
 		}
 
 		if (!is_array($Fleet))
-			header("location:game." . $phpEx . "?page=fleet");
+			parent::GotoFleetPage();
 
-		$AvailableSpeeds				= parent::GetAvailableSpeeds();
-		$FleetArray 					= parent::SetFleetArray($Fleet);
-		$parse['speedfactor']			= parent::GetGameSpeedFactor();
-		$parse['speedallsmin'] 			= parent::GetFleetMaxSpeed($Fleet, $CurrentUser);
-		$parse['shortcut'] 				= parent::GetUserShotcut($CurrentUser['fleet_shortcut']);
-		$parse['colonylist'] 			= parent::GetColonyList($CurrentUser);
-		$parse['asc'] 					= parent::IsAKS($CurrentUser['id']);
-		$parse['inputs']				= parent::GetExtraInputs($Fleet, $CurrentUser);
-		$parse['galaxy'] 				= $CurrentPlanet['galaxy'];
-		$parse['system'] 				= $CurrentPlanet['system'];
-		$parse['planet'] 				= $CurrentPlanet['planet'];
-		$parse['planet_type'] 			= $CurrentPlanet['planet_type'];
-		$parse['galaxy_post'] 			= $TargetGalaxy;
-		$parse['system_post'] 			= $TargetSystem;
-		$parse['planet_post'] 			= $TargetPlanet;
-		$parse['fleetroom']				= $FleetRoom;
-		$parse['fleetarray']			= $FleetArray;
-			
-		$parse['options_planettype']    = "<option value=\"1\" ".(($TargetPlanettype == 1) ? "SELECTED" : "") .">".$lang['fl_planet']."</option>";
-		$parse['options_planettype']   .= "<option value=\"2\" ".(($TargetPlanettype == 2) ? "SELECTED" : "") .">".$lang['fl_debris']."</option>";
-		$parse['options_planettype']   .= "<option value=\"3\" ".(($TargetPlanettype == 3) ? "SELECTED" : "") .">".$lang['fl_moon']."</option>";
-		$parse['options']				= "";
+		$template->assign_vars(array(
+			'speedfactor'			=> parent::GetGameSpeedFactor(),
+			'speedallsmin' 			=> parent::GetFleetMaxSpeed($Fleet, $CurrentUser),
+			'shortcut'				=> parent::GetUserShotcut($CurrentUser['fleet_shortcut']),
+			'colonylist' 			=> parent::GetColonyList($template->playerplanets),
+			'AKSList' 				=> parent::IsAKS($CurrentUser['id']),
+			'inputs'				=> parent::GetExtraInputs($Fleet, $CurrentUser),
+			'AvailableSpeeds'		=> parent::GetAvailableSpeeds(),
+			'fleetarray'			=> parent::SetFleetArray($Fleet),
+			'galaxy'				=> $CurrentPlanet['galaxy'],
+			'system'				=> $CurrentPlanet['system'],
+			'planet'				=> $CurrentPlanet['planet'],
+			'planet_type' 			=> $CurrentPlanet['planet_type'],
+			'galaxy_post' 			=> $TargetGalaxy,
+			'system_post' 			=> $TargetSystem,
+			'planet_post' 			=> $TargetPlanet,
+			'fleetroom'				=> $FleetRoom,	
+			'options_selector'    	=> array(1 => $lang['fl_planet'], 2 => $lang['fl_debris'], 3 => $lang['fl_moon']),
+			'options'				=> $TargetPlanettype,
+			'fl_send_fleet'			=> $lang['fl_send_fleet'],
+			'fl_destiny'			=> $lang['fl_destiny'],
+			'fl_fleet_speed'		=> $lang['fl_fleet_speed'],
+			'fl_distance'			=> $lang['fl_distance'],
+			'fl_flying_time'		=> $lang['fl_flying_time'],
+			'fl_fuel_consumption'	=> $lang['fl_fuel_consumption'],
+			'fl_max_speed'			=> $lang['fl_max_speed'],
+			'fl_cargo_capacity'		=> $lang['fl_cargo_capacity'],
+			'fl_shortcut'			=> $lang['fl_shortcut'],
+			'fl_shortcut_add_edit'	=> $lang['fl_shortcut_add_edit'],
+			'fl_my_planets'			=> $lang['fl_my_planets'],
+			'fl_acs_title'			=> $lang['fl_acs_title'],
+			'fl_continue'			=> $lang['fl_continue'],
+			'fl_no_colony'			=> $lang['fl_no_colony'],
+		));
 		
-		foreach ($AvailableSpeeds as $a => $b)
-		{
-			$parse['options'] 		   .= "<option value=\"".$a."\">".$b."</option>";
-		}
-		
-		display(parsetemplate(gettemplate('fleet/fleet1_table'), $parse));
+		$template->show('fleet1_table.tpl');
+		$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 	}
 	
 	public static function ShowFleet2Page($CurrentUser, $CurrentPlanet)
@@ -357,10 +370,10 @@ class ShowFleetPages extends FleetFunctions
 			message("<font color=\"lime\"><b>".$lang['fl_empty_transport']."</b></font>", "game." . $phpEx . "?page=fleet", 1);
 			
 		$ActualFleets		= parent::GetCurrentFleets($CurrentUser['id']);
-		$MaxFlyingRaks 		= parent::GetCurrentFleets($CurrentUser['id'], 10);	
 
-		if (parent::GetMaxFleetSlots($CurrentUser) <= $ActualFleets - $MaxFlyingRaks)
+		if (parent::GetMaxFleetSlots($CurrentUser) <= $ActualFleets)
 			message($lang['fl_no_slots'], "game." . $phpEx . "?page=fleet", 1);
+			
 		$fleet_group_mr = 0;
 		if($fleet_group > 0 && $mission == 2)
 		{
@@ -541,8 +554,8 @@ class ShowFleetPages extends FleetFunctions
 
 			if ($AksStartTime['Start'] > $fleet['start_time'])
 			{
-				$fleet['start_time'] 	= $AksStartTime['Start'] + 1;
-				$fleet['end_time'] 		= $AksStartTime['End'] + 1;
+				$fleet['start_time'] 	= $AksStartTime['Start'];
+				$fleet['end_time'] 		= $AksStartTime['End'];
 			}
 			else
 			{

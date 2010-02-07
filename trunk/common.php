@@ -1,22 +1,22 @@
 <?php
 
 ##############################################################################
-# *                                                                          #
-# * 2MOONS                                                                   #
-# *                                                                          #
-# * @copyright Copyright (C) 2010 By ShadoX from titanspace.de               #
-# *                                                                          #
-# *	                                                                         #
+# *																			 #
+# * XG PROYECT																 #
+# *  																		 #
+# * @copyright Copyright (C) 2008 - 2009 By lucky from Xtreme-gameZ.com.ar	 #
+# *																			 #
+# *																			 #
 # *  This program is free software: you can redistribute it and/or modify    #
 # *  it under the terms of the GNU General Public License as published by    #
 # *  the Free Software Foundation, either version 3 of the License, or       #
-# *  (at your option) any later version.                                     #
-# *	                                                                         #
-# *  This program is distributed in the hope that it will be useful,         #
-# *  but WITHOUT ANY WARRANTY; without even the implied warranty of          #
-# *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the           #
-# *  GNU General Public License for more details.                            #
-# *                                                                          #
+# *  (at your option) any later version.									 #
+# *																			 #
+# *  This program is distributed in the hope that it will be useful,		 #
+# *  but WITHOUT ANY WARRANTY; without even the implied warranty of			 #
+# *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the			 #
+# *  GNU General Public License for more details.							 #
+# *																			 #
 ##############################################################################
 
 $revision = '$Rev$';
@@ -25,7 +25,7 @@ $version  = substr($revision, 6, -2);
 setlocale (LC_ALL, 'de_DE@euro', 'de_DE', 'de', 'ge');
 ignore_user_abort(true);
 
-@set_time_limit(0);
+if(!ini_get('safe_mode')) set_time_limit(0);
 
 if((!file_exists($xgp_root . 'config.php') || filesize($xgp_root . 'config.php') == 0) && INSTALL != true)
 {
@@ -44,6 +44,7 @@ $phpEx			= "php";
 $game_config   	= array();
 $user          	= array();
 $lang          	= array();
+$link          	= "";
 $IsUserChecked 	= false;
 
 
@@ -61,7 +62,7 @@ require_once($xgp_root . 'includes/classes/class.PlanetRessUpdate.'.$phpEx);
 set_error_handler('msg_handler', E_ALL);
 
 if(function_exists('ini_set')) {
-	ini_set('display_errors', true);
+	ini_set('display_errors', 1);
 	ini_set('register_globals', "off");
 	ini_set('register_long_arrays', "off");
 }
@@ -92,8 +93,8 @@ if (INSTALL != true)
 		$game_config[$row['config_name']] = $row['config_value'];
 	}
 	$db->free_result($cfgresult);
-	define('DEFAULT_LANG'	, (empty($game_config['lang']))    ? "deutsch" : $game_config['lang']);
-	define('VERSION'		, (empty($game_config['VERSION'])) ? "" : "RC".$game_config['VERSION'].".".$version);
+	define('DEFAULT_LANG'	, ($game_config['lang'] 	== '') ? "deutsch" : $game_config['lang']);
+	define('VERSION'		, ($game_config['VERSION'] == '') ? "" : "RC".$game_config['VERSION'].".".$version);
 
 	includeLang('INGAME');
 
@@ -110,7 +111,7 @@ if (INSTALL != true)
 		
 		if($game_config['game_disable'] == 0 && $user['authlevel'] == 0)
 		{
-			trigger_error(sprintf($lang['css_server_maintrace'],$game_config['close_reason']), E_USER_NOTICE);
+			trigger_error($game_config['close_reason'], E_USER_NOTICE);
 		}
 		
 		if($game_config['stats_fly_lock'] == 0 && !defined('IN_ADMIN'))
@@ -143,9 +144,9 @@ if (INSTALL != true)
 			
 			if(empty($planetrow)){
 				$db->query("UPDATE ".USERS." SET `current_planet` = `id_planet` WHERE `id` = '". $user['id'] ."' LIMIT 1");
-				exit(header("Location: ".$xgp_root."game.".$phpEx."?page=overview"));
+				exit(header("Location: game.php?page=overview"));
 			}
-			require_once($xgp_root . 'includes/functions/CheckPlanetUsedFields.' . $phpEx);
+			include($xgp_root . 'includes/functions/CheckPlanetUsedFields.' . $phpEx);
 			CheckPlanetUsedFields($planetrow);
 		}
 	}	

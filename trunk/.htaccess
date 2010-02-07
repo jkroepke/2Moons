@@ -15,10 +15,10 @@ Deny from All
 
 AddDefaultCharset utf-8
 
-RewriteEngine on
+#RewriteEngine on
 
-RewriteRule ^styles/templates/ / [R]
-RewriteRule ^adm/logs/ / [R]
-RewriteRule ^language/ / [R]
-RewriteRule ^includes/ / [R]
-RewriteRule ^cache/ / [R]
+#RewriteRule ^styles/templates/ / [R]
+#RewriteRule ^adm/logs/ / [R]
+#RewriteRule ^language/ / [R]
+#RewriteRule ^includes/ / [R]
+#RewriteRule ^cache/ / [R]
