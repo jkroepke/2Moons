@@ -251,7 +251,7 @@ class ShowAlliancePage
 						{	
 							if ($yes == 1 && $_POST)
 							{
-								$atag	= request_var('atag' , '');
+								$atag	= request_var('atag' , '', UTF8_SUPPORT);
 								$aname	= request_var('aname', '', UTF8_SUPPORT);
 								if ($atag == '')
 									message($lang['al_tag_required'], "game.php?page=alliance&mode=make",2);
