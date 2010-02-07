@@ -66,7 +66,7 @@ class ShowChatPage
 			$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
 			$template	= new template();
 			
-				$template->set_vars($CurrentUser, $CurrentPlanet);
+			$template->set_vars($CurrentUser, $CurrentPlanet);
 			$template->page_header();
 			$template->page_footer();
 			

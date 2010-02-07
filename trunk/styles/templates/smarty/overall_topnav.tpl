@@ -1,4 +1,3 @@
-<div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
 <div id="header_top">
 <center>
 <table class="header" align="center">
