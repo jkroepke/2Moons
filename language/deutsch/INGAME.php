@@ -250,6 +250,7 @@ $lang['fl_departure']						= 'Ankunft(Ziel)';
 $lang['fl_destiny']							= 'Ziel';
 $lang['fl_objective']						= 'Zurück in';
 $lang['fl_arrival']							= 'Ankunft(Zurück)';
+$lang['fl_info_detail']						= 'Flotten-Details';
 $lang['fl_order']							= 'Befehl';
 $lang['fl_new_mission_title']				= 'Neuer Auftrag: Flotte wählen';
 $lang['fl_ship_type']						= 'Schiffstyp';

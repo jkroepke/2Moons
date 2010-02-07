@@ -33,6 +33,17 @@ class ShowFleetPages extends FleetFunctions
 		$parse				= $lang;
 		$FleetID			= request_var('fleetid', 0);
 		$GetAction			= request_var('action', "");
+
+		$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
+		$template	= new template();
+		$template->set_vars($CurrentUser, $CurrentPlanet);
+		$template->loadscript('flotten.js');
+		$template->loadscript('ocnt.js');
+		$template->page_header();	
+		$template->page_topnav();
+		$template->page_leftmenu();
+		$template->page_planetmenu();
+		$template->page_footer();
 		
 		if(!empty($FleetID))
 		{
@@ -40,11 +51,22 @@ class ShowFleetPages extends FleetFunctions
 				case "sendfleetback":
 					parent::SendFleetBack($CurrentUser, $FleetID);
 				break;
+				case "getakspage":
+					$AKSArray	= parent::GetAKSPage($CurrentUser, $CurrentPlanet, $FleetID);
+					$template->assign_vars($AKSArray);
+					$template->assign_vars(array(
+						'fl_invite_members'		=> $lang['fl_invite_members'],
+						'fl_members_invited'	=> $lang['fl_members_invited'],
+						'fl_modify_sac_name'	=> $lang['fl_modify_sac_name'],
+						'fl_sac_of_fleet'		=> $lang['fl_sac_of_fleet'],
+						'fl_continue'			=> $lang['fl_continue'],
+					));
+					$AKSPage	= $template->fetch('fleetACS_table.tpl');
+				break;
 			}
 		}
 		
-		$MaxFlyingFleets 	= parent::GetCurrentFleets($CurrentUser['id']);
-		$MaxFlyingRaks 		= parent::GetCurrentFleets($CurrentUser['id'], 10);		
+
 		$MaxExpedition      = $CurrentUser[$resource[124]];
 
 		if ($MaxExpedition >= 1)
@@ -65,151 +87,108 @@ class ShowFleetPages extends FleetFunctions
 		$planet         = request_var('planet', $CurrentPlanet['planet']);
 		$planettype     = request_var('planettype', $CurrentPlanet['planet_type']);
 		$target_mission = request_var('target_mission', 0);
-		$ShipData       = "";
 
 		$parse['flyingfleets']			= $MaxFlyingFleets - $MaxFlyingRaks;
 		$parse['maxfleets']				= $MaxFlottes;
 		$parse['currentexpeditions']	= $ExpeditionEnCours;
 		$parse['maxexpeditions']		= $EnvoiMaxExpedition;
 
-		$fq = $db->query("SELECT * FROM ".FLEETS." WHERE fleet_owner='".$CurrentUser["id"]."' AND fleet_mission <> 10;");
-		$i  = 0;
+		$CurrentFleets 		= $db->query("SELECT * FROM ".FLEETS." WHERE `fleet_owner` = '".$CurrentUser['id']."' AND `fleet_mission` <> 10;");
+		$CountCurrentFleets	= $db->num_rows($CurrentFleets);
 
-		while ($f = $db->fetch_array($fq))
+		while ($CurrentFleetsRow = $db->fetch_array($CurrentFleets))
 		{
-			$i++;
-			$FleetPageRow .= "<tr height=20>";
-			$FleetPageRow .= "<th>".$i."</th>";
-			$FleetPageRow .= "<th>";
-			$FleetPageRow .= "<a>". $lang['type_mission'][$f['fleet_mission']] ."</a>";
-			if (($f['fleet_start_time'] + 1) == $f['fleet_end_time'])
-				$FleetPageRow .= "<br><a title=\"".$lang['fl_returning']."\">".$lang['fl_r']."</a>";
-			else
-				$FleetPageRow .= "<br><a title=\"".$lang['fl_onway']."\">".$lang['fl_a']."</a>";
-			$FleetPageRow .= "</th>";
-			$FleetPageRow .= "<th><a title=\"";
-
-			$fleet = explode(";", $f['fleet_array']);
-			$e = 0;
-			foreach ($fleet as $a => $b)
+			$fleet = explode(";", $CurrentFleetsRow['fleet_array']);
+			foreach ($fleet as $ShipID => $ShipCount)
 			{
-				if ($b != '')
+				if (!empty($ShipCount))
 				{
-					$e++;
-					$a = explode(",", $b);
-					$FleetPageRow .= $lang['tech'][$a[0]]. ":". $a[1] ."\n";
-					if ($e > 1)
-					{
-						$FleetPageRow .= "\t";
-					}
+					$a = explode(",", $ShipCount);
+					$FleetList[$lang['tech'][$a[0]]] = pretty_number($a[1]);
 				}
 			}
-			$FleetPageRow .= "\">". pretty_number($f['fleet_amount']) ."</a></th>";
-			$FleetPageRow .= "<th><a href=\"game.php?page=galaxy&mode=3&galaxy=".$f['fleet_start_galaxy']."&system=".$f['fleet_start_system']."\" name=\"".$f['fleet_start_galaxy'].":".$f['fleet_start_system'].":".$f['fleet_start_planet']."\">[".$f['fleet_start_galaxy'].":".$f['fleet_start_system'].":".$f['fleet_start_planet']."]</a></th>";
-			$FleetPageRow .= "<th>". date("d M Y H:i:s", $f['fleet_start_time']) ."</th>";
-			$FleetPageRow .= "<th><a href=\"game.php?page=galaxy&mode=3&galaxy=".$f['fleet_end_galaxy']."&system=".$f['fleet_end_system']."\" name=\"".$f['fleet_end_galaxy'].":".$f['fleet_end_system'].":".$f['fleet_end_planet']."\">[".$f['fleet_end_galaxy'].":".$f['fleet_end_system'].":".$f['fleet_end_planet']."]</a></th>";
-			$FleetPageRow .= "<th>". date("d M Y H:i:s", $f['fleet_end_time']) ."</th>";
-			$FleetPageRow .= "<th><font color=\"lime\"><div id=\"time_0\"><font>". pretty_time(floor($f['fleet_end_time'] + 1 - time())) ."</font></th>";
-			$FleetPageRow .= "<th>";
+			
+			$FlyingFleetList[]	= array(
+				'id'			=> $CurrentFleetsRow['fleet_id'],
+				'mission'		=> $CurrentFleetsRow['fleet_mission'],
+				'missionname'	=> $lang['type_mission'][$CurrentFleetsRow['fleet_mission']],
+				'way'			=> $CurrentFleetsRow['fleet_mess'],
+				'start_galaxy'	=> $CurrentFleetsRow['fleet_start_galaxy'],
+				'start_system'	=> $CurrentFleetsRow['fleet_start_system'],
+				'start_planet'	=> $CurrentFleetsRow['fleet_start_planet'],
+				'start_time'	=> date("d M Y H:i:s", $CurrentFleetsRow['fleet_start_time']),
+				'end_galaxy'	=> $CurrentFleetsRow['fleet_end_galaxy'],
+				'end_system'	=> $CurrentFleetsRow['fleet_end_system'],
+				'end_planet'	=> $CurrentFleetsRow['fleet_end_planet'],
+				'end_time'		=> date("d M Y H:i:s", $CurrentFleetsRow['fleet_end_time']),
+				'amount'		=> pretty_number($CurrentFleetsRow['fleet_amount']),
+				'backin'		=> pretty_time(floor($CurrentFleetsRow['fleet_end_time'] - time())),
+				'FleetList'		=> $FleetList,
+			);
+		}
 
-			if ($f['fleet_mess'] == 0)
+		foreach($reslist['fleet'] as $FleetID)
+		{
+			if ($CurrentPlanet[$resource[$FleetID]] > 0)
 			{
-					$FleetPageRow .= "<form action=\"?page=fleet&amp;action=sendfleetback\" method=\"post\">";
-					$FleetPageRow .= "<input name=\"fleetid\" value=\"". $f['fleet_id'] ."\" type=\"hidden\">";
-					$FleetPageRow .= "<input value=\"".$lang['fl_send_back']."\" type=\"submit\">";
-					$FleetPageRow .= "</form>";
-
-				if ($f['fleet_mission'] == 1)
-				{
-					$FleetPageRow .= "<form action=\"game.php?page=fleetACS\" method=\"post\">";
-					$FleetPageRow .= "<input name=\"fleetid\" value=\"". $f['fleet_id'] ."\" type=\"hidden\">";
-					$FleetPageRow .= "<input value=\"".$lang['fl_acs']."\" type=\"submit\">";
-					$FleetPageRow .= "</form>";
-				}
+				$FleetsOnPlanet[]	= array(
+					'id'	=> $FleetID,
+					'name'	=> $lang['tech'][$FleetID],
+					'speed'	=> parent::GetFleetMaxSpeed($FleetID, $CurrentUser),
+					'count'	=> pretty_number($CurrentPlanet[$resource[$FleetID]]),
+				);
 			}
-			else
-				$FleetPageRow .= "&nbsp;-&nbsp;";
-
-			$FleetPageRow .= "</th>";
-			$FleetPageRow .= "</tr>";
 		}
-
-		if ($i == 0)
-		{
-			$FleetPageRow .= "<tr>";
-			$FleetPageRow .= "<th>-</th>";
-			$FleetPageRow .= "<th>-</th>";
-			$FleetPageRow .= "<th>-</th>";
-			$FleetPageRow .= "<th>-</th>";
-			$FleetPageRow .= "<th>-</th>";
-			$FleetPageRow .= "<th>-</th>";
-			$FleetPageRow .= "<th>-</th>";
-			$FleetPageRow .= "<th>-</th>";
-			$FleetPageRow .= "<th>-</th>";
-			$FleetPageRow .= "</tr>";
-		}
-
-		$parse['fleetpagerow'] = $FleetPageRow;
-
-		$parse['message_nofreeslot'] = ($MaxFlottes == $MaxFlyingFleets - $MaxFlyingRaks) ? "<tr height=\"20\"><th colspan=\"9\"><font color=\"red\">".$lang['fl_no_more_slots']."</font></th></tr>":"";
-
-		if (!$CurrentPlanet)
-			header("location:game.php?page=fleet");
-
-		foreach ($reslist['fleet'] as $n => $i)
-		{
-			if ($CurrentPlanet[$resource[$i]] > 0)
-			{
-				$page .= "<tr height=\"20\">";
-				$page .= "<th>";
-				$page .= ($i == 212)? "": "<a title=\"" . $lang['fl_speed_title'] . (parent::GetFleetMaxSpeed ( $i, $CurrentUser )) ."\">";
-				$page .= $lang['tech'][$i] . "</a></th>";
-				$page .= "<th id=\"ship".$i."_value\">". pretty_number ($CurrentPlanet[$resource[$i]]);
-				$page .= "</th>";
-
-				if ($i == 212)
-					$page .= "<th></th><th></th>";
-				else
-				{
-					$page .= "<th><a href=\"javascript:maxShip('ship". $i ."'); shortInfo();\">".$lang['fl_max']."</a> </th>";
-					$page .= "<th><input name=\"ship". $i ."\" id=\"ship". $i ."_input\" size=\"10\" value=\"0\" onfocus=\"javascript:if(this.value == '0') this.value='';\" onblur=\"javascript:if(this.value == '') this.value='0';\" alt=\"". $lang['tech'][$i] . $CurrentPlanet[$resource[$i]] ."\" onChange=\"shortInfo()\" onKeyUp=\"shortInfo()\" /></th>";
-				}
-				$page .= "</tr>";
-			}
-			$have_ships = true;
-		}
-
-		$btncontinue = "<tr height=\"20\"><th colspan=\"4\"><input type=\"submit\" value=\"".$lang['fl_continue']."\" /></th>";
-
-		$page .= "<tr height=\"20\">";
-
-		if (!$have_ships)
-		{
-			$page .= "<th colspan=\"4\">".$lang['fl_no_ships']."</th>";
-			$page .= "</tr>";
-			$page .= $btncontinue;
-		}
-		else
-		{
-			$page .= "<th colspan=\"2\"><a href=\"javascript:noShips();shortInfo();noResources();\" >".$lang['fl_remove_all_ships']."</a></th>";
-			$page .= "<th colspan=\"2\"><a href=\"javascript:maxShips();shortInfo();\" >".$lang['fl_select_all_ships']."</a></th>";
-			$page .= "</tr>";
-
-			if ($MaxFlottes > $MaxFlyingFleets - $MaxFlyingRaks)
-				$page .= $btncontinue;
-		}
-		$parse['body'] 					= $page;
-		$parse['shipdata'] 				= $ShipData;
-		$parse['galaxy']				= $galaxy;
-		$parse['system']				= $system;
-		$parse['planet']				= $planet;
-		$parse['planettype']			= $planettype;
-		$parse['target_mission']		= $target_mission;
-		$parse['envoimaxexpedition']	= $EnvoiMaxExpedition;
-		$parse['expeditionencours']		= $ExpeditionEnCours;
-		$parse['target_mission']		= $target_mission;
-
-		display(parsetemplate(gettemplate('fleet/fleet_table'), $parse));
+		
+		$template->assign_vars(array(
+			'FleetsOnPlanet'		=> $FleetsOnPlanet,
+			'FlyingFleetList'		=> $FlyingFleetList,
+			'fl_number'				=> $lang['fl_number'],
+			'fl_mission'			=> $lang['fl_mission'],
+			'fl_ammount'			=> $lang['fl_ammount'],
+			'fl_beginning'			=> $lang['fl_beginning'],
+			'fl_departure'			=> $lang['fl_departure'],
+			'fl_destiny'			=> $lang['fl_destiny'],
+			'fl_objective'			=> $lang['fl_objective'],
+			'fl_arrival'			=> $lang['fl_arrival'],
+			'fl_order'				=> $lang['fl_order'],
+			'fl_new_mission_title'	=> $lang['fl_new_mission_title'],
+			'fl_ship_type'			=> $lang['fl_ship_type'],
+			'fl_ship_available'		=> $lang['fl_ship_available'],
+			'fl_fleets'				=> $lang['fl_fleets'],
+			'fl_expeditions'		=> $lang['fl_expeditions'],
+			'fl_speed_title'		=> $lang['fl_speed_title'],
+			'fl_max'				=> $lang['fl_max'],
+			'fl_no_more_slots'		=> $lang['fl_no_more_slots'],
+			'fl_continue'			=> $lang['fl_continue'],
+			'fl_no_ships'			=> $lang['fl_no_ships'],
+			'fl_select_all_ships'	=> $lang['fl_select_all_ships'],
+			'fl_remove_all_ships'	=> $lang['fl_remove_all_ships'],
+			'fl_acs'				=> $lang['fl_acs'],
+			'fl_send_back'			=> $lang['fl_send_back'],
+			'fl_returning'			=> $lang['fl_returning'],
+			'fl_r'					=> $lang['fl_r'],
+			'fl_onway'				=> $lang['fl_onway'],
+			'fl_a'					=> $lang['fl_a'],
+			'fl_info_detail'		=> $lang['fl_info_detail'],
+			'galaxy'				=> $galaxy,
+			'system'				=> $system,
+			'planet'				=> $planet,
+			'planettype'			=> $planettype,
+			'target_mission'		=> $target_mission,
+			'envoimaxexpedition'	=> $EnvoiMaxExpedition,
+			'expeditionencours'		=> $ExpeditionEnCours,
+			'flyingfleets'			=> $CountCurrentFleets,
+			'maxfleets'				=> $MaxFlottes,
+			'target_mission'		=> $target_mission,
+			'currentexpeditions' 	=> $ExpeditionEnCours,
+			'maxexpeditions'		=> $EnvoiMaxExpedition,
+			'slots_available'		=> ($MaxFlottes <= $MaxFlyingFleets - $MaxFlyingRaks) ? false : true,
+			'AKSPage'				=> $AKSPage,
+		));
+		
+		$template->show('fleet_table.tpl');
+		$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 	}
 
 	public static function ShowFleet1Page($CurrentUser, $CurrentPlanet)

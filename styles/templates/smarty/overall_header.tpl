@@ -16,10 +16,10 @@
 <link rel="stylesheet" type="text/css" href="{$dpath}formate.css">
 <script type="text/javascript" src="scripts/jquery.js"></script>
 <script type="text/javascript" src="scripts/animatedcollapse.js"></script>
-<script type="text/javascript" src="scripts/overlib.js"></script>
 <script type="text/javascript" src="scripts/global.js"></script>
 {foreach item=scriptname from=$scripts}
 <script type="text/javascript" src="scripts/{$scriptname}"></script>
 {/foreach}
 </head>
 <body>
+{popup_init src="scripts/overlib.js"}

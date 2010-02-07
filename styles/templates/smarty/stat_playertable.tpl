@@ -1,5 +1,5 @@
 <tr>
-	<td class="c" width="60px">{$st_position}</td>
+	<td class="c" style="width:60px;">{$st_position}</td>
 	<td class="c">{$st_player}</td>
 	<td class="c">&nbsp;</td>
 	<td class="c">{$st_alliance}</td>
