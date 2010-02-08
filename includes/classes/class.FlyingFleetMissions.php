@@ -422,7 +422,7 @@ abstract class FlyingFleetMissions {
 				$coord4 	= 0;
 				$coord5 	= 0;
 				$coord6 	= 0;
-				$html		= "<table><tr>";
+				$html		.= "<table><tr>";
 				foreach( $attackers1 as $fleet_id1 => $data2)
 				{
 					$name 	= $data2['user']['username'];
@@ -598,7 +598,7 @@ abstract class FlyingFleetMissions {
 		elseif ($result_array['won'] == "a")
 		{
 			$result1  = $lang['sys_attacker_won']."<br>";
-			$result1 .= $lang['sys_stealed_ressources']." ".$steal_array['metal']." ".$lang['Metal'].", ".$steal_array['crystal']." ".$lang['Crystal']." ".$lang['and']." ".$steal_array['deuterium']." ".$lang['Deuterium']."<br>";
+			$result1 .= $lang['sys_stealed_ressources']." ".pretty_number($steal_array['metal'])." ".$lang['Metal'].", ".pretty_number($steal_array['crystal'])." ".$lang['Crystal']." ".$lang['and']." ".pretty_number($steal_array['deuterium'])." ".$lang['Deuterium']."<br>";
 		}
 		else
 		{
@@ -614,7 +614,7 @@ abstract class FlyingFleetMissions {
 
 		$html .= $lang['sys_attacker_lostunits']." ".pretty_number($result_array['lost']['att'])." ".$lang['sys_units']."<br>";
 		$html .= $lang['sys_defender_lostunits']." ".pretty_number($result_array['lost']['def'])." ".$lang['sys_units']."<br>";
-		$html .= $lang['debree_field_1']." ".$debirs_meta." ".$lang['Metal']." ".$lang['sys_and']." ".$debirs_crys." ".$lang['Crystal']." ".$lang['debree_field_2']."<br><br>";
+		$html .= $lang['debree_field_1']." ".pretty_number($debirs_meta)." ".$lang['Metal']." ".$lang['sys_and']." ".pretty_number($debirs_crys)." ".$lang['Crystal']." ".$lang['debree_field_2']."<br><br>";
 		
 		if($moondes)
 		{
