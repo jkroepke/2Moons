@@ -7,6 +7,7 @@
 <meta http-equiv="content-script-type" content="text/javascript">
 <meta http-equiv="content-style-type" content="text/css">
 <meta http-equiv="content-language" content="de">
+<meta http-equiv="X-UA-Compatible" content="IE=100" >
 {meta}
 <title>{title}</title>
 <link rel="shortcut icon" href="./favicon.ico">

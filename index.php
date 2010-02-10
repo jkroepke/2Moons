@@ -32,12 +32,8 @@ include_once($xgp_root . 'common.' . $phpEx);
 
 includeLang ('PUBLIC');
 
-
-//Syntax
-// array('URL_TO_UNI' => 'Name');
-$AvailableUnis	= array(
-	'./'	=> $lang['universe']." 1",
-);
+// Uniconfig changed...
+include_once($xgp_root . 'includes/uni.config.inc.php');
 
 $template	= new template();
 $template->set_index();
@@ -72,16 +68,23 @@ switch ($page) {
 			}
 		} else {
 			$template->assign_vars(array(
-				'email'	=> $lang['email'],
-				'send'	=> $lang['send'],
+				'email'			=> $lang['email'],
+				'uni_reg'		=> $lang['uni_reg'],
+				'send'			=> $lang['send'],
+				'AvailableUnis'	=> $AvailableUnis,
+				'chose_a_uni'	=> $lang['chose_a_uni'],
 			));
 			$template->display('public/lostpassword.tpl');
 		}
 		break;
 	case 'reg' :
 		
-		if ($game_config ['reg_closed'] == 1){
-			echo parsetemplate ( gettemplate ( 'public/registry_closed' ), $parse);
+		if ($game_config['reg_closed'] == 1){
+			$template->assign_vars(array(
+				'closed'	=> $lang['reg_closed'],
+				'info'		=> $lang['info'],
+			));
+			$template->display('public/registry_closed.tpl');
 			exit;
 		}
 		switch ($mode) {
@@ -91,9 +94,9 @@ switch ($page) {
 				
 				$UserPass 	= request_var ('password', '');
 				$UserPass2 	= request_var ('password2', '');
-				$UserName 	= request_var ('character', '', UTF8_SUPPORT);
-				$UserEmail 	= request_var ('email', '');
-				$UserEmail2	= request_var ('email2', '');
+				$UserName 	= trim(request_var ('character', '', UTF8_SUPPORT));
+				$UserEmail 	= trim(request_var ('email', ''));
+				$UserEmail2	= trim(request_var ('email2', ''));
 				$agbrules 	= request_var ('rgt', '');
 				$Exist['userv'] = $db->fetch_array($db->query("SELECT username, email FROM ".USERS." WHERE username = '".$db->sql_escape($UserName)."' OR email = '".$db->sql_escape($UserEmail)."';"));
 				$Exist['vaild'] = $db->fetch_array($db->query("SELECT username, email FROM ".USERS_VALID." WHERE username = '".$db->sql_escape($UserName)."' OR email = '".$db->sql_escape($UserEmail)."';"));
@@ -112,7 +115,8 @@ switch ($page) {
 					$errors .= $lang['empty_user_field'];
 				
 				if (strlen($UserPass) < 6)
-					$errors .= $lang['password_lenght_error'];				
+					$errors .= $lang['password_lenght_error'];
+				
 				if ($UserPass != $UserPass2)
 					$errors .= $lang['different_passwords'];				
 				
@@ -123,9 +127,11 @@ switch ($page) {
 					$errors .= (UTF8_SUPPORT) ? $lang['user_field_no_space'] : $lang['user_field_no_alphanumeric'];			
 				
 				if ($agbrules != 'on')
-					$errors .= $lang['terms_and_conditions'];
+					$errors .= $lang['terms_and_conditions'];
+
 				if ((isset($Exist['userv']['username']) || isset($Exist['vaild']['username']) && ($UserName == $Exist['userv']['username'] || $UserName == $Exist['vaild']['username'])))
-					$errors .= $lang['user_already_exists'];
+					$errors .= $lang['user_already_exists'];
+
 				if ((isset($Exist['userv']['email']) || isset($Exist['vaild']['email'])) && ($UserEmail == $Exist['userv']['email'] || $UserEmail == $Exist['vaild']['email']))
 					$errors .= $lang['mail_already_exists'];
 				
@@ -305,6 +311,9 @@ switch ($page) {
 					'captcha_get_image'				=> $lang['captcha_get_image'],
 					'captcha_reload'				=> $lang['captcha_reload'],
 					'captcha_get_audio'				=> $lang['captcha_get_audio'],
+					'AvailableUnis'					=> $AvailableUnis,
+					'uni_reg'						=> $lang['uni_reg'],
+					'chose_a_uni'					=> $lang['chose_a_uni'],
 				));
 				$template->display('public/registry_form.tpl');
 			break;

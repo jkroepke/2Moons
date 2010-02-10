@@ -84,6 +84,7 @@ $lang['reg_completed']				= 'Danke f&uuml;r ihre Anmeldung! Sie erhalten eine E-
 //registry_form.tpl
 $lang['server_message_reg']			= 'Registriere dich jetzt und werde ein Teil von';
 $lang['register_at_reg']			= 'Registriert bei';
+$lang['uni_reg']					= 'Universum';
 $lang['user_reg']					= 'User';
 $lang['pass_reg']					= 'Passwort';
 $lang['pass2_reg']					= 'Passwort wiederhohlen';
@@ -99,7 +100,7 @@ $lang['captcha_reload']				= 'Neues CAPTCHA';
 $lang['captcha_get_audio']			= 'Lade Sound-CAPTCHA';
 
 //registry_closed.tpl
-$lang['agb_and_rules']				= 'Hier k&ouml;nnen sie die <a href="index.php?page=agb">AGB</a> und <a href="rules.php">Regeln</a> nachlesen';
+$lang['info']						= 'Informationen';
 $lang['reg_closed']					= 'Die Registrierung ist geschlossen';
 
 //Rules

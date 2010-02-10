@@ -200,10 +200,10 @@ z-index : 1000;
 }
 #menu .p {
 color:#CCCCCC;
-left:35px;
 margin:0;
 padding:0;
 position:absolute;
+left:35px;
 top:29px;
 white-space:nowrap;
 }
@@ -259,6 +259,9 @@ background-position : 0;
 background-repeat : no-repeat;
 text-align : left;
 padding-left : 20px;
+}
+td {
+padding	: 1px !important;
 }
 th {
 text-align : center;
@@ -441,8 +444,9 @@ overflow : hidden !important;
 text-align: center;
 }
 div#menu img[src="styles/skins/darkness/gfx/ogame-produktion.jpg"] {
-height : 0;
-width : 0;
+height : 0px;
+width : 0px;
+display : none;
 }
 body table tr td table tr td.l + td.l + td.l {
 text-align : center;

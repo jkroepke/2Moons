@@ -68,7 +68,7 @@
 										{/if}
 										&nbsp;
 									</td>
-									<td width="15%" style="text-align:right;white-space:nowrap;">
+									<td style="text-align:right;white-space:nowrap;">
 										{$BuildInfoRow.time}
 									</td>
 								</tr>				

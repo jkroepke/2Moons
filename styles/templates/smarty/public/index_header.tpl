@@ -8,6 +8,7 @@
 <meta http-equiv="content-script-type" content="text/javascript">
 <meta http-equiv="content-style-type" content="text/css">
 <meta http-equiv="content-language" content="de">
+<meta http-equiv="X-UA-Compatible" content="IE=100" >
 <meta http-equiv='expires' content=''>
 <meta name='medium' content="mult">
 
@@ -28,7 +29,7 @@
 <script type="text/javascript">
 IsCaptchaActive = {$game_captcha};
 IsRegActive 	= {$reg_close};
-lang_reg_closed	= "{$register_closed}";
+lang_reg_closed	= '{$register_closed}';
 </script>
 {if $game_captcha}
 <script src="http://api.recaptcha.net/js/recaptcha_ajax.js" type="text/javascript"></script>

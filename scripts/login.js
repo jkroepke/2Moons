@@ -28,7 +28,7 @@ function music() {
 }
 
 function ajax(url){
-	if(url == '?page=reg&amp;getajax=1'){
+	if(url == '?page=reg&getajax=1'){
 		if(IsRegActive == 1){
 			alert(lang_reg_closed);  
 		} else {
@@ -53,22 +53,22 @@ $(document).ready(function(){
 	});
 });
 
-
-var lastType = "";
-
 function changeAction(type) {
-    if (document.formular.Uni.value == '') {
-        alert('Wählen Sie ein Universum aus!');
+    if ($('#Uni').val() == '') {
+        alert($("#Uni :selected").text());
 		return false;
     } else {
-        if(type == "login" && lastType == "") {
-            var url = document.formular.Uni.value;
-            document.formular.action = url;
-        } else {
-            var url = document.formular.Uni.value + "index.php?page=reg";
-            document.formular.action = url;
-            document.formular.submit();
-        }
+        switch(type){
+			case "login":
+				document.login.action = $('#Uni').val();
+			break;
+			case "reg":
+				document.reg.action = $('#Uni').val() + "?page=reg&mode=send";
+			break;
+			case "lostpassword":
+				document.lostpassword.action = $('#Uni').val() + "?page=lostpassword&mode=send";
+			break;
+		}
 		return true;
     }
 }
