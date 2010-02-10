@@ -3,7 +3,7 @@
 // @version 1.0
 // @copyright 2010 by ShadoX
 
-event	= new Date();
+var event	= new Date();
 
 function update() {
 	var now 	= new Date();

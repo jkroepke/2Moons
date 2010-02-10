@@ -230,6 +230,7 @@ class template extends Smarty
 			header('Pragma: no-cache');
 			header('Cache-Control: private, no-store, no-cache, must-revalidate, max-age=0');
 			header('Cache-Control: post-check=0, pre-check=0', false); 
+			#header('X-UA-Compatible: IE=EmulateIE7'); 
 		}
 	}
 	public function show($file)

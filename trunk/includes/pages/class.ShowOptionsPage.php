@@ -24,68 +24,19 @@ class ShowOptionsPage
 	private function CheckIfIsBuilding($CurrentUser)
 	{
 		global $db;
-		$query = $db->query("SELECT b_building,b_tech,b_hangar FROM ".PLANETS." WHERE id_owner = '".$CurrentUser['id']."';");
-		
-		$this->ClearBuildHanger($CurrentUser['id']);
+		$query = $db->query("SELECT `b_building`, `b_tech`, `b_hangar` FROM ".PLANETS." WHERE id_owner = '".$CurrentUser['id']."';");
 		
 		while($id = $db->fetch_array($query))
 		{
-			if($id['b_building'] != 0)
-			{
-				if($id['b_building'] != "")
-					return true;
-			}
-			elseif($id['b_tech'] != 0)
-			{
-				if($id['b_tech'] != "")
-					return true;
-			}
-			elseif($id['b_hangar'] != 0)
-			{
-				if($id['b_hangar'] != "")
-					return true;
-			}
+			if(!(empty($id['b_building']) && empty($id['b_tech']) && empty($id['b_hangar'])))
+				return true;
 		}
-		$fleets = $db->fetch_array($db->query("SELECT * FROM ".FLEETS." WHERE `fleet_owner` = '{$CurrentUser['id']}';"));
-		if($fleets != 0)
+
+		$fleets = $db->fetch_array($db->query("SELECT * FROM ".FLEETS." WHERE `fleet_owner` = '".$CurrentUser['id']."' OR `fleet_target_owner` = '".$CurrentUser['id']."';"));
+		if(!empty($fleets))
 			return true;
 
 		return false;
-	}
-
-
-	private function ClearBuildHanger($userid)
-	{
-		global $db;
-		$QrySelectPlanet  = "SELECT `id`, `id_owner`, `b_hangar`, `b_hangar_id` ";
-		$QrySelectPlanet .= "FROM ".PLANETS." ";
-		$QrySelectPlanet .= "WHERE ";
-		$QrySelectPlanet .= "`b_hangar_id` != '0' AND ";
-		$QrySelectPlanet .= "`id_owner` = '".$userid."';";
-		$AffectedPlanets  = $db->query ($QrySelectPlanet);
-		$DeletedQueues    = 0;
-		while($ActualPlanet = $db->fetch($AffectedPlanets) ) {
-			$HangarQueue = explode (";", $ActualPlanet['b_hangar_id']);
-			$bDelQueue   = false;
-			if (count($HangarQueue)) {
-				for ( $Queue = 0; $Queue < count($HangarQueue); $Queue++) {
-					$InQueue = explode (",", $HangarQueue[$Queue]);
-					if ($InQueue[1] > MAX_FLEET_OR_DEFS_PER_ROW) {
-						$bDelQueue = true;
-					}
-				}
-			}
-			if ($bDelQueue) {
-				$QryUpdatePlanet  = "UPDATE ".PLANETS." ";
-				$QryUpdatePlanet .= "SET ";
-				$QryUpdatePlanet .= "`b_hangar` = '0', ";
-				$QryUpdatePlanet .= "`b_hangar_id` = '0' ";
-				$QryUpdatePlanet .= "WHERE ";
-				$QryUpdatePlanet .= "`id` = '".$ActualPlanet['id']."';";
-				$db->query ($QryUpdatePlanet);
-				$DeletedQueues += 1;
-			}
-		}
 	}
 	
 	public function ShowOptionsPage($CurrentUser, $CurrentPlanet)

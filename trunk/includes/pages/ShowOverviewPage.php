@@ -52,7 +52,7 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 
 			if ($_POST['action'] == $lang['ov_planet_rename_action'])
 			{
-				$newname        = $db->sql_escape($_POST['newname']);
+				$newname        = trim(request_var('newname', ''));
 
 				if (CheckName($newname))
 				{
@@ -60,7 +60,7 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 				}
 				if ($newname != "")
 				{
-					$db->query("UPDATE ".PLANETS." SET `name` = '" . $newname . "' WHERE `id` = '" . $CurrentUser['current_planet'] . "';");
+					$db->query("UPDATE ".PLANETS." SET `name` = '".$db->sql_escape($newname)."' WHERE `id` = '" . $CurrentUser['current_planet'] . "';");
 				}
 			}
 			elseif ($_POST['action'] == $lang['ov_abandon_planet'])

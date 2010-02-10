@@ -585,8 +585,8 @@ abstract class FlyingFleetMissions {
 				}
 				if ($des) break;
 				
-				$html .=  $lang['fleet_attack_1']." ".pretty_number($data1['attack']['total'])." ".$lang['fleet_attack_2']." ".pretty_number($data1['defShield'])." ".$lang['damage']."<br>";
-				$html .= $lang['fleet_defs_1']." ".pretty_number($data1['defense']['total'])." ".$lang['fleet_defs_2']." ".pretty_number($data1['attackShield'])." ".$lang['damage']."<br><br>";
+				$html .=  $lang['fleet_attack_1']." ".pretty_number($data1['attack']['total'])." ".$lang['fleet_attack_2']." ".pretty_number(max($data1['defShield'], $data1['attack']['total']))." ".$lang['damage']."<br>";
+				$html .= $lang['fleet_defs_1']." ".pretty_number($data1['defense']['total'])." ".$lang['fleet_defs_2']." ".pretty_number(max($data1['attackShield'], $data1['defense']['total']))." ".$lang['damage']."<br><br>";
 				$round_no++;			
 			}
 		}
@@ -614,7 +614,7 @@ abstract class FlyingFleetMissions {
 
 		$html .= $lang['sys_attacker_lostunits']." ".pretty_number($result_array['lost']['att'])." ".$lang['sys_units']."<br>";
 		$html .= $lang['sys_defender_lostunits']." ".pretty_number($result_array['lost']['def'])." ".$lang['sys_units']."<br>";
-		$html .= $lang['debree_field_1']." ".pretty_number($debirs_meta)." ".$lang['Metal']." ".$lang['sys_and']." ".pretty_number($debirs_crys)." ".$lang['Crystal']." ".$lang['debree_field_2']."<br><br>";
+		$html .= $lang['debree_field_1']." ".$debirs_meta." ".$lang['Metal']." ".$lang['sys_and']." ".$debirs_crys." ".$lang['Crystal']." ".$lang['debree_field_2']."<br><br>";
 		
 		if($moondes)
 		{
@@ -1056,7 +1056,7 @@ abstract class FlyingFleetMissions {
 				while ($fleet = $db->fetch($fleets))
 				{
 					$attackFleets[$fleet['fleet_id']]['fleet'] = $fleet;
-					$attackFleets[$fleet['fleet_id']]['user'] = $db->fetch_array($db->query('SELECT username,military_tech,defence_tech,shield_tech,rpg_amiral FROM '.USERS.' WHERE id ='.$fleet['fleet_owner'].";"));
+					$attackFleets[$fleet['fleet_id']]['user'] = $db->fetch_array($db->query('SELECT id,username,military_tech,defence_tech,shield_tech,rpg_amiral FROM '.USERS.' WHERE id ='.$fleet['fleet_owner'].";"));
 					$attackFleets[$fleet['fleet_id']]['detail'] = array();
 					$temp = explode(';', $fleet['fleet_array']);
 					foreach ($temp as $temp2)
@@ -1076,7 +1076,7 @@ abstract class FlyingFleetMissions {
 			else
 			{
 				$attackFleets[$FleetRow['fleet_id']]['fleet'] = $FleetRow;
-				$attackFleets[$FleetRow['fleet_id']]['user'] = $db->fetch_array($db->query('SELECT username,military_tech,defence_tech,shield_tech,rpg_amiral FROM '.USERS.' WHERE id='.$FleetRow['fleet_owner'].";"));
+				$attackFleets[$FleetRow['fleet_id']]['user'] = $db->fetch_array($db->query('SELECT id,username,military_tech,defence_tech,shield_tech,rpg_amiral FROM '.USERS.' WHERE id='.$FleetRow['fleet_owner'].";"));
 				$attackFleets[$FleetRow['fleet_id']]['detail'] = array();
 				$temp = explode(';', $FleetRow['fleet_array']);
 				foreach ($temp as $temp2)
@@ -1267,12 +1267,12 @@ abstract class FlyingFleetMissions {
 			$QryInsertRapport .= '`time` = '.time().', ';
 			foreach ($attackFleets as $fleetID => $attacker)
 			{
-				$users2[$attacker['user']['id']] = $attacker['user']['id'];
+				$users2[$attacker['user']['id']] = $attacker['user']['name'];
 			}
 
 			foreach ($defense as $fleetID => $defender)
 			{
-				$users2[$defender['user']['id']] = $defender['user']['id'];
+				$users2[$defender['user']['id']] = $defender['user']['name'];
 			}
 			// mod TOP KB
 			$angreifer     = $attackFleets;
