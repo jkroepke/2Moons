@@ -9,16 +9,17 @@ function update() {
 	var now 	= new Date();
 	var seconds = (Date.parse(now) - Date.parse(event)) / 1000;
 
-	var metdone = (met_max <= met || isNaN(met)) ? Math.max(met_max, met) : ((met_hr / 3600) * res_factor * seconds + met);
-	var crydone = (cry_max <= cry || isNaN(cry)) ? Math.max(cry_max, cry) : ((cry_hr / 3600) * res_factor * seconds + cry);
-	var deudone = (deu_max <= deu || isNaN(deu)) ? Math.max(deu_max, deu) : ((deu_hr / 3600) * res_factor * seconds + deu);
+	var metdone = (met_max <= met || isNaN(met)) ? ColorRed(number_format(Math.round(Math.max(met_max, met)))) : number_format(Math.round((met_hr / 3600) * res_factor * seconds + met));
+	var crydone = (cry_max <= cry || isNaN(cry)) ? ColorRed(number_format(Math.round(Math.max(cry_max, cry)))) : number_format(Math.round((cry_hr / 3600) * res_factor * seconds + cry));
+	var deudone = (deu_max <= deu || isNaN(deu)) ? ColorRed(number_format(Math.round(Math.max(deu_max, deu)))) : number_format(Math.round((deu_hr / 3600) * res_factor * seconds + deu));
 	
-	$("#current_metal").html(number_format(Math.round(metdone)));
-	$("#current_crystal").html(number_format(Math.round(crydone)));
-	$("#current_deuterium").html(number_format(Math.round(deudone)));
+	$("#current_metal").html(metdone);
+	$("#current_crystal").html(crydone);
+	$("#current_deuterium").html(deudone);
 
 	window.setTimeout("update();",1000);
 }
+
 function number_format(n) {
     ns = String(n).replace('.', ',');
     var w = [];
@@ -38,4 +39,8 @@ function number_format(n) {
     }
     ns = ns.substr(0, ns.length - 1);
     return ns.replace(/\.,/, ',');
+}
+
+function ColorRed(text) {
+	return '<font style="color:red";>'+text+'</font>';
 }

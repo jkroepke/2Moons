@@ -298,18 +298,15 @@ class ShowFleetPages extends FleetFunctions
 		$MaxFleetSpeed				= ($FleetSpeed / 10) * $GenFleetSpeed;
 		$distance      				= parent::GetTargetDistance($CurrentPlanet['galaxy'], $TargetGalaxy, $CurrentPlanet['system'], $TargetSystem, $CurrentPlanet['planet'], $TargetPlanet);
 		$duration      				= parent::GetMissionDuration($GenFleetSpeed, $MaxFleetSpeed, $distance, $GameSpeedFactor);
-		$parse['consumption']		= floor(parent::GetFleetConsumption($FleetArray, $duration, $distance, $MaxFleetSpeed, $CurrentUser, $GameSpeedFactor));
-		$parse['fleetroom']			= parent::GetFleetRoom($FleetArray);
+		$parse['consumption']		= number_format(floor(parent::GetFleetConsumption($FleetArray, $duration, $distance, $MaxFleetSpeed, $CurrentUser, $GameSpeedFactor)), 0, '', '');
+		$parse['fleetroom']			= number_format(parent::GetFleetRoom($FleetArray), 0, '', '');
 		$parse['speedallsmin']		= $MaxFleetSpeed;
 		$parse['speed']				= $GenFleetSpeed;
 		$parse['speedfactor']		= $GameSpeedFactor;
-		$parse['metal'] 			= floor($CurrentPlanet['metal']);
-		$parse['crystal'] 			= floor($CurrentPlanet['crystal']);
-		$parse['deuterium'] 		= floor($CurrentPlanet['deuterium']);
+		$parse['metal'] 			= number_format(floor($CurrentPlanet['metal']), 0, '', '');
+		$parse['crystal'] 			= number_format(floor($CurrentPlanet['crystal']), 0, '', '');
+		$parse['deuterium'] 		= number_format(floor($CurrentPlanet['deuterium']), 0, '', '');
 		$parse['title']				= $TargetGalaxy .":". $TargetSystem .":". $TargetPlanet." - ".(($TargetPlanettype == 1) ? $lang['fl_planet'] : $lang['fl_moon']);
-		$parse['metal'] 			= floor($CurrentPlanet["metal"]);
-		$parse['crystal'] 			= floor($CurrentPlanet["crystal"]);
-		$parse['deuterium'] 		= floor($CurrentPlanet["deuterium"]);
 		$parse['missionselector'] 	= $MissionOutput['MissionSelector'];
 		$parse['stayblock'] 		= $MissionOutput['StayBlock'];
 
