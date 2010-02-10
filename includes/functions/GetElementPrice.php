@@ -45,11 +45,11 @@ function GetElementPrice ($user, $planet, $Element, $userfactor = true) {
 
 				if ($cost > $planet[$ResType])
 				{
-					$text .= "<b style=\"color:red;\"><span class=\"noresources\" title=\"-" . pretty_number ($cost - $planet[$ResType])."\">" . pretty_number($cost) . "</span></b> ";
+					$text .= "<b style=\"color:red;\" id=\"".$ResType."_".$Element."\"><span class=\"noresources\" title=\"-" . pretty_number ($cost - $planet[$ResType])."\">" . pretty_number($cost) . "</span></b> ";
 					$is_buyeable = false;
 				}
 				else
-					$text .= "<b style=\"color:lime;\">" . pretty_number($cost) . "</b> ";
+					$text .= "<b style=\"color:lime;\" id=\"".$ResType."_".$Element."\">" . pretty_number($cost) . "</b> ";
 			}
 		}
     return $text; 

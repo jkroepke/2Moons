@@ -76,7 +76,7 @@ if ($Observation != 1) die();
 	
 	if ($_POST['delsel'] && $_POST['sele'] >= 1 && $_POST['page'])
 	{
-		if ($DelSel == true)
+		if ($DelSel == true && is_array($_POST['sele']))
 		{
 			foreach($_POST['sele'] as $MessId => $Value)
 			{
