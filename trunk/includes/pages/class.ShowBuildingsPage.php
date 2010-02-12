@@ -47,10 +47,11 @@ class ShowBuildingsPage
 		}
 
 		$array = array(
-		'metal'      => $lang['Metal'],
-		'crystal'    => $lang['Crystal'],
-		'deuterium'  => $lang['Deuterium'],
-		'energy_max' => $lang['Energy']
+			'metal'      => $lang['Metal'],
+			'crystal'    => $lang['Crystal'],
+			'deuterium'  => $lang['Deuterium'],
+			'energy_max' => $lang['Energy'],
+			'darkmatter' => $lang['Darkmatter'],
 		);
 		$restprice	= array();
 		foreach ($array as $ResType => $ResTitle)
@@ -65,7 +66,7 @@ class ShowBuildingsPage
 				{
 					$cost = floor($pricelist[$Element][$ResType]);
 				}
-				$restprice[$ResTitle] = pretty_number(max($cost - $planet[$ResType],0));
+				$restprice[$ResTitle] = pretty_number(max($cost - (($planet[$ResType]) ? $planet[$ResType] : $user[$ResType]), 0));
 			}
 		}
 
@@ -116,10 +117,11 @@ class ShowBuildingsPage
 			}
 
 			if ( $Element != false ) {
-			$Needed                        = GetBuildingPrice ($CurrentUser, $CurrentPlanet, $Element, true, $ForDestroy);
-			$CurrentPlanet['metal']       += $Needed['metal'];
-			$CurrentPlanet['crystal']     += $Needed['crystal'];
-			$CurrentPlanet['deuterium']   += $Needed['deuterium'];
+				$Needed                        = GetBuildingPrice ($CurrentUser, $CurrentPlanet, $Element, true, $ForDestroy);
+				$CurrentPlanet['metal']       += $Needed['metal'];
+				$CurrentPlanet['crystal']     += $Needed['crystal'];
+				$CurrentPlanet['deuterium']   += $Needed['deuterium'];
+				$CurrentUser['darkmatter']	  += $Needed['darkmatter'];
 			}
 
 		}
@@ -463,6 +465,7 @@ class ShowBuildingsPage
 			'Metal'					=> $lang['Metal'],
 			'Crystal'				=> $lang['Crystal'],
 			'Deuterium'				=> $lang['Deuterium'],
+			'Darkmatter'       		=> $lang['Darkmatter'],
 			'bd_dismantle'			=> $lang['bd_dismantle'],
 			'fgf_time'				=> $lang['fgf_time'],
 			'bd_remaining'			=> $lang['bd_remaining'],

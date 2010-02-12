@@ -179,7 +179,11 @@ class ResourceUpdate
 		$QryUpdatePlanet .= "`b_hangar` = '". $CurrentPlanet['b_hangar'] ."' ";
 		$QryUpdatePlanet .= "WHERE ";
 		$QryUpdatePlanet .= "`id` = '". $CurrentPlanet['id'] ."';";
-		$db->query($QryUpdatePlanet);
+		$QryUpdatePlanet .= "UPDATE ".USERS." SET ";
+		$QryUpdatePlanet .= "`darkmatter` = '".$CurrentUser['darkmatter']."' ";
+		$QryUpdatePlanet .= "WHERE ";
+		$QryUpdatePlanet .= "`id` = '".$CurrentUser['id']."';";
+		$db->multi_query($QryUpdatePlanet);
 	}
 }
 ?>

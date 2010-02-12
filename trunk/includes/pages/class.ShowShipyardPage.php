@@ -62,13 +62,14 @@ class ShowShipyardPage
 	{
 		global $pricelist;
 
-		$ResType['metal']     = ($pricelist[$Element]['metal']     * $Count);
-		$ResType['crystal']   = ($pricelist[$Element]['crystal']   * $Count);
-		$ResType['deuterium'] = ($pricelist[$Element]['deuterium'] * $Count);
+		$ResType['metal']     	= ($pricelist[$Element]['metal']     * $Count);
+		$ResType['crystal']  	= ($pricelist[$Element]['crystal']   * $Count);
+		$ResType['deuterium'] 	= ($pricelist[$Element]['deuterium'] * $Count);
+		$ResType['darkmatter'] 	= ($pricelist[$Element]['darkmatter'] * $Count);
 
 		return $ResType;
 	}
-	private function CancelAuftr(&$CurrentPlanet, $CancelArray) 
+	private function CancelAuftr(&$CurrentUser, &$CurrentPlanet, $CancelArray) 
 	{
 		$ElementQueue = explode(';', $CurrentPlanet['b_hangar_id']);
 		foreach ($CancelArray as $ID => $Auftr)
@@ -77,9 +78,10 @@ class ShowShipyardPage
 			$Element	= $ElementQ[0];
 			$Count		= $ElementQ[1];
 			$Resses		= $this->GetElementRessources($Element, $Count);
-			$CurrentPlanet['metal']		+= $Resses['metal']		* 0.6;
-			$CurrentPlanet['crystal']	+= $Resses['crystal']	* 0.6;
-			$CurrentPlanet['deuterium']	+= $Resses['deuterium']	* 0.6;
+			$CurrentPlanet['metal']		+= $Resses['metal']			* 0.6;
+			$CurrentPlanet['crystal']	+= $Resses['crystal']		* 0.6;
+			$CurrentPlanet['deuterium']	+= $Resses['deuterium']		* 0.6;
+			$CurrentUser['darkmatter']	+= $Resses['darkmatter']	* 0.6;
 			unset($ElementQueue[$Auftr-1]);
 		}
 		$CurrentPlanet['b_hangar_id']	= implode(';', $ElementQueue);
@@ -128,10 +130,11 @@ class ShowShipyardPage
 		}
 
 		$array = array(
-		'metal'      => $lang['Metal'],
-		'crystal'    => $lang['Crystal'],
-		'deuterium'  => $lang['Deuterium'],
-		'energy_max' => $lang['Energy']
+			'metal'      => $lang['Metal'],
+			'crystal'    => $lang['Crystal'],
+			'deuterium'  => $lang['Deuterium'],
+			'energy_max' => $lang['Energy'],
+			'darkmatter' => $lang['Darkmatter'],
 		);
 
 		$text  = $lang['bd_remaining'];
@@ -148,7 +151,7 @@ class ShowShipyardPage
 				{
 					$cost = floor($pricelist[$Element][$ResType]);
 				}
-				$text .= pretty_number(max($cost - $planet[$ResType],0))."</b>";
+				$text .= pretty_number(max($cost - (($planet[$ResType]) ? $planet[$ResType] : $user[$ResType]), 0))."</b>";
 			}
 		}
 		$text .= "";
@@ -158,7 +161,7 @@ class ShowShipyardPage
 	
 	public function FleetBuildingPage ( &$CurrentPlanet, $CurrentUser )
 	{
-		global $lang, $resource, $phpEx, $dpath, $xgp_root;
+		global $lang, $resource, $phpEx, $dpath, $db, $xgp_root;
 
 		include_once($xgp_root . 'includes/functions/IsTechnologieAccessible.' . $phpEx);
 		include_once($xgp_root . 'includes/functions/GetElementPrice.' . $phpEx);
@@ -189,6 +192,7 @@ class ShowShipyardPage
 					$CurrentPlanet['metal']          -= $Ressource['metal'];
 					$CurrentPlanet['crystal']        -= $Ressource['crystal'];
 					$CurrentPlanet['deuterium']      -= $Ressource['deuterium'];
+					$CurrentUser['darkmatter']      -= $Ressource['darkmatter'];
 
 					if ($Element == 214 && $CurrentUser['rpg_destructeur'] == 1)
 						$Count = 2 * $Count;
@@ -196,10 +200,15 @@ class ShowShipyardPage
 					$CurrentPlanet['b_hangar_id']    .= "". $Element .",". $Count .";";
 				}
 			}
+			$QryUpdatePlanet = "UPDATE ".USERS." SET ";
+			$QryUpdatePlanet .= "`darkmatter` = '".$CurrentUser['darkmatter']."' ";
+			$QryUpdatePlanet .= "WHERE ";
+			$QryUpdatePlanet .= "`id` = '".$CurrentUser['id']."';";
+			$db->query($QryUpdatePlanet);
 		}
 		
 		if (isset($_POST['action']) && $_POST['action'] == "delete" && is_array($_POST['auftr']))
-			$this->CancelAuftr($CurrentPlanet, $_POST['auftr']);
+			$this->CancelAuftr($CurrentUser, $CurrentPlanet, $_POST['auftr']);
 
 		$NotBuilding = true;
 

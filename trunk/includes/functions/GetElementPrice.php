@@ -30,7 +30,8 @@ function GetElementPrice ($user, $planet, $Element, $userfactor = true) {
 			'metal'      => $lang['Metal'],
 			'crystal'    => $lang['Crystal'],
 			'deuterium'  => $lang['Deuterium'],
-			'energy_max' => $lang['Energy']
+			'energy_max' => $lang['Energy'],
+		    'darkmatter' => $lang['Darkmatter'],
 		);
 
 		foreach ($array as $ResType => $ResTitle)
@@ -43,9 +44,9 @@ function GetElementPrice ($user, $planet, $Element, $userfactor = true) {
 				else
 					$cost = floor($pricelist[$Element][$ResType]);
 
-				if ($cost > $planet[$ResType])
+				if ((isset($planet[$ResType]) && $cost > $planet[$ResType]) || (isset($user[$ResType]) && $cost > $user[$ResType]))
 				{
-					$text .= "<b style=\"color:red;\" id=\"".$ResType."_".$Element."\"><span class=\"noresources\" title=\"-" . pretty_number ($cost - $planet[$ResType])."\">" . pretty_number($cost) . "</span></b> ";
+					$text .= "<b style=\"color:red;\" id=\"".$ResType."_".$Element."\">" . pretty_number($cost) . "</b> ";
 					$is_buyeable = false;
 				}
 				else

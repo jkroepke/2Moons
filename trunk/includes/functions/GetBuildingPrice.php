@@ -28,7 +28,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 		if ($Incremental)
 			$level = ($CurrentPlanet[$resource[$Element]]) ? $CurrentPlanet[$resource[$Element]] : $CurrentUser[$resource[$Element]];
 
-		$array = array('metal', 'crystal', 'deuterium', 'energy_max');
+		$array = array('metal', 'crystal', 'deuterium', 'darkmatter', 'energy_max');
 		foreach ($array as $ResType)
 		{
 			if ($Incremental)
