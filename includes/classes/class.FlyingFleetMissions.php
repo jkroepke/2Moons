@@ -585,8 +585,8 @@ abstract class FlyingFleetMissions {
 				}
 				if ($des) break;
 				
-				$html .=  $lang['fleet_attack_1']." ".pretty_number($data1['attack']['total'])." ".$lang['fleet_attack_2']." ".pretty_number(max($data1['defShield'], $data1['attack']['total']))." ".$lang['damage']."<br>";
-				$html .= $lang['fleet_defs_1']." ".pretty_number($data1['defense']['total'])." ".$lang['fleet_defs_2']." ".pretty_number(max($data1['attackShield'], $data1['defense']['total']))." ".$lang['damage']."<br><br>";
+				$html .=  $lang['fleet_attack_1']." ".pretty_number($data1['attack']['total'])." ".$lang['fleet_attack_2']." ".pretty_number(min($data1['defShield'], $data1['attack']['total']))." ".$lang['damage']."<br>";
+				$html .= $lang['fleet_defs_1']." ".pretty_number($data1['defense']['total'])." ".$lang['fleet_defs_2']." ".pretty_number(min($data1['attackShield'], $data1['defense']['total']))." ".$lang['damage']."<br><br>";
 				$round_no++;			
 			}
 		}
@@ -1124,18 +1124,6 @@ abstract class FlyingFleetMissions {
 			$result 	= self::calculateAttack($attackFleets, $defense);
 			$totaltime 	= microtime(true) - $start;
 			
-			$totalDebree = $result['debree']['def'][0] + $result['debree']['def'][1] + $result['debree']['att'][0] + $result['debree']['att'][1];
-			// mod TOP KB
-			$strunitsgesamt      = $result['lost']['att'] + $result['lost']['def'];
-			$user1lostunits      = $result['lost']['att'];
-			$user1shotunits      = $result['lost']['def'];
-			$user2lostunits      = $result['lost']['def'];
-			$user2shotunits      = $result['lost']['att'];
-			$strtruemmerfeld     = $result['debree']['att'][0] + $result['debree']['def'][0] + $result['debree']['att'][1] + $result['debree']['def'][1];
-			$strtruemmermetal    = $result['debree']['att'][0] + $result['debree']['def'][0];
-			$strtruemmercrystal  = $result['debree']['att'][1] + $result['debree']['def'][1];
-            // mod TOP KB
-
 			if ($result['won'] == "a")
 			{
 				$steal = self::calculateSteal($attackFleets, $FleetRow, $targetPlanet);
@@ -1259,156 +1247,122 @@ abstract class FlyingFleetMissions {
 			$db->query($QryUpdateGalaxy);
 
 			$formatted_cr 	= self::GenerateReport($result, $steal, $MoonChance, $GottenMoon, $totaltime);
-			$raport 		= $formatted_cr['html'];
 
-
-			$rid   = md5($raport);
-			$QryInsertRapport  = 'INSERT INTO '.RW.' SET ';
-			$QryInsertRapport .= '`time` = '.time().', ';
-			foreach ($attackFleets as $fleetID => $attacker)
+			foreach($attackFleets as $fleetID => $attackeruser)
 			{
-				$users2[$attacker['user']['id']] = $attacker['user']['name'];
+				$Attacker['id'][] 	= $attackeruser['user']['id'];
+				$Attacker['name'][]	= $attackeruser['user']['username'];
 			}
 
-			foreach ($defense as $fleetID => $defender)
+			foreach($defense as $fleetID => $defenderuser)
 			{
-				$users2[$defender['user']['id']] = $defender['user']['name'];
+				$Defender['id'][] 	= $defenderuser['user']['id'];
+				$Defender['name'][]	= $defenderuser['user']['username'];
 			}
-			// mod TOP KB
-			$angreifer     = $attackFleets;
-			$defender      = $defense;
-			$QryInsertRapport .= '`owners` = "'.implode(',', $users2).'", ';
-			$QryInsertRapport .= '`rid` = "'. $rid .'", ';
-			$QryInsertRapport .= '`raport` = "'. $db->sql_escape($raport) .'"';
-			$db->query($QryInsertRapport);
-			$dpath = (!$user["dpath"]) ? DEFAULT_SKINPATH : $user["dpath"];
-			$rid   = md5($raport);
-			$QryInserttopkb  = "INSERT INTO ".TOPKB." SET ";
-			$QryInserttopkb .= "`time` = ".time().", ";
-			$QryInserttopkb .= "`id_owner1` = '". $FleetRow['fleet_owner'] ."', ";
-			$QryInserttopkb .= "`angreifer` = '". $attacker['user']['username'] ."', ";
-			$QryInserttopkb .= "`id_owner2` = '". $targetUser['id'] ."', ";
-			$QryInserttopkb .= "`defender` = '". $targetUser['username'] ."', ";
-			$QryInserttopkb .= "`gesamtunits` = '". $strunitsgesamt ."', ";
-			$QryInserttopkb .= "`gesamttruemmer` = '". $strtruemmerfeld ."', ";
-			$QryInserttopkb .= "`rid` = '". $rid ."', ";
-			$QryInserttopkb .= "`a_zestrzelona` = '". $a_zestrzelona ."', ";
-			$QryInserttopkb .= "`raport` = '". $db->sql_escape($raport) ."',";
-			$QryInserttopkb .= "`fleetresult` = '". $result['won'] ."';";
-			$db->query("LOCK TABLE ".TOPKB." WRITE;");
-			$db->query( $QryInserttopkb , 'topkb');
-			$db->query("UNLOCK TABLES");
-			$user1stat = $FleetRow['fleet_owner'];
-			$user2stat = $TargetUserID;
-
-			$raport  = '<a href="#" OnClick=\'f( "CombatReport.php?raport='. $rid .'", "");\'>';
-			$raport .= '<center>';
-
-			if       ($result['won'] == "a")
-			{
-				$raport .= '<font color=\'green\'>';
-			}
-			elseif ($result['won'] == "w")
-			{
-				$raport .= '<font color=\'orange\'>';
-			}
-			elseif ($result['won'] == "r")
-			{
-				$raport .= '<font color=\'red\'>';
-			}
-
-			$raport .= $lang['sys_mess_attack_report'] .' ['. $FleetRow['fleet_end_galaxy'] .':'. $FleetRow['fleet_end_system'] .':'. $FleetRow['fleet_end_planet'] .'] </font></a><br><br>';
-			$raport .= '<font color=\'red\'>'. $lang['sys_perte_attaquant'] .': '. number_format($result['lost']['att'], 0, ',', '.') .'</font>';
-			$raport .= '<font color=\'green\'>   '. $lang['sys_perte_defenseur'] .': '. number_format($result['lost']['def'], 0, ',', '.') .'</font><br>' ;
-			$raport .= $lang['sys_gain'] .' '. $lang['Metal'] .':<font color=\'#adaead\'>'. number_format($steal['metal'], 0, ',', '.') .'</font>   '. $lang['Crystal'] .':<font color=\'#ef51ef\'>'. number_format($steal['crystal'], 0, ',', '.') .'</font>   '. $lang['Deuterium'] .':<font color=\'#f77542\'>'. number_format($steal['deuterium'], 0, ',', '.') .'</font><br>';
-			$raport .= $lang['sys_debris'] .' '. $lang['Metal'] .': <font color=\'#adaead\'>'. number_format($result['debree']['att'][0]+$result['debree']['def'][0], 0, ',', '.') .'</font>   '. $lang['Crystal'] .': <font color=\'#ef51ef\'>'. number_format($result['debree']['att'][1]+$result['debree']['def'][1], 0, ',', '.') .'</font><br></center>';
-			SendSimpleMessage ( $FleetRow['fleet_owner'], '', $FleetRow['fleet_start_time'], 3, $lang['sys_mess_tower'], $lang['sys_mess_attack_report'], $raport );
-			// Updaten Spieler Datenbank
-			$user1   = $db->query("SELECT kbmetal,kbcrystal,lostunits,desunits,wons,loos,draws FROM ".USERS." WHERE `id` = '". $user1stat ."';");
-			while($user1data = $db->fetch($user1))
-			{
-				$strtruemmermetaluser1    = $strtruemmermetal + $user1data['kbmetal'];
-				$strtruemmercrystaluser1  = $strtruemmercrystal + $user1data['kbcrystal'];
-				$user1lostunits           = $user1lostunits + $user1data['lostunits'];
-				$user1shotunits           = $user1shotunits + $user1data['desunits'];
-				$user1wons                = $user1data['wons'];
-				$user1loos                = $user1data['loos'];
-				$user1draws               = $user1data['draws'];
-            }
-			$user2   = $db->query("SELECT kbmetal,kbcrystal,lostunits,desunits,wons,loos,draws FROM ".USERS." WHERE `id` = '". $user2stat ."';");
-			while($user2data = $db->fetch($user2))
-			{
-				$strtruemmermetaluser2    = $strtruemmermetal + $user2data['kbmetal'];
-				$strtruemmercrystaluser2  = $strtruemmercrystal + $user2data['kbcrystal'];
-				$user2lostunits           = $user2lostunits + $user2data['lostunits'];
-				$user2shotunits           = $user2shotunits + $user2data['desunits'];
-				$user2wons                = $user2data['wons'];
-				$user2loos                = $user2data['loos'];
-				$user2draws               = $user2data['draws'];
-            }
 			
-			if   ($result['won'] == "a") {
-				$user1wons  = $user1wons + 1;
-				$user2loos  = $user2loos + 1;
-			} elseif ($result['won'] == "w") {
-				$user1draws = $user1draws + 1;
-				$user2draws = $user2draws + 1;
-			} elseif ($result['won'] == "r") {
-				$user1loos 	= $user1loos + 1;
-				$user2wons 	= $user2wons + 1;
+			$Attacker['id']		= array_unique($Attacker['id'], SORT_NUMERIC);
+			$Attacker['name']	= array_unique($Attacker['name'], SORT_NUMERIC);
+			$Defender['id']		= array_unique($Defender['id'], SORT_NUMERIC);
+			$Defender['name']	= array_unique($Defender['name'], SORT_NUMERIC);
+			
+			$WhereAtt = "";
+			$WhereDef = "";
+			
+			foreach($Attacker['id'] as $id)
+			{
+				$WhereAtt .= "`id` = '".$id."' OR ";
+			}
+			
+			foreach($Defender['id'] as $id)
+			{
+				$WhereDef .= "`id` = '".$id."' OR ";
 			}
 
-			//Update Angreifer Truemerfeld, Kampfergebniss und Units
-			$userstat   = $db->query("SELECT id FROM ".USERS." WHERE `id` = '". $user1stat ."';");
-			while($userwrite = $db->fetch($userstat))
+			$Won = 0;
+			$Lose = 0; 
+			$Draw = 0;
+			switch($result['won'])
 			{
-                $QryUpdateuserstat  = "UPDATE ".USERS." SET ";
-                $QryUpdateuserstat .= "`wons` = '". $user1wons ."', ";
-                $QryUpdateuserstat .= "`loos` = '". $user1loos ."', ";
-                $QryUpdateuserstat .= "`draws` = '". $user1draws  ."', ";
-                $QryUpdateuserstat .= "`kbmetal` = '". $strtruemmermetaluser1 ."', ";
-                $QryUpdateuserstat .= "`kbcrystal` = '". $strtruemmercrystaluser1 ."', ";
-                $QryUpdateuserstat .= "`lostunits` = '". $user1lostunits ."', ";
-                $QryUpdateuserstat .= "`desunits` = '". $user1shotunits ."' ";
-                $QryUpdateuserstat .= "WHERE ";
-                $QryUpdateuserstat .= "`id` = '". $user1stat ."';";
-                $db->query($QryUpdateuserstat);
-			//Update Verteidiger Truemerfeld, Kampfergebniss und Units
-                $QryUpdateuserstat  = "UPDATE ".USERS." SET ";
-                $QryUpdateuserstat .= "`wons` = '". $user2wons ."', ";
-                $QryUpdateuserstat .= "`loos` = '". $user2loos ."', ";
-                $QryUpdateuserstat .= "`draws` = '". $user2draws  ."', ";
-                $QryUpdateuserstat .= "`kbmetal` = '". $strtruemmermetaluser2 ."', ";
-                $QryUpdateuserstat .= "`kbcrystal` = '". $strtruemmercrystaluser2 ."', ";
-                $QryUpdateuserstat .= "`lostunits` = '". $user2lostunits ."', ";
-                $QryUpdateuserstat .= "`desunits` = '". $user2shotunits ."' ";
-                $QryUpdateuserstat .= "WHERE ";
-                $QryUpdateuserstat .= "`id` = '". $user2stat ."';";
-                $db->query($QryUpdateuserstat);
-			}
-			// Ende schreiben in datenbank
-			$raport2  = '<a href # OnClick=\'f( "CombatReport.php?raport='. $rid .'", "");\'>';
-			$raport2 .= '<center>';
-			if       ($result['won'] == "a")
-			{
-				$raport2 .= '<font color=\'red\'>';
-			}
-			elseif ($result['won'] == "w")
-			{
-				$raport2 .= '<font color=\'orange\'>';
-			}
-			elseif ($result['won'] == "r")
-			{
-				$raport2 .= '<font color=\'green\'>';
+				case "a":
+					$Won = 1;
+				break;
+				case "w":
+					$Draw = 1;
+				break;
+				case "r":
+					$Lose = 1;
+				break;
 			}
 
-			$raport2 .= $lang['sys_mess_attack_report'] .' ['. $FleetRow['fleet_end_galaxy'] .':'. $FleetRow['fleet_end_system'] .':'. $FleetRow['fleet_end_planet'] .'] </font></a><br><br>';
-			foreach ($users2 as $id)
+			$raport 		= $formatted_cr['html'];
+			$rid   			= md5($raport);
+			
+			$SQLQuery  = 'INSERT INTO '.RW.' SET ';
+			$SQLQuery .= '`time` = '.time().', ';
+			$SQLQuery .= '`owners` = "'.implode(',', array_merge($Attacker['id'], $Defender['id'])).'", ';
+			$SQLQuery .= '`rid` = "'. $rid .'", ';
+			$SQLQuery .= "`a_zestrzelona` = '".count($result['rounds'])."', ";
+			$SQLQuery .= '`raport` = "'. $db->sql_escape($raport) .'";';
+			$SQLQuery .= "INSERT INTO ".TOPKB." SET ";
+			$SQLQuery .= "`time` = ".time().", ";
+			$SQLQuery .= "`id_owner1` = '".implode(',', $Attacker['id'])."', ";
+			$SQLQuery .= "`angreifer` = '".implode(' & ', $Attacker['name'])."', ";
+			$SQLQuery .= "`id_owner2` = '".implode(',', $Defender['id'])."', ";
+			$SQLQuery .= "`defender` = '".implode(' & ', $Defender['name'])."', ";
+			$SQLQuery .= "`gesamtunits` = '".($result['lost']['att'] + $result['lost']['def'])."', ";
+			$SQLQuery .= "`gesamttruemmer` = '".$FleetDebris."', ";
+			$SQLQuery .= "`rid` = '". $rid ."', ";
+			$SQLQuery .= "`a_zestrzelona` = '".count($result['rounds'])."', ";
+			$SQLQuery .= "`raport` = '". $db->sql_escape($raport) ."',";
+			$SQLQuery .= "`fleetresult` = '". $result['won'] ."';";			
+			$SQLQuery .= "UPDATE ".USERS." SET ";
+            $SQLQuery .= "`wons` = 'wons' + '".$Won."', ";
+            $SQLQuery .= "`loos` = 'loos' + '".$Lose."', ";
+            $SQLQuery .= "`draws` = 'draws' + '".$Draw."', ";
+            $SQLQuery .= "`kbmetal` = 'kbmetal' + '".($result['debree']['att'][0]+$result['debree']['def'][0])."', ";
+            $SQLQuery .= "`kbcrystal` = 'kbcrystal' + '".($result['debree']['att'][1] + $result['debree']['def'][1])."', ";
+            $SQLQuery .= "`lostunits` = 'lostunits' + '".$result['lost']['att']."', ";
+            $SQLQuery .= "`desunits` = 'desunits' + '".$result['lost']['def']."' ";
+            $SQLQuery .= "WHERE ";
+            $SQLQuery .= substr($WhereAtt, 0, -4).";";
+			$SQLQuery .= "UPDATE ".USERS." SET ";
+            $SQLQuery .= "`wons` = 'wons' + '". $Lose ."', ";
+            $SQLQuery .= "`loos` = 'loos' + '". $Won ."', ";
+            $SQLQuery .= "`draws` = 'draws' + '". $Draw  ."', ";
+            $SQLQuery .= "`kbmetal` = 'kbmetal' + '".($result['debree']['att'][0]+$result['debree']['def'][0])."', ";
+            $SQLQuery .= "`kbcrystal` = 'kbcrystal' + '".($result['debree']['att'][1] + $result['debree']['def'][1])."', ";
+            $SQLQuery .= "`lostunits` = 'lostunits' + '".$result['lost']['def']."', ";
+            $SQLQuery .= "`desunits` = 'desunits' + '".$result['lost']['att']."' ";
+            $SQLQuery .= "WHERE ";
+            $SQLQuery .= substr($WhereDef, 0, -4).";";
+			$db->multi_query($SQLQuery);
+			
+			
+			switch($result['won'])
 			{
-				if ($id != $FleetRow['fleet_owner'] && $id != 0)
-				{
-					SendSimpleMessage ( $id, '', $FleetRow['fleet_start_time'], 3, $lang['sys_mess_tower'], $lang['sys_mess_attack_report'], $raport2 );
-				}
+				case "r":
+					$ColorAtt = "red";
+					$ColorDef = "green";
+				break;
+				case "w":
+					$ColorAtt = "orange";
+					$ColorDef = "orange";	
+				case "a":
+					$ColorAtt = "green";
+					$ColorDef = "red";
+				break;
+			}
+			
+			$MessageAtt = sprintf($lang['sys_mess_attack_report_mess'], $rid, $ColorAtt, $lang['sys_mess_attack_report'], sprintf($lang['sys_adress_planet'], $FleetRow['fleet_end_galaxy'], $FleetRow['fleet_end_system'], $FleetRow['fleet_end_planet']), $ColorAtt, $lang['sys_perte_attaquant'], pretty_number($result['lost']['att']), $ColorDef, $lang['sys_perte_defenseur'], pretty_number($result['lost']['def']), $lang['sys_gain'], $lang['Metal'], pretty_number($steal['metal']), $lang['Crystal'], pretty_number($steal['crystal']), $lang['Deuterium'], pretty_number($steal['deuterium']), $lang['sys_debris'], $lang['Metal'], pretty_number($result['debree']['att'][0]+$result['debree']['def'][0]), $lang['Crystal'], pretty_number($result['debree']['att'][1]+$result['debree']['def'][1]));
+			$MessageDef = sprintf($lang['sys_mess_attack_report_mess'], $rid, $ColorDef, $lang['sys_mess_attack_report'], sprintf($lang['sys_adress_planet'], $FleetRow['fleet_end_galaxy'], $FleetRow['fleet_end_system'], $FleetRow['fleet_end_planet']), $ColorDef, $lang['sys_perte_attaquant'], pretty_number($result['lost']['att']), $ColorAtt, $lang['sys_perte_defenseur'], pretty_number($result['lost']['def']), $lang['sys_gain'], $lang['Metal'], pretty_number($steal['metal']), $lang['Crystal'], pretty_number($steal['crystal']), $lang['Deuterium'], pretty_number($steal['deuterium']), $lang['sys_debris'], $lang['Metal'], pretty_number($result['debree']['att'][0]+$result['debree']['def'][0]), $lang['Crystal'], pretty_number($result['debree']['att'][1]+$result['debree']['def'][1]));
+			
+			foreach ($Attacker['id'] as $AttackersID)
+			{
+				SendSimpleMessage($AttackersID, '', $FleetRow['fleet_start_time'], 3, $lang['sys_mess_tower'], $lang['sys_mess_attack_report'], $MessageAtt);
+			}
+			foreach ($Defender['id'] as $DefenderID)
+			{
+				SendSimpleMessage($DefenderID, '', $FleetRow['fleet_start_time'], 3, $lang['sys_mess_tower'], $lang['sys_mess_attack_report'], $MessageDef);
 			}
 		}
 		elseif ($FleetRow['fleet_end_time'] <= time())

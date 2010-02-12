@@ -14,9 +14,11 @@ $lang['changelog']   = array(
 - FIX: Quere
 - FIX: Allianzerstellung
 - FIX: AKS in der Overview
+- FIX: AKS-Hack
 - FIX: Deuteriumberechung Planetentemperaturabhb&auml;nig
 - FIX: Fusionkrafwerk: Bonus durch Energietechnik 
 - DIV: Update Smarty to 3.0b7
+- DIV: UserStats Mod an AKS angepasst.
 - DIV: Rechtschreibfehler korrigiert
 - DIV: Sicherheit im Game erh&ouml;ht
 - DIV: Diverse Anpassungen am Game
