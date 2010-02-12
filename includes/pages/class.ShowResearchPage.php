@@ -199,13 +199,6 @@ class ShowResearchPage
 					$db->multi_query($QryUpdateUser);
 				}
 				
-				$template->set_vars($CurrentUser, $CurrentPlanet);
-				$template->page_header();	
-				$template->page_topnav();
-				$template->page_leftmenu();
-				$template->page_planetmenu();
-				$template->page_footer();
-				
 				$CurrentPlanet = $WorkingPlanet;
 				if (is_array($ThePlanet))
 				{
@@ -225,6 +218,14 @@ class ShowResearchPage
 				exit(header("location:game.".$phpEx."?page=buildings&mode=research"));
 			}
 		}
+
+				
+		$template->set_vars($CurrentUser, $CurrentPlanet);
+		$template->page_header();	
+		$template->page_topnav();
+		$template->page_leftmenu();
+		$template->page_planetmenu();
+		$template->page_footer();
 		
 		foreach($reslist['tech'] as $ID => $Element)
 		{
