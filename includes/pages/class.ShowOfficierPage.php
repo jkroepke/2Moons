@@ -52,7 +52,7 @@ class ShowOfficierPage
 		}
 	}
 
-	public function UpdateOfficier($CurrentUser)
+	public function UpdateOfficier(&$CurrentUser)
 	{
 		global $db, $reslist, $resource, $phpEx;
 		$Selected    = request_var('offi', 0);
@@ -61,14 +61,11 @@ class ShowOfficierPage
 			$CurrentUser[$resource[$Selected]] += 1;
 			$CurrentUser['darkmatter']         -= DM_PRO_OFFICIER_LEVEL;
 			$QryUpdateUser  = "UPDATE ".USERS." SET ";
-			$QryUpdateUser .= "`darkmatter` = '". $CurrentUser['darkmatter'] ."', ";
 			$QryUpdateUser .= "`".$resource[$Selected]."` = '". $CurrentUser[$resource[$Selected]] ."' ";
 			$QryUpdateUser .= "WHERE ";
 			$QryUpdateUser .= "`id` = '". $CurrentUser['id'] ."';";
 			$db->query($QryUpdateUser);
 		}
-		
-		header("Location:game.".$phpEx."?page=officier");
 	}
 	
 	public function ShowOfficierPage($CurrentUser, $CurrentPlanet)
