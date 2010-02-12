@@ -205,13 +205,11 @@ function BuildPlanetAdressLink ( $CurrentPlanet )
 function colorNumber($n, $s = '')
 {
 	if ($n > 0)
-		$s = (empty($s)) ? colorGreen($n) : colorGreen($s);
+		return (empty($s)) ? colorGreen($n) : colorGreen($s);
 	elseif ($n < 0)
-		$s = (empty($s)) ? colorRed($n) : colorRed($s);
+		return (empty($s)) ? colorRed($n) : colorRed($s);
 	else
-		$s = (empty($s)) ? $n : $s;
-
-	return $s;
+		return (empty($s)) ? $n : $s;
 }
 
 function colorRed($n)
