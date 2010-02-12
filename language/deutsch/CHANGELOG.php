@@ -10,6 +10,7 @@ $lang['changelog']   = array(
 'RC5.0b2' => 'ShadoX '.$version[2].'.'.$version[1].'.'.substr($version[0],2,2).'
 - ADD: Accountl&ouml;schung w&auml;hrend des U-Modes
 - ADD: UTF-8 Support for Names
+- ADD: Kosten Dunkle Materie
 - FIX: Quere
 - FIX: Allianzerstellung
 - FIX: AKS in der Overview

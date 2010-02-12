@@ -91,10 +91,11 @@ class ShowResearchPage
 		}
 
 		$array = array(
-		'metal'      => $lang['Metal'],
-		'crystal'    => $lang['Crystal'],
-		'deuterium'  => $lang['Deuterium'],
-		'energy_max' => $lang['Energy']
+			'metal'      => $lang['Metal'],
+			'crystal'    => $lang['Crystal'],
+			'deuterium'  => $lang['Deuterium'],
+			'energy_max' => $lang['Energy'],
+			'darkmatter' => $lang['Darkmatter'],
 		);
 		$restprice	= array();
 		foreach ($array as $ResType => $ResTitle)
@@ -109,7 +110,7 @@ class ShowResearchPage
 				{
 					$cost = floor($pricelist[$Element][$ResType]);
 				}
-				$restprice[$ResTitle] = pretty_number(max($cost - $planet[$ResType],0));
+				$restprice[$ResTitle] = pretty_number(max($cost - (($planet[$ResType]) ? $planet[$ResType] : $user[$ResType]), 0));
 			}
 		}
 
@@ -126,12 +127,7 @@ class ShowResearchPage
 		$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
 
 		$template	= new template();
-		$template->set_vars($CurrentUser, $CurrentPlanet);
-		$template->page_header();	
-		$template->page_topnav();
-		$template->page_leftmenu();
-		$template->page_planetmenu();
-		$template->page_footer();
+
 		
 		if ($CurrentPlanet[$resource[31]] == 0){
 			$template->message($lang['bd_lab_required']);
@@ -159,6 +155,7 @@ class ShowResearchPage
 							$WorkingPlanet['metal']      += $costs['metal'];
 							$WorkingPlanet['crystal']    += $costs['crystal'];
 							$WorkingPlanet['deuterium']  += $costs['deuterium'];
+							$CurrentUser['darkmatter']   += $costs['darkmatter'];
 							$WorkingPlanet['b_tech_id']   = 0;
 							$WorkingPlanet["b_tech"]      = 0;
 							$CurrentUser['b_tech_planet'] = $WorkingPlanet["id"];
@@ -173,6 +170,7 @@ class ShowResearchPage
 							$WorkingPlanet['metal']      -= $costs['metal'];
 							$WorkingPlanet['crystal']    -= $costs['crystal'];
 							$WorkingPlanet['deuterium']  -= $costs['deuterium'];
+							$CurrentUser['darkmatter']   -= $costs['darkmatter'];
 							$WorkingPlanet["b_tech_id"]   = $Techno;
 							$WorkingPlanet["b_tech"]      = time() + GetBuildingTime($CurrentUser, $WorkingPlanet, $Techno);
 							$CurrentUser["b_tech_planet"] = $WorkingPlanet["id"];
@@ -200,7 +198,14 @@ class ShowResearchPage
 					$QryUpdateUser .= "`id` = '".            $CurrentUser['id']            ."';";
 					$db->multi_query($QryUpdateUser);
 				}
-
+				
+				$template->set_vars($CurrentUser, $CurrentPlanet);
+				$template->page_header();	
+				$template->page_topnav();
+				$template->page_leftmenu();
+				$template->page_planetmenu();
+				$template->page_footer();
+				
 				$CurrentPlanet = $WorkingPlanet;
 				if (is_array($ThePlanet))
 				{

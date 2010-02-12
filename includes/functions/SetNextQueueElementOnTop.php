@@ -21,7 +21,7 @@
 
 if(!defined('INSIDE')){ die(header("location:../../"));}
 
-	function SetNextQueueElementOnTop ( &$CurrentPlanet, $CurrentUser )
+	function SetNextQueueElementOnTop ( &$CurrentPlanet, &$CurrentUser )
 	{
 		global $lang, $resource, $db;
 
@@ -63,6 +63,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 						$CurrentPlanet['metal']       -= $Needed['metal'];
 						$CurrentPlanet['crystal']     -= $Needed['crystal'];
 						$CurrentPlanet['deuterium']   -= $Needed['deuterium'];
+						$CurrentUser['darkmatter']    -= $Needed['darkmatter'];
 						$CurrentTime                   = time();
 						$BuildEndTime                  = $BuildEndTime;
 						$NewQueue                      = implode ( ";", $QueueArray );
@@ -122,7 +123,11 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 			$QryUpdatePlanet .= "`b_building_id` = '". $CurrentPlanet['b_building_id'] ."' ";
 			$QryUpdatePlanet .= "WHERE ";
 			$QryUpdatePlanet .= "`id` = '" .           $CurrentPlanet['id']            . "';";
-			$db->query($QryUpdatePlanet);
+			$QryUpdatePlanet .= "UPDATE ".USERS." SET ";
+			$QryUpdatePlanet .= "`darkmatter` = '".	   $CurrentUser['darkmatter']      ."' ";
+			$QryUpdatePlanet .= "WHERE ";
+			$QryUpdatePlanet .= "`id` = '".            $CurrentUser['id']              ."';";
+			$db->multi_query($QryUpdatePlanet);
 
 		}
 		return;
