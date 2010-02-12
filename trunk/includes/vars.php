@@ -207,7 +207,7 @@ if ( defined('INSIDE'))
 		 43 => array ( 'metal' => 2000000, 'crystal' => 4000000, 'deuterium' => 2000000, 'energy' =>    0, 'darkmatter' =>  0, 'factor' =>   2),
 		 44 => array ( 'metal' =>   20000, 'crystal' =>   20000, 'deuterium' =>    1000, 'energy' =>    0, 'darkmatter' =>  0, 'factor' =>   2),
 
-		106 => array ( 'metal' =>     200, 'crystal' =>    1000, 'deuterium' =>     200, 'energy' =>    0, 'darkmatter' =>  1, 'factor' =>   2, 'max' => 255),
+		106 => array ( 'metal' =>     200, 'crystal' =>    1000, 'deuterium' =>     200, 'energy' =>    0, 'darkmatter' =>  0, 'factor' =>   2, 'max' => 255),
 		108 => array ( 'metal' =>       0, 'crystal' =>     400, 'deuterium' =>     600, 'energy' =>    0, 'darkmatter' =>  0, 'factor' =>   2, 'max' => 255),
 		109 => array ( 'metal' =>     800, 'crystal' =>     200, 'deuterium' =>       0, 'energy' =>    0, 'darkmatter' =>  0, 'factor' =>   2, 'max' => 255),
 		110 => array ( 'metal' =>     200, 'crystal' =>     600, 'deuterium' =>       0, 'energy' =>    0, 'darkmatter' =>  0, 'factor' =>   2, 'max' => 255),
@@ -224,7 +224,7 @@ if ( defined('INSIDE'))
 		124 => array ( 'metal' =>    4000, 'crystal' =>    8000, 'deuterium' =>    4000, 'energy' =>    0, 'darkmatter' =>  0, 'factor' =>   2, 'max' => 255),
 		199 => array ( 'metal' =>       0, 'crystal' =>       0, 'deuterium' =>       0, 'energy_max' => 300000, 'darkmatter' =>  0, 'factor' =>   3, 'max' => 255),
 
-		202 => array ( 'metal' =>     2000, 'crystal' =>     2000, 'deuterium' =>       0, 'energy' => 0, 'darkmatter' =>  1, 'factor' => 1, 'consumption' => 10  , 'consumption2' => 20  , 'speed' =>      5000, 'speed2' =>     10000, 'capacity' =>     5000 ),
+		202 => array ( 'metal' =>     2000, 'crystal' =>     2000, 'deuterium' =>       0, 'energy' => 0, 'darkmatter' =>  0, 'factor' => 1, 'consumption' => 10  , 'consumption2' => 20  , 'speed' =>      5000, 'speed2' =>     10000, 'capacity' =>     5000 ),
 		203 => array ( 'metal' =>     6000, 'crystal' =>     6000, 'deuterium' =>       0, 'energy' => 0, 'darkmatter' =>  0, 'factor' => 1, 'consumption' => 50  , 'consumption2' => 50  , 'speed' =>      7500, 'speed2' =>      7500, 'capacity' =>    25000 ),
 		204 => array ( 'metal' =>     3000, 'crystal' =>     1000, 'deuterium' =>       0, 'energy' => 0, 'darkmatter' =>  0, 'factor' => 1, 'consumption' => 20  , 'consumption2' => 20  , 'speed' =>     12500, 'speed2' =>     12500, 'capacity' =>       50 ),
 		205 => array ( 'metal' =>     6000, 'crystal' =>     4000, 'deuterium' =>       0, 'energy' => 0, 'darkmatter' =>  0, 'factor' => 1, 'consumption' => 75  , 'consumption2' => 75  , 'speed' =>     10000, 'speed2' =>     15000, 'capacity' =>      100 ),
