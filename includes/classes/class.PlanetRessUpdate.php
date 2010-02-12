@@ -48,15 +48,15 @@ class ResourceUpdate
 		}
 		else
 		{
-			$Caps             = array();
-			$BuildTemp        = $CurrentPlanet['temp_max'];
-
+			$Caps           = array();
+			$BuildTemp      = $CurrentPlanet['temp_max'];
+			$BuildEnergy	= $CurrentUser[$resource[113]];
 			$Caps['metal_perhour'] = $Caps['crystal_perhour'] = $Caps['deuterium_perhour'] = $Caps['energy_used'] = $Caps['energy_max'] = $Caps['deuterium_used'] = 0;
 
 			foreach($reslist['prod'] as $id => $ProdID)
 			{
-				$BuildLevelFactor = $CurrentPlanet[ $resource[$ProdID]."_porcent" ];
-				$BuildLevel = $CurrentPlanet[ $resource[$ProdID] ];
+				$BuildLevelFactor	= $CurrentPlanet[$resource[$ProdID]."_porcent" ];
+				$BuildLevel 		= $CurrentPlanet[$resource[$ProdID]];
 				$Caps['metal_perhour']		+= floor(eval($ProdGrid[$ProdID]['formule']['metal'])     * ($game_config['resource_multiplier']) * (1 + ($CurrentUser['rpg_geologue'] * 0.05)));
 				$Caps['crystal_perhour']	+= floor(eval($ProdGrid[$ProdID]['formule']['crystal'])   * ($game_config['resource_multiplier']) * (1 + ($CurrentUser['rpg_geologue'] * 0.05)));
 				if ($ProdID < 4)

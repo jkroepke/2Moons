@@ -48,6 +48,7 @@ function PlanetResourceUpdate ( $CurrentUser, &$CurrentPlanet, $UpdateTime, $Sim
 	{
 		$Caps             = array();
 		$BuildTemp        = $CurrentPlanet['temp_max'];
+		$BuildEnergy	= $CurrentUser[$resource[113]];
 
 		$Caps['metal_perhour'] = $Caps['crystal_perhour'] = $Caps['deuterium_perhour'] = $Caps['energy_used'] = $Caps['energy_max'] = $Caps['deuterium_used'] = 0;
 

@@ -14,8 +14,12 @@ $lang['changelog']   = array(
 - FIX: Quere
 - FIX: Allianzerstellung
 - FIX: AKS in der Overview
-- FIX: Deuteriumberechung
+- FIX: Deuteriumberechung Planetentemperaturabhb&auml;nig
+- FIX: Fusionkrafwerk: Bonus durch Energietechnik 
 - DIV: Update Smarty to 3.0b7
+- DIV: Rechtschreibfehler korrigiert
+- DIV: Sicherheit im Game erh&ouml;ht
+- DIV: Diverse Anpassungen am Game
 ',
 'RC5.0b1' => 'ShadoX 02.02.10
 - NEW: Search-Engine
@@ -174,7 +178,7 @@ $lang['changelog']   = array(
 - DIV: Komplett UTF-8 umgestellt
 - DIV: Koords-Verliunkung zur Galaxie in Fleets
 - DIV: Skinoptimierungen
-- DIV: DB-Speicherzyp f&uuml;r Geb&auml;ude und Forschung von int(11) auf TINYINT(3) unsigned ge&auml;ndert
+- DIV: DB-Speichertyp f&uuml;r Geb&auml;ude und Forschung von int(11) auf TINYINT(3) unsigned ge&auml;ndert
 - DIV: Anpassung an Internet Explorer (IE8) &amp; Opera
 - DIV: Unn&ouml;tige SQL-Abfragen(SELECT * FROM) ge&auml;ndert
 - DIV: register_globals standartm&auml;ssig aus
