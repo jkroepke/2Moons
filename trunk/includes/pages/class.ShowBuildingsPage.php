@@ -402,6 +402,9 @@ class ShowBuildingsPage
 		$CurrentMaxFields   = CalculateMaxPlanetFields($CurrentPlanet);
 		$RoomIsOk 			= ($CurrentPlanet["field_current"] < ($CurrentMaxFields - $Queue['lenght'])) ? true : false;
 				
+		$BuildEnergy		= $CurrentUser[$resource[113]];
+		$BuildLevelFactor   = 10;
+		$BuildTemp          = $CurrentPlanet['temp_max'];
 		foreach($reslist['allow'][$CurrentPlanet['planet_type']] as $ID => $Element)
 		{
 			if (IsTechnologieAccessible($CurrentUser, $CurrentPlanet, $Element))
@@ -410,8 +413,6 @@ class ShowBuildingsPage
 				if(in_array($Element, $reslist['prod']))
 				{
 					$BuildLevel         	= $CurrentPlanet[$resource[$Element]];
-					$BuildLevelFactor       = 10;
-					$BuildTemp              = $CurrentPlanet['temp_max'];
 					$Need 	                = floor(eval($ProdGrid[$Element]['formule']['energy']) * $game_config['resource_multiplier']) * (1 + ($CurrentUser['rpg_ingenieur'] * 0.05));
 					$BuildLevel			   += 1;
 					$Prod 	                = floor(eval($ProdGrid[$Element]['formule']['energy']) * $game_config['resource_multiplier']) * (1 + ($CurrentUser['rpg_ingenieur'] * 0.05));

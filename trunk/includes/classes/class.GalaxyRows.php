@@ -23,35 +23,15 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 
 class GalaxyRows
 {
-	private function GetMissileRange ()
+	private function GetMissileRange()
 	{
 		global $resource, $user;
-
-		if ($user[$resource[117]] > 0)
-		{
-			$MissileRange = ($user[$resource[117]] * 2) - 1;
-		}
-		elseif($user[$resource[117]] == 0)
-		{
-			$MissileRange = 0;
-		}
-		return $MissileRange;
+		return max(($user[$resource[117]] * 5) - 1, 0);
 	}
 
 	public function GetPhalanxRange($PhalanxLevel)
 	{
-		$PhalanxRange = 0;
-
-		if ($PhalanxLevel > 1)
-		{
-			$PhalanxRange = pow($PhalanxLevel, 2) - 1;
-		}
-		elseif($PhalanxLevel == 1)
-		{
-			$PhalanxRange = 1;
-		}
-
-		return $PhalanxRange;
+		return ($PhalanxLevel == 1) ? 1 : pow($PhalanxLevel, 2) - 1;
 	}
 
 	public function CheckAbandonMoonState($lunarow)
@@ -74,75 +54,42 @@ class GalaxyRows
 		global $user, $dpath, $lang;
 
 		$Result = "<th style=\"white-space: nowrap;\" width=125>";
-
 		if ($GalaxyRowPlayer['id'] != $user['id'])
 		{
-			if ($CurrentMIP <> 0)
+			if ($CurrentMIP <> 0 && $GalaxyRowUser['id'] != $user['id'] && $GalaxyRowPlanet["galaxy"] == $CurrentGalaxy)
 			{
-				if ($GalaxyRowUser['id'] != $user['id'])
-				{
-					if ($GalaxyRowPlanet["galaxy"] == $CurrentGalaxy)
-					{
-						$Range = $this->GetMissileRange();
-						$SystemLimitMin = $CurrentSystem - $Range;
-						if ($SystemLimitMin < 1)
-						{
-							$SystemLimitMin = 1;
-						}
-						$SystemLimitMax = $CurrentSystem + $Range;
-
-						if ($System <= $SystemLimitMax)
-						{
-							if ($System >= $SystemLimitMin)
-							{
-								$MissileBtn = true;
-							}
-							else
-							{
-								$MissileBtn = false;
-							}
-						}
-						else
-						{
-							$MissileBtn = false;
-						}
-					}
-					else
-					{
-					$MissileBtn = false;
-					}
-				}
+				$Range = $this->GetMissileRange();
+				$SystemLimitMin = max($CurrentSystem - $Range, 0);
+				$SystemLimitMax = $CurrentSystem + $Range;
+				if ($System <= $SystemLimitMax || $System >= $SystemLimitMin)
+					$MissileBtn = true;
 				else
-				{
 					$MissileBtn = false;
-				}
-			}
-			else
-			{
+			} else {
 				$MissileBtn = false;
 			}
 
-			if ($GalaxyRowPlayer && $GalaxyRowPlanet["destruyed"] == 0)
+			if ($GalaxyRowPlayer['id'] && $GalaxyRowPlanet["destruyed"] == 0)
 			{
-				if ($user["settings_esp"] == "1" && $GalaxyRowPlayer['id'])
+				if ($user["settings_esp"] == 1)
 				{
 					$Result .= "<a href=\"#\" onclick=\"javascript:doit(6, ".$Galaxy.", ".$System.", ".$Planet.", 1, ".$user["spio_anz"].");\" >";
 					$Result .= "<img src=\"". $dpath ."img/e.gif\" title=\"".$lang['gl_spy']."\" border=\"0\"></a>";
 					$Result .= "&nbsp;";
 				}
-				if ($user["settings_wri"] == "1" && $GalaxyRowPlayer['id'])
+				if ($user["settings_wri"] == 1)
 				{
 					$Result .= "<a href=\"javascript:f('game.php?page=messages&mode=write&id=".$GalaxyRowPlayer["id"]."');\">";
 					$Result .= "<img src=\"". $dpath ."img/m.gif\" title=\"".$lang['write_message']."\" border=\"0\"></a>";
 					$Result .= "&nbsp;";
 				}
-				if ($user["settings_bud"] == "1" && $GalaxyRowPlayer['id'])
+				if ($user["settings_bud"] == 1)
 				{
 					$Result .= "<a href=\"javascript:f('game.php?page=buddy&mode=2&u=".$GalaxyRowPlayer['id']."');\">";
 					$Result .= "<img src=\"". $dpath ."img/b.gif\" title=\"".$lang['gl_buddy_request']."\" border=\"0\"></a>";
 					$Result .= "&nbsp;";
 				}
-				if ($user["settings_mis"] == "1" && $MissileBtn == true && $GalaxyRowPlayer['id'])
+				if ($user["settings_mis"] == 1 && $MissileBtn == true)
 				{
 					$Result .= "<a href=\"game.php?page=galaxy&mode=2&galaxy=".$Galaxy."&system=".$System."&planet=".$Planet."&current=".$user['current_planet']."\">";
 					$Result .= "<img src=\"". $dpath ."img/r.gif\" title=\"".$lang['gl_missile_attack']."\" border=\"0\"></a>";
