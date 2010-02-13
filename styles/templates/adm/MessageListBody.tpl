@@ -1,7 +1,19 @@
 <script language="JavaScript">
+var xsize 	= screen.width;
+var ysize 	= screen.height;
+var breite	= 720;
+var hoehe	= 300;
+var xpos	= (xsize-breite) / 2;
+var ypos	= (ysize-hoehe) / 2;
+
 function f(target_url, win_name) {
 var new_win = window.open(target_url,win_name,'resizable=yes,scrollbars=yes,menubar=no,toolbar=no,width=550,height=280,top=0,left=0');
 new_win.focus();
+}
+
+function kb(rid) {
+	var kb = window.open("CombatReport.php?raport=" + rid, "kb", "scrollbars=yes,statusbar=no,toolbar=no,location=no,directories=no,resizable=no,menubar=no,width="+(xsize-100)+",height="+(ysize-100)+",screenX="+((xsize-(xsize-100))/2)+",screenY="+((ysize-(ysize-100))/2)+",top="+((ysize-(ysize-100))/2)+",left="+((xsize-(xsize-100))/2));
+	kb.focus();
 }
 
 checked=false;
