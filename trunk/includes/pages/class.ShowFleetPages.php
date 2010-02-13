@@ -670,14 +670,14 @@ class ShowFleetPages extends FleetFunctions
 		{
 			case 6:
 				$SpyProbes	= request_var('ship210', 0);
-				if($SpyProbes > $CurrentPlanet[$resource[210]])
+				if($SpyProbes > $CurrentPlanet[$resource[210]] || empty($SpyProbes))
 					exit($ResultMessage = "611; ".$lang['fa_no_ships']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserMissiles);
 					
 				$FleetArray = array(210 => $SpyProbes);
 			break;
 			case 8:
 				$Recycles	= request_var('ship209', 0);
-				if($Recycles > $CurrentPlanet[$resource[209]])
+				if($Recycles > $CurrentPlanet[$resource[209]] || empty($SpyProbes))
 					exit($ResultMessage = "611; ".$lang['fa_no_ships']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserMissiles);
 					
 				$FleetArray = array(209 => $Recycles);

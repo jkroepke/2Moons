@@ -509,10 +509,8 @@ $QryTableUsers      .= "`lostunits` bigint(20) NOT NULL default '0',";
 $QryTableUsers      .= "`desunits` bigint(20) NOT NULL default '0',";
 $QryTableUsers      .= "`uctime` int(11) NOT NULL default '0',";
 $QryTableUsers      .= "PRIMARY KEY  (`id`)";
+$QryTableUsers      .= "UNIQUE KEY `username` (`username`), ";
 $QryTableUsers      .= ") ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
-$QryTableUsers      .= "ALTER TABLE `prefix_".USERS."` ADD UNIQUE (";
-$QryTableUsers      .= "`username`";
-$QryTableUsers      .= ");";
 
 
 $QryTableUsersTemp   = "CREATE TABLE IF NOT EXISTS `prefix_".USERS_VALID."` (";
