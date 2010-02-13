@@ -39,7 +39,7 @@ function ShowStatisticsPage($CurrentUser, $CurrentPlanet)
 	$who   	= request_var('who', 1);
 	$type  	= request_var('type', 1);
 	$range 	= request_var('range', 1);
-
+	
 	switch ($type)
 	{
 		case 1:
@@ -161,7 +161,7 @@ function ShowStatisticsPage($CurrentUser, $CurrentPlanet)
 		'Selectors'				=> $Selector,
 		'who'					=> $who,
 		'type'					=> $type,
-		'range'					=> $range,
+		'range'					=> floor(($range - 1) / 100) * 100 + 1,
 		'RangeList'				=> $RangeList,
 		'CUser_ally'			=> $CurrentUser['ally_id'],
 		'CUser_id'				=> $CurrentUser['id'],
