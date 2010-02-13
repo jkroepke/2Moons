@@ -11,4 +11,4 @@
 <script type="text/javascript" src="./../scripts/jquery.js"></script>
 {meta}
 </head>
-<body style="overflow: hidden;">
+<body>
