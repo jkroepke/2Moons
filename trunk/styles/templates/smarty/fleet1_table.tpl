@@ -11,6 +11,8 @@
     <input type="hidden" name="fleetroom" 		value="{$fleetroom}">
     <input type="hidden" name="target_mission" 	value="{$target_mission}">
     <input type="hidden" name="speedfactor" 	value="{$speedfactor}">
+	<input type="hidden" name="fleet_group"     value="0"     onChange="shortInfo()" onKeyUp="shortInfo()">
+    <input type="hidden" name="acs_target_mr"   value="0:0:0" onChange="shortInfo()" onKeyUp="shortInfo()">
     {$inputs}
     <div id="content">
     	<table width="519" border="0" cellpadding="0" cellspacing="1" align="center">
@@ -26,8 +28,6 @@
                     <select name="planettype" onChange="shortInfo()" onKeyUp="shortInfo()">
                     {html_options options=$options_selector selected=$options}
                     </select>
-                    <input name="fleet_group" type="hidden" onChange="shortInfo()" onKeyUp="shortInfo()" value="0">
-                    <input name="acs_target_mr" type="hidden" onChange="shortInfo()" onKeyUp="shortInfo()" value="0:0:0">
             	</th>
             </tr>
             <tr style="height:20px;">
@@ -61,17 +61,28 @@
             <tr style="height:20px;">
                 <td colspan="2" class="c">{$fl_shortcut} <a href="game.php?page=shortcuts">{$fl_shortcut_add_edit}</a></td>
             </tr>
-            {$shortcut}
-            <tr style="height:20px;">
+            {foreach name=ShoutcutList item=ShoutcutRow from=$Shoutcutlist}
+			{if $smarty.foreach.ShoutcutList.iteration is odd}<tr style="height:20px;">{/if}
+            <th><a href="javascript:setTarget({$ShoutcutRow.galaxy},{$ShoutcutRow.system},{$ShoutcutRow.planet},{$ShoutcutRow.planet_type});shortInfo();">{$ShoutcutRow.name}{if $ColonyRow.planet_type == 1}{$fl_planet_shortcut}{elseif $ColonyRow.planet_type == 2}{$fl_derbis_shortcut}{elseif $ShoutcutRow.planet_type == 3}{$fl_moon_shortcut}{/if} [{$ShoutcutRow.galaxy}:{$ShoutcutRow.system}:{$ShoutcutRow.planet}]</a></th>
+			{if $smarty.foreach.ShoutcutList.last && $smarty.foreach.ShoutcutList.total is odd}<th>&nbsp;</th>{/if}
+			{if $smarty.foreach.ShoutcutList.iteration is even}</tr>{/if}
+			{foreachelse}
+			<tr style="height:20px;">
+				<th colspan="2">{$fl_no_shortcuts}</th>
+			</tr>
+            {/foreach}
+			<tr style="height:20px;">
             	<td colspan="2" class="c">{$fl_my_planets}</td>
             </tr>
-			{foreach name=ColonyList item=ColonyRow from=$colonylist}
+			{foreach name=ColonyList item=ColonyRow from=$Colonylist}
 			{if $smarty.foreach.ColonyList.iteration is odd}<tr style="height:20px;">{/if}
-            <th><a href="javascript:setTarget({$ColonyRow.galaxy},{$ColonyRow.system},{$ColonyRow.planet},{$ColonyRow.planet_type});shortInfo();">{$ColonyRow.name} [{$ColonyRow.galaxy}:{$ColonyRow.system}:{$ColonyRow.planet}]</a></th>
+            <th><a href="javascript:setTarget({$ColonyRow.galaxy},{$ColonyRow.system},{$ColonyRow.planet},{$ColonyRow.planet_type});shortInfo();">{$ColonyRow.name} {if $ColonyRow.planet_type == 3}{$fl_moon_shortcut}{/if}[{$ColonyRow.galaxy}:{$ColonyRow.system}:{$ColonyRow.planet}]</a></th>
 			{if $smarty.foreach.ColonyList.last && $smarty.foreach.ColonyList.total is odd}<th>&nbsp;</th>{/if}
 			{if $smarty.foreach.ColonyList.iteration is even}</tr>{/if}
 			{foreachelse}
-			<tr><th colspan="2">{$fl_no_colony}</th></tr>
+			<tr style="height:20px;">
+				th colspan="2">{$fl_no_colony}</th>
+			</tr>
 			{/foreach}
 			{if $AKSList}
             <tr style="height:20px;">
@@ -89,7 +100,7 @@
         </table>
     </div>
 </form>
-<script type="text/javascript">javascript:shortInfo();</script>
+<script type="text/javascript">shortInfo();</script>
 {if $is_pmenu == 1}
 {include file="planet_menu.tpl"}
 {/if}

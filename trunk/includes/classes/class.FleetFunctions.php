@@ -64,7 +64,7 @@ abstract class FleetFunctions
 		}
 				
 		if (empty($missiontype))
-			exit(header("location:game.php?page=fleet"));
+			self::GotoFleetPage();
 			
 		return $missiontype;
 	}	
@@ -220,134 +220,60 @@ abstract class FleetFunctions
 		return $FleetArray;
 	}
 	
-	public static function GetFleetMissions($MisInfo, $TargetMission)
+	public static function GetFleetMissions($MisInfo)
 	{
 		global $lang, $resource;
 		$Missions 			= self::GetAvailableMissions($MisInfo);
-		$MissionSelector 	= "";
-		$i = 0;
-		
-		foreach ($Missions as $a => $b)
-		{
-			$MissionSelector .= "<tr height=\"20\">
-								 <th>
-								 <input id=\"inpuT_".$i."\" type=\"radio\" name=\"mission\" value=\"".$a."\"". (($TargetMission == $a) ? " checked" : "") .">
-								 <label for=\"inpuT_".$i."\">".$b."</label><br>"
-								 .(($a == 15) ? "<br><p style=\"color:red;padding-left:13px;\">".$lang['fl_expedition_alert_message']."</p><br>" : "")."</th>"
-								 .(($a == 11) ? "<br><p style=\"color:red;padding-left:13px;\">".$lang['fl_dm_alert_message']."</p><br>" : "")."</th>
-								 </tr>";
-			$i++;
-		}
 
 		if (!empty($Missions[15]))
 		{
-			$StayBlock  = "<tr height=\"20\">";
-			$StayBlock .= "<td class=\"c\" colspan=\"3\">".$lang['fl_hold_time']."</td>";
-			$StayBlock .= "</tr>";
-			$StayBlock .= "<tr height=\"20\">";
-			$StayBlock .= "<th colspan=\"3\">";
-			$StayBlock .= "<select name=\"expeditiontime\" >";
-			for($i = 1;$i <= $MisInfo['CurrentUser'][$resource[124]];$i++){	
-				$StayBlock .= "<option value=\"".$i."\">".$i."</option>";
+			for($i = 1;$i <= $MisInfo['CurrentUser'][$resource[124]];$i++)
+			{	
+				$StayBlock[$i]	= $i;
 			}
-			$StayBlock .= "</select>";
-			$StayBlock .= "Stunde(n)";
-			$StayBlock .= "</th>";
-			$StayBlock .= "</tr>";
 		}
 		elseif(!empty($Missions[5]))
-		{
-			$StayBlock  = "<tr height=\"20\">";
-			$StayBlock .= "<td class=\"c\" colspan=\"3\">".$lang['fl_hold_time']."</td>";
-			$StayBlock .= "</tr>";
-			$StayBlock .= "<tr height=\"20\">";
-			$StayBlock .= "<th colspan=\"3\">";
-			$StayBlock .= "<select name=\"holdingtime\" >";
-			$StayBlock .= "<option value=\"0\">0</option>";
-			$StayBlock .= "<option value=\"1\">1</option>";
-			$StayBlock .= "<option value=\"2\">2</option>";
-			$StayBlock .= "<option value=\"4\">4</option>";
-			$StayBlock .= "<option value=\"8\">8</option>";
-			$StayBlock .= "<option value=\"16\">16</option>";
-			$StayBlock .= "<option value=\"32\">32</option>";
-			$StayBlock .= "</select>";
-			$StayBlock .= "Stunde(n)";
-			$StayBlock .= "</th>";
-			$StayBlock .= "</tr>";
-		}
+			$StayBlock = array(1 => 1, 2 => 2, 4 => 4, 8 => 8, 16 => 16, 32 => 32);
 		
-		return array('MissionSelector' => $MissionSelector, 'StayBlock' => $StayBlock);
+		return array('MissionSelector' => $Missions, 'StayBlock' => $StayBlock);
 	}	
 	
-	public static function GetUserShotcut($Shortcuts)
+	public static function GetUserShotcut($CurrentUser)
 	{
-		global $lang;
-		
-		$ShortCut = "";
-		
-		if ($Shortcuts)
+		if (!empty($CurrentUser['fleet_shortcut']))
 		{
-			$scarray = explode("\r\n", $Shortcuts);
-			$i = 0;
-			foreach ($scarray as $a => $b)
+			$Shoutcut = explode("\r\n", $CurrentUser['fleet_shortcut']);
+
+			foreach ($Shoutcut as $a => $b)
 			{
-				if ($b != "")
-				{
-					$c = explode(',', $b);
-					if ($i == 0)
-						$ShortCut .= "<tr height=\"20\">";
-
-					$ShortCut .= "<th><a href=\"javascript:setTarget(". $c[1] .",". $c[2] .",". $c[3] .",". $c[4] ."); shortInfo();\"";
-					$ShortCut .= ">". $c[0] ." ". $c[1] .":". $c[2] .":". $c[3] ." ";
-
-					if ($c[4] == 1)
-						$ShortCut .= $lang['fl_planet_shortcut'];
-					elseif ($c[4] == 2)
-						$ShortCut .= $lang['fl_debris_shortcut'];
-					elseif ($c[4] == 3)
-						$ShortCut .= $lang['fl_moon_shortcut'];
-
-					$ShortCut .= "</a></th>";
-
-					if ($i == 1)
-						$ShortCut .= "</tr>";
-
-					if ($i == 1)
-						$i = 0;
-					else
-						$i = 1;
-				}
+				if (empty($b)) continue;
+				
+				$ShortCutRow = explode(',', $b);
+				
+				$ShortCutList[] = array(
+					'name'			=> $ShortCutRow[0],
+					'galaxy'		=> $ShortCutRow[1],
+					'system'		=> $ShortCutRow[2],
+					'planet'		=> $ShortCutRow[3],
+					'planet_type'	=> $ShortCutRow[4],
+				);
 			}
-			if ($i == 1)
-				$ShortCut .= "<th></th></tr>";
 		}
-		else
-		{
-			$ShortCut .= "<tr height=\"20\">";
-			$ShortCut .= "<th colspan=\"2\">".$lang['fl_no_shortcuts']."</th>";
-			$ShortCut .= "</tr>";
-		}
-		
-		return $ShortCut;
+		return $ShortCutList;
 	}
 	
 	public static function GetColonyList($Colony)
 	{
-		global $lang, $db;
-
 		foreach($Colony as $CurPlanetID => $CurPlanet)
 		{
-			if ($CurPlanet['planet_type'] == 3)
-				$CurPlanet['name'] .= " ". $lang['fl_moon_shortcut'];
-
 			if ($CurrentPlanet['galaxy'] == $CurPlanet['galaxy'] && $CurrentPlanet['system'] == $CurPlanet['system'] && $CurrentPlanet['planet'] == $CurPlanet['planet'] && $CurrentPlanet['planet_type'] == $CurPlanet['planet_type']) continue;
 			
 			$ColonyList[] = array(
+				'name'			=> $CurPlanet['name'],
 				'galaxy'		=> $CurPlanet['galaxy'],
 				'system'		=> $CurPlanet['system'],
 				'planet'		=> $CurPlanet['planet'],
 				'planet_type'	=> $CurPlanet['planet_type'],
-				'name'			=> $CurPlanet['name'],
 			);	
 		}
 			
