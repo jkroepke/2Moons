@@ -195,7 +195,6 @@ class ShowFleetPages extends FleetFunctions
 		$template	= new template();
 		$template->set_vars($CurrentUser, $CurrentPlanet);
 		$template->loadscript('flotten.js');
-		$template->loadscript('ocnt.js');
 		$template->page_header();	
 		$template->page_topnav();
 		$template->page_leftmenu();
@@ -206,7 +205,6 @@ class ShowFleetPages extends FleetFunctions
 		$TargetSystem 					= request_var('system', $CurrentPlanet['system']);
 		$TargetPlanet					= request_var('planet', $CurrentPlanet['planet']);
 		$TargetPlanettype 				= request_var('planet_type', $CurrentPlanet['planet_type']);
-		$parse['target_mission'] 		= request_var('target_mission', 0);
 
 		foreach ($reslist['fleet'] as $id => $ShipID)
 		{
@@ -222,10 +220,11 @@ class ShowFleetPages extends FleetFunctions
 			parent::GotoFleetPage();
 
 		$template->assign_vars(array(
+			'target_mission'		=> request_var('target_mission', 0),
 			'speedfactor'			=> parent::GetGameSpeedFactor(),
 			'speedallsmin' 			=> parent::GetFleetMaxSpeed($Fleet, $CurrentUser),
-			'shortcut'				=> parent::GetUserShotcut($CurrentUser['fleet_shortcut']),
-			'colonylist' 			=> parent::GetColonyList($template->playerplanets),
+			'Shoutcutlist'			=> parent::GetUserShotcut($CurrentUser),
+			'Colonylist' 			=> parent::GetColonyList($template->playerplanets),
 			'AKSList' 				=> parent::IsAKS($CurrentUser['id']),
 			'inputs'				=> parent::GetExtraInputs($Fleet, $CurrentUser),
 			'AvailableSpeeds'		=> parent::GetAvailableSpeeds(),
@@ -250,6 +249,10 @@ class ShowFleetPages extends FleetFunctions
 			'fl_cargo_capacity'		=> $lang['fl_cargo_capacity'],
 			'fl_shortcut'			=> $lang['fl_shortcut'],
 			'fl_shortcut_add_edit'	=> $lang['fl_shortcut_add_edit'],
+			'fl_no_shortcuts'		=> $lang['fl_no_shortcuts'],
+			'fl_planet_shortcut'	=> $lang['fl_planet_shortcut'],
+			'fl_debris_shortcut'	=> $lang['fl_debris_shortcut'],
+			'fl_moon_shortcut'		=> $lang['fl_moon_shortcut'],
 			'fl_my_planets'			=> $lang['fl_my_planets'],
 			'fl_acs_title'			=> $lang['fl_acs_title'],
 			'fl_continue'			=> $lang['fl_continue'],
@@ -263,62 +266,107 @@ class ShowFleetPages extends FleetFunctions
 	public static function ShowFleet2Page($CurrentUser, $CurrentPlanet)
 	{
 		global $db, $lang;
-
-		$parse						= $lang;
+	
+		$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
+		$template	= new template();
+		$template->set_vars($CurrentUser, $CurrentPlanet);
+		$template->loadscript('flotten.js');
+		$template->page_header();	
+		$template->page_topnav();
+		$template->page_leftmenu();
+		$template->page_planetmenu();
+		$template->page_footer();
+		
 		$TargetGalaxy  				= request_var('galaxy', 0);
 		$TargetSystem   			= request_var('system', 0);
 		$TargetPlanet   			= request_var('planet', 0);
 		$TargetPlanettype 			= request_var('planettype', 0);
 		$TargetMission 				= request_var('target_mission', 0);
-		$GenFleetSpeed  			= request_var('speed', 0);
+		$GenFleetSpeed  			= request_var('speed', 0);		
+		$acs_target_mr 				= request_var('acs_target_mr', '');
+		$usedfleet					= request_var('usedfleet','', true);
 
-		$parse['usedfleet'] 		= request_var('usedfleet','', true);
-		$parse['acs_target_mr'] 	= request_var('acs_target_mr', '');
-		$parse['fleet_group'] 		= request_var('fleet_group', 0);
-	
-		$parse['thisgalaxy'] 		= $CurrentPlanet['galaxy'];
-		$parse['thissystem'] 		= $CurrentPlanet['system'];
-		$parse['thisplanet'] 		= $CurrentPlanet['planet'];
-		$parse['thisplanet_type'] 	= $CurrentPlanet['planet_type'];
+		$FleetArray    				= parent::GetFleetArray($usedfleet);
 		
-		$parse['galaxy']	 	= $MisInfo['galaxy']     	= $TargetGalaxy;		
-		$parse['system'] 		= $MisInfo['system'] 	  	= $TargetSystem;	
-		$parse['planet'] 		= $MisInfo['planet'] 	  	= $TargetPlanet;		
-		$parse['planettype']	= $MisInfo['planettype'] 	= $TargetPlanettype;	
-			
-		$MisInfo['IsAKS']			= $parse['acs_target_mr'];
-
-		$FleetArray    				= parent::GetFleetArray($parse['usedfleet']);
-		
+		$MisInfo['galaxy']     		= $TargetGalaxy;		
+		$MisInfo['system'] 	  		= $TargetSystem;	
+		$MisInfo['planet'] 	  		= $TargetPlanet;		
+		$MisInfo['planettype'] 		= $TargetPlanettype;	
+		$MisInfo['IsAKS']			= $acs_target_mr;
 		$MisInfo['Ship'] 			= $FleetArray;		
 		$MisInfo['CurrentUser']		= $CurrentUser;
+		
 		$GameSpeedFactor   		 	= parent::GetGameSpeedFactor();		
-		$MissionOutput	 			= parent::GetFleetMissions($MisInfo, $TargetMission);
+		$MissionOutput	 			= parent::GetFleetMissions($MisInfo);
 		$FleetSpeed  				= parent::GetFleetMaxSpeed($FleetArray, $CurrentUser);
 		$MaxFleetSpeed				= ($FleetSpeed / 10) * $GenFleetSpeed;
 		$distance      				= parent::GetTargetDistance($CurrentPlanet['galaxy'], $TargetGalaxy, $CurrentPlanet['system'], $TargetSystem, $CurrentPlanet['planet'], $TargetPlanet);
 		$duration      				= parent::GetMissionDuration($GenFleetSpeed, $MaxFleetSpeed, $distance, $GameSpeedFactor);
-		$parse['consumption']		= number_format(floor(parent::GetFleetConsumption($FleetArray, $duration, $distance, $MaxFleetSpeed, $CurrentUser, $GameSpeedFactor)), 0, '', '');
-		$parse['fleetroom']			= number_format(parent::GetFleetRoom($FleetArray), 0, '', '');
-		$parse['speedallsmin']		= $MaxFleetSpeed;
-		$parse['speed']				= $GenFleetSpeed;
-		$parse['speedfactor']		= $GameSpeedFactor;
-		$parse['metal'] 			= number_format(floor($CurrentPlanet['metal']), 0, '', '');
-		$parse['crystal'] 			= number_format(floor($CurrentPlanet['crystal']), 0, '', '');
-		$parse['deuterium'] 		= number_format(floor($CurrentPlanet['deuterium']), 0, '', '');
-		$parse['title']				= $TargetGalaxy .":". $TargetSystem .":". $TargetPlanet." - ".(($TargetPlanettype == 1) ? $lang['fl_planet'] : $lang['fl_moon']);
-		$parse['missionselector'] 	= $MissionOutput['MissionSelector'];
-		$parse['stayblock'] 		= $MissionOutput['StayBlock'];
-
-		display(parsetemplate(gettemplate('fleet/fleet2_table'), $parse));
+	
+		$template->assign_vars(array(
+			'consumption'					=> number_format(floor(parent::GetFleetConsumption($FleetArray, $duration, $distance, $MaxFleetSpeed, $CurrentUser, $GameSpeedFactor)), 0, '', ''),
+			'fleetroom'						=> number_format(parent::GetFleetRoom($FleetArray), 0, '', ''),
+			'speedallsmin'					=> $MaxFleetSpeed,
+			'speed'							=> $GenFleetSpeed,
+			'speedfactor'					=> $GameSpeedFactor,
+			'mission'						=> $TargetMission,
+			'thisgalaxy'			 		=> $CurrentPlanet['galaxy'],
+			'thissystem'			 		=> $CurrentPlanet['system'],
+			'thisplanet'			 		=> $CurrentPlanet['planet'],
+			'thisplanet_type'			 	=> $CurrentPlanet['planet_type'],
+			'metal'							=> number_format(floor($CurrentPlanet['metal']), 0, '', ''),
+			'crystal'						=> number_format(floor($CurrentPlanet['crystal']), 0, '', ''),
+			'deuterium' 					=> number_format(floor($CurrentPlanet['deuterium']), 0, '', ''),
+			'fl_planet'						=> $lang['fl_planet'], 
+			'fl_moon'						=> $lang['fl_moon'],
+			'MissionSelector' 				=> $MissionOutput['MissionSelector'],
+			'StaySelector' 					=> $MissionOutput['StayBlock'],
+			'fl_mission'					=> $lang['fl_mission'],
+			'fl_resources'					=> $lang['fl_resources'],
+			'Metal'							=> $lang['Metal'],
+			'Crystal'						=> $lang['Crystal'],
+			'Deuterium'						=> $lang['Deuterium'],
+			'fl_max'						=> $lang['fl_max'],
+			'fl_resources_left'				=> $lang['fl_resources_left'],
+			'fl_all_resources'				=> $lang['fl_all_resources'],
+			'fl_fuel_consumption'			=> $lang['fl_fuel_consumption'],
+			'fl_hours'						=> $lang['fl_hours'],
+			'fl_hold_time'					=> $lang['fl_hold_time'],
+			'fl_expedition_alert_message'	=> $lang['fl_expedition_alert_message'],
+			'fl_dm_alert_message'			=> $lang['fl_dm_alert_message'],
+			'galaxy'						=> $TargetGalaxy,
+			'system'						=> $TargetSystem,
+			'planet'						=> $TargetPlanet,
+			'planettype'					=> $TargetPlanettype,
+			'acs_target_mr'					=> $acs_target_mr,
+			'fleet_group'					=> request_var('fleet_group', 0),
+			'usedfleet' 					=> $usedfleet,
+			'fl_continue'					=> $lang['fl_continue'],
+		));
+		
+		$template->show('fleet2_table.tpl');
+		$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 	}
 
 	public static function ShowFleet3Page($CurrentUser, $CurrentPlanet)
 	{
 		global $resource, $pricelist, $reslist, $phpEx, $xgp_root, $game_config, $db, $lang;
+
 		include_once($xgp_root . 'includes/functions/IsVacationMode.' . $phpEx);
 
-		$parse 					= $lang;
+		$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
+		$template	= new template();
+		$template->set_vars($CurrentUser, $CurrentPlanet);
+		$template->loadscript('flotten.js');
+		$template->loadscript('ocnt.js');
+		$template->gotoside("game.php?page=fleet");
+		$template->page_header();	
+		$template->page_topnav();
+		$template->page_leftmenu();
+		$template->page_planetmenu();
+		$template->page_footer();
+		
+		
 		$mission 				= request_var('mission', 0);
 		$galaxy     			= request_var('galaxy', 0);
 		$system     			= request_var('system', 0);
@@ -591,6 +639,7 @@ class ShowFleetPages extends FleetFunctions
 				}
 			}
 		}
+		
 		$QryInsertFleet  = "INSERT INTO ".FLEETS." SET 
 							`fleet_owner` = '". $CurrentUser['id'] ."', 
 							`fleet_mission` = '". $mission ."',
@@ -622,26 +671,35 @@ class ShowFleetPages extends FleetFunctions
 							`id` = ". $CurrentPlanet['id'] ." LIMIT 1;";
 		
 		$db->multi_query($QryInsertFleet);
-
-		$parse['mission'] 		= $lang['type_mission'][$mission];
-		$parse['distance'] 		= pretty_number($distance);
-		$parse['consumption'] 	= pretty_number($consumption);
-		$parse['from']	 		= $thisgalaxy .":". $thissystem. ":". $thisplanet;
-		$parse['destination']	= $galaxy .":". $system .":". $planet;
-		$parse['start_time'] 	= date("M D d H:i:s", $fleet['start_time']);
-		$parse['end_time'] 		= date("M D d H:i:s", $fleet['end_time']);
-		$parse['speedallsmin'] 	= $MaxFleetSpeed;
-		
+	
 		foreach ($FleetArray as $Ship => $Count)
 		{
-			$fleet_list .= "</tr><tr height=\"20\">";
-			$fleet_list .= "<th>". $lang['tech'][$Ship] ."</th>";
-			$fleet_list .= "<th>". pretty_number($Count) ."</th>";
+			$FleetList[$lang['tech'][$Ship]]	= pretty_number($Count);
 		}
-
-		$parse['fleet_list'] 	= $fleet_list;
-
-		display(parsetemplate(gettemplate('fleet/fleet3_table'), $parse), false, "<meta http-equiv=\"refresh\" content=\"3;URL=game.php?page=fleet\">");
+	
+		$template->assign_vars(array(
+			'mission' 				=> $lang['type_mission'][$mission],
+			'distance' 				=> pretty_number($distance),
+			'consumption' 			=> pretty_number($consumption),
+			'from' 					=> $thisgalaxy .":". $thissystem. ":". $thisplanet,
+			'destination'			=> $galaxy .":". $system .":". $planet,
+			'start_time' 			=> date("M D d H:i:s", $fleet['start_time']),
+			'end_time' 				=> date("M D d H:i:s", $fleet['end_time']),
+			'speedallsmin'		 	=> $MaxFleetSpeed,
+			'FleetList'				=> $FleetList,
+			'fl_fleet_sended'		=> $lang['fl_fleet_sended'],
+			'fl_mission'			=> $lang['fl_mission'],
+			'fl_from'				=> $lang['fl_from'],
+			'fl_destiny'			=> $lang['fl_destiny'],
+			'fl_distance'			=> $lang['fl_distance'],
+			'fl_fleet_speed'		=> $lang['fl_fleet_speed'],
+			'fl_fuel_consumption'	=> $lang['fl_fuel_consumption'],
+			'fl_fromfl_destiny'		=> $lang['fl_fromfl_destiny'],
+			'fl_arrival_time'		=> $lang['fl_arrival_time'],
+			'fl_return_time'		=> $lang['fl_return_time'],
+			'fl_fleet'				=> $lang['fl_fleet'],
+		));
+		$template->show('fleet3_table.tpl');
 	}
 
 	public static function FleetAjax($CurrentUser, $CurrentPlanet)
@@ -677,7 +735,7 @@ class ShowFleetPages extends FleetFunctions
 			break;
 			case 8:
 				$Recycles	= request_var('ship209', 0);
-				if($Recycles > $CurrentPlanet[$resource[209]] || empty($SpyProbes))
+				if($Recycles > $CurrentPlanet[$resource[209]] || empty($Recycles))
 					exit($ResultMessage = "611; ".$lang['fa_no_ships']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserMissiles);
 					
 				$FleetArray = array(209 => $Recycles);

@@ -233,6 +233,7 @@ class template extends Smarty
 			#header('X-UA-Compatible: IE=EmulateIE7'); 
 		}
 	}
+	
 	public function show($file)
 	{
 		$this->assign_vars(array(
@@ -241,14 +242,20 @@ class template extends Smarty
 		$this->display($file);
 	}
 	
-	public function message ($mes, $dest = false, $time = 3)
+	public function gotoside($dest, $time = 3)
 	{
 		$this->assign_vars(array(
-			'mes'		=> $mes,
 			'gotoinsec'	=> $time,
 			'goto'		=> $dest,
 		));
-		
+	}
+	
+	public function message($mes, $dest = false, $time = 3)
+	{
+		$this->assign_vars(array(
+			'mes'		=> $mes,
+		));
+		$this->gotoside($dest, $time);
 		$this->show('error_message_body.tpl');
 	}
 }
