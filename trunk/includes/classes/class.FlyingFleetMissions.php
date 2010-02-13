@@ -1297,14 +1297,15 @@ abstract class FlyingFleetMissions {
 			$raport 		= $formatted_cr['html'];
 			$rid   			= md5($raport);
 			
-			$SQLQuery  = 'INSERT INTO '.RW.' SET ';
-			$SQLQuery .= '`time` = '.time().', ';
-			$SQLQuery .= '`owners` = "'.implode(',', array_merge($Attacker['id'], $Defender['id'])).'", ';
-			$SQLQuery .= '`rid` = "'. $rid .'", ';
+			$SQLQuery  = "INSERT INTO ".RW." SET ";
+			$SQLQuery .= "`time` = '".time()."', ";
+			$SQLQuery .= "`owners` = '".implode(',', array_merge($Attacker['id'], $Defender['id']))."', ";
+			$SQLQuery .= "`rid` = '". $rid ."', ";
 			$SQLQuery .= "`a_zestrzelona` = '".count($result['rounds'])."', ";
-			$SQLQuery .= '`raport` = "'. $db->sql_escape($raport) .'";';
-			$SQLQuery .= "INSERT INTO ".TOPKB." SET ";
-			$SQLQuery .= "`time` = ".time().", ";
+			$SQLQuery .= "`raport` = '".$db->sql_escape($raport)."';";
+			$db->query($SQLQuery);
+			$SQLQuery  = "INSERT INTO ".TOPKB." SET ";
+			$SQLQuery .= "`time` = '".time()."', ";
 			$SQLQuery .= "`id_owner1` = '".implode(',', $Attacker['id'])."', ";
 			$SQLQuery .= "`angreifer` = '".implode(' & ', $Attacker['name'])."', ";
 			$SQLQuery .= "`id_owner2` = '".implode(',', $Defender['id'])."', ";
@@ -1315,28 +1316,29 @@ abstract class FlyingFleetMissions {
 			$SQLQuery .= "`a_zestrzelona` = '".count($result['rounds'])."', ";
 			$SQLQuery .= "`raport` = '". $db->sql_escape($raport) ."',";
 			$SQLQuery .= "`fleetresult` = '". $result['won'] ."';";			
-			$SQLQuery .= "UPDATE ".USERS." SET ";
-            $SQLQuery .= "`wons` = 'wons' + '".$Won."', ";
-            $SQLQuery .= "`loos` = 'loos' + '".$Lose."', ";
-            $SQLQuery .= "`draws` = 'draws' + '".$Draw."', ";
-            $SQLQuery .= "`kbmetal` = 'kbmetal' + '".($result['debree']['att'][0]+$result['debree']['def'][0])."', ";
-            $SQLQuery .= "`kbcrystal` = 'kbcrystal' + '".($result['debree']['att'][1] + $result['debree']['def'][1])."', ";
-            $SQLQuery .= "`lostunits` = 'lostunits' + '".$result['lost']['att']."', ";
-            $SQLQuery .= "`desunits` = 'desunits' + '".$result['lost']['def']."' ";
+			$db->query($SQLQuery);
+			$SQLQuery  = "UPDATE ".USERS." SET ";
+            $SQLQuery .= "`wons` = wons + ".$Won.", ";
+            $SQLQuery .= "`loos` = loos + ".$Lose.", ";
+            $SQLQuery .= "`draws` = draws + ".$Draw.", ";
+            $SQLQuery .= "`kbmetal` = kbmetal + ".($result['debree']['att'][0]+$result['debree']['def'][0]).", ";
+            $SQLQuery .= "`kbcrystal` = kbcrystal + ".($result['debree']['att'][1]+$result['debree']['def'][1]).", ";
+            $SQLQuery .= "`lostunits` = lostunits + ".$result['lost']['att'].", ";
+            $SQLQuery .= "`desunits` = desunits + ".$result['lost']['def']." ";
             $SQLQuery .= "WHERE ";
             $SQLQuery .= substr($WhereAtt, 0, -4).";";
-			$SQLQuery .= "UPDATE ".USERS." SET ";
-            $SQLQuery .= "`wons` = 'wons' + '". $Lose ."', ";
-            $SQLQuery .= "`loos` = 'loos' + '". $Won ."', ";
-            $SQLQuery .= "`draws` = 'draws' + '". $Draw  ."', ";
-            $SQLQuery .= "`kbmetal` = 'kbmetal' + '".($result['debree']['att'][0]+$result['debree']['def'][0])."', ";
-            $SQLQuery .= "`kbcrystal` = 'kbcrystal' + '".($result['debree']['att'][1] + $result['debree']['def'][1])."', ";
-            $SQLQuery .= "`lostunits` = 'lostunits' + '".$result['lost']['def']."', ";
-            $SQLQuery .= "`desunits` = 'desunits' + '".$result['lost']['att']."' ";
+			$db->query($SQLQuery);
+			$SQLQuery  = "UPDATE ".USERS." SET ";
+            $SQLQuery .= "`wons` = wons + ". $Lose .", ";
+            $SQLQuery .= "`loos` = loos + ". $Won .", ";
+            $SQLQuery .= "`draws` = draws + ". $Draw  .", ";
+            $SQLQuery .= "`kbmetal` = kbmetal + ".($result['debree']['att'][0]+$result['debree']['def'][0]).", ";
+            $SQLQuery .= "`kbcrystal` = kbcrystal + ".($result['debree']['att'][1]+$result['debree']['def'][1]).", ";
+            $SQLQuery .= "`lostunits` = lostunits + ".$result['lost']['def'].", ";
+            $SQLQuery .= "`desunits` = desunits + ".$result['lost']['att']." ";
             $SQLQuery .= "WHERE ";
             $SQLQuery .= substr($WhereDef, 0, -4).";";
-			$db->multi_query($SQLQuery);
-			
+			$db->query($SQLQuery);
 			
 			switch($result['won'])
 			{

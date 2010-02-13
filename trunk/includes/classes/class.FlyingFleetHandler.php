@@ -32,7 +32,7 @@ class FlyingFleetHandler extends FlyingFleetMissions
 		if($db->num_rows($fleetquery) > 0)
 		{
 			update_config('stats_fly_lock', time());
-			$db->multi_query("UNLOCK TABLES;LOCK TABLE ".AKS." WRITE, ".RW." WRITE, ".MESSAGES." WRITE, ".FLEETS." WRITE, ".PLANETS." WRITE, ".USERS." WRITE;");
+			$db->multi_query("UNLOCK TABLES;LOCK TABLE ".AKS." WRITE, ".RW." WRITE, ".MESSAGES." WRITE, ".FLEETS." WRITE, ".PLANETS." WRITE, ".TOPKB." WRITE, ".USERS." WRITE;");
 			while ($CurrentFleet = $db->fetch_array($fleetquery))
 			{
 				parent::CheckPlanet($CurrentFleet);
