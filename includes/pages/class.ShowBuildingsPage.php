@@ -431,7 +431,7 @@ class ShowBuildingsPage
 
 				if ($Element == 31 && $CurrentUser["b_tech_planet"] != 0)
 					$parse['click'] = "<font color=\"#FF0000\">".$lang['bd_working']."</font>";
-				elseif ($Element == 21 && $CurrentPlanet["b_hangar"] != 0)
+				elseif (($Element == 15 || $Element == 21) && $CurrentPlanet["b_hangar"] != 0)
 					$parse['click'] = "<font color=\"#FF0000\">".$lang['bd_working']."</font>";
 				
 				$BuildInfoList[]	= array(

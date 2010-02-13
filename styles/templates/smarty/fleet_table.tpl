@@ -5,7 +5,7 @@
     <table width="519" border="0" cellpadding="0" cellspacing="1" align="center">
         <tr>
         	<td colspan="9" class="c">
-                <table border="0" cellpadding="0" cellspacing="0">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
 				<tr>
 				<td style="text-align:left;">{$fl_fleets} {$flyingfleets} / {$maxfleets}</td>
 				<td style="text-align:right;">{$currentexpeditions} / {$maxexpeditions} {$fl_expeditions}</td>
