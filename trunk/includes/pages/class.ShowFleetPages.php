@@ -376,7 +376,6 @@ class ShowFleetPages extends FleetFunctions
 		$TransportMetal			= request_var('resource1','0');
 		$TransportCrystal		= request_var('resource2','0');
 		$TransportDeuterium		= request_var('resource3','0');
-		$expeditiontime 		= request_var('expeditiontime', 0);
 		$holdingtime 			= request_var('holdingtime', 0);
 		$acs_target_mr			= request_var('acs_target_mr', '');
 		$rawfleetarray			= request_var('usedfleet','',true);
@@ -551,7 +550,7 @@ class ShowFleetPages extends FleetFunctions
 		
 		if ($mission == 15)
 		{
-			$StayDuration    = $expeditiontime * 3600;
+			$StayDuration    = min($holdingtime, 1) * 3600;
 			$StayTime        = $fleet['start_time'] + $StayDuration;
 		}
 		elseif ($mission == 5)
