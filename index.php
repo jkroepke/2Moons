@@ -108,7 +108,7 @@ switch ($page) {
 						$errorlist .= $lang['wrong_captcha'];
 				}
 				
-				if (!is_email($UserEmail)) 
+				if (!ValidateAddress($UserEmail)) 
 					$errors .= $lang['invalid_mail_adress'];
 				
 				if (!$UserName) 
@@ -123,7 +123,7 @@ switch ($page) {
 				if ($UserEmail != $UserEmail2)
 					$errors .= $lang['different_mails'];
 				
-				if (CheckName($UserName))
+				if (!CheckName($UserName))
 					$errors .= (UTF8_SUPPORT) ? $lang['user_field_no_space'] : $lang['user_field_no_alphanumeric'];			
 				
 				if ($agbrules != 'on')
@@ -162,7 +162,7 @@ switch ($page) {
 
 					$MailSubject 	= $lang['reg_mail_message_pass'];
 					$MailRAW		= file_get_contents("./language/".$game_config['lang']."/email/email_vaild_reg.txt");
-					$MailContent	= sprintf($MailRAW, $UserName, $game_config['game_name'], "http://".$_SERVER['SERVER_NAME'].$_SERVER["PHP_SELF"], $clef, $UserPass, ADMINEMAIL_PREFIX."@".GetRealHostName(), $md5newpass);
+					$MailContent	= sprintf($MailRAW, $UserName, $game_config['game_name'], "http://".$_SERVER['SERVER_NAME'].$_SERVER["PHP_SELF"], $clef, $UserPass, ADMINEMAIL, $md5newpass);
 		
 					MailSend($UserEmail, $UserName, $MailSubject, $MailContent);
 					$QryInsertUser = "INSERT INTO " . USERS_VALID . " SET ";

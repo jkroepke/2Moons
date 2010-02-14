@@ -41,9 +41,16 @@ function update_config($config_name, $config_value )
 		$db->query("INSERT INTO ".CONFIG." (`config_name`, `config_value`) VALUES ('".$config_name."', '".$config_value."');");
 }
 
-function is_email($email)
-{
-	return (preg_match("/^[-_.[:alnum:]]+@((([[:alnum:]]|[[:alnum:]][[:alnum:]-]*[[:alnum:]])\.)+(ad|ae|aero|af|ag|ai|al|am|an|ao|aq|ar|arpa|as|at|au|aw|az|ba|bb|bd|be|bf|bg|bh|bi|biz|bj|bm|bn|bo|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|com|coop|cr|cs|cu|cv|cx|cy|cz|de|dj|dk|dm|do|dz|ec|edu|ee|eg|eh|er|es|et|eu|fi|fj|fk|fm|fo|fr|ga|gb|gd|ge|gf|gh|gi|gl|gm|gn|gov|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|in|info|int|io|iq|ir|is|it|jm|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|mg|mh|mil|mk|ml|mm|mn|mo|mp|mq|mr|ms|mt|mu|museum|mv|mw|mx|my|mz|na|name|nc|ne|net|nf|ng|ni|nl|no|np|nr|nt|nu|nz|om|org|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|pro|ps|pt|pw|py|qa|re|ro|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|sk|sl|sm|sn|so|sr|st|su|sv|sy|sz|tc|td|tf|tg|th|tj|tk|tm|tn|to|tp|tr|tt|tv|tw|tz|ua|ug|uk|um|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|yu|za|zm|zw)$|(([0-9][0-9]?|[0-1][0-9][0-9]|[2][0-4][0-9]|[2][5][0-5])\.){3}([0-9][0-9]?|[0-1][0-9][0-9]|[2][0-4][0-9]|[2][5][0-5]))$/i", $email));
+function ValidateAddress($address) {
+    if (function_exists('filter_var')) {
+		if(filter_var($address, FILTER_VALIDATE_EMAIL) === FALSE) {
+			return false;
+		} else {
+			return true;
+		}
+    } else {
+		return preg_match('/^(?:[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+\.)*[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+@(?:(?:(?:[a-zA-Z0-9_](?:[a-zA-Z0-9_\-](?!\.)){0,61}[a-zA-Z0-9_-]?\.)+[a-zA-Z0-9_](?:[a-zA-Z0-9_\-](?!$)){0,61}[a-zA-Z0-9_]?)|(?:\[(?:(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\]))$/', $address);
+    }
 }
 
 function message ($mes, $dest = "", $time = "3", $topnav = false, $menu = true)
@@ -472,7 +479,8 @@ function MailSend($MailTarget, $MailTargetName, $MailSubject, $MailContent)
 	$mail->IsSMTP();
 	try{
 		$mail->SMTPDebug  = 1;    
-		$mail->SMTPAuth   = true;  						
+		$mail->SMTPAuth   = true;  
+		$mail->IsHTML(true);		
 		$mail->SMTPSecure = $game_config['smtp_ssl'];  						
 		$mail->Host       = $game_config['smtp_host'];
 		$mail->Port       = $game_config['smtp_port'];
@@ -505,7 +513,7 @@ function makebr($text, $xhtml = false)
 
     return (version_compare(PHP_VERSION, "5.3.0", ">="))
         ? nl2br($text, $xhtml)
-        : preg_replace("/(\r\n)+|(\n|\r)+/", $BR, $text); 
+        : strtr($text, array("\r\n" => $BR, "\r" => $BR, "\n" => $BR)); 
 }
 
 function CheckPlanetIfExist($Galaxy, $System, $Planet, $Planettype = 1)

@@ -31,33 +31,25 @@
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2" style="padding:0px;">  
+				<td colspan="2" style="padding:0px;" class="b">  
 					<table width="100%" border="0" cellpadding="0" cellspacing="0">
 						<tbody>
 							<tr>
-								<td class="b">
-									<table width="100%" align="center" cellpadding="2" cellspacing="0">
-									<tbody>
-									<tr>
-										<td>
-											{$bd_remaining}<br>
-											{foreach key=ResName item=ResCount from=$ResearchInfoRow.restprice}
-											{$ResName}: <b>{$ResCount}</b><br>
-											{/foreach}
-										</td>
-										<td colspan="2" style="text-align:right;white-space:nowrap;">
-											<a class="b">{$fgf_time}</a><br><br>
-										</td>
-									</tr>
-									<tr>		
-										<td width="68%" rowspan="3">
-										</td>
-										<td width="15%" style="text-align:right;white-space:nowrap;">
-											{$ResearchInfoRow.time}
-										</td>
-									</tr>				
-									</tbody>
-									</table>
+								<td>
+									{$bd_remaining}<br>
+									{foreach key=ResName item=ResCount from=$ResearchInfoRow.restprice}
+									{$ResName}: <b>{$ResCount}</b><br>
+									{/foreach}
+								</td>
+								<td colspan="2" style="text-align:right;white-space:nowrap;">
+									<a class="b">{$fgf_time}</a><br><br>
+								</td>
+							</tr>
+							<tr>		
+								<td width="68%" rowspan="3">
+								</td>
+								<td width="15%" style="text-align:right;white-space:nowrap;">
+									{$ResearchInfoRow.time}
 								</td>
 							</tr>
 						</tbody>

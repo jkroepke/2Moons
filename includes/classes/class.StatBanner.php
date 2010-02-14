@@ -56,12 +56,11 @@ class StatBanner {
 		$b_planet = $Query['name'];
 		$b_xyz    = "[".$Query['galaxy'].":".$Query['system'].":".$Query['planet']."]";
 		$b_lvl    = "".$Query['total_rank']  ."/".$game_config['users_amount']."";
-		$b_build  = "".html_entity_decode($lang['st_buildings']) .": ".pretty_number($Query['build_points'])."";
-		$b_fleet  = "".html_entity_decode($lang['st_fleets']) .": ".pretty_number($Query['fleet_points'])."";
-		$b_def    = "".html_entity_decode($lang['st_defenses']) .": ".pretty_number($Query['defs_points'])."";
-		$b_search = "".html_entity_decode($lang['st_researh']) .": ".pretty_number($Query['tech_points'])."";
-		$b_total  = "".html_entity_decode($lang['st_points']) .": ".pretty_number($Query['total_points'])."";
-
+		$b_build  = "".utf8_decode($lang['st_buildings']) .": ".pretty_number($Query['build_points'])."";
+		$b_fleet  = "".utf8_decode($lang['st_fleets']) .": ".pretty_number($Query['fleet_points'])."";
+		$b_def    = "".utf8_decode($lang['st_defenses']) .": ".pretty_number($Query['defs_points'])."";
+		$b_search = "".utf8_decode($lang['st_researh']) .": ".pretty_number($Query['tech_points'])."";
+		$b_total  = "".utf8_decode($lang['st_points']) .": ".pretty_number($Query['total_points'])."";
 
 		// Colors
 		$color  = "FFFFFF";
@@ -113,11 +112,11 @@ class StatBanner {
 			$b_planet = $Query['name'];
 			$b_xyz    = "[".$Query['galaxy'].":".$Query['system'].":".$Query['planet']."]";
 			$b_lvl    = $Query['total_rank']."/".$MaxUser;
-			$b_build  = html_entity_decode($lang['st_buildings']) .": ".pretty_number($Query['build_points']);
-			$b_fleet  = html_entity_decode($lang['st_fleets']) .": ".pretty_number($Query['fleet_points']);
-			$b_def    = html_entity_decode($lang['st_defenses']) .": ".pretty_number($Query['defs_points']);
-			$b_search = html_entity_decode($lang['st_researh']) .": ".pretty_number($Query['tech_points']);
-			$b_total  = html_entity_decode($lang['st_points']) .": ".pretty_number($Query['total_points']);
+			$b_build  = utf8_decode($lang['st_buildings']) .": ".pretty_number($Query['build_points']);
+			$b_fleet  = utf8_decode($lang['st_fleets']) .": ".pretty_number($Query['fleet_points']);
+			$b_def    = utf8_decode($lang['st_defenses']) .": ".pretty_number($Query['defs_points']);
+			$b_search = utf8_decode($lang['st_researh']) .": ".pretty_number($Query['tech_points']);
+			$b_total  = utf8_decode($lang['st_points']) .": ".pretty_number($Query['total_points']);
 
 
 			// Colors
