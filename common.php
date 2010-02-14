@@ -107,7 +107,7 @@ if (INSTALL != true)
 		$IsUserChecked 	= $Result['state'];
 		$user          	= $Result['record'];
 		
-		if (!$IsUserChecked) die(header('Location: index.php'));
+		if (!$IsUserChecked) die(header('Location: '.$xgp_root.'index.php'));
 		
 		if($game_config['game_disable'] == 0 && $user['authlevel'] == 0)
 		{

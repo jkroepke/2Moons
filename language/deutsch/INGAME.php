@@ -342,7 +342,7 @@ $lang['bd_max_lvl']							= '(Max. Level: %s)';
 $lang['bd_lvl']								= 'Stufe';
 $lang['bd_research']						= 'Forschung';
 $lang['bd_shipyard_required']				= 'Du musst zuerst eine Schiffswerft auf diesem Planeten Bauen!';
-$lang['bd_building_shipyard']				= 'Die Roboterfabrik, Nanitenfabrik oder Raumschiffwerft wird zurzeit ausgebaut!';
+$lang['bd_building_shipyard']				= 'Die Nanitenfabrik oder Raumschiffwerft wird zurzeit ausgebaut!';
 $lang['bd_available']						= 'Vorhanden: ';
 $lang['bd_build_ships']						= 'Absenden';
 $lang['bd_protection_shield_only_one']		= 'Sie könen nur eine Schildkuppel Bauen!';
@@ -360,6 +360,8 @@ $lang['bd_next_level']						= 'Next Level:';
 $lang['bd_need_engine']						= 'Verbraucht <font color="#FF0000">%s</font> %s mehr';
 $lang['bd_more_engine']						= 'Produziert <font color="#00FF00">%s</font> %s mehr';
 $lang['bd_jump_gate_action']				= 'Springen';
+$lang['bd_cancel_warning']					= 'Bei Abbruch werden nur 60% der Ressis wiederhergestellt!';
+$lang['bd_cancel_send']						= 'Markierte - Löschen';
 
 //----------------------------------------------------------------------------//
 //RESOURCES
@@ -472,7 +474,7 @@ $lang['tech'] = array(
 401 => "Raketenwerfer",
 402 => "Leichtes Lasergeschütz",
 403 => "Schweres Lasergeschütz",
-404 => "Gausskanone",
+404 => "Gaußkanone",
 405 => "Ionengeschütz",
 406 => "Plasmawerfer",
 407 => "Kleine Schildkuppel",
@@ -755,8 +757,8 @@ $lang['info'][402]['name']        = "Leichtes Lasergeschütz";
 $lang['info'][402]['description'] = "Um die enormen Fortschritte im Bereich der Raumschifftechnologie kompensieren zu können, mussten die Forscher eine Verteidigungsanlage entwickeln, welche auch mit grösseren und besser ausgerüsteten Schiffen bzw. Flotten zurechtkommt. Dies war die Geburtsstunde des leichten Lasers. Durch den konzentrierten Beschuss eines Ziels mit Photonen konnte eine wesentlich grössere Schadenswirkung erzielt werden als mit gewöhnlichen ballistischen Waffen. Um der grösseren Feuerkraft der neuen Schiffstypen widerstehen zu können wurde er ausserdem mit verbesserten Schilden ausgestattet. Damit die Produktionskosten dennoch gering gehalten werden konnten wurde die Struktur nicht weiter verstärkt. Der leichte Laser besitzt das beste Preis-/Leistungsverhältnis überhaupt und ist dadurch auch für weiter fortgeschrittene Zivilisationen interessant. Verteidigungsanlagen deaktivieren sich, sobald sie zu stark beschädigt sind. Nach einer Schlacht beträgt die Chance bis zu 70%, dass sich die zerstörten Verteidigungsanlagen wieder Instand setzen lassen.";
 $lang['info'][403]['name']        = "Schweres Lasergeschütz";
 $lang['info'][403]['description'] = "Der schwere Laser stellt die konseqünte Weiterentwicklung des Designs des leichten Lasers dar. Die Struktur wurde verstärkt und mit neuen Materialien verbessert. Die Hülle konnte so wesentlich widerstandsfähiger gemacht werden. Gleichzeitig wurden auch das Energiesystem und der Zielcomputer verbessert, so dass ein schwerer Laser wesentlich mehr Energie auf ein Ziel konzentrieren kann. Verteidigungsanlagen deaktivieren sich, sobald sie zu stark beschädigt sind. Nach einer Schlacht beträgt die Chance bis zu 70%, dass sich ausgefallene Verteidigungsanlagen wieder Instand setzen lassen.";
-$lang['info'][404]['name']        = "Gausskanone";
-$lang['info'][404]['description'] = "Projektilwaffen galten lange Zeit neben der moderneren Kernfusions- und Energietechnik, der Entwicklung des Hyperraumantriebs und immer besserer Panzerungen als antiquiert, bis eben genau die Energietechnik, die sie einst verdrängt hatte, ihr wieder zu ihrem angestammten Platz verhalf. Das Prinzip war eigentlich schon aus dem 20. und 21. Jahrhundert der Erde bekannt - der Teilchenbeschleuniger. Eine Gausskanone ist eigentlich nichts anderes als eine erheblich grössere Version dieser Konstruktion. Tonnenschwere Geschosse werden unter gigantischem elektrischem Aufwand magnetisch beschleunigt und haben Mündungsgeschwindigkeiten, die die Schmutzteilchen in der Luft um das Geschoss verbrennen lassen und der Rückstoss bringt die Erde zum beben. Dieser Durchschlagskraft können auch aktülle Panzerungen und Schilde nur schwer widerstehen, und es kommt nicht selten vor, dass das Ziel einfach durchschlagen wird. Verteidigungsanlagen deaktivieren sich, sobald sie zu stark beschädigt sind. Nach einer Schlacht beträgt die Chance bis zu 70%, dass sich ausgefallene Verteidigungsanlagen wieder Instand setzen lassen.";
+$lang['info'][404]['name']        = "Gaußkanone";
+$lang['info'][404]['description'] = "Projektilwaffen galten lange Zeit neben der moderneren Kernfusions- und Energietechnik, der Entwicklung des Hyperraumantriebs und immer besserer Panzerungen als antiquiert, bis eben genau die Energietechnik, die sie einst verdrängt hatte, ihr wieder zu ihrem angestammten Platz verhalf. Das Prinzip war eigentlich schon aus dem 20. und 21. Jahrhundert der Erde bekannt - der Teilchenbeschleuniger. Eine Gaußkanone ist eigentlich nichts anderes als eine erheblich größere Version dieser Konstruktion. Tonnenschwere Geschosse werden unter gigantischem elektrischem Aufwand magnetisch beschleunigt und haben Mündungsgeschwindigkeiten, die die Schmutzteilchen in der Luft um das Geschoss verbrennen lassen und der Rückstoss bringt die Erde zum beben. Dieser Durchschlagskraft können auch aktülle Panzerungen und Schilde nur schwer widerstehen, und es kommt nicht selten vor, dass das Ziel einfach durchschlagen wird. Verteidigungsanlagen deaktivieren sich, sobald sie zu stark beschädigt sind. Nach einer Schlacht beträgt die Chance bis zu 70%, dass sich ausgefallene Verteidigungsanlagen wieder Instand setzen lassen.";
 $lang['info'][405]['name']        = "Ionengeschütz";
 $lang['info'][405]['description'] = "Im 21. Jahrhundert der Erde gab es etwas, das allgemein als EMP bekannt war. EMP steht für Elektromagnetischer Puls, der die Eigenschaft hat, in alle Schaltkreise zusätzliche Spannungen zu induzieren und somit massenhafte Störungen zu verursachen, die alle empfindlichen Geräte zerstören können. Damals waren EMP - Waffen meistens noch auf Raketen- und Bombenbasis, auch in Verbindung mit Nuklearwaffen. Mittlerweile wurde der EMP ständig weiterentwickelt, da man in ihm ein grosses Potential sah, Ziele nicht zu zerstören, aber kampf- und manövrierunfähig zu machen, so dass einer übernahme nichts mehr im Wege stand. Die bisher höchste Form einer EMP - Waffe stellt das Ionengeschütz dar. Es schleudert eine Welle von Ionen (elektrisch geladene Teilchen) auf das Ziel, welche die Schilde destabilisiert und alle Elektronik - sofern diese nicht massiv abgeschirmt ist - beschädigt, was nicht selten einer völligen Zerstörung gleichkommt. Die kinetische Durchschlagskraft kann vernachlässigt werden. Die Ionentechnik wird auch auf Kreuzern eingesetzt, jedoch auf keinem anderen Schiffstyp, da der Energieverbrauch der Ionengeschütze enorm ist und es in einem Gefecht häufig darauf ankommt, das Ziel zu zerstören und nicht nur zu paralysieren. Verteidigungsanlagen deaktivieren sich, sobald sie zu stark beschädigt sind. Nach einer Schlacht beträgt die Chance bis zu 70%, dass sich ausgefallene Verteidigungsanlagen wieder Instand setzen lassen.";
 $lang['info'][406]['name']        = "Plasmawerfer";
