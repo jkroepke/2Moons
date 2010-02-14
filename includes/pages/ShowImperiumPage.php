@@ -63,7 +63,7 @@ function ShowImperiumPage($CurrentUser, $CurrentPlanet)
 			'metal'			=> pretty_number($Planet['metal']),
 			'crystal'		=> pretty_number($Planet['crystal']),
 			'deuterium'		=> pretty_number($Planet['deuterium']),
-			'energy_used'	=> pretty_number($Planet['energy_used']),
+			'energy_used'	=> pretty_number($Planet['energy_max'] + $Planet['energy_used']),
 			'energy_max'	=> pretty_number($Planet['energy_max']),
 		);
 		
