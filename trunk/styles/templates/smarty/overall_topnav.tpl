@@ -68,7 +68,6 @@
 <table width="70%" id="infobox" style="border: 3px solid red; text-align:center;"><tr><td>{$tn_vacation_mode} {$vacation}</td></tr></table>
 {/if}
 </center>
-</div>
 <script type="text/javascript" src="scripts/topnav.js"></script>
 <script type="text/javascript">
 met			= parseInt($("#current_metal").text().replace(/\./g,""));
@@ -84,3 +83,4 @@ res_factor	= {$js_res_multiplier};
 
 update();
 </script>
+</div>
