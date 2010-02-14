@@ -77,3 +77,25 @@ function ajax(datei, id) {
 		$("#"+id).html(data);
 	});
 }
+
+function maxcount(id){
+	var metmax = met / parseInt($('#metal_'+id).text().replace(/\./g,""));
+	var crymax = cry / parseInt($('#crystal_'+id).text().replace(/\./g,""));
+	var deumax = deu / parseInt($('#deuterium_'+id).text().replace(/\./g,""));
+	if(isNaN(metmax) && isNaN(crymax) && isNaN(deumax))
+		return 0;
+	else if(isNaN(metmax) && isNaN(crymax))
+		return Math.floor(deumax);
+	else if(isNaN(metmax) && isNaN(deumax))
+		return Math.floor(crymax);
+	else if(isNaN(crymax) && isNaN(deumax))
+		return Math.floor(metmax);
+	else if(isNaN(metmax))
+		return Math.floor(Math.max(crymax, deumax));
+	else if(isNaN(crymax))
+		return Math.floor(Math.max(metmax, deumax));
+	else if(isNaN(deumax))
+		return Math.floor(Math.max(metmax, crymax));
+	else
+		return Math.floor(Math.max(metmax, Math.max(crymax,  deumax)));
+}

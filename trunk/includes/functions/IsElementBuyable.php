@@ -34,11 +34,11 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 			$level  = ($CurrentPlanet[$resource[$Element]]) ? $CurrentPlanet[$resource[$Element]] : $CurrentUser[$resource[$Element]];
 
 		$RetValue = true;
-		$array    = array('metal', 'crystal', 'deuterium', 'energy_max');
+		$array    = array('metal', 'crystal', 'deuterium', 'energy_max', 'darkmatter');
 
 		foreach ($array as $ResType)
 		{
-			if ($pricelist[$Element][$ResType] != 0)
+			if (!empty($pricelist[$Element][$ResType]))
 			{
 				if ($Incremental)
 					$cost[$ResType]  = floor($pricelist[$Element][$ResType] * pow($pricelist[$Element]['factor'], $level));
@@ -48,7 +48,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 				if ($ForDestroy)
 					$cost[$ResType]  = floor($cost[$ResType] / 2);
 
-				if ($cost[$ResType] > $CurrentPlanet[$ResType])
+				if ((isset($CurrentPlanet[$ResType]) && $cost[$ResType] > $CurrentPlanet[$ResType]) || (isset($CurrentUser[$ResType]) && $cost[$ResType] > $CurrentUser[$ResType]))
 					$RetValue = false;
 			}
 		}

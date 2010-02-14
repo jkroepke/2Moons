@@ -1,5 +1,3 @@
-<br />
-<div id="content">
     <table width="519">
     <tbody>
     <tr>
@@ -39,4 +37,3 @@
     </tr>
     </tbody>
     </table>
-</div>
