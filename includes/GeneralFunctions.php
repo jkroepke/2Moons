@@ -478,7 +478,7 @@ function MailSend($MailTarget, $MailTargetName, $MailSubject, $MailContent)
 	$mail             = new PHPMailer();
 	$mail->IsSMTP();
 	try{
-		$mail->SMTPDebug  = 1;    
+		$mail->SMTPDebug  = 0;    
 		$mail->SMTPAuth   = true;  
 		$mail->IsHTML(true);		
 		$mail->SMTPSecure = $game_config['smtp_ssl'];  						

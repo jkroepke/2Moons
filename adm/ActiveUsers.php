@@ -43,7 +43,7 @@ while ($u = $db->fetch_array($query)) {
 	. "<th><center><b><nobr>" . date("d.m.Y H:i:s",$u['date']) . "</nobr></center></b></th>"
 	. "<th><center><b>" . $u['email'] . "</center></b></th>"
 	. "<th><center><b>" . $u['ip'] . "</center></b></th>"
-	. "<th align=\"center\"><a href=\"javascript:ajax('../index.php?page=reg&mode=valid&pseudo=" . $u['username'] . "&clef=" . $u['cle'] . "&admin=1','".$u['username']."');\">Aktivieren</a></th>"
+	. "<th align=\"center\"><a href=\"javascript:ajax('../index.php?page=reg&mode=valid&id=" . $u['password'] . "&clef=" . $u['cle'] . "&admin=1&getajax=1','".$u['username']."');\">Aktivieren</a></th>"
 	. "<th align=\"center\"><a href='?action=delete&id=".$u['id']."' onclick=\"return confirm('Bist du sicher, dass du den User " . $u['username'] . " entfernen willst?');\"><img border=\"0\" src=\"../styles/images/r1.png\"></a></th>"
 	. "</tr>";
 	$i++;
