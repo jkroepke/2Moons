@@ -90,7 +90,7 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	
 	// UTF-8 Support for Names
 	
-	define('UTF8_SUPPORT'          	  ,	true);	
+	define('UTF8_SUPPORT'          	  ,	false);	
 
 	// OFFICIERS DEFAULT VALUES
 	define('COMMANDANT'				  ,      3);
