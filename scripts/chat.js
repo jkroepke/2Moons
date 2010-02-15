@@ -1,12 +1,9 @@
 // * chat.js
 // *
-// * @version 1.0
-// * @version 1.2 by Ihor
+// * @version 2.0
 // * @copyright 2008 by e-Zobar for XNova
-// * @copyright 2019 by ShadoX for RN Framework
+// * @copyright 2010 by ShadoX for 2Moons
 
-
-//BBCode ins Textfeld einfügen
 
 function addBBcode(bbcode){
 	if( bbcode=='*URL*'){
@@ -35,6 +32,11 @@ function check(){
 
 function showMessage(){
 	$.post("game.php?page=chat&mode=call", $('#chatform').serialize(), function(data){$('#shoutbox').html(data);});
+}
+
+function del(id){
+	$.post("game.php?page=chat&mode=delete&id="+id, $('#chatform').serialize());
+	setTimeout("showMessage()", 500);
 }
 
 function addSmiley(smiley){  

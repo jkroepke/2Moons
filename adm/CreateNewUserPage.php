@@ -59,7 +59,7 @@ if ($_POST)
 		$parse['display']	.=	'<tr><th colspan="2" class="red">'.$lang['new_complete_all'].'</tr></th>';
 		$i++;}
 		
-	if (!is_email(strip_tags($email))){
+	if (!ValidateAddress(strip_tags($email))){
 		$parse['display']	.=	'<tr><th colspan="2" class="red">'.$lang['new_error_email2'].'</tr></th>';
 		$i++;}
 

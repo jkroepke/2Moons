@@ -240,6 +240,7 @@ class template extends Smarty
 			'sql_num'	=> ((!defined('INSTALL') || !defined('IN_ADMIN')) && $this->player['authlevel'] == 3 && $this->GameConfig['debug'] == 1) ? "<center><div id=\"footer\">SQL Abfragen:".(1 + $this->db->get_sql())." - Seiten generiert in ".round(microtime(true) - STARTTIME, 4)." Sekunden</div></center>" : "",
 		));
 		$this->display($file);
+		#echo round(microtime(true) - STARTTIME, 4);
 	}
 	
 	public function gotoside($dest, $time = 3)

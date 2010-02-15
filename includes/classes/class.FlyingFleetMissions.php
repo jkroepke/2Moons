@@ -2344,11 +2344,12 @@ abstract class FlyingFleetMissions {
 						$QryUpdateTarget .= "`planet_type` = '". $FleetRow['fleet_end_type'] ."' ";
 						$QryUpdateTarget .= "LIMIT 1;";
 						$db->query($QryUpdateTarget);
+						var_dump($targetPlanet['diameter'], $attackFleets[$FleetRow['fleet_id']]['detail'][214]);
 						$destructionl2 = (100-sqrt($targetPlanet['diameter']))*sqrt($attackFleets[$FleetRow['fleet_id']]['detail'][214]);
 						// Formel für min. Anzahl an Todessternen. Hat jmd. ne gute Formel? :D
 						// $mints = (pow((1 / (1-sqrt($targetPlanet['diameter']) / 100)),2))*10;
 						// $destructionl2 = max($destructionl1,$mints);
-						if ($destructionl2> 100) {
+						if ($destructionl2 > 100) {
 							$chance = '100';
 						} elseif ($destructionl2 < 0) {
 							$chance = '0';

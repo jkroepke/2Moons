@@ -25,5 +25,6 @@
 </table>
 </form>
 <br>
-{$total_left_time} {$pretty_time_b_hangar}<br>
+{$total_left_time} {$pretty_time_b_hangar}
+<br>
 <br>

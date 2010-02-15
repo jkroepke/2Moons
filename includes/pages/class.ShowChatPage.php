@@ -33,6 +33,14 @@ class ShowChatPage
 		return preg_replace($replace, $with, $msg);
 	}
 	
+	private function DelMeassageFromChat($CurrentUser, $MessageID) {
+		global $db;
+		
+		if($CurrentUser['authlevel'] == 0) exit;
+		
+		$db->query("DELETE FROM ".CHAT." WHERE `messageid` = '".$MessageID."';");
+	}
+	
 	private function SetMeassageInChat($CurrentUser, $chat_type, $msg) {
 		global $db, $lang;
 		$db->query("INSERT INTO ".CHAT." (user, ally_id, message, timestamp) VALUES ('".(($CurrentUser['authlevel'] == 3) ? sprintf($lang['chat_admin'], $CurrentUser['username']) : $CurrentUser['username'])."','".(($chat_type == "ally") ? $CurrentUser['ally_id'] : 0)."','".$msg."', '".time()."');");
@@ -40,52 +48,61 @@ class ShowChatPage
 
 	private function GetMessages($CurrentUser, $chat_type) {
 		global $db;
-		$query 	= $db->query("SELECT * FROM ".CHAT." WHERE ally_id = '".(($chat_type == "ally") ? $CurrentUser['ally_id'] : 0)."' ORDER BY messageid DESC LIMIT ".$this->page_limit.";");
+		$Chat 	= $db->query("SELECT * FROM ".CHAT." WHERE ally_id = '".(($chat_type == "ally") ? $CurrentUser['ally_id'] : 0)."' ORDER BY messageid DESC LIMIT ".$this->page_limit.";");
 		$msg 	= "";
-		while($v = $db->fetch_array($query)){
-			$nick = "<a href='#' onmousedown=\"addSmiley('[ ".(strstr($v["user"],"<font")?substr($v["user"], 24, 6):$v["user"])." ]')\">".$v["user"]."</a>";
-			$msgtimestamp = date("m/d H:i:s", $v["timestamp"]);
-			$mess = $this->BBCodeMSG($v["message"]);
-			$msg .= "<div align=\"left\" style='color:white;'><span style='font:menu;'>[".$msgtimestamp."]</span> <span style='width:50px;font:menu;'><b>".$nick."</b></span> : ".$mess."<br></div>";
+		
+		while($Message = $db->fetch_array($Chat)){
+			$nick = "<a href=\"javascript:addSmiley('->".(strip_tags($Message["user"])).": ')\">".$Message["user"]."</a>";
+			$mess = $this->BBCodeMSG($Message["message"]);
+			$msg .= "<div align=\"left\" style='color:white;'><span style='font:menu;'>".(($CurrentUser['authlevel'] > 0) ? "<a href=\"javascript:del('".$Message['messageid']."')\">[X]</a> " : "")."[".date("m/d H:i:s", $Message["timestamp"])."]</span> <span style='width:50px;font:menu;'><b>".$nick."</b></span> : ".$mess."<br></div>";
 		}
-		print $msg;
+		exit($msg);
 	}
 	
 	public function ShowChatPage($CurrentUser, $CurrentPlanet){
 		global $game_config, $dpath, $lang, $db;
 
-		$mode 	= request_var('mode', '');
-		$msg 	= request_var('msg', '', true);		
-		$ctype	= request_var('chat_type', '');
+		$mode 		= request_var('mode', '');
+		$msg 		= request_var('msg', '', true);		
+		$ctype		= request_var('chat_type', '');
+		$MessageID	= request_var('id', 0);
 		
-		if($mode == "send" && $msg != ''){
-			$this->SetMeassageInChat($CurrentUser, $ctype, $msg);
-		} elseif($mode == "call") {
-			$this->GetMessages($CurrentUser, $ctype);
-		} else {
-			$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
-			$template	= new template();
-			
-			$template->set_vars($CurrentUser, $CurrentPlanet);
-			$template->page_header();
-			$template->page_footer();
-			
-			if (empty($ctype)) {
-				$template->page_topnav();
-				$template->page_leftmenu();
-				$template->page_planetmenu();
-			}
-
+		switch($mode)
+		{
+			case "delete":
+				$this->DelMeassageFromChat($CurrentUser, $MessageID);
+			break;
+			case "send":
+				$this->SetMeassageInChat($CurrentUser, $ctype, $msg);
+			break;
+			case "call":
+				$this->GetMessages($CurrentUser, $ctype);
+			break;
+			default:
+				$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
+				$template	= new template();
 				
-			$template->assign_vars(array(
-				'ctype'			=> $ctype,
-				'chat_send'		=> $lang['chat_send'],
-				'chat_disc'		=> $lang['chat_disc'],
-				'chat_message'	=> $lang['chat_message'],
-			));
-			
-			$template->show("chat_overview.tpl");
-			$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
+				$template->set_vars($CurrentUser, $CurrentPlanet);
+				$template->page_header();
+				$template->page_footer();
+				
+				if (empty($ctype)) {
+					$template->page_topnav();
+					$template->page_leftmenu();
+					$template->page_planetmenu();
+				}
+
+					
+				$template->assign_vars(array(
+					'ctype'			=> $ctype,
+					'chat_send'		=> $lang['chat_send'],
+					'chat_disc'		=> $lang['chat_disc'],
+					'chat_message'	=> $lang['chat_message'],
+				));
+				
+				$template->show("chat_overview.tpl");
+				$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
+			break;
 		}
 	}
 

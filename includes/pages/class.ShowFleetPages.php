@@ -550,7 +550,7 @@ class ShowFleetPages extends FleetFunctions
 		
 		if ($mission == 15)
 		{
-			$StayDuration    = min($holdingtime, 1) * 3600;
+			$StayDuration    = max($holdingtime, 1) * 3600;
 			$StayTime        = $fleet['start_time'] + $StayDuration;
 		}
 		elseif ($mission == 5)

@@ -115,10 +115,6 @@ class ShowInfosPage
 							$QryUpdate .= "`last_jump_time` = '". $JumpTime ."' ";
 							$QryUpdate .= "WHERE ";
 							$QryUpdate .= "`id` = '". $TargetGate['id'] ."';";
-							$QryUpdate .= "UPDATE ".USERS." SET ";
-							$QryUpdate .= "`current_planet` = '". $TargetGate['id'] ."' ";
-							$QryUpdate .= "WHERE ";
-							$QryUpdate .= "`id` = '". $CurrentUser['id'] ."';";
 							$db->multi_query($QryUpdate);
 
 							$CurrentPlanet['last_jump_time'] = $JumpTime;
@@ -145,38 +141,30 @@ class ShowInfosPage
 				$RetMessage = $lang['in_jump_gate_already_used'] . $RestString['string'];
 			}
 		}
-		else
-		{
-			$RetMessage = $lang['in_jump_gate_error_data'];
-		}
 
 		return $RetMessage;
 	}
 
 	private function BuildFleetListRows ($CurrentPlanet)
 	{
-		global $resource, $lang;
+		global $reslist, $resource, $lang;
 
 		$RowsTPL  = gettemplate('infos/info_gate_rows');
 		$CurrIdx  = 1;
 		$Result   = "";
-		for ($Ship = 300; $Ship > 200; $Ship-- )
+		foreach($reslist['fleet'] as $Ship)
 		{
-			if ($resource[$Ship] != "")
+			if ($CurrentPlanet[$resource[$Ship]] > 0)
 			{
-				if ($CurrentPlanet[$resource[$Ship]] > 0)
-				{
-					$bloc['idx']             = $CurrIdx;
-					$bloc['fleet_id']        = $Ship;
-					$bloc['fleet_name']      = $lang['tech'][$Ship];
-					$bloc['fleet_max']       = pretty_number ( $CurrentPlanet[$resource[$Ship]] );
-					$bloc['gate_ship_dispo'] = $lang['in_jump_gate_available'];
-					$Result                 .= parsetemplate ( $RowsTPL, $bloc );
-					$CurrIdx++;
-				}
+				$GateFleetList[]	= array(
+					'id'        => $Ship,
+					'name'      => $lang['tech'][$Ship],
+					'max'       => pretty_number($CurrentPlanet[$resource[$Ship]]),
+				);
 			}
 		}
-		return $Result;
+		
+		return $GateFleetList;
 	}
 
 	private function BuildJumpableMoonCombo ( $CurrentUser, $CurrentPlanet )
@@ -197,74 +185,69 @@ class ShowInfosPage
 		return $Combo;
 	}
 
-	private function ShowProductionTable ($CurrentUser, $CurrentPlanet, $BuildID, $Template)
+	public function ShowInfosPage ($CurrentUser, $CurrentPlanet)
 	{
-		global $ProdGrid, $resource, $game_config;
+		global $dpath, $lang, $resource, $pricelist, $reslist, $CombatCaps, $phpEx, $ProdGrid, $xgp_root, $game_config;
 
-		$BuildLevelFactor = 10;
-		$BuildTemp        = $CurrentPlanet[ 'temp_max' ];
-		$CurrentBuildtLvl = $CurrentPlanet[ $resource[$BuildID] ];
+		$BuildID 	= request_var('gid', 0);
+		
+		$template	= new template();
 
-		$BuildLevel       = ($CurrentBuildtLvl > 0) ? $CurrentBuildtLvl : 1;
-		$Prod[1]          = (floor(eval($ProdGrid[$BuildID]['formule']['metal'])     * $game_config['resource_multiplier']) * (1 + ($CurrentUser['rpg_geologue']  * GEOLOGUE)));
-		$Prod[2]          = (floor(eval($ProdGrid[$BuildID]['formule']['crystal'])   * $game_config['resource_multiplier']) * (1 + ($CurrentUser['rpg_geologue']  * GEOLOGUE)));
-		$Prod[3]          = (floor(eval($ProdGrid[$BuildID]['formule']['deuterium']) * $game_config['resource_multiplier']) * (1 + ($CurrentUser['rpg_geologue']  * GEOLOGUE)));
-
-		if( $BuildID >= 4 )
-			$Prod[4] = (floor(eval($ProdGrid[$BuildID]['formule']['energy'])    * $game_config['resource_multiplier']) * (1 + ($CurrentUser['rpg_ingenieur'] * INGENIEUR)));
-		else
-			$Prod[4] = (floor(eval($ProdGrid[$BuildID]['formule']['energy'])    * $game_config['resource_multiplier']));
-
-		$ActualProd       = floor($Prod[$BuildID]);
-
-		if ($BuildID != 12)
-			$ActualNeed       = floor($Prod[4]);
-		else
-			$ActualNeed       = floor($Prod[3]);
-
-		$BuildStartLvl    = $CurrentBuildtLvl - 2;
-		if ($BuildStartLvl < 1)
-			$BuildStartLvl = 1;
-
-		$Table     = "";
-		$ProdFirst = 0;
-
-		for ( $BuildLevel = $BuildStartLvl; $BuildLevel < $BuildStartLvl + 15; $BuildLevel++ )
+		$template->page_header();
+		$template->page_footer();
+	
+		if(in_array($BuildID, $reslist['prod']) && $BuildID != 212)
 		{
-			if ($BuildID != 42)
-			{
-				$Prod[1] = (floor(eval($ProdGrid[$BuildID]['formule']['metal'])     * $game_config['resource_multiplier']) * (1 + ($CurrentUser['rpg_geologue']  * GEOLOGUE)));
-				$Prod[2] = (floor(eval($ProdGrid[$BuildID]['formule']['crystal'])   * $game_config['resource_multiplier']) * (1 + ($CurrentUser['rpg_geologue']  * GEOLOGUE)));
-				$Prod[3] = (floor(eval($ProdGrid[$BuildID]['formule']['deuterium']) * $game_config['resource_multiplier']) * (1 + ($CurrentUser['rpg_geologue']  * GEOLOGUE)));
+			$BuildLevelFactor	= 10;
+			$BuildTemp       	= $CurrentPlanet['temp_max'];
+			$CurrentBuildtLvl	= $CurrentPlanet[$resource[$BuildID]];
+			$BuildEnergy		= $CurrentUser[$resource[113]];
+			$BuildLevel     	= ($CurrentBuildtLvl > 0) ? $CurrentBuildtLvl : 1;
+			$Prod[1]         	= (floor(eval($ProdGrid[$BuildID]['formule']['metal'])     * $game_config['resource_multiplier']) * (1 + ($CurrentUser['rpg_geologue']  * GEOLOGUE)));
+			$Prod[2]         	= (floor(eval($ProdGrid[$BuildID]['formule']['crystal'])   * $game_config['resource_multiplier']) * (1 + ($CurrentUser['rpg_geologue']  * GEOLOGUE)));
+			$Prod[3]          	= (floor(eval($ProdGrid[$BuildID]['formule']['deuterium']) * $game_config['resource_multiplier']) * (1 + ($CurrentUser['rpg_geologue']  * GEOLOGUE)));
+			$BuildStartLvl   	= max($CurrentBuildtLvl - 2, 1);
 
-				if( $BuildID >= 4 )
+			if( $BuildID >= 4 )
+				$Prod[4] = (floor(eval($ProdGrid[$BuildID]['formule']['energy'])    * $game_config['resource_multiplier']) * (1 + ($CurrentUser['rpg_ingenieur'] * INGENIEUR)));
+			else
+				$Prod[4] = (floor(eval($ProdGrid[$BuildID]['formule']['energy'])    * $game_config['resource_multiplier']));
+
+			$ActualProd       = floor($Prod[$BuildID]);
+
+			if ($BuildID != 12)
+				$ActualNeed       = floor($Prod[4]);
+			else
+				$ActualNeed       = floor($Prod[3]);
+
+			$ProdFirst = 0;
+			
+			for($BuildLevel = $BuildStartLvl; $BuildLevel < $BuildStartLvl + 15; $BuildLevel++ )
+			{
+				$Prod[1] = floor(eval($ProdGrid[$BuildID]['formule']['metal'])     * $game_config['resource_multiplier'] * (1 + ($CurrentUser['rpg_geologue']  * GEOLOGUE)));
+				$Prod[2] = floor(eval($ProdGrid[$BuildID]['formule']['crystal'])   * $game_config['resource_multiplier'] * (1 + ($CurrentUser['rpg_geologue']  * GEOLOGUE)));
+				$Prod[3] = floor(eval($ProdGrid[$BuildID]['formule']['deuterium']) * $game_config['resource_multiplier'] * (1 + ($CurrentUser['rpg_geologue']  * GEOLOGUE)));
+
+				if($BuildID >= 4)
 					$Prod[4] = (floor(eval($ProdGrid[$BuildID]['formule']['energy'])    * $game_config['resource_multiplier']) * (1 + ($CurrentUser['rpg_ingenieur'] * INGENIEUR)));
 				else
 					$Prod[4] = (floor(eval($ProdGrid[$BuildID]['formule']['energy'])    * $game_config['resource_multiplier']));
-
+				
 				$bloc['build_lvl']       = ($CurrentBuildtLvl == $BuildLevel) ? "<font color=\"#ff0000\">".$BuildLevel."</font>" : $BuildLevel;
-
-				if ($ProdFirst > 0)
-					if ($BuildID != 12)
-						$bloc['build_gain']      = "<font color=\"lime\">(". pretty_number(floor($Prod[$BuildID] - $ProdFirst)) .")</font>";
-					else
-						$bloc['build_gain']      = "<font color=\"lime\">(". pretty_number(floor($Prod[4] - $ProdFirst)) .")</font>";
-				else
-					$bloc['build_gain']      = "";
 
 				if ($BuildID != 12)
 				{
-					$bloc['build_prod']      = pretty_number(floor($Prod[$BuildID]));
-					$bloc['build_prod_diff'] = colorNumber( pretty_number(floor($Prod[$BuildID] - $ActualProd)) );
-					$bloc['build_need']      = colorNumber( pretty_number(floor($Prod[4])) );
-					$bloc['build_need_diff'] = colorNumber( pretty_number(floor($Prod[4] - $ActualNeed)) );
+					$prod      = pretty_number(floor($Prod[$BuildID]));
+					$prod_diff = colorNumber( pretty_number(floor($Prod[$BuildID] - $ActualProd)) );
+					$need      = colorNumber( pretty_number(floor($Prod[4])) );
+					$need_diff = colorNumber( pretty_number(floor($Prod[4] - $ActualNeed)) );
 				}
 				else
 				{
-					$bloc['build_prod']      = pretty_number(floor($Prod[4]));
-					$bloc['build_prod_diff'] = colorNumber( pretty_number(floor($Prod[4] - $ActualProd)) );
-					$bloc['build_need']      = colorNumber( pretty_number(floor($Prod[3])) );
-					$bloc['build_need_diff'] = colorNumber( pretty_number(floor($Prod[3] - $ActualNeed)) );
+					$prod      = pretty_number(floor($Prod[4]));
+					$prod_diff = colorNumber( pretty_number(floor($Prod[4] - $ActualProd)) );
+					$need      = colorNumber( pretty_number(floor($Prod[3])) );
+					$need_diff = colorNumber( pretty_number(floor($Prod[3] - $ActualNeed)) );
 				}
 				if ($ProdFirst == 0)
 				{
@@ -272,58 +255,103 @@ class ShowInfosPage
 						$ProdFirst = floor($Prod[$BuildID]);
 					else
 						$ProdFirst = floor($Prod[4]);
-				}
+				}					
+				
+				$ProductionTable[] = array(
+					'BuildLevel'		=> $BuildLevel,
+					'prod'	     		=> $prod,
+					'prod_diff'			=> $prod_diff,
+					'need'				=> $need,
+					'need_diff'			=> $need_diff,
+				);
 			}
-			else
+		}
+		elseif(in_array($BuildID, $reslist['fleet']))
+		{
+			for ($Type = 200; $Type < 500; $Type++)
 			{
-				$bloc['build_lvl']       = ($CurrentBuildtLvl == $BuildLevel) ? "<font color=\"#ff0000\">".$BuildLevel."</font>" : $BuildLevel;
-				$bloc['build_range']     = ($BuildLevel * $BuildLevel) - 1;
+				if ($CombatCaps[$BuildID]['sd'][$Type] > 1)
+					$RapidFire['to'][$lang['tech'][$Type]] = $CombatCaps[$BuildID]['sd'][$Type];
+					
+				if ($CombatCaps[$Type]['sd'][$BuildID] > 1)
+					$RapidFire['from'][$lang['tech'][$Type]] = $CombatCaps[$Type]['sd'][$BuildID];
 			}
-			$Table    .= parsetemplate($Template, $bloc);
+
+			$FleetInfo[$lang['in_struct_pt']]		= pretty_number($pricelist[$BuildID]['metal'] + $pricelist[$BuildID]['crystal']);
+			$FleetInfo[$lang['in_shield_pt']]		= pretty_number($CombatCaps[$BuildID]['shield']);
+			$FleetInfo[$lang['in_attack_pt']]		= pretty_number($CombatCaps[$BuildID]['attack']);
+			$FleetInfo[$lang['in_capacity']]		= pretty_number($pricelist[$BuildID]['capacity']);
+			$FleetInfo[$lang['in_base_speed']][]	= pretty_number($pricelist[$BuildID]['speed']);
+			$FleetInfo[$lang['in_consumption']][]	= pretty_number($pricelist[$BuildID]['consumption']);
+			$FleetInfo[$lang['in_base_speed']][]	= pretty_number($pricelist[$BuildID]['speed2']);
+			$FleetInfo[$lang['in_consumption']][]	= pretty_number($pricelist[$BuildID]['consumption2']);
 		}
-
-		return $Table;
-	}
-
-	private function ShowRapidFireTo ($BuildID)
-	{
-		global $lang, $CombatCaps;
-		$ResultString = "";
-		for ($Type = 200; $Type < 500; $Type++)
+		elseif (in_array($BuildID, $reslist['defense']))
 		{
-			if ($CombatCaps[$BuildID]['sd'][$Type] > 1)
-				$ResultString .= $lang['in_rf_again']. " ". $lang['tech'][$Type] ." <font color=\"#00ff00\">".$CombatCaps[$BuildID]['sd'][$Type]."</font><br>";
+			for ($Type = 200; $Type < 500; $Type++)
+			{
+				if ($CombatCaps[$BuildID]['sd'][$Type] > 1)
+					$RapidFire['to'][$lang['tech'][$Type]] = $CombatCaps[$BuildID]['sd'][$Type];
+					
+				if ($CombatCaps[$Type]['sd'][$BuildID] > 1)
+					$RapidFire['from'][$lang['tech'][$Type]] = $CombatCaps[$Type]['sd'][$BuildID];
+			}
+
+			$FleetInfo[$lang['in_struct_pt']]		= pretty_number($pricelist[$BuildID]['metal'] + $pricelist[$BuildID]['crystal']);
+			$FleetInfo[$lang['in_shield_pt']]		= pretty_number($CombatCaps[$BuildID]['shield']);
+			$FleetInfo[$lang['in_attack_pt']]		= pretty_number($CombatCaps[$BuildID]['attack']);
 		}
-		return $ResultString;
-	}
-
-	private function ShowRapidFireFrom ($BuildID)
-	{
-		global $lang, $CombatCaps;
-
-		$ResultString = "";
-		for ($Type = 200; $Type < 500; $Type++)
+		elseif($BuildID == 43 && $CurrentPlanet[$resource[43]] > 0)
 		{
-			if ($CombatCaps[$Type]['sd'][$BuildID] > 1)
-				$ResultString .= $lang['in_rf_from']. " ". $lang['tech'][$Type] ." <font color=\"#ff0000\">".$CombatCaps[$Type]['sd'][$BuildID]."</font><br>";
+			$GateFleetList['jump']			= $this->DoFleetJump($CurrentUser, $CurrentPlanet);
+			$RestString               		= $this->GetNextJumpWaitTime ( $CurrentPlanet );
+			if ($RestString['value'] != 0)
+			{
+				include_once($xgp_root . 'includes/functions/InsertJavaScriptChronoApplet.' . $phpEx);
+				$template->assign_vars(array(
+					'gate_time_script'	=> InsertJavaScriptChronoApplet("Gate", "1", $RestString['value'], true),
+					'gate_script_go'	=> InsertJavaScriptChronoApplet("Gate", "1", $RestString['value'], false),
+				));
+			}
+			
+			$GateFleetList['start_link']	= BuildPlanetAdressLink($CurrentPlanet);
+			$GateFleetList['moons']			= $this->BuildJumpableMoonCombo($CurrentUser, $CurrentPlanet);
+			$GateFleetList['fleets']		= $this->BuildFleetListRows($CurrentPlanet);
 		}
-		return $ResultString;
-	}
-
-	public function ShowInfosPage ($CurrentUser, $CurrentPlanet)
-	{
-		global $dpath, $lang, $resource, $pricelist, $CombatCaps, $phpEx, $xgp_root;
-
-		$BuildID 			  = request_var('gid', 0);
+		$template->assign_vars(array(		
+			'id'							=> $BuildID,
+			'name'							=> $lang['info'][$BuildID]['name'],
+			'image'							=> $BuildID,
+			'description'					=> $lang['info'][$BuildID]['description'],
+			'ProductionTable'				=> $ProductionTable,
+			'RapidFire'						=> $RapidFire,
+			'Level'							=> $CurrentBuildtLvl,
+			'FleetInfo'						=> $FleetInfo,
+			'GateFleetList'					=> $GateFleetList,
+			'in_jump_gate_jump' 			=> $lang['in_jump_gate_jump'],
+			'gate_ship_dispo' 				=> $lang['in_jump_gate_available'],
+			'in_level'						=> $lang['in_level'],
+			'in_prod_p_hour'				=> $lang['in_prod_p_hour'],
+			'in_difference'					=> $lang['in_difference'],
+			'in_used_energy'				=> $lang['in_used_energy'],
+			'in_prod_energy'				=> $lang['in_prod_energy'],
+			'in_used_deuter'				=> $lang['in_used_deuter'],
+			'in_rf_again'					=> $lang['in_rf_again'],
+			'in_rf_from'					=> $lang['in_rf_from'],
+			'in_jump_gate_select_ships'		=> $lang['in_jump_gate_select_ships'],
+			'in_jump_gate_start_moon'		=> $lang['in_jump_gate_start_moon'],
+			'in_jump_gate_finish_moon'		=> $lang['in_jump_gate_finish_moon'],
+			'in_jump_gate_wait_time'		=> $lang['in_jump_gate_wait_time'],
+		));
+		
+		$template->show('info_overview.tpl');
+		
+		/*
 		$GateTPL              = '';
 		$DestroyTPL           = '';
 		$TableHeadTPL         = '';
 
 		$parse                = $lang;
-		$parse['dpath']       = $dpath;
-		$parse['name']        = $lang['info'][$BuildID]['name'];
-		$parse['image']       = $BuildID;
-		$parse['description'] = $lang['info'][$BuildID]['description'];
 
 		if ($BuildID >=   1 && $BuildID <=   3)
 		{
@@ -483,6 +511,7 @@ class ShowInfosPage
 			}
 		}
 		return display($page, false, '', false, false);
+	*/
 	}
 }
 ?>
