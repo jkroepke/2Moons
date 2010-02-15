@@ -39,7 +39,6 @@ $lang['chose_a_uni']			= 'W&auml;hle ein Universum';
 
 //lostpassword.tpl
 $lang['lost_pass_title']		= 'Passwort wiederherstellen';
-$lang['lost_pass_text'] 		= 'To retrieve your password, enter the email used for registration. You will receive a new password as soon as possible.';
 $lang['retrieve_pass']			= 'Wiederherstellen';
 $lang['email']					= 'E-Mail Adresse';
 

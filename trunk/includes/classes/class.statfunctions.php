@@ -34,7 +34,7 @@ class Statbuilder {
 			} else {  
 				$SQLRow	= $db->fetch_array($db->query("SELECT  `a`.`". $ElementResource ."` AS `maxlvl`, `b`.`username` FROM ".PLANETS." as a, ".USERS." as b WHERE `a`.`". $ElementResource. "` = (SELECT MAX(`". $ElementResource ."`) FROM ".PLANETS." ".(($game_config['stat'] == 1) ? "WHERE `id_level` < '".$game_config['stat_level']."'":"").") AND `a`.`id_owner` = `b`.`id`;"));
 			}
-			$array	.= $ElementID." => array('username' => ".$SQLRow['username'].", 'maxlvl' => ".$SQLRow['maxlvl'].",),\n";
+			$array	.= $ElementID." => array('username' => '".$SQLRow['username']."', 'maxlvl' => ".$SQLRow['maxlvl'].",),\n";
 		}
 		$file	= "<?php \n//The File is created on ".date("d. M y H:i:s", time())."\n$"."RecordsArray = array(\n".$array."\n);\n?>";
 		$fp = fopen($xgp_root."cache/CacheRecords.php", "w+");
@@ -222,7 +222,7 @@ class Statbuilder {
 		$del_before 	= time() - (60 * 60 * 24 * 3); // 3 DAY
 		$del_inactive 	= time() - (60 * 60 * 24 * 30); // 1 MONTH
 		$del_deleted 	= time() - (60 * 60 * 24 * 7); // 1 WEEK
-		$db->multi_query("DELETE FROM `".MESSAGES."` WHERE `message_time` < '". $del_before ."';DELETE FROM `".RW."` WHERE `time` < '". $del_before ."';");
+		$db->multi_query("DELETE FROM `".MESSAGES."` WHERE `message_time` < '". $del_before ."';DELETE FROM `".RW."` WHERE `time` < '". $del_before ."';DELETE FROM `".CHAT."` WHERE `timestamp` < '".$del_before."';");
 		
 		$ChooseToDelete = $db->query("SELECT DISTINCT `id` FROM `".USERS."` WHERE ((`db_deaktjava` < '".$del_deleted."' AND `db_deaktjava` <> 0) OR `onlinetime` < '".$del_inactive."') AND `authlevel` = '0';");
 

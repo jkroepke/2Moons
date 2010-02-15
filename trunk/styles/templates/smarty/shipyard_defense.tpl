@@ -6,7 +6,7 @@
 	{if $BuildList}
     <table width="80%" align="center">
 		<tr>
-			<td>
+			<td style="text-align: center;">
 			{$BuildList}
 			</td>
 		</tr>

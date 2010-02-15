@@ -2,9 +2,9 @@
 User-agent: *
 Disallow: /includes/
 Disallow: /adm/
-Disallow: /*config.php
-Disallow: /*extension.inc.php
-Disallow: /*common.php
+Disallow: /config.php
+Disallow: /extension.inc.php
+Disallow: /common.php
 
 
 User-agent: grub-client

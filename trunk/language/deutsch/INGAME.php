@@ -620,6 +620,7 @@ $lang['in_consumption'] 					= 'Deuteriumverbrauch';
 $lang['in_jump_gate_start_moon']			= 'Ausgangspunkt Mond';
 $lang['in_jump_gate_finish_moon']			= 'Reiseziel Mond';
 $lang['in_jump_gate_select_ships']			= 'Verwenden des Sprungtores: Anzahl der Schiffe';
+$lang['in_jump_gate_wait_time']				= 'Nächst mögliche Nutzung:';
 $lang['in_jump_gate_jump']					= 'Aufladen';
 $lang['in_destroy']     					= 'Abreißen';
 $lang['in_needed']      					= 'Benötigt';
