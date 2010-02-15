@@ -91,11 +91,11 @@ function maxcount(id){
 	else if(isNaN(crymax) && isNaN(deumax))
 		return Math.floor(metmax);
 	else if(isNaN(metmax))
-		return Math.floor(Math.max(crymax, deumax));
+		return Math.floor(Math.min(crymax, deumax));
 	else if(isNaN(crymax))
-		return Math.floor(Math.max(metmax, deumax));
+		return Math.floor(Math.min(metmax, deumax));
 	else if(isNaN(deumax))
-		return Math.floor(Math.max(metmax, crymax));
+		return Math.floor(Math.min(metmax, crymax));
 	else
-		return Math.floor(Math.max(metmax, Math.max(crymax,  deumax)));
+		return Math.floor(Math.min(metmax, Math.min(crymax,  deumax)));
 }
