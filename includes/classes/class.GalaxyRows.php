@@ -232,7 +232,7 @@ class GalaxyRows
 			$Result .= "<table width=240>";
 			$Result .= "<tr>";
 			$Result .= "<td class=c colspan=2>";
-			$Result .= $lang['gl_moon'] . " ".$GalaxyRowMoon["name"]." [".$Galaxy.":".$System.":".$Planet."]";
+			$Result .= $lang['gl_moon'] . " ".htmlspecialchars($GalaxyRowMoon["name"],ENT_QUOTES,"UTF-8")." [".$Galaxy.":".$System.":".$Planet."]";
 			$Result .= "</td>";
 			$Result .= "</tr><tr>";
 			$Result .= "<th width=80>";
@@ -336,7 +336,7 @@ class GalaxyRows
 			$Result .= "<table width=240>";
 			$Result .= "<tr>";
 			$Result .= "<td class=c colspan=2>";
-			$Result .= $lang['gl_planet'] . " " . $GalaxyRowPlanet["name"] ." [".$Galaxy.":".$System.":".$Planet."]";
+			$Result .= $lang['gl_planet'] . " " . htmlspecialchars($GalaxyRowPlanet["name"],ENT_QUOTES,"UTF-8") ." [".$Galaxy.":".$System.":".$Planet."]";
 			$Result .= "</td>";
 			$Result .= "</tr>";
 			$Result .= "<tr>";
@@ -508,7 +508,7 @@ class GalaxyRows
 			$Result .= " onmouseover='return overlib(\"";
 			$Result .= "<table width=190>";
 			$Result .= "<tr>";
-			$Result .= "<td class=c colspan=2>". $lang['gl_player'] .$GalaxyRowUser['username']. $lang['gl_in_the_rank'] .$Systemtatus4."</td>";
+			$Result .= "<td class=c colspan=2>". $lang['gl_player'] .htmlspecialchars($GalaxyRowUser['username'],ENT_QUOTES,"UTF-8"). $lang['gl_in_the_rank'] .$Systemtatus4."</td>";
 			$Result .= "</tr><tr>";
 			if ($GalaxyRowUser['id'] != $user['id'])
 			{
