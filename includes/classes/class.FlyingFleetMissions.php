@@ -1843,7 +1843,7 @@ abstract class FlyingFleetMissions {
 					$a = explode(",", $b);
 					if ($a[0] == "210")
 					{
-						$LS    = (int) $a[1];
+						$LS    			  = $a[1];
 						$SpyToolDebris    = $LS * 300;
 					}
 				}
@@ -1851,22 +1851,6 @@ abstract class FlyingFleetMissions {
 			
 			if($LS < 1)
 				exit;
-
-			$TargetChances = rand(0, max(($LS/4) * ($TargetSpyLvl / $CurrentSpyLvl), 100));
-			$SpyerChances  = rand(0, 100);
-
-			if ($TargetChances >= $SpyerChances)
-				$DestProba = "<font color=\"red\">".$lang['sys_mess_spy_destroyed']."</font>";
-			elseif ($TargetChances < $SpyerChances)
-				$DestProba = sprintf( $lang['sys_mess_spy_lostproba'], $TargetChances);
-
-			$AttackLink  = "<center>";
-			$AttackLink .= "<a href=\"game.php?page=fleet&amp;galaxy=". $FleetRow['fleet_end_galaxy'] ."&amp;system=". $FleetRow['fleet_end_system'] ."";
-			$AttackLink .= "&amp;planet=".$FleetRow['fleet_end_planet']."&amp;planettype=".$FleetRow['fleet_end_type']."";
-			$AttackLink .= "&amp;target_mission=1";
-			$AttackLink .= " \">". $lang['type_mission'][1];
-			$AttackLink .= "</a></center>";
-			$MessageEnd  = "<center>".$DestProba."</center>";
 			
 			$Diffence	 = abs($CurrentSpyLvl - $TargetSpyLvl);
 			$MinAmount 	 = ($CurrentSpyLvl >= $TargetSpyLvl) ? (-(pow($Diffence, 2)) + 2) : pow($Diffence, 2) + 2;
@@ -1882,10 +1866,12 @@ abstract class FlyingFleetMissions {
 			if($SpyFleet){
 				$PlanetFleetInfo  = self::SpyTarget($TargetPlanet, 1, $lang['sys_spy_fleet']);
 				$GetSB     		 .= $PlanetFleetInfo['String'];
+				$Count['Fleet']	  = $PlanetFleetInfo['Count'];
 			}
 			if($SpyDef){
 				$PlanetDefenInfo  = self::SpyTarget($TargetPlanet, 2, $lang['sys_spy_defenses']);
 				$GetSB	    	 .= $PlanetDefenInfo['String'];
+				$Count['Def']	  = $PlanetDefenInfo['Count'];
 			}
 			if($SpyBuild){
 				$PlanetBuildInfo  = self::SpyTarget($TargetPlanet, 3, $lang['tech'][0]);
@@ -1893,8 +1879,24 @@ abstract class FlyingFleetMissions {
 			}
 			if($SpyTechno){
 				$TargetTechnInfo  = self::SpyTarget($TargetUser, 4, $lang['tech'][100]);
-				$GetSB		  	 .= $TargetTechnInfo['String'];	
+				$GetSB		  	 .= $TargetTechnInfo['String'];
 			}
+
+			$TargetChances = (!isset($Count['Fleet']) || ($Count['Fleet'] != 0 && $Count['Def'] != 0)) rand(0, max(($LS/4) * ($TargetSpyLvl / $CurrentSpyLvl), 100)), 0;
+			$SpyerChances  = rand(0, 100);
+			
+			if ($TargetChances >= $SpyerChances)
+				$DestProba = "<font color=\"red\">".$lang['sys_mess_spy_destroyed']."</font>";
+			elseif ($TargetChances < $SpyerChances)
+				$DestProba = sprintf( $lang['sys_mess_spy_lostproba'], $TargetChances);
+
+			$AttackLink  = "<center>";
+			$AttackLink .= "<a href=\"game.php?page=fleet&amp;galaxy=". $FleetRow['fleet_end_galaxy'] ."&amp;system=". $FleetRow['fleet_end_system'] ."";
+			$AttackLink .= "&amp;planet=".$FleetRow['fleet_end_planet']."&amp;planettype=".$FleetRow['fleet_end_type']."";
+			$AttackLink .= "&amp;target_mission=1";
+			$AttackLink .= " \">". $lang['type_mission'][1];
+			$AttackLink .= "</a></center>";
+			$MessageEnd  = "<center>".$DestProba."</center>";
 			
 			$SpyMessage = "<br>".$GetSB."<br>".$AttackLink.$MessageEnd;
 			SendSimpleMessage($CurrentUserID, '', $FleetRow['fleet_start_time'], 0, $lang['sys_mess_qg'], $lang['sys_mess_spy_report'], $SpyMessage);
@@ -1911,7 +1913,7 @@ abstract class FlyingFleetMissions {
 
 			SendSimpleMessage($TargetUserID, '', $FleetRow['fleet_start_time'], 0, $lang['sys_mess_spy_control'], $lang['sys_mess_spy_activity'], $TargetMessage);
 
-			if ($TargetChances>= $SpyerChances)
+			if ($TargetChances >= $SpyerChances)
 			{
 				$QryUpdateGalaxy  = "UPDATE ".PLANETS." SET ";
 				$QryUpdateGalaxy .= "`der_crystal` = `der_crystal` + '". $SpyToolDebris ."' ";
