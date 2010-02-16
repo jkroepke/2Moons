@@ -1882,7 +1882,7 @@ abstract class FlyingFleetMissions {
 				$GetSB		  	 .= $TargetTechnInfo['String'];
 			}
 
-			$TargetChances = (!isset($Count['Fleet']) || ($Count['Fleet'] != 0 && $Count['Def'] != 0)) rand(0, max(($LS/4) * ($TargetSpyLvl / $CurrentSpyLvl), 100)), 0;
+			$TargetChances = (!isset($Count['Fleet']) || ($Count['Fleet'] != 0 && $Count['Def'] != 0)) ? rand(0, max(($LS/4) * ($TargetSpyLvl / $CurrentSpyLvl), 100)) : 0;
 			$SpyerChances  = rand(0, 100);
 			
 			if ($TargetChances >= $SpyerChances)
