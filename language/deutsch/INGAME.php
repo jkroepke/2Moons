@@ -483,6 +483,7 @@ $lang['tech'] = array(
 218 => "Avatar",
 219 => "Gigarecykler",
 220 => "Intergalaktischer D. Materiensammler",
+/*
 221 => "Mercer",
 222 => "Claymore",
 223 => "Pantheon",
@@ -498,7 +499,7 @@ $lang['tech'] = array(
 233 => "Nighthawk",
 234 => "Avenger",
 235 => "Thunderstorm",
-
+*/
 400 => 'Verteidigungsanlagen',
 401 => "Raketenwerfer",
 402 => "Leichtes Lasergeschütz",
