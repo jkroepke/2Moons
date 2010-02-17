@@ -425,11 +425,11 @@ switch ($page) {
 		));
 		
 		$template->display('public/index_news.tpl');
-		break;
+	break;
 	default :
 		if ($_POST) {
-			$luser = request_var ( 'username', '' );
-			$lpass = request_var ( 'password', '' );
+			$luser = request_var('username', '');
+			$lpass = request_var('password', '');
 			$login = $db->fetch_array($db->query("SELECT `id`,`username`,`password`,`banaday` FROM " . USERS . " WHERE `username` = '".$db->sql_escape($luser)."' AND `password` = '".md5($lpass)."';"));
 			
 			if ($login) {
@@ -445,7 +445,7 @@ switch ($page) {
 				
 				$db->query ( "UPDATE `" . USERS . "` SET `current_planet` = `id_planet` WHERE `id` ='" . $login ["id"] . "';" );
 
-				header ( "Location: ./game.php?page=overview" );
+				header("Location: ./game.php?page=overview");
 				exit ();
 			} else {
 				message($lang['login_error'], "./", 2, false, false);
