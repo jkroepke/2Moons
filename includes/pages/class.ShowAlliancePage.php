@@ -550,7 +550,7 @@ class ShowAlliancePage
 						else {$s = 1;}
 
 						if ($i != $ally['ally_members'])
-							$do->query("UPDATE ".ALLIANCE." SET `ally_members`='".$i."' WHERE `id`='".$ally['id']."';");
+							$db->query("UPDATE ".ALLIANCE." SET `ally_members`='".$i."' WHERE `id`='".$ally['id']."';");
 						$parse['i'] = $i;
 						$parse['s'] = $s;
 						$parse['list'] = $page_list;

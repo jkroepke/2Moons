@@ -130,6 +130,12 @@ class ShowResearchPage
 
 		
 		if ($CurrentPlanet[$resource[31]] == 0){
+			$template->set_vars($CurrentUser, $CurrentPlanet);
+			$template->page_header();	
+			$template->page_topnav();
+			$template->page_leftmenu();
+			$template->page_planetmenu();
+			$template->page_footer();
 			$template->message($lang['bd_lab_required']);
 			$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 			exit;
