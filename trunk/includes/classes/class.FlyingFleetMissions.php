@@ -27,7 +27,7 @@ abstract class FlyingFleetMissions {
 		if($CurrentFleet['mess'] == 1 && !CheckPlanetIfExist($CurrentFleet['fleet_end_galaxy'], $CurrentFleet['fleet_end_system'], $CurrentFleet['fleet_end_planet'], $CurrentFleet['fleet_end_type']))
 		{
 			if($CurrentFleet['fleet_end_type'] == 3)
-				$CurrentFleet['fleet_end_type'] = 1;
+				$CurrentFleet['fleet_end_type'] 	= 1;
 			else 
 			{
 				$UserMainPlanet	= $db->fetch_array($db->query("SELECT `galaxy`, `system`, `planet` FROM ".USERS." WHERE `id` = ".$CurrentFleet['fleet_owner'].";"));

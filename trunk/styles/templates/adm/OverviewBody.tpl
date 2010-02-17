@@ -39,7 +39,7 @@ th.lic{border:0px;}</style>
 		        <tr>
 				  <th>
 					<h3>{ow_translator}</h3>
-					Slaver<br>Brandi (ACP)<br><br>
+					Slaver<br>Brandi (ACP)<br>medicpl (polnish)<br>DOBRO™ (russian)
 				  </th>
                 </tr> 
                 <tr>

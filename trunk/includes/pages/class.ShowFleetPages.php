@@ -179,8 +179,13 @@ class ShowFleetPages extends FleetFunctions
 			'maxexpeditions'		=> $EnvoiMaxExpedition,
 			'slots_available'		=> ($MaxFlottes <= $MaxFlyingFleets - $MaxFlyingRaks) ? false : true,
 			'AKSPage'				=> $AKSPage,
+			'bonus_attack'			=> $CurrentUser[$resource[109]] * 10 + $CurrentUser[$resource[602]] * 5,
+			'bonus_defensive'		=> $CurrentUser[$resource[110]] * 10 + $CurrentUser[$resource[602]] * 5,
+			'bonus_shield'			=> $CurrentUser[$resource[111]] * 10 + $CurrentUser[$resource[602]] * 5,
+			'bonus_combustion'		=> $CurrentUser[$resource[115]] * 10,
+			'bonus_impulse'			=> $CurrentUser[$resource[117]] * 20,
+			'bonus_hyperspace'		=> $CurrentUser[$resource[118]] * 30,
 		));
-		
 		$template->show('fleet_table.tpl');
 		$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 	}

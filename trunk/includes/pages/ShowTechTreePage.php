@@ -35,7 +35,7 @@ function ShowTechTreePage($CurrentUser, $CurrentPlanet)
 	$template->page_leftmenu();
 	$template->page_planetmenu();
 	$template->page_footer();
-	
+	$RequeriList = array();
 	foreach($lang['tech'] as $Element => $ElementName)
 	{
 		if (!isset($resource[$Element]))
@@ -52,7 +52,7 @@ function ShowTechTreePage($CurrentUser, $CurrentPlanet)
 			$TechTreeList[]	= array(
 				'id' 	=> $Element,
 				'name'	=> $ElementName,
-				'need'	=> (isset($RequeriList)) ? $RequeriList : false,
+				'need'	=> $RequeriList,
 			);
 		}
 	}
