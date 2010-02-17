@@ -54,7 +54,7 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 			{
 				$newname        = trim(request_var('newname', ''));
 
-				if (CheckName($newname))
+				if (!CheckName($newname))
 				{
 					message((UTF8_SUPPORT) ? $lang['ov_newname_no_space'] : $lang['ov_newname_alphanum'], "game.php?page=overview&mode=renameplanet",2);
 				}
