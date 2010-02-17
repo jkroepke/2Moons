@@ -53,6 +53,21 @@ $lang['tech_rc'] = array (
 218 => "Avatar",
 219 => "Gigarecykler",
 220 => "Inter. DM-Sammler",
+221 => "Mercer",
+222 => "Claymore",
+223 => "Pantheon",
+224 => "Plünderer",
+225 => "Gospador",
+226 => "Snakeir",
+227 => "Raptor",
+228 => "Dreadnought",
+229 => "Hyperion",
+230 => "Solareon",
+231 => "Aurora",
+232 => "Taurus",
+233 => "Nighthawk",
+234 => "Avenger",
+235 => "Thunderstorm",
 
 401 => 'Raketenwerfer',
 402 => 'Leichtes Lasergeschütz',
@@ -65,7 +80,6 @@ $lang['tech_rc'] = array (
 409 => 'Gigantische Schildkuppel',
 410 => "Gravitonenkanone",
 );
-
 //----------------------------------------------------------------------------//
 //TOPNAV
 $lang['tn_vacation_mode']					= 'Sie sind im Urlaubsmodus ';
@@ -469,6 +483,21 @@ $lang['tech'] = array(
 218 => "Avatar",
 219 => "Gigarecykler",
 220 => "Intergalaktischer D. Materiensammler",
+221 => "Mercer",
+222 => "Claymore",
+223 => "Pantheon",
+224 => "Plünderer",
+225 => "Gospador",
+226 => "Snakeir",
+227 => "Raptor",
+228 => "Dreadnought",
+229 => "Hyperion",
+230 => "Solareon",
+231 => "Aurora",
+232 => "Taurus",
+233 => "Nighthawk",
+234 => "Avenger",
+235 => "Thunderstorm",
 
 400 => 'Verteidigungsanlagen',
 401 => "Raketenwerfer",
@@ -559,6 +588,21 @@ $lang['res']['descriptions'] = array(
 218 => "Der Supergau schlechthin, allerdings sehr langsam.",
 219 => "Ist eine Gigantische Weltraumrecykelanlage und Hyperschnell.",
 220 => "Mit diesem Schiff ist es nach jahre langen forschen mölich Dunkle Materie an seinem Mond zu sammeln.",
+221 => "Dieses Schiff wird auf vielen Planeten vorgefunden. Durch verhältnismäßig großen Laderaum werden gerne riesige Mercer- Schwaden eingesetzt",
+222 => "Mit ihrer relativ starken Kampfkraft und hohen Geschwindigkeit ist diese Fregatte gut geeignet um feindliche Kolonien auszuplündern.",
+223 => "Diese äußerst große und auch starke Fregatte sollte in keinem richtigen Gemetzel fehlen. In großen Flottenverbänden kann sie leicht Schlachten entscheiden.",
+224 => "Der Kreuzer der Plünderer-Klasse verfügt über eine hohe Ladekapazität und Geschwindigkeit. Somit ist er sehr gut geeignet um feindliche Kolonien auszurauben.",
+225 => "Dieser Kreuzer verfügt über besonders viel Feuerkraft, jedoch ist seine Geschwindigkeit vergleichsweise niedrig und der Laderaum sehr klein geraten.",
+226 => "Schwere Kreuzer der Snakeir-Klasse sind für ihre Größe sehr schnell und eignen sich daher perfekt für Angriffe auf entfernter gelegene Planeten.",
+227 => "Ganz nach dem der Natur entstammenden Vorbild, dem vor Millionen Jahren ausgestorbenen Urgetier, ist der schwere Kreuzer der Raptor-Klasse kampfstark und in hohem Maße wendig. In großen Verbänden wird dieses Schiff zu einer hochgefährlichen Zerstörungsmaschine.",
+228 => "Durch die Kombination von Raketen mit Plasmageschützen und Ionenkanonen erreichen Dreadnought-Klasse Schlachtkreuzer eine zerstörerische Feuerkraft. Neuartige Legierungen sorgen für eine gute Panzerung.",
+229 => "Schlachtkreuzer der Hyperion-Klasse entstanden durch den Wunsch Wendigkeit und Kampfkraft gleichermaßen zu ermöglichen. Diese Metamorphose ist durch Einsatz modernster Forschung sehr gut gelungen. Das Schiff kann seinen Vorgänger DNG in allen Werten weit hinter sich lassen.",
+230 => "Schlachtschiffe der Solareon-Klasse schiessen mit einer Teilchenflut, die dem Sonnenwind nach Sonneneruptionen ähnelt. Dadurch werden große Schäden angerichtet und die komplette Boardelektronik der getroffenen Schiffe zerstört. Bei nahen Planeten treten nach einer Schlacht häufig Phänomene auf, die wir unter dem Namen \"Nordlichter\" kennen.",
+231 => "Das Schlachtschiff der Aurora-Klasse übertrifft alle bisher dagewesenen Schiffe. Dieses Kampfschiff ist sowohl im Angriff als auch in der Verteidigung allem bisher dagewesenen überlegen. Die Feuerkraft ist dank spezieller neuer Techniken enorm. Es läuft einem eiskalt den Rücken hinunter, wenn man dieses Ungetüm einmal im Einsatz gesehen hat.",
+232 => "Die Korvette der Taurus-Klasse hat eine starke Angriffskraft und ist somit auch viel besser für Offensivangriffe geeignet.",
+233 => "Als man den Bedarf für riesige Transportschiffe erkannte, weil es immer mehr Installationen im tiefen Raum gab, hat InterStellar Shipping beschlossen, ein ultimatives Schiff für den Massentransport zu entwickeln. Die Nighthawk ist die Weiterentwicklung der kleineren Avenger. Ihre riesigen Ausmaße und der gigantische Laderaum sind unübertroffen.",
+234 => "Als man den Bedarf für riesige Transportschiffe erkannte, weil es immer mehr Installationen im tiefen Raum gab, hat InterStellar Shipping beschlossen, ein Schiff für den Massentransport zu entwickeln. Die Avenger ist das erste Schiff in einer Reihe neuer Transportschiffe.",
+235 => "Fast das 3-fache an Angriffspunkten als der Taurus macht den Thunderstorm zu einer wahren Kampfmaschine für ein junges Imperium.",
 
 401 => "Der Raketenwerfer ist eine einfache aber kostengünstige Verteidigungsmöglichkeit.",
 402 => "Durch den konzentrierten Beschuss eines Ziels mit Photonen kann eine wesentlich grössere Schadenswirkung erzielt werden, als mit gewöhnlichen ballistischen Waffen.",
@@ -750,6 +794,38 @@ $lang['info'][219]['name']        = "Gigarecykler";
 $lang['info'][219]['description'] = "Dieses Schiff ist eine wahrhaft gigantische Recykelanlage im Weltraum mit Atemberaubender Geschwindigkeit und riesigem Lageraum! geschaffen für grosse Imperien.";
 $lang['info'][220]['name']        = "Intergalaktischer D. Müllsammler";
 $lang['info'][220]['description'] = "Mit diesem Schiff ist es nach jahre langen forschen mölich Dunkle Materie an seinem Mond zu sammeln.";
+$lang['info'][221]['name']        = "Mercer";
+$lang['info'][221]['description'] = "Dieses Schiff wird auf vielen Planeten vorgefunden. Durch verhältnismäßig großen Laderaum werden gerne riesige Mercer- Schwaden eingesetzt";
+$lang['info'][222]['name']        = "Claymore";
+$lang['info'][222]['description'] = "Mit ihrer relativ starken Kampfkraft und hohen Geschwindigkeit ist diese Fregatte gut geeignet um feindliche Kolonien auszuplündern.";
+$lang['info'][223]['name']        = "Pantheon";
+$lang['info'][223]['description'] = "Diese äußerst große und auch starke Fregatte sollte in keinem richtigen Gemetzel fehlen. In großen Flottenverbänden kann sie leicht Schlachten entscheiden.";
+$lang['info'][224]['name']        = "Plünderer";
+$lang['info'][224]['description'] = "Der Kreuzer der Plünderer-Klasse verfügt über eine hohe Ladekapazität und Geschwindigkeit. Somit ist er sehr gut geeignet um feindliche Kolonien auszurauben.";
+$lang['info'][225]['name']        = "Gospador";
+$lang['info'][225]['description'] = "Dieser Kreuzer verfügt über besonders viel Feuerkraft, jedoch ist seine Geschwindigkeit vergleichsweise niedrig und der Laderaum sehr klein geraten.";
+$lang['info'][226]['name']        = "Snakeir";
+$lang['info'][226]['description'] = "Schwere Kreuzer der Snakeir-Klasse sind für ihre Größe sehr schnell und eignen sich daher perfekt für Angriffe auf entfernter gelegene Planeten.";
+$lang['info'][227]['name']        = "Raptor";
+$lang['info'][227]['description'] = "Ganz nach dem der Natur entstammenden Vorbild, dem vor Millionen Jahren ausgestorbenen Urgetier, ist der schwere Kreuzer der Raptor-Klasse kampfstark und in hohem Maße wendig. In großen Verbänden wird dieses Schiff zu einer hochgefährlichen Zerstörungsmaschine.";
+$lang['info'][228]['name']        = "Dreadnought";
+$lang['info'][228]['description'] = "Durch die Kombination von Raketen mit Plasmageschützen und Ionenkanonen erreichen Dreadnought-Klasse Schlachtkreuzer eine zerstörerische Feuerkraft. Neuartige Legierungen sorgen für eine gute Panzerung.";
+$lang['info'][229]['name']        = "Hyperion";
+$lang['info'][229]['description'] = "Schlachtkreuzer der Hyperion-Klasse entstanden durch den Wunsch Wendigkeit und Kampfkraft gleichermaßen zu ermöglichen. Diese Metamorphose ist durch Einsatz modernster Forschung sehr gut gelungen. Das Schiff kann seinen Vorgänger DNG in allen Werten weit hinter sich lassen.";
+$lang['info'][230]['name']        = "Solareon";
+$lang['info'][230]['description'] = "Schlachtschiffe der Solareon-Klasse schiessen mit einer Teilchenflut, die dem Sonnenwind nach Sonneneruptionen ähnelt. Dadurch werden große Schäden angerichtet und die komplette Boardelektronik der getroffenen Schiffe zerstört. Bei nahen Planeten treten nach einer Schlacht häufig Phänomene auf, die wir unter dem Namen \"Nordlichter\" kennen.";
+$lang['info'][231]['name']        = "Aurora";
+$lang['info'][231]['description'] = "Das Schlachtschiff der Aurora-Klasse übertrifft alle bisher dagewesenen Schiffe. Dieses Kampfschiff ist sowohl im Angriff als auch in der Verteidigung allem bisher dagewesenen überlegen. Die Feuerkraft ist dank spezieller neuer Techniken enorm. Es läuft einem eiskalt den Rücken hinunter, wenn man dieses Ungetüm einmal im Einsatz gesehen hat.";
+$lang['info'][232]['name']        = "Taurus";
+$lang['info'][232]['description'] = "Die Korvette der Taurus-Klasse hat eine starke Angriffskraft und ist somit auch viel besser für Offensivangriffe geeignet.";
+$lang['info'][233]['name']        = "Nighthawk";
+$lang['info'][233]['description'] = "Als man den Bedarf für riesige Transportschiffe erkannte, weil es immer mehr Installationen im tiefen Raum gab, hat InterStellar Shipping beschlossen, ein ultimatives Schiff für den Massentransport zu entwickeln. Die Nighthawk ist die Weiterentwicklung der kleineren Avenger. Ihre riesigen Ausmaße und der gigantische Laderaum sind unübertroffen.";
+$lang['info'][234]['name']        = "Avenger";
+$lang['info'][234]['description'] = "Als man den Bedarf für riesige Transportschiffe erkannte, weil es immer mehr Installationen im tiefen Raum gab, hat InterStellar Shipping beschlossen, ein Schiff für den Massentransport zu entwickeln. Die Avenger ist das erste Schiff in einer Reihe neuer Transportschiffe.";
+$lang['info'][235]['name']        = "Thunderstorm";
+$lang['info'][235]['description'] = "Fast das 3-fache an Angriffspunkten als der Taurus macht den Thunderstorm zu einer wahren Kampfmaschine für ein junges Imperium.";
+
+
 // ----------------------------------------------------------------------------------------------------------
 // Verteidigung
 $lang['info'][401]['name']        = "Raketenwerfer";
