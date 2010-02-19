@@ -39,13 +39,13 @@ th.lic{border:0px;}</style>
 		        <tr>
 				  <th>
 					<h3>{ow_translator}</h3>
-					Slaver<br>Brandi (ACP)<br>medicpl (polnish)<br>DOBRO™ (russian)
+					Slaver<br>Brandi (ACP)<br>medicpl (polnish)<br>DOBRO (russian)
 				  </th>
                 </tr> 
                 <tr>
                   <th>
 					<h3>{ow_special_thanks}</h3>
-					Inforcer<br>Mori<br>Metusalem<br>Meikel<br>Phil<br>Schnippi<br>Vobi<br>Onko<br>Sycrog<br>Allen Spielern im <a href="http://www.titanspace.de" alt="Betauni">Betauni</a><br>
+					Metusalem<br>Meikel<br>Phil<br>Schnippi<br>Vobi<br>Onko<br>Sycrog<br>Allen Spielern im <a href="http://www.titanspace.de" alt="Betauni" target="betauni">Betauni</a><br>
 				  </th>
                 </tr>				
             </table>
