@@ -1,9 +1,7 @@
 <form action="game.php?page=messages" method="post"><input name="messages" value="1" type="hidden"><table width="100%" style="margin:0px;padding:0px;"><tr><td class="c" colspan="4">{$mg_message_title}</td></tr><tr style="height: 20px;"><th>{$mg_action}</th><th>{$mg_date}</th><th>{if $MessCategory != 999}{$mg_from}{else}{$mg_to}{/if}</th><th>{$mg_subject}</th></tr>
 {foreach key=MessID item=MessInfo from=$MessageList}
 <tr style="height: 20px;">
-<th style="width:40px;" rowspan="2">{if $MessCategory != 999}
-<input name="showmes{$MessID}" type="hidden" value="1">
-<input name="delmes{$MessID}" type="checkbox">{/if}</th>
+<th style="width:40px;" rowspan="2">{if $MessCategory != 999}<input name="delmes[{$MessID}]" type="checkbox">{/if}</th>
 <th>{$MessInfo.time}</th>
 <th>{$MessInfo.from}</th>
 <th>{$MessInfo.subject}

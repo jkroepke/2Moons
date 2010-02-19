@@ -86,8 +86,7 @@ class template extends Smarty
 	
 	public function page_leftmenu()
 	{
-		$Playerrank 			= $this->db->fetch_array($this->db->query("SELECT `total_rank` FROM ".STATPOINTS." WHERE `stat_code` = '1' AND `stat_type` = '1' AND `id_owner` = '". $this->player['id'] ."';"));
-		$this->player['total_rank'] = $Playerrank['total_rank'];
+		$this->player['rank']	= $this->db->fetch_array($this->db->query("SELECT `total_rank`,`total_points` FROM ".STATPOINTS." WHERE `stat_code` = '1' AND `stat_type` = '1' AND `id_owner` = '". $this->player['id'] ."';"));
 		$forum_url				= $this->GameConfig['forum_url'];
 		$Menu					= array(
 			"gfx/ogame-produktion.jpg" => array(
@@ -107,7 +106,7 @@ class template extends Smarty
 				'?page=alliance'	=> $this->lang['lm_alliance'],
 				$forum_url			=> $this->lang['lm_forums'],
 				'?page=officier'	=> $this->lang['lm_officiers'],
-				'?page=statistics&amp;range='.$this->player['total_rank'] => $this->lang['lm_statistics'],
+				'?page=statistics&amp;range='.$this->player['rank']['total_rank'] => $this->lang['lm_statistics'],
 				'?page=records'		=> $this->lang['lm_records'],
 				'?page=topkb'		=> $this->lang['lm_topkb'],
 				'?page=search'		=> $this->lang['lm_search'],
@@ -128,7 +127,6 @@ class template extends Smarty
 		$this->assign_vars(array(	
 			'authlevel' 		=> $this->player['authlevel'],
 			'new_message' 		=> $this->player['new_message'],
-			'user_rank'			=> $rank['total_rank'],
 			'forum_url'			=> $this->GameConfig['forum_url'],
 			'servername'		=> $this->GameConfig['game_name'],
 			'menu'				=> $Menu,

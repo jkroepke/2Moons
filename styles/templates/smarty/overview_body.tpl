@@ -37,14 +37,14 @@
 		</tr>
 		{/foreach}
         <tr>
-        	<th>{if $Moon}<a href="game.php?page=overview&amp;cp={$Moon.id}&amp;re=0" title="{$Moon.name}"><img src="{$dpath}planeten/mond.jpg" height="50" width="50"></a><br>{$Moon.id} ({$fcm_moon}){else}&nbsp;{/if}</th>
+        	<th>{if $Moon}<a href="game.php?page=overview&amp;cp={$Moon.id}&amp;re=0" title="{$Moon.name}"><img src="{$dpath}planeten/mond.jpg" height="50" width="50" alt="{$Moon.name} ({$fcm_moon})"></a><br>{$Moon.name} ({$fcm_moon}){else}&nbsp;{/if}</th>
         	<th colspan="2"><img src="{$dpath}planeten/{$planetimage}.jpg" height="200" width="200" alt="{$planetname}"><br>{$build}</th>
         	<th class="s">
             {if $AllPlanets}
 			<table class="s" border="0">
 			{foreach name=PlanetList item=PlanetRow from=$AllPlanets}
 			{if $smarty.foreach.PlanetList.iteration is odd}<tr style="height:20px;">{/if}			
-			<th>{$PlanetRow.name}<br><a href="game.php?page=overview&amp;cp=5&amp;re=0" title="{$PlanetRow.name}"><img src="styles/skins/darkness/planeten/small/s_{$PlanetRow.image}.jpg" height="50" width="50" alt="{$PlanetRow.name}"></a><br><center>{$PlanetRow.build}</center></th>
+			<th>{$PlanetRow.name}<br><a href="game.php?page=overview&amp;cp={$PlanetRow.id}&amp;re=0" title="{$PlanetRow.name}"><img src="styles/skins/darkness/planeten/small/s_{$PlanetRow.image}.jpg" height="50" width="50" alt="{$PlanetRow.name}"></a><br><center>{$PlanetRow.build}</center></th>
 			{if $smarty.foreach.PlanetList.last && $smarty.foreach.PlanetList.total is odd}<th>&nbsp;</th>{/if}
 			{if $smarty.foreach.PlanetList.iteration is even}</tr>{/if}
 			{/foreach}

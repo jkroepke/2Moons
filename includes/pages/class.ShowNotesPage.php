@@ -38,17 +38,17 @@ class ShowNotesPage
 	private function DeleteNotes($CurrentUserID)
 	{
 		global $db;
-		$sql = "";
-		foreach($_POST as $a => $b)
+		if(isset($_POST['delmes']) && is_array($_POST['delmes']))
 		{
-			if(preg_match("/delmes/i",$a) && $b == "y")
+			$SQLWhere = array();
+			foreach($_POST['delmes'] as $id => $b)
 			{
-				$id = str_replace("delmes","",$a);
-				$sql .= "DELETE FROM ".NOTES." WHERE `id` = '".$id."' AND owner = '".$CurrentUserID."';";
+				$SQLWhere[] = "`id` = '".$id."'";
 			}
+			
+			$db->query("DELETE FROM ".NOTES." WHERE (".implode(" OR ",$SQLWhere).") AND owner = '".$CurrentUserID."';");
 		}
-		$db->multi_query($sql);
-		header("Location:game.php?page=notes");
+		$this->ShowIndexPage($CurrentUserID);
 	}
 	
 	private function CreateNotes()

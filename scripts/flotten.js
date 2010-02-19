@@ -121,7 +121,7 @@ function consumption() {
 	dur = duration();
 	speedfactor = document.getElementsByName("speedfactor")[0].value;
 
-	for (i = 200; i < 221; i++) {
+	for (i = 200; i < 250; i++) {
 		if (document.getElementsByName("ship" + i)[0]) {
 			shipspeed = document.getElementsByName("speed" + i)[0].value;
 			spd = 35000 / (dur * speedfactor - 10) * Math.sqrt(dist * 10 / shipspeed);
@@ -274,7 +274,7 @@ function maxShip(id) {
 
 function maxShips() {
 	var id;
-	for (i = 200; i < 221; i++) {
+	for (i = 200; i < 250; i++) {
 		id = "ship"+i;
 		maxShip(id);
 	}
@@ -290,7 +290,7 @@ function noShip(id) {
 
 function noShips (){
 	var id;
-	for (i = 200; i < 221; i++) {
+	for (i = 200; i < 250; i++) {
 		id = "ship"+i;
 		noShip(id);
 	}
