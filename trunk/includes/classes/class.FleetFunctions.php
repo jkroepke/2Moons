@@ -88,7 +88,8 @@ abstract class FleetFunctions
 	private static function GetShipSpeed($Ship, $Player)
 	{
 		global $pricelist;
-		switch($Ship){
+		switch($Ship)
+		{
 			case 202:
 				return $pricelist[$Ship]['speed'] * (($Player['impulse_motor_tech'] >= 5) ? (1 + (0.2 * $Player['impulse_motor_tech'])) : (1 + (0.1 * $Player['combustion_tech'])));
 			break;
@@ -115,6 +116,7 @@ abstract class FleetFunctions
 			case 218:
 			case 219:
 			case 220:
+			default:
 				return $pricelist[$Ship]['speed'] * (1 + (0.3 * $Player['hyperspace_motor_tech']));
 			break;
 		}
