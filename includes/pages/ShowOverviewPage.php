@@ -190,7 +190,7 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 
 					if ($StartTime > time()) {
 						$Label = "ofs";
-						$fpage[$StartTime.$id] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 0, false, $Label, $Record1);
+						$fpage[$StartTime.$id] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 0, false, $Label, $Record1, true);
 					}
 				}
 
@@ -203,7 +203,7 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 					}
 					if ($StartTime > time()) {
 						$Label = "ofs";
-						$fpage[$StartTime.$id] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 0, false, $Label, $Record);
+						$fpage[$StartTime.$id] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 0, false, $Label, $Record, true);
 					}
 
 				}
