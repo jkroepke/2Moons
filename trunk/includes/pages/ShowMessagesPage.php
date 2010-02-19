@@ -76,38 +76,37 @@ function ShowMessagesPage($CurrentUser, $CurrentPlanet)
 		case 'delete':
 			$DeleteWhat = request_var('deletemessages','');
 			$MessType	= request_var('mess_type', 0);
-			if($DeleteWhat == 'deleteall')
-				$db->query("DELETE FROM ".MESSAGES." WHERE `message_owner` = '". $CurrentUser['id'] ."';");
-			elseif($DeleteWhat == 'deletetypeall')
-				$db->query("DELETE FROM ".MESSAGES." WHERE `message_owner` = '". $CurrentUser['id'] ."' AND `message_type` = '".$MessType."';");
-			elseif ($DeleteWhat == 'deletemarked')
+			switch($DeleteWhat)
 			{
-				$sql	= "";
-				foreach($_POST as $Message => $Answer)
-				{
-					if (preg_match("/delmes/i", $Message) && $Answer == 'on')
+				case 'deleteall':
+					$db->query("DELETE FROM ".MESSAGES." WHERE `message_owner` = '". $CurrentUser['id'] ."';");
+				break;
+				case 'deletetypeall':
+					$db->query("DELETE FROM ".MESSAGES." WHERE `message_owner` = '". $CurrentUser['id'] ."' AND `message_type` = '".$MessType."';");
+				case 'deletemarked':
+					if(!empty($_POST['delmes']) && is_array($_POST['delmes']))
 					{
-						$sql	.= "DELETE FROM ".MESSAGES." WHERE `message_id` = '".str_replace("delmes", "", $Message)."' AND `message_owner` = '". $CurrentUser['id'] ."';";
+						$SQLWhere = array();
+						foreach($_POST['delmes'] as $id => $b)
+						{
+							$SQLWhere[] = "`message_id` = '".$id."'";
+						}
+						
+						$db->query("DELETE FROM ".MESSAGES." WHERE (".implode(" OR ",$SQLWhere).") AND `message_owner` = '". $CurrentUser['id'] ."';");
 					}
-				}
-				$db->multi_query($sql);
-			}
-			elseif ($DeleteWhat == 'deleteunmarked')
-			{
-				foreach($_POST as $Message => $Answer)
-				{
-					$CurMess    = preg_match("/showmes/i", $Message);
-					$MessId     = str_replace("showmes", "", $Message);
-					$Selected   = "delmes".$MessId;
-					$IsSelected = $_POST[ $Selected ];
-					if (preg_match("/showmes/i", $Message) && !isset($IsSelected))
+				break;
+				case 'deleteunmarked':
+					if(!empty($_POST['delmes']) && is_array($_POST['delmes']))
 					{
-						$MessHere = $db->query("SELECT message_type FROM ".MESSAGES." WHERE `message_id` = '". $MessId ."' AND `message_owner` = '". $CurrentUser['id'] ."';");
-						if ($MessHere)
-							$db->query("DELETE FROM ".MESSAGES." WHERE `message_id` = '".$MessId."';");
-
+						$SQLWhere = array();
+						foreach($_POST['delmes'] as $id => $b)
+						{
+							$SQLWhere[] = "`message_id` != '".$id."'";
+						}
+						
+						$db->query("DELETE FROM ".MESSAGES." WHERE (".implode(" AND ",$SQLWhere).") AND `message_owner` = '". $CurrentUser['id'] ."';");
 					}
-				}
+				break;
 			}
 			header("Location:game.php?page=messages");
 		break;

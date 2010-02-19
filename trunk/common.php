@@ -86,7 +86,7 @@ if (INSTALL != true)
 		}
 		closedir($handle);
 	}
-	$cfgresult = $db->query("SELECT HIGH_PRIORITY * FROM `".CONFIG."`;");
+	$cfgresult = $db->query("SELECT HIGH_PRIORITY SQL_CACHE * FROM `".CONFIG."`;");
 
 	while ($row = $db->fetch($cfgresult))
 	{

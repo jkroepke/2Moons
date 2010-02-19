@@ -276,10 +276,9 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 	
 			if ($CurrentPlanet['id_luna'] != 0)
 			{
-				$lunarow = $db->fetch_array($db->query("SELECT * FROM ".PLANETS." WHERE `id` = '".$CurrentPlanet['id_luna']."';"));
+				$lunarow = $db->fetch_array($db->query("SELECT `id`, `name` FROM ".PLANETS." WHERE `id` = '".$CurrentPlanet['id_luna']."';"));
 				if ($lunarow['destruyed'] == 0 && $CurrentPlanet['planet_type'] == 1)
 				{
-					CheckPlanetUsedFields($lunarow);
 					$Moon = array(
 						'id'	=> $lunarow['id'],
 						'name'	=> $lunarow['name'],
@@ -287,11 +286,11 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 				}
 			}	
 
-			$StatRecord = $db->fetch_array($db->query("SELECT `total_rank`,`total_points` FROM `".STATPOINTS."` WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '" . $CurrentUser['id'] . "';"));
+			$StatRecord = $template->player['rank'];
 
 			if ($CurrentPlanet['b_building'] != 0)
 			{
-				include($xgp_root . 'includes/functions/InsertBuildListScript.' . $phpEx);
+				include_once($xgp_root . 'includes/functions/InsertBuildListScript.' . $phpEx);
 
 				UpdatePlanetBatimentQueueList ($planetrow, $user);
 

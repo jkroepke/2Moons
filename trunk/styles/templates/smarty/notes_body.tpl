@@ -15,7 +15,7 @@
     </tr>
 	{foreach item=NoteInfo name=NoteList from=$NoteList}
 	<tr>
-		<th width="20"><input name="delmes{$NoteInfo.id}" type="checkbox"></th>
+		<th width="20"><input name="delmes[{$NoteInfo.id}]" type="checkbox"></th>
 		<th width="150">{$NoteInfo.time}</th>
 		<th><a href="game.php?page=notes&amp;action=show&amp;id={$NoteInfo.id}">
 		{if {$NoteInfo.priority} == 0}
