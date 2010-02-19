@@ -117,7 +117,7 @@ class FlyingFleetsTable
 		$PlayerName  = $db->fetch_array($db->query("SELECT `username` FROM ".USERS." WHERE `id` = '". $FleetRow['fleet_owner']."';"));
 		$Link  		 = $PlayerName['username']. " ";
 		$Link 		.= "<a href=\"javascript:f('game.php?page=messages&amp;mode=write&amp;id=".$FleetRow['fleet_owner']."','');\">";
-		$Link 		.= "<img src=\"".$dpath."/img/m.gif\" title=\"".$lang['write_message']."\" border=\"0\"></a>";
+		$Link 		.= "<img src=\"".$dpath."img/m.gif\" title=\"".$lang['write_message']."\" border=\"0\" alt=\"\"></a>";
 
 		return $Link;
 	}
