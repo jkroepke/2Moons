@@ -324,7 +324,8 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 				if($game_config['ts_version'] == 2){
 					include_once($xgp_root . "includes/libs/teamspeak/class.teamspeak2.".$phpEx);
 					$ts = new cyts();
-					if($ts->connect($game_config['ts_server'], $game_config['ts_tcpport'], $game_config['ts_udpport'], $game_config['ts_timeout'])){
+					if($ts->connect($game_config['ts_server'], $game_config['ts_tcpport'], $game_config['ts_udpport'], $game_config['ts_timeout']))
+					{
 						$tsdata 	= $ts->info_serverInfo();
 						$tsdata2 	= $ts->info_globalInfo();
 						$ts->disconnect();
@@ -341,7 +342,8 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 					require_once($xgp_root . "includes/libs/teamspeak/class.teamspeak3.".$phpEx);
 
 					$tsAdmin = new ts3admin($ip, $t_port);
-					if($tsAdmin->connect()){
+					if($tsAdmin->connect())
+					{
 						$tsAdmin->selectServer($sid);
 						$sinfo	= $tsAdmin->serverInfo();
 						$tsAdmin->logout();
