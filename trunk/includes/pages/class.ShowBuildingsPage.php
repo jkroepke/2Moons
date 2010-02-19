@@ -255,7 +255,7 @@ class ShowBuildingsPage
 				}
 				else
 				{
-					$BuildLevel   = $ActualLevel;
+					$BuildLevel   = $ActualLevel - 1;
 					$BuildTime    = max(GetBuildingTime($CurrentUser, $CurrentPlanet, $Element) / 2, $game_config['min_build_time']);
 				}
 			}
