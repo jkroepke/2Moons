@@ -240,7 +240,7 @@ class ShowBuildingsPage
 				{
 					$BuildLevel   = $ActualLevel - 1 - $InArray;
 					$CurrentPlanet[$resource[$Element]] -= $InArray;
-					$BuildTime    = max(GetBuildingTime($CurrentUser, $CurrentPlanet, $Element) / 2, $game_config['min_build_time']);
+					$BuildTime    = GetBuildingTime($CurrentUser, $CurrentPlanet, $Element, true);
 					$CurrentPlanet[$resource[$Element]] += $InArray;
 				}
 			}
@@ -255,7 +255,7 @@ class ShowBuildingsPage
 				else
 				{
 					$BuildLevel   = $ActualLevel - 1;
-					$BuildTime    = max(GetBuildingTime($CurrentUser, $CurrentPlanet, $Element) / 2, $game_config['min_build_time']);
+					$BuildTime    = GetBuildingTime($CurrentUser, $CurrentPlanet, $Element, true);
 				}
 			}
 
@@ -440,7 +440,7 @@ class ShowBuildingsPage
 					'descriptions'	=> $lang['res']['descriptions'][$Element],
 					'level'			=> $CurrentPlanet[$resource[$Element]],
 					'destroyress'	=> array_map('pretty_number', GetBuildingPrice ($CurrentUser, $CurrentPlanet, $Element, true, true)),
-					'destroytime'	=> pretty_time(max(GetBuildingTime($CurrentUser, $CurrentPlanet, $Element) / 2, $game_config['min_build_time'])),
+					'destroytime'	=> pretty_time(GetBuildingTime($CurrentUser, $CurrentPlanet, $Element, true)),
 					'price'			=> GetElementPrice($CurrentUser, $CurrentPlanet, $Element, true),
 					'time'        	=> pretty_time(GetBuildingTime($CurrentUser, $CurrentPlanet, $Element)),
 					'EnergyNeed'	=> (isset($EnergyNeed)) ? sprintf(($EnergyNeed < 0) ? $lang['bd_need_engine'] : $lang['bd_more_engine'] , pretty_number(abs($EnergyNeed)), $lang['Energy']) : "",

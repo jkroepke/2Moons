@@ -21,7 +21,7 @@
 
 if(!defined('INSIDE')){ die(header("location:../../"));}
 
-	function GetBuildingTime ($user, $planet, $Element)
+	function GetBuildingTime ($user, $planet, $Element, $Destroy = false)
 	{
 		global $pricelist, $resource, $reslist, $game_config, $requeriments;
 
@@ -68,7 +68,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 			$time         = floor(($time * 60 * 60) * (1 - ((($user[$resource[613]]) * GENERAL) + (($user[$resource[604]]) * TECHNOCRATE))));
 		}
 		
-		return max($time, $game_config['min_build_time']);
+		return max((($Destroy)?($time / 2):($time)), $game_config['min_build_time']);
 	}
 
 ?>
