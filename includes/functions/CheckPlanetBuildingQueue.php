@@ -89,7 +89,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 						$CurrentPlanet[$resource[$Element]]--;
 					}
 				}
-				if (count ( $QueueArray ) == 0)
+				if (count( $QueueArray ) == 0)
 					$NewQueue = 0;
 				else
 					$NewQueue = implode (";", $QueueArray );
