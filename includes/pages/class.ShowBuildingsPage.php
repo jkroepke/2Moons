@@ -171,8 +171,8 @@ class ShowBuildingsPage
 	{
 		global $resource;
 
-		$CurrentQueue  = $CurrentPlanet['b_building_id'];
-
+		$CurrentQueue  		= $CurrentPlanet['b_building_id'];
+		$CurrentLevel		= $CurrentPlanet[$resource[$Element]];
 		$Queue 				= $this->ShowBuildingQueue($CurrentPlanet, $CurrentUser);
 		$CurrentMaxFields  	= CalculateMaxPlanetFields($CurrentPlanet);
 
@@ -270,9 +270,10 @@ class ShowBuildingsPage
 				$BuildEndTime = $PrevBuild[3] + $BuildTime;
 			}
 
-			$QueueArray[$ActualCount]       = $Element .",". $BuildLevel .",". $BuildTime .",". $BuildEndTime .",". $BuildMode;
-			$NewQueue                       = implode ( ";", $QueueArray );
-			$CurrentPlanet['b_building_id'] = $NewQueue;
+			$QueueArray[$ActualCount]      		= $Element .",". $BuildLevel .",". $BuildTime .",". $BuildEndTime .",". $BuildMode;
+			$NewQueue                      		= implode ( ";", $QueueArray );
+			$CurrentPlanet[$resource[$Element]]	= $CurrentLevel;
+			$CurrentPlanet['b_building_id'] 	= $NewQueue;
 		}
 		return $QueueID;
 	}
