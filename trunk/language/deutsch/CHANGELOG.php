@@ -17,6 +17,7 @@ $lang['changelog']   = array(
 - FIX: AKS-Hack
 - FIX: Deuteriumberechung Planetentemperaturabhb&auml;nig
 - FIX: Fusionkrafwerk: Bonus durch Energietechnik 
+- FIX: Zeilenumbruch in Globalen Nachrichten fixed
 - DIV: Update Smarty to 3.0b7
 - DIV: UserStats Mod an AKS angepasst.
 - DIV: Rechtschreibfehler korrigiert

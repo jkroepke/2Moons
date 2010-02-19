@@ -57,7 +57,7 @@ if ($ToolsCanUse != 1) die();
 			$Time    	= time();
 			$From    	= "<font color=\"". $kolor ."\">". $ranga ." ".$user['username']."</font>";
 			$Subject 	= "<font color=\"". $kolor ."\">".$_POST['temat']."</font>";
-			$Message 	= "<font color=\"". $kolor ."\"><b>".$_POST['tresc']."</b></font>";
+			$Message 	= "<font color=\"". $kolor ."\"><b>".makebr($_POST['tresc'])."</b></font>";
 			$summery	= 0;
 
 			while ($u = $db->fetch_array($sq))
