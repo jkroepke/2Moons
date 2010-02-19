@@ -168,7 +168,7 @@ abstract class FlyingFleetMissions {
 	private static function calculateSoloSteal($attackFleets, $FleetRow, $defenderPlanet)
 	{
 		//Beute-Math by WOT-Game based on http://www.owiki.de/Beute
-		global $pricelist;
+		global $pricelist, $db;
 		$capacity = 0;
 
 		foreach ($attackFleets[$FleetRow['fleet_id']]['detail'] as $Element => $amount)	{
@@ -1284,7 +1284,7 @@ abstract class FlyingFleetMissions {
 			if ($result['won'] == "a")
 			{	
 				if ($FleetRow['fleet_group'] != 0)
-					$steal = self::calculateSoloSteal($attackFleets, $FleetRow, $targetPlanet);
+					$steal = self::calculateAKSSteal($attackFleets, $FleetRow, $targetPlanet);
 				else
 					$steal = self::calculateSoloSteal($attackFleets, $FleetRow, $targetPlanet);
 
