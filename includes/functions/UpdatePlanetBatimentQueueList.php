@@ -30,10 +30,10 @@ function UpdatePlanetBatimentQueueList ( &$CurrentPlanet, &$CurrentUser ) {
 		{
 			if ( $CurrentPlanet['b_building'] <= time() )
 			{
-				PlanetResourceUpdate ( $CurrentUser, $CurrentPlanet, $CurrentPlanet['b_building'], false );
-				$IsDone = CheckPlanetBuildingQueue($CurrentPlanet, $CurrentUser );
-				if ( $IsDone == true )
-					SetNextQueueElementOnTop ( $CurrentPlanet, $CurrentUser );
+				PlanetResourceUpdate($CurrentUser, $CurrentPlanet, $CurrentPlanet['b_building'], false);
+				$IsDone = CheckPlanetBuildingQueue($CurrentPlanet, $CurrentUser);
+				if ($IsDone == true)
+					SetNextQueueElementOnTop($CurrentPlanet, $CurrentUser );
 			}
 			else
 			{
