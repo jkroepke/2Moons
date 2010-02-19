@@ -120,6 +120,7 @@ $lang['lm_faq']								= 'FAQ';
 $lang['lm_records']							= 'Rekorde';
 $lang['lm_chat']							= 'Chat';
 $lang['lm_support']							= 'Support';
+$lang['lm_rules']							= 'Regeln';
 
 //----------------------------------------------------------------------------//
 //OVERVIEW
