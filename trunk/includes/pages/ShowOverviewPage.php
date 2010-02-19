@@ -120,13 +120,6 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 			
 			$FlyingFleetsTable = new FlyingFleetsTable();
 			
-			if (empty($CurrentPlanet['id_luna']))
-			{
-				$lunarow = $db->fetch_array($db->query("SELECT * FROM ".PLANETS." WHERE `id` = '".$CurrentPlanet['id_luna']."';"));
-				CheckPlanetUsedFields($lunarow);
-			}
-			
-		
 			$OwnFleets = $db->query("SELECT * FROM ".FLEETS." WHERE `fleet_owner` = '" . $CurrentUser['id'] . "';");
 			$Record = 0;
 
@@ -281,14 +274,18 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 			
 			$db->free_result($AnotherPlanets);
 	
-			
-			if ($lunarow['id'] <> 0 && $lunarow['destruyed'] == 0 && $CurrentPlanet['planet_type'] == 1)
+			if ($CurrentPlanet['id_luna'] != 0)
 			{
-				$Moon = array(
-					'id'	=> $lunarow['id'],
-					'name'	=> $lunarow['name'],
-				);
-			}
+				$lunarow = $db->fetch_array($db->query("SELECT * FROM ".PLANETS." WHERE `id` = '".$CurrentPlanet['id_luna']."';"));
+				if ($lunarow['destruyed'] == 0 && $CurrentPlanet['planet_type'] == 1)
+				{
+					CheckPlanetUsedFields($lunarow);
+					$Moon = array(
+						'id'	=> $lunarow['id'],
+						'name'	=> $lunarow['name'],
+					);
+				}
+			}	
 
 			$StatRecord = $db->fetch_array($db->query("SELECT `total_rank`,`total_points` FROM `".STATPOINTS."` WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '" . $CurrentUser['id'] . "';"));
 
