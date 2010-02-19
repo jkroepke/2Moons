@@ -2786,7 +2786,7 @@ abstract class FlyingFleetMissions {
 		{
 			self::RestoreFleetToPlanet($FleetRow, true);
 			$db->multi_query("DELETE FROM ".FLEETS." WHERE `fleet_id` = ". $FleetRow["fleet_id"].";");
-			SendSimpleMessage ( $FleetRow['fleet_owner'], '', $FleetRow['fleet_end_time'], 15, $lang['sys_mess_qg'], $lang['sys_expe_report'], $lang['sys_expe_back_home']);
+			SendSimpleMessage($FleetRow['fleet_owner'], '', $FleetRow['fleet_end_time'], 15, $lang['sys_mess_qg'], $lang['sys_expe_report'], $lang['sys_expe_back_home']);
 		}		
 	}
 }
