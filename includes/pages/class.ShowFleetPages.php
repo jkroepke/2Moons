@@ -212,9 +212,9 @@ class ShowFleetPages extends FleetFunctions
 
 		foreach ($reslist['fleet'] as $id => $ShipID)
 		{
-			$amount		 				= request_var('ship'.$ShipID, 0);
+			$amount		 				= min(request_var('ship'.$ShipID, 0), $CurrentPlanet[$resource[$ShipID]]);
 			
-			if ($amount > $CurrentPlanet[$resource[$ShipID]] || $amount <= 0 || $ShipID == 212) continue;
+			if ($amount <= 0 || $ShipID == 212) continue;
 
 			$Fleet[$ShipID]				= $amount;
 			$FleetRoom			   	   += $pricelist[$ShipID]['capacity'] * $amount;

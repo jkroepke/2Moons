@@ -9,7 +9,7 @@
         <table>
         <tbody>
         <tr>
-            <td><img src="{$dpath}gebaeude/{$id}.gif" alt="{$name}" align="top" border="0" height="120" width="120"></td>
+            <td><img src="{$dpath}gebaeude/{$id}.gif" alt="{$name}" align="top" name="bild" border="0" height="120" width="120" onerror="document.images['bild'].src = 'styles/images/officiers/{$id}.jpg'"></td>
             <td>{$description}
 			{if $RapidFire}
 			<br><br>
