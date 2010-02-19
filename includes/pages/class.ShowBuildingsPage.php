@@ -172,7 +172,6 @@ class ShowBuildingsPage
 		global $resource;
 
 		$CurrentQueue  		= $CurrentPlanet['b_building_id'];
-		var_dump($CurrentPlanet[$resource[$Element]]);
 		$Queue 				= $this->ShowBuildingQueue($CurrentPlanet, $CurrentUser);
 		$CurrentMaxFields  	= CalculateMaxPlanetFields($CurrentPlanet);
 
@@ -274,7 +273,7 @@ class ShowBuildingsPage
 			$NewQueue                      		= implode ( ";", $QueueArray );
 			$CurrentPlanet['b_building_id'] 	= $NewQueue;
 		}
-		var_dump($CurrentPlanet[$resource[$Element]]);
+		var_dump($CurrentPlanet[$resource[$Element]], $BuildLevel);
 		return $QueueID;
 	}
 
