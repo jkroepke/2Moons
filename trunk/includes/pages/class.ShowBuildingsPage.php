@@ -270,10 +270,10 @@ class ShowBuildingsPage
 			}
 
 			$QueueArray[$ActualCount]      		= $Element .",". $BuildLevel .",". $BuildTime .",". $BuildEndTime .",". $BuildMode;
-			$NewQueue                      		= implode ( ";", $QueueArray );
+			$NewQueue                      		= implode(";", $QueueArray);
 			$CurrentPlanet['b_building_id'] 	= $NewQueue;
 		}
-		var_dump($CurrentPlanet[$resource[$Element]], $BuildLevel);
+		var_dump($CurrentPlanet[$resource[$Element]], $BuildLevel, $CurrentPlanet['b_building_id']);
 		return $QueueID;
 	}
 
