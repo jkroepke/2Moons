@@ -167,7 +167,7 @@ $lang['ov_fleet']							= 'Flotten';
 $lang['ov_admins_online']					= 'Admins(Online):';
 $lang['ov_no_admins_online']				= 'Zurzeit kein Admin online!';
 $lang['ov_userbanner']						= 'Statistiken-Banner';
-$lang['ov_userrank_info']					= '%d (%s <a href="game.php?page=statistics&amp;range=%d">%d</a> %s %s)';
+$lang['ov_userrank_info']					= '%s (%s <a href="game.php?page=statistics&amp;range=%d">%d</a> %s %s)';
 
 
 //----------------------------------------------------------------------------//
