@@ -279,7 +279,7 @@ switch($page)
         include_once($xgp_root . 'includes/pages/ShowPlayerCard.' . $phpEx);
         ShowPlayerCard($user, $planetrow);
     break;
-	// ----------------------------------------------------------------------------------------------------------------------------------------------//	
+// ----------------------------------------------------------------------------------------------------------------------------------------------//	
     case 'faq':
         include_once($xgp_root . 'includes/pages/ShowFAQ.' . $phpEx);
         ShowFAQ($user, $planetrow);
