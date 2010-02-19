@@ -60,7 +60,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 		}
 		else
 		{
-			$JavaString  = "<script language=\"JavaScript\">\n";
+			$JavaString  = "<script language=\"JavaScript\" type=\"text/javascript\">\n";
 			$JavaString .= "pp". $Type . $Ref ." = ". $Value .";\n";
 			$JavaString .= "t". $Type . $Ref ."();\n";
 			$JavaString .= "</script>\n";

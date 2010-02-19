@@ -3,7 +3,7 @@
 {include file="left_menu.tpl"}
 <div id="content">
     <table width="519" align="center">
-        <tr>
+		<tr>
             <th class="errormessage">{$mes}</th>
         </tr>
     </table>

@@ -13,12 +13,12 @@
         <th width="60">{$Crystal}</th>
         <th width="60">{$Deuterium}</th>
         <th width="60">{$Energy}</th>
-    </tr><tr>
-        <th height="22">{$rs_basic_income}</th>
-        <td class="k">{$metal_basic_income}</td>
-        <td class="k">{$crystal_basic_income}</td>
-        <td class="k">{$deuterium_basic_income}</td>
-        <td class="k">{$energy_basic_income}</td>
+    </tr><tr style="height: 22px">
+        <th>{$rs_basic_income}</th>
+        <th>{$metal_basic_income}</th>
+        <th>{$crystal_basic_income}</th>
+        <th>{$deuterium_basic_income}</th>
+        <th>{$energy_basic_income}</th>
     </tr>
     {foreach item=CurrPlanetInfo from=$CurrPlanetList}
 	<tr>

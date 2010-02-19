@@ -18,7 +18,7 @@
 {/foreach}
 </tr>
 <tr>
-<td colspan="20" id="frame" style="margin:0px;padding:0px;">
+<td colspan="20" id="frame" style="margin:0px;padding:0px !important;">
 </td>
 </tr>
 </table>
