@@ -168,6 +168,10 @@ $lang['ov_admins_online']					= 'Admins(Online):';
 $lang['ov_no_admins_online']				= 'Zurzeit kein Admin online!';
 $lang['ov_userbanner']						= 'Statistiken-Banner';
 $lang['ov_userrank_info']					= '%s (%s <a href="game.php?page=statistics&amp;range=%d">%d</a> %s %s)';
+$lang['ov_teamspeak_not_online']			= 'Server zurzeit nicht erreichbar. Wir bitten um verständnis.';
+$lang['ov_teamspeak']						= 'Teamspeak';
+$lang['ov_teamspeak_v2']					= '<a href="teamspeak://%s:%s?nickname=%s" alt="Teamspeak Connect" title="Teamspeak Connect">Connect</a> &bull; Online: %d/%d &bull; Channels: %d &bull; Traffic ges.: %s MB';
+$lang['ov_teamspeak_v3']					= '<a href="ts3server://%s?port=%d&amp;nickname=%s&amp;password=%s" alt="Teamspeak Connect" title="Teamspeak Connect">Connect</a>&nbsp;&bull;&nbsp;Online: %d/%d &bull; Channels: %d &bull; Traffic ges.: %s MB &bull; Version: %s';
 
 
 //----------------------------------------------------------------------------//

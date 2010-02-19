@@ -190,7 +190,7 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 
 					if ($StartTime > time()) {
 						$Label = "ofs";
-						$fpage[$StartTime.$id] =$FlyingFleetsTable-> BuildFleetEventTable ($FleetRow, 0, false, $Label, $Record1);
+						$fpage[$StartTime.$id] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 0, false, $Label, $Record1);
 					}
 				}
 
@@ -203,7 +203,7 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 					}
 					if ($StartTime > time()) {
 						$Label = "ofs";
-						$fpage[$StartTime.$id] = $FlyingFleetsTable-> BuildFleetEventTable ($FleetRow, 0, false, $Label, $Record);
+						$fpage[$StartTime.$id] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 0, false, $Label, $Record);
 					}
 
 				}
@@ -325,18 +325,13 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 					include_once($xgp_root . "includes/libs/teamspeak/class.teamspeak2.".$phpEx);
 					$ts = new cyts();
 					if($ts->connect($game_config['ts_server'], $game_config['ts_tcpport'], $game_config['ts_udpport'], $game_config['ts_timeout'])){
-						$tsdata = $ts->info_serverInfo();
-						$tsdata2 = $ts->info_globalInfo();
-						$maxusers = $tsdata["server_maxusers"];
-						$useronline = $tsdata["server_currentusers"];
-						$channels = $tsdata["server_currentchannels"];
-						$trafin = round($tsdata2["total_bytesreceived"] / 1024 / 1024, 2);
-						$trafout = round($tsdata2["total_bytessend"] / 1024 / 1024, 2);
-						$trafges = $trafin + $trafout;
-						$parse['ov_ts'] = "<tr><th>Teamspeak</th><th colspan=\"3\"><a href=\"teamspeak://".$game_config['ts_server'].":".$game_config['ts_udpport']."?nickname=".$CurrentUser['username']."\" alt=\"Teamspeak Connect\" name=\"Teamspeak Connect\">Connect</a>&nbsp;&bull;&nbsp;Online: " . $useronline . "/" . $maxusers . "&nbsp;&bull;&nbsp;Channels: " . $channels . "&nbsp;&bull;&nbsp;Traffic IN: " . $trafin . " MB&nbsp;&bull;&nbsp;Traffic Out: " . $trafout . " MB&nbsp;&bull;&nbsp;Traffic ges.: " . $trafges . " MB</th></tr>";
+						$tsdata 	= $ts->info_serverInfo();
+						$tsdata2 	= $ts->info_globalInfo();
 						$ts->disconnect();
+						$trafges 	= round($tsdata2["total_bytessend"] + $tsdata2["total_bytesreceived"] / 1024 / 1024, 2);
+						$Teamspeak	= sprintf($lang['ov_teamspeak_v2'], $game_config['ts_server'], $game_config['ts_udpport'], $CurrentUser['username'], $tsdata["server_currentusers"], $tsdata["server_maxusers"], $tsdata["server_currentchannels"], $trafges);
 					} else {
-						$parse['ov_ts'] = "<tr><th>Teamspeak</th><th colspan=\"3\">Server&nbsp;zurzeit&nbsp;nicht&nbsp;erreichbar.&nbsp;Wir&nbsp;bitten&nbsp;um&nbsp;verst&auml;ndnis.</th></tr>";
+						$Teamspeak	= $lang['ov_teamspeak_not_online'];
 					}
 				} elseif($game_config['ts_version'] == 3){
 					$ip 	= $game_config['ts_server'];
@@ -351,18 +346,15 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 						$sinfo	= $tsAdmin->serverInfo();
 						$tsAdmin->logout();
 						$tsAdmin->quit();
-						$trafin 	= round($sinfo['connection_bytes_received_total'] / 1024 / 1024, 2);
-						$trafout	= round($sinfo['connection_bytes_sent_total'] / 1024 / 1024, 2);
-						$trafges 	= $trafin + $trafout;
+						$trafges 	= round($sinfo['connection_bytes_received_total'] + $sinfo['connection_bytes_sent_total'] / 1024 / 1024, 2);
 						$version	= explode('\s',$sinfo['virtualserver_version']);
-						$parse['ov_ts'] = "<tr><th>Teamspeak</th><th colspan=\"3\"><a href=\"ts3server://".$ip."?port=".$port."&amp;nickname=".$CurrentUser['username']."&amp;password=".$sinfo['virtualserver_password']."\" alt=\"Teamspeak Connect\" name=\"Teamspeak Connect\">Connect</a>&nbsp;&bull;&nbsp;Online: " . $sinfo['virtualserver_clientsonline'] . "/" . $sinfo['virtualserver_maxclients'] . "&nbsp;&bull;&nbsp;Channels: " . $sinfo['virtualserver_channelsonline'] . "&nbsp;&bull;&nbsp;Traffic IN: " . $trafin . " MB&nbsp;&bull;&nbsp;Traffic Out: " . $trafout . " MB&nbsp;&bull;&nbsp;Traffic ges.: " . $trafges . " MB&nbsp;&bull;&nbsp;Version: " .$version[0] . "</th></tr>";
+						$Teamspeak	= sprintf($lang['ov_teamspeak_v3'], $ip, $port, $CurrentUser['username'], $sinfo['virtualserver_password'], $sinfo['virtualserver_clientsonline'], $sinfo['virtualserver_maxclients'], $trafges, $version[0]);
 					} else {
-						$parse['ov_ts'] = "<tr><th>Teamspeak</th><th colspan=\"3\">Server&nbsp;zurzeit&nbsp;nicht&nbsp;erreichbar.&nbsp;Wir&nbsp;bitten&nbsp;um&nbsp;verst&auml;ndnis.</th></tr>";		
+						$Teamspeak 	= $lang['ov_teamspeak_not_online'];		
 					}
 				}
-			} else {
-				$parse['ov_ts'] = "";
 			}
+			
 			$OnlineAdmins = $db->query("SELECT `id`,`username` FROM ".USERS." WHERE onlinetime >=' ".(time()-10*60)."' AND authlevel > 0;");
 			
 			if(isset($OnlineAdmins)) {
@@ -391,6 +383,7 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 				'Moon'						=> $Moon,
 				'AllPlanets'				=> $AllPlanets,
 				'AdminsOnline'				=> $AdminsOnline,
+				'Teamspeak'					=> $Teamspeak,
 				'messages'					=> ($CurrentUser['new_message'] > 0) ? (($CurrentUser['new_message'] == 1) ? $lang['ov_have_new_message'] : sprintf($lang['ov_have_new_messages'], pretty_number($CurrentUser['new_message']))): false,
 				'planet_diameter'			=> pretty_number($CurrentPlanet['diameter']),
 				'planet_field_current' 		=> $CurrentPlanet['field_current'],
@@ -417,6 +410,7 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 				'ov_admins_online'			=> $lang['ov_admins_online'],
 				'ov_no_admins_online'		=> $lang['ov_no_admins_online'],
 				'ov_userbanner'				=> $lang['ov_userbanner'],
+				'ov_teamspeak'				=> $lang['ov_teamspeak'],
 			));
 			
 			$template->show("overview_body.tpl");

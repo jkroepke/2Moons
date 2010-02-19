@@ -87,7 +87,7 @@ class template extends Smarty
 	public function page_leftmenu()
 	{
 		$this->player['rank']	= $this->db->fetch_array($this->db->query("SELECT `total_rank`,`total_points` FROM ".STATPOINTS." WHERE `stat_code` = '1' AND `stat_type` = '1' AND `id_owner` = '". $this->player['id'] ."';"));
-		$forum_url				= $this->GameConfig['forum_url'];
+		$forum_url				= $this->GameConfig['forum_url'].'" target="forum';
 		$Menu					= array(
 			"gfx/ogame-produktion.jpg" => array(
 				'?page=overview'					=> $this->lang['lm_overview'],
@@ -131,7 +131,6 @@ class template extends Smarty
 			'servername'		=> $this->GameConfig['game_name'],
 			'menu'				=> $Menu,
 			'lm_administration'	=> $this->lang['lm_administration'],
-			'version'			=> VERSION,
 		));
 	}
 	
