@@ -244,7 +244,7 @@ $lang['changelog']   = array(
 - DIV: Anzeige der Admins, die zurzeit online sind
 
 
-Based on XG Pryect 2.8 on 11.10.09
+Based on XG Proyect 2.8 on 11.10.09
 ',
 );
 ?>

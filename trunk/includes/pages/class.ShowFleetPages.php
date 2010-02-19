@@ -598,48 +598,21 @@ class ShowFleetPages extends FleetFunctions
 
 		if ($fleet_group_mr != 0)
 		{
-			$AksStartTime = $db->fetch_array($db->query("SELECT MAX(`fleet_start_time`) AS Start, MAX(`fleet_end_time`) AS End FROM ".FLEETS." WHERE `fleet_group` = '". $fleet_group_mr . "';"));
+			$AksStartTime = $db->fetch_array($db->query("SELECT MAX(`fleet_start_time`) AS Start FROM ".FLEETS." WHERE `fleet_group` = '". $fleet_group_mr . "';"));
 
-			if ($AksStartTime['Start'] > $fleet['start_time'])
+			if ($AksStartTime['Start'] >= $fleet['start_time'])
 			{
 				$fleet['start_time'] 	= $AksStartTime['Start'];
-				$fleet['end_time'] 		= $AksStartTime['End'];
+				$fleet['end_time'] 	   += $AksStartTime['Start'] - $fleet['start_time'];
 			}
 			else
 			{
-				$AksTime = $db->fetch_array($db->query("SELECT fleet_start_time, fleet_end_time FROM ".FLEETS." WHERE `fleet_group` = '". $fleet_group_mr . "' AND `fleet_mission` = '1';"));
-
-				if ($AksTime['fleet_start_time'] < $fleet['start_time'])
-				{
-					$QryUpdateFleets = "UPDATE ".FLEETS." SET ";
-					$QryUpdateFleets .= "`fleet_start_time` = '". $fleet['start_time'] ."', ";
-					$QryUpdateFleets .= "`fleet_end_time` = '". $fleet['end_time'] ."' ";
-					$QryUpdateFleets .= "WHERE ";
-					$QryUpdateFleets .= "`fleet_group` = '". $fleet_group_mr ."' AND ";
-					$QryUpdateFleets .= "`fleet_mission` = '1';";
-					$db->query($QryUpdateFleets);
-					$SelectFleets = $db->query("SELECT * FROM ".FLEETS." WHERE `fleet_group` = '". $fleet_group_mr . "' AND `fleet_mission` = '2' ORDER BY `fleet_id` ASC ;");
-					$nb = $db->num_rows($SelectFleets);
-					$i = 0;
-					if ($nb > 0)
-					{
-						while ($row = $db->fetch_array($SelectFleets))
-						{
-							$i++;
-							$row['fleet_start_time'] = $fleet['start_time'] + $i;
-							$row['fleet_end_time'] = $fleet['end_time'] + $i;
-							$QryUpdateFleets = "UPDATE ".FLEETS." SET ";
-							$QryUpdateFleets .= "`fleet_start_time` = '". $row['fleet_start_time'] ."', ";
-							$QryUpdateFleets .= "`fleet_end_time` = '". $row['fleet_end_time'] ."' ";
-							$QryUpdateFleets .= "WHERE ";
-							$QryUpdateFleets .= "`fleet_id` = '". $row['fleet_id'] ."';";
-							$db->query($QryUpdateFleets);
-						}
-					}
-
-					$fleet['start_time'] = $fleet['start_time'];
-					$fleet['end_time'] = $fleet['end_time'];
-				}
+				$QryUpdateFleets = "UPDATE ".FLEETS." SET ";
+				$QryUpdateFleets .= "`fleet_start_time` = '". $fleet['start_time'] ."', ";
+				$QryUpdateFleets .= "`fleet_end_time` = '". ($fleet['start_time'] - $AksStartTime['Start'])."' + fleet_end_time ";
+				$QryUpdateFleets .= "WHERE ";
+				$QryUpdateFleets .= "`fleet_group` = '". $fleet_group_mr ."';";
+				$db->query($QryUpdateFleets);
 			}
 		}
 		
