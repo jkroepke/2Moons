@@ -21,7 +21,11 @@
         	<th colspan="4">
 			{foreach name=OnlineAdmins key=id item=Name from=$AdminsOnline}{if !$smarty.foreach.OnlineAdmins.first}&nbsp;&bull;&nbsp;{/if}<a href="javascript:f('game.php?page=messages&amp;mode=write&amp;id={$id}','');">{$Name}</a>{foreachelse}{$ov_no_admins_online}{/foreach}</th>
         </tr>		
-		{$ov_ts}
+		{if $Teamspeak}
+		<tr>
+		<th>{$ov_teamspeak}</th><th colspan="3">{$Teamspeak}</th>
+		</tr>
+		{/if}
         <tr>
         	<td colspan="4" class="c">{$ov_events}</td>
         </tr>
