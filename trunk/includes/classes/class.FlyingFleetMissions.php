@@ -37,8 +37,135 @@ abstract class FlyingFleetMissions {
 			}
 		}
 	}
-
-	private static function calculateSteal ($attackFleets, $FleetRow, $defenderPlanet)
+	
+	private static function calculateAKSSteal($attackFleets, $FleetRow, $defenderPlanet)
+	{
+		//Beute-Math by WOT-Game based on http://www.owiki.de/Beute
+		global $pricelist;
+		$capacity = 0;
+		foreach ($attackFleets as $FleetID => $Attacker)
+		{
+			foreach ($Attacker['detail'] as $Element => $amount)	
+			{
+				$capacity[$FleetID]		= $pricelist[$Element]['capacity'] * $amount;
+			}
+			
+			if(!isset($capacity[$FleetID])) 
+			{
+				unset($capacity[$FleetID]);
+				continue;
+			}
+			
+			$metal[$FleetID]		= $Attacker['fleet']['metal'];
+			$crystal[$FleetID]		= $Attacker['fleet']['crystal'];
+			$deuterium[$FleetID]	= $Attacker['fleet']['deuterium'];
+		}
+		
+		$Sumcapacity	= array_sum($capacity);
+		
+		$Sumcapacity -= array_sum($metal) + array_sum($crystal) + array_sum($deuterium);
+		 
+		// Step 1
+		if(($defenderPlanet['metal'] / 2) > ($Sumcapacity / 3)) $booty['metal'] = ($Sumcapacity / 3);
+		else $booty['metal'] = ($defenderPlanet['metal'] / 2);
+		$Sumcapacity -= $booty['metal'];
+		 
+		// Step 2
+		if($defenderPlanet['crystal'] > $Sumcapacity) $booty['crystal'] = ($Sumcapacity / 2);
+		else $booty['crystal'] = ($defenderPlanet['crystal'] / 2);
+		$Sumcapacity -= $booty['crystal'];
+		 
+		// Step 3
+		if(($defenderPlanet['deuterium'] / 2) > $Sumcapacity) $booty['deuterium'] = $Sumcapacity;
+		else $booty['deuterium'] = ($defenderPlanet['deuterium'] / 2);
+		$Sumcapacity -= $booty['deuterium'];
+		 
+		// Step 4
+		$oldMetalBooty = $booty['metal'];
+		if($defenderPlanet['metal'] > $Sumcapacity) $booty['metal'] += ($Sumcapacity / 2);
+		else $booty['metal'] += ($defenderPlanet['metal'] / 2);
+		$Sumcapacity -= $booty['metal'];
+		$Sumcapacity += $oldMetalBooty;
+		 
+		// Step 5
+		if(($defenderPlanet['crystal'] / 2) > $Sumcapacity) $booty['crystal'] += $Sumcapacity;
+		else $booty['crystal'] += ($defenderPlanet['crystal'] / 2);
+		 
+		// Reset metal and crystal booty
+		if($booty['metal'] > ($defenderPlanet['metal'] / 2)) $booty['metal'] = $defenderPlanet['metal'] / 2;
+		if($booty['crystal'] > ($defenderPlanet['crystal'] / 2)) $booty['crystal'] = $defenderPlanet['crystal'] / 2;
+		
+		$steal 		= array_map('floor', $booty);
+		$Amount		= count($capacity);
+		$SortFleets	= sort($capacity, SORT_NUMERIC);
+		
+		foreach ($SortFleets as $FleetID => $Capacity)
+		{
+			$Capacity	-= $metal[$FleetID] + $crystal[$FleetID] + $deuterium[$FleetID];
+			
+			if($Capacity >= ($steal['metal'] / $Amount) + ($steal['crystal'] / $Amount) + ($steal['deuterium'] / $Amount))
+			{
+				$MetalSteal[$FleetID]		= $steal['metal'] / $Amount;
+				$CrystalSteal[$FleetID]		= $steal['crystal'] / $Amount;
+				$DeuteriumSteal[$FleetID]	= $steal['deuterium'] / $Amount;
+			}
+			else
+			{
+				$MetalSteal[$FleetID]		= $Capacity / $Amount;
+				$CrystalSteal[$FleetID]		= $Capacity / $Amount;
+				$DeuteriumSteal[$FleetID]	= $Capacity / $Amount;
+				$Diff['metal']				= ($steal['metal'] / $Amount) - $MetalSteal[$FleetID];
+				$Diff['crystal']			= ($steal['crystal'] / $Amount) - $CrystalSteal[$FleetID];
+				$Diff['deuterium']			= ($steal['deuterium'] / $Amount) - $DeuteriumSteal[$FleetID];
+				unset($SortFleets[$FleetID]);
+			}
+		}
+		
+		while(0 == ($Diff['metal'] + $Diff['crystal'] + $Diff['deuterium']))
+		{
+			$i	= 0;
+			$Amount		= count($SortFleets);
+			foreach ($SortFleets as $FleetID => $Capacity)
+			{
+				$Capacity	-= $metal[$FleetID] + $crystal[$FleetID] + $deuterium[$FleetID] + $MetalSteal[$FleetID] + $CrystalSteal[$FleetID] + $DeuteriumSteal[$FleetID];
+				
+				if($Capacity >= ($Diff['metal'] / $Amount) + ($Diff['crystal'] / $Amount) + ($Diff['deuterium'] / $Amount))
+				{
+					$MetalSteal[$FleetID]		= $Diff['metal'] / $Amount;
+					$CrystalSteal[$FleetID]		= $Diff['crystal'] / $Amount;
+					$DeuteriumSteal[$FleetID]	= $Diff['deuterium'] / $Amount;
+					$Diff['metal']				-= $MetalSteal[$FleetID];
+					$Diff['crystal']			-= $CrystalSteal[$FleetID];
+					$Diff['deuterium']			-= $DeuteriumSteal[$FleetID];
+				}
+				else
+				{
+					$MetalSteal[$FleetID]		= $Capacity / $Amount;
+					$CrystalSteal[$FleetID]		= $Capacity / $Amount;
+					$DeuteriumSteal[$FleetID]	= $Capacity / $Amount;
+					$Diff['metal']				-= $MetalSteal[$FleetID];
+					$Diff['crystal']			-= $CrystalSteal[$FleetID];
+					$Diff['deuterium']			-= $DeuteriumSteal[$FleetID];
+					unset($SortFleets[$FleetID]);
+				}
+			}		
+		}
+		$QryUpdateFleet	= "";
+		foreach($capacity as $FleetID => $Room)
+		{
+		
+			$QryUpdateFleet .= 'UPDATE '.FLEETS.' SET ';
+			$QryUpdateFleet .= '`fleet_resource_metal` = `fleet_resource_metal` + '.$MetalSteal[$FleetID].', ';
+			$QryUpdateFleet .= '`fleet_resource_crystal` = `fleet_resource_crystal` +'.$CrystalSteal[$FleetID].', ';
+			$QryUpdateFleet .= '`fleet_resource_deuterium` = `fleet_resource_deuterium` +'.$DeuteriumSteal[$FleetID].' ';
+			$QryUpdateFleet .= 'WHERE fleet_id = '.$FleetID.' ';
+			$QryUpdateFleet .= 'LIMIT 1;';		
+		}
+		$db->multi_query($QryUpdateFleet);
+		return array_map('floor', $booty);
+	}
+	
+	private static function calculateSoloSteal($attackFleets, $FleetRow, $defenderPlanet)
 	{
 		//Beute-Math by WOT-Game based on http://www.owiki.de/Beute
 		global $pricelist;
@@ -80,7 +207,16 @@ abstract class FlyingFleetMissions {
 		if($booty['metal'] > ($defenderPlanet['metal'] / 2)) $booty['metal'] = $defenderPlanet['metal'] / 2;
 		if($booty['crystal'] > ($defenderPlanet['crystal'] / 2)) $booty['crystal'] = $defenderPlanet['crystal'] / 2;
 		
-		return array_map('round', $booty);
+		$steal = array_map('round', $booty);
+		
+		$QryUpdateFleet  = 'UPDATE '.FLEETS.' SET ';
+		$QryUpdateFleet .= '`fleet_resource_metal` = `fleet_resource_metal` + '. $steal['metal'] .', ';
+		$QryUpdateFleet .= '`fleet_resource_crystal` = `fleet_resource_crystal` +'. $steal['crystal'] .', ';
+		$QryUpdateFleet .= '`fleet_resource_deuterium` = `fleet_resource_deuterium` +'. $steal['deuterium'] .' ';
+		$QryUpdateFleet .= 'WHERE fleet_id = '. $FleetRow['fleet_id'] .' ';
+		$QryUpdateFleet .= 'LIMIT 1;';
+		$db->query($QryUpdateFleet);
+		return $steal;
 	}
 
 	private static function calculateAttack (&$attackers, &$defenders) 
@@ -1124,19 +1260,6 @@ abstract class FlyingFleetMissions {
 			$result 	= self::calculateAttack($attackFleets, $defense);
 			$totaltime 	= microtime(true) - $start;
 			
-			if ($result['won'] == "a")
-			{
-				$steal = self::calculateSteal($attackFleets, $FleetRow, $targetPlanet);
-
-				$QryUpdateFleet  = 'UPDATE '.FLEETS.' SET ';
-				$QryUpdateFleet .= '`fleet_resource_metal` = `fleet_resource_metal` + '. $steal['metal'] .', ';
-				$QryUpdateFleet .= '`fleet_resource_crystal` = `fleet_resource_crystal` +'. $steal['crystal'] .', ';
-				$QryUpdateFleet .= '`fleet_resource_deuterium` = `fleet_resource_deuterium` +'. $steal['deuterium'] .' ';
-				$QryUpdateFleet .= 'WHERE fleet_id = '. $FleetRow['fleet_id'] .' ';
-				$QryUpdateFleet .= 'LIMIT 1;';
-				$db->query($QryUpdateFleet);
-			}
-
 			foreach ($attackFleets as $fleetID => $attacker)
 			{
 				$fleetArray = '';
@@ -1154,11 +1277,18 @@ abstract class FlyingFleetMissions {
 					$db->query('DELETE FROM '.FLEETS.' WHERE `fleet_id`='.$fleetID.';');
 				}
 				else
-				{
+				{	
 					$db->query('UPDATE '.FLEETS.' SET fleet_array="'.substr($fleetArray, 0, -1).'", fleet_amount='.$totalCount.', fleet_mess=1 WHERE fleet_id='.$fleetID.';');
 				}
 			}
+			if ($result['won'] == "a")
+			{	
+				if ($FleetRow['fleet_group'] != 0)
+					$steal = self::calculateAKSSteal($attackFleets, $FleetRow, $targetPlanet);
+				else
+					$steal = self::calculateSoloSteal($attackFleets, $FleetRow, $targetPlanet);
 
+			}
 			foreach ($defense as $fleetID => $defender)
 			{
 				if ($fleetID != 0)
@@ -1303,8 +1433,7 @@ abstract class FlyingFleetMissions {
 			$SQLQuery .= "`rid` = '". $rid ."', ";
 			$SQLQuery .= "`a_zestrzelona` = '".count($result['rounds'])."', ";
 			$SQLQuery .= "`raport` = '".$db->sql_escape($raport)."';";
-			$db->query($SQLQuery);
-			$SQLQuery  = "INSERT INTO ".TOPKB." SET ";
+			$SQLQuery .= "INSERT INTO ".TOPKB." SET ";
 			$SQLQuery .= "`time` = '".time()."', ";
 			$SQLQuery .= "`id_owner1` = '".implode(',', $Attacker['id'])."', ";
 			$SQLQuery .= "`angreifer` = '".implode(' & ', $Attacker['name'])."', ";
@@ -1315,9 +1444,8 @@ abstract class FlyingFleetMissions {
 			$SQLQuery .= "`rid` = '". $rid ."', ";
 			$SQLQuery .= "`a_zestrzelona` = '".count($result['rounds'])."', ";
 			$SQLQuery .= "`raport` = '". $db->sql_escape($raport) ."',";
-			$SQLQuery .= "`fleetresult` = '". $result['won'] ."';";			
-			$db->query($SQLQuery);
-			$SQLQuery  = "UPDATE ".USERS." SET ";
+			$SQLQuery .= "`fleetresult` = '". $result['won'] ."';";		
+			$SQLQuery .= "UPDATE ".USERS." SET ";
             $SQLQuery .= "`wons` = wons + ".$Won.", ";
             $SQLQuery .= "`loos` = loos + ".$Lose.", ";
             $SQLQuery .= "`draws` = draws + ".$Draw.", ";
@@ -1327,8 +1455,7 @@ abstract class FlyingFleetMissions {
             $SQLQuery .= "`desunits` = desunits + ".$result['lost']['def']." ";
             $SQLQuery .= "WHERE ";
             $SQLQuery .= substr($WhereAtt, 0, -4).";";
-			$db->query($SQLQuery);
-			$SQLQuery  = "UPDATE ".USERS." SET ";
+			$SQLQuery .= "UPDATE ".USERS." SET ";
             $SQLQuery .= "`wons` = wons + ". $Lose .", ";
             $SQLQuery .= "`loos` = loos + ". $Won .", ";
             $SQLQuery .= "`draws` = draws + ". $Draw  .", ";
@@ -1338,7 +1465,7 @@ abstract class FlyingFleetMissions {
             $SQLQuery .= "`desunits` = desunits + ".$result['lost']['att']." ";
             $SQLQuery .= "WHERE ";
             $SQLQuery .= substr($WhereDef, 0, -4).";";
-			$db->query($SQLQuery);
+			$db->multi_query($SQLQuery);
 			
 			switch($result['won'])
 			{
@@ -1623,6 +1750,13 @@ abstract class FlyingFleetMissions {
 		}
 		elseif ($FleetRow['fleet_end_time'] <= time())
 		{
+			$Message         = sprintf( $lang['sys_fleet_won'],
+						$TargetName, GetTargetAdressLink($FleetRow, ''),
+						pretty_number($FleetRow['fleet_resource_metal']), $lang['Metal'],
+						pretty_number($FleetRow['fleet_resource_crystal']), $lang['Crystal'],
+						pretty_number($FleetRow['fleet_resource_deuterium']), $lang['Deuterium'] );
+			SendSimpleMessage ( $FleetRow['fleet_owner'], '', $FleetRow['fleet_end_time'], 3, $lang['sys_mess_tower'], $lang['sys_mess_fleetback'], $Message);
+			
 			self::RestoreFleetToPlanet($FleetRow);
 			$db->query('DELETE FROM '.FLEETS.' WHERE `fleet_id`='.$FleetRow['fleet_id'].';');
 		}
@@ -2765,7 +2899,7 @@ abstract class FlyingFleetMissions {
 		}
 	}
 
-	public function MissionFoundDM($FleetRow)
+	public static function MissionFoundDM($FleetRow)
 	{
 		global $lang, $db;
 		if ($FleetRow['fleet_mess'] == 0 && $FleetRow['fleet_end_stay'] < time())

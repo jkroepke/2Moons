@@ -13,7 +13,7 @@
     </tr><tr>
         <th>{$galaxy}:{$system}:{$planet}</th>
         <th>{$planetname}</th>
-        <th><input type="button" value="{$ov_abandon_planet}" onclick="document.location.href = 'http://localhost/framework/game.php?page=overview&amp;mode=deleteplanet';"></th>
+        <th><input type="button" value="{$ov_abandon_planet}" onclick="document.location.href = 'game.php?page=overview&amp;mode=deleteplanet';"></th>
     </tr><tr>
         <th>{$ov_planet_rename}</th>
         <th><input type="text" name="newname" size="25" maxlength="20"></th>
