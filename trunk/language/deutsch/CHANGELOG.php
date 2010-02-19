@@ -16,6 +16,7 @@ $lang['changelog']   = array(
 - FIX: Allianzerstellung
 - FIX: AKS in der Overview
 - FIX: AKS-Hack
+- FIX: AKS-Ressisverteilung
 - FIX: Deuteriumberechung Planetentemperaturabhb&auml;nig
 - FIX: Fusionkrafwerk: Bonus durch Energietechnik 
 - FIX: Zeilenumbruch in Globalen Nachrichten fixed
