@@ -329,7 +329,7 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 						$tsdata 	= $ts->info_serverInfo();
 						$tsdata2 	= $ts->info_globalInfo();
 						$ts->disconnect();
-						$trafges 	= round($tsdata2["total_bytessend"] + $tsdata2["total_bytesreceived"] / 1024 / 1024, 2);
+						$trafges 	= pretty_number(($tsdata2["total_bytessend"] / 1024 / 1024) + $tsdata2["total_bytesreceived"] / 1024 / 1024);
 						$Teamspeak	= sprintf($lang['ov_teamspeak_v2'], $game_config['ts_server'], $game_config['ts_udpport'], $CurrentUser['username'], $tsdata["server_currentusers"], $tsdata["server_maxusers"], $tsdata["server_currentchannels"], $trafges);
 					} else {
 						$Teamspeak	= $lang['ov_teamspeak_not_online'];
