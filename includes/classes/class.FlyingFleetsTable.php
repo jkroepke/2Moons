@@ -52,7 +52,7 @@ class FlyingFleetsTable
 		return $MissionPopup;
 	}
 
-	private function CreateFleetPopupedFleetLink($FleetRow, $Texte, $FleetType)
+	private function CreateFleetPopupedFleetLink($FleetRow, $Texte, $FleetType, $isAKS = false)
 	{
 		global $lang, $user;
 
@@ -61,18 +61,18 @@ class FlyingFleetsTable
 		$FleetPopup  .= "<table width=200>";
 		if(!defined('IN_ADMIN'))
 		{
-			if($user['spy_tech'] < 2 && $FleetRow['fleet_owner'] != $user['id'])
+			if($user['spy_tech'] < 2 && $FleetRow['fleet_owner'] != $user['id'] && !$isAKS)
 			{
 				$FleetPopup .= "<tr><td width=50% align=left><font color=white>".$lang['cff_no_fleet_data']."<font></td></tr>";
 			}
-			elseif($user['spy_tech'] >= 2 && $user['spy_tech'] < 4 && $FleetRow['fleet_owner'] != $user['id'])
+			elseif($user['spy_tech'] >= 2 && $user['spy_tech'] < 4 && $FleetRow['fleet_owner'] != $user['id'] && !$isAKS)
 			{
-				$FleetPopup .= "<tr><td width=50% align=left><font color=white>".$lang['cff_aproaching'].$FleetRow[fleet_amount].$lang['cff_ships']."<font></td></tr>";
+				$FleetPopup .= "<tr><td width=50% align=left><font color=white>".$lang['cff_aproaching'].$FleetRow['fleet_amount'].$lang['cff_ships']."<font></td></tr>";
 			}
 			else
 			{
 				if($FleetRow['fleet_owner'] != $user['id'])
-					$FleetPopup .= "<tr><td width=100% align=left><font color=white>".$lang['cff_aproaching'].$FleetRow[fleet_amount].$lang['cff_ships'].":<font></td></tr>";
+					$FleetPopup .= "<tr><td width=100% align=left><font color=white>".$lang['cff_aproaching'].$FleetRow['fleet_amount'].$lang['cff_ships'].":<font></td></tr>";
 
 				foreach($FleetRec as $Item => $Group)
 				{
@@ -171,7 +171,7 @@ class FlyingFleetsTable
 	}
 
 	//For overview and phalanx
-	public function BuildFleetEventTable($FleetRow, $Status, $Owner, $Label, $Record)
+	public function BuildFleetEventTable($FleetRow, $Status, $Owner, $Label, $Record, $isAKS = false)
 	{
 		global $lang, $db;
 
@@ -198,7 +198,7 @@ class FlyingFleetsTable
 
 
 		$MissionType    = $FleetRow['fleet_mission'];
-		$FleetContent   = $this->CreateFleetPopupedFleetLink ( $FleetRow, $lang['ov_fleet'], $FleetPrefix . $FleetStyle[ $MissionType ] );
+		$FleetContent   = $this->CreateFleetPopupedFleetLink ( $FleetRow, $lang['ov_fleet'], $FleetPrefix . $FleetStyle[ $MissionType ],$isAKS);
 		$FleetCapacity  = $this->CreateFleetPopupedMissionLink ( $FleetRow, $lang['type_mission'][ $MissionType ], $FleetPrefix . $FleetStyle[ $MissionType ] );
 		$StartPlanet    = $db->fetch_array($db->query("SELECT `name` FROM ".PLANETS." WHERE `galaxy` = '".$FleetRow['fleet_start_galaxy']."' AND `system` = '".$FleetRow['fleet_start_system']."' AND `planet` = '".$FleetRow['fleet_start_planet']."' AND `planet_type` = '".$FleetRow['fleet_start_type']."';"));
 		$StartType      = $FleetRow['fleet_start_type'];
@@ -279,7 +279,7 @@ class FlyingFleetsTable
 				$EventString  = $lang['cff_a'];
 				$EventString .= $FleetContent;
 				$EventString .= $lang['cff_of'];
-				$EventString .= $this->BuildHostileFleetPlayerLink ( $FleetRow );
+				if(!$isAKS) $EventString .= $this->BuildHostileFleetPlayerLink ( $FleetRow );
 			}
 
 			if ($Status == 0)
