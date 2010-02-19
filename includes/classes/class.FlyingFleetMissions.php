@@ -41,8 +41,8 @@ abstract class FlyingFleetMissions {
 	private static function calculateAKSSteal($attackFleets, $FleetRow, $defenderPlanet)
 	{
 		//Beute-Math by WOT-Game based on http://www.owiki.de/Beute
-		global $pricelist;
-		$capacity = 0;
+		global $pricelist, $db;
+		$capacity = array();
 		foreach ($attackFleets as $FleetID => $Attacker)
 		{
 			foreach ($Attacker['detail'] as $Element => $amount)	
