@@ -1284,7 +1284,7 @@ abstract class FlyingFleetMissions {
 			if ($result['won'] == "a")
 			{	
 				if ($FleetRow['fleet_group'] != 0)
-					$steal = self::calculateAKSSteal($attackFleets, $FleetRow, $targetPlanet);
+					$steal = self::calculateSoloSteal($attackFleets, $FleetRow, $targetPlanet);
 				else
 					$steal = self::calculateSoloSteal($attackFleets, $FleetRow, $targetPlanet);
 

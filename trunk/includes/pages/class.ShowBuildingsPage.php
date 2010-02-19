@@ -176,7 +176,7 @@ class ShowBuildingsPage
 		$Queue 				= $this->ShowBuildingQueue($CurrentPlanet, $CurrentUser);
 		$CurrentMaxFields  	= CalculateMaxPlanetFields($CurrentPlanet);
 
-		if ($CurrentPlanet["field_current"] >= ($CurrentMaxFields - $Queue['lenght']) && $_GET['cmd'] != 'destroy')
+		if ($CurrentPlanet["field_current"] >= ($CurrentMaxFields - $Queue['lenght']) && !$AddMode)
 			die(header("location:game.php?page=buildings"));
 
 		if ($CurrentQueue != 0)
