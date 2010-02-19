@@ -273,7 +273,7 @@ class ShowBuildingsPage
 			$NewQueue                      		= implode(";", $QueueArray);
 			$CurrentPlanet['b_building_id'] 	= $NewQueue;
 		}
-		var_dump($CurrentPlanet[$resource[$Element]], $BuildLevel, $CurrentPlanet['b_building_id'], time());
+		
 		return $QueueID;
 	}
 
