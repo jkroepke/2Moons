@@ -98,9 +98,6 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 				$CurrentPlanet['b_building_id'] = $NewQueue;
 				$CurrentPlanet['field_current'] = $current;
 				$CurrentPlanet['field_max']     = $max;
-
-				if(!$ForDestroy)
-					AddPointsToPlayer($CurrentUser['id'], $Element, 1, $CurrentPlanet[$resource[$Element]] - 1);
 				
 				$QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
 				$QryUpdatePlanet .= "`".$resource[$Element]."` = '".$CurrentPlanet[$resource[$Element]]."', ";
