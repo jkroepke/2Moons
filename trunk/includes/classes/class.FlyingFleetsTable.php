@@ -196,7 +196,7 @@ class FlyingFleetsTable
 		else
 			$FleetPrefix = '';
 
-		$RowsTPL        = gettemplate('overview/overview_fleet_event');
+
 		$MissionType    = $FleetRow['fleet_mission'];
 		$FleetContent   = $this->CreateFleetPopupedFleetLink ( $FleetRow, $lang['ov_fleet'], $FleetPrefix . $FleetStyle[ $MissionType ] );
 		$FleetCapacity  = $this->CreateFleetPopupedMissionLink ( $FleetRow, $lang['type_mission'][ $MissionType ], $FleetPrefix . $FleetStyle[ $MissionType ] );
@@ -315,15 +315,15 @@ class FlyingFleetsTable
 			$EventString .= $FleetCapacity;
 		}
 
-		$bloc['fleet_status'] = $FleetStatus[ $Status ];
-		$bloc['fleet_prefix'] = $FleetPrefix;
-		$bloc['fleet_style']  = $FleetStyle[ $MissionType ];
-		$bloc['fleet_javai']  = InsertJavaScriptChronoApplet ( $Label, $Record, $Rest, true );
-		$bloc['fleet_order']  = $Label . $Record;
-		$bloc['fleet_descr']  = $EventString;
-		$bloc['fleet_javas']  = InsertJavaScriptChronoApplet ( $Label, $Record, $Rest, false );
+		$FleetInfo['fleet_status'] = $FleetStatus[ $Status ];
+		$FleetInfo['fleet_prefix'] = $FleetPrefix;
+		$FleetInfo['fleet_style']  = $FleetStyle[ $MissionType ];
+		$FleetInfo['fleet_javai']  = InsertJavaScriptChronoApplet ( $Label, $Record, $Rest, true );
+		$FleetInfo['fleet_order']  = $Label . $Record;
+		$FleetInfo['fleet_descr']  = $EventString;
+		$FleetInfo['fleet_javas']  = InsertJavaScriptChronoApplet ( $Label, $Record, $Rest, false );
 
-		return parsetemplate($RowsTPL, $bloc);
+		return $FleetInfo;
 	}
 }
 ?>

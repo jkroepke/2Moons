@@ -77,21 +77,23 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 					{
 						$ElementName = $lang['tech'][$Element];
 
-						if ($HaveNoMoreLevel == true)
-							$Message     = sprintf ($lang['sys_nomore_level'], $ElementName );
-						else
-						{
-							$Needed      = GetBuildingPrice ($CurrentUser, $CurrentPlanet, $Element, true, $ForDestroy);
-							$Message     = sprintf ($lang['sys_notenough_money'], $ElementName,
-							pretty_number ($CurrentPlanet['metal']), $lang['Metal'],
-							pretty_number ($CurrentPlanet['crystal']), $lang['Crystal'],
-							pretty_number ($CurrentPlanet['deuterium']), $lang['Deuterium'],
-							pretty_number ($Needed['metal']), $lang['Metal'],
-							pretty_number ($Needed['crystal']), $lang['Crystal'],
-							pretty_number ($Needed['deuterium']), $lang['Deuterium']);
-						}
-						
 						if($CurrentUser['hof'] == 1){
+							if ($HaveNoMoreLevel == true)
+								$Message     = sprintf ($lang['sys_nomore_level'], $ElementName );
+							else
+							{
+								$Needed      = GetBuildingPrice ($CurrentUser, $CurrentPlanet, $Element, true, $ForDestroy);
+								$Message     = sprintf ($lang['sys_notenough_money'], $CurrentPlanet['name'], $CurrentPlanet['id'],
+								$CurrentPlanet['galaxy'], $CurrentPlanet['system'], $CurrentPlanet['planet'], 
+								$ElementName,
+								pretty_number ($CurrentPlanet['metal']), $lang['Metal'],
+								pretty_number ($CurrentPlanet['crystal']), $lang['Crystal'],
+								pretty_number ($CurrentPlanet['deuterium']), $lang['Deuterium'],
+								pretty_number ($Needed['metal']), $lang['Metal'],
+								pretty_number ($Needed['crystal']), $lang['Crystal'],
+								pretty_number ($Needed['deuterium']), $lang['Deuterium']);
+							}
+							
 							SendSimpleMessage ( $CurrentUser['id'], '', '', 99, $lang['sys_buildlist'], $lang['sys_buildlist_fail'], $Message);
 						}
 						

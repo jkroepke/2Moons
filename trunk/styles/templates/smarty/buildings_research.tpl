@@ -48,7 +48,7 @@
 							<tr>		
 								<td width="68%" rowspan="3">
 								</td>
-								<td width="15%" style="text-align:right;white-space:nowrap;">
+								<td style="text-align:right;white-space:nowrap;">
 									{$ResearchInfoRow.time}
 								</td>
 							</tr>

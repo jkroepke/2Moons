@@ -123,6 +123,7 @@ $lang['lm_support']							= 'Support';
 
 //----------------------------------------------------------------------------//
 //OVERVIEW
+
 $lang['ov_newname_alphanum']				= 'Der Planetenname darf nur aus alphanumerische Zeichen bestehen.';
 $lang['ov_newname_no_space']				= 'Der Planetenname darf keine Leerzeichen enthalten.';
 $lang['ov_planet_abandoned']				= 'Planet erfolgreich aufgegeben!';
@@ -130,7 +131,8 @@ $lang['ov_principal_planet_cant_abanone']	= 'Sie können nicht ihren Hauptplanet
 $lang['ov_abandon_planet_not_possible']		= 'Kolonie nicht löschbar, wenn Flottenaktivitäten zu oder von ihrer Kolonie stattfinden!';
 $lang['ov_wrong_pass']						= 'Falsches Passwort. Versuchen sie es nochmal!';
 $lang['ov_have_new_message']				= 'Du hast eine neue Nachricht';
-$lang['ov_have_new_messages']				= 'Du hast %m neue Nachrichten';
+$lang['ov_have_new_messages']				= 'Du hast %d neue Nachrichten';
+$lang['ov_planetmenu']						= 'Name ändern/Löschen';
 $lang['ov_free']							= 'Frei';
 $lang['ov_news']							= 'News';
 $lang['ov_place']							= 'Platz';
@@ -159,11 +161,18 @@ $lang['ov_actions']							= 'Aktionen';
 $lang['ov_planet_rename']					= 'Umbenennen';
 $lang['ov_planet_rename_action']			= 'Umbenennen';
 $lang['ov_fields']							= 'Felder';
-$lang['ov_developed_fields']				= 'bebaubare Felder';
+$lang['ov_developed_fields']				= 'bebaubate Felder';
+$lang['ov_max_developed_fields']			= 'max. bebaubare Felder';
 $lang['ov_fleet']							= 'Flotten';
+$lang['ov_admins_online']					= 'Admins(Online):';
+$lang['ov_no_admins_online']				= 'Zurzeit kein Admin online!';
+$lang['ov_userbanner']						= 'Statistiken-Banner';
+$lang['ov_userrank_info']					= '%d (%s <a href="game.php?page=statistics&amp;range=%d">%d</a> %s %s)';
+
 
 //----------------------------------------------------------------------------//
 //GALAXY
+
 $lang['gl_no_deuterium_to_view_galaxy']		= 'Sie haben nicht genügend Deuterium!';
 $lang['gl_legend']							= 'Legende';
 $lang['gl_strong_player']					= 'Starker Spieler';
@@ -1309,7 +1318,7 @@ $lang['sys_tran_mess_user'] 		 		= "Eine friedliche Flotte von %s %s erreicht %s
 $lang['sys_mess_fleetback'] 				= "Flotten Rückkehr";
 $lang['sys_tran_mess_back'] 				= "Eine deiner Flotten kehrt zum Planeten %s %s zurück.";
 $lang['sys_recy_gotten'] 					= "Deine Recycler haben %s %s und %s %s Gesammelt.";
-$lang['sys_notenough_money'] 				= "Sie verfügen nicht über genügend Ressourcen, um mit dem Bau von %s zu beginnen. <br>Sie verfüen über %s %s , %s %s und %s %s. <br>Die Baukosten betragen %s %s , %s %s und %s %s.";
+$lang['sys_notenough_money'] 				= "Sie verfügen auf Planet %s <a href=\"./game.php?page=buildings&amp;cp=%d&amp;re=0\">[%d:%d:%d]</a> nicht über genügend Ressourcen, um mit dem Bau von %s zu beginnen. <br>Sie verfüen über %s %s , %s %s und %s %s. <br>Die Baukosten betragen %s %s , %s %s und %s %s.";
 $lang['sys_nomore_level'] 					= "Sie versuchen, ein Gebäude zu zerstören, was sie nicht mehr besitzen( %s ).";
 $lang['sys_buildlist'] 						= "Bauliste";
 $lang['sys_buildlist_fail'] 				= "Bau nicht möglich";
