@@ -139,14 +139,14 @@ abstract class FlyingFleetMissions {
 			}		
 		}
 		$QryUpdateFleet	= "";
-		var_dump($steal, $SortFleets, $MetalSteal, $CrystalSteal, $DeuteriumSteal);
+		
 		foreach($SortFleets as $FleetID => $Room)
 		{
 		
 			$QryUpdateFleet .= 'UPDATE '.FLEETS.' SET ';
-			$QryUpdateFleet .= '`fleet_resource_metal` = `fleet_resource_metal` + '.round($MetalSteal[$FleetID],0).', ';
-			$QryUpdateFleet .= '`fleet_resource_crystal` = `fleet_resource_crystal` +'.round($CrystalSteal[$FleetID],0).', ';
-			$QryUpdateFleet .= '`fleet_resource_deuterium` = `fleet_resource_deuterium` +'.round($DeuteriumSteal[$FleetID],0).' ';
+			$QryUpdateFleet .= '`fleet_resource_metal` = `fleet_resource_metal` + '.$MetalSteal[$FleetID].', ';
+			$QryUpdateFleet .= '`fleet_resource_crystal` = `fleet_resource_crystal` +'.$CrystalSteal[$FleetID].', ';
+			$QryUpdateFleet .= '`fleet_resource_deuterium` = `fleet_resource_deuterium` +'.$DeuteriumSteal[$FleetID].' ';
 			$QryUpdateFleet .= 'WHERE fleet_id = '.$FleetID.' ';
 			$QryUpdateFleet .= 'LIMIT 1;';		
 		}
