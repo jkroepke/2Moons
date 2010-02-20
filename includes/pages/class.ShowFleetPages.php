@@ -483,7 +483,7 @@ class ShowFleetPages extends FleetFunctions
 			$FleetStorage    += $pricelist[$Ship]["capacity"] * $Count;
 			$FleetShipCount  += $Count;
 			$fleet_array     .= $Ship .",". $Count .";";
-			$FleetSubQRY     .= "`".$resource[$Ship] . "` = `" . $resource[$Ship] . "` - " . $Count . ", ";	
+			$FleetSubQRY     .= "`".$resource[$Ship] . "` = ".$resource[$Ship]." - ".$Count.", ";	
 		}
 
 		$error              = 0;
@@ -700,13 +700,16 @@ class ShowFleetPages extends FleetFunctions
 							`fleet_resource_deuterium` = '". $TransportDeuterium ."',
 							`fleet_target_owner` = '". $TargetPlanet['id_owner'] ."',
 							`fleet_group` = '". $fleet_group_mr ."',
-							`start_time` = '". time() ."';";
-	
-		$db->query($QryInsertFleet);
-
+							`start_time` = '". time() ."';
+							UPDATE `".PLANETS."` SET
+							".substr($FleetSubQRY,0,-2)."
+							WHERE
+							`id` = ". $CurrentPlanet['id'] ." LIMIT 1;";
+							
 		$CurrentPlanet['metal']		-= $TransportMetal;
 		$CurrentPlanet['crystal']	-= $TransportCrystal;
 		$CurrentPlanet['deuterium']	-= ($TransportDeuterium + $consumption);
+		$db->multi_query($QryInsertFleet);
 	
 		foreach ($FleetArray as $Ship => $Count)
 		{
