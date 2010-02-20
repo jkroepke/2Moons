@@ -659,13 +659,13 @@ $lang['res']['descriptions'] = array(
 614 => 'Der Imperator bemerkte bei Ihnen die unleugbaren Qualitäten des Eroberns. Er schlägt Ihnen vor Raider zu werden. Der Raider ist der Grad der höchsten Ausbildung der Raider der imperialen Armee',
 615 => 'Sie haben gezeigt, dass Sie der größte Eroberer des Universums sind. Es ist Ihrer, solange Sie diesen Platz halten, den Sie bekommen haben.',
 
-700 => "Erhöht die Angriffswerte der Schiffe und Verteidigungen um %s%%.",
-701 => "Erhöht die Schildewerte der Schiffe und Verteidigungen um %s%%.",
-702 => "Verkürzt die Bauzeit bei Gebäuden um %s%%.",
-703 => "Erhöht die Rohstoffproduktion um %s%%.",
-704 => "Erhöht die Energieproduktion um %s%%.",
-705 => "Verkürzt die Forschungszeit um %s%%.",
-706 => "Verkürzt die Flugzeit um %s%%.",
+700 => "Erhöht die Angriffswerte der Schiffe und Verteidigungen um %s%%. Der Bonus ist nur temporär.",
+701 => "Erhöht die Schildewerte der Schiffe und Verteidigungen um %s%%. Der Bonus ist nur temporär.",
+702 => "Verkürzt die Bauzeit bei Gebäuden um %s%%. Der Bonus ist nur temporär.",
+703 => "Erhöht die Rohstoffproduktion um %s%%. Der Bonus ist nur temporär.",
+704 => "Erhöht die Energieproduktion um %s%%. Der Bonus ist nur temporär.",
+705 => "Verkürzt die Forschungszeit um %s%%. Der Bonus ist nur temporär.",
+706 => "Verkürzt die Flugzeit um %s%%. Der Bonus ist nur temporär.",
 );
 
 //----------------------------------------------------------------------------//
