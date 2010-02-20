@@ -92,7 +92,7 @@ $QryTableConfig     .= ") ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 
 $QryInsertConfig     = "INSERT INTO `prefix_".CONFIG."` ";
 $QryInsertConfig    .= "(`config_name`           , `config_value`) VALUES ";
-$QryInsertConfig    .= "('VERSION'          	 , '5.0'), ";
+$QryInsertConfig    .= "('VERSION'          	 , '".INSTALL_VERSION."'), ";
 $QryInsertConfig    .= "('users_amount'          , '0'), ";
 $QryInsertConfig    .= "('game_speed'            , '2500'), ";
 $QryInsertConfig    .= "('fleet_speed'           , '2500'), ";
@@ -134,7 +134,7 @@ $QryInsertConfig    .= "('ts_timeout'        	 , '1'), ";
 $QryInsertConfig    .= "('ts_version'        	 , '2'), ";
 $QryInsertConfig    .= "('reg_closed'            , '0'), ";
 $QryInsertConfig    .= "('OverviewNewsFrame'     , '1'), ";
-$QryInsertConfig    .= "('OverviewNewsText'		 , 'Herzlich Willkommen bei 2Moons RC5.0!'), ";
+$QryInsertConfig    .= "('OverviewNewsText'		 , 'Herzlich Willkommen bei 2Moons RC".INSTALL_VERSION."!'), ";
 $QryInsertConfig    .= "('capaktiv'      		 , '0'), ";
 $QryInsertConfig    .= "('cappublic'			 , ''), ";
 $QryInsertConfig    .= "('capprivate'			 , ''), ";

@@ -72,7 +72,7 @@ switch ($Mode) {
 		} else {
 			$parse['error'] = "<span class=\"yes\">Aktiv</span>";
 		}
-		if(file_exists($xgp_root."config.php")){
+		if(($res = @fopen($xgp_root."config.php","w+") === true) || file_exists($xgp_root."config.php")){
 			if(is_writable($xgp_root."config.php") || @chmod($xgp_root."config.php", 0777)){
 					$chmod = "<span class=\"yes\"> - Beschreibbar</span>";
 				} else {
@@ -80,6 +80,7 @@ switch ($Mode) {
 					$error++;
 				}
 			$parse['config'] = "<tr><th>Datei - config.php</th></th><th><span class=\"yes\">Gefunden</span>".$chmod."</th></tr>";		
+			@fclose($res);
 		} else {
 			$parse['config'] = "<tr><th>Datei - config.php</th></th><th><span class=\"no\">Nicht Gefunden</span>";
 			$error++;
@@ -237,7 +238,11 @@ switch ($Mode) {
 			$QryInsertAdm .= "UPDATE ".CONFIG." SET `config_value` = '1' WHERE `config_name` = 'LastSettedPlanetPos';";
 			$QryInsertAdm .= "UPDATE ".CONFIG." SET `config_value` = `config_value` + '1' WHERE `config_name` = 'users_amount' LIMIT 1;";
 			$db->multi_query($QryInsertAdm);
-			$frame  = parsetemplate(gettemplate('install/ins_acc_done'), $parse);
+			include($xgp_root.'config.php');
+			$cookie = "1/%/" . $adm_user . "/%/" . md5 ($md5pass . "--" . $dbsettings ["secretword"] ) . "/%/" . 0;
+			setcookie('2Moons', $cookie, 0, "/", "", 0 );
+			header("Location: ../adm/index.php");
+			
 		}
 		break;
 	case'upgrade':

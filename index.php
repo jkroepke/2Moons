@@ -286,7 +286,7 @@ switch ($page) {
 				} else {
 					include_once('config.php');
 					$cookie = $NewUser ['id'] . "/%/" . $UserName . "/%/" . md5 ( $UserPass . "--" . $dbsettings ["secretword"] ) . "/%/" . 0;
-					setcookie ( $game_config ['COOKIE_NAME'], $cookie, 0, "/", "", 0 );
+					setcookie( $game_config ['COOKIE_NAME'], $cookie, 0, "/", "", 0 );
 					
 					unset($dbsettings);
 					
