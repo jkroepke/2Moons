@@ -1433,7 +1433,7 @@ abstract class FlyingFleetMissions {
 			$SQLQuery .= "`gesamttruemmer` = '".$FleetDebris."', ";
 			$SQLQuery .= "`rid` = '". $rid ."', ";
 			$SQLQuery .= "`a_zestrzelona` = '".count($result['rounds'])."', ";
-			$SQLQuery .= "`raport` = '". $db->sql_escape($raport) ."',";
+			$SQLQuery .= "`raport` = '". $db->sql_escape(preg_replace("/\[(\d+)\:(\d+)\:(\d+)\]/i", "[X:X:X]", $raport)) ."',";
 			$SQLQuery .= "`fleetresult` = '". $result['won'] ."';";		
 			$SQLQuery .= "UPDATE ".USERS." SET ";
             $SQLQuery .= "`wons` = wons + ".$Won.", ";
@@ -2897,12 +2897,12 @@ abstract class FlyingFleetMissions {
 			$chance 		 = rand(0, 100);
 			if($chance < 20 + $FleetRow['fleet_amount'] * 0.05) {
 				$FoundDark 	 = rand(423, 1278);
-				$db->multi_query("UPDATE `".USERS."` SET `darkmatter` = `darkmatter` + '".$FoundDark ."' WHERE `id` =".$FleetRow['fleet_owner']." LIMIT 1;DELETE FROM ".FLEETS." WHERE `fleet_id` = ". $FleetRow["fleet_id"].";");
+				$db->multi_query("UPDATE `".USERS."` SET `darkmatter` = darkmatter + '".$FoundDark ."' WHERE `id` =".$FleetRow['fleet_owner']." LIMIT 1;DELETE FROM ".FLEETS." WHERE `fleet_id` = ". $FleetRow["fleet_id"].";");
 				$Message = sprintf($lang['sys_expe_found_goods'], 0, $lang['Metal'], 0, $lang['Crystal'], 0, $lang['Deuterium'], pretty_number($FoundDark), $lang['Darkmatter']);
 				SendSimpleMessage ( $FleetRow['fleet_owner'], '', $FleetRow['fleet_end_stay'], 15, $lang['sys_mess_qg'], $MessTitle, $Message );
 			} else {
 				$Message = $lang['sys_expe_nothing_'.rand(1, 2)];
-				$db->query("UPDATE `".USERS."` SET `fleet_mess` = '1' WHERE `id` =".$FleetRow['fleet_owner']." LIMIT 1;");
+				$db->query("UPDATE ".FLEETS." SET `fleet_mess` = '1' WHERE `fleet_id` = '". $FleetRow['fleet_id'] ."' LIMIT 1 ;");
 			}
 			
 			SendSimpleMessage($FleetRow['fleet_owner'], '', $FleetRow['fleet_end_stay'], 15, $lang['sys_mess_qg'], $lang['sys_expe_report'], $Message); 
@@ -2910,7 +2910,7 @@ abstract class FlyingFleetMissions {
 		elseif ($FleetRow['fleet_end_time'] < time())
 		{
 			self::RestoreFleetToPlanet($FleetRow, true);
-			$db->multi_query("DELETE FROM ".FLEETS." WHERE `fleet_id` = ". $FleetRow["fleet_id"].";");
+			$db->query("DELETE FROM ".FLEETS." WHERE `fleet_id` = ". $FleetRow["fleet_id"].";");
 			SendSimpleMessage($FleetRow['fleet_owner'], '', $FleetRow['fleet_end_time'], 15, $lang['sys_mess_qg'], $lang['sys_expe_report'], $lang['sys_expe_back_home']);
 		}		
 	}

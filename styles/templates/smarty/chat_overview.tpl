@@ -16,7 +16,7 @@
 <tr><th><div id="shoutbox" style="margin: 5px; vertical-align: text-top; height: 360px; overflow:auto;"></div></th></tr>
 
 <tr><th nowrap> 
-{$chat_message}: <input name="msg" type="text" id="msg" style="width:75%" maxlength="120" onKeyPress="if(event.keyCode == 13){ addMessage(); } if (event.keyCode==60 || event.keyCode==62) event.returnValue = false; if (event.which==60 || event.which==62) return false;"> 
+{$chat_message}: <input name="msg" type="text" id="msg" style="width:75%" maxlength="255" onKeyPress="if(event.keyCode == 13){ addMessage(); } if (event.keyCode==60 || event.keyCode==62) event.returnValue = false; if (event.which==60 || event.which==62) return false;"> 
 <input type="submit" name="send" value="{$chat_send}" id="send">
 </th>
 <tr><th colspan="2"><p align="left">BB-Codes:</p>
