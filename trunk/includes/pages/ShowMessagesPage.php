@@ -132,7 +132,7 @@ function ShowMessagesPage($CurrentUser, $CurrentPlanet)
 					$UsrMess = $db->query("SELECT * FROM ".MESSAGES." WHERE `message_owner` = '0' AND `message_type` = '".$MessCategory."' ORDER BY `message_time` DESC;");
 				elseif($MessCategory == 100)
 					$UsrMess = $db->query("SELECT * FROM ".MESSAGES." WHERE `message_owner` = '".$CurrentUser['id']."' OR (`message_owner` = '0' AND `message_type` = '50') ORDER BY `message_time` DESC;");
-				elseif
+				else
 					$UsrMess = $db->query("SELECT * FROM ".MESSAGES." WHERE `message_owner` = '".$CurrentUser['id']."' AND `message_type` = '".$MessCategory."' ORDER BY `message_time` DESC;");
 				
 					
