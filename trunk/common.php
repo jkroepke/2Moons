@@ -28,12 +28,15 @@ ignore_user_abort(true);
 @set_time_limit(0);
 
 if((!file_exists($xgp_root . 'config.php') || filesize($xgp_root . 'config.php') == 0) && INSTALL != true)
-{
 	exit(header("Location:" . $xgp_root .  "install/"));
-}
 
-if(!defined('INSTALL') || !defined('IN_ADMIN') || !defined('IN_CRON')){
+
+if(!defined('INSTALL') || !defined('IN_ADMIN') || !defined('IN_CRON'))
 	define("STARTTIME",	microtime(true));
+	
+
+if (!(function_exists("spl_autoload_register"))) {
+   exit("PHP is missing <a href=\"http://php.net/spl\">Standard PHP Library (SPL)</a> support");
 }
 
 date_default_timezone_set("Europe/Berlin");
