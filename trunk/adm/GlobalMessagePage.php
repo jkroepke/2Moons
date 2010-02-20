@@ -60,11 +60,9 @@ if ($ToolsCanUse != 1) die();
 			$Message 	= "<font color=\"". $kolor ."\"><b>".makebr($_POST['tresc'])."</b></font>";
 			$summery	= 0;
 
-			while ($u = $db->fetch_array($sq))
-			{
-				SendSimpleMessage ( $u['id'], $user['id'], $Time, 1, $From, $Subject, $Message);
-				$_POST['tresc'] = str_replace(":name:",$u['username'],$_POST['tresc']);
-			}
+			
+			SendSimpleMessage(0, $user['id'], $Time, 50, $From, $Subject, $Message);
+			$db->query("UPDATE `".USERS."` SET `new_message` = `new_message` + 1;");
 			message($lang['ma_message_sended'], "GlobalMessagePage." . $phpEx, 3);
 		}
 		else

@@ -609,10 +609,11 @@ class ShowFleetPages extends FleetFunctions
 			{
 				$QryUpdateFleets = "UPDATE ".FLEETS." SET ";
 				$QryUpdateFleets .= "`fleet_start_time` = '". $fleet['start_time'] ."', ";
-				$QryUpdateFleets .= "`fleet_end_time` = '". ($fleet['start_time'] - $AksStartTime['Start'])."' + fleet_end_time ";
+				$QryUpdateFleets .= "`fleet_end_time` = fleet_end_time + '".($fleet['start_time'] - $AksStartTime['Start'])."' ";
 				$QryUpdateFleets .= "WHERE ";
 				$QryUpdateFleets .= "`fleet_group` = '". $fleet_group_mr ."';";
 				$db->query($QryUpdateFleets);
+				echo ($fleet['start_time'] - $AksStartTime['Start']);
 			}
 		}
 		

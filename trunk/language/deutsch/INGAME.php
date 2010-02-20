@@ -913,6 +913,7 @@ $lang['mg_type'][3]    						= 'Kampf- berichte';
 $lang['mg_type'][4]    						= 'System Nachrichten';
 $lang['mg_type'][5]    						= 'Transport Nachrichten';
 $lang['mg_type'][15]   						= 'Expedition- berichte';
+$lang['mg_type'][50]						= 'Game Nachrichten';
 $lang['mg_type'][99]   						= 'Bauschleifen Nachrichten';
 $lang['mg_type'][100]						= 'Alle Nachrichten';
 $lang['mg_type'][999]						= 'Postausgang';
@@ -941,6 +942,7 @@ $lang['mg_send_to']							= 'Empfänger';
 $lang['mg_message']							= 'Nachricht';
 $lang['mg_characters']						= 'Zeichen';
 $lang['mg_send']							= 'Absenden';
+$lang['mg_game_message']					= 'Game Message';
 
 //----------------------------------------------------------------------------//
 //ALLIANCE
