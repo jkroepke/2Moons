@@ -128,8 +128,14 @@ function ShowMessagesPage($CurrentUser, $CurrentPlanet)
 					);
 				}			
 			} else {
-				echo "SELECT * FROM ".MESSAGES." WHERE ".(($MessCategory != 50) ? "(`message_owner` = '".$CurrentUser['id']."' OR `message_owner` = '0')":"`message_owner` = '0'").(($MessCategory != 100) ? " AND `message_type` = '".$MessCategory."'" : "")." ORDER BY `message_time` DESC;";
-				$UsrMess = $db->query("SELECT * FROM ".MESSAGES." WHERE ".(($MessCategory != 50) ? "(`message_owner` = '".$CurrentUser['id']."' OR `message_owner` = '0')":"`message_owner` = '0'").(($MessCategory != 100) ? " AND `message_type` = '".$MessCategory."'" : "")." ORDER BY `message_time` DESC;");
+				if($MessCategory == 50)
+					$UsrMess = $db->query("SELECT * FROM ".MESSAGES." WHERE `message_owner` = '0' AND `message_type` = '".$MessCategory."' ORDER BY `message_time` DESC;");
+				elseif($MessCategory == 100)
+					$UsrMess = $db->query("SELECT * FROM ".MESSAGES." WHERE `message_owner` = '".$CurrentUser['id']."' OR (`message_owner` = '0' AND `message_type` = '50') ORDER BY `message_time` DESC;");
+				elseif
+					$UsrMess = $db->query("SELECT * FROM ".MESSAGES." WHERE `message_owner` = '".$CurrentUser['id']."' AND `message_type` = '".$MessCategory."' ORDER BY `message_time` DESC;");
+				
+					
 				$db->query("UPDATE ".USERS." SET `new_message` = '0' WHERE `id` = '".$CurrentUser['id']."';");
 					
 				while ($CurMess = $db->fetch_array($UsrMess))
