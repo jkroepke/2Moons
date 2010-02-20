@@ -24,7 +24,7 @@
 					<tbody>
 						<tr>
 							<td style="text-align:left;width:10px"><img src="./styles/images/transparent.gif" alt="" width="0" height="100"></td>
-							<td style="text-align:left;width:90%">{$ExtraDMInfo.desc}<br><br>{$Darkmatter}: {$ExtraDMInfo.price} {$in_dest_durati}: <font color="lime">{$ExtraDMInfo.time}</font></td>
+							<td style="text-align:left;width:90%">{$ExtraDMInfo.desc}<br><br>{$Darkmatter}: {if $ExtraDMInfo.isok}<font color="lime">{$ExtraDMInfo.price}</font>{else}<font color="#FF0000">{$ExtraDMInfo.price}</font>{/if} {$in_dest_durati}: <font color="lime">{$ExtraDMInfo.time}</font></td>
 							<td style="text-align:center;vertical-align:middle;width:100px;color:#FFFFFF">
 							{if $ExtraDMInfo.active > 0}
 							<script type="text/javascript">
@@ -32,8 +32,11 @@
 							</script>
 							{$of_still}<br>
 							<div id="time_{$ExtraDMInfo.id}" class="z">-</div>
-							{$of_active}
-							{else}<a href="?page=officier&amp;extra={$ExtraDMInfo.id}&amp;action=send"><font color="#00ff00">{$of_recruit}</font></a>{/if}
+							{$of_active}{if $ExtraDMInfo.isok}
+							<br>
+							<a href="?page=officier&amp;extra={$ExtraDMInfo.id}&amp;action=send">{$of_update}</a>{/if}
+							{else}{if $ExtraDMInfo.isok}
+							<a href="?page=officier&amp;extra={$ExtraDMInfo.id}&amp;action=send"><font color="#00FF00">{$of_recruit}</font></a>{else}<font color="#FF0000">{$of_recruit}</font>{/if}{/if}
 							</td>
 						</tr>
 					</tbody>

@@ -412,7 +412,8 @@ $lang['of_points_per_thousand_darkmatter']	= '(1 Punkt pro %d %s)';
 $lang['of_lvl']								= 'Level';
 $lang['of_dm_trade']						= '%s - Bank';
 $lang['of_still']							= 'Noch';
-$lang['of_active']							= 'aktiv.';
+$lang['of_active']							= 'aktiv';
+$lang['of_update']							= 'Erneuern';
 
 //----------------------------------------------------------------------------//
 //TRADER

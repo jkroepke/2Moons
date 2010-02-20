@@ -369,13 +369,13 @@ if ( defined('INSIDE'))
 	);
 
 	$ExtraDM	= array(
-		700 => array('time' => 24, 'darkmatter' => 1000, 'add' => 0.1),
-		701 => array('time' => 24, 'darkmatter' => 1000, 'add' => 0.1),
-		702 => array('time' => 24, 'darkmatter' => 1000, 'add' => 0.1),
-		703 => array('time' => 24, 'darkmatter' => 1000, 'add' => 0.1),
-		704 => array('time' => 24, 'darkmatter' => 1000, 'add' => 0.1),
-		705 => array('time' => 24, 'darkmatter' => 1000, 'add' => 0.1),
-		706 => array('time' => 24, 'darkmatter' => 1000, 'add' => 0.1),
+		700 => array('time' => 24, 'darkmatter' => 1500, 'add' => 0.1),
+		701 => array('time' => 24, 'darkmatter' => 1500, 'add' => 0.1),
+		702 => array('time' => 24, 'darkmatter' =>  750, 'add' => 0.1),
+		703 => array('time' => 24, 'darkmatter' => 2500, 'add' => 0.1),
+		704 => array('time' => 24, 'darkmatter' => 2000, 'add' => 0.1),
+		705 => array('time' => 24, 'darkmatter' => 1250, 'add' => 0.1),
+		706 => array('time' => 24, 'darkmatter' => 3000, 'add' => 0.1),
 	);
 	
 	$reslist['allow']    = array ( 1 => array(1,  2,  3,  4, 12, 14, 15, 21, 22, 23, 24, 31, 33, 34, 44), 3 => array(12, 14, 21, 22, 23, 24, 34, 41, 42, 43));
