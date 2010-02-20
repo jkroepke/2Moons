@@ -56,7 +56,7 @@ class ShowOfficierPage
 	{
 		global $db, $reslist, $resource, $phpEx, $ExtraDM;
 		
-		if ((floor($CurrentUser['darkmatter'] / $ExtraDM[$Element]['darkmatter'])) > 0 && in_array($Element, $reslist['dmfunc']) && $CurrentUser[$resource[$Element]] - time() < 0)
+		if ((floor($CurrentUser['darkmatter'] / $ExtraDM[$Element]['darkmatter'])) > 0 && in_array($Element, $reslist['dmfunc']))
 		{
 			$CurrentUser[$resource[$Element]] = time() + $ExtraDM[$Element]['time'] * 3600;
 			$CurrentUser['darkmatter']         -= $ExtraDM[$Element]['darkmatter'];
@@ -119,17 +119,15 @@ class ShowOfficierPage
 		{
 			foreach($reslist['dmfunc'] as $Element)
 			{
-				if ($ExtraDM[$Element]['darkmatter'] <= $CurrentUser['darkmatter'])
-				{
-					$ExtraDMList[]	= array(
-						'id' 	 	=> $Element,
-						'active'  	=> $CurrentUser[$resource[$Element]] - time(),
-						'price'		=> colorNumber($CurrentUser['darkmatter'] - $ExtraDM[$Element]['darkmatter'], pretty_number($ExtraDM[$Element]['darkmatter'])),
-						'time'		=> pretty_time($ExtraDM[$Element]['time'] * 3600),
-						'name'		=> $lang['tech'][$Element],
-						'desc'  	=> sprintf($lang['res']['descriptions'][$Element], $ExtraDM[$Element]['add'] * 100),	
-					);
-				}
+				$ExtraDMList[]	= array(
+					'id' 	 	=> $Element,
+					'active'  	=> $CurrentUser[$resource[$Element]] - time(),
+					'price'		=> pretty_number($ExtraDM[$Element]['darkmatter']),
+					'isok'		=> (($CurrentUser['darkmatter'] - $ExtraDM[$Element]['darkmatter']) >= 0) ? true : false,
+					'time'		=> pretty_time($ExtraDM[$Element]['time'] * 3600),
+					'name'		=> $lang['tech'][$Element],
+					'desc'  	=> sprintf($lang['res']['descriptions'][$Element], $ExtraDM[$Element]['add'] * 100),	
+				);
 			}
 		}
 		
@@ -160,6 +158,7 @@ class ShowOfficierPage
 			'in_dest_durati'		=> $lang['in_dest_durati'],
 			'of_still'				=> $lang['of_still'],
 			'of_active'				=> $lang['of_active'],
+			'of_update'				=> $lang['of_update'],
 			'in_dest_durati'		=> $lang['in_dest_durati'],
 			'of_dm_trade'			=> sprintf($lang['of_dm_trade'],$lang['Darkmatter']),
 		));
