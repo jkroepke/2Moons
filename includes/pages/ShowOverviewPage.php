@@ -286,8 +286,6 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 				}
 			}	
 
-			$StatRecord = $template->player['rank'];
-
 			if ($CurrentPlanet['b_building'] != 0)
 			{
 				include_once($xgp_root . 'includes/functions/InsertBuildListScript.' . $phpEx);
@@ -370,7 +368,7 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 
 			$template->assign_vars(array(
 				'date_time'					=> date("D M j H:i:s", time()),
-				'user_rank'					=> sprintf($lang['ov_userrank_info'], pretty_number($StatRecord['total_points']), $lang['ov_place'], $StatRecord['total_rank'], $StatRecord['total_rank'], $lang['ov_of'], $game_config['users_amount']),
+				'user_rank'					=> sprintf($lang['ov_userrank_info'], pretty_number($template->player['rank']['total_points']), $lang['ov_place'], $template->player['rank']['total_rank'], $template->player['rank']['total_rank'], $lang['ov_of'], $game_config['users_amount']),
 				'is_news'					=> $game_config['OverviewNewsFrame'],
 				'news'						=> makebr($game_config['OverviewNewsText']),
 				'planetname'				=> $CurrentPlanet['name'],
