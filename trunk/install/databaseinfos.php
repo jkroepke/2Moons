@@ -515,7 +515,7 @@ $QryTableUsers      .= "`dm_buildtime` int(11) NOT NULL default '0',";
 $QryTableUsers      .= "`dm_researchtime` int(11) NOT NULL default '0',";
 $QryTableUsers      .= "`dm_resource` int(11) NOT NULL default '0',";
 $QryTableUsers      .= "`dm_energie` int(11) NOT NULL default '0',";
-$QryTableUsers      .= "`dm_fleettime` int(11) NOT NULL default '0',";
+$QryTableUsers      .= "`dm_fleettime` int(11) NOT NULL default '0' ";
 $QryTableUsers      .= "PRIMARY KEY  (`id`), ";
 $QryTableUsers      .= "UNIQUE KEY `username` (`username`)";
 $QryTableUsers      .= ") ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
