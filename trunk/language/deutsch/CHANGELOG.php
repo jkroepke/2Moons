@@ -9,6 +9,7 @@ $lang['changelog']   = array(
 
 'RC5.0b3' => 'ShadoX '.$version[2].'.'.$version[1].'.'.substr($version[0],2,2).'
 - ADD: DM BANK
+- FIX: Phalax &amp; Interplanetarrakten Reichweite
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game
 ',

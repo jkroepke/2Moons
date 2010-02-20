@@ -281,7 +281,7 @@ class GalaxyRows
 			if($HavePhalanx <> 0 && $GalaxyRowUser['id'] != $user['id'] && $GalaxyRowPlanet["galaxy"] == $CurrentGalaxy)
 			{
 				$PhRange 		 = $this->GetPhalanxRange ( $HavePhalanx );
-				$SystemLimitMin  = max(1, $CurrentSystem - $PhRange);
+				$SystemLimitMin  = min(1, $CurrentSystem - $PhRange);
 				$SystemLimitMax  = $CurrentSystem + $PhRange;
 
 				$PhalanxTypeLink = ($System <= $SystemLimitMax && $System >= $SystemLimitMin) ? "<a href=# onclick=fenster(&#039;game.php?page=phalanx&galaxy=".$Galaxy."&amp;system=".$System."&amp;planet=".$Planet."&amp;planettype=".$PlanetType."&#039;) >".$lang['gl_phalanx']."</a><br />":"";
@@ -294,7 +294,7 @@ class GalaxyRows
 			if ($CurrentMIP <> 0 && $GalaxyRowUser['id'] != $user['id'] && $GalaxyRowPlanet["galaxy"] == $CurrentGalaxy)
 			{
 				$MiRange 		= $this->GetMissileRange();
-				$SystemLimitMin = max(1, $CurrentSystem - $MiRange);
+				$SystemLimitMin = min(1, $CurrentSystem - $MiRange);
 				$SystemLimitMax = $CurrentSystem + $MiRange;
 
 				$MissileBtn 	= ($System <= $SystemLimitMax && $System >= $SystemLimitMin) ? true : false;
