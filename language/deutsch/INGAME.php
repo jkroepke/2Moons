@@ -1387,8 +1387,8 @@ $lang['cdg_fatal_error']					= 'FATAL ERROR';
 //class.FlyingFleetsTable.php
 
 $lang['cff_no_fleet_data']					= 'Keine Schiffsinformationen';
-$lang['cff_aproaching']						= 'They approach ';
-$lang['cff_ships']							= ' ships';
+$lang['cff_aproaching']						= 'Flotte besteht aus ';
+$lang['cff_ships']							= ' Einheiten.';
 $lang['cff_from_the_planet']				= 'Planet ';
 $lang['cff_from_the_moon']					= 'Mond ';
 $lang['cff_the_planet']						= 'den Planeten ';

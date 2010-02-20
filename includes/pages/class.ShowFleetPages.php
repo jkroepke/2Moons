@@ -239,7 +239,7 @@ class ShowFleetPages extends FleetFunctions
 			'galaxy_post' 			=> $TargetGalaxy,
 			'system_post' 			=> $TargetSystem,
 			'planet_post' 			=> $TargetPlanet,
-			'fleetroom'				=> $FleetRoom,	
+			'fleetroom'				=> number_format($FleetRoom, 0, '', ''),	
 			'fleetspeedfactor'		=> ((time() - $CurrentUser[$resource[706]] <= 0) ? (1 - $ExtraDM[706]['add']) : 1),
 			'options_selector'    	=> array(1 => $lang['fl_planet'], 2 => $lang['fl_debris'], 3 => $lang['fl_moon']),
 			'options'				=> $TargetPlanettype,
