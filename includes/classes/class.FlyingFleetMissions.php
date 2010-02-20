@@ -102,10 +102,9 @@ abstract class FlyingFleetMissions {
 		
 		$steal 		= array_map('floor', $booty);
 		$Amount		= count($SortFleets);
-		$i 			= 0;
-		while(self::ZeroSteal($steal) === false || $i < 5)
+		
+		while(self::ZeroSteal($steal) === false)
 		{
-			$i++;
 			foreach ($SortFleets as $FleetID => $Capacity)
 			{
 				$MetalSteal[$FleetID]		= isset($MetalSteal[$FleetID]) ? $MetalSteal[$FleetID] : 0;

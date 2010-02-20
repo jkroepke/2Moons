@@ -613,7 +613,6 @@ class ShowFleetPages extends FleetFunctions
 				$QryUpdateFleets .= "WHERE ";
 				$QryUpdateFleets .= "`fleet_group` = '". $fleet_group_mr ."';";
 				$db->query($QryUpdateFleets);
-				echo ($fleet['start_time'] - $AksStartTime['Start']);
 			}
 		}
 		
