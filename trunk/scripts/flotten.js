@@ -102,12 +102,13 @@ function distance() {
 }
 
 function duration() {
-	var speedfactor = document.getElementsByName("speedfactor")[0].value;
-	var msp 		= maxspeed();
-	var sp 			= speed();
-	var dist 		= distance();
+	var speedfactor			= document.getElementsByName("speedfactor")[0].value;
+	var fleetspeedfactor 	= document.getElementsByName("fleetspeedfactor")[0].value;
+	var msp 				= maxspeed();
+	var sp 					= speed();
+	var dist 				= distance();
 
-	return Math.max(Math.round(((3500 / (sp * 0.1)) * Math.pow(dist * 10 / msp, 0.5) + 10) / speedfactor), 5);
+	return Math.max(Math.round((((3500 / (sp * 0.1)) * Math.pow(dist * 10 / msp, 0.5) + 10) / speedfactor) * fleetspeedfactor), 5);
 }
 
 function consumption() {

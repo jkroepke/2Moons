@@ -2,6 +2,51 @@
 {include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
 <div id="content">
+	{if $ExtraDMList}
+    <table width="80%" align="center">
+    <tr>
+        <td class="c" colspan="3">{$of_dm_trade}</td>
+    </tr>
+	{foreach item=ExtraDMInfo from=$ExtraDMList}
+		<tr>
+			<th class="l" rowspan="2" width="120">
+				<a href="javascript:info({$ExtraDMInfo.id});">
+					<img border="0" src="styles/images/ExtraDMs/{$ExtraDMInfo.id}.jpg" alt="{$ExtraDMInfo.name}" align="top" width="120" height="120">
+				</a>
+			</th>
+			<td class="c">
+				<img src="./styles/images/transparent.gif" alt="" width="0" height="0">&nbsp;<a href="javascript:info({$ExtraDMInfo.id});">{$ExtraDMInfo.name}</a>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="1" class="l">
+				<table border="0" cellpadding="0" cellspacing="0">
+					<tbody>
+						<tr>
+							<td style="text-align:left;width:10px"><img src="./styles/images/transparent.gif" alt="" width="0" height="100"></td>
+							<td style="text-align:left;width:90%">{$ExtraDMInfo.desc}<br><br>{$Darkmatter}: {$ExtraDMInfo.price} {$in_dest_durati}: <font color="lime">{$ExtraDMInfo.time}</font></td>
+							<td style="text-align:center;vertical-align:middle;width:100px;color:#FFFFFF">
+							{if $ExtraDMInfo.active > 0}
+							<script type="text/javascript">
+							getsectime('time_{$ExtraDMInfo.id}', {$ExtraDMInfo.active});
+							</script>
+							{$of_still}<br>
+							<div id="time_{$ExtraDMInfo.id}" class="z">-</div>
+							{$of_active}
+							{else}<a href="?page=officier&amp;extra={$ExtraDMInfo.id}&amp;action=send"><font color="#00ff00">{$of_recruit}</font></a>{/if}
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2"><img src="./styles/images/transparent.gif" alt="" width="1" height="10"></td>
+		</tr>
+	{/foreach}
+    </table>
+	<br><br>
+	{/if}
     <table width="80%" align="center">
     <tr>
         <td class="c" colspan="3">{$of_available_points} {$user_darkmatter} {$of_darkmatter}</td>

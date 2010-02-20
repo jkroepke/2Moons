@@ -23,7 +23,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 
 function ShowResourcesPage($CurrentUser, $CurrentPlanet)
 {
-	global $lang, $ProdGrid, $resource, $reslist, $game_config, $db;
+	global $lang, $ProdGrid, $resource, $reslist, $game_config, $db, $ExtraDM;
 	
 	if ($CurrentPlanet['planet_type'] == 3)
 	{
@@ -69,8 +69,6 @@ function ShowResourcesPage($CurrentUser, $CurrentPlanet)
 	$template->page_planetmenu();
 	$template->page_footer();
 	
-	$BuildTemp                           = $CurrentPlanet['temp_max'];
-	
 	if ($CurrentPlanet['energy_max'] == 0 && $CurrentPlanet['energy_used'] > 0)
 	{
 		$post_porcent = 0;
@@ -92,6 +90,8 @@ function ShowResourcesPage($CurrentUser, $CurrentPlanet)
 	{
 		$post_porcent = 100;
 	}
+	$BuildTemp      = $CurrentPlanet['temp_max'];
+	$BuildEnergy	= $CurrentUser[$resource[113]];
 	
 	foreach($reslist['prod'] as $ProdID)
 	{
@@ -99,18 +99,18 @@ function ShowResourcesPage($CurrentUser, $CurrentPlanet)
 		{
 			$BuildLevelFactor                    = $CurrentPlanet[ $resource[$ProdID]."_porcent" ];
 			$BuildLevel                          = $CurrentPlanet[ $resource[$ProdID] ];
-			$metal     = floor(eval($ProdGrid[$ProdID]['formule']['metal'])     * (0.01 * $post_porcent) * ($game_config['resource_multiplier']) * (1 + ( $CurrentUser['rpg_geologue'] * GEOLOGUE )));
-			$crystal   = floor(eval($ProdGrid[$ProdID]['formule']['crystal']  ) * (0.01 * $post_porcent) * ($game_config['resource_multiplier']) * (1 + ( $CurrentUser['rpg_geologue'] * GEOLOGUE )));
+			$metal     = floor(eval($ProdGrid[$ProdID]['formule']['metal'])     * (0.01 * $post_porcent) * ($game_config['resource_multiplier']) * (1 + ( $CurrentUser['rpg_geologue'] * GEOLOGUE )) * ((time() - $CurrentUser[$resource[703]] <= 0) ? (1 + $ExtraDM[703]['add']) : 1));
+			$crystal   = floor(eval($ProdGrid[$ProdID]['formule']['crystal']  ) * (0.01 * $post_porcent) * ($game_config['resource_multiplier']) * (1 + ( $CurrentUser['rpg_geologue'] * GEOLOGUE )) * ((time() - $CurrentUser[$resource[703]] <= 0) ? (1 + $ExtraDM[703]['add']) : 1));
 		
 			if ($ProdID < 4)
 			{
-				$deuterium	= floor(eval($ProdGrid[$ProdID]['formule']['deuterium']) * (0.01 * $post_porcent) * ($game_config['resource_multiplier']) * (1 + ( $CurrentUser['rpg_geologue'] * GEOLOGUE )));
+				$deuterium	= floor(eval($ProdGrid[$ProdID]['formule']['deuterium']) * (0.01 * $post_porcent) * ($game_config['resource_multiplier']) * (1 + ( $CurrentUser['rpg_geologue'] * GEOLOGUE )) * ((time() - $CurrentUser[$resource[703]] <= 0) ? (1 + $ExtraDM[703]['add']) : 1));
 				$energy		= floor(eval($ProdGrid[$ProdID]['formule']['energy']) * (0.01 * $post_porcent) * ($game_config['resource_multiplier']));
 			}
 			else
 			{
 				$deuterium	= floor(eval($ProdGrid[$ProdID]['formule']['deuterium']) * ($game_config['resource_multiplier']));
-				$energy		= floor(eval($ProdGrid[$ProdID]['formule']['energy']) * ($game_config['resource_multiplier']) * (1 + ($CurrentUser['rpg_ingenieur'] * INGENIEUR )));
+				$energy		= floor(eval($ProdGrid[$ProdID]['formule']['energy']) * ($game_config['resource_multiplier']) * (1 + ($CurrentUser['rpg_ingenieur'] * INGENIEUR )) * ((time() - $CurrentUser[$resource[704]] <= 0) ? (1 + $ExtraDM[704]['add']) : 1));
 			}
 
 			$CurrPlanetList[]	= array(

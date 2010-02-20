@@ -52,10 +52,26 @@ class ShowOfficierPage
 		}
 	}
 
-	public function UpdateOfficier(&$CurrentUser)
+	public function UpdateExtra(&$CurrentUser, $Element)
+	{
+		global $db, $reslist, $resource, $phpEx, $ExtraDM;
+		
+		if ((floor($CurrentUser['darkmatter'] / $ExtraDM[$Element]['darkmatter'])) > 0 && in_array($Element, $reslist['dmfunc']) && $CurrentUser[$resource[$Element]] - time() < 0)
+		{
+			$CurrentUser[$resource[$Element]] = time() + $ExtraDM[$Element]['time'] * 3600;
+			$CurrentUser['darkmatter']         -= $ExtraDM[$Element]['darkmatter'];
+			$QryUpdateUser  = "UPDATE ".USERS." SET ";
+			$QryUpdateUser .= "`".$resource[$Element]."` = '". $CurrentUser[$resource[$Element]] ."' ";
+			$QryUpdateUser .= "WHERE ";
+			$QryUpdateUser .= "`id` = '". $CurrentUser['id'] ."';";
+			$db->query($QryUpdateUser);
+		}
+	}
+
+	public function UpdateOfficier(&$CurrentUser, $Selected)
 	{
 		global $db, $reslist, $resource, $phpEx;
-		$Selected    = request_var('offi', 0);
+		
 		if ((floor($CurrentUser['darkmatter'] / DM_PRO_OFFICIER_LEVEL)) > 0 && in_array($Selected, $reslist['officier']) && $this->IsOfficierAccessible($CurrentUser, $Selected) == 1)
 		{
 			$CurrentUser[$resource[$Selected]] += 1;
@@ -70,16 +86,27 @@ class ShowOfficierPage
 	
 	public function ShowOfficierPage($CurrentUser, $CurrentPlanet)
 	{
-		global $resource, $reslist, $lang, $db;
+		global $resource, $reslist, $lang, $db, $ExtraDM;
 		
-		$action    = request_var('action', '');
+		$action   = request_var('action', '');
+		$Offi	  = request_var('offi', 0);
+		$Extra	  = request_var('extra', 0);
 		
+		$query = $db->fetch_array($db->query("SELECT estado FROM ".MODULE." WHERE modulo='DM-Bank';"));
+				
 		if ($action == "send")
-			$this->UpdateOfficier($CurrentUser);
+		{
+			if(!empty($Offi))
+				$this->UpdateOfficier($CurrentUser, $Offi);
+			elseif(!empty($Extra) && $query['estado'] == 1)
+				$this->UpdateExtra($CurrentUser, $Extra);		
+		}
+		
 		
 		$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
 
 		$template	= new template();
+		$template->loadscript('time.js');
 		$template->set_vars($CurrentUser, $CurrentPlanet);
 		$template->page_header();
 		$template->page_topnav();
@@ -88,7 +115,25 @@ class ShowOfficierPage
 		$template->page_footer();
 		
 
-		foreach($reslist['officier'] as $Key => $Element)
+		if($query['estado'] == 1) 
+		{
+			foreach($reslist['dmfunc'] as $Element)
+			{
+				if ($ExtraDM[$Element]['darkmatter'] <= $CurrentUser['darkmatter'])
+				{
+					$ExtraDMList[]	= array(
+						'id' 	 	=> $Element,
+						'active'  	=> $CurrentUser[$resource[$Element]] - time(),
+						'price'		=> colorNumber($CurrentUser['darkmatter'] - $ExtraDM[$Element]['darkmatter'], pretty_number($ExtraDM[$Element]['darkmatter'])),
+						'time'		=> pretty_time($ExtraDM[$Element]['time'] * 3600),
+						'name'		=> $lang['tech'][$Element],
+						'desc'  	=> sprintf($lang['res']['descriptions'][$Element], $ExtraDM[$Element]['add'] * 100),	
+					);
+				}
+			}
+		}
+		
+		foreach($reslist['officier'] as $Element)
 		{
 			if (($Result = $this->IsOfficierAccessible ($CurrentUser, $Element)) !== 0)
 			{
@@ -103,6 +148,7 @@ class ShowOfficierPage
 		}
 
 		$template->assign_vars(array(	
+			'ExtraDMList'			=> $ExtraDMList,
 			'OfficierList'			=> $OfficierList,
 			'user_darkmatter'		=> floor($CurrentUser['darkmatter'] / DM_PRO_OFFICIER_LEVEL),
 			'of_max_lvl'			=> $lang['of_max_lvl'],
@@ -111,6 +157,11 @@ class ShowOfficierPage
 			'of_available_points'	=> $lang['of_available_points'],
 			'alv_points'			=> $lang['alv_points'],
 			'of_lvl'				=> $lang['of_lvl'],
+			'in_dest_durati'		=> $lang['in_dest_durati'],
+			'of_still'				=> $lang['of_still'],
+			'of_active'				=> $lang['of_active'],
+			'in_dest_durati'		=> $lang['in_dest_durati'],
+			'of_dm_trade'			=> sprintf($lang['of_dm_trade'],$lang['Darkmatter']),
 		));
 		
 		$template->show("officier_overview.tpl");

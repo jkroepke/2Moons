@@ -410,6 +410,9 @@ $lang['of_max_lvl']							= 'Max. Level';
 $lang['of_available_points']				= 'Verfügbare Punkte:';
 $lang['of_points_per_thousand_darkmatter']	= '(1 Punkt pro %d %s)';
 $lang['of_lvl']								= 'Level';
+$lang['of_dm_trade']						= '%s - Bank';
+$lang['of_still']							= 'Noch';
+$lang['of_active']							= 'aktiv.';
 
 //----------------------------------------------------------------------------//
 //TRADER
@@ -545,6 +548,13 @@ $lang['tech'] = array(
 614 => "Eroberer",
 615 => "Imperator",
 
+700 => "Waffenoptimierung",
+701 => "Schildoptimierung",
+702 => "Gebäudezeitoptimierung",
+703 => "Rohstoffoptimierung",
+704 => "Energieoptimierung",
+705 => "Forschgunszeitoptimierung",
+706 => "Flugzeitoptimierung",
 );
 
 $lang['res']['descriptions'] = array(
@@ -648,6 +658,13 @@ $lang['res']['descriptions'] = array(
 614 => 'Der Imperator bemerkte bei Ihnen die unleugbaren Qualitäten des Eroberns. Er schlägt Ihnen vor Raider zu werden. Der Raider ist der Grad der höchsten Ausbildung der Raider der imperialen Armee',
 615 => 'Sie haben gezeigt, dass Sie der größte Eroberer des Universums sind. Es ist Ihrer, solange Sie diesen Platz halten, den Sie bekommen haben.',
 
+700 => "Erhöht die Angriffswerte der Schiffe und Verteidigungen um %s%%.",
+701 => "Erhöht die Schildewerte der Schiffe und Verteidigungen um %s%%.",
+702 => "Verkürzt die Bauzeit bei Gebäuden um %s%%.",
+703 => "Erhöht die Rohstoffproduktion um %s%%.",
+704 => "Erhöht die Energieproduktion um %s%%.",
+705 => "Verkürzt die Forschungszeit um %s%%.",
+706 => "Verkürzt die Flugzeit um %s%%.",
 );
 
 //----------------------------------------------------------------------------//

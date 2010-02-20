@@ -211,7 +211,7 @@ abstract class FlyingFleetMissions {
 
 	private static function calculateAttack (&$attackers, &$defenders) 
 	{
-        global $pricelist, $CombatCaps, $game_config, $resource;
+        global $pricelist, $CombatCaps, $game_config, $resource, $ExtraDM;
 
 		// generate new table for rapid fire
 		// $rf[target] = array ( shooter1 => shots1, shooter2 => shots2 );
@@ -280,9 +280,9 @@ abstract class FlyingFleetMissions {
                 $attackAmount[$fleetID] = 0;
                 
                 foreach ($attacker['detail'] as $element => $amount) {
-                    $attTech    = (1 + (0.1 * ($attacker['user']['military_tech']) + (0.05 * $attacker['user']['rpg_amiral']))); //attaque
-                    $defTech    = (1 + (0.1 * ($attacker['user']['defence_tech']) + (0.05 * $attacker['user']['rpg_amiral']))); //bouclier
-                    $shieldTech = (1 + (0.1 * ($attacker['user']['shield_tech']) + (0.05 * $attacker['user']['rpg_amiral']))); //coque
+                    $attTech    = (1 + (0.1 * ($attacker['user']['military_tech']) + (0.05 * $attacker['user'][$resource[602]]) + 1 * ((time() - $attacker['user'][$resource[701]] <= 0) ? (1 + $ExtraDM[700]['add']) : 1))); //attaque
+                    $defTech    = (1 + (0.1 * ($attacker['user']['defence_tech']) + (0.05 * $attacker['user'][$resource[602]]) + 1 * ((time() - $attacker['user'][$resource[700]] <= 0) ? (1 + $ExtraDM[701]['add']) : 1))); //bouclier
+                    $shieldTech = (1 + (0.1 * ($attacker['user']['shield_tech']) + (0.05 * $attacker['user'][$resource[602]]))); //coque
                     
                     $attackers[$fleetID]['techs'] = array($shieldTech, $defTech, $attTech);
                     
@@ -307,9 +307,9 @@ abstract class FlyingFleetMissions {
                 $defenseAmount[$fleetID] = 0;
                 
                 foreach ($defender['def'] as $element => $amount) {
-                    $attTech    = (1 + (0.1 * ($defender['user']['military_tech']) + (0.05 * $defender['user']['rpg_amiral']))); //attaquue
-                    $defTech    = (1 + (0.1 * ($defender['user']['defence_tech']) + (0.05 * $defender['user']['rpg_amiral']))); //bouclier
-                    $shieldTech = (1 + (0.1 * ($defender['user']['shield_tech']) + (0.05 * $defender['user']['rpg_amiral']))); //coque
+                    $attTech    = (1 + (0.1 * ($defender['user']['military_tech']) + (0.05 * $defender['user'][$resource[602]]) + 1 * ((time() - $defender['user'][$resource[700]] <= 0) ? (1 + $ExtraDM[700]['add']) : 1))); //attaquue
+                    $defTech    = (1 + (0.1 * ($defender['user']['defence_tech']) + (0.05 * $defender['user'][$resource[602]]) + 1 * ((time() - $defender['user'][$resource[701]] <= 0) ? (1 + $ExtraDM[701]['add']) : 1))); //bouclier
+                    $shieldTech = (1 + (0.1 * ($defender['user']['shield_tech']) + (0.05 * $defender['user'][$resource[602]]))); //coque
                     
                     $defenders[$fleetID]['techs'] = array($shieldTech, $defTech, $attTech);
                     
@@ -1182,7 +1182,7 @@ abstract class FlyingFleetMissions {
 				while ($fleet = $db->fetch($fleets))
 				{
 					$attackFleets[$fleet['fleet_id']]['fleet'] = $fleet;
-					$attackFleets[$fleet['fleet_id']]['user'] = $db->fetch_array($db->query('SELECT id,username,military_tech,defence_tech,shield_tech,rpg_amiral FROM '.USERS.' WHERE id ='.$fleet['fleet_owner'].";"));
+					$attackFleets[$fleet['fleet_id']]['user'] = $db->fetch_array($db->query('SELECT id,username,military_tech,defence_tech,shield_tech,rpg_amiral,dm_defensive,dm_attack FROM '.USERS.' WHERE id ='.$fleet['fleet_owner'].";"));
 					$attackFleets[$fleet['fleet_id']]['detail'] = array();
 					$temp = explode(';', $fleet['fleet_array']);
 					foreach ($temp as $temp2)
@@ -1202,7 +1202,7 @@ abstract class FlyingFleetMissions {
 			else
 			{
 				$attackFleets[$FleetRow['fleet_id']]['fleet'] = $FleetRow;
-				$attackFleets[$FleetRow['fleet_id']]['user'] = $db->fetch_array($db->query('SELECT id,username,military_tech,defence_tech,shield_tech,rpg_amiral FROM '.USERS.' WHERE id='.$FleetRow['fleet_owner'].";"));
+				$attackFleets[$FleetRow['fleet_id']]['user'] = $db->fetch_array($db->query('SELECT id,username,military_tech,defence_tech,shield_tech,rpg_amiral,dm_defensive,dm_attack FROM '.USERS.' WHERE id='.$FleetRow['fleet_owner'].";"));
 				$attackFleets[$FleetRow['fleet_id']]['detail'] = array();
 				$temp = explode(';', $FleetRow['fleet_array']);
 				foreach ($temp as $temp2)
@@ -1233,7 +1233,7 @@ abstract class FlyingFleetMissions {
 						$defense[$defRow['fleet_id']][$Element[0]] = 0;
 
 					$defense[$defRow['fleet_id']]['def'][$Element[0]] += $Element[1];
-					$defense[$defRow['fleet_id']]['user'] = $db->fetch_array($db->query('SELECT username,military_tech,defence_tech,shield_tech,rpg_amiral FROM '.USERS.' WHERE id='.$defRow['fleet_owner'],";"));
+					$defense[$defRow['fleet_id']]['user'] = $db->fetch_array($db->query('SELECT username,military_tech,defence_tech,shield_tech,rpg_amiral,dm_defensive,dm_attack FROM '.USERS.' WHERE id='.$defRow['fleet_owner'],";"));
 				}
 			}
 
@@ -2902,6 +2902,7 @@ abstract class FlyingFleetMissions {
 				SendSimpleMessage ( $FleetRow['fleet_owner'], '', $FleetRow['fleet_end_stay'], 15, $lang['sys_mess_qg'], $MessTitle, $Message );
 			} else {
 				$Message = $lang['sys_expe_nothing_'.rand(1, 2)];
+				$db->query("UPDATE `".USERS."` SET `fleet_mess` = '1' WHERE `id` =".$FleetRow['fleet_owner']." LIMIT 1;");
 			}
 			
 			SendSimpleMessage($FleetRow['fleet_owner'], '', $FleetRow['fleet_end_stay'], 15, $lang['sys_mess_qg'], $lang['sys_expe_report'], $Message); 

@@ -23,7 +23,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 
 	function GetBuildingTime ($user, $planet, $Element, $Destroy = false)
 	{
-		global $pricelist, $resource, $reslist, $game_config, $requeriments;
+		global $pricelist, $resource, $reslist, $game_config, $requeriments, $ExtraDM;
 
 
 		$level = ($planet[$resource[$Element]]) ? $planet[$resource[$Element]] : $user[$resource[$Element]];
@@ -32,7 +32,8 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 			$cost_metal   = floor($pricelist[$Element]['metal']   * pow($pricelist[$Element]['factor'], $level));
 			$cost_crystal = floor($pricelist[$Element]['crystal'] * pow($pricelist[$Element]['factor'], $level));
 			$time         = (($cost_crystal + $cost_metal) / ($game_config['game_speed'] * (1 + $planet[$resource[14]]))) * pow(0.5, $planet[$resource[15]]);
-			$time         = floor(($time * 60 * 60) * (1 - (($user[$resource[605]]) * CONSTRUCTEUR)));
+			$time         = ($time * 60 * 60) * (1 - (($user[$resource[605]]) * CONSTRUCTEUR));
+			$time         = floor($time * ((time() - $user[$resource[702]] <= 0) ? (1 - $ExtraDM[702]['add']) : 1));
 		}
 		elseif (in_array($Element, $reslist['tech']))
 		{
@@ -51,11 +52,12 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 				$Level	= $planet[$resource[31]];
 			
 			if(NEW_RESEARCH)
-				$time		  = floor(((($cost_metal + $cost_crystal) / (1000 * (1 + $Level)) * (1 - $user[$resource[606]] * SCIENTIFIQUE)) / ($game_config['game_speed'] / 2500)) * 3600);
+				$time		  = ((($cost_metal + $cost_crystal) / (1000 * (1 + $Level)) * (1 - $user[$resource[606]] * SCIENTIFIQUE)) / ($game_config['game_speed'] / 2500)) * 3600;
 			else {
 				$time         = (($cost_metal + $cost_crystal) / $game_config['game_speed']) / (($Level + 1) * 2);
-				$time         = floor($time * (1 - $user[$resource[606]] * SCIENTIFIQUE) * 3600);
+				$time         = $time * (1 - $user[$resource[606]] * SCIENTIFIQUE) * 3600;
 			}
+			$time         = floor($time * ((time() - $user[$resource[705]] <= 0) ? (1 - $ExtraDM[705]['add']) : 1));
 		}
 		elseif (in_array($Element, $reslist['defense']))
 		{
