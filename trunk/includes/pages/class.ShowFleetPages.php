@@ -179,12 +179,12 @@ class ShowFleetPages extends FleetFunctions
 			'maxexpeditions'		=> $EnvoiMaxExpedition,
 			'slots_available'		=> ($MaxFlottes <= $MaxFlyingFleets - $MaxFlyingRaks) ? false : true,
 			'AKSPage'				=> $AKSPage,
-			'bonus_attack'			=> $CurrentUser[$resource[109]] * 10 + $CurrentUser[$resource[602]] * 5 + ((time() - $CurrentUser[$resource[700]] <= 0) ? (100 * $ExtraDM[700]['add']) : 1),
-			'bonus_defensive'		=> $CurrentUser[$resource[110]] * 10 + $CurrentUser[$resource[602]] * 5 + ((time() - $CurrentUser[$resource[701]] <= 0) ? (100 * $ExtraDM[701]['add']) : 1),
+			'bonus_attack'			=> $CurrentUser[$resource[109]] * 10 + $CurrentUser[$resource[602]] * 5 + ((time() - $CurrentUser[$resource[700]] <= 0) ? (100 * $ExtraDM[700]['add']) : 0),
+			'bonus_defensive'		=> $CurrentUser[$resource[110]] * 10 + $CurrentUser[$resource[602]] * 5 + ((time() - $CurrentUser[$resource[701]] <= 0) ? (100 * $ExtraDM[701]['add']) : 0),
 			'bonus_shield'			=> $CurrentUser[$resource[111]] * 10 + $CurrentUser[$resource[602]] * 5,
-			'bonus_combustion'		=> $CurrentUser[$resource[115]] * 10 + ((time() - $CurrentUser[$resource[706]] <= 0) ? (100 * $ExtraDM[706]['add']) : 1),
-			'bonus_impulse'			=> $CurrentUser[$resource[117]] * 20 + ((time() - $CurrentUser[$resource[706]] <= 0) ? (100 * $ExtraDM[706]['add']) : 1),
-			'bonus_hyperspace'		=> $CurrentUser[$resource[118]] * 30 + ((time() - $CurrentUser[$resource[706]] <= 0) ? (100 * $ExtraDM[706]['add']) : 1),
+			'bonus_combustion'		=> $CurrentUser[$resource[115]] * 10 + ((time() - $CurrentUser[$resource[706]] <= 0) ? (100 * $ExtraDM[706]['add']) : 0),
+			'bonus_impulse'			=> $CurrentUser[$resource[117]] * 20 + ((time() - $CurrentUser[$resource[706]] <= 0) ? (100 * $ExtraDM[706]['add']) : 0),
+			'bonus_hyperspace'		=> $CurrentUser[$resource[118]] * 30 + ((time() - $CurrentUser[$resource[706]] <= 0) ? (100 * $ExtraDM[706]['add']) : 0),
 		));
 		$template->show('fleet_table.tpl');
 		$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);

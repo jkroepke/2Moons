@@ -409,7 +409,7 @@ class ShowShipyardPage
 				}
 			}
 		}
-		
+				
 		if ($action == "delete" && is_array($cancel))
 			$this->CancelAuftr($CurrentUser, $CurrentPlanet, $cancel);
 
