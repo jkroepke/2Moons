@@ -1735,7 +1735,7 @@ abstract class FlyingFleetMissions {
 	{
 		global $pricelist, $lang, $resource, $CombatCaps, $game_config, $db;
 
-		if ($FleetRow['fleet_mess'] == 0 && $FleetRow['fleet_start_time']> time())
+		if ($FleetRow['fleet_mess'] == 0 && $FleetRow['fleet_start_time'] <= time())
 		{
 			$db->query("UPDATE ".FLEETS." SET `fleet_mess` = '1' WHERE `fleet_id` = '". $FleetRow['fleet_id'] ."' LIMIT 1 ;");
 		}

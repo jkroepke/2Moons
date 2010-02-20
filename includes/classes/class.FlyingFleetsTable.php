@@ -59,13 +59,13 @@ class FlyingFleetsTable
 		$FleetRec     = explode(";", $FleetRow['fleet_array']);
 		$FleetPopup   = "<a href='#' onmouseover=\"return overlib('";
 		$FleetPopup  .= "<table width=200>";
-		if(!defined('IN_ADMIN'))
+		if(!defined('IN_ADMIN') && !$isAKS)
 		{
-			if($user['spy_tech'] < 2 && $FleetRow['fleet_owner'] != $user['id'] && !$isAKS)
+			if($user['spy_tech'] < 2 && $FleetRow['fleet_owner'] != $user['id'])
 			{
 				$FleetPopup .= "<tr><td width=50% align=left><font color=white>".$lang['cff_no_fleet_data']."<font></td></tr>";
 			}
-			elseif($user['spy_tech'] >= 2 && $user['spy_tech'] < 4 && $FleetRow['fleet_owner'] != $user['id'] && !$isAKS)
+			elseif($user['spy_tech'] >= 2 && $user['spy_tech'] < 4 && $FleetRow['fleet_owner'] != $user['id'])
 			{
 				$FleetPopup .= "<tr><td width=50% align=left><font color=white>".$lang['cff_aproaching'].$FleetRow['fleet_amount'].$lang['cff_ships']."<font></td></tr>";
 			}
@@ -92,7 +92,7 @@ class FlyingFleetsTable
 				}
 			}
 		}
-		elseif(defined('IN_ADMIN'))
+		else
 		{
 			foreach($FleetRec as $Item => $Group)
 			{
@@ -110,15 +110,16 @@ class FlyingFleetsTable
 		return $FleetPopup;
 	}
 
-	private function BuildHostileFleetPlayerLink($FleetRow)
+	private function BuildHostileFleetPlayerLink($FleetRow, $isAKS)
 	{
 		global $lang, $dpath, $db;
 
 		$PlayerName  = $db->fetch_array($db->query("SELECT `username` FROM ".USERS." WHERE `id` = '". $FleetRow['fleet_owner']."';"));
 		$Link  		 = $PlayerName['username']. " ";
+		if(!$isAKS) { 
 		$Link 		.= "<a href=\"javascript:f('game.php?page=messages&amp;mode=write&amp;id=".$FleetRow['fleet_owner']."','');\">";
 		$Link 		.= "<img src=\"".$dpath."img/m.gif\" title=\"".$lang['write_message']."\" border=\"0\" alt=\"\"></a>";
-
+		}
 		return $Link;
 	}
 
@@ -279,7 +280,7 @@ class FlyingFleetsTable
 				$EventString  = $lang['cff_a'];
 				$EventString .= $FleetContent;
 				$EventString .= $lang['cff_of'];
-				if(!$isAKS) $EventString .= $this->BuildHostileFleetPlayerLink ( $FleetRow );
+				$EventString .= $this->BuildHostileFleetPlayerLink($FleetRow, true);
 			}
 
 			if ($Status == 0)
