@@ -355,7 +355,7 @@ abstract class FleetFunctions
 		{
 			$FleetHiddenBlock	.= "<input type=\"hidden\" name=\"consumption". $ShipID ."\" value=\"". self::GetShipConsumption($ShipID, $Player) ."\">\n";
 			$FleetHiddenBlock	.= "<input type=\"hidden\" name=\"speed". $ShipID ."\"       value=\"". self::GetFleetMaxSpeed($ShipID, $Player) ."\">\n";
-			$FleetHiddenBlock	.= "<input type=\"hidden\" name=\"ship". $ShipID ."\"        value=\"". $Amount ."\">\n";
+			$FleetHiddenBlock	.= "<input type=\"hidden\" name=\"ship". $ShipID ."\"        value=\"". number_format($Amount, 0, '', '') ."\">\n";
 		}
 		return $FleetHiddenBlock;
 	}
