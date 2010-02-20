@@ -391,7 +391,11 @@ class ShowFleetPages extends FleetFunctions
 		$thisplanettype 		= $CurrentPlanet['planet_type'];
 		
 		if (IsVacationMode($CurrentUser))
-			message($lang['fl_vacation_mode_active'],"game.php?page=overview",2);
+		{
+			$template->message($lang['fl_vacation_mode_active'],"game.php?page=overview",2);
+			$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
+			exit;
+		}
 	
 		if (!($planettype >= 1 || $planettype <= 3))
 			parent::GotoFleetPage();
@@ -415,12 +419,20 @@ class ShowFleetPages extends FleetFunctions
 			parent::GotoFleetPage();
 
 		if ($TransportMetal + $TransportCrystal + $TransportDeuterium < 1 && $mission == 3)
-			message("<font color=\"lime\"><b>".$lang['fl_empty_transport']."</b></font>", "game." . $phpEx . "?page=fleet", 1);
+		{
+			$template->message("<font color=\"lime\"><b>".$lang['fl_empty_transport']."</b></font>", "game." . $phpEx . "?page=fleet", 1);
+			$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
+			exit;
+		}
 			
 		$ActualFleets		= parent::GetCurrentFleets($CurrentUser['id']);
 
 		if (parent::GetMaxFleetSlots($CurrentUser) <= $ActualFleets)
-			message($lang['fl_no_slots'], "game." . $phpEx . "?page=fleet", 1);
+		{
+			$template->message($lang['fl_no_slots'], "game." . $phpEx . "?page=fleet", 1);
+			$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
+			exit;
+		}
 			
 		$fleet_group_mr = 0;
 		if($fleet_group > 0 && $mission == 2)
@@ -485,20 +497,32 @@ class ShowFleetPages extends FleetFunctions
 			$maxexpde = parent::GetCurrentFleets($CurrentUser['id'], 11);
 
 			if ($maxexpde != 0)
-				message("<font color=\"red\"><b>".$lang['fl_expedition_fleets_limit']."</b></font>", "game." . $phpEx . "?page=fleet", 2);
+			{
+				$template->message("<font color=\"red\"><b>".$lang['fl_expedition_fleets_limit']."</b></font>", "game." . $phpEx . "?page=fleet", 2);
+				$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
+				exit;
+			}
 		}
 		elseif ($mission == 15)
 		{
 			$MaxExpedition = $CurrentUser[$resource[124]];
 
 			if ($MaxExpedition == 0)
-				message("<font color=\"red\"><b>".$lang['fl_expedition_tech_required']."</b></font>", "game." . $phpEx . "?page=fleet", 2);
+			{
+				$template->message("<font color=\"red\"><b>".$lang['fl_expedition_tech_required']."</b></font>", "game." . $phpEx . "?page=fleet", 2);
+				$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
+				exit;
+			}			
 							
 			$ExpeditionEnCours	= parent::GetCurrentFleets($CurrentUser['id'], 15);
 			$EnvoiMaxExpedition = floor(sqrt($MaxExpedition));
 			
-			if ($ExpeditionEnCours >= $EnvoiMaxExpedition )
-				message("<font color=\"red\"><b>".$lang['fl_expedition_fleets_limit']."</b></font>", "game." . $phpEx . "?page=fleet", 2);
+			if ($ExpeditionEnCours >= $EnvoiMaxExpedition)
+			{
+				$template->message("<font color=\"red\"><b>".$lang['fl_expedition_fleets_limit']."</b></font>", "game." . $phpEx . "?page=fleet", 2);
+				$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
+				exit;
+			}
 		}
 
 		$YourPlanet 	= (isset($TargetPlanet['id_owner']) && $TargetPlanet['id_owner'] == $CurrentUser['id']) ? true : false;
@@ -507,37 +531,65 @@ class ShowFleetPages extends FleetFunctions
 		$HeDBRec 		= ($YourPlanet) ? $MyDBRec : GetUserByID($TargetPlanet['id_owner'], array('id','onlinetime','ally_id','urlaubs_modus'));
 
 		if ($HeDBRec['urlaubs_modus'] && $mission != 8)
-			message("<font color=\"lime\"><b>".$lang['fl_in_vacation_player']."</b></font>", "game." . $phpEx . "?page=fleet", 2);
+		{
+			$template->message("<font color=\"lime\"><b>".$lang['fl_in_vacation_player']."</b></font>", "game." . $phpEx . "?page=fleet", 2);
+			$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
+			exit;
+		}
 		
 		if(!$YourPlanet && ($mission == 1 || $mission == 5 || $mission == 6 || $mission == 9))
 		{
 			if($TargetPlanet['id_level'] > $CurrentUser['authlevel'] && $game_config['adm_attack'] == 0)
-				message("<font color=\"red\"><b>".$lang['fl_admins_cannot_be_attacked']."</b></font>", "game." . $phpEx . "?page=fleet", 2);
-		
+			{
+				$template->message("<font color=\"red\"><b>".$lang['fl_admins_cannot_be_attacked']."</b></font>", "game." . $phpEx . "?page=fleet", 2);
+				$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
+				exit;
+			}
+			
 			$UserPoints   	= $db->fetch_array($db->query("SELECT `total_points` FROM ".STATPOINTS." WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $MyDBRec['id'] ."';"));
 			$User2Points  	= $db->fetch_array($db->query("SELECT `total_points` FROM ".STATPOINTS." WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $HeDBRec['id'] ."';"));
 		
 			$IsNoobProtec	= CheckNoobProtec($UserPoints, $User2Points, $HeDBRec['onlinetime']);
 			
 			if ($IsNoobProtec['NoobPlayer'])
-				message("<font color=\"lime\"><b>".$lang['fl_week_player']."</b></font>", "game." . $phpEx . "?page=fleet", 2);
+			{
+				$template->message("<font color=\"lime\"><b>".$lang['fl_week_player']."</b></font>", "game." . $phpEx . "?page=fleet", 2);
+				$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
+				exit;
+			}
 			elseif ($IsNoobProtec['StrongPlayer'])
-				message("<font color=\"red\"><b>".$lang['fl_strong_player']."</b></font>", "game." . $phpEx . "?page=fleet", 2);
+			{
+				$template->message("<font color=\"red\"><b>".$lang['fl_strong_player']."</b></font>", "game." . $phpEx . "?page=fleet", 2);
+				$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
+				exit;
+			}
 		}
 
 		if (!($mission == 15 || $mission == 8))
 		{
 			if ($HeDBRec['ally_id'] != $MyDBRec['ally_id'] && $mission == 4)
-				message ("<font color=\"red\"><b>".$lang['fl_stay_not_on_enemy']."</b></font>", "game." . $phpEx . "?page=fleet", 2);
+			{
+				$template->message("<font color=\"red\"><b>".$lang['fl_stay_not_on_enemy']."</b></font>", "game." . $phpEx . "?page=fleet", 2);
+				$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
+				exit;
+			}
 
 			if ($TargetPlanet['ally_deposit'] < 1 && $HeDBRec != $MyDBRec && $mission == 5)
-				message ("<font color=\"red\"><b>".$lang['fl_not_ally_deposit']."</b></font>", "game." . $phpEx . "?page=fleet", 2);
+			{
+				$template->message ("<font color=\"red\"><b>".$lang['fl_not_ally_deposit']."</b></font>", "game." . $phpEx . "?page=fleet", 2);
+				$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
+				exit;
+			}
 
 			if (($TargetPlanet["id_owner"] == $CurrentPlanet["id_owner"]) && (($mission == 1) || ($mission == 6)))
 				parent::GotoFleetPage();
 
 			if (($TargetPlanet["id_owner"] != $CurrentPlanet["id_owner"]) && ($mission == 4))
-				message ("<font color=\"red\"><b>".$lang['fl_deploy_only_your_planets']."</b></font>","game." . $phpEx . "?page=fleet", 2);
+			{
+				$template->message ("<font color=\"red\"><b>".$lang['fl_deploy_only_your_planets']."</b></font>","game." . $phpEx . "?page=fleet", 2);
+				$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
+				exit;
+			}
 		}
 
 		if(parent::CheckUserSpeed())
@@ -588,14 +640,25 @@ class ShowFleetPages extends FleetFunctions
 		$StockDeuterium 	-= $consumption;
 					
 		if ($StockMetal < $TransportMetal || $StockCrystal < $TransportCrystal || $StockDeuterium < $TransportDeuterium)
-			message ("<font color=\"red\"><b>". $lang['fl_no_enought_deuterium'] . pretty_number($consumption) ."</b></font>", "game." . $phpEx . "?page=fleet", 2);
+		{
+			$template->message("<font color=\"red\"><b>". $lang['fl_no_enought_deuterium'] . pretty_number($consumption) ."</b></font>", "game." . $phpEx . "?page=fleet", 2);
+			$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
+			exit;
+		}
 
 		if ($StorageNeeded > $FleetStorage)
-			message ("<font color=\"red\"><b>". $lang['fl_no_enought_cargo_capacity'] . pretty_number($StorageNeeded - $FleetStorage)."</b></font>", "game." . $phpEx . "?page=fleet", 2);
+		{
+			$template->message("<font color=\"red\"><b>". $lang['fl_no_enought_cargo_capacity'] . pretty_number($StorageNeeded - $FleetStorage)."</b></font>", "game." . $phpEx . "?page=fleet", 2);
+			$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
+			exit;
+		}
 
 		if ($TargetPlanet['id_level'] > $CurrentUser['authlevel'] && $game_config['adm_attack'] == 0)
-			message($lang['fl_admins_cannot_be_attacked'], "game." . $phpEx . "?page=fleet",2);
-
+		{
+			$template->message($lang['fl_admins_cannot_be_attacked'], "game." . $phpEx . "?page=fleet",2);
+			$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
+			exit;
+		}
 		if ($fleet_group_mr != 0)
 		{
 			$AksStartTime = $db->fetch_array($db->query("SELECT MAX(`fleet_start_time`) AS Start FROM ".FLEETS." WHERE `fleet_group` = '". $fleet_group_mr . "';"));
@@ -676,6 +739,8 @@ class ShowFleetPages extends FleetFunctions
 			'fl_fleet'				=> $lang['fl_fleet'],
 		));
 		$template->show('fleet3_table.tpl');
+		$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
+		
 	}
 
 	public static function FleetAjax($CurrentUser, $CurrentPlanet)
