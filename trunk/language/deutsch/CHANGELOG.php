@@ -11,6 +11,7 @@ $lang['changelog']   = array(
 - ADD: Accountlöschung w&auml;hrend des U-Modes
 - ADD: UTF-8 Support for Names
 - ADD: Kosten Dunkle Materie
+- ADD: Some langs (not complete)
 - FIX: Quere
 - FIX: Gebäude Abreißen
 - FIX: Allianzerstellung
@@ -22,6 +23,7 @@ $lang['changelog']   = array(
 - FIX: Zeilenumbruch in Globalen Nachrichten fixed
 - DIV: Update Smarty to 3.0b7
 - DIV: UserStats Mod an AKS angepasst.
+- DIV: Optimized Game Messages
 - DIV: Rechtschreibfehler korrigiert
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game
