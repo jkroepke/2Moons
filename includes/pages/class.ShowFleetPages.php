@@ -705,7 +705,7 @@ class ShowFleetPages extends FleetFunctions
 							".substr($FleetSubQRY,0,-2)."
 							WHERE
 							`id` = ". $CurrentPlanet['id'] ." LIMIT 1;";
-							
+		echo ($QryInsertFleet);					
 		$CurrentPlanet['metal']		-= $TransportMetal;
 		$CurrentPlanet['crystal']	-= $TransportCrystal;
 		$CurrentPlanet['deuterium']	-= ($TransportDeuterium + $consumption);
