@@ -4,7 +4,7 @@
 <div id="content">
 <table width="50%" align="center">
 <tr>
-<td class="c" colspan="10">{$mg_overview}
+<td class="c" colspan="11">{$mg_overview}
 </td>
 </tr>
 <tr>
@@ -18,17 +18,15 @@
 {/foreach}
 </tr>
 <tr>
-<td colspan="20" id="frame" style="margin:0px;padding:0px !important;">
+<td colspan="11" id="frame" style="margin:0px;padding:0px !important;">
 </td>
 </tr>
-</table>
-<table width="50%" align="center">
 <tr>
-<td class="c">{$mg_game_operators}</td>
+<td colspan="11" class="c">{$mg_game_operators}</td>
 </tr>
 {foreach item=OpsInfo from=$OpsList}
 <tr>
-<th>{$OpsInfo.username}<a href="mailto:{$OpsInfo.email}" title="Schreibe eine Mail an {$OpsInfo.username}"><img src="{$dpath}img/m.gif" alt="Schreibe eine Mail an {$OpsInfo.username}"></a></th>
+<th colspan="11">{$OpsInfo.username}<a href="mailto:{$OpsInfo.email}" title="Schreibe eine Mail an {$OpsInfo.username}"><img src="{$dpath}img/m.gif" alt="Schreibe eine Mail an {$OpsInfo.username}"></a></th>
 </tr>
 {/foreach}
 </table>

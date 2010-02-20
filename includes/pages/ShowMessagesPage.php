@@ -32,8 +32,8 @@ function ShowMessagesPage($CurrentUser, $CurrentPlanet)
 	$OwnerID       	= request_var('id',0);
 	$Subject 		= request_var('subject','',true);
 	
-	$MessageType   	= array ( 0, 1, 2, 3, 4, 5, 15, 99, 100, 999);
-	$TitleColor    	= array ( 0 => '#FFFF00', 1 => '#FF6699', 2 => '#FF3300', 3 => '#FF9900', 4 => '#773399', 5 => '#009933', 15 => '#030070', 99 => '#007070', 100 => '#ABABAB', 999 => '#CCCCCC');
+	$MessageType   	= array ( 0, 1, 2, 3, 4, 5, 15, 50, 99, 100, 999);
+	$TitleColor    	= array ( 0 => '#FFFF00', 1 => '#FF6699', 2 => '#FF3300', 3 => '#FF9900', 4 => '#773399', 5 => '#009933', 15 => '#030070', 50 => '#666600', 99 => '#007070', 100 => '#ABABAB', 999 => '#CCCCCC');
 
 	$template		= new template();
 	
@@ -128,7 +128,8 @@ function ShowMessagesPage($CurrentUser, $CurrentPlanet)
 					);
 				}			
 			} else {
-				$UsrMess = $db->query("SELECT * FROM ".MESSAGES." WHERE `message_owner` = '".$CurrentUser['id']."'".(($MessCategory != 100) ? " AND `message_type` = '".$MessCategory."'" : "")." ORDER BY `message_time` DESC;");
+			
+			$UsrMess = $db->query("SELECT * FROM ".MESSAGES." WHERE ".(($MessCategory != 50) ? "(`message_owner` = '".$CurrentUser['id']."' OR `message_owner` = '0')":"`message_owner` = '0'").(($MessCategory != 100) ? " AND `message_type` = '".$MessCategory."'" : "")." ORDER BY `message_time` DESC;");
 				$db->query("UPDATE ".USERS." SET `new_message` = '0' WHERE `id` = '".$CurrentUser['id']."';");
 					
 				while ($CurMess = $db->fetch_array($UsrMess))
@@ -158,6 +159,7 @@ function ShowMessagesPage($CurrentUser, $CurrentPlanet)
 				'mg_delete_unmarked'				=> $lang['mg_delete_unmarked'],
 				'mg_delete_all'						=> $lang['mg_delete_all'],
 				'mg_confirm_delete'					=> $lang['mg_confirm_delete'],
+				'mg_game_message'					=> $lang['mg_game_message'],
 				'dpath'								=> $dpath,
 				'MessCategory'						=> $MessCategory,
 			));
@@ -173,7 +175,7 @@ function ShowMessagesPage($CurrentUser, $CurrentPlanet)
 			$template->page_planetmenu();
 			$template->page_footer();
 	
-			$UsrMess 	= $db->query("SELECT `message_type` FROM ".MESSAGES." WHERE `message_owner` = '".$CurrentUser['id']."';");
+			$UsrMess 	= $db->query("SELECT `message_type` FROM ".MESSAGES." WHERE `message_owner` = '".$CurrentUser['id']."' OR `message_owner` = '0';");
 			$GameOps 	= $db->query("SELECT `username`, `email` FROM ".USERS." WHERE `authlevel` != '0' ORDER BY `username` ASC;");
 			$MessOut	= $db->fetch_array($db->query("SELECT COUNT(*) as count FROM ".MESSAGES." WHERE message_sender = '".$CurrentUser['id']."';"));
 			
