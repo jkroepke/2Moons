@@ -34,7 +34,6 @@ abstract class FleetFunctions
 		elseif ($MissionInfo['planettype'] == 2) {
 			if (isset($MissionInfo['Ship'][209]) || isset($MissionInfo['Ship'][219]))
 				$missiontype[8] = $lang['type_mission'][8];
-
 		} else {
 			if (!$UsedPlanet) {
 				if (isset($MissionInfo['Ship'][208]) && $MissionInfo['planettype'] == 1)
@@ -42,9 +41,6 @@ abstract class FleetFunctions
 			} else {
 				
 				$missiontype[3] = $lang['type_mission'][3];
-
-				if ($YourPlanet && $MissionInfo['planettype'] == 3 && self::OnlyShipByID($MissionInfo['Ship'], 220))
-					$missiontype[11] = $lang['type_mission'][11];
 					
 				if (!$YourPlanet && self::OnlyShipByID($MissionInfo['Ship'], 210))
 					$missiontype[6] = $lang['type_mission'][6];
@@ -60,6 +56,9 @@ abstract class FleetFunctions
 
 				if (!$YourPlanet && $MissionInfo['planettype'] == 3 && isset($MissionInfo['Ship'][214]))
 					$missiontype[9] = $lang['type_mission'][9];
+
+				if ($YourPlanet && $MissionInfo['planettype'] == 3 && self::OnlyShipByID($MissionInfo['Ship'], 220))
+					$missiontype[11] = $lang['type_mission'][11];
 			}
 		}
 				

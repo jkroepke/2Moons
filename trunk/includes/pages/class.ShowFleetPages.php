@@ -337,7 +337,7 @@ class ShowFleetPages extends FleetFunctions
 			'fl_hours'						=> $lang['fl_hours'],
 			'fl_hold_time'					=> $lang['fl_hold_time'],
 			'fl_expedition_alert_message'	=> $lang['fl_expedition_alert_message'],
-			'fl_dm_alert_message'			=> $lang['fl_dm_alert_message'],
+			'fl_dm_alert_message'			=> sprintf($lang['fl_dm_alert_message'], $lang['type_mission'][11], $lang['Darkmatter']),
 			'galaxy'						=> $TargetGalaxy,
 			'system'						=> $TargetSystem,
 			'planet'						=> $TargetPlanet,
@@ -700,16 +700,13 @@ class ShowFleetPages extends FleetFunctions
 							`fleet_resource_deuterium` = '". $TransportDeuterium ."',
 							`fleet_target_owner` = '". $TargetPlanet['id_owner'] ."',
 							`fleet_group` = '". $fleet_group_mr ."',
-							`start_time` = '". time() ."';
-							UPDATE `".PLANETS."` SET
-							".$FleetSubQRY."
-							`metal` = `metal` - '". $TransportMetal ."',
-							`crystal` = `crystal` - '". $TransportCrystal ."',
-							`deuterium` = `deuterium` - '". ($TransportDeuterium + $consumption) ."'
-							WHERE
-							`id` = ". $CurrentPlanet['id'] ." LIMIT 1;";
-		
-		$db->multi_query($QryInsertFleet);
+							`start_time` = '". time() ."';";
+	
+		$db->query($QryInsertFleet);
+
+		$CurrentPlanet['metal']		-= $TransportMetal;
+		$CurrentPlanet['crystal']	-= $TransportCrystal;
+		$CurrentPlanet['deuterium']	-= ($TransportDeuterium + $consumption);
 	
 		foreach ($FleetArray as $Ship => $Count)
 		{
