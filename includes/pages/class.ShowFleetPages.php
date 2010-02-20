@@ -98,7 +98,7 @@ class ShowFleetPages extends FleetFunctions
 				if (!empty($ShipCount))
 				{
 					$a = explode(",", $ShipCount);
-					$FleetList[$lang['tech'][$a[0]]] = pretty_number($a[1]);
+					$FleetList[$CurrentFleetsRow['fleet_id']][$lang['tech'][$a[0]]] = pretty_number($a[1]);
 				}
 			}
 			
@@ -117,7 +117,7 @@ class ShowFleetPages extends FleetFunctions
 				'end_time'		=> date("d M Y H:i:s", $CurrentFleetsRow['fleet_end_time']),
 				'amount'		=> pretty_number($CurrentFleetsRow['fleet_amount']),
 				'backin'		=> pretty_time(floor($CurrentFleetsRow['fleet_end_time'] - time())),
-				'FleetList'		=> $FleetList,
+				'FleetList'		=> $FleetList[$CurrentFleetsRow['fleet_id']],
 			);
 		}
 
