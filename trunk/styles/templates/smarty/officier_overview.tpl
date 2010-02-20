@@ -10,12 +10,10 @@
 	{foreach item=ExtraDMInfo from=$ExtraDMList}
 		<tr>
 			<th class="l" rowspan="2" width="120">
-				<a href="javascript:info({$ExtraDMInfo.id});">
-					<img border="0" src="styles/images/ExtraDMs/{$ExtraDMInfo.id}.jpg" alt="{$ExtraDMInfo.name}" align="top" width="120" height="120">
-				</a>
+				<img border="0" src="{$dpath}gebaeude/{$ExtraDMInfo.id}.gif" alt="{$ExtraDMInfo.name}" align="top" width="120" height="120">
 			</th>
-			<td class="c">
-				<img src="./styles/images/transparent.gif" alt="" width="0" height="0">&nbsp;<a href="javascript:info({$ExtraDMInfo.id});">{$ExtraDMInfo.name}</a>
+			<td class="c" style="color:#FFFFFF;">
+				<img src="./styles/images/transparent.gif" alt="" width="0" height="0">&nbsp;{$ExtraDMInfo.name}
 			</td>
 		</tr>
 		<tr>

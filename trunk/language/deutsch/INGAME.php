@@ -551,11 +551,11 @@ $lang['tech'] = array(
 
 700 => "Waffenoptimierung",
 701 => "Schildoptimierung",
-702 => "Gebäudezeitoptimierung",
+702 => "Baukoordinierung",
 703 => "Rohstoffoptimierung",
 704 => "Energieoptimierung",
-705 => "Forschgunszeitoptimierung",
-706 => "Flugzeitoptimierung",
+705 => "Forschungsoptimierung",
+706 => "Flottenkoordinierung",
 );
 
 $lang['res']['descriptions'] = array(
