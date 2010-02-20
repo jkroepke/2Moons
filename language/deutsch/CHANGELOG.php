@@ -7,12 +7,16 @@ $version  = explode("-",substr($revision, 7, -35));
 
 $lang['changelog']   = array(
 
-'RC5.0b2' => 'ShadoX '.$version[2].'.'.$version[1].'.'.substr($version[0],2,2).'
+'RC5.0b3' => 'ShadoX '.$version[2].'.'.$version[1].'.'.substr($version[0],2,2).'
+- ADD: DM BANK
+- DIV: Sicherheit im Game erhöht
+- DIV: Diverse Anpassungen am Game
+',
+'RC5.0b2' => 'ShadoX 20.02.10
 - ADD: Accountlöschung w&auml;hrend des U-Modes
 - ADD: UTF-8 Support for Names
 - ADD: Kosten Dunkle Materie
 - ADD: Some langs (not complete)
-- ADD: DM BANK
 - FIX: Quere
 - FIX: Gebäude Abreißen
 - FIX: Allianzerstellung
