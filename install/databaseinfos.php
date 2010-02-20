@@ -47,7 +47,7 @@ $QryTableAlliance   .= "`ally_request` varchar(1000) character set utf8, ";
 $QryTableAlliance   .= "`ally_request_waiting` varchar(500) character set utf8, ";
 $QryTableAlliance   .= "`ally_request_notallow` tinyint(4) NOT NULL default '0', ";
 $QryTableAlliance   .= "`ally_owner_range` varchar(32) character set utf8 default '', ";
-$QryTableAlliance   .= "`ally_ranks` varchar(1000) character set utf8, ";
+$QryTableAlliance   .= "`ally_ranks` text character set utf8, ";
 $QryTableAlliance   .= "`ally_members` int(11) NOT NULL default '0', ";
 $QryTableAlliance   .= "`ally_stats` int(11) NOT NULL default '1', ";
 $QryTableAlliance   .= "PRIMARY KEY  (`id`) ";
@@ -226,6 +226,7 @@ $QryInsertModulos   .= "(12, 'Chat', 1),";
 $QryInsertModulos   .= "(13, 'Impressum', 1),";
 $QryInsertModulos   .= "(14, 'Support', 1),";
 $QryInsertModulos   .= "(15, 'Rekorde', 1);";
+$QryInsertModulos   .= "(16, 'DM-Bank', 1);";
 
 $QryTableNews        = "CREATE TABLE IF NOT EXISTS `prefix_".NEWS."` (";
 $QryTableNews       .= "`id` int(11) unsigned NOT NULL AUTO_INCREMENT,";
@@ -508,10 +509,16 @@ $QryTableUsers      .= "`kbcrystal` bigint(20) NOT NULL default '0',";
 $QryTableUsers      .= "`lostunits` bigint(20) NOT NULL default '0',";
 $QryTableUsers      .= "`desunits` bigint(20) NOT NULL default '0',";
 $QryTableUsers      .= "`uctime` int(11) NOT NULL default '0',";
+$QryTableUsers      .= "`dm_attack` int(11) NOT NULL default '0',";
+$QryTableUsers      .= "`dm_defensive` int(11) NOT NULL default '0',";
+$QryTableUsers      .= "`dm_buildtime` int(11) NOT NULL default '0',";
+$QryTableUsers      .= "`dm_researchtime` int(11) NOT NULL default '0',";
+$QryTableUsers      .= "`dm_resource` int(11) NOT NULL default '0',";
+$QryTableUsers      .= "`dm_energie` int(11) NOT NULL default '0',";
+$QryTableUsers      .= "`dm_fleettime` int(11) NOT NULL default '0',";
 $QryTableUsers      .= "PRIMARY KEY  (`id`), ";
 $QryTableUsers      .= "UNIQUE KEY `username` (`username`)";
 $QryTableUsers      .= ") ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
-
 
 $QryTableUsersTemp   = "CREATE TABLE IF NOT EXISTS `prefix_".USERS_VALID."` (";
 $QryTableUsersTemp  .= "`id` int(11) unsigned NOT NULL AUTO_INCREMENT,";

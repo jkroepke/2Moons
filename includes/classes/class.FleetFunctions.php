@@ -145,9 +145,10 @@ abstract class FleetFunctions
 		return $distance;
 	}
 
-	public static function GetMissionDuration($SpeedFactor, $MaxFleetSpeed, $Distance, $GameSpeed)
+	public static function GetMissionDuration($SpeedFactor, $MaxFleetSpeed, $Distance, $GameSpeed, $CurrentUser)
 	{
-		return max(((3500 / ($SpeedFactor * 0.1)) * pow($Distance * 10 / $MaxFleetSpeed, 0.5) + 10) / $GameSpeed, 5);
+		global $ExtraDM;
+		return max((((3500 / ($SpeedFactor * 0.1)) * pow($Distance * 10 / $MaxFleetSpeed, 0.5) + 10) / $GameSpeed) * ((time() - $CurrentUser[$resource[706]] <= 0) ? (1 - $ExtraDM[706]['add']) : 1), 5);
 	}
 
 	public static function GetGameSpeedFactor()

@@ -23,7 +23,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 
 function ShowTechTreePage($CurrentUser, $CurrentPlanet)
 {
-	global $resource, $requeriments, $lang;
+	global $resource, $requeriments, $lang, $reslist;
 	
 	$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
 
@@ -38,7 +38,9 @@ function ShowTechTreePage($CurrentUser, $CurrentPlanet)
 	$RequeriList = array();
 	foreach($lang['tech'] as $Element => $ElementName)
 	{
-		if (!isset($resource[$Element]))
+		if(in_array($Element, $reslist['dmfunc'])) continue;
+		
+		if(!isset($resource[$Element]))
 			$TechTreeList[]	= $ElementName;
 		else
 		{

@@ -21,7 +21,7 @@
 
 function PlanetResourceUpdate ( $CurrentUser, &$CurrentPlanet, $UpdateTime, $Simul = false )
 {
-	global $ProdGrid, $resource, $reslist, $game_config, $db;
+	global $ProdGrid, $resource, $reslist, $game_config, $db, $ExtraDM;
 	
 	$CurrentPlanet['metal_max']		= floor(2.5 * pow(1.8331954764,$CurrentPlanet[$resource[22]])) * 5000 * (1 + ($CurrentUser['rpg_stockeur'] * 0.5)) * $game_config['resource_multiplier'] * STORAGE_FACTOR;
 	$CurrentPlanet['crystal_max']	= floor(2.5 * pow(1.8331954764,$CurrentPlanet[$resource[23]])) * 5000 * (1 + ($CurrentUser['rpg_stockeur'] * 0.5)) * $game_config['resource_multiplier'] * STORAGE_FACTOR;
@@ -46,9 +46,9 @@ function PlanetResourceUpdate ( $CurrentUser, &$CurrentPlanet, $UpdateTime, $Sim
 	}
 	else
 	{
-		$Caps             = array();
-		$BuildTemp        = $CurrentPlanet['temp_max'];
-		$BuildEnergy	= $CurrentUser[$resource[113]];
+		$Caps            	= array();
+		$BuildTemp      	= $CurrentPlanet['temp_max'];
+		$BuildEnergy		= $CurrentUser[$resource[113]];
 
 		$Caps['metal_perhour'] = $Caps['crystal_perhour'] = $Caps['deuterium_perhour'] = $Caps['energy_used'] = $Caps['energy_max'] = $Caps['deuterium_used'] = 0;
 
@@ -56,18 +56,18 @@ function PlanetResourceUpdate ( $CurrentUser, &$CurrentPlanet, $UpdateTime, $Sim
 		{
 			$BuildLevelFactor = $CurrentPlanet[ $resource[$ProdID]."_porcent" ];
 			$BuildLevel = $CurrentPlanet[ $resource[$ProdID] ];
-			$Caps['metal_perhour']		+= floor(eval($ProdGrid[$ProdID]['formule']['metal'])     * ($game_config['resource_multiplier']) * (1 + ($CurrentUser['rpg_geologue'] * GEOLOGUE)));
-			$Caps['crystal_perhour']	+= floor(eval($ProdGrid[$ProdID]['formule']['crystal'])   * ($game_config['resource_multiplier']) * (1 + ($CurrentUser['rpg_geologue'] * GEOLOGUE)));
+			$Caps['metal_perhour']		+= floor(eval($ProdGrid[$ProdID]['formule']['metal'])     * ($game_config['resource_multiplier']) * (1 + ($CurrentUser['rpg_geologue'] * GEOLOGUE)) * ((time() - $CurrentUser[$resource[703]] <= 0) ? (1 - $ExtraDM[703]['add']) : 1));
+			$Caps['crystal_perhour']	+= floor(eval($ProdGrid[$ProdID]['formule']['crystal'])   * ($game_config['resource_multiplier']) * (1 + ($CurrentUser['rpg_geologue'] * GEOLOGUE)) * ((time() - $CurrentUser[$resource[703]] <= 0) ? (1 - $ExtraDM[703]['add']) : 1));
 			
 			if ($ProdID < 4)
 			{
-				$Caps['deuterium_perhour'] 	+= floor(eval($ProdGrid[$ProdID]['formule']['deuterium']) * ($game_config['resource_multiplier']) * (1 + ($CurrentUser['rpg_geologue'] * GEOLOGUE)));
+				$Caps['deuterium_perhour'] 	+= floor(eval($ProdGrid[$ProdID]['formule']['deuterium']) * ($game_config['resource_multiplier']) * (1 + ($CurrentUser['rpg_geologue'] * GEOLOGUE)) * ((time() - $CurrentUser[$resource[703]] <= 0) ? (1 - $ExtraDM[703]['add']) : 1));
 				$Caps['energy_used']   		+= floor(eval($ProdGrid[$ProdID]['formule']['energy']) * ($game_config['resource_multiplier']));
 			}
 			elseif ($ProdID >= 4 )
 			{
 				$Caps['deuterium_used'] 	+= floor(eval($ProdGrid[$ProdID]['formule']['deuterium']) * ($game_config['resource_multiplier']));
-				$Caps['energy_max']			+= floor(eval($ProdGrid[$ProdID]['formule']['energy']) * ($game_config['resource_multiplier']) * (1 + ($CurrentUser['rpg_ingenieur'] * 0.05 )));
+				$Caps['energy_max']			+= floor(eval($ProdGrid[$ProdID]['formule']['energy']) * ($game_config['resource_multiplier']) * (1 + ($CurrentUser['rpg_ingenieur'] * 0.05 )) * ((time() - $CurrentUser[$resource[704]] <= 0) ? (1 - $ExtraDM[704]['add']) : 1));
 			}
 		}
 

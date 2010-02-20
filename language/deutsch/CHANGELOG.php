@@ -12,6 +12,7 @@ $lang['changelog']   = array(
 - ADD: UTF-8 Support for Names
 - ADD: Kosten Dunkle Materie
 - ADD: Some langs (not complete)
+- ADD: DM BANK
 - FIX: Quere
 - FIX: Gebäude Abreißen
 - FIX: Allianzerstellung

@@ -28,7 +28,7 @@ class ShowFleetPages extends FleetFunctions
 
 	public static function ShowFleetPage($CurrentUser, $CurrentPlanet)
 	{
-		global $reslist, $resource, $db, $lang;
+		global $reslist, $resource, $db, $lang, $ExtraDM;
 
 		$parse				= $lang;
 		$FleetID			= request_var('fleetid', 0);
@@ -179,12 +179,12 @@ class ShowFleetPages extends FleetFunctions
 			'maxexpeditions'		=> $EnvoiMaxExpedition,
 			'slots_available'		=> ($MaxFlottes <= $MaxFlyingFleets - $MaxFlyingRaks) ? false : true,
 			'AKSPage'				=> $AKSPage,
-			'bonus_attack'			=> $CurrentUser[$resource[109]] * 10 + $CurrentUser[$resource[602]] * 5,
-			'bonus_defensive'		=> $CurrentUser[$resource[110]] * 10 + $CurrentUser[$resource[602]] * 5,
+			'bonus_attack'			=> $CurrentUser[$resource[109]] * 10 + $CurrentUser[$resource[602]] * 5 + ((time() - $CurrentUser[$resource[700]] <= 0) ? (100 * $ExtraDM[700]['add']) : 1),
+			'bonus_defensive'		=> $CurrentUser[$resource[110]] * 10 + $CurrentUser[$resource[602]] * 5 + ((time() - $CurrentUser[$resource[701]] <= 0) ? (100 * $ExtraDM[701]['add']) : 1),
 			'bonus_shield'			=> $CurrentUser[$resource[111]] * 10 + $CurrentUser[$resource[602]] * 5,
-			'bonus_combustion'		=> $CurrentUser[$resource[115]] * 10,
-			'bonus_impulse'			=> $CurrentUser[$resource[117]] * 20,
-			'bonus_hyperspace'		=> $CurrentUser[$resource[118]] * 30,
+			'bonus_combustion'		=> $CurrentUser[$resource[115]] * 10 + ((time() - $CurrentUser[$resource[706]] <= 0) ? (100 * $ExtraDM[706]['add']) : 1),
+			'bonus_impulse'			=> $CurrentUser[$resource[117]] * 20 + ((time() - $CurrentUser[$resource[706]] <= 0) ? (100 * $ExtraDM[706]['add']) : 1),
+			'bonus_hyperspace'		=> $CurrentUser[$resource[118]] * 30 + ((time() - $CurrentUser[$resource[706]] <= 0) ? (100 * $ExtraDM[706]['add']) : 1),
 		));
 		$template->show('fleet_table.tpl');
 		$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
@@ -192,8 +192,7 @@ class ShowFleetPages extends FleetFunctions
 
 	public static function ShowFleet1Page($CurrentUser, $CurrentPlanet)
 	{
-		global $resource, $pricelist, $reslist, $phpEx, $db, $lang;
-
+		global $resource, $pricelist, $reslist, $phpEx, $db, $lang, $ExtraDM;
 
 		$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
 		$template	= new template();
@@ -241,6 +240,7 @@ class ShowFleetPages extends FleetFunctions
 			'system_post' 			=> $TargetSystem,
 			'planet_post' 			=> $TargetPlanet,
 			'fleetroom'				=> $FleetRoom,	
+			'fleetspeedfactor'		=> ((time() - $CurrentUser[$resource[706]] <= 0) ? (1 - $ExtraDM[706]['add']) : 1),
 			'options_selector'    	=> array(1 => $lang['fl_planet'], 2 => $lang['fl_debris'], 3 => $lang['fl_moon']),
 			'options'				=> $TargetPlanettype,
 			'fl_send_fleet'			=> $lang['fl_send_fleet'],
@@ -305,7 +305,7 @@ class ShowFleetPages extends FleetFunctions
 		$FleetSpeed  				= parent::GetFleetMaxSpeed($FleetArray, $CurrentUser);
 		$MaxFleetSpeed				= ($FleetSpeed / 10) * $GenFleetSpeed;
 		$distance      				= parent::GetTargetDistance($CurrentPlanet['galaxy'], $TargetGalaxy, $CurrentPlanet['system'], $TargetSystem, $CurrentPlanet['planet'], $TargetPlanet);
-		$duration      				= parent::GetMissionDuration($GenFleetSpeed, $MaxFleetSpeed, $distance, $GameSpeedFactor);
+		$duration      				= parent::GetMissionDuration($GenFleetSpeed, $MaxFleetSpeed, $distance, $GameSpeedFactor, $CurrentUser);
 	
 		$template->assign_vars(array(
 			'consumption'					=> number_format(floor(parent::GetFleetConsumption($FleetArray, $duration, $distance, $MaxFleetSpeed, $CurrentUser, $GameSpeedFactor)), 0, '', ''),
@@ -600,7 +600,7 @@ class ShowFleetPages extends FleetFunctions
 		$MaxFleetSpeed	= ($FleetSpeed / 10) * $GenFleetSpeed;
 		$SpeedFactor    = parent::GetGameSpeedFactor();
 		$distance      	= parent::GetTargetDistance($thisgalaxy, $galaxy, $thissystem, $system, $thisplanet, $planet);
-		$duration      	= parent::GetMissionDuration($GenFleetSpeed, $MaxFleetSpeed, $distance, $SpeedFactor);
+		$duration      	= parent::GetMissionDuration($GenFleetSpeed, $MaxFleetSpeed, $distance, $SpeedFactor, $CurrentUser);
 		$consumption   	= parent::GetFleetConsumption($FleetArray, $duration, $distance, $MaxFleetSpeed, $CurrentUser, $SpeedFactor);
 			
 		$fleet['start_time'] = $duration + time();
@@ -863,7 +863,7 @@ class ShowFleetPages extends FleetFunctions
 		$SpeedFactor    	 = parent::GetGameSpeedFactor();
 		$Distance    		 = parent::GetTargetDistance($thisgalaxy, $galaxy, $thissystem, $system, $thisplanet, $planet);
 		$SpeedAllMin 		 = parent::GetFleetMaxSpeed($FleetArray, $CurrentUser);
-		$Duration    		 = parent::GetMissionDuration(10, $SpeedAllMin, $Distance, $SpeedFactor);
+		$Duration    		 = parent::GetMissionDuration(10, $SpeedAllMin, $Distance, $SpeedFactor, $CurrentUser);
 		$consumption   		 = parent::GetFleetConsumption($FleetArray, $Duration, $Distance, $SpeedAllMin, $CurrentUser, $SpeedFactor);
 
 		$UserDeuterium   	-= $consumption;

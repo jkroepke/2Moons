@@ -2,17 +2,18 @@
 {include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
 <form action="game.php?page=fleet2" method="post" onsubmit='this.submit.disabled = true;'>
-    <input type="hidden" name="speedallsmin"   	value="{$speedallsmin}">
-    <input type="hidden" name="usedfleet"      	value="{$fleetarray}">
-    <input type="hidden" name="thisgalaxy"     	value="{$galaxy}">
-    <input type="hidden" name="thissystem"     	value="{$system}">
-    <input type="hidden" name="thisplanet"     	value="{$planet}">
-    <input type="hidden" name="thisplanettype" 	value="{$planet_type}">
-    <input type="hidden" name="fleetroom" 		value="{$fleetroom}">
-    <input type="hidden" name="target_mission" 	value="{$target_mission}">
-    <input type="hidden" name="speedfactor" 	value="{$speedfactor}">
-	<input type="hidden" name="fleet_group"     value="0"     onChange="shortInfo()" onKeyUp="shortInfo()">
-    <input type="hidden" name="acs_target_mr"   value="0:0:0" onChange="shortInfo()" onKeyUp="shortInfo()">
+    <input type="hidden" name="speedallsmin"   		value="{$speedallsmin}">
+    <input type="hidden" name="usedfleet"      		value="{$fleetarray}">
+    <input type="hidden" name="thisgalaxy"     		value="{$galaxy}">
+    <input type="hidden" name="thissystem"     		value="{$system}">
+    <input type="hidden" name="thisplanet"     		value="{$planet}">
+    <input type="hidden" name="thisplanettype" 		value="{$planet_type}">
+    <input type="hidden" name="fleetroom" 			value="{$fleetroom}">
+    <input type="hidden" name="target_mission" 		value="{$target_mission}">
+    <input type="hidden" name="speedfactor" 		value="{$speedfactor}">
+    <input type="hidden" name="fleetspeedfactor" 	value="{$fleetspeedfactor}">
+	<input type="hidden" name="fleet_group"     	value="0"     onChange="shortInfo()" onKeyUp="shortInfo()">
+    <input type="hidden" name="acs_target_mr"   	value="0:0:0" onChange="shortInfo()" onKeyUp="shortInfo()">
     {$inputs}
     <div id="content">
     	<table width="519" border="0" cellpadding="0" cellspacing="1" align="center">

@@ -109,6 +109,13 @@ if ( defined('INSIDE'))
 	614 => "rpg_raideur",
 	615 => "rpg_empereur",
 	
+	700 => "dm_attack",
+	701 => "dm_defensive",
+	702 => "dm_buildtime",
+	703 => "dm_resource",
+	704 => "dm_energie",
+	705 => "dm_researchtime",
+	706 => "dm_fleettime",
 	);
 
 	$requeriments = array(
@@ -361,12 +368,23 @@ if ( defined('INSIDE'))
 		)
 	);
 
+	$ExtraDM	= array(
+		700 => array('time' => 24, 'darkmatter' => 1000, 'add' => 0.1),
+		701 => array('time' => 24, 'darkmatter' => 1000, 'add' => 0.1),
+		702 => array('time' => 24, 'darkmatter' => 1000, 'add' => 0.1),
+		703 => array('time' => 24, 'darkmatter' => 1000, 'add' => 0.1),
+		704 => array('time' => 24, 'darkmatter' => 1000, 'add' => 0.1),
+		705 => array('time' => 24, 'darkmatter' => 1000, 'add' => 0.1),
+		706 => array('time' => 24, 'darkmatter' => 1000, 'add' => 0.1),
+	);
+	
 	$reslist['allow']    = array ( 1 => array(1,  2,  3,  4, 12, 14, 15, 21, 22, 23, 24, 31, 33, 34, 44), 3 => array(12, 14, 21, 22, 23, 24, 34, 41, 42, 43));
 	$reslist['build']    = array (   1,   2,   3,   4,  12,  14,  15,  21,  22,  23,  24,  31,  33,  34,  44,  41,  42,  43);
 	$reslist['tech']     = array ( 106, 108, 109, 110, 111, 113, 114, 115, 117, 118, 120, 121, 122, 123, 124, 199);
 	$reslist['fleet']    = array ( 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220);
 	$reslist['defense']  = array ( 401, 402, 403, 404, 405, 406, 407, 408, 409, 410, 502, 503 );
 	$reslist['officier'] = array ( 601, 602, 603, 604, 605, 606, 607, 608, 609, 610, 611, 612, 613, 614, 615);
+	$reslist['dmfunc'] 	 = array ( 700, 701, 702, 703, 704, 705, 706);
 	$reslist['prod']     = array (   1,   2,   3,   4,  12, 212 );
 	$reslist['procent']  = array ( 100,  90,  80,  70,  60,  50,  40,  30,  20,  10,   0);
 }
