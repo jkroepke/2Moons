@@ -322,7 +322,7 @@ $lang['fl_hours']							= 'Stunde(n)';
 $lang['fl_resources_left']					= 'Verblieben';
 $lang['fl_all_resources']					= 'Max Rohstoffe Laden';
 $lang['fl_expedition_alert_message']		= 'Achtung die Expedition bringt gefahren mit sich, sie können bei der Expedition ihre gesammte Flotte verlieren!';
-$lang['fl_dm_alert_message']				= 'Achtung, wenn bei der Mission DM gefunden wurde, wird die Flotten zerstört!';
+$lang['fl_dm_alert_message']				= 'Achtung, wenn bei der %s %s gefunden wurde, wird die Flotten zerstört!';
 $lang['fl_vacation_mode_active']			= 'Sie befinden sich im Urlaubsmodus';
 $lang['fl_expedition_tech_required']		= 'Sie haben nicht die nötige Expeditions Technologie!';
 $lang['fl_expedition_fleets_limit']			= 'Sie können nicht mehr Expeditionen starten!';
@@ -1401,6 +1401,7 @@ $lang['cff_to_destination']					= 'Heading to destination';
 //----------------------------------------------------------------------------//
 // EXTRA LANGUAGE FUNCTIONS
 $lang['fcm_moon']							= 'Mond';
+$lang['fcm_info']							= 'Information';
 $lang['fcp_colony']							= 'Kolonie';
 $lang['fgp_require']						= 'Benötigt: ';
 $lang['fgf_time']							= 'Bauzeit: ';

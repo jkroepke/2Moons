@@ -4,6 +4,9 @@
 <div id="content">
     <table width="519" align="center">
 		<tr>
+            <td class="c">{$fcm_info}</td>
+        </tr>
+		<tr>
             <th class="errormessage">{$mes}</th>
         </tr>
     </table>

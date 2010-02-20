@@ -254,6 +254,7 @@ class template extends Smarty
 	{
 		$this->assign_vars(array(
 			'mes'		=> $mes,
+			'fcm_info'	=> $this->lang['fcm_info'],
 		));
 		$this->gotoside($dest, $time);
 		$this->show('error_message_body.tpl');
