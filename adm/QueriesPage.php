@@ -33,7 +33,7 @@ $parse 	= $lang;
 
 if ($_POST['querie'] != '')
 {
-	$db->query($_POST['querie']);
+	$db->multi_query($_POST['querie']);
 }
 
 display(parsetemplate(gettemplate('adm/QueriesBody'), $parse), false, '', true, false);
