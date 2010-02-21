@@ -172,10 +172,11 @@ class ShowBuildingsPage
 		global $resource;
 
 		$CurrentQueue  		= $CurrentPlanet['b_building_id'];
+
 		$Queue 				= $this->ShowBuildingQueue($CurrentPlanet, $CurrentUser);
 		$CurrentMaxFields  	= CalculateMaxPlanetFields($CurrentPlanet);
 
-		if ($CurrentPlanet["field_current"] >= ($CurrentMaxFields - $Queue['lenght']) && !$AddMode)
+		if ($CurrentPlanet["field_current"] >= ($CurrentMaxFields - $Queue['lenght']) && $_GET['cmd'] != 'destroy')
 			die(header("location:game.php?page=buildings"));
 
 		if ($CurrentQueue != 0)
@@ -240,7 +241,7 @@ class ShowBuildingsPage
 				{
 					$BuildLevel   = $ActualLevel - 1 - $InArray;
 					$CurrentPlanet[$resource[$Element]] -= $InArray;
-					$BuildTime    = GetBuildingTime($CurrentUser, $CurrentPlanet, $Element, true);
+					$BuildTime    = GetBuildingTime($CurrentUser, $CurrentPlanet, $Element);
 					$CurrentPlanet[$resource[$Element]] += $InArray;
 				}
 			}
@@ -255,10 +256,10 @@ class ShowBuildingsPage
 				else
 				{
 					$BuildLevel   = $ActualLevel - 1;
-					$BuildTime    = GetBuildingTime($CurrentUser, $CurrentPlanet, $Element, true);
+					$BuildTime    = GetBuildingTime($CurrentUser, $CurrentPlanet, $Element);
 				}
 			}
-
+			var_dump($Element .",". $BuildLevel .",". $BuildTime .",". $BuildEndTime .",". $BuildMode);
 			if ($QueueID == 1)
 			{
 				$BuildEndTime = time() + $BuildTime;
@@ -269,11 +270,10 @@ class ShowBuildingsPage
 				$BuildEndTime = $PrevBuild[3] + $BuildTime;
 			}
 
-			$QueueArray[$ActualCount]      		= $Element .",". $BuildLevel .",". $BuildTime .",". $BuildEndTime .",". $BuildMode;
-			$NewQueue                      		= implode(";", $QueueArray);
-			$CurrentPlanet['b_building_id'] 	= $NewQueue;
+			$QueueArray[$ActualCount]       = $Element .",". $BuildLevel .",". $BuildTime .",". $BuildEndTime .",". $BuildMode;
+			$NewQueue                       = implode ( ";", $QueueArray );
+			$CurrentPlanet['b_building_id'] = $NewQueue;
 		}
-		
 		return $QueueID;
 	}
 
@@ -315,7 +315,7 @@ class ShowBuildingsPage
 					if ($ListID > 0)
 					{
 						$ListIDRow .= "<tr>";
-						$ListIDRow .= "<td class=\"l\" width=\"70%\">". $ListID .".: ". $ElementTitle ." ". $BuildLevel . " " . (($BuildMode != 'build') ? $lang['bd_dismantle'] : "")."</td>";
+						$ListIDRow .= "<td class=\"l\" width=\"70%\">". $ListID .".: ". $ElementTitle ." ".(($BuildMode != 'build') ?($BuildLevel+1).$lang['bd_dismantle'] : $BuildLevel)."</td>";
 						$ListIDRow .= "<td class=\"k\">";
 
 						if ($ListID == 1)
