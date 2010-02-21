@@ -739,7 +739,7 @@ class ShowFleetPages extends FleetFunctions
 			'fl_fleet'				=> $lang['fl_fleet'],
 		));
 		$template->show('fleet3_table.tpl');
-		$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
+		$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet, false);
 		
 	}
 
