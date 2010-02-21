@@ -484,7 +484,6 @@ class ShowFleetPages extends FleetFunctions
 			$FleetShipCount  += $Count;
 			$fleet_array     .= $Ship .",". $Count .";";
 			$FleetSubQRY     .= "`".$resource[$Ship] . "` = ".$resource[$Ship]." - '".number_format($Count, 0, '', '')."', ";
-			$CurrentPlanet[$resource[$Ship]] -= $Count;
 		}
 
 		$error              = 0;
