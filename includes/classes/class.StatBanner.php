@@ -22,7 +22,7 @@
 class StatBanner {
 
 	private $path = "cache/UserBanner/";
-	
+	private $textcolor = "00FFFF";
 	private $source = "styles/images/banner.png";
 	
 	// Function to center text in the created banner
@@ -63,10 +63,9 @@ class StatBanner {
 		$b_total  = "".utf8_decode($lang['st_points']) .": ".pretty_number($Query['total_points'])."";
 
 		// Colors
-		$color  = "FFFFFF";
-		$red    = hexdec(substr($color,0,2));
-		$green  = hexdec(substr($color,2,4));
-		$blue   = hexdec(substr($color,4,6));
+		$red    = hexdec(substr($this->textcolor,0,2));
+		$green  = hexdec(substr($this->textcolor,2,4));
+		$blue   = hexdec(substr($this->textcolor,4,6));
 		$select = imagecolorallocate($image,$red,$green,$blue);
 
 		// Display
@@ -77,7 +76,7 @@ class StatBanner {
 		// Player name
 		imagestring($image, 3, 15, 12, $b_user, $select);
 		// Player b_planet
-		imagestring($image, 3, 150, 12, "".$b_planet." ".$b_xyz."", $select);
+		imagestring($image, 3, 150, 12, $b_planet." ".$b_xyz, $select);
 		// Player level
 		imagestring($image, 10, $this->CenterTextBanner($b_lvl,10,795), 40, $b_lvl, $select);
 		// Player stats
@@ -120,10 +119,9 @@ class StatBanner {
 
 
 			// Colors
-			$color  = "FFFFFF";
-			$red    = hexdec(substr($color,0,2));
-			$green  = hexdec(substr($color,2,4));
-			$blue   = hexdec(substr($color,4,6));
+			$red    = hexdec(substr($this->textcolor,0,2));
+			$green  = hexdec(substr($this->textcolor,2,4));
+			$blue   = hexdec(substr($this->textcolor,4,6));
 			$select = imagecolorallocate($image,$red,$green,$blue);
 
 			// Display

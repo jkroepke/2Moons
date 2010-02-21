@@ -269,8 +269,6 @@ class ShowBuildingsPage
 				$BuildEndTime = $PrevBuild[3] + $BuildTime;
 			}
 			
-			var_dump($Element .",". $BuildLevel .",". $BuildTime .",". $BuildEndTime .",". $BuildMode);
-			
 			$QueueArray[$ActualCount]       = $Element .",". $BuildLevel .",". $BuildTime .",". $BuildEndTime .",". $BuildMode;
 			$NewQueue                       = implode ( ";", $QueueArray );
 			$CurrentPlanet['b_building_id'] = $NewQueue;

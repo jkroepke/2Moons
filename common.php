@@ -118,10 +118,19 @@ if (INSTALL != true)
 		}
 		
 		if($game_config['stats_fly_lock'] == 0 && !defined('IN_ADMIN'))
-		{
-			require_once($xgp_root . 'includes/classes/class.FlyingFleetHandler.'.$phpEx);
+		{	
+			$fleetquery = $db->query("SELECT * FROM ".FLEETS." WHERE `fleet_start_time` <= '". time() ."' OR (`fleet_end_time` <= '". time() ."' AND `fleet_mess` = '1') ORDER BY `fleet_start_time` ASC;");
+			if($db->num_rows($fleetquery) > 0)
+			{
+				update_config('stats_fly_lock', time());
+				$db->multi_query("UNLOCK TABLES;LOCK TABLE ".AKS." WRITE, ".RW." WRITE, ".MESSAGES." WRITE, ".FLEETS." WRITE, ".PLANETS." WRITE, ".TOPKB." WRITE, ".USERS." WRITE;");
+				require_once($xgp_root . 'includes/classes/class.FlyingFleetHandler.'.$phpEx);
 			
-			new FlyingFleetHandler();
+				new FlyingFleetHandler($fleetquery);
+				
+				$db->query("UNLOCK TABLES"); 
+				update_config('stats_fly_lock', 0); 
+			}
 		}
 		elseif (time() >= ($game_config['stats_fly_lock'] + (60 * 5))){
 			update_config('stats_fly_lock', 0);

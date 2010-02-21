@@ -13,6 +13,7 @@ $lang['changelog']   = array(
 - FIX: Phalax &amp; Interplanetarrakten Reichweite
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game
+- DIV: Update jQuery to 1.4.2
 ',
 'RC5.0b2' => 'ShadoX 20.02.10
 - ADD: Accountlöschung w&auml;hrend des U-Modes
