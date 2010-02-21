@@ -259,7 +259,6 @@ class ShowBuildingsPage
 					$BuildTime    = GetBuildingTime($CurrentUser, $CurrentPlanet, $Element);
 				}
 			}
-			var_dump($Element .",". $BuildLevel .",". $BuildTime .",". $BuildEndTime .",". $BuildMode);
 			if ($QueueID == 1)
 			{
 				$BuildEndTime = time() + $BuildTime;
@@ -269,7 +268,9 @@ class ShowBuildingsPage
 				$PrevBuild = explode (",", $QueueArray[$ActualCount - 1]);
 				$BuildEndTime = $PrevBuild[3] + $BuildTime;
 			}
-
+			
+			var_dump($Element .",". $BuildLevel .",". $BuildTime .",". $BuildEndTime .",". $BuildMode);
+			
 			$QueueArray[$ActualCount]       = $Element .",". $BuildLevel .",". $BuildTime .",". $BuildEndTime .",". $BuildMode;
 			$NewQueue                       = implode ( ";", $QueueArray );
 			$CurrentPlanet['b_building_id'] = $NewQueue;
@@ -315,7 +316,7 @@ class ShowBuildingsPage
 					if ($ListID > 0)
 					{
 						$ListIDRow .= "<tr>";
-						$ListIDRow .= "<td class=\"l\" width=\"70%\">". $ListID .".: ". $ElementTitle ." ".(($BuildMode != 'build') ?($BuildLevel+1).$lang['bd_dismantle'] : $BuildLevel)."</td>";
+						$ListIDRow .= "<td class=\"l\" width=\"70%\">". $ListID .".: ". $ElementTitle ." ".(($BuildMode != 'build') ?($BuildLevel+1)." ".$lang['bd_dismantle'] : $BuildLevel)."</td>";
 						$ListIDRow .= "<td class=\"k\">";
 
 						if ($ListID == 1)
