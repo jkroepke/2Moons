@@ -11,6 +11,7 @@ $lang['changelog']   = array(
 - ADD: DM BANK
 - ADD: Koords werden nicht mehr in der HoF angezeigt.
 - FIX: Phalax &amp; Interplanetarrakten Reichweite
+- FIX: Neues Kampfscript für Interplanetarraketeneinschläge
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game
 - DIV: Update jQuery to 1.4.2
