@@ -22,15 +22,15 @@ $lang['type_mission'][11]  					= 'ТМ Экспедиция';
 $lang['type_mission'][15] 					= 'Экспедиция';
 
 $lang['user_level'] = array (
-	'0' => 'Spieler',
-	'1' => 'Moderator',
-	'2' => 'Operator',
-	'3' => 'Administrator',
+	'0' => 'Игроки',
+	'1' => 'Модератор',
+	'2' => 'Оператор',
+	'3' => 'Администратор',
 );
 
 // GAME.PHP
-$lang['see_you_soon']						= 'Vielen Dank furs spielen';
-$lang['page_doesnt_exist']					= 'Die Aufgerufende Seite existiert nicht';
+$lang['see_you_soon']						= 'Спасибо большое за игру';
+$lang['page_doesnt_exist']					= 'Эта страница не существует';
 
 //SHORT NAMES FOR COMBAT REPORTS
 $lang['tech_rc'] = array (
@@ -48,11 +48,26 @@ $lang['tech_rc'] = array (
 213 => "Уничтожитель",
 214 => "Звезда смерти",
 215 => "Линейный крейсер",
-216 => "Lune Noire",
-217 => "Evo. Transporter",
-218 => "Avatar",
-219 => "Gigarecykler",
+216 => "Черная луна",
+217 => "Эво. Транспорт",
+218 => "Аватар",
+219 => "Императорский транспорт",
 220 => "Inter. DM-Sammler",
+221 => "Mercer",
+222 => "Claymore",
+223 => "Pantheon",
+224 => "Plünderer",
+225 => "Gospador",
+226 => "Snakeir",
+227 => "Raptor",
+228 => "Dreadnought",
+229 => "Hyperion",
+230 => "Solareon",
+231 => "Aurora",
+232 => "Taurus",
+233 => "Nighthawk",
+234 => "Avenger",
+235 => "Thunderstorm",
 
 401 => 'Ракетная установка',
 402 => 'Легкий лазер',
@@ -65,7 +80,6 @@ $lang['tech_rc'] = array (
 409 => 'Планетарная защита',
 410 => "Gravitonenkanone",
 );
-
 //----------------------------------------------------------------------------//
 //TOPNAV
 $lang['tn_vacation_mode']					= 'Sie sind im Urlaubsmodus ';
@@ -97,7 +111,7 @@ $lang['lm_contact']							= 'Контакты';
 $lang['lm_forums']							= 'Форум';
 $lang['lm_logout']							= 'Выход';
 $lang['lm_administration']					= 'Администратор';
-$lang['lm_game_speed']						= 'Game';
+$lang['lm_game_speed']						= 'Скорость игры';
 $lang['lm_fleet_speed']						= 'Флот';
 $lang['lm_resources_speed']					= 'Rohstoffe';
 $lang['lm_queue']							= 'Queues';
@@ -106,17 +120,20 @@ $lang['lm_faq']								= 'FAQ';
 $lang['lm_records']							= 'Рекорды';
 $lang['lm_chat']							= 'Чат';
 $lang['lm_support']							= 'Сообщить о баге';
+$lang['lm_rules']							= 'Правила';
 
 //----------------------------------------------------------------------------//
 //OVERVIEW
-$lang['ov_newname_error']					= 'Имя планеты может быть только из цифр и букв.';
-$lang['ov_newname_no_space']				= 'Der Planetenname darf keine Leerzeichen enthalten.';
+
+$lang['ov_newname_alphanum']					= 'Имя планеты может быть только из цифр и букв.';
+$lang['ov_newname_no_space']				= 'Имя планеты не может содержать знаки пробела.';
 $lang['ov_planet_abandoned']				= 'Планета успешно названа!';
-$lang['ov_principal_planet_cant_abanone']	= 'Sie konnen nicht ihren Hauptplaneten loschen!';
-$lang['ov_abandon_planet_not_possible']		= 'Kolonie nicht loschbar, wenn Flottenaktivitaten zu oder von ihrer Kolonie stattfinden!';
+$lang['ov_principal_planet_cant_abanone']	= 'Вы не можете удалить свою основную планету!';
+$lang['ov_abandon_planet_not_possible']		= 'Колония не может быть уничтожена, потому что одно или более событий связаны с нею';
 $lang['ov_wrong_pass']						= 'Ошибочный пароль. Проверте правильность ввода!';
 $lang['ov_have_new_message']				= 'У Вас есть новое сообщение';
-$lang['ov_have_new_messages']				= 'Du hast %m neue Nachrichten';
+$lang['ov_have_new_messages']				= 'У Вас %m новых уведомлений';
+$lang['ov_planetmenu']						= 'Имя Изменить / Удалить';
 $lang['ov_free']							= 'нет заданий';
 $lang['ov_news']							= 'Новости';
 $lang['ov_place']							= 'Место';
@@ -146,10 +163,21 @@ $lang['ov_planet_rename']					= 'Umbenennen';
 $lang['ov_planet_rename_action']			= 'Umbenennen';
 $lang['ov_fields']							= 'Felder';
 $lang['ov_developed_fields']				= 'bebaubare Felder';
+$lang['ov_max_developed_fields']			= 'max. bebaubare Felder';
 $lang['ov_fleet']							= 'Flotten';
+$lang['ov_admins_online']					= 'Admins(Online):';
+$lang['ov_no_admins_online']				= 'Zurzeit kein Admin online!';
+$lang['ov_userbanner']						= 'Statistiken-Banner';
+$lang['ov_userrank_info']					= '%s (%s <a href="game.php?page=statistics&amp;range=%d">%d</a> %s %s)';
+$lang['ov_teamspeak_not_online']			= 'Server zurzeit nicht erreichbar. Wir bitten um verständnis.';
+$lang['ov_teamspeak']						= 'Teamspeak';
+$lang['ov_teamspeak_v2']					= '<a href="teamspeak://%s:%s?nickname=%s" title="Teamspeak Connect">Connect</a> &bull; Online: %d/%d &bull; Channels: %d &bull; Traffic ges.: %s MB';
+$lang['ov_teamspeak_v3']					= '<a href="ts3server://%s?port=%d&amp;nickname=%s&amp;password=%s" title="Teamspeak Connect">Connect</a>&nbsp;&bull;&nbsp;Online: %d/%d &bull; Channels: %d &bull; Traffic ges.: %s MB &bull; Version: %s';
+
 
 //----------------------------------------------------------------------------//
 //GALAXY
+
 $lang['gl_no_deuterium_to_view_galaxy']		= 'У Вас недостаточно дейтерия для просмотра галактики!';
 $lang['gl_legend']							= 'Легенда';
 $lang['gl_strong_player']					= 'Сильный игрок';
@@ -290,6 +318,7 @@ $lang['fl_acs_title']						= 'Verbandsangriffe';
 $lang['fl_hold_time']						= 'Haltezeit';
 $lang['fl_resources']						= 'Rohstoffe';
 $lang['fl_max']								= 'макс.';
+$lang['fl_hours']							= 'Время (с)';
 $lang['fl_resources_left']					= 'Осталось вместительности';
 $lang['fl_all_resources']					= 'Погрузить все ресурсы';
 $lang['fl_expedition_alert_message']		= 'Achtung die Expedition bringt gefahren mit sich, sie konnen bei der Expedition ihre gesammte Flotte verlieren!';
@@ -326,16 +355,16 @@ $lang['fl_invite_members']					= 'Einladen';
 
 //----------------------------------------------------------------------------//
 //BUILDINGS - RESEARCH - SHIPYARD - DEFENSES
-$lang['bd_dismantle']						= 'Abrei?en';
+$lang['bd_dismantle']						= 'Разрушить?';
 $lang['bd_interrupt']						= 'Пауза';
 $lang['bd_cancel']							= 'Отменить';
 $lang['bd_working']							= 'Beschaftigt';
 $lang['bd_build']							= 'Построить';
 $lang['bd_build_next_level']				= 'Построить следующий уровень ';
 $lang['bd_add_to_list']						= 'В очередь построек';
-$lang['bd_no_more_fields']					= 'Planet ausgebaut!';
+$lang['bd_no_more_fields']					= 'Планета расширена!';
 $lang['bd_remaining']						= 'Недостающие виды сырья:';
-$lang['bd_lab_required']					= 'Du must zuerst ein Forschungslabor auf diesem Planeten Bauen!';
+$lang['bd_lab_required']					= 'Вам необходимо построить Лабораторию для иследований на планете!';
 $lang['bd_building_lab']					= 'Das Forschungslabor wird zurzeut ausgebaut!';
 $lang['bd_max_lvl']							= '(Максимальный уровень: %s)';
 $lang['bd_lvl']								= 'уровень';
@@ -359,6 +388,8 @@ $lang['bd_next_level']						= 'Следующий уровень:';
 $lang['bd_need_engine']						= 'Расходует на <font color="#FF0000">%s</font> %s больше';
 $lang['bd_more_engine']						= 'Производит на <font color="#00FF00">%s</font> %s больше';
 $lang['bd_jump_gate_action']				= 'Springen';
+$lang['bd_cancel_warning']					= 'Bei Abbruch werden nur 60% der Ressis wiederhergestellt!';
+$lang['bd_cancel_send']						= 'Markierte - Löschen';
 
 //----------------------------------------------------------------------------//
 //RESOURCES
@@ -379,6 +410,10 @@ $lang['of_max_lvl']							= 'Максимальный уровень';
 $lang['of_available_points']				= 'Доступно офицеров:';
 $lang['of_points_per_thousand_darkmatter']	= '(1 Офицер ценой %d %s)';
 $lang['of_lvl']								= 'уровень';
+$lang['of_dm_trade']						= '%s - Банк';
+$lang['of_still']							= 'еще';
+$lang['of_active']							= 'Активные';
+$lang['of_update']							= 'Обновить';
 
 //----------------------------------------------------------------------------//
 //TRADER
@@ -461,12 +496,28 @@ $lang['tech'] = array(
 213 => "Уничтожитель",
 214 => "Звезда смерти",
 215 => "Линейный крейсер",
-216 => "Lune Noire",
-217 => "Evolution Transporter",
-218 => "Avatar",
-219 => "Gigarecykler",
-220 => "Intergalaktischer D. Materiensammler",
-
+216 => "Черная луна",
+217 => "Эволюционный транспорт",
+218 => "Аватар",
+219 => "Императорский транспорт",
+220 => "Межгалактический переработчик",
+/*
+221 => "Мерсер"
+222 => "Клеймор"
+223 => "Пантеон"
+224 => "Мародер"
+225 => "Gospador"
+226 => "Snakeir"
+227 => "Raptor"
+228 => "Дредноут"
+229 => "Гиперион"
+230 => "Solareon"
+231 => "Аврора"
+232 => "Телец"
+233 => "Nighthawk"
+234 => "Мститель",
+235 => "Гроза"
+*/
 400 => 'Система обороны',
 401 => "Ракетная установка",
 402 => "Легкий лазер",
@@ -497,6 +548,14 @@ $lang['tech'] = array(
 613 => "Генерал",
 614 => "Рейдер",
 615 => "Император",
+
+700 => "Оптимизация оружия",
+701 => "Оптимизация щитов",
+702 => "Оптимизация строительства",
+703 => "Оптимизация ресурсов",
+704 => "Оптимизация энергии",
+705 => "Оптимизация исследований",
+706 => "Оптимизация флотов",
 
 );
 
@@ -537,17 +596,17 @@ $lang['res']['descriptions'] = array(
 124 => "Weitere Erkenntnisse in der Astrophysik ermцglichen den Bau von Laboren, mit denen immer mehr Schiffe ausgestattet werden kцnnen. Dadurch werden weite Expeditionsreisen in noch unerforschte Gebiete mцglich. Zudem erlauben die Fortschritte die weitere Kolonisation des Weltraumes. Pro zwei Stufen dieser Technologie kann so ein weiterer Planet nutzbar gemacht werden.",
 199 => "Durch Abschuss einer konzentrierten Ladung von Gravitonpartikeln kann ein k&uuml;nstliches Gravitationsfeld errichtet werden, wodurch Schiffe oder auch Monde vernichtet werden k&ouml;nnen.",
 
-202 => "Der kleine Transporter ist ein wendiges Schiff, welches Rohstoffe schnell zu anderen Planeten transportieren kann.",
-203 => "Die Weiterentwicklung des kleinen Transporters hat ein gr&ouml;sseres Ladeverm&ouml;gen und kann sich dank weiterentwickeltem Antrieb noch schneller fortbewegen als der kleine Transporter.",
-204 => "Der leichte J&auml;ger ist ein wendiges Schiff, das auf fast jedem Planeten vorgefunden wird. Die Kosten sind nicht besonders hoch, Schildst&auml;rke und Ladekapazit&auml;t sind allerdings sehr gering.",
-205 => "Die Weiterentwicklung des leichten J&auml;gers ist besser gepanzert und hat eine h&ouml;here Angriffsst&auml;rke.",
-206 => "Kreuzer sind fast dreimal so stark gepanzert wie schwere J&auml;ger und verf&uuml;gen &uuml;ber mehr als die doppelte Schusskraft. Zudem sind sie sehr schnell.",
-207 => "Schlachtschiffe bilden meist das R&uuml;ckgrat einer Flotte. Ihre schweren Gesch&uuml;tze, die hohe Geschwindigkeit und der grosse Frachtraum machen sie zu ernst zu nehmenden Gegnern.",
-208 => "Fremde Planeten k&ouml;nnen mit diesem Schiff kolonisiert werden.",
-209 => "Mit dem Recycler lassen sich Rohstoffe aus Tr&uuml;mmerfeldern gewinnen.",
-210 => "Spionagesonden sind kleine wendige Drohnen, welche &uuml;ber weite Entfernungen hinweg Daten &uuml;ber Flotten und Planeten liefern.",
+202 => "Малый транспорт - это манёвренный корабль, который может быстро транспортировать сырьё на другие планеты.",
+203 => "Дальнейшее развитие малых транспортов позволило создать корабли, обладающие большей вместительностью и, благодаря более развитому двигателю, способными передвигаться быстрее, чем малый транспорт, до тех пор, пока на малых транспортах не устанавливаются импульсные двигатели 5-го уровня",
+204 => "Лёгкий истребитель - это манёвренный корабль, который можно найти почти на каждой планете. Затраты на него не особо велики, однако щитовая мощность и вместимость очень малы.",
+205 => "Дальнейшее развитие лёгкого истребителя, он лучше защищён и обладает большей силой атаки.",
+206 => "Крейсеры почти втрое сильней защищены, чем тяжёлые истребители, а по огневой мощи они превосходят тяжёлые истребители почти в два раза. К тому же они очень быстры.",
+207 => "Линкоры как правило составляют основу флота. Их тяжёлые орудия, высокая скорость и большой грузовой тоннаж делают их серьёзными противниками.",
+208 => "При помощи этого корабля можно осваивать незаселённые планеты.",
+209 => "С помощью переработчика добывается сырьё из обломков.",
+210 => "Шпионские зонды - это маленькие манёвренные корабли, которые доставляют с больших расстояний данные о флотах и планетах.",
 211 => "Der Bomber wurde extra entwickelt um die Verteidigung eines Planeten zu zerst&ouml;ren.",
-212 => "Solarsatelliten sind einfache Plattformen aus Solarzellen, die sich in einem hohen station&auml;ren Orbit befinden. Sie sammeln das Sonnenlicht und geben es per Laser an die Bodenstation weiter.",
+212 => "Солнечные спутники - это простые платформы из солнечных батарей, которые находятся на высокой орбите. Они собирают солнечный свет и передают его с помощью лазера на наземную станцию.",
 213 => "Der Zerst&ouml;rer ist der K&ouml;nig unter den Kriegsschiffen.",
 214 => "Die Zerst&ouml;rungskraft des Todessterns ist un&uuml;bertroffen und er kann als einziges Schiff Monde zerst&ouml;ren.",
 215 => "Der Schlachtkreuzer ist auf das Abfangen feindlicher Flotten spezialisiert.",
@@ -556,6 +615,21 @@ $lang['res']['descriptions'] = array(
 218 => "Der Supergau schlechthin, allerdings sehr langsam.",
 219 => "Ist eine Gigantische Weltraumrecykelanlage und Hyperschnell.",
 220 => "Mit diesem Schiff ist es nach jahre langen forschen m&ouml;lich Dunkle Materie an seinem Mond zu sammeln.",
+221 => "Dieses Schiff wird auf vielen Planeten vorgefunden. Durch verhältnismäßig großen Laderaum werden gerne riesige Mercer- Schwaden eingesetzt",
+222 => "Mit ihrer relativ starken Kampfkraft und hohen Geschwindigkeit ist diese Fregatte gut geeignet um feindliche Kolonien auszuplündern.",
+223 => "Diese äußerst große und auch starke Fregatte sollte in keinem richtigen Gemetzel fehlen. In großen Flottenverbänden kann sie leicht Schlachten entscheiden.",
+224 => "Der Kreuzer der Plünderer-Klasse verfügt über eine hohe Ladekapazität und Geschwindigkeit. Somit ist er sehr gut geeignet um feindliche Kolonien auszurauben.",
+225 => "Dieser Kreuzer verfügt über besonders viel Feuerkraft, jedoch ist seine Geschwindigkeit vergleichsweise niedrig und der Laderaum sehr klein geraten.",
+226 => "Schwere Kreuzer der Snakeir-Klasse sind für ihre Größe sehr schnell und eignen sich daher perfekt für Angriffe auf entfernter gelegene Planeten.",
+227 => "Ganz nach dem der Natur entstammenden Vorbild, dem vor Millionen Jahren ausgestorbenen Urgetier, ist der schwere Kreuzer der Raptor-Klasse kampfstark und in hohem Maße wendig. In großen Verbänden wird dieses Schiff zu einer hochgefährlichen Zerstörungsmaschine.",
+228 => "Durch die Kombination von Raketen mit Plasmageschützen und Ionenkanonen erreichen Dreadnought-Klasse Schlachtkreuzer eine zerstörerische Feuerkraft. Neuartige Legierungen sorgen für eine gute Panzerung.",
+229 => "Schlachtkreuzer der Hyperion-Klasse entstanden durch den Wunsch Wendigkeit und Kampfkraft gleichermaßen zu ermöglichen. Diese Metamorphose ist durch Einsatz modernster Forschung sehr gut gelungen. Das Schiff kann seinen Vorgänger DNG in allen Werten weit hinter sich lassen.",
+230 => "Schlachtschiffe der Solareon-Klasse schiessen mit einer Teilchenflut, die dem Sonnenwind nach Sonneneruptionen ähnelt. Dadurch werden große Schäden angerichtet und die komplette Boardelektronik der getroffenen Schiffe zerstört. Bei nahen Planeten treten nach einer Schlacht häufig Phänomene auf, die wir unter dem Namen \"Nordlichter\" kennen.",
+231 => "Das Schlachtschiff der Aurora-Klasse übertrifft alle bisher dagewesenen Schiffe. Dieses Kampfschiff ist sowohl im Angriff als auch in der Verteidigung allem bisher dagewesenen überlegen. Die Feuerkraft ist dank spezieller neuer Techniken enorm. Es läuft einem eiskalt den Rücken hinunter, wenn man dieses Ungetüm einmal im Einsatz gesehen hat.",
+232 => "Die Korvette der Taurus-Klasse hat eine starke Angriffskraft und ist somit auch viel besser für Offensivangriffe geeignet.",
+233 => "Als man den Bedarf für riesige Transportschiffe erkannte, weil es immer mehr Installationen im tiefen Raum gab, hat InterStellar Shipping beschlossen, ein ultimatives Schiff für den Massentransport zu entwickeln. Die Nighthawk ist die Weiterentwicklung der kleineren Avenger. Ihre riesigen Ausmaße und der gigantische Laderaum sind unübertroffen.",
+234 => "Als man den Bedarf für riesige Transportschiffe erkannte, weil es immer mehr Installationen im tiefen Raum gab, hat InterStellar Shipping beschlossen, ein Schiff für den Massentransport zu entwickeln. Die Avenger ist das erste Schiff in einer Reihe neuer Transportschiffe.",
+235 => "Fast das 3-fache an Angriffspunkten als der Taurus macht den Thunderstorm zu einer wahren Kampfmaschine für ein junges Imperium.",
 
 401 => "Der Raketenwerfer ist eine einfache aber kosteng&uuml;nstige Verteidigungsm&ouml;glichkeit.",
 402 => "Durch den konzentrierten Beschuss eines Ziels mit Photonen kann eine wesentlich gr&ouml;ssere Schadenswirkung erzielt werden, als mit gew&ouml;hnlichen ballistischen Waffen.",
@@ -586,6 +660,13 @@ $lang['res']['descriptions'] = array(
 614 => 'Der Imperator bemerkte bei Ihnen die unleugbaren Qualit&auml;ten des Eroberns. Er schl&auml;gt Ihnen vor Raider zu werden. Der Raider ist der Grad der h&ouml;chsten Ausbildung der Raider der imperialen Armee',
 615 => 'Sie haben gezeigt, dass Sie der gr&ouml;&szlig;te Eroberer des Universums sind. Es ist Ihrer, solange Sie diesen Platz halten, den Sie bekommen haben.',
 
+700 => "Erhöht die Angriffswerte der Schiffe und Verteidigungen um %s%%. Der Bonus ist nur temporär.",
+701 => "Erhöht die Schildewerte der Schiffe und Verteidigungen um %s%%. Der Bonus ist nur temporär.",
+702 => "Verkürzt die Bauzeit bei Gebäuden um %s%%. Der Bonus ist nur temporär.",
+703 => "Erhöht die Rohstoffproduktion um %s%%. Der Bonus ist nur temporär.",
+704 => "Erhöht die Energieproduktion um %s%%. Der Bonus ist nur temporär.",
+705 => "Verkürzt die Forschungszeit um %s%%. Der Bonus ist nur temporär.",
+706 => "Verkürzt die Flugzeit um %s%%. Der Bonus ist nur temporär.",
 );
 
 //----------------------------------------------------------------------------//
@@ -708,44 +789,76 @@ $lang['info'][199]['description'] = "Ein Graviton ist ein Partikel, das keine Ma
 
 // ----------------------------------------------------------------------------------------------------------
 // Schiffe
-$lang['info'][202]['name']        = "Kleiner Transporter";
-$lang['info'][202]['description'] = "Transporter haben ungef&auml;hr die gleiche Gr&ouml;sse wie J&auml;ger, verzichten aber auf leistungsf&auml;hige Antriebe und Bordwaffen, um Platz f&uuml;r Frachtraum zu schaffen. Der kleine Transporter verf&uuml;gt &uuml;ber eine Ladekapazit&auml;t von 5.000 Ressourceneinheiten. Aufgrund ihrer geringen Feuerkraft werden Transporter oft von anderen Schiffen eskortiert.";
-$lang['info'][203]['name']        = "Grosser Transporter";
-$lang['info'][203]['description'] = "Dieses Schiff hat kaum Waffen oder andere Technologien an Bord. Aus diesem Grunde sollten sie nie alleine losgeschickt werden. Der grosse Transporter dient durch sein hochentwickeltes Verbrennungstriebwerk als schneller Ressourcenlieferant zwischen den Planeten und nat&uuml;rlich begleitet er die Flotten auf ihren &uuml;berf&auml;llen feindlicher Planeten, um m&ouml;glichst viele Ressourcen zu erobern, der Grosse Transporter verf&uuml;gt &uuml;ber eine Ladekapazit&auml;t von 50.000 Ressourceneinheiten.";
-$lang['info'][204]['name']        = "Leichter J&auml;ger";
-$lang['info'][204]['description'] = "Der leichte J&auml;ger ist ein wendiges Schiff, das auf fast jedem Planeten vorgefunden wird. Die Kosten sind nicht besonders hoch, Schildst&auml;rke und Ladekapazit&auml;t sind allerdings sehr gering.";
-$lang['info'][205]['name']        = "Schwerer J&auml;ger";
-$lang['info'][205]['description'] = "Bei der Weiterentwicklung des leichten J&auml;gers kamen die Forscher zu einem Punkt, bei welchem der konventionelle Antrieb nicht mehr ausreichend Leistungen erbrachte. Um das neue Schiff optimal fortbewegen zu k&ouml;nnen wurde zum ersten Mal der Impulsantrieb genutzt. Dieses erh&ouml;hte zwar die Kosten, er&ouml;ffnete aber auch neue M&ouml;glichkeiten. Durch die Einsetzung dieses Antriebes blieb mehr Energie f&uuml;r Waffen und Schilde &uuml;brig, ausserdem wurden f&uuml;r diese neue J&auml;gergattung auch qualitativ hochwertigere Materialien verwendet. Dies f&uuml;hrte zu einer verbesserten strukturellen Integrit&auml;t und einer h&ouml;heren Feuerkraft, was ihn im Kampf zu einer immens gr&ouml;sseren Bedrohung macht als sein leichtes Pendant. Durch diese &auml;nderungen stellt der schwere J&auml;ger eine neue &auml;ra der Schiffstechnologie dar, welche die Grundlage f&uuml;r die Kreuzertechnologie ist.";
-$lang['info'][206]['name']        = "Kreuzer";
-$lang['info'][206]['description'] = "Mit der Entwicklung der schweren Laser und der Ionenkanonen kamen die J&auml;ger immer mehr in Bedr&auml;ngnis. Trotz vieler Modifikationen konnte die Waffenst&auml;rke und die Panzerung nicht so weit gesteigert werden, um diesen Verteidigungsgesch&uuml;tzen wirksam begegnen zu k&ouml;nnen. Deshalb entschied man sich, eine neue Schiffsklasse zu konstruieren, die mehr Panzerung und mehr Feuerkraft in sich vereinte. Der Kreuzer war geboren. Kreuzer sind fast dreimal so stark gepanzert wie schwere J&auml;ger und verf&uuml;gen &uuml;ber mehr als die doppelte Schusskraft. Zudem sind sie sehr schnell. Gegen mittlere Verteidigung gibt es keine bessere Waffe. Kreuzer beherrschten fast ein Jahrhundert lang unumschr&auml;nkt das All. Mit dem Aufkommen der Gaussgesch&uuml;tze und Plasmawerfer endete ihre Vorherrschaft. Jedoch werden sie auch heute noch gerne gegen J&auml;gerverb&auml;nde eingesetzt.";
-$lang['info'][207]['name']        = "Schlachtschiff";
-$lang['info'][207]['description'] = "Schlachtschiffe bilden meist das R&uuml;ckgrat einer Flotte. Ihre schweren Gesch&uuml;tze, die hohe Geschwindigkeit und der grosse Frachtraum machen sie zu ernst zu nehmenden Gegnern.";
-$lang['info'][208]['name']        = "Kolonieschiff";
-$lang['info'][208]['description'] = "Dieses gut gepanzerte Schiff dient der Eroberung neuer Planeten, was f&uuml;r ein aufstrebendes Imperium unerl&auml;sslich ist. Das Schiff wird auf der neuen Kolonie als Rohstofflieferant genutzt, in dem es wieder auseinander gebaut wird und alles wiederverwertbare Material f&uuml;r die Erschliessung der neuen Welt genutzt wird. Pro Imperium k&ouml;nnen inklusive Hauptplanet maximal 9 Planeten kolonisiert werden.";
-$lang['info'][209]['name']        = "Recycler";
-$lang['info'][209]['description'] = "Die Weltraumgefechte nahmen immer gr&ouml;ssere Ausmasse an. Tausende Schiffe wurden zerst&ouml;rt, aber die dadurch entstehenden Tr&uuml;mmerfelder schienen f&uuml;r immer verloren. Normale Transporter konnten sich nicht nahe genug an diese Felder heran bewegen, ohne durch kleinere Tr&uuml;mmer riesigen Schaden zu nehmen. Mit einer neuen Entwicklung im Bereich der Schildtechnologie konnte dieses Problem effizient beseitigt werden, es entstand eine neue Schiffsklasse, &auml;hnlich dem grossen Transporter, der Recycler . Mit dessen Hilfe konnten die scheinbar verlorenen Ressourcen doch noch verwertet werden. Die kleinen Tr&uuml;mmer stellten aufgrund der neuen Schilde auch keine Gefahr mehr dar. Durch spezielle mehr Dimensionale Ladefelder ist seine Ladekapazit&auml;t auf 2.000.000 erweitert.";
-$lang['info'][210]['name']        = "Spionagesonden";
-$lang['info'][210]['description'] = "Spionagesonden sind kleine wendige Drohnen, welche &uuml;ber weite Entfernungen hinweg Daten &uuml;ber Flotten und Planeten liefern. Ihr Hochleistungstriebwerk erm&ouml;glicht ihnen weite Strecken in wenigen Sekunden zur&uuml;ck zu legen. Einmal in der Umlaufbahn eines Planeten angekommen verweilen sie dort kurz um Daten zu sammeln. W&auml;hrend dieser Zeit sind sie vom Feind relativ leicht entdeck- und angreifbar. Um Platz zu sparen wurde auf Panzerung, Schilde und Waffen verzichtet, was die Sonden, wenn sie einmal entdeckt wurden, zu leichten Zielen macht.";
-$lang['info'][211]['name']        = "Bomber";
-$lang['info'][211]['description'] = "Der Bomber wurde speziell entwickelt um die Verteidigung eines Planeten zu zerst&ouml;ren. Mit Hilfe einer lasergeste&uuml;rten Zielvorrichtung wirft er zielgenau Plasmabomben auf die Planetenoberfl&auml;che und richtet so einen verheerenden Schaden bei Verteidigungsanlagen an.";
-$lang['info'][212]['name']        = "Solarsatellit";
-$lang['info'][212]['description'] = "Solarsatelliten werden in eine geostation&auml;re Umlaufbahn um einen Planeten geschossen. Sie b&uuml;ndeln Sonnenenergie und transferieren sie zu einer Bodenstation. Die Effizienz der Solarsatelliten h&auml;ngt von der St&auml;rke der Sonneneinstrahlung ab. Grunds&auml;tzlich ist die Energieausbeute auf sonnennahen Orbits gr&ouml;sser als auf Planeten mit sonnenfernen Orbit. Durch ihr gutes Preis/Leistungsverh&auml;ltnis l&ouml;sen Solarsatelliten die Energieprobleme vieler Welten. Aber Vorsicht: Solarsatelliten k&ouml;nnen im Kampf zerst&ouml;rt werden.";
-$lang['info'][213]['name']        = "Zerst&ouml;rer";
-$lang['info'][213]['description'] = "Der Zerst&ouml;rer ist der K&ouml;nig unter den Kriegsschiffen. Seine Multiphalanx Ionen-, Plasma- und Gaussgesch&uuml;tzt&uuml;rme k&ouml;nnen durch ihre verbesserten Anpeilungssensoren fast 99% der verteidigenden leichten Laser treffen. Da der Zerst&ouml;rer sehr gross ist, ist seine Man&ouml;vrierf&auml;higkeit stark eingeschr&auml;nkt, wodurch er im Kampf eher einer Kampfstation gleicht, als einem Kampfschiff. So hoch wie seine Kampfkraft ist auch sein Verbrauch an Deuterium.";
-$lang['info'][214]['name']        = "Todesstern";
-$lang['info'][214]['description'] = "Der Todesstern ist mit einer riesigen Gravitonkanone bewaffnet, die Schiffe so gross wie Zerst&ouml;rer oder sogar Monde zerst&ouml;ren kann. Da daf&uuml;r eine hohe Menge an Energie ben&ouml;tigt wird, besteht er fast nur aus Generatoren. Lediglich riesige Sternenreiche k&ouml;nnen &uuml;berhaupt die Ressourcen und Arbeiter aufbringen, um dieses mondgrosse Schiff zu Bauen.";
-$lang['info'][215]['name']        = "Schlachtzreuzer";
-$lang['info'][215]['description'] = "Dieses filigrane Schiff eignet sich hervorragend zum Zerst&ouml;ren feindlicher Flottenverb&auml;nde. Mit seinen hochentwickelten Lasergesch&uuml;tzen ist es in der Lage, eine grosse Zahl angreifender Schiffe gleichzeitig zu bek&auml;mpfen. Durch seine schlanke Bauform und die starken Bewaffnung ist die Ladekapazit&auml;t begrenzt. Dies wird jedoch durch den verbrauchsarmen Hyperraumantrieb wieder ausgeglichen.";
-$lang['info'][216]['name']        = "Lune Noire";
-$lang['info'][216]['description'] = "Dieses monstr&ouml;se Schiff ist eine Weiterentwicklung des Todessternes, die an Geschwindigkeit zugenommen hat, doch an St&auml;rke verloren.  ";
-$lang['info'][217]['name']        = "Evolutions Transporter";
-$lang['info'][217]['description'] = "Dieser Transporter ist zwar langsamer aber daf&uuml;r kann er jetzt mehr aufladen. Doch wenn man die richtige Forschung hat ist er fast so schnell wie der grosse Transporter.";
-$lang['info'][218]['name']        = "Avatar";
-$lang['info'][218]['description'] = "Dieses Schiff ist eine verbesserung mehrerer Schiffe gleichzeitig und der Kaiser der Kampfsterne.";
-$lang['info'][219]['name']        = "Gigarecykler";
-$lang['info'][219]['description'] = "Dieses Schiff ist eine wahrhaft gigantische Recykelanlage im Weltraum mit Atemberaubender Geschwindigkeit und riesigem Lageraum! geschaffen f&uuml;r grosse Imperien.";
-$lang['info'][220]['name']        = "Intergalaktischer D. M&uuml;llsammler";
-$lang['info'][220]['description'] = "Mit diesem Schiff ist es nach jahre langen forschen m&ouml;lich Dunkle Materie an seinem Mond zu sammeln.";
+$lang['info'][202]['name']        = "Малый транспорт";
+$lang['info'][202]['description'] = "Транспорты имеют примерно такой же размер, что и истребители, но они не обладают мощными двигателями и бортовым вооружением ради экономии места. Малый транспорт вмещает 5000 единиц сырья. По причине малой огневой мощи малые транспорты часто сопровождаются другими кораблями.";
+$lang['info'][203]['name']        = "Большой транспорт";
+$lang['info'][203]['description'] = "У этого корабля нет ни вооружения, ни каких-либо других технологий на борту. По этой причине никогда не следует запускать их без спровождения. Благодаря своему высокоразвитому двигателю внутреннего сгорания большой транспорт служит в качестве быстрого межпланетного доставщика ресурсов, также он сопровождает флоты при нападениях на вражеские планеты, чтобы захватить как можно больше ресурсов.";
+$lang['info'][204]['name']        = "Легкий истребитель";
+$lang['info'][204]['description'] = "Лёгкий истребитель - это манёвренный корабль, который можно найти почти на каждой планете. Затраты на нем не особо велики, однако щитовая мощность и вместимость очень малы.";
+$lang['info'][205]['name']        = "Тяжелый истребитель";
+$lang['info'][205]['description'] = "При дальнейшем развитии лёгкого истребителя учёные дошли до момента, когда стало ясно, что обыкновенный двигатель не обладает необходимой мощью. Для того, чтобы оптимально передвигать корабль был впервые использован импульсный двигатель. Хоть он и повысил стоимость, однако он также открыл новые возможности. Благодаря применению этого двигателя осталось больше энергии для вооружения и щитов, кроме того, для этого вида истребителей также использовались ценные материалы. Это привело к улучшенной структурной целостности и более сильной огневой мощи, благодаря чему в бою он представляет бoльшую угрозу, чем его предшественник. После этих изменений тяжёлый истребитель представляет собой новую эру технологии кораблестроения, основу технологии крейсеростроения.";
+$lang['info'][206]['name']        = "Крейсер";
+$lang['info'][206]['description'] = "С развитием тяжёлых лазеров и ионных пушек тяжёлые истребители всё больше вытеснялись. Несмотря на многочисленные усовершенствования огневая мощь и бронирование не могли быть настолько изменены, чтобы действенно противостоять этим оборонительным орудиям. Поэтому было решено построить новый класс кораблей, который объединял бы в себе больше бронирования и огневой мощи. Так появился крейсер. Крейсеры почти втрое сильней защищены, чем тяжёлые истребители и обладают более чем удвоенной огневой мощью. К тому же они очень быстры. Нет лучшего оружия против средней защиты. Почти столетие крейсеры неограниченно господствовали во вселенной. С появлением орудий Гаусса и плазменных орудий их господство закончилось. Однако и сегодня их охотно применяют против групп истребителей. У крейсера есть скорострел (10) против реактивного гранатомёта и (3) против лёгких истребителей, т.е. один крейсер уничтожает одним выстрелом несколько реактивных гранатомётов и, соответственно, лёгких истребителей.";
+$lang['info'][207]['name']        = "Линкор";
+$lang['info'][207]['description'] = "Линкоры как правило составляют основу флота. Их тяжёлые орудия, высокая скорость и большой грузовой тоннаж делают их серьёзными противниками.";
+$lang['info'][208]['name']        = "Колонизатор";
+$lang['info'][208]['description'] = "Этот хорошо защищённый корабль служит покорению новых планет, что необходимо развивающейся империи. Он используется в новой колонии в качестве поставщика сырья - его разбирают и используют весь полезный материал для освоения нового света. Каждая империя, включая главную планету, может колонизировать максимум 9 планет.";
+$lang['info'][209]['name']        = "Переработчик";
+$lang['info'][209]['description'] = "Космические бои принимали всё бoльшие масштабы. Уничтожались тысячи кораблей и возникавшие при этом обломки казались навсегда потерянными. Нормальные транспорты не могли близко к ним приблизиться, не будучи сильно повреждёнными маленькими обломками. С новым открытием в области щитовой технологии стало возможно эффективно устранять эту проблему, возник новый класс корабля, подобный большому транспорту - переработчик. С его помощью можно было заново использовать казавшиеся потерянными ресурсы. Из-за новых щитов маленькие обломки больше не представляли собой опасности. К сожалению, эти устройства требуют пространства, поэтому его грузовой тоннаж ограничен до 20 000.";
+$lang['info'][210]['name']        = "Шпионский зонд";
+$lang['info'][210]['description'] = "Шпионские зонды - это маленькие манёвренные корабли, которые доставляют с больших расстояний данные о флотах и планетах. Их высокомощный двигатель позволяет им преодолевать большие расстояния за несколько секунд. Однажды попав на орбиту какой-нибудь планеты, они пребывают там некоторое время для сборки данных. В это время враг может их относительно легко обнаружить и атаковать. Для экономии места не было установлено ни брони, ни щитов, ни орудий, что делает зонды в случае обнаружения лёгкими целями.";
+$lang['info'][211]['name']        = "Бомбардировщик";
+$lang['info'][211]['description'] = "Бомбардировщик был разработан специально для того, чтобы уничтожать планетарную защиту. С помощью лазерного прицела он точно сбрасывает плазменные бомбы на поверхность планеты и таким образом наносит огромные повреждения оборонительным сооружениям.";
+$lang['info'][212]['name']        = "Солнечный спутник";
+$lang['info'][212]['description'] = "Солнечные спутники запускаются на орбиту планеты. Они фокусируют солнечную энергию и передают её на наземную станцию. Эффективность солнечных спутников зависит от мощи солнечного излучения. В принципе, добыча энергии на орбитах, более приближённых к солнцу, выше, чем на планетах, удалённых от солнца. Из-за своего соотношения цены и качества солнечные спутники решают энергетические проблемы многих миров. Но внимание: солнечные спутники могут быть уничтожены в бою.";
+$lang['info'][213]['name']        = "Уничтожитель";
+$lang['info'][213]['description'] = "Уничтожитель - король среди военных кораблей. Его мультифланговые ионные, плазменные и гауссовые орудийные башни могут благодаря своим усовершенствованным пеленгационным сенсорам поражать с точностью до 99% даже скоростные манёвренные истребители. Так как уничтожители очень велики, их манёвренность очень ограничена, и в бою они подобны скорее боевой станции, чем боевому кораблю. Потребление дейтерия у них так же высоко, как и их боевая мощь. У разрушителя есть скорострел (10) против лёгкого лазера, т.е. один уничтожитель уничтожает несколько лёгких лазеров одним выстрелом.";
+$lang['info'][214]['name']        = "Звезда смерти";
+$lang['info'][214]['description'] = "Звезда смерти оснащена гравитонной пушкой, которая может уничтожать такие корабли, как уничтожитель, и даже луны. Так как для этого требуется большое количество энергии, она состоит почти лишь из генераторов. Только огромные звёздные империи могут вообще предоставить ресурсы и работников, чтобы построить этот размером с луну корабль.";
+$lang['info'][215]['name']        = "Линейный крейсер";
+$lang['info'][215]['description'] = "Этот высокотехнологичный корабль несёт смерть атакующим флотам. Его усовершенствованные лазерные орудия удерживают тяжёлые корабли противника на расстоянии и могут уничтожать несколько единиц одним залпом. За счёт его малых размеров и невероятно мощного вооружения, грузоподъёмность линейного крейсера очень мала, но за счёт гиперпространственного двигателя также мало потребление топлива.";
+$lang['info'][216]['name']        = "Черная луна";
+$lang['info'][216]['description'] = "Модификация Звезды смерти. Этот корабль потерял свою скорость и огневую мощь, но Сила щитов увеличена.";
+$lang['info'][217]['name']        = "Эволюционный транспорт";
+$lang['info'][217]['description'] = "Самый большой траспортный корабль в империи, в то же время самый медлиный. При скоростных бонусах он так же быстр как и остальные транспортные корабли. Сила щита очень низкая.";
+$lang['info'][218]['name']        = "Аватар";
+$lang['info'][218]['description'] = "Это император среди кораблей. Имеет огромный щит и боевую мощь. Имеет огромный трюм. Главный минус в его скорости, из-за чудовишных размеров. ";
+$lang['info'][219]['name']        = "Императорский транспорт";
+$lang['info'][219]['description'] = "Это монстр среди транспортных кораблей. Его вместимость огромная. Не смотря на большую грузоподьемность имеет самую большую скорость!";
+$lang['info'][220]['name']        = "Межгалактический переработчик";
+$lang['info'][220]['description'] = "Этот корабль специально сконструирован для добычи Темной Материи на поверхности луны. Имеет большой обьем трюма и повышеные щиты.";
+$lang['info'][221]['name']        = "Mercer";
+$lang['info'][221]['description'] = "Dieses Schiff wird auf vielen Planeten vorgefunden. Durch verhältnismäßig großen Laderaum werden gerne riesige Mercer- Schwaden eingesetzt";
+$lang['info'][222]['name']        = "Claymore";
+$lang['info'][222]['description'] = "Mit ihrer relativ starken Kampfkraft und hohen Geschwindigkeit ist diese Fregatte gut geeignet um feindliche Kolonien auszuplündern.";
+$lang['info'][223]['name']        = "Pantheon";
+$lang['info'][223]['description'] = "Diese äußerst große und auch starke Fregatte sollte in keinem richtigen Gemetzel fehlen. In großen Flottenverbänden kann sie leicht Schlachten entscheiden.";
+$lang['info'][224]['name']        = "Plünderer";
+$lang['info'][224]['description'] = "Der Kreuzer der Plünderer-Klasse verfügt über eine hohe Ladekapazität und Geschwindigkeit. Somit ist er sehr gut geeignet um feindliche Kolonien auszurauben.";
+$lang['info'][225]['name']        = "Gospador";
+$lang['info'][225]['description'] = "Dieser Kreuzer verfügt über besonders viel Feuerkraft, jedoch ist seine Geschwindigkeit vergleichsweise niedrig und der Laderaum sehr klein geraten.";
+$lang['info'][226]['name']        = "Snakeir";
+$lang['info'][226]['description'] = "Schwere Kreuzer der Snakeir-Klasse sind für ihre Größe sehr schnell und eignen sich daher perfekt für Angriffe auf entfernter gelegene Planeten.";
+$lang['info'][227]['name']        = "Raptor";
+$lang['info'][227]['description'] = "Ganz nach dem der Natur entstammenden Vorbild, dem vor Millionen Jahren ausgestorbenen Urgetier, ist der schwere Kreuzer der Raptor-Klasse kampfstark und in hohem Maße wendig. In großen Verbänden wird dieses Schiff zu einer hochgefährlichen Zerstörungsmaschine.";
+$lang['info'][228]['name']        = "Dreadnought";
+$lang['info'][228]['description'] = "Durch die Kombination von Raketen mit Plasmageschützen und Ionenkanonen erreichen Dreadnought-Klasse Schlachtkreuzer eine zerstörerische Feuerkraft. Neuartige Legierungen sorgen für eine gute Panzerung.";
+$lang['info'][229]['name']        = "Hyperion";
+$lang['info'][229]['description'] = "Schlachtkreuzer der Hyperion-Klasse entstanden durch den Wunsch Wendigkeit und Kampfkraft gleichermaßen zu ermöglichen. Diese Metamorphose ist durch Einsatz modernster Forschung sehr gut gelungen. Das Schiff kann seinen Vorgänger DNG in allen Werten weit hinter sich lassen.";
+$lang['info'][230]['name']        = "Solareon";
+$lang['info'][230]['description'] = "Schlachtschiffe der Solareon-Klasse schiessen mit einer Teilchenflut, die dem Sonnenwind nach Sonneneruptionen ähnelt. Dadurch werden große Schäden angerichtet und die komplette Boardelektronik der getroffenen Schiffe zerstört. Bei nahen Planeten treten nach einer Schlacht häufig Phänomene auf, die wir unter dem Namen \"Nordlichter\" kennen.";
+$lang['info'][231]['name']        = "Aurora";
+$lang['info'][231]['description'] = "Das Schlachtschiff der Aurora-Klasse übertrifft alle bisher dagewesenen Schiffe. Dieses Kampfschiff ist sowohl im Angriff als auch in der Verteidigung allem bisher dagewesenen überlegen. Die Feuerkraft ist dank spezieller neuer Techniken enorm. Es läuft einem eiskalt den Rücken hinunter, wenn man dieses Ungetüm einmal im Einsatz gesehen hat.";
+$lang['info'][232]['name']        = "Taurus";
+$lang['info'][232]['description'] = "Die Korvette der Taurus-Klasse hat eine starke Angriffskraft und ist somit auch viel besser für Offensivangriffe geeignet.";
+$lang['info'][233]['name']        = "Nighthawk";
+$lang['info'][233]['description'] = "Als man den Bedarf für riesige Transportschiffe erkannte, weil es immer mehr Installationen im tiefen Raum gab, hat InterStellar Shipping beschlossen, ein ultimatives Schiff für den Massentransport zu entwickeln. Die Nighthawk ist die Weiterentwicklung der kleineren Avenger. Ihre riesigen Ausmaße und der gigantische Laderaum sind unübertroffen.";
+$lang['info'][234]['name']        = "Avenger";
+$lang['info'][234]['description'] = "Als man den Bedarf für riesige Transportschiffe erkannte, weil es immer mehr Installationen im tiefen Raum gab, hat InterStellar Shipping beschlossen, ein Schiff für den Massentransport zu entwickeln. Die Avenger ist das erste Schiff in einer Reihe neuer Transportschiffe.";
+$lang['info'][235]['name']        = "Thunderstorm";
+$lang['info'][235]['description'] = "Fast das 3-fache an Angriffspunkten als der Taurus macht den Thunderstorm zu einer wahren Kampfmaschine für ein junges Imperium.";
+
+
 // ----------------------------------------------------------------------------------------------------------
 // Verteidigung
 $lang['info'][401]['name']        = "Raketenwerfer";
@@ -818,6 +931,7 @@ $lang['mg_type'][3]    						= 'Боевые доклады';
 $lang['mg_type'][4]    						= 'Прочие';
 $lang['mg_type'][5]    						= 'Доклады транспорта';
 $lang['mg_type'][15]   						= 'Доклады экспедиции';
+$lang['mg_type'][50]						= 'Игровые новости';
 $lang['mg_type'][99]   						= 'Доклады построек';
 $lang['mg_type'][100]						= 'Просмотр всех сообщений';
 $lang['mg_type'][999]						= 'Отправленные другим игрокам';
@@ -846,6 +960,7 @@ $lang['mg_send_to']							= 'Empf&auml;nger';
 $lang['mg_message']							= 'Nachricht';
 $lang['mg_characters']						= 'Zeichen';
 $lang['mg_send']							= 'Absenden';
+$lang['mg_game_message']					= 'Game Message';
 
 //----------------------------------------------------------------------------//
 //ALLIANCE
@@ -1199,6 +1314,7 @@ $lang['sys_mess_spy_ennemyfleet'] 			= "Eine feindliche Flotte vom Planeten";
 $lang['sys_mess_spy_seen_at'] 				= "wurde in der N&auml;he deines Planeten";
 $lang['sys_mess_spy_seen_at2'] 				= "gesichtet";
 $lang['sys_mess_spy_destroyed'] 			= "Ihre Spionagesonden wurden zerst&ouml;rt!";
+$lang['sys_mess_attack_report_mess']		= "<a href=\"javascript:kb('%s');\"><center><font color=\"%s\">%s %s</font></a><br><br><font color=\"%s\">%s: %s</font> <font color=\"%s\">%s: %s</font><br>%s %s:<font color=\"#adaead\">%s</font> %s:<font color=\"#ef51ef\">%s</font> %s:<font color=\"#f77542\">%s</font><br>%s %s:<font color=\"#adaead\">%s</font> %s:<font color=\"#ef51ef\">%s</font><br></center>";
 $lang['sys_adress_planet'] 					= "[%s:%s:%s]";
 $lang['sys_stay_mess_goods'] 				= "%s : %s, %s : %s, %s : %s";
 $lang['sys_stay_mess_back']					= "Eine deiner Flotten erreich den Planet ";
@@ -1303,6 +1419,7 @@ $lang['cff_to_destination']					= 'Heading to destination';
 //----------------------------------------------------------------------------//
 // EXTRA LANGUAGE FUNCTIONS
 $lang['fcm_moon']							= 'Луна';
+$lang['fcm_info']							= 'Информация';
 $lang['fcp_colony']							= 'Колония';
 $lang['fgp_require']						= 'Требуется: ';
 $lang['fgf_time']							= 'Время строительства: ';
@@ -1445,7 +1562,6 @@ $lang['supp_player_answer'] 				= "Spieler-Antwort";
 //----------------------------------------------------------------------------//
 // Rekorde 
 
-$lang['rec_title'] 							= "XNova Elite Rekord";
 $lang['rec_build']  						= "Постройки";
 $lang['rec_specb']							= "Особые постройки";
 $lang['rec_playe']  						= "Spieler";
@@ -1457,6 +1573,6 @@ $lang['rec_nbre']   						= "Anzahl";
 $lang['rec_rien']   						= "-";
 $lang['rec_last_update_on']   				= "Letztes Update um : %s";
 
-// Translated into German by Slaver . All rights reversed (C) 2010
+// Translated into Russian by Dobro . All rights reversed (C) 2010
 
 ?>

@@ -535,24 +535,6 @@ function setNumber(name,number){
 	}
 }
 
-function tsdpkt(f) {
-  r = "";
-  vz = "";
-  if (f < 0) { vz = "-"; }
-  f = abs(f);
-  r = f % 1000;
-  while (f >= 1000){
-    k1 = "";
-    if ((f % 1000) < 100) { k1 = "0"; }
-    if ((f % 1000) < 10) { k1 = "00"; }
-    if ((f % 1000) == 0) { k1 = "00"; }
-    f = abs((f-(f % 1000)) / 1000);
-    r = f % 1000 + "." + k1 + r;
-  }
-  r = vz + r;
-  return r;
-}
-
 function abs(a) {
 	if(a < 0) return -a;
 	return a;

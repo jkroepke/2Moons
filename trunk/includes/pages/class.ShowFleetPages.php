@@ -921,7 +921,7 @@ class ShowFleetPages extends FleetFunctions
 
 	public static function MissilesAjax($CurrentUser, $CurrentPlanet)
 	{	
-		global $lang, $game_config, $db, $phpEx;
+		global $lang, $game_config, $db, $phpEx, $reslist;
 	
 		include_once($xgp_root . 'includes/functions/IsVacationMode.' . $phpEx);
 		
@@ -948,7 +948,7 @@ class ShowFleetPages extends FleetFunctions
 			$error = $lang['ma_planet_doesnt_exists'];
 		elseif ($anz > $iraks)
 			$error = $lang['ma_cant_send'] . $anz . $lang['ma_missile'] . $iraks;
-		elseif ((!is_numeric($pziel) && $pziel != "all") OR ($pziel < 0 && $pziel > 7 && $pziel != "all"))
+		elseif (!in_array($pziel, $reslist['defense']) && $pziel != 0)
 			$error = $lang['ma_wrong_target'];
 		elseif ($iraks == 0)
 			$error = $lang['ma_no_missiles'];
@@ -975,18 +975,7 @@ class ShowFleetPages extends FleetFunctions
 		$SpeedFactor    	 = parent::GetGameSpeedFactor();
 		$Duration 			 = max(round((30 + (60 * $Distance)/$SpeedFactor)),30);
 
-		$DefenseLabel =
-		array(
-		'0' => $lang['ma_misil_launcher'],
-		'1' => $lang['ma_small_laser'],
-		'2' => $lang['ma_big_laser'],
-		'3' => $lang['ma_gauss_canyon'],
-		'4' => $lang['ma_ionic_canyon'],
-		'5' => $lang['ma_buster_canyon'],
-		'6' => $lang['ma_small_protection_shield'],
-		'7' => $lang['ma_big_protection_shield'],
-		'all' => $lang['ma_all']);
-
+		$DefenseLabel = ($pziel == 0) ? $lang['ma_all'] : $lang['tech'][$pziel];
 
 		$sql = "INSERT INTO ".FLEETS." SET
 				fleet_owner = ".$CurrentUser['id'].",
@@ -1017,7 +1006,7 @@ class ShowFleetPages extends FleetFunctions
 
 		$db->multi_query($sql);
 
-		message("<b>".$anz."</b>". $lang['ma_missiles_sended'] .$DefenseLabel[$pziel], "game.php?page=overview", 3);
+		message("<b>".$anz."</b>". $lang['ma_missiles_sended'] .$DefenseLabel, "game.php?page=overview", 3);
 
 	}
 }
