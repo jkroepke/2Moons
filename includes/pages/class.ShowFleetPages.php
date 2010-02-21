@@ -483,7 +483,8 @@ class ShowFleetPages extends FleetFunctions
 			$FleetStorage    += $pricelist[$Ship]["capacity"] * $Count;
 			$FleetShipCount  += $Count;
 			$fleet_array     .= $Ship .",". $Count .";";
-			$FleetSubQRY     .= "`".$resource[$Ship] . "` = ".$resource[$Ship]." - '".number_format($Count, 0, '', '')."', ";	
+			$FleetSubQRY     .= "`".$resource[$Ship] . "` = ".$resource[$Ship]." - '".number_format($Count, 0, '', '')."', ";
+			$CurrentPlanet[$resource[$Ship]] -= $Count;
 		}
 
 		$error              = 0;
