@@ -40,17 +40,14 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 			$BuildMode    = $BuildArray[4];
 			$Element      = $BuildArray[0];
 			array_shift ( $QueueArray );
-
+			
 			if ($BuildMode == 'destroy')
 				$ForDestroy = true;
 			else
 				$ForDestroy = false;
-
+			var_dump($BuildMode, $ForDestroy);
 			if ($BuildEndTime <= time())
 			{
-				$Needed                        = GetBuildingPrice ($CurrentUser, $CurrentPlanet, $Element, true, $ForDestroy);
-				$Units                         = $Needed['metal'] + $Needed['crystal'] + $Needed['deuterium'];
-
 				$current = intval($CurrentPlanet['field_current']);
 				$max     = intval($CurrentPlanet['field_max']);
 
