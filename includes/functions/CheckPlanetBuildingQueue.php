@@ -51,8 +51,8 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 				$Needed                        = GetBuildingPrice ($CurrentUser, $CurrentPlanet, $Element, true, $ForDestroy);
 				$Units                         = $Needed['metal'] + $Needed['crystal'] + $Needed['deuterium'];
 
-				$current 					   = $CurrentPlanet['field_current'];
-				$max     					   = $CurrentPlanet['field_max'];
+				$current = intval($CurrentPlanet['field_current']);
+				$max     = intval($CurrentPlanet['field_max']);
 
 				if ($CurrentPlanet['planet_type'] == 3)
 				{
@@ -89,7 +89,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 						$CurrentPlanet[$resource[$Element]]--;
 					}
 				}
-				if (count( $QueueArray ) == 0)
+				if (count ( $QueueArray ) == 0)
 					$NewQueue = 0;
 				else
 					$NewQueue = implode (";", $QueueArray );
@@ -98,7 +98,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 				$CurrentPlanet['b_building_id'] = $NewQueue;
 				$CurrentPlanet['field_current'] = $current;
 				$CurrentPlanet['field_max']     = $max;
-				
+
 				$QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
 				$QryUpdatePlanet .= "`".$resource[$Element]."` = '".$CurrentPlanet[$resource[$Element]]."', ";
 				$QryUpdatePlanet .= "`b_building` = '". $CurrentPlanet['b_building'] ."' , ";
