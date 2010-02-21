@@ -148,10 +148,10 @@ class ResourceUpdate
 		}
 	}
 	
-	public function SavePlanetToDB($CurrentUser, $CurrentPlanet)
+	public function SavePlanetToDB($CurrentUser, $CurrentPlanet, $Hanger = true)
 	{
 		global $resource, $db;
-		$Builded          = HandleElementBuildingQueue ( $CurrentUser, $CurrentPlanet, $this->ProductionTime);
+		$Builded          = ($Hanger) ? HandleElementBuildingQueue ( $CurrentUser, $CurrentPlanet, $this->ProductionTime) : '';
 		$QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
 		$QryUpdatePlanet .= "`metal` = '"            . $CurrentPlanet['metal']             	."', ";
 		$QryUpdatePlanet .= "`crystal` = '"          . $CurrentPlanet['crystal']           	."', ";
