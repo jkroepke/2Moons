@@ -45,7 +45,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 				$ForDestroy = true;
 			else
 				$ForDestroy = false;
-			var_dump($BuildMode, $ForDestroy);
+				
 			if ($BuildEndTime <= time())
 			{
 				$current = intval($CurrentPlanet['field_current']);
