@@ -59,7 +59,7 @@ function ShowImperiumPage($CurrentUser, $CurrentPlanet)
 			'system'		=> $Planet['system'],
 			'planet'		=> $Planet['planet'],
 			'field_current'	=> $Planet['field_current'],
-			'field_max'		=> $Planet['field_max'],
+			'field_max'		=> CalculateMaxPlanetFields($Planet),
 			'metal'			=> pretty_number($Planet['metal']),
 			'crystal'		=> pretty_number($Planet['crystal']),
 			'deuterium'		=> pretty_number($Planet['deuterium']),
