@@ -2802,7 +2802,8 @@ abstract class FlyingFleetMissions {
 			if($chance < 20 + $FleetRow['fleet_amount'] * 0.05) {
 				$FoundDark 	 = rand(423, 1278);
 				$Message = sprintf($lang['sys_expe_found_goods'], 0, $lang['Metal'], 0, $lang['Crystal'], 0, $lang['Deuterium'], pretty_number($FoundDark), $lang['Darkmatter']);
-				$db->multi_query("UPDATE ".USERS." SET `darkmatter` = darkmatter + '".$FoundDark ."' WHERE `id` = '".$FleetRow['fleet_owner']."' LIMIT 1;DELETE FROM ".FLEETS." WHERE `fleet_id` = '".$FleetRow["fleet_id"]."';");
+				$db->multi_query("UPDATE ".USERS." SET `darkmatter` = darkmatter + '".$FoundDark ."' WHERE `id` = '".$FleetRow['fleet_owner']."' LIMIT 1;
+				DELETE FROM ".FLEETS." WHERE `fleet_id` = '".$FleetRow["fleet_id"]."';");
 			} else {
 				$Message = $lang['sys_expe_nothing_'.rand(1, 2)];
 				$db->query("UPDATE ".FLEETS." SET `fleet_mess` = '1' WHERE `fleet_id` = '". $FleetRow['fleet_id'] ."' LIMIT 1 ;");
