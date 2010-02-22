@@ -246,7 +246,7 @@ class GalaxyRows
 		}
 
 		$Result	= array(
-			'id'			=> $GalaxyRowPlanet['id'],
+			'id'			=> $GalaxyRowPlanet['userid'],
 			'username'		=> htmlspecialchars($GalaxyRowPlanet['username'],ENT_QUOTES,"UTF-8"),
 			'rank'			=> $RowUserPoints,
 			'playerrank'	=> sprintf($lang['gl_in_the_rank'], htmlspecialchars($GalaxyRowPlanet['username'],ENT_QUOTES,"UTF-8"), $GalaxyRowPlanet['total_rank']),

@@ -123,13 +123,18 @@ class ShowGalaxyPage extends GalaxyRows
 			if (!empty($systemLeft))
 				$system	= max($system - 1, 1);
 			elseif (!empty($systemRight))
-				$system	= min($system + 1, MAX_GALAXY_IN_WORLD);
+				$system	= min($system + 1, MAX_SYSTEM_IN_GALAXY);
 		}
 
 		if (!($galaxy == $CurrentPlanet['galaxy'] && $system == $CurrentPlanet['system']) || $mode != 0)
 		{
 			if($CurrentPlanet['deuterium'] < 10)
 			{
+				$template->page_header();
+				$template->page_topnav();
+				$template->page_leftmenu();
+				$template->page_planetmenu();
+				$template->page_footer();	
 				$template->message($lang['gl_no_deuterium_to_view_galaxy'], "game.php?page=galaxy&mode=0", 2);
 				$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 				exit;
