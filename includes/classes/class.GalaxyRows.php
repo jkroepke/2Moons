@@ -133,7 +133,6 @@ class GalaxyRows
 	public function GalaxyRowPlanet($GalaxyRowPlanet, $HavePhalanx, $CurrentGalaxy, $CurrentSystem, $CurrentMIP)
 	{
 		global $dpath, $user, $game_config, $lang;
-
 		
 		if($HavePhalanx > 0 && $GalaxyRowPlanet['userid'] != $user['id'] && $GalaxyRowPlanet["galaxy"] == $CurrentGalaxy)
 		{
@@ -198,7 +197,7 @@ class GalaxyRows
 		$protectionmulti 	= $game_config['noobprotectionmulti'];
 		$CurrentPoints 		= $GalaxyRowPlanet['total_points'];
 		$RowUserPoints 		= $GalaxyRowPlanet['total_points'];
-		$IsNoobProtec		= CheckNoobProtec($UserPoints, $User2Points, $GalaxyRowPlanet['onlinetime']);
+		$IsNoobProtec		= CheckNoobProtec($UserPoints, $GalaxyRowPlanet, $GalaxyRowPlanet['onlinetime']);
 				
 		if ($GalaxyRowPlanet['bana'] == 1 && $GalaxyRowPlanet['urlaubs_modus'] == 1)
 		{
@@ -207,7 +206,7 @@ class GalaxyRows
 		}
 		elseif ($GalaxyRowPlanet['bana'] == 1)
 		{
-			$Systemtatus2 	= "<a href=\"game.php?page=banned\"><span class=\"banned\">".$lang['gl_b']."</span></a>";
+			$Systemtatus2 	= "<span class=\"banned\">".$lang['gl_b']."</span>";
 			$Systemtatus 	= "";
 		}
 		elseif ($GalaxyRowPlanet['urlaubs_modus'] == 1)
