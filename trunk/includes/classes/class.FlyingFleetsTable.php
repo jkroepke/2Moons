@@ -27,7 +27,7 @@ class FlyingFleetsTable
 	{
 		global $lang;
 
-		$FleetTotalC  = $FleetRow['fleet_resource_metal'] + $FleetRow['fleet_resource_crystal'] + $FleetRow['fleet_resource_deuterium'];
+		$FleetTotalC  = $FleetRow['fleet_resource_metal'] + $FleetRow['fleet_resource_crystal'] + $FleetRow['fleet_resource_deuterium'] + $FleetRow['fleet_resource_darkmatter'];
 		if ($FleetTotalC <> 0)
 		{
 			$FRessource   = "<table width=200>";

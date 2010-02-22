@@ -617,8 +617,8 @@ class ShowFleetPages extends FleetFunctions
 		}
 		elseif ($mission == 11)
 		{
-			$StayDuration    = 3600;
-			$StayTime        = $fleet['start_time'] + 3600;
+			$StayDuration    = 0;
+			$StayTime        = $fleet['start_time'] + $StayDuration;
 		}
 		else
 		{
@@ -772,7 +772,7 @@ class ShowFleetPages extends FleetFunctions
 				$SpyProbes	= request_var('ship210', 0);
 				$SpyProbes	= min($SpyProbes, $CurrentPlanet[$resource[210]]);
 				if(empty($SpyProbes))
-					exit($ResultMessage = "611; ".$lang['fa_no_ships']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserMissiles);
+					exit($ResultMessage = "611; ".$lang['fa_no_spios']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserMissiles);
 					
 				$FleetArray = array(210 => $SpyProbes);
 			break;
@@ -780,7 +780,7 @@ class ShowFleetPages extends FleetFunctions
 				$Recycles	= request_var('ship209', 0);
 				$Recycles	= min($Recycles, $CurrentPlanet[$resource[209]]);
 				if($Recycles > $CurrentPlanet[$resource[209]] || empty($Recycles))
-					exit($ResultMessage = "611; ".$lang['fa_no_ships']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserMissiles);
+					exit($ResultMessage = "611; ".$lang['fa_no_recyclers']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserMissiles);
 					
 				$FleetArray = array(209 => $Recycles);
 				break;
@@ -824,7 +824,7 @@ class ShowFleetPages extends FleetFunctions
 
 
 
-		if($CurrentUser['urlaubs_modus'])
+		if($CurrentUser['urlaubs_modus'] == 1)
 		{
 			$ResultMessage = "620; ".$lang['fa_vacation_mode_current']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserMissiles;
 			die ($ResultMessage);
@@ -873,7 +873,10 @@ class ShowFleetPages extends FleetFunctions
 
 		if($UserDeuterium < 0)
 			exit("613; ".$lang['fa_not_enough_fuel']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserMissiles);
-
+		elseif($consumption > parent::GetFleetRoom($FleetArray))
+			exit("613; ".$lang['fa_no_fleetroom']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserMissiles);
+			
+			
 		$fleet['fly_time']   = $Duration;
 		$fleet['start_time'] = $Duration + time();
 		$fleet['end_time']   = ($Duration * 2) + time();
@@ -933,6 +936,8 @@ class ShowFleetPages extends FleetFunctions
 		$TargetPlanet 		= request_var('planet',0);
 		$anz 				= request_var('SendMI',0);
 		$pziel 				= request_var('Target',"");
+		
+		$PlanetRess 		= new ResourceUpdate($CurrentUser, $CurrentPlanet);
 
 		$iraks 				= $CurrentPlanet['interplanetary_misil'];
 		$Distance			= abs($TargetSystem - $CurrentPlanet['system']);
@@ -971,10 +976,21 @@ class ShowFleetPages extends FleetFunctions
 			$error = $lang['fl_week_player'];
 		elseif ($IsNoobProtec['StrongPlayer'])
 			$error = $lang['fl_strong_player'];		
-		
+				
+		$template	= new template();
+
+		$template->set_vars($CurrentUser, $CurrentPlanet);
+		$template->page_header();
+		$template->page_topnav();
+		$template->page_leftmenu();
+		$template->page_planetmenu();
+		$template->page_footer();
 		if ($error != "")
-			exit(message($error));
-		
+		{
+			$template->message($error);
+			$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
+			exit;
+		}
 		$SpeedFactor    	 = parent::GetGameSpeedFactor();
 		$Duration 			 = max(round((30 + (60 * $Distance)/$SpeedFactor)),30);
 
@@ -1008,8 +1024,9 @@ class ShowFleetPages extends FleetFunctions
 				interplanetary_misil = (interplanetary_misil - ".$anz.") WHERE id = '".$CurrentPlanet['id']."';";
 
 		$db->multi_query($sql);
-
-		message("<b>".$anz."</b>". $lang['ma_missiles_sended'] .$DefenseLabel, "game.php?page=overview", 3);
+		
+		$template->message("<b>".$anz."</b>". $lang['ma_missiles_sended'] .$DefenseLabel, "game.php?page=overview", 3);
+		$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 
 	}
 }

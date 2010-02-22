@@ -16,7 +16,7 @@ function whenResponse () {
 	if(CmdCode == 600)
 		addToTable("Done", "success");
 	else
-		addToTable("Fatal Error", "error");
+		addToTable("Geht Nisch!", "error");
 	
 	changeSlots(1);
 	setShips("probes", SpyProbes );

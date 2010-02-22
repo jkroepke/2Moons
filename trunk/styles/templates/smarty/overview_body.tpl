@@ -48,8 +48,8 @@
 			<table class="s" border="0" align="center">
 			{foreach name=PlanetList item=PlanetRow from=$AllPlanets}
 			{if $smarty.foreach.PlanetList.iteration is odd}<tr style="height:20px;">{/if}			
-			<th>{$PlanetRow.name}<br><a href="game.php?page=overview&amp;cp={$PlanetRow.id}&amp;re=0" title="{$PlanetRow.name}"><img src="styles/skins/darkness/planeten/small/s_{$PlanetRow.image}.jpg" height="50" width="50" alt="{$PlanetRow.name}"></a><br><center>{$PlanetRow.build}</center></th>
-			{if $smarty.foreach.PlanetList.last && $smarty.foreach.PlanetList.total is odd && $smarty.foreach.PlanetList.total != 1}<th>&nbsp;</th>{/if}
+			<th style="background-color:transparent;background-image:none;">{$PlanetRow.name}<br><a href="game.php?page=overview&amp;cp={$PlanetRow.id}&amp;re=0" title="{$PlanetRow.name}"><img src="styles/skins/darkness/planeten/small/s_{$PlanetRow.image}.jpg" height="50" width="50" alt="{$PlanetRow.name}"></a><br><center>{$PlanetRow.build}</center></th>
+			{if $smarty.foreach.PlanetList.last && $smarty.foreach.PlanetList.total is odd && $smarty.foreach.PlanetList.total != 1}<th style="background-color:transparent;background-image:none;">&nbsp;</th>{/if}
 			{if $smarty.foreach.PlanetList.iteration is even}</tr>{/if}
 			{/foreach}
 			</table>

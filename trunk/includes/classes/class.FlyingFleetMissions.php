@@ -2778,7 +2778,7 @@ abstract class FlyingFleetMissions {
 					$db->query( $QryUpdateFleet);
 
 					$Message = $lang['sys_expe_found_ships']. $FoundShipMess . "";
-					SendSimpleMessage ( $FleetOwner, '', $FleetRow['fleet_end_stay'], 15, $MessSender, $MessTitle, $Message);
+					SendSimpleMessage($FleetOwner, '', $FleetRow['fleet_end_stay'], 15, $MessSender, $MessTitle, $Message);
 				}
 			}
 		}
@@ -2787,8 +2787,8 @@ abstract class FlyingFleetMissions {
 			if ($FleetRow['fleet_end_time'] < time())
 			{
 				self::RestoreFleetToPlanet($FleetRow, true);
-				$db->multi_query("UPDATE `".USERS."` SET `darkmatter` = `darkmatter` + '".$FleetRow['fleet_resource_darkmatter']."' WHERE `id` = '".$FleetRow['fleet_owner']."';DELETE FROM ".FLEETS." WHERE `fleet_id` = ". $FleetRow["fleet_id"].";");
-				SendSimpleMessage ( $FleetOwner, '', $FleetRow['fleet_end_time'], 15, $MessSender, $MessTitle, $lang['sys_expe_back_home'] );
+				$db->multi_query("UPDATE `".USERS."` SET `darkmatter` = darkmatter + ".$FleetRow['fleet_resource_darkmatter']." WHERE `id` = '".$FleetRow['fleet_owner']."';DELETE FROM ".FLEETS." WHERE `fleet_id` = ". $FleetRow["fleet_id"].";");
+				SendSimpleMessage($FleetOwner, '', $FleetRow['fleet_end_time'], 15, $MessSender, $MessTitle, $lang['sys_expe_back_home'] );
 			}
 		}
 	}
@@ -2798,24 +2798,31 @@ abstract class FlyingFleetMissions {
 		global $lang, $db;
 		if ($FleetRow['fleet_mess'] == 0 && $FleetRow['fleet_end_stay'] < time())
 		{
-			$chance 		 = rand(0, 100);
+			$chance 		= rand(0, 100);
 			if($chance < 20 + $FleetRow['fleet_amount'] * 0.05) {
-				$FoundDark 	 = rand(423, 1278);
-				$Message = sprintf($lang['sys_expe_found_goods'], 0, $lang['Metal'], 0, $lang['Crystal'], 0, $lang['Deuterium'], pretty_number($FoundDark), $lang['Darkmatter']);
-				$db->multi_query("UPDATE ".USERS." SET `darkmatter` = darkmatter + '".$FoundDark ."' WHERE `id` = '".$FleetRow['fleet_owner']."' LIMIT 1;
-				DELETE FROM ".FLEETS." WHERE `fleet_id` = '".$FleetRow["fleet_id"]."';");
+				$FoundDark 	= rand(423, 1278);
+				$Message 	= sprintf($lang['sys_expe_found_goods'], 0, $lang['Metal'], 0, $lang['Crystal'], 0, $lang['Deuterium'], pretty_number($FoundDark), $lang['Darkmatter']);
 			} else {
-				$Message = $lang['sys_expe_nothing_'.rand(1, 2)];
-				$db->query("UPDATE ".FLEETS." SET `fleet_mess` = '1' WHERE `fleet_id` = '". $FleetRow['fleet_id'] ."' LIMIT 1 ;");
+				$FoundDark 	= 0;
+				$Message 	= $lang['sys_expe_nothing_'.rand(1, 2)];
 			}
-			
-			SendSimpleMessage($FleetRow['fleet_owner'], '', $FleetRow['fleet_end_stay'], 15, $lang['sys_mess_qg'], $lang['sys_expe_report'], $Message);
+
+			$db->query("UPDATE ".FLEETS." SET `fleet_mess` = '1',`fleet_resource_darkmatter` = `fleet_resource_darkmatter` + '". $FoundDark ."' WHERE `fleet_id` = '". $FleetRow['fleet_id'] ."';");			
+			SendSimpleMessage($FleetRow['fleet_owner'], '', $FleetRow['fleet_end_stay'], 15, $lang['sys_mess_tower'], $lang['sys_expe_report'], $Message);
 		}
 		elseif ($FleetRow['fleet_end_time'] < time())
 		{
+			if($FleetRow['fleet_resource_darkmatter'] > 0) {
+				SendSimpleMessage($FleetRow['fleet_owner'], '', $FleetRow['fleet_end_time'], 15, $lang['sys_mess_tower'], $lang['sys_expe_report'], sprintf($lang['sys_expe_back_home_with_dm'], $lang['Darkmatter'], pretty_number($FleetRow['fleet_resource_darkmatter']), $lang['Darkmatter']));
+				$FleetRow['fleet_array'] = "220,0;";
+			} else {
+				SendSimpleMessage($FleetRow['fleet_owner'], '', $FleetRow['fleet_end_time'], 15, $lang['sys_mess_tower'], $lang['sys_expe_report'], $lang['sys_expe_back_home']);
+			}
 			self::RestoreFleetToPlanet($FleetRow, true);
+			
+			echo "UPDATE `".USERS."` SET `darkmatter` = darkmatter + ".$FleetRow['fleet_resource_darkmatter']." WHERE `id` = '".$FleetRow['fleet_owner']."';";
+			$db->query("UPDATE `".USERS."` SET `darkmatter` = darkmatter + ".$FleetRow['fleet_resource_darkmatter']." WHERE `id` = '".$FleetRow['fleet_owner']."';");
 			$db->query("DELETE FROM ".FLEETS." WHERE `fleet_id` = ". $FleetRow["fleet_id"].";");
-			SendSimpleMessage($FleetRow['fleet_owner'], '', $FleetRow['fleet_end_time'], 15, $lang['sys_mess_qg'], $lang['sys_expe_report'], $lang['sys_expe_back_home']);
 		}		
 	}
 }
