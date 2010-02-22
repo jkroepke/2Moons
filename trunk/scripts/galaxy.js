@@ -60,8 +60,8 @@ function addToTable(strDataResult, strClass) {
 	row.appendChild(td1);
 	row.appendChild(td2);
 }
-function changeSlots(slotsInUse) {
-	$('#slots').text(slotsInUse);
+function changeSlots() {
+	$('#slots').text(parseInt($('#slots').text()) + 1);
 }
 function setShips(ship, count) {
 	$('#'+ship).text(tsdpkt(count));

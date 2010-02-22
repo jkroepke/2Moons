@@ -28,11 +28,11 @@ class ShowGalaxyPage extends GalaxyRows
 
 	private function ShowGalaxyRows($Galaxy, $System, $HavePhalanx, $CurrentGalaxy, $CurrentSystem, $CurrentRC, $CurrentMIP, $CanDestroy)
 	{
-		global $planetcount, $dpath, $user, $xgp_root, $phpEx, $db, $lang;
+		global $dpath, $user, $xgp_root, $phpEx, $db, $lang;
 
 		$UserPoints    		= $db->fetch_array($db->query("SELECT total_points FROM ".STATPOINTS." WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $user['id'] ."';"));
 		$GalaxyPlanets		= $db->query("SELECT p.`planet`, p.`id`, p.`id_owner`, p.`name`, p.`image`, p.`diameter`, p.`temp_min`, p.`destruyed`, p.`der_metal`, p.`der_crystal`, p.`id_luna`, u.`id` as `userid`, u.`ally_id`, u.`username`, u.`onlinetime`, u.`urlaubs_modus`, u.`bana`, s.`total_points`, s.`total_rank`, a.`id` as `allyid`, a.`ally_tag`, a.`ally_members`, a.`ally_name`, allys.`total_rank` as `ally_rank` FROM ".PLANETS." p, ".USERS." u, ".STATPOINTS." s, ".ALLIANCE." a, ".STATPOINTS." as allys WHERE p.`galaxy` = '".$Galaxy."' AND p.`system` = '".$System."' AND p.`planet_type` = '1' AND p.`id_owner` = u.`id` AND s.`stat_code` = '1' AND s.`id_owner` = p.`id_owner` AND IF(u.`ally_id` != 0, u.`ally_id` = a.`id` AND allys.`stat_type` = 2 AND allys.`id_owner` = a.`id`,1=1) ORDER BY p.`planet` ASC;");
-	
+		$planetcount		= 0;
 		while($GalaxyRowPlanets = $db->fetch_array($GalaxyPlanets))
 		{
 			$PlanetsInGalaxy[$GalaxyRowPlanets['planet']]	= $GalaxyRowPlanets;
@@ -162,6 +162,7 @@ class ShowGalaxyPage extends GalaxyRows
 			'galaxy'					=> $galaxy,
 			'system'					=> $system,
 			'planet'					=> $planet,
+			'current'					=> $current,
 			'currentmip'				=> $CurrentMIP,
 			'maxfleetcount'				=> $maxfleet,
 			'fleetmax'					=> ($CurrentUser['computer_tech'] + 1) + ($CurrentUser['rpg_commandant'] * COMMANDANT),

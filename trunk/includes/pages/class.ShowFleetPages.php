@@ -738,6 +738,7 @@ class ShowFleetPages extends FleetFunctions
 			'fl_return_time'		=> $lang['fl_return_time'],
 			'fl_fleet'				=> $lang['fl_fleet'],
 		));
+		
 		$template->show('fleet3_table.tpl');
 		$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet, false);
 		
