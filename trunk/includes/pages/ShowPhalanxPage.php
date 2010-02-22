@@ -142,7 +142,7 @@ function ShowPhalanxPage($CurrentUser, $CurrentPlanet)
 									".$FleetContent['fleet_javai']."
 										<div id=\"bxx".$FleetContent['fleet_order']." class=\"z\">-</div>
 									</th><th colspan=\"3\">
-										<span class="$FleetContent['fleet_status'].$FleetContent['fleet_prefix'].$FleetContent['fleet_style']."\">".$FleetContent['fleet_descr']."</span>
+										<span class=".$FleetContent['fleet_status'].$FleetContent['fleet_prefix'].$FleetContent['fleet_style']."\">".$FleetContent['fleet_descr']."</span>
 									".$FleetContent['fleet_javas']."
 									</th>
 								</tr>\n";
