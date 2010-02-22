@@ -29,8 +29,8 @@
         <tr>
         	<td colspan="4" class="c">{$ov_events}</td>
         </tr>
-        	{foreach item=FleetInfoRow from=$fleets}
-			<tr class="{$FleetInfoRow.fleet_status}">
+        {foreach item=FleetInfoRow from=$fleets}
+		<tr class="{$FleetInfoRow.fleet_status}">
 			<th>
 			{$FleetInfoRow.fleet_javai}
 				<div id="bxx{$FleetInfoRow.fleet_order}" class="z">-</div>
