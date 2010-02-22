@@ -86,6 +86,12 @@ class template extends Smarty
 	
 	public function page_leftmenu()
 	{
+		foreach($this->playerplanets as $PlanetQuery)
+		{
+			$SQLQuery[]	= "(`fleet_end_galaxy` = '".$PlanetQuery['galaxy']."' AND `fleet_end_system` = '".$PlanetQuery['system']."' AND `fleet_end_planet` = '".$PlanetQuery['planet']."' AND `fleet_end_type` = '".$PlanetQuery['planet_type']."')";
+		}
+
+		$this->player['fleets']	= $this->db->fetch_array($this->db->query("SELECT COUNT(*) as `count` FROM ".FLEETS." WHERE (`fleet_mission` = '1' OR `fleet_mission` = '2' OR `fleet_mission` = '6' OR `fleet_mission` = '9') AND (".implode(' OR ', $SQLQuery).");"));
 		$this->player['rank']	= $this->db->fetch_array($this->db->query("SELECT `total_rank`,`total_points` FROM ".STATPOINTS." WHERE `stat_code` = '1' AND `stat_type` = '1' AND `id_owner` = '". $this->player['id'] ."';"));
 		$BoardURL				= $this->GameConfig['forum_url'].'" target="forum';
 		$RulesURL				= 'index.php?page=rules" target="forum';
@@ -129,6 +135,7 @@ class template extends Smarty
 		$this->assign_vars(array(	
 			'authlevel' 		=> $this->player['authlevel'],
 			'new_message' 		=> $this->player['new_message'],
+			'incoming_fleets'	=> $this->player['fleets']['count'],
 			'forum_url'			=> $this->GameConfig['forum_url'],
 			'servername'		=> $this->GameConfig['game_name'],
 			'menu'				=> $Menu,
