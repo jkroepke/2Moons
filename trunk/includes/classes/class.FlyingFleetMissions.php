@@ -2541,7 +2541,7 @@ abstract class FlyingFleetMissions {
 				$SQL	.= PLANETS.".".$resource[$Element].", ";
 			}
 			
-			$QryTarget		 	= "SELECT ".USERS.".defence_tech, ".PLANETS.".id, ".substr($SQL, 0, -2)."
+			$QryTarget		 	= "SELECT ".USERS.".defence_tech, ".PLANETS.".id, ".PLANETS.".id_owner, ".substr($SQL, 0, -2)."
 								   FROM ".PLANETS.", ".USERS."
 								   WHERE ".PLANETS.".`galaxy` = '".$FleetRow['fleet_end_galaxy']."' AND 
 								   ".PLANETS.".`system` = '".$FleetRow['fleet_end_system']."' AND 
