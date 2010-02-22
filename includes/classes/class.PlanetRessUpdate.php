@@ -147,9 +147,9 @@ class ResourceUpdate
 			}
 		}
 				
-		$CurrentPlanet['metal']		= ($CurrentPlanet['metal'] > 0) ? $CurrentPlanet['metal'] : 0;
-		$CurrentPlanet['crystal']	= ($CurrentPlanet['crystal'] > 0) ? $CurrentPlanet['crystal'] : 0;
-		$CurrentPlanet['deuterium']	= ($CurrentPlanet['deuterium'] > 0) ? $CurrentPlanet['deuterium'] : 0;
+		$CurrentPlanet['metal']		= min($CurrentPlanet['metal'], 0);
+		$CurrentPlanet['crystal']	= min($CurrentPlanet['crystal'], 0);
+		$CurrentPlanet['deuterium']	= min($CurrentPlanet['deuterium'], 0);
 	}
 	
 	public function SavePlanetToDB($CurrentUser, $CurrentPlanet, $Hanger = true)
@@ -157,9 +157,9 @@ class ResourceUpdate
 		global $resource, $db;
 		$Builded          = ($Hanger) ? HandleElementBuildingQueue ( $CurrentUser, $CurrentPlanet, $this->ProductionTime) : '';
 		
-		$CurrentPlanet['metal']		= ($CurrentPlanet['metal'] > 0) ? $CurrentPlanet['metal'] : 0;
-		$CurrentPlanet['crystal']	= ($CurrentPlanet['crystal'] > 0) ? $CurrentPlanet['crystal'] : 0;
-		$CurrentPlanet['deuterium']	= ($CurrentPlanet['deuterium'] > 0) ? $CurrentPlanet['deuterium'] : 0;
+		$CurrentPlanet['metal']		= min($CurrentPlanet['metal'], 0);
+		$CurrentPlanet['crystal']	= min($CurrentPlanet['crystal'], 0);
+		$CurrentPlanet['deuterium']	= min($CurrentPlanet['deuterium'], 0);
 		
 		$QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
 		$QryUpdatePlanet .= "`metal` = '"            . $CurrentPlanet['metal']             	."', ";
