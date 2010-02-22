@@ -5,9 +5,9 @@
 </p>
 <p style="position: absolute; top: -8px; left: 3px; z-index: 1000;">
 {if $new_message}
-<a href="?page=messages"><img src="{$dpath}img/new_mess.gif" title="" alt="" style="width:16px;height:14px;"></a>&nbsp;&nbsp;
+<a href="?page=messages"><img src="{$dpath}img/new_mess.gif" title="" alt="" style="width:16px;height:14px;"></a>
 {/if}
-{if $incoming_fleets == 0}
+{if $incoming_fleets > 0}
 <a href="?page=overview"><img src="{$dpath}img/attack.gif" title="" alt="" style="width:16px;height:14px;"></a>
 {/if}
 </p>

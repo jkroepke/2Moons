@@ -146,6 +146,10 @@ class ResourceUpdate
 				}
 			}
 		}
+				
+		$CurrentPlanet['metal']		= ($CurrentPlanet['metal'] > 0) ? $CurrentPlanet['metal'] : 0;
+		$CurrentPlanet['crystal']	= ($CurrentPlanet['crystal'] > 0) ? $CurrentPlanet['crystal'] : 0;
+		$CurrentPlanet['deuterium']	= ($CurrentPlanet['deuterium'] > 0) ? $CurrentPlanet['deuterium'] : 0;
 	}
 	
 	public function SavePlanetToDB($CurrentUser, $CurrentPlanet, $Hanger = true)
