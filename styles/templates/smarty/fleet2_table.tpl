@@ -42,7 +42,7 @@
 					{/foreach}
         		</table>
         	</th>
-        	<th>
+        	<th style="vertical-align:top;">
 				<table border="0" cellpadding="0" cellspacing="0" width="259">
         			<tr style="height:20px">
         				<td colspan="3" class="c">{$fl_resources}</td>

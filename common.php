@@ -152,12 +152,14 @@ if (INSTALL != true)
 			require_once($xgp_root . 'includes/functions/SetSelectedPlanet.' . $phpEx);
 			SetSelectedPlanet ($user);
 
-			$planetrow = $db->fetch_array($db->query("SELECT * FROM `".PLANETS."` WHERE `id` = '".$user['current_planet']."';"));
-			
+			$planetrow = $db->fetch_array($db->query("SELECT p.*,u.`darkmatter` FROM `".PLANETS."` as p, `".USERS."` as u WHERE  u.`id` = p.`id_owner` AND p.`id` = '".$user['current_planet']."';"));
+
 			if(empty($planetrow)){
 				$db->query("UPDATE ".USERS." SET `current_planet` = `id_planet` WHERE `id` = '". $user['id'] ."' LIMIT 1");
 				exit(header("Location: game.php?page=overview"));
 			}
+			// Some Darkmatter Update after FleetMissions
+			$user['darkmatter'] = $planetrow['darkmatter'];
 			include($xgp_root . 'includes/functions/CheckPlanetUsedFields.' . $phpEx);
 			CheckPlanetUsedFields($planetrow);
 		}

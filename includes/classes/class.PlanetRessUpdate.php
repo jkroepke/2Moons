@@ -35,7 +35,7 @@ class ResourceUpdate
 		$this->ProductionTime          	= (time() - $CurrentPlanet['last_update']);
 		$CurrentPlanet['last_update']   = time();
 
-		if ($CurrentPlanet['planet_type'] == 3)
+		if ($CurrentPlanet['planet_type'] == 3 || $CurrentUser['urlaubs_modus'] == 1)
 		{
 			$game_config['metal_basic_income']     = 0;
 			$game_config['crystal_basic_income']   = 0;
@@ -154,7 +154,7 @@ class ResourceUpdate
 	
 	public function SavePlanetToDB($CurrentUser, $CurrentPlanet, $Hanger = true)
 	{
-		global $resource, $db;
+		global $resource, $db, $user;
 		$Builded          = ($Hanger) ? HandleElementBuildingQueue ( $CurrentUser, $CurrentPlanet, $this->ProductionTime) : '';
 		
 		$CurrentPlanet['metal']		= max($CurrentPlanet['metal'], 0);
@@ -189,7 +189,7 @@ class ResourceUpdate
 		$QryUpdatePlanet .= "WHERE ";
 		$QryUpdatePlanet .= "`id` = '". $CurrentPlanet['id'] ."';";
 		$QryUpdatePlanet .= "UPDATE ".USERS." SET ";
-		$QryUpdatePlanet .= "`darkmatter` = '".$CurrentUser['darkmatter']."' ";
+		$QryUpdatePlanet .= "`darkmatter` = ".$CurrentUser['darkmatter']." ";
 		$QryUpdatePlanet .= "WHERE ";
 		$QryUpdatePlanet .= "`id` = '".$CurrentUser['id']."';";
 		$db->multi_query($QryUpdatePlanet);

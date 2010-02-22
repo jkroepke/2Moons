@@ -490,7 +490,7 @@ function MailSend($MailTarget, $MailTargetName, $MailSubject, $MailContent)
 		$mail->AddAddress($MailTarget, $MailTargetName);
 		$mail->AddReplyTo(ADMINEMAIL, $game_config['game_name']);
 		$mail->Subject    = $MailSubject;
-		$mail->AltBody    = $MailContent;
+		$mail->AltBody    = strip_tags($MailContent);
 		$mail->MsgHTML(makebr($MailContent));
 		$mail->Send();
 		return true;
