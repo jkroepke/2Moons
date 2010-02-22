@@ -617,7 +617,7 @@ class ShowFleetPages extends FleetFunctions
 		}
 		elseif ($mission == 11)
 		{
-			$StayDuration    = 0;
+			$StayDuration    = 3600;
 			$StayTime        = $fleet['start_time'] + $StayDuration;
 		}
 		else
