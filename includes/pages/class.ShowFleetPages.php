@@ -933,7 +933,7 @@ class ShowFleetPages extends FleetFunctions
 		$pziel 				= request_var('Target',"");
 
 		$iraks 				= $CurrentPlanet['interplanetary_misil'];
-		$Distance			= abs($TargetSystem - $currentplanet['system']);
+		$Distance			= abs($TargetSystem - $CurrentPlanet['system']);
 		$tempvar2 			= ($CurrentUser['impulse_motor_tech'] * 2) - 1;
 		$Target 			= $db->fetch_array($db->query("SELECT id_owner, id_level FROM ".PLANETS." WHERE galaxy = ".$TargetGalaxy." AND system = ".$TargetSystem." AND planet = ".$TargetPlanet." AND planet_type = 1 limit 1;"));
 
