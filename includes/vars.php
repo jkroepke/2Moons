@@ -195,7 +195,7 @@ if ( defined('INSIDE'))
 	);
 
 	$pricelist = array(
-		  1 => array ( 'metal' =>      60, 'crystal' =>      15, 'deuterium' =>       0, 'energy' =>    0, 'darkmatter' =>  1, 'factor' => 3/2),
+		  1 => array ( 'metal' =>      60, 'crystal' =>      15, 'deuterium' =>       0, 'energy' =>    0, 'darkmatter' =>  0, 'factor' => 3/2),
 		  2 => array ( 'metal' =>      48, 'crystal' =>      24, 'deuterium' =>       0, 'energy' =>    0, 'darkmatter' =>  0, 'factor' => 1.6),
 		  3 => array ( 'metal' =>     225, 'crystal' =>      75, 'deuterium' =>       0, 'energy' =>    0, 'darkmatter' =>  0, 'factor' => 3/2),
 		  4 => array ( 'metal' =>      75, 'crystal' =>      30, 'deuterium' =>       0, 'energy' =>    0, 'darkmatter' =>  0, 'factor' => 3/2),

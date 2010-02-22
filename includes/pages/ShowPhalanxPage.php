@@ -31,18 +31,16 @@ function ShowPhalanxPage($CurrentUser, $CurrentPlanet)
 	$FlyingFleetsTable 	= new FlyingFleetsTable();
 	$GalaxyRows 		= new GalaxyRows();
 
-	$parse	= $lang;
+	$PhRange 		 = $this->GetPhalanxRange ( $HavePhalanx );
+			
+	$SystemLimitMin  = max(1, $CurrentSystem - $PhRange);
+	$SystemLimitMax  = $CurrentSystem + $PhRange;
+	$PhalanxTypeLink = ($GalaxyRowPlanet['system'] <= $SystemLimitMax && $GalaxyRowPlanet['system'] >= $SystemLimitMin)
 
-	$radar_menzil_min = $CurrentPlanet['system'] - $GalaxyRows->GetPhalanxRange ( $CurrentPlanet['phalanx'] );
-	$radar_menzil_max = $CurrentPlanet['system'] + $GalaxyRows->GetPhalanxRange ( $CurrentPlanet['phalanx'] );
-
-	if ( $radar_menzil_min < 1 )
-		$radar_menzil_min = 1;
-
-	if ( $radar_menzil_max > MAX_SYSTEM_IN_GALAXY )
-		$radar_menzil_max = MAX_SYSTEM_IN_GALAXY;
-
-	if ( ( intval ( $_GET["system"] ) < $radar_menzil_min ) or ( intval ( $_GET["system"] ) > $radar_menzil_max ) )
+	$galaxy = request_var('galaxy', 0);
+	$system = request_var('system', 0);
+	
+	if ($system < $radar_menzil_min) || ( intval ( $_GET["system"] ) > $radar_menzil_max ) )
 	{
 		$DoScan = false;
 	}
@@ -156,7 +154,5 @@ function ShowPhalanxPage($CurrentUser, $CurrentPlanet)
 	{
 		header("location:game.php?page=overview");
 	}
-
-	return display(parsetemplate(gettemplate('galaxy/phalanx_body'), $parse), false, '', false, false);
 }
 ?>
