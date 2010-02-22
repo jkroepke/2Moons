@@ -13,8 +13,12 @@ function whenResponse () {
 	retVals   = Message.split(";");
 	CmdCode   = retVals[0];
 	strInfo   = retVals[1];
-	addToTable("done", "success");
-	changeSlots( UsedSlots );
+	if(CmdCode == 600)
+		addToTable("Done", "success");
+	else
+		addToTable("Fatal Error", "error");
+	
+	changeSlots(1);
 	setShips("probes", SpyProbes );
 	setShips("recyclers", Recyclers );
 	setShips("missiles", Missiles );
@@ -60,8 +64,8 @@ function addToTable(strDataResult, strClass) {
 	row.appendChild(td1);
 	row.appendChild(td2);
 }
-function changeSlots() {
-	$('#slots').text(parseInt($('#slots').text()) + 1);
+function changeSlots(add) {
+	$('#slots').text(parseInt($('#slots').text()) + add);
 }
 function setShips(ship, count) {
 	$('#'+ship).text(tsdpkt(count));
