@@ -158,6 +158,7 @@ if (INSTALL != true)
 				$db->query("UPDATE ".USERS." SET `current_planet` = `id_planet` WHERE `id` = '". $user['id'] ."' LIMIT 1");
 				exit(header("Location: game.php?page=overview"));
 			}
+			
 			// Some Darkmatter Update after FleetMissions
 			$user['darkmatter'] = $planetrow['darkmatter'];
 			include($xgp_root . 'includes/functions/CheckPlanetUsedFields.' . $phpEx);
