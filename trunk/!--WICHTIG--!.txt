@@ -1,5 +1,0 @@
-ALTER TABLE `uni1_alliance` CHANGE `ally_ranks` `ally_ranks` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL;
-ALTER TABLE `uni1_users` ADD `dm_attack` INT NOT NULL, ADD `dm_defensive` INT NOT NULL, ADD `dm_buildtime` INT NOT NULL, ADD `dm_researchtime` INT NOT NULL, ADD `dm_resource` INT NOT NULL, ADD `dm_energie` INT NOT NULL, ADD `dm_fleettime` INT NOT NULL;
-INSERT INTO `uni1_modulos` (`id`, `modulo`, `estado`) VALUES (NULL, 'DM-Bank', '1');
-
-Funktionsweise sollte bekannt sein.
