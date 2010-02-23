@@ -55,8 +55,6 @@ $lang['login']					= 'Login';
 $lang['disclamer']				= 'Impressum';
 $lang['login_info']				= 'Mit dem Login akzeptiere ich die <a onclick="ajax(\'?page=rules&amp;\'+\'getajax=1\');" style="cursor:pointer;">Regeln</a> und die <a onclick="ajax(\'?page=agb&amp;\'+\'getajax=1\');" style="cursor:pointer;">AGB`s</a>';
 
-/* ------------------------------------------------------------------------------------------ */
-
 //reg.php - Registrierung
 $lang['register_closed']			= 'Registration geschlossen!';
 $lang['register_at']				= 'Registriert bei ';
