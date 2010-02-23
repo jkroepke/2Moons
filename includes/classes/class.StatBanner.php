@@ -88,7 +88,6 @@ class StatBanner {
 
 		// Creat and delete banner
 		ImagePNG($image,$this->path.$id.".png");
-		@chmod($this->path.$id.".png",0777);
 		imagedestroy($image);
 	}
 
@@ -144,7 +143,6 @@ class StatBanner {
 			imagestring($image, 2, 15,  60, $b_total,  $select);
 			// Creat and delete banner
 			ImagePNG($image,$xgp_root.$this->path.$Query['id'].".png");
-			@chmod($xgp_root.$this->path.$Query['id'].".png",0777);
 			imagedestroy($image);
 		}
 	}

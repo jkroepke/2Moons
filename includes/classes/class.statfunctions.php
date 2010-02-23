@@ -40,7 +40,6 @@ class Statbuilder {
 		$fp = fopen($xgp_root."cache/CacheRecords.php", "w+");
 		fwrite($fp, $file);
 		fclose($fp);
-		chmod($xgp_root."cache/CacheRecords.php", 0777);
 	}
 
 	private function GetTechnoPoints ( $CurrentUser ) {
@@ -331,7 +330,7 @@ class Statbuilder {
 				unset($CurFleets, $flying_fleets);
 			}
 			//This query will have a LOT of data...
-			$sql	=	'SELECT  '.$select_planet .$select_defenses .$selected_tech .$select_fleets .$select_user.
+			$sql	=	'SELECT DISTINCT '.$select_planet .$select_defenses .$selected_tech .$select_fleets .$select_user.
 						'FROM '.PLANETS.' as p
 						INNER JOIN '.USERS.' as u ON u.id = p.id_owner
 						WHERE p.id_owner <= '.$minmax['max'].' AND p.id_owner >=  '.$minmax['min'].'
@@ -349,6 +348,11 @@ class Statbuilder {
 			//Here we start the update...
 			while ($CurUser = $db->fetch($total_data))
 			{
+				if(isset($CheckArray[$CurUser['id']]))
+					continue;
+				else
+					$CheckArray[$CurUser['id']]	= 1;
+					
 				$u_OldTotalRank = (($old_stats_array[$CurUser['id']]['old_total_rank'])? $old_stats_array[$CurUser['id']]['old_total_rank']:0);
 				$u_OldTechRank  = (($old_stats_array[$CurUser['id']]['old_tech_rank'])? $old_stats_array[$CurUser['id']]['old_tech_rank']:0);
 				$u_OldBuildRank = (($old_stats_array[$CurUser['id']]['old_build_rank'])? $old_stats_array[$CurUser['id']]['old_build_rank']:0);
