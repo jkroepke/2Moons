@@ -39,6 +39,7 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	
 	define('PLANET_SIZE_FACTOR'		  , 1.0);
 	
+	// FOR ADVANCE USERS
 	
 	define('USE_NEW_BATTLE_ENGINE'	  , false);
 	
