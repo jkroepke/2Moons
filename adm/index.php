@@ -26,7 +26,9 @@ define('IN_ADMIN', true);
 $xgp_root = './../';
 include($xgp_root . 'extension.inc.php');
 include($xgp_root . 'common.' . $phpEx);
+
 $template	= new template();
+
 if ($user['authlevel'] < 1) die();
 
 	$page  = "<html>\n";
