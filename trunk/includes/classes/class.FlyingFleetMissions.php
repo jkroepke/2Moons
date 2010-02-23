@@ -2575,7 +2575,7 @@ abstract class FlyingFleetMissions {
 				}
 				
 				$irak = self::calculateMIPAttack($TargetInfo["defence_tech"], $OwnerInfo["military_tech"], $FleetRow['fleet_amount'], $TargetDefensive, $Target, $TargetInfo[$resource[502]]);
-
+				ksort($irak, SORT_NUMERIC);
 				$Count = 0;
 				foreach ($irak as $id => $destroy)
 				{
