@@ -19,9 +19,6 @@
 # *																			 #
 ##############################################################################
 
-$revision = '$Rev$';
-$version  = substr($revision, 6, -2);
-
 setlocale (LC_ALL, 'de_DE@euro', 'de_DE', 'de', 'ge');
 ignore_user_abort(true);
 
@@ -97,7 +94,7 @@ if (INSTALL != true)
 	}
 	$db->free_result($cfgresult);
 	define('DEFAULT_LANG'	, ($game_config['lang'] 	== '') ? "deutsch" : $game_config['lang']);
-	define('VERSION'		, ($game_config['VERSION'] == '') ? "" : "RC".$game_config['VERSION'].".".$version);
+	define('VERSION'		, ($game_config['VERSION'] == '') ? "" : "RC".$game_config['VERSION']);
 
 	includeLang('INGAME');
 
