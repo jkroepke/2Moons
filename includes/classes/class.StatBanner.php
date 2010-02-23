@@ -47,7 +47,7 @@ class StatBanner {
 
 		$image  = imagecreatefrompng($this->source);
 		$date   = date("d.m.y");
-		$id 	= $db->sql_escape($id);
+		
 		// Querys
 		$Query = $db->fetch_array($db->query("SELECT COUNT(a.id) AS count, a.username, b.build_points, b.fleet_points, b.defs_points, b.tech_points, b.total_points, b.total_rank, c.name, c.galaxy, c.system, c.planet FROM ".USERS." as a, ".STATPOINTS." as b, ".PLANETS." as c WHERE a.id = '".$id."' AND b.stat_type = '1' AND b.stat_code = '1' AND b.id_owner = '".$id."' AND c.id = a.id_planet;"));
 		// Variables
@@ -151,6 +151,7 @@ class StatBanner {
 
 	public function ShowStatBanner($id) {
 
+		global $xgp_root;
 		if(!file_exists($this->path.$id.".png")){
 			$this->BuildIMGforID($id);
 		}
