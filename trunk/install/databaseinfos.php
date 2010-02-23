@@ -4,7 +4,7 @@
 # *                                                                          #
 # * 2MOONS                                                                   #
 # *                                                                          #
-# * @copyright Copyright (C) 2010 By ShadoX from titanspace.de               #
+# * @version 2010 By ShadoX from titanspace.de                               #
 # *                                                                          #
 # *	                                                                         #
 # *  This program is free software: you can redistribute it and/or modify    #
