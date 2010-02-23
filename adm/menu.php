@@ -34,7 +34,6 @@ $parse			=	$lang;
 
 $onMouseOverIE	=	"onMouseOver=\"this.className='ForIEHover'\" onMouseOut=\"this.className='ForIE'\"";
 
-
 $ConfigTable	=
 		"<table width=\"150\" class=\"s\">
     	<tr>
