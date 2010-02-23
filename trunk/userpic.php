@@ -36,4 +36,5 @@ include_once("./includes/classes/class.StatBanner.php");
 
 $banner = new StatBanner();
 $banner->ShowStatBanner($id);
+
 ?>
