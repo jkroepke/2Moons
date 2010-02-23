@@ -164,5 +164,5 @@ abstract class Database
 		}
 		return $tables;
 	}
-			
+}			
 ?>
