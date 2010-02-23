@@ -15,15 +15,13 @@ class Smarty_Internal_TemplateCompilerBase {
     // hash for nocache sections
     private $nocache_hash = null; 
     // suppress generation of nocache code
-    public $suppressNocacheProcessing = false;
+    public $suppressNocacheProcessing = false; 
     // compile tag objects
     static $_tag_objects = array(); 
     // tag stack
     public $_tag_stack = array(); 
     // current template
-    public $template = null; 
-    // required plugins
-    public $required_plugins_call = array(); 
+    public $template = null;
 
     /**
     * Initialize compiler
@@ -177,6 +175,9 @@ class Smarty_Internal_TemplateCompilerBase {
                 foreach ($this->smarty->plugin_search_order as $plugin_type) {
                     if ($plugin_type == 'compiler' && $this->smarty->loadPlugin('smarty_compiler_' . $tag)) {
                         $plugin = 'smarty_compiler_' . $tag;
+                        if (is_callable($plugin)) {
+                            return call_user_func_array($plugin, array($args, $this->smarty));
+                        } 
                         if (class_exists($plugin, false)) {
                             $plugin = array(new $plugin, 'compile');
                         } 
@@ -214,6 +215,9 @@ class Smarty_Internal_TemplateCompilerBase {
                 } 
                 if ($this->smarty->loadPlugin('smarty_compiler_' . $tag)) {
                     $plugin = 'smarty_compiler_' . $tag;
+                    if (is_callable($plugin)) {
+                        return call_user_func_array($plugin, array($args, $this->smarty));
+                    } 
                     if (class_exists($plugin, false)) {
                         $plugin = array(new $plugin, 'compile');
                     } 
@@ -270,23 +274,47 @@ class Smarty_Internal_TemplateCompilerBase {
     */
     public function getPlugin($plugin_name, $type)
     {
-        if (isset($this->template->required_plugins_call[$plugin_name][$type])) {
-            if ($this->template->caching && ($this->nocache || $this->tag_nocache)) {
-                if (isset($this->template->required_plugins['compiled'][$plugin_name])) {
-                    $this->template->required_plugins['cache'][$plugin_name] = $this->template->required_plugins['compiled'][$plugin_name];
-                } 
-            } else {
-                if (isset($this->template->required_plugins['cache'][$plugin_name])) {
-                    $this->template->required_plugins['compiled'][$plugin_name] = $this->template->required_plugins['compiled'][$plugin_name];
-                } 
+        $function = null;
+        if ($this->template->caching && ($this->nocache || $this->tag_nocache)) {
+            if (isset($this->template->required_plugins['nocache'][$plugin_name][$type])) {
+                $function = $this->template->required_plugins['nocache'][$plugin_name][$type]['function'];
+            } else if (isset($this->template->required_plugins['compiled'][$plugin_name][$type])) {
+                $this->template->required_plugins['nocache'][$plugin_name][$type] = $this->template->required_plugins['compiled'][$plugin_name][$type];
+                $function = $this->template->required_plugins['nocache'][$plugin_name][$type]['function'];
             } 
+        } else {
+            if (isset($this->template->required_plugins['compiled'][$plugin_name][$type])) {
+                $function = $this->template->required_plugins['compiled'][$plugin_name][$type]['function'];
+            } else if (isset($this->template->required_plugins['compiled'][$plugin_name][$type])) {
+                $this->template->required_plugins['compiled'][$plugin_name][$type] = $this->template->required_plugins['nocache'][$plugin_name][$type];
+                $function = $this->template->required_plugins['compiled'][$plugin_name][$type]['function'];
+            } 
+        } 
+        if (isset($function)) {
             if ($type == 'modifier') {
                 $this->template->saved_modifer[$plugin_name] = true;
             } 
-            return $this->template->required_plugins_call[$plugin_name][$type];
+            return $function;
         } 
+        /**
+        * if (isset($this->template->required_plugins_call[$plugin_name][$type])) {
+        * if ($this->template->caching && ($this->nocache || $this->tag_nocache)) {
+        * if (isset($this->template->required_plugins['compiled'][$plugin_name])) {
+        * $this->template->required_plugins['cache'][$plugin_name] = $this->template->required_plugins['compiled'][$plugin_name];
+        * } 
+        * } else {
+        * if (isset($this->template->required_plugins['cache'][$plugin_name])) {
+        * $this->template->required_plugins['compiled'][$plugin_name] = $this->template->required_plugins['cache'][$plugin_name];
+        * } 
+        * } 
+        * if ($type == 'modifier') {
+        * $this->template->saved_modifer[$plugin_name] = true;
+        * } 
+        * return $this->template->required_plugins_call[$plugin_name][$type];
+        * }
+        */
         // loop through plugin dirs and find the plugin
-        $plugin = 'smarty_' . $type . '_' . $plugin_name;
+        $function = 'smarty_' . $type . '_' . $plugin_name;
         $found = false;
         foreach((array)$this->smarty->plugins_dir as $_plugin_dir) {
             $file = rtrim($_plugin_dir, '/\\') . DS . $type . '.' . $plugin_name . '.php';
@@ -298,23 +326,31 @@ class Smarty_Internal_TemplateCompilerBase {
         } 
         if ($found) {
             // if (is_callable($plugin)) {
-            $this->template->required_plugins_call[$plugin_name][$type] = $plugin;
             if ($this->template->caching && ($this->nocache || $this->tag_nocache)) {
-                $this->template->required_plugins['cache'][$plugin_name]['file'] = $file;
-                $this->template->required_plugins['cache'][$plugin_name]['type'] = $type;
+                $this->template->required_plugins['nocache'][$plugin_name][$type]['file'] = $file;
+                $this->template->required_plugins['nocache'][$plugin_name][$type]['function'] = $function;
             } else {
-                $this->template->required_plugins['compiled'][$plugin_name]['file'] = $file;
-                $this->template->required_plugins['compiled'][$plugin_name]['type'] = $type;
+                $this->template->required_plugins['compiled'][$plugin_name][$type]['file'] = $file;
+                $this->template->required_plugins['compiled'][$plugin_name][$type]['function'] = $function;
             } 
+            /**
+            * $this->template->required_plugins_call[$plugin_name][$type] = $plugin;
+            * if ($this->template->caching && ($this->nocache || $this->tag_nocache)) {
+            * $this->template->required_plugins['cache'][$plugin_name]['file'] = $file;
+            * $this->template->required_plugins['cache'][$plugin_name]['type'] = $type;
+            * } else {
+            * $this->template->required_plugins['compiled'][$plugin_name]['file'] = $file;
+            * $this->template->required_plugins['compiled'][$plugin_name]['type'] = $type;
+            * }
+            */
             if ($type == 'modifier') {
                 $this->template->saved_modifer[$plugin_name] = true;
             } 
-
-            return $plugin;
+            return $function;
         } 
-        if (is_callable($plugin)) {
+        if (is_callable($function)) {
             // plugin function is defined in the script
-            return $plugin;
+            return $function;
         } 
         return false;
     } 
@@ -344,8 +380,8 @@ class Smarty_Internal_TemplateCompilerBase {
                 // make sure we include modifer plugins for nocache code
                 if (isset($this->template->saved_modifer)) {
                     foreach ($this->template->saved_modifer as $plugin_name => $dummy) {
-                        if (isset($this->template->required_plugins['compiled'][$plugin_name])) {
-                            $this->template->required_plugins['cache'][$plugin_name] = $this->template->required_plugins['compiled'][$plugin_name];
+                        if (isset($this->template->required_plugins['compiled'][$plugin_name]['modifier'])) {
+                            $this->template->required_plugins['nocache'][$plugin_name]['modifier'] = $this->template->required_plugins['compiled'][$plugin_name]['modifier'];
                         } 
                     } 
                     unset($this->template->saved_modifer);
@@ -376,7 +412,7 @@ class Smarty_Internal_TemplateCompilerBase {
             $line = $this->lex->line;
         } 
         $match = preg_split("/\n/", $this->lex->data);
-        $error_text = 'Syntax Error in template "' . $this->template->getTemplateFilepath() . '"  on line ' . $line . ' "' . $match[$line-1] . '" ';
+        $error_text = 'Syntax Error in template "' . $this->template->getTemplateFilepath() . '"  on line ' . $line . ' "' . htmlspecialchars($match[$line-1]) . '" ';
         if (isset($args)) {
             // individual error message
             $error_text .= $args;
