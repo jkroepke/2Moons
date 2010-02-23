@@ -239,6 +239,7 @@ $lang['gl_in_the_rank']						= 'Spieler %s auf Platz %d';
 $lang['px_no_deuterium']					= 'Sie haben nicht genügend Deuterium!';
 $lang['px_scan_position']					= 'Scan Position';
 $lang['px_fleet_movement']					= 'Momentane Flottenverbindungen';
+$lang['px_no_fleet']						= 'Keine Flottenverbindungen vorhanden.';
 
 //----------------------------------------------------------------------------//
 //IMPERIUM
@@ -824,8 +825,8 @@ $lang['info'][218]['name']        = "Avatar";
 $lang['info'][218]['description'] = "Dieses Schiff ist eine verbesserung mehrerer Schiffe gleichzeitig und der Kaiser der Kampfsterne.";
 $lang['info'][219]['name']        = "Gigarecykler";
 $lang['info'][219]['description'] = "Dieses Schiff ist eine wahrhaft gigantische Recykelanlage im Weltraum mit Atemberaubender Geschwindigkeit und riesigem Lageraum! geschaffen für grosse Imperien.";
-$lang['info'][220]['name']        = "Intergalaktischer D. Müllsammler";
-$lang['info'][220]['description'] = "Mit diesem Schiff ist es nach jahre langen forschen mölich Dunkle Materie an seinem Mond zu sammeln.";
+$lang['info'][220]['name']        = "Intergalaktischer D. Materiesammler";
+$lang['info'][220]['description'] = "Mit diesem Schiff ist es nach jahre langen Forschen möglich, Dunkle Materie an seinem Mond zu sammeln.";
 $lang['info'][221]['name']        = "Mercer";
 $lang['info'][221]['description'] = "Dieses Schiff wird auf vielen Planeten vorgefunden. Durch verhältnismäßig großen Laderaum werden gerne riesige Mercer- Schwaden eingesetzt";
 $lang['info'][222]['name']        = "Claymore";
