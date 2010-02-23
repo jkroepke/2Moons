@@ -1,25 +1,25 @@
 <?php
 
 /**
-* Smarty Internal Plugin Compile extend
-* 
-* Compiles the {extends} tag
-* 
-* @package Smarty
-* @subpackage Compiler
-* @author Uwe Tews 
-*/
+ * Smarty Internal Plugin Compile extend
+ * 
+ * Compiles the {extends} tag
+ * 
+ * @package Smarty
+ * @subpackage Compiler
+ * @author Uwe Tews 
+ */
 /**
-* Smarty Internal Plugin Compile extend Class
-*/
+ * Smarty Internal Plugin Compile extend Class
+ */
 class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase {
     /**
-    * Compiles code for the {extends} tag
-    * 
-    * @param array $args array with attributes from parser
-    * @param object $compiler compiler object
-    * @return string compiled code
-    */
+     * Compiles code for the {extends} tag
+     * 
+     * @param array $args array with attributes from parser
+     * @param object $compiler compiler object
+     * @return string compiled code
+     */
     public function compile($args, $compiler)
     {
         $this->compiler = $compiler;
@@ -36,16 +36,29 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase {
         $_template = new $compiler->smarty->template_class($include_file, $this->smarty, $compiler->template); 
         // save file dependency
         $compiler->template->properties['file_dependency'][sha1($_template->getTemplateFilepath())] = array($_template->getTemplateFilepath(), $_template->getTemplateTimestamp());
-        $_old_source = $compiler->template->template_source;
-        if (preg_match_all("!({$this->_ldl}block(.+?){$this->_rdl})!", $_old_source, $s, PREG_OFFSET_CAPTURE) !=
-                preg_match_all("!({$this->_ldl}/block(.*?){$this->_rdl})!", $_old_source, $c, PREG_OFFSET_CAPTURE)) {
+        $_content = $compiler->template->template_source;
+        if (preg_match_all("!({$this->_ldl}block(.+?){$this->_rdl})!", $_content, $s) !=
+                preg_match_all("!({$this->_ldl}/block(.*?){$this->_rdl})!", $_content, $c)) {
             $this->compiler->trigger_template_error('unmatched {block} {/block} pairs');
         } 
-        $block_count = count($s[0]);
-        for ($i = 0; $i < $block_count; $i++) {
-            $block_content = str_replace($this->smarty->left_delimiter . '$smarty.parent' . $this->smarty->right_delimiter, '%%%%SMARTY_PARENT%%%%',
-                substr($_old_source, $s[0][$i][1] + strlen($s[0][$i][0]), $c[0][$i][1] - $s[0][$i][1] - strlen($s[0][$i][0])));
-            $this->saveBlockData($block_content, $s[0][$i][0], $compiler->template);
+        preg_match_all("!{$this->_ldl}block(.+?){$this->_rdl}|{$this->_ldl}/block.*{$this->_rdl}!", $_content, $_result, PREG_OFFSET_CAPTURE);
+        $_result_count = count($_result[0]);
+        $_start = 0;
+        while ($_start < $_result_count) {
+            $_end = 0;
+            $_level = 1;
+            while ($_level != 0) {
+                $_end++;
+                if (!strpos($_result[0][$_start + $_end][0], '/')) {
+                    $_level++;
+                } else {
+                    $_level--;
+                } 
+            } 
+            $_block_content = str_replace($this->smarty->left_delimiter . '$smarty.block.parent' . $this->smarty->right_delimiter, '%%%%SMARTY_PARENT%%%%',
+                substr($_content, $_result[0][$_start][1] + strlen($_result[0][$_start][0]), $_result[0][$_start + $_end][1] - $_result[0][$_start][1] - + strlen($_result[0][$_start][0])));
+            $this->saveBlockData($_block_content, $_result[0][$_start][0], $compiler->template);
+            $_start = $_start + $_end + 1;
         } 
         $compiler->template->template_source = $_template->getTemplateSource();
         $compiler->template->template_filepath = $_template->getTemplateFilepath();
@@ -59,6 +72,17 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase {
             $this->compiler->trigger_template_error("\"" . $block_tag . "\" missing name attribute");
         } else {
             $_name = trim($_match[3], '\'"');
+	   // replace {$smarty.block.child} 
+            if (strpos($block_content, $this->smarty->left_delimiter . '$smarty.block.child' . $this->smarty->right_delimiter) !== false) {
+                if (isset($this->smarty->block_data[$_name])) {
+                    $block_content = str_replace($this->smarty->left_delimiter . '$smarty.block.child' . $this->smarty->right_delimiter,
+                        $this->smarty->block_data[$_name]['source'], $block_content);
+                    unset($this->smarty->block_data[$_name]);
+                } else {
+                    $block_content = str_replace($this->smarty->left_delimiter . '$smarty.block.child' . $this->smarty->right_delimiter,
+                        '', $block_content);
+                } 
+            } 
             if (isset($this->smarty->block_data[$_name])) {
                 if (strpos($this->smarty->block_data[$_name]['source'], '%%%%SMARTY_PARENT%%%%') !== false) {
                     $this->smarty->block_data[$_name]['source'] =
