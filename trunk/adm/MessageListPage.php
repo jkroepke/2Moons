@@ -86,8 +86,7 @@ if ($Observation != 1) die();
 		}
 	}
 	
-	if ($_POST['deldat'] && $_POST['sele'] >= 1 && is_numeric($_POST['selday']) && is_numeric($_POST['selmonth']) && is_numeric($_POST['selyear'])
-		&& $_POST['page'])
+	if ($_POST['deldat'] && $_POST['sele'] >= 1 && is_numeric($_POST['selday']) && is_numeric($_POST['selmonth']) && is_numeric($_POST['selyear']) && $_POST['page'])
 	{
 		if ($DelDat == true)
 		{
