@@ -48,7 +48,7 @@ switch($cron)
 	case "opdb":
 		if (time() >= ($game_config['stat_last_db_update'] + (60 * 60 * 24)))
 		{
-			require($xgp_root . 'config.' . $phpEx);
+			require_once($xgp_root . 'config.' . $phpEx);
 			$prueba = $db->query("SHOW TABLE STATUS from ".DB_NAME.";");
 			$table = "";
 			while($pru = $db->fetch($prueba)){
