@@ -25,15 +25,15 @@ $lang['mail_sended_fail']		= 'E-Mail konnte nicht gesendet werden.!';
 $lang['server_infos']			= array(
 	"Ein Weltraum-Strategiespiel in Echtzeit.",
 	"Spiele zusammen mit hunderten Users.",
-	"Kein Download, es wird nur ein Standartbrowser ben&ouml;tigt.",
+	"Kein Download, es wird nur ein Standartbrowser benötigt.",
 	"Kostenlose Registrierung",
 );
 
 //case default
-$lang['login_error']			= 'Falscher Benutzername/Passwort! <br><a href="index.php">Zur&uuml;ck</a>';
+$lang['login_error']			= 'Falscher Benutzername/Passwort! <br><a href="index.php">Zurück</a>';
 $lang['screenshots']			= 'Screenshots';
 $lang['universe']				= 'Universum';
-$lang['chose_a_uni']			= 'W&auml;hle ein Universum';
+$lang['chose_a_uni']			= 'Wähle ein Universum';
 
 /* ------------------------------------------------------------------------------------------ */
 
@@ -60,23 +60,23 @@ $lang['register_closed']			= 'Registration geschlossen!';
 $lang['register_at']				= 'Registriert bei ';
 $lang['reg_mail_message_pass']		= 'Noch ein Schritt zur Aktivierung Ihres Usernamen';
 $lang['reg_mail_reg_done']			= 'Willkommen bei %s!';
-$lang['invalid_mail_adress']		= 'Ung&uuml;ltige E-mail Adresse!<br>';
-$lang['empty_user_field']			= 'Bitte alle Felder ausf�llen!<br>';
+$lang['invalid_mail_adress']		= 'Ungültige E-mail Adresse!<br>';
+$lang['empty_user_field']			= 'Bitte alle Felder ausfüllen!<br>';
 $lang['password_lenght_error']		= 'Das Passwort muss mindestens 4 Zeichen lang sein!<br>';
 $lang['user_field_no_alphanumeric']	= 'Bitte beim Username nur alphanumerische Zeichen eingeben!<br>';
 $lang['user_field_no_space']		= 'Bitte beim Username keine Leerzeichen eingeben!<br>';
-$lang['terms_and_conditions']		= 'Sie m&uuml;ssen die <a href="index.php?page=agb">AGB</a> und <a href="index.php?page=rules>Regeln</a> aktzeptieren!<br>';
+$lang['terms_and_conditions']		= 'Sie müssen die <a href="index.php?page=agb">AGB</a> und <a href="index.php?page=rules>Regeln</a> aktzeptieren!<br>';
 $lang['user_already_exists']		= 'Der Username ist bereits vergeben!<br>';
 $lang['mail_already_exists']		= 'Die E-mail Adresse ist bereits in Benutzung!<br>';
 $lang['wrong_captcha']				= 'Sicherheitscode falsch!<br>';
-$lang['different_passwords']		= 'Sie haben 2 unterschiedliche Passw&ouml;rter eingegeben!<br>';
+$lang['different_passwords']		= 'Sie haben 2 unterschiedliche Passwörter eingegeben!<br>';
 $lang['different_mails']			= 'Sie haben 2 unterschiedliche E-Mail Adressen!<br>';
 $lang['welcome_message_from']		= 'Administrator';
 $lang['welcome_message_sender']		= 'Administrator';
 $lang['welcome_message_subject']	= 'Wilkommenen';
-$lang['welcome_message_content']	= 'Wilkommen beim %s!<br>Baue zuerst eine Solaranlage, denn Energie wird f&uuml;r die sp&auml;tere Rohstoffproduktion ben&ouml;tigt. Um dies zu bauen, klicke links im Menu auf "Geb&auml;ude". Danach baue das 4. Geb&auml;ude von oben. Da du nun Energie hast, kannst du anfangen Minen zu bauen. Gehe dazu wieder im Men&uuml; auf Geb&auml;ude und baue eine Metallmine, danach wieder eine Kristallmine. Um Schiffe bauen zu k&ouml;nnen musst du zuerst eine Raumschiffswerft gebaut haben. Was daf&uuml;r ben&ouml;tigt wird findest du links im Men&uuml;punkt Technologie bzw. FAQ. Das Team w&uuml;nscht dir viel Spa&szlig; beim Erkunden des Universums!';
+$lang['welcome_message_content']	= 'Wilkommen beim %s!<br>Baue zuerst eine Solaranlage, denn Energie wird für die spätere Rohstoffproduktion benötigt. Um dies zu bauen, klicke links im Menu auf "Gebäude". Danach baue das 4. Gebäude von oben. Da du nun Energie hast, kannst du anfangen Minen zu bauen. Gehe dazu wieder im Menü auf Gebäude und baue eine Metallmine, danach wieder eine Kristallmine. Um Schiffe bauen zu können musst du zuerst eine Raumschiffswerft gebaut haben. Was dafür benötigt wird findest du links im Menüpunkt Technologie bzw. FAQ. Das Team wünscht dir viel Spaß beim Erkunden des Universums!';
 $lang['newpass_smtp_email_error']	= '<br><br>Ein Fehler trat auf. Dein Passwort ist: ';
-$lang['reg_completed']				= 'Danke f&uuml;r ihre Anmeldung! Sie erhalten eine E-Mail.';
+$lang['reg_completed']				= 'Danke für ihre Anmeldung! Sie erhalten eine E-Mail.';
 
 //registry_form.tpl
 $lang['server_message_reg']			= 'Registriere dich jetzt und werde ein Teil von';
@@ -103,130 +103,130 @@ $lang['reg_closed']					= 'Die Registrierung ist geschlossen';
 //Rules
 $lang['rules_overview']				= "Regelwerk";
 $lang['rules']						= array(
-	"Accounts"					=> "Der Besitzer eines Accounts ist immer der Inhaber der festen E-mail Adresse. Ein Account darf ausschlie&szlig;lich alleine gespielt werden. 
-	Eine Ausnahme bildet nur das Sitten. Sollte es notwendig werden, dass der Account eines Anderen &uuml;berwacht oder in den Urlaubsmodus gesetzt werden muss, 
-	so ist der zust&auml;ndige Operator vorher zu informieren und dessen Genehmigung einzuholen. F&uuml;r kurzfristiges Sitten unter 12 Stunden reicht eine Meldung an den Operator. 
-	Beim Sitten sind s&auml;mtliche Flottenbewegungen verboten, lediglich das Saven der Flotte auf Koordinaten des Gesitteten und das Verbauen der Rohstoffe auf dem Planeten, auf dem sie liegen, ist erlaubt. 
-	Ein Account darf f&uuml;r h&ouml;chstens 72h gesittet werden. Bei Ausnahmen muss die Erlaubniss eines Operators vorliegen.
+	"Accounts"					=> "Der Besitzer eines Accounts ist immer der Inhaber der festen E-mail Adresse. Ein Account darf ausschließlich alleine gespielt werden. 
+	Eine Ausnahme bildet nur das Sitten. Sollte es notwendig werden, dass der Account eines Anderen überwacht oder in den Urlaubsmodus gesetzt werden muss, 
+	so ist der zuständige Operator vorher zu informieren und dessen Genehmigung einzuholen. Für kurzfristiges Sitten unter 12 Stunden reicht eine Meldung an den Operator. 
+	Beim Sitten sind sämtliche Flottenbewegungen verboten, lediglich das Saven der Flotte auf Koordinaten des Gesitteten und das Verbauen der Rohstoffe auf dem Planeten, auf dem sie liegen, ist erlaubt. 
+	Ein Account darf für höchstens 72h gesittet werden. Bei Ausnahmen muss die Erlaubniss eines Operators vorliegen.
 	Die Weitergabe eines Accounts darf max. alle 3 Monate und ausschliesslich unentgeltlich erfolgen. 
 	Ausnamhen beim Operator melden.",
 
-	"Multiaccounts"				=> "Der Besitzer eines Accounts ist immer der Inhaber der festen E-mail Adresse. Ein Account darf ausschlie&szlig;lich alleine gespielt werden. 
-	Eine Ausnahme bildet nur das Sitten. Sollte es notwendig werden, dass der Account eines Anderen &uuml;berwacht oder in den Urlaubsmodus gesetzt werden muss, 
-	so ist der zust&auml;ndige Operator vorher zu informieren und dessen Genehmigung einzuholen. F&uuml;r kurzfristiges Sitten unter 12 Stunden reicht eine Meldung an den Operator. 
-	Beim Sitten sind s&auml;mtliche Flottenbewegungen verboten, lediglich das Saven der Flotte auf Koordinaten des Gesitteten und das Verbauen der Rohstoffe auf dem Planeten, auf dem sie liegen, ist erlaubt. 
-	Ein Account darf f&uuml;r h&ouml;chstens 72h gesittet werden. Bei Ausnahmen muss die Erlaubniss eines Operators vorliegen.
+	"Multiaccounts"				=> "Der Besitzer eines Accounts ist immer der Inhaber der festen E-mail Adresse. Ein Account darf ausschließlich alleine gespielt werden. 
+	Eine Ausnahme bildet nur das Sitten. Sollte es notwendig werden, dass der Account eines Anderen überwacht oder in den Urlaubsmodus gesetzt werden muss, 
+	so ist der zuständige Operator vorher zu informieren und dessen Genehmigung einzuholen. Für kurzfristiges Sitten unter 12 Stunden reicht eine Meldung an den Operator. 
+	Beim Sitten sind sämtliche Flottenbewegungen verboten, lediglich das Saven der Flotte auf Koordinaten des Gesitteten und das Verbauen der Rohstoffe auf dem Planeten, auf dem sie liegen, ist erlaubt. 
+	Ein Account darf für höchstens 72h gesittet werden. Bei Ausnahmen muss die Erlaubniss eines Operators vorliegen.
 	Die Weitergabe eines Accounts darf max. alle 3 Monate und ausschliesslich unentgeltlich erfolgen. 
 	Ausnamhen beim Operator melden.",
 
-	"Pushen"					=> "Pushen ist grunds&auml;tzlich verboten. Als Pushing werden alle Ressourcen-Lieferungen ohne angemessene Gegenleistung von punktschw&auml;cheren Accounts an punktst&auml;rkere Accounts gesehen. 
-	Ausnahmen m&uuml;ssen im Vorfeld vom Operator genehmigt werden. Eine fehlende Genehmigung kann eine Sperre wegen Pushens nach sich ziehen.
+	"Pushen"					=> "Pushen ist grundsätzlich verboten. Als Pushing werden alle Ressourcen-Lieferungen ohne angemessene Gegenleistung von punktschwächeren Accounts an punktstärkere Accounts gesehen. 
+	Ausnahmen müssen im Vorfeld vom Operator genehmigt werden. Eine fehlende Genehmigung kann eine Sperre wegen Pushens nach sich ziehen.
 	Ein Handel muss innerhalb 24 Stunden abgeschlossen oder bei einem Operator angemeldet sein.",
 
-	"Bashen"					=> "Mehr als 5 Angriffe innerhalb von 24 Stunden auf den gleichen Planeten z&auml;hlen als Bashen und sind verboten - der Mond z&auml;hlt als eigenst&auml;ndiger Planet. Angriffe mit Spiosonden oder Interplanetarraketen werden dabei nicht gez&auml;hlt.
-	Die Bashregel gilt ausschlie&szlig;lich f&uuml;r aktive Spieler. Befinden sich die Parteien im Krieg, so sind weitere Angriffe erlaubt. Der Krieg muss mindestens 24 Stunden vor weiteren Angriffen im Forum erkl&auml;rt werden (im Thema der Ank&uuml;ndigung m&uuml;ssen beide Allianzen bzw. der Name des kriegserkl&auml;renden Einzelspielers in korrekter Schreibweise genannt werden). Eine Kriegserkl&auml;rung kann ausschlie&szlig;lich an Allianzen gerichtet werden, wobei die Kriegserkl&auml;rung durch eine Allianz oder eine Einzelperson erfolgen kann. 
-	Eine Annahme des Krieges ist nicht erforderlich. Kriege, die offensichtlich nur der massiven Umgehung der Bashregel dienen, sind verboten. Dies zu beurteilen obliegt den zust&auml;ndigen Moderatoren und Operatoren.",
+	"Bashen"					=> "Mehr als 5 Angriffe innerhalb von 24 Stunden auf den gleichen Planeten zählen als Bashen und sind verboten - der Mond zählt als eigenständiger Planet. Angriffe mit Spiosonden oder Interplanetarraketen werden dabei nicht gezählt.
+	Die Bashregel gilt ausschließlich für aktive Spieler. Befinden sich die Parteien im Krieg, so sind weitere Angriffe erlaubt. Der Krieg muss mindestens 24 Stunden vor weiteren Angriffen im Forum erklärt werden (im Thema der Ankündigung müssen beide Allianzen bzw. der Name des kriegserklärenden Einzelspielers in korrekter Schreibweise genannt werden). Eine Kriegserklärung kann ausschließlich an Allianzen gerichtet werden, wobei die Kriegserklärung durch eine Allianz oder eine Einzelperson erfolgen kann. 
+	Eine Annahme des Krieges ist nicht erforderlich. Kriege, die offensichtlich nur der massiven Umgehung der Bashregel dienen, sind verboten. Dies zu beurteilen obliegt den zuständigen Moderatoren und Operatoren.",
 
-	"Bugusing"					=> "Bugs und/oder Fehler in der Programmierung auszunutzen ist verboten. Erkannte Bugs sollten so schnell wie m&ouml;glich per Post im Bugforum, IRC, Email oder ICQ gemeldet werden. Cheaten ist auch verboten.",
+	"Bugusing"					=> "Bugs und/oder Fehler in der Programmierung auszunutzen ist verboten. Erkannte Bugs sollten so schnell wie möglich per Post im Bugforum, IRC, Email oder ICQ gemeldet werden. Cheaten ist auch verboten.",
 
-	"Sprache im Spiel"			=> "In allen entsprechenden Universen ist Deutsch/Englisch die offizielle Sprache im Spiel. Verst&ouml;&szlig;e k&ouml;nnen mit einer Sperrung des Accounts geahndet werden. Fremdsprachliche Ingame- Nachrichten/ Allypages k&ouml;nnen unter Vorbehalt zu einer Sperrung des Accounts f&uuml;hren.",
+	"Sprache im Spiel"			=> "In allen entsprechenden Universen ist Deutsch/Englisch die offizielle Sprache im Spiel. Verstöße können mit einer Sperrung des Accounts geahndet werden. Fremdsprachliche Ingame- Nachrichten/ Allypages können unter Vorbehalt zu einer Sperrung des Accounts führen.",
 
-	"Bedrohungen/Beleidigungen"	=> "RL Erpressungen und -Bedrohungen f&uuml;hren zum Ausschlu&szlig; aus einem oder allen Titan Space Bereichen.
-	Als Real-Life-Erpressungen und -bedrohungen werden Ingamenachrichten, Forenbeitr&auml;ge, IRC-Dialoge in &ouml;ffentlichen Channels und ICQ-Dialoge gewertet, die eindeutige Absichten signalisieren eine Person ausfindig zu machen und ihr oder einer nahestehenden dritten Person Schaden zuzuf&uuml;gen.",
+	"Bedrohungen/Beleidigungen"	=> "RL Erpressungen und -Bedrohungen führen zum Ausschluß aus einem oder allen Titan Space Bereichen.
+	Als Real-Life-Erpressungen und -bedrohungen werden Ingamenachrichten, Forenbeiträge, IRC-Dialoge in öffentlichen Channels und ICQ-Dialoge gewertet, die eindeutige Absichten signalisieren eine Person ausfindig zu machen und ihr oder einer nahestehenden dritten Person Schaden zuzufügen.",
 
 	"Spam und Erotik"			=> "Spammen und Fremdwerbung ist verboten.Jeweilige Form von Erotik und Pornografischen Darstellungen ist verboten. Und wird mit einer Universums weiten und Lebenslangen Sperrung geandet!",
 
-	"Die Regeln"	=> "Die Regeln k&ouml;nnen sich &auml;ndern und jeder User ist verpflichtet sich st&auml;ndig &uuml;ber den Stand zu Informieren !",
+	"Die Regeln"	=> "Die Regeln können sich ändern und jeder User ist verpflichtet sich ständig über den Stand zu Informieren !",
 
 );
 
-$lang['rules_info1']				= "Es wird aber im <a href=\"%s\" target=\"_blank\">Forum</a> und &uuml;ber die Startseite im Game dar&uuml;ber Informiert ...";
-$lang['rules_info2']				= "Als Erg&auml;nzung hierzu sind die <a onclick=\"ajax('?page=agb&getajax=1');\" style=\"cursor:pointer;\">AGB</a> zu beachten und einzuhalten !</font>";
+$lang['rules_info1']				= "Es wird aber im <a href=\"%s\" target=\"_blank\">Forum</a> und über die Startseite im Game darüber Informiert ...";
+$lang['rules_info2']				= "Als Ergänzung hierzu sind die <a onclick=\"ajax('?page=agb&getajax=1');\" style=\"cursor:pointer;\">AGB</a> zu beachten und einzuhalten !</font>";
 
 
 //AGB
 
-$lang['agb_overview']				= "Allgemeine Gesch&auml;ftsbedingungen";
+$lang['agb_overview']				= "Allgemeine Geschäftsbedingungen";
 $lang['agb']						= array(
 	"Leistungsinhalte"				=> array( 
-		"Die Anerkennung der AGBS sind n&ouml;tige Voraussetzung, um am Spiel teilnehmen zu k&ouml;nnen.
-		Sie gelten f&uuml;r alle Angebote seitens der Betreiber, einschlie&szlig;lich des Forums und anderer spielbezogener Inhalte.",
+		"Die Anerkennung der AGBS sind nötige Voraussetzung, um am Spiel teilnehmen zu können.
+		Sie gelten für alle Angebote seitens der Betreiber, einschließlich des Forums und anderer spielbezogener Inhalte.",
 		
 		"Das Angebot ist kostenlos.
-		Somit bestehen keinerlei Anspr&uuml;che auf Verf&uuml;gbarkeit, Bereitstellung, Funktionalit&auml;t oder Schadensersatz.
-		Weiterhin hat der Spieler keinerlei Anspr&uuml;che auf Wiederherstellung, sollte sein Account nachteilig behandelt worden sein.",
+		Somit bestehen keinerlei Ansprüche auf Verfügbarkeit, Bereitstellung, Funktionalität oder Schadensersatz.
+		Weiterhin hat der Spieler keinerlei Ansprüche auf Wiederherstellung, sollte sein Account nachteilig behandelt worden sein.",
 	),
 
 	"Mitgliedschaft"				=> array(
 		"Mit erfolgter Anmeldung im Spiel- und/oder im Forum beginnt die Mitgliedschaft im jeweiligen Spiel.",
 		
-		"Die mit der Anmeldung beginnende Mitgliedschaft kann jederzeit von Seiten des Mitglieds mit L&ouml;schung des Accounts oder durch Anschreiben eines Administrators beendet werden.
-		Eine L&ouml;schung der Daten kann aus technischen Gr&uuml;nden nicht sofort erfolgen.",
+		"Die mit der Anmeldung beginnende Mitgliedschaft kann jederzeit von Seiten des Mitglieds mit Löschung des Accounts oder durch Anschreiben eines Administrators beendet werden.
+		Eine Löschung der Daten kann aus technischen Gründen nicht sofort erfolgen.",
 		
 		"Beendigung durch den Betreiber Kein Nutzer hat einen Anspruch auf die Teilnahme an Angeboten des Betreibers.
-		Der Betreiber beh&auml;lt sich das Recht vor, Accounts zu l&ouml;schen.
-		Die Entscheidung &uuml;ber die L&ouml;schung von Nutzeraccounts obliegt einzig und allein dem Betreiber sowie den Administratoren und Operator.
+		Der Betreiber behält sich das Recht vor, Accounts zu löschen.
+		Die Entscheidung über die Löschung von Nutzeraccounts obliegt einzig und allein dem Betreiber sowie den Administratoren und Operator.
 		Jedweder Rechtsanspruch auf eine Mitgliedschaft ist ausgeschlossen.",
 		
-		"S&auml;mtliche Rechte verbleiben beim Betreiber.",
+		"Sämtliche Rechte verbleiben beim Betreiber.",
 	),
 
-	"Inhalte/Verantwortlichkeit"	=> "F&uuml;r den Inhalt der verschiedenen spielbezogenen Kommunikationsm&ouml;glichkeiten sind die Nutzer selbst verantwortlich. Pornographische, rassistische, beleidigende oder auf sonstige Weise gegen geltendes Recht versto&szlig;ende Inhalte liegen nicht in der Verantwortung des Betreibers.
-	Verst&ouml;&szlig;e k&ouml;nnen zur sofortigen L&ouml;schung oder Sperrung f&uuml;hren.
-	Die L&ouml;schung solcher Inhalte erfolgt schnellstm&ouml;glich, kann jedoch aus technischen und/oder pers&ouml;nlichen Gr&uuml;nden verz&ouml;gert werden.",
+	"Inhalte/Verantwortlichkeit"	=> "Für den Inhalt der verschiedenen spielbezogenen Kommunikationsmöglichkeiten sind die Nutzer selbst verantwortlich. Pornographische, rassistische, beleidigende oder auf sonstige Weise gegen geltendes Recht verstoßende Inhalte liegen nicht in der Verantwortung des Betreibers.
+	Verstöße können zur sofortigen Löschung oder Sperrung führen.
+	Die Löschung solcher Inhalte erfolgt schnellstmöglich, kann jedoch aus technischen und/oder persönlichen Gründen verzögert werden.",
 
 	"Verbotene Eingriffe"			=> array(
-		"Der Nutzer ist nicht berechtigt, Hardware/Software oder sonstige Materien oder Mechanismen in Verbindung mit der Website zu verwenden, die die Funktion und den Spielablauf st&ouml;ren k&ouml;nnen.
-		Der Nutzer darf weiterhin keine Ma&szlig;nahmen ergreifen, die eine unzumutbare oder verst&auml;rkte Belastung der technischen Kapazit&auml;ten zur Folge haben k&ouml;nnen.
-		Es ist dem Nutzer nicht gestattet, vom Betreiber generierte Inhalte zu manipulieren oder in sonstiger Weise st&ouml;rend in das Spiel einzugreifen.",
+		"Der Nutzer ist nicht berechtigt, Hardware/Software oder sonstige Materien oder Mechanismen in Verbindung mit der Website zu verwenden, die die Funktion und den Spielablauf stören können.
+		Der Nutzer darf weiterhin keine Maßnahmen ergreifen, die eine unzumutbare oder verstärkte Belastung der technischen Kapazitäten zur Folge haben können.
+		Es ist dem Nutzer nicht gestattet, vom Betreiber generierte Inhalte zu manipulieren oder in sonstiger Weise störend in das Spiel einzugreifen.",
 		
 		"Jede Art von Bot, Script oder sonstige Automatisierungsfunktionen sind verboten.
-		Das Spiel darf nur im Browser gespielt werden. Selbst seine Funktionen d&uuml;rfen nicht genutzt werden um sich einen Spielvorteil zu verschaffen.
-		Somit darf auch keine Werbung geblockt werden. Die Entscheidung, wann eine Software f&uuml;r den Spieler vorteilhaft ist, liegt einzig beim Betreiber/ bei den Administratoren/Operatoren.",
+		Das Spiel darf nur im Browser gespielt werden. Selbst seine Funktionen dürfen nicht genutzt werden um sich einen Spielvorteil zu verschaffen.
+		Somit darf auch keine Werbung geblockt werden. Die Entscheidung, wann eine Software für den Spieler vorteilhaft ist, liegt einzig beim Betreiber/ bei den Administratoren/Operatoren.",
 		
-		"Ein automatisiertes &ouml;ffnen des Accounts, unabh&auml;ngig davon, ob dabei die Startseite angezeigt wird oder nicht, ist nicht erlaubt.",
+		"Ein automatisiertes öffnen des Accounts, unabhängig davon, ob dabei die Startseite angezeigt wird oder nicht, ist nicht erlaubt.",
 	),
 
-	"Nutzungsbeschr&auml;nkung"		=> array(
-		"Ein Spieler darf nur jeweils einen Account pro Universum nutzen, so genannte \"Multis\" sind nicht erlaubt und k&ouml;nnen ohne Warnung gel&ouml;scht/gesperrt werden.
+	"Nutzungsbeschränkung"		=> array(
+		"Ein Spieler darf nur jeweils einen Account pro Universum nutzen, so genannte \"Multis\" sind nicht erlaubt und können ohne Warnung gelöscht/gesperrt werden.
 		Die Entscheidung, wann ein \"Multi\" vorliegt, liegt einzig beim Betreiber/Administratoren/Operatoren.",
 		
-		"N&auml;heres bestimmt sich nach den Spielregeln.",
+		"Näheres bestimmt sich nach den Spielregeln.",
 		
-		"Sperrungen k&ouml;nnen nach Ermessen des Betreibers dauerhaft oder tempor&auml;r sein.
-		Ebenso k&ouml;nnen sich Sperrungen auf einen oder alle Spielbereiche erstrecken.
+		"Sperrungen können nach Ermessen des Betreibers dauerhaft oder temporär sein.
+		Ebenso können sich Sperrungen auf einen oder alle Spielbereiche erstrecken.
 		Die Entscheidung, wann und wie lange ein Spieler gesperrt wird, liegt einzig beim Betreiber/ bei den Administratoren/Operatoren.",
 	),
 
 	"Datenschutz"					=> array(
-		"Der Betreiber beh&auml;lt sich das Recht vor, Daten der Spieler zu speichern, um die Einhaltung der Regeln, der AGB sowie geltenden Rechts zu &uuml;berwachen.
-		Gespeichert werden alle ben&ouml;tigten und vom Spieler oder seinem Account abgegebenen Daten.
-		Hierzu geh&ouml;ren (IPs in Verbindung mit Nutzungszeiten und Nutzungsart, die bei der Anmeldung angegebene Email Adresse und weitere Daten.
+		"Der Betreiber behält sich das Recht vor, Daten der Spieler zu speichern, um die Einhaltung der Regeln, der AGB sowie geltenden Rechts zu überwachen.
+		Gespeichert werden alle benötigten und vom Spieler oder seinem Account abgegebenen Daten.
+		Hierzu gehören (IPs in Verbindung mit Nutzungszeiten und Nutzungsart, die bei der Anmeldung angegebene Email Adresse und weitere Daten.
 		Im Forum werden die dort im Profil gemachten Angaben gespeichert.",
 		
-		"Diese Daten werden unter Umst&auml;nden zur Wahrnehmung gesetzlicher Pflichten an Handlungsgehilfen und sonstige Berechtigte herausgegeben.
-		Weiterhin k&ouml;nnen Daten (wenn notwendig) unter Umst&auml;nden an Dritte herausgegeben werden.",
+		"Diese Daten werden unter Umständen zur Wahrnehmung gesetzlicher Pflichten an Handlungsgehilfen und sonstige Berechtigte herausgegeben.
+		Weiterhin können Daten (wenn notwendig) unter Umständen an Dritte herausgegeben werden.",
 		
-		"Der Nutzer kann der Speicherung seiner personenbezogenen Daten jederzeit widersprechen. Ein Widerspruch kommt einer K&uuml;ndigung gleich.",
+		"Der Nutzer kann der Speicherung seiner personenbezogenen Daten jederzeit widersprechen. Ein Widerspruch kommt einer Kündigung gleich.",
 	),
 
 	"Rechte des Betreibers an den Accounts"	=> array(
-		"Alle Accounts und alle virtuellen Gegenst&auml;nde bleiben im Besitz und Eigentum des Betreibers.
+		"Alle Accounts und alle virtuellen Gegenstände bleiben im Besitz und Eigentum des Betreibers.
 		Der Spieler erwirbt kein Eigentum und auch sonst keinerlei Rechte am Account oder an Teilen.
-		S&auml;mtliche Rechte verbleiben beim Betreiber.
-		Eine &Uuml;bertragung von Verwertungs- oder sonstigen Rechten auf den Nutzer findet zu keinem Zeitpunkt statt.",
+		Sämtliche Rechte verbleiben beim Betreiber.
+		Eine übertragung von Verwertungs- oder sonstigen Rechten auf den Nutzer findet zu keinem Zeitpunkt statt.",
 		
-		"Unerlaubte Ver&auml;u&szlig;erung, Verwertung, Kopie, Verbreitung, Vervielf&auml;ltigung oder anderweitige Verletzung der Rechte (z.B. am Account) des Betreibers werden dem geltenden Recht entsprechend verfolgt.
-		Ausdr&uuml;cklich gestattet ist die unentgeltliche, endg&uuml;ltige Weitergabe des Accounts sowie das Handeln von Ressourcen im eigenen Universum, sofern und soweit es die Regeln zulassen.",
+		"Unerlaubte Veräußerung, Verwertung, Kopie, Verbreitung, Vervielfältigung oder anderweitige Verletzung der Rechte (z.B. am Account) des Betreibers werden dem geltenden Recht entsprechend verfolgt.
+		Ausdrücklich gestattet ist die unentgeltliche, endgültige Weitergabe des Accounts sowie das Handeln von Ressourcen im eigenen Universum, sofern und soweit es die Regeln zulassen.",
 	),
 
-	"Haftung"	=> "Der Betreiber eines jeden Universums &uuml;bernimmt keine Haftung f&uuml;r etwaige Sch&auml;den.
-	Eine Haftung ist ausgeschlossen mit Ausnahme von Sch&auml;den, die durch Vorsatz und grobe Fahrl&auml;ssigkeit entstehen sowie s&auml;mtlichen Sch&auml;den an Leben und Gesundheit.
-	Diesbez&uuml;glich wird ausdr&uuml;cklich darauf hingewiesen, dass Computerspiele erhebliche Gesundheitsrisiken bergen k&ouml;nnen.
-	Sch&auml;den sind nicht im Sinne des Betreibers.",
+	"Haftung"	=> "Der Betreiber eines jeden Universums übernimmt keine Haftung für etwaige Schäden.
+	Eine Haftung ist ausgeschlossen mit Ausnahme von Schäden, die durch Vorsatz und grobe Fahrlässigkeit entstehen sowie sämtlichen Schäden an Leben und Gesundheit.
+	Diesbezüglich wird ausdrücklich darauf hingewiesen, dass Computerspiele erhebliche Gesundheitsrisiken bergen können.
+	Schäden sind nicht im Sinne des Betreibers.",
 
-	"&Auml;nderung der Nutzungsbedingungen"	=> "Der Betreiber beh&auml;lt sich das Recht vor, diese Nutzungsbedingungen jederzeit zu &auml;ndern oder zu erweitern.
-	Eine &auml;nderung oder Erg&auml;nzung wird mindestens eine Woche vor Inkrafttreten im Forum ver&ouml;ffentlicht.",
+	"änderung der Nutzungsbedingungen"	=> "Der Betreiber behält sich das Recht vor, diese Nutzungsbedingungen jederzeit zu ändern oder zu erweitern.
+	Eine änderung oder Ergänzung wird mindestens eine Woche vor Inkrafttreten im Forum veröffentlicht.",
 );
 
 //NEWS
