@@ -238,8 +238,8 @@ $lang['gl_in_the_rank']						= 'Spieler %s auf Platz %d';
 //PHALANX
 $lang['px_no_deuterium']					= 'Sie haben nicht genügend Deuterium!';
 $lang['px_scan_position']					= 'Scan Position';
-$lang['px_fleet_movement']					= 'Momentane Flottenverbindungen';
-$lang['px_no_fleet']						= 'Keine Flottenverbindungen vorhanden.';
+$lang['px_fleet_movement']					= 'Momentane Flottenbewegungen';
+$lang['px_no_fleet']						= 'Keine Flottenbewegungen vorhanden.';
 
 //----------------------------------------------------------------------------//
 //IMPERIUM
