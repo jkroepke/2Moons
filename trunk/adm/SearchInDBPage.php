@@ -28,8 +28,6 @@ include($xgp_root . 'extension.inc.php');
 include($xgp_root . 'common.' . $phpEx);
 
 
-$db->CheckForSeach();
-
 if ($user['authlevel'] != 3) die(message($lang['not_enough_permissions']));
 
 $parse			=	$lang;
