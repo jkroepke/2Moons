@@ -27,7 +27,7 @@ $xgp_root = './';
 include($xgp_root . 'extension.inc.php');
 include($xgp_root . 'common.'.$phpEx);
 
-$id = request_var("id",0);
+$id = request_var("id", 0);
 if($id == 0) die();
 
 includeLang('INGAME');
