@@ -74,7 +74,7 @@ $lang['different_mails']			= 'Sie haben 2 unterschiedliche E-Mail Adressen!<br>'
 $lang['welcome_message_from']		= 'Administrator';
 $lang['welcome_message_sender']		= 'Administrator';
 $lang['welcome_message_subject']	= 'Wilkommenen';
-$lang['welcome_message_content']	= 'Wilkommen beim %s!<br>Baue zuerst eine Solaranlage, denn Energie wird f&uuml;r die sp&auml;tere Rohstoffproduktion ben&ouml;tigt. Um dies zu bauen, klicke links im Menu auf "Geb&auml;ude". Danach baue das 4. Geb&auml;ude von oben. Da du nun Energie hast, kannst du anfangen Minen zu bauen. Gehe dazu wieder im Men&uuml; auf Geb&auml;ude und baue eine Metallmine, danach wieder eine Kristallmine. Um Schiffe bauen zu k&ouml;nnen musst du zuerst eine Raumschiffswerft gebaut haben. Was daf&uuml;r ben&ouml;tigt wird findest du links im Men&uuml;punkt Technologie. Das Team w&uuml;nscht dir viel Spa&szlig; beim Erkunden des Universums!';
+$lang['welcome_message_content']	= 'Wilkommen beim %s!<br>Baue zuerst eine Solaranlage, denn Energie wird f&uuml;r die sp&auml;tere Rohstoffproduktion ben&ouml;tigt. Um dies zu bauen, klicke links im Menu auf "Geb&auml;ude". Danach baue das 4. Geb&auml;ude von oben. Da du nun Energie hast, kannst du anfangen Minen zu bauen. Gehe dazu wieder im Men&uuml; auf Geb&auml;ude und baue eine Metallmine, danach wieder eine Kristallmine. Um Schiffe bauen zu k&ouml;nnen musst du zuerst eine Raumschiffswerft gebaut haben. Was daf&uuml;r ben&ouml;tigt wird findest du links im Men&uuml;punkt Technologie bzw. FAQ. Das Team w&uuml;nscht dir viel Spa&szlig; beim Erkunden des Universums!';
 $lang['newpass_smtp_email_error']	= '<br><br>Ein Fehler trat auf. Dein Passwort ist: ';
 $lang['reg_completed']				= 'Danke f&uuml;r ihre Anmeldung! Sie erhalten eine E-Mail.';
 
