@@ -550,7 +550,7 @@ abstract class FlyingFleetMissions {
 			if($Dam > 0)
 			{
 				$dest = $TargetDefensive[$target];
-				$ship_res[$target] = 0;
+				$ship_res[$target] = $dest;
 			}
 			else
 			{
