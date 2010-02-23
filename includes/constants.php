@@ -73,6 +73,8 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	
 	define('STORAGE_FACTOR'			  , 1.0);
 	
+	// DARKMATTER PRICE FOR OFFICIER LEVEL
+	
 	define('DM_PRO_OFFICIER_LEVEL'	  , 1000);
 	
 	// INITIAL RESOURCE OF NEW PLANETS
