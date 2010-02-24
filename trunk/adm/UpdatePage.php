@@ -176,7 +176,7 @@ function exitupdate($conn_id, $Result){
 				
 				foreach($UpdateArray['revs'] as $Rev => $RevInfo) 
 				{
-					if(!empty($RevInfo['add'])){
+					if(!empty($RevInfo['add']) && $Patchlevel[2] >= 0){
 						$parse['update']	= "<tr><th><a href=\"?action=update\">Update</a></th></tr>";
 						$parse['info']		= "<tr><td class=\"c\" colspan=\"5\">Aktuelle Updates</td></tr>";
 					}
@@ -188,7 +188,9 @@ function exitupdate($conn_id, $Result){
 					".((!empty($RevInfo['del']))?"<tr><td class=b>DEL:<br>".str_replace("/trunk/", "", implode("<br>\n", $RevInfo['del']))."</b></td></tr>":"")."
 					</tr>";
 					if($i == 0)
+					{
 						$LastRev	= $Rev;
+					}
 					$i++;
 				}
 			} else {
