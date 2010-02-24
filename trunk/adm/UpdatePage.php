@@ -57,14 +57,13 @@ function exitupdate($conn_id, $Result){
 
 
 	$Patchlevel	= explode(".",VERSION);
-
-	if(isset($Patchlevel[2]))
+	if($_REQUEST['history'] == 1)
+		$Level		= 0;	
+	elseif(isset($Patchlevel[2]))
 		$Level		= $Patchlevel[2];
-	elseif($_REQUEST['history'] == 1)
-		$Level		= 0;
 	else
 		$Level		= 252;
-
+		
 	$opts = array(
 		'http'=>array(
 			'method'=> "GET",
@@ -74,7 +73,7 @@ function exitupdate($conn_id, $Result){
 			
 	$context 		= stream_context_create($opts);
 	
-	switch($_REQUEST['mode'])
+	switch($_REQUEST['action'])
 	{
 		case "update":
 
