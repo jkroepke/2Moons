@@ -148,8 +148,11 @@ $QryInsertConfig    .= "('smtp_pass'			 , ''), ";
 $QryInsertConfig    .= "('smtp_ssl'				 , ''), ";
 $QryInsertConfig    .= "('user_valid'			 , '0'), ";
 $QryInsertConfig    .= "('stats_fly_lock'		 , '0'), ";
+$QryInsertConfig    .= "('ftp_server'			 , ''), ";
+$QryInsertConfig    .= "('ftp_user_name'		 , ''), ";
+$QryInsertConfig    .= "('ftp_user_pass'		 , ''), ";
+$QryInsertConfig    .= "('ftp_root_path'		 , ''), ";
 $QryInsertConfig    .= "('stat_last_db_update'   , '0'); ";
-
 
 $QryTableErrors      = "CREATE TABLE IF NOT EXISTS `prefix_".ERRORS."` ( ";
 $QryTableErrors     .= "`error_id` int(11) NOT NULL auto_increment, ";
