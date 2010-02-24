@@ -176,7 +176,7 @@ function exitupdate($conn_id, $Result){
 				
 				foreach($UpdateArray['revs'] as $Rev => $RevInfo) 
 				{
-					if(!empty($RevInfo['add']) && $Patchlevel[2] >= 0){
+					if(!empty($RevInfo['add']) && !empty($RevInfo['edit']) && $Patchlevel[2] >= 0){
 						$parse['update']	= "<tr><th><a href=\"?action=update\">Update</a></th></tr>";
 						$parse['info']		= "<tr><td class=\"c\" colspan=\"5\">Aktuelle Updates</td></tr>";
 					}
