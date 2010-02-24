@@ -110,6 +110,7 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	
 	// Data Tabells
 	define('DB_NAME'				  , $database["databasename"]);
+	define('DB_PREFIX'			  	  , $database["tableprefix"]);
 	
 	define('AKS'				  	  , $database["tableprefix"]."aks");
 	define('ALLIANCE'			  	  , $database["tableprefix"]."alliance");
