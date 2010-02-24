@@ -208,7 +208,23 @@ function DisplayGameSettingsPage ( $CurrentUser )
 		}		
 		if (isset($_POST['smtp_ssl'])) {
 			$game_config['smtp_ssl'] = $_POST['smtp_ssl'];
+		}	
+		
+		if (isset($_POST['ftp_server'])) {
+			$game_config['ftp_server'] = $_POST['ftp_server'];
 		}
+		
+		if (isset($_POST['ftp_user_name'])) {
+			$game_config['ftp_user_name'] = $_POST['ftp_user_name'];
+		}
+		
+		if (isset($_POST['ftp_user_pass'])) {
+			$game_config['ftp_user_pass'] = $_POST['ftp_user_pass'];
+		}		
+		if (isset($_POST['ftp_root_path'])) {
+			$game_config['ftp_root_path'] = $_POST['ftp_root_path'];
+		}
+		
 		$fp = fopen('logs/adminlog_'.date('d.m.Y').'.txt','a');
 		fwrite($fp,date("d.m.Y H:i:s",time())." - ".$CurrentUser['username']." - ".$CurrentUser['user_lastip']." - ".__FILE__." - changed game values. UserID: ".$CurrentUser['id']."\n");
 		fclose($fp);
