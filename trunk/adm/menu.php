@@ -70,7 +70,7 @@ $ConfigTable	=
         	<th ".$onMouseOverIE." class=\"ForIE\"><a href=\"ChatPage.php\" target=\"Hauptframe\">".$lang['mu_chat']."</a></th>
     	</tr>
 		<tr>
-        	<th ".$onMouseOverIE." class=\"ForIE\"><a href=\"SupportPage.php\" target=\"Hauptframe\">".$lang['mu_support']."</a></th>
+        	<th ".$onMouseOverIE." class=\"ForIE\"><a href=\"UpdatePage.php\" target=\"Hauptframe\">".$lang['mu_update']."</a></th>
     	</tr>
 		</table>";
 		
@@ -116,6 +116,9 @@ $ViewTable	=
     	</tr>
 		<tr>
         	<th ".$onMouseOverIE." class=\"ForIE\"><a href=\"OnlineUsersPage.php\" target=\"Hauptframe\">".$lang['mu_connected']."</a></th>
+    	</tr>
+		<tr>
+        	<th ".$onMouseOverIE." class=\"ForIE\"><a href=\"SupportPage.php\" target=\"Hauptframe\">".$lang['mu_support']."</a></th>
     	</tr>
 		<tr>
         	<th ".$onMouseOverIE." class=\"ForIE\"><a href=\"ActiveUsers.php\" target=\"Hauptframe\">".$lang['mu_vaild_users']."</a></th>

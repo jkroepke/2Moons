@@ -34,51 +34,25 @@ if ($user['authlevel'] != 3) die();
 	$opts = array(
 	  'http'=>array(
 		'method'=> "GET",
-		'header'=> "Patchlevel: ".$Patchlevel[2]."\r\n"
+		'header'=> "Patchlevel: ".(($_REQUEST['history'] == 1) ? 0 : $Patchlevel[2])."\r\n"
 	  )
 	);
 
-	$context = stream_context_create($opts);
-	exit(file_get_contents("http://update.jango-online.de/index.php?action=update",FALSE,$context));
-	
-	$query = $db->query("SELECT * FROM ".NEWS." ORDER BY id ASC");
-	$i = 0;
-	while ($u = $db->fetch_array($query)) {
-		$parse['planetes'] .= "<tr>"
-		. "<td class=b><center><b><a href='?action=edit&id=".$u['id'] ."'>" . $u['id'] . "</a></center></b></td>"
-		. "<td class=b><center><b><a href='?action=edit&id=".$u['id'] ."'>" . $u['title'] . "</a></center></b></td>"
-		. "<td class=b><center><b><a href='?action=edit&id=".$u['id'] ."'>" . date("d.m.Y H:i:s",$u['date']) . "</a></center></b></td>"
-		. "<td class=b><center><b><a href='?action=edit&id=".$u['id'] ."'>" . $u['user'] . "</a></center></b></td>"
-		. "<td class=b align=\"center\"><a href='?action=delete&id=".$u['id'] ."' onclick=\"return confirm('Bist du sicher, dass du die Nachricht " . $u['title'] . " entfernen willst?');\"><img border=\"0\" src=\"../styles/images/r1.png\"></a></td>"
-		. "</tr>";
+	$context 		= stream_context_create($opts);
+	$UpdateArray 	= unserialize(file_get_contents("http://update.jango-online.de/index.php?action=update",FALSE,$context));
+	$func 			= function($value) { return str_replace("/trunk/", "", $value); };
+	foreach($UpdateArray as $Rev => $RevInfo) 
+	{
+		$parse['planetes'] .= "<tr>
+		".(($Patchlevel[2] == $Rev)?"<td class=c colspan=5>Momentane Version</td></tr><tr>":((($Patchlevel[2] - 1) == $Rev)?"<td class=c colspan=5>Alte Updates</td></tr><tr>":""))."
+		<th>".(($Patchlevel[2] == $Rev)?"<font color=\"red\">":"")."Revision " . $Rev . " ".date("d. M y H:i:s", $RevInfo['timestamp'])." von ".$RevInfo['author'].(($Patchlevel[2] == $Rev)?"</font>":"")."</th></tr>
+		".((!empty($RevInfo['add']))?"<tr><td class=b>ADD:<br>".implode("<br>\n", array_map($func, $RevInfo['add']))."</b></td></tr>":"")."
+		".((!empty($RevInfo['edit']))?"<tr><td class=b>EDIT:<br>".implode("<br>\n", array_map($func, $RevInfo['edit']))."</b></td></tr>":"")."
+		".((!empty($RevInfo['del']))?"<tr><td class=b>DEL:<br>".implode("<br>\n", array_map($func, $RevInfo['del']))."</b></td></tr>":"")."
+		</tr>";
 		$i++;
 	}
-	$parse['planetes'] .= "<tr><td colspan=\"5\" align=\"center\"><a href=\"?action=create\">News erstellen</a></td></tr>";
-	$parse['planetes'] .= "<tr><th class=\"b\" colspan=\"8\">Insgesamt {$i} News vorhanden</th></tr>";
-
-	if(($_GET['action'] == 'edit') && isset($_GET['id'])) {
-		$query = $db->query("SELECT * FROM ".NEWS." WHERE id = '".$db->sql_escape($_GET['id'])."';");
-		$id = intval($_GET['id']);
-		$planet = $db->fetch_array($query);
-		$parse['show_edit_form'] = parsetemplate(gettemplate('adm/news_edit_form'),$planet);
-	}
-	elseif($_GET['action'] == 'create') {
-		$parse['show_edit_form'] = gettemplate('adm/news_create_form');
-	}
-	elseif(($_GET['action'] == 'delete') && isset($_GET['id'])) {
-		$db->query("DELETE FROM ".NEWS." WHERE `id` = '".$_GET['id']."' LIMIT 1;");
-	}
-	if(isset($_POST['submit'])) {
-		$edit_id 	= request_var('currid',0);
-		$title 		= $db->sql_escape(request_var('title','',true));
-		$text 		= $db->sql_escape(request_var('text','',true));
-		$query		= (isset($_GET['gone'])) ? "INSERT INTO ".NEWS." (`id` ,`user` ,`date` ,`title` ,`text`) VALUES ( NULL , '".$user['username']."', '".time()."', '".$title."', '".$text."');" : "UPDATE ".NEWS." SET `title` = '".$title."', `text` = '".$text."', `date` = '".time()."' WHERE `id` = '".$edit_id."' LIMIT 1;";
-		
-		$db->query($query);
-		
-		header("location:NewsPage.php");	
-	}
-	display(parsetemplate(gettemplate('adm/newslist_body'), $parse), false, '', true, false);
+	display(parsetemplate(gettemplate('adm/update_body'), $parse), false, '', true, false);
 
 // Created by e-Zobar. All rights reversed (C) XNova Team 2008
 ?>

@@ -592,6 +592,7 @@ $lang['mu_support'] 						= 'Support-Tickets'; //
 $lang['mu_chat'] 							= 'Chat-Admin'; //
 $lang['mu_lotterie'] 						= 'Lotterie'; //
 $lang['mu_module']							= 'Module'; //
+$lang['mu_update']							= 'Game-Updates'; //
 
 
 // ResetPage.php
