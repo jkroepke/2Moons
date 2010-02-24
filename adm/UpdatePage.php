@@ -33,10 +33,12 @@ if ($user['authlevel'] != 3) die();
 	{
 		case "update":
 			$Patchlevel	= explode(".",VERSION);
+			
+			$Level = (isset($Patchlevel[2])) ? $Patchlevel[2] : 252;
 			$opts = array(
 			  'http'=>array(
 				'method'=> "GET",
-				'header'=> "Patchlevel: ".$Patchlevel[2]."\r\n"
+				'header'=> "Patchlevel: ".$Level."\r\n"
 			  )
 			);
 
@@ -131,15 +133,14 @@ if ($user['authlevel'] != 3) die();
 
 			$context 		= stream_context_create($opts);
 			$UpdateArray 	= unserialize(file_get_contents("http://update.jango-online.de/index.php?action=update",FALSE,$context));
-			$func 			= function($value) { return str_replace("/trunk/", "", $value); };
 			foreach($UpdateArray['revs'] as $Rev => $RevInfo) 
 			{
 				$parse['planetes'] .= "<tr>
 				".(($Patchlevel[2] == $Rev)?"<td class=c colspan=5>Momentane Version</td></tr><tr>":((($Patchlevel[2] - 1) == $Rev)?"<td class=c colspan=5>Alte Updates</td></tr><tr>":""))."
 				<th>".(($Patchlevel[2] == $Rev)?"<font color=\"red\">":"")."Revision " . $Rev . " ".date("d. M y H:i:s", $RevInfo['timestamp'])." von ".$RevInfo['author'].(($Patchlevel[2] == $Rev)?"</font>":"")."</th></tr>
-				".((!empty($RevInfo['add']))?"<tr><td class=b>ADD:<br>".implode("<br>\n", array_map($func, $RevInfo['add']))."</b></td></tr>":"")."
-				".((!empty($RevInfo['edit']))?"<tr><td class=b>EDIT:<br>".implode("<br>\n", array_map($func, $RevInfo['edit']))."</b></td></tr>":"")."
-				".((!empty($RevInfo['del']))?"<tr><td class=b>DEL:<br>".implode("<br>\n", array_map($func, $RevInfo['del']))."</b></td></tr>":"")."
+				".((!empty($RevInfo['add']))?"<tr><td class=b>ADD:<br>".str_replace("/trunk/", "", implode("<br>\n", $RevInfo['add']))."</b></td></tr>":"")."
+				".((!empty($RevInfo['edit']))?"<tr><td class=b>EDIT:<br>".str_replace("/trunk/", "", implode("<br>\n", $RevInfo['edit']))."</b></td></tr>":"")."
+				".((!empty($RevInfo['del']))?"<tr><td class=b>DEL:<br>".str_replace("/trunk/", "", implode("<br>\n", $RevInfo['del']))."</b></td></tr>":"")."
 				</tr>";
 				$i++;
 			}

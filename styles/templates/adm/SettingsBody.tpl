@@ -134,7 +134,7 @@
 </tr><tr>
 	<td class="c" colspan="2">FTP-Einstellungen</td>
 </tr><tr>
-	<th colspan="2">Bei 2Moons werden bei Updates Dateien &uuml;ber den FTP-Server gesendet. Trage hier bitte deine Einstellungen für deinen FTP-Server ein.<br>Info:</th>
+	<th colspan="2">Bei 2Moons werden bei Updates Dateien &uuml;ber den FTP-Server gesendet. Trage hier bitte deine Einstellungen für deinen FTP-Server ein.<br>Info: Gamepfad ist der Pfad zum Game im FTP von Root, z.B.: /httpdocs</th>
 </tr><tr>
 	<th>FTP Host:</th>
 	<th><input name="ftp_server" size="10" value="{ftp_server}" type="text" autocomplete="off"></th>
