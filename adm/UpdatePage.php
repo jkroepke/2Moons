@@ -165,7 +165,7 @@ function exitupdate($conn_id, $Result){
 			$Result['debug']['atrev'] = "UPDATE: OK! At Revision: ".$LastRev;
 			
 			// Verbindung schlieﬂen
-			update_config('VERSION', $Patchlevel[0].".".$Patchlevel[1].".".$LastRev);
+			update_config('VERSION', str_replace("RC","",$Patchlevel[0]).".".$Patchlevel[1].".".$LastRev);
 			exitupdate($conn_id, $Result);
 		break;
 		default:
