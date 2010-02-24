@@ -19,8 +19,9 @@
 # *                                                                          #
 ##############################################################################
 
-define('INSIDE'  , true);
-define('INSTALL' , true);
+define('INSIDE'  			, true);
+define('INSTALL' 			, true);
+define('RCINSTALL_VERSION' 	, "5.0");
 
 $xgp_root = './../';
 include($xgp_root . 'extension.inc.php');
