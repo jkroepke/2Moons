@@ -132,6 +132,22 @@
 	<th>SMTP Pass:</th>
 	<th><input name="smtp_pass" size="10" value="{smtp_pass}" type="password" autocomplete="off"></th>
 </tr><tr>
+	<td class="c" colspan="2">FTP-Einstellungen</td>
+</tr><tr>
+	<th colspan="2">Bei 2Moons werden bei Updates Dateien &uuml;ber den FTP-Server gesendet. Trage hier bitte deine Einstellungen für deinen FTP-Server ein.<br>Info:</th>
+</tr><tr>
+	<th>FTP Host:</th>
+	<th><input name="ftp_server" size="10" value="{ftp_server}" type="text" autocomplete="off"></th>
+</tr><tr>
+	<th>FTP User:</th>
+	<th><input name="ftp_user_name" size="10" value="{ftp_user_name}" type="text" autocomplete="off"></th>
+</tr><tr>
+	<th>FTP Pass:</th>
+	<th><input name="ftp_user_pass" size="10" value="{ftp_user_pass}" type="password" autocomplete="off"></th>
+</tr><tr>
+	<th>FTP Gamepfad:</th>
+	<th><input name="ftp_root_path" size="10" value="{ftp_root_path}" type="text" autocomplete="off"></th>
+</tr><tr>
 	<th colspan="3"><input value="{se_save_parameters}" type="submit"></th>
 </tr>
 </table>

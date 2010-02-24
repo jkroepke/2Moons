@@ -87,6 +87,22 @@ function DisplayGameSettingsPage ( $CurrentUser )
 		$game_config['deuterium_basic_income'] = $_POST['deuterium_basic_income'];
 		}
 
+		if (isset($_POST['ftp_server']) && is_numeric($_POST['ftp_server'])) {
+		$game_config['ftp_server'] = $_POST['ftp_server'];
+		}
+
+		if (isset($_POST['ftp_user_name']) && is_numeric($_POST['ftp_user_name'])) {
+		$game_config['ftp_user_name'] = $_POST['ftp_user_name'];
+		}
+
+		if (isset($_POST['ftp_user_pass']) && is_numeric($_POST['ftp_user_pass'])) {
+		$game_config['ftp_user_pass'] = $_POST['ftp_user_pass'];
+		}
+
+		if (isset($_POST['ftp_root_path']) && is_numeric($_POST['ftp_root_path'])) {
+		$game_config['ftp_root_path'] = $_POST['ftp_root_path'];
+		}
+
 		if (isset($_POST['adm_attack']) && $_POST['adm_attack'] == 'on') {
 			$game_config['adm_attack'] = 1;
 		} else {
@@ -230,6 +246,11 @@ function DisplayGameSettingsPage ( $CurrentUser )
 		update_config('smtp_pass'				, $game_config['smtp_pass']	             );
 		update_config('smtp_ssl'				, $game_config['smtp_ssl']	             );
 		update_config('user_valid'				, $game_config['user_valid']             );
+		update_config('ftp_server'				, $game_config['ftp_server']             );
+		update_config('ftp_user_name'			, $game_config['ftp_user_name']          );
+		update_config('ftp_user_pass'			, $game_config['ftp_user_pass']          );
+		update_config('ftp_root_path'			, $game_config['ftp_root_path']          );
+
 		header("location:SettingsPage.php");
 	}
 	else
@@ -269,12 +290,16 @@ function DisplayGameSettingsPage ( $CurrentUser )
 		$parse['smtp_ssl1']					= ($game_config['smtp_ssl'] == "ssl")? "selected" : "";
 		$parse['smtp_ssl2']					= ($game_config['smtp_ssl'] == "tls")? "selected" : "";
 		$parse['user_valid']           	 	= ($game_config['user_valid'] == 1)  ? " checked = 'checked' ":"";
-
+		$parse['ftp_server']           	 	= $game_config['ftp_server'];
+		$parse['ftp_user_name']           	= $game_config['ftp_user_name'];
+		$parse['ftp_user_pass']           	= $game_config['ftp_user_pass'];
+		$parse['ftp_root_path']           	= $game_config['ftp_root_path'];
+		
 		$LangFolder = opendir("./../" . 'language');
 
 		while (($LangSubFolder = readdir($LangFolder)) !== false)
 		{
-			if($LangSubFolder != '.' && $LangSubFolder != '..' && $LangSubFolder != '.htaccess')
+			if($LangSubFolder != '.' && $LangSubFolder != '..' && $LangSubFolder != '.htaccess' && $LangSubFolder != '.svn')
 			{
 				$parse['language_settings'] .= "<option ";
 
