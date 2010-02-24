@@ -45,6 +45,7 @@ function exitupdate($conn_id, $Result){
 			$parse['planetes'] .= "Update File ".$file.": ".$status."<br>";
 		}
 	}
+	
 	$parse['planetes'] .= "</th></tr>";
 	
 	if(!empty($coon_id))
@@ -64,18 +65,19 @@ function exitupdate($conn_id, $Result){
 	else
 		$Level		= 252;
 
-
+	$opts = array(
+		'http'=>array(
+			'method'=> "GET",
+			'header'=> "Patchlevel: ".$Level."\r\n"
+		)
+	);
+			
+	$context 		= stream_context_create($opts);
+	
 	switch($_REQUEST['mode'])
 	{
 		case "update":
-			$opts = array(
-			  'http'=>array(
-				'method'=> "GET",
-				'header'=> "Patchlevel: ".$Level."\r\n"
-			  )
-			);
 
-			$context 		= stream_context_create($opts);
 			$UpdateArray 	= unserialize(file_get_contents("http://update.jango-online.de/index.php?action=getupdate",FALSE,$context));
 			if(!is_array($UpdateArray['revs']))
 				exitupdate(NULL, array('debug' => array('noupdate' => "Kein Update vorhanden!")));
@@ -168,22 +170,14 @@ function exitupdate($conn_id, $Result){
 			exitupdate($conn_id, $Result);
 		break;
 		default:
-				
-			$opts = array(
-			  'http'=>array(
-				'method'=> "GET",
-				'header'=> "Patchlevel: ".$Level."\r\n"
-			  )
-			);
 			$i = 0;
-			$context 		= stream_context_create($opts);
-			if(($RAW = @file_get_contents("http://update.jango-online.de/index.php?action=update",FALSE,$context)) === true)
+			if(($RAW = @file_get_contents("http://update.jango-online.de/index.php?action=update",FALSE,$context)) !== false)
 			{
 				$UpdateArray 	= unserialize($RAW);
 				
 				foreach($UpdateArray['revs'] as $Rev => $RevInfo) 
 				{
-					if(is_array()){
+					if(is_array($RevInfo['add'])){
 						$parse['update']	= "<tr><th><a href=\"?action=update\">Update</a></th></tr>";
 						$parse['info']		= "<tr><td class=\"c\" colspan=\"5\">Aktuelle Updates</td></tr>";
 					}
