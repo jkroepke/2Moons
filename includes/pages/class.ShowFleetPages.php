@@ -822,7 +822,7 @@ class ShowFleetPages extends FleetFunctions
 		$QrySelectEnemy .= "`planet` = '". $planet ."' AND ";
 		$QrySelectEnemy .= "`planet_type` = '". $planettype ."';";
 		$TargetRow	   = $db->fetch_array($db->query($QrySelectEnemy));
-		
+
 		if($TargetRow['id_level'] > $CurrentUser['authlevel'] && $mission == 6 && $game_config['adm_attack'] == 0)
 			exit("619; ".$lang['fa_action_not_allowed']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserMissiles);
 		
@@ -856,10 +856,10 @@ class ShowFleetPages extends FleetFunctions
 			elseif ($IsNoobProtec['StrongPlayer'])
 				exit("604; ".$lang['fa_strong_player']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserMissiles);
 
-			if ($TargetRow['id_owner'] == '')
+			if (empty($TargetRow['id_owner']))
 			{
 				$ResultMessage = "601; ".$lang['fa_planet_not_exist']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserMissiles;
-				die ($ResultMessage);
+				die($ResultMessage);
 			}
 
 			if ($TargetRow["id_owner"] == $CurrentPlanet["id_owner"])
