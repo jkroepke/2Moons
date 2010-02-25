@@ -114,6 +114,7 @@ if (INSTALL != true)
 			trigger_error($game_config['close_reason'], E_USER_NOTICE);
 		}
 		
+		includeLang('TECH');
 		if($game_config['stats_fly_lock'] == 0 && !defined('IN_ADMIN'))
 		{	
 			$fleetquery = $db->query("SELECT * FROM ".FLEETS." WHERE `fleet_start_time` <= '". time() ."' OR (`fleet_end_time` <= '". time() ."' AND `fleet_mess` = '1') ORDER BY `fleet_start_time` ASC;");
@@ -146,7 +147,6 @@ if (INSTALL != true)
 				$dpath     = (!$user["dpath"]) ? DEFAULT_SKINPATH : $user["dpath"];
 			}
 			
-			includeLang('TECH');
 			
 			require_once($xgp_root . 'includes/functions/SetSelectedPlanet.' . $phpEx);
 			SetSelectedPlanet ($user);
