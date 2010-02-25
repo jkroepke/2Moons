@@ -42,10 +42,14 @@ function exitupdate($conn_id, $Result){
 	{
 		foreach($content as $file => $status)
 		{
-			$parse['planetes'] .= "Update File ".$file.": ".$status."<br>";
+			$parse['planetes'] .= "Update File ".$file." (Rev. ".$rev."): ".$status."<br>";
 		}
 	}
 	
+	foreach($Result['finish'] as $key => $content)
+	{
+		$parse['planetes'] .= $content."<br>";
+	}
 	$parse['planetes'] .= "</th></tr>";
 	
 	if(!empty($coon_id))
@@ -162,7 +166,7 @@ function exitupdate($conn_id, $Result){
 				}
 				$LastRev = $Rev;
 			}
-			$Result['debug']['atrev'] = "UPDATE: OK! At Revision: ".$LastRev;
+			$Result['finish']['atrev'] = "UPDATE: OK! At Revision: ".$LastRev;
 			
 			// Verbindung schlieﬂen
 			update_config('VERSION', str_replace("RC","",$Patchlevel[0]).".".$Patchlevel[1].".".$LastRev);
