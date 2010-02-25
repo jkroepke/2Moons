@@ -1,8 +1,8 @@
 <?php
 
 $lang['faq']			= array(
-"Wie kann ich mehr als einen Planeten haben?" => "Du kannst ein Weiteren Planeten Mit einem Kolonieschiff Kolosieren. Beachte hier aber das dieser Bereich leer ist, sonnst kannst Du diesen Planeten Nicht Kolosieren. Mit Hilfe der Astrophysik ist es Möglich mehr als 9 Planeten zu besiedeln. Pro 2 Stufen kann man einen Planeten mehr besiedeln.",
-"Was ist ein Gigarecykler?" => "Ein Gigarecykler ist ein verbesserter Recykler und hat ein Verfassungsvermögen von 250 k Resourcen pro Schiff, wo der Recykler nur ein Verfassungsvermögen von 20 k an Resourcen hat.",
+"Jak mogę mieć więcej niż jedną planetę?" => "Można pokazać dalsze planety Kolosi ze statkiem kolonii. Zauważ, ale obszar ten jest pusty, odpoczynku nie można Kolosi tej planecie. Dzięki astrofizyki, można skolonizować więcej niż 9 planet. Na 2 kroki, które można skolonizować planetę więcej.",
+"Co to jest Gigarecykler?" => "Gigarecykler to udoskonalona Recykler i konstytucyjnych mocy 250 k zasobów na statek, gdzie Recykler tylko konstytucyjnych moc 20 K do zasobów.",
 "Ich werde angegriffen, wie kann ich meine Rohstoffe retten?" => "Diesen Vorgang nennt man saven. Es gibt verschiede Möglichkeiten seine Rohstoffe zu saven. Ihr findet alle Infos unter folgendem Link: <a href=\"http://owiki.de/Saven\" target=\"_blank\"title=\"Saven auf owiki.de\">Artikel Saven im owiki.de</a>",
 "Was ist das Intergalaktisches Forschungsnetzwerk?" => "Mit dem Intergalaktischen Forschungsnetzwerk ist es möglich, schneller zu Forschen. Dabei werden die Forschungslabore der Planeten mit einander verbunden. Wenn man auf Planet 1 sein Forschungslabor auf Stufe 13 hat und auf Planet 2 auf Stufe 7, so wird mit Stufe 20 geforscht. Dies gilt nur für die Geschwindigkeit und nicht für die Vorraussetztungen. Pro Stufe kann ein planet mehr verbunden werden.",
 "Wofür brauche ist Dunkle Materie?" => "Dunkle Materie brauchst du, um Offiziere zu rekrutieren. Offiziere schaffen dir Vorteile, z.b.: mehr Flottenslots oder stärkere Schiffe bzw. Verteidigungsanlagen.",
