@@ -2,7 +2,7 @@
 
 ##############################################################################
 # *																			 #
-# * RN FRAMEWORK															 #
+# * 2MOON       															 #
 # *  																		 #
 # * @copyright Copyright (C) 2009 By ShadoX from xnova-reloaded.de	    	 #
 # *																			 #
