@@ -196,7 +196,7 @@ function killdir($conn_id, $Adresse) {
 			if(($RAW = file_get_contents("http://update.jango-online.de/index.php?action=update",FALSE,$context)) !== false)
 			{
 				$UpdateArray 	= unserialize($RAW);
-				var_dump($UpdateArray);
+				
 				foreach($UpdateArray['revs'] as $Rev => $RevInfo) 
 				{
 					if(!(empty($RevInfo['add']) && empty($RevInfo['edit'])) && $Patchlevel[2] < $Rev){
