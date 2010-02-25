@@ -173,7 +173,7 @@ function killdir($conn_id, $Adresse) {
 				}
 				foreach($RevInfo['del'] as $File)
 				{
-					if(!(strpos($file,".")!==false)) {
+					if(!(strpos($File,".")!==false)) {
 						killdir($conn_id, $File);
 					} else {
 						if (ftp_delete($conn_id, str_replace("/trunk/", "", $File))) {
