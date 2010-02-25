@@ -42,7 +42,7 @@ function exitupdate($conn_id, $Result){
 	{
 		foreach($content as $file => $status)
 		{
-			$parse['planetes'] .= "Update File ".$file." (Rev. ".$rev."): ".$status."<br>";
+			$parse['planetes'] .= "File ".$file." (Rev. ".$rev."): ".$status."<br>";
 		}
 	}
 	
@@ -150,9 +150,9 @@ function killdir($conn_id, $Adresse) {
 						} else {
 							$Data = fopen($SVN_ROOT.$File, "r");
 							if (ftp_fput($conn_id, str_replace("/trunk/", "", $File), $Data, FTP_ASCII)) {
-								$Result['update'][$Rev][$File]	= "OK!";
+								$Result['update'][$Rev][$File]	= "OK! - Updated";
 							} else {
-								$Result['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht updaten";
+								$Result['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht hochladen";
 							}
 							fclose($Data);
 						}
@@ -169,9 +169,9 @@ function killdir($conn_id, $Adresse) {
 						} else {
 							$Data = fopen($SVN_ROOT.$File, "r");
 							if (ftp_fput($conn_id, str_replace("/trunk/", "", $File), $Data, FTP_ASCII)) {
-								$Result['update'][$Rev][$File]	= "OK!";
+								$Result['update'][$Rev][$File]	= "OK! - Updated";
 							} else {
-								$Result['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht updaten";
+								$Result['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht hochladen";
 							}
 							fclose($Data);
 						}
@@ -185,7 +185,7 @@ function killdir($conn_id, $Adresse) {
 							killdir($conn_id, $File);
 						} else {
 							if (ftp_delete($conn_id, str_replace("/trunk/", "", $File))) {
-								$Result['update'][$Rev][$File]	= "OK!";
+								$Result['update'][$Rev][$File]	= "OK! - Gelöscht";
 							} else {
 								$Result['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht löschen";
 							}
