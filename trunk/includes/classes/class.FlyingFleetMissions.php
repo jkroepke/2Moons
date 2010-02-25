@@ -1898,7 +1898,7 @@ abstract class FlyingFleetMissions {
 			}
 			
 			if($LS < 1)
-				exit;
+				continue;
 			
 			$Diffence	 = abs($CurrentSpyLvl - $TargetSpyLvl);
 			$MinAmount 	 = ($CurrentSpyLvl >= $TargetSpyLvl) ? (-(pow($Diffence, 2)) + 2) : pow($Diffence, 2) + 2;
