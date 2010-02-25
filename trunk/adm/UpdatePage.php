@@ -226,7 +226,7 @@ function killdir($conn_id, $Adresse) {
 					}
 					$i++;
 				}
-			} elseif(!function_exist('file_get_contents')) {
+			} elseif(!function_exists('file_get_contents')) {
 				$parse['planetes'] = "<tr><th>Function file_get_contents deaktiviert</th></tr>";
 			} else {
 				$parse['planetes'] = "<tr><th>Update Server currently not available</th></tr>";
