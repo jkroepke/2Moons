@@ -2820,7 +2820,6 @@ abstract class FlyingFleetMissions {
 			}
 			self::RestoreFleetToPlanet($FleetRow, true);
 			
-			echo "UPDATE `".USERS."` SET `darkmatter` = darkmatter + ".$FleetRow['fleet_resource_darkmatter']." WHERE `id` = '".$FleetRow['fleet_owner']."';";
 			$db->query("UPDATE `".USERS."` SET `darkmatter` = darkmatter + ".$FleetRow['fleet_resource_darkmatter']." WHERE `id` = '".$FleetRow['fleet_owner']."';");
 			$db->query("DELETE FROM ".FLEETS." WHERE `fleet_id` = ". $FleetRow["fleet_id"].";");
 		}		
