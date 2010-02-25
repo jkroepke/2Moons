@@ -10,6 +10,7 @@ $lang['changelog']   = array(
 'RC5.0b3' => 'ShadoX '.$version[2].'.'.$version[1].'.'.substr($version[0],2,2).'
 - ADD: DM BANK
 - ADD: Koords werden nicht mehr in der HoF angezeigt.
+- ADD: Update System BETA
 - FIX: Phalax &amp; Interplanetarrakten Reichweite
 - FIX: Urlaubsmodus fixed
 - FIX: Neues Kampfscript für Interplanetarraketeneinschläge
