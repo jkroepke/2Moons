@@ -139,47 +139,56 @@ function killdir($conn_id, $Adresse) {
 			
 			foreach($UpdateArray['revs'] as $Rev => $RevInfo) 
 			{
-				foreach($RevInfo['add'] as $File)
-				{	
-					if($File == "/trunk/update.sql")
-					{
-						$db->multi_query(str_replace("prefix_", DB_PREFIX, file_get_contents($SVN_ROOT.$File)));
-						continue;
-					} else {
-						$Data = fopen($SVN_ROOT.$File, "r");
-						if (ftp_fput($conn_id, str_replace("/trunk/", "", $File), $Data, FTP_ASCII)) {
-							$Result['update'][$Rev][$File]	= "OK!";
-						} else {
-							$Result['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht updaten";
-						}
-						fclose($Data);
-					}
-				}
-				foreach($RevInfo['edit'] as $File)
-				{	
-					if($File == "/trunk/update.sql")
-					{
-						$db->multi_query(str_replace("prefix_", DB_PREFIX, file_get_contents($SVN_ROOT.$File)));
-						continue;
-					} else {
-						$Data = fopen($SVN_ROOT.$File, "r");
-						if (ftp_fput($conn_id, str_replace("/trunk/", "", $File), $Data, FTP_ASCII)) {
-							$Result['update'][$Rev][$File]	= "OK!";
-						} else {
-							$Result['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht updaten";
-						}
-						fclose($Data);
-					}
-				}
-				foreach($RevInfo['del'] as $File)
+				if(!empty($RevInfo['add']))
 				{
-					if(!(strpos($File,".")!==false)) {
-						killdir($conn_id, $File);
-					} else {
-						if (ftp_delete($conn_id, str_replace("/trunk/", "", $File))) {
-							$Result['update'][$Rev][$File]	= "OK!";
+					foreach($RevInfo['add'] as $File)
+					{	
+						if($File == "/trunk/update.sql")
+						{
+							$db->multi_query(str_replace("prefix_", DB_PREFIX, file_get_contents($SVN_ROOT.$File)));
+							continue;
 						} else {
-							$Result['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht löschen";
+							$Data = fopen($SVN_ROOT.$File, "r");
+							if (ftp_fput($conn_id, str_replace("/trunk/", "", $File), $Data, FTP_ASCII)) {
+								$Result['update'][$Rev][$File]	= "OK!";
+							} else {
+								$Result['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht updaten";
+							}
+							fclose($Data);
+						}
+					}
+				}
+				if(!empty($RevInfo['edit']))
+				{
+					foreach($RevInfo['edit'] as $File)
+					{	
+						if($File == "/trunk/update.sql")
+						{
+							$db->multi_query(str_replace("prefix_", DB_PREFIX, file_get_contents($SVN_ROOT.$File)));
+							continue;
+						} else {
+							$Data = fopen($SVN_ROOT.$File, "r");
+							if (ftp_fput($conn_id, str_replace("/trunk/", "", $File), $Data, FTP_ASCII)) {
+								$Result['update'][$Rev][$File]	= "OK!";
+							} else {
+								$Result['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht updaten";
+							}
+							fclose($Data);
+						}
+					}
+				}
+				if(!empty($RevInfo['del']))
+				{
+					foreach($RevInfo['del'] as $File)
+					{
+						if(!(strpos($File, ".")!==false)) {
+							killdir($conn_id, $File);
+						} else {
+							if (ftp_delete($conn_id, str_replace("/trunk/", "", $File))) {
+								$Result['update'][$Rev][$File]	= "OK!";
+							} else {
+								$Result['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht löschen";
+							}
 						}
 					}
 				}
