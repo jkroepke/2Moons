@@ -170,18 +170,19 @@ function exitupdate($conn_id, $Result){
 		break;
 		default:
 			$i = 0;
-			if(($RAW = @file_get_contents("http://update.jango-online.de/index.php?action=update",FALSE,$context)) !== false)
+			if(($RAW = file_get_contents("http://update.jango-online.de/index.php?action=update",FALSE,$context)) !== false)
 			{
 				$UpdateArray 	= unserialize($RAW);
 				
 				foreach($UpdateArray['revs'] as $Rev => $RevInfo) 
 				{
-					if(!empty($RevInfo['add']) && !empty($RevInfo['edit']) && $Patchlevel[2] >= 0){
+					if(!empty($RevInfo['add']) && !empty($RevInfo['edit']) && $Patchlevel[2] >= $Rev){
 						$parse['update']	= "<tr><th><a href=\"?action=update\">Update</a></th></tr>";
 						$parse['info']		= "<tr><td class=\"c\" colspan=\"5\">Aktuelle Updates</td></tr>";
 					}
 					$parse['planetes'] .= "<tr>
 					".(($Patchlevel[2] == $Rev)?"<td class=c colspan=5>Momentane Version</td></tr><tr>":((($Patchlevel[2] - 1) == $Rev)?"<td class=c colspan=5>Alte Updates</td></tr><tr>":""))."
+					<th>".$RevInfo['log']."</th></tr><tr>
 					<th>".(($Patchlevel[2] == $Rev)?"<font color=\"red\">":"")."Revision " . $Rev . " ".date("d. M y H:i:s", $RevInfo['timestamp'])." von ".$RevInfo['author'].(($Patchlevel[2] == $Rev)?"</font>":"")."</th></tr>
 					".((!empty($RevInfo['add']))?"<tr><td class=b>ADD:<br>".str_replace("/trunk/", "", implode("<br>\n", $RevInfo['add']))."</b></td></tr>":"")."
 					".((!empty($RevInfo['edit']))?"<tr><td class=b>EDIT:<br>".str_replace("/trunk/", "", implode("<br>\n", $RevInfo['edit']))."</b></td></tr>":"")."
