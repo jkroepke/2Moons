@@ -797,9 +797,15 @@ class ShowFleetPages extends FleetFunctions
 			die ($ResultMessage);
 		}
 		
-		if ($galaxy > MAX_GALAXY_IN_WORLD || $galaxy < 1 || $system > MAX_SYSTEM_IN_GALAXY || $system < 1)
+		if ($galaxy > MAX_GALAXY_IN_WORLD || $galaxy < 1)
 		{
 			$ResultMessage = "602; ".$lang['fa_galaxy_not_exist']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserMissiles;
+			die($ResultMessage);
+		}
+
+		if ($system > MAX_SYSTEM_IN_GALAXY || $system < 1)
+		{
+			$ResultMessage = "602; ".$lang['fa_system_not_exist']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserMissiles;
 			die($ResultMessage);
 		}
 
