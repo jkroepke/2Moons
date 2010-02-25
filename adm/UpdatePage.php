@@ -50,7 +50,7 @@ function exitupdate($conn_id, $Result){
 	{
 		$parse['planetes'] .= $content."<br>";
 	}
-	$parse['planetes'] .= "</th></tr>";
+	$parse['planetes'] .= "</th></tr><tr><td><a href='?'>Weiter</a></th></tr>";
 	
 	if(!empty($coon_id))
 		ftp_close($conn_id);		
