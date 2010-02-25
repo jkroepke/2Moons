@@ -58,7 +58,20 @@ function exitupdate($conn_id, $Result){
 	display(parsetemplate(gettemplate('adm/update_body'), $parse), false, '', true, false);
 	exit;
 }
+function killdir($conn_id, $Adresse) {
 
+	$DateienArray = ftp_nlist($conn_id, $Adresse);
+	$DateienAnzahl = count($DateienArray);
+	$k = 0;
+	for ($i=0;$i<$DateienAnzahl;$i++) {
+		$k++;
+		if (ftp_is_dir($conn_id, $Adresse)
+		{
+			killdir($conn_id, $Adresse."/".$DateienArray[$i]."/");
+		}
+	}
+	ftp_rmdir($conn_id,$Adresse);
+}
 
 	$Patchlevel	= explode(".",VERSION);
 	if($_REQUEST['history'] == 1)
@@ -132,14 +145,15 @@ function exitupdate($conn_id, $Result){
 					{
 						$db->multi_query(str_replace("prefix_", DB_PREFIX, file_get_contents($SVN_ROOT.$File)));
 						continue;
-					}
-					$Data = fopen($SVN_ROOT.$File, "r");
-					if (ftp_fput($conn_id, str_replace("/trunk/", "", $File), $Data, FTP_ASCII)) {
-						$Result['update'][$Rev][$File]	= "OK!";
 					} else {
-						$Result['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht updaten";
+						$Data = fopen($SVN_ROOT.$File, "r");
+						if (ftp_fput($conn_id, str_replace("/trunk/", "", $File), $Data, FTP_ASCII)) {
+							$Result['update'][$Rev][$File]	= "OK!";
+						} else {
+							$Result['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht updaten";
+						}
+						fclose($Data);
 					}
-					fclose($Data);
 				}
 				foreach($RevInfo['edit'] as $File)
 				{	
@@ -147,21 +161,26 @@ function exitupdate($conn_id, $Result){
 					{
 						$db->multi_query(str_replace("prefix_", DB_PREFIX, file_get_contents($SVN_ROOT.$File)));
 						continue;
-					}
-					$Data = fopen($SVN_ROOT.$File, "r");
-					if (ftp_fput($conn_id, str_replace("/trunk/", "", $File), $Data, FTP_ASCII)) {
-						$Result['update'][$Rev][$File]	= "OK!";
 					} else {
-						$Result['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht updaten";
+						$Data = fopen($SVN_ROOT.$File, "r");
+						if (ftp_fput($conn_id, str_replace("/trunk/", "", $File), $Data, FTP_ASCII)) {
+							$Result['update'][$Rev][$File]	= "OK!";
+						} else {
+							$Result['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht updaten";
+						}
+						fclose($Data);
 					}
-					fclose($Data);
 				}
 				foreach($RevInfo['del'] as $File)
 				{
-					if (ftp_delete($conn_id, str_replace("/trunk/", "", $File))) {
-						$Result['update'][$Rev][$File]	= "OK!";
+					if(!(strpos($file,".")!==false)) {
+						killdir($conn_id, $File);
 					} else {
-						$Result['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht updaten";
+						if (ftp_delete($conn_id, str_replace("/trunk/", "", $File))) {
+							$Result['update'][$Rev][$File]	= "OK!";
+						} else {
+							$Result['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht löschen";
+						}
 					}
 				}
 				$LastRev = $Rev;
