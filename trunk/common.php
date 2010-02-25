@@ -145,7 +145,9 @@ if (INSTALL != true)
 			{
 				$dpath     = (!$user["dpath"]) ? DEFAULT_SKINPATH : $user["dpath"];
 			}
-
+			
+			includeLang('TECH');
+			
 			require_once($xgp_root . 'includes/functions/SetSelectedPlanet.' . $phpEx);
 			SetSelectedPlanet ($user);
 
