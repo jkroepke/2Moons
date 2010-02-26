@@ -182,12 +182,16 @@ function killdir($conn_id, $Adresse) {
 					foreach($RevInfo['del'] as $File)
 					{
 						if(!(strpos($File, ".")!==false)) {
-							killdir($conn_id, $File);
+							if (killdir($conn_id, $File) {
+								$Result['update'][$Rev][$File]	= "OK! - Gel&ouml;scht";
+							} else {
+								$Result['update'][$Rev][$File]	= "ERROR! - Konnte Ordner nicht l&ouml;schen";
+							}
 						} else {
 							if (ftp_delete($conn_id, str_replace("/trunk/", "", $File))) {
-								$Result['update'][$Rev][$File]	= "OK! - Gelöscht";
+								$Result['update'][$Rev][$File]	= "OK! - Gel&ouml;scht";
 							} else {
-								$Result['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht löschen";
+								$Result['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht l&ouml;schen";
 							}
 						}
 					}
