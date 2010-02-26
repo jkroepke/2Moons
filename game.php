@@ -291,7 +291,7 @@ switch($page)
 		$template	= new template();
 		$template->page_header();
 		$template->page_footer();	
-		$template->display("logout_overview.tpl");
+		$template->show("logout_overview.tpl");
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	default:
