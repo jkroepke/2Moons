@@ -1,1 +1,1 @@
-ALTER TABLE `prefix__planets` ADD `thriller` BIGINT( 11 ) NOT NULL DEFAULT '0'; 
+ALTER TABLE `prefix_planets` ADD `thriller` BIGINT( 11 ) NOT NULL DEFAULT '0'; 
