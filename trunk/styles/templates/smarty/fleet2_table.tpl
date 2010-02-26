@@ -21,7 +21,7 @@
 <input type="hidden" name="thisresource2"   value="{$crystal}">
 <input type="hidden" name="thisresource3" 	value="{$deuterium}">
 <br>
-<div id="content">
+<div id="content" class="content">
     <table border="0" cellpadding="0" cellspacing="1" width="519" align="center">
         <tr align="left" style="height:20px;">
         	<td class="c" colspan="2">{$thisgalaxy}:{$thissystem}:{$thisplanet} - {if $thisplanet_type == 3}{$fl_moon}{else}{$fl_planet}{/if}</td>

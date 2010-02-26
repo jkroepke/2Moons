@@ -47,7 +47,6 @@ $lang          	= array();
 $link          	= "";
 $IsUserChecked 	= false;
 
-
 if(file_exists($xgp_root . 'config.php'))
 	require_once($xgp_root . 'config.'.$phpEx);
 
@@ -59,10 +58,12 @@ require_once($xgp_root . 'includes/vars.'.$phpEx);
 require_once($xgp_root . 'includes/classes/class.template.'.$phpEx);
 require_once($xgp_root . 'includes/classes/class.PlanetRessUpdate.'.$phpEx);
 
+isBuggyIe() || ob_start("ob_gzhandler");
+
 set_error_handler('msg_handler', E_ALL);
 
 if(function_exists('ini_set')) {
-	ini_set('display_errors', 1);
+	ini_set('display_errors', true);
 	ini_set('register_globals', "off");
 	ini_set('register_long_arrays', "off");
 }

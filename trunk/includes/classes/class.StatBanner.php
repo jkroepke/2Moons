@@ -21,7 +21,7 @@
 
 class StatBanner {
 
-	private $path = "cache/UserBanner/";
+	public $path = "cache/UserBanner/";
 	private $textcolor = "00FFFF";
 	private $source = "styles/images/banner.png";
 	
@@ -154,7 +154,6 @@ class StatBanner {
 			$this->BuildIMGforID($id);
 		}
 
-		header('Content-type: image/png'); 
 		$bild = ImageCreateFromPNG($this->path.$id.".png");
 		imagepng($bild);
 		imagedestroy($bild);

@@ -45,14 +45,6 @@ body
   background-attachment: fixed;
   background-repeat    : no-repeat;
   background-position  : top right;
-  scrollbar-arrow-color: #E6EBFB;
-  scrollbar-base-color: #344566;
-  scrollbar-track-color: #344566;
-  scrollbar-face-color: #344566;
-  scrollbar-highlight-color: #344566;
-  scrollbar-3dlight-color: #465673;
-  scrollbar-darkshadow-color: #344566;
-  scrollbar-shadow-color: #465673;
   font-size            : 14px;
   font-family          : Tahoma,sans-serif;
 }

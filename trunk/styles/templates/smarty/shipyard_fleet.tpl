@@ -1,7 +1,7 @@
 {include file="overall_header.tpl"}
 {include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
-<div id="content">
+<div id="content" class="content">
 	{if !$NotBuilding}<font color="red">{$bd_building_shipyard}</font><br>{/if}
 	{if $BuildList}
     <table width="80%" align="center">

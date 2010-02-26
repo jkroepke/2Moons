@@ -1,4 +1,60 @@
-#content {
+td.s
+{
+  color                : #E6EBFB;
+}
+
+table.s th
+{
+  border               : 0px;
+}
+
+table.s th img
+{
+  width                : 89px;
+  height               : 89px;
+}
+
+th, td.a, td.b, td.c, td.f, input, select,
+td.g, td.h, td.i, td.j, td.k, td.l, td.m,
+td.n, td.o, td.q, td.r, td.v, .style td,
+textarea, p td, table.s th img
+{
+  border               : 1px #415680 solid;
+  font-size            : 14px;
+  font-family          : Tahoma,sans-serif;
+}
+
+th, td.a, td.b, td.c, td.f, input, select, td.g,
+td.h, td.i, td.j, td.k, td.m, td.o, td.q, td.r,
+td.v, td.s, .style td, p td
+{
+  background-color     : #344566;
+}
+
+th
+{
+  text-align           : center;
+  padding-left         : 3px;
+  padding-right        : 3px;
+}
+
+td.a
+{
+  height               : 39px;
+  text-align           : center;
+}
+
+td.b
+{
+  padding              : 3px;
+}
+
+table table
+{
+  border               : 0px;
+}
+
+.content {
 overflow : visible;
 position : absolute;
 height: 504px;
@@ -140,19 +196,19 @@ background-repeat : repeat;
 background-position : top left;
 }
 th.s, td.s {
-background-image : url(img/bkd_bg.gif);
+background-image : url(img/bkd_bg.png);
 border : 1px solid #212121;
 }
 th, td.a, td.b, td.c, td.f, select, td.g, td.h, td.i, td.j, td.k, td.l, td.m, td.n, td.o, td.q, td.r, td.v, textarea, p td, body table td p {
 border : 1px solid #212121;
 font-size : 10px;
 font-family : Verdana, Tahoma, Helvetica, sans-serif;
-background-image : url(img/bkd_bg.gif);
+background-image : url(img/bkd_bg.png);
 background-repeat : repeat-x;
 padding : 2px;
 }
 td.l {
-background-image : url(img/bkd_title.gif);
+background-image : url(img/bkd_title.png);
 background-repeat : repeat-x;
 }
 table.s {
@@ -267,7 +323,7 @@ th {
 text-align : center;
 padding-left : 3px;
 padding-right : 3px;
-background-image : url(img/bkd_bg.gif);
+background-image : url(img/bkd_bg.png);
 background-repeat : repeat-x;
 }
 td.c {
@@ -277,7 +333,7 @@ color : #666666;
 padding-left : 3px;
 line-height : 18px;
 height : 22px;
-background-image : url(img/bkd_title.gif);
+background-image : url(img/bkd_title.png);
 }
 td.f, input, select, textarea {
 color : #cccccc;
@@ -308,7 +364,7 @@ body form table tr td table tr td.k {
 vertical-align : top;
 margin : 0;
 padding : 0;
-background-image : url(img/bkd_bg.gif);
+background-image : url(img/bkd_bg.png);
 background-repeat : repeat-x;
 }
 td.l {
@@ -316,7 +372,7 @@ background-color : #000000;
 color : #777777;
 vertical-align : top;
 padding : 2px;
-background-image : url(img/bkd_bg.gif);
+background-image : url(img/bkd_bg.png);
 background-repeat : repeat-x;
 line-height : 14px;
 }
@@ -348,7 +404,7 @@ background-color : #000000;
 }
 body table tr td table tr td.k {
 vertical-align : top;
-background-image : url(img/bkd_bg.gif);
+background-image : url(img/bkd_bg.png);
 background-repeat : repeat-x;
 padding-top : 2px;
 line-height : 16px;
@@ -432,7 +488,7 @@ tr span a {
 color : white;
 }
 
-div#content center {
+.content center {
 width : auto;
 }
 #header_top {
@@ -442,11 +498,6 @@ text-align : center;
 height : auto;
 overflow : hidden !important;
 text-align: center;
-}
-div#menu img[src="styles/skins/darkness/gfx/ogame-produktion.jpg"] {
-height : 0px;
-width : 0px;
-display : none;
 }
 body table tr td table tr td.l + td.l + td.l {
 text-align : center;

@@ -2,9 +2,8 @@
 {if !$ctype}
 {include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
-<div id="content">
+<div id="content" class="content">
 {/if}
-<script language="JavaScript" type="text/javascript" src="scripts/chat.js"></script>
 <form method="POST" name="chatform" id="chatform" action="javascript:check()">
 <input type="hidden" name="chat_type" value="{$ctype}">
 <br><br>

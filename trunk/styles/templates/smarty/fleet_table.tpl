@@ -1,7 +1,7 @@
 {include file="overall_header.tpl"}
 {include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
-<div id="content">
+<div id="content" class="content">
     <table width="519" border="0" cellpadding="0" cellspacing="1" align="center">
         <tr>
         	<td colspan="9" class="c">

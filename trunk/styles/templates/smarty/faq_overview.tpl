@@ -1,7 +1,7 @@
 {include file="overall_header.tpl"}
 {include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
-<div id="content">
+<div id="content" class="content">
 <table width="80%" align="center">
 <tbody>
 <tr><td class="c">{$faq_overview}</td></tr>

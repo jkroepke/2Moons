@@ -1,7 +1,7 @@
 {include file="overall_header.tpl"}
 {include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
-<div id="content">
+<div id="content" class="content">
 <table width="569" align="center">
 {foreach item=TechInfo from=$TechTreeList}
 {if !is_array($TechInfo)}

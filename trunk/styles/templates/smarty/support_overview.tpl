@@ -22,7 +22,7 @@ if(i != 0){animatedcollapse.show('newbutton');animatedcollapse.hide('new');}
 {/literal}
 </script>
 
-<div id="content">
+<div id="content" class="content">
 <table width="519" align="center">
 	<tr>
 		<td colspan="4" class="c" width="50%"><center>{$supp_header}</center></td>

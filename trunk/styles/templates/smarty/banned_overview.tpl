@@ -1,7 +1,7 @@
 {include file="overall_header.tpl"}
 {include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
-<div id="content">
+<div id="content" class="content">
     <table width="600" align="center">
     <tr>
         <td class="c" colspan="6">{$bn_players_banned_list}</td>
