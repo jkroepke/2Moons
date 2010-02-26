@@ -145,7 +145,7 @@ if (INSTALL != true)
 			}
 			else
 			{
-				$dpath     = (!$user["dpath"]) ? DEFAULT_SKINPATH : $user["dpath"];
+				$dpath     = empty($user["dpath"]) ? DEFAULT_SKINPATH : $user["dpath"];
 			}
 			
 			

@@ -1,19 +1,19 @@
 {include file="overall_header.tpl"}
 <script type="text/javascript">
 
-function check(){ldelim}
-	if(document.message.text.value == '') {ldelim}
+function check(){
+	if(document.message.text.value == '') {
 		alert('Gebe einen Text ein!');
 		return false;
-	{rdelim} else {ldelim}
+	} else {
 		$.post('game.php?page=messages&mode=write&id={$id}&send=1', $('#message').serialize());
 		alert('Nachricht gesendet');
 		window.close();
 		return true;
-	{rdelim}
-{rdelim}
+	}
+}
 </script>
-    <form name="message" id="message">
+    <form name="message" id="message" action="">
     <table width="95%" align="center">
     <tr>
         <td class="c" colspan="2">{$mg_send_new}</td>
