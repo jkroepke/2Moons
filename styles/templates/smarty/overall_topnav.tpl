@@ -1,4 +1,20 @@
 <div id="header_top">
+<script type="text/javascript">
+$(document).ready(function() {
+	met		= parseInt($("#current_metal").text().replace(/\./g,""));
+	cry		= parseInt($("#current_crystal").text().replace(/\./g,""));
+	deu 		= parseInt($("#current_deuterium").text().replace(/\./g,""));
+	met_max 	= "{$metal_max}".replace(/\./g,"");
+	cry_max 	= "{$crystal_max}".replace(/\./g,"");
+	deu_max 	= "{$deuterium_max}".replace(/\./g,"");
+	met_hr		= {$js_metal_hr};
+	cry_hr		= {$js_crystal_hr};
+	deu_hr		= {$js_deuterium_hr};
+	res_factor	= {$js_res_multiplier};
+
+	update();
+});
+</script>
 <center>
 <table class="header" align="center">
 <tr class="header">
@@ -68,4 +84,5 @@
 <table width="70%" id="infobox" style="border: 3px solid red; text-align:center;"><tr><td>{$tn_vacation_mode} {$vacation}</td></tr></table>
 {/if}
 </center>
+
 </div>

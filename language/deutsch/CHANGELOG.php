@@ -13,6 +13,7 @@ $lang['changelog']   = array(
 - ADD: Update System BETA
 - FIX: Phalax &amp; Interplanetarrakten Reichweite
 - FIX: Urlaubsmodus fixed
+- FIX: Haltende Flotten werden im Spiobericht dazugezählt.
 - FIX: Neues Kampfscript für Interplanetarraketeneinschläge
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game

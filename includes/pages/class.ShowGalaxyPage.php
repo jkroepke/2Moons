@@ -26,11 +26,11 @@ include_once($xgp_root . 'includes/classes/class.GalaxyRows.' . $phpEx);
 class ShowGalaxyPage extends GalaxyRows
 {
 
-	private function ShowGalaxyRows($Galaxy, $System, $HavePhalanx, $CurrentGalaxy, $CurrentSystem, $CurrentRC, $CurrentMIP, $CanDestroy)
+	private function ShowGalaxyRows($Galaxy, $System, $HavePhalanx, $CurrentGalaxy, $CurrentSystem, $CurrentRC, $CurrentMIP, $CanDestroy, $UserPoints)
 	{
 		global $dpath, $user, $xgp_root, $phpEx, $db, $lang;
 
-		$UserPoints    		= $db->fetch_array($db->query("SELECT total_points FROM ".STATPOINTS." WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $user['id'] ."';"));
+
 
 		$GalaxyPlanets		= $db->query("SELECT DISTINCT p.`planet`, p.`id`, p.`id_owner`, p.`name`, p.`image`, p.`diameter`, p.`temp_min`, p.`destruyed`, p.`der_metal`, p.`der_crystal`, p.`id_luna`, u.`id` as `userid`, u.`ally_id`, u.`username`, u.`onlinetime`, u.`urlaubs_modus`, u.`bana`, s.`total_points`, s.`total_rank`, a.`id` as `allyid`, a.`ally_tag`, a.`ally_members`, a.`ally_name`, allys.`total_rank` as `ally_rank` FROM ".PLANETS." p	LEFT JOIN ".USERS." u ON p.`id_owner` = u.`id` LEFT JOIN ".STATPOINTS." s ON s.`id_owner` = u.`id` AND s.`stat_type` = '1'	LEFT JOIN ".ALLIANCE." a ON a.`id` = u.`ally_id` LEFT JOIN ".STATPOINTS." allys ON allys.`stat_type` = '2' AND allys.`id_owner` = a.`id` WHERE p.`galaxy` = '".$Galaxy."' AND p.`system` = '".$System."' AND p.`planet_type` = '1' ORDER BY p.`planet` ASC;");
 		$planetcount		= 0;
@@ -102,8 +102,7 @@ class ShowGalaxyPage extends GalaxyRows
 		$CurrentGalaxy 	= $CurrentPlanet['galaxy'];
 		$CanDestroy    	= $CurrentPlanet[$resource[214]];
 		$maxfleet       = $db->num_rows($db->query("SELECT fleet_id FROM ".FLEETS." WHERE `fleet_owner` = '". $CurrentUser['id'] ."' AND `fleet_mission` != 10;"));
-
-
+		
 		$mode			= request_var('mode', 0);
 		$galaxyLeft		= request_var('galaxyLeft', '');
 		$galaxyRight	= request_var('galaxyRight', '');
@@ -151,7 +150,11 @@ class ShowGalaxyPage extends GalaxyRows
 		$template->page_topnav();
 		$template->page_leftmenu();
 		$template->page_planetmenu();
-		$template->page_footer();	
+		$template->page_footer();
+		$template->getstats();
+		
+		$UserPoints    	= $template->player['rank'];
+		
 		unset($reslist['defense'][array_search(502, $reslist['defense'])]);
 		$MissleSelector[0]	= $lang['gl_all_defenses'];
 		foreach($reslist['defense'] as $Element)
@@ -159,7 +162,7 @@ class ShowGalaxyPage extends GalaxyRows
 			$MissleSelector[$Element] = $lang['tech'][$Element];
 		}
 		
-		$Result	= $this->ShowGalaxyRows($galaxy, $system, $HavePhalanx, $CurrentGalaxy, $CurrentSystem, $CurrentRC, $CurrentMIP, $CanDestroy);
+		$Result	= $this->ShowGalaxyRows($galaxy, $system, $HavePhalanx, $CurrentGalaxy, $CurrentSystem, $CurrentRC, $CurrentMIP, $CanDestroy, $UserPoints);
 
 		$template->assign_vars(array(	
 			'GalaxyRows'				=> $Result['Result'],

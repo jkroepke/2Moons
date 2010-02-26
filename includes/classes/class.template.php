@@ -50,6 +50,11 @@ class template extends Smarty
 		$this->player['rank']		= $this->db->fetch_array($this->db->query("SELECT `total_rank`,`total_points` FROM ".STATPOINTS." WHERE `stat_code` = '1' AND `stat_type` = '1' AND `id_owner` = '". $this->player['id'] ."';"));
 	}
 	
+	public function getplanets()
+	{
+		$this->playerplanets		= SortUserPlanets($this->player);
+	}
+	
 	public function loadscript($script)
 	{
 		$this->script[]				= $script;
@@ -70,6 +75,9 @@ class template extends Smarty
 	
 	private function planetmenu()
 	{
+		if(empty($this->playerplanets))
+			$this->getplanets();
+		
 		foreach($this->playerplanets as $PlanetQuery)
 		{
 			$Planetlist[$PlanetQuery['id']]	= array(
@@ -94,6 +102,9 @@ class template extends Smarty
 	{
 		if(empty($this->player['rank']))
 			$this->getstats();
+			
+		if(empty($this->playerplanets))
+			$this->getplanets();
 		
 		foreach($this->playerplanets as $PlanetQuery)
 		{
@@ -153,9 +164,11 @@ class template extends Smarty
 	
 	private function topnav()
 	{
-		$this->playerplanets	= SortUserPlanets($this->player);
 		$this->phpself			= "?page=".request_var('page', '')."&amp;mode=".request_var('mode', '');
 		$this->loadscript("topnav.js");
+		if(empty($this->playerplanets))
+			$this->getplanets();
+		
 		foreach($this->playerplanets as $CurPlanetID => $CurPlanet)
 		{
 			$SelectorVaules[]	= $this->phpself."&amp;cp=".$CurPlanet['id']."&amp;re=0";
@@ -177,7 +190,7 @@ class template extends Smarty
 			'js_res_multiplier'	=> $this->GameConfig['resource_multiplier'],
 			'current_panet'		=> $this->phpself."&amp;cp=".$this->player['current_planet']."&amp;re=0",
 			'tn_vacation_mode'	=> $this->lang['tn_vacation_mode'],
-			'vacation'			=> $this->player['urlaubs_modus'] ? date('d.m.Y h:i:s',$this->player['urlaubs_until']) : false,
+			'vacation'			=> $this->player['urlaubs_modus'] ? date('d.m.Y H:i:s',$this->player['urlaubs_until']) : false,
 			'delete'			=> $this->player['db_deaktjava'] ? sprintf($this->lang['tn_delete_mode'], date('d. M Y\, h:i:s',$this->player['db_deaktjava'] + (60 * 60 * 24 * 7))) : false,
 			'image'				=> $this->planet['image'],
 			'SelectorVaules'	=> $SelectorVaules,

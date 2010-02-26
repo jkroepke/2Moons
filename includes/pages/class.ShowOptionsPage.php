@@ -116,7 +116,7 @@ class ShowOptionsPage
 						exit;
 					}
 					
-					$time = time() + 86400;
+					$time = time() + VACATION_MIN_TIME;
 					$SQLQuery	.= "UPDATE ".USERS." SET `urlaubs_modus` = '1', `urlaubs_until` = '".$time."' WHERE `id` = '".$CurrentUser["id"]."' LIMIT 1;";
 
 					$query = $db->query("SELECT `id` FROM ".PLANETS." WHERE `id_owner` = '".$CurrentUser['id']."';");
@@ -208,7 +208,7 @@ class ShowOptionsPage
 				if($CurrentUser['urlaubs_modus'] == 1)
 				{
 					$template->assign_vars(array(	
-						'vacation_until'					=> date("d.m.Y G:i:s",$CurrentUser['urlaubs_until']),
+						'vacation_until'					=> date("d.m.Y H:i:s",$CurrentUser['urlaubs_until']),
 						'op_save_changes'					=> $lang['op_save_changes'],
 						'op_end_vacation_mode'				=> $lang['op_end_vacation_mode'],
 						'op_vacation_mode_active_message'	=> $lang['op_vacation_mode_active_message'],

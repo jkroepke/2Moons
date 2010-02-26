@@ -44,7 +44,7 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	define('USE_NEW_BATTLE_ENGINE'	  , false);
 	
 	// NUMBER OF COLUMNS FOR SPY REPORTS
-	define('SPY_REPORT_ROW'           , 3);
+	define('SPY_REPORT_ROW'           , 2);
 
 	// FIELDS FOR EACH LEVEL OF THE LUNAR BASE
 	define('FIELDS_BY_MOONBASIS_LEVEL', 3);
@@ -79,10 +79,12 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	
 	// INITIAL RESOURCE OF NEW PLANETS
 	
-	define('BUILD_METAL'              ,    500);
-	define('BUILD_CRISTAL'            ,    500);
-	define('BUILD_DEUTERIUM'          , 	 0);
+	define('BUILD_METAL'              ,     500);
+	define('BUILD_CRISTAL'            ,     500);
+	define('BUILD_DEUTERIUM'          ,       0);
 	
+	
+	define('VACATION_MIN_TIME'		  , 1728000);
 	//DISCLAMER INFOS
 
 	define('DICLAMER_NAME'            , "Edit constans.php!");
