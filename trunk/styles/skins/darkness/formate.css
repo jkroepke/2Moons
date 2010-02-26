@@ -186,6 +186,9 @@ border : 1px solid #212121;
 text-align : center;
 width : 60px;
 }
+td.l input {
+width : auto;
+}
 td.c input {
 margin : 0;
 }
