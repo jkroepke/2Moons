@@ -21,7 +21,7 @@
 				<table border="0" cellpadding="0" cellspacing="0">
 					<tbody>
 						<tr>
-							<td style="text-align:left;width:10px"><img src="./styles/images/transparent.gif" alt="" width="0" height="100"></td>
+							<td style="text-align:left;width:10px"><img src="./styles/images/transparent.gif" alt="" style="width:10px;height:100px"></td>
 							<td style="text-align:left;width:90%">{$ExtraDMInfo.desc}<br><br>{$Darkmatter}: {if $ExtraDMInfo.isok}<font color="lime">{$ExtraDMInfo.price}</font>{else}<font color="#FF0000">{$ExtraDMInfo.price}</font>{/if} {$in_dest_durati}: <font color="lime">{$ExtraDMInfo.time}</font></td>
 							<td style="text-align:center;vertical-align:middle;width:100px;color:#FFFFFF">
 							{if $ExtraDMInfo.active > 0}

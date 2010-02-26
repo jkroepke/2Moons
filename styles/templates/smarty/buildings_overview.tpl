@@ -26,7 +26,7 @@
 				<table border="0" cellpadding="0" cellspacing="0">
 					<tbody>
 						<tr>
-							<td style="text-align:left;width:10px"><img src="./styles/images/transparent.gif" alt="" width="0" height="100"></td>
+							<td style="text-align:left;width:10px"><img src="./styles/images/transparent.gif" alt="" style="width:10px;height:100px"></td>
 							<td style="text-align:left;width:90%">{$BuildInfoRow.descriptions}<br><br>{$BuildInfoRow.price}</td>
 							<td style="text-align:center;vertical-align:middle;width:100px">
 							{$BuildInfoRow.BuildLink}
