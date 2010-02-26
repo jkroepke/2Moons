@@ -384,6 +384,8 @@ function msg_handler($errno, $msg_text, $errfile, $errline)
 
 		break;
 		case E_USER_ERROR:
+			@ob_flush();
+			@ob_start();
 			echo '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">';
 			echo '<html>';
 			echo '<head>';
@@ -413,6 +415,8 @@ function msg_handler($errno, $msg_text, $errfile, $errline)
 			exit;
 		break;
 		case E_USER_NOTICE:
+			@ob_flush();
+			@ob_start();
 			echo '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">';
 			echo '<html>';
 			echo '<head>';
@@ -556,6 +560,21 @@ function GetRealHostName()
 function CheckName($String)
 {
 	return(ctype_alnum($String) || UTF8_SUPPORT) ? true : false;
+}
+
+function isBuggyIe() {
+    $ua = $_SERVER['HTTP_USER_AGENT'];
+    // quick escape for non-IEs
+    if (0 !== strpos($ua, 'Mozilla/4.0 (compatible; MSIE ')
+        || false !== strpos($ua, 'Opera')) {
+        return false;
+    }
+    // no regex = faaast
+    $version = (float)substr($ua, 30);
+    return (
+        $version < 6
+        || ($version == 6  && false === strpos($ua, 'SV1'))
+    );
 }
 
 ?>

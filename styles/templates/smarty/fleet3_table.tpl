@@ -1,7 +1,7 @@
 {include file="overall_header.tpl"}
 {include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
-<div id="content">
+<div id="content" class="content">
 <table border="0" cellpadding="0" cellspacing="1" width="519" align="center">
 	<tr style="height:20px">
 		<td class="c" colspan="2"><span class="success">{$fl_fleet_sended}</span></td>

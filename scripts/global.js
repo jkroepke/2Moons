@@ -101,20 +101,23 @@ function maxcount(id){
 }
 
 
-function tsdpkt(f) {
-  r = "";
-  vz = "";
-  if (f < 0) { vz = "-"; }
-  f = abs(f);
-  r = f % 1000;
-  while (f >= 1000){
-    k1 = "";
-    if ((f % 1000) < 100) { k1 = "0"; }
-    if ((f % 1000) < 10) { k1 = "00"; }
-    if ((f % 1000) == 0) { k1 = "00"; }
-    f = abs((f-(f % 1000)) / 1000);
-    r = f % 1000 + "." + k1 + r;
-  }
-  r = vz + r;
-  return r;
+function number_format(n) {
+    ns = String(n).replace('.', ',');
+    var w = [];
+    while (ns.length > 0) {
+        var a = ns.length;
+        if (a >= 3) {
+            s = ns.substr(a - 3);
+            ns = ns.substr(0, a - 3);
+        } else {
+            s = ns;
+            ns = "";
+        }
+        w.push(s);
+    }
+    for (i = w.length - 1; i >= 0; i--) {
+        ns += w[i] + ".";
+    }
+    ns = ns.substr(0, ns.length - 1);
+    return ns.replace(/\.,/, ',');
 }

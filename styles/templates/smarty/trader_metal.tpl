@@ -5,7 +5,7 @@
 res_a = {$mod_ma_res_a};
 res_b = {$mod_ma_res_b};
 </script>
-<div id="content">
+<div id="content" class="content">
     <form id="trader" action="" method="post">
     <input type="hidden" name="ress" value="metal">
     <input type="hidden" name="action" value="trade">

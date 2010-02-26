@@ -15,7 +15,7 @@
 	<input type="hidden" name="fleet_group"     	value="0"     onChange="shortInfo()" onKeyUp="shortInfo()">
     <input type="hidden" name="acs_target_mr"   	value="0:0:0" onChange="shortInfo()" onKeyUp="shortInfo()">
     {$inputs}
-    <div id="content">
+    <div id="content" class="content">
     	<table width="519" border="0" cellpadding="0" cellspacing="1" align="center">
         	<tr style="height:20px;">
         		<td colspan="2" class="c">{$fl_send_fleet}</td>

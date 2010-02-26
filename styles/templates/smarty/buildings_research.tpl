@@ -1,7 +1,7 @@
 {include file="overall_header.tpl"}
 {include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
-<div id="content">
+<div id="content" class="content">
     {if $IsLabinBuild}<font color="#ff0000">{$bd_building_lab}</font>{/if}
         <table width="80%" align="center">
 		{foreach item=ResearchInfoRow from=$ResearchList}

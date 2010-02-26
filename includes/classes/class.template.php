@@ -41,8 +41,13 @@ class template extends Smarty
 		$this->GameConfig			= $GLOBALS['game_config'];
 		
 		$this->script				= array();
-		
+		$this->page					= array();
 		$this->setheader();
+	}
+	
+	public function getstats()
+	{
+		$this->player['rank']		= $this->db->fetch_array($this->db->query("SELECT `total_rank`,`total_points` FROM ".STATPOINTS." WHERE `stat_code` = '1' AND `stat_type` = '1' AND `id_owner` = '". $this->player['id'] ."';"));
 	}
 	
 	public function loadscript($script)
@@ -56,13 +61,14 @@ class template extends Smarty
 		$this->player				= $CurrentUser;
 	}
 	
-	public function assign_vars($assign){
+	public function assign_vars($assign)
+	{
 		foreach($assign as $AssignName => $AssignContent) {
 			$this->assign($AssignName, $AssignContent);
 		}
 	}
 	
-	public function page_planetmenu()
+	private function planetmenu()
 	{
 		foreach($this->playerplanets as $PlanetQuery)
 		{
@@ -84,15 +90,17 @@ class template extends Smarty
 		));
 	}
 	
-	public function page_leftmenu()
+	private function leftmenu()
 	{
+		if(empty($this->player['rank']))
+			$this->getstats();
+		
 		foreach($this->playerplanets as $PlanetQuery)
 		{
 			$SQLQuery[]	= "(`fleet_end_galaxy` = '".$PlanetQuery['galaxy']."' AND `fleet_end_system` = '".$PlanetQuery['system']."' AND `fleet_end_planet` = '".$PlanetQuery['planet']."' AND `fleet_end_type` = '".$PlanetQuery['planet_type']."')";
 		}
-
 		$this->player['fleets']	= $this->db->fetch_array($this->db->query("SELECT COUNT(*) as `count` FROM ".FLEETS." WHERE (`fleet_mission` = '1' OR `fleet_mission` = '2' OR `fleet_mission` = '6' OR `fleet_mission` = '9') AND (".implode(' OR ', $SQLQuery).");"));
-		$this->player['rank']	= $this->db->fetch_array($this->db->query("SELECT `total_rank`,`total_points` FROM ".STATPOINTS." WHERE `stat_code` = '1' AND `stat_type` = '1' AND `id_owner` = '". $this->player['id'] ."';"));
+			
 		$BoardURL				= $this->GameConfig['forum_url'].'" target="forum';
 		$RulesURL				= 'index.php?page=rules" target="forum';
 		$Menu					= array(
@@ -143,11 +151,11 @@ class template extends Smarty
 		));
 	}
 	
-	public function page_topnav()
+	private function topnav()
 	{
 		$this->playerplanets	= SortUserPlanets($this->player);
 		$this->phpself			= "?page=".request_var('page', '')."&amp;mode=".request_var('mode', '');
-		
+		$this->loadscript("topnav.js");
 		foreach($this->playerplanets as $CurPlanetID => $CurPlanet)
 		{
 			$SelectorVaules[]	= $this->phpself."&amp;cp=".$CurPlanet['id']."&amp;re=0";
@@ -182,21 +190,21 @@ class template extends Smarty
 		));
 	}
 	
-	public function page_header()
+	private function header()
 	{
 		global $dpath;
 		$this->assign_vars(array(
 			'title'		=> $this->GameConfig['game_name'],
 			'dpath'		=> (isset($dpath)) ? $dpath : DEFAULT_SKINPATH,
 			'is_pmenu'	=> $this->player['settings_planetmenu'],
-			'scripts'	=> $this->script,
 		));
 	}
 	
-	public function page_footer()
+	private function footer()
 	{
 		$this->assign_vars(array(
 			'cron'		=> ((time() >= ($this->GameConfig['stat_last_update'] + (60 * $this->GameConfig['stat_update_time']))) ? "<img src=\"cronjobs.php?cron=stats\" alt=\"\" height=\"1\" width=\"1\">" : "").((time() >= ($this->GameConfig['stat_last_db_update'] + (60 * 60 * 24))) ? "<img src=\"cronjobs.php?cron=opdb\" alt=\"\" height=\"1\" width=\"1\">" : ""),
+			'scripts'	=> $this->script,
 		));
 	}
 	
@@ -236,12 +244,53 @@ class template extends Smarty
 			header('Pragma: no-cache');
 			header('Cache-Control: private, no-store, no-cache, must-revalidate, max-age=0');
 			header('Cache-Control: post-check=0, pre-check=0', false); 
-			#header('X-UA-Compatible: IE=EmulateIE7'); 
+			header('Content-Encoding: gzip');
+			header('X-UA-Compatible: IE=100'); 
 		}
+	}
+	
+	public function page_header()
+	{
+		$this->page['header']		= true;
+	}
+	
+	public function page_topnav()
+	{
+		$this->page['topnav']		= true;
+	}
+	
+	public function page_leftmenu()
+	{
+		$this->page['leftmenu']		= true;
+	}
+	
+	public function page_planetmenu()
+	{
+		$this->page['planetmenu']	= true;
+	}
+	
+	public function page_footer()
+	{
+		$this->page['footer']		= true;
 	}
 	
 	public function show($file)
 	{
+		if($this->page['header'] == true)
+			$this->header();
+			
+		if($this->page['topnav'] == true)
+			$this->topnav();
+			
+		if($this->page['leftmenu'] == true)
+			$this->leftmenu();
+			
+		if($this->page['planetmenu'] == true)
+			$this->planetmenu();
+			
+		if($this->page['footer'] == true)
+			$this->footer();
+
 		$this->assign_vars(array(
 			'sql_num'	=> ((!defined('INSTALL') || !defined('IN_ADMIN')) && $this->player['authlevel'] == 3 && $this->GameConfig['debug'] == 1) ? "<center><div id=\"footer\">SQL Abfragen:".(1 + $this->db->get_sql())." - Seiten generiert in ".round(microtime(true) - STARTTIME, 4)." Sekunden</div></center>" : "",
 		));

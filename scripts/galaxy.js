@@ -18,7 +18,7 @@ function whenResponse () {
 	else
 		addToTable("Geht Nisch!", "error");
 	
-	changeSlots(1);
+	changeSlots(UsedSlots);
 	setShips("probes", SpyProbes );
 	setShips("recyclers", Recyclers );
 	setShips("missiles", Missiles );
@@ -34,11 +34,7 @@ function doit (order, galaxy, system, planet, planettype, shipcount) {
 	ajax.setVar("planettype", planettype);
 	if (order == 6)
 		ajax.setVar("ship210", shipcount);
-	if (order == 7) {
-		ajax.setVar("ship208", 1);
-		ajax.setVar("ship203", 2);
-	}
-	if (order == 8)
+	else if (order == 8)
 		ajax.setVar("ship209", shipcount);
 	ajax.runAJAX();
 }
@@ -65,10 +61,10 @@ function addToTable(strDataResult, strClass) {
 	row.appendChild(td2);
 }
 function changeSlots(add) {
-	$('#slots').text(parseInt($('#slots').text()) + add);
+	$('#slots').text(add);
 }
 function setShips(ship, count) {
-	$('#'+ship).text(tsdpkt(count));
+	$('#'+ship).text(number_format(count));
 }
 
 function galaxy_submit(value) {
