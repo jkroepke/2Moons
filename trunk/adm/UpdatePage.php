@@ -181,8 +181,9 @@ function killdir($conn_id, $Adresse) {
 				{
 					foreach($RevInfo['del'] as $File)
 					{
-						if(!(strpos($File, ".")!==false)) {
-							if (killdir($conn_id, $File) {
+						if(!(strpos($File, ".")!==false))
+						{
+							if (killdir($conn_id, $File)) {
 								$Result['update'][$Rev][$File]	= "OK! - Gel&ouml;scht";
 							} else {
 								$Result['update'][$Rev][$File]	= "ERROR! - Konnte Ordner nicht l&ouml;schen";
