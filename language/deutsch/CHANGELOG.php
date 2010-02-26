@@ -11,9 +11,12 @@ $lang['changelog']   = array(
 - ADD: DM BANK
 - ADD: Koords werden nicht mehr in der HoF angezeigt.
 - ADD: Update System BETA
+- ADD: Admin in Statistiken ausblendbar
 - FIX: Phalax &amp; Interplanetarrakten Reichweite
 - FIX: Urlaubsmodus fixed
 - FIX: Haltende Flotten werden im Spiobericht dazugezählt.
+- FIX: Anzeige der Canche der Mondzerstörung
+- FIX: Admins in Rekorden
 - FIX: Neues Kampfscript für Interplanetarraketeneinschläge
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game

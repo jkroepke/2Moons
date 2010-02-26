@@ -196,6 +196,7 @@ switch ($page) {
 				$QryInsertUser .= "`email_2` = '" . $UserMail . "', ";
 				$QryInsertUser .= "`ip_at_reg` = '" . $UserIP . "', ";
 				$QryInsertUser .= "`id_planet` = '0', ";
+				$QryInsertUser .= "`onlinetime` = '" . time () . "', ";
 				$QryInsertUser .= "`register_time` = '" . time () . "', ";
 				$QryInsertUser .= "`password` = '" . $UserPass . "', ";
 				$QryInsertUser .= "`dpath` = '" . DEFAULT_SKINPATH . "', ";
