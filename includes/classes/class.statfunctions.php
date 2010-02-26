@@ -347,11 +347,7 @@ class Statbuilder {
 			//Here we start the update...
 			while ($CurUser = $db->fetch($total_data))
 			{
-				if(isset($CheckArray[$CurUser['id']]))
-					continue;
-				else
-					$CheckArray[$CurUser['id']]	= 1;
-				
+			
 				$u_OldTotalRank = (($old_stats_array[$CurUser['id']]['old_total_rank'])? $old_stats_array[$CurUser['id']]['old_total_rank']:0);
 				$u_OldTechRank  = (($old_stats_array[$CurUser['id']]['old_tech_rank'])? $old_stats_array[$CurUser['id']]['old_tech_rank']:0);
 				$u_OldBuildRank = (($old_stats_array[$CurUser['id']]['old_build_rank'])? $old_stats_array[$CurUser['id']]['old_build_rank']:0);
