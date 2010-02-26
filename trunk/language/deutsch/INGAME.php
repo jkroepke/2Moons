@@ -866,12 +866,12 @@ $lang['sys_perte_defenseur'] 				= "Verluste Verteidiger";
 $lang['sys_debris'] 						= "Trümmerfeld";
 $lang['sys_destruc_title']       		   	= "Folgende Flotten stehen sich zur Mondzerstörung gegenüber:";
 $lang['sys_mess_destruc_report']  		  	= "Bericht: Zerstörung eines Mondes";
-$lang['sys_destruc_lune']          		 	= "Die Wahrscheinlichkeit einer Mondzerstörung beträgt : %d %% ";
+$lang['sys_destruc_lune']          		 	= "Die Wahrscheinlichkeit einer Mondzerstörung beträgt: %d%% ";
 $lang['sys_destruc_rip']          			= "";
 $lang['sys_destruc_stop']      			 	= "Der Verteidiger hat die Mondzerstörung erfolgreich abgeblockt.";
 $lang['sys_destruc_mess1']       		   	= "Die Todessterne richten ihre gewaltigen Energien auf den Mond.";
 $lang['sys_destruc_mess']        		   	= "Eine Flotte vom Planeten %s [%d:%d:%d] erreicht den Mond bei [%d:%d:%d].";
-$lang['sys_destruc_echec']       		   	= "Erdbeben erschüttern den Planeten. Doch etwas geht schief: Die Todessterne explodieren und zerfallen in tausende Einzelteile. Die Druckwelle erreicht die komplette Flotte.";
+$lang['sys_destruc_echec']       		   	= "Erdbeben erschüttern den Planeten. Doch etwas geht schief: Die Todessterne explodieren und zerfallen in tausende Einzelteile. <br>Die Druckwelle erreicht die komplette Flotte.";
 $lang['sys_destruc_reussi']      		   	= "<br>Die Strahlen der Todessterne erreichen den Mond und zerfetzen ihn.<br>Der gesamte Mond wurde zerstört.<br> Mission erfolgreich beendet.<br> Die Flotte kehrt nun zurück.";
 $lang['sys_destruc_null']        		   	= "Die Todessterne können ihre volle Leistung nicht aufBauen und implodieren.<br> Der Mond wird nicht zerstört.";
 

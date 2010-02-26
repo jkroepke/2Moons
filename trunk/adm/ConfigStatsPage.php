@@ -67,7 +67,7 @@ if ($ConfigGame != 1) die();
 	else
 	{
 		$selected					=	"selected=\"selected\"";
-		$stat						=	(($game_config['stat'] == 1)? 'sel_sta0':'sel_sta1');
+		$stat						=	(($game_config['stat'] == 0)?'sel_sta0':(($game_config['stat'] == 1)?'sel_sta1':'sel_sta2'));
 		$lang[$stat]				=	$selected;
 		$stat_fly					=	(($game_config['stat_flying'] == 1)? 'sel_sf1':'sel_sf0');
 		$lang[$stat_fly]			=	$selected;

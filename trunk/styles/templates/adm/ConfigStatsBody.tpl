@@ -28,8 +28,9 @@
     <tr>
       <th>{cs_points_to_zero}</th>
       <th><select name="stat" id="stat">
-          <option value="0" {sel_sta1}>{cs_yes}</option>
-          <option value="1" {sel_sta0}>{cs_no}</option>
+          <option value="1" {sel_sta1}>{cs_yes}</option>
+          <option value="2" {sel_sta2}>{cs_no_view}</option>
+          <option value="0" {sel_sta0}>{cs_no}</option>
       </select></th>
     </tr>
     <tr>

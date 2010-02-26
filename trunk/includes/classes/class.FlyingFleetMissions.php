@@ -500,7 +500,7 @@ abstract class FlyingFleetMissions {
                     $totalResourcePoints['defender'] -= $pricelist[$element]['crystal'] * $amount ;
                                                                                     
                     $lost = $originalDef[$element] - $amount;
-                    $giveback = round($lost * (rand(70*0.8, 70*1.2) / 100));
+                    $giveback = round($lost * (mt_rand(70*0.8, 70*1.2) / 100));
                     $defenders[$fleetID]['def'][$element] += $giveback;
                     $resourcePointsDefenderDefs['metal'] += $pricelist[$element]['metal'] * ($lost - $giveback) ;
                     $resourcePointsDefenderDefs['crystal'] += $pricelist[$element]['crystal'] * ($lost - $giveback) ;
@@ -1951,8 +1951,8 @@ abstract class FlyingFleetMissions {
 				$GetSB		  	 .= $TargetTechnInfo['String'];
 			}
 
-			$TargetChances = (!isset($Count['Fleet']) || ($Count['Fleet'] != 0 && $Count['Def'] != 0)) ? rand(0, max(($LS/4) * ($TargetSpyLvl / $CurrentSpyLvl), 100)) : 0;
-			$SpyerChances  = rand(0, 100);
+			$TargetChances = (!isset($Count['Fleet']) || ($Count['Fleet'] != 0 && $Count['Def'] != 0)) ? mt_rand(0, max(($LS/4) * ($TargetSpyLvl / $CurrentSpyLvl), 100)) : 0;
+			$SpyerChances  = mt_rand(0, 100);
 			
 			if ($TargetChances >= $SpyerChances)
 				$DestProba = "<font color=\"red\">".$lang['sys_mess_spy_destroyed']."</font>";
@@ -2415,17 +2415,19 @@ abstract class FlyingFleetMissions {
 						$QryUpdateTarget .= "`planet_type` = '". $FleetRow['fleet_end_type'] ."' ";
 						$QryUpdateTarget .= "LIMIT 1;";
 						$db->query($QryUpdateTarget);
-						var_dump($targetPlanet['diameter'], $attackFleets[$FleetRow['fleet_id']]['detail'][214]);
-						$destructionl2 = (100-sqrt($targetPlanet['diameter']))*sqrt($attackFleets[$FleetRow['fleet_id']]['detail'][214]);
-						// Formel für min. Anzahl an Todessternen. Hat jmd. ne gute Formel? :D
-						// $mints = (pow((1 / (1-sqrt($targetPlanet['diameter']) / 100)),2))*10;
-						// $destructionl2 = max($destructionl1,$mints);
+						$destructionl2 	= round((100 - sqrt($targetPlanet['diameter'])) * sqrt($attackFleets[$FleetRow['fleet_id']]['detail'][214]), 1);
+						$chance2  		= round(sqrt($TargetPlanet['diameter'])/2);                 
+						
 						if ($destructionl2 > 100) {
-							$chance = '100';
+							$chance = 100;
 						} elseif ($destructionl2 < 0) {
-							$chance = '0';
+							$chance = 0;
+						} else {
+							$chance = $destructionl2;
 						}
-						$tirage = mt_rand(0, 100);
+						$tirage 		= mt_rand(0, 100);
+						$tirage2  		= mt_rand(0, 100);
+
 						if($tirage <= $chance)   {
 							$db->query("DELETE FROM ".PLANETS." WHERE `id` = '". $targetPlanet['id'] ."';");
 							$Qrydestructionlune2  = "UPDATE ".PLANETS." SET ";
@@ -2440,9 +2442,7 @@ abstract class FlyingFleetMissions {
 							$destext .= sprintf ($lang['sys_destruc_lune'], $chance) ."<br>";
 							$destext .= $lang['sys_destruc_mess1'];
 							$destext .= $lang['sys_destruc_reussi'];
-					        $destructionrip = sqrt($TargetPlanet['diameter'])/2;
-							$chance2  = round($destructionrip);                 
-							$tirage2  = mt_rand(0, 100);
+
 							$probarip = sprintf ($lang['sys_destruc_rip'], $chance2);
 							if($tirage2 <= $chance2) {
 								$destext .= $lang['sys_destruc_echec'];
@@ -2694,7 +2694,7 @@ abstract class FlyingFleetMissions {
 				$FleetUsedCapacity  = $FleetRow['fleet_resource_metal'] + $FleetRow['fleet_resource_crystal'] + $FleetRow['fleet_resource_deuterium'] + $FleetRow['fleet_resource_darkmatter'];
 				$FleetCapacity     -= $FleetUsedCapacity;
 				$FleetCount 		= $FleetRow['fleet_amount'];
-				$Hasard 			= rand(0, 10);
+				$Hasard 			= mt_rand(0, 10);
 				$MessSender 		= $lang['sys_mess_qg']. "(".$Hasard.")";
 
 				if ($Hasard < 3)
@@ -2734,11 +2734,11 @@ abstract class FlyingFleetMissions {
 					{
 						$MinCapacity = $FleetCapacity - 5000;
 						$MaxCapacity = $FleetCapacity;
-						$FoundGoods  = rand($MinCapacity, $MaxCapacity);
+						$FoundGoods  = mt_rand($MinCapacity, $MaxCapacity);
 						$FoundMetal  = intval($FoundGoods / 2);
 						$FoundCrist  = intval($FoundGoods / 4);
 						$FoundDeute  = intval($FoundGoods / 6);
-						$FoundDark   = rand(1, 486);
+						$FoundDark   = mt_rand(1, 486);
 
 						$QryUpdateFleet  = "UPDATE ".FLEETS." SET ";
 						$QryUpdateFleet .= "`fleet_resource_metal` = `fleet_resource_metal` + '". $FoundMetal ."', ";
@@ -2819,13 +2819,13 @@ abstract class FlyingFleetMissions {
 		global $lang, $db;
 		if ($FleetRow['fleet_mess'] == 0 && $FleetRow['fleet_end_stay'] < time())
 		{
-			$chance 		= rand(0, 100);
-			if($chance < 20 + $FleetRow['fleet_amount'] * 0.05) {
-				$FoundDark 	= rand(423, 1278);
+			$chance 		= mt_rand(0, 100);
+			if($chance <= 20 + $FleetRow['fleet_amount'] * 0.05) {
+				$FoundDark 	= mt_rand(423, 1278);
 				$Message 	= sprintf($lang['sys_expe_found_goods'], 0, $lang['Metal'], 0, $lang['Crystal'], 0, $lang['Deuterium'], pretty_number($FoundDark), $lang['Darkmatter']);
 			} else {
 				$FoundDark 	= 0;
-				$Message 	= $lang['sys_expe_nothing_'.rand(1, 2)];
+				$Message 	= $lang['sys_expe_nothing_'.mt_rand(1, 2)];
 			}
 
 			$db->query("UPDATE ".FLEETS." SET `fleet_mess` = '1',`fleet_resource_darkmatter` = `fleet_resource_darkmatter` + '". $FoundDark ."' WHERE `fleet_id` = '". $FleetRow['fleet_id'] ."';");			

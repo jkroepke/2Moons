@@ -283,12 +283,13 @@ $lang['cs_point_per_resources_used']		= 'Worth of 1 point statistical';
 $lang['cs_resources']						= 'resources';
 $lang['cs_users_per_block']					= 'Users per block (min. 10)';
 $lang['cs_fleets_on_block']					= 'Update fleets in block';
-$lang['cs_yes']								= 'JA'; //
-$lang['cs_no']								= 'NEIN'; //
+$lang['cs_yes']								= 'Ja'; //
+$lang['cs_no']								= 'Nein'; //
+$lang['cs_no_view']							= 'Admins ausblenden'; //
 $lang['cs_time_between_updates']			= 'Time between updates of statistics';
 $lang['cs_minutes']							= 'Minuten'; //
-$lang['cs_points_to_zero']					= 'Points to "0"';
-$lang['cs_access_lvl']						= 'Access level';
+$lang['cs_points_to_zero']					= 'Administratoren 0 Punkte geben';
+$lang['cs_access_lvl']						= '... ab Authlevel';
 $lang['cs_save_changes']					= '&Auml;nderung speichern'; //
 $lang['cs_timeact_1']						= 'Letztes Update war: '; //
 
