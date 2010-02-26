@@ -42,11 +42,6 @@ switch($page)
 		ShowChangelogPage($user, $planetrow);
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
-	case 'overview':
-		include_once($xgp_root . 'includes/pages/ShowOverviewPage.' . $phpEx);
-		ShowOverviewPage($user, $planetrow);
-	break;
-// ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'galaxy':
 
 		$query = $db->fetch_array($db->query("SELECT estado FROM ".MODULE." WHERE modulo='Galaxie';"));
@@ -294,8 +289,11 @@ switch($page)
 		$template->show("logout_overview.tpl");
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
+	case 'overview':
 	default:
-		die(message($lang['page_doesnt_exist']));
+		include_once($xgp_root . 'includes/pages/ShowOverviewPage.' . $phpEx);
+		ShowOverviewPage($user, $planetrow);
+	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 }
 ?>
