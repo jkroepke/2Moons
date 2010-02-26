@@ -43,13 +43,13 @@
         <tr>
         	<th>{if $Moon}<a href="game.php?page=overview&amp;cp={$Moon.id}&amp;re=0" title="{$Moon.name}"><img src="{$dpath}planeten/mond.jpg" height="50" width="50" alt="{$Moon.name} ({$fcm_moon})"></a><br>{$Moon.name} ({$fcm_moon}){else}&nbsp;{/if}</th>
         	<th colspan="2"><img src="{$dpath}planeten/{$planetimage}.jpg" height="200" width="200" alt="{$planetname}"><br>{$build}</th>
-        	<th class="s">
+        	<th>
             {if $AllPlanets}
 			<table class="s" border="0" align="center">
 			{foreach name=PlanetList item=PlanetRow from=$AllPlanets}
 			{if $smarty.foreach.PlanetList.iteration is odd}<tr style="height:20px;">{/if}			
-			<th style="background-color:transparent;background-image:none;">{$PlanetRow.name}<br><a href="game.php?page=overview&amp;cp={$PlanetRow.id}&amp;re=0" title="{$PlanetRow.name}"><img src="styles/skins/darkness/planeten/small/s_{$PlanetRow.image}.jpg" height="50" width="50" alt="{$PlanetRow.name}"></a><br><center>{$PlanetRow.build}</center></th>
-			{if $smarty.foreach.PlanetList.last && $smarty.foreach.PlanetList.total is odd && $smarty.foreach.PlanetList.total != 1}<th style="background-color:transparent;background-image:none;">&nbsp;</th>{/if}
+			<th class="s">{$PlanetRow.name}<br><a href="game.php?page=overview&amp;cp={$PlanetRow.id}&amp;re=0" title="{$PlanetRow.name}"><img src="styles/skins/darkness/planeten/small/s_{$PlanetRow.image}.jpg" alt="{$PlanetRow.name}"></a><br><center>{$PlanetRow.build}</center></th>
+			{if $smarty.foreach.PlanetList.last && $smarty.foreach.PlanetList.total is odd && $smarty.foreach.PlanetList.total != 1}<th class="s">&nbsp;</th>{/if}
 			{if $smarty.foreach.PlanetList.iteration is even}</tr>{/if}
 			{/foreach}
 			</table>
@@ -76,7 +76,7 @@
 			<td class="c" colspan="4">{$ov_userbanner}</td>
 		</tr>
 		<tr>
-			<th colspan="4"><img src="userpic.php?id={$userid}" alt=""><br><br><table><tr><td>HTML:</td><td><input type="text" value='<a href="http://{$smarty.server.SERVER_NAME}/"><img src="http://{$smarty.server.SERVER_NAME}/userpic.php?id={$userid}"></a>' readonly style="width:450px;"></td></tr><tr><td>BBCode:</td><td><input type="text" value="[url='http://{$smarty.server.SERVER_NAME}/'][img]http://{$smarty.server.SERVER_NAME}/userpic.php?id={$userid}[/img][/url]" readonly style="width:450px;"></td></tr></table></th></tr>
+			<th colspan="4"><img src="userpic.php?id={$userid}" alt="" height="80" width="450"><br><br><table><tr><td>HTML:</td><td><input type="text" value='<a href="http://{$smarty.server.SERVER_NAME}/"><img src="http://{$smarty.server.SERVER_NAME}/userpic.php?id={$userid}"></a>' readonly style="width:450px;"></td></tr><tr><td>BBCode:</td><td><input type="text" value="[url='http://{$smarty.server.SERVER_NAME}/'][img]http://{$smarty.server.SERVER_NAME}/userpic.php?id={$userid}[/img][/url]" readonly style="width:450px;"></td></tr></table></th></tr>
     </table>
 </div>
 {if $is_pmenu == 1}
