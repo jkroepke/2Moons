@@ -12,8 +12,8 @@
     <input type="hidden" name="target_mission" 		value="{$target_mission}">
     <input type="hidden" name="speedfactor" 		value="{$speedfactor}">
     <input type="hidden" name="fleetspeedfactor" 	value="{$fleetspeedfactor}">
-	<input type="hidden" name="fleet_group"     	value="0"     onChange="shortInfo()" onKeyUp="shortInfo()">
-    <input type="hidden" name="acs_target_mr"   	value="0:0:0" onChange="shortInfo()" onKeyUp="shortInfo()">
+	<input type="hidden" name="fleet_group"     	value="0">
+    <input type="hidden" name="acs_target_mr"   	value="0:0:0">
     {$inputs}
     <div id="content" class="content">
     	<table width="519" border="0" cellpadding="0" cellspacing="1" align="center">
@@ -101,7 +101,11 @@
         </table>
     </div>
 </form>
-<script type="text/javascript">shortInfo();</script>
+<script type="text/javascript"> 
+$(document).ready(function() {
+	shortInfo();
+ });
+</script>
 {if $is_pmenu == 1}
 {include file="planet_menu.tpl"}
 {/if}

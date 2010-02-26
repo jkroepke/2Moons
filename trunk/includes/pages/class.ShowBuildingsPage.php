@@ -170,7 +170,10 @@ class ShowBuildingsPage
 	private function AddBuildingToQueue (&$CurrentPlanet, $CurrentUser, $Element, $AddMode = true)
 	{
 		global $resource;
-
+		
+		if (!$AddMode && $Element == 33)
+			return;
+			
 		$CurrentQueue  		= $CurrentPlanet['b_building_id'];
 
 		$Queue 				= $this->ShowBuildingQueue($CurrentPlanet, $CurrentUser);
@@ -191,24 +194,16 @@ class ShowBuildingsPage
 		}
 
 		if ($AddMode == true)
-		{
 			$BuildMode = 'build';
-		}
 		else
-		{
 			$BuildMode = 'destroy';
-		}
 
-		if ( $ActualCount < MAX_BUILDING_QUEUE_SIZE)
-		{
+		if ($ActualCount < MAX_BUILDING_QUEUE_SIZE)
 			$QueueID      = $ActualCount + 1;
-		}
 		else
-		{
 			$QueueID      = false;
-		}
 
-		if ( $QueueID != false )
+		if ($QueueID != false)
 		{
 			if ($QueueID > 1)
 			{

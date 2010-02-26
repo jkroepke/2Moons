@@ -910,9 +910,9 @@ abstract class FlyingFleetMissions {
 		return $HTML;
 	}
 	
-	private static function SpyTarget ($TargetPlanet, $Mode, $TitleString)
+	private static function SpyTarget ($TargetPlanet, $Mode, $TitleString, $FleetRow)
 	{
-		global $lang, $resource;
+		global $lang, $resource, $db;
 
 		$LookAtLoop = true;
 		if ($Mode == 0)
@@ -957,7 +957,26 @@ abstract class FlyingFleetMissions {
 			$ResTo[0]   = 199;
 			$Loops      = 1;
 		}
+	
+		if ($Mode == 1)
+		{
+			$def = $db->query('SELECT * FROM '.FLEETS.' WHERE `fleet_mission` = 5 AND `fleet_end_galaxy` = '. $FleetRow['fleet_end_galaxy'] .' AND `fleet_end_system` = '. $FleetRow['fleet_end_system'] .' AND `fleet_end_type` = '. $FleetRow['fleet_end_type'] .' AND `fleet_end_planet` = '. $FleetRow['fleet_end_planet'] .' AND fleet_start_time<'.time().' AND fleet_end_stay>='.time().';');
+			while ($defRow = $db->fetch($def))
+			{
+				$defRowDef = explode(';', $defRow['fleet_array']);
+				foreach ($defRowDef as $Element)
+				{
+					$Element = explode(',', $Element);
 
+					if ($Element[0] < 100) continue;
+
+					if (!isset($TargetPlanet[$resource[$Element[0]]]))
+						$TargetPlanet[$resource[$Element[0]]] = 0;
+
+					$TargetPlanet[$resource[$Element[0]]] += $Element[1];
+				}
+			}
+		}
 		if ($LookAtLoop == true)
 		{
 			$String  = "<table width=\"100%\" cellspacing=\"1\"><tr><td class=\"c\" colspan=\"". ((2 * SPY_REPORT_ROW) + (SPY_REPORT_ROW - 1))."\">". $TitleString ."</td></tr>";
@@ -968,14 +987,14 @@ abstract class FlyingFleetMissions {
 				$row     = 0;
 				for ($Item = $ResFrom[$CurrentLook]; $Item <= $ResTo[$CurrentLook]; $Item++)
 				{
-					if ( $TargetPlanet[$resource[$Item]]> 0)
+					if ($TargetPlanet[$resource[$Item]] > 0)
 					{
 						if ($row == 0)
 							$String  .= "<tr>";
 
-						$String  .= "<td align=left>".$lang['tech'][$Item]."</td><td align=right>".$TargetPlanet[$resource[$Item]]."</td>";
+						$String  .= "<td align=\"left\" width=\"25%\">".$lang['tech'][$Item]."</td><td align=\"right\" width=\"25%\">".$TargetPlanet[$resource[$Item]]."</td>";
 						if ($row < SPY_REPORT_ROW - 1)
-							$String  .= "<td>&nbsp;</td>";
+							
 
 						$Count   += $TargetPlanet[$resource[$Item]];
 						$row++;
@@ -983,13 +1002,15 @@ abstract class FlyingFleetMissions {
 						{
 							$String  .= "</tr>";
 							$row      = 0;
+						} else {
+							$String  .= "<td>&nbsp;</td>";
 						}
 					}
 				}
 
 				while ($row != 0)
 				{
-					$String  .= "<td>&nbsp;</td><td>&nbsp;</td>";
+					$String  .= "<td style=\"display:none;\">&nbsp;</td><td style=\"display:none;\">&nbsp;</td>";
 					$row++;
 					if ($row == SPY_REPORT_ROW)
 					{
@@ -1143,7 +1164,7 @@ abstract class FlyingFleetMissions {
 			}
 			$defense = array();
 
-			$def = $db->query('SELECT * FROM '.FLEETS.' WHERE `fleet_end_galaxy` = '. $FleetRow['fleet_end_galaxy'] .' AND `fleet_end_system` = '. $FleetRow['fleet_end_system'] .' AND `fleet_end_type` = '. $FleetRow['fleet_end_type'] .' AND `fleet_end_planet` = '. $FleetRow['fleet_end_planet'] .' AND fleet_start_time<'.time().' AND fleet_end_stay>='.time().';');
+			$def = $db->query('SELECT * FROM '.FLEETS.' WHERE `fleet_mission` = 5 AND `fleet_end_galaxy` = '. $FleetRow['fleet_end_galaxy'] .' AND `fleet_end_system` = '. $FleetRow['fleet_end_system'] .' AND `fleet_end_type` = '. $FleetRow['fleet_end_type'] .' AND `fleet_end_planet` = '. $FleetRow['fleet_end_planet'] .' AND fleet_start_time<'.time().' AND fleet_end_stay>='.time().';');
 			while ($defRow = $db->fetch($def))
 			{
 				$defRowDef = explode(';', $defRow['fleet_array']);
@@ -1908,25 +1929,25 @@ abstract class FlyingFleetMissions {
 			$SpyTechno	 = ($LS >= $MinAmount + 5) ? true : false;
 			
 			
-			$MaterialsInfo    = self::SpyTarget($TargetPlanet, 0, $lang['sys_spy_maretials']);
+			$MaterialsInfo    = self::SpyTarget($TargetPlanet, 0, $lang['sys_spy_maretials'], $FleetRow);
 			$GetSB	    	  = $MaterialsInfo['String'];
 			
 			if($SpyFleet){
-				$PlanetFleetInfo  = self::SpyTarget($TargetPlanet, 1, $lang['sys_spy_fleet']);
+				$PlanetFleetInfo  = self::SpyTarget($TargetPlanet, 1, $lang['sys_spy_fleet'], $FleetRow);
 				$GetSB     		 .= $PlanetFleetInfo['String'];
 				$Count['Fleet']	  = $PlanetFleetInfo['Count'];
 			}
 			if($SpyDef){
-				$PlanetDefenInfo  = self::SpyTarget($TargetPlanet, 2, $lang['sys_spy_defenses']);
+				$PlanetDefenInfo  = self::SpyTarget($TargetPlanet, 2, $lang['sys_spy_defenses'], $FleetRow);
 				$GetSB	    	 .= $PlanetDefenInfo['String'];
 				$Count['Def']	  = $PlanetDefenInfo['Count'];
 			}
 			if($SpyBuild){
-				$PlanetBuildInfo  = self::SpyTarget($TargetPlanet, 3, $lang['tech'][0]);
+				$PlanetBuildInfo  = self::SpyTarget($TargetPlanet, 3, $lang['tech'][0], $FleetRow);
 				$GetSB	    	 .= $PlanetBuildInfo['String'];
 			}
 			if($SpyTechno){
-				$TargetTechnInfo  = self::SpyTarget($TargetUser, 4, $lang['tech'][100]);
+				$TargetTechnInfo  = self::SpyTarget($TargetUser, 4, $lang['tech'][100], $FleetRow);
 				$GetSB		  	 .= $TargetTechnInfo['String'];
 			}
 

@@ -203,6 +203,7 @@ class ShowFleetPages extends FleetFunctions
 		$template->page_leftmenu();
 		$template->page_planetmenu();
 		$template->page_footer();
+		$template->getplanets();
 
 		$TargetGalaxy 					= request_var('galaxy', $CurrentPlanet['galaxy']);
 		$TargetSystem 					= request_var('system', $CurrentPlanet['system']);
@@ -369,7 +370,8 @@ class ShowFleetPages extends FleetFunctions
 		$template->page_leftmenu();
 		$template->page_planetmenu();
 		$template->page_footer();
-		
+		$template->getstats();
+
 		
 		$mission 				= request_var('mission', 0);
 		$galaxy     			= request_var('galaxy', 0);
@@ -546,7 +548,7 @@ class ShowFleetPages extends FleetFunctions
 				exit;
 			}
 			
-			$UserPoints   	= $db->fetch_array($db->query("SELECT `total_points` FROM ".STATPOINTS." WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $MyDBRec['id'] ."';"));
+			$UserPoints    	= $template->player['rank'];
 			$User2Points  	= $db->fetch_array($db->query("SELECT `total_points` FROM ".STATPOINTS." WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $HeDBRec['id'] ."';"));
 		
 			$IsNoobProtec	= CheckNoobProtec($UserPoints, $User2Points, $HeDBRec['onlinetime']);

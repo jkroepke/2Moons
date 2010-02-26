@@ -14,23 +14,6 @@ table.s th img
   height               : 89px;
 }
 
-th, td.a, td.b, td.c, td.f, input, select,
-td.g, td.h, td.i, td.j, td.k, td.l, td.m,
-td.n, td.o, td.q, td.r, td.v, .style td,
-textarea, p td, table.s th img
-{
-  border               : 1px #415680 solid;
-  font-size            : 14px;
-  font-family          : Tahoma,sans-serif;
-}
-
-th, td.a, td.b, td.c, td.f, input, select, td.g,
-td.h, td.i, td.j, td.k, td.m, td.o, td.q, td.r,
-td.v, td.s, .style td, p td
-{
-  background-color     : #344566;
-}
-
 th
 {
   text-align           : center;
@@ -70,6 +53,17 @@ height : 100%;
 width : 100%;
 margin : 0;
 padding : 0;
+}
+
+body {
+color : #CCC;
+margin-top : 7px;
+margin-left : 0;
+background-color : #000000;
+background-image : url(img/bkd_page.gif);
+background-repeat : repeat;
+background-position : top left;
+background-attachment : fixed;
 }
 .allymember {
 color : lime;
@@ -172,10 +166,6 @@ font-weight : normal;
 empty-cells : show;
 background-color : transparent;
 }
-td, th, textarea, body, table, table table td, body center table tr td {
-font-family : Verdana, Tahoma, Helvetica, sans-serif;
-font-size : 10px;
-}
 img, p table, table table {
 border : 0;
 }
@@ -185,15 +175,6 @@ text-align : left;
 }
 body form table th table input {
 width : 60px;
-}
-body {
-color : #cccccc;
-margin-top : 7px;
-margin-left : 0;
-background-color : #000000;
-background-image : url(img/bkd_page.gif);
-background-repeat : repeat;
-background-position : top left;
 }
 th.s, td.s {
 background-image : url(img/bkd_bg.png);
@@ -235,15 +216,7 @@ table table td.l img {
 width : 120px !important ;
 height : 120px !important ;
 }
-#overDiv {
-border : 1px solid #666666;
-background-color : #212121;
-color : #666666;
-}
-div#menu {
-top : 0;
-left : 0;
-}
+
 #menu {
 background-image : url(img/bkd_navigation.png);
 background-position : 0;
@@ -253,6 +226,8 @@ width : 192px;
 height : 769px;
 text-align : center;
 z-index : 500;
+top : 0;
+left : 0;
 }
 #menu .p {
 color:#CCCCCC;
@@ -539,4 +514,11 @@ position: absolute;
 } 
 #menu2 a:hover {
 text-decoration:none;
-} 
+}
+#overDiv  > table{
+border : 1px solid #666666;
+background-color : #212121;
+color : #666666;
+margin : 0;
+padding : 0;
+}

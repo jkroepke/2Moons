@@ -34,17 +34,12 @@ includeLang('INGAME');
 
 
 include_once("./includes/classes/class.StatBanner.php");
-
+$Statstime	= $game_config['stat_update_time'] * 60;
 $banner = new StatBanner();
 $lastedit = filemtime($banner->path.$id.".png");
 header('Last-Modified: '.date('D, d M Y H:i:s T', $lastedit));
 header('Content-type: image/png'); 
+header("Cache-Control: public, max-age=".$Statstime.", s-maxage=".$Statstime);
 
-if(is_file($banner->path.$id.".png") && $lastedit > time() - ($game_config['stat_update_time'] * 60))
-{
-	header("HTTP/1.1 304 Not Modified");
-}
-else
-	$banner->ShowStatBanner($id);
-
+$banner->ShowStatBanner($id);
 ?>
