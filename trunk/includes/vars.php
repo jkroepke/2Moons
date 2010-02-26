@@ -78,8 +78,7 @@ if ( defined('INSIDE'))
 	218 => "star_crasher",
 	219 => "giga_recykler",
 	220 => "dm_ship",
-	221 => "dm_ship",
-	222 => "thriller",
+	221 => "thriller",
 	
 	401 => "misil_launcher",
 	402 => "small_laser",
@@ -361,7 +360,7 @@ if ( defined('INSIDE'))
 				'metal'     => 'return   "0";',
 				'crystal'   => 'return   "0";',
 				'deuterium' => 'return - (10 * $BuildLevel * pow(1.1,$BuildLevel));',
-				'energy'    => 'return   (30 * $BuildLevel * pow((1.05 + $BuildEnergy * 0.01), $BuildLevel)) * (0.1 * $BuildLevelFactor);')
+				'energy'    => 'return   (30 * $BuildLevel * pow((1.5 + $BuildEnergy * 0.01), $BuildLevel)) * (0.1 * $BuildLevelFactor);')
 		),
 
 		212 => array( 'metal' =>    0, 'crystal' => 2000, 'deuterium' =>  500, 'energy' => 0, 'factor' => 0.5,

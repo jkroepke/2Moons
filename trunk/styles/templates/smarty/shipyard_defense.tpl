@@ -31,7 +31,7 @@
 				<table border="0" cellpadding="0" cellspacing="0">
 					<tbody>
 						<tr>
-							<td style="text-align:left;width:10px"><img src="./styles/images/transparent.gif" alt="" width="0" height="100"></td>
+							<td style="text-align:left;width:10px"><img src="./styles/images/transparent.gif" alt="" style="width:10px;height:100px"></td>
 							<td style="text-align:left;width:90%">{$DefenseListRow.descriptions}<br><br>{$DefenseListRow.price}</td>
 							<td style="text-align:center;vertical-align:middle;width:100px">
 							{if $DefenseListRow.AlreadyBuild}<font color="red">{$bd_protection_shield_only_one}</font>{elseif $NotBuilding && $DefenseListRow.IsAvailable}<input type="text" name="fmenge[{$DefenseListRow.id}]" id="input_{$DefenseListRow.id}" size="7" maxlength="7" value="0" tabindex="{$smarty.foreach.DefenseList.iteration}">

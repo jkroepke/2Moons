@@ -2,14 +2,6 @@
 <div id='errorbox' style="text-align:center;"></div>
 {$cron}
 {$sql_num}
-
-<script type="text/javascript" src="scripts/jquery.js" defer></script>
-<script type="text/javascript" src="scripts/global.js" defer></script>
-<script type="text/javascript" src="scripts/animatedcollapse.js" defer></script>
-<script type="text/javascript" src="scripts/overlib.js" defer></script>
-{foreach item=scriptname from=$scripts}
-<script type="text/javascript" src="scripts/{$scriptname}" defer></script>
-{/foreach}
 {if $js_res_multiplier}
 <script type="text/javascript">
 $(document).ready(function() {
