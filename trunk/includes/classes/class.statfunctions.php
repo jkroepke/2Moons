@@ -30,16 +30,17 @@ class Statbuilder {
 				break;
 				
 			if ($ElementID >= 101 && $ElementID <= 199) {
-				$SQLRow	= $db->fetch_array($db->query("SELECT `username`, `". $ElementResource ."` AS `maxlvl` FROM ".USERS." WHERE `". $ElementResource ."` = (SELECT MAX(`". $ElementResource ."`) FROM ".USERS." ".(($game_config['stat'] != 0) ? "WHERE `authlevel` < '".$game_config['stat_level']."'":"").");"));
+				$SQLRow	= $db->fetch_array($db->query("SELECT `username`, `". $ElementResource ."` AS `maxlvl` FROM ".USERS." WHERE `". $ElementResource ."` = (SELECT MAX(`". $ElementResource ."`) FROM ".USERS." ".(($game_config['stat'] == 1) ? "WHERE `authlevel` < '".$game_config['stat_level']."'":"").");"));
 			} else {  
-				$SQLRow	= $db->fetch_array($db->query("SELECT  `a`.`". $ElementResource ."` AS `maxlvl`, `b`.`username` FROM ".PLANETS." as a, ".USERS." as b WHERE `a`.`". $ElementResource. "` = (SELECT MAX(`". $ElementResource ."`) FROM ".PLANETS." ".(($game_config['stat'] != 0) ? "WHERE `authlevel` < '".$game_config['stat_level']."'":"").") AND `a`.`id_owner` = `b`.`id`;"));
+				$SQLRow	= $db->fetch_array($db->query("SELECT  `a`.`". $ElementResource ."` AS `maxlvl`, `b`.`username` FROM ".PLANETS." as a, ".USERS." as b WHERE `a`.`". $ElementResource. "` = (SELECT MAX(`". $ElementResource ."`) FROM ".PLANETS." ".(($game_config['stat'] == 1) ? "WHERE `authlevel` < '".$game_config['stat_level']."'":"").") AND `a`.`id_owner` = `b`.`id`;"));
 			}
-			$array	.= $ElementID." => array('username' => '".$SQLRow['username']."', 'maxlvl' => '".$SQLRow['maxlvl']."'),\n";
+			$array	.= $ElementID." => array('username' => ".$SQLRow['username'].", 'maxlvl' => ".$SQLRow['maxlvl'].",),\n";
 		}
 		$file	= "<?php \n//The File is created on ".date("d. M y H:i:s", time())."\n$"."RecordsArray = array(\n".$array."\n);\n?>";
 		$fp = fopen($xgp_root."cache/CacheRecords.php", "w+");
 		fwrite($fp, $file);
 		fclose($fp);
+		chmod($xgp_root."cache/CacheRecords.php", 0777);
 	}
 
 	private function GetTechnoPoints ( $CurrentUser ) {
@@ -221,7 +222,7 @@ class Statbuilder {
 		$del_before 	= time() - (60 * 60 * 24 * 3); // 3 DAY
 		$del_inactive 	= time() - (60 * 60 * 24 * 30); // 1 MONTH
 		$del_deleted 	= time() - (60 * 60 * 24 * 7); // 1 WEEK
-		$db->multi_query("DELETE FROM `".MESSAGES."` WHERE `message_time` < '". $del_before ."';DELETE FROM `".RW."` WHERE `time` < '". $del_before ."';DELETE FROM `".CHAT."` WHERE `timestamp` < '".$del_before."';");
+		$db->multi_query("DELETE FROM `".MESSAGES."` WHERE `message_time` < '". $del_before ."';DELETE FROM `".RW."` WHERE `time` < '". $del_before ."';");
 		
 		$ChooseToDelete = $db->query("SELECT DISTINCT `id` FROM `".USERS."` WHERE ((`db_deaktjava` < '".$del_deleted."' AND `db_deaktjava` <> 0) OR `onlinetime` < '".$del_inactive."') AND `authlevel` = '0';");
 
@@ -267,7 +268,7 @@ class Statbuilder {
 		//For Stats table..
 		$select_old_ranks	= "id_owner, stat_type,tech_rank AS old_tech_rank, build_rank AS old_build_rank, defs_rank AS old_defs_rank, fleet_rank AS old_fleet_rank, total_rank AS old_total_rank";
 		//For users table
-		$select_user		= " u.id, u.ally_id, u.authlevel, u.bana ";
+		$select_user		= " u.id, u.ally_id, u.authlevel ";
 		//We check how many users are for not overload the server...
 		$total_users = $db->fetch_array($db->query("SELECT COUNT(*) AS `count` FROM `".USERS."` WHERE 1;"));
 		//We will make query every $game_config['stat_amount'] users
@@ -285,6 +286,7 @@ class Statbuilder {
 
 		for ($Query=1;$Query<=$LastQuery;$Query++)
 		{
+
 			if ($Query==1)
 			{
 				$start = 0;
@@ -329,7 +331,7 @@ class Statbuilder {
 				unset($CurFleets, $flying_fleets);
 			}
 			//This query will have a LOT of data...
-			$sql	=	'SELECT DISTINCT '.$select_planet .$select_defenses .$selected_tech .$select_fleets .$select_user.
+			$sql	=	'SELECT  '.$select_planet .$select_defenses .$selected_tech .$select_fleets .$select_user.
 						'FROM '.PLANETS.' as p
 						INNER JOIN '.USERS.' as u ON u.id = p.id_owner
 						WHERE p.id_owner <= '.$minmax['max'].' AND p.id_owner >=  '.$minmax['min'].'
@@ -347,86 +349,85 @@ class Statbuilder {
 			//Here we start the update...
 			while ($CurUser = $db->fetch($total_data))
 			{
-			
 				$u_OldTotalRank = (($old_stats_array[$CurUser['id']]['old_total_rank'])? $old_stats_array[$CurUser['id']]['old_total_rank']:0);
 				$u_OldTechRank  = (($old_stats_array[$CurUser['id']]['old_tech_rank'])? $old_stats_array[$CurUser['id']]['old_tech_rank']:0);
 				$u_OldBuildRank = (($old_stats_array[$CurUser['id']]['old_build_rank'])? $old_stats_array[$CurUser['id']]['old_build_rank']:0);
 				$u_OldDefsRank  = (($old_stats_array[$CurUser['id']]['old_defs_rank'])? $old_stats_array[$CurUser['id']]['old_defs_rank']:0);
 				$u_OldFleetRank = (($old_stats_array[$CurUser['id']]['old_fleet_rank'])? $old_stats_array[$CurUser['id']]['old_fleet_rank']:0);
 				//We dont need this anymore...
-				unset($old_stats_array[$CurUser['id']]);				
-
-				if (($CurUser['authlevel'] >= $game_config['stat_level'] && $game_config['stat'] != 0) || $CurUser['bana'] == 1)
+				unset($old_stats_array[$CurUser['id']]);
+				//1 point=  $game_config['stat_settings'] ressources
+				//Make the tech points XD
+				$u_points			= $this->GetTechnoPoints ( $CurUser );
+				$u_TTechCount		= $u_points['TechCount'];
+				$u_TTechPoints	= ($u_points['TechPoint'] / $game_config['stat_settings']);
+				//Make the defense points
+				$u_points			= $this->GetDefensePoints ( $CurUser );
+				$u_TDefsCount		= $u_points['DefenseCount'];
+				$u_TDefsPoints	= ($u_points['DefensePoint'] / $game_config['stat_settings']);
+				//Make the fleets points (without the flying fleets...
+				$u_points			= $this->GetFleetPoints ( $CurUser );
+				$u_TFleetCount	= $u_points['FleetCount'];
+				$u_TFleetPoints	= ($u_points['FleetPoint'] / $game_config['stat_settings']);
+				//Now we add the flying fleets points
+				//This is used if($game_config['stat_flying'] == 1)
+				if($game_config['stat_flying'] == 1)
 				{
-					$insert_user_query  .= '('.$CurUser['id'].','.$CurUser['ally_id'].',1,1,'.$u_OldTechRank.',0,0,'.$u_OldBuildRank.',0,0,'.$u_OldDefsRank.',0,0,'.$u_OldFleetRank.',0,0,'.$u_OldTotalRank.',0,0,'.$stats_time.'),' ;
+					if($flying_fleets_array[$CurUser['id']])
+					{
+						foreach($flying_fleets_array[$CurUser['id']] as $fleet_id => $fleet_array)
+						{
+							$u_points			= $this->GetFlyingFleetPoints ( $fleet_array );
+							$u_TFleetCount  	+= $u_points['FleetCount'];
+							$u_TFleetPoints 	+= ($u_points['FleetPoint'] / $game_config['stat_settings']);
+						}
+					}
+					//We dont need this anymore...
+					unset($flying_fleets_array[$CurUser['id']],$fleet_array,$fleet_id);
+				}
+				else
+				{//We take one query per fleet in flying, with this we increase the time and the querys, but we decrease the cpu load...
+					$OwnFleets = $db->query("SELECT fleet_array, fleet_id FROM ".FLEETS." WHERE `fleet_owner` = '". $CurUser['id'] ."';");
+					while ($FleetRow = $db->fetch_array($OwnFleets))
+					{
+							$u_points			= $this->GetFlyingFleetPoints ( $FleetRow['fleet_array'] );
+							$u_TFleetCount  	+= $u_points['FleetCount'];
+							$u_TFleetPoints 	+= ($u_points['FleetPoint'] / $game_config['stat_settings']);
+					}
+					//We dont need this anymore...
+					unset($OwnFleets, $FleetRow);
+				}
+				$u_TBuildCount    = 0;
+				$u_TBuildPoints   = 0;
+				if($Buildings_array[$CurUser['id']])
+				{
+					foreach($Buildings_array[$CurUser['id']] as $planet_id => $building)
+					{
+						$u_points				= $this->GetBuildPoints ( $building );
+						$u_TBuildCount		+= $u_points['BuildCount'];
+						$u_TBuildPoints		+= ($u_points['BuildPoint'] / $game_config['stat_settings']);
+						//We add the shields points (this way is a temporary way...)
+						$u_points				= $this->GetDefensePoints ( $building );
+						$u_TDefsCount			+= $u_points['DefenseCount'];
+						$u_TDefsPoints		+= ($u_points['DefensePoint'] / $game_config['stat_settings']);
+					}
+					//We dont need this anymore...
+					unset($Buildings_array[$CurUser['id']],$planet_id,$building);
 				}
 				else
 				{
-					//1 point=  $game_config['stat_settings'] ressources
-					//Make the tech points
-					$u_points			= $this->GetTechnoPoints($CurUser);
-					$u_TTechCount		= $u_points['TechCount'];
-					$u_TTechPoints		= ($u_points['TechPoint'] / $game_config['stat_settings']);
-					//Make the defense points
-					$u_points			= $this->GetDefensePoints($CurUser);
-					$u_TDefsCount		= $u_points['DefenseCount'];
-					$u_TDefsPoints		= ($u_points['DefensePoint'] / $game_config['stat_settings']);
-					//Make the fleets points (without the flying fleets...
-					$u_points			= $this->GetFleetPoints($CurUser);
-					$u_TFleetCount		= $u_points['FleetCount'];
-					$u_TFleetPoints		= ($u_points['FleetPoint'] / $game_config['stat_settings']);
-					//Now we add the flying fleets points
-					//This is used if($game_config['stat_flying'] == 1)
-					if($game_config['stat_flying'] == 1)
-					{
-						if($flying_fleets_array[$CurUser['id']])
-						{
-							foreach($flying_fleets_array[$CurUser['id']] as $fleet_id => $fleet_array)
-							{
-								$u_points			= $this->GetFlyingFleetPoints ( $fleet_array );
-								$u_TFleetCount  	+= $u_points['FleetCount'];
-								$u_TFleetPoints 	+= ($u_points['FleetPoint'] / $game_config['stat_settings']);
-							}
-						}
-						//We dont need this anymore...
-						unset($flying_fleets_array[$CurUser['id']],$fleet_array,$fleet_id);
-					}
-					else
-					{//We take one query per fleet in flying, with this we increase the time and the querys, but we decrease the cpu load...
-						$OwnFleets = $db->query("SELECT fleet_array, fleet_id FROM ".FLEETS." WHERE `fleet_owner` = '". $CurUser['id'] ."';");
-						while ($FleetRow = $db->fetch_array($OwnFleets))
-						{
-								$u_points			= $this->GetFlyingFleetPoints ( $FleetRow['fleet_array'] );
-								$u_TFleetCount  	+= $u_points['FleetCount'];
-								$u_TFleetPoints 	+= ($u_points['FleetPoint'] / $game_config['stat_settings']);
-						}
-						//We dont need this anymore...
-						unset($OwnFleets, $FleetRow);
-					}
-					$u_TBuildCount    = 0;
-					$u_TBuildPoints   = 0;
-					if($Buildings_array[$CurUser['id']])
-					{
-						foreach($Buildings_array[$CurUser['id']] as $planet_id => $building)
-						{
-							$u_points				= $this->GetBuildPoints ( $building );
-							$u_TBuildCount		+= $u_points['BuildCount'];
-							$u_TBuildPoints		+= ($u_points['BuildPoint'] / $game_config['stat_settings']);
-							//We add the shields points (this way is a temporary way...)
-							$u_points				= $this->GetDefensePoints ( $building );
-							$u_TDefsCount			+= $u_points['DefenseCount'];
-							$u_TDefsPoints		+= ($u_points['DefensePoint'] / $game_config['stat_settings']);
-						}
-						//We dont need this anymore...
-						unset($Buildings_array[$CurUser['id']],$planet_id,$building);
-					}
-					else
-					{
-					//Here we will send a error message....print_r("<br>usuario sin planeta: ". $CurUser['id']);
-					}
-					$u_GCount			= $u_TDefsCount  + $u_TTechCount  + $u_TFleetCount  + $u_TBuildCount;
-					$u_GPoints		= $u_TTechPoints + $u_TDefsPoints + $u_TFleetPoints + $u_TBuildPoints;
-
+				//Here we will send a error message....print_r("<br>usuario sin planeta: ". $CurUser['id']);
+				}
+				$u_GCount			= $u_TDefsCount  + $u_TTechCount  + $u_TFleetCount  + $u_TBuildCount;
+				$u_GPoints		= $u_TTechPoints + $u_TDefsPoints + $u_TFleetPoints + $u_TBuildPoints;
+				if (($CurUser['authlevel'] >= $game_config['stat_level']&& $game_config['stat']==1 ) || $CurUser['bana']==1)
+				{
+					$insert_user_query  .= '('.$CurUser['id'].','.$CurUser['ally_id'].',1,1,'.$u_OldTechRank.',
+											0,0,'.$u_OldBuildRank.',0,0,'.$u_OldDefsRank.',0,0,'.$u_OldFleetRank.',
+											0,0,'.$u_OldTotalRank.',0,0,'.$stats_time.'),' ;
+				}
+				else
+				{
 					$insert_user_query  .= "('".$CurUser['id']."','".$CurUser['ally_id']."',1,1,'".$u_OldTechRank."',
 											'".number_format($u_TTechPoints,0,"","")."','".number_format($u_TTechCount,0,"","")."','".number_format($u_OldBuildRank,0,"","")."','".number_format($u_TBuildPoints,0,"","")."',
 											'".number_format($u_TBuildCount,0,"","")."','".number_format($u_OldDefsRank,0,"","")."','".number_format($u_TDefsPoints,0,"","")."','".number_format($u_TDefsCount,0,"","")."',
@@ -442,7 +443,7 @@ class Statbuilder {
 			if($CheckUserQuery == true)
 			{
 				$insert_user_query	=	substr_replace($insert_user_query, ';', -1);
-				$db->query($insert_user_query);
+				$db->query ( $insert_user_query);
 			}
 
 
@@ -451,14 +452,14 @@ class Statbuilder {
 		}
 		//STATS FOR ALLYS
 		//Delet invalid allys
-		$db->query("DELETE FROM ".ALLIANCE." WHERE ally_members = '0';");
+		$db->query("DELETE FROM ".ALLIANCE." WHERE ally_members='0';");
 		//We create this just for make a check of the ally
-		$ally_check  = $db->query("SELECT `id` FROM ".ALLIANCE.";");
+		$ally_check  = $db->query("SELECT * FROM ".ALLIANCE.";");
 		$total_ally		=0;
 		while ($CurAlly = $db->fetch($ally_check))
 		{
 			++$total_ally;
-			$ally_check_value[$CurAlly['id']]=1;
+		$ally_check_value[$CurAlly['id']]=1;
 		}
 		unset($ally_check);
 		unset($start,$QueryValue,$Query,$LastQuery);
@@ -526,14 +527,28 @@ class Statbuilder {
 				{
 					if ($ally_check_value[$CurAlly['id_ally']] == 1)
 					{
-						$u_OldTotalRank		= (($ally_old_data[$CurAlly['id_ally']]['old_total_rank'])? $ally_old_data[$CurAlly['id_ally']]['old_total_rank']:0);
-						$u_OldTechRank  	= (($ally_old_data[$CurAlly['id_ally']]['old_tech_rank'])? $ally_old_data[$CurAlly['id_ally']]['old_tech_rank']:0);
-						$u_OldBuildRank 	= (($ally_old_data[$CurAlly['id_ally']]['old_build_rank'])? $ally_old_data[$CurAlly['id_ally']]['old_build_rank']:0);
-						$u_OldDefsRank  	= (($ally_old_data[$CurAlly['id_ally']]['old_defs_rank'])? $ally_old_data[$CurAlly['id_ally']]['old_defs_rank']:0);
-						$u_OldFleetRank 	= (($ally_old_data[$CurAlly['id_ally']]['old_fleet_rank'])? $ally_old_data[$CurAlly['id_ally']]['old_fleet_rank']:0);
-						$insert_ally_query  .= '('.$CurAlly['id_ally'].',0,2,1,'.$u_OldTechRank.','.$CurAlly['TechPoint'].','.$CurAlly['TechCount'].','.$u_OldBuildRank.','.$CurAlly['BuildPoint'].','.$CurAlly['BuildCount'].','.$u_OldDefsRank.','.$CurAlly['DefsPoint'].','.$CurAlly['DefsCount'].','.$u_OldFleetRank.','.$CurAlly['FleetPoint'].','.$CurAlly['FleetCount'].','.$u_OldTotalRank.','.$CurAlly['TotalPoint'].','.$CurAlly['TotalCount'].','.$stats_time.'),' ;
-						unset($CurAlly);
-						unset_vars('u_');
+						$u_OldTotalRank = (($ally_old_data[$CurAlly['id_ally']]['old_total_rank'])? $ally_old_data[$CurAlly['id_ally']]['old_total_rank']:0);
+						$u_OldTechRank  = (($ally_old_data[$CurAlly['id_ally']]['old_tech_rank'])? $ally_old_data[$CurAlly['id_ally']]['old_tech_rank']:0);
+						$u_OldBuildRank = (($ally_old_data[$CurAlly['id_ally']]['old_build_rank'])? $ally_old_data[$CurAlly['id_ally']]['old_build_rank']:0);
+						$u_OldDefsRank  = (($ally_old_data[$CurAlly['id_ally']]['old_defs_rank'])? $ally_old_data[$CurAlly['id_ally']]['old_defs_rank']:0);
+						$u_OldFleetRank = (($ally_old_data[$CurAlly['id_ally']]['old_fleet_rank'])? $ally_old_data[$CurAlly['id_ally']]['old_fleet_rank']:0);
+						$u_TTechCount     = $CurAlly['TechCount'];
+						$u_TTechPoints    = $CurAlly['TechPoint'];
+						$u_TBuildCount    = $CurAlly['BuildCount'];
+						$u_TBuildPoints   = $CurAlly['BuildPoint'];
+						$u_TDefsCount     = $CurAlly['DefsCount'];
+						$u_TDefsPoints    = $CurAlly['DefsPoint'];
+						$u_TFleetCount    = $CurAlly['FleetCount'];
+						$u_TFleetPoints   = $CurAlly['FleetPoint'];
+						$u_GCount         = $CurAlly['TotalCount'];
+						$u_GPoints        = $CurAlly['TotalPoint'];
+						$insert_ally_query  .= '('.$CurAlly['id_ally'].',0,2,1,'.$u_OldTechRank.',
+												'.$u_TTechPoints.','.$u_TTechCount.','.$u_OldBuildRank.','.$u_TBuildPoints.',
+												'.$u_TBuildCount.','.$u_OldDefsRank.','.$u_TDefsPoints.','.$u_TDefsCount.',
+												'.$u_OldFleetRank.','.$u_TFleetPoints.','.$u_TFleetCount.','.$u_OldTotalRank.',
+												'.$u_GPoints.','.$u_GCount.','.$stats_time.'),' ;
+					unset($CurAlly);
+					unset_vars( 'u_' );
 					}
 					else
 					{
