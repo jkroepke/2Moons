@@ -241,7 +241,7 @@ background-repeat : no-repeat;
 text-align : left;
 }
 
-th table  tr  th{
+form * th table tr th{
 border: 0 none;
 }
 

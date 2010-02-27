@@ -1,4 +1,4 @@
-<div id='menu2'>
+<div id="menu2">
 <center>
 {foreach key=PlanetID item=PlanetInfo from=$PlanetMenu}
 	<table cellspacing="3" width="120">

@@ -62,7 +62,7 @@ $lang['reg_mail_message_pass']		= 'Noch ein Schritt zur Aktivierung Ihres Userna
 $lang['reg_mail_reg_done']			= 'Willkommen bei %s!';
 $lang['invalid_mail_adress']		= 'Ungültige E-mail Adresse!<br>';
 $lang['empty_user_field']			= 'Bitte alle Felder ausfüllen!<br>';
-$lang['password_lenght_error']		= 'Das Passwort muss mindestens 4 Zeichen lang sein!<br>';
+$lang['password_lenght_error']		= 'Das Passwort muss mindestens 6 Zeichen lang sein!<br>';
 $lang['user_field_no_alphanumeric']	= 'Bitte beim Username nur alphanumerische Zeichen eingeben!<br>';
 $lang['user_field_no_space']		= 'Bitte beim Username keine Leerzeichen eingeben!<br>';
 $lang['terms_and_conditions']		= 'Sie müssen die <a href="index.php?page=agb">AGB</a> und <a href="index.php?page=rules>Regeln</a> aktzeptieren!<br>';

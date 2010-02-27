@@ -12,12 +12,15 @@ $lang['changelog']   = array(
 - ADD: Koords werden nicht mehr in der HoF angezeigt.
 - ADD: Update System BETA
 - ADD: Admin in Statistiken ausblendbar
+- ADD: jQuery UI 1.8rc2
 - FIX: Phalax &amp; Interplanetarrakten Reichweite
 - FIX: Urlaubsmodus fixed
 - FIX: Haltende Flotten werden im Spiobericht dazugezählt.
 - FIX: Anzeige der Canche der Mondzerstörung
 - FIX: Admins in Rekorden
 - FIX: Neues Kampfscript für Interplanetarraketeneinschläge
+- DIV: Webseitenoptimierung(YSlow Grande: A/Score: 91)
+- DIV: Add Headers für Browsercaching 
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game
 - DIV: Update jQuery to 1.4.2
