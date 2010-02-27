@@ -15,10 +15,15 @@ Deny from All
 
 AddDefaultCharset utf-8
 
-#RewriteEngine on
+<FilesMatch "\.(css|gif|png|jpg|ico)$">
+	FileETag none
+	Header set Cache-Control "public, max-age=604800, s-maxage=604800"
+</FilesMatch>
 
-#RewriteRule ^styles/templates/ / [R]
-#RewriteRule ^adm/logs/ / [R]
-#RewriteRule ^language/ / [R]
-#RewriteRule ^includes/ / [R]
-#RewriteRule ^cache/ / [R]
+RewriteEngine on
+
+RewriteRule ^styles/templates/ / [R]
+RewriteRule ^adm/logs/ / [R]
+RewriteRule ^language/ / [R]
+RewriteRule ^includes/ / [R]
+RewriteRule ^cache/ / [R]

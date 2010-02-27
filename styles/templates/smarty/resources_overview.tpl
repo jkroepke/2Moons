@@ -33,12 +33,19 @@
 	</tr>
     {/foreach}
     <tr>
+        <th height="22">{$rs_ress_bonus}</th>
+        <th>{$bonus_metal}</th>
+        <th>{$bonus_crystal}</th>
+        <th>{$bonus_deuterium}</th>
+        <th>{$bonus_energy}</th>
+        <th><input name="action" value="{$rs_calculate}" type="submit" style="height:auto;"></th>
+    </tr>
+    <tr>
         <th height="22">{$rs_storage_capacity}</th>
         <th>{$metalmax}</th>
         <th>{$crystalmax}</th>
         <th>{$deuteriummax}</th>
         <th>-</th>
-        <th><input name="action" value="{$rs_calculate}" type="submit" style="height:auto;"></th>
     </tr><tr>
         <th height="22">{$rs_sum}:</th>
         <th>{$metal_total}</th>

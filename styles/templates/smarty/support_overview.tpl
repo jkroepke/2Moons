@@ -2,23 +2,18 @@
 {include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
 <script type="text/javascript">
-
-animatedcollapse.addDiv('new', 'fade=1,height=auto');
-animatedcollapse.addDiv('newbutton', 'fade=1,height=auto');
-{foreach key=TicketID item=TicketInfo from=$TicketsList}
-animatedcollapse.addDiv('ticket_{$TicketID}', 'fade=1,height=auto');
-{/foreach}
-animatedcollapse.init();
-{literal}
 function infodiv(i){
-{/literal}
 {foreach key=TicketID item=TicketInfo from=$TicketsList}
-animatedcollapse.hide('ticket_{$TicketID}');
+$('#ticket_{$TicketID}:visible').hide('blind', {}, 500);
 {/foreach}
 {literal}
-if(i == 0){animatedcollapse.hide('newbutton');animatedcollapse.show('new');}
-if(i != 0){animatedcollapse.show('newbutton');animatedcollapse.hide('new');}
+if(i == 0){$('#newbutton:visible').hide('blind', {}, 500);$('#new:hidden').show('blind', {}, 500);}
+if(i != 0){$('#newbutton:hidden').show('blind', {}, 500);$('#new:visible').hide('blind', {}, 500);}
+$('#'+i).show('blind', {}, 500);
 }
+
+
+
 {/literal}
 </script>
 
@@ -36,7 +31,7 @@ if(i != 0){animatedcollapse.show('newbutton');animatedcollapse.hide('new');}
 	{foreach key=TicketID item=TicketInfo from=$TicketsList}	
 	<tr>
 	<td class='b'>{$TicketID}</td>
-	<td class='b'><a href="javascript:infodiv({$TicketID});javascript:animatedcollapse.toggle('ticket_{$TicketID}');">{$TicketInfo.subject}</a></td>
+	<td class='b'><a href="javascript:infodiv('ticket_{$TicketID}');">{$TicketInfo.subject}</a></td>
 	<td class='b'>{if $TicketInfo.status == 0}<font color="red">{$supp_close}</font>{elseif $TicketInfo.status == 1}<font color="green">{$supp_open}</font>{elseif $TicketInfo.status == 2}<font color="orange">{$supp_admin_answer}</font>{elseif $TicketInfo.status == 3}<font color="green">{$supp_player_answer}</font>{/if}</td>
 	<td class='b'>{$TicketInfo.date}</td>
 	</tr>

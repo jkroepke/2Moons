@@ -53,17 +53,17 @@ background-repeat : repeat;
 background-position : top left;
 background-attachment : fixed;
 }
-body, div .z, td.f, input, select, textarea, a, #menu .p{
+
+body, input, select, textarea, a{
+font-family : Verdana, Tahoma, Helvetica, sans-serif;
+font-size : 10px;
 color : #CCC;
 }
+
 td.f, input, select, textarea {
 background-color : #393939;
 }
 
-body, th, td, select, td, textarea, td, p, input, a{
-font-family : Verdana, Tahoma, Helvetica, sans-serif;
-font-size : 10px;
-}
 .allymember {
 color : lime;
 }
@@ -160,6 +160,7 @@ color : yellow;
 .return {
 color : #444444;
 }
+
 table, table tr th, td, th, p {
 font-weight : normal;
 empty-cells : show;
@@ -227,6 +228,7 @@ background-position : left bottom;
 }
 #menu td {
 background-color : transparent;
+padding	: 1px !important;
 }
 #menu div a {
 padding-left : 20px;
@@ -238,9 +240,11 @@ background-position : 0;
 background-repeat : no-repeat;
 text-align : left;
 }
-td {
-padding	: 1px !important;
+
+th table  tr  th{
+border: 0 none;
 }
+
 th {
 text-align : center;
 padding-left : 3px;
@@ -315,14 +319,8 @@ overflow : hidden !important;
 text-align: center;
 }
 
-body table tr td table tr td.l + td.l + td.l, td.m  {
-text-align : center;
-vertical-align : middle;
-}
-
 tr.header, table.header {
 width : 80%;
-overflow : hidden;
 }
 .header {
 overflow : hidden;
