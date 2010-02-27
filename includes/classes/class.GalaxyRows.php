@@ -36,6 +36,7 @@ class GalaxyRows
 
 	public function CheckAbandonMoonState($lunarow)
 	{
+		global $db;
 		if (($lunarow['destruyed'] + 172800) <= time() && $lunarow['destruyed'] != 0)
 			$db->query("DELETE FROM ".PLANETS." WHERE id = '" . $lunarow['id'] . "';");
 	}
