@@ -280,8 +280,8 @@ abstract class FlyingFleetMissions {
                 $attackAmount[$fleetID] = 0;
                 
                 foreach ($attacker['detail'] as $element => $amount) {
-                    $attTech    = (1 + (0.1 * ($attacker['user']['military_tech']) + (0.05 * $attacker['user'][$resource[602]]) + 1 * ((time() - $attacker['user'][$resource[701]] <= 0) ? (1 + $ExtraDM[700]['add']) : 1))); //attaque
-                    $defTech    = (1 + (0.1 * ($attacker['user']['defence_tech']) + (0.05 * $attacker['user'][$resource[602]]) + 1 * ((time() - $attacker['user'][$resource[700]] <= 0) ? (1 + $ExtraDM[701]['add']) : 1))); //bouclier
+                    $attTech    = (1 + (0.1 * ($attacker['user']['military_tech']) + (0.05 * $attacker['user'][$resource[602]]) + ((time() - $attacker['user'][$resource[701]] <= 0) ? ($ExtraDM[700]['add']) : 0))); //attaque
+                    $defTech    = (1 + (0.1 * ($attacker['user']['defence_tech']) + (0.05 * $attacker['user'][$resource[602]]) + ((time() - $attacker['user'][$resource[700]] <= 0) ? ($ExtraDM[701]['add']) : 0))); //bouclier
                     $shieldTech = (1 + (0.1 * ($attacker['user']['shield_tech']) + (0.05 * $attacker['user'][$resource[602]]))); //coque
                     
                     $attackers[$fleetID]['techs'] = array($shieldTech, $defTech, $attTech);
@@ -307,8 +307,8 @@ abstract class FlyingFleetMissions {
                 $defenseAmount[$fleetID] = 0;
                 
                 foreach ($defender['def'] as $element => $amount) {
-                    $attTech    = (1 + (0.1 * ($defender['user']['military_tech']) + (0.05 * $defender['user'][$resource[602]]) + 1 * ((time() - $defender['user'][$resource[700]] <= 0) ? (1 + $ExtraDM[700]['add']) : 1))); //attaquue
-                    $defTech    = (1 + (0.1 * ($defender['user']['defence_tech']) + (0.05 * $defender['user'][$resource[602]]) + 1 * ((time() - $defender['user'][$resource[701]] <= 0) ? (1 + $ExtraDM[701]['add']) : 1))); //bouclier
+                    $attTech    = (1 + (0.1 * ($defender['user']['military_tech']) + (0.05 * $defender['user'][$resource[602]]) + ((time() - $attacker['user'][$resource[701]] <= 0) ? ($ExtraDM[700]['add']) : 0))); //attaquue
+                    $defTech    = (1 + (0.1 * ($defender['user']['defence_tech']) + (0.05 * $defender['user'][$resource[602]]) + ((time() - $defender['user'][$resource[701]] <= 0) ? ($ExtraDM[701]['add']) : 0))); //bouclier
                     $shieldTech = (1 + (0.1 * ($defender['user']['shield_tech']) + (0.05 * $defender['user'][$resource[602]]))); //coque
                     
                     $defenders[$fleetID]['techs'] = array($shieldTech, $defTech, $attTech);
@@ -1313,18 +1313,7 @@ abstract class FlyingFleetMissions {
 
 			$formatted_cr 	= self::GenerateReport($result, $steal, $MoonChance, $GottenMoon, $totaltime);
 
-			foreach($attackFleets as $fleetID => $attackeruser)
-			{
-				$Attacker['id'][] 	= $attackeruser['user']['id'];
-				$Attacker['name'][]	= $attackeruser['user']['username'];
-			}
 
-			foreach($defense as $fleetID => $defenderuser)
-			{
-				$Defender['id'][] 	= $defenderuser['user']['id'];
-				$Defender['name'][]	= $defenderuser['user']['username'];
-			}
-			
 			$Attacker['id']		= array_unique($Attacker['id'], SORT_NUMERIC);
 			$Attacker['name']	= array_unique($Attacker['name'], SORT_NUMERIC);
 			$Defender['id']		= array_unique($Defender['id'], SORT_NUMERIC);

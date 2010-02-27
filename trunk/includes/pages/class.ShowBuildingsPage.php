@@ -310,7 +310,7 @@ class ShowBuildingsPage
 					{
 						$ListIDRow .= "<tr>";
 						$ListIDRow .= "<td class=\"l\" width=\"70%\">". $ListID .".: ". $ElementTitle ." ".(($BuildMode != 'build') ?($BuildLevel+1)." ".$lang['bd_dismantle'] : $BuildLevel)."</td>";
-						$ListIDRow .= "<td class=\"k\">";
+						$ListIDRow .= "<th>";
 
 						if ($ListID == 1)
 						{
@@ -333,7 +333,7 @@ class ShowBuildingsPage
 							$ListIDRow .= "		<font color=\"red\">";
 							$ListIDRow .= "		<a href=\"game.php?page=buildings&amp;cmd=remove&amp;listid=". $ListID ."\">".$lang['bd_cancel']."</a></font>";
 						}
-						$ListIDRow .= "	</td>";
+						$ListIDRow .= "	</th>";
 						$ListIDRow .= "</tr>";
 					}
 				}

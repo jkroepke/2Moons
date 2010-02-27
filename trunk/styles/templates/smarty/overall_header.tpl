@@ -12,31 +12,7 @@
 {if $goto}
 <meta http-equiv="refresh" content="{$gotoinsec};URL={$goto}">
 {/if}
+<script type="text/javascript" src="parser.php?js[]=jquery.js&amp;js[]=jquery.ui.js&amp;js[]=overlib.js&amp;js[]=global.js{foreach item=scriptname from=$scripts}&amp;js[]={$scriptname}{/foreach}"></script>
 </head>
 <body>
-<script type="text/javascript">
-    (function() {
-        var s = [
-            "scripts/jquery.js",
-            "scripts/overlib.js",
-            "scripts/global.js",
-            "scripts/animatedcollapse.js",
-			{foreach item=scriptname from=$scripts}
-			"scripts/{$scriptname}",
-			{/foreach}
-        ];
-
-        var sc = "script", tp = "text/javascript", sa = "setAttribute", doc = document, ua = window.navigator.userAgent;
-        for(var i=0, l=s.length; i<l; ++i) {
-            if(ua.indexOf("Firefox")!==-1 || ua.indexOf("Opera")!==-1) {
-                var t=doc.createElement(sc);
-                t[sa]("src", s[i]);
-                t[sa]("type", tp);
-                doc.getElementsByTagName("head")[0].appendChild(t);
-            } else {
-                doc.writeln("<" + sc + " type=\"" + tp + "\" src=\"" + s[i] + "\"></" + sc + ">");
-            }
-        }
-	})();
-</script>
 <div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>

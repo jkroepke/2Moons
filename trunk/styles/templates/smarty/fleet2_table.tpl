@@ -17,36 +17,35 @@
 <input type="hidden" name="thissystem"     	value="{$thissystem}">
 <input type="hidden" name="thisplanet"     	value="{$thisplanet}">
 <input type="hidden" name="speedfactor" 	value="{$speedfactor}">
-<input type="hidden" name="thisresource1"   value="{$metal}">
-<input type="hidden" name="thisresource2"   value="{$crystal}">
-<input type="hidden" name="thisresource3" 	value="{$deuterium}">
+<input type="hidden" name="thisresource1"   value="{$thismetal}">
+<input type="hidden" name="thisresource2"   value="{$thiscrystal}">
+<input type="hidden" name="thisresource3" 	value="{$thisdeuterium}">
 <br>
 <div id="content" class="content">
     <table border="0" cellpadding="0" cellspacing="1" width="519" align="center">
-        <tr align="left" style="height:20px;">
+        <tr>
         	<td class="c" colspan="2">{$thisgalaxy}:{$thissystem}:{$thisplanet} - {if $thisplanet_type == 3}{$fl_moon}{else}{$fl_planet}{/if}</td>
         </tr>
+		<tr>
+			<td class="c">{$fl_mission}</td>
+        	<td class="c">{$fl_resources}</td>
+        </tr>
 		<tr align="left" valign="top">
-			<th width="50%">
-        		<table border="0" cellpadding="0" cellspacing="0" width="259">
-        			<tr style="height:20px;">
-        				<td class="c" colspan="2">{$fl_mission}</td>
-        			</tr>
+			<th width="50%" style=";margin:0;padding:0;">
+        		<table border="0" cellpadding="0" cellspacing="0" width="259" style="margin:0;padding:0;">
         			{foreach item=MissionName key=MissionID from=$MissionSelector}
 					<tr style="height:20px;">
-						<th>
-						<input id="radio_{$MissionID}" type="radio" name="mission" value="{$MissionID}" {if $mission == $MissionID}checked="checked"{/if}><label for="radio_{$MissionID}">{$MissionName}</label><br>
-							{if $MissionID == 15}<br><p style="color:red;padding-left:13px;">{$fl_expedition_alert_message}"</p><br></th>{/if}
-							{if $MissionID == 11}<br><p style="color:red;padding-left:13px;">{$fl_dm_alert_message}</p><br></th>{/if}
+						<th style="text-align:left">
+						<input id="radio_{$MissionID}" type="radio" name="mission" value="{$MissionID}" {if $mission == $MissionID}checked="checked"{/if} style="width:60px;"><label for="radio_{$MissionID}">{$MissionName}</label><br>
+							{if $MissionID == 15}<br><p style="color:red;padding-left:13px;">{$fl_expedition_alert_message}"</p><br>{/if}
+							{if $MissionID == 11}<br><p style="color:red;padding-left:13px;">{$fl_dm_alert_message}</p><br>{/if}
+						</th>
 					</tr>
 					{/foreach}
         		</table>
         	</th>
         	<th style="vertical-align:top;">
 				<table border="0" cellpadding="0" cellspacing="0" width="259">
-        			<tr style="height:20px">
-        				<td colspan="3" class="c">{$fl_resources}</td>
-        			</tr>
                     <tr style="height:20px;">
         				<th>{$Metal}</th>
         				<th><a href="javascript:maxResource('1');">{$fl_max}</a></th>
