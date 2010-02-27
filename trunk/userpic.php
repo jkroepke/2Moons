@@ -38,7 +38,7 @@ $Statstime	= $game_config['stat_update_time'] * 60;
 $banner = new StatBanner();
 $lastedit = filemtime($banner->path.$id.".png");
 header('Last-Modified: '.date('D, d M Y H:i:s T', $lastedit));
-header('Expires: '.date('D, d M Y H:i:s T', time() + $Statstime));
+header('Expires: '.date('D, d M Y H:i:s T',$game_config['stat_last_update'] + $Statstime));
 header('Content-type: image/png'); 
 header("Cache-Control: public, max-age=".$Statstime.", s-maxage=".$Statstime);
 
