@@ -13,6 +13,11 @@
 <meta http-equiv="refresh" content="{$gotoinsec};URL={$goto}">
 {/if}
 <script type="text/javascript" src="parser.php?js[]=jquery.js&amp;js[]=jquery.ui.js&amp;js[]=overlib.js&amp;js[]=global.js{foreach item=scriptname from=$scripts}&amp;js[]={$scriptname}{/foreach}"></script>
+<script type="text/javascript">
+$(function() {
+	$("#menu").draggable({ distance: 20 });
+});
+</script>
 </head>
 <body>
 <div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
