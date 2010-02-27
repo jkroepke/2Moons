@@ -34,7 +34,7 @@ class Statbuilder {
 			} else {  
 				$SQLRow	= $db->fetch_array($db->query("SELECT  `". $ElementResource ."` AS `maxlvl`, `users`.`username` FROM ".PLANETS." LEFT JOIN ".USERS." as users ON `users`.`id` = `id_owner` WHERE `". $ElementResource. "` = (SELECT MAX(`". $ElementResource ."`) FROM ".PLANETS." ".(($game_config['stat'] == 1) ? "WHERE `authlevel` < '".$game_config['stat_level']."'":"").");"));
 			}
-			$array	.= $ElementID." => array('username' => ".$SQLRow['username'].", 'maxlvl' => ".$SQLRow['maxlvl'].",),\n";
+			$array	.= $ElementID." => array('username' => '".$SQLRow['username']."', 'maxlvl' => '".$SQLRow['maxlvl']."'),\n";
 		}
 		$file	= "<?php \n//The File is created on ".date("d. M y H:i:s", time())."\n$"."RecordsArray = array(\n".$array."\n);\n?>";
 		$fp = fopen($xgp_root."cache/CacheRecords.php", "w+");
