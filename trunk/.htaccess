@@ -14,11 +14,13 @@ Deny from All
 </Files>
 
 AddDefaultCharset utf-8
-
-<FilesMatch "\.(css|gif|png|jpg|ico)$">
+<IfModule mod_headers.c>
+<FilesMatch "\.(ico|pdf|js|css|gif|png|jpg|jpeg|txt|html|htm)$">
 	FileETag none
 	Header set Cache-Control "public, max-age=604800, s-maxage=604800"
 </FilesMatch>
+</IfModule>
+
 
 RewriteEngine on
 
