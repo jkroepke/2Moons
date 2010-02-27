@@ -32,7 +32,7 @@ class Statbuilder {
 			if ($ElementID >= 101 && $ElementID <= 199) {
 				$SQLRow	= $db->fetch_array($db->query("SELECT `username`, `". $ElementResource ."` AS `maxlvl` FROM ".USERS." WHERE `". $ElementResource ."` = (SELECT MAX(`". $ElementResource ."`) FROM ".USERS." ".(($game_config['stat'] == 1) ? "WHERE `authlevel` < '".$game_config['stat_level']."'":"").");"));
 			} else {  
-				$SQLRow	= $db->fetch_array($db->query("SELECT  `a`.`". $ElementResource ."` AS `maxlvl`, `b`.`username` FROM ".PLANETS." as a, ".USERS." as b WHERE `a`.`". $ElementResource. "` = (SELECT MAX(`". $ElementResource ."`) FROM ".PLANETS." ".(($game_config['stat'] == 1) ? "WHERE `authlevel` < '".$game_config['stat_level']."'":"").") AND `a`.`id_owner` = `b`.`id`;"));
+				$SQLRow	= $db->fetch_array($db->query("SELECT  `". $ElementResource ."` AS `maxlvl`, `users`.`username` FROM ".PLANETS." LEFT JOIN ".USERS." as users ON `users`.`id` = `id_owner` WHERE `". $ElementResource. "` = (SELECT MAX(`". $ElementResource ."`) FROM ".PLANETS." ".(($game_config['stat'] == 1) ? "WHERE `authlevel` < '".$game_config['stat_level']."'":"").");"));
 			}
 			$array	.= $ElementID." => array('username' => ".$SQLRow['username'].", 'maxlvl' => ".$SQLRow['maxlvl'].",),\n";
 		}
