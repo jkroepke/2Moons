@@ -34,17 +34,17 @@
     {/foreach}
     <tr>
         <th height="22">{$rs_storage_capacity}</th>
-        <td class="k">{$metalmax}</td>
-        <td class="k">{$crystalmax}</td>
-        <td class="k">{$deuteriummax}</td>
-        <td class="k">-</td>
-        <td class="k"><input name="action" value="{$rs_calculate}" type="submit" style="height:auto;"></td>
+        <th>{$metalmax}</th>
+        <th>{$crystalmax}</th>
+        <th>{$deuteriummax}</th>
+        <th>-</th>
+        <th><input name="action" value="{$rs_calculate}" type="submit" style="height:auto;"></th>
     </tr><tr>
         <th height="22">{$rs_sum}:</th>
-        <td class="k">{$metal_total}</td>
-        <td class="k">{$crystal_total}</td>
-        <td class="k">{$deuterium_total}</td>
-        <td class="k">{$energy_total}</td>
+        <th>{$metal_total}</th>
+        <th>{$crystal_total}</th>
+        <th>{$deuterium_total}</th>
+        <th>{$energy_total}</th>
     </tr>
     <tr>
         <th height="22">{$rs_daily}</th>
