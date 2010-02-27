@@ -95,7 +95,9 @@ function ShowResourcesPage($CurrentUser, $CurrentPlanet)
 	$metal			= array();
 	$crystal		= array();
 	$deuterium		= array();
+	$deu_en			= array();
 	$energy			= array();
+	$energy_en		= array();
 	
 	foreach($reslist['prod'] as $ProdID)
 	{
@@ -145,11 +147,11 @@ function ShowResourcesPage($CurrentUser, $CurrentPlanet)
 	}
 
 	$template->assign_vars(array(	
-		'bonus_metal'							=> colorNumber(pretty_number(array_sum($metal)	 * ((($CurrentUser['rpg_geologue'] * GEOLOGUE )) + ((time() - $CurrentUser[$resource[703]] <= 0) ? ($ExtraDM[703]['add']) : 0)))),
-		'bonus_crystal'							=> colorNumber(pretty_number(array_sum($crystal) 	 * ((($CurrentUser['rpg_geologue'] * GEOLOGUE )) + ((time() - $CurrentUser[$resource[703]] <= 0) ? ($ExtraDM[703]['add']) : 0)))),
-		'bonus_deuterium'						=> colorNumber(pretty_number(array_sum($deuterium) * ((($CurrentUser['rpg_geologue'] * GEOLOGUE )) + ((time() - $CurrentUser[$resource[703]] <= 0) ? ($ExtraDM[703]['add']) : 0)))),
-		'bonus_energy'							=> colorNumber(pretty_number(array_sum($energy_en) * ((($CurrentUser['rpg_ingenieur'] * INGENIEUR )) + ((time() - $CurrentUser[$resource[704]] <= 0) ? ($ExtraDM[704]['add']) : 0)))),
-		'CurrPlanetList'						=> $CurrPlanetList,
+		'bonus_metal'							=> colorNumber(pretty_number(array_sum($metal)		* ((($CurrentUser['rpg_geologue'] * GEOLOGUE )) + ((time() - $CurrentUser[$resource[703]] <= 0) ? ($ExtraDM[703]['add']) : 0)))),
+		'bonus_crystal'							=> colorNumber(pretty_number(array_sum($crystal) 	* ((($CurrentUser['rpg_geologue'] * GEOLOGUE )) + ((time() - $CurrentUser[$resource[703]] <= 0) ? ($ExtraDM[703]['add']) : 0)))),
+		'bonus_deuterium'						=> colorNumber(pretty_number(array_sum($deuterium) 	* ((($CurrentUser['rpg_geologue'] * GEOLOGUE )) + ((time() - $CurrentUser[$resource[703]] <= 0) ? ($ExtraDM[703]['add']) : 0)))),
+		'bonus_energy'							=> colorNumber(pretty_number(array_sum($energy_en) 	* ((($CurrentUser['rpg_ingenieur'] * INGENIEUR )) + ((time() - $CurrentUser[$resource[704]] <= 0) ? ($ExtraDM[704]['add']) : 0)))),
+		'CurrPlanetList'						=> $CurrPlanetList,	
 		'Production_of_resources_in_the_planet'	=> str_replace('%s', $CurrentPlanet['name'], $lang['rs_production_on_planet']),
 		'metal_basic_income'    				=> $game_config['metal_basic_income']     * $game_config['resource_multiplier'],
 		'crystal_basic_income'  				=> $game_config['crystal_basic_income']   * $game_config['resource_multiplier'],
