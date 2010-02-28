@@ -50,7 +50,6 @@ $IsUserChecked 	= false;
 if(file_exists($xgp_root . 'config.php'))
 	require_once($xgp_root . 'config.'.$phpEx);
 
-require_once($xgp_root . 'includes/classes/class.db.'.$phpEx);
 require_once($xgp_root . 'includes/classes/class.MySQLi.'.$phpEx);
 require_once($xgp_root . 'includes/constants.'.$phpEx);
 require_once($xgp_root . 'includes/GeneralFunctions.'.$phpEx);
