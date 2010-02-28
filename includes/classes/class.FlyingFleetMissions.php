@@ -2612,185 +2612,319 @@ abstract class FlyingFleetMissions {
 
 	public static function MissionCaseExpedition($FleetRow)
 	{
-		global $lang, $resource, $pricelist, $db;
+		// Rewrite on 28.02.10 by ShadoX for 2Moons (http://www.titanspace.org)
+		global $lang, $resource, $pricelist, $db, $reslist, $game_config;
 
-		$FleetOwner = $FleetRow['fleet_owner'];
-		$MessSender = $lang['sys_mess_qg'];
-		$MessTitle  = $lang['sys_expe_report'];
-
-		if ($FleetRow['fleet_mess'] == 0)
+		if ($FleetRow['fleet_mess'] == 0 && $FleetRow['fleet_end_stay'] < time())
 		{
-			if ($FleetRow['fleet_end_stay'] < time())
+			foreach($reslist['fleet'] as $ID)
 			{
-				$PointsFlotte = array(
-				202 => 1.0,
-				203 => 1.5,
-				204 => 0.5,
-				205 => 1.5,
-				206 => 2.0,
-				207 => 2.5,
-				208 => 0.5,
-				209 => 1.0,
-				210 => 0.01,
-				211 => 3.0,
-				212 => 0.0,
-				213 => 3.5,
-				214 => 5.0,
-				215 => 3.2,
-				216 => 6.0,				
-				217 => 1.7,
-				218 => 7.0,				
-				219 => 1.3,
-				);
-
-				$RatioGain = array (
-				202 => 0.1,
-				203 => 0.1,
-				204 => 0.1,
-				205 => 0.5,
-				206 => 0.25,
-				207 => 0.125,
-				208 => 0.5,
-				209 => 0.1,
-				210 => 0.1,
-				211 => 0.0625,
-				212 => 0.0,
-				213 => 0.0625,
-				214 => 0.03125,
-				215 => 0.0625,
-				216 => 0.03125,				
-				217 => 0.09,				
-				218 => 0.01025,				
-				219 => 0.09,			
-				);
-
-				$FleetStayDuration 	= ($FleetRow['fleet_end_stay'] - $FleetRow['fleet_start_time']) / 3600;
-				$farray 			= explode(";", $FleetRow['fleet_array']);
-
-				foreach ($farray as $Item => $Group)
-				{
-					if ($Group != '')
-					{
-						$Class 						= explode (",", $Group);
-						$TypeVaisseau 				= $Class[0];
-						$NbreVaisseau 				= $Class[1];
-						$LaFlotte[$TypeVaisseau]	= $NbreVaisseau;
-						$FleetCapacity 			   += $pricelist[$TypeVaisseau]['capacity'];
-						$FleetPoints   			   += ($NbreVaisseau * $PointsFlotte[$TypeVaisseau]);
-					}
-				}
-
-				$FleetUsedCapacity  = $FleetRow['fleet_resource_metal'] + $FleetRow['fleet_resource_crystal'] + $FleetRow['fleet_resource_deuterium'] + $FleetRow['fleet_resource_darkmatter'];
-				$FleetCapacity     -= $FleetUsedCapacity;
-				$FleetCount 		= $FleetRow['fleet_amount'];
-				$Hasard 			= mt_rand(0, 10);
-				$MessSender 		= $lang['sys_mess_qg']. "(".$Hasard.")";
-
-				if ($Hasard < 3)
-				{
-					$Hasard     += 1;
-					$LostAmount  = (($Hasard * 33) + 1) / 100;
-
-					if ($LostAmount == 100)
-					{
-						SendSimpleMessage ( $FleetOwner, '', $FleetRow['fleet_end_stay'], 15, $MessSender, $MessTitle, $lang['sys_expe_blackholl_2'] );
-						$db->query("DELETE FROM ".FLEETS." WHERE `fleet_id` = ". $FleetRow["fleet_id"].";");
-					}
+				$Expowert[$ID]	= ($pricelist[$ID]['metal'] + $pricelist[$ID]['crystal']) / 1000;
+			}
+			
+			$Expowert[202] = 12;
+			$Expowert[203] = 47;
+			$Expowert[204] = 12;
+			$Expowert[205] = 110;
+			$Expowert[206] = 47;
+			$Expowert[207] = 160;
+			
+			$FleetStayDuration 	= ($FleetRow['fleet_end_stay'] - $FleetRow['fleet_start_time']);
+			$farray 			= explode(";", $FleetRow['fleet_array']);
+			$FleetPoints 		= 0;
+			$FleetCapacity		= 0;
+			
+			foreach ($farray as $Item => $Group)
+			{
+				if (empty($Group)) continue;
+			
+				$Class 						= explode (",", $Group);
+				$FleetCount[$Class[0]]		= $Class[1];
+				$FleetCapacity 			   += $Class[1] * $pricelist[$Class[0]]['capacity'];
+				$FleetPoints   			   += $Class[1] * $Expowert[$Class[0]];			
+			}
+			
+			$FleetCapacity     -= $FleetRow['fleet_resource_metal'] + $FleetRow['fleet_resource_crystal'] + $FleetRow['fleet_resource_deuterium'] + $FleetRow['fleet_resource_darkmatter'];
+					
+			
+			$GetEvent	= mt_rand(1, 8);
+			
+			switch($GetEvent)
+			{
+				case 1:
+					$WitchFound	= mt_rand(1,3);
+					
+					$FindSize = mt_rand(0, 100);
+					if(10 < $FindSize) {
+						$WitchSize	= 1;
+						$Factor 	= (mt_rand(10, 50) / $WitchFound) * $game_config['resource_multiplier'];
+						$Message	= $lang['sys_expe_found_ress_1_'.mt_rand(1,4)];
+					} elseif(0 < $FindSize && 10 >= $FindSize) {
+						$WitchSize	= 2;
+						$Factor 	= (mt_rand(52, 100) / $WitchFound) * $game_config['resource_multiplier'];
+						$Message	= $lang['sys_expe_found_ress_2_'.mt_rand(1,3)];
+					} elseif(0 == $FindSize) {
+						$WitchSize	= 3;
+						$Factor 	= (mt_rand(102, 200) / $WitchFound) * $game_config['resource_multiplier'];
+						$Message	= $lang['sys_expe_found_ress_3_'.mt_rand(1,2)];
+					}	
+					$StatFactor = $db->fetch_array($db->query("SELECT MAX(total_points) as total FROM `uni1_statpoints` WHERE `stat_type` = 1;"));
+					
+					if($StatFactor['total'] < 5000000)
+						$MaxPoints = 9000;
 					else
+						$MaxPoints = 12000;
+					
+				
+					$Size			= min($Factor * MAX(MIN($FleetPoints / 1000, $MaxPoints), 200),$FleetCapacity);
+					
+					$QryUpdateFleet  = "UPDATE ".FLEETS." SET ";
+					$QryUpdateFleet .= ($WitchFound == 1) ? "`fleet_resource_metal` = `fleet_resource_metal` + '".$Size."', ":"";
+					$QryUpdateFleet .= ($WitchFound == 2) ? "`fleet_resource_crystal` = `fleet_resource_crystal` + '".$Size."', ":"";
+					$QryUpdateFleet .= ($WitchFound == 3) ? "`fleet_resource_deuterium` = `fleet_resource_deuterium` + '".$Size."', ":"";
+					$QryUpdateFleet .= "`fleet_mess` = '1' ";
+					$QryUpdateFleet .= "WHERE ";
+					$QryUpdateFleet .= "`fleet_id` = '". $FleetRow["fleet_id"] ."';";
+					$db->query($QryUpdateFleet);
+				break;
+				case 2:
+					$FindSize = mt_rand(0, 100);
+					if(10 < $FindSize) {
+						$Size		= mt_rand(100, 300);
+						$Message	= $lang['sys_expe_found_dm_1_'.mt_rand(1,5)];
+					} elseif(0 < $FindSize && 10 >= $FindSize) {
+						$Size		= mt_rand(301, 600);
+						$Message	= $lang['sys_expe_found_dm_2_'.mt_rand(1,4)];
+					} elseif(0 == $FindSize) {
+						$Size	 	= mt_rand(601, 3000);
+						$Message	= $lang['sys_expe_found_dm_3_'.mt_rand(1,2)];
+					}
+					
+					$QryUpdateFleet  = "UPDATE ".FLEETS." SET ";
+					$QryUpdateFleet .= "`fleet_resource_darkmatter` = `fleet_resource_darkmatter` + '".$Size."', ";
+					$QryUpdateFleet .= "`fleet_mess` = '1' ";
+					$QryUpdateFleet .= "WHERE ";
+					$QryUpdateFleet .= "`fleet_id` = '". $FleetRow["fleet_id"] ."';";
+					$db->query($QryUpdateFleet);
+				break;
+				case 3:
+					unset($FleetCount[208]);
+					unset($FleetCount[209]);
+					unset($FleetCount[214]);
+					$FindSize = mt_rand(0, 100);
+					if(10 < $FindSize) {
+						$Size		= mt_rand(2, 50);
+						$Message	= $lang['sys_expe_found_ships_1_'.mt_rand(1,4)];
+						$MaxFound	= 300000;
+					} elseif(0 < $FindSize && 10 >= $FindSize) {
+						$Size		= mt_rand(51, 100);
+						$Message	= $lang['sys_expe_found_ships_2_'.mt_rand(1,2)];
+						$MaxFound	= 600000;
+					} elseif(0 == $FindSize) {
+						$Size	 	= mt_rand(101, 200);
+						$Message	= $lang['sys_expe_found_ships_3_'.mt_rand(1,2)];
+						$MaxFound	= 1200000;
+					}
+					
+					$StatFactor = $db->fetch_array($db->query("SELECT MAX(total_points) as total FROM `uni1_statpoints` WHERE `stat_type` = 1;"));
+					
+					if($StatFactor['total'] < 5000000)
+						$MaxPoints = 4500;
+					else
+						$MaxPoints = 6000;
+						
+					$FoundPoints = 0;
+					foreach($reslist['fleet'] as $ID)
 					{
-						foreach ($LaFlotte as $Ship => $Count)
-						{
-							$LostShips[$Ship] = intval($Count * $LostAmount);
-							$NewFleetArray   .= $Ship.",". ($Count - $LostShips[$Ship]) .";";
+						if (!isset($FleetCount[$ID])) continue;
+						$FoundShips		 = max(min(round($Size * $FleetPoints), $MaxPoints), 0);
+						$FoundPoints	 += $FoundShips * ($pricelist[$ID]['metal'] + $pricelist[$ID]['crystal']);
+					}
+					
+					$MinFound	= mt_rand(7000, 10000);
+					if($FoundPoints < $MinFound)
+					{
+						while($FoundPoints < $MinFound) {
+							foreach($FoundShips as $ID => $Count) {
+								$FoundShips[$ID]	+= 1;
+								$FoundPoints	 	+= ($pricelist[$ID]['metal'] + $pricelist[$ID]['crystal']);
+							}
 						}
-						$QryUpdateFleet  = "UPDATE ".FLEETS." SET ";
-						$QryUpdateFleet .= "`fleet_array` = '". $NewFleetArray ."', ";
-						$QryUpdateFleet .= "`fleet_mess` = '1'  ";
-						$QryUpdateFleet .= "WHERE ";
-						$QryUpdateFleet .= "`fleet_id` = '". $FleetRow["fleet_id"] ."';";
-						$db->query( $QryUpdateFleet);
-						SendSimpleMessage ( $FleetOwner, '', $FleetRow['fleet_end_stay'], 15, $MessSender, $MessTitle, $lang['sys_expe_blackholl_1'] );
+					} elseif($FoundPoints > $MaxFound) {
+						while($FoundPoints > $MaxFound) {
+							foreach($FoundShips as $ID => $Count) {
+								$FoundShips[$ID]	-= 1;
+								$FoundPoints	 	-= ($pricelist[$ID]['metal'] + $pricelist[$ID]['crystal']);
+							}
+						}					
 					}
-				}
-				elseif ($Hasard == 3)
-				{
-					$db->query("UPDATE ".FLEETS." SET `fleet_mess` = '1' WHERE `fleet_id` = ". $FleetRow["fleet_id"].";");
-					SendSimpleMessage ( $FleetOwner, '', $FleetRow['fleet_end_stay'], 15, $MessSender, $MessTitle, $lang['sys_expe_nothing_1'] );
-				}
-				elseif ($Hasard>= 4 && $Hasard < 7)
-				{
-					if ($FleetCapacity> 5000)
-					{
-						$MinCapacity = $FleetCapacity - 5000;
-						$MaxCapacity = $FleetCapacity;
-						$FoundGoods  = mt_rand($MinCapacity, $MaxCapacity);
-						$FoundMetal  = intval($FoundGoods / 2);
-						$FoundCrist  = intval($FoundGoods / 4);
-						$FoundDeute  = intval($FoundGoods / 6);
-						$FoundDark   = mt_rand(1, 486);
-
-						$QryUpdateFleet  = "UPDATE ".FLEETS." SET ";
-						$QryUpdateFleet .= "`fleet_resource_metal` = `fleet_resource_metal` + '". $FoundMetal ."', ";
-						$QryUpdateFleet .= "`fleet_resource_crystal` = `fleet_resource_crystal` + '". $FoundCrist."', ";
-						$QryUpdateFleet .= "`fleet_resource_deuterium` = `fleet_resource_deuterium` + '". $FoundDeute ."', ";
-						$QryUpdateFleet .= "`fleet_resource_darkmatter` = `fleet_resource_darkmatter` + '". $FoundDark ."', ";
-						$QryUpdateFleet .= "`fleet_mess` = '1'  ";
-						$QryUpdateFleet .= "WHERE ";
-						$QryUpdateFleet .= "`fleet_id` = '". $FleetRow["fleet_id"] ."';";
-						$db->query( $QryUpdateFleet);
-
-						$Message = sprintf($lang['sys_expe_found_goods'],
-						pretty_number($FoundMetal), $lang['Metal'],
-						pretty_number($FoundCrist), $lang['Crystal'],
-						pretty_number($FoundDeute), $lang['Deuterium'],
-						pretty_number($FoundDark), $lang['Darkmatter']);
-
-						SendSimpleMessage ( $FleetOwner, '', $FleetRow['fleet_end_stay'], 15, $MessSender, $MessTitle, $Message );
-					}
-				}
-				elseif ($Hasard == 7)
-				{
-					$db->query("UPDATE ".FLEETS." SET `fleet_mess` = '1' WHERE `fleet_id` = ". $FleetRow["fleet_id"].";");
-					SendSimpleMessage ( $FleetOwner, '', $FleetRow['fleet_end_stay'], 15, $MessSender, $MessTitle, $lang['sys_expe_nothing_2'] );
-				}
-				elseif ($Hasard>= 8 && $Hasard < 11)
-				{
-					$FoundChance = $FleetPoints / $FleetCount;
-					for ($Ship = 202; $Ship < 220; $Ship++)
-					{
-						if ($LaFlotte[$Ship] != 0)
-						{
-							$FoundShip[$Ship] = round($LaFlotte[$Ship] * $RatioGain[$Ship]);
-							if ($FoundShip[$Ship]> 0)
-								$LaFlotte[$Ship] += $FoundShip[$Ship];
-						}
-					}
+					
 					$NewFleetArray = "";
 					$FoundShipMess = "";
 
-					foreach ($LaFlotte as $Ship => $Count)
+					foreach ($FleetCount as $ID => $Count)
 					{
-						if ($Count> 0)
-							$NewFleetArray   .= $Ship.",". $Count .";";
+						if (empty($Count)) continue;
+						
+						$FleetCount		 += ($Count + $FoundShips[$ID]);
+						$NewFleetArray   .= $ID.",".($Count + $FoundShips[$ID]).";";
+						$FoundShipMess   .= "<br>". $lang['tech'][$Ship].": ".$Count;
 					}
-
-					foreach ($FoundShip as $Ship => $Count)
-					{
-						if ($Count != 0)
-							$FoundShipMess   .= $Count." ".$lang['tech'][$Ship].",";
-					}
-
+					$Message	.= $FoundShipMess;
+					
 					$QryUpdateFleet  = "UPDATE ".FLEETS." SET ";
-					$QryUpdateFleet .= "`fleet_array` = '". $NewFleetArray ."', ";
+					$QryUpdateFleet .= "`fleet_array` = '".$NewFleetArray."', ";
+					$QryUpdateFleet .= "`fleet_amount` = '".$FleetCount."', ";
 					$QryUpdateFleet .= "`fleet_mess` = '1'  ";
 					$QryUpdateFleet .= "WHERE ";
 					$QryUpdateFleet .= "`fleet_id` = '". $FleetRow["fleet_id"] ."';";
-					$db->query( $QryUpdateFleet);
+					$db->query($QryUpdateFleet);
+				break;
+				case 4:
+					$Chance	= mt_rand(1,2);
+					if($Chance) {
+						$Points	= array(-3,-5,-8);
+						$Which	= 1;
+						$Def	= -3;
+						$Name	= $lang['sys_expe_attackname_1'];
+						$Add	= 0;
+						$Rand	= array(5,3,2);	
+						$DefenderFleetArray	= "204,5;206,3;207,2;";								
+					} else { 
+						$Points	= array(-4,-6,-9);
+						$Which	= 2;
+						$Def	= 3;
+						$Name	= $lang['sys_expe_attackname_2'];
+						$Add	= 0.1;
+						$Rand	= array(4,3,2);
+						$DefenderFleetArray	= "205,5;215,3;213,2;";
+						}
+					
+					$FindSize = mt_rand(0, 100);
+					if(10 < $FindSize) {
+						$Message			= $lang['sys_expe_attack_'.$Which.'_1_'.$Rand[0]];
+						$MaxAttackerPoints	= 0.3 + $Add + (mt_rand($Points[0], abs($Points[0])) * 0.01);
+					} elseif(0 < $FindSize && 10 >= $FindSize) {
+						$Message			= $lang['sys_expe_attack_'.$Which.'_2_'.$Rand[1]];
+						$MaxAttackerPoints	= 0.3 + $Add + (mt_rand($Points[1], abs($Points[1])) * 0.01);
+					} elseif(0 == $FindSize) {
+						$Message			= $lang['sys_expe_attack_'.$Which.'_3_'.$Rand[2]];
+						$MaxAttackerPoints	= 0.3 + $Add + (mt_rand($Points[2], abs($Points[2])) * 0.01);
+					}
+					
+					foreach($FleetCount as $ID => $count)
+					{
+						$DefenderFleetArray	.= $ID.",".round($count * $MaxAttackerPoints).";";
+					}
 
-					$Message = $lang['sys_expe_found_ships']. $FoundShipMess . "";
-					SendSimpleMessage($FleetOwner, '', $FleetRow['fleet_end_stay'], 15, $MessSender, $MessTitle, $Message);
-				}
+					$AttackerTechno	= $db->fetch_array($db->query('SELECT id,username,military_tech,defence_tech,shield_tech,rpg_amiral,dm_defensive,dm_attack FROM '.USERS.' WHERE id='.$FleetRow['fleet_owner'].";"));
+					$DefenderTechno	= array('id' => 0, 'username' => $Name, 'military_tech' => ($AttackerTechno['military_tech'] + $Def), 'defence_tech' => ($AttackerTechno['defence_tech'] + $Def), 'shield_tech' => ($AttackerTechno['shield_tech'] + $Def), 'rpg_amiral' => 0, 'dm_defensive' => 0, 'dm_attack' => 0);
+					
+					$attackFleets[$FleetRow['fleet_id']]['fleet'] = $FleetRow;
+					$attackFleets[$FleetRow['fleet_id']]['user'] = $AttackerTechno;
+					$attackFleets[$FleetRow['fleet_id']]['detail'] = array();
+					$temp = explode(';', $FleetRow['fleet_array']);
+					foreach ($temp as $temp2)
+					{
+						$temp2 = explode(',', $temp2);
+
+						if ($temp2[0] < 100) continue;
+
+						if (!isset($attackFleets[$FleetRow['fleet_id']]['detail'][$temp2[0]]))
+							$attackFleets[$FleetRow['fleet_id']]['detail'][$temp2[0]] = 0;
+
+						$attackFleets[$FleetRow['fleet_id']]['detail'][$temp2[0]] += $temp2[1];
+					}
+					$defense = array();
+
+					$defRowDef = explode(';', $DefenderFleetArray);
+					foreach ($defRowDef as $Element)
+					{
+						$Element = explode(',', $Element);
+
+						if ($Element[0] < 100) continue;
+
+						if (!isset($defense[$defRow['fleet_id']]['def'][$Element[0]]))
+							$defense[$defRow['fleet_id']][$Element[0]] = 0;
+
+						$defense[$defRow['fleet_id']]['def'][$Element[0]] += $Element[1];
+						$defense[$defRow['fleet_id']]['user'] = $DefenderTechno;
+					}
+					$start 		= microtime(true);
+					$result 	= self::calculateAttack($attackFleets, $defense);
+					$totaltime 	= microtime(true) - $start;
+
+
+					foreach ($attackFleets as $fleetID => $attacker)
+					{
+						$fleetArray = '';
+						$totalCount = 0;
+						foreach ($attacker['detail'] as $element => $amount)
+						{
+							if ($amount)
+								$fleetArray .= $element.','.$amount.';';
+
+							$totalCount += $amount;
+						}
+
+						if ($totalCount <= 0)
+						{
+							$db->query('DELETE FROM '.FLEETS.' WHERE `fleet_id`='.$fleetID.';');
+						}
+						else
+						{
+							$db->query('UPDATE '.FLEETS.' SET fleet_array="'.substr($fleetArray, 0, -1).'", fleet_amount='.$totalCount.', fleet_mess=1 WHERE fleet_id='.$fleetID.';');
+						}
+					}
+					
+					$formatted_cr 	= self::GenerateReport($result, $steal, $MoonChance, $GottenMoon, $totaltime);
+
+					$raport 		= $formatted_cr['html'];
+					$rid   			= md5($raport);
+					
+					$SQLQuery  = "INSERT INTO ".RW." SET ";
+					$SQLQuery .= "`time` = '".time()."', ";
+					$SQLQuery .= "`owners` = '".$FleetRow['fleet_owner'].",0', ";
+					$SQLQuery .= "`rid` = '". $rid ."', ";
+					$SQLQuery .= "`a_zestrzelona` = '".count($result['rounds'])."', ";
+					$SQLQuery .= "`raport` = '".$db->sql_escape($raport)."';";	
+					$db->query($SQLQuery);
+					$MessageAtt = sprintf($lang['sys_mess_attack_report_mess'], $rid, $ColorAtt, $lang['sys_mess_attack_report'], sprintf($lang['sys_adress_planet'], $FleetRow['fleet_end_galaxy'], $FleetRow['fleet_end_system'], $FleetRow['fleet_end_planet']), $ColorAtt, $lang['sys_perte_attaquant'], pretty_number($result['lost']['att']), $ColorDef, $lang['sys_perte_defenseur'], pretty_number($result['lost']['def']), $lang['sys_gain'], $lang['Metal'], pretty_number($steal['metal']), $lang['Crystal'], pretty_number($steal['crystal']), $lang['Deuterium'], pretty_number($steal['deuterium']), $lang['sys_debris'], $lang['Metal'], pretty_number($result['debree']['att'][0]+$result['debree']['def'][0]), $lang['Crystal'], pretty_number($result['debree']['att'][1]+$result['debree']['def'][1]));
+					SendSimpleMessage($FleetRow['fleet_owner'], '', $FleetRow['fleet_start_time'], 3, $lang['sys_mess_tower'], $lang['sys_mess_attack_report'], $MessageAtt);
+
+				break;
+				case 5:
+					$db->query("DELETE FROM ".FLEETS." WHERE `fleet_id` = ". $FleetRow["fleet_id"].";");
+					$Message	= $lang['sys_expe_lost_fleet_'.mt_rand(1,4)];
+				break;
+				case 6:
+					$MoreTime	= mt_rand(0, 100);
+					if($MoreTime < 75) {
+						$FleetRow['fleet_end_time'] = round(($FleetRow['fleet_end_stay'] + ($FleetRow['fleet_end_time'] - $FleetRow['fleet_end_stay']) + ($FleetStayDuration * mt_rand(1, 5))) / $game_config['fleet_speed']);
+						$Message = $lang['sys_expe_time_slow_'.mt_rand(1,6)];
+					} else {
+						$FleetRow['fleet_end_time'] = round(($FleetRow['fleet_end_stay'] + ($FleetRow['fleet_end_time'] - $FleetRow['fleet_end_stay']) / 2) / $game_config['fleet_speed']);
+						$Message = $lang['sys_expe_time_fast_'.mt_rand(1,3)];
+					}
+					
+					$QryUpdateFleet  = "UPDATE ".FLEETS." SET ";
+					$QryUpdateFleet .= "`fleet_end_time` = '".$FleetRow['fleet_end_time']."', ";
+					$QryUpdateFleet .= "`fleet_mess` = '1'  ";
+					$QryUpdateFleet .= "WHERE ";
+					$QryUpdateFleet .= "`fleet_id` = '". $FleetRow["fleet_id"] ."';";
+					$db->query($QryUpdateFleet);
+				break;
+				default:
+					$Message	= $lang['sys_expe_nothing_'.mt_rand(1,8)];
+					$QryUpdateFleet  = "UPDATE ".FLEETS." SET ";
+					$QryUpdateFleet .= "`fleet_mess` = '1'  ";
+					$QryUpdateFleet .= "WHERE ";
+					$QryUpdateFleet .= "`fleet_id` = '". $FleetRow["fleet_id"] ."';";
+					$db->query($QryUpdateFleet);
+				break;
 			}
+			
+			SendSimpleMessage($FleetRow['fleet_owner'], '', $FleetRow['fleet_end_stay'], 15, $lang['sys_mess_tower'], $lang['sys_expe_report'], $Message);	
 		}
 		else
 		{
@@ -2798,7 +2932,8 @@ abstract class FlyingFleetMissions {
 			{
 				self::RestoreFleetToPlanet($FleetRow, true);
 				$db->multi_query("UPDATE `".USERS."` SET `darkmatter` = darkmatter + ".$FleetRow['fleet_resource_darkmatter']." WHERE `id` = '".$FleetRow['fleet_owner']."';DELETE FROM ".FLEETS." WHERE `fleet_id` = ". $FleetRow["fleet_id"].";");
-				SendSimpleMessage($FleetOwner, '', $FleetRow['fleet_end_time'], 15, $MessSender, $MessTitle, $lang['sys_expe_back_home'] );
+				$Message = sprintf($lang['sys_expe_back_home'], $lang['Metal'], pretty_number($FleetRow['fleet_resource_metal']), $lang['Crystal'], pretty_number($FleetRow['fleet_resource_crystal']),  $lang['Deuterium'], pretty_number($FleetRow['fleet_resource_deuterium']), $lang['Darkmatter'], pretty_number($FleetRow['fleet_resource_darkmatter']));
+				SendSimpleMessage($FleetRow['fleet_owner'], '', $FleetRow['fleet_end_time'], 15, $lang['sys_mess_tower'], $lang['sys_expe_report'], $Message);
 			}
 		}
 	}

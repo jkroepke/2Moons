@@ -45,8 +45,6 @@ class DB_mysqli extends Database
 	public function __construct($host, $user, $pw, $db, $port = null)
 	{
 		parent::__construct($host, $user, $pw, $db, $port);
-		try { $this->init(); }
-		catch(Exception $e) { $e->printError(); }
 	}
 
 	/**
@@ -94,7 +92,12 @@ class DB_mysqli extends Database
 	 */
 	public function query($sql)
 	{
-		//echo $sql."\n";
+		if(!is_object($this->mysqli))
+		{
+			try { $this->init(); }
+			catch(Exception $e) { $e->printError(); }
+		}
+		#echo $sql."\n";
 		if($result = $this->mysqli->query($sql))
 		{
 			$this->queryCount++;

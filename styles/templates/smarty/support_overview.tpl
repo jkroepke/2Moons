@@ -11,9 +11,6 @@ if(i == 0){$('#newbutton:visible').hide('blind', {}, 500);$('#new:hidden').show(
 if(i != 0){$('#newbutton:hidden').show('blind', {}, 500);$('#new:visible').hide('blind', {}, 500);}
 $('#'+i).show('blind', {}, 500);
 }
-
-
-
 {/literal}
 </script>
 
