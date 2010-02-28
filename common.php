@@ -24,8 +24,8 @@ ignore_user_abort(true);
 
 @set_time_limit(0);
 
-if((!file_exists($xgp_root . 'config.php') || filesize($xgp_root . 'config.php') == 0) && INSTALL != true)
-	exit(header("Location:" . $xgp_root .  "install/"));
+if((!file_exists(ROOT_PATH . 'config.php') || filesize(ROOT_PATH . 'config.php') == 0) && INSTALL != true)
+	exit(header("Location:" . ROOT_PATH .  "install/"));
 
 
 if(!defined('INSTALL') || !defined('IN_ADMIN') || !defined('IN_CRON'))
@@ -42,22 +42,21 @@ error_reporting(E_ALL ^ E_NOTICE);
 
 header('Content-Type: text/html; charset=UTF-8');
 
-$phpEx			= "php";
 $game_config   	= array();
 $user          	= array();
 $lang          	= array();
 $link          	= "";
 $IsUserChecked 	= false;
 
-if(file_exists($xgp_root . 'config.php'))
-	require_once($xgp_root . 'config.'.$phpEx);
+if(file_exists(ROOT_PATH . 'config.php'))
+	require_once(ROOT_PATH . 'config.'.PHP_EXT);
 
-require_once($xgp_root . 'includes/classes/class.MySQLi.'.$phpEx);
-require_once($xgp_root . 'includes/constants.'.$phpEx);
-require_once($xgp_root . 'includes/GeneralFunctions.'.$phpEx);
-require_once($xgp_root . 'includes/vars.'.$phpEx);
-require_once($xgp_root . 'includes/classes/class.template.'.$phpEx);
-require_once($xgp_root . 'includes/classes/class.PlanetRessUpdate.'.$phpEx);
+require_once(ROOT_PATH . 'includes/classes/class.MySQLi.'.PHP_EXT);
+require_once(ROOT_PATH . 'includes/constants.'.PHP_EXT);
+require_once(ROOT_PATH . 'includes/GeneralFunctions.'.PHP_EXT);
+require_once(ROOT_PATH . 'includes/vars.'.PHP_EXT);
+require_once(ROOT_PATH . 'includes/classes/class.template.'.PHP_EXT);
+require_once(ROOT_PATH . 'includes/classes/class.PlanetRessUpdate.'.PHP_EXT);
 
 isBuggyIe() || ob_start("ob_gzhandler");
 
@@ -80,7 +79,7 @@ if (INSTALL != true)
 	if(!is_object($db))
 		trigger_error("Fehler mit Dantenbankconnection! config.php angepasst und eingef&uuml;gt?", E_USER_ERROR);
 		
-	$funcdir = $xgp_root . 'includes/functions/autoload/';
+	$funcdir = ROOT_PATH . 'includes/functions/autoload/';
 	if ($handle = opendir($funcdir)) {
 		while (false !== ($file = readdir($handle))) {
 			if ($file != "." && $file != ".." && $file != ".svn") {
@@ -103,14 +102,14 @@ if (INSTALL != true)
 
 	if (!defined('LOGIN') && !defined('IN_CRON'))
 	{
-		require_once($xgp_root . 'includes/classes/class.CheckSession.'.$phpEx);
+		require_once(ROOT_PATH . 'includes/classes/class.CheckSession.'.PHP_EXT);
 
 		$Result        	= new CheckSession();
 		$Result			= $Result->CheckUser($IsUserChecked);
 		$IsUserChecked 	= $Result['state'];
 		$user          	= $Result['record'];
 		
-		if (!$IsUserChecked) die(header('Location: '.$xgp_root.'index.php'));
+		if (!$IsUserChecked) die(header('Location: '.ROOT_PATH.'index.php'));
 		
 		if($game_config['game_disable'] == 0 && $user['authlevel'] == 0)
 		{
@@ -125,7 +124,7 @@ if (INSTALL != true)
 			{
 				update_config('stats_fly_lock', time());
 				$db->multi_query("UNLOCK TABLES;LOCK TABLE ".AKS." WRITE, ".RW." WRITE, ".MESSAGES." WRITE, ".FLEETS." WRITE, ".PLANETS." WRITE, ".TOPKB." WRITE, ".USERS." WRITE, ".STATPOINTS." WRITE;");
-				require_once($xgp_root . 'includes/classes/class.FlyingFleetHandler.'.$phpEx);
+				require_once(ROOT_PATH . 'includes/classes/class.FlyingFleetHandler.'.PHP_EXT);
 			
 				new FlyingFleetHandler($fleetquery);
 				
@@ -151,7 +150,7 @@ if (INSTALL != true)
 			}
 			
 			
-			require_once($xgp_root . 'includes/functions/SetSelectedPlanet.' . $phpEx);
+			require_once(ROOT_PATH . 'includes/functions/SetSelectedPlanet.' . PHP_EXT);
 			SetSelectedPlanet ($user);
 
 			$planetrow = $db->fetch_array($db->query("SELECT p.*, u.`darkmatter`, u.`new_message` FROM `".PLANETS."` as p LEFT JOIN `".USERS."` as u ON u.`id` = p.`id_owner` WHERE p.`id` = '".$user['current_planet']."';"));
@@ -164,7 +163,7 @@ if (INSTALL != true)
 			// Some Darkmatter Update after FleetMissions
 			$user['darkmatter'] = $planetrow['darkmatter'];
 			$user['new_message'] = $planetrow['new_message'];
-			include($xgp_root . 'includes/functions/CheckPlanetUsedFields.' . $phpEx);
+			include(ROOT_PATH . 'includes/functions/CheckPlanetUsedFields.' . PHP_EXT);
 			CheckPlanetUsedFields($planetrow);
 		}
 	}	

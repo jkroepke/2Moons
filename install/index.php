@@ -23,10 +23,10 @@ define('INSIDE'  			, true);
 define('INSTALL' 			, true);
 define('RCINSTALL_VERSION' 	, "5.0");
 
-$xgp_root = './../';
-include($xgp_root . 'extension.inc.php');
-include($xgp_root . 'common.'.$phpEx);
-include_once('databaseinfos.'.$phpEx);
+define('ROOT_PATH', './../');
+include(ROOT_PATH . 'extension.inc');
+include(ROOT_PATH . 'common.'.PHP_EXT);
+include_once('databaseinfos.'.PHP_EXT);
 
 $Mode     = $_GET['mode'];
 $Page     = $_GET['page'];
@@ -73,8 +73,8 @@ switch ($Mode) {
 		} else {
 			$parse['error'] = "<span class=\"yes\">Aktiv</span>";
 		}
-		if(($res = @fopen($xgp_root."config.php","w+") === true) || file_exists($xgp_root."config.php")){
-			if(is_writable($xgp_root."config.php") || @chmod($xgp_root."config.php", 0777)){
+		if(($res = @fopen(ROOT_PATH."config.php","w+") === true) || file_exists(ROOT_PATH."config.php")){
+			if(is_writable(ROOT_PATH."config.php") || @chmod(ROOT_PATH."config.php", 0777)){
 					$chmod = "<span class=\"yes\"> - Beschreibbar</span>";
 				} else {
 					$chmod = " - <span class=\"no\">Nicht beschreibbar</span>";
@@ -90,8 +90,8 @@ switch ($Mode) {
 		$dirs = "";
 		foreach ($directories as $dir)
 		{
-			if(is_dir($xgp_root . $dir) ||  @mkdir($xgp_root . $dir, 0777)){
-				if(is_writable($xgp_root . $dir) || @chmod($xgp_root . $dir, 0777)){
+			if(is_dir(ROOT_PATH . $dir) ||  @mkdir(ROOT_PATH . $dir, 0777)){
+				if(is_writable(ROOT_PATH . $dir) || @chmod(ROOT_PATH . $dir, 0777)){
 						$chmod = "<span class=\"yes\"> - Beschreibbar</span>";
 					} else {
 						$chmod = " - <span class=\"no\">Nicht beschreibbar</span>";
@@ -148,7 +148,7 @@ switch ($Mode) {
 			$parse[first]	= "Verbindung er Datenbank erfolgreich...";
 
 			fwrite($dz, "<?php \n");
-			fwrite($dz, "if(!defined(\"INSIDE\")){ header(\"location:".$xgp_root."\"); } \n\n");
+			fwrite($dz, "if(!defined(\"INSIDE\")){ header(\"location:".ROOT_PATH."\"); } \n\n");
 			fwrite($dz, "//### Database access ###//\n\n");
 			fwrite($dz, "\$database[\"host\"]          = \"".$host."\";\n");
 			fwrite($dz, "\$database[\"port\"]          = \"".$port."\";\n");
@@ -235,7 +235,7 @@ switch ($Mode) {
 			$QryInsertAdm .= "`deuterium_max`     = '1000000';";
 			$QryInsertAdm .= "INSERT INTO ".STATPOINTS." (`id_owner`, `id_ally`, `stat_type`, `stat_code`, `tech_rank`, `tech_old_rank`, `tech_points`, `tech_count`, `build_rank`, `build_old_rank`, `build_points`, `build_count`, `defs_rank`, `defs_old_rank`, `defs_points`, `defs_count`, `fleet_rank`, `fleet_old_rank`, `fleet_points`, `fleet_count`, `total_rank`, `total_old_rank`, `total_points`, `total_count`, `stat_date`) VALUES ('1', '0', '1', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '".time()."');";
 			$db->multi_query($QryInsertAdm);
-			include($xgp_root.'config.php');
+			include(ROOT_PATH.'config.php');
 			$cookie = "1/%/" . $adm_user . "/%/" . md5 ($md5pass . "--" . $dbsettings ["secretword"] ) . "/%/" . 0;
 			setcookie('2Moons', $cookie, 0, "/", "", 0 );
 			header("Location: ../adm/index.php");
@@ -249,7 +249,7 @@ switch ($Mode) {
 			{
 				foreach ($directories as $dir)
 				{
-					mkdir($xgp_root . $dir, 0777);
+					mkdir(ROOT_PATH . $dir, 0777);
 				}
 			}
 			$Qry1 = "UPDATE ".CONFIG." SET `config_value` = '5.0' WHERE `config_name` = 'VERSION' LIMIT 1;";

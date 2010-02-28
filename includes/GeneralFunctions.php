@@ -66,7 +66,7 @@ function message ($mes, $dest = "", $time = "3", $topnav = false, $menu = true)
 
 function display ($page, $topnav = true, $metatags = '', $AdminPage = false, $menu = true)
 {
-	global $game_config, $user, $planetrow, $xgp_root, $phpEx, $db;
+	global $game_config, $user, $planetrow, $db;
 	
 	if (!headers_sent()) {
 		header('Last-Modified: '.date('D, d M Y H:i:s T'));
@@ -80,18 +80,18 @@ function display ($page, $topnav = true, $metatags = '', $AdminPage = false, $me
 
 	if ($topnav)
 	{
-		include_once($xgp_root . 'includes/functions/ShowTopNavigationBar.' . $phpEx);
+		include_once(ROOT_PATH . 'includes/functions/ShowTopNavigationBar.' . PHP_EXT);
 		$DisplayPage .= ShowTopNavigationBar( $user, $planetrow );
 	}
 
 	if ($menu && !$AdminPage)
 	{
-		include_once($xgp_root . 'includes/functions/ShowLeftMenu.' . $phpEx);
+		include_once(ROOT_PATH . 'includes/functions/ShowLeftMenu.' . PHP_EXT);
 		$DisplayPage .= ShowLeftMenu ($user['authlevel']);
 	}
     if ($menu && !$AdminPage && $user['settings_planetmenu'] == 1)
     {
-        include_once($xgp_root . 'includes/functions/ShowPlanetMenu.' . $phpEx);
+        include_once(ROOT_PATH . 'includes/functions/ShowPlanetMenu.' . PHP_EXT);
         $DisplayPage .= ShowPlanetMenu ($user, $planetrow);
     } 
 	$DisplayPage .= "\n<center>\n". $page ."\n</center>\n";
@@ -173,8 +173,7 @@ function parsetemplate ($template, $array)
 
 function gettemplate ($templatename)
 {
-	global $xgp_root;
-	if(!($temp = @file_get_contents($xgp_root . TEMPLATE_DIR . $templatename . ".tpl")))
+	if(!($temp = @file_get_contents(ROOT_PATH . TEMPLATE_DIR . $templatename . ".tpl")))
 	{
 		trigger_error("Konnte Templatefile ". $templatename . " nicht finden!", E_USER_WARNING);
 	}
@@ -183,9 +182,9 @@ function gettemplate ($templatename)
 
 function includeLang ($filename, $ext = '.php')
 {
-	global $xgp_root, $lang;
+	global $lang;
 
-	include_once($xgp_root . "language/". DEFAULT_LANG ."/". $filename.$ext);
+	include_once(ROOT_PATH . "language/". DEFAULT_LANG ."/". $filename.$ext);
 }
 
 function GetStartAdressLink ( $FleetRow, $FleetType )
@@ -367,7 +366,7 @@ function request_var($var_name, $default, $multibyte = false, $cookie = false)
 
 function msg_handler($errno, $msg_text, $errfile, $errline)
 {
-	global $phpEx, $msg_title, $msg_long_text, $game_config, $db;
+	global  $msg_title, $msg_long_text, $game_config, $db;
 	if (!error_reporting()) return false;
 	switch ($errno)
 	{

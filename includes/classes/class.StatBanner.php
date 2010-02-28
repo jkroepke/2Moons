@@ -92,7 +92,7 @@ class StatBanner {
 	}
 
 	public function BuildIMGforAll() {
-		global $game_config, $db, $lang, $xgp_root;
+		global $game_config, $db, $lang;
 		// Parameters
 
 		
@@ -103,7 +103,7 @@ class StatBanner {
 		$MaxUser	= $db->num_rows($UserQuery);
 		while($Query = $db->fetch_array($UserQuery)){
 			$this->DeleteOldPic($Query['id']);
-			$image  = imagecreatefrompng($xgp_root.$this->source);
+			$image  = imagecreatefrompng(ROOT_PATH.$this->source);
 			// Variables
 			$b_univ   = $game_config['game_name'];
 			$b_user   = utf8_decode($Query['username']);
@@ -129,7 +129,7 @@ class StatBanner {
 			// Today date
 			imagestring($image, 1, $this->CenterTextBanner($date,1,653), 65, $date, $select);
 			// Player name
-			// ImageTTFText($image, 9, 0, 15, 12,$select, $xgp_root."/scripts/banner.ttf",$b_user);
+			// ImageTTFText($image, 9, 0, 15, 12,$select, ROOT_PATH."/scripts/banner.ttf",$b_user);
 			imagestring($image, 3, 15, 12, $b_user, $select);
 			// Player b_planet
 			imagestring($image, 3, 150, 12, "".$b_planet." ".$b_xyz."", $select);
@@ -142,14 +142,14 @@ class StatBanner {
 			imagestring($image, 2, 170, 45, $b_def,  $select);
 			imagestring($image, 2, 15,  60, $b_total,  $select);
 			// Creat and delete banner
-			ImagePNG($image,$xgp_root.$this->path.$Query['id'].".png");
+			ImagePNG($image,ROOT_PATH.$this->path.$Query['id'].".png");
 			imagedestroy($image);
 		}
 	}
 
-	public function ShowStatBanner($id) {
+	public function ShowStatBanner($id) 
+	{
 
-		global $xgp_root;
 		if(!file_exists($this->path.$id.".png")){
 			$this->BuildIMGforID($id);
 		}

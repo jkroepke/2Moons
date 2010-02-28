@@ -22,10 +22,10 @@
 define('INSIDE'  , true);
 define('INSTALL' , false);
 define('IN_ADMIN', true);
+define('ROOT_PATH', './../');
 
-$xgp_root = './../';
-include($xgp_root . 'extension.inc.php');
-include($xgp_root . 'common.' . $phpEx);
+include(ROOT_PATH . 'extension.inc');
+include(ROOT_PATH . 'common.' . PHP_EXT);
 
 $template	= new template();
 

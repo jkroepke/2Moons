@@ -21,7 +21,7 @@
 
 if (!defined('INSIDE')) die(header("location:../../"));
 
-require_once("class.FlyingFleetMissions.".$phpEx);
+require_once("class.FlyingFleetMissions.".PHP_EXT);
 
 class FlyingFleetHandler extends FlyingFleetMissions
 {	

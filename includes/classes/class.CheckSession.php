@@ -23,11 +23,11 @@ class CheckSession
 {
 	private function CheckCookies ($IsUserChecked)
 	{
-		global $game_config, $xgp_root, $phpEx, $lang, $db;
+		global $game_config, $lang, $db;
 
 		$UserRow = array();
 
-		include($xgp_root . 'config.' . $phpEx);
+		include(ROOT_PATH . 'config.' . PHP_EXT);
 
 		if (isset($_COOKIE[$game_config['COOKIE_NAME']]))
 		{
@@ -36,19 +36,19 @@ class CheckSession
 
 			if ($db->num_rows($UserResult) != 1)
 			{
-				message($lang['ccs_multiple_users'], $xgp_root, 5, false, false);
+				message($lang['ccs_multiple_users'], ROOT_PATH, 5, false, false);
 			}
 
 			$UserRow = $db->fetch_array($UserResult);
 
 			if ($UserRow["id"] != $TheCookie[0])
 			{
-				message($lang['ccs_other_user'], $xgp_root, 5,  false, false);
+				message($lang['ccs_other_user'], ROOT_PATH, 5,  false, false);
 			}
 
 			if (md5($UserRow["password"] . "--" . $dbsettings["secretword"]) !== $TheCookie[2])
 			{
-				message($lang['css_different_password'], $xgp_root, 5,  false, false);
+				message($lang['css_different_password'], ROOT_PATH, 5,  false, false);
 			}
 
 			$NextCookie = implode("/%/", $TheCookie);
@@ -101,7 +101,7 @@ class CheckSession
 
 	public function CheckUser($IsUserChecked)
 	{
-		global $user, $xgp_root, $lang;
+		global $user, $lang;
 
 		$Result        = $this->CheckCookies($IsUserChecked);
 		$IsUserChecked = $Result['state'];
@@ -122,7 +122,7 @@ class CheckSession
 		{
 			$RetValue['record'] = array();
 			$RetValue['state']  = false;
-			header("location:".$xgp_root);
+			header("location:".ROOT_PATH);
 		}
 
 		return $RetValue;

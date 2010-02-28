@@ -21,24 +21,24 @@
 
 define('INSIDE'  , true);
 define('INSTALL' , false);
+define('ROOT_PATH', './');
 
-$xgp_root = './';
-include($xgp_root . 'extension.inc.php');
-include($xgp_root . 'common.' . $phpEx);
+include(ROOT_PATH . 'extension.inc');
+include(ROOT_PATH . 'common.' . PHP_EXT);
 
-include($xgp_root . 'includes/functions/CheckPlanetBuildingQueue.' . $phpEx);
-include($xgp_root . 'includes/functions/GetBuildingPrice.' . $phpEx);
-include($xgp_root . 'includes/functions/IsElementBuyable.' . $phpEx);
-include($xgp_root . 'includes/functions/SetNextQueueElementOnTop.' . $phpEx);
-include($xgp_root . 'includes/functions/SortUserPlanets.' . $phpEx);
-include($xgp_root . 'includes/functions/UpdatePlanetBatimentQueueList.' . $phpEx);
+include(ROOT_PATH . 'includes/functions/CheckPlanetBuildingQueue.' . PHP_EXT);
+include(ROOT_PATH . 'includes/functions/GetBuildingPrice.' . PHP_EXT);
+include(ROOT_PATH . 'includes/functions/IsElementBuyable.' . PHP_EXT);
+include(ROOT_PATH . 'includes/functions/SetNextQueueElementOnTop.' . PHP_EXT);
+include(ROOT_PATH . 'includes/functions/SortUserPlanets.' . PHP_EXT);
+include(ROOT_PATH . 'includes/functions/UpdatePlanetBatimentQueueList.' . PHP_EXT);
 
 $page = request_var('page','');
 switch($page)
 {
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'changelog':
-		include_once($xgp_root . 'includes/pages/ShowChangelogPage.' . $phpEx);
+		include_once(ROOT_PATH . 'includes/pages/ShowChangelogPage.' . PHP_EXT);
 		ShowChangelogPage($user, $planetrow);
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
@@ -47,11 +47,11 @@ switch($page)
 		$query = $db->fetch_array($db->query("SELECT estado FROM ".MODULE." WHERE modulo='Galaxie';"));
 		if($query['estado'] == 0 && $user['authlevel'] == 0) { message("Modul inaktiv.","game.php?page=overview"); }
  
-		include_once($xgp_root . 'includes/pages/class.ShowGalaxyPage.' . $phpEx);
+		include_once(ROOT_PATH . 'includes/pages/class.ShowGalaxyPage.' . PHP_EXT);
 		$ShowGalaxyPage = new ShowGalaxyPage($user, $planetrow);
 	break;
 	case 'phalanx':
-		include_once($xgp_root . 'includes/pages/ShowPhalanxPage.' . $phpEx);
+		include_once(ROOT_PATH . 'includes/pages/ShowPhalanxPage.' . PHP_EXT);
 		ShowPhalanxPage($user, $planetrow);
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
@@ -60,7 +60,7 @@ switch($page)
 		$query = $db->fetch_array($db->query("SELECT estado FROM ".MODULE." WHERE modulo='Imperium';"));
 		if($query['estado'] == 0 && $user['authlevel'] == 0) { message("Modul inaktiv.","game.php?page=overview"); }
  
-		include_once($xgp_root . 'includes/pages/ShowImperiumPage.' . $phpEx);
+		include_once(ROOT_PATH . 'includes/pages/ShowImperiumPage.' . PHP_EXT);
 		ShowImperiumPage($user, $planetrow);
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
@@ -68,56 +68,56 @@ switch($page)
 		$query = $db->fetch_array($db->query("SELECT estado FROM ".MODULE." WHERE modulo='Flotte';"));
 		if($query['estado'] == 0 && $user['authlevel'] == 0) { message("Modul inaktiv.","game.php?page=overview"); }
  
-		include_once($xgp_root . 'includes/pages/class.ShowFleetPages.' . $phpEx);
+		include_once(ROOT_PATH . 'includes/pages/class.ShowFleetPages.' . PHP_EXT);
 		ShowFleetPages::ShowFleetPage($user, $planetrow);
 	break;
 	case 'fleet1':
 		$query = $db->fetch_array($db->query("SELECT estado FROM ".MODULE." WHERE modulo='Flotte';"));
 		if($query['estado'] == 0 && $user['authlevel'] == 0) { message("Modul inaktiv.","game.php?page=overview"); }
 		
-		include_once($xgp_root . 'includes/pages/class.ShowFleetPages.' . $phpEx);
+		include_once(ROOT_PATH . 'includes/pages/class.ShowFleetPages.' . PHP_EXT);
 		ShowFleetPages::ShowFleet1Page($user, $planetrow);
 	break;
 	case 'fleet2':
 		$query = $db->fetch_array($db->query("SELECT estado FROM ".MODULE." WHERE modulo='Flotte';"));
 		if($query['estado'] == 0 && $user['authlevel'] == 0) { message("Modul inaktiv.","game.php?page=overview"); }
 		
-		include_once($xgp_root . 'includes/pages/class.ShowFleetPages.' . $phpEx);
+		include_once(ROOT_PATH . 'includes/pages/class.ShowFleetPages.' . PHP_EXT);
 		ShowFleetPages::ShowFleet2Page($user, $planetrow);
 	break;
 	case 'fleet3':
 		$query = $db->fetch_array($db->query("SELECT estado FROM ".MODULE." WHERE modulo='Flotte';"));
 		if($query['estado'] == 0 && $user['authlevel'] == 0) { message("Modul inaktiv.","game.php?page=overview"); }
 		
-		include_once($xgp_root . 'includes/pages/class.ShowFleetPages.' . $phpEx);
+		include_once(ROOT_PATH . 'includes/pages/class.ShowFleetPages.' . PHP_EXT);
 		ShowFleetPages::ShowFleet3Page($user, $planetrow);
 	break;
 	case 'fleetajax':
 		$query = $db->fetch_array($db->query("SELECT estado FROM ".MODULE." WHERE modulo='Flotte';"));
 		if($query['estado'] == 0 && $user['authlevel'] == 0) { message("Modul inaktiv.","game.php?page=overview"); }
 		
-		include_once($xgp_root . 'includes/pages/class.ShowFleetPages.' . $phpEx);
+		include_once(ROOT_PATH . 'includes/pages/class.ShowFleetPages.' . PHP_EXT);
 		ShowFleetPages::FleetAjax($user, $planetrow);
 	break;
 	case 'missiles':
 		$query = $db->fetch_array($db->query("SELECT estado FROM ".MODULE." WHERE modulo='Flotte';"));
 		if($query['estado'] == 0 && $user['authlevel'] == 0) { message("Modul inaktiv.","game.php?page=overview"); }
 		
-		include_once($xgp_root . 'includes/pages/class.ShowFleetPages.' . $phpEx);
+		include_once(ROOT_PATH . 'includes/pages/class.ShowFleetPages.' . PHP_EXT);
 		ShowFleetPages::MissilesAjax($user, $planetrow);
 	break;
 	case 'fleetACS':
 		$query = $db->fetch_array($db->query("SELECT estado FROM ".MODULE." WHERE modulo='Flotte';"));
 		if($query['estado'] == 0 && $user['authlevel'] == 0) { message("Modul inaktiv.","game.php?page=overview"); }
 		
-		include_once($xgp_root . 'includes/pages/ShowFleetACSPage.' . $phpEx);
+		include_once(ROOT_PATH . 'includes/pages/ShowFleetACSPage.' . PHP_EXT);
 		ShowFleetACSPage($user, $planetrow);
 	break;
 	case 'shortcuts':
 		$query = $db->fetch_array($db->query("SELECT estado FROM ".MODULE." WHERE modulo='Flotte';"));
 		if($query['estado'] == 0 && $user['authlevel'] == 0) { message("Modul inaktiv.","game.php?page=overview"); }
 		
-		include_once($xgp_root . 'includes/pages/ShowFleetShortcuts.' . $phpEx);
+		include_once(ROOT_PATH . 'includes/pages/ShowFleetShortcuts.' . PHP_EXT);
 		ShowFleetShortcuts($user, $planetrow);
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
@@ -125,34 +125,34 @@ switch($page)
 		$query = $db->fetch_array($db->query("SELECT estado FROM ".MODULE." WHERE modulo='Bauen';"));
 		if($query['estado'] == 0 && $user['authlevel'] == 0) { message("Modul inaktiv.","game.php?page=overview"); }
  
-		include_once($xgp_root . 'includes/functions/HandleTechnologieBuild.' . $phpEx);
+		include_once(ROOT_PATH . 'includes/functions/HandleTechnologieBuild.' . PHP_EXT);
 		UpdatePlanetBatimentQueueList ($planetrow, $user, $planetrow);
 		$IsWorking = HandleTechnologieBuild($planetrow, $user, $planetrow);
 		switch ($_GET['mode'])
 		{
 			case 'research':
-				include_once($xgp_root . 'includes/pages/class.ShowResearchPage.' . $phpEx);
+				include_once(ROOT_PATH . 'includes/pages/class.ShowResearchPage.' . PHP_EXT);
 				new ShowResearchPage($planetrow, $user, $IsWorking['OnWork'], $IsWorking['WorkOn']);
 			break;
 			case 'fleet':
-				include_once($xgp_root . 'includes/pages/class.ShowShipyardPage.' . $phpEx);
+				include_once(ROOT_PATH . 'includes/pages/class.ShowShipyardPage.' . PHP_EXT);
 				$FleetBuildingPage = new ShowShipyardPage();
 				$FleetBuildingPage->FleetBuildingPage ($planetrow, $user, $planetrow);
 			break;
 			case 'defense':
-				include_once($xgp_root . 'includes/pages/class.ShowShipyardPage.' . $phpEx);
+				include_once(ROOT_PATH . 'includes/pages/class.ShowShipyardPage.' . PHP_EXT);
 				$DefensesBuildingPage = new ShowShipyardPage();
 				$DefensesBuildingPage->DefensesBuildingPage ($planetrow, $user, $planetrow);
 			break;
 			default:
-				include_once($xgp_root . 'includes/pages/class.ShowBuildingsPage.' . $phpEx);
+				include_once(ROOT_PATH . 'includes/pages/class.ShowBuildingsPage.' . PHP_EXT);
 				new ShowBuildingsPage($planetrow, $user, $planetrow);
 			break;
 		}
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'resources':
-		include_once($xgp_root . 'includes/pages/ShowResourcesPage.' . $phpEx);
+		include_once(ROOT_PATH . 'includes/pages/ShowResourcesPage.' . PHP_EXT);
 		ShowResourcesPage($user, $planetrow);
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
@@ -160,7 +160,7 @@ switch($page)
 		$query = $db->fetch_array($db->query("SELECT estado FROM ".MODULE." WHERE modulo='Offiziere';"));
 		if($query['estado'] == 0 && $user['authlevel'] == 0) { message("Modul inaktiv.","game.php?page=overview"); }
  
-		include_once($xgp_root . 'includes/pages/class.ShowOfficierPage.' . $phpEx);
+		include_once(ROOT_PATH . 'includes/pages/class.ShowOfficierPage.' . PHP_EXT);
 		new ShowOfficierPage($user, $planetrow);
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
@@ -168,7 +168,7 @@ switch($page)
 		$query = $db->fetch_array($db->query("SELECT estado FROM ".MODULE." WHERE modulo='Trader';"));
 		if($query['estado'] == 0 && $user['authlevel'] == 0) { message("Modul inaktiv.","game.php?page=overview"); }
  
-		include_once($xgp_root . 'includes/pages/ShowTraderPage.' . $phpEx);
+		include_once(ROOT_PATH . 'includes/pages/ShowTraderPage.' . PHP_EXT);
 		ShowTraderPage($user, $planetrow);
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
@@ -176,12 +176,12 @@ switch($page)
 		$query = $db->fetch_array($db->query("SELECT estado FROM ".MODULE." WHERE modulo='Techtree';"));
 		if($query['estado'] == 0 && $user['authlevel'] == 0) { message("Modul inaktiv.","game.php?page=overview"); }
  
-		include_once($xgp_root . 'includes/pages/ShowTechTreePage.' . $phpEx);
+		include_once(ROOT_PATH . 'includes/pages/ShowTechTreePage.' . PHP_EXT);
 		ShowTechTreePage($user, $planetrow);
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'infos':
-		include_once($xgp_root . 'includes/pages/class.ShowInfosPage.' . $phpEx);
+		include_once(ROOT_PATH . 'includes/pages/class.ShowInfosPage.' . PHP_EXT);
 		new ShowInfosPage($user, $planetrow);
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
@@ -189,7 +189,7 @@ switch($page)
 		$query = $db->fetch_array($db->query("SELECT estado FROM ".MODULE." WHERE modulo='Nachrichten';"));
 		if($query['estado'] == 0 && $user['authlevel'] == 0) { message("Modul inaktiv.","game.php?page=overview"); }
  
-		include_once($xgp_root . 'includes/pages/ShowMessagesPage.' . $phpEx);
+		include_once(ROOT_PATH . 'includes/pages/ShowMessagesPage.' . PHP_EXT);
 		ShowMessagesPage($user, $planetrow);
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
@@ -197,17 +197,17 @@ switch($page)
 		$query = $db->fetch_array($db->query("SELECT estado FROM ".MODULE." WHERE modulo='Allianz';"));
 		if($query['estado'] == 0 && $user['authlevel'] == 0) { message("Modul inaktiv.","game.php?page=overview"); }
  
-		include_once($xgp_root . 'includes/pages/class.ShowAlliancePage.' . $phpEx);
+		include_once(ROOT_PATH . 'includes/pages/class.ShowAlliancePage.' . PHP_EXT);
 		new ShowAlliancePage($user, $planetrow);
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'buddy':
-		include_once($xgp_root . 'includes/pages/ShowBuddyPage.' . $phpEx);
+		include_once(ROOT_PATH . 'includes/pages/ShowBuddyPage.' . PHP_EXT);
 		ShowBuddyPage($user, $planetrow);
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'notes':
-		include_once($xgp_root . 'includes/pages/class.ShowNotesPage.' . $phpEx);
+		include_once(ROOT_PATH . 'includes/pages/class.ShowNotesPage.' . PHP_EXT);
 		new ShowNotesPage($user, $planetrow);
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
@@ -215,7 +215,7 @@ switch($page)
 		$query = $db->fetch_array($db->query("SELECT estado FROM ".MODULE." WHERE modulo='Statistiken';"));
 		if($query['estado'] == 0 && $user['authlevel'] == 0) { message("Modul inaktiv.","game.php?page=overview"); }
  
-		include_once($xgp_root . 'includes/pages/ShowStatisticsPage.' . $phpEx);
+		include_once(ROOT_PATH . 'includes/pages/ShowStatisticsPage.' . PHP_EXT);
 		ShowStatisticsPage($user, $planetrow);
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
@@ -223,12 +223,12 @@ switch($page)
 		$query = $db->fetch_array($db->query("SELECT estado FROM ".MODULE." WHERE modulo='Suche';"));
 		if($query['estado'] == 0 && $user['authlevel'] == 0) { message("Modul inaktiv.","game.php?page=overview"); }
 
-		include_once($xgp_root . 'includes/pages/ShowSearchPage.' . $phpEx);
+		include_once(ROOT_PATH . 'includes/pages/ShowSearchPage.' . PHP_EXT);
 		ShowSearchPage($user, $planetrow);
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'options':
-		include_once($xgp_root . 'includes/pages/class.ShowOptionsPage.' . $phpEx);
+		include_once(ROOT_PATH . 'includes/pages/class.ShowOptionsPage.' . PHP_EXT);
 		new ShowOptionsPage($user, $planetrow);
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
@@ -236,12 +236,12 @@ switch($page)
 		$query = $db->fetch_array($db->query("SELECT estado FROM ".MODULE." WHERE modulo='Pranger';"));
 		if($query['estado'] == 0 && $user['authlevel'] == 0) { message("Modul inaktiv.","game.php?page=overview"); }
 
-		include_once($xgp_root . 'includes/pages/ShowBannedPage.' . $phpEx);
+		include_once(ROOT_PATH . 'includes/pages/ShowBannedPage.' . PHP_EXT);
 		ShowBannedPage($user, $planetrow);
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'topkb':
-		include_once($xgp_root . 'includes/pages/ShowTopKB.' . $phpEx);
+		include_once(ROOT_PATH . 'includes/pages/ShowTopKB.' . PHP_EXT);
 		ShowTopKB($user, $planetrow);
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
@@ -250,7 +250,7 @@ switch($page)
 		if($query['estado'] == 0 && $user['authlevel'] == 0) { message("Modul inaktiv.","game.php?page=overview"); }
 
 
-		include_once($xgp_root . 'includes/pages/ShowRecordsPage.' . $phpEx);
+		include_once(ROOT_PATH . 'includes/pages/ShowRecordsPage.' . PHP_EXT);
 		ShowRecordsPage($user, $planetrow);
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
@@ -258,7 +258,7 @@ switch($page)
 		$query = $db->fetch_array($db->query("SELECT estado FROM ".MODULE." WHERE modulo='Chat';"));
 		if($query['estado'] == 0 && $user['authlevel'] == 0) { message("Modul inaktiv.","game.php?page=overview"); }
 
-		include_once($xgp_root . 'includes/pages/class.ShowChatPage.' . $phpEx);
+		include_once(ROOT_PATH . 'includes/pages/class.ShowChatPage.' . PHP_EXT);
 		new ShowChatPage($user, $planetrow);
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
@@ -266,17 +266,17 @@ switch($page)
 		$query = $db->fetch_array($db->query("SELECT estado FROM ".MODULE." WHERE modulo='Support';"));
 		if($query['estado'] == 0 && $user['authlevel'] == 0) { message("Modul inaktiv.","game.php?page=overview"); }
 
-		include_once($xnova_root . 'includes/pages/ShowSupportPage.' . $phpEx);
+		include_once($xnova_root . 'includes/pages/ShowSupportPage.' . PHP_EXT);
         new ShowSupportPage($user, $planetrow);
     break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//	
     case 'playercard':
-        include_once($xgp_root . 'includes/pages/ShowPlayerCard.' . $phpEx);
+        include_once(ROOT_PATH . 'includes/pages/ShowPlayerCard.' . PHP_EXT);
         ShowPlayerCard($user, $planetrow);
     break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//	
     case 'faq':
-        include_once($xgp_root . 'includes/pages/ShowFAQ.' . $phpEx);
+        include_once(ROOT_PATH . 'includes/pages/ShowFAQ.' . PHP_EXT);
         ShowFAQ($user, $planetrow);
     break; 
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
@@ -291,7 +291,7 @@ switch($page)
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'overview':
 	default:
-		include_once($xgp_root . 'includes/pages/ShowOverviewPage.' . $phpEx);
+		include_once(ROOT_PATH . 'includes/pages/ShowOverviewPage.' . PHP_EXT);
 		ShowOverviewPage($user, $planetrow);
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//

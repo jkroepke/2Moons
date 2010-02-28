@@ -21,7 +21,7 @@
 
 function ShowFleetShortcuts($CurrentUser)
 {
-	global $lang, $phpEx, $db;
+	global $lang, $db;
 
 	$a = request_var('a','');
 	$mode = request_var('mode', '');
@@ -35,7 +35,7 @@ function ShowFleetShortcuts($CurrentUser)
 			$r = strip_tags($_POST[n]) . "," . intval($_POST[g]) . "," . intval($_POST[s]) . "," . intval($_POST[p]) . "," . intval($_POST[t]) . "\r\n";
 			$CurrentUser['fleet_shortcut'] .= $r;
 			$db->query("UPDATE ".USERS." SET fleet_shortcut='".$CurrentUser['fleet_shortcut']."' WHERE id=".$CurrentUser['id'].";");
-			header("location:game.".$phpEx."?page=shortcuts");
+			header("location:game.".PHP_EXT."?page=shortcuts");
 		}
 
 		$page = "<div id=\"content\"><form method=POST><table border=0 cellpadding=0 cellspacing=1 width=519>
@@ -54,7 +54,7 @@ function ShowFleetShortcuts($CurrentUser)
 				</th></tr><tr>
 				<th><input type=\"reset\" value=\"".$lang['fl_clean']."\"> <input type=\"submit\" value=\"".$lang['fl_register_shorcut']."\">";
 		$page .= "</th></tr>";
-		$page .= "<tr><td colspan=2 class=c><a href=\"game.".$phpEx ."?page=shortcuts\">".$lang['fl_shortcuts']."</a></td></tr></tr></table></form></div>";
+		$page .= "<tr><td colspan=2 class=c><a href=\"game.".PHP_EXT ."?page=shortcuts\">".$lang['fl_shortcuts']."</a></td></tr></tr></table></form></div>";
 	}
 	elseif (is_numeric($a))
 	{
@@ -66,7 +66,7 @@ function ShowFleetShortcuts($CurrentUser)
 				unset($scarray[$a]);
 				$CurrentUser['fleet_shortcut'] = implode("\r\n", $scarray);
 				$db->query("UPDATE ".USERS." SET fleet_shortcut='".$CurrentUser['fleet_shortcut']."' WHERE id=".$CurrentUser['id'].";");
-				header("location:game.".$phpEx."?page=shortcuts");
+				header("location:game.".PHP_EXT."?page=shortcuts");
 			}
 			else
 			{
@@ -79,7 +79,7 @@ function ShowFleetShortcuts($CurrentUser)
 				$scarray[$a] = implode(",", $r);
 				$CurrentUser['fleet_shortcut'] = implode("\r\n", $scarray);
 				$db->query("UPDATE ".USERS." SET fleet_shortcut='".$CurrentUser['fleet_shortcut']."' WHERE id=".$CurrentUser['id'].";");
-				header("location:game.".$phpEx."?page=shortcuts");
+				header("location:game.".PHP_EXT."?page=shortcuts");
 			}
 		}
 
@@ -107,15 +107,15 @@ function ShowFleetShortcuts($CurrentUser)
 			$page .= "</th></tr>";
 		}
 		else
-			header("location:game.".$phpEx."?page=shortcuts");
+			header("location:game.".PHP_EXT."?page=shortcuts");
 
-		$page .= "<tr><td colspan=2 class=c><a href=\"game.".$phpEx ."?page=shortcuts\">".$lang['fl_back']."</a></td></tr></tr></table></form></div>";
+		$page .= "<tr><td colspan=2 class=c><a href=\"game.".PHP_EXT ."?page=shortcuts\">".$lang['fl_back']."</a></td></tr></tr></table></form></div>";
 	}
 	else
 	{
 		$page = "<div id=\"content\"><table border=\"0\" cellpadding=\"0\" cellspacing=\"1\" width=\"519\">
 				<tr height=\"20\">
-				<td class=\"c\" colspan=\"2\">".$lang['fl_shortcuts']." (<a href=\"game.".$phpEx."?page=shortcuts&mode=add\">".$lang['fl_shortcut_add']."</a>)</td>
+				<td class=\"c\" colspan=\"2\">".$lang['fl_shortcuts']." (<a href=\"game.".PHP_EXT."?page=shortcuts&mode=add\">".$lang['fl_shortcut_add']."</a>)</td>
 				</tr>";
 
 		if ($CurrentUser['fleet_shortcut'])
@@ -129,7 +129,7 @@ function ShowFleetShortcuts($CurrentUser)
 					if ($i == 0)
 						$page .= "<tr height=\"20\">";
 
-					$page .= "<th><a href=\"game.".$phpEx ."?page=shortcuts&a=" . $e++ . "\">";
+					$page .= "<th><a href=\"game.".PHP_EXT ."?page=shortcuts&a=" . $e++ . "\">";
 					$page .= "{$c[0]} {$c[1]}:{$c[2]}:{$c[3]}";
 
 					if ($c[4] == 2)

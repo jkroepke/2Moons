@@ -21,14 +21,14 @@
 
 
 
-include_once($xgp_root . 'includes/classes/class.GalaxyRows.' . $phpEx);
+include_once(ROOT_PATH . 'includes/classes/class.GalaxyRows.' . PHP_EXT);
 
 class ShowGalaxyPage extends GalaxyRows
 {
 
 	private function ShowGalaxyRows($Galaxy, $System, $HavePhalanx, $CurrentGalaxy, $CurrentSystem, $CurrentRC, $CurrentMIP, $CanDestroy, $UserPoints)
 	{
-		global $dpath, $user, $xgp_root, $phpEx, $db, $lang;
+		global $dpath, $user, $db, $lang;
 
 
 
@@ -88,7 +88,7 @@ class ShowGalaxyPage extends GalaxyRows
 
 	public function ShowGalaxyPage($CurrentUser, $CurrentPlanet)
 	{
-		global $xgp_root, $phpEx, $dpath, $resource, $lang, $db, $reslist;
+		global $dpath, $resource, $lang, $db, $reslist;
 		$PlanetRess 	= new ResourceUpdate($CurrentUser, $CurrentPlanet);
 
 		$template		= new template();

@@ -23,10 +23,10 @@ define('INSIDE'  , true);
 define('INSTALL' , false);
 define('IN_ADMIN', true);
 
-$xgp_root = '../';
-include($xgp_root . 'extension.inc.php');
-include($xgp_root . 'common.' . $phpEx);
-include('AdminFunctions/Autorization.' . $phpEx);
+ROOT_PATH = '../';
+include(ROOT_PATH . 'extension.inc');
+include(ROOT_PATH . 'common.' . PHP_EXT);
+include('AdminFunctions/Autorization.' . PHP_EXT);
 
 if ($ConfigGame != 1) die();
 

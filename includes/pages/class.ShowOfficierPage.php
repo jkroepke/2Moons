@@ -54,7 +54,7 @@ class ShowOfficierPage
 
 	public function UpdateExtra(&$CurrentUser, $Element)
 	{
-		global $db, $reslist, $resource, $phpEx, $ExtraDM;
+		global $db, $reslist, $resource, $ExtraDM;
 		
 		if ((floor($CurrentUser['darkmatter'] / $ExtraDM[$Element]['darkmatter'])) > 0 && in_array($Element, $reslist['dmfunc']))
 		{
@@ -70,7 +70,7 @@ class ShowOfficierPage
 
 	public function UpdateOfficier(&$CurrentUser, $Selected)
 	{
-		global $db, $reslist, $resource, $phpEx;
+		global $db, $reslist, $resource;
 		
 		if ((floor($CurrentUser['darkmatter'] / DM_PRO_OFFICIER_LEVEL)) > 0 && in_array($Selected, $reslist['officier']) && $this->IsOfficierAccessible($CurrentUser, $Selected) == 1)
 		{

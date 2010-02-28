@@ -22,9 +22,9 @@
 define('INSIDE'  , true);
 define('INSTALL' , false);
 
-$xgp_root = './';
-include($xgp_root . 'extension.inc.php');
-include($xgp_root . 'common.'.$phpEx);
+ROOT_PATH = './';
+include(ROOT_PATH . 'extension.inc');
+include(ROOT_PATH . 'common.'.PHP_EXT);
 
 includeLang('INGAME');
 

@@ -25,7 +25,7 @@ function ShowRecordsPage($CurrentUser, $CurrentPlanet)
 {
 	global $lang, $resource, $db, $game_config;
 
-	require_once($xgp_root."cache/CacheRecords.php");
+	require_once(ROOT_PATH."cache/CacheRecords.php");
 	
 	$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
 

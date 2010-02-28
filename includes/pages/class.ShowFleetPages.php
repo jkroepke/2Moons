@@ -21,7 +21,7 @@
 
 if(!defined('INSIDE')){ die(header("location:../../"));}
 
-require_once($xgp_root . 'includes/classes/class.FleetFunctions.' . $phpEx);
+require_once(ROOT_PATH . 'includes/classes/class.FleetFunctions.' . PHP_EXT);
 
 class ShowFleetPages extends FleetFunctions
 {
@@ -192,7 +192,7 @@ class ShowFleetPages extends FleetFunctions
 
 	public static function ShowFleet1Page($CurrentUser, $CurrentPlanet)
 	{
-		global $resource, $pricelist, $reslist, $phpEx, $db, $lang, $ExtraDM;
+		global $resource, $pricelist, $reslist, $db, $lang, $ExtraDM;
 
 		$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
 		$template	= new template();
@@ -358,9 +358,9 @@ class ShowFleetPages extends FleetFunctions
 
 	public static function ShowFleet3Page($CurrentUser, $CurrentPlanet)
 	{
-		global $resource, $pricelist, $reslist, $phpEx, $xgp_root, $game_config, $db, $lang;
+		global $resource, $pricelist, $reslist, $game_config, $db, $lang;
 
-		include_once($xgp_root . 'includes/functions/IsVacationMode.' . $phpEx);
+		include_once(ROOT_PATH . 'includes/functions/IsVacationMode.' . PHP_EXT);
 
 		$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
 		$template	= new template();
@@ -425,7 +425,7 @@ class ShowFleetPages extends FleetFunctions
 
 		if ($TransportMetal + $TransportCrystal + $TransportDeuterium < 1 && $mission == 3)
 		{
-			$template->message("<font color=\"lime\"><b>".$lang['fl_empty_transport']."</b></font>", "game." . $phpEx . "?page=fleet", 1);
+			$template->message("<font color=\"lime\"><b>".$lang['fl_empty_transport']."</b></font>", "game." . PHP_EXT . "?page=fleet", 1);
 			$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 			exit;
 		}
@@ -434,7 +434,7 @@ class ShowFleetPages extends FleetFunctions
 
 		if (parent::GetMaxFleetSlots($CurrentUser) <= $ActualFleets)
 		{
-			$template->message($lang['fl_no_slots'], "game." . $phpEx . "?page=fleet", 1);
+			$template->message($lang['fl_no_slots'], "game." . PHP_EXT . "?page=fleet", 1);
 			$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 			exit;
 		}
@@ -503,7 +503,7 @@ class ShowFleetPages extends FleetFunctions
 
 			if ($maxexpde != 0)
 			{
-				$template->message("<font color=\"red\"><b>".$lang['fl_expedition_fleets_limit']."</b></font>", "game." . $phpEx . "?page=fleet", 2);
+				$template->message("<font color=\"red\"><b>".$lang['fl_expedition_fleets_limit']."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
 				$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 				exit;
 			}
@@ -514,7 +514,7 @@ class ShowFleetPages extends FleetFunctions
 
 			if ($MaxExpedition == 0)
 			{
-				$template->message("<font color=\"red\"><b>".$lang['fl_expedition_tech_required']."</b></font>", "game." . $phpEx . "?page=fleet", 2);
+				$template->message("<font color=\"red\"><b>".$lang['fl_expedition_tech_required']."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
 				$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 				exit;
 			}			
@@ -524,7 +524,7 @@ class ShowFleetPages extends FleetFunctions
 			
 			if ($ExpeditionEnCours >= $EnvoiMaxExpedition)
 			{
-				$template->message("<font color=\"red\"><b>".$lang['fl_expedition_fleets_limit']."</b></font>", "game." . $phpEx . "?page=fleet", 2);
+				$template->message("<font color=\"red\"><b>".$lang['fl_expedition_fleets_limit']."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
 				$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 				exit;
 			}
@@ -537,7 +537,7 @@ class ShowFleetPages extends FleetFunctions
 
 		if ($HeDBRec['urlaubs_modus'] && $mission != 8)
 		{
-			$template->message("<font color=\"lime\"><b>".$lang['fl_in_vacation_player']."</b></font>", "game." . $phpEx . "?page=fleet", 2);
+			$template->message("<font color=\"lime\"><b>".$lang['fl_in_vacation_player']."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
 			$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 			exit;
 		}
@@ -546,7 +546,7 @@ class ShowFleetPages extends FleetFunctions
 		{
 			if($TargetPlanet['id_level'] > $CurrentUser['authlevel'] && $game_config['adm_attack'] == 0)
 			{
-				$template->message("<font color=\"red\"><b>".$lang['fl_admins_cannot_be_attacked']."</b></font>", "game." . $phpEx . "?page=fleet", 2);
+				$template->message("<font color=\"red\"><b>".$lang['fl_admins_cannot_be_attacked']."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
 				$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 				exit;
 			}
@@ -558,13 +558,13 @@ class ShowFleetPages extends FleetFunctions
 			
 			if ($IsNoobProtec['NoobPlayer'])
 			{
-				$template->message("<font color=\"lime\"><b>".$lang['fl_week_player']."</b></font>", "game." . $phpEx . "?page=fleet", 2);
+				$template->message("<font color=\"lime\"><b>".$lang['fl_week_player']."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
 				$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 				exit;
 			}
 			elseif ($IsNoobProtec['StrongPlayer'])
 			{
-				$template->message("<font color=\"red\"><b>".$lang['fl_strong_player']."</b></font>", "game." . $phpEx . "?page=fleet", 2);
+				$template->message("<font color=\"red\"><b>".$lang['fl_strong_player']."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
 				$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 				exit;
 			}
@@ -574,14 +574,14 @@ class ShowFleetPages extends FleetFunctions
 		{
 			if ($HeDBRec['ally_id'] != $MyDBRec['ally_id'] && $mission == 4)
 			{
-				$template->message("<font color=\"red\"><b>".$lang['fl_stay_not_on_enemy']."</b></font>", "game." . $phpEx . "?page=fleet", 2);
+				$template->message("<font color=\"red\"><b>".$lang['fl_stay_not_on_enemy']."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
 				$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 				exit;
 			}
 
 			if ($TargetPlanet['ally_deposit'] < 1 && $HeDBRec != $MyDBRec && $mission == 5)
 			{
-				$template->message ("<font color=\"red\"><b>".$lang['fl_not_ally_deposit']."</b></font>", "game." . $phpEx . "?page=fleet", 2);
+				$template->message ("<font color=\"red\"><b>".$lang['fl_not_ally_deposit']."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
 				$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 				exit;
 			}
@@ -591,7 +591,7 @@ class ShowFleetPages extends FleetFunctions
 
 			if (($TargetPlanet["id_owner"] != $CurrentPlanet["id_owner"]) && ($mission == 4))
 			{
-				$template->message ("<font color=\"red\"><b>".$lang['fl_deploy_only_your_planets']."</b></font>","game." . $phpEx . "?page=fleet", 2);
+				$template->message ("<font color=\"red\"><b>".$lang['fl_deploy_only_your_planets']."</b></font>","game." . PHP_EXT . "?page=fleet", 2);
 				$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 				exit;
 			}
@@ -646,21 +646,21 @@ class ShowFleetPages extends FleetFunctions
 					
 		if ($StockMetal < $TransportMetal || $StockCrystal < $TransportCrystal || $StockDeuterium < $TransportDeuterium)
 		{
-			$template->message("<font color=\"red\"><b>". $lang['fl_no_enought_deuterium'] . pretty_number($consumption) ."</b></font>", "game." . $phpEx . "?page=fleet", 2);
+			$template->message("<font color=\"red\"><b>". $lang['fl_no_enought_deuterium'] . pretty_number($consumption) ."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
 			$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 			exit;
 		}
 
 		if ($StorageNeeded > $FleetStorage)
 		{
-			$template->message("<font color=\"red\"><b>". $lang['fl_no_enought_cargo_capacity'] . pretty_number($StorageNeeded - $FleetStorage)."</b></font>", "game." . $phpEx . "?page=fleet", 2);
+			$template->message("<font color=\"red\"><b>". $lang['fl_no_enought_cargo_capacity'] . pretty_number($StorageNeeded - $FleetStorage)."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
 			$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 			exit;
 		}
 
 		if ($TargetPlanet['id_level'] > $CurrentUser['authlevel'] && $game_config['adm_attack'] == 0)
 		{
-			$template->message($lang['fl_admins_cannot_be_attacked'], "game." . $phpEx . "?page=fleet",2);
+			$template->message($lang['fl_admins_cannot_be_attacked'], "game." . PHP_EXT . "?page=fleet",2);
 			$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 			exit;
 		}
@@ -938,9 +938,9 @@ class ShowFleetPages extends FleetFunctions
 
 	public static function MissilesAjax($CurrentUser, $CurrentPlanet)
 	{	
-		global $lang, $game_config, $db, $phpEx, $reslist;
+		global $lang, $game_config, $db, $reslist;
 	
-		include_once($xgp_root . 'includes/functions/IsVacationMode.' . $phpEx);
+		include_once(ROOT_PATH . 'includes/functions/IsVacationMode.' . PHP_EXT);
 		
 		$TargetGalaxy 		= request_var('galaxy',0);
 		$TargetSystem 		= request_var('system',0);

@@ -23,10 +23,10 @@ define('INSIDE'  , true);
 define('INSTALL' , false);
 define('IN_ADMIN', true);
 
-$xgp_root = './../';
-include($xgp_root . 'extension.inc.php');
-include($xgp_root . 'common.' . $phpEx);
-include('AdminFunctions/Autorization.' . $phpEx);
+define('ROOT_PATH', './../');
+include(ROOT_PATH . 'extension.inc');
+include(ROOT_PATH . 'common.' . PHP_EXT);
+include('AdminFunctions/Autorization.' . PHP_EXT);
 
 if ($ToolsCanUse != 1) die();
 
@@ -63,11 +63,11 @@ if ($ToolsCanUse != 1) die();
 			
 			SendSimpleMessage(0, $user['id'], $Time, 50, $From, $Subject, $Message);
 			$db->query("UPDATE `".USERS."` SET `new_message` = `new_message` + 1;");
-			message($lang['ma_message_sended'], "GlobalMessagePage." . $phpEx, 3);
+			message($lang['ma_message_sended'], "GlobalMessagePage." .  3);
 		}
 		else
 		{
-			message($lang['ma_subject_needed'], "GlobalMessagePage." . $phpEx, 3);
+			message($lang['ma_subject_needed'], "GlobalMessagePage." .  3);
 		}
 	}
 	else

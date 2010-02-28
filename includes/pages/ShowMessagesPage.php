@@ -23,7 +23,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 
 function ShowMessagesPage($CurrentUser, $CurrentPlanet)
 {
-	global $xgp_root, $phpEx, $game_config, $dpath, $lang, $db;
+	global $game_config, $dpath, $lang, $db;
 
 	$MessCategory  	= request_var('messcat',0);
 	$MessPageMode  	= request_var('mode', '');

@@ -19,20 +19,19 @@
 # *                                                                          #
 ##############################################################################
 
-include_once("class.Smarty.".$phpEx);
+include_once("class.Smarty.".PHP_EXT);
 
 class template extends Smarty
 {
 	function __construct()
 	{	
-		global $xgp_root;
 		parent::__construct();
 		$this->allow_php_templates	= true;
 		$this->force_compile 		= false;
 		$this->caching 				= false;
 		$this->compile_check		= true;
-		$this->template_dir 		= $xgp_root . TEMPLATE_DIR."smarty/";
-		$this->compile_dir 			= $xgp_root ."cache/";
+		$this->template_dir 		= ROOT_PATH . TEMPLATE_DIR."smarty/";
+		$this->compile_dir 			= ROOT_PATH ."cache/";
 		
 		$this->planet				= (isset($GLOBALS['planetrow'])) ? $GLOBALS['planetrow'] : NULL;
 		$this->player				= (isset($GLOBALS['user'])) ? $GLOBALS['user'] : NULL;;

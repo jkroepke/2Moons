@@ -23,10 +23,10 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 
 function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 {
-	global $xgp_root, $phpEx, $dpath, $game_config, $lang, $planetrow, $user, $db, $resource;
+	global $dpath, $game_config, $lang, $planetrow, $user, $db, $resource;
 
-	include_once($xgp_root . 'includes/functions/InsertJavaScriptChronoApplet.' . $phpEx);
-	include_once($xgp_root . 'includes/classes/class.FlyingFleetsTable.' . $phpEx);
+	include_once(ROOT_PATH . 'includes/functions/InsertJavaScriptChronoApplet.' . PHP_EXT);
+	include_once(ROOT_PATH . 'includes/classes/class.FlyingFleetsTable.' . PHP_EXT);
 	
 	$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
 
@@ -59,7 +59,7 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 				else
 				{
 					$db->query("UPDATE ".PLANETS." SET `name` = '".$db->sql_escape($newname)."' WHERE `id` = '". $CurrentUser['current_planet'] . "';");
-					header("Location: ./game.".$phpEx."?page=overview&mode=renameplanet");
+					header("Location: ./game.".PHP_EXT."?page=overview&mode=renameplanet");
 				}
 			}
 			else
@@ -289,7 +289,7 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 
 			if ($CurrentPlanet['b_building'] != 0)
 			{
-				include_once($xgp_root . 'includes/functions/InsertBuildListScript.' . $phpEx);
+				include_once(ROOT_PATH . 'includes/functions/InsertBuildListScript.' . PHP_EXT);
 
 				UpdatePlanetBatimentQueueList ($planetrow, $user);
 
@@ -321,7 +321,7 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 
 			if ($game_config['ts_modon'] == 1) {
 				if($game_config['ts_version'] == 2){
-					include_once($xgp_root . "includes/libs/teamspeak/class.teamspeak2.".$phpEx);
+					include_once(ROOT_PATH . "includes/libs/teamspeak/class.teamspeak2.".PHP_EXT);
 					$ts = new cyts();
 					if($ts->connect($game_config['ts_server'], $game_config['ts_tcpport'], $game_config['ts_udpport'], $game_config['ts_timeout']))
 					{
@@ -338,7 +338,7 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 					$port 	= $game_config['ts_tcpport'];
 					$t_port = $game_config['ts_udpport'];
 					$sid 	= $game_config['ts_timeout']; 
-					require_once($xgp_root . "includes/libs/teamspeak/class.teamspeak3.".$phpEx);
+					require_once(ROOT_PATH . "includes/libs/teamspeak/class.teamspeak3.".PHP_EXT);
 
 					$tsAdmin = new ts3admin($ip, $t_port);
 					if($tsAdmin->connect())
