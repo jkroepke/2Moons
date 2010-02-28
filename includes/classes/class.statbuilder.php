@@ -9,9 +9,7 @@ class statbuilder{
 		$this->pricelist	= $GLOBALS['pricelist'];
 		$this->reslist		= $GLOBALS['reslist'];
 		$this->config		= $GLOBALS['game_config'];
-		$this->rootpath		= $GLOBALS['xgp_root'];
 		$this->db			= $GLOBALS['db'];
-		$this->phpext		= $GLOBALS['phpEx'];
 	
 		$this->starttime   	= microtime(true);
 		$this->memory		= array(round(memory_get_usage() / 1024,1),round(memory_get_usage(1) / 1024,1));
@@ -50,11 +48,11 @@ class statbuilder{
 		$del_deleted 	= time() - (60 * 60 * 24 * 7); // 1 WEEK
 		$this->db->multi_query("DELETE FROM `".MESSAGES."` WHERE `message_time` < '". $del_before ."';DELETE FROM `".RW."` WHERE `time` < '". $del_before ."';DELETE FROM ".SUPP." WHERE `time` < '".$del_before."' AND `status` = 0;DELETE FROM ".CHAT." WHERE `timestamp` < '".$del_before."';DELETE FROM ".ALLIANCE." WHERE `ally_members` = '0';");
 		
-		$ChooseToDelete = $this->db->query("SELECT DISTINCT `id` FROM `".USERS."` WHERE ((`db_deaktjava` < '".$del_deleted."' AND `db_deaktjava` <> 0) OR `onlinetime` < '".$del_inactive."') AND `authlevel` = '0';");
+		$ChooseToDelete = $this->db->query("SELECT `id` FROM `".USERS."` WHERE ((`db_deaktjava` < '".$del_deleted."' AND `db_deaktjava` <> 0) OR `onlinetime` < '".$del_inactive."') AND `authlevel` = '0';");
 		
 		if($ChooseToDelete)
 		{
-			include_once($this->rootpath.'includes/functions/DeleteSelectedUser.'.$this->phpext);
+			include_once(ROOT_PATH.'includes/functions/DeleteSelectedUser.'.PHP_EXT);
 			while($delete = $this->db->fetch_array($ChooseToDelete))
 			{
 				DeleteSelectedUser($delete['id']);
@@ -70,7 +68,7 @@ class statbuilder{
 			$array	.= $ElementID." => array('username' => '".$this->maxinfos[$ElementID]['username']."', 'maxlvl' => '".$this->maxinfos[$ElementID]['maxlvl']."'),\n";
 		}
 		$file	= "<?php \n//The File is created on ".date("d. M y H:i:s", time())."\n$"."RecordsArray = array(\n".$array."\n);\n?>";
-		file_put_contents($this->rootpath."cache/CacheRecords.php", $file);
+		file_put_contents(ROOT_PATH."cache/CacheRecords.php", $file);
 	}
 	
 	private function GetUsersInfosFromDB()
@@ -106,6 +104,8 @@ class statbuilder{
 		$Return['Planets']	= $this->db->query('SELECT '.$select_defenses.$select_fleets.$select_buildings.' p.id_owner, u.authlevel, u.bana, u.id, u.username FROM '.PLANETS.' as p LEFT JOIN '.USERS.' as u ON u.id = p.id_owner;');
 		$Return['Users']	= $this->db->query('SELECT '.$selected_tech.' u.id, u.ally_id, u.authlevel, u.bana, u.username, s.tech_rank AS old_tech_rank, s.build_rank AS old_build_rank, s.defs_rank AS old_defs_rank, s.fleet_rank AS old_fleet_rank, s.total_rank AS old_total_rank FROM '.USERS.' as u LEFT JOIN '.STATPOINTS.' as s ON s.stat_type = 1 AND s.stat_code = 1 AND s.id_owner = u.id GROUP BY s.id_owner, u.id, u.authlevel;');
 		$Return['Alliance']	= $this->db->query('SELECT a.id, s.tech_rank AS old_tech_rank, s.build_rank AS old_build_rank, s.defs_rank AS old_defs_rank, s.fleet_rank AS old_fleet_rank, s.total_rank AS old_total_rank FROM '.ALLIANCE.' as a LEFT JOIN '.STATPOINTS.' as s ON s.stat_type = 2 AND s.stat_code = 1 AND s.id_owner = a.id;');
+		
+		update_config('users_amount', $this->db->num_rows($Return['Users']));
 		
 		return $Return;
 	}
@@ -326,11 +326,11 @@ class statbuilder{
 			$UserPoints[$UserData['id']]['techno']['count'] 	= $TechnoPoints['count'];
 			$UserPoints[$UserData['id']]['techno']['points'] 	= $TechnoPoints['points'];
 			
-			if(isset($TotalData['fleets'][$CurFleets['fleet_owner']]))
+			if(isset($TotalData['fleets'][$UserData['id']]))
 			{
-				while($FleetArray = next($TotalData['fleets'][$CurFleets['fleet_owner']]))
+				foreach($TotalData['fleets'][$UserData['id']] as $FleetArray)
 				{
-					$FlyingFleetPoints	= $this->GetFlyingFleetPoints($FleetArray);
+					$FlyingFleetPoints				= $this->GetFlyingFleetPoints($FleetArray);
 					$UserPoints[$UserData['id']]['fleet']['count'] 		+= $FlyingFleetPoints['count'];
 					$UserPoints[$UserData['id']]['fleet']['points'] 	+= $FlyingFleetPoints['points'];
 				}
