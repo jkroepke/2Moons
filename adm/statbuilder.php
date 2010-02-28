@@ -28,8 +28,8 @@ require_once($xgp_root. 'common.php');
 
 if ($user['authlevel'] < 2){header("x",true,403);exit;}
 
-	require_once($xgp_root.'includes/classes/class.statfunctions.php');
-	$stat			= new Statbuilder();
+	require_once($xgp_root.'includes/classes/class.statbuilder.php');
+	$stat			= new statbuilder();
 	$result			= $stat->MakeStats();
 	$memory_p		= str_replace(array("%p", "%m"), $result['memory_peak'], $lang['sb_top_memory']);
 	$memory_e		= str_replace(array("%e", "%m"), $result['end_memory'], $lang['sb_final_memory']);

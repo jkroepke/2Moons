@@ -14,6 +14,7 @@ $lang['changelog']   = array(
 - ADD: Admin in Statistiken ausblendbar
 - ADD: jQuery UI 1.8rc2
 - ADD: Neue Expedition
+- ADD: Neu StatBuilder
 - FIX: Phalax &amp; Interplanetarrakten Reichweiten
 - FIX: Urlaubsmodus fixed
 - FIX: Haltende Flotten werden im Spiobericht dazugezählt.
@@ -21,6 +22,8 @@ $lang['changelog']   = array(
 - FIX: Admins in Rekorden
 - FIX: Planetensuche
 - FIX: Neues Kampfscript für Interplanetarraketeneinschläge
+- DIV: Set DB Connection to UTF-8
+- DIV: Userbanner wird nurnoch einmal ein Tag aktualisiert.
 - DIV: Webseitenoptimierung(YSlow Grande: A/Score: 91)
 - DIV: Add Headers für Browsercaching 
 - DIV: Sicherheit im Game erhöht
