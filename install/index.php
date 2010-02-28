@@ -234,10 +234,6 @@ switch ($Mode) {
 			$QryInsertAdm .= "`deuterium_perhour` = '0', ";
 			$QryInsertAdm .= "`deuterium_max`     = '1000000';";
 			$QryInsertAdm .= "INSERT INTO ".STATPOINTS." (`id_owner`, `id_ally`, `stat_type`, `stat_code`, `tech_rank`, `tech_old_rank`, `tech_points`, `tech_count`, `build_rank`, `build_old_rank`, `build_points`, `build_count`, `defs_rank`, `defs_old_rank`, `defs_points`, `defs_count`, `fleet_rank`, `fleet_old_rank`, `fleet_points`, `fleet_count`, `total_rank`, `total_old_rank`, `total_points`, `total_count`, `stat_date`) VALUES ('1', '0', '1', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '".time()."');";
-			$QryInsertAdm .= "UPDATE ".CONFIG." SET `config_value` = '1' WHERE `config_name` = 'LastSettedGalaxyPos';";
-			$QryInsertAdm .= "UPDATE ".CONFIG." SET `config_value` = '1' WHERE `config_name` = 'LastSettedSystemPos';";
-			$QryInsertAdm .= "UPDATE ".CONFIG." SET `config_value` = '1' WHERE `config_name` = 'LastSettedPlanetPos';";
-			$QryInsertAdm .= "UPDATE ".CONFIG." SET `config_value` = `config_value` + '1' WHERE `config_name` = 'users_amount' LIMIT 1;";
 			$db->multi_query($QryInsertAdm);
 			include($xgp_root.'config.php');
 			$cookie = "1/%/" . $adm_user . "/%/" . md5 ($md5pass . "--" . $dbsettings ["secretword"] ) . "/%/" . 0;

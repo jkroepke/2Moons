@@ -51,7 +51,7 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 	switch ($mode)
 	{
 		case 'renameplanet':
-			$newname        = trim(request_var('newname', ''));
+			$newname        = trim(request_var('newname', '', UTF8_SUPPORT));
 			if (!empty($newname))
 			{
 				if (!CheckName($newname))

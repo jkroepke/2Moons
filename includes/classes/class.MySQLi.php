@@ -22,14 +22,18 @@
 if(!defined('INSIDE')){ die(header("location:../../"));}
 
 
-class DB_mysqli extends Database
+class DB_mysqli
 {
-	/**
-	 * mysqli Object.
-	 *
-	 * @var mysqli
-	 */
 	public $mysqli;
+	protected $host;
+	protected $port;
+	protected $user;
+	protected $pw;
+	protected $database;
+	protected $queryCount = 0;
+	protected $qTime = array();
+	protected $query;
+	protected $result;
 
 	/**
 	 * Constructor: Set database access data.
@@ -44,28 +48,22 @@ class DB_mysqli extends Database
 	 */
 	public function __construct($host, $user, $pw, $db, $port = null)
 	{
-		parent::__construct($host, $user, $pw, $db, $port);
+		$this->host = $host;
+		$this->user = $user;
+		$this->pw = $pw;
+		$this->database = $db;
+		$this->port = $port;
 	}
-
+	
 	/**
 	 * Close current database connection.
 	 *
 	 * @return void
 	 */
 	public function __destruct()
-	{
-		if(mysqli_connect_errno()) { return; }
-		$this->mysqli->close();
-	}
-
-	/**
-	 * Close current database connection.
-	 *
-	 * @return void
-	 */
-	public function close()
-	{
-		$this->__destruct();
+	{	
+		if(!is_object($this->mysqli))
+			$this->connect();
 	}
 
 	/**
@@ -73,14 +71,18 @@ class DB_mysqli extends Database
 	 *
 	 * @return void
 	 */
-	private function init()
+	private function connect()
 	{
 		$this->mysqli = new mysqli($this->host, $this->user, $this->pw, $this->database, $this->port);
+
 		if(mysqli_connect_errno())
 		{
 			trigger_error("Connection to database failed: ".mysqli_connect_error(),E_USER_ERROR);
+			return false;
 		}
-		return;
+		
+		$this->mysqli->set_charset("utf8");
+		return true;
 	}
 
 	/**
@@ -93,10 +95,8 @@ class DB_mysqli extends Database
 	public function query($sql)
 	{
 		if(!is_object($this->mysqli))
-		{
-			try { $this->init(); }
-			catch(Exception $e) { $e->printError(); }
-		}
+			$this->connect();
+			
 		#echo $sql."\n";
 		if($result = $this->mysqli->query($sql))
 		{
@@ -134,7 +134,9 @@ class DB_mysqli extends Database
 	 */
 	public function fetch_array($result)
 	{
-		return $result->fetch_array(MYSQLI_ASSOC);
+		$array	= $result->fetch_array(MYSQLI_ASSOC);
+		$result->close;
+		return $array;
 	}
 
 	/**
@@ -287,24 +289,29 @@ class DB_mysqli extends Database
 	
 	public function multi_query($resource, $clear_result_cache = true)
 	{	
+		if(!is_object($this->mysqli))
+			$this->connect();
+
+		if($this->mysqli->multi_query($resource))
 		{
-		if (!$this->mysqli->multi_query($resource))
-			echo ("SQL Error (".$this->mysqli->error."): ".$this->error."<br /><br />Query Code: $sql");
-			echo ("<br>Debug:<br>");
-			echo debug_print_backtrace();
+			if ($clear_result_cache) {
+				do {
+					if($result = $this->mysqli->store_result())
+					{
+						$this->free_result($result);
+						$this->queryCount++;
+					}
+					if(!$this->mysqli->more_results()){break;}
+					
+				} while ($this->mysqli->next_result());
+			
+			}
 		}
-		
-		if ($clear_result_cache) {
-			do {
-				if($result = $this->mysqli->store_result())
-				{
-					$this->free_result($result);
-					$this->queryCount++;
-				}
-				if(!$this->mysqli->more_results()){break;}
-				
-			} while ($this->mysqli->next_result());
-		
+		else
+		{
+            $temp = debug_backtrace();
+			echo str_replace($_SERVER["DOCUMENT_ROOT"],'.',$temp[0]['file']) . " on " . $temp[0]['line'] . ":<br>";
+			echo ("<center><table style=\"z-index:1001;width:80%\"><tr><th align=\"center\">SQL Error (".$this->mysqli->error."): ".$this->error."<br /><br />Query Code: ".$sql."</th></tr></table></center>");
 		}
 	}
 	
