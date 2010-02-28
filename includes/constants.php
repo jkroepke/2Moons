@@ -128,6 +128,7 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	define('MESSAGES'			  	  , $database["tableprefix"]."messages");
 	define('MODULE'				  	  , $database["tableprefix"]."modulos");
 	define('PLANETS'	              , $database["tableprefix"]."planets");
+	define('PLUGINS'	              , $database["tableprefix"]."plugins");
 	define('RW'			              , $database["tableprefix"]."rw");
 	define('STATPOINTS'				  , $database["tableprefix"]."statpoints");
 	define('SUPP'					  , $database["tableprefix"]."supp");

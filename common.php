@@ -163,8 +163,12 @@ if (INSTALL != true)
 			// Some Darkmatter Update after FleetMissions
 			$user['darkmatter'] = $planetrow['darkmatter'];
 			$user['new_message'] = $planetrow['new_message'];
-			include(ROOT_PATH . 'includes/functions/CheckPlanetUsedFields.' . PHP_EXT);
+			include_once(ROOT_PATH . 'includes/functions/CheckPlanetUsedFields.' . PHP_EXT);
 			CheckPlanetUsedFields($planetrow);
+			include_once(ROOT_PATH.'includes/classes/class.plugins.'.PHP_EXT);
+		
+			$mod_plug = new modPl();
+			$mod_plug->run(); 
 		}
 	}	
 }

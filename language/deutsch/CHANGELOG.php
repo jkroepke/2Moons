@@ -14,6 +14,7 @@ $lang['changelog']   = array(
 - ADD: Admin in Statistiken ausblendbar
 - ADD: jQuery UI 1.8rc2
 - ADD: Neue Expedition
+- ADD: Plugin-System v0.4 (Green @ XG Proyecto)
 - ADD: Neu StatBuilder
 - FIX: Phalax &amp; Interplanetarrakten Reichweiten
 - FIX: Urlaubsmodus fixed
