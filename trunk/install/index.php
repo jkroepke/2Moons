@@ -269,23 +269,24 @@ switch ($Mode) {
 			$Qry15 = "ALTER TABLE ".ALLIANCE." CHANGE `ally_ranks` `ally_ranks` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL;";
 			$Qry16 = "ALTER TABLE ".USERS." ADD `dm_attack` INT NOT NULL, ADD `dm_defensive` INT NOT NULL, ADD `dm_buildtime` INT NOT NULL, ADD `dm_researchtime` INT NOT NULL, ADD `dm_resource` INT NOT NULL, ADD `dm_energie` INT NOT NULL, ADD `dm_fleettime` INT NOT NULL;";
 			$Qry17 = "INSERT INTO ".MODULE."(`id`, `modulo`, `estado`) VALUES (NULL, 'DM-Bank', '1');";
+			$Qry18 = "CREATE TABLE ".PLUGINS."` (`status` tinyint(11) NOT NULL DEFAULT '0',`plugin` varchar(32) NOT NULL) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 			switch($_POST['version'])
 			{	
 				case '4.0':
 					makedirs(array('cache/', 'cache/UserBanner/'));
-					$QrysArray = $Qry1.$Qry2.$Qry3.$Qry4.$Qry5.$Qry6.$Qry7.$Qry8.$Qry9.$Qry10.$Qry11.$Qry12.$Qry13.$Qry14.$Qry15.$Qry16.$Qry17;
+					$QrysArray = $Qry1.$Qry2.$Qry3.$Qry4.$Qry5.$Qry6.$Qry7.$Qry8.$Qry9.$Qry10.$Qry11.$Qry12.$Qry13.$Qry14.$Qry15.$Qry16.$Qry17.$Qry18;
 				break;	
 				case '4.2':
-					$QrysArray = $Qry1.$Qry2.$Qry5.$Qry6.$Qry7.$Qry8.$Qry9.$Qry10.$Qry11.$Qry12.$Qry13.$Qry14.$Qry15.$Qry16.$Qry17;
+					$QrysArray = $Qry1.$Qry2.$Qry5.$Qry6.$Qry7.$Qry8.$Qry9.$Qry10.$Qry11.$Qry12.$Qry13.$Qry14.$Qry15.$Qry16.$Qry17.$Qry18;
 				break;	
 				case '4.3':
-					$QrysArray = $Qry1.$Qry12.$Qry13.$Qry14.$Qry15.$Qry16.$Qry17;
+					$QrysArray = $Qry1.$Qry12.$Qry13.$Qry14.$Qry15.$Qry16.$Qry17.$Qry18;
 				break;	
 				case '5.0b1':
-					$QrysArray = $Qry1.$Qry14.$Qry15.$Qry16.$Qry17;
+					$QrysArray = $Qry1.$Qry14.$Qry15.$Qry16.$Qry17.$Qry18;
 				break;	
 				case '5.0b2':
-					$QrysArray = $Qry1.$Qry14.$Qry15.$Qry16.$Qry17;
+					$QrysArray = $Qry1.$Qry14.$Qry15.$Qry16.$Qry17.$Qry18;
 				break;
 			}	
 			$db->multi_query($QrysArray);

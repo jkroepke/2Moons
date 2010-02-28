@@ -24,7 +24,8 @@ define('INSTALL' , false);
 define('IN_ADMIN', true);
 
 define('ROOT_PATH', './../');
-require_once(ROOT_PATH. 'common.php');
+include(ROOT_PATH . 'extension.inc');
+require_once(ROOT_PATH. 'common.'.PHP_EXT);
 
 if ($user['authlevel'] < 2){header("x",true,403);exit;}
 

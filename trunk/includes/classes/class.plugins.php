@@ -56,7 +56,7 @@
         $this->pconf = $config_plugins;
         
         // Bucle
-        while(($mod_plugin = readdir($plug_files)) != false){
+        while(($mod_plugin = readdir($plug_files)) !== false){
             
             // Informacion del plug
             $plug_info = pathinfo(ROOT_PATH.'includes/plugins/'.$mod_plugin);
@@ -205,8 +205,7 @@
      * @return void
      */      
     public function run($filename = 'game', $get_run = 'page'){
-        global $xgp_root;
-        
+          
         // Solo se ejecutara dentro de $filename.php
         $self = $this->get_selfile();
         if ($self != $filename) return;
@@ -336,10 +335,10 @@
      * 
      * @return void
      */
-    public function protect_admin(){
+    public function protect($Level){
         global $user;
         
-        if (!$user or $user['authlevel'] > 1){
+        if (!$user or $user['authlevel'] > $Level){
             $this->stop_exec('No tiene los suficientes permisos para acceder!');
         }
         
