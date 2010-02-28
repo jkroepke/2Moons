@@ -62,9 +62,10 @@ isBuggyIe() || ob_start("ob_gzhandler");
 set_error_handler('msg_handler', E_ALL);
 
 if(function_exists('ini_set')) {
-	ini_set('display_errors', true);
+	ini_set('display_errors', 'on');
 	ini_set('register_globals', "off");
 	ini_set('register_long_arrays', "off");
+	#ini_set('precision', 30);
 }
 
 if ($database)
