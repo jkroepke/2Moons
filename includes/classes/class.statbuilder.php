@@ -115,7 +115,7 @@ class statbuilder{
 		$this->db->multi_query($Data);
 	}
 
-	private function GetTechnoPoint($CurrentUser) 
+	private function GetTechnoPoints($CurrentUser) 
 	{
 		$TechCounts = 0;
 		$TechPoints = 0;
@@ -288,7 +288,6 @@ class statbuilder{
 		{		
 			if (($PlanetData['authlevel'] >= $this->config['stat_level'] && $this->config['stat'] == 1) || !empty($PlanetData['bana'])) continue;
 			
-			
  			if(!isset($UserPoints[$PlanetData['id_owner']]['build']['count']))
 				$UserPoints[$PlanetData['id_owner']]['build']['count'] = 0;
 			if(!isset($UserPoints[$PlanetData['id_owner']]['build']['points']))
@@ -316,7 +315,7 @@ class statbuilder{
 		
 		while($UserData	= $this->db->fetch_array($TotalData['Users']))
 		{
-			if (($UserData['authlevel'] >= $game_config['stat_level'] && $this->config['stat']==1 ) || !empty($UserData['bana']))
+			if (($UserData['authlevel'] >= $this->config['stat_level'] && $this->config['stat'] == 1) || !empty($UserData['bana']))
 			{
 				$FinalSQL  .= '('.$UserData['id'].','.$UserData['ally_id'].',1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,'.$this->time.'),';
 				continue;
