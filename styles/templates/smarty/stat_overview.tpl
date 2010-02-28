@@ -20,7 +20,5 @@
 	{/if}
 	</table>
 </div>
-{if $is_pmenu == 1}
 {include file="planet_menu.tpl"}
-{/if}
 {include file="overall_footer.tpl"}

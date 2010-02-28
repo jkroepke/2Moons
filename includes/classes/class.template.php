@@ -93,8 +93,9 @@ class template extends Smarty
 		}
 		
 		$this->assign_vars(array(	
-			'PlanetMenu' 	=> $Planetlist,
-			'current_pid'	=> $this->player['current_planet'],
+			'PlanetMenu' 		=> $Planetlist,
+			'show_planetmenu' 	=> $this->lang['show_planetmenu'],
+			'current_pid'		=> $this->player['current_planet'],
 		));
 	}
 	

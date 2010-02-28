@@ -9,6 +9,8 @@ $lang['Energy']								= 'Energie';
 $lang['Messages']							= 'Nachrichten';
 $lang['write_message']						= 'Schreibe eine Nachricht';
 
+$lang['show_planetmenu']					= 'anzeigen/ausblenden';
+
 $lang['type_mission'][1]  					= 'Angreifen';
 $lang['type_mission'][2]  					= 'Verbandsangriff';
 $lang['type_mission'][3]  					= 'Transport';

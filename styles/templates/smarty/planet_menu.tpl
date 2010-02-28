@@ -1,4 +1,4 @@
-<div id="menu2">
+<div id="menu2" {if $is_pmenu == 0}style="display:none;"{/if}>
 <center>
 {foreach key=PlanetID item=PlanetInfo from=$PlanetMenu}
 	<table cellspacing="3" width="120">
@@ -27,3 +27,4 @@
 {/foreach}
 </center>
 </div>
+<div style="text-align:right;font-weight:bold;position:absolute;top:3px;right:3px;"><a href="#" onclick="$('#menu2:visible').hide('blind', {}, 500);$('#menu2:hidden').show('blind', {}, 500);">[X] {$show_planetmenu}</a></div>

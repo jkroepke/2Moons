@@ -130,7 +130,5 @@
 		<tr><th>+{$bonus_combustion} %</th><th>+{$bonus_impulse} %</th><th>+{$bonus_hyperspace} %</th></tr>
 		</table>
 </div>
-{if $is_pmenu == 1}
 {include file="planet_menu.tpl"}
-{/if}
 {include file="overall_footer.tpl"}

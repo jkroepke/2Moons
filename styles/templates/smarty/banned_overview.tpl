@@ -24,8 +24,5 @@
 	<tr><th colspan="5">{if {$smarty.foreach.Pranger.total} == 0}{$bn_no_players_banned}{else}{$bn_exists}{$smarty.foreach.Pranger.total}{$bn_players_banned}{/if}</th></tr>
     </table>
 </div>
-
-{if $is_pmenu == 1}
 {include file="planet_menu.tpl"}
-{/if}
 {include file="overall_footer.tpl"}

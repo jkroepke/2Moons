@@ -2,14 +2,14 @@
 {include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
 <div id="content" class="content">
-<table width="50%" align="center">
+<table width="60%" align="center">
 <tr>
 <td class="c" colspan="11">{$mg_overview}
 </td>
 </tr>
 <tr>
-{foreach key=MessID item=MessInfo from=$MessageList}
-<th style="width:10%;"><a href="javascript:ajax('game.php?page=messages&amp;mode=show&amp;messcat={$MessID}','frame');" style="color:{$MessInfo.color};">{$MessInfo.lang}</a>
+{foreach name=MessageList key=MessID item=MessInfo from=$MessageList}
+<th style="width:{100 / $smarty.foreach.MessageList.total}%;"><a href="javascript:ajax('game.php?page=messages&amp;mode=show&amp;messcat={$MessID}','frame');" style="color:{$MessInfo.color};">{$MessInfo.lang}</a>
 {/foreach}
 </tr>
 <tr>
@@ -31,7 +31,5 @@
 {/foreach}
 </table>
 </div>
-{if $is_pmenu == 1}
 {include file="planet_menu.tpl"}
-{/if}
 {include file="overall_footer.tpl"}
