@@ -381,16 +381,11 @@
       * 
       * @return void
       */
-     protected function call_default(){
+     protected function call($name){
         global $xgp_root, $phpEx;
         
         // Fundamentos para una pagina del juego
-        include_once($this->root . 'includes/functions/CheckPlanetBuildingQueue.' . $phpEx);
-        include_once($this->root . 'includes/functions/GetBuildingPrice.' . $phpEx);
-        include_once($this->root . 'includes/functions/IsElementBuyable.' . $phpEx);
-        include_once($this->root . 'includes/functions/SetNextQueueElementOnTop.' . $phpEx);
-        include_once($this->root . 'includes/functions/SortUserPlanets.' . $phpEx);
-        include_once($this->root . 'includes/functions/UpdatePlanetBatimentQueueList.' . $phpEx);        
+        include_once(ROOT_PATH.'includes/functions/'.$name.'.'.PHP_EXT);   
      }
      
      /**
@@ -412,18 +407,10 @@
         $pos_hack[10]= 'mu_connected';
         
         // Admin o no
-        if ($pos >= 10){
-        
-        // Metodo admin
-        $end_hack = '</a></th></tr>';
-        $start_hack = '<tr><th "onMouseOver="this.className="ForIEHover" onMouseOut="this.className="ForIE" class="ForIE"><a href="'.$ref.'" target="Hauptframe">'. $title;
-        
-        $lang[$pos_hack[$pos]] .= $end_hack . $start_hack;    
-        } else {
-        
-
-        $lang[$pos_hack[$pos]] .= "</font></a></div></td></tr><tr><td><div align=\"center\"><a href=\"".$ref."\"><font color=\"white\">".$title;     
-      }        
+        if ($pos >= 10)
+        	$lang[$pos_hack[$pos]] .= '</a></th></tr><tr><th "onMouseOver="this.className="ForIEHover" onMouseOut="this.className="ForIE" class="ForIE"><a href="'.$ref.'" target="Hauptframe">'.$lang[$title];    
+		else
+			$lang[$pos_hack[$pos]] .= '</font></a></div></td></tr><tr><td><div align="center"><a href="'.$ref.'"><font color="white">'.$lang[$title];
       }
      /**
       * Procesa un archivo de lenguas
@@ -433,12 +420,8 @@
       * @param string  $lang
       * @return void
       */
-      protected function lang_txt($archive, $lang = 'es'){
-        global $lang, $xgp_root;
-        
-        $path = ROOT_PATH.'includes/plugins/' . $archive . '_lang.php';
-        $lng  = include_once($path);          
-
+      protected function lang_txt($archive, $lang = 'de'){
+			includeLang('plugins/'.$archive);          
       }
     
  }

@@ -45,7 +45,7 @@ header('Content-Type: text/html; charset=UTF-8');
 $game_config   	= array();
 $user          	= array();
 $lang          	= array();
-$link          	= "";
+$addmenu       	= array();
 $IsUserChecked 	= false;
 
 if(file_exists(ROOT_PATH . 'config.php'))

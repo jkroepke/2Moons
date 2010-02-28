@@ -30,7 +30,6 @@ include(ROOT_PATH . 'includes/functions/CheckPlanetBuildingQueue.' . PHP_EXT);
 include(ROOT_PATH . 'includes/functions/GetBuildingPrice.' . PHP_EXT);
 include(ROOT_PATH . 'includes/functions/IsElementBuyable.' . PHP_EXT);
 include(ROOT_PATH . 'includes/functions/SetNextQueueElementOnTop.' . PHP_EXT);
-include(ROOT_PATH . 'includes/functions/SortUserPlanets.' . PHP_EXT);
 include(ROOT_PATH . 'includes/functions/UpdatePlanetBatimentQueueList.' . PHP_EXT);
 
 $page = request_var('page','');
@@ -291,6 +290,8 @@ switch($page)
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'overview':
 	default:
+		if (isset($run_plug)) exit;
+		
 		include_once(ROOT_PATH . 'includes/pages/ShowOverviewPage.' . PHP_EXT);
 		ShowOverviewPage($user, $planetrow);
 	break;

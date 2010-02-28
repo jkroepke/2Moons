@@ -35,10 +35,10 @@ class template extends Smarty
 		
 		$this->planet				= (isset($GLOBALS['planetrow'])) ? $GLOBALS['planetrow'] : NULL;
 		$this->player				= (isset($GLOBALS['user'])) ? $GLOBALS['user'] : NULL;;
-		$this->lang					= $GLOBALS['lang'];
 		$this->db					= $GLOBALS['db'];
 		$this->GameConfig			= $GLOBALS['game_config'];
-		
+		$this->lang					= $GLOBALS['lang'];
+		$this->addmenu				= $GLOBALS['addmenu'];
 		$this->script				= array();
 		$this->page					= array();
 		$this->setheader();
@@ -114,7 +114,7 @@ class template extends Smarty
 			
 		$BoardURL				= $this->GameConfig['forum_url'].'" target="forum';
 		$RulesURL				= 'index.php?page=rules" target="forum';
-		$Menu					= array(
+		$this->Menu					= array(
 			"gfx/ogame-produktion.jpg" => array(
 				'?page=overview'					=> $this->lang['lm_overview'],
 				'?page=imperium'					=> $this->lang['lm_empire'],
@@ -157,7 +157,7 @@ class template extends Smarty
 			'incoming_fleets'	=> $this->player['fleets']['count'],
 			'forum_url'			=> $this->GameConfig['forum_url'],
 			'servername'		=> $this->GameConfig['game_name'],
-			'menu'				=> $Menu,
+			'menu'				=> array_merge($this->Menu, $this->addmenu),
 			'lm_administration'	=> $this->lang['lm_administration'],
 		));
 	}
@@ -287,7 +287,7 @@ class template extends Smarty
 	}
 	
 	public function show($file)
-	{
+	{		
 		if($this->page['header'] == true)
 			$this->header();
 			
