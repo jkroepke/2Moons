@@ -1312,7 +1312,18 @@ abstract class FlyingFleetMissions {
 			$db->query($QryUpdateGalaxy);
 
 			$formatted_cr 	= self::GenerateReport($result, $steal, $MoonChance, $GottenMoon, $totaltime);
+			
+			foreach($attackFleets as $fleetID => $attackeruser)
+			{
+				$Attacker['id'][] 	= $attackeruser['user']['id'];
+				$Attacker['name'][]	= $attackeruser['user']['username'];
+			}
 
+			foreach($defense as $fleetID => $defenderuser)
+			{
+				$Defender['id'][] 	= $defenderuser['user']['id'];
+				$Defender['name'][]	= $defenderuser['user']['username'];
+			}
 
 			$Attacker['id']		= array_unique($Attacker['id'], SORT_NUMERIC);
 			$Attacker['name']	= array_unique($Attacker['name'], SORT_NUMERIC);
