@@ -160,9 +160,10 @@ class ShowShipyardPage
 				$Element = in_array($Element, $reslist['fleet']) ? $Element : NULL;
 				if(empty($Element))
 					continue;
-					
-				$Count 	 = min(intval($Count), MAX_FLEET_OR_DEFS_PER_ROW);
-				$ebuild  = explode(";",$CurrentPlanet['b_hangar_id']);
+				
+				$Count	= is_numeric($Count) ? $Count : 0;
+				$Count 	= min($Count, MAX_FLEET_OR_DEFS_PER_ROW);
+				$ebuild = explode(";",$CurrentPlanet['b_hangar_id']);
 				if (count($ebuild) - 1 >= MAX_FLEET_OR_DEFS_IN_BUILD)
 				{
 					$template	= new template();
@@ -342,9 +343,13 @@ class ShowShipyardPage
 
 			foreach($fmenge as $Element => $Count)
 			{
-				$Element = intval($Element);
-				$Count 	 = min(intval($Count), MAX_FLEET_OR_DEFS_PER_ROW);
-				$ebuild  = explode(";",$CurrentPlanet['b_hangar_id']);
+				$Element = in_array($Element, $reslist['fleet']) ? $Element : NULL;
+				if(empty($Element))
+					continue;
+					
+				$Count	= is_numeric($Count) ? $Count : 0;
+				$Count 	= min($Count, MAX_FLEET_OR_DEFS_PER_ROW);
+				$ebuild = explode(";",$CurrentPlanet['b_hangar_id']);
 				if (count($ebuild) - 1 >= MAX_FLEET_OR_DEFS_IN_BUILD)
 				{
 					message(sprintf($lang['bd_max_builds'], MAX_FLEET_OR_DEFS_IN_BUILD), "?page=buildings&mode=fleet", 3, true);
@@ -397,8 +402,7 @@ class ShowShipyardPage
 						}
 					}
 
-					$Ressource = $this->GetElementRessources ( $Element, $Count );
-
+					$Ressource = $this->GetElementRessources($Element, $Count);
 					if ($Count >= 1)
 					{
 						$CurrentPlanet['metal']           -= $Ressource['metal'];

@@ -51,9 +51,23 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 					$Element   = $Item[0];
 					$Count     = $Item[1];
 					$BuildTime = $Item[2];
-					while ( $CurrentPlanet['b_hangar'] >= $BuildTime && !$UnFinished )
+					$i		   = 0;
+					while ($CurrentPlanet['b_hangar'] >= $BuildTime && !$UnFinished )
 					{
-						if ( $Count > 0 )
+						if($i >= 10000000)
+						{
+							$UnFinished = true;
+							break;
+						}
+						if($Item[2] == 0)
+						{
+							$Builded[$Element] = $Count;
+							$CurrentPlanet[$resource[$Element]] = $Count;
+							$Count	= 0;
+							break;
+						}
+						
+						if($Count > 0)
 						{
 							$CurrentPlanet['b_hangar'] -= $BuildTime;
 							$Builded[$Element]++;
@@ -69,6 +83,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 							$UnFinished = true;
 							break;
 						}
+						$i++;
 					}
 				}
 				if ( $Count != 0 )
