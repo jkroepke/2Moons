@@ -25,7 +25,7 @@ define('LOGIN', true );
 
 $InLogin = true;
 
-ROOT_PATH = './';
+define('ROOT_PATH'	,'./');
 
 include_once(ROOT_PATH . 'extension.inc');
 include_once(ROOT_PATH . 'common.' . PHP_EXT);

@@ -351,6 +351,12 @@ $QryTablePlanets    .= "`id_luna` int(11) NOT NULL default '0', ";
 $QryTablePlanets    .= "PRIMARY KEY  (`id`) ";
 $QryTablePlanets    .= ") ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 
+$QryTablePlugins	.= "CREATE TABLE `prefix_".PLUGINS."` (";
+$QryTablePlugins	.= "`status` tinyint(11) NOT NULL DEFAULT '0',";
+$QryTablePlugins	.= "`plugin` varchar(32) NOT NULL";
+$QryTablePlugins	.= ") ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+
+
 $QryTableRw          = "CREATE TABLE IF NOT EXISTS `prefix_".RW."` ( ";
 $QryTableRw      	.= "`owners` VARCHAR(255) character set utf8 NOT NULL, ";
 $QryTableRw         .= "`rid` VARCHAR(72) character set utf8 NOT NULL, ";
