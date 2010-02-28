@@ -2911,10 +2911,10 @@ abstract class FlyingFleetMissions {
 				case 6:
 					$MoreTime	= mt_rand(0, 100);
 					if($MoreTime < 75) {
-						$FleetRow['fleet_end_time'] = round(($FleetRow['fleet_end_stay'] + ($FleetRow['fleet_end_time'] - $FleetRow['fleet_end_stay']) + ($FleetStayDuration * mt_rand(1, 5))) / $game_config['fleet_speed']);
+						$FleetRow['fleet_end_time'] = round($FleetRow['fleet_end_stay'] + ($FleetRow['fleet_end_time'] - $FleetRow['fleet_end_stay']) + ($FleetStayDuration * mt_rand(1, 5)));
 						$Message = $lang['sys_expe_time_slow_'.mt_rand(1,6)];
 					} else {
-						$FleetRow['fleet_end_time'] = round(($FleetRow['fleet_end_stay'] + ($FleetRow['fleet_end_time'] - $FleetRow['fleet_end_stay']) / 2) / $game_config['fleet_speed']);
+						$FleetRow['fleet_end_time'] = round($FleetRow['fleet_end_stay'] + ($FleetRow['fleet_end_time'] - $FleetRow['fleet_end_stay']) / 2);
 						$Message = $lang['sys_expe_time_fast_'.mt_rand(1,3)];
 					}
 					
