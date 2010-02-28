@@ -22,23 +22,26 @@
 define('INSIDE'  , true);
 define('INSTALL' , false);
 define('IN_CRON' , true);
+define('ROOT_PATH' ,'./');
 
-ROOT_PATH = './';
 include(ROOT_PATH . 'extension.inc');
 include(ROOT_PATH . 'common.'.PHP_EXT);
 
-$id = request_var("id", 0);
-if($id == 0) die();
+$id = request_var('id', 0);
+
+if($id == 0) exit();
 
 includeLang('INGAME');
 
+require_once(ROOT_PATH."includes/classes/class.StatBanner.php");
 
-include_once("./includes/classes/class.StatBanner.php");
 $time	= 86400;
-$banner = new StatBanner();
 header('Expires: '.date('D, d M Y H:i:s T',time() + $time));
-header('Content-type: image/png'); 
-header("Cache-Control: public, max-age=".$time.", s-maxage=".$time);
+header("Content-type: image/png"); 
+header("Cache-Control: private, max-age=".$time.", s-maxage=".$time);
+
+$banner = new StatBanner();
 
 $banner->ShowStatBanner($id);
+
 ?>

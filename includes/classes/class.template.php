@@ -252,7 +252,6 @@ class template extends Smarty
 	public function setheader()
 	{
 		if (!headers_sent()) {
-			header('Last-Modified: '.date('D, d M Y H:i:s T'));
 			header('Expires: 0');
 			header('Pragma: no-cache');
 			header('Cache-Control: private, no-store, no-cache, must-revalidate, max-age=0');
