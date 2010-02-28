@@ -51,9 +51,6 @@ Header set Cache-Control "max-age=604800, public"
 <filesmatch "\.(js)$">
 Header set Cache-Control "max-age=216000, private"
 </filesmatch>
-<filesmatch "\.(x?html?|php)$">
-Header set Cache-Control "max-age=0, private, must-revalidate"
-</filesmatch>
 </IfModule>
 <IfModule mod_headers.c>
 Header unset ETag
