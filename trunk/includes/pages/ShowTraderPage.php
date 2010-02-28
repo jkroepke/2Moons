@@ -23,7 +23,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 
 function ShowTraderPage($CurrentUser, $CurrentPlanet)
 {
-	global $phpEx, $lang, $db;
+	global  $lang, $db;
 	$ress 		= request_var('ress', '');
 	$action 	= request_var('action', '');
 	$metal		= request_var('metal', 0);
@@ -47,7 +47,7 @@ function ShowTraderPage($CurrentUser, $CurrentPlanet)
 				if($action == "trade")
 				{
 					if ($crystal < 0 or $deut < 0)
-						$template->message($lang['tr_only_positive_numbers'], "game." . $phpEx . "?page=trader",1);
+						$template->message($lang['tr_only_positive_numbers'], "game." . PHP_EXT . "?page=trader",1);
 					else
 					{
 						$trade	= ($crystal * 2 + $deut * 4);
@@ -57,10 +57,10 @@ function ShowTraderPage($CurrentUser, $CurrentPlanet)
 							$CurrentPlanet['metal']     -= $trade;
 							$CurrentPlanet['crystal']   += $crystal;
 							$CurrentPlanet['deuterium'] += $deut;
-							$template->message($lang['tr_exchange_done'],"game." . $phpEx . "?page=trader",1);
+							$template->message($lang['tr_exchange_done'],"game." . PHP_EXT . "?page=trader",1);
 						}
 						else
-							$template->message($lang['tr_not_enought_metal'], "game." . $phpEx . "?page=trader", 1);
+							$template->message($lang['tr_not_enought_metal'], "game." . PHP_EXT . "?page=trader", 1);
 					}
 				} else {
 					$template->assign_vars(array(
@@ -84,7 +84,7 @@ function ShowTraderPage($CurrentUser, $CurrentPlanet)
 				if($action == "trade")
 				{
 					if ($metal < 0 or $deut < 0)
-						$template->message($lang['tr_only_positive_numbers'], "game." . $phpEx . "?page=trader",1);
+						$template->message($lang['tr_only_positive_numbers'], "game." . PHP_EXT . "?page=trader",1);
 					else
 					{
 						$trade	= ($metal * 0.5 + $deut * 2);
@@ -94,10 +94,10 @@ function ShowTraderPage($CurrentUser, $CurrentPlanet)
 							$CurrentPlanet['metal']     += $metal;
 							$CurrentPlanet['crystal']   -= $trade;
 							$CurrentPlanet['deuterium'] += $deut;
-							$template->message($lang['tr_exchange_done'],"game." . $phpEx . "?page=trader",1);
+							$template->message($lang['tr_exchange_done'],"game." . PHP_EXT . "?page=trader",1);
 						}
 						else
-							$template->message($lang['tr_not_enought_crystal'], "game." . $phpEx . "?page=trader", 1);
+							$template->message($lang['tr_not_enought_crystal'], "game." . PHP_EXT . "?page=trader", 1);
 					}
 				} else {
 					$template->assign_vars(array(
@@ -121,7 +121,7 @@ function ShowTraderPage($CurrentUser, $CurrentPlanet)
 				if($action == "trade")
 				{
 					if ($metal < 0 or $crystal < 0)
-						message($lang['tr_only_positive_numbers'], "game." . $phpEx . "?page=trader",1);
+						message($lang['tr_only_positive_numbers'], "game." . PHP_EXT . "?page=trader",1);
 					else
 					{
 						$trade	= ($metal * 0.25 + $crystal * 0.5);
@@ -131,10 +131,10 @@ function ShowTraderPage($CurrentUser, $CurrentPlanet)
 							$CurrentPlanet['metal']     += $metal;
 							$CurrentPlanet['crystal']   += $crystal;
 							$CurrentPlanet['deuterium'] -= $trade;
-							$template->message($lang['tr_exchange_done'],"game." . $phpEx . "?page=trader", 1);
+							$template->message($lang['tr_exchange_done'],"game." . PHP_EXT . "?page=trader", 1);
 						}
 						else
-							$template->message($lang['tr_not_enought_deuterium'], "game." . $phpEx . "?page=trader", 1);
+							$template->message($lang['tr_not_enought_deuterium'], "game." . PHP_EXT . "?page=trader", 1);
 					}
 				} else {
 					$template->assign_vars(array(

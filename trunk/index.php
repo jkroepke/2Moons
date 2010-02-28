@@ -25,15 +25,15 @@ define('LOGIN', true );
 
 $InLogin = true;
 
-$xgp_root = './';
+ROOT_PATH = './';
 
-include_once($xgp_root . 'extension.inc.php');
-include_once($xgp_root . 'common.' . $phpEx);
+include_once(ROOT_PATH . 'extension.inc');
+include_once(ROOT_PATH . 'common.' . PHP_EXT);
 
 includeLang ('PUBLIC');
 
 // Uniconfig changed...
-include_once($xgp_root . 'includes/uni.config.inc.php');
+include_once(ROOT_PATH . 'includes/uni.config.inc.php');
 
 $template	= new template();
 $template->set_index();

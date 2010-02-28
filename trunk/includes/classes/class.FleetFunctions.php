@@ -362,10 +362,9 @@ abstract class FleetFunctions
 	
 	public static function GotoFleetPage()
 	{
-		global $phpEx;
 		if (!headers_sent()) {
 			$temp = debug_backtrace();
-			header("Location: game." . $phpEx . "?page=fleet");
+			header("Location: game.".PHP_EXT."?page=fleet");
 			header("X-FAIL-AT-LINE: ".str_replace($_SERVER["DOCUMENT_ROOT"],'.',$temp[0]['file'])." on ".$temp[0]['line']);
 		}
 		exit;
@@ -373,7 +372,7 @@ abstract class FleetFunctions
 
 	function GetAKSPage($CurrentUser, $CurrentPlanet, $fleetid)
 	{
-		global $resource, $pricelist, $reslist, $phpEx, $lang, $db;
+		global $resource, $pricelist, $reslist, $lang, $db;
 
 		$fleetid 		= $fleetid;
 		$addname		= request_var('addtogroup','',UTF8_SUPPORT);
@@ -382,12 +381,12 @@ abstract class FleetFunctions
 		$query = $db->query("SELECT * FROM ".FLEETS." WHERE fleet_id = '" . $fleetid . "';");
 
 		if ($db->num_rows($query) != 1)
-			exit(header("Location: game.".$phpEx."?page=fleet"));
+			exit(header("Location: game.".PHP_EXT."?page=fleet"));
 
 		$daten = $db->fetch_array($query);
 
 		if ($daten['fleet_start_time'] <= time() || $daten['fleet_end_time'] < time() || $daten['fleet_mess'] == 1)
-			exit(header("Location: game.".$phpEx."?page=fleet"));
+			exit(header("Location: game.".PHP_EXT."?page=fleet"));
 
 		if (empty($daten['fleet_group']))
 		{
@@ -423,7 +422,7 @@ abstract class FleetFunctions
 			$AKSRAW = $db->query("SELECT `id`, `eingeladen`, `name` FROM ".AKS." WHERE `id` = '" . $daten['fleet_group'] . "';");
 
 			if ($db->num_rows($AKSRAW) != 1)
-				exit(header("Location: game.".$phpEx."?page=fleet"));
+				exit(header("Location: game.".PHP_EXT."?page=fleet"));
 			
 			$aks	= $db->fetch_array($AKSRAW);
 		}

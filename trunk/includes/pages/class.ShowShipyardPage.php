@@ -125,10 +125,10 @@ class ShowShipyardPage
 	
 	public function FleetBuildingPage($CurrentPlanet, $CurrentUser)
 	{
-		global $lang, $resource, $phpEx, $dpath, $db, $xgp_root, $reslist;
+		global $lang, $resource, $dpath, $db, $reslist;
 
-		include_once($xgp_root . 'includes/functions/IsTechnologieAccessible.' . $phpEx);
-		include_once($xgp_root . 'includes/functions/GetElementPrice.' . $phpEx);
+		include_once(ROOT_PATH . 'includes/functions/IsTechnologieAccessible.' . PHP_EXT);
+		include_once(ROOT_PATH . 'includes/functions/GetElementPrice.' . PHP_EXT);
 
 		
 		$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
@@ -292,10 +292,10 @@ class ShowShipyardPage
 
 	public function DefensesBuildingPage ( &$CurrentPlanet, $CurrentUser )
 	{
-		global $lang, $resource, $phpEx, $dpath, $xgp_root, $reslist;
+		global $lang, $resource, $dpath, $reslist;
 
-		include_once($xgp_root . 'includes/functions/IsTechnologieAccessible.' . $phpEx);
-		include_once($xgp_root . 'includes/functions/GetElementPrice.' . $phpEx);
+		include_once(ROOT_PATH . 'includes/functions/IsTechnologieAccessible.' . PHP_EXT);
+		include_once(ROOT_PATH . 'includes/functions/GetElementPrice.' . PHP_EXT);
 
 		$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
 		

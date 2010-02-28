@@ -21,7 +21,6 @@
 
 if (!defined('INSIDE'))	die();
 
-
-$phpEx = "php";
+define('PHP_EXT'	, "php");
 
 ?>

@@ -23,9 +23,9 @@ define('INSIDE'  , true);
 define('INSTALL' , false);
 define('IN_CRON' , true);
 
-$xgp_root = './';
-include($xgp_root . 'extension.inc.php');
-include($xgp_root . 'common.'.$phpEx);
+ROOT_PATH = './';
+include(ROOT_PATH . 'extension.inc');
+include(ROOT_PATH . 'common.'.PHP_EXT);
 
 $id = request_var("id", 0);
 if($id == 0) die();

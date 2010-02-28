@@ -23,9 +23,9 @@ define('INSIDE'  , true);
 define('INSTALL' , false);
 define('IN_ADMIN', true);
 
-$xgp_root = './../';
-include($xgp_root . 'extension.inc.php');
-include($xgp_root . 'common.' . $phpEx);
+define('ROOT_PATH', './../');
+include(ROOT_PATH . 'extension.inc');
+include(ROOT_PATH . 'common.' . PHP_EXT);
 
 if ($user['authlevel'] < 1) die();
 
@@ -50,7 +50,7 @@ function check_updates()
 
 $parse	=	$lang;
 
-if(file_exists($xgp_root . 'install/') && defined('IN_ADMIN'))
+if(file_exists(ROOT_PATH . 'install/') && defined('IN_ADMIN'))
 {
 	$Message	.= "<font color=\"red\">".$lang['ow_install_file_detected']."</font><br/><br/>";
 	$error++;
@@ -58,7 +58,7 @@ if(file_exists($xgp_root . 'install/') && defined('IN_ADMIN'))
 
 if ($user['authlevel'] >= 3)
 {
-	if(is_writable($xgp_root."config.php"))
+	if(is_writable(ROOT_PATH."config.php"))
 	{
 		$Message	.= "<font color=\"red\">".$lang['ow_config_file_writable']."</font><br/><br/>";
 		$error++;

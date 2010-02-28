@@ -23,9 +23,9 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 
 	function IsElementBuyable ($CurrentUser, $CurrentPlanet, $Element, $Incremental = true, $ForDestroy = false)
 	{
-		global $pricelist, $resource, $xgp_root, $phpEx;
+		global $pricelist, $resource;
 
-		include_once($xgp_root . 'includes/functions/IsVacationMode.' . $phpEx);
+		include_once(ROOT_PATH . 'includes/functions/IsVacationMode.' . PHP_EXT);
 
 	    if (IsVacationMode($CurrentUser))
 	       return false;

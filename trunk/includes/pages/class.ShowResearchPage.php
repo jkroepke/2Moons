@@ -119,10 +119,10 @@ class ShowResearchPage
 
 	public function ShowResearchPage (&$CurrentPlanet, $CurrentUser, $InResearch, $ThePlanet)
 	{
-		global $lang, $resource, $reslist, $phpEx, $dpath, $game_config, $db, $pricelist;
+		global $lang, $resource, $reslist, $dpath, $game_config, $db, $pricelist;
 
-		include_once($xgp_root . 'includes/functions/IsTechnologieAccessible.' . $phpEx);
-		include_once($xgp_root . 'includes/functions/GetElementPrice.' . $phpEx);
+		include_once(ROOT_PATH . 'includes/functions/IsTechnologieAccessible.' . PHP_EXT);
+		include_once(ROOT_PATH . 'includes/functions/GetElementPrice.' . PHP_EXT);
 
 		$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
 
@@ -185,7 +185,7 @@ class ShowResearchPage
 						}
 					break;
 					default:
-						exit(header("Location: game.".$phpEx."?page=buildings&amp;mode=research"));
+						exit(header("Location: game.".PHP_EXT."?page=buildings&amp;mode=research"));
 					break;
 				}
 				if ($UpdateData == true)
@@ -221,7 +221,7 @@ class ShowResearchPage
 			}
 			else
 			{
-				exit(header("location:game.".$phpEx."?page=buildings&mode=research"));
+				exit(header("location:game.".PHP_EXT."?page=buildings&mode=research"));
 			}
 		}
 

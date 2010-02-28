@@ -2189,7 +2189,7 @@ abstract class FlyingFleetMissions {
 	
 	public static function MissionCaseDestruction($FleetRow)
 	{
-		global $user, $phpEx, $pricelist, $lang, $resource, $CombatCaps, $db;
+		global $user, $pricelist, $lang, $resource, $CombatCaps, $db;
 
 	    includeLang('INGAME');
 		if ($FleetRow['fleet_mess'] == 0 && $FleetRow['fleet_start_time'] <= time())
@@ -2552,7 +2552,7 @@ abstract class FlyingFleetMissions {
 
 	public static function MissionCaseMIP ($FleetRow)
 	{
-		global $user, $phpEx, $pricelist, $lang, $resource, $CombatCaps, $db, $reslist;
+		global $user, $pricelist, $lang, $resource, $CombatCaps, $db, $reslist;
 
 		if ($FleetRow['fleet_start_time'] <= time() && $FleetRow['fleet_mess'] == 0)
 		{
@@ -2955,7 +2955,7 @@ abstract class FlyingFleetMissions {
 		if ($FleetRow['fleet_mess'] == 0 && $FleetRow['fleet_end_stay'] < time())
 		{
 			$chance 		= mt_rand(0, 100);
-			if($chance <= (20 + $FleetRow['fleet_amount'] * 0.25)) {
+			if($chance <= (30 + $FleetRow['fleet_amount'] * 0.25)) {
 				$FoundDark 	= mt_rand(423, 1278);
 				$Message 	= sprintf($lang['sys_expe_found_goods'], 0, $lang['Metal'], 0, $lang['Crystal'], 0, $lang['Deuterium'], pretty_number($FoundDark), $lang['Darkmatter']);
 			} else {

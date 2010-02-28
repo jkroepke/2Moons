@@ -184,7 +184,7 @@ class ShowInfosPage
 
 	public function ShowInfosPage ($CurrentUser, $CurrentPlanet)
 	{
-		global $dpath, $lang, $resource, $pricelist, $reslist, $CombatCaps, $phpEx, $ProdGrid, $xgp_root, $game_config;
+		global $dpath, $lang, $resource, $pricelist, $reslist, $CombatCaps, $ProdGrid, $game_config;
 
 		$BuildID 	= request_var('gid', 0);
 		
@@ -304,7 +304,7 @@ class ShowInfosPage
 			$RestString               		= $this->GetNextJumpWaitTime ( $CurrentPlanet );
 			if ($RestString['value'] != 0)
 			{
-				include_once($xgp_root . 'includes/functions/InsertJavaScriptChronoApplet.' . $phpEx);
+				include_once(ROOT_PATH . 'includes/functions/InsertJavaScriptChronoApplet.' . PHP_EXT);
 				$template->assign_vars(array(
 					'gate_time_script'	=> InsertJavaScriptChronoApplet("Gate", "1", $RestString['value'], true),
 					'gate_script_go'	=> InsertJavaScriptChronoApplet("Gate", "1", $RestString['value'], false),

@@ -3,7 +3,7 @@ User-agent: *
 Disallow: /includes/
 Disallow: /adm/
 Disallow: /config.php
-Disallow: /extension.inc.php
+Disallow: /extension.inc
 Disallow: /common.php
 
 

@@ -23,16 +23,16 @@ define('INSIDE'  , true);
 define('INSTALL' , false);
 define('IN_ADMIN', true);
 
-$xgp_root = './../';
-include($xgp_root . 'extension.inc.php');
-include($xgp_root . 'common.'.$phpEx);
+define('ROOT_PATH', './../');
+include(ROOT_PATH . 'extension.inc');
+include(ROOT_PATH . 'common.'.PHP_EXT);
 $parse	=	$lang;
 
 if ($user['id'] != 1) die(message($lang['not_enough_permissions']));
 
 function ResetUniverse ( $CurrentUser )
 {
-	global $phpEx, $db;
+	global  $db;
 
 		$db->query( "RENAME TABLE ".PLANETS." TO ".PLANETS."_s;");
 		$db->query( "RENAME TABLE ".USERS." TO ".USERS."_s;");

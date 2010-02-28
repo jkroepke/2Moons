@@ -23,12 +23,12 @@ define('INSIDE'  , true);
 define('INSTALL' , false);
 define('IN_ADMIN', true);
 
-$xgp_root = './../';
-require_once($xgp_root. 'common.php');
+define('ROOT_PATH', './../');
+require_once(ROOT_PATH. 'common.php');
 
 if ($user['authlevel'] < 2){header("x",true,403);exit;}
 
-	require_once($xgp_root.'includes/classes/class.statbuilder.php');
+	require_once(ROOT_PATH.'includes/classes/class.statbuilder.php');
 	$stat			= new statbuilder();
 	$result			= $stat->MakeStats();
 	$memory_p		= str_replace(array("%p", "%m"), $result['memory_peak'], $lang['sb_top_memory']);

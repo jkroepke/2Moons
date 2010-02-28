@@ -348,10 +348,10 @@ class ShowBuildingsPage
 
 	public function ShowBuildingsPage (&$CurrentPlanet, $CurrentUser)
 	{
-		global $ProdGrid, $lang, $resource, $reslist, $phpEx, $dpath, $game_config, $db, $xgp_root;
+		global $ProdGrid, $lang, $resource, $reslist, $dpath, $game_config, $db;
 
-		include_once($xgp_root . 'includes/functions/IsTechnologieAccessible.' . $phpEx);
-		include_once($xgp_root . 'includes/functions/GetElementPrice.' . $phpEx);
+		include_once(ROOT_PATH . 'includes/functions/IsTechnologieAccessible.' . PHP_EXT);
+		include_once(ROOT_PATH . 'includes/functions/GetElementPrice.' . PHP_EXT);
 
 		CheckPlanetUsedFields($CurrentPlanet);
 		
@@ -446,7 +446,7 @@ class ShowBuildingsPage
 
 		if ($Queue['lenght'] > 0)
 		{
-			include($xgp_root . 'includes/functions/InsertBuildListScript.' . $phpEx);
+			include(ROOT_PATH . 'includes/functions/InsertBuildListScript.' . PHP_EXT);
 			$template->assign_vars(array(
 				'BuildListScript'  	=> InsertBuildListScript("buildings"),
 				'BuildList'			=> $Queue['buildlist'],

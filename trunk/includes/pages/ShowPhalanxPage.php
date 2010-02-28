@@ -22,11 +22,11 @@
 
 function ShowPhalanxPage($CurrentUser, $CurrentPlanet)
 {
-	global $xgp_root, $phpEx, $lang, $db;
+	global $lang, $db;
 
-	include_once($xgp_root . 'includes/functions/InsertJavaScriptChronoApplet.' . $phpEx);
-	include_once($xgp_root . 'includes/classes/class.FlyingFleetsTable.' . $phpEx);
-	include_once($xgp_root . 'includes/classes/class.GalaxyRows.' . $phpEx);
+	include_once(ROOT_PATH . 'includes/functions/InsertJavaScriptChronoApplet.' . PHP_EXT);
+	include_once(ROOT_PATH . 'includes/classes/class.FlyingFleetsTable.' . PHP_EXT);
+	include_once(ROOT_PATH . 'includes/classes/class.GalaxyRows.' . PHP_EXT);
 
 	$FlyingFleetsTable 	= new FlyingFleetsTable();
 	$GalaxyRows 		= new GalaxyRows();
