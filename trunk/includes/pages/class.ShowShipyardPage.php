@@ -343,7 +343,7 @@ class ShowShipyardPage
 
 			foreach($fmenge as $Element => $Count)
 			{
-				$Element = in_array($Element, $reslist['fleet']) ? $Element : NULL;
+				$Element = in_array($Element, $reslist['defense']) ? $Element : NULL;
 				if(empty($Element))
 					continue;
 					
