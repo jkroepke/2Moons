@@ -287,12 +287,13 @@ class DB_mysqli extends Database
 	
 	public function multi_query($resource, $clear_result_cache = true)
 	{	
-		if (!$this->mysqli->multi_query($resource)){
+		{
+		if (!$this->mysqli->multi_query($resource))
 			echo ("SQL Error (".$this->mysqli->error."): ".$this->error."<br /><br />Query Code: $sql");
 			echo ("<br>Debug:<br>");
 			echo debug_print_backtrace();
 		}
-
+		
 		if ($clear_result_cache) {
 			do {
 				if($result = $this->mysqli->store_result())
