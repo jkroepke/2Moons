@@ -122,7 +122,7 @@ if (INSTALL != true)
 			if($db->num_rows($fleetquery) > 0)
 			{
 				update_config('stats_fly_lock', time());
-				$db->multi_query("UNLOCK TABLES;LOCK TABLE ".AKS." WRITE, ".RW." WRITE, ".MESSAGES." WRITE, ".FLEETS." WRITE, ".PLANETS." WRITE, ".TOPKB." WRITE, ".USERS." WRITE;");
+				$db->multi_query("UNLOCK TABLES;LOCK TABLE ".AKS." WRITE, ".RW." WRITE, ".MESSAGES." WRITE, ".FLEETS." WRITE, ".PLANETS." WRITE, ".TOPKB." WRITE, ".USERS." WRITE, ".STATPOINTS." WRITE;");
 				require_once($xgp_root . 'includes/classes/class.FlyingFleetHandler.'.$phpEx);
 			
 				new FlyingFleetHandler($fleetquery);
@@ -152,7 +152,7 @@ if (INSTALL != true)
 			require_once($xgp_root . 'includes/functions/SetSelectedPlanet.' . $phpEx);
 			SetSelectedPlanet ($user);
 
-			$planetrow = $db->fetch_array($db->query("SELECT p.*,u.`darkmatter` FROM `".PLANETS."` as p, `".USERS."` as u WHERE  u.`id` = p.`id_owner` AND p.`id` = '".$user['current_planet']."';"));
+			$planetrow = $db->fetch_array($db->query("SELECT p.*, u.`darkmatter`, u.`new_message` FROM `".PLANETS."` as p LEFT JOIN `".USERS."` as u ON u.`id` = p.`id_owner` WHERE p.`id` = '".$user['current_planet']."';"));
 
 			if(empty($planetrow)){
 				$db->query("UPDATE ".USERS." SET `current_planet` = `id_planet` WHERE `id` = '". $user['id'] ."' LIMIT 1");
@@ -161,6 +161,7 @@ if (INSTALL != true)
 			
 			// Some Darkmatter Update after FleetMissions
 			$user['darkmatter'] = $planetrow['darkmatter'];
+			$user['new_message'] = $planetrow['new_message'];
 			include($xgp_root . 'includes/functions/CheckPlanetUsedFields.' . $phpEx);
 			CheckPlanetUsedFields($planetrow);
 		}
