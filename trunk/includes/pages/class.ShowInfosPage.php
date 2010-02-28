@@ -221,14 +221,14 @@ class ShowInfosPage
 			
 			for($BuildLevel = $BuildStartLvl; $BuildLevel < $BuildStartLvl + 15; $BuildLevel++ )
 			{
-				$Prod[1] = floor(eval($ProdGrid[$BuildID]['formule']['metal'])     * $game_config['resource_multiplier'] * (1 + ($CurrentUser['rpg_geologue']  * GEOLOGUE)));
-				$Prod[2] = floor(eval($ProdGrid[$BuildID]['formule']['crystal'])   * $game_config['resource_multiplier'] * (1 + ($CurrentUser['rpg_geologue']  * GEOLOGUE)));
-				$Prod[3] = floor(eval($ProdGrid[$BuildID]['formule']['deuterium']) * $game_config['resource_multiplier'] * (1 + ($CurrentUser['rpg_geologue']  * GEOLOGUE)));
+				$Prod[1] = floor(eval($ProdGrid[$BuildID]['formule']['metal'])     * $game_config['resource_multiplier']);
+				$Prod[2] = floor(eval($ProdGrid[$BuildID]['formule']['crystal'])   * $game_config['resource_multiplier']);
+				$Prod[3] = floor(eval($ProdGrid[$BuildID]['formule']['deuterium']) * $game_config['resource_multiplier']);
 
 				if($BuildID >= 4)
-					$Prod[4] = (floor(eval($ProdGrid[$BuildID]['formule']['energy'])    * $game_config['resource_multiplier']) * (1 + ($CurrentUser['rpg_ingenieur'] * INGENIEUR)));
+					$Prod[4] = floor(eval($ProdGrid[$BuildID]['formule']['energy'])    * $game_config['resource_multiplier']);
 				else
-					$Prod[4] = (floor(eval($ProdGrid[$BuildID]['formule']['energy'])    * $game_config['resource_multiplier']));
+					$Prod[4] = floor(eval($ProdGrid[$BuildID]['formule']['energy'])    * $game_config['resource_multiplier']);
 				
 				$bloc['build_lvl']       = ($CurrentBuildtLvl == $BuildLevel) ? "<font color=\"#ff0000\">".$BuildLevel."</font>" : $BuildLevel;
 
