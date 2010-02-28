@@ -77,8 +77,8 @@ $('#'+i).show('blind', {}, 500);
 	</tr>
 	<tr>
 		<th colspan="2">
-		<textarea cols="50" rows="10" name="text" style="font-family:Arial;font-size:11px;"></textarea>
-		<center><input type="submit" value="Absenden"></center>
+		<center><textarea cols="50" rows="10" name="text" style="font-family:Arial;font-size:11px;"></textarea>
+		<input type="submit" value="Absenden"></center>
 		</th>
 	</tr>
 </table></form>

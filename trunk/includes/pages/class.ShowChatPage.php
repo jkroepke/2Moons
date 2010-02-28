@@ -50,7 +50,6 @@ class ShowChatPage
 		global $db;
 		$Chat 	= $db->query("SELECT * FROM ".CHAT." WHERE ally_id = '".(($chat_type == "ally") ? $CurrentUser['ally_id'] : 0)."' ORDER BY messageid DESC LIMIT ".$this->page_limit.";");
 		$msg 	= "";
-		header('Content-Type: text/html; charset=UTF-8');
 		
 		while($Message = $db->fetch_array($Chat)){
 			$nick = "<a href=\"javascript:addSmiley('->".(strip_tags($Message["user"])).": ')\">".$Message["user"]."</a>";

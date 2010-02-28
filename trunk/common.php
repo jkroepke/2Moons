@@ -40,6 +40,8 @@ date_default_timezone_set("Europe/Berlin");
 
 error_reporting(E_ALL ^ E_NOTICE);
 
+header('Content-Type: text/html; charset=UTF-8');
+
 $phpEx			= "php";
 $game_config   	= array();
 $user          	= array();

@@ -258,7 +258,6 @@ class template extends Smarty
 			header('Cache-Control: private, no-store, no-cache, must-revalidate, max-age=0');
 			header('Cache-Control: post-check=0, pre-check=0', false); 
 			header('X-UA-Compatible: IE=100');
-			header('Content-Type: text/html; charset=UTF-8');
 			isBuggyIe() || header('Content-Encoding: '.zlib_get_coding_type()); 
 		}
 	}
