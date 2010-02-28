@@ -165,52 +165,53 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 			//iss ye katilan filo////////////////////////////////////
 
 			// ### LUCKY , CODES ARE BELOW
-
-			$dostfilo = $db->query("SELECT * FROM ".FLEETS." WHERE `fleet_end_galaxy` = '" . $hedefgalaksi . "' AND `fleet_end_system` = '" . $hedefsistem . "' AND `fleet_end_planet` = '" . $hedefgezegen . "' AND `fleet_group` = '" . $filogrubu . "';");
-			$Record1 = 0;
-			while ($FleetRow = $db->fetch_array($dostfilo)) {
-				$StartTime		= $FleetRow['fleet_start_time'];
-				$StayTime 		= $FleetRow['fleet_end_stay'];
-				$EndTime 		= $FleetRow['fleet_end_time'];
-				$hedefgalaksi 	= $FleetRow['fleet_end_galaxy'];
-				$hedefsistem 	= $FleetRow['fleet_end_system'];
-				$hedefgezegen 	= $FleetRow['fleet_end_planet'];
-				$mess 			= $FleetRow['fleet_mess'];
-				$filogrubu 		= $FleetRow['fleet_group'];
-				$id 			= $FleetRow['fleet_id'];
-				
-				if (($FleetRow['fleet_mission'] == 2) && ($FleetRow['fleet_owner'] != $CurrentUser['id'])) {
-					$Record1++;
+			if(!empty($hedefgalaksi) && !empty($hedefsistem) && !empty($hedefgezegen))
+			{
+				$dostfilo = $db->query("SELECT * FROM ".FLEETS." WHERE `fleet_end_galaxy` = '" . $hedefgalaksi . "' AND `fleet_end_system` = '" . $hedefsistem . "' AND `fleet_end_planet` = '" . $hedefgezegen . "' AND `fleet_group` = '" . $filogrubu . "';");
+				$Record1 = 0;
+				while ($FleetRow = $db->fetch_array($dostfilo)) {
+					$StartTime		= $FleetRow['fleet_start_time'];
+					$StayTime 		= $FleetRow['fleet_end_stay'];
+					$EndTime 		= $FleetRow['fleet_end_time'];
+					$hedefgalaksi 	= $FleetRow['fleet_end_galaxy'];
+					$hedefsistem 	= $FleetRow['fleet_end_system'];
+					$hedefgezegen 	= $FleetRow['fleet_end_planet'];
+					$mess 			= $FleetRow['fleet_mess'];
+					$filogrubu 		= $FleetRow['fleet_group'];
+					$id 			= $FleetRow['fleet_id'];
 					
-					if($mess > 0){
-						$StartTime = "";
-					}else{
-						$StartTime = $FleetRow['fleet_start_time'];
+					if (($FleetRow['fleet_mission'] == 2) && ($FleetRow['fleet_owner'] != $CurrentUser['id'])) {
+						$Record1++;
+						
+						if($mess > 0){
+							$StartTime = "";
+						}else{
+							$StartTime = $FleetRow['fleet_start_time'];
+						}
+
+						if ($StartTime > time()) {
+							$Label = "ofs";
+							$fpage[$StartTime.$id] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 0, false, $Label, $Record1, true);
+						}
 					}
 
-					if ($StartTime > time()) {
-						$Label = "ofs";
-						$fpage[$StartTime.$id] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 0, false, $Label, $Record1, true);
+					if (($FleetRow['fleet_mission'] == 1) && ($FleetRow['fleet_owner'] != $CurrentUser['id']) && ($filogrubu > 0 ) ){
+						$Record++;
+						if($mess > 0){
+							$StartTime = "";
+						}else{
+							$StartTime = $FleetRow['fleet_start_time'];
+						}
+						if ($StartTime > time()) {
+							$Label = "ofs";
+							$fpage[$StartTime.$id] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 0, false, $Label, $Record, true);
+						}
+
 					}
+
 				}
-
-				if (($FleetRow['fleet_mission'] == 1) && ($FleetRow['fleet_owner'] != $CurrentUser['id']) && ($filogrubu > 0 ) ){
-					$Record++;
-					if($mess > 0){
-						$StartTime = "";
-					}else{
-						$StartTime = $FleetRow['fleet_start_time'];
-					}
-					if ($StartTime > time()) {
-						$Label = "ofs";
-						$fpage[$StartTime.$id] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 0, false, $Label, $Record, true);
-					}
-
-				}
-
+				$db->free_result($dostfilo);
 			}
-			$db->free_result($dostfilo);
-			
 
 			$OtherFleets = $db->query("SELECT * FROM ".FLEETS." WHERE `fleet_target_owner` = '" . $CurrentUser['id'] . "';");
 

@@ -40,7 +40,7 @@ function ShowSearchPage($CurrentUser, $CurrentPlanet)
 	$searchtext = request_var('searchtext','');
 	switch($type) {
 		case 'playername':
-			$search = $db->query("SELECT a.id, a.username, a.ally_id, a.ally_name, a.galaxy, a.system, a.planet, b.name, c.total_rank FROM ".USERS." as a, ".PLANETS." as b, ".STATPOINTS." as c WHERE c.stat_type = 1 AND c.id_owner = a.id AND a.username LIKE '%".$db->sql_escape($searchtext)."%' AND a.id_planet = b.id LIMIT 25;");
+			$search = $db->query("SELECT a.id, a.username, a.ally_id, a.ally_name, a.galaxy, a.system, a.planet, b.name, c.total_rank FROM ".USERS." as a  LEFT JOIN ".PLANETS." as b ON b.id = a.id_planet LEFT JOIN ".STATPOINTS." as c ON c.stat_type = 1 AND c.id_owner = a.id WHERE a.username LIKE '%".$db->sql_escape($searchtext)."%' LIMIT 25;");
 			while($s = $db->fetch_array($search))
 			{
 				$SearchResult[]	= array(
@@ -57,7 +57,7 @@ function ShowSearchPage($CurrentUser, $CurrentPlanet)
 			}
 		break;
 		case 'planetname':
-			$search = $db->query("SELECT a.name, a.galaxy, a.planet, a.system, b.ally_name, b.id, b.ally_id, b.username, c.total_rank FROM ".PLANETS." as a, ".USERS." as b, ".STATPOINTS." as c WHERE c.stat_type = 1 AND c.id_owner = b.id AND a.id = b.id_planet AND a.name LIKE '%".$db->sql_escape($searchtext)."%' LIMIT 25;");
+			$search = $db->query("SELECT a.name, a.galaxy, a.planet, a.system, b.ally_name, b.id, b.ally_id, b.username, c.total_rank FROM ".PLANETS." as a LEFT JOIN ".USERS." as b ON b.id = a.id_owner LEFT JOIN  ".STATPOINTS." as c ON c.stat_type = 1 AND c.id_owner = b.id  WHERE a.name LIKE '%".$db->sql_escape($searchtext)."%' LIMIT 25;");
 			while($s = $db->fetch_array($search))
 			{
 				$SearchResult[]	= array(
