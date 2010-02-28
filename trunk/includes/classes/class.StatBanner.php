@@ -52,8 +52,8 @@ class StatBanner {
 		$Query = $db->fetch_array($db->query("SELECT COUNT(a.id) AS count, a.username, b.build_points, b.fleet_points, b.defs_points, b.tech_points, b.total_points, b.total_rank, c.name, c.galaxy, c.system, c.planet FROM ".USERS." as a, ".STATPOINTS." as b, ".PLANETS." as c WHERE a.id = '".$id."' AND b.stat_type = '1' AND b.stat_code = '1' AND b.id_owner = '".$id."' AND c.id = a.id_planet;"));
 		// Variables
 		$b_univ   = $game_config['game_name'];
-		$b_user   = $Query['username'];
-		$b_planet = $Query['name'];
+		$b_user   = utf8_decode($Query['username']);
+		$b_planet = utf8_decode($Query['name']);
 		$b_xyz    = "[".$Query['galaxy'].":".$Query['system'].":".$Query['planet']."]";
 		$b_lvl    = "".$Query['total_rank']  ."/".$game_config['users_amount']."";
 		$b_build  = "".utf8_decode($lang['st_buildings']) .": ".pretty_number($Query['build_points'])."";
@@ -106,8 +106,8 @@ class StatBanner {
 			$image  = imagecreatefrompng($xgp_root.$this->source);
 			// Variables
 			$b_univ   = $game_config['game_name'];
-			$b_user   = $Query['username'];
-			$b_planet = $Query['name'];
+			$b_user   = utf8_decode($Query['username']);
+			$b_planet = utf8_decode($Query['name']);
 			$b_xyz    = "[".$Query['galaxy'].":".$Query['system'].":".$Query['planet']."]";
 			$b_lvl    = $Query['total_rank']."/".$MaxUser;
 			$b_build  = utf8_decode($lang['st_buildings']) .": ".pretty_number($Query['build_points']);

@@ -39,7 +39,7 @@ switch($cron)
 	case "stats":
 		if (time() >= ($game_config['stat_last_update'] + (60 * $game_config['stat_update_time'])))
 		{
-			require_once($xgp_root . 'includes/classes/class.statfunctions.php');
+			require_once($xgp_root . 'includes/classes/class.statbuilder.php');
 			$stat			= new Statbuilder();
 			$result			= $stat->MakeStats();
 			update_config('stat_last_update', $result['stats_time']);
@@ -62,6 +62,10 @@ switch($cron)
 			$db->query("OPTIMIZE TABLE ".substr($table, 0, -2).";");
 			update_config('stat_last_db_update', time());
 			unset($database);
+			
+			require_once($xgp_root . 'includes/classes/class.StatBanner.php');
+			$banner	= new StatBanner();
+			$banner->BuildIMGforAll();
 		}
 	break;
 }
