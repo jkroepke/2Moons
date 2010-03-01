@@ -105,7 +105,7 @@ class GalaxyRows
 		
 		$Result = array(
 			'metal'		=> pretty_number($GalaxyRowPlanet["der_metal"]),
-			'crystal'	=> pretty_number($GalaxyRowPlanet["der_metal"]),
+			'crystal'	=> pretty_number($GalaxyRowPlanet["der_crystal"]),
 			'RecSended'	=> $RecSended,			
 		);
 
