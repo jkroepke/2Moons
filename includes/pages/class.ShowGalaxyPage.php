@@ -68,7 +68,7 @@ class ShowGalaxyPage extends GalaxyRows
 				if ($GalaxyRowPlanet['ally_id'] != 0)
 					$Result[$Planet]['ally']	= $this->GalaxyRowAlly($GalaxyRowPlanet);
 				
-				if ($GalaxyRowPlanet["der_metal"] != 0 && $GalaxyRowPlanet["der_crystal"] != 0)
+				if ($GalaxyRowPlanet["der_metal"] > 0 || $GalaxyRowPlanet["der_crystal"] > 0)
 					$Result[$Planet]['derbis']	= $this->GalaxyRowDebris($GalaxyRowPlanet, $CurrentRC);
 					
 				if ($GalaxyRowPlanet['id_luna'] != 0)

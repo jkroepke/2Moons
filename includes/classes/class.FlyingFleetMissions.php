@@ -19,7 +19,7 @@
 # *                                                                          #
 ##############################################################################
 
-abstract class FlyingFleetMissions {
+class FlyingFleetMissions {
 
 	public static function ZeroSteal($steal)
 	{
@@ -2640,7 +2640,6 @@ abstract class FlyingFleetMissions {
 			$Expowert[206] = 47;
 			$Expowert[207] = 160;
 			
-			$FleetStayDuration 	= ($FleetRow['fleet_end_stay'] - $FleetRow['fleet_start_time']);
 			$farray 			= explode(";", $FleetRow['fleet_array']);
 			$FleetPoints 		= 0;
 			$FleetCapacity		= 0;
@@ -2658,11 +2657,13 @@ abstract class FlyingFleetMissions {
 			$FleetCapacity     -= $FleetRow['fleet_resource_metal'] + $FleetRow['fleet_resource_crystal'] + $FleetRow['fleet_resource_deuterium'] + $FleetRow['fleet_resource_darkmatter'];
 					
 			
-			$GetEvent	= mt_rand(1, 8);
+			$GetEvent	= mt_rand(1, 20);
 			
 			switch($GetEvent)
 			{
 				case 1:
+				case 9:
+				case 11:
 					$WitchFound	= mt_rand(1,3);
 					
 					$FindSize = mt_rand(0, 100);
@@ -2699,6 +2700,7 @@ abstract class FlyingFleetMissions {
 					$db->query($QryUpdateFleet);
 				break;
 				case 2:
+				case 13:
 					$FindSize = mt_rand(0, 100);
 					if(10 < $FindSize) {
 						$Size		= mt_rand(100, 300);
@@ -2719,6 +2721,7 @@ abstract class FlyingFleetMissions {
 					$db->query($QryUpdateFleet);
 				break;
 				case 3:
+				case 10:
 					unset($FleetCount[208]);
 					unset($FleetCount[209]);
 					unset($FleetCount[214]);
@@ -2792,6 +2795,8 @@ abstract class FlyingFleetMissions {
 					$db->query($QryUpdateFleet);
 				break;
 				case 4:
+				case 12:
+				case 16:
 					$Chance	= mt_rand(1,2);
 					if($Chance) {
 						$Points	= array(-3,-5,-8);
@@ -2905,13 +2910,15 @@ abstract class FlyingFleetMissions {
 
 				break;
 				case 5:
+				case 17:
+				case 19:
 					$db->query("DELETE FROM ".FLEETS." WHERE `fleet_id` = ". $FleetRow["fleet_id"].";");
 					$Message	= $lang['sys_expe_lost_fleet_'.mt_rand(1,4)];
 				break;
 				case 6:
 					$MoreTime	= mt_rand(0, 100);
 					if($MoreTime < 75) {
-						$FleetRow['fleet_end_time'] = round($FleetRow['fleet_end_stay'] + ($FleetRow['fleet_end_time'] - $FleetRow['fleet_end_stay']) + ($FleetStayDuration * mt_rand(1, 5)));
+						$FleetRow['fleet_end_time'] = round($FleetRow['fleet_end_stay'] + ($FleetRow['fleet_end_time'] - $FleetRow['fleet_end_stay']) + ((($FleetRow['fleet_end_stay'] - $FleetRow['fleet_start_time']) / 3600) * mt_rand(1, 5)));
 						$Message = $lang['sys_expe_time_slow_'.mt_rand(1,6)];
 					} else {
 						$FleetRow['fleet_end_time'] = round($FleetRow['fleet_end_stay'] + ($FleetRow['fleet_end_time'] - $FleetRow['fleet_end_stay']) / 2);

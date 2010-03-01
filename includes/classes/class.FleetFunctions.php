@@ -291,6 +291,7 @@ abstract class FleetFunctions
 		
 		while($row = $db->fetch_array($GetAKS))
 		{
+			$AksStartTime = $db->fetch_array($db->query("SELECT MAX(`fleet_start_time`) AS time FROM ".FLEETS." WHERE `fleet_group` = '".$row['id']."';"));
 			$AKSList[]	= array(
 				'id'			=> $row['id'],
 				'name'			=> $row['name'],
@@ -298,6 +299,7 @@ abstract class FleetFunctions
 				'system'		=> $row['system'],
 				'planet'		=> $row['planet'],
 				'planet_type'	=> $row['planet_type'],
+				'time'			=> date("d. M y H:i:s", $AksStartTime['time']),
 			);
 		}
 		
