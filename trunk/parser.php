@@ -30,7 +30,7 @@ header('Last-Modified: '.date('D, d M Y H:i:s T', min($lastedit)));
 header('Expires: '.date('D, d M Y H:i:s T', time() + 604800));
 header('Cache-Control: public, max-age=604800, s-maxage=604800');
 
-if(!isBuggyIe())
+if(!isBuggyIe() && function_exists('gzdeflate'))
 {
 	header('Content-Encoding: deflate'); 
 	echo gzdeflate($content);
