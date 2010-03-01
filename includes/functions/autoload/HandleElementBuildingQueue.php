@@ -61,8 +61,8 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 						}
 						if($Item[2] == 0)
 						{
-							$Builded[$Element] = $Count;
-							$CurrentPlanet[$resource[$Element]] = $Count;
+							$Builded[$Element] += $Count;
+							$CurrentPlanet[$resource[$Element]] += $Count;
 							$Count	= 0;
 							break;
 						}
