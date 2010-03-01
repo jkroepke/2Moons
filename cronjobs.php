@@ -22,7 +22,7 @@
 define('INSIDE'  , true);
 define('INSTALL' , false);
 
-ROOT_PATH = './';
+define('ROOT_PATH', './');
 include(ROOT_PATH . 'extension.inc');
 include(ROOT_PATH . 'common.'.PHP_EXT);
 
@@ -32,7 +32,8 @@ if (!$IsUserChecked) die(header('Location: index.php'));
 header('Cache-Control: no-cache');
 header('Content-type: image/gif');
 header('Content-length: 43');
-
+header('Expires: 0');
+			
 $cron = request_var('cron','');
 switch($cron) 
 {
