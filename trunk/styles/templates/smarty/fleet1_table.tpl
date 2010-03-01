@@ -91,7 +91,7 @@
             </tr>
             {foreach item=AKSRow from=$AKSList}
 			<tr style="height:20px;"><th colspan="2">
-			<a href="javascript:setTarget({$AKSRow.galaxy},{$AKSRow.system},{$AKSRow.planet},{$AKSRow.planet_type});shortInfo();setACS({$AKSRow.id});setACS_target('g{$AKSRow.galaxy}s{$AKSRow.system}p{$AKSRow.planet}t{$AKSRow.planet_type}');">{$AKSRow.name} - [{$AKSRow.galaxy}:{$AKSRow.system}:{$AKSRow.planet}]</a>
+			<a href="javascript:setTarget({$AKSRow.galaxy},{$AKSRow.system},{$AKSRow.planet},{$AKSRow.planet_type});shortInfo();setACS({$AKSRow.id});setACS_target('g{$AKSRow.galaxy}s{$AKSRow.system}p{$AKSRow.planet}t{$AKSRow.planet_type}');">{$AKSRow.name} - [{$AKSRow.galaxy}:{$AKSRow.system}:{$AKSRow.planet}] - {$AKSRow.planet}</a>
 			</th></tr>
 			{/foreach}
 			{/if}

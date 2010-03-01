@@ -126,9 +126,10 @@ class statbuilder{
 
 			$this->SetMaxInfo($Techno, $CurrentUser[$this->resource[$Techno]], $CurrentUser['username']);
 			
+			$Units	= ($this->pricelist[$Techno]['metal'] + $this->pricelist[$Techno]['crystal'] + $this->pricelist[$Techno]['deuterium']);
 			for($Level = 1; $Level < $CurrentUser[$this->resource[$Techno]]; $Level++)
 			{
-				$TechPoints	+= ($this->pricelist[$Techno]['metal'] + $this->pricelist[$Techno]['crystal'] + $this->pricelist[$Techno]['deuterium']) * pow($this->pricelist[$Techno]['factor'], $Level);
+				$TechPoints	+= $Units * pow($this->pricelist[$Techno]['factor'], $Level);
 				$TechCounts	+= $CurrentUser[$this->resource[$Techno]];
 			}
 		}
@@ -149,10 +150,11 @@ class statbuilder{
 			if($CurrentPlanet[$this->resource[$Build]] == 0) continue;
 
 			$this->SetMaxInfo($Build, $CurrentPlanet[$this->resource[$Build]], $CurrentPlanet['username']);
-
+			
+			$Units			 = $this->pricelist[$Build]['metal'] + $this->pricelist[$Build]['crystal'] + $this->pricelist[$Build]['deuterium'];
 			for($Level = 1; $Level < $CurrentPlanet[$this->resource[$Build]]; $Level++)
 			{
-				$BuildPoints	+= ($this->pricelist[$Build]['metal'] + $this->pricelist[$Build]['crystal'] + $this->pricelist[$Build]['deuterium']) * pow($this->pricelist[$Build]['factor'], $Level);
+				$BuildPoints	+= $Units * pow($this->pricelist[$Build]['factor'], $Level);
 				$BuildCounts	+= $CurrentPlanet[$this->resource[$Build]];
 			}
 		}
@@ -168,8 +170,9 @@ class statbuilder{
 				
 		foreach($this->reslist['defense'] as $Defense) {
 			$this->SetMaxInfo($Defense, $CurrentPlanet[$this->resource[$Defense]], $CurrentPlanet['username']);
-		
-			$DefensePoints += ($this->pricelist[$Defense]['metal'] + $this->pricelist[$Defense]['crystal'] + $this->pricelist[$Defense]['deuterium']) * $CurrentPlanet[$this->resource[$Defense]];
+			
+			$Units			= $this->pricelist[$Defense]['metal'] + $this->pricelist[$Defense]['crystal'] + $this->pricelist[$Defense]['deuterium'];
+			$DefensePoints += $Units * $CurrentPlanet[$this->resource[$Defense]];
 			$DefenseCounts += $CurrentPlanet[$this->resource[$Defense]];
 		}
 		
@@ -186,9 +189,10 @@ class statbuilder{
 		foreach($this->reslist['fleet'] as $Fleet) {
 		
 			$this->SetMaxInfo($Fleet, $CurrentPlanet[$this->resource[$Fleet]], $CurrentPlanet['username']);
-	
-			$FleetPoints += ($this->pricelist[$Fleet]['metal'] + $this->pricelist[$Fleet]['crystal'] + $this->pricelist[$Fleet]['deuterium']) * $CurrentPlanet[$this->resource[$Fleet]];
-			$FleetCounts += $CurrentPlanet[$this->resource[$Fleet]];
+			
+			$Units			= $this->pricelist[$Fleet]['metal'] + $this->pricelist[$Fleet]['crystal'] + $this->pricelist[$Fleet]['deuterium'];
+			$FleetPoints   += $Units * $CurrentPlanet[$this->resource[$Fleet]];
+			$FleetCounts   += $CurrentPlanet[$this->resource[$Fleet]];
 		}
 		$RetValue['count'] = $FleetCounts;
 		$RetValue['points'] = $FleetPoints / $this->config['stat_settings'];
@@ -198,12 +202,16 @@ class statbuilder{
 
 	private function GetFlyingFleetPoints($FleetArray) 
 	{
-		$FleetRec     = explode(";", $FleetArray);
+		$FleetRec   	= explode(";", $FleetArray);
+		$FleetCounts	= 0;
+		$FleetPoints	= 0;
+		
 		if(is_array($FleetRec))
 		{
-			$RetValue['count'] = 0;
-			$RetValue['point'] = 0;
-			return $RetValue;		
+			$RetValue['count'] 	= 0;
+			$RetValue['points'] = 0;
+			return $RetValue;
+			
 		}
 		
 		foreach($FleetRec as $Item => $Group)
@@ -211,15 +219,17 @@ class statbuilder{
 			if (empty($Group)) continue;
 			
 			$Ship    	   = explode(",", $Group);
-			$FleetPoints   += ($this->pricelist[$Ship[0]]['metal'] + $this->pricelist[$Ship[0]]['crystal'] + $this->pricelist[$Ship[0]]['deuterium']) * $Ship[1];
+			$Units         = $this->pricelist[$Ship[0]]['metal'] + $this->pricelist[$Ship[0]]['crystal'] + $this->pricelist[$Ship[0]]['deuterium'];
+			$FleetPoints   += $Units * $Ship[1];
 			$FleetCounts   += $Ship[1];
 		}
 		
-		$RetValue['count'] = $FleetCounts;
-		$RetValue['points'] = $FleetPoints;
+		
+		$RetValue['count'] 	= $FleetCounts;
+		$RetValue['points'] = $FleetPoints / $this->config['stat_settings'];
 		return $RetValue;
 	}
-	
+
 	private function removeE($Numeric)
 	{
 		return number_format($Numeric, 0, '', '');
@@ -280,7 +290,6 @@ class statbuilder{
 		$this->DeleteSome();
 		
 		$TotalData	= $this->GetUsersInfosFromDB();
-		
 		$FinalSQL	= 'TRUNCATE TABLE '.STATPOINTS.';';
 		$FinalSQL	.= "INSERT INTO ".STATPOINTS." (`id_owner`, `id_ally`, `stat_type`, `stat_code`, `tech_old_rank`, `tech_points`, `tech_count`, `build_old_rank`, `build_points`, `build_count`, `defs_old_rank`, `defs_points`, `defs_count`, `fleet_old_rank`, `fleet_points`, `fleet_count`, `total_old_rank`, `total_points`, `total_count`, `stat_date`) VALUES ";
 		
@@ -325,12 +334,12 @@ class statbuilder{
 			
 			$UserPoints[$UserData['id']]['techno']['count'] 	= $TechnoPoints['count'];
 			$UserPoints[$UserData['id']]['techno']['points'] 	= $TechnoPoints['points'];
-			
-			if(isset($TotalData['fleets'][$UserData['id']]))
+
+			if(isset($TotalData['Fleets'][$UserData['id']]))
 			{
-				foreach($TotalData['fleets'][$UserData['id']] as $FleetArray)
+				foreach($TotalData['Fleets'][$UserData['id']] as $FleetArray)
 				{
-					$FlyingFleetPoints				= $this->GetFlyingFleetPoints($FleetArray);
+					$FlyingFleetPoints									= $this->GetFlyingFleetPoints($FleetArray);
 					$UserPoints[$UserData['id']]['fleet']['count'] 		+= $FlyingFleetPoints['count'];
 					$UserPoints[$UserData['id']]['fleet']['points'] 	+= $FlyingFleetPoints['points'];
 				}
