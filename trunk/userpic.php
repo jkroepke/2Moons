@@ -36,7 +36,7 @@ includeLang('INGAME');
 require_once(ROOT_PATH."includes/classes/class.StatBanner.php");
 
 $time	= 86400;
-header('Expires: '.date('D, d M Y H:i:s T',time() + $time));
+header('Expires: '.date('D, d M Y H:i:s T',$game_config['stat_last_db_update'] + (60 * 60 * 24)));
 header("Content-type: image/png"); 
 header("Cache-Control: private, max-age=".$time.", s-maxage=".$time);
 
