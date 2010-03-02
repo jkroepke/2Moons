@@ -307,7 +307,14 @@ class ShowFleetPages extends FleetFunctions
 		$MaxFleetSpeed				= ($FleetSpeed / 10) * $GenFleetSpeed;
 		$distance      				= parent::GetTargetDistance($CurrentPlanet['galaxy'], $TargetGalaxy, $CurrentPlanet['system'], $TargetSystem, $CurrentPlanet['planet'], $TargetPlanet);
 		$duration      				= parent::GetMissionDuration($GenFleetSpeed, $MaxFleetSpeed, $distance, $GameSpeedFactor, $CurrentUser);
-	
+		
+		if($duration > $CurrentPlanet['deuterium'])
+		{
+			$template->message("<font color=\"red\"><b>". $lang['fl_no_enought_deuterium'] . pretty_number($consumption) ."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
+			$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
+			exit;
+		}
+		
 		$template->assign_vars(array(
 			'consumption'					=> number_format(floor(parent::GetFleetConsumption($FleetArray, $duration, $distance, $MaxFleetSpeed, $CurrentUser, $GameSpeedFactor)), 0, '', ''),
 			'fleetroom'						=> number_format(parent::GetFleetRoom($FleetArray), 0, '', ''),
