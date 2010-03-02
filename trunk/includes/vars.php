@@ -359,7 +359,7 @@ if ( defined('INSIDE'))
 			'formule' => array(
 				'metal'     => 'return   "0";',
 				'crystal'   => 'return   "0";',
-				'deuterium' => 'return - (10 * $BuildLevel * pow(1.1,$BuildLevel));',
+				'deuterium' => 'return - (10 * $BuildLevel * pow(1.1,$BuildLevel)  * (0.1 * $BuildLevelFactor) * $BuildLevel);',
 				'energy'    => 'return   (30 * $BuildLevel * pow((1.5 + $BuildEnergy * 0.01), $BuildLevel)) * (0.1 * $BuildLevelFactor);')
 		),
 

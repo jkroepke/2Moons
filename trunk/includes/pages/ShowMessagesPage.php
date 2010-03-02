@@ -131,7 +131,7 @@ function ShowMessagesPage($CurrentUser, $CurrentPlanet)
 				if($MessCategory == 50)
 					$UsrMess = $db->query("SELECT * FROM ".MESSAGES." WHERE `message_owner` = '0' AND `message_type` = '".$MessCategory."' ORDER BY `message_time` DESC;");
 				elseif($MessCategory == 100)
-					$UsrMess = $db->query("SELECT * FROM ".MESSAGES." WHERE `message_owner` = '".$CurrentUser['id']."' OR (`message_owner` = '0' AND `message_type` = '50') ORDER BY `message_time` DESC;");
+					$UsrMess = $db->query("SELECT * FROM ".MESSAGES." WHERE `message_owner` = '".$CurrentUser['id']."' ORDER BY `message_time` DESC;");
 				else
 					$UsrMess = $db->query("SELECT * FROM ".MESSAGES." WHERE `message_owner` = '".$CurrentUser['id']."' AND `message_type` = '".$MessCategory."' ORDER BY `message_time` DESC;");
 				
@@ -191,8 +191,9 @@ function ShowMessagesPage($CurrentUser, $CurrentPlanet)
 				$TotalMess[$MessType] += 1;
 				$TotalMess[100]       += 1;
 			}
-
-			$TotalMess[999]		= $MessOut['count'];
+			
+			$TotalMess[100]		-= $TotalMess[50];
+			$TotalMess[999]		 = $MessOut['count'];
 			
 			while($Ops = $db->fetch($GameOps))
 				$OpsList[]	= array(
