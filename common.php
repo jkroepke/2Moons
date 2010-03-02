@@ -20,8 +20,6 @@
 ##############################################################################
 
 setlocale (LC_ALL, 'de_DE@euro', 'de_DE', 'de', 'ge');
-ignore_user_abort(true);
-
 @set_time_limit(0);
 
 if((!file_exists(ROOT_PATH . 'config.php') || filesize(ROOT_PATH . 'config.php') == 0) && INSTALL != true)
