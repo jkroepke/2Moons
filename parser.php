@@ -35,6 +35,7 @@ if(!isBuggyIe() && function_exists('gzdeflate'))
 	header('Content-Encoding: deflate'); 
 	echo gzdeflate($content);
 } else {
+	header('Content-Encoding: none'); 
 	echo $content;
 }
 ?>
