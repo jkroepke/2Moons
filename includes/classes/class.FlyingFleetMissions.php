@@ -43,7 +43,7 @@ class FlyingFleetMissions {
 		}
 	}
 	
-	private static function calculateAKSSteal($attackFleets, $FleetRow, $defenderPlanet)
+	public static function calculateAKSSteal($attackFleets, $FleetRow, $defenderPlanet, $ForSim = false)
 	{
 		//Beute-Math by WOT-Game based on http://www.owiki.de/Beute
 		global $pricelist, $db;
@@ -103,6 +103,9 @@ class FlyingFleetMissions {
 		$steal 		= array_map('floor', $booty);
 		$Amount		= count($SortFleets);
 		
+		if($ForSim)
+			return $steal;
+			
 		while(self::ZeroSteal($steal) === false)
 		{
 			foreach ($SortFleets as $FleetID => $Capacity)
@@ -209,7 +212,7 @@ class FlyingFleetMissions {
 		return $steal;
 	}
 
-	private static function calculateAttack (&$attackers, &$defenders) 
+	public static function calculateAttack (&$attackers, &$defenders) 
 	{
         global $pricelist, $CombatCaps, $game_config, $resource, $ExtraDM;
 
@@ -464,12 +467,10 @@ class FlyingFleetMissions {
             }
         }
         
-        if ($attackAmount['total'] <= 0) {
+        if ($attackAmount['total'] <= 0 && $defenseAmount['total'] > 0) {
             $won = "r"; // defender
-        
-        } elseif ($defenseAmount['total'] <= 0) {
+        } elseif ($attackAmount['total'] > 0 && $defenseAmount['total'] <= 0) {
             $won = "a"; // attacker
-        
         } else {
             $won = "w"; // draw
             $rounds[count($rounds)] = array('attackers' => $attackers, 'defenders' => $defenders, 'attack' => $attackDamage, 'defense' => $defenseDamage, 'attackA' => $attackAmount, 'defenseA' => $defenseAmount);
@@ -565,7 +566,7 @@ class FlyingFleetMissions {
 		return $ship_res;
 	}
 	
-	private static function GenerateReport (&$result_array, &$steal_array, &$moon_int, &$moon_string, &$time_float, $moondes = "")
+	public static function GenerateReport (&$result_array, &$steal_array, &$moon_int, &$moon_string, &$time_float, $moondes = "")
 	{
 		global $lang;
 
@@ -929,6 +930,10 @@ class FlyingFleetMissions {
 			$String .= "<td width=220>". $lang['Deuterium'] ."</td><td width=220 align=right>". pretty_number($TargetPlanet['deuterium'])  ."</td><td>&nbsp;</td>";
 			$String .= "<td width=220>". $lang['Energy']    ."</td><td width=220 align=right>". pretty_number($TargetPlanet['energy_max']) ."</td>";
 			$String .= "</tr>";
+			$Array[1]	= $TargetPlanet['metal'];
+			$Array[2]	= $TargetPlanet['crystal'];
+			$Array[3]	= $TargetPlanet['deuterium'];
+			
 			$LookAtLoop = false;
 		}
 		elseif ($Mode == 1)
@@ -996,7 +1001,8 @@ class FlyingFleetMissions {
 						if ($row < SPY_REPORT_ROW - 1)
 							
 
-						$Count   += $TargetPlanet[$resource[$Item]];
+						$Array[$Item]	=  $TargetPlanet[$resource[$Item]];
+						$Count	+=  $TargetPlanet[$resource[$Item]];
 						$row++;
 						if ($row == SPY_REPORT_ROW)
 						{
@@ -1024,6 +1030,7 @@ class FlyingFleetMissions {
 		$String .= "</table>";
 
 		$return['String'] = $String;
+		$return['Array']  = (is_array($Array)?$Array:array());
 		$return['Count']  = $Count;
 
 		return $return;
@@ -1929,18 +1936,20 @@ class FlyingFleetMissions {
 			$SpyTechno	 = ($LS >= $MinAmount + 5) ? true : false;
 			
 			
-			$MaterialsInfo    = self::SpyTarget($TargetPlanet, 0, $lang['sys_spy_maretials'], $FleetRow);
-			$GetSB	    	  = $MaterialsInfo['String'];
-			
+			$MaterialsInfo    	= self::SpyTarget($TargetPlanet, 0, $lang['sys_spy_maretials'], $FleetRow);
+			$GetSB	    		= $MaterialsInfo['String'];
+			$Array				= $MaterialsInfo['Array'];
 			if($SpyFleet){
 				$PlanetFleetInfo  = self::SpyTarget($TargetPlanet, 1, $lang['sys_spy_fleet'], $FleetRow);
 				$GetSB     		 .= $PlanetFleetInfo['String'];
 				$Count['Fleet']	  = $PlanetFleetInfo['Count'];
+				$Array			  = $Array + $PlanetFleetInfo['Array'];
 			}
 			if($SpyDef){
 				$PlanetDefenInfo  = self::SpyTarget($TargetPlanet, 2, $lang['sys_spy_defenses'], $FleetRow);
 				$GetSB	    	 .= $PlanetDefenInfo['String'];
 				$Count['Def']	  = $PlanetDefenInfo['Count'];
+				$Array			  = $Array + $PlanetDefenInfo['Array'];
 			}
 			if($SpyBuild){
 				$PlanetBuildInfo  = self::SpyTarget($TargetPlanet, 3, $lang['tech'][0], $FleetRow);
@@ -1949,8 +1958,14 @@ class FlyingFleetMissions {
 			if($SpyTechno){
 				$TargetTechnInfo  = self::SpyTarget($TargetUser, 4, $lang['tech'][100], $FleetRow);
 				$GetSB		  	 .= $TargetTechnInfo['String'];
+				$Array			  = $Array + $TargetTechnInfo['Array'];
 			}
 
+			foreach($Array as $ID => $Count)
+			{
+				$string .= "&amp;im[".$ID."]=".$Count;
+			}
+			
 			$TargetChances = (!isset($Count['Fleet']) || ($Count['Fleet'] != 0 && $Count['Def'] != 0)) ? mt_rand(0, max(($LS/4) * ($TargetSpyLvl / $CurrentSpyLvl), 100)) : 0;
 			$SpyerChances  = mt_rand(0, 100);
 			
@@ -1965,7 +1980,8 @@ class FlyingFleetMissions {
 			$AttackLink .= "&amp;target_mission=1";
 			$AttackLink .= " \">". $lang['type_mission'][1];
 			$AttackLink .= "</a></center>";
-			$MessageEnd  = "<center>".$DestProba."</center>";
+			$MessageEnd  = "<center>".$DestProba."<br><a href=\"game.php?page=battlesim&forbattlesim=".$string."\">Simulieren</a></center>";
+
 			
 			$SpyMessage = "<br>".$GetSB."<br>".$AttackLink.$MessageEnd;
 			SendSimpleMessage($CurrentUserID, '', $FleetRow['fleet_start_time'], 0, $lang['sys_mess_qg'], $lang['sys_mess_spy_report'], $SpyMessage);

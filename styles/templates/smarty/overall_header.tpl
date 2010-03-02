@@ -3,6 +3,7 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="{$dpath}formate.css">
+<link rel="stylesheet" type="text/css" href="styles/css/jquery.ui.css">
 <link rel="shortcut icon" href="./favicon.ico">
 <title>{$title}</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
