@@ -206,7 +206,7 @@ class statbuilder{
 		$FleetCounts	= 0;
 		$FleetPoints	= 0;
 		
-		if(is_array($FleetRec))
+		if(!is_array($FleetRec))
 		{
 			$RetValue['count'] 	= 0;
 			$RetValue['points'] = 0;

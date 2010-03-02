@@ -48,11 +48,13 @@ class DB_mysqli
 	 */
 	public function __construct($host, $user, $pw, $db, $port = null)
 	{
-		$this->host = $host;
-		$this->user = $user;
-		$this->pw = $pw;
+		ignore_user_abort(true);
+
+		$this->host 	= $host;
+		$this->user 	= $user;
+		$this->pw 		= $pw;
 		$this->database = $db;
-		$this->port = $port;
+		$this->port 	= $port;
 	}
 	
 	/**
