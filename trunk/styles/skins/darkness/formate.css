@@ -359,3 +359,16 @@ color : #666666;
 margin : 0;
 padding : 0;
 }
+
+/* Some Shit for jQuery UI */
+
+.ui-tabs .ui-tabs-hide {
+     display: none;
+}
+
+#dialog label, #dialog input { display:block; }
+#dialog label { margin-top: 0.5em; }
+#dialog input, #dialog textarea { width: 95%; }
+#tabs { margin-top: 1em; }
+#tabs li .ui-icon-close { float: left; margin: 0.4em 0.2em 0 0; cursor: pointer; }
+#add_tab { cursor: pointer; }
