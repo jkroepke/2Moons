@@ -2680,6 +2680,7 @@ class FlyingFleetMissions {
 				case 1:
 				case 9:
 				case 11:
+				case 20:
 					$WitchFound	= mt_rand(1,3);
 					
 					$FindSize = mt_rand(0, 100);
@@ -2716,6 +2717,7 @@ class FlyingFleetMissions {
 					$db->query($QryUpdateFleet);
 				break;
 				case 2:
+				case 15:
 				case 13:
 					$FindSize = mt_rand(0, 100);
 					if(10 < $FindSize) {
