@@ -1980,7 +1980,7 @@ class FlyingFleetMissions {
 			$AttackLink .= "&amp;target_mission=1";
 			$AttackLink .= " \">". $lang['type_mission'][1];
 			$AttackLink .= "</a></center>";
-			$MessageEnd  = "<center>".$DestProba."<br><a href=\"game.php?page=battlesim&forbattlesim=".$string."\">Simulieren</a></center>";
+			$MessageEnd  = "<center>".$DestProba."<br>";#<a href=\"game.php?page=battlesim&forbattlesim=".$string."\">Simulieren</a></center>";
 
 			
 			$SpyMessage = "<br>".$GetSB."<br>".$AttackLink.$MessageEnd;
