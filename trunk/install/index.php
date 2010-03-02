@@ -157,7 +157,7 @@ switch ($Mode) {
 			fwrite($dz, "\$database[\"databasename\"]  = \"".$db."\";\n");
 			fwrite($dz, "\$database[\"tableprefix\"]   = \"".$prefix."\";\n");
 			fwrite($dz, "\$database[\"type\"]          = \"DB_MySQLi\";\n");
-			fwrite($dz, "\$dbsettings[\"secretword\"]  = \"RNFramework".$numcookie."\";\n\n");
+			fwrite($dz, "\$dbsettings[\"secretword\"]  = \"2Moons_".$numcookie."\";\n\n");
 			fwrite($dz, "//### Do not change beyond here ###//\n");
 			fwrite($dz, "?>");
 			fclose($dz);
@@ -291,7 +291,7 @@ switch ($Mode) {
 			}	
 			$db->multi_query($QrysArray);
 			
-			message("Upgrade zu 2Moons RC5.0 erfolgreich!<br><br><a href=\"../index.php\">Zur Startseite</a>", "", "", false, false);
+			message("Upgrade zu 2Moons RC".RCINSTALL_VERSION." erfolgreich!<br><br><a href=\"../index.php\">Zur Startseite</a>", "", "", false, false);
 		}
 		else
 			$frame = parsetemplate(gettemplate('install/ins_update'), false);

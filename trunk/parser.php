@@ -24,6 +24,7 @@ foreach($file as $name)
 	$lastedit[]	 = filemtime("./scripts/".$name);
 }
 
+date_default_timezone_set("Europe/Berlin");
 
 header('Content-Type: application/javascript');
 header('Last-Modified: '.date('D, d M Y H:i:s T', min($lastedit)));
