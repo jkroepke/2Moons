@@ -135,6 +135,13 @@ if (INSTALL != true)
 		elseif (time() >= ($game_config['stats_fly_lock'] + (60 * 5))){
 			update_config('stats_fly_lock', 0);
 		}
+		else {
+			if($user['authlevel'] == 3 && $game_config['debug'] == 1)
+			{
+				$temp	= error_get_last();
+				trigger_error('FleetHandler Error on line '.$temp['line'].': '.$temp['message'], E_USER_WARNING);
+			}
+		}
 
 		if (isset($user))
 		{
