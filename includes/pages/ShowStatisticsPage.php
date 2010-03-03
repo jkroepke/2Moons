@@ -101,7 +101,7 @@ function ShowStatisticsPage($CurrentUser, $CurrentPlanet)
 
 			$start = floor($range / 100 % 100) * 100;
 
-			$stats_sql	=	'SELECT s.*, u.id, u.username, u.ally_id, u.ally_name FROM '.STATPOINTS.' as s
+			$stats_sql	=	'SELECT DISTINCT s.*, u.id, u.username, u.ally_id, u.ally_name FROM '.STATPOINTS.' as s
 			INNER JOIN '.USERS.' as u ON u.id = s.id_owner
 			WHERE s.`stat_type` = 1 AND s.`stat_code` = 1 '.(($game_config['stat'] == 2)?'AND u.`authlevel` < '.$game_config['stat_level'].' ':'').'
 			ORDER BY `'. $Order .'` DESC LIMIT '. $start .',100;';
