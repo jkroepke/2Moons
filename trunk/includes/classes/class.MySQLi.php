@@ -136,9 +136,7 @@ class DB_mysqli
 	 */
 	public function fetch_array($result)
 	{
-		$array	= $result->fetch_array(MYSQLI_ASSOC);
-		$result->close;
-		return $array;
+		return $result->fetch_array(MYSQLI_ASSOC);
 	}
 
 	/**
