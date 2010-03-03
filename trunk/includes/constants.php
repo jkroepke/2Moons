@@ -68,6 +68,9 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	// 1.0 TO 100% - 1.1% FOR 110 AND SO ON
 	define('MAX_OVERFLOW'             , 1.0);
 
+	define('MAX_DM_MISSIONS'		  , 1);
+	
+	
 	define('NEW_RESEARCH'			  , true);
 	
 	

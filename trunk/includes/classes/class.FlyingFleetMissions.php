@@ -1198,6 +1198,25 @@ class FlyingFleetMissions {
 					$defense[0]['def'][$i] = $targetPlanet[$resource[$i]];
 				}
 			}
+		
+			foreach($attackFleets as $attackeruser)
+			{
+				$Attacker['id'][] 	= $attackeruser['user']['id'];
+				$Attacker['name'][]	= $attackeruser['user']['username'];
+			}
+
+			foreach($defense as $defenderuser)
+			{
+				$Defender['id'][] 	= $defenderuser['user']['id'];
+				$Defender['name'][]	= $defenderuser['user']['username'];
+			}
+
+			$Attacker['id']		= array_unique($Attacker['id'], SORT_NUMERIC);
+			$Attacker['name']	= array_unique($Attacker['name'], SORT_NUMERIC);
+			$Defender['id']		= array_unique($Defender['id'], SORT_NUMERIC);
+			$Defender['name']	= array_unique($Defender['name'], SORT_NUMERIC);
+
+
 			$start 		= microtime(true);
 			$result 	= self::calculateAttack($attackFleets, $defense);
 			$totaltime 	= microtime(true) - $start;
@@ -1319,23 +1338,6 @@ class FlyingFleetMissions {
 			$db->query($QryUpdateGalaxy);
 
 			$formatted_cr 	= self::GenerateReport($result, $steal, $MoonChance, $GottenMoon, $totaltime);
-			
-			foreach($attackFleets as $fleetID => $attackeruser)
-			{
-				$Attacker['id'][] 	= $attackeruser['user']['id'];
-				$Attacker['name'][]	= $attackeruser['user']['username'];
-			}
-
-			foreach($defense as $fleetID => $defenderuser)
-			{
-				$Defender['id'][] 	= $defenderuser['user']['id'];
-				$Defender['name'][]	= $defenderuser['user']['username'];
-			}
-
-			$Attacker['id']		= array_unique($Attacker['id'], SORT_NUMERIC);
-			$Attacker['name']	= array_unique($Attacker['name'], SORT_NUMERIC);
-			$Defender['id']		= array_unique($Defender['id'], SORT_NUMERIC);
-			$Defender['name']	= array_unique($Defender['name'], SORT_NUMERIC);
 			
 			$WhereAtt = "";
 			$WhereDef = "";
