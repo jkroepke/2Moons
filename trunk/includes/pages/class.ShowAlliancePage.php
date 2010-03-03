@@ -949,7 +949,7 @@ class ShowAlliancePage
 									header("location:game.". PHP_EXT . "?page=alliance");
 								else
 								{
-									$listuser 		= $db->query("SELECT id,ally_rank_id,username FROM ".ALLIANCE." WHERE ally_id='".$CurrentUser['ally_id']."';");
+									$listuser 		= $db->query("SELECT id,ally_rank_id,username FROM ".ALLIANCE." WHERE ally_id = '".$CurrentUser['ally_id']."';");
 									$righthand		= $lang;
 
 									while ($u = $db->fetch_array($listuser))
