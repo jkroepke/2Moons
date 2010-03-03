@@ -508,7 +508,7 @@ class ShowFleetPages extends FleetFunctions
 		{
 			$maxexpde = parent::GetCurrentFleets($CurrentUser['id'], 11);
 
-			if ($maxexpde != 0)
+			if ($maxexpde >= MAX_DM_MISSIONS)
 			{
 				$template->message("<font color=\"red\"><b>".$lang['fl_expedition_fleets_limit']."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
 				$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
