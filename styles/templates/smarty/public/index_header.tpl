@@ -3,47 +3,33 @@
 
 <html>
 <head>
+<link rel='stylesheet' type='text/css' href='styles/css/common_2-20.css'>
+<link rel='stylesheet' type='text/css' href='styles/css/v2/base_2-0-22.css'>
+<link rel='stylesheet' type='text/css' href='styles/images/login/style.css'>
+<link rel='stylesheet' type='text/css' href='styles/css/jquery.loadmask.css'>
+<link rel='stylesheet' type='text/css' href='styles/css/login.css'>
 <title>{$servername}</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="content-script-type" content="text/javascript">
 <meta http-equiv="content-style-type" content="text/css">
 <meta http-equiv="content-language" content="de">
 <meta http-equiv="X-UA-Compatible" content="IE=100" >
-<meta http-equiv='expires' content=''>
+<meta name='keywords' content='astro empires, mmog, massively multiplayer, online game, free game, browser game, space strategy, galaxies, spaceships, planets, battles'>
 <meta name='medium' content="mult">
 
 <!--<meta name='description' content=''>-->
-<meta name='keywords' content='astro empires, mmog, massively multiplayer, online game, free game, browser game, space strategy, galaxies, spaceships, planets, battles'>
-<link rel='stylesheet' type='text/css' href='styles/css/common_2-20.css'>
-<link rel='stylesheet' type='text/css' href='styles/css/v2/base_2-0-22.css'>
-<link rel='stylesheet' type='text/css' href='styles/images/login/style.css'>
-<link rel='stylesheet' type='text/css' href='styles/css/jquery.loadmask.css'>
-<link rel='stylesheet' type='text/css' href='styles/css/login.css'>
 <link rel='icon' href='favicon.ico' type='image/x-icon'>
 <link rel='shortcut icon' href='favicon.ico' type='image/x-icon'>
-<script src='scripts/common_2-19.js' type='text/javascript'></script>
-<script src='scripts/jquery.js' type='text/javascript'></script>
-<script src='scripts/soundmanager2.js' type='text/javascript'></script>
-<script src='scripts/jquery.loadmask.js' type='text/javascript'></script>
-<script src='scripts/login.js' type='text/javascript'></script>
+<script src='parser.php?js[]=common_2-19.js&amp;js[]=jquery.js&amp;js[]=soundmanager2.js&amp;js[]=jquery.loadmask.js&amp;js[]=login.js' type='text/javascript'></script>
+{if $game_captcha}
+<script src="http://api.recaptcha.net/js/recaptcha_ajax.js" type="text/javascript"></script>
+{/if}
 <script type="text/javascript">
 IsCaptchaActive = {$game_captcha};
 IsRegActive 	= {$reg_close};
 lang_reg_closed	= '{$register_closed}';
+cappublic		= '{$cappublic}';
 </script>
-{if $game_captcha}
-<script src="http://api.recaptcha.net/js/recaptcha_ajax.js" type="text/javascript"></script>
-<script type="text/javascript">
-function showRecaptcha(element) {ldelim}
-  Recaptcha.create("{$cappublic}", 'display_captcha', {ldelim}
-        theme: 'custom',
-		lang: 'de',
-        tabindex: '4',
-        custom_theme_widget: 'display_captcha'
-  {rdelim});
-{rdelim}
-</script>
-{/if}
 <!--[if lte IE 7]>
 <link rel="stylesheet" type="text/css" media="screen" href="styles/css/login_ie.css">
 <![endif]-->

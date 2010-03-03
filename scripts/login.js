@@ -72,3 +72,13 @@ function changeAction(type) {
 		return true;
     }
 }
+
+function showRecaptcha(element) 
+{
+	Recaptcha.create(cappublic, 'display_captcha', {
+		theme: 'custom',
+		lang: 'de',
+		tabindex: '4',
+		custom_theme_widget: 'display_captcha'
+	});
+}
