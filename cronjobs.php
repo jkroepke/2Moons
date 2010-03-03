@@ -40,10 +40,10 @@ switch($cron)
 	case "stats":
 		if (time() >= ($game_config['stat_last_update'] + (60 * $game_config['stat_update_time'])))
 		{
+			update_config('stat_last_update', time());
 			require_once(ROOT_PATH . 'includes/classes/class.statbuilder.php');
 			$stat			= new Statbuilder();
 			$result			= $stat->MakeStats();
-			update_config('stat_last_update', $result['stats_time']);
 		}
 	break;
 	case "opdb":
