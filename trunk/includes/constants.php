@@ -84,7 +84,7 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	define('BUILD_DEUTERIUM'          ,       0);
 	
 	
-	define('VACATION_MIN_TIME'		  , 1728000);
+	define('VACATION_MIN_TIME'		  ,  259200);
 	//DISCLAMER INFOS
 
 	define('DICLAMER_NAME'            , "Edit constans.php!");
