@@ -39,7 +39,7 @@ else
 
 $queryuser 	= "u.id, u.username, u.user_agent, u.current_page, u.user_lastip, u.ally_name, u.onlinetime, u.email, u.galaxy, u.system, u.planet, u.urlaubs_modus, u.bana";
 $querystat 	= "s.total_points";
-$Last15Mins = $db->query("SELECT ". $queryuser .", ". $querystat ." FROM ".USERS." as u, ".STATPOINTS." as s
+$Last15Mins = $db->query("SELECT DISTINCT ". $queryuser .", ". $querystat ." FROM ".USERS." as u, ".STATPOINTS." as s
 							WHERE u.onlinetime >= '". (time() - 15 * 60) ."' AND u.id=s.id_owner AND s.stat_type=1 AND u.current_page != '/game.php?page=logout'
 							ORDER BY `". $db->sql_escape($TypeSort) ."` ASC;", '');
 

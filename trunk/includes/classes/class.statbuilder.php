@@ -369,10 +369,9 @@ class statbuilder{
 		{
 			$FinalSQL  .= "('".$AllianceData['id']."',0,2,1, '".$AllyPoints['old_tech_rank']."', '".$this->removeE($AllyPoints[$AllianceData['id']]['techno']['points'])."', '".$this->removeE($AllyPoints[$AllianceData['id']]['techno']['count'])."', '".$AllianceData['old_build_rank']."', '".$this->removeE($AllyPoints[$AllianceData['id']]['build']['points'])."', '".$this->removeE($AllyPoints[$AllianceData['id']]['build']['count'])."', '".$AllianceData['old_defs_rank']."', '".$this->removeE($AllyPoints[$AllianceData['id']]['defense']['points'])."', '".$this->removeE($AllyPoints[$AllianceData['id']]['defense']['count'])."', '".$AllianceData['old_fleet_rank']."', '".$this->removeE($AllyPoints[$AllianceData['id']]['fleet']['points'])."', '".$this->removeE($AllyPoints[$AllianceData['id']]['fleet']['count'])."', '".$AllianceData['old_total_rank']."', '".$this->removeE($AllyPoints[$AllianceData['id']]['total']['points'])."', '".$this->removeE($AllyPoints[$AllianceData['id']]['total']['count'])."', '".$this->time."'), ";
 		}
-		$FinalSQL	= substr($FinalSQL, 0, -2).';';
-		$this->SaveDataIntoDB($FinalSQL);
 		
-		$RankSQL	= $this->SetNewRanks();
+		$FinalSQL	= substr($FinalSQL, 0, -2).';';
+		$FinalSQL  .= $this->SetNewRanks();
 		$this->SaveDataIntoDB($RankSQL);
 		
 		$this->RebuildRecordCache();
