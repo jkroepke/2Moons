@@ -532,7 +532,7 @@ $lang['sb_users_per_block']					= 'Anzahl der User pro Block: %n<br>';
 $lang['sb_using_fleet_array']				= 'Using array of fleets in flight<br>';
 $lang['sb_using_fleet_query']				= 'Using a query to the base of<br> data for the fleet user<br>';
 $lang['sb_stats_updated']					= 'Updated statistics. <br>Resume:<br>';
-$lang['sb_sql_counts']						= 'SQL Querys: %d';
+$lang['sb_sql_counts']						= 'SQL Querys: %d<br>';
 
 //----------------------------------------------------------------------------//
 //UserListPage.php

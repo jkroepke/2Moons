@@ -23,6 +23,7 @@ class statbuilder{
 		$result['memory_peak']		= array(round(memory_get_peak_usage() / 1024,1),round(memory_get_peak_usage(1) / 1024,1));
 		$result['initial_memory']	= $this->memory;
 		$result['end_memory']		= array(round(memory_get_usage() / 1024,1),round(memory_get_usage(1) / 1024,1));
+		$result['sql_count']		= $this->db->get_sql();
 		return $result;
 	}
 	
@@ -372,7 +373,7 @@ class statbuilder{
 		
 		$FinalSQL	= substr($FinalSQL, 0, -2).';';
 		$FinalSQL  .= $this->SetNewRanks();
-		$this->SaveDataIntoDB($RankSQL);
+		$this->SaveDataIntoDB($FinalSQL);
 		
 		$this->RebuildRecordCache();
 		
