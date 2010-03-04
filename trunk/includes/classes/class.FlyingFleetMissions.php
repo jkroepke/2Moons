@@ -29,16 +29,17 @@ class FlyingFleetMissions {
 	public static function CheckPlanet(&$CurrentFleet)
 	{
 		global $db;
-		if($CurrentFleet['mess'] == 1 && !CheckPlanetIfExist($CurrentFleet['fleet_end_galaxy'], $CurrentFleet['fleet_end_system'], $CurrentFleet['fleet_end_planet'], $CurrentFleet['fleet_end_type']))
+		if(!CheckPlanetIfExist($CurrentFleet['fleet_start_galaxy'], $CurrentFleet['fleet_start_system'], $CurrentFleet['fleet_start_planet'], $CurrentFleet['fleet_start_type']))
 		{
-			if($CurrentFleet['fleet_end_type'] == 3)
-				$CurrentFleet['fleet_end_type'] 	= 1;
+			if($CurrentFleet['fleet_start_galaxy'] == 3)
+				$CurrentFleet['fleet_start_galaxy'] 	= 1;
 			else 
 			{
 				$UserMainPlanet	= $db->fetch_array($db->query("SELECT `galaxy`, `system`, `planet` FROM ".USERS." WHERE `id` = ".$CurrentFleet['fleet_owner'].";"));
-				$CurrentFleet['fleet_end_galaxy']	= $UserMainPlanet['galaxy'];
-				$CurrentFleet['fleet_end_system']	= $UserMainPlanet['system'];
-				$CurrentFleet['fleet_end_planet']	= $UserMainPlanet['planet'];
+				$CurrentFleet['fleet_start_galaxy']	= $UserMainPlanet['galaxy'];
+				$CurrentFleet['fleet_start_system']	= $UserMainPlanet['system'];
+				$CurrentFleet['fleet_start_planet']	= $UserMainPlanet['planet'];
+				$CurrentFleet['fleet_start_type']	= 1;
 			}
 		}
 	}
@@ -1017,10 +1018,10 @@ class FlyingFleetMissions {
 			PlanetResourceUpdate($targetUser, $targetPlanet, time());
 			$TargetUserID = $targetUser['id'];
 			$attackFleets = array();
-			$Attacker['id']		= array();
-			$Attacker['name']	= array();
-			$Defender['id']		= array();
-			$Defender['name']	= array();
+			$AttackerRow['id']		= array();
+			$AttackerRow['name']	= array();
+			$DefenderRow['id']		= array();
+			$DefenderRow['name']	= array();
 
 			if ($FleetRow['fleet_group'] != 0)
 			{
@@ -1042,8 +1043,8 @@ class FlyingFleetMissions {
 
 						$attackFleets[$fleet['fleet_id']]['detail'][$temp2[0]] += $temp2[1];
 					}
-					$Attacker['id'][] 	= $attackFleets[$fleet['fleet_id']]['user']['id'];
-					$Attacker['name'][]	= $attackFleets[$fleet['fleet_id']]['user']['username'];
+					$AttackerRow['id'][] 	= $attackFleets[$fleet['fleet_id']]['user']['id'];
+					$AttackerRow['name'][]	= $attackFleets[$fleet['fleet_id']]['user']['username'];
 				}
 
 			}
@@ -1064,8 +1065,8 @@ class FlyingFleetMissions {
 
 					$attackFleets[$FleetRow['fleet_id']]['detail'][$temp2[0]] += $temp2[1];
 				}
-				$Attacker['id'][] 	= $attackFleets[$FleetRow['fleet_id']]['user']['id'];
-				$Attacker['name'][]	= $attackFleets[$FleetRow['fleet_id']]['user']['username'];
+				$AttackerRow['id'][] 	= $attackFleets[$FleetRow['fleet_id']]['user']['id'];
+				$AttackerRow['name'][]	= $attackFleets[$FleetRow['fleet_id']]['user']['username'];
 			}
 			$defense = array();
 
@@ -1085,14 +1086,14 @@ class FlyingFleetMissions {
 					$defense[$defRow['fleet_id']]['def'][$Element[0]] += $Element[1];
 				}
 				$defense[$defRow['fleet_id']]['user'] = $db->fetch_array($db->query('SELECT id,username,military_tech,defence_tech,shield_tech,rpg_amiral,dm_defensive,dm_attack FROM '.USERS.' WHERE id='.$defRow['fleet_owner'],";"));
-				$Defender['id'][] 	= $defense[$defRow['fleet_id']]['user']['id'];
-				$Defender['name'][]	= $defense[$defRow['fleet_id']]['user']['username'];
+				$DefenderRow['id'][] 	= $defense[$defRow['fleet_id']]['user']['id'];
+				$DefenderRow['name'][]	= $defense[$defRow['fleet_id']]['user']['username'];
 			}
 
 			$defense[0]['def'] = array();
 			$defense[0]['user'] = $targetUser;
-			$Defender['id'][] 	= $defense[0]['user']['id'];
-			$Defender['name'][]	= $defense[0]['user']['username'];
+			$DefenderRow['id'][] 	= $defense[0]['user']['id'];
+			$DefenderRow['name'][]	= $defense[0]['user']['username'];
 			for ($i = 200; $i < 500; $i++)
 			{
 				if (isset($resource[$i]) && isset($targetPlanet[$resource[$i]]))
@@ -1100,11 +1101,11 @@ class FlyingFleetMissions {
 					$defense[0]['def'][$i] = $targetPlanet[$resource[$i]];
 				}
 			}
-		
-			$Attacker['id']		= array_unique($Attacker['id'], SORT_NUMERIC);
-			$Attacker['name']	= array_unique($Attacker['name'], SORT_NUMERIC);
-			$Defender['id']		= array_unique($Defender['id'], SORT_NUMERIC);
-			$Defender['name']	= array_unique($Defender['name'], SORT_NUMERIC);
+
+			$Attacker['id']		= array_unique($AttackerRow['id'], SORT_NUMERIC);
+			$Attacker['name']	= array_unique($AttackerRow['name'], SORT_NUMERIC);
+			$Defender['id']		= array_unique($DefenderRow['id'], SORT_NUMERIC);
+			$Defender['name']	= array_unique($DefenderRow['name'], SORT_NUMERIC);
 
 
 			$start 		= microtime(true);
@@ -1530,15 +1531,12 @@ class FlyingFleetMissions {
 				$db->query( $QryUpdateFleet);
 			}
 		}
-		else
+		elseif ($FleetRow['fleet_end_time'] < time())
 		{
-			if ($FleetRow['fleet_end_time'] < time())
-			{
-				$Message         = sprintf ($lang['sys_tran_mess_back'], $StartName, GetStartAdressLink($FleetRow, ''));
-				SendSimpleMessage ( $StartOwner, '', $FleetRow['fleet_end_time'], 5, $lang['sys_mess_tower'], $lang['sys_mess_fleetback'], $Message);
-				self::RestoreFleetToPlanet ( $FleetRow, true );
-				$db->query("DELETE FROM ".FLEETS." WHERE fleet_id=" . $FleetRow["fleet_id"]);
-			}
+			$Message         = sprintf ($lang['sys_tran_mess_back'], $StartName, GetStartAdressLink($FleetRow, ''));
+			SendSimpleMessage ( $StartOwner, '', $FleetRow['fleet_end_time'], 5, $lang['sys_mess_tower'], $lang['sys_mess_fleetback'], $Message);
+			self::RestoreFleetToPlanet ( $FleetRow, true );
+			$db->query("DELETE FROM ".FLEETS." WHERE fleet_id=" . $FleetRow["fleet_id"]);
 		}
 	}
 
