@@ -63,11 +63,11 @@ if ($ToolsCanUse != 1) die();
 			
 			SendSimpleMessage(0, $user['id'], $Time, 50, $From, $Subject, $Message);
 			$db->query("UPDATE `".USERS."` SET `new_message` = `new_message` + 1;");
-			message($lang['ma_message_sended'], "GlobalMessagePage.", 3);
+			message($lang['ma_message_sended'], "GlobalMessagePage.php", 3);
 		}
 		else
 		{
-			message($lang['ma_subject_needed'], "GlobalMessagePage.", 3);
+			message($lang['ma_subject_needed'], "GlobalMessagePage.php", 3);
 		}
 	}
 	else
