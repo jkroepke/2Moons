@@ -1102,10 +1102,10 @@ class FlyingFleetMissions {
 				}
 			}
 
-			$Attacker['id']		= array_unique($AttackerRow['id'], SORT_NUMERIC);
-			$Attacker['name']	= array_unique($AttackerRow['name'], SORT_NUMERIC);
-			$Defender['id']		= array_unique($DefenderRow['id'], SORT_NUMERIC);
-			$Defender['name']	= array_unique($DefenderRow['name'], SORT_NUMERIC);
+			$Attacker['id']		= array_unique($AttackerRow['id']);
+			$Attacker['name']	= array_unique($AttackerRow['name']);
+			$Defender['id']		= array_unique($DefenderRow['id']);
+			$Defender['name']	= array_unique($DefenderRow['name']);
 
 
 			$start 		= microtime(true);
