@@ -36,7 +36,7 @@
                                       <td><input name="password" size="27" maxlength="16" class="input-text" type="password"></td>
                                     </tr>
                                     <tr>
-                                        <td colspan="2" align="center"><input name="submit" value="{$login}" type="submit">
+                                        <td colspan="2" align="center"><input name="submit" value="{$login}" type="submit" class="input-text">
                                           &nbsp;<br><br><small>{$login_info}</small></td>
                                     </tr>
                                   </tbody>

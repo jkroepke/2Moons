@@ -1,13 +1,10 @@
-html{ height: 100%; font-size: 100%; }
-
-body { background: #000; font-size: 12px; font-family: verdana,arial; color: #FFF; margin: 0px; padding: 0px; height: 100%; text-align: center; }
+html, body, .body{height:100%;width:100%;}
+body {background: #000 url(../images/login/images/starfield.gif);font-size: 12px; font-family: verdana,arial; color: #FFF; margin: 0px; padding: 0px; text-align: center; }
 
 a{ color: #FFD700; text-decoration: none; }
 a:hover { text-decoration: underline; }	
 
-table { width: auto; border: none; text-align: left; }
-table, tr, td, th { font-size: 100%; padding: 0px; margin: 0px; border: none; border-spacing: 0px; border-collapse: collapse; empty-cells: show; vertical-align: middle; }
-th { text-align: center; }
+table, tr, td, th { text-align: center;font-size: 100%; padding: 0px; margin: 0px; border: none; border-spacing: 0px; border-collapse: collapse; empty-cells: show; vertical-align: middle; }
 
 img { border: none; }
 
@@ -18,111 +15,9 @@ form { margin: 0px; }
 li { margin-left: 15px; }
 ul li { margin-left: 0px; }
 
+.layout{width:100%}
+
 .spacer { font-size: 1px; }
-
-#background-content>code { display: block; text-align: left; white-space: pre;}
-
-/* GENERAL CONTENT ****************************************/
-.important { font-weight: bold; color: #FF0000; }
-.error { font-weight: bold; color: #FF0000; }
-.comment{ font-size: 90%; color: #BBB; }
-.hilite { color: #FFA500; }
-.inactive { font-weight: normal; color: #999; }
-.active { font-weight: bold; color: #FFF; }
-.row_active td, .row_active th { background: #272F3F; }
-.row_active .non-hilite { background: none; }
-.row_over td, .row_over th { background: #1D232F; }
-.row_over .non-hilite { background: none; }
-
-.centered { margin: auto; }
-div .centered { text-align: center; }
-.dropcap:first-letter { font-size: 140%; text-transform: uppercase; }
-
-.listing-header th, .listing-header td { height: 20px; padding-bottom: 4px; vertical-align: bottom; font-weight: bold;  vertical-align: bottom; }
-
-.listing { width: 100%; }
-.listing th, .listing td { border: 1px solid #444; border-width: 0px 0px 1px 0px; padding: 1px; padding-bottom: 2px; }
-.listing td { border-width: 0px 0px 1px 0px; }
-.listing .listing-header td, .listing .listing-header th { border: none; } 
-
-.listing1 { width: 100%; }
-.listing1 th, .listing1 td { border: 1px solid #444; border-width: 1px; padding: 1px; }
-.listing1 .listing-header td, .listing1 .listing-header th {  padding-bottom: 2px; } 
-
-.listing2 { width: 100%; }
-.listing2 th, .listing2 td { padding: 2px; }
-
-.listing3 { width: 100%; }
-.listing3 th, .listing3 td { padding: 1px 5px; }
-
-.layout { background: none; border: none; width: 100%; border-collapse: collapse; border-spacing: 0px; empty-cells: show; }
-
-/* GAME SPECIFIC CONTENT ****************************************/
-.events-structures { color: #D97E04; }
-.events-defenses { color: #55DA4E; }
-.events-research { color: #49D6FE; }
-.events-production { color: #DDD; }
-
-.player-self, .player-self a { color: #FFF; }
-.player-guild, .player-guild a { color: #55DA4E; }
-.player-npc, .player-npc a { color: #D97E04; }
-
-.location-fleet-self { border: 1px solid #FFF; border-width: 0px 0px 1px 0px; }
-
-/* SCRIPT SPECIFIC CONTENT ****************************************/
-.sorttable_header { cursor: pointer; }
-.sorttable_nosort { cursor: auto; }
-
-/* BATTLE REPORTS ****************************************/
-.battle-report { text-align: center; }
-
-.battle-report td, .battle-report th, .battle-report table { border: 1px solid #0B0D0F; }
-
-.battle-report_info { width: 380px; margin: auto; background: #173F5F; }
-.battle-report_attack { width: 580px; margin: auto; background: #112638; }
-.battle-report_defense { width: 580px; margin: auto; background: #112638; }
-
-/* STARS ****************************************/
-.star{ width: 24px; height: 24px; }
-
-.star_blue{ background: #505fa4; }
-.star_blue-giant{ background: #616a8c; }
-.star_neutron{ background: #444972; }
-.star_orange{ background: #c6be97; }
-.star_red{ background: #d5c1b4; }
-.star_red-giant{ background: #953021; }
-.star_super-giant{ background: #cc502f; }
-.star_white{ background: #fff; }
-.star_white-dwarf{ background: #eee4de; }
-.star_worm-hole{ background: #877999; }
-.star_yellow{ background: #ece5a0; }
-.star_black-hole{ background: #434344; }
-
-/* ASTROS ****************************************/
-.astro_arid { background: #b5a886; }
-.astro_asteroid { background: #6b6c67; }
-.astro_asteroid-belt { background: #464742; }
-.astro_craters { background: #e0cfc7; }
-.astro_crystalline { background: #db8550; }
-.astro_earthly { background: #162688; }
-.astro_gaia { background: #7863c2; }
-.astro_gas-giant { background: #e6af88; }
-.astro_glacial { background: #eceff6; }
-.astro_magma { background: #7b4a2a; }
-.astro_metallic { background: #78bfff; }
-.astro_oceanic { background: #78bfff; }
-.astro_radioactive { background: #e8b65f; }
-.astro_rocky { background: #707588; }
-.astro_toxic { background: #3f1308; }
-.astro_tundra { background: #e4e3d1; }
-.astro_unknown { background: #91b9c9; }
-.astro_volcanic { background: #927d63; }
-
-.astro-micro .astro { width: 35px; height: 35px; }
-
-.astro-small .astro { width: 60px; height: 60px; }
-
-.astro-medium .astro { width: 200px; height: 195px; }
 
 /* TOP-HEADER-OFFLINE ****************************************/
 #top-header-offline { width: 100%; height: 20px; background: #47494b url(../images/common_2-20/top-header-offline_center.png) center bottom repeat-x; border: 1px solid #333; border-width: 0px 0px 1px 0px; font-size: 10px; color: #AAA; }
@@ -160,15 +55,552 @@ div .centered { text-align: center; }
 #top-header-offline .box { border: 0px; margin: 0px; background: transparent; }
 #top-header-offline .box_content { padding: 0px; background: transparent;}
 
-/* MISC ****************************************/
+/* BACKGROUND ************************ */
+#background-container { width: 100%; height: 100%; }
 
-/* language flags */
-.flag { vertical-align: text-bottom; }
-.flag_selected { border: 1px solid #6896BD; }
+#background-outer { vertical-align: top; }
+#background-inner { text-align: center; }
+#background-content { width: 85%; margin: 0px auto; margin-bottom: 10px; min-width: 780px; max-width: 1024px; }
 
-/* blocked users */
-.blocked { background: #2F1717; color: red; }
-.blocked a { color: inherit; }
+/* INPUTS ****************************************/
+input, textarea, select { margin: 2px 1px; padding: 1px 2px; }
 
-/* messages */
-.unread { background: #35475F; }
+.input-button { background-color: #082548; cursor: pointer; border: 1px outset #171F2F; color: #FFF; font-weight: bold; }
+.input-text { background-color: #171F2F; color: #BBB; border: 1px solid #444; }
+.input-numeric { background-color: #171F2F; color: #BBB; border: 1px solid #444; text-align: center; }
+.input-textarea, textarea { background-color: #171F2F; color: #BBB; border: 1px solid #444; }
+.input-select, select { background-color: #171F2F; color: #BBB; border: 1px solid #444; }
+.input-checkbox { color: #FFF; }
+.input-radio { color: #FFF; }
+
+.important .input-button { background-color: #370D08; border-color: #400; }
+.important .input-text { background-color: #2F1717; border-color: #4F0000; }
+.important .input-numeric { background-color: #2F1717; border-color: #4F0000; text-align: center; }
+.important .input-textarea, .important textarea { background-color: #2F1717; border-color: #4F0000; }
+.important .input-select, .important select  { background-color: #2F1717; border-color: #4F0000; }
+.important .input-checkbox { color: #FFF; }
+.important .input-radio { color: #FFF; }
+
+
+/* INPUTS ****************************************/
+input, textarea, select { margin: 2px 1px; padding: 1px 2px;font-size: 100%; font-family: verdana,arial;  }
+
+
+.input-button { height: 20px; background: #082548 url(../images/login/images/input-button_normal_center.png) top left repeat-x; padding: 0px 5px; padding-bottom: 4px; }
+.input-button:hover { background-position: bottom left; }
+.input-text { background: transparent url(../images/login/images/input_normal_center.png); }
+.input-text:focus { color: #FFF; border-color: #777; }
+.input-numeric { background: transparent url(../images/login/images/input_normal_center.png); }
+.input-numeric:focus { color: #FFF; border-color: #777; }
+.input-textarea { background: transparent url(../images/login/images/input_normal_center.png);  }
+.input-textarea:focus { color: #FFF; border-color: #777; }
+.input-select:focus, select:focus { color: #FFF; border-color: #777; }
+
+.important .input-button { background-image: url(../images/login/images/input-button_important_center.png); }
+.important .input-text { background-image: url(../images/login/images/input_special_center.png); }
+.important .input-text:focus { border-color: #7F1F1F; }
+.important .input-numeric { background-image: url(../images/login/images/input_special_center.png); }
+.important .input-numeric:focus { border-color: #7F1F1F; }
+.important .input-textarea { background-image: url(../images/login/images/input_special_center.png); }
+.important .input-textarea:focus { border-color: #7F1F1F; }
+.important .input-select:focus, .important select:focus { border-color: #7F1F1F; }
+
+
+/* MENU DEFAULTS ****************************************/
+.menu { width: 100%; }
+
+.menu-separator { width: 0px; }
+.menu-separator div { display: none; height: 100%; }
+
+/* BUTTON ****************************************/
+
+/* html */
+.button-html, .small-button-html { height: 100%; background-color: transparent; border: none; }
+.button-html a, .small-button-html a { display: inline; }
+
+/* normal */
+.button-normal, .small-button-normal { background-color: #243A55; }
+.button-normal a, .small-button-normal a { color: #FFD700; }
+.button-normal-over, .small-button-normal-over { background-color: #2F5484; }
+.button-normal-over a, .small-button-normal-over a { color: #FFD700; }
+.button-normal-active, .small-button-normal-active { background-color: #27456D; }
+.button-normal-active a, .small-button-normal-active a { color: #FFFFFF; }
+
+/* disabled */
+.button-disabled, .small-button-disabled { background-color: #06101E; }
+.button-disabled a, .small-button-disabled a { color: #AAA; }
+.button-disabled-over, .small-button-disabled-over { background-color: #0B1C33; }
+.button-disabled-over a, .small-button-disabled-over a { color: #AAA; }
+.button-disabled-active, .small-button-disabled-active { background-color: #0B1C33; }
+.button-disabled-active a, .small-button-disabled-active a { color: #AAA; }
+
+/* premium */
+.button-premium, .small-button-premium { background-color: #242003; }
+.button-premium a, .small-button-premium a { color: #BFA100; }
+.button-premium-over, .small-button-premium-over { background-color: #3D3605; }
+.button-premium-over a, .small-button-premium-over a { color: #BFA100; }
+.button-premium-active, .small-button-premium-active { background-color: #3D3605; }
+.button-premium-active a, .small-button-premium-active a { color: #FFFFFF; }
+
+/* special */
+.button-special, .small-button-special { background-color: #395E82; }
+.button-special a, .small-button-special a { color: #FFF; }
+.button-special-over, .small-button-special-over { background-color: #4D7DAD;}
+.button-special-over a, .small-button-special-over a { color: #FFF; }
+.button-special-active, .small-button-special-active { background-color: #345576; }
+.button-special-active a, .small-button-special-active a { color: #FFF; }
+
+/* important */
+.button-important, .small-button-important { background-color: #4C0B01; }
+.button-important a, .small-button-important a { color: #FFF; }
+.button-important-over, .small-button-important-over { background-color: #871201; }
+.button-important-over a, .small-button-important-over a { color: #FFF; }
+.button-important-active, .small-button-important-active { background-color: #690E01; }
+.button-important-active a, .small-button-important-active a { color: #FFFFFF; }
+
+/* BUTTON DEFAULTS ****************************************/
+.button, .small-button { width: 100%; vertical-align: middle; }
+.button a, .small-button a { display: block; }
+.button a:hover, .small-button a:hover { text-decoration: none; }
+
+.button-center { text-align: center; vertical-align: middle; font-weight: bold; white-space: nowrap; color:#FFF}
+.small-button .button-center { font-size: 75%; }
+
+/* COMMON BOX DEFAULTS ****************************************/
+.box { margin: 5px auto; position: relative; border: 2px solid #9F9F9F; background: #14171E; }
+
+.box-compact { width: auto; }
+.box-full { width: 100%; }
+.box-large { width: 80%; }
+.box-medium { width: 60%; }
+.box-small { width: 40%; }
+
+/* box simple */
+.box-left { width: 1px; font-size: 1px;}
+.box-center { vertical-align: middle; }
+.box-right { width: 1px; font-size: 1px; }
+
+/* box complex */
+.box-header { width: 100%; }
+.box-header-left { width: 1px; font-size: 1px; }
+.box-header-right { width: 1px; font-size: 1px; }
+
+.box-content { width: 100%; }
+.box-content-left { width: 1px; font-size: 1px; }
+.box-content-right { width: 1px; font-size: 1px; }
+
+.box-footer { width: 100%; }
+.box-footer-left { width: 1px; }
+.box-footer-right { width: 1px; }
+
+.box-title-pad { height: 20px; font-size: 1px; }
+.box-title-wrapper { position: relative; width: 99%; padding: 1px; }
+.box-title-container { position: absolute; width: 100%; text-align: center; }
+.box-title { margin: auto; }
+.box-title-left { width: 1px; font-size: 1px; }
+.box-title-center { font-weight: bold; text-align: center; white-space: nowrap; vertical-align: top; }
+.box-title-right { width: 1px; font-size: 1px; }
+
+.box-status-pad { width: 100%; height: 20px; font-size: 1px; }
+.box-status-wrapper { position: relative; width: 99%; padding: 1px; }
+.box-status-container { position: absolute; width: 100%; text-align: center; top: -10px; }
+.box-status { margin: auto;  }
+.box-status-left { width: 1px; font-size: 1px; }
+.box-status-center { text-align: center; }
+.box-status-right { width: 1px; font-size: 1px; }
+
+/* BOX ERROR ****************************************/
+.box-error { background: #4A1F19; border-color: #7D3429; }
+
+/* BOX WARNING ****************************************/
+.box-warning { background: #5B5100; border-color: #8D7D11; }
+
+/* BOX MESSAGE ****************************************/
+.box-message { background: #113311; border-color: #264C1F; }
+
+/* BOX TIP ****************************************/
+.box-tip { background: #061826; border-color: #253B49; }
+
+/* predefined backgrounds */
+.background-header { background-position: 50% 0%; background-repeat: no-repeat; }
+.background-footer { background-image: url(../images/login/images/planet-blue.png); background-position: 50% 100%; background-repeat: no-repeat; }
+
+.planet_blue { background-image: url(../images/login/images/planet-blue.png); }
+.planet_red { background-image: url(../images/login/images/planet-red.png); background-position: 0px -40px; }
+
+/* GENERAL CONTENT *************************************************************************************************************************/
+.listing-header th, .listing-header td { background: url(../images/login/images/listing-header_center.png) center bottom repeat-x; }
+
+.listing1 .listing-header td, .listing1 .listing-header th { background-image: url(../images/login/images/listing1-header_center.png); } 
+
+/* BUTTON DEFAULTS *************************************************************************************************************************/
+.button-left { background: top right no-repeat; }
+.button-center { background: top center repeat-x; }
+.button-right { background: top left no-repeat; }
+
+.button { height: 18px; border: none; }
+.button .button-left { width: 11px; }
+.button .button-right { width: 13px; }
+
+/* BUTTON *************************************************************************************************************************/
+
+/* normal */
+.button-normal, .button-normal a { background-color: transparent; }
+.button-normal .button-left { background-image: url(../images/login/images/button_normal_left.png); }
+.button-normal .button-center { background-image: url(../images/login/images/button_normal_center.png); }
+.button-normal .button-right { background-image: url(../images/login/images/button_normal_right.png); }
+
+.button-normal-over, .button-normal-over a { background-color: transparent; }
+.button-normal-over .button-left { background-position: bottom right; background-image: url(../images/login/images/button_normal_left.png); }
+.button-normal-over .button-center { background-position: bottom right; background-image: url(../images/login/images/button_normal_center.png); }
+.button-normal-over .button-right { background-position: bottom left; background-image: url(../images/login/images/button_normal_right.png); }
+
+.button-normal-active, .button-normal-active a { background-color: transparent; }
+.button-normal-active .button-left { background-image: url(../images/login/images/button_normal-active_left.png); }
+.button-normal-active .button-center { background-image: url(../images/login/images/button_normal-active_center.png); }
+.button-normal-active .button-right { background-image: url(../images/login/images/button_normal-active_right.png); }
+
+/* disabled */
+.button-disabled, .button-disabled a { background-color: transparent; }
+.button-disabled .button-left { background-image: url(../images/login/images/button_disabled_left.png); }
+.button-disabled .button-center { background-image: url(../images/login/images/button_disabled_center.png); }
+.button-disabled .button-right { background-image: url(../images/login/images/button_disabled_right.png); }
+
+.button-disabled-over, .button-disabled-over a { background-color: transparent; }
+.button-disabled-over .button-left { background-position: bottom right; background-image: url(../images/login/images/button_disabled_left.png); }
+.button-disabled-over .button-center { background-position: bottom right; background-image: url(../images/login/images/button_disabled_center.png); }
+.button-disabled-over .button-right { background-position: bottom left; background-image: url(../images/login/images/button_disabled_right.png); }
+
+.button-disabled-active, .button-disabled-active a { background-color: transparent; }
+.button-disabled-active .button-left { background-image: url(../images/login/images/button_disabled-active_left.png); }
+.button-disabled-active .button-center { background-image: url(../images/login/images/button_disabled-active_center.png); }
+.button-disabled-active .button-right { background-image: url(../images/login/images/button_disabled-active_right.png); }
+
+/* premium */
+.button-premium, .button-premium a { background-color: transparent; }
+.button-premium .button-left { background-image: url(../images/login/images/button_premium_left.png); }
+.button-premium .button-center { background-image: url(../images/login/images/button_premium_center.png); }
+.button-premium .button-right { background-image: url(../images/login/images/button_premium_right.png); }
+
+.button-premium-over, .button-premium-over a { background-color: transparent; }
+.button-premium-over .button-left { background-position: bottom right; background-image: url(../images/login/images/button_premium_left.png); }
+.button-premium-over .button-center { background-position: bottom right; background-image: url(../images/login/images/button_premium_center.png); }
+.button-premium-over .button-right { background-position: bottom left; background-image: url(../images/login/images/button_premium_right.png); }
+
+.button-premium-active, .button-premium-active a { background-color: transparent; }
+.button-premium-active .button-left { background-image: url(../images/login/images/button_premium-active_left.png); }
+.button-premium-active .button-center { background-image: url(../images/login/images/button_premium-active_center.png); }
+.button-premium-active .button-right { background-image: url(../images/login/images/button_premium-active_right.png); }
+
+/* special */
+.button-special, .button-special a { background-color: transparent; }
+.button-special .button-left { background-image: url(../images/login/images/button_special_left.png); }
+.button-special .button-center { background-image: url(../images/login/images/button_special_center.png); }
+.button-special .button-right { background-image: url(../images/login/images/button_special_right.png); }
+
+.button-special-over, .button-special-over a { background-color: transparent; }
+.button-special-over .button-left { background-position: bottom right; background-image: url(../images/login/images/button_special_left.png); }
+.button-special-over .button-center { background-position: bottom right; background-image: url(../images/login/images/button_special_center.png); }
+.button-special-over .button-right { background-position: bottom left; background-image: url(../images/login/images/button_special_right.png); }
+
+.button-special-active, .button-special-active a { background-color: transparent; }
+.button-special-active .button-left { background-image: url(../images/login/images/button_special-active_left.png); }
+.button-special-active .button-center { background-image: url(../images/login/images/button_special-active_center.png); }
+.button-special-active .button-right { background-image: url(../images/login/images/button_special-active_right.png); }
+
+/* important */
+.button-important, .button-important a { background-color: transparent; }
+.button-important .button-left { background-image: url(../images/login/images/button_important_left.png); }
+.button-important .button-center { background-image: url(../images/login/images/button_important_center.png); }
+.button-important .button-right { background-image: url(../images/login/images/button_important_right.png); }
+
+.button-important-over, .button-important-over a { background-color: transparent; }
+.button-important-over .button-left { background-position: bottom right; background-image: url(../images/login/images/button_important_left.png); }
+.button-important-over .button-center { background-position: bottom right; background-image: url(../images/login/images/button_important_center.png); }
+.button-important-over .button-right { background-position: bottom left; background-image: url(../images/login/images/button_important_right.png); }
+
+.button-important-active, .button-important-active a { background-color: transparent; }
+.button-important-active .button-left { background-image: url(../images/login/images/button_important-active_left.png); }
+.button-important-active .button-center { background-image: url(../images/login/images/button_important-active_center.png); }
+.button-important-active .button-right { background-image: url(../images/login/images/button_important-active_right.png); }
+
+/* COMMON BOX DEFAULTS *************************************************************************************************************************/
+.box { margin: 0px auto; border: none; background: transparent; }
+
+/* box simple */
+.box-left { background: center left no-repeat; }
+.box-center { background: center left repeat-x; }
+.box-right { background: center right no-repeat; }
+
+/* box complex */
+.box-header-left { background: top left no-repeat; }
+.box-header-center { background: top left repeat-x; }
+.box-header-right { background: top right no-repeat; }
+
+.box-content-left { background: top left repeat-y; }
+.box-content-center { background: top right repeat;  }
+.box-content-right { background: top right repeat-y; }
+
+.box-footer-left { background: bottom left no-repeat; }
+.box-footer-center { background: bottom right repeat-x; }
+.box-footer-right { background: bottom right no-repeat; }
+
+.box-title-left { background: top right no-repeat; }
+.box-title-center { background: top left repeat-x;  font-size: 90%; }
+.box-title-right { background: top left no-repeat; }
+
+.box-status-pad { height: 10px; }
+.box-status-left { background: bottom right no-repeat; }
+.box-status-center { background: bottom left repeat-x; }
+.box-status-right { background: bottom left no-repeat; }
+
+/* DEFAULT BOX *************************************************************************************************************************/
+.default_box-header { height: 12px; font-size: 1px; }
+.default_box-header-left { width: 14px; background-image: url(../images/login/images/box_header_left.png); }
+.default_box-header-center { background-image: url(../images/login/images/box_header_center.png); }
+.default_box-header-right { width: 14px; background-image: url(../images/login/images/box_header_right.png); }
+
+.default_box-content-left { width: 14px; background-image: url(../images/login/images/box_content_left.png); }
+.default_box-content-center { background-image: url(../images/login/images/box_content_center.png); }
+.default_box-content-right { width: 14px; background-image: url(../images/login/images/box_content_right.png); }
+
+.default_box-footer { height: 12px; font-size: 1px; }
+.default_box-footer-left { width: 14px; background-image: url(../images/login/images/box_footer_left.png); }
+.default_box-footer-center { background-image: url(../images/login/images/box_footer_center.png); }
+.default_box-footer-right { width: 14px; background-image: url(../images/login/images/box_footer_right.png); }
+
+/* BOX 1 *************************************************************************************************************************/
+.box1_box-header { height: 27px; }
+.box1_box-header-left { width: 17px; background-image: url(../images/login/images/box1_header_left.png); }
+.box1_box-header-center { background-image: url(../images/login/images/box1_header_center.png); }
+.box1_box-header-right { width: 19px; background-image: url(../images/login/images/box1_header_right.png); }
+
+.box1_box-content-left { width: 17px; background-image: url(../images/login/images/box1_content_left.png); }
+.box1_box-content-center { background-image: url(../images/login/images/box1_content_center.png); }
+.box1_box-content-right { width: 19px; background-image: url(../images/login/images/box1_content_right.png); }
+
+.box1_box-footer { height: 19px; }
+.box1_box-footer-left { width: 17px; background-image: url(../images/login/images/box1_footer_left.png); }
+.box1_box-footer-center { background-image: url(../images/login/images/box1_footer_center.png); }
+.box1_box-footer-right { width: 19px; background-image: url(../images/login/images/box1_footer_right.png); }
+
+.box1_box-title-center { text-transform: uppercase; }
+
+.box1_box-status-pad { height: 10px; }
+.box1_box-status-container { top: -16px; }
+.box1_box-status-center { font-size: 80%; color: #BBB; }
+
+.box1 .box1_content { position: relative; top: -5px; }
+
+/* BOX 2 *************************************************************************************************************************/
+.box2_box-header { height: 30px; }
+.box2_box-header-left { width: 19px; background-image: url(../images/login/images/box2_header_left.png); }
+.box2_box-header-center { background-image: url(../images/login/images/box2_header_center.png); }
+.box2_box-header-right { width: 19px; background-image: url(../images/login/images/box2_header_right.png); }
+
+.box2_box-content-left { width: 19px; background-image: url(../images/login/images/box2_content_left.png); }
+.box2_box-content-center { background-image: url(../images/login/images/box2_content_center.png); }
+.box2_box-content-right { width: 19px; background-image: url(../images/login/images/box2_content_right.png); }
+
+.box2_box-footer { height: 20px; }
+.box2_box-footer-left { width: 19px; background-image: url(../images/login/images/box2_footer_left.png); }
+.box2_box-footer-center { background-image: url(../images/login/images/box2_footer_center.png); }
+.box2_box-footer-right { width: 19px; background-image: url(../images/login/images/box2_footer_right.png); }
+
+.box2_box-title-pad { height: 0px; }
+.box2_box-title-container { top: -27px; }
+.box2_box-title { height: 43px; min-width: 40%; }
+.box2_box-title-left { width: 39px; background-image: url(../images/login/images/box2_title_left.png); }
+.box2_box-title-center { text-transform: uppercase; padding-top: 6px; background-image: url(../images/login/images/box2_title_center.png); }
+.box2_box-title-right { width: 39px; background-image: url(../images/login/images/box2_title_right.png); }
+
+.box2_box-status-pad { height: 10px; }
+.box2_box-status-container { top: -16px; }
+.box2_box-status-center { font-size: 80%; color: #BBB; }
+
+.box2 .box2_content { position: relative; top: -5px; }
+
+.box2 { margin-top: 17px; }
+#background-content>.box2 { margin-top: 17px; }
+
+/* BOX 3 *************************************************************************************************************************/
+.box3_box-header { height: 47px; }
+.box3_box-header-left { width: 32px; background-image: url(../images/login/images/box3_header_left.png); }
+.box3_box-header-center { background-image: url(../images/login/images/box3_header_center.png); }
+.box3_box-header-right { width: 34px; background-image: url(../images/login/images/box3_header_right.png); }
+
+.box3_box-content-left { width: 16px; background-image: url(../images/login/images/box3_content_left.png); }
+.box3_box-content-center { background-image: url(../images/login/images/box3_content_center.png); }
+.box3_box-content-right { width: 16px; background-image: url(../images/login/images/box3_content_right.png); }
+
+.box3_box-footer { height: 20px; }
+.box3_box-footer-left { width: 19px; background-image: url(../images/login/images/box3_footer_left.png); }
+.box3_box-footer-center { background-image: url(../images/login/images/box3_footer_center.png); }
+.box3_box-footer-right { width: 19px; background-image: url(../images/login/images/box3_footer_right.png); }
+
+.box3_box-title-pad { height: 0px; }
+.box3_box-title-container { top: -15px; }
+.box3_box-title { height: 18px; min-width: 40%; }
+.box3_box-title-left { width: 39px; background-image: url(../images/login/images/box3_title_left.png); }
+.box3_box-title-center { text-transform: uppercase; padding-top: 2px; background-image: url(../images/login/images/box3_title_center.png); }
+.box3_box-title-right { width: 39px; background-image: url(../images/login/images/box3_title_right.png); }
+
+.box3_box-status-pad { height: 7px; }
+.box3_box-status-container { top: -16px; }
+.box3_box-status-center { font-size: 80%; color: #BBB; }
+
+.box3 .box3_content { position: relative; top: -8px; }
+
+/* BOX 4 *************************************************************************************************************************/
+.box4_box-header { height: 16px; }
+.box4_box-header-left { width: 17px; background-image: url(../images/login/images/box4_header_left.png); }
+.box4_box-header-center { background-image: url(../images/login/images/box4_header_center.png); }
+.box4_box-header-right { width: 17px; background-image: url(../images/login/images/box4_header_right.png); }
+
+.box4_box-content-left { width: 17px; background-image: url(../images/login/images/box4_content_left.png); }
+.box4_box-content-center { background-image: url(../images/login/images/box4_content_center.png); }
+.box4_box-content-right { width: 17px; background-image: url(../images/login/images/box4_content_right.png); }
+
+.box4_box-footer { height: 17px; }
+.box4_box-footer-left { width: 17px; background-image: url(../images/login/images/box4_footer_left.png); }
+.box4_box-footer-center { background-image: url(../images/login/images/box4_footer_center.png); }
+.box4_box-footer-right { width: 17px; background-image: url(../images/login/images/box4_footer_right.png); }
+
+.box4_box-title-pad { height: 20px; }
+.box4_box-title-container { top: 10px; }
+.box4_box-title-center { text-transform: uppercase; }
+
+.box4_box-status-pad { height: 17px; }
+.box4_box-status-container { top: -16px; }
+.box4_box-status-center { font-size: 80%; color: #BBB; }
+
+/* BOX 5 *************************************************************************************************************************/
+.box5_box-header { height: 43px; }
+.box5_box-header-left { width: 17px; background-image: url(../images/login/images/box5_header_left.png); }
+.box5_box-header-center { background-image: url(../images/login/images/box5_header_center.png); }
+.box5_box-header-right { width: 17px; background-image: url(../images/login/images/box5_header_right.png); }
+
+.box5_box-content-left { width: 17px; background-image: url(../images/login/images/box5_content_left.png); }
+.box5_box-content-center { background-image: url(../images/login/images/box5_content_center.png); }
+.box5_box-content-right { width: 17px; background-image: url(../images/login/images/box5_content_right.png); }
+
+.box5_box-footer { height: 23px; }
+.box5_box-footer-left { width: 17px; background-image: url(../images/login/images/box5_footer_left.png); }
+.box5_box-footer-center { background-image: url(../images/login/images/box5_footer_center.png); }
+.box5_box-footer-right { width: 17px; background-image: url(../images/login/images/box5_footer_right.png); }
+
+.box5_box-title-pad { height: 5px; }
+.box5_box-title-container { top: 2px; }
+.box5_box-title-center { text-transform: uppercase; }
+
+.box5_box-status-pad { height: 11px; }
+.box5_box-status-container { top: -14px; }
+.box5_box-status-center { font-size: 80%; color: #BBB; }
+
+/* BOX 6 *************************************************************************************************************************/
+.box6_box-header { height: 26px; }
+.box6_box-header-left { width: 28px; background-image: url(../images/login/images/box6_header_left.png); }
+.box6_box-header-center { background-image: url(../images/login/images/box6_header_center.png); }
+.box6_box-header-right { width: 30px; background-image: url(../images/login/images/box6_header_right.png); }
+
+.box6_box-content-left { width: 28px; background-image: url(../images/login/images/box6_content_left.png); }
+.box6_box-content-center { background-image: url(../images/login/images/box6_content_center.png); }
+.box6_box-content-right { width: 30px; background-image: url(../images/login/images/box6_content_right.png); }
+
+.box6_box-footer { height: 27px; }
+.box6_box-footer-left { width: 28px; background-image: url(../images/login/images/box6_footer_left.png); }
+.box6_box-footer-center { background-image: url(../images/login/images/box6_footer_center.png); }
+.box6_box-footer-right { width: 30px; background-image: url(../images/login/images/box6_footer_right.png); }
+
+.box6_box-title-pad { height: 25px; }
+.box6_box-title-container { top: 6px; }
+.box6_box-title { height: 30px; }
+.box6_box-title-left { width: 21px; background-image: url(../images/login/images/box6_title_left.png); }
+.box6_box-title-center { text-transform: uppercase; padding-top: 8px; background-image: url(../images/login/images/box6_title_center.png); }
+.box6_box-title-right { width: 20px; background-image: url(../images/login/images/box6_title_right.png); }
+
+.box6_box-status-pad { height: 7px; }
+.box6_box-status-container { top: -11px; }
+.box6_box-status-center { font-size: 80%; color: #BBB; }
+
+/* FEEDBACK BOXES *************************************************************************************************************************/
+.feedback_icon { background-position: center center; background-repeat: no-repeat; }
+.feedback_icon div { width: 50px; height: 45px; }
+
+/* BOX ERROR *************************************************************************************************************************/
+.box-error .feedback_icon { background-image: url(../images/login/images/icon_error.png); }
+
+.box-error_box-header { height: 28px; }
+.box-error_box-header-left { width: 29px; background-image: url(../images/login/images/box-error_header_left.png); }
+.box-error_box-header-center { background-image: url(../images/login/images/box-error_header_center.png); }
+.box-error_box-header-right { width: 29px; background-image: url(../images/login/images/box-error_header_right.png); }
+
+.box-error_box-content-left { width: 29px; background-image: url(../images/login/images/box-error_content_left.png); }
+.box-error_box-content-center { background-image: url(../images/login/images/box-error_content_center.png); }
+.box-error_box-content-right { width: 29px; background-image: url(../images/login/images/box-error_content_right.png); }
+
+.box-error_box-footer { height: 28px; }
+.box-error_box-footer-left { width: 29px; background-image: url(../images/login/images/box-error_footer_left.png); }
+.box-error_box-footer-center { background-image: url(../images/login/images/box-error_footer_center.png); }
+.box-error_box-footer-right { width: 29px; background-image: url(../images/login/images/box-error_footer_right.png); }
+
+/* BOX WARNING *************************************************************************************************************************/
+.box-warning .feedback_icon { background-image: url(../images/login/images/icon_warning.png); }
+
+.box-warning_box-header { height: 28px; }
+.box-warning_box-header-left { width: 29px; background-image: url(../images/login/images/box-warning_header_left.png); }
+.box-warning_box-header-center { background-image: url(../images/login/images/box-warning_header_center.png); }
+.box-warning_box-header-right { width: 29px; background-image: url(../images/login/images/box-warning_header_right.png); }
+
+.box-warning_box-content-left { width: 29px; background-image: url(../images/login/images/box-warning_content_left.png); }
+.box-warning_box-content-center { background-image: url(../images/login/images/box-warning_content_center.png); }
+.box-warning_box-content-right { width: 29px; background-image: url(../images/login/images/box-warning_content_right.png); }
+
+.box-warning_box-footer { height: 28px; }
+.box-warning_box-footer-left { width: 29px; background-image: url(../images/login/images/box-warning_footer_left.png); }
+.box-warning_box-footer-center { background-image: url(../images/login/images/box-warning_footer_center.png); }
+.box-warning_box-footer-right { width: 29px; background-image: url(../images/login/images/box-warning_footer_right.png); }
+
+/* BOX MESSAGE *************************************************************************************************************************/
+.box-message .feedback_icon { background-image: url(../images/login/images/icon_message.png); }
+
+.box-message_box-header { height: 28px; }
+.box-message_box-header-left { width: 29px; background-image: url(../images/login/images/box-message_header_left.png); }
+.box-message_box-header-center { background-image: url(../images/login/images/box-message_header_center.png); }
+.box-message_box-header-right { width: 29px; background-image: url(../images/login/images/box-message_header_right.png); }
+
+.box-message_box-content-left { width: 29px; background-image: url(../images/login/images/box-message_content_left.png); }
+.box-message_box-content-center { background-image: url(../images/login/images/box-message_content_center.png); }
+.box-message_box-content-right { width: 29px; background-image: url(../images/login/images/box-message_content_right.png); }
+
+.box-message_box-footer { height: 28px; }
+.box-message_box-footer-left { width: 29px; background-image: url(../images/login/images/box-message_footer_left.png); }
+.box-message_box-footer-center { background-image: url(../images/login/images/box-message_footer_center.png); }
+.box-message_box-footer-right { width: 29px; background-image: url(../images/login/images/box-message_footer_right.png); }
+
+#intro-logo { text-align: center; margin: 0px auto; margin-top: 5px; margin-bottom: 5px;} 
+#background-content { width: 100%; margin: 0px auto; margin-bottom: 22px; min-width: none; max-width: none; }
+#intro-menu {width: 350px;}
+
+.Estilo5 {color: #FF0000}
+
+.Estilo1 {
+        color: #FF0000;
+        font-weight: bold;
+}
+.Estilo3 {color: #FF0000; font-weight: bold; font-size: 18px; }
+.Estilo4 {color: #00FF00}
+.at300bs.at15t_expanded, .at300bs.at15t_compact {
+background:none!important;
+margin-right:4px;
+position:absolute;
+right:100px;
+}
+.at300bs {
+background:none !important;
+display:block;
+height:auto !important;
+line-height:16px !important;
+overflow:hidden;
+width:16px;
+}

@@ -4,10 +4,8 @@
 <html>
 <head>
 <link rel='stylesheet' type='text/css' href='styles/css/common_2-20.css'>
-<link rel='stylesheet' type='text/css' href='styles/css/v2/base_2-0-22.css'>
-<link rel='stylesheet' type='text/css' href='styles/images/login/style.css'>
 <link rel='stylesheet' type='text/css' href='styles/css/jquery.loadmask.css'>
-<link rel='stylesheet' type='text/css' href='styles/css/login.css'>
+<link rel='icon' href='favicon.ico' type='image/x-icon'>
 <title>{$servername}</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="content-script-type" content="text/javascript">
@@ -18,12 +16,7 @@
 <meta name='medium' content="mult">
 
 <!--<meta name='description' content=''>-->
-<link rel='icon' href='favicon.ico' type='image/x-icon'>
-<link rel='shortcut icon' href='favicon.ico' type='image/x-icon'>
-<script src='parser.php?js[]=common_2-19.js&amp;js[]=jquery.js&amp;js[]=soundmanager2.js&amp;js[]=jquery.loadmask.js&amp;js[]=login.js' type='text/javascript'></script>
-{if $game_captcha}
-<script src="http://api.recaptcha.net/js/recaptcha_ajax.js" type="text/javascript"></script>
-{/if}
+
 <script type="text/javascript">
 IsCaptchaActive = {$game_captcha};
 IsRegActive 	= {$reg_close};
@@ -115,7 +108,6 @@ cappublic		= '{$cappublic}';
     </table></td>
 	<td class='languages_container'>
 <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=xa-4b3aa16f657a67e8" class="addthis_button_compact">Share</a>
-<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=xa-4b3aa16f657a67e8"></script>
 &bull;&nbsp;<a onclick="music()" style="cursor:pointer;" id="music">Music: ON</a></td>
   </tr>
 </table>
