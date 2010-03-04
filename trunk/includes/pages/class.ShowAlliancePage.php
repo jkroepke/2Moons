@@ -1008,7 +1008,7 @@ class ShowAlliancePage
 									`ally_request_notallow`='".$db->sql_escape($ally['ally_request_notallow'])."'
 									WHERE `id`='".$ally['id']."';");
 								}
-								elseif ($_POST['text'])
+								elseif(isset($_POST['text']))
 								{
 									$text = $db->sql_escape($_POST['text']);
 									$QryText = "UPDATE ".ALLIANCE." SET ";
@@ -1031,21 +1031,21 @@ class ShowAlliancePage
 									$lang['dpath'] = $dpath;
 
 								if ($t == 2){
-									if($_POST['text'] != ''){
+									if(isset($_POST['text'])){
 										$lang['text'] = $_POST['text'];
 									} else {
 										$lang['text'] = $ally['ally_text'];
 									}
 									$lang['request_type'] = $lang['al_inside_text'];				
 								} elseif ($t == 3){
-									if($_POST['text'] != ''){
+									if(isset($_POST['text'])){
 										$lang['text'] = $_POST['text'];
 									} else {
 										$lang['text'] = $ally['ally_request'];
 									}
 									$lang['request_type'] = $lang['al_request_text'];				
 								} else {
-									if($_POST['text'] != ''){
+									if(isset($_POST['text'])){
 										$lang['text'] = $_POST['text'];
 									} else {
 										$lang['text'] = $ally['ally_description'];
