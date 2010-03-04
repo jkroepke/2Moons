@@ -114,35 +114,28 @@ if (INSTALL != true)
 			trigger_error($game_config['close_reason'], E_USER_NOTICE);
 		}
 		
-		includeLang('TECH');
-		if($game_config['stats_fly_lock'] == 0 && !defined('IN_ADMIN'))
-		{	
-			$fleetquery = $db->query("SELECT * FROM ".FLEETS." WHERE `fleet_start_time` <= '". time() ."' OR (`fleet_end_time` <= '". time() ."' AND `fleet_mess` = '1') ORDER BY `fleet_start_time` ASC;");
-			if($db->num_rows($fleetquery) > 0)
-			{
-				update_config('stats_fly_lock', time());
-				$db->multi_query("UNLOCK TABLES;LOCK TABLE ".AKS." WRITE, ".RW." WRITE, ".MESSAGES." WRITE, ".FLEETS." WRITE, ".PLANETS." WRITE, ".TOPKB." WRITE, ".USERS." WRITE, ".STATPOINTS." WRITE;");
-				require_once(ROOT_PATH . 'includes/classes/class.FlyingFleetHandler.'.PHP_EXT);
-			
-				new FlyingFleetHandler($fleetquery);
-				
-				$db->query("UNLOCK TABLES"); 
-				update_config('stats_fly_lock', 0); 
-			}
-		}
-		elseif (time() >= ($game_config['stats_fly_lock'] + (60 * 5))){
-			update_config('stats_fly_lock', 0);
-		}
-		else {
-			if($user['authlevel'] == 3 && $game_config['debug'] == 1)
-			{
-				$temp	= error_get_last();
-				trigger_error('FleetHandler Error on line '.$temp['line'].': '.$temp['message'], E_USER_WARNING);
-			}
-		}
-
 		if (isset($user))
 		{
+			includeLang('TECH');		
+			if($game_config['stats_fly_lock'] == 0 && !defined('IN_ADMIN'))
+			{	
+				$fleetquery = $db->query("SELECT * FROM ".FLEETS." WHERE `fleet_start_time` <= '". time() ."' OR (`fleet_end_time` <= '". time() ."' AND `fleet_mess` = '1') ORDER BY `fleet_start_time` ASC;");
+				if($db->num_rows($fleetquery) > 0)
+				{
+					update_config('stats_fly_lock', time());
+					$db->multi_query("UNLOCK TABLES;LOCK TABLE ".AKS." WRITE, ".RW." WRITE, ".MESSAGES." WRITE, ".FLEETS." WRITE, ".PLANETS." WRITE, ".TOPKB." WRITE, ".USERS." WRITE, ".STATPOINTS." WRITE;");
+					require_once(ROOT_PATH . 'includes/classes/class.FlyingFleetHandler.'.PHP_EXT);
+				
+					new FlyingFleetHandler($fleetquery);
+					
+					$db->query("UNLOCK TABLES"); 
+					update_config('stats_fly_lock', 0); 
+				}
+			}
+			
+			elseif (time() >= ($game_config['stats_fly_lock'] + (60 * 5))){
+				update_config('stats_fly_lock', 0);
+			}
 			if (defined('IN_ADMIN'))
 			{
 				includeLang('ADMIN');
