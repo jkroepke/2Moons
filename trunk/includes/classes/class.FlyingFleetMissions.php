@@ -2650,12 +2650,11 @@ class FlyingFleetMissions {
 				SendSimpleMessage($FleetRow['fleet_owner'], '', $FleetRow['fleet_end_time'], 15, $lang['sys_mess_tower'], $lang['sys_expe_report'], sprintf($lang['sys_expe_back_home_with_dm'], $lang['Darkmatter'], pretty_number($FleetRow['fleet_resource_darkmatter']), $lang['Darkmatter']));
 				$FleetRow['fleet_array'] = "220,0;";
 			} else {
-				SendSimpleMessage($FleetRow['fleet_owner'], '', $FleetRow['fleet_end_time'], 15, $lang['sys_mess_tower'], $lang['sys_expe_report'], $lang['sys_expe_back_home']);
+				SendSimpleMessage($FleetRow['fleet_owner'], '', $FleetRow['fleet_end_time'], 15, $lang['sys_mess_tower'], $lang['sys_expe_report'], $lang['sys_expe_back_home_without_dm']);
 			}
 			self::RestoreFleetToPlanet($FleetRow, true);
 			
-			$db->query("UPDATE `".USERS."` SET `darkmatter` = darkmatter + ".$FleetRow['fleet_resource_darkmatter']." WHERE `id` = '".$FleetRow['fleet_owner']."';");
-			$db->query("DELETE FROM ".FLEETS." WHERE `fleet_id` = ". $FleetRow["fleet_id"].";");
+			$db->multi_query("UPDATE `".USERS."` SET `darkmatter` = darkmatter + ".$FleetRow['fleet_resource_darkmatter']." WHERE `id` = '".$FleetRow['fleet_owner']."';DELETE FROM ".FLEETS." WHERE `fleet_id` = ". $FleetRow["fleet_id"].";");
 		}		
 	}
 }

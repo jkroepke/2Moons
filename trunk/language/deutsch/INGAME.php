@@ -909,6 +909,7 @@ $lang['sys_expe_attack_2_3_2'] 				= 'Ein großer Verband kristalliner Schiffe u
 $lang['sys_expe_attackname_1']				= 'Piraten'; 	
 $lang['sys_expe_attackname_2'] 				= 'Aliens'; 	
 $lang['sys_expe_back_home'] 				= 'Deine Flotte ist von der Expedition wieder zurükgekehrt.<br>Sie haben %s %s, %s %s, %s %s und %s %s mitgebracht.';
+$lang['sys_expe_back_home_without_dm']		= 'Deine Flotte ist von der Expedition wieder zurükgekehrt.';
 $lang['sys_expe_back_home_with_dm']			= 'Deine Flotte ist von der Expedition wieder zurükgekehrt.<br>Die gefundende %s(%s) hat die Schiffe verformt und wurden verschrottet.<br>Die %s konnte noch gerettet werden.';
 $lang['sys_mess_transport'] 				= 'Transportbericht';
 $lang['sys_tran_mess_owner']		 		= 'Eine deiner Flotten erreicht den Planeten %s %s und liefert %s %s, %s %s und %s %s.';
