@@ -48,12 +48,14 @@ $lang['pass']					= 'Passwort';
 $lang['remember_pass']			= 'Auto-Login';
 $lang['lostpassword']			= 'Passwort vergessen?';
 $lang['welcome_to']				= 'Willkommen bei';
-$lang['server_description']		= '</strong> is a <strong>strategic space simulation game</strong> with <strong>thousands of players</strong> all over the world competing <strong>simultaneously</strong> to be the best. Everything you need to play is a standard web browser.';
+$lang['server_description']		= '</strong> ist ein <strong>Weltraum strategie Spiel mit hunderten Spielern</strong> die erdumgreifend <strong>gleichzeitig</strong> versuchen der/die beste zu werden. Alles was ihr zum spielen braucht ist ein standart Web Browser (empfohlen wird nur <strong>FireFox</strong>).';
 $lang['server_register']		= 'Registrieren sie sich Jetzt!';
 $lang['server_message']			= 'Registriere dich jetzt und erlebe eine neue spannende im Welt von';
 $lang['login']					= 'Login';
 $lang['disclamer']				= 'Impressum';
 $lang['login_info']				= 'Mit dem Login akzeptiere ich die <a onclick="ajax(\'?page=rules&amp;\'+\'getajax=1\');" style="cursor:pointer;">Regeln</a> und die <a onclick="ajax(\'?page=agb&amp;\'+\'getajax=1\');" style="cursor:pointer;">AGB`s</a>';
+
+/* ------------------------------------------------------------------------------------------ */
 
 //reg.php - Registrierung
 $lang['register_closed']			= 'Registration geschlossen!';
@@ -62,7 +64,7 @@ $lang['reg_mail_message_pass']		= 'Noch ein Schritt zur Aktivierung Ihres Userna
 $lang['reg_mail_reg_done']			= 'Willkommen bei %s!';
 $lang['invalid_mail_adress']		= 'Ungültige E-mail Adresse!<br>';
 $lang['empty_user_field']			= 'Bitte alle Felder ausfüllen!<br>';
-$lang['password_lenght_error']		= 'Das Passwort muss mindestens 6 Zeichen lang sein!<br>';
+$lang['password_lenght_error']		= 'Das Passwort muss mindestens 4 Zeichen lang sein!<br>';
 $lang['user_field_no_alphanumeric']	= 'Bitte beim Username nur alphanumerische Zeichen eingeben!<br>';
 $lang['user_field_no_space']		= 'Bitte beim Username keine Leerzeichen eingeben!<br>';
 $lang['terms_and_conditions']		= 'Sie müssen die <a href="index.php?page=agb">AGB</a> und <a href="index.php?page=rules>Regeln</a> aktzeptieren!<br>';
@@ -74,9 +76,9 @@ $lang['different_mails']			= 'Sie haben 2 unterschiedliche E-Mail Adressen!<br>'
 $lang['welcome_message_from']		= 'Administrator';
 $lang['welcome_message_sender']		= 'Administrator';
 $lang['welcome_message_subject']	= 'Wilkommenen';
-$lang['welcome_message_content']	= 'Wilkommen beim %s!<br>Baue zuerst eine Solaranlage, denn Energie wird für die spätere Rohstoffproduktion benötigt. Um dies zu bauen, klicke links im Menu auf "Gebäude". Danach baue das 4. Gebäude von oben. Da du nun Energie hast, kannst du anfangen Minen zu bauen. Gehe dazu wieder im Menü auf Gebäude und baue eine Metallmine, danach wieder eine Kristallmine. Um Schiffe bauen zu können musst du zuerst eine Raumschiffswerft gebaut haben. Was dafür benötigt wird findest du links im Menüpunkt Technologie bzw. FAQ. Das Team wünscht dir viel Spaß beim Erkunden des Universums!';
+$lang['welcome_message_content']	= 'Wilkommen beim %s!<br>Baue zuerst ein Solarkraftwerk, denn Energie wird für die spätere Rohstoffproduktion benötigt. Um diese zu bauen, klicke links im Menu auf "Gebäude". Danach baue das 4. Gebäude von oben. Da du nun Energie hast, kannst du anfangen Minen zu bauen. Gehe dazu wieder im Menü auf Gebäude und baue eine Metallmine, danach wieder eine Kristallmine. Um Schiffe bauen zu können musst du zuerst eine Raumschiffswerft gebaut haben. Was dafür benötigt wird findest du links im Menüpunkt Technologie. Das Team wünscht dir viel Spaß beim Erkunden des Universums!';
 $lang['newpass_smtp_email_error']	= '<br><br>Ein Fehler trat auf. Dein Passwort ist: ';
-$lang['reg_completed']				= 'Danke für ihre Anmeldung! Sie erhalten eine E-Mail.';
+$lang['reg_completed']				= 'Danke für ihre Anmeldung! Sie erhalten eine E-Mail mit einem aktivierungs Link.';
 
 //registry_form.tpl
 $lang['server_message_reg']			= 'Registriere dich jetzt und werde ein Teil von';
@@ -127,6 +129,8 @@ $lang['rules']						= array(
 	Die Bashregel gilt ausschließlich für aktive Spieler. Befinden sich die Parteien im Krieg, so sind weitere Angriffe erlaubt. Der Krieg muss mindestens 24 Stunden vor weiteren Angriffen im Forum erklärt werden (im Thema der Ankündigung müssen beide Allianzen bzw. der Name des kriegserklärenden Einzelspielers in korrekter Schreibweise genannt werden). Eine Kriegserklärung kann ausschließlich an Allianzen gerichtet werden, wobei die Kriegserklärung durch eine Allianz oder eine Einzelperson erfolgen kann. 
 	Eine Annahme des Krieges ist nicht erforderlich. Kriege, die offensichtlich nur der massiven Umgehung der Bashregel dienen, sind verboten. Dies zu beurteilen obliegt den zuständigen Moderatoren und Operatoren.",
 
+	"Irak-Angriffe"             => "Es sind nur 3 Irak-Angriffe pro 24 Stunden erlaubt. Die Anzahl der Raketen pro Angriff ist unabhängig.",
+	
 	"Bugusing"					=> "Bugs und/oder Fehler in der Programmierung auszunutzen ist verboten. Erkannte Bugs sollten so schnell wie möglich per Post im Bugforum, IRC, Email oder ICQ gemeldet werden. Cheaten ist auch verboten.",
 
 	"Sprache im Spiel"			=> "In allen entsprechenden Universen ist Deutsch/Englisch die offizielle Sprache im Spiel. Verstöße können mit einer Sperrung des Accounts geahndet werden. Fremdsprachliche Ingame- Nachrichten/ Allypages können unter Vorbehalt zu einer Sperrung des Accounts führen.",
@@ -225,7 +229,7 @@ $lang['agb']						= array(
 	Diesbezüglich wird ausdrücklich darauf hingewiesen, dass Computerspiele erhebliche Gesundheitsrisiken bergen können.
 	Schäden sind nicht im Sinne des Betreibers.",
 
-	"änderung der Nutzungsbedingungen"	=> "Der Betreiber behält sich das Recht vor, diese Nutzungsbedingungen jederzeit zu ändern oder zu erweitern.
+	"Änderung der Nutzungsbedingungen"	=> "Der Betreiber behält sich das Recht vor, diese Nutzungsbedingungen jederzeit zu ändern oder zu erweitern.
 	Eine änderung oder Ergänzung wird mindestens eine Woche vor Inkrafttreten im Forum veröffentlicht.",
 );
 
