@@ -291,10 +291,10 @@ function DisplayGameSettingsPage ( $CurrentUser )
 		$parse['smtp_ssl1']					= ($game_config['smtp_ssl'] == "ssl")? "selected" : "";
 		$parse['smtp_ssl2']					= ($game_config['smtp_ssl'] == "tls")? "selected" : "";
 		$parse['user_valid']           	 	= ($game_config['user_valid'] == 1)  ? " checked = 'checked' ":"";
-		$parse['ftp_server']           	 	= $game_config['ftp_server'];
-		$parse['ftp_user_name']           	= $game_config['ftp_user_name'];
-		$parse['ftp_user_pass']           	= $game_config['ftp_user_pass'];
-		$parse['ftp_root_path']           	= $game_config['ftp_root_path'];
+		#$parse['ftp_server']          		= $game_config['ftp_server'];
+		#$parse['ftp_user_name']           	= $game_config['ftp_user_name'];
+		#$parse['ftp_user_pass']           	= $game_config['ftp_user_pass'];
+		#$parse['ftp_root_path']           	= $game_config['ftp_root_path'];
 		
 		$LangFolder = opendir("./../" . 'language');
 

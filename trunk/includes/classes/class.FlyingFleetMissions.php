@@ -32,7 +32,7 @@ class FlyingFleetMissions {
 		if(!CheckPlanetIfExist($CurrentFleet['fleet_start_galaxy'], $CurrentFleet['fleet_start_system'], $CurrentFleet['fleet_start_planet'], $CurrentFleet['fleet_start_type']))
 		{
 			if($CurrentFleet['fleet_start_galaxy'] == 3)
-				$CurrentFleet['fleet_start_galaxy'] 	= 1;
+				$CurrentFleet['fleet_start_galaxy']	= 1;
 			else 
 			{
 				$UserMainPlanet	= $db->fetch_array($db->query("SELECT `galaxy`, `system`, `planet` FROM ".USERS." WHERE `id` = ".$CurrentFleet['fleet_owner'].";"));
