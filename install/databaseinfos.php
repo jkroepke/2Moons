@@ -368,6 +368,19 @@ $QryTableRw         .= "KEY `time` (`time`), ";
 $QryTableRw         .= "FULLTEXT KEY `raport` (`raport`) ";
 $QryTableRw         .= ") ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 
+$QryTableSession     = "CREATE TABLE ".SESSION." (";
+$QryTableSession    .= "`session_key` CHAR( 32 ) NOT NULL ,";
+$QryTableSession    .= "`session_id` MEDIUMINT( 5 ) NOT NULL ,";
+$QryTableSession    .= "`session_ip` VARCHAR( 40 ) NOT NULL ,";
+$QryTableSession    .= "`session_browser` VARCHAR( 150 ) NOT NULL ,";
+$QryTableSession    .= "`session_start` INT( 11 ) NOT NULL ,";
+$QryTableSession    .= "`session_last_visit` INT( 11 ) NOT NULL ,";
+$QryTableSession    .= "`session_page` VARCHAR( 255 ) NOT NULL ,";
+$QryTableSession    .= "`session_admin` TINYINT( 1 ) NOT NULL ,";
+$QryTableSession    .= "PRIMARY KEY (`session_key`) ,";
+$QryTableSession    .= "UNIQUE (`session_id`)";
+$QryTableSession    .= ") ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+
 $QryTableStatPoints  = "CREATE TABLE IF NOT EXISTS `prefix_".STATPOINTS."` ( ";
 $QryTableStatPoints .= "`id_owner` int(11) NOT NULL, ";
 $QryTableStatPoints .= "`id_ally` int(11) NOT NULL, ";

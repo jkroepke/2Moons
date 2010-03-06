@@ -49,12 +49,12 @@ $IsUserChecked 	= false;
 if(file_exists(ROOT_PATH . 'config.php'))
 	require_once(ROOT_PATH . 'config.'.PHP_EXT);
 
-require_once(ROOT_PATH . 'includes/classes/class.MySQLi.'.PHP_EXT);
 require_once(ROOT_PATH . 'includes/constants.'.PHP_EXT);
-require_once(ROOT_PATH . 'includes/GeneralFunctions.'.PHP_EXT);
-require_once(ROOT_PATH . 'includes/vars.'.PHP_EXT);
+require_once(ROOT_PATH . 'includes/classes/class.MySQLi.'.PHP_EXT);
 require_once(ROOT_PATH . 'includes/classes/class.template.'.PHP_EXT);
 require_once(ROOT_PATH . 'includes/classes/class.PlanetRessUpdate.'.PHP_EXT);
+require_once(ROOT_PATH . 'includes/GeneralFunctions.'.PHP_EXT);
+require_once(ROOT_PATH . 'includes/vars.'.PHP_EXT);
 
 isBuggyIe() || ob_start("ob_gzhandler");
 

@@ -472,12 +472,15 @@ $lang['mg_game_message']					= 'Game Message';
 
 //----------------------------------------------------------------------------//
 //ALLIANCE
+
+$lang['al_newname_alphanum']				= 'Der Allianzname und -tag dürfen nur aus alphanumerische Zeichen bestehen.';
+$lang['al_newname_no_space']				= 'Der Allianzname und -tag darf keine Leerzeichen enthalten.';
 $lang['al_description_message'] 			= 'Beschreibung der Allianz.';
 $lang['al_web_text']						= 'Homepage';
 $lang['al_request'] 						= 'Bewerbung';
 $lang['al_click_to_send_request'] 			= 'Hier klicken, um sich bei der Allianz zu bewerben';
-$lang['al_tag_required'] 					= 'Dieser Allianztag wird bereits verwendet.';
-$lang['al_name_required'] 					= 'Dieser Allianzname wird bereits verwendet.';
+$lang['al_tag_required'] 					= 'Du hast keinen Allianztag angegeben.';
+$lang['al_name_required'] 					= 'Du hast keinen Allianznamen angegeben.';
 $lang['al_already_exists'] 					= 'Allianz %s existiert bereits.';
 $lang['al_created'] 						= 'Die Allianz %s wurde gegründet!';
 $lang['al_continue'] 						= 'Weiter';
@@ -571,6 +574,7 @@ $lang['al_make_ally_name_required']			= 'Allianz Name (3-30 Zeichen)';
 $lang['al_make_submit']						= 'Gründen';
 $lang['al_find_alliances']					= 'Allianz suchen';
 $lang['al_find_text']						= 'Suche nach';
+$lang['al_find_no_alliances']				= 'Keine Allianz gefunden!';
 $lang['al_find_submit']						= 'Suche';
 $lang['al_the_nexts_allys_was_founded']		= 'Es wurden folgende Allianzen gefunden:';
 $lang['al_manage_ranks']					= 'Ränge verwalten';

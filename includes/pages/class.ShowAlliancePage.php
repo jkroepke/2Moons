@@ -150,56 +150,57 @@ class ShowAlliancePage
 		return $Form;
 	}
 
-	private function ainfo($ally) 
+	private function ainfo($ally, $CurrentUser, $CurrentPlanet) 
 	{
 		global $lang, $db;
-		$parse							= $lang;
-		$parse['ally_description'] 		= "<tr><th colspan=2 height=100>".(($ally['ally_description'] != "")? $this->bbcode($ally['ally_description']) : $lang['al_description_message'])."</th></tr>";
-		$parse['ally_image'] 			= ($ally['ally_image'] != "")?"<tr><th colspan=2><img src=\"".$ally['ally_image']."\"></td></tr>":"";
-		$parse['ally_web'] 				= ($ally['ally_web'] != "")?"<tr><th>".$lang['al_web_text']."</th><th><a href=\"".$ally['ally_web']."\">".$ally['ally_web']."</a></th></tr>":"";
-		$parse['ally_member_scount'] 	= $ally['ally_members'];
-		$parse['ally_name'] 			= $ally['ally_name'];
-		$parse['ally_tag'] 				= $ally['ally_tag'];
-		$parse['ally_bewerbung']		= ($CurrentUser['ally_id'] == 0 && $ally['ally_request_notallow'] == 1)?"<tr><th>".$lang['al_request']."</th><th><a href=\"game.php?page=alliance&mode=apply&amp;allyid=" . $ally['id'] . "\">".$lang['al_click_to_send_request']."</a></th></tr>":"";
 		
-		if ($ally['ally_stats']){
-			$membercount = $gesamtkaempfe = $gesamtwins = $gesamtdraw = $gesamtloos = $gesamtmetal = $gesamtkbcrystal = $gesamtlostunits = $gesamtdesunits = 0;
-			$allymember = $db->query("SELECT wons,loos,draws,kbmetal,kbcrystal,lostunits,desunits FROM ".USERS." WHERE ally_id='" . $ally['id'] . "';");
-			while($usid = $db->fetch_array($allymember))	{
-				$gesamtkaempfe		+= $usid['wons'] + $usid['loos'] +  $usid['draws'];
-				$gesamtwins			+= $usid['wons'];
-				$gesamtdraw         += $usid['draws'];
-				$gesamtloos         += $usid['loos'];
-				$gesamtmetal        += $usid['kbmetal'];
-				$gesamtkbcrystal    += $usid['kbcrystal'];
-				$gesamtlostunits    += $usid['lostunits'];
-				$gesamtdesunits     += $usid['desunits']; 
-				$membercount++;
-			}
-			if ($gesamtkaempfe  == 0 ) {
-				$siegprozent		= 0;
-				$loosprozent		= 0;
-				$drawsprozent		= 0;
-			} else {
-				$siegprozent		= 100 / $gesamtkaempfe * $gesamtwins;
-				$loosprozent		= 100 / $gesamtkaempfe * $gesamtloos;
-				$drawsprozent		= 100 / $gesamtkaempfe * $gesamtdraw;
-			}                               
-			$parse['allystat'] = "	<tr><td class=\"c\" colspan=\"2\">".$lang['al_Allyquote']."</th></tr>
-			<tr><th>".$lang['pl_totalfight']."</th><th align=\"right\">" . pretty_number( $gesamtkaempfe ) . "</th></tr>
-			<tr><th>".$lang['pl_fightwon']."</th><th>" . pretty_number( $gesamtwins ) . " (" . round($siegprozent, 2) . " % )</th></tr>
-			<tr><th>".$lang['pl_fightlose']."</th><th>" . pretty_number( $gesamtloos ) . " (" . round($loosprozent, 2) . " % )</th></tr>
-			<tr><th>".$lang['pl_fightdraw']."</th><th>" . pretty_number( $gesamtdraw ) . " (" . round($drawsprozent, 2) . " % )</th></tr>
-			<tr><th>".$lang['pl_unitsshot']."</th><th>" . pretty_number( $gesamtdesunits     ) . "</th></tr>
-			<tr><th>".$lang['pl_unitslose']."</th><th>" . pretty_number( $gesamtlostunits ) . "</th></tr>
-			<tr><th>".$lang['pl_dermetal']."</th><th>" . pretty_number( $gesamtmetal ) . "</th></tr>
-			<tr><th>".$lang['pl_dercrystal']."</th><th>" . pretty_number( $gesamtkbcrystal ) . "</th></tr>";
-			$db->free_result($allymember);
+		if ($ally['ally_stats'] == 1)
+		{
+			$StatsData 					= $db->fetch_array($db->query("SELECT SUM(wons) as wons, SUM(loos) as loos, SUM(draws) as draws, SUM(kbmetal) as kbmetal, SUM(kbcrystal) as kbcrystal, SUM(lostunits) as lostunits, SUM(desunits) as desunits FROM ".USERS." WHERE ally_id='" . $ally['id'] . "';"));
+
+			$this->template->assign_vars(array(
+				'al_Allyquote'	=> $lang['al_Allyquote'],
+				'pl_totalfight'	=> $lang['pl_totalfight'],
+				'pl_fightwon'	=> $lang['pl_fightwon'],
+				'pl_fightlose'	=> $lang['pl_fightlose'],
+				'pl_fightdraw'	=> $lang['pl_fightdraw'],
+				'pl_unitsshot'	=> $lang['pl_unitsshot'],
+				'pl_unitslose'	=> $lang['pl_unitslose'],
+				'pl_dermetal'	=> $lang['pl_dermetal'],
+				'pl_dercrystal'	=> $lang['pl_dercrystal'],
+				'totalfight'	=> pretty_number($StatsData['wons'] + $StatsData['loos'] + $StatsData['draws']),
+				'fightwon'		=> pretty_number($StatsData['wons']),
+				'fightlose'		=> pretty_number($StatsData['loos']),
+				'fightdraw'		=> pretty_number($StatsData['draws']),
+				'unitsshot'		=> pretty_number($StatsData['desunits']),
+				'unitslose'		=> pretty_number($StatsData['lostunits']),
+				'dermetal'		=> pretty_number($StatsData['kbmetal']),
+				'dercrystal'	=> pretty_number($StatsData['kbcrystal']),
+			));
 		}
-		display(parsetemplate(gettemplate('alliance/alliance_ainfo'), $parse));
+		$this->template->assign_vars(array(
+			'al_ally_info_members'		=> $lang['al_ally_info_members'],
+			'al_ally_info_name'			=> $lang['al_ally_info_name'],
+			'al_ally_info_tag'			=> $lang['al_ally_info_tag'],
+			'al_ally_information'		=> $lang['al_ally_information'],
+			'al_description_message'	=> $lang['al_description_message'],
+			'al_web_text'				=> $lang['al_web_text'],
+			'al_click_to_send_request'	=> $lang['al_click_to_send_request'],
+			'al_request'				=> $lang['al_request'],
+			'ally_description' 			=> $this->bbcode($ally['ally_description']),
+			'ally_id'	 				=> $ally['id'],
+			'ally_image' 				=> $ally['ally_image'],
+			'ally_web'					=> $ally['ally_web'],
+			'ally_member_scount' 		=> $ally['ally_members'],
+			'ally_name' 				=> $ally['ally_name'],
+			'ally_tag' 					=> $ally['ally_tag'],
+			'ally_request'				=> ($CurrentUser['ally_id'] == 0 && $ally['ally_request_notallow'] == 1) ? true : false,
+		));
+		
+		$this->template->show("alliance_ainfo.tpl");
 	}
 	
-	public function ShowAlliancePage($CurrentUser)
+	public function ShowAlliancePage($CurrentUser, $CurrentPlanet)
 	{
 		global $dpath, $lang, $db;
 
@@ -213,22 +214,31 @@ class ShowAlliancePage
 		$rank 		= request_var('rank' 		, '');
 		$kick 		= request_var('kick' 		, '');
 		$id 		= request_var('id' 			, '');
-		$yes      	= request_var('yes' 		, '');
+		$action   	= request_var('action' 		, '');
 		$allyid   	= request_var('allyid'  	, '');
 		$show     	= request_var('show'  		, '');
 		$sendmail 	= request_var('sendmail'  	, '');
 		$t        	= request_var('t'  			, 1 );
 		$tag      	= request_var('tag' 		, '');
 
-		if (empty($sort2))  { unset($sort2); }
-		if (empty($a))      { unset($a); }
-		if (empty($mode))   { unset($mode); }
-		if (empty($sort1))  { unset($sort1); }
-		if (empty($edit))unset($edit);
-		if (empty($rank))unset($rank);
-		if (empty($kick))unset($kick);
-		if (empty($id))unset($id);
-
+		if (empty($sort2))	unset($sort2);
+		if (empty($a))		unset($a);
+		if (empty($mode)) 	unset($mode);
+		if (empty($sort1))	unset($sort1);
+		if (empty($edit))	unset($edit);
+		if (empty($rank))	unset($rank);
+		if (empty($kick))	unset($kick);
+		if (empty($id))		unset($id);
+		
+		$this->PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
+		$this->template	= new template();
+		$this->template->loadscript("trader.js");
+		$this->template->set_vars($CurrentUser, $CurrentPlanet);
+		$this->template->page_topnav();
+		$this->template->page_header();
+		$this->template->page_leftmenu();
+		$this->template->page_planetmenu();
+		$this->template->page_footer();
 
 		if ($CurrentUser['ally_id'] != 0 && $CurrentUser['ally_request'] != 0)
 		{
@@ -236,158 +246,198 @@ class ShowAlliancePage
 			header("location:game.". PHP_EXT . "?page=alliance");
 		}
 		
-		switch($CurrentUser['ally_id']){
+		switch($CurrentUser['ally_id'])
+		{
 			case 0:
 				switch($mode){
 					case 'ainfo':
 						$allyrow = $db->fetch_array($db->query("SELECT * FROM ".ALLIANCE." WHERE ally_tag='".$db->sql_escape($tag)."' OR id='".$db->sql_escape($a)."';"));
 
-						if (!$allyrow) die(header("location:game.". PHP_EXT . "?page=alliance"));
+						if (!$allyrow) die(header("Location: game.". PHP_EXT . "?page=alliance"));
 						
-						$this->ainfo($allyrow);					
+						$this->ainfo($allyrow, $CurrentUser, $CurrentPlanet);					
 					break;
 					case 'make':
-						if ($CurrentUser['ally_id'] == 0 && $CurrentUser['ally_request'] == 0)
+						if($CurrentUser['ally_request'] == 0)
 						{	
-							if ($yes == 1 && $_POST)
+							if ($action == "send")
 							{
 								$atag	= request_var('atag' , '', UTF8_SUPPORT);
 								$aname	= request_var('aname', '', UTF8_SUPPORT);
-								if ($atag == '')
-									message($lang['al_tag_required'], "game.php?page=alliance&mode=make",2);
+								
+								if (empty($atag))
+								{
+									$this->template->message($lang['al_tag_required'], "?page=alliance&mode=make", 3);
+									$this->PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
+									exit;
+								}
 
-								if ($aname == '')
-									message($lang['al_name_required'],"game.php?page=alliance&mode=make",2);
-
+								if (empty($aname))
+								{
+									$this->template->message($lang['al_name_required'], "?page=alliance&mode=make", 3);
+									$this->PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
+									exit;
+								}
+								
+								if (!CheckName($aname) || !CheckName($atag))
+								{
+									$this->template->message((UTF8_SUPPORT) ? $lang['al_newname_no_space'] : $lang['al_newname_alphanum'], "?page=alliance&mode=make", 3);
+									$this->PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
+									exit;
+								}
+								
 								$tagquery = $db->fetch_array($db->query("SELECT `id` FROM `".ALLIANCE."` WHERE ally_tag = '".$db->sql_escape($atag)."' OR ally_name = '".$db->sql_escape($aname)."';"));
 
 								if (isset($tagquery))
-									message(str_replace('%s', $aname, $lang['al_already_exists'])."'","game.php?page=alliance&mode=make",2);
+								{
+									$this->template->message(sprintf($lang['al_already_exists'], $aname), "?page=alliance&mode=make", 3);
+									$this->PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
+									exit;
+								}
 								
-								$db->query("INSERT INTO ".ALLIANCE." SET
+								$db->multi_query("INSERT INTO ".ALLIANCE." SET
 								`ally_name`='".$db->sql_escape($aname)."',
 								`ally_tag`='".$db->sql_escape($atag)."' ,
 								`ally_owner`='".$CurrentUser['id']."',
 								`ally_owner_range`='Leader',
 								`ally_members`='1',
-								`ally_register_time`='" . time()."';");
-
-
-								$db->query("UPDATE ".USERS." SET
+								`ally_register_time`='" . time()."';
+								UPDATE ".USERS." SET
 								`ally_id`= (SELECT `id` FROM ".ALLIANCE." WHERE ally_name = '".$db->sql_escape($aname)."'),
 								`ally_name` = '".$db->sql_escape($aname)."',
 								`ally_register_time` = '" . time() . "'
 								WHERE `id` = '".$CurrentUser['id']."';");
 											
-								$page = $this->MessageForm(str_replace('%s', $atag, $lang['al_created']), str_replace('%s', $atag, $lang['al_created']) . "<br><br>", "", $lang['al_continue']);
-							}
-							else
-								$page .= parsetemplate(gettemplate('alliance/alliance_make'), $parse);
-
-							display($page);
+								$this->template->message(sprintf($lang['al_created'], $atag),"?page=alliance", 3);
+							} else {
+								$this->template->assign_vars(array(
+									'al_make_alliance'				=> $lang['al_make_alliance'],
+									'al_make_ally_tag_required'		=> $lang['al_make_ally_tag_required'],
+									'al_make_ally_name_required'	=> $lang['al_make_ally_name_required'],
+									'al_make_submit'				=> $lang['al_make_submit'],
+								));	
+								$this->template->show("alliance_make.tpl");
+							}		
+						
 						} else {
-							header("location:game.". PHP_EXT . "?page=alliance");
+							header("Location: game.". PHP_EXT . "?page=alliance");
 						}
 					break;
 					case 'search';
 						if($CurrentUser['ally_request'] == 0)
 						{
-							$page = parsetemplate(gettemplate('alliance/alliance_searchform'), $parse);
+							$searchtext	= request_var('searchtext', '', UTF8_SUPPORT);
 
-							if ($_POST)
+							if (!empty($searchtext))
 							{
-								$searchtext	= request_var('searchtext', '');
-								$search = $db->query("SELECT * FROM ".ALLIANCE." WHERE ally_name LIKE '%".$db->sql_escape($searchtext)."%' or ally_tag LIKE '%".$db->sql_escape($searchtext)."%' LIMIT 30;");
-
-								if ($db->num_rows($search) != 0)
+								$Search = $db->query("SELECT id, ally_tag, ally_name, ally_members FROM ".ALLIANCE." WHERE ally_name LIKE '%".$db->sql_escape($searchtext)."%' OR ally_tag LIKE '%".$db->sql_escape($searchtext)."%' LIMIT 30;");
+								$SeachResult	= array();
+								
+								while ($CurrRow = $db->fetch_array($Search))
 								{
-									while ($s = $db->fetch_array($search))
-									{
-										$searchData 					= array();
-										$searchData['ally_tag'] 		= "<a href=\"game.php?page=alliance&mode=apply&allyid=".$s['id']."\">".$s['ally_tag']."</a>";
-										$searchData['ally_name'] 		= $s['ally_name'];
-										$searchData['ally_members'] 	= $s['ally_members'];
-
-										$parse['result'] .= parsetemplate(gettemplate('alliance/alliance_searchresult_row'), $searchData);
-									}
-
-									$page .= parsetemplate(gettemplate('alliance/alliance_searchresult_table'), $parse);
+									$SeachResult[]	= array(
+										'id'		=> $CurrRow['id'],
+										'tag'		=> $CurrRow['ally_tag'],
+										'name'		=> $CurrRow['ally_name'],
+										'members' 	=> $CurrRow['ally_members'],									
+									);
 								}
 							}
-							display($page);
+							$this->template->assign_vars(array(
+								'searchtext'						=> $searchtext,
+								'SeachResult'						=> $SeachResult,
+								'al_find_submit'					=> $lang['al_find_submit'],
+								'al_find_text'						=> $lang['al_find_text'],
+								'al_find_alliances'					=> $lang['al_find_alliances'],
+								'al_make_submit'					=> $lang['al_make_submit'],
+								'al_find_no_alliances'				=> $lang['al_find_no_alliances'],
+								'al_ally_info_members'				=> $lang['al_ally_info_members'],
+								'al_ally_info_name'					=> $lang['al_ally_info_name'],
+								'al_ally_info_tag'					=> $lang['al_ally_info_tag'],
+							));	
+							
+							$this->template->show("alliance_searchform.tpl");
 						} else {
-							header("location:game.". PHP_EXT . "?page=alliance");
+							header("Location: ?page=alliance");
 						}
 					break;
 					case 'apply':
 						if($CurrentUser['ally_request'] == 0)
 						{
-							$allyid	= request_var('allyid', '');
-							$enviar	= request_var('enviar', '');
 							$text	= request_var('text'  , '');
-							if($allyid != '')
-								$alianza = $db->fetch_array($db->query("SELECT `ally_request_notallow` FROM ".ALLIANCE." WHERE id='".$db->sql_escape($allyid)."';"));
+							
+							$allyrow = $db->fetch_array($db->query("SELECT `ally_tag`, `ally_request`, `ally_request_notallow` FROM ".ALLIANCE." WHERE id='".$db->sql_escape($allyid)."';"));
 
-							if($alianza['ally_request_notallow'] == 1)
-								message($lang['al_alliance_closed'], "game.". PHP_EXT ."?page=alliance");
+							if (!$allyrow)
+								header("Location: ?page=alliance");
+									
+							if($allyrow['ally_request_notallow'] == 1)
+							{
+								$this->template->message($lang['al_alliance_closed']);
+								$this->PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
+								exit;
+							}
 							else
 							{
-								if (!is_numeric($allyid) || !$allyid || $CurrentUser['ally_request'] != 0 || $CurrentUser['ally_id'] != 0)
-									header("location:game.". PHP_EXT . "?page=alliance");
-
-								$allyrow = $db->fetch_array($db->query("SELECT ally_tag,ally_request FROM ".ALLIANCE." WHERE id='".$db->sql_escape($allyid)."';"));
-
-								if (!$allyrow)
-									header("location:game.". PHP_EXT . "?page=alliance");
-
-								extract($allyrow);
-
-								if ($enviar == $lang['al_applyform_send'])
+								if ($action == "send")
 								{
 									$db->query("UPDATE ".USERS." SET `ally_request`='".$db->sql_escape($allyid)."', ally_request_text='" .$db->sql_escape($text). "', ally_register_time='" . time() . "' WHERE `id`='" . $CurrentUser['id'] . "';");
 
-									message($lang['al_request_confirmation_message'],"game.php?page=alliance");
+									$this->template->message($lang['al_request_confirmation_message'], "?page=alliance");
+								} else {
+									$this->template->assign_vars(array(
+										'allyid'					=> $allyid,
+										'al_your_request_title'		=> $lang['al_your_request_title'],
+										'applytext'					=> ($ally_request) ? $ally_request : $lang['al_default_request_text'],
+										'al_write_request'			=> sprintf($lang['al_write_request'], $allyrow['ally_tag']),
+										'al_applyform_reload'		=> $lang['al_applyform_reload'],
+										'al_applyform_send'			=> $lang['al_applyform_send'],
+										'al_message'				=> $lang['al_message'],
+									));	
+									
+									$this->template->show("alliance_applyform.tpl");
 								}
-								else
-									$text_apply = ($ally_request) ? $ally_request : $lang['al_default_request_text'];
-
-								$parse['allyid'] 			= $allyid;
-								$parse['chars_count'] 		= strlen($text_apply);
-								$parse['text_apply'] 		= $text_apply;
-								$parse['Write_to_alliance'] = str_replace('%s', $ally_tag, $lang['al_write_request']);
-
-								display(parsetemplate(gettemplate('alliance/alliance_applyform'), $parse));
 							}
 						} else {
-							header("location:game.". PHP_EXT . "?page=alliance");
+							header("Location: ?page=alliance");
 						}
 					break;
 					default:
-						if ($CurrentUser['ally_request'] != 0) {
-							$allyquery = $db->fetch_array($db->query("SELECT ally_tag FROM ".ALLIANCE." WHERE id='".$CurrentUser['ally_request']. "' ORDER BY `id`;"));
-
-							extract($allyquery);
-
-							if ($_POST['bcancel'])
+						if ($CurrentUser['ally_request'] != 0) 
+						{
+							$allyquery 	= $db->fetch_array($db->query("SELECT ally_tag FROM ".ALLIANCE." WHERE id = '".$CurrentUser['ally_request']. "' ORDER BY `id`;"));
+							$bcancel	= request_var('bcancel', '');
+							
+							if ($bcancel)
 							{
 								$db->query("UPDATE ".USERS." SET `ally_request`= 0 WHERE `id`='".$CurrentUser['id']."';");
-
-								$lang['request_text'] = str_replace('%s', $ally_tag, $lang['al_request_deleted']);
-								$lang['button_text'] = $lang['al_continue'];
-								$page = parsetemplate(gettemplate('alliance/alliance_apply_waitform'), $lang);
+								$this->template->assign_vars(array(
+									'al_your_request_title'			=> $lang['al_your_request_title'],
+									'button_text'					=> $lang['al_continue'],
+									'request_text'					=> sprintf($lang['al_request_deleted'], $allyquery['ally_tag']),
+									'al_make_submit'				=> $lang['al_continue'],
+								));	
 							}
 							else
-							{
-								$lang['request_text'] = str_replace('%s', $ally_tag, $lang['al_request_wait_message']);
-								$lang['button_text'] = $lang['al_delete_request'];
-								$page = parsetemplate(gettemplate('alliance/alliance_apply_waitform'), $lang);
+							{								
+								$this->template->assign_vars(array(
+									'al_your_request_title'			=> $lang['al_your_request_title'],
+									'button_text'					=> $lang['al_delete_request'],
+									'request_text'					=> sprintf($lang['al_request_wait_message'], $allyquery['ally_tag']),
+									'al_make_submit'				=> $lang['al_make_submit'],
+								));	
 							}
 
-							display($page);
+							$this->template->show("alliance_apply_waitform.tpl");
 						}
 						else
 						{
-							display(parsetemplate(gettemplate('alliance/alliance_defaultmenu'), $lang));
+							$this->template->assign_vars(array(
+								'al_alliance_search'			=> $lang['al_alliance_search'],
+								'al_alliance_make'				=> $lang['al_alliance_make'],
+								'al_alliance'					=> $lang['al_alliance'],
+							));	
+							$this->template->show("alliance_defaultmenu.tpl");
 						}
 					break;
 				}
@@ -458,7 +508,7 @@ class ShowAlliancePage
 
 						if (!$allyrow) die(header("location:game.". PHP_EXT . "?page=alliance"));
 						
-						$this->ainfo($allyrow);	
+						$this->ainfo($allyrow, $CurrentUser, $CurrentPlanet);	
 					break;
 					case 'exit':
 						if ($ally['ally_owner'] == $CurrentUser['id'])
@@ -1172,6 +1222,7 @@ class ShowAlliancePage
 				}
 			break;
 		}
+		$this->PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 	}
 }
 ?>
