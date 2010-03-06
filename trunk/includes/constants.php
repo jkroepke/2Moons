@@ -133,6 +133,7 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	define('PLANETS'	              , $database["tableprefix"]."planets");
 	define('PLUGINS'	              , $database["tableprefix"]."plugins");
 	define('RW'			              , $database["tableprefix"]."rw");
+	define('SESSION'				  , $database["tableprefix"]."session");
 	define('STATPOINTS'				  , $database["tableprefix"]."statpoints");
 	define('SUPP'					  , $database["tableprefix"]."supp");
 	define('TOPKB'					  , $database["tableprefix"]."topkb");

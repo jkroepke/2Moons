@@ -99,7 +99,9 @@ class DB_mysqli
 		if(!is_object($this->mysqli))
 			$this->connect();
 			
-		#echo $sql."\n";
+		#$temp = debug_backtrace();
+		#file_put_contents(ROOT_PATH."adm/logs/querylog_".date("d.m.y").".log", date("H:i:s")." ".$_SERVER['REQUEST_URI']." on ".$temp[0]['line']." ".$sql."\n", FILE_APPEND);
+	
 		if($result = $this->mysqli->query($sql))
 		{
 			$this->queryCount++;
@@ -291,6 +293,9 @@ class DB_mysqli
 	{	
 		if(!is_object($this->mysqli))
 			$this->connect();
+		
+		#$temp = debug_backtrace();
+		#file_put_contents(ROOT_PATH."adm/logs/querylog_".date("d.m.y").".log", date("H:i:s")." ".$_SERVER['REQUEST_URI']." on ".$temp[0]['line']." ".$resource."\n", FILE_APPEND);
 
 		if($this->mysqli->multi_query($resource))
 		{

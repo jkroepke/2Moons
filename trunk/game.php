@@ -23,14 +23,16 @@ define('INSIDE'  , true);
 define('INSTALL' , false);
 define('ROOT_PATH', './');
 
-include(ROOT_PATH . 'extension.inc');
-include(ROOT_PATH . 'common.' . PHP_EXT);
+include_once(ROOT_PATH . 'extension.inc');
+include_once(ROOT_PATH . 'common.' . PHP_EXT);
+include_once(ROOT_PATH . 'includes/functions/CheckPlanetBuildingQueue.' . PHP_EXT);
+include_once(ROOT_PATH . 'includes/functions/GetBuildingPrice.' . PHP_EXT);
+include_once(ROOT_PATH . 'includes/functions/IsElementBuyable.' . PHP_EXT);
+include_once(ROOT_PATH . 'includes/functions/SetNextQueueElementOnTop.' . PHP_EXT);
+include_once(ROOT_PATH . 'includes/functions/UpdatePlanetBatimentQueueList.' . PHP_EXT);
 
-include(ROOT_PATH . 'includes/functions/CheckPlanetBuildingQueue.' . PHP_EXT);
-include(ROOT_PATH . 'includes/functions/GetBuildingPrice.' . PHP_EXT);
-include(ROOT_PATH . 'includes/functions/IsElementBuyable.' . PHP_EXT);
-include(ROOT_PATH . 'includes/functions/SetNextQueueElementOnTop.' . PHP_EXT);
-include(ROOT_PATH . 'includes/functions/UpdatePlanetBatimentQueueList.' . PHP_EXT);
+
+
 
 $page = request_var('page','');
 switch($page)
