@@ -390,9 +390,9 @@ class ShowFleetPages extends FleetFunctions
 		$planettype 			= request_var('planettype', 0);
 		$fleet_group		 	= request_var('fleet_group', 0);
 		$GenFleetSpeed		 	= request_var('speed', 0);
-		$TransportMetal			= request_var('resource1','0');
-		$TransportCrystal		= request_var('resource2','0');
-		$TransportDeuterium		= request_var('resource3','0');
+		$TransportMetal			= round(request_var('resource1', 0.0), 0);
+		$TransportCrystal		= round(request_var('resource2', 0.0), 0);
+		$TransportDeuterium		= round(request_var('resource3', 0.0), 0);
 		$holdingtime 			= request_var('holdingtime', 0);
 		$acs_target_mr			= request_var('acs_target_mr', '');
 		$rawfleetarray			= request_var('usedfleet','',true);
