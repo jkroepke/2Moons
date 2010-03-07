@@ -26,14 +26,13 @@ function ShowTraderPage($CurrentUser, $CurrentPlanet)
 	global  $lang, $db;
 	$ress 		= request_var('ress', '');
 	$action 	= request_var('action', '');
-	$metal		= request_var('metal', 0);
-	$crystal 	= request_var('crystal', 0);
-	$deut		= request_var('deuterium', 0);
+	$metal		= round(request_var('metal', 0.0), 0);
+	$crystal 	= round(request_var('crystal', 0.0), 0);
+	$deut		= round(request_var('deuterium', 0.0), 0);
 
 	$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
 	$template	= new template();
 	$template->loadscript("trader.js");
-	$template->set_vars($CurrentUser, $CurrentPlanet);
 	$template->page_topnav();
 	$template->page_header();
 	$template->page_leftmenu();
@@ -57,6 +56,7 @@ function ShowTraderPage($CurrentUser, $CurrentPlanet)
 							$CurrentPlanet['metal']     -= $trade;
 							$CurrentPlanet['crystal']   += $crystal;
 							$CurrentPlanet['deuterium'] += $deut;
+							$template->set_vars($CurrentUser, $CurrentPlanet);
 							$template->message($lang['tr_exchange_done'],"game." . PHP_EXT . "?page=trader",1);
 						}
 						else
@@ -87,13 +87,14 @@ function ShowTraderPage($CurrentUser, $CurrentPlanet)
 						$template->message($lang['tr_only_positive_numbers'], "game." . PHP_EXT . "?page=trader",1);
 					else
 					{
-						$trade	= ($metal * 0.5 + $deut * 2);
+						$trade	= ($metal * 0.5 + $deut * 2);						
 
 						if ($CurrentPlanet['crystal'] > $trade)
 						{
 							$CurrentPlanet['metal']     += $metal;
 							$CurrentPlanet['crystal']   -= $trade;
 							$CurrentPlanet['deuterium'] += $deut;
+							$template->set_vars($CurrentUser, $CurrentPlanet);
 							$template->message($lang['tr_exchange_done'],"game." . PHP_EXT . "?page=trader",1);
 						}
 						else
@@ -125,12 +126,13 @@ function ShowTraderPage($CurrentUser, $CurrentPlanet)
 					else
 					{
 						$trade	= ($metal * 0.25 + $crystal * 0.5);
-
+						
 						if ($CurrentPlanet['deuterium'] > $trade)
 						{
 							$CurrentPlanet['metal']     += $metal;
 							$CurrentPlanet['crystal']   += $crystal;
 							$CurrentPlanet['deuterium'] -= $trade;
+							$template->set_vars($CurrentUser, $CurrentPlanet);
 							$template->message($lang['tr_exchange_done'],"game." . PHP_EXT . "?page=trader", 1);
 						}
 						else
