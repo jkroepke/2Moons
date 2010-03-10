@@ -39,12 +39,12 @@ function ShowBuddyPage($CurrentUser, $CurrentPlanet)
 			{
 				case 1:
 					$db->query("DELETE FROM ".BUDDY." WHERE `id`='".$bid."';");
-					header("Location:game.php?page=buddy");
+					header("Location: ?page=buddy");
 				break;
 
 				case 2:
 					$db->query("UPDATE ".BUDDY." SET `active` = '1' WHERE `id` ='".$bid."';");
-					header("Location:game.php?page=buddy");
+					header("Location: ?page=buddy");
 				break;
 
 				case 3:

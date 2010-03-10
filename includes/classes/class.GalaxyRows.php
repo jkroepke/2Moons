@@ -90,23 +90,18 @@ class GalaxyRows
 		return $Result;
 	}
 
-	public function GalaxyRowDebris($GalaxyRowPlanet, $CurrentRC)
+	public function GalaxyRowDebris($GalaxyRowPlanet, $CurrentRC, $CurrentGRC)
 	{
 		global $user, $pricelist, $lang;
 
-		$RecNeeded = ceil(($GalaxyRowPlanet["der_metal"] + $GalaxyRowPlanet["der_crystal"]) / $pricelist[209]['capacity']);
-
-		if ($RecNeeded < $CurrentRC)
-			$RecSended = $RecNeeded;
-		elseif ($RecNeeded >= $CurrentRC)
-			$RecSended = $CurrentRC;
-		else
-			$RecSended = $RecyclerCount;
-		
+		$GRecNeeded = min(ceil(($GalaxyRowPlanet['der_metal'] + $GalaxyRowPlanet['der_crystal']) / $pricelist[219]['capacity']), $CurrentGRC);
+		$RecNeeded 	= min(ceil(max($GalaxyRowPlanet['der_metal'] + $GalaxyRowPlanet['der_crystal'] - ($GRecNeeded * $pricelist[219]['capacity']), 0) / $pricelist[209]['capacity']), $CurrentRC);
+				
 		$Result = array(
-			'metal'		=> pretty_number($GalaxyRowPlanet["der_metal"]),
-			'crystal'	=> pretty_number($GalaxyRowPlanet["der_crystal"]),
-			'RecSended'	=> $RecSended,			
+			'metal'			=> pretty_number($GalaxyRowPlanet["der_metal"]),
+			'crystal'		=> pretty_number($GalaxyRowPlanet["der_crystal"]),
+			'RecSended'		=> $RecNeeded,			
+			'GRecSended'	=> $GRecNeeded,			
 		);
 
 		return $Result;

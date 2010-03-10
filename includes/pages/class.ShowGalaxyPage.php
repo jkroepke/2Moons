@@ -26,11 +26,9 @@ include_once(ROOT_PATH . 'includes/classes/class.GalaxyRows.' . PHP_EXT);
 class ShowGalaxyPage extends GalaxyRows
 {
 
-	private function ShowGalaxyRows($Galaxy, $System, $HavePhalanx, $CurrentGalaxy, $CurrentSystem, $CurrentRC, $CurrentMIP, $CanDestroy, $UserPoints)
+	private function ShowGalaxyRows($Galaxy, $System, $HavePhalanx, $CurrentGalaxy, $CurrentSystem, $CurrentRC, $CurrentMIP, $CanDestroy, $UserPoints, $CurrentGRC)
 	{
 		global $dpath, $user, $db, $lang;
-
-
 
 		$GalaxyPlanets		= $db->query("SELECT DISTINCT p.`planet`, p.`id`, p.`id_owner`, p.`name`, p.`image`, p.`diameter`, p.`temp_min`, p.`destruyed`, p.`der_metal`, p.`der_crystal`, p.`id_luna`, u.`id` as `userid`, u.`ally_id`, u.`username`, u.`onlinetime`, u.`urlaubs_modus`, u.`bana`, s.`total_points`, s.`total_rank`, a.`id` as `allyid`, a.`ally_tag`, a.`ally_members`, a.`ally_name`, allys.`total_rank` as `ally_rank` FROM ".PLANETS." p	LEFT JOIN ".USERS." u ON p.`id_owner` = u.`id` LEFT JOIN ".STATPOINTS." s ON s.`id_owner` = u.`id` AND s.`stat_type` = '1'	LEFT JOIN ".ALLIANCE." a ON a.`id` = u.`ally_id` LEFT JOIN ".STATPOINTS." allys ON allys.`stat_type` = '2' AND allys.`id_owner` = a.`id` WHERE p.`galaxy` = '".$Galaxy."' AND p.`system` = '".$System."' AND p.`planet_type` = '1' ORDER BY p.`planet` ASC;");
 		$planetcount		= 0;
@@ -69,7 +67,7 @@ class ShowGalaxyPage extends GalaxyRows
 					$Result[$Planet]['ally']	= $this->GalaxyRowAlly($GalaxyRowPlanet);
 				
 				if ($GalaxyRowPlanet["der_metal"] > 0 || $GalaxyRowPlanet["der_crystal"] > 0)
-					$Result[$Planet]['derbis']	= $this->GalaxyRowDebris($GalaxyRowPlanet, $CurrentRC);
+					$Result[$Planet]['derbis']	= $this->GalaxyRowDebris($GalaxyRowPlanet, $CurrentRC, $CurrentGRC);
 					
 				if ($GalaxyRowPlanet['id_luna'] != 0)
 				{
@@ -95,8 +93,9 @@ class ShowGalaxyPage extends GalaxyRows
 		
 		$CurrentPlID   	= $CurrentPlanet['id'];
 		$CurrentMIP    	= $CurrentPlanet['interplanetary_misil'];
-		$CurrentRC     	= $CurrentPlanet['recycler'];
-		$CurrentSP     	= $CurrentPlanet['spy_sonde'];
+		$CurrentRC     	= $CurrentPlanet[$resource[209]];
+		$CurrentSP     	= $CurrentPlanet[$resource[210]];
+		$CurrentGRC     = $CurrentPlanet[$resource[219]];
 		$HavePhalanx   	= $CurrentPlanet['phalanx'];
 		$CurrentSystem 	= $CurrentPlanet['system'];
 		$CurrentGalaxy 	= $CurrentPlanet['galaxy'];
@@ -126,7 +125,7 @@ class ShowGalaxyPage extends GalaxyRows
 				$system	= min($system + 1, MAX_SYSTEM_IN_GALAXY);
 		}
 
-		if (!($galaxy == $CurrentPlanet['galaxy'] && $system == $CurrentPlanet['system']) || $mode != 0)
+		if (!($galaxy == $CurrentPlanet['galaxy'] && $system == $CurrentPlanet['system']) && $mode != 0)
 		{
 			if($CurrentPlanet['deuterium'] < 10)
 			{
@@ -162,7 +161,7 @@ class ShowGalaxyPage extends GalaxyRows
 			$MissleSelector[$Element] = $lang['tech'][$Element];
 		}
 		
-		$Result	= $this->ShowGalaxyRows($galaxy, $system, $HavePhalanx, $CurrentGalaxy, $CurrentSystem, $CurrentRC, $CurrentMIP, $CanDestroy, $UserPoints);
+		$Result	= $this->ShowGalaxyRows($galaxy, $system, $HavePhalanx, $CurrentGalaxy, $CurrentSystem, $CurrentRC, $CurrentMIP, $CanDestroy, $UserPoints, $CurrentGRC);
 
 		$template->assign_vars(array(	
 			'GalaxyRows'				=> $Result['Result'],
@@ -172,9 +171,10 @@ class ShowGalaxyPage extends GalaxyRows
 			'system'					=> $system,
 			'planet'					=> $planet,
 			'current'					=> $current,
-			'currentmip'				=> $CurrentMIP,
+			'currentmip'				=> pretty_number($CurrentMIP),
 			'maxfleetcount'				=> $maxfleet,
 			'fleetmax'					=> ($CurrentUser['computer_tech'] + 1) + ($CurrentUser['rpg_commandant'] * COMMANDANT),
+			'grecyclers'   				=> pretty_number($CurrentGRC),
 			'recyclers'   				=> pretty_number($CurrentRC),
 			'spyprobes'   				=> pretty_number($CurrentSP),
 			'missile_count'				=> sprintf($lang['gl_missil_to_launch'], $CurrentMIP),
@@ -212,6 +212,7 @@ class ShowGalaxyPage extends GalaxyRows
 			'gl_i'						=> $lang['gl_i'],
 			'gl_inactive_twentyeight'	=> $lang['gl_inactive_twentyeight'],
 			'gl_I'						=> $lang['gl_I'],
+			'gl_avaible_grecyclers'		=> $lang['gl_avaible_grecyclers'],
 			'gl_avaible_recyclers'		=> $lang['gl_avaible_recyclers'],
 			'gl_avaible_spyprobes'		=> $lang['gl_avaible_spyprobes'],
 			'gl_fleets'					=> $lang['gl_fleets'],

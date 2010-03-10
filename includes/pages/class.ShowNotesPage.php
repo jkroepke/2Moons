@@ -25,14 +25,16 @@ class ShowNotesPage
 {
 	private function InsertNotes($CurrentUserID)
 	{
-		global $db;
+		global $db, $lang;
 		$priority 	= request_var('priority',2);
-		$title 		= request_var('title', "Kein Titel", true);
-		$text 		= request_var('text', "Kein Text", true);
-		$id			= request_var('id', 0);		
+		$title 		= request_var('title', '', true);
+		$text 		= request_var('text', '', true);
+		$id			= request_var('id', 0);	
+		$title 		= !empty($title) ? $title : $lang['nt_no_title'];
+		$text 		= !empty($text) ? $text : $lang['nt_no_text'];
 		$sql 		= ($id == 0) ? "INSERT INTO ".NOTES." SET owner = '".$CurrentUserID."', time = '".time()."', priority = '".$db->sql_escape($priority)."', title = '".$db->sql_escape($title)."', text = '".$db->sql_escape($text)."';" : "UPDATE ".NOTES." SET time = '".time()."', priority = '".$db->sql_escape($priority)."', title = '".$db->sql_escape($title)."', text = '".$db->sql_escape($text)."' WHERE id = '".$db->sql_escape($id)."';";
 		$db->query($sql);
-		header("location:game.php?page=notes");
+		$this->ShowIndexPage($CurrentUserID);
 	}
 	
 	private function DeleteNotes($CurrentUserID)
@@ -106,8 +108,8 @@ class ShowNotesPage
 			'PriorityList'		=> array(2 => $lang['nt_important'], 1 => $lang['nt_normal'], 0 => $lang['nt_unimportant']),
 			'priority'			=> $Note['priority'],
 			'id'				=> $Note['id'],
-			'title'				=> $Note['title'],
-			'text'				=> $Note['text'],
+			'ntitle'			=> $Note['title'],
+			'ntext'				=> $Note['text'],
 		));
 		
 		$template->show('notes_edit_form.tpl');

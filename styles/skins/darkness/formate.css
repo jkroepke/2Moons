@@ -260,7 +260,9 @@ padding-left : 3px;
 line-height : 18px;
 height : 22px;
 background-image : url(img/bkd_title.png);
+background-repeat : repeat;
 }
+
 textarea {
 width : 97%;
 }

@@ -12,7 +12,7 @@
 
 <tr><td class="c"><b>{$chat_disc}</b></td></tr>
 
-<tr><th><div id="shoutbox" style="margin: 5px; vertical-align: text-top; height: 360px; overflow:auto;"></div></th></tr>
+<tr><th><div id="shoutbox" style="margin: 5px; vertical-align: text-top; height: {if !$ctype}360px{else}200px{/if}; overflow:auto;"></div></th></tr>
 
 <tr><th nowrap> 
 {$chat_message}: <input name="msg" type="text" id="msg" style="width:75%" maxlength="255" onKeyPress="if(event.keyCode == 13){ addMessage(); } if (event.keyCode==60 || event.keyCode==62) event.returnValue = false; if (event.which==60 || event.which==62) return false;"> 
@@ -80,6 +80,6 @@ setInterval(showMessage,10000);
 </script>
 {if !$ctype}
 </div>
-{/if}
 {include file="planet_menu.tpl"}
+{/if}
 {include file="overall_footer.tpl"}

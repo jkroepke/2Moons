@@ -134,7 +134,7 @@ function ShowStatisticsPage($CurrentUser, $CurrentPlanet)
 
 			$start = floor($range / 100 % 100) * 100;
 
-			$stats_sql	=	'SELECT s.*, a.id, a.ally_members, a.ally_name FROM '.STATPOINTS.' as s
+			$stats_sql	=	'SELECT DISTINCT s.*, a.id, a.ally_members, a.ally_name FROM '.STATPOINTS.' as s
 			INNER JOIN '.ALLIANCE.' as a ON a.id = s.id_owner
 			WHERE `stat_type` = 2 AND `stat_code` = 1
 			ORDER BY `'. $Order .'` DESC LIMIT '. $start .',100;';

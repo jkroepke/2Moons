@@ -1,7 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-
-<html>
+<html lang="de">
 <head>
 <link rel='stylesheet' type='text/css' href='styles/css/common_2-20.css'>
 <link rel='stylesheet' type='text/css' href='styles/css/jquery.loadmask.css'>

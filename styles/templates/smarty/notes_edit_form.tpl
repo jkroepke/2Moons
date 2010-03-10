@@ -16,13 +16,13 @@
     <tr>
       <th>{$nt_subject_note}</th>
       <th>
-        <input type="text" name="title" size="30" maxlength="30" value="{$title}">
+        <input type="text" name="title" size="30" maxlength="30" value="{$ntitle}">
       </th>
     </tr>
     <tr>
       <th>{$nt_note} (<span id="cntChars">0</span> / 5000 {$nt_characters})</th>
       <th>
-        <textarea name="text" cols="60" rows="10" onkeyup="javascript:cntchar(5000)">{$text}</textarea>
+        <textarea name="text" cols="60" rows="10" onkeyup="javascript:cntchar(5000)">{$ntext}</textarea>
       </th>
     </tr>
     <tr>
