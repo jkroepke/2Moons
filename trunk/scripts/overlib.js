@@ -36,7 +36,7 @@ registerCommands('donothing,inarray,caparray,sticky,background,noclose,caption,l
 ////////
 if (typeof ol_fgcolor=='undefined') var ol_fgcolor="#CCCCFF";
 if (typeof ol_bgcolor=='undefined') var ol_bgcolor="#333399";
-if (typeof ol_textcolor=='undefined') var ol_textcolor="#000000";
+if (typeof ol_textcolor=='undefined') var ol_textcolor="#CCCCCC";
 if (typeof ol_capcolor=='undefined') var ol_capcolor="#FFFFFF";
 if (typeof ol_closecolor=='undefined') var ol_closecolor="#9999FF";
 if (typeof ol_textfont=='undefined') var ol_textfont="Verdana,Arial,Helvetica";

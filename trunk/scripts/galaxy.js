@@ -2,17 +2,18 @@ var ajax = new sack();
 var strInfo = "";
 
 function whenResponse () {
-	retVals   = this.response.split("|");
-	Message   = retVals[0];
-	Infos     = retVals[1];
-	retVals   = Infos.split(" ");
-	UsedSlots = retVals[0];
-	SpyProbes = retVals[1];
-	Recyclers = retVals[2];
-	Missiles  = retVals[3];
-	retVals   = Message.split(";");
-	CmdCode   = retVals[0];
-	strInfo   = retVals[1];
+	retVals   	= this.response.split("|");
+	Message   	= retVals[0];
+	Infos     	= retVals[1];
+	retVals   	= Infos.split(" ");
+	UsedSlots 	= retVals[0];
+	SpyProbes 	= retVals[1];
+	Recyclers 	= retVals[2];
+	GRecyclers	= retVals[3];
+	Missiles  	= retVals[4];
+	retVals  	= Message.split(";");
+	CmdCode  	= retVals[0];
+	strInfo  	= retVals[1];
 	if(CmdCode == 600)
 		addToTable("Done", "success");
 	else
@@ -21,8 +22,10 @@ function whenResponse () {
 	changeSlots(UsedSlots);
 	setShips("probes", SpyProbes );
 	setShips("recyclers", Recyclers );
+	setShips("grecyclers", GRecyclers );
 	setShips("missiles", Missiles );
 }
+
 function doit (order, galaxy, system, planet, planettype, shipcount) {
 	ajax.requestFile = "game.php?page=fleetajax";
 	ajax.runResponse = whenResponse;
@@ -32,12 +35,11 @@ function doit (order, galaxy, system, planet, planettype, shipcount) {
 	ajax.setVar("system", system);
 	ajax.setVar("planet", planet);
 	ajax.setVar("planettype", planettype);
-	if (order == 6)
-		ajax.setVar("ship210", shipcount);
-	else if (order == 8)
-		ajax.setVar("ship209", shipcount);
+	ajax.setVar("ships", shipcount);
+	ajax.setVar("ships", shipcount);
 	ajax.runAJAX();
 }
+
 function addToTable(strDataResult, strClass) {
 	var e = document.getElementById('fleetstatusrow');
 	var e2 = document.getElementById('fleetstatustable');

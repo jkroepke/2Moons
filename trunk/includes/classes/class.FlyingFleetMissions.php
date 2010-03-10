@@ -1557,12 +1557,12 @@ class FlyingFleetMissions {
 			$TargetPlanet        = $db->fetch_array($db->query($QryGetTargetPlanet));
 			$TargetUserID        = $TargetPlanet['id_owner'];
 			$CurrentPlanet       = $db->fetch_array($db->query("SELECT name,system,galaxy,planet FROM ".PLANETS." WHERE `galaxy` = '".$FleetRow['fleet_start_galaxy']."' AND `system` = '".$FleetRow['fleet_start_system']."' AND `planet` = '".$FleetRow['fleet_start_planet']."';"));
-			$CurrentSpyLvl       = $CurrentUser['spy_tech'] + ($CurrentUser['rpg_espion'] * ESPION);
+			$CurrentSpyLvl       = max(($CurrentUser['spy_tech'] + ($CurrentUser['rpg_espion'] * ESPION)), 1);
 			$TargetUser          = $db->fetch_array($db->query("SELECT * FROM ".USERS." WHERE `id` = '".$TargetUserID."';"));
-			$TargetSpyLvl        = $TargetUser['spy_tech'] + ($TargetUser['rpg_espion'] * ESPION);
+			$TargetSpyLvl        = max(($TargetUser['spy_tech'] + ($TargetUser['rpg_espion'] * ESPION)), 1);
 			$fleet               = explode(";", $FleetRow['fleet_array']);
 			$fquery              = "";
-
+			
 			PlanetResourceUpdate($TargetUser, $TargetPlanet, time());
 
 			foreach ($fleet as $a => $b)
@@ -1619,12 +1619,12 @@ class FlyingFleetMissions {
 				$string .= "&amp;im[".$ID."]=".$Count;
 			}
 			
-			$TargetChances = (!isset($Count['Fleet']) || ($Count['Fleet'] != 0 && $Count['Def'] != 0)) ? rand(0, max(($LS/4) * ($TargetSpyLvl / $CurrentSpyLvl), 100)) : 0;
+			$TargetChances = rand(0, max(($LS/4) * ($TargetSpyLvl / $CurrentSpyLvl), 100));
 			$SpyerChances  = rand(0, 100);
 			
-			if ($TargetChances >= $SpyerChances)
-				$DestProba = "<font color=\"red\">".$lang['sys_mess_spy_destroyed']."</font>";
-			elseif ($TargetChances < $SpyerChances)
+			if ($TargetChances >= $SpyerChances && (!empty($Count['Fleet']) && !empty($Count['Fleet'])))
+				$DestProba = $lang['sys_mess_spy_destroyed'];
+			else
 				$DestProba = sprintf( $lang['sys_mess_spy_lostproba'], $TargetChances);
 
 			$AttackLink  = "<center>";
@@ -2350,7 +2350,7 @@ class FlyingFleetMissions {
 						$Factor 	= (rand(102, 200) / $WitchFound) * $game_config['resource_multiplier'];
 						$Message	= $lang['sys_expe_found_ress_3_'.rand(1,2)];
 					}	
-					$StatFactor = $db->fetch_array($db->query("SELECT MAX(total_points) as total FROM `uni1_statpoints` WHERE `stat_type` = 1;"));
+					$StatFactor = $db->fetch_array($db->query("SELECT MAX(total_points) as total FROM `".STATPOINTS."` WHERE `stat_type` = 1;"));
 					
 					if($StatFactor['total'] < 5000000)
 						$MaxPoints = 9000;
@@ -2411,7 +2411,7 @@ class FlyingFleetMissions {
 						$MaxFound	= 1200000;
 					}
 					
-					$StatFactor = $db->fetch_array($db->query("SELECT MAX(total_points) as total FROM `uni1_statpoints` WHERE `stat_type` = 1;"));
+					$StatFactor = $db->fetch_array($db->query("SELECT MAX(total_points) as total FROM `".STATPOINTS."` WHERE `stat_type` = 1;"));
 					
 					if($StatFactor['total'] < 5000000)
 						$MaxPoints = 4500;

@@ -28,12 +28,12 @@
 &nbsp;</td>
                                     </tr>
                                     <tr align="center">
-                                        <td>{$user}</td>
-                                      <td><input name="username" value="" size="27" maxlength="40" class="input-text" type="text"></td>
+                                        <td><label for="username">{$user}</label></td>
+                                      <td><input name="username" id="username" value="" size="27" maxlength="40" class="input-text" type="text"></td>
                                     </tr>
                                     <tr align="center">
-                                      <td>{$pass}</td> 
-                                      <td><input name="password" size="27" maxlength="16" class="input-text" type="password"></td>
+                                      <td><label for="password">{$pass}</label></td> 
+                                      <td><input name="password" id="password" size="27" maxlength="16" class="input-text" type="password"></td>
                                     </tr>
                                     <tr>
                                         <td colspan="2" align="center"><input name="submit" value="{$login}" type="submit" class="input-text">

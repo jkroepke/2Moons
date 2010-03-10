@@ -36,10 +36,11 @@
 	</tr>
 	{if $ally_web}
     <tr>
-		<th>{$al_web}</th>
+		<th>{$al_web_text}</th>
 		<th><a href="{$ally_web}">{$ally_web}</a></th>
 	</tr>
 	{/if}
+	{if $ally_stats}
     <tr>
 		<td class="c" colspan="2">{$al_Allyquote}</td>
 	</tr>
@@ -67,6 +68,7 @@
 	<tr>
 		<th>{$pl_dercrystal}</th><th>{$dercrystal}</th>
 	</tr>
+	{/if}
     </table>
 </div>
 {include file="planet_menu.tpl"}

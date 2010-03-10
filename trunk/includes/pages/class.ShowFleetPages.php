@@ -759,8 +759,9 @@ class ShowFleetPages extends FleetFunctions
 	public static function FleetAjax($CurrentUser, $CurrentPlanet)
 	{
 		global $db, $resource, $lang;
-		$UserSpyProbes  = $CurrentPlanet['spy_sonde'];
-		$UserRecycles   = $CurrentPlanet['recycler'];
+		$UserSpyProbes  = $CurrentPlanet[$resource[210]];
+		$UserRecycles   = $CurrentPlanet[$resource[209]];
+		$UserGRecycles  = $CurrentPlanet[$resource[219]];
 		$UserDeuterium  = $CurrentPlanet['deuterium'];
 		$UserMissiles   = $CurrentPlanet['interplanetary_misil'];
 		$thisgalaxy		= $CurrentPlanet['galaxy'];
@@ -778,52 +779,52 @@ class ShowFleetPages extends FleetFunctions
 		$PartialFleet   = false;
 		$PartialCount   = 0;
 		
+		$CurrentFlyingFleets = parent::GetCurrentFleets($CurrentUser['id']);	
 		switch($mission)
 		{
 			case 6:
-				$SpyProbes	= request_var('ship210', 0);
+				$SpyProbes	= request_var('ships', 0);
 				$SpyProbes	= min($SpyProbes, $CurrentPlanet[$resource[210]]);
 				if(empty($SpyProbes))
-					exit($ResultMessage = "611; ".$lang['fa_no_spios']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserMissiles);
+					exit($ResultMessage = "611; ".$lang['fa_no_spios']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserGRecycles." ".$UserMissiles);
 					
 				$FleetArray = array(210 => $SpyProbes);
 			break;
 			case 8:
-				$Recycles	= request_var('ship209', 0);
-				$Recycles	= min($Recycles, $CurrentPlanet[$resource[209]]);
-				if($Recycles > $CurrentPlanet[$resource[209]] || empty($Recycles))
-					exit($ResultMessage = "611; ".$lang['fa_no_recyclers']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserMissiles);
+				$SRecycles	= explode("|", request_var('ships', ""));
+				$Recycles	= min($SRecycles[1], $CurrentPlanet[$resource[209]]);
+				$GRecycles	= min($SRecycles[0], $CurrentPlanet[$resource[219]]);
+				if(empty($Recycles) && empty($GRecycles))
+					exit($ResultMessage = "611; ".$lang['fa_no_recyclers']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserGRecycles." ".$UserMissiles);
 					
-				$FleetArray = array(209 => $Recycles);
+				$FleetArray = array(219 => $GRecycles, 209 => $Recycles);
 				break;
 			default:
-				exit("610; ".$lang['fa_not_enough_probes']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserMissiles);
+				exit("610; ".$lang['fa_not_enough_probes']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserGRecycles." ".$UserMissiles);
 			break;
 		}
 		
-		$CurrentFlyingFleets = parent::GetCurrentFleets($CurrentUser['id']);	
-
 		if (parent::GetMaxFleetSlots($CurrentUser) <= $CurrentFlyingFleets)
 		{
-			$ResultMessage = "612; ".$lang['fa_no_more_slots']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserMissiles;
+			$ResultMessage = "612; ".$lang['fa_no_more_slots']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserGRecycles." ".$UserMissiles;
 			die ($ResultMessage);
 		}
 		
 		if ($galaxy > MAX_GALAXY_IN_WORLD || $galaxy < 1)
 		{
-			$ResultMessage = "602; ".$lang['fa_galaxy_not_exist']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserMissiles;
+			$ResultMessage = "602; ".$lang['fa_galaxy_not_exist']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserGRecycles." ".$UserMissiles;
 			die($ResultMessage);
 		}
 
 		if ($system > MAX_SYSTEM_IN_GALAXY || $system < 1)
 		{
-			$ResultMessage = "602; ".$lang['fa_system_not_exist']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserMissiles;
+			$ResultMessage = "602; ".$lang['fa_system_not_exist']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserGRecycles." ".$UserMissiles;
 			die($ResultMessage);
 		}
 
 		if ($planet > MAX_PLANET_IN_SYSTEM || $planet < 1)
 		{
-			$ResultMessage = "602; ".$lang['fa_planet_not_exist']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserMissiles;
+			$ResultMessage = "602; ".$lang['fa_planet_not_exist']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserGRecycles." ".$UserMissiles;
 			die($ResultMessage);
 		}
 
@@ -836,7 +837,7 @@ class ShowFleetPages extends FleetFunctions
 		$TargetRow	   = $db->fetch_array($db->query($QrySelectEnemy));
 
 		if($TargetRow['id_level'] > $CurrentUser['authlevel'] && $mission == 6 && $game_config['adm_attack'] == 0)
-			exit("619; ".$lang['fa_action_not_allowed']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserMissiles);
+			exit("619; ".$lang['fa_action_not_allowed']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserGRecycles." ".$UserMissiles);
 		
 		$TargetUser	   = GetUserByID($TargetRow['id_owner'], array('id','onlinetime','urlaubs_modus'));
 
@@ -844,7 +845,7 @@ class ShowFleetPages extends FleetFunctions
 
 		if($CurrentUser['urlaubs_modus'] == 1)
 		{
-			$ResultMessage = "620; ".$lang['fa_vacation_mode_current']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserMissiles;
+			$ResultMessage = "620; ".$lang['fa_vacation_mode_current']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserGRecycles." ".$UserMissiles;
 			die ($ResultMessage);
 		}
 
@@ -854,7 +855,7 @@ class ShowFleetPages extends FleetFunctions
 			
 			if ($TargetVacat)
 			{
-				$ResultMessage = "605; ".$lang['fa_vacation_mode']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserMissiles;
+				$ResultMessage = "605; ".$lang['fa_vacation_mode']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserGRecycles." ".$UserMissiles;
 				die ($ResultMessage);
 			}
 
@@ -864,19 +865,19 @@ class ShowFleetPages extends FleetFunctions
 			$IsNoobProtec	= CheckNoobProtec($UserPoints, $User2Points, $TargetUser['onlinetime']);
 			
 			if ($IsNoobProtec['NoobPlayer'])
-				exit("603; ".$lang['fa_week_player']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserMissiles);
+				exit("603; ".$lang['fa_week_player']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserGRecycles." ".$UserMissiles);
 			elseif ($IsNoobProtec['StrongPlayer'])
-				exit("604; ".$lang['fa_strong_player']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserMissiles);
+				exit("604; ".$lang['fa_strong_player']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserGRecycles." ".$UserMissiles);
 
 			if (empty($TargetRow['id_owner']))
 			{
-				$ResultMessage = "601; ".$lang['fa_planet_not_exist']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserMissiles;
+				$ResultMessage = "601; ".$lang['fa_planet_not_exist']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserGRecycles." ".$UserMissiles;
 				die($ResultMessage);
 			}
 
 			if ($TargetRow["id_owner"] == $CurrentPlanet["id_owner"])
 			{
-				$ResultMessage = "618; ".$lang['fa_not_spy_yourself']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserMissiles;
+				$ResultMessage = "618; ".$lang['fa_not_spy_yourself']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserGRecycles." ".$UserMissiles;
 				die($ResultMessage);
 			}
 		}
@@ -890,9 +891,9 @@ class ShowFleetPages extends FleetFunctions
 		$UserDeuterium   	-= $consumption;
 
 		if($UserDeuterium < 0)
-			exit("613; ".$lang['fa_not_enough_fuel']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserMissiles);
+			exit("613; ".$lang['fa_not_enough_fuel']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserGRecycles." ".$UserMissiles);
 		elseif($consumption > parent::GetFleetRoom($FleetArray))
-			exit("613; ".$lang['fa_no_fleetroom']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserMissiles);
+			exit("613; ".$lang['fa_no_fleetroom']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserGRecycles." ".$UserMissiles);
 			
 			
 		$fleet['fly_time']   = $Duration;
@@ -937,8 +938,8 @@ class ShowFleetPages extends FleetFunctions
 
 		$CurrentFlyingFleets++;
 
-		$ResultMessage  = "600; ".$lang['fa_sending']." ". $FleetShipCount  ." ". $lang['tech'][$Ship] ." a ". $galaxy .":". $system .":". $planet ."...|";
-		$ResultMessage .= $CurrentFlyingFleets ." ".($UserSpyProbes - $SpyProbes)." ".($UserRecycles - $Recycles)." ".$UserMissiles;
+		$ResultMessage  = "600; ".$lang['fa_sending']." ".$FleetShipCount." ". $lang['tech'][$Ship] ." a ". $galaxy .":". $system .":". $planet ."...|";
+		$ResultMessage .= $CurrentFlyingFleets ." ".($UserSpyProbes - $SpyProbes)." ".($UserRecycles - $Recycles)." ".($UserGRecycles - $GRecycles)." ".$UserMissiles;
 
 		die($ResultMessage);
 	}

@@ -7,15 +7,36 @@ $version  = explode("-",substr($revision, 7, -35));
 
 $lang['changelog']   = array(
 
-'RC5.0b3' => 'ShadoX '.$version[2].'.'.$version[1].'.'.substr($version[0],2,2).'
+'RC5.0b6' => 'ShadoX '.$version[2].'.'.$version[1].'.'.substr($version[0],2,2).'
+- ADD: Neue Accountlisten im ACP
+- ADD: Gigarecler on Galaxy
+- FIX: Trader
+- FIX: Galaxy
+- FIX: Allianz Hack
+- FIX: Font-FIX in overLIB
+- DIV: Sicherheit im Game erhöht
+- DIV: Diverse Anpassungen am Game
+',
+'RC5.0b5' => 'ShadoX 06.03.10
+- FIX: Attack
+- DIV: Sicherheit im Game erhöht
+- DIV: Diverse Anpassungen am Game
+',
+'RC5.0b4' => 'ShadoX 01.03.10
+- ADD: Plugin-System v0.4 (Green @ XG Proyecto)
+- ADD: Neu StatBuilder
+- FIX: AKS
+- DIV: Sicherheit im Game erhöht
+- DIV: Diverse Anpassungen am Game
+',
+
+'RC5.0b3' => 'ShadoX 23.02.10
 - ADD: DM BANK
 - ADD: Koords werden nicht mehr in der HoF angezeigt.
 - ADD: Update System BETA
 - ADD: Admin in Statistiken ausblendbar
 - ADD: jQuery UI 1.8rc2
 - ADD: Neue Expedition
-- ADD: Plugin-System v0.4 (Green @ XG Proyecto)
-- ADD: Neu StatBuilder
 - FIX: Phalax &amp; Interplanetarrakten Reichweiten
 - FIX: Urlaubsmodus fixed
 - FIX: Haltende Flotten werden im Spiobericht dazugezählt.
