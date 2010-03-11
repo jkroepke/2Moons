@@ -36,7 +36,7 @@ class ShowGalaxyPage extends GalaxyRows
 		{
 			$PlanetsInGalaxy[$GalaxyRowPlanets['planet']]	= $GalaxyRowPlanets;
 		}
-	
+		
 		for ($Planet = 1; $Planet < 1+(MAX_PLANET_IN_SYSTEM); $Planet++)
 		{
 			if (!isset($PlanetsInGalaxy[$Planet])) 
