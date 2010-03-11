@@ -2469,7 +2469,7 @@ class FlyingFleetMissions {
 				case 12:
 				case 16:
 					$Chance	= rand(1,2);
-					if($Chance) {
+					if($Chance == 1) {
 						$Points	= array(-3,-5,-8);
 						$Which	= 1;
 						$Def	= -3;
@@ -2485,7 +2485,7 @@ class FlyingFleetMissions {
 						$Add	= 0.1;
 						$Rand	= array(4,3,2);
 						$DefenderFleetArray	= "205,5;215,3;213,2;";
-						}
+					}
 					
 					$FindSize = rand(0, 100);
 					if(10 < $FindSize) {
@@ -2532,11 +2532,13 @@ class FlyingFleetMissions {
 						if ($Element[0] < 100) continue;
 
 						if (!isset($defense[$defRow['fleet_id']]['def'][$Element[0]]))
-							$defense[$defRow['fleet_id']][$Element[0]] = 0;
+							$defense[0][$Element[0]] = 0;
 
-						$defense[$defRow['fleet_id']]['def'][$Element[0]] += $Element[1];
-						$defense[$defRow['fleet_id']]['user'] = $DefenderTechno;
+						$defense[0]['def'][$Element[0]] += $Element[1];
 					}
+					$defense[0]['user'] = $DefenderTechno;
+
+					$start 		= microtime(true);
 					$start 		= microtime(true);
 					$result 	= self::calculateAttack($attackFleets, $defense);
 					$totaltime 	= microtime(true) - $start;
@@ -2560,7 +2562,7 @@ class FlyingFleetMissions {
 						}
 						else
 						{
-							$db->query('UPDATE '.FLEETS.' SET fleet_array="'.substr($fleetArray, 0, -1).'", fleet_amount='.$totalCount.', fleet_mess=1 WHERE fleet_id='.$fleetID.';');
+							$db->query('UPDATE '.FLEETS.' SET fleet_array="'.substr($fleetArray, 0, -1).'", fleet_amount='.$totalCount.', fleet_mess = 1 WHERE fleet_id='.$fleetID.';');
 						}
 					}
 					
