@@ -244,7 +244,7 @@ class GalaxyRows
 		$Result	= array(
 			'id'			=> $GalaxyRowPlanet['userid'],
 			'username'		=> htmlspecialchars($GalaxyRowPlanet['username'],ENT_QUOTES,"UTF-8"),
-			'rank'			=> $RowUserPoints,
+			'rank'			=> $GalaxyRowPlanet['total_rank'],
 			'playerrank'	=> sprintf($lang['gl_in_the_rank'], htmlspecialchars($GalaxyRowPlanet['username'],ENT_QUOTES,"UTF-8"), $GalaxyRowPlanet['total_rank']),
 			'Systemtatus'	=> $Systemtatus,
 			'Systemtatus2'	=> $Systemtatus2,
