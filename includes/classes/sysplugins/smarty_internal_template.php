@@ -65,11 +65,11 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
     public $properties = array ('file_dependency' => array(),
         'nocache_hash' => '',
         'function' => array()); 
-    // storage for block data
-    public $block_data = array(); 
     // required plugins
     public $required_plugins = array('compiled' => array(), 'nocache' => array());
-
+    public $security = false;
+    public $saved_modifer = null;
+    public $smarty = null;
     /**
     * Create template data object
     * 
@@ -338,7 +338,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
             $this->isCached = false;
             if (($this->caching == SMARTY_CACHING_LIFETIME_CURRENT || $this->caching == SMARTY_CACHING_LIFETIME_SAVED) && !$this->resource_object->isEvaluated) {
                 if (!isset($this->cache_resource_object)) {
-                    $this->cache_resource_object = $this->smarty->loadCacheResource();
+                    $this->cache_resource_object = $this->smarty->cache->loadResource();
                 } 
                 $cachedTimestamp = $this->getCachedTimestamp();
                 if ($cachedTimestamp === false || $this->force_compile || $this->force_cache) {
@@ -651,7 +651,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
     * @param string $resource_type return resource type
     * @param string $resource_name return resource name
     */
-    private function getResourceTypeName ($template_resource, &$resource_type, &$resource_name)
+    protected function getResourceTypeName ($template_resource, &$resource_type, &$resource_name)
     {
         if (strpos($template_resource, ':') === false) {
             // no resource given, use default
@@ -665,7 +665,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
                 $resource_type = 'file';
                 $resource_name = $template_resource;
             } else {
-                $resource_type = strtolower($resource_type);
+                $resource_type = $resource_type;
             } 
         } 
     } 
@@ -676,7 +676,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
     * @param string $resource_type template resource type
     * @return object resource handler object
     */
-    private function loadTemplateResourceHandler ($resource_type)
+    protected function loadTemplateResourceHandler ($resource_type)
     { 
         // try registered resource
         if (isset($this->smarty->_plugins['resource'][$resource_type])) {
@@ -801,14 +801,58 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
     public function fetch ()
     {
         return $this->smarty->fetch($this);
-    } 
+    }
+    
     /**
-    * wrapper for is_cached
-    */
-    public function is_cached ()
+     * lazy loads (valid) property objects
+     * 
+     * @param string $name property name
+     */
+    public function __get($name)
     {
-        return $this->iscached($this);
-    } 
+        if (in_array($name, array('register', 'unregister', 'utility', 'cache'))) {
+            $class = "Smarty_Internal_" . ucfirst($name);
+            $this->$name = new $class($this);
+            return $this->$name;
+        } else if ($name == '_version') {
+            // Smarty 2 BC
+            $this->_version = self::SMARTY_VERSION;
+            return $this->_version;
+        }   	
+        return null;
+    }    
+    
+    /**
+     * Takes unknown class methods and lazy loads sysplugin files for them
+     * class name format: Smarty_Method_MethodName
+     * plugin filename format: method.methodname.php
+     * 
+     * @param string $name unknown methode name
+     * @param array $args aurgument array
+     */
+    public function __call($name, $args)
+    {
+        static $camel_func;
+        if (!isset($camel_func))
+            $camel_func = create_function('$c', 'return "_" . strtolower($c[1]);'); 
+        // see if this is a set/get for a property
+        $first3 = strtolower(substr($name, 0, 3));
+        if (in_array($first3, array('set', 'get')) && substr($name, 3, 1) !== '_') {
+            // try to keep case correct for future PHP 6.0 case-sensitive class methods
+            // lcfirst() not available < PHP 5.3.0, so improvise
+            $property_name = strtolower(substr($name, 3, 1)) . substr($name, 4); 
+            // convert camel case to underscored name
+            $property_name = preg_replace_callback('/([A-Z])/', $camel_func, $property_name);
+            if (!property_exists($this, $property_name)) {
+                throw new Exception("property '$property_name' does not exist.");
+                return false;
+            } 
+            if ($first3 == 'get')
+                return $this->$property_name;
+            else
+                return $this->$property_name = $args[0];
+        } 
+    }        
 } 
 
 /**

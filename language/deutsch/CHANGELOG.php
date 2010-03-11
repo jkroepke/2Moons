@@ -14,6 +14,7 @@ $lang['changelog']   = array(
 - FIX: Galaxy
 - FIX: Allianz Hack
 - FIX: Font-FIX in overLIB
+- DIV: Update Smarty to 3.0b8
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game
 ',

@@ -3,7 +3,7 @@
 /**
  * Project:     Smarty: the PHP compiling template engine
  * File:        Smarty.class.php
- * SVN:         $Id: Smarty.class.php 3508 2010-02-26 12:58:36Z Uwe.Tews $
+ * SVN:         $Id: Smarty.class.php 3526 2010-03-09 21:11:21Z Uwe.Tews $
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -466,7 +466,7 @@ class Smarty extends Smarty_Internal_Data {
      */
     public function disableSecurity()
     {
-        $this->security = true;
+        $this->security = false;
     } 
 
     /**
@@ -751,21 +751,6 @@ class Smarty extends Smarty_Internal_Data {
             $this->wrapper = new Smarty_Internal_Wrapper($this);
         } 
         return $this->wrapper->convert($name, $args);
-
-        /*
-        $name = strtolower($name);
-        if ($name == 'smarty') {
-            throw new Exception('Please use parent::__construct() to call parent constuctor');
-        } 
-        $function_name = 'smarty_method_' . $name;
-        if (!is_callable($function_name)) {
-            if (!file_exists(SMARTY_SYSPLUGINS_DIR . $function_name . '.php')) {
-                throw new Exception('Undefined Smarty method "' . $name . '"');
-            } 
-            require_once(SMARTY_SYSPLUGINS_DIR . $function_name . '.php');
-        } 
-        return call_user_func_array($function_name, array_merge(array($this), $args));
-        */
     } 
 } 
 
