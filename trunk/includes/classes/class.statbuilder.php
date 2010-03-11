@@ -239,50 +239,50 @@ class statbuilder{
 	private function SetNewRanks()
 	{
 		$QryUpdateStats = "";
-		for ($StatType = 1; $i <= 2; $i++) 
+		for ($StatType = 1; $StatType <= 2; $StatType++) 
 		{
 			$Rank           = 1;
-			$RankQry        = $this->db->query("SELECT `id_owner` FROM ".STATPOINTS." WHERE `stat_type` = '".$StatType."' AND `stat_code` = '1' ORDER BY `tech_points` DESC;", 'statpoints');
+			$RankQry        = $this->db->query("SELECT `id_owner` FROM ".STATPOINTS." WHERE `stat_type` = '".$StatType."' AND `stat_code` = '1' ORDER BY `tech_points` DESC;");
 			while ($CurUser = $this->db->fetch($RankQry) )
 			{
 				$tech[$CurUser['id_owner']]	=	$Rank;
 				$Rank++;
 			}
-			unset($Rank,$RankQry,$QryUpdateStats,$CurUser);
+			
 			$Rank           = 1;
-			$RankQry        = $this->db->query("SELECT `id_owner` FROM ".STATPOINTS." WHERE `stat_type` = '".$StatType."' AND `stat_code` = '1' ORDER BY `build_points` DESC;", 'statpoints');
+			$RankQry        = $this->db->query("SELECT `id_owner` FROM ".STATPOINTS." WHERE `stat_type` = '".$StatType."' AND `stat_code` = '1' ORDER BY `build_points` DESC;");
 			while ($CurUser = $this->db->fetch($RankQry) )
 			{
 				$build[$CurUser['id_owner']]	=	$Rank;
 				$Rank++;
 			}
-			unset($Rank,$RankQry,$QryUpdateStats,$CurUser);
+			
 			$Rank           = 1;
-			$RankQry        = $this->db->query("SELECT `id_owner` FROM ".STATPOINTS." WHERE `stat_type` = '".$StatType."' AND `stat_code` = '1' ORDER BY `defs_points` DESC;", 'statpoints');
+			$RankQry        = $this->db->query("SELECT `id_owner` FROM ".STATPOINTS." WHERE `stat_type` = '".$StatType."' AND `stat_code` = '1' ORDER BY `defs_points` DESC;");
 			while ($CurUser = $this->db->fetch($RankQry) )
 			{
 				$defs[$CurUser['id_owner']]	=	$Rank;
 				$Rank++;
 			}
-			unset($Rank,$RankQry,$QryUpdateStats,$CurUser);
+			
 			$Rank           = 1;
-			$RankQry        = $this->db->query("SELECT `id_owner` FROM ".STATPOINTS." WHERE `stat_type` = '".$StatType."' AND `stat_code` = '1' ORDER BY `fleet_points` DESC;", 'statpoints');
+			$RankQry        = $this->db->query("SELECT `id_owner` FROM ".STATPOINTS." WHERE `stat_type` = '".$StatType."' AND `stat_code` = '1' ORDER BY `fleet_points` DESC;");
 			while ($CurUser = $this->db->fetch($RankQry) )
 			{
 				$fleet[$CurUser['id_owner']]	=	$Rank;
 				$Rank++;
 			}
-			unset($Rank,$RankQry,$QryUpdateStats,$CurUser);
+			
 			$Rank           = 1;
-			$RankQry        = $this->db->query("SELECT `id_owner` FROM ".STATPOINTS." WHERE `stat_type` = '".$StatType."' AND `stat_code` = '1' ORDER BY `total_points` DESC;", 'statpoints');
-			
-			
+			$RankQry        = $this->db->query("SELECT `id_owner` FROM ".STATPOINTS." WHERE `stat_type` = '".$StatType."' AND `stat_code` = '1' ORDER BY `total_points` DESC;");
+
 			while($CurUser = $this->db->fetch_array($RankQry))
 			{
 				$QryUpdateStats .= "UPDATE ".STATPOINTS." SET `tech_rank` = '". $tech[$CurUser['id_owner']] ."', `build_rank` = '". $build[$CurUser['id_owner']] ."', `defs_rank` = '". $defs[$CurUser['id_owner']] ."', `fleet_rank` = '". $fleet[$CurUser['id_owner']] ."', `total_rank` = '". $Rank ."' WHERE  `stat_type` = '".$StatType."' AND `stat_code` = '1' AND `id_owner` = '". $CurUser['id_owner'] ."';";
 				$Rank++;
 			}
 		}
+		
 		return $QryUpdateStats;
 	}
 	
@@ -351,6 +351,19 @@ class statbuilder{
 
 			if($UserData['ally_id'] != 0)
 			{
+				if(!isset($AllyPoints[$UserData['ally_id']]))
+				{
+					$AllyPoints[$UserData['ally_id']]['build']['count']		= 0;
+					$AllyPoints[$UserData['ally_id']]['build']['points']	= 0;
+					$AllyPoints[$UserData['ally_id']]['fleet']['count']		= 0;
+					$AllyPoints[$UserData['ally_id']]['fleet']['points']	= 0;
+					$AllyPoints[$UserData['ally_id']]['defense']['count']	= 0;
+					$AllyPoints[$UserData['ally_id']]['defense']['points']	= 0;
+					$AllyPoints[$UserData['ally_id']]['techno']['count']	= 0;
+					$AllyPoints[$UserData['ally_id']]['techno']['points']	= 0;
+					$AllyPoints[$UserData['ally_id']]['total']['count']		= 0;
+					$AllyPoints[$UserData['ally_id']]['total']['points']	= 0;				
+				}
 				$AllyPoints[$UserData['ally_id']]['build']['count']		+= $UserPoints[$UserData['id']]['build']['count'];
 				$AllyPoints[$UserData['ally_id']]['build']['points']	+= $UserPoints[$UserData['id']]['build']['points'];
 				$AllyPoints[$UserData['ally_id']]['fleet']['count']		+= $UserPoints[$UserData['id']]['fleet']['count'];

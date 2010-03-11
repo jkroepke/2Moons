@@ -2539,7 +2539,6 @@ class FlyingFleetMissions {
 					$defense[0]['user'] = $DefenderTechno;
 
 					$start 		= microtime(true);
-					$start 		= microtime(true);
 					$result 	= self::calculateAttack($attackFleets, $defense);
 					$totaltime 	= microtime(true) - $start;
 
