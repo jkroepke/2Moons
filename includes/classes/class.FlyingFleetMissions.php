@@ -1747,15 +1747,13 @@ class FlyingFleetMissions {
 			$QryUpdateGalaxy .= "`galaxy` = '".$FleetRow['fleet_end_galaxy']."' AND ";
 			$QryUpdateGalaxy .= "`system` = '".$FleetRow['fleet_end_system']."' AND ";
 			$QryUpdateGalaxy .= "`planet` = '".$FleetRow['fleet_end_planet']."' AND ";
-			$QryUpdateGalaxy .= "`planet_type` = '1' ";
-			$QryUpdateGalaxy .= "LIMIT 1;";
+			$QryUpdateGalaxy .= "`planet_type` = '1';";
 			$QryUpdateGalaxy .= "UPDATE ".FLEETS." SET ";
 			$QryUpdateGalaxy .= "`fleet_resource_metal` = `fleet_resource_metal` + '".$RecycledGoods["metal"]."', ";
 			$QryUpdateGalaxy .= "`fleet_resource_crystal` = `fleet_resource_crystal` + '".$RecycledGoods["crystal"]."', ";
 			$QryUpdateGalaxy .= "`fleet_mess` = '1' ";
 			$QryUpdateGalaxy .= "WHERE ";
-			$QryUpdateGalaxy .= "`fleet_id` = '".$FleetRow['fleet_id']."' ";
-			$QryUpdateGalaxy .= "LIMIT 1;";
+			$QryUpdateGalaxy .= "`fleet_id` = '".$FleetRow['fleet_id']."';";
 			$db->multi_query($QryUpdateGalaxy);
 
 			$Message = sprintf($lang['sys_recy_gotten'], pretty_number($RecycledGoods["metal"]), $lang['Metal'], pretty_number($RecycledGoods["crystal"]), $lang['Crystal']);
@@ -2505,7 +2503,7 @@ class FlyingFleetMissions {
 					}
 
 					$AttackerTechno	= $db->fetch_array($db->query('SELECT id,username,military_tech,defence_tech,shield_tech,rpg_amiral,dm_defensive,dm_attack FROM '.USERS.' WHERE id='.$FleetRow['fleet_owner'].";"));
-					$DefenderTechno	= array('id' => 0, 'username' => $Name, 'military_tech' => ($AttackerTechno['military_tech'] + $Def), 'defence_tech' => ($AttackerTechno['defence_tech'] + $Def), 'shield_tech' => ($AttackerTechno['shield_tech'] + $Def), 'rpg_amiral' => 0, 'dm_defensive' => 0, 'dm_attack' => 0);
+					$DefenderTechno	= array('id' => 0, 'username' => $Name, 'military_tech' => (min($AttackerTechno['military_tech'] + $Def,0)), 'defence_tech' => (min($AttackerTechno['defence_tech'] + $Def,0)), 'shield_tech' => (min($AttackerTechno['shield_tech'] + $Def,0)), 'rpg_amiral' => 0, 'dm_defensive' => 0, 'dm_attack' => 0);
 					
 					$attackFleets[$FleetRow['fleet_id']]['fleet'] = $FleetRow;
 					$attackFleets[$FleetRow['fleet_id']]['user'] = $AttackerTechno;
