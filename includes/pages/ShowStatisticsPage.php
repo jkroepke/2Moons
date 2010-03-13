@@ -115,6 +115,7 @@ function ShowStatisticsPage($CurrentUser, $CurrentPlanet)
 					'name'		=> $StatRow['username'],
 					'points'	=> pretty_number($StatRow[$Order]),
 					'allyid'	=> $StatRow['ally_id'],
+					'rank'		=> $StatRow[$Rank],
 					'allyname'	=> $StatRow['ally_name'],
 					'ranking'	=> $StatRow[$OldRank] - $StatRow[$Rank],
 				);
