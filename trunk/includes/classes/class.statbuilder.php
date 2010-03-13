@@ -385,7 +385,8 @@ class statbuilder{
 		}
 		
 		$FinalSQL	= substr($FinalSQL, 0, -2).';';
-		$FinalSQL  .= $this->SetNewRanks();
+		$this->SaveDataIntoDB($FinalSQL);
+		$FinalSQL   = $this->SetNewRanks();
 		$this->SaveDataIntoDB($FinalSQL);
 		
 		$this->RebuildRecordCache();
