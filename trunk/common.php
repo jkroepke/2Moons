@@ -116,21 +116,21 @@ if (INSTALL != true)
 		
 		if (isset($user))
 		{
-			includeLang('TECH');		
+			includeLang('TECH');					
 			if($game_config['stats_fly_lock'] == 0 && !defined('IN_ADMIN'))
 			{	
+				update_config('stats_fly_lock', time());
+				$db->multi_query("UNLOCK TABLES;LOCK TABLE ".AKS." WRITE, ".RW." WRITE, ".MESSAGES." WRITE, ".FLEETS." WRITE, ".PLANETS." WRITE, ".TOPKB." WRITE, ".USERS." WRITE, ".STATPOINTS." WRITE;");
+					
 				$fleetquery = $db->query("SELECT * FROM ".FLEETS." WHERE `fleet_start_time` <= '". time() ."' OR (`fleet_end_time` <= '". time() ."' AND `fleet_mess` = '1') ORDER BY `fleet_start_time` ASC;");
 				if($db->num_rows($fleetquery) > 0)
 				{
-					update_config('stats_fly_lock', time());
-					$db->multi_query("UNLOCK TABLES;LOCK TABLE ".AKS." WRITE, ".RW." WRITE, ".MESSAGES." WRITE, ".FLEETS." WRITE, ".PLANETS." WRITE, ".TOPKB." WRITE, ".USERS." WRITE, ".STATPOINTS." WRITE;");
 					require_once(ROOT_PATH . 'includes/classes/class.FlyingFleetHandler.'.PHP_EXT);
 				
 					new FlyingFleetHandler($fleetquery);
-					
-					$db->query("UNLOCK TABLES"); 
-					update_config('stats_fly_lock', 0); 
 				}
+				$db->query("UNLOCK TABLES");  
+				update_config('stats_fly_lock', 0);
 			}
 			
 			elseif (time() >= ($game_config['stats_fly_lock'] + (60 * 5))){
