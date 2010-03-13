@@ -156,7 +156,7 @@ function ShowStatisticsPage($CurrentUser, $CurrentPlanet)
 			}
 		break;
 	}
-	var_dump($RangeList);
+	
 	$Selector['who'] 	= array(1 => $lang['st_player'], 2 => $lang['st_alliance'],);
 	$Selector['type']	= array(1 => $lang['st_points'], 2 => $lang['st_fleets'], 3 => $lang['st_researh'], 4 => $lang['st_buildings'], 5 => $lang['st_defenses'],);
 	$template->assign_vars(array(	
