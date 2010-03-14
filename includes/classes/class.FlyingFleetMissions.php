@@ -531,8 +531,8 @@ class FlyingFleetMissions {
 		$life_fac		= $TargetDefTech / 10 + 1;
 		$life_fac_a 	= 12000 * ($OwnerAttTech / 10 + 1);
 		
-		$ipm -= $abm;
-		$abm = 0;
+		$ipm -= $adm;
+		$adm = 0;
 		$max_dam = $ipm * $life_fac_a;
 		$i = 0;	
 
