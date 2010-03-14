@@ -86,7 +86,7 @@
 	{foreach name=GateFleetList item=GateFleetRow from=$GateFleetList.fleets}
 	<tr>
 		<th>{$GateFleetRow.name} ({$GateFleetRow.max} {$gate_ship_dispo})</th>
-		<th><input tabindex="{$smarty.foreach.GateFleetList.iteration}" name="c{$GateFleetRow.id}" size="7" maxlength="7" value="0" type="text"></th>
+		<th><input tabindex="{$smarty.foreach.GateFleetList.iteration}" name="c{$GateFleetRow.id}" size="7" value="0" type="text"></th>
 	</tr>
 	{/foreach}
 	<tr>
