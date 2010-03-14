@@ -85,7 +85,7 @@ class ShowInfosPage
 						{
 							$ShipLabel = "c". $Ship;
 
-							$gemi_kontrol	=	abs(intval($_POST[ $ShipLabel ]));
+							$gemi_kontrol	=	min(request_var($ShipLabel, 0), 0);
 
 							if ( $gemi_kontrol > $CurrentPlanet[ $resource[ $Ship ] ] && ctype_digit($_POST[ $ShipLabel ]))
 							{
