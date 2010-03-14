@@ -12,6 +12,7 @@ $lang['changelog']   = array(
 - ADD: Gigarecler on Galaxy
 - FIX: Trader
 - FIX: Galaxy
+- FIX: Minus-Werte bei NPC`s in Expeditions Kämpfen
 - FIX: Allianz Hack
 - FIX: Font-FIX in overLIB
 - DIV: Update Smarty to 3.0b8

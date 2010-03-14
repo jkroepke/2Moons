@@ -662,7 +662,6 @@ $lang['nt_important']						= 'Wichitg';
 $lang['nt_normal']							= 'Normal';
 $lang['nt_unimportant']						= 'Unwichtig';
 $lang['nt_create_note']						= 'Erstellen';
-$lang['nt_edit_note']						= 'ändern';
 $lang['nt_you_dont_have_notes']				= 'Kein Notizen vorhanden';
 $lang['nt_notes']							= 'Noitzen';
 $lang['nt_create_new_note']					= 'Erstelle eine neue Notiz';
