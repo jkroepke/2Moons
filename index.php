@@ -51,10 +51,11 @@ switch ($page) {
 			} else {
 				$Caracters = "aazertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN1234567890";
 				$Count = strlen($Caracters);
-				$Taille = 6;
+				$Taille = 8;
+				$NewPass = "";
 				for($i = 0; $i < $Taille; $i ++) {
 					$CaracterBoucle = rand ( 0, $Count - 1 );
-					$NewPass = substr ( $Caracters, $CaracterBoucle, 1 );
+					$NewPass .= substr ( $Caracters, $CaracterBoucle, 1 );
 				}
 
 				$MailRAW		= file_get_contents("./language/".$game_config['lang']."/email/email_lost_password.txt");
