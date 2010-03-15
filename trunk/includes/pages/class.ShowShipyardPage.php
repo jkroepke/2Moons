@@ -77,6 +77,8 @@ class ShowShipyardPage
 			$ElementQ	= explode(',', $ElementQueue[$Auftr-1]);
 			$Element	= $ElementQ[0];
 			$Count		= $ElementQ[1];
+			if ($Element == 214 && $CurrentUser['rpg_destructeur'] == 1) $Count = $Count / 2;
+			
 			$Resses		= $this->GetElementRessources($Element, $Count);
 			$CurrentPlanet['metal']		+= $Resses['metal']			* 0.6;
 			$CurrentPlanet['crystal']	+= $Resses['crystal']		* 0.6;
