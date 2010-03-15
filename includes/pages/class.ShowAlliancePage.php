@@ -513,19 +513,19 @@ class ShowAlliancePage
 								$sort .= " ASC;";
 							}
 							
-							$listuser = $db->query("SELECT DISTINCT u.id, u.username,u.galaxy, u.system, u.planet, u.ally_register_time, u.onlinetime, s.total_points FROM `".USERS."` as u LEFT JOIN ".STATPOINTS." as s ON s.`stat_type` = '1' AND s.`stat_code` = '1' AND s.`id_owner` = u.`id` WHERE ally_id = '".$CurrentUser['ally_id']."'".$sort.";");
+							$listuser = $db->query("SELECT DISTINCT u.id, u.username,u.galaxy, u.system, u.planet, u.ally_register_time, u.onlinetime, u.ally_rank_id, s.total_points FROM `".USERS."` as u LEFT JOIN ".STATPOINTS." as s ON s.`stat_type` = '1' AND s.`stat_code` = '1' AND s.`id_owner` = u.`id` WHERE ally_id = '".$CurrentUser['ally_id']."'".$sort.";");
 						}
 						else
-							$listuser = $db->query("SELECT DISTINCT * FROM `".USERS."` as u LEFT JOIN ".STATPOINTS." as s ON s.`stat_type` = '1' AND s.`stat_code` = '1' AND s.`id_owner` = u.`id` WHERE `ally_id` = '".$CurrentUser['ally_id']."';");
+							$listuser = $db->query("SELECT DISTINCT u.id, u.username,u.galaxy, u.system, u.planet, u.ally_register_time, u.onlinetime, u.ally_rank_id, s.total_points FROM `".USERS."` as u LEFT JOIN ".STATPOINTS." as s ON s.`stat_type` = '1' AND s.`stat_code` = '1' AND s.`id_owner` = u.`id` WHERE `ally_id` = '".$CurrentUser['ally_id']."';");
 
 						while ($UserRow = $db->fetch_array($listuser))
 						{
 							if ($ally['ally_owner'] == $UserRow['id'])
 								$UserRow['ally_range'] = ($ally['ally_owner_range'] == '')?$lang['al_founder_rank_text']:$ally['ally_owner_range'];
-							elseif ($UserRow['ally_rank_id'] == 0 )
-								$UserRow['ally_range'] = $lang['al_new_member_rank_text'];
-							else
+							elseif ($UserRow['ally_rank_id'] != 0)
 								$UserRow['ally_range'] = $ally_ranks[$UserRow['ally_rank_id']-1]['name'];
+							else
+								$UserRow['ally_range'] = $lang['al_new_member_rank_text'];
 							
 							$Memberlist[]	= array(
 								'id'			=> $UserRow['id'],

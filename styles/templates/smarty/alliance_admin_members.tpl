@@ -8,13 +8,13 @@
         </tr>
         <tr>
             <th>{$al_num}</th>
-            <th><a href="game.php?page=alliance&amp;mode=admin&amp;edit=members&amp;sort1=1&amp;sort2={$s}">{$al_member}</a></th>
+            <th><a href="game.php?page=alliance&amp;mode=admin&amp;edit=members&amp;sort1=1&amp;sort2={$sort}">{$al_member}</a></th>
             <th>{$al_message}</th>
-            <th><a href="game.php?page=alliance&amp;mode=admin&amp;edit=members&amp;sort1=2&amp;sort2={$s}">{$al_position}</a></th>
-            <th><a href="game.php?page=alliance&amp;mode=admin&amp;edit=members&amp;sort1=3&amp;sort2={$s}">{$al_points}</a></th>
-            <th><a href="game.php?page=alliance&amp;mode=admin&amp;edit=members&amp;sort1=0&amp;sort2={$s}">{$al_coords}</a></th>
-            <th><a href="game.php?page=alliance&amp;mode=admin&amp;edit=members&amp;sort1=4&amp;sort2={$s}">{$al_member_since}</a></th>
-            <th><a href="game.php?page=alliance&amp;mode=admin&amp;edit=members&amp;sort1=5&amp;sort2={$s}">{$al_estate}</a></th>
+            <th><a href="game.php?page=alliance&amp;mode=admin&amp;edit=members&amp;sort1=2&amp;sort2={$sort}">{$al_position}</a></th>
+            <th><a href="game.php?page=alliance&amp;mode=admin&amp;edit=members&amp;sort1=3&amp;sort2={$sort}">{$al_points}</a></th>
+            <th><a href="game.php?page=alliance&amp;mode=admin&amp;edit=members&amp;sort1=0&amp;sort2={$sort}">{$al_coords}</a></th>
+            <th><a href="game.php?page=alliance&amp;mode=admin&amp;edit=members&amp;sort1=4&amp;sort2={$sort}">{$al_member_since}</a></th>
+            <th><a href="game.php?page=alliance&amp;mode=admin&amp;edit=members&amp;sort1=5&amp;sort2={$sort}">{$al_estate}</a></th>
             <th>{$al_actions}</th>
         </tr>
         {foreach name=Memberlist item=MemberInfo from=$Memberlist}
