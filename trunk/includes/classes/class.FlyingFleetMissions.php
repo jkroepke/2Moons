@@ -576,9 +576,9 @@ class FlyingFleetMissions {
 		
 		if($moondes)
 		{
-			$html 		.= $lang['sys_destruc_title']." ".date("D M j H:i:s", time()).".<br><br>";
+			$html 		.= $lang['sys_destruc_title']." ".date("D M j H:i:s", $FleetRow['fleet_start_time']).".<br><br>";
 		} else {
-			$html 		.= $lang['sys_attack_title']." ".date("D M j H:i:s", time()).".<br><br>";
+			$html 		.= $lang['sys_attack_title']." ".date("D M j H:i:s", $FleetRow['fleet_start_time']).".<br><br>";
 		}	
 		$round_no 	= 1;
 		$des = 0;
@@ -812,7 +812,7 @@ class FlyingFleetMissions {
 			$String .= $TitleString ." ". $TargetPlanet['name'];
 			$String .= " <a href=\"game.php?page=galaxy&mode=3&galaxy=". $TargetPlanet["galaxy"] ."&system=". $TargetPlanet["system"]. "\">";
 			$String .= "[". $TargetPlanet["galaxy"] .":". $TargetPlanet["system"] .":". $TargetPlanet["planet"] ."]</a>";
-			$String .= " von ". date("d. M Y H:i:s", time() + 2 * 60 * 60) ."</td>";
+			$String .= " von ". date("d. M Y H:i:s", $FleetRow['fleet_start_time']) ."</td>";
 			$String .= "</tr><tr>";
 			$String .= "<td width=220>". $lang['Metal']     ."</td><td width=220 align=right>". pretty_number($TargetPlanet['metal'])      ."</td><td>&nbsp;</td>";
 			$String .= "<td width=220>". $lang['Crystal']   ."</td></td><td width=220 align=right>". pretty_number($TargetPlanet['crystal'])    ."</td>";
