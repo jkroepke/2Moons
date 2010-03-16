@@ -57,7 +57,7 @@ class ShowInfosPage
 
 	private function DoFleetJump ($CurrentUser, $CurrentPlanet)
 	{
-		global $resource, $lang, $db;
+		global $resource, $lang, $db, $reslist;
 
 		if ($_POST)
 		{
@@ -81,13 +81,13 @@ class ShowInfosPage
 						$SubQueryOri = "";
 						$SubQueryDes = "";
 
-						for ( $Ship = 200; $Ship < 300; $Ship++ )
+						foreach($reslist['fleet'] as $Ship)
 						{
 							$ShipLabel = "c". $Ship;
 
-							$gemi_kontrol	=	min(request_var($ShipLabel, 0), 0);
-
-							if ( $gemi_kontrol > $CurrentPlanet[ $resource[ $Ship ] ] && ctype_digit($_POST[ $ShipLabel ]))
+							$gemi_kontrol	=	max(request_var($ShipLabel, 0), 0);
+							
+							if ( $gemi_kontrol > $CurrentPlanet[ $resource[ $Ship ] ])
 							{
 								$ShipArray[ $Ship ] = $CurrentPlanet[ $resource[ $Ship ] ];
 							}
@@ -100,6 +100,7 @@ class ShowInfosPage
 							{
 								$SubQueryOri .= "`". $resource[ $Ship ] ."` = `". $resource[ $Ship ] ."` - '". $ShipArray[ $Ship ] ."', ";
 								$SubQueryDes .= "`". $resource[ $Ship ] ."` = `". $resource[ $Ship ] ."` + '". $ShipArray[ $Ship ] ."', ";
+								$CurrentPlanet[$resource[$Ship]] -= $ShipArray[$Ship];
 							}
 						}
 
