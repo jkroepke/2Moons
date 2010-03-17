@@ -567,7 +567,7 @@ class FlyingFleetMissions {
 		return $ship_res;
 	}
 	
-	public static function GenerateReport (&$result_array, &$steal_array, &$moon_int, &$moon_string, &$time_float, $moondes = "")
+	public static function GenerateReport ($result_array, $steal_array, $moon_int, $moon_string, $time_float, $FleetRow, $moondes = "")
 	{
 		global $lang;
 
@@ -1228,7 +1228,7 @@ class FlyingFleetMissions {
 			$QryUpdateGalaxy .= "LIMIT 1;";
 			$db->query($QryUpdateGalaxy);
 
-			$formatted_cr 	= self::GenerateReport($result, $steal, $MoonChance, $GottenMoon, $totaltime);
+			$formatted_cr 	= self::GenerateReport($result, $steal, $MoonChance, $GottenMoon, $totaltime, $FleetRow);
 			
 			$WhereAtt = "";
 			$WhereDef = "";
@@ -2146,7 +2146,7 @@ class FlyingFleetMissions {
 
 				$MoonChance       = 0;
 				$GottenMoon 	  = "";
-				$formatted_cr 	  = self::GenerateReport($result,$steal,$MoonChance,$GottenMoon,$totaltime,$destext);
+				$formatted_cr 	  = self::GenerateReport($result,$steal,$MoonChance,$GottenMoon,$totaltime, $FleetRow, $destext);
 				$raport 		  = $formatted_cr['html'];
 				$rid   = md5($raport);
 				$QryInsertRapport  = 'INSERT INTO '.RW.' SET ';
@@ -2563,7 +2563,7 @@ class FlyingFleetMissions {
 						}
 					}
 					
-					$formatted_cr 	= self::GenerateReport($result, $steal, $MoonChance, $GottenMoon, $totaltime);
+					$formatted_cr 	= self::GenerateReport($result, $steal, $MoonChance, $GottenMoon, $totaltime, $FleetRow);
 
 					$raport 		= $formatted_cr['html'];
 					$rid   			= md5($raport);
