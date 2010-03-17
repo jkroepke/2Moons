@@ -21,6 +21,12 @@
 
 if(!defined('INSIDE')){ die(header("location:../../"));}
 
+	function SetNewBuildTimes(&$CurrentPlanet)
+	{
+		return true;
+	}
+
+
 	function CheckPlanetBuildingQueue ( &$CurrentPlanet, &$CurrentUser )
 	{
 		global $resource, $db;
@@ -95,7 +101,10 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 				$CurrentPlanet['b_building_id'] = $NewQueue;
 				$CurrentPlanet['field_current'] = $current;
 				$CurrentPlanet['field_max']     = $max;
-
+				
+				if($Element == 14 || $Element == 15)
+					SetNewBuildTimes($CurrentPlanet);
+					
 				$QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
 				$QryUpdatePlanet .= "`".$resource[$Element]."` = '".$CurrentPlanet[$resource[$Element]]."', ";
 				$QryUpdatePlanet .= "`b_building` = '". $CurrentPlanet['b_building'] ."' , ";
