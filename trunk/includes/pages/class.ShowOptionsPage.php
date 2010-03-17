@@ -56,7 +56,7 @@ class ShowOptionsPage
 		$template->page_leftmenu();
 		$template->page_planetmenu();
 		$template->page_footer();
-		
+		$SQLQuery = "";
 		switch($mode)
 		{
 			case "exit":
@@ -120,23 +120,19 @@ class ShowOptionsPage
 					$SQLQuery	.= "UPDATE ".USERS." SET `urlaubs_modus` = '1', `urlaubs_until` = '".$time."' WHERE `id` = '".$CurrentUser["id"]."' LIMIT 1;";
 
 					$query = $db->query("SELECT `id` FROM ".PLANETS." WHERE `id_owner` = '".$CurrentUser['id']."';");
-					
-					while($id = $db->fetch_array($query))
-					{
-						$SQLQuery	.=  "UPDATE ".PLANETS." SET
-										`metal_perhour` = '".$game_config['metal_basic_income']."',
-										`crystal_perhour` = '".$game_config['crystal_basic_income']."',
-										`deuterium_perhour` = '".$game_config['deuterium_basic_income']."',
-										`venergy_used` = '0',
-										`energy_max` = '0',
-										`metal_mine_porcent` = '0',
-										`crystal_mine_porcent` = '0',
-										`deuterium_sintetizer_porcent` = '0',
-										`solar_plant_porcent` = '0',
-										`fusion_plant_porcent` = '0',
-										`solar_satelit_porcent` = '0'
-										WHERE `id` = '".$id['id']."';";
-					}
+					$SQLQuery	.=  "UPDATE ".PLANETS." SET
+									`metal_perhour` = '".$game_config['metal_basic_income']."',
+									`crystal_perhour` = '".$game_config['crystal_basic_income']."',
+									`deuterium_perhour` = '".$game_config['deuterium_basic_income']."',
+									`energy_used` = '0',
+									`energy_max` = '0',
+									`metal_mine_porcent` = '0',
+									`crystal_mine_porcent` = '0',
+									`deuterium_sintetizer_porcent` = '0',
+									`solar_plant_porcent` = '0',
+									`fusion_plant_porcent` = '0',
+									`solar_satelit_porcent` = '0'
+									WHERE `id_owner` = '".$CurrentUser["id"]."';";
 				}
 				else
 					$urlaubs_modus = "0";
@@ -171,7 +167,7 @@ class ShowOptionsPage
 				}
 				
 				
-				if (md5($db_password) == $CurrentUser["password"] && $newpass1 == $newpass2 && !empty($newpass1))
+				if (!empty($newpass1) && md5($db_password) == $CurrentUser["password"] && $newpass1 == $newpass2)
 				{
 					$newpass 	 = md5($newpass1);
 					$SQLQuery	.= "UPDATE ".USERS." SET `password` = '".$newpass."' WHERE `id` = '".$CurrentUser['id']."' LIMIT 1;";
