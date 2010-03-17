@@ -726,9 +726,9 @@ class ShowAlliancePage
 								$this->template->show("alliance_admin_ranks.tpl");
 							break;
 							case 'members':
-								$NewRang	= request_var('newrang', 1337);
+								$NewRang	= request_var('newrang', '');
 
-								if($NewRang != 1337)
+								if($NewRang != '')
 								{
 									$q = $db->fetch_array($db->query("SELECT id FROM ".USERS." WHERE id='".$db->sql_escape($id)."' LIMIT 1;"));
 
@@ -739,10 +739,10 @@ class ShowAlliancePage
 								}
 								elseif($action == "kick" && !empty($id) && $CurrentUser['rights']['kick'])
 								{
-									$u = $db->fetch_array($db->query("SELECT id FROM ".USERS." WHERE id='".$db->sql_escape($id)."' AND `ally_id` = '".$ally['id']."' AND 'id' != '".$ally['ally_owner']."';"));
-
-									if (isset($u['id']))
-										$db->multi_query("UPDATE ".USERS." SET `ally_id` = '0', `ally_name` = '', `ally_rank_id` = 0 WHERE `id` = '".$u['id']."';UPDATE ".ALLIANCE." SET `ally_members` = ally_members - 1 WHERE `id` = '".$ally['id']."';");
+									$u = $db->fetch_array($db->query("SELECT id FROM ".USERS." WHERE id = '".$db->sql_escape($id)."' AND `ally_id` = '".$ally['id']."' AND 'id' != '".$ally['ally_owner']."';"));
+									
+									if (!empty($u['id']))
+										echo("UPDATE ".USERS." SET `ally_id` = '0', `ally_name` = '', `ally_rank_id` = 0 WHERE `id` = '".$u['id']."';UPDATE ".ALLIANCE." SET `ally_members` = ally_members - 1 WHERE `id` = '".$ally['id']."';");
 								}
 
 								if ($sort1 && $sort2)
@@ -775,10 +775,10 @@ class ShowAlliancePage
 										$sort .= " ASC;";
 									}
 									
-									$listuser = $db->query("SELECT DISTINCT u.id, u.username,u.galaxy, u.system, u.planet, u.ally_register_time, u.onlinetime, s.total_points FROM `".USERS."` as u LEFT JOIN ".STATPOINTS." as s ON s.`stat_type` = '1' AND s.`stat_code` = '1' AND s.`id_owner` = u.`id` WHERE ally_id = '".$CurrentUser['ally_id']."'".$sort.";");
+									$listuser = $db->query("SELECT DISTINCT u.id, u.username,u.galaxy, u.system, u.planet, u.ally_register_time, u.ally_rank_id, u.onlinetime, s.total_points FROM `".USERS."` as u LEFT JOIN ".STATPOINTS." as s ON s.`stat_type` = '1' AND s.`stat_code` = '1' AND s.`id_owner` = u.`id` WHERE ally_id = '".$CurrentUser['ally_id']."'".$sort.";");
 								}
 								else
-									$listuser = $db->query("SELECT DISTINCT * FROM `".USERS."` as u LEFT JOIN ".STATPOINTS." as s ON s.`stat_type` = '1' AND s.`stat_code` = '1' AND s.`id_owner` = u.`id` WHERE `ally_id` = '".$CurrentUser['ally_id']."';");
+									$listuser = $db->query("SELECT DISTINCT u.id, u.username,u.galaxy, u.system, u.planet, u.ally_register_time, u.ally_rank_id, u.onlinetime, s.total_points FROM `".USERS."` as u LEFT JOIN ".STATPOINTS." as s ON s.`stat_type` = '1' AND s.`stat_code` = '1' AND s.`id_owner` = u.`id` WHERE `ally_id` = '".$CurrentUser['ally_id']."';");
 
 								$Selector[0] = $lang['al_new_member_rank_text'];
 								
@@ -823,7 +823,7 @@ class ShowAlliancePage
 									'sort'				=> ($sort2 == 1) ? 2 : 1,
 									'seeonline'			=> $CurrentUser['rights']['memberlist_on'],
 									'al_users_list'		=> sprintf($lang['al_users_list'], count($Memberlist)),
-									'id'				=>($NewRang == 1337) ? $id : 0,
+									'id'				=>($NewRang == '') ? $id : 0,
 									'al_num'			=> $lang['al_num'],
 									'al_back'			=> $lang['al_back'],
 									'al_message'		=> $lang['al_message'],
