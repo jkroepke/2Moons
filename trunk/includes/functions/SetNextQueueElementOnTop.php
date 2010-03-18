@@ -28,13 +28,13 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 		if ($CurrentPlanet['b_building'] == 0)
 		{
 			$CurrentQueue  = $CurrentPlanet['b_building_id'];
-			if ($CurrentQueue != 0)
+			if (!empty($CurrentQueue))
 			{
 				$QueueArray = explode ( ";", $CurrentQueue );
 				$Loop       = true;
 				while ($Loop == true)
 				{
-					$ListIDArray         = explode ( ",", $QueueArray[0] );
+					$ListIDArray         = explode ( ",", $QueueArray[0]);
 					$Element             = $ListIDArray[0];
 					$Level               = $ListIDArray[1];
 					$BuildTime           = $ListIDArray[2];
@@ -48,27 +48,22 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 						$ForDestroy = false;
 
 					$HaveRessources = IsElementBuyable ($CurrentUser, $CurrentPlanet, $Element, true, $ForDestroy);
-					if ($ForDestroy)
+					if($ForDestroy && $CurrentPlanet[$resource[$Element]] == 0)
 					{
-						if ($CurrentPlanet[$resource[$Element]] == 0)
-						{
-							$HaveRessources  = false;
-							$HaveNoMoreLevel = true;
-						}
+						$HaveRessources  = false;
+						$HaveNoMoreLevel = true;
 					}
 
-					if ( $HaveRessources == true )
+					if($HaveRessources == true)
 					{
 						$Needed                        = GetBuildingPrice ($CurrentUser, $CurrentPlanet, $Element, true, $ForDestroy);
 						$CurrentPlanet['metal']       -= $Needed['metal'];
 						$CurrentPlanet['crystal']     -= $Needed['crystal'];
 						$CurrentPlanet['deuterium']   -= $Needed['deuterium'];
 						$CurrentUser['darkmatter']    -= $Needed['darkmatter'];
-						$CurrentTime                   = time();
-						$BuildEndTime                  = $BuildEndTime;
-						$NewQueue                      = implode ( ";", $QueueArray );
+						$NewQueue                      = implode( ";", $QueueArray);
 
-						if ($NewQueue == "")
+						if (empty($NewQueue))
 							$NewQueue                  = '0';
 
 						$Loop                          = false;
@@ -83,23 +78,14 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 							else
 							{
 								$Needed      = GetBuildingPrice ($CurrentUser, $CurrentPlanet, $Element, true, $ForDestroy);
-								$Message     = sprintf ($lang['sys_notenough_money'], $CurrentPlanet['name'], $CurrentPlanet['id'],
-								$CurrentPlanet['galaxy'], $CurrentPlanet['system'], $CurrentPlanet['planet'], 
-								$ElementName,
-								pretty_number ($CurrentPlanet['metal']), $lang['Metal'],
-								pretty_number ($CurrentPlanet['crystal']), $lang['Crystal'],
-								pretty_number ($CurrentPlanet['deuterium']), $lang['Deuterium'],
-								pretty_number ($Needed['metal']), $lang['Metal'],
-								pretty_number ($Needed['crystal']), $lang['Crystal'],
-								pretty_number ($Needed['deuterium']), $lang['Deuterium']);
+								$Message     = sprintf ($lang['sys_notenough_money'], $CurrentPlanet['name'], $CurrentPlanet['id'], $CurrentPlanet['galaxy'], $CurrentPlanet['system'], $CurrentPlanet['planet'], $ElementName, pretty_number ($CurrentPlanet['metal']), $lang['Metal'], pretty_number ($CurrentPlanet['crystal']), $lang['Crystal'], pretty_number ($CurrentPlanet['deuterium']), $lang['Deuterium'], pretty_number ($Needed['metal']), $lang['Metal'], pretty_number ($Needed['crystal']), $lang['Crystal'], pretty_number ($Needed['deuterium']), $lang['Deuterium']);
 							}
 							
-							SendSimpleMessage ( $CurrentUser['id'], '', '', 99, $lang['sys_buildlist'], $lang['sys_buildlist_fail'], $Message);
+							SendSimpleMessage($CurrentUser['id'], '', '', 99, $lang['sys_buildlist'], $lang['sys_buildlist_fail'], $Message);
 						}
 						
-						array_shift( $QueueArray );
-						$ActualCount         = count ($QueueArray);
-						if ( $ActualCount == 0 )
+						array_shift($QueueArray);
+						if (count($QueueArray) == 0)
 						{
 							$BuildEndTime  = '0';
 							$NewQueue      = '0';

@@ -117,121 +117,116 @@ class ShowResearchPage
 		return $restprice;
 	}
 
-	public function ShowResearchPage (&$CurrentPlanet, $CurrentUser, $InResearch, $ThePlanet)
+	public function ShowResearchPage ($CurrentPlanet, $CurrentUser)
 	{
 		global $lang, $resource, $reslist, $dpath, $game_config, $db, $pricelist;
 
 		include_once(ROOT_PATH . 'includes/functions/IsTechnologieAccessible.' . PHP_EXT);
 		include_once(ROOT_PATH . 'includes/functions/GetElementPrice.' . PHP_EXT);
-
+		include_once(ROOT_PATH . 'includes/functions/HandleTechnologieBuild.' . PHP_EXT);
+		include_once(ROOT_PATH . 'includes/functions/UpdatePlanetBatimentQueueList.' . PHP_EXT);;
 		$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
 
 		$template	= new template();
-
 		
-		if ($CurrentPlanet[$resource[31]] == 0){
-			$template->set_vars($CurrentUser, $CurrentPlanet);
-			$template->page_header();	
-			$template->page_topnav();
-			$template->page_leftmenu();
-			$template->page_planetmenu();
-			$template->page_footer();
-			$template->message($lang['bd_lab_required']);
-			$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
-			exit;
-		}
+		UpdatePlanetBatimentQueueList($CurrentPlanet, $CurrentUser);
+		$IsWorking = HandleTechnologieBuild($CurrentPlanet, $CurrentUser);
+		$ThePlanet	= $IsWorking['WorkOn'];
+		$InResearch	= $IsWorking['OnWork'];
 		
-		$bContinue	= (!$this->CheckLabSettingsInQueue ($CurrentPlanet)) ? true : false;
-			
-		$CurrentPlanet[$resource[31]]	= $this->CheckAndGetLabLevel($CurrentUser, $CurrentPlanet);		
-		
-		$TheCommand			= request_var('cmd','');				
-		if (!empty($TheCommand))
-		{
-			$Techno     	= request_var('tech', 0);
-			if (!empty($Techno) && in_array($Techno, $reslist['tech']) && isset($pricelist[$Techno]['max']) && $CurrentUser[$resource[$Techno]] < $pricelist[$Techno]['max'])
-			{
-				$WorkingPlanet = (is_array($ThePlanet)) ? $ThePlanet : $CurrentPlanet;
-				switch($TheCommand)
-				{
-					case 'cancel':
-						if ($ThePlanet['b_tech_id'] == $Techno)
-						{
-							$costs                        = GetBuildingPrice($CurrentUser, $WorkingPlanet, $Techno);
-							$WorkingPlanet['metal']      += $costs['metal'];
-							$WorkingPlanet['crystal']    += $costs['crystal'];
-							$WorkingPlanet['deuterium']  += $costs['deuterium'];
-							$CurrentUser['darkmatter']   += $costs['darkmatter'];
-							$WorkingPlanet['b_tech_id']   = 0;
-							$WorkingPlanet["b_tech"]      = 0;
-							$CurrentUser['b_tech_planet'] = $WorkingPlanet["id"];
-							$UpdateData                   = true;
-							$InResearch                   = false;
-						}
-					break;
-					case 'search':
-						if (IsTechnologieAccessible($CurrentUser, $WorkingPlanet, $Techno) && IsElementBuyable($CurrentUser, $WorkingPlanet, $Techno))
-						{
-							$costs                        = GetBuildingPrice($CurrentUser, $WorkingPlanet, $Techno);
-							$WorkingPlanet['metal']      -= $costs['metal'];
-							$WorkingPlanet['crystal']    -= $costs['crystal'];
-							$WorkingPlanet['deuterium']  -= $costs['deuterium'];
-							$CurrentUser['darkmatter']   -= $costs['darkmatter'];
-							$WorkingPlanet["b_tech_id"]   = $Techno;
-							$WorkingPlanet["b_tech"]      = time() + GetBuildingTime($CurrentUser, $WorkingPlanet, $Techno);
-							$CurrentUser["b_tech_planet"] = $WorkingPlanet["id"];
-							$UpdateData                   = true;
-							$InResearch                   = true;
-						}
-					break;
-					default:
-						exit(header("Location: game.".PHP_EXT."?page=buildings&amp;mode=research"));
-					break;
-				}
-				if ($UpdateData == true)
-				{
-					$QryUpdateUser  = "UPDATE ".PLANETS." SET ";
-					$QryUpdateUser .= "`b_tech_id` = '".   $WorkingPlanet['b_tech_id']   ."', ";
-					$QryUpdateUser .= "`b_tech` = '".      $WorkingPlanet['b_tech']      ."', ";
-					$QryUpdateUser .= "`metal` = '".       $WorkingPlanet['metal']       ."', ";
-					$QryUpdateUser .= "`crystal` = '".     $WorkingPlanet['crystal']     ."', ";
-					$QryUpdateUser .= "`deuterium` = '".   $WorkingPlanet['deuterium']   ."' ";
-					$QryUpdateUser .= "WHERE ";
-					$QryUpdateUser .= "`id` = '".          $WorkingPlanet['id']          ."';";
-					$QryUpdateUser .= "UPDATE ".USERS." SET ";
-					$QryUpdateUser .= "`b_tech_planet` = '". $CurrentUser['b_tech_planet'] ."' ";
-					$QryUpdateUser .= "WHERE ";
-					$QryUpdateUser .= "`id` = '".            $CurrentUser['id']            ."';";
-					$db->multi_query($QryUpdateUser);
-				}
-				
-				$CurrentPlanet = $WorkingPlanet;
-				if (is_array($ThePlanet))
-				{
-					$ThePlanet     = $WorkingPlanet;
-				}
-				else
-				{
-					$CurrentPlanet = $WorkingPlanet;
-					if ($TheCommand == 'search')
-					{
-						$ThePlanet = $CurrentPlanet;
-					}
-				}
-			}
-			else
-			{
-				exit(header("location:game.".PHP_EXT."?page=buildings&mode=research"));
-			}
-		}
-
-				
 		$template->set_vars($CurrentUser, $CurrentPlanet);
 		$template->page_header();	
 		$template->page_topnav();
 		$template->page_leftmenu();
 		$template->page_planetmenu();
-		$template->page_footer();
+		$template->page_footer();	
+		
+		if ($CurrentPlanet[$resource[31]] == 0)
+		{
+			$template->message($lang['bd_lab_required']);
+			$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
+			exit;
+		}
+		
+		$bContinue	= (!$this->CheckLabSettingsInQueue($CurrentPlanet)) ? true : false;
+			
+		$CurrentPlanet[$resource[31]]	= $this->CheckAndGetLabLevel($CurrentUser, $CurrentPlanet);		
+		
+		$TheCommand		= request_var('cmd','');
+		$Techno     	= request_var('tech', 0);
+							
+		if (!empty($TheCommand) && !empty($Techno) && in_array($Techno, $reslist['tech']) && isset($pricelist[$Techno]['max']) && $CurrentUser[$resource[$Techno]] < $pricelist[$Techno]['max'])
+		{
+			$WorkingPlanet = (is_array($ThePlanet)) ? $ThePlanet : $CurrentPlanet;
+			switch($TheCommand)
+			{
+				case 'cancel':
+					if ($ThePlanet['b_tech_id'] == $Techno)
+					{
+						$costs                        = GetBuildingPrice($CurrentUser, $WorkingPlanet, $Techno);
+						$WorkingPlanet['metal']      += $costs['metal'];
+						$WorkingPlanet['crystal']    += $costs['crystal'];
+						$WorkingPlanet['deuterium']  += $costs['deuterium'];
+						$CurrentUser['darkmatter']   += $costs['darkmatter'];
+						$WorkingPlanet['b_tech_id']   = 0;
+						$WorkingPlanet["b_tech"]      = 0;
+						$CurrentUser['b_tech_planet'] = $WorkingPlanet["id"];
+						$UpdateData                   = true;
+						$InResearch                   = false;
+					}
+				break;
+				case 'search':
+					if (IsTechnologieAccessible($CurrentUser, $WorkingPlanet, $Techno) && IsElementBuyable($CurrentUser, $WorkingPlanet, $Techno))
+					{
+						$costs                        = GetBuildingPrice($CurrentUser, $WorkingPlanet, $Techno);
+						$WorkingPlanet['metal']      -= $costs['metal'];
+						$WorkingPlanet['crystal']    -= $costs['crystal'];
+						$WorkingPlanet['deuterium']  -= $costs['deuterium'];
+						$CurrentUser['darkmatter']   -= $costs['darkmatter'];
+						$WorkingPlanet["b_tech_id"]   = $Techno;
+						$WorkingPlanet["b_tech"]      = time() + GetBuildingTime($CurrentUser, $WorkingPlanet, $Techno);
+						$CurrentUser["b_tech_planet"] = $WorkingPlanet["id"];
+						$UpdateData                   = true;
+						$InResearch                   = true;
+					}
+				break;
+				default:
+					$UpdateData == false;
+				break;
+			}
+			if ($UpdateData == true)
+			{
+				$QryUpdateUser  = "UPDATE ".PLANETS." SET ";
+				$QryUpdateUser .= "`b_tech_id` = '".   $WorkingPlanet['b_tech_id']   ."', ";
+				$QryUpdateUser .= "`b_tech` = '".      $WorkingPlanet['b_tech']      ."', ";
+				$QryUpdateUser .= "`metal` = '".       $WorkingPlanet['metal']       ."', ";
+				$QryUpdateUser .= "`crystal` = '".     $WorkingPlanet['crystal']     ."', ";
+				$QryUpdateUser .= "`deuterium` = '".   $WorkingPlanet['deuterium']   ."' ";
+				$QryUpdateUser .= "WHERE ";
+				$QryUpdateUser .= "`id` = '".          $WorkingPlanet['id']          ."';";
+				$QryUpdateUser .= "UPDATE ".USERS." SET ";
+				$QryUpdateUser .= "`b_tech_planet` = '". $CurrentUser['b_tech_planet'] ."' ";
+				$QryUpdateUser .= "WHERE ";
+				$QryUpdateUser .= "`id` = '".            $CurrentUser['id']            ."';";
+				$db->multi_query($QryUpdateUser);
+			}
+				
+			$CurrentPlanet = $WorkingPlanet;
+			if (is_array($ThePlanet))
+			{
+				$ThePlanet     = $WorkingPlanet;
+			}
+			else
+			{
+				$CurrentPlanet = $WorkingPlanet;
+				if ($TheCommand == 'search')
+				{
+					$ThePlanet = $CurrentPlanet;
+				}
+			}
+		}
+					
+		$template->set_vars($CurrentUser, $CurrentPlanet);
 		
 		foreach($reslist['tech'] as $ID => $Element)
 		{

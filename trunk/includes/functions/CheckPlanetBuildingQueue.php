@@ -26,81 +26,53 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 		return true;
 	}
 
-
-	function CheckPlanetBuildingQueue ( &$CurrentPlanet, &$CurrentUser )
+	function CheckPlanetBuildingQueue(&$CurrentPlanet, &$CurrentUser)
 	{
 		global $resource, $db;
 
 		$RetValue     = false;
-		if ($CurrentPlanet['b_building_id'] != 0)
+		if (!empty($CurrentPlanet['b_building_id']))
 		{
-			$CurrentQueue  = $CurrentPlanet['b_building_id'];
-			if ($CurrentQueue != 0)
-			{
-				$QueueArray    = explode ( ";", $CurrentQueue );
-				$ActualCount   = count ( $QueueArray );
-			}
+			$CurrentQueue  	= $CurrentPlanet['b_building_id'];
+			$QueueArray    	= explode(";", $CurrentPlanet['b_building_id']);
+			$ActualCount   	= count($QueueArray);
 
-			$BuildArray   = explode (",", $QueueArray[0]);
-			$BuildEndTime = floor($BuildArray[3]);
-			$BuildMode    = $BuildArray[4];
-			$Element      = $BuildArray[0];
-			array_shift ( $QueueArray );
+			$BuildArray   	= explode (",", $QueueArray[0]);
+			$Element      	= $BuildArray[0];
+			$Level      	= $BuildArray[1];
+			$BuildEndTime 	= $BuildArray[3];
+			$BuildMode    	= $BuildArray[4];
 			
-			if ($BuildMode == 'destroy')
-				$ForDestroy = true;
-			else
-				$ForDestroy = false;
-				
 			if ($BuildEndTime <= time())
 			{
-				$current = intval($CurrentPlanet['field_current']);
-				$max     = intval($CurrentPlanet['field_max']);
-
-				if ($CurrentPlanet['planet_type'] == 3)
+				$ForDestroy = ($BuildMode == 'destroy') ? true : false;
+				$CFields		= $CurrentPlanet['field_current'];
+				$MFields     	= $CurrentPlanet['field_max'];
+				
+				if ($Element == 41)
 				{
-					if ($Element == 41)
-					{
-						$current += 1;
-						$max     += FIELDS_BY_MOONBASIS_LEVEL;
-						$CurrentPlanet[$resource[$Element]]++;
-					}
-					elseif ($Element != 0)
-					{
-						if ($ForDestroy == false)
-						{
-							$current += 1;
-							$CurrentPlanet[$resource[$Element]]++;
-						}
-						else
-						{
-							$current -= 1;
-							$CurrentPlanet[$resource[$Element]]--;
-						}
-					}
+					$CurrentPlanet['field_max']	+= FIELDS_BY_MOONBASIS_LEVEL;
+					$CurrentPlanet[$resource[$Element]]++;
 				}
-				elseif ($CurrentPlanet['planet_type'] == 1)
+				
+				if ($ForDestroy == false)
 				{
-					if ($ForDestroy == false)
-					{
-						$current += 1;
-						$CurrentPlanet[$resource[$Element]]++;
-					}
-					else
-					{
-						$current -= 1;
-						$CurrentPlanet[$resource[$Element]]--;
-					}
+					$CurrentPlanet['field_current']++;
+					$CurrentPlanet[$resource[$Element]]	= $Level;
 				}
-				if (count ( $QueueArray ) == 0)
+				else
+				{
+					$CurrentPlanet['field_current']--;
+					$CurrentPlanet[$resource[$Element]]	= $Level - 1;
+				}
+				array_shift($QueueArray);
+				if (count($QueueArray) == 0)
 					$NewQueue = 0;
 				else
 					$NewQueue = implode (";", $QueueArray );
 
 				$CurrentPlanet['b_building']    = 0;
 				$CurrentPlanet['b_building_id'] = $NewQueue;
-				$CurrentPlanet['field_current'] = $current;
-				$CurrentPlanet['field_max']     = $max;
 				
 				if($Element == 14 || $Element == 15)
 					SetNewBuildTimes($CurrentPlanet);
@@ -130,7 +102,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 			$QryUpdatePlanet .= "`b_building_id` = '". $CurrentPlanet['b_building_id'] ."' ";
 			$QryUpdatePlanet .= "WHERE ";
 			$QryUpdatePlanet .= "`id` = '" . $CurrentPlanet['id'] . "';";
-			$db->query($QryUpdatePlanets);
+			$db->query($QryUpdatePlanet);
 
 			$RetValue = false;
 		}

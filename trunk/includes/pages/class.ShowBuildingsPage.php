@@ -352,11 +352,14 @@ class ShowBuildingsPage
 
 		include_once(ROOT_PATH . 'includes/functions/IsTechnologieAccessible.' . PHP_EXT);
 		include_once(ROOT_PATH . 'includes/functions/GetElementPrice.' . PHP_EXT);
-
+		include_once(ROOT_PATH . 'includes/functions/UpdatePlanetBatimentQueueList.' . PHP_EXT);
+		
 		CheckPlanetUsedFields($CurrentPlanet);
 		
 		$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
 
+		UpdatePlanetBatimentQueueList($CurrentPlanet, $CurrentUser);
+		
         $TheCommand   = request_var('cmd','');
         $Element      = request_var('building',0);
         $ListID       = request_var('listid',0);

@@ -21,28 +21,19 @@
 
 if(!defined('INSIDE')){ die(header("location:../../"));}
 
-function UpdatePlanetBatimentQueueList ( &$CurrentPlanet, &$CurrentUser ) {
+include_once(ROOT_PATH . 'includes/functions/SetNextQueueElementOnTop.' . PHP_EXT);
+include_once(ROOT_PATH . 'includes/functions/CheckPlanetBuildingQueue.' . PHP_EXT);
 
+function UpdatePlanetBatimentQueueList(&$CurrentPlanet, &$CurrentUser) 
+{
 	$RetValue = false;
-	if ( $CurrentPlanet['b_building_id'] != 0 )
+	while(!$RetValue)
 	{
-		while ( $CurrentPlanet['b_building_id'] != 0 )
-		{
-			if ( $CurrentPlanet['b_building'] <= time() )
-			{
-				PlanetResourceUpdate($CurrentUser, $CurrentPlanet, $CurrentPlanet['b_building'], false);
-				$IsDone = CheckPlanetBuildingQueue($CurrentPlanet, $CurrentUser);
-				if ($IsDone == true)
-					SetNextQueueElementOnTop($CurrentPlanet, $CurrentUser );
-			}
-			else
-			{
-				$RetValue = true;
-				break;
-			}
-		}
+		if ($CurrentPlanet['b_building'] <= time() && CheckPlanetBuildingQueue($CurrentPlanet, $CurrentUser))
+			SetNextQueueElementOnTop($CurrentPlanet, $CurrentUser);
+		else
+			$RetValue = true;
 	}
-	return $RetValue;
 }
 
 ?>
