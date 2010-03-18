@@ -14,6 +14,12 @@ $lang['changelog']   = array(
 - FIX: Galaxy
 - FIX: Minus-Werte bei NPC`s in Expeditions Kämpfen
 - FIX: Allianz Hack
+- FIX: UMode
+- FIX: Sprungtor
+- FIX: BuildQuere
+- FIX: Rohstoffberechnung
+- FIX: Zeit von Spionageberichten
+- FIX: Allianzstatistiken(?)
 - FIX: Font-FIX in overLIB
 - DIV: Update Smarty to 3.0b8
 - DIV: Sicherheit im Game erhöht
