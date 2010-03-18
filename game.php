@@ -25,14 +25,8 @@ define('ROOT_PATH', './');
 
 include_once(ROOT_PATH . 'extension.inc');
 include_once(ROOT_PATH . 'common.' . PHP_EXT);
-include_once(ROOT_PATH . 'includes/functions/CheckPlanetBuildingQueue.' . PHP_EXT);
 include_once(ROOT_PATH . 'includes/functions/GetBuildingPrice.' . PHP_EXT);
 include_once(ROOT_PATH . 'includes/functions/IsElementBuyable.' . PHP_EXT);
-include_once(ROOT_PATH . 'includes/functions/SetNextQueueElementOnTop.' . PHP_EXT);
-include_once(ROOT_PATH . 'includes/functions/UpdatePlanetBatimentQueueList.' . PHP_EXT);
-
-
-
 
 $page = request_var('page','');
 switch($page)
@@ -125,29 +119,26 @@ switch($page)
 	case 'buildings':
 		$query = $db->fetch_array($db->query("SELECT estado FROM ".MODULE." WHERE modulo='Bauen';"));
 		if($query['estado'] == 0 && $user['authlevel'] == 0) { message("Modul inaktiv.","game.php?page=overview"); }
- 
-		include_once(ROOT_PATH . 'includes/functions/HandleTechnologieBuild.' . PHP_EXT);
-		UpdatePlanetBatimentQueueList ($planetrow, $user, $planetrow);
-		$IsWorking = HandleTechnologieBuild($planetrow, $user, $planetrow);
-		switch ($_GET['mode'])
+		$mode = request_var('mode', '');
+		switch ($mode)
 		{
 			case 'research':
 				include_once(ROOT_PATH . 'includes/pages/class.ShowResearchPage.' . PHP_EXT);
-				new ShowResearchPage($planetrow, $user, $IsWorking['OnWork'], $IsWorking['WorkOn']);
+				new ShowResearchPage($planetrow, $user);
 			break;
 			case 'fleet':
 				include_once(ROOT_PATH . 'includes/pages/class.ShowShipyardPage.' . PHP_EXT);
 				$FleetBuildingPage = new ShowShipyardPage();
-				$FleetBuildingPage->FleetBuildingPage ($planetrow, $user, $planetrow);
+				$FleetBuildingPage->FleetBuildingPage ($planetrow, $user);
 			break;
 			case 'defense':
 				include_once(ROOT_PATH . 'includes/pages/class.ShowShipyardPage.' . PHP_EXT);
 				$DefensesBuildingPage = new ShowShipyardPage();
-				$DefensesBuildingPage->DefensesBuildingPage ($planetrow, $user, $planetrow);
+				$DefensesBuildingPage->DefensesBuildingPage ($planetrow, $user);
 			break;
 			default:
 				include_once(ROOT_PATH . 'includes/pages/class.ShowBuildingsPage.' . PHP_EXT);
-				new ShowBuildingsPage($planetrow, $user, $planetrow);
+				new ShowBuildingsPage($planetrow, $user);
 			break;
 		}
 	break;

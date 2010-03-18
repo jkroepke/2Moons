@@ -42,49 +42,43 @@ function ShowStatisticsPage($CurrentUser, $CurrentPlanet)
 	
 	switch ($type)
 	{
-		case 1:
-			$Order   = "total_points";
-			$Points  = "total_points";
-			$Counts  = "total_count";
-			$Rank    = "total_rank";
-			$OldRank = "total_old_rank";
-		break;
 		case 2:
-			$Order   = "fleet_points";
+			$Order   = "fleet_rank";
 			$Points  = "fleet_points";
 			$Counts  = "fleet_count";
 			$Rank    = "fleet_rank";
 			$OldRank = "fleet_old_rank";
 		break;
 		case 3:
-			$Order   = "tech_points";
+			$Order   = "tech_rank";
 			$Points  = "tech_points";
 			$Counts  = "tech_count";
 			$Rank    = "tech_rank";
 			$OldRank = "tech_old_rank";
 		break;
 		case 4:
-			$Order   = "build_points";
+			$Order   = "build_rank";
 			$Points  = "build_points";
 			$Counts  = "build_count";
 			$Rank    = "build_rank";
 			$OldRank = "build_old_rank";
 		break;
 		case 5:
-			$Order   = "defs_points";
+			$Order   = "defs_rank";
 			$Points  = "defs_points";
 			$Counts  = "defs_count";
 			$Rank    = "defs_rank";
 			$OldRank = "defs_old_rank";
 		break;
 		default:
-			$Order   = "total_points";
+			$Order   = "total_rank";
 			$Points  = "total_points";
 			$Counts  = "total_count";
 			$Rank    = "total_rank";
 			$OldRank = "total_old_rank";
 		break;
 	}
+	
 	switch($who)
 	{
 		case 1:
@@ -157,8 +151,8 @@ function ShowStatisticsPage($CurrentUser, $CurrentPlanet)
 		break;
 	}
 	
-	$Selector['who'] 	= array(1 => $lang['st_player'], 2 => $lang['st_alliance'],);
-	$Selector['type']	= array(1 => $lang['st_points'], 2 => $lang['st_fleets'], 3 => $lang['st_researh'], 4 => $lang['st_buildings'], 5 => $lang['st_defenses'],);
+	$Selector['who'] 	= array(1 => $lang['st_player'], 2 => $lang['st_alliance']);
+	$Selector['type']	= array(1 => $lang['st_points'], 2 => $lang['st_fleets'], 3 => $lang['st_researh'], 4 => $lang['st_buildings'], 5 => $lang['st_defenses']);
 	$template->assign_vars(array(	
 		'Selectors'				=> $Selector,
 		'who'					=> $who,

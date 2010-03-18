@@ -27,6 +27,7 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 
 	include_once(ROOT_PATH . 'includes/functions/InsertJavaScriptChronoApplet.' . PHP_EXT);
 	include_once(ROOT_PATH . 'includes/classes/class.FlyingFleetsTable.' . PHP_EXT);
+	include_once(ROOT_PATH . 'includes/functions/UpdatePlanetBatimentQueueList.' . PHP_EXT);
 	
 	$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
 
