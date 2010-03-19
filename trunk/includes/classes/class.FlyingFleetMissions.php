@@ -46,7 +46,7 @@ class FlyingFleetMissions {
 	
 	public static function calculateAKSSteal($attackFleets, $FleetRow, $defenderPlanet, $ForSim = false)
 	{
-		//Beute-Math by WOT-Game based on http://www.owiki.de/Beute
+		//Steal-Math by Slaver for 2Moons(http://www.titanspace.org) based on http://www.owiki.de/Beute
 		global $pricelist, $db;
 		$SortFleets = array();
 		foreach ($attackFleets as $FleetID => $Attacker)
@@ -58,12 +58,6 @@ class FlyingFleetMissions {
 			foreach ($Attacker['detail'] as $Element => $amount)	
 			{
 				$SortFleets[$FleetID]		= $pricelist[$Element]['capacity'] * $amount - $metal[$FleetID] - $crystal[$FleetID] - $deuterium[$FleetID];
-			}
-			
-			if(!isset($SortFleets[$FleetID])) 
-			{
-				unset($SortFleets[$FleetID]);
-				continue;
 			}
 		}
 		
