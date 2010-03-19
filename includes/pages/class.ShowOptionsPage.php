@@ -106,7 +106,6 @@ class ShowOptionsPage
 				$settings_rep 			= ($settings_rep == 'on') ? 1 : 0;
 				$settings_planetmenu	= ($settings_planetmenu == 'on') ? 1 : 0;
 				$db_deaktjava 			= ($db_deaktjava == 'on') ? time() : 0;
-				
 				if ($urlaubs_modus == 'on')
 				{
 					if($this->CheckIfIsBuilding($CurrentUser))
@@ -116,10 +115,7 @@ class ShowOptionsPage
 						exit;
 					}
 					
-					$time = time() + VACATION_MIN_TIME;
-					$SQLQuery	.= "UPDATE ".USERS." SET `urlaubs_modus` = '1', `urlaubs_until` = '".$time."' WHERE `id` = '".$CurrentUser["id"]."' LIMIT 1;";
-
-					$query = $db->query("SELECT `id` FROM ".PLANETS." WHERE `id_owner` = '".$CurrentUser['id']."';");
+					$SQLQuery	.= "UPDATE ".USERS." SET `urlaubs_modus` = '1', `urlaubs_until` = '".(time() + VACATION_MIN_TIME)."' WHERE `id` = '".$CurrentUser["id"]."';";
 					$SQLQuery	.=  "UPDATE ".PLANETS." SET
 									`metal_perhour` = '".$game_config['metal_basic_income']."',
 									`crystal_perhour` = '".$game_config['crystal_basic_income']."',
@@ -153,9 +149,7 @@ class ShowOptionsPage
 								`settings_bud` = '".$settings_bud."',
 								`settings_mis` = '".$settings_mis."',
 								`hof` = '".$hof."',
-								`settings_rep` = '".$settings_rep."',
-								`urlaubs_modus` = '".$urlaubs_modus."',
-								`db_deaktjava` = '".$db_deaktjava."'
+								`settings_rep` = '".$settings_rep."',,
 								WHERE `id` = '".$CurrentUser["id"]."' LIMIT 1;";
 				
 				if ($CurrentUser['authlevel'] > 0)
@@ -170,7 +164,7 @@ class ShowOptionsPage
 				if (!empty($newpass1) && md5($db_password) == $CurrentUser["password"] && $newpass1 == $newpass2)
 				{
 					$newpass 	 = md5($newpass1);
-					$SQLQuery	.= "UPDATE ".USERS." SET `password` = '".$newpass."' WHERE `id` = '".$CurrentUser['id']."' LIMIT 1;";
+					$SQLQuery	.= "UPDATE ".USERS." SET `password` = '".$newpass."' WHERE `id` = '".$CurrentUser['id']."';";
 					setcookie($game_config['COOKIE_NAME'], "", time()-100000, "/", "", 0);
 					$template->message($lang['op_password_changed'],"index.php",1);
 				}
@@ -188,7 +182,7 @@ class ShowOptionsPage
 							$template->message($lang['op_change_name_exist'], "game.php?page=options", 1);
 						else 
 						{
-							$SQLQuery	.= "UPDATE ".USERS." SET `username` = '".$db->sql_escape($username)."', `uctime` = '".time()."' WHERE `id`= '".$CurrentUser['id']."' LIMIT 1;";
+							$SQLQuery	.= "UPDATE ".USERS." SET `username` = '".$db->sql_escape($username)."', `uctime` = '".time()."' WHERE `id`= '".$CurrentUser['id']."';";
 							setcookie($game_config['COOKIE_NAME'], "", time()-100000, "/", "", 0);
 							$template->message($lang['op_username_changed'], "index.php", 1);
 						}
@@ -196,7 +190,7 @@ class ShowOptionsPage
 				}
 				else
 					$template->message($lang['op_options_changed'], "game.php?page=options", 1);
-				
+
 				$db->multi_query($SQLQuery);
 				$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 			break;

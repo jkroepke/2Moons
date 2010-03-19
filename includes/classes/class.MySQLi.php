@@ -100,7 +100,7 @@ class DB_mysqli
 			$this->connect();
 			
 		#$temp = debug_backtrace();
-		#file_put_contents(ROOT_PATH."adm/logs/querylog_".date("d.m.y").".log", date("H:i:s")." ".$_SERVER['REQUEST_URI']." on ".$temp[0]['line']." ".$sql."\n", FILE_APPEND);
+		#file_put_contents(ROOT_PATH."adm/logs/querylog_".date("d.m.y").".log", date("H:i:s")." ".$temp[0]['file']." on ".$temp[0]['line']." ".$sql."\n", FILE_APPEND);
 	
 		if($result = $this->mysqli->query($sql))
 		{
@@ -295,7 +295,7 @@ class DB_mysqli
 			$this->connect();
 		
 		#$temp = debug_backtrace();
-		#file_put_contents(ROOT_PATH."adm/logs/querylog_".date("d.m.y").".log", date("H:i:s")." ".$_SERVER['REQUEST_URI']." on ".$temp[0]['line']." ".$resource."\n", FILE_APPEND);
+		#file_put_contents(ROOT_PATH."adm/logs/querylog_".date("d.m.y").".log", date("H:i:s")." ".$temp[0]['file']." on ".$temp[0]['line']." ".str_replace("\n","",$resource)."\n", FILE_APPEND);
 
 		if($this->mysqli->multi_query($resource))
 		{

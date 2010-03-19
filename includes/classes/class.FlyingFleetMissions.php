@@ -72,35 +72,26 @@ class FlyingFleetMissions {
 		$Sumcapacity -= array_sum($metal) + array_sum($crystal) + array_sum($deuterium);
 		 
 		// Step 1
-		if(($defenderPlanet['metal'] / 2) > ($Sumcapacity / 3)) $booty['metal'] = ($Sumcapacity / 3);
-		else $booty['metal'] = ($defenderPlanet['metal'] / 2);
+		$booty['metal'] = min(($Sumcapacity / 3), ($defenderPlanet['metal'] / 2));
 		$Sumcapacity -= $booty['metal'];
 		 
 		// Step 2
-		if($defenderPlanet['crystal'] > $Sumcapacity) $booty['crystal'] = ($Sumcapacity / 2);
-		else $booty['crystal'] = ($defenderPlanet['crystal'] / 2);
+		$booty['crystal'] = min(($Sumcapacity / 2), ($defenderPlanet['crystal'] / 2));
 		$Sumcapacity -= $booty['crystal'];
 		 
 		// Step 3
-		if(($defenderPlanet['deuterium'] / 2) > $Sumcapacity) $booty['deuterium'] = $Sumcapacity;
-		else $booty['deuterium'] = ($defenderPlanet['deuterium'] / 2);
+		$booty['deuterium'] = min(($Sumcapacity / 2), ($defenderPlanet['deuterium'] / 2));
 		$Sumcapacity -= $booty['deuterium'];
 		 
 		// Step 4
 		$oldMetalBooty = $booty['metal'];
-		if($defenderPlanet['metal'] > $Sumcapacity) $booty['metal'] += ($Sumcapacity / 2);
-		else $booty['metal'] += ($defenderPlanet['metal'] / 2);
-		$Sumcapacity -= $booty['metal'];
+		$booty['metal'] += min(($Sumcapacity), (($defenderPlanet['metal'] - $booty['metal']) / 2));
 		$Sumcapacity += $oldMetalBooty;
+		$Sumcapacity -= $booty['metal'];
 		 
 		// Step 5
-		if(($defenderPlanet['crystal'] / 2) > $Sumcapacity) $booty['crystal'] += $Sumcapacity;
-		else $booty['crystal'] += ($defenderPlanet['crystal'] / 2);
-		 
-		// Reset metal and crystal booty
-		if($booty['metal'] > ($defenderPlanet['metal'] / 2)) $booty['metal'] = $defenderPlanet['metal'] / 2;
-		if($booty['crystal'] > ($defenderPlanet['crystal'] / 2)) $booty['crystal'] = $defenderPlanet['crystal'] / 2;
-		
+		$booty['crystal'] += min(($Sumcapacity), (($defenderPlanet['crystal'] - $booty['crystal']) / 2));
+		 		
 		$steal 		= array_map('floor', $booty);
 		$Amount		= count($SortFleets);
 		
