@@ -98,7 +98,7 @@ function ShowStatisticsPage($CurrentUser, $CurrentPlanet)
 			$stats_sql	=	'SELECT DISTINCT s.*, u.id, u.username, u.ally_id, u.ally_name FROM '.STATPOINTS.' as s
 			INNER JOIN '.USERS.' as u ON u.id = s.id_owner
 			WHERE s.`stat_type` = 1 AND s.`stat_code` = 1 '.(($game_config['stat'] == 2)?'AND u.`authlevel` < '.$game_config['stat_level'].' ':'').'
-			ORDER BY `'. $Order .'` DESC LIMIT '. $start .',100;';
+			ORDER BY `'. $Order .'` ASC LIMIT '. $start .',100;';
 
 			$query = $db->query($stats_sql);
 
@@ -107,7 +107,7 @@ function ShowStatisticsPage($CurrentUser, $CurrentPlanet)
 				$RangeList[]	= array(
 					'id'		=> $StatRow['id'],
 					'name'		=> $StatRow['username'],
-					'points'	=> pretty_number($StatRow[$Order]),
+					'points'	=> pretty_number($StatRow[$Points]),
 					'allyid'	=> $StatRow['ally_id'],
 					'rank'		=> $StatRow[$Rank],
 					'allyname'	=> $StatRow['ally_name'],
@@ -132,7 +132,7 @@ function ShowStatisticsPage($CurrentUser, $CurrentPlanet)
 			$stats_sql	=	'SELECT DISTINCT s.*, a.id, a.ally_members, a.ally_name FROM '.STATPOINTS.' as s
 			INNER JOIN '.ALLIANCE.' as a ON a.id = s.id_owner
 			WHERE `stat_type` = 2 AND `stat_code` = 1
-			ORDER BY `'. $Order .'` DESC LIMIT '. $start .',100;';
+			ORDER BY `'. $Order .'` ASC LIMIT '. $start .',100;';
 
 			$query = $db->query($stats_sql);
 

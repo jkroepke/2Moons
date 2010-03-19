@@ -86,6 +86,7 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	define('BUILD_CRISTAL'            ,     500);
 	define('BUILD_DEUTERIUM'          ,       0);
 	
+	define('MAX_ATTACK_ROUNDS'		  ,       6);
 	
 	define('VACATION_MIN_TIME'		  ,  259200);
 	//DISCLAMER INFOS
