@@ -131,12 +131,9 @@ class ShowShipyardPage
 
 		include_once(ROOT_PATH . 'includes/functions/IsTechnologieAccessible.' . PHP_EXT);
 		include_once(ROOT_PATH . 'includes/functions/GetElementPrice.' . PHP_EXT);
-		include_once(ROOT_PATH . 'includes/functions/UpdatePlanetBatimentQueueList.' . PHP_EXT);
 		
 		
 		$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
-
-		UpdatePlanetBatimentQueueList($CurrentPlanet, $CurrentUser);
 
 		if ($CurrentPlanet[$resource[21]] == 0)
 		{
