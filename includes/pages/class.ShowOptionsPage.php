@@ -61,7 +61,7 @@ class ShowOptionsPage
 		{
 			case "exit":
 				if ($exit == 'on' and $CurrentUser['urlaubs_until'] <= time())
-					$SQLQuery	.= "UPDATE ".USERS." SET `urlaubs_modus` = '0', `urlaubs_until` = '0' WHERE `id` = '".$CurrentUser['id']."' LIMIT 1;";
+					$SQLQuery	.= "UPDATE ".USERS." SET `urlaubs_modus` = '0', `urlaubs_until` = '0' WHERE `id` = '".$CurrentUser['id']."' LIMIT 1;UPDATE ".PLANETS." SET `last_update` = '".time()."' WHERE `id_owner` = '".$CurrentUser["id"]."';";
 				
 				if ($db_deaktjava == 'on')
 					$SQLQuery	.= "UPDATE ".USERS." SET `db_deaktjava` = '".time()."' WHERE `id` = '".$CurrentUser['id']."' LIMIT 1;";
@@ -117,9 +117,6 @@ class ShowOptionsPage
 					
 					$SQLQuery	.= "UPDATE ".USERS." SET `urlaubs_modus` = '1', `urlaubs_until` = '".(time() + VACATION_MIN_TIME)."' WHERE `id` = '".$CurrentUser["id"]."';";
 					$SQLQuery	.=  "UPDATE ".PLANETS." SET
-									`metal_perhour` = '".$game_config['metal_basic_income']."',
-									`crystal_perhour` = '".$game_config['crystal_basic_income']."',
-									`deuterium_perhour` = '".$game_config['deuterium_basic_income']."',
 									`energy_used` = '0',
 									`energy_max` = '0',
 									`metal_mine_porcent` = '0',
