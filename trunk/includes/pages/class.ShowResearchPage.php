@@ -124,12 +124,11 @@ class ShowResearchPage
 		include_once(ROOT_PATH . 'includes/functions/IsTechnologieAccessible.' . PHP_EXT);
 		include_once(ROOT_PATH . 'includes/functions/GetElementPrice.' . PHP_EXT);
 		include_once(ROOT_PATH . 'includes/functions/HandleTechnologieBuild.' . PHP_EXT);
-		include_once(ROOT_PATH . 'includes/functions/UpdatePlanetBatimentQueueList.' . PHP_EXT);;
+		
 		$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
 
 		$template	= new template();
 		
-		UpdatePlanetBatimentQueueList($CurrentPlanet, $CurrentUser);
 		$IsWorking = HandleTechnologieBuild($CurrentPlanet, $CurrentUser);
 		$ThePlanet	= $IsWorking['WorkOn'];
 		$InResearch	= $IsWorking['OnWork'];

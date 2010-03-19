@@ -29,7 +29,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 	function CheckPlanetBuildingQueue(&$CurrentPlanet, &$CurrentUser)
 	{
 		global $resource, $db;
-
+		PlanetResourceUpdate($CurrentUser, $CurrentPlanet, $CurrentPlanet['b_building']);
 		$RetValue     = false;
 		if (!empty($CurrentPlanet['b_building_id']))
 		{

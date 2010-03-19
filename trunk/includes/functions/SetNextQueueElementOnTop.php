@@ -30,22 +30,24 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 			$CurrentQueue  = $CurrentPlanet['b_building_id'];
 			if (!empty($CurrentQueue))
 			{
-				$QueueArray = explode ( ";", $CurrentQueue );
-				$Loop       = true;
+				$QueueArray 	= explode ( ";", $CurrentQueue );
+				$Loop       	= true;
+				$BuildEndTime	= time();
 				while ($Loop == true)
 				{
 					$ListIDArray         = explode ( ",", $QueueArray[0]);
 					$Element             = $ListIDArray[0];
 					$Level               = $ListIDArray[1];
-					$BuildTime           = $ListIDArray[2];
-					$BuildEndTime        = $ListIDArray[3];
 					$BuildMode           = $ListIDArray[4];
-					$HaveNoMoreLevel     = false;
-
+					
 					if ($BuildMode == 'destroy')
 						$ForDestroy = true;
 					else
 						$ForDestroy = false;
+
+					$BuildTime           = GetBuildingTime($CurrentUser, $CurrentPlanet, $Element, $Destroy = false);
+					$BuildEndTime        = $BuildEndTime + $BuildTime;
+					$HaveNoMoreLevel     = false;
 
 					$HaveRessources = IsElementBuyable ($CurrentUser, $CurrentPlanet, $Element, true, $ForDestroy);
 					if($ForDestroy && $CurrentPlanet[$resource[$Element]] == 0)
@@ -72,7 +74,8 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 					{
 						$ElementName = $lang['tech'][$Element];
 
-						if($CurrentUser['hof'] == 1){
+						if($CurrentUser['hof'] == 1)
+						{
 							if ($HaveNoMoreLevel == true)
 								$Message     = sprintf ($lang['sys_nomore_level'], $ElementName );
 							else
@@ -87,8 +90,8 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 						array_shift($QueueArray);
 						if (count($QueueArray) == 0)
 						{
-							$BuildEndTime  = '0';
-							$NewQueue      = '0';
+							$BuildEndTime  = 0;
+							$NewQueue      = 0;
 							$Loop          = false;
 						}
 					}
@@ -96,8 +99,8 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 			}
 			else
 			{
-				$BuildEndTime  = '0';
-				$NewQueue      = '0';
+				$BuildEndTime  = 0;
+				$NewQueue      = 0;
 			}
 
 			$CurrentPlanet['b_building']    = $BuildEndTime;
