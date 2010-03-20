@@ -383,7 +383,7 @@ class ShowShipyardPage
 						}
 						$Missiles[$Element] += $Count;
 					}
-					elseif($Element == 407 || $Element == 408 || $Element == 409)
+					elseif(in_array($Element, $reslist['one']))
 					{
 						$InQueue = strpos ( $CurrentPlanet['b_hangar_id'], $Element.",");
 						$IsBuildpp = ($CurrentPlanet[$resource[$Element]] >= 1) ? TRUE : FALSE;

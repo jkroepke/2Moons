@@ -33,6 +33,8 @@ $lang['tech_rc'] = array (
 408 => 'Große Schildkuppel',
 409 => 'Gigantische Schildkuppel',
 410 => 'Gravitonenkanone',
+411 => 'Orbitale Verteidigungsplattform',
+412 => 'Bahamut',
 );
 
 
@@ -100,6 +102,7 @@ $lang['tech'] = array(
 219 => 'Gigarecykler',
 220 => 'Intergalaktischer D. Materiensammler',
 221 => 'Spaltenreißer',
+222 => 'Bahamut',
 
 400 => 'Verteidigungsanlagen',
 401 => 'Raketenwerfer',
@@ -112,6 +115,8 @@ $lang['tech'] = array(
 408 => 'Große Schildkuppel',
 409 => 'Gigantische Schildkuppel',
 410 => 'Gravitonkanone',
+411 => 'Orbitale Verteidigungsplattform',
+
 502 => 'Abfangrakete',
 503 => 'Interplanetarrakete',
 
@@ -198,6 +203,7 @@ $lang['res']['descriptions'] = array(
 219 => 'Ist eine Gigantische Weltraumrecykelanlage und Hyperschnell.',
 220 => 'Mit diesem Schiff ist es nach jahre langen forschen mölich Dunkle Materie an seinem Mond zu sammeln.',
 221 => 'Dieses Schiff ist einer der stärksten Schiffe die dieses Universum je betreten hat. Der Spaltenreißer reist mit seiner unglaublich hohen Gravitontechnik einen Riss in die Zeit, der alle Gegner verschlingt. Seine Schilde totzen fast jeden Angriff.',
+222 => 'Dieses Schiff ist das Ergebnis von Jahrelangem Forschen. Alle Kaiser taten sich zusammen um dieses Monstrum eines Zerstörers zu erschaffen. Ausgestattet mit den stärksten Laser- und Projektilgeschützen inklusive Gravitonkanonen ist es möglich Monde innerhalb von Sekunden zu zerstören und ihre Überreste einzusammeln um sie in ihrem gigantischen Lagerraum zu verstauen.',
 
 401 => 'Der Raketenwerfer ist eine einfache aber kostengünstige Verteidigungsmöglichkeit.',
 402 => 'Durch den konzentrierten Beschuss eines Ziels mit Photonen kann eine wesentlich grössere Schadenswirkung erzielt werden, als mit gewöhnlichen ballistischen Waffen.',
@@ -209,6 +215,8 @@ $lang['res']['descriptions'] = array(
 408 => 'Die Weiterentwicklung der Kleinen Schildkuppel kann wesentlich mehr Energie einsetzen um Angriffe abzuhalten.',
 409 => 'Die Weiterentwicklung der Großen Schildkuppel ist die Krönung der Schildtechnik sie kann wesentlich mehr Energie einsetzen um Angriffe abzuhalten als alle anderen Schildkupeln.',
 410 => 'Nach jahrelangen forschen an der Gravitationkraft ist es Forschern gelugen, eine Graviationkanone zu entwickeln, die kleine konzentrierte Gravitionfelder erzeugen kann und sie auf die Gegner schießen lässt.',
+411 => 'Es ist eine unbewegliche defensive Plattform. Sie besitzt keinen direkten Antrieb und wird durch Gravitonforschung in einer stabilen Umlaufbahn des Planeten gehalten. Das starten dieses Vorgangs erfordert hohe Massen an Energie.',
+
 502 => 'Abfangraketen zerstören angreifende Interplanetarraketen.',
 503 => 'Interplanetarraketen zerstören die gegnerische Verteidigung.',
 
@@ -364,6 +372,8 @@ $lang['info'][220]['name']        = 'Intergalaktischer D. Materiesammler';
 $lang['info'][220]['description'] = 'Mit diesem Schiff ist es nach jahre langen Forschen möglich, Dunkle Materie an seinem Mond zu sammeln.';
 $lang['info'][221]['name']        = 'Spaltenreißer';
 $lang['info'][221]['description'] = 'Dieses Schiff ist einer der stärksten Schiffe die dieses Universum je betreten hat. Der Spaltenreißer reist mit seiner unglaublich hohen Gravitontechnik einen Riss in die Zeit, der alle Gegner verschlingt. Seine Schilde totzen fast jeden Angriff.';
+$lang['info'][222]['name']        = 'Bahamut';
+$lang['info'][222]['description'] = 'Dieses Schiff ist das Ergebnis von Jahrelangem Forschen. Alle Kaiser taten sich zusammen um dieses Monstrum eines Zerstörers zu erschaffen. Ausgestattet mit den stärksten Laser- und Projektilgeschützen inklusive Gravitonkanonen ist es möglich Monde innerhalb von Sekunden zu zerstören und ihre Überreste einzusammeln um sie in ihrem gigantischen Lagerraum zu verstauen.';
 
 
 // ----------------------------------------------------------------------------------------------------------
@@ -388,7 +398,8 @@ $lang['info'][409]['name']        = 'Gigantische Schildkuppel';
 $lang['info'][409]['description'] = 'Die Weiterentwicklung der Großen Schildkuppel. Sie basiert auf den gleichen Technologien kann aber wesentlich mehr Energie einsetzen um feindliche Angriffe abzuhalten.';
 $lang['info'][410]['name']        = 'Gravitonkannone';
 $lang['info'][410]['description'] = 'Sie basiert wie der name schon sagt auf einer Gravitonkraft, bekannt aus dem Todesstern und aus besseren Schiffen.';
-
+$lang['info'][411]['name']        = 'Orbitale Verteidigungsplattform';
+$lang['info'][411]['description'] = 'Diese Plattform mit gigantischem ausmaß ist das Größste, was das Universum je gesehen hat. Es ist eine unbewegliche defensive Plattform. Sie besitzt keinen direkten Antrieb und wird durch Gravitonforschung in einer stabilen Umlaufbahn des Planeten gehalten. Das starten dieses Vorgangs erfordert hohe Massen an Energie. Die Forscher arbeiten an einer Möglichkeit, auf dieser Plattform Schiffe zu bauen, um sie als einen äusseren Verteidigungsring zu nutzen, der es dem Gegner erschwert zur Planetaren Verteidigung durchzubrechen. Durch das gigantische Ausmaß ist es nur möglich einer dieser Monster zu besitzen.';
 // ----------------------------------------------------------------------------------------------------------
 // Raketen 
 $lang['info'][502]['name']        = 'Abfangraketen';
