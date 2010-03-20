@@ -107,7 +107,7 @@ class FlyingFleetMissions {
 		}
 		
 		$db->multi_query($QryUpdateFleet);
-		return $steal
+		return $steal;
 	}
 	
 	private static function calculateSoloSteal($attackFleets, $FleetRow, $defenderPlanet)
