@@ -48,6 +48,7 @@ class FlyingFleetMissions {
 	{
 		//Steal-Math by Slaver for 2Moons(http://www.titanspace.org) based on http://www.owiki.de/Beute
 		global $pricelist, $db;
+		
 		$SortFleets = array();
 		foreach ($attackFleets as $FleetID => $Attacker)
 		{
@@ -92,56 +93,21 @@ class FlyingFleetMissions {
 		if($ForSim)
 			return $steal;
 			
-		while(self::ZeroSteal($steal) === false)
-		{
-			foreach ($SortFleets as $FleetID => $Capacity)
-			{
-				$MetalSteal[$FleetID]		= isset($MetalSteal[$FleetID]) ? $MetalSteal[$FleetID] : 0;
-				$CrystalSteal[$FleetID]		= isset($CrystalSteal[$FleetID]) ? $CrystalSteal[$FleetID] : 0;
-				$DeuteriumSteal[$FleetID]	= isset($DeuteriumSteal[$FleetID]) ? $DeuteriumSteal[$FleetID] : 0;
-				
-				
-				$Metall						= round(min(($steal['metal'] / $Amount), ($Capacity / 3)));
-				$Crystal					= round(min(($steal['crystal'] / $Amount), ($Capacity / 3)));
-				$Deuterium					= round(min(($steal['deuterium'] / $Amount), ($Capacity / 3)));		
-				
-				if($Capacity - ($Metall + $Crystal + $Deuterium) < 0)
-				{				
-					$Metall		-= (($Metall + $Crystal + $Deuterium) - $Capacity) / 3;
-					$Crystal	-= (($Metall + $Crystal + $Deuterium) - $Capacity) / 3;
-					$Deuterium	-= (($Metall + $Crystal + $Deuterium) - $Capacity) / 3;
-				}
-				
-				$Metall						= round($Metall);
-				$Crystal					= round($Crystal);
-				$Deuterium					= round($Deuterium);
-				
-				$steal['metal']			   -= $Metall;
-				$steal['crystal']		   -= $Crystal;
-				$steal['deuterium']		   -= $Deuterium;
-					
-				$MetalSteal[$FleetID]	   += $Metall;
-				$CrystalSteal[$FleetID]	   += $Crystal;
-				$DeuteriumSteal[$FleetID]  += $Deuterium;
-				
-				$SortFleets[$FleetID]	   -= $Metall + $Crystal + $Deuterium;
-			}		
-		}
+		$AllCapacity	= array_sum($SortFleets);
 		$QryUpdateFleet	= "";
-		
-		foreach($SortFleets as $FleetID => $Room)
+
+		foreach($SortFleets as $FleetID => $Capacity)
 		{
-		
 			$QryUpdateFleet .= 'UPDATE '.FLEETS.' SET ';
-			$QryUpdateFleet .= '`fleet_resource_metal` = `fleet_resource_metal` + '.$MetalSteal[$FleetID].', ';
-			$QryUpdateFleet .= '`fleet_resource_crystal` = `fleet_resource_crystal` +'.$CrystalSteal[$FleetID].', ';
-			$QryUpdateFleet .= '`fleet_resource_deuterium` = `fleet_resource_deuterium` +'.$DeuteriumSteal[$FleetID].' ';
+			$QryUpdateFleet .= '`fleet_resource_metal` = `fleet_resource_metal` + '.round($steal['metal'] * ($Capacity / $AllCapacity)).', ';
+			$QryUpdateFleet .= '`fleet_resource_crystal` = `fleet_resource_crystal` +'.round($steal['crystal'] * ($Capacity / $AllCapacity)).', ';
+			$QryUpdateFleet .= '`fleet_resource_deuterium` = `fleet_resource_deuterium` +'.round($steal['deuterium'] * ($Capacity / $AllCapacity)).' ';
 			$QryUpdateFleet .= 'WHERE fleet_id = '.$FleetID.' ';
 			$QryUpdateFleet .= 'LIMIT 1;';		
 		}
 		
 		$db->multi_query($QryUpdateFleet);
-		return array_map('floor', $booty);
+		return $steal
 	}
 	
 	private static function calculateSoloSteal($attackFleets, $FleetRow, $defenderPlanet)

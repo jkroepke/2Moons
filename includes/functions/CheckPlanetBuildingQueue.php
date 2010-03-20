@@ -30,6 +30,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 	{
 		global $resource, $db;
 		$RetValue     = false;
+		$IfSelectedPlanet	= $CurrentUser['current_planet'] == $CurrentPlanet['id'] ? true : false;
 		if (!empty($CurrentPlanet['b_building_id']))
 		{
 			PlanetResourceUpdate($CurrentUser, $CurrentPlanet, $CurrentPlanet['b_building']);
@@ -73,21 +74,22 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 
 				$CurrentPlanet['b_building']    = 0;
 				$CurrentPlanet['b_building_id'] = $NewQueue;
-				
-				if($Element == 14 || $Element == 15)
-					SetNewBuildTimes($CurrentPlanet);
-					
-				$QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
-				$QryUpdatePlanet .= "`".$resource[$Element]."` = '".$CurrentPlanet[$resource[$Element]]."', ";
-				$QryUpdatePlanet .= "`b_building` = '". $CurrentPlanet['b_building'] ."' , ";
-				$QryUpdatePlanet .= "`b_building_id` = '". $CurrentPlanet['b_building_id'] ."' , ";
-				$QryUpdatePlanet .= "`field_current` = '" . $CurrentPlanet['field_current'] . "', ";
-				$QryUpdatePlanet .= "`field_max` = '" . $CurrentPlanet['field_max'] . "' ";
-				$QryUpdatePlanet .= "WHERE ";
-				$QryUpdatePlanet .= "`id` = '" . $CurrentPlanet['id'] . "';";
-				$db->query($QryUpdatePlanet);
+									
+				$Build	= $Element;
 
 				$RetValue = true;
+				if(!$IfSelectedPlanet)
+				{
+                    $QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
+                    $QryUpdatePlanet .= "`".$resource[$Element]."` = '".$CurrentPlanet[$resource[$Element]]."', ";
+                    $QryUpdatePlanet .= "`b_building` = '". $CurrentPlanet['b_building'] ."' , ";
+                    $QryUpdatePlanet .= "`b_building_id` = '". $CurrentPlanet['b_building_id'] ."' , ";
+                    $QryUpdatePlanet .= "`field_current` = '" . $CurrentPlanet['field_current'] . "', ";
+                    $QryUpdatePlanet .= "`field_max` = '" . $CurrentPlanet['field_max'] . "' ";
+                    $QryUpdatePlanet .= "WHERE ";
+                    $QryUpdatePlanet .= "`id` = '" . $CurrentPlanet['id'] . "';";
+                    $db->query($QryUpdatePlanet);
+				}
 			}
 			else
 				$RetValue = false;
@@ -96,16 +98,17 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 		{
 			$CurrentPlanet['b_building']    = 0;
 			$CurrentPlanet['b_building_id'] = 0;
-
-			$QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
-			$QryUpdatePlanet .= "`b_building` = '". $CurrentPlanet['b_building'] ."' , ";
-			$QryUpdatePlanet .= "`b_building_id` = '". $CurrentPlanet['b_building_id'] ."' ";
-			$QryUpdatePlanet .= "WHERE ";
-			$QryUpdatePlanet .= "`id` = '" . $CurrentPlanet['id'] . "';";
-			$db->query($QryUpdatePlanet);
-
+			if(!$IfSelectedPlanet)
+			{
+                $QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
+                $QryUpdatePlanet .= "`b_building` = '". $CurrentPlanet['b_building'] ."' , ";
+                $QryUpdatePlanet .= "`b_building_id` = '". $CurrentPlanet['b_building_id'] ."' ";
+                $QryUpdatePlanet .= "WHERE ";
+                $QryUpdatePlanet .= "`id` = '" . $CurrentPlanet['id'] . "';";
+                $db->query($QryUpdatePlanet);
+			}
 			$RetValue = false;
 		}
-		return $RetValue;
+		return array('isDone' => $RetValue, 'Element' => $Build);
 	}
 ?>

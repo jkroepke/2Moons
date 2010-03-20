@@ -118,11 +118,8 @@ switch($page)
 	case 'buildings':
 		$query = $db->fetch_array($db->query("SELECT estado FROM ".MODULE." WHERE modulo='Bauen';"));
 		if($query['estado'] == 0 && $user['authlevel'] == 0) { message("Modul inaktiv.","game.php?page=overview"); }
+		
 		$mode = request_var('mode', '');
-		
-		include_once(ROOT_PATH . 'includes/functions/UpdatePlanetBatimentQueueList.' . PHP_EXT);
-		UpdatePlanetBatimentQueueList($planetrow, $user);
-		
 		switch ($mode)
 		{
 			case 'research':
