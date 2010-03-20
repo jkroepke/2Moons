@@ -72,7 +72,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 		}
 		else
 		{
-			$Builded                   = '';
+			$Builded                   = array();
 			$CurrentPlanet['b_hangar'] = 0;
 		}
 		return $Builded;

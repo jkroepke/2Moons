@@ -291,7 +291,7 @@ abstract class FleetFunctions
 		
 		while($row = $db->fetch_array($GetAKS))
 		{
-			$AksStartTime = $db->fetch_array($db->query("SELECT MAX(`fleet_start_time`) AS time FROM ".FLEETS." WHERE `fleet_group` = '".$row['id']."';"));
+			$AksStartTime = $db->fetch_array($db->query("SELECT MAX(`fleet_start_time`) AS time FROM ".FLEETS." WHERE `fleet_group` = '".$row['id']."'  AND 'fleet_start_time' > '".time()."';"));
 			$AKSList[]	= array(
 				'id'			=> $row['id'],
 				'name'			=> $row['name'],

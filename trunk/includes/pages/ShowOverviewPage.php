@@ -27,7 +27,6 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 
 	include_once(ROOT_PATH . 'includes/functions/InsertJavaScriptChronoApplet.' . PHP_EXT);
 	include_once(ROOT_PATH . 'includes/classes/class.FlyingFleetsTable.' . PHP_EXT);
-	include_once(ROOT_PATH . 'includes/functions/UpdatePlanetBatimentQueueList.' . PHP_EXT);
 	
 	$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
 
@@ -291,8 +290,6 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 			if ($CurrentPlanet['b_building'] != 0)
 			{
 				include_once(ROOT_PATH . 'includes/functions/InsertBuildListScript.' . PHP_EXT);
-
-				UpdatePlanetBatimentQueueList ($planetrow, $user);
 
 				$BuildQueue  		 = explode (";", $CurrentPlanet['b_building_id']);
 				$CurrBuild 	 		 = explode (",", $BuildQueue[0]);

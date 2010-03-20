@@ -25,6 +25,7 @@ class ResourceUpdate
 	{
 		global $ProdGrid, $resource, $reslist, $game_config, $ExtraDM;
 
+		$this->Builded					= UpdatePlanetBatimentQueueList($CurrentPlanet, $CurrentUser);
 		$CurrentPlanet['metal_max']		= floor(2.5 * pow(1.8331954764, $CurrentPlanet[$resource[22]])) * 5000 * (1 + ($CurrentUser['rpg_stockeur'] * 0.5)) * $game_config['resource_multiplier'] * STORAGE_FACTOR;
 		$CurrentPlanet['crystal_max']	= floor(2.5 * pow(1.8331954764, $CurrentPlanet[$resource[23]])) * 5000 * (1 + ($CurrentUser['rpg_stockeur'] * 0.5)) * $game_config['resource_multiplier'] * STORAGE_FACTOR;
 		$CurrentPlanet['deuterium_max']	= floor(2.5 * pow(1.8331954764, $CurrentPlanet[$resource[24]])) * 5000 * (1 + ($CurrentUser['rpg_stockeur'] * 0.5)) * $game_config['resource_multiplier'] * STORAGE_FACTOR;
@@ -77,7 +78,7 @@ class ResourceUpdate
 				$CurrentPlanet['metal_perhour']     = $game_config['metal_basic_income'];
 				$CurrentPlanet['crystal_perhour']   = $game_config['crystal_basic_income'];
 				$CurrentPlanet['deuterium_perhour'] = $game_config['deuterium_basic_income'];
-				$production_level            = 100;
+				$production_level            = 0;
 			}
 			elseif ($Caps["energy_max"] >= abs($Caps["energy_used"]))
 			{
@@ -95,7 +96,7 @@ class ResourceUpdate
 			{
 				$production_level = 0;
 			}
-			
+
 			$CurrentPlanet['metal_perhour']        = $Caps['metal_perhour']* (0.01 * $production_level);
 			$CurrentPlanet['crystal_perhour']      = $Caps['crystal_perhour'] * (0.01 * $production_level);
 			$CurrentPlanet['deuterium_perhour']    = $Caps['deuterium_perhour'] * (0.01 * $production_level) + $Caps['deuterium_used'];
@@ -151,7 +152,8 @@ class ResourceUpdate
 		$CurrentPlanet['metal']		= max($CurrentPlanet['metal'], 0);
 		$CurrentPlanet['crystal']	= max($CurrentPlanet['crystal'], 0);
 		$CurrentPlanet['deuterium']	= max($CurrentPlanet['deuterium'], 0);
-		$this->Builded          = ($Hanger) ? HandleElementBuildingQueue($CurrentUser, $CurrentPlanet, $this->ProductionTime) : '';
+		if($Hanger)
+			$this->Builded    	   += HandleElementBuildingQueue($CurrentUser, $CurrentPlanet, $this->ProductionTime);
 	}
 	
 	public function SavePlanetToDB($CurrentUser, $CurrentPlanet)
@@ -163,6 +165,10 @@ class ResourceUpdate
 		$QryUpdatePlanet .= "`crystal` = '"          . $CurrentPlanet['crystal']           	."', ";
 		$QryUpdatePlanet .= "`deuterium` = '"        . $CurrentPlanet['deuterium']         	."', ";
 		$QryUpdatePlanet .= "`last_update` = '"      . $CurrentPlanet['last_update']       	."', ";
+		$QryUpdatePlanet .= "`b_building` = '"       . $CurrentPlanet['b_building']         ."', ";
+		$QryUpdatePlanet .= "`b_building_id` = '"    . $CurrentPlanet['b_building_id']      ."', ";
+		$QryUpdatePlanet .= "`field_current` = '"    . $CurrentPlanet['field_current']      ."', ";
+		$QryUpdatePlanet .= "`field_max` = '"        . $CurrentPlanet['field_max']          ."', ";
 		$QryUpdatePlanet .= "`b_hangar_id` = '"      . $CurrentPlanet['b_hangar_id']       	."', ";
 		$QryUpdatePlanet .= "`metal_perhour` = '"    . $CurrentPlanet['metal_perhour']     	."', ";
 		$QryUpdatePlanet .= "`crystal_perhour` = '"  . $CurrentPlanet['crystal_perhour']   	."', ";
@@ -174,12 +180,9 @@ class ResourceUpdate
 		$QryUpdatePlanet .= "`energy_max` = '"       . $CurrentPlanet['energy_max']        	."', ";
 		if (!empty($this->Builded))
 		{
-			foreach ($this->Builded as $Element => $Count )
+			foreach($this->Builded as $Element => $Count )
 			{
-				if ($resource[$Element] != '')
-				{
-					$QryUpdatePlanet .= "`". $resource[$Element] ."` = '". $CurrentPlanet[$resource[$Element]] ."', ";
-				}
+				$QryUpdatePlanet .= "`". $resource[$Element] ."` = '". $CurrentPlanet[$resource[$Element]] ."', ";
 			}
 		}
 		$QryUpdatePlanet .= "`b_hangar` = '". $CurrentPlanet['b_hangar'] ."' ";

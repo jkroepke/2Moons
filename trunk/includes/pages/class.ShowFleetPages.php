@@ -452,7 +452,7 @@ class ShowFleetPages extends FleetFunctions
 			$target = "g".$galaxy."s".$system."p".$planet."t".$planettype;
 			if($acs_target_mr == $target)
 			{
-				$aks_count_mr = $db->query("SELECT * FROM ".AKS." WHERE `id` = '".$fleet_group."' AND `eingeladen` LIKE '%".$CurrentUser['id']."%';");
+				$aks_count_mr = $db->query("SELECT * FROM ".AKS." WHERE `id` = '".$fleet_group."' AND `eingeladen` LIKE '%".$CurrentUser['id']."%' AND 'fleet_start_time' > '".time()."';");
 				if ($db->num_rows($aks_count_mr) > 0)
 					$fleet_group_mr = $fleet_group;
 			}
@@ -683,11 +683,12 @@ class ShowFleetPages extends FleetFunctions
 			else
 			{
 				$QryUpdateFleets = "UPDATE ".FLEETS." SET ";
-				$QryUpdateFleets .= "`fleet_start_time` = '". $fleet['start_time'] ."', ";
+				$QryUpdateFleets .= "`fleet_start_time` = '".$fleet['start_time']."', ";
 				$QryUpdateFleets .= "`fleet_end_time` = fleet_end_time + '".($fleet['start_time'] - $AksStartTime['Start'])."' ";
 				$QryUpdateFleets .= "WHERE ";
 				$QryUpdateFleets .= "`fleet_group` = '". $fleet_group_mr ."';";
 				$db->query($QryUpdateFleets);
+				$fleet['end_time'] 	    += $fleet['start_time'] - $AksStartTime['Start'];
 			}
 		}
 		

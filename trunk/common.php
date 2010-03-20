@@ -20,7 +20,7 @@
 ##############################################################################
 
 setlocale (LC_ALL, 'de_DE@euro', 'de_DE', 'de', 'ge');
-@set_time_limit(0);
+@set_time_limit(30);
 
 if((!file_exists(ROOT_PATH . 'config.php') || filesize(ROOT_PATH . 'config.php') == 0) && INSTALL != true)
 	exit(header("Location:" . ROOT_PATH .  "install/"));
