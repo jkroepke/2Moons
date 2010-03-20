@@ -52,20 +52,14 @@ class FlyingFleetMissions {
 		$SortFleets = array();
 		foreach ($attackFleets as $FleetID => $Attacker)
 		{
-			$metal[$FleetID]		= $Attacker['fleet']['metal'];
-			$crystal[$FleetID]		= $Attacker['fleet']['crystal'];
-			$deuterium[$FleetID]	= $Attacker['fleet']['deuterium'];
-			
 			foreach ($Attacker['detail'] as $Element => $amount)	
 			{
-				$SortFleets[$FleetID]		= $pricelist[$Element]['capacity'] * $amount - $metal[$FleetID] - $crystal[$FleetID] - $deuterium[$FleetID];
+				$SortFleets[$FleetID]		= $pricelist[$Element]['capacity'] * $amount - $Attacker['fleet']['fleet_resource_metal'] - $Attacker['fleet']['fleet_resource_crystal'] - $Attacker['fleet']['fleet_resource_deuterium'];
 			}
 		}
 		
-		$Sumcapacity	= array_sum($SortFleets);
-		
-		$Sumcapacity -= array_sum($metal) + array_sum($crystal) + array_sum($deuterium);
-		 
+		$Sumcapacity  = array_sum($SortFleets);
+				 
 		// Step 1
 		$booty['metal'] = min(($Sumcapacity / 3), ($defenderPlanet['metal'] / 2));
 		$Sumcapacity -= $booty['metal'];
@@ -80,15 +74,14 @@ class FlyingFleetMissions {
 		 
 		// Step 4
 		$oldMetalBooty = $booty['metal'];
-		$booty['metal'] += min(($Sumcapacity), (($defenderPlanet['metal'] - $booty['metal']) / 2));
+		$booty['metal'] = min(($booty['metal'] + $Sumcapacity), (($defenderPlanet['metal']) / 2));
 		$Sumcapacity += $oldMetalBooty;
 		$Sumcapacity -= $booty['metal'];
 		 
 		// Step 5
-		$booty['crystal'] += min(($Sumcapacity), (($defenderPlanet['crystal'] - $booty['crystal']) / 2));
+		$booty['crystal'] = min(($booty['crystal'] + $Sumcapacity), (($defenderPlanet['crystal']) / 2));
 		 		
 		$steal 		= array_map('floor', $booty);
-		$Amount		= count($SortFleets);
 		
 		if($ForSim)
 			return $steal;
