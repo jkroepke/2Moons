@@ -47,7 +47,7 @@ function ShowPhalanxPage($CurrentUser, $CurrentPlanet)
 	$SystemLimitMax  	= $CurrentSystem + $PhRange;
 	$DoScan 			= ($System <= $SystemLimitMax && $System >= $SystemLimitMin && $Galaxy == $CurrentPlanet['galaxy']) ? true : false;
 
-	if ($CurrentPlanet['planet_type'] != 3) exit;
+	if ($CurrentPlanet['planet_type'] != 3 || $PlType != 1) exit;
 
 	if ($CurrentPlanet['deuterium'] > 5000)
 		$db->query("UPDATE ".PLANETS." SET `deuterium` = `deuterium` - '5000' WHERE `id` = '". $CurrentUser['current_planet'] ."';");
