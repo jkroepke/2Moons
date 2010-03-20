@@ -172,7 +172,7 @@ class ResourceUpdate
 		$QryUpdatePlanet .= "`deuterium_max` = '"    . $CurrentPlanet['deuterium_max'] 		."', ";
 		$QryUpdatePlanet .= "`energy_used` = '"      . $CurrentPlanet['energy_used']    	."', ";
 		$QryUpdatePlanet .= "`energy_max` = '"       . $CurrentPlanet['energy_max']        	."', ";
-		if (!empty($this->$Builded))
+		if (!empty($this->Builded))
 		{
 			foreach ($this->Builded as $Element => $Count )
 			{
