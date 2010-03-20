@@ -21,7 +21,7 @@
 
 class ResourceUpdate
 {
-	function __construct($CurrentUser, &$CurrentPlanet)
+	function __construct($CurrentUser, &$CurrentPlanet, $Hanger = true)
 	{
 		global $ProdGrid, $resource, $reslist, $game_config, $ExtraDM;
 
@@ -33,6 +33,7 @@ class ResourceUpdate
 		$MaxCristalStorage              = $CurrentPlanet['crystal_max']   * MAX_OVERFLOW;
 		$MaxDeuteriumStorage            = $CurrentPlanet['deuterium_max'] * MAX_OVERFLOW;
 		$this->ProductionTime          	= (time() - $CurrentPlanet['last_update']);
+
 		$CurrentPlanet['last_update']   = time();
 
 		if ($CurrentPlanet['planet_type'] == 3 || $CurrentUser['urlaubs_modus'] == 1)
@@ -150,17 +151,13 @@ class ResourceUpdate
 		$CurrentPlanet['metal']		= max($CurrentPlanet['metal'], 0);
 		$CurrentPlanet['crystal']	= max($CurrentPlanet['crystal'], 0);
 		$CurrentPlanet['deuterium']	= max($CurrentPlanet['deuterium'], 0);
+		$this->Builded          = ($Hanger) ? HandleElementBuildingQueue($CurrentUser, $CurrentPlanet, $this->ProductionTime) : '';
 	}
 	
-	public function SavePlanetToDB($CurrentUser, $CurrentPlanet, $Hanger = true)
+	public function SavePlanetToDB($CurrentUser, $CurrentPlanet)
 	{
 		global $resource, $db, $user;
-		$Builded          = ($Hanger) ? HandleElementBuildingQueue ( $CurrentUser, $CurrentPlanet, $this->ProductionTime) : '';
-		
-		$CurrentPlanet['metal']		= max($CurrentPlanet['metal'], 0);
-		$CurrentPlanet['crystal']	= max($CurrentPlanet['crystal'], 0);
-		$CurrentPlanet['deuterium']	= max($CurrentPlanet['deuterium'], 0);
-		
+			
 		$QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
 		$QryUpdatePlanet .= "`metal` = '"            . $CurrentPlanet['metal']             	."', ";
 		$QryUpdatePlanet .= "`crystal` = '"          . $CurrentPlanet['crystal']           	."', ";
@@ -175,9 +172,9 @@ class ResourceUpdate
 		$QryUpdatePlanet .= "`deuterium_max` = '"    . $CurrentPlanet['deuterium_max'] 		."', ";
 		$QryUpdatePlanet .= "`energy_used` = '"      . $CurrentPlanet['energy_used']    	."', ";
 		$QryUpdatePlanet .= "`energy_max` = '"       . $CurrentPlanet['energy_max']        	."', ";
-		if ( $Builded != '' )
+		if (!empty($this->$Builded))
 		{
-			foreach ( $Builded as $Element => $Count )
+			foreach ($this->Builded as $Element => $Count )
 			{
 				if ($resource[$Element] != '')
 				{

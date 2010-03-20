@@ -300,16 +300,16 @@ class ShowShipyardPage
 		include_once(ROOT_PATH . 'includes/functions/GetElementPrice.' . PHP_EXT);
 
 		$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
-		
+		$template	= new template();
+		$template->page_header();	
+		$template->page_topnav();
+		$template->page_leftmenu();
+		$template->page_planetmenu();
+		$template->page_footer();
+			
 		if ($CurrentPlanet[$resource[21]] == 0)
 		{
-			$template	= new template();
 			$template->set_vars($CurrentUser, $CurrentPlanet);
-			$template->page_header();	
-			$template->page_topnav();
-			$template->page_leftmenu();
-			$template->page_planetmenu();
-			$template->page_footer();
 			$template->message($lang['bd_shipyard_required']);
 			$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 			exit;
@@ -434,16 +434,10 @@ class ShowShipyardPage
 			}
 		}
 
-		$template	= new template();
 		if(!empty($CurrentPlanet['b_hangar_id']))
 			$template->loadscript('shipyard.js');
 		
 		$template->set_vars($CurrentUser, $CurrentPlanet);
-		$template->page_header();	
-		$template->page_topnav();
-		$template->page_leftmenu();
-		$template->page_planetmenu();
-		$template->page_footer();
 		
 		foreach($reslist['defense'] as $Element)
 		{

@@ -369,7 +369,7 @@ class ShowFleetPages extends FleetFunctions
 
 		include_once(ROOT_PATH . 'includes/functions/IsVacationMode.' . PHP_EXT);
 
-		$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
+		$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet, false);
 		$template	= new template();
 		$template->set_vars($CurrentUser, $CurrentPlanet);
 		$template->loadscript('flotten.js');
@@ -752,7 +752,7 @@ class ShowFleetPages extends FleetFunctions
 		));
 		
 		$template->show('fleet3_table.tpl');
-		$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet, false);
+		$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 		
 	}
 
