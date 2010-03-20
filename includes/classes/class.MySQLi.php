@@ -64,8 +64,7 @@ class DB_mysqli
 	 */
 	public function __destruct()
 	{	
-		if(!is_object($this->mysqli))
-			$this->connect();
+		$this->mysqli->close;
 	}
 
 	/**
@@ -82,6 +81,8 @@ class DB_mysqli
 			trigger_error("Connection to database failed: ".mysqli_connect_error(),E_USER_ERROR);
 			return false;
 		}
+		if($GLOBALS['game_config']['debug'] == 1)
+			file_put_contents(ROOT_PATH."adm/logs/querylog_".date("d.m.y").".log", "\n-------------------------------\n\n", FILE_APPEND);
 		
 		$this->mysqli->set_charset("utf8");
 		return true;
@@ -98,10 +99,12 @@ class DB_mysqli
 	{
 		if(!is_object($this->mysqli))
 			$this->connect();
-			
-		#$temp = debug_backtrace();
-		#file_put_contents(ROOT_PATH."adm/logs/querylog_".date("d.m.y").".log", date("H:i:s")." ".$temp[0]['file']." on ".$temp[0]['line']." ".$sql."\n", FILE_APPEND);
-	
+		
+		if($GLOBALS['game_config']['debug'] == 1)
+		{
+			$temp = debug_backtrace();
+			file_put_contents(ROOT_PATH."adm/logs/querylog_".date("d.m.y").".log", date("H:i:s")." ".$temp[0]['file']." on ".$temp[0]['line']." ".$sql."\n", FILE_APPEND);
+		}
 		if($result = $this->mysqli->query($sql))
 		{
 			$this->queryCount++;
@@ -294,9 +297,12 @@ class DB_mysqli
 		if(!is_object($this->mysqli))
 			$this->connect();
 		
-		#$temp = debug_backtrace();
-		#file_put_contents(ROOT_PATH."adm/logs/querylog_".date("d.m.y").".log", date("H:i:s")." ".$temp[0]['file']." on ".$temp[0]['line']." ".str_replace("\n","",$resource)."\n", FILE_APPEND);
-
+		if($GLOBALS['game_config']['debug'] == 1)
+		{
+			$temp = debug_backtrace();
+			file_put_contents(ROOT_PATH."adm/logs/querylog_".date("d.m.y").".log", date("H:i:s")." ".$temp[0]['file']." on ".$temp[0]['line']." ".str_replace("\n","",$resource)."\n", FILE_APPEND);
+		}
+		
 		if($this->mysqli->multi_query($resource))
 		{
 			if ($clear_result_cache) {

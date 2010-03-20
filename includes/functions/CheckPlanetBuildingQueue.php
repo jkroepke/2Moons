@@ -29,10 +29,10 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 	function CheckPlanetBuildingQueue(&$CurrentPlanet, &$CurrentUser)
 	{
 		global $resource, $db;
-		PlanetResourceUpdate($CurrentUser, $CurrentPlanet, $CurrentPlanet['b_building']);
 		$RetValue     = false;
 		if (!empty($CurrentPlanet['b_building_id']))
 		{
+			PlanetResourceUpdate($CurrentUser, $CurrentPlanet, $CurrentPlanet['b_building']);
 			$CurrentQueue  	= $CurrentPlanet['b_building_id'];
 			$QueueArray    	= explode(";", $CurrentPlanet['b_building_id']);
 			$ActualCount   	= count($QueueArray);
@@ -58,12 +58,12 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 				if ($ForDestroy == false)
 				{
 					$CurrentPlanet['field_current']++;
-					$CurrentPlanet[$resource[$Element]]	= $Level;
+					$CurrentPlanet[$resource[$Element]]++;
 				}
 				else
 				{
 					$CurrentPlanet['field_current']--;
-					$CurrentPlanet[$resource[$Element]]	= $Level - 1;
+					$CurrentPlanet[$resource[$Element]]--;
 				}
 				array_shift($QueueArray);
 				if (count($QueueArray) == 0)

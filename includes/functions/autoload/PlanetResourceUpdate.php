@@ -31,7 +31,7 @@ function PlanetResourceUpdate ( $CurrentUser, &$CurrentPlanet, $UpdateTime, $Sim
 	$MaxCristalStorage              = $CurrentPlanet['crystal_max']   * MAX_OVERFLOW;
 	$MaxDeuteriumStorage            = $CurrentPlanet['deuterium_max'] * MAX_OVERFLOW;
 	$ProductionTime               	= ($UpdateTime - $CurrentPlanet['last_update']);
-	$CurrentPlanet['last_update'] 		   = $UpdateTime;
+	$CurrentPlanet['last_update'] 	= $UpdateTime;
 
 	if ($CurrentPlanet['planet_type'] == 3)
 	{

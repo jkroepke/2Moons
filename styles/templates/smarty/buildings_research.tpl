@@ -12,7 +12,7 @@
 					</a>
 				</th>
 				<td class="c">
-					<img src="./styles/images/transparent.gif" alt="" width="0" height="0">&nbsp;<a href="javascript:info({$ResearchInfoRow.id})">{$ResearchInfoRow.name}</a> ({$bd_lvl} {$ResearchInfoRow.lvl}){if $ResearchInfoRow.elvl > 0} <span style="color:lime;">+{$ResearchInfoRow.elvl}</span>{/if} {$ResearchInfoRow.maxinfo}
+					<img src="./styles/images/transparent.gif" alt="" width="0" height="0">&nbsp;<a href="javascript:info({$ResearchInfoRow.id})">{$ResearchInfoRow.name}</a>{if $ResearchInfoRow.lvl != 0} ({$bd_lvl} {$ResearchInfoRow.lvl}){/if}{if $ResearchInfoRow.elvl > 0} <span style="color:lime;">+{$ResearchInfoRow.elvl}</span>{/if} {$ResearchInfoRow.maxinfo}
 				</td>
 			</tr>
 			<tr>

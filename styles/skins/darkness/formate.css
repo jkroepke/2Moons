@@ -54,7 +54,7 @@ background-position : top left;
 background-attachment : fixed;
 }
 
-body, input, select, textarea, a{
+body, input, select, textarea, a, td, th, tr, table{
 font-family : Verdana, Tahoma, Helvetica, sans-serif;
 font-size : 10px;
 color : #CCC;

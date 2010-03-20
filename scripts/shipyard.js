@@ -13,13 +13,12 @@ function t() {
 	var s = Math.round(s);
 	var m = 0;
 	var h = 0;
-	if ( s < 0 ) {
+	if ( s <= 0) {
 		a[p]--;
-		xd();
 		if ( a[p] <= 0 ) {
 			p++;
-			xd();
 		}
+		xd();
 		hanger_id = 0;
 		v = new Date();
 		s = 0;
