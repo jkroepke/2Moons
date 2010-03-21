@@ -146,8 +146,8 @@ class ShowOptionsPage
 								`settings_bud` = '".$settings_bud."',
 								`settings_mis` = '".$settings_mis."',
 								`hof` = '".$hof."',
-								`settings_rep` = '".$settings_rep."'
-								WHERE `id` = '".$CurrentUser["id"]."' LIMIT 1;";
+								`settings_rep` = '".$settings_rep."' 
+								WHERE `id` = '".$CurrentUser["id"]."';";
 				
 				if ($CurrentUser['authlevel'] > 0)
 				{
