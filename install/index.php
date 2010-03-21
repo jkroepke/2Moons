@@ -252,7 +252,7 @@ switch ($Mode) {
 					mkdir(ROOT_PATH . $dir, 0777);
 				}
 			}
-			$Qry1 = "UPDATE ".CONFIG." SET `config_value` = '5.0' WHERE `config_name` = 'VERSION' LIMIT 1;";
+			$Qry1 = "UPDATE ".CONFIG." SET `config_value` = '".RCINSTALL_VERSION."' WHERE `config_name` = 'VERSION' LIMIT 1;";
 			$Qry2 = "ALTER TABLE ".PLANETS." CHANGE `der_metal` `der_metal` BIGINT( 11 ) UNSIGNED NOT NULL DEFAULT '0', CHANGE `der_crystal` `der_crystal` BIGINT( 11 ) UNSIGNED NOT NULL DEFAULT '0';";
 			$Qry3 = "INSERT INTO ".CONFIG." (`config_name`, `config_value`) VALUES ('smtp_host', ''),('smtp_port', ''),('smtp_user', ''),('smtp_pass', ''),('smtp_ssl', ''),('user_valid', '');";
 			$Qry4 = "ALTER TABLE ".ALLIANCE." CHANGE `ally_text` `ally_text` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;";
@@ -287,6 +287,9 @@ switch ($Mode) {
 				break;	
 				case '5.0b2':
 					$QrysArray = $Qry1.$Qry14.$Qry15.$Qry16.$Qry17.$Qry18;
+				break;
+				case '5.0b3':
+					$QrysArray = $Qry1.$Qry19;
 				break;
 			}	
 			$db->multi_query($QrysArray);

@@ -10,6 +10,7 @@ $lang['changelog']   = array(
 'RC5.0b6' => 'ShadoX '.$version[2].'.'.$version[1].'.'.substr($version[0],2,2).'
 - ADD: Neue Accountlisten im ACP
 - ADD: Gigarecler on Galaxy
+- ADD: Ori. Platform, Spalteinreißer, Bahamut
 - FIX: Trader
 - FIX: Galaxy
 - FIX: Minus-Werte bei NPC`s in Expeditions Kämpfen
@@ -22,6 +23,7 @@ $lang['changelog']   = array(
 - FIX: Allianzstatistiken(?)
 - FIX: Font-FIX in overLIB
 - DIV: Update Smarty to 3.0b8
+- DIV: Change Buildsystem für Gebäude/Flotten
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game
 ',
