@@ -56,18 +56,15 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 					$Count	= 0;					
 				} else {
 					$GetBuildShips	= max(min(floor($CurrentPlanet['b_hangar'] / $BuildTime), $Count), 0);
-					if($GetBuildShips == 0)
-						break;
-						
 					$CurrentPlanet['b_hangar']	-= $GetBuildShips * $BuildTime;
 					$Builded[$Element]	+= $GetBuildShips;
 					$CurrentPlanet[$resource[$Element]]	+= $GetBuildShips;
 					$Count	-= $GetBuildShips;						
 				}
-			}
-			if ($Count != 0)
-			{
-				$CurrentPlanet['b_hangar_id'] .= $Element.",".$Count.";";
+				if ($Count != 0)
+				{
+					$CurrentPlanet['b_hangar_id'] .= $Element.",".$Count.";";
+				}
 			}
 		}
 		else
