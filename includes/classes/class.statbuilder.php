@@ -390,10 +390,12 @@ class statbuilder{
 		unset($AllyPoints);		
 		$FinalSQL	= substr($FinalSQL, 0, -2).';';
 		$AllySQL	= substr($AllySQL, 0, -2).';';
-		$RankSQL    = $this->SetNewRanks();
-
+		
 		$this->SaveDataIntoDB($FinalSQL);
 		$this->SaveDataIntoDB($AllySQL);
+		
+		$RankSQL    = $this->SetNewRanks();
+
 		$this->SaveDataIntoDB($RankSQL);
 		
 		$this->RebuildRecordCache();

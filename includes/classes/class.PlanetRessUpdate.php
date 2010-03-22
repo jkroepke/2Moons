@@ -24,7 +24,9 @@ class ResourceUpdate
 	function __construct($CurrentUser, &$CurrentPlanet, $Hanger = true)
 	{
 		global $ProdGrid, $resource, $reslist, $game_config, $ExtraDM;
-
+		require_once(ROOT_PATH."/includes/functions/HandleElementBuildingQueue.".PHP_EXT);
+		require_once(ROOT_PATH."/includes/functions/UpdatePlanetBatimentQueueList.".PHP_EXT);
+		
 		$this->Builded					= UpdatePlanetBatimentQueueList($CurrentPlanet, $CurrentUser);
 		$CurrentPlanet['metal_max']		= floor(2.5 * pow(1.8331954764, $CurrentPlanet[$resource[22]])) * 5000 * (1 + ($CurrentUser['rpg_stockeur'] * 0.5)) * $game_config['resource_multiplier'] * STORAGE_FACTOR;
 		$CurrentPlanet['crystal_max']	= floor(2.5 * pow(1.8331954764, $CurrentPlanet[$resource[23]])) * 5000 * (1 + ($CurrentUser['rpg_stockeur'] * 0.5)) * $game_config['resource_multiplier'] * STORAGE_FACTOR;
@@ -152,6 +154,7 @@ class ResourceUpdate
 		$CurrentPlanet['metal']		= max($CurrentPlanet['metal'], 0);
 		$CurrentPlanet['crystal']	= max($CurrentPlanet['crystal'], 0);
 		$CurrentPlanet['deuterium']	= max($CurrentPlanet['deuterium'], 0);
+		
 		if($Hanger)
 			$this->Builded    	   += HandleElementBuildingQueue($CurrentUser, $CurrentPlanet, $this->ProductionTime);
 	}
@@ -180,7 +183,7 @@ class ResourceUpdate
 		$QryUpdatePlanet .= "`energy_max` = '"       . $CurrentPlanet['energy_max']        	."', ";
 		if (!empty($this->Builded))
 		{
-			foreach($this->Builded as $Element => $Count )
+			foreach($this->Builded as $Element => $Count)
 			{
 				$QryUpdatePlanet .= "`". $resource[$Element] ."` = '". $CurrentPlanet[$resource[$Element]] ."', ";
 			}
