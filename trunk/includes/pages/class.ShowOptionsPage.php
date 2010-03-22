@@ -167,7 +167,7 @@ class ShowOptionsPage
 				}
 				elseif ($CurrentUser['username'] != $username)
 				{
-					if (CheckName($username))
+					if (!CheckName($UserName))
 						$template->message($lang['op_user_name_no_alphanumeric'], "game.php?page=options", 1);
 					elseif($CurrentUser['uctime'] >= time() - (60 * 60 * 24 * 7))
 						$template->message($lang['op_change_name_pro_week'], "game.php?page=options", 1);
