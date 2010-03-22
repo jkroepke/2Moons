@@ -310,7 +310,7 @@ class ShowFleetPages extends FleetFunctions
 		
 		if($duration > $CurrentPlanet['deuterium'])
 		{
-			$template->message("<font color=\"red\"><b>". $lang['fl_no_enought_deuterium'] . pretty_number($consumption) ."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
+			$template->message("<font color=\"red\"><b>". $lang['fl_no_enought_deuterium'] . pretty_number($consumption) ."Aus Planet sind:".$CurrentPlanet['deuterium']."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
 			$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 			exit;
 		}
@@ -793,8 +793,8 @@ class ShowFleetPages extends FleetFunctions
 			break;
 			case 8:
 				$SRecycles	= explode("|", request_var('ships', ""));
-				$Recycles	= min($SRecycles[1], $CurrentPlanet[$resource[209]]);
 				$GRecycles	= min($SRecycles[0], $CurrentPlanet[$resource[219]]);
+				$Recycles	= min($SRecycles[1], $CurrentPlanet[$resource[209]]);
 				if(empty($Recycles) && empty($GRecycles))
 					exit($ResultMessage = "611; ".$lang['fa_no_recyclers']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserGRecycles." ".$UserMissiles);
 					
@@ -804,6 +804,8 @@ class ShowFleetPages extends FleetFunctions
 				exit("610; ".$lang['fa_not_enough_probes']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserGRecycles." ".$UserMissiles);
 			break;
 		}
+		
+		parent::CleanFleetArray($FleetArray);
 		
 		if (parent::GetMaxFleetSlots($CurrentUser) <= $CurrentFlyingFleets)
 		{
@@ -904,7 +906,6 @@ class ShowFleetPages extends FleetFunctions
 		$FleetShipCount      = 0;
 		$FleetDBArray        = "";
 		$FleetSubQRY         = "";
-
 		foreach ($FleetArray as $Ship => $Count)
 		{
 			$FleetShipCount  += $Count;
