@@ -95,9 +95,9 @@ switch ($page) {
 				
 				$UserPass 	= request_var ('password', '');
 				$UserPass2 	= request_var ('password2', '');
-				$UserName 	= trim(request_var ('character', '', UTF8_SUPPORT));
-				$UserEmail 	= trim(request_var ('email', ''));
-				$UserEmail2	= trim(request_var ('email2', ''));
+				$UserName 	= trim(request_var('character', '', UTF8_SUPPORT));
+				$UserEmail 	= trim(request_var('email', ''));
+				$UserEmail2	= trim(request_var('email2', ''));
 				$agbrules 	= request_var ('rgt', '');
 				$Exist['userv'] = $db->fetch_array($db->query("SELECT username, email FROM ".USERS." WHERE username = '".$db->sql_escape($UserName)."' OR email = '".$db->sql_escape($UserEmail)."';"));
 				$Exist['vaild'] = $db->fetch_array($db->query("SELECT username, email FROM ".USERS_VALID." WHERE username = '".$db->sql_escape($UserName)."' OR email = '".$db->sql_escape($UserEmail)."';"));

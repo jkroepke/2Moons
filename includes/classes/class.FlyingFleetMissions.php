@@ -75,8 +75,7 @@ class FlyingFleetMissions {
 		// Step 4
 		$oldMetalBooty = $booty['metal'];
 		$booty['metal'] = min(($booty['metal'] + $Sumcapacity), (($defenderPlanet['metal']) / 2));
-		$Sumcapacity += $oldMetalBooty;
-		$Sumcapacity -= $booty['metal'];
+		$Sumcapacity += $oldMetalBooty - $booty['metal'];
 		 
 		// Step 5
 		$booty['crystal'] = min(($booty['crystal'] + $Sumcapacity), (($defenderPlanet['crystal']) / 2));

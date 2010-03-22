@@ -48,14 +48,12 @@ $IsUserChecked 	= false;
 
 if(file_exists(ROOT_PATH . 'config.php'))
 	require_once(ROOT_PATH . 'config.'.PHP_EXT);
-
 require_once(ROOT_PATH . 'includes/constants.'.PHP_EXT);
 require_once(ROOT_PATH . 'includes/classes/class.MySQLi.'.PHP_EXT);
 require_once(ROOT_PATH . 'includes/classes/class.template.'.PHP_EXT);
 require_once(ROOT_PATH . 'includes/classes/class.PlanetRessUpdate.'.PHP_EXT);
 require_once(ROOT_PATH . 'includes/GeneralFunctions.'.PHP_EXT);
 require_once(ROOT_PATH . 'includes/vars.'.PHP_EXT);
-
 isBuggyIe() || ob_start("ob_gzhandler");
 
 set_error_handler('msg_handler', E_ALL);
@@ -76,7 +74,6 @@ if (INSTALL != true)
 {
 	if(!is_object($db))
 		trigger_error("Fehler mit Dantenbankconnection! config.php angepasst und eingef&uuml;gt?", E_USER_ERROR);
-		
 	$funcdir = ROOT_PATH . 'includes/functions/autoload/';
 	if ($handle = opendir($funcdir)) {
 		while (false !== ($file = readdir($handle))) {
@@ -106,7 +103,6 @@ if (INSTALL != true)
 		$Result			= $Result->CheckUser($IsUserChecked);
 		$IsUserChecked 	= $Result['state'];
 		$user          	= $Result['record'];
-		
 		if (!$IsUserChecked) die(header('Location: '.ROOT_PATH.'index.php'));
 		
 		if($game_config['game_disable'] == 0 && $user['authlevel'] == 0)
@@ -116,7 +112,8 @@ if (INSTALL != true)
 		
 		if (isset($user))
 		{
-			includeLang('TECH');					
+			includeLang('TECH');
+			
 			if($game_config['stats_fly_lock'] == 0 && !defined('IN_ADMIN'))
 			{	
 				update_config('stats_fly_lock', time());
@@ -132,10 +129,10 @@ if (INSTALL != true)
 				$db->query("UNLOCK TABLES");  
 				update_config('stats_fly_lock', 0);
 			}
-			
 			elseif (time() >= ($game_config['stats_fly_lock'] + (60 * 5))){
 				update_config('stats_fly_lock', 0);
 			}
+			
 			if (defined('IN_ADMIN'))
 			{
 				includeLang('ADMIN');
@@ -157,7 +154,6 @@ if (INSTALL != true)
 				$db->query("UPDATE ".USERS." SET `current_planet` = `id_planet` WHERE `id` = '". $user['id'] ."' LIMIT 1");
 				exit(header("Location: game.php?page=overview"));
 			}
-			
 			// Some Darkmatter Update after FleetMissions
 			$user['darkmatter'] = $planetrow['darkmatter'];
 			$user['new_message'] = $planetrow['new_message'];
