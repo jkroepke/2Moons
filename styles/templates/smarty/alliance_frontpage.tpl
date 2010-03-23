@@ -59,16 +59,16 @@
 			<td class="c" colspan="2">{$al_Allyquote}</td>
 		</tr>
 		<tr>
-			<th>{$pl_totalfight}</th><th align="right">{$totalfight}</th>
+			<th>{$pl_totalfight}</th><th align="right">{pretty_number($totalfight)}</th>
 		</tr>
 		<tr>
-			<th>{$pl_fightwon}</th><th>{$fightwon} {if $totalfight}({round($fightwon / $totalfight * 100)}%){/if}</th>
+			<th>{$pl_fightwon}</th><th>{pretty_number($fightwon)} {if $totalfight}({round($fightwon / $totalfight * 100, 2)}%){/if}</th>
 		</tr>
 		<tr>	
-			<th>{$pl_fightlose}</th><th>{$fightlose} {if $totalfight}({round($fightlose / $totalfight * 100)}%){/if}</th>
+			<th>{$pl_fightlose}</th><th>{pretty_number($fightlose)} {if $totalfight}({round($fightlose / $totalfight * 100, 2)}%){/if}</th>
 		</tr>
 		<tr>	
-			<th>{$pl_fightdraw}</th><th>{$fightdraw} {if $totalfight}({round($fightdraw / $totalfight * 100)}%){/if}</th>
+			<th>{$pl_fightdraw}</th><th>{pretty_number($fightdraw)} {if $totalfight}({round($fightdraw / $totalfight * 100, 2)}%){/if}</th>
 		</tr>
 		<tr>
 			<th>{$pl_unitsshot}</th><th>{$unitsshot}</th>
