@@ -90,7 +90,7 @@
 <th colspan="2"><b>{$kbmetal}</b></th>
 </tr>
 <tr>
-<th>{$pl_dercrytal}</th>
+<th>{$pl_dercrystal}</th>
 <th colspan="2"><b>{$kbcrystal}</b></th>
 </tr>
 <tr>
