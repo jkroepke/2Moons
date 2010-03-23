@@ -145,7 +145,7 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 					$fpage[$StartTime.$id] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 0, true, $Label, $Record);
 				}
 
-				if(($FleetRow['fleet_mission'] <> 4) && ($FleetRow['fleet_mission'] <> 10))
+				if(($FleetRow['fleet_mission'] != 4 || ($FleetRow['fleet_mission'] == 4 && $FleetRow['fleet_mess'] == 1)) && ($FleetRow['fleet_mission'] != 10))
 				{
 					$Label = "ft";
 
