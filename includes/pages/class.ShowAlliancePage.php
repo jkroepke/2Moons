@@ -570,10 +570,10 @@ class ShowAlliancePage
 
 						if ($action == "send")
 						{
-							$r 		= request_var('r','');
-							$text 	= request_var('text','');
+							$r 		= request_var('r', 0);
+							$text 	= request_var('text', '', true);
 
-							if ($_POST['r'] == 0)
+							if ($r == 0)
 								$sq = $db->query("SELECT id,username FROM ".USERS." WHERE ally_id='".$CurrentUser['ally_id']."';");
 							else
 								$sq = $db->query("SELECT id,username FROM ".USERS." WHERE ally_id='".$CurrentUser['ally_id']."' AND ally_rank_id='".$db->sql_escape($r)."';");
