@@ -74,11 +74,11 @@ class FlyingFleetMissions {
 		 
 		// Step 4
 		$oldMetalBooty = $booty['metal'];
-		$booty['metal'] = min(($booty['metal'] + $Sumcapacity), (($defenderPlanet['metal']) / 2));
+		$booty['metal'] += min(($Sumcapacity), max((($defenderPlanet['metal']) / 2) - $booty['metal'], 0));
 		$Sumcapacity += $oldMetalBooty - $booty['metal'];
 		 
 		// Step 5
-		$booty['crystal'] = min(($booty['crystal'] + $Sumcapacity), (($defenderPlanet['crystal']) / 2));
+		$booty['crystal'] += min(($Sumcapacity), max((($defenderPlanet['crystal']) / 2) - $booty['crystal'], 0));
 		 		
 		$steal 		= array_map('floor', $booty);
 		
@@ -232,8 +232,8 @@ class FlyingFleetMissions {
                     $attackers[$fleetID]['techs'] = array($shieldTech, $defTech, $attTech);
                     
                     $thisAtt    = $amount * $CombatCaps[$element]['attack'] * $attTech; //attaque
-                    $thisDef	= $amount * $CombatCaps[$element]['shield'] * $shieldTech ; //bouclier
-                    $thisShield	= $amount * ($pricelist[$element]['metal'] + $pricelist[$element]['crystal']) / 10 * $defTech; //coque
+                    $thisShield	= $amount * $CombatCaps[$element]['shield'] * $defTech; //bouclier
+                    $thisDef	= $amount * ($pricelist[$element]['metal'] + $pricelist[$element]['crystal']) / 10 * $shieldTech; //coque
                     
                     $attArray[$fleetID][$element] = array('def' => $thisDef, 'shield' => $thisShield, 'att' => $thisAtt);
                     
@@ -258,8 +258,8 @@ class FlyingFleetMissions {
                     $defenders[$fleetID]['techs'] = array($shieldTech, $defTech, $attTech);
                     
                     $thisAtt    = $amount * $CombatCaps[$element]['attack'] * $attTech; //attaque
-                    $thisDef	= $amount * $CombatCaps[$element]['shield'] * $defTech; //bouclier
-                    $thisShield = $amount * ($pricelist[$element]['metal'] + $pricelist[$element]['crystal']) / 10 * $shieldTech; //coque
+                    $thisShield	= $amount * $CombatCaps[$element]['shield'] * $defTech; //bouclier
+                    $thisDef 	= $amount * ($pricelist[$element]['metal'] + $pricelist[$element]['crystal']) / 10 * $shieldTech; //coque
                     					
                     $defArray[$fleetID][$element] = array('def' => $thisDef, 'shield' => $thisShield, 'att' => $thisAtt);
                     

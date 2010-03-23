@@ -61,10 +61,7 @@ abstract class FleetFunctions
 					$missiontype[11] = $lang['type_mission'][11];
 			}
 		}
-				
-		if (empty($missiontype))
-			self::GotoFleetPage();
-			
+							
 		return $missiontype;
 	}	
 	
