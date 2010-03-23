@@ -18,6 +18,8 @@ $lang['changelog']   = array(
 - FIX: UMode
 - FIX: Sprungtor
 - FIX: BuildQuere
+- FIX: Playercard
+- FIX: General
 - FIX: Rohstoffberechnung
 - FIX: Zeit von Spionageberichten
 - FIX: Allianzstatistiken(?)

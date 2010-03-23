@@ -232,7 +232,7 @@ $lang['res']['descriptions'] = array(
 610 => 'Der Spion ist eine rätselhafte Person. Niemand hat je sein Gesicht gesehen, zumindest hat es niemand überlebt. <br><br><font color="red">+5 Spionagelevel</font>',
 611 => 'Der Kommandant der imperialen Armee ist ein Meister in der Kunst der Flottenführung. Sein Gehirn kann die Flugrouten mehrerer Flotten um einiges schneller berechnen, als ein normaler Mensch das könnte.+3 Flottenslots.',
 612 => 'Der Zerstörer ist ein Offizier ohne Erbarmen. Er hat schon die Bevölkerungen ganzer Planeten abgeschlachtet, nur zu seinem Vergnügen. Im Moment Arbeitet er an einer neuen Methode zur Produktion von Todessternen.<br><br><font color="red">2 RIP Konstruktionen anstelle von einer.</font>',
-613 => 'Der General ist eine ehrwürdige Person, der seit vielen Jahren in der Armee dient. Durch unzählige Manöver hat der General strategien entwickelt um die Flottengeschwindigkeiten, in sämtlichen konstellationen verschiedenster Shiffstypen ,zu optimieren.<br><br><font color="red">+25% Geschwindigkeit der Schiffe</font>',
+613 => 'Der General ist eine ehrwürdige Person, der seit vielen Jahren in der Armee dient. Durch unzählige Manöver hat der General strategien entwickelt um die Flottengeschwindigkeiten, in sämtlichen konstellationen verschiedenster Shiffstypen ,zu optimieren.<br><br><font color="red">+10% Geschwindigkeit der Schiffe</font>',
 614 => 'Der Imperator bemerkte bei Ihnen die unleugbaren Qualitäten des Eroberns. Er schlägt Ihnen vor Raider zu werden. Der Raider ist der Grad der höchsten Ausbildung der Raider der imperialen Armee',
 615 => 'Sie haben gezeigt, dass Sie der größte Eroberer des Universums sind. Es ist Ihrer, solange Sie diesen Platz halten, den Sie bekommen haben.',
 
