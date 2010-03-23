@@ -21,6 +21,11 @@
 
 class FlyingFleetMissions {
 
+	public static function MinSteal($steal)
+	{
+		return max($steal, 0);
+	}
+
 	public static function ZeroSteal($steal)
 	{
 		return ($steal['metal'] <= 0 && $steal['crystal'] <= 0 && $steal['deuterium'] <= 0) ? true : false;
@@ -80,8 +85,11 @@ class FlyingFleetMissions {
 		// Step 5
 		$booty['crystal'] += min(($Sumcapacity), max((($defenderPlanet['crystal']) / 2) - $booty['crystal'], 0));
 		 		
-		$steal 		= array_map('floor', $booty);
-		
+		$booty['metal']		= max($booty['metal'] ,0);
+		$booty['crystal']	= max($booty['crystal'] ,0);
+		$booty['deuterium']	= max($booty['deuterium'] ,0);
+
+		$steal 				= array_map('floor', $booty);
 		if($ForSim)
 			return $steal;
 			
