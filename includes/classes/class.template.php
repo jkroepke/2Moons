@@ -79,6 +79,12 @@ class template extends Smarty
 		
 		foreach($this->playerplanets as $PlanetQuery)
 		{
+			if(!empty($PlanetQuery['b_building_id']))
+			{
+				$QueueArray	= explode ( ";", $PlanetQuery['b_building_id']);
+				$BuildArray	= explode (",", $QueueArray[0]);
+			}
+			
 			$Planetlist[$PlanetQuery['id']]	= array(
 				'url'		=> $this->phpself."&amp;cp=".$PlanetQuery['id']."&amp;re=0",
 				'name'		=> $PlanetQuery['name'].(($PlanetQuery['planet_type'] == 3) ? " (".$this->lang['fcm_moon'].")":""),
@@ -87,7 +93,7 @@ class template extends Smarty
 				'system'	=> $PlanetQuery['system'],
 				'planet'	=> $PlanetQuery['planet'],
 				'ptype'		=> $PlanetQuery['planet_type'],
-				'Buildtime'	=> ($PlanetQuery['b_building'] != 0 && $PlanetQuery['b_building'] - time() > 0) ? pretty_time($PlanetQuery['b_building'] - time()) : false,
+				'Buildtime'	=> (!empty($PlanetQuery['b_building_id']) && $BuildArray[3] - time() > 0) ? pretty_time($BuildArray[3] - time()) : false,
 			);
 		}
 		

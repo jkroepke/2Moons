@@ -51,7 +51,7 @@ class statbuilder{
 		
 		$ChooseToDelete = $this->db->query("SELECT `id` FROM `".USERS."` WHERE ((`db_deaktjava` < '".$del_deleted."' AND `db_deaktjava` <> 0) OR `onlinetime` < '".$del_inactive."') AND `authlevel` = '0';");
 		
-		if($ChooseToDelete)
+		if(isset($ChooseToDelete))
 		{
 			include_once(ROOT_PATH.'includes/functions/DeleteSelectedUser.'.PHP_EXT);
 			while($delete = $this->db->fetch_array($ChooseToDelete))
