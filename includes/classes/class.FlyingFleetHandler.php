@@ -30,7 +30,7 @@ class FlyingFleetHandler extends FlyingFleetMissions
 		global $db;
 		while ($CurrentFleet = $db->fetch_array($fleetquery))
 		{
-			if($CurrentFleet['fleet_end_time'] < time() && $CurrentFleet['fleet_mess'] = '1')
+			if($CurrentFleet['fleet_end_time'] <= time() && $CurrentFleet['fleet_mess'] == 1 && $CurrentFleet['fleet_mission'] != 10)
 				parent::CheckPlanet($CurrentFleet);
 
 			switch ($CurrentFleet['fleet_mission'])
