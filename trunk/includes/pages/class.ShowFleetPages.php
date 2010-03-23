@@ -301,8 +301,14 @@ class ShowFleetPages extends FleetFunctions
 		$MisInfo['Ship'] 			= $FleetArray;		
 		$MisInfo['CurrentUser']		= $CurrentUser;
 		
-		$GameSpeedFactor   		 	= parent::GetGameSpeedFactor();		
 		$MissionOutput	 			= parent::GetFleetMissions($MisInfo);
+		if(empty($MissionOutput))
+		{
+			$template->message("<font color=\"red\"><b>". $lang['fl_empty_target']."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
+			$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
+			exit;
+		}
+		$GameSpeedFactor   		 	= parent::GetGameSpeedFactor();		
 		$FleetSpeed  				= parent::GetFleetMaxSpeed($FleetArray, $CurrentUser);
 		$MaxFleetSpeed				= ($FleetSpeed / 10) * $GenFleetSpeed;
 		$distance      				= parent::GetTargetDistance($CurrentPlanet['galaxy'], $TargetGalaxy, $CurrentPlanet['system'], $TargetSystem, $CurrentPlanet['planet'], $TargetPlanet);
@@ -329,9 +335,9 @@ class ShowFleetPages extends FleetFunctions
 			'thissystem'			 		=> $CurrentPlanet['system'],
 			'thisplanet'			 		=> $CurrentPlanet['planet'],
 			'thisplanet_type'			 	=> $CurrentPlanet['planet_type'],
-			'metal'							=> number_format(round($CurrentPlanet['metal']), 0, '', ''),
-			'crystal'						=> number_format(round($CurrentPlanet['crystal']), 0, '', ''),
-			'deuterium' 					=> number_format(round($CurrentPlanet['deuterium']), 0, '', ''),
+			'metal'							=> number_format(floor($CurrentPlanet['metal']), 0, '', ''),
+			'crystal'						=> number_format(floor($CurrentPlanet['crystal']), 0, '', ''),
+			'deuterium' 					=> number_format(floor($CurrentPlanet['deuterium']), 0, '', ''),
 			'fl_planet'						=> $lang['fl_planet'], 
 			'fl_moon'						=> $lang['fl_moon'],
 			'MissionSelector' 				=> $MissionOutput['MissionSelector'],
@@ -642,21 +648,17 @@ class ShowFleetPages extends FleetFunctions
 
 
 		$FleetStorage       -= $consumption;
+		
+		$TransportMetal		 = min($TransportMetal, $CurrentPlanet['metal']);
+		$TransportCrystal 	 = min($TransportCrystal, $CurrentPlanet['crystal']);
+		$TransportDeuterium  = min($TransportDeuterium, ($CurrentPlanet['deuterium'] - $consumption));
 
 		$StorageNeeded   	 = $TransportMetal + $TransportCrystal + $TransportDeuterium;
-
-
+		
 		$StockMetal      	 = $CurrentPlanet['metal'];
 		$StockCrystal    	 = $CurrentPlanet['crystal'];
 		$StockDeuterium  	 = $CurrentPlanet['deuterium'];
 		$StockDeuterium 	-= $consumption;
-					
-		if ($StockMetal < $TransportMetal || $StockCrystal < $TransportCrystal || $StockDeuterium < $TransportDeuterium)
-		{
-			$template->message("<font color=\"red\"><b>". $lang['fl_no_enought_deuterium'] . pretty_number($consumption) ."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
-			$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
-			exit;
-		}
 
 		if ($StorageNeeded > $FleetStorage)
 		{

@@ -277,6 +277,7 @@ $lang['fl_max']								= 'max';
 $lang['fl_hours']							= 'Stunde(n)';
 $lang['fl_resources_left']					= 'Verblieben';
 $lang['fl_all_resources']					= 'Max Rohstoffe Laden';
+$lang['fl_empty_target']					= 'Keine Missionen vorhanden (Planet vorhanden?)';
 $lang['fl_expedition_alert_message']		= 'Achtung die Expedition bringt gefahren mit sich, sie können bei der Expedition ihre gesammte Flotte verlieren!';
 $lang['fl_dm_alert_message']				= 'Achtung, wenn bei der %s %s gefunden wurde, wird die Flotten zerstört!';
 $lang['fl_vacation_mode_active']			= 'Sie befinden sich im Urlaubsmodus';
