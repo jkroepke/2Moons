@@ -99,7 +99,7 @@ function ShowPlayerCard($CurrentUser)
 		'pl_unitsshot'	=> $lang['pl_unitsshot'],
 		'pl_unitslose'	=> $lang['pl_unitslose'],
 		'pl_dermetal'	=> $lang['pl_dermetal'],
-		'pl_dercrytal'	=> $lang['pl_dercrytal'],
+		'pl_dercrystal'	=> $lang['pl_dercrystal'],
 		'pl_total'		=> $lang['pl_total'],
 		'pl_buddy'		=> $lang['pl_buddy'],
 		'pl_points'		=> $lang['pl_points'],
