@@ -100,7 +100,11 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	// UTF-8 Support for Names
 	
 	define('UTF8_SUPPORT'          	  , false);	
+	
+	
+	define('USE_OLD_EXPO'          	  , false);	
 
+		
 	// OFFICIERS DEFAULT VALUES
 	define('COMMANDANT'				  ,      3);
 	define('AMIRAL'				  	  ,   0.05);

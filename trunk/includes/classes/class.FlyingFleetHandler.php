@@ -69,7 +69,10 @@ class FlyingFleetHandler extends FlyingFleetMissions
 					parent::MissionFoundDM($CurrentFleet);
 				break;
 				case 15:
-					parent::MissionCaseExpedition($CurrentFleet);
+					if(USE_OLD_EXPO)
+						parent::MissionOldCaseExpedition($CurrentFleet);
+					else
+						parent::MissionCaseExpedition($CurrentFleet);
 				break;
 				default: 
 					$db->query("DELETE FROM ".FLEETS." WHERE `fleet_id` = '". $CurrentFleet['fleet_id'] ."';");
