@@ -33,7 +33,6 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 		$IfSelectedPlanet	= $CurrentUser['current_planet'] == $CurrentPlanet['id'] ? true : false;
 		if (!empty($CurrentPlanet['b_building_id']))
 		{
-			PlanetResourceUpdate($CurrentUser, $CurrentPlanet, $CurrentPlanet['b_building']);
 			$CurrentQueue  	= $CurrentPlanet['b_building_id'];
 			$QueueArray    	= explode(";", $CurrentPlanet['b_building_id']);
 			$ActualCount   	= count($QueueArray);
@@ -49,7 +48,8 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 				$ForDestroy = ($BuildMode == 'destroy') ? true : false;
 				$CFields		= $CurrentPlanet['field_current'];
 				$MFields     	= $CurrentPlanet['field_max'];
-				
+					
+				PlanetResourceUpdate($CurrentUser, $CurrentPlanet, $CurrentPlanet['b_building'], true);
 				if ($Element == 41)
 				{
 					$CurrentPlanet['field_max']	+= FIELDS_BY_MOONBASIS_LEVEL;
