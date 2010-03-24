@@ -2756,14 +2756,12 @@ class FlyingFleetMissions {
 				}
 			}
 		}
-		else
+		elseif ($FleetRow['fleet_end_time'] < time())
 		{
-			if ($FleetRow['fleet_end_time'] < time())
-			{
-				self::RestoreFleetToPlanet($FleetRow, true);
-				$db->multi_query("UPDATE `".USERS."` SET `darkmatter` = `darkmatter` + '".$FleetRow['fleet_resource_darkmatter']."' WHERE `id` = '".$FleetRow['fleet_owner']."';DELETE FROM ".FLEETS." WHERE `fleet_id` = ". $FleetRow["fleet_id"].";");
-				SendSimpleMessage ( $FleetOwner, '', $FleetRow['fleet_end_time'], 15, $MessSender, $MessTitle, $lang['sys_expe_back_home'] );
-			}
+			self::RestoreFleetToPlanet($FleetRow, true);
+			$db->multi_query("UPDATE `".USERS."` SET `darkmatter` = `darkmatter` + '".$FleetRow['fleet_resource_darkmatter']."' WHERE `id` = '".$FleetRow['fleet_owner']."';DELETE FROM ".FLEETS." WHERE `fleet_id` = ". $FleetRow["fleet_id"].";");
+			$Message = sprintf($lang['sys_expe_back_home'], $lang['Metal'], pretty_number($FleetRow['fleet_resource_metal']), $lang['Crystal'], pretty_number($FleetRow['fleet_resource_crystal']),  $lang['Deuterium'], pretty_number($FleetRow['fleet_resource_deuterium']), $lang['Darkmatter'], pretty_number($FleetRow['fleet_resource_darkmatter']));
+			SendSimpleMessage($FleetRow['fleet_owner'], '', $FleetRow['fleet_end_time'], 15, $lang['sys_mess_tower'], $lang['sys_expe_report'], $Message);
 		}
 	}
 	
