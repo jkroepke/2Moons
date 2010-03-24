@@ -29,7 +29,7 @@ class template extends Smarty
 		$this->allow_php_templates	= true;
 		$this->force_compile 		= false;
 		$this->caching 				= false;
-		$this->compile_check		= false;
+		$this->compile_check		= true;
 		$this->template_dir 		= ROOT_PATH . TEMPLATE_DIR."smarty/";
 		$this->compile_dir 			= ROOT_PATH ."cache/";
 		
