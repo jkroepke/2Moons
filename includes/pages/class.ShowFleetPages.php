@@ -241,7 +241,7 @@ class ShowFleetPages extends FleetFunctions
 			'system_post' 			=> $TargetSystem,
 			'planet_post' 			=> $TargetPlanet,
 			'fleetroom'				=> number_format($FleetRoom, 0, '', ''),	
-			'fleetspeedfactor'		=> str_replace(",",".",((time() - $CurrentUser[$resource[706]] <= 0) ? (1 - $ExtraDM[706]['add']) : 1)) - (GENERAL * $CurrentUser['rpg_general']),
+			'fleetspeedfactor'		=> number_format(((time() - $CurrentUser[$resource[706]] <= 0) ? (1 - $ExtraDM[706]['add']) : 1) - (GENERAL * $CurrentUser['rpg_general']), 1, '.', ','),
 			'options_selector'    	=> array(1 => $lang['fl_planet'], 2 => $lang['fl_debris'], 3 => $lang['fl_moon']),
 			'options'				=> $TargetPlanettype,
 			'fl_send_fleet'			=> $lang['fl_send_fleet'],
