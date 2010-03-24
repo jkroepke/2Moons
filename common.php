@@ -20,7 +20,11 @@
 ##############################################################################
 
 setlocale (LC_ALL, 'de_DE@euro', 'de_DE', 'de', 'ge');
-@set_time_limit(30);
+@set_time_limit(120);
+
+if (!(function_exists("spl_autoload_register")))
+	exit("PHP is missing <a href=\"http://php.net/spl\">Standard PHP Library (SPL)</a> support");
+
 
 if((!file_exists(ROOT_PATH . 'config.php') || filesize(ROOT_PATH . 'config.php') == 0) && INSTALL != true)
 	exit(header("Location:" . ROOT_PATH .  "install/"));
@@ -29,11 +33,6 @@ if((!file_exists(ROOT_PATH . 'config.php') || filesize(ROOT_PATH . 'config.php')
 if(!defined('INSTALL') || !defined('IN_ADMIN') || !defined('IN_CRON'))
 	define("STARTTIME",	microtime(true));
 	
-
-if (!(function_exists("spl_autoload_register"))) {
-   exit("PHP is missing <a href=\"http://php.net/spl\">Standard PHP Library (SPL)</a> support");
-}
-
 date_default_timezone_set("Europe/Berlin");
 
 error_reporting(E_ALL ^ E_NOTICE);
@@ -48,6 +47,7 @@ $IsUserChecked 	= false;
 
 if(file_exists(ROOT_PATH . 'config.php'))
 	require_once(ROOT_PATH . 'config.'.PHP_EXT);
+	
 require_once(ROOT_PATH . 'includes/constants.'.PHP_EXT);
 require_once(ROOT_PATH . 'includes/classes/class.MySQLi.'.PHP_EXT);
 require_once(ROOT_PATH . 'includes/classes/class.template.'.PHP_EXT);

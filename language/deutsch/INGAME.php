@@ -770,7 +770,7 @@ $lang['op_sort_up']							= 'aufsteigend';
 $lang['op_sort_down']						= 'absteigend';
 $lang['op_user_name_no_alphanumeric']		= 'Bitte beim Username nur alphanumerische Zeichen eingeben!';
 $lang['op_change_name_pro_week']			= 'Sie Können ihren Usernamen nur 1x pro Woche ändern';
-$lang['op_change_name_exist']				= 'Diese Name existiert bereits';
+$lang['op_change_name_exist']				= 'Der Name %s existiert bereits';
 $lang['op_active_build_messages']			= 'Baulistennachrichten akivieren';
 
 //----------------------------------------------------------------------------//

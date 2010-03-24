@@ -167,7 +167,7 @@ class ShowOptionsPage
 				}
 				elseif ($CurrentUser['username'] != $username)
 				{
-					if (!CheckName($UserName))
+					if (!CheckName($username))
 						$template->message($lang['op_user_name_no_alphanumeric'], "game.php?page=options", 1);
 					elseif($CurrentUser['uctime'] >= time() - (60 * 60 * 24 * 7))
 						$template->message($lang['op_change_name_pro_week'], "game.php?page=options", 1);
@@ -176,7 +176,7 @@ class ShowOptionsPage
 						$query = $db->fetch_array($db->query("SELECT id FROM ".USERS." WHERE username='".$db->sql_escape($username)."';"));
 						
 						if (!empty($query))
-							$template->message($lang['op_change_name_exist'], "game.php?page=options", 1);
+							$template->message(spintf($lang['op_change_name_exist'], $username), "game.php?page=options", 1);
 						else 
 						{
 							$SQLQuery	.= "UPDATE ".USERS." SET `username` = '".$db->sql_escape($username)."', `uctime` = '".time()."' WHERE `id`= '".$CurrentUser['id']."';";
