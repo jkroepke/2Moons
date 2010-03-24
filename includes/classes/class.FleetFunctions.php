@@ -87,21 +87,21 @@ abstract class FleetFunctions
 		switch($Ship)
 		{
 			case 202:
-				return $pricelist[$Ship]['speed'] * (($Player['impulse_motor_tech'] >= 5) ? (1 + (0.2 * $Player['impulse_motor_tech']) + (GENERAL * $Player['rpg_general'])) : (1 + (0.1 * $Player['combustion_tech']) + (GENERAL * $Player['rpg_general'])));
+				return $pricelist[$Ship]['speed'] * (($Player['impulse_motor_tech'] >= 5) ? (1 + (0.2 * $Player['impulse_motor_tech'])) : (1 + (0.1 * $Player['combustion_tech'])));
 			break;
 			case 203:
 			case 204:
 			case 209:
 			case 210:
-				return $pricelist[$Ship]['speed'] * (1 + (0.1 * $Player['combustion_tech']) + (GENERAL * $Player['rpg_general']));
+				return $pricelist[$Ship]['speed'] * (1 + (0.1 * $Player['combustion_tech']));
 			break;
 			case 205:
 			case 206:
 			case 208:
-				return $pricelist[$Ship]['speed'] * (1 + (0.2 * $Player['impulse_motor_tech']) + (GENERAL * $Player['rpg_general']));
+				return $pricelist[$Ship]['speed'] * (1 + (0.2 * $Player['impulse_motor_tech']));
 			break;
 			case 211:
-				return $pricelist[$Ship]['speed'] * (($Player['hyperspace_motor_tech'] >= 8) ? (1 + (0.3 * $Player['hyperspace_motor_tech']) + (GENERAL * $Player['rpg_general'])) : (1 + (0.2 * $Player['impulse_motor_tech']) + (GENERAL * $Player['rpg_general'])));
+				return $pricelist[$Ship]['speed'] * (($Player['hyperspace_motor_tech'] >= 8) ? (1 + (0.3 * $Player['hyperspace_motor_tech'])) : (1 + (0.2 * $Player['impulse_motor_tech'])));
 			break;
 			case 207:
 			case 213:
@@ -113,7 +113,7 @@ abstract class FleetFunctions
 			case 219:
 			case 220:
 			default:
-				return $pricelist[$Ship]['speed'] * (1 + (0.3 * $Player['hyperspace_motor_tech']) + (GENERAL * $Player['rpg_general']));
+				return $pricelist[$Ship]['speed'] * (1 + (0.3 * $Player['hyperspace_motor_tech']));
 			break;
 		}
 	}
@@ -145,7 +145,7 @@ abstract class FleetFunctions
 	public static function GetMissionDuration($SpeedFactor, $MaxFleetSpeed, $Distance, $GameSpeed, $CurrentUser)
 	{
 		global $ExtraDM;
-		return max(((((3500 / ($SpeedFactor * 0.1)) * pow($Distance * 10 / $MaxFleetSpeed, 0.5) + 10) * ((time() - $CurrentUser[$resource[706]] <= 0) ? (1 - $ExtraDM[706]['add']) : 1)) / $GameSpeed), 5);
+		return max(((((3500 / ($SpeedFactor * 0.1)) * pow($Distance * 10 / $MaxFleetSpeed, 0.5) + 10) * (((time() - $CurrentUser[$resource[706]] <= 0) ? (1 - $ExtraDM[706]['add']) : 1) - (GENERAL * $Player['rpg_general']))) / $GameSpeed), 5);
 	}
 
 	public static function GetGameSpeedFactor()
