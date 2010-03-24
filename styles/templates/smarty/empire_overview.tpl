@@ -1,16 +1,16 @@
 {include file="overall_header.tpl"}
 {include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
-<div id="content" class="content" style="overflow:auto;left:195px;height:1680px;">
-    <table border="0" cellpadding="0" cellspacing="1" align="center">
+<div id="content" class="content">
+    <table border="0" cellpadding="0" cellspacing="1" width="80%" align="center">
         <tbody>
             <tr>
                 <td class="c" colspan="{$colspan}">{$iv_imperium_title}</td>
             </tr>
             <tr>
-                <th style="width:90px;">{$iv_planet}</th>
+                <th style="width:{100/$colspan}%;">{$iv_planet}</th>
 				{foreach item=PlanetsInfoRow from=$PlanetsList}
-				<th style="width:90px;"><a href="game.php?page=overview&amp;cp={$PlanetsInfoRow.InfoList.id}&amp;re=0"><img width="80" height="80" border="0" src="{$dpath}planeten/small/s_{$PlanetsInfoRow.InfoList.image}.jpg" alt="{$PlanetsInfoRow.InfoList.name}"></a></th>
+				<th style="width:{100/$colspan}%;"><a href="game.php?page=overview&amp;cp={$PlanetsInfoRow.InfoList.id}&amp;re=0"><img width="80" height="80" border="0" src="{$dpath}planeten/small/s_{$PlanetsInfoRow.InfoList.image}.jpg" alt="{$PlanetsInfoRow.InfoList.name}"></a></th>
 				{/foreach}
             </tr>
             <tr>
