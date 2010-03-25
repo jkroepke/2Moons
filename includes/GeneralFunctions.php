@@ -126,10 +126,10 @@ function AdminUserHeader ($metatags = '')
 	return parsetemplate(gettemplate('adm/simple_header'), $parse);
 }
 
-function CalculateMaxPlanetFields (&$planet)
+function CalculateMaxPlanetFields(&$planet)
 {
 	global $resource;
-	return $planet["field_max"] + ($planet[$resource[33]] * FIELDS_BY_TERRAFORMER);
+	return $planet["field_max"] + ($planet[$resource[33]] * FIELDS_BY_TERRAFORMER) + ($planet[$resource[41]] * FIELDS_BY_MOONBASIS_LEVEL);
 }
 
 function pretty_time ($seconds)
@@ -158,12 +158,6 @@ function pretty_time_hour ($seconds)
 	$time = '';
 	if ($min != 0) { $time .= $min . 'min '; }
 	return $time;
-}
-
-function ShowBuildTime($time)
-{
-	global $lang;
-	return $lang['fgf_time']."</td><td width=\"12%\" align=\"right\">".pretty_time($time);
 }
 
 function parsetemplate ($template, $array)
@@ -230,29 +224,7 @@ function colorGreen($n)
 
 function pretty_number($n, $floor = true)
 {
-	if ($floor)
-		$n = floor($n);
-
-	return number_format($n, 0, ",", ".");
-}
-
-function umlaute($text)
-{
-	return htmlentities($text, ENT_COMPAT, "UTF-8", true);
-}
-
-function zround($n) {
-	return ($n < 0) ? ceil($n) : floor($n) ;
-}
-
-function roundUp($value, $precision = 0)
-{
-	if ( $precision == 0 )
-		$precisionFactor = 1;
-	else
-		$precisionFactor = pow( 10, $precision );
-
-	return ceil( $value * $precisionFactor )/$precisionFactor;
+	return number_format(($floor) ? floor($n) : $n, 0, ",", ".");
 }
 
 function set_var(&$result, $var, $type, $multibyte = false)
@@ -510,13 +482,8 @@ function makebr($text, $xhtml = false)
     // XHTML FIX for PHP 5.3.0
 	// Danke an Meikel
 	
-    $BR = ($xhtml === true)
-        ? "<br />\n"  # XHTML konformer BR Tag
-        : "<br>\n";   # HTML 4 konformer BR Tag
-
-    return (version_compare(PHP_VERSION, "5.3.0", ">="))
-        ? nl2br($text, $xhtml)
-        : strtr($text, array("\r\n" => $BR, "\r" => $BR, "\n" => $BR)); 
+    $BR = ($xhtml === true) ? "<br />\n" : "<br>\n";
+    return (version_compare(PHP_VERSION, "5.3.0", ">=")) ? nl2br($text, $xhtml) : strtr($text, array("\r\n" => $BR, "\r" => $BR, "\n" => $BR)); 
 }
 
 function CheckPlanetIfExist($Galaxy, $System, $Planet, $Planettype = 1)
@@ -526,13 +493,6 @@ function CheckPlanetIfExist($Galaxy, $System, $Planet, $Planettype = 1)
 	return (isset($QrySelectGalaxy)) ? true : false;
 }
 
-function AddPointsToPlayer($CurrentUserID, $BuildID, $Amount = 1, $Level = 0)
-{
-	global $db, $pricelist, $game_config;
-	$DonePoints	= round((($pricelist[$BuildID]['metal'] * pow($pricelist[$BuildID]['factor'], $Level) + $pricelist[$BuildID]['crystal'] * pow($pricelist[$BuildID]['factor'], $Level) + $pricelist[$BuildID]['deuterium'] * pow($pricelist[$BuildID]['factor'], $Level)) * $Amount) / $game_config['stat_settings']);
-
-	$db->query("UPDATE ".STATPOINTS." SET `total_points` = `total_points` + '".$DonePoints."' WHERE `id_owner` = '".$CurrentUserID."' AND `stat_type` = '1';");
-}
 
 function CheckNoobProtec($OwnerPlayer, $TargetPlayer, $TargetOnline)
 {	

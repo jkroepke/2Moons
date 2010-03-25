@@ -46,15 +46,11 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 			if ($BuildEndTime <= time())
 			{
 				$ForDestroy = ($BuildMode == 'destroy') ? true : false;
-				$CFields		= $CurrentPlanet['field_current'];
-				$MFields     	= $CurrentPlanet['field_max'];
 					
 				PlanetResourceUpdate($CurrentUser, $CurrentPlanet, $CurrentPlanet['b_building'], true);
+				
 				if ($Element == 41)
-				{
 					$CurrentPlanet['field_max']	+= FIELDS_BY_MOONBASIS_LEVEL;
-					$CurrentPlanet[$resource[$Element]]++;
-				}
 				
 				if ($ForDestroy == false)
 				{
@@ -66,7 +62,9 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 					$CurrentPlanet['field_current']--;
 					$CurrentPlanet[$resource[$Element]]--;
 				}
+				
 				array_shift($QueueArray);
+				
 				if (count($QueueArray) == 0)
 					$NewQueue = 0;
 				else
@@ -78,6 +76,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 				$Build	= $Element;
 
 				$RetValue = true;
+				
 				if(!$IfSelectedPlanet)
 				{
                     $QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
