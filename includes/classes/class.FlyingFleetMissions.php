@@ -1888,17 +1888,20 @@ class FlyingFleetMissions {
 				$result 	= self::calculateAttack($attackFleets, $defense);
 				$totaltime 	= microtime(true) - $start;
 
+				$DerbisMetal	  = $targetPlanet['der_metal'] 	 + $result['debree']['att'][0] + $result['debree']['def'][0];
+				$DerbisCrystal	  = $targetPlanet['der_crystal'] + $result['debree']['att'][1] + $result['debree']['def'][1];
+				
 				$QryUpdateGalaxy = "UPDATE ".PLANETS." SET ";
-				$QryUpdateGalaxy .= "`der_metal` = `der_metal` +'".($result['debree']['att'][0]+$result['debree']['def'][0]) . "', ";
-				$QryUpdateGalaxy .= "`der_crystal` = `der_crystal` + '" .($result['debree']['att'][1]+$result['debree']['def'][1]). "' ";
+				$QryUpdateGalaxy .= "`der_metal` = ".$DerbisMetal.", ";
+				$QryUpdateGalaxy .= "`der_crystal` = ".$DerbisCrystal." ";
 				$QryUpdateGalaxy .= "WHERE ";
 				$QryUpdateGalaxy .= "`galaxy` = '" . $FleetRow['fleet_end_galaxy'] . "' AND ";
 				$QryUpdateGalaxy .= "`system` = '" . $FleetRow['fleet_end_system'] . "' AND ";
-				$QryUpdateGalaxy .= "`planet` = '" . $FleetRow['fleet_end_system'] . "' AND ";
+				$QryUpdateGalaxy .= "`planet` = '" . $FleetRow['fleet_end_planet'] . "' AND ";
 				$QryUpdateGalaxy .= "`planet_type` = '1' ";
 				$QryUpdateGalaxy .= "LIMIT 1;";
 				$db->query($QryUpdateGalaxy);
-
+				
 				foreach ($attackFleets as $fleetID => $attacker)
 				{
 					$fleetArray = '';

@@ -657,6 +657,13 @@ class ShowFleetPages extends FleetFunctions
 		$StockDeuterium  	 = $CurrentPlanet['deuterium'];
 		$StockDeuterium 	-= $consumption;
 
+		if ($CurrentPlanet['deuterium'] < $consumption)
+		{
+			$template->message("<font color=\"red\"><b>".sprintf($lang['fl_no_enought_deuterium'], $lang['Deuterium'], pretty_number($consumption - $CurrentPlanet['deuterium']), $lang['Deuterium'])."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
+			$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
+			exit;
+		}
+		
 		if ($StorageNeeded > $FleetStorage)
 		{
 			$template->message("<font color=\"red\"><b>". $lang['fl_no_enought_cargo_capacity'] . pretty_number($StorageNeeded - $FleetStorage)."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
