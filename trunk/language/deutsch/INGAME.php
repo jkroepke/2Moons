@@ -375,6 +375,8 @@ $lang['of_update']							= 'Erneuern';
 
 //----------------------------------------------------------------------------//
 //TRADER
+$lang['tr_empty_darkmatter']				= 'Sie haben nicht genug %s!';
+$lang['tr_cost_dm_trader']					= 'Die Händlergebühren betragen %s %s!';
 $lang['tr_only_positive_numbers']			= 'Bitte nur positve Zahlen eintragen!';
 $lang['tr_not_enought_metal']				= 'Sie haben nicht genuügend Metall.';
 $lang['tr_not_enought_crystal']				= 'Sie haben nicht genuügend Kristall.';

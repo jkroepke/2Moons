@@ -45,7 +45,9 @@ function ShowTraderPage($CurrentUser, $CurrentPlanet)
 			case 'metal':
 				if($action == "trade")
 				{
-					if ($crystal < 0 or $deut < 0)
+					if ($CurrentUser['darkmatter'] < DARKMATTER_FOR_TRADER)
+						$template->message(sprintf($lang['tr_empty_darkmatter'], $lang['Darkmatter']), "game." . PHP_EXT . "?page=trader", 1);
+					elseif ($crystal < 0 || $deut < 0)
 						$template->message($lang['tr_only_positive_numbers'], "game." . PHP_EXT . "?page=trader",1);
 					else
 					{
@@ -56,6 +58,7 @@ function ShowTraderPage($CurrentUser, $CurrentPlanet)
 							$CurrentPlanet['metal']     -= $trade;
 							$CurrentPlanet['crystal']   += $crystal;
 							$CurrentPlanet['deuterium'] += $deut;
+							$CurrentUser['darkmatter']	-= DARKMATTER_FOR_TRADER;
 							$template->set_vars($CurrentUser, $CurrentPlanet);
 							$template->message($lang['tr_exchange_done'],"game." . PHP_EXT . "?page=trader",1);
 						}
@@ -83,7 +86,9 @@ function ShowTraderPage($CurrentUser, $CurrentPlanet)
 			case 'crystal':
 				if($action == "trade")
 				{
-					if ($metal < 0 or $deut < 0)
+					if ($CurrentUser['darkmatter'] < DARKMATTER_FOR_TRADER)
+						$template->message(sprintf($lang['tr_empty_darkmatter'], $lang['Darkmatter']), "game." . PHP_EXT . "?page=trader", 1);
+					elseif ($metal < 0 || $deut < 0)
 						$template->message($lang['tr_only_positive_numbers'], "game." . PHP_EXT . "?page=trader",1);
 					else
 					{
@@ -94,6 +99,7 @@ function ShowTraderPage($CurrentUser, $CurrentPlanet)
 							$CurrentPlanet['metal']     += $metal;
 							$CurrentPlanet['crystal']   -= $trade;
 							$CurrentPlanet['deuterium'] += $deut;
+							$CurrentUser['darkmatter']	-= DARKMATTER_FOR_TRADER;
 							$template->set_vars($CurrentUser, $CurrentPlanet);
 							$template->message($lang['tr_exchange_done'],"game." . PHP_EXT . "?page=trader",1);
 						}
@@ -121,7 +127,9 @@ function ShowTraderPage($CurrentUser, $CurrentPlanet)
 			case 'deuterium':
 				if($action == "trade")
 				{
-					if ($metal < 0 or $crystal < 0)
+					if ($CurrentUser['darkmatter'] < DARKMATTER_FOR_TRADER)
+						$template->message(sprintf($lang['tr_empty_darkmatter'], $lang['Darkmatter']), "game." . PHP_EXT . "?page=trader", 1);
+					elseif ($metal < 0 || $crystal < 0)
 						message($lang['tr_only_positive_numbers'], "game." . PHP_EXT . "?page=trader",1);
 					else
 					{
@@ -132,6 +140,7 @@ function ShowTraderPage($CurrentUser, $CurrentPlanet)
 							$CurrentPlanet['metal']     += $metal;
 							$CurrentPlanet['crystal']   += $crystal;
 							$CurrentPlanet['deuterium'] -= $trade;
+							$CurrentUser['darkmatter']	-= DARKMATTER_FOR_TRADER;
 							$template->set_vars($CurrentUser, $CurrentPlanet);
 							$template->message($lang['tr_exchange_done'],"game." . PHP_EXT . "?page=trader", 1);
 						}
@@ -161,6 +170,7 @@ function ShowTraderPage($CurrentUser, $CurrentPlanet)
 	else
 	{
 		$template->assign_vars(array(
+			'tr_cost_dm_trader'			=> sprintf($lang['tr_cost_dm_trader'], pretty_number(DARKMATTER_FOR_TRADER), $lang['Darkmatter']),
 			'tr_call_trader_who_buys'	=> $lang['tr_call_trader_who_buys'],
 			'tr_call_trader'			=> $lang['tr_call_trader'],
 			'tr_exchange_quota'			=> $lang['tr_exchange_quota'],

@@ -70,6 +70,8 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 
 	define('MAX_DM_MISSIONS'		  , 1);
 	
+	define('DARKMATTER_FOR_TRADER'	  , 750);
+	
 	
 	define('NEW_RESEARCH'			  , true);
 	

@@ -13,8 +13,8 @@
             <option value="crystal">{$Crystal}</option>
             <option value="deuterium">{$Deuterium}</option>
         </select>
-        <br>
-        {$tr_exchange_quota}<br><br>
+        <br><br>{$tr_cost_dm_trader}<br><br>
+        {$tr_exchange_quota}<br>
         <input type="submit" value="{$tr_call_trader_submit}"></th>
     </tr>
     </table>
