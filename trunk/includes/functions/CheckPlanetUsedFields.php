@@ -27,7 +27,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 		
 		$checkarray = $reslist['allow'][$planet['planet_type']];
 		$cfc = 0;
-		foreach($checkarray as $id => $gid){
+		foreach($checkarray as $gid){
 			$cfc += $planet[$resource[$gid]];
 		}
 		if ($planet['field_current'] != $cfc)
