@@ -26,7 +26,7 @@ class ResourceUpdate
 		global $ProdGrid, $resource, $reslist, $game_config, $ExtraDM;
 		require_once(ROOT_PATH."/includes/functions/HandleElementBuildingQueue.".PHP_EXT);
 		require_once(ROOT_PATH."/includes/functions/UpdatePlanetBatimentQueueList.".PHP_EXT);
-		
+
 		$this->Builded					= UpdatePlanetBatimentQueueList($CurrentPlanet, $CurrentUser);
 		$CurrentPlanet['metal_max']		= floor(2.5 * pow(1.8331954764, $CurrentPlanet[$resource[22]])) * 5000 * (1 + ($CurrentUser['rpg_stockeur'] * 0.5)) * $game_config['resource_multiplier'] * STORAGE_FACTOR;
 		$CurrentPlanet['crystal_max']	= floor(2.5 * pow(1.8331954764, $CurrentPlanet[$resource[23]])) * 5000 * (1 + ($CurrentUser['rpg_stockeur'] * 0.5)) * $game_config['resource_multiplier'] * STORAGE_FACTOR;
@@ -100,20 +100,20 @@ class ResourceUpdate
 
 			if ($CurrentPlanet['metal'] <= $MaxMetalStorage)
 			{
-				$MetalTheorical  = $CurrentPlanet['metal'] + ($this->ProductionTime * ($game_config['metal_basic_income'] + $CurrentPlanet['metal_perhour'] / 3600)) * $game_config['resource_multiplier'];
+				$MetalTheorical  = $CurrentPlanet['metal'] + ($this->ProductionTime * ($game_config['metal_basic_income'] + $CurrentPlanet['metal_perhour']) / 3600);
 				$CurrentPlanet['metal']  = min($MetalTheorical, $MaxMetalStorage);
 			}
 			
 			if ($CurrentPlanet['crystal'] <= $MaxCristalStorage)
 			{
-				$CristalTheorical  = $CurrentPlanet['crystal'] + ($this->ProductionTime * ($game_config['crystal_basic_income'] + $CurrentPlanet['crystal_perhour'] / 3600)) * $game_config['resource_multiplier'];
+				$CristalTheorical  = $CurrentPlanet['crystal'] + ($this->ProductionTime * ($game_config['crystal_basic_income'] + $CurrentPlanet['crystal_perhour']) / 3600);
 				$CurrentPlanet['crystal']  = min($CristalTheorical, $MaxCristalStorage);
 			}
 			
 			if ($CurrentPlanet['deuterium'] <= $MaxDeuteriumStorage)
 			{
-				$CristalTheorical  = $CurrentPlanet['deuterium'] + ($this->ProductionTime * ($game_config['deuterium_basic_income'] + $CurrentPlanet['deuterium_perhour'] / 3600)) * $game_config['resource_multiplier'];
-				$CurrentPlanet['deuterium']  = min($CristalTheorical, $MaxDeuteriumStorage);
+				$DeuteriumTheorical  = $CurrentPlanet['deuterium'] + ($this->ProductionTime * ($game_config['deuterium_basic_income'] + $CurrentPlanet['deuterium_perhour']) / 3600);
+				$CurrentPlanet['deuterium']  = min($DeuteriumTheorical, $MaxDeuteriumStorage);
 			}
 		}
 				
@@ -122,13 +122,13 @@ class ResourceUpdate
 		$CurrentPlanet['deuterium']	= max($CurrentPlanet['deuterium'], 0);
 		
 		if($Hanger)
-			$this->Builded    	   += HandleElementBuildingQueue($CurrentUser, $CurrentPlanet, $this->ProductionTime);
+			$this->Builded    	   += HandleElementBuildingQueue($CurrentUser, $CurrentPlanet, $this->ProductionTime);	
 	}
 	
 	public function SavePlanetToDB($CurrentUser, $CurrentPlanet)
 	{
 		global $resource, $db, $user;
-			
+		
 		$QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
 		$QryUpdatePlanet .= "`metal` = '"            . $CurrentPlanet['metal']             	."', ";
 		$QryUpdatePlanet .= "`crystal` = '"          . $CurrentPlanet['crystal']           	."', ";
@@ -162,6 +162,7 @@ class ResourceUpdate
 		$QryUpdatePlanet .= "WHERE ";
 		$QryUpdatePlanet .= "`id` = '".$CurrentUser['id']."';";
 		$db->multi_query($QryUpdatePlanet);
+		echo $this->debug;
 	}
 }
 ?>

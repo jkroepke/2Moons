@@ -26,7 +26,7 @@ foreach($file as $name)
 
 date_default_timezone_set("Europe/Berlin");
 
-header('Content-Type: application/javascript');
+header('Content-Type: text/javascript');
 header('Last-Modified: '.date('D, d M Y H:i:s T', min($lastedit)));
 header('Expires: '.date('D, d M Y H:i:s T', time() + 604800));
 header('Cache-Control: public, max-age=604800, s-maxage=604800');
