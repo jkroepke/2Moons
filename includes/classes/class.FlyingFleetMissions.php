@@ -2779,7 +2779,7 @@ class FlyingFleetMissions {
 				$Message 	= sprintf($lang['sys_expe_found_goods'], 0, $lang['Metal'], 0, $lang['Crystal'], 0, $lang['Deuterium'], pretty_number($FoundDark), $lang['Darkmatter']);
 			} else {
 				$FoundDark 	= 0;
-				$Message 	= $lang['sys_expe_nothing_'.rand(1, 2)];
+				$Message 	= $lang['sys_expe_nothing_'.rand(1, 9)];
 			}
 
 			$db->query("UPDATE ".FLEETS." SET `fleet_mess` = '1',`fleet_resource_darkmatter` = `fleet_resource_darkmatter` + '". $FoundDark ."' WHERE `fleet_id` = '". $FleetRow['fleet_id'] ."';");			

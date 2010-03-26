@@ -50,9 +50,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 				$QryUpdate .= "WHERE ";
 				$QryUpdate .= "`id` = '". $CurrentUser['id'] ."';";
 				$db->multi_query($QryUpdate);
-				
-				AddPointsToPlayer($CurrentUser['id'], $ThePlanet['b_tech_id'], 1, $CurrentUser[$resource[$ThePlanet['b_tech_id']]] - 1);
-				
+								
 				$ThePlanet["b_tech_id"] = 0;
 
 				if (isset($WorkingPlanet))
