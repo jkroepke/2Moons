@@ -176,7 +176,7 @@ class ShowOptionsPage
 						$query = $db->fetch_array($db->query("SELECT id FROM ".USERS." WHERE username='".$db->sql_escape($username)."';"));
 						
 						if (!empty($query))
-							$template->message(spintf($lang['op_change_name_exist'], $username), "game.php?page=options", 1);
+							$template->message(sprintf($lang['op_change_name_exist'], $username), "game.php?page=options", 1);
 						else 
 						{
 							$SQLQuery	.= "UPDATE ".USERS." SET `username` = '".$db->sql_escape($username)."', `uctime` = '".time()."' WHERE `id`= '".$CurrentUser['id']."';";
