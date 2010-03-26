@@ -33,16 +33,17 @@ if ($user['authlevel'] != 3) die();
 function exitupdate($conn_id, $Result){
 
 	$parse['planetes'] = "<tr><th>";
-	foreach($Result['debug'] as $key => $content)
-	{
-		$parse['planetes'] .= $content."<br>";
+	if(is_array($Result['debug'])) {
+		foreach($Result['debug'] as $key => $content) {
+			$parse['planetes'] .= $content."<br>";
+		}
 	}
-
-	foreach($Result['update'] as $rev => $content)
-	{
-		foreach($content as $file => $status)
-		{
-			$parse['planetes'] .= "File ".$file." (Rev. ".$rev."): ".$status."<br>";
+	
+	if(is_array($Result['update'])) {
+		foreach($Result['update'] as $rev => $content) {
+			foreach($content as $file => $status) {
+				$parse['planetes'] .= "File ".$file." (Rev. ".$rev."): ".$status."<br>";
+			}
 		}
 	}
 	
@@ -100,8 +101,8 @@ function killdir($conn_id, $Adresse) {
 				
 			$SVN_ROOT		= $UpdateArray['info']['svn'];
 			
-			$conn_id 		= ftp_connect($game_config['ftp_server']);
-			$login_result 	= ftp_login($conn_id, $game_config['ftp_user_name'], $game_config['ftp_user_pass']);
+			$conn_id 		= @ftp_connect($game_config['ftp_server']);
+			$login_result 	= @ftp_login($conn_id, $game_config['ftp_user_name'], $game_config['ftp_user_pass']);
 			$Result			= array();
 			
 			if ($conn_id) {
@@ -143,7 +144,7 @@ function killdir($conn_id, $Adresse) {
 				{
 					foreach($RevInfo['add'] as $File)
 					{	
-						if($File == "/trunk/update.sql")
+						if($File == "/trunk/updates/update_".$Rev.".sql")
 						{
 							$db->multi_query(str_replace("prefix_", DB_PREFIX, file_get_contents($SVN_ROOT.$File)));
 							continue;
@@ -162,7 +163,7 @@ function killdir($conn_id, $Adresse) {
 				{
 					foreach($RevInfo['edit'] as $File)
 					{	
-						if($File == "/trunk/update.sql")
+						if($File == "/trunk/updates/update_".$Rev.".sql")
 						{
 							$db->multi_query(str_replace("prefix_", DB_PREFIX, file_get_contents($SVN_ROOT.$File)));
 							continue;

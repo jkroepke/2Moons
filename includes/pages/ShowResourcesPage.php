@@ -106,12 +106,12 @@ function ShowResourcesPage($CurrentUser, $CurrentPlanet)
 			$BuildLevelFactor       = $CurrentPlanet[ $resource[$ProdID]."_porcent" ];
 			$BuildLevel             = $CurrentPlanet[ $resource[$ProdID] ];
 			$metal[$ProdID]     	= floor(eval($ProdGrid[$ProdID]['formule']['metal'])     * (0.01 * $post_porcent) * ($game_config['resource_multiplier']));
-			$crystal[$ProdID] 		= floor(eval($ProdGrid[$ProdID]['formule']['crystal']  ) * (0.01 * $post_porcent) * ($game_config['resource_multiplier']));
+			$crystal[$ProdID] 		= floor(eval($ProdGrid[$ProdID]['formule']['crystal'])   * (0.01 * $post_porcent) * ($game_config['resource_multiplier']));
 		
 			if ($ProdID < 4)
 			{
 				$deuterium[$ProdID]	= floor(eval($ProdGrid[$ProdID]['formule']['deuterium']) * (0.01 * $post_porcent) * ($game_config['resource_multiplier']));
-				$energy[$ProdID]	= floor(eval($ProdGrid[$ProdID]['formule']['energy']) * (0.01 * $post_porcent) * ($game_config['resource_multiplier']));
+				$energy[$ProdID]	= floor(eval($ProdGrid[$ProdID]['formule']['energy'])    * (0.01 * $post_porcent) * ($game_config['resource_multiplier']));
 			}
 			else
 			{

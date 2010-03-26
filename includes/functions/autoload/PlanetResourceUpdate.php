@@ -104,49 +104,22 @@ function PlanetResourceUpdate( $CurrentUser, &$CurrentPlanet, $UpdateTime, $Simu
 		$CurrentPlanet['energy_used']          = $Caps['energy_used'];
 		$CurrentPlanet['energy_max']           = $Caps['energy_max'];
 
-		if ( $CurrentPlanet['metal'] <= $MaxMetalStorage )
+		if ($CurrentPlanet['metal'] <= $MaxMetalStorage)
 		{
-			$MetalProduction = (($ProductionTime * ($CurrentPlanet['metal_perhour'] / 3600)) * $game_config['resource_multiplier']);
-			$MetalBaseProduc = (($ProductionTime * ($game_config['metal_basic_income'] / 3600 )) * $game_config['resource_multiplier']);
-			$MetalTheorical  = $CurrentPlanet['metal'] + $MetalProduction  +  $MetalBaseProduc;
-			if ( $MetalTheorical <= $MaxMetalStorage )
-			{
-				$CurrentPlanet['metal']  = $MetalTheorical;
-			}
-			else
-			{
-				$CurrentPlanet['metal']  = $MaxMetalStorage;
-			}
+			$MetalTheorical  = $CurrentPlanet['metal'] + ($this->ProductionTime * ($game_config['metal_basic_income'] + $CurrentPlanet['metal_perhour']) / 3600);
+			$CurrentPlanet['metal']  = min($MetalTheorical, $MaxMetalStorage);
 		}
-
-		if ( $CurrentPlanet['crystal'] <= $MaxCristalStorage )
+			
+		if ($CurrentPlanet['crystal'] <= $MaxCristalStorage)
 		{
-			$CristalProduction = (($ProductionTime * ($CurrentPlanet['crystal_perhour'] / 3600)) * $game_config['resource_multiplier']);
-			$CristalBaseProduc = (($ProductionTime * ($game_config['crystal_basic_income'] / 3600 )) * $game_config['resource_multiplier']);
-			$CristalTheorical  = $CurrentPlanet['crystal'] + $CristalProduction  +  $CristalBaseProduc;
-			if ( $CristalTheorical <= $MaxCristalStorage )
-			{
-				$CurrentPlanet['crystal']  = $CristalTheorical;
-			}
-			else
-			{
-				$CurrentPlanet['crystal']  = $MaxCristalStorage;
-			}
+			$CristalTheorical  = $CurrentPlanet['crystal'] + ($this->ProductionTime * ($game_config['crystal_basic_income'] + $CurrentPlanet['crystal_perhour']) / 3600);
+			$CurrentPlanet['crystal']  = min($CristalTheorical, $MaxCristalStorage);
 		}
-
-		if ( $CurrentPlanet['deuterium'] <= $MaxDeuteriumStorage )
+		
+		if ($CurrentPlanet['deuterium'] <= $MaxDeuteriumStorage)
 		{
-			$DeuteriumProduction = (($ProductionTime * ($CurrentPlanet['deuterium_perhour'] / 3600)) * $game_config['resource_multiplier']);
-			$DeuteriumBaseProduc = (($ProductionTime * ($game_config['deuterium_basic_income'] / 3600 )) * $game_config['resource_multiplier']);
-			$DeuteriumTheorical  = $CurrentPlanet['deuterium'] + $DeuteriumProduction  +  $DeuteriumBaseProduc;
-			if ( $DeuteriumTheorical <= $MaxDeuteriumStorage )
-			{
-				$CurrentPlanet['deuterium']  = $DeuteriumTheorical;
-			}
-			else
-			{
-				$CurrentPlanet['deuterium']  = $MaxDeuteriumStorage;
-			}
+			$DeuteriumTheorical  = $CurrentPlanet['deuterium'] + ($this->ProductionTime * ($game_config['deuterium_basic_income'] + $CurrentPlanet['deuterium_perhour']) / 3600);
+			$CurrentPlanet['deuterium']  = min($DeuteriumTheorical, $MaxDeuteriumStorage);
 		}
 	}
 	if ($Simul == false)
