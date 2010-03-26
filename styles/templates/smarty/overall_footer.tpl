@@ -2,7 +2,7 @@
 <div id='errorbox' style="text-align:center;"></div>
 {$cron}
 {$sql_num}
-{if $js_res_multiplier}
+{if $metal_max}
 <script type="text/javascript">
 $(document).ready(function() {
 	met		= parseInt($("#current_metal").text().replace(/\./g,""));
