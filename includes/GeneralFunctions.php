@@ -126,10 +126,10 @@ function AdminUserHeader ($metatags = '')
 	return parsetemplate(gettemplate('adm/simple_header'), $parse);
 }
 
-function CalculateMaxPlanetFields(&$planet)
+function CalculateMaxPlanetFields($planet)
 {
 	global $resource;
-	return $planet["field_max"] + ($planet[$resource[33]] * FIELDS_BY_TERRAFORMER) + ($planet[$resource[41]] * FIELDS_BY_MOONBASIS_LEVEL);
+	return $planet['field_max'] + ($planet[$resource[33]] * FIELDS_BY_TERRAFORMER) + ($planet[$resource[41]] * FIELDS_BY_MOONBASIS_LEVEL);
 }
 
 function pretty_time ($seconds)

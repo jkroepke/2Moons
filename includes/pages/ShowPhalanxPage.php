@@ -41,13 +41,10 @@ function ShowPhalanxPage($CurrentUser, $CurrentPlanet)
 	$Galaxy 			= request_var('galaxy', 0);
 	$System 			= request_var('system', 0);
 	$Planet  			= request_var('planet', 0);
-	$PlType  			= request_var('planettype', 0);
 	
 	$SystemLimitMin  	= max(1, $CurrentSystem - $PhRange);
 	$SystemLimitMax  	= $CurrentSystem + $PhRange;
 	$DoScan 			= ($System <= $SystemLimitMax && $System >= $SystemLimitMin && $Galaxy == $CurrentPlanet['galaxy']) ? true : false;
-
-	if ($CurrentPlanet['planet_type'] != 3 || $PlType != 1) exit;
 
 	if ($CurrentPlanet['deuterium'] > 5000)
 		$db->query("UPDATE ".PLANETS." SET `deuterium` = `deuterium` - '5000' WHERE `id` = '". $CurrentUser['current_planet'] ."';");
@@ -59,22 +56,22 @@ function ShowPhalanxPage($CurrentUser, $CurrentPlanet)
 
 	if ($DoScan == true)
 	{
-		$TargetInfo = $db->fetch_array($db->query("SELECT name,id_owner FROM ".PLANETS." WHERE `galaxy` = '". $Galaxy ."' AND `system` = '". $System ."' AND `planet` = '". $Planet ."' AND `planet_type` = '". $PlType ."';"));
+		$TargetInfo = $db->fetch_array($db->query("SELECT name, id_owner FROM ".PLANETS." WHERE `galaxy` = '". $Galaxy ."' AND `system` = '". $System ."' AND `planet` = '". $Planet ."' AND `planet_type` = '1';"));
 		$TargetName = $TargetInfo['name'];
 
 		$QryLookFleets  = "SELECT * ";
 		$QryLookFleets .= "FROM ".FLEETS." ";
-		$QryLookFleets .= "WHERE ( ( ";
+		$QryLookFleets .= "WHERE ( ";
 		$QryLookFleets .= "`fleet_start_galaxy` = '". $Galaxy ."' AND ";
 		$QryLookFleets .= "`fleet_start_system` = '". $System ."' AND ";
 		$QryLookFleets .= "`fleet_start_planet` = '". $Planet ."' AND ";
-		$QryLookFleets .= "`fleet_start_type` = '". $PlType ."' ";
+		$QryLookFleets .= "`fleet_start_type` = '1' ";
 		$QryLookFleets .= ") OR ( ";
 		$QryLookFleets .= "`fleet_end_galaxy` = '". $Galaxy ."' AND ";
 		$QryLookFleets .= "`fleet_end_system` = '". $System ."' AND ";
 		$QryLookFleets .= "`fleet_end_planet` = '". $Planet ."' AND ";
-		$QryLookFleets .= "`fleet_end_type` = '". $PlType ."' ";
-		$QryLookFleets .= ") ) ";
+		$QryLookFleets .= "`fleet_end_type` = '1' ";
+		$QryLookFleets .= ") ";
 		$QryLookFleets .= "ORDER BY `fleet_start_time`;";
 
 		$FleetToTarget  = $db->query($QryLookFleets);
