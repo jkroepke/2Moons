@@ -170,9 +170,6 @@ class ShowBuildingsPage
 	private function AddBuildingToQueue (&$CurrentPlanet, $CurrentUser, $Element, $AddMode = true)
 	{
 		global $resource;
-		
-		if (!$AddMode)
-			return;
 			
 		$CurrentQueue  		= $CurrentPlanet['b_building_id'];
 
