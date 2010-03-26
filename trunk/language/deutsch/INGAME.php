@@ -129,7 +129,6 @@ $lang['ov_teamspeak']						= 'Teamspeak';
 $lang['ov_teamspeak_v2']					= '<a href="teamspeak://%s:%s?nickname=%s" title="Teamspeak Connect">Connect</a> &bull; Online: %d/%d &bull; Channels: %d &bull; Traffic ges.: %s MB';
 $lang['ov_teamspeak_v3']					= '<a href="ts3server://%s?port=%d&amp;nickname=%s&amp;password=%s" title="Teamspeak Connect">Connect</a>&nbsp;&bull;&nbsp;Online: %d/%d &bull; Channels: %d &bull; Traffic ges.: %s MB &bull; Version: %s';
 
-
 //----------------------------------------------------------------------------//
 //GALAXY
 
@@ -847,8 +846,13 @@ $lang['sys_colo_allisok'] 					= ', und die Siedler beginnen, den neuen Planeten
 $lang['sys_colo_badpos']  					= '. Hier wurde keine Siedlungsmöglichkeit gefunden entäucht kehren deine Siedler zurük';
 $lang['sys_colo_notfree'] 					= '. Als deine Siedler auf den Koordinaten ankamen, mussten sie feststellen das es dort bereits eine Kolonie gibt. Völlig demoralisiert kehrten sie um.';
 $lang['sys_colo_planet']  					= ' Planeten haben!';
-$lang['sys_expe_report'] 					= 'Expeditionsbericht';
-$lang['sys_recy_report'] 					= 'Recyclerbericht';
+$lang['sys_expe_report'] 					= "Expeditionsbericht";
+$lang['sys_recy_report'] 					= "Recyclerbericht";
+$lang['sys_expe_blackholl_1'] 				= "Deine Flotte traf auf ein schwarzes Loch und wurde teilweise zerst&ouml;rt!";
+$lang['sys_expe_blackholl_2'] 				= "Deine Flotte traf auf ein schwarzes Loch und wurde komplett zerst&ouml;rt!";
+$lang['sys_expe_found_goods'] 				= "Deine Forscher haben einen rohstoffreichen Planeten gefunden !<br>Sie haben %s %s, %s %s und %s %s abgebaut";
+$lang['sys_expe_found_ships'] 				= "Deine Forscher haben Raumschiffe in einwandfreiem Zustand gefunden!.<br>Bergen konnten Sie: ";
+$lang['sys_expe_back_home'] 				= "Ihre Flotte ist von der Expedition wieder zur&uuml;kgekehrt.";
 $lang['sys_expe_found_ress_1_1']			= 'Deine Expedition hat einen kleinen Asteroidenschwarm entdeckt, aus dem einige Ressourcen gewonnen werden können.';
 $lang['sys_expe_found_ress_1_2']			= 'Auf einem abgelegenen Planetoiden wurden einige leicht zugängliche Ressourcenfelder gefunden und erfolgreich Rohstoffe gewonnen.';
 $lang['sys_expe_found_ress_1_3']			= 'Deine Expedition stieß auf sehr alte Raumschiffwracks einer längst vergangenen Schlacht. Einzelne Komponenten konnte man bergen und recyceln.';
