@@ -14,7 +14,6 @@ $(document).ready(function() {
 	met_hr		= {$js_metal_hr};
 	cry_hr		= {$js_crystal_hr};
 	deu_hr		= {$js_deuterium_hr};
-	res_factor	= {$js_res_multiplier};
 
 	update();
 });
