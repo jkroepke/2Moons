@@ -11,6 +11,7 @@ $lang['changelog']   = array(
 - ADD: Neue Accountlisten im ACP
 - ADD: Gigarecler on Galaxy
 - ADD: Ori. Platform, Spalteinreißer, Bahamut
+- ADD: Händlergebühren
 - FIX: Trader
 - FIX: Galaxy
 - FIX: Minus-Werte bei NPC`s in Expeditions Kämpfen
@@ -20,6 +21,8 @@ $lang['changelog']   = array(
 - FIX: BuildQuere
 - FIX: Playercard
 - FIX: General
+- FIX: AKS-Stealberechnung
+- FIX: Negative Rückflugzeit bei AKS-Einheiten
 - FIX: Rohstoffberechnung
 - FIX: Zeit von Spionageberichten
 - FIX: Allianzstatistiken(?)
