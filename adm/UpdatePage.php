@@ -30,7 +30,7 @@ include('AdminFunctions/Autorization.' . PHP_EXT);
 
 if ($user['authlevel'] != 3) die();
 
-	function exitupdate($conn_id, $Result){
+	function exitupdate($Result){
 
 		$parse['planetes'] = "<tr><th>";
 		if(is_array($Result['debug'])) {
@@ -47,15 +47,13 @@ if ($user['authlevel'] != 3) die();
 			}
 		}
 		
-		if(is_array($Result['debug'])) {	
+		if(is_array($Result['finish'])) {	
 			foreach($Result['finish'] as $key => $content) {
 				$parse['planetes'] .= $content."<br>";
 			}
 		}
 		$parse['planetes'] .= "</th></tr><tr><td><a href='?'>Weiter</a></th></tr>";
-		
-		if(!empty($coon_id))
-			ftp_close($conn_id);		
+				
 		
 		display(parsetemplate(gettemplate('adm/update_body'), $parse), false, '', true, false);
 		exit;
@@ -81,48 +79,35 @@ if ($user['authlevel'] != 3) die();
 	switch($_REQUEST['action'])
 	{
 		case "update":
-
+			require_once(ROOT_PATH.'includes/libs/ftp/ftp.class.'.PHP_EXT);
+			require_once(ROOT_PATH.'includes/libs/ftp/ftpexception.class.'.PHP_EXT);
 			$UpdateArray 	= unserialize(file_get_contents("http://update.jango-online.de/index.php?action=getupdate",FALSE,$context));
 			if(!is_array($UpdateArray['revs']))
-				exitupdate(NULL, array('debug' => array('noupdate' => "Kein Update vorhanden!")));
+				exitupdate(array('debug' => array('noupdate' => "Kein Update vorhanden!")));
 				
 			$SVN_ROOT		= $UpdateArray['info']['svn'];
+			$config 		= array("host" => $game_config['ftp_server'], "username" => $game_config['ftp_user_name'], "password" => $game_config['ftp_user_pass'], "port"     => 21 );
 			
-			$conn_id 		= @ftp_connect($game_config['ftp_server']);
-			$login_result 	= @ftp_login($conn_id, $game_config['ftp_user_name'], $game_config['ftp_user_pass']);
-			$Result			= array();
-			
-			if ($conn_id) {
+			try
+			{
+				$ftp = FTP::getInstance(); 
+				$ftp->connect( $config, true, true );
 				$Result['debug']['connect']	= "FTP-Verbindungsaufbau: OK!";
-			} else {
-				$Result['debug']['connect']	= "FTP-Verbindungsaufbau: ERROR! HOST: ".$game_config['ftp_server'];
-				exitupdate($conn_id, $Result);
 			}
-			
-			if ($login_result) {
-				$Result['debug']['login']	= "FTP-LOGIN: OK!";
-			} else {
-				$Result['debug']['login']	= "FTP-LOGIN: ERROR! USER: ".$game_config['ftp_user_name']." PASS: ".$game_config['ftp_user_pass']." @ ".$game_config['ftp_server'];
-				exitupdate($conn_id, $Result);
-			}
-			
-			if(ftp_pasv($conn_id, true))
+			catch (FTPException $error)
 			{
-				$Result['debug']['mode']	= "FTP-Mode: Setze Passiver Modus!";
-			}
-			else
-			{
-				$Result['debug']['mode']	= "FTP-Mode: Konnte Passiven Modus nicht setzten!";
-				exitupdate($conn_id, $Result);
-			}			
-			if(ftp_chdir($conn_id, $game_config['ftp_root_path']))
+				$Result['debug']['connect']	= "FTP-Verbindungsaufbau: ERROR! ".$error->getMessage();
+				exitupdate($Result);
+			}	
+						
+			if($ftp->changeDir($game_config['ftp_root_path']))
 			{
 				$Result['debug']['chdir']	= "FTP-Changedir(".$game_config['ftp_root_path']."): OK!";
 			}
 			else
 			{
 				$Result['debug']['chdir']	= "FTP-Changedir(".$game_config['ftp_root_path']."): ERROR! Pfad nicht gefunden!";
-				exitupdate($conn_id, $Result);
+				exitupdate($Result);
 			}
 			
 			foreach($UpdateArray['revs'] as $Rev => $RevInfo) 
@@ -136,13 +121,21 @@ if ($user['authlevel'] != 3) die();
 							$db->multi_query(str_replace("prefix_", DB_PREFIX, file_get_contents($SVN_ROOT.$File)));
 							continue;
 						} else {
-							$Data = fopen($SVN_ROOT.$File, "r");
-							if (ftp_fput($conn_id, str_replace("/trunk/", "", $File), $Data, FTP_ASCII)) {
-								$Result['update'][$Rev][$File]	= "OK! - Updated";
+							if (strpos($File, '.') !== false) {		
+								$Data = fopen(str_replace("/trunk/", "", $File));
+								if ($ftp->uploadFromFile($Data, str_replace("/trunk/", "", $File))) {
+									$Result['update'][$Rev][$File]	= "OK! - Updated";
+								} else {
+									$Result['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht hochladen";
+								}
+								fclose($Data);
 							} else {
-								$Result['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht hochladen";
+								if ($ftp->makeDir(str_replace("/trunk/", "", $File), 0)) {
+									$Result['update'][$Rev][$File]	= "OK! - Updated";
+								} else {
+									$Result['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht hochladen";
+								}				
 							}
-							fclose($Data);
 						}
 					}
 				}
@@ -150,18 +143,20 @@ if ($user['authlevel'] != 3) die();
 				{
 					foreach($RevInfo['edit'] as $File)
 					{	
-						if($File == "/trunk/updates/update_".$Rev.".sql")
-						{
-							$db->multi_query(str_replace("prefix_", DB_PREFIX, file_get_contents($SVN_ROOT.$File)));
-							continue;
-						} else {
-							$Data = fopen($SVN_ROOT.$File, "r");
-							if (ftp_fput($conn_id, str_replace("/trunk/", "", $File), $Data, FTP_ASCII)) {
-								$Result['update'][$Rev][$File]	= "OK! - Updated";
+						if (strpos($File, '.') !== false) {
+							if($File == "/trunk/updates/update_".$Rev.".sql")
+							{
+								$db->multi_query(str_replace("prefix_", DB_PREFIX, file_get_contents($SVN_ROOT.$File)));
+								continue;
 							} else {
-								$Result['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht hochladen";
+								$Data = fopen($SVN_ROOT.$File, "r");
+								if ($ftp->uploadFromFile($Data, str_replace("/trunk/", "", $File))) {
+									$Result['update'][$Rev][$File]	= "OK! - Updated";
+								} else {
+									$Result['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht hochladen";
+								}
+								fclose($Data);
 							}
-							fclose($Data);
 						}
 					}
 				}
@@ -169,10 +164,18 @@ if ($user['authlevel'] != 3) die();
 				{
 					foreach($RevInfo['del'] as $File)
 					{
-						if (ftp_delete($conn_id, str_replace("/trunk/", "", $File))) {
-							$Result['update'][$Rev][$File]	= "OK! - Gel&ouml;scht";
+						if (strpos($File, '.') !== false) {
+							if ($ftp->delete(str_replace("/trunk/", "", $File))) {
+								$Result['update'][$Rev][$File]	= "OK! - Gel&ouml;scht";
+							} else {
+								$Result['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht l&ouml;schen";
+							}
 						} else {
-							$Result['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht l&ouml;schen";
+							if ($ftp->removeDir(str_replace("/trunk/", "", $File), 1 )) {
+								$Result['update'][$Rev][$File]	= "OK! - Gel&ouml;scht";
+							} else {
+								$Result['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht l&ouml;schen";
+							}						
 						}
 					}
 				}
@@ -182,7 +185,7 @@ if ($user['authlevel'] != 3) die();
 			
 			// Verbindung schlieﬂen
 			update_config('VERSION', str_replace("RC","",$Patchlevel[0]).".".$Patchlevel[1].".".$LastRev);
-			exitupdate($conn_id, $Result);
+			exitupdate($Result);
 		break;
 		default:
 			$i = 0;

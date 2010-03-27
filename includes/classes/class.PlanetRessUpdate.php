@@ -151,7 +151,8 @@ class ResourceUpdate
 		{
 			foreach($this->Builded as $Element => $Count)
 			{
-				$QryUpdatePlanet .= "`". $resource[$Element] ."` = '". $CurrentPlanet[$resource[$Element]] ."', ";
+				if(isset($resource[$Element]))
+					$QryUpdatePlanet .= "`". $resource[$Element] ."` = '". $CurrentPlanet[$resource[$Element]] ."', ";
 			}
 		}
 		$QryUpdatePlanet .= "`b_hangar` = '". $CurrentPlanet['b_hangar'] ."' ";
