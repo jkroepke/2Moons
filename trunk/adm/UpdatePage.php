@@ -30,49 +30,36 @@ include('AdminFunctions/Autorization.' . PHP_EXT);
 
 if ($user['authlevel'] != 3) die();
 
-function exitupdate($conn_id, $Result){
+	function exitupdate($conn_id, $Result){
 
-	$parse['planetes'] = "<tr><th>";
-	if(is_array($Result['debug'])) {
-		foreach($Result['debug'] as $key => $content) {
-			$parse['planetes'] .= $content."<br>";
-		}
-	}
-	
-	if(is_array($Result['update'])) {
-		foreach($Result['update'] as $rev => $content) {
-			foreach($content as $file => $status) {
-				$parse['planetes'] .= "File ".$file." (Rev. ".$rev."): ".$status."<br>";
+		$parse['planetes'] = "<tr><th>";
+		if(is_array($Result['debug'])) {
+			foreach($Result['debug'] as $key => $content) {
+				$parse['planetes'] .= $content."<br>";
 			}
 		}
-	}
-	
-	foreach($Result['finish'] as $key => $content)
-	{
-		$parse['planetes'] .= $content."<br>";
-	}
-	$parse['planetes'] .= "</th></tr><tr><td><a href='?'>Weiter</a></th></tr>";
-	
-	if(!empty($coon_id))
-		ftp_close($conn_id);		
-	
-	display(parsetemplate(gettemplate('adm/update_body'), $parse), false, '', true, false);
-	exit;
-}
-function killdir($conn_id, $Adresse) {
-
-	$DateienArray = ftp_nlist($conn_id, $Adresse);
-	$DateienAnzahl = count($DateienArray);
-	$k = 0;
-	for ($i=0;$i<$DateienAnzahl;$i++) {
-		$k++;
-		if (!ftp_delete ($conn_id, $Adresse."/".$DateienArray[$i]))
-		{
-			killdir($conn_id, $Adresse."/".$DateienArray[$i]."/");
+		
+		if(is_array($Result['update'])) {
+			foreach($Result['update'] as $rev => $content) {
+				foreach($content as $file => $status) {
+					$parse['planetes'] .= "File ".$file." (Rev. ".$rev."): ".$status."<br>";
+				}
+			}
 		}
+		
+		if(is_array($Result['debug'])) {	
+			foreach($Result['finish'] as $key => $content) {
+				$parse['planetes'] .= $content."<br>";
+			}
+		}
+		$parse['planetes'] .= "</th></tr><tr><td><a href='?'>Weiter</a></th></tr>";
+		
+		if(!empty($coon_id))
+			ftp_close($conn_id);		
+		
+		display(parsetemplate(gettemplate('adm/update_body'), $parse), false, '', true, false);
+		exit;
 	}
-	ftp_rmdir($conn_id,$Adresse);
-}
 
 	$Patchlevel	= explode(".",VERSION);
 	if($_REQUEST['history'] == 1)
