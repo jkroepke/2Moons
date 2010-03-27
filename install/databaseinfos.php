@@ -349,8 +349,6 @@ $QryTablePlanets    .= "`dm_ship` bigint(20) NOT NULL default '0', ";
 $QryTablePlanets    .= "`der_metal` bigint(11) unsigned NOT NULL default '0', ";
 $QryTablePlanets    .= "`der_crystal` bigint(11) unsigned NOT NULL default '0', ";
 $QryTablePlanets    .= "`thriller` bigint(11) unsigned NOT NULL default '0', ";
-$QryTablePlanets    .= "`bahamut` bigint(11) unsigned NOT NULL default '0', ";
-$QryTablePlanets    .= "`orbital_station` bigint(11) unsigned NOT NULL default '0', ";
 $QryTablePlanets    .= "`id_luna` int(11) NOT NULL default '0', ";
 $QryTablePlanets    .= "PRIMARY KEY  (`id`) ";
 $QryTablePlanets    .= ") ENGINE=MyISAM DEFAULT CHARSET=utf8;";
