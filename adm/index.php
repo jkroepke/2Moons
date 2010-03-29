@@ -31,6 +31,7 @@ include('AdminFunctions/Autorization.' . PHP_EXT);
 
 if ($user['authlevel'] < 1) die(message ($lang['404_page']));
 
+	$page  = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Frameset//EN\" \"http://www.w3.org/TR/html4/frameset.dtd\">\n";
 	$page  = "<html>\n";
 	$page .= "<head>\n";
 	$page .= "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\" />\n";
@@ -41,7 +42,7 @@ if ($user['authlevel'] < 1) die(message ($lang['404_page']));
 	$page .= "<frame src=\"menu.php\" name=\"rightFrame\" id=\"rightFrame\"/>\n";
 	$page .= "<frameset rows=\"85,*\" frameborder=\"no\" border=\"0\" framespacing=\"0\">\n";
 	$page .= "<frame src=\"topnav.php\" name=\"topFrame\" scrolling=\"No\" noresize=\"noresize\" id=\"topFrame\"/>\n";
-	$page .= "<frame src=\"OverviewPage.php\" name=\"Hauptframe\" scrolling=\"yes\" noresize=\"noresize\" id=\"mainFrame\"/>\n";
+	$page .= "<frame src=\"OverviewPage.php\" name=\"Hauptframe\" scrolling=\"auto\" noresize=\"noresize\" id=\"mainFrame\"/>\n";
 	$page .= "</frameset>\n";
 	$page .= "<noframes><body>\n";
 	$page .= "</body>\n";

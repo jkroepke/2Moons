@@ -2957,7 +2957,7 @@ class FlyingFleetMissions {
 			
 			$time_start 	= microtime(true);
 			$Attack			= new Battle();
-			$Result			= $Attack->StartBattle($AttackFleet, $DefendFleet, 6, 70, false);	
+			$Result			= $Attack->BattleStartBattle($AttackFleet, $DefendFleet, 6, 70, false);	
 			$totaltime 		= microtime(true) - $time_start;
 						
 			//CalculateSteal

@@ -45,6 +45,18 @@ if ($user['authlevel'] >= 3)
 		$Message	.= "<font color=\"red\">".$lang['ow_config_file_writable']."</font><br/><br/>";
 		$error++;
 	}
+	if($game_config['stats_fly_lock'] != 0)
+	{
+		$Message	.= "<font color=\"red\">Der Fleet-Handler hatte ein Fehler! - Letzter Start: ".date("d. M y H:i:s" ,$game_config['stats_fly_lock'])." - N&auml;chster Start: ".date("d. M y H:i:s", $game_config['stats_fly_lock'] + 5 * 60)."</font><br/><br/>";
+		$error++;
+	}
+	
+	if(($game_config['smtp_host'] == '' || $game_config['smtp_port'] == '' || $game_config['smtp_user'] == '' || $game_config['smtp_pass'] == '') && $game_config['user_valid'] == 1)
+	{
+		$Message	.= "<font color=\"red\">&Uuml;berpr&uuml;fe deine SMTP-Einstellunden! - Momentan k&ouml;nen keine Mails gesendet werden!</font><br/><br/>";
+		$error++;
+	}
+
 }
 
 if($error != 0)
