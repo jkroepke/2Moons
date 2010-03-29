@@ -2798,6 +2798,354 @@ class FlyingFleetMissions {
 			$db->multi_query("UPDATE `".USERS."` SET `darkmatter` = darkmatter + ".$FleetRow['fleet_resource_darkmatter']." WHERE `id` = '".$FleetRow['fleet_owner']."';DELETE FROM ".FLEETS." WHERE `fleet_id` = ". $FleetRow["fleet_id"].";");
 		}		
 	}
+	
+	
+	// Custom Mission for new Battle Engine
+	
+	private static function NewGenerateReport ($Result, $FleetRow, $totaltime)
+	{
+		global $lang;
+
+		$HTML 		= "";
+		$bbc 		= "";
+		$DUser		= false;
+		$HTML		.= (($moondes) ? $lang['sys_destruc_title'] : $lang['sys_attack_title'])." ".date("D M j H:i:s", time()).".<br><br>";
+	
+		$round_no 	= 1;
+		
+		foreach($Result['rounds'] as $RoundNr => $RoundData)
+		{
+			foreach($RoundData['attackers']	as $Attacker => $AttackerData) {
+				$UserTable 	= "<table><tr><th>".$lang['sys_attack_attacker_pos']." ".$Result['Attacker']['username']." ([".$FleetRow['fleet_start_galaxy'].":".$FleetRow['fleet_start_planet'].":".$FleetRow['fleet_start_system']."])<br>".$lang['sys_ship_weapon']." ".$Result['Attacker']['military_tech'] * 10 ."% - ".$lang['sys_ship_shield']." ".$Result['Attacker']['defence_tech'] * 10 ."% - ".$lang['sys_ship_armour']." ".$Result['Attacker']['shield_tech'] * 10 ."%";
+				$InfoTable 	= "<table border=1 align=\"center\" width=\"100%\">";
+				$EndTable 	= "</table></th></tr></table>";
+				
+				if(!is_array($AttackerData['Ships'])){
+					$HTML		.= $UserTable.$InfoTable."<tr><br><br>". $lang['sys_destroyed']."<br></tr>".$EndTable;
+					$DUser		= true;
+				} else {
+					$Ships  	= "<tr><th>".$lang['sys_ship_type']."</th>";
+					$ShipCount 	= "<tr><th>".$lang['sys_ship_count']."</th>";				
+					$ShipAttack	= "<tr><th>".$lang['sys_ship_weapon']."</th>";
+					$ShipShield	= "<tr><th>".$lang['sys_ship_shield']."</th>";
+					$ShipArmour	= "<tr><th>".$lang['sys_ship_armour']."</th>";
+					foreach($AttackerData['Ships'] as $ShipID => $ShipInfo)
+					{
+						$Ships		.= "<th>[ship[".$ShipID."]]</th>";
+						$ShipCount 	.= "<th>".pretty_number($ShipInfo['count'])."</th>";
+						$ShipAttack	.= "<th>".pretty_number($ShipInfo['attack'])."</th>";
+						$ShipShield .= "<th>".pretty_number($ShipInfo['shield'])."</th>";
+						$ShipArmour	.= "<th>".pretty_number($ShipInfo['integrity'])."</th>";				
+					}
+					$Ships 		.= "</tr>";
+					$ShipCount	.= "</tr>";
+					$ShipAttack	.= "</tr>";
+					$ShipShield	.= "</tr>";
+					$ShipArmour	.= "</tr>";
+				
+					$HTML		.= $UserTable.$InfoTable.$Ships.$ShipCount.$ShipAttack.$ShipShield.$ShipArmour.$EndTable;
+				}
+			}
+			
+			$HTML	.= "<br><br>";
+			
+			foreach($RoundData['defenders']	as $Defender => $DefenderData) {
+				$UserTable 	= "<table><tr><th>".$lang['sys_attack_attacker_pos']." ".$Result['Defender']['username']." ([".$FleetRow['fleet_start_galaxy'].":".$FleetRow['fleet_start_planet'].":".$FleetRow['fleet_start_system']."])<br>".$lang['sys_ship_weapon']." ".$Result['Defender']['military_tech'] * 10 ."% - ".$lang['sys_ship_shield']." ".$Result['Defender']['defence_tech'] * 10 ."% - ".$lang['sys_ship_armour']." ".$Result['Defender']['shield_tech'] * 10 ."%";				$InfoTable 	= "<table border=\"1\" align=\"center\" width=\"100%\">";
+				$EndTable 	= "</table></th></tr></table>";
+				
+				if(!is_array($DefenderData['Ships'])){
+					$HTML		.= $UserTable.$InfoTable."<tr><br><br>". $lang['sys_destroyed']."<br></tr>".$EndTable;
+					$DUser		= true;
+				} else {
+					$Ships  	= "<tr><th>".$lang['sys_ship_type']."</th>";
+					$ShipCount 	= "<tr><th>".$lang['sys_ship_count']."</th>";				
+					$ShipAttack	= "<tr><th>".$lang['sys_ship_weapon']."</th>";
+					$ShipShield	= "<tr><th>".$lang['sys_ship_shield']."</th>";
+					$ShipArmour	= "<tr><th>".$lang['sys_ship_armour']."</th>";
+					foreach($DefenderData['Ships'] as $ShipID => $ShipInfo)
+					{
+						$Ships		.= "<th>[ship[".$ShipID."]]</th>";
+						$ShipCount 	.= "<th>".pretty_number($ShipInfo['count'])."</th>";
+						$ShipAttack	.= "<th>".pretty_number($ShipInfo['attack'])."</th>";
+						$ShipShield .= "<th>".pretty_number($ShipInfo['shield'])."</th>";
+						$ShipArmour	.= "<th>".pretty_number($ShipInfo['integrity'])."</th>";				
+					}
+					$Ships 		.= "</tr>";
+					$ShipCount	.= "</tr>";
+					$ShipAttack	.= "</tr>";
+					$ShipShield	.= "</tr>";
+					$ShipArmour	.= "</tr>";
+				
+					$HTML		.= $UserTable.$InfoTable.$Ships.$ShipCount.$ShipAttack.$ShipShield.$ShipArmour.$EndTable;
+				}
+			}
+			if(!$DUser)
+			{
+				$HTML		.= "<br><br>";
+				$HTML 		.= $lang['fleet_attack_1']." ".pretty_number($RoundData['Materials']['attack_a'])." ".$lang['fleet_attack_2']." ".pretty_number($RoundData['Materials']['shield_b'])." ".$lang['damage']."<br>";
+				$HTML		.= $lang['fleet_defs_1']." ".pretty_number($RoundData['Materials']['attack_b'])." ".$lang['fleet_defs_2']." ".pretty_number($RoundData['Materials']['shield_a'])." ".$lang['damage']."<br><br>";
+			}
+		}
+		
+		if ($Result['won'] == "a")
+		{
+			$HTML 	.= "<br><br>".$lang['sys_attacker_won']."<br>";
+			$HTML	.= $lang['sys_stealed_ressources']." ".$Result['steal']['metal']." ".$lang['Metal'].", ".$Result['steal']['crystal']." ".$lang['Crystal']." ".$lang['and']." ".$Result['steal']['deuterium']." ".$lang['Deuterium']."<br>";
+		}
+		elseif ($Result['won'] == "r")
+			$HTML	.= "<br><br>".$lang['sys_defender_won']."<br>";
+		else
+			$HTML	.= "<br><br>".$lang['sys_both_won'].".<br>";
+
+		$HTML .= $lang['sys_attacker_lostunits']." ".pretty_number($Result['lostunits']['attackers'])." ".$lang['sys_units']."<br>";
+		$HTML .= $lang['sys_defender_lostunits']." ".pretty_number($Result['lostunits']['defender'])." ".$lang['sys_units']."<br>";
+		$HTML .= $lang['debree_field_1']." ".$Result['debris']['metal']." ".$lang['Metal']." ".$lang['sys_and']." ".$Result['debris']['crystal']." ".$lang['Crystal']." ".$lang['debree_field_2']."<br><br>";
+		
+		if($moondes)
+			$HTML .= $moondes;
+		else 
+		{
+			$HTML .= $lang['sys_moonproba']." ".$Result['Moon']['Chance']." %<br>";
+			$HTML .= $Result['Moon']['Create']."<br><br>";
+		}
+		
+		$HTML .= "Kampfbericht Erstellung in ".$totaltime." Sekunden.";
+		return $HTML;
+	}
+	
+		public static function NewMissionCaseAttack ($FleetRow)
+	{
+		global $pricelist, $lang, $resource, $CombatCaps, $game_config, $user, $db, $reslist;
+
+		if ($FleetRow['fleet_mess'] == 0 && $FleetRow['fleet_start_time'] <= time())
+		{
+			include_once("class.BattleEngine.php");
+			
+			$OwnerUser		= $db->fetch_array($db->query('SELECT username,military_tech,defence_tech,shield_tech,rpg_amiral FROM '.USERS.' WHERE id='.$FleetRow['fleet_owner'].";"));
+
+			$TargetPlanet 	= $db->fetch_array($db->query("SELECT * FROM ".PLANETS." WHERE `galaxy` = ". $FleetRow['fleet_end_galaxy'] ." AND `system` = ". $FleetRow['fleet_end_system'] ." AND `planet_type` = ". $FleetRow['fleet_end_type'] ." AND `planet` = ". $FleetRow['fleet_end_planet'] .";"));
+			$TargetUser		= $db->fetch_array($db->query("SELECT username,military_tech,defence_tech,shield_tech,rpg_amiral FROM ".USERS." WHERE id = '".$TargetPlanet['id_owner']."';"));
+			$FleetRow['target_owner']	= $TargetPlanet['id_owner'];
+			
+			$sql			= "";
+			
+			//Generate Array for Battle
+			$temp = explode(';', $FleetRow['fleet_array']);
+			
+			$Fleets	= array();
+			foreach ($temp as $temp2)
+			{
+				$temp2 = explode(',', $temp2);
+
+				if ($temp2[0] < 100) continue;
+
+				$Fleets[$temp2[0]] = $temp2[1];
+			}
+			$Defense = array();
+			for ($i = 200; $i < 500; $i++)
+			{
+				if (isset($resource[$i]) && !empty($TargetPlanet[$resource[$i]]))
+				{
+					$Defense[$i] = $TargetPlanet[$resource[$i]];
+				}
+			}
+			
+			$AttackFleet 	= array(array($FleetRow['fleet_owner'], array('military_tech' => $OwnerUser['military_tech'], 'defence_tech' => $OwnerUser['defence_tech'], 'shield_tech' => $OwnerUser['shield_tech']), array('rpg_amiral' => $OwnerUser['rpg_amiral']), $Fleets),);
+			$DefendFleet 	= array(array($TargetPlanet['id_owner'], array('military_tech' => $TargetUser['military_tech'], 'defence_tech' => $TargetUser['defence_tech'], 'shield_tech' => $TargetUser['shield_tech']), array('rpg_amiral' => $TargetUser['rpg_amiral']), $Defense),);
+			
+			//Start Battle
+			
+			$time_start 	= microtime(true);
+			$Attack			= new Battle();
+			$Result			= $Attack->StartBattle($AttackFleet, $DefendFleet, 6, 70, false);	
+			$totaltime 		= microtime(true) - $time_start;
+						
+			//CalculateSteal
+			if($Result['won'] == "a")
+			{
+				$capacity = 0;
+
+				foreach ($Result['last_round']['attackers'] as $Attacker => $AttackerInfo)
+				{
+					foreach($AttackerInfo['Ships'] as $Element => $ElementArray)
+					{
+						$capacity += $pricelist[$Element]['capacity'] * $ElementArray['count'];
+					}
+				}
+
+				$capacity -= $FleetRow['fleet_resource_metal'] + $FleetRow['fleet_resource_crystal'] + $FleetRow['fleet_resource_deuterium'];
+				 
+				// Step 1
+				if(($TargetPlanet['metal'] / 2) > ($capacity / 3)) $booty['metal'] = ($capacity / 3);
+				else $booty['metal'] = ($TargetPlanet['metal'] / 2);
+				$capacity -= $booty['metal'];
+				 
+				// Step 2
+				if($TargetPlanet['crystal'] > $capacity) $booty['crystal'] = ($capacity / 2);
+				else $booty['crystal'] = ($TargetPlanet['crystal'] / 2);
+				$capacity -= $booty['crystal'];
+				 
+				// Step 3
+				if(($TargetPlanet['deuterium'] / 2) > $capacity) $booty['deuterium'] = $capacity;
+				else $booty['deuterium'] = ($TargetPlanet['deuterium'] / 2);
+				$capacity -= $booty['deuterium'];
+				 
+				// Step 4
+				$oldMetalBooty = $booty['metal'];
+				if($TargetPlanet['metal'] > $capacity) $booty['metal'] += ($capacity / 2);
+				else $booty['metal'] += ($TargetPlanet['metal'] / 2);
+				$capacity -= $booty['metal'];
+				$capacity += $oldMetalBooty;
+				 
+				// Step 5
+				if(($TargetPlanet['crystal'] / 2) > $capacity) $booty['crystal'] += $capacity;
+				else $booty['crystal'] += ($TargetPlanet['crystal'] / 2);
+				 
+				// Reset metal and crystal booty
+				if($booty['metal'] > ($TargetPlanet['metal'] / 2)) $booty['metal'] = $TargetPlanet['metal'] / 2;
+				if($booty['crystal'] > ($TargetPlanet['crystal'] / 2)) $booty['crystal'] = $TargetPlanet['crystal'] / 2;
+				
+				$Result['steal']	= $booty;
+				$sql	.= 'UPDATE '.FLEETS.' SET ';
+				$sql	.= '`fleet_resource_metal` = `fleet_resource_metal` + '. $booty['metal'] .', ';
+				$sql	.= '`fleet_resource_crystal` = `fleet_resource_crystal` +'. $booty['crystal'] .', ';
+				$sql	.= '`fleet_resource_deuterium` = `fleet_resource_deuterium` +'. $booty['deuterium'] .' ';
+				$sql	.= 'WHERE fleet_id = '. $FleetRow['fleet_id'].';';
+			} else {
+				$Result['steal']	= array('metal' => 0, 'crystal' => 0, 'deuterium' => 0,);
+			}
+			
+			
+			//Update DB for crashed Elements
+			if($Result['won'] != "w")
+			{
+				foreach ($Result['last_round']['attackers'] as $Attacker => $AttackerInfo)
+				{
+					$totalCount	= 0;
+					foreach($AttackerInfo['Ships'] as $ShipID => $ShipInfo)
+					{
+						$fleetArray .= $ShipID.','.$ShipInfo['count'].';';
+						$totalCount	+= $ShipInfo['count'];
+					}
+					$sql	= "UPDATE ".FLEETS." SET `fleet_array` = '".substr($fleetArray, 0, -1)."', `fleet_amount` = '".$totalCount."', `fleet_mess` = 1 WHERE `fleet_id` = '".$FleetRow['fleet_id']."';";
+				}
+			} 
+			else
+				$sql	= "DELETE FROM ".FLEETS." WHERE `fleet_id` = '".$FleetRow['fleet_id']."';";
+			
+			for ($Element = 200; $Element < 500; $Element++)
+			{
+				if (isset($resource[$Element]))
+				{
+					$amount		= (isset($Result['last_round']['defender'][0]['Ships'][$Element]))	? $Result['last_round']['defender'][0]['Ships'][$Element]['count'] : 0;
+					$amount		+= (isset($Result['repair'][$Element])) ? $Result['repair'][$Element] : 0;
+					$fleetArray	= '`'.$resource[$Element].'` = '.$amount.', ';
+				}
+			}
+
+			$sql	.= "UPDATE ".PLANETS." SET ";
+			$sql	.= $fleetArray;
+			$sql	.= "`metal` = `metal` - '". $Result['steal']['metal'] ."', ";
+			$sql	.= "`crystal` = `crystal` - '". $Result['steal']['crystal'] ."', ";
+			$sql	.= "`deuterium` = `deuterium` - '". $Result['steal']['deuterium'] ."' ";
+			$sql	.= "WHERE ";
+			$sql	.= "`galaxy` = '". $FleetRow['fleet_end_galaxy'] ."' AND ";
+			$sql	.= "`system` = '". $FleetRow['fleet_end_system'] ."' AND ";
+			$sql	.= "`planet` = '". $FleetRow['fleet_end_planet'] ."' AND ";
+			$sql	.= "`planet_type` = '". $FleetRow['fleet_end_type'] ."' ";
+			$sql	.= "LIMIT 1;";
+			
+			//Moon and Derbis
+			$FleetDebris    			= $Result['debris']['metal'] + $Result['debris']['crystal'];
+			$Result['Moon']['Chance'] 	= min(round($FleetDebris / 100000,0),20);
+			$UserChance 				= ($Result['Moon']['Chance'] >= 20 || $Result['Moon']['Chance'] != 0) ? mt_rand(0, 100) : 0;
+
+			if (($UserChance > 0) && ($UserChance <= $Result['Moon']['Chance']) && ($targetPlanet['id_luna'] == 0) && ($targetPlanet['planet_type'] == 1))
+			{
+				$TargetPlanetName 			= CreateOneMoonRecord ( $FleetRow['fleet_end_galaxy'], $FleetRow['fleet_end_system'], $FleetRow['fleet_end_planet'], $FleetRow['target_owner'], $FleetRow['fleet_start_time'], '', $Result['Moon']['Chance']);
+				$Result['Moon']['Create']	= sprintf($lang['sys_moonbuilt'], $TargetPlanetName, $FleetRow['fleet_end_galaxy'], $FleetRow['fleet_end_system'], $FleetRow['fleet_end_planet'])."<br>";
+				$DerbisMetal	  			= 0;
+				$DerbisCrystal	  			= 0;
+			}
+			else
+			{
+				$Result['Moon']['Create']	= "";
+				$DerbisMetal	  			= $targetPlanet['der_metal'] 	+ $Result['debris']['metal'];
+				$DerbisCrystal	  			= $targetPlanet['der_crystal']  + $Result['debris']['crystal'];
+			}
+
+							
+			$sql .= "UPDATE ".PLANETS." SET `der_metal` = ".$DerbisMetal.", `der_crystal` = ".$DerbisCrystal." WHERE `galaxy` = '" . $FleetRow['fleet_end_galaxy'] . "' AND `system` = '" . $FleetRow['fleet_end_system'] . "' AND `planet` = '" . $FleetRow['fleet_end_planet'] . "' AND `planet_type` = '1';";
+			
+
+
+			//Generate Raport
+			$Result['Attacker']	= $OwnerUser;
+			$Result['Defender']	= $TargetUser;
+			$Report				= self::NewGenerateReport($Result, $FleetRow, $totaltime);
+
+			$rid				= md5($Report);
+			
+			//Staff for Stats
+			
+			
+			$sql 				.= 'INSERT INTO '.RW.' SET ';
+			$sql 				.= '`time` = '.time().', ';
+			$sql 				.= '`owners` = "'.$FleetRow['fleet_owner'].",".$FleetRow['target_owner'].'", ';
+			$sql 				.= '`rid` = "'. $rid .'", ';
+			$sql 				.= '`raport` = "'. $db->sql_escape($Report) .'";';
+
+			//Send Messages to Player
+			
+			$raport  = '<a href="#" OnClick=\'f( "CombatReport.php?raport='. $rid .'", "");\'>';
+			$raport .= '<center>';
+
+			if($Result['won'] == "a")
+			{
+				$raport .= '<font color=\'green\'>';
+				$raport2 .= '<font color=\'red\'>';
+			}
+			elseif ($Result['won'] == "w")
+			{
+				$raport .= '<font color=\'orange\'>';
+				$raport2 .= '<font color=\'orange\'>';
+			}
+			elseif ($Result['won'] == "r")
+			{
+				$raport .= '<font color=\'red\'>';
+				$raport2 .= '<font color=\'green\'>';
+			}
+
+			$raport .= $lang['sys_mess_attack_report'] .' ['. $FleetRow['fleet_end_galaxy'] .':'. $FleetRow['fleet_end_system'] .':'. $FleetRow['fleet_end_planet'] .'] </font></a><br><br>';
+			$raport .= '<font color=\'red\'>'. $lang['sys_perte_attaquant'] .': '. number_format($result['lost']['att'], 0, ',', '.') .'</font>';
+			$raport .= '<font color=\'green\'>   '. $lang['sys_perte_defenseur'] .': '. number_format($result['lost']['def'], 0, ',', '.') .'</font><br>' ;
+			$raport .= $lang['sys_gain'] .' '. $lang['Metal'] .':<font color=\'#adaead\'>'. number_format($steal['metal'], 0, ',', '.') .'</font>   '. $lang['Crystal'] .':<font color=\'#ef51ef\'>'. number_format($steal['crystal'], 0, ',', '.') .'</font>   '. $lang['Deuterium'] .':<font color=\'#f77542\'>'. number_format($steal['deuterium'], 0, ',', '.') .'</font><br>';
+			$raport .= $lang['sys_debris'] .' '. $lang['Metal'] .': <font color=\'#adaead\'>'. number_format($result['debree']['att'][0]+$result['debree']['def'][0], 0, ',', '.') .'</font>   '. $lang['Crystal'] .': <font color=\'#ef51ef\'>'. number_format($result['debree']['att'][1]+$result['debree']['def'][1], 0, ',', '.') .'</font><br></center>';
+			SendSimpleMessage ( $FleetRow['fleet_owner'], '', $FleetRow['fleet_start_time'], 3, $lang['sys_mess_tower'], $lang['sys_mess_attack_report'], $raport );
+			
+			$raport2  = '<a href="#" OnClick=\'f( "CombatReport.php?raport='. $rid .'", "");\'>';
+
+			$raport2 .= $lang['sys_mess_attack_report'] .' ['. $FleetRow['fleet_end_galaxy'] .':'. $FleetRow['fleet_end_system'] .':'. $FleetRow['fleet_end_planet'] .'] </font></a><br><br>';
+			SendSimpleMessage ($FleetRow['target_owner'], '', $FleetRow['fleet_start_time'], 3, $lang['sys_mess_tower'], $lang['sys_mess_attack_report'], $raport2);
+			file_put_contents("Angriff".date("d.m.Y_His").".txt", "\n\n\n\n----------------------------\n\n\n\n".print_r($Result,true)."\n\n-----\n\n".$sql, FILE_APPEND);
+			//Results to DB
+			$db->multi_query($sql);
+
+		}
+		elseif ($FleetRow['fleet_end_time'] <= time())
+		{
+			$Message         = sprintf( $lang['sys_fleet_won'],
+						$TargetName, GetTargetAdressLink($FleetRow, ''),
+						pretty_number($FleetRow['fleet_resource_metal']), $lang['Metal'],
+						pretty_number($FleetRow['fleet_resource_crystal']), $lang['Crystal'],
+						pretty_number($FleetRow['fleet_resource_deuterium']), $lang['Deuterium'] );
+			SendSimpleMessage ( $FleetRow['fleet_owner'], '', $FleetRow['fleet_end_time'], 3, $lang['sys_mess_tower'], $lang['sys_mess_fleetback'], $Message);
+			self::RestoreFleetToPlanet($FleetRow);
+			$db->query('DELETE FROM '.FLEETS.' WHERE `fleet_id`='.$FleetRow['fleet_id'].';');
+		}
+	
+	}
+
 }
 
 ?>
