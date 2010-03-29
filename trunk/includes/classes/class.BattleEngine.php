@@ -54,9 +54,9 @@ $totaltime = $time_end - $time_start;
 die($totaltime);
 */
 
-class Battle Engine
+class Battle
 {
-	public function Battle($Attackers, $Defenders, $MaxRounds = 6, $DefenseReg = 70, $EMPmissileBlock = false) {
+	public function StartBattle($Attackers, $Defenders, $MaxRounds = 6, $DefenseReg = 70, $EMPmissileBlock = false) {
 		global $lang, $resource, $reslist, $pricelist, $CombatCaps, $game_config;
 		
 		$Array = $this->GenerateCombatArray($Attackers, $Defenders, $EMPmissileBlock);	
