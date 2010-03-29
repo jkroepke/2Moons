@@ -5,6 +5,7 @@
 # * 2MOONS                                                                   #
 # *                                                                          #
 # * @copyright Copyright (C) 2010 By ShadoX from titanspace.de               #
+# * @copyright Copyright (C) 2008 - 2009 By lucky from Xtreme-gameZ.com.ar	 #
 # *                                                                          #
 # *	                                                                         #
 # *  This program is free software: you can redistribute it and/or modify    #
@@ -40,6 +41,7 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	define('PLANET_SIZE_FACTOR'		  , 1.0);
 	
 	// FOR ADVANCE USERS
+	
 	define('USE_NEW_BATTLE_ENGINE'	  , false);
 	
 	// NUMBER OF COLUMNS FOR SPY REPORTS
