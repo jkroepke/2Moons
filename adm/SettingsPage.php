@@ -232,7 +232,7 @@ function DisplayGameSettingsPage ( $CurrentUser )
 		if (isset($_POST['ftp_user_name'])) {
 			$game_config['ftp_user_name'] = $_POST['ftp_user_name'];
 		}		
-		if (isset($_POST['ftp_user_pass']) && $_POST['ftp_user_pass'] != str_pad("x", strlen($game_config['ftp_user_pass']), "x")) {
+		if (isset($_POST['ftp_user_pass']) && $_POST['ftp_user_pass'] != str_pad("", strlen($game_config['ftp_user_pass']), "x")) {
 			$game_config['ftp_user_pass'] = $_POST['ftp_user_pass'];
 		}		
 		if (isset($_POST['ftp_root_path'])) {
@@ -240,7 +240,7 @@ function DisplayGameSettingsPage ( $CurrentUser )
 		}	
 
 		LogFunction($Log, "ConfigLog", $AreLog);
-
+		var_dump($game_config['ftp_user_pass']);
 		update_config('noobprotectiontime'		, $game_config['noobprotectiontime']	 );
 		update_config('noobprotectionmulti'		, $game_config['noobprotectionmulti']	 );
 		update_config('noobprotection'			, $game_config['noobprotection']		 );
@@ -319,7 +319,7 @@ function DisplayGameSettingsPage ( $CurrentUser )
 		$parse['min_build_time']            = $game_config['min_build_time'];
 		$parse['ftp_server']          		= $game_config['ftp_server'];
 		$parse['ftp_user_name']           	= $game_config['ftp_user_name'];
-		$parse['ftp_user_pass']           	= str_pad("x", strlen($game_config['ftp_user_pass']), "x");
+		$parse['ftp_user_pass']           	= str_pad("", strlen($game_config['ftp_user_pass']), "x");
 		$parse['ftp_root_path']           	= $game_config['ftp_root_path'];
 		$LangFolder = opendir("./../" . 'language');
 

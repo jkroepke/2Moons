@@ -13,7 +13,11 @@
 {if $goto}
 <meta http-equiv="refresh" content="{$gotoinsec};URL={$goto}">
 {/if}
-<script type="text/javascript" src="parser.php?js[]=jquery.js&amp;js[]=jquery.ui.js&amp;js[]=overlib.js&amp;js[]=global.js{foreach item=scriptname from=$scripts}&amp;js[]={$scriptname}{/foreach}"></script>
+<script type="text/javascript" src="./scripts/jquery.js"></script>
+<script type="text/javascript" src="./scripts/jquery.ui.js"></script>
+<script type="text/javascript" src="./scripts/overlib.js"></script>
+<script type="text/javascript" src="./scripts/global.js"></script>
+{foreach item=scriptname from=$scripts}<script type="text/javascript" src="./scripts/{$scriptname}"></script>{/foreach}
 </head>
 <body>
 <div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>

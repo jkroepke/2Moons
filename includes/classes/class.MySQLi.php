@@ -147,6 +147,18 @@ class DB_mysqli
 	}
 
 	/**
+	 * Returns the row of a query as an array.
+	 *
+	 * @param resource	The SQL query id
+	 *
+	 * @return array	The data of a row
+	 */
+	public function fetch_num($result)
+	{
+		return $result->fetch_array(MYSQLI_NUM);
+	}
+
+	/**
 	 * Fetch a result row as an associative array.
 	 *
 	 * @param resource	The SQL query id
@@ -226,6 +238,15 @@ class DB_mysqli
 	public function insert_id()
 	{
 		return $this->mysqli->insert_id;
+	}
+	/**
+	 * Returns the last inserted id of a table.
+	 *
+	 * @return integer	The last inserted id
+	 */
+	public function error()
+	{
+		return $this->mysqli->error;
 	}
 
 	/**

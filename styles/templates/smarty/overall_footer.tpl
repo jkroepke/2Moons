@@ -8,9 +8,9 @@ $(document).ready(function() {
 	met		= parseInt($("#current_metal").text().replace(/\./g,""));
 	cry		= parseInt($("#current_crystal").text().replace(/\./g,""));
 	deu 		= parseInt($("#current_deuterium").text().replace(/\./g,""));
-	met_max 	= "{$metal_max}".replace(/\./g,"");
-	cry_max 	= "{$crystal_max}".replace(/\./g,"");
-	deu_max 	= "{$deuterium_max}".replace(/\./g,"");
+	met_max 	= {$js_metal_max};
+	cry_max 	= {$js_crystal_max};
+	deu_max 	= {$js_deuterium_max};
 	met_hr		= {$js_metal_hr};
 	cry_hr		= {$js_crystal_hr};
 	deu_hr		= {$js_deuterium_hr};

@@ -53,9 +53,9 @@
             <td align="center" class="header" width="90">{$energy}</td>
         </tr>
         <tr class="header">
-            <td align="center" class="header" width="90"><font color="#00FF00">{$metal_max}</font></td>
-            <td align="center" class="header" width="90"><font color="#00FF00">{$crystal_max}</font></td>
-            <td align="center" class="header" width="90"><font color="#00FF00">{$deuterium_max}</font></td>
+            <td align="center" class="header" width="90"><font color="#00FF00" title="{$alt_metal_max}">{$metal_max}</font></td>
+            <td align="center" class="header" width="90"><font color="#00FF00" title="{$alt_crystal_max}">{$crystal_max}</font></td>
+            <td align="center" class="header" width="90"><font color="#00FF00" title="{$alt_deuterium_max}">{$deuterium_max}</font></td>
             <td align="center" class="header" width="90"></td>
             <td align="center" class="header" width="90"></td>
         </tr>
