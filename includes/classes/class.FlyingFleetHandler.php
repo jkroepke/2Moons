@@ -36,7 +36,10 @@ class FlyingFleetHandler extends FlyingFleetMissions
 			switch ($CurrentFleet['fleet_mission'])
 			{
 				case 1:
-					parent::MissionCaseAttack($CurrentFleet);
+					if(USE_NEW_BATTLE_ENGINE)
+						parent::NewMissionCaseAttack($CurrentFleet);
+					else
+						parent::MissionCaseAttack($CurrentFleet);
 				break;
 				case 2:
 					parent::MissionCaseACS($CurrentFleet);
