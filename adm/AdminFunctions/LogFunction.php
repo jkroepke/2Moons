@@ -30,7 +30,7 @@ function LogFunction ($Text, $Estado, $LogCanWork)
 {
 	global $lang;
 	
-	$Archive	=	"../adm/Log/".$Estado.".php";
+	$Archive	=	"../adm/logs/".$Estado.".php";
 	
 	
 	if ($LogCanWork == 1)
