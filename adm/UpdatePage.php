@@ -81,12 +81,11 @@ if ($user['authlevel'] != 3) die();
 				exitupdate(array('debug' => array('noupdate' => "Kein Update vorhanden!")));
 				
 			$SVN_ROOT		= $UpdateArray['info']['svn'];
-			$config 		= array("host" => $game_config['ftp_server'], "username" => $game_config['ftp_user_name'], "password" => $game_config['ftp_user_pass'], "port"     => 21 );
-			
+			$config 		= array("host" => $game_config['ftp_server'], "username" => $game_config['ftp_user_name'], "password" => $game_config['ftp_user_pass'], "port"     => 21 ); 
 			try
 			{
 				$ftp = FTP::getInstance(); 
-				$ftp->connect( $config, true, true );
+				$ftp->connect($config);
 				$Result['debug']['connect']	= "FTP-Verbindungsaufbau: OK!";
 			}
 			catch (FTPException $error)
@@ -184,7 +183,9 @@ if ($user['authlevel'] != 3) die();
 		break;
 		default:
 			$i = 0;
-			if(($RAW = file_get_contents("http://update.jango-online.de/index.php?action=update",FALSE,$context)) !== false)
+			if(!function_exists('file_get_contents') || !function_exists('fsockopen')) {
+				$parse['planetes'] = "<tr><th>Function file_get_contents oder fsockopen deactive</th></tr>";
+			} elseif(($RAW = @file_get_contents("http://update.jango-online.de/index.php?action=update",FALSE,$context)) !== false)
 			{
 				$UpdateArray 	= unserialize($RAW);
 				if(is_array($UpdateArray['revs']))
@@ -210,8 +211,6 @@ if ($user['authlevel'] != 3) die();
 						$i++;
 					}
 				}
-			} elseif(!function_exists('file_get_contents')) {
-				$parse['planetes'] = "<tr><th>Function file_get_contents deaktiviert</th></tr>";
 			} else {
 				$parse['planetes'] = "<tr><th>Update Server currently not available</th></tr>";
 			}

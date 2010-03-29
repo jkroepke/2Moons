@@ -71,10 +71,10 @@ class FTP
 	 * @param  bool   $fallback If a SSL-FTP connect fails, try a default FTP connect as fallback 
 	 * @return void
 	 */
-	public function connect( $config=array(), $useSSL=false, $fallback=false )
+	public function connect($config, $useSSL = false, $fallback = false)
 	{
 		// Check if native FTP support is enabled
-		if (function_exists( 'ftp_connect' ) === false)
+		if (function_exists('ftp_connect') === false)
 		{
 			throw new FTPException( FTPException::FTP_SUPPORT_ERROR );
 		}
@@ -82,7 +82,7 @@ class FTP
 		// Default connection
 		if ($useSSL === false)
 		{
-			if (!$this->cid = @ftp_connect( $config['host'], $config['port'] ))
+			if (($this->cid = @ftp_connect( $config['host'], $config['port'])) === false)
 			{
 				throw new FTPException( FTPException::CONNECT_FAILED_BADHOST );
 			}
