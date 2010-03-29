@@ -22,6 +22,7 @@ $lang['tech_rc'] = array (
 219 => 'Gigarecykler',
 220 => 'Inter. DM-Sammler',
 221 => 'Spaltenreißer',
+222 => 'Bahamut',
 
 401 => 'Raketenwerfer',
 402 => 'Leichtes Lasergeschütz',
