@@ -3,6 +3,7 @@
 <body>
 <form action="" method="post">
 <table width="45%">
+{display}
 <tr><td class="c" colspan="2">{new_title}</td></tr>
 <tr><th>{new_name}</th><th><input type="text" name="name"></th></tr>
 <tr><th>{new_pass}</th><th><input type="password" name="password"></th></tr>
@@ -13,13 +14,12 @@
 <input type="text" name="planet" size="2" maxlength="2"></th></tr>
 <tr><th>{new_range}</th>
 <th><select name="authlevel">
-<option value="0">{new_range_0}</option>
-<option value="1">{new_range_1}</option>
-<option value="2">{new_range_2}</option>
-<option value="3">{new_range_3}</option>
+{uplvels}
 </select></th></tr>
 <tr><th colspan="2"><input type="submit" value="{new_add_user}"></th></tr>
-{display}
+<tr>
+   <th colspan="2" style="text-align:left;"><a href="MakerPage.php">{new_creator_go_back}</a>&nbsp;<a href="MakerPage.php?page=new_user">{new_creator_refresh}</a></th>
+</tr>
 </table>
 </form>
 </body>

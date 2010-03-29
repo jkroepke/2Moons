@@ -1,22 +1,23 @@
 <?php
 
 ##############################################################################
-# *																			 #
-# * RN FRAMEWORK															 #
-# *  																		 #
-# * @copyright Copyright (C) 2008 - 2009 By Neko from Xtreme-gameZ.com.ar	 #
-# *																			 #
-# *																			 #
+# *                                                                          #
+# * 2MOONS                                                                   #
+# *                                                                          #
+# * @copyright Copyright (C) 2010 By ShadoX from titanspace.de               #
+# * @copyright Copyright (C) 2008 - 2009 By lucky from Xtreme-gameZ.com.ar	 #
+# *                                                                          #
+# *	                                                                         #
 # *  This program is free software: you can redistribute it and/or modify    #
 # *  it under the terms of the GNU General Public License as published by    #
 # *  the Free Software Foundation, either version 3 of the License, or       #
-# *  (at your option) any later version.									 #
-# *																			 #
-# *  This program is distributed in the hope that it will be useful,		 #
-# *  but WITHOUT ANY WARRANTY; without even the implied warranty of			 #
-# *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the			 #
-# *  GNU General Public License for more details.							 #
-# *																			 #
+# *  (at your option) any later version.                                     #
+# *	                                                                         #
+# *  This program is distributed in the hope that it will be useful,         #
+# *  but WITHOUT ANY WARRANTY; without even the implied warranty of          #
+# *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the           #
+# *  GNU General Public License for more details.                            #
+# *                                                                          #
 ##############################################################################
 
 define('INSIDE'  , true);
@@ -25,10 +26,10 @@ define('IN_ADMIN', true);
 
 define('ROOT_PATH', './../');
 include(ROOT_PATH . 'extension.inc');
-include(ROOT_PATH . 'common.' . PHP_EXT);
+include(ROOT_PATH . 'common.'.PHP_EXT);
+include('AdminFunctions/Autorization.' . PHP_EXT);
 
-
-if ($user['authlevel'] != 3) die(message($lang['not_enough_permissions']));
+if ($Observation != 1) die();
 
 $parse			=	$lang;
 $key_user		=	$_POST['key_user'];
@@ -235,9 +236,7 @@ switch($_POST[search])
 			$s			=	$planet['system'];
 			$p			=	$planet['planet'];
 			
-			$QueryFiind	=	$db->fetch_array($db->query("SELECT `id_luna` FROM ".PLANETS." WHERE `galaxy` = '".$g."' AND `system` = '".$s."' AND `planet` = '".$p."';"));
-			
-			if ($QueryFiind['id_luna']	!=	'0')
+			if ($planet['id_luna'] != 0)
 				$moons	=	"<font color=lime>".$lang['se_yes']."</font>";
 			else
 				$moons	=	$lang['se_no'];
@@ -598,11 +597,11 @@ switch($_POST[search])
 		
 	if ($key_user	==	NULL)
 	{
-		$search	=	$db->query("SELECT * FROM ".BANNED." ORDER BY `".$ORDER."` ".$ORDERBY2.";");
+		$search	=	$db->query("SELECT * FROM ".BANNED." ORDER BY `".$ORDER."` ".$ORDERBY2."", "banned");
 	}
 	else
 	{
-		$search	=	$db->query("SELECT * FROM ".BANNED." WHERE `who` LIKE '%{$key_user}%' ORDER BY `".$ORDER."` ".$ORDERBY2.";");
+		$search	=	$db->query("SELECT * FROM ".BANNED." WHERE `who` LIKE '%{$key_user}%' ORDER BY `".$ORDER."` ".$ORDERBY2."", "banned");
 	}
 	
 	$cnt	=	$db->num_rows($search);

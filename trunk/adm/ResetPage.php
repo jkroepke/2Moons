@@ -1,22 +1,23 @@
 <?php
 
 ##############################################################################
-# *																			 #
-# * RN FRAMEWORK															 #
-# *  																		 #
-# * @copyright Copyright (C) 2009 By ShadoX from xnova-reloaded.de	    	 #
-# *																			 #
-# *																			 #
+# *                                                                          #
+# * 2MOONS                                                                   #
+# *                                                                          #
+# * @copyright Copyright (C) 2010 By ShadoX from titanspace.de               #
+# * @copyright Copyright (C) 2008 - 2009 By lucky from Xtreme-gameZ.com.ar	 #
+# *                                                                          #
+# *	                                                                         #
 # *  This program is free software: you can redistribute it and/or modify    #
 # *  it under the terms of the GNU General Public License as published by    #
 # *  the Free Software Foundation, either version 3 of the License, or       #
-# *  (at your option) any later version.									 #
-# *																			 #
-# *  This program is distributed in the hope that it will be useful,		 #
-# *  but WITHOUT ANY WARRANTY; without even the implied warranty of			 #
-# *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the			 #
-# *  GNU General Public License for more details.							 #
-# *																			 #
+# *  (at your option) any later version.                                     #
+# *	                                                                         #
+# *  This program is distributed in the hope that it will be useful,         #
+# *  but WITHOUT ANY WARRANTY; without even the implied warranty of          #
+# *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the           #
+# *  GNU General Public License for more details.                            #
+# *                                                                          #
 ##############################################################################
 
 define('INSIDE'  , true);
@@ -26,35 +27,35 @@ define('IN_ADMIN', true);
 define('ROOT_PATH', './../');
 include(ROOT_PATH . 'extension.inc');
 include(ROOT_PATH . 'common.'.PHP_EXT);
-$parse	=	$lang;
 
-if ($user['id'] != 1) die(message($lang['not_enough_permissions']));
+if ($user['id'] != 1) die(message($lang['404_page']));
+$parse	=	$lang;
 
 function ResetUniverse ( $CurrentUser )
 {
-	global  $db;
+		$db->query("RENAME TABLE ".PLANETS." TO ".PLANETS."_s;");
+		$db->query("RENAME TABLE ".USERS." TO ".USERS."_s;");
 
-		$db->query( "RENAME TABLE ".PLANETS." TO ".PLANETS."_s;");
-		$db->query( "RENAME TABLE ".USERS." TO ".USERS."_s;");
+		$db->query("CREATE TABLE IF NOT EXISTS ".PLANETS." ( LIKE ".PLANETS."_s );");
+		$db->query("CREATE TABLE IF NOT EXISTS ".USERS." ( LIKE ".USERS."_s );");
 
-		$db->query( "CREATE  TABLE IF NOT EXISTS ".PLANETS." ( LIKE ".PLANETS."_s );");
-		$db->query( "CREATE  TABLE IF NOT EXISTS ".USERS." ( LIKE ".USERS."_s );");
+		$db->query("TRUNCATE TABLE ".AKS.";");
+		$db->query("TRUNCATE TABLE ".ALLIANCE.";");
+		$db->query("TRUNCATE TABLE ".BANNED.";");
+		$db->query("TRUNCATE TABLE ".BUDDY.";");
+		$db->query("TRUNCATE TABLE ".ERRORS.";");
+		$db->query("TRUNCATE TABLE ".FLEETS.";");
+		$db->query("TRUNCATE TABLE ".MESSAGES.";");
+		$db->query("TRUNCATE TABLE ".NOTES.";");
+		$db->query("TRUNCATE TABLE ".RW.";");
+		$db->query("TRUNCATE TABLE ".SUPP.";");
+		$db->query("TRUNCATE TABLE ".STATPOINTS.";");
+		$db->query("TRUNCATE TABLE ".TOPKB.";");
 
-		$db->query( "TRUNCATE TABLE ".AKS.";", 'aks');
-		$db->query( "TRUNCATE TABLE ".ALLIANCE.";", 'alliance');
-		$db->query( "TRUNCATE TABLE ".BANNED.";", 'banned');
-		$db->query( "TRUNCATE TABLE ".BUDDY.";", 'buddy');
-		$db->query( "TRUNCATE TABLE ".ERRORS.";", 'errors');
-		$db->query( "TRUNCATE TABLE ".FLEETS.";", 'fleets');
-		$db->query( "TRUNCATE TABLE ".MESSAGES.";", 'messages');
-		$db->query( "TRUNCATE TABLE ".NOTES.";", 'notes');
-		$db->query( "TRUNCATE TABLE ".RW.";", 'rw');
-		$db->query( "TRUNCATE TABLE ".STATPOINTS.";", 'statpoints');
-
-		$AllUsers  = $db->query("SELECT `username`,`password`,`email`, `email_2`,`authlevel`,`galaxy`,`system`,`planet`, `dpath`, `onlinetime`, `register_time`, `id_planet` FROM ".USERS."_s WHERE 1;");
-		$LimitTime = time() - (15 * (24 * (60 * 60)));
+		$AllUsers  = $db->query ("SELECT `username`,`password`,`email`, `email_2`,`authlevel`,`galaxy`,`system`,`planet`, `dpath`, `onlinetime`, `register_time`, `id_planet` FROM ".USERS."_s;");
+		$LimitTime = time() - (30 * (24 * (60 * 60)));
 		$TransUser = 0;
-		while ( $TheUser = $db->fetch($AllUsers) )
+		while ( $TheUser = $db->fetch_array($AllUsers) )
 		{
 			if ( $TheUser['onlinetime'] > $LimitTime )
 			{
@@ -76,7 +77,7 @@ function ResetUniverse ( $CurrentUser )
 					$QryInsertUser .= "`register_time` = '". $TheUser['register_time'] ."', ";
 					$QryInsertUser .= "`onlinetime` = '". 	 $Time ."', ";
 					$QryInsertUser .= "`password` = '".      $TheUser['password']      ."';";
-					$db->query( $QryInsertUser);
+					$db->query($QryInsertUser);
 					$db->query("UPDATE ".USERS." SET `bana` = '0' WHERE `id` > '1';");
 
 					$NewUser        = $db->fetch_array($db->query("SELECT `id` FROM ".USERS." WHERE `username` = '". $TheUser['username'] ."' LIMIT 1;"));
@@ -104,117 +105,140 @@ function ResetUniverse ( $CurrentUser )
 
 if ($_POST)
 {
+ $Log	.=	"\n".$lang['log_the_user'].$user['username']." ".$lang['log_reseteo'].":\n";
  if ($_POST['resetall']	!=	'on')
  {
+	foreach($reslist['build'] as $ID)
+	{
+		$dbcol['build'][$ID]	= "`".$resource[$ID]."` = '0'";
+	}
+	foreach($reslist['tech'] as $ID)
+	{
+		$dbcol['tech'][$ID]		= "`".$resource[$ID]."` = '0'";
+	}
+	foreach($reslist['fleet'] as $ID)
+	{
+		$dbcol['fleet'][$ID]	= "`".$resource[$ID]."` = '0'";
+	}
+	foreach($reslist['defense'] as $ID)
+	{
+		$dbcol['defense'][$ID]	= "`".$resource[$ID]."` = '0'";
+	}
+	foreach($reslist['officier'] as $ID)
+	{
+		$dbcol['officier'][$ID]	= "`".$resource[$ID]."` = '0'";
+	}
+	
 	// HANGARES Y DEFENSAS
-	if ($_POST['defenses']	==	'on')
-		$db->query("UPDATE ".PLANETS." SET `misil_launcher` = '0', `small_laser` = '0', `big_laser` = '0',
-									`gauss_canyon` = '0', `ionic_canyon` = '0', `buster_canyon` = '0',
-									`small_protection_shield` = '0', `planet_protector` = '0', `big_protection_shield` = '0',
-									`interceptor_misil` = '0', `interplanetary_misil` = '0';");
+	if ($_POST['defenses']	==	'on'){
+		$db->query("UPDATE ".PLANETS." SET ".implode(", ",$dbcol['defense']).";");
+		$Log	.=	$lang['log_defenses']."\n";}
 
-	if ($_POST['ships']	==	'on')
-		$db->query("UPDATE ".PLANETS." SET `small_ship_cargo` = '0', `big_ship_cargo` = '0', `light_hunter` = '0',
-									`heavy_hunter` = '0', `crusher` = '0', `battle_ship` = '0',
-									`colonizer` = '0', `recycler` = '0', `spy_sonde` = '0',
-									`bomber_ship` = '0', `solar_satelit` = '0', `destructor` = '0',
-									`dearth_star` = '0', `battleship` = '0', `supernova` = '0';");
+	if ($_POST['ships']	==	'on'){
+		$db->query("UPDATE ".PLANETS." SET ".implode(", ",$dbcol['fleet']).";");
+		$Log	.=	$lang['log_ships']."\n";}
 
-	if ($_POST['h_d']	==	'on')
-		$db->query("UPDATE ".PLANETS." SET `b_hangar` = '0', `b_hangar_plus` = '0', `b_hangar_id` = '';");
+	if ($_POST['h_d']	==	'on'){
+		$db->query("UPDATE ".PLANETS." SET `b_hangar` = '0', `b_hangar_plus` = '0', `b_hangar_id` = ''");
+		$Log	.=	$lang['log_c_hangar']."\n";}
 
 
 
 	// EDIFICIOS
-	if ($_POST['edif_p']	==	'on')
-		$db->query("UPDATE ".PLANETS." SET `metal_mine` = '0', `crystal_mine` = '0', `deuterium_sintetizer` = '0',
-									`solar_plant` = '0', `fusion_plant` = '0', `robot_factory` = '0',
-									`nano_factory` = '0', `hangar` = '0', `metal_store` = '0',
-									`crystal_store` = '0', `deuterium_store` = '0', `laboratory` = '0',
-									`terraformer` = '0', `ally_deposit` = '0', `silo` = '0' WHERE `planet_type` = '1';");
+	if ($_POST['edif_p']	==	'on'){
+		$db->query("UPDATE ".PLANETS." SET ".implode(", ",$dbcol['build'])." WHERE `planet_type` = '1';");
+		$Log	.=	$lang['log_buildings_planet']."\n";}
 
-	if ($_POST['edif_l']	==	'on')
-		$db->query("UPDATE ".PLANETS." SET `mondbasis` = '0', `phalanx` = '0', `sprungtor` = '0',
-									`last_jump_time` = '0', `fusion_plant` = '0', `robot_factory` = '0',
-									`hangar` = '0', `metal_store` = '0', `crystal_store` = '0',
-									`deuterium_store` = '0', `ally_deposit` = '0' WHERE `planet_type` = '3';");
+	if ($_POST['edif_l']	==	'on'){
+		$db->query("UPDATE ".PLANETS." SET ".implode(", ",$dbcol['build'])." WHERE `planet_type` = '3';");
+		$Log	.=	$lang['log_buildings_moon']."\n";}
 
-	if ($_POST['edif']	==	'on')
+	if ($_POST['edif']	==	'on'){
 		$db->query("UPDATE ".PLANETS." SET `b_building` = '0', `b_building_id` = '';");
+		$Log	.=	$lang['log_c_buildings']."\n";}
 
 
 
 	// INVESTIGACIONES Y OFICIALES
-	if ($_POST['inves']	==	'on')
-		$db->query("UPDATE ".USERS." SET `spy_tech` = '0', `computer_tech` = '0', `military_tech` = '0',
-									`defence_tech` = '0', `shield_tech` = '0', `energy_tech` = '0',
-									`hyperspace_tech` = '0', `combustion_tech` = '0', `impulse_motor_tech` = '0',
-									`hyperspace_motor_tech` = '0', `laser_tech` = '0', `ionic_tech` = '0',
-									`buster_tech` = '0', `intergalactic_tech` = '0', `expedition_tech` = '0',
-									`graviton_tech` = '0';");
+	if ($_POST['inves']	==	'on'){
+		$db->query("UPDATE ".USERS." SET ".implode(", ",$dbcol['tech']).";");
+		$Log	.=	$lang['log_researchs']."\n";}
 
-	if ($_POST['ofis']	==	'on')
-		$db->query("UPDATE ".USERS." SET `rpg_geologue` = '0', `rpg_amiral` = '0', `rpg_ingenieur` = '0',
-									`rpg_technocrate` = '0', `rpg_espion` = '0', `rpg_constructeur` = '0',
-									`rpg_scientifique` = '0', `rpg_commandant` = '0', `rpg_stockeur` = '0';");
+	if ($_POST['ofis']	==	'on'){
+		$db->query("UPDATE ".USERS." SET ".implode(", ",$dbcol['officier']).";");
+		$Log	.=	$lang['log_officiers']."\n";}
 
-	if ($_POST['inves_c']	==	'on')
+	if ($_POST['inves_c']	==	'on'){
 		$db->query("UPDATE ".PLANETS." SET `b_tech` = '0', `b_tech_id` = '0';");
 		$db->query("UPDATE ".USERS." SET `b_tech_planet` = '0';");
+		$Log	.=	$lang['log_c_researchs']."\n";}
 
 
 
 	// RECURSOS
-	if ($_POST['dark']	==	'on')
+	if ($_POST['dark']	==	'on'){
 		$db->query("UPDATE ".USERS." SET `darkmatter` = '0';");
+		$Log	.=	$lang['log_darkmatter']."\n";}
 
-	if ($_POST['resources']	==	'on')
+	if ($_POST['resources']	==	'on'){
 		$db->query("UPDATE ".PLANETS." SET `metal` = '0', `crystal` = '0', `deuterium` = '0';");
+		$Log	.=	$lang['log_resources']."\n";}
 
 
 
 	// GENERAL
-	if ($_POST['notes']	==	'on')
+	if ($_POST['notes']	==	'on'){
 		$db->query("TRUNCATE TABLE ".NOTES.";");
+		$Log	.=	$lang['log_notes']."\n";}
 
-	if ($_POST['rw']	==	'on')
-		$db->query("TRUNCATE TABLE ".PW.";");
+	if ($_POST['rw']	==	'on'){
+		$db->query("TRUNCATE TABLE ".RW.";");
+		$Log	.=	$lang['log_rw']."\n";}
 
-	if ($_POST['friends']	==	'on')
+	if ($_POST['friends']	==	'on'){
 		$db->query("TRUNCATE TABLE ".BUDDY.";");
+		$Log	.=	$lang['log_friends']."\n";}
 
-	if ($_POST['alliances']	==	'on')
+	if ($_POST['alliances']	==	'on'){
 		$db->query("TRUNCATE TABLE ".ALLIANCE.";");
-		$db->query("UPDATE ".USERS." SET `ally_id` = '0', `ally_name` = '', `ally_request` = '0',
+		$db->query("UPDATE".USERS." SET `ally_id` = '0', `ally_name` = '', `ally_request` = '0',
 									`ally_request_text` = 'NULL', `ally_register_time` = '0', `ally_rank_id` = '0';");
+		$Log	.=	$lang['log_alliances']."\n";}
 
 
-	if ($_POST['fleets']	==	'on')
-		$db->query("TRUNCATE TABLE ".FLEETS.";");
+	if ($_POST['fleets']	==	'on'){
+		$db->query( "TRUNCATE TABLE ".FLEETS.";");
+		$Log	.=	$lang['log_fleets']."\n";}
 
-	if ($_POST['errors']	==	'on')
-		$db->query("TRUNCATE TABLE ".ERRORS.";");
+	if ($_POST['errors']	==	'on'){
+		$db->query( "TRUNCATE TABLE ".ERRORS.";");
+		$Log	.=	$lang['log_errors']."\n";}
 
-	if ($_POST['banneds']	==	'on')
+	if ($_POST['banneds']	==	'on'){
 		$db->query("TRUNCATE TABLE ".BANNED.";");
 		$db->query("UPDATE ".USERS." SET `bana` = '0', `banaday` = '0' WHERE `id` > '1';");
+		$Log	.=	$lang['log_banneds']."\n";}
 
-	if ($_POST['messages']	==	'on')
+	if ($_POST['messages']	==	'on'){
 		$db->query("TRUNCATE TABLE ".MESSAGES.";");
-		$db->query("UPDATE ".USERS." SET `new_message` = '0'", "users");
+		$db->query("UPDATE ".USERS." SET `new_message` = '0';");
+		$Log	.=	$lang['log_messages']."\n";}
 
-	if ($_POST['statpoints']	==	'on')
+	if ($_POST['statpoints']	==	'on'){
 		$db->query("TRUNCATE TABLE ".STATPOINTS.";");
+		$Log	.=	$lang['log_statpoints']."\n";}
 
-	if ($_POST['moons']	==	'on')
+	if ($_POST['moons']	==	'on'){
 		$db->query("DELETE FROM ".PLANETS." WHERE `planet_type` = '3';");
+		$Log	.=	$lang['log_moons']."\n";}
  }
  else // REINICIAR TODO
  {
 	ResetUniverse ( $user );
+	$Log	.=	$lang['log_all_uni']."\n";
  }
 
-
+	LogFunction($Log, "ResetLog", $LogCanWork);
 	$parse['good']	=	'<tr><th colspan="2"><center><font color=lime>'.$lang['re_reset_excess'].'</font></center></th></tr>';
 }
 

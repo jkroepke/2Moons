@@ -1,19 +1,22 @@
 <script>document.body.style.overflow = "auto";</script>
 <SCRIPT TYPE="text/javascript" SRC="../scripts/filterlist.js"></SCRIPT>
 <body>
-<h1>{bo_suspended_panel}</h1>
-<form action="" method="post" name="users">
-<table width="40%">
+<form action="" method="get" name="users">
+<table width="100%" style="background:url(images/Adm/blank.gif);" border="0px">
+<td style="border:0px;">
+<table align="center" width="90%">
 {display}
 <tr>
 	<td class="c" colspan="4">{bo_ban_player}</td>
 </tr>
 <tr>
 	<th colspan="2">
-	<select name="ban_name" style="width:70%;" size="8">
+	<select name="ban_name" style="width:70%;" size="20">
 	{List}
 	</select>
-	
+	<BR>
+	<a href="BanPage.php">{bo_order_username}</a> &nbsp; <a href="BanPage.php?order=id">{bo_order_id}</a> &nbsp; 
+	<a href="BanPage.php?view=bana">{bo_order_banned}</a>
 	<SCRIPT TYPE="text/javascript">
 	<!--
 		var UserList = new filterlist(document.users.ban_name);
@@ -50,52 +53,39 @@
 	<A HREF="javascript:UserList.set('^X')" TITLE="{bo_select_title} X">X</A>
 	<A HREF="javascript:UserList.set('^Y')" TITLE="{bo_select_title} Y">Y</A>
 	<A HREF="javascript:UserList.set('^Z')" TITLE="{bo_select_title} Z">Z</A>
-
 	<BR>
 	<INPUT NAME="regexp" onKeyUp="UserList.set(this.value)">
-	<INPUT TYPE="button" onClick="UserList.set(this.form.regexp.value)" value="{bo_select_filter}">
-	<INPUT TYPE="button" onClick="UserList.reset();this.form.regexp.value=''" value="{bo_dess}">
+	<INPUT TYPE="button" onClick="UserList.set(this.form.regexp.value)" value="{button_filter}">
+	<INPUT TYPE="button" onClick="UserList.reset();this.form.regexp.value=''" value="{button_deselect}">
 </th>
 </tr><tr>
-	<th>{bo_days}</th>
-	<th><input name="days" type="text" value="0" size="5" /></th>
-</tr><tr>
-	<th>{bo_hours}</th>
-	<th><input name="hour" type="text" value="0" size="5" /></th>
-</tr><tr>
-	<th>{bo_minutes}</th>
-	<th><input name="mins" type="text" value="0" size="5" /></th>
-</tr><tr>
-	<th>{bo_seconds}</th>
-	<th><input name="secs" type="text" value="0" size="5" /></th>
-</tr><tr>
-	<th>{bo_vacation_mode}</th>
-	<th><input name="vacat" type="checkbox"/></th>
-</tr><tr>
-	<th>{bo_reason}</th> 
-	<th><input name="why" type="text" value="" size="25" maxlength="50"></th> 
-</tr>
-<tr>
 	<th colspan="2">
-	<input type="submit" value="{bo_ban_button}" style="width:20%;"/>
-	&nbsp;<input type="reset" value="{bo_reset}" style="width:20%;"></th>
+	<input type="submit" value="{button_submit}" name="panel" style="width:20%;"/>&nbsp;
+	<INPUT TYPE="button" onClick="UserList.reset();this.form.regexp.value=''" value="{button_reset}">
+	</th>
+</tr><tr>
+	<th colspan="2" align="left">
+		{bo_total_users}{userss}
+	</th>
 </tr>
 </table>
 </form>
-
+</td>
+<td style="border:0px;">
 <br />
 <form action="" method="POST" name="userban">
-<table width="40%">
+<table align="center" width="90%">
 {display2}
 <tr>
 	<td class="c" colspan="2">{bo_unban_player}</td>
 </tr>
 <tr>
 	<th colspan="2">
-	<select name="unban_name" size="8" style="width:70%;">
+	<select name="unban_name" size="20" style="width:70%;">
 	{ListBan}
 	</select>
-
+	<BR>
+	<a href="BanPage.php">{bo_order_username}</a> &nbsp; <a href="BanPage.php?order2=id">{bo_order_id}</a>
 	<SCRIPT TYPE="text/javascript">
 	<!--
 		var UsersBan = new filterlist(document.userban.unban_name);
@@ -135,13 +125,20 @@
 
 	<BR>
 	<INPUT NAME="regexp" onKeyUp="UsersBan.set(this.value)">
-	<INPUT TYPE="button" onClick="UsersBan.set(this.form.regexp.value)" value="{bo_select_filter}">
+	<INPUT TYPE="button" onClick="UsersBan.set(this.form.regexp.value)" value="{button_filter}">
+	<INPUT TYPE="button" onClick="UsersBan.set(this.form.regexp.value)" value="{button_deselect}">
 </th>
 </tr>
 <tr>
-	<th colspan="2"><input value="{bo_ban_button}" type="submit" style="width:20%;">&nbsp;
-	<INPUT TYPE="button" onClick="UsersBan.reset();this.form.regexp.value=''" value="{bo_dess}"></th>
+	<th colspan="2"><input value="{button_submit}" type="submit" style="width:20%;">&nbsp;
+	<INPUT TYPE="button" onClick="UsersBan.reset();this.form.regexp.value=''" value="{button_reset}"></th>
+</tr><tr>
+	<th colspan="2" align="left">
+		{bo_total_banneds}{banneds}
+	</th>
 </tr>
 </table>
 </form>
+</td>
+</table>
 </body>

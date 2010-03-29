@@ -4,7 +4,6 @@ th{text-align:left;}
 .grand{font-size:14px;}
 </style> 
 <body>
-<h1>{re_reset_h1}</h1>
 <form action="" method="post">
 <table width="40%">
 {good}
@@ -42,7 +41,7 @@ th{text-align:left;}
 <tr><td class="c" style="text-align:left;color:#FF0000;">{re_reset_all}</td><td><input type="checkbox" name="resetall" /></td></tr>
 
 
-<tr><td colspan="2" height="60"><input type="submit" value="{re_reset_resetnow}" onClick="return confirm('{re_reset_universe_confirmation}');"/></td></tr>
+<tr><td colspan="2" height="60"><input type="submit" value="{button_submit}" onClick="return confirm('{re_reset_universe_confirmation}');"/></td></tr>
 </table>
 </form>
 </body>

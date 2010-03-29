@@ -1,22 +1,23 @@
 <?php
 
 ##############################################################################
-# *																			 #
-# * RN FRAMEWORK															 #
-# *  																		 #
-# * @copyright Copyright (C) 2009 By ShadoX from xnova-reloaded.de	 		 #
-# *																			 #
-# *																			 #
+# *                                                                          #
+# * 2MOONS                                                                   #
+# *                                                                          #
+# * @copyright Copyright (C) 2010 By ShadoX from titanspace.de               #
+# * @copyright Copyright (C) 2008 - 2009 By lucky from Xtreme-gameZ.com.ar	 #
+# *                                                                          #
+# *	                                                                         #
 # *  This program is free software: you can redistribute it and/or modify    #
 # *  it under the terms of the GNU General Public License as published by    #
 # *  the Free Software Foundation, either version 3 of the License, or       #
-# *  (at your option) any later version.									 #
-# *																			 #
-# *  This program is distributed in the hope that it will be useful,		 #
-# *  but WITHOUT ANY WARRANTY; without even the implied warranty of			 #
-# *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the			 #
-# *  GNU General Public License for more details.							 #
-# *																			 #
+# *  (at your option) any later version.                                     #
+# *	                                                                         #
+# *  This program is distributed in the hope that it will be useful,         #
+# *  but WITHOUT ANY WARRANTY; without even the implied warranty of          #
+# *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the           #
+# *  GNU General Public License for more details.                            #
+# *                                                                          #
 ##############################################################################
 
 define('INSIDE'  , true);
@@ -25,30 +26,105 @@ define('IN_ADMIN', true);
 
 define('ROOT_PATH', './../');
 include(ROOT_PATH . 'extension.inc');
-include(ROOT_PATH . 'common.' . PHP_EXT);
+include(ROOT_PATH . 'common.'.PHP_EXT);
 include('AdminFunctions/Autorization.' . PHP_EXT);
 
-if ($EditUsers != 1) die();
+if ($EditUsers != 1) die(message ($lang['404_page']));
 
 $parse = $lang;
 
-$UserList 	= 	$db->query("SELECT `username` FROM ".USERS.";");
+
+if ($_GET['order'] == 'id')
+	$ORDER	=	"id";
+else
+	$ORDER	=	"username";
+	
+	
+	
+if ($user['authlevel'] != 3)
+	$ListWHERE		=	"WHERE `authlevel` != 3";
+	
+	
+if ($_GET['view'] == 'bana' && $user['authlevel'] != 3)
+	$WHEREBANA	=	"AND `bana` = 1";
+elseif ($_GET['view'] == 'bana' && $user['authlevel'] == 3)
+	$WHEREBANA	=	"WHERE `bana` = 1";
+
+$UserList		=	$db->query("SELECT `username`, `id`, `bana` FROM ".USERS." ".$ListWHERE." ".$WHEREBANA." ORDER BY ".$ORDER." ASC;");
+
+$Users	=	0;
 while ($a	=	$db->fetch_array($UserList))
 {
-	$parse['List']	.=	'<option value="'.$a['username'].'">'.$a['username'].'</option>';
+	if ($a['bana']	==	'1')
+		$SuspendedNow	=	$lang['bo_characters_suus'];
+	else
+		$SuspendedNow	=	"";
+		
+	$parse['List']	.=	'<option value="'.$a['username'].'">'.$a['username'].'&nbsp;&nbsp;(ID:&nbsp;'.$a['id'].')'.$SuspendedNow.'</option>';
+	$Users++;
 }
 
-$UserListBan	=	$db->query("SELECT `username` FROM ".USERS." WHERE `bana` = '1';");
+
+if ($_GET['order2'] == 'id')
+	$ORDER2	=	"id";
+else
+	$ORDER2	=	"username";
+	
+$Banneds	=	0;
+$UserListBan	=	$db->query("SELECT `username`, `id` FROM ".USERS." WHERE `bana` = '1' ORDER BY ".$ORDER2." ASC;");
 while ($b	=	$db->fetch_array($UserListBan))
 {
-	$parse['ListBan']	.=	'<option value="'.$b['username'].'">'.$b['username'].'</option>';
+	$parse['ListBan']	.=	'<option value="'.$b['username'].'">'.$b['username'].'&nbsp;&nbsp;(ID:&nbsp;'.$b['id'].')</option>';
+	$Banneds++;
 }
 
-if($_POST && $_POST['ban_name'])
+$parse['userss']	=	"<font color=lime>".$Users."</font>";
+$parse['banneds']	=	"<font color=lime>".$Banneds."</font>";
+
+
+$db->free_result($UserList);
+$db->free_result($UserListBan);
+
+if($_GET['panel'])
 {
-	$QueryUserExist	=	$db->query("SELECT * FROM ".USERS." WHERE `username` LIKE '%{$_POST['ban_name']}%';");
-	if ($db->num_rows($QueryUserExist) != 0)
+	$QueryUserBan			=	$db->fetch_array($db->query("SELECT * FROM ".BANNED." WHERE `who` = '".$_GET['ban_name']."';"));
+	$QueryUserBanVacation	=	$db->fetch_array($db->query("SELECT urlaubs_modus FROM ".USERS." WHERE `username` = '".$_GET['ban_name']."';"));
+		
+	if (!$QueryUserBan)
 	{
+		$parse['title']			=	$lang['bo_bbb_title_1'];
+		$parse['changedate']	=	$lang['bo_bbb_title_2'];
+	}
+	else
+	{
+		$parse['title']			=	$lang['bo_bbb_title_3'];
+		$parse['changedate']	=	$lang['bo_bbb_title_6'];
+		$parse['changedate_advert']	=	"<td class=c width=5%><img src=\"../styles/images/Adm/i.gif\" onMouseOver='return overlib(\"".$lang['bo_bbb_title_4']."\", 
+			CENTER, OFFSETX, -80, OFFSETY, -65, WIDTH, 250);' onMouseOut='return nd();'></td>";
+			
+		$parse['reas']			=	$QueryUserBan['theme'];
+		$parse['timesus']		=	
+			"<tr>
+				<th>".$lang['bo_bbb_title_5']."</th>
+				<th height=25 colspan=2>".date("d-m-Y H:i:s", $QueryUserBan['longer'])."</th>
+			</tr>";
+	}
+	
+	
+	if ($QueryUserBanVacation['urlaubs_modus'] == 1)
+		$parse['vacation']	=	'checked	=	"checked"';
+	else
+		$parse['vacation']	=	'';
+		
+	$parse['name']			=	$_GET['ban_name'];
+
+
+
+	if ($_POST['bannow'])
+	{
+		if(!is_numeric($_POST['days']) || !is_numeric($_POST['hour']) || !is_numeric($_POST['mins']) || !is_numeric($_POST['secs']))
+			return display( parsetemplate(gettemplate("adm/BanOptionsResultBody"), $parse), false, '', true, false);
+			
 		$name              = $_POST['ban_name'];
 		$reas              = $_POST['why'];
 		$days              = $_POST['days'];
@@ -62,26 +138,32 @@ if($_POST && $_POST['ban_name'])
 		$BanTime          += $hour * 3600;
 		$BanTime          += $mins * 60;
 		$BanTime          += $secs;
-		$BannedUntil       = $Now + $BanTime;
-
-		$QueryUserBan	=	$db->query("SELECT * FROM ".BANNED." WHERE `who` LIKE '%{$name}%';");
-		if ($db->num_rows($QueryUserBan) != 0)
+		if ($QueryUserBan['longer'] > time())
+			$BanTime          += ($QueryUserBan['longer'] - time());
+			
+		if (($BanTime + $Now) < time())
+			$BannedUntil       = $Now;
+		else
+			$BannedUntil       = $Now + $BanTime;
+		
+		
+		if ($QueryUserBan)
 		{
 			$QryInsertBan      = "UPDATE ".BANNED." SET ";
-			$QryInsertBan     .= "`who` = \"". $name ."\", ";
+			$QryInsertBan     .= "`who` = '". $name ."', ";
 			$QryInsertBan     .= "`theme` = '". $reas ."', ";
 			$QryInsertBan     .= "`who2` = '". $name ."', ";
 			$QryInsertBan     .= "`time` = '". $Now ."', ";
 			$QryInsertBan     .= "`longer` = '". $BannedUntil ."', ";
 			$QryInsertBan     .= "`author` = '". $admin ."', ";
 			$QryInsertBan     .= "`email` = '". $mail ."' ";
-			$QryInsertBan     .= "WHERE `who2` = '{$name}';";
+			$QryInsertBan     .= "WHERE `who2` = '".$name."';";
 			$db->query( $QryInsertBan);
 		}
 		else
 		{
 			$QryInsertBan      = "INSERT INTO ".BANNED." SET ";
-			$QryInsertBan     .= "`who` = \"". $name ."\", ";
+			$QryInsertBan     .= "`who` = '". $name ."', ";
 			$QryInsertBan     .= "`theme` = '". $reas ."', ";
 			$QryInsertBan     .= "`who2` = '". $name ."', ";
 			$QryInsertBan     .= "`time` = '". $Now ."', ";
@@ -98,39 +180,61 @@ if($_POST && $_POST['ban_name'])
 		if(isset($_POST['vacat']))
 		{
 			$QryUpdateUser    .= "`urlaubs_modus` = '1'";
+			$ASD	=	1;
 		}
 		else
 		{
 			$QryUpdateUser    .= "`urlaubs_modus` = '0'";
+			$ASD	=	0;
 		}
 
-		$QryUpdateUser    .= " WHERE ";
+		$QryUpdateUser    .= "WHERE ";
 		$QryUpdateUser    .= "`username` = '". $name ."';";
-		$db->query( $QryUpdateUser, 'users');
+		$db->query( $QryUpdateUser);
 
 		$PunishThePlanets     = "UPDATE ".PLANETS." SET ";
 		$PunishThePlanets    .= "`metal_mine_porcent` = '0', ";
 		$PunishThePlanets    .= "`crystal_mine_porcent` = '0', ";
 		$PunishThePlanets    .= "`deuterium_sintetizer_porcent` = '0'";
 		$PunishThePlanets    .= "WHERE ";
-		$PunishThePlanets    .= "`id_owner` = \"". $GetUserData['id'] ."\";";
+		$PunishThePlanets    .= "`id_owner` = '". $GetUserData['id'] ."';";
 		$db->query( $PunishThePlanets);
+		
+		
+		
+		$Log	.=	"\n".$lang['log_suspended_title']."\n";
+		$Log	.=	$lang['log_the_user'].$user['username']." ".$lang['log_suspended_1'].$name.$lang['log_suspended_2']."\n";
+		$Log	.=	$lang['log_reason'].$reas."\n";
+		$Log	.=	$lang['log_time'].date("d-m-Y H:i:s", time())."\n";
+		$Log	.=	$lang['log_longer'].date("d-m-Y H:i:s", $BannedUntil)."\n";
+		$Log	.=	$lang['log_vacations'].$lang['log_viewmod'][$ASD]."\n";
+				
+		LogFunction($Log, "GeneralLog", $LogCanWork);
 
-		$parse['display']	=	"<tr><th colspan=\"2\"><font color=lime>". $lang['bo_the_player'] ." ". $name . " - " . $lang['bo_banned'] ."</font></th></tr>";
+
+		header ("Location: BanPage.php?panel=ban_name&ban_name=".$_GET['ban_name']."&succes=yes");
 	}
-	else
-	{
-		$parse['display']	=	"<tr><th colspan=\"2\"><font color=red>".$lang['bo_user_doesnt_exist']."</font></th></tr>";
-	}
+	if ($_GET['succes']	==	'yes')
+		$parse['display']	=	"<tr><th colspan=\"2\"><font color=lime>". $lang['bo_the_player'] . $name . $lang['bo_banned'] ."</font></th></tr>";
+	display( parsetemplate(gettemplate("adm/BanOptionsResultBody"), $parse), false, '', true, false);
 }
 elseif($_POST && $_POST['unban_name'])
 {
 	$name = $_POST['unban_name'];
-	$db->query("DELETE FROM ".BANNED." WHERE who2='".$name."';");
-	$db->query("UPDATE ".USERS." SET bana = '0', banaday = '0' WHERE username='".$name."';");
+	$db->query("DELETE FROM ".BANNED." WHERE who = '".$name."';");
+	$db->query("UPDATE ".USERS." SET bana = '0', banaday = '0' WHERE username = '".$name."';");
 	
-	$parse['display2']	=	"<tr><th colspan=\"2\"><font color=lime>". $lang['bo_the_player2'] . $name . $lang['bo_unbanned'] ."</font></th></tr>";
+	
+	
+	$Log	.=	"\n".$lang['log_suspended_title']."\n";
+	$Log	.=	$lang['log_the_user'].$user['username']." ".$lang['log_suspended_3'].$name."\n";
+				
+	LogFunction($Log, "GeneralLog", $LogCanWork);
+	
+	header ("Location: BanPage.php?succes2=yes");
 }
+	if ($_GET['succes2'] == 'yes')
+		$parse['display2']	=	"<tr><th colspan=\"2\"><font color=lime>". $lang['bo_the_player2'] . $name . $lang['bo_unbanned'] ."</font></th></tr>";
 
 
 

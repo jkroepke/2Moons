@@ -1,18 +1,17 @@
 <script>document.body.style.overflow = "auto";</script>
 <SCRIPT TYPE="text/javascript" SRC="../scripts/filterlist.js"></SCRIPT> 
 <body>
-<form action="" method="post" name="users">
-<input type="hidden" name="modo" value="datos">
-<table>
-<center><span style="font-size:14px;font-weight:bolder;color:#FF0000;">{error}</span></center>
+<form action="" method="GET" name="users">
+<table border="0px" style="background:url(images/Adm/blank.gif);" width="60%">
+{error}
 </table>
 <br>
 <table width="50%">
 <td colspan="3" class="c"><center>{ac_enter_user_id}</center></td>
 <tr>
 <th>
-	<select name="id_u" size="8" style="width:80%;">
-	{lista}
+	<select name="id_u" size="20" style="width:80%;">
+		{lista}
 	</select>
 	
 	<SCRIPT TYPE="text/javascript">
@@ -52,12 +51,12 @@
 
 	<BR>
 	<INPUT NAME="regexp" onKeyUp="UserList.set(this.value)">
-	<INPUT TYPE="button" onClick="UserList.set(this.form.regexp.value)" value="{adm_cp_filter}">
-	<INPUT TYPE="button" onClick="UserList.reset();this.form.regexp.value=''" value="{adm_cp_reset}">
+	<INPUT TYPE="button" onClick="UserList.set(this.form.regexp.value)" value="{button_filter}">
+	<INPUT TYPE="button" onClick="UserList.reset();this.form.regexp.value=''" value="{button_deselect}">
 </th>
 </tr>
 <tr><th height="45"><center>{ac_select_id_num}&nbsp;<input type="text" name="id_u2" size="4"></center></th></tr>
-<tr><th colspan="3"><center><input type="Submit" value="{ac_send}" /></center></td></tr>
+<tr><th colspan="3"><center><input type="Submit" value="{button_submit}" /></center></td></tr>
 </table>
 </form>
 </body>
