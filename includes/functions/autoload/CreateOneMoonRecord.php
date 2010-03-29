@@ -36,8 +36,8 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 
 		if ($MoonPlanet['id_luna'] == 0 && $MoonPlanet['id'] != 0 && $MoonPlanet['planet_type'] == 1)
 		{
-			$SizeMin                = zround(pow ((3 * $Chance)+10,0.5) * 1000 );
-			$SizeMax                = zround(pow ((3 * $Chance)+20,0.5) * 1000 );
+			$SizeMin                = round(pow((3 * $Chance)+10,0.5) * 1000);
+			$SizeMax                = round(pow((3 * $Chance)+20,0.5) * 1000);
 
 			$PlanetName             = $MoonPlanet['name'];
 
@@ -68,7 +68,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 			$QryInsertMoonInPlanet .= "`deuterium` = '0', ";
 			$QryInsertMoonInPlanet .= "`deuterium_perhour` = '0', ";
 			$QryInsertMoonInPlanet .= "`deuterium_max` = '".BASE_STORAGE_SIZE."';";
-			$db->query( $QryInsertMoonInPlanet , 'planets');
+			$db->query( $QryInsertMoonInPlanet);
 				
 			$QryGetMoonPlanetData  = "SELECT id FROM ".PLANETS." ";
 			$QryGetMoonPlanetData .= "WHERE ";

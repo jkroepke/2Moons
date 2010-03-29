@@ -1,17 +1,19 @@
-<script>document.body.style.overflow = "auto";</script> 
-<body>
-<table width="60%">
+<script>document.body.style.overflow = "auto";</script>
+{show_edit_form}
+
+<table width="700">
 <tr>
-	<td class="c" colspan="6">{mt_moon_list}</td>
+        <td class="c" colspan="8">{mt_moon_list}</td>
 </tr>
 <tr>
-	<th>{mt_id}</th>
-	<th>{mt_moon_name}</th>
-	<th>{mt_moon_owner}</th>
-	<th>{mt_moon_galaxy}</th>
-	<th>{mt_moon_system}</th>
-	<th>{mt_moon_planet}</th>
+        <th>ID</th>
+        <th>Spieler-ID</th>
+        <th>Planetenname</th>
+        <th>Felder</th>
+        <th>davon bebaut</th>
+        <th>Galaxie</th>
+        <th>System</th>
+        <th>Position</th>
 </tr>
 {moon}
 </table>
-</body>

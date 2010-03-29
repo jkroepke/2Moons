@@ -3,6 +3,7 @@
 <body>
 <form action="?mode=change" method="post" name="nameform">
     <table width="550">
+				{display}
 			<tr>
                 <td class="c" colspan="2">{ma_send_global_message}</th>
             </tr>
@@ -18,7 +19,7 @@
                 <th colspan="2"><textarea name="tresc" cols="50" rows="10" onKeyDown="contar('nameform','tresc')" onKeyUp="contar('nameform','tresc')"></textarea></th>
             </tr>
             <tr>
-                <th colspan="2"><input value="{ma_send}" type="submit"></th>
+                <th colspan="2"><input value="{button_submit}" type="submit"></th>
             </tr>
     </table>
 </form>

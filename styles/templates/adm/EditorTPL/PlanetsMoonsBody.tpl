@@ -11,7 +11,7 @@
 </tr><tr>
 	<td class="c" colspan="7">{ad_pla_title}</td>
 </tr><tr>
-	<th>{ad_id_planett}</th>
+	<th>{input_id_p_m}</th>
 	<th><input name="id" type="text" size="5" maxlength="5"/></th>
 </tr><tr>
 	<th>{ad_pla_edit_name}</th>
@@ -38,14 +38,17 @@
 	<th>{ad_pla_delete_cb}</th>
 	<th><input name="0_c_buildings" type="checkbox"/></th>
 </tr><tr>
+	<th>{ad_pla_delete_planet}</th>
+	<th><input name="delete" type="checkbox"/></th>
+</tr><tr>
 	<th><a href="#" onMouseOver='return overlib("{ad_pla_title_l}", CENTER, OFFSETX, 120, OFFSETY, -40, WIDTH, 250);' onMouseOut='return nd();' class="big">{ad_pla_change_p}</a></th>
 	<th><input name="change_position" type="checkbox" title="{ad_pla_change_pp}"/>
 	<input name="g" type="text" size="1" maxlength="1"/> : 
 	<input name="s" type="text" size="3" maxlength="3"/> : 
 	<input name="p" type="text" size="2" maxlength="2"/></th>
 </tr><tr>
-	<th colspan="3"><input type="Submit" value="{ad_submit_button}"/>&nbsp;
-	<input type="reset" value="{ad_reset_button}"/></th>
+	<th colspan="3"><input type="Submit" value="{button_submit}"/>&nbsp;
+	<input type="reset" value="{button_reset}"/></th>
 </tr>
 </table>
 </form>

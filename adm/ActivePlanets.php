@@ -5,6 +5,7 @@
 # * 2MOONS                                                                   #
 # *                                                                          #
 # * @copyright Copyright (C) 2010 By ShadoX from titanspace.de               #
+# * @copyright Copyright (C) 2008 - 2009 By lucky from Xtreme-gameZ.com.ar	 #
 # *                                                                          #
 # *	                                                                         #
 # *  This program is free software: you can redistribute it and/or modify    #
@@ -25,7 +26,7 @@ define('IN_ADMIN', true);
 
 define('ROOT_PATH', './../');
 include(ROOT_PATH . 'extension.inc');
-include(ROOT_PATH . 'common.' . PHP_EXT);
+include(ROOT_PATH . 'common.'.PHP_EXT);
 include('AdminFunctions/Autorization.' . PHP_EXT);
 
 if ($Observation != 1) die();

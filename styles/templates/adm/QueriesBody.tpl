@@ -6,10 +6,11 @@
 <tr>
 	<td class="c" colspan="10">{qe_execute}</td>
 </tr><tr>
-	<th><textarea name="querie" style="width:100%;height:200px;"></textarea></th>
-</tr>
-<tr>
-	<th><input type="submit" value="{qe_go_now}"></th>
+	<th><span style="color:#FFCC00;font-size:14px;">{qe_note}</span></th>
+</tr><tr>
+	<th><textarea name="querie" rows="30" cols="20"></textarea></th>
+</tr><tr>
+	<th><input type="submit" value="{button_submit}"></th>
 </tr>
 </table>
 </form>

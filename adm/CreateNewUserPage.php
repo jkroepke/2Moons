@@ -1,22 +1,23 @@
 <?php
 
 ##############################################################################
-# *																			 #
-# * RN FRAMEWORK															 #
-# *  																		 #
-# * @copyright Copyright (C) 2009 By ShadoX from xnova-reloaded.de	    	 #
-# *																			 #
-# *																			 #
+# *                                                                          #
+# * 2MOONS                                                                   #
+# *                                                                          #
+# * @copyright Copyright (C) 2010 By ShadoX from titanspace.de               #
+# * @copyright Copyright (C) 2008 - 2009 By lucky from Xtreme-gameZ.com.ar	 #
+# *                                                                          #
+# *	                                                                         #
 # *  This program is free software: you can redistribute it and/or modify    #
 # *  it under the terms of the GNU General Public License as published by    #
 # *  the Free Software Foundation, either version 3 of the License, or       #
-# *  (at your option) any later version.									 #
-# *																			 #
-# *  This program is distributed in the hope that it will be useful,		 #
-# *  but WITHOUT ANY WARRANTY; without even the implied warranty of			 #
-# *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the			 #
-# *  GNU General Public License for more details.							 #
-# *																			 #
+# *  (at your option) any later version.                                     #
+# *	                                                                         #
+# *  This program is distributed in the hope that it will be useful,         #
+# *  but WITHOUT ANY WARRANTY; without even the implied warranty of          #
+# *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the           #
+# *  GNU General Public License for more details.                            #
+# *                                                                          #
 ##############################################################################
 
 define('INSIDE'  , true);
@@ -25,7 +26,7 @@ define('IN_ADMIN', true);
 
 define('ROOT_PATH', './../');
 include(ROOT_PATH . 'extension.inc');
-include(ROOT_PATH . 'common.' . PHP_EXT);
+include(ROOT_PATH . 'common.'.PHP_EXT);
 include('AdminFunctions/Autorization.' . PHP_EXT);
 
 if ($EditUsers != 1) die();
@@ -59,7 +60,7 @@ if ($_POST)
 		$parse['display']	.=	'<tr><th colspan="2" class="red">'.$lang['new_complete_all'].'</tr></th>';
 		$i++;}
 		
-	if (!ValidateAddress(strip_tags($email))){
+	if (!is_email(strip_tags($email))){
 		$parse['display']	.=	'<tr><th colspan="2" class="red">'.$lang['new_error_email2'].'</tr></th>';
 		$i++;}
 
@@ -87,15 +88,15 @@ if ($_POST)
 		$Query1 .= "`onlinetime` = '" .$time. "', ";
 		$Query1 .= "`authlevel` = '" .$auth. "', ";
 		$Query1 .= "`password`='" . $pass . "';";
-		$db->query($Query1, "users");
-
+		$db->query($Query1);
+	
 		$db->query("UPDATE ".CONFIG." SET `config_value` = config_value + '1' WHERE `config_name` = 'users_amount';");
 
-		$ID_USER 	= $db->fetch_array($db->query("SELECT `id` FROM ".USERS." WHERE `username` = '" .$db->sql_escape($name) . "' LIMIT 1;"));
+		$ID_USER 	= $db->fetch_array($db->query("SELECT `id` FROM ".USERS." WHERE `username` = '" . $db->sql_escape($name) . "' LIMIT 1;"));
 		
 		CreateOnePlanetRecord ($galaxy, $system, $planet, $ID_USER['id'], $UserPlanet, true);
 		
-		$ID_PLANET 	= $db->fetch_array($db->query("SELECT `id` FROM ".PLANETS." WHERE `id_owner` = '". $ID_USER['id'] ."' LIMIT 1;"));
+		$ID_PLANET 	= $db->fetch_array($db->query("SELECT `id` FROM ".USERS." WHERE `id_owner` = '". $ID_USER['id'] ."' LIMIT 1";));
 		
 		$db->query("UPDATE ".PLANETS." SET `id_level` = '".$auth."' WHERE `id` = '".$ID_PLANET['id']."';");
 		

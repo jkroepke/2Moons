@@ -1,22 +1,23 @@
 <?php
 
 ##############################################################################
-# *																			 #
-# * RN FRAMEWORK															 #
-# *  																		 #
-# * @copyright Copyright (C) 2009 By ShadoX from xnova-reloaded.de	    	 #
-# *																			 #
-# *																			 #
+# *                                                                          #
+# * 2MOONS                                                                   #
+# *                                                                          #
+# * @copyright Copyright (C) 2010 By ShadoX from titanspace.de               #
+# * @copyright Copyright (C) 2008 - 2009 By lucky from Xtreme-gameZ.com.ar	 #
+# *                                                                          #
+# *	                                                                         #
 # *  This program is free software: you can redistribute it and/or modify    #
 # *  it under the terms of the GNU General Public License as published by    #
 # *  the Free Software Foundation, either version 3 of the License, or       #
-# *  (at your option) any later version.									 #
-# *																			 #
-# *  This program is distributed in the hope that it will be useful,		 #
-# *  but WITHOUT ANY WARRANTY; without even the implied warranty of			 #
-# *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the			 #
-# *  GNU General Public License for more details.							 #
-# *																			 #
+# *  (at your option) any later version.                                     #
+# *	                                                                         #
+# *  This program is distributed in the hope that it will be useful,         #
+# *  but WITHOUT ANY WARRANTY; without even the implied warranty of          #
+# *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the           #
+# *  GNU General Public License for more details.                            #
+# *                                                                          #
 ##############################################################################
 
 define('INSIDE'  , true);
@@ -25,10 +26,10 @@ define('IN_ADMIN', true);
 
 define('ROOT_PATH', './../');
 include(ROOT_PATH . 'extension.inc');
-include(ROOT_PATH . 'common.' . PHP_EXT);
+include(ROOT_PATH . 'common.'.PHP_EXT);
 include('AdminFunctions/Autorization.' . PHP_EXT);
 
-if ($Observation != 1) die();
+if ($Observation != 1) die(message ($lang['404_page']));
 
 	$parse		= $lang;
 	$Prev       = ( !empty($_POST['prev'])   ) ? true : false;
@@ -59,7 +60,7 @@ if ($Observation != 1) die();
 		else
 			$ViewPage = 1;
 	}
-	elseif ($Next   == true)
+	elseif ($Next   == true && $_POST['page'])
 	{
 		if ($Selected < 100)
 			$Mess      = $db->fetch_array($db->query("SELECT COUNT(*) AS `max` FROM ".MESSAGES." WHERE `message_type` = '". $Selected ."';"));
@@ -74,19 +75,20 @@ if ($Observation != 1) die();
 			$ViewPage = $MaxPage;
 	}
 	
-	if ($_POST['delsel'] && $_POST['sele'] >= 1 && $_POST['page'])
+	if ($_POST['delsel'] && is_array($_POST['sele']) && $_POST['page'])
 	{
-		if ($DelSel == true && is_array($_POST['sele']))
+		if ($DelSel == true)
 		{
 			foreach($_POST['sele'] as $MessId => $Value)
 			{
 				if ($Value = "on")
-					$db->query ("DELETE FROM ".MESSAGES." WHERE `message_id` = '". $MessId ."';");
+					$db->query ( "DELETE FROM ".MESSAGES." WHERE `message_id` = '". $MessId ."';");
 			}
 		}
 	}
 	
-	if ($_POST['deldat'] && $_POST['sele'] >= 1 && is_numeric($_POST['selday']) && is_numeric($_POST['selmonth']) && is_numeric($_POST['selyear']) && $_POST['page'])
+	if ($_POST['deldat'] && $_POST['sele'] >= 1 && is_numeric($_POST['selday']) && is_numeric($_POST['selmonth']) && is_numeric($_POST['selyear'])
+		&& $_POST['page'])
 	{
 		if ($DelDat == true)
 		{
@@ -96,8 +98,8 @@ if ($Observation != 1) die();
 			$LimitDate = mktime (0,0,0, $SelMonth, $SelDay, $SelYear );
 			if ($LimitDate != false)
 			{
-				$db->query("DELETE FROM ".MESSAGES." WHERE `message_time` <= '". $LimitDate ."';");
-				$db->query("DELETE FROM ".RW." WHERE `time` <= '". $LimitDate ."';");
+				$db->query ( "DELETE FROM ".MESSAGES." WHERE `message_time` <= '". $LimitDate ."';");
+				$db->query ( "DELETE FROM ".RW." WHERE `time` <= '". $LimitDate ."';");
 			}
 		}
 	}
@@ -128,22 +130,22 @@ if ($Observation != 1) die();
 		$parse['mlst_data_pages'] .= "<option value=\"".$cPage."\"".  (($ViewPage == $cPage)  ? " SELECTED" : "") .">". $cPage ."/". $MaxPage ."</option>";
 	}
 
-	$StartRec            = 1 + (($ViewPage - 1) * 25);
+	$StartRec            = (($ViewPage - 1) * 25);
 	if ($Selected < 100)
 		$Messages            = $db->query("SELECT * FROM ".MESSAGES." WHERE `message_type` = '". $Selected ."' ORDER BY `message_time` DESC LIMIT ". $StartRec .",25;");
 	elseif ($Selected == 100)
 		$Messages            = $db->query("SELECT * FROM ".MESSAGES." ORDER BY `message_time` DESC LIMIT ". $StartRec .",25;");
 
-		while ($row = $db->fetch($Messages))
+		while ($row = $db->fetch_array($Messages))
 		{
-			$OwnerData = $db->fetch_array($db->query("SELECT `username` FROM ".USERS." WHERE `id` = '". $row['message_owner'] ."';"));
+			$OwnerData = $db->fetch_array($db->query ("SELECT `username` FROM ".USERS." WHERE `id` = '". $row['message_owner'] ."';"));
 			$bloc['mlst_id']      = $row['message_id'];
 			$bloc['mlst_from']    = $row['message_from'];
-			$bloc['mlst_to']      = $OwnerData['username'] ." ID:". $row['message_owner'];
+			$bloc['mlst_to']      = $OwnerData['username'] ." ".$lang['input_id'].":". $row['message_owner'];
 			$bloc['mlst_subject'] = $row['message_subject'];
 			$bloc['mlst_text']    = $row['message_text'];
-			$bloc['mlst_time']    = date ("d.M.y H:i:s", $row['message_time'] );
-
+			$bloc['mlst_time']    = date ("d/M/y H:i:s", $row['message_time'] );
+			
 			$parse['mlst_data_rows'] .= parsetemplate(gettemplate('adm/MessageListRows'), $bloc);
 		}
 	display (parsetemplate(gettemplate('adm/MessageListBody'), $parse), false, '', true, false);

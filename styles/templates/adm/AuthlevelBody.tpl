@@ -10,8 +10,8 @@
 	<td class="c" colspan="7">{ad_authlevel_title}</td>
 </tr><tr>
 	<th colspan="2">
-	<select name="id_1" size="8" style="width:80%;">
-	{List}
+	<select name="id_1" size="20" style="width:80%;">
+		{List}
 	</select>
 	
 	<SCRIPT TYPE="text/javascript">
@@ -56,8 +56,8 @@
 
 	<BR>
 	<INPUT NAME="regexp" onKeyUp="UserList.set(this.value)">
-	<INPUT TYPE="button" onClick="UserList.set(this.form.regexp.value)" value="{adm_cp_filter}">
-	<INPUT TYPE="button" onClick="UserList.reset();this.form.regexp.value=''" value="{adm_cp_reset}">
+	<INPUT TYPE="button" onClick="UserList.set(this.form.regexp.value)" value="{button_filter}">
+	<INPUT TYPE="button" onClick="UserList.reset();this.form.regexp.value=''" value="{button_deselect}">
 	</th>
 </tr><tr>
 	<th>{ad_authlevel_insert_id}</th>
@@ -66,7 +66,7 @@
 	<th>{ad_authlevel_auth}</th>
 	<th><select name="authlevel">{authlevels}</select></th>
 </tr><tr>
-	<th colspan="3"><input type="Submit" value="{ad_authlevel_button}"/></th>
+	<th colspan="3"><input type="Submit" value="{button_submit}"/></th>
 </tr>
 </table>
 </form>
