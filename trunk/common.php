@@ -119,7 +119,7 @@ if (INSTALL != true)
 				update_config('stats_fly_lock', time());
 				$db->multi_query("UNLOCK TABLES;LOCK TABLE ".AKS." WRITE, ".RW." WRITE, ".MESSAGES." WRITE, ".FLEETS." WRITE, ".PLANETS." WRITE, ".TOPKB." WRITE, ".USERS." WRITE, ".STATPOINTS." WRITE;");
 					
-				$fleetquery = $db->query("SELECT * FROM ".FLEETS." WHERE `fleet_start_time` <= '". time() ."' OR (`fleet_end_time` <= '". time() ."' AND `fleet_mess` = '1') ORDER BY `fleet_start_time` ASC;");
+				$fleetquery = $db->query("SELECT * FROM ".FLEETS." WHERE `fleet_start_time` <= '". time() ."' OR (`fleet_end_time` <= '". time() ."' AND `fleet_mess` = '1') ORDER BY `fleet_start_time` ASC LIMIT 10;");
 				if($db->num_rows($fleetquery) > 0)
 				{
 					require_once(ROOT_PATH . 'includes/classes/class.FlyingFleetHandler.'.PHP_EXT);
