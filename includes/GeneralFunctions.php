@@ -536,4 +536,31 @@ function isBuggyIe() {
     );
 }
 
+function shortly_number($number)
+{
+	// MAS DEL TRILLON
+	if ($number >= 1000000000000000000000000)
+		return pretty_number(($number/1000000000000000000))."&nbsp;<font color=lime>T+</font>";
+	
+	// TRILLON
+	elseif ($number >= 1000000000000000000 && $number < 1000000000000000000000000)
+		return pretty_number(($number/1000000000000000000))."&nbsp;<font color=lime>T</font>";
+		
+	// BILLON
+	elseif ($number >= 1000000000000 && $number < 1000000000000000000)
+		return pretty_number(($number/1000000000000))."&nbsp;<font color=lime>B</font>";
+	
+	// MILLON
+	elseif ($number >= 1000000 && $number < 1000000000000)
+		return pretty_number(($number/1000000))."&nbsp;<font color=lime>M</font>";
+		
+	// MIL
+	elseif ($number >= 1000 && $number < 1000000)
+		return pretty_number(($number/1000))."&nbsp;<font color=lime>K</font>";
+	
+	// NUMERO SIN DEFINIR	
+	else
+		return pretty_number($number);
+}
+
 ?>
