@@ -329,7 +329,7 @@ class statbuilder{
 					$AllyPoints[$UserData['ally_id']]['total']['count']		= 0;
 					$AllyPoints[$UserData['ally_id']]['total']['points']	= 0;				
 				}
-				$FinalSQL  .= '('.$UserData['id'].','.$UserData['ally_id'].',1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,'.$this->time.'),';
+				$FinalSQL  .= "(".$UserData['id'].",".$UserData['ally_id'].",1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,'".$this->time."'), ";
 				continue;
 			}
 			
