@@ -359,7 +359,7 @@ class ShowBuildingsPage
         $Element      = request_var('building',0);
         $ListID       = request_var('listid',0);
 
-		if ((IsTechnologieAccessible($CurrentUser, $CurrentPlanet, $Element) && in_array($Element, $reslist['allow'][$CurrentPlanet['planet_type']])) || $TheCommand == "cancel" || $TheCommand == "remove")
+		if ((IsTechnologieAccessible($CurrentUser, $CurrentPlanet, $Element) && in_array($Element, $reslist['allow'][$CurrentPlanet['planet_type']]) && ($Element == 31 && $CurrentUser["b_tech_planet"] == 0 || $Element != 31)) || $TheCommand == "cancel" || $TheCommand == "remove")
 		{
 			switch($TheCommand)
 			{

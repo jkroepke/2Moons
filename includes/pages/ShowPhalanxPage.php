@@ -47,7 +47,7 @@ function ShowPhalanxPage($CurrentUser, $CurrentPlanet)
 	$DoScan 			= ($System <= $SystemLimitMax && $System >= $SystemLimitMin && $Galaxy == $CurrentPlanet['galaxy']) ? true : false;
 
 	if ($CurrentPlanet['deuterium'] > 5000)
-		$db->query("UPDATE ".PLANETS." SET `deuterium` = `deuterium` - '5000' WHERE `id` = '". $CurrentUser['current_planet'] ."';");
+		$db->query("UPDATE ".PLANETS." SET `deuterium` = `deuterium` - '5000' WHERE `id` = '". $CurrentPlanet['id'] ."';");
 	else
 	{
 		$template->message($lang['px_no_deuterium']);
