@@ -157,7 +157,7 @@ switch ($_GET[page])
 		$TempMax	= $_POST['temp_max'];
 		$FieldMax	= $_POST['field_max'];
 	
-		$MoonPlanet		= 	$db->fetch_array($db->query("SELECT `temp_max`, `temp_min`, `id_luna`, `galaxy`, `system`, `planet`, `planet_type`, `destruyed` FROM ".PLANETS." WHERE `id` = '".$PlanetID."' AND `planet_type` = '1' AND `destruyed` = '0';"));
+		$MoonPlanet		= 	$db->fetch_array($db->query("SELECT `temp_max`, `temp_min`, `id_luna`, `galaxy`, `system`, `planet`, `planet_type`, `destruyed`, `id_level` FROM ".PLANETS." WHERE `id` = '".$PlanetID."' AND `planet_type` = '1' AND `destruyed` = '0';"));
 
 
 	if ($MoonPlanet && is_numeric($PlanetID))
@@ -205,7 +205,7 @@ switch ($_GET[page])
 				$QryInsertMoonInPlanet  = "INSERT INTO ".PLANETS." SET ";
 				$QryInsertMoonInPlanet .= "`name` = '".$MoonName."', ";
 				$QryInsertMoonInPlanet .= "`id_owner` = '". $Owner ."', ";
-				$QryInsertMoonInPlanet .= "`id_level` = (SELECT `id_level` FROM ".PLANETS." WHERE `id` = '".$PlanetID."'), ";
+				$QryInsertMoonInPlanet .= "`id_level` = '".$MoonPlanet['id_level']."', ";
 				$QryInsertMoonInPlanet .= "`galaxy` = '". $Galaxy ."', ";
 				$QryInsertMoonInPlanet .= "`system` = '". $System ."', ";
 				$QryInsertMoonInPlanet .= "`planet` = '". $Planet ."', ";
