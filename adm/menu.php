@@ -62,7 +62,13 @@ $ConfigTable	=
     	</tr>
 		<tr>
         	<th ".$onMouseOverIE." class=\"ForIE\"><a href=\"ConfigStatsPage.php\" target=\"Hauptframe\">".$lang['mu_stats_options']."</a></th>
-    	</tr>
+    	</tr> 
+		<tr>
+            <th ".$onMouseOverIE." class=\"ForIE\"><a href=\"ChatPage.php\" target=\"Hauptframe\">".$lang['mu_chat']."</a></th>
+        </tr>
+        <tr>
+            <th ".$onMouseOverIE." class=\"ForIE\"><a href=\"UpdatePage.php\" target=\"Hauptframe\">".$lang['mu_update']."</a></th>
+        </tr>
 		</table>";
 		
 		
@@ -101,7 +107,10 @@ $ViewTable	=
     	</tr>
 		<tr>
         	<th ".$onMouseOverIE." class=\"ForIE\"><a href=\"SupportPage.php\" target=\"Hauptframe\">".$lang['mu_support']."</a></th>
-    	</tr>
+    	</tr> 
+		<tr>
+            <th ".$onMouseOverIE." class=\"ForIE\"><a href=\"ActiveUsers.php\" target=\"Hauptframe\">".$lang['mu_vaild_users']."</a></th>
+        </tr>
 		<tr>
         	<th ".$onMouseOverIE." class=\"ForIE\"><a href=\"SearchingPage.php?search=p_connect&minimize=on\" target=\"Hauptframe\">".$lang['mu_active_planets']."</a></th>
     	</tr>
