@@ -49,9 +49,6 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 					
 				PlanetResourceUpdate($CurrentUser, $CurrentPlanet, $CurrentPlanet['b_building'], true);
 				
-				if ($Element == 41)
-					$CurrentPlanet['field_max']	+= FIELDS_BY_MOONBASIS_LEVEL;
-				
 				if ($ForDestroy == false)
 				{
 					$CurrentPlanet['field_current']++;
@@ -84,7 +81,6 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
                     $QryUpdatePlanet .= "`b_building` = '". $CurrentPlanet['b_building'] ."' , ";
                     $QryUpdatePlanet .= "`b_building_id` = '". $CurrentPlanet['b_building_id'] ."' , ";
                     $QryUpdatePlanet .= "`field_current` = '" . $CurrentPlanet['field_current'] . "', ";
-                    $QryUpdatePlanet .= "`field_max` = '" . $CurrentPlanet['field_max'] . "' ";
                     $QryUpdatePlanet .= "WHERE ";
                     $QryUpdatePlanet .= "`id` = '" . $CurrentPlanet['id'] . "';";
                     $db->query($QryUpdatePlanet);

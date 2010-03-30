@@ -138,7 +138,6 @@ class ResourceUpdate
 		$QryUpdatePlanet .= "`b_building` = '"       . $CurrentPlanet['b_building']         ."', ";
 		$QryUpdatePlanet .= "`b_building_id` = '"    . $CurrentPlanet['b_building_id']      ."', ";
 		$QryUpdatePlanet .= "`field_current` = '"    . $CurrentPlanet['field_current']      ."', ";
-		$QryUpdatePlanet .= "`field_max` = '"        . $CurrentPlanet['field_max']          ."', ";
 		$QryUpdatePlanet .= "`b_hangar_id` = '"      . $CurrentPlanet['b_hangar_id']       	."', ";
 		$QryUpdatePlanet .= "`metal_perhour` = '"    . $CurrentPlanet['metal_perhour']     	."', ";
 		$QryUpdatePlanet .= "`crystal_perhour` = '"  . $CurrentPlanet['crystal_perhour']   	."', ";
