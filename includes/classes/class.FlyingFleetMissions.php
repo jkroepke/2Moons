@@ -1426,58 +1426,55 @@ class FlyingFleetMissions {
 	{
 		global $lang, $db;
 
-		if ($FleetRow['fleet_mess'] == 0)
+		if ($FleetRow['fleet_mess'] == 0 && $FleetRow['fleet_start_time'] <= time())
 		{
-			if ($FleetRow['fleet_start_time'] <= time())
-			{
-				$QryStartPlanet   = "SELECT name, id_owner FROM ".PLANETS." ";
-				$QryStartPlanet  .= "WHERE ";
-				$QryStartPlanet  .= "`galaxy` = '". $FleetRow['fleet_start_galaxy'] ."' AND ";
-				$QryStartPlanet  .= "`system` = '". $FleetRow['fleet_start_system'] ."' AND ";
-				$QryStartPlanet  .= "`planet` = '". $FleetRow['fleet_start_planet'] ."';";
-				$StartPlanet      = $db->fetch_array($db->query($QryStartPlanet));
-				$StartName        = $StartPlanet['name'];
-				$StartOwner       = $StartPlanet['id_owner'];
+			$QryStartPlanet   = "SELECT name, id_owner FROM ".PLANETS." ";
+			$QryStartPlanet  .= "WHERE ";
+			$QryStartPlanet  .= "`galaxy` = '". $FleetRow['fleet_start_galaxy'] ."' AND ";
+			$QryStartPlanet  .= "`system` = '". $FleetRow['fleet_start_system'] ."' AND ";
+			$QryStartPlanet  .= "`planet` = '". $FleetRow['fleet_start_planet'] ."';";
+			$StartPlanet      = $db->fetch_array($db->query($QryStartPlanet));
+			$StartName        = $StartPlanet['name'];
+			$StartOwner       = $StartPlanet['id_owner'];
 
-				$QryTargetPlanet  = "SELECT name, id_owner FROM ".PLANETS." ";
-				$QryTargetPlanet .= "WHERE ";
-				$QryTargetPlanet .= "`galaxy` = '". $FleetRow['fleet_end_galaxy'] ."' AND ";
-				$QryTargetPlanet .= "`system` = '". $FleetRow['fleet_end_system'] ."' AND ";
-				$QryTargetPlanet .= "`planet` = '". $FleetRow['fleet_end_planet'] ."';";
-				$TargetPlanet     = $db->fetch_array($db->query($QryTargetPlanet));
-				$TargetName       = $TargetPlanet['name'];
-				$TargetOwner      = $TargetPlanet['id_owner'];
+			$QryTargetPlanet  = "SELECT name, id_owner FROM ".PLANETS." ";
+			$QryTargetPlanet .= "WHERE ";
+			$QryTargetPlanet .= "`galaxy` = '". $FleetRow['fleet_end_galaxy'] ."' AND ";
+			$QryTargetPlanet .= "`system` = '". $FleetRow['fleet_end_system'] ."' AND ";
+			$QryTargetPlanet .= "`planet` = '". $FleetRow['fleet_end_planet'] ."';";
+			$TargetPlanet     = $db->fetch_array($db->query($QryTargetPlanet));
+			$TargetName       = $TargetPlanet['name'];
+			$TargetOwner      = $TargetPlanet['id_owner'];
 				
-				$Message = sprintf($lang['sys_tran_mess_owner'], $TargetName, GetTargetAdressLink($FleetRow, ''),
-					$FleetRow['fleet_resource_metal'], $lang['Metal'],
-					$FleetRow['fleet_resource_crystal'], $lang['Crystal'],
-					$FleetRow['fleet_resource_deuterium'], $lang['Deuterium'] );
+			$Message = sprintf($lang['sys_tran_mess_owner'], $TargetName, GetTargetAdressLink($FleetRow, ''),
+				$FleetRow['fleet_resource_metal'], $lang['Metal'],
+				$FleetRow['fleet_resource_crystal'], $lang['Crystal'],
+				$FleetRow['fleet_resource_deuterium'], $lang['Deuterium'] );
 
-				SendSimpleMessage ($StartOwner, '',$FleetRow['fleet_start_time'], 5, $lang['sys_mess_tower'], $lang['sys_mess_transport'], $Message);
+			SendSimpleMessage ($StartOwner, '',$FleetRow['fleet_start_time'], 5, $lang['sys_mess_tower'], $lang['sys_mess_transport'], $Message);
 
-				$Message = sprintf( $lang['sys_tran_mess_user'], $StartName, GetStartAdressLink($FleetRow, ''),
-					$TargetName, GetTargetAdressLink($FleetRow, ''),
-					$FleetRow['fleet_resource_metal'], $lang['Metal'],
-					$FleetRow['fleet_resource_crystal'], $lang['Crystal'],
-					$FleetRow['fleet_resource_deuterium'], $lang['Deuterium'] );
+			$Message = sprintf( $lang['sys_tran_mess_user'], $StartName, GetStartAdressLink($FleetRow, ''),
+				$TargetName, GetTargetAdressLink($FleetRow, ''),
+				$FleetRow['fleet_resource_metal'], $lang['Metal'],
+				$FleetRow['fleet_resource_crystal'], $lang['Crystal'],
+				$FleetRow['fleet_resource_deuterium'], $lang['Deuterium'] );
 
-				SendSimpleMessage ($TargetOwner, '',$FleetRow['fleet_start_time'], 5, $lang['sys_mess_tower'], $lang['sys_mess_transport'], $Message);
+			SendSimpleMessage ($TargetOwner, '',$FleetRow['fleet_start_time'], 5, $lang['sys_mess_tower'], $lang['sys_mess_transport'], $Message);
 
-				$QryUpdateFleet  = "UPDATE ".FLEETS." SET ";
-				$QryUpdateFleet .= "`fleet_mess` = 2 ";
-				$QryUpdateFleet .= "WHERE `fleet_id` = '". $FleetRow['fleet_id'] ."' ";
-				$QryUpdateFleet .= "LIMIT 1 ;";
-				$db->query( $QryUpdateFleet);
+			$QryUpdateFleet  = "UPDATE ".FLEETS." SET ";
+			$QryUpdateFleet .= "`fleet_mess` = 2 ";
+			$QryUpdateFleet .= "WHERE `fleet_id` = '". $FleetRow['fleet_id'] ."' ";
+			$QryUpdateFleet .= "LIMIT 1 ;";
+			$db->query( $QryUpdateFleet);
 
-			}
-			elseif($FleetRow['fleet_end_stay'] <= time())
-			{
-				$QryUpdateFleet  = "UPDATE ".FLEETS." SET ";
-				$QryUpdateFleet .= "`fleet_mess` = 1 ";
-				$QryUpdateFleet .= "WHERE `fleet_id` = '". $FleetRow['fleet_id'] ."' ";
-				$QryUpdateFleet .= "LIMIT 1 ;";
-				$db->query( $QryUpdateFleet);
-			}
+		}
+		elseif($FleetRow['fleet_mess'] == 2 && $FleetRow['fleet_end_stay'] <= time())
+		{
+			$QryUpdateFleet  = "UPDATE ".FLEETS." SET ";
+			$QryUpdateFleet .= "`fleet_mess` = 1 ";
+			$QryUpdateFleet .= "WHERE `fleet_id` = '". $FleetRow['fleet_id'] ."' ";
+			$QryUpdateFleet .= "LIMIT 1 ;";
+			$db->query( $QryUpdateFleet);
 		}
 		elseif ($FleetRow['fleet_end_time'] < time())
 		{
