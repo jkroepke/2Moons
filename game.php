@@ -274,7 +274,7 @@ switch($page)
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'logout':
 		$db->query("UPDATE ".USERS." SET `current_planet` = `id_planet` WHERE `id` = '". $user['id'] ."' LIMIT 1");
-		setcookie($game_config['COOKIE_NAME'], "", time() - 100000);
+		setcookie($game_config['COOKIE_NAME'], '', 1, "/", "", 0);
 		$template	= new template();
 		$template->page_header();
 		$template->page_footer();	

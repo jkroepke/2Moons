@@ -211,12 +211,11 @@ abstract class FleetFunctions
 		return str_rot13(base64_encode(serialize($FleetArray)));
 	}	
 
-	public static function CleanFleetArray($FleetArray)
+	public static function CleanFleetArray(&$FleetArray)
 	{
 		foreach($FleetArray as $ShipID => $Count) {
 			if ($Count <= 0) unset($FleetArray[$ShipID]);
 		}
-		return $FleetArray;
 	}
 	
 	public static function GetFleetMissions($MisInfo)

@@ -443,7 +443,7 @@ switch ($page) {
 				$rememberme = 0;
 							
 				$cookie = $login ["id"] . "/%/" . $login ["username"] . "/%/" . md5 ( $login ["password"] . "--" . $dbsettings ["secretword"] ) . "/%/" . $rememberme;
-				setcookie($game_config ['COOKIE_NAME'], $cookie, $expiretime, "/", "", 0);
+				setcookie($game_config['COOKIE_NAME'], $cookie, $expiretime, "/", "", 0);
 				
 				$db->query ( "UPDATE `" . USERS . "` SET `current_planet` = `id_planet` WHERE `id` ='" . $login ["id"] . "';" );
 

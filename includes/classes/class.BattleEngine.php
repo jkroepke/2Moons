@@ -56,7 +56,7 @@ die($totaltime);
 
 class Battle
 {
-	public function StartBattle($Attackers, $Defenders, $MaxRounds = 6, $DefenseReg = 70, $EMPmissileBlock = false) {
+	public function BattleStartBattle($Attackers, $Defenders, $MaxRounds = 6, $DefenseReg = 70, $EMPmissileBlock = false) {
 		global $lang, $resource, $reslist, $pricelist, $CombatCaps, $game_config;
 		
 		$Array = $this->GenerateCombatArray($Attackers, $Defenders, $EMPmissileBlock);	
@@ -400,7 +400,7 @@ class Battle
 				$Attack		= ($CombatCaps[$Ship]['attack'] * (1 + (0.1 * ($Array[1]['military_tech']) + (0.05 * $Array[2]['rpg_amiral']))));
 				$Shield		= ($CombatCaps[$Ship]['shield'] * (1 + (0.1 * ($Array[1]['defence_tech']) + (0.05 * $Array[2]['rpg_amiral']))));
 				$Integrity	= ((($pricelist[$Ship]['metal'] + $pricelist[$Ship]['crystal']) / 10) * (1 + (0.1 * ($Array[1]['shield_tech']) + (0.05 * $Array[2]['rpg_amiral']))));
-				for($Pass = $count; $Pass <= ($Count + $count); $Pass++){
+				for($Pass = $count; $Pass <= $Count; $Pass++){
 					$AttackersFleets[$Order][$Pass] = array(
 						'ship' => $Ship,
 						'attack' => $Attack,
@@ -418,7 +418,7 @@ class Battle
 				$Attack		= ($CombatCaps[$Ship]['attack'] * (1 + (0.1 * ($Array[1]['military_tech']) + (0.05 * $Array[2]['rpg_amiral']))));
 				$Shield		= ($CombatCaps[$Ship]['shield'] * (1 + (0.1 * ($Array[1]['defence_tech']) + (0.05 * $Array[2]['rpg_amiral']))));
 				$Integrity	= ((($pricelist[$Ship]['metal'] + $pricelist[$Ship]['crystal']) / 10) * (1 + (0.1 * ($Array[1]['shield_tech']) + (0.05 * $Array[2]['rpg_amiral']))));
-				for($Pass = $count; $Pass <= ($Count + $count); $Pass++){
+				for($Pass = $count; $Pass <= $Count; $Pass++){
 					$DefendersFleets[$Order][$Pass] = array(
 						'ship' => $Ship,
 						'attack' => $Attack,
