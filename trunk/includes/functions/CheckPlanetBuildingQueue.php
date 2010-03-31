@@ -80,7 +80,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
                     $QryUpdatePlanet .= "`".$resource[$Element]."` = '".$CurrentPlanet[$resource[$Element]]."', ";
                     $QryUpdatePlanet .= "`b_building` = '". $CurrentPlanet['b_building'] ."' , ";
                     $QryUpdatePlanet .= "`b_building_id` = '". $CurrentPlanet['b_building_id'] ."' , ";
-                    $QryUpdatePlanet .= "`field_current` = '" . $CurrentPlanet['field_current'] . "', ";
+                    $QryUpdatePlanet .= "`field_current` = '" . $CurrentPlanet['field_current'] . "' ";
                     $QryUpdatePlanet .= "WHERE ";
                     $QryUpdatePlanet .= "`id` = '" . $CurrentPlanet['id'] . "';";
                     $db->query($QryUpdatePlanet);
