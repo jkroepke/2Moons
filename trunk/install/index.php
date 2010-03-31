@@ -68,7 +68,7 @@ switch ($Mode) {
 		} else {
 			$parse['mysqli'] = "<span class=\"yes\">Vorhanden</span>";
 		}
-		if(ini_get('display_errors') == 0){
+		if(!ini_get('display_errors')){
 			$parse['error'] = "<span class=\"yellow\">Aus - Bitte &auml;ndern</span>";
 		} else {
 			$parse['error'] = "<span class=\"yes\">Aktiv</span>";
