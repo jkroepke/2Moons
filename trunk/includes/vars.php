@@ -28,6 +28,7 @@ if ( defined('INSIDE'))
 	  2 => "crystal_mine",
 	  3 => "deuterium_sintetizer",
 	  4 => "solar_plant",
+	  6 => "university",
 	 12 => "fusion_plant",
 	 14 => "robot_factory",
 	 15 => "nano_factory",
@@ -123,6 +124,7 @@ if ( defined('INSIDE'))
 	);
 
 	$requeriments = array(
+		 6  => array(  14 =>  20, 31  =>  22, 15 => 4, 108 => 12, 123 => 3),
 		 12 => array(   3 =>   5, 113 =>   3),
 		 15 => array(  14 =>  10, 108 =>  10),
 		 21 => array(  14 =>   2),
@@ -207,6 +209,7 @@ if ( defined('INSIDE'))
 		  2 => array ( 'metal' =>      48, 'crystal' =>      24, 'deuterium' =>       0, 'energy' =>    0, 'darkmatter' =>  0, 'factor' => 1.6),
 		  3 => array ( 'metal' =>     225, 'crystal' =>      75, 'deuterium' =>       0, 'energy' =>    0, 'darkmatter' =>  0, 'factor' => 3/2),
 		  4 => array ( 'metal' =>      75, 'crystal' =>      30, 'deuterium' =>       0, 'energy' =>    0, 'darkmatter' =>  0, 'factor' => 3/2),
+		  6 => array ( 'metal' =>100000000,'crystal' =>50000000, 'deuterium' =>25000000, 'energy' =>    0, 'darkmatter' =>  0, 'factor' => 2.2),
 		 12 => array ( 'metal' =>     900, 'crystal' =>     360, 'deuterium' =>     180, 'energy' =>    0, 'darkmatter' =>  0, 'factor' => 1.8),
 		 14 => array ( 'metal' =>     400, 'crystal' =>     120, 'deuterium' =>     200, 'energy' =>    0, 'darkmatter' =>  0, 'factor' =>   2),
 		 15 => array ( 'metal' => 1000000, 'crystal' =>  500000, 'deuterium' =>  100000, 'energy' =>    0, 'darkmatter' =>  0, 'factor' =>   2),
@@ -393,8 +396,8 @@ if ( defined('INSIDE'))
 		706 => array('time' => 24, 'darkmatter' => 3000, 'add' => 0.1),
 	);
 	
-	$reslist['allow']    = array ( 1 => array(1,  2,  3,  4, 12, 14, 15, 21, 22, 23, 24, 31, 33, 34, 44), 3 => array(12, 14, 21, 22, 23, 24, 34, 41, 42, 43));
-	$reslist['build']    = array (   1,   2,   3,   4,  12,  14,  15,  21,  22,  23,  24,  31,  33,  34,  44,  41,  42,  43);
+	$reslist['allow']    = array ( 1 => array(1,  2,  3,  4,  6, 12, 14, 15, 21, 22, 23, 24, 31, 33, 34, 44), 3 => array(12, 14, 21, 22, 23, 24, 34, 41, 42, 43));
+	$reslist['build']    = array (   1,   2,   3,   4,   6,  12,  14,  15,  21,  22,  23,  24,  31,  33,  34,  44,  41,  42,  43);
 	$reslist['tech']     = array ( 106, 108, 109, 110, 111, 113, 114, 115, 117, 118, 120, 121, 122, 123, 124, 199);
 	$reslist['fleet']    = array ( 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222);
 	$reslist['defense']  = array ( 401, 402, 403, 404, 405, 406, 407, 408, 409, 410, 411, 502, 503 );

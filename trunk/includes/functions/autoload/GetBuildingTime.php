@@ -57,7 +57,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 				$time         = (($cost_metal + $cost_crystal) / $game_config['game_speed']) / (($Level + 1) * 2);
 				$time         = $time * (1 - $user[$resource[606]] * SCIENTIFIQUE) * 3600;
 			}
-			$time         = floor($time * ((time() - $user[$resource[705]] <= 0) ? (1 - $ExtraDM[705]['add']) : 1));
+			$time         = floor($time * ((time() - $user[$resource[705]] <= 0) ? (1 - $ExtraDM[705]['add']) : 1) * (1 - ($planet[$resource[6]] * 0.08)));
 		}
 		elseif (in_array($Element, $reslist['defense']))
 		{
