@@ -46,6 +46,7 @@ $lang['tech'] = array(
   2 => 'Kristallmine',
   3 => 'Deuteriumsynthetisierer',
   4 => 'Solarkraftwerk',
+  6 => 'Universität',
  12 => 'Atomkraftwerk',
  14 => 'Roboterfabrik',
  15 => 'Nanitenfabrik',
@@ -152,6 +153,7 @@ $lang['res']['descriptions'] = array(
 2 => 'Hauptrohstofflieferanten für elektronische Bauteile und Legierungen.',
 3 => 'Entziehen dem Wasser eines Planeten den geringen Deuteriumanteil.',
 4 => 'Solarkraftwerke gewinnen Energie aus Sonneneinstrahlung. Einige Gebäude benötigen Energie für ihren Betrieb.',
+6 => 'Sie verkürzt pro Stufe die Forschungszeit um 8%.',
 12 => 'Das Atomkraftwerk gewinnt Energie aus Brennstäben die aus Deuterium gefertigt werden.',
 14 => 'Roboterfabriken stellen einfache Arbeitskräfte zur Verfügung, die beim Bau der planetaren Infrastruktur eingesetzt werden. Jede Stufe erhöht damit die Geschwindigkeit des Ausbaus von Gebäuden.',
 15 => 'Stellt die Krönung der Robotertechnik dar. Jede Stufe halbiert die Bauzeit von Gebäuden, Schiffen und Verteidigung.',
@@ -265,6 +267,8 @@ $lang['info'][12]['description']  = 'Im Atomkraftwerk werden Atome gespalten, um
 
 // ----------------------------------------------------------------------------------------------------------
 // Gebäude
+$lang['info'][6]['name']          = "Universität";
+$lang['info'][6]['description']   = "Sie verringert die Forschungszeit pro Stufe um 8%";
 $lang['info'][14]['name']         = 'Roboterfabrik';
 $lang['info'][14]['description']  = 'Roboterfabriken stellen einfache Arbeitskräfte zur Verfügung, die beim Bau der planetaren Infrastruktur eingesetzt werden können. Jede Stufe erhöht damit die Geschwindigkeit des Ausbaus von Gebäuden.';
 $lang['info'][15]['name']         = 'Nanitenfabrik';
