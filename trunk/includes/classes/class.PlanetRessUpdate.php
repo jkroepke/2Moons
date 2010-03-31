@@ -62,17 +62,17 @@ class ResourceUpdate
 			{
 				$BuildLevelFactor	= $CurrentPlanet[$resource[$ProdID]."_porcent" ];
 				$BuildLevel 		= $CurrentPlanet[$resource[$ProdID]];
-				$Caps['metal_perhour']		+= floor(eval($ProdGrid[$ProdID]['formule']['metal'])     * ($game_config['resource_multiplier']) * ((1 + ($CurrentUser['rpg_geologue'] * 0.05)) + ((time() - $CurrentUser[$resource[703]] <= 0) ? (1 + $ExtraDM[703]['add']) : 0)));
-				$Caps['crystal_perhour']	+= floor(eval($ProdGrid[$ProdID]['formule']['crystal'])   * ($game_config['resource_multiplier']) * ((1 + ($CurrentUser['rpg_geologue'] * 0.05)) + ((time() - $CurrentUser[$resource[703]] <= 0) ? (1 + $ExtraDM[703]['add']) : 0)));
+				$Caps['metal_perhour']		+= floor(eval($ProdGrid[$ProdID]['formule']['metal'])     * ($game_config['resource_multiplier']) * (1 + ($CurrentUser['rpg_geologue'] * 0.05)) * ((time() - $CurrentUser[$resource[703]] <= 0) ? (1 + $ExtraDM[703]['add']) : 1));
+				$Caps['crystal_perhour']	+= floor(eval($ProdGrid[$ProdID]['formule']['crystal'])   * ($game_config['resource_multiplier']) * (1 + ($CurrentUser['rpg_geologue'] * 0.05)) * ((time() - $CurrentUser[$resource[703]] <= 0) ? (1 + $ExtraDM[703]['add']) : 1));
 				if ($ProdID < 4)
 				{
-					$Caps['deuterium_perhour'] 	+= floor(eval($ProdGrid[$ProdID]['formule']['deuterium']) * ($game_config['resource_multiplier']) * ((1 + ($CurrentUser['rpg_geologue'] * 0.05)) + ((time() - $CurrentUser[$resource[703]] <= 0) ? (1 + $ExtraDM[703]['add']) : 0)));
+					$Caps['deuterium_perhour'] 	+= floor(eval($ProdGrid[$ProdID]['formule']['deuterium']) * ($game_config['resource_multiplier']) * (1 + ($CurrentUser['rpg_geologue'] * 0.05)) * ((time() - $CurrentUser[$resource[703]] <= 0) ? (1 + $ExtraDM[703]['add']) : 1));
 					$Caps['energy_used']   		+= floor(eval($ProdGrid[$ProdID]['formule']['energy']) * ($game_config['resource_multiplier']));
 				}
 				elseif ($ProdID >= 4 )
 				{
 					$Caps['deuterium_used'] 	+= floor(eval($ProdGrid[$ProdID]['formule']['deuterium']) * ($game_config['resource_multiplier']));
-					$Caps['energy_max']			+= floor(eval($ProdGrid[$ProdID]['formule']['energy']) * ($game_config['resource_multiplier']) * ((1 + ($CurrentUser['rpg_ingenieur'] * 0.05)) + ((time() - $CurrentUser[$resource[704]] <= 0) ? (1 + $ExtraDM[704]['add']) : 0)));
+					$Caps['energy_max']			+= floor(eval($ProdGrid[$ProdID]['formule']['energy']) * ($game_config['resource_multiplier']) * (1 + ($CurrentUser['rpg_ingenieur'] * 0.05)) * ((time() - $CurrentUser[$resource[704]] <= 0) ? (1 + $ExtraDM[704]['add']) : 1));
 				}
 			}
 			
@@ -101,19 +101,19 @@ class ResourceUpdate
 
 			if ($CurrentPlanet['metal'] <= $MaxMetalStorage)
 			{
-				$MetalTheorical  = $CurrentPlanet['metal'] + ($this->ProductionTime * ($game_config['metal_basic_income'] + $CurrentPlanet['metal_perhour']) / 3600);
+				$MetalTheorical  = $CurrentPlanet['metal'] + ($this->ProductionTime * (($game_config['metal_basic_income'] * $game_config['resource_multiplier']) + $CurrentPlanet['metal_perhour']) / 3600);
 				$CurrentPlanet['metal']  = min($MetalTheorical, $MaxMetalStorage);
 			}
 			
 			if ($CurrentPlanet['crystal'] <= $MaxCristalStorage)
 			{
-				$CristalTheorical  = $CurrentPlanet['crystal'] + ($this->ProductionTime * ($game_config['crystal_basic_income'] + $CurrentPlanet['crystal_perhour']) / 3600);
+				$CristalTheorical  = $CurrentPlanet['crystal'] + ($this->ProductionTime * (($game_config['crystal_basic_income'] * $game_config['resource_multiplier']) + $CurrentPlanet['crystal_perhour']) / 3600);
 				$CurrentPlanet['crystal']  = min($CristalTheorical, $MaxCristalStorage);
 			}
 			
 			if ($CurrentPlanet['deuterium'] <= $MaxDeuteriumStorage)
 			{
-				$DeuteriumTheorical  = $CurrentPlanet['deuterium'] + ($this->ProductionTime * ($game_config['deuterium_basic_income'] + $CurrentPlanet['deuterium_perhour']) / 3600);
+				$DeuteriumTheorical  = $CurrentPlanet['deuterium'] + ($this->ProductionTime * (($game_config['deuterium_basic_income'] * $game_config['resource_multiplier']) + $CurrentPlanet['deuterium_perhour']) / 3600);
 				$CurrentPlanet['deuterium']  = min($DeuteriumTheorical, $MaxDeuteriumStorage);
 			}
 		}

@@ -57,14 +57,13 @@ class FlyingFleetMissions {
 		$SortFleets = array();
 		foreach ($attackFleets as $FleetID => $Attacker)
 		{
-			foreach ($Attacker['detail'] as $Element => $amount)	
+			foreach($Attacker['detail'] as $Element => $amount)	
 			{
 				$SortFleets[$FleetID]		= $pricelist[$Element]['capacity'] * $amount - $Attacker['fleet']['fleet_resource_metal'] - $Attacker['fleet']['fleet_resource_crystal'] - $Attacker['fleet']['fleet_resource_deuterium'];
 			}
 		}
 		
 		$Sumcapacity  = array_sum($SortFleets);
-				 
 		// Step 1
 		$booty['metal'] = min(($Sumcapacity / 3), ($defenderPlanet['metal'] / 2));
 		$Sumcapacity -= $booty['metal'];
