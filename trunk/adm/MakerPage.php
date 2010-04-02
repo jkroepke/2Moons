@@ -116,7 +116,7 @@ switch ($_GET[page])
 		
 			CreateOnePlanetRecord ($galaxy, $system, $planet, $ID_USER['id'], $UserPlanet, true);
 		
-			$ID_PLANET 	= $db->fetch_array($db->query("SELECT `id` FROM ".USERS." WHERE `id_owner` = '". $ID_USER['id'] ."' LIMIT 1;"));
+			$ID_PLANET 	= $db->fetch_array($db->query("SELECT `id` FROM ".PLANETS." WHERE `id_owner` = '". $ID_USER['id'] ."' LIMIT 1;"));
 		
 			$db->query("UPDATE ".PLANETS." SET `id_level` = '".$auth."' WHERE `id` = '".$ID_PLANET['id']."'", "planets");
 		

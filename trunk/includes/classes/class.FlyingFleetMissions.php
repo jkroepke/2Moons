@@ -1536,6 +1536,8 @@ class FlyingFleetMissions {
 			$MaterialsInfo    	= self::SpyTarget($TargetPlanet, 0, $lang['sys_spy_maretials'], $FleetRow);
 			$GetSB	    		= $MaterialsInfo['String'];
 			$Array				= $MaterialsInfo['Array'];
+			$Count				= array();
+			
 			if($SpyFleet){
 				$PlanetFleetInfo  = self::SpyTarget($TargetPlanet, 1, $lang['sys_spy_fleet'], $FleetRow);
 				$GetSB     		 .= $PlanetFleetInfo['String'];
@@ -1558,15 +1560,19 @@ class FlyingFleetMissions {
 				$Array			  = $Array + $TargetTechnInfo['Array'];
 			}
 
-			foreach($Array as $ID => $Count)
+			foreach($Array as $ID => $Amount)
 			{
-				$string .= "&amp;im[".$ID."]=".$Count;
+				$string .= "&amp;im[".$ID."]=".$Amount;
 			}
 			
-			$TargetChances = rand(0, max(($LS/4) * ($TargetSpyLvl / $CurrentSpyLvl), 100));
-			$SpyerChances  = rand(0, 100);
-			
-			if ($TargetChances >= $SpyerChances && (!empty($Count['Fleet']) && !empty($Count['Fleet'])))
+			if(array_sum($Count) == 0){
+				$TargetChances	= 0;
+				$SpyerChances	= 1; 
+			} else {
+				$TargetChances 	= rand(0, max(($LS/4) * ($TargetSpyLvl / $CurrentSpyLvl), 100));
+				$SpyerChances  	= rand(0, 100);
+			}
+			if ($TargetChances >= $SpyerChances)
 				$DestProba = $lang['sys_mess_spy_destroyed'];
 			else
 				$DestProba = sprintf( $lang['sys_mess_spy_lostproba'], $TargetChances);
@@ -2909,7 +2915,7 @@ class FlyingFleetMissions {
 		return $HTML;
 	}
 	
-		public static function NewMissionCaseAttack ($FleetRow)
+	public static function NewMissionCaseAttack ($FleetRow)
 	{
 		global $pricelist, $lang, $resource, $CombatCaps, $game_config, $user, $db, $reslist;
 

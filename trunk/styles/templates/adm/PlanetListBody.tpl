@@ -1,16 +1,18 @@
-<script>document.body.style.overflow = "auto";</script> 
-<body>
-<table width="400">
+{show_edit_form}
+<h2>Planetenliste</h2>
+<table width="450">
 <tr>
-	<td class="c" colspan="5">{pl_list}</td>
+	<td class="c" colspan="8">bekannte Planeten</td>
 </tr>
 <tr>
-	<th>{pl_id}</th>
-	<th>{pl_name}</th>
-	<th>{pl_galaxy}</th>
-	<th>{pl_system}</th>
-	<th>{pl_planet}</th>
+	<th>ID</th>
+	<th>Spieler-ID</th>
+	<th>Planetenname</th>
+	<th>Felder</th>
+	<th>davon bebaut</th>
+	<th>Galaxie</th>
+	<th>System</th>
+	<th>Position</th>
 </tr>
-{lista_planetas}
+{planetes}
 </table>
-</body>
