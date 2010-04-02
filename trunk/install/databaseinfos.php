@@ -300,6 +300,7 @@ $QryTablePlanets    .= "`crystal_store` TINYINT(3) unsigned NOT NULL default '0'
 $QryTablePlanets    .= "`deuterium_store` TINYINT(3) unsigned NOT NULL default '0', ";
 $QryTablePlanets    .= "`laboratory` TINYINT(3) unsigned NOT NULL default '0', ";
 $QryTablePlanets    .= "`terraformer` TINYINT(3) unsigned NOT NULL default '0', ";
+$QryTablePlanets    .= "`university` TINYINT(3) unsigned NOT NULL default '0', ";
 $QryTablePlanets    .= "`ally_deposit` TINYINT(3) unsigned NOT NULL default '0', ";
 $QryTablePlanets    .= "`silo` TINYINT(3) unsigned NOT NULL default '0', ";
 $QryTablePlanets    .= "`small_ship_cargo` bigint(11) unsigned NOT NULL default '0', ";
