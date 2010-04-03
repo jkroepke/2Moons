@@ -86,15 +86,6 @@ $EditTable	=
 		<tr>
         	<th ".$onMouseOverIE." class=\"ForIE\"><a href=\"BanPage.php\" target=\"Hauptframe\">".$lang['mu_ban_options']."</a></th>
     	</tr>
-		<tr>
-        	<th ".$onMouseOverIE." class=\"ForIE\"><a href=\"UserListPage.php\" target=\"Hauptframe\">".$lang['mu_user_list']."</a></th>
-    	</tr>
-		<tr>
-        	<th ".$onMouseOverIE." class=\"ForIE\"><a href=\"PlanetListPage.php\" target=\"Hauptframe\">".$lang['mu_planet_list']."</a></th>
-    	</tr>
-		<tr>
-        	<th ".$onMouseOverIE." class=\"ForIE\"><a href=\"MoonListPage.php\" target=\"Hauptframe\">".$lang['mu_moon_list']."</a></th>
-    	</tr>
 		</table>";
 		
 $ViewTable	=
