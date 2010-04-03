@@ -11,12 +11,12 @@
 # * @author BigSmoke                                                         #
 # * @author PeterPan                                                         #
 # * @author ShadoX                                                           #
-# *	                                                                     #
+# *	                                                                         #
 # *  This program is free software: you can redistribute it and/or modify    #
 # *  it under the terms of the GNU General Public License as published by    #
 # *  the Free Software Foundation, either version 3 of the License, or       #
 # *  (at your option) any later version.                                     #
-# *	                                                                     #
+# *	                                                                         #
 # *  This program is distributed in the hope that it will be useful,         #
 # *  but WITHOUT ANY WARRANTY; without even the implied warranty of          #
 # *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the           #
@@ -25,14 +25,14 @@
 ##############################################################################
 
 //---------------	GENERAL	------------------------// 
-$lang['404_page']		= 'Du hast nicht die nötige Berechtigung dazu';
+$lang['404_page']			= 'Du hast nicht die nötige Berechtigung dazu';
 $lang['adm_cp_title']		= 'Administrationszentrum';
 $lang['adm_cp_index']		= 'Startseite';
 $lang['mu_moderation_page']	= 'Rechte';
 $lang['adm_cp_logout']		= 'Verlassen';
 
 //	MISCEL�NEO - MISCELLANEOUS
-$lang['ad_number']		= 'Nr';
+$lang['ad_number']			= 'Nr';
 $lang['only_numbers']		= 'Du kannst nur Zahlen eingeben!';
 $lang['select_option']		= 'Wähle...';
 
@@ -61,7 +61,7 @@ $lang['one_is_no'][0]	= 'Ja';
 
 //---------------	BOTONES - BUTTONS - BUTTONS	------------------------// 
 $lang['button_submit']		= 'Senden';
-$lang['button_add']		= 'Hinzufügen';
+$lang['button_add']			= 'Hinzufügen';
 $lang['button_delete']		= 'Löschen';
 $lang['button_filter']		= 'Filter';
 $lang['button_deselect']	= 'Auswahl Entfernen';
@@ -102,24 +102,24 @@ $lang['officiers_title']	= 'Offiziere';
 
 //---------------	CONSULTAS SQL - SQL QUERIES	------------------------//
 $lang['qe_title_menu']	        = 'SQL queries';
-$lang['qe_execute']		= 'SQL Queries Execute';
-$lang['qe_succes']		= 'Erfolgreich ausgeführt';
-$lang['qe_note']		= 'Mehre Abfragen müssen durch ein Semikolon \';\' getrennt werden!s';
+$lang['qe_execute']				= 'SQL Queries Execute';
+$lang['qe_succes']				= 'Erfolgreich ausgeführt';
+$lang['qe_note']				= 'Mehre Abfragen müssen durch ein Semikolon \';\' getrennt werden!s';
 //###########################################################//
 
 
 //---------------	EDITOR	------------------------//
 // GLOBAL - MENU - MENÜ
-$lang['ad_forgiven_id']		= 'Du musst eine ID eingeben!';
-$lang['ad_back_to_menu']	= 'Zurück zum Hauptmenü';
-$lang['ad_editor_title']	= 'Account Editor';
+$lang['ad_forgiven_id']			= 'Du musst eine ID eingeben!';
+$lang['ad_back_to_menu']		= 'Zurück zum Hauptmenü';
+$lang['ad_editor_title']		= 'Account Editor';
 $lang['ad_editor_buildings']	= 'Gebäude';
-$lang['ad_editor_ships']	= 'Schiffe';
-$lang['ad_editor_defenses']	= 'Verteidigung';
+$lang['ad_editor_ships']		= 'Schiffe';
+$lang['ad_editor_defenses']		= 'Verteidigung';
 $lang['ad_editor_researchs']	= 'Forschung';
 $lang['ad_editor_officiers']	= 'Offiziere';
-$lang['ad_editor_personal']	= 'Persönliche Daten';
-$lang['ad_editor_planets']	= 'Planeten & Monde';
+$lang['ad_editor_personal']		= 'Persönliche Daten';
+$lang['ad_editor_planets']		= 'Planeten & Monde';
 $lang['ad_editor_resources']	= 'Rohstoffe';
 $lang['ad_editor_alliances']	= 'Allianz';
 $lang['ad_editor_authlevels']	= 'verwalte Rechte';
@@ -306,34 +306,34 @@ $lang['ma_none']			= 'Globale Nachrichten';
 
 
 //---------------	BASE DE DATOS - DATA BASES - Data Bases	------------------------//
-$lang['od_not_opt']			= 'Fehler!';
-$lang['od_not_check']		        = 'Fehler!';
-$lang['od_opt']				= 'Optimiert!';
-$lang['od_rep']				= 'Fix!';
+$lang['od_not_opt']				= 'Fehler!';
+$lang['od_not_check']		    = 'Fehler!';
+$lang['od_opt']					= 'Optimiert!';
+$lang['od_rep']					= 'Fix!';
 $lang['od_check_ok']			= 'Tabelle in Ordnung!';
-$lang['od_opt_db']			= 'Datenbank';
+$lang['od_opt_db']				= 'Datenbank';
 $lang['od_optimize']			= 'Optimieren';
-$lang['od_repair']			= 'Reparieren';
-$lang['od_check']			= 'Überprüfen';
+$lang['od_repair']				= 'Reparieren';
+$lang['od_check']				= 'Überprüfen';
 $lang['od_select_action']		= 'Auswählen';
 //###########################################################//
 
 
 //---------------	P�GINA DE INICIO - OVERVIEW	------------------------//
-$lang['ow_title']				= 'Willkommen zu 2Moons';
+$lang['ow_title']					= 'Willkommen zu 2Moons';
 $lang['ow_welcome_text']			= 'Herzlich Willkommen zum allseits beliebten 2Moons. (:';
 $lang['ow_overview']				= 'Kontrollzentrum';
-$lang['ow_support']				= 'Support';
-$lang['ow_credits']				= 'Credits';
-$lang['ow_forum']				= 'Forum';
+$lang['ow_support']					= 'Support';
+$lang['ow_credits']					= 'Credits';
+$lang['ow_forum']					= 'Forum';
 $lang['ow_proyect_leader']			= 'Projektleitung';
-$lang['ow_principal_contributors']		= 'Principal contributors';
+$lang['ow_translator']				= 'Übersetzter';
 $lang['ow_special_thanks']			= 'Besonderes Dankeschön';
-$lang['ow_install_file_detected']		= 'Das ./install/ Verzeichnis wurde gefunden. Bitte dies umbennen oder löschen, damit ihr Game geschützt ist.';
-$lang['ow_config_file_writable']		= 'Die config.php ist beschreibabr. Ändere bitte die config.php bitte in CHMOD 444 (read only).';
+$lang['ow_install_file_detected']	= 'Das ./install/ Verzeichnis wurde gefunden. Bitte dies umbennen oder löschen, damit ihr Game geschützt ist.';
+$lang['ow_config_file_writable']	= 'Die config.php ist beschreibabr. Ändere bitte die config.php bitte in CHMOD 444 (read only).';
 $lang['ow_database_errors']			= 'Es sind Fehler vorhanden!';
 $lang['ow_old_version']				= 'Eine neue Version ist verfügbar.';
-$lang['ow_none']				= 'Keine Warnungen';
+$lang['ow_none']					= 'Keine Warnungen';
 //###########################################################//
 
 
@@ -419,41 +419,41 @@ $lang['se_ftp_dir_info']				= 'Hier ist der Pfad zum Game im FTP-Server gemeint.
 
 //---------------	MODERACI�N - MODERATION	------------------------//
 //	PERMISOS - PERMISSIONS
-$lang['mod_title']				= 'Admin powers';
-$lang['mod_range']				= 'Rank';
-$lang['mod_power_view']				= 'Power of observation';
-$lang['mod_power_edit']				= 'Edit power';
-$lang['mod_power_config']			= 'Power game setup';
-$lang['mod_power_tools']			= 'Power to manipulate tools';
-$lang['mod_power_loog']				= 'Your panel moves wiil be save in the history';
+$lang['mod_title']					= 'Admin powers';
+$lang['mod_range']					= 'Rank';
+$lang['mod_power_view']				= 'Spielerwerte einsehen';
+$lang['mod_power_edit']				= 'Spielerwerte ändern';
+$lang['mod_power_config']			= 'Kofiguration am Game';
+$lang['mod_power_tools']			= 'Darf Tools nutzten(Glob. Nachrichten versenden)';
+$lang['mod_power_loog']				= 'Aktionen loggen.';
 
 //	NIVELES DE AUTORIDAD - AUTHLEVELS
-$lang['ad_authlevel_title']		= 'Ranks';
-$lang['ad_authlevel_name']		= 'Name';
-$lang['ad_authlevel_auth']		= 'Rank';
-$lang['ad_authlevel_succes']		= 'Status changed succesfully';
-$lang['ad_authlevel_error']		= 'You already have that range!';
-$lang['ad_authlevel_error_2']		= 'Enter a user only!';
-$lang['ad_authlevel_error_3']		= 'You can not change the range to the creator of the game!';
-$lang['ad_authlevel_insert_id']		= 'Enter ID manually (Optional)';
-$lang['ad_authlevel_aa']		= '[View Administrators]';
-$lang['ad_authlevel_oo']		= '[View Operators]';
-$lang['ad_authlevel_mm']		= '[View Moderators]';
-$lang['ad_authlevel_jj']		= '[View Players]';
-$lang['ad_authlevel_tt']		= '[View all]';
+$lang['ad_authlevel_title']			= 'Ranks';
+$lang['ad_authlevel_name']			= 'Name';
+$lang['ad_authlevel_auth']			= 'Rank';
+$lang['ad_authlevel_succes']		= 'Rank wurde erfolgreich geändert';
+$lang['ad_authlevel_error']			= 'Du hast bereits den Rank!';
+$lang['ad_authlevel_error_2']		= 'Wähle nur einen Spieler aus!';
+$lang['ad_authlevel_error_3']		= 'Du kannst nicht den Rank von Ersteller ändern!';
+$lang['ad_authlevel_insert_id']		= 'Gebe ID ein (Optional):';
+$lang['ad_authlevel_aa']			= '[Zeige Administratoren]';
+$lang['ad_authlevel_oo']			= '[Zeige Operatoren]';
+$lang['ad_authlevel_mm']			= '[Zeige Moderratoren]';
+$lang['ad_authlevel_jj']			= '[Zeige Spieler]';
+$lang['ad_authlevel_tt']			= '[Zeige Alle]';
 //###########################################################//
 
 
 //---------------	FLOTAS EN VUELO - FLYING FLEETS	------------------------//
 $lang['ff_flying_fleets']		= 'Fleets in flight';
-$lang['ff_ammount']			= 'Quantity';
-$lang['ff_mission']			= 'Mission';
+$lang['ff_ammount']				= 'Quantity';
+$lang['ff_mission']				= 'Mission';
 $lang['ff_beginning']			= 'Start';
-$lang['ff_departure']			= 'From';
+$lang['ff_departure']			= 'Von';
 $lang['ff_departure_hour']		= 'Departure time';
-$lang['ff_objective']			= 'Destiny';
-$lang['ff_arrival']			= 'Objetive';
-$lang['ff_hold_position']		= 'Maintain position';
+$lang['ff_objective']			= 'Ziel';
+$lang['ff_arrival']				= 'Objetive';
+$lang['ff_hold_position']		= 'Haltenposition';
 $lang['ff_arrival_hour']		= 'Arribal time';
 $lang['ff_go_back_now']			= 'Back';
 $lang['ff_delete_succes']		= 'Flight deleted successfully';
@@ -462,14 +462,15 @@ $lang['ff_goback_succes']		= "The flight is now returning to it's original plane
 
 
 //---------------	ACTUALIZACI�N DE ESTADISTICAS - UPDATE STATS	------------------------//
-$lang['sb_top_memory']			= 'Peak memory: %p KB / m�x. %m KB <br>';
-$lang['sb_final_memory']		= 'Memory consumed at the end: %e KB / m�x. %m KB<br>';
-$lang['sb_start_memory']		= 'Memory consumed at the beginning: %i KB / m�x. %m KB<br>';
-$lang['sb_stats_update']		= 'Stats updated in: %t seconds<br>';
+$lang['sb_top_memory']			= 'Peak Memory: %p KB / max. %m KB <br>';
+$lang['sb_final_memory']		= 'Speiecherauslastung beim Ende: %e KB / max. %m KB<br>';
+$lang['sb_start_memory']		= 'Speiecherauslastung beim Start: %i KB / max. %m KB<br>';
+$lang['sb_stats_update']		= 'Statistiken Laufzeit: %t Sekunden<br>';
 $lang['sb_users_per_block']		= 'Number of users per block: %n<br>';
-$lang['sb_using_fleet_array']		= 'Using array of fleets in flight<br>';
-$lang['sb_using_fleet_query']		= 'Using a query to the base of<br> data for the fleet user<br>';
-$lang['sb_stats_updated']		= 'Updated statistics. <br>Resume:<br>';
+$lang['sb_using_fleet_array']	= 'Using array of fleets in flight<br>';
+$lang['sb_using_fleet_query']	= 'Using a query to the base of<br> data for the fleet user<br>';
+$lang['sb_stats_updated']		= 'Statistiken Update ausgeführt! <br>Details:<br>';
+$lang['sb_sql_counts']			= 'SQL Abfrage: %d';
 //###########################################################//
 
 
@@ -479,63 +480,63 @@ $lang['ul_sure_you_want_dlte']	= 'Are you sure that you want to remove?';
 
 
 //---------------	MENU	------------------------//
-$lang['mu_general']				= 'General';
+$lang['mu_general']					= 'General';
 $lang['mu_connected']				= 'Online';
 $lang['mu_settings']				= 'Konfigration';
 $lang['mu_global_message']			= 'Globale Nachrichten';
 $lang['mu_users_settings']			= 'Menü Bearbeiten';
-$lang['mu_add_delete_resources']		= 'Account Editor';
+$lang['mu_add_delete_resources']	= 'Account Editor';
 $lang['mu_stats_options']			= 'Statistik Options';
 $lang['mu_manage_users']			= 'User Verwalten';
-$lang['mu_ban_options']				= 'Ban Option';
-$lang['mu_moon_options']			= 'Monde Option';
-$lang['mu_observation']				= 'Observation';
-$lang['mu_flying_fleets']			= 'Flotte im Fliegen';
-$lang['mu_user_list']				= 'SpielerListe';
-$lang['mu_moon_list']				= 'Liste von den Monde';
-$lang['mu_mess_list']				= 'NachrichtenListe';
-$lang['mu_planet_list']				= 'Liste von den Planeten';
+$lang['mu_ban_options']				= 'Ban-Panel';
+$lang['mu_moon_options']			= 'Mond Verwaltung';
+$lang['mu_observation']				= 'Überwachung';
+$lang['mu_flying_fleets']			= 'Fliegende Flotten';
+$lang['mu_user_list']				= 'Spielerliste';
+$lang['mu_moon_list']				= 'Mondliste';
+$lang['mu_mess_list']				= 'Nachrichtenliste';
+$lang['mu_planet_list']				= 'Planetenliste';
 $lang['mu_error_list']				= 'DB Fehler';
 $lang['mu_active_planets']			= 'Aktive Planeten';
-$lang['mu_tools']				= 'Tools';
+$lang['mu_tools']					= 'Tools';
 $lang['mu_md5_encripter']			= 'MD5 Generator';
-$lang['mu_optimize_db']				= 'DatenBank';
-$lang['mu_manual_points_update']		= 'Manual Update Points';
-$lang['mu_mpu_confirmation']			= 'The points update is automatic, anyway you can do it manually if you wish by clicking Continue...';
-$lang['mu_search_page']				= 'Advanced Search';
-$lang['mu_info_account_page']			= 'Account Information';
+$lang['mu_optimize_db']				= 'Datenbank';
+$lang['mu_manual_points_update']	= 'Manual Update Points';
+$lang['mu_mpu_confirmation']		= 'Die Punkte werden automatisch aktualisiert. Um sie manuell zu aktualisieren, klicke OK';
+$lang['mu_search_page']				= 'Erweiterte Suche';
+$lang['mu_info_account_page']		= 'Account Information';
 $lang['mu_planets_options']			= 'Options Planets';
 $lang['mu_user_logs']				= 'Log';
-$lang['mu_support']                 		= 'Support-Tickets';
-$lang['mu_chat']                   		= 'Chat-Admin';
-$lang['mu_lotterie']               		= 'Lotterie';
-$lang['mu_module']                  		= 'Module';
-$lang['mu_update']                  		= 'Game-Updates';
+$lang['mu_support']                 = 'Support-Tickets';
+$lang['mu_chat']                   	= 'Chat-Admin';
+$lang['mu_lotterie']               	= 'Lotterie';
+$lang['mu_module']                 	= 'Module';
+$lang['mu_update']                 	= 'Game-Updates';
 $lang['mu_ts_options'] 				= 'Teamspeak Optionen';
 $lang['mu_game_info'] 				= 'Informationen';
-
+$lang['mu_vaild_users']				= 'Aktivire User'; 
 //###########################################################//
 
 
 //---------------	REINICIO DE UNIVERSO - RESET UNIVERSE	------------------------//
 $lang['re_reset_universe']					= 'Reset Universum';
-$lang['re_reset_universe_confirmation']				= 'By clicking OK, resume at the requested options to zero. This operation can not be reversed, and it is your responsibility to make a backup database. If you restart the entire universe accounts will not be deleted.';
-$lang['re_defenses_and_ships']					= 'Hangar Defenses';
+$lang['re_reset_universe_confirmation']		= 'By clicking OK, resume at the requested options to zero. This operation can not be reversed, and it is your responsibility to make a backup database. If you restart the entire universe accounts will not be deleted.';
+$lang['re_defenses_and_ships']				= 'Schiffe und Verteidigung';
 $lang['re_defenses']						= 'Reset Verteidigungen';
-$lang['re_ships']						= 'Reset Schiffe';
-$lang['re_reset_hangar']					= 'Reset queue hangar ande defense';
+$lang['re_ships']							= 'Reset Schiffe';
+$lang['re_reset_hangar']					= 'Reset Schiffs- und Verteidigungsbauschleife';
 $lang['re_buldings']						= 'Gebäude';
-$lang['re_buildings_pl']					= 'Reset planetary buildings';
+$lang['re_buildings_pl']					= 'Reset Gebäude';
 $lang['re_buildings_lu']					= 'Reset Mondgebäude';
-$lang['re_reset_buldings']					= 'Reset queue Gebäude';
+$lang['re_reset_buldings']					= 'Reset Gebäudebauschleife';
 $lang['re_inve_ofis']						= 'Forschungen and Offiziere';
-$lang['re_ofici']						= 'Reset Offiziere';
+$lang['re_ofici']							= 'Reset Offiziere';
 $lang['re_investigations']					= 'Reset Forschung';
-$lang['re_reset_invest']					= 'Reset queue Forschung';
+$lang['re_reset_invest']					= 'Reset Forschungsbauschleife';
 $lang['re_resources']						= 'Rohstoffe';
 $lang['re_resources_dark']					= 'Reset Dunkle Materie';
-$lang['re_resources_met_cry']					= 'Reset Metall, Kristall, Deuterium';
-$lang['re_general']						= 'General';
+$lang['re_resources_met_cry']				= 'Reset Rohstoffe';
+$lang['re_general']							= 'General';
 $lang['re_reset_moons']						= 'Reset Monde';
 $lang['re_reset_notes']						= 'Reset Notizen';
 $lang['re_reset_rw']						= 'Reset Kampfberichte';
@@ -543,10 +544,10 @@ $lang['re_reset_buddies']					= 'Reset Buddyliste';
 $lang['re_reset_allys']						= 'Reset Allianzen';
 $lang['re_reset_fleets']					= 'Reset Flotten';
 $lang['re_reset_errors']					= 'Reset Fehlerlisten';
-$lang['re_reset_banned']					= 'Reset suspenden';
+$lang['re_reset_banned']					= 'Reset Bans';
 $lang['re_reset_messages']					= 'Reset Nachrichten';
-$lang['re_reset_statpoints']					= 'Reset Statistiken';
-$lang['re_reset_all']						= 'Reset ALL the universe';
+$lang['re_reset_statpoints']				= 'Reset Statistiken';
+$lang['re_reset_all']						= 'Reset Universum';
 $lang['re_reset_h1']						= 'Reset options';
 $lang['re_reset_excess']					= 'Options restarted successfully';
 //###########################################################//

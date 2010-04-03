@@ -106,7 +106,7 @@ if ($user['authlevel'] != 3) die();
 					foreach($RevInfo['del'] as $File)
 					{
 						if (strpos($File, '.') !== false) {
-							$TodoDelete	.= str_replace("/trunk/", "", $File);
+							$TodoDelete	.= str_replace("/trunk/", "", $File)."\r\n";
 						}
 					}
 				}
@@ -114,7 +114,7 @@ if ($user['authlevel'] != 3) die();
 			}	
 			
 			if(!empty($TodoDelete))
-				$zipfile->addFile(file_get_contents($SVN_ROOT.$File), "!TodoDelete!.txt", $RevInfo['timestamp']);
+				$zipfile->addFile($TodoDelete, "!TodoDelete!.txt", $RevInfo['timestamp']);
 			
 			update_config('VERSION', str_replace("RC","",$Patchlevel[0]).".".$Patchlevel[1].".".$LastRev);
 			// Header für Download senden
