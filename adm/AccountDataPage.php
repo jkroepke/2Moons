@@ -27,7 +27,7 @@ define('IN_ADMIN', true);
 define('ROOT_PATH', './../');
 include(ROOT_PATH . 'extension.inc');
 include(ROOT_PATH . 'common.'.PHP_EXT);
-include('AdminFunctions/Autorization.' . PHP_EXT);
+
 
 if ($Observation != 1) die(message ($lang['404_page']));
 
@@ -340,6 +340,7 @@ $OnlyQueryLogin 	= 	$db->fetch_array($db->query("SELECT `id`, `authlevel` FROM "
 						<th>".pretty_number($PlanetsWhile['diameter'])."</th>
 						<th>".pretty_number($PlanetsWhile['field_current'])."/".pretty_number($PlanetsWhile['field_max'])."</th>
 						<th>".pretty_number($PlanetsWhile['temp_min'])."/".pretty_number($PlanetsWhile['temp_max'])."</th>
+						<th><a href=\"javascript:openEdit('".$PlanetsWhile['id']."', 'planet');\" border=\"0\"><img src=\"../styles/images/Adm/GO.png\" title=".$lang['se_search_edit']."></a></th>
 					</tr>";
 					
 					

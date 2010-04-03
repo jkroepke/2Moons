@@ -54,5 +54,20 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 		$db->multi_query($sql);
 		update_config("users_amount", $game_config['users_amount'] - 1);
 	}
+   
+	function DeleteSelectedPlanet ($ID)
+	{
+		global $lang, $db;
 
+		$QueryPlanet = $db->fetch_array($db->query("SELECT galaxy,planet,system,planet_type FROM ".PLANETS." WHERE id = '".$ID."';"));
+
+		if ($QueryPlanet['planet_type'] == '3')
+		{
+			$db->multi_query("DELETE FROM ".PLANETS." WHERE id = '".$ID."';UPDATE ".PLANETS." SET id_luna = 0 WHERE id_luna = '".$ID."';");
+		}
+		else
+		{
+			$db->query("DELETE FROM ".PLANETS." WHERE galaxy = '".$QueryPlanet['galaxy']."' AND system = '".$QueryPlanet['system']."' AND planet = '".$QueryPlanet['planet']."';");
+		}
+	}
 ?>

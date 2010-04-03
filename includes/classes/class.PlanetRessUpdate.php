@@ -163,7 +163,6 @@ class ResourceUpdate
 		$QryUpdatePlanet .= "WHERE ";
 		$QryUpdatePlanet .= "`id` = '".$CurrentUser['id']."';";
 		$db->multi_query($QryUpdatePlanet);
-		echo $this->debug;
 	}
 }
 ?>

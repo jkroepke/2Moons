@@ -9,13 +9,14 @@
  * @copyright 2010 - 2011 Green (green.berwyn@gmail.com)
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  */
- interface mod_pl{
+interface mod_pl{
     
     public function install();
     public function exec();
     public function end();
     public function pre_exec();
  }
+ 
  class modPl{
     private $hooks;
     private $root = '../';
@@ -25,7 +26,7 @@
     private $ruotes;
     protected $pconf;
     
-    function __construct(){
+    function construct(){
         global $xgp_root;
         
         // Ruta
@@ -424,6 +425,5 @@
 			includeLang('plugins/'.$archive);          
       }
     
- }
-
+ } 
 ?> 

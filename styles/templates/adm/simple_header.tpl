@@ -25,6 +25,10 @@ function useropen(target_url) {
 	userlist.focus();
 }
 
+function openEdit(id, type) {
+	var editlist = window.open("QuickEditor.php?edit="+type+"&id="+id, "edit", "scrollbars=yes,statusbar=no,toolbar=no,location=no,directories=no,resizable=no,menubar=no,width=850,height=600,screenX="+((xsize-600)/2)+",screenY="+((ysize-850)/2)+",top="+((ysize-600)/2)+",left="+((xsize-850)/2));
+	editlist.focus();
+}
 </script> 
 {meta}
 </head>

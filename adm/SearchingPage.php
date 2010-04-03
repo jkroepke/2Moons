@@ -27,7 +27,7 @@ define('IN_ADMIN', true);
 define('ROOT_PATH', './../');
 include(ROOT_PATH . 'extension.inc');
 include(ROOT_PATH . 'common.'.PHP_EXT);
-include('AdminFunctions/Autorization.' . PHP_EXT);
+
 
 if ($Observation != 1) die(message ($lang['404_page']));
 
@@ -190,7 +190,7 @@ function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialS
 			if ($Table == "planets"){
 			
 				if ($EditUsers == '1')
-					$Search['LIST']	.=	"<th><a href=\"AccountEditorPage.php\" border=\"0\"><img src=\"../styles/images/Adm/GO.png\" title=".$lang['se_search_edit']."></a></th>";
+					$Search['LIST']	.=	"<th><a href=\"javascript:openEdit('".$WhileResult[0]."', 'planet');\" border=\"0\"><img src=\"../styles/images/Adm/GO.png\" title=".$lang['se_search_edit']."></a></th>";
 					
 				if ($user['authlevel'] == '3')
 					$Search['LIST']	.=	"<th><a href=\"SearchingPage.php?delete=planet&planet=".$WhileResult[0]."\" border=\"0\" onclick=\"return confirm('".$lang['se_confirm_planet']." $WhileResult[1]');\"><img src=\"../styles/images/r1.png\" title=".$lang['button_delete']."></a></th>";
