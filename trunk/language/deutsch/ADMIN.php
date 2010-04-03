@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 ##############################################################################
 # *                                                                          #
@@ -992,6 +992,26 @@ $lang['log_searchindb_admin']			= 'Administratoren';
 $lang['log_searchindb_inac']			= 'Inaktiv';
 $lang['log_search_advert_popup']		= 'To activate / deactivate history do so from the Permissions section. Click to go to the permissions panel.';
 //###########################################################//
+
+// QuickEditor
+
+$lang['qe_send']						= 'Absenden';
+$lang['qe_reset']						= 'Zurücksetzten';
+$lang['qe_build']						= 'Gebäude';
+$lang['qe_fleet']						= 'Flotte';
+$lang['qe_defensive']					= 'Verteigung';
+$lang['qe_resources']					= 'Rohstoffe';
+$lang['qe_id']							= 'ID';
+$lang['qe_name']						= 'Name';
+$lang['qe_count']						= 'Vorhanden';
+$lang['qe_input']						= 'Eingabe';
+$lang['qe_edit_sucess']					= 'Planet %s [%d:%d:%d] erfolgreich bearbeitet!';
+$lang['qe_info']						= 'Informationen';
+$lang['qe_owner']						= 'Besitzter';
+$lang['qe_fields']						= 'Felder';
+$lang['qe_coords']						= 'Koordinaten';
+$lang['qe_temp']						= 'Temperatur';
+
 
 
 //----------------------------------------------------------------------------//

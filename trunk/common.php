@@ -59,7 +59,7 @@ isBuggyIe() || ob_start("ob_gzhandler");
 set_error_handler('msg_handler', E_ALL);
 
 if(function_exists('ini_set')) {
-	ini_set('display_errors', 'on');
+	ini_set('display_errors', "on"); 
 	ini_set('register_globals', "off");
 	ini_set('register_long_arrays', "off");
 	#ini_set('precision', 30);
@@ -135,6 +135,7 @@ if (INSTALL != true)
 			
 			if (defined('IN_ADMIN'))
 			{
+				require_once('AdminFunctions/Autorization.' . PHP_EXT);
 				includeLang('ADMIN');
 				$dpath     = "../". DEFAULT_SKINPATH;
 				
@@ -154,6 +155,7 @@ if (INSTALL != true)
 				$db->query("UPDATE ".USERS." SET `current_planet` = `id_planet` WHERE `id` = '". $user['id'] ."' LIMIT 1");
 				exit(header("Location: game.php?page=overview"));
 			}
+				
 			// Some Darkmatter Update after FleetMissions
 			$user['darkmatter'] = $planetrow['darkmatter'];
 			$user['new_message'] = $planetrow['new_message'];

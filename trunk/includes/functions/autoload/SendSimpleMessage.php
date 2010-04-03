@@ -24,7 +24,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 	function SendSimpleMessage ( $Owner, $Sender, $Time, $Type, $From, $Subject, $Message)
 	{
 		global $db;
-		if ($Time == '')
+		if (empty($Time))
 			$Time = time();
 
 		$QryInsertMessage  = "INSERT INTO ".MESSAGES." SET ";
@@ -32,13 +32,16 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 		$QryInsertMessage .= "`message_sender` = '". $Sender ."', ";
 		$QryInsertMessage .= "`message_time` = '" . $Time . "', ";
 		$QryInsertMessage .= "`message_type` = '". $Type ."', ";
-		$QryInsertMessage .= "`message_from` = '". addslashes( $From ) ."', ";
+		$QryInsertMessage .= "`message_from` = '". $db->sql_escape($From) ."', ";
 		$QryInsertMessage .= "`message_subject` = '". $db->sql_escape($Subject) ."', ";
 		$QryInsertMessage .= "`message_text` = '". $db->sql_escape($Message) ."';";
 		$QryInsertMessage .= "UPDATE `".USERS."` SET ";
 		$QryInsertMessage .= "`new_message` = `new_message` + 1 ";
-		$QryInsertMessage .= "WHERE ";
-		$QryInsertMessage .= "`id` = '". $Owner ."';";
+		if($Owner == 0)
+			$QryInsertMessage .= ";";
+		else
+			$QryInsertMessage .= "WHERE  `id` = '". $Owner ."';";
+		
 		$db->multi_query($QryInsertMessage);
 	}
 

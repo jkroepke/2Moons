@@ -143,7 +143,7 @@ class DB_mysqli
 	 */
 	public function fetch_array($result)
 	{
-		return $result->fetch_array(MYSQLI_ASSOC);
+		return is_object($result) ? $result->fetch_array(MYSQLI_ASSOC) : array();
 	}
 
 	/**
@@ -155,7 +155,7 @@ class DB_mysqli
 	 */
 	public function fetch_num($result)
 	{
-		return $result->fetch_array(MYSQLI_NUM);
+		return is_object($result) ? $result->fetch_array(MYSQLI_NUM) : array();
 	}
 
 	/**

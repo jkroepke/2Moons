@@ -26,7 +26,7 @@ define('IN_ADMIN', true);
 define('ROOT_PATH', './../');
 include(ROOT_PATH . 'extension.inc');
 include(ROOT_PATH . 'common.' . PHP_EXT);
-include('AdminFunctions/Autorization.' . PHP_EXT);
+
 
 if ($user['authlevel'] != 3) die();
 
@@ -65,7 +65,7 @@ if ($user['authlevel'] != 3) die();
 	elseif(isset($Patchlevel[2]))
 		$Level		= $Patchlevel[2];
 	else
-		$Level		= 464;
+		$Level		= 487;
 		
 	$opts = array('http' => array('method'=> "GET", 'header'=> "Patchlevel: ".$Level."\r\n"));
 			
@@ -73,6 +73,60 @@ if ($user['authlevel'] != 3) die();
 	
 	switch($_REQUEST['action'])
 	{
+		case "download":
+			require_once(ROOT_PATH.'includes/libs/zip/zip.lib.'.PHP_EXT);
+			$UpdateArray 	= unserialize(file_get_contents("http://update.jango-online.de/index.php?action=getupdate",FALSE,$context));
+			if(!is_array($UpdateArray['revs']))
+				exitupdate(array('debug' => array('noupdate' => "Kein Update vorhanden!")));
+				
+			$SVN_ROOT		= $UpdateArray['info']['svn'];
+			
+			$zipfile 	= new zipfile();
+			$TodoDelete	= "";
+			foreach($UpdateArray['revs'] as $Rev => $RevInfo) 
+			{
+				if(!empty($RevInfo['add']))
+				{
+					foreach($RevInfo['add'] as $File)
+					{	
+						if (strpos($File, '.') !== false)
+							$zipfile->addFile(file_get_contents($SVN_ROOT.$File), str_replace("/trunk/", "", $File), $RevInfo['timestamp']);					
+					}
+				}
+				if(!empty($RevInfo['edit']))
+				{
+					foreach($RevInfo['edit'] as $File)
+					{	
+						if (strpos($File, '.') !== false)
+							$zipfile->addFile(file_get_contents($SVN_ROOT.$File), str_replace("/trunk/", "", $File), $RevInfo['timestamp']);
+					}
+				}
+				if(!empty($RevInfo['del']))
+				{
+					foreach($RevInfo['del'] as $File)
+					{
+						if (strpos($File, '.') !== false) {
+							$TodoDelete	.= str_replace("/trunk/", "", $File);
+						}
+					}
+				}
+				$LastRev = $Rev;
+			}	
+			
+			if(!empty($TodoDelete))
+				$zipfile->addFile(file_get_contents($SVN_ROOT.$File), "!TodoDelete!.txt", $RevInfo['timestamp']);
+			
+			update_config('VERSION', str_replace("RC","",$Patchlevel[0]).".".$Patchlevel[1].".".$LastRev);
+			// Header für Download senden
+			header("HTTP/1.1 200 OK");
+			header("Content-Type: application/force-download");
+			header('Content-Disposition: attachment; filename="patch_'.$Level.'_to_'.$LastRev.'.zip"');
+			header("Content-Transfer-Encoding: binary");
+
+			// Zip File senden
+			echo $zipfile->file(); 
+			exit;			
+		break;
 		case "update":
 			require_once(ROOT_PATH.'includes/libs/ftp/ftp.class.'.PHP_EXT);
 			require_once(ROOT_PATH.'includes/libs/ftp/ftpexception.class.'.PHP_EXT);
@@ -124,7 +178,7 @@ if ($user['authlevel'] != 3) die();
 								}
 								fclose($Data);
 							} else {
-								if ($ftp->makeDir(str_replace("/trunk/", "", $File), 0)) {
+								if ($ftp->makeDir(str_replace("/trunk/", "", $File), 1)) {
 									$Result['update'][$Rev][$File]	= "OK! - Updated";
 								} else {
 									$Result['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht hochladen";
@@ -193,13 +247,13 @@ if ($user['authlevel'] != 3) die();
 					foreach($UpdateArray['revs'] as $Rev => $RevInfo) 
 					{
 						if(!(empty($RevInfo['add']) && empty($RevInfo['edit'])) && $Patchlevel[2] < $Rev){
-							$parse['update']	= "<tr><th><a href=\"?action=update\">Update</a></th></tr>";
+							$parse['update']	= "<tr><th><a href=\"?action=update\">Update</a> - <a href=\"?action=download\">Download Patch Files</a></th></tr>";
 							$parse['info']		= "<tr><td class=\"c\" colspan=\"5\">Aktuelle Updates</td></tr>";
 						}
 						$parse['planetes'] .= "<tr>
 						".(($Patchlevel[2] == $Rev)?"<td class=c colspan=5>Momentane Version</td></tr><tr>":((($Patchlevel[2] - 1) == $Rev)?"<td class=c colspan=5>Alte Updates</td></tr><tr>":""))."
 						<td class=c >".(($Patchlevel[2] == $Rev)?"<font color=\"red\">":"")."Revision " . $Rev . " ".date("d. M y H:i:s", $RevInfo['timestamp'])." von ".$RevInfo['author'].(($Patchlevel[2] == $Rev)?"</font>":"")."</td></tr>
-						<tr><th>".$RevInfo['log']."</th></tr>
+						<tr><th>".makebr($RevInfo['log'])."</th></tr>
 						".((!empty($RevInfo['add']))?"<tr><td class=b>ADD:<br>".str_replace("/trunk/", "", implode("<br>\n", $RevInfo['add']))."</b></td></tr>":"")."
 						".((!empty($RevInfo['edit']))?"<tr><td class=b>EDIT:<br>".str_replace("/trunk/", "", implode("<br>\n", $RevInfo['edit']))."</b></td></tr>":"")."
 						".((!empty($RevInfo['del']))?"<tr><td class=b>DEL:<br>".str_replace("/trunk/", "", implode("<br>\n", $RevInfo['del']))."</b></td></tr>":"")."

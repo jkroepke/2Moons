@@ -27,7 +27,7 @@ define('IN_ADMIN', true);
 define('ROOT_PATH', './../');
 include(ROOT_PATH . 'extension.inc');
 include(ROOT_PATH . 'common.'.PHP_EXT);
-include('AdminFunctions/Autorization.' . PHP_EXT);
+
 
 if ($user['authlevel'] < 2) die(message ($lang['not_enough_permissions']));
 

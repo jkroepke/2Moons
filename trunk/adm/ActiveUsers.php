@@ -29,7 +29,7 @@ include(ROOT_PATH . 'extension.inc');
 include(ROOT_PATH . 'common.' . PHP_EXT);
 
 
-include('AdminFunctions/Autorization.' . PHP_EXT);
+
 
 if ($EditUsers != 1) die();
 
