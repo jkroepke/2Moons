@@ -122,6 +122,11 @@ function PlanetResourceUpdate( $CurrentUser, &$CurrentPlanet, $UpdateTime, $Simu
 			$CurrentPlanet['deuterium']  = min($DeuteriumTheorical, $MaxDeuteriumStorage);
 		}
 	}
+	
+	$CurrentPlanet['metal']		= max($CurrentPlanet['metal'], 0);
+	$CurrentPlanet['crystal']	= max($CurrentPlanet['crystal'], 0);
+	$CurrentPlanet['deuterium']	= max($CurrentPlanet['deuterium'], 0);
+
 	if ($Simul == false)
 	{
 		$Builded          = HandleElementBuildingQueue ( $CurrentUser, $CurrentPlanet, $ProductionTime );
