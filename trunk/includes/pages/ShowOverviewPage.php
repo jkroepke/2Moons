@@ -58,7 +58,7 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 					$template->message((UTF8_SUPPORT) ? $lang['ov_newname_no_space'] : $lang['ov_newname_alphanum'], "game.php?page=overview&mode=renameplanet",2);
 				else
 				{
-					$db->query("UPDATE ".PLANETS." SET `name` = '".$db->sql_escape($newname)."' WHERE `id` = '". $CurrentUser['current_planet'] . "';");
+					$db->query("UPDATE ".PLANETS." SET `name` = '".$db->sql_escape($newname)."' WHERE `id` = '". $CurrentUser['current_planet'] . "' LIMIT 1;");
 					header("Location: ./game.".PHP_EXT."?page=overview&mode=renameplanet");
 				}
 			}
@@ -95,7 +95,7 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 					$template->message($lang['ov_wrong_pass'], 'game.php?page=overview&mode=deleteplanet', 3);
 				else
 				{
-					$db->multi_query("UPDATE ".PLANETS." SET `destruyed` = '".(time()+ 86400)."' WHERE `id` = '".$CurrentUser['current_planet']."';UPDATE ".USERS." SET `current_planet` = `id_planet` WHERE `id` = '".$CurrentUser['id']."';DELETE FROM ".PLANETS." WHERE `id` = '".$CurrentPlanet['id_luna']."';");
+					$db->multi_query("UPDATE ".PLANETS." SET `destruyed` = '".(time()+ 86400)."' WHERE `id` = '".$CurrentUser['current_planet']."' LIMIT 1;UPDATE ".USERS." SET `current_planet` = `id_planet` WHERE `id` = '".$CurrentUser['id']."';DELETE FROM ".PLANETS." WHERE `id` = '".$CurrentPlanet['id_luna']."' LIMIT 1;");
 					$template->message($lang['ov_planet_abandoned'], 'game.php?page=overview', 3);
 				}
 			}

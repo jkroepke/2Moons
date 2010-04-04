@@ -203,7 +203,11 @@ abstract class FleetFunctions
 
 	public static function GetFleetArray($FleetArray)
 	{
-		return unserialize(base64_decode(str_rot13($FleetArray)));
+		$FleetArray	= unserialize(base64_decode(str_rot13($FleetArray)));
+		if(!is_array($FleetArray))
+			self::GotoFleetPage();
+		
+		return $FleetArray;
 	}
 	
 	public static function SetFleetArray($FleetArray)
