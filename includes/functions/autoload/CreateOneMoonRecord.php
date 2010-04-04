@@ -34,7 +34,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 		$QryGetMoonPlanetData .= "`planet` = '". $Planet ."';";
 		$MoonPlanet = $db->fetch_array($db->query ( $QryGetMoonPlanetData));
 
-		if ($MoonPlanet['id_luna'] == 0 && $MoonPlanet['id'] != 0 && $MoonPlanet['planet_type'] == 1)
+		if ($MoonPlanet['id_luna'] == 0 && $MoonPlanet['planet_type'] == 1)
 		{
 			$SizeMin                = round(pow((3 * $Chance)+10,0.5) * 1000);
 			$SizeMax                = round(pow((3 * $Chance)+20,0.5) * 1000);
