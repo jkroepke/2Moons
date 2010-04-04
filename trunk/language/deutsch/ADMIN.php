@@ -32,7 +32,8 @@ $lang['mu_moderation_page']	= 'Rechte';
 $lang['adm_cp_logout']		= 'Verlassen';
 
 //	MISCELÁNEO - MISCELLANEOUS
-$lang['ad_number']			= 'Nr';
+$lang['ad_number']			= 'ID';
+$lang['ad_max']				= '(max. %d)';
 $lang['only_numbers']		= 'Du kannst nur Zahlen eingeben!';
 $lang['select_option']		= 'WÃ¤hle...';
 
@@ -641,7 +642,7 @@ $lang['ac_note_k']						.= '<tr><th width=10%><font color=lime>T</font></th><th>
 $lang['ac_note_k']						.= '<tr><th width=10%><font color=lime>B</font></th><th>Overcome or the same as the billion</th></tr>';
 $lang['ac_note_k']						.= '<tr><th width=10%><font color=lime>M</font></th><th>Overcome or the same as the million</th></tr>';
 $lang['ac_note_k']						.= '<tr><th width=10%><font color=lime>K</font></th><th>Overcome or the same as the thousand</th></tr></table>';
-$lang['ac_leyend']						= '[ Leyend ]';
+$lang['ac_leyend']						= '[ LeyendLeyend ]';
 $lang['ac_no_rank_level']					= 'You do not have sufficient permissions to view information about this user!';
 //###########################################################//
 
