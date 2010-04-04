@@ -26,8 +26,7 @@ interface mod_pl{
     private $ruotes;
     protected $pconf;
     
-    function construct(){
-        global $xgp_root;
+    function __construct(){
         
         // Ruta
         $this->root = ROOT_PATH;
