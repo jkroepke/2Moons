@@ -119,480 +119,214 @@ switch($_GET[page])
 	case'ships':
 		if($_POST)
 		{
-			$id          		= $_POST['id'];
-			$light_hunter       = $_POST['light_hunter'];
-			$heavy_hunter    	= $_POST['heavy_hunter'];
-			$small_ship_cargo	= $_POST['small_ship_cargo'];
-			$big_ship_cargo     = $_POST['big_ship_cargo'];
-			$crusher    		= $_POST['crusher'];
-			$battle_ship        = $_POST['battle_ship'];
-			$colonizer      	= $_POST['colonizer'];
-			$recycler        	= $_POST['recycler'];
-			$spy_sonde       	= $_POST['spy_sonde'];
-			$bomber_ship      	= $_POST['bomber_ship'];
-			$solar_satelit     	= $_POST['solar_satelit'];
-			$destructor       	= $_POST['destructor'];
-			$dearth_star       	= $_POST['dearth_star'];
-			$battleship      	= $_POST['battleship'];
-			$supernova      	= $_POST['supernova'];
-
-
-			if(is_numeric($id) && is_numeric($light_hunter) && is_numeric($heavy_hunter) && is_numeric($small_ship_cargo) && is_numeric($big_ship_cargo) &&
-				is_numeric($crusher) && is_numeric($battle_ship) && is_numeric($colonizer) && is_numeric($recycler) && is_numeric($spy_sonde) &&
-				is_numeric($bomber_ship) && is_numeric($solar_satelit) && is_numeric($destructor) && is_numeric($dearth_star) &&
-				is_numeric($battleship) && is_numeric($supernova))
+			if ($_POST['add'])
 			{
-				if ($_POST['add'])
+				$QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
+				foreach($reslist['fleet'] as $ID)
 				{
-					$QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
-					$QryUpdatePlanet .= "`small_ship_cargo` = `small_ship_cargo` + '". $small_ship_cargo ."', ";
-					$QryUpdatePlanet .= "`battleship` = `battleship` + '". $battleship ."', ";
-					$QryUpdatePlanet .= "`dearth_star` = `dearth_star` + '". $dearth_star ."', ";
-					$QryUpdatePlanet .= "`destructor` = `destructor` + '". $destructor ."', ";
-					$QryUpdatePlanet .= "`solar_satelit` = `solar_satelit` + '". $solar_satelit ."', ";
-					$QryUpdatePlanet .= "`bomber_ship` = `bomber_ship` + '". $bomber_ship ."', ";
-					$QryUpdatePlanet .= "`spy_sonde` = `spy_sonde` + '". $spy_sonde ."', ";
-					$QryUpdatePlanet .= "`recycler` = `recycler` + '". $recycler ."', ";
-					$QryUpdatePlanet .= "`colonizer` = `colonizer` + '". $colonizer ."', ";
-					$QryUpdatePlanet .= "`battle_ship` = `battle_ship` + '". $battle_ship ."', ";
-					$QryUpdatePlanet .= "`crusher` = `crusher` + '". $crusher ."', ";
-					$QryUpdatePlanet .= "`heavy_hunter` = `heavy_hunter` + '". $heavy_hunter ."', ";
-					$QryUpdatePlanet .= "`big_ship_cargo` = `big_ship_cargo` + '". $big_ship_cargo ."', ";
-					$QryUpdatePlanet .= "`supernova` = `supernova` + '". $supernova ."', ";
-					$QryUpdatePlanet .= "`light_hunter` = `light_hunter` + '". $light_hunter ."' ";
-					$QryUpdatePlanet .= "WHERE ";
-					$QryUpdatePlanet .= "`id` = '". $id ."' ";
-					$db->query( $QryUpdatePlanet);
-
-					$Name	=	$lang['log_moree'];
-					$parse['display']	=	'<tr><th colspan="3"><font color=lime>'.$lang['ad_add_sucess_ships'].'</font></th></tr>';
+					$QryUpdate[]	= "`".$resource[$ID]."` = `".$resource[$ID]."` + '".round(abs(request_var($resource[$ID], 0.0)), 0)."'";
 				}
-				elseif ($_POST['delete'])
-				{
-					$QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
-					$QryUpdatePlanet .= "`small_ship_cargo` = `small_ship_cargo` - '". $small_ship_cargo ."', ";
-					$QryUpdatePlanet .= "`battleship` = `battleship` - '". $battleship ."', ";
-					$QryUpdatePlanet .= "`dearth_star` = `dearth_star` - '". $dearth_star ."', ";
-					$QryUpdatePlanet .= "`destructor` = `destructor` - '". $destructor ."', ";
-					$QryUpdatePlanet .= "`solar_satelit` = `solar_satelit` - '". $solar_satelit ."', ";
-					$QryUpdatePlanet .= "`bomber_ship` = `bomber_ship` - '". $bomber_ship ."', ";
-					$QryUpdatePlanet .= "`spy_sonde` = `spy_sonde` - '". $spy_sonde ."', ";
-					$QryUpdatePlanet .= "`recycler` = `recycler` - '". $recycler ."', ";
-					$QryUpdatePlanet .= "`colonizer` = `colonizer` - '". $colonizer ."', ";
-					$QryUpdatePlanet .= "`battle_ship` = `battle_ship` - '". $battle_ship ."', ";
-					$QryUpdatePlanet .= "`crusher` = `crusher` - '". $crusher ."', ";
-					$QryUpdatePlanet .= "`heavy_hunter` = `heavy_hunter` - '". $heavy_hunter ."', ";
-					$QryUpdatePlanet .= "`big_ship_cargo` = `big_ship_cargo` - '". $big_ship_cargo ."', ";
-					$QryUpdatePlanet .= "`supernova` = `supernova` - '". $supernova ."', ";
-					$QryUpdatePlanet .= "`light_hunter` = `light_hunter` - '". $light_hunter ."' ";
-					$QryUpdatePlanet .= "WHERE ";
-					$QryUpdatePlanet .= "`id` = '". $id ."' ";
-					$db->query( $QryUpdatePlanet);
+				$QryUpdatePlanet .= implode(", ", $QryUpdate);
+				$QryUpdatePlanet .= "WHERE ";
+				$QryUpdatePlanet .= "`id` = '".request_var('id', 0)."';";
+				$db->query($QryUpdatePlanet);
 
-					$Name	=	$lang['log_nomoree'];
-					$parse['display']	=	'<tr><th colspan="3"><font color=lime>'.$lang['ad_delete_sucess_ships'].'</font></th></tr>';
-				}
-
-				if ($_POST['add'] || $_POST['delete'])
-				{
-					$Log	.=	"\n".$lang['log_the_user'].$user['username']." ".$Name.":\n";
-					$Log	.=	$lang['small_ship_cargo'].": ".$small_ship_cargo."\n";
-					$Log	.=	$lang['big_ship_cargo'].": ".$big_ship_cargo."\n";
-					$Log	.=	$lang['light_hunter'].": ".$light_hunter."\n";
-					$Log	.=	$lang['heavy_hunter'].": ".$heavy_hunter."\n";
-					$Log	.=	$lang['crusher'].": ".$crusher."\n";
-					$Log	.=	$lang['battle_ship'].": ".$battle_ship."\n";
-					$Log	.=	$lang['colonizer'].": ".$colonizer."\n";
-					$Log	.=	$lang['recycler'].": ".$recycler."\n";
-					$Log	.=	$lang['spy_sonde'].": ".$spy_sonde."\n";
-					$Log	.=	$lang['bomber_ship'].": ".$bomber_ship."\n";
-					$Log	.=	$lang['solar_satelit'].": ".$solar_satelit."\n";
-					$Log	.=	$lang['destructor'].": ".$destructor."\n";
-					$Log	.=	$lang['dearth_star'].": ".$dearth_star."\n";
-					$Log	.=	$lang['battleship'].": ".$battleship."\n";
-					$Log	.=	$lang['supernova'].": ".$supernova."\n";
-					$Log	.=	$lang['log_to_planet'].$id."\n";
-
-					LogFunction($Log, "ShipsLog", $LogCanWork);
-				}
+				$Name	=	$lang['log_moree'];
+				$parse['display']	=	'<tr><th colspan="3"><font color=lime>'.$lang['ad_add_sucess_ships'].'</font></th></tr>';
 			}
-			else
+			elseif ($_POST['delete'])
 			{
-				$parse['display']	=	'<tr><th colspan="3"><font color=red>'.$lang['ad_only_numbers'].'</font></th></tr>';
+				$QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
+				foreach($reslist['fleet'] as $ID)
+				{
+					$QryUpdate[]	= "`".$resource[$ID]."` = `".$resource[$ID]."` - '".round(abs(request_var($resource[$ID], 0.0)), 0)."'";
+				}
+				$QryUpdatePlanet .= implode(", ", $QryUpdate);
+				$QryUpdatePlanet .= "WHERE ";
+				$QryUpdatePlanet .= "`id` = '".request_var('id', 0)."';";
+				$db->query( $QryUpdatePlanet);
+				$Name	=	$lang['log_nomoree'];
+				$parse['display']	=	'<tr><th colspan="3"><font color=lime>'.$lang['ad_delete_sucess_ships'].'</font></th></tr>';
+			}
+
+			if ($_POST['add'] || $_POST['delete'])
+			{
+				$Log	.=	"\r\n".$lang['log_the_user'].$user['username']." ".$Name.":\n";
+				foreach($reslist['fleet'] as $ID)
+				{
+					$Log	.=	$lang['tech'][$ID].": ".round(abs(request_var($resource[$ID], 0.0)), 0)."\r\n";
+				}
+				$Log	.=	$lang['log_to_planet'].$id."\r\n";
+
+				LogFunction($Log, "ShipsLog", $LogCanWork);
 			}
 		}
-
+		$parse['ships']	= "";
+		foreach($reslist['fleet'] as $ID)
+		{
+			$parse['ships']	.= "<tr><th>".$ID."</th><th>".$lang['tech'][$ID]."</th><th><input name=\"".$resource[$ID]."\" type=\"text\" value=\"0\"></th></tr>";
+		}
 		display (parsetemplate(gettemplate("adm/EditorTPL/ShipsBody"), $parse), false, '', true, false);
 	break;
 
 	case'defenses':
-		if ($_POST)
+		if($_POST)
 		{
-			$id          				= $_POST['id'];
-			$misil_launcher       		= $_POST['misil_launcher'];
-			$small_laser    			= $_POST['small_laser'];
-			$big_laser        			= $_POST['big_laser'];
-			$gauss_canyon        		= $_POST['gauss_canyon'];
-			$ionic_canyon    			= $_POST['ionic_canyon'];
-			$buster_canyon        		= $_POST['buster_canyon'];
-			$small_protection_shield	= $_POST['small_protection_shield'];
-			$big_protection_shield      = $_POST['big_protection_shield'];
-			$planet_protector      		= $_POST['planet_protector'];
-			$interceptor_misil       	= $_POST['interceptor_misil'];
-			$interplanetary_misil      	= $_POST['interplanetary_misil'];
-
-			if(is_numeric($id) && is_numeric($misil_launcher) && is_numeric($small_laser) && is_numeric($big_laser) && is_numeric($gauss_canyon) &&
-				is_numeric($ionic_canyon) && is_numeric($buster_canyon) && is_numeric($small_protection_shield) && is_numeric($big_protection_shield) &&
-				is_numeric($interceptor_misil) && is_numeric($interplanetary_misil) && is_numeric($planet_protector))
+			if ($_POST['add'])
 			{
-				if ($_POST['add'])
+				$QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
+				foreach($reslist['defense'] as $ID)
 				{
-					$QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
-					$QryUpdatePlanet .= "`misil_launcher` = `misil_launcher` + '". $misil_launcher ."', ";
-					$QryUpdatePlanet .= "`small_laser` = `small_laser` + '". $small_laser ."', ";
-					$QryUpdatePlanet .= "`big_laser` = `big_laser` + '". $big_laser ."', ";
-					$QryUpdatePlanet .= "`gauss_canyon` = `gauss_canyon` + '". $gauss_canyon ."', ";
-					$QryUpdatePlanet .= "`ionic_canyon` = `ionic_canyon` + '". $ionic_canyon ."', ";
-					$QryUpdatePlanet .= "`buster_canyon` = `buster_canyon` + '". $buster_canyon ."', ";
-					$QryUpdatePlanet .= "`small_protection_shield` = `small_protection_shield` + '". $small_protection_shield ."', ";
-					$QryUpdatePlanet .= "`big_protection_shield` = `big_protection_shield` + '". $big_protection_shield ."', ";
-					$QryUpdatePlanet .= "`planet_protector` = `planet_protector` + '". $planet_protector ."', ";
-					$QryUpdatePlanet .= "`interceptor_misil` = `interceptor_misil` + '". $interceptor_misil ."', ";
-					$QryUpdatePlanet .= "`interplanetary_misil` = `interplanetary_misil` + '". $interplanetary_misil ."' ";
-					$QryUpdatePlanet .= "WHERE ";
-					$QryUpdatePlanet .= "`id` = '". $id ."' ";
-					$db->query( $QryUpdatePlanet);
-
-					$Name	=	$lang['log_moree'];
-					$parse['display']	=	'<tr><th colspan="3"><font color=lime>'.$lang['ad_add_defenses_succes'].'</font></th></tr>';
+					$QryUpdate[]	= "`".$resource[$ID]."` = `".$resource[$ID]."` + '".round(abs(request_var($resource[$ID], 0.0)), 0)."'";
 				}
-				elseif ($_POST['delete'])
-				{
-					$QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
-					$QryUpdatePlanet .= "`misil_launcher` = `misil_launcher` - '". $misil_launcher ."', ";
-					$QryUpdatePlanet .= "`small_laser` = `small_laser` - '". $small_laser ."', ";
-					$QryUpdatePlanet .= "`big_laser` = `big_laser` - '". $big_laser ."', ";
-					$QryUpdatePlanet .= "`gauss_canyon` = `gauss_canyon` - '". $gauss_canyon ."', ";
-					$QryUpdatePlanet .= "`ionic_canyon` = `ionic_canyon` - '". $ionic_canyon ."', ";
-					$QryUpdatePlanet .= "`buster_canyon` = `buster_canyon` - '". $buster_canyon ."', ";
-					$QryUpdatePlanet .= "`small_protection_shield` = `small_protection_shield` - '". $small_protection_shield ."', ";
-					$QryUpdatePlanet .= "`big_protection_shield` = `big_protection_shield` - '". $big_protection_shield ."', ";
-					$QryUpdatePlanet .= "`planet_protector` = `planet_protector` - '". $planet_protector ."', ";
-					$QryUpdatePlanet .= "`interceptor_misil` = `interceptor_misil` - '". $interceptor_misil ."', ";
-					$QryUpdatePlanet .= "`interplanetary_misil` = `interplanetary_misil` - '". $interplanetary_misil ."' ";
-					$QryUpdatePlanet .= "WHERE ";
-					$QryUpdatePlanet .= "`id` = '". $id ."' ";
-					$db->query( $QryUpdatePlanet);
+				$QryUpdatePlanet .= implode(", ", $QryUpdate);
+				$QryUpdatePlanet .= "WHERE ";
+				$QryUpdatePlanet .= "`id` = '".request_var('id', 0)."';";
+				$db->query($QryUpdatePlanet);
 
-					$Name	=	$lang['log_nomoree'];
-					$parse['display']	=	'<tr><th colspan="3"><font color=lime>'.$lang['ad_delete_defenses_succes'].'</font></th></tr>';
-				}
-
-				if ($_POST['add'] || $_POST['delete'])
-				{
-					$Log	.=	"\n".$lang['log_the_user'].$user['username']." ".$Name.":\n";
-					$Log	.=	$lang['misil_launcher'].": ".$misil_launcher."\n";
-					$Log	.=	$lang['small_laser'].": ".$small_laser."\n";
-					$Log	.=	$lang['big_laser'].": ".$big_laser."\n";
-					$Log	.=	$lang['gauss_canyon'].": ".$gauss_canyon."\n";
-					$Log	.=	$lang['ionic_canyon'].": ".$ionic_canyon."\n";
-					$Log	.=	$lang['buster_canyon'].": ".$buster_canyon."\n";
-					$Log	.=	$lang['small_protection_shield'].": ".$small_protection_shield."\n";
-					$Log	.=	$lang['big_protection_shield'].": ".$big_protection_shield."\n";
-					$Log	.=	$lang['planet_protector'].": ".$planet_protector."\n";
-					$Log	.=	$lang['interceptor_misil'].": ".$interceptor_misil."\n";
-					$Log	.=	$lang['interplanetary_misil'].": ".$interplanetary_misil."\n";
-					$Log	.=	$lang['log_to_planet'].$id."\n";
-
-					LogFunction($Log, "DefensesLog", $LogCanWork);
-				}
+				$Name	=	$lang['log_moree'];
+				$parse['display']	=	'<tr><th colspan="3"><font color=lime>'.$lang['ad_add_sucess_ships'].'</font></th></tr>';
 			}
-			else
+			elseif ($_POST['delete'])
 			{
-				$parse['display']	=	'<tr><th colspan="3"><font color=red>'.$lang['ad_only_numbers'].'</font></th></tr>';
+				$QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
+				foreach($reslist['defense'] as $ID)
+				{
+					$QryUpdate[]	= "`".$resource[$ID]."` = `".$resource[$ID]."` - '".round(abs(request_var($resource[$ID], 0.0)), 0)."'";
+				}
+				$QryUpdatePlanet .= implode(", ", $QryUpdate);
+				$QryUpdatePlanet .= "WHERE ";
+				$QryUpdatePlanet .= "`id` = '".request_var('id', 0)."';";
+				$db->query( $QryUpdatePlanet);
+				$Name	=	$lang['log_nomoree'];
+				$parse['display']	=	'<tr><th colspan="3"><font color=lime>'.$lang['ad_delete_sucess_ships'].'</font></th></tr>';
+			}
+
+			if ($_POST['add'] || $_POST['delete'])
+			{
+				$Log	.=	"\r\n".$lang['log_the_user'].$user['username']." ".$Name.":\n";
+				foreach($reslist['defense'] as $ID)
+				{
+					$Log	.=	$lang['tech'][$ID].": ".round(abs(request_var($resource[$ID], 0.0)), 0)."\r\n";
+				}
+				$Log	.=	$lang['log_to_planet'].$id."\r\n";
+
+				LogFunction($Log, "DefensesLog", $LogCanWork);
 			}
 		}
-
+		$parse['defense']	= "";
+		foreach($reslist['defense'] as $ID)
+		{
+			$parse['defense']	.= "<tr><th>".$ID."</th><th>".$lang['tech'][$ID]."</th><th><input name=\"".$resource[$ID]."\" type=\"text\" value=\"0\"></th></tr>";
+		}
 		display (parsetemplate(gettemplate("adm/EditorTPL/DefensesBody"), $parse), false, '', true, false);
 	break;
 
 	case'buildings':
-		if ($_POST)
+		if($_POST)
 		{
-			$id          			= $_POST['id'];
-			$metal_mine       		= $_POST['metal_mine'];
-			$crystal_mine    		= $_POST['crystal_mine'];
-			$deuterium_sintetizer	= $_POST['deuterium_sintetizer'];
-			$solar_plant        	= $_POST['solar_plant'];
-			$fusion_plant    		= $_POST['fusion_plant'];
-			$robot_factory        	= $_POST['robot_factory'];
-			$nano_factory      		= $_POST['nano_factory'];
-			$hangar        			= $_POST['hangar'];
-			$metal_store       		= $_POST['metal_store'];
-			$crystal_store      	= $_POST['crystal_store'];
-			$deuterium_store     	= $_POST['deuterium_store'];
-			$laboratory       		= $_POST['laboratory'];
-			$terraformer       		= $_POST['terraformer'];
-			$ally_deposit      		= $_POST['ally_deposit'];
-			$silo      				= $_POST['silo'];
-			$mondbasis       		= $_POST['mondbasis'];
-			$phalanx      			= $_POST['phalanx'];
-			$sprungtor      		= $_POST['sprungtor'];
-
-			if(is_numeric($id) && is_numeric($metal_mine) && is_numeric($crystal_mine) && is_numeric($deuterium_sintetizer) && is_numeric($solar_plant) &&
-				is_numeric($fusion_plant) && is_numeric($robot_factory) && is_numeric($nano_factory) && is_numeric($hangar) &&
-				is_numeric($metal_store) && is_numeric($crystal_store) && is_numeric($deuterium_store) && is_numeric($laboratory) &&
-				is_numeric($terraformer)&& is_numeric($ally_deposit) && is_numeric($silo) && is_numeric($mondbasis) &&
-				is_numeric($phalanx) && is_numeric($sprungtor))
+			$PlanetData	= $db->fetch_array($db->query("SELECT `planet_type` FROM ".PLANETS." WHERE `id` = '".request_var('id', 0)."';"));
+			if ($_POST['add'])
 			{
-				$QueryFind	=	$db->fetch_array($db->query("SELECT `planet_type` FROM ".PLANETS." WHERE `id` = '".$id."';"));
-
-				if ($_POST['add'])
+				$QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
+				foreach($reslist['allow'][$PlanetData['planet_type']] as $ID)
 				{
-					$QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
-					$QryUpdatePlanet .= "`metal_mine` = `metal_mine` + '". $metal_mine ."', ";
-					$QryUpdatePlanet .= "`crystal_mine` = `crystal_mine` + '". $crystal_mine ."', ";
-					$QryUpdatePlanet .= "`deuterium_sintetizer` = `deuterium_sintetizer` + '". $deuterium_sintetizer ."', ";
-					$QryUpdatePlanet .= "`solar_plant` = `solar_plant` + '". $solar_plant ."', ";
-					$QryUpdatePlanet .= "`fusion_plant` = `fusion_plant` + '". $fusion_plant ."', ";
-					$QryUpdatePlanet .= "`robot_factory` = `robot_factory` + '". $robot_factory ."', ";
-					$QryUpdatePlanet .= "`nano_factory` = `nano_factory` + '". $nano_factory ."', ";
-					$QryUpdatePlanet .= "`hangar` = `hangar` + '". $hangar ."', ";
-					$QryUpdatePlanet .= "`metal_store` = `metal_store` + '". $metal_store ."', ";
-					$QryUpdatePlanet .= "`crystal_store` = `crystal_store` + '". $crystal_store ."', ";
-					$QryUpdatePlanet .= "`deuterium_store` = `deuterium_store` + '". $deuterium_store ."', ";
-					$QryUpdatePlanet .= "`laboratory` = `laboratory` + '". $laboratory ."', ";
-					$QryUpdatePlanet .= "`terraformer` = `terraformer` + '". $terraformer ."', ";
-					$QryUpdatePlanet .= "`ally_deposit` = `ally_deposit` + '". $ally_deposit ."', ";
-					$QryUpdatePlanet .= "`silo` = `silo` + '". $silo ."' ";
-					$QryUpdatePlanet .= "WHERE ";
-					$QryUpdatePlanet .= "`id` = '". $id ."' ";
-					$db->query( $QryUpdatePlanet);
-
-					if ($mondbasis or $phalanx or $sprungtor)
-					{
-						if ($QueryFind['planet_type']	==	'3')
-						{
-							$QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
-							$QryUpdatePlanet .= "`mondbasis` = `mondbasis` + '". $mondbasis ."', ";
-							$QryUpdatePlanet .= "`phalanx` = `phalanx` + '". $phalanx ."', ";
-							$QryUpdatePlanet .= "`sprungtor` = `sprungtor` + '". $sprungtor ."' ";
-							$QryUpdatePlanet .= "WHERE ";
-							$QryUpdatePlanet .= "`id` = '". $id ."' ";
-							$db->query( $QryUpdatePlanet);
-
-							if ($mondbasis > 0)
-							{
-								$Sum	=	$mondbasis * FIELDS_BY_MOONBASIS_LEVEL;
-								$db->query("UPDATE ".PLANETS." SET `field_max` = field_max + '".$Sum."', `field_current` = field_current + '".$mondbasis."'");
-							}
-						}
-						else
-						{
-							$parse['display2']	=	'<tr><th colspan="3"><font color=red>'.$lang['ad_error_moon_only'].'</font></th></tr>';
-						}
-					}
-
-					$Name	=	$lang['log_moree'];
-					$parse['display']	=	'<tr><th colspan="3"><font color=lime>'.$lang['ad_add_succes'].'</font></th></tr>';
+					$QryUpdate[]	= "`".$resource[$ID]."` = `".$resource[$ID]."` + '".round(abs(request_var($resource[$ID], 0.0)), 0)."'";
 				}
-				elseif ($_POST['delete'])
-				{
-					$QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
-					$QryUpdatePlanet .= "`metal_mine` = `metal_mine` - '". $metal_mine ."', ";
-					$QryUpdatePlanet .= "`crystal_mine` = `crystal_mine` - '". $crystal_mine ."', ";
-					$QryUpdatePlanet .= "`deuterium_sintetizer` = `deuterium_sintetizer` - '". $deuterium_sintetizer ."', ";
-					$QryUpdatePlanet .= "`solar_plant` = `solar_plant` - '". $solar_plant ."', ";
-					$QryUpdatePlanet .= "`fusion_plant` = `fusion_plant` - '". $fusion_plant ."', ";
-					$QryUpdatePlanet .= "`robot_factory` = `robot_factory` - '". $robot_factory ."', ";
-					$QryUpdatePlanet .= "`nano_factory` = `nano_factory` - '". $nano_factory ."', ";
-					$QryUpdatePlanet .= "`hangar` = `hangar` - '". $hangar ."', ";
-					$QryUpdatePlanet .= "`metal_store` = `metal_store` - '". $metal_store ."', ";
-					$QryUpdatePlanet .= "`crystal_store` = `crystal_store` - '". $crystal_store ."', ";
-					$QryUpdatePlanet .= "`deuterium_store` = `deuterium_store` - '". $deuterium_store ."', ";
-					$QryUpdatePlanet .= "`laboratory` = `laboratory` - '". $laboratory ."', ";
-					$QryUpdatePlanet .= "`terraformer` = `terraformer` - '". $terraformer ."', ";
-					$QryUpdatePlanet .= "`ally_deposit` = `ally_deposit` - '". $ally_deposit ."', ";
-					$QryUpdatePlanet .= "`silo` = `silo` - '". $silo ."' ";
-					$QryUpdatePlanet .= "WHERE ";
-					$QryUpdatePlanet .= "`id` = '". $id ."' ";
-					$db->query( $QryUpdatePlanet);
+				$QryUpdatePlanet .= implode(", ", $QryUpdate);
+				$QryUpdatePlanet .= "WHERE ";
+				$QryUpdatePlanet .= "`id` = '".request_var('id', 0)."';";
+				$db->query($QryUpdatePlanet);
 
-
-					if ($mondbasis or $phalanx or $sprungtor)
-					{
-						if ($QueryFind['planet_type']	==	'3')
-						{
-							$QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
-							$QryUpdatePlanet .= "`mondbasis` = `mondbasis` - '". $mondbasis ."', ";
-							$QryUpdatePlanet .= "`phalanx` = `phalanx` - '". $phalanx ."', ";
-							$QryUpdatePlanet .= "`sprungtor` = `sprungtor` - '". $sprungtor ."' ";
-							$QryUpdatePlanet .= "WHERE ";
-							$QryUpdatePlanet .= "`id` = '". $id ."' ";
-							$db->query( $QryUpdatePlanet);
-
-							if ($mondbasis > 0)
-							{
-								$Sum	=	$mondbasis * FIELDS_BY_MOONBASIS_LEVEL;
-								$db->query("UPDATE ".PLANETS." SET `field_max` = field_max - '".$Sum."', `field_current` = field_current - '".$mondbasis."';");
-							}
-						}
-						else
-						{
-							$parse['display2']	=	'<tr><th colspan="3"><font color=red>'.$lang['ad_error_moon_only'].'</font></th></tr>';
-						}
-					}
-
-					$Name	=	$lang['log_nomoree'];
-					$parse['display']	=	'<tr><th colspan="3"><font color=lime>'.$lang['ad_delete_succes'].'</font></th></tr>';
-				}
-
-
-				if ($_POST['add'] || $_POST['delete'])
-				{
-					$Log	.=	"\n".$lang['log_the_user'].$user['username']." ".$Name.":\n";
-					$Log	.=	$lang['metal_mine'].": ".$metal_mine."\n";
-					$Log	.=	$lang['crystal_mine'].": ".$crystal_mine."\n";
-					$Log	.=	$lang['deuterium_sintetizer'].": ".$deuterium_sintetizer."\n";
-					$Log	.=	$lang['solar_plant'].": ".$solar_plant."\n";
-					$Log	.=	$lang['fusion_plant'].": ".$fusion_plant."\n";
-					$Log	.=	$lang['robot_factory'].": ".$robot_factory."\n";
-					$Log	.=	$lang['nano_factory'].": ".$nano_factory."\n";
-					$Log	.=	$lang['shipyard'].": ".$hangar."\n";
-					$Log	.=	$lang['metal_store'].": ".$metal_store."\n";
-					$Log	.=	$lang['crystal_store'].": ".$crystal_store."\n";
-					$Log	.=	$lang['deuterium_store'].": ".$deuterium_store."\n";
-					$Log	.=	$lang['laboratory'].": ".$laboratory."\n";
-					$Log	.=	$lang['terraformer'].": ".$terraformer."\n";
-					$Log	.=	$lang['ally_deposit'].": ".$ally_deposit."\n";
-					$Log	.=	$lang['silo'].": ".$silo."\n";
-					$Log	.=	$lang['moonbases'].": ".$mondbasis."\n";
-					$Log	.=	$lang['phalanx'].": ".$phalanx."\n";
-					$Log	.=	$lang['cuantic'].": ".$sprungtor."\n";
-					$Log	.=	$lang['log_to_planet'].$id."\n";
-
-					LogFunction($Log, "BuildingsLog", $LogCanWork);
-				}
+				$Name	=	$lang['log_moree'];
+				$parse['display']	=	'<tr><th colspan="3"><font color=lime>'.$lang['ad_add_sucess_ships'].'</font></th></tr>';
 			}
-			else
+			elseif ($_POST['delete'])
 			{
-				$parse['display']	=	'<tr><th colspan="3"><font color=red>'.$lang['ad_only_numbers'].'</font></th></tr>';
+				$QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
+				foreach($reslist['allow'][$PlanetData['planet_type']] as $ID)
+				{
+					$QryUpdate[]	= "`".$resource[$ID]."` = `".$resource[$ID]."` - '".round(abs(request_var($resource[$ID], 0.0)), 0)."'";
+				}
+				$QryUpdatePlanet .= implode(", ", $QryUpdate);
+				$QryUpdatePlanet .= "WHERE ";
+				$QryUpdatePlanet .= "`id` = '".request_var('id', 0)."';";
+				$db->query( $QryUpdatePlanet);
+				$Name	=	$lang['log_nomoree'];
+				$parse['display']	=	'<tr><th colspan="3"><font color=lime>'.$lang['ad_delete_sucess_ships'].'</font></th></tr>';
 			}
+
+			if ($_POST['add'] || $_POST['delete'])
+			{
+				$Log	.=	"\r\n".$lang['log_the_user'].$user['username']." ".$Name.":\n";
+				foreach($reslist['allow'][$PlanetData['planet_type']] as $ID)
+				{
+					$Log	.=	$lang['tech'][$ID].": ".round(abs(request_var($resource[$ID], 0.0)), 0)."\r\n";
+				}
+				$Log	.=	$lang['log_to_planet'].$id."\r\n";
+
+				LogFunction($Log, "BuildingsLog", $LogCanWork);
+			}
+		}
+		$parse['build']	= "";
+		foreach($reslist['build'] as $ID)
+		{
+			$parse['build']	.= "<tr><th>".$ID."</th><th>".$lang['tech'][$ID]."</th><th><input name=\"".$resource[$ID]."\" type=\"text\" value=\"0\"></th></tr>";
 		}
 
 		display (parsetemplate(gettemplate("adm/EditorTPL/BuildingsBody"), $parse), false, '', true, false);
 	break;
 
 	case'researchs':
-		if ($_POST)
+		if($_POST)
 		{
-			$id          			= $_POST['id'];
-			$spy_tech       		= $_POST['spy_tech'];
-			$computer_tech    		= $_POST['computer_tech'];
-			$military_tech        	= $_POST['military_tech'];
-			$defence_tech        	= $_POST['defence_tech'];
-			$shield_tech    		= $_POST['shield_tech'];
-			$energy_tech        	= $_POST['energy_tech'];
-			$hyperspace_tech      	= $_POST['hyperspace_tech'];
-			$combustion_tech        = $_POST['combustion_tech'];
-			$impulse_motor_tech     = $_POST['impulse_motor_tech'];
-			$hyperspace_motor_tech  = $_POST['hyperspace_motor_tech'];
-			$laser_tech     		= $_POST['laser_tech'];
-			$ionic_tech       		= $_POST['ionic_tech'];
-			$buster_tech       		= $_POST['buster_tech'];
-			$intergalactic_tech     = $_POST['intergalactic_tech'];
-			$expedition_tech     	= $_POST['expedition_tech'];
-			$graviton_tech     		= $_POST['graviton_tech'];
-
-			if(is_numeric($id) && is_numeric($spy_tech) && is_numeric($computer_tech) && is_numeric($military_tech) && is_numeric($defence_tech) &&
-				is_numeric($shield_tech) && is_numeric($energy_tech) && is_numeric($hyperspace_tech) && is_numeric($combustion_tech) &&
-				is_numeric($impulse_motor_tech) && is_numeric($hyperspace_motor_tech) && is_numeric($laser_tech) && is_numeric($ionic_tech) &&
-				is_numeric($buster_tech)&& is_numeric($intergalactic_tech) && is_numeric($expedition_tech) && is_numeric($graviton_tech))
+			if ($_POST['add'])
 			{
-
-				if ($_POST['add'])
+				$QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
+				foreach($reslist['tech'] as $ID)
 				{
-					$QryUpdatePlanet  = "UPDATE ".USERS." SET ";
-					$QryUpdatePlanet .= "`spy_tech` = `spy_tech` + '". $spy_tech ."', ";
-					$QryUpdatePlanet .= "`computer_tech` = `computer_tech` + '". $computer_tech ."', ";
-					$QryUpdatePlanet .= "`military_tech` = `military_tech` + '". $military_tech ."', ";
-					$QryUpdatePlanet .= "`defence_tech` = `defence_tech` + '". $defence_tech ."', ";
-					$QryUpdatePlanet .= "`shield_tech` = `shield_tech` + '". $shield_tech ."', ";
-					$QryUpdatePlanet .= "`energy_tech` = `energy_tech` + '". $energy_tech ."', ";
-					$QryUpdatePlanet .= "`hyperspace_tech` = `hyperspace_tech` + '". $hyperspace_tech ."', ";
-					$QryUpdatePlanet .= "`combustion_tech` = `combustion_tech` + '". $combustion_tech ."', ";
-					$QryUpdatePlanet .= "`impulse_motor_tech` = `impulse_motor_tech` + '". $impulse_motor_tech ."', ";
-					$QryUpdatePlanet .= "`hyperspace_motor_tech` = `hyperspace_motor_tech` + '". $hyperspace_motor_tech ."', ";
-					$QryUpdatePlanet .= "`laser_tech` = `laser_tech` + '". $laser_tech ."', ";
-					$QryUpdatePlanet .= "`ionic_tech` = `ionic_tech` + '". $ionic_tech ."', ";
-					$QryUpdatePlanet .= "`buster_tech` = `buster_tech` + '". $buster_tech ."', ";
-					$QryUpdatePlanet .= "`intergalactic_tech` = `intergalactic_tech` + '". $intergalactic_tech ."', ";
-					$QryUpdatePlanet .= "`expedition_tech` = `expedition_tech` + '". $expedition_tech ."', ";
-					$QryUpdatePlanet .= "`graviton_tech` = `graviton_tech` + '". $graviton_tech ."' ";
-					$QryUpdatePlanet .= "WHERE ";
-					$QryUpdatePlanet .= "`id` = '". $id ."' ";
-					$db->query( $QryUpdatePlanet);
-
-					$Name	=	$lang['log_moree'];
-					$parse['display']	=	'<tr><th colspan="3"><font color=lime>'.$lang['ad_add_succes'].'</font></th></tr>';
+					$QryUpdate[]	= "`".$resource[$ID]."` = `".$resource[$ID]."` + '".round(abs(request_var($resource[$ID], 0.0)), 0)."'";
 				}
-				elseif ($_POST['delete'])
-				{
-					$QryUpdatePlanet  = "UPDATE ".USERS." SET ";
-					$QryUpdatePlanet .= "`spy_tech` = `spy_tech` - '". $spy_tech ."', ";
-					$QryUpdatePlanet .= "`computer_tech` = `computer_tech` - '". $computer_tech ."', ";
-					$QryUpdatePlanet .= "`military_tech` = `military_tech` - '". $military_tech ."', ";
-					$QryUpdatePlanet .= "`defence_tech` = `defence_tech` - '". $defence_tech ."', ";
-					$QryUpdatePlanet .= "`shield_tech` = `shield_tech` - '". $shield_tech ."', ";
-					$QryUpdatePlanet .= "`energy_tech` = `energy_tech` - '". $energy_tech ."', ";
-					$QryUpdatePlanet .= "`hyperspace_tech` = `hyperspace_tech` - '". $hyperspace_tech ."', ";
-					$QryUpdatePlanet .= "`combustion_tech` = `combustion_tech` - '". $combustion_tech ."', ";
-					$QryUpdatePlanet .= "`impulse_motor_tech` = `impulse_motor_tech` - '". $impulse_motor_tech ."', ";
-					$QryUpdatePlanet .= "`hyperspace_motor_tech` = `hyperspace_motor_tech` - '". $hyperspace_motor_tech ."', ";
-					$QryUpdatePlanet .= "`laser_tech` = `laser_tech` - '". $laser_tech ."', ";
-					$QryUpdatePlanet .= "`ionic_tech` = `ionic_tech` - '". $ionic_tech ."', ";
-					$QryUpdatePlanet .= "`buster_tech` = `buster_tech` - '". $buster_tech ."', ";
-					$QryUpdatePlanet .= "`intergalactic_tech` = `intergalactic_tech` - '". $intergalactic_tech ."', ";
-					$QryUpdatePlanet .= "`expedition_tech` = `expedition_tech` - '". $expedition_tech ."', ";
-					$QryUpdatePlanet .= "`graviton_tech` = `graviton_tech` - '". $graviton_tech ."' ";
-					$QryUpdatePlanet .= "WHERE ";
-					$QryUpdatePlanet .= "`id` = '". $id ."' ";
-					$db->query( $QryUpdatePlanet);
+				$QryUpdatePlanet .= implode(", ", $QryUpdate);
+				$QryUpdatePlanet .= "WHERE ";
+				$QryUpdatePlanet .= "`id` = '".request_var('id', 0)."';";
+				$db->query($QryUpdatePlanet);
 
-					$Name	=	$lang['log_nomoree'];
-					$parse['display']	=	'<tr><th colspan="3"><font color=lime>'.$lang['ad_delete_succes'].'</font></th></tr>';
-				}
-
-				if ($_POST['add'] || $_POST['delete'])
-				{
-					$Log	.=	"\n".$lang['log_the_user'].$user['username']." ".$Name.":\n";
-					$Log	.=	$lang['spy_tech'].": ".$spy_tech."\n";
-					$Log	.=	$lang['computer_tech'].": ".$computer_tech."\n";
-					$Log	.=	$lang['military_tech'].": ".$military_tech."\n";
-					$Log	.=	$lang['defence_tech'].": ".$defence_tech."\n";
-					$Log	.=	$lang['shield_tech'].": ".$shield_tech."\n";
-					$Log	.=	$lang['energy_tech'].": ".$energy_tech."\n";
-					$Log	.=	$lang['hyperspace_tech'].": ".$hyperspace_tech."\n";
-					$Log	.=	$lang['combustion_tech'].": ".$combustion_tech."\n";
-					$Log	.=	$lang['impulse_motor_tech'].": ".$impulse_motor_tech."\n";
-					$Log	.=	$lang['hyperspace_motor_tech'].": ".$hyperspace_motor_tech."\n";
-					$Log	.=	$lang['laser_tech'].": ".$laser_tech."\n";
-					$Log	.=	$lang['ionic_tech'].": ".$ionic_tech."\n";
-					$Log	.=	$lang['buster_tech'].": ".$buster_tech."\n";
-					$Log	.=	$lang['intergalactic_tech'].": ".$intergalactic_tech."\n";
-					$Log	.=	$lang['expedition_tech'].": ".$expedition_tech."\n";
-					$Log	.=	$lang['graviton_tech'].": ".$graviton_tech."\n";
-					$Log	.=	$lang['log_to_user'].$id."\n";
-
-					LogFunction($Log, "ResearchLog", $LogCanWork);
-				}
+				$Name	=	$lang['log_moree'];
+				$parse['display']	=	'<tr><th colspan="3"><font color=lime>'.$lang['ad_add_sucess_ships'].'</font></th></tr>';
 			}
-			else
+			elseif ($_POST['delete'])
 			{
-				$parse['display']	=	'<tr><th colspan="3"><font color=red>'.$lang['ad_only_numbers'].'</font></th></tr>';
+				$QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
+				foreach($reslist['tech'] as $ID)
+				{
+					$QryUpdate[]	= "`".$resource[$ID]."` = `".$resource[$ID]."` - '".round(abs(request_var($resource[$ID], 0.0)), 0)."'";
+				}
+				$QryUpdatePlanet .= implode(", ", $QryUpdate);
+				$QryUpdatePlanet .= "WHERE ";
+				$QryUpdatePlanet .= "`id` = '".request_var('id', 0)."';";
+				$db->query( $QryUpdatePlanet);
+				$Name	=	$lang['log_nomoree'];
+				$parse['display']	=	'<tr><th colspan="3"><font color=lime>'.$lang['ad_delete_sucess_ships'].'</font></th></tr>';
+			}
+
+			if ($_POST['add'] || $_POST['delete'])
+			{
+				$Log	.=	"\r\n".$lang['log_the_user'].$user['username']." ".$Name.":\n";
+				foreach($reslist['tech'] as $ID)
+				{
+					$Log	.=	$lang['tech'][$ID].": ".round(abs(request_var($resource[$ID], 0.0)), 0)."\r\n";
+				}
+				$Log	.=	$lang['log_to_planet'].$id."\r\n";
+
+				LogFunction($Log, "ResearchLog", $LogCanWork);
 			}
 		}
-
+		$parse['tech']	= "";
+		foreach($reslist['tech'] as $ID)
+		{
+			$parse['tech']	.= "<tr><th>".$ID."</th><th>".$lang['tech'][$ID]." ".(($pricelist[$ID]['max'] != 255) ? sprintf($lang['ad_max'], $pricelist[$ID]['max']):"")."</th><th><input name=\"".$resource[$ID]."\" type=\"text\" value=\"0\"></th></tr>";
+		}
 		display (parsetemplate(gettemplate("adm/EditorTPL/ResearchBody"), $parse), false, '', true, false);
 	break;
 
@@ -667,109 +401,54 @@ switch($_GET[page])
 	break;
 
 	case'officiers':
-		if ($_POST)
+		if($_POST)
 		{
-			$id          		= $_POST['id'];
-			$rpg_geologue       = $_POST['rpg_geologue'];
-			$rpg_amiral    		= $_POST['rpg_amiral'];
-			$rpg_ingenieur      = $_POST['rpg_ingenieur'];
-			$rpg_technocrate    = $_POST['rpg_technocrate'];
-			$rpg_espion    		= $_POST['rpg_espion'];
-			$rpg_constructeur   = $_POST['rpg_constructeur'];
-			$rpg_scientifique   = $_POST['rpg_scientifique'];
-			$rpg_commandant     = $_POST['rpg_commandant'];
-			$rpg_stockeur     	= $_POST['rpg_stockeur'];
-			$rpg_defenseur  	= $_POST['rpg_defenseur'];
-			$rpg_destructeur    = $_POST['rpg_destructeur'];
-			$rpg_general       	= $_POST['rpg_general'];
-			$rpg_bunker       	= $_POST['rpg_bunker'];
-			$rpg_raideur     	= $_POST['rpg_raideur'];
-			$rpg_empereur     	= $_POST['rpg_empereur'];
-
-			if(is_numeric($id) && is_numeric($rpg_geologue) && is_numeric($rpg_amiral) && is_numeric($rpg_ingenieur) && is_numeric($rpg_technocrate) &&
-				is_numeric($rpg_espion) && is_numeric($rpg_constructeur) && is_numeric($rpg_scientifique) && is_numeric($rpg_commandant) &&
-				is_numeric($rpg_stockeur) && is_numeric($rpg_defenseur) && is_numeric($rpg_destructeur) && is_numeric($rpg_general) &&
-				is_numeric($rpg_bunker)&& is_numeric($rpg_raideur) && is_numeric($rpg_empereur))
+			if ($_POST['add'])
 			{
-
-				if ($_POST['add'])
+				$QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
+				foreach($reslist['officier'] as $ID)
 				{
-					$QryUpdatePlanet  = "UPDATE ".USERS." SET ";
-					$QryUpdatePlanet .= "`rpg_geologue` = `rpg_geologue` + '". $rpg_geologue ."', ";
-					$QryUpdatePlanet .= "`rpg_amiral` = `rpg_amiral` + '". $rpg_amiral ."', ";
-					$QryUpdatePlanet .= "`rpg_ingenieur` = `rpg_ingenieur` + '". $rpg_ingenieur ."', ";
-					$QryUpdatePlanet .= "`rpg_technocrate` = `rpg_technocrate` + '". $rpg_technocrate ."', ";
-					$QryUpdatePlanet .= "`rpg_espion` = `rpg_espion` + '". $rpg_espion ."', ";
-					$QryUpdatePlanet .= "`rpg_constructeur` = `rpg_constructeur` + '". $rpg_constructeur ."', ";
-					$QryUpdatePlanet .= "`rpg_scientifique` = `rpg_scientifique` + '". $rpg_scientifique ."', ";
-					$QryUpdatePlanet .= "`rpg_commandant` = `rpg_commandant` + '". $rpg_commandant ."', ";
-					$QryUpdatePlanet .= "`rpg_stockeur` = `rpg_stockeur` + '". $rpg_stockeur ."', ";
-					$QryUpdatePlanet .= "`rpg_defenseur` = `rpg_defenseur` + '". $rpg_defenseur ."', ";
-					$QryUpdatePlanet .= "`rpg_destructeur` = `rpg_destructeur` + '". $rpg_destructeur ."', ";
-					$QryUpdatePlanet .= "`rpg_general` = `rpg_general` + '". $rpg_general ."', ";
-					$QryUpdatePlanet .= "`rpg_bunker` = `rpg_bunker` + '". $rpg_bunker ."', ";
-					$QryUpdatePlanet .= "`rpg_raideur` = `rpg_raideur` + '". $rpg_raideur ."', ";
-					$QryUpdatePlanet .= "`rpg_empereur` = `rpg_empereur` + '". $rpg_empereur ."' ";
-					$QryUpdatePlanet .= "WHERE ";
-					$QryUpdatePlanet .= "`id` = '". $id ."' ";
-					$db->query( $QryUpdatePlanet);
-
-					$Name	=	$lang['log_moree'];
-					$parse['display']	=	'<tr><th colspan="3"><font color=lime>'.$lang['ad_offi_succes_add'].'</font></th></tr>';
+					$QryUpdate[]	= "`".$resource[$ID]."` = `".$resource[$ID]."` + '".round(abs(request_var($resource[$ID], 0.0)), 0)."'";
 				}
-				elseif ($_POST['delete'])
-				{
-					$QryUpdatePlanet  = "UPDATE ".USERS." SET ";
-					$QryUpdatePlanet .= "`rpg_geologue` = `rpg_geologue` - '". $rpg_geologue ."', ";
-					$QryUpdatePlanet .= "`rpg_amiral` = `rpg_amiral` - '". $rpg_amiral ."', ";
-					$QryUpdatePlanet .= "`rpg_ingenieur` = `rpg_ingenieur` - '". $rpg_ingenieur ."', ";
-					$QryUpdatePlanet .= "`rpg_technocrate` = `rpg_technocrate` - '". $rpg_technocrate ."', ";
-					$QryUpdatePlanet .= "`rpg_espion` = `rpg_espion` - '". $rpg_espion ."', ";
-					$QryUpdatePlanet .= "`rpg_constructeur` = `rpg_constructeur` - '". $rpg_constructeur ."', ";
-					$QryUpdatePlanet .= "`rpg_scientifique` = `rpg_scientifique` - '". $rpg_scientifique ."', ";
-					$QryUpdatePlanet .= "`rpg_commandant` = `rpg_commandant` - '". $rpg_commandant ."', ";
-					$QryUpdatePlanet .= "`rpg_stockeur` = `rpg_stockeur` - '". $rpg_stockeur ."', ";
-					$QryUpdatePlanet .= "`rpg_defenseur` = `rpg_defenseur` - '". $rpg_defenseur ."', ";
-					$QryUpdatePlanet .= "`rpg_destructeur` = `rpg_destructeur` - '". $rpg_destructeur ."', ";
-					$QryUpdatePlanet .= "`rpg_general` = `rpg_general` - '". $rpg_general ."', ";
-					$QryUpdatePlanet .= "`rpg_bunker` = `rpg_bunker` - '". $rpg_bunker ."', ";
-					$QryUpdatePlanet .= "`rpg_raideur` = `rpg_raideur` - '". $rpg_raideur ."', ";
-					$QryUpdatePlanet .= "`rpg_empereur` = `rpg_empereur` - '". $rpg_empereur ."' ";
-					$QryUpdatePlanet .= "WHERE ";
-					$QryUpdatePlanet .= "`id` = '". $id ."' ";
-					$db->query( $QryUpdatePlanet);
+				$QryUpdatePlanet .= implode(", ", $QryUpdate);
+				$QryUpdatePlanet .= "WHERE ";
+				$QryUpdatePlanet .= "`id` = '".request_var('id', 0)."';";
+				$db->query($QryUpdatePlanet);
 
-					$Name	=	$lang['log_nomoree'];
-					$parse['display']	=	'<tr><th colspan="3"><font color=lime>'.$lang['ad_offi_succes_delete'].'</font></th></tr>';
-				}
-
-				if ($_POST['add'] || $_POST['delete'])
-				{
-					$Log	.=	"\n".$lang['log_the_user'].$user['username']." ".$Name.":\n";
-					$Log	.=	$lang['geologist'].": ".$rpg_geologue."\n";
-					$Log	.=	$lang['admiral'].": ".$rpg_amiral."\n";
-					$Log	.=	$lang['engineer'].": ".$rpg_ingenieur."\n";
-					$Log	.=	$lang['technocrat'].": ".$rpg_technocrate."\n";
-					$Log	.=	$lang['spy'].": ".$rpg_espion."\n";
-					$Log	.=	$lang['constructor'].": ".$rpg_constructeur."\n";
-					$Log	.=	$lang['scientific'].": ".$rpg_scientifique."\n";
-					$Log	.=	$lang['commander'].": ".$rpg_commandant."\n";
-					$Log	.=	$lang['storer'].": ".$rpg_stockeur."\n";
-					$Log	.=	$lang['defender'].": ".$rpg_defenseur."\n";
-					$Log	.=	$lang['destroyer'].": ".$rpg_destructeur."\n";
-					$Log	.=	$lang['general'].": ".$rpg_general."\n";
-					$Log	.=	$lang['protector'].": ".$rpg_bunker."\n";
-					$Log	.=	$lang['conqueror'].": ".$rpg_raideur."\n";
-					$Log	.=	$lang['emperor'].": ".$rpg_empereur."\n";
-					$Log	.=	$lang['log_to_user'].$id."\n";
-
-					LogFunction($Log, "OfficierLog", $LogCanWork);
-				}
+				$Name	=	$lang['log_moree'];
+				$parse['display']	=	'<tr><th colspan="3"><font color=lime>'.$lang['ad_add_sucess_ships'].'</font></th></tr>';
 			}
-			else
+			elseif ($_POST['delete'])
 			{
-				$parse['display']	=	'<tr><th colspan="3"><font color=red>'.$lang['ad_only_numbers'].'</font></th></tr>';
+				$QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
+				foreach($reslist['officier'] as $ID)
+				{
+					$QryUpdate[]	= "`".$resource[$ID]."` = `".$resource[$ID]."` - '".round(abs(request_var($resource[$ID], 0.0)), 0)."'";
+				}
+				$QryUpdatePlanet .= implode(", ", $QryUpdate);
+				$QryUpdatePlanet .= "WHERE ";
+				$QryUpdatePlanet .= "`id` = '".request_var('id', 0)."';";
+				$db->query( $QryUpdatePlanet);
+				$Name	=	$lang['log_nomoree'];
+				$parse['display']	=	'<tr><th colspan="3"><font color=lime>'.$lang['ad_delete_sucess_ships'].'</font></th></tr>';
 			}
+
+			if ($_POST['add'] || $_POST['delete'])
+			{
+				$Log	.=	"\r\n".$lang['log_the_user'].$user['username']." ".$Name.":\n";
+				foreach($reslist['officier'] as $ID)
+				{
+					$Log	.=	$lang['tech'][$ID].": ".round(abs(request_var($resource[$ID], 0.0)), 0)."\r\n";
+				}
+				$Log	.=	$lang['log_to_planet'].$id."\r\n";
+
+				LogFunction($Log, "OfficierLog", $LogCanWork);
+			}
+		}
+		$parse['officier']	= "";
+		foreach($reslist['officier'] as $ID)
+		{
+			$parse['officier']	.= "<tr><th>".$ID."</th><th>".$lang['tech'][$ID]." ".sprintf($lang['ad_max'], $pricelist[$ID]['max'])."</th><th><input name=\"".$resource[$ID]."\" type=\"text\" value=\"0\"></th></tr>";
 		}
 
 		display (parsetemplate(gettemplate("adm/EditorTPL/OfficiersBody"), $parse), false, '', true, false);
