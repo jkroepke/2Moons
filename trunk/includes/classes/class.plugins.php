@@ -213,7 +213,7 @@ interface mod_pl{
         // Ejecutar el metodo set_hook()
         foreach($this->exec as $ID => $Plugin){
             $plug_class = $Plugin . '_mod';
-            if (!class_exists($plug_class)) continue;
+            if (!class_exists($plug_class, false)) continue;
             $plug_get   = new $plug_class();      
             $this->pre_exec($plug_get);      
         }

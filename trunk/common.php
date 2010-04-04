@@ -57,6 +57,7 @@ require_once(ROOT_PATH . 'includes/vars.'.PHP_EXT);
 isBuggyIe() || ob_start("ob_gzhandler");
 
 set_error_handler('msg_handler', E_ALL);
+set_exception_handler('exception_handler');
 
 if(function_exists('ini_set')) {
 	ini_set('display_errors', 1);
