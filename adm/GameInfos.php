@@ -38,9 +38,7 @@ $parse['vMySQLc'] 	= $db->getVersion();
 $parse['vMySQLs'] 	= $db->getServerVersion();
 $parse['root'] 		= $_SERVER["SERVER_NAME"];
 $parse['gameroot'] 	= $_SERVER["SERVER_NAME"] . str_replace("/adm/GameInfos.php", "",str_replace("\\","/",$_SERVER['SCRIPT_NAME']));
-$parse['dl'] 		= ((@ini_get('enable_dl') || strtolower(@ini_get('enable_dl')) == 'on') && (!@ini_get('safe_mode') || strtolower(@ini_get('safe_mode')) == 'off') && function_exists('dl')) ? 'Erlaubt' : 'Nicht erlaubt';
-
-
+$
 display(parsetemplate(gettemplate('adm/InfoMessagesBody'), $parse), false, '', true, false);
 
 ?>

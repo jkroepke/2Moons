@@ -107,6 +107,7 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	
 	define('USE_OLD_EXPO'          	  , false);	
 
+	define('SMARTY_SPL_AUTOLOAD'      ,      1);
 		
 	// OFFICIERS DEFAULT VALUES
 	define('COMMANDANT'				  ,      3);

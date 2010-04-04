@@ -12,6 +12,8 @@ $lang['changelog']   = array(
 - ADD: Gigarecler on Galaxy
 - ADD: Ori. Platform, Spalteinreißer, Bahamut
 - ADD: Händlergebühren
+- ADD: Universität
+- ADD: Download Patch Files in ACP
 - FIX: Trader
 - FIX: Galaxy
 - FIX: Minus-Werte bei NPC`s in Expeditions Kämpfen
@@ -27,6 +29,7 @@ $lang['changelog']   = array(
 - FIX: Zeit von Spionageberichten
 - FIX: Allianzstatistiken(?)
 - FIX: Font-FIX in overLIB
+- DIV: Updated ACP
 - DIV: Update Smarty to 3.0b8
 - DIV: Change Buildsystem für Gebäude/Flotten
 - DIV: Sicherheit im Game erhöht

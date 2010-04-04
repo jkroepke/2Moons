@@ -536,6 +536,37 @@ function isBuggyIe() {
     );
 }
 
+function exception_handler($exception) {
+	@ob_flush();
+	@ob_start();
+	echo '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">';
+	echo '<html>';
+	echo '<head>';
+	echo '<meta http-equiv="content-type" content="text/html; charset=UTF-8">';
+	echo '<meta http-equiv="content-script-type" content="text/javascript">';
+	echo '<meta http-equiv="content-style-type" content="text/css">';
+	echo '<meta http-equiv="content-language" content="de">';
+	echo '<title>'.$game_config['game_name'].' - FATAL ERROR</title>';
+	echo '<link rel="shortcut icon" href="./favicon.ico">';
+	echo '<link rel="stylesheet" type="text/css" href="styles/css/default.css">';
+	echo '<link rel="stylesheet" type="text/css" href="styles/css/formate.css">';
+	echo '<link rel="stylesheet" type="text/css" href="'.DEFAULT_SKINPATH.'formate.css">';
+	echo '<script type="text/javascript" src="scripts/overlib.js"></script>';
+	echo '<script language="JavaScript"> ';
+	echo 'function blockError(){return true;} ';
+	echo 'window.onerror = blockError; ';
+	echo '</script>';
+	echo '</head>';
+	echo '<body>';
+	echo '<table width="80%" align="center">';
+	echo '<tr>';
+    echo '<th class="errormessage"><b>'.makebr($exception). '</b></th>';
+	echo '</tr>';
+	echo '</table>';
+	echo '</body>';			
+	echo '</html>';	
+}
+
 function shortly_number($number)
 {
 	// MAS DEL TRILLON
