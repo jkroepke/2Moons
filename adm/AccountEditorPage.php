@@ -282,7 +282,7 @@ switch($_GET[page])
 		{
 			if ($_POST['add'])
 			{
-				$QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
+				$QryUpdatePlanet  = "UPDATE ".USERS." SET ";
 				foreach($reslist['tech'] as $ID)
 				{
 					$QryUpdate[]	= "`".$resource[$ID]."` = `".$resource[$ID]."` + '".round(abs(request_var($resource[$ID], 0.0)), 0)."'";
@@ -297,7 +297,7 @@ switch($_GET[page])
 			}
 			elseif ($_POST['delete'])
 			{
-				$QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
+				$QryUpdatePlanet  = "UPDATE ".USERS." SET ";
 				foreach($reslist['tech'] as $ID)
 				{
 					$QryUpdate[]	= "`".$resource[$ID]."` = `".$resource[$ID]."` - '".round(abs(request_var($resource[$ID], 0.0)), 0)."'";
