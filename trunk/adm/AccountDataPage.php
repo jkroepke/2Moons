@@ -304,10 +304,7 @@ $OnlyQueryLogin 	= 	$db->fetch_array($db->query("SELECT `id`, `authlevel` FROM "
 			}
 			
 			// COMIENZA EL SAQUEO DE DATOS DE LOS PLANETAS
-			$SpecifyItemsP	=	
-				"planet_type,id,name,galaxy,system,planet,destruyed,diameter,field_current,field_max,temp_min,temp_max,metal,crystal,deuterium,energy_max,
-				".$SpecifyItemsPQ."
-				energy_used";
+			$SpecifyItemsP	= "planet_type,id,name,galaxy,system,planet,destruyed,diameter,field_current,field_max,temp_min,temp_max,metal,crystal,deuterium,energy_max,".$SpecifyItemsPQ."energy_used";
 				
 			$PlanetsQuery	=	$db->query("SELECT ".$SpecifyItemsP." FROM ".PLANETS." WHERE `id_owner` = '".$id_u."';");
 			
