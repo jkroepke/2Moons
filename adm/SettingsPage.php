@@ -312,6 +312,7 @@ function DisplayGameSettingsPage ( $CurrentUser )
 		$parse['smtp_ssl2']					= ($game_config['smtp_ssl'] == "tls")? "selected" : "";
 		$parse['user_valid']           	 	= ($game_config['user_valid'] == 1)  ? " checked = 'checked' ":"";
 	    $parse['newsframe']                 = ($game_config['OverviewNewsFrame'] == 1) ? " checked = 'checked' ":"";
+        $parse['reg_closed']                = ($game_config['reg_closed'] == 1) ? " checked = 'checked' ":"";
         $parse['NewsTextVal']               = $game_config['OverviewNewsText'];  
 		$parse['capprivate'] 				= $game_config['capprivate'];
 		$parse['cappublic']    				= $game_config['cappublic'];

@@ -80,12 +80,7 @@ class DB_mysqli
 		{
 			trigger_error("Connection to database failed: ".mysqli_connect_error(),E_USER_ERROR);
 			return false;
-		}
-		if($GLOBALS['game_config']['debug'] == 1)
-		{
-			file_put_contents(ROOT_PATH."adm/logs/querylog_".date("d.m.y").".log", "\n-------------------------------\n\n", FILE_APPEND);
-		}
-		
+		}		
 		$this->mysqli->set_charset("utf8");
 		return true;
 	}
