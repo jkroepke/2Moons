@@ -283,6 +283,7 @@ $QryTablePlanets    .= "`crystal` double(132,8) UNSIGNED NOT NULL default '0.000
 $QryTablePlanets    .= "`crystal_perhour` int(11) UNSIGNED NOT NULL default '0', ";
 $QryTablePlanets    .= "`crystal_max` bigint(20) UNSIGNED default '100000', ";
 $QryTablePlanets    .= "`deuterium` double(132,8) UNSIGNED NOT NULL default '0.00000000', ";
+$QryTablePlanets    .= "`deuterium_used` int(11) UNSIGNED NOT NULL default '0', ";
 $QryTablePlanets    .= "`deuterium_perhour` int(11) UNSIGNED NOT NULL default '0', ";
 $QryTablePlanets    .= "`deuterium_max` bigint(20) UNSIGNED default '100000', ";
 $QryTablePlanets    .= "`energy_used` int(11) NOT NULL default '0', ";

@@ -62,7 +62,7 @@ interface mod_pl{
             $plug_info = pathinfo(ROOT_PATH.'includes/plugins/'.$mod_plugin);
             
             // FIX
-            if ($plug_info['extension'] != 'php') continue;
+            if ($plug_info['extension'] != PHP_EXT) continue;
             
             // Desactivado
             if ($config_plugins[$plug_info['filename']] != 1 AND $config_plugins[$plug_info['filename']]) continue;

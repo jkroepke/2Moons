@@ -108,6 +108,9 @@ $ViewTable	=
     	<tr>
         	<th ".$onMouseOverIE." class=\"ForIE\"><a href=\"ShowFlyingFleets.php\" target=\"Hauptframe\">".$lang['mu_flying_fleets']."</a></th>
     	</tr>
+    	<tr>
+        	<th ".$onMouseOverIE." class=\"ForIE\"><a href=\"NewsPage.php\" target=\"Hauptframe\">".$lang['mu_news']."</a></th>
+    	</tr>
 		<tr>
         	<th ".$onMouseOverIE." class=\"ForIE\"><a href=\"SearchingPage.php?search=users&minimize=on\" target=\"Hauptframe\">".$lang['mu_user_list']."</a></th>
     	</tr>
