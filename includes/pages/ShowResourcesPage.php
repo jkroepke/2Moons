@@ -112,10 +112,6 @@ function ShowResourcesPage($CurrentUser, $CurrentPlanet)
 			{
 				$deuterium[$ProdID]	= floor(eval($ProdGrid[$ProdID]['formule']['deuterium']) * (0.01 * $post_porcent) * ($game_config['resource_multiplier']));
 				$energy[$ProdID]	= floor(eval($ProdGrid[$ProdID]['formule']['energy'])    * (0.01 * $post_porcent) * ($game_config['resource_multiplier']));
-			} elseif($ProdID == 12) {
-				$AtomDeuterium		= (floor(eval($ProdGrid[$ProdID]['formule']['deuterium']) * ($game_config['resource_multiplier'])));
-				$deu_en[$ProdID]	= $CurrentPlanet['deuterium_used'] * 3600;
-				$energy_en[$ProdID]	= floor(eval($ProdGrid[$ProdID]['formule']['energy']) * ($game_config['resource_multiplier']) * (1 + ($CurrentUser['rpg_ingenieur'] * 0.05)) * ((time() - $CurrentUser[$resource[704]] <= 0) ? (1 + $ExtraDM[704]['add']) : 1) * ($CurrentPlanet['deuterium_used'] * 3600 / $AtomDeuterium));
 			} else {
 				$deu_en[$ProdID]	= floor(eval($ProdGrid[$ProdID]['formule']['deuterium']) * ($game_config['resource_multiplier']));
 				$energy_en[$ProdID]	= floor(eval($ProdGrid[$ProdID]['formule']['energy']) * ($game_config['resource_multiplier']));
