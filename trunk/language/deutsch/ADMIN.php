@@ -516,6 +516,8 @@ $lang['mu_update']                 	= 'Game-Updates';
 $lang['mu_ts_options'] 				= 'Teamspeak Optionen';
 $lang['mu_game_info'] 				= 'Informationen';
 $lang['mu_vaild_users']				= 'Aktivire User'; 
+$lang['mu_news']					= 'News'; 
+
 //###########################################################//
 
 

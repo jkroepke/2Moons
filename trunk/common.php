@@ -165,7 +165,6 @@ if (INSTALL != true)
 			include_once(ROOT_PATH.'includes/classes/class.plugins.'.PHP_EXT);
 			$mod_plug = new modPl();
 			$mod_plug->run();
-			$mod_plug->run('SettingsPage', 'page');
  		}
 	}	
 }

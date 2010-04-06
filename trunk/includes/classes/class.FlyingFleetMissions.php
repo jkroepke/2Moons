@@ -2541,7 +2541,7 @@ class FlyingFleetMissions {
 				case 6:
 					$MoreTime	= rand(0, 100);
 					if($MoreTime < 75) {
-						$FleetRow['fleet_end_time'] = round($FleetRow['fleet_end_stay'] + ($FleetRow['fleet_end_time'] - $FleetRow['fleet_end_stay']) + ((($FleetRow['fleet_end_stay'] - $FleetRow['fleet_start_time']) / 3600) * rand(1, 5)));
+						$FleetRow['fleet_end_time'] = $FleetRow['fleet_end_time'] - time() * rand(1, 5) + time();
 						$Message = $lang['sys_expe_time_slow_'.rand(1,6)];
 					} else {
 						$FleetRow['fleet_end_time'] = round($FleetRow['fleet_end_stay'] + ($FleetRow['fleet_end_time'] - $FleetRow['fleet_end_stay']) / 2);
