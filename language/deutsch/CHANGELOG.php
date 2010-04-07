@@ -13,6 +13,7 @@ $lang['changelog']   = array(
 - ADD: Ori. Platform, Spalteinreißer, Bahamut
 - ADD: Händlergebühren
 - ADD: Universität
+- ADD: Konstanten für Mondentstehung
 - ADD: Download Patch Files in ACP
 - FIX: Trader
 - FIX: Galaxy
@@ -21,6 +22,7 @@ $lang['changelog']   = array(
 - FIX: UMode
 - FIX: Sprungtor
 - FIX: BuildQuere
+- FIX: Aktivitäts Stern
 - FIX: Playercard
 - FIX: General
 - FIX: AKS-Stealberechnung

@@ -1142,11 +1142,11 @@ class FlyingFleetMissions {
 			}
 
 			$FleetDebris      = $result['debree']['att'][0] + $result['debree']['def'][0] + $result['debree']['att'][1] + $result['debree']['def'][1];
-			$StrAttackerUnits = sprintf ($lang['sys_attacker_lostunits'], $result['lost']['att']);
-			$StrDefenderUnits = sprintf ($lang['sys_defender_lostunits'], $result['lost']['def']);
-			$StrRuins         = sprintf ($lang['sys_gcdrunits'], $result['debree']['def'][0] + $result['debree']['att'][0], $lang['Metal'], $result['debree']['def'][1] + $result['debree']['att'][1], $lang['Crystal']);
+			$StrAttackerUnits = sprintf($lang['sys_attacker_lostunits'], $result['lost']['att']);
+			$StrDefenderUnits = sprintf($lang['sys_defender_lostunits'], $result['lost']['def']);
+			$StrRuins         = sprintf($lang['sys_gcdrunits'], $result['debree']['def'][0] + $result['debree']['att'][0], $lang['Metal'], $result['debree']['def'][1] + $result['debree']['att'][1], $lang['Crystal']);
 			$DebrisField      = $StrAttackerUnits ."<br>". $StrDefenderUnits ."<br>". $StrRuins;
-			$MoonChance       = min(round($FleetDebris / 100000,0),20);
+			$MoonChance       = min(round($FleetDebris / 100000 * MOON_CHANCE_FACTOR ,0), 20);
 
 			$UserChance = ($MoonChance >= 20 || $MoonChance != 0) ? rand(1, 100) : 0;
 			
@@ -1157,8 +1157,13 @@ class FlyingFleetMissions {
 				$TargetPlanetName = CreateOneMoonRecord ( $FleetRow['fleet_end_galaxy'], $FleetRow['fleet_end_system'], $FleetRow['fleet_end_planet'], $TargetUserID, $FleetRow['fleet_start_time'], '', $MoonChance );
 				$GottenMoon       = sprintf($lang['sys_moonbuilt'], $TargetPlanetName, $FleetRow['fleet_end_galaxy'], $FleetRow['fleet_end_system'], $FleetRow['fleet_end_planet']);
 				$GottenMoon 	 .= "<br>";
-				$DerbisMetal	  = 0;
-				$DerbisCrystal	  = 0;
+				if(DESTROY_DERBIS_MOON_CREATE) {
+					$DerbisMetal	  = 0;
+					$DerbisCrystal	  = 0;
+				} else {
+					$DerbisMetal	  = $targetPlanet['der_metal'] 	 + $result['debree']['att'][0] + $result['debree']['def'][0];
+					$DerbisCrystal	  = $targetPlanet['der_crystal'] + $result['debree']['att'][1] + $result['debree']['def'][1];				
+				}
 			}
 			else
 			{
