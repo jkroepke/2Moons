@@ -515,7 +515,7 @@ class FlyingFleetMissions {
 		return $ship_res;
 	}
 	
-	public static function GenerateReport ($result_array, $steal_array, $moon_int, $moon_string, $time_float, $FleetRow, $moondes = "")
+	public static function GenerateReport ($result_array, $steal_array, $moon_int, $moon_string, $time_float, $FleetRow, $moondes = "", $ForSim = false)
 	{
 		global $lang;
 
@@ -744,7 +744,11 @@ class FlyingFleetMissions {
 			$html .= $lang['sys_moonproba']." ".$moon_int." %<br>";
 			$html .= $moon_string."<br><br>";
 		}
-
+		
+		if($ForSim)
+		{
+			$html .= $ForSim;
+		}
 		return array('html' => $html, 'bbc' => $bbc);
 	}
 	
@@ -1507,7 +1511,7 @@ class FlyingFleetMissions {
 			$fleet               = explode(";", $FleetRow['fleet_array']);
 			$fquery              = "";
 			
-			PlanetResourceUpdate($TargetUser, $TargetPlanet, time());
+			PlanetResourceUpdate($TargetUser, $TargetPlanet, $FleetRow['fleet_start_time']);
 
 			foreach ($fleet as $a => $b)
 			{
@@ -1521,7 +1525,7 @@ class FlyingFleetMissions {
 					}
 				}
 			}
-			
+	
 			if($LS < 1)
 				continue;
 			
@@ -1583,7 +1587,7 @@ class FlyingFleetMissions {
 			$AttackLink .= "&amp;target_mission=1";
 			$AttackLink .= " \">". $lang['type_mission'][1];
 			$AttackLink .= "</a></center>";
-			$MessageEnd  = "<center>".$DestProba."<br>";#<a href=\"game.php?page=battlesim&forbattlesim=".$string."\">Simulieren</a></center>";
+			$MessageEnd  = "<center>".$DestProba."<br>".(isset($lang['fl_simulate']) ? "<a href=\"game.php?page=battlesim&amp;forbattlesim=".$string."\">".$lang['fl_simulate']."</a>":"")."</center>";
 
 			
 			$SpyMessage = "<br>".$GetSB."<br>".$AttackLink.$MessageEnd;
