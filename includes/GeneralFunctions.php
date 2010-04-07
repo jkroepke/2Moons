@@ -97,9 +97,6 @@ function display ($page, $topnav = true, $metatags = '', $AdminPage = false, $me
 	$DisplayPage .= "\n<center>\n". $page ."\n</center>\n";
 	if(!defined('LOGIN') && $_GET['page'] != 'galaxy'){
 		$parse['sql_num']	= ((!defined('INSTALL') || !defined('IN_ADMIN')) && $user['authlevel'] == 3 && $game_config['debug'] == 1) ? "<center><div id=\"footer\">SQL Abfragen:". $db->get_sql()." - Seiten generiert in ".round(microtime(true) - STARTTIME, 4)." Sekunden</div></center>" : "";
-		$parse['cron']  	= '';
-		$parse['cron'] 	   .= (time() >= ($game_config['stat_last_update'] + (60 * $game_config['stat_update_time']))) ? "<img src=\"cronjobs.php?cron=stats\" alt=\"\" height=\"1\" width=\"1\">" : "";
-		$parse['cron'] 	   .= (time() >= ($game_config['stat_last_db_update'] + (60 * 60 * 24))) ? "<img src=\"cronjobs.php?cron=opdb\" alt=\"\" height=\"1\" width=\"1\">" : "";
 		$DisplayPage .= parsetemplate(gettemplate('global/overall_footer'), $parse);
 	}
 

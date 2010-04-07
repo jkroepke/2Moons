@@ -105,7 +105,7 @@ class statbuilder{
 		$Return['Planets']	= $this->db->query('SELECT DISTINCT '.$select_defenses.$select_fleets.$select_buildings.' p.id_owner, u.authlevel, u.bana, u.id, u.username FROM '.PLANETS.' as p LEFT JOIN '.USERS.' as u ON u.id = p.id_owner;');
 		$Return['Users']	= $this->db->query('SELECT DISTINCT '.$selected_tech.' u.id, u.ally_id, u.authlevel, u.bana, u.username, s.tech_rank AS old_tech_rank, s.build_rank AS old_build_rank, s.defs_rank AS old_defs_rank, s.fleet_rank AS old_fleet_rank, s.total_rank AS old_total_rank FROM '.USERS.' as u LEFT JOIN '.STATPOINTS.' as s ON s.stat_type = 1 AND s.stat_code = 1 AND s.id_owner = u.id GROUP BY s.id_owner, u.id, u.authlevel;');
 		$Return['Alliance']	= $this->db->query('SELECT DISTINCT a.id, s.tech_rank AS old_tech_rank, s.build_rank AS old_build_rank, s.defs_rank AS old_defs_rank, s.fleet_rank AS old_fleet_rank, s.total_rank AS old_total_rank FROM '.ALLIANCE.' as a LEFT JOIN '.STATPOINTS.' as s ON s.stat_type = 2 AND s.stat_code = 1 AND s.id_owner = a.id;');
-	update_config('users_amount', $this->db->num_rows($Return['Users']));
+		update_config('users_amount', $this->db->num_rows($Return['Users']));
 		
 		return $Return;
 	}
@@ -127,13 +127,13 @@ class statbuilder{
 			$this->SetMaxInfo($Techno, $CurrentUser[$this->resource[$Techno]], $CurrentUser['username']);
 			
 			$Units	= ($this->pricelist[$Techno]['metal'] + $this->pricelist[$Techno]['crystal'] + $this->pricelist[$Techno]['deuterium']);
-			for($Level = 1; $Level < $CurrentUser[$this->resource[$Techno]]; $Level++)
+			for($Level = 1; $Level <= $CurrentUser[$this->resource[$Techno]]; $Level++)
 			{
 				$TechPoints	+= $Units * pow($this->pricelist[$Techno]['factor'], $Level);
-				$TechCounts	+= $CurrentUser[$this->resource[$Techno]];
 			}
+			$TechCounts		+= $CurrentUser[$this->resource[$Techno]]
 		}
-		$RetValue['count'] = $TechCounts;
+		$RetValue['count'] 	= $TechCounts;
 		$RetValue['points'] = $TechPoints / $this->config['stat_settings'];
 
 		return $RetValue;
@@ -152,13 +152,13 @@ class statbuilder{
 			$this->SetMaxInfo($Build, $CurrentPlanet[$this->resource[$Build]], $CurrentPlanet['username']);
 			
 			$Units			 = $this->pricelist[$Build]['metal'] + $this->pricelist[$Build]['crystal'] + $this->pricelist[$Build]['deuterium'];
-			for($Level = 1; $Level < $CurrentPlanet[$this->resource[$Build]]; $Level++)
+			for($Level = 1; $Level <= $CurrentPlanet[$this->resource[$Build]]; $Level++)
 			{
 				$BuildPoints	+= $Units * pow($this->pricelist[$Build]['factor'], $Level);
-				$BuildCounts	+= $CurrentPlanet[$this->resource[$Build]];
 			}
+			$BuildCounts	+= $CurrentPlanet[$this->resource[$Build]];
 		}
-		$RetValue['count'] = $BuildCounts;
+		$RetValue['count'] 	= $BuildCounts;
 		$RetValue['points'] = $BuildPoints / $this->config['stat_settings'];
 		return $RetValue;
 	}
