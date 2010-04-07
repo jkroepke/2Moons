@@ -39,10 +39,7 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	// FACTOR FOR THE PLANETSIZE
 	
 	define('PLANET_SIZE_FACTOR'		  , 1.0);
-	
-	// FOR ADVANCE USERS
-	
-	define('USE_NEW_BATTLE_ENGINE'	  , false);
+
 	
 	// NUMBER OF COLUMNS FOR SPY REPORTS
 	define('SPY_REPORT_ROW'           , 2);
@@ -73,9 +70,14 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	
 	define('DARKMATTER_FOR_TRADER'	  , 750);
 	
+	// The Faction for the Moon Creation
+	define('MOON_CHANCE_FACTOR'		  , 1);
 	
+	// If ture, the calculation for Researchtime is like OGAME, if false its calculation with standart XNova Formula
 	define('NEW_RESEARCH'			  , true);
 	
+	// IF SET true, the derbis will be delete, when a moon is created.
+	define('DESTROY_DERBIS_MOON_CREATE', true);
 	
 	define('STORAGE_FACTOR'			  , 1.0);
 	
@@ -91,7 +93,12 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	
 	define('MAX_ATTACK_ROUNDS'		  ,       6);
 	
-	define('VACATION_MIN_TIME'		  ,  259200);
+	define('VACATION_MIN_TIME'		  ,  259200);	
+	
+	// FOR ADVANCE USERS
+	
+	define('USE_NEW_BATTLE_ENGINE'	  , false);
+	
 	//DISCLAMER INFOS
 
 	define('DICLAMER_NAME'            , "Edit constans.php!");

@@ -28,7 +28,7 @@ function check(){
         <th>{qe_name}</th><th>{qe_count}</th><th>{qe_input}</th>
 </tr>
 <tr><th width="30%">{Metal}:</th><th width="30%">{metal_c}</th><th width="40%"><input name="metal" type="text" value="{metal}"></th></tr>
-<tr><th width="30%">{Crystal}:</th><th width="30%">{crystal_c}</th><th width="40%"><input name="crytsal" type="text" value="{crystal}"></th></tr>
+<tr><th width="30%">{Crystal}:</th><th width="30%">{crystal_c}</th><th width="40%"><input name="crystal" type="text" value="{crystal}"></th></tr>
 <tr><th width="30%">{Deuterium}:</th><th width="30%">{deuterium_c}</th><th width="40%"><input name="deuterium" type="text" value="{deuterium}"></th></tr>
 </table>
 <table width="100%" style="color:#FFFFFF">

@@ -147,17 +147,17 @@ class GalaxyRows
 		}
 
 		$Result = array(
-			'name'		=> htmlspecialchars($GalaxyRowPlanet['name'],ENT_QUOTES,"UTF-8"),
-			'image'		=> $GalaxyRowPlanet['image'],
-			'phalax'	=> $PhalanxTypeLink,
-			'transport'	=> $lang['type_mission'][3],
-			'spionage'	=> ($GalaxyRowPlanet['userid'] != $user['id']) ? $lang['type_mission'][6]:false,
-			'attack'	=> ($GalaxyRowPlanet['userid'] != $user['id']) ? $lang['type_mission'][1]:false,
-			'missile'	=> ($user["settings_mis"] == "1" && $MissileBtn === true && $GalaxyRowPlanet['userid'] != $user['id']) ? $lang['gl_missile_attack']:false,
-			'stay'		=> ($GalaxyRowPlanet['userid'] == $user['id']) ? $lang['type_mission'][4]:false,
-			'stayally'	=> ($GalaxyRowPlanet['userid'] != $user['id']) ? $lang['type_mission'][5]:false,
+			'name'			=> htmlspecialchars($GalaxyRowPlanet['name'],ENT_QUOTES,"UTF-8"),
+			'image'			=> $GalaxyRowPlanet['image'],
+			'phalax'		=> $PhalanxTypeLink,
+			'transport'		=> $lang['type_mission'][3],
+			'spionage'		=> ($GalaxyRowPlanet['userid'] != $user['id']) ? $lang['type_mission'][6]:false,
+			'attack'		=> ($GalaxyRowPlanet['userid'] != $user['id']) ? $lang['type_mission'][1]:false,
+			'missile'		=> ($user["settings_mis"] == "1" && $MissileBtn === true && $GalaxyRowPlanet['userid'] != $user['id']) ? $lang['gl_missile_attack']:false,
+			'stay'			=> ($GalaxyRowPlanet['userid'] == $user['id']) ? $lang['type_mission'][4]:false,
+			'stayally'		=> ($GalaxyRowPlanet['userid'] != $user['id']) ? $lang['type_mission'][5]:false,
 		);
-
+		
 		return $Result;
 	}
 
@@ -165,20 +165,11 @@ class GalaxyRows
 	{
 		global $user, $lang;
 
-		if ($GalaxyRowPlanet['last_update'] > (time()-59 * 60) && $GalaxyRowUser['id'] != $user['id'])
-			$Inactivity = pretty_time_hour(time() - $GalaxyRowPlanet['last_update']);
-
-		if ($GalaxyRowPlanet['last_update']  > (time()-59 * 60) && $GalaxyRowUser['id'] != $user['id'])
-		{
-			if ($GalaxyRowPlanet['last_update']  > (time()-10 * 60) && $GalaxyRowUser['id'] != $user['id'])
-				$Inactivity = "(*)";
-			else
-				$Inactivity = "(".$Inactivity.")";
-		}
-			
+		$Onlinetime			= floor((time() - $GalaxyRowPlanet['last_update']) / 60);
+		
 		$Result = array(
 			'name'			=> htmlspecialchars($GalaxyRowPlanet['name'],ENT_QUOTES,"UTF-8"),
-			'Inactivity'	=> $Inactivity,
+			'activity'		=> ($Onlinetime < 4) ? $lang['gl_activity'] : (($Onlinetime < 15) ? sprintf($lang['gl_activity_inactive'], $Onlinetime) : ''),
 		);
 		
 		return $Result;

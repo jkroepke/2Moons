@@ -188,6 +188,8 @@ $lang['gl_phalanx']							= 'Phalanx';
 $lang['gl_planet_destroyed']				= 'Zerstörter Planet';
 $lang['gl_playercard']						= 'Playercard';
 $lang['gl_in_the_rank']						= 'Spieler %s auf Platz %d';
+$lang['gl_activity']						= '(*)';
+$lang['gl_activity_inactive']				= '(%d min)';
 
 //----------------------------------------------------------------------------//
 //PHALANX
