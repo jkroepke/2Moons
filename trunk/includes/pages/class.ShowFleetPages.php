@@ -316,7 +316,7 @@ class ShowFleetPages extends FleetFunctions
 		
 		if($duration > $CurrentPlanet['deuterium'])
 		{
-			$template->message("<font color=\"red\"><b>". $lang['fl_no_enought_deuterium'] . pretty_number($consumption) ."Aus Planet sind:".$CurrentPlanet['deuterium']."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
+			$template->message("<font color=\"red\"><b>". sprintf($lang['fl_no_enought_deuterium'], $lang['Deuterium'], pretty_number($CurrentPlanet['deuterium'] - $consumption), $lang['Deuterium'])."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
 			$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 			exit;
 		}
