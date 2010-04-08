@@ -131,7 +131,7 @@ class statbuilder{
 			{
 				$TechPoints	+= $Units * pow($this->pricelist[$Techno]['factor'], $Level);
 			}
-			$TechCounts		+= $CurrentUser[$this->resource[$Techno]]
+			$TechCounts		+= $CurrentUser[$this->resource[$Techno]];
 		}
 		$RetValue['count'] 	= $TechCounts;
 		$RetValue['points'] = $TechPoints / $this->config['stat_settings'];
