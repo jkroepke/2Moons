@@ -132,7 +132,7 @@ function ShowStatisticsPage($CurrentUser, $CurrentPlanet)
 			INNER JOIN '.ALLIANCE.' as a ON a.id = s.id_owner
 			WHERE `stat_type` = 2
 			ORDER BY `'. $Order .'` ASC LIMIT '. $start .',100;';
-			var_dump($stats_sql);
+
 			$query = $db->query($stats_sql);
 
 			while ($StatRow = $db->fetch($query))
