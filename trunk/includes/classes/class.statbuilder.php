@@ -242,7 +242,7 @@ class statbuilder{
 		{
 			$Rank           = 1;
 			$RankQry        = $this->db->query("SELECT `id_owner` FROM ".STATPOINTS." WHERE `stat_type` = '".$StatType."' AND `stat_code` = '1' ORDER BY `tech_points` DESC;");
-			while ($CurUser = $this->db->fetch($RankQry) )
+			while ($CurUser = $this->db->fetch($RankQry))
 			{
 				$tech[$CurUser['id_owner']]	= $Rank;
 				$Rank++;
@@ -250,7 +250,7 @@ class statbuilder{
 			
 			$Rank           = 1;
 			$RankQry        = $this->db->query("SELECT `id_owner` FROM ".STATPOINTS." WHERE `stat_type` = '".$StatType."' AND `stat_code` = '1' ORDER BY `build_points` DESC;");
-			while ($CurUser = $this->db->fetch($RankQry) )
+			while ($CurUser = $this->db->fetch($RankQry))
 			{
 				$build[$CurUser['id_owner']] = $Rank;
 				$Rank++;
@@ -258,7 +258,7 @@ class statbuilder{
 			
 			$Rank           = 1;
 			$RankQry        = $this->db->query("SELECT `id_owner` FROM ".STATPOINTS." WHERE `stat_type` = '".$StatType."' AND `stat_code` = '1' ORDER BY `defs_points` DESC;");
-			while ($CurUser = $this->db->fetch($RankQry) )
+			while ($CurUser = $this->db->fetch($RankQry))
 			{
 				$defs[$CurUser['id_owner']]	= $Rank;
 				$Rank++;
@@ -266,7 +266,7 @@ class statbuilder{
 			
 			$Rank           = 1;
 			$RankQry        = $this->db->query("SELECT `id_owner` FROM ".STATPOINTS." WHERE `stat_type` = '".$StatType."' AND `stat_code` = '1' ORDER BY `fleet_points` DESC;");
-			while ($CurUser = $this->db->fetch($RankQry) )
+			while ($CurUser = $this->db->fetch($RankQry))
 			{
 				$fleet[$CurUser['id_owner']] = $Rank;
 				$Rank++;
@@ -386,7 +386,7 @@ class statbuilder{
 		$this->SaveDataIntoDB($FinalSQL);
 		unset($UserPoints);
 		
-		if(count($AllianceData) != 0)
+		if(count($AllyPoints) != 0)
 		{
 			$AllySQL = "INSERT INTO ".STATPOINTS." (`id_owner`, `id_ally`, `stat_type`, `stat_code`, `tech_old_rank`, `tech_points`, `tech_count`, `build_old_rank`, `build_points`, `build_count`, `defs_old_rank`, `defs_points`, `defs_count`, `fleet_old_rank`, `fleet_points`, `fleet_count`, `total_old_rank`, `total_points`, `total_count`, `stat_date`) VALUES ";
 			while($AllianceData	= $this->db->fetch_array($TotalData['Alliance']))
@@ -395,7 +395,6 @@ class statbuilder{
 			}
 			unset($AllyPoints);
 			$AllySQL	= substr($AllySQL, 0, -2).';';
-				
 			$this->SaveDataIntoDB($AllySQL);
 		}		
 			

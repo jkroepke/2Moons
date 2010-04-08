@@ -7,6 +7,7 @@ body
 	background-position			: center;
 	background-attachment		: fixed;
   	font-size            		: 10px;
+	_font-size           		: 11px;
   	font-family          		: Tahoma,sans-serif;
 	font-style					: normal;
 	line-height					: normal;
@@ -14,14 +15,13 @@ body
 	font-variant				: normal;
 	text-transform				: none;
 	text-decoration				: none;
-	overflow					: auto;
 }
 
 table 
 {
 	border: 0px #000000 solid;
 	font-size: 10px;
-	background-color: #344566;
+	background-color: #1b232c;            /*#344566;*/
 }
 
 textarea
@@ -39,6 +39,7 @@ th
   font-size: 10px;
   font-family: Tahoma,sans-serif;
   border:1px #415680 solid;
+  padding-left:5px;
 }
 
 th.s

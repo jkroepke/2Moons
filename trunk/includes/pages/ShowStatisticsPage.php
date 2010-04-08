@@ -82,22 +82,22 @@ function ShowStatisticsPage($CurrentUser, $CurrentPlanet)
 	switch($who)
 	{
 		case 1:
-			$MaxUsers = $db->fetch_array($db->query("SELECT COUNT(*) AS `count` FROM ".USERS." WHERE `db_deaktjava` = '0';"));
+			$MaxUsers 	= $db->fetch_array($db->query("SELECT COUNT(*) AS `count` FROM ".USERS." WHERE `db_deaktjava` = '0';"));
+			$range		= min($range, $MaxUsers['count']);			
+			$LastPage 	= ceil($MaxUsers['count'] / 100);
 			
-			$LastPage = min(floor($MaxUsers['count'] / 100), 1);
-
-			for ($Page = 0; $Page <= $LastPage; $Page++)
+			for ($Page = 0; $Page < $LastPage; $Page++)
 			{
 				$PageValue      				= ($Page * 100) + 1;
 				$PageRange      				= $PageValue + 99;
 				$Selector['range'][$PageValue] 	= $PageValue."-".$PageRange;
 			}
 
-			$start = floor($range / 100 % 100) * 100;
+			$start = floor(($range - 1) / 100) * 100;
 
 			$stats_sql	=	'SELECT DISTINCT s.*, u.id, u.username, u.ally_id, u.ally_name FROM '.STATPOINTS.' as s
 			INNER JOIN '.USERS.' as u ON u.id = s.id_owner
-			WHERE s.`stat_type` = 1 AND s.`stat_code` = 1 '.(($game_config['stat'] == 2)?'AND u.`authlevel` < '.$game_config['stat_level'].' ':'').'
+			WHERE s.`stat_type` = 1 '.(($game_config['stat'] == 2)?'AND u.`authlevel` < '.$game_config['stat_level'].' ':'').'
 			ORDER BY `'. $Order .'` ASC LIMIT '. $start .',100;';
 
 			$query = $db->query($stats_sql);
@@ -116,24 +116,23 @@ function ShowStatisticsPage($CurrentUser, $CurrentPlanet)
 			}
 		break;
 		case 2:
-			$MaxAllys = $db->fetch_array($db->query("SELECT COUNT(*) AS `count` FROM ".ALLIANCE.";"));
+			$MaxAllys 	= $db->fetch_array($db->query("SELECT COUNT(*) AS `count` FROM ".ALLIANCE.";"));
+			$range		= min($range, $MaxAllys['count']);
+			$LastPage 	= ceil($MaxAllys['count'] / 100);
+			for ($Page = 0; $Page < $LastPage; $Page++)
+			{
+				$PageValue      				= ($Page * 100) + 1;
+				$PageRange      				= $PageValue + 99;
+				$Selector['range'][$PageValue] 	= $PageValue."-".$PageRange;
+			}
 
-				$LastPage = min(floor($MaxAllys['count'] / 100), 1);
-
-				for ($Page = 0; $Page <= $LastPage; $Page++)
-				{
-					$PageValue      				= ($Page * 100) + 1;
-					$PageRange      				= $PageValue + 99;
-					$Selector['range'][$PageValue] 	= $PageValue."-".$PageRange;
-				}
-
-			$start = floor($range / 100 % 100) * 100;
+			$start = floor(($range - 1) / 100) * 100;
 
 			$stats_sql	=	'SELECT DISTINCT s.*, a.id, a.ally_members, a.ally_name FROM '.STATPOINTS.' as s
 			INNER JOIN '.ALLIANCE.' as a ON a.id = s.id_owner
-			WHERE `stat_type` = 2 AND `stat_code` = 1
+			WHERE `stat_type` = 2
 			ORDER BY `'. $Order .'` ASC LIMIT '. $start .',100;';
-
+			var_dump($stats_sql);
 			$query = $db->query($stats_sql);
 
 			while ($StatRow = $db->fetch($query))
