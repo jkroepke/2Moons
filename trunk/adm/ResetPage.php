@@ -33,6 +33,7 @@ $parse	=	$lang;
 
 function ResetUniverse ( $CurrentUser )
 {
+	global $db;
 		$db->query("RENAME TABLE ".PLANETS." TO ".PLANETS."_s;");
 		$db->query("RENAME TABLE ".USERS." TO ".USERS."_s;");
 

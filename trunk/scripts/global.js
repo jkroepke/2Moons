@@ -125,6 +125,29 @@ function ajax(datei, id) {
 	});
 }
 
+function Servertime(timestamp)
+{
+	stime = new Date(timestamp * 1000);
+	hora = stime.getHours();
+	min = stime.getMinutes();
+	seg = stime.getSeconds();
+	data = stime.getDate();
+	weeks = stime.getDay();
+	mez = stime.getMonth();
+	ano = stime.getFullYear();
+	if (seg < 10) { seg0 = "0"; }
+	else { seg0 = ""; }
+	if (min < 10) { min0 = "0"; }
+	else { min0 = ""; }
+	if (hora < 10) { hora0 = "0"; }
+	else { hora0 = ""; }
+	var Week = new Array("Son", "Mon", "Tue", "Wen", "Thr", "Fri", "Sat");
+	var Month = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Mar", "Sep", "Oct", "Nov", "Dec");
+	$("#servertime").text(Week[weeks] + " " + Month[mez] + " " + data + " " + hora0 + hora + ":" + min0 + min + ":" + seg0 + seg);
+	timestamp++;
+	window.setTimeout("Servertime("+timestamp+");",1000);	
+}
+
 function maxcount(id){
 	var metmax = met / parseInt($('#metal_'+id).text().replace(/\./g,""));
 	var crymax = cry / parseInt($('#crystal_'+id).text().replace(/\./g,""));
