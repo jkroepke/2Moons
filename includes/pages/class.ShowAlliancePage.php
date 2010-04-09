@@ -121,6 +121,22 @@ class ShowAlliancePage
 		return '<span style="background-color:' . $bg . '">' . $title . '</span>';
 	}
 
+	private function GetDiplo($allyid)
+	{
+		global $db;
+		$Diplos	= $db->query("SELECT d.level, d.accept, d.id, a.id as ally_id, a.ally_name, d.owner_1, d.owner_2 FROM ".DIPLO." as d INNER JOIN ".ALLIANCE." as a ON IF('".$allyid."' = d.owner_1, a.id = d.owner_2, a.id = d.owner_1)");
+		while($CurDiplo = $db->fetch_array($Diplos))
+		{
+			if($CurDiplo['accpet'] == 1 && $CurDiplo['owner_2'] == $allyid)
+				$Return[5][$CurDiplo['id']] = array($CurDiplo['name'], $CurDiplo['ally_id'], $CurDiplo['level']);
+			elseif($CurDiplo['accpet'] == 1 && $CurDiplo['owner_1'] == $allyid)
+				$Return[6][$CurDiplo['id']] = array($CurDiplo['name'], $CurDiplo['ally_id'], $CurDiplo['level']);
+			else
+				$Return[$CurDiplo['level']][$CurDiplo['id']] = array($CurDiplo['name'], $CurDiplo['ally_id']);				
+		}
+		return $Return;
+	}
+
 	private function sizefix($size, $text)
 	{
 		$title = stripslashes($text);
@@ -582,7 +598,7 @@ class ShowAlliancePage
 
 							while ($u = $db->fetch_array($sq))
 							{
-								SendSimpleMessage($u['id'],$CurrentUser['id'],'',2,"Allianz ".$ally['ally_tag'],$CurrentUser['username'],$text);
+								SendSimpleMessage($u['id'],$CurrentUser['id'],'',2,$lang['al_circular_alliance'].$ally['ally_tag'],$CurrentUser['username'],$text);
 
 								$list .= "\n".$u['username'];
 							}
@@ -823,7 +839,7 @@ class ShowAlliancePage
 									'sort'				=> ($sort2 == 1) ? 2 : 1,
 									'seeonline'			=> $CurrentUser['rights']['memberlist_on'],
 									'al_users_list'		=> sprintf($lang['al_users_list'], count($Memberlist)),
-									'id'				=>($NewRang == '') ? $id : 0,
+									'id'				=> ($NewRang == '') ? $id : 0,
 									'al_num'			=> $lang['al_num'],
 									'al_back'			=> $lang['al_back'],
 									'al_message'		=> $lang['al_message'],
@@ -837,6 +853,86 @@ class ShowAlliancePage
 									'al_ok'				=> $lang['al_ok'],
 								));
 								$this->template->show("alliance_admin_members.tpl");
+							break;
+							case 'diplo':
+								if (!$CurrentUser['rights']['righthand'])
+									header("location:game.". PHP_EXT . "?page=alliance");
+								
+								$action		= request_var('action', '');
+								$id			= request_var('id', 0);
+								$Level		= request_var('level', 0);
+								$DiploInfo	= $this->GetDiplo($ally['id']);
+								switch($action)
+								{
+									case 'new':
+										if(!empty($id))
+										{
+											$text		= request_var('text', 0, '');
+											$db->query("INSERT INTO ".DIPLO." (`id` ,`owner_1` ,`owner_2` ,`level` ,`accept` ,`accept_text`) VALUES (NULL , '".$ally['id']."', '".$id."', '".$Level."', '".($Level == 4 ? 1 : 0)."', '".$db->sql_escape($text)."');");
+											exit($lang['al_diplo_create_done']);
+										}
+										$Alliances	= $db->query("SELECT `id`, `ally_name` FROM ".ALLIANCE." WHERE id != '".$ally['id']."';");
+										while($Alliance = $db->fetch_array($Alliances))
+										{
+											$AllianceList[$Alliance['id']]	= $Alliance['ally_name'];
+										}
+										$this->template->assign_vars(array(
+											'AllianceList' 			=> $AllianceList,
+											'al_diplo_create' 		=> $lang['al_diplo_create'],
+											'al_diplo_ally' 		=> $lang['al_diplo_ally'],
+											'al_diplo_level' 		=> $lang['al_diplo_level'],
+											'al_diplo_text' 		=> $lang['al_diplo_text'],
+											'al_diplo_level_des' 	=> $lang['al_diplo_level_des'],
+											'al_applyform_send'		=> $lang['al_applyform_send'],
+										));
+										$this->template->show("alliance_admin_diplo_form.tpl");
+									break;
+									case 'accept':
+										if(!empty($id))
+										{
+											$AllyUsers = $db->query("SELECT `id` FROM ".USERS." as s WHERE s.ally_id = '".$ally['id']."' OR s.ally_id = '".$DiploInfo[5][$id][1]."';");
+											while($User = $db->fetch_array($AllyUsers)) {	
+												SendSimpleMessage($User['id'], $CurrentUser['id'],'', 2,$lang['al_circular_alliance'].$ally['ally_tag']." &amp; ".$DiploInfo[5][$id][0], $lang['al_diplo_accept_yes'], spintf($lang['al_diplo_accept_yes_mes'], $lang['al_diplo_level'][$Level], $ally['ally_name'], $DiploInfo[5][$id][0]));
+											}
+											$db->query("UPDATE ".DIPLO." SET `accept` = '1', `accept_text` = '' WHERE `id`='".$id."' LIMIT 1;");
+										}
+									break;
+									case 'decline':
+										if(!empty($id))
+										{
+											$AllyUsers 	= $db->query("SELECT `id` FROM ".USERS." as s WHERE s.ally_id = '".$ally['id']."' OR s.ally_id = '".$DiploInfo[$Level][$id][1]."';");
+											while($User = $db->fetch_array($AllyUsers)) {	
+												SendSimpleMessage($User['id'], $CurrentUser['id'],'', 2,$lang['al_circular_alliance'].$ally['ally_tag']." &amp; ".$DiploInfo[5][$id][0], $lang['al_diplo_accept_no'], spintf($lang['al_diplo_accept_no_mes'], $lang['al_diplo_level'][$Level], $ally['ally_name'], $DiploInfo[5][$id][0]));
+											}
+											$db->query("DELETE FROM ".DIPLO." WHERE `id` ='".$id."' LIMIT 1;");
+										}
+									break;
+									case 'delete':
+										if(!empty($id))
+										{
+											$AllyUsers = $db->query("SELECT `id` FROM ".USERS." as s WHERE s.ally_id = '".$ally['id']."' OR s.ally_id = '".$DiploInfo[$Level][$id][1]."';");
+											while($User = $db->fetch_array($AllyUsers)) {	
+												SendSimpleMessage($User['id'], $CurrentUser['id'],'', 2,$lang['al_circular_alliance'].$ally['ally_tag']." &amp; ".$DiploInfo[$Level][$id][0], spintf($lang['al_diplo_delete_mes'], $lang['al_diplo_level'][$Level], $ally['ally_name'], $DiploInfo[$Level][$id][0]));
+											}
+											$db->query("DELETE FROM ".DIPLO." WHERE `id` ='".$id."' LIMIT 1;");
+										}
+										header("Location: ?page=alliance&mode=admin&edit=diplo");
+									break;
+									default:
+										$this->template->assign_vars(array(
+											'DiploInfo' 				=> $DiploInfo,
+											'al_diplo_create' 			=> $lang['al_diplo_create'],
+											'al_diplo_level' 			=> $lang['al_diplo_level'],
+											'al_diplo_accept' 			=> $lang['al_diplo_accept'],
+											'al_diplo_accept_send' 		=> $lang['al_diplo_accept_send'],
+											'al_diplo_no_entry' 		=> $lang['al_diplo_no_entry'],
+											'al_diplo_no_accept' 		=> $lang['al_diplo_no_accept'],
+											'al_diplo_confirm_delete'	=> $lang['al_diplo_confirm_delete'],
+											'al_back'					=> $lang['al_back'],
+										));
+										$this->template->show("alliance_admin_diplo.tpl");
+									break;
+								}
 							break;
 							case 'requests':
 							
@@ -892,9 +988,6 @@ class ShowAlliancePage
 								$this->template->show("alliance_admin_request.tpl");
 							break;
 							case 'tag':
-								if (!$CurrentUser['rights']['admin'])
-									header("Location: ?page=alliance");
-									
 								$name = request_var('newname', '', UTF8_SUPPORT);
 								
 								if (!empty($name))
@@ -909,9 +1002,6 @@ class ShowAlliancePage
 								$this->template->show("alliance_admin_rename.tpl");
 							break;
 							case 'name':
-								if (!$CurrentUser['rights']['admin'])
-									header("Location: ?page=alliance");
-									
 								$name = request_var('newname', '', UTF8_SUPPORT);
 								
 								if (!empty($name))
@@ -927,7 +1017,7 @@ class ShowAlliancePage
 							break;
 							case 'exit':
 								if (!$CurrentUser['rights']['close'])
-									header("Location: ?page=alliance");
+									exit(header("Location: ?page=alliance"));
 
 								$BorrarAlianza = $db->query("SELECT id FROM ".USERS." WHERE `ally_id`='".$ally['id']."';");
 
@@ -986,7 +1076,7 @@ class ShowAlliancePage
 									$ally['ally_stats'] 			= request_var('stats', 0);
 
 									if ($ally['ally_request_notallow'] != 0 && $ally['ally_request_notallow'] != 1)
-										exit(header("location:game.". PHP_EXT . "?page=alliance?mode=admin&edit=ally",2));
+										exit(header("Location: ?page=alliance"));
 
 									$db->query("UPDATE ".ALLIANCE." SET
 									`ally_owner_range` = '".$db->sql_escape($ally['ally_owner_range'])."',
@@ -1035,6 +1125,7 @@ class ShowAlliancePage
 									'al_manage_image'			=> $lang['al_manage_image'],
 									'al_manage_requests'		=> $lang['al_manage_requests'],
 									'al_manage_founder_rank'	=> $lang['al_manage_founder_rank'],
+									'al_manage_diplo'			=> $lang['al_manage_diplo'],
 									'al_view_stats'				=> $lang['al_view_stats'],
 									'al_disolve_alliance'		=> $lang['al_disolve_alliance'],
 									'al_transfer_alliance'		=> $lang['al_transfer_alliance'],
@@ -1044,6 +1135,7 @@ class ShowAlliancePage
 									'OpenStatsSelector'			=> array(1 => $lang['al_go_out_yes'], 0 => $lang['al_go_out_no']),
 									't' 						=> $t,
 									'text' 						=> $text,
+									'righthand'					=> $CurrentUser['rights']['righthand'],
 									'ally_web' 					=> $ally['ally_web'],
 									'ally_image'				=> $ally['ally_image'],
 									'ally_request_notallow' 	=> $ally['ally_request_notallow'],

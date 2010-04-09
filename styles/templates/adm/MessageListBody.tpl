@@ -20,6 +20,11 @@ function checkedAll (frm1) {
 	 aa.elements[i].checked = checked;
 	}
 }
+function kb(rid) {
+    var playercard = window.open("../CombatReport.php?raport="+rid, "kb", "scrollbars=yes,statusbar=no,toolbar=no,location=no,directories=no,resizable=no,menubar=no,width="+(xsize-100)+",height="+(ysize-100)+",screenX="+((xsize-(xsize-100))/2)+",screenY="+((ysize-(ysize-100))/2)+",top="+((ysize-(ysize-100))/2)+",left="+((xsize-(xsize-100))/2));
+	playercard.focus();
+}
+
 </script>
 <script>document.body.style.overflow = "auto";</script> 
 <body>

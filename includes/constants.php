@@ -139,6 +139,7 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	define('BUDDY'				  	  , $database["tableprefix"]."buddy");
 	define('CHAT'				  	  , $database["tableprefix"]."chat");
 	define('CONFIG'				  	  , $database["tableprefix"]."config");
+	define('DIPLO'				  	  , $database["tableprefix"]."diplo");
 	define('ERRORS'				  	  , $database["tableprefix"]."errors");
 	define('FLEETS'				  	  , $database["tableprefix"]."fleets");
 	define('LOTERIA'			  	  , $database["tableprefix"]."loteria");
