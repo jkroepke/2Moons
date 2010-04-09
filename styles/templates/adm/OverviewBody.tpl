@@ -41,7 +41,7 @@ th.lic{border:0px;}</style>
 				  <th class="lic"><h3>{ow_translator}</h3></th>
                 </tr>
                 <tr>
-                  <th class="lic">Brandi (ACP)<br>medicpl (polnish)<br>DOBRO (russian)
+                  <th class="lic">Brandi (ACP)<br>medicpl (polnish)<br>DOBRO (russian)<br>languar (english)
 				  </th>
                 </tr> 
                 <tr>

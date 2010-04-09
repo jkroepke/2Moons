@@ -51,8 +51,7 @@ class ShowFleetPages extends FleetFunctions
 					parent::SendFleetBack($CurrentUser, $FleetID);
 				break;
 				case "getakspage":
-					$AKSArray	= parent::GetAKSPage($CurrentUser, $CurrentPlanet, $FleetID);
-					$template->assign_vars($AKSArray);
+					$template->assign_vars(parent::GetAKSPage($CurrentUser, $CurrentPlanet, $FleetID));
 					$template->assign_vars(array(
 						'fl_invite_members'		=> $lang['fl_invite_members'],
 						'fl_members_invited'	=> $lang['fl_members_invited'],
@@ -313,8 +312,8 @@ class ShowFleetPages extends FleetFunctions
 		$MaxFleetSpeed				= ($FleetSpeed / 10) * $GenFleetSpeed;
 		$distance      				= parent::GetTargetDistance($CurrentPlanet['galaxy'], $TargetGalaxy, $CurrentPlanet['system'], $TargetSystem, $CurrentPlanet['planet'], $TargetPlanet);
 		$duration      				= parent::GetMissionDuration($GenFleetSpeed, $MaxFleetSpeed, $distance, $GameSpeedFactor, $CurrentUser);
-		
-		if($duration > $CurrentPlanet['deuterium'])
+		$consumption				= parent::GetFleetConsumption($FleetArray, $duration, $distance, $MaxFleetSpeed, $CurrentUser, $GameSpeedFactor);
+ 		if($consumption > $CurrentPlanet['deuterium'])
 		{
 			$template->message("<font color=\"red\"><b>". sprintf($lang['fl_no_enought_deuterium'], $lang['Deuterium'], pretty_number($CurrentPlanet['deuterium'] - $consumption), $lang['Deuterium'])."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
 			$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
@@ -322,7 +321,7 @@ class ShowFleetPages extends FleetFunctions
 		}
 		
 		$template->assign_vars(array(
-			'consumption'					=> number_format(floor(parent::GetFleetConsumption($FleetArray, $duration, $distance, $MaxFleetSpeed, $CurrentUser, $GameSpeedFactor)), 0, '', ''),
+			'consumption'					=> number_format(floor($consumption), 0, '', ''),
 			'fleetroom'						=> number_format(parent::GetFleetRoom($FleetArray), 0, '', ''),
 			'speedallsmin'					=> $MaxFleetSpeed,
 			'speed'							=> $GenFleetSpeed,

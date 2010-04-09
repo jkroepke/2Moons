@@ -808,7 +808,7 @@ class ShowAlliancePage
 										'register_time'	=> date("Y-m-d h:i:s", $UserRow['ally_register_time']),
 										'points'		=> pretty_number($UserRow['total_points']),
 										'range'			=> $UserRow['ally_range'],
-										'onlinetime'	=> sprintf("%d d", floor(round(time() - $UserRow['onlinetime']) / 3600 % 24)),
+										'onlinetime'	=> sprintf("%d d", floor(time() - $UserRow['onlinetime']) / 86400),
 										'action'		=> ($ally['ally_owner'] == $UserRow['id'] || $rank == $UserRow['id']) ? 0 : (($CurrentUser['rights']['kick'] == 1) ? 2 : 1),
 										'kick'			=> sprintf($lang['al_kick_player'], $UserRow['username'])
 									);
