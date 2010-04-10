@@ -127,12 +127,12 @@ class ShowAlliancePage
 		$Diplos	= $db->query("SELECT d.level, d.accept, d.id, a.id as ally_id, a.ally_name, d.owner_1, d.owner_2 FROM ".DIPLO." as d INNER JOIN ".ALLIANCE." as a ON IF('".$allyid."' = d.owner_1, a.id = d.owner_2, a.id = d.owner_1)");
 		while($CurDiplo = $db->fetch_array($Diplos))
 		{
-			if($CurDiplo['accpet'] == 1 && $CurDiplo['owner_2'] == $allyid)
-				$Return[5][$CurDiplo['id']] = array($CurDiplo['name'], $CurDiplo['ally_id'], $CurDiplo['level']);
-			elseif($CurDiplo['accpet'] == 1 && $CurDiplo['owner_1'] == $allyid)
-				$Return[6][$CurDiplo['id']] = array($CurDiplo['name'], $CurDiplo['ally_id'], $CurDiplo['level']);
+			if($CurDiplo['accept'] == 0 && $CurDiplo['owner_2'] == $allyid)
+				$Return[5][$CurDiplo['id']] = array($CurDiplo['ally_name'], $CurDiplo['ally_id'], $CurDiplo['level']);
+			elseif($CurDiplo['accept'] == 0 && $CurDiplo['owner_1'] == $allyid)
+				$Return[6][$CurDiplo['id']] = array($CurDiplo['ally_name'], $CurDiplo['ally_id'], $CurDiplo['level']);
 			else
-				$Return[$CurDiplo['level']][$CurDiplo['id']] = array($CurDiplo['name'], $CurDiplo['ally_id']);				
+				$Return[$CurDiplo['level']][$CurDiplo['id']] = array($CurDiplo['ally_name'], $CurDiplo['ally_id']);				
 		}
 		return $Return;
 	}
@@ -867,7 +867,7 @@ class ShowAlliancePage
 									case 'new':
 										if(!empty($id))
 										{
-											$text		= request_var('text', 0, '');
+											$text		= request_var('text', '');
 											$db->query("INSERT INTO ".DIPLO." (`id` ,`owner_1` ,`owner_2` ,`level` ,`accept` ,`accept_text`) VALUES (NULL , '".$ally['id']."', '".$id."', '".$Level."', '".($Level == 4 ? 1 : 0)."', '".$db->sql_escape($text)."');");
 											exit($lang['al_diplo_create_done']);
 										}
@@ -892,27 +892,29 @@ class ShowAlliancePage
 										{
 											$AllyUsers = $db->query("SELECT `id` FROM ".USERS." as s WHERE s.ally_id = '".$ally['id']."' OR s.ally_id = '".$DiploInfo[5][$id][1]."';");
 											while($User = $db->fetch_array($AllyUsers)) {	
-												SendSimpleMessage($User['id'], $CurrentUser['id'],'', 2,$lang['al_circular_alliance'].$ally['ally_tag']." &amp; ".$DiploInfo[5][$id][0], $lang['al_diplo_accept_yes'], spintf($lang['al_diplo_accept_yes_mes'], $lang['al_diplo_level'][$Level], $ally['ally_name'], $DiploInfo[5][$id][0]));
+												SendSimpleMessage($User['id'], $CurrentUser['id'],'', 2,$lang['al_circular_alliance'].$ally['ally_tag']." &amp; ".$DiploInfo[5][$id][0], $lang['al_diplo_accept_yes'], sprintf($lang['al_diplo_accept_yes_mes'], $lang['al_diplo_level'][$Level], $ally['ally_name'], $DiploInfo[5][$id][0]));
 											}
 											$db->query("UPDATE ".DIPLO." SET `accept` = '1', `accept_text` = '' WHERE `id`='".$id."' LIMIT 1;");
 										}
+										header("Location: ?page=alliance&mode=admin&edit=diplo");
 									break;
 									case 'decline':
 										if(!empty($id))
 										{
 											$AllyUsers 	= $db->query("SELECT `id` FROM ".USERS." as s WHERE s.ally_id = '".$ally['id']."' OR s.ally_id = '".$DiploInfo[$Level][$id][1]."';");
 											while($User = $db->fetch_array($AllyUsers)) {	
-												SendSimpleMessage($User['id'], $CurrentUser['id'],'', 2,$lang['al_circular_alliance'].$ally['ally_tag']." &amp; ".$DiploInfo[5][$id][0], $lang['al_diplo_accept_no'], spintf($lang['al_diplo_accept_no_mes'], $lang['al_diplo_level'][$Level], $ally['ally_name'], $DiploInfo[5][$id][0]));
+												SendSimpleMessage($User['id'], $CurrentUser['id'],'', 2,$lang['al_circular_alliance'].$ally['ally_tag']." &amp; ".$DiploInfo[5][$id][0], $lang['al_diplo_accept_no'], sprintf($lang['al_diplo_accept_no_mes'], $lang['al_diplo_level'][$Level], $ally['ally_name'], $DiploInfo[5][$id][0]));
 											}
 											$db->query("DELETE FROM ".DIPLO." WHERE `id` ='".$id."' LIMIT 1;");
 										}
+										header("Location: ?page=alliance&mode=admin&edit=diplo");
 									break;
 									case 'delete':
 										if(!empty($id))
 										{
 											$AllyUsers = $db->query("SELECT `id` FROM ".USERS." as s WHERE s.ally_id = '".$ally['id']."' OR s.ally_id = '".$DiploInfo[$Level][$id][1]."';");
 											while($User = $db->fetch_array($AllyUsers)) {	
-												SendSimpleMessage($User['id'], $CurrentUser['id'],'', 2,$lang['al_circular_alliance'].$ally['ally_tag']." &amp; ".$DiploInfo[$Level][$id][0], spintf($lang['al_diplo_delete_mes'], $lang['al_diplo_level'][$Level], $ally['ally_name'], $DiploInfo[$Level][$id][0]));
+												SendSimpleMessage($User['id'], $CurrentUser['id'],'', 2,$lang['al_circular_alliance'].$ally['ally_tag']." &amp; ".$DiploInfo[$Level][$id][0], $lang['al_diplo_delete'], sprintf($lang['al_diplo_delete_mes'], $lang['al_diplo_level'][$Level], $ally['ally_name'], $DiploInfo[$Level][$id][0]));
 											}
 											$db->query("DELETE FROM ".DIPLO." WHERE `id` ='".$id."' LIMIT 1;");
 										}
