@@ -8,6 +8,7 @@ $version  = explode("-",substr($revision, 7, -35));
 $lang['changelog']   = array(
 
 'RC5.0b6' => 'ShadoX '.$version[2].'.'.$version[1].'.'.substr($version[0],2,2).'
+- ADD: Updated ACP (XG Proyecto 2.9.4)
 - ADD: Neue Accountlisten im ACP
 - ADD: Gigarecler on Galaxy
 - ADD: Ori. Platform, Spalteinreißer, Bahamut
@@ -15,7 +16,9 @@ $lang['changelog']   = array(
 - ADD: Universität
 - ADD: Konstanten für Mondentstehung
 - ADD: Download Patch Files in ACP
+- ADD: Locale Settings in Language File
 - FIX: Trader
+- FIX: Ressverlust bei hohen Zahlen.
 - FIX: Galaxy
 - FIX: Aliianz Übergeben
 - FIX: Minus-Werte bei NPC`s in Expeditions Kämpfen
@@ -30,7 +33,7 @@ $lang['changelog']   = array(
 - FIX: Negative Rückflugzeit bei AKS-Einheiten
 - FIX: Rohstoffberechnung
 - FIX: Zeit von Spionageberichten
-- FIX: Allianzstatistiken(?)
+- FIX: Allianzstatistiken
 - FIX: Font-FIX in overLIB
 - DIV: Updated ACP
 - DIV: Update Smarty to 3.0b8

@@ -274,26 +274,34 @@ switch ($Mode) {
 			$Qry20 = "ALTER TABLE ".PLANETS." ADD `bahamut` BIGINT( 11 ) NOT NULL DEFAULT '0';;";
 			$Qry21 = "ALTER TABLE ".PLANETS." ADD `orbital_station` BIGINT( 11 ) NOT NULL DEFAULT '0';";
 			$Qry22 = "ALTER TABLE ".PLANETS." ADD `thriller` BIGINT( 11 ) NOT NULL DEFAULT '0';";
+			$Qry23 = "CREATE TABLE ".DIPLO." ( `id` int(11) NOT NULL AUTO_INCREMENT, `owner_1` int(11) NOT NULL, `owner_2` int(11) NOT NULL, `level` tinyint(1) NOT NULL, `accept` tinyint(1) NOT NULL, `accept_text` varchar(255) NOT NULL, PRIMARY KEY (`id`), KEY `owner_1` (`owner_1`,`owner_2`)) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+			$Qry24 = "ALTER TABLE ".ALLIANCE." ADD `ally_diplo` TINYINT( 1 ) NOT NULL DEFAULT '1';";
+			$Qry25 = "ALTER TABLE ".USERS." ADD `settings_tnstor` TINYINT( 1 ) NOT NULL DEFAULT '1' AFTER `settings_rep`;";
+			$Qry26 = "ALTER TABLE ".USERS." CHANGE `design` `design` TINYINT( 1 ) NOT NULL DEFAULT '1', CHANGE `noipcheck` `noipcheck` TINYINT( 1 ) NOT NULL DEFAULT '1', CHANGE `spio_anz` `spio_anz` TINYINT( 2 ) NOT NULL DEFAULT '1', CHANGE `settings_tooltiptime` `settings_tooltiptime` TINYINT( 1 ) NOT NULL DEFAULT '5', CHANGE `settings_fleetactions` `settings_fleetactions` TINYINT( 1 ) NOT NULL DEFAULT '0', CHANGE `settings_planetmenu` `settings_planetmenu` TINYINT( 1 ) NOT NULL DEFAULT '1', CHANGE `settings_esp` `settings_esp` TINYINT( 1 ) NOT NULL DEFAULT '1', CHANGE `settings_wri` `settings_wri` TINYINT( 1 ) NOT NULL DEFAULT '1', CHANGE `settings_bud` `settings_bud` TINYINT( 1 ) NOT NULL DEFAULT '1';";
+			$Qry27 = "ALTER TABLE ".PLANETS." ADD `university` BIGINT( 11 ) NOT NULL DEFAULT '0';";
 			switch($_POST['version'])
 			{	
 				case '4.0':
 					makedirs(array('cache/', 'cache/UserBanner/'));
-					$QrysArray = $Qry1.$Qry2.$Qry3.$Qry4.$Qry5.$Qry6.$Qry7.$Qry8.$Qry9.$Qry10.$Qry11.$Qry12.$Qry13.$Qry14.$Qry15.$Qry16.$Qry17.$Qry18.$Qry19.$Qry20.$Qry21.$Qry22;
+					$QrysArray = $Qry1.$Qry2.$Qry3.$Qry4.$Qry5.$Qry6.$Qry7.$Qry8.$Qry9.$Qry10.$Qry11.$Qry12.$Qry13.$Qry14.$Qry15.$Qry16.$Qry17.$Qry18.$Qry19.$Qry20.$Qry21.$Qry22.$Qry23.$Qry24.$Qry25.$Qry26.$Qry27;
 				break;	
 				case '4.2':
-					$QrysArray = $Qry1.$Qry2.$Qry5.$Qry6.$Qry7.$Qry8.$Qry9.$Qry10.$Qry11.$Qry12.$Qry13.$Qry14.$Qry15.$Qry16.$Qry17.$Qry18.$Qry19.$Qry20.$Qry21.$Qry22;
+					$QrysArray = $Qry1.$Qry2.$Qry5.$Qry6.$Qry7.$Qry8.$Qry9.$Qry10.$Qry11.$Qry12.$Qry13.$Qry14.$Qry15.$Qry16.$Qry17.$Qry18.$Qry19.$Qry20.$Qry21.$Qry22.$Qry23.$Qry24.$Qry25.$Qry26.$Qry27;
 				break;	
 				case '4.3':
-					$QrysArray = $Qry1.$Qry12.$Qry13.$Qry14.$Qry15.$Qry16.$Qry17.$Qry18.$Qry19.$Qry20.$Qry21.$Qry22;
+					$QrysArray = $Qry1.$Qry12.$Qry13.$Qry14.$Qry15.$Qry16.$Qry17.$Qry18.$Qry19.$Qry20.$Qry21.$Qry22.$Qry23.$Qry24.$Qry25.$Qry26.$Qry27;
 				break;	
 				case '5.0b1':
-					$QrysArray = $Qry1.$Qry14.$Qry15.$Qry16.$Qry17.$Qry18.$Qry19.$Qry20.$Qry21.$Qry22;
+					$QrysArray = $Qry1.$Qry14.$Qry15.$Qry16.$Qry17.$Qry18.$Qry19.$Qry20.$Qry21.$Qry22.$Qry23.$Qry24.$Qry25.$Qry26.$Qry27;
 				break;	
 				case '5.0b2':
-					$QrysArray = $Qry1.$Qry14.$Qry15.$Qry16.$Qry17.$Qry18.$Qry19.$Qry20.$Qry21.$Qry22;
+					$QrysArray = $Qry1.$Qry14.$Qry15.$Qry16.$Qry17.$Qry18.$Qry19.$Qry20.$Qry21.$Qry22.$Qry23.$Qry24.$Qry25.$Qry26.$Qry27;
 				break;
 				case '5.0b3':
-					$QrysArray = $Qry1.$Qry19.$Qry20.$Qry21.$Qry22;
+					$QrysArray = $Qry1.$Qry18.$Qry19.$Qry20.$Qry21.$Qry22.$Qry23.$Qry24.$Qry25.$Qry26.$Qry27;
+				break;
+				case '5.0b5':
+					$QrysArray = $Qry1.$Qry19.$Qry20.$Qry21.$Qry22.$Qry23.$Qry24.$Qry25.$Qry26.$Qry27;
 				break;
 			}	
 			$db->multi_query($QrysArray);

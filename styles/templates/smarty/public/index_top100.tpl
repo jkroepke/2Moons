@@ -5,6 +5,9 @@
                           <br /></center><table id='registration-inside' class='box-complex box box-compact box5' style="width:80%"><tr><td><table class='box5_box-header box-header'><tr><td class='box5_box-header-left box-header-left'>&nbsp;</td><td class='box5_box-header-center box-header-center'><div class='box5_box-title-wrapper box-title-wrapper'><div class='box5_box-title-container box-title-container'><table class='box5_box-title box-title'><tr><td class='box5_box-title-left box-title-left'>&nbsp;</td>
 <td class='box5_box-title-center box-title-center'>{$tkb_top}</td><td class='box5_box-title-right box-title-right'>&nbsp;</td></tr></table></div></div></td><td class='box5_box-header-right box-header-right'>&nbsp;</td></tr></table></td></tr><tr><td><table class='box5_box-content box-content'><tr><td class='box5_box-content-left box-content-left'>&nbsp;</td><td class='box5_box-content-center box-content-center'><div class='box5_content'><div class='box5_box-title-pad box-title-pad'>&nbsp;</div><table class='layout' cellpadding='5' width='80%'><tr><th colspan='2' width='80%'>
 	<br>
+	<select name="Uni" id="Uni" onChange="ajax(this.options[this.selectedIndex].value+'?page=top100&getajax=1');">
+        {html_options options=$AvailableUnis selected=$ThisUni}
+    </select>
 	<table style="width:100%;text-align:center;padding-top:3px;">
 	<tbody>
 	<tr>
