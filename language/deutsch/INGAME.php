@@ -1,11 +1,10 @@
 <?php
 
 //LOCAL INFO
-//Windows: http://msdn.microsoft.com/en-us/library/39cwe7zf%28vs.71%29.aspx
-//Unix: 
-$lang['local_info'][0]						= 'de_DE.UTF-8';
-$lang['local_info'][1]						= 'de';
-$lang['local_info'][2]						= 'DEU';
+ 
+$lang['local_info'][0]						= 'de_DE.UTF-8'; // Linux
+$lang['local_info'][1]						= 'de'; // Linux
+$lang['local_info'][2]						= 'DEU'; // Windows (http://msdn.microsoft.com/en-us/library/39cwe7zf%28vs.71%29.aspx)
 
 //SERVER GENERALS
 $lang['Metal']								= 'Metall';
@@ -648,21 +647,28 @@ $lang['al_diplo_level'][2]					= 'Handelsbündnis';
 $lang['al_diplo_level'][3]					= 'Nicht Angriffs Pakt';
 $lang['al_diplo_level'][4]					= 'Krieg';
 $lang['al_diplo_no_entry']					= '- Kein Pakt vorhanden -';
-$lang['al_diplo_no_accept']					= '- Keine Anfrage vorhanden -';
+$lang['al_diplo_no_accept']					= '- Keine Anfragen vorhanden -';
 $lang['al_diplo_accept']					= 'Eingehende Anfragen';
 $lang['al_diplo_accept_send']				= 'Ausgehende Anfragen';
-$lang['al_diplo_create']					= 'Einen neuen Pakt ersellen.';
+$lang['al_diplo_create']					= 'Einen neuen Pakt ersellen';
 $lang['al_diplo_create_done']				= 'Pakt erfolgreich erstellt.';
 $lang['al_diplo_ally']						= 'Allianz';
 $lang['al_diplo_level_des']					= 'Art des Paktes';
 $lang['al_diplo_text']						= 'Anfragetext/Begründung';
-$lang['al_diplo_accept_yes']				= 'Pakt geschlossen.';
-$lang['al_diplo_accept_yes_mes']			= 'Es wurde ein Pakt der Art %s zwischen den Allianzen %s und %s geschlossen!';
-$lang['al_diplo_accept_no']					= 'Pakt abgelehnt.';
-$lang['al_diplo_accept_no_mes']				= 'Die Paktanfrage der Art %s zwischen den Allianzen %s und %s wurde abgelehnt!';
-$lang['al_diplo_delete']					= 'Pakt aufgehoben.';
-$lang['al_diplo_delete_mes']				= 'Der Pakt der Art %s zwischen den Allianzen %s und %s wurde aufgehoben!';
+$lang['al_diplo_accept_yes']				= 'Pakt geschlossen';
+$lang['al_diplo_accept_yes_mes']			= 'Es wurde ein Pakt (%s) zwischen den Allianzen %s und %s geschlossen!';
+$lang['al_diplo_accept_yes_confirm']		= 'Möchten sie wirklich den Pakt annehmen?';
+$lang['al_diplo_accept_no']					= 'Pakt abgelehnt';
+$lang['al_diplo_accept_no_mes']				= 'Die Paktanfrage (%s) zwischen den Allianzen %s und %s wurde abgelehnt!';
+$lang['al_diplo_accept_no_confirm']			= 'Möchten sie wirklich den Pakt ablehnen?';
+$lang['al_diplo_delete']					= 'Pakt aufgehoben';
+$lang['al_diplo_delete_mes']				= 'Der Pakt (%s) zwischen den Allianzen %s und %s wurde aufgehoben!';
 $lang['al_diplo_confirm_delete']			= 'Möchtest du wirklich den Pakt löschen?';
+$lang['al_diplo_ground']					= 'Begründung:';
+$lang['al_diplo_ask']						= 'Paktanfrage';
+$lang['al_diplo_ask_mes']					= 'Es besteht eine Paktanfrage (%s) der Allianz %s und %s.<br>Begründung: %s';
+$lang['al_diplo_war']						= 'Kriegserklärung';
+$lang['al_diplo_war_mes']					= 'Die Allianz %s hat der Allianz %s soebend den %s erklärt.<br>Begründung:<br>%s<br><br>Informationen: Der Krieg ist in 24 Stunden gültig. Erst nach den 24 Stunden entfällt die Bashregel. <br>Weitere Informationne findest du in den <a href="index.php?page=rules" target="_blank">Regeln</a>.';
 
 //----------------------------------------------------------------------------//
 //BUDDY
