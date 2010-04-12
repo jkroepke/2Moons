@@ -145,7 +145,7 @@ switch ($Mode) {
 				exit();
 			}
 
-			$parse[first]	= "Verbindung er Datenbank erfolgreich...";
+			$parse[first]	= "Verbindung zur Datenbank erfolgreich...";
 
 			fwrite($dz, "<?php \n");
 			fwrite($dz, "if(!defined(\"INSIDE\")){ header(\"location:".ROOT_PATH."\"); } \n\n");
@@ -163,7 +163,7 @@ switch ($Mode) {
 			fclose($dz);
 			@chmod("../config.php",0444);
 			$parse['second']	= "config.php erfolgreich erstellt...";
-			$connection->multi_query(str_replace("prefix_", $prefix, $QryTableAks.$QryTableAlliance.$QryTableBanned.$QryTableBuddy.$QryTableChat.$QryTableConfig.$QryInsertConfig.$QryTableErrors.$QryTableFleets.$QryTableLoteria.$QryTableMessages.$QryTableModulos.$QryInsertModulos.$QryTableNews.$QryTableNotes.$QryTablePlanets.$QryTablePlugins.$QryTableRw.$QryTableStatPoints.$QryTableSupp.$QryTableTopKB.$QryTableUsers.$QryTableUsersTemp));
+			$connection->multi_query(str_replace("prefix_", $prefix, $QryTableAks.$QryTableAlliance.$QryTableBanned.$QryTableBuddy.$QryTableChat.$QryTableConfig.$QryInsertConfig.$QryTableDiplo.$QryTableErrors.$QryTableFleets.$QryTableLoteria.$QryTableMessages.$QryTableModulos.$QryInsertModulos.$QryTableNews.$QryTableNotes.$QryTablePlanets.$QryTablePlugins.$QryTableRw.$QryTableStatPoints.$QryTableSupp.$QryTableTopKB.$QryTableUsers.$QryTableUsersTemp));
 			$parse['third']	= "Datenbank Tabellen erfolgreich erstellt....";
 			$frame  = parsetemplate(gettemplate('install/ins_form_done'), $parse);
 		}

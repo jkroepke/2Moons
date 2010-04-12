@@ -55,6 +55,18 @@
         <tr>
         	<th colspan="2" height="100">{$ally_text}</th>
         </tr>
+		{if $DiploInfo}
+		<tr>
+			<td class="c" colspan="2">{$al_diplo}</td>
+		</tr>
+		<tr>
+			<th colspan="2">{if !empty($DiploInfo.0)}<b><u>{$al_diplo_level.0}</u></b><br><br>{foreach item=PaktInfo from=$DiploInfo.0}<a href="?page=alliance&mode=ainfo&a={$PaktInfo.1}">{$PaktInfo.0}</a><br>{/foreach}<br>{/if}
+			{if !empty($DiploInfo.1)}<b><u>{$al_diplo_level.1}</u></b><br><br>{foreach item=PaktInfo from=$DiploInfo.1}<a href="?page=alliance&mode=ainfo&a={$PaktInfo.1}">{$PaktInfo.0}</a><br>{/foreach}<br>{/if}
+			{if !empty($DiploInfo.2)}<b><u>{$al_diplo_level.2}</u></b><br><br>{foreach item=PaktInfo from=$DiploInfo.2}<a href="?page=alliance&mode=ainfo&a={$PaktInfo.1}">{$PaktInfo.0}</a><br>{/foreach}<br>{/if}
+			{if !empty($DiploInfo.3)}<b><u>{$al_diplo_level.3}</u></b><br><br>{foreach item=PaktInfo from=$DiploInfo.3}<a href="?page=alliance&mode=ainfo&a={$PaktInfo.1}">{$PaktInfo.0}</a><br>{/foreach}<br>{/if}
+			{if !empty($DiploInfo.4)}<b><u>{$al_diplo_level.4}</u></b><br><br>{foreach item=PaktInfo from=$DiploInfo.4}<a href="?page=alliance&mode=ainfo&a={$PaktInfo.1}">{$PaktInfo.0}</a><br>{/foreach}<br>{/if}</th>
+		</tr>
+		{/if}
 		<tr>
 			<td class="c" colspan="2">{$al_Allyquote}</td>
 		</tr>

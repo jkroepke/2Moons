@@ -86,6 +86,7 @@ class ShowOptionsPage
 				$settings_bud 			= request_var('settings_bud', '');
 				$settings_mis 			= request_var('settings_mis', '');
 				$settings_rep 			= request_var('settings_rep', '');
+				$settings_tnstor		= request_var('settings_tnstor', '');
 				$urlaubs_modus 			= request_var('urlaubs_modus', '');
 				$SetSort  				= request_var('settings_sort' , 0);
 				$SetOrder 				= request_var('settings_order', 0);
@@ -95,7 +96,7 @@ class ShowOptionsPage
 				$newpass2				= request_var('newpass2', '');		
 				$hof					= request_var('hof', '');	
 				$adm_pl_prot			= request_var('adm_pl_prot', '');	
-				
+
 				$design 				= ($design == 'on') ? 1 : 0;
 				$hof 					= ($hof == 'on') ? 1 : 0;
 				$noipcheck 				= ($noipcheck == 'on') ? 1 : 0;
@@ -104,6 +105,7 @@ class ShowOptionsPage
 				$settings_bud			= ($settings_bud == 'on') ? 1 : 0;
 				$settings_mis			= ($settings_mis == 'on') ? 1 : 0;
 				$settings_rep 			= ($settings_rep == 'on') ? 1 : 0;
+				$settings_tnstor 		= ($settings_tnstor == 'on') ? 1 : 0;
 				$settings_planetmenu	= ($settings_planetmenu == 'on') ? 1 : 0;
 				$db_deaktjava 			= ($db_deaktjava == 'on') ? time() : 0;
 				if ($urlaubs_modus == 'on')
@@ -145,6 +147,7 @@ class ShowOptionsPage
 								`settings_wri` = '".$settings_wri."',
 								`settings_bud` = '".$settings_bud."',
 								`settings_mis` = '".$settings_mis."',
+								`settings_tnstor` = '".$settings_tnstor."',
 								`hof` = '".$hof."',
 								`settings_rep` = '".$settings_rep."' 
 								WHERE `id` = '".$CurrentUser["id"]."';";
@@ -220,13 +223,13 @@ class ShowOptionsPage
 						'opt_noipc_data'					=> $CurrentUser['noipcheck'],
 						'opt_allyl_data'					=> $CurrentUser['settings_planetmenu'],
 						'opt_delac_data'					=> $CurrentUser['db_deaktjava'],
+						'opt_stor_data'						=> $CurrentUser['settings_tnstor'],
 						'user_settings_rep' 				=> $CurrentUser['settings_rep'],
 						'user_settings_esp' 				=> $CurrentUser['settings_esp'],
 						'user_settings_wri' 				=> $CurrentUser['settings_wri'],
 						'user_settings_mis' 				=> $CurrentUser['settings_mis'],
 						'user_settings_bud' 				=> $CurrentUser['settings_bud'],
 						'opt_hof'							=> $CurrentUser['hof'],
-						'db_deaktjava'						=> $CurrentUser['db_deaktjava'],
 						'adm_pl_prot_data'					=> $CurrentPlanet['id_level'],					
 						'user_authlevel'					=> $CurrentUser['authlevel'],					
 						'Selectors'							=> array('Sort' => array(0 => $lang['op_sort_normal'], 1 => $lang['op_sort_koords'], 2 => $lang['op_sort_abc']), 'SortUpDown' => array(0 => $lang['op_sort_up'], 1 => $lang['op_sort_down'])),
@@ -271,6 +274,7 @@ class ShowOptionsPage
 						'op_dlte_account_descrip'			=> $lang['op_dlte_account_descrip'],
 						'op_dlte_account'					=> $lang['op_dlte_account'],
 						'op_save_changes'					=> $lang['op_save_changes'],
+						'op_small_storage'					=> $lang['op_small_storage'],
 					));
 					
 					$template->show("options_overview.tpl");

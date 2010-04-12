@@ -124,6 +124,10 @@
 		</th>
 	</tr>
 	</table>
+	<script type="text/javascript">
+		status_ok		= '{$gl_ajax_status_ok}';
+		status_fail		= '{$gl_ajax_status_fail}';
+	</script>
 </div>
 {include file="planet_menu.tpl"}
 {include file="overall_footer.tpl"}
