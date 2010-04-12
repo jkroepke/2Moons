@@ -138,8 +138,7 @@ if (INSTALL != true)
 			{
 				require_once('AdminFunctions/Autorization.' . PHP_EXT);
 				includeLang('ADMIN');
-				$dpath     = "../". DEFAULT_SKINPATH;
-				
+				$dpath     = "../". DEFAULT_SKINPATH;			
 			}
 			else
 			{

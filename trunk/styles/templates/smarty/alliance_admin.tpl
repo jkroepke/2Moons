@@ -19,7 +19,7 @@
         <tr>
           <th colspan="2"><a href="game.php?page=alliance&amp;mode=admin&amp;edit=name">{$al_manage_change_name}</a></th>
         </tr>
-		{if false}
+		{if $righthand}
         <tr>
           <th colspan="2"><a href="game.php?page=alliance&amp;mode=admin&amp;edit=diplo">{$al_manage_diplo}</a></th>
         </tr>
