@@ -204,6 +204,7 @@ class template extends Smarty
 			'vacation'			=> $this->player['urlaubs_modus'] ? date('d.m.Y H:i:s',$this->player['urlaubs_until']) : false,
 			'delete'			=> $this->player['db_deaktjava'] ? sprintf($this->lang['tn_delete_mode'], date('d. M Y\, h:i:s',$this->player['db_deaktjava'] + (60 * 60 * 24 * 7))) : false,
 			'image'				=> $this->planet['image'],
+			'settings_tnstor'	=> $this->player['settings_tnstor'],
 			'SelectorVaules'	=> $SelectorVaules,
 			'SelectorNames'		=> $SelectorNames,
 			'Metal'				=> $this->lang['Metal'],
@@ -218,9 +219,10 @@ class template extends Smarty
 	{
 		global $dpath;
 		$this->assign_vars(array(
-			'title'		=> $this->GameConfig['game_name'],
-			'dpath'		=> (!empty($dpath)) ? $dpath : DEFAULT_SKINPATH,
-			'is_pmenu'	=> $this->player['settings_planetmenu'],
+			'title'			=> $this->GameConfig['game_name'],
+			'dpath'			=> (!empty($dpath)) ? $dpath : DEFAULT_SKINPATH,
+			'is_pmenu'		=> $this->player['settings_planetmenu'],
+			'thousands_sep'	=> $this->lang['locale']['thousands_sep'],
 		));
 	}
 	

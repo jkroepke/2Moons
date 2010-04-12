@@ -19,7 +19,6 @@
 # *																			 #
 ##############################################################################
 
-setlocale (LC_ALL, 'de_DE@euro', 'de_DE', 'de', 'ge');
 @set_time_limit(120);
 
 if (!(function_exists("spl_autoload_register")))
@@ -95,7 +94,8 @@ if (INSTALL != true)
 	define('VERSION'		, ($game_config['VERSION'] == '') ? "" : "RC".$game_config['VERSION']);
 
 	includeLang('INGAME');
-
+	@setlocale(LC_ALL, $lang['local_info'][0], $lang['local_info'][1], $lang['local_info'][2]);
+	$lang['locale'] = localeconv();
 	if (!defined('LOGIN') && !defined('IN_CRON'))
 	{
 		require_once(ROOT_PATH . 'includes/classes/class.CheckSession.'.PHP_EXT);

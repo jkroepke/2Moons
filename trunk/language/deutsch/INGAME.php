@@ -1,5 +1,12 @@
 <?php
 
+//LOCAL INFO
+//Windows: http://msdn.microsoft.com/en-us/library/39cwe7zf%28vs.71%29.aspx
+//Unix: 
+$lang['local_info'][0]						= 'de_DE.UTF-8';
+$lang['local_info'][1]						= 'de';
+$lang['local_info'][2]						= 'DEU';
+
 //SERVER GENERALS
 $lang['Metal']								= 'Metall';
 $lang['Crystal']							= 'Kristall';
@@ -190,6 +197,8 @@ $lang['gl_playercard']						= 'Playercard';
 $lang['gl_in_the_rank']						= 'Spieler %s auf Platz %d';
 $lang['gl_activity']						= '(*)';
 $lang['gl_activity_inactive']				= '(%d min)';
+$lang['gl_ajax_status_ok']					= 'Done';
+$lang['gl_ajax_status_fail']				= 'Error';
 
 //----------------------------------------------------------------------------//
 //PHALANX
@@ -557,8 +566,8 @@ $lang['al_request_list']					= 'Bewerbungsliste';
 $lang['al_candidate']						= 'Name';
 $lang['al_request_date']					= 'Datum';
 $lang['al_transfer_alliance']				= 'Allianz übertragen';
-$lang['al_transfer_to']						= 'übertragen an';
-$lang['al_transfer_submit']					= 'übertragen';
+$lang['al_transfer_to']						= 'Übertragen an';
+$lang['al_transfer_submit']					= 'Absenden';
 $lang['al_ally_information']				= 'Information über die Allianz';
 $lang['al_ally_info_tag']					= 'Tag';
 $lang['al_ally_info_name']					= 'Name';
@@ -628,9 +637,11 @@ $lang['al_unitsloos']    					= 'Verlorene Units';
 $lang['al_tfmetall']     					= 'Gesamt Trümmerfeld Metall';
 $lang['al_tfkristall']   					= 'Gesamt Trümmerfeld Kristall';
 $lang['al_view_stats']						= 'Kampfstatistik öffentlich?';
+$lang['al_view_diplo']						= 'Diplomatie öffentlich?';
 $lang['al_memberlist_min']					= 'min';
 $lang['al_memberlist_on']					= 'Online';
 $lang['al_memberlist_off']					= 'Offline';
+$lang['al_diplo']							= 'Diplomatie';
 $lang['al_diplo_level'][0]					= 'Wing';
 $lang['al_diplo_level'][1]					= 'Bündnis';
 $lang['al_diplo_level'][2]					= 'Handelsbündnis';
@@ -798,6 +809,7 @@ $lang['op_user_name_no_alphanumeric']		= 'Bitte beim Username nur alphanumerisch
 $lang['op_change_name_pro_week']			= 'Sie Können ihren Usernamen nur 1x pro Woche ändern';
 $lang['op_change_name_exist']				= 'Der Name %s existiert bereits';
 $lang['op_active_build_messages']			= 'Baulistennachrichten akivieren';
+$lang['op_small_storage']					= 'Verkürzte Speicherzahlen anzeigen';
 
 //----------------------------------------------------------------------------//
 //BANNED

@@ -235,6 +235,8 @@ class ShowGalaxyPage extends GalaxyRows
 			'gl_player'					=> $lang['gl_player'],
 			'gl_playercard'				=> $lang['gl_playercard'],
 			'gl_phalanx'				=> $lang['gl_phalanx'],
+			'gl_ajax_status_ok'			=> $lang['gl_ajax_status_ok'],
+			'gl_ajax_status_fail'		=> $lang['gl_ajax_status_fail'],
 			'write_message'				=> $lang['write_message'],
 		));
 		

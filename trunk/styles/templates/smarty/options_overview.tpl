@@ -61,6 +61,9 @@
         <th>{$op_show_planetmenu}</th>
         <th><input name="settings_planetmenu" type="checkbox" {if $opt_allyl_data == 1}checked="checked"{/if}></th>
     </tr><tr>
+        <th>{$op_small_storage}</th>
+        <th><input name="settings_tnstor" type="checkbox" {if $opt_stor_data == 1}checked="checked"{/if}></th>
+    </tr><tr>
         <td class="c" colspan="2">{$op_galaxy_settings}</td>
     </tr><tr>
         <th><a title="{$op_spy_probes_number_descrip}">{$op_spy_probes_number}</a></th>

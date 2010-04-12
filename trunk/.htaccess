@@ -24,9 +24,11 @@ RewriteRule ^language/ / [R]
 RewriteRule ^includes/ / [R]
 RewriteRule ^cache/ / [R]
 </IfModule>
-<filesmatch "\.(css|js|x?html?)$">
+<IfModule mod_deflate.c>
+<filesmatch "\.(css)$">
 SetOutputFilter DEFLATE
 </filesmatch>
+</IfModule>
 <IfModule mod_expires.c>
 ExpiresActive On
 ExpiresDefault "access plus 1 seconds"
@@ -52,10 +54,8 @@ Header set Cache-Control "max-age=604800, public"
 Header set Cache-Control "max-age=216000, private"
 </filesmatch>
 </IfModule>
-<IfModule mod_headers.c>
-Header unset ETag
-</IfModule>
 FileETag None
 <IfModule mod_headers.c>
+Header unset ETag
 Header unset Last-Modified
 </IfModule>

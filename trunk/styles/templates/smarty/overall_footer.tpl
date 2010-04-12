@@ -5,9 +5,9 @@
 {if $metal_max}
 <script type="text/javascript">
 $(document).ready(function() {
-	met		= parseInt($("#current_metal").text().replace(/\./g,""));
-	cry		= parseInt($("#current_crystal").text().replace(/\./g,""));
-	deu 		= parseInt($("#current_deuterium").text().replace(/\./g,""));
+	met			= parseInt($("#current_metal").text().replace(/\{$thousands_sep}/g,""));
+	cry			= parseInt($("#current_crystal").text().replace(/\{$thousands_sep}/g,""));
+	deu 		= parseInt($("#current_deuterium").text().replace(/\{$thousands_sep}/g,""));
 	met_max 	= {$js_metal_max};
 	cry_max 	= {$js_crystal_max};
 	deu_max 	= {$js_deuterium_max};

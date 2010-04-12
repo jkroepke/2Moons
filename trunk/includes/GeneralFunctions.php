@@ -221,7 +221,7 @@ function colorGreen($n)
 
 function pretty_number($n, $floor = true)
 {
-	return number_format(($floor) ? floor($n) : $n, 0, ",", ".");
+	return number_format(($floor) ? floor($n) : $n, 0, $GLOBALS['lang']['locale']['decimal_point'], $GLOBALS['lang']['locale']['thousands_sep']);
 }
 
 function set_var(&$result, $var, $type, $multibyte = false)

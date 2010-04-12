@@ -235,12 +235,12 @@ switch ($_GET[page])
 				$PlanetRow = $db->fetch_array($db->query($QryGetMoonIdFromLunas));
 
 				$QryUpdateMoonInGalaxy  = "UPDATE ".PLANERS." SET ";
-				$QryUpdateMoonInGalaxy .= "`id_luna` = '". $PlanetRow['id'] ."', ";
+				$QryUpdateMoonInGalaxy .= "`id_luna` = '". $PlanetRow['id'] ."' ";
 				$QryUpdateMoonInGalaxy .= "WHERE ";
 				$QryUpdateMoonInGalaxy .= "`galaxy` = '". $Galaxy ."' AND ";
 				$QryUpdateMoonInGalaxy .= "`system` = '". $System ."' AND ";
 				$QryUpdateMoonInGalaxy .= "`planet` = '". $Planet ."' AND ";
-				$QryGetMoonIdFromLunas .= "`planet_type` = '1';";
+				$QryUpdateMoonInGalaxy .= "`planet_type` = '1';";
 				$db->query( $QryUpdateMoonInGalaxy);
 			
 				$parse['display']	=	"<tr><th colspan=3><font color=lime>".$lang['mo_moon_added']."</font></th></tr>";

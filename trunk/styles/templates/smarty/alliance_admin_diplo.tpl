@@ -10,7 +10,7 @@
           <td class="c" colspan="3">{$al_diplo_level.0}</td>
         </tr>
 		{foreach key=id item=name from=$DiploInfo.0}
-		<th width="90%" colspan="2">{$name.0}</th><th><a href="?page=alliance&amp;mode=admin&amp;edit=diplo&amp;action=delete&amp;id={$id}&amp;level=0" onclick="javascript:return confirm('{$MemberInfo.kick}');"><img src="{$dpath}pic/abort.gif" border="0" alt=""></a></th>
+		<th width="90%" colspan="2">{$name.0}</th><th><a href="?page=alliance&amp;mode=admin&amp;edit=diplo&amp;action=delete&amp;id={$id}&amp;level=0" onclick="javascript:return confirm('{$al_diplo_confirm_delete}');"><img src="{$dpath}pic/abort.gif" border="0" alt=""></a></th>
 		{foreachelse}
 		<th colspan="3">{$al_diplo_no_entry}</th>
 		{/foreach}
@@ -18,7 +18,7 @@
           <td class="c" colspan="3">{$al_diplo_level.1}</td>
         </tr>
 		{foreach key=id item=name from=$DiploInfo.1}
-		<th width="90%" colspan="2">{$name.0}</th><th><a href="?page=alliance&amp;mode=admin&amp;edit=diplo&amp;action=delete&amp;id={$id}&amp;level=1" onclick="javascript:return confirm('{$MemberInfo.kick}');"><img src="{$dpath}pic/abort.gif" border="0" alt=""></a></th>
+		<th width="90%" colspan="2">{$name.0}</th><th><a href="?page=alliance&amp;mode=admin&amp;edit=diplo&amp;action=delete&amp;id={$id}&amp;level=1" onclick="javascript:return confirm('{$al_diplo_confirm_delete}');"><img src="{$dpath}pic/abort.gif" border="0" alt=""></a></th>
 		{foreachelse}
 		<th colspan="3">{$al_diplo_no_entry}</th>
 		{/foreach}

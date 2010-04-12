@@ -43,6 +43,8 @@ class statbuilder{
 	
 	private function DeleteSome()
 	{
+		$this->db->query("LOCK TABLES ".ALLIANCE." WRITE, ".CHAT." WRITE, ".CONFIG." WRITE, ".FLEETS." WRITE, ".MESSAGES." WRITE, ".PLANETS." WRITE, ".RW." WRITE, ".SUPP." WRITE, ".STATPOINTS." WRITE, ".USERS." WRITE;");
+	
 		//Delete old messages
 		$del_before 	= time() - (60 * 60 * 24 * 3); // 3 DAY
 		$del_inactive 	= time() - (60 * 60 * 24 * 30); // 1 MONTH
@@ -57,9 +59,9 @@ class statbuilder{
 			while($delete = $this->db->fetch_array($ChooseToDelete))
 			{
 				DeleteSelectedUser($delete['id']);
-			}
+			}	
 		}
-	
+		$this->db->query("UNLOCK TABLES;");
 	}
 
 	private function RebuildRecordCache() 

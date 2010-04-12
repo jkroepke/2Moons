@@ -74,7 +74,11 @@
         </tr>
         <tr>
           <th>{$al_view_stats}</th>
-          <th>{html_options name=stats options=$OpenStatsSelector selected=$ally_stats_data}</th>
+          <th>{html_options name=stats options=$YesNoSelector selected=$ally_stats_data}</th>
+        </tr>
+        <tr>
+          <th>{$al_view_diplo}</th>
+          <th>{html_options name=diplo options=$YesNoSelector selected=$ally_diplo_data}</th>
         </tr>
         <tr>
           <th colspan="2"><input type="submit" name="options" value="{$al_save}"></th>

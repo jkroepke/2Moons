@@ -17,6 +17,7 @@ $lang['changelog']   = array(
 - ADD: Download Patch Files in ACP
 - FIX: Trader
 - FIX: Galaxy
+- FIX: Aliianz Übergeben
 - FIX: Minus-Werte bei NPC`s in Expeditions Kämpfen
 - FIX: Allianz Hack
 - FIX: UMode

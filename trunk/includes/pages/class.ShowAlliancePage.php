@@ -124,6 +124,7 @@ class ShowAlliancePage
 	private function GetDiplo($allyid)
 	{
 		global $db;
+		$Return	= array();
 		$Diplos	= $db->query("SELECT d.level, d.accept, d.id, a.id as ally_id, a.ally_name, d.owner_1, d.owner_2 FROM ".DIPLO." as d INNER JOIN ".ALLIANCE." as a ON IF('".$allyid."' = d.owner_1, a.id = d.owner_2, a.id = d.owner_1)");
 		while($CurDiplo = $db->fetch_array($Diplos))
 		{
@@ -169,7 +170,15 @@ class ShowAlliancePage
 	private function ainfo($ally, $CurrentUser, $CurrentPlanet) 
 	{
 		global $lang, $db;
-		
+	
+		if ($ally['ally_diplo'] == 1 && ($DiploInfo = $this->GetDiplo($ally['id'])) !== array())
+		{
+			$this->template->assign_vars(array(
+				'DiploInfo'			=> $DiploInfo,		
+				'al_diplo_level'	=> $lang['al_diplo_level'],
+				'al_diplo'			=> $lang['al_diplo'],
+			));
+		}	
 		if ($ally['ally_stats'] == 1)
 		{
 			$StatsData 					= $db->fetch_array($db->query("SELECT SUM(wons) as wons, SUM(loos) as loos, SUM(draws) as draws, SUM(kbmetal) as kbmetal, SUM(kbcrystal) as kbcrystal, SUM(lostunits) as lostunits, SUM(desunits) as desunits FROM ".USERS." WHERE ally_id='" . $ally['id'] . "';"));
@@ -212,6 +221,7 @@ class ShowAlliancePage
 			'ally_name' 				=> $ally['ally_name'],
 			'ally_tag' 					=> $ally['ally_tag'],
 			'ally_stats' 				=> $ally['ally_stats'],
+			'ally_diplo' 				=> $ally['ally_diplo'],
 			'ally_request'          	=> ($CurrentUser['ally_id'] == 0 && $ally['ally_request_notallow'] == 0) ? true : false,
 		));
 		
@@ -1028,18 +1038,19 @@ class ShowAlliancePage
 									$db->query("UPDATE ".USERS." SET `ally_name` = '', `ally_id`='0' WHERE `id`='".$v['id']."';");
 								}
 
-								$db->query("DELETE FROM ".ALLIANCE." WHERE id='".$ally['id']."' LIMIT 1;");
-
+								$db->query("DELETE FROM ".ALLIANCE." WHERE id = '".$ally['id']."' LIMIT 1;");
+								$db->query("DELETE FROM ".DIPLO." WHERE `owner_1` = '".$ally['id']."' OR `owner_2` = '".$ally['id']."';");
 								exit(header("Location: ?page=alliance"));
 							break;
 							case 'transfer':
 								if ($ally['ally_owner'] != $CurrentUser['id'])
 									exit(header("Location: ?page=alliance"));
 									
-								$postleader = request_var('newleader','');
+								$postleader = request_var('newleader', 0);
 								if (!empty($postleader))
 								{
-									$db->multi_query("UPDATE ".USERS." SET `ally_rank_id`= (SELECT `ally_rank_id` FROM ".USERS." WHERE `id` = '".$db->sql_escape($postleader)."') WHERE `id`='".$CurrentUser['id'].";UPDATE ".ALLIANCE." SET `ally_owner` = '".$db->sql_escape($postleader)."' WHERE `id`='".$CurrentUser['ally_id'].";UPDATE ".USERS." SET `ally_rank_id`='0' WHERE `id`='" . $db->sql_escape($postleader) . "';");
+									$Rank = $db->fetch_array($db->query("SELECT `ally_rank_id` FROM ".USERS." WHERE `id` = '".$postleader."';"));
+									$db->multi_query("UPDATE ".USERS." SET `ally_rank_id` = '".$Rank['ally_rank_id']."' WHERE `id` = '".$CurrentUser['id']."';UPDATE ".USERS." SET `ally_rank_id`= '0' WHERE `id` = '".$postleader."';UPDATE ".ALLIANCE." SET `ally_owner` = '".$postleader."' WHERE `id` = '".$CurrentUser['ally_id']."';");
 									exit(header("Location: ?page=alliance"));
 								}
 								else
@@ -1076,6 +1087,7 @@ class ShowAlliancePage
 									$ally['ally_image'] 			= request_var('image','');
 									$ally['ally_request_notallow'] 	= request_var('request_notallow', 0);
 									$ally['ally_stats'] 			= request_var('stats', 0);
+									$ally['ally_diplo'] 			= request_var('diplo', 0);
 
 									if ($ally['ally_request_notallow'] != 0 && $ally['ally_request_notallow'] != 1)
 										exit(header("Location: ?page=alliance"));
@@ -1084,8 +1096,9 @@ class ShowAlliancePage
 									`ally_owner_range` = '".$db->sql_escape($ally['ally_owner_range'])."',
 									`ally_image` = '".$db->sql_escape($ally['ally_image'])."',
 									`ally_web` = '".$db->sql_escape($ally['ally_web'])."',
-									`ally_request_notallow` = '".$db->sql_escape($ally['ally_request_notallow'])."',
-									`ally_stats` = '".$db->sql_escape($ally['ally_stats'])."'
+									`ally_request_notallow` = '".$ally['ally_request_notallow']."',
+									`ally_stats` = '".$ally['ally_stats']."',
+									`ally_diplo` = '".$ally['ally_diplo']."'
 									WHERE `id`='".$ally['id']."';");
 								}
 								elseif($text !== '0')
@@ -1129,12 +1142,13 @@ class ShowAlliancePage
 									'al_manage_founder_rank'	=> $lang['al_manage_founder_rank'],
 									'al_manage_diplo'			=> $lang['al_manage_diplo'],
 									'al_view_stats'				=> $lang['al_view_stats'],
+									'al_view_diplo'				=> $lang['al_view_diplo'],
 									'al_disolve_alliance'		=> $lang['al_disolve_alliance'],
 									'al_transfer_alliance'		=> $lang['al_transfer_alliance'],
 									'al_close_ally'				=> $lang['al_close_ally'],
 									'al_message'				=> ($t == 2) ? $lang['al_inside_text'] : (($t == 3) ? $lang['al_request_text'] : $lang['al_outside_text']),
 									'RequestSelector'			=> array(0 => $lang['al_requests_allowed'], 1 => $lang['al_requests_not_allowed']),
-									'OpenStatsSelector'			=> array(1 => $lang['al_go_out_yes'], 0 => $lang['al_go_out_no']),
+									'YesNoSelector'				=> array(1 => $lang['al_go_out_yes'], 0 => $lang['al_go_out_no']),
 									't' 						=> $t,
 									'text' 						=> $text,
 									'righthand'					=> $CurrentUser['rights']['righthand'],
@@ -1143,6 +1157,7 @@ class ShowAlliancePage
 									'ally_request_notallow' 	=> $ally['ally_request_notallow'],
 									'ally_owner_range'			=> $ally['ally_owner_range'],
 									'ally_stats_data'			=> $ally['ally_stats'],
+									'ally_diplo_data'			=> $ally['ally_diplo'],
 								));	
 								$this->template->show("alliance_admin.tpl");
 							break;
@@ -1159,6 +1174,9 @@ class ShowAlliancePage
 						$StatsData 					= $db->fetch_array($db->query("SELECT SUM(wons) as wons, SUM(loos) as loos, SUM(draws) as draws, SUM(kbmetal) as kbmetal, SUM(kbcrystal) as kbcrystal, SUM(lostunits) as lostunits, SUM(desunits) as desunits FROM ".USERS." WHERE ally_id='" . $ally['id'] . "';"));
 
 						$this->template->assign_vars(array(
+							'DiploInfo'					=> $this->GetDiplo($ally['id']),		
+							'al_diplo_level'			=> $lang['al_diplo_level'],
+							'al_diplo'					=> $lang['al_diplo'],
 							'ally_web'					=> $ally['ally_web'],
 							'ally_tag'	 				=> $ally['ally_tag'],
 							'ally_members'	 			=> $ally['ally_members'],
