@@ -321,8 +321,8 @@ class ShowFleetPages extends FleetFunctions
 		}
 		
 		$template->assign_vars(array(
-			'consumption'					=> floattostring(floor($consumption),
-			'fleetroom'						=> floattostring(parent::GetFleetRoom($FleetArray),
+			'consumption'					=> floattostring(floor($consumption)),
+			'fleetroom'						=> floattostring(parent::GetFleetRoom($FleetArray)),
 			'speedallsmin'					=> $MaxFleetSpeed,
 			'speed'							=> $GenFleetSpeed,
 			'speedfactor'					=> $GameSpeedFactor,
@@ -331,9 +331,9 @@ class ShowFleetPages extends FleetFunctions
 			'thissystem'			 		=> $CurrentPlanet['system'],
 			'thisplanet'			 		=> $CurrentPlanet['planet'],
 			'thisplanet_type'			 	=> $CurrentPlanet['planet_type'],
-			'thismetal'						=> floattostring(floor($CurrentPlanet['metal']),
-			'thiscrystal'					=> floattostring(floor($CurrentPlanet['crystal']),
-			'thisdeuterium' 				=> floattostring(floor($CurrentPlanet['deuterium']),
+			'thismetal'						=> floattostring(floor($CurrentPlanet['metal'])),
+			'thiscrystal'					=> floattostring(floor($CurrentPlanet['crystal'])),
+			'thisdeuterium' 				=> floattostring(floor($CurrentPlanet['deuterium'])),
 			'fl_planet'						=> $lang['fl_planet'], 
 			'fl_moon'						=> $lang['fl_moon'],
 			'MissionSelector' 				=> $MissionOutput['MissionSelector'],
