@@ -355,6 +355,8 @@ switch ($page) {
 		}
 			
 		$template->assign_vars(array(	
+			'AvailableUnis'	=> $AvailableUnis,
+			'ThisUni'		=> $ThisUni,
 			'tkb_units'		=> $lang['tkb_units'],
 			'tkb_datum'		=> $lang['tkb_datum'],
 			'tkb_owners'	=> $lang['tkb_owners'],
@@ -386,6 +388,8 @@ switch ($page) {
 		}
 		
 		$template->assign_vars(array(	
+			'AvailableUnis'				=> $AvailableUnis,
+			'ThisUni'					=> $ThisUni,
 			'PrangerList'				=> $PrangerList,
 			'bn_no_players_banned'		=> $lang['bn_no_players_banned'],
 			'bn_exists'					=> $lang['bn_exists'],
@@ -456,7 +460,7 @@ switch ($page) {
 			$template->assign_vars(array(
 				'AvailableUnis'			=> $AvailableUnis,
 				'welcome_to'			=> $lang['welcome_to'],
-				'server_description'	=> $lang['server_description'],
+				'server_description'	=> sprintf($lang['server_description'], $game_config['game_name']),
 				'server_infos'			=> $lang['server_infos'],
 				'login'					=> $lang['login'],
 				'login_info'			=> $lang['login_info'],

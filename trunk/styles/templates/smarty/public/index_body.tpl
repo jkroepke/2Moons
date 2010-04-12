@@ -2,7 +2,7 @@
 <center>
   <p>&nbsp;</p>
   <p><span class="Estilo3">{$welcome_to} {$servername}</span></p>
-  <p align="center"><span style="text-align: left;"><strong>{$servername}{$server_description}</span></p>
+  <p align="center"><span style="text-align: left;">{$server_description}</span></p>
   <p align="center">&nbsp;</p>
   <table>
     <tr><td><ul>{foreach item=InfoRow from=$server_infos}<li><strong>{$InfoRow}</strong></li>{/foreach}

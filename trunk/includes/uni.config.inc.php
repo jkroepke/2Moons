@@ -7,4 +7,7 @@ $AvailableUnis	= array(
 #	'./uni2/'						=> $lang['universe']." 2",
 #	'http://uni3.deinedomain.tld/'	=> $lang['universe']." 3",
 );
+
+
+$ThisUni							= './';
 ?>
