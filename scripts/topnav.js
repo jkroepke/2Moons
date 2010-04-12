@@ -17,6 +17,7 @@ function update()
 	window.setTimeout("update();",1000);
 }
 function number_format(n){
+	n = n.toPrecision(0);
 	ns=String(n).replace(thousands_sep,',');
 	var w=[];
 	while(ns.length>0){

@@ -239,7 +239,7 @@ class ShowFleetPages extends FleetFunctions
 			'galaxy_post' 			=> $TargetGalaxy,
 			'system_post' 			=> $TargetSystem,
 			'planet_post' 			=> $TargetPlanet,
-			'fleetroom'				=> number_format($FleetRoom, 0, '', ''),	
+			'fleetroom'				=> floattostring($FleetRoom),	
 			'fleetspeedfactor'		=> number_format(((time() - $CurrentUser[$resource[706]] <= 0) ? (1 - $ExtraDM[706]['add']) : 1) - (GENERAL * $CurrentUser['rpg_general']), 1, '.', ','),
 			'options_selector'    	=> array(1 => $lang['fl_planet'], 2 => $lang['fl_debris'], 3 => $lang['fl_moon']),
 			'options'				=> $TargetPlanettype,
@@ -321,8 +321,8 @@ class ShowFleetPages extends FleetFunctions
 		}
 		
 		$template->assign_vars(array(
-			'consumption'					=> number_format(floor($consumption), 0, '', ''),
-			'fleetroom'						=> number_format(parent::GetFleetRoom($FleetArray), 0, '', ''),
+			'consumption'					=> floattostring(floor($consumption),
+			'fleetroom'						=> floattostring(parent::GetFleetRoom($FleetArray),
 			'speedallsmin'					=> $MaxFleetSpeed,
 			'speed'							=> $GenFleetSpeed,
 			'speedfactor'					=> $GameSpeedFactor,
@@ -331,9 +331,9 @@ class ShowFleetPages extends FleetFunctions
 			'thissystem'			 		=> $CurrentPlanet['system'],
 			'thisplanet'			 		=> $CurrentPlanet['planet'],
 			'thisplanet_type'			 	=> $CurrentPlanet['planet_type'],
-			'thismetal'						=> number_format(floor($CurrentPlanet['metal']), 0, '', ''),
-			'thiscrystal'					=> number_format(floor($CurrentPlanet['crystal']), 0, '', ''),
-			'thisdeuterium' 				=> number_format(floor($CurrentPlanet['deuterium']), 0, '', ''),
+			'thismetal'						=> floattostring(floor($CurrentPlanet['metal']),
+			'thiscrystal'					=> floattostring(floor($CurrentPlanet['crystal']),
+			'thisdeuterium' 				=> floattostring(floor($CurrentPlanet['deuterium']),
 			'fl_planet'						=> $lang['fl_planet'], 
 			'fl_moon'						=> $lang['fl_moon'],
 			'MissionSelector' 				=> $MissionOutput['MissionSelector'],

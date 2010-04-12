@@ -79,7 +79,7 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	// IF SET true, the derbis will be delete, when a moon is created.
 	define('DESTROY_DERBIS_MOON_CREATE', true);
 	
-	define('STORAGE_FACTOR'			  , 1.0);
+	define('STORAGE_FACTOR'			  , 9000000000000000.0);
 	
 	// DARKMATTER PRICE FOR OFFICIER LEVEL
 	
