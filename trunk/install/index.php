@@ -22,6 +22,7 @@
 define('INSIDE'  			, true);
 define('INSTALL' 			, true);
 define('RCINSTALL_VERSION' 	, "5.0");
+define('REVISION' 			, "518");
 
 define('ROOT_PATH', './../');
 include(ROOT_PATH . 'extension.inc');
