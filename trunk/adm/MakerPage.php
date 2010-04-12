@@ -234,7 +234,7 @@ switch ($_GET[page])
 				$QryGetMoonIdFromLunas .= "`planet_type` = '3';";
 				$PlanetRow = $db->fetch_array($db->query($QryGetMoonIdFromLunas));
 
-				$QryUpdateMoonInGalaxy  = "UPDATE ".PLANERS." SET ";
+				$QryUpdateMoonInGalaxy  = "UPDATE ".PLANETS." SET ";
 				$QryUpdateMoonInGalaxy .= "`id_luna` = '". $PlanetRow['id'] ."' ";
 				$QryUpdateMoonInGalaxy .= "WHERE ";
 				$QryUpdateMoonInGalaxy .= "`galaxy` = '". $Galaxy ."' AND ";

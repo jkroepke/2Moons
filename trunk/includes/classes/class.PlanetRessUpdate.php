@@ -131,22 +131,22 @@ class ResourceUpdate
 		global $resource, $db, $user;
 		
 		$QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
-		$QryUpdatePlanet .= "`metal` = '"            . $CurrentPlanet['metal']             	."', ";
-		$QryUpdatePlanet .= "`crystal` = '"          . $CurrentPlanet['crystal']           	."', ";
-		$QryUpdatePlanet .= "`deuterium` = '"        . $CurrentPlanet['deuterium']         	."', ";
-		$QryUpdatePlanet .= "`last_update` = '"      . $CurrentPlanet['last_update']       	."', ";
-		$QryUpdatePlanet .= "`b_building` = '"       . $CurrentPlanet['b_building']         ."', ";
-		$QryUpdatePlanet .= "`b_building_id` = '"    . $CurrentPlanet['b_building_id']      ."', ";
-		$QryUpdatePlanet .= "`field_current` = '"    . $CurrentPlanet['field_current']      ."', ";
-		$QryUpdatePlanet .= "`b_hangar_id` = '"      . $CurrentPlanet['b_hangar_id']       	."', ";
-		$QryUpdatePlanet .= "`metal_perhour` = '"    . $CurrentPlanet['metal_perhour']     	."', ";
-		$QryUpdatePlanet .= "`crystal_perhour` = '"  . $CurrentPlanet['crystal_perhour']   	."', ";
-		$QryUpdatePlanet .= "`deuterium_perhour` = '". $CurrentPlanet['deuterium_perhour'] 	."', ";
-		$QryUpdatePlanet .= "`metal_max` = '"        . $CurrentPlanet['metal_max']     		."', ";
-		$QryUpdatePlanet .= "`crystal_max` = '"      . $CurrentPlanet['crystal_max']   		."', ";
-		$QryUpdatePlanet .= "`deuterium_max` = '"    . $CurrentPlanet['deuterium_max'] 		."', ";
-		$QryUpdatePlanet .= "`energy_used` = '"      . $CurrentPlanet['energy_used']    	."', ";
-		$QryUpdatePlanet .= "`energy_max` = '"       . $CurrentPlanet['energy_max']        	."', ";
+		$QryUpdatePlanet .= "`metal` = '"            . floattostring($CurrentPlanet['metal'])     	."', ";
+		$QryUpdatePlanet .= "`crystal` = '"          . floattostring($CurrentPlanet['crystal'])   	."', ";
+		$QryUpdatePlanet .= "`deuterium` = '"        . floattostring($CurrentPlanet['deuterium']) 	."', ";
+		$QryUpdatePlanet .= "`last_update` = '"      . $CurrentPlanet['last_update']       			."', ";
+		$QryUpdatePlanet .= "`b_building` = '"       . $CurrentPlanet['b_building']         		."', ";
+		$QryUpdatePlanet .= "`b_building_id` = '"    . $CurrentPlanet['b_building_id']    		  	."', ";
+		$QryUpdatePlanet .= "`field_current` = '"    . $CurrentPlanet['field_current']    			."', ";
+		$QryUpdatePlanet .= "`b_hangar_id` = '"      . $CurrentPlanet['b_hangar_id']      		 	."', ";
+		$QryUpdatePlanet .= "`metal_perhour` = '"    . $CurrentPlanet['metal_perhour']   		  	."', ";
+		$QryUpdatePlanet .= "`crystal_perhour` = '"  . $CurrentPlanet['crystal_perhour']  		 	."', ";
+		$QryUpdatePlanet .= "`deuterium_perhour` = '". $CurrentPlanet['deuterium_perhour'] 			."', ";
+		$QryUpdatePlanet .= "`metal_max` = '"        . $CurrentPlanet['metal_max']     				."', ";
+		$QryUpdatePlanet .= "`crystal_max` = '"      . $CurrentPlanet['crystal_max']   				."', ";
+		$QryUpdatePlanet .= "`deuterium_max` = '"    . $CurrentPlanet['deuterium_max'] 				."', ";
+		$QryUpdatePlanet .= "`energy_used` = '"      . $CurrentPlanet['energy_used']    			."', ";
+		$QryUpdatePlanet .= "`energy_max` = '"       . $CurrentPlanet['energy_max']     		   	."', ";
 		if (!empty($this->Builded))
 		{
 			foreach($this->Builded as $Element => $Count)

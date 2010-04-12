@@ -234,7 +234,7 @@ class statbuilder{
 
 	private function removeE($Numeric)
 	{
-		return number_format($Numeric, 0, '', '');
+		return sprintf("%.0f", $Numeric);
 	}
 	
 	private function SetNewRanks()
