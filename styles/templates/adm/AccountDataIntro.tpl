@@ -2,7 +2,7 @@
 <SCRIPT TYPE="text/javascript" SRC="../scripts/filterlist.js"></SCRIPT> 
 <body>
 <form action="" method="GET" name="users">
-<table border="0px" style="background:url(images/Adm/blank.gif);" width="60%">
+<table border="0px" style="background:url(../styles/images/Adm/blank.gif);" width="60%">
 {error}
 </table>
 <br>

@@ -10,8 +10,8 @@ animatedcollapse.ontoggle=function($, divobj, state){
 animatedcollapse.init()
 </script>
 <style>
-.button{background:url(images/Adm/blank.gif);border:1px lime solid;color:#FFFFFF;}
-.button:hover{background:url(images/Adm/blank.gif);border:1px aqua solid;cursor:pointer;color:#FFFFFF;}
+.button{background:url(../styles/images/Adm/blank.gif);border:1px lime solid;color:#FFFFFF;}
+.button:hover{background:url(../styles/images/Adm/blank.gif);border:1px aqua solid;cursor:pointer;color:#FFFFFF;}
 .span{ vertical-align:baseline}</style>
 
 <form action="" method="GET">
