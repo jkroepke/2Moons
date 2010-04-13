@@ -222,7 +222,7 @@ class template extends Smarty
 			'title'			=> $this->GameConfig['game_name'],
 			'dpath'			=> (!empty($dpath)) ? $dpath : DEFAULT_SKINPATH,
 			'is_pmenu'		=> $this->player['settings_planetmenu'],
-			'thousands_sep'	=> $this->lang['locale']['thousands_sep'],
+			'thousands_sep'	=> (!empty($this->lang['locale']['thousands_sep']) ? $this->lang['locale']['thousands_sep'] : "."),
 		));
 	}
 	
