@@ -98,9 +98,9 @@ class FlyingFleetMissions {
 		foreach($SortFleets as $FleetID => $Capacity)
 		{
 			$QryUpdateFleet .= 'UPDATE '.FLEETS.' SET ';
-			$QryUpdateFleet .= '`fleet_resource_metal` = `fleet_resource_metal` + '.round($steal['metal'] * ($Capacity / $AllCapacity)).', ';
-			$QryUpdateFleet .= '`fleet_resource_crystal` = `fleet_resource_crystal` +'.round($steal['crystal'] * ($Capacity / $AllCapacity)).', ';
-			$QryUpdateFleet .= '`fleet_resource_deuterium` = `fleet_resource_deuterium` +'.round($steal['deuterium'] * ($Capacity / $AllCapacity)).' ';
+			$QryUpdateFleet .= '`fleet_resource_metal` = `fleet_resource_metal` + '.floattostring(round($steal['metal'] * ($Capacity / $AllCapacity))).', ';
+			$QryUpdateFleet .= '`fleet_resource_crystal` = `fleet_resource_crystal` +'.floattostring(round($steal['crystal'] * ($Capacity / $AllCapacity))).', ';
+			$QryUpdateFleet .= '`fleet_resource_deuterium` = `fleet_resource_deuterium` +'.floattostring(round($steal['deuterium'] * ($Capacity / $AllCapacity))).' ';
 			$QryUpdateFleet .= 'WHERE fleet_id = '.$FleetID.' ';
 			$QryUpdateFleet .= 'LIMIT 1;';		
 		}
@@ -896,9 +896,9 @@ class FlyingFleetMissions {
 		if ($QryUpdFleet != "")
 			$QryUpdatePlanet  .= $QryUpdFleet;
 
-		$QryUpdatePlanet  .= "`metal` = `metal` + '". $FleetRow['fleet_resource_metal'] ."', ";
-		$QryUpdatePlanet  .= "`crystal` = `crystal` + '". $FleetRow['fleet_resource_crystal'] ."', ";
-		$QryUpdatePlanet  .= "`deuterium` = `deuterium` + '". $FleetRow['fleet_resource_deuterium'] ."' ";
+		$QryUpdatePlanet  .= "`metal` = `metal` + '".floattostring($FleetRow['fleet_resource_metal'])."', ";
+		$QryUpdatePlanet  .= "`crystal` = `crystal` + '".floattostring($FleetRow['fleet_resource_crystal'])."', ";
+		$QryUpdatePlanet  .= "`deuterium` = `deuterium` + '".floattostring($FleetRow['fleet_resource_deuterium'])."' ";
 		$QryUpdatePlanet  .= "WHERE ";
 
 		if ($Start == true)
@@ -923,9 +923,9 @@ class FlyingFleetMissions {
 	{
 		global $db;
 		$QryUpdatePlanet   = "UPDATE ".PLANETS." SET ";
-		$QryUpdatePlanet  .= "`metal` = `metal` + '". $FleetRow['fleet_resource_metal'] ."', ";
-		$QryUpdatePlanet  .= "`crystal` = `crystal` + '". $FleetRow['fleet_resource_crystal'] ."', ";
-		$QryUpdatePlanet  .= "`deuterium` = `deuterium` + '". $FleetRow['fleet_resource_deuterium'] ."' ";
+		$QryUpdatePlanet  .= "`metal` = `metal` + '".floattostring($FleetRow['fleet_resource_metal'])."', ";
+		$QryUpdatePlanet  .= "`crystal` = `crystal` + '".floattostring($FleetRow['fleet_resource_crystal'])."', ";
+		$QryUpdatePlanet  .= "`deuterium` = `deuterium` + '".floattostring($FleetRow['fleet_resource_deuterium'])."' ";
 		$QryUpdatePlanet  .= "WHERE ";
 
 		if ($Start == true)
