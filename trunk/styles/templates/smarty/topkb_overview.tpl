@@ -19,7 +19,7 @@
 {foreach item=RowInfo key=RowNR from=$TopKBList}
 <tr>
     <th>{$RowNR + 1}</th>
-    <th><a href="javascript:kb('{$RowInfo.rid}');">
+    <th><a href="game.php?page=topkb&action=showkb&rid={$RowInfo.rid}" onclick="topkb('{$RowInfo.rid}');return false">
 	{if $RowInfo.result == "a"}
 	<font style="color:#00FF00">{$RowInfo.attacker}</font><b> VS </b><font style="color:#FF0000">{$RowInfo.defender}</font>
 	{elseif $RowInfo.result == "r"}
