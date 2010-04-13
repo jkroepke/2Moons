@@ -34,11 +34,11 @@ animatedcollapse.init()
 a.link{font-size:14px;font-variant:small-caps;margin-left:120px;}a.link:hover{font-size:16px;font-variant:small-caps;margin-left:120px;}
 span.no_moon{font-size:14px;font-variant:small-caps;margin-left:120px;font-family: Arial, Helvetica, sans-serif;}span.no_moon:hover{font-size:14px;font-variant:small-caps;margin-left:120px;color:#FF0000;cursor:default;font-family: Arial, Helvetica, sans-serif;}
 a.ccc{font-size:15px;}a.ccc:hover{font-size:15px;color:aqua;}
-table.tableunique{border:0px;background:url(images/Adm/blank.gif);width:100%;}
+table.tableunique{border:0px;background:url(../styles/images/Adm/blank.gif);width:100%;}
 th.unico{border:0px;text-align:left;}
 th.unico2{border:0px;text-align:center;}
 td{color:#FFFFFF;font-size:10px;font-variant:normal;}
-td.blank{border:0px;background:url(images/Adm/blank.gif);text-align:right;padding-right:80px;font-size:15px;}
+td.blank{border:0px;background:url(../styles/images/Adm/blank.gif);text-align:right;padding-right:80px;font-size:15px;}
 </style>
 
 

@@ -93,7 +93,7 @@ function ShowStatisticsPage($CurrentUser, $CurrentPlanet)
 				$Selector['range'][$PageValue] 	= $PageValue."-".$PageRange;
 			}
 
-			$start = floor(($range - 1) / 100) * 100;
+			$start = max(floor(($range - 1) / 100) * 100, 0);
 
 			$stats_sql	=	'SELECT DISTINCT s.*, u.id, u.username, u.ally_id, u.ally_name FROM '.STATPOINTS.' as s
 			INNER JOIN '.USERS.' as u ON u.id = s.id_owner
@@ -126,7 +126,7 @@ function ShowStatisticsPage($CurrentUser, $CurrentPlanet)
 				$Selector['range'][$PageValue] 	= $PageValue."-".$PageRange;
 			}
 
-			$start = floor(($range - 1) / 100) * 100;
+			$start = max(floor(($range - 1) / 100) * 100, 0);
 
 			$stats_sql	=	'SELECT DISTINCT s.*, a.id, a.ally_members, a.ally_name FROM '.STATPOINTS.' as s
 			INNER JOIN '.ALLIANCE.' as a ON a.id = s.id_owner

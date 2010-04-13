@@ -114,7 +114,8 @@ class statbuilder{
 	
 	private function SaveDataIntoDB($Data)
 	{
-		$this->db->multi_query($Data);
+		if(!empty($Data))
+			$this->db->multi_query($Data);
 	}
 
 	private function GetTechnoPoints($CurrentUser) 
@@ -243,7 +244,7 @@ class statbuilder{
 		for ($StatType = 1; $StatType <= 2; $StatType++) 
 		{
 			$Rank           = 1;
-			$RankQry        = $this->db->query("SELECT `id_owner` FROM ".STATPOINTS." WHERE `stat_type` = '".$StatType."' AND `stat_code` = '1' ORDER BY `tech_points` DESC;");
+			$RankQry        = $this->db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.`stat_type` = '".$StatType."' AND s.`id_owner` = `u`.id ".(($this->config['stat'] == 2)?'AND u.`authlevel` < '.$this->config['stat_level'].' ':'')." ORDER BY `tech_points` DESC;");
 			while ($CurUser = $this->db->fetch($RankQry))
 			{
 				$tech[$CurUser['id_owner']]	= $Rank;
@@ -251,7 +252,7 @@ class statbuilder{
 			}
 			
 			$Rank           = 1;
-			$RankQry        = $this->db->query("SELECT `id_owner` FROM ".STATPOINTS." WHERE `stat_type` = '".$StatType."' AND `stat_code` = '1' ORDER BY `build_points` DESC;");
+			$RankQry        = $this->db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.`stat_type` = '".$StatType."' AND s.`id_owner` = `u`.id ".(($this->config['stat'] == 2)?'AND u.`authlevel` < '.$this->config['stat_level'].' ':'')." ORDER BY `build_points` DESC;");
 			while ($CurUser = $this->db->fetch($RankQry))
 			{
 				$build[$CurUser['id_owner']] = $Rank;
@@ -259,7 +260,7 @@ class statbuilder{
 			}
 			
 			$Rank           = 1;
-			$RankQry        = $this->db->query("SELECT `id_owner` FROM ".STATPOINTS." WHERE `stat_type` = '".$StatType."' AND `stat_code` = '1' ORDER BY `defs_points` DESC;");
+			$RankQry        = $this->db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.`stat_type` = '".$StatType."' AND s.`id_owner` = `u`.id ".(($this->config['stat'] == 2)?'AND u.`authlevel` < '.$this->config['stat_level'].' ':'')." ORDER BY `defs_points` DESC;");
 			while ($CurUser = $this->db->fetch($RankQry))
 			{
 				$defs[$CurUser['id_owner']]	= $Rank;
@@ -267,7 +268,7 @@ class statbuilder{
 			}
 			
 			$Rank           = 1;
-			$RankQry        = $this->db->query("SELECT `id_owner` FROM ".STATPOINTS." WHERE `stat_type` = '".$StatType."' AND `stat_code` = '1' ORDER BY `fleet_points` DESC;");
+			$RankQry        = $this->db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.`stat_type` = '".$StatType."' AND s.`id_owner` = `u`.id ".(($this->config['stat'] == 2)?'AND u.`authlevel` < '.$this->config['stat_level'].' ':'')." ORDER BY `fleet_points` DESC;");
 			while ($CurUser = $this->db->fetch($RankQry))
 			{
 				$fleet[$CurUser['id_owner']] = $Rank;
@@ -275,7 +276,7 @@ class statbuilder{
 			}
 			
 			$Rank           = 1;
-			$RankQry        = $this->db->query("SELECT `id_owner` FROM ".STATPOINTS." WHERE `stat_type` = '".$StatType."' AND `stat_code` = '1' ORDER BY `total_points` DESC;");
+			$RankQry        = $this->db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.`stat_type` = '".$StatType."' AND s.`id_owner` = `u`.id ".(($this->config['stat'] == 2)?'AND u.`authlevel` < '.$this->config['stat_level'].' ':'')." ORDER BY `total_points` DESC;");
 
 			while($CurUser = $this->db->fetch_array($RankQry))
 			{
