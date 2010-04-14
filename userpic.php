@@ -39,8 +39,8 @@ includeLang('INGAME');
 require_once(ROOT_PATH."includes/classes/class.StatBanner.php");
 
 if(!isset($_GET['debug'])) {
-	header('Expires: '.date('D, d M Y H:i:s T',$game_config['stat_last_db_update'] + (60 * 60 * 24)));
-	header("Cache-Control: private, must-revalidate");
+	header('Expires: '.gmdate('D, d M Y H:i:s', time() + 7200)).' GMT';
+	header("Cache-Control: max-age=7200, private");
 	header("Content-type: image/png"); 
 }
 

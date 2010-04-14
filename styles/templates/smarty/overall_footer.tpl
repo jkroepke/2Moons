@@ -4,19 +4,17 @@
 {$sql_num}
 {if $metal_max}
 <script type="text/javascript">
-$(document).ready(function() {
-	met			= parseInt($("#current_metal").text().replace(/\{$thousands_sep}/g,""));
-	cry			= parseInt($("#current_crystal").text().replace(/\{$thousands_sep}/g,""));
-	deu 		= parseInt($("#current_deuterium").text().replace(/\{$thousands_sep}/g,""));
-	met_max 	= {$js_metal_max};
-	cry_max 	= {$js_crystal_max};
-	deu_max 	= {$js_deuterium_max};
-	met_hr		= {$js_metal_hr};
-	cry_hr		= {$js_crystal_hr};
-	deu_hr		= {$js_deuterium_hr};
+met			= parseInt($("#current_metal").text().replace(/\{$thousands_sep}/g,""));
+cry			= parseInt($("#current_crystal").text().replace(/\{$thousands_sep}/g,""));
+deu 		= parseInt($("#current_deuterium").text().replace(/\{$thousands_sep}/g,""));
+met_max 	= {$js_metal_max};
+cry_max 	= {$js_crystal_max};
+deu_max 	= {$js_deuterium_max};
+met_hr		= {$js_metal_hr};
+cry_hr		= {$js_crystal_hr};
+deu_hr		= {$js_deuterium_hr};
 
-	update();
-});
+update();
 </script>
 {/if}
 </body>
