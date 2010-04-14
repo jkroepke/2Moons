@@ -943,7 +943,7 @@ class ShowAlliancePage
 									case 'decline':
 										if(!empty($id))
 										{
-											$AllyUsers 	= $db->query("SELECT `id` FROM ".USERS." as s WHERE s.ally_id = '".$ally['id']."' OR s.ally_id = '".$DiploInfo[$Level][$id][1]."';");
+											$AllyUsers 	= $db->query("SELECT `id` FROM ".USERS." as s WHERE s.ally_id = '".$ally['id']."' OR s.ally_id = '".$DiploInfo[5][$id][1]."';");
 											while($User = $db->fetch_array($AllyUsers)) {	
 												SendSimpleMessage($User['id'], $CurrentUser['id'],'', 2,$lang['al_circular_alliance'].$ally['ally_tag']." &amp; ".$DiploInfo[5][$id][5], $lang['al_diplo_accept_no'], sprintf($lang['al_diplo_accept_no_mes'], $lang['al_diplo_level'][$Level], $ally['ally_name'], $DiploInfo[5][$id][0]));
 											}
