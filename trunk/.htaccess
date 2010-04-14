@@ -14,7 +14,6 @@ Deny from All
 </Files>
 
 AddDefaultCharset utf-8
-Header unset Last-Modified
 FileETag MTime Size
 
 <IfModule mod_rewrite.c>
@@ -51,4 +50,5 @@ Header set Cache-Control "max-age=7200, public"
 <filesmatch "\.(js)$">
 Header set Cache-Control "max-age=7200, private"
 </filesmatch>
+Header unset Last-Modified
 </IfModule>
