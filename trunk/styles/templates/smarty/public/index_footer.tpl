@@ -9,13 +9,11 @@ cappublic		= '{$cappublic}';
 
     (function() {
         var s = [
-            "http://s7.addthis.com/js/250/addthis_widget.js#username=xa-4b3aa16f657a67e8",
-            "scripts/jquery.js",
-            "scripts/soundmanager2.js",
-            "scripts/jquery.loadmask.js",
+            "http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js",
+            "scripts/gzip/soundmanager2.jgz",
+            "scripts/gzip/jquery.loadmask.jgz",
             "http://browser-update.org/update.js",
-            "scripts/login.js",
-            "scripts/common_2-19.js",
+            "scripts/gzip/login.jgz",
             {if $game_captcha}
 			"http://api.recaptcha.net/js/recaptcha_ajax.js"
 			{/if}
