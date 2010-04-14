@@ -14,7 +14,6 @@ Deny from All
 </Files>
 
 AddDefaultCharset utf-8
-AddEncoding gzip .jgz
 Header unset Last-Modified
 FileETag MTime Size
 

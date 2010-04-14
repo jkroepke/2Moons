@@ -10,10 +10,10 @@ cappublic		= '{$cappublic}';
     (function() {
         var s = [
             "http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js",
-            "scripts/gzip/soundmanager2.jgz",
-            "scripts/gzip/jquery.loadmask.jgz",
+            "scripts/soundmanager2.js",
+            "scripts/jquery.loadmask.js",
             "http://browser-update.org/update.js",
-            "scripts/gzip/login.jgz",
+            "scripts/login.js",
             {if $game_captcha}
 			"http://api.recaptcha.net/js/recaptcha_ajax.js"
 			{/if}
