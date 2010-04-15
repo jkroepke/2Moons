@@ -111,7 +111,7 @@ function ShowResourcesPage($CurrentUser, $CurrentPlanet)
 			if ($ProdID < 4)
 			{
 				$deuterium[$ProdID]	= floor(eval($ProdGrid[$ProdID]['formule']['deuterium']) * (0.01 * $post_porcent) * ($game_config['resource_multiplier']));
-				$energy[$ProdID]	= floor(eval($ProdGrid[$ProdID]['formule']['energy'])    * (0.01 * $post_porcent) * ($game_config['resource_multiplier']));
+				$energy[$ProdID]	= floor(eval($ProdGrid[$ProdID]['formule']['energy'])    * ($game_config['resource_multiplier']));
 			} else {
 				$deu_en[$ProdID]	= floor(eval($ProdGrid[$ProdID]['formule']['deuterium']) * ($game_config['resource_multiplier']));
 				$energy_en[$ProdID]	= floor(eval($ProdGrid[$ProdID]['formule']['energy']) * ($game_config['resource_multiplier']));
