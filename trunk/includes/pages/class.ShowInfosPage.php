@@ -85,7 +85,7 @@ class ShowInfosPage
 						{
 							$ShipLabel = "c". $Ship;
 
-							$gemi_kontrol	=	min(max(request_var($ShipLabel, 0), 0), $CurrentPlanet[$resource[$Ship]);
+							$gemi_kontrol	=	min(max(request_var($ShipLabel, 0), 0), $CurrentPlanet[$resource[$Ship]]);
 							
 							if ($ShipArray[ $Ship ] <> 0)
 							{
