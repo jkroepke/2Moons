@@ -59,13 +59,13 @@ class CheckSession
 			}
 			else
 			{
-				$ExpireTime = time() + 900;
+				$ExpireTime = 0;
 			}
 
 			if ($IsUserChecked == false)
 			{
 				if(!headers_sent()) 
-					setcookie($game_config['COOKIE_NAME'], $ExpireTime, 900, "/", "", 0);
+					setcookie($game_config['COOKIE_NAME'], $NextCookie, $ExpireTime, "/", "", 0);
 				
 				$QryUpdateUser  = "UPDATE ".USERS." SET ";
 				$QryUpdateUser .= "`onlinetime` = '". time() ."', ";
