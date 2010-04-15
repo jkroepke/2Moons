@@ -85,17 +85,8 @@ class ShowInfosPage
 						{
 							$ShipLabel = "c". $Ship;
 
-							$gemi_kontrol	=	max(request_var($ShipLabel, 0), 0);
+							$gemi_kontrol	=	min(max(request_var($ShipLabel, 0), 0), $CurrentPlanet[$resource[$Ship]);
 							
-							if ( $gemi_kontrol > $CurrentPlanet[ $resource[ $Ship ] ])
-							{
-								$ShipArray[ $Ship ] = $CurrentPlanet[ $resource[ $Ship ] ];
-							}
-							else
-							{
-								$ShipArray[ $Ship ] = $gemi_kontrol;
-							}
-
 							if ($ShipArray[ $Ship ] <> 0)
 							{
 								$SubQueryOri .= "`". $resource[ $Ship ] ."` = `". $resource[ $Ship ] ."` - '". $ShipArray[ $Ship ] ."', ";

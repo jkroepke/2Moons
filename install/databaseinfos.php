@@ -153,6 +153,9 @@ $QryInsertConfig    .= "('ftp_server'			 , ''), ";
 $QryInsertConfig    .= "('ftp_user_name'		 , ''), ";
 $QryInsertConfig    .= "('ftp_user_pass'		 , ''), ";
 $QryInsertConfig    .= "('ftp_root_path'		 , ''), ";
+$QryInsertConfig    .= "('fb_on'                 , '0'), ";
+$QryInsertConfig    .= "('fb_apikey'             , ''), ";
+$QryInsertConfig    .= "('fb_skey'               , ''), ";
 $QryInsertConfig    .= "('stat_last_db_update'   , '0'); ";
 
 $QryTableDiplo       = "CREATE TABLE `prefix_".DIPLO."` ( ";
@@ -543,8 +546,10 @@ $QryTableUsers      .= "`dm_researchtime` int(11) NOT NULL default '0',";
 $QryTableUsers      .= "`dm_resource` int(11) NOT NULL default '0',";
 $QryTableUsers      .= "`dm_energie` int(11) NOT NULL default '0',";
 $QryTableUsers      .= "`dm_fleettime` int(11) NOT NULL default '0',";
-$QryTableUsers      .= "PRIMARY KEY  (`id`), ";
-$QryTableUsers      .= "UNIQUE KEY `username` (`username`)";
+$QryTableUsers      .= "`dm_fleettime` int(11) NOT NULL default '0',";
+$QryTableUsers      .= "PRIMARY KEY (`id`),";
+$QryTableUsers      .= "UNIQUE KEY `username` (`username`),";
+$QryTableUsers      .= "UNIQUE KEY `fb_id` (`fb_id`)";
 $QryTableUsers      .= ") ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
 
 $QryTableUsersTemp   = "CREATE TABLE IF NOT EXISTS `prefix_".USERS_VALID."` (";

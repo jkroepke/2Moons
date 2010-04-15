@@ -52,6 +52,9 @@ $ConfigTable	=
         	<th ".$onMouseOverIE." class=\"ForIE\"><a href=\"TeamspeakSettingsPage.php\" target=\"Hauptframe\">".$lang['mu_ts_options']."</a></th>
     	</tr>
 		<tr>
+        	<th ".$onMouseOverIE." class=\"ForIE\"><a href=\"FacebookSettingsPage.php\" target=\"Hauptframe\">".$lang['mu_fb_options']."</a></th>
+    	</tr>
+		<tr>
         	<th ".$onMouseOverIE." class=\"ForIE\"><a href=\"GameModule.php\" target=\"Hauptframe\">".$lang['mu_module']."</a></th>
     	</tr>
 		<tr>

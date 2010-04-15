@@ -83,6 +83,24 @@ function showRecaptcha(element)
 	});
 }
 
+function fbLogincheck() {
+	FB.Connect.requireSession(function() {
+		FB.Facebook.apiClient.users_hasAppPermission('email', function (permsare) { 
+			if(!permsare){
+				FB.Connect.showPermissionDialog('email', function(perms) {
+					if (perms) {
+						document.location = $('#Uni').val()+"index.php?page=facebook";
+					} else {
+						alert(fb_permissions);
+					}
+				});
+			} else {
+				document.location = $('#Uni').val()+"index.php?page=facebook";
+			}
+		});
+	});
+}
+
 /* UTIL *****************************************************************/
 
 //return an element by id, or object reference
