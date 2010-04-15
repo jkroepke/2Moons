@@ -65,7 +65,7 @@ if ($user['authlevel'] != 3) die();
 	elseif(isset($Patchlevel[2]))
 		$Level		= $Patchlevel[2];
 	else
-		$Level		= 540;
+		$Level		= 541;
 		
 	$opts = array('http' => array('method'=> "GET", 'header'=> "Patchlevel: ".$Level."\r\n"));
 			
