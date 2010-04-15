@@ -839,11 +839,9 @@ class FlyingFleetMissions {
 							$String  .= "<tr>";
 
 						$String  .= "<td align=\"left\" width=\"25%\">".$lang['tech'][$Item]."</td><td align=\"right\" width=\"25%\">".$TargetPlanet[$resource[$Item]]."</td>";
-						if ($row < SPY_REPORT_ROW - 1)
-							
-
+						
 						$Array[$Item]	=  $TargetPlanet[$resource[$Item]];
-						$Count	+=  $TargetPlanet[$resource[$Item]];
+						$Count			+=  $TargetPlanet[$resource[$Item]];
 						$row++;
 						if ($row == SPY_REPORT_ROW)
 						{
