@@ -1,6 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-<html lang="de">
+<html lang="de" xmlns:fb="http://www.facebook.com/2008/fbml">
 <head>
 <link rel='stylesheet' type='text/css' href='styles/css/jquery.loadmask.css'>
 <link rel='stylesheet' type='text/css' href='styles/css/common_2-20.css'>

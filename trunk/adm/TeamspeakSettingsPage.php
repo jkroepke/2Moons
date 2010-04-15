@@ -34,8 +34,6 @@ function DisplayGameSettingsPage ( $CurrentUser )
 {
 	global $game_config, $lang;
 
-	if ($CurrentUser['authlevel'] < 3) die(message ($lang['not_enough_permissions']));
-
 	if ($_POST)
 	{
 

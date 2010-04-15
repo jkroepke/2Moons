@@ -2,17 +2,20 @@
 </td></tr></table>
 </div>
 <script type="text/javascript">
-IsCaptchaActive = {$game_captcha};
-IsRegActive 	= {$reg_close};
-lang_reg_closed	= '{$register_closed}';
-cappublic		= '{$cappublic}';
-
+IsCaptchaActive 	= {$game_captcha};
+IsRegActive 		= {$reg_close};
+lang_reg_closed		= "{$register_closed}";
+cappublic			= "{$cappublic}";
+fb_permissions		= "{$fb_perm}";
     (function() {
         var s = [
             "http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js",
             "scripts/soundmanager2.js",
             "scripts/jquery.loadmask.js",
             "http://browser-update.org/update.js",
+			{if $fb_active}
+			"http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php",
+			{/if}
             "scripts/login.js",
             {if $game_captcha}
 			"http://api.recaptcha.net/js/recaptcha_ajax.js"
@@ -32,5 +35,10 @@ cappublic		= '{$cappublic}';
         }
     })();
 </script>
+{if $fb_active}
+<script type="text/javascript">	
+FB.init("{$fb_key}", "scripts/xd_receiver.htm");
+</script>
+{/if}
 </body>
 </html>

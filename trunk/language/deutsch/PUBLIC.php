@@ -233,6 +233,10 @@ $lang['agb']						= array(
 	Eine änderung oder Ergänzung wird mindestens eine Woche vor Inkrafttreten im Forum veröffentlicht.",
 );
 
+//Facebook Connect
+
+$lang['fb_perm']				= 'Du hast ein Zugriff verboten. %s braucht alle Rechte, damit du dich mit deinem Facebook Account einloggen kannst.\nAlternativ kannst du dich ohne Facebook-Account anmelden!';
+
 //NEWS
 
 $lang['news_overview']			= "News";

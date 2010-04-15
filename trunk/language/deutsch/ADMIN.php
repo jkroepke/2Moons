@@ -513,6 +513,7 @@ $lang['mu_chat']                   	= 'Chat-Admin';
 $lang['mu_lotterie']               	= 'Lotterie';
 $lang['mu_module']                 	= 'Module';
 $lang['mu_update']                 	= 'Game-Updates';
+$lang['mu_fb_options'] 				= 'Facebook Connect';
 $lang['mu_ts_options'] 				= 'Teamspeak Optionen';
 $lang['mu_game_info'] 				= 'Informationen';
 $lang['mu_vaild_users']				= 'Aktivire User'; 
@@ -1016,51 +1017,34 @@ $lang['qe_fields']						= 'Felder';
 $lang['qe_coords']						= 'Koordinaten';
 $lang['qe_temp']						= 'Temperatur';
 
-
-
 //----------------------------------------------------------------------------//
 // ChatPage.php
-$lang['ch_title']                           = "Chat Administration";
-$lang['ch_list']                            = "Nachrichtenliste";
-$lang['ch_clear']                           = "Lösche Chat";
-$lang['ch_id_msg']                          = "ID";
-$lang['ch_delete_msg']                      = "Löschen";
-$lang['ch_user']                            = "Player";
-$lang['ch_time']                            = "Datum";
-$lang['ch_nbs']                             = "Nachrichten ...";  
-
-
-//----------------------------------------------------------------------------//
-//UserListPage.php
-$lang['ul_sure_you_want_dlte']						= 'Bist du sicher, dass du ihn entfernen möchtest ';
-$lang['ul_yes']								= 'JA';
-$lang['ul_no']								= 'NEIN';
-$lang['ul_player_list']							= 'Spielerliste';
-$lang['ul_id']								= 'ID';
-$lang['ul_user']							= 'Spieler';
-$lang['ul_email']							= 'E-mail';
-$lang['ul_hp']								= 'Hauptplanet';
-$lang['ul_reg_ip']							= 'Reg. IP';
-$lang['ul_last_ip']							= 'Letzte IP';
-$lang['ul_register_date']						= 'Registrierungsdatum';
-$lang['ul_last_visit']							= 'Letzter Besuch';
-$lang['ul_state']							= 'Gebannt';
-$lang['ul_umode']							= 'U-Mode';
-$lang['ul_delete']							= 'Löschen';
-$lang['ul_there_are']							= 'Es gibt';
-$lang['ul_total_players']						= 'Spieler insgesammt';
-$lang['ul_save']							= 'Änderungen speichern';
-$lang['ul_maintrace']							= 'Wartung';
+$lang['ch_title']                       = "Chat Administration";
+$lang['ch_list']                        = "Nachrichtenliste";
+$lang['ch_clear']                       = "Lösche Chat";
+$lang['ch_id_msg']                      = "ID";
+$lang['ch_delete_msg']                  = "Löschen";
+$lang['ch_user']                        = "Player";
+$lang['ch_time']                        = "Datum";
+$lang['ch_nbs']                         = "Nachrichten ...";  
 
 //----------------------------------------------------------------------------//
-//PlanetListPage.php
-$lang['pl_only_one_planet']						= 'Es gibt nur 1 Planet'; //
-$lang['pl_there_are']							= 'Es gibt '; //
-$lang['pl_planets']							= ' Planeten'; //
-$lang['pl_list']							= 'Planeten Liste'; //
-$lang['pl_id']								= 'ID';
-$lang['pl_name']							= 'Name des Planeten'; //
-$lang['pl_galaxy']							= 'Galaxie'; //
-$lang['pl_system']							= 'System';
-$lang['pl_planet']							= 'Planet';
+//TeamSpeakSettingPage.php
+$lang['ts_settings']					= 'Teamspeak Einstellungen';
+$lang['ts_active']						= 'Teamspeak-Mod aktivieren?';
+$lang['ts_version']						= 'Server-Version:';
+$lang['ts_udpport']						= 'TCP Port';
+$lang['ts_tcpport']						= 'UDP Port';
+$lang['ts_serverip']					= 'Server-IP';
+$lang['ts_timeout']						= 'Timeout'; 
+$lang['ts_server_query']				= 'Server Query Port'; 
+
+//----------------------------------------------------------------------------//
+//FacebookSettingPage.php
+$lang['fb_settings']					= 'Facebook Connect Einstellungen';
+$lang['fb_active']						= 'Facebook Connect aktivieren?';
+$lang['fb_api_key']						= 'Facebook API Key';
+$lang['fb_secrectkey']					= 'Facebook Geheim Key';
+$lang['fb_info']						= 'Mit Facebook Connect können User, die bei Facebook angemeldet sind, mit meinem Klick sich einloggen bzw. sich registrieren.<br><br>Um diese Funktion zu nutzen, musst du selbst bei Faceebok registriert sein. Zudem musst du eine Application erstellen. Dies kannst du auf <a href="http://www.facebook.com/developers/">http://www.facebook.com/developers/</a> erledigen. Als Connect URL musst du den URL zum Game eingeben. Dann trägst du hier die Keys ein und dein Game sollte Facebook bereit sein.<br><br><font color="red">Für FB Connect muss der Mail Versand verfügbar sein! (SMTP Settings)</font>';
+
 ?>

@@ -34,7 +34,7 @@ function unset_vars( $prefix )
 
 function update_config($config_name, $config_value )
 {
-	global $game_config,$db;
+	global $game_config, $db;
 	if(isset($game_config[$config_name]))
 		$db->query("UPDATE ".CONFIG." SET `config_value` = '".$config_value."' WHERE `config_name` = '".$config_name."';");
 	else

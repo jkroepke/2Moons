@@ -26,9 +26,10 @@ class ResourceUpdate
 		global $ProdGrid, $resource, $reslist, $game_config, $ExtraDM;
 		require_once(ROOT_PATH."/includes/functions/HandleElementBuildingQueue.".PHP_EXT);
 		require_once(ROOT_PATH."/includes/functions/UpdatePlanetBatimentQueueList.".PHP_EXT);
-		
+
+		$this->Builded					= array();
 		$this->HangerProductionTime    	= (time() - $CurrentPlanet['last_update']);
-		$this->Builded					= UpdatePlanetBatimentQueueList($CurrentPlanet, $CurrentUser);
+		$this->Builded				   += UpdatePlanetBatimentQueueList($CurrentPlanet, $CurrentUser);
 		$CurrentPlanet['metal_max']		= floor(2.5 * pow(1.8331954764, $CurrentPlanet[$resource[22]])) * 5000 * (1 + ($CurrentUser['rpg_stockeur'] * 0.5)) * $game_config['resource_multiplier'] * STORAGE_FACTOR;
 		$CurrentPlanet['crystal_max']	= floor(2.5 * pow(1.8331954764, $CurrentPlanet[$resource[23]])) * 5000 * (1 + ($CurrentUser['rpg_stockeur'] * 0.5)) * $game_config['resource_multiplier'] * STORAGE_FACTOR;
 		$CurrentPlanet['deuterium_max']	= floor(2.5 * pow(1.8331954764, $CurrentPlanet[$resource[24]])) * 5000 * (1 + ($CurrentUser['rpg_stockeur'] * 0.5)) * $game_config['resource_multiplier'] * STORAGE_FACTOR;

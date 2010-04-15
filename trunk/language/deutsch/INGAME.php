@@ -1004,8 +1004,8 @@ $lang['sys_destruc_null']        		   	= 'Die Todessterne können ihre volle Lei
 //----------------------------------------------------------------------------//
 //class.CheckSession.php
 $lang['ccs_multiple_users']					= 'Cookie Fehler! Jemand hat sich mit deinem Account eingeloggt. Lösche deine Cookies und melde dich neu an. Wenn das Problem weiterhin besteht kontaktieren Sie den Administrator.';
-$lang['ccs_other_user']						= 'Cookie Fehler! Lösche deine Cookies und melde dich neu an. Wenn das Problem weiterhin besteht kontaktieren Sie den Administrator.';
-$lang['css_different_password']				= 'Cookie Fehler! Lösche deine Cookies und melde dich neu an. Wenn das Problem weiterhin besteht kontaktieren Sie den Administrator.';
+$lang['ccs_other_user']						= 'Cookie Fehler! Lösche deine Cookies und melde dich neu an. Wenn das Problem weiterhin besteht kontaktieren Sie den Administrator.<br>Fehler Code.: 272';
+$lang['css_different_password']				= 'Cookie Fehler! Lösche deine Cookies und melde dich neu an. Wenn das Problem weiterhin besteht kontaktieren Sie den Administrator.<br>Fehler Code.: 273';
 $lang['css_account_banned_message']			= 'Dein Account wurde gespeert!';
 $lang['css_account_banned_expire']			= 'Du bist zum %s gespeert!<br><a href="./index.php?page=pranger">Pranger</a>';
 $lang['css_goto_homeside']					= '<a href="./index.php">Zur Startseite</a>';

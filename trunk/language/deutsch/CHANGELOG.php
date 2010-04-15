@@ -9,6 +9,7 @@ $lang['changelog']   = array(
 
 'RC5.0b6' => 'ShadoX '.$version[2].'.'.$version[1].'.'.substr($version[0],2,2).'
 - ADD: Updated ACP (XG Proyecto 2.9.4)
+- ADD: Facebook Connector Alpha
 - ADD: Diplomatie-System
 - ADD: Gigarecyler on Galaxy
 - ADD: Ori. Platform, Spalteinreißer, Bahamut
