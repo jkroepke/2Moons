@@ -170,7 +170,7 @@ if ($user['authlevel'] != 3) die();
 							continue;
 						} else {
 							if (strpos($File, '.') !== false) {		
-								$Data = fopen(str_replace("/trunk/", "", $File));
+								$Data = fopen($SVN_ROOT.$File, "r");
 								if ($ftp->uploadFromFile($Data, str_replace("/trunk/", "", $File))) {
 									$Result['update'][$Rev][$File]	= "OK! - Updated";
 								} else {

@@ -17,7 +17,7 @@
 thousands_sep	= '{$thousands_sep}';
 </script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
-<script type="text/javascript" src="./scripts/jquery.ui.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
 <script type="text/javascript" src="./scripts/overlib.js"></script>
 <script type="text/javascript" src="./scripts/global.js"></script>
 {foreach item=scriptname from=$scripts}

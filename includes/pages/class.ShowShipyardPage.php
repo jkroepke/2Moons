@@ -443,7 +443,7 @@ class ShowShipyardPage
 		{
 			if (IsTechnologieAccessible($CurrentUser, $CurrentPlanet, $Element))
 			{
-				if($Element == 407 || $Element == 408 || $Element == 409)
+				if(in_array($Element, $reslist['one']))
 				{
 					$InQueue 		= strpos($CurrentPlanet['b_hangar_id'], $Element.",");
 					$IsBuild	 	= ($CurrentPlanet[$resource[$Element]] >= 1) ? true : false;

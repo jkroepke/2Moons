@@ -21,11 +21,6 @@
 
 if(!defined('INSIDE')){ die(header("location:../../"));}
 
-	function SetNewBuildTimes(&$CurrentPlanet)
-	{
-		return true;
-	}
-
 	function CheckPlanetBuildingQueue(&$CurrentPlanet, &$CurrentUser)
 	{
 		global $resource, $db;
