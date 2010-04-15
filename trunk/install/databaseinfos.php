@@ -450,7 +450,7 @@ $QryTableTopKB 		.= "KEY `time` (`time`),";
 $QryTableTopKB 		.= "FULLTEXT KEY `raport` (`raport`)";
 $QryTableTopKB 		.= ") ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
  
-$QryTableUsers      .= "CREATE TABLE IF NOT EXISTS `prefix_".USERS."` (";
+$QryTableUsers       = "CREATE TABLE IF NOT EXISTS `prefix_".USERS."` (";
 $QryTableUsers      .= "`id` int(11) unsigned NOT NULL auto_increment,";
 $QryTableUsers      .= "`username` varchar(64) character set utf8 NOT NULL default '',";
 $QryTableUsers      .= "`password` varchar(64) character set utf8 NOT NULL default '',";
@@ -546,7 +546,7 @@ $QryTableUsers      .= "`dm_researchtime` int(11) NOT NULL default '0',";
 $QryTableUsers      .= "`dm_resource` int(11) NOT NULL default '0',";
 $QryTableUsers      .= "`dm_energie` int(11) NOT NULL default '0',";
 $QryTableUsers      .= "`dm_fleettime` int(11) NOT NULL default '0',";
-$QryTableUsers      .= "`dm_fleettime` int(11) NOT NULL default '0',";
+$QryTableUsers      .= "`fb_id` int(11) NOT NULL default '0',";
 $QryTableUsers      .= "PRIMARY KEY (`id`),";
 $QryTableUsers      .= "UNIQUE KEY `username` (`username`),";
 $QryTableUsers      .= "UNIQUE KEY `fb_id` (`fb_id`)";
