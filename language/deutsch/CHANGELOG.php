@@ -21,6 +21,7 @@ $lang['changelog']   = array(
 - FIX: Trader
 - FIX: Ressverlust bei hohen Zahlen.
 - FIX: Galaxy
+- FIX: Spioangeabwehr
 - FIX: Aliianz Übergeben
 - FIX: Minus-Werte bei NPC`s in Expeditions Kämpfen
 - FIX: Allianz Hack
