@@ -75,8 +75,8 @@ function ShowTraderPage($CurrentUser, $CurrentPlanet)
 						'Metal'				=> $lang['Metal'],
 						'Crystal'			=> $lang['Crystal'],
 						'Deuterium'			=> $lang['Deuterium'],
-						'mod_ma_res_a' 		=> 2,
-						'mod_ma_res_b' 		=> 4,
+						'mod_ma_res_a' 		=> "2",
+						'mod_ma_res_b' 		=> "4",
 						'ress' 				=> $ress,
 					));
 
@@ -116,8 +116,8 @@ function ShowTraderPage($CurrentUser, $CurrentPlanet)
 						'Metal'				=> $lang['Metal'],
 						'Crystal'			=> $lang['Crystal'],
 						'Deuterium'			=> $lang['Deuterium'],
-						'mod_ma_res_a' 		=> 0.5,
-						'mod_ma_res_b' 		=> 2,
+						'mod_ma_res_a' 		=> "0.5",
+						'mod_ma_res_b' 		=> "2",
 						'ress' 				=> $ress,
 					));
 
@@ -157,8 +157,8 @@ function ShowTraderPage($CurrentUser, $CurrentPlanet)
 						'Metal'				=> $lang['Metal'],
 						'Crystal'			=> $lang['Crystal'],
 						'Deuterium'			=> $lang['Deuterium'],
-						'mod_ma_res_a' 		=> 0.25,
-						'mod_ma_res_b' 		=> 0.5,
+						'mod_ma_res_a' 		=> "0.25",
+						'mod_ma_res_b' 		=> "0.5",
 						'ress' 				=> $ress,
 					));
 
