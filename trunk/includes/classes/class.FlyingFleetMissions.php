@@ -1578,7 +1578,7 @@ class FlyingFleetMissions {
 				$TargetChances	= 0;
 				$SpyerChances	= 1; 
 			} else {
-				$TargetChances 	= rand(0, max(($LS/4) * ($TargetSpyLvl / $CurrentSpyLvl), 100));
+				$TargetChances 	= rand(0, min(($LS/4) * ($TargetSpyLvl / $CurrentSpyLvl), 100));
 				$SpyerChances  	= rand(0, 100);
 			}
 			if ($TargetChances >= $SpyerChances)
