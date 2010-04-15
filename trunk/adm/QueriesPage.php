@@ -35,8 +35,7 @@ $Query	=	$_POST['querie'];
 
 if ($_POST)
 {
-	$FinalQuery	=	str_replace("\'", "'", str_replace('\"', '"', $Query));
-	$db->multi_query($FinalQuery);
+	$db->multi_query(str_replace("prefix_", DB_PREFIX, $Query));
 
 
 	if(mysqli_error())
