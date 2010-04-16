@@ -207,6 +207,16 @@ function DisplayGameSettingsPage ( $CurrentUser )
 			$game_config['user_valid'] = 0;
 		}
 		
+		if (isset($_POST['ga_active']) && $_POST['ga_active'] == 'on') {
+			$game_config['ga_active'] = 1;
+		} else {
+			$game_config['ga_active'] = 0;
+		}
+		
+		if (isset($_POST['ga_key'])) {
+			$game_config['ga_key'] = $_POST['ga_key'];
+		}
+		
 		if (isset($_POST['smtp_host'])) {
 			$game_config['smtp_host'] = $_POST['smtp_host'];
 		}
@@ -278,6 +288,8 @@ function DisplayGameSettingsPage ( $CurrentUser )
 		update_config('ftp_user_name'			, $game_config['ftp_user_name']          );
 		update_config('ftp_user_pass'			, $game_config['ftp_user_pass']     	 );
 		update_config('ftp_root_path'			, $game_config['ftp_root_path']   		 );
+		update_config('ga_active'				, $game_config['ga_active']   		  	 );
+		update_config('ga_key'					, $game_config['ga_key']   				 );
 
 		header("location:SettingsPage.php");
 	}
@@ -322,6 +334,8 @@ function DisplayGameSettingsPage ( $CurrentUser )
 		$parse['ftp_user_name']           	= $game_config['ftp_user_name'];
 		$parse['ftp_user_pass']           	= str_pad("", strlen($game_config['ftp_user_pass']), "x");
 		$parse['ftp_root_path']           	= $game_config['ftp_root_path'];
+        $parse['ga_active']               	= ($game_config['ga_active'] == 1) ? " checked = 'checked' ":"";
+		$parse['ga_key']           			= $game_config['ga_key'];
 		$LangFolder = opendir("./../" . 'language');
 
 		while (($LangSubFolder = readdir($LangFolder)) !== false)

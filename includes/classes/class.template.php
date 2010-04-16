@@ -231,6 +231,8 @@ class template extends Smarty
 		$this->assign_vars(array(
 			'cron'		=> ((time() >= ($this->GameConfig['stat_last_update'] + (60 * $this->GameConfig['stat_update_time']))) ? "<img src=\"".ROOT_PATH."cronjobs.php?cron=stats\" alt=\"\" height=\"1\" width=\"1\">" : "").((time() >= ($this->GameConfig['stat_last_db_update'] + (60 * 60 * 24))) ? "<img src=\"".ROOT_PATH."cronjobs.php?cron=opdb\" alt=\"\" height=\"1\" width=\"1\">" : ""),
 			'scripts'	=> $this->script,
+			'ga_active'	=> $this->GameConfig['ga_active'],
+			'ga_key'	=> $this->GameConfig['ga_key'],
 		));
 	}
 	
@@ -254,14 +256,9 @@ class template extends Smarty
 			'menu_disclamer'	=> $this->lang['menu_disclamer'],
 			'game_captcha'		=> $this->GameConfig['capaktiv'],
 			'reg_close'			=> $this->GameConfig['reg_closed'],
+			'ga_active'			=> $this->GameConfig['ga_active'],
+			'ga_key'			=> $this->GameConfig['ga_key'],
 			'getajax'			=> request_var('getajax', 0),
-		));
-	}
-	
-	public function index_footer()
-	{
-		$this->assign_vars(array(
-			'cron'		=> ((time() >= ($this->GameConfig['stat_last_update'] + (60 * $this->GameConfig['stat_update_time']))) ? "<img src=\"cronjobs.php?cron=stats\" alt=\"\" height=\"1\" width=\"1\">" : "").((time() >= ($this->GameConfig['stat_last_db_update'] + (60 * 60 * 24))) ? "<img src=\"cronjobs.php?cron=opdb\" alt=\"\" height=\"1\" width=\"1\">" : ""),
 		));
 	}
 	
