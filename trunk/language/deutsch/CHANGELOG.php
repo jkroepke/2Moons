@@ -7,7 +7,13 @@ $version  = explode("-",substr($revision, 7, -35));
 
 $lang['changelog']   = array(
 
-'RC5.0b6' => 'ShadoX '.$version[2].'.'.$version[1].'.'.substr($version[0],2,2).'
+'RC5.0b7' => 'ShadoX '.$version[2].'.'.$version[1].'.'.substr($version[0],2,2).'
+- ADD: Google Analytics Mod
+- FIX: max Button, if thousend Sep is not "."
+- FIX: Große Transporte
+',
+
+'RC5.0b6' => 'ShadoX 15.04.10
 - ADD: Updated ACP (XG Proyecto 2.9.4)
 - ADD: Facebook Connector Alpha
 - ADD: Diplomatie-System

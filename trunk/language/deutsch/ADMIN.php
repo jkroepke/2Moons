@@ -378,7 +378,7 @@ $lang['se_noob_protect3']				= 'Noobschutzfaktor';
 $lang['se_noob_protect_e2']				= 'Bis zu dieser Punktzahl ist der Noobschutz für den Spieler aktiv';
 $lang['se_noob_protect_e3']				= 'Klicke hier um mehr Information zu sehen';
 $lang['se_recaptcha_whats']				= 'Was ist reCAPTCHA?';
-$lang['se_recaptcha_head']				= 'reCAPTCHA - Mod';
+$lang['se_recaptcha_head']				= 'reCAPTCHA - EInstellungen';
 $lang['se_recaptcha_desc']				= 'reCAPTCHA ist ein kostenlosen CAPTCHA Service, der dir dabei helfen soll Spam-Bot zu blocken.<br />Um den Service nutzten zu k&ouml;nnen ist ein Registration auf reCAPTCHA.net notwendig.';
 $lang['se_recaptcha_public']			= 'Public Key:';
 $lang['se_recaptcha_private']			= 'Private Key:';
@@ -413,8 +413,12 @@ $lang['se_ftp_user']					= 'FTP User:';
 $lang['se_ftp_pass']					= 'FTP Passwort:';
 $lang['se_ftp_dir']						= 'FTP Gamepfad:';
 $lang['se_ftp_dir_info']				= 'Hier ist der Pfad zum Game im FTP-Server gemeint. Der Pfad muss ohne Slash enden und mit einem beginnen!<br>Beispiel: /httpdocs';
-
-
+$lang['se_google']						= 'Google Analytics - EInstellungen';
+$lang['se_google_info']					= 'Google Analytics ist die Unternehmenslösung für Webanalysen, mit der Sie wertvolle Erkenntnisse über die Zugriffe auf Ihre Website und die Wirkung Ihrer Marketingstrategien gewinnen. Dank der leistungsstarken, flexiblen und nutzerfreundlichen Funktionen können Sie jetzt Ihre Zugriffsdaten auf ganz neue Weise analysieren und anzeigen. Mit Google Analytics können Sie Ihre Werbung zielgerichtet gestalten, Ihre Marketingkampagnen stärken und Websites mit hohen Conversion-Raten entwickeln.';
+$lang['se_google_active']				= 'Aktivieren?';
+$lang['se_google_key']					= 'Analytics Key';
+$lang['se_google_key_info']				= 'Der Identify-Key für ihre Webseite. Diese beginnt immer mit UA, z.B.: UA-13185300-3';
+	
 //###########################################################//
 
 

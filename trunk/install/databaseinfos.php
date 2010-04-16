@@ -156,6 +156,8 @@ $QryInsertConfig    .= "('ftp_root_path'		 , ''), ";
 $QryInsertConfig    .= "('fb_on'                 , '0'), ";
 $QryInsertConfig    .= "('fb_apikey'             , ''), ";
 $QryInsertConfig    .= "('fb_skey'               , ''), ";
+$QryInsertConfig    .= "('ga_active'             , '0'), ";
+$QryInsertConfig    .= "('ga_key'                , ''), ";
 $QryInsertConfig    .= "('stat_last_db_update'   , '0'); ";
 
 $QryTableDiplo       = "CREATE TABLE `prefix_".DIPLO."` ( ";

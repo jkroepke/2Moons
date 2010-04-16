@@ -120,7 +120,7 @@
 	<td class="c"><img src="../styles/images/Adm/i.gif" onMouseOver='return overlib("{se_smtp_info}", CENTER, OFFSETX, -150, OFFSETY, -20, WIDTH, 250);' onMouseOut='return nd();'></td>
 </tr><tr>
 	<th>{se_smtp_host}</th>
-	<th><input name="smtp_host" size="10" value="{smtp_host}" type="text" autocomplete="off"></th>
+	<th><input name="smtp_host" size="20" value="{smtp_host}" type="text" autocomplete="off"></th>
 	<th><img src="../styles/images/Adm/i.gif" onMouseOver='return overlib("{se_smtp_host_info}", CENTER, OFFSETX, -150, OFFSETY, -20, WIDTH, 250);' onMouseOut='return nd();'></th>
 </tr><tr>
 	<th>{se_smtp_ssl}</th>
@@ -128,31 +128,41 @@
 	<th><img src="../styles/images/Adm/i.gif" onMouseOver='return overlib("{se_smtp_ssl_info}", CENTER, OFFSETX, -150, OFFSETY, -20, WIDTH, 250);' onMouseOut='return nd();'></th>
 </tr><tr>
 	<th>{se_smtp_port}</th>
-	<th><input name="smtp_port" size="10" value="{smtp_port}" type="text" autocomplete="off"></th>
+	<th><input name="smtp_port" size="20" value="{smtp_port}" type="text" autocomplete="off"></th>
 	<th><img src="../styles/images/Adm/i.gif" onMouseOver='return overlib("{se_smtp_port_info}", CENTER, OFFSETX, -150, OFFSETY, -20, WIDTH, 250);' onMouseOut='return nd();'></th>
 </tr><tr>
 	<th>{se_smtp_user}</th>
-	<th><input name="smtp_user" size="10" value="{smtp_user}" type="text" autocomplete="off"></th>
-	</tr><tr>
+	<th><input name="smtp_user" size="20" value="{smtp_user}" type="text" autocomplete="off"></th>
+</tr><tr>
 	<th>{se_smtp_pass}</th>
-	<th><input name="smtp_pass" size="10" value="{smtp_pass}" type="password" autocomplete="off"></th>
-	</tr><tr>
+	<th><input name="smtp_pass" size="20" value="{smtp_pass}" type="password" autocomplete="off"></th>
+</tr><tr>
 	<td class="c" colspan="2">{se_ftp}</td>
 	<td class="c"><img src="../styles/images/Adm/i.gif" onMouseOver='return overlib("{se_ftp_info}", CENTER, OFFSETX, -150, OFFSETY, -20, WIDTH, 250);' onMouseOut='return nd();'></td>
 </tr><tr>
 	<th>{se_ftp_host}</th>
-	<th><input name="ftp_server" size="10" value="{ftp_server}" type="text" autocomplete="off"></th>
+	<th><input name="ftp_server" size="20" value="{ftp_server}" type="text" autocomplete="off"></th>
 </tr><tr>
 	<th>{se_ftp_user}</th>
-	<th><input name="ftp_user_name" size="10" value="{ftp_user_name}" type="text" autocomplete="off"></th>
+	<th><input name="ftp_user_name" size="20" value="{ftp_user_name}" type="text" autocomplete="off"></th>
 </tr><tr>
 	<th>{se_ftp_pass}</th>
-	<th><input name="ftp_user_pass" size="10" value="{ftp_user_pass}" type="password" autocomplete="off"></th>
+	<th><input name="ftp_user_pass" size="20" value="{ftp_user_pass}" type="password" autocomplete="off"></th>
 </tr><tr>
 	<th>{se_ftp_dir}</th>
-	<th><input name="ftp_root_path" size="10" value="{ftp_root_path}" type="text" autocomplete="off"></th>
+	<th><input name="ftp_root_path" size="20" value="{ftp_root_path}" type="text" autocomplete="off"></th>
 	<th><img src="../styles/images/Adm/i.gif" onMouseOver='return overlib("{se_ftp_dir_info}", CENTER, OFFSETX, -150, OFFSETY, -20, WIDTH, 250);' onMouseOut='return nd();'></th>
-</tr></tr>
+</tr><tr>
+	<td class="c" colspan="2">{se_google}</td>
+</tr><tr>
+    <th>{se_google_active}</th>
+    <th><input name="ga_active"{ga_active} type="checkbox"></th>
+	<th><img src="../styles/images/Adm/i.gif" onMouseOver='return overlib("{se_google_info}", CENTER, OFFSETX, -150, OFFSETY, -120, WIDTH, 250);' onMouseOut='return nd();'></th>
+</tr><tr>
+    <th>{se_google_key}</th>
+    <th><input name="ga_key" size="20" maxlength="15" value="{ga_key}" type="text"></th>
+	<th><img src="../styles/images/Adm/i.gif" onMouseOver='return overlib("{se_google_key_info}", CENTER, OFFSETX, -150, OFFSETY, -20, WIDTH, 250);' onMouseOut='return nd();'></th>
+</tr>
 	<th colspan="3"><input value="{se_save_parameters}" type="submit"></th>
 </tr>
 </table>

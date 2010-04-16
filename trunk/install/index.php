@@ -283,29 +283,33 @@ switch ($Mode) {
 			$Qry28 = "INSERT INTO ".CONFIG." (`config_name`, `config_value`) VALUES ('fb_on', '0'), ('fb_apikey', ''), ('fb_skey', '');";
 			$Qry29 = "ALTER TABLE ".USERS." ADD `fb_id` VARCHAR( 15 ) NOT NULL DEFAULT '0';";
 			$Qry30 = "ALTER TABLE ".USERS." ADD UNIQUE (`fb_id`);";
+			$Qry31 = "INSERT INTO ".CONFIG." (`config_name`,`config_value`) VALUES ('ga_active', '0'), ('ga_key', '');";
 			switch($_POST['version'])
 			{	
 				case '4.0':
 					makedirs(array('cache/', 'cache/UserBanner/'));
-					$QrysArray = $Qry1.$Qry2.$Qry3.$Qry4.$Qry5.$Qry6.$Qry7.$Qry8.$Qry9.$Qry10.$Qry11.$Qry12.$Qry13.$Qry14.$Qry15.$Qry16.$Qry17.$Qry18.$Qry19.$Qry20.$Qry21.$Qry22.$Qry23.$Qry24.$Qry25.$Qry26.$Qry27.$Qry28.$Qry29.$Qry30;
+					$QrysArray = $Qry1.$Qry2.$Qry3.$Qry4.$Qry5.$Qry6.$Qry7.$Qry8.$Qry9.$Qry10.$Qry11.$Qry12.$Qry13.$Qry14.$Qry15.$Qry16.$Qry17.$Qry18.$Qry19.$Qry20.$Qry21.$Qry22.$Qry23.$Qry24.$Qry25.$Qry26.$Qry27.$Qry28.$Qry29.$Qry30.$Qry30.$Qry31;
 				break;	
 				case '4.2':
-					$QrysArray = $Qry1.$Qry2.$Qry5.$Qry6.$Qry7.$Qry8.$Qry9.$Qry10.$Qry11.$Qry12.$Qry13.$Qry14.$Qry15.$Qry16.$Qry17.$Qry18.$Qry19.$Qry20.$Qry21.$Qry22.$Qry23.$Qry24.$Qry25.$Qry26.$Qry27.$Qry28.$Qry29.$Qry30;
+					$QrysArray = $Qry1.$Qry2.$Qry5.$Qry6.$Qry7.$Qry8.$Qry9.$Qry10.$Qry11.$Qry12.$Qry13.$Qry14.$Qry15.$Qry16.$Qry17.$Qry18.$Qry19.$Qry20.$Qry21.$Qry22.$Qry23.$Qry24.$Qry25.$Qry26.$Qry27.$Qry28.$Qry29.$Qry30.$Qry30.$Qry31;
 				break;	
 				case '4.3':
-					$QrysArray = $Qry1.$Qry12.$Qry13.$Qry14.$Qry15.$Qry16.$Qry17.$Qry18.$Qry19.$Qry20.$Qry21.$Qry22.$Qry23.$Qry24.$Qry25.$Qry26.$Qry27.$Qry28.$Qry29.$Qry30;
+					$QrysArray = $Qry1.$Qry12.$Qry13.$Qry14.$Qry15.$Qry16.$Qry17.$Qry18.$Qry19.$Qry20.$Qry21.$Qry22.$Qry23.$Qry24.$Qry25.$Qry26.$Qry27.$Qry28.$Qry29.$Qry30.$Qry30.$Qry31;
 				break;	
 				case '5.0b1':
-					$QrysArray = $Qry1.$Qry14.$Qry15.$Qry16.$Qry17.$Qry18.$Qry19.$Qry20.$Qry21.$Qry22.$Qry23.$Qry24.$Qry25.$Qry26.$Qry27.$Qry28.$Qry29.$Qry30;
+					$QrysArray = $Qry1.$Qry14.$Qry15.$Qry16.$Qry17.$Qry18.$Qry19.$Qry20.$Qry21.$Qry22.$Qry23.$Qry24.$Qry25.$Qry26.$Qry27.$Qry28.$Qry29.$Qry30.$Qry30.$Qry31;
 				break;	
 				case '5.0b2':
-					$QrysArray = $Qry1.$Qry14.$Qry15.$Qry16.$Qry17.$Qry18.$Qry19.$Qry20.$Qry21.$Qry22.$Qry23.$Qry24.$Qry25.$Qry26.$Qry27.$Qry28.$Qry29.$Qry30;
+					$QrysArray = $Qry1.$Qry14.$Qry15.$Qry16.$Qry17.$Qry18.$Qry19.$Qry20.$Qry21.$Qry22.$Qry23.$Qry24.$Qry25.$Qry26.$Qry27.$Qry28.$Qry29.$Qry30.$Qry30.$Qry31;
 				break;
 				case '5.0b3':
-					$QrysArray = $Qry1.$Qry18.$Qry19.$Qry20.$Qry21.$Qry22.$Qry23.$Qry24.$Qry25.$Qry26.$Qry27.$Qry28.$Qry29.$Qry30;
+					$QrysArray = $Qry1.$Qry18.$Qry19.$Qry20.$Qry21.$Qry22.$Qry23.$Qry24.$Qry25.$Qry26.$Qry27.$Qry28.$Qry29.$Qry30.$Qry30.$Qry31;
 				break;
 				case '5.0b5':
-					$QrysArray = $Qry1.$Qry19.$Qry20.$Qry21.$Qry22.$Qry23.$Qry24.$Qry25.$Qry26.$Qry27.$Qry28.$Qry29.$Qry30;
+					$QrysArray = $Qry1.$Qry19.$Qry20.$Qry21.$Qry22.$Qry23.$Qry24.$Qry25.$Qry26.$Qry27.$Qry28.$Qry29.$Qry30.$Qry31;
+				break;
+				case '5.0b6':
+					$QrysArray = $Qry31;
 				break;
 			}	
 			$db->multi_query($QrysArray);

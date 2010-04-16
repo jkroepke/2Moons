@@ -16,10 +16,13 @@ fb_permissions		= "{$fb_perm}";
 			{if $fb_active}
 			"http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php",
 			{/if}
-            "scripts/login.js",
             {if $game_captcha}
-			"http://api.recaptcha.net/js/recaptcha_ajax.js"
+			"http://api.recaptcha.net/js/recaptcha_ajax.js",
 			{/if}
+			{if $ga_active}
+			"http://wwwgoogle-analytics.com/ga.js",
+			{/if}
+            "scripts/login.js",
         ];
 
         var sc = "script", tp = "text/javascript", sa = "setAttribute", doc = document, ua = window.navigator.userAgent;
@@ -35,6 +38,13 @@ fb_permissions		= "{$fb_perm}";
         }
     })();
 </script>
+{if $ga_active}
+<script type="text/javascript">
+try{
+var pageTracker = _gat._getTracker("{$ga_key}");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+{/if}
 {if $fb_active}
 <script type="text/javascript">	
 FB.init("{$fb_key}", "scripts/xd_receiver.htm");
