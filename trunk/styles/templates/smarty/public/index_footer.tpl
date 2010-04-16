@@ -9,7 +9,7 @@ cappublic			= "{$cappublic}";
 fb_permissions		= "{$fb_perm}";
     (function() {
         var s = [
-            "http://ajax.googleapis.com/ajax/libs/jquery/1.4.0/jquery.min.js",
+            "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js",
             "scripts/soundmanager2.js",
             "scripts/jquery.loadmask.js",
             "http://browser-update.org/update.js",

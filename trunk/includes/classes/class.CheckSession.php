@@ -112,7 +112,11 @@ class CheckSession
 
 			if ($user['bana'] == 1)
 			{
-				trigger_error("<font size=\"6px\">".$lang['css_account_banned_message']."</font><br><br>".sprintf($lang['css_account_banned_expire'],date("d. M y H:i", $user['banaday']))."<br><br>".$lang['css_goto_homeside'], E_USER_NOTICE);
+				$template	= new template();
+				$template->page_header();	
+				$template->page_footer();
+				$template->message("<font size=\"6px\">".$lang['css_account_banned_message']."</font><br><br>".sprintf($lang['css_account_banned_expire'],date("d. M y H:i", $user['banaday']))."<br><br>".$lang['css_goto_homeside'], false, 0, true);
+				exit;
 			}
 
 			$RetValue['record'] = $user;

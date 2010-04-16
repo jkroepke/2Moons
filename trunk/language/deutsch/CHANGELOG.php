@@ -7,7 +7,11 @@ $version  = explode("-",substr($revision, 7, -35));
 
 $lang['changelog']   = array(
 
-'RC5.0b7' => 'ShadoX '.$version[2].'.'.$version[1].'.'.substr($version[0],2,2).'
+'RC5.0b8' => 'ShadoX '.$version[2].'.'.$version[1].'.'.substr($version[0],2,2).'
+- FIX: Bann
+',
+
+'RC5.0b7' => 'ShadoX 16.04.10
 - ADD: Google Analytics Mod
 - FIX: max Button, if thousend Sep is not "."
 - FIX: Große Transporte

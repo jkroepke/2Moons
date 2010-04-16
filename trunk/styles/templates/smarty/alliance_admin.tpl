@@ -1,7 +1,7 @@
 {include file="overall_header.tpl"}
 {include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
-<script src="scripts/cntchar.js" type="text/javascript"></script>
+<script type="text/javascript" src="scripts/editor.js" defer="true"></script>
 <div id="content" class="content">
     <table width="519" align="center">
         <tr>
@@ -40,7 +40,7 @@
           <td class="c" colspan="3">{$al_message} (<span id="cntChars">0</span> / 5000 {$al_characters})</td>
         </tr>
         <tr>
-          <th colspan="3"><textarea name="text" cols="70" rows="15" onkeyup="javascript:cntchar(5000)">{$text}</textarea>
+          <th colspan="3"><textarea name="text" id="text" cols="70" rows="15" onkeyup="$('#cntChars').text($('#text').val().length);">{$text}</textarea>
         </th>
         </tr>
         <tr>
@@ -102,5 +102,6 @@
         </tr>  
      </table>
 </div>
+<script type="text/javascript">$('#cntChars').text($('#text').val().length);</script>
 {include file="planet_menu.tpl"}
 {include file="overall_footer.tpl"}
