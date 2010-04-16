@@ -9,7 +9,7 @@ cappublic			= "{$cappublic}";
 fb_permissions		= "{$fb_perm}";
     (function() {
         var s = [
-            "http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js",
+            "scripts/jquery.js",
             "scripts/soundmanager2.js",
             "scripts/jquery.loadmask.js",
             "http://browser-update.org/update.js",
@@ -20,7 +20,7 @@ fb_permissions		= "{$fb_perm}";
 			"http://api.recaptcha.net/js/recaptcha_ajax.js",
 			{/if}
 			{if $ga_active}
-			"http://wwwgoogle-analytics.com/ga.js",
+			"http://www.google-analytics.com/ga.js",
 			{/if}
             "scripts/login.js",
         ];
