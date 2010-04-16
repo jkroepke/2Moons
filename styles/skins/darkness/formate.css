@@ -378,3 +378,17 @@ color: #000000;
 #tabs { margin-top: 1em; }
 #tabs li .ui-icon-close { float: left; margin: 0.4em 0.2em 0 0; cursor: pointer; }
 #add_tab { cursor: pointer; }
+
+
+.u_button{
+text-decoration:underline;
+}
+.s_button{
+text-decoration:line-through;
+}
+.b_button{
+font-weight:bold;
+}
+.i_button{
+font-style:italic;
+}

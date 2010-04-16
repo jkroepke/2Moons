@@ -330,11 +330,12 @@ class template extends Smarty
 		));
 	}
 	
-	public function message($mes, $dest = false, $time = 3)
+	public function message($mes, $dest = false, $time = 3, $Fatal = false)
 	{
 		$this->assign_vars(array(
 			'mes'		=> $mes,
 			'fcm_info'	=> $this->lang['fcm_info'],
+			'Fatal'		=> $Fatal,
 		));
 		$this->gotoside($dest, $time);
 		$this->show('error_message_body.tpl');
