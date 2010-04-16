@@ -383,7 +383,7 @@ switch ($page) {
 				$QryInsertUser .= "`uctime`= '0';";
 				$QryInsertUser .= "DELETE FROM " . USERS_VALID . " WHERE username='" . $UserName . "';";
 				$db->multi_query($QryInsertUser);
-			
+
 				if($game_config['smtp_host'] != '' && $game_config['smtp_port'] != 0 && $game_config['smtp_user'] != '' && $game_config['smtp_pass'] != '')
 				{				
 					$MailSubject	= sprintf($lang['reg_mail_reg_done'], $game_config['game_name']);	
@@ -465,10 +465,10 @@ switch ($page) {
 				if ($admin == 1) {
 					echo "User ".$UserName." wurde aktiviert!";
 				} else {
-					include_once('config.php');
+					include('config.php');
 					$cookie = $NewUser ['id'] . "/%/" . $UserName . "/%/" . md5 ( $UserPass . "--" . $dbsettings ["secretword"] ) . "/%/" . 0;
 					setcookie( $game_config ['COOKIE_NAME'], $cookie, 0, "/", "", 0 );
-					
+										
 					unset($dbsettings);
 					
 					header("location:game.php?page=overview");
