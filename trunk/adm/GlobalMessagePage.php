@@ -52,12 +52,14 @@ if ($ToolsCanUse != 1) die(message ($lang['404_page']));
 			$kolor = 'yellow';
 			$ranga = $lang['user_level'][1];
 		}
-		if ((isset($_POST["tresc"]) && $_POST["tresc"] != '') && (isset($_POST["temat"]) && $_POST["temat"] != ''))
+		$Subject	= makebr(request_var('temat', '', true));
+		$Message 	= makebr(request_var('tresc', '', true));
+		if (!empty($Message) && !empty($Subject))
 		{
 			$Time    	= time();
 			$From    	= "<font color=\"". $kolor ."\">". $ranga ." ".$user['username']."</font>";
-			$Subject 	= "<font color=\"". $kolor ."\">".$_POST['temat']."</font>";
-			$Message 	= "<font color=\"". $kolor ."\"><b>".$_POST['tresc']."</b></font>";
+			$Subject 	= "<font color=\"". $kolor ."\">".$Subject."</font>";
+			$Message 	= "<font color=\"". $kolor ."\"><b>".$Message."</b></font>";
 			$summery	= 0;
 
 			SendSimpleMessage ( $u['id'], $user['id'], $Time, 50, $From, $Subject, $Message);
