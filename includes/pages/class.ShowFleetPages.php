@@ -713,9 +713,9 @@ class ShowFleetPages extends FleetFunctions
 							`fleet_end_system` = '". $system ."',
 							`fleet_end_planet` = '". $planet ."',
 							`fleet_end_type` = '". $planettype ."',
-							`fleet_resource_metal` = '". $TransportMetal ."',
-							`fleet_resource_crystal` = '". $TransportCrystal ."',
-							`fleet_resource_deuterium` = '". $TransportDeuterium ."',
+							`fleet_resource_metal` = '".floattostring($TransportMetal)."',
+							`fleet_resource_crystal` = '".floattostring($TransportCrystal)."',
+							`fleet_resource_deuterium` = '".floattostring($TransportDeuterium)."',
 							`fleet_target_owner` = '". $TargetPlanet['id_owner'] ."',
 							`fleet_group` = '". $fleet_group_mr ."',
 							`start_time` = '". time() ."';
@@ -938,7 +938,7 @@ class ShowFleetPages extends FleetFunctions
 		$QryUpdate .= "`start_time` = '" . time() . "';";
 		$QryUpdate .= "UPDATE ".PLANETS." SET ";
 		$QryUpdate .= $FleetSubQRY;
-		$QryUpdate .= "`deuterium` = '".$UserDeuterium."' " ;
+		$QryUpdate .= "`deuterium` = '".floattostring($UserDeuterium)."' " ;
 		$QryUpdate .= "WHERE ";
 		$QryUpdate .= "`id` = '". $CurrentPlanet['id'] ."';";
 		$db->multi_query($QryUpdate);
