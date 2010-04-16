@@ -11,6 +11,7 @@ $lang['changelog']   = array(
 - ADD: Google Analytics Mod
 - FIX: max Button, if thousend Sep is not "."
 - FIX: Große Transporte
+- FIX: Globale Nachrichten
 ',
 
 'RC5.0b6' => 'ShadoX 15.04.10
