@@ -282,7 +282,7 @@ switch ($Mode) {
 			$Qry27 = "ALTER TABLE ".PLANETS." ADD `university` BIGINT( 11 ) NOT NULL DEFAULT '0';";
 			$Qry28 = "INSERT INTO ".CONFIG." (`config_name`, `config_value`) VALUES ('fb_on', '0'), ('fb_apikey', ''), ('fb_skey', '');";
 			$Qry29 = "ALTER TABLE ".USERS." ADD `fb_id` VARCHAR( 15 ) NOT NULL DEFAULT '0';";
-			$Qry30 = "ALTER TABLE ".USERS." ADD UNIQUE (`fb_id`);";
+			$Qry30 = "ALTER TABLE ".USERS." ADD INDEX (`fb_id`);";
 			$Qry31 = "INSERT INTO ".CONFIG." (`config_name`,`config_value`) VALUES ('ga_active', '0'), ('ga_key', '');";
 			switch($_POST['version'])
 			{	

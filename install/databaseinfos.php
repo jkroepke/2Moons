@@ -551,7 +551,7 @@ $QryTableUsers      .= "`dm_fleettime` int(11) NOT NULL default '0',";
 $QryTableUsers      .= "`fb_id` int(11) NOT NULL default '0',";
 $QryTableUsers      .= "PRIMARY KEY (`id`),";
 $QryTableUsers      .= "UNIQUE KEY `username` (`username`),";
-$QryTableUsers      .= "UNIQUE KEY `fb_id` (`fb_id`)";
+$QryTableUsers      .= "KEY `fb_id` (`fb_id`)";
 $QryTableUsers      .= ") ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
 
 $QryTableUsersTemp   = "CREATE TABLE IF NOT EXISTS `prefix_".USERS_VALID."` (";
