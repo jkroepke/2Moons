@@ -12,8 +12,8 @@
 		</tr>
 		{/if}
         <tr>
-            <th>{$al_ally_info_tag}</th>
-            <th>{$ally_tag}</th>
+            <th style="width:50%">{$al_ally_info_tag}</th>
+            <th style="width:50%">{$ally_tag}</th>
         </tr>
         <tr>
             <th>{$al_ally_info_name}</th>

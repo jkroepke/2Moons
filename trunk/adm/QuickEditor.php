@@ -53,11 +53,11 @@ switch($edit)
 			$QryUpdateString	= "UPDATE ".PLANETS." SET ";
 			foreach($DataIDs as $ID)
 			{
-				$QryUpdateString	.= "`".$resource[$ID]."` = '".round(abs(request_var($resource[$ID], 0.0)), 0)."', ";
+				$QryUpdateString	.= "`".$resource[$ID]."` = '".floattostring(round(abs(request_var($resource[$ID], 0.0)), 0))."', ";
 			}
-			$QryUpdateString	.= "`metal` = '".round(abs(request_var('metal', 0.0)), 0)."', ";
-			$QryUpdateString	.= "`crystal` = '".round(abs(request_var('crystal', 0.0)), 0)."', ";
-			$QryUpdateString	.= "`deuterium` = '".round(abs(request_var('deuterium', 0.0)), 0)."', ";
+			$QryUpdateString	.= "`metal` = '".floattostring(round(abs(request_var('metal', 0.0)), 0))."', ";
+			$QryUpdateString	.= "`crystal` = '".floattostring(round(abs(request_var('crystal', 0.0)), 0))."', ";
+			$QryUpdateString	.= "`deuterium` = '".floattostring(round(abs(request_var('deuterium', 0.0)), 0))."', ";
 			$QryUpdateString	.= "`field_max` = '".request_var('field_max', 0)."', ";
 			$QryUpdateString	.= "`name` = '".$db->sql_escape(request_var('name', ''))."' ";
 			$QryUpdateString	.= "WHERE `id` = '".$id."' LIMIT 1;";
