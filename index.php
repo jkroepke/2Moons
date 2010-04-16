@@ -30,7 +30,7 @@ define('ROOT_PATH'	,'./');
 include_once(ROOT_PATH . 'extension.inc');
 include_once(ROOT_PATH . 'common.' . PHP_EXT);
 
-includeLang ('PUBLIC');
+includeLang('PUBLIC');
 
 // Uniconfig changed...
 include_once(ROOT_PATH . 'includes/uni.config.inc.php');
