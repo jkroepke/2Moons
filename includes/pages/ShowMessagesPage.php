@@ -92,7 +92,7 @@ function ShowMessagesPage($CurrentUser, $CurrentPlanet)
 							$SQLWhere[] = "`message_id` = '".$id."'";
 						}
 						
-						$db->query("DELETE FROM ".MESSAGES." WHERE (".implode(" OR ",$SQLWhere).") AND `message_owner` = '". $CurrentUser['id'] ."';");
+						$db->query("DELETE FROM ".MESSAGES." WHERE (".implode(" OR ",$SQLWhere).") AND `message_owner` = '". $CurrentUser['id'] ."'".(($MessType != 100)? " AND `message_type` = '".$MessType."' ":"").";");
 					}
 				break;
 				case 'deleteunmarked':
@@ -104,7 +104,7 @@ function ShowMessagesPage($CurrentUser, $CurrentPlanet)
 							$SQLWhere[] = "`message_id` != '".$id."'";
 						}
 						
-						$db->query("DELETE FROM ".MESSAGES." WHERE (".implode(" AND ",$SQLWhere).") AND `message_owner` = '". $CurrentUser['id'] ."';");
+						$db->query("DELETE FROM ".MESSAGES." WHERE (".implode(" AND ",$SQLWhere).") AND `message_owner` = '". $CurrentUser['id'] ."'".(($MessType != 100)? " AND `message_type` = '".$MessType."' ":"").";");
 					}
 				break;
 			}
