@@ -42,7 +42,8 @@ class ShowAlliancePage
 		    '/\[code\](.*?)\[\/code\]/ise',
 		    '/\[font=(.*?)\](.*?)\[\/font\]/ise',
 		    '/\[bg=(.*?)\](.*?)\[\/bg\]/ise',
-		    '/\[size=(.*?)\](.*?)\[\/size\]/ise'
+		    '/\[size=(.*?)\](.*?)\[\/size\]/ise',
+		    '/\[align=(.*?)\](.*?)\[\/align\]/is'
 		);
 
 		$replace = array(
@@ -62,7 +63,8 @@ class ShowAlliancePage
 		    '$this->sCode(\'\1\')',
 		    '$this->fontfix(\'\\1\',\'\\2\')',
 		    '$this->bgfix(\'\\1\',\'\\2\')',
-		    '$this->sizefix(\'\\1\',\'\\2\')'
+		    '$this->sizefix(\'\\1\',\'\\2\')',
+		    '<span style="text-align: \1;">\2</span>'
 		);
 
 		return preg_replace($pattern, $replace, makebr($string));
@@ -141,7 +143,7 @@ class ShowAlliancePage
 	private function sizefix($size, $text)
 	{
 		$title = stripslashes($text);
-		return '<span style="font-size:' . $size . 'px">' . $title . '</span>';
+		return '<span style="font-size:' . $size . '">' . $title . '</span>';
 	}
 
 	private function MessageForm($Title, $Message, $Goto = '', $Button = ' ok ', $TwoLines = false)

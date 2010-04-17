@@ -76,9 +76,9 @@ switch($edit)
 		$parse['field_max']		= $PlanetData['field_max'];
 		$parse['temp_min']		= $PlanetData['temp_min'];
 		$parse['temp_max']		= $PlanetData['temp_max'];
-		$parse['metal']			= floor($PlanetData['metal']);
-		$parse['crystal']		= floor($PlanetData['crystal']);
-		$parse['deuterium']		= floor($PlanetData['deuterium']);
+		$parse['metal']			= floattostring($PlanetData['metal']);
+		$parse['crystal']		= floattostring($PlanetData['crystal']);
+		$parse['deuterium']		= floattostring($PlanetData['deuterium']);
 		$parse['metal_c']		= pretty_number($PlanetData['metal']);
 		$parse['crystal_c']		= pretty_number($PlanetData['crystal']);
 		$parse['deuterium_c']	= pretty_number($PlanetData['deuterium']);
