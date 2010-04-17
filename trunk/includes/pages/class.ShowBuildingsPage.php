@@ -377,9 +377,8 @@ class ShowBuildingsPage
 				break;
 			}
 		}
-		SetNextQueueElementOnTop($CurrentPlanet, $CurrentUser); 
+		
 		$Queue = $this->ShowBuildingQueue($CurrentPlanet, $CurrentUser);
-		$this->BuildingSavePlanetRecord($CurrentPlanet);
 
 		$template	= new template();
 		$template->set_vars($CurrentUser, $CurrentPlanet);

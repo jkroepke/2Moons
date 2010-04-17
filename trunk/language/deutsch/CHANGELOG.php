@@ -9,6 +9,8 @@ $lang['changelog']   = array(
 
 'RC5.0b8' => 'ShadoX '.$version[2].'.'.$version[1].'.'.substr($version[0],2,2).'
 - FIX: Bann
+- FIX: Unmarkierte Nachrichten Löschen
+- FIX: Query log
 ',
 
 'RC5.0b7' => 'ShadoX 16.04.10
