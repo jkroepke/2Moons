@@ -1083,13 +1083,8 @@ class FlyingFleetMissions {
 				}
 			}
 			if ($result['won'] == "a")
-			{	
-				if ($FleetRow['fleet_group'] != 0)
-					$steal = self::calculateAKSSteal($attackFleets, $FleetRow, $targetPlanet);
-				else
-					$steal = self::calculateSoloSteal($attackFleets, $FleetRow, $targetPlanet);
+				$steal = self::calculateAKSSteal($attackFleets, $FleetRow, $targetPlanet);
 
-			}
 			foreach ($defense as $fleetID => $defender)
 			{
 				if ($fleetID != 0)
