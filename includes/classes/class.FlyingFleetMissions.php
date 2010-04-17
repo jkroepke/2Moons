@@ -118,7 +118,7 @@ class FlyingFleetMissions {
 		foreach ($attackFleets[$FleetRow['fleet_id']]['detail'] as $Element => $amount)	{
 			$capacity += $pricelist[$Element]['capacity'] * $amount;
 		}
-		557349
+
 		$capacity -= $attackFleets['metal'] + $attackFleets['crystal'] + $attackFleets['deuterium'];
 		 
 		// Step 1
