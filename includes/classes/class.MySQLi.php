@@ -97,7 +97,7 @@ class DB_mysqli
 		if(!is_object($this->mysqli))
 			$this->connect();
 		
-		if($GLOBALS['game_config']['debug'] == 0)
+		if($GLOBALS['game_config']['debug'] == 1)
 		{
 			$temp = debug_backtrace();
 			file_put_contents(ROOT_PATH."adm/logs/querylog_".date("d.m.y").".log", date("H:i:s")." ".$temp[0]['file']." on ".$temp[0]['line']." ".$sql."\n", FILE_APPEND);
