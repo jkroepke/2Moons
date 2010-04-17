@@ -73,12 +73,12 @@ class FlyingFleetMissions {
 		$Sumcapacity -= $booty['crystal'];
 		 
 		// Step 3
-		$booty['deuterium'] = min(($Sumcapacity / 2), ($defenderPlanet['deuterium'] / 2));
+		$booty['deuterium'] = min($Sumcapacity, ($defenderPlanet['deuterium'] / 2));
 		$Sumcapacity -= $booty['deuterium'];
 		 
 		// Step 4
 		$oldMetalBooty = $booty['metal'];
-		$booty['metal'] += min(($Sumcapacity), max((($defenderPlanet['metal']) / 2) - $booty['metal'], 0));
+		$booty['metal'] += min(($Sumcapacity / 2), max((($defenderPlanet['metal']) / 2) - $booty['metal'], 0));
 		$Sumcapacity += $oldMetalBooty - $booty['metal'];
 		 
 		// Step 5
@@ -118,7 +118,7 @@ class FlyingFleetMissions {
 		foreach ($attackFleets[$FleetRow['fleet_id']]['detail'] as $Element => $amount)	{
 			$capacity += $pricelist[$Element]['capacity'] * $amount;
 		}
-		
+		557349
 		$capacity -= $attackFleets['metal'] + $attackFleets['crystal'] + $attackFleets['deuterium'];
 		 
 		// Step 1
