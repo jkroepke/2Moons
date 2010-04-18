@@ -41,9 +41,6 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 			if ($BuildEndTime <= time())
 			{
 				$ForDestroy = ($BuildMode == 'destroy') ? true : false;
-					
-				PlanetResourceUpdate($CurrentUser, $CurrentPlanet, $CurrentPlanet['b_building'], true);
-				
 				if ($ForDestroy == false)
 				{
 					$CurrentPlanet['field_current']++;
@@ -64,7 +61,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 
 				$CurrentPlanet['b_building']    = 0;
 				$CurrentPlanet['b_building_id'] = $NewQueue;
-									
+				PlanetResourceUpdate($CurrentUser, $CurrentPlanet, $BuildEndTime, true);				
 				$Build	= $Element;
 
 				$RetValue = true;
