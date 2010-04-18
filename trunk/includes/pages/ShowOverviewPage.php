@@ -287,13 +287,13 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 				}
 			}	
 
-			if ($CurrentPlanet['b_building'] != 0)
+			if (!empty($CurrentPlanet['b_building_id']))
 			{
 				include_once(ROOT_PATH . 'includes/functions/InsertBuildListScript.' . PHP_EXT);
 
 				$BuildQueue  		 = explode (";", $CurrentPlanet['b_building_id']);
 				$CurrBuild 	 		 = explode (",", $BuildQueue[0]);
-				$RestTime 	 		 = $CurrentPlanet['b_building'] - time();
+				$RestTime 	 		 = $CurrBuild[3] - time();
 				$PlanetID 	 		 = $CurrentPlanet['id'];
 				$Build 		 		 = InsertBuildListScript ("overview");
 				$Build 	   			.= $lang['tech'][$CurrBuild[0]] . ' (' . ($CurrBuild[1]) . ')';

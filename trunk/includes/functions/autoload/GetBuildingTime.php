@@ -70,7 +70,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 			$time         = floor(($time * 60 * 60) * (1 - ((($user[$resource[613]]) * GENERAL) + (($user[$resource[604]]) * TECHNOCRATE))));
 		}
 		
-		return max((($Destroy)?($time / 2):($time)), $game_config['min_build_time']);
+		return max((($Destroy)?round($time / 2):($time)), $game_config['min_build_time']);
 	}
 
 ?>
