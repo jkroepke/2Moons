@@ -30,6 +30,7 @@ class ResourceUpdate
 		$this->Builded					= array();
 		$this->HangerProductionTime    	= (time() - $CurrentPlanet['last_update']);
 		$this->Builded				   += UpdatePlanetBatimentQueueList($CurrentPlanet, $CurrentUser);
+	
 		$CurrentPlanet['metal_max']		= floor(2.5 * pow(1.8331954764, $CurrentPlanet[$resource[22]])) * 5000 * (1 + ($CurrentUser['rpg_stockeur'] * 0.5)) * $game_config['resource_multiplier'] * STORAGE_FACTOR;
 		$CurrentPlanet['crystal_max']	= floor(2.5 * pow(1.8331954764, $CurrentPlanet[$resource[23]])) * 5000 * (1 + ($CurrentUser['rpg_stockeur'] * 0.5)) * $game_config['resource_multiplier'] * STORAGE_FACTOR;
 		$CurrentPlanet['deuterium_max']	= floor(2.5 * pow(1.8331954764, $CurrentPlanet[$resource[24]])) * 5000 * (1 + ($CurrentUser['rpg_stockeur'] * 0.5)) * $game_config['resource_multiplier'] * STORAGE_FACTOR;
@@ -118,7 +119,6 @@ class ResourceUpdate
 				$CurrentPlanet['deuterium']  = min($DeuteriumTheorical, $MaxDeuteriumStorage);
 			}
 		}
-				
 		$CurrentPlanet['metal']		= max($CurrentPlanet['metal'], 0);
 		$CurrentPlanet['crystal']	= max($CurrentPlanet['crystal'], 0);
 		$CurrentPlanet['deuterium']	= max($CurrentPlanet['deuterium'], 0);
@@ -132,9 +132,9 @@ class ResourceUpdate
 		global $resource, $db, $user;
 		
 		$QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
-		$QryUpdatePlanet .= "`metal` = '"            . floattostring($CurrentPlanet['metal'])     	."', ";
-		$QryUpdatePlanet .= "`crystal` = '"          . floattostring($CurrentPlanet['crystal'])   	."', ";
-		$QryUpdatePlanet .= "`deuterium` = '"        . floattostring($CurrentPlanet['deuterium']) 	."', ";
+		$QryUpdatePlanet .= "`metal` = '"            . $CurrentPlanet['metal']    					."', ";
+		$QryUpdatePlanet .= "`crystal` = '"          . $CurrentPlanet['crystal']  					."', ";
+		$QryUpdatePlanet .= "`deuterium` = '"        . $CurrentPlanet['deuterium']				 	."', ";
 		$QryUpdatePlanet .= "`last_update` = '"      . $CurrentPlanet['last_update']       			."', ";
 		$QryUpdatePlanet .= "`b_building` = '"       . $CurrentPlanet['b_building']         		."', ";
 		$QryUpdatePlanet .= "`b_building_id` = '"    . $CurrentPlanet['b_building_id']    		  	."', ";

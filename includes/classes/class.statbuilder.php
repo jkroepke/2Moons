@@ -19,7 +19,7 @@ class statbuilder{
 	private function SomeStatsInfos()
 	{
 		$result['stats_time']		= $this->time;
-		$result['totaltime']    	= (microtime(true) - $this->starttime);
+		$result['totaltime']    	= round(microtime(true) - $this->starttime);
 		$result['memory_peak']		= array(round(memory_get_peak_usage() / 1024,1),round(memory_get_peak_usage(1) / 1024,1));
 		$result['initial_memory']	= $this->memory;
 		$result['end_memory']		= array(round(memory_get_usage() / 1024,1),round(memory_get_usage(1) / 1024,1));

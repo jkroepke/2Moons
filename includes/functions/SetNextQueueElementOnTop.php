@@ -48,7 +48,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 					$BuildTime           = GetBuildingTime($CurrentUser, $CurrentPlanet, $Element, $ForDestroy);
 					$BuildEndTime        = $BuildEndTime + $BuildTime;
 					$HaveNoMoreLevel     = false;
-
+								
 					$HaveRessources 	 = IsElementBuyable ($CurrentUser, $CurrentPlanet, $Element, true, $ForDestroy);
 					if($ForDestroy && $CurrentPlanet[$resource[$Element]] == 0)
 					{

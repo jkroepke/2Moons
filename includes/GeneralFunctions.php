@@ -568,7 +568,7 @@ function shortly_number($number)
 {
 	// MAS DEL TRILLON
 	if ($number >= 1000000000000000000000000)
-		return pretty_number(($number/1000000000000000000))."&nbsp;<font color=lime>T+</font>";
+		return pretty_number(($number/1000000000000000000000))."&nbsp;<font color=lime>T+</font>";
 	
 	// TRILLON
 	elseif ($number >= 1000000000000000000 && $number < 1000000000000000000000000)
@@ -591,7 +591,7 @@ function shortly_number($number)
 		return pretty_number($number);
 }
 
-function floattostring($Numeric){
-	return sprintf("%.0f", $Numeric);
+function floattostring($Numeric, $Semi = false){
+	return ($Semi) ? sprintf("%f", $Numeric) : sprintf("%.0f", $Numeric);
 }
 ?>

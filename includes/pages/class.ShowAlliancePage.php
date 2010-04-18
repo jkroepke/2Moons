@@ -26,45 +26,51 @@ class ShowAlliancePage
 	private function bbcode($string)
 	{
 		$pattern = array(
-		    '/\\r/',
-		    '/\[list\](.*?)\[\/list\]/ise',
-		    '/\[b\](.*?)\[\/b\]/is',
-		    '/\[strong\](.*?)\[\/strong\]/is',
-		    '/\[i\](.*?)\[\/i\]/is',
-		    '/\[u\](.*?)\[\/u\]/is',
-		    '/\[s\](.*?)\[\/s\]/is',
-		    '/\[del\](.*?)\[\/del\]/is',
-		    '/\[url=(.*?)\](.*?)\[\/url\]/ise',
-		    '/\[email=(.*?)\](.*?)\[\/email\]/is',
-		    '/\[img](.*?)\[\/img\]/ise',
-		    '/\[color=(.*?)\](.*?)\[\/color\]/is',
-		    '/\[quote\](.*?)\[\/quote\]/ise',
-		    '/\[code\](.*?)\[\/code\]/ise',
-		    '/\[font=(.*?)\](.*?)\[\/font\]/ise',
-		    '/\[bg=(.*?)\](.*?)\[\/bg\]/ise',
-		    '/\[size=(.*?)\](.*?)\[\/size\]/ise',
-		    '/\[align=(.*?)\](.*?)\[\/align\]/is'
+			'/\[b\]/is',
+			'/\[\/b\]/is',
+			'/\[i\]/is',
+			'/\[\/i\]/is',
+			'/\[u\]/is',
+			'/\[\/u\]/is',
+			'/\[url=([^\]]+)\](.*?)\[\/url\]/is',
+			'/\[url\](.*?)\[\/url\]/is',
+			'/\[img\](.*?)\[\/img\]/is',
+			'/\[color=(.*?)\]/is',
+			'/\[\/color\]/is',
+			'/\[size=(.*?)\]/is',
+			'/\[\/size\]/is',
+			'/\[hr\]/is',
+			'/\[\*\]/is',
+			'/\[list\]/is',
+			'/\[\/list\]/is',
+			'/\[s\]/is',
+			'/\[\/s\]/is',
+			'/\[align=(.*?)\]/is',
+			'/\[\/align\]/is',
 		);
 
 		$replace = array(
-		    '',
-		    '$this->sList(\'\\1\')',
-		    '<b>\1</b>',
-		    '<strong>\1</strong>',
-		    '<i>\1</i>',
-		    '<span style="text-decoration: underline;">\1</span>',
-		    '<span style="text-decoration: line-through;">\1</span>',
-		    '<span style="text-decoration: line-through;">\1</span>',
-		    '$this->urlfix(\'\\1\',\'\\2\')',
-		    '<a href="mailto:\1" title="\1">\2</a>',
-		    '$this->imagefix(\'\\1\')',
-		    '<span style="color: \1;">\2</span>',
-		    '$this->sQuote(\'\1\')',
-		    '$this->sCode(\'\1\')',
-		    '$this->fontfix(\'\\1\',\'\\2\')',
-		    '$this->bgfix(\'\\1\',\'\\2\')',
-		    '$this->sizefix(\'\\1\',\'\\2\')',
-		    '<span style="text-align: \1;">\2</span>'
+			'<strong>',
+			'</strong>',
+			'<i>',
+			'</i>',
+			'<u>',
+			'</u>',
+			'<a href="\1">\2</a>',
+			'<a href="\1">\1</a>',
+			'<img src="\1">',
+			'<font color="\1">',
+			'</font>',
+			'<span style="font-size:\1;">',
+			'</span>',
+			'<hr>',
+			'</li><li>',
+			'<ul>',
+			'</ul>',
+			'<strike>',
+			'</strike>',
+			'<p style="text-align: \1;">',
+			'</p>',
 		);
 
 		return preg_replace($pattern, $replace, makebr($string));
@@ -89,7 +95,7 @@ class ShowAlliancePage
 		$tmp = explode('[*]', stripslashes($string));
 		$out = null;
 		foreach($tmp as $list) {
-			if(strlen(str_replace('', '', $list))> 0) {
+			if(strlen(trim(str_replace('<br>', '', $list)))> 0) {
 				$out .= '<li>' . trim($list) . '</li>';
 			}
 		}
