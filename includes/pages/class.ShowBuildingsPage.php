@@ -205,13 +205,12 @@ class ShowBuildingsPage
 			$Resses			= GetBuildingPrice($CurrentUser, $CurrentPlanet, $Element, true, true);
 		}		
 
-		$CurrentPlanet['metal']			-= $Resses['metal'];
-		$CurrentPlanet['crystal']		-= $Resses['crystal'];
-		$CurrentPlanet['deuterium']		-= $Resses['deuterium'];
-		$CurrentUser['darkmatter']		-= $Resses['darkmatter'];
-			
 		if($ActualCount == 0)
 		{
+			$CurrentPlanet['metal']			-= $Resses['metal'];
+			$CurrentPlanet['crystal']		-= $Resses['crystal'];
+			$CurrentPlanet['deuterium']		-= $Resses['deuterium'];
+			$CurrentUser['darkmatter']		-= $Resses['darkmatter'];
 			$BuildEndTime					= time() + $BuildTime;
 			$CurrentPlanet['b_building_id'] = $Element .",". $BuildLevel .",". $BuildTime .",". $BuildEndTime .",". $BuildMode;
 		} else {
