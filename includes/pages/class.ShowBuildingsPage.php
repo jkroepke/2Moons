@@ -167,7 +167,7 @@ class ShowBuildingsPage
 		return $QueueID;
 	}
 
-	private function AddBuildingToQueue (&$CurrentPlanet, $CurrentUser, $Element, $AddMode = true)
+	private function AddBuildingToQueue (&$CurrentPlanet, &$CurrentUser, $Element, $AddMode = true)
 	{
 		global $resource;
 			
@@ -179,93 +179,59 @@ class ShowBuildingsPage
 		if ($CurrentPlanet["field_current"] >= ($CurrentMaxFields - $Queue['lenght']) && $_GET['cmd'] != 'destroy')
 			die(header("location:game.php?page=buildings"));
 
-		if ($CurrentQueue != 0)
+		if (!empty($CurrentQueue))
 		{
-			$QueueArray    = explode ( ";", $CurrentQueue );
-			$ActualCount   = count ( $QueueArray );
+			$QueueArray    = explode( ";", $CurrentQueue);
+			$ActualCount   = count($QueueArray);
 		}
 		else
 		{
-			$QueueArray    = "";
+			$QueueArray    = array();
 			$ActualCount   = 0;
 		}
 
-		if ($AddMode == true)
-			$BuildMode = 'build';
-		else
-			$BuildMode = 'destroy';
+		if ($ActualCount == MAX_BUILDING_QUEUE_SIZE)
+			die(header("location:game.php?page=buildings"));
+		
+		if ($AddMode == true) {
+			$BuildMode 		= 'build';
+			$BuildTime   	= GetBuildingTime($CurrentUser, $CurrentPlanet, $Element, false);
+			$BuildLevel		= $CurrentPlanet[$resource[$Element]] + 1;
+			$Resses			= GetBuildingPrice($CurrentUser, $CurrentPlanet, $Element, true, false);
+		} else {
+			$BuildMode 		= 'destroy';
+			$BuildTime    	= GetBuildingTime($CurrentUser, $CurrentPlanet, $Element, true);
+			$BuildLevel		= $CurrentPlanet[$resource[$Element]];
+			$Resses			= GetBuildingPrice($CurrentUser, $CurrentPlanet, $Element, true, true);
+		}		
 
-		if ($ActualCount < MAX_BUILDING_QUEUE_SIZE)
-			$QueueID      = $ActualCount + 1;
-		else
-			$QueueID      = false;
-
-		if ($QueueID != false)
-		{
-			if ($QueueID > 1)
-			{
-				$InArray = 0;
-				for ( $QueueElement = 0; $QueueElement < $ActualCount; $QueueElement++ )
-				{
-					$QueueSubArray = explode ( ",", $QueueArray[$QueueElement] );
-					if ($QueueSubArray[0] == $Element)
-					{
-						$InArray++;
-					}
-				}
-			}
-			else
-			{
-				$InArray = 0;
-			}
-
-			if ($InArray != 0)
-			{
-				$ActualLevel  = $CurrentPlanet[$resource[$Element]];
-				if ($AddMode == true)
-				{
-					$BuildLevel   = $ActualLevel + 1 + $InArray;
-					$CurrentPlanet[$resource[$Element]] += $InArray;
-					$BuildTime    = GetBuildingTime($CurrentUser, $CurrentPlanet, $Element);
-					$CurrentPlanet[$resource[$Element]] -= $InArray;
-				}
-				else
-				{
-					$BuildLevel   = $ActualLevel - 1 - $InArray;
-					$CurrentPlanet[$resource[$Element]] -= $InArray;
-					$BuildTime    = GetBuildingTime($CurrentUser, $CurrentPlanet, $Element);
-					$CurrentPlanet[$resource[$Element]] += $InArray;
-				}
-			}
-			else
-			{
-				$ActualLevel  = $CurrentPlanet[$resource[$Element]];
-				if ($AddMode == true)
-				{
-					$BuildLevel   = $ActualLevel + 1;
-					$BuildTime    = GetBuildingTime($CurrentUser, $CurrentPlanet, $Element);
-				}
-				else
-				{
-					$BuildLevel   = $ActualLevel - 1;
-					$BuildTime    = GetBuildingTime($CurrentUser, $CurrentPlanet, $Element);
-				}
-			}
-			if ($QueueID == 1)
-			{
-				$BuildEndTime = time() + $BuildTime;
-			}
-			else
-			{
-				$PrevBuild = explode (",", $QueueArray[$ActualCount - 1]);
-				$BuildEndTime = $PrevBuild[3] + $BuildTime;
-			}
+		$CurrentPlanet['metal']			-= $Resses['metal'];
+		$CurrentPlanet['crystal']		-= $Resses['crystal'];
+		$CurrentPlanet['deuterium']		-= $Resses['deuterium'];
+		$CurrentUser['darkmatter']		-= $Resses['darkmatter'];
 			
-			$QueueArray[$ActualCount]       = $Element .",". $BuildLevel .",". $BuildTime .",". $BuildEndTime .",". $BuildMode;
-			$NewQueue                       = implode ( ";", $QueueArray );
-			$CurrentPlanet['b_building_id'] = $NewQueue;
+		if($ActualCount == 0)
+		{
+			$BuildEndTime					= time() + $BuildTime;
+			$CurrentPlanet['b_building_id'] = $Element .",". $BuildLevel .",". $BuildTime .",". $BuildEndTime .",". $BuildMode;
+		} else {
+			$InArray = 0;
+			foreach($QueueArray as $QueueSub)
+			{
+				$QueueSubArray = explode ( ",",$QueueSub);
+				if ($QueueSubArray[0] == $Element)
+				{
+					if($QueueSubArray[4] == 'build')
+						$InArray++;
+					else
+						$InArray--;
+				}		
+			}
+			$LastQueue 						= explode( ",",$QueueArray[$ActualCount - 1]);
+			$BuildEndTime					= $LastQueue[3] + $BuildTime;
+			$BuildLevel						+= $InArray;
+			$CurrentPlanet['b_building_id']	= $CurrentQueue.";".$Element .",". $BuildLevel .",". $BuildTime .",". $BuildEndTime .",". $BuildMode;
 		}
-		return $QueueID;
 	}
 
 	private function ShowBuildingQueue ( $CurrentPlanet, $CurrentUser )
@@ -306,7 +272,7 @@ class ShowBuildingsPage
 					if ($ListID > 0)
 					{
 						$ListIDRow .= "<tr>";
-						$ListIDRow .= "<td class=\"l\" width=\"70%\">". $ListID .".: ". $ElementTitle ." ".(($BuildMode != 'build') ?($BuildLevel+1)." ".$lang['bd_dismantle'] : $BuildLevel)."</td>";
+						$ListIDRow .= "<td class=\"l\" width=\"70%\">". $ListID .".: ". $ElementTitle ." ".$BuildLevel."</td>";
 						$ListIDRow .= "<th>";
 
 						if ($ListID == 1)

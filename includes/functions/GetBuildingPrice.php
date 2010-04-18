@@ -37,10 +37,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 				$cost[$ResType] = floor($pricelist[$Element][$ResType]);
 
 			if ($ForDestroy == true)
-			{
-				$cost[$ResType]  = floor($cost[$ResType]) / 2;
 				$cost[$ResType] /= 2;
-			}
 		}
 
 		return $cost;
