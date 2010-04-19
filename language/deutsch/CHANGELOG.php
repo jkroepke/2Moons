@@ -11,7 +11,18 @@ $lang['changelog']   = array(
 - FIX: Bann
 - FIX: Unmarkierte Nachrichten Löschen
 - FIX: Query log
+- FIX: Steal
+- FIX: Aktivitätstern
+- FIX: Planetenerstellung im ACP
+- FIX: Sprungtor
+- FIX: Ress up to 9e132
 - FIX: BBCodes
+- FIX: Lost Ressis
+- FIX: Install
+- DIV: AddBuildingToQueue überarbeitet
+- DIV: Sicherheit im Game erhöht
+- DIV: min. Requieres PHP 5.2.6
+- DIV: Diverse Anpassungen am Game
 ',
 
 'RC5.0b7' => 'ShadoX 16.04.10
@@ -19,6 +30,8 @@ $lang['changelog']   = array(
 - FIX: max Button, if thousend Sep is not "."
 - FIX: Große Transporte
 - FIX: Globale Nachrichten
+- DIV: Sicherheit im Game erhöht
+- DIV: Diverse Anpassungen am Game
 ',
 
 'RC5.0b6' => 'ShadoX 15.04.10
