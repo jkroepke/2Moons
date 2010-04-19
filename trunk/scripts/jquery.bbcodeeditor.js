@@ -573,6 +573,7 @@
 			        	   /(?:%lb%|\s)*\[list=(\d)\](?:%lb%|\s)*(.*?)(?:%lb%|\s)*\[\/list\](?:%lb%|\s)*/gi,
 			        	   /(?:%lb%){3,}/g,
 						   /\[bg=(.*?)\](.*?)\[\/bg\]/gi,
+						   /\[color=(.*?)\](.*?)\[\/color\]/gi,
 			        	   ];
 			var replace	= ['<b>$1<\/b>',
 			           	   '<i>$1<\/i>',
@@ -586,7 +587,8 @@
 			           	   '<ul>$1</ul>',
 			           	   '<ol start=$1>$2</ol>',
 			           	   '%lb%%lb%',
-						   '<div style="background: url(\'$1\');">$2</div>'
+						   '<div style="background: url(\'$1\');">$2</div>',
+						   '<span style="color:\'$1\'">$2</span>',
 			           	   ];
 
 			for(var i in find)

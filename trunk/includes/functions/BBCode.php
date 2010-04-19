@@ -17,6 +17,7 @@ function bbcode($text) {
 	$bbcode->addCode("u", "simple_replace", null, array('start_tag'=>'<u>', 'end_tag'=>'</u>'), 'inline', array('block','inline','link','listitem'), array());
 	$bbcode->addCode("s", "simple_replace", null, array('start_tag'=>'<s>', 'end_tag'=>'</s>'), 'inline', array('block','inline','link','listitem'), array());
 	$bbcode->addCode("size", "callback_replace", "bbcode_size", array(), 'inline', array('block','inline','link','listitem'), array());
+	$bbcode->addCode("color", "callback_replace", "bbcode_color", array(), 'inline', array('block','inline','link','listitem'), array());
 
 	//Link-Elements
 	$bbcode->addCode("url", "usecontent?", "bbcode_url", array('usecontent_param'=>'default'), 'link', array('block','inline','listitem'), array('link'));
@@ -173,5 +174,10 @@ function bbcode_size($action, $attributes, $content, $params, $node_object) {
 		return false;
 	}
 	return '<span style="font-size: '.htmlspecialchars($attributes["default"]).'px">'.$content.'</span>';
+}
+
+function bbcode_color($action, $attributes, $content, $params, $node_object) {
+	if ($action == 'validate') return true;
+	return '<span style="color: '.htmlspecialchars($attributes["default"]).'">'.$content.'</span>';
 }
 ?>
