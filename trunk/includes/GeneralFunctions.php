@@ -594,4 +594,5 @@ function shortly_number($number)
 function floattostring($Numeric, $Semi = false){
 	return ($Semi) ? sprintf("%f", $Numeric) : sprintf("%.0f", $Numeric);
 }
+
 ?>
