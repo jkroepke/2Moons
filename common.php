@@ -53,8 +53,8 @@ require_once(ROOT_PATH . 'includes/GeneralFunctions.'.PHP_EXT);
 require_once(ROOT_PATH . 'includes/vars.'.PHP_EXT);
 isBuggyIe() || ob_start("ob_gzhandler");
 
-#set_error_handler('msg_handler', E_ALL);
-#set_exception_handler('exception_handler');
+set_error_handler('msg_handler', E_ALL);
+set_exception_handler('exception_handler');
 
 if(function_exists('ini_set')) {
 	ini_set('display_errors', 1);
@@ -108,7 +108,6 @@ if (INSTALL != true)
 		{
 			trigger_error($game_config['close_reason'], E_USER_NOTICE);
 		}
-		
 		if (isset($user))
 		{
 			includeLang('TECH');
@@ -165,7 +164,10 @@ if (INSTALL != true)
 			$mod_plug = new modPl();
 			$mod_plug->run();
  		}
-	}	
+	} else {
+		//Login
+		require_once(ROOT_PATH . 'includes/classes/class.template.'.PHP_EXT);
+	}
 }
 else
 {
