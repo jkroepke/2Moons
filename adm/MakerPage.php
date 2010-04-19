@@ -310,7 +310,7 @@ switch ($_GET[page])
         
 		$i	=	0;
 		$QueryS	=	$db->fetch_array($db->query("SELECT id FROM ".PLANETS." WHERE `galaxy` = '".$galaxy."' AND `system` = '".$system."' AND `planet` = '".$planet."';"));
-		$QueryS2	=	$db->fetch_array($db->query("SELECT id FROM ".USERS." WHERE `id` = '".$id."';"));
+		$QueryS2	=	$db->fetch_array($db->query("SELECT id, authlevel FROM ".USERS." WHERE `id` = '".$id."';"));
 		if (is_numeric($_POST['id']) && isset($_POST['id']) && !$QueryS && $QueryS2)
 		{
     		if ($galaxy < 1 or $system < 1 or $planet < 1 or !is_numeric($galaxy) or !is_numeric($system) or !is_numeric($planet)){      
@@ -330,7 +330,7 @@ switch ($_GET[page])
 					$QryUpdatePlanet .= "`field_max` = '".$field_max."', ";
 				if (strlen($name) > 0)
 					$QryUpdatePlanet .= "`name` = '".$name."', ";
-				$QryUpdatePlanet .= "`id_level` = (SELECT id_level FROM ".PLANETS." WHERE `id_owner` = '".$id."') ";
+				$QryUpdatePlanet .= "`id_level` = '".$QueryS2['authlevel']."' ";
 				$QryUpdatePlanet .= "WHERE ";
 				$QryUpdatePlanet .= "`galaxy` = '". $galaxy ."' AND ";
 				$QryUpdatePlanet .= "`system` = '". $system ."' AND ";

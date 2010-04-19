@@ -171,10 +171,6 @@ class FlyingFleetMissions {
 		// $rf[target] = array ( shooter1 => shots1, shooter2 => shots2 );
 
 		foreach ($CombatCaps as $e => $arr) {
-			if (!is_array($arr['sd'])){
-				trigger_error("Failed to create Rapidfire for ID: ".$e,E_USER_WARNING);
-				continue;
-			}
 			foreach($arr['sd'] as $t => $sd) {
 				if ($sd == 1 || $sd == 0 ) continue;
 				

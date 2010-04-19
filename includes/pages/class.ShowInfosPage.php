@@ -83,16 +83,10 @@ class ShowInfosPage
 
 						foreach($reslist['fleet'] as $Ship)
 						{
-							$ShipLabel = "c". $Ship;
-
-							$gemi_kontrol	=	min(max(request_var($ShipLabel, 0), 0), $CurrentPlanet[$resource[$Ship]]);
-							
-							if ($ShipArray[ $Ship ] <> 0)
-							{
-								$SubQueryOri .= "`". $resource[ $Ship ] ."` = `". $resource[ $Ship ] ."` - '". $ShipArray[ $Ship ] ."', ";
-								$SubQueryDes .= "`". $resource[ $Ship ] ."` = `". $resource[ $Ship ] ."` + '". $ShipArray[ $Ship ] ."', ";
-								$CurrentPlanet[$resource[$Ship]] -= $ShipArray[$Ship];
-							}
+							$ShipArray[$Ship]	=	min(max(request_var('c'.$Ship, 0), 0), $CurrentPlanet[$resource[$Ship]]);
+							$SubQueryOri .= "`". $resource[ $Ship ] ."` = `". $resource[ $Ship ] ."` - '". $ShipArray[ $Ship ] ."', ";
+							$SubQueryDes .= "`". $resource[ $Ship ] ."` = `". $resource[ $Ship ] ."` + '". $ShipArray[ $Ship ] ."', ";
+							$CurrentPlanet[$resource[$Ship]] -= $ShipArray[$Ship];
 						}
 
 						if ($SubQueryOri != "")
