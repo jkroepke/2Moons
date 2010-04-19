@@ -157,7 +157,7 @@ switch ($_GET[page])
 		$TempMax	= $_POST['temp_max'];
 		$FieldMax	= $_POST['field_max'];
 	
-		$MoonPlanet		= 	$db->fetch_array($db->query("SELECT `temp_max`, `temp_min`, `id_luna`, `galaxy`, `system`, `planet`, `planet_type`, `destruyed`, `id_level` FROM ".PLANETS." WHERE `id` = '".$PlanetID."' AND `planet_type` = '1' AND `destruyed` = '0';"));
+		$MoonPlanet		= 	$db->fetch_array($db->query("SELECT `temp_max`, `temp_min`, `id_luna`, `galaxy`, `system`, `planet`, `planet_type`, `destruyed`, `id_level`, `id_owner` FROM ".PLANETS." WHERE `id` = '".$PlanetID."' AND `planet_type` = '1' AND `destruyed` = '0';"));
 
 
 	if ($MoonPlanet && is_numeric($PlanetID))
