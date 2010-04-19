@@ -54,7 +54,7 @@ function bbcode($text) {
 	}
 
 
-	return $bbcode->parse($text);
+	return makebr($bbcode->parse($text));
 }
 
 function convertlinebreaks ($text) {
