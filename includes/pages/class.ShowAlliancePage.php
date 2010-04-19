@@ -23,112 +23,6 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 
 class ShowAlliancePage
 {
-	private function bbcode($string)
-	{
-		$pattern = array(
-			'/\[b\]/is',
-			'/\[\/b\]/is',
-			'/\[i\]/is',
-			'/\[\/i\]/is',
-			'/\[u\]/is',
-			'/\[\/u\]/is',
-			'/\[url=([^\]]+)\](.*?)\[\/url\]/is',
-			'/\[url\](.*?)\[\/url\]/is',
-			'/\[img\](.*?)\[\/img\]/is',
-			'/\[color=(.*?)\]/is',
-			'/\[\/color\]/is',
-			'/\[size=(.*?)\]/is',
-			'/\[\/size\]/is',
-			'/\[hr\]/is',
-			'/\[\*\]/is',
-			'/\[list\]/is',
-			'/\[\/list\]/is',
-			'/\[s\]/is',
-			'/\[\/s\]/is',
-			'/\[align=(.*?)\]/is',
-			'/\[\/align\]/is',
-		);
-
-		$replace = array(
-			'<strong>',
-			'</strong>',
-			'<i>',
-			'</i>',
-			'<u>',
-			'</u>',
-			'<a href="\1">\2</a>',
-			'<a href="\1">\1</a>',
-			'<img src="\1">',
-			'<font color="\1">',
-			'</font>',
-			'<span style="font-size:\1;">',
-			'</span>',
-			'<hr>',
-			'</li><li>',
-			'<ul>',
-			'</ul>',
-			'<strike>',
-			'</strike>',
-			'<p style="text-align: \1;">',
-			'</p>',
-		);
-
-		return preg_replace($pattern, $replace, makebr($string));
-	}
-
-	private function sCode($string)
-	{
-		$pattern =  '/\<img src=\\\"(.*?)img\/smilies\/(.*?).png\\\" alt=\\\"(.*?)\\\" \>/s';
-		$string = preg_replace($pattern, '\3', $string);
-		return '<pre style="color: #DDDD00; background-color:gray ">' . trim($string) . '</pre>';
-	}
-
-	private function sQuote($string)
-	{
-		$pattern =  '/\<img src=\\\"(.*?)img\/smilies\/(.*?).png\\\" alt=\\\"(.*?)\\\" \>/s';
-		$string = preg_replace($pattern, '\3', $string);
-		return '<blockquote><p style="color: #000000; font-size: 10pt; background-color:55AACC; font-family: Arial">' . trim($string) . '</p></blockquote>';
-	}
-
-	private function sList($string)
-	{
-		$tmp = explode('[*]', stripslashes($string));
-		$out = null;
-		foreach($tmp as $list) {
-			if(strlen(trim(str_replace('<br>', '', $list)))> 0) {
-				$out .= '<li>' . trim($list) . '</li>';
-			}
-		}
-		return '<ul>' . $out . '</ul>';
-	}
-
-	private function imagefix($img)
-	{
-		if(substr($img, 0, 7) != 'http://')
-		{
-			$img = './images/' . $img;
-		}
-		return '<img src="' . $img . '" alt="' . $img . '" title="' . $img . '">';
-	}
-
-	private function urlfix($url, $title)
-	{
-		$title = stripslashes($title);
-		return '<a href="' . $url . '" title="' . $title . '">' . $title . '</a>';
-	}
-
-	private function fontfix($font, $title)
-	{
-		$title = stripslashes($title);
-		return '<span style="font-family:' . $font . '">' . $title . '</span>';
-	}
-
-	private function bgfix($bg, $title)
-	{
-		$title = stripslashes($title);
-		return '<span style="background-color:' . $bg . '">' . $title . '</span>';
-	}
-
 	private function GetDiplo($allyid)
 	{
 		global $db;
@@ -146,39 +40,12 @@ class ShowAlliancePage
 		return $Return;
 	}
 
-	private function sizefix($size, $text)
-	{
-		$title = stripslashes($text);
-		return '<span style="font-size:' . $size . '">' . $title . '</span>';
-	}
-
-	private function MessageForm($Title, $Message, $Goto = '', $Button = ' ok ', $TwoLines = false)
-	{
-		$Form .= "<div id=\"content\"><form action=\"". $Goto ."\" method=\"post\">";
-		$Form .= "<table width=\"519\" align=\"center\">";
-		$Form .= "<tr>";
-		$Form .= "<td class=\"c\" colspan=\"2\">". $Title ."</td>";
-		$Form .= "</tr><tr>";
-		if ($TwoLines == true)
-		{
-			$Form .= "<th colspan=\"2\">". $Message ."</th>";
-			$Form .= "</tr><tr>";
-			$Form .= "<th colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"". $Button ."\"></th>";
-		}
-		else
-			$Form .= "<th colspan=\"2\">". $Message ."<input type=\"submit\" value=\"". $Button ."\"></th>";
-		$Form .= "</tr>";
-		$Form .= "</table>";
-		$Form .= "</form>";
-		$Form .= "</div>";
-
-		return $Form;
-	}
-
 	private function ainfo($ally, $CurrentUser, $CurrentPlanet) 
 	{
 		global $lang, $db;
-	
+		
+		require_once(ROOT_PATH.'includes/functions/BBCode.php');
+		
 		if ($ally['ally_diplo'] == 1 && ($DiploInfo = $this->GetDiplo($ally['id'])) !== array())
 		{
 			$this->template->assign_vars(array(
@@ -221,7 +88,7 @@ class ShowAlliancePage
 			'al_click_to_send_request'	=> $lang['al_click_to_send_request'],
 			'al_request'				=> $lang['al_request'],
 			'al_web_text'				=> $lang['al_web_text'],
-			'ally_description' 			=> $this->bbcode($ally['ally_description']),
+			'ally_description' 			=> bbcode($ally['ally_description']),
 			'ally_id'	 				=> $ally['id'],
 			'ally_image' 				=> $ally['ally_image'],
 			'ally_web'					=> $ally['ally_web'],
@@ -1212,6 +1079,7 @@ class ShowAlliancePage
 						}
 					break;
 					default:
+						require_once(ROOT_PATH.'includes/functions/BBCode.php');
 						if ($ally['ally_owner'] == $CurrentUser['id'])
 							$range = ($ally['ally_owner_range'] != '') ? $ally['ally_owner_range'] : $lang['al_founder_rank_text'];
 						elseif ($CurrentUser['ally_rank_id'] != 0 && isset($ally_ranks[$CurrentUser['ally_rank_id']-1]['name']))
@@ -1230,8 +1098,8 @@ class ShowAlliancePage
 							'ally_members'	 			=> $ally['ally_members'],
 							'ally_name'					=> $ally['ally_name'],
 							'ally_image'				=> $ally['ally_image'],
-							'ally_description'			=> $this->bbcode($ally['ally_description']),
-							'ally_text' 				=> $this->bbcode($ally['ally_text']),
+							'ally_description'			=> bbcode($ally['ally_description']),
+							'ally_text' 				=> bbcode($ally['ally_text']),
 							'range'						=> $range,
 							'requests'					=> sprintf($lang['al_new_requests'], $db->num_rows($db->query("SELECT id FROM ".USERS." WHERE ally_request='".$ally['id']."';"))),
 							'al_requests'				=> $lang['al_requests'],

@@ -11,6 +11,7 @@ $lang['changelog']   = array(
 - FIX: Bann
 - FIX: Unmarkierte Nachrichten Löschen
 - FIX: Query log
+- FIX: BBCodes
 ',
 
 'RC5.0b7' => 'ShadoX 16.04.10

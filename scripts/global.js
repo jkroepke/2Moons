@@ -15,6 +15,14 @@ $(document).ready(function () {
 	$('#content').css("top", $('#infobox').height()+91+"px");
 });
 
+function var_dump(obj) {
+   if(typeof obj == "object") {
+      return "Type: "+typeof(obj)+((obj.constructor) ? "\nConstructor: "+obj.constructor : "")+"\nValue: " + obj;
+   } else {
+      return "Type: "+typeof(obj)+"\nValue: "+obj;
+   }
+}
+
 function f(target_url, win_name) {
 	var new_win = window.open(target_url, win_name, "scrollbars=yes,statusbar=no,toolbar=no,location=no,directories=no,resizable=no,menubar=no,width=720,height=300,screenX="+xpos+",screenY="+ypos+",top="+ypos+",left="+xpos);
 	new_win.focus();
