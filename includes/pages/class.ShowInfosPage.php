@@ -83,10 +83,10 @@ class ShowInfosPage
 
 						foreach($reslist['fleet'] as $Ship)
 						{
-							$ShipArray[$Ship]	=	min(max(request_var('c'.$Ship, 0), 0), $CurrentPlanet[$resource[$Ship]]);
-							$SubQueryOri .= "`". $resource[ $Ship ] ."` = `". $resource[ $Ship ] ."` - '". $ShipArray[ $Ship ] ."', ";
-							$SubQueryDes .= "`". $resource[ $Ship ] ."` = `". $resource[ $Ship ] ."` + '". $ShipArray[ $Ship ] ."', ";
-							$CurrentPlanet[$resource[$Ship]] -= $ShipArray[$Ship];
+							$ShipArray[$Ship]	=	min(max(request_var('c'.$Ship, 0.0), 0), $CurrentPlanet[$resource[$Ship]]);
+							$SubQueryOri .= "`". $resource[ $Ship ] ."` = `". $resource[ $Ship ] ."` - '". floattostring($ShipArray[ $Ship ]) ."', ";
+							$SubQueryDes .= "`". $resource[ $Ship ] ."` = `". $resource[ $Ship ] ."` + '". floattostring($ShipArray[ $Ship ]) ."', ";
+							$CurrentPlanet[$resource[$Ship]] -= floattostring($ShipArray[$Ship]);
 						}
 
 						if ($SubQueryOri != "")

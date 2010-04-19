@@ -59,7 +59,7 @@ class FlyingFleetMissions {
 		{
 			foreach($Attacker['detail'] as $Element => $amount)	
 			{
-				$SortFleets[$FleetID]		= $pricelist[$Element]['capacity'] * $amount - $Attacker['fleet']['fleet_resource_metal'] - $Attacker['fleet']['fleet_resource_crystal'] - $Attacker['fleet']['fleet_resource_deuterium'];
+				$SortFleets[$FleetID]		+= $pricelist[$Element]['capacity'] * $amount - $Attacker['fleet']['fleet_resource_metal'] - $Attacker['fleet']['fleet_resource_crystal'] - $Attacker['fleet']['fleet_resource_deuterium'];
 			}
 		}
 		
