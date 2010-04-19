@@ -116,7 +116,7 @@ class template extends Smarty
 		{
 			$SQLQuery[]	= "(`fleet_end_galaxy` = '".$PlanetQuery['galaxy']."' AND `fleet_end_system` = '".$PlanetQuery['system']."' AND `fleet_end_planet` = '".$PlanetQuery['planet']."' AND `fleet_end_type` = '".$PlanetQuery['planet_type']."')";
 		}
-		$this->player['fleets']	= $this->db->fetch_array($this->db->query("SELECT COUNT(*) as `count` FROM ".FLEETS." WHERE (`fleet_mission` = '1' OR `fleet_mission` = '2' OR `fleet_mission` = '6' OR `fleet_mission` = '9') AND (".implode(' OR ', $SQLQuery).");"));
+		$this->player['fleets']	= $this->db->fetch_array($this->db->query("SELECT COUNT(*) as `count` FROM ".FLEETS." WHERE `fleet_mess` = '0' AND (`fleet_mission` = '1' OR `fleet_mission` = '2' OR `fleet_mission` = '6' OR `fleet_mission` = '9') AND (".implode(' OR ', $SQLQuery).");"));
 			
 		$BoardURL				= $this->GameConfig['forum_url'].'" target="forum';
 		$RulesURL				= 'index.php?page=rules" target="forum';
