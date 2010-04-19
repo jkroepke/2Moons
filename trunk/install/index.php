@@ -22,7 +22,7 @@
 define('INSIDE'  			, true);
 define('INSTALL' 			, true);
 define('RCINSTALL_VERSION' 	, "5.0");
-define('REVISION' 			, "518");
+define('REVISION' 			, "571");
 
 define('ROOT_PATH', './../');
 include(ROOT_PATH . 'extension.inc');
@@ -47,7 +47,7 @@ switch ($Mode) {
 	break;
 	case 'req':
 		$error = 0;
-		if(version_compare(PHP_VERSION, "5.2.11", ">=")){
+		if(version_compare(PHP_VERSION, "5.2.6", ">=")){
 			if(version_compare(PHP_VERSION, "5.3.0", ">="))
 				$parse['PHP'] = "<span class=\"yes\">Ja, ".PHP_VERSION."</span>";
 			else

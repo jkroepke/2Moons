@@ -12,7 +12,7 @@
 						<th width="150px" align="center">RC5.0b2</th>
 						<th width="150px" align="center">RC5.0b3/RC5.0b4</th>
 						<th width="150px" align="center">RC5.0b5</th>
-						<th width="150px" align="center">RC5.0b6</th>
+						<th width="150px" align="center">RC5.0b6/RC5.0b7</th>
 					</tr>
 					<tr>
 						<th align="center"><input type="radio" name="version" value="4.0"></th>
