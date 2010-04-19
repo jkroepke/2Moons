@@ -29,7 +29,7 @@ abstract class FleetFunctions
 		$YourPlanet				= (isset($GetInfoPlanet['id_owner']) && $GetInfoPlanet['id_owner'] == $MissionInfo['CurrentUser']['id']) ? true : false;
 		$UsedPlanet				= (isset($GetInfoPlanet['id_owner'])) ? true : false;
 		
-		if ($MissionInfo['planet'] == 16)
+		if ($MissionInfo['planet'] == (MAX_PLANET_IN_SYSTEM + 1))
 			$missiontype[15] = $lang['type_mission'][15];	
 		elseif ($MissionInfo['planettype'] == 2) {
 			if (isset($MissionInfo['Ship'][209]) || isset($MissionInfo['Ship'][219]))
