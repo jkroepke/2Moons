@@ -392,3 +392,130 @@ font-weight:bold;
 .i_button{
 font-style:italic;
 }
+.btn {
+	background: transparent url('img/buttons.gif') no-repeat scroll 0 0;
+	width:20px;
+	height:20px;
+	margin-right:5px;
+	display:inline-block;
+}
+
+.bold {
+	background-position:0 0;
+}
+
+.bold:hover {
+	background-position:0 -25px;
+}
+
+.italic {
+	background-position:-25px 0;
+}
+
+.italic:hover {
+	background-position:-25px -25px;
+}
+
+.underline {
+	background-position:-50px 0;
+}
+
+.underline:hover {
+	background-position:-50px -25px;
+}
+
+.link {
+	background-position:-75px 0;
+}
+
+.link:hover {
+	background-position:-75px -25px;
+}
+
+.quote {
+	background-position:-100px 0;
+}
+
+.quote:hover {
+	background-position:-100px -25px;
+}
+
+.code {
+	background-position:-125px 0;
+}
+
+.code:hover {
+	background-position:-125px -25px;
+}
+
+.image {
+	background-position:-150px 0;
+}
+
+.image:hover {
+	background-position:-150px -25px;
+}
+
+.nlist {
+	background-position:-175px 0;
+}
+
+.nlist:hover {
+	background-position:-175px -25px;
+}
+
+.blist {
+	background-position:-200px 0;
+}
+
+.blist:hover {
+	background-position:-200px -25px;
+}
+
+.litem {
+	background-position:-225px 0;
+}
+
+.litem:hover {
+	background-position:-225px -25px;
+}
+
+.back {
+	background-position:-250px 0;
+}
+
+.back:hover {
+	background-position:-250px -25px;
+}
+
+.back_disable {
+	background-position:-250px -50px;
+}
+
+.forward {
+	background-position:-275px 0;
+}
+
+.forward:hover {
+	background-position:-275px -25px;
+}
+
+.forward_disable {
+	background-position:-275px -50px;
+}
+
+.usize {
+	background-position:-300px 0;
+}
+
+.usize:hover {
+	background-position:-300px -25px;
+}
+
+.dsize {
+	background-position:-325px 0;
+}
+
+.dsize:hover {
+	background-position:-325px -25px;
+}

@@ -132,9 +132,9 @@ function PlanetResourceUpdate( $CurrentUser, &$CurrentPlanet, $UpdateTime, $Simu
 		$Builded          = HandleElementBuildingQueue ( $CurrentUser, $CurrentPlanet, $ProductionTime );
 
 		$QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
-		$QryUpdatePlanet .= "`metal` = '"            . $CurrentPlanet['metal']    					."', ";
-		$QryUpdatePlanet .= "`crystal` = '"          . $CurrentPlanet['crystal']  					."', ";
-		$QryUpdatePlanet .= "`deuterium` = '"        . $CurrentPlanet['deuterium']				 	."', ";
+		$QryUpdatePlanet .= "`metal` = '"            . floattostring($CurrentPlanet['metal'], 6)  	."', ";
+		$QryUpdatePlanet .= "`crystal` = '"          . floattostring($CurrentPlanet['crystal'], 6)	."', ";
+		$QryUpdatePlanet .= "`deuterium` = '"        . floattostring($CurrentPlanet['deuterium'], 6)."', ";
 		$QryUpdatePlanet .= "`last_update` = '"      . $CurrentPlanet['last_update']       			."', ";
 		$QryUpdatePlanet .= "`last_update` = '"      . $CurrentPlanet['last_update']       			."', ";
 		$QryUpdatePlanet .= "`b_hangar_id` = '"      . $CurrentPlanet['b_hangar_id']       			."', ";

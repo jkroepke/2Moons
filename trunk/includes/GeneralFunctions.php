@@ -346,7 +346,6 @@ function msg_handler($errno, $msg_text, $errfile, $errline)
 
 		break;	
 		case E_STRICT:
-		case E_DEPRECATED:
 			echo "<div style='border: 2px solid red; margin-left: 190.5px; margin-bottom: 1px; padding: 2px;color:#FFFFFF;'><b>[2Moons Debug] PHP Notice </b> in file <b>" . $errfile . "</b> on line <b>" . $errline . "</b>: <b>" . $msg_text . "</b></div>\n";
 			return;
 
@@ -418,10 +417,7 @@ function msg_handler($errno, $msg_text, $errfile, $errline)
 			exit;
 		break;
 	}
-
-	// If we notice an error not handled here we pass this back to PHP by returning false
-	// This may not work for all php versions
-	return false;
+	return true;
 }
 
 function GetUserByID($UserID, $GetInfo = "*")
@@ -591,8 +587,8 @@ function shortly_number($number)
 		return pretty_number($number);
 }
 
-function floattostring($Numeric, $Semi = false){
-	return ($Semi) ? sprintf("%f", $Numeric) : sprintf("%.0f", $Numeric);
+function floattostring($Numeric, $Pro = 0){
+	return sprintf("%.".$Pro."f", $Numeric);
 }
 
 ?>
