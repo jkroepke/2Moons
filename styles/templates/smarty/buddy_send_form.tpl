@@ -7,7 +7,7 @@ function check(){ldelim}
 		alert('Gebe einen Text ein!');
 		return false;
 	{rdelim} else {ldelim}
-		$.post('game.php?page=buddy&mode=1&sm=3&u={$id}', $('#buddy').serialize(), function(data){ldelim}
+		$.post('game.php?page=buddy&mode=1&sm=3&u={$id}&ajax=1', $('#buddy').serialize(), function(data){ldelim}
 			alert(data);
 			window.close();
 		{rdelim});

@@ -6,7 +6,7 @@ function check(){
 		alert('Gebe einen Text ein!');
 		return false;
 	} else {
-		$.post('game.php?page=messages&mode=write&id={$id}&send=1', $('#message').serialize());
+		$.post('game.php?page=messages&mode=write&id={$id}&send=1&ajax=1', $('#message').serialize());
 		alert('Nachricht gesendet');
 		window.close();
 		return true;

@@ -519,3 +519,7 @@ font-style:italic;
 .dsize:hover {
 	background-position:-325px -25px;
 }
+
+.ui-progressbar-value { background-image: url(img/processbar.png); }
+
+#progressbar { height: 10px;}

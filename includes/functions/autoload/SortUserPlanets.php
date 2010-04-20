@@ -52,7 +52,9 @@ function SortUserPlanets ($CurrentUser)
 			'b_building_id'	=> $Planet['b_building_id'],
 		);
 	}
-
+	
+	$db->free_result($PlanetRAW);
+	
 	return $Planets;
 }
 ?>

@@ -7,7 +7,7 @@ function check(){
 		alert('Gebe einen Text ein!');
 		return false;
 	} else {
-		$.post('game.php?page=alliance&mode=circular&action=send', $('#message').serialize(), function(data){
+		$.post('game.php?page=alliance&mode=circular&action=send&ajax=1', $('#message').serialize(), function(data){
 			alert(data);
 			window.close();
 		});

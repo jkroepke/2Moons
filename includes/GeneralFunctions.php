@@ -587,8 +587,8 @@ function shortly_number($number)
 		return pretty_number($number);
 }
 
-function floattostring($Numeric, $Pro = 0){
-	return sprintf("%.".$Pro."f", $Numeric);
+function floattostring($Numeric, $Pro = 0, $Output = false){
+	return ($Output) ? str_replace(",",".", sprintf("%.".$Pro."f", $Numeric)) : sprintf("%.".$Pro."f", $Numeric);
 }
 
 ?>
