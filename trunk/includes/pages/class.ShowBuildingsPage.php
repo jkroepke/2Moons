@@ -257,13 +257,14 @@ class ShowBuildingsPage
 			for ($QueueID = 0; $QueueID < $ActualCount; $QueueID++)
 			{
 				$BuildArray   = explode (",", $QueueArray[$QueueID]);
-				$BuildEndTime = floor($BuildArray[3]);
-				$CurrentTime  = floor(time());
+				$BuildEndTime = $BuildArray[3];
+				$CurrentTime  = time();
 				if ($BuildEndTime >= $CurrentTime)
 				{
 					$ListID       = $QueueID + 1;
 					$Element      = $BuildArray[0];
 					$BuildLevel   = $BuildArray[1];
+					$BuildCTime   = $BuildArray[2];
 					$BuildMode    = $BuildArray[4];
 					$BuildTime    = $BuildEndTime - time();
 					$ElementTitle = $lang['tech'][$Element];
@@ -271,11 +272,10 @@ class ShowBuildingsPage
 					if ($ListID > 0)
 					{
 						$ListIDRow .= "<tr>";
-						$ListIDRow .= "<td class=\"l\" width=\"70%\">". $ListID .".: ". $ElementTitle ." ".$BuildLevel."</td>";
-						$ListIDRow .= "<th>";
-
 						if ($ListID == 1)
 						{
+							$ListIDRow .= "<td class=\"l\" width=\"70%\">". $ListID .".: ". $ElementTitle ." ".$BuildLevel."<br><br><div id=\"progressbar\"></div></td>";
+							$ListIDRow .= "<th>";
 							$ListIDRow .= "		<div id=\"blc\" class=\"z\">". $BuildTime ."<br>";
 							$ListIDRow .= "		<a href=\"game.php?page=buildings&amp;cmd=cancel\">".$lang['bd_interrupt']."</a></div>";
 							$ListIDRow .= "		<script type=\"text/javascript\">";
@@ -287,12 +287,20 @@ class ShowBuildingsPage
 							$ListIDRow .= "		</script>\n";
 							$ListIDRow .= "		<script type=\"text/javascript\">\n";
 							$ListIDRow .= "		function title() \n {var datem = document.getElementById('blc').innerHTML.split(\"<\");\n document.title = datem[0] + \" - ". $ElementTitle ." - ".$game_config['game_name']."\";\n  window.setTimeout('title();', 1000);}\n title();";
+							$ListIDRow .= "		$(function() {";
+							$ListIDRow .= "			$(\"#progressbar\").progressbar({";
+							$ListIDRow .= "				value: ".floattostring(abs(100 - ($BuildTime / $BuildCTime) * 100), 2, true)."";
+							$ListIDRow .= "			});";
+							$ListIDRow .= "			$(\".ui-progressbar-value\").animate({ width: \"100%\" }, ".($BuildTime * 1000).", \"linear\");";
+							$ListIDRow .= "		});";
+							$ListIDRow .= "		</script>";
 							$ListIDRow .= "		</script>";
 							$ListIDRow .= "		<br><font color=\"lime\">". date("j/m H:i:s" ,$BuildEndTime) ."</font>";
 						}
 						else
 						{
-							$ListIDRow .= "		<font color=\"red\">";
+							$ListIDRow .= "<td class=\"l\" width=\"70%\">". $ListID .".: ". $ElementTitle ." ".$BuildLevel."</td>";
+							$ListIDRow .= "<th>";
 							$ListIDRow .= "		<a href=\"game.php?page=buildings&amp;cmd=remove&amp;listid=". $ListID ."\">".$lang['bd_cancel']."</a></font>";
 						}
 						$ListIDRow .= "	</th>";

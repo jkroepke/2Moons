@@ -244,37 +244,35 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 				}
 			}
 			$db->free_result($OtherFleets);
-
-			$AnotherPlanets = $db->query("SELECT * FROM `".PLANETS."` WHERE id_owner='".$CurrentUser['id']."' AND `destruyed` = 0");
-
-			while ($CurrentUserPlanet = $db->fetch_array($AnotherPlanets))
-			{
-				if ($CurrentUserPlanet["id"] != $CurrentUser["current_planet"] && $CurrentUserPlanet['planet_type'] != 3)
-				{
-					if ($CurrentUserPlanet['b_building'] != 0)
-					{
-						UpdatePlanetBatimentQueueList($CurrentUserPlanet, $CurrentUser);
-						$BuildQueue      = $CurrentUserPlanet['b_building_id'];
-						$QueueArray      = explode ( ";", $BuildQueue );
-						$CurrentBuild    = explode ( ",", $QueueArray[0] );
-						$BuildPlanet	 = $lang['tech'][$CurrentBuild[0]]." (".$CurrentBuild[1].") <br><font color=\"#7f7f7f\">(".pretty_time($CurrentBuild[3] - time()).")</font>";
-					}
-					else
-					{
-						$BuildPlanet     = $lang['ov_free'];
-					}
-					
-					$AllPlanets[] = array(
-						'id'	=> $CurrentUserPlanet['id'],
-						'name'	=> $CurrentUserPlanet['name'],
-						'image'	=> $CurrentUserPlanet['image'],
-						'build'	=> $BuildPlanet,
-					);
-				}
-			}
 			
-			$db->free_result($AnotherPlanets);
-	
+			$template->getplanets();
+			
+			foreach($template->playerplanets as $ID => $CurrentUserPlanet)
+			{		
+				if ($ID == $CurrentUser["current_planet"] || $CurrentUserPlanet['planet_type'] == 3)
+					continue;
+
+				if (!empty($CurrentUserPlanet['b_building_id']))
+				{
+					$QueueArray      = explode ( ";", $CurrentUserPlanet['b_building_id']);
+					$CurrentBuild    = explode ( ",", $QueueArray[0] );
+					
+					if($CurrentBuild[3] - time() > 0)
+						$BuildPlanet	 = $lang['tech'][$CurrentBuild[0]]." (".$CurrentBuild[1].") <br><font color=\"#7f7f7f\">(".pretty_time($CurrentBuild[3] - time()).")</font>";
+					else
+						$BuildPlanet     = $lang['ov_free'];
+				}
+				else
+					$BuildPlanet     = $lang['ov_free'];
+					
+				$AllPlanets[] = array(
+					'id'	=> $CurrentUserPlanet['id'],
+					'name'	=> $CurrentUserPlanet['name'],
+					'image'	=> $CurrentUserPlanet['image'],
+					'build'	=> $BuildPlanet,
+				);
+			}
+				
 			if ($CurrentPlanet['id_luna'] != 0)
 			{
 				$lunarow = $db->fetch_array($db->query("SELECT `id`, `name` FROM ".PLANETS." WHERE `id` = '".$CurrentPlanet['id_luna']."';"));

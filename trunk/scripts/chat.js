@@ -24,18 +24,18 @@ function check(){
 		alert('Gebe einen Text ein!');
 	} else {
 		$('#msg').val("[c="+$('#chat_color').val()+"]"+$('#msg').val()+"[/c]");
-		$.post('game.php?page=chat&mode=send', $('#chatform').serialize());
+		$.post('game.php?page=chat&mode=send&ajax=1', $('#chatform').serialize());
 		$('#msg').val("");
 	}
 	setTimeout("showMessage()", 500);
 }
 
 function showMessage(){
-	$.post("game.php?page=chat&mode=call", $('#chatform').serialize(), function(data){$('#shoutbox').html(data);});
+	$.post("game.php?page=chat&mode=call&ajax=1", $('#chatform').serialize(), function(data){$('#shoutbox').html(data);});
 }
 
 function del(id){
-	$.post("game.php?page=chat&mode=delete&id="+id, $('#chatform').serialize());
+	$.post("game.php?page=chat&mode=delete&id="+id+"&ajax=1", $('#chatform').serialize());
 	setTimeout("showMessage()", 500);
 }
 
