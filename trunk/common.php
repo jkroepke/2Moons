@@ -112,7 +112,7 @@ if (INSTALL != true)
 		{
 			includeLang('TECH');
 			
-			if(request_var('ajax', 0) == 1 && $game_config['stats_fly_lock'] == 0 && !defined('IN_ADMIN'))
+			if(request_var('ajax', 0) == 0 && $game_config['stats_fly_lock'] == 0 && !defined('IN_ADMIN'))
 			{	
 				update_config('stats_fly_lock', time());
 				$db->multi_query("UNLOCK TABLES;LOCK TABLE ".AKS." WRITE, ".RW." WRITE, ".MESSAGES." WRITE, ".FLEETS." WRITE, ".PLANETS." WRITE, ".TOPKB." WRITE, ".USERS." WRITE, ".STATPOINTS." WRITE;");

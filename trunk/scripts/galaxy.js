@@ -27,7 +27,7 @@ function whenResponse () {
 }
 
 function doit (order, galaxy, system, planet, planettype, shipcount) {
-	ajax.requestFile = "game.php?page=fleetajax";
+	ajax.requestFile = "game.php?page=fleetajax&ajax=1";
 	ajax.runResponse = whenResponse;
 	ajax.execute = true;
 	ajax.setVar("mission", order);
