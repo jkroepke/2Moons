@@ -46,7 +46,7 @@ $lang['tech'] = array(
   2 => 'Kristallmine',
   3 => 'Deuteriumsynthetisierer',
   4 => 'Solarkraftwerk',
-  6 => 'Universität',
+  6 => 'TechnoDome',
  12 => 'Atomkraftwerk',
  14 => 'Roboterfabrik',
  15 => 'Nanitenfabrik',
@@ -267,7 +267,7 @@ $lang['info'][12]['description']  = 'Im Atomkraftwerk werden Atome gespalten, um
 
 // ----------------------------------------------------------------------------------------------------------
 // Gebäude
-$lang['info'][6]['name']          = "Universität";
+$lang['info'][6]['name']          = "TechnoDome";
 $lang['info'][6]['description']   = "Sie verringert die Forschungszeit pro Stufe um 8%";
 $lang['info'][14]['name']         = 'Roboterfabrik';
 $lang['info'][14]['description']  = 'Roboterfabriken stellen einfache Arbeitskräfte zur Verfügung, die beim Bau der planetaren Infrastruktur eingesetzt werden können. Jede Stufe erhöht damit die Geschwindigkeit des Ausbaus von Gebäuden.';
