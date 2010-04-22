@@ -35,7 +35,6 @@ $lang['tech_rc'] = array (
 409 => 'Gigantische Schildkuppel',
 410 => 'Gravitonenkanone',
 411 => 'Orbitale Verteidigungsplattform',
-412 => 'Bahamut',
 );
 
 
