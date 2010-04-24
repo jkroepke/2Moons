@@ -179,6 +179,7 @@ class ShowGalaxyPage extends GalaxyRows
 			'spyprobes'   				=> pretty_number($CurrentSP),
 			'missile_count'				=> sprintf($lang['gl_missil_to_launch'], $CurrentMIP),
 			'spio_anz'					=> $CurrentUser['spio_anz'],
+			'settings_fleetactions'		=> $CurrentUser['settings_fleetactions'],
 			'current_galaxy'			=> $CurrentPlanet['galaxy'],
 			'current_system'			=> $CurrentPlanet['system'],
 			'current_planet'			=> $CurrentPlanet['planet'],
