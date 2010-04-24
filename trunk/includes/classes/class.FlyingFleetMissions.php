@@ -1509,7 +1509,7 @@ class FlyingFleetMissions {
 			$AttackLink .= "&amp;target_mission=1";
 			$AttackLink .= " \">". $lang['type_mission'][1];
 			$AttackLink .= "</a></center>";
-			$MessageEnd  = "<center>".$DestProba."<br>".(ENABLE_SIMULATOR_LINK == true) ? "<a href=\"game.php?page=battlesim&amp;forbattlesim=".$string."\">".$lang['fl_simulate']."</a>":"")."</center>";
+			$MessageEnd  = "<center>".$DestProba."<br>".((ENABLE_SIMULATOR_LINK == true) ? "<a href=\"game.php?page=battlesim&amp;forbattlesim=".$string."\">".$lang['fl_simulate']."</a>":"")."</center>";
 
 			
 			$SpyMessage = "<br>".$GetSB."<br>".$AttackLink.$MessageEnd;
