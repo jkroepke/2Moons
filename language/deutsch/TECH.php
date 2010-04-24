@@ -23,6 +23,12 @@ $lang['tech_rc'] = array (
 220 => 'Inter. DM-Sammler',
 221 => 'Spaltenreißer',
 222 => 'Bahamut',
+223 => 'Sternenfänger',
+224 => 'Ifrit',
+225 => 'Shiva',
+226 => 'Catoblepas',
+227 => 'Ixion',
+228 => 'Odin',
 
 401 => 'Raketenwerfer',
 402 => 'Leichtes Lasergeschütz',
@@ -80,6 +86,9 @@ $lang['tech'] = array(
 122 => 'Plasmatechnik',
 123 => 'Intergalaktisches Forschungsnetzwerk',
 124 => 'Astrophysik',
+131 => 'Produktionsmaximierung Metall',
+132 => 'Produktionsmaximierung Kristall',
+133 => 'Produktionsmaximierung Deuterium',
 199 => 'Gravitonforschung',
 
 200 => 'Schiffe',
@@ -104,6 +113,12 @@ $lang['tech'] = array(
 220 => 'Intergalaktischer D. Materiensammler',
 221 => 'Spaltenreißer',
 222 => 'Bahamut',
+223 => 'Sternenfänger',
+224 => 'Raumtitanen Ifrit',
+225 => 'Raumtitanen Shiva',
+226 => 'Raumtitanen Catoblepas',
+227 => 'Raumtitanen Ixion',
+228 => 'Raumtitanen Odin',
 
 400 => 'Verteidigungsanlagen',
 401 => 'Raketenwerfer',
@@ -183,6 +198,9 @@ $lang['res']['descriptions'] = array(
 122 => 'Eine Weiterentwicklung der Ionentechnik, die nicht Ionen beschleunigt, sondern hochenergetisches Plasma. Dieses hat eine verheerende Wirkung beim Auftreffen auf ein Objekt.',
 123 => 'Forscher verschiedener Planeten kommunizieren über dieses Netzwerk miteinander durch das zusammenschalten der Labore wird die Forschungszeit verkürtzt jede stufe schaltet die Labore eines Planeten dazu.',
 124 => 'Weitere Erkenntnisse in der Astrophysik ermöglichen den Bau von Laboren, mit denen immer mehr Schiffe ausgestattet werden können. Dadurch werden weite Expeditionsreisen in noch unerforschte Gebiete möglich. Zudem erlauben die Fortschritte die weitere Kolonisation des Weltraumes. Pro zwei Stufen dieser Technologie kann so ein weiterer Planet nutzbar gemacht werden.',
+131 => 'Erhöht die Produktion der Metallmine um 2%',
+132 => 'Erhöht die Produktion der Kristallmine um 2%',
+133 => 'Erhöht die Produktion der Deuteriumsynthetisierer um 2%',
 199 => 'Durch Abschuss einer konzentrierten Ladung von Gravitonpartikeln kann ein künstliches Gravitationsfeld errichtet werden, wodurch Schiffe oder auch Monde vernichtet werden können.',
 
 202 => 'Der kleine Transporter ist ein wendiges Schiff, welches Rohstoffe schnell zu anderen Planeten transportieren kann.',
@@ -206,6 +224,12 @@ $lang['res']['descriptions'] = array(
 220 => 'Mit diesem Schiff ist es nach jahre langen forschen mölich Dunkle Materie an seinem Mond zu sammeln.',
 221 => 'Dieses Schiff ist einer der stärksten Schiffe die dieses Universum je betreten hat. Der Spaltenreißer reist mit seiner unglaublich hohen Gravitontechnik einen Riss in die Zeit, der alle Gegner verschlingt. Seine Schilde totzen fast jeden Angriff.',
 222 => 'Dieses Schiff ist das Ergebnis von Jahrelangem Forschen. Alle Kaiser taten sich zusammen um dieses Monstrum eines Zerstörers zu erschaffen. Ausgestattet mit den stärksten Laser- und Projektilgeschützen inklusive Gravitonkanonen ist es möglich Monde innerhalb von Sekunden zu zerstören und ihre Überreste einzusammeln um sie in ihrem gigantischen Lagerraum zu verstauen.',
+223 => 'Dieses Schiff ist in der lage die Strahlung der Sterne zu Speichern und zu bündeln um einem Mächtigen "Sternenlaser" zu entfesseln. Wenige Waffen aber dafür gerade zu erstklassige Panzerung und Schilde. Er ist der einzige Kreuzer der den Schuss einer Gravitonkanone Überleben könnte.',
+224 => 'Dieses Schiff ist mit den besten Projektilwaffen der Galaxie ausgestattet besitzt jedoch keine Laserwaffen. Eine gewaltige Schusskraft die fast alles übertrifft was es bisher gab. ca. 500.000.000.000 Diamantinkugeln werden in einer Minute geschossen womit sogar die beste raumschiffpanzerung durchdringbar ist. Es ist eines der 5 Raumtitanen.',
+225 => 'Dieses Schiff ist mit den besten Laser- und Ionenwaffen der Galaxie ausgestattet besitzt jedoch keine Projektilwaffen. Ein gewaltiger Laser der fast alles übertrifft was es bisher gab. Die Kraft von gebündeltem Licht mit verheerender Zerstörungskraft der fast alle Schilde durchbricht. Es ist eines der 5 Raumtitanen.',
+226 => 'Dieses Schiff ist mit einem der größten Frachträume ausgestattet um große mengen an Rohstoffen transportieren zu können. Zudem ist es mit extrem starken Schilden ausgerüstet weswegen es auch gut zur Verteidigung von Planeten ist. An Angriffskraft mangelt es jedoch. Es ist eines der 5 Raumtitanen.',
+227 => 'Der beste Jäger den es gibt. Durch seine Geschwindigkeit und seine Wendigkeit ist es eine extrem gefährliche Waffe, die wenn sie mit anderen Strahl-Schiffen in den kampf geschikt wir, selbst einen Lune Noire zerstören kann. Es ist eines der 5 Raumtitanen.',
+228 => 'Dieses Schiff ist trotz seiner größe eines der strärksten schiffe die existieren. Seine größe entspricht dem 4-fachen eines Menschen und kann deswegen leicht in feindliche Forts eindringen um sie von innen zu zerstören. Seine Geschwindigkwit ist unübertroffen. Es ist eines der 5 Raumtitanen.',
 
 401 => 'Der Raketenwerfer ist eine einfache aber kostengünstige Verteidigungsmöglichkeit.',
 402 => 'Durch den konzentrierten Beschuss eines Ziels mit Photonen kann eine wesentlich grössere Schadenswirkung erzielt werden, als mit gewöhnlichen ballistischen Waffen.',
@@ -331,6 +355,12 @@ $lang['info'][123]['name']        = 'Intergalaktisches Forschungsnetzwerk';
 $lang['info'][123]['description'] = 'Forscher verschiedener Planeten kommunizieren über dieses Netzwerk miteinander.Pro erforschtes Level, wird ein Forschungslabor vernetzt. Dabei werden immer die Labors der höchsten Stufe dazugeschaltet.Das vernetzte Labor muss ausreichend ausgebaut sein um die anstehende Forschung selbständig durchführen zu können. Die Ausbaustufen aller beteiligten Labors werden im intergalaktischen Forschungsnetzwerk zusammen gezählt.';
 $lang['info'][124]['name']        = 'Astrophysik';
 $lang['info'][124]['description'] = 'Weitere Erkenntnisse in der Astrophysik ermöglichen den Bau von Laboren, mit denen immer mehr Schiffe ausgestattet werden können. Dadurch werden weite Expeditionsreisen in noch unerforschte Gebiete möglich. Zudem erlauben die Fortschritte die weitere Kolonisation des Weltraumes. Pro zwei Stufen dieser Technologie kann so ein weiterer Planet nutzbar gemacht werden.'; 
+$lang['info'][131]['name']        = 'Produktionsmaximierung Metall';
+$lang['info'][131]['description'] = 'Erhöht die Produktion der Metallmine um 2%';
+$lang['info'][132]['name']        = 'Produktionsmaximierung Kristall';
+$lang['info'][132]['description'] = 'Erhöht die Produktion der Kristallmine um 2%';
+$lang['info'][133]['name']        = 'Produktionsmaximierung Deuterium';
+$lang['info'][133]['description'] = 'Erhöht die Produktion der Deuteriumsynthetisierer um 2%';
 $lang['info'][199]['name']        = 'Gravitonforschung';
 $lang['info'][199]['description'] = 'Ein Graviton ist ein Partikel, das keine Masse und keine Ladung besitzt, welche die Gravitationskraft bestimmt. Durch Abschuss einer konzentrierten Ladung von Gravitonen kann ein künstliches Gravitationsfeld errichtet werden, welches ähnlich einem schwarzen Loch, Masse in sich hineinzieht, wodurch Schiffe oder auch Monde vernichtet werden können. Um eine ausreichende Menge Gravitonen herzustellen benötigt es riesige Mengen an Energie. Voraussetzungen: Forschungslabor (Stufe 12).';
 
@@ -378,6 +408,18 @@ $lang['info'][221]['name']        = 'Spaltenreißer';
 $lang['info'][221]['description'] = 'Dieses Schiff ist einer der stärksten Schiffe die dieses Universum je betreten hat. Der Spaltenreißer reist mit seiner unglaublich hohen Gravitontechnik einen Riss in die Zeit, der alle Gegner verschlingt. Seine Schilde totzen fast jeden Angriff.';
 $lang['info'][222]['name']        = 'Bahamut';
 $lang['info'][222]['description'] = 'Dieses Schiff ist das Ergebnis von Jahrelangem Forschen. Alle Kaiser taten sich zusammen um dieses Monstrum eines Zerstörers zu erschaffen. Ausgestattet mit den stärksten Laser- und Projektilgeschützen inklusive Gravitonkanonen ist es möglich Monde innerhalb von Sekunden zu zerstören und ihre Überreste einzusammeln um sie in ihrem gigantischen Lagerraum zu verstauen.';
+$lang['info'][223]['name']        = 'Sternenfänger';
+$lang['info'][223]['description'] = 'Dieses Schiff ist in der lage die Strahlung der Sterne zu Speichern und zu bündeln um einem Mächtigen "Sternenlaser" zu entfesseln. Wenige Waffen aber dafür gerade zu erstklassige Panzerung und Schilde. Er ist der einzige Kreuzer der den Schuss einer Gravitonkanone Überleben könnte.';
+$lang['info'][224]['name']        = 'Raumtitanen Ifrit';
+$lang['info'][224]['description'] = 'Dieses Schiff ist mit den besten Projektilwaffen der Galaxie ausgestattet besitzt jedoch keine Laserwaffen. Eine gewaltige Schusskraft die fast alles übertrifft was es bisher gab. ca. 500.000.000.000 Diamantinkugeln werden in einer Minute geschossen womit sogar die beste raumschiffpanzerung durchdringbar ist. Es ist eines der 5 Raumtitanen.';
+$lang['info'][225]['name']        = 'Raumtitanen Shiva';
+$lang['info'][225]['description'] = 'Dieses Schiff ist mit den besten Laser- und Ionenwaffen der Galaxie ausgestattet besitzt jedoch keine Projektilwaffen. Ein gewaltiger Laser der fast alles übertrifft was es bisher gab. Die Kraft von gebündeltem Licht mit verheerender Zerstörungskraft der fast alle Schilde durchbricht. Es ist eines der 5 Raumtitanen.';
+$lang['info'][226]['name']        = 'Raumtitanen Catoblepas';
+$lang['info'][226]['description'] = 'Dieses Schiff ist mit einem der größten Frachträume ausgestattet um große mengen an Rohstoffen transportieren zu können. Zudem ist es mit extrem starken Schilden ausgerüstet weswegen es auch gut zur Verteidigung von Planeten ist. An Angriffskraft mangelt es jedoch. Es ist eines der 5 Raumtitanen.';
+$lang['info'][227]['name']        = 'Raumtitanen Ixion';
+$lang['info'][227]['description'] = 'Der beste Jäger den es gibt. Durch seine Geschwindigkeit und seine Wendigkeit ist es eine extrem gefährliche Waffe, die wenn sie mit anderen Strahl-Schiffen in den kampf geschikt wir, selbst einen Lune Noire zerstören kann. Es ist eines der 5 Raumtitanen.';
+$lang['info'][228]['name']        = 'Raumtitanen Odin';
+$lang['info'][228]['description'] = 'Dieses Schiff ist trotz seiner größe eines der strärksten schiffe die existieren. Seine größe entspricht dem 4-fachen eines Menschen und kann deswegen leicht in feindliche Forts eindringen um sie von innen zu zerstören. Seine Geschwindigkwit ist unübertroffen. Es ist eines der 5 Raumtitanen.';
 
 
 // ----------------------------------------------------------------------------------------------------------

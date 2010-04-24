@@ -93,6 +93,7 @@ abstract class FleetFunctions
 			case 204:
 			case 209:
 			case 210:
+			case 226:
 				return $pricelist[$Ship]['speed'] * (1 + (0.1 * $Player['combustion_tech']));
 			break;
 			case 205:

@@ -25,7 +25,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 	{
 		global $lang, $resource, $db;
 
-		if ($CurrentPlanet['b_building'] == 0)
+		if (!empty($CurrentPlanet['b_building_id']))
 		{
 			$CurrentQueue  = $CurrentPlanet['b_building_id'];
 			if (!empty($CurrentQueue))
