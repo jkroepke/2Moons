@@ -84,7 +84,7 @@ class ShowBuildingsPage
 
 			if ($ActualCount > 1)
 			{
-				array_shift( $QueueArray );
+				array_shift($QueueArray);
 				$NewCount        = count( $QueueArray );
 				$BuildEndTime    = time();
 				for ($ID = 0; $ID < $NewCount ; $ID++ )
@@ -94,9 +94,15 @@ class ShowBuildingsPage
 					$ListIDArray[3]       = $BuildEndTime;
 					$QueueArray[$ID]      = implode ( ",", $ListIDArray );
 				}
-				$NewQueue        = implode(";", $QueueArray );
-				$ReturnValue     = true;
-				$BuildEndTime    = 0;
+				$NewQueue                      = implode(";", $QueueArray );
+				$BuildEndTime   			   = 0;
+				$CanceledIDArray               = explode ( ",", $QueueArray[0]);
+				$ForDestroy 				   = ($CanceledIDArray[4] == 'destroy') ? true : false;
+				$Needed                        = GetBuildingPrice ($CurrentUser, $CurrentPlanet, $CanceledIDArray[0], true, $ForDestroy);
+				$CurrentPlanet['metal']       -= $Needed['metal'];
+				$CurrentPlanet['crystal']     -= $Needed['crystal'];
+				$CurrentPlanet['deuterium']   -= $Needed['deuterium'];
+				$CurrentUser['darkmatter']	  -= $Needed['darkmatter'];
 			}
 			else
 			{
@@ -105,16 +111,8 @@ class ShowBuildingsPage
 				$BuildEndTime    = 0;
 			}
 
-			if ($BuildMode == 'destroy')
-			{
-				$ForDestroy = true;
-			}
-			else
-			{
-				$ForDestroy = false;
-			}
-
 			if ( $Element != false ) {
+				$ForDestroy 				   = ($BuildMode == 'destroy') ? true : false;
 				$Needed                        = GetBuildingPrice ($CurrentUser, $CurrentPlanet, $Element, true, $ForDestroy);
 				$CurrentPlanet['metal']       += $Needed['metal'];
 				$CurrentPlanet['crystal']     += $Needed['crystal'];
@@ -333,9 +331,6 @@ class ShowBuildingsPage
 		
 		CheckPlanetUsedFields($CurrentPlanet);
 		
-		$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
-
-		
         $TheCommand   = request_var('cmd','');
         $Element      = request_var('building',0);
         $ListID       = request_var('listid',0);
@@ -360,6 +355,7 @@ class ShowBuildingsPage
 		}
 		$Queue = $this->ShowBuildingQueue($CurrentPlanet, $CurrentUser);
 
+		$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
 		$template	= new template();
 		$template->set_vars($CurrentUser, $CurrentPlanet);
 		$template->page_header();	

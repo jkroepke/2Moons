@@ -95,6 +95,10 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	
 	define('VACATION_MIN_TIME'		  ,  259200);	
 	
+	//
+	define('ENABLE_SIMULATOR_LINK'    , false);
+	
+	
 	// FOR ADVANCE USERS
 	
 	define('USE_NEW_BATTLE_ENGINE'	  , false);
