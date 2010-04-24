@@ -44,8 +44,8 @@ function addToTable(strDataResult, strClass) {
 	var e = document.getElementById('fleetstatusrow');
 	var e2 = document.getElementById('fleetstatustable');
 	e.style.display = '';
-	if(e2.rows.length > 2) {
-		e2.deleteRow(2);
+	if(e2.rows.length > MaxFleetSetting) {
+		e2.deleteRow(MaxFleetSetting);
 	}
 	var row = e2.insertRow(0);
 	var td1 = document.createElement("td");

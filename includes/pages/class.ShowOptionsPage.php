@@ -77,9 +77,9 @@ class ShowOptionsPage
 				$noipcheck 				= request_var('noipcheck', '');
 				$username 				= request_var('db_character', $CurrentUser['username'], UTF8_SUPPORT);
 				$db_email 				= request_var('db_email', $CurrentUser['email']);
-				$spio_anz 				= request_var('spio_anz', 5);
+				$spio_anz 				= max(request_var('spio_anz', 5), 1);
 				$settings_tooltiptime 	= request_var('settings_tooltiptime', 1);
-				$settings_fleetactions 	= request_var('settings_fleetactions', 1);
+				$settings_fleetactions 	= max(request_var('settings_fleetactions', 1), 1);
 				$settings_planetmenu	= request_var('settings_planetmenu', '');
 				$settings_esp 			= request_var('settings_esp', '');
 				$settings_wri 			= request_var('settings_wri', '');

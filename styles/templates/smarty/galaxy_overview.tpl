@@ -127,6 +127,7 @@
 	<script type="text/javascript">
 		status_ok		= '{$gl_ajax_status_ok}';
 		status_fail		= '{$gl_ajax_status_fail}';
+		MaxFleetSetting = {$settings_fleetactions} - 1;
 	</script>
 </div>
 {include file="planet_menu.tpl"}
