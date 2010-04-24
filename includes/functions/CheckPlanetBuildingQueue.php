@@ -25,7 +25,6 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 	{
 		global $resource, $db;
 		$RetValue     = false;
-		$IfSelectedPlanet	= $CurrentUser['current_planet'] == $CurrentPlanet['id'] ? true : false;
 		if (!empty($CurrentPlanet['b_building_id']))
 		{
 			$CurrentQueue  	= $CurrentPlanet['b_building_id'];
@@ -51,22 +50,16 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 					$CurrentPlanet['field_current']--;
 					$CurrentPlanet[$resource[$Element]]--;
 				}
-				
-				array_shift($QueueArray);
-				
-				if (count($QueueArray) == 0)
-					$NewQueue = 0;
-				else
-					$NewQueue = implode (";", $QueueArray );
+				PlanetResourceUpdate($CurrentUser, $CurrentPlanet, $BuildEndTime, true);	
 
 				$CurrentPlanet['b_building']    = 0;
-				$CurrentPlanet['b_building_id'] = $NewQueue;
-				PlanetResourceUpdate($CurrentUser, $CurrentPlanet, $BuildEndTime, true);				
+				$CurrentPlanet['b_building_id'] = $NewQueue;		
+				
 				$Build	= $Element;
 
 				$RetValue = true;
 				
-				if(!$IfSelectedPlanet)
+				if($CurrentUser['current_planet'] != $CurrentPlanet['id'])
 				{
                     $QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
                     $QryUpdatePlanet .= "`".$resource[$Element]."` = '".$CurrentPlanet[$resource[$Element]]."', ";

@@ -64,10 +64,6 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 						$CurrentPlanet['deuterium']   -= $Needed['deuterium'];
 						$CurrentUser['darkmatter']    -= $Needed['darkmatter'];
 						$NewQueue                      = implode( ";", $QueueArray);
-
-						if (empty($NewQueue))
-							$NewQueue                  = '0';
-
 						$Loop                          = false;
 					}
 					else
@@ -91,7 +87,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 						if (count($QueueArray) == 0)
 						{
 							$BuildEndTime  = 0;
-							$NewQueue      = 0;
+							$NewQueue      = '';
 							$Loop          = false;
 						}
 					}
@@ -100,27 +96,11 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 			else
 			{
 				$BuildEndTime  = 0;
-				$NewQueue      = 0;
+				$NewQueue      = '';
 			}
-
+			
 			$CurrentPlanet['b_building']    = $BuildEndTime;
 			$CurrentPlanet['b_building_id'] = $NewQueue;
-
-			$QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
-			$QryUpdatePlanet .= "`metal` = '".         $CurrentPlanet['metal']         ."' , ";
-			$QryUpdatePlanet .= "`crystal` = '".       $CurrentPlanet['crystal']       ."' , ";
-			$QryUpdatePlanet .= "`deuterium` = '".     $CurrentPlanet['deuterium']     ."' , ";
-			$QryUpdatePlanet .= "`b_building` = '".    $CurrentPlanet['b_building']    ."' , ";
-			$QryUpdatePlanet .= "`b_building_id` = '". $CurrentPlanet['b_building_id'] ."' ";
-			$QryUpdatePlanet .= "WHERE ";
-			$QryUpdatePlanet .= "`id` = '" .           $CurrentPlanet['id']            . "';";
-			$QryUpdatePlanet .= "UPDATE ".USERS." SET ";
-			$QryUpdatePlanet .= "`darkmatter` = '".	   $CurrentUser['darkmatter']      ."' ";
-			$QryUpdatePlanet .= "WHERE ";
-			$QryUpdatePlanet .= "`id` = '".            $CurrentUser['id']              ."';";
-			$db->multi_query($QryUpdatePlanet);
-
 		}
-		return;
 	}
 ?>

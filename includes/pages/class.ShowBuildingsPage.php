@@ -42,9 +42,7 @@ class ShowBuildingsPage
 		global $pricelist, $resource, $lang;
 
 		if ($userfactor)
-		{
 			$level = ($planet[$resource[$Element]]) ? $planet[$resource[$Element]] : $user[$resource[$Element]];
-		}
 
 		$array = array(
 			'metal'      => $lang['Metal'],
@@ -195,18 +193,21 @@ class ShowBuildingsPage
 		
 		if ($AddMode == true) {
 			$BuildMode 		= 'build';
-			$BuildTime   	= GetBuildingTime($CurrentUser, $CurrentPlanet, $Element, false);
 			$BuildLevel		= $CurrentPlanet[$resource[$Element]] + 1;
-			$Resses			= GetBuildingPrice($CurrentUser, $CurrentPlanet, $Element, true, false);
 		} else {
 			$BuildMode 		= 'destroy';
-			$BuildTime    	= GetBuildingTime($CurrentUser, $CurrentPlanet, $Element, true);
 			$BuildLevel		= $CurrentPlanet[$resource[$Element]];
-			$Resses			= GetBuildingPrice($CurrentUser, $CurrentPlanet, $Element, true, true);
 		}		
 
 		if($ActualCount == 0)
-		{
+		{	
+			if ($AddMode == true) {
+				$Resses			= GetBuildingPrice($CurrentUser, $CurrentPlanet, $Element, true, false);
+				$BuildTime   	= GetBuildingTime($CurrentUser, $CurrentPlanet, $Element, false);	
+			} else {
+				$Resses			= GetBuildingPrice($CurrentUser, $CurrentPlanet, $Element, true, true);
+				$BuildTime    	= GetBuildingTime($CurrentUser, $CurrentPlanet, $Element, true);
+			}
 			$CurrentPlanet['metal']			-= $Resses['metal'];
 			$CurrentPlanet['crystal']		-= $Resses['crystal'];
 			$CurrentPlanet['deuterium']		-= $Resses['deuterium'];
@@ -226,6 +227,13 @@ class ShowBuildingsPage
 						$InArray--;
 				}		
 			}
+			$CurrentPlanet[$resource[$Element]] += $InArray;
+			if ($AddMode == true) {
+				$BuildTime   	= GetBuildingTime($CurrentUser, $CurrentPlanet, $Element, false);
+			} else {
+				$BuildTime    	= GetBuildingTime($CurrentUser, $CurrentPlanet, $Element, true);
+			}
+			$CurrentPlanet[$resource[$Element]] -= $InArray;
 			$LastQueue 						= explode( ",",$QueueArray[$ActualCount - 1]);
 			$BuildEndTime					= $LastQueue[3] + $BuildTime;
 			$BuildLevel						+= $InArray;
@@ -295,7 +303,6 @@ class ShowBuildingsPage
 							$ListIDRow .= "		});";
 							$ListIDRow .= "		</script>";
 							$ListIDRow .= "		</script>";
-							$ListIDRow .= "		<br><font color=\"lime\">". date("j/m H:i:s" ,$BuildEndTime) ."</font>";
 						}
 						else
 						{
@@ -303,6 +310,7 @@ class ShowBuildingsPage
 							$ListIDRow .= "<th>";
 							$ListIDRow .= "		<a href=\"game.php?page=buildings&amp;cmd=remove&amp;listid=". $ListID ."\">".$lang['bd_cancel']."</a></font>";
 						}
+						$ListIDRow .= "<br><font color=\"lime\">". date("d. M y H:i:s" ,$BuildEndTime) ."</font>";
 						$ListIDRow .= "	</th>";
 						$ListIDRow .= "</tr>";
 					}
