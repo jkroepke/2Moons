@@ -92,7 +92,7 @@
 	{/foreach}
 	<tr>
 		<th width="30">{$smarty.const.MAX_PLANET_IN_SYSTEM + 1}</th>
-		<th colspan="7"><a href="game.php?page=fleet&amp;galaxy={$galaxy}&amp;system={$system}&amp;planet=16&amp;planettype=1&amp;target_mission=15">{$gl_out_space}</a></th>
+		<th colspan="7"><a href="game.php?page=fleet&amp;galaxy={$galaxy}&amp;system={$system}&amp;planet={$smarty.const.MAX_PLANET_IN_SYSTEM + 1}&amp;planettype=1&amp;target_mission=15">{$gl_out_space}</a></th>
 	</tr>
 	<tr>
 		<td class="c" colspan="6">({$planetcount})</td>
