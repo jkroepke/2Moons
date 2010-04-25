@@ -280,7 +280,7 @@ class ShowBuildingsPage
 						$ListIDRow .= "<tr>";
 						if ($ListID == 1)
 						{
-							$ListIDRow .= "<td class=\"l\" width=\"70%\">". $ListID .".: ". $ElementTitle ." ".$BuildLevel."<br><br><div id=\"progressbar\"></div></td>";
+							$ListIDRow .= "<td class=\"l\" width=\"70%\">". $ListID .".: ". $ElementTitle ." ".$BuildLevel.(($BuildMode == 'destroy') ? ' '.$lang['bd_dismantle'] : '')."<br><br><div id=\"progressbar\"></div></td>";
 							$ListIDRow .= "<th>";
 							$ListIDRow .= "		<div id=\"blc\" class=\"z\">". $BuildTime ."<br>";
 							$ListIDRow .= "		<a href=\"game.php?page=buildings&amp;cmd=cancel\">".$lang['bd_interrupt']."</a></div>";
@@ -335,6 +335,8 @@ class ShowBuildingsPage
         $Element      = request_var('building',0);
         $ListID       = request_var('listid',0);
 
+		$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
+		
 		if ((IsTechnologieAccessible($CurrentUser, $CurrentPlanet, $Element) && in_array($Element, $reslist['allow'][$CurrentPlanet['planet_type']]) && ($Element == 31 && $CurrentUser["b_tech_planet"] == 0 || $Element != 31)) || $TheCommand == "cancel" || $TheCommand == "remove")
 		{
 			switch($TheCommand)
@@ -355,7 +357,6 @@ class ShowBuildingsPage
 		}
 		$Queue = $this->ShowBuildingQueue($CurrentPlanet, $CurrentUser);
 
-		$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
 		$template	= new template();
 		$template->set_vars($CurrentUser, $CurrentPlanet);
 		$template->page_header();	
