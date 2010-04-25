@@ -48,10 +48,11 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 			$planet['crystal_max']       = BASE_STORAGE_SIZE;
 			$planet['deuterium_max']     = BASE_STORAGE_SIZE;
 
-			$planet['galaxy'] = $Galaxy;
-			$planet['system'] = $System;
-			$planet['planet'] = $Position;
+			$planet['galaxy'] 			= $Galaxy;
+			$planet['system'] 			= $System;
+			$planet['planet'] 			= $Position;
 			
+			$Position					= ($Position > 15) ? mt_rand(1,15) : $Position;
 			switch($Position) {
 				case 1:
 					$PlanetType         = array('trocken', 'wuesten');
