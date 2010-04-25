@@ -89,8 +89,13 @@ class ShowGalaxyPage extends GalaxyRows
 		global $dpath, $resource, $lang, $db, $reslist;
 		$PlanetRess 	= new ResourceUpdate($CurrentUser, $CurrentPlanet);
 
-		$template		= new template();
-		
+		$template		= new template();	
+		$template->page_header();
+		$template->page_topnav();
+		$template->page_leftmenu();
+		$template->page_planetmenu();
+		$template->page_footer();
+				
 		$CurrentPlID   	= $CurrentPlanet['id'];
 		$CurrentMIP    	= $CurrentPlanet['interplanetary_misil'];
 		$CurrentRC     	= $CurrentPlanet[$resource[209]];
@@ -128,12 +133,7 @@ class ShowGalaxyPage extends GalaxyRows
 		if (!($galaxy == $CurrentPlanet['galaxy'] && $system == $CurrentPlanet['system']) && $mode != 0)
 		{
 			if($CurrentPlanet['deuterium'] < 10)
-			{
-				$template->page_header();
-				$template->page_topnav();
-				$template->page_leftmenu();
-				$template->page_planetmenu();
-				$template->page_footer();	
+			{	
 				$template->message($lang['gl_no_deuterium_to_view_galaxy'], "game.php?page=galaxy&mode=0", 2);
 				$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 				exit;
@@ -143,13 +143,7 @@ class ShowGalaxyPage extends GalaxyRows
 		}
 	
 		$template->set_vars($CurrentUser, $CurrentPlanet);
-		$template->loadscript('tw-sack.js');
 		$template->loadscript('galaxy.js');
-		$template->page_header();
-		$template->page_topnav();
-		$template->page_leftmenu();
-		$template->page_planetmenu();
-		$template->page_footer();
 		$template->getstats();
 		
 		$UserPoints    	= $template->player['rank'];

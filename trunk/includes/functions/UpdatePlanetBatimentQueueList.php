@@ -39,7 +39,6 @@ function UpdatePlanetBatimentQueueList(&$CurrentPlanet, &$CurrentUser)
 			$RetValue	= true;
 		}
 	}
-	var_dump($return);
 	return $return;
 }
 
