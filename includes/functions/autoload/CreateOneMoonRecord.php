@@ -43,7 +43,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 
 			$maxtemp                = $MoonPlanet['temp_max'] - rand(10, 45);
 			$mintemp                = $MoonPlanet['temp_min'] - rand(10, 45);
-			$size                   = rand ($SizeMin, $SizeMax);
+			$size                   = rand($SizeMin, $SizeMax);
 
 			$QryInsertMoonInPlanet  = "INSERT INTO ".PLANETS." SET ";
 			$QryInsertMoonInPlanet .= "`name` = '". ( ($MoonName == '') ? $lang['fcm_moon'] : $MoonName ) ."', ";
