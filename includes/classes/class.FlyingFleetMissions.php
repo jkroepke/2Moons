@@ -1816,12 +1816,12 @@ class FlyingFleetMissions {
 				$result 	= self::calculateAttack($attackFleets, $defense);
 				$totaltime 	= microtime(true) - $start;
 
-				$DerbisMetal	  = $targetPlanet['der_metal'] 	 + $result['debree']['att'][0] + $result['debree']['def'][0];
-				$DerbisCrystal	  = $targetPlanet['der_crystal'] + $result['debree']['att'][1] + $result['debree']['def'][1];
+				$DerbisMetal	  = $result['debree']['att'][0] + $result['debree']['def'][0];
+				$DerbisCrystal	  = $result['debree']['att'][1] + $result['debree']['def'][1];
 				
 				$QryUpdateGalaxy = "UPDATE ".PLANETS." SET ";
-				$QryUpdateGalaxy .= "`der_metal` = ".$DerbisMetal.", ";
-				$QryUpdateGalaxy .= "`der_crystal` = ".$DerbisCrystal." ";
+				$QryUpdateGalaxy .= "`der_metal` = der_metal + ".$DerbisMetal.", ";
+				$QryUpdateGalaxy .= "`der_crystal` = der_crystal + ".$DerbisCrystal." ";
 				$QryUpdateGalaxy .= "WHERE ";
 				$QryUpdateGalaxy .= "`galaxy` = '" . $FleetRow['fleet_end_galaxy'] . "' AND ";
 				$QryUpdateGalaxy .= "`system` = '" . $FleetRow['fleet_end_system'] . "' AND ";

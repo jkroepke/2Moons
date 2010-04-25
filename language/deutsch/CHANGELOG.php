@@ -7,7 +7,15 @@ $version  = explode("-",substr($revision, 7, -35));
 
 $lang['changelog']   = array(
 
-'RC5.0b8' => 'ShadoX '.$version[2].'.'.$version[1].'.'.substr($version[0],2,2).'
+'RC5.0b9' => 'ShadoX '.$version[2].'.'.$version[1].'.'.substr($version[0],2,2).'
+- ADD: Neue Schiffe
+- ADD: Support Planet in System != 15
+- FIX: Dublicate Ressis Bug
+- DIV: Sicherheit im Game erhöht
+- DIV: Diverse Anpassungen am Game
+',
+
+'RC5.0b8' => 'ShadoX 20.04.10
 - FIX: Bann
 - FIX: Unmarkierte Nachrichten Löschen
 - FIX: Query log
