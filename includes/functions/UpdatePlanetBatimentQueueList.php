@@ -33,12 +33,13 @@ function UpdatePlanetBatimentQueueList(&$CurrentPlanet, &$CurrentUser)
 		$Ready	= CheckPlanetBuildingQueue($CurrentPlanet, $CurrentUser);
 		if ($Ready['isDone'])
 		{
-			$return	+=  array($Ready['Element'] => 0);
+			$return[$Ready['Element']]	+=  $Ready['Count'];
 			SetNextQueueElementOnTop($CurrentPlanet, $CurrentUser);
 		} else {
 			$RetValue	= true;
 		}
 	}
+	var_dump($return);
 	return $return;
 }
 
