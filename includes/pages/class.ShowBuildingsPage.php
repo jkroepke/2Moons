@@ -74,7 +74,7 @@ class ShowBuildingsPage
 	private function CancelBuildingFromQueue (&$CurrentPlanet, &$CurrentUser)
 	{
 		$CurrentQueue  = $CurrentPlanet['b_building_id'];
-		if ($CurrentQueue != 0)
+		if (!empty($CurrentQueue))
 		{
 			$QueueArray          = explode ( ";", $CurrentQueue );
 			$ActualCount         = count ( $QueueArray );
@@ -98,11 +98,20 @@ class ShowBuildingsPage
 				$BuildEndTime   			   = 0;
 				$CanceledIDArray               = explode ( ",", $QueueArray[0]);
 				$ForDestroy 				   = ($CanceledIDArray[4] == 'destroy') ? true : false;
-				$Needed                        = GetBuildingPrice ($CurrentUser, $CurrentPlanet, $CanceledIDArray[0], true, $ForDestroy);
-				$CurrentPlanet['metal']       -= $Needed['metal'];
-				$CurrentPlanet['crystal']     -= $Needed['crystal'];
-				$CurrentPlanet['deuterium']   -= $Needed['deuterium'];
-				$CurrentUser['darkmatter']	  -= $Needed['darkmatter'];
+				if(IsElementBuyable($CurrentUser, $CurrentPlanet, $CanceledIDArray[0], true, $ForDestroy))
+				{
+					$Needed                        = GetBuildingPrice ($CurrentUser, $CurrentPlanet, $CanceledIDArray[0], true, $ForDestroy);
+					$CurrentPlanet['metal']       -= $Needed['metal'];
+					$CurrentPlanet['crystal']     -= $Needed['crystal'];
+					$CurrentPlanet['deuterium']   -= $Needed['deuterium'];
+					$CurrentUser['darkmatter']	  -= $Needed['darkmatter'];
+				}
+				else
+				{
+					$NewQueue        = '0';
+					$ReturnValue     = false;
+					$BuildEndTime    = 0;
+				}
 			}
 			else
 			{
@@ -199,19 +208,22 @@ class ShowBuildingsPage
 
 		if($ActualCount == 0)
 		{	
-			if ($AddMode == true) {
-				$Resses			= GetBuildingPrice($CurrentUser, $CurrentPlanet, $Element, true, false);
-				$BuildTime   	= GetBuildingTime($CurrentUser, $CurrentPlanet, $Element, false);	
-			} else {
-				$Resses			= GetBuildingPrice($CurrentUser, $CurrentPlanet, $Element, true, true);
-				$BuildTime    	= GetBuildingTime($CurrentUser, $CurrentPlanet, $Element, true);
+			if(IsElementBuyable($CurrentUser, $CurrentPlanet, $Element, true, $ForDestroy))
+			{
+				if ($AddMode == true) {
+					$Resses			= GetBuildingPrice($CurrentUser, $CurrentPlanet, $Element, true, false);
+					$BuildTime   	= GetBuildingTime($CurrentUser, $CurrentPlanet, $Element, false);	
+				} else {
+					$Resses			= GetBuildingPrice($CurrentUser, $CurrentPlanet, $Element, true, true);
+					$BuildTime    	= GetBuildingTime($CurrentUser, $CurrentPlanet, $Element, true);
+				}
+				$CurrentPlanet['metal']			-= $Resses['metal'];
+				$CurrentPlanet['crystal']		-= $Resses['crystal'];
+				$CurrentPlanet['deuterium']		-= $Resses['deuterium'];
+				$CurrentUser['darkmatter']		-= $Resses['darkmatter'];
+				$BuildEndTime					= time() + $BuildTime;
+				$CurrentPlanet['b_building_id'] = $Element .",". $BuildLevel .",". $BuildTime .",". $BuildEndTime .",". $BuildMode;
 			}
-			$CurrentPlanet['metal']			-= $Resses['metal'];
-			$CurrentPlanet['crystal']		-= $Resses['crystal'];
-			$CurrentPlanet['deuterium']		-= $Resses['deuterium'];
-			$CurrentUser['darkmatter']		-= $Resses['darkmatter'];
-			$BuildEndTime					= time() + $BuildTime;
-			$CurrentPlanet['b_building_id'] = $Element .",". $BuildLevel .",". $BuildTime .",". $BuildEndTime .",". $BuildMode;
 		} else {
 			$InArray = 0;
 			foreach($QueueArray as $QueueSub)
