@@ -1091,8 +1091,8 @@ class FlyingFleetMissions {
 
 							
 			$QryUpdateGalaxy = "UPDATE ".PLANETS." SET ";
-			$QryUpdateGalaxy .= "`der_metal` = ".$DerbisMetal.", ";
-			$QryUpdateGalaxy .= "`der_crystal` = ".$DerbisCrystal." ";
+			$QryUpdateGalaxy .= "`der_metal` = ".floattostring($DerbisMetal).", ";
+			$QryUpdateGalaxy .= "`der_crystal` = ".floattostring($DerbisCrystal)." ";
 			$QryUpdateGalaxy .= "WHERE ";
 			$QryUpdateGalaxy .= "`galaxy` = '" . $FleetRow['fleet_end_galaxy'] . "' AND ";
 			$QryUpdateGalaxy .= "`system` = '" . $FleetRow['fleet_end_system'] . "' AND ";
@@ -1617,8 +1617,8 @@ class FlyingFleetMissions {
 			}
 
 			$QryUpdateGalaxy  = "UPDATE ".PLANETS." SET ";
-			$QryUpdateGalaxy .= "`der_metal` = `der_metal` - '".$RecycledGoods["metal"]."', ";
-			$QryUpdateGalaxy .= "`der_crystal` = `der_crystal` - '".$RecycledGoods["crystal"]."' ";
+			$QryUpdateGalaxy .= "`der_metal` = `der_metal` - '".floattostring($RecycledGoods["metal"])."', ";
+			$QryUpdateGalaxy .= "`der_crystal` = `der_crystal` - '".floattostring($RecycledGoods["crystal"])."' ";
 			$QryUpdateGalaxy .= "WHERE ";
 			$QryUpdateGalaxy .= "`galaxy` = '".$FleetRow['fleet_end_galaxy']."' AND ";
 			$QryUpdateGalaxy .= "`system` = '".$FleetRow['fleet_end_system']."' AND ";
@@ -1820,8 +1820,8 @@ class FlyingFleetMissions {
 				$DerbisCrystal	  = $result['debree']['att'][1] + $result['debree']['def'][1];
 				
 				$QryUpdateGalaxy = "UPDATE ".PLANETS." SET ";
-				$QryUpdateGalaxy .= "`der_metal` = der_metal + ".$DerbisMetal.", ";
-				$QryUpdateGalaxy .= "`der_crystal` = der_crystal + ".$DerbisCrystal." ";
+				$QryUpdateGalaxy .= "`der_metal` = der_metal + ".floattostring($DerbisMetal).", ";
+				$QryUpdateGalaxy .= "`der_crystal` = der_crystal + ".floattostring($DerbisCrystal)." ";
 				$QryUpdateGalaxy .= "WHERE ";
 				$QryUpdateGalaxy .= "`galaxy` = '" . $FleetRow['fleet_end_galaxy'] . "' AND ";
 				$QryUpdateGalaxy .= "`system` = '" . $FleetRow['fleet_end_system'] . "' AND ";
