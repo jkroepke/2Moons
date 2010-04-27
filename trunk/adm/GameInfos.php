@@ -37,7 +37,8 @@ $parse['vGame'] 	= VERSION;
 $parse['vMySQLc'] 	= $db->getVersion();
 $parse['vMySQLs'] 	= $db->getServerVersion();
 $parse['root'] 		= $_SERVER["SERVER_NAME"];
-$parse['gameroot'] 	= $_SERVER["SERVER_NAME"] . str_replace("/adm/GameInfos.php", "",str_replace("\\","/",$_SERVER['SCRIPT_NAME']));
+$parse['gameroot'] 	= $_SERVER["SERVER_NAME"] . str_replace("/adm/GameInfos.php", "",$_SERVER["PHP_SELF"]);
+$parse['json']		= function_exists('json_encode') ? "Ja" : "Nein";
 
 display(parsetemplate(gettemplate('adm/InfoMessagesBody'), $parse), false, '', true, false);
 

@@ -114,11 +114,11 @@ $lang['tech'] = array(
 221 => 'Spaltenreißer',
 222 => 'Bahamut',
 223 => 'Sternenfänger',
-224 => 'Raumtitanen Ifrit',
-225 => 'Raumtitanen Shiva',
-226 => 'Raumtitanen Catoblepas',
-227 => 'Raumtitanen Ixion',
-228 => 'Raumtitanen Odin',
+224 => 'Raumtitan Ifrit',
+225 => 'Raumtitan Shiva',
+226 => 'Raumtitan Catoblepas',
+227 => 'Raumtitan Ixion',
+228 => 'Raumtitan Odin',
 
 400 => 'Verteidigungsanlagen',
 401 => 'Raketenwerfer',
@@ -290,7 +290,7 @@ $lang['info'][12]['description']  = 'Im Atomkraftwerk werden Atome gespalten, um
 
 // ----------------------------------------------------------------------------------------------------------
 // Gebäude
-$lang['info'][6]['name']          = "TechnoDome";
+$lang['info'][6]['name']          = "TechDome";
 $lang['info'][6]['description']   = "Sie verringert die Forschungszeit pro Stufe um 8%";
 $lang['info'][14]['name']         = 'Roboterfabrik';
 $lang['info'][14]['description']  = 'Roboterfabriken stellen einfache Arbeitskräfte zur Verfügung, die beim Bau der planetaren Infrastruktur eingesetzt werden können. Jede Stufe erhöht damit die Geschwindigkeit des Ausbaus von Gebäuden.';
@@ -410,15 +410,15 @@ $lang['info'][222]['name']        = 'Bahamut';
 $lang['info'][222]['description'] = 'Dieses Schiff ist das Ergebnis von Jahrelangem Forschen. Alle Kaiser taten sich zusammen um dieses Monstrum eines Zerstörers zu erschaffen. Ausgestattet mit den stärksten Laser- und Projektilgeschützen inklusive Gravitonkanonen ist es möglich Monde innerhalb von Sekunden zu zerstören und ihre Überreste einzusammeln um sie in ihrem gigantischen Lagerraum zu verstauen.';
 $lang['info'][223]['name']        = 'Sternenfänger';
 $lang['info'][223]['description'] = 'Dieses Schiff ist in der lage die Strahlung der Sterne zu Speichern und zu bündeln um einem Mächtigen "Sternenlaser" zu entfesseln. Wenige Waffen aber dafür gerade zu erstklassige Panzerung und Schilde. Er ist der einzige Kreuzer der den Schuss einer Gravitonkanone Überleben könnte.';
-$lang['info'][224]['name']        = 'Raumtitanen Ifrit';
+$lang['info'][224]['name']        = 'Raumtitan Ifrit';
 $lang['info'][224]['description'] = 'Dieses Schiff ist mit den besten Projektilwaffen der Galaxie ausgestattet besitzt jedoch keine Laserwaffen. Eine gewaltige Schusskraft die fast alles übertrifft was es bisher gab. ca. 500.000.000.000 Diamantinkugeln werden in einer Minute geschossen womit sogar die beste raumschiffpanzerung durchdringbar ist. Es ist eines der 5 Raumtitanen.';
-$lang['info'][225]['name']        = 'Raumtitanen Shiva';
+$lang['info'][225]['name']        = 'Raumtitan Shiva';
 $lang['info'][225]['description'] = 'Dieses Schiff ist mit den besten Laser- und Ionenwaffen der Galaxie ausgestattet besitzt jedoch keine Projektilwaffen. Ein gewaltiger Laser der fast alles übertrifft was es bisher gab. Die Kraft von gebündeltem Licht mit verheerender Zerstörungskraft der fast alle Schilde durchbricht. Es ist eines der 5 Raumtitanen.';
-$lang['info'][226]['name']        = 'Raumtitanen Catoblepas';
+$lang['info'][226]['name']        = 'Raumtitan Catoblepas';
 $lang['info'][226]['description'] = 'Dieses Schiff ist mit einem der größten Frachträume ausgestattet um große mengen an Rohstoffen transportieren zu können. Zudem ist es mit extrem starken Schilden ausgerüstet weswegen es auch gut zur Verteidigung von Planeten ist. An Angriffskraft mangelt es jedoch. Es ist eines der 5 Raumtitanen.';
-$lang['info'][227]['name']        = 'Raumtitanen Ixion';
+$lang['info'][227]['name']        = 'Raumtitan Ixion';
 $lang['info'][227]['description'] = 'Der beste Jäger den es gibt. Durch seine Geschwindigkeit und seine Wendigkeit ist es eine extrem gefährliche Waffe, die wenn sie mit anderen Strahl-Schiffen in den kampf geschikt wir, selbst einen Lune Noire zerstören kann. Es ist eines der 5 Raumtitanen.';
-$lang['info'][228]['name']        = 'Raumtitanen Odin';
+$lang['info'][228]['name']        = 'Raumtitan Odin';
 $lang['info'][228]['description'] = 'Dieses Schiff ist trotz seiner größe eines der strärksten schiffe die existieren. Seine größe entspricht dem 4-fachen eines Menschen und kann deswegen leicht in feindliche Forts eindringen um sie von innen zu zerstören. Seine Geschwindigkwit ist unübertroffen. Es ist eines der 5 Raumtitanen.';
 
 

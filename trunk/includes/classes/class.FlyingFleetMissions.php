@@ -1091,8 +1091,8 @@ class FlyingFleetMissions {
 
 							
 			$QryUpdateGalaxy = "UPDATE ".PLANETS." SET ";
-			$QryUpdateGalaxy .= "`der_metal` = ".floattostring($DerbisMetal).", ";
-			$QryUpdateGalaxy .= "`der_crystal` = ".floattostring($DerbisCrystal)." ";
+			$QryUpdateGalaxy .= "`der_metal` = '".floattostring($DerbisMetal)."', ";
+			$QryUpdateGalaxy .= "`der_crystal` = '".floattostring($DerbisCrystal)."' ";
 			$QryUpdateGalaxy .= "WHERE ";
 			$QryUpdateGalaxy .= "`galaxy` = '" . $FleetRow['fleet_end_galaxy'] . "' AND ";
 			$QryUpdateGalaxy .= "`system` = '" . $FleetRow['fleet_end_system'] . "' AND ";

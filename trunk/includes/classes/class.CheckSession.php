@@ -112,6 +112,7 @@ class CheckSession
 
 			if ($user['bana'] == 1)
 			{
+				require_once(ROOT_PATH . 'includes/classes/class.template.'.PHP_EXT);
 				$template	= new template();
 				$template->page_header();	
 				$template->page_footer();

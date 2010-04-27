@@ -32,7 +32,6 @@ if((!file_exists(ROOT_PATH . 'config.php') || filesize(ROOT_PATH . 'config.php')
 if(!defined('INSTALL') || !defined('IN_ADMIN') || !defined('IN_CRON'))
 	define("STARTTIME",	microtime(true));
 	
-date_default_timezone_set("Europe/Berlin");
 
 error_reporting(E_ALL ^ E_NOTICE);
 
@@ -51,6 +50,7 @@ require_once(ROOT_PATH . 'includes/constants.'.PHP_EXT);
 require_once(ROOT_PATH . 'includes/classes/class.MySQLi.'.PHP_EXT);
 require_once(ROOT_PATH . 'includes/GeneralFunctions.'.PHP_EXT);
 require_once(ROOT_PATH . 'includes/vars.'.PHP_EXT);
+date_default_timezone_set("Europe/Berlin");
 isBuggyIe() || ob_start("ob_gzhandler");
 
 set_error_handler('msg_handler', E_ALL);

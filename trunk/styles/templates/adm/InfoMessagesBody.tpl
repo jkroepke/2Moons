@@ -10,6 +10,7 @@ MySQL-Server-Version: {vMySQLs}
 Game Version: 2Moons {vGame}
 Game Addresse: http://{root}/
 Game Pfad: http://{gameroot}/index.php
+JSON Verf&uuml;gbar: {json}
 Problem besteht seit Installation:
 Verwendeter Editor:
 Screenshot:
