@@ -75,7 +75,7 @@ class ShowResearchPage
 			$LevelRow = $db->query("SELECT ".$resource[31]." FROM ".PLANETS." WHERE `id_owner` = '".$user['id']."' ORDER BY ".$resource[31]." DESC limit ".($user[$resource[123]] + 1).";");
 			while($Levels = $db->fetch_array($LevelRow))
 			{
-			$lablevel[]	= $Levels[$resource[31]];
+				$lablevel[]	= $Levels[$resource[31]];
 			}
 		}
 		return $lablevel;
