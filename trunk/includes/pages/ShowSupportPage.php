@@ -53,7 +53,7 @@ class ShowSupportPage
 		$text 	 = makebr(request_var('text','',true));
 
 		if(empty($text) || empty($subject))
-			$this->template->message($lang['sendit_error_msg'],"game.php?page=support", 3);
+			exit($this->template->message($lang['sendit_error_msg'],"game.php?page=support", 3));
 
 		$Qryinsertticket  = "INSERT ".SUPP." SET ";
 		$Qryinsertticket .= "`player_id` = '". $CurrentUser['id'] ."',";
@@ -73,7 +73,7 @@ class ShowSupportPage
 		$text = request_var('text','',true);
 
 		if(empty($text))
-			message($lang['sendit_error_msg'],"game.php?page=support", 3);
+			exit($this->template->message($lang['sendit_error_msg'],"game.php?page=support", 3));
 		
 		$ticket = $db->fetch_array($db->query("SELECT text FROM ".SUPP." WHERE `id` = '".$TicketID."';"));
 

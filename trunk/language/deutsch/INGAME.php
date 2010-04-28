@@ -1170,6 +1170,7 @@ $lang['chat_admin']                       	= '<font color="red">Admin %s</font>'
 // Support
 
 $lang['supp_header'] 						= 'Support-System';
+$lang['supp_header_g'] 						= 'Geschlossende Tickets';
 $lang['ticket_id'] 							= '#Ticket-ID';
 $lang['subject'] 							= 'Betreff';
 $lang['status'] 							= 'Status';
