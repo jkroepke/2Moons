@@ -35,10 +35,7 @@
 			<textarea cols="70" rows="10" name="senden_antwort_text"></textarea>
 			<br><center><input type="submit" value="Absenden"></center>
 			</form><hr noshade>
-			<form action="?ticket={id}&schliessen=1" method="POST">
-			<input type="hidden" name="ticket" value="{id}">
-			<center><input type="submit" value="{close_ticket}"></center>
-			</form>
+			{closeopen}
 		</td>
 	</tr>
 </table>
