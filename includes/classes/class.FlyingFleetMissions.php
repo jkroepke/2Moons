@@ -26,11 +26,6 @@ class FlyingFleetMissions {
 		return max($steal, 0);
 	}
 
-	public static function ZeroSteal($steal)
-	{
-		return ($steal['metal'] <= 0 && $steal['crystal'] <= 0 && $steal['deuterium'] <= 0) ? true : false;
-	}
-
 	public static function calculateAKSSteal($attackFleets, $FleetRow, $defenderPlanet, $ForSim = false)
 	{
 		//Steal-Math by Slaver for 2Moons(http://www.titanspace.org) based on http://www.owiki.de/Beute
@@ -469,7 +464,7 @@ class FlyingFleetMissions {
 				$coord5 	= 0;
 				$coord6 	= 0;
 				$html		.= "<table><tr>";
-				foreach( $attackers1 as $fleet_id1 => $data2)
+				foreach($attackers1 as $fleet_id1 => $data2)
 				{
 					$name 	= $data2['user']['username'];
 					$coord1 = $data2['fleet']['fleet_start_galaxy'];
@@ -535,23 +530,23 @@ class FlyingFleetMissions {
 					$weap1 		.= "</tr>";
 					$shields1 	.= "</tr>";
 					$armour1 	.= "</tr>";
-					$endtable1 	.= "</table></th></tr></table></td>";
+					$endtable1 	= "</table></th></tr></table></td>";
 
 					$info_part2[$fleet_id2] = $weap1.$shields1.$armour1.$endtable1;
 
 					if (array_sum($attackers1[$fleet_id2]['detail']) != 0)
 					{
 						$html .= $info_part1[$fleet_id2].$info_part2[$fleet_id2];
-						
 					}
 					else
 					{
 						$html .= $info_part1[$fleet_id2];
-						$html .= $endtable1;
+						$html .= "</table></th></tr></table><br><br>";
 					}
 				}
 				$html .= "</tr></table>";
 				$html .= "<br><br>";
+				$html .= "<table><tr>";
 				foreach( $defenders1 as $fleet_id1 => $data2)
 				{
 					$name = $data2['user']['username'];
@@ -559,7 +554,7 @@ class FlyingFleetMissions {
 					$shie = ($data2['user']['defence_tech'] * 10);
 					$armr = ($data2['user']['shield_tech'] * 10);
 
-					$fl_info1  = "<table><tr><th>";
+					$fl_info1  = "<td><table><tr><th>";
 					$fl_info1 .= $lang['sys_attack_defender_pos']." ".$name." ([".$coord4.":".$coord5.":".$coord6."])<br>";
 					$fl_info1 .= $lang['sys_ship_weapon']." ".$weap."% - ".$lang['sys_ship_shield']." ".$shie."% - ".$lang['sys_ship_armour']." ".$armr."%";
 
@@ -613,7 +608,7 @@ class FlyingFleetMissions {
 					$weap1 		.= "</tr>";
 					$shields1 	.= "</tr>";
 					$armour1 	.= "</tr>";
-					$endtable1 	.= "</table></th></tr></table>";
+					$endtable1 	= "</table></th></tr></table>";
 
 					$info_part2[$fleet_id2] = $weap1.$shields1.$armour1.$endtable1;
 
@@ -628,6 +623,8 @@ class FlyingFleetMissions {
 						$html .= "</table></th></tr></table><br><br>";
 					}
 				}
+				
+				$html .= "</tr></table>";
 				if ($des) break;
 				
 				$html .=  $lang['fleet_attack_1']." ".pretty_number($data1['attack']['total'])." ".$lang['fleet_attack_2']." ".pretty_number(min($data1['defShield'], $data1['attack']['total']))." ".$lang['damage']."<br>";

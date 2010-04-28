@@ -26,16 +26,11 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 		global $db;
 
 		$SelectPlanet  = request_var('cp',0);
-		$RestorePlanet = request_var('re',1);
-
-		if ($RestorePlanet == 0)
+		$IsPlanetMine = $db->fetch_array($db->query("SELECT `id` FROM ".PLANETS." WHERE `id` = '". $SelectPlanet ."' AND `id_owner` = '". $CurrentUser['id'] ."';"));
+		if (isset($IsPlanetMine))
 		{
-			$IsPlanetMine = $db->fetch_array($db->query("SELECT `id` FROM ".PLANETS." WHERE `id` = '". $SelectPlanet ."' AND `id_owner` = '". $CurrentUser['id'] ."';"));
-			if (isset($IsPlanetMine))
-			{
-				$CurrentUser['current_planet'] = $SelectPlanet;
-				$db->query("UPDATE ".USERS." SET `current_planet` = '". $SelectPlanet ."' WHERE `id` = '".$CurrentUser['id']."';");
-			}
+			$CurrentUser['current_planet'] = $SelectPlanet;
+			$db->query("UPDATE ".USERS." SET `current_planet` = '". $SelectPlanet ."' WHERE `id` = '".$CurrentUser['id']."';");
 		}
 	}
 

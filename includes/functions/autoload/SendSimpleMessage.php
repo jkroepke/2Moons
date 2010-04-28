@@ -27,22 +27,16 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 		if (empty($Time))
 			$Time = time();
 
-		$QryInsertMessage  = "INSERT INTO ".MESSAGES." SET ";
-		$QryInsertMessage .= "`message_owner` = '". $Owner ."', ";
-		$QryInsertMessage .= "`message_sender` = '". $Sender ."', ";
-		$QryInsertMessage .= "`message_time` = '" . $Time . "', ";
-		$QryInsertMessage .= "`message_type` = '". $Type ."', ";
-		$QryInsertMessage .= "`message_from` = '". $db->sql_escape($From) ."', ";
-		$QryInsertMessage .= "`message_subject` = '". $db->sql_escape($Subject) ."', ";
-		$QryInsertMessage .= "`message_text` = '". $db->sql_escape($Message) ."';";
-		$QryInsertMessage .= "UPDATE `".USERS."` SET ";
-		$QryInsertMessage .= "`new_message` = `new_message` + 1 ";
-		if($Owner == 0)
-			$QryInsertMessage .= ";";
-		else
-			$QryInsertMessage .= "WHERE  `id` = '". $Owner ."';";
-		
-		$db->multi_query($QryInsertMessage);
+		$db->multi_query("INSERT INTO ".MESSAGES." SET 
+							  `message_owner` = '". $Owner ."', 
+							  `message_sender` = '". $Sender ."', 
+							  `message_time` = '" . $Time . "', 
+							  `message_type` = '". $Type ."', 
+							  `message_from` = '". $db->sql_escape($From) ."', 
+							  `message_subject` = '". $db->sql_escape($Subject) ."', 
+							  `message_text` = '". $db->sql_escape($Message) ."';
+							  UPDATE `".USERS."` SET 
+							  `new_message` = `new_message` + 1 ".(($Owner == 0) ? ";" : "WHERE  `id` = '". $Owner ."';"));
 	}
 
 ?>

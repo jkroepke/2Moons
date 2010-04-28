@@ -72,7 +72,7 @@ class ShowResearchPage
 		if($user[$resource[123]] == 0)
 			$lablevel = $planet[$resource[31]];
 		else {
-			$LevelRow = $db->query("SELECT ".$resource[31]." FROM ".PLANETS." WHERE `id_owner` = '".$user['id']."' ORDER BY ".$resource[31]." DESC limit ".($user[$resource[123]] + 1).";");
+			$LevelRow = $db->query("SELECT ".$resource[31]." FROM ".PLANETS." WHERE `id_owner` = '".$user['id']."' AND `destruyed` = 0 ORDER BY ".$resource[31]." DESC LIMIT ".($user[$resource[123]] + 1).";");
 			while($Levels = $db->fetch_array($LevelRow))
 			{
 				$lablevel[]	= $Levels[$resource[31]];
