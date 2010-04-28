@@ -53,15 +53,23 @@ if($_GET['ticket'] == 0){
 			}	
 		
 		$playername = $ticket['username'];	
-				
-		$parse['tickets'] .= "<tr>"
+		if($ticket['status'] == 0){	
+		$parse['tickets_g'] .= "<tr>"
 						    ."<th>".$ticket['ID']."</th>"
 						    ."<th>".$playername."</th>"
 							."<th><a href='?ticket=".$ticket['ID']."'>".$ticket['subject']."</a></th>"
 							."<th>". $status ."</th>"
 							."<th>".date("j. M Y H:i:s",$ticket['time'])."</th>"
 							."</tr>";
-
+		}else {
+		$parse['tickets'] .= "<tr>"
+						    ."<th>".$ticket['ID']."</th>"
+						    ."<th>".$playername."</th>"
+							."<th><a href='?ticket=".$ticket['ID']."'>".$ticket['subject']."</a></th>"
+							."<th>". $status ."</th>"
+							."<th>".date("j. M Y H:i:s",$ticket['time'])."</th>"
+							."</tr>";		
+		}
 		}
 		display(parsetemplate(gettemplate('adm/supp'), $parse), false, '', true, false);
 		
