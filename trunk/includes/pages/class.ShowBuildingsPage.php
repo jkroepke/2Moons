@@ -23,20 +23,6 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 
 class ShowBuildingsPage
 {	
-	private function BuildingSavePlanetRecord ($CurrentPlanet)
-	{
-		global $db;
-		
-		$QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
-		$QryUpdatePlanet .= "`b_building_id` = '". $CurrentPlanet['b_building_id'] ."', ";
-		$QryUpdatePlanet .= "`b_building` = '".    $CurrentPlanet['b_building']    ."' ";
-		$QryUpdatePlanet .= "WHERE ";
-		$QryUpdatePlanet .= "`id` = '".            $CurrentPlanet['id']            ."';";
-		$db->query($QryUpdatePlanet);
-
-		return;
-	}
-	
 	private function GetRestPrice ($user, $planet, $Element, $userfactor = true)
 	{
 		global $pricelist, $resource, $lang;
@@ -100,22 +86,23 @@ class ShowBuildingsPage
 				$ForDestroy 				   = ($CanceledIDArray[4] == 'destroy') ? true : false;
 				if(IsElementBuyable($CurrentUser, $CurrentPlanet, $CanceledIDArray[0], true, $ForDestroy))
 				{
-					$Needed                        = GetBuildingPrice ($CurrentUser, $CurrentPlanet, $CanceledIDArray[0], true, $ForDestroy);
-					$CurrentPlanet['metal']       -= $Needed['metal'];
-					$CurrentPlanet['crystal']     -= $Needed['crystal'];
-					$CurrentPlanet['deuterium']   -= $Needed['deuterium'];
-					$CurrentUser['darkmatter']	  -= $Needed['darkmatter'];
+					$Needed                        	= GetBuildingPrice ($CurrentUser, $CurrentPlanet, $CanceledIDArray[0], true, $ForDestroy);
+					$CurrentPlanet['metal']       	-= $Needed['metal'];
+					$CurrentPlanet['crystal']     	-= $Needed['crystal'];
+					$CurrentPlanet['deuterium']   	-= $Needed['deuterium'];
+					$CurrentUser['darkmatter']	  	-= $Needed['darkmatter'];
+					$CurrentPlanet['b_building']	= $CanceledIDArray[3];
 				}
 				else
 				{
-					$NewQueue        = '0';
+					$NewQueue        = '';
 					$ReturnValue     = false;
 					$BuildEndTime    = 0;
 				}
 			}
 			else
 			{
-				$NewQueue        = '0';
+				$NewQueue        = '';
 				$ReturnValue     = false;
 				$BuildEndTime    = 0;
 			}
@@ -132,7 +119,7 @@ class ShowBuildingsPage
 		}
 		else
 		{
-			$NewQueue          = '0';
+			$NewQueue          = '';
 			$BuildEndTime      = 0;
 			$ReturnValue       = false;
 		}
@@ -223,6 +210,7 @@ class ShowBuildingsPage
 				$CurrentUser['darkmatter']		-= $Resses['darkmatter'];
 				$BuildEndTime					= time() + $BuildTime;
 				$CurrentPlanet['b_building_id'] = $Element .",". $BuildLevel .",". $BuildTime .",". $BuildEndTime .",". $BuildMode;
+				$CurrentPlanet['b_building']	= $BuildEndTime;
 			}
 		} else {
 			$InArray = 0;

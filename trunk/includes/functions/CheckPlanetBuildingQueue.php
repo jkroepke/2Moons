@@ -39,7 +39,6 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 			
 			if ($BuildEndTime <= time())
 			{
-				PlanetResourceUpdate($CurrentUser, $CurrentPlanet, $BuildEndTime, true);				
 				$ForDestroy = ($BuildMode == 'destroy') ? true : false;
 				if ($ForDestroy == false)
 				{
@@ -54,15 +53,17 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 					$Count = -1;
 				}
 				
+				PlanetResourceUpdate($CurrentUser, $CurrentPlanet, $BuildEndTime, true);				
 				array_shift($QueueArray);
 				
-				if (count($QueueArray) == 0)
-					$NewQueue = 0;
-				else
-					$NewQueue = implode (";", $QueueArray );
-
-				$CurrentPlanet['b_building']    = 0;
-				$CurrentPlanet['b_building_id'] = $NewQueue;
+				if (count($QueueArray) == 0) {
+					$CurrentPlanet['b_building']    = 0;
+					$CurrentPlanet['b_building_id'] = '';
+				} else {
+					$BuildArray   					= explode (",", $QueueArray[0]);
+					$CurrentPlanet['b_building']    = $BuildArray[3];
+					$CurrentPlanet['b_building_id'] = implode(";", $QueueArray);
+				}
 				$RetValue = true;
 			}
 			else
@@ -71,8 +72,8 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 		else
 		{
 			$CurrentPlanet['b_building']    = 0;
-			$CurrentPlanet['b_building_id'] = 0;
-			$RetValue = false;
+			$CurrentPlanet['b_building_id'] = '';
+			$RetValue = $Element = $Count = false;
 		}
 		return array('isDone' => $RetValue, 'Element' => $Element, 'Count' => $Count);
 	}
