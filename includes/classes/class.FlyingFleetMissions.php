@@ -19,12 +19,8 @@
 # *                                                                          #
 ##############################################################################
 
-class FlyingFleetMissions {
-
-	public static function MinSteal($steal)
-	{
-		return max($steal, 0);
-	}
+class FlyingFleetMissions 
+{
 
 	public static function calculateAKSSteal($attackFleets, $FleetRow, $defenderPlanet, $ForSim = false)
 	{

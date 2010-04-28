@@ -21,50 +21,6 @@
 
 abstract class FleetFunctions 
 {
-
-	private static function GetAvailableMissions($MissionInfo)
-	{
-		global $lang, $db;
-		$GetInfoPlanet 			= $db->fetch_array($db->query("SELECT `id_owner` FROM `".PLANETS."` WHERE `galaxy` = ".$MissionInfo['galaxy']." AND `system` = ".$MissionInfo['system']." AND `planet` = ".$MissionInfo['planet']." AND `planet_type` = '1';"));
-		$YourPlanet				= (isset($GetInfoPlanet['id_owner']) && $GetInfoPlanet['id_owner'] == $MissionInfo['CurrentUser']['id']) ? true : false;
-		$UsedPlanet				= (isset($GetInfoPlanet['id_owner'])) ? true : false;
-		
-		if ($MissionInfo['planet'] == (MAX_PLANET_IN_SYSTEM + 1))
-			$missiontype[15] = $lang['type_mission'][15];	
-		elseif ($MissionInfo['planettype'] == 2) {
-			if (isset($MissionInfo['Ship'][209]) || isset($MissionInfo['Ship'][219]))
-				$missiontype[8] = $lang['type_mission'][8];
-		} else {
-			if (!$UsedPlanet) {
-				if (isset($MissionInfo['Ship'][208]) && $MissionInfo['planettype'] == 1)
-					$missiontype[7] = $lang['type_mission'][7];
-			} else {
-				
-				$missiontype[3] = $lang['type_mission'][3];
-					
-				if (!$YourPlanet && self::OnlyShipByID($MissionInfo['Ship'], 210))
-					$missiontype[6] = $lang['type_mission'][6];
-
-				if (!$YourPlanet) {
-					$missiontype[1] = $lang['type_mission'][1];
-					$missiontype[5] = $lang['type_mission'][5];}
-				else {
-					$missiontype[4] = $lang['type_mission'][4];}
-					
-				if ($MissionInfo['IsAKS'] != "0:0:0" && $UsedPlanet)
-					$missiontype[2] = $lang['type_mission'][2];
-
-				if (!$YourPlanet && $MissionInfo['planettype'] == 3 && isset($MissionInfo['Ship'][214]))
-					$missiontype[9] = $lang['type_mission'][9];
-
-				if ($YourPlanet && $MissionInfo['planettype'] == 3 && self::OnlyShipByID($MissionInfo['Ship'], 220))
-					$missiontype[11] = $lang['type_mission'][11];
-			}
-		}
-							
-		return $missiontype;
-	}	
-	
 	private static function GetShipConsumption($Ship, $Player)
 	{
 		global $pricelist;
@@ -473,6 +429,49 @@ abstract class FleetFunctions
 			'add_user_message_mr'	=> $add_user_message_mr,
 		);
 		return $AKSArray;
+	}
+	
+	public static function GetAvailableMissions($MissionInfo)
+	{
+		global $lang, $db;
+		$GetInfoPlanet 			= $db->fetch_array($db->query("SELECT `id_owner` FROM `".PLANETS."` WHERE `galaxy` = ".$MissionInfo['galaxy']." AND `system` = ".$MissionInfo['system']." AND `planet` = ".$MissionInfo['planet']." AND `planet_type` = '1';"));
+		$YourPlanet				= (isset($GetInfoPlanet['id_owner']) && $GetInfoPlanet['id_owner'] == $MissionInfo['CurrentUser']['id']) ? true : false;
+		$UsedPlanet				= (isset($GetInfoPlanet['id_owner'])) ? true : false;
+		
+		if ($MissionInfo['planet'] == (MAX_PLANET_IN_SYSTEM + 1))
+			$missiontype[15] = $lang['type_mission'][15];	
+		elseif ($MissionInfo['planettype'] == 2) {
+			if (isset($MissionInfo['Ship'][209]) || isset($MissionInfo['Ship'][219]))
+				$missiontype[8] = $lang['type_mission'][8];
+		} else {
+			if (!$UsedPlanet) {
+				if (isset($MissionInfo['Ship'][208]) && $MissionInfo['planettype'] == 1)
+					$missiontype[7] = $lang['type_mission'][7];
+			} else {
+				
+				$missiontype[3] = $lang['type_mission'][3];
+					
+				if (!$YourPlanet && self::OnlyShipByID($MissionInfo['Ship'], 210))
+					$missiontype[6] = $lang['type_mission'][6];
+
+				if (!$YourPlanet) {
+					$missiontype[1] = $lang['type_mission'][1];
+					$missiontype[5] = $lang['type_mission'][5];}
+				else {
+					$missiontype[4] = $lang['type_mission'][4];}
+					
+				if ($MissionInfo['IsAKS'] != "0:0:0" && $UsedPlanet)
+					$missiontype[2] = $lang['type_mission'][2];
+
+				if (!$YourPlanet && $MissionInfo['planettype'] == 3 && isset($MissionInfo['Ship'][214]))
+					$missiontype[9] = $lang['type_mission'][9];
+
+				if ($YourPlanet && $MissionInfo['planettype'] == 3 && self::OnlyShipByID($MissionInfo['Ship'], 220))
+					$missiontype[11] = $lang['type_mission'][11];
+			}
+		}
+							
+		return $missiontype;
 	}
 }
 ?>

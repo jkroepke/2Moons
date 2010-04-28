@@ -9,10 +9,11 @@ $lang['changelog']   = array(
 - ADD: Neue Schiffe
 - ADD: Support Planet in System != 15
 - ADD: Cookie für LoginMusik
+- ADD: Check für verfügbare Missions in Fleet3
 - FIX: Dublicate Ressis Bug
 - FIX: Bewerbungstext
 - FIX: Support
-- FIX: GebäudeCheat
+- FIX: GebäudeChea
 - DIV: Flottenquery vereinfacht
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game

@@ -162,7 +162,7 @@ class DB_mysqli
 	 */
 	public function fetch($result)
 	{
-		return $result->fetch_assoc();
+		return is_object($result) ? $result->fetch_assoc() : array();
 	}
 	
 	/**
