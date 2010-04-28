@@ -287,7 +287,7 @@ class ShowAlliancePage
 									$this->template->assign_vars(array(
 										'allyid'					=> $allyid,
 										'al_your_request_title'		=> $lang['al_your_request_title'],
-										'applytext'					=> ($ally_request) ? $ally_request : $lang['al_default_request_text'],
+										'applytext'					=> (!empty($allyrow['ally_request'])) ? $allyrow['ally_request'] : $lang['al_default_request_text'],
 										'al_write_request'			=> sprintf($lang['al_write_request'], $allyrow['ally_tag']),
 										'al_applyform_reload'		=> $lang['al_applyform_reload'],
 										'al_applyform_send'			=> $lang['al_applyform_send'],
@@ -1029,12 +1029,18 @@ class ShowAlliancePage
 									$db->query($QryText);
 								}
 
-								if ($t == 2)
-									$text = ($text !== '0') ? $_POST['text'] : $ally['ally_text'];		
-								elseif ($t == 3)
-									$text = ($text !== '0') ? $_POST['text'] : $ally['ally_request'];			
-								else
-									$text = ($text !== '0') ? $_POST['text'] : $ally['ally_description'];
+								switch($t)
+								{
+									case 2:
+										$text = ($text !== '0') ? $text : $ally['ally_text'];		
+									break;
+									case 3:
+										$text = ($text !== '0') ? $text : $ally['ally_request'];	
+									break;
+									default:
+										$text = ($text !== '0') ? $text : $ally['ally_description'];
+									break;
+								}
 
 								$this->template->assign_vars(array(
 									'al_characters'				=> $lang['al_characters'],
