@@ -25,7 +25,7 @@ $lang['mail_sended_fail']		= 'E-Mail konnte nicht gesendet werden.!';
 $lang['server_infos']			= array(
 	"Ein Weltraum-Strategiespiel in Echtzeit.",
 	"Spiele zusammen mit hunderten Users.",
-	"Kein Download, es wird nur ein Standartbrowser benötigt.",
+	"Kein Download, es wird nur ein Standardbrowser benötigt.",
 	"Kostenlose Registrierung",
 );
 
@@ -48,7 +48,7 @@ $lang['pass']					= 'Passwort';
 $lang['remember_pass']			= 'Auto-Login';
 $lang['lostpassword']			= 'Passwort vergessen?';
 $lang['welcome_to']				= 'Willkommen bei';
-$lang['server_description']		= '<strong>%s</strong> ist ein <strong>Weltraum strategie Spiel mit hunderten Spielern</strong> die erdumgreifend <strong>gleichzeitig</strong> versuchen der/die beste zu werden. Alles was ihr zum spielen braucht ist ein standart Webbrowser.';
+$lang['server_description']		= '<strong>%s</strong> ist ein <strong>Weltraum strategie Spiel mit hunderten Spielern</strong> die erdumgreifend <strong>gleichzeitig</strong> versuchen der/die Beste zu werden. Alles was ihr zum spielen braucht ist ein standart Webbrowser.';
 $lang['server_register']		= 'Registrieren sie sich Jetzt!';
 $lang['server_message']			= 'Registriere dich jetzt und erlebe eine neue spannende im Welt von';
 $lang['login']					= 'Login';
