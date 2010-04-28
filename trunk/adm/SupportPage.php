@@ -128,10 +128,22 @@ if(empty($antworttext) OR empty($antwortticketid)){
 }elseif($_GET['schliessen'] =="1"){
 		$schlieﬂen = $_GET['ticket'];
 		$ticket = $db->fetch_array($db->query("SELECT text FROM ".SUPP." WHERE `id` = '".$schlieﬂen."';"));
-		$newtext = $ticket['text'].'<br><br><hr>'.$user['username'].'(Admin) hat Ticket am '.date("j. M Y H:i:s", time()).' geschlossen!';
+		$newtext = $ticket['text'].'<br><br><hr>'.$user['username'].'(Admin) hat das Ticket am '.date("j. M Y H:i:s", time()).' geschlossen!';
 		$QryUpdatemsg  = "UPDATE ".SUPP." SET ";
 		$QryUpdatemsg .= "`text` = '".$db->sql_escape($newtext)."',";
 		$QryUpdatemsg .= "`status` = '0'";
+		$QryUpdatemsg .= "WHERE ";
+		$QryUpdatemsg .= "`id` = '". $schlieﬂen ."' ";
+		$db->query( $QryUpdatemsg);
+		header("Location: SupportPage.php");
+	
+}elseif($_GET['offnen'] =="1"){
+		$schlieﬂen = $_GET['ticket'];
+		$ticket = $db->fetch_array($db->query("SELECT text FROM ".SUPP." WHERE `id` = '".$schlieﬂen."';"));
+		$newtext = $ticket['text'].'<br><br><hr>'.$user['username'].'(Admin) hat das Ticket am '.date("j. M Y H:i:s", time()).' ge&ouml;ffnet!';
+		$QryUpdatemsg  = "UPDATE ".SUPP." SET ";
+		$QryUpdatemsg .= "`text` = '".$db->sql_escape($newtext)."',";
+		$QryUpdatemsg .= "`status` = '2'";
 		$QryUpdatemsg .= "WHERE ";
 		$QryUpdatemsg .= "`id` = '". $schlieﬂen ."' ";
 		$db->query( $QryUpdatemsg);
@@ -168,7 +180,7 @@ if(empty($antworttext) OR empty($antwortticketid)){
 		$parse['text_view'] = $ticket2['text'];
 		$parse['id'] = $ticket2['ID'];
 	
-
+		$parse['closeopen'] = ($ticket2['status'] != 0) ? "<form action=\"?ticket=".$ticket2['ID']."&schliessen=1\" method=\"POST\"><input type=\"hidden\" name=\"ticket\" value=\"".$ticket2['ID']."\"> <center><input type=\"submit\" value=\"".$lang['close_ticket']."\"></center> </form>" : "<form action=\"?ticket=".$ticket2['ID']."&offnen=1\" method=\"POST\"><input type=\"hidden\" name=\"ticket\" value=\"".$ticket2['ID']."\"><center><input type=\"submit\" value=\"".$lang['open_ticket']."\"></center></form>";
 	display(parsetemplate(gettemplate('adm/supp_detail'), $parse), false, '', true, false);
 }
 

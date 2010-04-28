@@ -1188,6 +1188,7 @@ $lang['sendit_error'] 						= 'Fehler:';
 $lang['sendit_error_msg'] 					= 'Du hast vergessen etwas einzutragen!';
 $lang['supp_admin_system'] 					= 'Support-Adminpanel';
 $lang['close_ticket'] 						= 'Ticket schließen';
+$lang['open_ticket'] 						= 'Ticket öffnen';
 $lang['player'] 							= 'Spielernamen';
 $lang['supp_ticket_close']					= 'Ticket geschlossen';
 $lang['supp_close'] 						= 'Geschlossen';
