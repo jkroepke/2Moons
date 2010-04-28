@@ -35,7 +35,7 @@ $parse     = $lang;
 		
 if($_GET['ticket'] == 0){
 /// Deteilsanzeige des eigenen tickets
-		$query = $db->query("SELECT s.* ,u.id, u.username as username FROM ".SUPP." as s, ".USERS." as u WHERE status >= '1' AND  u.id=s.player_id ORDER BY s.time;");
+		$query = $db->query("SELECT s.* ,u.id, u.username FROM ".SUPP." as s, ".USERS." as u WHERE u.id=s.player_id ORDER BY s.time;");
 		while($ticket = $db->fetch_array($query)){
 			switch($ticket['status']){
 				case 0:
@@ -125,7 +125,8 @@ if(empty($antworttext) OR empty($antwortticketid)){
 		$QryUpdatemsg .= "WHERE ";
 		$QryUpdatemsg .= "`id` = '". $schließen ."' ";
 		$db->query( $QryUpdatemsg);
-		display(parsetemplate(gettemplate('adm/supp_t_close'), $parse) , false, '', true, false);
+		$newtext = $ticket['text'].'<br><br><hr>'.$user['username'].'(Admin) hat Ticket am '.date("j. M Y H:i:s", time()).'geschlossen!';
+		header("Location: SupportPage.php");
 	
 }else{
 /// Listenanzeige des einen tickets
