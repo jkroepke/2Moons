@@ -27,11 +27,11 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 
 		$level = ($CurrentPlanet[$resource[$Element]]) ? $CurrentPlanet[$resource[$Element]] : $CurrentUser[$resource[$Element]];
 		if	   (in_array($Element, $reslist['build']))
-			$time			=  round($pricelist[$Element]['metal'] * pow($pricelist[$Element]['factor'], $level) + $pricelist[$Element]['crystal'] * pow($pricelist[$Element]['factor'], $level)) / (2500 * (1 + $CurrentPlanet[$resource[14]])) * pow(0.5, $CurrentPlanet[$resource[15]]) * 3600 * (1 - ($CurrentUser[$resource[605]] * CONSTRUCTEUR) - ((time() - $CurrentUser[$resource[702]] <= 0) ? ($ExtraDM[702]['add']) : 0));
+			$time			=  round($pricelist[$Element]['metal'] * pow($pricelist[$Element]['factor'], $level) + $pricelist[$Element]['crystal'] * pow($pricelist[$Element]['factor'], $level)) / ($game_config['game_speed'] * (1 + $CurrentPlanet[$resource[14]])) * pow(0.5, $CurrentPlanet[$resource[15]]) * 3600 * (1 - ($CurrentUser[$resource[605]] * CONSTRUCTEUR) - ((time() - $CurrentUser[$resource[702]] <= 0) ? ($ExtraDM[702]['add']) : 0));
 		elseif (in_array($Element, $reslist['defense']))
-			$time			=  round($pricelist[$Element]['metal'] * pow($pricelist[$Element]['factor'], $level) + $pricelist[$Element]['crystal'] * pow($pricelist[$Element]['factor'], $level)) / (2500 * (1 + $CurrentPlanet[$resource[21]])) * pow(0.5, $CurrentPlanet[$resource[15]]) * 3600 * (1 - ($CurrentUser[$resource[613]] * GENERAL) - ($CurrentUser[$resource[608]] * DEFENSEUR));
+			$time			=  round($pricelist[$Element]['metal'] * pow($pricelist[$Element]['factor'], $level) + $pricelist[$Element]['crystal'] * pow($pricelist[$Element]['factor'], $level)) / ($game_config['game_speed'] * (1 + $CurrentPlanet[$resource[21]])) * pow(0.5, $CurrentPlanet[$resource[15]]) * 3600 * (1 - ($CurrentUser[$resource[613]] * GENERAL) - ($CurrentUser[$resource[608]] * DEFENSEUR));
 		elseif (in_array($Element, $reslist['fleet']))
-			$time			=  round($pricelist[$Element]['metal'] * pow($pricelist[$Element]['factor'], $level) + $pricelist[$Element]['crystal'] * pow($pricelist[$Element]['factor'], $level)) / (2500 * (1 + $CurrentPlanet[$resource[21]])) * pow(0.5, $CurrentPlanet[$resource[15]]) * 3600 * (1 - ($CurrentUser[$resource[613]] * GENERAL) - ($CurrentUser[$resource[604]] * TECHNOCRATE));	
+			$time			=  round($pricelist[$Element]['metal'] * pow($pricelist[$Element]['factor'], $level) + $pricelist[$Element]['crystal'] * pow($pricelist[$Element]['factor'], $level)) / ($game_config['game_speed'] * (1 + $CurrentPlanet[$resource[21]])) * pow(0.5, $CurrentPlanet[$resource[15]]) * 3600 * (1 - ($CurrentUser[$resource[613]] * GENERAL) - ($CurrentUser[$resource[604]] * TECHNOCRATE));	
 		elseif (in_array($Element, $reslist['tech']))
 		{
 			$cost_metal   = floor($pricelist[$Element]['metal']   * pow($pricelist[$Element]['factor'], $level));
