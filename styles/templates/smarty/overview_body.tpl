@@ -79,7 +79,7 @@
 			<th colspan="4"><img src="userpic.php?id={$userid}" alt="" height="80" width="450"><br><br><table><tr><td>HTML:</td><td><input type="text" value='<a href="http://{$smarty.server.SERVER_NAME}/"><img src="http://{$smarty.server.SERVER_NAME}/userpic.php?id={$userid}"></a>' readonly style="width:450px;"></td></tr><tr><td>BBCode:</td><td><input type="text" value="[url='http://{$smarty.server.SERVER_NAME}/'][img]http://{$smarty.server.SERVER_NAME}/userpic.php?id={$userid}[/img][/url]" readonly style="width:450px;"></td></tr></table></th></tr>
     </table>
 	<script type="text/javascript">
-	Servertime({$smarty.now});
+	Servertime(ctimestamp);
 	</script>
 </div>
 {include file="planet_menu.tpl"}

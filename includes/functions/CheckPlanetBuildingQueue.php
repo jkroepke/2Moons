@@ -55,7 +55,6 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 				
 				PlanetResourceUpdate($CurrentUser, $CurrentPlanet, $BuildEndTime, true);				
 				array_shift($QueueArray);
-				
 				if (count($QueueArray) == 0) {
 					$CurrentPlanet['b_building']    = 0;
 					$CurrentPlanet['b_building_id'] = '';

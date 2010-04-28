@@ -27,7 +27,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 
 		if (!empty($CurrentPlanet['b_building_id']))
 		{
-			$QueueArray 	= explode ( ";", $CurrentQueue );
+			$QueueArray 	= explode ( ";", $CurrentPlanet['b_building_id']);
 			$Loop       	= true;
 			$BuildEndTime	= time();
 			while ($Loop == true)
