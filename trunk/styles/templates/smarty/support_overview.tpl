@@ -48,7 +48,7 @@ $('#'+i).show('blind', {}, 500);
 <tr>
 <td class="b" colspan="2">
 {if $TicketInfo.status != 0}
-<textarea cols="50" rows="10" name="text"></textarea><center><input type="submit" value="Absenden"></center>
+<center><textarea cols="50" rows="10" name="text"></textarea><br><input type="submit" value="Absenden"></center>
 {/if}
 </td>
 </tr>

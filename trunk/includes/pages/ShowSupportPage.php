@@ -25,6 +25,13 @@ class ShowSupportPage
 	{
 		$action 		= request_var('action', "");
 		$id 			= request_var('id', 0);
+		$this->template	= new template();
+		$this->template->set_vars($CurrentUser, $CurrentPlanet);
+		$this->template->page_header();
+		$this->template->page_topnav();
+		$this->template->page_leftmenu();
+		$this->template->page_planetmenu();
+		$this->template->page_footer();
 		switch($action){
 			case 'newticket':
 				$this->CreaeTicket($CurrentUser);
@@ -46,7 +53,7 @@ class ShowSupportPage
 		$text 	 = makebr(request_var('text','',true));
 
 		if(empty($text) || empty($subject))
-			message($lang['sendit_error_msg'],"game.php?page=support", 3);
+			$this->template->message($lang['sendit_error_msg'],"game.php?page=support", 3);
 
 		$Qryinsertticket  = "INSERT ".SUPP." SET ";
 		$Qryinsertticket .= "`player_id` = '". $CurrentUser['id'] ."',";
@@ -56,7 +63,7 @@ class ShowSupportPage
 		$Qryinsertticket .= "`status` = '1'";
 		$db->query($Qryinsertticket);
 						
-		message($lang['sendit_t'],"game.php?page=support", 3);
+		$this->template->message($lang['sendit_t'],"game.php?page=support", 3);
 	}
 	
 	private function UpdateTicket($CurrentUser, $TicketID) 
@@ -72,22 +79,14 @@ class ShowSupportPage
 
 		$text 	= $ticket['text'].'<br><br><hr>'.$CurrentUser['username'].' schreib am '.date("d. M Y H:i:s", time()).'<br><br>'.makebr($text).'';
 		$db->query("UPDATE ".SUPP." SET `text` = '".$db->sql_escape($text) ."',`status` = '3' WHERE `id` = '". $db->sql_escape($TicketID) ."';");
-		message($lang['sendit_a'],"game.php?page=support", 3);
+		$this->template->message($lang['sendit_a'],"game.php?page=support", 3);
 	}
 	
 	private function ShowSupportTickets($CurrentUser, $CurrentPlanet)
 	{
 		global $db, $lang;
 		$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
-
-		$template	= new template();
-
-		$template->set_vars($CurrentUser, $CurrentPlanet);
-		$template->page_header();
-		$template->page_topnav();
-		$template->page_leftmenu();
-		$template->page_planetmenu();
-		$template->page_footer();
+		$this->template->set_vars($CurrentUser, $CurrentPlanet);
 			
 		$query		= $db->query("SELECT ID,time,text,subject,status FROM ".SUPP." WHERE `player_id` = '".$CurrentUser['id']."';");
 		
@@ -100,7 +99,7 @@ class ShowSupportPage
 			);
 		}		
 			
-		$template->assign_vars(array(	
+		$this->template->assign_vars(array(	
 			'TicketsList'			=> $TicketsList,
 			'text'					=> $lang['text'],
 			'supp_header'			=> $lang['supp_header'],
@@ -118,7 +117,7 @@ class ShowSupportPage
 			'ticket_new'			=> $lang['ticket_new'],		
 		));
 			
-		$template->show("support_overview.tpl");
+		$this->template->show("support_overview.tpl");
 		$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);	
 	}
 }

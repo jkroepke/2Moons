@@ -12,6 +12,7 @@ $lang['changelog']   = array(
 - ADD: Support Planet in System != 15
 - FIX: Dublicate Ressis Bug
 - FIX: Bewerbungstext
+- FIX: Support
 - FIX: GebäudeCheat
 - DIV: Flottenquery vereinfacht
 - DIV: Sicherheit im Game erhöht
