@@ -119,14 +119,14 @@ if(empty($antworttext) OR empty($antwortticketid)){
 }
 }elseif($_GET['schliessen'] =="1"){
 		$schlieﬂen = $_GET['ticket'];
-	
+		$ticket = $db->fetch_array($db->query("SELECT text FROM ".SUPP." WHERE `id` = '".$schlieﬂen."';"));
+		$newtext = $ticket['text'].'<br><br><hr>'.$user['username'].'(Admin) hat Ticket am '.date("j. M Y H:i:s", time()).'geschlossen!';
 		$QryUpdatemsg  = "UPDATE ".SUPP." SET ";
 		$QryUpdatemsg .= "`text` = '".$db->sql_escape($newtext)."',";
 		$QryUpdatemsg .= "`status` = '0'";
 		$QryUpdatemsg .= "WHERE ";
 		$QryUpdatemsg .= "`id` = '". $schlieﬂen ."' ";
 		$db->query( $QryUpdatemsg);
-		$newtext = $ticket['text'].'<br><br><hr>'.$user['username'].'(Admin) hat Ticket am '.date("j. M Y H:i:s", time()).'geschlossen!';
 		header("Location: SupportPage.php");
 	
 }else{
