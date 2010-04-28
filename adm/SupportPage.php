@@ -121,8 +121,8 @@ if(empty($antworttext) OR empty($antwortticketid)){
 		$schließen = $_GET['ticket'];
 	
 		$QryUpdatemsg  = "UPDATE ".SUPP." SET ";
-		$QryUpdatemsg .= "`status` = '0'";
 		$QryUpdatemsg .= "`text` = '".$db->sql_escape($newtext)."',";
+		$QryUpdatemsg .= "`status` = '0'";
 		$QryUpdatemsg .= "WHERE ";
 		$QryUpdatemsg .= "`id` = '". $schließen ."' ";
 		$db->query( $QryUpdatemsg);
