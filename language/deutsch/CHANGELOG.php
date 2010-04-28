@@ -13,6 +13,7 @@ $lang['changelog']   = array(
 - FIX: Dublicate Ressis Bug
 - FIX: Bewerbungstext
 - FIX: Support
+- FIX: Große HoF KBs
 - FIX: GebäudeChea
 - DIV: Flottenquery vereinfacht
 - DIV: Sicherheit im Game erhöht
