@@ -97,7 +97,7 @@
         <td class='box-right'>&nbsp;</td>
       </tr>
     </table></td>
-	<td class='languages_container'><a href="http://www.addthis.com/bookmark.php?v=250&amp;username=xa-4b3aa16f657a67e8" class="addthis_button_compact">Share</a>&nbsp;&bull;&nbsp;<a onclick="music()" style="cursor:pointer;" id="music">Music: ON</a></td>
+	<td class='languages_container'><a href="http://www.addthis.com/bookmark.php?v=250&amp;username=xa-4b3aa16f657a67e8" class="addthis_button_compact">Share</a>&nbsp;&bull;&nbsp;<a onclick="music()" style="cursor:pointer;" id="music">Music: OFF</a></td>
   </tr>
 </table>
 <br>

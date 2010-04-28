@@ -2,14 +2,13 @@
 
 $lang['Version']     = 'Version';
 $lang['Description'] = 'Beschreibung';
-$revision = '$Date$';
-$version  = explode("-",substr($revision, 7, -35));
 
 $lang['changelog']   = array(
 
-'RC5.0b9' => 'ShadoX '.$version[2].'.'.$version[1].'.'.substr($version[0],2,2).'
+'RC5.0b9' => 'ShadoX 28.04.10
 - ADD: Neue Schiffe
 - ADD: Support Planet in System != 15
+- ADD: Cookie für LoginMusik
 - FIX: Dublicate Ressis Bug
 - FIX: Bewerbungstext
 - FIX: Support

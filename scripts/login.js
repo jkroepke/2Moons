@@ -4,12 +4,15 @@ soundManager.debugMode = false;
 soundManager.useHighPerformance = true;
 soundManager.defaultOptions.volume = 33;
 soundManager.onload = function() {
-  var loginbgm = soundManager.createSound({
-    id: 'aSound',
-    url: 'scripts/bgm_login.mp3',
-    volume: 50
-  });
-loginbgm.play();
+var loginbgm = soundManager.createSound({
+		id: 'aSound',
+		url: 'scripts/bgm_login.mp3',
+		volume: 50
+	});
+	if($.cookie('music') == null || $.cookie('music') == "on"){
+		loginbgm.play();
+		$('#music').text("Music: ON");
+	}
 }
 
 function music() {
@@ -19,11 +22,13 @@ function music() {
 	{
 		loginbgm.play();
 		idmusic.text("Music: ON");
+		$.cookie('music', 'on');
 	}
 	else
 	{
 		loginbgm.stop();
 		idmusic.text("Music: OFF");
+		$.cookie('music', 'off');
 	}
 }
 

@@ -268,7 +268,7 @@ class FTP
 		if (is_resource( $this->cid ))
 		{
 			$transfermode = self::transferMode( $mode );
-			return ftp_fput( $this->cid, $remotefile, $resource, FTP_BINARY, $position );
+			return ftp_fput( $this->cid, $remotefile, $resource, FTP_ASCII, $position );
 		}
 	}
 
