@@ -21,6 +21,7 @@ $lang['faq']			= array(
 "Wenn ich meinen Account auf dem Server auf löschen stelle, wie lange brauch er dazu um vom Server gelöscht zu werden?" => "Die Löschung des Accounts dauert 7 Tage.",
 "Ab wann wird mein Account inactiv, wenn ich mich nicht mehr einlogge?" => "Dein Account wird nach 7 Tagen inactiv und da hast Du dann ein <b>i</b> Wenn du 28 Tage inactiv bist hast Du dann ein großes <b>I</b>.",
 "Ab wann wird mein Account automatisch gelöscht wenn ich mich nicht mehr einloggen sollte?" => "Dein Account wird nach 30 Tagen automatisch gelöscht, wenn Du Dich nicht mehr einloggen solltest.",
+"Ein Admin fragt mich hier nach den zugangsdaten wegen der Nachrichten, ist das rechtens?" => "NEIN es ist nicht rechtens denn der Admin kan im Adminmenü auf grund dessen die Nachrichtenliste einlesen, Spricht Privatenachrichten bei Beleidigungen, Kampfberichte uns so weiter.",
 "Ihr habt noch Fragen?" => "Sendet eine PM mit eurer Frage per Support-Ticket. Wir werden deine Frage bearbeiten und ggf. hier ins FAQ für andere zur verfügung stellen.",
 );
 
