@@ -440,7 +440,7 @@ class ShowFleetPages extends FleetFunctions
 		}
 			
 		$ActualFleets		= parent::GetCurrentFleets($CurrentUser['id']);
-
+		
 		if (parent::GetMaxFleetSlots($CurrentUser) <= $ActualFleets)
 		{
 			$template->message($lang['fl_no_slots'], "game." . PHP_EXT . "?page=fleet", 1);
@@ -483,7 +483,10 @@ class ShowFleetPages extends FleetFunctions
 		
 		if (!is_array($FleetArray))
 			parent::GotoFleetPage();
-
+		
+		if(!array_key_exists($mission, parent::GetAvailableMissions(array('CurrentUser' => $CurrentUser,'galaxy' => $galaxy, 'system' => $system,'planet' => $planet, 'planettype' => $planettype,'IsAKS' => $acs_target_mr, 'Ship' =>  $FleetArray))))
+			parent::GotoFleetPage();
+		
 		$FleetStorage        = 0;
 		$FleetShipCount      = 0;
 		$fleet_array         = "";
