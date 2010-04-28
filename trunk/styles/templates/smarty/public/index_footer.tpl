@@ -12,6 +12,7 @@ fb_permissions		= "{$fb_perm}";
             "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js",
             "scripts/soundmanager2.js",
             "scripts/jquery.loadmask.js",
+            "scripts/jquery.cookie.js",
             "http://browser-update.org/update.js",
 			{if $fb_active}
 			"http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php",
