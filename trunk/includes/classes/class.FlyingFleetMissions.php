@@ -21,6 +21,18 @@
 
 class FlyingFleetMissions 
 {
+	public static function IfFleetBusy($FleetID)
+	{
+		global $db;
+		$FleetInfo	= $db->fetch_array($db->query("SELECT fleet_busy FROM ".FLEETS." WHERE `fleet_id` = '".$FleetID."';"));
+		if($FleetInfo['fleet_busy'] == 1) {
+			return false;
+		} else {
+			$db->query("UPDATE ".FLEETS." SET `fleet_busy` = 1 WHERE `fleet_id` = '".$FleetID."';");
+			return true;
+		}
+	}
+
 
 	public static function calculateAKSSteal($attackFleets, $FleetRow, $defenderPlanet, $ForSim = false)
 	{
@@ -32,8 +44,10 @@ class FlyingFleetMissions
 		{
 			foreach($Attacker['detail'] as $Element => $amount)	
 			{
-				$SortFleets[$FleetID]		+= $pricelist[$Element]['capacity'] * $amount - $Attacker['fleet']['fleet_resource_metal'] - $Attacker['fleet']['fleet_resource_crystal'] - $Attacker['fleet']['fleet_resource_deuterium'];
+				$SortFleets[$FleetID]		+= $pricelist[$Element]['capacity'] * $amount;
 			}
+			
+			$SortFleets[$FleetID]			-= $Attacker['fleet']['fleet_resource_metal'] - $Attacker['fleet']['fleet_resource_crystal'] - $Attacker['fleet']['fleet_resource_deuterium'];
 		}
 		
 		$Sumcapacity  = array_sum($SortFleets);
