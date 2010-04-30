@@ -137,7 +137,7 @@ class template extends Smarty
 				'?page=search'		=> $this->lang['lm_search'],
 			),
 			"gfx/user-menu.jpg" => array(
-				'?page=messages'	=> $this->lang['lm_messages'],
+				'?page=messages'	=> $this->lang['lm_messages'].(($this->player['new_message'] > 0) ? ' ('.$this->player['new_message'].')' : ''),
 				'javascript:f(\'?page=notes\',\''.$this->lang['lm_notes'].'\');'	=> $this->lang['lm_notes'],
 				'?page=buddy'		=> $this->lang['lm_buddylist'],
 				'?page=chat'		=> $this->lang['lm_chat'],

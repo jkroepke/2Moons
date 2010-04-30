@@ -30,6 +30,8 @@ class FlyingFleetHandler extends FlyingFleetMissions
 		global $db;
 		while ($CurrentFleet = $db->fetch_array($fleetquery))
 		{
+			if(parent::IfFleetBusy($CurrentFleet['fleet_id'])) continue;
+			
 			switch ($CurrentFleet['fleet_mission'])
 			{
 				case 1:
@@ -78,6 +80,7 @@ class FlyingFleetHandler extends FlyingFleetMissions
 					$db->query("DELETE FROM ".FLEETS." WHERE `fleet_id` = '". $CurrentFleet['fleet_id'] ."';");
 				break;
 			}
+			$db->query("UPDATE ".FLEETS." SET `fleet_busy` = 0 WHERE `fleet_id` = '".$CurrentFleet['fleet_id']."';");
 		}
 	}
 }
