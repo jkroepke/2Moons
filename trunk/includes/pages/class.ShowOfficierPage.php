@@ -92,13 +92,11 @@ class ShowOfficierPage
 		$Offi	  = request_var('offi', 0);
 		$Extra	  = request_var('extra', 0);
 		
-		$query = $db->fetch_array($db->query("SELECT estado FROM ".MODULE." WHERE modulo='DM-Bank';"));
-				
 		if ($action == "send")
 		{
-			if(!empty($Offi))
+			if(!empty($Offi) && !CheckModule(8))
 				$this->UpdateOfficier($CurrentUser, $Offi);
-			elseif(!empty($Extra) && $query['estado'] == 1)
+			elseif(!empty($Extra) && !CheckModule(18))
 				$this->UpdateExtra($CurrentUser, $Extra);		
 		}
 		
@@ -115,7 +113,7 @@ class ShowOfficierPage
 		$template->page_footer();
 		
 
-		if($query['estado'] == 1) 
+		if(!CheckModule(8)) 
 		{
 			foreach($reslist['dmfunc'] as $Element)
 			{
@@ -131,20 +129,23 @@ class ShowOfficierPage
 			}
 		}
 		
-		foreach($reslist['officier'] as $Element)
+		if(!CheckModule(18))
 		{
-			if (($Result = $this->IsOfficierAccessible ($CurrentUser, $Element)) !== 0)
+			foreach($reslist['officier'] as $Element)
 			{
-				$OfficierList[]	= array(
-					'id' 	 	=> $Element,
-					'level'  	=> $CurrentUser[$resource[$Element]],
-					'name'		=> $lang['tech'][$Element],
-					'desc'  	=> $lang['res']['descriptions'][$Element],	
-					'Result'	=> $Result,
-				);
+				if (($Result = $this->IsOfficierAccessible ($CurrentUser, $Element)) !== 0)
+				{
+					$OfficierList[]	= array(
+						'id' 	 	=> $Element,
+						'level'  	=> $CurrentUser[$resource[$Element]],
+						'name'		=> $lang['tech'][$Element],
+						'desc'  	=> $lang['res']['descriptions'][$Element],	
+						'Result'	=> $Result,
+					);
+				}
 			}
 		}
-
+		
 		$template->assign_vars(array(	
 			'ExtraDMList'			=> $ExtraDMList,
 			'OfficierList'			=> $OfficierList,
