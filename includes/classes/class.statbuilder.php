@@ -19,7 +19,7 @@ class statbuilder{
 	private function SomeStatsInfos()
 	{
 		$result['stats_time']		= $this->time;
-		$result['totaltime']    	= round(microtime(true) - $this->starttime);
+		$result['totaltime']    	= round(microtime(true) - $this->starttime, 7);
 		$result['memory_peak']		= array(round(memory_get_peak_usage() / 1024,1),round(memory_get_peak_usage(1) / 1024,1));
 		$result['initial_memory']	= $this->memory;
 		$result['end_memory']		= array(round(memory_get_usage() / 1024,1),round(memory_get_usage(1) / 1024,1));
@@ -43,13 +43,14 @@ class statbuilder{
 	
 	private function DeleteSome()
 	{
-		$this->db->query("LOCK TABLES ".ALLIANCE." WRITE, ".CHAT." WRITE, ".CONFIG." WRITE, ".FLEETS." WRITE, ".MESSAGES." WRITE, ".PLANETS." WRITE, ".RW." WRITE, ".SUPP." WRITE, ".STATPOINTS." WRITE, ".USERS." WRITE;");
+		$this->db->query("LOCK TABLES ".ALLIANCE." WRITE, ".CHAT." WRITE, ".CONFIG." WRITE, ".FLEETS." WRITE, ".MESSAGES." WRITE, ".PLANETS." WRITE, ".RW." WRITE, ".SUPP." WRITE, ".STATPOINTS." WRITE, ".TOPKB." WRITE, ".USERS." WRITE;");
 	
 		//Delete old messages
 		$del_before 	= time() - (60 * 60 * 24 * 3); // 3 DAY
 		$del_inactive 	= time() - (60 * 60 * 24 * 30); // 1 MONTH
 		$del_deleted 	= time() - (60 * 60 * 24 * 7); // 1 WEEK
-		$this->db->multi_query("DELETE FROM `".MESSAGES."` WHERE `message_time` < '". $del_before ."';DELETE FROM `".RW."` WHERE `time` < '". $del_before ."';DELETE FROM ".SUPP." WHERE `time` < '".$del_before."' AND `status` = 0;DELETE FROM ".CHAT." WHERE `timestamp` < '".$del_before."';DELETE FROM ".ALLIANCE." WHERE `ally_members` = '0';DELETE FROM ".PLANETS." WHERE `destruyed` < ".time()." AND `destruyed` != 0;");
+		$TopKBLow		= $this->db->fetch_array($this->db->query("SELECT gesamtunits FROM ".TOPKB." ORDER BY gesamtunits DESC LIMIT 99,1"));
+		$this->db->multi_query("DELETE FROM `".MESSAGES."` WHERE `message_time` < '". $del_before ."';DELETE FROM `".RW."` WHERE `time` < '". $del_before ."';DELETE FROM ".SUPP." WHERE `time` < '".$del_before."' AND `status` = 0;DELETE FROM ".CHAT." WHERE `timestamp` < '".$del_before."';DELETE FROM ".ALLIANCE." WHERE `ally_members` = '0';DELETE FROM ".PLANETS." WHERE `destruyed` < ".time()." AND `destruyed` != 0;DELETE FROM ".TOPKB." WHERE `gesamtunits` < '".((isset($TopKBLow)) ? $TopKBLow['gesamtunits'] : 0)."';");
 
 		$ChooseToDelete = $this->db->query("SELECT `id` FROM `".USERS."` WHERE ((`db_deaktjava` < '".$del_deleted."' AND `db_deaktjava` <> 0) OR `onlinetime` < '".$del_inactive."') AND `authlevel` = '0';");
 		
@@ -66,7 +67,7 @@ class statbuilder{
 
 	private function RebuildRecordCache() 
 	{
-		$array		= "";
+		$array	= "";
 		foreach(array_merge($this->reslist['build'], $this->reslist['tech'], $this->reslist['fleet'], $this->reslist['defense']) as $ElementID) {
 			$array	.= $ElementID." => array('username' => '".$this->maxinfos[$ElementID]['username']."', 'maxlvl' => '".$this->maxinfos[$ElementID]['maxlvl']."'),\n";
 		}
