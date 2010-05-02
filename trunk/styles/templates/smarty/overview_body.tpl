@@ -72,12 +72,15 @@
             <th>{$ov_points}</th>
             <th colspan="3">{$user_rank}</th>
         </tr>
+		{if !CheckModule(37)}
 		<tr>
 			<td class="c" colspan="4">{$ov_userbanner}</td>
 		</tr>
 		<tr>
-			<th colspan="4"><img src="userpic.php?id={$userid}" alt="" height="80" width="450"><br><br><table><tr><td>HTML:</td><td><input type="text" value='<a href="http://{$smarty.server.SERVER_NAME}/"><img src="http://{$smarty.server.SERVER_NAME}/userpic.php?id={$userid}"></a>' readonly style="width:450px;"></td></tr><tr><td>BBCode:</td><td><input type="text" value="[url='http://{$smarty.server.SERVER_NAME}/'][img]http://{$smarty.server.SERVER_NAME}/userpic.php?id={$userid}[/img][/url]" readonly style="width:450px;"></td></tr></table></th></tr>
-    </table>
+			<th colspan="4"><img src="userpic.php?id={$userid}" alt="" height="80" width="450"><br><br><table><tr><td>HTML:</td><td><input type="text" value='<a href="http://{$smarty.server.SERVER_NAME}/"><img src="http://{$smarty.server.SERVER_NAME}/userpic.php?id={$userid}"></a>' readonly style="width:450px;"></td></tr><tr><td>BBCode:</td><td><input type="text" value="[url='http://{$smarty.server.SERVER_NAME}/'][img]http://{$smarty.server.SERVER_NAME}/userpic.php?id={$userid}[/img][/url]" readonly style="width:450px;"></td></tr></table></th>
+		</tr>
+		{/if}
+   </table>
 	<script type="text/javascript">
 	Servertime(ctimestamp);
 	</script>

@@ -55,12 +55,17 @@ function ValidateAddress($address) {
 
 function message ($mes, $dest = "", $time = "3", $topnav = false, $menu = true)
 {
-	$parse['mes']   = $mes;
+	if(defined('IN_ADMIN') || (defined('INSTALL') && INSTALL != false)) {
+		$parse['mes']   = $mes;
 
-	$page = parsetemplate(gettemplate('global/message_body'), $parse);
+		$page = parsetemplate(gettemplate('global/message_body'), $parse);
 
-	display ($page, $topnav, (($dest != "") ? "<meta http-equiv=\"refresh\" content=\"$time;URL=$dest\">" : ""), (defined('IN_ADMIN') ? true : false), (!defined('IN_ADMIN') ? $menu : false));
-
+		display ($page, $topnav, (($dest != "") ? "<meta http-equiv=\"refresh\" content=\"$time;URL=$dest\">" : ""), true, (!defined('IN_ADMIN')? $menu : false));
+	} else {
+		require_once(ROOT_PATH . 'includes/classes/class.template.'.PHP_EXT);
+		$template = new template();
+		$template->message($mes, $dest, $time, !$topnav);
+	}
 	exit;
 }
 
@@ -454,9 +459,8 @@ function MailSend($MailTarget, $MailTargetName, $MailSubject, $MailContent)
 		$mail->Port       = $game_config['smtp_port'];
 		$mail->Username   = $game_config['smtp_user'];
 		$mail->Password   = $game_config['smtp_pass'];
-		$mail->SetFrom(ADMINEMAIL, $game_config['game_name']);
+		$mail->SetFrom($game_config['smtp_sendmail'], $game_config['game_name']);
 		$mail->AddAddress($MailTarget, $MailTargetName);
-		$mail->AddReplyTo(ADMINEMAIL, $game_config['game_name']);
 		$mail->Subject    = $MailSubject;
 		$mail->AltBody    = strip_tags($MailContent);
 		$mail->MsgHTML(makebr($MailContent));
@@ -589,6 +593,11 @@ function shortly_number($number)
 
 function floattostring($Numeric, $Pro = 0, $Output = false){
 	return ($Output) ? str_replace(",",".", sprintf("%.".$Pro."f", $Numeric)) : sprintf("%.".$Pro."f", $Numeric);
+}
+
+function CheckModule($ID)
+{
+	return ($GLOBALS['user']['authlevel'] == 0 && $GLOBALS['game_config']['moduls'][$ID] == 0) ? true : false;
 }
 
 ?>

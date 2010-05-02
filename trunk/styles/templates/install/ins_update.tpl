@@ -21,6 +21,7 @@
 						<th align="center"><input type="radio" name="version" value="5.0b1"></th>
 						<th align="center"><input type="radio" name="version" value="5.0b2"></th>
 						<th align="center"><input type="radio" name="version" value="5.0b3"></th>
+						<th align="center"><input type="radio" name="version" value="5.0b5"></th>
 						<th align="center"><input type="radio" name="version" value="5.0b6"></th>
 					</tr>
                     <tr>

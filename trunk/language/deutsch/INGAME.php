@@ -1000,6 +1000,7 @@ $lang['sys_destruc_mess']        		   	= 'Eine Flotte vom Planeten %s [%d:%d:%d]
 $lang['sys_destruc_echec']       		   	= 'Erdbeben erschüttern den Planeten. Doch etwas geht schief: Die Todessterne explodieren und zerfallen in tausende Einzelteile. <br>Die Druckwelle erreicht die komplette Flotte.';
 $lang['sys_destruc_reussi']      		   	= '<br>Die Strahlen der Todessterne erreichen den Mond und zerfetzen ihn.<br>Der gesamte Mond wurde zerstört.<br> Mission erfolgreich beendet.<br> Die Flotte kehrt nun zurück.';
 $lang['sys_destruc_null']        		   	= 'Die Todessterne können ihre volle Leistung nicht aufBauen und implodieren.<br> Der Mond wird nicht zerstört.';
+$lang['sys_module_inactive']        	 	= 'Modul inaktiv';
 
 //----------------------------------------------------------------------------//
 //class.CheckSession.php

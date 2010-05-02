@@ -68,6 +68,7 @@ if ($database)
 
 unset($database);
 
+
 if (INSTALL != true)
 {
 	if(!is_object($db))
@@ -88,8 +89,10 @@ if (INSTALL != true)
 		$game_config[$row['config_name']] = $row['config_value'];
 	}
 	$db->free_result($cfgresult);
-	define('DEFAULT_LANG'	, ($game_config['lang'] 	== '') ? "deutsch" : $game_config['lang']);
-	define('VERSION'		, ($game_config['VERSION'] == '') ? "" : "RC".$game_config['VERSION']);
+	$game_config['moduls']	= explode(";", $game_config['moduls']);
+
+	define('DEFAULT_LANG'	, (empty($_REQUEST['lang'])) ? ((empty($game_config['lang'])) ? 'deutsch' : $game_config['lang']) : $_REQUEST['lang']);
+	define('VERSION'		, (empty($game_config['VERSION'])) ? '' : "RC".$game_config['VERSION']);
 
 	includeLang('INGAME');
 	@setlocale(LC_ALL, $lang['local_info'][0], $lang['local_info'][1], $lang['local_info'][2]);

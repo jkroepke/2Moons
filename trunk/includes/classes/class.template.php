@@ -310,7 +310,7 @@ class template extends Smarty
 			$this->footer();
 
 		$this->assign_vars(array(
-			'sql_num'	=> ((!defined('INSTALL') || !defined('IN_ADMIN')) && $this->player['authlevel'] == 3 && $this->GameConfig['debug'] == 1) ? "<center><div id=\"footer\">SQL Abfragen:".(1 + $this->db->get_sql())." - Seiten generiert in ".round(microtime(true) - STARTTIME, 4)." Sekunden</div></center>" : "",
+			'sql_num'	=> ((!defined('INSTALL') || !defined('IN_ADMIN')) && $this->player['authlevel'] == 3 && $this->GameConfig['debug'] == 1) ? "<center><div id=\"footer\">SQL Abfragen:".(1 + $this->db->get_sql())." (".round($this->db->time, 4)." Sekunden) - Seiten generiert in ".round(microtime(true) - STARTTIME, 4)." Sekunden</div></center>" : "",
 		));
 		$this->display($file);
 	}
@@ -325,6 +325,14 @@ class template extends Smarty
 	
 	public function message($mes, $dest = false, $time = 3, $Fatal = false)
 	{
+		$this->page_header();
+		if(!$Fatal){
+			$this->page_topnav();
+			$this->page_leftmenu();
+			$this->page_planetmenu();
+		}
+		$this->page_footer();
+
 		$this->assign_vars(array(
 			'mes'		=> $mes,
 			'fcm_info'	=> $this->lang['fcm_info'],

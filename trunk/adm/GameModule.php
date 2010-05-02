@@ -32,23 +32,22 @@ include(ROOT_PATH . 'common.' . PHP_EXT);
 if ($ConfigGame != 1) die();
 
 if($_GET['mode']) {
-
-	$db->query("UPDATE ".MODULE." SET estado = '".(($_GET['mode'] == "aktiv") ? 1 : 0 )."' WHERE id = '".$db->sql_escape($_GET['id'])."';");
+	$game_config['moduls'][request_var('id', 0)]	= ($_GET['mode'] == 'aktiv') ? 1 : 0;
+	update_config('moduls', implode(";", $game_config['moduls']));
 }
 
-$consulta = $db->query("SELECT id,modulo,estado FROM ".MODULE." ORDER BY modulo ASC");
-while ($resultado = $db->fetch_array($consulta)) { 
-    if($resultado['estado'] == "1") {
+foreach($lang['modul'] as $ID => $Name) { 
+	if($game_config['moduls'][$ID] == 1) {
 		$parse['modulos'] .= "<tr>";
-		$parse['modulos'] .= "<th>".$resultado['modulo']."</th>";
-		$parse['modulos'] .= "<th class=\"c\" style=\"color:green\"><b>AKTIV</b></th>";
-		$parse['modulos'] .= "<th class=\"c\" width=\"20px\"><a href=\"?mode=deaktiv&amp;id=".$resultado['id']."\">Deaktivieren</a></th>";
+		$parse['modulos'] .= "<th>".$Name."</th>";
+		$parse['modulos'] .= "<th style=\"color:green\"><b>".$lang['ative']."</b></th>";
+		$parse['modulos'] .= "<th><a href=\"?mode=deaktiv&amp;id=".$ID."\">Deaktivieren</a></th>";
 		$parse['modulos'] .= "</tr>";
     } else {
 		$parse['modulos'] .= "<tr>";
-		$parse['modulos'] .= "<th>".$resultado['modulo']."</th>";
-		$parse['modulos'] .= "<th class=\"c\" style=\"color:red\"><b>NICHT AKTIV</b></th>";
-		$parse['modulos'] .= "<th class=\"c\" width=\"20px\"><a href=\"?mode=aktiv&amp;id=".$resultado['id']."\">Aktivieren</a></th>";
+		$parse['modulos'] .= "<th>".$Name."</th>";
+		$parse['modulos'] .= "<th style=\"color:red\"><b>".$lang['deative']."</b></th>";
+		$parse['modulos'] .= "<th><a href=\"?mode=aktiv&amp;id=".$ID."\">Aktivieren</a></th>";
 		$parse['modulos'] .= "</tr>";
     }
 }

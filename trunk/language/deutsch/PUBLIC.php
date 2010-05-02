@@ -97,6 +97,7 @@ $lang['captcha_help']				= 'Hilfe';
 $lang['captcha_get_image']			= 'Lade Bild-CAPTCHA';
 $lang['captcha_reload']				= 'Neues CAPTCHA';
 $lang['captcha_get_audio']			= 'Lade Sound-CAPTCHA';
+$lang['user_active']				= 'User %s wurde aktiviert!';
 
 //registry_closed.tpl
 $lang['info']						= 'Informationen';

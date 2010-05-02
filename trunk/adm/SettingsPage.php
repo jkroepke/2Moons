@@ -229,6 +229,10 @@ function DisplayGameSettingsPage ( $CurrentUser )
 			$game_config['smtp_user'] = $_POST['smtp_user'];
 		}
 		
+		if (isset($_POST['smtp_sendmail'])) {
+			$game_config['smtp_sendmail'] = $_POST['smtp_sendmail'];
+		}
+		
 		if (isset($_POST['smtp_pass'])) {
 			$game_config['smtp_pass'] = $_POST['smtp_pass'];
 		}		
@@ -283,6 +287,7 @@ function DisplayGameSettingsPage ( $CurrentUser )
 		update_config('smtp_user'				, $game_config['smtp_user']              );
 		update_config('smtp_pass'				, $game_config['smtp_pass']	             );
 		update_config('smtp_ssl'				, $game_config['smtp_ssl']	             );
+		update_config('smtp_sendmail'			, $game_config['smtp_sendmail']	         );
 		update_config('user_valid'				, $game_config['user_valid']             );
 		update_config('ftp_server'				, $game_config['ftp_server']             );
 		update_config('ftp_user_name'			, $game_config['ftp_user_name']          );
@@ -319,6 +324,7 @@ function DisplayGameSettingsPage ( $CurrentUser )
 		$parse['smtp_port'] 				= $game_config['smtp_port'];
 		$parse['smtp_user'] 				= $game_config['smtp_user'];
 		$parse['smtp_pass'] 				= $game_config['smtp_pass'];
+		$parse['smtp_sendmail'] 			= $game_config['smtp_sendmail'];
 		$parse['smtp_ssl0']					= ($game_config['smtp_ssl'] == "")	 ? "selected" : "";
 		$parse['smtp_ssl1']					= ($game_config['smtp_ssl'] == "ssl")? "selected" : "";
 		$parse['smtp_ssl2']					= ($game_config['smtp_ssl'] == "tls")? "selected" : "";
