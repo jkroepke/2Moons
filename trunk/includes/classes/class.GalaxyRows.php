@@ -34,20 +34,6 @@ class GalaxyRows
 		return ($PhalanxLevel == 1) ? 1 : pow($PhalanxLevel, 2) - 1;
 	}
 
-	public function CheckAbandonMoonState($lunarow)
-	{
-		global $db;
-		if (($lunarow['destruyed'] + 172800) <= time() && $lunarow['destruyed'] != 0)
-			$db->query("DELETE FROM ".PLANETS." WHERE id = '" . $lunarow['id'] . "';");
-	}
-
-	public function CheckAbandonPlanetState(&$planet)
-	{
-		global $db;
-		if ($planet['destruyed'] <= time())
-			$db->query("DELETE FROM ".PLANETS." WHERE `id` = ".$planet['id'].";");
-	}
-
 	public function GalaxyRowActions($GalaxyRowPlanet, $CurrentGalaxy, $CurrentSystem, $CurrentMIP)
 	{
 		global $user, $dpath, $lang;
