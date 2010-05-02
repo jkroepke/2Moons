@@ -180,7 +180,7 @@ function includeLang ($filename, $ext = '.php')
 {
 	global $lang;
 
-	include_once(ROOT_PATH . "language/". DEFAULT_LANG ."/". $filename.$ext);
+	include_once(ROOT_PATH . "language/".DEFAULT_LANG."/".$filename.$ext);
 }
 
 function GetStartAdressLink ( $FleetRow, $FleetType )
