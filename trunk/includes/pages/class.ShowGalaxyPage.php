@@ -51,35 +51,31 @@ class ShowGalaxyPage extends GalaxyRows
 			
 			if ($GalaxyRowPlanet['destruyed'] != 0)
 			{
-				$this->CheckAbandonPlanetState($GalaxyRowPlanet);
 				$Result[$Planet]	= $lang['gl_planet_destroyed'];
+				continue;
 			}
-			else
-			{
-				$Result[$Planet]['user']		= $this->GalaxyRowUser($GalaxyRowPlanet, $UserPoints);
-				$Result[$Planet]['planet']		= $this->GalaxyRowPlanet($GalaxyRowPlanet, $HavePhalanx, $CurrentGalaxy, $CurrentSystem, $CurrentMIP);
-				$Result[$Planet]['planetname']	= $this->GalaxyRowPlanetName ($GalaxyRowPlanet, $HavePhalanx, $CurrentGalaxy, $CurrentSystem);
+			
+			$Result[$Planet]['user']		= $this->GalaxyRowUser($GalaxyRowPlanet, $UserPoints);
+			$Result[$Planet]['planet']		= $this->GalaxyRowPlanet($GalaxyRowPlanet, $HavePhalanx, $CurrentGalaxy, $CurrentSystem, $CurrentMIP);
+			$Result[$Planet]['planetname']	= $this->GalaxyRowPlanetName ($GalaxyRowPlanet, $HavePhalanx, $CurrentGalaxy, $CurrentSystem);
 								
-				if ($GalaxyRowPlanet['userid'] != $user['id'])
-					$Result[$Planet]['action']	= $this->GalaxyRowActions($GalaxyRowPlanet, $CurrentGalaxy, $CurrentSystem, $CurrentMIP);
+			if ($GalaxyRowPlanet['userid'] != $user['id'])
+				$Result[$Planet]['action']	= $this->GalaxyRowActions($GalaxyRowPlanet, $CurrentGalaxy, $CurrentSystem, $CurrentMIP);
 				
-				if ($GalaxyRowPlanet['ally_id'] != 0)
-					$Result[$Planet]['ally']	= $this->GalaxyRowAlly($GalaxyRowPlanet);
+			if ($GalaxyRowPlanet['ally_id'] != 0)
+				$Result[$Planet]['ally']	= $this->GalaxyRowAlly($GalaxyRowPlanet);
 				
-				if ($GalaxyRowPlanet["der_metal"] > 0 || $GalaxyRowPlanet["der_crystal"] > 0)
-					$Result[$Planet]['derbis']	= $this->GalaxyRowDebris($GalaxyRowPlanet, $CurrentRC, $CurrentGRC);
+			if ($GalaxyRowPlanet["der_metal"] > 0 || $GalaxyRowPlanet["der_crystal"] > 0)
+				$Result[$Planet]['derbis']	= $this->GalaxyRowDebris($GalaxyRowPlanet, $CurrentRC, $CurrentGRC);
 					
-				if ($GalaxyRowPlanet['id_luna'] != 0)
-				{
-					$GalaxyRowMoon   = $db->fetch_array($db->query("SELECT destruyed,id,diameter,name,temp_min FROM ".PLANETS." WHERE `id` = '". $GalaxyRowPlanet["id_luna"] ."' AND planet_type='3';"));
+			if ($GalaxyRowPlanet['id_luna'] != 0)
+			{
+				$GalaxyRowMoon   = $db->fetch_array($db->query("SELECT destruyed,id,diameter,name,temp_min FROM ".PLANETS." WHERE `id` = '". $GalaxyRowPlanet["id_luna"] ."' AND planet_type='3';"));
 
-					if ($GalaxyRowMoon["destruyed"] != 0)
-						$this->CheckAbandonMoonState($GalaxyRowMoon);
-					else
-						$Result[$Planet]['moon']	= $this->GalaxyRowMoon($GalaxyRowPlayer, $GalaxyRowMoon, $CanDestroy);
-				}
-				$planetcount++;
+				if ($GalaxyRowMoon["destruyed"] == 0)
+					$Result[$Planet]['moon']	= $this->GalaxyRowMoon($GalaxyRowPlayer, $GalaxyRowMoon, $CanDestroy);
 			}
+			$planetcount++;
 		}
 		return array('Result' => $Result, 'planetcount' => $planetcount);
 	}
