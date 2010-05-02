@@ -48,6 +48,7 @@
     </table>
 	<br><br>
 	{/if}
+	{if $OfficierList}
     <table width="80%" align="center">
     <tr>
         <td class="c" colspan="3">{$of_available_points} {$user_darkmatter} {$of_darkmatter}</td>
@@ -87,6 +88,7 @@
 		</tr>
 	{/foreach}
     </table>
+	{/if}
 </div>
 {include file="planet_menu.tpl"}
 {include file="overall_footer.tpl"}
