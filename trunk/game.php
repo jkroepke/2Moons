@@ -299,6 +299,8 @@ switch($page)
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'overview':
 	default:
+		if (isset($run_plug)) exit;
+
 		include_once(ROOT_PATH . 'includes/pages/ShowOverviewPage.' . PHP_EXT);
 		ShowOverviewPage($user, $planetrow);
 	break;
