@@ -141,7 +141,7 @@ function ShowStatisticsPage($CurrentUser, $CurrentPlanet)
 					'id'		=> $StatRow['id'],
 					'name'		=> $StatRow['ally_name'],
 					'members'	=> $StatRow['ally_members'],
-					'rank'		=> $StatRow[$Rank],
+					'rank'		=> $StatRow[$Rank] + 1,
 					'mppoints'	=> pretty_number(floor($StatRow[$Points] / $StatRow['ally_members'])),
 					'points'	=> pretty_number($StatRow[$Points]),
 					'ranking'	=> $StatRow[$OldRank] - $StatRow[$Rank],

@@ -27,7 +27,7 @@ class ShowAlliancePage
 	{
 		global $db;
 		$Return	= array();
-		$Diplos	= $db->query("SELECT d.level, d.accept, d.accept_text, d.id, a.id as ally_id, a.ally_name, d.owner_1, d.owner_2 FROM ".DIPLO." as d INNER JOIN ".ALLIANCE." as a ON IF('".$allyid."' = d.owner_1, a.id = d.owner_2, a.id = d.owner_1)");
+		$Diplos	= $db->query("SELECT d.level, d.accept, d.accept_text, d.id, a.id as ally_id, a.ally_name, d.owner_1, d.owner_2 FROM ".DIPLO." as d INNER JOIN ".ALLIANCE." as a ON IF('".$allyid."' = d.owner_1, a.id = d.owner_2, a.id = d.owner_1) WHERE '".$allyid."' = d.owner_1 OR '".$allyid."' = d.owner_2");
 		while($CurDiplo = $db->fetch_array($Diplos))
 		{
 			if($CurDiplo['accept'] == 0 && $CurDiplo['owner_2'] == $allyid)
