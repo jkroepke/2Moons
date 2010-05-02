@@ -37,7 +37,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 				$Level               = $ListIDArray[1];
 				$BuildEndTime        = $ListIDArray[3];
 				$BuildMode           = $ListIDArray[4];
-				$ForDestroy 		 = ($BuildMode == 'destroy') ? ture : false;
+				$ForDestroy 		 = ($BuildMode == 'destroy') ? true : false;
 
 				$HaveNoMoreLevel     = false;
 								
