@@ -39,7 +39,6 @@ th
   font-size: 10px;
   font-family: Tahoma,sans-serif;
   border:1px #415680 solid;
-  padding-left:5px;
 }
 
 th.s
@@ -233,4 +232,19 @@ td.p
   	_moz-opacity: 0.0;
   	_khtml-opacity: 0.0;
   	opacity: 0.0;
+}
+
+select, textarea, input, button{
+	border: 1px solid #415680;
+	color: #E6EBFB;
+	font-size:11px;
+	font-family:Tahoma,sans-serif;
+	background : #0A123B;
+}
+
+.yes{
+	color:green;
+}
+.no{
+	color:red;
 }

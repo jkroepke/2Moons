@@ -137,6 +137,10 @@
 	<th>{se_smtp_pass}</th>
 	<th><input name="smtp_pass" size="20" value="{smtp_pass}" type="password" autocomplete="off"></th>
 </tr><tr>
+	<th>{se_smtp_sendmail}</th>
+	<th><input name="smtp_sendmail" size="20" value="{smtp_sendmail}" type="text" autocomplete="off"></th>
+	<th><img src="../styles/images/Adm/i.gif" onMouseOver='return overlib("{se_smtp_sendmail_info}", CENTER, OFFSETX, -150, OFFSETY, -20, WIDTH, 250);' onMouseOut='return nd();'></th>
+</tr><tr>
 	<td class="c" colspan="2">{se_ftp}</td>
 	<td class="c"><img src="../styles/images/Adm/i.gif" onMouseOver='return overlib("{se_ftp_info}", CENTER, OFFSETX, -150, OFFSETY, -20, WIDTH, 250);' onMouseOut='return nd();'></td>
 </tr><tr>

@@ -55,6 +55,7 @@ class DB_mysqli
 		$this->pw 		= $pw;
 		$this->database = $db;
 		$this->port 	= $port;
+		$this->time		= 0;
 	}
 	
 	/**
@@ -102,6 +103,7 @@ class DB_mysqli
 			$temp = debug_backtrace();
 			file_put_contents(ROOT_PATH."adm/logs/querylog_".date("d.m.y").".log", date("H:i:s")." ".$temp[0]['file']." on ".$temp[0]['line']." ".$sql."\n", FILE_APPEND);
 		}
+		$Timer	= microtime(true);
 		if($result = $this->mysqli->query($sql))
 		{
 			$this->queryCount++;
@@ -113,6 +115,7 @@ class DB_mysqli
 			echo str_replace($_SERVER["DOCUMENT_ROOT"],'.',$temp[0]['file']) . " on " . $temp[0]['line'] . ":<br>";
 			echo ("<center><table style=\"z-index:1001;width:80%\"><tr><th align=\"center\">SQL Error (".$this->mysqli->error."): ".$this->error."<br /><br />Query Code: ".$sql."</th></tr></table></center>");
 		}
+		$this->time	+= (microtime(true) - $Timer);
 		return;
 		
 	}
@@ -321,6 +324,7 @@ class DB_mysqli
 			file_put_contents(ROOT_PATH."adm/logs/querylog_".date("d.m.y").".log", date("H:i:s")." ".$temp[0]['file']." on ".$temp[0]['line']." ".str_replace("\n","",$resource)."\n", FILE_APPEND);
 		}
 		
+		$Timer	= microtime(true);
 		if($this->mysqli->multi_query($resource))
 		{
 			if ($clear_result_cache) {
@@ -340,8 +344,9 @@ class DB_mysqli
 		{
             $temp = debug_backtrace();
 			echo str_replace($_SERVER["DOCUMENT_ROOT"],'.',$temp[0]['file']) . " on " . $temp[0]['line'] . ":<br>";
-			echo ("<center><table style=\"z-index:1001;width:80%\"><tr><th align=\"center\">SQL Error (".$this->mysqli->error."): ".$this->error."<br /><br />Query Code: ".$sql."</th></tr></table></center>");
+			echo ("<center><table style=\"z-index:1001;width:80%\"><tr><th align=\"center\">SQL Error (".$this->mysqli->error."): ".$this->error."<br /><br />Query Code: ".$resource."</th></tr></table></center>");
 		}
+		$this->time	+= (microtime(true) - $Timer);
 	}
 	
 	public function get_sql()

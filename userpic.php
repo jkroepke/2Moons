@@ -32,20 +32,19 @@ include(ROOT_PATH . 'common.'.PHP_EXT);
 
 $id = request_var('id', 0);
 
-if($id == 0) exit();
+if(CheckModule(37) || $id == 0) exit();
 
 includeLang('INGAME');
 
 require_once(ROOT_PATH."includes/classes/class.StatBanner.php");
+
+$banner = new StatBanner();
+$banner->ShowStatBanner($id);
 
 if(!isset($_GET['debug'])) {
 	header('Expires: '.gmdate('D, d M Y H:i:s', time() + 7200)).' GMT';
 	header("Cache-Control: max-age=7200, private");
 	header("Content-type: image/png"); 
 }
-
-$banner = new StatBanner();
-
-$banner->ShowStatBanner($id);
 
 ?>

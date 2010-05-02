@@ -28,63 +28,78 @@ define('ROOT_PATH', './../');
 include(ROOT_PATH . 'extension.inc');
 include(ROOT_PATH . 'common.'.PHP_EXT);
 include_once('databaseinfos.'.PHP_EXT);
-
+define('DEFAULT_LANG'	, (empty($_REQUEST['lang'])) ? 'deutsch' : $_REQUEST['lang']);
+includeLang('INSTALL');
 $Mode     = $_GET['mode'];
 $Page     = $_GET['page'];
 $phpself  = $_SERVER['PHP_SELF'];
 $nextpage = $Page + 1;
-
-	
+$parse = $lang;
+$parse['lang']	= 'lang='.DEFAULT_LANG;	
 if (empty($Mode)) { $Mode = 'intro'; }
 if (empty($Page)) { $Page = 1;       }
 
+		
 switch ($Mode) {
 	case'license':
 		$frame  = parsetemplate(gettemplate('install/ins_license'), false);
 	break;
 	case 'intro':
-		$frame  = parsetemplate(gettemplate('install/ins_intro'), false);
+		$LangFolder = opendir(ROOT_PATH.'language');
+		while (($LangSubFolder = readdir($LangFolder)) !== false)
+		{
+			if($LangSubFolder == '.' || $LangSubFolder == '..' || $LangSubFolder == '.htaccess' || $LangSubFolder == '.svn')
+				continue;
+			
+			$parse['language_settings'] .= "<option ";
+
+			if(DEFAULT_LANG == $LangSubFolder)
+				$parse['language_settings'] .= "selected = selected";
+
+				$parse['language_settings'] .= " value=\"".$LangSubFolder."\">".ucwords($LangSubFolder)."</option>";
+		}
+		$frame  = parsetemplate(gettemplate('install/ins_intro'), $parse);
 	break;
 	case 'req':
 		$error = 0;
-		if(version_compare(PHP_VERSION, "5.2.6", ">=")){
-			if(version_compare(PHP_VERSION, "5.3.0", ">="))
-				$parse['PHP'] = "<span class=\"yes\">Ja, ".PHP_VERSION."</span>";
-			else
-				$parse['PHP'] = "<span class=\"yellow\">Ja, ".PHP_VERSION."<br>Bitte bringe deine PHP Version in n&auml;chster Zeit auf 5.3.0+</span>";
+		if(version_compare(PHP_VERSION, "5.2.5", ">=")){
+			$parse['PHP'] = "<span class=\"yes\">".$lang['reg_yes'].", ".PHP_VERSION."</span>";
 		} else {
-			$parse['PHP'] = "<span class=\"no\">Nein, ".PHP_VERSION."</span>";
+			$parse['PHP'] = "<span class=\"no\">".$lang['reg_no'].", ".PHP_VERSION."</span>";
 			$error++;	
 		}
 		if(@ini_get('safe_mode') == 0){
-			$parse['safemode'] = "<span class=\"yes\">Nicht aktiv</span>";
+			$parse['safemode'] = "<span class=\"yes\">".$lang['reg_yes']."</span>";
 		} else {
-			$parse['safemode'] = "<span class=\"no\">Aktiv</span>";
-			$parse['done'] = "<tr><th colspan=\"2\">Safemode muss f&uuml;r XNova ausgeschaltet sein!</th></tr>";
+			$parse['safemode'] = "<span class=\"no\">".$lang['reg_no']."</span>";
 			$error++;
 		}
 		if(!extension_loaded('mysqli')){
-			$parse['mysqli'] = "<span class=\"no\">Nicht vorhanden</span>";
+			$parse['mysqli'] = "<span class=\"no\">".$lang['reg_no']."</span>";
 			$error++;
 		} else {
-			$parse['mysqli'] = "<span class=\"yes\">Vorhanden</span>";
+			$parse['mysqli'] = "<span class=\"yes\">".$lang['reg_yes']."</span>";
 		}
-		if(!ini_get('display_errors')){
-			$parse['error'] = "<span class=\"yellow\">Aus - Bitte &auml;ndern</span>";
+		if(!extension_loaded('gd')){
+			$parse['error'] = "<span class=\"no\">".$lang['reg_no']."</span>";
 		} else {
-			$parse['error'] = "<span class=\"yes\">Aktiv</span>";
+			$Info	= gd_info();
+			if(!$Info['PNG Support'])
+				$parse['gdlib'] = "<span class=\"no\">".$lang['reg_no']."</span>";
+			else
+				$parse['gdlib'] = "<span class=\"yes\">".$lang['reg_yes'].", ".$Info['GD Version']."</span>";
 		}
-		if(($res = @fopen(ROOT_PATH."config.php","w+") === true) || file_exists(ROOT_PATH."config.php")){
+		if(file_exists(ROOT_PATH."config.php") || ($res = @fopen(ROOT_PATH."config.php","w+") === true)){
 			if(is_writable(ROOT_PATH."config.php") || @chmod(ROOT_PATH."config.php", 0777)){
-					$chmod = "<span class=\"yes\"> - Beschreibbar</span>";
+					$chmod = "<span class=\"yes\"> - ".$lang['reg_writable']."</span>";
 				} else {
-					$chmod = " - <span class=\"no\">Nicht beschreibbar</span>";
+					$chmod = " - <span class=\"no\">".$lang['reg_not_writable']."</span>";
 					$error++;
 				}
-			$parse['config'] = "<tr><th>Datei - config.php</th></th><th><span class=\"yes\">Gefunden</span>".$chmod."</th></tr>";		
+			$parse['config'] = "<tr><th>".$lang['reg_file']." - config.php</th></th><th><span class=\"yes\">".$lang['reg_found']."</span>".$chmod."</th></tr>";		
 			@fclose($res);
 		} else {
-			$parse['config'] = "<tr><th>Datei - config.php</th></th><th><span class=\"no\">Nicht Gefunden</span>";
+			$parse['config'] = "<tr><th>".$lang['reg_file']." - config.php</th></th><th><span class=\"no\">".$lang['reg_not_found']."</span>";
 			$error++;
 		}
 		$directories = array('adm/logs/', 'cache/', 'cache/UserBanner/');
@@ -93,35 +108,28 @@ switch ($Mode) {
 		{
 			if(is_dir(ROOT_PATH . $dir) ||  @mkdir(ROOT_PATH . $dir, 0777)){
 				if(is_writable(ROOT_PATH . $dir) || @chmod(ROOT_PATH . $dir, 0777)){
-						$chmod = "<span class=\"yes\"> - Beschreibbar</span>";
+						$chmod = "<span class=\"yes\"> - ".$lang['reg_writable']."</span>";
 					} else {
-						$chmod = " - <span class=\"no\">Nicht beschreibbar</span>";
+						$chmod = " - <span class=\"no\">".$lang['reg_not_writable']."</span>";
 						$error++;
 					}
-				$dirs .= "<tr><th>Ordner - ".$dir."</th></th><th><span class=\"yes\">Gefunden</span>".$chmod."</th></tr>";
+				$dirs .= "<tr><th>".$lang['reg_dir']." - ".$dir."</th></th><th><span class=\"yes\">".$lang['reg_found']."</span>".$chmod."</th></tr>";
 				
 			} else {
-				$dirs .= "<tr><th>Ordner - ".$dir."</th></th><th><span class=\"no\">Nicht Gefunden</span>";
+				$dirs .= "<tr><th>".$lang['reg_dir']." - ".$dir."</th></th><th><span class=\"no\">".$lang['reg_not_found']."</span>";
 				$error++;
 			}
 		}
 		
 		if($error == 0){
-			$parse['done'] = "<tr><th colspan=\"2\"><a href=\"index.php?mode=ins&page=1\">Weiter</a></th></tr>";
+			$parse['done'] = "<tr><th colspan=\"2\"><a href=\"index.php?mode=ins&page=1&amp;".$parse['lang']."\">".$lang['continue']."</a></th></tr>";
 		}
 		$parse['dir'] = $dirs;
 		$frame = parsetemplate(gettemplate('install/ins_req'), $parse);
 	break;
 	case 'ins':
 		if ($Page == 1) {
-			if ($_GET['error'] == 1) {
-				message ("Keiner Verbindung der Datenbank","?mode=ins&page=1", 3, false, false);
-			}
-			elseif ($_GET['error'] == 2) {
-				message ("config.php wurde nicht auf CHMOD 777 eingestellt!","?mode=ins&page=1", 3, false, false);
-			}
-
-			$frame  = parsetemplate(gettemplate('install/ins_form'), false);
+			$frame  = parsetemplate(gettemplate('install/ins_form'), $parse);
 		}
 		elseif ($Page == 2) {
 			$host   = $_POST['host'];
@@ -134,20 +142,21 @@ switch ($Mode) {
 			$connection = new DB_MySQLi($host, $user, $pass, $db, $port);
 
 			if (mysqli_connect_errno()) {
-				header("Location: ?mode=ins&page=1&error=1");
-				exit();
+				message(sprintf($lang['step2_db_con_fail'], mysqli_connect_error()), "?mode=ins&page=1&".$parse['lang'], 3, false, false);exit;
 			}
 
-			$numcookie = mt_rand(1000, 1234567890);
-			$dz = fopen("../config.php", "w");
+			@chmod("../config.php",0777);
+			$dz = @fopen("../config.php", "w");
 			if (!$dz)
 			{
-				header("Location: ?mode=ins&page=1&error=2");
-				exit();
+				message ($lang['step2_conf_op_fail'],"?mode=ins&page=1&".$parse['lang'], 3, false, false);exit;
 			}
 
-			$parse[first]	= "Verbindung zur Datenbank erfolgreich...";
-
+			$parse['first']		= "Verbindung zur Datenbank erfolgreich...";
+			$connection->multi_query(str_replace("prefix_", $prefix, $QryTableAks.$QryTableAlliance.$QryTableBanned.$QryTableBuddy.$QryTableChat.$QryTableConfig.$QryInsertConfig.$QryTableDiplo.$QryTableErrors.$QryTableFleets.$QryTableLoteria.$QryTableMessages.$QryTableNews.$QryTableNotes.$QryTablePlanets.$QryTablePlugins.$QryTableRw.$QryTableStatPoints.$QryTableSupp.$QryTableTopKB.$QryTableUsers.$QryTableUsersTemp)); 
+			$parse['second']	= $lang['step2_db_ok'];
+			
+			$numcookie = mt_rand(1000, 9999999999);
 			fwrite($dz, "<?php \n");
 			fwrite($dz, "if(!defined(\"INSIDE\")){ header(\"location:".ROOT_PATH."\"); } \n\n");
 			fwrite($dz, "//### Database access ###//\n\n");
@@ -163,17 +172,13 @@ switch ($Mode) {
 			fwrite($dz, "?>");
 			fclose($dz);
 			@chmod("../config.php",0444);
-			$parse['second']	= "config.php erfolgreich erstellt...";
-			$connection->multi_query(str_replace("prefix_", $prefix, $QryTableAks.$QryTableAlliance.$QryTableBanned.$QryTableBuddy.$QryTableChat.$QryTableConfig.$QryInsertConfig.$QryTableDiplo.$QryTableErrors.$QryTableFleets.$QryTableLoteria.$QryTableMessages.$QryTableModulos.$QryInsertModulos.$QryTableNews.$QryTableNotes.$QryTablePlanets.$QryTablePlugins.$QryTableRw.$QryTableStatPoints.$QryTableSupp.$QryTableTopKB.$QryTableUsers.$QryTableUsersTemp));
-			$parse['third']	= "Datenbank Tabellen erfolgreich erstellt....";
+			
+			$parse['third']	= "config.php erfolgreich erstellt...";
 			$frame  = parsetemplate(gettemplate('install/ins_form_done'), $parse);
 		}
 		elseif ($Page == 3)
 		{
-			if ($_GET['error'] == 3)
-				message ("Sie müssen alle Felder ausfüllen!","?mode=ins&page=3", 2, false, false);
-
-			$frame  = parsetemplate(gettemplate('install/ins_acc'), false);
+			$frame  = parsetemplate(gettemplate('install/ins_acc'), $parse);
 		}
 		elseif ($Page == 4)
 		{
@@ -182,19 +187,9 @@ switch ($Mode) {
 			$adm_email  = $_POST['adm_email'];
 			$md5pass    = md5($adm_pass);
 
-			if (!$_POST['adm_user'])
+			if (empty($_POST['adm_user']) && empty($_POST['adm_pas']) && empty($_POST['adm_email']))
 			{
-				header("Location: ?mode=ins&page=3&error=3");
-				exit();
-			}
-			if (!$_POST['adm_pass'])
-			{
-				header("Location: ?mode=ins&page=3&error=3");
-				exit();
-			}
-			if (!$_POST['adm_email'])
-			{
-				header("Location: ?mode=ins&page=3&error=3");
+				message($lang['step4_need_fields'],"?mode=ins&page=3&".$parse['lang'], 2, false, false);
 				exit();
 			}
 			
@@ -203,6 +198,7 @@ switch ($Mode) {
 			$QryInsertAdm .= "`username`          = '". $adm_user ."', ";
 			$QryInsertAdm .= "`email`             = '". $adm_email ."', ";
 			$QryInsertAdm .= "`email_2`           = '". $adm_email ."', ";
+			$QryInsertAdm .= "`ip_at_reg`         = '". $_SERVER['REMOTE_ADDR'] . "', ";
 			$QryInsertAdm .= "`authlevel`         = '3', ";
 			$QryInsertAdm .= "`id_planet`         = '1', ";
 			$QryInsertAdm .= "`galaxy`            = '1', ";
@@ -239,8 +235,7 @@ switch ($Mode) {
 			include(ROOT_PATH.'config.php');
 			$cookie = "1/%/" . $adm_user . "/%/" . md5 ($md5pass . "--" . $dbsettings ["secretword"] ) . "/%/" . 0;
 			setcookie('2Moons', $cookie, 0, "/", "", 0 );
-			header("Location: ../adm/index.php");
-			
+			header("Location: ../adm/index.php");		
 		}
 		break;
 	case'upgrade':

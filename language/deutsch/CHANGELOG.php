@@ -5,16 +5,18 @@ $lang['Description'] = 'Beschreibung';
 
 $lang['changelog']   = array(
 
-'RC5.0b9' => 'ShadoX 28.04.10
+'RC5.0' => 'ShadoX 30.04.10
 - ADD: Neue Schiffe
 - ADD: Support Planet in System != 15
 - ADD: Cookie für LoginMusik
 - ADD: Check für verfügbare Missions in Fleet3
+- ADD: Multi-Lang Installer
 - FIX: Dublicate Ressis Bug
 - FIX: Bewerbungstext
 - FIX: Support
 - FIX: Große HoF KBs
-- FIX: GebäudeChea
+- FIX: GebäudeCheat
+- FIX: Statistiken Fehler bei neuen Spielern
 - DIV: Flottenquery vereinfacht
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game

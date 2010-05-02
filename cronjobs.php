@@ -63,10 +63,11 @@ switch($cron)
 			$db->query("OPTIMIZE TABLE ".substr($table, 0, -2).";");
 			update_config('stat_last_db_update', time());
 			unset($database);
-			
-			require_once(ROOT_PATH . 'includes/classes/class.StatBanner.php');
-			$banner	= new StatBanner();
-			$banner->BuildIMGforAll();
+			if(!CheckModule(37)){
+				require_once(ROOT_PATH . 'includes/classes/class.StatBanner.php');
+				$banner	= new StatBanner();
+				$banner->BuildIMGforAll();
+			}
 		}
 	break;
 }
