@@ -2130,7 +2130,7 @@ class FlyingFleetMissions
 		// Rewrite on 28.02.10 by ShadoX for 2Moons (http://www.titanspace.org)
 		global $lang, $resource, $pricelist, $db, $reslist, $game_config;
 
-		if($FleetRow['fleet_start_time'] <= time())
+		if($FleetRow['fleet_mess'] == 0 && $FleetRow['fleet_start_time'] <= time())
 		{
 			$QryUpdateFleet  = "UPDATE ".FLEETS." SET ";
 			$QryUpdateFleet .= "`fleet_mess` = 2 ";
@@ -2138,7 +2138,7 @@ class FlyingFleetMissions
 			$QryUpdateFleet .= "LIMIT 1 ;";
 			$db->query( $QryUpdateFleet);
 		}
-		elseif($FleetRow['fleet_end_stay'] < time())
+		elseif($FleetRow['fleet_mess'] == 2 && $FleetRow['fleet_end_stay'] < time())
 		{
 			foreach($reslist['fleet'] as $ID)
 			{
@@ -2459,7 +2459,7 @@ class FlyingFleetMissions
 			
 			SendSimpleMessage($FleetRow['fleet_owner'], '', $FleetRow['fleet_end_stay'], 15, $lang['sys_mess_tower'], $lang['sys_expe_report'], $Message);	
 		}
-		elseif ($FleetRow['fleet_end_time'] < time())
+		elseif ($FleetRow['fleet_mess'] == 1 && $FleetRow['fleet_end_time'] < time())
 		{
 			self::RestoreFleetToPlanet($FleetRow, true);
 			$db->multi_query("UPDATE `".USERS."` SET `darkmatter` = darkmatter + ".$FleetRow['fleet_resource_darkmatter']." WHERE `id` = '".$FleetRow['fleet_owner']."';DELETE FROM ".FLEETS." WHERE `fleet_id` = ". $FleetRow["fleet_id"].";");				
@@ -2476,7 +2476,7 @@ class FlyingFleetMissions
 		$MessSender = $lang['sys_mess_qg'];
 		$MessTitle  = $lang['sys_expe_report'];
 
-		if($FleetRow['fleet_start_time'] <= time())
+		if($FleetRow['fleet_mess'] == 0 && $FleetRow['fleet_start_time'] <= time())
 		{
 			$QryUpdateFleet  = "UPDATE ".FLEETS." SET ";
 			$QryUpdateFleet .= "`fleet_mess` = 2 ";
@@ -2484,7 +2484,7 @@ class FlyingFleetMissions
 			$QryUpdateFleet .= "LIMIT 1 ;";
 			$db->query( $QryUpdateFleet);
 		}
-		elseif ($FleetRow['fleet_end_stay'] < time())
+		elseif ($FleetRow['fleet_mess'] == 2 && $FleetRow['fleet_end_stay'] < time())
 		{
 			$PointsFlotte = array(
 				202 => 1.0,
@@ -2644,7 +2644,7 @@ class FlyingFleetMissions
 				SendSimpleMessage ( $FleetOwner, '', $FleetRow['fleet_end_stay'], 15, $MessSender, $MessTitle, $Message);
 			}
 		}
-		elseif ($FleetRow['fleet_end_time'] < time())
+		elseif ($FleetRow['fleet_mess'] == 1 && $FleetRow['fleet_end_time'] < time())
 		{
 			self::RestoreFleetToPlanet($FleetRow, true);
 			$db->multi_query("UPDATE `".USERS."` SET `darkmatter` = `darkmatter` + '".$FleetRow['fleet_resource_darkmatter']."' WHERE `id` = '".$FleetRow['fleet_owner']."';DELETE FROM ".FLEETS." WHERE `fleet_id` = ". $FleetRow["fleet_id"].";");
@@ -2657,7 +2657,7 @@ class FlyingFleetMissions
 	{
 		global $lang, $db;
 
-		if($FleetRow['fleet_start_time'] <= time())
+		if($FleetRow['fleet_mess'] == 0 && $FleetRow['fleet_start_time'] <= time())
 		{
 			$QryUpdateFleet  = "UPDATE ".FLEETS." SET ";
 			$QryUpdateFleet .= "`fleet_mess` = 2 ";
@@ -2665,7 +2665,7 @@ class FlyingFleetMissions
 			$QryUpdateFleet .= "LIMIT 1 ;";
 			$db->query( $QryUpdateFleet);
 		}
-		elseif($FleetRow['fleet_end_stay'] <= time())
+		elseif($FleetRow['fleet_mess'] == 2 && $FleetRow['fleet_end_stay'] <= time())
 		{
 			$chance 		= rand(0, 100);
 			if($chance <= (30 + $FleetRow['fleet_amount'] * 0.25)) {
@@ -2679,7 +2679,7 @@ class FlyingFleetMissions
 			$db->query("UPDATE ".FLEETS." SET `fleet_mess` = '1',`fleet_resource_darkmatter` = `fleet_resource_darkmatter` + '". $FoundDark ."' WHERE `fleet_id` = '". $FleetRow['fleet_id'] ."';");			
 			SendSimpleMessage($FleetRow['fleet_owner'], '', $FleetRow['fleet_end_stay'], 15, $lang['sys_mess_tower'], $lang['sys_expe_report'], $Message);
 		}
-		elseif ($FleetRow['fleet_end_time'] <= time())
+		elseif($FleetRow['fleet_mess'] == 1 && $FleetRow['fleet_end_time'] <= time())
 		{
 			if($FleetRow['fleet_resource_darkmatter'] > 0) {
 				SendSimpleMessage($FleetRow['fleet_owner'], '', $FleetRow['fleet_end_time'], 15, $lang['sys_mess_tower'], $lang['sys_expe_report'], sprintf($lang['sys_expe_back_home_with_dm'], $lang['Darkmatter'], pretty_number($FleetRow['fleet_resource_darkmatter']), $lang['Darkmatter']));
