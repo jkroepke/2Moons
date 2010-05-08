@@ -47,7 +47,7 @@ function ShowPhalanxPage($CurrentUser, $CurrentPlanet)
 	
 	if ($CurrentPlanet['deuterium'] < 5000)
 	{
-		$template->message($lang['px_no_deuterium']);
+		$template->message($lang['px_no_deuterium'], false, 0, true);
 		exit;
 	}
 	
