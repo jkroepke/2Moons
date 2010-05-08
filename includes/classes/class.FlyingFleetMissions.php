@@ -2691,6 +2691,7 @@ class FlyingFleetMissions
 			
 			$db->multi_query("UPDATE `".USERS."` SET `darkmatter` = darkmatter + ".$FleetRow['fleet_resource_darkmatter']." WHERE `id` = '".$FleetRow['fleet_owner']."';DELETE FROM ".FLEETS." WHERE `fleet_id` = ". $FleetRow["fleet_id"].";");
 		}		
-	}
+	}	
+}
 
 ?>
