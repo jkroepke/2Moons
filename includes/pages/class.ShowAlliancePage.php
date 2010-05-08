@@ -946,13 +946,7 @@ class ShowAlliancePage
 								if (!$CurrentUser['rights']['close'])
 									exit(header("Location: ?page=alliance"));
 
-								$BorrarAlianza = $db->query("SELECT id FROM ".USERS." WHERE `ally_id`='".$ally['id']."';");
-
-								while ($v = $db->fetch_array($BorrarAlianza))
-								{	
-									$db->query("UPDATE ".USERS." SET `ally_name` = '', `ally_id`='0' WHERE `id`='".$v['id']."';");
-								}
-
+								$db->query("UPDATE ".USERS." SET `ally_name` = '', `ally_id` = '0' WHERE `ally_id`='".$ally['id']."';");
 								$db->query("DELETE FROM ".ALLIANCE." WHERE id = '".$ally['id']."' LIMIT 1;");
 								$db->query("DELETE FROM ".DIPLO." WHERE `owner_1` = '".$ally['id']."' OR `owner_2` = '".$ally['id']."';");
 								exit(header("Location: ?page=alliance"));
