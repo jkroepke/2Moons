@@ -53,12 +53,12 @@ function ShowPhalanxPage($CurrentUser, $CurrentPlanet)
 		$template->message($lang['px_no_deuterium']);
 		exit;
 	}
-
+exit;
 	if ($DoScan == true)
 	{
 		$TargetInfo = $db->fetch_array($db->query("SELECT name, id_owner FROM ".PLANETS." WHERE `galaxy` = '". $Galaxy ."' AND `system` = '". $System ."' AND `planet` = '". $Planet ."' AND `planet_type` = '1';"));
+		var_dump($TargetInfo);exit;
 		$TargetName = $TargetInfo['name'];
-
 		$QryLookFleets  = "SELECT * ";
 		$QryLookFleets .= "FROM ".FLEETS." ";
 		$QryLookFleets .= "WHERE ( ";
