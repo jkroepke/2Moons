@@ -44,18 +44,16 @@ function ShowPhalanxPage($CurrentUser, $CurrentPlanet)
 	
 	$SystemLimitMin  	= max(1, $CurrentSystem - $PhRange);
 	$SystemLimitMax  	= $CurrentSystem + $PhRange;
-	$DoScan 			= ($System <= $SystemLimitMax && $System >= $SystemLimitMin && $Galaxy == $CurrentPlanet['galaxy']) ? true : false;
-
-	if ($CurrentPlanet['deuterium'] > 5000)
-		$CurrentPlanet['deuterium'] -= 5000;
-	else
+	
+	if ($CurrentPlanet['deuterium'] < 5000)
 	{
 		$template->message($lang['px_no_deuterium']);
 		exit;
 	}
-
-	if ($DoScan == true)
+	
+	if($System <= $SystemLimitMax && $System >= $SystemLimitMin && $Galaxy == $CurrentPlanet['galaxy'])
 	{
+		$CurrentPlanet['deuterium'] -= 5000;
 		$TargetInfo = $db->fetch_array($db->query("SELECT name, id_owner FROM ".PLANETS." WHERE `galaxy` = '". $Galaxy ."' AND `system` = '". $System ."' AND `planet` = '". $Planet ."' AND `planet_type` = '1';"));
 
 		$QryLookFleets  = "SELECT * ";
