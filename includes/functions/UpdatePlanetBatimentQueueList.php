@@ -23,6 +23,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 
 require_once(ROOT_PATH . 'includes/functions/SetNextQueueElementOnTop.' . PHP_EXT);
 require_once(ROOT_PATH . 'includes/functions/CheckPlanetBuildingQueue.' . PHP_EXT);
+require_once(ROOT_PATH . 'includes/functions/IsElementBuyable.' . PHP_EXT);
 
 function UpdatePlanetBatimentQueueList(&$CurrentPlanet, &$CurrentUser) 
 {
