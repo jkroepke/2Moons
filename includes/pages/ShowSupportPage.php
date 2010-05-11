@@ -62,8 +62,8 @@ class ShowSupportPage
 		$Qryinsertticket .= "`time` = '". time() ."',";
 		$Qryinsertticket .= "`status` = '1'";
 		$db->query($Qryinsertticket);
-						
-		$this->template->message($lang['sendit_t'],"game.php?page=support", 3);
+		var_dump($text);
+		$this->template->message($lang['sendit_t'],"game.php?page=support", 30);
 	}
 	
 	private function UpdateTicket($CurrentUser, $TicketID) 
