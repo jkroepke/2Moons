@@ -85,9 +85,9 @@ class FlyingFleetMissions
 		foreach($SortFleets as $FleetID => $Capacity)
 		{
 			$QryUpdateFleet .= 'UPDATE '.FLEETS.' SET ';
-			$QryUpdateFleet .= '`fleet_resource_metal` = `fleet_resource_metal` + '.floattostring(round($steal['metal'] * ($Capacity / $AllCapacity))).', ';
-			$QryUpdateFleet .= '`fleet_resource_crystal` = `fleet_resource_crystal` +'.floattostring(round($steal['crystal'] * ($Capacity / $AllCapacity))).', ';
-			$QryUpdateFleet .= '`fleet_resource_deuterium` = `fleet_resource_deuterium` +'.floattostring(round($steal['deuterium'] * ($Capacity / $AllCapacity))).' ';
+			$QryUpdateFleet .= '`fleet_resource_metal` = `fleet_resource_metal` + '.floattostring($steal['metal'] * ($Capacity / $AllCapacity)).', ';
+			$QryUpdateFleet .= '`fleet_resource_crystal` = `fleet_resource_crystal` +'.floattostring($steal['crystal'] * ($Capacity / $AllCapacity)).', ';
+			$QryUpdateFleet .= '`fleet_resource_deuterium` = `fleet_resource_deuterium` +'.floattostring($steal['deuterium'] * ($Capacity / $AllCapacity)).' ';
 			$QryUpdateFleet .= 'WHERE fleet_id = '.$FleetID.' ';
 			$QryUpdateFleet .= 'LIMIT 1;';		
 		}
@@ -1632,8 +1632,8 @@ class FlyingFleetMissions
 			$QryUpdateGalaxy .= "`planet` = '".$FleetRow['fleet_end_planet']."' AND ";
 			$QryUpdateGalaxy .= "`planet_type` = '1';";
 			$QryUpdateGalaxy .= "UPDATE ".FLEETS." SET ";
-			$QryUpdateGalaxy .= "`fleet_resource_metal` = `fleet_resource_metal` + '".$RecycledGoods["metal"]."', ";
-			$QryUpdateGalaxy .= "`fleet_resource_crystal` = `fleet_resource_crystal` + '".$RecycledGoods["crystal"]."', ";
+			$QryUpdateGalaxy .= "`fleet_resource_metal` = `fleet_resource_metal` + '".floattostring($RecycledGoods["metal"])."', ";
+			$QryUpdateGalaxy .= "`fleet_resource_crystal` = `fleet_resource_crystal` + '".floattostring($RecycledGoods["crystal"])."', ";
 			$QryUpdateGalaxy .= "`fleet_mess` = '1' ";
 			$QryUpdateGalaxy .= "WHERE ";
 			$QryUpdateGalaxy .= "`fleet_id` = '".$FleetRow['fleet_id']."';";
