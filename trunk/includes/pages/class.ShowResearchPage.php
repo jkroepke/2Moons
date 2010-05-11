@@ -148,7 +148,8 @@ class ShowResearchPage
 		}
 		
 		$bContinue	= (!$this->CheckLabSettingsInQueue($CurrentPlanet)) ? true : false;
-			
+		
+		$Level							= $CurrentPlanet[$resource[31]];
 		$CurrentPlanet[$resource[31]]	= $this->CheckAndGetLabLevel($CurrentUser, $CurrentPlanet);		
 		
 		$TheCommand		= request_var('cmd','');
