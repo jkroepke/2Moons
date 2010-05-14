@@ -295,7 +295,7 @@ class ShowBuildingsPage
 							$ListIDRow .= "		function title() \n {var datem = document.getElementById('blc').innerHTML.split(\"<\");\n document.title = datem[0] + \" - ". $ElementTitle ." - ".$game_config['game_name']."\";\n  window.setTimeout('title();', 1000);}\n title();";
 							$ListIDRow .= "		$(function() {";
 							$ListIDRow .= "			$(\"#progressbar\").progressbar({";
-							$ListIDRow .= "				value: ".floattostring(abs(100 - ($BuildTime / $BuildCTime) * 100), 2, true)."";
+							$ListIDRow .= "				value: ".(($BuildCTime != 0) ? floattostring(abs(100 - ($BuildTime / $BuildCTime) * 100), 2, true):100)."";
 							$ListIDRow .= "			});";
 							$ListIDRow .= "			$(\".ui-progressbar-value\").animate({ width: \"100%\" }, ".($BuildTime * 1000).", \"linear\");";
 							$ListIDRow .= "		});";
