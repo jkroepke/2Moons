@@ -1140,7 +1140,7 @@ class FlyingFleetMissions
 			}
 
 			$raport 		= $formatted_cr['html'];
-			$rid   			= md5($raport);
+			$rid   			= md5(microtime(true));
 			
 			$SQLQuery  = "INSERT INTO ".RW." SET ";
 			$SQLQuery .= "`time` = '".time()."', ";
@@ -1985,7 +1985,7 @@ class FlyingFleetMissions
 				$GottenMoon 	  = "";
 				$formatted_cr 	  = self::GenerateReport($result,$steal,$MoonChance,$GottenMoon,$totaltime, $FleetRow, $destext);
 				$raport 		  = $formatted_cr['html'];
-				$rid   = md5($raport);
+				$rid   = md5(microtime(true));
 				$QryInsertRapport  = 'INSERT INTO '.RW.' SET ';
 				$QryInsertRapport .= '`time` = UNIX_TIMESTAMP(), ';
 				foreach ($attackFleets as $fleetID => $attacker)
@@ -2411,7 +2411,7 @@ class FlyingFleetMissions
 					$formatted_cr 	= self::GenerateReport($result, $steal, $MoonChance, $GottenMoon, $totaltime, $FleetRow);
 
 					$raport 		= $formatted_cr['html'];
-					$rid   			= md5($raport);
+					$rid   			= md5(microtime(true));
 					
 					$SQLQuery  = "INSERT INTO ".RW." SET ";
 					$SQLQuery .= "`time` = '".time()."', ";

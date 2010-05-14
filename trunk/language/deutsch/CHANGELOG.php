@@ -14,7 +14,9 @@ $lang['changelog']   = array(
 - FIX: Dublicate Ressis Bug
 - FIX: Bewerbungstext
 - FIX: Support
-- FIX: Bauzeiten, wenn Geböude nicht baubar war.
+- FIX: class.FlyingFleetMissions.php on 1183:SQL Error (Duplicate entry \'Key\' for key \'rid\')
+- FIX: Bauzeiten, wenn Gebäude nicht baubar war
+- FIX: Gebäude mit 0 Sekunden Bauzeit
 - FIX: Allianzstatistik
 - FIX: Große TF`s
 - FIX: Evo Trans. &amp; Gigarec.
