@@ -76,6 +76,12 @@ function ShowMessagesPage($CurrentUser, $CurrentPlanet)
 		case 'delete':
 			$DeleteWhat = request_var('deletemessages','');
 			$MessType	= request_var('mess_type', 0);
+			if(empty($_POST['delmes']))
+				$DeleteWhat	= ($MessType != 100) ? 'deletetypeall' : 'deleteall';
+			
+			if($MessType == 100 && $DeleteWhat == 'deletetypeall')
+				$DeleteWhat	= 'deleteall';
+				
 			switch($DeleteWhat)
 			{
 				case 'deleteall':
