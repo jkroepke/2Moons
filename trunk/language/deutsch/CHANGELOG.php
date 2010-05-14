@@ -14,6 +14,7 @@ $lang['changelog']   = array(
 - FIX: Dublicate Ressis Bug
 - FIX: Bewerbungstext
 - FIX: Support
+- FIX: Allianzstatistik
 - FIX: Große HoF KBs
 - FIX: GebäudeCheat
 - FIX: Statistiken Fehler bei neuen Spielern
