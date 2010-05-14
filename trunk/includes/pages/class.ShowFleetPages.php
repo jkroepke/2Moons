@@ -960,15 +960,15 @@ class ShowFleetPages extends FleetFunctions
 	
 		include_once(ROOT_PATH . 'includes/functions/IsVacationMode.' . PHP_EXT);
 		
+		$iraks 				= $CurrentPlanet['interplanetary_misil'];
 		$TargetGalaxy 		= request_var('galaxy',0);
 		$TargetSystem 		= request_var('system',0);
 		$TargetPlanet 		= request_var('planet',0);
-		$anz 				= request_var('SendMI',0);
+		$anz 				= min(request_var('SendMI',0), $iraks);
 		$pziel 				= request_var('Target',"");
 		
 		$PlanetRess 		= new ResourceUpdate($CurrentUser, $CurrentPlanet);
 
-		$iraks 				= $CurrentPlanet['interplanetary_misil'];
 		$Distance			= abs($TargetSystem - $CurrentPlanet['system']);
 		$tempvar2 			= ($CurrentUser['impulse_motor_tech'] * 2) - 1;
 		$Target 			= $db->fetch_array($db->query("SELECT id_owner, id_level FROM ".PLANETS." WHERE galaxy = ".$TargetGalaxy." AND system = ".$TargetSystem." AND planet = ".$TargetPlanet." AND planet_type = 1 limit 1;"));
@@ -983,8 +983,6 @@ class ShowFleetPages extends FleetFunctions
 			$error = $lang['ma_not_send_other_galaxy'];
 		elseif (!$Target)
 			$error = $lang['ma_planet_doesnt_exists'];
-		elseif ($anz > $iraks)
-			$error = $lang['ma_cant_send'] . $anz . $lang['ma_missile'] . $iraks;
 		elseif (!in_array($pziel, $reslist['defense']) && $pziel != 0)
 			$error = $lang['ma_wrong_target'];
 		elseif ($iraks == 0)
