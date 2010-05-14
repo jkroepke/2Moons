@@ -932,7 +932,7 @@ class ShowAlliancePage
 								$name = request_var('newname', '', UTF8_SUPPORT);
 								
 								if (!empty($name))
-									$db->multi_query("UPDATE ".ALLIANCE." SET `ally_name` = '". $db->sql_escape($name) ."' WHERE `id` = '". $CurrentUser['ally_id'] ."';UPDATE ".USERS." SET `ally_name` = '". $db->sql_escape($al_name) ."' WHERE `ally_id` = '". $ally['id'] ."';");
+									$db->multi_query("UPDATE ".ALLIANCE." SET `ally_name` = '". $db->sql_escape($name) ."' WHERE `id` = '". $CurrentUser['ally_id'] ."';UPDATE ".USERS." SET `ally_name` = '". $db->sql_escape($name) ."' WHERE `ally_id` = '". $ally['id'] ."';");
 					
 								$this->template->assign_vars(array(
 									'caso'					=> $lang['al_name'],
