@@ -32,9 +32,11 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 			$BuildEndTime	= time();
 			while ($Loop == true)
 			{
+			
 				$ListIDArray         = explode ( ",", $QueueArray[0]);
 				$Element             = $ListIDArray[0];
 				$Level               = $ListIDArray[1];
+				$BuildTime  	     = $ListIDArray[2];
 				$BuildEndTime        = $ListIDArray[3];
 				$BuildMode           = $ListIDArray[4];
 				$ForDestroy 		 = ($BuildMode == 'destroy') ? true : false;
@@ -67,12 +69,23 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 						}
 						SendSimpleMessage($CurrentUser['id'], '', '', 99, $lang['sys_buildlist'], $lang['sys_buildlist_fail'], $Message);
 					}
-						
+
 					array_shift($QueueArray);
+					
+						
 					if (count($QueueArray) == 0) {
 						$BuildEndTime  = 0;
 						$NewQueue      = '';
 						$Loop          = false;
+					} else {
+						$BaseTime			= $BuildEndTime - $BuildTime;
+						foreach($QueueArray as $ID => $QueueInfo)
+						{
+							$ListIDArray        = explode(",", $QueueInfo);
+							$BaseTime			+= $ListIDArray[2];
+							$ListIDArray[3]		= $BaseTime;
+							$QueueArray[$ID]	= implode(",", $ListIDArray);
+						}
 					}
 				}
 			}
