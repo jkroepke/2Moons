@@ -14,7 +14,10 @@ $lang['changelog']   = array(
 - FIX: Dublicate Ressis Bug
 - FIX: Bewerbungstext
 - FIX: Support
+- FIX: Bauzeiten, wenn Geböude nicht baubar war.
 - FIX: Allianzstatistik
+- FIX: Große TF`s
+- FIX: Evo Trans. &amp; Gigarec.
 - FIX: Große HoF KBs
 - FIX: GebäudeCheat
 - FIX: Statistiken Fehler bei neuen Spielern
