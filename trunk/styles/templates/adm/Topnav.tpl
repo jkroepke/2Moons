@@ -6,6 +6,7 @@
 {authlevels}
 {resetuniverse}
 {queries}
+<a href="http://2moons.titanspace.de" target="_blank" class="out">&nbsp;2Moons Toplist&nbsp;</a>
 <a href="javascript:top.location.href='../game.php?page=overview'" target="_top" class="out">&nbsp;{adm_cp_logout}&nbsp;</a>
 </div>
 </body>

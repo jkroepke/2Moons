@@ -89,7 +89,8 @@ if ($user['authlevel'] != 3) die();
 				{
 					foreach($RevInfo['add'] as $File)
 					{	
-						if (strpos($File, '.') !== false)
+						if(strpos($File, 'trunk/install/') === false) continue;
+						if(strpos($File, '.') !== false)
 							$zipfile->addFile(file_get_contents($SVN_ROOT.$File), str_replace("/trunk/", "", $File), $RevInfo['timestamp']);					
 					}
 				}
@@ -97,7 +98,8 @@ if ($user['authlevel'] != 3) die();
 				{
 					foreach($RevInfo['edit'] as $File)
 					{	
-						if (strpos($File, '.') !== false)
+						if(strpos($File, 'trunk/install/') === false) continue;
+						if(strpos($File, '.') !== false)
 							$zipfile->addFile(file_get_contents($SVN_ROOT.$File), str_replace("/trunk/", "", $File), $RevInfo['timestamp']);
 					}
 				}
@@ -105,7 +107,8 @@ if ($user['authlevel'] != 3) die();
 				{
 					foreach($RevInfo['del'] as $File)
 					{
-						if (strpos($File, '.') !== false) {
+						if(strpos($File, 'trunk/install/') === false) continue;
+						if(strpos($File, '.') !== false) {
 							$TodoDelete	.= str_replace("/trunk/", "", $File)."\r\n";
 						}
 					}
@@ -164,6 +167,7 @@ if ($user['authlevel'] != 3) die();
 				{
 					foreach($RevInfo['add'] as $File)
 					{	
+						if(strpos($File, 'trunk/install/') === false) continue;
 						if($File == "/trunk/updates/update_".$Rev.".sql")
 						{
 							$db->multi_query(str_replace("prefix_", DB_PREFIX, file_get_contents($SVN_ROOT.$File)));
@@ -191,6 +195,7 @@ if ($user['authlevel'] != 3) die();
 				{
 					foreach($RevInfo['edit'] as $File)
 					{	
+						if(strpos($File, 'trunk/install/') === false) continue;
 						if (strpos($File, '.') !== false) {
 							if($File == "/trunk/updates/update_".$Rev.".sql")
 							{
@@ -212,6 +217,7 @@ if ($user['authlevel'] != 3) die();
 				{
 					foreach($RevInfo['del'] as $File)
 					{
+						if(strpos($File, 'trunk/install/') === false) continue;
 						if (strpos($File, '.') !== false) {
 							if ($ftp->delete(str_replace("/trunk/", "", $File))) {
 								$Result['update'][$Rev][$File]	= "OK! - Gel&ouml;scht";
@@ -239,7 +245,8 @@ if ($user['authlevel'] != 3) die();
 			$i = 0;
 			if(!function_exists('file_get_contents') || !function_exists('fsockopen')) {
 				$parse['planetes'] = "<tr><th>Function file_get_contents oder fsockopen deactive</th></tr>";
-			} elseif(($RAW = @file_get_contents("http://update.jango-online.de/index.php?action=update",FALSE,$context)) !== false)
+			} 
+			elseif(($RAW = @file_get_contents("http://update.jango-online.de/index.php?action=update",FALSE,$context)) !== false)
 			{
 				$UpdateArray 	= unserialize($RAW);
 				if(is_array($UpdateArray['revs']))

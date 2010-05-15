@@ -1119,4 +1119,48 @@ $lang['fb_api_key']						= 'Facebook API Key';
 $lang['fb_secrectkey']					= 'Facebook Geheim Key';
 $lang['fb_info']						= 'Mit Facebook Connect können User, die bei Facebook angemeldet sind, mit meinem Klick sich einloggen bzw. sich registrieren.<br><br>Um diese Funktion zu nutzen, musst du selbst bei Faceebok registriert sein. Zudem musst du eine Application erstellen. Dies kannst du auf <a href="http://www.facebook.com/developers/">http://www.facebook.com/developers/</a> erledigen. Als Connect URL musst du den URL zum Game eingeben. Dann trägst du hier die Keys ein und dein Game sollte Facebook bereit sein.<br><br><font color="red">Für FB Connect muss der Mail Versand verfügbar sein! (SMTP Settings)</font>';
 
+//----------------------------------------------------------------------------//
+//GameModule.php
+
+$lang['modul'][0]						= 'Allianz';
+$lang['modul'][2]						= 'Bauen - Gebäude';
+$lang['modul'][3]						= 'Bauen - Forschung';
+$lang['modul'][4]						= 'Bauen - Flotten';
+$lang['modul'][5]						= 'Bauen - Verteidigung';
+$lang['modul'][6]						= 'Buddylist';
+$lang['modul'][7]						= 'Chat';
+$lang['modul'][8]						= 'DM-Bank';
+$lang['modul'][9]						= 'Flotte';
+$lang['modul'][10]						= 'Flotte - Handler';
+$lang['modul'][11]						= 'Galaxie';
+$lang['modul'][12]						= 'Hall of Fame';
+$lang['modul'][13]						= 'Händler';
+$lang['modul'][14]						= 'Infos';
+$lang['modul'][15]						= 'Imperium';
+$lang['modul'][32]						= 'Mission - Abbauen';
+$lang['modul'][1]						= 'Mission - Angreifen';
+$lang['modul'][31]						= 'Mission - DM-Mission';
+$lang['modul'][30]						= 'Mission - Expedition';
+$lang['modul'][33]						= 'Mission - Halten';
+$lang['modul'][35]						= 'Mission - Kolonisieren';
+$lang['modul'][24]						= 'Mission - Spionieren';
+$lang['modul'][36]						= 'Mission - Stationieren';
+$lang['modul'][34]						= 'Mission - Transport';
+$lang['modul'][29]						= 'Mission - Zerstören';
+$lang['modul'][16]						= 'Nachrichten';
+$lang['modul'][17]						= 'Notizen';
+$lang['modul'][18]						= 'Offiziere';
+$lang['modul'][19]						= 'Phalax';
+$lang['modul'][20]						= 'Playercard';
+$lang['modul'][21]						= 'Pranger';
+$lang['modul'][22]						= 'Rekorde';
+$lang['modul'][23]						= 'Rohstoffe';
+$lang['modul'][25]						= 'Statistiken';
+$lang['modul'][37]						= 'Statistiken Banner';
+$lang['modul'][26]						= 'Suche';
+$lang['modul'][27]						= 'Support Tickets';
+$lang['modul'][28]						= 'Techtree';
+
+$lang['ative']							= 'AKTIV';
+$lang['deative']						= 'NICHT AKTIV';
 ?>
