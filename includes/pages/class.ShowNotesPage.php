@@ -45,7 +45,7 @@ class ShowNotesPage
 			$SQLWhere = array();
 			foreach($_POST['delmes'] as $id => $b)
 			{
-				$SQLWhere[] = "`id` = '".$id."'";
+				$SQLWhere[] = "`id` = '".(int) $id."'";
 			}
 			
 			$db->query("DELETE FROM ".NOTES." WHERE (".implode(" OR ",$SQLWhere).") AND owner = '".$CurrentUserID."';");
