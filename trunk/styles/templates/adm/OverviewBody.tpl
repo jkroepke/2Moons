@@ -32,26 +32,38 @@ th.lic{border:0px;}</style>
     	<th align="center">
             <table width="475">
                 <tr>
-                  <th class="lic"><h3>{ow_proyect_leader}</h3></th>
+					<th class="lic"><h3>{ow_proyect_leader}</h3></th>
                 </tr>
                 <tr>
-                  <th class="lic"><h3><font color="red">Slaver</font></h3></th>
+					<th class="lic"><h3><font color="red">Slaver</font></h3></th>
                 </tr>
 		        <tr>
-				  <th class="lic"><h3>{ow_translator}</h3></th>
+					<th class="lic"><h3>{ow_translator}</h3></th>
                 </tr>
                 <tr>
-                  <th class="lic">Brandi (ACP)<br>medicpl (polnish)<br>DOBRO (russian)<br>languar (english)
-				  </th>
+					<th class="lic">Brandi (ACP)<br>languar (english)</th>
                 </tr> 
                 <tr>
-                  <th class="lic"><h3>{ow_special_thanks}</h3></th>
+					<th class="lic"><h3>{ow_special_thanks}</h3></th>
                 </tr>
                 <tr>
-                    <th class="lic">lucky<br>Metusalem<br>Meikel<br>Phil<br>Schnippi<br>Vobi<br>Onko<br>Sycrog<br>Raito<br>Chlorel<br>e-Zobar<br>Flousedid<br>Allen Spielern im <a href="http://www.titanspace.org" alt="Betauni" target="betauni">Betauni</a><br></th>
+					<th class="lic">lucky<br>Metusalem<br>Meikel<br>Phil<br>Schnippi<br>Vobi<br>Onko<br>Sycrog<br>Raito<br>Chlorel<br>e-Zobar<br>Flousedid<br>Allen Spielern im <a href="http://www.titanspace.org" alt="Betauni" target="betauni">Betauni</a><br></th>
                 </tr>    
             </table>
         </th>
     </tr>
+	<tr>
+		<td class="c">Spenden</td>
+	</tr>
+	<tr>
+		<th align="center">
+		<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+		<input type="hidden" name="cmd" value="_s-xclick">
+		<input type="hidden" name="hosted_button_id" value="CM6PQFUATN7MS">
+		<input type="image" src="https://www.paypal.com/de_DE/DE/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="Jetzt einfach, schnell und sicher online bezahlen – mit PayPal." style="background:transparent;border:0px none;">
+		<img alt="" border="0" src="https://www.paypal.com/de_DE/i/scr/pixel.gif" width="1" height="1">
+		</form>
+		</th>
+	</tr>
 </table>
 </body>

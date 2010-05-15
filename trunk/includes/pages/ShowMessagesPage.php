@@ -95,7 +95,7 @@ function ShowMessagesPage($CurrentUser, $CurrentPlanet)
 						$SQLWhere = array();
 						foreach($_POST['delmes'] as $id => $b)
 						{
-							$SQLWhere[] = "`message_id` = '".$id."'";
+							$SQLWhere[] = "`message_id` = '".(int) $id."'";
 						}
 						
 						$db->query("DELETE FROM ".MESSAGES." WHERE (".implode(" OR ",$SQLWhere).") AND `message_owner` = '". $CurrentUser['id'] ."'".(($MessType != 100)? " AND `message_type` = '".$MessType."' ":"").";");
@@ -107,7 +107,7 @@ function ShowMessagesPage($CurrentUser, $CurrentPlanet)
 						$SQLWhere = array();
 						foreach($_POST['delmes'] as $id => $b)
 						{
-							$SQLWhere[] = "`message_id` != '".$id."'";
+							$SQLWhere[] = "`message_id` != '".(int) $id."'";
 						}
 						
 						$db->query("DELETE FROM ".MESSAGES." WHERE (".implode(" AND ",$SQLWhere).") AND `message_owner` = '". $CurrentUser['id'] ."'".(($MessType != 100)? " AND `message_type` = '".$MessType."' ":"").";");
