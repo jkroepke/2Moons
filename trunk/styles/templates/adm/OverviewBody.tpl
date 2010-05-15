@@ -57,7 +57,7 @@ th.lic{border:0px;}</style>
 	</tr>
 	<tr>
 		<th align="center">
-		<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+		<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
 		<input type="hidden" name="cmd" value="_s-xclick">
 		<input type="hidden" name="hosted_button_id" value="CM6PQFUATN7MS">
 		<input type="image" src="https://www.paypal.com/de_DE/DE/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="Jetzt einfach, schnell und sicher online bezahlen – mit PayPal." style="background:transparent;border:0px none;">
