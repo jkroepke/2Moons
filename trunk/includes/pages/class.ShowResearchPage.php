@@ -72,7 +72,8 @@ class ShowResearchPage
 		if($user[$resource[123]] == 0)
 			$lablevel = $planet[$resource[31]];
 		else {
-			$LevelRow = $db->query("SELECT ".$resource[31]." FROM ".PLANETS." WHERE `id_owner` = '".$user['id']."' AND `destruyed` = 0 ORDER BY ".$resource[31]." DESC LIMIT ".($user[$resource[123]] + 1).";");
+			$LevelRow = $db->query("SELECT ".$resource[31]." FROM ".PLANETS." WHERE `id` != '".$planet['id']."' AND `id_owner` = '".$user['id']."' AND `destruyed` = 0 ORDER BY ".$resource[31]." DESC LIMIT ".($user[$resource[123]]).";");
+			$lablevel[]	= $planet[$resource[31]];
 			while($Levels = $db->fetch_array($LevelRow))
 			{
 				$lablevel[]	= $Levels[$resource[31]];
@@ -148,8 +149,8 @@ class ShowResearchPage
 		
 		$bContinue	= (!$this->CheckLabSettingsInQueue($CurrentPlanet)) ? true : false;
 		
-		$Level							= $CurrentPlanet[$resource[31]];
-		$CurrentPlanet[$resource[31]]	= $this->CheckAndGetLabLevel($CurrentUser, $CurrentPlanet);		
+		$Level									= $CurrentPlanet[$resource[31]];
+		$CurrentPlanet[$resource[31].'_inter']	= $this->CheckAndGetLabLevel($CurrentUser, $CurrentPlanet);		
 		
 		$TheCommand		= request_var('cmd','');
 		$Techno     	= request_var('tech', 0);
