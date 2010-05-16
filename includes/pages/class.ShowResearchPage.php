@@ -126,24 +126,23 @@ class ShowResearchPage
 		include_once(ROOT_PATH . 'includes/functions/HandleTechnologieBuild.' . PHP_EXT);
 		
 		$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
-
+		$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
+		
 		$template	= new template();
-		
-		$IsWorking = HandleTechnologieBuild($CurrentPlanet, $CurrentUser);
-		$ThePlanet	= $IsWorking['WorkOn'];
-		$InResearch	= $IsWorking['OnWork'];
-		
-		$template->set_vars($CurrentUser, $CurrentPlanet);
 		$template->page_header();	
 		$template->page_topnav();
 		$template->page_leftmenu();
 		$template->page_planetmenu();
-		$template->page_footer();	
+		$template->page_footer();				
+		
+		$template->set_vars($CurrentUser, $CurrentPlanet);
+		$IsWorking = HandleTechnologieBuild($CurrentPlanet, $CurrentUser);
+		$ThePlanet	= $IsWorking['WorkOn'];
+		$InResearch	= $IsWorking['OnWork'];
 		
 		if ($CurrentPlanet[$resource[31]] == 0)
 		{
 			$template->message($lang['bd_lab_required']);
-			$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 			exit;
 		}
 		
@@ -161,34 +160,34 @@ class ShowResearchPage
 			switch($TheCommand)
 			{
 				case 'cancel':
-					if ($ThePlanet['b_tech_id'] == $Techno)
-					{
-						$costs                        = GetBuildingPrice($CurrentUser, $WorkingPlanet, $Techno);
-						$WorkingPlanet['metal']      += $costs['metal'];
-						$WorkingPlanet['crystal']    += $costs['crystal'];
-						$WorkingPlanet['deuterium']  += $costs['deuterium'];
-						$CurrentUser['darkmatter']   += $costs['darkmatter'];
-						$WorkingPlanet['b_tech_id']   = 0;
-						$WorkingPlanet["b_tech"]      = 0;
-						$CurrentUser['b_tech_planet'] = $WorkingPlanet["id"];
-						$UpdateData                   = true;
-						$InResearch                   = false;
-					}
+					if ($ThePlanet['b_tech_id'] != $Techno)
+						break;
+						
+					$costs                        = GetBuildingPrice($CurrentUser, $WorkingPlanet, $Techno);
+					$WorkingPlanet['metal']      += $costs['metal'];
+					$WorkingPlanet['crystal']    += $costs['crystal'];
+					$WorkingPlanet['deuterium']  += $costs['deuterium'];
+					$CurrentUser['darkmatter']   += $costs['darkmatter'];
+					$WorkingPlanet['b_tech_id']   = 0;
+					$WorkingPlanet["b_tech"]      = 0;
+					$CurrentUser['b_tech_planet'] = 0;
+					$UpdateData                   = true;
+					$InResearch                   = false;
 				break;
 				case 'search':
-					if (IsTechnologieAccessible($CurrentUser, $WorkingPlanet, $Techno) && IsElementBuyable($CurrentUser, $WorkingPlanet, $Techno))
-					{
-						$costs                        = GetBuildingPrice($CurrentUser, $WorkingPlanet, $Techno);
-						$WorkingPlanet['metal']      -= $costs['metal'];
-						$WorkingPlanet['crystal']    -= $costs['crystal'];
-						$WorkingPlanet['deuterium']  -= $costs['deuterium'];
-						$CurrentUser['darkmatter']   -= $costs['darkmatter'];
-						$WorkingPlanet["b_tech_id"]   = $Techno;
-						$WorkingPlanet["b_tech"]      = time() + GetBuildingTime($CurrentUser, $WorkingPlanet, $Techno);
-						$CurrentUser["b_tech_planet"] = $WorkingPlanet["id"];
-						$UpdateData                   = true;
-						$InResearch                   = true;
-					}
+					if (!IsTechnologieAccessible($CurrentUser, $WorkingPlanet, $Techno) || !IsElementBuyable($CurrentUser, $WorkingPlanet, $Techno))
+						break;
+						
+					$costs                        = GetBuildingPrice($CurrentUser, $WorkingPlanet, $Techno);
+					$WorkingPlanet['metal']      -= $costs['metal'];
+					$WorkingPlanet['crystal']    -= $costs['crystal'];
+					$WorkingPlanet['deuterium']  -= $costs['deuterium'];
+					$CurrentUser['darkmatter']   -= $costs['darkmatter'];
+					$WorkingPlanet["b_tech_id"]   = $Techno;
+					$WorkingPlanet["b_tech"]      = time() + GetBuildingTime($CurrentUser, $WorkingPlanet, $Techno);
+					$CurrentUser["b_tech_planet"] = $WorkingPlanet["id"];
+					$UpdateData                   = true;
+					$InResearch                   = true;
 				break;
 				default:
 					$UpdateData == false;
@@ -203,7 +202,7 @@ class ShowResearchPage
 				$QryUpdateUser .= "`crystal` = '".     $WorkingPlanet['crystal']     ."', ";
 				$QryUpdateUser .= "`deuterium` = '".   $WorkingPlanet['deuterium']   ."' ";
 				$QryUpdateUser .= "WHERE ";
-				$QryUpdateUser .= "`id` = '".          $WorkingPlanet['id']          ."';";
+				$QryUpdateUser .= "`id` = '".$WorkingPlanet["id"]."';";
 				$QryUpdateUser .= "UPDATE ".USERS." SET ";
 				$QryUpdateUser .= "`b_tech_planet` = '". $CurrentUser['b_tech_planet'] ."' ";
 				$QryUpdateUser .= "WHERE ";
@@ -211,7 +210,7 @@ class ShowResearchPage
 				$db->multi_query($QryUpdateUser);
 			}
 				
-			$CurrentPlanet = $WorkingPlanet;
+			$template->set_vars($CurrentUser, $CurrentPlanet);
 			if (is_array($ThePlanet))
 			{
 				$ThePlanet     = $WorkingPlanet;
@@ -225,8 +224,6 @@ class ShowResearchPage
 				}
 			}
 		}
-					
-		$template->set_vars($CurrentUser, $CurrentPlanet);
 		
 		foreach($reslist['tech'] as $ID => $Element)
 		{
@@ -313,6 +310,5 @@ class ShowResearchPage
 		));
 		
 		$template->show('buildings_research.tpl');
-		$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 	}
 }
