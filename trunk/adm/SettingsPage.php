@@ -120,7 +120,7 @@ function DisplayGameSettingsPage ( $CurrentUser )
 			$game_config['lang'];
 		}
 
-		if (isset($_POST['cookie_name']) && $_POST['game_name'] != '') {
+		if (isset($_POST['cookie_name']) && ctype_alnum($_POST['game_name'])) {
 			$game_config['COOKIE_NAME'] = $_POST['cookie_name'];
 			$Log	.=	$lang['log_sett_name_cookie'].": ".$_POST['cookie_name']."\n";
 		}
