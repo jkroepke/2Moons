@@ -36,10 +36,10 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 		{
 			$cost_metal   = floor($pricelist[$Element]['metal']   * pow($pricelist[$Element]['factor'], $level));
 			$cost_crystal = floor($pricelist[$Element]['crystal'] * pow($pricelist[$Element]['factor'], $level));
-			if(is_array($CurrentPlanet[$resource[31]]))
+			if(is_array($CurrentPlanet[$resource[31].'_inter']))
 			{
 				$Level = 0;
-				foreach($CurrentPlanet[$resource[31]] as $Levels)
+				foreach($CurrentPlanet[$resource[31].'_inter'] as $Levels)
 				{
 					if($Levels >= $requeriments[$Element][31])
 						$Level += $Levels;
