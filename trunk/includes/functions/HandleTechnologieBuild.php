@@ -28,7 +28,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 		if ($CurrentUser['b_tech_planet'] != 0)
 		{
 			if ($CurrentUser['b_tech_planet'] != $CurrentPlanet['id'])
-				$WorkingPlanet = $db->fetch_array($db->query("SELECT id, b_tech, b_tech_id, name FROM ".PLANETS." WHERE `id` = '". $CurrentUser['b_tech_planet'] ."';"));
+				$WorkingPlanet = $db->fetch_array($db->query("SELECT id, b_tech, b_tech_id, name, metal, crystal, deuterium FROM ".PLANETS." WHERE `id` = '". $CurrentUser['b_tech_planet'] ."';"));
 
 			if ($WorkingPlanet)
 				$ThePlanet = $WorkingPlanet;
