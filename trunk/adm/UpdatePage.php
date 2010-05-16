@@ -89,7 +89,6 @@ if ($user['authlevel'] != 3) die();
 				{
 					foreach($RevInfo['add'] as $File)
 					{	
-						if(strpos($File, 'trunk/install/') === false) continue;
 						if(strpos($File, '.') !== false)
 							$zipfile->addFile(file_get_contents($SVN_ROOT.$File), str_replace("/trunk/", "", $File), $RevInfo['timestamp']);					
 					}
@@ -98,7 +97,6 @@ if ($user['authlevel'] != 3) die();
 				{
 					foreach($RevInfo['edit'] as $File)
 					{	
-						if(strpos($File, 'trunk/install/') === false) continue;
 						if(strpos($File, '.') !== false)
 							$zipfile->addFile(file_get_contents($SVN_ROOT.$File), str_replace("/trunk/", "", $File), $RevInfo['timestamp']);
 					}
@@ -107,7 +105,6 @@ if ($user['authlevel'] != 3) die();
 				{
 					foreach($RevInfo['del'] as $File)
 					{
-						if(strpos($File, 'trunk/install/') === false) continue;
 						if(strpos($File, '.') !== false) {
 							$TodoDelete	.= str_replace("/trunk/", "", $File)."\r\n";
 						}
@@ -175,7 +172,7 @@ if ($user['authlevel'] != 3) die();
 						} else {
 							if (strpos($File, '.') !== false) {		
 								$Data = fopen($SVN_ROOT.$File, "r");
-								if ($ftp->uploadFromFile($Data, str_replace("/trunk/", "", $File))) {
+								if (@$ftp->uploadFromFile($Data, str_replace("/trunk/", "", $File))) {
 									$Result['update'][$Rev][$File]	= "OK! - Updated";
 								} else {
 									$Result['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht hochladen";
@@ -203,7 +200,7 @@ if ($user['authlevel'] != 3) die();
 								continue;
 							} else {
 								$Data = fopen($SVN_ROOT.$File, "r");
-								if ($ftp->uploadFromFile($Data, str_replace("/trunk/", "", $File))) {
+								if (@$ftp->uploadFromFile($Data, str_replace("/trunk/", "", $File))) {
 									$Result['update'][$Rev][$File]	= "OK! - Updated";
 								} else {
 									$Result['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht hochladen";
@@ -219,7 +216,7 @@ if ($user['authlevel'] != 3) die();
 					{
 						if(strpos($File, 'trunk/install/') === false) continue;
 						if (strpos($File, '.') !== false) {
-							if ($ftp->delete(str_replace("/trunk/", "", $File))) {
+							if (@$ftp->delete(str_replace("/trunk/", "", $File))) {
 								$Result['update'][$Rev][$File]	= "OK! - Gel&ouml;scht";
 							} else {
 								$Result['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht l&ouml;schen";
