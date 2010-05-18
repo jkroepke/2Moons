@@ -1,8 +1,7 @@
-Hallo %1$s,
-Danke, dass Sie sich bei %2$s als Benutzer registriert haben!
+Hello %1$s,
+Thank you for registering at %2$s
 
-Wir freuen uns, dass Sie sich entschieden haben, ein Teil unserer Community zu werden und hoffen, dass es Ihnen gefallen wird.
+We are glad that you chose to become a part of our community and we hope you will enjoy yourself!
 
-Mit freundlichen Gr&uuml;&szlig;en
-
+Regards,
 %2$s - Team
