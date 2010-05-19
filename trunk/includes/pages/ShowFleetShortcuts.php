@@ -25,136 +25,110 @@ function ShowFleetShortcuts($CurrentUser)
 
 	$a = request_var('a','');
 	$mode = request_var('mode', '');
+	
+	$template	= new template();
+	$template->page_header();
+	$template->page_footer();
 	if ($mode == "add")
 	{
 		if ($_POST)
 		{
-			if ($_POST["n"] == "")
-				$_POST["n"] = $lang['fl_anonymous'];
-
-			$r = strip_tags($_POST[n]) . "," . intval($_POST[g]) . "," . intval($_POST[s]) . "," . intval($_POST[p]) . "," . intval($_POST[t]) . "\r\n";
-			$CurrentUser['fleet_shortcut'] .= $r;
-			$db->query("UPDATE ".USERS." SET fleet_shortcut='".$CurrentUser['fleet_shortcut']."' WHERE id=".$CurrentUser['id'].";");
-			header("location:game.".PHP_EXT."?page=shortcuts");
+			$name	= request_var('n', $lang['fl_anonymous']);
+			$gala	= request_var('g', 0);
+			$sys	= request_var('s', 0);
+			$plan	= request_var('p', 0);
+			$type	= request_var('t', 0);
+			$CurrentUser['fleet_shortcut'] .= $name.','.$gala.','.$sys.','.$plan.','.$type."\r\n";
+			$db->query("UPDATE ".USERS." SET `fleet_shortcut` = '".$CurrentUser['fleet_shortcut']."' WHERE `id` = '".$CurrentUser['id']."';");
+			header("Location: game.".PHP_EXT."?page=shortcuts");
 		}
-
-		$page = "<div id=\"content\"><form method=POST><table border=0 cellpadding=0 cellspacing=1 width=519>
-				<tr height=20>
-				<td colspan=2 class=c>".$lang['fl_shortcut_add_title']."</td>
-				</tr><tr height=\"20\"><th>
-				<input type=text name=n value=\"$g\" size=32 maxlength=32 title=\"".$lang['fl_shortcut_name']."\">
-				<input type=text name=g value=\"$s\" size=3 maxlength=1 title=\"".$lang['fl_shortcut_galaxy']."\">
-				<input type=text name=s value=\"$p\" size=3 maxlength=3 title=\"".$lang['fl_shortcut_solar_system']."\">
-				<input type=text name=p value=\"$t\" size=3 maxlength=3 title=\"".$lang['fl_planet']."\">
-				<select name=t>";
-		$page .= '<option value="1"' . (($c[4] == 1)?" SELECTED":"") . ">".$lang['fl_planet']."</option>";
-		$page .= '<option value="2"' . (($c[4] == 2)?" SELECTED":"") . ">".$lang['fl_debris']."</option>";
-		$page .= '<option value="3"' . (($c[4] == 3)?" SELECTED":"") . ">".$lang['fl_moon']."</option>";
-		$page .= "</select>
-				</th></tr><tr>
-				<th><input type=\"reset\" value=\"".$lang['fl_clean']."\"> <input type=\"submit\" value=\"".$lang['fl_register_shorcut']."\">";
-		$page .= "</th></tr>";
-		$page .= "<tr><td colspan=2 class=c><a href=\"game.".PHP_EXT ."?page=shortcuts\">".$lang['fl_shortcuts']."</a></td></tr></tr></table></form></div>";
+	
+		$template->assign_vars(array(	
+			'fl_shortcut_add_title'	=> $lang['fl_shortcut_add_title'],
+			'fl_clean'				=> $lang['fl_clean'],
+			'fl_register_shorcut'	=> $lang['fl_register_shorcut'],
+			'fl_back'				=> $lang['fl_back'],
+			'typeselector'			=> array(1 => $lang['fl_planet'], 2 => $lang['fl_debris'], 3 =>$lang['fl_moon']),
+		));
+		
+		$template->show("fleet_shortcuts_add.tpl");
 	}
 	elseif (is_numeric($a))
 	{
+	
+		$scarray = explode("\r\n", $CurrentUser['fleet_shortcut']);
+		$r = explode(",", $scarray[$a]);
+		
 		if ($_POST)
 		{
-			$scarray = explode("\r\n", $CurrentUser['fleet_shortcut']);
-			if ($_POST["delete"])
+			if ($_POST['delete'])
 			{
 				unset($scarray[$a]);
-				$CurrentUser['fleet_shortcut'] = implode("\r\n", $scarray);
-				$db->query("UPDATE ".USERS." SET fleet_shortcut='".$CurrentUser['fleet_shortcut']."' WHERE id=".$CurrentUser['id'].";");
-				header("location:game.".PHP_EXT."?page=shortcuts");
 			}
 			else
 			{
-				$r = explode(",", $scarray[$a]);
-				$r[0] = strip_tags($_POST['n']);
-				$r[1] = intval($_POST['g']);
-				$r[2] = intval($_POST['s']);
-				$r[3] = intval($_POST['p']);
-				$r[4] = intval($_POST['t']);
+				$r[0] = request_var('n', '');
+				$r[1] = request_var('g', 0);
+				$r[2] = request_var('s', 0);
+				$r[3] = request_var('p', 0);
+				$r[4] = request_var('t', 0);
 				$scarray[$a] = implode(",", $r);
-				$CurrentUser['fleet_shortcut'] = implode("\r\n", $scarray);
-				$db->query("UPDATE ".USERS." SET fleet_shortcut='".$CurrentUser['fleet_shortcut']."' WHERE id=".$CurrentUser['id'].";");
-				header("location:game.".PHP_EXT."?page=shortcuts");
 			}
+			$CurrentUser['fleet_shortcut'] = implode("\r\n", $scarray);
+			$db->query("UPDATE ".USERS." SET fleet_shortcut='".$CurrentUser['fleet_shortcut']."' WHERE id=".$CurrentUser['id'].";");
+			exit(header("Location: ?page=shortcuts"));
 		}
 
-		if ($CurrentUser['fleet_shortcut'])
-		{
-			$scarray = explode("\r\n", $CurrentUser['fleet_shortcut']);
-			$c = explode(',', $scarray[$a]);
-			$page = "<div id=\"content\"><form method=POST><table border=0 cellpadding=0 cellspacing=1 width=519>
-					<tr height=20>
-					<td colspan=2 class=c>". $lang['fl_shortcut_edition'] ."{$c[0]} [{$c[1]}:{$c[2]}:{$c[3]}]</td>
-					</tr>";
-			$page .= "<tr height=\"20\"><th>
-					<input type=hidden name=a value=$a>
-					<input type=text name=n value=\"{$c[0]}\" size=32 maxlength=32>
-					<input type=text name=g value=\"{$c[1]}\" size=3 maxlength=1>
-					<input type=text name=s value=\"{$c[2]}\" size=3 maxlength=3>
-					<input type=text name=p value=\"{$c[3]}\" size=3 maxlength=3>
-					<select name=t>";
-			$page .= '<option value="1"' . (($c[4] == 1)?" SELECTED":"") . ">".$lang['fl_planet']."</option>";
-			$page .= '<option value="2"' . (($c[4] == 2)?" SELECTED":"") . ">".$lang['fl_debris']."</option>";
-			$page .= '<option value="3"' . (($c[4] == 3)?" SELECTED":"") . ">".$lang['fl_moon']."</option>";
-			$page .= "</select>
-					</th></tr><tr>
-					<th><input type=\"reset\" value=\"".$lang['fl_reset_shortcut']."\"><input type=submit value=\"".$lang['fl_register_shorcut']."\"> <input type=submit name=delete value=\"".$lang['fl_dlte_shortcut']."\">";
-			$page .= "</th></tr>";
-		}
-		else
-			header("location:game.".PHP_EXT."?page=shortcuts");
-
-		$page .= "<tr><td colspan=2 class=c><a href=\"game.".PHP_EXT ."?page=shortcuts\">".$lang['fl_back']."</a></td></tr></tr></table></form></div>";
+		if (empty($CurrentUser['fleet_shortcut']))
+			header("Location: ?page=shortcuts");
+		
+		$template->assign_vars(array(	
+			'fl_back'				=> $lang['fl_back'],
+			'fl_shortcut_edition'	=> $lang['fl_shortcut_edition'],
+			'fl_reset_shortcut'		=> $lang['fl_reset_shortcut'],
+			'fl_register_shorcut'	=> $lang['fl_register_shorcut'],
+			'fl_dlte_shortcut'		=> $lang['fl_dlte_shortcut'],
+			'typeselector'			=> array(1 => $lang['fl_planet'], 2 => $lang['fl_debris'], 3 =>$lang['fl_moon']),
+			'name'					=> $r[0],
+			'galaxy'				=> $r[1],
+			'system'				=> $r[2],
+			'planet'				=> $r[3],
+			'type'					=> $r[4],
+			'id'					=> $a,
+		));
+		
+		$template->show("fleet_shortcuts_edit.tpl");
 	}
 	else
 	{
-		$page = "<div id=\"content\"><table border=\"0\" cellpadding=\"0\" cellspacing=\"1\" width=\"519\">
-				<tr height=\"20\">
-				<td class=\"c\" colspan=\"2\">".$lang['fl_shortcuts']." (<a href=\"game.".PHP_EXT."?page=shortcuts&mode=add\">".$lang['fl_shortcut_add']."</a>)</td>
-				</tr>";
-
-		if ($CurrentUser['fleet_shortcut'])
+		$scarray = explode("\r\n", $CurrentUser['fleet_shortcut']);
+		foreach($scarray as $b)
 		{
-			$scarray = explode("\r\n", $CurrentUser['fleet_shortcut']);
-			$i = $e = 0;
-			foreach($scarray as $a => $b)
-			{
-				if ($b != "") {
-					$c = explode(',', $b);
-					if ($i == 0)
-						$page .= "<tr height=\"20\">";
-
-					$page .= "<th><a href=\"game.".PHP_EXT ."?page=shortcuts&a=" . $e++ . "\">";
-					$page .= "{$c[0]} {$c[1]}:{$c[2]}:{$c[3]}";
-
-					if ($c[4] == 2)
-						$page .= " " . $lang['fl_debris_shortcut'];
-					elseif ($c[4] == 3)
-						$page .= " " . $lang['fl_moon_shortcut'];
-
-					$page .= "</a></th>";
-					if ($i == 1)
-						$page .= "</tr>";
-
-					if ($i == 1)
-						$i = 0;
-					else
-						$i = 1;
-				}
-			}
-			if ($i == 1)
-				$page .= "<th></th></tr>";
+			if(empty($b))
+				continue;
+				
+			$c = explode(',', $b);
+			$ShortCuts[]	= array(
+				'name'		=> $c[0],
+				'galaxy'	=> $c[1],
+				'system'	=> $c[2],
+				'planet'	=> $c[3],
+				'type'		=> $c[4],
+			);
 		}
-		else
-			$page .= "<th colspan=\"2\">".$lang['fl_no_shortcuts']."</th>";
-
-		$page .= "<tr><td class=c colspan=2><a href=game.php?page=fleet>".$lang['fl_back']."</a></td></tr></tr></table></div>";
+	
+	$template->assign_vars(array(	
+		'ShortCuts'				=> $ShortCuts,
+		'fl_back'				=> $lang['fl_back'],
+		'fl_planet_shortcut'	=> $lang['fl_planet_shortcut'],
+		'fl_moon_shortcut'		=> $lang['fl_moon_shortcut'],
+		'fl_debris_shortcut'	=> $lang['fl_debris_shortcut'],
+		'fl_no_shortcuts'		=> $lang['fl_no_shortcuts'],
+		'fl_shortcuts'			=> $lang['fl_shortcuts'],
+		'fl_shortcut_add'		=> $lang['fl_shortcut_add'],
+	));
+	
+	$template->show("fleet_shortcuts.tpl");
 	}
-	display($page);
 }
 ?>

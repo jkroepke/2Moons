@@ -81,42 +81,11 @@ function display ($page, $topnav = true, $metatags = '', $AdminPage = false, $me
 		header('Cache-Control: post-check=0, pre-check=0', false); 
 	}
 	
-	$DisplayPage = (!$AdminPage) ? StdUserHeader($metatags) : AdminUserHeader($metatags);
-
-	if ($topnav)
-	{
-		include_once(ROOT_PATH . 'includes/functions/ShowTopNavigationBar.' . PHP_EXT);
-		$DisplayPage .= ShowTopNavigationBar( $user, $planetrow );
-	}
-
-	if ($menu && !$AdminPage)
-	{
-		include_once(ROOT_PATH . 'includes/functions/ShowLeftMenu.' . PHP_EXT);
-		$DisplayPage .= ShowLeftMenu ($user['authlevel']);
-	}
-    if ($menu && !$AdminPage && $user['settings_planetmenu'] == 1)
-    {
-        include_once(ROOT_PATH . 'includes/functions/ShowPlanetMenu.' . PHP_EXT);
-        $DisplayPage .= ShowPlanetMenu ($user, $planetrow);
-    } 
+	$DisplayPage = AdminUserHeader($metatags);
 	$DisplayPage .= "\n<center>\n". $page ."\n</center>\n";
-	if(!defined('LOGIN') && $_GET['page'] != 'galaxy'){
-		$parse['sql_num']	= ((!defined('INSTALL') || !defined('IN_ADMIN')) && $user['authlevel'] == 3 && $game_config['debug'] == 1) ? "<center><div id=\"footer\">SQL Abfragen:". $db->get_sql()." - Seiten generiert in ".round(microtime(true) - STARTTIME, 4)." Sekunden</div></center>" : "";
-		$DisplayPage .= parsetemplate(gettemplate('global/overall_footer'), $parse);
-	}
-
+	$DisplayPage .= parsetemplate(gettemplate('adm/simple_footer'), $parse);
+	
 	echo $DisplayPage;
-}
-
-function StdUserHeader ($metatags = '')
-{
-	global $dpath, $game_config;
-
-	$parse['title'] 	 = $game_config['game_name'];
-	$parse['dpath'] 	 = (isset($dpath)) ? $dpath : DEFAULT_SKINPATH;
-	$parse['meta']		 = $metatags;
-
-	return parsetemplate(gettemplate('global/overall_header'), $parse);
 }
 
 function AdminUserHeader ($metatags = '')

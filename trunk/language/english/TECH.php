@@ -23,6 +23,12 @@ $lang['tech_rc'] = array (
 220 => 'Inter. DM-Collector',
 221 => 'Column thriller',
 222 => 'Bahamut',
+223 => 'S. Catcher',
+224 => 'Ifrit',
+225 => 'Shiva',
+226 => 'Catoblepas',
+227 => 'Ixion',
+228 => 'Odin',
 
 401 => 'R.Launcher',
 402 => 'L. Laser',
@@ -35,7 +41,6 @@ $lang['tech_rc'] = array (
 409 => 'GS Dome',
 410 => 'Grav cannon',
 411 => 'O.D.P.',
-412 => 'Bahamut',
 );
 
 
@@ -81,6 +86,9 @@ $lang['tech'] = array(
 122 => 'Plasma Technology',
 123 => 'Intergalactic Research Network',
 124 => 'Astrophysics',
+131 => 'Metal production maximization',
+132 => 'Crystal production maximization',
+133 => 'Deuterium production maximization',
 199 => 'Graviton Research',
 
 200 => 'Ships',
@@ -105,6 +113,12 @@ $lang['tech'] = array(
 220 => 'Intergalactic Darkmatter collector',
 221 => 'Column thriller',
 222 => 'Bahamut',
+223 => 'Star Catcher',
+224 => 'Space Titan Ifrit',
+225 => 'Space Titan Shiva',
+226 => 'Space Titan Catoblepas',
+227 => 'Space Titan Ixion',
+228 => 'Space Titan Odin',
 
 400 => 'Defense systems',
 401 => 'Rocket Launcher',
@@ -184,6 +198,9 @@ $lang['res']['descriptions'] = array(
 122 => 'Further development of ion technology, which does not accelerate ions, but high-energy plasma. This has a devastating effect when striking an object.',
 123 => 'In order to function, each colony must be able to conduct the research independently, With the IRN, faster research times can be achieved by linking the highest level research labs equal to the level of the IRN developed.',
 124 => 'Other findings in the astrophysics enable the construction of laboratories, with which more vessels can be equipped. This long expeditions are possible in unexplored areas. In addition, the advances allow the further colonization of space. Per two stages of this technology can thus be harnessed another planet.',
+131 => 'Increases the production of the metal mine by 2%',
+132 => 'Increases the production of the crystal mine by 2%',
+133 => 'Increases the production of the deuterium synthesizer by 2%',
 199 => 'By launching a concentrated load of Graviton particles an artificial gravity field can be built, which ships or even moons can be annihilated.',
 
 202 => 'The Transporter is an agile little ship that can transport materials quickly to other planets.',
@@ -207,6 +224,12 @@ $lang['res']['descriptions'] = array(
 220 => 'After long years of research dark matter is now collectable from the moon.',
 221 => 'This ship is one of the most powerful ships in universe. The Column thriller travels with its incredibly high Graviton Technology to make a rift in the time that devours all opponents. His shields take almost every attack. ',
 222 => 'This ship is the result of years of research. All the Emperors came together to create this monster of a destroyer. Equipped with the most powerful laser and projectile guns, including Graviton cannon is it possible to destroy satellites within seconds and collect their remains to stow in its giant warehouse. ', 
+223 => 'This ship uses radiation from the stars to build a charge for the mighty "Star Laser". With first-class armor and shields this might be the only cruiser to be shot by a Graviton cannon and survive.',
+224 => 'This ship is equipped with the best projectile weapons of the galaxy, but has no laser weapons. Tremendous firepower exceeds that of almost everything there was before. approximately 500 billion diamond projectiles are shot in a minute, even the best spaceship armor is penetrable. It is one of five space titans.',
+225 => 'This ship is equipped with the best laser and ion weapons of the galaxy but has no projectile weapons.A powerful laser surpasses almost everything there was before. The force of focused light with devastating destructive force that breaks almost any shield . It is one of five space Titans.',
+226 => 'This ship has one of the largest cargo spaces fitted so large quantities of raw materials can be transported. It is also equipped with extremely powerful shields, so it also good for the defense of a planet. However attack power is lacking. It is one of five space titans.',
+227 => 'The best fighter there is. With its speed and agility, it is an extremely dangerous weapon. It is one of five space titans.',
+228 => 'This ship size is equivalent to four times a human being and therefore can easily penetrate into enemy forts to destroy it from within. His speed is unmatched. It is one of five space Titans.',
 
 401 => 'The Rocket Launcher is a simple but cost-effective defense.',
 402 => 'Light Lasers are simple ground based weapons that utilize special targeting systems to track the enemy and fire a high intensity laser designed to cut through the hull of the target.',
@@ -303,13 +326,7 @@ $lang['info'][44]['description']  = 'When Earth destroyed itself in a full scale
 // ----------------------------------------------------------------------------------------------------------
 // Forschung
 $lang['info'][106]['name']        = 'Espionage Technology';
-$lang['info'][106]['description'] = 'With Espionage Technology, the level of your technology to that of your target is critical. If your target has a higher level of Espionage Technology than you, you will need to launch more probes to gather all the information on your target. However this runs the great risk of detection by your target, resulting in the probes destruction. However, launching too few probes will result in missing information that is most critical, which could result in the total destruction of your fleet if an attack is launched.
-
-At certain levels of Espionage Technology research, new attack warning systems are installed:
-
-At Level 2, the total number of attacking ships will be displayed along with the simple attack warning.
-At Level 4, the type of attacking ships along with the number of ships are displayed.
-At Level 8, the exact number of each type of ship launched is displayed.';
+$lang['info'][106]['description'] = 'With Espionage Technology, the level of your technology to that of your target is critical. If your target has a higher level of Espionage Technology than you, you will need to launch more probes to gather all the information on your target. However this runs the great risk of detection by your target, resulting in the probes destruction. However, launching too few probes will result in missing information that is most critical, which could result in the total destruction of your fleet if an attack is launched. At certain levels of Espionage Technology research, new attack warning systems are installed: At Level 2, the total number of attacking ships will be displayed along with the simple attack warning. At Level 4, the type of attacking ships along with the number of ships are displayed. At Level 8, the exact number of each type of ship launched is displayed.';
 $lang['info'][108]['name']        = 'Computer Technology';
 $lang['info'][108]['description'] = 'Once launched on any mission, fleets are controlled primarily by a series of computers located on the originating planet. These massive computers calculate the exact time of arrival, controls course corrections as needed, calculates trajectories, and regulates flight speeds. With each level researched, the flight computer is upgraded to allow an additional slot to be launched. Computer technology should be continuously developed throughout the building of your empire.';
 $lang['info'][109]['name']        = 'Weapons Technology';
@@ -338,6 +355,12 @@ $lang['info'][123]['name']        = 'Intergalactic Research Network';
 $lang['info'][123]['description'] = 'This is your deep space network to communicate researches to your colonies. With the IRN, faster research times can be achieved by linking the highest level research labs equal to the level of the IRN developed. In order to function, each colony must be able to conduct the research independently.';
 $lang['info'][124]['name']        = 'Astrophysics';
 $lang['info'][124]['description'] = 'Other findings in astrophysics enable the construction of laboratories, with which more and more ships can be equipped. This long expedition trips are possible in unexplored areas. Allow further progress to further colonization of outer space. Every Two stages of this technology can be harnessed another planet.'; 
+$lang['info'][131]['name']        = 'Metal production maximization';
+$lang['info'][131]['description'] = 'Increases the production of the Metal mine by 2%';
+$lang['info'][132]['name']        = 'Crystal production maximization';
+$lang['info'][132]['description'] = 'Increases the production of the Crystal mine by 2%';
+$lang['info'][133]['name']        = 'Deuterium production maximization';
+$lang['info'][133]['description'] = 'Increases the production of Deuterium synthesizer by 2%';
 $lang['info'][199]['name']        = 'Graviton Research';
 $lang['info'][199]['description'] = 'The graviton is an elementary particle that mediates the force of gravity in the framework of quantum field theory. The graviton must be massless (because the gravitational force has unlimited range) and must have a spin of 2 (because gravity is a second-rank tensor field). Graviton Technology is only used for one thing, for the construction of the fearsome DeathStar. Out of all of the technologies to research, this one carries the most risk of detection during the phase of preparation.';
 
@@ -385,6 +408,18 @@ $lang['info'][221]['name']        = 'Column thriller';
 $lang['info'][221]['description'] = 'The Column thriller travels with incredibly high Graviton Technology to make a rift in space-time that devours all opponents. Its shields Take almost every attack.';
 $lang['info'][222]['name']        = 'Bahamut';
 $lang['info'][222]['description'] = 'This ship is the result of years of research. All Kaiser teamed up to create this monster of a destroyer. Equipped with the most powerful laser and projectile guns including Graviton cannon it is possible to destroy satellites within seconds and collect their remains in  its huge warehouse.';
+$lang['info'][223]['name']        = 'Star catcher';
+$lang['info'][223]['description'] = 'This ship uses radiation from the stars to build a charge for the mighty "Star Laser". With first-class armor and shields this might be the only cruiser to be shot by a Graviton cannon and survive';
+$lang['info'][224]['name']        = 'Space Titan Ifrit';
+$lang['info'][224]['description'] = 'This ship is equipped with the best projectile weapons of the galaxy, but has no laser weapons. Tremendous firepower exceeds that of almost everything there was before. approximately 500 billion diamond projectiles are shot in a minute, even the best spaceship armor is penetrable. It is one of five space titans.';
+$lang['info'][225]['name']        = 'Space Titan Shiva';
+$lang['info'][225]['description'] = 'This ship is equipped with the best laser and ion weapons of the galaxy but has no projectile weapons.A powerful laser surpasses almost everything there was before. The force of focused light with devastating destructive force that breaks almost any shield . It is one of five space Titans.';
+$lang['info'][226]['name']        = 'Space Titan Catoblepas';
+$lang['info'][226]['description'] = 'This ship has one of the largest cargo spaces fitted so large quantities of raw materials can be transported. It is also equipped with extremely powerful shields, so it also good for the defense of a planet. However attack power is lacking. It is one of five space titans.';
+$lang['info'][227]['name']        = 'Space Titan Ixion';
+$lang['info'][227]['description'] = 'The best fighter there is. With its speed and agility, it is an extremely dangerous weapon. It is one of five space titans.';
+$lang['info'][228]['name']        = 'Space Titan Odin';
+$lang['info'][228]['description'] = 'This ship size is equivalent to four times a human being and therefore can easily penetrate into enemy forts to destroy it from within. His speed is unmatched. It is one of five space Titans.';
 
 
 // ----------------------------------------------------------------------------------------------------------

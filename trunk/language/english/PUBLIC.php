@@ -32,7 +32,7 @@ $lang['server_infos']			= array(
 //case default
 $lang['login_error']			= 'Wrong username / password! <br><a href="index.php">Back</a>';
 $lang['screenshots']			= 'Screenshots';
-$lang['universe']				= 'Universe';
+$lang['universe']				= '';
 $lang['chose_a_uni']			= 'Choose a universe';
 
 /* ------------------------------------------------------------------------------------------ */
@@ -48,7 +48,7 @@ $lang['pass']					= 'Password';
 $lang['remember_pass']			= 'Auto-Login';
 $lang['lostpassword']			= 'Forgot Password?';
 $lang['welcome_to']				= 'Welcome to';
-$lang['server_description']		= ' is a space strategy game with hundreds of players simultaneously try to be the best. All you need to play is a standard web browser (FireFox is recommended).';
+$lang['server_description']		= '<strong>%s</strong> is a space strategy game with hundreds of players simultaneously try to be the best. All you need to play is a standard web browser (FireFox is recommended).';
 $lang['server_register']		= 'Please register now!';
 $lang['server_message']			= 'Sign up now and experience a new and exciting in the world of';
 $lang['login']					= 'Login';
@@ -97,6 +97,7 @@ $lang['captcha_help']				= 'Help';
 $lang['captcha_get_image']			= 'Load Bild-CAPTCHA';
 $lang['captcha_reload']				= 'New CAPTCHA';
 $lang['captcha_get_audio']			= 'Load Sound-CAPTCHA';
+$lang['user_active']                = 'User %s has been activated!';
 
 //registry_closed.tpl
 $lang['info']						= 'Information';
@@ -157,7 +158,15 @@ Bashing is only allowed when your Alliance is at war with another Alliance. The 
 - Probes spam
 - Overview spam",
 
+  "Wars"                    => "After the Leaders of the alliances both agree to the war, it is officially on. And will continue until one of the alliances cancels it. To officially cancel the war they need to cancel the war pact from in-game, and announce it in the thread they started initially.
+While the war is on, the bashing rule between the alliances involved does not count. Meaning any members belonging to the alliances in said war can be attack an infinite amount of times with out punishment.
+If either alliance gives up and cancels the war, the bashing rule will take effect again, and any members breaking it after the war has ended with be punished with a 1 day ban, More if the degree of attack is extremely high.
 
+If the opposing alliance has a fleet in flight. And the war is canceled before they arrive. They will NOT be punished for that attack. But any fleet sent after the war cancellation will count toward the bashing rule.
+
+
+For New Wars one of the leaders need to create a new thread in the war/diplomacy section.
+There they can set any specific rules or terms, they want for the war. Any rules set in place, and are agreed to by the opposing alliance must be fallowed, and must not contradict any rules set here.",                          
 
 );
 
@@ -248,6 +257,10 @@ Damages are not within the meaning of the operator.",
 	"Changes to Terms"	=> "The operator reserves the right to modify these terms at any time or extend.
 A change or addition will be published at least one week before the entry in Forum.",
 );
+
+//Facebook Connect
+
+$lang['fb_perm']                = 'Access prohibited. %s needs all the rights so you can login with your Facebook account. \n Alternatively, you can login without a Facebook account!';
 
 //NEWS
 

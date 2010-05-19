@@ -34,7 +34,7 @@
 							<td style="text-align:left;width:10px"><img src="./styles/images/transparent.gif" alt="" style="width:10px;height:100px"></td>
 							<td style="text-align:left;width:90%">{$FleetListRow.descriptions}<br><br>{$FleetListRow.price}</td>
 							<td style="text-align:center;vertical-align:middle;width:100px">
-							{if $NotBuilding && $FleetListRow.IsAvailable}<input type="text" name="fmenge[{$FleetListRow.id}]" id="input_{$FleetListRow.id}" size="7" maxlength="7" value="0" tabindex="{$smarty.foreach.FleetList.iteration}">							<br><br>
+							{if $NotBuilding && $FleetListRow.IsAvailable}<input type="text" name="fmenge[{$FleetListRow.id}]" id="input_{$FleetListRow.id}" size="{$maxlength}" maxlength="{$maxlength}" value="0" tabindex="{$smarty.foreach.FleetList.iteration}">							<br><br>
 							<input type="button" value="Max" onclick="$('#input_{$FleetListRow.id}').val(maxcount({$FleetListRow.id}))">
 							{/if}
 							</td>

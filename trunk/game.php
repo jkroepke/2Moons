@@ -288,6 +288,11 @@ switch($page)
         include_once(ROOT_PATH . 'includes/pages/ShowFAQ.' . PHP_EXT);
         ShowFAQ($user, $planetrow);
     break; 
+// ----------------------------------------------------------------------------------------------------------------------------------------------//	
+    case 'battlesim':
+        include_once(ROOT_PATH . 'includes/pages/ShowBattleSimPage.' . PHP_EXT);
+        ShowBattleSimPage($user, $planetrow);
+    break; 
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'logout':
 		setcookie($game_config['COOKIE_NAME'], '', 1, "/", "", 0);
@@ -299,8 +304,6 @@ switch($page)
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'overview':
 	default:
-		if (isset($run_plug)) exit;
-
 		include_once(ROOT_PATH . 'includes/pages/ShowOverviewPage.' . PHP_EXT);
 		ShowOverviewPage($user, $planetrow);
 	break;

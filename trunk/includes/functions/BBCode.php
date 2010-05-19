@@ -10,6 +10,7 @@ function bbcode($text) {
 	$bbcode->addCode("align", "callback_replace", "bbcode_align", array(), "block", array("block"), array('inline','link','list'));
 	$bbcode->addCode("spoiler", "simple_replace", null, array('start_tag'=>'<div class="bbcode_spoiler"><p><b>Spoiler:</b></p><div>', 'end_tag'=>'</div></div>'), "block", array("block"), array('inline','link','list'));
 	$bbcode->addCode("bg", "usecontent?", "bbcode_background", array('usecontent_param'=>'default'), 'link', array('block','inline','listitem'), array('link'));
+	$bbcode->addCode("bgcolor", "callback_replace", "bbcode_bgcolor", array(), 'inline', array('block','inline','link','listitem'), array());
 	
 	//Inline-Elements
 	$bbcode->addCode("b", "simple_replace", null, array('start_tag'=>'<b>', 'end_tag'=>'</b>'), 'inline', array('block','inline','link','listitem'), array());
@@ -179,5 +180,10 @@ function bbcode_size($action, $attributes, $content, $params, $node_object) {
 function bbcode_color($action, $attributes, $content, $params, $node_object) {
 	if ($action == 'validate') return true;
 	return '<span style="color: '.htmlspecialchars($attributes["default"]).'">'.$content.'</span>';
+}
+
+function bbcode_bgcolor($action, $attributes, $content, $params, $node_object) {
+	if ($action == 'validate') return true;
+	return '<span style="background: '.htmlspecialchars($attributes["default"]).'">'.$content.'</span>';
 }
 ?>

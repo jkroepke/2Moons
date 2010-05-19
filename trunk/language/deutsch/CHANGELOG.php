@@ -5,16 +5,20 @@ $lang['Description'] = 'Beschreibung';
 
 $lang['changelog']   = array(
 
-'RC5.0' => 'ShadoX 30.04.10
+'RC5.0' => 'ShadoX 08.05.10
 - ADD: Neue Schiffe
 - ADD: Support Planet in System != 15
 - ADD: Cookie für LoginMusik
 - ADD: Check für verfügbare Missions in Fleet3
 - ADD: Multi-Lang Installer
+- ADD: Kampfsimulator
+- ADD: bcmath for JS
+- DEL: PluginSystem
 - FIX: Dublicate Ressis Bug
 - FIX: Bewerbungstext
 - FIX: Support
 - FIX: Resource Bug
+- FIX: Mood Löschung
 - FIX: Intergal. Netzwerk
 - FIX: class.FlyingFleetMissions.php on 1183:SQL Error (Duplicate entry \'Key\' for key \'rid\')
 - FIX: Bauzeiten, wenn Gebäude nicht baubar war
@@ -28,6 +32,7 @@ $lang['changelog']   = array(
 - FIX: Statistiken Fehler bei neuen Spielern
 - DIV: Flottenquery vereinfacht
 - DIV: Sicherheit im Game erhöht
+- DIV: Leftmenu
 - DIV: Diverse Anpassungen am Game
 ',
 

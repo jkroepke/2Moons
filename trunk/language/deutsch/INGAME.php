@@ -82,6 +82,7 @@ $lang['lm_records']							= 'Rekorde';
 $lang['lm_chat']							= 'Chat';
 $lang['lm_support']							= 'Support';
 $lang['lm_rules']							= 'Regeln';
+$lang['lm_battlesim']						= "Kampfsimulator";
 
 //----------------------------------------------------------------------------//
 //OVERVIEW
@@ -267,7 +268,7 @@ $lang['fl_reset_shortcut']					= 'Reset';
 $lang['fl_dlte_shortcut']					= 'Löschen';
 $lang['fl_back']							= 'Zurück';
 $lang['fl_shortcut_add']					= 'Hinzufügen';
-$lang['fl_shortcut_edition']				= 'ändern: ';
+$lang['fl_shortcut_edition']				= 'Shortcut editieren';
 $lang['fl_no_colony']						= 'Keine Kolonien vorhanden';
 $lang['fl_send_fleet']						= 'Flotte verschicken';
 $lang['fl_fleet_speed']						= 'Geschwindigkeit';
@@ -318,6 +319,7 @@ $lang['fl_sac_of_fleet']					= 'Flotten-AKS';
 $lang['fl_modify_sac_name']					= 'AKS-Name ändern';
 $lang['fl_members_invited']					= 'Eingeladen';
 $lang['fl_invite_members']					= 'Einladen';
+$lang['fl_simulate']						= 'Simulieren';
 
 //----------------------------------------------------------------------------//
 //BUILDINGS - RESEARCH - SHIPYARD - DEFENSES
@@ -1208,6 +1210,24 @@ $lang['rec_level']  						= 'Level';
 $lang['rec_nbre']   						= 'Anzahl';
 $lang['rec_rien']   						= '-';
 $lang['rec_last_update_on']   				= 'Letztes Update um : %s';
+
+
+//----------------------------------------------------------------------------//
+// BattleSimulator
+
+
+$lang['bs_derbis_raport']					= "Es werden %s %s oder %s %s für das Trümmerfeld benötigt.";
+$lang['bs_steal_raport']					= "Für die Beute werden %s %s oder %s %s oder %s %s benötigt.";
+$lang['bs_names']							= "Schiffname";
+$lang['bs_atter']							= "Angreifer";
+$lang['bs_deffer']							= "Verteidiger";
+$lang['bs_steal']							= "Rohstoffe(für Steal):";
+$lang['bs_techno']							= "Techniken";
+$lang['bs_send']							= "Absenden";
+$lang['bs_cancel']							= "Zurücksetzen";
+$lang['bs_wait']							= "Warte 10 Sekunden für nächste Simulation";
+
+
 
 // Translated into German by Slaver . All rights reversed (C) 2010
 

@@ -21,13 +21,14 @@
 
 @set_time_limit(120);
 
-if (!(function_exists("spl_autoload_register")))
+if(!(function_exists("spl_autoload_register")))
 	exit("PHP is missing <a href=\"http://php.net/spl\">Standard PHP Library (SPL)</a> support");
-
+	
+if(!(function_exists("bcadd")))
+	exit("PHP is missing <a href=\"http://php.net/bcmath\">BCMath Arbitrary Precision Mathematics (BCMath)</a> support");
 
 if((!file_exists(ROOT_PATH . 'config.php') || filesize(ROOT_PATH . 'config.php') == 0) && INSTALL != true)
 	exit(header("Location:" . ROOT_PATH .  "install/"));
-
 
 if(!defined('INSTALL') || !defined('IN_ADMIN') || !defined('IN_CRON'))
 	define("STARTTIME",	microtime(true));
@@ -163,9 +164,6 @@ if (INSTALL != true)
 			$user['new_message'] = $planetrow['new_message'];
 			include_once(ROOT_PATH.'includes/functions/CheckPlanetUsedFields.' . PHP_EXT);
 			CheckPlanetUsedFields($planetrow);
-			include_once(ROOT_PATH.'includes/classes/class.plugins.'.PHP_EXT);
-			$mod_plug = new modPl();
-			$mod_plug->run();
  		}
 	} else {
 		//Login

@@ -182,19 +182,19 @@ function maxcount(id){
 	if(isNaN(metmax) && isNaN(crymax) && isNaN(deumax))
 		return 0;
 	else if(isNaN(metmax) && isNaN(crymax))
-		return Math.floor(deumax);
+		return removeE(Math.floor(deumax));
 	else if(isNaN(metmax) && isNaN(deumax))
-		return Math.floor(crymax);
+		return removeE(Math.floor(crymax));
 	else if(isNaN(crymax) && isNaN(deumax))
-		return Math.floor(metmax);
+		return removeE(Math.floor(metmax));
 	else if(isNaN(metmax))
-		return Math.floor(Math.min(crymax, deumax));
+		return removeE(Math.floor(Math.min(crymax, deumax)));
 	else if(isNaN(crymax))
-		return Math.floor(Math.min(metmax, deumax));
+		return removeE(Math.floor(Math.min(metmax, deumax)));
 	else if(isNaN(deumax))
-		return Math.floor(Math.min(metmax, crymax));
+		return removeE(Math.floor(Math.min(metmax, crymax)));
 	else
-		return Math.floor(Math.min(metmax, Math.min(crymax, deumax)));
+		return removeE(Math.floor(Math.min(metmax, Math.min(crymax, deumax))));
 }
 
 
@@ -217,4 +217,16 @@ function number_format(n) {
     }
     ns = ns.substr(0, ns.length - 1);
     return ns.replace(/\.,/, ',');
+}
+
+function removeE(Number) {
+	Number	= String(Number);
+	if(Number.search(/e\+/) == -1)
+		return Number;
+	
+	var e = parseInt(Number.replace(/\S+.?e\+/g, ''));
+	if(isNaN(e) || e == 0)
+		return Number;
+	else
+		return parseFloat(Number).toPrecision(e+1);
 }

@@ -13,10 +13,11 @@ function t() {
 	var s = Math.round(s);
 	var m = 0;
 	var h = 0;
-	if ( s <= 0) {
-		a[p]--;
-		if ( a[p] <= 0 ) {
+	if (s <= 0) {
+		z.sub('1');
+		if (z.toString() == '0') {
 			p++;
+			z = z.reset(a[p]);
 		}
 		xd();
 		hanger_id = 0;
@@ -53,16 +54,11 @@ function xd() {
 		document.getElementById('auftr').options[document.getElementById('auftr').length] = new Option(ready);
 	}
 	for ( iv = p; iv <= b.length - 2; iv++ ) {
-		if ( a[iv] < 2 ) {
-			ae = " ";
-		} else {
-			ae = " ";
-		}
 		if ( iv == p ) {
 			act = " " + bd_operating;
 		} else {
 			act = "";
 		}
-		document.getElementById('auftr').options[document.getElementById('auftr').length] = new Option( a[iv] + ae + " \"" + b[iv] + "\"" + act, iv + of );
+		document.getElementById('auftr').options[document.getElementById('auftr').length] = new Option(z.toString() + " \"" + b[iv] + "\"" + act, iv + of );
 	}
 }
