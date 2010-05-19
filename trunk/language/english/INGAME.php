@@ -79,7 +79,7 @@ $lang['lm_queue']							= 'Queues';
 $lang['lm_topkb']							= 'Hall of Fame';
 $lang['lm_faq']								= 'Beginners Guide';
 $lang['lm_records']							= 'Records';
-$lang['lm_chat']							= '<font size=2><font color="red">Chat';
+$lang['lm_chat']							= 'Chat';
 $lang['lm_support']							= 'Support Ticket';
 $lang['lm_rules']							= 'Rules';
 

@@ -149,10 +149,10 @@ function ShowMessagesPage($CurrentUser, $CurrentPlanet)
 					$MessageList[$CurMess['message_id']]	= array(
 						'time'		=> date("d. M Y, H:i:s", $CurMess['message_time']),
 						'from'		=> $CurMess['message_from'],
-						'subject'	=> $CurMess['message_subject'],
+						'subject'	=> stripslashes($CurMess['message_subject']),
 						'type'		=> $CurMess['message_type'],
 						'sender'	=> $CurMess['message_sender'],
-						'text'		=> $CurMess['message_text'],
+						'text'		=> stripslashes($CurMess['message_text']),
 					);
 				}
 			}
