@@ -1,22 +1,22 @@
 <?php
 
 ##############################################################################
-# *																			 #
-# * 2MOON       															 #
-# *  																		 #
-# * @copyright Copyright (C) 2009 By ShadoX from xnova-reloaded.de	    	 #
-# *																			 #
-# *																			 #
+# *                                                                          #
+# * 2MOONS                                                                   #
+# *                                                                          #
+# * @copyright Copyright (C) 2010 By ShadoX from titanspace.de               #
+# *                                                                          #
+# *	                                                                         #
 # *  This program is free software: you can redistribute it and/or modify    #
 # *  it under the terms of the GNU General Public License as published by    #
 # *  the Free Software Foundation, either version 3 of the License, or       #
-# *  (at your option) any later version.									 #
-# *																			 #
-# *  This program is distributed in the hope that it will be useful,		 #
-# *  but WITHOUT ANY WARRANTY; without even the implied warranty of			 #
-# *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the			 #
-# *  GNU General Public License for more details.							 #
-# *																			 #
+# *  (at your option) any later version.                                     #
+# *	                                                                         #
+# *  This program is distributed in the hope that it will be useful,         #
+# *  but WITHOUT ANY WARRANTY; without even the implied warranty of          #
+# *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the           #
+# *  GNU General Public License for more details.                            #
+# *                                                                          #
 ##############################################################################
 
 define('INSIDE'  , true);
@@ -89,7 +89,7 @@ if ($user['authlevel'] != 3) die();
 				{
 					foreach($RevInfo['add'] as $File)
 					{	
-						if(strpos($File, '.') !== false)
+						if (strpos($File, '.') !== false)
 							$zipfile->addFile(file_get_contents($SVN_ROOT.$File), str_replace("/trunk/", "", $File), $RevInfo['timestamp']);					
 					}
 				}
@@ -97,7 +97,7 @@ if ($user['authlevel'] != 3) die();
 				{
 					foreach($RevInfo['edit'] as $File)
 					{	
-						if(strpos($File, '.') !== false)
+						if (strpos($File, '.') !== false)
 							$zipfile->addFile(file_get_contents($SVN_ROOT.$File), str_replace("/trunk/", "", $File), $RevInfo['timestamp']);
 					}
 				}
@@ -105,7 +105,7 @@ if ($user['authlevel'] != 3) die();
 				{
 					foreach($RevInfo['del'] as $File)
 					{
-						if(strpos($File, '.') !== false) {
+						if (strpos($File, '.') !== false) {
 							$TodoDelete	.= str_replace("/trunk/", "", $File)."\r\n";
 						}
 					}
@@ -164,7 +164,6 @@ if ($user['authlevel'] != 3) die();
 				{
 					foreach($RevInfo['add'] as $File)
 					{	
-						if(strpos($File, 'trunk/install/') === false) continue;
 						if($File == "/trunk/updates/update_".$Rev.".sql")
 						{
 							$db->multi_query(str_replace("prefix_", DB_PREFIX, file_get_contents($SVN_ROOT.$File)));
@@ -172,7 +171,7 @@ if ($user['authlevel'] != 3) die();
 						} else {
 							if (strpos($File, '.') !== false) {		
 								$Data = fopen($SVN_ROOT.$File, "r");
-								if (@$ftp->uploadFromFile($Data, str_replace("/trunk/", "", $File))) {
+								if ($ftp->uploadFromFile($Data, str_replace("/trunk/", "", $File))) {
 									$Result['update'][$Rev][$File]	= "OK! - Updated";
 								} else {
 									$Result['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht hochladen";
@@ -192,7 +191,6 @@ if ($user['authlevel'] != 3) die();
 				{
 					foreach($RevInfo['edit'] as $File)
 					{	
-						if(strpos($File, 'trunk/install/') === false) continue;
 						if (strpos($File, '.') !== false) {
 							if($File == "/trunk/updates/update_".$Rev.".sql")
 							{
@@ -200,7 +198,7 @@ if ($user['authlevel'] != 3) die();
 								continue;
 							} else {
 								$Data = fopen($SVN_ROOT.$File, "r");
-								if (@$ftp->uploadFromFile($Data, str_replace("/trunk/", "", $File))) {
+								if ($ftp->uploadFromFile($Data, str_replace("/trunk/", "", $File))) {
 									$Result['update'][$Rev][$File]	= "OK! - Updated";
 								} else {
 									$Result['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht hochladen";
@@ -214,9 +212,8 @@ if ($user['authlevel'] != 3) die();
 				{
 					foreach($RevInfo['del'] as $File)
 					{
-						if(strpos($File, 'trunk/install/') === false) continue;
 						if (strpos($File, '.') !== false) {
-							if (@$ftp->delete(str_replace("/trunk/", "", $File))) {
+							if ($ftp->delete(str_replace("/trunk/", "", $File))) {
 								$Result['update'][$Rev][$File]	= "OK! - Gel&ouml;scht";
 							} else {
 								$Result['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht l&ouml;schen";
@@ -242,8 +239,7 @@ if ($user['authlevel'] != 3) die();
 			$i = 0;
 			if(!function_exists('file_get_contents') || !function_exists('fsockopen')) {
 				$parse['planetes'] = "<tr><th>Function file_get_contents oder fsockopen deactive</th></tr>";
-			} 
-			elseif(($RAW = @file_get_contents("http://update.jango-online.de/index.php?action=update",FALSE,$context)) !== false)
+			} elseif(($RAW = @file_get_contents("http://update.jango-online.de/index.php?action=update",FALSE,$context)) !== false)
 			{
 				$UpdateArray 	= unserialize($RAW);
 				if(is_array($UpdateArray['revs']))
@@ -276,5 +272,4 @@ if ($user['authlevel'] != 3) die();
 	}
 	display(parsetemplate(gettemplate('adm/update_body'), $parse), false, '', true, false);
 
-// Created by e-Zobar. All rights reversed (C) XNova Team 2008
 ?>

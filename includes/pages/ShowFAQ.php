@@ -25,6 +25,7 @@ function ShowFAQ($CurrentUser, $CurrentPlanet)
 {
 	global $lang;
 	$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
+	$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 
 	$template	= new template();
 
@@ -42,6 +43,5 @@ function ShowFAQ($CurrentUser, $CurrentPlanet)
 	));
 	
 	$template->show("faq_overview.tpl");
-	$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 }
 ?>

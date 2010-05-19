@@ -95,7 +95,14 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 					$template->message($lang['ov_wrong_pass'], 'game.php?page=overview&mode=deleteplanet', 3);
 				else
 				{
-					$db->multi_query("UPDATE ".PLANETS." SET `destruyed` = '".(time()+ 86400)."' WHERE `id` = '".$CurrentUser['current_planet']."' LIMIT 1;UPDATE ".USERS." SET `current_planet` = `id_planet` WHERE `id` = '".$CurrentUser['id']."';DELETE FROM ".PLANETS." WHERE `id` = '".$CurrentPlanet['id_luna']."' LIMIT 1;");
+					if($CurrentPlanet['planet_type'] == 1)
+					{
+						$db->multi_query("UPDATE ".PLANETS." SET `destruyed` = '".(time()+ 86400)."' WHERE `id` = '".$CurrentUser['current_planet']."' LIMIT 1;UPDATE ".USERS." SET `current_planet` = `id_planet` WHERE `id` = '".$CurrentUser['id']."';DELETE FROM ".PLANETS." WHERE `id` = '".$CurrentPlanet['id_luna']."' LIMIT 1;");
+					} else {
+						$db->multi_query("DELETE FROM ".PLANETS." WHERE `id` = '".$CurrentPlanet['id']."' LIMIT 1;
+						UPDATE ".PLANETS." SET `id_luna` = '0' WHERE `id_luna` = '".$CurrentPlanet['id']."' LIMIT 1;
+						UPDATE ".USERS." SET `current_planet` = `id_planet` WHERE `id` = '".$CurrentUser['id']."';");
+					}
 					$template->message($lang['ov_planet_abandoned'], 'game.php?page=overview', 3);
 				}
 			}
@@ -276,7 +283,7 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 			if ($CurrentPlanet['id_luna'] != 0)
 			{
 				$lunarow = $db->fetch_array($db->query("SELECT `id`, `name` FROM ".PLANETS." WHERE `id` = '".$CurrentPlanet['id_luna']."';"));
-				if ($lunarow['destruyed'] == 0 && $CurrentPlanet['planet_type'] == 1)
+				if ($lunarow['destruyed'] == 0)
 				{
 					$Moon = array(
 						'id'	=> $lunarow['id'],

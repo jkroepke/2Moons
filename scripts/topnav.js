@@ -8,9 +8,9 @@ function update()
 {
 	var now=new Date();
 	var seconds=(Date.parse(now)-Date.parse(event))/1000;
-	var metdone=(met_max<=met||isNaN(met))?ColorRed(number_format(Math.round(Math.max(met_max,met)))):number_format(Math.max(Math.round((met_hr/3600)*seconds+met),0));
-	var crydone=(cry_max<=cry||isNaN(cry))?ColorRed(number_format(Math.round(Math.max(cry_max,cry)))):number_format(Math.max(Math.round((cry_hr/3600)*seconds+cry),0));
-	var deudone=(deu_max<=deu||isNaN(deu))?ColorRed(number_format(Math.round(Math.max(deu_max,deu)))):number_format(Math.max(Math.round((deu_hr/3600)*seconds+deu),0));
+	var metdone=(met_max<=met||isNaN(met))?ColorRed(number_format(removeE(Math.round(Math.max(met_max,met))))):number_format(Math.max(Math.round((met_hr/3600)*seconds+met),0));
+	var crydone=(cry_max<=cry||isNaN(cry))?ColorRed(number_format(removeE(Math.round(Math.max(cry_max,cry))))):number_format(Math.max(Math.round((cry_hr/3600)*seconds+cry),0));
+	var deudone=(deu_max<=deu||isNaN(deu))?ColorRed(number_format(removeE(Math.round(Math.max(deu_max,deu))))):number_format(Math.max(Math.round((deu_hr/3600)*seconds+deu),0));
 	$("#current_metal").html(metdone);
 	$("#current_crystal").html(crydone);
 	$("#current_deuterium").html(deudone);

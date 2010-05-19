@@ -1,5 +1,11 @@
 <?php
 
+//LOCAL INFO
+ 
+$lang['local_info'][0]                        = 'de_DE.UTF-8'; // Linux
+$lang['local_info'][1]                        = 'de'; // Linux
+$lang['local_info'][2]                        = 'DEU'; // Windows (http://msdn.microsoft.com/en-us/library/39cwe7zf%28vs.71%29.aspx)
+
 //SERVER GENERALS
 $lang['Metal']								= 'Metal';
 $lang['Crystal']							= 'Crystal';
@@ -73,7 +79,7 @@ $lang['lm_queue']							= 'Queues';
 $lang['lm_topkb']							= 'Hall of Fame';
 $lang['lm_faq']								= 'Beginners Guide';
 $lang['lm_records']							= 'Records';
-$lang['lm_chat']							= 'Chat';
+$lang['lm_chat']							= '<font size=2><font color="red">Chat';
 $lang['lm_support']							= 'Support Ticket';
 $lang['lm_rules']							= 'Rules';
 
@@ -190,6 +196,8 @@ $lang['gl_playercard']						= 'Playercard';
 $lang['gl_in_the_rank']						= 'Player %s is Rank %d';
 $lang['gl_activity']                                            = '(*)';
 $lang['gl_activity_inactive']                                   = '(%d min)';
+$lang['gl_ajax_status_ok']                    = 'Done';
+$lang['gl_ajax_status_fail']                = 'Error';
 
 //----------------------------------------------------------------------------//
 //PHALANX
@@ -317,11 +325,11 @@ $lang['bd_dismantle']						= 'Deconstruct';
 $lang['bd_interrupt']						= 'Pause';
 $lang['bd_cancel']							= 'cancel';
 $lang['bd_working']							= 'Working';
-$lang['bd_build']							= 'build';
-$lang['bd_build_next_level']				= 'upgrade level ';
+$lang['bd_build']							= 'Build';
+$lang['bd_build_next_level']				= 'Upgrade to level ';
 $lang['bd_add_to_list']						= 'Add to production queue';
 $lang['bd_no_more_fields']					= 'No more room on the planet!';
-$lang['bd_remaining']						= 'Remaining:';
+$lang['bd_remaining']						= 'You need this much more to build:';
 $lang['bd_lab_required']					= 'You need to build a research laboratory on this planet first!';
 $lang['bd_building_lab']					= 'The research laboratory is be expanded!';
 $lang['bd_max_lvl']							= '(Max. Level: %s)';
@@ -403,7 +411,7 @@ $lang['tt_lvl']								= 'level ';
 //----------------------------------------------------------------------------//
 //INFOS
 $lang['in_jump_gate_done']					= 'The jump gate was used, the next jump can be made in: ';
-$lang['in_jump_gate_error_data']			= 'Error, data for the jump are not correct!';
+$lang['in_jump_gate_error_data']			= 'Error, data for the jump is not correct!';
 $lang['in_jump_gate_not_ready_target']		= 'The jump gate is not ready on the finish moon, will be ready in ';
 $lang['in_jump_gate_doesnt_have_one']		= 'You have no jump gate in the moon!';
 $lang['in_jump_gate_already_used']			= 'The jump gate was used, time to recharge its energy: ';
@@ -436,6 +444,7 @@ $lang['in_dest_durati'] 					= 'Destruction time';
 
 //----------------------------------------------------------------------------//
 //MESSAGES
+
 $lang['mg_type'][0]    						= 'Spy reports';
 $lang['mg_type'][1]    						= 'Messages from players';
 $lang['mg_type'][2]   						= 'Messages from ally';
@@ -557,7 +566,7 @@ $lang['al_candidate']						= 'Name';
 $lang['al_request_date']					= 'Date';
 $lang['al_transfer_alliance']				= 'Resign/take over this alliance?';
 $lang['al_transfer_to']						= 'Transfer to';
-$lang['al_transfer_submit']					= 'Transfer';
+$lang['al_transfer_submit']					= 'Submit';
 $lang['al_ally_information']				= 'Alliance information';
 $lang['al_ally_info_tag']					= 'Tag';
 $lang['al_ally_info_name']					= 'Name';
@@ -566,10 +575,11 @@ $lang['al_your_request_title']				= 'Your aplication';
 $lang['al_applyform_send']					= 'Send';
 $lang['al_applyform_reload']				= 'Reload';
 $lang['al_circular_send_ciruclar']			= 'Send circular message';
+$lang['al_circular_alliance']               = 'Alliance ';
 $lang['al_receiver']						= 'Recipient';
 $lang['al_circular_send_submit']			= 'Send';
 $lang['al_circular_reset']					= 'Reset';
-$lang['al_alliance']						= 'Alliances';
+$lang['al_alliance']						= 'Alliances ';
 $lang['al_alliance_make']					= 'Found your own alliance';
 $lang['al_alliance_search']					= 'Search for alliances';
 $lang['al_your_ally']						= 'Your alliance';
@@ -592,6 +602,7 @@ $lang['al_texts']							= 'Text Management';
 $lang['al_manage_options']					= 'Options';
 $lang['al_manage_image']					= 'Alliance logo';
 $lang['al_manage_requests']					= 'Applications';
+$lang['al_manage_diplo']                    = 'Alliance Diplomacy';
 $lang['al_requests_not_allowed']			= 'arent possible(alliance closed)';
 $lang['al_requests_allowed']				= 'are possible(alliance open)';
 $lang['al_manage_founder_rank']				= 'Founder rank';
@@ -625,9 +636,37 @@ $lang['al_unitsloos']    					= 'Units Lost';
 $lang['al_tfmetall']     					= 'Total metal debris';
 $lang['al_tfkristall']   					= 'Total Crystal debris';
 $lang['al_view_stats']						= 'Battle record in public?';
+$lang['al_view_diplo']                      = 'Public diplomacy?';
 $lang['al_memberlist_min']					= 'min';
 $lang['al_memberlist_on']					= 'Online';
 $lang['al_memberlist_off']					= 'Offline';
+$lang['al_diplo']                            = 'Diplomacy';
+$lang['al_diplo_level'][0]                    = 'Wing';
+$lang['al_diplo_level'][1]                    = 'Alliance ';
+$lang['al_diplo_level'][2]                    = 'Trade Alliance';
+$lang['al_diplo_level'][3]                    = 'Non aggression pact';
+$lang['al_diplo_level'][4]                    = 'War';
+$lang['al_diplo_no_entry']                    = '- No pact exists -';
+$lang['al_diplo_no_accept']                    = '- No request available -';
+$lang['al_diplo_accept']                    = 'Incoming requests';
+$lang['al_diplo_accept_send']                = 'Outgoing requests';
+$lang['al_diplo_create']                    = 'Create a new pact.';
+$lang['al_diplo_create_done']                = 'Pact created successfully.';
+$lang['al_diplo_ally']                        = 'Alliance ';
+$lang['al_diplo_level_des']                    = 'Ark of the Covenant';
+$lang['al_diplo_text']                        = 'Question Text/Justification';
+$lang['al_diplo_accept_yes']                = 'Pact signed.';
+$lang['al_diplo_accept_yes_mes']            = 'The pact of %s was signed between the alliances %s and %s!';
+$lang['al_diplo_accept_no']                    = 'Pact rejected.';
+$lang['al_diplo_accept_no_mes']                = 'The the pact of %s between the alliances %s and %s has been rejected!';
+$lang['al_diplo_delete']                    = 'Abolish pact.';
+$lang['al_diplo_delete_mes']                = 'The pact of %s between the alliances %s and %s  has been lifted!';
+$lang['al_diplo_confirm_delete']            = 'Do you really want to delete the pact?';
+$lang['al_diplo_ground']                    = 'Reason:';
+$lang['al_diplo_ask']                        = 'Covenant Enquiry';
+$lang['al_diplo_ask_mes']                    = 'There is a pact request of (%s) for the alliances -> %s <- and the -> %s <-. <br>Reason: %s <br> If receving you can accept or deny under Manage alliance then Alliance Diplomacy';
+$lang['al_diplo_war']                        = 'Declaration of war';
+$lang['al_diplo_war_mes']                    = 'War has been declared between the alliances  -> %s <- and -> %s <-.<br>Reason: %s <br><br>Information: Both Alliance leaders NEED to agree to the war in a post, started in the war section of the Forum. Only after both leaders make the agreement, is the rule of bashing eliminated between the two alliances at war. <br>Read the rules from left menu link or in the forum. You can click here to link to forum. <a href="http://darkogame.us/forum/viewforum.php?f=8" target="_blank"> War/Diplomacy</a>.';
 
 //----------------------------------------------------------------------------//
 //BUDDY
@@ -776,6 +815,7 @@ $lang['op_user_name_no_alphanumeric']		= 'Please enter the username only alphanu
 $lang['op_change_name_pro_week']			= 'Can you change your user name only 1x per week';
 $lang['op_change_name_exist']				= 'The name %s already exists';
 $lang['op_active_build_messages']			= 'Build queue news';
+$lang['op_small_storage']                    = 'Shorten storage numbers shown';
 
 //----------------------------------------------------------------------------//
 //BANNED
@@ -933,8 +973,8 @@ $lang['sys_mess_transport'] 				= 'Transport report';
 $lang['sys_tran_mess_owner']		 		= 'One of your fleets returned from the planet %s %s and droped off %s %s, %s %s and %s %s.';
 $lang['sys_tran_mess_user'] 		 		= 'A peaceful fleet of %s %s reached %s %s and delivers %s %s, %s %s and %s %s.';
 $lang['sys_mess_fleetback'] 				= 'Return of the fleet';
-$lang['sys_tran_mess_back'] 				= 'One of your fleet returns to the planet %s %s back.';
-$lang['sys_recy_gotten'] 					= 'Your recyclers have %s %s and %s %s Collected.. %s %s and %s %s ';
+$lang['sys_tran_mess_back'] 				= 'One of your fleet returns back to the planet %s %s .';
+$lang['sys_recy_gotten'] 					= 'Your recyclers have Collected %s %s and %s %s';
 $lang['sys_notenough_money'] 				= 'On your planet %s <a href="./game.php?page=buildings&amp;cp=%d&amp;re=0">[%d:%d:%d]</a> You do not have enough resources to build a %s . <br>You have %s %s , %s %s and %s %s. <br>The construction costs this much %s %s , %s %s and %s %s.';
 $lang['sys_nomore_level'] 					= 'You try to destroy a building, which you no longer possess( %s ).';
 $lang['sys_buildlist'] 						= 'Production queue';
@@ -960,12 +1000,13 @@ $lang['sys_destruc_mess']        		   	= 'A fleet from the planet %s [%d:%d:%d] 
 $lang['sys_destruc_echec']       		   	= 'Earthquakes shake the moon. But something goes wrong: The death star explode and disintegrate into thousands of individual parts. <br>The shock wave reaches the entire fleet.';
 $lang['sys_destruc_reussi']      		   	= '<br>The rays of the Death Stars reach the moon and shred it.<br>The entire moon was destroyed.<br> Mission successfully completed.<br> The fleet comes back.';
 $lang['sys_destruc_null']        		   	= 'The Death Stars can not develop their full power and implode.<br> The moon is not destroyed.';
+$lang['sys_module_inactive']                = 'Module disabled';
 
 //----------------------------------------------------------------------------//
 //class.CheckSession.php
 $lang['ccs_multiple_users']					= 'Cookie Error! Someone has logged in to your account. Delete your cookies and try again. If the problem persists, contact the administrator.';
-$lang['ccs_other_user']						= 'Cookie Error! Delete your cookies and try again. If the problem persists, contact the administrator.';
-$lang['css_different_password']				= 'Cookie Error! Delete your cookies and try again. If the problem persists, contact the administrator.';
+$lang['ccs_other_user']						= 'Cookie Error! Delete your cookies and try again. If the problem persists, contact the administrator.<br> Error Code. 272';
+$lang['css_different_password']				= 'Cookie Error! Delete your cookies and try again. If the problem persists, contact the administrator.<br> Error Code. 273';
 $lang['css_account_banned_message']			= 'YOUR ACCOUNT HAS BEEN SUSPENDED';
 $lang['css_account_banned_expire']			= 'You are %s till!<br><a href="./index.php?page=pranger">Banned</a>';
 $lang['css_goto_homeside']					= '<a href="./index.php">Go to the homepage</a>';
@@ -980,35 +1021,35 @@ $lang['cdg_fatal_error']					= 'FATAL ERROR';
 //----------------------------------------------------------------------------//
 //class.FlyingFleetsTable.php
 
-$lang['cff_no_fleet_data']					= 'No ship information';
-$lang['cff_aproaching']						= 'Fleet consists of ';
-$lang['cff_ships']							= ' Units.';
-$lang['cff_from_the_planet']				= 'Planet ';
-$lang['cff_from_the_moon']					= 'moon ';
-$lang['cff_the_planet']						= 'the planet ';
-$lang['cff_debris_field']					= 'the debris ';
-$lang['cff_to_the_moon']					= 'the moon ';
-$lang['cff_the_position']					= 'Position ';
-$lang['cff_to_the_planet']					= '...';
-$lang['cff_the_moon']						= ' the moon ';
-$lang['cff_from_planet']					= 'the planet ';
-$lang['cff_from_debris_field']				= 'from the debris field ';
-$lang['cff_from_the_moon']					= 'of the moon ';
-$lang['cff_from_position']					= 'position ';
-$lang['cff_missile_attack']					= 'Missile attack';
-$lang['cff_from']							= ' from ';
-$lang['cff_to']								= ' to ';
-$lang['cff_one_of_your']					= 'One of your ';
-$lang['cff_a']								= 'One ';
-$lang['cff_of']								= ' of ';
-$lang['cff_goes']							= ' goes ';
-$lang['cff_toward']							= ' toward ';
-$lang['cff_back_to_the_planet']				= ' back to the planet ';
-$lang['cff_with_the_mission_of']			= '. With the mission of: ';
-$lang['cff_to_explore']						= ' to explore ';
-$lang['cff_comming_back']					= ' back ';
-$lang['cff_back']							= 'Comming back';
-$lang['cff_to_destination']					= 'Heading to destination';
+$lang['cff_no_fleet_data']                    = 'No ship information';
+$lang['cff_aproaching']                        = 'Fleet consists of ';
+$lang['cff_ships']                            = ' Units.';
+$lang['cff_from_the_planet']                = 'Planet ';
+$lang['cff_from_the_moon']                    = 'moon ';
+$lang['cff_the_planet']                        = 'the planet ';
+$lang['cff_debris_field']                    = 'the debris ';
+$lang['cff_to_the_moon']                    = 'the moon ';
+$lang['cff_the_position']                    = 'Position ';
+$lang['cff_to_the_planet']                    = ' ';
+$lang['cff_the_moon']                        = ' the moon ';
+$lang['cff_from_planet']                    = ' from the planet ';
+$lang['cff_from_debris_field']                = 'from the debris field ';
+$lang['cff_from_the_moon']                    = 'from the moon ';
+$lang['cff_from_position']                    = 'from position ';
+$lang['cff_missile_attack']                    = 'Missile attack';
+$lang['cff_from']                            = ' from ';
+$lang['cff_to']                                = ' to ';
+$lang['cff_one_of_your']                    = 'One of your ';
+$lang['cff_a']                                = 'a ';
+$lang['cff_of']                                = ' of ';
+$lang['cff_goes']                            = ' from ';
+$lang['cff_toward']                            = ' goes toward ';
+$lang['cff_back_to_the_planet']                = ' are returning back to your planet ';
+$lang['cff_with_the_mission_of']            = '. With the mission of: ';
+$lang['cff_to_explore']                        = ' to explore ';
+$lang['cff_comming_back']                    = '';
+$lang['cff_back']                            = 'Comming back';
+$lang['cff_to_destination']                    = 'Heading to destination';
 
 //----------------------------------------------------------------------------//
 // EXTRA LANGUAGE FUNCTIONS
@@ -1056,8 +1097,6 @@ $lang['ma_silo_level']						= 'You need missile silo level 4!';
 $lang['ma_impulse_drive_required']			= 'You first need to explore the Impulse Engine';
 $lang['ma_not_send_other_galaxy']			= 'You can not send rockets into another galaxy.';
 $lang['ma_planet_doesnt_exists']			= 'Planet does not exist.';
-$lang['ma_cant_send']						= 'cant send ';
-$lang['ma_missile']							= ' missiles, have only ';
 $lang['ma_wrong_target']					= 'Wrong Target';
 $lang['ma_no_missiles']						= 'There are no available Interplanetary Missiles';
 $lang['ma_add_missile_number']				= 'Enter the number of missiles that you want to send';
@@ -1075,7 +1114,7 @@ $lang['ma_missiles_sended']					= ' Interplanetary missiles were sent. Main obje
 //----------------------------------------------------------------------------//
 // topkb.php
 $lang['tkb_top']                  			= 'Hall of Fame';
-$lang['tkb_gratz']                  		= 'Top 100 biggest battles';
+$lang['tkb_gratz']                  		= 'Top 100 biggest 1v1 battles';
 $lang['tkb_platz']                  		= 'Place';
 $lang['tkb_owners']             			= 'Participants';
 $lang['tkb_datum']                  		= 'Date';
@@ -1130,6 +1169,7 @@ $lang['chat_admin']                       	= '<font color="red">Admin %s</font>'
 // Support
 
 $lang['supp_header'] 						= 'Support-System';
+$lang['supp_header_g']                      = 'Closed tickets';
 $lang['ticket_id'] 							= '#Ticket-ID';
 $lang['subject'] 							= 'subject';
 $lang['status'] 							= 'Status';
@@ -1147,6 +1187,7 @@ $lang['sendit_error'] 						= 'Error:';
 $lang['sendit_error_msg'] 					= 'You have not filled in all data!';
 $lang['supp_admin_system'] 					= 'Incident Management System';
 $lang['close_ticket'] 						= 'Close Ticket';
+$lang['open_ticket']                        = 'Open Ticket';
 $lang['player'] 							= 'Player';
 $lang['supp_ticket_close']					= 'Ticket closed';
 $lang['supp_close'] 						= 'Closed';

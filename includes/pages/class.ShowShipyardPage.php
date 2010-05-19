@@ -162,7 +162,7 @@ class ShowShipyardPage
 				$Element = in_array($Element, $reslist['fleet']) ? $Element : NULL;
 				if(empty($Element))
 					continue;
-				
+					
 				$Count	= is_numeric($Count) ? $Count : 0;
 				$Count 	= min($Count, MAX_FLEET_OR_DEFS_PER_ROW);
 				$ebuild = explode(";",$CurrentPlanet['b_hangar_id']);
@@ -192,7 +192,7 @@ class ShowShipyardPage
 					if ($Element == 214 && $CurrentUser['rpg_destructeur'] == 1)
 						$Count = 2 * $Count;
 
-					$CurrentPlanet['b_hangar_id']    .= $Element .",". $Count .";";
+					$CurrentPlanet['b_hangar_id']    .= $Element .",".floattostring($Count).";";
 				}
 			}
 		}
@@ -217,7 +217,10 @@ class ShowShipyardPage
 
 		$template	= new template();
 		if(!empty($CurrentPlanet['b_hangar_id']))
+		{
 			$template->loadscript('shipyard.js');
+			$template->loadscript('bcmath.js');
+		}
 		
 		$template->set_vars($CurrentUser, $CurrentPlanet);
 		$template->page_header();	
@@ -259,7 +262,7 @@ class ShowShipyardPage
 					$QueueTime   	+= $ElementTime * $Element[1];
 					$TimePerType 	.= "".$ElementTime.",";
 					$NamePerType 	.= "'".html_entity_decode($lang['tech'][$Element[0]], ENT_NOQUOTES, "UTF-8")."',";
-					$NbrePerType 	.= "".$Element[1].",";
+					$NbrePerType 	.= "'".$Element[1]."',";
 				}
 			}
 
@@ -287,6 +290,7 @@ class ShowShipyardPage
 			'bd_build_ships'		=> $lang['bd_build_ships'],
 			'bd_building_shipyard'	=> $lang['bd_building_shipyard'],
 			'BuildList'				=> $Buildlist,
+			'maxlength'				=> strlen(MAX_FLEET_OR_DEFS_PER_ROW),
 		));
 		$template->show("shipyard_fleet.tpl");
 		$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
@@ -435,7 +439,10 @@ class ShowShipyardPage
 		}
 
 		if(!empty($CurrentPlanet['b_hangar_id']))
+		{
 			$template->loadscript('shipyard.js');
+			$template->loadscript('bcmath.js');
+		}
 		
 		$template->set_vars($CurrentUser, $CurrentPlanet);
 		
@@ -482,7 +489,7 @@ class ShowShipyardPage
 					$QueueTime   	+= $ElementTime * $Element[1];
 					$TimePerType 	.= "".$ElementTime.",";
 					$NamePerType 	.= "'".html_entity_decode($lang['tech'][$Element[0]], ENT_NOQUOTES, "UTF-8")."',";
-					$NbrePerType 	.= "".$Element[1].",";
+					$NbrePerType 	.= "'".$Element[1]."',";
 				}
 			}
 
@@ -511,6 +518,7 @@ class ShowShipyardPage
 			'bd_building_shipyard'			=> $lang['bd_building_shipyard'],
 			'bd_protection_shield_only_one'	=> $lang['bd_protection_shield_only_one'],
 			'BuildList'						=> $Buildlist,
+			'maxlength'						=> strlen(MAX_FLEET_OR_DEFS_PER_ROW),
 		));
 		$template->show("shipyard_defense.tpl");
 		$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);

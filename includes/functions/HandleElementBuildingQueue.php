@@ -43,23 +43,23 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 
 			$CurrentPlanet['b_hangar_id'] 	= '';
 			$UnFinished 					= false;
-
+			bcscale(0);
 			foreach($BuildArray as $Node => $Item )
 			{
 				$Element   = $Item[0];
 				$Count     = $Item[1];
 				$BuildTime = $Item[2];
 				if($BuildTime == 0) {
-					$Builded[$Element] += $Count;
-					$CurrentPlanet[$resource[$Element]] += $Count;
-					$CurrentPlanet['b_hangar']	-= $Count * $BuildTime;
+					$Builded[$Element]	= bcadd($Count, $Builded[$Element]);
+					$CurrentPlanet[$resource[$Element]]	= bcadd($Count, $CurrentPlanet[$resource[$Element]]);
+					$CurrentPlanet['b_hangar']	-= bcmul($Count, $BuildTime);
 					$Count	= 0;					
 				} else {
-					$GetBuildShips	= max(min(floor($CurrentPlanet['b_hangar'] / $BuildTime), $Count), 0);
-					$CurrentPlanet['b_hangar']	-= $GetBuildShips * $BuildTime;
-					$Builded[$Element]	+= $GetBuildShips;
-					$CurrentPlanet[$resource[$Element]]	+= $GetBuildShips;
-					$Count	-= $GetBuildShips;						
+					$GetBuildShips	= max(min(bcdiv($CurrentPlanet['b_hangar'], $BuildTime), $Count), 0);
+					$CurrentPlanet['b_hangar']	-= bcmul($GetBuildShips, $BuildTime);
+					$Builded[$Element]	= bcadd($GetBuildShips, $Builded[$Element]);
+					$CurrentPlanet[$resource[$Element]]	= bcadd($GetBuildShips, $CurrentPlanet[$resource[$Element]]);
+					$Count			= bcsub($Count, $GetBuildShips);						
 				}
 				if ($Count != 0)
 				{
