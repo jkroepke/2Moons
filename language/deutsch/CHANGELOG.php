@@ -24,7 +24,7 @@ $lang['changelog']   = array(
 - FIX: Bauzeiten, wenn Gebäude nicht baubar war
 - FIX: Gebäude mit 0 Sekunden Bauzeit
 - FIX: Allianzstatistik
-- FIX: SQL Injection in Notizen und Nachrichten
+- FIX: SQL Injection in Notizen, Nachrichten un Fleet Shoutcuts
 - FIX: Große TF`s
 - FIX: Evo Trans. &amp; Gigarec.
 - FIX: Große HoF KBs
