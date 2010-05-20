@@ -57,7 +57,7 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	define('MAX_BUILDING_QUEUE_SIZE'  , 5);
 
 	// NUMBER OF SHIPS THAT CAN BUILD FOR ONCE
-	define('MAX_FLEET_OR_DEFS_PER_ROW', 1000000000000000000000000);
+	define('MAX_FLEET_OR_DEFS_PER_ROW', 1000000);
 	
 	// NUMBER OF SHIPS THAT CAN BUILD FOR ONCE
 	define('MAX_FLEET_OR_DEFS_IN_BUILD', 10);
@@ -96,7 +96,7 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	define('VACATION_MIN_TIME'		  ,  259200);	
 	
 	//
-	define('ENABLE_SIMULATOR_LINK'    , false);
+	define('ENABLE_SIMULATOR_LINK'    , true);
 	
 	
 	// FOR ADVANCE USERS
