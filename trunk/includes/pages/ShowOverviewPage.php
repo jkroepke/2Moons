@@ -343,9 +343,7 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 					$sid 	= $game_config['ts_timeout']; 
 					require_once(ROOT_PATH . "includes/libs/teamspeak/class.teamspeak3.".PHP_EXT);
 
-					$ts = new TS3Connection();
-					$ts->SetHost($ip);
-					$ts->SetPort($port);
+					$tsAdmin = new ts3admin($ip, $t_port);
 					if($tsAdmin->connect())
 					{
 						$tsAdmin->selectServer($sid);
