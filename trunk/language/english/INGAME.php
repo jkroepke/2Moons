@@ -82,6 +82,7 @@ $lang['lm_records']							= 'Records';
 $lang['lm_chat']							= 'Chat';
 $lang['lm_support']							= 'Support Ticket';
 $lang['lm_rules']							= 'Rules';
+$lang['lm_battlesim']						= "Combat Simulator";
 
 
 //----------------------------------------------------------------------------//
@@ -134,7 +135,7 @@ $lang['ov_userrank_info']					= '%s (%s <a href="game.php?page=statistics&amp;ra
 $lang['ov_teamspeak_not_online']			= 'Server is currently unreachable. We ask for your understanding.';
 $lang['ov_teamspeak']						= 'Teamspeak';
 $lang['ov_teamspeak_v2']					= '<a href="teamspeak://%s:%s?nickname=%s" title="Teamspeak Connect">Connect</a> &bull; Online: %d/%d &bull; Channels: %d &bull; Traffic ges.: %s MB';
-$lang['ov_teamspeak_v3']					= '<a href="ts3server://%s?port=%d&amp;nickname=%s&amp;password=%s" title="Teamspeak Connect">Connect</a>&nbsp;&bull;&nbsp;Online: %d/%d &bull; Channels: %d &bull; Traffic ges.: %s MB';
+$lang['ov_teamspeak_v3']					= '<a href="ts3server://%s?port=%d&amp;nickname=%s&amp;password=%s" title="Teamspeak Connect">Connect</a>&nbsp;&bull;&nbsp;Online: %d/%d &bull; Channels: %d &bull; Traffic ges.: %s MB &bull; Version: %s';
 
 //----------------------------------------------------------------------------//
 //GALAXY
@@ -318,9 +319,10 @@ $lang['fl_sac_of_fleet']					= 'ACS fleet';
 $lang['fl_modify_sac_name']					= 'Change the name of the ACS';
 $lang['fl_members_invited']					= 'Members invited';
 $lang['fl_invite_members']					= 'Invite other members';
-$lang['fl_bonus_attack']					= 'Angiff';
-$lang['fl_bonus_defensive']					= 'Verteidigung';
-$lang['fl_bonus_shield']					= 'Panzerung';
+$lang['fl_bonus']							= 'Bonus';
+$lang['fl_bonus_attack']					= 'Attack';
+$lang['fl_bonus_defensive']					= 'Defensive';
+$lang['fl_bonus_shield']					= 'Shield';
 
 //----------------------------------------------------------------------------//
 //BUILDINGS - RESEARCH - SHIPYARD - DEFENSES
@@ -1211,6 +1213,21 @@ $lang['rec_level']  						= 'Level';
 $lang['rec_nbre']   						= 'Number';
 $lang['rec_rien']   						= '-';
 $lang['rec_last_update_on']   				= 'Last update at : %s';
+
+
+//----------------------------------------------------------------------------//
+// BattleSimulator
+
+$lang['bs_derbis_raport']					= "You will need %s %s oder %s %s for the debris field.";
+$lang['bs_steal_raport']					= "For the plunderage you need %s %s or %s %s or %s %s .";
+$lang['bs_names']							= "Ship";
+$lang['bs_atter']							= "Attacker";
+$lang['bs_deffer']							= "Defender";
+$lang['bs_steal']							= "Resources(for stealing):";
+$lang['bs_techno']							= "Technology";
+$lang['bs_send']							= "Send";
+$lang['bs_cancel']							= "Reset";
+$lang['bs_wait']							= "Please wait 10 second for the next simulation";
 
 // Translated into English by Languar . All rights reversed (C) 2010
 
