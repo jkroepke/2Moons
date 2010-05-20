@@ -47,7 +47,8 @@
         </th>
     </tr><tr>
         <th>{$op_skin_example}</th>
-        <th><input name="dpath" maxlength="80" size="40" value="{$opt_dpath_data}" type="text"></th>
+        <th><input name="dpath" id="dpath" maxlength="80" size="40" value="{$opt_dpath_data}" type="text"><br>
+            <select id="dpathsel" onChange="$('#dpath').val('styles/skins/'+$('#dpathsel').val()+'/');">{html_options values=$Selectors.Skins output=$Selectors.Skins selected=$opt_dpath_data_sel}</select></th>
     </tr><tr>
         <th>{$op_show_skin}</th>
         <th><input name="design" type="checkbox" {if $opt_sskin_data == 1}checked="checked"{/if}></th>
