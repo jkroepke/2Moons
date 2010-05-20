@@ -414,6 +414,7 @@ class ShowShipyardPage
 						$CurrentPlanet['metal']           -= $Ressource['metal'];
 						$CurrentPlanet['crystal']         -= $Ressource['crystal'];
 						$CurrentPlanet['deuterium']       -= $Ressource['deuterium'];
+						$CurrentUser['darkmatter'] 		  -= $Ressource['darkmatter'];
 						$CurrentPlanet['b_hangar_id']     .= "". $Element .",". $Count .";";
 					}
 				}
