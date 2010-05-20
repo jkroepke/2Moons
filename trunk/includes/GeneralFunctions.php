@@ -56,11 +56,7 @@ function ValidateAddress($address) {
 function message ($mes, $dest = "", $time = "3", $topnav = false, $menu = true)
 {
 	if(defined('IN_ADMIN') || (defined('INSTALL') && INSTALL != false)) {
-		$parse['mes']   = $mes;
-
-		$page = parsetemplate(gettemplate('global/message_body'), $parse);
-
-		display ($page, $topnav, (($dest != "") ? "<meta http-equiv=\"refresh\" content=\"$time;URL=$dest\">" : ""), true, (!defined('IN_ADMIN')? $menu : false));
+		display(parsetemplate(gettemplate('adm/message_body'), array('mes' => $mes)), $topnav, (($dest != "") ? "<meta http-equiv=\"refresh\" content=\"$time;URL=$dest\">" : ""), true, (!defined('IN_ADMIN')? $menu : false));
 	} else {
 		require_once(ROOT_PATH . 'includes/classes/class.template.'.PHP_EXT);
 		$template = new template();

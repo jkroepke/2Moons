@@ -18,6 +18,7 @@ $lang['changelog']   = array(
 - FIX: Bewerbungstext
 - FIX: Support
 - FIX: Resource Bug
+- FIX: Shipyard supports now Trillion \'Build per Row\'
 - FIX: Mood Löschung
 - FIX: Intergal. Netzwerk
 - FIX: class.FlyingFleetMissions.php on 1183:SQL Error (Duplicate entry \'Key\' for key \'rid\')
@@ -30,6 +31,9 @@ $lang['changelog']   = array(
 - FIX: Große HoF KBs
 - FIX: GebäudeCheat
 - FIX: Statistiken Fehler bei neuen Spielern
+- DIV: Use IE7-js for IE CSS Fixs
+- DIV: Use Googles Host for jQuery JS
+- DIV: Updatet TS 3 Lib
 - DIV: Flottenquery vereinfacht
 - DIV: Sicherheit im Game erhöht
 - DIV: Leftmenu
