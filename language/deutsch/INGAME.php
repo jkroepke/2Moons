@@ -320,6 +320,11 @@ $lang['fl_modify_sac_name']					= 'AKS-Name ändern';
 $lang['fl_members_invited']					= 'Eingeladen';
 $lang['fl_invite_members']					= 'Einladen';
 $lang['fl_simulate']						= 'Simulieren';
+$lang['fl_bonus']							= 'Bonus';
+$lang['fl_bonus_attack']					= 'Angiff';
+$lang['fl_bonus_defensive']					= 'Verteidigung';
+$lang['fl_bonus_shield']					= 'Panzerung';
+
 
 //----------------------------------------------------------------------------//
 //BUILDINGS - RESEARCH - SHIPYARD - DEFENSES

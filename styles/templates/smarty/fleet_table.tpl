@@ -123,10 +123,10 @@
 		
 		<br>
 		<table width="519" border="0" cellpadding="0" cellspacing="1" align="center">
-		<tr><td class="c" colspan="3">Bonus</td></tr>
-		<tr><td class="c" width="33%">Attack</td><td class="c" width="33%">Defensive</td><td class="c" width="33%">Shield</td></tr>
+		<tr><td class="c" colspan="3">{$fl_bonus}</td></tr>
+		<tr><td class="c" width="33%">{$fl_bonus_attack}</td><td class="c" width="33%">{$fl_bonus_defensive}</td><td class="c" width="33%">{$fl_bonus_shield}</td></tr>
 		<tr><th>+{$bonus_attack} %</th><th>+{$bonus_defensive} %</th><th>+{$bonus_shield} %</th></tr>
-		<tr><td class="c" width="33%">Verbrennungstriebwerk</td><td class="c" width="33%">Impulstriebwerk</td><td class="c" width="33%">Hyperraumtriebwerk</td></tr>
+		<tr><td class="c" width="33%">{$bonus_comp}</td><td class="c" width="33%">{$bonus_impul}</td><td class="c" width="33%">{$bonus_hyper}</td></tr>
 		<tr><th>+{$bonus_combustion} %</th><th>+{$bonus_impulse} %</th><th>+{$bonus_hyperspace} %</th></tr>
 		</table>
 </div>
