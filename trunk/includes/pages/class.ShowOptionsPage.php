@@ -194,7 +194,7 @@ class ShowOptionsPage
 				$db->multi_query($SQLQuery);
 				$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 			break;
-			default;
+			default:
 				if($CurrentUser['urlaubs_modus'] == 1)
 				{
 					$template->assign_vars(array(	
@@ -216,6 +216,7 @@ class ShowOptionsPage
 						'opt_mail1_data'					=> $CurrentUser['email'],
 						'opt_mail2_data'					=> $CurrentUser['email_2'],
 						'opt_dpath_data'					=> $CurrentUser['dpath'],
+						'opt_dpath_data_sel'				=> substr($CurrentUser['dpath'], 13, -1),
 						'opt_probe_data'					=> $CurrentUser['spio_anz'],
 						'opt_toolt_data'					=> $CurrentUser['settings_tooltiptime'],
 						'opt_fleet_data'					=> $CurrentUser['settings_fleetactions'],
@@ -232,7 +233,7 @@ class ShowOptionsPage
 						'opt_hof'							=> $CurrentUser['hof'],
 						'adm_pl_prot_data'					=> $CurrentPlanet['id_level'],					
 						'user_authlevel'					=> $CurrentUser['authlevel'],					
-						'Selectors'							=> array('Sort' => array(0 => $lang['op_sort_normal'], 1 => $lang['op_sort_koords'], 2 => $lang['op_sort_abc']), 'SortUpDown' => array(0 => $lang['op_sort_up'], 1 => $lang['op_sort_down'])),
+						'Selectors'							=> array('Sort' => array(0 => $lang['op_sort_normal'], 1 => $lang['op_sort_koords'], 2 => $lang['op_sort_abc']), 'SortUpDown' => array(0 => $lang['op_sort_up'], 1 => $lang['op_sort_down']), 'Skins' => array_diff(scandir(ROOT_PATH.'styles/skins/'), array('..', '.', '.svn', '.htaccess', 'index.htm'))),
 						'planet_sort'						=> $CurrentUser['planet_sort'],
 						'planet_sort_order'					=> $CurrentUser['planet_sort_order'],
 						'uctime'							=> (time() - $CurrentUser['uctime'] >= (60 * 60 * 24 * 7)) ? true : false,

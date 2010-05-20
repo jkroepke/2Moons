@@ -368,7 +368,6 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 		
 			if (isset($fpage) && is_array($fpage))
 				ksort($fpage);
-				
 			$template->assign_vars(array(
 				'date_time'					=> date("D M j H:i:s", time()),
 				'user_rank'					=> sprintf($lang['ov_userrank_info'], pretty_number($template->player['rank']['total_points']), $lang['ov_place'], $template->player['rank']['total_rank'], $template->player['rank']['total_rank'], $lang['ov_of'], $game_config['users_amount']),
