@@ -55,10 +55,10 @@ function xd() {
 	}
 	for ( iv = p; iv <= b.length - 2; iv++ ) {
 		if ( iv == p ) {
-			act = " " + bd_operating;
+			document.getElementById('auftr').options[document.getElementById('auftr').length] = new Option(z.toString() + " \"" + b[iv] + "\"" + bd_operating, iv + of )
 		} else {
-			act = "";
+			document.getElementById('auftr').options[document.getElementById('auftr').length] = new Option(a[iv] + " \"" + b[iv] + "\"", iv + of ); 
 		}
-		document.getElementById('auftr').options[document.getElementById('auftr').length] = new Option(z.toString() + " \"" + b[iv] + "\"" + act, iv + of );
+		
 	}
 }
