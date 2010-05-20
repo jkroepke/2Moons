@@ -57,7 +57,7 @@ function DisplayGameSettingsPage ( $CurrentUser )
 		} else {
 			$game_config['ts_on'] = 0;
 		}
-		update_config('ts_modon'	, $game_config['ts_on']     );
+		update_config('ts_timeout'	, $game_config['ts_to']     );
 		update_config('ts_modon'	, $game_config['ts_on']     );
 		update_config('ts_server'	, $game_config['ts_ip']     );
 		update_config('ts_tcpport'	, $game_config['ts_tcp']    );

@@ -5,7 +5,7 @@ $lang['Description'] = 'Beschreibung';
 
 $lang['changelog']   = array(
 
-'RC5.0' => 'ShadoX 08.05.10
+'RC5.0' => 'ShadoX 20.05.10
 - ADD: Neue Schiffe
 - ADD: Support Planet in System != 15
 - ADD: Cookie für LoginMusik
@@ -19,6 +19,7 @@ $lang['changelog']   = array(
 - FIX: Support
 - FIX: Resource Bug
 - FIX: Shipyard supports now Trillion \'Build per Row\'
+- FIX: Darmatter Kosten bei Verteidigung
 - FIX: Mood Löschung
 - FIX: Intergal. Netzwerk
 - FIX: class.FlyingFleetMissions.php on 1183:SQL Error (Duplicate entry \'Key\' for key \'rid\')
