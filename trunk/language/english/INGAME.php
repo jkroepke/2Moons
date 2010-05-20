@@ -135,7 +135,7 @@ $lang['ov_userrank_info']					= '%s (%s <a href="game.php?page=statistics&amp;ra
 $lang['ov_teamspeak_not_online']			= 'Server is currently unreachable. We ask for your understanding.';
 $lang['ov_teamspeak']						= 'Teamspeak';
 $lang['ov_teamspeak_v2']					= '<a href="teamspeak://%s:%s?nickname=%s" title="Teamspeak Connect">Connect</a> &bull; Online: %d/%d &bull; Channels: %d &bull; Traffic ges.: %s MB';
-$lang['ov_teamspeak_v3']					= '<a href="ts3server://%s?port=%d&amp;nickname=%s&amp;password=%s" title="Teamspeak Connect">Connect</a>&nbsp;&bull;&nbsp;Online: %d/%d &bull; Channels: %d &bull; Traffic ges.: %s MB &bull; Version: %s';
+$lang['ov_teamspeak_v3']					= '<a href="ts3server://%s?port=%d&amp;nickname=%s&amp;password=%s" title="Teamspeak Connect">Connect</a>&nbsp;&bull;&nbsp;Online: %d/%d &bull; Channels: %d &bull; Traffic ges.: %s MB';
 
 //----------------------------------------------------------------------------//
 //GALAXY
