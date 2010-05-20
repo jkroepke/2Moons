@@ -6,8 +6,8 @@ function change2(){
 	document.getElementsByName("ts_v")[0].checked = true;
 }
 function change3(){
-	document.getElementById("lang_udp").innerHTML	= "{ts_server_query}";
-	document.getElementById("lang_to").innerHTML	= "{ts_id}:";
+	document.getElementById("lang_udp").innerHTML	= "{ts_server_query}:";
+	document.getElementById("lang_to").innerHTML	= "{ts_server_id}:";
 	document.getElementsByName("ts_v")[1].checked = true;
 }
 </script>

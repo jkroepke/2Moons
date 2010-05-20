@@ -1044,6 +1044,7 @@ $lang['ts_tcpport']						= 'UDP Port';
 $lang['ts_serverip']					= 'Server-IP';
 $lang['ts_timeout']						= 'Timeout'; 
 $lang['ts_server_query']				= 'Server Query Port'; 
+$lang['ts_server_id']					= 'Server ID'; 
 
 //----------------------------------------------------------------------------//
 //FacebookSettingPage.php

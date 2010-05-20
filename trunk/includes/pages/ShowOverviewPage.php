@@ -351,7 +351,11 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 						$tsAdmin->logout();
 						$tsAdmin->quit();
 						$trafges 	= round(($sinfo['connection_bytes_received_total'] / 1024 / 1024) + ($sinfo['connection_bytes_sent_total'] / 1024 / 1024), 2);
-						$Teamspeak	= sprintf($lang['ov_teamspeak_v3'], $ip, $port, $CurrentUser['username'], $sinfo['virtualserver_password'], ($sinfo['virtualserver_clientsonline'] - 1), $sinfo['virtualserver_maxclients'], $sinfo['virtualserver_channelsonline'], $trafges);
+						$Debug		= $tsAdmin->getDebugLog();
+						if($Debug == "Error while fetching: 'error id=518 msg=not logged in'<br>")
+							$Teamspeak	= sprintf($lang['ov_teamspeak_v3'], $ip, $port, $CurrentUser['username'], $sinfo['virtualserver_password'], ($sinfo['virtualserver_clientsonline'] - 1), $sinfo['virtualserver_maxclients'], $sinfo['virtualserver_channelsonline'], $trafges);
+						else
+							$Teamspeak	= $Debug;
 					} else {
 						$Teamspeak 	= $lang['ov_teamspeak_not_online'];		
 					}
@@ -368,6 +372,7 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 		
 			if (isset($fpage) && is_array($fpage))
 				ksort($fpage);
+				
 			$template->assign_vars(array(
 				'date_time'					=> date("D M j H:i:s", time()),
 				'user_rank'					=> sprintf($lang['ov_userrank_info'], pretty_number($template->player['rank']['total_points']), $lang['ov_place'], $template->player['rank']['total_rank'], $template->player['rank']['total_rank'], $lang['ov_of'], $game_config['users_amount']),
