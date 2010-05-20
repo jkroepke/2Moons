@@ -350,9 +350,8 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 						$sinfo	= $tsAdmin->serverInfo();
 						$tsAdmin->logout();
 						$tsAdmin->quit();
-						$trafges 	= round($sinfo['connection_bytes_received_total'] + $sinfo['connection_bytes_sent_total'] / 1024 / 1024, 2);
-						$version	= explode('\s',$sinfo['virtualserver_version']);
-						$Teamspeak	= sprintf($lang['ov_teamspeak_v3'], $ip, $port, $CurrentUser['username'], $sinfo['virtualserver_password'], $sinfo['virtualserver_clientsonline'], $sinfo['virtualserver_maxclients'], $sinfo['virtualserver_channelsonline'], $trafges, $version[0]);
+						$trafges 	= round(($sinfo['connection_bytes_received_total'] / 1024 / 1024) + ($sinfo['connection_bytes_sent_total'] / 1024 / 1024), 2);
+						$Teamspeak	= sprintf($lang['ov_teamspeak_v3'], $ip, $port, $CurrentUser['username'], $sinfo['virtualserver_password'], ($sinfo['virtualserver_clientsonline'] - 1), $sinfo['virtualserver_maxclients'], $sinfo['virtualserver_channelsonline'], $trafges);
 					} else {
 						$Teamspeak 	= $lang['ov_teamspeak_not_online'];		
 					}
