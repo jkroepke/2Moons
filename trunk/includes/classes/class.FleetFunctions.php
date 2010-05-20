@@ -192,7 +192,7 @@ abstract class FleetFunctions
 			}
 		}
 		elseif(!empty($Missions[5]))
-			$StayBlock = array(1 => 1, 2 => 2, 4 => 4, 8 => 8, 16 => 16, 32 => 32);
+			$StayBlock = array(1 => 1, 2 => 2, 4 => 4, 8 => 8, 12 => 12, 16 => 16, 32 => 32);
 		
 		return array('MissionSelector' => $Missions, 'StayBlock' => $StayBlock);
 	}	
