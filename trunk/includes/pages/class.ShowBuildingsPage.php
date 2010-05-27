@@ -338,7 +338,7 @@ class ShowBuildingsPage
 
 		$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
 		
-		if ((IsTechnologieAccessible($CurrentUser, $CurrentPlanet, $Element) && in_array($Element, $reslist['allow'][$CurrentPlanet['planet_type']]) && ($Element == 31 && $CurrentUser["b_tech_planet"] == 0 || $Element != 31)) || $TheCommand == "cancel" || $TheCommand == "remove")
+		if ((IsTechnologieAccessible($CurrentUser, $CurrentPlanet, $Element) && in_array($Element, $reslist['allow'][$CurrentPlanet['planet_type']]) && ($Element == 31 && $CurrentUser["b_tech_planet"] == 0 || $Element != 31) && ((($Element == 15 || $Element == 21) && empty($CurrentPlanet['b_hangar_id'])) || ($Element != 15 || $Element != 21))) || $TheCommand == "cancel" || $TheCommand == "remove")
 		{
 			switch($TheCommand)
 			{
