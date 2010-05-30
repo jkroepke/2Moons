@@ -28,49 +28,49 @@ include(ROOT_PATH . 'extension.inc');
 include(ROOT_PATH . 'common.'.PHP_EXT);
 
 
-if ($ConfigGame != 1) die(message ($lang['404_page']));
+if ($CONFGame != 1) die(message ($LNG['404_page']));
 
-	if ($_POST['save'] == $lang['cs_save_changes'])
+	if ($_POST['save'] == $LNG['cs_save_changes'])
 	{
-		$Log	.=	"\n".$lang['log_the_user'].$user['username'].$lang['log_change_stats'].":\n";
-		if (isset($_POST['stat']) && $_POST['stat'] != $game_config['stat'])
+		$Log	.=	"\n".$LNG['log_the_user'].$USER['username'].$LNG['log_change_stats'].":\n";
+		if (isset($_POST['stat']) && $_POST['stat'] != $CONF['stat'])
 		{
 			update_config('stat' , $_POST['stat']);
-			$game_config['stat'] = $_POST['stat'];
+			$CONF['stat'] = $_POST['stat'];
 			$ASD3	=	$_POST['stat'];
-			$Log	.=	$lang['log_stats_value_5'].": ".$lang['log_viewmod2'][$ASD3]."\n";
+			$Log	.=	$LNG['log_stats_value_5'].": ".$LNG['log_viewmod2'][$ASD3]."\n";
 		}
-		if (isset($_POST['stat_level']) &&  is_numeric($_POST['stat_level']) && $_POST['stat_level'] != $game_config['stat_level'])
+		if (isset($_POST['stat_level']) &&  is_numeric($_POST['stat_level']) && $_POST['stat_level'] != $CONF['stat_level'])
 		{
 			update_config('stat_level',  $_POST['stat_level']);
-			$game_config['stat_level'] = $_POST['stat_level'];
+			$CONF['stat_level'] = $_POST['stat_level'];
 			$ASD1	=	$_POST['stat_level'];
-			$Log	.=	$lang['log_stats_value_6'].": ".$lang['rank'][$ASD1]."\n";
+			$Log	.=	$LNG['log_stats_value_6'].": ".$LNG['rank'][$ASD1]."\n";
 		}
-		if (isset($_POST['stat_flying']) && $_POST['stat_flying'] != $game_config['stat_flying'])
+		if (isset($_POST['stat_flying']) && $_POST['stat_flying'] != $CONF['stat_flying'])
 		{
 			update_config('stat_flying',  $_POST['stat_flying']);
-			$game_config['stat_flying']	= $_POST['stat_flying'];
+			$CONF['stat_flying']	= $_POST['stat_flying'];
 			$ASD2	=	$_POST['stat_flying'];
-			$Log	.=	$lang['log_stats_value_4'].": ".$lang['log_viewmod'][$ASD2]."\n";
+			$Log	.=	$LNG['log_stats_value_4'].": ".$LNG['log_viewmod'][$ASD2]."\n";
 		}
-		if (isset($_POST['stat_settings']) &&  is_numeric($_POST['stat_settings']) && $_POST['stat_settings'] != $game_config['stat_settings'])
+		if (isset($_POST['stat_settings']) &&  is_numeric($_POST['stat_settings']) && $_POST['stat_settings'] != $CONF['stat_settings'])
 		{
 			update_config('stat_settings',  $_POST['stat_settings']);
-			$game_config['stat_settings'] = $_POST['stat_settings'];
-			$Log	.=	$lang['log_stats_value'].": ".$_POST['stat_settings']."\n";
+			$CONF['stat_settings'] = $_POST['stat_settings'];
+			$Log	.=	$LNG['log_stats_value'].": ".$_POST['stat_settings']."\n";
 		}
-		if (isset($_POST['stat_amount']) &&  is_numeric($_POST['stat_amount']) && $_POST['stat_amount'] != $game_config['stat_amount'] && $_POST['stat_amount'] >= 10)
+		if (isset($_POST['stat_amount']) &&  is_numeric($_POST['stat_amount']) && $_POST['stat_amount'] != $CONF['stat_amount'] && $_POST['stat_amount'] >= 10)
 		{
 			update_config('stat_amount',  $_POST['stat_amount']);
-			$game_config['stat_amount']	= $_POST['stat_amount'];
-			$Log	.=	$lang['log_stats_value_3'].": ".$_POST['stat_amount']."\n";
+			$CONF['stat_amount']	= $_POST['stat_amount'];
+			$Log	.=	$LNG['log_stats_value_3'].": ".$_POST['stat_amount']."\n";
 		}
-		if (isset($_POST['stat_update_time']) &&  is_numeric($_POST['stat_update_time']) && $_POST['stat_update_time'] != $game_config['stat_update_time'])
+		if (isset($_POST['stat_update_time']) &&  is_numeric($_POST['stat_update_time']) && $_POST['stat_update_time'] != $CONF['stat_update_time'])
 		{
 			update_config('stat_update_time',  $_POST['stat_update_time']);
-			$game_config['stat_update_time'] = $_POST['stat_update_time'];
-			$Log	.=	$lang['log_stats_value_2'].": ".$_POST['stat_update_time']."\n";
+			$CONF['stat_update_time'] = $_POST['stat_update_time'];
+			$Log	.=	$LNG['log_stats_value_2'].": ".$_POST['stat_update_time']."\n";
 		}
 		LogFunction($Log, "ConfigLog", $LogCanWork);
 		header("location:ConfigStatsPage.php");
@@ -78,19 +78,19 @@ if ($ConfigGame != 1) die(message ($lang['404_page']));
 	else
 	{
 		$selected					=	"selected=\"selected\"";
-		$stat						=	(($game_config['stat'] == 0)?'sel_sta0':(($game_config['stat'] == 1)?'sel_sta1':'sel_sta2'));
-		$lang[$stat]				=	$selected;
-		$stat_fly					=	(($game_config['stat_flying'] == 1)? 'sel_sf1':'sel_sf0');
-		$lang[$stat_fly]			=	$selected;
-		$lang['stat_level']			=	$game_config['stat_level'];
-		$lang['stat_settings']		=	$game_config['stat_settings'];
-		$lang['stat_amount']		=	$game_config['stat_amount'];
-		$lang['stat_update_time']	=	$game_config['stat_update_time'];
-		$lang['timeact']			=	gmdate("d. M y H:i:s T", $game_config['stat_last_update']);
+		$stat						=	(($CONF['stat'] == 0)?'sel_sta0':(($CONF['stat'] == 1)?'sel_sta1':'sel_sta2'));
+		$LNG[$stat]				=	$selected;
+		$stat_fly					=	(($CONF['stat_flying'] == 1)? 'sel_sf1':'sel_sf0');
+		$LNG[$stat_fly]			=	$selected;
+		$LNG['stat_level']			=	$CONF['stat_level'];
+		$LNG['stat_settings']		=	$CONF['stat_settings'];
+		$LNG['stat_amount']		=	$CONF['stat_amount'];
+		$LNG['stat_update_time']	=	$CONF['stat_update_time'];
+		$LNG['timeact']			=	gmdate("d. M y H:i:s T", $CONF['stat_last_update']);
 
-		$lang['yes']	=	$lang['one_is_yes'][1];
-		$lang['no']		=	$lang['one_is_yes'][0];
-		$admin_settings = parsetemplate(gettemplate('adm/ConfigStatsBody'), $lang);
+		$LNG['yes']	=	$LNG['one_is_yes'][1];
+		$LNG['no']		=	$LNG['one_is_yes'][0];
+		$admin_settings = parsetemplate(gettemplate('adm/ConfigStatsBody'), $LNG);
 		display($admin_settings, false, '', true, false);
 	}
 ?>

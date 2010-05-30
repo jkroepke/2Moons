@@ -1,6 +1,6 @@
 <?php
 
-$lang['faq']			= array(
+$LNG['faq']			= array(
 "Wie kann ich mehr als einen Planeten haben?" => "Du kannst ein Weiteren Planeten Mit einem Kolonieschiff Kolosieren. Beachte hier aber das dieser Bereich leer ist, sonnst kannst Du diesen Planeten Nicht Kolosieren. Mit Hilfe der Astrophysik ist es Möglich mehr als 9 Planeten zu besiedeln. Pro 2 Stufen kann man einen Planeten mehr besiedeln.",
 "Was ist ein Gigarecykler?" => "Ein Gigarecykler ist ein verbesserter Recykler und hat ein Verfassungsvermögen von 250 k Resourcen pro Schiff, wo der Recykler nur ein Verfassungsvermögen von 20 k an Resourcen hat.",
 "Ich werde angegriffen, wie kann ich meine Rohstoffe retten?" => "Diesen Vorgang nennt man saven. Es gibt verschiede Möglichkeiten seine Rohstoffe zu saven. Ihr findet alle Infos unter folgendem Link: <a href=\"http://owiki.de/Saven\" target=\"_blank\"title=\"Saven auf owiki.de\">Artikel Saven im owiki.de</a>",
@@ -26,5 +26,5 @@ $lang['faq']			= array(
 "Ihr habt noch Fragen?" => "Sendet eine PM mit eurer Frage per Support-Ticket. Wir werden deine Frage bearbeiten und ggf. hier ins FAQ für andere zur verfügung stellen.",
 );
 
-$lang['faq_overview']	= "FAQ";
+$LNG['faq_overview']	= "FAQ";
 ?>

@@ -61,7 +61,7 @@ if ($Observation != 1) die();
 		$edit_id 	= request_var('currid',0);
 		$title 		= $db->sql_escape(request_var('title','',true));
 		$text 		= $db->sql_escape(request_var('text','',true));
-		$query		= (isset($_GET['gone'])) ? "INSERT INTO ".NEWS." (`id` ,`user` ,`date` ,`title` ,`text`) VALUES ( NULL , '".$user['username']."', '".time()."', '".$title."', '".$text."');" : "UPDATE ".NEWS." SET `title` = '".$title."', `text` = '".$text."', `date` = '".time()."' WHERE `id` = '".$edit_id."' LIMIT 1;";
+		$query		= (isset($_GET['gone'])) ? "INSERT INTO ".NEWS." (`id` ,`user` ,`date` ,`title` ,`text`) VALUES ( NULL , '".$USER['username']."', '".TIMESTAMP."', '".$title."', '".$text."');" : "UPDATE ".NEWS." SET `title` = '".$title."', `text` = '".$text."', `date` = '".TIMESTAMP."' WHERE `id` = '".$edit_id."' LIMIT 1;";
 		
 		$db->query($query);
 		

@@ -29,9 +29,9 @@ include(ROOT_PATH . 'extension.inc');
 include(ROOT_PATH . 'common.'.PHP_EXT);
 
 
-if ($ConfigGame != 1) die(message ($lang['404_page']));
+if ($CONFGame != 1) die(message ($LNG['404_page']));
 
-$parse = $lang;
+$parse = $LNG;
 
 if (!$_POST)
 {
@@ -41,7 +41,7 @@ if (!$_POST)
 		foreach ($row as $opcion => $tabla)
 		{
 			$parse['tabla'] .= "<tr>";
-			$parse['tabla'] .= "<th width=\"50%\">".$tabla."</th><th width=\"50%\"><font color=aqua>".$lang['od_select_action']."</font></th>";
+			$parse['tabla'] .= "<th width=\"50%\">".$tabla."</th><th width=\"50%\"><font color=aqua>".$LNG['od_select_action']."</font></th>";
 			$parse['tabla'] .= "</tr>";
 		}
 	}
@@ -56,24 +56,24 @@ else
 		{
 			if ($_POST['Optimize']){
 				$db->query("OPTIMIZE TABLE ".$tabla.";");
-				$Message	=	$lang['od_opt'];
-				$Log	=	"\n".$lang['log_database_title']."\n".$lang['log_the_user'].$user['username'].$lang['log_database_view'].":\n".$lang['log_data_optimize']."\n";}
+				$Message	=	$LNG['od_opt'];
+				$Log	=	"\n".$LNG['log_database_title']."\n".$LNG['log_the_user'].$USER['username'].$LNG['log_database_view'].":\n".$LNG['log_data_optimize']."\n";}
 				
 			if ($_POST['Repair']){
 				$db->query("REPAIR TABLE ".$tabla.";");
-				$Message	=	$lang['od_rep'];
-				$Log	=	"\n".$lang['log_database_title']."\n".$lang['log_the_user'].$user['username'].$lang['log_database_view'].":\n".$lang['log_data_repair']."\n";}
+				$Message	=	$LNG['od_rep'];
+				$Log	=	"\n".$LNG['log_database_title']."\n".$LNG['log_the_user'].$USER['username'].$LNG['log_database_view'].":\n".$LNG['log_data_repair']."\n";}
 				
 			if ($_POST['Check']){
 				$db->query("CHECK TABLE ".$tabla.";");
-				$Message	=	$lang['od_check_ok'];
-				$Log	=	"\n".$lang['log_database_title']."\n".$lang['log_the_user'].$user['username'].$lang['log_database_view'].":\n".$lang['log_data_check']."\n";}
+				$Message	=	$LNG['od_check_ok'];
+				$Log	=	"\n".$LNG['log_database_title']."\n".$LNG['log_the_user'].$USER['username'].$LNG['log_database_view'].":\n".$LNG['log_data_check']."\n";}
 				
 			if ($db->error)
 			{
 				$parse['tabla'] .= "<tr>";
 				$parse['tabla'] .= "<th width=\"50%\">".$tabla."</th>";
-				$parse['tabla'] .= "<th width=\"50%\" style=\"color:red\">".$lang['od_not_opt']."</th>";
+				$parse['tabla'] .= "<th width=\"50%\" style=\"color:red\">".$LNG['od_not_opt']."</th>";
 				$parse['tabla'] .= "</tr>";
 			}
 			else

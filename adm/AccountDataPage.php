@@ -29,18 +29,18 @@ include(ROOT_PATH . 'extension.inc');
 include(ROOT_PATH . 'common.'.PHP_EXT);
 
 
-if ($Observation != 1) die(message ($lang['404_page']));
+if ($Observation != 1) die(message ($LNG['404_page']));
 
-$parse	= 	$lang;
+$parse	= 	$LNG;
 
 
-if ($user['authlevel']	!=	3)
-	$NOSUPERMI	=	"WHERE `authlevel` < '".$user['authlevel']."'";
+if ($USER['authlevel']	!=	3)
+	$NOSUPERMI	=	"WHERE `authlevel` < '".$USER['authlevel']."'";
 	
 $UserWhileLogin	=	$db->query("SELECT `id`, `username`, `authlevel` FROM ".USERS." ".$NOSUPERMI." ORDER BY `username` ASC;");
 while($UserList	=	$db->fetch_array($UserWhileLogin))
 {
-	$parse['lista']	.=	"<option value=\"".$UserList['id']."\">".$UserList['username']."&nbsp;&nbsp; (".$lang['rank'][$UserList['authlevel']].")</option>";
+	$parse['lista']	.=	"<option value=\"".$UserList['id']."\">".$UserList['username']."&nbsp;&nbsp; (".$LNG['rank'][$UserList['authlevel']].")</option>";
 }
 
 
@@ -57,23 +57,23 @@ $OnlyQueryLogin 	= 	$db->fetch_array($db->query("SELECT `id`, `authlevel` FROM "
 	{
 		if ($id_u == NULL)
 		{
-			$parse['error']	=	"<tr><th height=25 style=\"border: 2px red solid;\"><font color=red>".$lang['ac_user_id_required']."</font></th></tr>";
+			$parse['error']	=	"<tr><th height=25 style=\"border: 2px red solid;\"><font color=red>".$LNG['ac_user_id_required']."</font></th></tr>";
 		}
 		elseif($_GET['id_u'] != NULL && $_GET['id_u2'] != NULL)
 		{
-			$parse['error']	=	"<tr><th height=25 style=\"border: 2px red solid;\"><font color=red>".$lang['ac_select_one_id']."</font></th></tr>";
+			$parse['error']	=	"<tr><th height=25 style=\"border: 2px red solid;\"><font color=red>".$LNG['ac_select_one_id']."</font></th></tr>";
 		}
 		elseif(!is_numeric($id_u))
 		{
-			$parse['error']	=	"<tr><th height=25 style=\"border: 2px red solid;\"><font color=red>".$lang['ac_no_character']."</font></th></tr>";
+			$parse['error']	=	"<tr><th height=25 style=\"border: 2px red solid;\"><font color=red>".$LNG['ac_no_character']."</font></th></tr>";
 		}
 		elseif($OnlyQueryLogin == NULL or $OnlyQueryLogin == 0)
 		{
-			$parse['error']	=	"<tr><th height=25 style=\"border: 2px red solid;\"><font color=red>".$lang['ac_username_doesnt']."</font></th></tr>";
+			$parse['error']	=	"<tr><th height=25 style=\"border: 2px red solid;\"><font color=red>".$LNG['ac_username_doesnt']."</font></th></tr>";
 		}
-		elseif($user['authlevel'] != 3 && $OnlyQueryLogin['authlevel'] > $user['authlevel'])
+		elseif($USER['authlevel'] != 3 && $OnlyQueryLogin['authlevel'] > $USER['authlevel'])
 		{
-			$parse['error']	=	"<tr><th height=25 style=\"border: 2px red solid;\"><font color=red>".$lang['ac_no_rank_level']."</font></th></tr>";
+			$parse['error']	=	"<tr><th height=25 style=\"border: 2px red solid;\"><font color=red>".$LNG['ac_no_rank_level']."</font></th></tr>";
 		}
 		else
 		{
@@ -105,16 +105,16 @@ $OnlyQueryLogin 	= 	$db->fetch_array($db->query("SELECT `id`, `authlevel` FROM "
 			$parse['p']				=	$UserQuery['planet'];
 			$parse['info']			=	$UserQuery['user_agent'];
 			$alianza				=	$UserQuery['ally_name'];
-			$parse['nivel']			=	$lang['rank'][$UserQuery['authlevel']];
-			$parse['ipcheck']		=	$lang['ac_checkip'][$UserQuery['noipcheck']];
-			if($UserQuery['urlaubs_modus'] == 1) $parse['vacas'] = $lang['one_is_yes'][1]; else $parse['vacas'] = $lang['one_is_yes'][0];
-			if($UserQuery['bana'] == 1) $parse['suspen'] = $lang['one_is_yes'][1]; else $parse['suspen'] = $lang['one_is_yes'][0];
+			$parse['nivel']			=	$LNG['rank'][$UserQuery['authlevel']];
+			$parse['ipcheck']		=	$LNG['ac_checkip'][$UserQuery['noipcheck']];
+			if($UserQuery['urlaubs_modus'] == 1) $parse['vacas'] = $LNG['one_is_yes'][1]; else $parse['vacas'] = $LNG['one_is_yes'][0];
+			if($UserQuery['bana'] == 1) $parse['suspen'] = $LNG['one_is_yes'][1]; else $parse['suspen'] = $LNG['one_is_yes'][0];
 
 
 			$parse['mo']	=	"<a title=\"".pretty_number($UserQuery['darkmatter'])."\">".shortly_number($UserQuery['darkmatter'])."</a>";
 			
-			$Log	.=	"\n".$lang['log_info_detail_title']."\n";
-			$Log	.=	$lang['log_the_user'].$user['username'].$lang['log_searchto_1'].$UserQuery['username']."\n";				
+			$Log	.=	"\n".$LNG['log_info_detail_title']."\n";
+			$Log	.=	$LNG['log_the_user'].$USER['username'].$LNG['log_searchto_1'].$UserQuery['username']."\n";				
 			LogFunction($Log, "GeneralLog", $LogCanWork);
 
 			foreach($reslist['officier'] as $ID)
@@ -130,19 +130,19 @@ $OnlyQueryLogin 	= 	$db->fetch_array($db->query("SELECT `id`, `authlevel` FROM "
 			for($i = 0; $i < max(count($reslist['officier']), count($reslist['tech'])); $i++)
 			{
 				if(isset($parse['techno'][$i]))
-					$parse['techoffi']	.= "<tr><th>".$lang['tech'][$parse['techno'][$i]].": <font color=aqua>".$UserQuery[$resource[$parse['techno'][$i]]]."</font></th>";
+					$parse['techoffi']	.= "<tr><th>".$LNG['tech'][$parse['techno'][$i]].": <font color=aqua>".$UserQuery[$resource[$parse['techno'][$i]]]."</font></th>";
 				else
 					$parse['techoffi']	.= "<tr><th>&nbsp;</th>";
 				
 				if($parse['officier'][$i])
-					$parse['techoffi']	.= "<th>".$lang['tech'][$parse['officier'][$i]].": <font color=aqua>".$UserQuery[$resource[$parse['officier'][$i]]]."</font></th></tr>";
+					$parse['techoffi']	.= "<th>".$LNG['tech'][$parse['officier'][$i]].": <font color=aqua>".$UserQuery[$resource[$parse['officier'][$i]]]."</font></th></tr>";
 				else
 					$parse['techoffi']	.= "<th>&nbsp;</th></tr>";	
 			}
 			
 			if ($UserQuery['bana'] != 0)
 			{
-				$parse['mas']			=	"<a href=\"javascript:animatedcollapse.toggle('banned')\">".$lang['ac_more']."</a>";
+				$parse['mas']			=	"<a href=\"javascript:animatedcollapse.toggle('banned')\">".$LNG['ac_more']."</a>";
 				
 				$BannedQuery	=	$db->fetch_array($db->query("SELECT theme,time,longer,author FROM ".BANNED." WHERE `who` = '".$UserQuery['username']."';"));
 				
@@ -188,9 +188,9 @@ $OnlyQueryLogin 	= 	$db->fetch_array($db->query("SELECT `id`, `authlevel` FROM "
 			
 			if ($alianza == 0 && $AliID == 0)
 			{
-				$parse['alianza']	=	$lang['ac_no_ally'];
+				$parse['alianza']	=	$LNG['ac_no_ally'];
 				$parse['AllianceHave']	=	"<span class=\"no_moon\"><img src=\"../styles/images/Adm/arrowright.png\" width=\"16\" height=\"10\"/> 
-							".$lang['ac_alliance']."&nbsp;".$lang['ac_no_alliance']."</span>";	
+							".$LNG['ac_alliance']."&nbsp;".$LNG['ac_no_alliance']."</span>";	
 			}
 			elseif ($alianza != NULL && $AliID != 0)
 			{
@@ -198,7 +198,7 @@ $OnlyQueryLogin 	= 	$db->fetch_array($db->query("SELECT `id`, `authlevel` FROM "
 				$bbcode = new bbcode;
 				
 				$parse['AllianceHave']	=	"<a href=\"javascript:animatedcollapse.toggle('alianza')\" class=\"link\">
-							<img src=\"../styles/images/Adm/arrowright.png\" width=\"16\" height=\"10\"/> ".$lang['ac_alliance']."</a>";
+							<img src=\"../styles/images/Adm/arrowright.png\" width=\"16\" height=\"10\"/> ".$LNG['ac_alliance']."</a>";
 										
 							
 				
@@ -210,7 +210,7 @@ $OnlyQueryLogin 	= 	$db->fetch_array($db->query("SELECT `id`, `authlevel` FROM "
 				
 				
 				$parse['alianza']				=	$alianza;
-				$parse['id_ali']				=	" (".$lang['ac_ali_idid']."&nbsp;".$AliID.")";	
+				$parse['id_ali']				=	" (".$LNG['ac_ali_idid']."&nbsp;".$AliID.")";	
 				$parse['id_aliz']				=	$AllianceQuery['id'];
 				$parse['tag']					=	$AllianceQuery['ally_tag'];
 				$parse['ali_nom']				=	$AllianceQuery['ally_name'];
@@ -222,50 +222,50 @@ $OnlyQueryLogin 	= 	$db->fetch_array($db->query("SELECT `id`, `authlevel` FROM "
 				if($AllianceQuery['ally_web'] != NULL)
 					$parse['ali_web'] = "<a href=".$AllianceQuery['ally_web']." target=_blank>".$AllianceQuery['ally_web']."</a>";
 				else
-					$parse['ali_web'] = $lang['ac_no_web'];
+					$parse['ali_web'] = $LNG['ac_no_web'];
 					
 					
 				if($AllianceQuery['ally_description'] != NULL)
 				{
 					$parse['ali_ext2'] = $bbcode->reemplazo($AllianceQuery['ally_description']);
-					$parse['ali_ext']  = "<a href=\"#\" rel=\"toggle[externo]\">".$lang['ac_view_text_ext']."</a>";
+					$parse['ali_ext']  = "<a href=\"#\" rel=\"toggle[externo]\">".$LNG['ac_view_text_ext']."</a>";
 				}
 				else
 				{
-					$parse['ali_ext'] = $lang['ac_no_text_ext'];
+					$parse['ali_ext'] = $LNG['ac_no_text_ext'];
 				}
 					
 					
 				if($AllianceQuery['ally_text'] != NULL)
 				{
 					$parse['ali_int2'] = $bbcode->reemplazo($AllianceQuery['ally_text']);
-					$parse['ali_int']  = "<a href=\"#\" rel=\"toggle[interno]\">".$lang['ac_view_text_int']."</a>";
+					$parse['ali_int']  = "<a href=\"#\" rel=\"toggle[interno]\">".$LNG['ac_view_text_int']."</a>";
 				}
 				else
 				{
-					$parse['ali_int'] = $lang['ac_no_text_int'];
+					$parse['ali_int'] = $LNG['ac_no_text_int'];
 				}
 					
 					
 				if($AllianceQuery['ally_request'] != NULL)
 				{
 					$parse['ali_sol2'] = $bbcode->reemplazo($AllianceQuery['ally_request']);
-					$parse['ali_sol']  = "<a href=\"#\" rel=\"toggle[solicitud]\">".$lang['ac_view_text_sol']."</a>";
+					$parse['ali_sol']  = "<a href=\"#\" rel=\"toggle[solicitud]\">".$LNG['ac_view_text_sol']."</a>";
 				}
 				else
 				{
-					$parse['ali_sol'] = $lang['ac_no_text_sol'];
+					$parse['ali_sol'] = $LNG['ac_no_text_sol'];
 				}
 					
 					
 				if($AllianceQuery['ally_image'] != NULL)
 				{
 					$parse['ali_logo2'] = $AllianceQuery['ally_image'];
-					$parse['ali_logo'] = "<a href=\"#\" rel=\"toggle[imagen]\">".$lang['ac_view_image2']."</a>";
+					$parse['ali_logo'] = "<a href=\"#\" rel=\"toggle[imagen]\">".$LNG['ac_view_image2']."</a>";
 				}
 				else
 				{
-					$parse['ali_logo'] = $lang['ac_no_img'];
+					$parse['ali_logo'] = $LNG['ac_no_img'];
 				}
 				
 				
@@ -299,7 +299,7 @@ $OnlyQueryLogin 	= 	$db->fetch_array($db->query("SELECT `id`, `authlevel` FROM "
 			foreach(array_merge($reslist['fleet'], $reslist['build'], $reslist['defense']) as $ID)
 			{
 				$SpecifyItemsPQ	.= "`".$resource[$ID]."`,";
-				$parse[$resource[$ID]]	= "<tr><th width=\"150\">".$lang['tech'][$ID]."</th>";
+				$parse[$resource[$ID]]	= "<tr><th width=\"150\">".$LNG['tech'][$ID]."</th>";
 				$parse['names']	= "<tr><th width=\"150\">&nbsp;</th>";
 			}
 			
@@ -312,11 +312,11 @@ $OnlyQueryLogin 	= 	$db->fetch_array($db->query("SELECT `id`, `authlevel` FROM "
 			{
 				if ($PlanetsWhile['planet_type'] == 3)
 				{
-					$Planettt = $PlanetsWhile['name']."&nbsp;(".$lang['ac_moon'].")<br><font color=aqua>["
+					$Planettt = $PlanetsWhile['name']."&nbsp;(".$LNG['ac_moon'].")<br><font color=aqua>["
 								.$PlanetsWhile['galaxy'].":".$PlanetsWhile['system'].":".$PlanetsWhile['planet']."]</font>";					
 					
 					$MoonZ	=	0;		
-					$Moons = $PlanetsWhile['name']."&nbsp;(".$lang['ac_moon'].")<br><font color=aqua>["
+					$Moons = $PlanetsWhile['name']."&nbsp;(".$LNG['ac_moon'].")<br><font color=aqua>["
 								.$PlanetsWhile['galaxy'].":".$PlanetsWhile['system'].":".$PlanetsWhile['planet']."]</font>";
 					$MoonZ++;
 				}
@@ -337,7 +337,7 @@ $OnlyQueryLogin 	= 	$db->fetch_array($db->query("SELECT `id`, `authlevel` FROM "
 						<th>".pretty_number($PlanetsWhile['diameter'])."</th>
 						<th>".pretty_number($PlanetsWhile['field_current'])."/".pretty_number($PlanetsWhile['field_max'])."</th>
 						<th>".pretty_number($PlanetsWhile['temp_min'])."/".pretty_number($PlanetsWhile['temp_max'])."</th>
-						<th><a href=\"javascript:openEdit('".$PlanetsWhile['id']."', 'planet');\" border=\"0\"><img src=\"../styles/images/Adm/GO.png\" title=".$lang['se_search_edit']."></a></th>
+						<th><a href=\"javascript:openEdit('".$PlanetsWhile['id']."', 'planet');\" border=\"0\"><img src=\"../styles/images/Adm/GO.png\" title=".$LNG['se_search_edit']."></a></th>
 					</tr>";
 					
 					
@@ -368,10 +368,10 @@ $OnlyQueryLogin 	= 	$db->fetch_array($db->query("SELECT `id`, `authlevel` FROM "
 					
 					if ($MoonZ != 0)
 						$parse['MoonHave']	=	"<a href=\"javascript:animatedcollapse.toggle('especiales')\" class=\"link\">
-							<img src=\"../styles/images/Adm/arrowright.png\" width=\"16\" height=\"10\"/> ".$lang['moon_build']."</a>";
+							<img src=\"../styles/images/Adm/arrowright.png\" width=\"16\" height=\"10\"/> ".$LNG['moon_build']."</a>";
 					else
 						$parse['MoonHave']	=	"<span class=\"no_moon\"><img src=\"../styles/images/Adm/arrowright.png\" width=\"16\" height=\"10\"/> 
-							".$lang['moon_build']."&nbsp;".$lang['ac_moons_no']."</span>";	
+							".$LNG['moon_build']."&nbsp;".$LNG['ac_moons_no']."</span>";	
 					
 				}
 				
@@ -391,10 +391,10 @@ $OnlyQueryLogin 	= 	$db->fetch_array($db->query("SELECT `id`, `authlevel` FROM "
 				
 				if ($DestruyeD != 0)
 					$parse['DestructionHave']	=	"<a href=\"javascript:animatedcollapse.toggle('destr')\" class=\"link\">
-						<img src=\"../styles/images/Adm/arrowright.png\" width=\"16\" height=\"10\"/> ".$lang['ac_recent_destroyed_planets']."</a>";
+						<img src=\"../styles/images/Adm/arrowright.png\" width=\"16\" height=\"10\"/> ".$LNG['ac_recent_destroyed_planets']."</a>";
 				else
 					$parse['DestructionHave']	=	"<span class=\"no_moon\"><img src=\"../styles/images/Adm/arrowright.png\" width=\"16\" height=\"10\"/> 
-						".$lang['ac_recent_destroyed_planets']."&nbsp;".$lang['ac_isnodestruyed']."</span>";
+						".$LNG['ac_recent_destroyed_planets']."&nbsp;".$LNG['ac_isnodestruyed']."</span>";
 			}
 			$parse['names']	.= "</tr>";
 			foreach(array_merge($reslist['fleet'], $reslist['build'], $reslist['defense']) as $ID)

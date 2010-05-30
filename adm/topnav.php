@@ -27,15 +27,15 @@ define('ROOT_PATH', './../');
 include(ROOT_PATH . 'extension.inc');
 include(ROOT_PATH . 'common.'.PHP_EXT);
 
-if ($user['authlevel'] < 1) die(message ($lang['404_page']));
+if ($USER['authlevel'] < 1) die(message ($LNG['404_page']));
 
-$parse	=	$lang;
+$parse	=	$LNG;
 
-if ($user['authlevel'] == 3)
+if ($USER['authlevel'] == 3)
 {
-	$parse['moderation']	=	'<a href="Moderation.php?moderation=1" target="Hauptframe" class="topn">&nbsp;'.$lang['mu_moderation_page'].'&nbsp;</a>';
-	$parse['authlevels']	=	'<a href="Moderation.php?moderation=2" target="Hauptframe" class="topn">&nbsp;'.$lang['ad_authlevel_title'].'&nbsp;</a>';
-	$parse['resetuniverse']	=	'<a href="ResetPage.php" target="Hauptframe" class="topn">&nbsp;'.$lang['re_reset_universe'].'&nbsp;</a>';
+	$parse['moderation']	=	'<a href="Moderation.php?moderation=1" target="Hauptframe" class="topn">&nbsp;'.$LNG['mu_moderation_page'].'&nbsp;</a>';
+	$parse['authlevels']	=	'<a href="Moderation.php?moderation=2" target="Hauptframe" class="topn">&nbsp;'.$LNG['ad_authlevel_title'].'&nbsp;</a>';
+	$parse['resetuniverse']	=	'<a href="ResetPage.php" target="Hauptframe" class="topn">&nbsp;'.$LNG['re_reset_universe'].'&nbsp;</a>';
 }
 	
 	

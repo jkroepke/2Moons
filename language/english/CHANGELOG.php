@@ -1,9 +1,9 @@
 <?php
 
-$lang['Version']     = 'Version';
-$lang['Description'] = 'Beschreibung';
+$LNG['Version']     = 'Version';
+$LNG['Description'] = 'Beschreibung';
 
-$lang['changelog']   = array(
+$LNG['changelog']   = array(
 
 'RC5.0' => 'ShadoX 08.05.10
 - ADD: Neue Schiffe

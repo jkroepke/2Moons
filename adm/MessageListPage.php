@@ -29,9 +29,9 @@ include(ROOT_PATH . 'extension.inc');
 include(ROOT_PATH . 'common.'.PHP_EXT);
 
 
-if ($Observation != 1) die(message ($lang['404_page']));
+if ($Observation != 1) die(message ($LNG['404_page']));
 
-	$parse		= $lang;
+	$parse		= $LNG;
 	$Prev       = ( !empty($_POST['prev'])   ) ? true : false;
 	$Next       = ( !empty($_POST['next'])   ) ? true : false;
 	$DelSel     = ( !empty($_POST['delsel']) ) ? true : false;
@@ -114,15 +114,15 @@ if ($Observation != 1) die(message ($lang['404_page']));
 	$parse['mlst_data_page']    = $ViewPage;
 	$parse['mlst_data_pagemax'] = $MaxPage;
 	$parse['mlst_data_sele']    = $Selected;
-	$parse['mlst_data_types']   = "<option value=\"0\"".  (($Selected == "0")  ? " SELECTED" : "") .">".$lang['mg_type'][0]."</option>";
-	$parse['mlst_data_types']  .= "<option value=\"1\"".  (($Selected == "1")  ? " SELECTED" : "") .">".$lang['mg_type'][1]."</option>";
-	$parse['mlst_data_types']  .= "<option value=\"2\"".  (($Selected == "2")  ? " SELECTED" : "") .">".$lang['mg_type'][2]."</option>";
-	$parse['mlst_data_types']  .= "<option value=\"3\"".  (($Selected == "3")  ? " SELECTED" : "") .">".$lang['mg_type'][3]."</option>";
-	$parse['mlst_data_types']  .= "<option value=\"4\"".  (($Selected == "4")  ? " SELECTED" : "") .">".$lang['mg_type'][4]."</option>";
-	$parse['mlst_data_types']  .= "<option value=\"5\"".  (($Selected == "5")  ? " SELECTED" : "") .">".$lang['mg_type'][5]."</option>";
-	$parse['mlst_data_types']  .= "<option value=\"15\"". (($Selected == "15") ? " SELECTED" : "") .">".$lang['mg_type'][15]."</option>";
-	$parse['mlst_data_types']  .= "<option value=\"99\"". (($Selected == "99") ? " SELECTED" : "") .">".$lang['mg_type'][99]."</option>";
-	$parse['mlst_data_types']  .= "<option value=\"100\"". (($Selected == "100") ? " SELECTED" : "") .">".$lang['ml_see_all_messages']."</option>";
+	$parse['mlst_data_types']   = "<option value=\"0\"".  (($Selected == "0")  ? " SELECTED" : "") .">".$LNG['mg_type'][0]."</option>";
+	$parse['mlst_data_types']  .= "<option value=\"1\"".  (($Selected == "1")  ? " SELECTED" : "") .">".$LNG['mg_type'][1]."</option>";
+	$parse['mlst_data_types']  .= "<option value=\"2\"".  (($Selected == "2")  ? " SELECTED" : "") .">".$LNG['mg_type'][2]."</option>";
+	$parse['mlst_data_types']  .= "<option value=\"3\"".  (($Selected == "3")  ? " SELECTED" : "") .">".$LNG['mg_type'][3]."</option>";
+	$parse['mlst_data_types']  .= "<option value=\"4\"".  (($Selected == "4")  ? " SELECTED" : "") .">".$LNG['mg_type'][4]."</option>";
+	$parse['mlst_data_types']  .= "<option value=\"5\"".  (($Selected == "5")  ? " SELECTED" : "") .">".$LNG['mg_type'][5]."</option>";
+	$parse['mlst_data_types']  .= "<option value=\"15\"". (($Selected == "15") ? " SELECTED" : "") .">".$LNG['mg_type'][15]."</option>";
+	$parse['mlst_data_types']  .= "<option value=\"99\"". (($Selected == "99") ? " SELECTED" : "") .">".$LNG['mg_type'][99]."</option>";
+	$parse['mlst_data_types']  .= "<option value=\"100\"". (($Selected == "100") ? " SELECTED" : "") .">".$LNG['ml_see_all_messages']."</option>";
 	$parse['mlst_data_pages']   = "";
 
 	for ( $cPage = 1; $cPage <= $MaxPage; $cPage++ )
@@ -141,7 +141,7 @@ if ($Observation != 1) die(message ($lang['404_page']));
 			$OwnerData = $db->fetch_array($db->query ("SELECT `username` FROM ".USERS." WHERE `id` = '". $row['message_owner'] ."';"));
 			$bloc['mlst_id']      = $row['message_id'];
 			$bloc['mlst_from']    = $row['message_from'];
-			$bloc['mlst_to']      = $OwnerData['username'] ." ".$lang['input_id'].":". $row['message_owner'];
+			$bloc['mlst_to']      = $OwnerData['username'] ." ".$LNG['input_id'].":". $row['message_owner'];
 			$bloc['mlst_subject'] = $row['message_subject'];
 			$bloc['mlst_text']    = $row['message_text'];
 			$bloc['mlst_time']    = date ("d/M/y H:i:s", $row['message_time'] );

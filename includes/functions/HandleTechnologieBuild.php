@@ -19,7 +19,7 @@
 # *																			 #
 ##############################################################################
 
-if(!defined('INSIDE')){ die(header("location:../../"));}
+if(!defined('INSIDE')) die('Hacking attempt!');
 
 	function HandleTechnologieBuild ( &$CurrentPlanet, &$CurrentUser )
 	{
@@ -35,7 +35,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 			else
 				$ThePlanet = $CurrentPlanet;
 
-			if ($ThePlanet['b_tech'] <= time() && $ThePlanet['b_tech_id'] != 0)
+			if ($ThePlanet['b_tech'] <= TIMESTAMP && $ThePlanet['b_tech_id'] != 0)
 			{
 				$CurrentUser[$resource[$ThePlanet['b_tech_id']]]++;
 

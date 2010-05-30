@@ -26,30 +26,30 @@ define('ROOT_PATH', './');
 include(ROOT_PATH . 'extension.inc');
 include(ROOT_PATH . 'common.'.PHP_EXT);
 
-if (!$IsUserChecked) die(header('Location: index.php'));
+if (empty($_SESSION)) die(header('Location: index.php'));
 
 // Output transparent gif
 header('Cache-Control: no-cache');
-header('Content-type: image/gif');
-header('Content-length: 43');
+#header('Content-type: image/gif');
+#header('Content-length: 43');
 header('Expires: 0');
 			
 $cron = request_var('cron','');
 switch($cron) 
 {
 	case "stats":
-		if (time() >= ($game_config['stat_last_update'] + (60 * $game_config['stat_update_time'])))
+		if (TIMESTAMP >= ($CONF['stat_last_update'] + (60 * $CONF['stat_update_time'])))
 		{
-			update_config('stat_last_update', time());
+			update_config('stat_last_update', TIMESTAMP);
 			require_once(ROOT_PATH . 'includes/classes/class.statbuilder.php');
 			$stat			= new Statbuilder();
 			$result			= $stat->MakeStats();
 		}
 	break;
 	case "opdb":
-		if (time() >= ($game_config['stat_last_db_update'] + (60 * 60 * 24)))
+		if (TIMESTAMP >= ($CONF['stat_last_db_update'] + (60 * 60 * 24)))
 		{
-			require_once(ROOT_PATH . 'config.' . PHP_EXT);
+			require(ROOT_PATH . 'config.' . PHP_EXT);
 			$prueba = $db->query("SHOW TABLE STATUS from ".DB_NAME.";");
 			$table = "";
 			while($pru = $db->fetch($prueba)){
@@ -61,13 +61,13 @@ switch($cron)
 				}
 			}
 			$db->query("OPTIMIZE TABLE ".substr($table, 0, -2).";");
-			update_config('stat_last_db_update', time());
 			unset($database);
 			if(!CheckModule(37)){
 				require_once(ROOT_PATH . 'includes/classes/class.StatBanner.php');
 				$banner	= new StatBanner();
 				$banner->BuildIMGforAll();
 			}
+			update_config('stat_last_db_update', TIMESTAMP);
 		}
 	break;
 }

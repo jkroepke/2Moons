@@ -29,10 +29,11 @@ include(ROOT_PATH . 'extension.inc');
 include(ROOT_PATH . 'common.' . PHP_EXT);
 
 
-if ($ConfigGame != 1) die();
+if ($CONFGame != 1) die();
 
 $parse['info'] 		= $_SERVER['SERVER_SOFTWARE'];
 $parse['vPHP'] 		= PHP_VERSION;
+$parse['vAPI'] 		= PHP_SAPI;
 $parse['vGame'] 	= VERSION;
 $parse['vMySQLc'] 	= $db->getVersion();
 $parse['vMySQLs'] 	= $db->getServerVersion();

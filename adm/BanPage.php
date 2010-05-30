@@ -29,9 +29,9 @@ include(ROOT_PATH . 'extension.inc');
 include(ROOT_PATH . 'common.'.PHP_EXT);
 
 
-if ($EditUsers != 1) die(message ($lang['404_page']));
+if ($EditUsers != 1) die(message ($LNG['404_page']));
 
-$parse = $lang;
+$parse = $LNG;
 
 
 if ($_GET['order'] == 'id')
@@ -41,13 +41,13 @@ else
 	
 	
 	
-if ($user['authlevel'] != 3)
+if ($USER['authlevel'] != 3)
 	$ListWHERE		=	"WHERE `authlevel` != 3";
 	
 	
-if ($_GET['view'] == 'bana' && $user['authlevel'] != 3)
+if ($_GET['view'] == 'bana' && $USER['authlevel'] != 3)
 	$WHEREBANA	=	"AND `bana` = 1";
-elseif ($_GET['view'] == 'bana' && $user['authlevel'] == 3)
+elseif ($_GET['view'] == 'bana' && $USER['authlevel'] == 3)
 	$WHEREBANA	=	"WHERE `bana` = 1";
 
 $UserList		=	$db->query("SELECT `username`, `id`, `bana` FROM ".USERS." ".$ListWHERE." ".$WHEREBANA." ORDER BY ".$ORDER." ASC;");
@@ -56,7 +56,7 @@ $Users	=	0;
 while ($a	=	$db->fetch_array($UserList))
 {
 	if ($a['bana']	==	'1')
-		$SuspendedNow	=	$lang['bo_characters_suus'];
+		$SuspendedNow	=	$LNG['bo_characters_suus'];
 	else
 		$SuspendedNow	=	"";
 		
@@ -92,20 +92,20 @@ if($_GET['panel'])
 		
 	if (!$QueryUserBan)
 	{
-		$parse['title']			=	$lang['bo_bbb_title_1'];
-		$parse['changedate']	=	$lang['bo_bbb_title_2'];
+		$parse['title']			=	$LNG['bo_bbb_title_1'];
+		$parse['changedate']	=	$LNG['bo_bbb_title_2'];
 	}
 	else
 	{
-		$parse['title']			=	$lang['bo_bbb_title_3'];
-		$parse['changedate']	=	$lang['bo_bbb_title_6'];
-		$parse['changedate_advert']	=	"<td class=c width=5%><img src=\"../styles/images/Adm/i.gif\" onMouseOver='return overlib(\"".$lang['bo_bbb_title_4']."\", 
+		$parse['title']			=	$LNG['bo_bbb_title_3'];
+		$parse['changedate']	=	$LNG['bo_bbb_title_6'];
+		$parse['changedate_advert']	=	"<td class=c width=5%><img src=\"../styles/images/Adm/i.gif\" onMouseOver='return overlib(\"".$LNG['bo_bbb_title_4']."\", 
 			CENTER, OFFSETX, -80, OFFSETY, -65, WIDTH, 250);' onMouseOut='return nd();'></td>";
 			
 		$parse['reas']			=	$QueryUserBan['theme'];
 		$parse['timesus']		=	
 			"<tr>
-				<th>".$lang['bo_bbb_title_5']."</th>
+				<th>".$LNG['bo_bbb_title_5']."</th>
 				<th height=25 colspan=2>".date("d-m-Y H:i:s", $QueryUserBan['longer'])."</th>
 			</tr>";
 	}
@@ -131,17 +131,17 @@ if($_GET['panel'])
 		$hour              = $_POST['hour'];
 		$mins              = $_POST['mins'];
 		$secs              = $_POST['secs'];
-		$admin             = $user['username'];
-		$mail              = $user['email'];
-		$Now               = time();
+		$admin             = $USER['username'];
+		$mail              = $USER['email'];
+		$Now               = TIMESTAMP;
 		$BanTime           = $days * 86400;
 		$BanTime          += $hour * 3600;
 		$BanTime          += $mins * 60;
 		$BanTime          += $secs;
-		if ($QueryUserBan['longer'] > time())
-			$BanTime          += ($QueryUserBan['longer'] - time());
+		if ($QueryUserBan['longer'] > TIMESTAMP)
+			$BanTime          += ($QueryUserBan['longer'] - TIMESTAMP);
 			
-		if (($BanTime + $Now) < time())
+		if (($BanTime + $Now) < TIMESTAMP)
 			$BannedUntil       = $Now;
 		else
 			$BannedUntil       = $Now + $BanTime;
@@ -202,12 +202,12 @@ if($_GET['panel'])
 		
 		
 		
-		$Log	.=	"\n".$lang['log_suspended_title']."\n";
-		$Log	.=	$lang['log_the_user'].$user['username']." ".$lang['log_suspended_1'].$name.$lang['log_suspended_2']."\n";
-		$Log	.=	$lang['log_reason'].$reas."\n";
-		$Log	.=	$lang['log_time'].date("d-m-Y H:i:s", time())."\n";
-		$Log	.=	$lang['log_longer'].date("d-m-Y H:i:s", $BannedUntil)."\n";
-		$Log	.=	$lang['log_vacations'].$lang['log_viewmod'][$ASD]."\n";
+		$Log	.=	"\n".$LNG['log_suspended_title']."\n";
+		$Log	.=	$LNG['log_the_user'].$USER['username']." ".$LNG['log_suspended_1'].$name.$LNG['log_suspended_2']."\n";
+		$Log	.=	$LNG['log_reason'].$reas."\n";
+		$Log	.=	$LNG['log_time'].date("d-m-Y H:i:s", TIMESTAMP)."\n";
+		$Log	.=	$LNG['log_longer'].date("d-m-Y H:i:s", $BannedUntil)."\n";
+		$Log	.=	$LNG['log_vacations'].$LNG['log_viewmod'][$ASD]."\n";
 				
 		LogFunction($Log, "GeneralLog", $LogCanWork);
 
@@ -215,7 +215,7 @@ if($_GET['panel'])
 		header ("Location: BanPage.php?panel=ban_name&ban_name=".$_GET['ban_name']."&succes=yes");
 	}
 	if ($_GET['succes']	==	'yes')
-		$parse['display']	=	"<tr><th colspan=\"2\"><font color=lime>". $lang['bo_the_player'] . $name . $lang['bo_banned'] ."</font></th></tr>";
+		$parse['display']	=	"<tr><th colspan=\"2\"><font color=lime>". $LNG['bo_the_player'] . $name . $LNG['bo_banned'] ."</font></th></tr>";
 	display( parsetemplate(gettemplate("adm/BanOptionsResultBody"), $parse), false, '', true, false);
 }
 elseif($_POST && $_POST['unban_name'])
@@ -226,15 +226,15 @@ elseif($_POST && $_POST['unban_name'])
 	
 	
 	
-	$Log	.=	"\n".$lang['log_suspended_title']."\n";
-	$Log	.=	$lang['log_the_user'].$user['username']." ".$lang['log_suspended_3'].$name."\n";
+	$Log	.=	"\n".$LNG['log_suspended_title']."\n";
+	$Log	.=	$LNG['log_the_user'].$USER['username']." ".$LNG['log_suspended_3'].$name."\n";
 				
 	LogFunction($Log, "GeneralLog", $LogCanWork);
 	
 	header ("Location: BanPage.php?succes2=yes");
 }
 	if ($_GET['succes2'] == 'yes')
-		$parse['display2']	=	"<tr><th colspan=\"2\"><font color=lime>". $lang['bo_the_player2'] . $name . $lang['bo_unbanned'] ."</font></th></tr>";
+		$parse['display2']	=	"<tr><th colspan=\"2\"><font color=lime>". $LNG['bo_the_player2'] . $name . $LNG['bo_unbanned'] ."</font></th></tr>";
 
 
 

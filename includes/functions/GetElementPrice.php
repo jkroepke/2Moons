@@ -19,32 +19,32 @@
 # *																			 #
 ##############################################################################
 
-function GetElementPrice ($user, $planet, $Element, $userfactor = true) { 
-     global $pricelist, $resource, $lang; 
-		if ($userfactor)
-			$level = ($planet[$resource[$Element]]) ? $planet[$resource[$Element]] : $user[$resource[$Element]];
+function GetElementPrice ($USER, $planet, $Element, $USERfactor = true) { 
+     global $pricelist, $resource, $LNG; 
+		if ($USERfactor)
+			$level = (isset($planet[$resource[$Element]])) ? $planet[$resource[$Element]] : $USER[$resource[$Element]];
 
 		$is_buyeable = true;
 
 		$array = array(
-			'metal'      => $lang['Metal'],
-			'crystal'    => $lang['Crystal'],
-			'deuterium'  => $lang['Deuterium'],
-			'energy_max' => $lang['Energy'],
-		    'darkmatter' => $lang['Darkmatter'],
+			'metal'      => $LNG['Metal'],
+			'crystal'    => $LNG['Crystal'],
+			'deuterium'  => $LNG['Deuterium'],
+			'energy_max' => $LNG['Energy'],
+		    'darkmatter' => $LNG['Darkmatter'],
 		);
-
+		$text = "";
 		foreach ($array as $ResType => $ResTitle)
 		{
 			if ($pricelist[$Element][$ResType] != 0)
 			{
 				$text .= $ResTitle . ": ";
-				if ($userfactor)
+				if ($USERfactor)
 					$cost = floor($pricelist[$Element][$ResType] * pow($pricelist[$Element]['factor'], $level));
 				else
 					$cost = floor($pricelist[$Element][$ResType]);
 
-				if ((isset($planet[$ResType]) && $cost > $planet[$ResType]) || (isset($user[$ResType]) && $cost > $user[$ResType]))
+				if ((isset($planet[$ResType]) && $cost > $planet[$ResType]) || (isset($USER[$ResType]) && $cost > $USER[$ResType]))
 				{
 					$text .= "<b style=\"color:red;\" id=\"".$ResType."_".$Element."\">" . pretty_number($cost) . "</b> ";
 					$is_buyeable = false;

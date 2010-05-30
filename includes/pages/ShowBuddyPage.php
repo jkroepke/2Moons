@@ -19,11 +19,11 @@
 # *                                                                          #
 ##############################################################################
 
-if(!defined('INSIDE')){ die(header("location:../../"));}
+if(!defined('INSIDE')) die('Hacking attempt!');
 
-function ShowBuddyPage($CurrentUser, $CurrentPlanet)
+function ShowBuddyPage()
 {
-	global $lang, $db;
+	global $USER, $PLANET, $LNG, $db;
 
 	$template	= new template();
 	$bid		= request_var('bid', 0);
@@ -48,38 +48,38 @@ function ShowBuddyPage($CurrentUser, $CurrentPlanet)
 				break;
 
 				case 3:
-					$test = $db->fetch_array($db->query("SELECT `id` FROM ".BUDDY." WHERE `sender`='".$CurrentUser['id']."' AND `owner`='".$uid."' OR `owner`='".$CurrentUser['id']."' AND `sender`='".$uid."';"));
+					$test = $db->fetch_array($db->query("SELECT `id` FROM ".BUDDY." WHERE `sender`='".$USER['id']."' AND `owner`='".$uid."' OR `owner`='".$USER['id']."' AND `sender`='".$uid."';"));
 					if(!isset($test))
 					{
 						$text = request_var('text','');
-						$db->query("INSERT INTO ".BUDDY." SET `sender` = '".$CurrentUser['id']."', `owner` = '".$uid."', `active` = '0', `text` = '".$db->sql_escape($text)."';");
-						exit($lang['bu_request_send']);
+						$db->query("INSERT INTO ".BUDDY." SET `sender` = '".$USER['id']."', `owner` = '".$uid."', `active` = '0', `text` = '".$db->sql_escape($text)."';");
+						exit($LNG['bu_request_send']);
 					}
 					else
 					{
-						exit($lang['bu_request_exists']);
+						exit($LNG['bu_request_exists']);
 					}
 				break;
 			}
 		break;
 
 		case 2:
-			if($u == $CurrentUser['id'])
+			if($u == $USER['id'])
 			{
-				message($lang['bu_cannot_request_yourself'],'game.php?page=buddy',2);
+				$template->message($LNG['bu_cannot_request_yourself'],'game.php?page=buddy', 2, true);
 			}
 			else
 			{
 				$template->page_header();
 				$template->page_footer();
 
-				$Player = $db->fetch_array($db->query("SELECT `username` FROM ".USERS." WHERE `id`='".$uid."';"));
+				$Player = $db->uniquequery("SELECT `username` FROM ".USERS." WHERE `id`='".$uid."';");
 
 				$template->assign_vars(array(
-					'bu_player'				=> $lang['bu_player'],
-					'bu_request_message' 	=> $lang['bu_request_message'],
-					'bu_back'				=> $lang['bu_back'],
-					'bu_send'				=> $lang['bu_send'],
+					'bu_player'				=> $LNG['bu_player'],
+					'bu_request_message' 	=> $LNG['bu_request_message'],
+					'bu_back'				=> $LNG['bu_back'],
+					'bu_send'				=> $LNG['bu_send'],
 					'username'				=> $Player['username'],
 					'id'					=> $uid,
 				));
@@ -88,23 +88,22 @@ function ShowBuddyPage($CurrentUser, $CurrentPlanet)
 			}
 		break;
 		default:
+			$PlanetRess = new ResourceUpdate();
+			$PlanetRess->CalcResource()->SavePlanetToDB();
 
-			$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
-		
-			$template->set_vars($CurrentUser, $CurrentPlanet);
 			$template->page_header();
 			$template->page_topnav();
 			$template->page_leftmenu();
 			$template->page_planetmenu();
 			$template->page_footer();
-			$BuddyListRAW	= $db->query("SELECT a.`active`, a.`sender`, a.`id` as buddyid, a.`text`, b.`id`, b.`username`, b.`onlinetime`, b.`galaxy`, b.`system`, b.`planet`, b.`ally_id`, b.`ally_name` FROM ".BUDDY." as a, ".USERS." as b WHERE (a.`sender` = '".$CurrentUser['id']."' AND b.`id` = a.`owner`) OR (a.`owner` = '".$CurrentUser['id']."' AND b.`id` = a.`sender`);");
+			$BuddyListRAW	= $db->query("SELECT a.`active`, a.`sender`, a.`id` as buddyid, a.`text`, b.`id`, b.`username`, b.`onlinetime`, b.`galaxy`, b.`system`, b.`planet`, b.`ally_id`, b.`ally_name` FROM ".BUDDY." as a, ".USERS." as b WHERE (a.`sender` = '".$USER['id']."' AND b.`id` = a.`owner`) OR (a.`owner` = '".$USER['id']."' AND b.`id` = a.`sender`);");
 
 						
 			while($BuddyList = $db->fetch_array($BuddyListRAW))
 			{
 				if($BuddyList['active']	== 0)
 				{
-					if($BuddyList['sender'] == $CurrentUser['id'])
+					if($BuddyList['sender'] == $USER['id'])
 					{
 						$MyRequestList[]	= array(
 							'playerid'		=> $BuddyList['id'],
@@ -140,7 +139,7 @@ function ShowBuddyPage($CurrentUser, $CurrentPlanet)
 						'name'			=> $BuddyList['username'],
 						'allyid'		=> $BuddyList['ally_id'],
 						'allyname'		=> $BuddyList['ally_name'],
-						'onlinetime'	=> floor((time() - $BuddyList['onlinetime']) / 60),
+						'onlinetime'	=> floor((TIMESTAMP - $BuddyList['onlinetime']) / 60),
 						'galaxy'		=> $BuddyList['galaxy'],
 						'system'		=> $BuddyList['system'],
 						'planet'		=> $BuddyList['planet'],
@@ -148,36 +147,37 @@ function ShowBuddyPage($CurrentUser, $CurrentPlanet)
 					);
 				}
 			}
+			
+			$db->free_result($BuddyListRAW);
 		
 			$template->assign_vars(array(	
 				'MyBuddyList'		=> $MyBuddyList,
 				'MyRequestList'		=> $MyRequestList,
 				'OutRequestList'	=> $OutRequestList,
-				'bu_buddy_list'		=> $lang['bu_buddy_list'],
-				'bu_requests'		=> $lang['bu_requests'],
-				'bu_player'			=> $lang['bu_player'],
-				'bu_alliance'		=> $lang['bu_alliance'],
-				'bu_coords'			=> $lang['bu_coords'],
-				'bu_text'			=> $lang['bu_text'],
-				'bu_action'			=> $lang['bu_action'],
-				'bu_my_requests'	=> $lang['bu_my_requests'],
-				'bu_partners'		=> $lang['bu_partners'],
-				'bu_estate'			=> $lang['bu_estate'],
-				'bu_no_request'		=> $lang['bu_no_request'],
-				'bu_no_buddys'		=> $lang['bu_no_buddys'],
-				'bu_no_buddys'		=> $lang['bu_no_buddys'],
-				'bu_minutes'		=> $lang['bu_minutes'],
-				'bu_accept'			=> $lang['bu_accept'],
-				'bu_decline'		=> $lang['bu_decline'],
-				'bu_cancel_request'	=> $lang['bu_cancel_request'],
-				'bu_disconnected'	=> $lang['bu_disconnected'],
-				'bu_delete'			=> $lang['bu_delete'],
-				'bu_online'			=> $lang['bu_online'],
-				'bu_connected'		=> $lang['bu_connected'],
+				'bu_buddy_list'		=> $LNG['bu_buddy_list'],
+				'bu_requests'		=> $LNG['bu_requests'],
+				'bu_player'			=> $LNG['bu_player'],
+				'bu_alliance'		=> $LNG['bu_alliance'],
+				'bu_coords'			=> $LNG['bu_coords'],
+				'bu_text'			=> $LNG['bu_text'],
+				'bu_action'			=> $LNG['bu_action'],
+				'bu_my_requests'	=> $LNG['bu_my_requests'],
+				'bu_partners'		=> $LNG['bu_partners'],
+				'bu_estate'			=> $LNG['bu_estate'],
+				'bu_no_request'		=> $LNG['bu_no_request'],
+				'bu_no_buddys'		=> $LNG['bu_no_buddys'],
+				'bu_no_buddys'		=> $LNG['bu_no_buddys'],
+				'bu_minutes'		=> $LNG['bu_minutes'],
+				'bu_accept'			=> $LNG['bu_accept'],
+				'bu_decline'		=> $LNG['bu_decline'],
+				'bu_cancel_request'	=> $LNG['bu_cancel_request'],
+				'bu_disconnected'	=> $LNG['bu_disconnected'],
+				'bu_delete'			=> $LNG['bu_delete'],
+				'bu_online'			=> $LNG['bu_online'],
+				'bu_connected'		=> $LNG['bu_connected'],
 			));
 			
 			$template->show("buddy_overview.tpl");
-			$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 		break;
 	}
 }

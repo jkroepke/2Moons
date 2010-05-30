@@ -19,17 +19,16 @@
 # *                                                                          #
 ##############################################################################
 
-if(!defined('INSIDE')){ die(header("location:../../"));}
+if(!defined('INSIDE')) die('Hacking attempt!');
 
-function ShowStatisticsPage($CurrentUser, $CurrentPlanet)
+function ShowStatisticsPage()
 {
-	global $game_config, $dpath, $lang, $db;
+	global $USER, $PLANET, $CONF, $dpath, $LNG, $db;
 	
-	$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
-
+	$PlanetRess = new ResourceUpdate();
+	$PlanetRess->CalcResource()->SavePlanetToDB();
+	
 	$template	= new template();
-	
-	$template->set_vars($CurrentUser, $CurrentPlanet);
 	$template->page_header();
 	$template->page_topnav();
 	$template->page_leftmenu();
@@ -82,7 +81,7 @@ function ShowStatisticsPage($CurrentUser, $CurrentPlanet)
 	switch($who)
 	{
 		case 1:
-			$MaxUsers 	= $db->fetch_array($db->query("SELECT COUNT(*) AS `count` FROM ".USERS." WHERE `db_deaktjava` = '0';"));
+			$MaxUsers 	= $db->uniquequery("SELECT COUNT(*) AS `count` FROM ".USERS." WHERE `db_deaktjava` = '0';");
 			$range		= min($range, $MaxUsers['count']);			
 			$LastPage 	= ceil($MaxUsers['count'] / 100);
 			
@@ -97,7 +96,7 @@ function ShowStatisticsPage($CurrentUser, $CurrentPlanet)
 
 			$stats_sql	=	'SELECT DISTINCT s.*, u.id, u.username, u.ally_id, u.ally_name FROM '.STATPOINTS.' as s
 			INNER JOIN '.USERS.' as u ON u.id = s.id_owner
-			WHERE s.`stat_type` = 1 '.(($game_config['stat'] == 2)?'AND u.`authlevel` < '.$game_config['stat_level'].' ':'').'
+			WHERE s.`stat_type` = 1 '.(($CONF['stat'] == 2)?'AND u.`authlevel` < '.$CONF['stat_level'].' ':'').'
 			ORDER BY `'. $Order .'` ASC LIMIT '. $start .',100;';
 
 			$query = $db->query($stats_sql);
@@ -114,9 +113,11 @@ function ShowStatisticsPage($CurrentUser, $CurrentPlanet)
 					'ranking'	=> $StatRow[$OldRank] - $StatRow[$Rank],
 				);
 			}
+			
+			$db->free_result($query);
 		break;
 		case 2:
-			$MaxAllys 	= $db->fetch_array($db->query("SELECT COUNT(*) AS `count` FROM ".ALLIANCE.";"));
+			$MaxAllys 	= $db->uniquequery("SELECT COUNT(*) AS `count` FROM ".ALLIANCE.";");
 			$range		= min($range, $MaxAllys['count']);
 			$LastPage 	= ceil($MaxAllys['count'] / 100);
 			for ($Page = 0; $Page < $LastPage; $Page++)
@@ -147,35 +148,36 @@ function ShowStatisticsPage($CurrentUser, $CurrentPlanet)
 					'ranking'	=> $StatRow[$OldRank] - $StatRow[$Rank],
 				);
 			}
+			
+			$db->free_result($query);
 		break;
 	}
 	
-	$Selector['who'] 	= array(1 => $lang['st_player'], 2 => $lang['st_alliance']);
-	$Selector['type']	= array(1 => $lang['st_points'], 2 => $lang['st_fleets'], 3 => $lang['st_researh'], 4 => $lang['st_buildings'], 5 => $lang['st_defenses']);
+	$Selector['who'] 	= array(1 => $LNG['st_player'], 2 => $LNG['st_alliance']);
+	$Selector['type']	= array(1 => $LNG['st_points'], 2 => $LNG['st_fleets'], 3 => $LNG['st_researh'], 4 => $LNG['st_buildings'], 5 => $LNG['st_defenses']);
 	$template->assign_vars(array(	
 		'Selectors'				=> $Selector,
 		'who'					=> $who,
 		'type'					=> $type,
 		'range'					=> floor(($range - 1) / 100) * 100 + 1,
 		'RangeList'				=> $RangeList,
-		'CUser_ally'			=> $CurrentUser['ally_id'],
-		'CUser_id'				=> $CurrentUser['id'],
-		'st_members'			=> $lang['st_members'],
-		'st_per_member'			=> $lang['st_per_member'],
-		'st_position'			=> $lang['st_position'],
-		'st_player'				=> $lang['st_player'],
-		'st_alliance'			=> $lang['st_alliance'],
-		'st_write_message'		=> $lang['st_write_message'],
-		'st_points'				=> $lang['st_points'],
-		'st_per'				=> $lang['st_per'],
-		'st_statistics'			=> $lang['st_statistics'],
-		'st_updated'			=> $lang['st_updated'],
-		'stat_date'				=> date("d. M Y, H:i:s", $game_config['stat_last_update']),
-		'st_show'				=> $lang['st_show'],
-		'st_in_the_positions'	=> $lang['st_in_the_positions'],
+		'CUser_ally'			=> $USER['ally_id'],
+		'CUser_id'				=> $USER['id'],
+		'st_members'			=> $LNG['st_members'],
+		'st_per_member'			=> $LNG['st_per_member'],
+		'st_position'			=> $LNG['st_position'],
+		'st_player'				=> $LNG['st_player'],
+		'st_alliance'			=> $LNG['st_alliance'],
+		'st_write_message'		=> $LNG['st_write_message'],
+		'st_points'				=> $LNG['st_points'],
+		'st_per'				=> $LNG['st_per'],
+		'st_statistics'			=> $LNG['st_statistics'],
+		'st_updated'			=> $LNG['st_updated'],
+		'stat_date'				=> date("d. M Y, H:i:s", $CONF['stat_last_update']),
+		'st_show'				=> $LNG['st_show'],
+		'st_in_the_positions'	=> $LNG['st_in_the_positions'],
 	));
 	
 	$template->show("stat_overview.tpl");
-	$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 }
 ?>

@@ -19,11 +19,11 @@
 # *																			 #
 ##############################################################################
 
-if(!defined('INSIDE')){ die(header("location:../../"));}
+if(!defined('INSIDE')) die('Hacking attempt!');
 
 	function InsertBuildListScript ($CallProgram)
 	{
-		global $lang;
+		global $LNG;
 
 		$BuildListScript  = "<script type=\"text/javascript\">\n";
 		$BuildListScript .= "<!--\n";
@@ -38,14 +38,14 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 		$BuildListScript .= "	m           = 0;\n";
 		$BuildListScript .= "	h           = 0;\n\n";
 		$BuildListScript .= "	if ( (ss + 3) < aa ) {\n";
-		$BuildListScript .= "		blc.innerHTML = \"".$lang['bd_finished']."<br>\" + \"<a href=?page=". $CallProgram .">".$lang['bd_continue']."</\" + \"a>\";\n";
+		$BuildListScript .= "		blc.innerHTML = \"".$LNG['bd_finished']."<br>\" + \"<a href=?page=". $CallProgram .">".$LNG['bd_continue']."</\" + \"a>\";\n";
 		$BuildListScript .= "		document.location.href=\"game.php?page=". $CallProgram ."\";\n";
 		$BuildListScript .= "		timeout = 0;\n";
 		$BuildListScript .= "	} else {\n";
 		$BuildListScript .= "		if ( s < 0 ) {\n";
 		$BuildListScript .= "			timeout = 0;\n";
 		$BuildListScript .= "			document.location.href=\"game.php?page=". $CallProgram ."\";\n";
-		$BuildListScript .= "			blc.innerHTML = \"".$lang['bd_finished']."<br>\" + \"<a href=?page=". $CallProgram .">".$lang['bd_continue']."</\" + \"a>\";\n";
+		$BuildListScript .= "			blc.innerHTML = \"".$LNG['bd_finished']."<br>\" + \"<a href=?page=". $CallProgram .">".$LNG['bd_continue']."</\" + \"a>\";\n";
 		$BuildListScript .= "		} else {\n";
 		$BuildListScript .= "			if ( s > 59) {\n";
 		$BuildListScript .= "				m = Math.floor( s / 60);\n";
@@ -62,9 +62,9 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 		$BuildListScript .= "				m = \"0\" + m;\n";
 		$BuildListScript .= "			}\n";
 		$BuildListScript .= "			if (1) {\n";
-		$BuildListScript .= "				blc.innerHTML = h + \":\" + m + \":\" + s + \"<br><a href=?page=buildings&cmd=cancel>".$lang['bd_cancel']."</\" + \"a>\";\n";
+		$BuildListScript .= "				blc.innerHTML = h + \":\" + m + \":\" + s + \"<br><a href=?page=buildings&cmd=cancel>".$LNG['bd_cancel']."</\" + \"a>\";\n";
 		$BuildListScript .= "			} else {\n";
-		$BuildListScript .= "				blc.innerHTML = h + \":\" + m + \":\" + s + \"<br><a href=?page=buildings&cmd=cancel>".$lang['bd_cancel']."</\" + \"a>\";\n";
+		$BuildListScript .= "				blc.innerHTML = h + \":\" + m + \":\" + s + \"<br><a href=?page=buildings&cmd=cancel>".$LNG['bd_cancel']."</\" + \"a>\";\n";
 		$BuildListScript .= "			}\n";
 		$BuildListScript .= "		}\n";
 		$BuildListScript .= "		pp = pp - 1;\n";

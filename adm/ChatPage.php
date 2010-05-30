@@ -31,7 +31,7 @@ include(ROOT_PATH . 'common.' . PHP_EXT);
 
 if ($Observation != 1) die();
 
-$parse    	= $lang;
+$parse    	= $LNG;
 $delete 	= request_var('delete',0);
 $deleteall 	= request_var('deleteall',0);
 
@@ -127,7 +127,7 @@ while ($e = $db->fetch_array($query)) {
     "<th class=b><center>" . date('d. M Y - h:i:s', $e['timestamp']) . "</center></th></tr><tr>" .
     "<th class=b colspan=4 width=500>" . nl2br($msg) . "</th></tr>");
 }
-$parse['msg_list'] .= "<tr><th class=b colspan=4>".$i." ".$lang['ch_nbs']."</th></tr>";
+$parse['msg_list'] .= "<tr><th class=b colspan=4>".$i." ".$LNG['ch_nbs']."</th></tr>";
 
 display(parsetemplate(gettemplate('adm/ChatPage'), $parse),false, '', true, false);
 

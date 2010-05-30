@@ -36,6 +36,10 @@
 		<td>{$email2_reg}:</td>
 		<td><input name="email2" size="30" maxlength="40" type="text" tabindex="4" class="input-text"></td>
 	</tr>
+	<tr>
+		<td>{$lang_reg}:</td>
+		<td><select name="lang" id="lang" style="width: 206px;">{html_options options=$AvailableLangs selected=$lang}</select></td>
+	</tr>
 	{if $game_captcha}
 	<tr>
 		<td style="vertical-align:top;"><br>{$captcha_reg}:<br><br><div><a href="javascript:Recaptcha.reload()">{$captcha_reload}</a></div>

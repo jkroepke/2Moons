@@ -29,13 +29,13 @@ include(ROOT_PATH . 'extension.inc');
 include(ROOT_PATH . 'common.'.PHP_EXT);
 
 
-if ($user['authlevel'] < 1) die(message ($lang['404_page']));
+if ($USER['authlevel'] < 1) die(message ($LNG['404_page']));
 
 	$page  = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Frameset//EN\" \"http://www.w3.org/TR/html4/frameset.dtd\">\n";
 	$page  = "<html>\n";
 	$page .= "<head>\n";
 	$page .= "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\" />\n";
-	$page .= "<title>". $game_config['game_name'] ." - Admin CP</title>\n";
+	$page .= "<title>". $CONF['game_name'] ." - Admin CP</title>\n";
 	$page .= "<link rel=\"shortcut icon\" href=\"./../favicon.ico\">\n";
 	$page .= "</head>\n";
 	$page .= "<frameset cols=\"180,*\" frameborder=\"no\" border=\"0\" framespacing=\"0\">\n";

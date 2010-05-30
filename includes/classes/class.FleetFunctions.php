@@ -102,13 +102,13 @@ abstract class FleetFunctions
 	public static function GetMissionDuration($SpeedFactor, $MaxFleetSpeed, $Distance, $GameSpeed, $CurrentUser)
 	{
 		global $ExtraDM, $resource;
-		return max(((((3500 / ($SpeedFactor * 0.1)) * pow($Distance * 10 / $MaxFleetSpeed, 0.5) + 10) * (((time() - $CurrentUser[$resource[706]] <= 0) ? (1 - $ExtraDM[706]['add']) : 1) - (GENERAL * $CurrentUser['rpg_general']))) / $GameSpeed), 5);
+		return max(((((3500 / ($SpeedFactor * 0.1)) * pow($Distance * 10 / $MaxFleetSpeed, 0.5) + 10) * (((TIMESTAMP - $CurrentUser[$resource[706]] <= 0) ? (1 - $ExtraDM[706]['add']) : 1) - (GENERAL * $CurrentUser['rpg_general']))) / $GameSpeed), 5);
 	}
 
 	public static function GetGameSpeedFactor()
 	{
-		global $game_config;
-		return $game_config['fleet_speed'] / 2500;
+		global $CONF;
+		return $CONF['fleet_speed'] / 2500;
 	}
 	
 	public static function GetMaxFleetSlots($CurrentUser)
@@ -181,7 +181,7 @@ abstract class FleetFunctions
 	
 	public static function GetFleetMissions($MisInfo)
 	{
-		global $lang, $resource;
+		global $LNG, $resource;
 		$Missions 			= self::GetAvailableMissions($MisInfo);
 
 		if (!empty($Missions[15]))
@@ -248,7 +248,7 @@ abstract class FleetFunctions
 		
 		while($row = $db->fetch_array($GetAKS))
 		{
-			$AksStartTime = $db->fetch_array($db->query("SELECT MAX(`fleet_start_time`) AS time FROM ".FLEETS." WHERE `fleet_group` = '".$row['id']."'  AND 'fleet_start_time' > '".time()."';"));
+			$AksStartTime = $db->fetch_array($db->query("SELECT MAX(`fleet_start_time`) AS time FROM ".FLEETS." WHERE `fleet_group` = '".$row['id']."'  AND 'fleet_start_time' > '".TIMESTAMP."';"));
 			$AKSList[]	= array(
 				'id'			=> $row['id'],
 				'name'			=> $row['name'],
@@ -275,36 +275,35 @@ abstract class FleetFunctions
 	{
 		global $db;	
 
-		$FleetRow = $db->fetch_array($db->query("SELECT * FROM ".FLEETS." WHERE `fleet_id` = '". $FleetID ."';"));
-		if ($FleetRow['fleet_owner'] == $CurrentUser['id'] && $FleetRow['fleet_mess'] == 0)
+		$FleetRow = $db->uniquequery("SELECT * FROM ".FLEETS." WHERE `fleet_id` = '". $FleetID ."';");
+		if ($FleetRow['fleet_owner'] != $CurrentUser['id'] || $FleetRow['fleet_mess'] == 1)
+			return;
+
+		if($FleetRow['fleet_group'] > 0)
 		{
-			if($FleetRow['fleet_group'] > 0)
+			$Aks = $db->uniquequery("SELECT teilnehmer FROM ".AKS." WHERE id = '". $FleetRow['fleet_group'] ."';");
+
+			if ($FleetRow['fleet_mission'] == 2)
 			{
-				$Aks = $db->fetch_array($db->query("SELECT teilnehmer FROM ".AKS." WHERE id = '". $FleetRow['fleet_group'] ."';"));
-
-				if ($Aks['teilnehmer'] == $FleetRow['fleet_owner'] && $FleetRow['fleet_mission'] == 1)
-				{
-					$db->query("DELETE FROM ".AKS." WHERE id ='". $FleetRow['fleet_group'] ."';");
-					$db->query("UPDATE ".FLEETS." SET `fleet_group` = '0' WHERE `fleet_group` = '". $FleetRow['fleet_group'] ."';");
-				}
-				if ($FleetRow['fleet_mission'] == 2)
-				{
-					$db->query("UPDATE ".FLEETS." SET `fleet_group` = '0' WHERE `fleet_id` = '".  $FleetID ."';");
-				}
+				$db->query("UPDATE ".FLEETS." SET `fleet_group` = '0' WHERE `fleet_id` = '".  $FleetID ."';");
 			}
-			$CurrentFlyingTime = time() - $FleetRow['start_time'];
-
-			$ReturnFlyingTime  = $CurrentFlyingTime + time();
-			$QryUpdateFleet  = "UPDATE ".FLEETS." SET ";
-			$QryUpdateFleet .= "`fleet_start_time` = '". (time() - 1) ."', ";
-			$QryUpdateFleet .= "`fleet_end_stay` = '0', ";
-			$QryUpdateFleet .= "`fleet_end_time` = '". ($ReturnFlyingTime + 1) ."', ";
-			$QryUpdateFleet .= "`fleet_mess` = '1' ";
-			$QryUpdateFleet .= "WHERE ";
-			$QryUpdateFleet .= "`fleet_id` = '" . $FleetID . "';";
-			$db->query($QryUpdateFleet);
-			
+			elseif($FleetRow['fleet_mission'] == 1 && $Aks['teilnehmer'] == $FleetRow['fleet_owner'])
+			{
+				$db->query("DELETE FROM ".AKS." WHERE id ='". $FleetRow['fleet_group'] ."';");
+				$db->query("UPDATE ".FLEETS." SET `fleet_group` = '0' WHERE `fleet_group` = '". $FleetRow['fleet_group'] ."';");
+			}
 		}
+		
+		$CurrentFlyingTime = TIMESTAMP - $FleetRow['start_time'];
+		$ReturnFlyingTime  = $CurrentFlyingTime + TIMESTAMP;
+
+		$QryUpdateFleet  = "UPDATE ".FLEETS." SET ";
+		$QryUpdateFleet .= "`fleet_end_stay` = '".TIMESTAMP."', ";
+		$QryUpdateFleet .= "`fleet_end_time` = '". ($ReturnFlyingTime) ."', ";
+		$QryUpdateFleet .= "`fleet_mess` = '1' ";
+		$QryUpdateFleet .= "WHERE ";
+		$QryUpdateFleet .= "`fleet_id` = '" . $FleetID . "';";
+		$db->query($QryUpdateFleet);
 	}
 	
 	public static function GetExtraInputs($FleetArray, $Player)
@@ -331,7 +330,7 @@ abstract class FleetFunctions
 
 	function GetAKSPage($CurrentUser, $CurrentPlanet, $fleetid)
 	{
-		global $resource, $pricelist, $reslist, $lang, $db;
+		global $resource, $pricelist, $reslist, $LNG, $db;
 
 		$fleetid 		= $fleetid;
 		$addname		= request_var('addtogroup','',UTF8_SUPPORT);
@@ -344,7 +343,7 @@ abstract class FleetFunctions
 
 		$daten = $db->fetch_array($query);
 
-		if ($daten['fleet_start_time'] <= time() || $daten['fleet_end_time'] < time() || $daten['fleet_mess'] == 1)
+		if ($daten['fleet_start_time'] <= TIMESTAMP || $daten['fleet_end_time'] < TIMESTAMP || $daten['fleet_mess'] == 1)
 			exit(header("Location: game.".PHP_EXT."?page=fleet"));
 
 		if (empty($daten['fleet_group']))
@@ -398,14 +397,14 @@ abstract class FleetFunctions
 			}
 
 			if(empty($added_user_id_mr))
-				$add_user_message_mr = "<font color=\"red\">".$lang['fl_player']." ".$addname." ".$lang['fl_dont_exist'];
+				$add_user_message_mr = "<font color=\"red\">".$LNG['fl_player']." ".$addname." ".$LNG['fl_dont_exist'];
 			else
 			{
 				$aks['eingeladen'] = $aks_invited_mr.','.$added_user_id_mr;
 				$db->query("UPDATE ".AKS." SET `eingeladen` = '".$aks['eingeladen']."' WHERE `id` = '".$daten['fleet_group']."';");
-				$add_user_message_mr = "<font color=\"lime\">".$lang['fl_player']." ".$addname." ". $lang['fl_add_to_attack'];
-				$invite_message = $lang['fl_player'] . $CurrentUser['username'] . $lang['fl_acs_invitation_message'];
-				SendSimpleMessage ($added_user_id_mr, $CurrentUser['id'], time(), 1, $CurrentUser['username'], $lang['fl_acs_invitation_title'], $invite_message);
+				$add_user_message_mr = "<font color=\"lime\">".$LNG['fl_player']." ".$addname." ". $LNG['fl_add_to_attack'];
+				$invite_message = $LNG['fl_player'] . $CurrentUser['username'] . $LNG['fl_acs_invitation_message'];
+				SendSimpleMessage ($added_user_id_mr, $CurrentUser['id'], TIMESTAMP, 1, $CurrentUser['username'], $LNG['fl_acs_invitation_title'], $invite_message);
 			}
 		}
 		$members = explode(",", $aks['eingeladen']);
@@ -433,43 +432,43 @@ abstract class FleetFunctions
 	
 	public static function GetAvailableMissions($MissionInfo)
 	{
-		global $lang, $db;
+		global $LNG, $db;
 		$GetInfoPlanet 			= $db->fetch_array($db->query("SELECT `id_owner` FROM `".PLANETS."` WHERE `galaxy` = ".$MissionInfo['galaxy']." AND `system` = ".$MissionInfo['system']." AND `planet` = ".$MissionInfo['planet']." AND `planet_type` = '1';"));
 		$YourPlanet				= (isset($GetInfoPlanet['id_owner']) && $GetInfoPlanet['id_owner'] == $MissionInfo['CurrentUser']['id']) ? true : false;
 		$UsedPlanet				= (isset($GetInfoPlanet['id_owner'])) ? true : false;
 		
 		if ($MissionInfo['planet'] == (MAX_PLANET_IN_SYSTEM + 1) && !CheckModule(30))
-			$missiontype[15] = $lang['type_mission'][15];	
+			$missiontype[15] = $LNG['type_mission'][15];	
 		elseif ($MissionInfo['planettype'] == 2) {
 			if ((isset($MissionInfo['Ship'][209]) || isset($MissionInfo['Ship'][219])) && !CheckModule(32))
-				$missiontype[8] = $lang['type_mission'][8];
+				$missiontype[8] = $LNG['type_mission'][8];
 		} else {
 			if (!$UsedPlanet) {
 				if (isset($MissionInfo['Ship'][208]) && $MissionInfo['planettype'] == 1 && !CheckModule(35))
-					$missiontype[7] = $lang['type_mission'][7];
+					$missiontype[7] = $LNG['type_mission'][7];
 			} else {
 				if(!CheckModule(34))
-					$missiontype[3] = $lang['type_mission'][3];
+					$missiontype[3] = $LNG['type_mission'][3];
 					
 				if (!$YourPlanet && self::OnlyShipByID($MissionInfo['Ship'], 210) && !CheckModule(24))
-					$missiontype[6] = $lang['type_mission'][6];
+					$missiontype[6] = $LNG['type_mission'][6];
 
 				if (!$YourPlanet) {
 					if(!CheckModule(1))
-						$missiontype[1] = $lang['type_mission'][1];
+						$missiontype[1] = $LNG['type_mission'][1];
 					if(!CheckModule(32))
-						$missiontype[5] = $lang['type_mission'][5];}
+						$missiontype[5] = $LNG['type_mission'][5];}
 				elseif(!CheckModule(36)) {
-					$missiontype[4] = $lang['type_mission'][4];}
+					$missiontype[4] = $LNG['type_mission'][4];}
 					
 				if ($MissionInfo['IsAKS'] != "0:0:0" && $UsedPlanet && !CheckModule(1))
-					$missiontype[2] = $lang['type_mission'][2];
+					$missiontype[2] = $LNG['type_mission'][2];
 
 				if (!$YourPlanet && $MissionInfo['planettype'] == 3 && isset($MissionInfo['Ship'][214]) && !CheckModule(24))
-					$missiontype[9] = $lang['type_mission'][9];
+					$missiontype[9] = $LNG['type_mission'][9];
 
 				if ($YourPlanet && $MissionInfo['planettype'] == 3 && self::OnlyShipByID($MissionInfo['Ship'], 220) && !CheckModule(31))
-					$missiontype[11] = $lang['type_mission'][11];
+					$missiontype[11] = $LNG['type_mission'][11];
 			}
 		}
 							

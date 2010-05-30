@@ -19,9 +19,9 @@
 # *                                                                          #
 ##############################################################################
 
-function ShowFleetShortcuts($CurrentUser)
+function ShowFleetShortcuts($USER)
 {
-	global $lang, $db;
+	global $LNG, $db;
 
 	$a = request_var('a','');
 	$mode = request_var('mode', '');
@@ -33,22 +33,22 @@ function ShowFleetShortcuts($CurrentUser)
 	{
 		if ($_POST)
 		{
-			$name	= request_var('n', $lang['fl_anonymous']);
+			$name	= request_var('n', $LNG['fl_anonymous']);
 			$gala	= request_var('g', 0);
 			$sys	= request_var('s', 0);
 			$plan	= request_var('p', 0);
 			$type	= request_var('t', 0);
-			$CurrentUser['fleet_shortcut'] .= $name.','.$gala.','.$sys.','.$plan.','.$type."\r\n";
-			$db->query("UPDATE ".USERS." SET `fleet_shortcut` = '".$CurrentUser['fleet_shortcut']."' WHERE `id` = '".$CurrentUser['id']."';");
+			$USER['fleet_shortcut'] .= $name.','.$gala.','.$sys.','.$plan.','.$type."\r\n";
+			$db->query("UPDATE ".USERS." SET `fleet_shortcut` = '".$USER['fleet_shortcut']."' WHERE `id` = '".$USER['id']."';");
 			header("Location: game.".PHP_EXT."?page=shortcuts");
 		}
 	
 		$template->assign_vars(array(	
-			'fl_shortcut_add_title'	=> $lang['fl_shortcut_add_title'],
-			'fl_clean'				=> $lang['fl_clean'],
-			'fl_register_shorcut'	=> $lang['fl_register_shorcut'],
-			'fl_back'				=> $lang['fl_back'],
-			'typeselector'			=> array(1 => $lang['fl_planet'], 2 => $lang['fl_debris'], 3 =>$lang['fl_moon']),
+			'fl_shortcut_add_title'	=> $LNG['fl_shortcut_add_title'],
+			'fl_clean'				=> $LNG['fl_clean'],
+			'fl_register_shorcut'	=> $LNG['fl_register_shorcut'],
+			'fl_back'				=> $LNG['fl_back'],
+			'typeselector'			=> array(1 => $LNG['fl_planet'], 2 => $LNG['fl_debris'], 3 =>$LNG['fl_moon']),
 		));
 		
 		$template->show("fleet_shortcuts_add.tpl");
@@ -56,7 +56,7 @@ function ShowFleetShortcuts($CurrentUser)
 	elseif (is_numeric($a))
 	{
 	
-		$scarray = explode("\r\n", $CurrentUser['fleet_shortcut']);
+		$scarray = explode("\r\n", $USER['fleet_shortcut']);
 		$r = explode(",", $scarray[$a]);
 		
 		if ($_POST)
@@ -74,21 +74,21 @@ function ShowFleetShortcuts($CurrentUser)
 				$r[4] = request_var('t', 0);
 				$scarray[$a] = implode(",", $r);
 			}
-			$CurrentUser['fleet_shortcut'] = implode("\r\n", $scarray);
-			$db->query("UPDATE ".USERS." SET fleet_shortcut='".$CurrentUser['fleet_shortcut']."' WHERE id=".$CurrentUser['id'].";");
+			$USER['fleet_shortcut'] = implode("\r\n", $scarray);
+			$db->query("UPDATE ".USERS." SET fleet_shortcut='".$USER['fleet_shortcut']."' WHERE id=".$USER['id'].";");
 			exit(header("Location: ?page=shortcuts"));
 		}
 
-		if (empty($CurrentUser['fleet_shortcut']))
+		if (empty($USER['fleet_shortcut']))
 			header("Location: ?page=shortcuts");
 		
 		$template->assign_vars(array(	
-			'fl_back'				=> $lang['fl_back'],
-			'fl_shortcut_edition'	=> $lang['fl_shortcut_edition'],
-			'fl_reset_shortcut'		=> $lang['fl_reset_shortcut'],
-			'fl_register_shorcut'	=> $lang['fl_register_shorcut'],
-			'fl_dlte_shortcut'		=> $lang['fl_dlte_shortcut'],
-			'typeselector'			=> array(1 => $lang['fl_planet'], 2 => $lang['fl_debris'], 3 =>$lang['fl_moon']),
+			'fl_back'				=> $LNG['fl_back'],
+			'fl_shortcut_edition'	=> $LNG['fl_shortcut_edition'],
+			'fl_reset_shortcut'		=> $LNG['fl_reset_shortcut'],
+			'fl_register_shorcut'	=> $LNG['fl_register_shorcut'],
+			'fl_dlte_shortcut'		=> $LNG['fl_dlte_shortcut'],
+			'typeselector'			=> array(1 => $LNG['fl_planet'], 2 => $LNG['fl_debris'], 3 =>$LNG['fl_moon']),
 			'name'					=> $r[0],
 			'galaxy'				=> $r[1],
 			'system'				=> $r[2],
@@ -101,7 +101,7 @@ function ShowFleetShortcuts($CurrentUser)
 	}
 	else
 	{
-		$scarray = explode("\r\n", $CurrentUser['fleet_shortcut']);
+		$scarray = explode("\r\n", $USER['fleet_shortcut']);
 		foreach($scarray as $b)
 		{
 			if(empty($b))
@@ -119,13 +119,13 @@ function ShowFleetShortcuts($CurrentUser)
 	
 	$template->assign_vars(array(	
 		'ShortCuts'				=> $ShortCuts,
-		'fl_back'				=> $lang['fl_back'],
-		'fl_planet_shortcut'	=> $lang['fl_planet_shortcut'],
-		'fl_moon_shortcut'		=> $lang['fl_moon_shortcut'],
-		'fl_debris_shortcut'	=> $lang['fl_debris_shortcut'],
-		'fl_no_shortcuts'		=> $lang['fl_no_shortcuts'],
-		'fl_shortcuts'			=> $lang['fl_shortcuts'],
-		'fl_shortcut_add'		=> $lang['fl_shortcut_add'],
+		'fl_back'				=> $LNG['fl_back'],
+		'fl_planet_shortcut'	=> $LNG['fl_planet_shortcut'],
+		'fl_moon_shortcut'		=> $LNG['fl_moon_shortcut'],
+		'fl_debris_shortcut'	=> $LNG['fl_debris_shortcut'],
+		'fl_no_shortcuts'		=> $LNG['fl_no_shortcuts'],
+		'fl_shortcuts'			=> $LNG['fl_shortcuts'],
+		'fl_shortcut_add'		=> $LNG['fl_shortcut_add'],
 	));
 	
 	$template->show("fleet_shortcuts.tpl");

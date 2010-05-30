@@ -1,9 +1,9 @@
 <?php
 
-$lang['Version']     = 'Version';
-$lang['Description'] = 'Beschreibung';
+$LNG['Version']     = 'Version';
+$LNG['Description'] = 'Beschreibung';
 
-$lang['changelog']   = array(
+$LNG['changelog']   = array(
 
 'RC5.0' => 'ShadoX 20.05.10
 - ADD: Neue Schiffe
@@ -14,9 +14,13 @@ $lang['changelog']   = array(
 - ADD: Kampfsimulator
 - ADD: bcmath for JS
 - DEL: PluginSystem
+- FIX: View Database Logindata, if connections problems to database.
 - FIX: Dublicate Ressis Bug
 - FIX: Bewerbungstext
 - FIX: Support
+- FIX: Mondzerstörung
+- FIX: Flotten
+- FIX: Gebäude Cheat
 - FIX: Resource Bug
 - FIX: Shipyard supports now Trillion \'Build per Row\'
 - FIX: Darmatter Kosten bei Verteidigung

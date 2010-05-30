@@ -36,6 +36,11 @@
     </tr><tr>
         <td class="c" colspan="2">{$op_general_settings}</td>
     </tr><tr>
+        <th>{$op_lang}</th>
+        <th>
+			{html_options name=langs options=$Selectors.lang selected=$langs}
+        </th>
+    </tr><tr>
         <th>{$op_sort_planets_by}</th>
         <th>
 			{html_options name=settings_sort options=$Selectors.Sort selected=$planet_sort}

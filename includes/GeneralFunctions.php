@@ -32,13 +32,13 @@ function unset_vars( $prefix )
 	return $n;
 }
 
-function update_config($config_name, $config_value )
+function update_config($CONF_name, $CONF_value )
 {
-	global $game_config, $db;
-	if(isset($game_config[$config_name]))
-		$db->query("UPDATE ".CONFIG." SET `config_value` = '".$config_value."' WHERE `config_name` = '".$config_name."';");
+	global $CONF, $db;
+	if(isset($CONF[$CONF_name]))
+		$db->query("UPDATE ".CONFIG." SET `config_value` = '".$CONF_value."' WHERE `config_name` = '".$CONF_name."';");
 	else
-		$db->query("INSERT INTO ".CONFIG." (`config_name`, `config_value`) VALUES ('".$config_name."', '".$config_value."');");
+		$db->query("INSERT INTO ".CONFIG." (`config_name`, `config_value`) VALUES ('".$CONF_name."', '".$CONF_value."');");
 }
 
 function ValidateAddress($address) {
@@ -67,7 +67,7 @@ function message ($mes, $dest = "", $time = "3", $topnav = false, $menu = true)
 
 function display ($page, $topnav = true, $metatags = '', $AdminPage = false, $menu = true)
 {
-	global $game_config, $user, $planetrow, $db;
+	global $CONF, $USER, $PLANET, $db;
 	
 	if (!headers_sent()) {
 		header('Last-Modified: '.date('D, d M Y H:i:s T'));
@@ -86,9 +86,9 @@ function display ($page, $topnav = true, $metatags = '', $AdminPage = false, $me
 
 function AdminUserHeader ($metatags = '')
 {
-	global $game_config;
+	global $CONF;
 
-	$parse['title'] 	 = (!defined('IN_ADMIN')) ? "2Moons - Installer" : $game_config['game_name']." - Admin CP";
+	$parse['title'] 	 = (!defined('IN_ADMIN')) ? "2Moons - Installer" : $CONF['game_name']." - Admin CP";
 	$parse['meta'] 		 = $metatags;
 	return parsetemplate(gettemplate('adm/simple_header'), $parse);
 }
@@ -143,7 +143,7 @@ function gettemplate ($templatename)
 
 function includeLang ($filename, $ext = '.php')
 {
-	global $lang;
+	global $LNG;
 
 	include_once(ROOT_PATH . "language/".DEFAULT_LANG."/".$filename.$ext);
 }
@@ -305,7 +305,7 @@ function request_var($var_name, $default, $multibyte = false, $cookie = false)
 
 function msg_handler($errno, $msg_text, $errfile, $errline)
 {
-	global  $msg_title, $msg_long_text, $game_config, $db;
+	global  $msg_title, $msg_long_text, $CONF, $db;
 	if (!error_reporting()) return false;
 	switch ($errno)
 	{
@@ -330,7 +330,7 @@ function msg_handler($errno, $msg_text, $errfile, $errline)
 			echo '<meta http-equiv="content-script-type" content="text/javascript">';
 			echo '<meta http-equiv="content-style-type" content="text/css">';
 			echo '<meta http-equiv="content-language" content="de">';
-			echo '<title>'.$game_config['game_name'].' - FATAL ERROR</title>';
+			echo '<title>'.$CONF['game_name'].' - FATAL ERROR</title>';
 			echo '<link rel="shortcut icon" href="./favicon.ico">';
 			echo '<link rel="stylesheet" type="text/css" href="styles/css/default.css">';
 			echo '<link rel="stylesheet" type="text/css" href="styles/css/formate.css">';
@@ -361,7 +361,7 @@ function msg_handler($errno, $msg_text, $errfile, $errline)
 			echo '<meta http-equiv="content-script-type" content="text/javascript">';
 			echo '<meta http-equiv="content-style-type" content="text/css">';
 			echo '<meta http-equiv="content-language" content="de">';
-			echo '<title>'.$game_config['game_name'].' - FATAL ERROR</title>';
+			echo '<title>'.$CONF['game_name'].' - FATAL ERROR</title>';
 			echo '<link rel="shortcut icon" href="./favicon.ico">';
 			echo '<link rel="stylesheet" type="text/css" href="styles/css/default.css">';
 			echo '<link rel="stylesheet" type="text/css" href="styles/css/formate.css">';
@@ -411,7 +411,7 @@ function GetUserByID($UserID, $GetInfo = "*")
 
 function MailSend($MailTarget, $MailTargetName, $MailSubject, $MailContent)
 {
-	global $game_config;
+	global $CONF;
 	require_once('./includes/classes/class.phpmailer.php');
 	$mail             = new PHPMailer();
 	$mail->IsSMTP();
@@ -419,12 +419,12 @@ function MailSend($MailTarget, $MailTargetName, $MailSubject, $MailContent)
 		$mail->SMTPDebug  = 0;    
 		$mail->SMTPAuth   = true;  
 		$mail->IsHTML(true);		
-		$mail->SMTPSecure = $game_config['smtp_ssl'];  						
-		$mail->Host       = $game_config['smtp_host'];
-		$mail->Port       = $game_config['smtp_port'];
-		$mail->Username   = $game_config['smtp_user'];
-		$mail->Password   = $game_config['smtp_pass'];
-		$mail->SetFrom($game_config['smtp_sendmail'], $game_config['game_name']);
+		$mail->SMTPSecure = $CONF['smtp_ssl'];  						
+		$mail->Host       = $CONF['smtp_host'];
+		$mail->Port       = $CONF['smtp_port'];
+		$mail->Username   = $CONF['smtp_user'];
+		$mail->Password   = $CONF['smtp_pass'];
+		$mail->SetFrom($CONF['smtp_sendmail'], $CONF['game_name']);
 		$mail->AddAddress($MailTarget, $MailTargetName);
 		$mail->Subject    = $MailSubject;
 		$mail->AltBody    = strip_tags($MailContent);
@@ -432,9 +432,9 @@ function MailSend($MailTarget, $MailTargetName, $MailSubject, $MailContent)
 		$mail->Send();
 		return true;
 	} catch (phpmailerException $e) {
-		message($e->errorMessage(), "./", 10, false, false );
+		return $e->errorMessage();
 	} catch (Exception $e) {
-		message($e->getMessage(), "./", 10, false, false );
+		return $e->getMessage();
 	}
 	
 }
@@ -451,20 +451,20 @@ function makebr($text, $xhtml = false)
 function CheckPlanetIfExist($Galaxy, $System, $Planet, $Planettype = 1)
 {
 	global $db;
-	$QrySelectGalaxy = $db->fetch_array($db->query("SELECT id FROM ".PLANETS." WHERE `galaxy` = '".$Galaxy."' AND `system` = '".$System."' AND `planet` = '".$Planet."' AND `planet_type` = '".$Planettype."';"));
+	$QrySelectGalaxy = $db->uniquequery("SELECT id FROM ".PLANETS." WHERE `galaxy` = '".$Galaxy."' AND `system` = '".$System."' AND `planet` = '".$Planet."' AND `planet_type` = '".$Planettype."';");
 	return (isset($QrySelectGalaxy)) ? true : false;
 }
 
 
 function CheckNoobProtec($OwnerPlayer, $TargetPlayer, $TargetOnline)
 {	
-	global $game_config;
+	global $CONF;
 	
 	$Noobplayer			= false;
 	$StrongPlayer		= false;
-	$IamNoobplayer		= ($OwnerPlayer['total_points'] <= $game_config['noobprotectiontime']) ? true : false;
-	$TargetNoobplayer	= ($TargetPlayer['total_points'] <= $game_config['noobprotectiontime']) ? true : false;
-	if($TargetOnline >= (time() - 60 * 60 * 24 * 7) && $game_config['noobprotection'])
+	$IamNoobplayer		= ($OwnerPlayer['total_points'] <= $CONF['noobprotectiontime']) ? true : false;
+	$TargetNoobplayer	= ($TargetPlayer['total_points'] <= $CONF['noobprotectiontime']) ? true : false;
+	if($TargetOnline >= (TIMESTAMP - 60 * 60 * 24 * 7) && $CONF['noobprotection'])
 	{
 		$StrongPlayer	= ($OwnerPlayer['total_points'] * 5 < $TargetPlayer['total_points'] && $IamNoobplayer) ? true : false;
 		$Noobplayer		= ((round($OwnerPlayer['total_points'] * 0.2) > $TargetPlayer['total_points'] && $IamNoobplayer) || ($TargetNoobplayer && !$IamNoobplayer)) ? true : false;
@@ -480,25 +480,11 @@ function GetRealHostName()
 
 function CheckName($String)
 {
-	return(ctype_alnum($String) || UTF8_SUPPORT) ? true : false;
-}
-
-function isBuggyIe() {
-    $ua = $_SERVER['HTTP_USER_AGENT'];
-    // quick escape for non-IEs
-    if (0 !== strpos($ua, 'Mozilla/4.0 (compatible; MSIE ')
-        || false !== strpos($ua, 'Opera')) {
-        return false;
-    }
-    // no regex = faaast
-    $version = (float)substr($ua, 30);
-    return (
-        $version < 6
-        || ($version == 6  && false === strpos($ua, 'SV1'))
-    );
+	return(ctype_alnum($String) || (UTF8_SUPPORT && !empty($String))) ? true : false;
 }
 
 function exception_handler($exception) {
+	global $CONF;
 	@ob_flush();
 	@ob_start();
 	echo '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">';
@@ -508,12 +494,9 @@ function exception_handler($exception) {
 	echo '<meta http-equiv="content-script-type" content="text/javascript">';
 	echo '<meta http-equiv="content-style-type" content="text/css">';
 	echo '<meta http-equiv="content-language" content="de">';
-	echo '<title>'.$game_config['game_name'].' - FATAL ERROR</title>';
+	echo '<title>'.$CONF['game_name'].' - FATAL ERROR</title>';
 	echo '<link rel="shortcut icon" href="./favicon.ico">';
-	echo '<link rel="stylesheet" type="text/css" href="styles/css/default.css">';
-	echo '<link rel="stylesheet" type="text/css" href="styles/css/formate.css">';
 	echo '<link rel="stylesheet" type="text/css" href="'.DEFAULT_SKINPATH.'formate.css">';
-	echo '<script type="text/javascript" src="scripts/overlib.js"></script>';
 	echo '<script language="JavaScript"> ';
 	echo 'function blockError(){return true;} ';
 	echo 'window.onerror = blockError; ';
@@ -522,13 +505,35 @@ function exception_handler($exception) {
 	echo '<body>';
 	echo '<table width="80%" align="center">';
 	echo '<tr>';
-    echo '<th class="errormessage"><b>'.makebr($exception). '</b></th>';
+    echo '<th class="errormessage" style="text-align: left;"><b>Message: </b>'.$exception->getMessage().'<br>';
+    echo '<b>File: </b>'.$exception->getFile().'<br>';
+    echo '<b>Line: </b>'.$exception->getLine().'<br>';
+    echo '<b>PHP-Version: </b>'.PHP_VERSION.'<br>';
+	echo '<b>Debug Backtrace:</b><br>'.makebr($exception->getTraceAsString()).'</th>';
 	echo '</tr>';
 	echo '</table>';
 	echo '</body>';			
 	echo '</html>';	
 }
 
+function SendSimpleMessage($Owner, $Sender, $Time, $Type, $From, $Subject, $Message)
+{
+	global $db;
+	if (empty($Time))
+		$Time = TIMESTAMP;
+
+	$db->multi_query("INSERT INTO ".MESSAGES." SET 
+						  `message_owner` = '". $Owner ."', 
+						  `message_sender` = '". $Sender ."', 
+						  `message_time` = '" . $Time . "', 
+						  `message_type` = '". $Type ."', 
+						  `message_from` = '". $db->sql_escape($From) ."', 
+						  `message_subject` = '". $db->sql_escape($Subject) ."', 
+						  `message_text` = '". $db->sql_escape($Message) ."';
+						  UPDATE `".USERS."` SET 
+						  `new_message` = `new_message` + 1 ".(($Owner == 0) ? ";" : "WHERE  `id` = '". $Owner ."';"));
+}
+	
 function shortly_number($number)
 {
 	// MAS DEL TRILLON
@@ -562,7 +567,18 @@ function floattostring($Numeric, $Pro = 0, $Output = false){
 
 function CheckModule($ID)
 {
-	return ($GLOBALS['user']['authlevel'] == 0 && $GLOBALS['game_config']['moduls'][$ID] == 0) ? true : false;
+	return ($_SESSION == 0 && $GLOBALS['config']['moduls'][$ID] == 0) ? true : false;
+}
+
+function GetLangs()
+{
+	$LNGs	= array_diff(scandir(ROOT_PATH.'language/'), array('..', '.', '.svn', '.htaccess', 'index.htm'));
+	$return = array();
+	foreach($LNGs as $LNG)
+	{
+		$return[$LNG]	= ucwords($LNG);
+	}
+	return $return;
 }
 
 ?>

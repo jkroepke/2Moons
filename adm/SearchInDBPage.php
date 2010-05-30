@@ -31,7 +31,7 @@ include(ROOT_PATH . 'common.'.PHP_EXT);
 
 if ($Observation != 1) die();
 
-$parse			=	$lang;
+$parse			=	$LNG;
 $key_user		=	$_POST['key_user'];
 $parse['key']	=	$key_user;
 
@@ -66,19 +66,19 @@ switch($_POST[search])
 				'<table width="70%">
 				<tr>
 					<td class="c">-</td>
-					<td class="c">'.$lang['se_input_id'].'</td>
-					<td class="c">'.$lang['se_input_name'].'</td>
-					<td class="c">'.$lang['se_input_email'].'</td>
-					<td class="c">'.$lang['se_input_authlevel'].'</td>
-					<td class="c">'.$lang['se_input_activity'].'</td>
-					<td class="c">'.$lang['se_input_register'].'</td>
-					<td class="c">'.$lang['se_input_ip'].'</td>
-					<th><a href="#" title="'.$lang['se_input_asc'].'">'.$lang['se_input_a'].' </a> 
-					<input type="radio" name="key_acc" value="ASC" '.$z.' title="'.$lang['se_input_asc'].'">&nbsp; 
-					<a href="#" title="'.$lang['se_input_desc'].'">'.$lang['se_input_d'].' </a>
-					<input type="radio" name="key_acc" value="DESC" '.$y.' title="'.$lang['se_input_desc'].'"></th>
+					<td class="c">'.$LNG['se_input_id'].'</td>
+					<td class="c">'.$LNG['se_input_name'].'</td>
+					<td class="c">'.$LNG['se_input_email'].'</td>
+					<td class="c">'.$LNG['se_input_authlevel'].'</td>
+					<td class="c">'.$LNG['se_input_activity'].'</td>
+					<td class="c">'.$LNG['se_input_register'].'</td>
+					<td class="c">'.$LNG['se_input_ip'].'</td>
+					<th><a href="#" title="'.$LNG['se_input_asc'].'">'.$LNG['se_input_a'].' </a> 
+					<input type="radio" name="key_acc" value="ASC" '.$z.' title="'.$LNG['se_input_asc'].'">&nbsp; 
+					<a href="#" title="'.$LNG['se_input_desc'].'">'.$LNG['se_input_d'].' </a>
+					<input type="radio" name="key_acc" value="DESC" '.$y.' title="'.$LNG['se_input_desc'].'"></th>
 				</tr><tr>
-					<th width="15%">'.$lang['se_input_orderby'].'</th>
+					<th width="15%">'.$LNG['se_input_orderby'].'</th>
 					<th width="20%"><input type="radio" name="key_order" value="id" '.$a.'></th>
 					<th width="20%"><input type="radio" name="key_order" value="username" '.$b.'></th>
 					<th width="20%"><input type="radio" name="key_order" value="email_2" '.$c.'></th>
@@ -86,7 +86,7 @@ switch($_POST[search])
 					<th width="30%"><input type="radio" name="key_order" value="onlinetime" '.$e.'></th>
 					<th width="30%"><input type="radio" name="key_order" value="register_time" '.$f.'></th>
 					<th width="30%"><input type="radio" name="key_order" value="user_lastip" '.$g.'></th>
-					<th width="10%"><input type="submit" value="'.$lang['se_input_submit'].'"></th>
+					<th width="10%"><input type="submit" value="'.$LNG['se_input_submit'].'"></th>
 				</tr>
 				</table>';
 	
@@ -111,45 +111,45 @@ switch($_POST[search])
 	$cnt	=	$db->num_rows($search);
 	if ($cnt	!=	NULL)
 	{
-		while ($user	=	$db->fetch_array($search))
+		while ($USER	=	$db->fetch_array($search))
 		{
-			$id			=	$user['id'];
-			$name		=	$user['username'];
-			$email		=	$user['email_2'];
-			$onlinetime	=	$user['onlinetime'];
-			$reg_time	=	$user['register_time'];
-			$user_ip	=	$user['user_lastip'];
-			$authlevel	=	$user['authlevel'];
-			$suspended	=	$user['bana'];
-			$vacations	=	$user['urlaubs_modus'];
+			$id			=	$USER['id'];
+			$name		=	$USER['username'];
+			$email		=	$USER['email_2'];
+			$onlinetime	=	$USER['onlinetime'];
+			$reg_time	=	$USER['register_time'];
+			$USER_ip	=	$USER['user_lastip'];
+			$authlevel	=	$USER['authlevel'];
+			$suspended	=	$USER['bana'];
+			$vacations	=	$USER['urlaubs_modus'];
 		
-			if ($suspended == '0' or $suspended == NULL){$suspended = $lang['se_no'];}else{$suspended = "<font color=lime>".$lang['se_yes']."</font>";}
-			if ($vacations == '0'){$vacations = $lang['se_no'];}else{$vacations = "<font color=aqua>".$lang['se_yes']."</font>";}
+			if ($suspended == '0' or $suspended == NULL){$suspended = $LNG['se_no'];}else{$suspended = "<font color=lime>".$LNG['se_yes']."</font>";}
+			if ($vacations == '0'){$vacations = $LNG['se_no'];}else{$vacations = "<font color=aqua>".$LNG['se_yes']."</font>";}
 			for ($i = 0; $i < 5; $i++)
 			{
-				if ($authlevel == $i){$authlevel = $lang['se_authlevel'][$i];}
+				if ($authlevel == $i){$authlevel = $LNG['se_authlevel'][$i];}
 			}
 		
 			
 			$parse['table1']	 =
 			"<table width=\"90%\">
 			".$OrderBy."
-			<tr><td class=\"c\">".$lang['se_id']."</th><td class=\"c\">".$lang['se_name']."</th><td class=\"c\">".$lang['se_email']."</th>
-			<td class=\"c\">".$lang['se_auth']."</th><td class=\"c\">".$lang['se_ban']."</th><td class=\"c\">".$lang['se_vacat']."</th>
-			<td class=\"c\">".$lang['se_input_activity']."</th><td class=\"c\">".$lang['se_input_register']."</th>
-			<td class=\"c\">".$lang['se_input_ip']."</th></tr>";
+			<tr><td class=\"c\">".$LNG['se_id']."</th><td class=\"c\">".$LNG['se_name']."</th><td class=\"c\">".$LNG['se_email']."</th>
+			<td class=\"c\">".$LNG['se_auth']."</th><td class=\"c\">".$LNG['se_ban']."</th><td class=\"c\">".$LNG['se_vacat']."</th>
+			<td class=\"c\">".$LNG['se_input_activity']."</th><td class=\"c\">".$LNG['se_input_register']."</th>
+			<td class=\"c\">".$LNG['se_input_ip']."</th></tr>";
 			
 			$parse['table2']	.=
 			"<tr><th>".$id."</th><th>".$name."</th><th>".$email."</th><th>".$authlevel."</th><th>".$suspended."</th><th>".$vacations."</th>
-			<th>".date("d/M/y H:i:s",$onlinetime)."</th><th>".date("d/M/y H:i:s",$reg_time)."</th><th>".$user_ip."</th></tr>";
+			<th>".date("d/M/y H:i:s",$onlinetime)."</th><th>".date("d/M/y H:i:s",$reg_time)."</th><th>".$USER_ip."</th></tr>";
 			
-			$parse['table3']	 =	"<tr><th colspan=\"20\">".$lang['se_input_hay'].$cnt.$lang['se_input_userss']."</th></tr></table>";
+			$parse['table3']	 =	"<tr><th colspan=\"20\">".$LNG['se_input_hay'].$cnt.$LNG['se_input_userss']."</th></tr></table>";
 		}
 		
 	}
 	else
 	{
-		$parse['error']	=	$lang['se_no_data'];
+		$parse['error']	=	$LNG['se_no_data'];
 	}
 	display(parsetemplate(gettemplate('adm/SearchInDBBody'), $parse), false, '', true, false);
 	break;
@@ -181,25 +181,25 @@ switch($_POST[search])
 				'<table width="60%">
 				<tr>
 					<td class="c">-</td>
-					<td class="c">'.$lang['se_input_id'].'</td>
-					<td class="c">'.$lang['se_input_name'].'</td>
-					<td class="c">'.$lang['se_input_prop'].'</td>
-					<td class="c">'.$lang['se_input_g'].'</td>
-					<td class="c">'.$lang['se_input_s'].'</td>
-					<td class="c">'.$lang['se_input_p'].'</td>
-					<th><a href="#" title="'.$lang['se_input_asc'].'">'.$lang['se_input_a'].' </a> 
-					<input type="radio" name="key_acc" value="ASC" '.$z.' title="'.$lang['se_input_asc'].'">&nbsp; 
-					<a href="#" title="'.$lang['se_input_desc'].'">'.$lang['se_input_d'].' </a>
-					<input type="radio" name="key_acc" value="DESC" '.$y.' title="'.$lang['se_input_desc'].'"></th>
+					<td class="c">'.$LNG['se_input_id'].'</td>
+					<td class="c">'.$LNG['se_input_name'].'</td>
+					<td class="c">'.$LNG['se_input_prop'].'</td>
+					<td class="c">'.$LNG['se_input_g'].'</td>
+					<td class="c">'.$LNG['se_input_s'].'</td>
+					<td class="c">'.$LNG['se_input_p'].'</td>
+					<th><a href="#" title="'.$LNG['se_input_asc'].'">'.$LNG['se_input_a'].' </a> 
+					<input type="radio" name="key_acc" value="ASC" '.$z.' title="'.$LNG['se_input_asc'].'">&nbsp; 
+					<a href="#" title="'.$LNG['se_input_desc'].'">'.$LNG['se_input_d'].' </a>
+					<input type="radio" name="key_acc" value="DESC" '.$y.' title="'.$LNG['se_input_desc'].'"></th>
 				</tr><tr>
-					<th width="15%">'.$lang['se_input_orderby'].'</th>
+					<th width="15%">'.$LNG['se_input_orderby'].'</th>
 					<th width="20%"><input type="radio" name="key_order" value="id" '.$a.'></th>
 					<th width="20%"><input type="radio" name="key_order" value="name" '.$b.'></th>
 					<th width="20%"><input type="radio" name="key_order" value="id_owner" '.$c.'></th>
 					<th width="20%"><input type="radio" name="key_order" value="galaxy" '.$d.'></th>
 					<th width="20%"><input type="radio" name="key_order" value="system" '.$e.'></th>
 					<th width="20%"><input type="radio" name="key_order" value="planet" '.$f.'></th>
-					<th width="10%"><input type="submit" value="'.$lang['se_input_submit'].'"></th>
+					<th width="10%"><input type="submit" value="'.$LNG['se_input_submit'].'"></th>
 				</tr>
 				</table>';
 			
@@ -223,7 +223,7 @@ switch($_POST[search])
 	$cnt	=	$db->num_rows($search);
 	if ($cnt	==	NULL)
 	{
-		$parse['error']	=	$lang['se_no_data'];
+		$parse['error']	=	$LNG['se_no_data'];
 	}
 	else
 	{
@@ -237,20 +237,20 @@ switch($_POST[search])
 			$p			=	$planet['planet'];
 			
 			if ($planet['id_luna'] != 0)
-				$moons	=	"<font color=lime>".$lang['se_yes']."</font>";
+				$moons	=	"<font color=lime>".$LNG['se_yes']."</font>";
 			else
-				$moons	=	$lang['se_no'];
+				$moons	=	$LNG['se_no'];
 			
 			$parse['table1']	 =
 			"<table width=\"65%\">
-			<tr><td class=\"c\">".$lang['se_id']."</th><td class=\"c\">".$lang['se_name']."</th><td class=\"c\">".$lang['se_id_owner']."</th>
-			<td class=\"c\">".$lang['se_galaxy']."</th><td class=\"c\">".$lang['se_system']."</th><td class=\"c\">".$lang['se_planet']."</th>
-			<td class=\"c\">".$lang['se_input_have_moon']."</th></tr>";
+			<tr><td class=\"c\">".$LNG['se_id']."</th><td class=\"c\">".$LNG['se_name']."</th><td class=\"c\">".$LNG['se_id_owner']."</th>
+			<td class=\"c\">".$LNG['se_galaxy']."</th><td class=\"c\">".$LNG['se_system']."</th><td class=\"c\">".$LNG['se_planet']."</th>
+			<td class=\"c\">".$LNG['se_input_have_moon']."</th></tr>";
 			
 			$parse['table2']	.=
 			"<tr><th>".$id."</th><th>".$name."</th><th>".$id_owner."</th><th>".$g."</th><th>".$s."</th><th>".$p."</th><th>".$moons."</th></tr>";
 			
-			$parse['table3']	 =	"<tr><th colspan=\"20\">".$lang['se_input_hay'].$cnt.$lang['se_input_planett']."</th></tr></table>";
+			$parse['table3']	 =	"<tr><th colspan=\"20\">".$LNG['se_input_hay'].$cnt.$LNG['se_input_planett']."</th></tr></table>";
 		}
 	}
 	display(parsetemplate(gettemplate('adm/SearchInDBBody'), $parse), false, '', true, false);
@@ -283,25 +283,25 @@ switch($_POST[search])
 				'<table width="60%">
 				<tr>
 					<td class="c">-</td>
-					<td class="c">'.$lang['se_input_id'].'</td>
-					<td class="c">'.$lang['se_input_name'].'</td>
-					<td class="c">'.$lang['se_input_prop'].'</td>
-					<td class="c">'.$lang['se_input_g'].'</td>
-					<td class="c">'.$lang['se_input_s'].'</td>
-					<td class="c">'.$lang['se_input_p'].'</td>
-					<th><a href="#" title="'.$lang['se_input_asc'].'">'.$lang['se_input_a'].' </a> 
-					<input type="radio" name="key_acc" value="ASC" '.$z.' title="'.$lang['se_input_asc'].'">&nbsp; 
-					<a href="#" title="'.$lang['se_input_desc'].'">'.$lang['se_input_d'].' </a>
-					<input type="radio" name="key_acc" value="DESC" '.$y.' title="'.$lang['se_input_desc'].'"></th>
+					<td class="c">'.$LNG['se_input_id'].'</td>
+					<td class="c">'.$LNG['se_input_name'].'</td>
+					<td class="c">'.$LNG['se_input_prop'].'</td>
+					<td class="c">'.$LNG['se_input_g'].'</td>
+					<td class="c">'.$LNG['se_input_s'].'</td>
+					<td class="c">'.$LNG['se_input_p'].'</td>
+					<th><a href="#" title="'.$LNG['se_input_asc'].'">'.$LNG['se_input_a'].' </a> 
+					<input type="radio" name="key_acc" value="ASC" '.$z.' title="'.$LNG['se_input_asc'].'">&nbsp; 
+					<a href="#" title="'.$LNG['se_input_desc'].'">'.$LNG['se_input_d'].' </a>
+					<input type="radio" name="key_acc" value="DESC" '.$y.' title="'.$LNG['se_input_desc'].'"></th>
 				</tr><tr>
-					<th width="15%">'.$lang['se_input_orderby'].'</th>
+					<th width="15%">'.$LNG['se_input_orderby'].'</th>
 					<th width="20%"><input type="radio" name="key_order" value="id" '.$a.'></th>
 					<th width="20%"><input type="radio" name="key_order" value="name" '.$b.'></th>
 					<th width="20%"><input type="radio" name="key_order" value="id_owner" '.$c.'></th>
 					<th width="20%"><input type="radio" name="key_order" value="galaxy" '.$d.'></th>
 					<th width="20%"><input type="radio" name="key_order" value="system" '.$e.'></th>
 					<th width="20%"><input type="radio" name="key_order" value="planet" '.$f.'></th>
-					<th width="10%"><input type="submit" value="'.$lang['se_input_submit'].'"></th>
+					<th width="10%"><input type="submit" value="'.$LNG['se_input_submit'].'"></th>
 				</tr>
 				</table>';
 			
@@ -325,7 +325,7 @@ switch($_POST[search])
 	$cnt	=	$db->num_rows($search);
 	if ($cnt	==	NULL)
 	{
-		$parse['error']	=	$lang['se_no_data'];
+		$parse['error']	=	$LNG['se_no_data'];
 	}
 	else
 	{
@@ -341,13 +341,13 @@ switch($_POST[search])
 		
 			$parse['table1']	 =
 			"<table width=\"65%\">
-			<tr><td class=\"c\">".$lang['se_id']."</th><td class=\"c\">".$lang['se_name']."</th><td class=\"c\">".$lang['se_id_owner']."</th>
-			<td class=\"c\">".$lang['se_galaxy']."</th><td class=\"c\">".$lang['se_system']."</th><td class=\"c\">".$lang['se_planet']."</th></tr>";
+			<tr><td class=\"c\">".$LNG['se_id']."</th><td class=\"c\">".$LNG['se_name']."</th><td class=\"c\">".$LNG['se_id_owner']."</th>
+			<td class=\"c\">".$LNG['se_galaxy']."</th><td class=\"c\">".$LNG['se_system']."</th><td class=\"c\">".$LNG['se_planet']."</th></tr>";
 			
 			$parse['table2']	.=
 			"<tr><th>".$id."</th><th>".$name."</th><th>".$id_owner."</th><th>".$g."</th><th>".$s."</th><th>".$p."</th></tr>";
 			
-			$parse['table3']	 =	"<tr><th colspan=\"20\">".$lang['se_input_hay'].$cnt.$lang['se_input_moonn']."</th></tr></table>";
+			$parse['table3']	 =	"<tr><th colspan=\"20\">".$LNG['se_input_hay'].$cnt.$LNG['se_input_moonn']."</th></tr></table>";
 		}
 	}
 	display(parsetemplate(gettemplate('adm/SearchInDBBody'), $parse), false, '', true, false);
@@ -379,25 +379,25 @@ switch($_POST[search])
 				'<table width="70%">
 				<tr>
 					<td class="c">-</td>
-					<td class="c">'.$lang['se_input_id'].'</td>
-					<td class="c">'.$lang['se_input_name'].'</td>
-					<td class="c">'.$lang['se_tag'].'</td>
-					<td class="c">'.$lang['se_input_prop'].'</td>
-					<td class="c">'.$lang['se_input_register'].'</td>
-					<td class="c">'.$lang['se_input_members2'].'</td>
-					<th><a href="#" title="'.$lang['se_input_asc'].'">'.$lang['se_input_a'].' </a> 
-					<input type="radio" name="key_acc" value="ASC" '.$z.' title="'.$lang['se_input_asc'].'">&nbsp; 
-					<a href="#" title="'.$lang['se_input_desc'].'">'.$lang['se_input_d'].' </a>
-					<input type="radio" name="key_acc" value="DESC" '.$y.' title="'.$lang['se_input_desc'].'"></th>
+					<td class="c">'.$LNG['se_input_id'].'</td>
+					<td class="c">'.$LNG['se_input_name'].'</td>
+					<td class="c">'.$LNG['se_tag'].'</td>
+					<td class="c">'.$LNG['se_input_prop'].'</td>
+					<td class="c">'.$LNG['se_input_register'].'</td>
+					<td class="c">'.$LNG['se_input_members2'].'</td>
+					<th><a href="#" title="'.$LNG['se_input_asc'].'">'.$LNG['se_input_a'].' </a> 
+					<input type="radio" name="key_acc" value="ASC" '.$z.' title="'.$LNG['se_input_asc'].'">&nbsp; 
+					<a href="#" title="'.$LNG['se_input_desc'].'">'.$LNG['se_input_d'].' </a>
+					<input type="radio" name="key_acc" value="DESC" '.$y.' title="'.$LNG['se_input_desc'].'"></th>
 				</tr><tr>
-					<th width="15%">'.$lang['se_input_orderby'].'</th>
+					<th width="15%">'.$LNG['se_input_orderby'].'</th>
 					<th width="20%"><input type="radio" name="key_order" value="id" '.$a.'></th>
 					<th width="20%"><input type="radio" name="key_order" value="ally_name" '.$b.'></th>
 					<th width="20%"><input type="radio" name="key_order" value="ally_tag" '.$c.'></th>
 					<th width="20%"><input type="radio" name="key_order" value="ally_owner" '.$d.'></th>
 					<th width="20%"><input type="radio" name="key_order" value="ally_register_time" '.$e.'></th>
 					<th width="20%"><input type="radio" name="key_order" value="ally_members" '.$f.'></th>
-					<th width="10%"><input type="submit" value="'.$lang['se_input_submit'].'"></th>
+					<th width="10%"><input type="submit" value="'.$LNG['se_input_submit'].'"></th>
 				</tr>
 				</table>';
 			
@@ -421,7 +421,7 @@ switch($_POST[search])
 	$cnt	=	$db->num_rows($search);
 	if ($cnt	==	NULL)
 	{
-		$parse['error']	=	$lang['se_no_data'];
+		$parse['error']	=	$LNG['se_no_data'];
 	}
 	else
 	{
@@ -437,14 +437,14 @@ switch($_POST[search])
 		
 			$parse['table1']	 =
 			"<table width=\"55%\">
-			<tr><td class=\"c\">".$lang['se_id']."</th><td class=\"c\">".$lang['se_name']."</th><td class=\"c\">".$lang['se_tag']."</th>
-			<td class=\"c\">".$lang['se_id_owner']."</th><td class=\"c\">".$lang['se_input_register']."</th><td class=\"c\">".$lang['se_input_members']."</th></tr>";
+			<tr><td class=\"c\">".$LNG['se_id']."</th><td class=\"c\">".$LNG['se_name']."</th><td class=\"c\">".$LNG['se_tag']."</th>
+			<td class=\"c\">".$LNG['se_id_owner']."</th><td class=\"c\">".$LNG['se_input_register']."</th><td class=\"c\">".$LNG['se_input_members']."</th></tr>";
 			
 			$parse['table2']	.=
 			"<tr><th>".$id."</th><th>".$ally_name."</th><th>".$ally_tag."</th><th>".$ally_owner."</th><th>".date("d/M/y H:i:s",$reg_time_a)."</th>
 			<th>".$ally_members."</th></tr>";
 			
-			$parse['table3']	 =	"<tr><th colspan=\"20\">".$lang['se_input_hay'].$cnt.$lang['se_input_allyy']."</th></tr></table>";
+			$parse['table3']	 =	"<tr><th colspan=\"20\">".$LNG['se_input_hay'].$cnt.$LNG['se_input_allyy']."</th></tr></table>";
 		}
 	}
 	display(parsetemplate(gettemplate('adm/SearchInDBBody'), $parse), false, '', true, false);
@@ -473,21 +473,21 @@ switch($_POST[search])
 				'<table width="65%">
 				<tr>
 					<td class="c">-</td>
-					<td class="c">'.$lang['se_input_id'].'</td>
-					<td class="c">'.$lang['se_input_name'].'</td>
-					<td class="c">'.$lang['se_input_email'].'</td>
-					<td class="c">'.$lang['se_input_authlevel'].'</td>
-					<th><a href="#" title="'.$lang['se_input_asc'].'">'.$lang['se_input_a'].' </a> 
-					<input type="radio" name="key_acc" value="ASC" '.$z.' title="'.$lang['se_input_asc'].'">&nbsp; 
-					<a href="#" title="'.$lang['se_input_desc'].'">'.$lang['se_input_d'].' </a>
-					<input type="radio" name="key_acc" value="DESC" '.$y.' title="'.$lang['se_input_desc'].'"></th>
+					<td class="c">'.$LNG['se_input_id'].'</td>
+					<td class="c">'.$LNG['se_input_name'].'</td>
+					<td class="c">'.$LNG['se_input_email'].'</td>
+					<td class="c">'.$LNG['se_input_authlevel'].'</td>
+					<th><a href="#" title="'.$LNG['se_input_asc'].'">'.$LNG['se_input_a'].' </a> 
+					<input type="radio" name="key_acc" value="ASC" '.$z.' title="'.$LNG['se_input_asc'].'">&nbsp; 
+					<a href="#" title="'.$LNG['se_input_desc'].'">'.$LNG['se_input_d'].' </a>
+					<input type="radio" name="key_acc" value="DESC" '.$y.' title="'.$LNG['se_input_desc'].'"></th>
 				</tr><tr>
-					<th width="15%">'.$lang['se_input_orderby'].'</th>
+					<th width="15%">'.$LNG['se_input_orderby'].'</th>
 					<th width="20%"><input type="radio" name="key_order" value="id" '.$a.'></th>
 					<th width="20%"><input type="radio" name="key_order" value="username" '.$b.'></th>
 					<th width="20%"><input type="radio" name="key_order" value="email_2" '.$c.'></th>
 					<th width="20%"><input type="radio" name="key_order" value="authlevel" '.$d.'></th>
-					<th width="10%"><input type="submit" value="'.$lang['se_input_submit'].'"></th>
+					<th width="10%"><input type="submit" value="'.$LNG['se_input_submit'].'"></th>
 				</tr>
 				</table>';
 				
@@ -511,7 +511,7 @@ switch($_POST[search])
 	$cnt	=	$db->num_rows($search);
 	if ($cnt	==	NULL)
 	{
-		$parse['error']	=	$lang['se_no_data'];
+		$parse['error']	=	$LNG['se_no_data'];
 	}
 	else
 	{
@@ -524,23 +524,23 @@ switch($_POST[search])
 			$suspended	=	$vacation['bana'];
 			$vacations	=	$vacation['urlaubs_modus'];
 		
-			if ($suspended == '0' or $suspended == NULL){$suspended = $lang['se_no'];}else{$suspended = "<font color=lime>".$lang['se_yes']."</font>";}
-			if ($vacations == '0'){$vacations = $lang['se_no'];}else{$vacations = "<font color=aqua>".$lang['se_yes']."</font>";}
+			if ($suspended == '0' or $suspended == NULL){$suspended = $LNG['se_no'];}else{$suspended = "<font color=lime>".$LNG['se_yes']."</font>";}
+			if ($vacations == '0'){$vacations = $LNG['se_no'];}else{$vacations = "<font color=aqua>".$LNG['se_yes']."</font>";}
 			for ($i = 0; $i < 5; $i++)
 			{
-				if ($authlevel == $i){$authlevel = $lang['se_authlevel'][$i];}
+				if ($authlevel == $i){$authlevel = $LNG['se_authlevel'][$i];}
 			}
 		
 			
 			$parse['table1']	 =
 			"<table width=\"65%\">
-			<tr><td class=\"c\">".$lang['se_id']."</th><td class=\"c\">".$lang['se_name']."</th><td class=\"c\">".$lang['se_email']."</th>
-			<td class=\"c\">".$lang['se_auth']."</th><td class=\"c\">".$lang['se_ban']."</th><td class=\"c\">".$lang['se_vacat']."</th></tr>";
+			<tr><td class=\"c\">".$LNG['se_id']."</th><td class=\"c\">".$LNG['se_name']."</th><td class=\"c\">".$LNG['se_email']."</th>
+			<td class=\"c\">".$LNG['se_auth']."</th><td class=\"c\">".$LNG['se_ban']."</th><td class=\"c\">".$LNG['se_vacat']."</th></tr>";
 			
 			$parse['table2']	.=
 			"<tr><th>".$id."</th><th>".$name."</th><th>".$email."</th><th>".$authlevel."</th><th>".$suspended."</th><th>".$vacations."</th></tr>";
 			
-			$parse['table3']	 =	"<tr><th colspan=\"20\">".$lang['se_input_hay'].$cnt.$lang['se_input_vacatii']."</th></tr></table>";
+			$parse['table3']	 =	"<tr><th colspan=\"20\">".$LNG['se_input_hay'].$cnt.$LNG['se_input_vacatii']."</th></tr></table>";
 		}
 	}
 	display(parsetemplate(gettemplate('adm/SearchInDBBody'), $parse), false, '', true, false);
@@ -569,21 +569,21 @@ switch($_POST[search])
 				'<table width="65%">
 				<tr>
 					<td class="c">-</td>
-					<td class="c">'.$lang['se_input_id'].'</td>
-					<td class="c">'.$lang['se_input_name'].'</td>
-					<td class="c">'.$lang['se_input_time'].'</td>
-					<td class="c">'.$lang['se_input_longer'].'</td>
-					<th><a href="#" title="'.$lang['se_input_asc'].'">'.$lang['se_input_a'].' </a> 
-					<input type="radio" name="key_acc" value="ASC" '.$z.' title="'.$lang['se_input_asc'].'">&nbsp; 
-					<a href="#" title="'.$lang['se_input_desc'].'">'.$lang['se_input_d'].' </a>
-					<input type="radio" name="key_acc" value="DESC" '.$y.' title="'.$lang['se_input_desc'].'"></th>
+					<td class="c">'.$LNG['se_input_id'].'</td>
+					<td class="c">'.$LNG['se_input_name'].'</td>
+					<td class="c">'.$LNG['se_input_time'].'</td>
+					<td class="c">'.$LNG['se_input_longer'].'</td>
+					<th><a href="#" title="'.$LNG['se_input_asc'].'">'.$LNG['se_input_a'].' </a> 
+					<input type="radio" name="key_acc" value="ASC" '.$z.' title="'.$LNG['se_input_asc'].'">&nbsp; 
+					<a href="#" title="'.$LNG['se_input_desc'].'">'.$LNG['se_input_d'].' </a>
+					<input type="radio" name="key_acc" value="DESC" '.$y.' title="'.$LNG['se_input_desc'].'"></th>
 				</tr><tr>
-					<th width="15%">'.$lang['se_input_orderby'].'</th>
+					<th width="15%">'.$LNG['se_input_orderby'].'</th>
 					<th width="20%"><input type="radio" name="key_order" value="id" '.$a.'></th>
 					<th width="20%"><input type="radio" name="key_order" value="who" '.$b.'></th>
 					<th width="20%"><input type="radio" name="key_order" value="time" '.$c.'></th>
 					<th width="20%"><input type="radio" name="key_order" value="longer" '.$d.'></th>
-					<th width="10%"><input type="submit" value="'.$lang['se_input_submit'].'"></th>
+					<th width="10%"><input type="submit" value="'.$LNG['se_input_submit'].'"></th>
 				</tr>
 				</table>';
 				
@@ -607,7 +607,7 @@ switch($_POST[search])
 	$cnt	=	$db->num_rows($search);
 	if ($cnt	==	NULL)
 	{
-		$parse['error']	=	$lang['se_no_data'];
+		$parse['error']	=	$LNG['se_no_data'];
 	}
 	else
 	{
@@ -625,14 +625,14 @@ switch($_POST[search])
 			
 			$parse['table1']	 =
 			"<table width=\"90%\">
-			<tr><td class=\"c\">".$lang['se_id']."</th><td class=\"c\">".$lang['se_name']."</th><td class=\"c\">".$lang['se_ban_reason']."</th>
-			<td class=\"c\">".$lang['se_ban_time']."</th><td class=\"c\">".$lang['se_ban_limit']."</th><td class=\"c\">".$lang['se_ban_author']."</th></tr>";
+			<tr><td class=\"c\">".$LNG['se_id']."</th><td class=\"c\">".$LNG['se_name']."</th><td class=\"c\">".$LNG['se_ban_reason']."</th>
+			<td class=\"c\">".$LNG['se_ban_time']."</th><td class=\"c\">".$LNG['se_ban_limit']."</th><td class=\"c\">".$LNG['se_ban_author']."</th></tr>";
 			
 			$parse['table2']	.=
 			"<tr><th>".$id."</th><th>".$name."</th><th width=\"25%\"><font color=aqua>".$theme."</font></th><th>".$date."</th>
 			<th>".$date_limit."</th><th>".$author."</th></tr>";
 			
-			$parse['table3']	 =	"<tr><th colspan=\"20\">".$lang['se_input_hay'].$cnt.$lang['se_input_susss']."</th></tr></table>";
+			$parse['table3']	 =	"<tr><th colspan=\"20\">".$LNG['se_input_hay'].$cnt.$LNG['se_input_susss']."</th></tr></table>";
 		}
 	}
 	display(parsetemplate(gettemplate('adm/SearchInDBBody'), $parse), false, '', true, false);
@@ -661,21 +661,21 @@ switch($_POST[search])
 				'<table width="60%">
 				<tr>
 					<td class="c">-</td>
-					<td class="c">'.$lang['se_input_id'].'</td>
-					<td class="c">'.$lang['se_input_name'].'</td>
-					<td class="c">'.$lang['se_input_email'].'</td>
-					<td class="c">'.$lang['se_input_authlevel'].'</td>
-					<th><a href="#" title="'.$lang['se_input_asc'].'">'.$lang['se_input_a'].' </a> 
-					<input type="radio" name="key_acc" value="ASC" '.$z.' title="'.$lang['se_input_asc'].'">&nbsp; 
-					<a href="#" title="'.$lang['se_input_desc'].'">'.$lang['se_input_d'].' </a>
-					<input type="radio" name="key_acc" value="DESC" '.$y.' title="'.$lang['se_input_desc'].'"></th>
+					<td class="c">'.$LNG['se_input_id'].'</td>
+					<td class="c">'.$LNG['se_input_name'].'</td>
+					<td class="c">'.$LNG['se_input_email'].'</td>
+					<td class="c">'.$LNG['se_input_authlevel'].'</td>
+					<th><a href="#" title="'.$LNG['se_input_asc'].'">'.$LNG['se_input_a'].' </a> 
+					<input type="radio" name="key_acc" value="ASC" '.$z.' title="'.$LNG['se_input_asc'].'">&nbsp; 
+					<a href="#" title="'.$LNG['se_input_desc'].'">'.$LNG['se_input_d'].' </a>
+					<input type="radio" name="key_acc" value="DESC" '.$y.' title="'.$LNG['se_input_desc'].'"></th>
 				</tr><tr>
-					<th width="15%">'.$lang['se_input_orderby'].'</th>
+					<th width="15%">'.$LNG['se_input_orderby'].'</th>
 					<th width="20%"><input type="radio" name="key_order" value="id" '.$a.'></th>
 					<th width="20%"><input type="radio" name="key_order" value="username" '.$b.'></th>
 					<th width="20%"><input type="radio" name="key_order" value="email_2" '.$c.'></th>
 					<th width="20%"><input type="radio" name="key_order" value="authlevel" '.$d.'></th>
-					<th width="10%"><input type="submit" value="'.$lang['se_input_submit'].'"></th>
+					<th width="10%"><input type="submit" value="'.$LNG['se_input_submit'].'"></th>
 				</tr>
 				</table>';
 			
@@ -699,7 +699,7 @@ switch($_POST[search])
 	$cnt	=	$db->num_rows($search);
 	if ($cnt	==	NULL)
 	{
-		$parse['error']	=	$lang['se_no_data'];
+		$parse['error']	=	$LNG['se_no_data'];
 	}
 	else
 	{
@@ -712,23 +712,23 @@ switch($_POST[search])
 			$suspended	=	$admin['bana'];
 			$vacations	=	$admin['urlaubs_modus'];
 		
-			if ($suspended == '0' or $suspended == NULL){$suspended = $lang['se_no'];}else{$suspended = "<font color=lime>".$lang['se_yes']."</font>";}
-			if ($vacations == '0'){$vacations = $lang['se_no'];}else{$vacations = "<font color=aqua>".$lang['se_yes']."</font>";}
+			if ($suspended == '0' or $suspended == NULL){$suspended = $LNG['se_no'];}else{$suspended = "<font color=lime>".$LNG['se_yes']."</font>";}
+			if ($vacations == '0'){$vacations = $LNG['se_no'];}else{$vacations = "<font color=aqua>".$LNG['se_yes']."</font>";}
 			for ($i = 0; $i < 5; $i++)
 			{
-				if ($authlevel == $i){$authlevel = $lang['se_authlevel'][$i];}
+				if ($authlevel == $i){$authlevel = $LNG['se_authlevel'][$i];}
 			}
 		
 			
 			$parse['table1']	 =
 			"<table width=\"75%\">
-			<tr><td class=\"c\">".$lang['se_id']."</th><td class=\"c\">".$lang['se_name']."</th><td class=\"c\">".$lang['se_email']."</th>
-			<td class=\"c\">".$lang['se_auth']."</th><td class=\"c\">".$lang['se_ban']."</th><td class=\"c\">".$lang['se_vacat']."</th></tr>";
+			<tr><td class=\"c\">".$LNG['se_id']."</th><td class=\"c\">".$LNG['se_name']."</th><td class=\"c\">".$LNG['se_email']."</th>
+			<td class=\"c\">".$LNG['se_auth']."</th><td class=\"c\">".$LNG['se_ban']."</th><td class=\"c\">".$LNG['se_vacat']."</th></tr>";
 			
 			$parse['table2']	.=
 			"<tr><th>".$id."</th><th>".$name."</th><th>".$email."</th><th>".$authlevel."</th><th>".$suspended."</th><th>".$vacations."</th></tr>";
 			
-			$parse['table3']	 =	"<tr><th colspan=\"20\">".$lang['se_input_hay'].$cnt.$lang['se_input_admm']."</th></tr></table>";
+			$parse['table3']	 =	"<tr><th colspan=\"20\">".$LNG['se_input_hay'].$cnt.$LNG['se_input_admm']."</th></tr></table>";
 		}
 	}
 	display(parsetemplate(gettemplate('adm/SearchInDBBody'), $parse), false, '', true, false);
@@ -738,7 +738,7 @@ switch($_POST[search])
 	// INACTIVOS ####################################################################
 	case 'inactives':
 	$parse['selected_i']	=	'selected = "selected"';
-	$Time	=	time() - 604800;
+	$Time	=	TIMESTAMP - 604800;
 	
 	
 	if ($_POST['key_order'] == 'username')
@@ -757,19 +757,19 @@ switch($_POST[search])
 				'<table width="60%">
 				<tr>
 					<td class="c">-</td>
-					<td class="c">'.$lang['se_input_id'].'</td>
-					<td class="c">'.$lang['se_input_name'].'</td>
-					<td class="c">'.$lang['se_input_inacti'].'</td>
-					<th><a href="#" title="'.$lang['se_input_asc'].'">'.$lang['se_input_a'].' </a> 
-					<input type="radio" name="key_acc" value="ASC" '.$z.' title="'.$lang['se_input_asc'].'">&nbsp; 
-					<a href="#" title="'.$lang['se_input_desc'].'">'.$lang['se_input_d'].' </a>
-					<input type="radio" name="key_acc" value="DESC" '.$y.' title="'.$lang['se_input_desc'].'"></th>
+					<td class="c">'.$LNG['se_input_id'].'</td>
+					<td class="c">'.$LNG['se_input_name'].'</td>
+					<td class="c">'.$LNG['se_input_inacti'].'</td>
+					<th><a href="#" title="'.$LNG['se_input_asc'].'">'.$LNG['se_input_a'].' </a> 
+					<input type="radio" name="key_acc" value="ASC" '.$z.' title="'.$LNG['se_input_asc'].'">&nbsp; 
+					<a href="#" title="'.$LNG['se_input_desc'].'">'.$LNG['se_input_d'].' </a>
+					<input type="radio" name="key_acc" value="DESC" '.$y.' title="'.$LNG['se_input_desc'].'"></th>
 				</tr><tr>
-					<th width="15%">'.$lang['se_input_orderby'].'</th>
+					<th width="15%">'.$LNG['se_input_orderby'].'</th>
 					<th width="20%"><input type="radio" name="key_order" value="id" '.$a.'></th>
 					<th width="20%"><input type="radio" name="key_order" value="username" '.$b.'></th>
 					<th width="20%"><input type="radio" name="key_order" value="onlinetime" '.$c.'></th>
-					<th width="10%"><input type="submit" value="'.$lang['se_input_submit'].'"></th>
+					<th width="10%"><input type="submit" value="'.$LNG['se_input_submit'].'"></th>
 				</tr>
 				</table>';
 	
@@ -793,7 +793,7 @@ switch($_POST[search])
 	$cnt	=	$db->num_rows($search);
 	if ($cnt	==	NULL)
 	{
-		$parse['error']	=	$lang['se_no_data'];
+		$parse['error']	=	$LNG['se_no_data'];
 	}
 	else
 	{
@@ -806,25 +806,25 @@ switch($_POST[search])
 			$vacations	=	$inactives['urlaubs_modus'];
 			$suspended	=	$inactives['bana'];
 		
-			if ($suspended == '0' or $suspended == NULL){$suspended = $lang['se_no'];}else{$suspended = "<font color=lime>".$lang['se_yes']."</font>";}
-			if ($vacations == '0'){$vacations = $lang['se_no'];}else{$vacations = "<font color=aqua>".$lang['se_yes']."</font>";}
+			if ($suspended == '0' or $suspended == NULL){$suspended = $LNG['se_no'];}else{$suspended = "<font color=lime>".$LNG['se_yes']."</font>";}
+			if ($vacations == '0'){$vacations = $LNG['se_no'];}else{$vacations = "<font color=aqua>".$LNG['se_yes']."</font>";}
 			for ($i = 0; $i < 5; $i++)
 			{
-				if ($authlevel == $i){$authlevel = $lang['se_authlevel'][$i];}
+				if ($authlevel == $i){$authlevel = $LNG['se_authlevel'][$i];}
 			}
 		
 			
 			$inactives	=	date("d/M/y H:i:s", $inactive);
 			$parse['table1']	 =
 			"<table width=\"65%\">
-			<tr><td class=\"c\">".$lang['se_id']."</td><td class=\"c\">".$lang['se_name']."</td>
-			<td class=\"c\">".$lang['se_auth']."</td><td class=\"c\">".$lang['se_activity']."</td><td class=\"c\">".$lang['se_vacat']."</td>
-			<td class=\"c\">".$lang['se_ban']."</td></tr>";
+			<tr><td class=\"c\">".$LNG['se_id']."</td><td class=\"c\">".$LNG['se_name']."</td>
+			<td class=\"c\">".$LNG['se_auth']."</td><td class=\"c\">".$LNG['se_activity']."</td><td class=\"c\">".$LNG['se_vacat']."</td>
+			<td class=\"c\">".$LNG['se_ban']."</td></tr>";
 			
 			$parse['table2']	.=
 			"<tr><th>".$id."</th><th>".$name."</th><th>".$authlevel."</th><th>".$inactives."</th><th>".$vacations."</th><th>".$suspended."</th></tr>";
 			
-			$parse['table3']	 =	"<tr><th colspan=\"20\">".$lang['se_input_hay'].$cnt.$lang['se_input_inact']."</th></tr></table>";
+			$parse['table3']	 =	"<tr><th colspan=\"20\">".$LNG['se_input_hay'].$cnt.$LNG['se_input_inact']."</th></tr></table>";
 			
 		}
 		

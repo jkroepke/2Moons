@@ -14,8 +14,7 @@
 </tr>
 {/foreach}{if $MessCategory != 999}
 <tr>
-<th colspan="4">
-<input id="fullreports" name="fullreports" type="checkbox">{$mg_show_only_header_spy_reports}</th><input name="mess_type" type="hidden" value="{$MessCategory}"></th>
+<th colspan="4"><input name="mess_type" type="hidden" value="{$MessCategory}"></th>
 </tr><tr>
 <th colspan="4">
 <select id="deletemessages" name="deletemessages">

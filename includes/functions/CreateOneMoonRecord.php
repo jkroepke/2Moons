@@ -19,11 +19,11 @@
 # *																			 #
 ##############################################################################
 
-if(!defined('INSIDE')){ die(header("location:../../"));}
+if(!defined('INSIDE')) die('Hacking attempt!');
 
 	function CreateOneMoonRecord ( $Galaxy, $System, $Planet, $Owner, $MoonID, $MoonName, $Chance)
 	{
-		global $lang, $user, $db;
+		global $LNG, $USER, $db;
 
 		$PlanetName            = "";
 
@@ -46,13 +46,13 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 			$size                   = rand($SizeMin, $SizeMax);
 
 			$QryInsertMoonInPlanet  = "INSERT INTO ".PLANETS." SET ";
-			$QryInsertMoonInPlanet .= "`name` = '". ( ($MoonName == '') ? $lang['fcm_moon'] : $MoonName ) ."', ";
+			$QryInsertMoonInPlanet .= "`name` = '". ( ($MoonName == '') ? $LNG['fcm_moon'] : $MoonName ) ."', ";
 			$QryInsertMoonInPlanet .= "`id_owner` = '". $Owner ."', ";
 			$QryInsertMoonInPlanet .= "`id_level` = '".$MoonPlanet['id_level']."', ";
 			$QryInsertMoonInPlanet .= "`galaxy` = '". $Galaxy ."', ";
 			$QryInsertMoonInPlanet .= "`system` = '". $System ."', ";
 			$QryInsertMoonInPlanet .= "`planet` = '". $Planet ."', ";
-			$QryInsertMoonInPlanet .= "`last_update` = '". time() ."', ";
+			$QryInsertMoonInPlanet .= "`last_update` = '". TIMESTAMP ."', ";
 			$QryInsertMoonInPlanet .= "`planet_type` = '3', ";
 			$QryInsertMoonInPlanet .= "`image` = 'mond', ";
 			$QryInsertMoonInPlanet .= "`diameter` = '". $size ."', ";

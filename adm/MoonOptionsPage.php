@@ -30,7 +30,7 @@ include(ROOT_PATH . 'common.'.PHP_EXT);
 
 if ($EditUsers != 1) die();
 
-$parse	= $lang;
+$parse	= $LNG;
 
 
 if ($_POST && $_POST['add_moon'])
@@ -54,7 +54,7 @@ if ($db->num_rows($search) != 0)
 		$System    = $MoonPlanet['system'];
 		$Planet    = $MoonPlanet['planet'];
 		$Owner     = $MoonPlanet['id_owner'];
-		$MoonID    = time();
+		$MoonID    = TIMESTAMP;
 
 
 		if ($_POST['diameter_check'] == 'on')
@@ -69,7 +69,7 @@ if ($db->num_rows($search) != 0)
 		}
 		else
 		{
-			message ($lang['mo_only_numbers'], "MoonOptionsPage.php", 2);
+			message ($LNG['mo_only_numbers'], "MoonOptionsPage.php", 2);
 		}
 				
 				
@@ -85,7 +85,7 @@ if ($db->num_rows($search) != 0)
 		}
 		else
 		{
-			message ($lang['mo_only_numbers'], "MoonOptionsPage.php", 2);
+			message ($LNG['mo_only_numbers'], "MoonOptionsPage.php", 2);
 		}
 			$QueryFind	=	$db->fetch_array($db->query("SELECT `id_level` FROM ".PLANETS." WHERE `id` = '".$PlanetID."';"));
 			
@@ -96,7 +96,7 @@ if ($db->num_rows($search) != 0)
 			$QryInsertMoonInPlanet .= "`galaxy` = '". $Galaxy ."', ";
 			$QryInsertMoonInPlanet .= "`system` = '". $System ."', ";
 			$QryInsertMoonInPlanet .= "`planet` = '". $Planet ."', ";
-			$QryInsertMoonInPlanet .= "`last_update` = '". time() ."', ";
+			$QryInsertMoonInPlanet .= "`last_update` = '". TIMESTAMP ."', ";
 			$QryInsertMoonInPlanet .= "`planet_type` = '3', ";
 			$QryInsertMoonInPlanet .= "`image` = 'mond', ";
 			$QryInsertMoonInPlanet .= "`diameter` = '". $size ."', ";
@@ -130,16 +130,16 @@ if ($db->num_rows($search) != 0)
 			$QryGetMoonIdFromLunas .= "`planet_type` = '1';";
 			$db->query( $QryUpdateMoonInGalaxy);
 			
-			message ($lang['mo_moon_added'],"MoonOptionsPage.php",2);
+			message ($LNG['mo_moon_added'],"MoonOptionsPage.php",2);
 		}
 		else
 		{
-			message ($lang['mo_moon_unavaible'],"MoonOptionsPage.php",2);
+			message ($LNG['mo_moon_unavaible'],"MoonOptionsPage.php",2);
 		}
 	}
 	else
 	{
-		message ($lang['mo_planet_doesnt_exist'],"MoonOptionsPage.php",2);
+		message ($LNG['mo_planet_doesnt_exist'],"MoonOptionsPage.php",2);
 	}
 }
 elseif($_POST && $_POST['del_moon'])
@@ -169,16 +169,16 @@ elseif($_POST && $_POST['del_moon'])
 			$QryUpdateGalaxy .= "LIMIT 1;";
 			$db->query( $QryUpdateGalaxy);
 
-			message ($lang['mo_moon_deleted'], "MoonOptionsPage.php", 2);
+			message ($LNG['mo_moon_deleted'], "MoonOptionsPage.php", 2);
 		}
 		else
 		{
-			message ($lang['mo_moon_only'], "MoonOptionsPage.php", 2);
+			message ($LNG['mo_moon_only'], "MoonOptionsPage.php", 2);
 		}
 	}
 	else
 	{
-		message ($lang['mo_moon_doesnt_exist'], "MoonOptionsPage.php", 2);
+		message ($LNG['mo_moon_doesnt_exist'], "MoonOptionsPage.php", 2);
 	}
 }
 elseif($_POST && $_POST['search_moon'])

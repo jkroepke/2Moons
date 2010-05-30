@@ -31,7 +31,7 @@ include(ROOT_PATH . 'common.'.PHP_EXT);
 
 if ($EditUsers != 1) die();
 
-$parse	=	$lang;
+$parse	=	$LNG;
      
 	  
 $mode      = $_POST['mode'];
@@ -48,20 +48,21 @@ if ($mode == 'agregar')
 	if (is_numeric($_POST['id']) && isset($_POST['id']) && $QueryS2)
 	{
     	if ($galaxy < 1 or $system < 1 or $planet < 1 or !is_numeric($galaxy) or !is_numeric($system) or !is_numeric($planet)){      
-    		$Error	.=	'<tr><th colspan="2"><font color=red>'.$lang['po_complete_all'].'</font></th></tr>';
+    		$Error	.=	'<tr><th colspan="2"><font color=red>'.$LNG['po_complete_all'].'</font></th></tr>';
 			$i++;}
 	
 		if ($galaxy > MAX_GALAXY_IN_WORLD or $system > MAX_SYSTEM_IN_GALAXY or $planet > MAX_PLANET_IN_SYSTEM){
-			$Error	.=	'<tr><th colspan="2"><font color=red>'.$lang['po_complete_all2'].'</font></th></tr>';
+			$Error	.=	'<tr><th colspan="2"><font color=red>'.$LNG['po_complete_all2'].'</font></th></tr>';
 			$i++;}
 	
 		if ($i	==	0)
 		{
+			require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.'.PHP_EXT);
 			CreateOnePlanetRecord ($galaxy, $system, $planet, $id, '', '', false) ; 
 			$QueryS3	=	$db->fetch_array($db->query("SELECT id_level FROM ".PLANETS." WHERE `id_owner` = '".$id."';"));
 			$db->query("UPDATE ".PLANETS." SET `id_level` = '".$QueryS3['id_level']."' WHERE 
 			`galaxy` = '".$galaxy."' AND `system` = '".$system."' AND `planet` = '".$planet."' AND `planet_type` = '1';");
-    		$parse['display']	=	'<tr><th colspan="2"><font color=lime>'.$lang['po_complete_succes'].'</font></th></tr>';
+    		$parse['display']	=	'<tr><th colspan="2"><font color=lime>'.$LNG['po_complete_succes'].'</font></th></tr>';
 		}
 		else
 		{
@@ -70,7 +71,7 @@ if ($mode == 'agregar')
 	}
 	else
 	{
-		$parse['display']	=	'<tr><th colspan="2"><font color=red>'.$lang['po_complete_all'].'</font></th></tr>';
+		$parse['display']	=	'<tr><th colspan="2"><font color=red>'.$LNG['po_complete_all'].'</font></th></tr>';
 	}
 }
 elseif ($mode == 'borrar') 
@@ -90,21 +91,21 @@ elseif ($mode == 'borrar')
 						`planet` = '".$QueryS['planet']."' AND `planet_type` = '3';");
 				}
 				$db->query("DELETE FROM ".PLANETS." WHERE `id` = '".$id."';");
-				$Error	.=	'<tr><th colspan="2"><font color=lime>'.$lang['po_complete_succes2'].'</font></th></tr>';
+				$Error	.=	'<tr><th colspan="2"><font color=lime>'.$LNG['po_complete_succes2'].'</font></th></tr>';
 			}
 			else
 			{
-				$Error	.=	'<tr><th colspan="2"><font color=red>'.$lang['po_complete_invalid3'].'</font></th></tr>';
+				$Error	.=	'<tr><th colspan="2"><font color=red>'.$LNG['po_complete_invalid3'].'</font></th></tr>';
 			}
 		}
 		else
 		{
-			$Error	.=	'<tr><th colspan="2"><font color=red>'.$lang['po_complete_invalid2'].'</font></th></tr>';
+			$Error	.=	'<tr><th colspan="2"><font color=red>'.$LNG['po_complete_invalid2'].'</font></th></tr>';
 		}
 	}
 	else
 	{
-		$Error	.=	'<tr><th colspan="2"><font color=red>'.$lang['po_complete_invalid'].'</font></th></tr>';
+		$Error	.=	'<tr><th colspan="2"><font color=red>'.$LNG['po_complete_invalid'].'</font></th></tr>';
 	}
 	
 	$parse['display2']	=	$Error;

@@ -19,30 +19,25 @@
 # *                                                                          #
 ##############################################################################
 
-if(!defined('INSIDE')){ die(header("location:../../"));}
+if(!defined('INSIDE')) die('Hacking attempt!');
 
 class ShowOfficierPage
 {
-	private function IsOfficierAccessible ($CurrentUser, $Officier)
+	private function IsOfficierAccessible ($Officier)
 	{
-		global $requeriments, $resource, $pricelist;
+		global $USER, $requeriments, $resource, $pricelist;
 
 		if (isset($requeriments[$Officier]))
 		{
 			$enabled = true;
 			foreach($requeriments[$Officier] as $ReqOfficier => $OfficierLevel)
 			{
-				if ($CurrentUser[$resource[$ReqOfficier]] && $CurrentUser[$resource[$ReqOfficier]] >= $OfficierLevel)
-				{
-					$enabled = 1;
-				}
-				else
-				{
+				if ($USER[$resource[$ReqOfficier]] < $OfficierLevel)
 					return 0;
-				}
 			}
 		}
-		if ($CurrentUser[$resource[$Officier]] < $pricelist[$Officier]['max']  )
+		
+		if ($USER[$resource[$Officier]] < $pricelist[$Officier]['max'])
 		{
 			return 1;
 		}
@@ -52,60 +47,60 @@ class ShowOfficierPage
 		}
 	}
 
-	public function UpdateExtra(&$CurrentUser, $Element)
+	public function UpdateExtra($Element)
 	{
-		global $db, $reslist, $resource, $ExtraDM;
+		global $USER, $db, $reslist, $resource, $ExtraDM;
 		
-		if ((floor($CurrentUser['darkmatter'] / $ExtraDM[$Element]['darkmatter'])) > 0 && in_array($Element, $reslist['dmfunc']))
+		if ((floor($USER['darkmatter'] / $ExtraDM[$Element]['darkmatter'])) > 0 && in_array($Element, $reslist['dmfunc']))
 		{
-			$CurrentUser[$resource[$Element]] = time() + $ExtraDM[$Element]['time'] * 3600;
-			$CurrentUser['darkmatter']         -= $ExtraDM[$Element]['darkmatter'];
+			$USER[$resource[$Element]] = TIMESTAMP + $ExtraDM[$Element]['time'] * 3600;
+			$USER['darkmatter']         -= $ExtraDM[$Element]['darkmatter'];
 			$QryUpdateUser  = "UPDATE ".USERS." SET ";
-			$QryUpdateUser .= "`".$resource[$Element]."` = '". $CurrentUser[$resource[$Element]] ."' ";
+			$QryUpdateUser .= "`".$resource[$Element]."` = '". $USER[$resource[$Element]] ."' ";
 			$QryUpdateUser .= "WHERE ";
-			$QryUpdateUser .= "`id` = '". $CurrentUser['id'] ."';";
+			$QryUpdateUser .= "`id` = '". $USER['id'] ."';";
 			$db->query($QryUpdateUser);
 		}
 	}
 
-	public function UpdateOfficier(&$CurrentUser, $Selected)
+	public function UpdateOfficier($Selected)
 	{
-		global $db, $reslist, $resource;
+		global $USER, $db, $reslist, $resource;
 		
-		if ((floor($CurrentUser['darkmatter'] / DM_PRO_OFFICIER_LEVEL)) > 0 && in_array($Selected, $reslist['officier']) && $this->IsOfficierAccessible($CurrentUser, $Selected) == 1)
+		if ((floor($USER['darkmatter'] / DM_PRO_OFFICIER_LEVEL)) > 0 && in_array($Selected, $reslist['officier']) && $this->IsOfficierAccessible($Selected) == 1)
 		{
-			$CurrentUser[$resource[$Selected]] += 1;
-			$CurrentUser['darkmatter']         -= DM_PRO_OFFICIER_LEVEL;
+			$USER[$resource[$Selected]] += 1;
+			$USER['darkmatter']         -= DM_PRO_OFFICIER_LEVEL;
 			$QryUpdateUser  = "UPDATE ".USERS." SET ";
-			$QryUpdateUser .= "`".$resource[$Selected]."` = '". $CurrentUser[$resource[$Selected]] ."' ";
+			$QryUpdateUser .= "`".$resource[$Selected]."` = '". $USER[$resource[$Selected]] ."' ";
 			$QryUpdateUser .= "WHERE ";
-			$QryUpdateUser .= "`id` = '". $CurrentUser['id'] ."';";
+			$QryUpdateUser .= "`id` = '". $USER['id'] ."';";
 			$db->query($QryUpdateUser);
 		}
 	}
 	
-	public function ShowOfficierPage($CurrentUser, $CurrentPlanet)
+	public function ShowOfficierPage()
 	{
-		global $resource, $reslist, $lang, $db, $ExtraDM;
+		global $USER, $PLANET, $resource, $reslist, $LNG, $db, $ExtraDM;
 		
 		$action   = request_var('action', '');
 		$Offi	  = request_var('offi', 0);
 		$Extra	  = request_var('extra', 0);
+				
+		$PlanetRess = new ResourceUpdate();
+		$PlanetRess->CalcResource()->SavePlanetToDB();
 		
 		if ($action == "send")
 		{
 			if(!empty($Offi) && !CheckModule(8))
-				$this->UpdateOfficier($CurrentUser, $Offi);
+				$this->UpdateOfficier($Offi);
 			elseif(!empty($Extra) && !CheckModule(18))
-				$this->UpdateExtra($CurrentUser, $Extra);		
+				$this->UpdateExtra($Extra);		
 		}
 		
-		
-		$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
-
 		$template	= new template();
 		$template->loadscript('time.js');
-		$template->set_vars($CurrentUser, $CurrentPlanet);
+		
 		$template->page_header();
 		$template->page_topnav();
 		$template->page_leftmenu();
@@ -119,12 +114,12 @@ class ShowOfficierPage
 			{
 				$ExtraDMList[]	= array(
 					'id' 	 	=> $Element,
-					'active'  	=> $CurrentUser[$resource[$Element]] - time(),
+					'active'  	=> $USER[$resource[$Element]] - TIMESTAMP,
 					'price'		=> pretty_number($ExtraDM[$Element]['darkmatter']),
-					'isok'		=> (($CurrentUser['darkmatter'] - $ExtraDM[$Element]['darkmatter']) >= 0) ? true : false,
+					'isok'		=> (($USER['darkmatter'] - $ExtraDM[$Element]['darkmatter']) >= 0) ? true : false,
 					'time'		=> pretty_time($ExtraDM[$Element]['time'] * 3600),
-					'name'		=> $lang['tech'][$Element],
-					'desc'  	=> sprintf($lang['res']['descriptions'][$Element], $ExtraDM[$Element]['add'] * 100),	
+					'name'		=> $LNG['tech'][$Element],
+					'desc'  	=> sprintf($LNG['res']['descriptions'][$Element], $ExtraDM[$Element]['add'] * 100),	
 				);
 			}
 		}
@@ -133,13 +128,13 @@ class ShowOfficierPage
 		{
 			foreach($reslist['officier'] as $Element)
 			{
-				if (($Result = $this->IsOfficierAccessible ($CurrentUser, $Element)) !== 0)
+				if (($Result = $this->IsOfficierAccessible($Element)) !== 0)
 				{
 					$OfficierList[]	= array(
 						'id' 	 	=> $Element,
-						'level'  	=> $CurrentUser[$resource[$Element]],
-						'name'		=> $lang['tech'][$Element],
-						'desc'  	=> $lang['res']['descriptions'][$Element],	
+						'level'  	=> $USER[$resource[$Element]],
+						'name'		=> $LNG['tech'][$Element],
+						'desc'  	=> $LNG['res']['descriptions'][$Element],	
 						'Result'	=> $Result,
 					);
 				}
@@ -149,23 +144,23 @@ class ShowOfficierPage
 		$template->assign_vars(array(	
 			'ExtraDMList'			=> $ExtraDMList,
 			'OfficierList'			=> $OfficierList,
-			'user_darkmatter'		=> floor($CurrentUser['darkmatter'] / DM_PRO_OFFICIER_LEVEL),
-			'of_max_lvl'			=> $lang['of_max_lvl'],
-			'of_recruit'			=> $lang['of_recruit'],
-			'of_darkmatter' 		=> sprintf($lang['of_points_per_thousand_darkmatter'], DM_PRO_OFFICIER_LEVEL, $lang['Darkmatter']),
-			'of_available_points'	=> $lang['of_available_points'],
-			'alv_points'			=> $lang['alv_points'],
-			'of_lvl'				=> $lang['of_lvl'],
-			'in_dest_durati'		=> $lang['in_dest_durati'],
-			'of_still'				=> $lang['of_still'],
-			'of_active'				=> $lang['of_active'],
-			'of_update'				=> $lang['of_update'],
-			'in_dest_durati'		=> $lang['in_dest_durati'],
-			'of_dm_trade'			=> sprintf($lang['of_dm_trade'],$lang['Darkmatter']),
+			'user_darkmatter'		=> floor($USER['darkmatter'] / DM_PRO_OFFICIER_LEVEL),
+			'of_max_lvl'			=> $LNG['of_max_lvl'],
+			'of_recruit'			=> $LNG['of_recruit'],
+			'of_darkmatter' 		=> sprintf($LNG['of_points_per_thousand_darkmatter'], DM_PRO_OFFICIER_LEVEL, $LNG['Darkmatter']),
+			'of_available_points'	=> $LNG['of_available_points'],
+			'alv_points'			=> $LNG['alv_points'],
+			'of_lvl'				=> $LNG['of_lvl'],
+			'in_dest_durati'		=> $LNG['in_dest_durati'],
+			'of_still'				=> $LNG['of_still'],
+			'of_active'				=> $LNG['of_active'],
+			'of_update'				=> $LNG['of_update'],
+			'in_dest_durati'		=> $LNG['in_dest_durati'],
+			'of_dm_trade'			=> sprintf($LNG['of_dm_trade'],$LNG['Darkmatter']),
 		));
 		
 		$template->show("officier_overview.tpl");
-		$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
+		$PlanetRess->SavePlanetToDB($USER, $PLANET);
 	}
 }
 ?>

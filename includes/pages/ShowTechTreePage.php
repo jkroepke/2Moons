@@ -19,24 +19,24 @@
 # *                                                                          #
 ##############################################################################
 
-if(!defined('INSIDE')){ die(header("location:../../"));}
+if(!defined('INSIDE')) die('Hacking attempt!');
 
-function ShowTechTreePage($CurrentUser, $CurrentPlanet)
+function ShowTechTreePage()
 {
-	global $resource, $requeriments, $lang, $reslist;
+	global $resource, $requeriments, $LNG, $reslist, $USER, $PLANET;
 	
-	$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
-
+	$PlanetRess = new ResourceUpdate();
+	$PlanetRess->CalcResource()->SavePlanetToDB();
+	
 	$template	= new template();
 	
-	$template->set_vars($CurrentUser, $CurrentPlanet);
 	$template->page_header();
 	$template->page_topnav();
 	$template->page_leftmenu();
 	$template->page_planetmenu();
 	$template->page_footer();
 	$RequeriList = array();
-	foreach($lang['tech'] as $Element => $ElementName)
+	foreach($LNG['tech'] as $Element => $ElementName)
 	{
 		if(in_array($Element, $reslist['dmfunc'])) continue;
 		
@@ -48,7 +48,7 @@ function ShowTechTreePage($CurrentUser, $CurrentPlanet)
 			{
 				foreach($requeriments[$Element] as $RegID => $RedCount)
 				{
-					$RequeriList[$Element][]	= array('id' => $RegID, 'count' => $RedCount, 'own' => (isset($CurrentPlanet[$resource[$RegID]])) ? $CurrentPlanet[$resource[$RegID]] : $CurrentUser[$resource[$RegID]]);
+					$RequeriList[$Element][]	= array('id' => $RegID, 'count' => $RedCount, 'own' => (isset($PLANET[$resource[$RegID]])) ? $PLANET[$resource[$RegID]] : $USER[$resource[$RegID]]);
 				}
 			}
 			$TechTreeList[]	= array(
@@ -61,12 +61,11 @@ function ShowTechTreePage($CurrentUser, $CurrentPlanet)
 	
 	$template->assign_vars(array(
 		'TechTreeList'		=> $TechTreeList,
-		'tt_requirements'	=> $lang['tt_requirements'],
-		'lang'				=> $lang['tech'],
-		'tt_lvl'			=> $lang['tt_lvl'],
+		'tt_requirements'	=> $LNG['tt_requirements'],
+		'lang'				=> $LNG['tech'],
+		'tt_lvl'			=> $LNG['tt_lvl'],
 	));
 
 	$template->show("techtree_overview.tpl");
-	$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 }
 ?>

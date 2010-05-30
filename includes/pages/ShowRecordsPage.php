@@ -19,18 +19,18 @@
 # *                                                                          #
 ##############################################################################
 
-if(!defined('INSIDE')){ die(header("location:../../"));}
+if(!defined('INSIDE')) die('Hacking attempt!');
 
-function ShowRecordsPage($CurrentUser, $CurrentPlanet)
+function ShowRecordsPage()
 {
-	global $lang, $resource, $db, $game_config;
+	global $USER, $PLANET, $LNG, $resource, $db, $CONF;
 
 	require_once(ROOT_PATH."cache/CacheRecords.php");
 	
-	$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
+	$PlanetRess = new ResourceUpdate();
+	$PlanetRess->CalcResource()->SavePlanetToDB();
 
 	$template	= new template();
-	$template->set_vars($CurrentUser, $CurrentPlanet);
 	$template->page_header();
 	$template->page_topnav();
 	$template->page_leftmenu();
@@ -39,50 +39,49 @@ function ShowRecordsPage($CurrentUser, $CurrentPlanet)
 	
 	foreach($RecordsArray as $ElementID => $ElementIDArray) {
 		if ($ElementID >=   1 && $ElementID <=  39 || $ElementID == 44) {
-			$Builds[$lang['tech'][$ElementID]]	= array(
-				'winner'	=> ($ElementIDArray['maxlvl'] != 0) ? $ElementIDArray['username'] : $lang['rec_rien'],
-				'count'		=> ($ElementIDArray['maxlvl'] != 0) ? pretty_number( $ElementIDArray['maxlvl'] ) : $lang['rec_rien'],
+			$Builds[$LNG['tech'][$ElementID]]	= array(
+				'winner'	=> ($ElementIDArray['maxlvl'] != 0) ? $ElementIDArray['username'] : $LNG['rec_rien'],
+				'count'		=> ($ElementIDArray['maxlvl'] != 0) ? pretty_number( $ElementIDArray['maxlvl'] ) : $LNG['rec_rien'],
 			);
 		} elseif ($ElementID >=  41 && $ElementID <=  99 && $ElementID != 44) {
-			$MoonsBuilds[$lang['tech'][$ElementID]]	= array(
-				'winner'	=> ($ElementIDArray['maxlvl'] != 0) ? $ElementIDArray['username'] : $lang['rec_rien'],
-				'count'		=> ($ElementIDArray['maxlvl'] != 0) ? pretty_number( $ElementIDArray['maxlvl'] ) : $lang['rec_rien'],
+			$MoonsBuilds[$LNG['tech'][$ElementID]]	= array(
+				'winner'	=> ($ElementIDArray['maxlvl'] != 0) ? $ElementIDArray['username'] : $LNG['rec_rien'],
+				'count'		=> ($ElementIDArray['maxlvl'] != 0) ? pretty_number( $ElementIDArray['maxlvl'] ) : $LNG['rec_rien'],
 			);
 		} elseif ($ElementID >= 101 && $ElementID <= 199) {
-			$Techno[$lang['tech'][$ElementID]]	= array(
-				'winner'	=> ($ElementIDArray['maxlvl'] != 0) ? $ElementIDArray['username'] : $lang['rec_rien'],
-				'count'		=> ($ElementIDArray['maxlvl'] != 0) ? pretty_number( $ElementIDArray['maxlvl'] ) : $lang['rec_rien'],
+			$Techno[$LNG['tech'][$ElementID]]	= array(
+				'winner'	=> ($ElementIDArray['maxlvl'] != 0) ? $ElementIDArray['username'] : $LNG['rec_rien'],
+				'count'		=> ($ElementIDArray['maxlvl'] != 0) ? pretty_number( $ElementIDArray['maxlvl'] ) : $LNG['rec_rien'],
 			);
 		} elseif ($ElementID >= 201 && $ElementID <= 399) {
-			$Fleet[$lang['tech'][$ElementID]]	= array(
-				'winner'	=> ($ElementIDArray['maxlvl'] != 0) ? $ElementIDArray['username'] : $lang['rec_rien'],
-				'count'		=> ($ElementIDArray['maxlvl'] != 0) ? pretty_number( $ElementIDArray['maxlvl'] ) : $lang['rec_rien'],
+			$Fleet[$LNG['tech'][$ElementID]]	= array(
+				'winner'	=> ($ElementIDArray['maxlvl'] != 0) ? $ElementIDArray['username'] : $LNG['rec_rien'],
+				'count'		=> ($ElementIDArray['maxlvl'] != 0) ? pretty_number( $ElementIDArray['maxlvl'] ) : $LNG['rec_rien'],
 			);
 		} elseif ($ElementID >= 401 && $ElementID <= 599) {
-			$Defense[$lang['tech'][$ElementID]]	= array(
-				'winner'	=> ($ElementIDArray['maxlvl'] != 0) ? $ElementIDArray['username'] : $lang['rec_rien'],
-				'count'		=> ($ElementIDArray['maxlvl'] != 0) ? pretty_number( $ElementIDArray['maxlvl'] ) : $lang['rec_rien'],
+			$Defense[$LNG['tech'][$ElementID]]	= array(
+				'winner'	=> ($ElementIDArray['maxlvl'] != 0) ? $ElementIDArray['username'] : $LNG['rec_rien'],
+				'count'		=> ($ElementIDArray['maxlvl'] != 0) ? pretty_number( $ElementIDArray['maxlvl'] ) : $LNG['rec_rien'],
 			);
 		}
 	}
 	
 	$Records	= array(
-		$lang['rec_build']	=> $Builds,
-		$lang['rec_specb']	=> $MoonsBuilds,
-		$lang['rec_techn']	=> $Techno,
-		$lang['rec_fleet']	=> $Fleet,
-		$lang['rec_defes']	=> $Defense,
+		$LNG['rec_build']	=> $Builds,
+		$LNG['rec_specb']	=> $MoonsBuilds,
+		$LNG['rec_techn']	=> $Techno,
+		$LNG['rec_fleet']	=> $Fleet,
+		$LNG['rec_defes']	=> $Defense,
 	);
 	
 	$template->assign_vars(array(	
 		'Records'	 	=> $Records,
-		'update'		=> sprintf($lang['rec_last_update_on'],date("d. M Y, H:i:s",$game_config['stat_last_update'])),
-		'level'			=> $lang['rec_level'],
-		'player'		=> $lang['rec_playe'],
+		'update'		=> sprintf($LNG['rec_last_update_on'],date("d. M Y, H:i:s",$CONF['stat_last_update'])),
+		'level'			=> $LNG['rec_level'],
+		'player'		=> $LNG['rec_playe'],
 	));
 	
 	$template->show("records_overview.tpl");
-	$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 }
 
 ?> 

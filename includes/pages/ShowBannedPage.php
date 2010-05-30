@@ -19,15 +19,15 @@
 # *                                                                          #
 ##############################################################################
 
-if(!defined('INSIDE')){ die(header("location:../../"));}
+if(!defined('INSIDE')) die('Hacking attempt!');
 
-function ShowBannedPage($CurrentUser, $CurrentPlanet)
+function ShowBannedPage()
 {
-	global $lang, $db;
-	$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
+	global $USER, $PLANET, $LNG, $db;
+	$PlanetRess = new ResourceUpdate();
+	$PlanetRess->CalcResource()->SavePlanetToDB();
 
 	$template	= new template();
-	$template->set_vars($CurrentUser, $CurrentPlanet);
 	$template->page_header();
 	$template->page_topnav();
 	$template->page_leftmenu();
@@ -45,24 +45,25 @@ function ShowBannedPage($CurrentUser, $CurrentPlanet)
 			'to'		=> date("d. M Y H:i:s",$u['longer']),
 			'admin'		=> $u['author'],
 			'mail'		=> $u['email'],
-			'info'		=> sprintf($lang['bn_writemail'], $u['author']),
+			'info'		=> sprintf($LNG['bn_writemail'], $u['author']),
 		);
 	}
 	
+	$db->free_result($query);
+	
 	$template->assign_vars(array(	
 		'PrangerList'					=> $PrangerList,
-		'bn_no_players_banned'		=> $lang['bn_no_players_banned'],
-		'bn_exists'					=> $lang['bn_exists'],
-		'bn_players_banned'			=> $lang['bn_players_banned'],
-		'bn_players_banned_list'	=> $lang['bn_players_banned_list'],
-		'bn_player'					=> $lang['bn_player'],
-		'bn_reason'					=> $lang['bn_reason'],
-		'bn_from'					=> $lang['bn_from'],
-		'bn_until'					=> $lang['bn_until'],
-		'bn_by'						=> $lang['bn_by'],
+		'bn_no_players_banned'		=> $LNG['bn_no_players_banned'],
+		'bn_exists'					=> $LNG['bn_exists'],
+		'bn_players_banned'			=> $LNG['bn_players_banned'],
+		'bn_players_banned_list'	=> $LNG['bn_players_banned_list'],
+		'bn_player'					=> $LNG['bn_player'],
+		'bn_reason'					=> $LNG['bn_reason'],
+		'bn_from'					=> $LNG['bn_from'],
+		'bn_until'					=> $LNG['bn_until'],
+		'bn_by'						=> $LNG['bn_by'],
 	));
 	
 	$template->show("banned_overview.tpl");
-	$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 }
 ?>

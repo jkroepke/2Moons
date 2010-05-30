@@ -29,21 +29,21 @@ include(ROOT_PATH . 'extension.inc');
 include(ROOT_PATH . 'common.'.PHP_EXT);
 
 
-if ($user['authlevel'] < 2) die(message ($lang['not_enough_permissions']));
+if ($USER['authlevel'] < 2) die(message ($LNG['not_enough_permissions']));
 
 	require_once(ROOT_PATH.'includes/classes/class.statbuilder.php');
 	$stat			= new statbuilder();
 	$result			= $stat->MakeStats();
-	$memory_p		= str_replace(array("%p", "%m"), $result['memory_peak'], $lang['sb_top_memory']);
-	$memory_e		= str_replace(array("%e", "%m"), $result['end_memory'], $lang['sb_final_memory']);
-	$memory_i		= str_replace(array("%i", "%m"), $result['initial_memory'], $lang['sb_start_memory']);
-	$stats_end_time	= str_replace("%t", $result['totaltime'], $lang['sb_stats_update']);
-	$stats_sql		= sprintf($lang['sb_sql_counts'], $result['sql_count']);
+	$memory_p		= str_replace(array("%p", "%m"), $result['memory_peak'], $LNG['sb_top_memory']);
+	$memory_e		= str_replace(array("%e", "%m"), $result['end_memory'], $LNG['sb_final_memory']);
+	$memory_i		= str_replace(array("%i", "%m"), $result['initial_memory'], $LNG['sb_start_memory']);
+	$stats_end_time	= str_replace("%t", $result['totaltime'], $LNG['sb_stats_update']);
+	$stats_sql		= sprintf($LNG['sb_sql_counts'], $result['sql_count']);
 
 	update_config('stat_last_update', $result['stats_time']);
 
 
-	message($lang['sb_stats_updated'].$stats_end_time.$memory_i.$memory_e.$memory_p.$stats_sql);
+	message($LNG['sb_stats_updated'].$stats_end_time.$memory_i.$memory_e.$memory_p.$stats_sql);
 
 
 ?>

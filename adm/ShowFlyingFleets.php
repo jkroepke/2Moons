@@ -32,7 +32,7 @@ include(ROOT_PATH. 'includes/classes/class.FlyingFleetsTable.' . PHP_EXT);
 
 if ($Observation != 1) die();
 
-$parse				= $lang;
+$parse				= $LNG;
 $FlyingFleetsTable 	= new FlyingFleetsTable();
 $parse['flt_table'] = $FlyingFleetsTable->BuildFlyingFleetTable();
 

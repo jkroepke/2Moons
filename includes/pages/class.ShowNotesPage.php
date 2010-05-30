@@ -19,27 +19,27 @@
 # *                                                                          #
 ##############################################################################
 
-if(!defined('INSIDE')){ die(header("location:../../"));}
+if(!defined('INSIDE')) die('Hacking attempt!');
 
 class ShowNotesPage
 {
-	private function InsertNotes($CurrentUserID)
+	private function InsertNotes()
 	{
-		global $db, $lang;
+		global $db, $LNG, $USER;
 		$priority 	= request_var('priority',2);
 		$title 		= request_var('title', '', true);
 		$text 		= request_var('text', '', true);
 		$id			= request_var('id', 0);	
-		$title 		= !empty($title) ? $title : $lang['nt_no_title'];
-		$text 		= !empty($text) ? $text : $lang['nt_no_text'];
-		$sql 		= ($id == 0) ? "INSERT INTO ".NOTES." SET owner = '".$CurrentUserID."', time = '".time()."', priority = '".$db->sql_escape($priority)."', title = '".$db->sql_escape($title)."', text = '".$db->sql_escape($text)."';" : "UPDATE ".NOTES." SET time = '".time()."', priority = '".$db->sql_escape($priority)."', title = '".$db->sql_escape($title)."', text = '".$db->sql_escape($text)."' WHERE id = '".$db->sql_escape($id)."';";
+		$title 		= !empty($title) ? $title : $LNG['nt_no_title'];
+		$text 		= !empty($text) ? $text : $LNG['nt_no_text'];
+		$sql 		= ($id == 0) ? "INSERT INTO ".NOTES." SET owner = '".$USER['id']."', time = '".TIMESTAMP."', priority = '".$db->sql_escape($priority)."', title = '".$db->sql_escape($title)."', text = '".$db->sql_escape($text)."';" : "UPDATE ".NOTES." SET time = '".TIMESTAMP."', priority = '".$db->sql_escape($priority)."', title = '".$db->sql_escape($title)."', text = '".$db->sql_escape($text)."' WHERE id = '".$db->sql_escape($id)."';";
 		$db->query($sql);
-		$this->ShowIndexPage($CurrentUserID);
+		$this->ShowIndexPage();
 	}
 	
-	private function DeleteNotes($CurrentUserID)
+	private function DeleteNotes()
 	{
-		global $db;
+		global $db, $USER;
 		if(isset($_POST['delmes']) && is_array($_POST['delmes']))
 		{
 			$SQLWhere = array();
@@ -48,42 +48,42 @@ class ShowNotesPage
 				$SQLWhere[] = "`id` = '".(int) $id."'";
 			}
 			
-			$db->query("DELETE FROM ".NOTES." WHERE (".implode(" OR ",$SQLWhere).") AND owner = '".$CurrentUserID."';");
+			$db->query("DELETE FROM ".NOTES." WHERE (".implode(" OR ",$SQLWhere).") AND owner = '".$USER['id']."';");
 		}
-		$this->ShowIndexPage($CurrentUserID);
+		$this->ShowIndexPage();
 	}
 	
 	private function CreateNotes()
 	{
-		global $lang;
+		global $LNG;
 		$template	= new template();
 
 		$template->page_header();
 		$template->page_footer();
 		
 		$template->assign_vars(array(	
-			'nt_create_note'	=> $lang['nt_create_note'],
-			'nt_priority'		=> $lang['nt_priority'],
-			'nt_important'		=> $lang['nt_important'],
-			'nt_normal'			=> $lang['nt_normal'],
-			'nt_unimportant'	=> $lang['nt_unimportant'],
-			'nt_subject_note'	=> $lang['nt_subject_note'],
-			'nt_reset'			=> $lang['nt_reset'],
-			'nt_save'			=> $lang['nt_save'],
-			'nt_note'			=> $lang['nt_note'],
-			'nt_characters'		=> $lang['nt_characters'],
-			'nt_back'			=> $lang['nt_back'],
+			'nt_create_note'	=> $LNG['nt_create_note'],
+			'nt_priority'		=> $LNG['nt_priority'],
+			'nt_important'		=> $LNG['nt_important'],
+			'nt_normal'			=> $LNG['nt_normal'],
+			'nt_unimportant'	=> $LNG['nt_unimportant'],
+			'nt_subject_note'	=> $LNG['nt_subject_note'],
+			'nt_reset'			=> $LNG['nt_reset'],
+			'nt_save'			=> $LNG['nt_save'],
+			'nt_note'			=> $LNG['nt_note'],
+			'nt_characters'		=> $LNG['nt_characters'],
+			'nt_back'			=> $LNG['nt_back'],
 		));
 		
 		$template->show('notes_send_form.tpl');
 	}
 
-	private function ShowNotes($CurrentUserID)
+	private function ShowNotes()
 	{
-		global $lang, $db;
+		global $LNG, $db, $USER;
 
 		$NotesID	= request_var('id', 0);
-		$Note 		= $db->fetch_array($db->query("SELECT * FROM ".NOTES." WHERE id = '".$NotesID."' AND owner = '".$CurrentUserID."';"));
+		$Note 		= $db->uniquequery("SELECT * FROM ".NOTES." WHERE id = '".$NotesID."' AND owner = '".$USER['id']."';");
 
 		if(!$Note)
 			die(header("Location: game.php?page=notes"));
@@ -94,18 +94,18 @@ class ShowNotesPage
 		$template->page_footer();
 
 		$template->assign_vars(array(	
-			'nt_edit_note'		=> $lang['nt_edit_note'],
-			'nt_priority'		=> $lang['nt_priority'],
-			'nt_important'		=> $lang['nt_important'],
-			'nt_normal'			=> $lang['nt_normal'],
-			'nt_unimportant'	=> $lang['nt_unimportant'],
-			'nt_subject_note'	=> $lang['nt_subject_note'],
-			'nt_reset'			=> $lang['nt_reset'],
-			'nt_save'			=> $lang['nt_save'],
-			'nt_note'			=> $lang['nt_note'],
-			'nt_characters'		=> $lang['nt_characters'],
-			'nt_back'			=> $lang['nt_back'],
-			'PriorityList'		=> array(2 => $lang['nt_important'], 1 => $lang['nt_normal'], 0 => $lang['nt_unimportant']),
+			'nt_edit_note'		=> $LNG['nt_edit_note'],
+			'nt_priority'		=> $LNG['nt_priority'],
+			'nt_important'		=> $LNG['nt_important'],
+			'nt_normal'			=> $LNG['nt_normal'],
+			'nt_unimportant'	=> $LNG['nt_unimportant'],
+			'nt_subject_note'	=> $LNG['nt_subject_note'],
+			'nt_reset'			=> $LNG['nt_reset'],
+			'nt_save'			=> $LNG['nt_save'],
+			'nt_note'			=> $LNG['nt_note'],
+			'nt_characters'		=> $LNG['nt_characters'],
+			'nt_back'			=> $LNG['nt_back'],
+			'PriorityList'		=> array(2 => $LNG['nt_important'], 1 => $LNG['nt_normal'], 0 => $LNG['nt_unimportant']),
 			'priority'			=> $Note['priority'],
 			'id'				=> $Note['id'],
 			'ntitle'			=> $Note['title'],
@@ -116,16 +116,16 @@ class ShowNotesPage
 
 	}
 	
-	private function ShowIndexPage($CurrentUserID)
+	private function ShowIndexPage()
 	{
-		global $lang, $db;
+		global $LNG, $db, $USER;
 
 		$template	= new template();
 
 		$template->page_header();
 		$template->page_footer();
 		
-		$NotesRAW = $db->query("SELECT * FROM ".NOTES." WHERE owner = ".$CurrentUserID." ORDER BY time DESC;");
+		$NotesRAW = $db->query("SELECT * FROM ".NOTES." WHERE owner = ".$USER['id']." ORDER BY time DESC;");
 
 		while($Note = $db->fetch_array($NotesRAW))
 		{
@@ -140,20 +140,20 @@ class ShowNotesPage
 		
 		$template->assign_vars(array(	
 			'NoteList'					=> $NoteList,
-			'nt_priority'				=> $lang['nt_you_dont_have_notes'],
-			'nt_size_note'				=> $lang['nt_size_note'],
-			'nt_date_note'				=> $lang['nt_date_note'],
-			'nt_notes'					=> $lang['nt_notes'],
-			'nt_create_new_note'		=> $lang['nt_create_new_note'],
-			'nt_subject_note'			=> $lang['nt_subject_note'],
-			'nt_dlte_note'				=> $lang['nt_dlte_note'],
-			'nt_you_dont_have_notes'	=> $lang['nt_you_dont_have_notes'],
+			'nt_priority'				=> $LNG['nt_you_dont_have_notes'],
+			'nt_size_note'				=> $LNG['nt_size_note'],
+			'nt_date_note'				=> $LNG['nt_date_note'],
+			'nt_notes'					=> $LNG['nt_notes'],
+			'nt_create_new_note'		=> $LNG['nt_create_new_note'],
+			'nt_subject_note'			=> $LNG['nt_subject_note'],
+			'nt_dlte_note'				=> $LNG['nt_dlte_note'],
+			'nt_you_dont_have_notes'	=> $LNG['nt_you_dont_have_notes'],
 		));
 		
 		$template->show('notes_body.tpl');
 	}
 				
-	public function ShowNotesPage($CurrentUser)
+	public function ShowNotesPage()
 	{
 
 		$action	= request_var('action','');
@@ -164,16 +164,16 @@ class ShowNotesPage
 				$this->CreateNotes();
 			break;
 			case "send":
-				$this->InsertNotes($CurrentUser['id']);
+				$this->InsertNotes();
 			break;
 			case "show":
-				$this->ShowNotes($CurrentUser['id']);
+				$this->ShowNotes();
 			break;
 			case "delete":
-				$this->DeleteNotes($CurrentUser['id']);
+				$this->DeleteNotes();
 			break;
 			default:
-				$this->ShowIndexPage($CurrentUser['id']);
+				$this->ShowIndexPage();
 			break;
 		}
 	}

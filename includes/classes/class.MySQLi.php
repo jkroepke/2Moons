@@ -19,17 +19,12 @@
 # *                                                                          #
 ##############################################################################
 
-if(!defined('INSIDE')){ die(header("location:../../"));}
+if(!defined('INSIDE')) die('Hacking attempt!');
 
 
-class DB_mysqli
+class DB_mysqli extends mysqli
 {
 	public $mysqli;
-	protected $host;
-	protected $port;
-	protected $user;
-	protected $pw;
-	protected $database;
 	protected $queryCount = 0;
 	protected $qTime = array();
 	protected $query;
@@ -46,16 +41,20 @@ class DB_mysqli
 	 *
 	 * @return void
 	 */
-	public function __construct($host, $user, $pw, $db, $port = null)
+	public function __construct()
 	{
-		ignore_user_abort(true);
-
-		$this->host 	= $host;
-		$this->user 	= $user;
-		$this->pw 		= $pw;
-		$this->database = $db;
-		$this->port 	= $port;
+		global $database;
 		$this->time		= 0;
+		
+		@parent::__construct($database["host"], $database["user"], $database["userpw"], $database["databasename"], $database["port"]);
+
+		if($this->connect_errno)
+		{
+			throw new Exception("Connection to database failed: ".$this->connect_error);
+			exit;
+		}		
+		parent::set_charset("utf8");
+		return true;
 	}
 	
 	/**
@@ -65,25 +64,7 @@ class DB_mysqli
 	 */
 	public function __destruct()
 	{	
-		$this->mysqli->close;
-	}
-
-	/**
-	 * Establish database connection and select database to use.
-	 *
-	 * @return void
-	 */
-	private function connect()
-	{
-		$this->mysqli = new mysqli($this->host, $this->user, $this->pw, $this->database, $this->port);
-
-		if(mysqli_connect_errno())
-		{
-			trigger_error("Connection to database failed: ".mysqli_connect_error(),E_USER_ERROR);
-			return false;
-		}		
-		$this->mysqli->set_charset("utf8");
-		return true;
+		parent::close();
 	}
 
 	/**
@@ -93,33 +74,47 @@ class DB_mysqli
 	 *
 	 * @return resource	Results of the query
 	 */
-	public function query($sql)
+	public function query($resource)
 	{
-		if(!is_object($this->mysqli))
-			$this->connect();
-		
-		if($GLOBALS['game_config']['debug'] == 1)
-		{
-			$temp = debug_backtrace();
-			file_put_contents(ROOT_PATH."adm/logs/querylog_".date("d.m.y").".log", date("H:i:s")." ".$temp[0]['file']." on ".$temp[0]['line']." ".$sql."\n", FILE_APPEND);
-		}
 		$Timer	= microtime(true);
-		if($result = $this->mysqli->query($sql))
+		if($result = parent::query($resource))
 		{
 			$this->queryCount++;
 			return $result;
 		}
 		else
 		{
-            $temp = debug_backtrace();
-			echo str_replace($_SERVER["DOCUMENT_ROOT"],'.',$temp[0]['file']) . " on " . $temp[0]['line'] . ":<br>";
-			echo ("<center><table style=\"z-index:1001;width:80%\"><tr><th align=\"center\">SQL Error (".$this->mysqli->error."): ".$this->error."<br /><br />Query Code: ".$sql."</th></tr></table></center>");
+			throw new Exception("SQL Error: ".$this->error."<br /><br />Query Code: ".$resource);
 		}
 		$this->time	+= (microtime(true) - $Timer);
 		return;
 		
 	}
-	
+	/**
+	 * Purpose a query on selected database.
+	 *
+	 * @param string	The SQL query
+	 *
+	 * @return resource	Results of the query
+	 */
+	public function uniquequery($resource)
+	{		
+		$Timer	= microtime(true);
+		if($result = parent::query($resource))
+		{
+			$this->queryCount++;
+			$Return = $result->fetch_array(MYSQLI_ASSOC);
+			$result->close();
+			return $Return;
+			$this->time	+= (microtime(true) - $Timer);
+		}
+		else
+		{
+			throw new Exception("SQL Error: ".$this->error."<br /><br />Query Code: ".$resource);
+		}
+		return;
+		
+	}	
 	/**
 	 * Returns the row of a query as an object.
 	 *
@@ -256,7 +251,7 @@ class DB_mysqli
 	 */
 	public function sql_escape($string)
 	{
-		return $this->mysqli->real_escape_string($string);
+		return parent::escape_string($string);
 	}
 
 	/**
@@ -266,7 +261,7 @@ class DB_mysqli
 	 */
 	public function getVersion()
 	{
-		return $this->mysqli->get_client_info();
+		return parent::get_client_info();
 	}
 	
 	/**
@@ -276,7 +271,7 @@ class DB_mysqli
 	 */
 	public function getServerVersion()
 	{
-		return mysqli_get_server_info($this->mysqli);
+		return $this->server_info;
 	}
 
 	/**
@@ -310,42 +305,31 @@ class DB_mysqli
 	 */
 	public function free_result($resource)
 	{
-		return $resource->free_result();
+		return $resource->close();
 	}
 	
 	public function multi_query($resource, $clear_result_cache = true)
 	{	
-		if(!is_object($this->mysqli))
-			$this->connect();
-		
-		if($GLOBALS['game_config']['debug'] == 1)
-		{
-			$temp = debug_backtrace();
-			file_put_contents(ROOT_PATH."adm/logs/querylog_".date("d.m.y").".log", date("H:i:s")." ".$temp[0]['file']." on ".$temp[0]['line']." ".str_replace("\n","",$resource)."\n", FILE_APPEND);
-		}
-		
 		$Timer	= microtime(true);
-		if($this->mysqli->multi_query($resource))
+		if(parent::multi_query($resource))
 		{
 			if ($clear_result_cache) {
 				do {
-					if($result = $this->mysqli->store_result())
+					if($result = parent::store_result())
 					{
 						$this->free_result($result);
 						$this->queryCount++;
 					}
-					if(!$this->mysqli->more_results()){break;}
+					if(!parent::more_results()){break;}
 					
-				} while ($this->mysqli->next_result());
+				} while (parent::next_result());
 			
 			}
 		}
 		else
 		{
-            $temp = debug_backtrace();
-			echo str_replace($_SERVER["DOCUMENT_ROOT"],'.',$temp[0]['file']) . " on " . $temp[0]['line'] . ":<br>";
-			echo ("<center><table style=\"z-index:1001;width:80%\"><tr><th align=\"center\">SQL Error (".$this->mysqli->error."): ".$this->error."<br /><br />Query Code: ".$resource."</th></tr></table></center>");
-		}
+			throw new Exception("SQL Error: ".$this->error."<br /><br />Query Code: ".$resource);
+    	}
 		$this->time	+= (microtime(true) - $Timer);
 	}
 	

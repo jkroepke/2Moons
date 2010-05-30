@@ -31,7 +31,7 @@ include(ROOT_PATH . 'common.'.PHP_EXT);
 
 if ($EditUsers != 1) die();
 
-	$parse = $lang;
+	$parse = $LNG;
 
 	if ($_POST['md5q'] != "")
 		$db->query ("UPDATE ".USERS." SET `password` = '" . md5 ($_POST['md5q']) . "' WHERE `username` = '".$_POST['user']."';");

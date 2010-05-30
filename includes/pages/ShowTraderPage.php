@@ -19,18 +19,19 @@
 # *                                                                          #
 ##############################################################################
 
-if(!defined('INSIDE')){ die(header("location:../../"));}
+if(!defined('INSIDE')) die('Hacking attempt!');
 
-function ShowTraderPage($CurrentUser, $CurrentPlanet)
+function ShowTraderPage()
 {
-	global  $lang, $db;
+	global $USER, $PLANET, $LNG, $db;
 	$ress 		= request_var('ress', '');
 	$action 	= request_var('action', '');
 	$metal		= round(request_var('metal', 0.0), 0);
 	$crystal 	= round(request_var('crystal', 0.0), 0);
 	$deut		= round(request_var('deuterium', 0.0), 0);
 
-	$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
+	$PlanetRess = new ResourceUpdate();
+	
 	$template	= new template();
 	$template->loadscript("trader.js");
 	$template->page_topnav();
@@ -45,36 +46,37 @@ function ShowTraderPage($CurrentUser, $CurrentPlanet)
 			case 'metal':
 				if($action == "trade")
 				{
-					if ($CurrentUser['darkmatter'] < DARKMATTER_FOR_TRADER)
-						$template->message(sprintf($lang['tr_empty_darkmatter'], $lang['Darkmatter']), "game." . PHP_EXT . "?page=trader", 1);
+					if ($USER['darkmatter'] < DARKMATTER_FOR_TRADER)
+						$template->message(sprintf($LNG['tr_empty_darkmatter'], $LNG['Darkmatter']), "game." . PHP_EXT . "?page=trader", 1);
 					elseif ($crystal < 0 || $deut < 0)
-						$template->message($lang['tr_only_positive_numbers'], "game." . PHP_EXT . "?page=trader",1);
+						$template->message($LNG['tr_only_positive_numbers'], "game." . PHP_EXT . "?page=trader",1);
 					else
 					{
 						$trade	= ($crystal * 2 + $deut * 4);
-						
-						if ($CurrentPlanet['metal'] > $trade)
+						$PlanetRess->CalcResource();
+						if ($PLANET['metal'] > $trade)
 						{
-							$CurrentPlanet['metal']     -= $trade;
-							$CurrentPlanet['crystal']   += $crystal;
-							$CurrentPlanet['deuterium'] += $deut;
-							$CurrentUser['darkmatter']	-= DARKMATTER_FOR_TRADER;
-							$template->set_vars($CurrentUser, $CurrentPlanet);
-							$template->message($lang['tr_exchange_done'],"game." . PHP_EXT . "?page=trader",1);
+							$PLANET['metal']     -= $trade;
+							$PLANET['crystal']   += $crystal;
+							$PLANET['deuterium'] += $deut;
+							$USER['darkmatter']	-= DARKMATTER_FOR_TRADER;
+							$template->message($LNG['tr_exchange_done'],"game." . PHP_EXT . "?page=trader",1);
 						}
 						else
-							$template->message($lang['tr_not_enought_metal'], "game." . PHP_EXT . "?page=trader", 1);
+							$template->message($LNG['tr_not_enought_metal'], "game." . PHP_EXT . "?page=trader", 1);
+							
+						$PlanetRess->SavePlanetToDB();
 					}
 				} else {
 					$template->assign_vars(array(
-						'tr_resource'		=> $lang['tr_resource'],
-						'tr_sell_metal'		=> $lang['tr_sell_metal'],
-						'tr_amount'			=> $lang['tr_amount'],
-						'tr_exchange'		=> $lang['tr_exchange'],	
-						'tr_quota_exchange'	=> $lang['tr_quota_exchange'],
-						'Metal'				=> $lang['Metal'],
-						'Crystal'			=> $lang['Crystal'],
-						'Deuterium'			=> $lang['Deuterium'],
+						'tr_resource'		=> $LNG['tr_resource'],
+						'tr_sell_metal'		=> $LNG['tr_sell_metal'],
+						'tr_amount'			=> $LNG['tr_amount'],
+						'tr_exchange'		=> $LNG['tr_exchange'],	
+						'tr_quota_exchange'	=> $LNG['tr_quota_exchange'],
+						'Metal'				=> $LNG['Metal'],
+						'Crystal'			=> $LNG['Crystal'],
+						'Deuterium'			=> $LNG['Deuterium'],
 						'mod_ma_res_a' 		=> "2",
 						'mod_ma_res_b' 		=> "4",
 						'ress' 				=> $ress,
@@ -86,36 +88,37 @@ function ShowTraderPage($CurrentUser, $CurrentPlanet)
 			case 'crystal':
 				if($action == "trade")
 				{
-					if ($CurrentUser['darkmatter'] < DARKMATTER_FOR_TRADER)
-						$template->message(sprintf($lang['tr_empty_darkmatter'], $lang['Darkmatter']), "game." . PHP_EXT . "?page=trader", 1);
+					if ($USER['darkmatter'] < DARKMATTER_FOR_TRADER)
+						$template->message(sprintf($LNG['tr_empty_darkmatter'], $LNG['Darkmatter']), "game." . PHP_EXT . "?page=trader", 1);
 					elseif ($metal < 0 || $deut < 0)
-						$template->message($lang['tr_only_positive_numbers'], "game." . PHP_EXT . "?page=trader",1);
+						$template->message($LNG['tr_only_positive_numbers'], "game." . PHP_EXT . "?page=trader",1);
 					else
 					{
 						$trade	= ($metal * 0.5 + $deut * 2);						
-
-						if ($CurrentPlanet['crystal'] > $trade)
+						$PlanetRess->CalcResource();
+						if ($PLANET['crystal'] > $trade)
 						{
-							$CurrentPlanet['metal']     += $metal;
-							$CurrentPlanet['crystal']   -= $trade;
-							$CurrentPlanet['deuterium'] += $deut;
-							$CurrentUser['darkmatter']	-= DARKMATTER_FOR_TRADER;
-							$template->set_vars($CurrentUser, $CurrentPlanet);
-							$template->message($lang['tr_exchange_done'],"game." . PHP_EXT . "?page=trader",1);
+							$PLANET['metal']     += $metal;
+							$PLANET['crystal']   -= $trade;
+							$PLANET['deuterium'] += $deut;
+							$USER['darkmatter']	-= DARKMATTER_FOR_TRADER;
+							$template->message($LNG['tr_exchange_done'],"game." . PHP_EXT . "?page=trader",1);
 						}
 						else
-							$template->message($lang['tr_not_enought_crystal'], "game." . PHP_EXT . "?page=trader", 1);
+							$template->message($LNG['tr_not_enought_crystal'], "game." . PHP_EXT . "?page=trader", 1);
+						
+						$PlanetRess->SavePlanetToDB();
 					}
 				} else {
 					$template->assign_vars(array(
-						'tr_resource'		=> $lang['tr_resource'],
-						'tr_sell_crystal'	=> $lang['tr_sell_crystal'],
-						'tr_amount'			=> $lang['tr_amount'],
-						'tr_exchange'		=> $lang['tr_exchange'],	
-						'tr_quota_exchange'	=> $lang['tr_quota_exchange'],
-						'Metal'				=> $lang['Metal'],
-						'Crystal'			=> $lang['Crystal'],
-						'Deuterium'			=> $lang['Deuterium'],
+						'tr_resource'		=> $LNG['tr_resource'],
+						'tr_sell_crystal'	=> $LNG['tr_sell_crystal'],
+						'tr_amount'			=> $LNG['tr_amount'],
+						'tr_exchange'		=> $LNG['tr_exchange'],	
+						'tr_quota_exchange'	=> $LNG['tr_quota_exchange'],
+						'Metal'				=> $LNG['Metal'],
+						'Crystal'			=> $LNG['Crystal'],
+						'Deuterium'			=> $LNG['Deuterium'],
 						'mod_ma_res_a' 		=> "0.5",
 						'mod_ma_res_b' 		=> "2",
 						'ress' 				=> $ress,
@@ -127,36 +130,37 @@ function ShowTraderPage($CurrentUser, $CurrentPlanet)
 			case 'deuterium':
 				if($action == "trade")
 				{
-					if ($CurrentUser['darkmatter'] < DARKMATTER_FOR_TRADER)
-						$template->message(sprintf($lang['tr_empty_darkmatter'], $lang['Darkmatter']), "game." . PHP_EXT . "?page=trader", 1);
+					if ($USER['darkmatter'] < DARKMATTER_FOR_TRADER)
+						$template->message(sprintf($LNG['tr_empty_darkmatter'], $LNG['Darkmatter']), "game." . PHP_EXT . "?page=trader", 1);
 					elseif ($metal < 0 || $crystal < 0)
-						message($lang['tr_only_positive_numbers'], "game." . PHP_EXT . "?page=trader",1);
+						message($LNG['tr_only_positive_numbers'], "game." . PHP_EXT . "?page=trader",1);
 					else
 					{
-						$trade	= ($metal * 0.25 + $crystal * 0.5);
-						
-						if ($CurrentPlanet['deuterium'] > $trade)
+						$trade	= ($metal * 0.25 + $crystal * 0.5);						
+						$PlanetRess->CalcResource();
+						if ($PLANET['deuterium'] > $trade)
 						{
-							$CurrentPlanet['metal']     += $metal;
-							$CurrentPlanet['crystal']   += $crystal;
-							$CurrentPlanet['deuterium'] -= $trade;
-							$CurrentUser['darkmatter']	-= DARKMATTER_FOR_TRADER;
-							$template->set_vars($CurrentUser, $CurrentPlanet);
-							$template->message($lang['tr_exchange_done'],"game." . PHP_EXT . "?page=trader", 1);
+							$PLANET['metal']     += $metal;
+							$PLANET['crystal']   += $crystal;
+							$PLANET['deuterium'] -= $trade;
+							$USER['darkmatter']	-= DARKMATTER_FOR_TRADER;
+							$template->message($LNG['tr_exchange_done'],"game." . PHP_EXT . "?page=trader", 1);
 						}
 						else
-							$template->message($lang['tr_not_enought_deuterium'], "game." . PHP_EXT . "?page=trader", 1);
+							$template->message($LNG['tr_not_enought_deuterium'], "game." . PHP_EXT . "?page=trader", 1);
+							
+						$PlanetRess->SavePlanetToDB();
 					}
 				} else {
 					$template->assign_vars(array(
-						'tr_resource'		=> $lang['tr_resource'],
-						'tr_sell_deuterium'	=> $lang['tr_sell_deuterium'],
-						'tr_amount'			=> $lang['tr_amount'],
-						'tr_exchange'		=> $lang['tr_exchange'],	
-						'tr_quota_exchange'	=> $lang['tr_quota_exchange'],
-						'Metal'				=> $lang['Metal'],
-						'Crystal'			=> $lang['Crystal'],
-						'Deuterium'			=> $lang['Deuterium'],
+						'tr_resource'		=> $LNG['tr_resource'],
+						'tr_sell_deuterium'	=> $LNG['tr_sell_deuterium'],
+						'tr_amount'			=> $LNG['tr_amount'],
+						'tr_exchange'		=> $LNG['tr_exchange'],	
+						'tr_quota_exchange'	=> $LNG['tr_quota_exchange'],
+						'Metal'				=> $LNG['Metal'],
+						'Crystal'			=> $LNG['Crystal'],
+						'Deuterium'			=> $LNG['Deuterium'],
 						'mod_ma_res_a' 		=> "0.25",
 						'mod_ma_res_b' 		=> "0.5",
 						'ress' 				=> $ress,
@@ -169,20 +173,21 @@ function ShowTraderPage($CurrentUser, $CurrentPlanet)
 	}
 	else
 	{
+		$PlanetRess->CalcResource()->SavePlanetToDB();
 		$template->assign_vars(array(
-			'tr_cost_dm_trader'			=> sprintf($lang['tr_cost_dm_trader'], pretty_number(DARKMATTER_FOR_TRADER), $lang['Darkmatter']),
-			'tr_call_trader_who_buys'	=> $lang['tr_call_trader_who_buys'],
-			'tr_call_trader'			=> $lang['tr_call_trader'],
-			'tr_exchange_quota'			=> $lang['tr_exchange_quota'],
-			'tr_call_trader_submit'		=> $lang['tr_call_trader_submit'],
-			'Metal'						=> $lang['Metal'],
-			'Crystal'					=> $lang['Crystal'],
-			'Deuterium'					=> $lang['Deuterium'],
+			'tr_cost_dm_trader'			=> sprintf($LNG['tr_cost_dm_trader'], pretty_number(DARKMATTER_FOR_TRADER), $LNG['Darkmatter']),
+			'tr_call_trader_who_buys'	=> $LNG['tr_call_trader_who_buys'],
+			'tr_call_trader'			=> $LNG['tr_call_trader'],
+			'tr_exchange_quota'			=> $LNG['tr_exchange_quota'],
+			'tr_call_trader_submit'		=> $LNG['tr_call_trader_submit'],
+			'Metal'						=> $LNG['Metal'],
+			'Crystal'					=> $LNG['Crystal'],
+			'Deuterium'					=> $LNG['Deuterium'],
 		));
 
 		$template->show("trader_overview.tpl");
 	}
 	
-	$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
+	$PlanetRess->SavePlanetToDB($USER, $PLANET);
 }
 ?>

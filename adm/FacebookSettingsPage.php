@@ -28,29 +28,29 @@ include(ROOT_PATH . 'extension.inc');
 include(ROOT_PATH . 'common.' . PHP_EXT);
 
 
-if ($ConfigGame != 1) die();
+if ($CONFGame != 1) die();
 
 if ($_POST)
 {
 	if (isset($_POST['fb_apikey'])) {
-		$game_config['fb_apikey'] = $_POST['fb_apikey'];
+		$CONF['fb_apikey'] = $_POST['fb_apikey'];
 	}
 	if (isset($_POST['fb_skey'])) {
-		$game_config['fb_skey'] = $_POST['fb_skey'];
+		$CONF['fb_skey'] = $_POST['fb_skey'];
 	}
 	if (isset($_POST['fb_on']) && $_POST['fb_on'] == 'on' && !empty($_POST['fb_skey']) && !empty($_POST['fb_apikey'])) {
-		$game_config['fb_on'] = 1;
+		$CONF['fb_on'] = 1;
 	} else {
-		$game_config['fb_on'] = 0;
+		$CONF['fb_on'] = 0;
 	}
-	update_config('fb_on'		, $game_config['fb_on']     );
-	update_config('fb_apikey'	, $game_config['fb_apikey'] );
-	update_config('fb_skey'		, $game_config['fb_skey']   );
+	update_config('fb_on'		, $CONF['fb_on']     );
+	update_config('fb_apikey'	, $CONF['fb_apikey'] );
+	update_config('fb_skey'		, $CONF['fb_skey']   );
 }
-$parse							= $lang;
-$parse['fb_on']              	= ($game_config['fb_on'] == 1)   ? "checked = 'checked' ":"";
-$parse['fb_apikey']             = $game_config['fb_apikey'];
-$parse['fb_skey']          	  	= $game_config['fb_skey'];
+$parse							= $LNG;
+$parse['fb_on']              	= ($CONF['fb_on'] == 1)   ? "checked = 'checked' ":"";
+$parse['fb_apikey']             = $CONF['fb_apikey'];
+$parse['fb_skey']          	  	= $CONF['fb_skey'];
 
 display (parsetemplate(gettemplate('adm/FBSettingsBody'),  $parse), false, '', true, false);
 

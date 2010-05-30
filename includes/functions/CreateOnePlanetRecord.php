@@ -19,31 +19,31 @@
 # *																			 #
 ##############################################################################
 
-if(!defined('INSIDE')){ die(header("location:../../"));}
+if(!defined('INSIDE')) die('Hacking attempt!');
 
 	function CreateOnePlanetRecord($Galaxy, $System, $Position, $PlanetOwnerID, $PlanetName = '', $HomeWorld = false)
 	{
-		global $lang, $db, $game_config;
+		global $LNG, $db, $CONF;
 	
 		if(MAX_GALAXY_IN_WORLD < $Galaxy || 1 > $Galaxy) {
-			trigger_error("Access denied for CreateOnePlanetRecord.php.<br>Try to create a planet at position:".$Galaxy.":".$System.":".$Position."",E_USER_ERROR);
+			throw new Exception("Access denied for CreateOnePlanetRecord.php.<br>Try to create a planet at position:".$Galaxy.":".$System.":".$Position);
 		}	
 		elseif(MAX_SYSTEM_IN_GALAXY < $System || 1 > $System) {
-			trigger_error("Access denied for CreateOnePlanetRecord.php.<br>Try to create a planet at position:".$Galaxy.":".$System.":".$Position."",E_USER_ERROR);
+			throw new Exception("Access denied for CreateOnePlanetRecord.php.<br>Try to create a planet at position:".$Galaxy.":".$System.":".$Position);
 		}	
 		elseif(MAX_PLANET_IN_SYSTEM < $Position || 1 > $Position) {
-			trigger_error("Access denied for CreateOnePlanetRecord.php.<br>Try to create a planet at position:".$Galaxy.":".$System.":".$Position."",E_USER_ERROR);
+			throw new Exception("Access denied for CreateOnePlanetRecord.php.<br>Try to create a planet at position:".$Galaxy.":".$System.":".$Position);
 		}
 		
 		if (!CheckPlanetIfExist($Galaxy, $System, $Position))
 		{
-			$FieldFactor				 = ($game_config['initial_fields'] / 163) * PLANET_SIZE_FACTOR;
+			$FieldFactor				 = ($CONF['initial_fields'] / 163) * PLANET_SIZE_FACTOR;
 			$planet['metal']             = BUILD_METAL;
 			$planet['crystal']           = BUILD_CRISTAL;
 			$planet['deuterium']         = BUILD_DEUTERIUM;
-			$planet['metal_perhour']     = $game_config['metal_basic_income'];
-			$planet['crystal_perhour']   = $game_config['crystal_basic_income'];
-			$planet['deuterium_perhour'] = $game_config['deuterium_basic_income'];
+			$planet['metal_perhour']     = $CONF['metal_basic_income'];
+			$planet['crystal_perhour']   = $CONF['crystal_basic_income'];
+			$planet['deuterium_perhour'] = $CONF['deuterium_basic_income'];
 			$planet['metal_max']         = BASE_STORAGE_SIZE;
 			$planet['crystal_max']       = BASE_STORAGE_SIZE;
 			$planet['deuterium_max']     = BASE_STORAGE_SIZE;
@@ -175,7 +175,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 					$planet['field_max']= rand(65, 74) * $FieldFactor;				
 				break;
 			}
-			$planet['field_max']	= ($HomeWorld) ? $game_config['initial_fields'] : floor($planet['field_max']);
+			$planet['field_max']	= ($HomeWorld) ? $CONF['initial_fields'] : floor($planet['field_max']);
 			$Type					= $PlanetType[array_rand($PlanetType)];
 			$Class					= $PlanetClass[array_rand($PlanetClass)];
 			$planet['image']		= $Type;
@@ -183,17 +183,17 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 			$planet['image'] 	   .= (($PlanetDesign[$Type] <= 9) ? "0":"").$PlanetDesign[$Type];
 			$planet['planet_type'] 	= 1;
 			$planet['id_owner']    	= $PlanetOwnerID;
-			$planet['last_update'] 	= time();
-			$planet['name']        	= ($PlanetName == '') ? $lang['sys_colo_defaultname'] : $PlanetName;
+			$planet['last_update'] 	= TIMESTAMP;
+			$planet['name']        	= ($PlanetName == '') ? $LNG['sys_colo_defaultname'] : $PlanetName;
 			$planet['diameter']		= floor(1000 * sqrt($planet['field_max']));
 
 			$QryInsertPlanet  = "INSERT INTO ".PLANETS." SET ";
 
 			if($HomeWorld == false)
-				$QryInsertPlanet .= "`name` = '".$lang['fcp_colony']."', ";
+				$QryInsertPlanet .= "`name` = '".$LNG['fcp_colony']."', ";
 
 			$QryInsertPlanet .= "`id_owner` = '".          $planet['id_owner']          ."', ";
-			$QryInsertPlanet .= "`id_level` = '".          $user['authlevel']           ."', ";
+			$QryInsertPlanet .= "`id_level` = '".          $USER['authlevel']           ."', ";
 			$QryInsertPlanet .= "`galaxy` = '".            $planet['galaxy']            ."', ";
 			$QryInsertPlanet .= "`system` = '".            $planet['system']            ."', ";
 			$QryInsertPlanet .= "`planet` = '".            $planet['planet']            ."', ";

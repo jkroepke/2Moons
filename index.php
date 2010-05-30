@@ -43,35 +43,34 @@ $mode = request_var('mode', '');
 
 switch ($page) {
 	case 'facebook':
-		if($game_config['fb_on'] == 0)
+		if($CONF['fb_on'] == 0)
 			exit(header("Location: index.php"));
 			
 		include_once(ROOT_PATH . 'includes/libs/facebook/facebook.php');
-		$fb = new Facebook($game_config['fb_apikey'], $game_config['fb_skey']);
+		$fb = new Facebook($CONF['fb_apikey'], $CONF['fb_skey']);
 		$fb_user = $fb->get_loggedin_user();
 
 		if($fb_user)
 		{
-			$login = $db->fetch_array($db->query("SELECT `id`,`username`,`password`,`banaday` FROM " . USERS . " WHERE `fb_id` = '".$fb_user."';"));
+			$login = $db->uniquequery("SELECT `id`,`username`,`password`,`authlevel`,`banaday` FROM " . USERS . " WHERE `fb_id` = '".$fb_user."';");
 			if (isset($login)) {
 				if ($login['banaday'] <= time () && $login['banaday'] != '0') {
 					$db->query("UPDATE " . USERS . " SET `banaday` = '0', `bana` = '0' WHERE `username` = '" . $login ['username'] . "';");
 				}
-			
-				$expiretime = 0;
-				$rememberme = 0;
-							
-				$cookie = $login ["id"] . "/%/" . $login ["username"] . "/%/" . md5($login["password"]. "--" . $dbsettings ["secretword"]) . "/%/" . $rememberme;
-				setcookie($game_config['COOKIE_NAME'], $cookie, $expiretime, "/", "", 0);
 				
-				$db->query ( "UPDATE `" . USERS . "` SET `current_planet` = `id_planet` WHERE `id` ='" . $login ["id"] . "';" );
+				@session_start();
+				$_SESSION['id']			= $login['id'];
+				$_SESSION['username']	= $login['username'];
+				$_SESSION['authlevel']	= $login['authlevel'];
+				
+				$db->query("UPDATE `" . USERS . "` SET `current_planet` = `id_planet` WHERE `id` = '".$login["id"]."';" );
 
 				header("Location: ./game.php?page=overview");
-				exit();
+				exit ();
 			} else {
-				$user_details = $fb->api_client->users_getInfo($fb_user, array('first_name','last_name','proxied_email','username','contact_email'));  
-				if(!empty($user_details[0]['contact_email']) && ValidateAddress($user_details[0]['contact_email'])) 
-					$UserMail 	=  $user_details[0]['contact_email'];
+				$USER_details = $fb->api_client->users_getInfo($fb_user, array('first_name','last_name','proxied_email','username','contact_email'));  
+				if(!empty($USER_details[0]['contact_email']) && ValidateAddress($USER_details[0]['contact_email'])) 
+					$UserMail 	=  $USER_details[0]['contact_email'];
 				else 
 					exit(header("Location: index.php"));
 				
@@ -80,7 +79,7 @@ switch ($page) {
 				{
 					$db->query("UPDATE `".USERS."` SET `fb_id` = '".$fb_user."' WHERE `id` ='".$Exist['alruser']['id']."';");
 					$cookie = $Exist['alruser']['id']."/%/".$Exist['alruser']['username']."/%/".md5($Exist['alruser']['password']."--".$dbsettings["secretword"])."/%/0";
-					setcookie($game_config['COOKIE_NAME'], $cookie, 0, "/", "", 0);
+					setcookie($CONF['COOKIE_NAME'], $cookie, 0, "/", "", 0);
 					exit(header("Location: ./game.php?page=overview"));
 				}
 				
@@ -93,7 +92,7 @@ switch ($page) {
 					$NewPass .= substr ( $Caracters, $CaracterBoucle, 1 );
 				}
 				
-				$UserName 		= $db->sql_escape($user_details[0]['first_name']." ".$user_details[0]['last_name']);
+				$UserName 		= $db->sql_escape($USER_details[0]['first_name']." ".$USER_details[0]['last_name']);
 				$UserIP 		= $_SERVER["REMOTE_ADDR"];				
 				$UserPass		= md5($NewPass);
 				$IfNameExist	= false;
@@ -123,22 +122,22 @@ switch ($page) {
 				$QryInsertUser .= "`uctime`= '0';";
 				$db->query($QryInsertUser);
 			
-				if($game_config['smtp_host'] != '' && $game_config['smtp_port'] != 0 && $game_config['smtp_user'] != '' && $game_config['smtp_pass'] != '')
+				if($CONF['smtp_host'] != '' && $CONF['smtp_port'] != 0 && $CONF['smtp_user'] != '' && $CONF['smtp_pass'] != '')
 				{				
-					$MailSubject	= sprintf($lang['reg_mail_reg_done'], $game_config['game_name']);	
-					$MailRAW		= file_get_contents("./language/".$game_config['lang']."/email/email_reg_done.txt");
-					$MailContent	= sprintf($MailRAW, $UserName, $game_config['game_name']);	
+					$MailSubject	= sprintf($LNG['reg_mail_reg_done'], $CONF['game_name']);	
+					$MailRAW		= file_get_contents("./language/".$CONF['lang']."/email/email_reg_done.txt");
+					$MailContent	= sprintf($MailRAW, $UserName, $CONF['game_name']);	
 					MailSend($UserMail, $UserName, $MailSubject, $MailContent);
-					$MailRAW		= file_get_contents("./language/".$game_config['lang']."/email/email_lost_password.txt");
-					$MailContent	= sprintf($MailRAW, $ExistMail['username'], $game_config['game_name'], $NewPass, "http://".$_SERVER['SERVER_NAME'].$_SERVER["PHP_SELF"]);			
-					MailSend($UserMail, $UserName, $lang['mail_title'], $MailContent);		
+					$MailRAW		= file_get_contents("./language/".$CONF['lang']."/email/email_lost_password.txt");
+					$MailContent	= sprintf($MailRAW, $ExistMail['username'], $CONF['game_name'], $NewPass, "http://".$_SERVER['SERVER_NAME'].$_SERVER["PHP_SELF"]);			
+					MailSend($UserMail, $UserName, $LNG['mail_title'], $MailContent);		
 				}
 				
 				$NewUser = $db->fetch_array ( $db->query ( "SELECT `id` FROM " . USERS . " WHERE `username` = '".$UserName."' AND `password` = '".$UserPass."';" ) );
 				
-				$LastSettedGalaxyPos = $game_config['LastSettedGalaxyPos'];
-				$LastSettedSystemPos = $game_config['LastSettedSystemPos'];
-				$LastSettedPlanetPos = $game_config['LastSettedPlanetPos'];
+				$LastSettedGalaxyPos = $CONF['LastSettedGalaxyPos'];
+				$LastSettedSystemPos = $CONF['LastSettedSystemPos'];
+				$LastSettedPlanetPos = $CONF['LastSettedPlanetPos'];
 				
 				while (!isset($newpos_checked)) {
 					for($Galaxy = $LastSettedGalaxyPos; $Galaxy <= MAX_GALAXY_IN_WORLD; $Galaxy ++) {
@@ -175,6 +174,7 @@ switch ($page) {
 					
 					if (!CheckPlanetIfExist($Galaxy, $System, $Planet))
 					{
+						require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.'.PHP_EXT);
 						CreateOnePlanetRecord ($Galaxy, $System, $Planet, $NewUser['id'], $UserPlanet, true);
 						$QryInsertConfig  = "UPDATE " . CONFIG . " SET `config_value` = '" . $LastSettedGalaxyPos . "' WHERE `config_name` = 'LastSettedGalaxyPos';";
 						$QryInsertConfig .= "UPDATE " . CONFIG . " SET `config_value` = '" . $LastSettedSystemPos . "' WHERE `config_name` = 'LastSettedSystemPos';";
@@ -194,27 +194,24 @@ switch ($page) {
 				$QryUpdateUser .= "WHERE ";
 				$QryUpdateUser .= "`id` = '" . $NewUser ['id'] . "' ";
 				$QryUpdateUser .= "LIMIT 1;";
-				$QryUpdateUser .= "INSERT INTO ".STATPOINTS." (`id_owner`, `id_ally`, `stat_type`, `stat_code`, `tech_rank`, `tech_old_rank`, `tech_points`, `tech_count`, `build_rank`, `build_old_rank`, `build_points`, `build_count`, `defs_rank`, `defs_old_rank`, `defs_points`, `defs_count`, `fleet_rank`, `fleet_old_rank`, `fleet_points`, `fleet_count`, `total_rank`, `total_old_rank`, `total_points`, `total_count`, `stat_date`) VALUES (".$NewUser['id'].", 0, 1, 1, '".($game_config ['users_amount'] + 1)."', '".($game_config ['users_amount'] + 1)."', 0, 0, '".($game_config ['users_amount'] + 1)."', '".($game_config ['users_amount'] + 1)."', 0, 0, '".($game_config ['users_amount'] + 1)."', '".($game_config ['users_amount'] + 1)."', 0, 0, 1, 0, 0, 0, '".($game_config ['users_amount'] + 1)."', '".($game_config ['users_amount'] + 1)."', 0, 0, ".time().");";				
+				$QryUpdateUser .= "INSERT INTO ".STATPOINTS." (`id_owner`, `id_ally`, `stat_type`, `stat_code`, `tech_rank`, `tech_old_rank`, `tech_points`, `tech_count`, `build_rank`, `build_old_rank`, `build_points`, `build_count`, `defs_rank`, `defs_old_rank`, `defs_points`, `defs_count`, `fleet_rank`, `fleet_old_rank`, `fleet_points`, `fleet_count`, `total_rank`, `total_old_rank`, `total_points`, `total_count`, `stat_date`) VALUES (".$NewUser['id'].", 0, 1, 1, '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0, '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0, '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0, 1, 0, 0, 0, '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0, ".TIMESTAMP.");";				
 				$db->multi_query ( $QryUpdateUser );
 				
-				$from 		= $lang ['welcome_message_from'];
-				$sender 	= $lang ['welcome_message_sender'];
-				$Subject 	= $lang ['welcome_message_subject'];
-				$message 	= sprintf($lang['welcome_message_content'], $game_config['game_name']);
+				$from 		= $LNG ['welcome_message_from'];
+				$sender 	= $LNG ['welcome_message_sender'];
+				$Subject 	= $LNG ['welcome_message_subject'];
+				$message 	= sprintf($LNG['welcome_message_content'], $CONF['game_name']);
 				SendSimpleMessage ( $NewUser ['id'], $sender, $Time, 1, $from, $Subject, $message );
 				
 				$db->query ( "UPDATE " . CONFIG . " SET `config_value` = `config_value` + '1' WHERE `config_name` = 'users_amount';" );
 				if ($admin == 1) {
 					echo "User ".$UserName." wurde aktiviert!";
 				} else {
-					include_once('config.php');
-					$cookie = $NewUser ['id'] . "/%/" . $UserName . "/%/" . md5 ( $UserPass . "--" . $dbsettings ["secretword"] ) . "/%/" . 0;
-					setcookie( $game_config ['COOKIE_NAME'], $cookie, 0, "/", "", 0 );
-					
-					unset($dbsettings);
-					
+					@session_start();
+					$_SESSION['id']			= $NewUser['id'];
+					$_SESSION['username']	= $UserName;
+					$_SESSION['authlevel']	= 0;
 					header("location:game.php?page=overview");
-				
 				}
 			}
 		} else {
@@ -222,11 +219,11 @@ switch ($page) {
 		}
 	break;
 	case 'lostpassword': 
-		$usermail = request_var ( 'email', '' );
+		$USERmail = request_var ( 'email', '' );
 		if ($mode == "send") {
-			$ExistMail = $db->fetch_array ( $db->query ( "SELECT `username` FROM " . USERS . " WHERE `email` = '" . $db->sql_escape($usermail) . "' LIMIT 1;" ) );
+			$ExistMail = $db->fetch_array ( $db->query ( "SELECT `username` FROM " . USERS . " WHERE `email` = '" . $db->sql_escape($USERmail) . "' LIMIT 1;" ) );
 			if (empty($ExistMail['username'])) {
-				message($lang['mail_not_exist'], "index.php?page=lostpassword", 3, false, false );
+				$template->message($LNG['mail_not_exist'], "index.php?page=lostpassword", 3, true);
 			} else {
 				$Caracters = "aazertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN1234567890";
 				$Count = strlen($Caracters);
@@ -237,32 +234,37 @@ switch ($page) {
 					$NewPass .= substr ( $Caracters, $CaracterBoucle, 1 );
 				}
 
-				$MailRAW		= file_get_contents("./language/".$game_config['lang']."/email/email_lost_password.txt");
-				$MailContent	= sprintf($MailRAW, $ExistMail['username'], $game_config['game_name'], $NewPass, "http://".$_SERVER['SERVER_NAME'].$_SERVER["PHP_SELF"]);			
+				$MailRAW		= file_get_contents("./language/".$CONF['lang']."/email/email_lost_password.txt");
+				$MailContent	= sprintf($MailRAW, $ExistMail['username'], $CONF['game_name'], $NewPass, "http://".$_SERVER['SERVER_NAME'].$_SERVER["PHP_SELF"]);			
 			
-				if($game_config['smtp_host'] == '' || $game_config['smtp_port'] == '' || $game_config['smtp_user'] == '' || $game_config['smtp_pass'] == '')
-					message($lang["mail_sended_fail"], "./", 2, false, false );
+				$Mail			= MailSend($USERmail, $ExistMail['username'], $LNG['mail_title'], $MailContent);
 				
-				if(MailSend($usermail, $ExistMail['username'], $lang['mail_title'], $MailContent));
+				if($Mail === true)
+				{
 					$db->query("UPDATE ".USERS." SET `password` ='" . md5($NewPass) . "' WHERE `username` = '".$ExistMail['username']."';");
+					$template->message($LNG["mail_sended_true"], "./", 10, true);
+				} else {
+					$template->message($Mail.'<br>'.$LNG["mail_sended_fail"], "./", 10, true);
+				}
+			
 			}
 		} else {
 			$template->assign_vars(array(
-				'email'			=> $lang['email'],
-				'uni_reg'		=> $lang['uni_reg'],
-				'send'			=> $lang['send'],
+				'email'			=> $LNG['email'],
+				'uni_reg'		=> $LNG['uni_reg'],
+				'send'			=> $LNG['send'],
 				'AvailableUnis'	=> $AvailableUnis,
-				'chose_a_uni'	=> $lang['chose_a_uni'],
+				'chose_a_uni'	=> $LNG['chose_a_uni'],
 			));
 			$template->display('public/lostpassword.tpl');
 		}
 		break;
 	case 'reg' :
 		
-		if ($game_config['reg_closed'] == 1){
+		if ($CONF['reg_closed'] == 1){
 			$template->assign_vars(array(
-				'closed'	=> $lang['reg_closed'],
-				'info'		=> $lang['info'],
+				'closed'	=> $LNG['reg_closed'],
+				'info'		=> $LNG['info'],
 			));
 			$template->display('public/registry_closed.tpl');
 			exit;
@@ -281,42 +283,42 @@ switch ($page) {
 				$Exist['userv'] = $db->fetch_array($db->query("SELECT username, email FROM ".USERS." WHERE username = '".$db->sql_escape($UserName)."' OR email = '".$db->sql_escape($UserEmail)."';"));
 				$Exist['vaild'] = $db->fetch_array($db->query("SELECT username, email FROM ".USERS_VALID." WHERE username = '".$db->sql_escape($UserName)."' OR email = '".$db->sql_escape($UserEmail)."';"));
 				
-				if ($game_config ['capaktiv'] === '1') {
+				if ($CONF ['capaktiv'] === '1') {
 					require_once ('includes/libs/reCAPTCHA/recaptchalib.php');
-					$resp = recaptcha_check_answer($game_config['capprivate'], $_SERVER ["REMOTE_ADDR"], request_var ( 'recaptcha_challenge_field', '' ), request_var ( 'recaptcha_response_field', '' ) );
+					$resp = recaptcha_check_answer($CONF['capprivate'], $_SERVER ["REMOTE_ADDR"], request_var ( 'recaptcha_challenge_field', '' ), request_var ( 'recaptcha_response_field', '' ) );
 					if (!$resp->is_valid)
-						$errorlist .= $lang['wrong_captcha'];
+						$errorlist .= $LNG['wrong_captcha'];
 				}
 				
 				if (!ValidateAddress($UserEmail)) 
-					$errors .= $lang['invalid_mail_adress'];
+					$errors .= $LNG['invalid_mail_adress'];
 				
 				if (!$UserName) 
-					$errors .= $lang['empty_user_field'];
+					$errors .= $LNG['empty_user_field'];
 				
 				if (strlen($UserPass) < 6)
-					$errors .= $lang['password_lenght_error'];
+					$errors .= $LNG['password_lenght_error'];
 				
 				if ($UserPass != $UserPass2)
-					$errors .= $lang['different_passwords'];				
+					$errors .= $LNG['different_passwords'];				
 				
 				if ($UserEmail != $UserEmail2)
-					$errors .= $lang['different_mails'];
+					$errors .= $LNG['different_mails'];
 				
 				if (!CheckName($UserName))
-					$errors .= (UTF8_SUPPORT) ? $lang['user_field_no_space'] : $lang['user_field_no_alphanumeric'];			
+					$errors .= (UTF8_SUPPORT) ? $LNG['user_field_no_space'] : $LNG['user_field_no_alphanumeric'];			
 				
 				if ($agbrules != 'on')
-					$errors .= $lang['terms_and_conditions'];
+					$errors .= $LNG['terms_and_conditions'];
 
 				if ((isset($Exist['userv']['username']) || isset($Exist['vaild']['username']) && ($UserName == $Exist['userv']['username'] || $UserName == $Exist['vaild']['username'])))
-					$errors .= $lang['user_already_exists'];
+					$errors .= $LNG['user_already_exists'];
 
 				if ((isset($Exist['userv']['email']) || isset($Exist['vaild']['email'])) && ($UserEmail == $Exist['userv']['email'] || $UserEmail == $Exist['vaild']['email']))
-					$errors .= $lang['mail_already_exists'];
+					$errors .= $LNG['mail_already_exists'];
 				
 				if (!empty($errors)) {
-					message($errors, "index.php?page=reg", "3", false, false );
+					message($errors, "index.php?page=reg&lang=".DEFAULT_LANG, "3", false, false );
 				} else {
 					$md5newpass = md5($UserPass);
 					
@@ -326,7 +328,7 @@ switch ($page) {
 						$clef .= ($i % 2) ? strtoupper ( $characters [array_rand ( $characters )] ) : $characters [array_rand ( $characters )];
 					}
 
-					if($game_config['user_valid'] == 0 || $game_config['smtp_host'] == '' || $game_config['smtp_port'] == 0 || $game_config['smtp_user'] == '' || $game_config['smtp_pass'] == '')
+					if($CONF['user_valid'] == 0 || $CONF['smtp_host'] == '' || $CONF['smtp_port'] == 0 || $CONF['smtp_user'] == '' || $CONF['smtp_pass'] == '')
 					{
 						$QryInsertUser = "INSERT INTO " . USERS_VALID . " SET ";
 						$QryInsertUser .= "`username` = '" . $db->sql_escape ( $UserName ) . "', ";
@@ -340,9 +342,9 @@ switch ($page) {
 						exit(header("Location: index.php?page=reg&mode=valid&id=".$md5newpass."&clef=" . $clef));
 					}					
 
-					$MailSubject 	= $lang['reg_mail_message_pass'];
-					$MailRAW		= file_get_contents("./language/".$game_config['lang']."/email/email_vaild_reg.txt");
-					$MailContent	= sprintf($MailRAW, $UserName, $game_config['game_name'], "http://".$_SERVER['SERVER_NAME'].$_SERVER["PHP_SELF"], $clef, $UserPass, ADMINEMAIL, $md5newpass);
+					$MailSubject 	= $LNG['reg_mail_message_pass'];
+					$MailRAW		= file_get_contents("./language/".$CONF['lang']."/email/email_vaild_reg.txt");
+					$MailContent	= sprintf($MailRAW, $UserName, $CONF['game_name'], "http://".$_SERVER['SERVER_NAME'].$_SERVER["PHP_SELF"], $clef, $UserPass, ADMINEMAIL, $md5newpass);
 		
 					MailSend($UserEmail, $UserName, $MailSubject, $MailContent);
 					$QryInsertUser = "INSERT INTO " . USERS_VALID . " SET ";
@@ -353,7 +355,7 @@ switch ($page) {
 					$QryInsertUser .= "`password`='" . $md5newpass . "', ";
 					$QryInsertUser .= "`ip` = '" . $_SERVER ["REMOTE_ADDR"] . "'; ";
 					$db->query ($QryInsertUser);
-					message($lang['reg_completed'], "./", 10, false, false );
+					message($LNG['reg_completed'], "?lang=".DEFAULT_LANG, 10, false, false );
 				}
 			break;
 			case 'valid' :		
@@ -384,19 +386,19 @@ switch ($page) {
 				$QryInsertUser .= "DELETE FROM " . USERS_VALID . " WHERE username='" . $UserName . "';";
 				$db->multi_query($QryInsertUser);
 
-				if($game_config['smtp_host'] != '' && $game_config['smtp_port'] != 0 && $game_config['smtp_user'] != '' && $game_config['smtp_pass'] != '')
+				if($CONF['smtp_host'] != '' && $CONF['smtp_port'] != 0 && $CONF['smtp_user'] != '' && $CONF['smtp_pass'] != '')
 				{				
-					$MailSubject	= sprintf($lang['reg_mail_reg_done'], $game_config['game_name']);	
-					$MailRAW		= file_get_contents("./language/".$game_config['lang']."/email/email_reg_done.txt");
-					$MailContent	= sprintf($MailRAW, $UserName, $game_config['game_name']);	
+					$MailSubject	= sprintf($LNG['reg_mail_reg_done'], $CONF['game_name']);	
+					$MailRAW		= file_get_contents("./language/".$CONF['lang']."/email/email_reg_done.txt");
+					$MailContent	= sprintf($MailRAW, $UserName, $CONF['game_name']);	
 					MailSend($UserMail, $UserName, $MailSubject, $MailContent);
 				}
 				
 				$NewUser = $db->fetch_array ( $db->query ( "SELECT `id` FROM " . USERS . " WHERE `username` = '" . $UserName . "';" ) );
 				
-				$LastSettedGalaxyPos = $game_config['LastSettedGalaxyPos'];
-				$LastSettedSystemPos = $game_config['LastSettedSystemPos'];
-				$LastSettedPlanetPos = $game_config['LastSettedPlanetPos'];
+				$LastSettedGalaxyPos = $CONF['LastSettedGalaxyPos'];
+				$LastSettedSystemPos = $CONF['LastSettedSystemPos'];
+				$LastSettedPlanetPos = $CONF['LastSettedPlanetPos'];
 				
 				while (!isset($newpos_checked)) {
 					for($Galaxy = $LastSettedGalaxyPos; $Galaxy <= MAX_GALAXY_IN_WORLD; $Galaxy ++) {
@@ -432,7 +434,8 @@ switch ($page) {
 					}
 					
 					if (!CheckPlanetIfExist($Galaxy, $System, $Planet))
-					{
+					{					
+						require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.'.PHP_EXT);
 						CreateOnePlanetRecord ($Galaxy, $System, $Planet, $NewUser['id'], $UserPlanet, true);
 						$QryInsertConfig  = "UPDATE " . CONFIG . " SET `config_value` = '" . $LastSettedGalaxyPos . "' WHERE `config_name` = 'LastSettedGalaxyPos';";
 						$QryInsertConfig .= "UPDATE " . CONFIG . " SET `config_value` = '" . $LastSettedSystemPos . "' WHERE `config_name` = 'LastSettedSystemPos';";
@@ -452,49 +455,60 @@ switch ($page) {
 				$QryUpdateUser .= "WHERE ";
 				$QryUpdateUser .= "`id` = '" . $NewUser ['id'] . "' ";
 				$QryUpdateUser .= "LIMIT 1;";
-				$QryUpdateUser .= "INSERT INTO ".STATPOINTS." (`id_owner`, `id_ally`, `stat_type`, `stat_code`, `tech_rank`, `tech_old_rank`, `tech_points`, `tech_count`, `build_rank`, `build_old_rank`, `build_points`, `build_count`, `defs_rank`, `defs_old_rank`, `defs_points`, `defs_count`, `fleet_rank`, `fleet_old_rank`, `fleet_points`, `fleet_count`, `total_rank`, `total_old_rank`, `total_points`, `total_count`, `stat_date`) VALUES (".$NewUser['id'].", 0, 1, 1, '".($game_config ['users_amount'] + 1)."', '".($game_config ['users_amount'] + 1)."', 0, 0, '".($game_config ['users_amount'] + 1)."', '".($game_config ['users_amount'] + 1)."', 0, 0, '".($game_config ['users_amount'] + 1)."', '".($game_config ['users_amount'] + 1)."', 0, 0, 1, 0, 0, 0, '".($game_config ['users_amount'] + 1)."', '".($game_config ['users_amount'] + 1)."', 0, 0, ".time().");";
+				$QryUpdateUser .= "INSERT INTO ".STATPOINTS." (`id_owner`, `id_ally`, `stat_type`, `stat_code`, `tech_rank`, `tech_old_rank`, `tech_points`, `tech_count`, `build_rank`, `build_old_rank`, `build_points`, `build_count`, `defs_rank`, `defs_old_rank`, `defs_points`, `defs_count`, `fleet_rank`, `fleet_old_rank`, `fleet_points`, `fleet_count`, `total_rank`, `total_old_rank`, `total_points`, `total_count`, `stat_date`) VALUES (".$NewUser['id'].", 0, 1, 1, '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0, '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0, '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0, 1, 0, 0, 0, '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0, ".TIMESTAMP.");";
 				$db->multi_query ( $QryUpdateUser );
 				
-				$from 		= $lang ['welcome_message_from'];
-				$sender 	= $lang ['welcome_message_sender'];
-				$Subject 	= $lang ['welcome_message_subject'];
-				$message 	= sprintf($lang['welcome_message_content'], $game_config['game_name']);
+				$from 		= $LNG ['welcome_message_from'];
+				$sender 	= $LNG ['welcome_message_sender'];
+				$Subject 	= $LNG ['welcome_message_subject'];
+				$message 	= sprintf($LNG['welcome_message_content'], $CONF['game_name']);
 				SendSimpleMessage ( $NewUser ['id'], $sender, $Time, 1, $from, $Subject, $message );
 				
 				$db->query ( "UPDATE " . CONFIG . " SET `config_value` = `config_value` + '1' WHERE `config_name` = 'users_amount';" );
 				if ($admin == 1) {
-					echo sprintf($lang['user_active'], $UserName);
+					echo sprintf($LNG['user_active'], $UserName);
 				} else {
-					include('config.php');
-					$cookie = $NewUser ['id'] . "/%/" . $UserName . "/%/" . md5 ( $UserPass . "--" . $dbsettings ["secretword"] ) . "/%/" . 0;
-					setcookie( $game_config ['COOKIE_NAME'], $cookie, 0, "/", "", 0 );
-										
-					unset($dbsettings);
+					session_start();
+					$_SESSION['id']			= $NewUser['id'];
+					$_SESSION['username']	= $UserName;
+					$_SESSION['authlevel']	= 0;	
 					
 					header("location:game.php?page=overview");
 				
 				}
 			break;
-			default :
+			default:
+				$dir = opendir(ROOT_PATH.'language');
+				while (($cdir = readdir($dir)) !== false)
+				{
+					if($cdir == '.' || $cdir == '..' || $cdir == '.htaccess' || $cdir == '.svn')
+						continue;
+					
+					$AvailableLangs[$cdir]	= ucwords($cdir);
+				}
+				closedir($dir);
+				
 				$template->assign_vars(array(
-					'server_message_reg'			=> $lang['server_message_reg'],
-					'register_at_reg'				=> $lang['register_at_reg'],
-					'user_reg'						=> $lang['user_reg'],
-					'pass_reg'						=> $lang['pass_reg'],
-					'pass2_reg'						=> $lang['pass2_reg'],
-					'email_reg'						=> $lang['email_reg'],
-					'email2_reg'					=> $lang['email2_reg'],
-					'captcha_reg'					=> $lang['captcha_reg'],
-					'register_now'					=> $lang['register_now'],
-					'accept_terms_and_conditions'	=> $lang['accept_terms_and_conditions'],
-					'captcha_reload'				=> $lang['captcha_reload'],
-					'captcha_help'					=> $lang['captcha_help'],
-					'captcha_get_image'				=> $lang['captcha_get_image'],
-					'captcha_reload'				=> $lang['captcha_reload'],
-					'captcha_get_audio'				=> $lang['captcha_get_audio'],
+					'server_message_reg'			=> $LNG['server_message_reg'],
+					'register_at_reg'				=> $LNG['register_at_reg'],
+					'user_reg'						=> $LNG['user_reg'],
+					'pass_reg'						=> $LNG['pass_reg'],
+					'pass2_reg'						=> $LNG['pass2_reg'],
+					'email_reg'						=> $LNG['email_reg'],
+					'email2_reg'					=> $LNG['email2_reg'],
+					'lang_reg'						=> $LNG['lang_reg'],
+					'captcha_reg'					=> $LNG['captcha_reg'],
+					'register_now'					=> $LNG['register_now'],
+					'accept_terms_and_conditions'	=> sprintf($LNG['accept_terms_and_conditions'], DEFAULT_LANG),
+					'captcha_reload'				=> $LNG['captcha_reload'],
+					'captcha_help'					=> $LNG['captcha_help'],
+					'captcha_get_image'				=> $LNG['captcha_get_image'],
+					'captcha_reload'				=> $LNG['captcha_reload'],
+					'captcha_get_audio'				=> $LNG['captcha_get_audio'],
 					'AvailableUnis'					=> $AvailableUnis,
-					'uni_reg'						=> $lang['uni_reg'],
-					'chose_a_uni'					=> $lang['chose_a_uni'],
+					'AvailableLangs'				=> $AvailableLangs,
+					'uni_reg'						=> $LNG['uni_reg'],
+					'chose_a_uni'					=> $LNG['chose_a_uni'],
 				));
 				$template->display('public/registry_form.tpl');
 			break;
@@ -502,17 +516,17 @@ switch ($page) {
 		break;
 	case 'agb' :
 		$template->assign_vars(array(
-			'agb'				=> $lang['agb'],
-			'agb_overview'		=> $lang['agb_overview'],
+			'agb'				=> $LNG['agb'],
+			'agb_overview'		=> $LNG['agb_overview'],
 		));
 		$template->display('public/index_agb.tpl');
 		break;
 	case 'rules' :
 		$template->assign_vars(array(
-			'rules'				=> $lang['rules'],
-			'rules_overview'	=> $lang['rules_overview'],
-			'rules_info1'		=> sprintf($lang['rules_info1'], $game_config['forum_url']),
-			'rules_info2'		=> $lang['rules_info2'],
+			'rules'				=> $LNG['rules'],
+			'rules_overview'	=> $LNG['rules_overview'],
+			'rules_info1'		=> sprintf($LNG['rules_info1'], $CONF['forum_url']),
+			'rules_info2'		=> $LNG['rules_info2'],
 		));
 		$template->display('public/index_rules.tpl');
 		break;
@@ -536,15 +550,15 @@ switch ($page) {
 		$template->assign_vars(array(	
 			'AvailableUnis'	=> $AvailableUnis,
 			'ThisUni'		=> $ThisUni,
-			'tkb_units'		=> $lang['tkb_units'],
-			'tkb_datum'		=> $lang['tkb_datum'],
-			'tkb_owners'	=> $lang['tkb_owners'],
-			'tkb_platz'		=> $lang['tkb_platz'],
-			'tkb_top'		=> $lang['tkb_top'],
-			'tkb_gratz'		=> $lang['tkb_gratz'],
-			'tkb_legende'	=> $lang['tkb_legende'],
-			'tkb_gewinner'	=> $lang['tkb_gewinner'],
-			'tkb_verlierer'	=> $lang['tkb_verlierer'],
+			'tkb_units'		=> $LNG['tkb_units'],
+			'tkb_datum'		=> $LNG['tkb_datum'],
+			'tkb_owners'	=> $LNG['tkb_owners'],
+			'tkb_platz'		=> $LNG['tkb_platz'],
+			'tkb_top'		=> $LNG['tkb_top'],
+			'tkb_gratz'		=> $LNG['tkb_gratz'],
+			'tkb_legende'	=> $LNG['tkb_legende'],
+			'tkb_gewinner'	=> $LNG['tkb_gewinner'],
+			'tkb_verlierer'	=> $LNG['tkb_verlierer'],
 			'TopKBList'		=> $TopKBList,
 		));
 			
@@ -562,7 +576,7 @@ switch ($page) {
 				'to'		=> date("d. M Y H:i:s",$u['longer']),
 				'admin'		=> $u['author'],
 				'mail'		=> $u['email'],
-				'info'		=> sprintf($lang['bn_writemail'], $u['author']),
+				'info'		=> sprintf($LNG['bn_writemail'], $u['author']),
 			);
 		}
 		
@@ -570,26 +584,26 @@ switch ($page) {
 			'AvailableUnis'				=> $AvailableUnis,
 			'ThisUni'					=> $ThisUni,
 			'PrangerList'				=> $PrangerList,
-			'bn_no_players_banned'		=> $lang['bn_no_players_banned'],
-			'bn_exists'					=> $lang['bn_exists'],
-			'bn_players_banned'			=> $lang['bn_players_banned'],
-			'bn_players_banned_list'	=> $lang['bn_players_banned_list'],
-			'bn_player'					=> $lang['bn_player'],
-			'bn_reason'					=> $lang['bn_reason'],
-			'bn_from'					=> $lang['bn_from'],
-			'bn_until'					=> $lang['bn_until'],
-			'bn_by'						=> $lang['bn_by'],
+			'bn_no_players_banned'		=> $LNG['bn_no_players_banned'],
+			'bn_exists'					=> $LNG['bn_exists'],
+			'bn_players_banned'			=> $LNG['bn_players_banned'],
+			'bn_players_banned_list'	=> $LNG['bn_players_banned_list'],
+			'bn_player'					=> $LNG['bn_player'],
+			'bn_reason'					=> $LNG['bn_reason'],
+			'bn_from'					=> $LNG['bn_from'],
+			'bn_until'					=> $LNG['bn_until'],
+			'bn_by'						=> $LNG['bn_by'],
 		));
 		
 		$template->display('public/index_pranger.tpl');
 		break;
 	case 'disclamer':
 		$template->assign_vars(array(
-			'disclamer'			=> $lang['disclamer'],
-			'disclamer_name'	=> $lang['disclamer_name'],
-			'disclamer_adress'	=> $lang['disclamer_adress'],
-			'disclamer_tel'		=> $lang['disclamer_tel'],
-			'disclamer_email'	=> $lang['disclamer_email'],
+			'disclamer'			=> $LNG['disclamer'],
+			'disclamer_name'	=> $LNG['disclamer_name'],
+			'disclamer_adress'	=> $LNG['disclamer_adress'],
+			'disclamer_tel'		=> $LNG['disclamer_tel'],
+			'disclamer_email'	=> $LNG['disclamer_email'],
 		));
 		$template->display('public/index_disclamer.tpl');
 		break;
@@ -598,15 +612,15 @@ switch ($page) {
 		while ($NewsRow = $db->fetch($NewsRAW)) {
 			$NewsList[]	= array(
 				'title' => $NewsRow['title'],
-				'from' 	=> sprintf($lang['news_from'], date("d. M Y H:i:s", $NewsRow['date']), $NewsRow['user']),
+				'from' 	=> sprintf($LNG['news_from'], date("d. M Y H:i:s", $NewsRow['date']), $NewsRow['user']),
 				'text' 	=> makebr($NewsRow['text']),
 			);
 		}
 		
 		$template->assign_vars(array(
 			'NewsList'				=> $NewsList,
-			'news_overview'			=> $lang['news_overview'],
-			'news_does_not_exist'	=> $lang['news_does_not_exist'],
+			'news_overview'			=> $LNG['news_overview'],
+			'news_does_not_exist'	=> $LNG['news_does_not_exist'],
 		));
 		
 		$template->display('public/index_news.tpl');
@@ -615,41 +629,40 @@ switch ($page) {
 		if ($_POST) {
 			$luser = request_var('username', '');
 			$lpass = request_var('password', '');
-			$login = $db->fetch_array($db->query("SELECT `id`,`username`,`password`,`banaday` FROM " . USERS . " WHERE `username` = '".$db->sql_escape($luser)."' AND `password` = '".md5($lpass)."';"));
+			$login = $db->uniquequery("SELECT `id`,`username`,`authlevel`,`password`,`banaday` FROM " . USERS . " WHERE `username` = '".$db->sql_escape($luser)."' AND `password` = '".md5($lpass)."';");
 			
-			if ($login) {
+			if (isset($login)) {
 				if ($login['banaday'] <= time () && $login['banaday'] != '0') {
 					$db->query("UPDATE " . USERS . " SET `banaday` = '0', `bana` = '0' WHERE `username` = '" . $login ['username'] . "';");
 				}
-			
-				$expiretime = 0;
-				$rememberme = 0;
-							
-				$cookie = $login ["id"] . "/%/" . $login ["username"] . "/%/" . md5($login["password"]. "--" . $dbsettings ["secretword"] ) . "/%/" . $rememberme;
-				setcookie($game_config['COOKIE_NAME'], $cookie, $expiretime, "/", "", 0);
 				
-				$db->query ( "UPDATE `" . USERS . "` SET `current_planet` = `id_planet` WHERE `id` ='" . $login ["id"] . "';" );
+				@session_start();
+				$_SESSION['id']			= $login['id'];
+				$_SESSION['username']	= $login['username'];
+				$_SESSION['authlevel']	= $login['authlevel'];
+				
+				$db->query("UPDATE `" . USERS . "` SET `current_planet` = `id_planet` WHERE `id` = '".$login["id"]."';" );
 
 				header("Location: ./game.php?page=overview");
 				exit ();
 			} else {
-				message($lang['login_error'], "./", 2, false, false);
+				$template->message($LNG['login_error'], "./", 2, true);
 			}
 		} else {
 			$template->assign_vars(array(
 				'AvailableUnis'			=> $AvailableUnis,
-				'welcome_to'			=> $lang['welcome_to'],
-				'server_description'	=> sprintf($lang['server_description'], $game_config['game_name']),
-				'server_infos'			=> $lang['server_infos'],
-				'login'					=> $lang['login'],
-				'login_info'			=> $lang['login_info'],
-				'user'					=> $lang['user'],
-				'pass'					=> $lang['pass'],
-				'lostpassword'			=> $lang['lostpassword'],
-				'register_now'			=> $lang['register_now'],
-				'screenshots'			=> $lang['screenshots'],
-				'chose_a_uni'			=> $lang['chose_a_uni'],
-				'universe'				=> $lang['universe'],
+				'welcome_to'			=> $LNG['welcome_to'],
+				'server_description'	=> sprintf($LNG['server_description'], $CONF['game_name']),
+				'server_infos'			=> $LNG['server_infos'],
+				'login'					=> $LNG['login'],
+				'login_info'			=> $LNG['login_info'],
+				'user'					=> $LNG['user'],
+				'pass'					=> $LNG['pass'],
+				'lostpassword'			=> $LNG['lostpassword'],
+				'register_now'			=> $LNG['register_now'],
+				'screenshots'			=> $LNG['screenshots'],
+				'chose_a_uni'			=> $LNG['chose_a_uni'],
+				'universe'				=> $LNG['universe'],
 			));
 			$template->display('public/index_body.tpl');
 		}

@@ -29,23 +29,23 @@ include(ROOT_PATH . 'extension.inc');
 include(ROOT_PATH . 'common.'.PHP_EXT);
 
 
-if ($user['authlevel'] < 1) die(message ($lang['404_page']));
+if ($USER['authlevel'] < 1) die(message ($LNG['404_page']));
 
-$parse		=	$lang;
+$parse		=	$LNG;
 $Archive	=	"logs/".$_GET['file'].".".PHP_EXT;
 	
 switch ($_GET['options'])
 {
 	case 'delete':
-		if ($user['authlevel']	!=	3) die();
+		if ($USER['authlevel']	!=	3) die();
 		$FP	=	fopen($Archive, "w+");
 		fclose($FP);
 		
-		message($lang['log_delete_succes'].$_GET['file'], "LogToolPage.php?options=links&file=".$_GET['file']."", 2);
+		message($LNG['log_delete_succes'].$_GET['file'], "LogToolPage.php?options=links&file=".$_GET['file']."", 2);
 	break;
 	
 	case 'edit':
-		if ($user['authlevel']	!=	3) die();
+		if ($USER['authlevel']	!=	3) die();
 		$Fopen		=	fopen($Archive, "r+");
 
 		while(!feof($Fopen))
@@ -60,7 +60,7 @@ switch ($_GET['options'])
 			$Fopen2	=	fopen($Archive, "w+");
 			fputs($Fopen2, $_POST['text']);
 			fclose($Fopen2);
-			message($lang['log_edit_succes'], "LogToolPage.php?options=edit&file=".$_GET['file']."", 2);
+			message($LNG['log_edit_succes'], "LogToolPage.php?options=edit&file=".$_GET['file']."", 2);
 		}
 		
 		$FileSize				=	filesize($Archive);
@@ -83,16 +83,16 @@ switch ($_GET['options'])
 		$Log	=	fopen($Archive, "r");
 		
 		
-		if($user['authlevel']	==	3)
+		if($USER['authlevel']	==	3)
 		{
 			$Excuse_me		=	
-			"<a href=\"LogToolPage.php?options=delete&file=".$_GET['file']."\" onClick=\" return confirm('".$lang['log_alert']."');\">
-			".$lang['log_delete_link']."</a>&nbsp;
-			<a href=\"LogToolPage.php?options=edit&file=".$_GET['file']."\">".$lang['log_edit_link']."</a>";
+			"<a href=\"LogToolPage.php?options=delete&file=".$_GET['file']."\" onClick=\" return confirm('".$LNG['log_alert']."');\">
+			".$LNG['log_delete_link']."</a>&nbsp;
+			<a href=\"LogToolPage.php?options=edit&file=".$_GET['file']."\">".$LNG['log_edit_link']."</a>";
 		}
 		else
 		{
-			$Excuse_me		=	$lang['log_log_title_22'];
+			$Excuse_me		=	$LNG['log_log_title_22'];
 		}
 		$EditAndDelete	=	
 			"<tr><td class=\"c\" colspan=2>".$Excuse_me."</td></tr>";
@@ -100,7 +100,7 @@ switch ($_GET['options'])
 		$parse['display']	=	$EditAndDelete;
 		if (filesize($Archive) == 0)
 		{
-			$parse['display']	.= "<tr><th align=\"left\" colspan=2>".$lang['log_filesize_0']."</th></tr>";
+			$parse['display']	.= "<tr><th align=\"left\" colspan=2>".$LNG['log_filesize_0']."</th></tr>";
 		}
 		else
 		{	
