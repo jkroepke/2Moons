@@ -19,7 +19,7 @@
 # *                                                                          #
 ##############################################################################
 
-if(!defined('INSIDE')){ die(header("location:../../"));}
+if(!defined('INSIDE')) die('Hacking attempt!');
 
 class ShowInfosPage
 {
@@ -33,9 +33,9 @@ class ShowInfosPage
 		{
 			$WaitBetweenJmp = (60 * 60) * (1 / $JumpGateLevel);
 			$NextJumpTime   = $LastJumpTime + $WaitBetweenJmp;
-			if ($NextJumpTime >= time())
+			if ($NextJumpTime >= TIMESTAMP)
 			{
-				$RestWait   = $NextJumpTime - time();
+				$RestWait   = $NextJumpTime - TIMESTAMP;
 				$RestString = " ". pretty_time($RestWait);
 			}
 			else
@@ -55,15 +55,15 @@ class ShowInfosPage
 		return $RetValue;
 	}
 
-	private function DoFleetJump ($CurrentUser, $CurrentPlanet)
+	private function DoFleetJump ()
 	{
-		global $resource, $lang, $db, $reslist;
+		global $USER, $PLANET, $resource, $LNG, $db, $reslist;
 
 		if ($_POST)
 		{
-			$RestString   = $this->GetNextJumpWaitTime ($CurrentPlanet);
+			$RestString   = $this->GetNextJumpWaitTime($PLANET);
 			$NextJumpTime = $RestString['value'];
-			$JumpTime     = time();
+			$JumpTime     = TIMESTAMP;
 
 			if ( $NextJumpTime == 0 )
 			{
@@ -83,10 +83,10 @@ class ShowInfosPage
 
 						foreach($reslist['fleet'] as $Ship)
 						{
-							$ShipArray[$Ship]	=	min(max(request_var('c'.$Ship, 0.0), 0), $CurrentPlanet[$resource[$Ship]]);
+							$ShipArray[$Ship]	=	min(max(request_var('c'.$Ship, 0.0), 0), $PLANET[$resource[$Ship]]);
 							$SubQueryOri .= "`". $resource[ $Ship ] ."` = `". $resource[ $Ship ] ."` - '". floattostring($ShipArray[ $Ship ]) ."', ";
 							$SubQueryDes .= "`". $resource[ $Ship ] ."` = `". $resource[ $Ship ] ."` + '". floattostring($ShipArray[ $Ship ]) ."', ";
-							$CurrentPlanet[$resource[$Ship]] -= floattostring($ShipArray[$Ship]);
+							$PLANET[$resource[$Ship]] -= floattostring($ShipArray[$Ship]);
 						}
 
 						if ($SubQueryOri != "")
@@ -95,7 +95,7 @@ class ShowInfosPage
 							$QryUpdate .= $SubQueryOri;
 							$QryUpdate .= "`last_jump_time` = '". $JumpTime ."' ";
 							$QryUpdate .= "WHERE ";
-							$QryUpdate .= "`id` = '". $CurrentPlanet['id'] ."';";
+							$QryUpdate .= "`id` = '". $PLANET['id'] ."';";
 							$QryUpdate .= "UPDATE ".PLANETS." SET ";
 							$QryUpdate .= $SubQueryDes;
 							$QryUpdate .= "`last_jump_time` = '". $JumpTime ."' ";
@@ -103,46 +103,46 @@ class ShowInfosPage
 							$QryUpdate .= "`id` = '". $TargetGate['id'] ."';";
 							$db->multi_query($QryUpdate);
 
-							$CurrentPlanet['last_jump_time'] = $JumpTime;
-							$RestString    = $this->GetNextJumpWaitTime ( $CurrentPlanet );
-							$RetMessage    = $lang['in_jump_gate_done'] . $RestString['string'];
+							$PLANET['last_jump_time'] = $JumpTime;
+							$RestString    = $this->GetNextJumpWaitTime ( $PLANET );
+							$RetMessage    = $LNG['in_jump_gate_done'] . $RestString['string'];
 						}
 						else
 						{
-							$RetMessage = $lang['in_jump_gate_error_data'];
+							$RetMessage = $LNG['in_jump_gate_error_data'];
 						}
 					}
 					else
 					{
-						$RetMessage = $lang['in_jump_gate_not_ready_target'] . $RestString['string'];
+						$RetMessage = $LNG['in_jump_gate_not_ready_target'] . $RestString['string'];
 					}
 				}
 				else
 				{
-					$RetMessage = $lang['in_jump_gate_doesnt_have_one'];
+					$RetMessage = $LNG['in_jump_gate_doesnt_have_one'];
 				}
 			}
 			else
 			{
-				$RetMessage = $lang['in_jump_gate_already_used'] . $RestString['string'];
+				$RetMessage = $LNG['in_jump_gate_already_used'] . $RestString['string'];
 			}
 		}
 
 		return $RetMessage;
 	}
 
-	private function BuildFleetListRows ($CurrentPlanet)
+	private function BuildFleetListRows ($PLANET)
 	{
-		global $reslist, $resource, $lang;
+		global $reslist, $resource, $LNG;
 
 		foreach($reslist['fleet'] as $Ship)
 		{
-			if ($CurrentPlanet[$resource[$Ship]] > 0)
+			if ($PLANET[$resource[$Ship]] > 0)
 			{
 				$GateFleetList[]	= array(
 					'id'        => $Ship,
-					'name'      => $lang['tech'][$Ship],
-					'max'       => pretty_number($CurrentPlanet[$resource[$Ship]]),
+					'name'      => $LNG['tech'][$Ship],
+					'max'       => pretty_number($PLANET[$resource[$Ship]]),
 				);
 			}
 		}
@@ -150,15 +150,15 @@ class ShowInfosPage
 		return $GateFleetList;
 	}
 
-	private function BuildJumpableMoonCombo ( $CurrentUser, $CurrentPlanet )
+	private function BuildJumpableMoonCombo ( $USER, $PLANET )
 	{
 		global $resource, $db;
-		$QrySelectMoons  = "SELECT ".$resource[43].", id, galaxy, system, planet FROM ".PLANETS." WHERE `planet_type` = '3' AND `id_owner` = '". $CurrentUser['id'] ."';";
+		$QrySelectMoons  = "SELECT ".$resource[43].", id, galaxy, system, planet FROM ".PLANETS." WHERE `planet_type` = '3' AND `id_owner` = '". $USER['id'] ."';";
 		$MoonList        = $db->query ( $QrySelectMoons);
 		$Combo           = "";
 		while ( $CurMoon = $db->fetch($MoonList) )
 		{
-			if ( $CurMoon['id'] != $CurrentPlanet['id'] )
+			if ( $CurMoon['id'] != $PLANET['id'] )
 			{
 				$RestString = $this->GetNextJumpWaitTime ( $CurMoon );
 				if ($CurMoon[$resource[43]] >= 1)
@@ -168,9 +168,9 @@ class ShowInfosPage
 		return $Combo;
 	}
 
-	public function ShowInfosPage ($CurrentUser, $CurrentPlanet)
+	public function ShowInfosPage ()
 	{
-		global $dpath, $lang, $resource, $pricelist, $reslist, $CombatCaps, $ProdGrid, $game_config;
+		global $USER, $PLANET, $dpath, $LNG, $resource, $pricelist, $reslist, $CombatCaps, $ProdGrid, $CONF;
 
 		$BuildID 	= request_var('gid', 0);
 		
@@ -182,19 +182,19 @@ class ShowInfosPage
 		if(in_array($BuildID, $reslist['prod']) && $BuildID != 212)
 		{
 			$BuildLevelFactor	= 10;
-			$BuildTemp       	= $CurrentPlanet['temp_max'];
-			$CurrentBuildtLvl	= $CurrentPlanet[$resource[$BuildID]];
-			$BuildEnergy		= $CurrentUser[$resource[113]];
+			$BuildTemp       	= $PLANET['temp_max'];
+			$CurrentBuildtLvl	= $PLANET[$resource[$BuildID]];
+			$BuildEnergy		= $USER[$resource[113]];
 			$BuildLevel     	= ($CurrentBuildtLvl > 0) ? $CurrentBuildtLvl : 1;
-			$Prod[1]         	= (floor(eval($ProdGrid[$BuildID]['formule']['metal'])     * $game_config['resource_multiplier']) * (1 + ($CurrentUser['rpg_geologue']  * GEOLOGUE)));
-			$Prod[2]         	= (floor(eval($ProdGrid[$BuildID]['formule']['crystal'])   * $game_config['resource_multiplier']) * (1 + ($CurrentUser['rpg_geologue']  * GEOLOGUE)));
-			$Prod[3]          	= (floor(eval($ProdGrid[$BuildID]['formule']['deuterium']) * $game_config['resource_multiplier']) * (1 + ($CurrentUser['rpg_geologue']  * GEOLOGUE)));
+			$Prod[1]         	= (floor(eval($ProdGrid[$BuildID]['formule']['metal'])     * $CONF['resource_multiplier']) * (1 + ($USER['rpg_geologue']  * GEOLOGUE)));
+			$Prod[2]         	= (floor(eval($ProdGrid[$BuildID]['formule']['crystal'])   * $CONF['resource_multiplier']) * (1 + ($USER['rpg_geologue']  * GEOLOGUE)));
+			$Prod[3]          	= (floor(eval($ProdGrid[$BuildID]['formule']['deuterium']) * $CONF['resource_multiplier']) * (1 + ($USER['rpg_geologue']  * GEOLOGUE)));
 			$BuildStartLvl   	= max($CurrentBuildtLvl - 2, 1);
 
 			if( $BuildID >= 4 )
-				$Prod[4] = (floor(eval($ProdGrid[$BuildID]['formule']['energy'])    * $game_config['resource_multiplier']) * (1 + ($CurrentUser['rpg_ingenieur'] * INGENIEUR)));
+				$Prod[4] = (floor(eval($ProdGrid[$BuildID]['formule']['energy'])    * $CONF['resource_multiplier']) * (1 + ($USER['rpg_ingenieur'] * INGENIEUR)));
 			else
-				$Prod[4] = (floor(eval($ProdGrid[$BuildID]['formule']['energy'])    * $game_config['resource_multiplier']));
+				$Prod[4] = (floor(eval($ProdGrid[$BuildID]['formule']['energy'])    * $CONF['resource_multiplier']));
 
 			$ActualProd       = floor($Prod[$BuildID]);
 
@@ -207,14 +207,14 @@ class ShowInfosPage
 			
 			for($BuildLevel = $BuildStartLvl; $BuildLevel < $BuildStartLvl + 15; $BuildLevel++ )
 			{
-				$Prod[1] = floor(eval($ProdGrid[$BuildID]['formule']['metal'])     * $game_config['resource_multiplier']);
-				$Prod[2] = floor(eval($ProdGrid[$BuildID]['formule']['crystal'])   * $game_config['resource_multiplier']);
-				$Prod[3] = floor(eval($ProdGrid[$BuildID]['formule']['deuterium']) * $game_config['resource_multiplier']);
+				$Prod[1] = floor(eval($ProdGrid[$BuildID]['formule']['metal'])     * $CONF['resource_multiplier']);
+				$Prod[2] = floor(eval($ProdGrid[$BuildID]['formule']['crystal'])   * $CONF['resource_multiplier']);
+				$Prod[3] = floor(eval($ProdGrid[$BuildID]['formule']['deuterium']) * $CONF['resource_multiplier']);
 
 				if($BuildID >= 4)
-					$Prod[4] = floor(eval($ProdGrid[$BuildID]['formule']['energy'])    * $game_config['resource_multiplier']);
+					$Prod[4] = floor(eval($ProdGrid[$BuildID]['formule']['energy'])    * $CONF['resource_multiplier']);
 				else
-					$Prod[4] = floor(eval($ProdGrid[$BuildID]['formule']['energy'])    * $game_config['resource_multiplier']);
+					$Prod[4] = floor(eval($ProdGrid[$BuildID]['formule']['energy'])    * $CONF['resource_multiplier']);
 				
 				$bloc['build_lvl']       = ($CurrentBuildtLvl == $BuildLevel) ? "<font color=\"#ff0000\">".$BuildLevel."</font>" : $BuildLevel;
 
@@ -254,40 +254,40 @@ class ShowInfosPage
 			for ($Type = 200; $Type < 500; $Type++)
 			{
 				if ($CombatCaps[$BuildID]['sd'][$Type] > 1)
-					$RapidFire['to'][$lang['tech'][$Type]] = $CombatCaps[$BuildID]['sd'][$Type];
+					$RapidFire['to'][$LNG['tech'][$Type]] = $CombatCaps[$BuildID]['sd'][$Type];
 					
 				if ($CombatCaps[$Type]['sd'][$BuildID] > 1)
-					$RapidFire['from'][$lang['tech'][$Type]] = $CombatCaps[$Type]['sd'][$BuildID];
+					$RapidFire['from'][$LNG['tech'][$Type]] = $CombatCaps[$Type]['sd'][$BuildID];
 			}
 
-			$FleetInfo[$lang['in_struct_pt']]		= pretty_number($pricelist[$BuildID]['metal'] + $pricelist[$BuildID]['crystal']);
-			$FleetInfo[$lang['in_shield_pt']]		= pretty_number($CombatCaps[$BuildID]['shield']);
-			$FleetInfo[$lang['in_attack_pt']]		= pretty_number($CombatCaps[$BuildID]['attack']);
-			$FleetInfo[$lang['in_capacity']]		= pretty_number($pricelist[$BuildID]['capacity']);
-			$FleetInfo[$lang['in_base_speed']][]	= pretty_number($pricelist[$BuildID]['speed']);
-			$FleetInfo[$lang['in_consumption']][]	= pretty_number($pricelist[$BuildID]['consumption']);
-			$FleetInfo[$lang['in_base_speed']][]	= pretty_number($pricelist[$BuildID]['speed2']);
-			$FleetInfo[$lang['in_consumption']][]	= pretty_number($pricelist[$BuildID]['consumption2']);
+			$FleetInfo[$LNG['in_struct_pt']]		= pretty_number($pricelist[$BuildID]['metal'] + $pricelist[$BuildID]['crystal']);
+			$FleetInfo[$LNG['in_shield_pt']]		= pretty_number($CombatCaps[$BuildID]['shield']);
+			$FleetInfo[$LNG['in_attack_pt']]		= pretty_number($CombatCaps[$BuildID]['attack']);
+			$FleetInfo[$LNG['in_capacity']]		= pretty_number($pricelist[$BuildID]['capacity']);
+			$FleetInfo[$LNG['in_base_speed']][]	= pretty_number($pricelist[$BuildID]['speed']);
+			$FleetInfo[$LNG['in_consumption']][]	= pretty_number($pricelist[$BuildID]['consumption']);
+			$FleetInfo[$LNG['in_base_speed']][]	= pretty_number($pricelist[$BuildID]['speed2']);
+			$FleetInfo[$LNG['in_consumption']][]	= pretty_number($pricelist[$BuildID]['consumption2']);
 		}
 		elseif (in_array($BuildID, $reslist['defense']))
 		{
 			for ($Type = 200; $Type < 500; $Type++)
 			{
 				if ($CombatCaps[$BuildID]['sd'][$Type] > 1)
-					$RapidFire['to'][$lang['tech'][$Type]] = $CombatCaps[$BuildID]['sd'][$Type];
+					$RapidFire['to'][$LNG['tech'][$Type]] = $CombatCaps[$BuildID]['sd'][$Type];
 					
 				if ($CombatCaps[$Type]['sd'][$BuildID] > 1)
-					$RapidFire['from'][$lang['tech'][$Type]] = $CombatCaps[$Type]['sd'][$BuildID];
+					$RapidFire['from'][$LNG['tech'][$Type]] = $CombatCaps[$Type]['sd'][$BuildID];
 			}
 
-			$FleetInfo[$lang['in_struct_pt']]		= pretty_number($pricelist[$BuildID]['metal'] + $pricelist[$BuildID]['crystal']);
-			$FleetInfo[$lang['in_shield_pt']]		= pretty_number($CombatCaps[$BuildID]['shield']);
-			$FleetInfo[$lang['in_attack_pt']]		= pretty_number($CombatCaps[$BuildID]['attack']);
+			$FleetInfo[$LNG['in_struct_pt']]		= pretty_number($pricelist[$BuildID]['metal'] + $pricelist[$BuildID]['crystal']);
+			$FleetInfo[$LNG['in_shield_pt']]		= pretty_number($CombatCaps[$BuildID]['shield']);
+			$FleetInfo[$LNG['in_attack_pt']]		= pretty_number($CombatCaps[$BuildID]['attack']);
 		}
-		elseif($BuildID == 43 && $CurrentPlanet[$resource[43]] > 0)
+		elseif($BuildID == 43 && $PLANET[$resource[43]] > 0)
 		{
-			$GateFleetList['jump']			= $this->DoFleetJump($CurrentUser, $CurrentPlanet);
-			$RestString               		= $this->GetNextJumpWaitTime ( $CurrentPlanet );
+			$GateFleetList['jump']			= $this->DoFleetJump();
+			$RestString               		= $this->GetNextJumpWaitTime($PLANET);
 			if ($RestString['value'] != 0)
 			{
 				include_once(ROOT_PATH . 'includes/functions/InsertJavaScriptChronoApplet.' . PHP_EXT);
@@ -297,34 +297,34 @@ class ShowInfosPage
 				));
 			}
 			
-			$GateFleetList['start_link']	= BuildPlanetAdressLink($CurrentPlanet);
-			$GateFleetList['moons']			= $this->BuildJumpableMoonCombo($CurrentUser, $CurrentPlanet);
-			$GateFleetList['fleets']		= $this->BuildFleetListRows($CurrentPlanet);
+			$GateFleetList['start_link']	= BuildPlanetAdressLink($PLANET);
+			$GateFleetList['moons']			= $this->BuildJumpableMoonCombo($USER, $PLANET);
+			$GateFleetList['fleets']		= $this->BuildFleetListRows($PLANET);
 		}
 		$template->assign_vars(array(		
 			'id'							=> $BuildID,
-			'name'							=> $lang['info'][$BuildID]['name'],
+			'name'							=> $LNG['info'][$BuildID]['name'],
 			'image'							=> $BuildID,
-			'description'					=> $lang['info'][$BuildID]['description'],
+			'description'					=> $LNG['info'][$BuildID]['description'],
 			'ProductionTable'				=> $ProductionTable,
 			'RapidFire'						=> $RapidFire,
 			'Level'							=> $CurrentBuildtLvl,
 			'FleetInfo'						=> $FleetInfo,
 			'GateFleetList'					=> $GateFleetList,
-			'in_jump_gate_jump' 			=> $lang['in_jump_gate_jump'],
-			'gate_ship_dispo' 				=> $lang['in_jump_gate_available'],
-			'in_level'						=> $lang['in_level'],
-			'in_prod_p_hour'				=> $lang['in_prod_p_hour'],
-			'in_difference'					=> $lang['in_difference'],
-			'in_used_energy'				=> $lang['in_used_energy'],
-			'in_prod_energy'				=> $lang['in_prod_energy'],
-			'in_used_deuter'				=> $lang['in_used_deuter'],
-			'in_rf_again'					=> $lang['in_rf_again'],
-			'in_rf_from'					=> $lang['in_rf_from'],
-			'in_jump_gate_select_ships'		=> $lang['in_jump_gate_select_ships'],
-			'in_jump_gate_start_moon'		=> $lang['in_jump_gate_start_moon'],
-			'in_jump_gate_finish_moon'		=> $lang['in_jump_gate_finish_moon'],
-			'in_jump_gate_wait_time'		=> $lang['in_jump_gate_wait_time'],
+			'in_jump_gate_jump' 			=> $LNG['in_jump_gate_jump'],
+			'gate_ship_dispo' 				=> $LNG['in_jump_gate_available'],
+			'in_level'						=> $LNG['in_level'],
+			'in_prod_p_hour'				=> $LNG['in_prod_p_hour'],
+			'in_difference'					=> $LNG['in_difference'],
+			'in_used_energy'				=> $LNG['in_used_energy'],
+			'in_prod_energy'				=> $LNG['in_prod_energy'],
+			'in_used_deuter'				=> $LNG['in_used_deuter'],
+			'in_rf_again'					=> $LNG['in_rf_again'],
+			'in_rf_from'					=> $LNG['in_rf_from'],
+			'in_jump_gate_select_ships'		=> $LNG['in_jump_gate_select_ships'],
+			'in_jump_gate_start_moon'		=> $LNG['in_jump_gate_start_moon'],
+			'in_jump_gate_finish_moon'		=> $LNG['in_jump_gate_finish_moon'],
+			'in_jump_gate_wait_time'		=> $LNG['in_jump_gate_wait_time'],
 		));
 		
 		$template->show('info_overview.tpl');

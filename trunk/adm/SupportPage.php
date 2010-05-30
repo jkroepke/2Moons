@@ -30,7 +30,7 @@ include(ROOT_PATH . 'common.' . PHP_EXT);
 
 if ($Observation != 1) die();
 includeLang('INGAME');
-$parse     = $lang;
+$parse     = $LNG;
 		
 		
 if($_GET['ticket'] == 0){
@@ -83,14 +83,14 @@ if($_GET['ticket'] == 0){
 
 $subject = $_POST['senden_ticket_subject'];
 $tickettext = $_POST['senden_ticket_text'];
-$time = time();
+$time = TIMESTAMP;
 
 if(empty($tickettext) OR empty($subject)){
 
 	display(parsetemplate(gettemplate('adm/supp_t_send_error'),$parse), false, '', true, false);
 }else{
 		$Qryinsertticket  = "INSERT ".SUPP." SET ";
-		$Qryinsertticket .= "`player_id` = '". $user['id'] ."',";
+		$Qryinsertticket .= "`player_id` = '". $USER['id'] ."',";
 		$Qryinsertticket .= "`subject` = '". $subject ."',";
 		$Qryinsertticket .= "`text` = '". $db->sql_escape($tickettext) ."',";
 		$Qryinsertticket .= "`time` = '". $time ."',";
@@ -111,7 +111,7 @@ if(empty($antworttext) OR empty($antwortticketid)){
 		$query = $db->query("SELECT * FROM ".SUPP." WHERE `id` = '".$antwortticketid."';");
 		while($ticket = $db->fetch_array($query))
 		{
-		$newtext = $ticket['text'].'<br><br><hr>'.$user['username'].'(Admin) schreib am '.date("j. M Y H:i:s", time()).'<br><br><font color="red">'.$antworttext.'</font>';
+		$newtext = $ticket['text'].'<br><br><hr>'.$USER['username'].'(Admin) schreib am '.date("j. M Y H:i:s", TIMESTAMP).'<br><br><font color="red">'.$antworttext.'</font>';
 
 		$QryUpdatemsg  = "UPDATE ".SUPP." SET ";
 		$QryUpdatemsg .= "`text` = '".$db->sql_escape($newtext)."',";
@@ -120,7 +120,7 @@ if(empty($antworttext) OR empty($antwortticketid)){
 		$QryUpdatemsg .= "`id` = '". $antwortticketid ."' ";
 		$db->query( $QryUpdatemsg);
 		$SuppTicket	= $db->fetch_array($db->query("SELECT player_id FROM ".SUPP." WHERE `id` = '". $antwortticketid ."'"));
-		SendSimpleMessage($SuppTicket['player_id'], '', time(), 4, $user['username'], "Support Ticket #".$antwortticketid, "Es wurde auf Ihr Ticket #".$antwortticketid." eine Antwort geschreiben!");
+		SendSimpleMessage($SuppTicket['player_id'], '', TIMESTAMP, 4, $USER['username'], "Support Ticket #".$antwortticketid, "Es wurde auf Ihr Ticket #".$antwortticketid." eine Antwort geschreiben!");
 		header("Location: SupportPage.php");
 	}
 
@@ -128,7 +128,7 @@ if(empty($antworttext) OR empty($antwortticketid)){
 }elseif($_GET['schliessen'] =="1"){
 		$schlieﬂen = $_GET['ticket'];
 		$ticket = $db->fetch_array($db->query("SELECT text FROM ".SUPP." WHERE `id` = '".$schlieﬂen."';"));
-		$newtext = $ticket['text'].'<br><br><hr>'.$user['username'].'(Admin) hat das Ticket am '.date("j. M Y H:i:s", time()).' geschlossen!';
+		$newtext = $ticket['text'].'<br><br><hr>'.$USER['username'].'(Admin) hat das Ticket am '.date("j. M Y H:i:s", TIMESTAMP).' geschlossen!';
 		$QryUpdatemsg  = "UPDATE ".SUPP." SET ";
 		$QryUpdatemsg .= "`text` = '".$db->sql_escape($newtext)."',";
 		$QryUpdatemsg .= "`status` = '0'";
@@ -140,7 +140,7 @@ if(empty($antworttext) OR empty($antwortticketid)){
 }elseif($_GET['offnen'] =="1"){
 		$schlieﬂen = $_GET['ticket'];
 		$ticket = $db->fetch_array($db->query("SELECT text FROM ".SUPP." WHERE `id` = '".$schlieﬂen."';"));
-		$newtext = $ticket['text'].'<br><br><hr>'.$user['username'].'(Admin) hat das Ticket am '.date("j. M Y H:i:s", time()).' ge&ouml;ffnet!';
+		$newtext = $ticket['text'].'<br><br><hr>'.$USER['username'].'(Admin) hat das Ticket am '.date("j. M Y H:i:s", TIMESTAMP).' ge&ouml;ffnet!';
 		$QryUpdatemsg  = "UPDATE ".SUPP." SET ";
 		$QryUpdatemsg .= "`text` = '".$db->sql_escape($newtext)."',";
 		$QryUpdatemsg .= "`status` = '2'";
@@ -180,7 +180,7 @@ if(empty($antworttext) OR empty($antwortticketid)){
 		$parse['text_view'] = $ticket2['text'];
 		$parse['id'] = $ticket2['ID'];
 	
-		$parse['closeopen'] = ($ticket2['status'] != 0) ? "<form action=\"?ticket=".$ticket2['ID']."&schliessen=1\" method=\"POST\"><input type=\"hidden\" name=\"ticket\" value=\"".$ticket2['ID']."\"> <center><input type=\"submit\" value=\"".$lang['close_ticket']."\"></center> </form>" : "<form action=\"?ticket=".$ticket2['ID']."&offnen=1\" method=\"POST\"><input type=\"hidden\" name=\"ticket\" value=\"".$ticket2['ID']."\"><center><input type=\"submit\" value=\"".$lang['open_ticket']."\"></center></form>";
+		$parse['closeopen'] = ($ticket2['status'] != 0) ? "<form action=\"?ticket=".$ticket2['ID']."&schliessen=1\" method=\"POST\"><input type=\"hidden\" name=\"ticket\" value=\"".$ticket2['ID']."\"> <center><input type=\"submit\" value=\"".$LNG['close_ticket']."\"></center> </form>" : "<form action=\"?ticket=".$ticket2['ID']."&offnen=1\" method=\"POST\"><input type=\"hidden\" name=\"ticket\" value=\"".$ticket2['ID']."\"><center><input type=\"submit\" value=\"".$LNG['open_ticket']."\"></center></form>";
 	display(parsetemplate(gettemplate('adm/supp_detail'), $parse), false, '', true, false);
 }
 

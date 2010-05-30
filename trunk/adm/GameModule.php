@@ -29,24 +29,24 @@ include(ROOT_PATH . 'extension.inc');
 include(ROOT_PATH . 'common.' . PHP_EXT);
 
 
-if ($ConfigGame != 1) die();
+if ($CONFGame != 1) die();
 
 if($_GET['mode']) {
-	$game_config['moduls'][request_var('id', 0)]	= ($_GET['mode'] == 'aktiv') ? 1 : 0;
-	update_config('moduls', implode(";", $game_config['moduls']));
+	$CONF['moduls'][request_var('id', 0)]	= ($_GET['mode'] == 'aktiv') ? 1 : 0;
+	update_config('moduls', implode(";", $CONF['moduls']));
 }
 
-foreach($lang['modul'] as $ID => $Name) { 
-	if($game_config['moduls'][$ID] == 1) {
+foreach($LNG['modul'] as $ID => $Name) { 
+	if($CONF['moduls'][$ID] == 1) {
 		$parse['modulos'] .= "<tr>";
 		$parse['modulos'] .= "<th>".$Name."</th>";
-		$parse['modulos'] .= "<th style=\"color:green\"><b>".$lang['ative']."</b></th>";
+		$parse['modulos'] .= "<th style=\"color:green\"><b>".$LNG['ative']."</b></th>";
 		$parse['modulos'] .= "<th><a href=\"?mode=deaktiv&amp;id=".$ID."\">Deaktivieren</a></th>";
 		$parse['modulos'] .= "</tr>";
     } else {
 		$parse['modulos'] .= "<tr>";
 		$parse['modulos'] .= "<th>".$Name."</th>";
-		$parse['modulos'] .= "<th style=\"color:red\"><b>".$lang['deative']."</b></th>";
+		$parse['modulos'] .= "<th style=\"color:red\"><b>".$LNG['deative']."</b></th>";
 		$parse['modulos'] .= "<th><a href=\"?mode=aktiv&amp;id=".$ID."\">Aktivieren</a></th>";
 		$parse['modulos'] .= "</tr>";
     }

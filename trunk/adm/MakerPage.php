@@ -29,9 +29,9 @@ include(ROOT_PATH . 'extension.inc');
 include(ROOT_PATH . 'common.'.PHP_EXT);
 
 
-if ($EditUsers != 1) die(message ($lang['404_page']));
+if ($EditUsers != 1) die(message ($LNG['404_page']));
 
-$parse	=	$lang;
+$parse	=	$LNG;
 
 
 switch ($_GET[page])
@@ -44,16 +44,16 @@ switch ($_GET[page])
 	$system		=	$_POST['system'];
 	$planet		=	$_POST['planet'];
 	$auth		=	$_POST['authlevel'];
-	$time		=	time();
+	$time		=	TIMESTAMP;
 	$i			=	0;
 
 
 	for ($L = 0; $L < 4; $L++)
 	{
-		if ($user['authlevel'] == 3)
-			$parse['uplvels']	.= "<option value=\"".$L."\">".$lang['rank'][$L]."</option>";
+		if ($USER['authlevel'] == 3)
+			$parse['uplvels']	.= "<option value=\"".$L."\">".$LNG['rank'][$L]."</option>";
 		else
-			$parse['uplvels']	 = '<option value="0">'.$lang['rank'][0].'</option>';
+			$parse['uplvels']	 = '<option value="0">'.$LNG['rank'][0].'</option>';
 	}
 
 
@@ -65,34 +65,34 @@ switch ($_GET[page])
 	
 	
 		if (!ctype_digit($galaxy) &&  !ctype_digit($system) && !ctype_digit($planet)){
-			$parse['display']	.=	'<tr><th colspan="2" class="red">'.$lang['only_numbers'].'</tr></th>';
+			$parse['display']	.=	'<tr><th colspan="2" class="red">'.$LNG['only_numbers'].'</tr></th>';
 			$i++;}
 		elseif ($galaxy > MAX_GALAXY_IN_WORLD || $system > MAX_SYSTEM_IN_GALAXY || $planet > MAX_PLANET_IN_SYSTEM || $galaxy < 1 || $system < 1 || $planet < 1){
-			$parse['display']	.=	'<tr><th colspan="2" class="red">'.$lang['new_error_coord'].'</tr></th>';
+			$parse['display']	.=	'<tr><th colspan="2" class="red">'.$LNG['new_error_coord'].'</tr></th>';
 			$i++;}
 		
 		if (!$name || !$pass || !$email || !$galaxy || !$system || !$planet){
-			$parse['display']	.=	'<tr><th colspan="2" class="red">'.$lang['new_complete_all'].'</tr></th>';
+			$parse['display']	.=	'<tr><th colspan="2" class="red">'.$LNG['new_complete_all'].'</tr></th>';
 			$i++;}
 		
 		if (!ValidateAddress(strip_tags($email))){
-			$parse['display']	.=	'<tr><th colspan="2" class="red">'.$lang['new_error_email2'].'</tr></th>';
+			$parse['display']	.=	'<tr><th colspan="2" class="red">'.$LNG['new_error_email2'].'</tr></th>';
 			$i++;}
 
 		if ($CheckUser){
-			$parse['display']	.=	'<tr><th colspan="2" class="red">'.$lang['new_error_name'].'</tr></th>';
+			$parse['display']	.=	'<tr><th colspan="2" class="red">'.$LNG['new_error_name'].'</tr></th>';
 			$i++;}
 		
 		if ($CheckMail){
-			$parse['display']	.=	'<tr><th colspan="2" class="red">'.$lang['new_error_email'].'</tr></th>';
+			$parse['display']	.=	'<tr><th colspan="2" class="red">'.$LNG['new_error_email'].'</tr></th>';
 			$i++;}
 		
 		if ($CheckRows){
-			$parse['display']	.=	'<tr><th colspan="2" class="red">'.$lang['new_error_galaxy'].'</tr></th>';
+			$parse['display']	.=	'<tr><th colspan="2" class="red">'.$LNG['new_error_galaxy'].'</tr></th>';
 			$i++;}
 		
 		if (strlen($pass) < 4){
-			$parse['display']	.=	'<tr><th colspan="2" class="red">'.$lang['new_error_passw'].'</tr></th>';
+			$parse['display']	.=	'<tr><th colspan="2" class="red">'.$LNG['new_error_passw'].'</tr></th>';
 			$i++;}
 			
 		
@@ -114,6 +114,7 @@ switch ($_GET[page])
 
 			$ID_USER 	= $db->fetch_array($db->query("SELECT `id` FROM ".USERS." WHERE `username` = '" . $db->sql_escape($name) . "' LIMIT 1;"));
 		
+			require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.'.PHP_EXT);
 			CreateOnePlanetRecord ($galaxy, $system, $planet, $ID_USER['id'], $UserPlanet, true);
 		
 			$ID_PLANET 	= $db->fetch_array($db->query("SELECT `id` FROM ".PLANETS." WHERE `id_owner` = '". $ID_USER['id'] ."' LIMIT 1;"));
@@ -132,15 +133,15 @@ switch ($_GET[page])
 			$db->query($QryUpdateUser);
 		
 		
-			$Log	.=	"\n".$lang['log_new_user_title']."\n";
-			$Log	.=	$lang['log_the_user'].$user['username'].$lang['log_new_user'].":\n";
-			$Log	.=	$lang['log_new_user_name'].": ".$name."\n";
-			$Log	.=	$lang['log_new_user_coor'].": [".$galaxy.":".$system.":".$planet."]\n";
-			$Log	.=	$lang['log_new_user_email'].": ".$email."\n";
-			$Log	.=	$lang['log_new_user_auth'].": ".$lang['new_range11'][$auth]."\n";
+			$Log	.=	"\n".$LNG['log_new_user_title']."\n";
+			$Log	.=	$LNG['log_the_user'].$USER['username'].$LNG['log_new_user'].":\n";
+			$Log	.=	$LNG['log_new_user_name'].": ".$name."\n";
+			$Log	.=	$LNG['log_new_user_coor'].": [".$galaxy.":".$system.":".$planet."]\n";
+			$Log	.=	$LNG['log_new_user_email'].": ".$email."\n";
+			$Log	.=	$LNG['log_new_user_auth'].": ".$LNG['new_range11'][$auth]."\n";
 				
 			LogFunction($Log, "GeneralLog", $LogCanWork);
-			$parse['display']	=	'<tr><th colspan="2"><font color=lime>'.$lang['new_user_success'].'</font></tr></th>';
+			$parse['display']	=	'<tr><th colspan="2"><font color=lime>'.$LNG['new_user_success'].'</font></tr></th>';
 		}
 	}
 
@@ -168,7 +169,7 @@ switch ($_GET[page])
 			$System    = $MoonPlanet['system'];
 			$Planet    = $MoonPlanet['planet'];
 			$Owner     = $MoonPlanet['id_owner'];
-			$MoonID    = time();
+			$MoonID    = TIMESTAMP;
 
 
 			if ($_POST['diameter_check'] == 'on')
@@ -183,7 +184,7 @@ switch ($_GET[page])
 			}
 			else
 			{
-				$parse['display']	=	"<tr><th colspan=3><font color=red>".$lang['only_numbers']."</font></th></tr>";
+				$parse['display']	=	"<tr><th colspan=3><font color=red>".$LNG['only_numbers']."</font></th></tr>";
 			}
 				
 				
@@ -199,7 +200,7 @@ switch ($_GET[page])
 			}
 			else
 			{
-				$parse['display']	=	"<tr><th colspan=3><font color=red>".$lang['only_numbers']."</font></th></tr>";
+				$parse['display']	=	"<tr><th colspan=3><font color=red>".$LNG['only_numbers']."</font></th></tr>";
 			}
 					
 				$QryInsertMoonInPlanet  = "INSERT INTO ".PLANETS." SET ";
@@ -209,7 +210,7 @@ switch ($_GET[page])
 				$QryInsertMoonInPlanet .= "`galaxy` = '". $Galaxy ."', ";
 				$QryInsertMoonInPlanet .= "`system` = '". $System ."', ";
 				$QryInsertMoonInPlanet .= "`planet` = '". $Planet ."', ";
-				$QryInsertMoonInPlanet .= "`last_update` = '". time() ."', ";
+				$QryInsertMoonInPlanet .= "`last_update` = '". TIMESTAMP ."', ";
 				$QryInsertMoonInPlanet .= "`planet_type` = '3', ";
 				$QryInsertMoonInPlanet .= "`image` = 'mond', ";
 				$QryInsertMoonInPlanet .= "`diameter` = '". $size ."', ";
@@ -243,16 +244,16 @@ switch ($_GET[page])
 				$QryUpdateMoonInGalaxy .= "`planet_type` = '1';";
 				$db->query( $QryUpdateMoonInGalaxy);
 			
-				$parse['display']	=	"<tr><th colspan=3><font color=lime>".$lang['mo_moon_added']."</font></th></tr>";
+				$parse['display']	=	"<tr><th colspan=3><font color=lime>".$LNG['mo_moon_added']."</font></th></tr>";
 			}
 			else
 			{
-				$parse['display']	=	"<tr><th colspan=3><font color=red>".$lang['mo_moon_unavaible']."</font></th></tr>";
+				$parse['display']	=	"<tr><th colspan=3><font color=red>".$LNG['mo_moon_unavaible']."</font></th></tr>";
 			}
 		}
 		else
 		{
-			$parse['display']	=	"<tr><th colspan=3><font color=red>".$lang['mo_planet_doesnt_exist']."</font></th></tr>";
+			$parse['display']	=	"<tr><th colspan=3><font color=red>".$LNG['mo_planet_doesnt_exist']."</font></th></tr>";
 		}
 	}
 	elseif($_POST && $_POST['del_moon'])
@@ -280,16 +281,16 @@ switch ($_GET[page])
 				$QryUpdateGalaxy .= "LIMIT 1;";
 				$db->query( $QryUpdateGalaxy);
 
-				$parse['display2']	=	"<tr><th colspan=3><font color=lime>".$lang['mo_moon_deleted']."</font></th></tr>";
+				$parse['display2']	=	"<tr><th colspan=3><font color=lime>".$LNG['mo_moon_deleted']."</font></th></tr>";
 			}
 			else
 			{
-				$parse['display2']	=	"<tr><th colspan=3><font color=red>".$lang['mo_moon_only']."</font></th></tr>";
+				$parse['display2']	=	"<tr><th colspan=3><font color=red>".$LNG['mo_moon_only']."</font></th></tr>";
 			}
 		}
 		else
 		{
-			$parse['display2']	=	"<tr><th colspan=3><font color=red>".$lang['mo_moon_doesnt_exist']."</font></th></tr>";
+			$parse['display2']	=	"<tr><th colspan=3><font color=red>".$LNG['mo_moon_doesnt_exist']."</font></th></tr>";
 		}
 	}
 
@@ -314,15 +315,16 @@ switch ($_GET[page])
 		if (is_numeric($_POST['id']) && isset($_POST['id']) && !$QueryS && $QueryS2)
 		{
     		if ($galaxy < 1 or $system < 1 or $planet < 1 or !is_numeric($galaxy) or !is_numeric($system) or !is_numeric($planet)){      
-    			$Error	.=	'<tr><th colspan="2"><font color=red>'.$lang['po_complete_all'].'</font></th></tr>';
+    			$Error	.=	'<tr><th colspan="2"><font color=red>'.$LNG['po_complete_all'].'</font></th></tr>';
 				$i++;}
 	
 			if ($galaxy > MAX_GALAXY_IN_WORLD or $system > MAX_SYSTEM_IN_GALAXY or $planet > MAX_PLANET_IN_SYSTEM){
-				$Error	.=	'<tr><th colspan="2"><font color=red>'.$lang['po_complete_all2'].'</font></th></tr>';
+				$Error	.=	'<tr><th colspan="2"><font color=red>'.$LNG['po_complete_all2'].'</font></th></tr>';
 				$i++;}
 	
 			if ($i	==	0)
 			{
+				require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.'.PHP_EXT);
 				CreateOnePlanetRecord ($galaxy, $system, $planet, $id, '', '', false) ; 
 				
 				$QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
@@ -338,7 +340,7 @@ switch ($_GET[page])
 				$QryUpdatePlanet .= "`planet_type` = '1'";
 				$db->query($QryUpdatePlanet);
 
-    			$parse['display']	=	'<tr><th colspan="2"><font color=lime>'.$lang['po_complete_succes'].'</font></th></tr>';
+    			$parse['display']	=	'<tr><th colspan="2"><font color=lime>'.$LNG['po_complete_succes'].'</font></th></tr>';
 			}
 			else
 			{
@@ -347,7 +349,7 @@ switch ($_GET[page])
 		}
 		else
 		{
-			$parse['display']	=	'<tr><th colspan="2"><font color=red>'.$lang['po_complete_all'].'</font></th></tr>';
+			$parse['display']	=	'<tr><th colspan="2"><font color=red>'.$LNG['po_complete_all'].'</font></th></tr>';
 		}
 	}
 	elseif ($_POST && $mode == 'borrar') 
@@ -363,21 +365,21 @@ switch ($_GET[page])
 				{
 					$db->query("DELETE FROM ".PLANETS." WHERE `galaxy` = '".$QueryS['galaxy']."' AND `system` = '".$QueryS['system']."' AND planet` = '".$QueryS['planet']."';");
 					
-					$Error	.=	'<tr><th colspan="2"><font color=lime>'.$lang['po_complete_succes2'].'</font></th></tr>';
+					$Error	.=	'<tr><th colspan="2"><font color=lime>'.$LNG['po_complete_succes2'].'</font></th></tr>';
 				}
 				else
 				{
-					$Error	.=	'<tr><th colspan="2"><font color=red>'.$lang['po_complete_invalid3'].'</font></th></tr>';
+					$Error	.=	'<tr><th colspan="2"><font color=red>'.$LNG['po_complete_invalid3'].'</font></th></tr>';
 				}
 			}
 			else
 			{
-				$Error	.=	'<tr><th colspan="2"><font color=red>'.$lang['po_complete_invalid2'].'</font></th></tr>';
+				$Error	.=	'<tr><th colspan="2"><font color=red>'.$LNG['po_complete_invalid2'].'</font></th></tr>';
 			}
 		}
 		else
 		{
-			$Error	.=	'<tr><th colspan="2"><font color=red>'.$lang['po_complete_invalid'].'</font></th></tr>';
+			$Error	.=	'<tr><th colspan="2"><font color=red>'.$LNG['po_complete_invalid'].'</font></th></tr>';
 		}
 		$parse['display2']	=	$Error;
 	}

@@ -68,10 +68,10 @@ function changeAction(type) {
 				document.login.action = $('#Uni').val();
 			break;
 			case "reg":
-				document.reg.action = $('#Uni').val() + "?page=reg&mode=send";
+				document.reg.action = $('#Uni').val() + "?page=reg&mode=send&lang="+lang;
 			break;
 			case "lostpassword":
-				document.lostpassword.action = $('#Uni').val() + "?page=lostpassword&mode=send";
+				document.lostpassword.action = $('#Uni').val() + "?page=lostpassword&mode=send&lang="+lang;
 			break;
 		}
 		return true;

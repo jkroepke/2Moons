@@ -19,7 +19,7 @@
 # *                                                                          #
 ##############################################################################
 
-if(!defined('INSIDE')){ die(header("location:../../"));}
+if(!defined('INSIDE')) die('Hacking attempt!');
 
 class ShowShipyardPage
 {
@@ -69,48 +69,49 @@ class ShowShipyardPage
 
 		return $ResType;
 	}
-	private function CancelAuftr(&$CurrentUser, &$CurrentPlanet, $CancelArray) 
+	private function CancelAuftr($CancelArray) 
 	{
-		$ElementQueue = explode(';', $CurrentPlanet['b_hangar_id']);
+		global $USER, $PLANET;
+		$ElementQueue = explode(';', $PLANET['b_hangar_id']);
 		foreach ($CancelArray as $ID => $Auftr)
 		{
 			$ElementQ	= explode(',', $ElementQueue[$Auftr-1]);
 			$Element	= $ElementQ[0];
 			$Count		= $ElementQ[1];
-			if ($Element == 214 && $CurrentUser['rpg_destructeur'] == 1) $Count = $Count / 2;
+			if ($Element == 214 && $USER['rpg_destructeur'] == 1) $Count = $Count / 2;
 			
 			$Resses		= $this->GetElementRessources($Element, $Count);
-			$CurrentPlanet['metal']		+= $Resses['metal']			* 0.6;
-			$CurrentPlanet['crystal']	+= $Resses['crystal']		* 0.6;
-			$CurrentPlanet['deuterium']	+= $Resses['deuterium']		* 0.6;
-			$CurrentUser['darkmatter']	+= $Resses['darkmatter']	* 0.6;
+			$PLANET['metal']		+= $Resses['metal']			* 0.6;
+			$PLANET['crystal']		+= $Resses['crystal']		* 0.6;
+			$PLANET['deuterium']	+= $Resses['deuterium']		* 0.6;
+			$USER['darkmatter']		+= $Resses['darkmatter']	* 0.6;
 			unset($ElementQueue[$Auftr-1]);
 		}
-		$CurrentPlanet['b_hangar_id']	= implode(';', $ElementQueue);
+		$PLANET['b_hangar_id']	= implode(';', $ElementQueue);
 	}
 	
-	private function GetRestPrice ($user, $planet, $Element, $userfactor = true)
+	private function GetRestPrice($Element, $USERfactor = true)
 	{
-		global $pricelist, $resource, $lang;
+		global $USER, $PLANET, $pricelist, $resource, $LNG;
 
-		if ($userfactor)
+		if ($USERfactor)
 		{
-			$level = ($planet[$resource[$Element]]) ? $planet[$resource[$Element]] : $user[$resource[$Element]];
+			$level = ($PLANET[$resource[$Element]]) ? $PLANET[$resource[$Element]] : $USER[$resource[$Element]];
 		}
 
 		$array = array(
-			'metal'      => $lang['Metal'],
-			'crystal'    => $lang['Crystal'],
-			'deuterium'  => $lang['Deuterium'],
-			'energy_max' => $lang['Energy'],
-			'darkmatter' => $lang['Darkmatter'],
+			'metal'      => $LNG['Metal'],
+			'crystal'    => $LNG['Crystal'],
+			'deuterium'  => $LNG['Deuterium'],
+			'energy_max' => $LNG['Energy'],
+			'darkmatter' => $LNG['Darkmatter'],
 		);
 		$restprice	= array();
 		foreach ($array as $ResType => $ResTitle)
 		{
 			if ($pricelist[$Element][$ResType] != 0)
 			{
-				if ($userfactor)
+				if ($USERfactor)
 				{
 					$cost = floor($pricelist[$Element][$ResType] * pow($pricelist[$Element]['factor'], $level));
 				}
@@ -118,34 +119,25 @@ class ShowShipyardPage
 				{
 					$cost = floor($pricelist[$Element][$ResType]);
 				}
-				$restprice[$ResTitle] = pretty_number(max($cost - (($planet[$ResType]) ? $planet[$ResType] : $user[$ResType]), 0));
+				$restprice[$ResTitle] = pretty_number(max($cost - (($PLANET[$ResType]) ? $PLANET[$ResType] : $USER[$ResType]), 0));
 			}
 		}
 
 		return $restprice;
 	}
 	
-	public function FleetBuildingPage($CurrentPlanet, $CurrentUser)
+	public function FleetBuildingPage()
 	{
-		global $lang, $resource, $dpath, $db, $reslist;
+		global $PLANET, $USER, $LNG, $resource, $dpath, $db, $reslist;
 
 		include_once(ROOT_PATH . 'includes/functions/IsTechnologieAccessible.' . PHP_EXT);
 		include_once(ROOT_PATH . 'includes/functions/GetElementPrice.' . PHP_EXT);
 		
+		$template	= new template();
 		
-		$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
-
-		if ($CurrentPlanet[$resource[21]] == 0)
+		if ($PLANET[$resource[21]] == 0)
 		{
-			$template	= new template();
-			$template->set_vars($CurrentUser, $CurrentPlanet);
-			$template->page_header();	
-			$template->page_topnav();
-			$template->page_leftmenu();
-			$template->page_planetmenu();
-			$template->page_footer();
-			$template->message($lang['bd_shipyard_required']);
-			$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
+			$template->message($LNG['bd_shipyard_required']);
 			exit;
 		}
 		
@@ -153,6 +145,8 @@ class ShowShipyardPage
 		$cancel	= $_POST['auftr'];
 		$action	= request_var('action', '');
 		
+		$PlanetRess = new ResourceUpdate();
+		$PlanetRess->CalcResource();
 		if (!empty($fmenge))
 		{
 			$AddedInQueue = false;
@@ -165,46 +159,40 @@ class ShowShipyardPage
 					
 				$Count	= is_numeric($Count) ? $Count : 0;
 				$Count 	= min($Count, MAX_FLEET_OR_DEFS_PER_ROW);
-				$ebuild = explode(";",$CurrentPlanet['b_hangar_id']);
+				$ebuild = explode(";",$PLANET['b_hangar_id']);
 				if (count($ebuild) - 1 >= MAX_FLEET_OR_DEFS_IN_BUILD)
 				{
-					$template	= new template();
-					$template->set_vars($CurrentUser, $CurrentPlanet);
-					$template->page_header();	
-					$template->page_topnav();
-					$template->page_leftmenu();
-					$template->page_planetmenu();
-					$template->page_footer();
-					$template->message(sprintf($lang['bd_max_builds'], MAX_FLEET_OR_DEFS_IN_BUILD), "?page=buildings&mode=fleet", 3);
-					$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
+					$template->message(sprintf($LNG['bd_max_builds'], MAX_FLEET_OR_DEFS_IN_BUILD), "?page=buildings&mode=fleet", 3);
 					exit;
 				}
-				elseif ($Count > 0 && IsTechnologieAccessible ($CurrentUser, $CurrentPlanet, $Element))
+				elseif ($Count > 0 && IsTechnologieAccessible ($USER, $PLANET, $Element))
 				{
-					$MaxElements = $this->GetMaxConstructibleElements($Element, $CurrentPlanet);
+					$MaxElements = $this->GetMaxConstructibleElements($Element, $PLANET);
 					$Count		 = min($MaxElements, $Count);
 					$Ressource 	 = $this->GetElementRessources($Element, $Count);
-					$CurrentPlanet['metal']		-= $Ressource['metal'];
-					$CurrentPlanet['crystal']   -= $Ressource['crystal'];
-					$CurrentPlanet['deuterium'] -= $Ressource['deuterium'];
-					$CurrentUser['darkmatter']  -= $Ressource['darkmatter'];
+					$PLANET['metal']	 -= $Ressource['metal'];
+					$PLANET['crystal']   -= $Ressource['crystal'];
+					$PLANET['deuterium'] -= $Ressource['deuterium'];
+					$USER['darkmatter']  -= $Ressource['darkmatter'];
 
-					if ($Element == 214 && $CurrentUser['rpg_destructeur'] == 1)
+					if ($Element == 214 && $USER['rpg_destructeur'] == 1)
 						$Count = 2 * $Count;
 
-					$CurrentPlanet['b_hangar_id']    .= $Element .",".floattostring($Count).";";
+					$PLANET['b_hangar_id']    .= $Element .",".floattostring($Count).";";
 				}
 			}
 		}
 				
 		if ($action == "delete" && is_array($cancel))
-			$this->CancelAuftr($CurrentUser, $CurrentPlanet, $cancel);
+			$this->CancelAuftr($cancel);
 
+		$PlanetRess->SavePlanetToDB();
+		
 		$NotBuilding = true;
 
-		if (!empty($CurrentPlanet['b_building_id']))
+		if (!empty($PLANET['b_building_id']))
 		{
-			$CurrentQueue = $CurrentPlanet['b_building_id'];
+			$CurrentQueue = $PLANET['b_building_id'];
 			$QueueArray		= explode (";", $CurrentQueue);
 
 			for($i = 0; $i < count($QueueArray); $i++)
@@ -216,13 +204,12 @@ class ShowShipyardPage
 		}
 
 		$template	= new template();
-		if(!empty($CurrentPlanet['b_hangar_id']))
+		if(!empty($PLANET['b_hangar_id']))
 		{
 			$template->loadscript('shipyard.js');
 			$template->loadscript('bcmath.js');
 		}
 		
-		$template->set_vars($CurrentUser, $CurrentPlanet);
 		$template->page_header();	
 		$template->page_topnav();
 		$template->page_leftmenu();
@@ -231,24 +218,24 @@ class ShowShipyardPage
 		
 		foreach($reslist['fleet'] as $Element)
 		{
-			if (IsTechnologieAccessible($CurrentUser, $CurrentPlanet, $Element))
+			if (IsTechnologieAccessible($USER, $PLANET, $Element))
 			{
 				$FleetList[]	= array(
 					'id'			=> $Element,
-					'name'			=> $lang['tech'][$Element],
-					'descriptions'	=> $lang['res']['descriptions'][$Element],
-					'price'			=> GetElementPrice($CurrentUser, $CurrentPlanet, $Element, false),
-					'restprice'		=> $this->GetRestPrice ($CurrentUser, $CurrentPlanet, $Element),
-					'time'			=> pretty_time(GetBuildingTime($CurrentUser, $CurrentPlanet, $Element)),
-					'IsAvailable'	=> IsElementBuyable($CurrentUser, $CurrentPlanet, $Element, false),
-					'Available'		=> pretty_number($CurrentPlanet[$resource[$Element]]),
+					'name'			=> $LNG['tech'][$Element],
+					'descriptions'	=> $LNG['res']['descriptions'][$Element],
+					'price'			=> GetElementPrice($USER, $PLANET, $Element, false),
+					'restprice'		=> $this->GetRestPrice($Element),
+					'time'			=> pretty_time(GetBuildingTime($USER, $PLANET, $Element)),
+					'IsAvailable'	=> IsElementBuyable($USER, $PLANET, $Element, false),
+					'Available'		=> pretty_number($PLANET[$resource[$Element]]),
 				);
 			}
 		}
 		
-		if(!empty($CurrentPlanet['b_hangar_id']))
+		if(!empty($PLANET['b_hangar_id']))
 		{
-			$ElementQueue = explode(';', $CurrentPlanet['b_hangar_id']);
+			$ElementQueue = explode(';', $PLANET['b_hangar_id']);
 			$NbrePerType  = "";
 			$NamePerType  = "";
 			$TimePerType  = "";
@@ -258,10 +245,10 @@ class ShowShipyardPage
 				if ($Element != '')
 				{
 					$Element 		= explode(',', $Element);
-					$ElementTime  	= GetBuildingTime( $CurrentUser, $CurrentPlanet, $Element[0]);
+					$ElementTime  	= GetBuildingTime( $USER, $PLANET, $Element[0]);
 					$QueueTime   	+= $ElementTime * $Element[1];
-					$TimePerType 	.= "".$ElementTime.",";
-					$NamePerType 	.= "'".html_entity_decode($lang['tech'][$Element[0]], ENT_NOQUOTES, "UTF-8")."',";
+					$TimePerType 	.= $ElementTime.',';
+					$NamePerType 	.= "'".html_entity_decode($LNG['tech'][$Element[0]], ENT_NOQUOTES, "UTF-8")."',";
 					$NbrePerType 	.= "'".$Element[1]."',";
 				}
 			}
@@ -270,13 +257,13 @@ class ShowShipyardPage
 				'a' 					=> $NbrePerType,
 				'b' 					=> $NamePerType,
 				'c' 					=> $TimePerType,
-				'b_hangar_id_plus' 		=> $CurrentPlanet['b_hangar'],
-				'pretty_time_b_hangar' 	=> pretty_time(max($QueueTime - $CurrentPlanet['b_hangar'],0)),
-				'bd_completed'			=> $lang['bd_completed'],
-				'bd_cancel_warning'		=> $lang['bd_cancel_warning'],
-				'bd_cancel_send'		=> $lang['bd_cancel_send'],
-				'bd_actual_production'	=> $lang['bd_actual_production'],
-				'bd_operating'			=> $lang['bd_operating'],
+				'b_hangar_id_plus' 		=> $PLANET['b_hangar'],
+				'pretty_time_b_hangar' 	=> pretty_time(max($QueueTime - $PLANET['b_hangar'],0)),
+				'bd_completed'			=> $LNG['bd_completed'],
+				'bd_cancel_warning'		=> $LNG['bd_cancel_warning'],
+				'bd_cancel_send'		=> $LNG['bd_cancel_send'],
+				'bd_actual_production'	=> $LNG['bd_actual_production'],
+				'bd_operating'			=> $LNG['bd_operating'],
 			));
 			$Buildlist	= $template->fetch('shipyard_buildlist.tpl');
 		}
@@ -284,53 +271,46 @@ class ShowShipyardPage
 		$template->assign_vars(array(
 			'FleetList'				=> $FleetList,
 			'NotBuilding'			=> $NotBuilding,
-			'bd_available'			=> $lang['bd_available'],
-			'bd_remaining'			=> $lang['bd_remaining'],
-			'fgf_time'				=> $lang['fgf_time'],
-			'bd_build_ships'		=> $lang['bd_build_ships'],
-			'bd_building_shipyard'	=> $lang['bd_building_shipyard'],
+			'bd_available'			=> $LNG['bd_available'],
+			'bd_remaining'			=> $LNG['bd_remaining'],
+			'fgf_time'				=> $LNG['fgf_time'],
+			'bd_build_ships'		=> $LNG['bd_build_ships'],
+			'bd_building_shipyard'	=> $LNG['bd_building_shipyard'],
 			'BuildList'				=> $Buildlist,
 			'maxlength'				=> strlen(MAX_FLEET_OR_DEFS_PER_ROW),
 		));
 		$template->show("shipyard_fleet.tpl");
-		$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 	}
 
-	public function DefensesBuildingPage ( &$CurrentPlanet, $CurrentUser )
+	public function DefensesBuildingPage()
 	{
-		global $lang, $resource, $dpath, $reslist;
+		global $USER, $PLANET, $LNG, $resource, $dpath, $reslist;
 
 		include_once(ROOT_PATH . 'includes/functions/IsTechnologieAccessible.' . PHP_EXT);
 		include_once(ROOT_PATH . 'includes/functions/GetElementPrice.' . PHP_EXT);
 
-		$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
 		$template	= new template();
-		$template->page_header();	
-		$template->page_topnav();
-		$template->page_leftmenu();
-		$template->page_planetmenu();
-		$template->page_footer();
-			
-		if ($CurrentPlanet[$resource[21]] == 0)
+
+		if ($PLANET[$resource[21]] == 0)
 		{
-			$template->set_vars($CurrentUser, $CurrentPlanet);
-			$template->message($lang['bd_shipyard_required']);
-			$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
+			$template->message($LNG['bd_shipyard_required']);
 			exit;
 		}
-		
-		
+
 		$fmenge	= $_POST['fmenge'];
 		$cancel	= $_POST['auftr'];
 		$action	= request_var('action', '');
+								
+		$PlanetRess = new ResourceUpdate();
+		$PlanetRess->CalcResource();
 		
 		if (isset($fmenge))
 		{
-			$Missiles[502] = $CurrentPlanet[$resource[502]];
-			$Missiles[503] = $CurrentPlanet[$resource[503]];
-			$SiloSize      = $CurrentPlanet[$resource[44]];
+			$Missiles[502] = $PLANET[$resource[502]];
+			$Missiles[503] = $PLANET[$resource[503]];
+			$SiloSize      = $PLANET[$resource[44]];
 			$MaxMissiles   = $SiloSize * 10;
-			$BuildQueue    = $CurrentPlanet['b_hangar_id'];
+			$BuildQueue    = $PLANET['b_hangar_id'];
 			$BuildArray    = explode (";", $BuildQueue);
 
 			for ($QElement = 0; $QElement < count($BuildArray); $QElement++)
@@ -355,14 +335,14 @@ class ShowShipyardPage
 					
 				$Count	= is_numeric($Count) ? $Count : 0;
 				$Count 	= min($Count, MAX_FLEET_OR_DEFS_PER_ROW);
-				$ebuild = explode(";",$CurrentPlanet['b_hangar_id']);
+				$ebuild = explode(";",$PLANET['b_hangar_id']);
 				if (count($ebuild) - 1 >= MAX_FLEET_OR_DEFS_IN_BUILD)
 				{
-					message(sprintf($lang['bd_max_builds'], MAX_FLEET_OR_DEFS_IN_BUILD), "?page=buildings&mode=fleet", 3, true);
+					$template->message(sprintf($LNG['bd_max_builds'], MAX_FLEET_OR_DEFS_IN_BUILD), "?page=buildings&mode=fleet", 3);
 				}
-				elseif ($Count != 0 && IsTechnologieAccessible($CurrentUser, $CurrentPlanet, $Element))
+				elseif ($Count != 0 && IsTechnologieAccessible($USER, $PLANET, $Element))
 				{
-					$MaxElements = $this->GetMaxConstructibleElements ( $Element, $CurrentPlanet );
+					$MaxElements = $this->GetMaxConstructibleElements ( $Element, $PLANET );
 					if ($Element == 502 || $Element == 503)
 					{
 						$ActuMissiles  = $Missiles[502] + ( 2 * $Missiles[503] );
@@ -389,8 +369,8 @@ class ShowShipyardPage
 					}
 					elseif(in_array($Element, $reslist['one']))
 					{
-						$InQueue = strpos ( $CurrentPlanet['b_hangar_id'], $Element.",");
-						$IsBuildpp = ($CurrentPlanet[$resource[$Element]] >= 1) ? TRUE : FALSE;
+						$InQueue = strpos ( $PLANET['b_hangar_id'], $Element.",");
+						$IsBuildpp = ($PLANET[$resource[$Element]] >= 1) ? TRUE : FALSE;
 						if(!$IsBuildpp && $InQueue === FALSE)
 						{
 							$Count = 1;
@@ -411,24 +391,26 @@ class ShowShipyardPage
 					$Ressource = $this->GetElementRessources($Element, $Count);
 					if ($Count >= 1)
 					{
-						$CurrentPlanet['metal']           -= $Ressource['metal'];
-						$CurrentPlanet['crystal']         -= $Ressource['crystal'];
-						$CurrentPlanet['deuterium']       -= $Ressource['deuterium'];
-						$CurrentUser['darkmatter'] 		  -= $Ressource['darkmatter'];
-						$CurrentPlanet['b_hangar_id']     .= "". $Element .",". $Count .";";
+						$PLANET['metal']           -= $Ressource['metal'];
+						$PLANET['crystal']         -= $Ressource['crystal'];
+						$PLANET['deuterium']       -= $Ressource['deuterium'];
+						$USER['darkmatter'] 	   -= $Ressource['darkmatter'];
+						$PLANET['b_hangar_id']     .= "". $Element .",". $Count .";";
 					}
 				}
 			}
 		}
 				
 		if ($action == "delete" && is_array($cancel))
-			$this->CancelAuftr($CurrentUser, $CurrentPlanet, $cancel);
+			$this->CancelAuftr($cancel);
+
+		$PlanetRess->SavePlanetToDB();
 
 		$NotBuilding = true;
 
-		if (!empty($CurrentPlanet['b_building_id']))
+		if (!empty($PLANET['b_building_id']))
 		{
-			$CurrentQueue = $CurrentPlanet['b_building_id'];
+			$CurrentQueue = $PLANET['b_building_id'];
 			$QueueArray		= explode (";", $CurrentQueue);
 
 			for($i = 0; $i < count($QueueArray); $i++)
@@ -439,22 +421,26 @@ class ShowShipyardPage
 			}
 		}
 
-		if(!empty($CurrentPlanet['b_hangar_id']))
+		if(!empty($PLANET['b_hangar_id']))
 		{
 			$template->loadscript('shipyard.js');
 			$template->loadscript('bcmath.js');
 		}
-		
-		$template->set_vars($CurrentUser, $CurrentPlanet);
+
+		$template->page_header();	
+		$template->page_topnav();
+		$template->page_leftmenu();
+		$template->page_planetmenu();
+		$template->page_footer();
 		
 		foreach($reslist['defense'] as $Element)
 		{
-			if (IsTechnologieAccessible($CurrentUser, $CurrentPlanet, $Element))
+			if (IsTechnologieAccessible($USER, $PLANET, $Element))
 			{
 				if(in_array($Element, $reslist['one']))
 				{
-					$InQueue 		= strpos($CurrentPlanet['b_hangar_id'], $Element.",");
-					$IsBuild	 	= ($CurrentPlanet[$resource[$Element]] >= 1) ? true : false;
+					$InQueue 		= strpos($PLANET['b_hangar_id'], $Element.",");
+					$IsBuild	 	= ($PLANET[$resource[$Element]] >= 1) ? true : false;
 					$AlreadyBuild 	= ($IsBuild || $InQueue) ? true : false;
 				}
 				else
@@ -462,21 +448,21 @@ class ShowShipyardPage
 					
 				$DefenseList[]	= array(
 					'id'			=> $Element,
-					'name'			=> $lang['tech'][$Element],
-					'descriptions'	=> $lang['res']['descriptions'][$Element],
-					'price'			=> GetElementPrice($CurrentUser, $CurrentPlanet, $Element, false),
-					'restprice'		=> $this->GetRestPrice ($CurrentUser, $CurrentPlanet, $Element),
-					'time'			=> pretty_time(GetBuildingTime($CurrentUser, $CurrentPlanet, $Element)),
-					'IsAvailable'	=> IsElementBuyable($CurrentUser, $CurrentPlanet, $Element, false),
-					'Available'		=> pretty_number($CurrentPlanet[$resource[$Element]]),
+					'name'			=> $LNG['tech'][$Element],
+					'descriptions'	=> $LNG['res']['descriptions'][$Element],
+					'price'			=> GetElementPrice($USER, $PLANET, $Element, false),
+					'restprice'		=> $this->GetRestPrice($Element),
+					'time'			=> pretty_time(GetBuildingTime($USER, $PLANET, $Element)),
+					'IsAvailable'	=> IsElementBuyable($USER, $PLANET, $Element, false),
+					'Available'		=> pretty_number($PLANET[$resource[$Element]]),
 					'AlreadyBuild'	=> $AlreadyBuild,
 				);
 			}
 		}
 
-		if(!empty($CurrentPlanet['b_hangar_id']))
+		if(!empty($PLANET['b_hangar_id']))
 		{
-			$ElementQueue = explode(';', $CurrentPlanet['b_hangar_id']);
+			$ElementQueue = explode(';', $PLANET['b_hangar_id']);
 			$NbrePerType  = "";
 			$NamePerType  = "";
 			$TimePerType  = "";
@@ -486,10 +472,10 @@ class ShowShipyardPage
 				if ($Element != '')
 				{
 					$Element 		= explode(',', $Element);
-					$ElementTime  	= GetBuildingTime( $CurrentUser, $CurrentPlanet, $Element[0]);
+					$ElementTime  	= GetBuildingTime( $USER, $PLANET, $Element[0]);
 					$QueueTime   	+= $ElementTime * $Element[1];
-					$TimePerType 	.= "".$ElementTime.",";
-					$NamePerType 	.= "'".html_entity_decode($lang['tech'][$Element[0]], ENT_NOQUOTES, "UTF-8")."',";
+					$TimePerType 	.= $ElementTime.',';
+					$NamePerType 	.= "'".html_entity_decode($LNG['tech'][$Element[0]], ENT_NOQUOTES, "UTF-8")."',";
 					$NbrePerType 	.= "'".$Element[1]."',";
 				}
 			}
@@ -498,13 +484,13 @@ class ShowShipyardPage
 				'a' 					=> $NbrePerType,
 				'b' 					=> $NamePerType,
 				'c' 					=> $TimePerType,
-				'b_hangar_id_plus' 		=> $CurrentPlanet['b_hangar'],
-				'pretty_time_b_hangar' 	=> pretty_time(max($QueueTime - $CurrentPlanet['b_hangar'],0)),
-				'bd_completed'			=> $lang['bd_completed'],
-				'bd_cancel_warning'		=> $lang['bd_cancel_warning'],
-				'bd_cancel_send'		=> $lang['bd_cancel_send'],
-				'bd_actual_production'	=> $lang['bd_actual_production'],
-				'bd_operating'			=> $lang['bd_operating'],
+				'b_hangar_id_plus' 		=> $PLANET['b_hangar'],
+				'pretty_time_b_hangar' 	=> pretty_time(max($QueueTime - $PLANET['b_hangar'],0)),
+				'bd_completed'			=> $LNG['bd_completed'],
+				'bd_cancel_warning'		=> $LNG['bd_cancel_warning'],
+				'bd_cancel_send'		=> $LNG['bd_cancel_send'],
+				'bd_actual_production'	=> $LNG['bd_actual_production'],
+				'bd_operating'			=> $LNG['bd_operating'],
 			));
 			$Buildlist	= $template->fetch('shipyard_buildlist.tpl');
 		}
@@ -512,17 +498,17 @@ class ShowShipyardPage
 		$template->assign_vars(array(
 			'DefenseList'					=> $DefenseList,
 			'NotBuilding'					=> $NotBuilding,
-			'bd_available'					=> $lang['bd_available'],
-			'bd_remaining'					=> $lang['bd_remaining'],
-			'fgf_time'						=> $lang['fgf_time'],
-			'bd_build_ships'				=> $lang['bd_build_ships'],
-			'bd_building_shipyard'			=> $lang['bd_building_shipyard'],
-			'bd_protection_shield_only_one'	=> $lang['bd_protection_shield_only_one'],
+			'bd_available'					=> $LNG['bd_available'],
+			'bd_remaining'					=> $LNG['bd_remaining'],
+			'fgf_time'						=> $LNG['fgf_time'],
+			'bd_build_ships'				=> $LNG['bd_build_ships'],
+			'bd_building_shipyard'			=> $LNG['bd_building_shipyard'],
+			'bd_protection_shield_only_one'	=> $LNG['bd_protection_shield_only_one'],
 			'BuildList'						=> $Buildlist,
 			'maxlength'						=> strlen(MAX_FLEET_OR_DEFS_PER_ROW),
 		));
 		$template->show("shipyard_defense.tpl");
-		$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
+		$PlanetRess->SavePlanetToDB($USER, $PLANET);
 	}
 }
 ?>

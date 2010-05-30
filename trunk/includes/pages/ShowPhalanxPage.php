@@ -20,9 +20,9 @@
 ##############################################################################
 
 
-function ShowPhalanxPage($CurrentUser, $CurrentPlanet)
+function ShowPhalanxPage($USER, $PLANET)
 {
-	global $lang, $db;
+	global $LNG, $db;
 
 	include_once(ROOT_PATH . 'includes/functions/InsertJavaScriptChronoApplet.' . PHP_EXT);
 	include_once(ROOT_PATH . 'includes/classes/class.FlyingFleetsTable.' . PHP_EXT);
@@ -30,14 +30,14 @@ function ShowPhalanxPage($CurrentUser, $CurrentPlanet)
 
 	$FlyingFleetsTable 	= new FlyingFleetsTable();
 	$GalaxyRows 		= new GalaxyRows();
-	$PlanetRess 		= new ResourceUpdate($CurrentUser, $CurrentPlanet);
+	$PlanetRess 		= new ResourceUpdate($USER, $PLANET);
 
 	$template			= new template();
-	$template->set_vars($CurrentUser, $CurrentPlanet);
+	$template->set_vars($USER, $PLANET);
 	$template->page_header();
 	$template->page_footer();	
 	
-	$PhRange 		 	= $GalaxyRows->GetPhalanxRange($CurrentPlanet['phalanx']);
+	$PhRange 		 	= $GalaxyRows->GetPhalanxRange($PLANET['phalanx']);
 	$Galaxy 			= request_var('galaxy', 0);
 	$System 			= request_var('system', 0);
 	$Planet  			= request_var('planet', 0);
@@ -45,15 +45,15 @@ function ShowPhalanxPage($CurrentUser, $CurrentPlanet)
 	$SystemLimitMin  	= max(1, $CurrentSystem - $PhRange);
 	$SystemLimitMax  	= $CurrentSystem + $PhRange;
 	
-	if ($CurrentPlanet['deuterium'] < 5000)
+	if ($PLANET['deuterium'] < 5000)
 	{
-		$template->message($lang['px_no_deuterium'], false, 0, true);
+		$template->message($LNG['px_no_deuterium'], false, 0, true);
 		exit;
 	}
 	
-	if($System <= $SystemLimitMax && $System >= $SystemLimitMin && $Galaxy == $CurrentPlanet['galaxy'])
+	if($System <= $SystemLimitMax && $System >= $SystemLimitMin && $Galaxy == $PLANET['galaxy'])
 	{
-		$CurrentPlanet['deuterium'] -= 5000;
+		$PLANET['deuterium'] -= 5000;
 		$TargetInfo = $db->fetch_array($db->query("SELECT name, id_owner FROM ".PLANETS." WHERE `galaxy` = '". $Galaxy ."' AND `system` = '". $System ."' AND `planet` = '". $Planet ."' AND `planet_type` = '1';"));
 
 		$QryLookFleets  = "SELECT * ";
@@ -93,19 +93,19 @@ function ShowPhalanxPage($CurrentUser, $CurrentPlanet)
 			$FleetRow['fleet_resource_darkmatter'] 	= 0;
 
 			$Label = "fs";
-			if ($StartTime > time())
+			if ($StartTime > TIMESTAMP)
 				$fpage[$StartTime.$id] = $FlyingFleetsTable->BuildFleetEventTable ( $FleetRow, 0, $FleetType, $Label, $Record );
 
 			if ($FleetRow['fleet_mission'] <> 4)
 			{
 				$Label = "ft";
-				if ($StayTime > time())
+				if ($StayTime > TIMESTAMP)
 					$fpage[$StayTime.$id] = $FlyingFleetsTable->BuildFleetEventTable ( $FleetRow, 1, $FleetType, $Label, $Record );
 
 				if ($FleetType == true)
 				{
 					$Label = "fe";
-					if ($EndTime > time())
+					if ($EndTime > TIMESTAMP)
 						$fpage[$EndTime.$id]  = $FlyingFleetsTable->BuildFleetEventTable ( $FleetRow, 2, $FleetType, $Label, $Record );
 				}
 			}
@@ -121,12 +121,12 @@ function ShowPhalanxPage($CurrentUser, $CurrentPlanet)
 		'phl_pl_place'   	=> $Planet,
 		'phl_pl_name'    	=> $TargetInfo['name'],
 		'fleets'		 	=> $fpage,
-		'px_scan_position'	=> $lang['px_scan_position'],
-		'px_no_fleet'		=> $lang['px_no_fleet'],
-		'px_fleet_movement'	=> $lang['px_fleet_movement'],
+		'px_scan_position'	=> $LNG['px_scan_position'],
+		'px_no_fleet'		=> $LNG['px_no_fleet'],
+		'px_fleet_movement'	=> $LNG['px_fleet_movement'],
 	));
 	
 	$template->show('phalax_body.tpl');
-	$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);			
+	$PlanetRess->SavePlanetToDB($USER, $PLANET);			
 }
 ?>

@@ -133,7 +133,7 @@ class Smarty_Internal_TemplateCompilerBase {
             return '';
         } else {
             // not an internal compiler tag
-            if (strlen($tag) < 6 || substr_compare($tag, 'close', -5, 5) != 0) {
+            if (strlen($tag) < 6 || substr($tag, -5) != 'close') {
                 // check if tag is a registered object
                 if (isset($this->smarty->registered_objects[$tag]) && isset($args['object_methode'])) {
                     $methode = $args['object_methode'];
@@ -282,7 +282,7 @@ class Smarty_Internal_TemplateCompilerBase {
         } 
         if (isset($function)) {
             if ($type == 'modifier') {
-                $this->template->saved_modifer[$plugin_name] = true;
+                $this->template->saved_modifier[$plugin_name] = true;
             } 
             return $function;
         } 
@@ -298,7 +298,7 @@ class Smarty_Internal_TemplateCompilerBase {
          * } 
          * } 
          * if ($type == 'modifier') {
-         * $this->template->saved_modifer[$plugin_name] = true;
+         * $this->template->saved_modifier[$plugin_name] = true;
          * } 
          * return $this->template->required_plugins_call[$plugin_name][$type];
          * }
@@ -334,7 +334,7 @@ class Smarty_Internal_TemplateCompilerBase {
              * }
              */
             if ($type == 'modifier') {
-                $this->template->saved_modifer[$plugin_name] = true;
+                $this->template->saved_modifier[$plugin_name] = true;
             } 
             return $function;
         } 
@@ -363,18 +363,17 @@ class Smarty_Internal_TemplateCompilerBase {
             // generate replacement code
             if ((!$this->template->resource_object->isEvaluated || $this->template->forceNocache) && $this->template->caching && !$this->suppressNocacheProcessing &&
                     ($this->nocache || $this->tag_nocache || $this->template->forceNocache == 2)) {
-                $this->tag_nocache = false;
                 $this->template->has_nocache_code = true;
                 $_output = str_replace("'", "\'", $content);
                 $_output = "<?php echo '/*%%SmartyNocache:{$this->nocache_hash}%%*/" . $_output . "/*/%%SmartyNocache:{$this->nocache_hash}%%*/';?>"; 
                 // make sure we include modifer plugins for nocache code
-                if (isset($this->template->saved_modifer)) {
-                    foreach ($this->template->saved_modifer as $plugin_name => $dummy) {
+                if (isset($this->template->saved_modifier)) {
+                    foreach ($this->template->saved_modifier as $plugin_name => $dummy) {
                         if (isset($this->template->required_plugins['compiled'][$plugin_name]['modifier'])) {
                             $this->template->required_plugins['nocache'][$plugin_name]['modifier'] = $this->template->required_plugins['compiled'][$plugin_name]['modifier'];
                         } 
                     } 
-                    unset($this->template->saved_modifer);
+                    $this->template->saved_modifier = null;
                 } 
             } else {
                 $_output = $content;
@@ -383,6 +382,7 @@ class Smarty_Internal_TemplateCompilerBase {
             $_output = $content;
         } 
         $this->suppressNocacheProcessing = false;
+        $this->tag_nocache = false;
         return $_output;
     } 
     /**

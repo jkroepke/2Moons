@@ -19,16 +19,17 @@
 # *                                                                          #
 ##############################################################################
 
-if(!defined('INSIDE')){ die(header("location:../../"));}
+if(!defined('INSIDE')) die('Hacking attempt!');
 
-function ShowImperiumPage($CurrentUser, $CurrentPlanet)
+function ShowImperiumPage()
 {
-	global $lang, $resource, $reslist, $dpath, $db;
+	global $LNG, $USER, $PLANET, $resource, $reslist, $db;
 
-	$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
+	$PlanetRess = new ResourceUpdate();
+	$PlanetRess->CalcResource()->SavePlanetToDB();
+	
 	$template	= new template();
 	$template->loadscript("trader.js");
-	$template->set_vars($CurrentUser, $CurrentPlanet);
 	$template->page_topnav();
 	$template->page_header();
 	$template->page_leftmenu();
@@ -46,7 +47,7 @@ function ShowImperiumPage($CurrentUser, $CurrentPlanet)
 	$PlanetsRAW = $db->query("
 	SELECT `id`,`name`,`galaxy`,`system`,`planet`,`planet_type`,
 	`image`,`field_current`,`field_max`,`metal`,`crystal`,`deuterium`,
-	`energy_used`,`energy_max` ".$Query." FROM ".PLANETS." WHERE `id_owner` = '" . $CurrentUser['id'] . "' AND `destruyed` = '0';");
+	`energy_used`,`energy_max` ".$Query." FROM ".PLANETS." WHERE `id_owner` = '" . $USER['id'] . "' AND `destruyed` = '0';");
 
 
 	while ($Planet = $db->fetch_array($PlanetsRAW))
@@ -88,28 +89,28 @@ function ShowImperiumPage($CurrentUser, $CurrentPlanet)
 	}
 
 	foreach($reslist['tech'] as $gid){
-		$ResearchList[$gid] = pretty_number($CurrentUser[$resource[$gid]]);
+		$ResearchList[$gid] = pretty_number($USER[$resource[$gid]]);
 	}
 		
 	$template->assign_vars(array(
 		'colspan'			=> count($PlanetsList) + 1,
 		'PlanetsList'		=> $PlanetsList,
 		'ResearchList'		=> $ResearchList,
-		'iv_imperium_title'	=> $lang['iv_imperium_title'],
-		'iv_planet'			=> $lang['iv_planet'],
-		'iv_name'			=> $lang['iv_name'],
-		'iv_coords'			=> $lang['iv_coords'],
-		'iv_fields'			=> $lang['iv_fields'],
-		'iv_resources'		=> $lang['iv_resources'],
-		'Metal'				=> $lang['Metal'],
-		'Crystal'			=> $lang['Crystal'],
-		'Deuterium'			=> $lang['Deuterium'],
-		'Energy'			=> $lang['Energy'],
-		'iv_buildings'		=> $lang['iv_buildings'],
-		'iv_technology'		=> $lang['iv_technology'],
-		'iv_ships'			=> $lang['iv_ships'],
-		'iv_defenses'		=> $lang['iv_defenses'],
-		'tech'				=> $lang['tech'],
+		'iv_imperium_title'	=> $LNG['iv_imperium_title'],
+		'iv_planet'			=> $LNG['iv_planet'],
+		'iv_name'			=> $LNG['iv_name'],
+		'iv_coords'			=> $LNG['iv_coords'],
+		'iv_fields'			=> $LNG['iv_fields'],
+		'iv_resources'		=> $LNG['iv_resources'],
+		'Metal'				=> $LNG['Metal'],
+		'Crystal'			=> $LNG['Crystal'],
+		'Deuterium'			=> $LNG['Deuterium'],
+		'Energy'			=> $LNG['Energy'],
+		'iv_buildings'		=> $LNG['iv_buildings'],
+		'iv_technology'		=> $LNG['iv_technology'],
+		'iv_ships'			=> $LNG['iv_ships'],
+		'iv_defenses'		=> $LNG['iv_defenses'],
+		'tech'				=> $LNG['tech'],
 		'build'				=> $reslist['build'], 
 		'fleet'				=> $reslist['fleet'], 
 		'defense'			=> $reslist['defense'],

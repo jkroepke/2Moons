@@ -19,7 +19,7 @@
 # *																			 #
 ##############################################################################
 
-if(!defined('INSIDE')){ die(header("location:../../"));}
+if(!defined('INSIDE')) die('Hacking attempt!');
 
 	function IsTechnologieAccessible($CurrentUser, $CurrentPlanet, $Element)
 	{

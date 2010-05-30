@@ -21,116 +21,32 @@
 
 class CheckSession
 {
-	private function CheckCookies ($IsUserChecked)
+	function CheckUser()
 	{
-		global $game_config, $lang, $db;
+		global $CONF, $db;
 
-		$UserRow = array();
+		if(!isset($_SESSION['id']))
+			return false;
+		
+		$SelectPlanet  = request_var('cp',0);
+		if(!empty($SelectPlanet))
+			$IsPlanetMine =	$db->uniquequery("SELECT `id` FROM ".PLANETS." WHERE `id` = '". $SelectPlanet ."' AND `id_owner` = '".$_SESSION['id']."';");
+		
+		$Qry  = "UPDATE ".USERS." SET ";
+		$Qry .= "`onlinetime` = '".TIMESTAMP."', ";
+		$Qry .= "`current_page` = '".$db->sql_escape($_SERVER['REQUEST_URI']) ."', ";
+		$Qry .= "`user_lastip` = '".$_SERVER['REMOTE_ADDR'] ."', ";
+		$Qry .= "`user_agent` = '".(isset($IsPlanetMine))."', ";
+		
+		if(isset($IsPlanetMine))
+			$Qry .= "`current_planet` = '".$IsPlanetMine['id']."', ";
+			
+		$Qry .= "`user_agent` = '".$db->sql_escape($_SERVER['HTTP_USER_AGENT'])."' ";
+		$Qry .= "WHERE ";
+		$Qry .= "`id` = '".$_SESSION['id']."' LIMIT 1;";
+		$db->query($Qry);
 
-		include(ROOT_PATH . 'config.' . PHP_EXT);
-
-		if (isset($_COOKIE[$game_config['COOKIE_NAME']]))
-		{
-			$TheCookie  = explode("/%/", $_COOKIE[$game_config['COOKIE_NAME']]);
-			$UserResult = $db->query("SELECT * FROM ".USERS." WHERE `username` = '".$TheCookie[1]."';");
-
-			if ($db->num_rows($UserResult) != 1)
-			{
-				message($lang['ccs_multiple_users'], ROOT_PATH, 5, false, false);
-			}
-
-			$UserRow = $db->fetch_array($UserResult);
-
-			if ($UserRow["id"] != $TheCookie[0])
-			{
-				message($lang['ccs_other_user'], ROOT_PATH, 5,  false, false);
-			}
-
-			if (md5($UserRow["password"] . "--" . $dbsettings["secretword"]) !== $TheCookie[2])
-			{
-				message($lang['css_different_password'], ROOT_PATH, 5,  false, false);
-			}
-
-			$NextCookie = implode("/%/", $TheCookie);
-
-			if ($TheCookie[3] == 1)
-			{
-				$ExpireTime = time() + 31536000;
-			}
-			else
-			{
-				$ExpireTime = 0;
-			}
-
-			if ($IsUserChecked == false)
-			{
-				if(!headers_sent()) 
-					setcookie($game_config['COOKIE_NAME'], $NextCookie, $ExpireTime, "/", "", 0);
-				
-				$QryUpdateUser  = "UPDATE ".USERS." SET ";
-				$QryUpdateUser .= "`onlinetime` = '". time() ."', ";
-				$QryUpdateUser .= "`current_page` = '". addslashes($_SERVER['REQUEST_URI']) ."', ";
-				$QryUpdateUser .= "`user_lastip` = '". $_SERVER['REMOTE_ADDR'] ."', ";
-				$QryUpdateUser .= "`user_agent` = '". addslashes($_SERVER['HTTP_USER_AGENT']) ."' ";
-				$QryUpdateUser .= "WHERE ";
-				$QryUpdateUser .= "`id` = '". $TheCookie[0] ."' LIMIT 1;";
-				$db->query($QryUpdateUser);
-				$IsUserChecked = true;
-			}
-			else
-			{
-				$QryUpdateUser  = "UPDATE ".USERS." SET ";
-				$QryUpdateUser .= "`onlinetime` = '". time() ."', ";
-				$QryUpdateUser .= "`current_page` = '". $_SERVER['REQUEST_URI'] ."', ";
-				$QryUpdateUser .= "`user_lastip` = '". $_SERVER['REMOTE_ADDR'] ."', ";
-				$QryUpdateUser .= "`user_agent` = '". $_SERVER['HTTP_USER_AGENT'] ."' ";
-				$QryUpdateUser .= "WHERE ";
-				$QryUpdateUser .= "`id` = '". $TheCookie[0] ."' LIMIT 1;";
-				$db->query($QryUpdateUser);
-				$IsUserChecked = true;
-			}
-		}
-
-		unset($dbsettings);
-
-		$Return['state']  = $IsUserChecked;
-		$Return['record'] = $UserRow;
-
-		return $Return;
-	}
-
-	public function CheckUser($IsUserChecked)
-	{
-		global $user, $lang;
-
-		$Result        = $this->CheckCookies($IsUserChecked);
-		$IsUserChecked = $Result['state'];
-
-		if ($Result['record'] != false)
-		{
-			$user = $Result['record'];
-
-			if ($user['bana'] == 1)
-			{
-				require_once(ROOT_PATH . 'includes/classes/class.template.'.PHP_EXT);
-				$template	= new template();
-				$template->page_header();	
-				$template->page_footer();
-				$template->message("<font size=\"6px\">".$lang['css_account_banned_message']."</font><br><br>".sprintf($lang['css_account_banned_expire'],date("d. M y H:i", $user['banaday']))."<br><br>".$lang['css_goto_homeside'], false, 0, true);
-				exit;
-			}
-
-			$RetValue['record'] = $user;
-			$RetValue['state']  = $IsUserChecked;
-		}
-		else
-		{
-			$RetValue['record'] = array();
-			$RetValue['state']  = false;
-			header("location:".ROOT_PATH);
-		}
-
-		return $RetValue;
+		return true;
 	}
 }
 ?>

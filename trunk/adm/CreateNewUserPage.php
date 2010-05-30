@@ -31,7 +31,7 @@ include(ROOT_PATH . 'common.'.PHP_EXT);
 
 if ($EditUsers != 1) die();
 
-$parse	=	$lang;
+$parse	=	$LNG;
 
 $name		=	$_POST['name'];
 $pass 		= 	md5($_POST['password']);
@@ -40,7 +40,7 @@ $galaxy		=	$_POST['galaxy'];
 $system		=	$_POST['system'];
 $planet		=	$_POST['planet'];
 $auth		=	$_POST['authlevel'];
-$time		=	time();
+$time		=	TIMESTAMP;
 $i			=	0;
 if ($_POST)
 {
@@ -50,30 +50,30 @@ if ($_POST)
 	
 	
 	if (!is_numeric($galaxy) &&  !is_numeric($system) && !is_numeric($planet)){
-		$parse['display']	.=	'<tr><th colspan="2" class="red">'.$lang['new_only_numbers'].'</tr></th>';
+		$parse['display']	.=	'<tr><th colspan="2" class="red">'.$LNG['new_only_numbers'].'</tr></th>';
 		$i++;}
 	elseif ($galaxy > MAX_GALAXY_IN_WORLD || $system > MAX_SYSTEM_IN_GALAXY || $planet > MAX_PLANET_IN_SYSTEM || $galaxy < 1 || $system < 1 || $planet < 1){
-		$parse['display']	.=	'<tr><th colspan="2" class="red">'.$lang['new_error_coord'].'</tr></th>';
+		$parse['display']	.=	'<tr><th colspan="2" class="red">'.$LNG['new_error_coord'].'</tr></th>';
 		$i++;}
 		
 	if (!$name || !$pass || !$email || !$galaxy || !$system || !$planet){
-		$parse['display']	.=	'<tr><th colspan="2" class="red">'.$lang['new_complete_all'].'</tr></th>';
+		$parse['display']	.=	'<tr><th colspan="2" class="red">'.$LNG['new_complete_all'].'</tr></th>';
 		$i++;}
 		
 	if (!is_email(strip_tags($email))){
-		$parse['display']	.=	'<tr><th colspan="2" class="red">'.$lang['new_error_email2'].'</tr></th>';
+		$parse['display']	.=	'<tr><th colspan="2" class="red">'.$LNG['new_error_email2'].'</tr></th>';
 		$i++;}
 
 	if ($CheckUser){
-		$parse['display']	.=	'<tr><th colspan="2" class="red">'.$lang['new_error_name'].'</tr></th>';
+		$parse['display']	.=	'<tr><th colspan="2" class="red">'.$LNG['new_error_name'].'</tr></th>';
 		$i++;}
 		
 	if ($CheckMail){
-		$parse['display']	.=	'<tr><th colspan="2" class="red">'.$lang['new_error_email'].'</tr></th>';
+		$parse['display']	.=	'<tr><th colspan="2" class="red">'.$LNG['new_error_email'].'</tr></th>';
 		$i++;}
 		
 	if ($CheckRows){
-		$parse['display']	.=	'<tr><th colspan="2" class="red">'.$lang['new_error_galaxy'].'</tr></th>';
+		$parse['display']	.=	'<tr><th colspan="2" class="red">'.$LNG['new_error_galaxy'].'</tr></th>';
 		$i++;}
 		
 		
@@ -94,6 +94,7 @@ if ($_POST)
 
 		$ID_USER 	= $db->fetch_array($db->query("SELECT `id` FROM ".USERS." WHERE `username` = '" . $db->sql_escape($name) . "' LIMIT 1;"));
 		
+		require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.'.PHP_EXT);
 		CreateOnePlanetRecord ($galaxy, $system, $planet, $ID_USER['id'], $UserPlanet, true);
 		
 		$ID_PLANET 	= $db->fetch_array($db->query("SELECT `id` FROM ".USERS." WHERE `id_owner` = '". $ID_USER['id'] ."' LIMIT 1";));
@@ -111,7 +112,7 @@ if ($_POST)
 		$QryUpdateUser .= "LIMIT 1;";
 		$db->query($QryUpdateUser);
 		
-		$parse['display']	=	'<tr><th colspan="2"><font color=lime>'.$lang['new_user_success'].'</font></tr></th>';
+		$parse['display']	=	'<tr><th colspan="2"><font color=lime>'.$LNG['new_user_success'].'</font></tr></th>';
 	}
 }
 

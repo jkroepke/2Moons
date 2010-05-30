@@ -31,8 +31,8 @@ include(ROOT_PATH . 'common.'.PHP_EXT);
 
 if ($Observation != 1) die();
 
-$parse 			= $lang;
-$ActivePlanets 	= $db->query("SELECT `name`,`galaxy`,`system`,`planet`,`points`,`last_update` FROM ".PLANETS." WHERE `last_update` >= '". (time()-15 * 60) ."' ORDER BY `id` ASC;");
+$parse 			= $LNG;
+$ActivePlanets 	= $db->query("SELECT `name`,`galaxy`,`system`,`planet`,`points`,`last_update` FROM ".PLANETS." WHERE `last_update` >= '". (TIMESTAMP-15 * 60) ."' ORDER BY `id` ASC;");
 $Count          = 0;
 
 while ($ActivPlanet = $db->fetch_array($ActivePlanets))
@@ -41,13 +41,13 @@ while ($ActivPlanet = $db->fetch_array($ActivePlanets))
 	$parse['online_list'] .= "<th><center><b>". $ActivPlanet['name'] ."</b></center></th>";
 	$parse['online_list'] .= "<th><center><b>[". $ActivPlanet['galaxy'] .":". $ActivPlanet['system'] .":". $ActivPlanet['planet'] ."]</b></center></th>";
 	$parse['online_list'] .= "<th><center><b>". pretty_number($ActivPlanet['points'] / 1000) ."</b></center></th>";
-	$parse['online_list'] .= "<th><center><b>". pretty_time(time() - $ActivPlanet['last_update']) . "</b></center></th>";
+	$parse['online_list'] .= "<th><center><b>". pretty_time(TIMESTAMP - $ActivPlanet['last_update']) . "</b></center></th>";
 	$parse['online_list'] .= "</tr>";
 	$Count++;
 }
 
 $parse['online_list'] .= "<tr>";
-$parse['online_list'] .= "<th colspan=\"4\">" . $lang['ap_there_are'] . $Count . $lang['ap_with_activity'] . "</th>";
+$parse['online_list'] .= "<th colspan=\"4\">" . $LNG['ap_there_are'] . $Count . $LNG['ap_with_activity'] . "</th>";
 $parse['online_list'] .= "</tr>";
 
 display( parsetemplate( gettemplate('adm/ActivePlanetsBody')	, $parse ), false, '', true, false);

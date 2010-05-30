@@ -19,32 +19,24 @@
 # *                                                                          #
 ##############################################################################
 
-if(!defined('INSIDE')){ die(header("location:../../"));}
+if(!defined('INSIDE')) die('Hacking attempt!');
 
-function ShowOverviewPage($CurrentUser, $CurrentPlanet)
+function ShowOverviewPage()
 {
-	global $dpath, $game_config, $lang, $planetrow, $user, $db, $resource;
+	global $CONF, $LNG, $PLANET, $USER, $db, $resource;
 
 	include_once(ROOT_PATH . 'includes/functions/InsertJavaScriptChronoApplet.' . PHP_EXT);
 	include_once(ROOT_PATH . 'includes/classes/class.FlyingFleetsTable.' . PHP_EXT);
 	
-	$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
+	$PlanetRess = new ResourceUpdate();
+	$PlanetRess->CalcResource()->SavePlanetToDB();
 
 	$template	= new template();
-	#$template->gotoside('game.php?page=overview', 180);
-	$template->set_vars($CurrentUser, $CurrentPlanet);
 	$template->page_header();
 	$template->page_topnav();
 	$template->page_leftmenu();
 	$template->page_planetmenu();
 	$template->page_footer();	
-	$template->getstats();
-
-	$parse['planet_id'] 	= $CurrentPlanet['id'];
-	$parse['planet_name'] 	= $CurrentPlanet['name'];
-	$parse['galaxy_galaxy'] = $CurrentPlanet['galaxy'];
-	$parse['galaxy_system'] = $CurrentPlanet['system'];
-	$parse['galaxy_planet'] = $CurrentPlanet['planet'];
 
 	$mode = request_var('mode','');
 	
@@ -55,27 +47,27 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 			if (!empty($newname))
 			{
 				if (!CheckName($newname))
-					$template->message((UTF8_SUPPORT) ? $lang['ov_newname_no_space'] : $lang['ov_newname_alphanum'], "game.php?page=overview&mode=renameplanet",2);
+					$template->message((UTF8_SUPPORT) ? $LNG['ov_newname_no_space'] : $LNG['ov_newname_alphanum'], "game.php?page=overview&mode=renameplanet",2);
 				else
 				{
-					$db->query("UPDATE ".PLANETS." SET `name` = '".$db->sql_escape($newname)."' WHERE `id` = '". $CurrentUser['current_planet'] . "' LIMIT 1;");
+					$db->query("UPDATE ".PLANETS." SET `name` = '".$db->sql_escape($newname)."' WHERE `id` = '". $USER['current_planet'] . "' LIMIT 1;");
 					header("Location: ./game.".PHP_EXT."?page=overview&mode=renameplanet");
 				}
 			}
 			else
 			{
 				$template->assign_vars(array(
-					'galaxy'					=> $CurrentPlanet['galaxy'],
-					'system'					=> $CurrentPlanet['system'],
-					'planet'					=> $CurrentPlanet['planet'],
-					'planetname'				=> $CurrentPlanet['name'],
-					'ov_your_planet'			=> $lang['ov_your_planet'],
-					'ov_coords'					=> $lang['ov_coords'],
-					'ov_planet_name'			=> $lang['ov_planet_name'],
-					'ov_actions'				=> $lang['ov_actions'],
-					'ov_abandon_planet'			=> $lang['ov_abandon_planet'],
-					'ov_planet_rename'			=> $lang['ov_planet_rename'],
-					'ov_planet_rename_action'	=> $lang['ov_planet_rename_action'],
+					'galaxy'					=> $PLANET['galaxy'],
+					'system'					=> $PLANET['system'],
+					'planet'					=> $PLANET['planet'],
+					'planetname'				=> $PLANET['name'],
+					'ov_your_planet'			=> $LNG['ov_your_planet'],
+					'ov_coords'					=> $LNG['ov_coords'],
+					'ov_planet_name'			=> $LNG['ov_planet_name'],
+					'ov_actions'				=> $LNG['ov_actions'],
+					'ov_abandon_planet'			=> $LNG['ov_abandon_planet'],
+					'ov_planet_rename'			=> $LNG['ov_planet_rename'],
+					'ov_planet_rename_action'	=> $LNG['ov_planet_rename_action'],
 				));
 				
 				$template->show('overview_renameplanet.tpl');
@@ -85,39 +77,39 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 			$password =	request_var('password', '');
 			if (!empty($password))
 			{
-				$IfFleets = $db->query("SELECT fleet_id FROM ".FLEETS." WHERE (`fleet_owner` = '".$CurrentUser['id']."' AND `fleet_start_galaxy` = '".$CurrentPlanet['galaxy']."' AND `fleet_start_system` = '".$CurrentPlanet['system']."' AND `fleet_start_planet` = '".$CurrentPlanet['planet']."') OR (`fleet_target_owner` = '".$CurrentUser['id']."' AND `fleet_end_galaxy` = '".$CurrentPlanet['galaxy']."' AND `fleet_end_system` = '".$CurrentPlanet['system']."' AND `fleet_end_planet` = '".$CurrentPlanet['planet']."');");
+				$IfFleets = $db->query("SELECT fleet_id FROM ".FLEETS." WHERE (`fleet_owner` = '".$USER['id']."' AND `fleet_start_galaxy` = '".$PLANET['galaxy']."' AND `fleet_start_system` = '".$PLANET['system']."' AND `fleet_start_planet` = '".$PLANET['planet']."') OR (`fleet_target_owner` = '".$USER['id']."' AND `fleet_end_galaxy` = '".$PLANET['galaxy']."' AND `fleet_end_system` = '".$PLANET['system']."' AND `fleet_end_planet` = '".$PLANET['planet']."');");
 				
 				if ($db->num_rows($IfFleets) > 0)
-					$template->message($lang['ov_abandon_planet_not_possible'], 'game.php?page=overview&mode=deleteplanet', 3);
-				elseif ($CurrentUser['id_planet'] == $CurrentUser["current_planet"])
-					$template->message($lang['ov_principal_planet_cant_abanone'], 'game.php?page=overview&mode=deleteplanet', 3);
-				elseif (md5($password) != $CurrentUser["password"])
-					$template->message($lang['ov_wrong_pass'], 'game.php?page=overview&mode=deleteplanet', 3);
+					$template->message($LNG['ov_abandon_planet_not_possible'], '?page=overview&mode=deleteplanet', 3);
+				elseif ($USER['id_planet'] == $USER["current_planet"])
+					$template->message($LNG['ov_principal_planet_cant_abanone'], '?page=overview&mode=deleteplanet', 3);
+				elseif (md5($password) != $USER["password"])
+					$template->message($LNG['ov_wrong_pass'], '?page=overview&mode=deleteplanet', 3);
 				else
 				{
-					if($CurrentPlanet['planet_type'] == 1)
+					if($PLANET['planet_type'] == 1)
 					{
-						$db->multi_query("UPDATE ".PLANETS." SET `destruyed` = '".(time()+ 86400)."' WHERE `id` = '".$CurrentUser['current_planet']."' LIMIT 1;UPDATE ".USERS." SET `current_planet` = `id_planet` WHERE `id` = '".$CurrentUser['id']."';DELETE FROM ".PLANETS." WHERE `id` = '".$CurrentPlanet['id_luna']."' LIMIT 1;");
+						$db->multi_query("UPDATE ".PLANETS." SET `destruyed` = '".(TIMESTAMP+ 86400)."' WHERE `id` = '".$USER['current_planet']."' LIMIT 1;UPDATE ".USERS." SET `current_planet` = `id_planet` WHERE `id` = '".$USER['id']."';DELETE FROM ".PLANETS." WHERE `id` = '".$PLANET['id_luna']."' LIMIT 1;");
 					} else {
-						$db->multi_query("DELETE FROM ".PLANETS." WHERE `id` = '".$CurrentPlanet['id']."' LIMIT 1;
-						UPDATE ".PLANETS." SET `id_luna` = '0' WHERE `id_luna` = '".$CurrentPlanet['id']."' LIMIT 1;
-						UPDATE ".USERS." SET `current_planet` = `id_planet` WHERE `id` = '".$CurrentUser['id']."';");
+						$db->multi_query("DELETE FROM ".PLANETS." WHERE `id` = '".$PLANET['id']."' LIMIT 1;
+						UPDATE ".PLANETS." SET `id_luna` = '0' WHERE `id_luna` = '".$PLANET['id']."' LIMIT 1;
+						UPDATE ".USERS." SET `current_planet` = `id_planet` WHERE `id` = '".$USER['id']."';");
 					}
-					$template->message($lang['ov_planet_abandoned'], 'game.php?page=overview', 3);
+					$template->message($LNG['ov_planet_abandoned'], '?page=overview', 3);
 				}
 			}
 			else
 			{
 				$template->assign_vars(array(
-					'name'						=> $CurrentPlanet['name'],
-					'galaxy'					=> $CurrentPlanet['galaxy'],
-					'system'					=> $CurrentPlanet['system'],
-					'planet'					=> $CurrentPlanet['planet'],
-					'ov_password'				=> $lang['ov_password'],
-					'ov_with_pass'				=> $lang['ov_with_pass'],
-					'ov_security_confirm'		=> $lang['ov_security_confirm'],
-					'ov_security_request'		=> $lang['ov_security_request'],
-					'ov_delete_planet'			=> $lang['ov_delete_planet'],
+					'name'						=> $PLANET['name'],
+					'galaxy'					=> $PLANET['galaxy'],
+					'system'					=> $PLANET['system'],
+					'planet'					=> $PLANET['planet'],
+					'ov_password'				=> $LNG['ov_password'],
+					'ov_with_pass'				=> $LNG['ov_with_pass'],
+					'ov_security_confirm'		=> $LNG['ov_security_confirm'],
+					'ov_security_request'		=> $LNG['ov_security_request'],
+					'ov_delete_planet'			=> $LNG['ov_delete_planet'],
 				));
 				
 				$template->show('overview_deleteplanet.tpl');
@@ -127,7 +119,7 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 			
 			$FlyingFleetsTable = new FlyingFleetsTable();
 			
-			$OwnFleets = $db->query("SELECT * FROM ".FLEETS." WHERE `fleet_owner` = '" . $CurrentUser['id'] . "';");
+			$OwnFleets = $db->query("SELECT * FROM ".FLEETS." WHERE `fleet_owner` = '" . $USER['id'] . "';");
 			$Record = 0;
 
 			while ($FleetRow = $db->fetch_array($OwnFleets))
@@ -147,7 +139,7 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 				//////
 				$Label = "fs";
 				
-				if ($StartTime > time())
+				if ($StartTime > TIMESTAMP)
 				{
 					$fpage[$StartTime.$id] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 0, true, $Label, $Record);
 				}
@@ -156,13 +148,13 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 				{
 					$Label = "ft";
 
-					if ($StayTime > time())
+					if ($StayTime > TIMESTAMP)
 					{
 						$fpage[$StayTime.$id] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 1, true, $Label, $Record);
 					}
 					$Label = "fe";
 
-					if ($EndTime > time())
+					if ($EndTime > TIMESTAMP)
 					{
 						$fpage[$EndTime.$id] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 2, true, $Label, $Record);
 					}
@@ -187,7 +179,7 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 					$filogrubu 		= $FleetRow['fleet_group'];
 					$id 			= $FleetRow['fleet_id'];
 					
-					if (($FleetRow['fleet_mission'] == 2) && ($FleetRow['fleet_owner'] != $CurrentUser['id'])) {
+					if (($FleetRow['fleet_mission'] == 2) && ($FleetRow['fleet_owner'] != $USER['id'])) {
 						$Record1++;
 						
 						if($mess > 0){
@@ -196,20 +188,20 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 							$StartTime = $FleetRow['fleet_start_time'];
 						}
 
-						if ($StartTime > time()) {
+						if ($StartTime > TIMESTAMP) {
 							$Label = "ofs";
 							$fpage[$StartTime.$id] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 0, false, $Label, $Record1, true);
 						}
 					}
 
-					if (($FleetRow['fleet_mission'] == 1) && ($FleetRow['fleet_owner'] != $CurrentUser['id']) && ($filogrubu > 0 ) ){
+					if (($FleetRow['fleet_mission'] == 1) && ($FleetRow['fleet_owner'] != $USER['id']) && ($filogrubu > 0 ) ){
 						$Record++;
 						if($mess > 0){
 							$StartTime = "";
 						}else{
 							$StartTime = $FleetRow['fleet_start_time'];
 						}
-						if ($StartTime > time()) {
+						if ($StartTime > TIMESTAMP) {
 							$Label = "ofs";
 							$fpage[$StartTime.$id] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 0, false, $Label, $Record, true);
 						}
@@ -220,12 +212,12 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 				$db->free_result($dostfilo);
 			}
 
-			$OtherFleets = $db->query("SELECT * FROM ".FLEETS." WHERE `fleet_target_owner` = '" . $CurrentUser['id'] . "';");
+			$OtherFleets = $db->query("SELECT * FROM ".FLEETS." WHERE `fleet_target_owner` = '" . $USER['id'] . "';");
 
 			$Record = 2000;
 			while ($FleetRow = $db->fetch_array($OtherFleets))
 			{
-				if ($FleetRow['fleet_owner'] != $CurrentUser['id'])
+				if ($FleetRow['fleet_owner'] != $USER['id'])
 				{
 					if ($FleetRow['fleet_mission'] != 8)
 					{
@@ -234,7 +226,7 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 						$StayTime 	= $FleetRow['fleet_end_stay'];
 						$id 		= $FleetRow['fleet_id'];
 
-						if ($StartTime > time())
+						if ($StartTime > TIMESTAMP)
 						{
 							$Label = "ofs";
 							$fpage[$StartTime.$id] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 0, false, $Label, $Record);
@@ -242,7 +234,7 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 						if ($FleetRow['fleet_mission'] == 5)
 						{
 							$Label = "oft";
-							if ($StayTime > time())
+							if ($StayTime > TIMESTAMP)
 							{
 								$fpage[$StayTime.$id] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 1, false, $Label, $Record);
 							}
@@ -254,54 +246,51 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 			
 			$template->getplanets();
 			
-			foreach($template->playerplanets as $ID => $CurrentUserPlanet)
+			foreach($template->UserPlanets as $ID => $USERPlanet)
 			{		
-				if ($ID == $CurrentUser["current_planet"] || $CurrentUserPlanet['planet_type'] == 3)
+				if ($ID == $USER["current_planet"] || $USERPlanet['planet_type'] == 3)
 					continue;
 
-				if (!empty($CurrentUserPlanet['b_building_id']))
+				if (!empty($USERPlanet['b_building_id']))
 				{
-					$QueueArray      = explode ( ";", $CurrentUserPlanet['b_building_id']);
+					$QueueArray      = explode ( ";", $USERPlanet['b_building_id']);
 					$CurrentBuild    = explode ( ",", $QueueArray[0] );
 					
-					if($CurrentBuild[3] - time() > 0)
-						$BuildPlanet	 = $lang['tech'][$CurrentBuild[0]]." (".$CurrentBuild[1].") <br><font color=\"#7f7f7f\">(".pretty_time($CurrentBuild[3] - time()).")</font>";
+					if($CurrentBuild[3] - TIMESTAMP > 0)
+						$BuildPlanet	 = $LNG['tech'][$CurrentBuild[0]]." (".$CurrentBuild[1].") <br><font color=\"#7f7f7f\">(".pretty_time($CurrentBuild[3] - TIMESTAMP).")</font>";
 					else
-						$BuildPlanet     = $lang['ov_free'];
+						$BuildPlanet     = $LNG['ov_free'];
 				}
 				else
-					$BuildPlanet     = $lang['ov_free'];
+					$BuildPlanet     = $LNG['ov_free'];
 					
 				$AllPlanets[] = array(
-					'id'	=> $CurrentUserPlanet['id'],
-					'name'	=> $CurrentUserPlanet['name'],
-					'image'	=> $CurrentUserPlanet['image'],
+					'id'	=> $USERPlanet['id'],
+					'name'	=> $USERPlanet['name'],
+					'image'	=> $USERPlanet['image'],
 					'build'	=> $BuildPlanet,
 				);
 			}
 				
-			if ($CurrentPlanet['id_luna'] != 0)
+			if ($PLANET['id_luna'] != 0)
 			{
-				$lunarow = $db->fetch_array($db->query("SELECT `id`, `name` FROM ".PLANETS." WHERE `id` = '".$CurrentPlanet['id_luna']."';"));
-				if ($lunarow['destruyed'] == 0)
-				{
-					$Moon = array(
-						'id'	=> $lunarow['id'],
-						'name'	=> $lunarow['name'],
-					);
-				}
-			}	
+				$lunarow = $db->uniquequery("SELECT `id`, `name` FROM ".PLANETS." WHERE `id` = '".$PLANET['id_luna']."';");
+				$Moon = array(
+					'id'	=> $lunarow['id'],
+					'name'	=> $lunarow['name'],
+				);
+			}
 
-			if (!empty($CurrentPlanet['b_building_id']))
+			if (!empty($PLANET['b_building_id']))
 			{
 				include_once(ROOT_PATH . 'includes/functions/InsertBuildListScript.' . PHP_EXT);
 
-				$BuildQueue  		 = explode (";", $CurrentPlanet['b_building_id']);
+				$BuildQueue  		 = explode (";", $PLANET['b_building_id']);
 				$CurrBuild 	 		 = explode (",", $BuildQueue[0]);
-				$RestTime 	 		 = $CurrBuild[3] - time();
-				$PlanetID 	 		 = $CurrentPlanet['id'];
+				$RestTime 	 		 = $CurrBuild[3] - TIMESTAMP;
+				$PlanetID 	 		 = $PLANET['id'];
 				$Build 		 		 = InsertBuildListScript ("overview");
-				$Build 	   			.= $lang['tech'][$CurrBuild[0]] . ' (' . ($CurrBuild[1]) . ')';
+				$Build 	   			.= $LNG['tech'][$CurrBuild[0]] . ' (' . ($CurrBuild[1]) . ')';
 				$Build 				.= "<br /><div id=\"blc\" class=\"z\">" . pretty_time($RestTime) . "</div>";
 				$Build 				.= "\n<script language=\"JavaScript\">";
 				$Build 				.= "\n	pp = \"" . $RestTime . "\";\n";
@@ -313,34 +302,34 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 				$Build 				.= "<script type=\"text/javascript\">\n";
 				$Build 				.= "function title(){\n";
 				$Build 				.= "var datem = document.getElementById('blc').innerHTML.split('<br><a ');\n";
-				$Build 				.= "document.title = datem[0] + ' - ". $lang['tech'][$CurrBuild[0]]." - ".$game_config['game_name']."';\n";
+				$Build 				.= "document.title = datem[0] + ' - ". $LNG['tech'][$CurrBuild[0]]." - ".$CONF['game_name']."';\n";
 				$Build 				.= "window.setTimeout('title();', 1000);}\n";
 				$Build 				.= "title();\n</script>";
 			}
 			else
 			{
-				$Build = $lang['ov_free'];
+				$Build = $LNG['ov_free'];
 			}
 
-			if ($game_config['ts_modon'] == 1) {
-				if($game_config['ts_version'] == 2){
+			if ($CONF['ts_modon'] == 1) {
+				if($CONF['ts_version'] == 2){
 					include_once(ROOT_PATH . "includes/libs/teamspeak/class.teamspeak2.".PHP_EXT);
 					$ts = new cyts();
-					if($ts->connect($game_config['ts_server'], $game_config['ts_tcpport'], $game_config['ts_udpport'], $game_config['ts_timeout']))
+					if($ts->connect($CONF['ts_server'], $CONF['ts_tcpport'], $CONF['ts_udpport'], $CONF['ts_timeout']))
 					{
 						$tsdata 	= $ts->info_serverInfo();
 						$tsdata2 	= $ts->info_globalInfo();
 						$ts->disconnect();
 						$trafges 	= pretty_number(($tsdata2["total_bytessend"] / 1024 / 1024) + $tsdata2["total_bytesreceived"] / 1024 / 1024);
-						$Teamspeak	= sprintf($lang['ov_teamspeak_v2'], $game_config['ts_server'], $game_config['ts_udpport'], $CurrentUser['username'], $tsdata["server_currentusers"], $tsdata["server_maxusers"], $tsdata["server_currentchannels"], $trafges);
+						$Teamspeak	= sprintf($LNG['ov_teamspeak_v2'], $CONF['ts_server'], $CONF['ts_udpport'], $USER['username'], $tsdata["server_currentusers"], $tsdata["server_maxusers"], $tsdata["server_currentchannels"], $trafges);
 					} else {
-						$Teamspeak	= $lang['ov_teamspeak_not_online'];
+						$Teamspeak	= $LNG['ov_teamspeak_not_online'];
 					}
-				} elseif($game_config['ts_version'] == 3){
-					$ip 	= $game_config['ts_server'];
-					$port 	= $game_config['ts_tcpport'];
-					$t_port = $game_config['ts_udpport'];
-					$sid 	= $game_config['ts_timeout']; 
+				} elseif($CONF['ts_version'] == 3){
+					$ip 	= $CONF['ts_server'];
+					$port 	= $CONF['ts_tcpport'];
+					$t_port = $CONF['ts_udpport'];
+					$sid 	= $CONF['ts_timeout']; 
 					require_once(ROOT_PATH . "includes/libs/teamspeak/class.teamspeak3.".PHP_EXT);
 
 					$tsAdmin = new ts3admin($ip, $t_port);
@@ -353,76 +342,77 @@ function ShowOverviewPage($CurrentUser, $CurrentPlanet)
 						$trafges 	= round(($sinfo['connection_bytes_received_total'] / 1024 / 1024) + ($sinfo['connection_bytes_sent_total'] / 1024 / 1024), 2);
 						$Debug		= $tsAdmin->getDebugLog();
 						if($Debug == "Error while fetching: 'error id=518 msg=not logged in'<br>")
-							$Teamspeak	= sprintf($lang['ov_teamspeak_v3'], $ip, $port, $CurrentUser['username'], $sinfo['virtualserver_password'], ($sinfo['virtualserver_clientsonline'] - 1), $sinfo['virtualserver_maxclients'], $sinfo['virtualserver_channelsonline'], $trafges);
+							$Teamspeak	= sprintf($LNG['ov_teamspeak_v3'], $ip, $port, $USER['username'], $sinfo['virtualserver_password'], ($sinfo['virtualserver_clientsonline'] - 1), $sinfo['virtualserver_maxclients'], $sinfo['virtualserver_channelsonline'], $trafges);
 						else
 							$Teamspeak	= $Debug;
 					} else {
-						$Teamspeak 	= $lang['ov_teamspeak_not_online'];		
+						$Teamspeak 	= $LNG['ov_teamspeak_not_online'];		
 					}
 				}
 			}
 			
-			$OnlineAdmins = $db->query("SELECT `id`,`username` FROM ".USERS." WHERE onlinetime >=' ".(time()-10*60)."' AND authlevel > 0;");
+			$OnlineAdmins = $db->query("SELECT `id`,`username` FROM ".USERS." WHERE `onlinetime` >= '".(TIMESTAMP-10*60)."' AND `authlevel` > '0';");
 			
 			if(isset($OnlineAdmins)) {
 				while ($AdminRow = $db->fetch_array($OnlineAdmins)) {
 					$AdminsOnline[$AdminRow['id']]	= $AdminRow['username'];
 				}
 			}
-		
+			
+			$db->free_result($OnlineAdmins);
+			
 			if (isset($fpage) && is_array($fpage))
 				ksort($fpage);
 				
 			$template->assign_vars(array(
-				'date_time'					=> date("D M j H:i:s", time()),
-				'user_rank'					=> sprintf($lang['ov_userrank_info'], pretty_number($template->player['rank']['total_points']), $lang['ov_place'], $template->player['rank']['total_rank'], $template->player['rank']['total_rank'], $lang['ov_of'], $game_config['users_amount']),
-				'is_news'					=> $game_config['OverviewNewsFrame'],
-				'news'						=> makebr($game_config['OverviewNewsText']),
-				'planetname'				=> $CurrentPlanet['name'],
-				'planetimage'				=> $CurrentPlanet['image'],
-				'galaxy'					=> $CurrentPlanet['galaxy'],
-				'system'					=> $CurrentPlanet['system'],
-				'planet'					=> $CurrentPlanet['planet'],
-				'userid'					=> $CurrentUser['id'],
-				'username'					=> $CurrentUser['username'],
+				'date_time'					=> date("D M j H:i:s", TIMESTAMP),
+				'user_rank'					=> sprintf($LNG['ov_userrank_info'], pretty_number($USER['total_points']), $LNG['ov_place'], $USER['total_rank'], $USER['total_rank'], $LNG['ov_of'], $CONF['users_amount']),
+				'is_news'					=> $CONF['OverviewNewsFrame'],
+				'news'						=> makebr($CONF['OverviewNewsText']),
+				'planetname'				=> $PLANET['name'],
+				'planetimage'				=> $PLANET['image'],
+				'galaxy'					=> $PLANET['galaxy'],
+				'system'					=> $PLANET['system'],
+				'planet'					=> $PLANET['planet'],
+				'userid'					=> $USER['id'],
+				'username'					=> $USER['username'],
 				'fleets'					=> $fpage,
 				'build'						=> $Build,
 				'Moon'						=> $Moon,
 				'AllPlanets'				=> $AllPlanets,
 				'AdminsOnline'				=> $AdminsOnline,
 				'Teamspeak'					=> $Teamspeak,
-				'messages'					=> ($CurrentUser['new_message'] > 0) ? (($CurrentUser['new_message'] == 1) ? $lang['ov_have_new_message'] : sprintf($lang['ov_have_new_messages'], pretty_number($CurrentUser['new_message']))): false,
-				'planet_diameter'			=> pretty_number($CurrentPlanet['diameter']),
-				'planet_field_current' 		=> $CurrentPlanet['field_current'],
-				'planet_field_max' 			=> CalculateMaxPlanetFields($CurrentPlanet),
-				'planet_temp_min' 			=> $CurrentPlanet['temp_min'],
-				'planet_temp_max' 			=> $CurrentPlanet['temp_max'],
-				'ov_news'					=> $lang['ov_news'],
-				'fcm_moon'					=> $lang['fcm_moon'],
-				'ov_server_time'			=> $lang['ov_server_time'],
-				'ov_planet'					=> $lang['ov_planet'],
-				'ov_planetmenu'				=> $lang['ov_planetmenu'],
-				'ov_diameter'				=> $lang['ov_diameter'],
-				'ov_distance_unit'			=> $lang['ov_distance_unit'],
-				'ov_developed_fields'		=> $lang['ov_developed_fields'],
-				'ov_max_developed_fields'	=> $lang['ov_max_developed_fields'],
-				'ov_fields'					=> $lang['ov_fields'],
-				'ov_temperature'			=> $lang['ov_temperature'],
-				'ov_aprox'					=> $lang['ov_aprox'	], 
-				'ov_temp_unit'				=> $lang['ov_temp_unit'],
-				'ov_to'						=> $lang['ov_to'],
-				'ov_position'				=> $lang['ov_position'],
-				'ov_points'					=> $lang['ov_points'],
-				'ov_events'					=> $lang['ov_events'],
-				'ov_admins_online'			=> $lang['ov_admins_online'],
-				'ov_no_admins_online'		=> $lang['ov_no_admins_online'],
-				'ov_userbanner'				=> $lang['ov_userbanner'],
-				'ov_teamspeak'				=> $lang['ov_teamspeak'],
+				'messages'					=> ($USER['new_message'] > 0) ? (($USER['new_message'] == 1) ? $LNG['ov_have_new_message'] : sprintf($LNG['ov_have_new_messages'], pretty_number($USER['new_message']))): false,
+				'planet_diameter'			=> pretty_number($PLANET['diameter']),
+				'planet_field_current' 		=> $PLANET['field_current'],
+				'planet_field_max' 			=> CalculateMaxPlanetFields($PLANET),
+				'planet_temp_min' 			=> $PLANET['temp_min'],
+				'planet_temp_max' 			=> $PLANET['temp_max'],
+				'ov_news'					=> $LNG['ov_news'],
+				'fcm_moon'					=> $LNG['fcm_moon'],
+				'ov_server_time'			=> $LNG['ov_server_time'],
+				'ov_planet'					=> $LNG['ov_planet'],
+				'ov_planetmenu'				=> $LNG['ov_planetmenu'],
+				'ov_diameter'				=> $LNG['ov_diameter'],
+				'ov_distance_unit'			=> $LNG['ov_distance_unit'],
+				'ov_developed_fields'		=> $LNG['ov_developed_fields'],
+				'ov_max_developed_fields'	=> $LNG['ov_max_developed_fields'],
+				'ov_fields'					=> $LNG['ov_fields'],
+				'ov_temperature'			=> $LNG['ov_temperature'],
+				'ov_aprox'					=> $LNG['ov_aprox'	], 
+				'ov_temp_unit'				=> $LNG['ov_temp_unit'],
+				'ov_to'						=> $LNG['ov_to'],
+				'ov_position'				=> $LNG['ov_position'],
+				'ov_points'					=> $LNG['ov_points'],
+				'ov_events'					=> $LNG['ov_events'],
+				'ov_admins_online'			=> $LNG['ov_admins_online'],
+				'ov_no_admins_online'		=> $LNG['ov_no_admins_online'],
+				'ov_userbanner'				=> $LNG['ov_userbanner'],
+				'ov_teamspeak'				=> $LNG['ov_teamspeak'],
 			));
 			
 			$template->show("overview_body.tpl");
 		break;
 	}
-	$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 }
 ?>

@@ -685,8 +685,8 @@ class cyts {
 	function info_channelUser($cID) {
 		if (!$pList = $this->info_playerList()) return false;
 		$cList = array();
-		foreach ($pList as $user) {
-			if ($user[2] == $cID) $cList[] = $user;
+		foreach ($pList as $USER) {
+			if ($USER[2] == $cID) $cList[] = $USER;
 		}
 		return $cList;
 	}
@@ -817,15 +817,15 @@ class cyts {
 		}
 		$cmd = "";
 		$cStat = true;
-		foreach ($cList as $user) {
+		foreach ($cList as $USER) {
 			if ($kMode == 1) {
-				if ($this->_extendcall("MPTC $param $user[1]") != CYTS_OK)
+				if ($this->_extendcall("MPTC $param $USER[1]") != CYTS_OK)
 					$cStat = false;
 			} elseif ($kMode == 2) {
-				if ($this->_extendcall("KICK $user[1] $param") != CYTS_OK)
+				if ($this->_extendcall("KICK $USER[1] $param") != CYTS_OK)
 					$cStat = false;
 			} elseif ($kMode == 3) {
-				if ($this->_extendcall("REMOVECLIENT $user[1]") != CYTS_OK)
+				if ($this->_extendcall("REMOVECLIENT $USER[1]") != CYTS_OK)
 					$cStat = false;
 			}
 		}
@@ -855,26 +855,26 @@ class cyts {
 		$mFlag = $this->info_translateFlag($tFlag, 5);
 
 		$cStat = 0;
-		foreach ($uList as $user) {
+		foreach ($uList as $USER) {
 		
-			$cData = $this->info_channelInfo($user['c_id']);		
+			$cData = $this->info_channelInfo($USER['c_id']);		
 			$cFlag = $this->info_translateFlag($cData['flags'], 4);
-			$uFlag = $this->info_translateFlag($user['pprivs'], 2);
+			$uFlag = $this->info_translateFlag($USER['pprivs'], 2);
 			
 			if ($cFlag["U"] && !$mFlag["UC"]) continue;
 			if (!$cFlag["U"] && !$mFlag["RC"]) continue;						
 			if ($uFlag["R"] && !$mFlag["RU"]) continue;
 			if (!$uFlag["R"] && !$mFlag["UU"]) continue;		
-			if ($user['idletime'] / 60 < $tIdle) continue;		
+			if ($USER['idletime'] / 60 < $tIdle) continue;		
 			
 			if ($kMode == 1) {
-				if ($this->admin_move($user['p_id'], $param))
+				if ($this->admin_move($USER['p_id'], $param))
 					$cStat++;
 			} elseif ($kMode == 2) {
-				if ($this->admin_kick($user['p_id'], $param))
+				if ($this->admin_kick($USER['p_id'], $param))
 					$cStat++;
 			} elseif ($kMode == 3) {
-				if ($this->admin_remove($user['p_id']))
+				if ($this->admin_remove($USER['p_id']))
 					$cStat++;
 			}
 		}

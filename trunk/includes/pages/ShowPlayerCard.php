@@ -19,11 +19,11 @@
 # *                                                                          #
 ##############################################################################
 
-if(!defined('INSIDE')){ die(header("location:../../"));}
+if(!defined('INSIDE')) die('Hacking attempt!');
 
-function ShowPlayerCard($CurrentUser)
+function ShowPlayerCard($USER)
 {
-	global $lang, $db;
+	global $LNG, $db;
 	
 	$template	= new template();
 	$template->page_header();
@@ -65,7 +65,7 @@ function ShowPlayerCard($CurrentUser)
 		'total_rank'    => pretty_number($query['total_rank']),
 		'total_points'  => pretty_number($query['total_points']),
 		'allyname'		=> $query['ally_name'],
-		'playerdestory' => sprintf($lang['pl_destroy'], $query['username']),
+		'playerdestory' => sprintf($LNG['pl_destroy'], $query['username']),
 		'wons'          => pretty_number($query['wons']),
 		'loos'          => pretty_number($query['loos']),
 		'draws'         => pretty_number($query['draws']),
@@ -77,34 +77,34 @@ function ShowPlayerCard($CurrentUser)
 		'siegprozent'   => round($siegprozent, 2),
 		'loosprozent'   => round($loosprozent, 2),
 		'drawsprozent'  => round($drawsprozent, 2),
-		'pl_name'		=> $lang['pl_name'],
-		'pl_overview'	=> $lang['pl_overview'],
-		'pl_ally'		=> $lang['pl_ally'],
-		'pl_message'	=> $lang['pl_message'],
-		'pl_range'		=> $lang['pl_range'],
-		'pl_builds'		=> $lang['pl_builds'],
-		'pl_tech'		=> $lang['pl_tech'],
-		'pl_fleet'		=> $lang['pl_fleet'],
-		'pl_def'		=> $lang['pl_def'],
-		'pl_fightstats'	=> $lang['pl_fightstats'],
-		'pl_fights'		=> $lang['pl_fights'],
-		'pl_fprocent'	=> $lang['pl_fprocent'],
-		'pl_fightstats'	=> $lang['pl_fightstats'],
-		'pl_fights'		=> $lang['pl_fights'],
-		'pl_fprocent'	=> $lang['pl_fprocent'],
-		'pl_fightwon'	=> $lang['pl_fightwon'],
-		'pl_fightdraw'	=> $lang['pl_fightdraw'],
-		'pl_fightlose'	=> $lang['pl_fightlose'],
-		'pl_totalfight'	=> $lang['pl_totalfight'],
-		'pl_unitsshot'	=> $lang['pl_unitsshot'],
-		'pl_unitslose'	=> $lang['pl_unitslose'],
-		'pl_dermetal'	=> $lang['pl_dermetal'],
-		'pl_dercrystal'	=> $lang['pl_dercrystal'],
-		'pl_total'		=> $lang['pl_total'],
-		'pl_buddy'		=> $lang['pl_buddy'],
-		'pl_points'		=> $lang['pl_points'],
-		'pl_homeplanet'	=> $lang['pl_homeplanet'],
-		'pl_etc'		=> $lang['pl_etc'],
+		'pl_name'		=> $LNG['pl_name'],
+		'pl_overview'	=> $LNG['pl_overview'],
+		'pl_ally'		=> $LNG['pl_ally'],
+		'pl_message'	=> $LNG['pl_message'],
+		'pl_range'		=> $LNG['pl_range'],
+		'pl_builds'		=> $LNG['pl_builds'],
+		'pl_tech'		=> $LNG['pl_tech'],
+		'pl_fleet'		=> $LNG['pl_fleet'],
+		'pl_def'		=> $LNG['pl_def'],
+		'pl_fightstats'	=> $LNG['pl_fightstats'],
+		'pl_fights'		=> $LNG['pl_fights'],
+		'pl_fprocent'	=> $LNG['pl_fprocent'],
+		'pl_fightstats'	=> $LNG['pl_fightstats'],
+		'pl_fights'		=> $LNG['pl_fights'],
+		'pl_fprocent'	=> $LNG['pl_fprocent'],
+		'pl_fightwon'	=> $LNG['pl_fightwon'],
+		'pl_fightdraw'	=> $LNG['pl_fightdraw'],
+		'pl_fightlose'	=> $LNG['pl_fightlose'],
+		'pl_totalfight'	=> $LNG['pl_totalfight'],
+		'pl_unitsshot'	=> $LNG['pl_unitsshot'],
+		'pl_unitslose'	=> $LNG['pl_unitslose'],
+		'pl_dermetal'	=> $LNG['pl_dermetal'],
+		'pl_dercrystal'	=> $LNG['pl_dercrystal'],
+		'pl_total'		=> $LNG['pl_total'],
+		'pl_buddy'		=> $LNG['pl_buddy'],
+		'pl_points'		=> $LNG['pl_points'],
+		'pl_homeplanet'	=> $LNG['pl_homeplanet'],
+		'pl_etc'		=> $LNG['pl_etc'],
 	));
 	
 	$template->show("playercard_overview.tpl");

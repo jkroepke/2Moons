@@ -33,7 +33,7 @@ include(ROOT_PATH . 'common.' . PHP_EXT);
 
 if ($EditUsers != 1) die();
 
-$parse = $lang;
+$parse = $LNG;
 $query = $db->query("SELECT * FROM ".USERS_VALID." ORDER BY id ASC");
 $id = request_var('id',0);
 $i = 0;

@@ -19,23 +19,22 @@
 # *                                                                          #
 ##############################################################################
 
-
-
 include_once(ROOT_PATH . 'includes/classes/class.GalaxyRows.' . PHP_EXT);
 
 class ShowGalaxyPage extends GalaxyRows
 {
-
-	private function ShowGalaxyRows($Galaxy, $System, $HavePhalanx, $CurrentGalaxy, $CurrentSystem, $CurrentRC, $CurrentMIP, $CanDestroy, $UserPoints, $CurrentGRC)
+	private function ShowGalaxyRows($Galaxy, $System)
 	{
-		global $dpath, $user, $db, $lang;
+		global $PLANET, $USER, $db, $LNG;
 
-		$GalaxyPlanets		= $db->query("SELECT DISTINCT p.`planet`, p.`id`, p.`id_owner`, p.`name`, p.`image`, p.`last_update`, p.`diameter`, p.`temp_min`, p.`destruyed`, p.`der_metal`, p.`der_crystal`, p.`id_luna`, u.`id` as `userid`, u.`ally_id`, u.`username`, u.`onlinetime`, u.`urlaubs_modus`, u.`bana`, s.`total_points`, s.`total_rank`, a.`id` as `allyid`, a.`ally_tag`, a.`ally_members`, a.`ally_name`, allys.`total_rank` as `ally_rank` FROM ".PLANETS." p	LEFT JOIN ".USERS." u ON p.`id_owner` = u.`id` LEFT JOIN ".STATPOINTS." s ON s.`id_owner` = u.`id` AND s.`stat_type` = '1'	LEFT JOIN ".ALLIANCE." a ON a.`id` = u.`ally_id` LEFT JOIN ".STATPOINTS." allys ON allys.`stat_type` = '2' AND allys.`id_owner` = a.`id` WHERE p.`galaxy` = '".$Galaxy."' AND p.`system` = '".$System."' AND p.`planet_type` = '1' ORDER BY p.`planet` ASC;");
+		$GalaxyPlanets		= $db->query("SELECT SQL_BIG_RESULT DISTINCT p.`planet`, p.`id`, p.`id_owner`, p.`name`, p.`image`, p.`last_update`, p.`diameter`, p.`temp_min`, p.`destruyed`, p.`der_metal`, p.`der_crystal`, p.`id_luna`, u.`id` as `userid`, u.`ally_id`, u.`username`, u.`onlinetime`, u.`urlaubs_modus`, u.`bana`, s.`total_points`, s.`total_rank`, a.`id` as `allyid`, a.`ally_tag`, a.`ally_members`, a.`ally_name`, allys.`total_rank` as `ally_rank` FROM ".PLANETS." p	LEFT JOIN ".USERS." u ON p.`id_owner` = u.`id` LEFT JOIN ".STATPOINTS." s ON s.`id_owner` = u.`id` AND s.`stat_type` = '1'	LEFT JOIN ".ALLIANCE." a ON a.`id` = u.`ally_id` LEFT JOIN ".STATPOINTS." allys ON allys.`stat_type` = '2' AND allys.`id_owner` = a.`id` WHERE p.`galaxy` = '".$Galaxy."' AND p.`system` = '".$System."' AND p.`planet_type` = '1' ORDER BY p.`planet` ASC;");
 		$planetcount		= 0;
 		while($GalaxyRowPlanets = $db->fetch_array($GalaxyPlanets))
 		{
 			$PlanetsInGalaxy[$GalaxyRowPlanets['planet']]	= $GalaxyRowPlanets;
 		}
+		
+		$db->free_result($GalaxyPlanets);
 		
 		for ($Planet = 1; $Planet < 1+(MAX_PLANET_IN_SYSTEM); $Planet++)
 		{
@@ -51,66 +50,55 @@ class ShowGalaxyPage extends GalaxyRows
 			
 			if ($GalaxyRowPlanet['destruyed'] != 0)
 			{
-				$Result[$Planet]	= $lang['gl_planet_destroyed'];
+				$Result[$Planet]	= $LNG['gl_planet_destroyed'];
 				continue;
 			}
 			
-			$Result[$Planet]['user']		= $this->GalaxyRowUser($GalaxyRowPlanet, $UserPoints);
-			$Result[$Planet]['planet']		= $this->GalaxyRowPlanet($GalaxyRowPlanet, $HavePhalanx, $CurrentGalaxy, $CurrentSystem, $CurrentMIP);
-			$Result[$Planet]['planetname']	= $this->GalaxyRowPlanetName ($GalaxyRowPlanet, $HavePhalanx, $CurrentGalaxy, $CurrentSystem);
+			$Result[$Planet]['user']		= $this->GalaxyRowUser($GalaxyRowPlanet);
+			$Result[$Planet]['planet']		= $this->GalaxyRowPlanet($GalaxyRowPlanet);
+			$Result[$Planet]['planetname']	= $this->GalaxyRowPlanetName ($GalaxyRowPlanet);
 								
-			if ($GalaxyRowPlanet['userid'] != $user['id'])
-				$Result[$Planet]['action']	= $this->GalaxyRowActions($GalaxyRowPlanet, $CurrentGalaxy, $CurrentSystem, $CurrentMIP);
+			if ($GalaxyRowPlanet['userid'] != $USER['id'])
+				$Result[$Planet]['action']	= $this->GalaxyRowActions($GalaxyRowPlanet);
 				
 			if ($GalaxyRowPlanet['ally_id'] != 0)
 				$Result[$Planet]['ally']	= $this->GalaxyRowAlly($GalaxyRowPlanet);
 				
-			if ($GalaxyRowPlanet["der_metal"] > 0 || $GalaxyRowPlanet["der_crystal"] > 0)
-				$Result[$Planet]['derbis']	= $this->GalaxyRowDebris($GalaxyRowPlanet, $CurrentRC, $CurrentGRC);
+			if ($GalaxyRowPlanet['der_metal'] > 0 || $GalaxyRowPlanet['der_crystal'] > 0)
+				$Result[$Planet]['derbis']	= $this->GalaxyRowDebris($GalaxyRowPlanet);
 					
 			if ($GalaxyRowPlanet['id_luna'] != 0)
 			{
-				$GalaxyRowMoon   = $db->fetch_array($db->query("SELECT destruyed,id,diameter,name,temp_min FROM ".PLANETS." WHERE `id` = '". $GalaxyRowPlanet["id_luna"] ."' AND planet_type='3';"));
-
-				if ($GalaxyRowMoon["destruyed"] == 0)
-					$Result[$Planet]['moon']	= $this->GalaxyRowMoon($GalaxyRowPlayer, $GalaxyRowMoon, $CanDestroy);
+				$GalaxyRowMoon   = $db->uniquequery("SELECT destruyed,id,diameter,name,temp_min FROM ".PLANETS." WHERE `id` = '".$GalaxyRowPlanet['id_luna'] ."' AND planet_type='3';");
+				$Result[$Planet]['moon']	= $this->GalaxyRowMoon($GalaxyRowPlayer, $GalaxyRowMoon);
 			}
 			$planetcount++;
 		}
 		return array('Result' => $Result, 'planetcount' => $planetcount);
 	}
 
-	public function ShowGalaxyPage($CurrentUser, $CurrentPlanet)
+	public function ShowGalaxyPage()
 	{
-		global $dpath, $resource, $lang, $db, $reslist;
-		$PlanetRess 	= new ResourceUpdate($CurrentUser, $CurrentPlanet);
-
+		global $USER, $PLANET, $dpath, $resource, $LNG, $db, $reslist;
+		
 		$template		= new template();	
 		$template->page_header();
 		$template->page_topnav();
 		$template->page_leftmenu();
 		$template->page_planetmenu();
 		$template->page_footer();
-				
-		$CurrentPlID   	= $CurrentPlanet['id'];
-		$CurrentMIP    	= $CurrentPlanet['interplanetary_misil'];
-		$CurrentRC     	= $CurrentPlanet[$resource[209]];
-		$CurrentSP     	= $CurrentPlanet[$resource[210]];
-		$CurrentGRC     = $CurrentPlanet[$resource[219]];
-		$HavePhalanx   	= $CurrentPlanet['phalanx'];
-		$CurrentSystem 	= $CurrentPlanet['system'];
-		$CurrentGalaxy 	= $CurrentPlanet['galaxy'];
-		$CanDestroy    	= $CurrentPlanet[$resource[214]];
-		$maxfleet       = $db->num_rows($db->query("SELECT fleet_id FROM ".FLEETS." WHERE `fleet_owner` = '". $CurrentUser['id'] ."' AND `fleet_mission` != 10;"));
+		$template->loadscript('galaxy.js');	
+		
+		$maxfleet       = $db->num_rows($db->query("SELECT fleet_id FROM ".FLEETS." WHERE `fleet_owner` = '". $USER['id'] ."' AND `fleet_mission` != 10;"));
 		
 		$mode			= request_var('mode', 0);
 		$galaxyLeft		= request_var('galaxyLeft', '');
 		$galaxyRight	= request_var('galaxyRight', '');
 		$systemLeft		= request_var('systemLeft', '');
 		$systemRight	= request_var('systemRight', '');
-		$galaxy			= min(max(abs(request_var('galaxy', $CurrentPlanet['galaxy'])), 1), MAX_GALAXY_IN_WORLD);
-		$system			= min(max(abs(request_var('system', $CurrentPlanet['system'])), 1), MAX_SYSTEM_IN_GALAXY);
-		$planet			= min(max(abs(request_var('planet', $CurrentPlanet['planet'])), 1), MAX_PLANET_IN_SYSTEM);
+		$galaxy			= min(max(abs(request_var('galaxy', $PLANET['galaxy'])), 1), MAX_GALAXY_IN_WORLD);
+		$system			= min(max(abs(request_var('system', $PLANET['system'])), 1), MAX_SYSTEM_IN_GALAXY);
+		$planet			= min(max(abs(request_var('planet', $PLANET['planet'])), 1), MAX_PLANET_IN_SYSTEM);
 		$current		= request_var('current', 0);
 			
 		if ($mode == 1)
@@ -126,36 +114,32 @@ class ShowGalaxyPage extends GalaxyRows
 				$system	= min($system + 1, MAX_SYSTEM_IN_GALAXY);
 		}
 
-		if (!($galaxy == $CurrentPlanet['galaxy'] && $system == $CurrentPlanet['system']) && $mode != 0)
+		if (!($galaxy == $PLANET['galaxy'] && $system == $PLANET['system']) && $mode != 0)
 		{
-			if($CurrentPlanet['deuterium'] < 10)
+			if($PLANET['deuterium'] < 10)
 			{	
-				$template->message($lang['gl_no_deuterium_to_view_galaxy'], "game.php?page=galaxy&mode=0", 2);
-				$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
+				$template->message($LNG['gl_no_deuterium_to_view_galaxy'], "game.php?page=galaxy&mode=0", 2);
 				exit;
 			}
 			else
-				$CurrentPlanet['deuterium']	-= 10;
+				$PLANET['deuterium']	-= 10;
 		}
+		
+		$PlanetRess 	= new ResourceUpdate();
+		$PlanetRess->CalcResource()->SavePlanetToDB();
 	
-		$template->set_vars($CurrentUser, $CurrentPlanet);
-		$template->loadscript('galaxy.js');
-		$template->getstats();
-		
-		$UserPoints    	= $template->player['rank'];
-		
 		unset($reslist['defense'][array_search(502, $reslist['defense'])]);
-		$MissleSelector[0]	= $lang['gl_all_defenses'];
+		$MissleSelector[0]	= $LNG['gl_all_defenses'];
 		foreach($reslist['defense'] as $Element)
 		{	
-			$MissleSelector[$Element] = $lang['tech'][$Element];
+			$MissleSelector[$Element] = $LNG['tech'][$Element];
 		}
 		
-		$Result	= $this->ShowGalaxyRows($galaxy, $system, $HavePhalanx, $CurrentGalaxy, $CurrentSystem, $CurrentRC, $CurrentMIP, $CanDestroy, $UserPoints, $CurrentGRC);
+		$Result	= $this->ShowGalaxyRows($galaxy, $system);
 
 		$template->assign_vars(array(	
 			'GalaxyRows'				=> $Result['Result'],
-			'planetcount'				=> sprintf($lang['gl_populed_planets'], $Result['planetcount']),
+			'planetcount'				=> sprintf($LNG['gl_populed_planets'], $Result['planetcount']),
 			'mode'						=> $mode,
 			'galaxy'					=> $galaxy,
 			'system'					=> $system,
@@ -163,76 +147,76 @@ class ShowGalaxyPage extends GalaxyRows
 			'current'					=> $current,
 			'currentmip'				=> pretty_number($CurrentMIP),
 			'maxfleetcount'				=> $maxfleet,
-			'fleetmax'					=> ($CurrentUser['computer_tech'] + 1) + ($CurrentUser['rpg_commandant'] * COMMANDANT),
+			'fleetmax'					=> ($USER['computer_tech'] + 1) + ($USER['rpg_commandant'] * COMMANDANT),
 			'grecyclers'   				=> pretty_number($CurrentGRC),
 			'recyclers'   				=> pretty_number($CurrentRC),
 			'spyprobes'   				=> pretty_number($CurrentSP),
-			'missile_count'				=> sprintf($lang['gl_missil_to_launch'], $CurrentMIP),
-			'spio_anz'					=> $CurrentUser['spio_anz'],
-			'settings_fleetactions'		=> $CurrentUser['settings_fleetactions'],
-			'current_galaxy'			=> $CurrentPlanet['galaxy'],
-			'current_system'			=> $CurrentPlanet['system'],
-			'current_planet'			=> $CurrentPlanet['planet'],
-			'planet_type' 				=> $CurrentPlanet['planet_type'],
+			'missile_count'				=> sprintf($LNG['gl_missil_to_launch'], $CurrentMIP),
+			'spio_anz'					=> $USER['spio_anz'],
+			'settings_fleetactions'		=> $USER['settings_fleetactions'],
+			'current_galaxy'			=> $PLANET['galaxy'],
+			'current_system'			=> $PLANET['system'],
+			'current_planet'			=> $PLANET['planet'],
+			'planet_type' 				=> $PLANET['planet_type'],
 			'MissleSelector'			=> $MissleSelector,
-			'gl_solar_system'			=> $lang['gl_solar_system'],
-			'gl_galaxy' 				=> $lang['gl_galaxy'],
-			'gl_missil_launch_action'	=> $lang['gl_missil_launch_action'],
-			'gl_objective'				=> $lang['gl_objective'],
-			'gl_missil_launch'			=> $lang['gl_missil_launch'],
-			'gl_pos'					=> $lang['gl_pos'],
-			'gl_planet'					=> $lang['gl_planet'],
-			'gl_alliance'				=> $lang['gl_alliance'],
-			'gl_actions'				=> $lang['gl_actions'],
-			'gl_name_activity'			=> $lang['gl_name_activity'],
-			'gl_player_estate'			=> $lang['gl_player_estate'],
-			'gl_debris'					=> $lang['gl_debris'],
-			'gl_moon'					=> $lang['gl_moon'],
-			'gl_show'					=> $lang['gl_show'],
-			'gl_out_space'				=> $lang['gl_out_space'],
-			'gl_legend'					=> $lang['gl_legend'],
-			'gl_strong_player'			=> $lang['gl_strong_player'],
-			'gl_s'						=> $lang['gl_s'],
-			'gl_week_player'			=> $lang['gl_week_player'],
-			'gl_w'						=> $lang['gl_w'],
-			'gl_vacation'				=> $lang['gl_vacation'],
-			'gl_v'						=> $lang['gl_v'],
-			'gl_banned'					=> $lang['gl_banned'],
-			'gl_b'						=> $lang['gl_b'],
-			'gl_inactive_seven'			=> $lang['gl_inactive_seven'],
-			'gl_i'						=> $lang['gl_i'],
-			'gl_inactive_twentyeight'	=> $lang['gl_inactive_twentyeight'],
-			'gl_I'						=> $lang['gl_I'],
-			'gl_avaible_grecyclers'		=> $lang['gl_avaible_grecyclers'],
-			'gl_avaible_recyclers'		=> $lang['gl_avaible_recyclers'],
-			'gl_avaible_spyprobes'		=> $lang['gl_avaible_spyprobes'],
-			'gl_fleets'					=> $lang['gl_fleets'],
-			'gl_avaible_missiles'		=> $lang['gl_avaible_missiles'],
-			'gl_moon'					=> $lang['gl_moon'],
-			'gl_diameter'				=> $lang['gl_diameter'],
-			'gl_features'				=> $lang['gl_features'],
-			'gl_temperature'			=> $lang['gl_temperature'],
-			'gl_actions'				=> $lang['gl_actions'],
-			'gl_debris_field'			=> $lang['gl_debris_field'],
-			'gl_resources'				=> $lang['gl_resources'],
-			'gl_collect'				=> $lang['gl_collect'],
-			'gl_with'					=> $lang['gl_with'],
-			'gl_alliance_page'			=> $lang['gl_alliance_page'],
-			'gl_see_on_stats'			=> $lang['gl_see_on_stats'],
-			'gl_alliance_web_page'		=> $lang['gl_alliance_web_page'],
-			'gl_spy'					=> $lang['gl_spy'],
-			'gl_buddy_request'			=> $lang['gl_buddy_request'],
-			'gl_missile_attack'			=> $lang['gl_missile_attack'],
-			'gl_player'					=> $lang['gl_player'],
-			'gl_playercard'				=> $lang['gl_playercard'],
-			'gl_phalanx'				=> $lang['gl_phalanx'],
-			'gl_ajax_status_ok'			=> $lang['gl_ajax_status_ok'],
-			'gl_ajax_status_fail'		=> $lang['gl_ajax_status_fail'],
-			'write_message'				=> $lang['write_message'],
+			'gl_solar_system'			=> $LNG['gl_solar_system'],
+			'gl_galaxy' 				=> $LNG['gl_galaxy'],
+			'gl_missil_launch_action'	=> $LNG['gl_missil_launch_action'],
+			'gl_objective'				=> $LNG['gl_objective'],
+			'gl_missil_launch'			=> $LNG['gl_missil_launch'],
+			'gl_pos'					=> $LNG['gl_pos'],
+			'gl_planet'					=> $LNG['gl_planet'],
+			'gl_alliance'				=> $LNG['gl_alliance'],
+			'gl_actions'				=> $LNG['gl_actions'],
+			'gl_name_activity'			=> $LNG['gl_name_activity'],
+			'gl_player_estate'			=> $LNG['gl_player_estate'],
+			'gl_debris'					=> $LNG['gl_debris'],
+			'gl_moon'					=> $LNG['gl_moon'],
+			'gl_show'					=> $LNG['gl_show'],
+			'gl_out_space'				=> $LNG['gl_out_space'],
+			'gl_legend'					=> $LNG['gl_legend'],
+			'gl_strong_player'			=> $LNG['gl_strong_player'],
+			'gl_s'						=> $LNG['gl_s'],
+			'gl_week_player'			=> $LNG['gl_week_player'],
+			'gl_w'						=> $LNG['gl_w'],
+			'gl_vacation'				=> $LNG['gl_vacation'],
+			'gl_v'						=> $LNG['gl_v'],
+			'gl_banned'					=> $LNG['gl_banned'],
+			'gl_b'						=> $LNG['gl_b'],
+			'gl_inactive_seven'			=> $LNG['gl_inactive_seven'],
+			'gl_i'						=> $LNG['gl_i'],
+			'gl_inactive_twentyeight'	=> $LNG['gl_inactive_twentyeight'],
+			'gl_I'						=> $LNG['gl_I'],
+			'gl_avaible_grecyclers'		=> $LNG['gl_avaible_grecyclers'],
+			'gl_avaible_recyclers'		=> $LNG['gl_avaible_recyclers'],
+			'gl_avaible_spyprobes'		=> $LNG['gl_avaible_spyprobes'],
+			'gl_fleets'					=> $LNG['gl_fleets'],
+			'gl_avaible_missiles'		=> $LNG['gl_avaible_missiles'],
+			'gl_moon'					=> $LNG['gl_moon'],
+			'gl_diameter'				=> $LNG['gl_diameter'],
+			'gl_features'				=> $LNG['gl_features'],
+			'gl_temperature'			=> $LNG['gl_temperature'],
+			'gl_actions'				=> $LNG['gl_actions'],
+			'gl_debris_field'			=> $LNG['gl_debris_field'],
+			'gl_resources'				=> $LNG['gl_resources'],
+			'gl_collect'				=> $LNG['gl_collect'],
+			'gl_with'					=> $LNG['gl_with'],
+			'gl_alliance_page'			=> $LNG['gl_alliance_page'],
+			'gl_see_on_stats'			=> $LNG['gl_see_on_stats'],
+			'gl_alliance_web_page'		=> $LNG['gl_alliance_web_page'],
+			'gl_spy'					=> $LNG['gl_spy'],
+			'gl_buddy_request'			=> $LNG['gl_buddy_request'],
+			'gl_missile_attack'			=> $LNG['gl_missile_attack'],
+			'gl_player'					=> $LNG['gl_player'],
+			'gl_playercard'				=> $LNG['gl_playercard'],
+			'gl_phalanx'				=> $LNG['gl_phalanx'],
+			'gl_ajax_status_ok'			=> $LNG['gl_ajax_status_ok'],
+			'gl_ajax_status_fail'		=> $LNG['gl_ajax_status_fail'],
+			'write_message'				=> $LNG['write_message'],
 		));
 		
 		$template->show('galaxy_overview.tpl');
-		$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);	
+		$PlanetRess->SavePlanetToDB($USER, $PLANET);	
 	}
 }
 ?>

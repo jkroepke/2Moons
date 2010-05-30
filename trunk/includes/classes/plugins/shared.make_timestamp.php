@@ -18,7 +18,7 @@ function smarty_make_timestamp($string)
 {
     if(empty($string)) {
         // use "now":
-        $time = time();
+        $time = TIMESTAMP;
 
     } elseif (preg_match('/^\d{14}$/', $string)) {
         // it is mysql timestamp format of YYYYMMDDHHMMSS?            
@@ -33,8 +33,8 @@ function smarty_make_timestamp($string)
         // strtotime should handle it
         $time = strtotime($string);
         if ($time == -1 || $time === false) {
-            // strtotime() was not able to parse $string, use "now":
-            $time = time();
+            // strtoTIMESTAMP was not able to parse $string, use "now":
+            $time = TIMESTAMP;
         }
     }
     return $time;

@@ -1,28 +1,28 @@
 <?php
 
 //general
-$lang['index']				= 'Index';
-$lang['register']			= 'Registrieren';
-$lang['forum']				= 'Forum';
-$lang['send']				= 'Absenden';
-$lang['menu_index']			= 'IndeX'; 	 
-$lang['menu_news']			= 'News';	 
-$lang['menu_rules']			= 'Regeln'; 
-$lang['menu_agb']			= 'AGB'; 
-$lang['menu_pranger']		= 'Pranger';	 
-$lang['menu_top100']		= 'Hall of Fame';	 
-$lang['menu_disclamer']		= 'Impressum';	 
+$LNG['index']				= 'Index';
+$LNG['register']			= 'Registrieren';
+$LNG['forum']				= 'Forum';
+$LNG['send']				= 'Absenden';
+$LNG['menu_index']			= 'IndeX'; 	 
+$LNG['menu_news']			= 'News';	 
+$LNG['menu_rules']			= 'Regeln'; 
+$LNG['menu_agb']			= 'AGB'; 
+$LNG['menu_pranger']		= 'Pranger';	 
+$LNG['menu_top100']		= 'Hall of Fame';	 
+$LNG['menu_disclamer']		= 'Impressum';	 
 	 
 /* ------------------------------------------------------------------------------------------ */
 
 //index.php
 //case lostpassword
-$lang['mail_not_exist'] 		= 'Die angegebende E-Mail Adresse existiert nicht!';
-$lang['mail_title']				= 'Neues Passwort';
-$lang['mail_text']				= 'Dein neuen Passwort ist: ';
-$lang['mail_sended']			= 'Dein Passwort wurde erfolgreich gesendet!';
-$lang['mail_sended_fail']		= 'E-Mail konnte nicht gesendet werden.!';
-$lang['server_infos']			= array(
+$LNG['mail_not_exist'] 		= 'Die angegebende E-Mail Adresse existiert nicht!';
+$LNG['mail_title']				= 'Neues Passwort';
+$LNG['mail_text']				= 'Dein neuen Passwort ist: ';
+$LNG['mail_sended']			= 'Dein Passwort wurde erfolgreich gesendet!';
+$LNG['mail_sended_fail']		= 'E-Mail konnte nicht gesendet werden.!';
+$LNG['server_infos']			= array(
 	"Ein Weltraum-Strategiespiel in Echtzeit.",
 	"Spiele zusammen mit hunderten Users.",
 	"Kein Download, es wird nur ein Standardbrowser benötigt.",
@@ -30,82 +30,83 @@ $lang['server_infos']			= array(
 );
 
 //case default
-$lang['login_error']			= 'Falscher Benutzername/Passwort! <br><a href="index.php">Zurück</a>';
-$lang['screenshots']			= 'Screenshots';
-$lang['universe']				= 'Universum';
-$lang['chose_a_uni']			= 'Wähle ein Universum';
+$LNG['login_error']			= 'Falscher Benutzername/Passwort! <br><a href="index.php">Zurück</a>';
+$LNG['screenshots']			= 'Screenshots';
+$LNG['universe']				= 'Universum';
+$LNG['chose_a_uni']			= 'Wähle ein Universum';
 
 /* ------------------------------------------------------------------------------------------ */
 
 //lostpassword.tpl
-$lang['lost_pass_title']		= 'Passwort wiederherstellen';
-$lang['retrieve_pass']			= 'Wiederherstellen';
-$lang['email']					= 'E-Mail Adresse';
+$LNG['lost_pass_title']		= 'Passwort wiederherstellen';
+$LNG['retrieve_pass']			= 'Wiederherstellen';
+$LNG['email']					= 'E-Mail Adresse';
 
 //index_body.tpl
-$lang['user']					= 'User';
-$lang['pass']					= 'Passwort';
-$lang['remember_pass']			= 'Auto-Login';
-$lang['lostpassword']			= 'Passwort vergessen?';
-$lang['welcome_to']				= 'Willkommen bei';
-$lang['server_description']		= '<strong>%s</strong> ist ein <strong>Weltraum strategie Spiel mit hunderten Spielern</strong> die erdumgreifend <strong>gleichzeitig</strong> versuche der/die Beste zu werden. Alles was ihr zum spielen braucht ist ein standart Webbrowser.';
-$lang['server_register']		= 'Registrieren sie sich Jetzt!';
-$lang['server_message']			= 'Registriere dich jetzt und erlebe eine neue spannende im Welt von';
-$lang['login']					= 'Login';
-$lang['disclamer']				= 'Impressum';
-$lang['login_info']				= 'Mit dem Login akzeptiere ich die <a onclick="ajax(\'?page=rules&amp;\'+\'getajax=1\');" style="cursor:pointer;">Regeln</a> und die <a onclick="ajax(\'?page=agb&amp;\'+\'getajax=1\');" style="cursor:pointer;">AGB`s</a>';
+$LNG['user']					= 'User';
+$LNG['pass']					= 'Passwort';
+$LNG['remember_pass']			= 'Auto-Login';
+$LNG['lostpassword']			= 'Passwort vergessen?';
+$LNG['welcome_to']				= 'Willkommen bei';
+$LNG['server_description']		= '<strong>%s</strong> ist ein <strong>Weltraum strategie Spiel mit hunderten Spielern</strong> die erdumgreifend <strong>gleichzeitig</strong> versuche der/die Beste zu werden. Alles was ihr zum spielen braucht ist ein standart Webbrowser.';
+$LNG['server_register']		= 'Registrieren sie sich Jetzt!';
+$LNG['server_message']			= 'Registriere dich jetzt und erlebe eine neue spannende im Welt von';
+$LNG['login']					= 'Login';
+$LNG['disclamer']				= 'Impressum';
+$LNG['login_info']				= 'Mit dem Login akzeptiere ich die <a onclick="ajax(\'?page=rules&amp;\'+\'getajax=1\');" style="cursor:pointer;">Regeln</a> und die <a onclick="ajax(\'?page=agb&amp;\'+\'getajax=1\');" style="cursor:pointer;">AGB`s</a>';
 
 /* ------------------------------------------------------------------------------------------ */
 
 //reg.php - Registrierung
-$lang['register_closed']			= 'Registration geschlossen!';
-$lang['register_at']				= 'Registriert bei ';
-$lang['reg_mail_message_pass']		= 'Noch ein Schritt zur Aktivierung Ihres Usernamen';
-$lang['reg_mail_reg_done']			= 'Willkommen bei %s!';
-$lang['invalid_mail_adress']		= 'Ungültige E-mail Adresse!<br>';
-$lang['empty_user_field']			= 'Bitte alle Felder ausfüllen!<br>';
-$lang['password_lenght_error']		= 'Das Passwort muss mindestens 4 Zeichen lang sein!<br>';
-$lang['user_field_no_alphanumeric']	= 'Bitte beim Username nur alphanumerische Zeichen eingeben!<br>';
-$lang['user_field_no_space']		= 'Bitte beim Username keine Leerzeichen eingeben!<br>';
-$lang['terms_and_conditions']		= 'Sie müssen die <a href="index.php?page=agb">AGB</a> und <a href="index.php?page=rules>Regeln</a> aktzeptieren!<br>';
-$lang['user_already_exists']		= 'Der Username ist bereits vergeben!<br>';
-$lang['mail_already_exists']		= 'Die E-mail Adresse ist bereits in Benutzung!<br>';
-$lang['wrong_captcha']				= 'Sicherheitscode falsch!<br>';
-$lang['different_passwords']		= 'Sie haben 2 unterschiedliche Passwörter eingegeben!<br>';
-$lang['different_mails']			= 'Sie haben 2 unterschiedliche E-Mail Adressen!<br>';
-$lang['welcome_message_from']		= 'Administrator';
-$lang['welcome_message_sender']		= 'Administrator';
-$lang['welcome_message_subject']	= 'Wilkommenen';
-$lang['welcome_message_content']	= 'Wilkommen beim %s!<br>Baue zuerst ein Solarkraftwerk, denn Energie wird für die spätere Rohstoffproduktion benötigt. Um diese zu bauen, klicke links im Menu auf "Gebäude". Danach baue das 4. Gebäude von oben. Da du nun Energie hast, kannst du anfangen Minen zu bauen. Gehe dazu wieder im Menü auf Gebäude und baue eine Metallmine, danach wieder eine Kristallmine. Um Schiffe bauen zu können musst du zuerst eine Raumschiffswerft gebaut haben. Was dafür benötigt wird findest du links im Menüpunkt Technologie. Das Team wünscht dir viel Spaß beim Erkunden des Universums!';
-$lang['newpass_smtp_email_error']	= '<br><br>Ein Fehler trat auf. Dein Passwort ist: ';
-$lang['reg_completed']				= 'Danke für ihre Anmeldung! Sie erhalten eine E-Mail mit einem aktivierungs Link.';
+$LNG['register_closed']			= 'Registration geschlossen!';
+$LNG['register_at']				= 'Registriert bei ';
+$LNG['reg_mail_message_pass']		= 'Noch ein Schritt zur Aktivierung Ihres Usernamen';
+$LNG['reg_mail_reg_done']			= 'Willkommen bei %s!';
+$LNG['invalid_mail_adress']		= 'Ungültige E-mail Adresse!<br>';
+$LNG['empty_user_field']			= 'Bitte alle Felder ausfüllen!<br>';
+$LNG['password_lenght_error']		= 'Das Passwort muss mindestens 4 Zeichen lang sein!<br>';
+$LNG['user_field_no_alphanumeric']	= 'Bitte beim Username nur alphanumerische Zeichen eingeben!<br>';
+$LNG['user_field_no_space']		= 'Bitte beim Username keine Leerzeichen eingeben!<br>';
+$LNG['terms_and_conditions']		= 'Sie müssen die <a href="index.php?page=agb">AGB</a> und <a href="index.php?page=rules>Regeln</a> aktzeptieren!<br>';
+$LNG['user_already_exists']		= 'Der Username ist bereits vergeben!<br>';
+$LNG['mail_already_exists']		= 'Die E-mail Adresse ist bereits in Benutzung!<br>';
+$LNG['wrong_captcha']				= 'Sicherheitscode falsch!<br>';
+$LNG['different_passwords']		= 'Sie haben 2 unterschiedliche Passwörter eingegeben!<br>';
+$LNG['different_mails']			= 'Sie haben 2 unterschiedliche E-Mail Adressen!<br>';
+$LNG['welcome_message_from']		= 'Administrator';
+$LNG['welcome_message_sender']		= 'Administrator';
+$LNG['welcome_message_subject']	= 'Wilkommenen';
+$LNG['welcome_message_content']	= 'Wilkommen beim %s!<br>Baue zuerst ein Solarkraftwerk, denn Energie wird für die spätere Rohstoffproduktion benötigt. Um diese zu bauen, klicke links im Menu auf "Gebäude". Danach baue das 4. Gebäude von oben. Da du nun Energie hast, kannst du anfangen Minen zu bauen. Gehe dazu wieder im Menü auf Gebäude und baue eine Metallmine, danach wieder eine Kristallmine. Um Schiffe bauen zu können musst du zuerst eine Raumschiffswerft gebaut haben. Was dafür benötigt wird findest du links im Menüpunkt Technologie. Das Team wünscht dir viel Spaß beim Erkunden des Universums!';
+$LNG['newpass_smtp_email_error']	= '<br><br>Ein Fehler trat auf. Dein Passwort ist: ';
+$LNG['reg_completed']				= 'Danke für ihre Anmeldung! Sie erhalten eine E-Mail mit einem aktivierungs Link.';
 
 //registry_form.tpl
-$lang['server_message_reg']			= 'Registriere dich jetzt und werde ein Teil von';
-$lang['register_at_reg']			= 'Registriert bei';
-$lang['uni_reg']					= 'Universum';
-$lang['user_reg']					= 'User';
-$lang['pass_reg']					= 'Passwort';
-$lang['pass2_reg']					= 'Passwort wiederhohlen';
-$lang['email_reg']					= 'E-mail Adresse';
-$lang['email2_reg']					= 'E-mail Adresse wiederhohlen';
-$lang['register_now']				= 'Registrieren!';
-$lang['captcha_reg']				= 'Sicherheitsfrage';
-$lang['accept_terms_and_conditions']= 'Bitte <a onclick="ajax(\'?page=rules&amp;\'+\'getajax=1\');" style="cursor:pointer;">Regeln</a> und <a onclick="ajax(\'?page=agb&amp;\'+\'getajax=1\');" style="cursor:pointer;">AGB`s</a> aktzeptieren';
-$lang['captcha_reload']				= 'Neuladen';
-$lang['captcha_help']				= 'Hilfe';
-$lang['captcha_get_image']			= 'Lade Bild-CAPTCHA';
-$lang['captcha_reload']				= 'Neues CAPTCHA';
-$lang['captcha_get_audio']			= 'Lade Sound-CAPTCHA';
-$lang['user_active']				= 'User %s wurde aktiviert!';
+$LNG['server_message_reg']			= 'Registriere dich jetzt und werde ein Teil von';
+$LNG['register_at_reg']			= 'Registriert bei';
+$LNG['uni_reg']					= 'Universum';
+$LNG['user_reg']					= 'User';
+$LNG['pass_reg']					= 'Passwort';
+$LNG['pass2_reg']					= 'Passwort wiederhohlen';
+$LNG['email_reg']					= 'E-mail Adresse';
+$LNG['email2_reg']					= 'E-mail Adresse wiederhohlen';
+$LNG['lang_reg']					= 'Sprache';
+$LNG['register_now']				= 'Registrieren!';
+$LNG['captcha_reg']				= 'Sicherheitsfrage';
+$LNG['accept_terms_and_conditions']= 'Bitte <a onclick="ajax(\'?page=rules&amp;\'+\'getajax=1\');" style="cursor:pointer;">Regeln</a> und <a onclick="ajax(\'?page=agb&amp;\'+\'getajax=1\');" style="cursor:pointer;">AGB`s</a> aktzeptieren';
+$LNG['captcha_reload']				= 'Neuladen';
+$LNG['captcha_help']				= 'Hilfe';
+$LNG['captcha_get_image']			= 'Lade Bild-CAPTCHA';
+$LNG['captcha_reload']				= 'Neues CAPTCHA';
+$LNG['captcha_get_audio']			= 'Lade Sound-CAPTCHA';
+$LNG['user_active']				= 'User %s wurde aktiviert!';
 
 //registry_closed.tpl
-$lang['info']						= 'Informationen';
-$lang['reg_closed']					= 'Die Registrierung ist geschlossen';
+$LNG['info']						= 'Informationen';
+$LNG['reg_closed']					= 'Die Registrierung ist geschlossen';
 
 //Rules
-$lang['rules_overview']				= "Regelwerk";
-$lang['rules']						= array(
+$LNG['rules_overview']				= "Regelwerk";
+$LNG['rules']						= array(
 	"Accounts"					=> "Der Besitzer eines Accounts ist immer der Inhaber der festen E-mail Adresse. Ein Account darf ausschließlich alleine gespielt werden. 
 	Eine Ausnahme bildet nur das Sitten. Sollte es notwendig werden, dass der Account eines Anderen überwacht oder in den Urlaubsmodus gesetzt werden muss, 
 	so ist der zuständige Operator vorher zu informieren und dessen Genehmigung einzuholen. Für kurzfristiges Sitten unter 12 Stunden reicht eine Meldung an den Operator. 
@@ -145,14 +146,14 @@ $lang['rules']						= array(
 
 );
 
-$lang['rules_info1']				= "Es wird aber im <a href=\"%s\" target=\"_blank\">Forum</a> und über die Startseite im Game darüber Informiert ...";
-$lang['rules_info2']				= "Als Ergänzung hierzu sind die <a onclick=\"ajax('?page=agb&getajax=1');\" style=\"cursor:pointer;\">AGB</a> zu beachten und einzuhalten !</font>";
+$LNG['rules_info1']				= "Es wird aber im <a href=\"%s\" target=\"_blank\">Forum</a> und über die Startseite im Game darüber Informiert ...";
+$LNG['rules_info2']				= "Als Ergänzung hierzu sind die <a onclick=\"ajax('?page=agb&getajax=1');\" style=\"cursor:pointer;\">AGB</a> zu beachten und einzuhalten !</font>";
 
 
 //AGB
 
-$lang['agb_overview']				= "Allgemeine Geschäftsbedingungen";
-$lang['agb']						= array(
+$LNG['agb_overview']				= "Allgemeine Geschäftsbedingungen";
+$LNG['agb']						= array(
 	"Leistungsinhalte"				=> array( 
 		"Die Anerkennung der AGBS sind nötige Voraussetzung, um am Spiel teilnehmen zu können.
 		Sie gelten für alle Angebote seitens der Betreiber, einschließlich des Forums und anderer spielbezogener Inhalte.",
@@ -236,19 +237,19 @@ $lang['agb']						= array(
 
 //Facebook Connect
 
-$lang['fb_perm']				= 'Du hast ein Zugriff verboten. %s braucht alle Rechte, damit du dich mit deinem Facebook Account einloggen kannst.\nAlternativ kannst du dich ohne Facebook-Account anmelden!';
+$LNG['fb_perm']				= 'Du hast ein Zugriff verboten. %s braucht alle Rechte, damit du dich mit deinem Facebook Account einloggen kannst.\nAlternativ kannst du dich ohne Facebook-Account anmelden!';
 
 //NEWS
 
-$lang['news_overview']			= "News";
-$lang['news_from']				= "Am %s von %s";
-$lang['news_does_not_exist']	= "Keine News vorhanden!";
+$LNG['news_overview']			= "News";
+$LNG['news_from']				= "Am %s von %s";
+$LNG['news_does_not_exist']	= "Keine News vorhanden!";
 
 //Impressum
 
-$lang['disclamer']				= "Haftungsausschluss";
-$lang['disclamer_name']			= "Name";
-$lang['disclamer_adress']		= "Adresse";
-$lang['disclamer_tel']			= "Telefon:";
-$lang['disclamer_email']		= "E-Mail Adresse";
+$LNG['disclamer']				= "Haftungsausschluss";
+$LNG['disclamer_name']			= "Name";
+$LNG['disclamer_adress']		= "Adresse";
+$LNG['disclamer_tel']			= "Telefon:";
+$LNG['disclamer_email']		= "E-Mail Adresse";
 ?>

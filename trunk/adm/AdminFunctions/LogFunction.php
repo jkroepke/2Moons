@@ -24,11 +24,11 @@ define('INSIDE'  , true);
 define('INSTALL' , false);
 define('IN_ADMIN', true);
 
-if ($user['authlevel'] < 1) die();
+if ($USER['authlevel'] < 1) die();
 
 function LogFunction ($Text, $Estado, $LogCanWork)
 {
-	global $lang;
+	global $LNG;
 	
 	$Archive	=	"../adm/logs/".$Estado.".php";
 	
@@ -36,8 +36,8 @@ function LogFunction ($Text, $Estado, $LogCanWork)
 	if ($LogCanWork == 1)
 	{
 		$Date	.=	$Text;
-		$Date	.=	$lang['log_operation_succes'];
-		$Date	.=	date("d-m-Y H:i:s", time())."\n";
+		$Date	.=	$LNG['log_operation_succes'];
+		$Date	.=	date("d-m-Y H:i:s", TIMESTAMP)."\n";
 		file_put_contents($Archive, $Date, FILE_APPEND);
 	}
 }

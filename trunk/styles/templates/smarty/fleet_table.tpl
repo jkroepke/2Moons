@@ -42,7 +42,7 @@
 		<th>{$FlyingFleetRow.end_time}</th>
 		<th><font color="lime">{$FlyingFleetRow.backin}</font></th>
 		<th>
-		{if $FlyingFleetRow.way == 0}
+		{if $FlyingFleetRow.way != 1}
 			<form action="?page=fleet&amp;action=sendfleetback" method="post">
 			<input name="fleetid" value="{$FlyingFleetRow.id}" type="hidden">
 			<input value="{$fl_send_back}" type="submit">

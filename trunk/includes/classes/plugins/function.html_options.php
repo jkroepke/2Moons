@@ -98,7 +98,7 @@ function smarty_function_html_options($params, $smarty, $template)
 function smarty_function_html_options_optoutput($key, $value, $selected)
 {
     if (!is_array($value)) {
-        $_html_result = '<option label="' . smarty_function_escape_special_chars($value) . '" value="' .
+        $_html_result = '<option value="' .
         smarty_function_escape_special_chars($key) . '"';
         if (in_array((string)$key, $selected))
             $_html_result .= ' selected="selected"';

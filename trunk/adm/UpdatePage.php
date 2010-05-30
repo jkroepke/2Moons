@@ -28,7 +28,7 @@ include(ROOT_PATH . 'extension.inc');
 include(ROOT_PATH . 'common.' . PHP_EXT);
 
 
-if ($user['authlevel'] != 3) die();
+if ($USER['authlevel'] != 3) die();
 
 	function exitupdate($Result){
 
@@ -65,7 +65,7 @@ if ($user['authlevel'] != 3) die();
 	elseif(isset($Patchlevel[2]))
 		$Level		= $Patchlevel[2];
 	else
-		$Level		= 571;
+		$Level		= 665;
 		
 	$opts = array('http' => array('method'=> "GET", 'header'=> "Patchlevel: ".$Level."\r\n"));
 			
@@ -135,11 +135,11 @@ if ($user['authlevel'] != 3) die();
 				exitupdate(array('debug' => array('noupdate' => "Kein Update vorhanden!")));
 				
 			$SVN_ROOT		= $UpdateArray['info']['svn'];
-			$config 		= array("host" => $game_config['ftp_server'], "username" => $game_config['ftp_user_name'], "password" => $game_config['ftp_user_pass'], "port"     => 21 ); 
+			$CONF 		= array("host" => $CONF['ftp_server'], "username" => $CONF['ftp_user_name'], "password" => $CONF['ftp_user_pass'], "port"     => 21 ); 
 			try
 			{
 				$ftp = FTP::getInstance(); 
-				$ftp->connect($config);
+				$ftp->connect($CONF);
 				$Result['debug']['connect']	= "FTP-Verbindungsaufbau: OK!";
 			}
 			catch (FTPException $error)
@@ -148,13 +148,13 @@ if ($user['authlevel'] != 3) die();
 				exitupdate($Result);
 			}	
 						
-			if($ftp->changeDir($game_config['ftp_root_path']))
+			if($ftp->changeDir($CONF['ftp_root_path']))
 			{
-				$Result['debug']['chdir']	= "FTP-Changedir(".$game_config['ftp_root_path']."): OK!";
+				$Result['debug']['chdir']	= "FTP-Changedir(".$CONF['ftp_root_path']."): OK!";
 			}
 			else
 			{
-				$Result['debug']['chdir']	= "FTP-Changedir(".$game_config['ftp_root_path']."): ERROR! Pfad nicht gefunden!";
+				$Result['debug']['chdir']	= "FTP-Changedir(".$CONF['ftp_root_path']."): ERROR! Pfad nicht gefunden!";
 				exitupdate($Result);
 			}
 			

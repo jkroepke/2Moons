@@ -19,11 +19,11 @@
 # *                                                                          #
 ##############################################################################
 
-if(!defined('INSIDE')){ die(header("location:../../"));}
+if(!defined('INSIDE')) die('Hacking attempt!');
 
-function ShowTopKB($CurrentUser, $CurrentPlanet)
+function ShowTopKB()
 {
-	global $lang, $db;
+	global $USER, $PLANET, $LNG, $db;
 	$mode = request_var('mode','');
 
 	$template	= new template();
@@ -34,9 +34,9 @@ function ShowTopKB($CurrentUser, $CurrentPlanet)
 			$template->page_footer();
 			
 			$ReportID 	= request_var('rid','');
-			$RaportRAW 	= $db->fetch_array($db->query("SELECT * FROM ".TOPKB." WHERE `rid` = '".$db->sql_escape($ReportID)."';"));
+			$RaportRAW 	= $db->uniquequery("SELECT * FROM ".TOPKB." WHERE `rid` = '".$db->sql_escape($ReportID)."';");
 			
-			foreach ($lang['tech_rc'] as $id => $s_name)
+			foreach ($LNG['tech_rc'] as $id => $s_name)
 			{
 				$ship[]  		= "[ship[".$id."]]";
 				$shipname[]  	= $s_name;
@@ -51,9 +51,9 @@ function ShowTopKB($CurrentUser, $CurrentPlanet)
 			$template->show("topkb_report.tpl");
 		break;
 		default:
-			$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
+			$PlanetRess = new ResourceUpdate();
+			$PlanetRess->CalcResource()->SavePlanetToDB();
 
-			$template->set_vars($CurrentUser, $CurrentPlanet);
 			$template->page_header();
 			$template->page_topnav();
 			$template->page_leftmenu();
@@ -73,21 +73,22 @@ function ShowTopKB($CurrentUser, $CurrentPlanet)
 				);
 			}
 			
+			$db->free_result($top);
+			
 			$template->assign_vars(array(	
-				'tkb_units'		=> $lang['tkb_units'],
-				'tkb_datum'		=> $lang['tkb_datum'],
-				'tkb_owners'	=> $lang['tkb_owners'],
-				'tkb_platz'		=> $lang['tkb_platz'],
-				'tkb_top'		=> $lang['tkb_top'],
-				'tkb_gratz'		=> $lang['tkb_gratz'],
-				'tkb_legende'	=> $lang['tkb_legende'],
-				'tkb_gewinner'	=> $lang['tkb_gewinner'],
-				'tkb_verlierer'	=> $lang['tkb_verlierer'],
+				'tkb_units'		=> $LNG['tkb_units'],
+				'tkb_datum'		=> $LNG['tkb_datum'],
+				'tkb_owners'	=> $LNG['tkb_owners'],
+				'tkb_platz'		=> $LNG['tkb_platz'],
+				'tkb_top'		=> $LNG['tkb_top'],
+				'tkb_gratz'		=> $LNG['tkb_gratz'],
+				'tkb_legende'	=> $LNG['tkb_legende'],
+				'tkb_gewinner'	=> $LNG['tkb_gewinner'],
+				'tkb_verlierer'	=> $LNG['tkb_verlierer'],
 				'TopKBList'		=> $TopKBList,
 			));
 			
 			$template->show("topkb_overview.tpl");
-			$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 		break;
 	}
 }

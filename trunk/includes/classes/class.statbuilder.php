@@ -4,16 +4,16 @@ class statbuilder{
 
 	function __construct()
 	{
-		$this->lang			= $GLOBALS['lang'];
+		$this->lang			= $GLOBALS['LNG'];
 		$this->resource		= $GLOBALS['resource'];
 		$this->pricelist	= $GLOBALS['pricelist'];
 		$this->reslist		= $GLOBALS['reslist'];
-		$this->config		= $GLOBALS['game_config'];
+		$this->config		= $GLOBALS['CONF'];
 		$this->db			= $GLOBALS['db'];
 	
 		$this->starttime   	= microtime(true);
 		$this->memory		= array(round(memory_get_usage() / 1024,1),round(memory_get_usage(1) / 1024,1));
-		$this->time   		= time();
+		$this->time   		= TIMESTAMP;
 	}
 
 	private function SomeStatsInfos()
@@ -46,11 +46,11 @@ class statbuilder{
 		$this->db->query("LOCK TABLES ".ALLIANCE." WRITE, ".CHAT." WRITE, ".CONFIG." WRITE, ".FLEETS." WRITE, ".MESSAGES." WRITE, ".PLANETS." WRITE, ".RW." WRITE, ".SUPP." WRITE, ".STATPOINTS." WRITE, ".TOPKB." WRITE, ".USERS." WRITE;");
 	
 		//Delete old messages
-		$del_before 	= time() - (60 * 60 * 24 * 3); // 3 DAY
-		$del_inactive 	= time() - (60 * 60 * 24 * 30); // 1 MONTH
-		$del_deleted 	= time() - (60 * 60 * 24 * 7); // 1 WEEK
+		$del_before 	= TIMESTAMP - (60 * 60 * 24 * 3); // 3 DAY
+		$del_inactive 	= TIMESTAMP - (60 * 60 * 24 * 30); // 1 MONTH
+		$del_deleted 	= TIMESTAMP - (60 * 60 * 24 * 7); // 1 WEEK
 		$TopKBLow		= $this->db->fetch_array($this->db->query("SELECT gesamtunits FROM ".TOPKB." ORDER BY gesamtunits DESC LIMIT 99,1"));
-		$this->db->multi_query("DELETE FROM `".MESSAGES."` WHERE `message_time` < '". $del_before ."';DELETE FROM `".RW."` WHERE `time` < '". $del_before ."';DELETE FROM ".SUPP." WHERE `time` < '".$del_before."' AND `status` = 0;DELETE FROM ".CHAT." WHERE `timestamp` < '".$del_before."';DELETE FROM ".ALLIANCE." WHERE `ally_members` = '0';DELETE FROM ".PLANETS." WHERE `destruyed` < ".time()." AND `destruyed` != 0;DELETE FROM ".TOPKB." WHERE `gesamtunits` < '".((isset($TopKBLow)) ? $TopKBLow['gesamtunits'] : 0)."';");
+		$this->db->multi_query("DELETE FROM `".MESSAGES."` WHERE `message_time` < '". $del_before ."';DELETE FROM `".RW."` WHERE `time` < '". $del_before ."';DELETE FROM ".SUPP." WHERE `time` < '".$del_before."' AND `status` = 0;DELETE FROM ".CHAT." WHERE `timestamp` < '".$del_before."';DELETE FROM ".ALLIANCE." WHERE `ally_members` = '0';DELETE FROM ".PLANETS." WHERE `destruyed` < ".TIMESTAMP." AND `destruyed` != 0;DELETE FROM ".TOPKB." WHERE `gesamtunits` < '".((isset($TopKBLow)) ? $TopKBLow['gesamtunits'] : 0)."';");
 
 		$ChooseToDelete = $this->db->query("SELECT `id` FROM `".USERS."` WHERE ((`db_deaktjava` < '".$del_deleted."' AND `db_deaktjava` <> 0) OR `onlinetime` < '".$del_inactive."') AND `authlevel` = '0';");
 		
@@ -71,7 +71,7 @@ class statbuilder{
 		foreach(array_merge($this->reslist['build'], $this->reslist['tech'], $this->reslist['fleet'], $this->reslist['defense']) as $ElementID) {
 			$array	.= $ElementID." => array('username' => '".$this->maxinfos[$ElementID]['username']."', 'maxlvl' => '".$this->maxinfos[$ElementID]['maxlvl']."'),\n";
 		}
-		$file	= "<?php \n//The File is created on ".date("d. M y H:i:s", time())."\n$"."RecordsArray = array(\n".$array."\n);\n?>";
+		$file	= "<?php \n//The File is created on ".date("d. M y H:i:s", TIMESTAMP)."\n$"."RecordsArray = array(\n".$array."\n);\n?>";
 		file_put_contents(ROOT_PATH."cache/CacheRecords.php", $file);
 	}
 	

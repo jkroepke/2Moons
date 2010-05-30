@@ -19,19 +19,19 @@
 # *																			 #
 ##############################################################################
 
-if(!defined('INSIDE')){ die(header("location:../../"));}
+if(!defined('INSIDE')) die('Hacking attempt!');
 
 	function GetBuildingTime ($CurrentUser, $CurrentPlanet, $Element, $Destroy = false)
 	{
-		global $pricelist, $resource, $reslist, $game_config, $requeriments, $ExtraDM;
+		global $pricelist, $resource, $reslist, $CONF, $requeriments, $ExtraDM;
 
 		$level = ($CurrentPlanet[$resource[$Element]]) ? $CurrentPlanet[$resource[$Element]] : $CurrentUser[$resource[$Element]];
 		if	   (in_array($Element, $reslist['build']))
-			$time			=  round($pricelist[$Element]['metal'] * pow($pricelist[$Element]['factor'], $level) + $pricelist[$Element]['crystal'] * pow($pricelist[$Element]['factor'], $level)) / ($game_config['game_speed'] * (1 + $CurrentPlanet[$resource[14]])) * pow(0.5, $CurrentPlanet[$resource[15]]) * 3600 * (1 - ($CurrentUser[$resource[605]] * CONSTRUCTEUR) - ((time() - $CurrentUser[$resource[702]] <= 0) ? ($ExtraDM[702]['add']) : 0));
+			$time			=  round($pricelist[$Element]['metal'] * pow($pricelist[$Element]['factor'], $level) + $pricelist[$Element]['crystal'] * pow($pricelist[$Element]['factor'], $level)) / ($CONF['game_speed'] * (1 + $CurrentPlanet[$resource[14]])) * pow(0.5, $CurrentPlanet[$resource[15]]) * 3600 * (1 - ($CurrentUser[$resource[605]] * CONSTRUCTEUR) - ((TIMESTAMP - $CurrentUser[$resource[702]] <= 0) ? ($ExtraDM[702]['add']) : 0));
 		elseif (in_array($Element, $reslist['defense']))
-			$time			=  round($pricelist[$Element]['metal'] * pow($pricelist[$Element]['factor'], $level) + $pricelist[$Element]['crystal'] * pow($pricelist[$Element]['factor'], $level)) / ($game_config['game_speed'] * (1 + $CurrentPlanet[$resource[21]])) * pow(0.5, $CurrentPlanet[$resource[15]]) * 3600 * (1 - ($CurrentUser[$resource[613]] * GENERAL) - ($CurrentUser[$resource[608]] * DEFENSEUR));
+			$time			=  round($pricelist[$Element]['metal'] * pow($pricelist[$Element]['factor'], $level) + $pricelist[$Element]['crystal'] * pow($pricelist[$Element]['factor'], $level)) / ($CONF['game_speed'] * (1 + $CurrentPlanet[$resource[21]])) * pow(0.5, $CurrentPlanet[$resource[15]]) * 3600 * (1 - ($CurrentUser[$resource[613]] * GENERAL) - ($CurrentUser[$resource[608]] * DEFENSEUR));
 		elseif (in_array($Element, $reslist['fleet']))
-			$time			=  round($pricelist[$Element]['metal'] * pow($pricelist[$Element]['factor'], $level) + $pricelist[$Element]['crystal'] * pow($pricelist[$Element]['factor'], $level)) / ($game_config['game_speed'] * (1 + $CurrentPlanet[$resource[21]])) * pow(0.5, $CurrentPlanet[$resource[15]]) * 3600 * (1 - ($CurrentUser[$resource[613]] * GENERAL) - ($CurrentUser[$resource[604]] * TECHNOCRATE));	
+			$time			=  round($pricelist[$Element]['metal'] * pow($pricelist[$Element]['factor'], $level) + $pricelist[$Element]['crystal'] * pow($pricelist[$Element]['factor'], $level)) / ($CONF['game_speed'] * (1 + $CurrentPlanet[$resource[21]])) * pow(0.5, $CurrentPlanet[$resource[15]]) * 3600 * (1 - ($CurrentUser[$resource[613]] * GENERAL) - ($CurrentUser[$resource[604]] * TECHNOCRATE));	
 		elseif (in_array($Element, $reslist['tech']))
 		{
 			$cost_metal   = floor($pricelist[$Element]['metal']   * pow($pricelist[$Element]['factor'], $level));
@@ -49,15 +49,15 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 				$Level	= $CurrentPlanet[$resource[31]];
 			
 			if(NEW_RESEARCH)
-				$time		  = ((($cost_metal + $cost_crystal) / (1000 * (1 + $Level)) * (1 - $CurrentUser[$resource[606]] * SCIENTIFIQUE)) / ($game_config['game_speed'] / 2500)) * 3600;
+				$time		  = ((($cost_metal + $cost_crystal) / (1000 * (1 + $Level)) * (1 - $CurrentUser[$resource[606]] * SCIENTIFIQUE)) / ($CONF['game_speed'] / 2500)) * 3600;
 			else {
-				$time         = (($cost_metal + $cost_crystal) / $game_config['game_speed']) / (($Level + 1) * 2);
+				$time         = (($cost_metal + $cost_crystal) / $CONF['game_speed']) / (($Level + 1) * 2);
 				$time         = $time * (1 - $CurrentUser[$resource[606]] * SCIENTIFIQUE) * 3600;
 			}
-			$time         = floor($time * ((time() - $CurrentUser[$resource[705]] <= 0) ? (1 - $ExtraDM[705]['add']) : 1) * (1 - ($CurrentPlanet[$resource[6]] * 0.08)));
+			$time         = floor($time * ((TIMESTAMP - $CurrentUser[$resource[705]] <= 0) ? (1 - $ExtraDM[705]['add']) : 1) * (1 - ($CurrentPlanet[$resource[6]] * 0.08)));
 		}
 		
-		return max((($Destroy)?floor($time / 2):floor($time)), $game_config['min_build_time']);
+		return max((($Destroy)?floor($time / 2):floor($time)), $CONF['min_build_time']);
 	}
 
 ?>

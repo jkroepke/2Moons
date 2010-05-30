@@ -1,28 +1,28 @@
 <?php
 
 //general
-$lang['index']				= 'Index';
-$lang['register']			= 'Register';
-$lang['forum']				= 'Forum';
-$lang['send']				= 'Submit';
-$lang['menu_index']			= 'Home Page'; 	 
-$lang['menu_news']			= 'News';	 
-$lang['menu_rules']			= 'Rules'; 
-$lang['menu_agb']			= 'T&C'; 
-$lang['menu_pranger']		= 'Banned';
-$lang['menu_top100']		= 'Hall of Fame';	 
-$lang['menu_disclamer']		= 'Contact';	 
+$LNG['index']				= 'Index';
+$LNG['register']			= 'Register';
+$LNG['forum']				= 'Forum';
+$LNG['send']				= 'Submit';
+$LNG['menu_index']			= 'Home Page'; 	 
+$LNG['menu_news']			= 'News';	 
+$LNG['menu_rules']			= 'Rules'; 
+$LNG['menu_agb']			= 'T&C'; 
+$LNG['menu_pranger']		= 'Banned';
+$LNG['menu_top100']		= 'Hall of Fame';	 
+$LNG['menu_disclamer']		= 'Contact';	 
 	 
 /* ------------------------------------------------------------------------------------------ */
 
 //index.php
 //case lostpassword
-$lang['mail_not_exist'] 		= 'The e-mail address does not exist!';
-$lang['mail_title']				= 'New Password';
-$lang['mail_text']				= 'Your new password is: ';
-$lang['mail_sended']			= 'Your password has been sent successfully!';
-$lang['mail_sended_fail']		= 'E-mail could not be sent.!';
-$lang['server_infos']			= array(
+$LNG['mail_not_exist'] 		= 'The e-mail address does not exist!';
+$LNG['mail_title']				= 'New Password';
+$LNG['mail_text']				= 'Your new password is: ';
+$LNG['mail_sended']			= 'Your password has been sent successfully!';
+$LNG['mail_sended_fail']		= 'E-mail could not be sent.!';
+$LNG['server_infos']			= array(
 	"A space strategy game in real time.",
 	"Play along with hundreds of Users.",
 	"No downloading, it will require only a standard browser.",
@@ -30,82 +30,82 @@ $lang['server_infos']			= array(
 );
 
 //case default
-$lang['login_error']			= 'Wrong username / password! <br><a href="index.php">Back</a>';
-$lang['screenshots']			= 'Screenshots';
-$lang['universe']				= '';
-$lang['chose_a_uni']			= 'Choose a universe';
+$LNG['login_error']			= 'Wrong username / password! <br><a href="index.php">Back</a>';
+$LNG['screenshots']			= 'Screenshots';
+$LNG['universe']				= 'Universe';
+$LNG['chose_a_uni']			= 'Choose a universe';
 
 /* ------------------------------------------------------------------------------------------ */
 
 //lostpassword.tpl
-$lang['lost_pass_title']		= 'Recover password';
-$lang['retrieve_pass']			= 'Restore';
-$lang['email']					= 'E-mail Address';
+$LNG['lost_pass_title']		= 'Recover password';
+$LNG['retrieve_pass']			= 'Restore';
+$LNG['email']					= 'E-mail Address';
 
 //index_body.tpl
-$lang['user']					= 'User';
-$lang['pass']					= 'Password';
-$lang['remember_pass']			= 'Auto-Login';
-$lang['lostpassword']			= 'Forgot Password?';
-$lang['welcome_to']				= 'Welcome to';
-$lang['server_description']		= '<strong>%s</strong> is a space strategy game with hundreds of players simultaneously try to be the best. All you need to play is a standard web browser (FireFox is recommended).';
-$lang['server_register']		= 'Please register now!';
-$lang['server_message']			= 'Sign up now and experience a new and exciting in the world of';
-$lang['login']					= 'Login';
-$lang['disclamer']				= 'Contact';
-$lang['login_info']				= 'By logging in I accept the <a onclick="ajax(\'?page=rules&amp;\'+\'getajax=1\');" style="cursor:pointer;">Rules</a> and the <a onclick="ajax(\'?page=agb&amp;\'+\'getajax=1\');" style="cursor:pointer;">T&C</a>';
+$LNG['user']					= 'User';
+$LNG['pass']					= 'Password';
+$LNG['remember_pass']			= 'Auto-Login';
+$LNG['lostpassword']			= 'Forgot Password?';
+$LNG['welcome_to']				= 'Welcome to';
+$LNG['server_description']		= '<strong>%s</strong> is a space strategy game with hundreds of players simultaneously try to be the best. All you need to play is a standard web browser (FireFox is recommended).';
+$LNG['server_register']		= 'Please register now!';
+$LNG['server_message']			= 'Sign up now and experience a new and exciting in the world of';
+$LNG['login']					= 'Login';
+$LNG['disclamer']				= 'Contact';
+$LNG['login_info']				= 'By logging in I accept the <a onclick="ajax(\'?page=rules&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\');" style="cursor:pointer;">Rules</a> and the <a onclick="ajax(\'?page=agb&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\');" style="cursor:pointer;">T&C</a>';
 
 /* ------------------------------------------------------------------------------------------ */
 
 //reg.php - Registrierung
-$lang['register_closed']			= 'Registration is closed!';
-$lang['register_at']				= 'Registered at ';
-$lang['reg_mail_message_pass']		= 'One more step to activate your username';
-$lang['reg_mail_reg_done']			= 'Welcome to %s!';
-$lang['invalid_mail_adress']		= 'Invalid e-mail address!<br>';
-$lang['empty_user_field']			= 'Please fill in all fields!<br>';
-$lang['password_lenght_error']		= 'The password must be at least 4 characters long!<br>';
-$lang['user_field_no_alphanumeric']	= 'Please enter the username only alphanumeric characters!<br>';
-$lang['user_field_no_space']		= 'Please do not enter the user name blank!<br>';
-$lang['terms_and_conditions']		= 'You must accept <a href="index.php?page=agb">T&C</a> and <a href="index.php?page=rules>Rules</a> please!<br>';
-$lang['user_already_exists']		= 'The username is already taken!<br>';
-$lang['mail_already_exists']		= 'The e-mail address is already in use!<br>';
-$lang['wrong_captcha']				= 'Security Code is incorrect!<br>';
-$lang['different_passwords']		= 'You have entered 2 different passwords!<br>';
-$lang['different_mails']			= 'You have entered 2 different email addresses!<br>';
-$lang['welcome_message_from']		= 'Administrator';
-$lang['welcome_message_sender']		= 'Administrator';
-$lang['welcome_message_subject']	= 'Welcome';
-$lang['welcome_message_content']	= 'Welcome to %s!<br>First build a solar power,because energy is needed for the subsequent production of raw materials. To build it, left click in the menu on "building". Then build the 4th Building from the top. There you have energy, you can begin to build mines. Go back to the menu on the building and build a metal mine, then again a crystal mine. In order to be able to build ships you need to have first built a shipyard. What is needed for that you find in the left menu technology. The team wishes you much fun exploring the universe!';
-$lang['newpass_smtp_email_error']	= '<br><br>An error occurred. Your password is: ';
-$lang['reg_completed']				= 'Thank you for your subscription! You will receive an email with an activation link.';
+$LNG['register_closed']			= 'Registration is closed!';
+$LNG['register_at']				= 'Registered at ';
+$LNG['reg_mail_message_pass']		= 'One more step to activate your username';
+$LNG['reg_mail_reg_done']			= 'Welcome to %s!';
+$LNG['invalid_mail_adress']		= 'Invalid e-mail address!<br>';
+$LNG['empty_user_field']			= 'Please fill in all fields!<br>';
+$LNG['password_lenght_error']		= 'The password must be at least 4 characters long!<br>';
+$LNG['user_field_no_alphanumeric']	= 'Please enter the username only alphanumeric characters!<br>';
+$LNG['user_field_no_space']		= 'Please do not enter the user name blank!<br>';
+$LNG['terms_and_conditions']		= 'You must accept <a href="index.php?page=agb">T&C</a> and <a href="index.php?page=rules>Rules</a> please!<br>';
+$LNG['user_already_exists']		= 'The username is already taken!<br>';
+$LNG['mail_already_exists']		= 'The e-mail address is already in use!<br>';
+$LNG['wrong_captcha']				= 'Security Code is incorrect!<br>';
+$LNG['different_passwords']		= 'You have entered 2 different passwords!<br>';
+$LNG['different_mails']			= 'You have entered 2 different email addresses!<br>';
+$LNG['welcome_message_from']		= 'Administrator';
+$LNG['welcome_message_sender']		= 'Administrator';
+$LNG['welcome_message_subject']	= 'Welcome';
+$LNG['welcome_message_content']	= 'Welcome to %s!<br>First build a solar power,because energy is needed for the subsequent production of raw materials. To build it, left click in the menu on "building". Then build the 4th Building from the top. There you have energy, you can begin to build mines. Go back to the menu on the building and build a metal mine, then again a crystal mine. In order to be able to build ships you need to have first built a shipyard. What is needed for that you find in the left menu technology. The team wishes you much fun exploring the universe!';
+$LNG['newpass_smtp_email_error']	= '<br><br>An error occurred. Your password is: ';
+$LNG['reg_completed']				= 'Thank you for your subscription! You will receive an email with an activation link.';
 
 //registry_form.tpl
-$lang['server_message_reg']			= 'Sign up now and be a part of';
-$lang['register_at_reg']			= 'Registered at';
-$lang['uni_reg']					= 'Universe';
-$lang['user_reg']					= 'User';
-$lang['pass_reg']					= 'Password';
-$lang['pass2_reg']					= 'Confirm Password';
-$lang['email_reg']					= 'E-mail Address';
-$lang['email2_reg']					= 'Confirm E-mail Address';
-$lang['register_now']				= 'Register!';
-$lang['captcha_reg']				= 'Security question';
-$lang['accept_terms_and_conditions']= 'I Accept <a onclick="ajax(\'?page=rules&amp;\'+\'getajax=1\');" style="cursor:pointer;">Rules</a> and <a onclick="ajax(\'?page=agb&amp;\'+\'getajax=1\');" style="cursor:pointer;">T&C</a>';
-$lang['captcha_reload']				= 'Reloading';
-$lang['captcha_help']				= 'Help';
-$lang['captcha_get_image']			= 'Load Bild-CAPTCHA';
-$lang['captcha_reload']				= 'New CAPTCHA';
-$lang['captcha_get_audio']			= 'Load Sound-CAPTCHA';
-$lang['user_active']                = 'User %s has been activated!';
+$LNG['server_message_reg']			= 'Sign up now and be a part of';
+$LNG['register_at_reg']			= 'Registered at';
+$LNG['uni_reg']					= 'Universe';
+$LNG['user_reg']					= 'User';
+$LNG['pass_reg']					= 'Password';
+$LNG['pass2_reg']					= 'Confirm Password';
+$LNG['email_reg']					= 'E-mail Address';
+$LNG['email2_reg']					= 'Confirm E-mail Address';
+$LNG['register_now']				= 'Register!';
+$LNG['captcha_reg']				= 'Security question';
+$LNG['accept_terms_and_conditions']= 'I Accept <a onclick="ajax(\'?page=rules&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\');" style="cursor:pointer;">Rules</a> and <a onclick="ajax(\'?page=agb&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\');" style="cursor:pointer;">T&C</a>';
+$LNG['captcha_reload']				= 'Reloading';
+$LNG['captcha_help']				= 'Help';
+$LNG['captcha_get_image']			= 'Load Bild-CAPTCHA';
+$LNG['captcha_reload']				= 'New CAPTCHA';
+$LNG['captcha_get_audio']			= 'Load Sound-CAPTCHA';
+$LNG['user_active']                = 'User %s has been activated!';
 
 //registry_closed.tpl
-$lang['info']						= 'Information';
-$lang['reg_closed']					= 'Registration is closed';
+$LNG['info']						= 'Information';
+$LNG['reg_closed']					= 'Registration is closed';
 
 //Rules
-$lang['rules_overview']				= "Rules";
-$lang['rules']						= array(
+$LNG['rules_overview']				= "Rules";
+$LNG['rules']						= array(
 	"Accounts"					=> "Each player is allowed to control a single account. Each account is entitled to be played by a single player at a time, account sitting being the only exception.
 Account sitting entitles a given player to have his account watched over under the following regulations:
 
@@ -170,14 +170,14 @@ There they can set any specific rules or terms, they want for the war. Any rules
 
 );
 
-$lang['rules_info1']				= "";
-$lang['rules_info2']				= "To complement this, the <a onclick=\"ajax('?page=agb&getajax=1');\" style=\"cursor:pointer;\">T&C</a> are considered and followed!</font>";
+$LNG['rules_info1']				= "";
+$LNG['rules_info2']				= "To complement this, the <a onclick=\"ajax('?page=agb&getajax=1');\" style=\"cursor:pointer;\">T&C</a> are considered and followed!</font>";
 
 
 //AGB
 
-$lang['agb_overview']				= "Terms and Conditions";
-$lang['agb']						= array(
+$LNG['agb_overview']				= "Terms and Conditions";
+$LNG['agb']						= array(
 	"Service content"				=> array( 
 		"The recognition of the Policies are necessary prerequisite to be able to participate in the game.
 They apply to all offers on the part of operators, including the Forum and other Game-content.",
@@ -260,21 +260,21 @@ A change or addition will be published at least one week before the entry in For
 
 //Facebook Connect
 
-$lang['fb_perm']                = 'Access prohibited. %s needs all the rights so you can login with your Facebook account. \n Alternatively, you can login without a Facebook account!';
+$LNG['fb_perm']                = 'Access prohibited. %s needs all the rights so you can login with your Facebook account. \n Alternatively, you can login without a Facebook account!';
 
 //NEWS
 
-$lang['news_overview']			= "News";
-$lang['news_from']				= "On %s by %s";
-$lang['news_does_not_exist']	= "No news available!";
+$LNG['news_overview']			= "News";
+$LNG['news_from']				= "On %s by %s";
+$LNG['news_does_not_exist']	= "No news available!";
 
 //Impressum
 
-$lang['disclamer']				= "Disclaimer";
-$lang['disclamer_name']			= "Name";
-$lang['disclamer_adress']		= "Address";
-$lang['disclamer_tel']			= "Phone:";
-$lang['disclamer_email']		= "E-mail Address";
+$LNG['disclamer']				= "Disclaimer";
+$LNG['disclamer_name']			= "Name";
+$LNG['disclamer_adress']		= "Address";
+$LNG['disclamer_tel']			= "Phone:";
+$LNG['disclamer_email']		= "E-mail Address";
 
 // Translated into English by Languar . All rights reversed (C) 2010
 

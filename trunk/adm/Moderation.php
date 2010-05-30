@@ -30,14 +30,14 @@ include(ROOT_PATH . 'extension.inc');
 include(ROOT_PATH . 'common.'.PHP_EXT);
 
 
-if ($user['authlevel'] < 3) die(message ($lang['404_page']));
+if ($USER['authlevel'] < 3) die(message ($LNG['404_page']));
 
 
-$parse	=	$lang;
+$parse	=	$LNG;
 
 if ($_GET['moderation'] == '1')
 {
-	$QueryModeration	=	$game_config['moderation'];
+	$QueryModeration	=	$CONF['moderation'];
 	$QueryModerationEx	=	explode(";", $QueryModeration);
 	$Moderator			=	explode(",", $QueryModerationEx[0]);
 	$Operator			=	explode(",", $QueryModerationEx[1]);
@@ -64,21 +64,21 @@ if ($_GET['moderation'] == '1')
 
 
 
-	$parse['mods']	=	$lang['rank'][1];
-	$parse['oper']	=	$lang['rank'][2];
-	$parse['adm']	=	$lang['rank'][3];
+	$parse['mods']	=	$LNG['rank'][1];
+	$parse['oper']	=	$LNG['rank'][2];
+	$parse['adm']	=	$LNG['rank'][3];
 
 	if ($_POST['mode'])
 	{
 		if($_POST['view_m'] == 'on') $view_m = 1; else $view_m = 0; 
 		if($_POST['edit_m'] == 'on') $edit_m = 1; else $edit_m = 0; 
-		if($_POST['config_m'] == 'on') $config_m = 1; else $config_m = 0;
+		if($_POST['config_m'] == 'on') $CONF_m = 1; else $CONF_m = 0;
 		if($_POST['tools_m'] == 'on') $tools_m = 1; else $tools_m = 0;
 		if($_POST['log_m'] == 'on') $log_m = 1; else $log_m = 0;
 		
 		if($_POST['view_o'] == 'on') $view_o = 1; else $view_o = 0;
 		if($_POST['edit_o'] == 'on') $edit_o = 1; else $edit_o = 0;
-		if($_POST['config_o'] == 'on') $config_o = 1; else $config_o = 0;
+		if($_POST['config_o'] == 'on') $CONF_o = 1; else $CONF_o = 0;
 		if($_POST['tools_o'] == 'on') $tools_o = 1; else $tools_o = 0;
 		if($_POST['log_o'] == 'on') $log_o = 1; else $log_o = 0;
 		
@@ -86,22 +86,22 @@ if ($_GET['moderation'] == '1')
 	
 	
 	
-		$QueryEdit	=	$view_m.",".$edit_m.",".$config_m.",".$tools_m.",".$log_m.";".
-						$view_o.",".$edit_o.",".$config_o.",".$tools_o.",".$log_o.";".$log_a.";";
+		$QueryEdit	=	$view_m.",".$edit_m.",".$CONF_m.",".$tools_m.",".$log_m.";".
+						$view_o.",".$edit_o.",".$CONF_o.",".$tools_o.",".$log_o.";".$log_a.";";
 
 
-		$Log	.=	"\n".$lang['log_system_mod_title']."\n";
-		$Log	.=	$lang['log_the_user'].$user['username']." ".$lang['log_modify_personal'].":\n";
-		$Log	.=	$lang['log_can_view_mod']."\n";
-		$Log	.=	$lang['log_tools'].":     ".$lang['log_viewmod'][$tools_m]."\n";
-		$Log	.=	$lang['log_edit'].":     ".$lang['log_viewmod'][$edit_m]."\n";
-		$Log	.=	$lang['log_view'].":     ".$lang['log_viewmod'][$view_m]."\n";
-		$Log	.=	$lang['log_config'].":     ".$lang['log_viewmod'][$config_m]."\n\n";
-		$Log	.=	$lang['log_can_view_ope']."\n";
-		$Log	.=	$lang['log_tools'].":     ".$lang['log_viewmod'][$tools_o]."\n";
-		$Log	.=	$lang['log_edit'].":     ".$lang['log_viewmod'][$edit_o]."\n";
-		$Log	.=	$lang['log_view'].":     ".$lang['log_viewmod'][$view_o]."\n";
-		$Log	.=	$lang['log_config'].":     ".$lang['log_viewmod'][$config_o]."\n";
+		$Log	.=	"\n".$LNG['log_system_mod_title']."\n";
+		$Log	.=	$LNG['log_the_user'].$USER['username']." ".$LNG['log_modify_personal'].":\n";
+		$Log	.=	$LNG['log_can_view_mod']."\n";
+		$Log	.=	$LNG['log_tools'].":     ".$LNG['log_viewmod'][$tools_m]."\n";
+		$Log	.=	$LNG['log_edit'].":     ".$LNG['log_viewmod'][$edit_m]."\n";
+		$Log	.=	$LNG['log_view'].":     ".$LNG['log_viewmod'][$view_m]."\n";
+		$Log	.=	$LNG['log_config'].":     ".$LNG['log_viewmod'][$CONF_m]."\n\n";
+		$Log	.=	$LNG['log_can_view_ope']."\n";
+		$Log	.=	$LNG['log_tools'].":     ".$LNG['log_viewmod'][$tools_o]."\n";
+		$Log	.=	$LNG['log_edit'].":     ".$LNG['log_viewmod'][$edit_o]."\n";
+		$Log	.=	$LNG['log_view'].":     ".$LNG['log_viewmod'][$view_o]."\n";
+		$Log	.=	$LNG['log_config'].":     ".$LNG['log_viewmod'][$CONF_o]."\n";
 				
 		LogFunction($Log, "ModerationLog", $LogCanWork);
 		
@@ -116,7 +116,7 @@ elseif ($_GET['moderation'] == '2')
 {
 		for ($i	= 0; $i < 4; $i++)
 		{
-			$parse['authlevels']	.=	"<option value=\"".$i."\">".$lang['rank'][$i]."</option>";
+			$parse['authlevels']	.=	"<option value=\"".$i."\">".$LNG['rank'][$i]."</option>";
 		}
 		
 		
@@ -135,7 +135,7 @@ elseif ($_GET['moderation'] == '2')
 			
 		while ($List	=	$db->fetch_array($QueryUsers))
 		{
-			$parse['List']	.=	"<option value=\"".$List['id']."\">".$List['username']."&nbsp;&nbsp;(".$lang['rank'][$List['authlevel']].")</option>";
+			$parse['List']	.=	"<option value=\"".$List['id']."\">".$List['username']."&nbsp;&nbsp;(".$LNG['rank'][$List['authlevel']].")</option>";
 		}
 
 		
@@ -143,19 +143,19 @@ elseif ($_GET['moderation'] == '2')
 		{
 			if ($_POST['id_1'] != NULL && $_POST['id_2'] != NULL)
 			{
-				$parse['display']	=	'<tr><th colspan="3"><font color=red>'.$lang['ad_authlevel_error_2'].'</font></th></tr>';
+				$parse['display']	=	'<tr><th colspan="3"><font color=red>'.$LNG['ad_authlevel_error_2'].'</font></th></tr>';
 			}
 			elseif(!$_POST['id_1'] && !$_POST['id_2'])
 			{
-				$parse['display']	=	'<tr><th colspan="3"><font color=red>'.$lang['ad_forgiven_id'].'</font></th></tr>';
+				$parse['display']	=	'<tr><th colspan="3"><font color=red>'.$LNG['ad_forgiven_id'].'</font></th></tr>';
 			}
 			elseif(!$_POST['id_1'] && !is_numeric($_POST['id_2']))
 			{
-				$parse['display']	=	'<tr><th colspan="3"><font color=red>'.$lang['only_numbers'].'</font></th></tr>';
+				$parse['display']	=	'<tr><th colspan="3"><font color=red>'.$LNG['only_numbers'].'</font></th></tr>';
 			}
 			elseif($_POST['id_1'] == '1' || $_POST['id_2'] == '1')
 			{
-				$parse['display']	=	'<tr><th colspan="3"><font color=red>'.$lang['ad_authlevel_error_3'].'</font></th></tr>';
+				$parse['display']	=	'<tr><th colspan="3"><font color=red>'.$LNG['ad_authlevel_error_3'].'</font></th></tr>';
 			}
 			else
 			{
@@ -174,9 +174,9 @@ elseif ($_GET['moderation'] == '2')
 					
 					
 					$ASD	=	$_POST['authlevel'];
-					$Log	.=	"\n".$lang['log_system_auth_title']."\n";
-					$Log	.=	$lang['log_the_user'].$user['username']." ".$lang['log_change_auth_1'].$id.",\n";
-					$Log	.=	$lang['log_change_auth_2'].$lang['ad_authlevel'][$ASD]."\n";
+					$Log	.=	"\n".$LNG['log_system_auth_title']."\n";
+					$Log	.=	$LNG['log_the_user'].$USER['username']." ".$LNG['log_change_auth_1'].$id.",\n";
+					$Log	.=	$LNG['log_change_auth_2'].$LNG['ad_authlevel'][$ASD]."\n";
 				
 					LogFunction($Log, "ModerationLog", $LogCanWork);
 					
@@ -184,13 +184,13 @@ elseif ($_GET['moderation'] == '2')
 				}
 				else
 				{
-					$parse['display']	=	'<tr><th colspan="3"><font color=red>'.$lang['ad_authlevel_error'].'</font></th></tr>';
+					$parse['display']	=	'<tr><th colspan="3"><font color=red>'.$LNG['ad_authlevel_error'].'</font></th></tr>';
 				}
 			}
 		}
 		
 		if ($_GET['succes']	==	'yes')
-			$parse['display']	=	'<tr><th colspan="3"><font color=lime>'.$lang['ad_authlevel_succes'].'</font></th></tr>';
+			$parse['display']	=	'<tr><th colspan="3"><font color=lime>'.$LNG['ad_authlevel_succes'].'</font></th></tr>';
 			
 			
 		display (parsetemplate(gettemplate("adm/AuthlevelBody"), $parse), false, '', true, false);

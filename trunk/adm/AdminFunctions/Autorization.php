@@ -22,36 +22,36 @@
 
 include_once('LogFunction.' .PHP_EXT);
 
-if ($user['authlevel'] < 1){die();}
+if ($USER['authlevel'] < 1){die();}
 
-$QueryModerationEx	=	explode(";", $game_config['moderation']);
+$QueryModerationEx	=	explode(";", $CONF['moderation']);
 $Moderator			=	explode(",", $QueryModerationEx[0]);
 $Operator			=	explode(",", $QueryModerationEx[1]);
 $Administrator		=	explode(",", $QueryModerationEx[2]);
 
-if ($user['authlevel'] == 1)
+if ($USER['authlevel'] == 1)
 {
 	$Observation	=	$Moderator[0];
 	$EditUsers		=	$Moderator[1];
-	$ConfigGame		=	$Moderator[2];
+	$CONFGame		=	$Moderator[2];
 	$ToolsCanUse	=	$Moderator[3];
 	$LogCanWork		=	$Moderator[4];
 }
 	
-if ($user['authlevel'] == 2)
+if ($USER['authlevel'] == 2)
 {
 	$Observation	=	$Operator[0];
 	$EditUsers		=	$Operator[1];
-	$ConfigGame		=	$Operator[2];
+	$CONFGame		=	$Operator[2];
 	$ToolsCanUse	=	$Operator[3];
 	$LogCanWork		=	$Operator[4];
 }
 
-if ($user['authlevel'] == 3)
+if ($USER['authlevel'] == 3)
 {
 	$Observation	=	1;
 	$EditUsers		=	1;
-	$ConfigGame		=	1;
+	$CONFGame		=	1;
 	$ToolsCanUse	=	1;
 	$LogCanWork		=	$Administrator[0];
 }

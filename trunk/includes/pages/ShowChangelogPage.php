@@ -19,17 +19,18 @@
 # *                                                                          #
 ##############################################################################
 
-if(!defined('INSIDE')){ die(header("location:../../"));}
+if(!defined('INSIDE')) die('Hacking attempt!');
 
 
-function ShowChangelogPage($CurrentUser, $CurrentPlanet)
+function ShowChangelogPage()
 {
-	global $lang;
-	$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
+	global $USER, $PLANET, $LNG;
+
+	$PlanetRess = new ResourceUpdate();
+	$PlanetRess->CalcResource()->SavePlanetToDB();
 
 	$template	= new template();
 
-	$template->set_vars($CurrentUser, $CurrentPlanet);
 	$template->page_header();
 	$template->page_topnav();
 	$template->page_leftmenu();
@@ -38,12 +39,11 @@ function ShowChangelogPage($CurrentUser, $CurrentPlanet)
 
 	includeLang('CHANGELOG');	
 	$template->assign_vars(array(	
-		'ChangelogList'	=> array_map('makebr',$lang['changelog']),
-		'Version'		=> $lang['Version'],
-		'Description'	=> $lang['Description'],
+		'ChangelogList'	=> array_map('makebr',$LNG['changelog']),
+		'Version'		=> $LNG['Version'],
+		'Description'	=> $LNG['Description'],
 	));
 	
 	$template->show("changelog_overview.tpl");
-	$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
 }
 ?>

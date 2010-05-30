@@ -41,7 +41,7 @@ class StatBanner {
 	}
 
 	private function BuildIMGforID($id) {
-		global $game_config, $db, $lang;
+		global $CONF, $db, $LNG;
 
 		// Parameters
 
@@ -51,16 +51,16 @@ class StatBanner {
 		// Querys
 		$Query = $db->fetch_array($db->query("SELECT a.username, b.build_points, b.fleet_points, b.defs_points, b.tech_points, b.total_points, b.total_rank, c.name, c.galaxy, c.system, c.planet FROM ".USERS." as a, ".STATPOINTS." as b, ".PLANETS." as c WHERE a.id = '".$id."' AND b.stat_type = '1' AND b.stat_code = '1' AND b.id_owner = '".$id."' AND c.id = a.id_planet;"));
 		// Variables
-		$b_univ   = $game_config['game_name'];
+		$b_univ   = $CONF['game_name'];
 		$b_user   = utf8_decode($Query['username']);
 		$b_planet = utf8_decode($Query['name']);
 		$b_xyz    = "[".$Query['galaxy'].":".$Query['system'].":".$Query['planet']."]";
-		$b_lvl    = "".$Query['total_rank']  ."/".$game_config['users_amount']."";
-		$b_build  = "".utf8_decode($lang['st_buildings']) .": ".pretty_number($Query['build_points'])."";
-		$b_fleet  = "".utf8_decode($lang['st_fleets']) .": ".pretty_number($Query['fleet_points'])."";
-		$b_def    = "".utf8_decode($lang['st_defenses']) .": ".pretty_number($Query['defs_points'])."";
-		$b_search = "".utf8_decode($lang['st_researh']) .": ".pretty_number($Query['tech_points'])."";
-		$b_total  = "".utf8_decode($lang['st_points']) .": ".pretty_number($Query['total_points'])."";
+		$b_lvl    = "".$Query['total_rank']  ."/".$CONF['users_amount']."";
+		$b_build  = "".utf8_decode($LNG['st_buildings']) .": ".pretty_number($Query['build_points'])."";
+		$b_fleet  = "".utf8_decode($LNG['st_fleets']) .": ".pretty_number($Query['fleet_points'])."";
+		$b_def    = "".utf8_decode($LNG['st_defenses']) .": ".pretty_number($Query['defs_points'])."";
+		$b_search = "".utf8_decode($LNG['st_researh']) .": ".pretty_number($Query['tech_points'])."";
+		$b_total  = "".utf8_decode($LNG['st_points']) .": ".pretty_number($Query['total_points'])."";
 
 		// Colors
 		$red    = hexdec(substr($this->textcolor,0,2));
@@ -92,7 +92,7 @@ class StatBanner {
 	}
 
 	public function BuildIMGforAll() {
-		global $game_config, $db, $lang;
+		global $CONF, $db, $LNG;
 		// Parameters
 
 		
@@ -105,16 +105,16 @@ class StatBanner {
 			$this->DeleteOldPic($Query['id']);
 			$image  = imagecreatefrompng(ROOT_PATH.$this->source);
 			// Variables
-			$b_univ   = $game_config['game_name'];
+			$b_univ   = $CONF['game_name'];
 			$b_user   = utf8_decode($Query['username']);
 			$b_planet = utf8_decode($Query['name']);
 			$b_xyz    = "[".$Query['galaxy'].":".$Query['system'].":".$Query['planet']."]";
 			$b_lvl    = $Query['total_rank']."/".$MaxUser;
-			$b_build  = utf8_decode($lang['st_buildings']) .": ".pretty_number($Query['build_points']);
-			$b_fleet  = utf8_decode($lang['st_fleets']) .": ".pretty_number($Query['fleet_points']);
-			$b_def    = utf8_decode($lang['st_defenses']) .": ".pretty_number($Query['defs_points']);
-			$b_search = utf8_decode($lang['st_researh']) .": ".pretty_number($Query['tech_points']);
-			$b_total  = utf8_decode($lang['st_points']) .": ".pretty_number($Query['total_points']);
+			$b_build  = utf8_decode($LNG['st_buildings']) .": ".pretty_number($Query['build_points']);
+			$b_fleet  = utf8_decode($LNG['st_fleets']) .": ".pretty_number($Query['fleet_points']);
+			$b_def    = utf8_decode($LNG['st_defenses']) .": ".pretty_number($Query['defs_points']);
+			$b_search = utf8_decode($LNG['st_researh']) .": ".pretty_number($Query['tech_points']);
+			$b_total  = utf8_decode($LNG['st_points']) .": ".pretty_number($Query['total_points']);
 
 
 			// Colors

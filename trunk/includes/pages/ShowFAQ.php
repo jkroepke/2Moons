@@ -19,17 +19,15 @@
 # *                                                                          #
 ##############################################################################
 
-if(!defined('INSIDE')){ die(header("location:../../"));}
+if(!defined('INSIDE')) die('Hacking attempt!');
 
-function ShowFAQ($CurrentUser, $CurrentPlanet)
+function ShowFAQ()
 {
-	global $lang;
-	$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
-	$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
+	global $USER, $PLANET, $LNG;
+	$PlanetRess = new ResourceUpdate();
+	$PlanetRess->CalcResource()->SavePlanetToDB();
 
 	$template	= new template();
-
-	$template->set_vars($CurrentUser, $CurrentPlanet);
 	$template->page_header();
 	$template->page_topnav();
 	$template->page_leftmenu();
@@ -38,8 +36,8 @@ function ShowFAQ($CurrentUser, $CurrentPlanet)
 
 	includeLang('FAQ');		
 	$template->assign_vars(array(	
-		'FAQList'		=> $lang['faq'],
-		'faq_overview'	=> $lang['faq_overview'],
+		'FAQList'		=> $LNG['faq'],
+		'faq_overview'	=> $LNG['faq_overview'],
 	));
 	
 	$template->show("faq_overview.tpl");

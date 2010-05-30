@@ -19,15 +19,16 @@
 # *                                                                          #
 ##############################################################################
 
-if(!defined('INSIDE')){ die(header("location:../../"));}
+if(!defined('INSIDE')) die('Hacking attempt!');
 
 class ShowResearchPage
 {
-	private function CheckLabSettingsInQueue ($CurrentPlanet)
+	private function CheckLabSettingsInQueue()
 	{
-		if ($CurrentPlanet['b_building_id'] != 0)
+		global $PLANET;
+		if ($PLANET['b_building_id'] != 0)
 		{
-			$CurrentQueue = $CurrentPlanet['b_building_id'];
+			$CurrentQueue = $PLANET['b_building_id'];
 			if (strpos ($CurrentQueue, ";"))
 			{
 				// FIX BY LUCKY - IF THE LAB IS IN QUEUE THE USER CANT RESEARCH ANYTHING...
@@ -65,45 +66,46 @@ class ShowResearchPage
 		return $return;
 	}
 
-	private function CheckAndGetLabLevel($user, $planet){
-		
-		global $resource, $db;
+	private function CheckAndGetLabLevel()
+	{
+		global $resource, $db, $USER, $PLANET;
 
-		if($user[$resource[123]] == 0)
-			$lablevel = $planet[$resource[31]];
+		if($USER[$resource[123]] == 0)
+			$lablevel = $PLANET[$resource[31]];
 		else {
-			$LevelRow = $db->query("SELECT ".$resource[31]." FROM ".PLANETS." WHERE `id` != '".$planet['id']."' AND `id_owner` = '".$user['id']."' AND `destruyed` = 0 ORDER BY ".$resource[31]." DESC LIMIT ".($user[$resource[123]]).";");
-			$lablevel[]	= $planet[$resource[31]];
+			$LevelRow = $db->query("SELECT ".$resource[31]." FROM ".PLANETS." WHERE `id` != '".$PLANET['id']."' AND `id_owner` = '".$USER['id']."' AND `destruyed` = 0 ORDER BY ".$resource[31]." DESC LIMIT ".($USER[$resource[123]]).";");
+			$lablevel[]	= $PLANET[$resource[31]];
 			while($Levels = $db->fetch_array($LevelRow))
 			{
 				$lablevel[]	= $Levels[$resource[31]];
 			}
+			$db->free_result($LevelRow);
 		}
 		return $lablevel;
 	}
 	
-	private function GetRestPrice ($user, $planet, $Element, $userfactor = true)
+	private function GetRestPrice ($Element, $Factor = true)
 	{
-		global $pricelist, $resource, $lang;
+		global $USER, $PLANET, $pricelist, $resource, $LNG;
 
-		if ($userfactor)
+		if ($Factor)
 		{
-			$level = ($planet[$resource[$Element]]) ? $planet[$resource[$Element]] : $user[$resource[$Element]];
+			$level = ($PLANET[$resource[$Element]]) ? $PLANET[$resource[$Element]] : $USER[$resource[$Element]];
 		}
 
 		$array = array(
-			'metal'      => $lang['Metal'],
-			'crystal'    => $lang['Crystal'],
-			'deuterium'  => $lang['Deuterium'],
-			'energy_max' => $lang['Energy'],
-			'darkmatter' => $lang['Darkmatter'],
+			'metal'      => $LNG['Metal'],
+			'crystal'    => $LNG['Crystal'],
+			'deuterium'  => $LNG['Deuterium'],
+			'energy_max' => $LNG['Energy'],
+			'darkmatter' => $LNG['Darkmatter'],
 		);
 		$restprice	= array();
 		foreach ($array as $ResType => $ResTitle)
 		{
 			if ($pricelist[$Element][$ResType] != 0)
 			{
-				if ($userfactor)
+				if ($Factor)
 				{
 					$cost = floor($pricelist[$Element][$ResType] * pow($pricelist[$Element]['factor'], $level));
 				}
@@ -111,23 +113,23 @@ class ShowResearchPage
 				{
 					$cost = floor($pricelist[$Element][$ResType]);
 				}
-				$restprice[$ResTitle] = pretty_number(max($cost - (($planet[$ResType]) ? $planet[$ResType] : $user[$ResType]), 0));
+				$restprice[$ResTitle] = pretty_number(max($cost - (($PLANET[$ResType]) ? $PLANET[$ResType] : $USER[$ResType]), 0));
 			}
 		}
 
 		return $restprice;
 	}
 
-	public function ShowResearchPage ($CurrentPlanet, $CurrentUser)
+	public function ShowResearchPage ()
 	{
-		global $lang, $resource, $reslist, $dpath, $game_config, $db, $pricelist;
+		global $PLANET, $USER, $LNG, $resource, $reslist, $CONF, $db, $pricelist;
 
 		include_once(ROOT_PATH . 'includes/functions/IsTechnologieAccessible.' . PHP_EXT);
 		include_once(ROOT_PATH . 'includes/functions/GetElementPrice.' . PHP_EXT);
 		include_once(ROOT_PATH . 'includes/functions/HandleTechnologieBuild.' . PHP_EXT);
 		
-		$PlanetRess = new ResourceUpdate($CurrentUser, $CurrentPlanet);
-		$PlanetRess->SavePlanetToDB($CurrentUser, $CurrentPlanet);
+		$PlanetRess = new ResourceUpdate();
+		$PlanetRess->CalcResource()->SavePlanetToDB();
 		
 		$template	= new template();
 		$template->page_header();	
@@ -136,57 +138,55 @@ class ShowResearchPage
 		$template->page_planetmenu();
 		$template->page_footer();				
 		
-		$template->set_vars($CurrentUser, $CurrentPlanet);
-		$IsWorking = HandleTechnologieBuild($CurrentPlanet, $CurrentUser);
+		$IsWorking = HandleTechnologieBuild($PLANET, $USER);
 		$ThePlanet	= $IsWorking['WorkOn'];
 		$InResearch	= $IsWorking['OnWork'];
 		
-		if ($CurrentPlanet[$resource[31]] == 0)
+		if ($PLANET[$resource[31]] == 0)
 		{
-			$template->message($lang['bd_lab_required']);
+			$template->message($LNG['bd_lab_required']);
 			exit;
 		}
 		
-		$bContinue	= (!$this->CheckLabSettingsInQueue($CurrentPlanet)) ? true : false;
+		$bContinue	= (!$this->CheckLabSettingsInQueue($PLANET)) ? true : false;
 		
-		$Level									= $CurrentPlanet[$resource[31]];
-		$CurrentPlanet[$resource[31].'_inter']	= $this->CheckAndGetLabLevel($CurrentUser, $CurrentPlanet);		
+		$PLANET[$resource[31].'_inter']	= $this->CheckAndGetLabLevel($USER, $PLANET);		
 		
 		$TheCommand		= request_var('cmd','');
 		$Techno     	= request_var('tech', 0);
 							
-		if (!empty($TheCommand) && !empty($Techno) && in_array($Techno, $reslist['tech']) && isset($pricelist[$Techno]['max']) && $CurrentUser[$resource[$Techno]] < $pricelist[$Techno]['max'])
+		if (empty($USER['b_tech_planet']) && !empty($TheCommand) && !empty($Techno) && in_array($Techno, $reslist['tech']) && isset($pricelist[$Techno]['max']) && $USER[$resource[$Techno]] < $pricelist[$Techno]['max'])
 		{
-			$WorkingPlanet = (is_array($ThePlanet)) ? $ThePlanet : $CurrentPlanet;
+			$WorkingPlanet = (is_array($ThePlanet)) ? $ThePlanet : $PLANET;
 			switch($TheCommand)
 			{
 				case 'cancel':
 					if ($ThePlanet['b_tech_id'] != $Techno)
 						break;
 						
-					$costs                        = GetBuildingPrice($CurrentUser, $WorkingPlanet, $Techno);
+					$costs                        = GetBuildingPrice($USER, $WorkingPlanet, $Techno);
 					$WorkingPlanet['metal']      += $costs['metal'];
 					$WorkingPlanet['crystal']    += $costs['crystal'];
 					$WorkingPlanet['deuterium']  += $costs['deuterium'];
-					$CurrentUser['darkmatter']   += $costs['darkmatter'];
+					$USER['darkmatter']  		 += $costs['darkmatter'];
 					$WorkingPlanet['b_tech_id']   = 0;
 					$WorkingPlanet["b_tech"]      = 0;
-					$CurrentUser['b_tech_planet'] = 0;
+					$USER['b_tech_planet'] 		  = 0;
 					$UpdateData                   = true;
 					$InResearch                   = false;
 				break;
 				case 'search':
-					if (!IsTechnologieAccessible($CurrentUser, $WorkingPlanet, $Techno) || !IsElementBuyable($CurrentUser, $WorkingPlanet, $Techno))
+					if (!IsTechnologieAccessible($USER, $WorkingPlanet, $Techno) || !IsElementBuyable($USER, $WorkingPlanet, $Techno))
 						break;
 						
-					$costs                        = GetBuildingPrice($CurrentUser, $WorkingPlanet, $Techno);
+					$costs                        = GetBuildingPrice($USER, $WorkingPlanet, $Techno);
 					$WorkingPlanet['metal']      -= $costs['metal'];
 					$WorkingPlanet['crystal']    -= $costs['crystal'];
 					$WorkingPlanet['deuterium']  -= $costs['deuterium'];
-					$CurrentUser['darkmatter']   -= $costs['darkmatter'];
+					$USER['darkmatter']   		 -= $costs['darkmatter'];
 					$WorkingPlanet["b_tech_id"]   = $Techno;
-					$WorkingPlanet["b_tech"]      = time() + GetBuildingTime($CurrentUser, $WorkingPlanet, $Techno);
-					$CurrentUser["b_tech_planet"] = $WorkingPlanet["id"];
+					$WorkingPlanet["b_tech"]      = TIMESTAMP + GetBuildingTime($USER, $WorkingPlanet, $Techno);
+					$USER["b_tech_planet"] 		  = $WorkingPlanet["id"];
 					$UpdateData                   = true;
 					$InResearch                   = true;
 				break;
@@ -205,80 +205,80 @@ class ShowResearchPage
 				$QryUpdateUser .= "WHERE ";
 				$QryUpdateUser .= "`id` = '".$WorkingPlanet["id"]."';";
 				$QryUpdateUser .= "UPDATE ".USERS." SET ";
-				$QryUpdateUser .= "`b_tech_planet` = '". $CurrentUser['b_tech_planet'] ."' ";
+				$QryUpdateUser .= "`b_tech_planet` = '". $USER['b_tech_planet'] ."', ";
+				$QryUpdateUser .= "`darkmatter`    = '". $USER['darkmatter']."' ";
 				$QryUpdateUser .= "WHERE ";
-				$QryUpdateUser .= "`id` = '".            $CurrentUser['id']            ."';";
+				$QryUpdateUser .= "`id` = '".            $USER['id']            ."';";
 				$db->multi_query($QryUpdateUser);
 			}
-				
-			$template->set_vars($CurrentUser, $CurrentPlanet);
+			
 			if (is_array($ThePlanet))
 			{
 				$ThePlanet     = $WorkingPlanet;
 			}
 			else
 			{
-				$CurrentPlanet = $WorkingPlanet;
+				$PLANET = $WorkingPlanet;
 				if ($TheCommand == 'search')
 				{
-					$ThePlanet = $CurrentPlanet;
+					$ThePlanet = $PLANET;
 				}
 			}
 		}
 		
 		foreach($reslist['tech'] as $ID => $Element)
 		{
-			if (IsTechnologieAccessible($CurrentUser, $CurrentPlanet, $Element))
+			if (IsTechnologieAccessible($USER, $PLANET, $Element))
 			{
-				$CanBeDone               = IsElementBuyable($CurrentUser, $CurrentPlanet, $Element);
+				$CanBeDone               = IsElementBuyable($USER, $PLANET, $Element);
 		
-				if(isset($pricelist[$Element]['max']) && $CurrentUser[$resource[$Element]] >= $pricelist[$Element]['max'])
+				if(isset($pricelist[$Element]['max']) && $USER[$resource[$Element]] >= $pricelist[$Element]['max'])
 				{
-					$TechnoLink  =	"<font color=\"#FF0000\">".$lang['bd_maxlevel']."</font>";
+					$TechnoLink  =	"<font color=\"#FF0000\">".$LNG['bd_maxlevel']."</font>";
 				}
 				elseif (!$InResearch)
 				{
-					$LevelToDo = 1 + $CurrentUser[$resource[$Element]];
-					if ($CanBeDone && $this->CheckLabSettingsInQueue($CurrentPlanet))
+					$LevelToDo = 1 + $USER[$resource[$Element]];
+					if ($CanBeDone && $this->CheckLabSettingsInQueue($PLANET))
 					{
-						$TechnoLink = "<a href=\"game.php?page=buildings&amp;mode=research&amp;cmd=search&amp;tech=".$Element."\"><font color=\"#00FF00\">".$lang['bd_research'].(($LevelToDo == 1) ? "" : "<br>".$lang['bd_lvl']." ".$LevelToDo)."</font></a>";
+						$TechnoLink = "<a href=\"game.php?page=buildings&amp;mode=research&amp;cmd=search&amp;tech=".$Element."\"><font color=\"#00FF00\">".$LNG['bd_research'].(($LevelToDo == 1) ? "" : "<br>".$LNG['bd_lvl']." ".$LevelToDo)."</font></a>";
 					}
 					else
 					{
-						$TechnoLink = "<font color=\"#FF0000\">".$lang['bd_research'].(($LevelToDo == 1) ? "" : "<br>".$lang['bd_lvl']." ".$LevelToDo)."</font>";
+						$TechnoLink = "<font color=\"#FF0000\">".$LNG['bd_research'].(($LevelToDo == 1) ? "" : "<br>".$LNG['bd_lvl']." ".$LevelToDo)."</font>";
 					}
 				}
 				else
 				{
 					if ($ThePlanet["b_tech_id"] == $Element)
 					{
-						$bloc       = $lang;
-						if ($ThePlanet['id'] != $CurrentPlanet['id'])
+						$bloc       = $LNG;
+						if ($ThePlanet['id'] != $PLANET['id'])
 						{
 							$template->assign_vars(array(
-								'tech_time'		=> $ThePlanet["b_tech"] - time(),
-								'tech_name'		=> $lang['bd_on']."<br>". $ThePlanet["name"],
+								'tech_time'		=> $ThePlanet["b_tech"] - TIMESTAMP,
+								'tech_name'		=> $LNG['bd_on']."<br>". $ThePlanet["name"],
 								'tech_home'		=> $ThePlanet["id"],
 								'tech_id'		=> $ThePlanet["b_tech_id"],
-								'game_name'		=> $game_config['game_name'],
-								'tech_lang'		=> $lang['tech'][$CurrentPlanet["b_tech_id"]],
-								'bd_cancel'		=> $lang['bd_cancel'],
-								'bd_ready'		=> $lang['bd_ready'],
-								'bd_continue'	=> $lang['bd_continue'],
+								'game_name'		=> $CONF['game_name'],
+								'tech_lang'		=> $LNG['tech'][$PLANET["b_tech_id"]],
+								'bd_cancel'		=> $LNG['bd_cancel'],
+								'bd_ready'		=> $LNG['bd_ready'],
+								'bd_continue'	=> $LNG['bd_continue'],
 							));
 						}
 						else
 						{
 							$template->assign_vars(array(
-								'tech_time'		=> $CurrentPlanet["b_tech"] - time(),
+								'tech_time'		=> $PLANET["b_tech"] - TIMESTAMP,
 								'tech_name'		=> "",
-								'game_name'		=> $game_config['game_name'],
-								'tech_lang'		=> $lang['tech'][$CurrentPlanet["b_tech_id"]],
-								'tech_home'		=> $CurrentPlanet["id"],
-								'tech_id'		=> $CurrentPlanet["b_tech_id"],					
-								'bd_cancel'		=> $lang['bd_cancel'],
-								'bd_ready'		=> $lang['bd_ready'],
-								'bd_continue'	=> $lang['bd_continue'],
+								'game_name'		=> $CONF['game_name'],
+								'tech_lang'		=> $LNG['tech'][$PLANET["b_tech_id"]],
+								'tech_home'		=> $PLANET["id"],
+								'tech_id'		=> $PLANET["b_tech_id"],					
+								'bd_cancel'		=> $LNG['bd_cancel'],
+								'bd_ready'		=> $LNG['bd_ready'],
+								'bd_continue'	=> $LNG['bd_continue'],
 							));
 						}
 						$TechnoLink  = $template->fetch("buildings_research_script.tpl");
@@ -289,14 +289,14 @@ class ShowResearchPage
 				
 				$ResearchList[] = array(
 					'id'		=> $Element,
-					'maxinfo'	=> (isset($pricelist[$Element]['max']) && $pricelist[$Element]['max'] != 255) ? sprintf($lang['bd_max_lvl'], $pricelist[$Element]['max']):"",
-					'name'  	=> $lang['tech'][$Element],
-					'descr'  	=> $lang['res']['descriptions'][$Element],
-					'price'  	=> GetElementPrice($CurrentUser, $CurrentPlanet, $Element),					
-					'time' 		=> pretty_time(GetBuildingTime($CurrentUser, $CurrentPlanet, $Element)),
-					'restprice'	=> $this->GetRestPrice($CurrentUser, $CurrentPlanet, $Element, true),
-					'elvl'		=> ($Element == 106) ? ($CurrentUser['rpg_espion'] * ESPION)." (".$lang['tech'][610].")" : (($Element == 108) ? ($CurrentUser['rpg_commandant'] * COMMANDANT)." (".$lang['tech'][611].")" : false),
-					'lvl'		=> $CurrentUser[$resource[$Element]],
+					'maxinfo'	=> (isset($pricelist[$Element]['max']) && $pricelist[$Element]['max'] != 255) ? sprintf($LNG['bd_max_lvl'], $pricelist[$Element]['max']):"",
+					'name'  	=> $LNG['tech'][$Element],
+					'descr'  	=> $LNG['res']['descriptions'][$Element],
+					'price'  	=> GetElementPrice($USER, $PLANET, $Element),					
+					'time' 		=> pretty_time(GetBuildingTime($USER, $PLANET, $Element)),
+					'restprice'	=> $this->GetRestPrice($Element, true),
+					'elvl'		=> ($Element == 106) ? ($USER['rpg_espion'] * ESPION)." (".$LNG['tech'][610].")" : (($Element == 108) ? ($USER['rpg_commandant'] * COMMANDANT)." (".$LNG['tech'][611].")" : false),
+					'lvl'		=> $USER[$resource[$Element]],
 					'link'  	=> $TechnoLink,
 				);
 			}
@@ -304,10 +304,10 @@ class ShowResearchPage
 		$template->assign_vars(array(
 			'ResearchList'			=> $ResearchList,
 			'IsLabinBuild'			=> $bContinue,
-			'bd_building_lab'		=> $lang['bd_building_lab'],
-			'bd_remaining'			=> $lang['bd_remaining'],			
-			'bd_lvl'				=> $lang['bd_lvl'],			
-			'fgf_time'				=> $lang['fgf_time'],
+			'bd_building_lab'		=> $LNG['bd_building_lab'],
+			'bd_remaining'			=> $LNG['bd_remaining'],			
+			'bd_lvl'				=> $LNG['bd_lvl'],			
+			'fgf_time'				=> $LNG['fgf_time'],
 		));
 		
 		$template->show('buildings_research.tpl');

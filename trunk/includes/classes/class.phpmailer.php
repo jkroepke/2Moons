@@ -316,7 +316,7 @@ class PHPMailer {
   private   $CustomHeader   = array();
   private   $message_type   = '';
   private   $boundary       = array();
-  protected $language       = array();
+  protected $LNGuage       = array();
   private   $error_count    = 0;
   private   $sign_cert_file = "";
   private   $sign_key_file  = "";
@@ -843,11 +843,11 @@ class PHPMailer {
   /**
   * Sets the language for all class error messages.
   * Returns false if it cannot load the language file.  The default language is English.
-  * @param string $langcode ISO 639-1 2-character language code (e.g. Portuguese: "br")
-  * @param string $lang_path Path to the language file directory
+  * @param string $LNGcode ISO 639-1 2-character language code (e.g. Portuguese: "br")
+  * @param string $LNG_path Path to the language file directory
   * @access public
   */
-  function SetLanguage($langcode = 'en', $lang_path = 'language/') {
+  function SetLanguage($LNGcode = 'en', $LNG_path = 'language/') {
     //Define full set of translatable strings
     $PHPMAILER_LANG = array(
       'provide_address' => 'You must provide at least one recipient email address.',
@@ -870,8 +870,8 @@ class PHPMailer {
     );
     //Overwrite language-specific strings. This way we'll never have missing translations - no more "language string failed to load"!
     $l = true;
-    if ($langcode != 'en') { //There is no English translation file
-      $l = @include $lang_path.'phpmailer.lang-'.$langcode.'.php';
+    if ($LNGcode != 'en') { //There is no English translation file
+      $l = @include $LNG_path.'phpmailer.lang-'.$LNGcode.'.php';
     }
     $this->language = $PHPMAILER_LANG;
     return ($l == true); //Returns false if language not found
@@ -1074,7 +1074,7 @@ class PHPMailer {
     $result = '';
 
     // Set the boundaries
-    $uniq_id = md5(uniqid(time()));
+    $uniq_id = md5(uniqid(TIMESTAMP));
     $this->boundary[1] = 'b1_' . $uniq_id;
     $this->boundary[2] = 'b2_' . $uniq_id;
 
@@ -1467,7 +1467,7 @@ class PHPMailer {
         }
       }
       if (PHP_VERSION < 6) {
-        $magic_quotes = get_magic_quotes_runtime();
+        $magic_quotes = get_magic_quotes_runTIMESTAMP;
         set_magic_quotes_runtime(0);
       }
       $file_buffer  = file_get_contents($path);
@@ -2272,7 +2272,7 @@ class PHPMailer {
     $DKIMsignatureType    = 'rsa-sha1'; // Signature & hash algorithms
     $DKIMcanonicalization = 'relaxed/simple'; // Canonicalization of header/body
     $DKIMquery            = 'dns/txt'; // Query method
-    $DKIMtime             = time() ; // Signature Timestamp = seconds since 00:00:00 - Jan 1, 1970 (UTC time zone)
+    $DKIMtime             = TIMESTAMP ; // Signature Timestamp = seconds since 00:00:00 - Jan 1, 1970 (UTC time zone)
     $subject_header       = "Subject: $subject";
     $headers              = explode("\r\n",$headers_line);
     foreach($headers as $header) {

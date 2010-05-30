@@ -32,39 +32,21 @@ class template extends Smarty
 		$this->compile_check		= true;
 		$this->template_dir 		= ROOT_PATH . TEMPLATE_DIR."smarty/";
 		$this->compile_dir 			= ROOT_PATH ."cache/";
-		
-		$this->planet				= (isset($GLOBALS['planetrow'])) ? $GLOBALS['planetrow'] : NULL;
-		$this->player				= (isset($GLOBALS['user'])) ? $GLOBALS['user'] : NULL;;
-		$this->db					= $GLOBALS['db'];
-		$this->GameConfig			= $GLOBALS['game_config'];
-		$this->lang					= $GLOBALS['lang'];
-		$this->addmenu				= $GLOBALS['addmenu'];
 		$this->script				= array();
 		$this->page					= array();
-		$this->setheader();
-	}
-	
-	public function getstats()
-	{
-		$this->player['rank']		= $this->db->fetch_array($this->db->query("SELECT `total_rank`,`total_points` FROM ".STATPOINTS." WHERE `stat_code` = '1' AND `stat_type` = '1' AND `id_owner` = '". $this->player['id'] ."';"));
 	}
 	
 	public function getplanets()
 	{
-		$this->playerplanets		= SortUserPlanets($this->player);
+		global $USER;
+		$this->UserPlanets			= SortUserPlanets($USER);
 	}
 	
 	public function loadscript($script)
 	{
 		$this->script[]				= $script;
 	}
-	
-	public function set_vars($CurrentUser, $CurrentPlanet)
-	{
-		$this->planet				= $CurrentPlanet;
-		$this->player				= $CurrentUser;
-	}
-	
+		
 	public function assign_vars($assign)
 	{
 		foreach($assign as $AssignName => $AssignContent) {
@@ -74,10 +56,11 @@ class template extends Smarty
 	
 	private function planetmenu()
 	{
-		if(empty($this->playerplanets))
+		global $LNG;
+		if(empty($this->UserPlanets))
 			$this->getplanets();
 		
-		foreach($this->playerplanets as $PlanetQuery)
+		foreach($this->UserPlanets as $PlanetQuery)
 		{
 			if(!empty($PlanetQuery['b_building_id']))
 			{
@@ -87,173 +70,161 @@ class template extends Smarty
 			
 			$Planetlist[$PlanetQuery['id']]	= array(
 				'url'		=> $this->phpself."&amp;cp=".$PlanetQuery['id']."&amp;re=0",
-				'name'		=> $PlanetQuery['name'].(($PlanetQuery['planet_type'] == 3) ? " (".$this->lang['fcm_moon'].")":""),
+				'name'		=> $PlanetQuery['name'].(($PlanetQuery['planet_type'] == 3) ? " (".$LNG['fcm_moon'].")":""),
 				'image'		=> $PlanetQuery['image'],
 				'galaxy'	=> $PlanetQuery['galaxy'],
 				'system'	=> $PlanetQuery['system'],
 				'planet'	=> $PlanetQuery['planet'],
 				'ptype'		=> $PlanetQuery['planet_type'],
-				'Buildtime'	=> (!empty($PlanetQuery['b_building_id']) && $BuildArray[3] - time() > 0) ? pretty_time($BuildArray[3] - time()) : false,
+				'Buildtime'	=> (!empty($PlanetQuery['b_building_id']) && $BuildArray[3] - TIMESTAMP > 0) ? pretty_time($BuildArray[3] - TIMESTAMP) : false,
 			);
 		}
 		
 		$this->assign_vars(array(	
 			'PlanetMenu' 		=> $Planetlist,
-			'show_planetmenu' 	=> $this->lang['show_planetmenu'],
-			'current_pid'		=> $this->player['current_planet'],
+			'show_planetmenu' 	=> $LNG['show_planetmenu'],
+			'current_pid'		=> $USER['current_planet'],
 		));
 	}
 	
 	private function leftmenu()
 	{
-		if(empty($this->player['rank']))
-			$this->getstats();
-			
-		$this->player['fleets']	= $this->db->fetch_array($this->db->query("SELECT COUNT(*) as `count` FROM ".FLEETS." WHERE `fleet_mess` = '0' AND (`fleet_mission` = '1' OR `fleet_mission` = '2' OR `fleet_mission` = '6' OR `fleet_mission` = '9') AND `fleet_target_owner` = '".$this->player['id']."';"));
-			
+		global $CONF, $LNG, $USER;
 		$this->assign_vars(array(	
-			'lm_overview'		=> $this->lang['lm_overview'],
-			'lm_empire'			=> $this->lang['lm_empire'],
-			'lm_buildings'		=> $this->lang['lm_buildings'],
-			'lm_resources'		=> $this->lang['lm_resources'],
-			'lm_trader'			=> $this->lang['lm_trader'],
-			'lm_research'		=> $this->lang['lm_research'],
-			'lm_shipshard'		=> $this->lang['lm_shipshard'],
-			'lm_fleet'			=> $this->lang['lm_fleet'],
-			'lm_technology'		=> $this->lang['lm_technology'],
-			'lm_galaxy'			=> $this->lang['lm_galaxy'],
-			'lm_defenses'		=> $this->lang['lm_defenses'],
-			'lm_alliance'		=> $this->lang['lm_alliance'],
-			'lm_forums'			=> $this->lang['lm_forums'],
-			'lm_officiers'		=> $this->lang['lm_officiers'],
-			'lm_statistics' 	=> $this->lang['lm_statistics'],
-			'lm_records'		=> $this->lang['lm_records'],
-			'lm_topkb'			=> $this->lang['lm_topkb'],
-			'lm_search'			=> $this->lang['lm_search'],
-			'lm_battlesim'		=> $this->lang['lm_battlesim'],
-			'lm_messages'		=> $this->lang['lm_messages'],
-			'lm_notes'			=> $this->lang['lm_notes'],
-			'lm_buddylist'		=> $this->lang['lm_buddylist'],
-			'lm_chat'			=> $this->lang['lm_chat'],
-			'lm_support'		=> $this->lang['lm_support'],
-			'lm_faq'			=> $this->lang['lm_faq'],
-			'lm_options'		=> $this->lang['lm_options'],
-			'lm_banned'			=> $this->lang['lm_banned'],
-			'lm_rules'			=> $this->lang['lm_rules'],
-			'lm_logout'			=> $this->lang['lm_logout'],
-			'authlevel' 		=> $this->player['authlevel'],
-			'new_message' 		=> $this->player['new_message'],
-			'forum_url'			=> $this->GameConfig['forum_url'],
-			'lm_administration'	=> $this->lang['lm_administration'],
+			'lm_overview'		=> $LNG['lm_overview'],
+			'lm_empire'			=> $LNG['lm_empire'],
+			'lm_buildings'		=> $LNG['lm_buildings'],
+			'lm_resources'		=> $LNG['lm_resources'],
+			'lm_trader'			=> $LNG['lm_trader'],
+			'lm_research'		=> $LNG['lm_research'],
+			'lm_shipshard'		=> $LNG['lm_shipshard'],
+			'lm_fleet'			=> $LNG['lm_fleet'],
+			'lm_technology'		=> $LNG['lm_technology'],
+			'lm_galaxy'			=> $LNG['lm_galaxy'],
+			'lm_defenses'		=> $LNG['lm_defenses'],
+			'lm_alliance'		=> $LNG['lm_alliance'],
+			'lm_forums'			=> $LNG['lm_forums'],
+			'lm_officiers'		=> $LNG['lm_officiers'],
+			'lm_statistics' 	=> $LNG['lm_statistics'],
+			'lm_records'		=> $LNG['lm_records'],
+			'lm_topkb'			=> $LNG['lm_topkb'],
+			'lm_search'			=> $LNG['lm_search'],
+			'lm_battlesim'		=> $LNG['lm_battlesim'],
+			'lm_messages'		=> $LNG['lm_messages'],
+			'lm_notes'			=> $LNG['lm_notes'],
+			'lm_buddylist'		=> $LNG['lm_buddylist'],
+			'lm_chat'			=> $LNG['lm_chat'],
+			'lm_support'		=> $LNG['lm_support'],
+			'lm_faq'			=> $LNG['lm_faq'],
+			'lm_options'		=> $LNG['lm_options'],
+			'lm_banned'			=> $LNG['lm_banned'],
+			'lm_rules'			=> $LNG['lm_rules'],
+			'lm_logout'			=> $LNG['lm_logout'],
+			'authlevel' 		=> $USER['authlevel'],
+			'new_message' 		=> $USER['new_message'],
+			'forum_url'			=> $CONF['forum_url'],
+			'lm_administration'	=> $LNG['lm_administration'],
 		));
 	}
 	
 	private function topnav()
 	{
+		global $PLANET, $LNG, $USER;
 		$this->phpself			= "?page=".request_var('page', '')."&amp;mode=".request_var('mode', '');
 		$this->loadscript("topnav.js");
-		if(empty($this->playerplanets))
+		if(empty($this->UserPlanets))
 			$this->getplanets();
 		
-		foreach($this->playerplanets as $CurPlanetID => $CurPlanet)
+		foreach($this->UserPlanets as $CurPlanetID => $CurPlanet)
 		{
 			$SelectorVaules[]	= $this->phpself."&amp;cp=".$CurPlanet['id']."&amp;re=0";
-			$SelectorNames[]	= $CurPlanet['name'].(($CurPlanet['planet_type'] == 3) ? " (" . $this->lang['fcm_moon'] . ")":"")."&nbsp;[".$CurPlanet['galaxy'].":".$CurPlanet['system'].":".$CurPlanet['planet']."]&nbsp;&nbsp;";
+			$SelectorNames[]	= $CurPlanet['name'].(($CurPlanet['planet_type'] == 3) ? " (" . $LNG['fcm_moon'] . ")":"")."&nbsp;[".$CurPlanet['galaxy'].":".$CurPlanet['system'].":".$CurPlanet['planet']."]&nbsp;&nbsp;";
 		}
 		
 		$this->assign_vars(array(
-			'energy'			=> (($this->planet["energy_max"] + $this->planet["energy_used"]) < 0) ? colorRed(pretty_number($this->planet["energy_max"] + $this->planet["energy_used"]) . "/" . pretty_number($this->planet["energy_max"])) : pretty_number($this->planet["energy_max"] + $this->planet["energy_used"]) . "/" . pretty_number($this->planet["energy_max"]),
-			'metal'				=> ($this->planet["metal"] >= $this->planet["metal_max"]) ? colorRed(pretty_number($this->planet["metal"])) : pretty_number($this->planet["metal"]),
-			'crystal'			=> ($this->planet["crystal"] >= $this->planet["crystal_max"]) ? colorRed(pretty_number($this->planet["crystal"])) : pretty_number($this->planet["crystal"]),
-			'deuterium'			=> ($this->planet["deuterium"] >= $this->planet["deuterium_max"]) ? colorRed(pretty_number($this->planet["deuterium"])) : pretty_number($this->planet["deuterium"]),
-			'darkmatter'		=> pretty_number($this->player["darkmatter"]),
-			'metal_max'			=> shortly_number($this->planet["metal_max"]),
-			'crystal_max'		=> shortly_number($this->planet["crystal_max"]),
-			'deuterium_max' 	=> shortly_number($this->planet["deuterium_max"]),
-			'alt_metal_max'		=> pretty_number($this->planet["metal_max"]),
-			'alt_crystal_max'	=> pretty_number($this->planet["crystal_max"]),
-			'alt_deuterium_max' => pretty_number($this->planet["deuterium_max"]),
-			'js_metal_max'		=> floattostring($this->planet["metal_max"]),
-			'js_crystal_max'	=> floattostring($this->planet["crystal_max"]),
-			'js_deuterium_max' 	=> floattostring($this->planet["deuterium_max"]),
-			'js_metal_hr'		=> floattostring($this->planet['metal_perhour'] + $this->GameConfig['metal_basic_income'] * $this->GameConfig['resource_multiplier']),
-			'js_crystal_hr'		=> floattostring($this->planet['crystal_perhour'] + $this->GameConfig['crystal_basic_income'] * $this->GameConfig['resource_multiplier']),
-			'js_deuterium_hr'	=> floattostring($this->planet['deuterium_perhour'] + $this->GameConfig['deuterium_basic_income'] * $this->GameConfig['resource_multiplier']),
-			'current_panet'		=> $this->phpself."&amp;cp=".$this->player['current_planet']."&amp;re=0",
-			'tn_vacation_mode'	=> $this->lang['tn_vacation_mode'],
-			'vacation'			=> $this->player['urlaubs_modus'] ? date('d.m.Y H:i:s',$this->player['urlaubs_until']) : false,
-			'delete'			=> $this->player['db_deaktjava'] ? sprintf($this->lang['tn_delete_mode'], date('d. M Y\, h:i:s',$this->player['db_deaktjava'] + (60 * 60 * 24 * 7))) : false,
-			'image'				=> $this->planet['image'],
-			'settings_tnstor'	=> $this->player['settings_tnstor'],
+			'energy'			=> (($PLANET["energy_max"] + $PLANET["energy_used"]) < 0) ? colorRed(pretty_number($PLANET["energy_max"] + $PLANET["energy_used"]) . "/" . pretty_number($PLANET["energy_max"])) : pretty_number($PLANET["energy_max"] + $PLANET["energy_used"]) . "/" . pretty_number($PLANET["energy_max"]),
+			'metal'				=> ($PLANET["metal"] >= $PLANET["metal_max"]) ? colorRed(pretty_number($PLANET["metal"])) : pretty_number($PLANET["metal"]),
+			'crystal'			=> ($PLANET["crystal"] >= $PLANET["crystal_max"]) ? colorRed(pretty_number($PLANET["crystal"])) : pretty_number($PLANET["crystal"]),
+			'deuterium'			=> ($PLANET["deuterium"] >= $PLANET["deuterium_max"]) ? colorRed(pretty_number($PLANET["deuterium"])) : pretty_number($PLANET["deuterium"]),
+			'darkmatter'		=> pretty_number($USER["darkmatter"]),
+			'metal_max'			=> shortly_number($PLANET["metal_max"]),
+			'crystal_max'		=> shortly_number($PLANET["crystal_max"]),
+			'deuterium_max' 	=> shortly_number($PLANET["deuterium_max"]),
+			'alt_metal_max'		=> pretty_number($PLANET["metal_max"]),
+			'alt_crystal_max'	=> pretty_number($PLANET["crystal_max"]),
+			'alt_deuterium_max' => pretty_number($PLANET["deuterium_max"]),
+			'js_metal_max'		=> floattostring($PLANET["metal_max"]),
+			'js_crystal_max'	=> floattostring($PLANET["crystal_max"]),
+			'js_deuterium_max' 	=> floattostring($PLANET["deuterium_max"]),
+			'js_metal_hr'		=> floattostring($PLANET['metal_perhour'] + $CONF['metal_basic_income'] * $CONF['resource_multiplier']),
+			'js_crystal_hr'		=> floattostring($PLANET['crystal_perhour'] + $CONF['crystal_basic_income'] * $CONF['resource_multiplier']),
+			'js_deuterium_hr'	=> floattostring($PLANET['deuterium_perhour'] + $CONF['deuterium_basic_income'] * $CONF['resource_multiplier']),
+			'current_panet'		=> $this->phpself."&amp;cp=".$USER['current_planet']."&amp;re=0",
+			'tn_vacation_mode'	=> $LNG['tn_vacation_mode'],
+			'vacation'			=> $USER['urlaubs_modus'] ? date('d.m.Y H:i:s',$USER['urlaubs_until']) : false,
+			'delete'			=> $USER['db_deaktjava'] ? sprintf($LNG['tn_delete_mode'], date('d. M Y\, h:i:s',$USER['db_deaktjava'] + (60 * 60 * 24 * 7))) : false,
+			'image'				=> $PLANET['image'],
+			'settings_tnstor'	=> $USER['settings_tnstor'],
 			'SelectorVaules'	=> $SelectorVaules,
 			'SelectorNames'		=> $SelectorNames,
-			'Metal'				=> $this->lang['Metal'],
-			'Crystal'			=> $this->lang['Crystal'],
-			'Deuterium'			=> $this->lang['Deuterium'],
-			'Darkmatter'		=> $this->lang['Darkmatter'],
-			'Energy'			=> $this->lang['Energy'],
+			'Metal'				=> $LNG['Metal'],
+			'Crystal'			=> $LNG['Crystal'],
+			'Deuterium'			=> $LNG['Deuterium'],
+			'Darkmatter'		=> $LNG['Darkmatter'],
+			'Energy'			=> $LNG['Energy'],
 		));
 	}
 	
 	private function header()
 	{
-		global $dpath;
+		global $USER, $CONF, $LNG;
 		$this->assign_vars(array(
-			'title'			=> $this->GameConfig['game_name'],
-			'dpath'			=> (!empty($dpath)) ? $dpath : DEFAULT_SKINPATH,
-			'is_pmenu'		=> $this->player['settings_planetmenu'],
-			'thousands_sep'	=> (!empty($this->lang['locale']['thousands_sep']) ? $this->lang['locale']['thousands_sep'] : "."),
+			'title'			=> $CONF['game_name'],
+			'dpath'			=> $USER['dpath'],
+			'is_pmenu'		=> $USER['settings_planetmenu'],
+			'thousands_sep'	=> (!empty($LNG['locale']['thousands_sep']) ? $LNG['locale']['thousands_sep'] : "."),
 		));
 	}
 	
 	private function footer()
 	{
+		global $CONF;
 		$this->assign_vars(array(
-			'cron'		=> ((time() >= ($this->GameConfig['stat_last_update'] + (60 * $this->GameConfig['stat_update_time']))) ? "<img src=\"".ROOT_PATH."cronjobs.php?cron=stats\" alt=\"\" height=\"1\" width=\"1\">" : "").((time() >= ($this->GameConfig['stat_last_db_update'] + (60 * 60 * 24))) ? "<img src=\"".ROOT_PATH."cronjobs.php?cron=opdb\" alt=\"\" height=\"1\" width=\"1\">" : ""),
+			'cron'		=> ((TIMESTAMP >= ($CONF['stat_last_update'] + (60 * $CONF['stat_update_time']))) ? "<img src=\"".ROOT_PATH."cronjobs.php?cron=stats\" alt=\"\" height=\"1\" width=\"1\">" : "").((TIMESTAMP >= ($CONF['stat_last_db_update'] + (60 * 60 * 24))) ? "<img src=\"".ROOT_PATH."cronjobs.php?cron=opdb\" alt=\"\" height=\"1\" width=\"1\">" : ""),
 			'scripts'	=> $this->script,
-			'ga_active'	=> $this->GameConfig['ga_active'],
-			'ga_key'	=> $this->GameConfig['ga_key'],
+			'ga_active'	=> $CONF['ga_active'],
+			'ga_key'	=> $CONF['ga_key'],
 		));
 	}
 	
 	public function set_index()
 	{
+		global $USER, $CONF, $LNG;
 		$this->assign_vars(array(
-			'cappublic'			=> $this->GameConfig['cappublic'],
-			'servername' 		=> $this->GameConfig['game_name'],
-			'forum_url' 		=> $this->GameConfig['forum_url'],
-			'fb_active'			=> $this->GameConfig['fb_on'],
-			'fb_key' 			=> $this->GameConfig['fb_apikey'],
-			'forum' 			=> $this->lang['forum'],
-			'register_closed'	=> $this->lang['register_closed'],
-			'fb_perm'			=> sprintf($this->lang['fb_perm'], $this->GameConfig['game_name']),
-			'menu_index'		=> $this->lang['menu_index'],
-			'menu_news'			=> $this->lang['menu_news'],
-			'menu_rules'		=> $this->lang['menu_rules'],
-			'menu_agb'			=> $this->lang['menu_agb'],
-			'menu_pranger'		=> $this->lang['menu_pranger'],
-			'menu_top100'		=> $this->lang['menu_top100'],
-			'menu_disclamer'	=> $this->lang['menu_disclamer'],
-			'game_captcha'		=> $this->GameConfig['capaktiv'],
-			'reg_close'			=> $this->GameConfig['reg_closed'],
-			'ga_active'			=> $this->GameConfig['ga_active'],
-			'ga_key'			=> $this->GameConfig['ga_key'],
+			'cappublic'			=> $CONF['cappublic'],
+			'servername' 		=> $CONF['game_name'],
+			'forum_url' 		=> $CONF['forum_url'],
+			'fb_active'			=> $CONF['fb_on'],
+			'fb_key' 			=> $CONF['fb_apikey'],
+			'forum' 			=> $LNG['forum'],
+			'register_closed'	=> $LNG['register_closed'],
+			'fb_perm'			=> sprintf($LNG['fb_perm'], $CONF['game_name']),
+			'menu_index'		=> $LNG['menu_index'],
+			'menu_news'			=> $LNG['menu_news'],
+			'menu_rules'		=> $LNG['menu_rules'],
+			'menu_agb'			=> $LNG['menu_agb'],
+			'menu_pranger'		=> $LNG['menu_pranger'],
+			'menu_top100'		=> $LNG['menu_top100'],
+			'menu_disclamer'	=> $LNG['menu_disclamer'],
+			'game_captcha'		=> $CONF['capaktiv'],
+			'reg_close'			=> $CONF['reg_closed'],
+			'ga_active'			=> $CONF['ga_active'],
+			'ga_key'			=> $CONF['ga_key'],
 			'getajax'			=> request_var('getajax', 0),
+			'lang'				=> DEFAULT_LANG,
 		));
 	}
-	
-	public function setheader()
-	{
-		if (!headers_sent()) {
-			header('Expires: 0');
-			header('Pragma: no-cache');
-			header('Cache-Control: private, no-store, no-cache, must-revalidate, max-age=0');
-			header('Cache-Control: post-check=0, pre-check=0', false); 
-			header('X-UA-Compatible: IE=100');
-			isBuggyIe() || header('Content-Encoding: '.zlib_get_coding_type()); 
-		}
-	}
-	
+		
 	public function page_header()
 	{
 		$this->page['header']		= true;
@@ -280,7 +251,8 @@ class template extends Smarty
 	}
 	
 	public function show($file)
-	{	
+	{		
+		global $USER, $CONF, $LNG, $db;
 		if($this->page['header'] == true)
 			$this->header();
 			
@@ -297,7 +269,7 @@ class template extends Smarty
 			$this->footer();
 
 		$this->assign_vars(array(
-			'sql_num'	=> ((!defined('INSTALL') || !defined('IN_ADMIN')) && $this->player['authlevel'] == 3 && $this->GameConfig['debug'] == 1) ? "<center><div id=\"footer\">SQL Abfragen:".(1 + $this->db->get_sql())." (".round($this->db->time, 4)." Sekunden) - Seiten generiert in ".round(microtime(true) - STARTTIME, 4)." Sekunden</div></center>" : "",
+			'sql_num'	=> ((!defined('INSTALL') || !defined('IN_ADMIN')) && $USER['authlevel'] == 3 && $CONF['debug'] == 1) ? "<center><div id=\"footer\">SQL Abfragen:".$db->get_sql()." (".round($db->time, 4)." Sekunden) - Seiten generiert in ".round(microtime(true) - STARTTIME, 4)." Sekunden</div></center>" : "",
 		));
 		$this->display($file);
 	}
@@ -322,7 +294,7 @@ class template extends Smarty
 
 		$this->assign_vars(array(
 			'mes'		=> $mes,
-			'fcm_info'	=> $this->lang['fcm_info'],
+			'fcm_info'	=> $LNG['fcm_info'],
 			'Fatal'		=> $Fatal,
 		));
 		$this->gotoside($dest, $time);

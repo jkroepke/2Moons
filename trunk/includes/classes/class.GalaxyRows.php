@@ -19,14 +19,14 @@
 # *                                                                          #
 ##############################################################################
 
-if(!defined('INSIDE')){ die(header("location:../../"));}
+if(!defined('INSIDE')) die('Hacking attempt!');
 
 class GalaxyRows
 {
 	private function GetMissileRange()
 	{
-		global $resource, $user;
-		return max(($user[$resource[117]] * 5) - 1, 0);
+		global $resource, $USER;
+		return max(($USER[$resource[117]] * 5) - 1, 0);
 	}
 
 	public function GetPhalanxRange($PhalanxLevel)
@@ -34,15 +34,15 @@ class GalaxyRows
 		return ($PhalanxLevel == 1) ? 1 : pow($PhalanxLevel, 2) - 1;
 	}
 
-	public function GalaxyRowActions($GalaxyRowPlanet, $CurrentGalaxy, $CurrentSystem, $CurrentMIP)
+	public function GalaxyRowActions($GalaxyRowPlanet)
 	{
-		global $user, $dpath, $lang;
+		global $USER, $PLANET, $resource, $LNG;
 
-		if ($CurrentMIP > 0 && $GalaxyRowPlanet['galaxy'] == $CurrentGalaxy)
+		if ($PLANET[$resource[502]] > 0 && $GalaxyRowPlanet['galaxy'] == $PLANET['galaxy'])
 		{
 			$Range = $this->GetMissileRange();
-			$SystemLimitMin = max($CurrentSystem - $Range, 1);
-			$SystemLimitMax = $CurrentSystem + $Range;
+			$SystemLimitMin = max($PLANET['system'] - $Range, 1);
+			$SystemLimitMax = $PLANET['system'] + $Range;
 			if ($GalaxyRowPlanet['system'] <= $SystemLimitMax && $GalaxyRowPlanet['system'] >= $SystemLimitMin)
 				$MissileBtn = true;
 			else
@@ -50,10 +50,10 @@ class GalaxyRows
 		}
 
 		$Result = array(
-			'esp'		=> ($user["settings_esp"] == 1) ? true : false,
-			'message'	=> ($user["settings_wri"] == 1) ? true : false,
-			'buddy'		=> ($user["settings_bud"] == 1) ? true : false,
-			'missle'	=> ($user["settings_mis"] == 1 && $MissileBtn == true) ? true : false,
+			'esp'		=> ($USER["settings_esp"] == 1) ? true : false,
+			'message'	=> ($USER["settings_wri"] == 1) ? true : false,
+			'buddy'		=> ($USER["settings_bud"] == 1) ? true : false,
+			'missle'	=> ($USER["settings_mis"] == 1 && $MissileBtn == true) ? true : false,
 		);
 
 		return $Result;
@@ -61,14 +61,14 @@ class GalaxyRows
 
 	public function GalaxyRowAlly($GalaxyRowPlanet)
 	{
-		global $user, $lang, $db;
+		global $USER, $LNG, $db;
 
 		$Result = array(
 			'id'		=> $GalaxyRowPlanet['allyid'],
 			'name'		=> htmlspecialchars($GalaxyRowPlanet['ally_name'],ENT_QUOTES,"UTF-8"),
-			'member'	=> sprintf(($GalaxyRowPlanet['ally_members'] == 1)?$lang['gl_member_add']:$lang['gl_member'], $GalaxyRowPlanet['ally_members']),
+			'member'	=> sprintf(($GalaxyRowPlanet['ally_members'] == 1)?$LNG['gl_member_add']:$LNG['gl_member'], $GalaxyRowPlanet['ally_members']),
 			'web'		=> $GalaxyRowPlanet['ally_web'],
-			'inally'	=> ($user['ally_id'] == $GalaxyRowPlanet['ally_id'])?2:(($user['ally_id'] == $GalaxyRowPlanet['allyid'])?1:0),
+			'inally'	=> ($USER['ally_id'] == $GalaxyRowPlanet['ally_id'])?2:(($USER['ally_id'] == $GalaxyRowPlanet['allyid'])?1:0),
 			'tag'		=> $GalaxyRowPlanet['ally_tag'],
 			'rank'		=> $GalaxyRowPlanet['ally_rank'],
 		);
@@ -76,12 +76,12 @@ class GalaxyRows
 		return $Result;
 	}
 
-	public function GalaxyRowDebris($GalaxyRowPlanet, $CurrentRC, $CurrentGRC)
+	public function GalaxyRowDebris($GalaxyRowPlanet)
 	{
-		global $user, $pricelist, $lang;
+		global $USER, $pricelist, $LNG, $resource;
 
-		$GRecNeeded = min(ceil(($GalaxyRowPlanet['der_metal'] + $GalaxyRowPlanet['der_crystal']) / $pricelist[219]['capacity']), $CurrentGRC);
-		$RecNeeded 	= min(ceil(max($GalaxyRowPlanet['der_metal'] + $GalaxyRowPlanet['der_crystal'] - ($GRecNeeded * $pricelist[219]['capacity']), 0) / $pricelist[209]['capacity']), $CurrentRC);
+		$GRecNeeded = min(ceil(($GalaxyRowPlanet['der_metal'] + $GalaxyRowPlanet['der_crystal']) / $pricelist[219]['capacity']), $PLANET[$resource[229]]);
+		$RecNeeded 	= min(ceil(max($GalaxyRowPlanet['der_metal'] + $GalaxyRowPlanet['der_crystal'] - ($GRecNeeded * $pricelist[219]['capacity']), 0) / $pricelist[209]['capacity']), $PLANET[$resource[209]]);
 				
 		$Result = array(
 			'metal'			=> pretty_number($GalaxyRowPlanet["der_metal"]),
@@ -93,42 +93,42 @@ class GalaxyRows
 		return $Result;
 	}
 
-	public function GalaxyRowMoon($GalaxyRowUser, $GalaxyRowMoon, $CanDestroy)
+	public function GalaxyRowMoon($GalaxyRowUser, $GalaxyRowMoon)
 	{
-		global $user, $lang;
+		global $USER, $PLANET, $LNG, $resource;
 
 		$Result = array(
 			'name'		=> htmlspecialchars($GalaxyRowMoon['name'], ENT_QUOTES, "UTF-8"),
 			'temp_min'	=> number_format($GalaxyRowMoon['temp_min'], 0, '', '.'), 
 			'diameter'	=> number_format($GalaxyRowMoon['diameter'], 0, '', '.'),
-			'attack'	=> ($GalaxyRowUser['userid'] != $user['id']) ? $lang['type_mission'][1]:false,
-			'transport'	=> $lang['type_mission'][3],
-			'stay'		=> ($GalaxyRowUser['userid'] == $user['id']) ? $lang['type_mission'][4]:false,
-			'stayally'	=> ($GalaxyRowUser['userid'] != $user['id']) ? $lang['type_mission'][5]:false,
-			'spionage'	=> ($GalaxyRowUser['userid'] != $user['id']) ? $lang['type_mission'][6]:false,
-			'destroy'	=> ($GalaxyRowUser['userid'] != $user['id'] && $CanDestroy > 0) ? $lang['type_mission'][9]:false,
+			'attack'	=> ($GalaxyRowUser['userid'] != $USER['id']) ? $LNG['type_mission'][1]:false,
+			'transport'	=> $LNG['type_mission'][3],
+			'stay'		=> ($GalaxyRowUser['userid'] == $USER['id']) ? $LNG['type_mission'][4]:false,
+			'stayally'	=> ($GalaxyRowUser['userid'] != $USER['id']) ? $LNG['type_mission'][5]:false,
+			'spionage'	=> ($GalaxyRowUser['userid'] != $USER['id']) ? $LNG['type_mission'][6]:false,
+			'destroy'	=> ($GalaxyRowUser['userid'] != $USER['id'] && $PLANET[$resource[214]] > 0) ? $LNG['type_mission'][9]:false,
 		);
 
 		return $Result;
 	}
 
-	public function GalaxyRowPlanet($GalaxyRowPlanet, $HavePhalanx, $CurrentGalaxy, $CurrentSystem, $CurrentMIP)
+	public function GalaxyRowPlanet($GalaxyRowPlanet)
 	{
-		global $dpath, $user, $game_config, $lang;
+		global $resource, $USER, $PLANET, $CONF, $LNG;
 		
-		if($HavePhalanx > 0 && $GalaxyRowPlanet['userid'] != $user['id'] && $GalaxyRowPlanet["galaxy"] == $CurrentGalaxy)
+		if($PLANET[$resource[41]] > 0 && $GalaxyRowPlanet['userid'] != $USER['id'] && $GalaxyRowPlanet["galaxy"] == $PLANET['galaxy'])
 		{
-			$PhRange 		 = $this->GetPhalanxRange ( $HavePhalanx );
-			$SystemLimitMin  = max(1, $CurrentSystem - $PhRange);
-			$SystemLimitMax  = $CurrentSystem + $PhRange;
-			$PhalanxTypeLink = ($GalaxyRowPlanet['system'] <= $SystemLimitMax && $GalaxyRowPlanet['system'] >= $SystemLimitMin) ? $lang['gl_phalanx']:false;
+			$PhRange 		 = $this->GetPhalanxRange($PLANET[$resource[41]]);
+			$SystemLimitMin  = max(1, $PLANET['system'] - $PhRange);
+			$SystemLimitMax  = $PLANET['system'] + $PhRange;
+			$PhalanxTypeLink = ($GalaxyRowPlanet['system'] <= $SystemLimitMax && $GalaxyRowPlanet['system'] >= $SystemLimitMin) ? $LNG['gl_phalanx']:false;
 		}
 
-		if ($CurrentMIP > 0 && $GalaxyRowPlanet['userid'] != $user['id'] && $GalaxyRowPlanet["galaxy"] == $CurrentGalaxy)
+		if ($PLANET[$resource[502]] > 0 && $GalaxyRowPlanet['userid'] != $USER['id'] && $GalaxyRowPlanet["galaxy"] == $PLANET['galaxy'])
 		{
 			$MiRange 		= $this->GetMissileRange();
-			$SystemLimitMin = max(1, $CurrentSystem - $MiRange);
-			$SystemLimitMax = $CurrentSystem + $MiRange;
+			$SystemLimitMin = max(1, $PLANET['system'] - $MiRange);
+			$SystemLimitMax = $PLANET['system'] + $MiRange;
 			$MissileBtn 	= ($GalaxyRowPlanet['system'] <= $SystemLimitMax && $GalaxyRowPlanet['system'] >= $SystemLimitMin) ? true : false;
 		}
 
@@ -136,12 +136,12 @@ class GalaxyRows
 			'name'			=> htmlspecialchars($GalaxyRowPlanet['name'],ENT_QUOTES,"UTF-8"),
 			'image'			=> $GalaxyRowPlanet['image'],
 			'phalax'		=> $PhalanxTypeLink,
-			'transport'		=> $lang['type_mission'][3],
-			'spionage'		=> ($GalaxyRowPlanet['userid'] != $user['id']) ? $lang['type_mission'][6]:false,
-			'attack'		=> ($GalaxyRowPlanet['userid'] != $user['id']) ? $lang['type_mission'][1]:false,
-			'missile'		=> ($user["settings_mis"] == "1" && $MissileBtn === true && $GalaxyRowPlanet['userid'] != $user['id']) ? $lang['gl_missile_attack']:false,
-			'stay'			=> ($GalaxyRowPlanet['userid'] == $user['id']) ? $lang['type_mission'][4]:false,
-			'stayally'		=> ($GalaxyRowPlanet['userid'] != $user['id']) ? $lang['type_mission'][5]:false,
+			'transport'		=> $LNG['type_mission'][3],
+			'spionage'		=> ($GalaxyRowPlanet['userid'] != $USER['id']) ? $LNG['type_mission'][6]:false,
+			'attack'		=> ($GalaxyRowPlanet['userid'] != $USER['id']) ? $LNG['type_mission'][1]:false,
+			'missile'		=> ($USER["settings_mis"] == "1" && $MissileBtn === true && $GalaxyRowPlanet['userid'] != $USER['id']) ? $LNG['gl_missile_attack']:false,
+			'stay'			=> ($GalaxyRowPlanet['userid'] == $USER['id']) ? $LNG['type_mission'][4]:false,
+			'stayally'		=> ($GalaxyRowPlanet['userid'] != $USER['id']) ? $LNG['type_mission'][5]:false,
 		);
 		
 		return $Result;
@@ -149,62 +149,62 @@ class GalaxyRows
 
 	public function GalaxyRowPlanetName($GalaxyRowPlanet)
 	{
-		global $user, $lang;
+		global $USER, $LNG;
 
-		$Onlinetime			= floor((time() - $GalaxyRowPlanet['last_update']) / 60);
+		$Onlinetime			= floor((TIMESTAMP - $GalaxyRowPlanet['last_update']) / 60);
 		
 		$Result = array(
 			'name'			=> htmlspecialchars($GalaxyRowPlanet['name'],ENT_QUOTES,"UTF-8"),
-			'activity'		=> ($Onlinetime < 4) ? $lang['gl_activity'] : (($Onlinetime < 15) ? sprintf($lang['gl_activity_inactive'], $Onlinetime) : ''),
+			'activity'		=> ($Onlinetime < 4) ? $LNG['gl_activity'] : (($Onlinetime < 15) ? sprintf($LNG['gl_activity_inactive'], $Onlinetime) : ''),
 		);
 		
 		return $Result;
 	}
 
-	public function GalaxyRowUser($GalaxyRowPlanet, $UserPoints)
+	public function GalaxyRowUser($GalaxyRowPlanet)
 	{
-		global $game_config, $user, $lang, $db;
+		global $CONF, $USER, $LNG, $db;
 
-		$protection      	= $game_config['noobprotection'];
-		$protectiontime  	= $game_config['noobprotectiontime'];
-		$protectionmulti 	= $game_config['noobprotectionmulti'];
+		$protection      	= $CONF['noobprotection'];
+		$protectiontime  	= $CONF['noobprotectiontime'];
+		$protectionmulti 	= $CONF['noobprotectionmulti'];
 		$CurrentPoints 		= $GalaxyRowPlanet['total_points'];
 		$RowUserPoints 		= $GalaxyRowPlanet['total_points'];
-		$IsNoobProtec		= CheckNoobProtec($UserPoints, $GalaxyRowPlanet, $GalaxyRowPlanet['onlinetime']);
+		$IsNoobProtec		= CheckNoobProtec($USER['total_points'], $GalaxyRowPlanet, $GalaxyRowPlanet['onlinetime']);
 				
 		if ($GalaxyRowPlanet['bana'] == 1 && $GalaxyRowPlanet['urlaubs_modus'] == 1)
 		{
-			$Systemtatus2 	= $lang['gl_v']." <a href=\"game.php?page=banned\"><span class=\"banned\">".$lang['gl_b']."</span></a>";
+			$Systemtatus2 	= $LNG['gl_v']." <a href=\"game.php?page=banned\"><span class=\"banned\">".$LNG['gl_b']."</span></a>";
 			$Systemtatus 	= "<span class=\"vacation\">";
 		}
 		elseif ($GalaxyRowPlanet['bana'] == 1)
 		{
-			$Systemtatus2 	= "<span class=\"banned\">".$lang['gl_b']."</span>";
+			$Systemtatus2 	= "<span class=\"banned\">".$LNG['gl_b']."</span>";
 			$Systemtatus 	= "";
 		}
 		elseif ($GalaxyRowPlanet['urlaubs_modus'] == 1)
 		{
-			$Systemtatus2 	= "<span class=\"vacation\">".$lang['gl_v']."</span>";
+			$Systemtatus2 	= "<span class=\"vacation\">".$LNG['gl_v']."</span>";
 			$Systemtatus 	= "<span class=\"vacation\">";
 		}
-		elseif ($GalaxyRowPlanet['onlinetime'] < (time()-60 * 60 * 24 * 7) && $GalaxyRowPlanet['onlinetime'] > (time()-60 * 60 * 24 * 28))
+		elseif ($GalaxyRowPlanet['onlinetime'] < (TIMESTAMP-60 * 60 * 24 * 7) && $GalaxyRowPlanet['onlinetime'] > (TIMESTAMP-60 * 60 * 24 * 28))
 		{
-			$Systemtatus2 	= "<span class=\"inactive\">".$lang['gl_i']."</span>";
+			$Systemtatus2 	= "<span class=\"inactive\">".$LNG['gl_i']."</span>";
 			$Systemtatus 	= "<span class=\"inactive\">";
 		}
-		elseif ($GalaxyRowPlanet['onlinetime'] < (time()-60 * 60 * 24 * 28))
+		elseif ($GalaxyRowPlanet['onlinetime'] < (TIMESTAMP-60 * 60 * 24 * 28))
 		{
-			$Systemtatus2 	= "<span class=\"inactive\">".$lang['gl_i']."</span><span class=\"longinactive\">".$lang['gl_I']."</span>";
+			$Systemtatus2 	= "<span class=\"inactive\">".$LNG['gl_i']."</span><span class=\"longinactive\">".$LNG['gl_I']."</span>";
 			$Systemtatus 	= "<span class=\"longinactive\">";
 		}
 		elseif ($IsNoobProtec['NoobPlayer'])
 		{
-			$Systemtatus2 	= "<span class=\"noob\">".$lang['gl_w']."</span>";
+			$Systemtatus2 	= "<span class=\"noob\">".$LNG['gl_w']."</span>";
 			$Systemtatus 	= "<span class=\"noob\">";
 		}
 		elseif ($IsNoobProtec['StrongPlayer'])
 		{
-			$Systemtatus2 	= $lang['gl_s'];
+			$Systemtatus2 	= $LNG['gl_s'];
 			$Systemtatus 	= "<span class=\"strong\">";
 		}
 		else
@@ -222,10 +222,10 @@ class GalaxyRows
 			'id'			=> $GalaxyRowPlanet['userid'],
 			'username'		=> htmlspecialchars($GalaxyRowPlanet['username'],ENT_QUOTES,"UTF-8"),
 			'rank'			=> $GalaxyRowPlanet['total_rank'],
-			'playerrank'	=> sprintf($lang['gl_in_the_rank'], htmlspecialchars($GalaxyRowPlanet['username'],ENT_QUOTES,"UTF-8"), $GalaxyRowPlanet['total_rank']),
+			'playerrank'	=> sprintf($LNG['gl_in_the_rank'], htmlspecialchars($GalaxyRowPlanet['username'],ENT_QUOTES,"UTF-8"), $GalaxyRowPlanet['total_rank']),
 			'Systemtatus'	=> $Systemtatus,
 			'Systemtatus2'	=> $Systemtatus2,
-			'isown'			=> ($GalaxyRowPlanet['userid'] != $user['id']) ? true : false,
+			'isown'			=> ($GalaxyRowPlanet['userid'] != $USER['id']) ? true : false,
 		);
 		return $Result;
 	}

@@ -21,66 +21,56 @@
 
 if (!defined('INSIDE')) die(header("location:../../"));
 
-require_once("class.FlyingFleetMissions.".PHP_EXT);
-
-class FlyingFleetHandler extends FlyingFleetMissions
+class FlyingFleetHandler
 {	
 	function __construct($fleetquery)
 	{
 		global $db;
+		$MissionsPattern	= array(
+			1	=> 'MissionCaseAttack',
+			2	=> 'MissionCaseACS',
+			3	=> 'MissionCaseTransport',
+			4	=> 'MissionCaseStay',
+			5	=> 'MissionCaseStayAlly',
+			6	=> 'MissionCaseSpy',
+			7	=> 'MissionCaseColonisation',
+			8	=> 'MissionCaseRecycling',
+			9	=> 'MissionCaseDestruction',
+			10	=> 'MissionCaseMIP',
+			11	=> 'MissionCaseFoundDM',
+			15	=> (USE_OLD_EXPO) ? 'MissionCaseOldExpedition' : 'MissionCaseExpedition',
+		);
+		require_once('class.MissionFunctions.'.PHP_EXT);
 		while ($CurrentFleet = $db->fetch_array($fleetquery))
 		{
-			if(parent::IfFleetBusy($CurrentFleet['fleet_id'])) continue;
+			if($this->IfFleetBusy($CurrentFleet['fleet_id'])) continue;
 			
-			switch ($CurrentFleet['fleet_mission'])
-			{
-				case 1:
-					if(USE_NEW_BATTLE_ENGINE)
-						parent::NewMissionCaseAttack($CurrentFleet);
-					else
-						parent::MissionCaseAttack($CurrentFleet);
-				break;
-				case 2:
-					parent::MissionCaseACS($CurrentFleet);
-				break;
-				case 3:
-					parent::MissionCaseTransport($CurrentFleet);
-				break;
-				case 4:
-					parent::MissionCaseStay($CurrentFleet);
-				break;
-				case 5:
-					parent::MissionCaseStayAlly($CurrentFleet);
-				break;
-				case 6:
-					parent::MissionCaseSpy($CurrentFleet);
-				break;
-				case 7:
-					parent::MissionCaseColonisation($CurrentFleet);
-				break;
-				case 8:
-					parent::MissionCaseRecycling($CurrentFleet);
-				break;
-				case 9:
-					parent::MissionCaseDestruction($CurrentFleet);
-				break;
-				case 10:
-					parent::MissionCaseMIP($CurrentFleet);
-				break;
-				case 11:
-					parent::MissionFoundDM($CurrentFleet);
-				break;
-				case 15:
-					if(USE_OLD_EXPO)
-						parent::MissionOldCaseExpedition($CurrentFleet);
-					else
-						parent::MissionCaseExpedition($CurrentFleet);
-				break;
-				default: 
-					$db->query("DELETE FROM ".FLEETS." WHERE `fleet_id` = '". $CurrentFleet['fleet_id'] ."';");
-				break;
-			}
+			require_once('missions/'.$MissionsPattern[$CurrentFleet['fleet_mission']].'.'.PHP_EXT);
+			$Mission	= new $MissionsPattern[$CurrentFleet['fleet_mission']]($CurrentFleet);
+			
+			if($CurrentFleet['fleet_mess'] == 0 && $CurrentFleet['fleet_start_time'] <= TIMESTAMP)
+				$Mission->TargetEvent();
+			elseif($CurrentFleet['fleet_mess'] == 2 && $CurrentFleet['fleet_end_stay'] <= TIMESTAMP)	
+				$Mission->EndStayEvent();
+			elseif($CurrentFleet['fleet_mess'] == 1 && $CurrentFleet['fleet_end_time'] <= TIMESTAMP)
+				$Mission->ReturnEvent();
+				
+			$Mission = NULL;
+			unset($Mission);
+
 			$db->query("UPDATE ".FLEETS." SET `fleet_busy` = 0 WHERE `fleet_id` = '".$CurrentFleet['fleet_id']."';");
+		}
+	}
+	
+	function IfFleetBusy($FleetID)
+	{
+		global $db;
+		$FleetInfo	= $db->uniquequery("SELECT fleet_busy FROM ".FLEETS." WHERE `fleet_id` = '".$FleetID."';");
+		if($FleetInfo['fleet_busy'] == 1) {
+			return false;
+		} else {
+			$db->query("UPDATE ".FLEETS." SET `fleet_busy` = '1' WHERE `fleet_id` = '".$FleetID."';");
+			return true;
 		}
 	}
 }

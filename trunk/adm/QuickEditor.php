@@ -29,9 +29,9 @@ include(ROOT_PATH . 'extension.inc');
 include(ROOT_PATH . 'common.'.PHP_EXT);
 
 
-if ($EditUsers != 1) die(message ($lang['404_page']));
+if ($EditUsers != 1) die(message ($LNG['404_page']));
 
-$parse	= $lang;
+$parse	= $LNG;
 
 $action	= request_var('action', '');
 $edit	= request_var('edit', '');
@@ -62,7 +62,7 @@ switch($edit)
 			$QryUpdateString	.= "`name` = '".$db->sql_escape(request_var('name', ''))."' ";
 			$QryUpdateString	.= "WHERE `id` = '".$id."' LIMIT 1;";
 			$db->query($QryUpdateString);
-			exit(sprintf($lang['qe_edit_sucess'] , $PlanetData['name'], $PlanetData['galaxy'], $PlanetData['system'], $PlanetData['planet']));
+			exit(sprintf($LNG['qe_edit_sucess'] , $PlanetData['name'], $PlanetData['galaxy'], $PlanetData['system'], $PlanetData['planet']));
 		}
 		$UserInfo				= $db->fetch_array($db->query("SELECT `username` FROM ".USERS." WHERE `id` = '".$PlanetData['id_owner']."'"));
 		$parse['id']			= $id;
@@ -87,17 +87,17 @@ switch($edit)
 		$parse['fleet']			= "";
 		foreach($reslist['build'] as $ID)
 		{
-			$parse['build']		.=	"<tr><th width=\"30%\">".$lang['tech'][$ID].":</th><th width=\"30%\">".pretty_number($PlanetData[$resource[$ID]])."</th><th width=\"40%\"><input name=\"".$resource[$ID]."\" type=\"text\" value=\"".$PlanetData[$resource[$ID]]."\"></th>";
+			$parse['build']		.=	"<tr><th width=\"30%\">".$LNG['tech'][$ID].":</th><th width=\"30%\">".pretty_number($PlanetData[$resource[$ID]])."</th><th width=\"40%\"><input name=\"".$resource[$ID]."\" type=\"text\" value=\"".$PlanetData[$resource[$ID]]."\"></th>";
 		}
 		
 		foreach($reslist['fleet'] as $ID)
 		{
-			$parse['fleet']		.=	"<tr><th width=\"30%\">".$lang['tech'][$ID].":</th><th width=\"30%\">".pretty_number($PlanetData[$resource[$ID]])."</th><th width=\"40%\"><input name=\"".$resource[$ID]."\" type=\"text\" value=\"".$PlanetData[$resource[$ID]]."\"></th>";
+			$parse['fleet']		.=	"<tr><th width=\"30%\">".$LNG['tech'][$ID].":</th><th width=\"30%\">".pretty_number($PlanetData[$resource[$ID]])."</th><th width=\"40%\"><input name=\"".$resource[$ID]."\" type=\"text\" value=\"".$PlanetData[$resource[$ID]]."\"></th>";
 		}
 		
 		foreach($reslist['defense'] as $ID)
 		{
-			$parse['defense']	.=	"<tr><th width=\"30%\">".$lang['tech'][$ID].":</th><th width=\"30%\">".pretty_number($PlanetData[$resource[$ID]])."</th><th width=\"40%\"><input name=\"".$resource[$ID]."\" type=\"text\" value=\"".$PlanetData[$resource[$ID]]."\"></th>";
+			$parse['defense']	.=	"<tr><th width=\"30%\">".$LNG['tech'][$ID].":</th><th width=\"30%\">".pretty_number($PlanetData[$resource[$ID]])."</th><th width=\"40%\"><input name=\"".$resource[$ID]."\" type=\"text\" value=\"".$PlanetData[$resource[$ID]]."\"></th>";
 		}
 		display(parsetemplate(gettemplate('adm/QuickEditPlanet'), $parse), false, '', true, false);
 	break;

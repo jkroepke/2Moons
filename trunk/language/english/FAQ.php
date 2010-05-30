@@ -1,6 +1,6 @@
 <?php
 
-$lang['faq']			= array(
+$LNG['faq']			= array(
 "<font size=3>Buildings</font>" => "The first thing you should focus on in DarkoGame is your resource generating buildings. These are the Metal Mine, Crystal Mine, and Deuterium Synthesizer. They will provide all of the resources you need to build your empire and thus upgrading them as high as possible as quickly as possible should be your number one priority in the game. Each of these buildings requires energy to operate, and if your energy output becomes less than the intake of these three structures, they will not perform up to par. Before you upgrade a building, you can always click the image of the building itself and see how much more energy the next level will require. Again, it is extremely vital that you upgrade these structures as quickly as possible. They are directly proportionate to how quickly you can advance in the game. ",
 "" => "The second priority in the building section for a new emperor are buildings that do not require energy to operate. That is to say, they do not take away from any surplus energy that you may have. These are the Robotics Factory, Shipyard, and Research Lab. New buildings options will appear once you have reached the requirements to create them. For example, it is a requirement to have a level 2 Robotics Factory before you can build a shipyard. The higher the level of the Robotics Factory the quicker you can upgrade your buildings and build ships. The level of the shipyard itself partially determines what ships or defenses you can create. The second determination in what ships or defenses you can create is if you have researched the appropriate level of technology for each in the research lab. This leads us to the next section, technology.",
 "<font size=3>Technology</font>" => "The Technology button on the left menu will tell you all the requirements for researching any technology and creating any building, ship, or defense that the game has to offer. It also details what is needed in order to recruit any officers. You can easily get an idea of what you have and what is still needed by the green/red color codes. Likewise, you can click on the name of any of the items to read a detailed description of the item and what it is and does. Use this often as it will be a good map for you to accomplish the goals you want to obtain in game in the order you wish to obtain them. When you are researching a new technology, all of the research labs on all of your planets are in use, and they cannot be upgraded while they are in use.",
@@ -17,5 +17,5 @@ $lang['faq']			= array(
 "<font size=2>You have more questions? Send a PM with your question via Support Ticket.</font>" => "",
 );
 
-$lang['faq_overview']	= "Beginners Guide";
+$LNG['faq_overview']	= "Beginners Guide";
 ?>

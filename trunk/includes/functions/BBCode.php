@@ -81,10 +81,10 @@ function bbcode_quote($action, $attributes, $content, $params, $node_object) {
 	$return = "<div class='bbcode_quote'><p>Zitat";
 	if (isset($attributes['default'])) {
 		$return .= " von ";
-		$user = $GLOBALS['user']->getUserIdByName($attributes['default']);
-		if (!empty($user)) {
+		$USER = $GLOBALS['user']->getUserIdByName($attributes['default']);
+		if (!empty($USER)) {
 			$pageid = $GLOBALS['page']->getPageIdByFile('userlist');
-			$return .= "<a href='?page=$pageid&amp;id=$user'>";
+			$return .= "<a href='?page=$pageid&amp;id=$USER'>";
 			$return .= htmlentities($attributes['default']) . "</a>";
 		}
 		else {

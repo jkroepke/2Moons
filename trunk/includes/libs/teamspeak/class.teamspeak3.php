@@ -59,12 +59,12 @@ class ts3admin{
   *
   * @author     Par0noid Solutions
   * @access		public
-  * @param		string	$username	username
+  * @param		string	$USERname	username
   * @param		string	$password	password
   * @return     boolean success
   */
-	function login($username, $password) {
-		$bool = $this->executeWithoutFetch("login $username $password");
+	function login($USERname, $password) {
+		$bool = $this->executeWithoutFetch("login $USERname $password");
 		return $bool;
 	}
 

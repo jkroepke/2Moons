@@ -7,6 +7,7 @@ IsRegActive 		= {$reg_close};
 lang_reg_closed		= "{$register_closed}";
 cappublic			= "{$cappublic}";
 fb_permissions		= "{$fb_perm}";
+lang				= "{$lang}";
     (function() {
         var s = [
             "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js",

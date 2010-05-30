@@ -19,154 +19,152 @@
 # *																			 #
 ##############################################################################
 
-@set_time_limit(120);
-
 if(!(function_exists("spl_autoload_register")))
 	exit("PHP is missing <a href=\"http://php.net/spl\">Standard PHP Library (SPL)</a> support");
 	
 if(!(function_exists("bcadd")))
 	exit("PHP is missing <a href=\"http://php.net/bcmath\">BCMath Arbitrary Precision Mathematics (BCMath)</a> support");
 
-if((!file_exists(ROOT_PATH . 'config.php') || filesize(ROOT_PATH . 'config.php') == 0) && INSTALL != true)
+if((!defined('INSTALL') || INSTALL == false) && (!file_exists(ROOT_PATH.'config.php') || filesize(ROOT_PATH.'config.php') == 0))
 	exit(header("Location:" . ROOT_PATH .  "install/"));
+	
+ob_start("ob_gzhandler");	
+@ignore_user_abort(true);
+@set_time_limit(120);
+error_reporting(E_ALL ^ E_NOTICE);
+@ini_set('display_errors', 1);
+date_default_timezone_set("Europe/Berlin");
+header('Content-Type: text/html; charset=UTF-8');
+header('Content-Encoding: '.zlib_get_coding_type());
+define('TIMESTAMP',	$_SERVER['REQUEST_TIME']);
+
+if(file_exists(ROOT_PATH . 'config.php'))
+	require_once(ROOT_PATH . 'config.'.PHP_EXT);
+
+session_name($dbsettings["secretword"]);
+session_cache_limiter('nocache');
+session_set_cookie_params(86400);
 
 if(!defined('INSTALL') || !defined('IN_ADMIN') || !defined('IN_CRON'))
 	define("STARTTIME",	microtime(true));
 	
+if(function_exists('memcache_connect'))
+	session_save_path('tcp://localhost:11211?persistent=1&weight=1&timeout=1&retry_interval=15');
 
-error_reporting(E_ALL ^ E_NOTICE);
+if(function_exists('set_magic_quotes_runtime'))
+	@set_magic_quotes_runtime(0);
 
-header('Content-Type: text/html; charset=UTF-8');
+if(!defined('LOGIN') || !defined('IN_CRON'))
+	session_start();
 
-$game_config   	= array();
-$user          	= array();
-$lang          	= array();
-$addmenu       	= array();
-$IsUserChecked 	= false;
-
-if(file_exists(ROOT_PATH . 'config.php'))
-	require_once(ROOT_PATH . 'config.'.PHP_EXT);
-	
 require_once(ROOT_PATH . 'includes/constants.'.PHP_EXT);
 require_once(ROOT_PATH . 'includes/classes/class.MySQLi.'.PHP_EXT);
 require_once(ROOT_PATH . 'includes/GeneralFunctions.'.PHP_EXT);
 require_once(ROOT_PATH . 'includes/vars.'.PHP_EXT);
-date_default_timezone_set("Europe/Berlin");
-isBuggyIe() || ob_start("ob_gzhandler");
 
+date_default_timezone_set("Europe/Berlin");
 set_error_handler('msg_handler', E_ALL);
 set_exception_handler('exception_handler');
 
-if(function_exists('ini_set')) {
-	ini_set('display_errors', 1);
-	ini_set('register_globals', "off");
-	ini_set('register_long_arrays', "off");
-	#ini_set('precision', 30);
-}
-
-if ($database)
-	$db = new DB_MySQLi($database["host"], $database["user"], $database["userpw"], $database["databasename"], $database["port"]);
+if($database)
+	$db = new DB_MySQLi();
 
 unset($database);
 
-
 if (INSTALL != true)
 {
-	if(!is_object($db))
-		trigger_error("Fehler mit Dantenbankconnection! config.php angepasst und eingef&uuml;gt?", E_USER_ERROR);
-	$funcdir = ROOT_PATH . 'includes/functions/autoload/';
-	if ($handle = opendir($funcdir)) {
-		while (false !== ($file = readdir($handle))) {
-			if ($file != "." && $file != ".." && $file != ".svn") {
-				include_once($funcdir.$file);
-			}
-		}
-		closedir($handle);
-	}
+	require_once(ROOT_PATH.'includes/functions/GetBuildingTime.'.PHP_EXT);
+	require_once(ROOT_PATH.'includes/functions/SortUserPlanets.'.PHP_EXT);
+	
 	$cfgresult = $db->query("SELECT HIGH_PRIORITY * FROM `".CONFIG."`;");
 
 	while ($row = $db->fetch($cfgresult))
 	{
-		$game_config[$row['config_name']] = $row['config_value'];
+		$CONF[$row['config_name']] = $row['config_value'];
 	}
 	$db->free_result($cfgresult);
-	$game_config['moduls']	= explode(";", $game_config['moduls']);
+	$CONF['moduls']	= explode(";", $CONF['moduls']);
 
-	define('DEFAULT_LANG'	, (empty($_REQUEST['lang'])) ? ((empty($game_config['lang'])) ? 'deutsch' : $game_config['lang']) : $_REQUEST['lang']);
-	define('VERSION'		, (empty($game_config['VERSION'])) ? '' : "RC".$game_config['VERSION']);
+	define('VERSION'		, 'RC'.$CONF['VERSION']);
 
-	includeLang('INGAME');
-	@setlocale(LC_ALL, $lang['local_info'][0], $lang['local_info'][1], $lang['local_info'][2]);
-	$lang['locale'] = localeconv();
+	@setlocale(LC_ALL, $LNG['local_info'][0], $LNG['local_info'][1], $LNG['local_info'][2]);
+	$LNG['locale'] = localeconv();
 	if (!defined('LOGIN') && !defined('IN_CRON'))
 	{
 		require_once(ROOT_PATH . 'includes/classes/class.CheckSession.'.PHP_EXT);
 
-		$Result        	= new CheckSession();
-		$Result			= $Result->CheckUser($IsUserChecked);
-		$IsUserChecked 	= $Result['state'];
-		$user          	= $Result['record'];
-		if (!$IsUserChecked) die(header('Location: '.ROOT_PATH.'index.php'));
+		$Session       	= new CheckSession();
+		$Result			= $Session->CheckUser($IsUserChecked);
+		if (!$Result) die(header('Location: '.ROOT_PATH.'index.php'));
+	
+		$Session		= NULL;	
+		unset($Session);
 		
-		if($game_config['game_disable'] == 0 && $user['authlevel'] == 0)
+		if($CONF['game_disable'] == 0 && $_SESSION['authlevel'] == 0)
 		{
-			trigger_error($game_config['close_reason'], E_USER_NOTICE);
+			trigger_error($CONF['close_reason'], E_USER_NOTICE);
 		}
-		if (isset($user))
+		
+		if(request_var('ajax', 0) == 0 /*&& $CONF['stats_fly_lock'] == 0*/ && !defined('IN_ADMIN'))
+		{	
+			update_config('stats_fly_lock', TIMESTAMP);
+			$db->query("LOCK TABLE ".AKS." WRITE, ".RW." WRITE, ".MESSAGES." WRITE, ".FLEETS." WRITE, ".PLANETS." WRITE, ".PLANETS." as p WRITE, ".TOPKB." WRITE, ".USERS." WRITE, ".USERS." as u WRITE, ".STATPOINTS." WRITE;");
+				
+			$fleetquery = $db->query("SELECT * FROM ".FLEETS." WHERE (`fleet_start_time` <= '". TIMESTAMP ."' AND `fleet_mess` = '0') OR (`fleet_end_time` <= '". TIMESTAMP ."' AND `fleet_mess` = '1') OR (`fleet_end_stay` <= '". TIMESTAMP ."' AND `fleet_mess` = '2') ORDER BY `fleet_start_time` ASC;");
+			if($db->num_rows($fleetquery) > 0)
+			{
+				require_once(ROOT_PATH . 'includes/classes/class.FlyingFleetHandler.'.PHP_EXT);
+			
+				new FlyingFleetHandler($fleetquery);
+			}
+			$db->free_result($fleetquery);
+			$db->query("UNLOCK TABLES");  
+			update_config('stats_fly_lock', 0);
+		}
+		elseif (TIMESTAMP >= ($CONF['stats_fly_lock'] + (60 * 5))){
+			update_config('stats_fly_lock', 0);
+			$db->query("UNLOCK TABLES");  
+		}
+				
+		$USER	= $db->uniquequery("SELECT u.*, s.`total_rank`, s.`total_points` FROM ".USERS." as u LEFT JOIN ".STATPOINTS." as s ON s.`id_owner` = u.`id` AND s.`stat_type` = '1' WHERE u.`id` = '".$_SESSION['id']."';");
+		define('DEFAULT_LANG'	, $USER['lang']);
+		includeLang('INGAME');
+		includeLang('TECH');
+		
+		if($USER['bana'] == 1)
 		{
-			includeLang('TECH');
+			require_once(ROOT_PATH . 'includes/classes/class.template.'.PHP_EXT);
+			$template	= new template();
+			$template->page_header();	
+			$template->page_footer();
+			$template->message("<font size=\"6px\">".$LNG['css_account_banned_message']."</font><br><br>".sprintf($LNG['css_account_banned_expire'],date("d. M y H:i", $USER['banaday']))."<br><br>".$LNG['css_goto_homeside'], false, 0, true);
+			exit;
+		}
 			
-			if(request_var('ajax', 0) == 0 && $game_config['stats_fly_lock'] == 0 && !defined('IN_ADMIN'))
-			{	
-				update_config('stats_fly_lock', time());
-				$db->multi_query("UNLOCK TABLES;LOCK TABLE ".AKS." WRITE, ".RW." WRITE, ".MESSAGES." WRITE, ".FLEETS." WRITE, ".PLANETS." WRITE, ".TOPKB." WRITE, ".USERS." WRITE, ".STATPOINTS." WRITE;");
-					
-				$fleetquery = $db->query("SELECT * FROM ".FLEETS." WHERE (`fleet_start_time` <= '". time() ."' AND `fleet_mess` = '0') OR (`fleet_end_time` <= '". time() ."' AND `fleet_mess` = '1') OR (`fleet_end_stay` <= '". time() ."' AND `fleet_mess` = '2') ORDER BY `fleet_start_time` ASC;");
-				if($db->num_rows($fleetquery) > 0)
-				{
-					require_once(ROOT_PATH . 'includes/classes/class.FlyingFleetHandler.'.PHP_EXT);
-				
-					new FlyingFleetHandler($fleetquery);
-				}
-				$db->query("UNLOCK TABLES");  
-				update_config('stats_fly_lock', 0);
-			}
-			elseif (time() >= ($game_config['stats_fly_lock'] + (60 * 5))){
-				update_config('stats_fly_lock', 0);
-			}
-			
-			if (defined('IN_ADMIN'))
-			{
-				require_once('AdminFunctions/Autorization.' . PHP_EXT);
-				includeLang('ADMIN');
-				$dpath     = "../". DEFAULT_SKINPATH;			
-			}
-			else
-			{
-				require_once(ROOT_PATH . 'includes/classes/class.template.'.PHP_EXT);
-				require_once(ROOT_PATH . 'includes/classes/class.PlanetRessUpdate.'.PHP_EXT);
-				$dpath     = empty($user["dpath"]) ? DEFAULT_SKINPATH : $user["dpath"];
-			}
-			
-			
-			require_once(ROOT_PATH . 'includes/functions/SetSelectedPlanet.' . PHP_EXT);
-			SetSelectedPlanet ($user);
+		if (defined('IN_ADMIN'))
+		{
+			require_once('AdminFunctions/Autorization.' . PHP_EXT);
+			includeLang('ADMIN');
+			$dpath     = "../". DEFAULT_SKINPATH;			
+		}
+		else
+		{
+			require_once(ROOT_PATH . 'includes/classes/class.template.'.PHP_EXT);
+			require_once(ROOT_PATH . 'includes/classes/class.PlanetRessUpdate.'.PHP_EXT);
+		}
+		
+		$PLANET = $db->uniquequery("SELECT * FROM `".PLANETS."` WHERE `id` = '".$USER['current_planet']."';");
 
-			$planetrow = $db->fetch_array($db->query("SELECT p.*, u.`darkmatter`, u.`new_message` FROM `".PLANETS."` as p LEFT JOIN `".USERS."` as u ON u.`id` = p.`id_owner` WHERE p.`id` = '".$user['current_planet']."';"));
-
-			if(empty($planetrow)){
-				$db->query("UPDATE ".USERS." SET `current_planet` = `id_planet` WHERE `id` = '". $user['id'] ."' LIMIT 1");
-				exit(header("Location: game.php?page=overview"));
-			}
-				
-			// Some Darkmatter Update after FleetMissions
-			$user['darkmatter'] = $planetrow['darkmatter'];
-			$user['new_message'] = $planetrow['new_message'];
-			include_once(ROOT_PATH.'includes/functions/CheckPlanetUsedFields.' . PHP_EXT);
-			CheckPlanetUsedFields($planetrow);
- 		}
+		if(empty($PLANET)){
+			$PLANET = $db->uniquequery("SELECT * FROM `".PLANETS."` WHERE `id` = '".$USER['id_planet']."';");
+		}
+			
+		include_once(ROOT_PATH.'includes/functions/CheckPlanetUsedFields.' . PHP_EXT);
+		CheckPlanetUsedFields($PLANET);
 	} else {
 		//Login
+		define('DEFAULT_LANG'	, (empty($_REQUEST['lang'])) ? ((empty($CONF['lang'])) ? 'deutsch' : $CONF['lang']) : $_REQUEST['lang']);
+		includeLang('INGAME');
 		require_once(ROOT_PATH . 'includes/classes/class.template.'.PHP_EXT);
 	}
 }

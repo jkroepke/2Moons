@@ -19,11 +19,11 @@
 # *																			 #
 ##############################################################################
 
-if(!defined('INSIDE')){ die(header("location:../../"));}
+if(!defined('INSIDE')) die('Hacking attempt!');
 
 	function DeleteSelectedUser($UserID)
 	{
-		global $db ,$game_config;
+		global $db ,$CONF;
 		
 		$TheUser = $db->fetch_array($db->query("SELECT ally_id FROM ".USERS." WHERE `id` = '" . $UserID . "';"));
 		$sql 	 = "";
@@ -52,12 +52,12 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 		$sql .= "DELETE FROM ".BUDDY." WHERE `owner` = '" . $UserID . "' OR `sender` = '" . $UserID . "';";
 		$sql .= "DELETE FROM ".USERS." WHERE `id` = '" . $UserID . "';";
 		$db->multi_query($sql);
-		update_config("users_amount", $game_config['users_amount'] - 1);
+		update_config("users_amount", $CONF['users_amount'] - 1);
 	}
    
 	function DeleteSelectedPlanet ($ID)
 	{
-		global $lang, $db;
+		global $LNG, $db;
 
 		$QueryPlanet = $db->fetch_array($db->query("SELECT galaxy,planet,system,planet_type FROM ".PLANETS." WHERE id = '".$ID."';"));
 

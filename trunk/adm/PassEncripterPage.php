@@ -28,9 +28,9 @@ include(ROOT_PATH . 'extension.inc');
 include(ROOT_PATH . 'common.'.PHP_EXT);
 
 
-if ($ToolsCanUse != 1) die(message ($lang['404_page']));
+if ($ToolsCanUse != 1) die(message ($LNG['404_page']));
 
-	$parse = $lang;
+	$parse = $LNG;
 	if ($_POST['md5q'] != "")
 	{
 		$parse['md5_md5'] = $_POST['md5q'];
