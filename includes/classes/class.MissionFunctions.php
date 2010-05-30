@@ -59,6 +59,7 @@ class MissionFunctions
 			if (empty($Group)) continue;
 
 			$Class			= explode(',', $Group);
+			if(!isset($resource[$Class[0]])) continue;
 			$QryUpdFleet	.= "p.`".$resource[$Class[0]]."` = p.`".$resource[$Class[0]]."` + '".$Class[1]."', ";
 		}
 
