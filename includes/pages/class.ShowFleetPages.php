@@ -382,7 +382,7 @@ class ShowFleetPages extends FleetFunctions
 		$template	= new template();
 		$template->loadscript('flotten.js');
 		$template->loadscript('ocnt.js');
-		$template->gotoside("game.php?page=fleet");
+		$template->gotoside('?page=fleet');
 		$template->page_header();	
 		$template->page_topnav();
 		$template->page_leftmenu();
@@ -475,12 +475,6 @@ class ShowFleetPages extends FleetFunctions
 
 		$MyDBRec       		= $USER;
 
-		$protection      	= $CONF['noobprotection'];
-		$protectiontime  	= $CONF['noobprotectiontime'];
-		$protectionmulti 	= $CONF['noobprotectionmulti'];
-
-		$protectiontime		= ($protectiontime < 1) ? 9999999999999999 : 0;
-
 		$FleetArray  		= parent::GetFleetArray($rawfleetarray);
 		
 		if (!is_array($FleetArray))
@@ -560,7 +554,7 @@ class ShowFleetPages extends FleetFunctions
 				exit;
 			}
 			
-			$UserPoints    	= $USER['total_rank'];
+			$UserPoints    	= $USER;
 			$User2Points  	= $db->uniquequery("SELECT `total_points` FROM ".STATPOINTS." WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $HeDBRec['id'] ."';");
 		
 			$IsNoobProtec	= CheckNoobProtec($UserPoints, $User2Points, $HeDBRec['onlinetime']);
@@ -867,7 +861,7 @@ class ShowFleetPages extends FleetFunctions
 				die ($ResultMessage);
 			}
 
-			$UserPoints   	= $USER['total_points'];
+			$UserPoints   	= $USER;
 			$User2Points  	= $db->uniquequery("SELECT `total_points` FROM ".STATPOINTS." WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $TargetRow['id_owner'] ."';");
 		
 			$IsNoobProtec	= CheckNoobProtec($UserPoints, $User2Points, $TargetUser['onlinetime']);
@@ -991,7 +985,7 @@ class ShowFleetPages extends FleetFunctions
 		
 		$TargetUser	   	= GetUserByID($Target['id_owner'], array('onlinetime'));
 		
-		$UserPoints   	= $USER['total_points'];
+		$UserPoints   	= $USER;
 		$User2Points  	= $db->uniquequery("SELECT `total_points` FROM ".STATPOINTS." WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $Target['id_owner'] ."';");
 		
 		$IsNoobProtec	= CheckNoobProtec($UserPoints, $User2Points, $TargetUser['onlinetime']);
