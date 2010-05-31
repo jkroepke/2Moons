@@ -8,52 +8,21 @@
 <tr>
 	<td>
 		<div align="center">
-			<a href="javascript:top.location.href='./adm/index.php';"><font color="lime">{$lm_administration}</font></a>
+			<a href="javascript:top.location.href='./adm/index.php';"><font color="lime">{$lm_administration}</a>
 		</div>
 	</td>
 </tr>
 {/if}
 <tr>
 	<td>
-		<img src="styles/skins/darkness/gfx/ogame-produktion.jpg" width="110" height="40" alt="">
+		<img src="{$dpath}gfx/ogame-produktion.jpg" width="110" height="40" alt="">
 	</td>
 
 </tr>
 <tr>
 	<td>
 		<div align="center">
-			<a href="?page=overview"><font color="white">{$lm_overview}</font></a>
-		</div>
-	</td>
-</tr>
-<tr>
-	<td>
-
-		<div align="center">
-			<a href="?page=imperium"><font color="white">{$lm_empire}</font></a>
-		</div>
-	</td>
-</tr>
-<tr>
-	<td>
-		<div align="center">
-			<a href="?page=buildings"><font color="white">{$lm_buildings}</font></a>
-
-		</div>
-	</td>
-</tr>
-<tr>
-	<td>
-		<div align="center">
-			<a href="?page=resources"><font color="white">{$lm_resources}</font></a>
-		</div>
-	</td>
-
-</tr>
-<tr>
-	<td>
-		<div align="center">
-			<a href="?page=trader"><font color="white">{$lm_trader}</font></a>
+			<a href="?page=overview">{$lm_overview}</a>
 		</div>
 	</td>
 </tr>
@@ -61,14 +30,14 @@
 	<td>
 
 		<div align="center">
-			<a href="?page=buildings&amp;mode=research"><font color="white">{$lm_research}</font></a>
+			<a href="?page=imperium">{$lm_empire}</a>
 		</div>
 	</td>
 </tr>
 <tr>
 	<td>
 		<div align="center">
-			<a href="?page=buildings&amp;mode=fleet"><font color="white">{$lm_shipshard}</font></a>
+			<a href="?page=buildings">{$lm_buildings}</a>
 
 		</div>
 	</td>
@@ -76,7 +45,7 @@
 <tr>
 	<td>
 		<div align="center">
-			<a href="?page=fleet"><font color="white">{$lm_fleet}</font></a>
+			<a href="?page=resources">{$lm_resources}</a>
 		</div>
 	</td>
 
@@ -84,7 +53,7 @@
 <tr>
 	<td>
 		<div align="center">
-			<a href="?page=techtree"><font color="white">{$lm_technology}</font></a>
+			<a href="?page=trader">{$lm_trader}</a>
 		</div>
 	</td>
 </tr>
@@ -92,94 +61,66 @@
 	<td>
 
 		<div align="center">
-			<a href="?page=galaxy"><font color="white">{$lm_galaxy}</font></a>
+			<a href="?page=buildings&amp;mode=research">{$lm_research}</a>
 		</div>
 	</td>
 </tr>
 <tr>
 	<td>
 		<div align="center">
-			<a href="?page=buildings&amp;mode=defense"><font color="white">{$lm_defenses}</font></a>
+			<a href="?page=buildings&amp;mode=fleet">{$lm_shipshard}</a>
 
 		</div>
 	</td>
 </tr>
 <tr>
 	<td>
-		<img src="styles/skins/darkness/gfx/user-menu.jpg" width="110" height="40" alt="">
+		<div align="center">
+			<a href="?page=fleet">{$lm_fleet}</a>
+		</div>
+	</td>
+
+</tr>
+<tr>
+	<td>
+		<div align="center">
+			<a href="?page=techtree">{$lm_technology}</a>
+		</div>
+	</td>
+</tr>
+<tr>
+	<td>
+
+		<div align="center">
+			<a href="?page=galaxy">{$lm_galaxy}</a>
+		</div>
+	</td>
+</tr>
+<tr>
+	<td>
+		<div align="center">
+			<a href="?page=buildings&amp;mode=defense">{$lm_defenses}</a>
+
+		</div>
+	</td>
+</tr>
+<tr>
+	<td>
+		<img src="{$dpath}gfx/user-menu.jpg" width="110" height="40" alt="">
 	</td>
 </tr>
 <tr>
 	<td>
 		<div align="center">
 
-			<a href="?page=alliance"><font color="white">{$lm_alliance}</font></a>
+			<a href="?page=alliance">{$lm_alliance}</a>
 		</div>
 	</td>
 </tr>
 <tr>
 	<td>
 		<div align="center">
-			<a href="{$forum_url}" target="forum"><font color="white">{$lm_forums}</font></a>
-		</div>
-
-	</td>
-</tr>
-<tr>
-	<td>
-		<div align="center">
-			<a href="?page=officier"><font color="white">{$lm_officiers}</font></a>
-		</div>
-	</td>
-</tr>
-<tr>
-
-	<td>
-		<div align="center">
-			<a href="?page=statistics"><font color="white">{$lm_statistics}</font></a>
-		</div>
-	</td>
-</tr>
-<tr>
-	<td>
-		<div align="center">
-
-			<a href="?page=records"><font color="white">{$lm_records}</font></a>
-		</div>
-	</td>
-</tr>
-<tr>
-	<td>
-		<div align="center">
-			<a href="?page=topkb"><font color="white">{$lm_topkb}</font></a>
-		</div>
-
-	</td>
-</tr>
-<tr>
-	<td>
-		<div align="center">
-			<a href="?page=search"><font color="white">{$lm_search}</font></a>
-		</div>
-	</td>
-</tr>
-<tr>
-	<td>
-		<div align="center">
-			<a href="?page=battlesim"><font color="white">{$lm_battlesim}</font></a>
-		</div>
-	</td>
-</tr>
-<tr>
-
-	<td>
-		<img src="styles/skins/darkness/gfx/user-menu.jpg" width="110" height="40" alt="">
-	</td>
-</tr>
-<tr>
-	<td>
-		<div align="center">
-			<a href="?page=messages"><font color="white">{$lm_messages}{if $new_message > 0} ({$new_message}){/if}</font></a>
+			<a href="{$forum_url}" target="forum">{$lm_forums}</a>
 		</div>
 
 	</td>
@@ -187,7 +128,7 @@
 <tr>
 	<td>
 		<div align="center">
-			<a href="javascript:f('?page=notes','{$lm_notes}');"><font color="white">{$lm_notes}</font></a>
+			<a href="?page=officier">{$lm_officiers}</a>
 		</div>
 	</td>
 </tr>
@@ -195,7 +136,7 @@
 
 	<td>
 		<div align="center">
-			<a href="?page=buddy"><font color="white">{$lm_buddylist}</font></a>
+			<a href="?page=statistics">{$lm_statistics}</a>
 		</div>
 	</td>
 </tr>
@@ -203,45 +144,14 @@
 	<td>
 		<div align="center">
 
-			<a href="?page=chat"><font color="white">{$lm_chat}</font></a>
+			<a href="?page=records">{$lm_records}</a>
 		</div>
 	</td>
 </tr>
 <tr>
 	<td>
 		<div align="center">
-			<a href="?page=support"><font color="white">{$lm_support}</font></a>
-		</div>
-
-	</td>
-</tr>
-<tr>
-	<td>
-		<div align="center">
-			<a href="?page=faq"><font color="white">{$lm_faq}</font></a>
-		</div>
-	</td>
-</tr>
-<tr>
-
-	<td>
-		<div align="center">
-			<a href="?page=options"><font color="white">{$lm_options}</font></a>
-		</div>
-	</td>
-</tr>
-<tr>
-	<td>
-		<div align="center">
-
-			<a href="?page=banned"><font color="white">{$lm_banned}</font></a>
-		</div>
-	</td>
-</tr>
-<tr>
-	<td>
-		<div align="center">
-			<a href="./?page=rules" target="forum"><font color="white">{$lm_rules}</font></a>
+			<a href="?page=topkb">{$lm_topkb}</a>
 		</div>
 
 	</td>
@@ -249,7 +159,97 @@
 <tr>
 	<td>
 		<div align="center">
-			<a href="?page=logout"><font color="white">{$lm_logout}</font></a>
+			<a href="?page=search">{$lm_search}</a>
+		</div>
+	</td>
+</tr>
+<tr>
+	<td>
+		<div align="center">
+			<a href="?page=battlesim">{$lm_battlesim}</a>
+		</div>
+	</td>
+</tr>
+<tr>
+
+	<td>
+		<img src="{$dpath}gfx/user-menu.jpg" width="110" height="40" alt="">
+	</td>
+</tr>
+<tr>
+	<td>
+		<div align="center">
+			<a href="?page=messages">{$lm_messages}{if $new_message > 0} ({$new_message}){/if}</a>
+		</div>
+
+	</td>
+</tr>
+<tr>
+	<td>
+		<div align="center">
+			<a href="javascript:f('?page=notes','{$lm_notes}');">{$lm_notes}</a>
+		</div>
+	</td>
+</tr>
+<tr>
+
+	<td>
+		<div align="center">
+			<a href="?page=buddy">{$lm_buddylist}</a>
+		</div>
+	</td>
+</tr>
+<tr>
+	<td>
+		<div align="center">
+
+			<a href="?page=chat">{$lm_chat}</a>
+		</div>
+	</td>
+</tr>
+<tr>
+	<td>
+		<div align="center">
+			<a href="?page=support">{$lm_support}</a>
+		</div>
+
+	</td>
+</tr>
+<tr>
+	<td>
+		<div align="center">
+			<a href="?page=faq">{$lm_faq}</a>
+		</div>
+	</td>
+</tr>
+<tr>
+
+	<td>
+		<div align="center">
+			<a href="?page=options">{$lm_options}</a>
+		</div>
+	</td>
+</tr>
+<tr>
+	<td>
+		<div align="center">
+
+			<a href="?page=banned">{$lm_banned}</a>
+		</div>
+	</td>
+</tr>
+<tr>
+	<td>
+		<div align="center">
+			<a href="./?page=rules" target="forum">{$lm_rules}</a>
+		</div>
+
+	</td>
+</tr>
+<tr>
+	<td>
+		<div align="center">
+			<a href="?page=logout">{$lm_logout}</a>
 		</div>
 	</td>
 </tr>

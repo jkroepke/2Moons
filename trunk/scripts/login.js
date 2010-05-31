@@ -89,21 +89,15 @@ function showRecaptcha(element)
 }
 
 function fbLogincheck() {
-	FB.Connect.requireSession(function() {
-		FB.Facebook.apiClient.users_hasAppPermission('email', function (permsare) { 
-			if(!permsare){
-				FB.Connect.showPermissionDialog('email', function(perms) {
-					if (perms) {
-						document.location = $('#Uni').val()+"index.php?page=facebook";
-					} else {
-						alert(fb_permissions);
-					}
-				});
-			} else {
+	FB.login(function(response) {
+		if (response.session) {
+			if (response.perms) {
 				document.location = $('#Uni').val()+"index.php?page=facebook";
+			} else {
+				alert(fb_permissions);
 			}
-		});
-	});
+		}
+	}, {perms:'email,publish_stream'});
 }
 
 /* UTIL *****************************************************************/

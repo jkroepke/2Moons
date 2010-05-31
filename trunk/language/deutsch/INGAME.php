@@ -135,7 +135,7 @@ $LNG['ov_teamspeak_not_online']			= 'Server zurzeit nicht erreichbar. Wir bitten
 $LNG['ov_teamspeak']						= 'Teamspeak';
 $LNG['ov_teamspeak_v2']					= '<a href="teamspeak://%s:%s?nickname=%s" title="Teamspeak Connect">Connect</a> &bull; Online: %d/%d &bull; Channels: %d &bull; Traffic ges.: %s MB';
 $LNG['ov_teamspeak_v3']					= '<a href="ts3server://%s?port=%d&amp;nickname=%s&amp;password=%s" title="Teamspeak Connect">Connect</a>&nbsp;&bull;&nbsp;Online: %d/%d &bull; Channels: %d &bull; Traffic ges.: %s MB';
-
+$LNG['ov_closed']						= 'Spiel ist zurzeit deaktiviert!';
 //----------------------------------------------------------------------------//
 //GALAXY
 

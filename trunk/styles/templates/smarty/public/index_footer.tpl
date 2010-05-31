@@ -14,11 +14,7 @@ lang				= "{$lang}";
             "scripts/soundmanager2.js",
             "scripts/jquery.loadmask.js",
             "scripts/jquery.cookie.js",
-            "http://browser-update.org/update.js",
-			{if $fb_active}
-			"http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php",
-			{/if}
-            {if $game_captcha}
+	        {if $game_captcha}
 			"http://api.recaptcha.net/js/recaptcha_ajax.js",
 			{/if}
 			{if $ga_active}
@@ -48,9 +44,24 @@ pageTracker._trackPageview();
 } catch(err) {}</script>
 {/if}
 {if $fb_active}
-<script type="text/javascript">	
-FB.init("{$fb_key}", "scripts/xd_receiver.htm");
+<div id="fb-root"> </div>
+<script type="text/javascript">
+  window.fbAsyncInit = function() {
+    FB.init({
+		appId: '{$fb_key}', 
+		status: true, 
+		cookie: true,
+        xfbml: true
+	});
+  };
+  (function() {
+    var e = document.createElement('script'); e.async = true;
+    e.src = document.location.protocol +
+      '//connect.facebook.net/en_US/all.js';
+    document.getElementById('fb-root').appendChild(e);
+  }());
 </script>
+
 {/if}
 </body>
 </html>

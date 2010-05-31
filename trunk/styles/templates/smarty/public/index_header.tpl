@@ -37,7 +37,7 @@
               </tr>
             </table></td>
             <td class='menu-separator'><div>&nbsp;</div></td>
-            <td class='menu-item'><table width="87" onmouseover='buttonOver(this, "button button-normal-over")' onmouseout='buttonOut(this)' class='button button-normal'>
+            <td class='menu-item'><table onmouseover='buttonOver(this, "button button-normal-over")' onmouseout='buttonOut(this)' class='button button-normal'>
               <tr>
                 <td class='button-left'><a href='{$forum_url}' target='_blank'>&nbsp;</a></td>
                 <td class='button-center'><a href='{$forum_url}' target='_blank'>{$forum}</a></td>
