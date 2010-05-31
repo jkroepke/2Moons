@@ -34,6 +34,9 @@ class ResourceUpdate
 		if($this->Build)
 		{
 			$this->ShipyardQueue();
+			
+			if($USER['b_tech'] != 0 && $USER['b_tech'] < TIMESTAMP)
+				$this->ResearchQueue();
 			if($PLANET['b_building'] != 0)
 				$this->BuildingQueue();
 		}	
@@ -330,37 +333,52 @@ class ResourceUpdate
 		$PLANET['b_building_id'] = $NewQueue;
 	}
 	
+	private function ResearchQueue()
+	{
+		global $USER, $PLANET;
+			
+		$this->Builded[$USER['b_tech_id']]	= 1;
+		$USER['b_tech_id']					= 0;
+		$USER['b_tech']      				= 0;
+		$USER['b_tech_planet']				= 0;
+	}
+	
 	public function SavePlanetToDB()
 	{
 		global $resource, $db, $USER, $PLANET;
 		
 		$Qry	= "UPDATE ".PLANETS." as p, ".USERS." as u SET
 				   `p`.`metal` = '".floattostring($PLANET['metal'], 6)."',
-				   `p`.`crystal` = '"          . floattostring($PLANET['crystal'], 6)."',
-				   `p`.`deuterium` = '"        . floattostring($PLANET['deuterium'], 6)."',
-				   `p`.`last_update` = '"      . $PLANET['last_update']."',
-				   `p`.`b_building` = '"       . $PLANET['b_building']."',
-				   `p`.`b_building_id` = '"    . $PLANET['b_building_id']."',
-				   `p`.`field_current` = '"    . $PLANET['field_current']."',
-				   `p`.`b_hangar_id` = '"      . $PLANET['b_hangar_id']."',
-				   `p`.`metal_perhour` = '"    . $PLANET['metal_perhour']."',
-				   `p`.`crystal_perhour` = '"  . $PLANET['crystal_perhour']."',
-				   `p`.`deuterium_perhour` = '". $PLANET['deuterium_perhour']."',
-				   `p`.`metal_max` = '"        . $PLANET['metal_max']."',
-				   `p`.`crystal_max` = '"      . $PLANET['crystal_max']."',
-				   `p`.`deuterium_max` = '"    . $PLANET['deuterium_max']."',
-				   `p`.`energy_used` = '"      . $PLANET['energy_used']."',
-				   `p`.`energy_max` = '"       . $PLANET['energy_max']."', ";
+				   `p`.`crystal` = '".floattostring($PLANET['crystal'], 6)."',
+				   `p`.`deuterium` = '".floattostring($PLANET['deuterium'], 6)."',
+				   `p`.`last_update` = '".$PLANET['last_update']."',
+				   `p`.`b_building` = '".$PLANET['b_building']."',
+				   `p`.`b_building_id` = '".$PLANET['b_building_id']."',
+				   `p`.`field_current` = '".$PLANET['field_current']."',
+				   `p`.`b_hangar_id` = '".$PLANET['b_hangar_id']."',
+				   `p`.`metal_perhour` = '".$PLANET['metal_perhour']."',
+				   `p`.`crystal_perhour` = '".$PLANET['crystal_perhour']."',
+				   `p`.`deuterium_perhour` = '".$PLANET['deuterium_perhour']."',
+				   `p`.`metal_max` = '".$PLANET['metal_max']."',
+				   `p`.`crystal_max` = '".$PLANET['crystal_max']."',
+				   `p`.`deuterium_max` = '".$PLANET['deuterium_max']."',
+				   `p`.`energy_used` = '".$PLANET['energy_used']."',
+				   `p`.`energy_max` = '".$PLANET['energy_max']."', ";
 		if (!empty($this->Builded))
 		{
 			foreach($this->Builded as $Element => $Count)
 			{
-				if(isset($resource[$Element]))
-					$Qry	.= "`p`.`".$resource[$Element]."` = ".$resource[$Element]." + '".$Count."', ";
+				if(isset($PLANET[$resource[$Element]]))
+					$Qry	.= "`p`.`".$resource[$Element]."` = `p`.`".$resource[$Element]."` + '".$Count."', ";
+				elseif(isset($USER[$resource[$Element]]))
+					$Qry	.= "`u`.`".$resource[$Element]."` = `u`.`".$resource[$Element]."` + '".$Count."', ";
 			}
 		}
 		$Qry	.= "`p`.`b_hangar` = '". $PLANET['b_hangar'] ."',
-					`u`.`darkmatter` = '".$USER['darkmatter']."' 
+					`u`.`darkmatter` = '".$USER['darkmatter']."',
+					`u`.`b_tech` = '".$USER['b_tech']."',
+					`u`.`b_tech_id` = '".$USER['b_tech_id']."',
+					`u`.`b_tech_planet` = '".$USER['b_tech_planet']."'
 					WHERE
 					`p`.`id` = '". $PLANET['id'] ."' AND
 					`u`.`id` = '".$USER['id']."';";

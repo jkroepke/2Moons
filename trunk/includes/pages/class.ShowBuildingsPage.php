@@ -277,11 +277,9 @@ class ShowBuildingsPage
 
 		include_once(ROOT_PATH . 'includes/functions/IsTechnologieAccessible.' . PHP_EXT);
 		include_once(ROOT_PATH . 'includes/functions/GetElementPrice.' . PHP_EXT);
-		include_once(ROOT_PATH . 'includes/functions/HandleTechnologieBuild.' . PHP_EXT);
 		
 		CheckPlanetUsedFields($PLANET);
-		$Research		= HandleTechnologieBuild($PLANET, $USER);
-        $TheCommand  	= request_var('cmd','');
+		$TheCommand  	= request_var('cmd','');
         $Element     	= request_var('building',0);
         $ListID      	= request_var('listid',0);
 
@@ -349,7 +347,7 @@ class ShowBuildingsPage
 				else
 					$parse['click'] = "<font color=\"#FF0000\">".$LNG['bd_no_more_fields']."</font>";
 
-				if ($Element == 31 && $USER["b_tech_planet"] != 0 && $Research['OnWork'])
+				if ($Element == 31 && $USER['b_tech'] > TIMESTAMP)
 					$parse['click'] = "<font color=\"#FF0000\">".$LNG['bd_working']."</font>";
 				elseif (($Element == 15 || $Element == 21) && !empty($PLANET['b_hangar_id']))
 					$parse['click'] = "<font color=\"#FF0000\">".$LNG['bd_working']."</font>";

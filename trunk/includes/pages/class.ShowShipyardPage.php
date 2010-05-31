@@ -147,7 +147,24 @@ class ShowShipyardPage
 		
 		$PlanetRess = new ResourceUpdate();
 		$PlanetRess->CalcResource();
-		if (!empty($fmenge))
+		
+		
+		$NotBuilding = true;
+
+		if (!empty($PLANET['b_building_id']))
+		{
+			$CurrentQueue = $PLANET['b_building_id'];
+			$QueueArray		= explode (";", $CurrentQueue);
+
+			for($i = 0; $i < count($QueueArray); $i++)
+			{
+				$ListIDArray	= explode (",", $QueueArray[$i]);
+				if($ListIDArray[0] == 21 || $ListIDArray[0] == 15)
+					$NotBuilding = false;
+			}
+		}
+		
+		if (!empty($fmenge) && $NotBuilding == true)
 		{
 			$AddedInQueue = false;
 
@@ -187,21 +204,6 @@ class ShowShipyardPage
 			$this->CancelAuftr($cancel);
 
 		$PlanetRess->SavePlanetToDB();
-		
-		$NotBuilding = true;
-
-		if (!empty($PLANET['b_building_id']))
-		{
-			$CurrentQueue = $PLANET['b_building_id'];
-			$QueueArray		= explode (";", $CurrentQueue);
-
-			for($i = 0; $i < count($QueueArray); $i++)
-			{
-				$ListIDArray	= explode (",", $QueueArray[$i]);
-				if($ListIDArray[0] == 21 || $ListIDArray[0] == 15)
-					$NotBuilding = false;
-			}
-		}
 
 		$template	= new template();
 		if(!empty($PLANET['b_hangar_id']))
@@ -303,8 +305,22 @@ class ShowShipyardPage
 								
 		$PlanetRess = new ResourceUpdate();
 		$PlanetRess->CalcResource();
+		$NotBuilding = true;
+
+		if (!empty($PLANET['b_building_id']))
+		{
+			$CurrentQueue = $PLANET['b_building_id'];
+			$QueueArray		= explode (";", $CurrentQueue);
+
+			for($i = 0; $i < count($QueueArray); $i++)
+			{
+				$ListIDArray	= explode (",", $QueueArray[$i]);
+				if($ListIDArray[0] == 21 || $ListIDArray[0] == 15)
+					$NotBuilding = false;
+			}
+		}
 		
-		if (isset($fmenge))
+		if (isset($fmenge) && $NotBuilding == true)
 		{
 			$Missiles[502] = $PLANET[$resource[502]];
 			$Missiles[503] = $PLANET[$resource[503]];
@@ -405,21 +421,6 @@ class ShowShipyardPage
 			$this->CancelAuftr($cancel);
 
 		$PlanetRess->SavePlanetToDB();
-
-		$NotBuilding = true;
-
-		if (!empty($PLANET['b_building_id']))
-		{
-			$CurrentQueue = $PLANET['b_building_id'];
-			$QueueArray		= explode (";", $CurrentQueue);
-
-			for($i = 0; $i < count($QueueArray); $i++)
-			{
-				$ListIDArray	= explode (",", $QueueArray[$i]);
-				if($ListIDArray[0] == 21 || $ListIDArray[0] == 15)
-					$NotBuilding = false;
-			}
-		}
 
 		if(!empty($PLANET['b_hangar_id']))
 		{
