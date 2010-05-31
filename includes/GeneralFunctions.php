@@ -53,7 +53,7 @@ function ValidateAddress($address) {
     }
 }
 
-function message ($mes, $dest = "", $time = "3", $topnav = false, $menu = true)
+function message($mes, $dest = "", $time = "3", $topnav = false, $menu = true)
 {
 	if(defined('IN_ADMIN') || (defined('INSTALL') && INSTALL != false)) {
 		display(parsetemplate(gettemplate('adm/message_body'), array('mes' => $mes)), $topnav, (($dest != "") ? "<meta http-equiv=\"refresh\" content=\"$time;URL=$dest\">" : ""), true, (!defined('IN_ADMIN')? $menu : false));
@@ -67,24 +67,12 @@ function message ($mes, $dest = "", $time = "3", $topnav = false, $menu = true)
 
 function display ($page, $topnav = true, $metatags = '', $AdminPage = false, $menu = true)
 {
-	global $CONF, $USER, $PLANET, $db;
-	
-	if (!headers_sent()) {
-		header('Last-Modified: '.date('D, d M Y H:i:s T'));
-		header('Expires: 0');
-		header('Pragma: no-cache');
-		header('Cache-Control: private, no-store, no-cache, must-revalidate, max-age=0');
-		header('Cache-Control: post-check=0, pre-check=0', false); 
-	}
-	
-	$DisplayPage = AdminUserHeader($metatags);
-	$DisplayPage .= "\n<center>\n". $page ."\n</center>\n";
-	$DisplayPage .= parsetemplate(gettemplate('adm/simple_footer'), $parse);
-	
-	echo $DisplayPage;
+	echo AdminUserHeader($metatags);
+	echo "\n<center>\n". $page ."\n</center>\n";
+	echo gettemplate('adm/simple_footer');
 }
 
-function AdminUserHeader ($metatags = '')
+function AdminUserHeader($metatags = '')
 {
 	global $CONF;
 
@@ -136,7 +124,7 @@ function gettemplate ($templatename)
 {
 	if(!($temp = @file_get_contents(ROOT_PATH . TEMPLATE_DIR . $templatename . ".tpl")))
 	{
-		trigger_error("Konnte Templatefile ". $templatename . " nicht finden!", E_USER_WARNING);
+		throw new Exception('Konnte Templatefile '. $templatename .' nicht finden!');
 	}
 	return $temp;
 }

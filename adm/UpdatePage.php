@@ -135,11 +135,11 @@ if ($USER['authlevel'] != 3) die();
 				exitupdate(array('debug' => array('noupdate' => "Kein Update vorhanden!")));
 				
 			$SVN_ROOT		= $UpdateArray['info']['svn'];
-			$CONF 		= array("host" => $CONF['ftp_server'], "username" => $CONF['ftp_user_name'], "password" => $CONF['ftp_user_pass'], "port"     => 21 ); 
+			$CONFIG 		= array("host" => $CONF['ftp_server'], "username" => $CONF['ftp_user_name'], "password" => $CONF['ftp_user_pass'], "port"     => 21 ); 
 			try
 			{
 				$ftp = FTP::getInstance(); 
-				$ftp->connect($CONF);
+				$ftp->connect($CONFIG);
 				$Result['debug']['connect']	= "FTP-Verbindungsaufbau: OK!";
 			}
 			catch (FTPException $error)

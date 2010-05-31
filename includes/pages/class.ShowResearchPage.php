@@ -126,10 +126,6 @@ class ShowResearchPage
 
 		include_once(ROOT_PATH . 'includes/functions/IsTechnologieAccessible.' . PHP_EXT);
 		include_once(ROOT_PATH . 'includes/functions/GetElementPrice.' . PHP_EXT);
-		include_once(ROOT_PATH . 'includes/functions/HandleTechnologieBuild.' . PHP_EXT);
-		
-		$PlanetRess = new ResourceUpdate();
-		$PlanetRess->CalcResource()->SavePlanetToDB();
 		
 		$template	= new template();
 		$template->page_header();	
@@ -137,10 +133,6 @@ class ShowResearchPage
 		$template->page_leftmenu();
 		$template->page_planetmenu();
 		$template->page_footer();				
-		
-		$IsWorking = HandleTechnologieBuild($PLANET, $USER);
-		$ThePlanet	= $IsWorking['WorkOn'];
-		$InResearch	= $IsWorking['OnWork'];
 		
 		if ($PLANET[$resource[31]] == 0)
 		{
@@ -153,79 +145,48 @@ class ShowResearchPage
 		$PLANET[$resource[31].'_inter']	= $this->CheckAndGetLabLevel($USER, $PLANET);		
 		
 		$TheCommand		= request_var('cmd','');
-		$Techno     	= request_var('tech', 0);
-							
-		if (empty($USER['b_tech_planet']) && !empty($TheCommand) && !empty($Techno) && in_array($Techno, $reslist['tech']) && isset($pricelist[$Techno]['max']) && $USER[$resource[$Techno]] < $pricelist[$Techno]['max'])
+		$Element     	= request_var('tech', 0);
+		$PlanetRess 	= new ResourceUpdate();
+		if (!empty($TheCommand) && !empty($Element) && in_array($Element, $reslist['tech']) && $USER[$resource[$Element]] < $pricelist[$Element]['max'])
 		{
-			$WorkingPlanet = (is_array($ThePlanet)) ? $ThePlanet : $PLANET;
 			switch($TheCommand)
 			{
 				case 'cancel':
-					if ($ThePlanet['b_tech_id'] != $Techno)
+					if (empty($USER['b_tech']))
 						break;
-						
-					$costs                        = GetBuildingPrice($USER, $WorkingPlanet, $Techno);
-					$WorkingPlanet['metal']      += $costs['metal'];
-					$WorkingPlanet['crystal']    += $costs['crystal'];
-					$WorkingPlanet['deuterium']  += $costs['deuterium'];
-					$USER['darkmatter']  		 += $costs['darkmatter'];
-					$WorkingPlanet['b_tech_id']   = 0;
-					$WorkingPlanet["b_tech"]      = 0;
-					$USER['b_tech_planet'] 		  = 0;
-					$UpdateData                   = true;
-					$InResearch                   = false;
+
+					$costs						= GetBuildingPrice($USER, $PLANET, $Element);
+					if($PLANET['id'] == $USER['b_tech_planet'])
+					{
+						$PLANET['metal']      		+= $costs['metal'];
+						$PLANET['crystal']    		+= $costs['crystal'];
+						$PLANET['deuterium'] 		+= $costs['deuterium'];	
+					} else {
+						$db->query("UPDATE ".PLANETS." SET `metal` = `metal` + '".$costs['metal']."', `crystal` = `crystal` + '".$costs['crystal']."', `deuterium` = `deuterium` + '".$costs['deuterium']."' WHERE `id` = '".$USER['b_tech_planet']."';");
+					}
+					
+					$USER['darkmatter']			+= $costs['darkmatter'];
+					$USER['b_tech_id']			= 0;
+					$USER['b_tech']      		= 0;
+					$USER['b_tech_planet']		= 0;
 				break;
 				case 'search':
-					if (!IsTechnologieAccessible($USER, $WorkingPlanet, $Techno) || !IsElementBuyable($USER, $WorkingPlanet, $Techno))
+					if (!empty($USER['b_tech']) || !IsTechnologieAccessible($USER, $PLANET, $Element) || !IsElementBuyable($USER, $PLANET, $Element))
 						break;
 						
-					$costs                        = GetBuildingPrice($USER, $WorkingPlanet, $Techno);
-					$WorkingPlanet['metal']      -= $costs['metal'];
-					$WorkingPlanet['crystal']    -= $costs['crystal'];
-					$WorkingPlanet['deuterium']  -= $costs['deuterium'];
-					$USER['darkmatter']   		 -= $costs['darkmatter'];
-					$WorkingPlanet["b_tech_id"]   = $Techno;
-					$WorkingPlanet["b_tech"]      = TIMESTAMP + GetBuildingTime($USER, $WorkingPlanet, $Techno);
-					$USER["b_tech_planet"] 		  = $WorkingPlanet["id"];
-					$UpdateData                   = true;
-					$InResearch                   = true;
+					$costs						= GetBuildingPrice($USER, $PLANET, $Element);
+					$PLANET['metal']      		-= $costs['metal'];
+					$PLANET['crystal']    		-= $costs['crystal'];
+					$PLANET['deuterium'] 		-= $costs['deuterium'];
+					$USER['darkmatter']			-= $costs['darkmatter'];
+					$USER['b_tech_id']			= $Element;
+					$USER['b_tech']      		= TIMESTAMP + GetBuildingTime($USER, $PLANET, $Element);
+					$USER['b_tech_planet']		= $PLANET['id'];
 				break;
-				default:
-					$UpdateData == false;
-				break;
-			}
-			if ($UpdateData == true)
-			{
-				$QryUpdateUser  = "UPDATE ".PLANETS." SET ";
-				$QryUpdateUser .= "`b_tech_id` = '".   $WorkingPlanet['b_tech_id']   ."', ";
-				$QryUpdateUser .= "`b_tech` = '".      $WorkingPlanet['b_tech']      ."', ";
-				$QryUpdateUser .= "`metal` = '".       $WorkingPlanet['metal']       ."', ";
-				$QryUpdateUser .= "`crystal` = '".     $WorkingPlanet['crystal']     ."', ";
-				$QryUpdateUser .= "`deuterium` = '".   $WorkingPlanet['deuterium']   ."' ";
-				$QryUpdateUser .= "WHERE ";
-				$QryUpdateUser .= "`id` = '".$WorkingPlanet["id"]."';";
-				$QryUpdateUser .= "UPDATE ".USERS." SET ";
-				$QryUpdateUser .= "`b_tech_planet` = '". $USER['b_tech_planet'] ."', ";
-				$QryUpdateUser .= "`darkmatter`    = '". $USER['darkmatter']."' ";
-				$QryUpdateUser .= "WHERE ";
-				$QryUpdateUser .= "`id` = '".            $USER['id']            ."';";
-				$db->multi_query($QryUpdateUser);
-			}
-			
-			if (is_array($ThePlanet))
-			{
-				$ThePlanet     = $WorkingPlanet;
-			}
-			else
-			{
-				$PLANET = $WorkingPlanet;
-				if ($TheCommand == 'search')
-				{
-					$ThePlanet = $PLANET;
-				}
 			}
 		}
 		
+		$PlanetRess->CalcResource()->SavePlanetToDB();
 		foreach($reslist['tech'] as $ID => $Element)
 		{
 			if (IsTechnologieAccessible($USER, $PLANET, $Element))
@@ -236,7 +197,7 @@ class ShowResearchPage
 				{
 					$TechnoLink  =	"<font color=\"#FF0000\">".$LNG['bd_maxlevel']."</font>";
 				}
-				elseif (!$InResearch)
+				elseif ($USER['b_tech_id'] == 0)
 				{
 					$LevelToDo = 1 + $USER[$resource[$Element]];
 					if ($CanBeDone && $this->CheckLabSettingsInQueue($PLANET))
@@ -250,41 +211,40 @@ class ShowResearchPage
 				}
 				else
 				{
-					if ($ThePlanet["b_tech_id"] == $Element)
+					if ($USER['b_tech_id'] == $Element)
 					{
-						$bloc       = $LNG;
-						if ($ThePlanet['id'] != $PLANET['id'])
+						if ($USER['b_tech_planet'] == $PLANET['id'])
 						{
 							$template->assign_vars(array(
-								'tech_time'		=> $ThePlanet["b_tech"] - TIMESTAMP,
-								'tech_name'		=> $LNG['bd_on']."<br>". $ThePlanet["name"],
-								'tech_home'		=> $ThePlanet["id"],
-								'tech_id'		=> $ThePlanet["b_tech_id"],
+								'tech_time'		=> $USER['b_tech'] - TIMESTAMP,
+								'tech_name'		=> '',
 								'game_name'		=> $CONF['game_name'],
-								'tech_lang'		=> $LNG['tech'][$PLANET["b_tech_id"]],
+								'tech_lang'		=> $LNG['tech'][$USER['b_tech_id']],
+								'tech_home'		=> $USER['b_tech_planet'],
+								'tech_id'		=> $USER['b_tech_id'],					
+								'bd_cancel'		=> $LNG['bd_cancel'],
+								'bd_ready'		=> $LNG['bd_ready'],
+								'bd_continue'	=> $LNG['bd_continue'],
+							));
+						} else {
+							$THEPLANET	= $db->uniquequery("SELECT `name` FROM ".PLANETS." WHERE `id` = '".$USER['b_tech_id']."';");
+							$template->assign_vars(array(
+								'tech_time'		=> $USER['b_tech'] - TIMESTAMP,
+								'tech_name'		=> $LNG['bd_on'].'<br>'.$THEPLANET['name'],
+								'tech_home'		=> $USER['b_tech_planet'],
+								'tech_id'		=> $USER['b_tech_id'],
+								'game_name'		=> $CONF['game_name'],
+								'tech_lang'		=> $LNG['tech'][$USER['b_tech_id']],
 								'bd_cancel'		=> $LNG['bd_cancel'],
 								'bd_ready'		=> $LNG['bd_ready'],
 								'bd_continue'	=> $LNG['bd_continue'],
 							));
 						}
-						else
-						{
-							$template->assign_vars(array(
-								'tech_time'		=> $PLANET["b_tech"] - TIMESTAMP,
-								'tech_name'		=> "",
-								'game_name'		=> $CONF['game_name'],
-								'tech_lang'		=> $LNG['tech'][$PLANET["b_tech_id"]],
-								'tech_home'		=> $PLANET["id"],
-								'tech_id'		=> $PLANET["b_tech_id"],					
-								'bd_cancel'		=> $LNG['bd_cancel'],
-								'bd_ready'		=> $LNG['bd_ready'],
-								'bd_continue'	=> $LNG['bd_continue'],
-							));
-						}
-						$TechnoLink  = $template->fetch("buildings_research_script.tpl");
+
+						$TechnoLink  = $template->fetch('buildings_research_script.tpl');
 					}
 					else
-						$TechnoLink  = "<center>-</center>";
+						$TechnoLink  = '<center>-</center>';
 				}
 				
 				$ResearchList[] = array(
