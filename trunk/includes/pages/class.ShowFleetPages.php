@@ -788,7 +788,7 @@ class ShowFleetPages extends FleetFunctions
 				$FleetArray = array(210 => $SpyProbes);
 			break;
 			case 8:
-				$SRecycles	= explode("|", request_var('ships', ""));
+				$SRecycles	= explode("|", request_var('ships', ''));
 				$GRecycles	= min($SRecycles[0], $PLANET[$resource[219]]);
 				$Recycles	= min($SRecycles[1], $PLANET[$resource[209]]);
 				if(empty($Recycles) && empty($GRecycles))

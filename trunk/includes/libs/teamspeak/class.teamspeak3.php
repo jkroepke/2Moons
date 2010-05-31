@@ -5,12 +5,12 @@
  *   begin                : Saturday, Dec 19, 2009							<br />
  *   copyright            : (C) 2009-2010 Par0nid Solutions					<br />
  *   email                : webmaster@par0noid.de							<br />
- *   version              : 0.1.6											<br />
- *   last modified        : Friday, Jan 22, 2010							<br />
+ *   version              : 0.1.4											<br />
+ *   last modified        : Monday, Dec 28, 2009							<br />
  *
  * @author	Par0noid Solutions <webmaster@par0noid.de>
  * @copyright	Copyright (c) 2009-2010, Stefan Z.
- * @version	0.1.6
+ * @version	0.1.4
  
 
     This file is a powerful library for querying TeamSpeak3 servers.<br />																			
@@ -59,12 +59,12 @@ class ts3admin{
   *
   * @author     Par0noid Solutions
   * @access		public
-  * @param		string	$USERname	username
+  * @param		string	$username	username
   * @param		string	$password	password
   * @return     boolean success
   */
-	function login($USERname, $password) {
-		$bool = $this->executeWithoutFetch("login $USERname $password");
+	function login($username, $password) {
+		$bool = $this->executeWithoutFetch("login $username $password");
 		return $bool;
 	}
 
@@ -477,172 +477,6 @@ class ts3admin{
 	}
 
 /**
-  * clientFind: displays a list of clients matching a given name pattern
-  *
-  * Output:<br>
-  *
-  * Array<br>
-  * {<br>
-  *  [clid] => 18
-  *  [client_nickname] => par0noid
-  * }
-  *
-  * @author     Par0noid Solutions
-  * @access		public
-  * @param		string	$pattern	ClientName
-  * @param		string	$params	Additional parameters (optional)
-  * @return     multidimensional array clientlist 
-  */
-	function clientFind($pattern, $params = "") {
-		if(!$this->selected) { 
-			$this->debug .= "Error in clientFind(): you have to select a server befor using clientFind()<br>"; 
-			return false;
-		}
-		if(!empty($params)) { $params = ' '.$params; }
-		return $this->getExtendData("clientfind pattern=$pattern".$params);
-	}
-
-/**
-  * clientEdit: changes a clients settings using given properties<br>
-  *		Note: login needed
-  *
-  *	Howto edit:<br>
-  *	<br>
-  *	$newSettings = array();<br>
-  *	<br>
-  * $newSettings[] = array('setting', 'value');<br>
-  * $newSettings[] = array('setting', 'value');<br>
-  *	<br>
-  * clientEdit(1, $newSettings);<br>
-  *
-  * @author     Par0noid Solutions
-  * @access		public
-  * @param		integer $clid clientID
-  * @param		multiarray $newSettings clientproperties
-  * @return     boolean success
-  */
-	function clientEdit($clid, $newSettings) {
-		if(!$this->selected) { 
-			$this->debug .= "Error in clientEdit(): you have to select a server befor using clientEdit()<br>";
-			return false;
-		}
-		
-		$settingsString = '';
-		
-		foreach($newSettings as $setting) {
-			$settingsString .= ' '.$setting[0].'='.$this->implodeText($setting[1]);
-		}
-		
-		return $this->executeWithoutFetch("clientedit clid=$clid".$settingsString);
-	}
-
-/**
-  * clientDbFind: displays a list of client database IDs matching a given pattern<br>
-  *				  You can either search for a clients last known nickname or his unique identity by using the -uid option.<br><br>
-  *		Note: login needed
-  *
-  * Output:<br>
-  *
-  * Array<br>
-  * {<br>
-  *  [clid] => 18<br>
-  *  [client_nickname] => par0noid<br>
-  * }
-  *
-  * @author     Par0noid Solutions
-  * @access		public
-  * @param		string	$pattern	ClientName
-  * @param		string	$params	Additional parameters (optional)
-  * @return     multidimensional array clientlist 
-  */
-	function clientDbFind($pattern, $params = "") {
-		if(!$this->selected) { 
-			$this->debug .= "Error in clientDbFind(): you have to select a server befor using clientDbFind()<br>"; 
-			return false;
-		}
-		if(!empty($params)) { $params = ' '.$params; }
-		return $this->getExtendData("clientdbfind pattern=$pattern".$params);
-	}
-
-/**
-  * clientDbEdit: changes a clients settings using given properties<br>
-  *		Note: login needed
-  *
-  *	Howto edit:<br>
-  *	<br>
-  *	$newSettings = array();<br>
-  *	<br>
-  * $newSettings[] = array('setting', 'value');<br>
-  * $newSettings[] = array('setting', 'value');<br>
-  *	<br>
-  * clientDbEdit(1, $newSettings);<br>
-  *
-  * @author     Par0noid Solutions
-  * @access		public
-  * @param		integer $cldbid clientDBID
-  * @param		multiarray $newSettings clientproperties
-  * @return     boolean success
-  */
-	function clientDbEdit($cldbid, $newSettings) {
-		if(!$this->selected) { 
-			$this->debug .= "Error in clientDbEdit(): you have to select a server befor using clientDbEdit()<br>";
-			return false;
-		}
-		
-		$settingsString = '';
-		
-		foreach($newSettings as $setting) {
-			$settingsString .= ' '.$setting[0].'='.$this->implodeText($setting[1]);
-		}
-		
-		return $this->executeWithoutFetch("clientdbedit cldbid=$cldbid".$settingsString);
-	}
-
-/**
-  * clientDbDelete: deletes a clients properties from the database<br>
-  *		Note: login needed
-  *
-  * @author     Par0noid Solutions
-  * @access		public
-  * @param		integer $cldbid clientDBID
-  * @return     boolean success
-  */
-	function clientDbDelete($cldbid) {
-		if(!$this->selected) { 
-			$this->debug .= "Error in clientDbDelete(): you have to select a server befor using clientDbDelete()<br>";
-			return false;
-		}
-		return $this->executeWithoutFetch("clientdbdelete cldbid=$cldbid");
-	}
-
-/**
-  * clientGetIds: displays all client IDs matching the unique identifier specified by cluid<br>
-  *
-  * Output:<br>
-  *
-  * Array<br>
-  * {<br>
-  *  [cluid] => nUixbdf/XakrrmsdffO30R/D8Gc=<br>
-  *  [clid] => 7<br>
-  *  [name] => Par0noid<br>
-  * }
-  *
-  * @author     Par0noid Solutions
-  * @access		public
-  * @param		string $cluid clientUniqueID
-  * @param		string	$params	Additional parameters (optional)
-  * @return     multidimensional array clientlist 
-  */
-	function clientGetIds($cluid, $params = "") {
-		if(!$this->selected) { 
-			$this->debug .= "Error in clientGetIds(): you have to select a server befor using clientGetIds()<br>"; 
-			return false;
-		}
-		if(!empty($params)) { $params = ' '.$params; }
-		return $this->getExtendData("clientgetids cluid=$cluid".$params);
-	}
-
-/**
   * setName: sets your nickname in server query
   *
   * @author     Par0noid Solutions
@@ -724,27 +558,7 @@ class ts3admin{
 		}
 		return $this->getSimpleData("channelinfo cid=$cid");
 	}
-
-/**
-  * version: displays the servers version information including platform and build number
-  *
-  * Output:<br>
-  *
-  * Array<br>
-  * {<br>
-  *  [version] => 3.0.0-beta9<br>
-  *  [build] => 9527<br>
-  *  [platform] => Linux<br>
-  * }
-  *
-  * @author     Par0noid Solutions
-  * @access		public
-  * @return     array versioninformation
-  */
-	function version() {
-		return $this->getSimpleData("version");
-	}
-
+	
 /**
   * whoAmI: returns informations about you
   *
@@ -881,66 +695,6 @@ class ts3admin{
 			return false;
 		}
 	}
-
-/**
-  * channelCreate: Creates a new channel using the given properties and displays its ID<br>
-  *		Note: superAdmin login needed
-  *
-  *	Howto build the properties var:<br>
-  *	<br>
-  *	$newProperties = array();<br>
-  *	<br>
-  * $newProperties[] = array('setting', 'value');<br>
-  * $newProperties[] = array('setting', 'value');<br> 
-  *	<br>
-  * channelCreate("The name", $newProperties);<br>
-  *
-  * @author     Par0noid Solutions
-  * @access		public
-  * @param		string $name channelName
-  * @param		array $properties properties
-  * @return     string cid
-  */
-	function channelCreate($name, $properties) {
-		if(!$this->selected) { 
-			$this->debug .= "Error in channelCreate(): you have to select a server befor using channelCreate()<br>";
-			return false;
-		}
-		
-		$propertiesString = '';
-		
-		foreach($properties as $propertie) {
-			$propertiesString .= ' channel_'.$propertie[0].'='.$this->implodeText($propertie[1]);
-		}
-		
-		$ret = $this->executeWithoutFetch("channelcreate channel_name=".$name.$propertiesString);
-		if($ret !== false) {
-			return $ret['cid'];
-		}else{
-			return false;
-		}
-	}
-
-/**
-  * channelMove: Moves a channel to a new parent channel with the ID cpid<br>
-  *		Note: login needed
-  *
-  * @author     Par0noid Solutions
-  * @access		public
-  * @param		integer $cid channelID
-  * @param		integer $cpid channelParentID
-  * @param		integer $order	channelSortOrder
-  * @return     boolean success
-  */
-	function channelMove($cid, $cpid, $order = '') {
-		if(!$this->selected) { 
-			$this->debug .= "Error in channelMove(): you have to select a server befor using channelMove()<br>";
-			return false;
-		}
-		if(!empty($order)) { $order = ' order='.$order; }
-		
-		return $this->executeWithoutFetch("channelmove cid=".$cid." cpid=".$cpid.$order);
-	}
 	
 /**
   * serverDelete: deletes a server on the selected instance<br>
@@ -954,19 +708,6 @@ class ts3admin{
 	function serverDelete($sid) {
 		$this->serverStop($sid);
 		return $this->executeWithoutFetch("serverdelete sid=$sid");
-	}
-
-/**
-  * channelDelete: Deletes an existing channel by ID. If force is set to 1, the channel will be deleted even if there are clients within<br>
-  *		Note: login needed
-  *
-  * @author     Par0noid Solutions
-  * @access		public
-  * @param		integer $cid channelID
-  * @return     boolean success
-  */
-	function channelDelete($cid) {
-		return $this->executeWithoutFetch("channeldelete cid=$cid force=1");
 	}
 	
 /**
@@ -1072,39 +813,6 @@ class ts3admin{
 	}
 
 /**
-  * channelEdit: Changes a channels configuration using given properties<br>
-  *		Note: login needed
-  *
-  *	Howto edit:<br>
-  *	<br>
-  *	$newSettings = array();<br>
-  *	<br>
-  * $newSettings[] = array('setting', 'value');<br>
-  * $newSettings[] = array('setting', 'value');<br>
-  *	<br>
-  * channelEdit($newSettings);<br>
-  *
-  * @author     Par0noid Solutions
-  * @access		public
-  * @param		multiarray $newSettings Channel-settings
-  * @return     boolean success
-  */
-	function channelEdit($cid, $newSettings) {
-		if(!$this->selected) { 
-			$this->debug .= "Error in channelEdit(): you have to select a server befor using channelEdit()<br>";
-			return false;
-		}
-		
-		$settingsString = '';
-		
-		foreach($newSettings as $setting) {
-			$settingsString .= ' channel_'.$setting[0].'='.$this->implodeText($setting[1]);
-		}
-
-		return $this->executeWithoutFetch("channeledit cid=".$cid.$settingsString);
-	}
-
-/**
   * serverRequestConnectionInfo: displays detailed connection information about the selected virtual server
   *
   * Output:<br>
@@ -1164,6 +872,26 @@ class ts3admin{
   */
 	function gm($msg) {
 		return $this->executeWithoutFetch("gm msg=".$this->implodeText($msg));
+	}
+	
+/**
+  * version: displays the servers version information including platform and build number
+  *
+  * Output:<br>
+  *
+  * Array<br>
+  * {<br>
+  *  [version] => 3.0.0-beta9<br>
+  *  [build] => 9527<br>
+  *  [platform] => Linux<br>
+  * }
+  *
+  * @author     Par0noid Solutions
+  * @access		public
+  * @return     array versioninformation
+  */
+	function version() {
+		return $this->getSimpleData("version");
 	}
 
 /**
@@ -1300,38 +1028,7 @@ class ts3admin{
 			return false;
 		}
 		if(!empty($params)) { $params = ' '.$params; }
-		
 		return $this->getExtendData("servergrouplist".$params);
-	}
-
-/**
-  * channelGroupList: Displays a list of channel groups available on the selected virtual server<br>
-  *		Note: login needed
-  *
-  * Output:<br>
-  *
-  * Array<br>
-  * {<br>
-  *  [cgid] => 3<br>
-  *  [name] => Testname<br>
-  *  [type] => 0<br>
-  *  [iconid] => 300<br>
-  *  [savedb] => 1<br>
-  * }
-  *
-  * @author     Par0noid Solutions
-  * @access		public
-  * @param		string $params Additional parameters (optional)
-  * @return     multidimensional array channelgrouplist
-  */
-	function channelGroupList($params = "") {
-		if(!$this->selected) { 
-			$this->debug .= "Error in channelGroupList(): you have to select a server befor using channelGroupList()<br>";
-			return false;
-		}
-		if(!empty($params)) { $params = ' '.$params; }
-		
-		return $this->getExtendData("channelgrouplist".$params);
 	}
 
 /**
@@ -1349,28 +1046,6 @@ class ts3admin{
 			return false;
 		}
 		$exec = $this->getSimpleData("servergroupadd name=".$this->implodeText($name));
-		if($exec !== false) {
-			return true;
-		}else{
-			return false;
-		}
-	}
-
-/**
-  * channelGroupAdd: Creates a new channel group using a given name and displays its ID<br>
-  *		Note: login needed
-  *
-  * @author     Par0noid Solutions
-  * @access		public
-  * @param		integer $name groupName
-  * @return     boolean success
-  */
-	function channelGroupAdd($name) {
-		if(!$this->selected) { 
-			$this->debug .= "Error in channelGroupAdd(): you have to select a server befor using channelGroupAdd()<br>";
-			return false;
-		}
-		$exec = $this->getSimpleData("channelgroupadd name=".$this->implodeText($name));
 		if($exec !== false) {
 			return true;
 		}else{
@@ -1398,24 +1073,6 @@ class ts3admin{
 	}
 
 /**
-  * channelGroupDelete: Deletes a channel group by ID. If force is set to 1, the channel group will be deleted even if there are clients within.<br>
-  *		Note: login needed
-  *
-  * @author     Par0noid Solutions
-  * @access		public
-  * @param		integer $sgid groupID
-  * @param		integer $force delete if clients are in there 1|0
-  * @return     boolean success
-  */
-	function channelGroupDelete($cgid, $force) {
-		if(!$this->selected) { 
-			$this->debug .= "Error in channelGroupDelete(): you have to select a server befor using channelGroupDelete()<br>";
-			return false;
-		}
-		return $this->executeWithoutFetch("channelgroupdel cgid=$cgid force=$force");
-	}
-
-/**
   * serverGroupRename: changes the name of the server group specified with sgid<br>
   *		Note: login needed
   *
@@ -1431,24 +1088,6 @@ class ts3admin{
 			return false;
 		}
 		return $this->executeWithoutFetch("servergrouprename sgid=$sgid name=".$this->implodeText($name));
-	}
-
-/**
-  * channelGroupRename: Changes the name of a specified channel group<br>
-  *		Note: login needed
-  *
-  * @author     Par0noid Solutions
-  * @access		public
-  * @param		integer $cgid groupID
-  * @param		integer $name groupName
-  * @return     boolean success
-  */
-	function channelGroupRename($cgid, $name) {
-		if(!$this->selected) { 
-			$this->debug .= "Error in channelGroupRename(): you have to select a server befor using channelGroupRename()<br>";
-			return false;
-		}
-		return $this->executeWithoutFetch("channelgrouprename cgid=$cgid name=".$this->implodeText($name));
 	}
 
 /**
@@ -1469,7 +1108,7 @@ class ts3admin{
   * @access		public
   * @param		integer $sgid groupID
   * @param		string $params Additional parameters (optional)
-  * @return     multidimensional array servergrouppermlist
+  * @return     boolean success
   */
 	function serverGroupPermList($sgid, $params = "") {
 		if(!$this->selected) { 
@@ -1478,96 +1117,6 @@ class ts3admin{
 		}
 		if(!empty($params)) { $params = ' '.$params; }
 		return $this->getExtendData("servergrouppermlist sgid=$sgid".$params);
-	}
-
-/**
-  * channelGroupPermList: Displays a list of permissions assigned to the channel group specified with cgid<br>
-  *		Note: login needed
-  *
-  * Output:<br>
-  *
-  * Array<br>
-  * {<br>
-  *  [permid] => 8471<br>
-  *  [permvalue] => 1<br>
-  *  [permnegated] => 0<br>
-  *  [permskip] => 0<br>
-  * }
-  *
-  * @author     Par0noid Solutions
-  * @access		public
-  * @param		integer $cgid groupID
-  * @param		string $params Additional parameters (optional)
-  * @return     multidimensional array channelgrouppermlist
-  */
-	function channelGroupPermList($cgid, $params = "") {
-		if(!$this->selected) { 
-			$this->debug .= "Error in channelGroupPermList(): you have to select a server befor using channelGroupPermList()<br>";
-			return false;
-		}
-		if(!empty($params)) { $params = ' '.$params; }
-		
-		return $this->getExtendData("channelgrouppermlist cgid=$cgid".$params);
-	}
-
-/**
-  * channelPermList: Displays a list of permissions defined for a channel.<br>
-  *		Note: login needed
-  *
-  * Output:<br>
-  *
-  * Array<br>
-  * {<br>
-  *  [permid] => 8471<br>
-  *  [permvalue] => 1<br>
-  *  [permnegated] => 0<br>
-  *  [permskip] => 0<br>
-  * }
-  *
-  * @author     Par0noid Solutions
-  * @access		public
-  * @param		integer $cid channelID
-  * @param		string $params Additional parameters (optional)
-  * @return     multidimensional array channelpermlist
-  */
-	function channelPermList($cid, $params = "") {
-		if(!$this->selected) { 
-			$this->debug .= "Error in channelPermList(): you have to select a server befor using channelPermList()<br>";
-			return false;
-		}
-		if(!empty($params)) { $params = ' '.$params; }
-		
-		return $this->getExtendData("channelpermlist cid=$cid".$params);
-	}
-
-/**
-  * clientPermList: Displays a list of permissions defined for a client.<br>
-  *		Note: login needed
-  *
-  * Output:<br>
-  *
-  * Array<br>
-  * {<br>
-  *  [permid] => 8471<br>
-  *  [permvalue] => 1<br>
-  *  [permnegated] => 0<br>
-  *  [permskip] => 0<br>
-  * }
-  *
-  * @author     Par0noid Solutions
-  * @access		public
-  * @param		integer $cldbid clientDBID
-  * @param		string $params Additional parameters (optional)
-  * @return     multidimensional array clientpermlist
-  */
-	function clientPermList($cldbid, $params = "") {
-		if(!$this->selected) { 
-			$this->debug .= "Error in channelPermList(): you have to select a server befor using channelPermList()<br>";
-			return false;
-		}
-		if(!empty($params)) { $params = ' '.$params; }
-		
-		return $this->getExtendData("clientpermlist cldbid=$cldbid".$params);
 	}
 
 /**
@@ -1629,25 +1178,6 @@ class ts3admin{
 	}
 
 /**
-  * setclientchannelgroup: Sets the channel group of a client to the ID specified with cgid<br>
-  *		Note: login needed
-  *
-  * @author     Par0noid Solutions
-  * @access		public
-  * @param		integer $cid channelID
-  * @param		integer $clid clientID
-  * @param		integer $cgid groupID
-  * @return     boolean success
-  */
-	function setClientChannelGroup($cgid, $cid, $cldbid) {
-		if(!$this->selected) { 
-			$this->debug .= "Error in setClientChannelGroup(): you have to select a server befor using setClientChannelGroup()<br>";
-			return false;
-		}
-		return $this->executeWithoutFetch("setclientchannelgroup cgid=$cgid cid=$cid cldbid=$cldbid");
-	}
-
-/**
   * serverGroupDeleteClient: removes a client from the server group specified with sgid<br>
   *		Note: login needed
   *
@@ -1693,41 +1223,6 @@ class ts3admin{
 	}
 
 /**
-  * channelGroupClientList: Displays all the client and/or channel IDs currently assigned to channel groups<br>
-  * All three parameters are optional so you're free to choose the most suitable combination for your requirements.<br><br>
-  *		Note: login needed
-  *
-  * Output:<br>
-  *
-  * Array<br>
-  * {<br>
-  *  [cid] => 2<br>
-  *  [cldbid] => 9<br>
-  *  [cgid] => 9<br>
-  * }
-  *
-  * @author     Par0noid Solutions
-  * @access		public
-  * @param		integer $cid channelID (optional)
-  * @param		integer $clid clientID (optional)
-  * @param		integer $cgid groupID (optional)
-  * @return     multidimensional array channelgroupclientlist
-  */
-	function channelGroupClientList($cid = '', $clid = '', $cgid = '') {
-		if(!$this->selected) { 
-			$this->debug .= "Error in channelGroupClientList(): you have to select a server befor using channelGroupClientList()<br>";
-			return false;
-		}
-		
-		if(!empty($params)) { $params = ' '.$params; }
-		if(!empty($cid)) { $cid = ' cid='.$cid; }
-		if(!empty($clid)) { $clid = ' clid='.$clid; }
-		if(!empty($cgid)) { $cgid = ' cgid='.$cgid; }
-		
-		return $this->getExtendData("channelgroupclientlist ".$cid.$clid.$cgid);
-	}
-
-/**
   * serverGroupsByClientID: displays all server groups the client specified with cldbid is currently residing in<br>
   *		Note: login needed
   *
@@ -1753,111 +1248,12 @@ class ts3admin{
 		return $this->getExtendData("servergroupsbyclientid cldbid=$sgid");
 	}
 
-/**
-  * tokenList: Displays a list of tokens available including their type and group IDs
-  *		Note: login needed
-  *
-  * Output:<br>
-  *
-  * Array<br>
-  * {<br>
-  *  [token] => VgsSuU4E7M2m2su77W6TYNWTsJEbBmuv4B9m5MeF<br>
-  *  [token_type] => 0<br>
-  *  [token_id1] => 8<br>
-  *  [token_id2] => 0<br>
-  * }
-  *
-  * @author     Par0noid Solutions
-  * @access		public
-  * @param		string $params Additional parameters (optional)
-  * @return     multidimensional array clientlist 
-  */
-	function tokenList($params = "") {
-		if(!$this->selected) { 
-			$this->debug .= "Error in tokenList(): you have to select a server befor using tokenList()<br>"; 
-			return false;
-		}
-		if(!empty($params)) { $params = ' '.$params; }
-		return $this->getExtendData("tokenlist".$params);
-	}
-
-/**
-  * tokenAdd: Create a new token. If tokentype is set to 0, the ID specified with tokenid1 will be a server group ID.<br>
-  *           Otherwise, tokenid1 is used as a channel group ID and you need to provide a valid channel ID using tokenid2.<br><br>
-  *		Note: login needed
-  *
-  * @author     Par0noid Solutions
-  * @access		public
-  * @param		integer $tokentype Token-Type (1/0)
-  * @param		integer $tokenid1 groupID
-  * @param		integer $tokenid2 channelID
-  * @param		string $description Token-description (optional)
-  * @param		string $params Additional parameters (optional)
-  * @return     string token
-  */
-	function tokenAdd($tokentype, $tokenid1, $tokenid2, $description='', $params) {
-		if(!$this->selected) { 
-			$this->debug .= "Error in tokenAdd(): you have to select a server befor using tokenAdd()<br>"; 
-			return false;
-		}
-		if(!empty($description)) { $description = ' tokendescription=' . $this->implodeText($description); }
-		if(!empty($params)) { $params = ' '.$params; }
-		
-		$ret =  $this->getSimpleData("tokenadd tokentype=$tokentype tokenid1=$tokenid1 tokenid2=$tokenid2".$description.$params);
-		
-		if($ret !== false) {
-			return $ret['token'];
-		}else{
-			return false;
-		}
-	}
-
-/**
-  * tokenDelete: Deletes an existing token matching the token key specified with token<br>
-  *		Note: login needed
-  *
-  * @author     Par0noid Solutions
-  * @access		public
-  * @param		integer $token	Token
-  * @return     boolean success
-  */
-	function tokenDelete($token) {
-		if(!$this->selected) { 
-			$this->debug .= "Error in tokenDelete(): you have to select a server befor using tokenDelete()<br>"; 
-			return false;
-		}
-			
-		return $this->executeWithoutFetch("tokendelete token=$token");
-	}
-	
-/**
-  * execOwnCommand: executes a command and fetches data if you want<br>
-  *
-  * @author     Par0noid Solutions
-  * @access		public
-  * @param		string $mode	Fetchmode (0 = execute - fetch boolean / 1 = execute command and fetch normal array / 2 = execute command and fetch multiarray)
-  * @param		string	$command command
-  * @return     array $result
-  */
-	function execOwnCommand($mode, $command) {
-		if($mode == '0') {
-			return $this->executeWithoutFetch($command);
-		}
-		if($mode == '1') {
-			return $this->getSimpleData($command);
-		}
-		if($mode == '2') {
-			return $this->getExtendData($command);
-		}
-		return false;
-	}
-
 //*******************************************************************************************	
 //*********************************** Internal Functions ************************************
 //*******************************************************************************************
 /**
- * @author	Par0noid Solutions
- * @access	private
+ *
+ * @access private
 */
 	function __construct($host, $queryport, $timeout = 2) {
 		$this->host = $host;
@@ -1866,8 +1262,8 @@ class ts3admin{
 	}
 
 /**
- * @author	Par0noid Solutions
- * @access	private
+ *
+ * @access private
 */
 	function __destruct() {
 		if(!empty($socket)) {
@@ -1884,12 +1280,10 @@ class ts3admin{
   * @return		boolean success
   */
 	function connect() {
-		if(!empty($this->socket)) { $this->debug .= 'Error: You are already connected!<br>'; return false; }
-		$socket = @fsockopen($this->host, $this->queryport, $errnum, $errstr, $this->timeout);
-		if(!$socket) {
+		$this->socket = @fsockopen($this->host, $this->queryport, $errnum, $errstr, $this->timeout);
+		if(!$this->socket) {
 			return false;
 		}else{
-			$this->socket = $socket;
 			if(strpos(fgets($this->socket), 'TS3') !== false) {
 				return true;
 			}else{
@@ -1906,7 +1300,6 @@ class ts3admin{
   * @return     boolean if false or data if success
   */
 	private function executeCommand($command) {
-		if(empty($this->socket)) { $this->debug .= 'Error: no connection found, you have to use connect() method!<br>'; return false; }
 		$data = '';
 		fputs($this->socket, $command."\n");
 		do {
@@ -1925,7 +1318,6 @@ class ts3admin{
   * getSimpleData: returns non piped server data
   *
   * @author     Par0noid Solutions
-  * @access		private
   * @param		string	$command	command
   * @return     array data
   */
@@ -1969,7 +1361,6 @@ class ts3admin{
   * getExtendData: returns piped server data
   *
   * @author     Par0noid Solutions
-  * @access		private
   * @param		string	$command	command
   * @return     multidimensional array data
   */
@@ -2023,12 +1414,10 @@ class ts3admin{
   * executeWithoutFetch: executes a command but dont fetches the response
   *
   * @author     Par0noid Solutions
-  * @access		private
   * @param		string	$command	command
   * @return     boolean success
   */
 	private function executeWithoutFetch($command) {
-		if(empty($this->socket)) { $this->debug .= 'Error: no connection found, you have to use connect() method!<br>'; return false; }
 		fputs($this->socket, $command."\n");
 		$data = fgets($this->socket);
 		if(strpos($data, 'id=0') !== false) {
@@ -2043,7 +1432,6 @@ class ts3admin{
   * implodeText: implode special chars
   *
   * @author     Par0noid Solutions
-  * @access		private
   * @param		string	$text	Text which should be imploded
   * @return     string imploded Text
   */
@@ -2058,49 +1446,20 @@ class ts3admin{
   * convertMillisecondsToStrTime: converts ms to a strtime (bsp. 1h 23m)
   *
   * @author     Par0noid Solutions
-  * @access		public
   * @param		integer	$ms	Time in milliseconds
   * @return     string strtime
   */
  	public function convertMillisecondsToStrTime($ms) {
-		$minutes = $ms / 60000;
+    	$minutes = $ms / 60000;
 		$hours = floor($minutes / 60);
 		$realMinutes = $minutes - ($hours * 60);
     	return $hours.'h '.floor($realMinutes).'min';
 	}
 
 /**
-  * convertMillisecondsToArrayTime: converts ms to a array: time
-  *
-  * Output:<br>
-  *
-  * Array<br>
-  * {<br>
-  *  [days] => 3<br>
-  *  [hours] => 9<br>
-  *  [minutes] => 45<br>
-  *  [seconds] => 17<br>
-  * }
-  *
-  * @author     Psychokiller and Par0noid Solutions
-  * @access		public
-  * @param		integer	$ms	Time in milliseconds
-  * @return     array conv_time
-  */
- 	public function convertMillisecondsToArrayTime($ms) {
-		$conv_time = array();
-		$conv_time['days'] = floor($ms / 86400000);
-		$conv_time['hours'] = floor(($ms - ($conv_time['days'] * 86400000)) / 3600000);
-		$conv_time['minutes'] = floor(($ms - (($conv_time['days'] * 86400000)+($conv_time['hours']*3600000))) / 60000);
-		$conv_time['seconds'] = floor(($ms - (($conv_time['days'] * 86400000)+($conv_time['hours']*3600000)+($conv_time['minutes'] * 60000))) / 1000);
-    	return $conv_time;
-	}
-
-/**
   * getDebugLog: returns the debug log
   *
   * @author     Par0noid Solutions
-  * @access		public
   * @return     string debuglog
   */
  	public function getDebugLog() {

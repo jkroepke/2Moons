@@ -66,12 +66,12 @@ class FTP
 	 * Connect to the FTP server.
 	 * Also sends login information, detects target FTP OS and sets Passive Mode to TRUE
 	 *
-	 * @param  array  $CONF Login information to connect at the FTP server
+	 * @param  array  $config Login information to connect at the FTP server
 	 * @param  bool   $useSSL Establish a secure SSL-FTP connection
 	 * @param  bool   $fallback If a SSL-FTP connect fails, try a default FTP connect as fallback 
 	 * @return void
 	 */
-	public function connect($CONF, $useSSL = false, $fallback = false)
+	public function connect($config, $useSSL = false, $fallback = false)
 	{
 		// Check if native FTP support is enabled
 		if (function_exists('ftp_connect') === false)
@@ -82,7 +82,7 @@ class FTP
 		// Default connection
 		if ($useSSL === false)
 		{
-			if (($this->cid = @ftp_connect( $CONF['host'], $CONF['port'])) === false)
+			if (($this->cid = @ftp_connect( $config['host'], $config['port'])) === false)
 			{
 				throw new FTPException( FTPException::CONNECT_FAILED_BADHOST );
 			}
@@ -92,7 +92,7 @@ class FTP
 		if ($useSSL === true)
 		{
 			if (!function_exists( 'ftp_ssl_connect' ) ||
-				!$this->cid = @ftp_ssl_connect( $CONF['host'], $CONF['port'] ))
+				!$this->cid = @ftp_ssl_connect( $config['host'], $config['port'] ))
 			{
 				if ($fallback === false)
 				{
@@ -101,7 +101,7 @@ class FTP
 				// Default connection as fallback
 				else if ($fallback === true)
 				{
-					if (!$this->cid = @ftp_connect( $CONF['host'], $CONF['port'] ))
+					if (!$this->cid = @ftp_connect( $config['host'], $config['port'] ))
 					{
 						throw new FTPException( FTPException::CONNECT_FAILED_BADHOST );
 					}
@@ -110,7 +110,7 @@ class FTP
 		}
 		
 		// Send login information
-		if (@ftp_login( $this->cid, $CONF['username'], $CONF['password'] ) === false)
+		if (@ftp_login( $this->cid, $config['username'], $config['password'] ) === false)
 		{
 			throw new FTPException( FTPException::CONNECT_FAILED_BADLOGIN );
 		}
@@ -268,7 +268,7 @@ class FTP
 		if (is_resource( $this->cid ))
 		{
 			$transfermode = self::transferMode( $mode );
-			return ftp_fput( $this->cid, $remotefile, $resource, FTP_ASCII, $position );
+			return ftp_fput( $this->cid, $remotefile, $resource, FTP_BINARY, $position );
 		}
 	}
 
