@@ -103,11 +103,16 @@ class ResourceUpdate
 			elseif ($Caps["energy_max"] >= abs($Caps["energy_used"]))
 				$LEVEL = 100;
 			else
-				$LEVEL = min($Caps['energy_max'] / abs($Caps['energy_used']), 1);
+				$LEVEL = floor($Caps['energy_max'] / abs($Caps['energy_used']) * 100);
+				
+			if($LEVEL > 100)
+				$LEVEL = 100;
+			elseif ($LEVEL < 0)
+				$LEVEL = 0;				
 			
-			$PLANET['metal_perhour']        = $Caps['metal_perhour'] * $LEVEL;
-			$PLANET['crystal_perhour']      = $Caps['crystal_perhour'] * $LEVEL;
-			$PLANET['deuterium_perhour']    = $Caps['deuterium_perhour'] * $LEVEL + $Caps['deuterium_used'];
+			$PLANET['metal_perhour']        = $Caps['metal_perhour'] * (0.01 * $LEVEL);
+			$PLANET['crystal_perhour']      = $Caps['crystal_perhour'] * (0.01 * $LEVEL);
+			$PLANET['deuterium_perhour']    = $Caps['deuterium_perhour'] * (0.01 * $LEVEL) + $Caps['deuterium_used'];
 			$PLANET['energy_used']          = $Caps['energy_used'];
 			$PLANET['energy_max']           = $Caps['energy_max'];
 
