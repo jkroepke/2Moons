@@ -41,7 +41,7 @@ class FacebookRestClient {
   // to save making the friends.get api call, this will get prepopulated on
   // canvas pages
   public $friends_list;
-  public $USER;
+  public $user;
   // to save making the pages.isAppAdded api call, this will get prepopulated
   // on canvas pages
   public $added;
@@ -879,7 +879,7 @@ function toggleDisplay(id, type) {
    * @param string $body_general     (Optional) Additional markup that extends
    *                                 the body of a short story.
    * @param int $story_size          (Optional) A story size (see above)
-   * @param string $USER_message     (Optional) A user message for a short
+   * @param string $user_message     (Optional) A user message for a short
    *                                 story.
    *
    * @return bool  true on success
@@ -887,7 +887,7 @@ function toggleDisplay(id, type) {
   public function &feed_publishUserAction(
       $template_bundle_id, $template_data, $target_ids='', $body_general='',
       $story_size=FacebookRestClient::STORY_SIZE_ONE_LINE,
-      $USER_message='') {
+      $user_message='') {
 
     if (is_array($template_data)) {
       $template_data = json_encode($template_data);
@@ -904,7 +904,7 @@ function toggleDisplay(id, type) {
               'target_ids' => $target_ids,
               'body_general' => $body_general,
               'story_size' => $story_size,
-              'user_message' => $USER_message));
+              'user_message' => $user_message));
   }
 
 
@@ -3602,12 +3602,12 @@ function toggleDisplay(id, type) {
     $get_string = $this->create_url_string($get);
     $url_with_get = $server_addr . '?' . $get_string;
     if ($this->use_curl_if_available && function_exists('curl_init')) {
-      $USERagent = 'Facebook API PHP5 Client 1.1 (curl) ' . phpversion();
+      $useragent = 'Facebook API PHP5 Client 1.1 (curl) ' . phpversion();
       $ch = curl_init();
       curl_setopt($ch, CURLOPT_URL, $url_with_get);
       curl_setopt($ch, CURLOPT_POSTFIELDS, $post_string);
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-      curl_setopt($ch, CURLOPT_USERAGENT, $USERagent);
+      curl_setopt($ch, CURLOPT_USERAGENT, $useragent);
       curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
       curl_setopt($ch, CURLOPT_TIMEOUT, 30);
       $result = $this->curl_exec($ch);
@@ -3641,7 +3641,7 @@ function toggleDisplay(id, type) {
     if ($this->use_curl_if_available && function_exists('curl_init')) {
       // prepending '@' causes cURL to upload the file; the key is ignored.
       $post['_file'] = '@' . $file;
-      $USERagent = 'Facebook API PHP5 Client 1.1 (curl) ' . phpversion();
+      $useragent = 'Facebook API PHP5 Client 1.1 (curl) ' . phpversion();
       $ch = curl_init();
       curl_setopt($ch, CURLOPT_URL, $url_with_get);
       // this has to come before the POSTFIELDS set!
@@ -3649,7 +3649,7 @@ function toggleDisplay(id, type) {
       // passing an array gets curl to use the multipart/form-data content type
       curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-      curl_setopt($ch, CURLOPT_USERAGENT, $USERagent);
+      curl_setopt($ch, CURLOPT_USERAGENT, $useragent);
       $result = $this->curl_exec($ch);
       curl_close($ch);
     } else {
@@ -3661,12 +3661,12 @@ function toggleDisplay(id, type) {
 
   private function run_http_post_transaction($content_type, $content, $server_addr) {
 
-    $USER_agent = 'Facebook API PHP5 Client 1.1 (non-curl) ' . phpversion();
+    $user_agent = 'Facebook API PHP5 Client 1.1 (non-curl) ' . phpversion();
     $content_length = strlen($content);
     $context =
       array('http' =>
               array('method' => 'POST',
-                    'user_agent' => $USER_agent,
+                    'user_agent' => $user_agent,
                     'header' => 'Content-Type: ' . $content_type . "\r\n" .
                                 'Content-Length: ' . $content_length,
                     'content' => $content));

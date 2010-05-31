@@ -49,7 +49,7 @@ switch ($page) {
 		include_once(ROOT_PATH . 'includes/libs/facebook/facebook.php');
 		$fb = new Facebook($CONF['fb_apikey'], $CONF['fb_skey']);
 		$fb_user = $fb->get_loggedin_user();
-
+		
 		if($fb_user)
 		{
 			$login = $db->uniquequery("SELECT `id`,`username`,`password`,`authlevel`,`banaday` FROM " . USERS . " WHERE `fb_id` = '".$fb_user."';");

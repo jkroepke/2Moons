@@ -42,7 +42,7 @@ class Facebook {
   public $session_expires;
 
   public $fb_params;
-  public $USER;
+  public $user;
   public $profile_user;
   public $canvas_user;
   public $ext_perms = array();
@@ -122,7 +122,7 @@ class Facebook {
 
     // Okay, something came in via POST or GET
     if ($this->fb_params) {
-      $USER               = isset($this->fb_params['user']) ?
+      $user               = isset($this->fb_params['user']) ?
                             $this->fb_params['user'] : null;
       $this->profile_user = isset($this->fb_params['profile_user']) ?
                             $this->fb_params['profile_user'] : null;
@@ -143,7 +143,7 @@ class Facebook {
       }
       $expires     = isset($this->fb_params['expires']) ?
                      $this->fb_params['expires'] : null;
-      $this->set_user($USER,
+      $this->set_user($user,
                       $session_key,
                       $expires);
     }
@@ -261,12 +261,12 @@ class Facebook {
        foreach ($cookies as $name) {
          setcookie($this->api_key . '_' . $name,
                    false,
-                   TIMESTAMP - 3600,
+                   time() - 3600,
                    '',
                    $this->base_domain);
          unset($_COOKIE[$this->api_key . '_' . $name]);
        }
-       setcookie($this->api_key, false, TIMESTAMP - 3600, '', $this->base_domain);
+       setcookie($this->api_key, false, time() - 3600, '', $this->base_domain);
        unset($_COOKIE[$this->api_key]);
      }
 
@@ -315,7 +315,7 @@ class Facebook {
   // require_add and require_install have been removed.
   // see http://developer.facebook.com/news.php?blog=1&story=116 for more details
   public function require_login($required_permissions = '') {
-    $USER = $this->get_loggedin_user();
+    $user = $this->get_loggedin_user();
     $has_permissions = true;
 
     if ($required_permissions) {
@@ -329,8 +329,8 @@ class Facebook {
       }
     }
 
-    if ($USER && $has_permissions) {
-      return $USER;
+    if ($user && $has_permissions) {
+      return $user;
     }
 
     $this->redirect(
@@ -393,19 +393,19 @@ class Facebook {
     return $page . '?' . http_build_query($params);
   }
 
-  public function set_user($USER, $session_key, $expires=null, $session_secret=null) {
+  public function set_user($user, $session_key, $expires=null, $session_secret=null) {
     if (!$this->in_fb_canvas() && (!isset($_COOKIE[$this->api_key . '_user'])
-                                   || $_COOKIE[$this->api_key . '_user'] != $USER)) {
-      $this->set_cookies($USER, $session_key, $expires, $session_secret);
+                                   || $_COOKIE[$this->api_key . '_user'] != $user)) {
+      $this->set_cookies($user, $session_key, $expires, $session_secret);
     }
-    $this->user = $USER;
+    $this->user = $user;
     $this->api_client->session_key = $session_key;
     $this->session_expires = $expires;
   }
 
-  public function set_cookies($USER, $session_key, $expires=null, $session_secret=null) {
+  public function set_cookies($user, $session_key, $expires=null, $session_secret=null) {
     $cookies = array();
-    $cookies['user'] = $USER;
+    $cookies['user'] = $user;
     $cookies['session_key'] = $session_key;
     if ($expires != null) {
       $cookies['expires'] = $expires;
@@ -485,7 +485,7 @@ class Facebook {
 
     // validate that the request hasn't expired. this is most likely
     // for params that come from $_COOKIE
-    if ($timeout && (!isset($fb_params['time']) || TIMESTAMP - $fb_params['time'] > $timeout)) {
+    if ($timeout && (!isset($fb_params['time']) || time() - $fb_params['time'] > $timeout)) {
       return array();
     }
 
@@ -506,8 +506,8 @@ class Facebook {
    *  @return bool True if the user is the one that selected the
    *               reclamation link.
    */
-  public function verify_account_reclamation($USER, $hash) {
-    return $hash == md5($USER . $this->secret);
+  public function verify_account_reclamation($user, $hash) {
+    return $hash == md5($user . $this->secret);
   }
 
   /**
