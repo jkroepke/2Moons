@@ -170,7 +170,7 @@ class GalaxyRows
 		$protectionmulti 	= $CONF['noobprotectionmulti'];
 		$CurrentPoints 		= $GalaxyRowPlanet['total_points'];
 		$RowUserPoints 		= $GalaxyRowPlanet['total_points'];
-		$IsNoobProtec		= CheckNoobProtec($USER['total_points'], $GalaxyRowPlanet, $GalaxyRowPlanet['onlinetime']);
+		$IsNoobProtec		= CheckNoobProtec($USER, $GalaxyRowPlanet, $GalaxyRowPlanet['onlinetime']);
 				
 		if ($GalaxyRowPlanet['bana'] == 1 && $GalaxyRowPlanet['urlaubs_modus'] == 1)
 		{
