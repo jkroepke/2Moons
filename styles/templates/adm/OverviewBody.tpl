@@ -37,11 +37,17 @@ th.lic{border:0px;}</style>
                 <tr>
 					<th class="lic"><h3><font color="red">Slaver</font></h3></th>
                 </tr>
+                <tr>
+					<th class="lic"><h3>Team</h3></th>
+                </tr>
+                <tr>
+					<th class="lic">Inforcer - Language<br>neox301291 - GFX</th>
+                </tr>
 		        <tr>
 					<th class="lic"><h3>{ow_translator}</h3></th>
                 </tr>
                 <tr>
-					<th class="lic">Brandi (ACP)<br>languar (english)</th>
+					<th class="lic">languar (english)</th>
                 </tr> 
                 <tr>
 					<th class="lic"><h3>{ow_special_thanks}</h3></th>

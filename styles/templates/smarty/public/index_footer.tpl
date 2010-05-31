@@ -61,7 +61,6 @@ pageTracker._trackPageview();
     document.getElementById('fb-root').appendChild(e);
   }());
 </script>
-
 {/if}
 </body>
 </html>

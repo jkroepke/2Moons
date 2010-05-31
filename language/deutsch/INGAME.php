@@ -840,9 +840,7 @@ $LNG['bn_writemail']						= 'Mail an %s schreiben';
 
 //----------------------------------------------------------------------------//
 //class.CheckSession.php
-$LNG['ccs_multiple_users']					= 'Cookie Fehler! Jemand hat sich mit deinem Account eingeloggt. Lösche deine Cookies und melde dich neu an. Wenn das Problem weiterhin besteht kontaktieren Sie den Administrator.';
-$LNG['ccs_other_user']						= 'Cookie Fehler! Lösche deine Cookies und melde dich neu an. Wenn das Problem weiterhin besteht kontaktieren Sie den Administrator.<br>Fehler Code.: 272';
-$LNG['css_different_password']				= 'Cookie Fehler! Lösche deine Cookies und melde dich neu an. Wenn das Problem weiterhin besteht kontaktieren Sie den Administrator.<br>Fehler Code.: 273';
+
 $LNG['css_account_banned_message']			= 'Dein Account wurde gespeert!';
 $LNG['css_account_banned_expire']			= 'Du bist zum %s gespeert!<br><a href="./index.php?page=pranger">Pranger</a>';
 $LNG['css_goto_homeside']					= '<a href="./index.php">Zur Startseite</a>';
