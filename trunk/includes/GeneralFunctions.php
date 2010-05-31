@@ -144,8 +144,10 @@ function gettemplate ($templatename)
 function includeLang ($filename, $ext = '.php')
 {
 	global $LNG;
-
-	include_once(ROOT_PATH . "language/".DEFAULT_LANG."/".$filename.$ext);
+	if(file_exists(ROOT_PATH . "language/".DEFAULT_LANG."/".$filename.$ext))
+		include_once(ROOT_PATH . "language/".DEFAULT_LANG."/".$filename.$ext);
+	else
+		throw new Exception('LangFile '.$filename.$ext.' ('.DEFAULT_LANG.') not found!');
 }
 
 function GetStartAdressLink ( $FleetRow, $FleetType )
