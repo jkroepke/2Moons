@@ -129,7 +129,7 @@ class template extends Smarty
 	
 	private function topnav()
 	{
-		global $PLANET, $LNG, $USER;
+		global $PLANET, $LNG, $USER, $CONF;
 		$this->phpself			= "?page=".request_var('page', '')."&amp;mode=".request_var('mode', '');
 		$this->loadscript("topnav.js");
 		if(empty($this->UserPlanets))
@@ -161,6 +161,7 @@ class template extends Smarty
 			'js_deuterium_hr'	=> floattostring($PLANET['deuterium_perhour'] + $CONF['deuterium_basic_income'] * $CONF['resource_multiplier']),
 			'current_panet'		=> $this->phpself."&amp;cp=".$USER['current_planet']."&amp;re=0",
 			'tn_vacation_mode'	=> $LNG['tn_vacation_mode'],
+			'closed'			=> !$CONF['game_disable'] ? $LNG['ov_closed'] : false,
 			'vacation'			=> $USER['urlaubs_modus'] ? date('d.m.Y H:i:s',$USER['urlaubs_until']) : false,
 			'delete'			=> $USER['db_deaktjava'] ? sprintf($LNG['tn_delete_mode'], date('d. M Y\, h:i:s',$USER['db_deaktjava'] + (60 * 60 * 24 * 7))) : false,
 			'image'				=> $PLANET['image'],

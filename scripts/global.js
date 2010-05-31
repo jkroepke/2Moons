@@ -12,7 +12,7 @@ function blockError(){return true;}
 $(".autocomplete").attr("autocomplete","off");
 
 $(document).ready(function () {
-	$('#content').css("top", $('#infobox').height()+91+"px");
+	$('#content').css("top", $('#infobox').height()+95+'px');
 });
 
 function var_dump(obj) {

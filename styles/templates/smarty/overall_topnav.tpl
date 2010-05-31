@@ -62,7 +62,9 @@
  </table></td>
 </tr>
 </table>
-{if $delete}
+{if $closed}
+<table width="70%" id="infobox" style="border: 3px solid red; text-align:center;"><tr><td>{$closed}</td></tr></table>
+{elseif $delete}
 <table width="70%" id="infobox" style="border: 3px solid red; text-align:center;"><tr><td>{$tn_delete_mode} {$delete}</td></tr></table>
 {elseif $vacation}
 <table width="70%" id="infobox" style="border: 3px solid red; text-align:center;"><tr><td>{$tn_vacation_mode} {$vacation}</td></tr></table>

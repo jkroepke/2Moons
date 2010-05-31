@@ -5,7 +5,13 @@ $LNG['Description'] = 'Beschreibung';
 
 $LNG['changelog']   = array(
 
-'RC5.0' => 'ShadoX 20.05.10
+'RC5.1' => 'ShadoX 31.05.10
+- ADD: New Facebook API
+- FIX: UMode
+- FIX: Flottenrückkehr
+- FIX: Forschung
+',
+'RC5.0' => 'ShadoX 30.05.10
 - ADD: Neue Schiffe
 - ADD: Support Planet in System != 15
 - ADD: Cookie für LoginMusik
