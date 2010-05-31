@@ -145,13 +145,13 @@ class ShowGalaxyPage extends GalaxyRows
 			'system'					=> $system,
 			'planet'					=> $planet,
 			'current'					=> $current,
-			'currentmip'				=> pretty_number($CurrentMIP),
+			'currentmip'				=> pretty_number($PLANET[$resource[502]]),
 			'maxfleetcount'				=> $maxfleet,
 			'fleetmax'					=> ($USER['computer_tech'] + 1) + ($USER['rpg_commandant'] * COMMANDANT),
-			'grecyclers'   				=> pretty_number($CurrentGRC),
-			'recyclers'   				=> pretty_number($CurrentRC),
-			'spyprobes'   				=> pretty_number($CurrentSP),
-			'missile_count'				=> sprintf($LNG['gl_missil_to_launch'], $CurrentMIP),
+			'grecyclers'   				=> pretty_number($PLANET[$resource[219]]),
+			'recyclers'   				=> pretty_number($PLANET[$resource[209]]),
+			'spyprobes'   				=> pretty_number($PLANET[$resource[210]]),
+			'missile_count'				=> sprintf($LNG['gl_missil_to_launch'], $PLANET[$resource[502]]),
 			'spio_anz'					=> $USER['spio_anz'],
 			'settings_fleetactions'		=> $USER['settings_fleetactions'],
 			'current_galaxy'			=> $PLANET['galaxy'],
@@ -215,8 +215,7 @@ class ShowGalaxyPage extends GalaxyRows
 			'write_message'				=> $LNG['write_message'],
 		));
 		
-		$template->show('galaxy_overview.tpl');
-		$PlanetRess->SavePlanetToDB($USER, $PLANET);	
+		$template->show('galaxy_overview.tpl');	
 	}
 }
 ?>
