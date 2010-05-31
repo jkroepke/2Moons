@@ -92,7 +92,7 @@ $LNG['email2_reg']					= 'E-mail Adresse wiederhohlen';
 $LNG['lang_reg']					= 'Sprache';
 $LNG['register_now']				= 'Registrieren!';
 $LNG['captcha_reg']				= 'Sicherheitsfrage';
-$LNG['accept_terms_and_conditions']= 'Bitte <a onclick="ajax(\'?page=rules&amp;\'+\'getajax=1\');" style="cursor:pointer;">Regeln</a> und <a onclick="ajax(\'?page=agb&amp;\'+\'getajax=1\');" style="cursor:pointer;">AGB`s</a> aktzeptieren';
+$LNG['accept_terms_and_conditions']= 'Bitte <a onclick="ajax(\'?page=rules&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\);" style="cursor:pointer;">Regeln</a> und <a onclick="ajax(\'?page=agb&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\);" style="cursor:pointer;">AGB`s</a> aktzeptieren';
 $LNG['captcha_reload']				= 'Neuladen';
 $LNG['captcha_help']				= 'Hilfe';
 $LNG['captcha_get_image']			= 'Lade Bild-CAPTCHA';

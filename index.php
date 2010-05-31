@@ -655,7 +655,7 @@ switch ($page) {
 				'server_description'	=> sprintf($LNG['server_description'], $CONF['game_name']),
 				'server_infos'			=> $LNG['server_infos'],
 				'login'					=> $LNG['login'],
-				'login_info'			=> $LNG['login_info'],
+				'login_info'			=> sprintf($LNG['login_info'], DEFAULT_LANG),
 				'user'					=> $LNG['user'],
 				'pass'					=> $LNG['pass'],
 				'lostpassword'			=> $LNG['lostpassword'],
