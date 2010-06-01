@@ -299,7 +299,6 @@ class MissionCaseExpedition extends MissionFunctions
 							  `time` = '".TIMESTAMP."',
 							  `owners` = '".$this->_fleet['fleet_owner'].",0', 
 							  `rid` = '". $rid ."',
-							  `a_zestrzelona` = '".count($result['rounds'])."',
 							  `raport` = '".$db->sql_escape($raport)."';";	
 				$db->query($SQLQuery);
 				$MessageAtt = sprintf($LNG['sys_mess_attack_report_mess'], $rid, $ColorAtt, $LNG['sys_mess_attack_report'], sprintf($LNG['sys_adress_planet'], $this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet']), $ColorAtt, $LNG['sys_perte_attaquant'], pretty_number($result['lost']['att']), $ColorDef, $LNG['sys_perte_defenseur'], pretty_number($result['lost']['def']), $LNG['sys_gain'], $LNG['Metal'], pretty_number($steal['metal']), $LNG['Crystal'], pretty_number($steal['crystal']), $LNG['Deuterium'], pretty_number($steal['deuterium']), $LNG['sys_debris'], $LNG['Metal'], pretty_number($result['debree']['att'][0]+$result['debree']['def'][0]), $LNG['Crystal'], pretty_number($result['debree']['att'][1]+$result['debree']['def'][1]));
