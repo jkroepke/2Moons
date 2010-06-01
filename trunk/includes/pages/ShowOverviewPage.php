@@ -336,6 +336,7 @@ function ShowOverviewPage()
 					if($tsAdmin->connect())
 					{
 						$tsAdmin->selectServer($sid);
+						#$tsAdmin->login($username, $password); Insert the SA Account Details, if Teamspeak banned you.
 						$sinfo	= $tsAdmin->serverInfo();
 						$tsAdmin->logout();
 						$tsAdmin->quit();
