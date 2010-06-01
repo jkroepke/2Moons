@@ -368,6 +368,9 @@ class ResourceUpdate
 		{
 			foreach($this->Builded as $Element => $Count)
 			{
+				if(!isset($resource[$Element]))
+					throw new Exception('ID '.$Element.' is not on $resource!');
+					
 				if(isset($PLANET[$resource[$Element]]))
 					$Qry	.= "`p`.`".$resource[$Element]."` = `p`.`".$resource[$Element]."` + '".$Count."', ";
 				elseif(isset($USER[$resource[$Element]]))
