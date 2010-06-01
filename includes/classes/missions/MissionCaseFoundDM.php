@@ -58,7 +58,7 @@ class MissionCaseFoundDM extends MissionFunctions
 		$LNG			= $this->GetUserLang($this->_fleet['fleet_owner']);
 		if($this->_fleet['fleet_resource_darkmatter'] > 0) {
 			SendSimpleMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_end_time'], 15, $LNG['sys_mess_tower'], $LNG['sys_expe_report'], sprintf($LNG['sys_expe_back_home_with_dm'], $LNG['Darkmatter'], pretty_number($FleetRow['fleet_resource_darkmatter']), $LNG['Darkmatter']));
-			$this->_fleet['fleet_array'] = '220,0;';
+			$this->UpdateFleet('fleet_array', '220,0;');
 		} else {
 			SendSimpleMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_end_time'], 15, $LNG['sys_mess_tower'], $LNG['sys_expe_report'], $LNG['sys_expe_back_home_without_dm']);
 		}
