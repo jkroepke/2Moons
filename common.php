@@ -127,7 +127,12 @@ if (INSTALL != true)
 		}
 				
 		$USER	= $db->uniquequery("SELECT u.*, s.`total_rank`, s.`total_points` FROM ".USERS." as u LEFT JOIN ".STATPOINTS." as s ON s.`id_owner` = u.`id` AND s.`stat_type` = '1' WHERE u.`id` = '".$_SESSION['id']."';");
-		define('DEFAULT_LANG'	, $USER['lang']);
+		if(empty($USER['lang'])) {
+			$USER['lang']	= $CONF['lang'];
+			$db->query("UPDATE ".USERS." SET `lang` ='".$USER['lang']."' WHERE `id` = '".$USER['id']."';");
+		}
+		
+		define('DEFAULT_LANG', $USER['lang']);
 		includeLang('INGAME');
 		includeLang('TECH');
 		
@@ -135,8 +140,6 @@ if (INSTALL != true)
 		{
 			require_once(ROOT_PATH . 'includes/classes/class.template.'.PHP_EXT);
 			$template	= new template();
-			$template->page_header();	
-			$template->page_footer();
 			$template->message("<font size=\"6px\">".$LNG['css_account_banned_message']."</font><br><br>".sprintf($LNG['css_account_banned_expire'],date("d. M y H:i", $USER['banaday']))."<br><br>".$LNG['css_goto_homeside'], false, 0, true);
 			exit;
 		}
