@@ -30,25 +30,25 @@ include(ROOT_PATH . 'common.' . PHP_EXT);
 
 if ($USER['authlevel'] != 3) die();
 
-	function exitupdate($Result){
+	function exitupdate($LOG){
 
 		$parse['planetes'] = "<tr><th>";
-		if(is_array($Result['debug'])) {
-			foreach($Result['debug'] as $key => $content) {
+		if(is_array($LOG['debug'])) {
+			foreach($LOG['debug'] as $key => $content) {
 				$parse['planetes'] .= $content."<br>";
 			}
 		}
 		
-		if(is_array($Result['update'])) {
-			foreach($Result['update'] as $rev => $content) {
+		if(is_array($LOG['update'])) {
+			foreach($LOG['update'] as $rev => $content) {
 				foreach($content as $file => $status) {
 					$parse['planetes'] .= "File ".$file." (Rev. ".$rev."): ".$status."<br>";
 				}
 			}
 		}
 		
-		if(is_array($Result['finish'])) {	
-			foreach($Result['finish'] as $key => $content) {
+		if(is_array($LOG['finish'])) {	
+			foreach($LOG['finish'] as $key => $content) {
 				$parse['planetes'] .= $content."<br>";
 			}
 		}
@@ -140,22 +140,22 @@ if ($USER['authlevel'] != 3) die();
 			{
 				$ftp = FTP::getInstance(); 
 				$ftp->connect($CONFIG);
-				$Result['debug']['connect']	= "FTP-Verbindungsaufbau: OK!";
+				$LOG['debug']['connect']	= "FTP-Verbindungsaufbau: OK!";
 			}
 			catch (FTPException $error)
 			{
-				$Result['debug']['connect']	= "FTP-Verbindungsaufbau: ERROR! ".$error->getMessage();
-				exitupdate($Result);
+				$LOG['debug']['connect']	= "FTP-Verbindungsaufbau: ERROR! ".$error->getMessage();
+				exitupdate($LOG);
 			}	
 						
 			if($ftp->changeDir($CONF['ftp_root_path']))
 			{
-				$Result['debug']['chdir']	= "FTP-Changedir(".$CONF['ftp_root_path']."): OK!";
+				$LOG['debug']['chdir']	= "FTP-Changedir(".$CONF['ftp_root_path']."): OK!";
 			}
 			else
 			{
-				$Result['debug']['chdir']	= "FTP-Changedir(".$CONF['ftp_root_path']."): ERROR! Pfad nicht gefunden!";
-				exitupdate($Result);
+				$LOG['debug']['chdir']	= "FTP-Changedir(".$CONF['ftp_root_path']."): ERROR! Pfad nicht gefunden!";
+				exitupdate($LOG);
 			}
 			
 			foreach($UpdateArray['revs'] as $Rev => $RevInfo) 
@@ -172,16 +172,16 @@ if ($USER['authlevel'] != 3) die();
 							if (strpos($File, '.') !== false) {		
 								$Data = fopen($SVN_ROOT.$File, "r");
 								if ($ftp->uploadFromFile($Data, str_replace("/trunk/", "", $File))) {
-									$Result['update'][$Rev][$File]	= "OK! - Updated";
+									$LOG['update'][$Rev][$File]	= "OK! - Updated";
 								} else {
-									$Result['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht hochladen";
+									$LOG['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht hochladen";
 								}
 								fclose($Data);
 							} else {
 								if ($ftp->makeDir(str_replace("/trunk/", "", $File), 1)) {
-									$Result['update'][$Rev][$File]	= "OK! - Updated";
+									$LOG['update'][$Rev][$File]	= "OK! - Updated";
 								} else {
-									$Result['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht hochladen";
+									$LOG['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht hochladen";
 								}				
 							}
 						}
@@ -199,9 +199,9 @@ if ($USER['authlevel'] != 3) die();
 							} else {
 								$Data = fopen($SVN_ROOT.$File, "r");
 								if ($ftp->uploadFromFile($Data, str_replace("/trunk/", "", $File))) {
-									$Result['update'][$Rev][$File]	= "OK! - Updated";
+									$LOG['update'][$Rev][$File]	= "OK! - Updated";
 								} else {
-									$Result['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht hochladen";
+									$LOG['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht hochladen";
 								}
 								fclose($Data);
 							}
@@ -214,26 +214,26 @@ if ($USER['authlevel'] != 3) die();
 					{
 						if (strpos($File, '.') !== false) {
 							if ($ftp->delete(str_replace("/trunk/", "", $File))) {
-								$Result['update'][$Rev][$File]	= "OK! - Gel&ouml;scht";
+								$LOG['update'][$Rev][$File]	= "OK! - Gel&ouml;scht";
 							} else {
-								$Result['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht l&ouml;schen";
+								$LOG['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht l&ouml;schen";
 							}
 						} else {
 							if ($ftp->removeDir(str_replace("/trunk/", "", $File), 1 )) {
-								$Result['update'][$Rev][$File]	= "OK! - Gel&ouml;scht";
+								$LOG['update'][$Rev][$File]	= "OK! - Gel&ouml;scht";
 							} else {
-								$Result['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht l&ouml;schen";
+								$LOG['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht l&ouml;schen";
 							}						
 						}
 					}
 				}
 				$LastRev = $Rev;
 			}
-			$Result['finish']['atrev'] = "UPDATE: OK! At Revision: ".$LastRev;
+			$LOG['finish']['atrev'] = "UPDATE: OK! At Revision: ".$LastRev;
 			
 			// Verbindung schlieﬂen
 			update_config('VERSION', str_replace("RC","",$Patchlevel[0]).".".$Patchlevel[1].".".$LastRev);
-			exitupdate($Result);
+			exitupdate($LOG);
 		break;
 		default:
 			$i = 0;

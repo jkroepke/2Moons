@@ -183,4 +183,17 @@ $LNG['sys_destruc_null']        		   	= 'Die Todessterne können ihre volle Leis
 
 
 $LNG['fcp_colony']							= 'Kolonie';
+$LNG['fl_simulate']						= 'Simulieren';
+
+$LNG['type_mission'][1]  					= 'Angreifen';
+$LNG['type_mission'][2]  					= 'Verbandsangriff';
+$LNG['type_mission'][3]  					= 'Transport';
+$LNG['type_mission'][4]  					= 'Stationieren';
+$LNG['type_mission'][5]  					= 'Halten';
+$LNG['type_mission'][6]  					= 'Spionieren';
+$LNG['type_mission'][7]  					= 'Kolonisieren';
+$LNG['type_mission'][8]  					= 'Abbauen';
+$LNG['type_mission'][9]  					= 'Zerstören';
+$LNG['type_mission'][11]  					= 'DM Untersuchung';
+$LNG['type_mission'][15] 					= 'Expedition';
 ?>

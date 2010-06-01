@@ -78,11 +78,11 @@ class GalaxyRows
 
 	public function GalaxyRowDebris($GalaxyRowPlanet)
 	{
-		global $USER, $pricelist, $LNG, $resource;
+		global $USER, $PLANET, $pricelist, $resource;
 
-		$GRecNeeded = min(ceil(($GalaxyRowPlanet['der_metal'] + $GalaxyRowPlanet['der_crystal']) / $pricelist[219]['capacity']), $PLANET[$resource[229]]);
+		$GRecNeeded = min(ceil(($GalaxyRowPlanet['der_metal'] + $GalaxyRowPlanet['der_crystal']) / $pricelist[219]['capacity']), $PLANET[$resource[219]]);
 		$RecNeeded 	= min(ceil(max($GalaxyRowPlanet['der_metal'] + $GalaxyRowPlanet['der_crystal'] - ($GRecNeeded * $pricelist[219]['capacity']), 0) / $pricelist[209]['capacity']), $PLANET[$resource[209]]);
-				
+
 		$Result = array(
 			'metal'			=> pretty_number($GalaxyRowPlanet["der_metal"]),
 			'crystal'		=> pretty_number($GalaxyRowPlanet["der_crystal"]),

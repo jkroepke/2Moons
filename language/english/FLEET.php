@@ -181,6 +181,19 @@ $LNG['sys_module_inactive']                = 'Module disabled';
 //----------------------------------------------------------------------------//
 // EXTRA LANGUAGE FUNCTIONS
 $LNG['fcp_colony']							= 'Colony';
+$LNG['fl_simulate']						= 'Simulate';
+
+$LNG['type_mission'][1]  					= 'Attack';
+$LNG['type_mission'][2]  					= 'Association Attack';
+$LNG['type_mission'][3]  					= 'Transport';
+$LNG['type_mission'][4]  					= 'Deploy';
+$LNG['type_mission'][5]  					= 'Hold';
+$LNG['type_mission'][6]  					= 'Spy';
+$LNG['type_mission'][7]  					= 'Colonization';
+$LNG['type_mission'][8]  					= 'Recycle';
+$LNG['type_mission'][9]  					= 'Destroy';
+$LNG['type_mission'][11]  					= 'DM Investigation';
+$LNG['type_mission'][15] 					= 'Expedition';
 
 
 // Translated into English by Languar . All rights reversed (C) 2010
