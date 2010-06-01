@@ -73,7 +73,8 @@ function ShowBattleSimPage()
 				$defense[$Def]['def']	 	= $BattleSlot[1];
 			}
 		}
-			
+		
+		includeLang('FLEET');
 		require_once(ROOT_PATH.'includes/classes/missions/calculateAttack.'.PHP_EXT);
 		require_once(ROOT_PATH.'includes/classes/missions/calculateSteal.'.PHP_EXT);
 		require_once(ROOT_PATH.'includes/classes/missions/GenerateReport.'.PHP_EXT);
