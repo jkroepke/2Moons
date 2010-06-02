@@ -351,7 +351,7 @@ function msg_handler($errno, $msg_text, $errfile, $errline)
 			echo '<meta http-equiv="content-script-type" content="text/javascript">';
 			echo '<meta http-equiv="content-style-type" content="text/css">';
 			echo '<meta http-equiv="content-language" content="de">';
-			echo '<title>'.$CONF['game_name'].' - FATAL ERROR</title>';
+			echo '<title>'.$CONF['game_name'].' - Informations</title>';
 			echo '<link rel="shortcut icon" href="./favicon.ico">';
 			echo '<link rel="stylesheet" type="text/css" href="styles/css/default.css">';
 			echo '<link rel="stylesheet" type="text/css" href="styles/css/formate.css">';
@@ -395,7 +395,7 @@ function GetUserByID($UserID, $GetInfo = "*")
 	else
 		$GetOnSelect = $GetInfo;
 	
-	$User = $db->fetch_array($db->query("SELECT ".$GetOnSelect." FROM ".USERS." WHERE `id` = '". $UserID ."';"));
+	$User = $db->uniquequery("SELECT ".$GetOnSelect." FROM ".USERS." WHERE `id` = '". $UserID ."';");
 	return $User;
 }
 
@@ -557,7 +557,7 @@ function floattostring($Numeric, $Pro = 0, $Output = false){
 
 function CheckModule($ID)
 {
-	return ($_SESSION == 0 && $GLOBALS['config']['moduls'][$ID] == 0) ? true : false;
+	return ($_SESSION['authlevel'] == 0 && $GLOBALS['config']['moduls'][$ID] == 0) ? true : false;
 }
 
 function GetLangs()
