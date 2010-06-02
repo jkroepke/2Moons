@@ -557,7 +557,7 @@ function floattostring($Numeric, $Pro = 0, $Output = false){
 
 function CheckModule($ID)
 {
-	return ($_SESSION['authlevel'] == 0 && $GLOBALS['config']['moduls'][$ID] == 0) ? true : false;
+	return ($GLOBALS['USER']['authlevel'] == 0 && $GLOBALS['CONF']['moduls'][$ID] == 0) ? true : false;
 }
 
 function GetLangs()
