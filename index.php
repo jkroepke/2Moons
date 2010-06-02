@@ -52,7 +52,7 @@ switch ($page) {
 		
 		if($fb_user)
 		{
-			$login = $db->uniquequery("SELECT `id`,`username`,`password`,`authlevel`,`banaday` FROM " . USERS . " WHERE `fb_id` = '".$fb_user."';");
+			$login = $db->uniquequery("SELECT `id`,`username`,`authlevel`,`banaday` FROM " . USERS . " WHERE `fb_id` = '".$fb_user."';");
 			if (isset($login)) {
 				if ($login['banaday'] <= time () && $login['banaday'] != '0') {
 					$db->query("UPDATE " . USERS . " SET `banaday` = '0', `bana` = '0' WHERE `username` = '" . $login ['username'] . "';");
@@ -74,12 +74,14 @@ switch ($page) {
 				else 
 					exit(header("Location: index.php"));
 				
-				$Exist['alruser'] = $db->fetch_array($db->query("SELECT id,username,password FROM ".USERS." WHERE `email` = '".$UserMail."';"));
+				$Exist['alruser'] = $db->uniquequery("SELECT id,username,authlevel FROM ".USERS." WHERE `email` = '".$UserMail."';");
 				if(isset($Exist['alruser']))
 				{
 					$db->query("UPDATE `".USERS."` SET `fb_id` = '".$fb_user."' WHERE `id` ='".$Exist['alruser']['id']."';");
-					$cookie = $Exist['alruser']['id']."/%/".$Exist['alruser']['username']."/%/".md5($Exist['alruser']['password']."--".$dbsettings["secretword"])."/%/0";
-					setcookie($CONF['COOKIE_NAME'], $cookie, 0, "/", "", 0);
+					@session_start();
+					$_SESSION['id']			= $Exist['alruser']['id'];
+					$_SESSION['username']	= $Exist['alruser']['username'];
+					$_SESSION['authlevel']	= $Exist['alruser']['authlevel'];
 					exit(header("Location: ./game.php?page=overview"));
 				}
 				
@@ -109,7 +111,7 @@ switch ($page) {
 				}
 				
 				$QryInsertUser = "INSERT INTO ".USERS." SET ";
-				$QryInsertUser .= "`username` = '" . $UserName . "', ";
+				$QryInsertUser .= "`username` = '" .$db->sql_escape($UserName)."', ";
 				$QryInsertUser .= "`email` = '" . $UserMail . "', ";
 				$QryInsertUser .= "`email_2` = '" . $UserMail . "', ";
 				$QryInsertUser .= "`ip_at_reg` = '" . $UserIP . "', ";

@@ -46,13 +46,13 @@ class MissionCaseTransport extends MissionFunctions
 					   `planet` = '". $this->_fleet['fleet_end_planet'] ."' AND
 					   `planet_type` = '". $this->_fleet['fleet_end_type'] ."';";
 		$Result     	= $db->uniquequery($Qry);
-		$TargetName     = $TargetPlanet['name'];
+		$TargetName     = $Result['name'];
 		$TargetOwner    = $this->_fleet['fleet_target_owner'];
 		
 		$this->StoreGoodsToPlanet();
 		$LNG			= $this->GetUserLang($StartOwner);
-		$Message        = sprintf( $LNG['sys_tran_mess_owner'], $TargetName, GetTargetAdressLink($this->_fleet, ''), pretty_number($this->_fleet['fleet_resource_metal']), $LNG['Metal'], pretty_number($this->_fleet['fleet_resource_crystal']), $LNG['Crystal'], pretty_number($this->_fleet['fleet_resource_deuterium']), $LNG['Deuterium'] );
-
+		$Message        = sprintf($LNG['sys_tran_mess_owner'], $TargetName, GetTargetAdressLink($this->_fleet, ''), pretty_number($this->_fleet['fleet_resource_metal']), $LNG['Metal'], pretty_number($this->_fleet['fleet_resource_crystal']), $LNG['Crystal'], pretty_number($this->_fleet['fleet_resource_deuterium']), $LNG['Deuterium']);
+		var_dump($LNG['sys_tran_mess_owner'], $TargetName, GetTargetAdressLink($this->_fleet, ''), pretty_number($this->_fleet['fleet_resource_metal']), $LNG['Metal'], pretty_number($this->_fleet['fleet_resource_crystal']), $LNG['Crystal'], pretty_number($this->_fleet['fleet_resource_deuterium']), $LNG['Deuterium']);
 		SendSimpleMessage($StartOwner, '', $this->_fleet['fleet_start_time'], 5, $LNG['sys_mess_tower'], $LNG['sys_mess_transport'], $Message);
 		if ($TargetOwner != $StartOwner) 
 		{

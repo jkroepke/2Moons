@@ -20,20 +20,18 @@
 ##############################################################################
 
 
-function ShowPhalanxPage($USER, $PLANET)
+function ShowPhalanxPage()
 {
-	global $LNG, $db;
+	global $USER, $PLANET, $LNG, $db;
 
-	include_once(ROOT_PATH . 'includes/functions/InsertJavaScriptChronoApplet.' . PHP_EXT);
-	include_once(ROOT_PATH . 'includes/classes/class.FlyingFleetsTable.' . PHP_EXT);
-	include_once(ROOT_PATH . 'includes/classes/class.GalaxyRows.' . PHP_EXT);
+	include_once(ROOT_PATH.'includes/functions/InsertJavaScriptChronoApplet.' . PHP_EXT);
+	include_once(ROOT_PATH.'includes/classes/class.FlyingFleetsTable.' . PHP_EXT);
+	include_once(ROOT_PATH.'includes/classes/class.GalaxyRows.' . PHP_EXT);
 
 	$FlyingFleetsTable 	= new FlyingFleetsTable();
 	$GalaxyRows 		= new GalaxyRows();
-	$PlanetRess 		= new ResourceUpdate($USER, $PLANET);
 
 	$template			= new template();
-	$template->set_vars($USER, $PLANET);
 	$template->page_header();
 	$template->page_footer();	
 	
@@ -44,7 +42,6 @@ function ShowPhalanxPage($USER, $PLANET)
 	
 	$SystemLimitMin  	= max(1, $CurrentSystem - $PhRange);
 	$SystemLimitMax  	= $CurrentSystem + $PhRange;
-	
 	if ($PLANET['deuterium'] < 5000)
 	{
 		$template->message($LNG['px_no_deuterium'], false, 0, true);
@@ -54,7 +51,8 @@ function ShowPhalanxPage($USER, $PLANET)
 	if($System <= $SystemLimitMax && $System >= $SystemLimitMin && $Galaxy == $PLANET['galaxy'])
 	{
 		$PLANET['deuterium'] -= 5000;
-		$TargetInfo = $db->fetch_array($db->query("SELECT name, id_owner FROM ".PLANETS." WHERE `galaxy` = '". $Galaxy ."' AND `system` = '". $System ."' AND `planet` = '". $Planet ."' AND `planet_type` = '1';"));
+		$db->query("UPDATE ".PLANETS." SET `deuterium` = `deuterium` - '5000' WHERE `id` = '".$PLANET['id']."';");
+		$TargetInfo = $db->uniquequery("SELECT name, id_owner FROM ".PLANETS." WHERE `galaxy` = '". $Galaxy ."' AND `system` = '". $System ."' AND `planet` = '". $Planet ."' AND `planet_type` = '1';");
 
 		$QryLookFleets  = "SELECT * ";
 		$QryLookFleets .= "FROM ".FLEETS." ";
@@ -126,7 +124,6 @@ function ShowPhalanxPage($USER, $PLANET)
 		'px_fleet_movement'	=> $LNG['px_fleet_movement'],
 	));
 	
-	$template->show('phalax_body.tpl');
-	$PlanetRess->SavePlanetToDB($USER, $PLANET);			
+	$template->show('phalax_body.tpl');			
 }
 ?>
