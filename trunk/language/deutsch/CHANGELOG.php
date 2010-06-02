@@ -8,6 +8,7 @@ $LNG['changelog']   = array(
 'RC5.1' => 'ShadoX 31.05.10
 - ADD: New Facebook API
 - FIX: UMode
+- FIX: Admin Hack via Facebook
 - FIX: Flottenrückkehr
 - FIX: Forschung
 ',
