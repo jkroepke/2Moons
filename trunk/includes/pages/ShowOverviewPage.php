@@ -410,6 +410,7 @@ function ShowOverviewPage()
 				'ov_no_admins_online'		=> $LNG['ov_no_admins_online'],
 				'ov_userbanner'				=> $LNG['ov_userbanner'],
 				'ov_teamspeak'				=> $LNG['ov_teamspeak'],
+				'path'						=> str_replace('game.php', '', $_SERVER['PHP_SELF']),
 			));
 			
 			$template->show("overview_body.tpl");
