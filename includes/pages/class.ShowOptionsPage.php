@@ -24,11 +24,11 @@ class ShowOptionsPage
 	private function CheckIfIsBuilding()
 	{
 		global $db, $USER;
-		$query = $db->query("SELECT `b_building`, `b_tech`, `b_hangar` FROM ".PLANETS." WHERE id_owner = '".$USER['id']."'  AND `destruyed` = 0;");
+		$query = $db->query("SELECT `b_building`, `b_hangar` FROM ".PLANETS." WHERE id_owner = '".$USER['id']."'  AND `destruyed` = 0;");
 		
 		while($id = $db->fetch_array($query))
 		{
-			if(!(empty($id['b_building']) && empty($id['b_tech']) && empty($id['b_hangar'])))
+			if(!(empty($id['b_building']) && empty($id['b_hangar'])))
 				return true;
 		}
 
