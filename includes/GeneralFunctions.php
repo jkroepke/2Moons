@@ -474,8 +474,11 @@ function CheckName($String)
 }
 
 function exception_handler($exception) {
-	global $CONF;
+	global $CONF, $db;
 	@ob_flush();
+	$db->rollback();
+	$db->kill($db->thread_id);
+
 	@ob_start();
 	echo '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">';
 	echo '<html>';

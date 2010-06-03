@@ -23,39 +23,26 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 
 class ShowShipyardPage
 {
-	private function GetMaxConstructibleElements ($Element, $Ressources)
+	private function GetMaxConstructibleElements($Element)
 	{
-		global $pricelist;
+		global $pricelist, $PLANET, $USER;
 
 		if ($pricelist[$Element]['metal'] != 0)
-		{
-			$Buildable        = floor($Ressources["metal"] / $pricelist[$Element]['metal']);
-			$MaxElements      = $Buildable;
-		}
+			$MAX[]				= floor($PLANET['metal'] / $pricelist[$Element]['metal']);
 
 		if ($pricelist[$Element]['crystal'] != 0)
-			$Buildable        = floor($Ressources["crystal"] / $pricelist[$Element]['crystal']);
-
-		if (!isset($MaxElements))
-			$MaxElements      = $Buildable;
-		elseif($MaxElements > $Buildable)
-			$MaxElements      = $Buildable;
+			$MAX[]				= floor($PLANET['crystal'] / $pricelist[$Element]['crystal']);
 
 		if ($pricelist[$Element]['deuterium'] != 0)
-			$Buildable        = floor($Ressources["deuterium"] / $pricelist[$Element]['deuterium']);
-
-		if (!isset($MaxElements))
-			$MaxElements      = $Buildable;
-		elseif ($MaxElements > $Buildable)
-			$MaxElements      = $Buildable;
+			$MAX[]				= floor($PLANETs['deuterium'] / $pricelist[$Element]['deuterium']);
+			
+		if ($pricelist[$Element]['darkmatter'] != 0)
+			$MAX[]				= floor($USER['darkmatter'] / $pricelist[$Element]['darkmatter']);
 
 		if ($pricelist[$Element]['energy'] != 0)
-			$Buildable        = floor($Ressources["energy_max"] / $pricelist[$Element]['energy']);
+			$MAX[]				= floor($PLANET['energy_max'] / $pricelist[$Element]['energy_max']);
 
-		if ($Buildable < 1)
-			$MaxElements      = 0;
-
-		return $MaxElements;
+		return min($MAX);
 	}
 
 	private function GetElementRessources($Element, $Count)
@@ -184,7 +171,7 @@ class ShowShipyardPage
 				}
 				elseif ($Count > 0 && IsTechnologieAccessible ($USER, $PLANET, $Element))
 				{
-					$MaxElements = $this->GetMaxConstructibleElements($Element, $PLANET);
+					$MaxElements = $this->GetMaxConstructibleElements($Element);
 					$Count		 = min($MaxElements, $Count);
 					$Ressource 	 = $this->GetElementRessources($Element, $Count);
 					$PLANET['metal']	 -= $Ressource['metal'];
@@ -358,7 +345,7 @@ class ShowShipyardPage
 				}
 				elseif ($Count != 0 && IsTechnologieAccessible($USER, $PLANET, $Element))
 				{
-					$MaxElements = $this->GetMaxConstructibleElements ( $Element, $PLANET );
+					$MaxElements = $this->GetMaxConstructibleElements($Element);
 					if ($Element == 502 || $Element == 503)
 					{
 						$ActuMissiles  = $Missiles[502] + ( 2 * $Missiles[503] );

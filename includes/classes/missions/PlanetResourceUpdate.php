@@ -39,7 +39,7 @@ function PlanetResourceUpdate($CurrentUser, $CurrentPlanet, $UpdateTime)
 	$ProductionTime               	= ($UpdateTime - $CurrentPlanet['last_update']);
 	$CurrentPlanet['last_update'] 	= $UpdateTime;
 
-	if ($CurrentPlanet['planet_type'] == 3)
+	if ($CurrentPlanet['planet_type'] == 3|| $CurrentUser['urlaubs_modus'] == 1))
 	{
 		$CONF['metal_basic_income']     = 0;
 		$CONF['crystal_basic_income']   = 0;
@@ -131,8 +131,6 @@ function PlanetResourceUpdate($CurrentUser, $CurrentPlanet, $UpdateTime)
 
 	if ($Simul == false)
 	{
-		#$Builded          = HandleElementBuildingQueue ( $CurrentUser, $CurrentPlanet, $ProductionTime );
-
 		$QryUpdatePlanet  = "UPDATE ".PLANETS." SET ";
 		$QryUpdatePlanet .= "`metal` = '"            . floattostring($CurrentPlanet['metal'], 6)  	."', ";
 		$QryUpdatePlanet .= "`crystal` = '"          . floattostring($CurrentPlanet['crystal'], 6)	."', ";
@@ -148,16 +146,6 @@ function PlanetResourceUpdate($CurrentUser, $CurrentPlanet, $UpdateTime)
         $QryUpdatePlanet .= "`deuterium_max` = '"    . $CurrentPlanet['deuterium_max'] 				."', ";
 		$QryUpdatePlanet .= "`energy_used` = '"      . $CurrentPlanet['energy_used']    			."', ";
 		$QryUpdatePlanet .= "`energy_max` = '"       . $CurrentPlanet['energy_max']        			."', ";
-		if ( $Builded != '' )
-		{
-			foreach ( $Builded as $Element => $Count )
-			{
-				if ($resource[$Element] != '')
-				{
-					$QryUpdatePlanet .= "`". $resource[$Element] ."` = '". $CurrentPlanet[$resource[$Element]] ."', ";
-				}
-			}
-		}
 		$QryUpdatePlanet .= "`b_hangar` = '". $CurrentPlanet['b_hangar'] ."' ";
 		$QryUpdatePlanet .= "WHERE ";
 		$QryUpdatePlanet .= "`id` = '". $CurrentPlanet['id'] ."';";

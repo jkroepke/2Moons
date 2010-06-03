@@ -155,10 +155,6 @@ $LNG['sys_tran_mess_user'] 		 		= 'Eine friedliche Flotte von %s %s erreicht %s 
 $LNG['sys_mess_fleetback'] 				= 'Flottenrückkehr';
 $LNG['sys_tran_mess_back'] 				= 'Eine deiner Flotten kehrt zum Planeten %s %s zurück.';
 $LNG['sys_recy_gotten'] 					= 'Deine Recycler haben %s %s und %s %s Gesammelt.';
-$LNG['sys_notenough_money'] 				= 'Sie verfügen auf Planet %s <a href="./game.php?page=buildings&amp;cp=%d&amp;re=0">[%d:%d:%d]</a> nicht über genügend Ressourcen, um mit dem Bau von %s zu beginnen. <br>Sie verfüen über %s %s , %s %s und %s %s. <br>Die Baukosten betragen %s %s , %s %s und %s %s.';
-$LNG['sys_nomore_level'] 					= 'Sie versuchen, ein Gebäude zu zerstören, was sie nicht mehr besitzen( %s ).';
-$LNG['sys_buildlist'] 						= 'Bauliste';
-$LNG['sys_buildlist_fail'] 				= 'Bau nicht möglich';
 $LNG['sys_gain'] 				  			= 'Gewinn';
 $LNG['sys_irak_subject'] 				  	= 'Raketeneinschlag';
 $LNG['sys_irak_no_def'] 				  	= 'Der Planet hat keine Verteidigung';
