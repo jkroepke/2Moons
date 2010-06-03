@@ -672,7 +672,7 @@ class ShowFleetPages extends FleetFunctions
 		
 		if ($fleet_group_mr != 0)
 		{
-			$AksStartTime = $db->unqiuequery("SELECT MAX(`fleet_start_time`) AS Start FROM ".FLEETS." WHERE `fleet_group` = '". $fleet_group_mr . "';");
+			$AksStartTime = $db->uniquequery("SELECT MAX(`fleet_start_time`) AS Start FROM ".FLEETS." WHERE `fleet_group` = '". $fleet_group_mr . "';");
 
 			if ($AksStartTime['Start'] >= $fleet['start_time'])
 			{
