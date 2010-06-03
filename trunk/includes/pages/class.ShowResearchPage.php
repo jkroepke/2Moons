@@ -100,21 +100,20 @@ class ShowResearchPage
 			'energy_max' => $LNG['Energy'],
 			'darkmatter' => $LNG['Darkmatter'],
 		);
+		
 		$restprice	= array();
+		
 		foreach ($array as $ResType => $ResTitle)
 		{
-			if ($pricelist[$Element][$ResType] != 0)
-			{
-				if ($Factor)
-				{
-					$cost = floor($pricelist[$Element][$ResType] * pow($pricelist[$Element]['factor'], $level));
-				}
-				else
-				{
-					$cost = floor($pricelist[$Element][$ResType]);
-				}
-				$restprice[$ResTitle] = pretty_number(max($cost - (($PLANET[$ResType]) ? $PLANET[$ResType] : $USER[$ResType]), 0));
-			}
+			if (empty($pricelist[$Element][$ResType]))
+				continue;
+
+			if ($Factor)
+				$cost = floor($pricelist[$Element][$ResType] * pow($pricelist[$Element]['factor'], $level));
+			else
+				$cost = floor($pricelist[$Element][$ResType]);
+
+			$restprice[$ResTitle] = pretty_number(max($cost - (($PLANET[$ResType]) ? $PLANET[$ResType] : $USER[$ResType]), 0));
 		}
 
 		return $restprice;
@@ -227,7 +226,7 @@ class ShowResearchPage
 								'bd_continue'	=> $LNG['bd_continue'],
 							));
 						} else {
-							$THEPLANET	= $db->uniquequery("SELECT `name` FROM ".PLANETS." WHERE `id` = '".$USER['b_tech_id']."';");
+							$THEPLANET	= $db->uniquequery("SELECT `name` FROM ".PLANETS." WHERE `id` = '".$USER['b_tech_planet']."';");
 							$template->assign_vars(array(
 								'tech_time'		=> $USER['b_tech'] - TIMESTAMP,
 								'tech_name'		=> $LNG['bd_on'].'<br>'.$THEPLANET['name'],
@@ -249,7 +248,7 @@ class ShowResearchPage
 				
 				$ResearchList[] = array(
 					'id'		=> $Element,
-					'maxinfo'	=> (isset($pricelist[$Element]['max']) && $pricelist[$Element]['max'] != 255) ? sprintf($LNG['bd_max_lvl'], $pricelist[$Element]['max']):"",
+					'maxinfo'	=> (isset($pricelist[$Element]['max']) && $pricelist[$Element]['max'] != 255) ? sprintf($LNG['bd_max_lvl'], $pricelist[$Element]['max']):'',
 					'name'  	=> $LNG['tech'][$Element],
 					'descr'  	=> $LNG['res']['descriptions'][$Element],
 					'price'  	=> GetElementPrice($USER, $PLANET, $Element),					

@@ -333,15 +333,15 @@ $LNG['bd_interrupt']						= 'Pause';
 $LNG['bd_cancel']							= 'Abbrechen';
 $LNG['bd_working']							= 'Beschäftigt';
 $LNG['bd_build']							= 'Bauen';
-$LNG['bd_build_next_level']				= 'Ausbauen auf Stufe ';
+$LNG['bd_build_next_level']					= 'Ausbauen auf Stufe ';
 $LNG['bd_add_to_list']						= 'Zur Bauliste hinzufügen';
 $LNG['bd_no_more_fields']					= 'Planet ausgebaut!';
 $LNG['bd_remaining']						= 'Fehlende Rohstoffe:';
-$LNG['bd_lab_required']					= 'Du must zuerst ein Forschungslabor auf diesem Planeten Bauen!';
-$LNG['bd_building_lab']					= 'Das Forschungslabor wird zurzeut ausgebaut!';
+$LNG['bd_lab_required']						= 'Du must zuerst ein Forschungslabor auf diesem Planeten Bauen!';
+$LNG['bd_building_lab']						= 'Das Forschungslabor wird zurzeut ausgebaut!';
 $LNG['bd_max_lvl']							= '(Max. Level: %s)';
 $LNG['bd_lvl']								= 'Stufe';
-$LNG['bd_research']						= 'Forschung';
+$LNG['bd_research']							= 'Forschung';
 $LNG['bd_shipyard_required']				= 'Du musst zuerst eine Schiffswerft auf diesem Planeten Bauen!';
 $LNG['bd_building_shipyard']				= 'Die Nanitenfabrik oder Raumschiffwerft wird zurzeit ausgebaut!';
 $LNG['bd_available']						= 'Vorhanden: ';
@@ -351,18 +351,23 @@ $LNG['bd_build_defenses']					= 'Absenden';
 $LNG['bd_actual_production']				= 'Aktuelle Produktion:';
 $LNG['bd_completed']						= 'Fertig';
 $LNG['bd_operating']						= 'in Arbeit';
-$LNG['bd_continue']						= 'Weiter';
+$LNG['bd_continue']							= 'Weiter';
 $LNG['bd_ready']							= 'Fertig';
-$LNG['bd_finished']						= 'Fertig';
-$LNG['bd_maxlevel']						= 'Maximale Stufe erreicht';
+$LNG['bd_finished']							= 'Fertig';
+$LNG['bd_maxlevel']							= 'Maximale Stufe erreicht';
 $LNG['bd_on']								= 'auf';
 $LNG['bd_max_builds']						= 'Sie können max. %d Aufträge versenden!';
 $LNG['bd_next_level']						= 'Next Level:';
 $LNG['bd_need_engine']						= 'Verbraucht <font color="#FF0000">%s</font> %s mehr';
 $LNG['bd_more_engine']						= 'Produziert <font color="#00FF00">%s</font> %s mehr';
-$LNG['bd_jump_gate_action']				= 'Springen';
+$LNG['bd_jump_gate_action']					= 'Springen';
 $LNG['bd_cancel_warning']					= 'Bei Abbruch werden nur 60% der Ressis wiederhergestellt!';
 $LNG['bd_cancel_send']						= 'Markierte - Löschen';
+$LNG['sys_notenough_money'] 				= 'Sie verfügen auf Planet %s <a href="?page=buildings&amp;cp=%d&amp;re=0">[%d:%d:%d]</a> nicht über genügend Ressourcen, um mit dem Bau von %s zu beginnen. <br>Sie verfüen über %s %s , %s %s und %s %s. <br>Die Baukosten betragen %s %s , %s %s und %s %s.';
+$LNG['sys_nomore_level'] 					= 'Sie versuchen, ein Gebäude zu zerstören, was sie nicht mehr besitzen( %s ).';
+$LNG['sys_buildlist'] 						= 'Bauliste';
+$LNG['sys_buildlist_fail'] 					= 'Bau nicht möglich';
+
 
 //----------------------------------------------------------------------------//
 //RESOURCES

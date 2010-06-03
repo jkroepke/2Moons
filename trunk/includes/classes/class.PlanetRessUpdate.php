@@ -30,7 +30,9 @@ class ResourceUpdate
 	public function CalcResource()
 	{
 		global $USER, $PLANET;
-	
+		if($USER['urlaubs_modus'] == 1)
+			return $this;
+			
 		if($this->Build)
 		{
 			$this->ShipyardQueue();
@@ -60,7 +62,7 @@ class ResourceUpdate
 
 		$PLANET['last_update']   		= $TIME;
 
-		if ($PLANET['planet_type'] == 3 || $USER['urlaubs_modus'] == 1)
+		if ($PLANET['planet_type'] == 3)
 		{
 			$CONF['metal_basic_income']     = 0;
 			$CONF['crystal_basic_income']   = 0;
@@ -177,15 +179,14 @@ class ResourceUpdate
 			$BuildTime = $Item[2];
 			
 			if($BuildTime == 0) {
-				$this->Builded[$Element]		= bcadd($Count, $Builded[$Element]);
+				$this->Builded[$Element]		= bcadd($Count, $this->Builded[$Element]);
 				$PLANET[$resource[$Element]]	= bcadd($Count, $PLANET[$resource[$Element]]);
-				$PLANET['b_hangar']				-= bcmul($Count, $BuildTime);
 				continue;					
 			}
 			
 			$GetBuildShips					= max(min(bcdiv($PLANET['b_hangar'], $BuildTime), $Count), 0);
 			$PLANET['b_hangar']				-= bcmul($GetBuildShips, $BuildTime);
-			$this->Builded[$Element]		= bcadd($GetBuildShips, $Builded[$Element]);
+			$this->Builded[$Element]		= bcadd($GetBuildShips, $this->Builded[$Element]);
 			$PLANET[$resource[$Element]]	= bcadd($GetBuildShips, $PLANET[$resource[$Element]]);
 			$Count							= bcsub($Count, $GetBuildShips);						
 			
@@ -301,11 +302,11 @@ class ResourceUpdate
 			} else {
 				if($USER['hof'] == 1) {
 					if ($HaveNoMoreLevel == true)
-						$Message     = sprintf ($LNG['sys_nomore_level'], $LNG['tech'][$Element]);
+						$Message     = sprintf($LNG['sys_nomore_level'], $LNG['tech'][$Element]);
 					else
 					{
-						$Needed      = GetBuildingPrice ($USER, $PLANET, $Element, true, $ForDestroy);
-						$Message     = sprintf ($LNG['sys_notenough_money'], $PLANET['name'], $PLANET['id'], $PLANET['galaxy'], $PLANET['system'], $PLANET['planet'], $LNG['tech'][$Element], pretty_number ($PLANET['metal']), $LNG['Metal'], pretty_number ($PLANET['crystal']), $LNG['Crystal'], pretty_number ($PLANET['deuterium']), $LNG['Deuterium'], pretty_number ($Needed['metal']), $LNG['Metal'], pretty_number ($Needed['crystal']), $LNG['Crystal'], pretty_number ($Needed['deuterium']), $LNG['Deuterium']);
+						$Needed      = GetBuildingPrice($USER, $PLANET, $Element, true, $ForDestroy);
+						$Message     = sprintf($LNG['sys_notenough_money'], $PLANET['name'], $PLANET['id'], $PLANET['galaxy'], $PLANET['system'], $PLANET['planet'], $LNG['tech'][$Element], pretty_number ($PLANET['metal']), $LNG['Metal'], pretty_number ($PLANET['crystal']), $LNG['Crystal'], pretty_number ($PLANET['deuterium']), $LNG['Deuterium'], pretty_number ($Needed['metal']), $LNG['Metal'], pretty_number ($Needed['crystal']), $LNG['Crystal'], pretty_number ($Needed['deuterium']), $LNG['Deuterium']);
 					}
 					SendSimpleMessage($USER['id'], '', '', 99, $LNG['sys_buildlist'], $LNG['sys_buildlist_fail'], $Message);
 				}
