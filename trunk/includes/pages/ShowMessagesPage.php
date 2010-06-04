@@ -210,8 +210,8 @@ function ShowMessagesPage()
 			
 			$db->free_result($UsrMess);
 			
-			$UnRead[100]		= array_sum($UnRead);
-			$TotalMess[100]		= array_sum($TotalMess) - $TotalMess[50];
+			$UnRead[100]		= is_array($UnRead) ? array_sum($UnRead) : 0;
+			$TotalMess[100]		= is_array($TotalMess) ? (array_sum($TotalMess) - $TotalMess[50]) : 0;
 			$TotalMess[999]		= $MessOut['count'];
 			
 			

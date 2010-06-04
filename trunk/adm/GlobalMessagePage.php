@@ -62,7 +62,7 @@ if ($ToolsCanUse != 1) die(message ($LNG['404_page']));
 			$Message 	= "<font color=\"". $kolor ."\"><b>".$Message."</b></font>";
 			$summery	= 0;
 
-			SendSimpleMessage ( $u['id'], $USER['id'], $Time, 50, $From, $Subject, $Message, 0);
+			SendSimpleMessage ( $u['id'], $USER['id'], $Time, 50, $From, $Subject, $Message);
 			
 			
 			$Log	.=	"\n".$LNG['log_circular_message']."\n";
