@@ -10,6 +10,7 @@ $LNG['changelog']   = array(
 - FIX: UMode
 - FIX: Admin Hack via Facebook
 - FIX: Flottenrückkehr
+- FIX: Nachrichten Transport
 - FIX: Forschung
 ',
 'RC5.0' => 'ShadoX 30.05.10

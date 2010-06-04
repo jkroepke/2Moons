@@ -192,7 +192,6 @@ class ShowShipyardPage
 
 		$PlanetRess->SavePlanetToDB();
 
-		$template	= new template();
 		if(!empty($PLANET['b_hangar_id']))
 		{
 			$template->loadscript('shipyard.js');
@@ -496,7 +495,6 @@ class ShowShipyardPage
 			'maxlength'						=> strlen(MAX_FLEET_OR_DEFS_PER_ROW),
 		));
 		$template->show("shipyard_defense.tpl");
-		$PlanetRess->SavePlanetToDB($USER, $PLANET);
 	}
 }
 ?>

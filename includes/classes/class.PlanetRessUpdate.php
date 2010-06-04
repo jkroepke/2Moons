@@ -338,10 +338,11 @@ class ResourceUpdate
 	{
 		global $USER, $PLANET;
 			
-		$this->Builded[$USER['b_tech_id']]	= 1;
-		$USER['b_tech_id']					= 0;
-		$USER['b_tech']      				= 0;
-		$USER['b_tech_planet']				= 0;
+		$this->Builded[$USER['b_tech_id']]		= 1;
+		$USER[$resource[$USER['b_tech_id']]]	+= 1;
+		$USER['b_tech_id']						= 0;
+		$USER['b_tech']      					= 0;
+		$USER['b_tech_planet']					= 0;
 	}
 	
 	public function SavePlanetToDB()

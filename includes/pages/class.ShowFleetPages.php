@@ -193,7 +193,6 @@ class ShowFleetPages extends FleetFunctions
 			'bonus_hyperspace'		=> $USER[$resource[118]] * 30 + ((TIMESTAMP - $USER[$resource[706]] <= 0) ? (100 * $ExtraDM[706]['add']) : 0),
 		));
 		$template->show('fleet_table.tpl');
-		$PlanetRess->SavePlanetToDB($USER, $PLANET);
 	}
 
 	public static function ShowFleet1Page()
@@ -313,7 +312,6 @@ class ShowFleetPages extends FleetFunctions
 		if(empty($MissionOutput))
 		{
 			$template->message("<font color=\"red\"><b>". $LNG['fl_empty_target']."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
-			$PlanetRess->SavePlanetToDB($USER, $PLANET);
 			exit;
 		}
 		$GameSpeedFactor   		 	= parent::GetGameSpeedFactor();		
@@ -325,7 +323,6 @@ class ShowFleetPages extends FleetFunctions
  		if($consumption > $PLANET['deuterium'])
 		{
 			$template->message("<font color=\"red\"><b>". sprintf($LNG['fl_no_enought_deuterium'], $LNG['Deuterium'], pretty_number($PLANET['deuterium'] - $consumption), $LNG['Deuterium'])."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
-			$PlanetRess->SavePlanetToDB($USER, $PLANET);
 			exit;
 		}
 		
@@ -496,7 +493,7 @@ class ShowFleetPages extends FleetFunctions
 			$FleetStorage    += $pricelist[$Ship]["capacity"] * $Count;
 			$FleetShipCount  += $Count;
 			$fleet_array     .= $Ship .",". $Count .";";
-			$FleetSubQRY     .= "`".$resource[$Ship] . "` = ".$resource[$Ship]." - '".number_format($Count, 0, '', '')."', ";
+			$FleetSubQRY     .= "`".$resource[$Ship] . "` = `".$resource[$Ship]."` - '".floattostring($Count)."', ";
 		}
 
 		$error              = 0;
@@ -581,7 +578,7 @@ class ShowFleetPages extends FleetFunctions
 
 			if ($TargetPlanet['ally_deposit'] < 1 && $HeDBRec != $MyDBRec && $mission == 5)
 			{
-				$template->message ("<font color=\"red\"><b>".$LNG['fl_not_ally_deposit']."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
+				$template->message("<font color=\"red\"><b>".$LNG['fl_not_ally_deposit']."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
 				exit;
 			}
 
