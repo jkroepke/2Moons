@@ -39,7 +39,7 @@ function PlanetResourceUpdate($CurrentUser, $CurrentPlanet, $UpdateTime)
 	$ProductionTime               	= ($UpdateTime - $CurrentPlanet['last_update']);
 	$CurrentPlanet['last_update'] 	= $UpdateTime;
 
-	if ($CurrentPlanet['planet_type'] == 3|| $CurrentUser['urlaubs_modus'] == 1))
+	if ($CurrentPlanet['planet_type'] == 3)
 	{
 		$CONF['metal_basic_income']     = 0;
 		$CONF['crystal_basic_income']   = 0;
