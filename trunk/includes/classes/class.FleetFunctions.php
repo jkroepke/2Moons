@@ -400,7 +400,7 @@ abstract class FleetFunctions
 				$add_user_message_mr = "<font color=\"red\">".$LNG['fl_player']." ".$addname." ".$LNG['fl_dont_exist'];
 			else
 			{
-				$aks['eingeladen'] = $aks_invited_mr.','.$added_user_id_mr;
+				$aks['eingeladen'] = $aks['eingeladen'].','.$added_user_id_mr;
 				$db->query("UPDATE ".AKS." SET `eingeladen` = '".$aks['eingeladen']."' WHERE `id` = '".$daten['fleet_group']."';");
 				$add_user_message_mr = "<font color=\"lime\">".$LNG['fl_player']." ".$addname." ". $LNG['fl_add_to_attack'];
 				$invite_message = $LNG['fl_player'] . $CurrentUser['username'] . $LNG['fl_acs_invitation_message'];
