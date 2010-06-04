@@ -9,7 +9,7 @@
 	<img src="{$dpath}planeten/small/s_{$PlanetInfo.image}.jpg" border="0" height="35" width="35" alt="{$PlanetInfo.name}">
 	<br>
 	{if $PlanetID == $current_pid}
-	<font color="#FFFF00">{$PlanetInfo.name}</font>
+	<font color="#FFFF00"><span class="planetname">{$PlanetInfo.name}</span></font>
 	<font color="#FE9A2E"><br>[{$PlanetInfo.galaxy}:{$PlanetInfo.system}:{$PlanetInfo.planet}]</font>
 	{else}
 	{if $PlanetInfo.ptype == 3}<font color="#CCCCCC">{else}<font color="#2E9AFE">{/if}{$PlanetInfo.name}</font>
