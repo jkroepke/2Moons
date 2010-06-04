@@ -672,6 +672,7 @@ $LNG['al_diplo_ask']                        = 'Covenant Enquiry';
 $LNG['al_diplo_ask_mes']                    = 'There is a pact request of (%s) for the alliances -> %s <- and the -> %s <-. <br>Reason: %s <br> If receving you can accept or deny under Manage alliance then Alliance Diplomacy';
 $LNG['al_diplo_war']                        = 'Declaration of war';
 $LNG['al_diplo_war_mes']                    = 'War has been declared between the alliances  -> %s <- and -> %s <-.<br>Reason: %s <br><br>Information: Both Alliance leaders NEED to agree to the war in a post, started in the war section of the Forum. Only after both leaders make the agreement, is the rule of bashing eliminated between the two alliances at war. <br>Read the rules from left menu link or in the forum. You can click here to link to forum. <a href="http://darkogame.us/forum/viewforum.php?f=8" target="_blank"> War/Diplomacy</a>.';
+$LNG['al_leave_ally']					= 'Do you really wish to leave the alliance?';
 
 //----------------------------------------------------------------------------//
 //BUDDY

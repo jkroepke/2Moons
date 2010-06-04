@@ -101,7 +101,7 @@
 			<td class="c">{$al_leave_alliance}</td>
 		</tr>
 		<tr>
-			<th><input type="button" onclick="javascript:location.href='game.php?page=alliance&amp;mode=exit';" value="{$al_continue}"></th>
+			<th><input type="button" onclick="javascript:if(confirm('{$al_leave_ally}')) location.href='game.php?page=alliance&amp;mode=exit';" value="{$al_continue}"></th>
 		</tr>
 	</table>
 	{/if}

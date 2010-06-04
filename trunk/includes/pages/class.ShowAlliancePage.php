@@ -1124,6 +1124,7 @@ class ShowAlliancePage
 							'pl_dercrystal'				=> $LNG['pl_dercrystal'],
 							'al_continue'				=> $LNG['al_continue'],
 							'al_leave_alliance'			=> $LNG['al_leave_alliance'],
+							'al_leave_ally'				=> $LNG['al_leave_ally'],
 							'totalfight'				=> $StatsData['wons'] + $StatsData['loos'] + $StatsData['draws'],
 							'fightwon'					=> $StatsData['wons'],
 							'fightlose'					=> $StatsData['loos'],
