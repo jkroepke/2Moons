@@ -34,7 +34,7 @@ class ShowShipyardPage
 			$MAX[]				= floor($PLANET['crystal'] / $pricelist[$Element]['crystal']);
 
 		if ($pricelist[$Element]['deuterium'] != 0)
-			$MAX[]				= floor($PLANETs['deuterium'] / $pricelist[$Element]['deuterium']);
+			$MAX[]				= floor($PLANET['deuterium'] / $pricelist[$Element]['deuterium']);
 			
 		if ($pricelist[$Element]['darkmatter'] != 0)
 			$MAX[]				= floor($USER['darkmatter'] / $pricelist[$Element]['darkmatter']);
