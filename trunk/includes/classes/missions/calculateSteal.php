@@ -26,12 +26,12 @@ function calculateSteal($attackFleets, $defenderPlanet, $ForSim = false)
 	
 	$SortFleets = array();
 	$Sumcapacity  = 0;
-	foreach ($attackFleets as $FleetID => $Attacker)
+	foreach($attackFleets as $FleetID => $Attacker)
 	{
 		$SortFleets[$FleetID]		= '0';
 		foreach($Attacker['detail'] as $Element => $amount)	
 		{
-			$SortFleets[$FleetID]		= bcadd($SortFleets[$FleetID], bcmul($pricelist[$Element]['capacity'], $amount));
+			$SortFleets[$FleetID]		= bcadd($SortFleets[$FleetID], bcmul($pricelist[$Element]['capacity'], floattostring($amount)));
 		}
 		
 		$SortFleets[$FleetID]	= bcsub($SortFleets[$FleetID], bcadd($Attacker['fleet']['fleet_resource_metal'], bcadd($Attacker['fleet']['fleet_resource_crystal'], $Attacker['fleet']['fleet_resource_deuterium'])));

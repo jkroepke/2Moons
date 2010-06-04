@@ -34,9 +34,11 @@ class MissionCaseAttack extends MissionFunctions
 		$targetPlanet 	= $db->uniquequery("SELECT * FROM ".PLANETS." WHERE `galaxy` = ". $this->_fleet['fleet_end_galaxy'] ." AND `system` = ". $this->_fleet['fleet_end_system'] ." AND `planet_type` = ". $this->_fleet['fleet_end_type'] ." AND `planet` = ". $this->_fleet['fleet_end_planet'] .";");
 		$targetUser   	= $db->uniquequery("SELECT * FROM ".USERS." WHERE id = '".$targetPlanet['id_owner']."';");
 				
-		require_once('PlanetResourceUpdate.'.PHP_EXT);
+		require_once(ROOT_PATH.'includes/classes/class.PlanetRessUpdate.'.PHP_EXT);
 		
-		$targetPlanet		 = PlanetResourceUpdate($TargetUser, $targetPlanet, $this->_fleet['fleet_start_time']);
+		$PlanetRess = new ResourceUpdate();
+		list($TargetUser, $targetPlanet)	= $PlanetRess->CalcResource($TargetUser, $targetPlanet, $this->_fleet['fleet_start_time'])->SavePlanetToDB($TargetUser, $targetPlanet);
+
 		$TargetUserID	= $targetUser['id'];
 		$attackFleets	= array();
 		$AttackerRow['id']		= array();

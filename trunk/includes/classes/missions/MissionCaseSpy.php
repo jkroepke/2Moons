@@ -50,9 +50,10 @@ class MissionCaseSpy extends MissionFunctions
 		$fleet               = explode(";", $this->_fleet['fleet_array']);
 		$fquery              = "";
 		
-		require_once('PlanetResourceUpdate.'.PHP_EXT);
+		require_once(ROOT_PATH.'includes/classes/class.PlanetRessUpdate.'.PHP_EXT);
 		
-		$TargetPlanet		 = PlanetResourceUpdate($TargetUser, $TargetPlanet, $this->_fleet['fleet_start_time']);
+		$PlanetRess = new ResourceUpdate();
+		list($TargetUser, $TargetPlanet)	= $PlanetRess->CalcResource($TargetUser, $TargetPlanet, $this->_fleet['fleet_start_time'])->SavePlanetToDB($TargetUser, $TargetPlanet);
 
 		foreach ($fleet as $a => $b)
 		{
