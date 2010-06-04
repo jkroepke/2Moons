@@ -27,20 +27,25 @@ class ResourceUpdate
 		$this->Build					= $Build;
 	}
 	
-	public function CalcResource()
+	public function CalcResource($USER = NULL, $PLANET = NULL)
 	{
-		global $USER, $PLANET;
+		if(empty($USER))
+			global $USER;
+			
+		if(empty($PLANET))
+			global $PLANET;
+			
 		if($USER['urlaubs_modus'] == 1)
 			return $this;
 			
 		if($this->Build)
 		{
-			$this->ShipyardQueue();
+			list($USER, $PLANET)	= $this->ShipyardQueue($USER, $PLANET);
 			
 			if($USER['b_tech'] != 0 && $USER['b_tech'] < TIMESTAMP)
-				$this->ResearchQueue();
+				list($USER, $PLANET)	= $this->ResearchQueue($USER, $PLANET);
 			if($PLANET['b_building'] != 0)
-				$this->BuildingQueue();
+				list($USER, $PLANET)	= $this->BuildingQueue($USER, $PLANET);
 		}	
 
 		list($USER, $PLANET)	= $this->UpdateRessource($USER, $PLANET, TIMESTAMP);
@@ -146,14 +151,14 @@ class ResourceUpdate
 		return array($USER, $PLANET);
 	}
 	
-	private function ShipyardQueue()
+	private function ShipyardQueue($USER, $PLANET)
 	{
-		global $resource, $USER, $PLANET;
+		global $resource;
 
 		if (empty($PLANET['b_hangar_id']))
 		{
 			$PLANET['b_hangar'] = 0;
-			return;
+			return array($USER, $PLANET);
 		}
 		
 		$BuildQueue                 = explode(';', $PLANET['b_hangar_id']);
@@ -172,7 +177,7 @@ class ResourceUpdate
 		$PLANET['b_hangar_id'] 		= '';
 		$UnFinished 					= false;
 		
-		foreach($BuildArray as $Node => $Item )
+		foreach($BuildArray as $Node => $Item)
 		{
 			$Element   = $Item[0];
 			$Count     = $Item[1];
@@ -195,25 +200,29 @@ class ResourceUpdate
 			
 			$PLANET['b_hangar_id'] .= $Element.",".$Count.";";
 		}
+		return array($USER, $PLANET);
 	}
 	
-	private function BuildingQueue() 
+	private function BuildingQueue($USER, $PLANET) 
 	{
 		while(true)
 		{	
-			if (!$this->CheckPlanetBuildingQueue())
+			list($USER, $PLANET, $Result)	= $this->CheckPlanetBuildingQueue($USER, $PLANET);
+			if (!$Result)
 				break;
 			
-			$this->SetNextQueueElementOnTop();
+			list($USER, $PLANET)	= $this->SetNextQueueElementOnTop($USER, $PLANET);
 		}
+		
+		return array($USER, $PLANET);
 	}
 	
-	private function CheckPlanetBuildingQueue()
+	private function CheckPlanetBuildingQueue($USER, $PLANET)
 	{
-		global $resource, $db, $USER, $PLANET;
+		global $resource, $db;
 		
 		if (empty($PLANET['b_building_id']))
-			return false;
+			return array($USER, $PLANET, false);
 		
 		$CurrentQueue  	= $PLANET['b_building_id'];
 		$QueueArray    	= explode(";", $PLANET['b_building_id']);
@@ -226,7 +235,7 @@ class ResourceUpdate
 		$BuildMode    	= $BuildArray[4];
 			
 		if ($BuildEndTime > TIMESTAMP)
-			return false;
+			return array($USER, $PLANET, false);
 
 		$ForDestroy = ($BuildMode == 'destroy') ? true : false;
 		
@@ -249,24 +258,24 @@ class ResourceUpdate
 		if (count($QueueArray) == 0) {
 			$PLANET['b_building']    	= 0;
 			$PLANET['b_building_id'] 	= '';
-			return false;
+			return array($USER, $PLANET, false);
 		} else {
 			$BuildArray   				= explode (",", $QueueArray[0]);
 			$PLANET['b_building']    	= $BuildArray[3];
 			$PLANET['b_building_id'] 	= implode(";", $QueueArray);
-			return true;
+			return array($USER, $PLANET, true);
 		}
 	}	
 	
-	public function SetNextQueueElementOnTop()
+	public function SetNextQueueElementOnTop($USER, $PLANET)
 	{
-		global $LNG, $resource, $db, $USER, $PLANET;
+		global $LNG, $resource, $db;
 
 		if (empty($PLANET['b_building_id']))
 		{
 			$PLANET['b_building']    = 0;
 			$PLANET['b_building_id'] = '';
-			return;
+			return array($USER, $PLANET);
 		}
 
 		$QueueArray 	= explode (";", $PLANET['b_building_id']);
@@ -332,23 +341,31 @@ class ResourceUpdate
 			
 		$PLANET['b_building']    = $BuildEndTime;
 		$PLANET['b_building_id'] = $NewQueue;
+		return array($USER, $PLANET);
 	}
 	
-	private function ResearchQueue()
+	private function ResearchQueue($USER, $PLANET)
 	{
-		global $USER, $PLANET;
-			
+		global $resource;		
 		$this->Builded[$USER['b_tech_id']]		= 1;
 		$USER[$resource[$USER['b_tech_id']]]	+= 1;
 		$USER['b_tech_id']						= 0;
 		$USER['b_tech']      					= 0;
 		$USER['b_tech_planet']					= 0;
+		
+		return array($USER, $PLANET);
 	}
 	
-	public function SavePlanetToDB()
+	public function SavePlanetToDB($USER = NULL, $PLANET = NULL)
 	{
-		global $resource, $db, $USER, $PLANET;
+		global $resource, $db;
 		
+		if(empty($USER))
+			global $USER;
+			
+		if(empty($PLANET))
+			global $PLANET;
+			
 		$Qry	= "UPDATE ".PLANETS." as p, ".USERS." as u SET
 				   `p`.`metal` = '".floattostring($PLANET['metal'], 6)."',
 				   `p`.`crystal` = '".floattostring($PLANET['crystal'], 6)."',
@@ -388,6 +405,8 @@ class ResourceUpdate
 					`p`.`id` = '". $PLANET['id'] ."' AND
 					`u`.`id` = '".$USER['id']."';";
 		$db->query($Qry);
+		
+		return array($USER, $PLANET);
 	}
 }
 ?>

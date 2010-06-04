@@ -34,9 +34,12 @@ class MissionCaseDestruction extends MissionFunctions
 		$targetUser   = $db->uniquequery("SELECT * FROM ".USERS." WHERE `id` = '".$targetPlanet['id_owner']."';");
 		$TargetUserID = $targetUser['id'];
 		$attackFleets = array();
+	
+		require_once(ROOT_PATH.'includes/classes/class.PlanetRessUpdate.'.PHP_EXT);
+		
+		$PlanetRess = new ResourceUpdate();
+		list($TargetUser, $targetPlanet)	= $PlanetRess->CalcResource($TargetUser, $targetPlanet, $this->_fleet['fleet_start_time'])->SavePlanetToDB($TargetUser, $targetPlanet);
 
-		require_once('PlanetResourceUpdate.'.PHP_EXT);	
-		$targetPlanet	= PlanetResourceUpdate($targetUser, $targetPlanet, $this->_fleet['fleet_start_time']);
 		
 		$attackFleets[$this->_fleet['fleet_id']]['fleet'] = $this->_fleet;
 		$attackFleets[$this->_fleet['fleet_id']]['user'] = $db->uniquequery('SELECT * FROM '.USERS.' WHERE id ='.$this->_fleet['fleet_owner'].';');
