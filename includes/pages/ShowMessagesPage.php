@@ -45,7 +45,7 @@ function ShowMessagesPage()
 			$OwnerRecord = $db->uniquequery("SELECT a.galaxy, a.system, a.planet, b.username, b.id_planet FROM ".PLANETS." as a, ".USERS." as b WHERE b.id = '".$OwnerID."' AND a.id = b.id_planet;");
 
 			if (!$OwnerRecord)
-				message($LNG['mg_error'],"javascript:window.close()","3", false, false);
+				$template->message($LNG['mg_error'], false, 0, true);
 			
 			if ($Send)
 			{
@@ -155,7 +155,7 @@ function ShowMessagesPage()
 				}
 				
 				$db->free_result($UsrMess);
-				$db->multi_query("UPDATE ".USERS." SET `new_message` = ".(($MessCategory != 100) ? "`new_message` - '".$UnRead."'" : "'0'")." WHERE `id` = '".$USER['id']."';UPDATE ".MESSAGES." SET `message_unread` = '0' WHERE `message_owner` = '".$USER['id']."'".(($MessCategory != 100) ? " AND `message_type` = '".$MessCategory."'" : "").";");
+				$db->multi_query("UPDATE ".USERS." SET `new_message` = ".(($MessCategory != 100) ? "IF(`new_message` - '".$UnRead."' < 0, `new_message` - '".$UnRead."', 0)" : "'0'")." WHERE `id` = '".$USER['id']."';UPDATE ".MESSAGES." SET `message_unread` = '0' WHERE `message_owner` = '".$USER['id']."'".(($MessCategory != 100) ? " AND `message_type` = '".$MessCategory."'" : "").";");
 			}
 			
 			$template->assign_vars(array(	
