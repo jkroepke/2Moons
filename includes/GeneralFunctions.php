@@ -522,10 +522,10 @@ function SendSimpleMessage($Owner, $Sender, $Time, $Type, $From, $Subject, $Mess
 						  `message_type` = '". $Type ."', 
 						  `message_from` = '". $db->sql_escape($From) ."', 
 						  `message_subject` = '". $db->sql_escape($Subject) ."', 
-						  `message_text` = '".$db->sql_escape($Message)."';
+						  `message_text` = '".$db->sql_escape($Message)."',
 						  `message_unread` = '".$Unread."';
 						  UPDATE `".USERS."` SET 
-						  `new_message` = `new_message` + 1 ".(($Owner == 0) ? ";" : "WHERE  `id` = '". $Owner ."';"));
+						  `new_message` = `new_message` + 1".(($Owner == 0) ? ";" : " WHERE `id` = '". $Owner ."';"));
 }
 	
 function shortly_number($number)
