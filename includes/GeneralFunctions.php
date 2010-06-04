@@ -509,7 +509,7 @@ function exception_handler($exception) {
 	echo '</html>';	
 }
 
-function SendSimpleMessage($Owner, $Sender, $Time, $Type, $From, $Subject, $Message)
+function SendSimpleMessage($Owner, $Sender, $Time, $Type, $From, $Subject, $Message, $Unread = 1)
 {
 	global $db;
 	if (empty($Time))
@@ -522,7 +522,8 @@ function SendSimpleMessage($Owner, $Sender, $Time, $Type, $From, $Subject, $Mess
 						  `message_type` = '". $Type ."', 
 						  `message_from` = '". $db->sql_escape($From) ."', 
 						  `message_subject` = '". $db->sql_escape($Subject) ."', 
-						  `message_text` = '". $db->sql_escape($Message) ."';
+						  `message_text` = '".$db->sql_escape($Message)."';
+						  `message_unread` = '".$Unread."';
 						  UPDATE `".USERS."` SET 
 						  `new_message` = `new_message` + 1 ".(($Owner == 0) ? ";" : "WHERE  `id` = '". $Owner ."';"));
 }
