@@ -1,10 +1,10 @@
 {include file="overall_header.tpl"}
 {include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
-<div id="content" class="content"><!-- style="top: 91px; height: 504px;"-->
+<div id="content" class="content">
     <table width="519" align="center">
         <tr>
-        	<td class="c" colspan="4"><a href="game.php?page=overview&amp;mode=renameplanet" title="{$ov_planetmenu}">{$ov_planet} "{$planetname}"</a> ({$username})</td>
+        	<td class="c" colspan="4"><a href="game.php?page=overview&amp;mode=renameplanet" title="{$ov_planetmenu}">{$ov_planet} "<span id="planetname">{$planetname}</span>"</a> ({$username})</td>
         </tr>
         {if $messages}
 		<tr><th colspan="4"><a href="?page=messages">{$messages}</a></th></tr>

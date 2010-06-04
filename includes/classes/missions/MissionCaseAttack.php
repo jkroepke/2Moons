@@ -36,8 +36,7 @@ class MissionCaseAttack extends MissionFunctions
 				
 		require_once(ROOT_PATH.'includes/classes/class.PlanetRessUpdate.'.PHP_EXT);
 		
-		$PlanetRess = new ResourceUpdate();
-		list($TargetUser, $targetPlanet)	= $PlanetRess->CalcResource($TargetUser, $targetPlanet, $this->_fleet['fleet_start_time'])->SavePlanetToDB($TargetUser, $targetPlanet);
+		list($TargetUser, $targetPlanet)	= $PlanetRess->CalcResource($TargetUser, $targetPlanet)->SavePlanetToDB($TargetUser, $targetPlanet);
 
 		$TargetUserID	= $targetUser['id'];
 		$attackFleets	= array();
@@ -232,7 +231,7 @@ class MissionCaseAttack extends MissionFunctions
 		else
 		{
 			$GottenMoon 	  = "";
-			$DerbisMetal	  = bcadd($targetPlanet['der_crystal'], bcadd($result['debree']['att'][1], $result['debree']['def'][1]));
+			$DerbisMetal	  = bcadd($targetPlanet['der_metal'], bcadd($result['debree']['att'][0], $result['debree']['def'][0]));
 			$DerbisCrystal	  = bcadd($targetPlanet['der_crystal'], bcadd($result['debree']['att'][1], $result['debree']['def'][1]));
 		}
 
