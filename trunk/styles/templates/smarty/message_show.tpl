@@ -25,5 +25,4 @@
 <input value="{$mg_confirm_delete}" type="submit">
 </th>{/if}
 </tr>
-</table>
-</form>
+</table></form>

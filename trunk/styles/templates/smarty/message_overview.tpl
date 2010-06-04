@@ -9,12 +9,12 @@
 </tr>
 <tr>
 {foreach name=MessageList key=MessID item=MessInfo from=$MessageList}
-<th style="width:{100 / $smarty.foreach.MessageList.total}%;"><a href="javascript:ajax('game.php?page=messages&amp;mode=show&amp;messcat={$MessID}','frame');" style="color:{$MessInfo.color};">{$MessInfo.lang}</a>
+<th style="width:{100 / $smarty.foreach.MessageList.total}%;"><a href="javascript:ajax('game.php?page=messages&amp;mode=show&amp;messcat={$MessID}','frame');" onclick="$('#unread_{$MessID}').text('0');" style="color:{$MessInfo.color};">{$MessInfo.lang}</a>
 {/foreach}
 </tr>
 <tr>
 {foreach key=MessID item=MessInfo from=$MessageList}
-<th style="color:{$MessInfo.color};">{$MessInfo.total}</th>
+<th style="color:{$MessInfo.color};"><span id="unread_{$MessID}">{$MessInfo.unread}</span>/{$MessInfo.total}</th>
 {/foreach}
 </tr>
 <tr>

@@ -139,11 +139,11 @@ function ShowMessagesPage()
 				else
 					$UsrMess = $db->query("SELECT * FROM ".MESSAGES." WHERE `message_owner` = '".$USER['id']."' AND `message_type` = '".$MessCategory."' ORDER BY `message_time` DESC;");
 				
-					
-				$db->query("UPDATE ".USERS." SET `new_message` = '0' WHERE `id` = '".$USER['id']."';");
+				$UnRead	= 0;
 					
 				while ($CurMess = $db->fetch_array($UsrMess))
 				{
+					$UnRead	+= $CurMess['message_unread'];
 					$MessageList[$CurMess['message_id']]	= array(
 						'time'		=> date("d. M Y, H:i:s", $CurMess['message_time']),
 						'from'		=> $CurMess['message_from'],
@@ -155,6 +155,7 @@ function ShowMessagesPage()
 				}
 				
 				$db->free_result($UsrMess);
+				$db->multi_query("UPDATE ".USERS." SET `new_message` = ".(($MessCategory != 100) ? "`new_message` - '".$UnRead."'" : "'0'")." WHERE `id` = '".$USER['id']."';UPDATE ".MESSAGES." SET `message_unread` = '0' WHERE `message_owner` = '".$USER['id']."'".(($MessCategory != 100) ? " AND `message_type` = '".$MessCategory."'" : "").";");
 			}
 			
 			$template->assign_vars(array(	
@@ -187,7 +188,7 @@ function ShowMessagesPage()
 			$template->page_planetmenu();
 			$template->page_footer();
 	
-			$UsrMess 	= $db->query("SELECT `message_type` FROM ".MESSAGES." WHERE `message_owner` = '".$USER['id']."' OR (`message_owner` = '0' AND `message_type` = '50');");
+			$UsrMess 	= $db->query("SELECT `message_type`, `message_unread` FROM ".MESSAGES." WHERE `message_owner` = '".$USER['id']."' OR `message_type` = '50';");
 			$GameOps 	= $db->query("SELECT `username`, `email` FROM ".USERS." WHERE `authlevel` != '0' ORDER BY `username` ASC;");
 			$MessOut	= $db->uniquequery("SELECT COUNT(*) as count FROM ".MESSAGES." WHERE message_sender = '".$USER['id']."';");
 			
@@ -203,21 +204,21 @@ function ShowMessagesPage()
 			
 			while ($CurMess = $db->fetch_array($UsrMess))
 			{
-				$MessType              = $CurMess['message_type'];
-				$TotalMess[$MessType] += 1;
-				$TotalMess[100]       += 1;
+				$UnRead[$CurMess['message_type']]		+= $CurMess['message_unread'];
+				$TotalMess[$CurMess['message_type']]	+= 1;
 			}
 			
 			$db->free_result($UsrMess);
 			
-			$TotalMess[100]		-= $TotalMess[50];
-			$TotalMess[999]		 = $MessOut['count'];
+			$UnRead[100]		= array_sum($UnRead);
+			$TotalMess[100]		= array_sum($TotalMess) - $TotalMess[50];
+			$TotalMess[999]		= $MessOut['count'];
 			
-
 			
 			foreach($TitleColor as $MessageID => $MessageColor) {
 				$MessageList[$MessageID]	= array(
 					'color'		=> $MessageColor,
+					'unread'	=> !empty($UnRead[$MessageID]) ? $UnRead[$MessageID] : 0,
 					'total'		=> !empty($TotalMess[$MessageID]) ? $TotalMess[$MessageID] : 0,
 					'lang'		=> $LNG['mg_type'][$MessageID],
 				);
