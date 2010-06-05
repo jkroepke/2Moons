@@ -119,8 +119,8 @@ class MissionCaseAttack extends MissionFunctions
 		
 		foreach(array_merge($reslist['defense'], $reslist['fleet']) as $ID)
 		{
-			if (!isset($resource[$ID]))
-				continue;
+			if ($ID > 500)
+				break;
 
 			$defense[0]['def'][$ID] = $targetPlanet[$resource[$ID]];
 		}
