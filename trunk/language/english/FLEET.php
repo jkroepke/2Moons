@@ -177,7 +177,8 @@ $LNG['sys_destruc_echec']       		   	= 'Earthquakes shake the moon. But somethi
 $LNG['sys_destruc_reussi']      		   	= '<br>The rays of the Death Stars reach the moon and shred it.<br>The entire moon was destroyed.<br> Mission successfully completed.<br> The fleet comes back.';
 $LNG['sys_destruc_null']        		   	= 'The Death Stars can not develop their full power and implode.<br> The moon is not destroyed.';
 $LNG['sys_module_inactive']                = 'Module disabled';
-
+$LNG['sys_stat_mess_stay']           		= 'Stationed Fleet';
+$LNG['sys_stat_mess'] 		         		= 'Your fleet reaches the planet %s and delivers %s %s, %s %s und %s %s.';
 //----------------------------------------------------------------------------//
 // EXTRA LANGUAGE FUNCTIONS
 $LNG['fcp_colony']							= 'Colony';
