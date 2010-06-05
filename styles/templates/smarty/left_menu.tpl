@@ -179,7 +179,7 @@
 <tr>
 	<td>
 		<div align="center">
-			<a href="?page=messages">{$lm_messages}{if $new_message > 0} ({$new_message}){/if}</a>
+			<a href="?page=messages">{$lm_messages}{if $new_message > 0}<span id="newmes"> (<span id="newmesnum">{$new_message}</span>)</span>{/if}</a>
 		</div>
 
 	</td>
