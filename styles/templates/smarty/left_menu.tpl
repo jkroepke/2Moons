@@ -8,7 +8,7 @@
 <tr>
 	<td>
 		<div align="center">
-			<a href="javascript:top.location.href='./adm/index.php';"><font color="lime">{$lm_administration}</a>
+			<a href="javascript:top.location.href='./adm/index.php';"><font color="lime">{$lm_administration}</font></a>
 		</div>
 	</td>
 </tr>

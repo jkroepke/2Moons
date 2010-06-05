@@ -17,7 +17,7 @@
     </tr><tr>
         <th>{$ov_planet_rename}</th>
         <th><input type="text" name="newname" size="25" maxlength="20"></th>
-        <th><input type="submit" value="{$ov_planet_rename_action}"></th>
+        <th><input type="submit" value="{$ov_planet_rename_action}" id="submit-rename"><input type="submit" value="{$ov_planet_rename_action}" id="submit-cancel"></th>
     </tr>
     </table>
     </form>
