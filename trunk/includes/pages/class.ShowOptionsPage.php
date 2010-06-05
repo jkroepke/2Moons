@@ -48,7 +48,8 @@ class ShowOptionsPage
 		$db_deaktjava 	= request_var('db_deaktjava', '');
 		
 		$PlanetRess = new ResourceUpdate();
-		$PlanetRess->CalcResource()->SavePlanetToDB();
+		$PlanetRess->CalcResource();
+		$PlanetRess->SavePlanetToDB();
 	
 		$template	= new template();
 		$template->page_header();	

@@ -30,7 +30,7 @@ class MissionCaseDestruction extends MissionFunctions
 	{
 		global $pricelist, $resource, $reslist, $db;	
 		$LNG			= $this->GetUserLang(0);
-		$targetPlanet = $db->uniquequery("SELECT * FROM ".PLANETS." WHERE `galaxy` = ". $this->_fleet['fleet_end_galaxy'] ." AND `system` = ". $this->_fleet['fleet_end_system'] ." AND `planet_type` = ". $this->_fleet['fleet_end_type'] ." AND `planet` = ". $this->_fleet['fleet_end_planet'] .";");
+		$targetPlanet = $db->uniquequery("SELECT * FROM ".PLANETS." WHERE `galaxy` = '". $this->_fleet['fleet_end_galaxy'] ."' AND `system` = '". $this->_fleet['fleet_end_system'] ."' AND `planet` = '". $this->_fleet['fleet_end_planet'] ."' AND `planet_type` = '". $this->_fleet['fleet_end_type'] ."' ;");
 		$targetUser   = $db->uniquequery("SELECT * FROM ".USERS." WHERE `id` = '".$targetPlanet['id_owner']."';");
 		$TargetUserID = $targetUser['id'];
 		$attackFleets = array();
@@ -38,7 +38,7 @@ class MissionCaseDestruction extends MissionFunctions
 		require_once(ROOT_PATH.'includes/classes/class.PlanetRessUpdate.'.PHP_EXT);
 		
 		$PlanetRess = new ResourceUpdate();
-		list($TargetUser, $targetPlanet)	= $PlanetRess->CalcResource($TargetUser, $targetPlanet, $this->_fleet['fleet_start_time'])->SavePlanetToDB($TargetUser, $targetPlanet);
+		list($TargetUser, $targetPlanet)	= $PlanetRess->CalcResource($TargetUser, $targetPlanet, $this->_fleet['fleet_start_time'], true);
 
 		
 		$attackFleets[$this->_fleet['fleet_id']]['fleet'] = $this->_fleet;

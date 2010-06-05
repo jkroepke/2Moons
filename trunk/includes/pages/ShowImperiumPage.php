@@ -26,7 +26,8 @@ function ShowImperiumPage()
 	global $LNG, $USER, $PLANET, $resource, $reslist, $db;
 
 	$PlanetRess = new ResourceUpdate();
-	$PlanetRess->CalcResource()->SavePlanetToDB();
+	$PlanetRess->CalcResource();
+	$PlanetRess->SavePlanetToDB();
 	
 	$template	= new template();
 	$template->loadscript("trader.js");

@@ -125,8 +125,9 @@ class ShowGalaxyPage extends GalaxyRows
 				$PLANET['deuterium']	-= 10;
 		}
 		
-		$PlanetRess 	= new ResourceUpdate();
-		$PlanetRess->CalcResource()->SavePlanetToDB();
+		$PlanetRess = new ResourceUpdate();
+		$PlanetRess->CalcResource();
+		$PlanetRess->SavePlanetToDB();
 	
 		unset($reslist['defense'][array_search(502, $reslist['defense'])]);
 		$MissleSelector[0]	= $LNG['gl_all_defenses'];

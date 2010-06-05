@@ -27,7 +27,7 @@ class ResourceUpdate
 		$this->Build					= $Build;
 	}
 	
-	public function CalcResource($USER = NULL, $PLANET = NULL)
+	public function CalcResource($USER = NULL, $PLANET = NULL, $SAVE = false)
 	{
 		if(empty($USER))
 			global $USER;
@@ -49,7 +49,11 @@ class ResourceUpdate
 		}	
 
 		list($USER, $PLANET)	= $this->UpdateRessource($USER, $PLANET, TIMESTAMP);
-		return $this;
+		
+		if($SAVE == true)
+			list($USER, $PLANET)	= $this->SavePlanetToDB($USER, $PLANET);
+			
+		return array($USER, $PLANET);
 	}
 	
 	private function UpdateRessource($USER, $PLANET, $TIME)

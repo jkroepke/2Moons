@@ -87,7 +87,8 @@ class ShowChatPage
 				
 				if (empty($ctype)) {
 					$PlanetRess = new ResourceUpdate();
-					$PlanetRess->CalcResource()->SavePlanetToDB();
+					$PlanetRess->CalcResource();
+					$PlanetRess->SavePlanetToDB();
 				
 					$template->page_topnav();
 					$template->page_leftmenu();

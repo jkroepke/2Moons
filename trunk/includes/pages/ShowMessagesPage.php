@@ -180,7 +180,8 @@ function ShowMessagesPage()
 		break;
 		default:
 			$PlanetRess = new ResourceUpdate();
-			$PlanetRess->CalcResource()->SavePlanetToDB();
+			$PlanetRess->CalcResource();
+			$PlanetRess->SavePlanetToDB();
 			
 			$template->page_header();
 			$template->page_topnav();

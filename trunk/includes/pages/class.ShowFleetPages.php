@@ -30,7 +30,8 @@ class ShowFleetPages extends FleetFunctions
 		global $USER, $PLANET, $reslist, $resource, $db, $LNG, $ExtraDM;
 
 		$PlanetRess = new ResourceUpdate();
-		$PlanetRess->CalcResource()->SavePlanetToDB();
+		$PlanetRess->CalcResource();
+		$PlanetRess->SavePlanetToDB();
 		
 		$parse				= $LNG;
 		$FleetID			= request_var('fleetid', 0);
@@ -200,7 +201,8 @@ class ShowFleetPages extends FleetFunctions
 		global $USER, $PLANET, $resource, $pricelist, $reslist, $db, $LNG, $ExtraDM;
 
 		$PlanetRess = new ResourceUpdate();
-		$PlanetRess->CalcResource()->SavePlanetToDB();
+		$PlanetRess->CalcResource();
+		$PlanetRess->SavePlanetToDB();
 		
 		$template	= new template();
 		
@@ -279,7 +281,8 @@ class ShowFleetPages extends FleetFunctions
 		global $USER, $PLANET, $db, $LNG;
 	
 		$PlanetRess = new ResourceUpdate();
-		$PlanetRess->CalcResource()->SavePlanetToDB();
+		$PlanetRess->CalcResource();
+		$PlanetRess->SavePlanetToDB();
 		
 		$template	= new template();
 		$template->loadscript('flotten.js');

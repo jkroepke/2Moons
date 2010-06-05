@@ -185,7 +185,9 @@ class ShowResearchPage
 			}
 		}
 		
-		$PlanetRess->CalcResource()->SavePlanetToDB();
+		$PlanetRess->CalcResource();
+		$PlanetRess->SavePlanetToDB();
+	
 		foreach($reslist['tech'] as $ID => $Element)
 		{
 			if (IsTechnologieAccessible($USER, $PLANET, $Element))
