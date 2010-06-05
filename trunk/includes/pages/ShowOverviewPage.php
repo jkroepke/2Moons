@@ -242,32 +242,27 @@ function ShowOverviewPage()
 
 			if (!empty($PLANET['b_building_id']))
 			{
-				include_once(ROOT_PATH . 'includes/functions/InsertBuildListScript.' . PHP_EXT);
-
 				$BuildQueue  		 = explode (";", $PLANET['b_building_id']);
 				$CurrBuild 	 		 = explode (",", $BuildQueue[0]);
 				$RestTime 	 		 = $CurrBuild[3] - TIMESTAMP;
-				$PlanetID 	 		 = $PLANET['id'];
-				$Build 		 		 = InsertBuildListScript ("overview");
 				$Build 	   			.= $LNG['tech'][$CurrBuild[0]] . ' (' . ($CurrBuild[1]) . ')';
-				$Build 				.= "<br /><div id=\"blc\" class=\"z\">" . pretty_time($RestTime) . "</div>";
-				$Build 				.= "\n<script language=\"JavaScript\">";
-				$Build 				.= "\n	pp = \"" . $RestTime . "\";\n";
-				$Build 				.= "\n	pk = \"" . 1 . "\";\n";
-				$Build 				.= "\n	pm = \"cancel\";\n";
-				$Build 				.= "\n	pl = \"" . $PlanetID . "\";\n";
-				$Build 				.= "\n	t();\n";
+				$Build 				.= "<br><div id=\"blc\" class=\"z\">" . pretty_time($RestTime) . "</div>";
+				$Build 				.= "\n<script type=\"text/javascript\">";
+				$Build 				.= "\n	pp = '" . $RestTime . "';\n";
+				$Build 				.= "\n	pl = '".$PLANET['id']."';\n";
+				$Build 				.= "\n	ne = '".$LNG['tech'][$CurrBuild[0]]."';\n";
+				$Build 				.= "\n	bd_continue = '".$LNG['bd_continue']."';\n";
+				$Build 				.= "\n	bd_finished = '".$LNG['bd_finished']."';\n";
+				$Build 				.= "\n	bd_cancel = '".$LNG['bd_cancel']."';\n";
+				$Build 				.= "\n  loc = 'overview';\n";
+				$Build 				.= "\n  gamename = '".$CONF['game_name']."';\n";
+				$Build 				.= "\n	Buildlist();\n";
 				$Build 				.= "\n</script>\n";
-				$Build 				.= "<script type=\"text/javascript\">\n";
-				$Build 				.= "function title(){\n";
-				$Build 				.= "var datem = document.getElementById('blc').innerHTML.split('<br><a ');\n";
-				$Build 				.= "document.title = datem[0] + ' - ". $LNG['tech'][$CurrBuild[0]]." - ".$CONF['game_name']."';\n";
-				$Build 				.= "window.setTimeout('title();', 1000);}\n";
-				$Build 				.= "title();\n</script>";
+				$template->loadscript('buildlist.js');
 			}
 			else
 			{
-				$Build = $LNG['ov_free'];
+				$Build 				= $LNG['ov_free'];
 			}
 
 			if ($CONF['ts_modon'] == 1) {

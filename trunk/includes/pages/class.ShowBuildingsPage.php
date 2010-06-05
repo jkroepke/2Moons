@@ -192,6 +192,7 @@ class ShowBuildingsPage
 	private function ShowBuildingQueue()
 	{
 		global $LNG, $CONF, $PLANET, $USER;
+		
 		$CurrentQueue   = $PLANET['b_building_id'];
 		$QueueID        = 0;
 		if ($CurrentQueue != 0)
@@ -235,11 +236,16 @@ class ShowBuildingsPage
 							$ListIDRow .= "		<div id=\"blc\" class=\"z\">". $BuildTime ."<br>";
 							$ListIDRow .= "		<a href=\"game.php?page=buildings&amp;cmd=cancel\">".$LNG['bd_interrupt']."</a></div>";
 							$ListIDRow .= "		<script type=\"text/javascript\">";
-							$ListIDRow .= "			pp = \"". $BuildTime ."\";\n";
-							$ListIDRow .= "			pk = \"". $ListID ."\";\n";
-							$ListIDRow .= "			pm = \"cancel\";\n";
-							$ListIDRow .= "			pl = \"". $PlanetID ."\";\n";
-							$ListIDRow .= "			t();\n";
+							$ListIDRow .= "			pp = '". $BuildTime ."';\n";
+							$ListIDRow .= "			pm = 'cancel';\n";
+							$ListIDRow .= "			pl = '".$PLANET['id']."';\n";
+							$ListIDRow .= "			loc = 'buildings';\n";
+							$ListIDRow .= "			ne = '".$ElementTitle."';\n";
+							$ListIDRow .= "			gamename = '".$CONF['game_name']."';\n";
+							$ListIDRow .= "			bd_continue = '".$LNG['bd_continue']."';\n";
+							$ListIDRow .= "			bd_finished = '".$LNG['bd_finished']."';\n";
+							$ListIDRow .= "			bd_cancel = '".$LNG['bd_cancel']."';\n";
+							$ListIDRow .= "			Buildlist();;\n";
 							$ListIDRow .= "		</script>\n";
 							$ListIDRow .= "		<script type=\"text/javascript\">\n";
 							$ListIDRow .= "		function title() \n {var datem = document.getElementById('blc').innerHTML.split(\"<\");\n document.title = datem[0] + \" - ". $ElementTitle ." - ".$CONF['game_name']."\";\n  window.setTimeout('title();', 1000);}\n title();";
@@ -370,9 +376,8 @@ class ShowBuildingsPage
 
 		if ($Queue['lenght'] > 0)
 		{
-			include(ROOT_PATH . 'includes/functions/InsertBuildListScript.' . PHP_EXT);
+			$template->loadscript('buildlist.js');
 			$template->assign_vars(array(
-				'BuildListScript'  	=> InsertBuildListScript("buildings"),
 				'BuildList'			=> $Queue['buildlist'],
 			));
 		}
