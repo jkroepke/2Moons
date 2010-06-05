@@ -275,7 +275,7 @@ abstract class FleetFunctions
 	{
 		global $db;	
 
-		$FleetRow = $db->uniquequery("SELECT * FROM ".FLEETS." WHERE `fleet_id` = '". $FleetID ."';");
+		$FleetRow = $db->uniquequery("SELECT `start_time`, `fleet_mission`, `fleet_group`, `fleet_owner`, `fleet_mess` FROM ".FLEETS." WHERE `fleet_id` = '". $FleetID ."';");
 		if ($FleetRow['fleet_owner'] != $CurrentUser['id'] || $FleetRow['fleet_mess'] == 1)
 			return;
 
@@ -294,16 +294,7 @@ abstract class FleetFunctions
 			}
 		}
 		
-		$CurrentFlyingTime = TIMESTAMP - $FleetRow['start_time'];
-		$ReturnFlyingTime  = $CurrentFlyingTime + TIMESTAMP;
-
-		$QryUpdateFleet  = "UPDATE ".FLEETS." SET ";
-		$QryUpdateFleet .= "`fleet_end_stay` = '".TIMESTAMP."', ";
-		$QryUpdateFleet .= "`fleet_end_time` = '". ($ReturnFlyingTime) ."', ";
-		$QryUpdateFleet .= "`fleet_mess` = '1' ";
-		$QryUpdateFleet .= "WHERE ";
-		$QryUpdateFleet .= "`fleet_id` = '" . $FleetID . "';";
-		$db->query($QryUpdateFleet);
+		$db->query("UPDATE ".FLEETS." SET `fleet_start_time` = '".TIMESTAMP."', `fleet_end_stay` = '".TIMESTAMP."', `fleet_end_time` = '".((TIMESTAMP - $FleetRow['start_time']) + TIMESTAMP)."', `fleet_mess` = '1' WHERE `fleet_id` = '" . $FleetID . "';");
 	}
 	
 	public static function GetExtraInputs($FleetArray, $Player)
