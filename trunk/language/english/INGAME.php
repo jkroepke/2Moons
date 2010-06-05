@@ -1046,6 +1046,7 @@ $LNG['cff_missile_attack']                    = 'Missile attack';
 $LNG['cff_from']                            = ' from ';
 $LNG['cff_to']                                = ' to ';
 $LNG['cff_one_of_your']                    = 'One of your ';
+$LNG['cff_acs_fleet']						= 'ACS-Fleet ';
 $LNG['cff_a']                                = 'a ';
 $LNG['cff_of']                                = ' of ';
 $LNG['cff_goes']                            = ' from ';

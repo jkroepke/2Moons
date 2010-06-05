@@ -35,7 +35,7 @@
 			{$FleetInfoRow.fleet_javai}
 				<div id="bxx{$FleetInfoRow.fleet_order}" class="z">-</div>
 			</th><th colspan="3">
-				<span class="{$FleetInfoRow.fleet_status} {$FleetInfoRow.fleet_prefix}{$FleetInfoRow.fleet_style}">{$FleetInfoRow.fleet_descr}</span>
+				{$FleetInfoRow.fleet_descr}
 			{$FleetInfoRow.fleet_javas}
 			</th>
 		</tr>

@@ -673,8 +673,8 @@ class ShowFleetPages extends FleetFunctions
 
 			if ($AksStartTime['Start'] >= $fleet['start_time'])
 			{
-				$fleet['start_time'] 	= $AksStartTime['Start'];
 				$fleet['end_time'] 	   += $AksStartTime['Start'] - $fleet['start_time'];
+				$fleet['start_time'] 	= $AksStartTime['Start'];
 			}
 			else
 			{
