@@ -43,34 +43,13 @@ function ShowOverviewPage()
 	switch ($mode)
 	{
 		case 'renameplanet':
-			$newname        = trim(request_var('newname', '', UTF8_SUPPORT));
+			$newname        = request_var('newname', '', UTF8_SUPPORT);
 			if (!empty($newname))
 			{
 				if (!CheckName($newname))
-					$template->message((UTF8_SUPPORT) ? $LNG['ov_newname_no_space'] : $LNG['ov_newname_alphanum'], "game.php?page=overview&mode=renameplanet",2);
+					exit((UTF8_SUPPORT) ? $LNG['ov_newname_no_space'] : $LNG['ov_newname_alphanum']);
 				else
-				{
 					$db->query("UPDATE ".PLANETS." SET `name` = '".$db->sql_escape($newname)."' WHERE `id` = '". $USER['current_planet'] . "' LIMIT 1;");
-					header("Location: ./game.".PHP_EXT."?page=overview&mode=renameplanet");
-				}
-			}
-			else
-			{
-				$template->assign_vars(array(
-					'galaxy'					=> $PLANET['galaxy'],
-					'system'					=> $PLANET['system'],
-					'planet'					=> $PLANET['planet'],
-					'planetname'				=> $PLANET['name'],
-					'ov_your_planet'			=> $LNG['ov_your_planet'],
-					'ov_coords'					=> $LNG['ov_coords'],
-					'ov_planet_name'			=> $LNG['ov_planet_name'],
-					'ov_actions'				=> $LNG['ov_actions'],
-					'ov_abandon_planet'			=> $LNG['ov_abandon_planet'],
-					'ov_planet_rename'			=> $LNG['ov_planet_rename'],
-					'ov_planet_rename_action'	=> $LNG['ov_planet_rename_action'],
-				));
-				
-				$template->show('overview_renameplanet.tpl');
 			}
 		break;
 		case 'deleteplanet':
@@ -80,39 +59,19 @@ function ShowOverviewPage()
 				$IfFleets = $db->query("SELECT fleet_id FROM ".FLEETS." WHERE (`fleet_owner` = '".$USER['id']."' AND `fleet_start_galaxy` = '".$PLANET['galaxy']."' AND `fleet_start_system` = '".$PLANET['system']."' AND `fleet_start_planet` = '".$PLANET['planet']."') OR (`fleet_target_owner` = '".$USER['id']."' AND `fleet_end_galaxy` = '".$PLANET['galaxy']."' AND `fleet_end_system` = '".$PLANET['system']."' AND `fleet_end_planet` = '".$PLANET['planet']."');");
 				
 				if ($db->num_rows($IfFleets) > 0)
-					$template->message($LNG['ov_abandon_planet_not_possible'], '?page=overview&mode=deleteplanet', 3);
+					exit($LNG['ov_abandon_planet_not_possible']);
 				elseif ($USER['id_planet'] == $USER["current_planet"])
-					$template->message($LNG['ov_principal_planet_cant_abanone'], '?page=overview&mode=deleteplanet', 3);
+					exit($LNG['ov_principal_planet_cant_abanone']);
 				elseif (md5($password) != $USER["password"])
-					$template->message($LNG['ov_wrong_pass'], '?page=overview&mode=deleteplanet', 3);
+					exit($LNG['ov_wrong_pass']);
 				else
 				{
-					if($PLANET['planet_type'] == 1)
-					{
+					if($PLANET['planet_type'] == 1) {
 						$db->multi_query("UPDATE ".PLANETS." SET `destruyed` = '".(TIMESTAMP+ 86400)."' WHERE `id` = '".$USER['current_planet']."' LIMIT 1;UPDATE ".USERS." SET `current_planet` = `id_planet` WHERE `id` = '".$USER['id']."';DELETE FROM ".PLANETS." WHERE `id` = '".$PLANET['id_luna']."' LIMIT 1;");
 					} else {
-						$db->multi_query("DELETE FROM ".PLANETS." WHERE `id` = '".$PLANET['id']."' LIMIT 1;
-						UPDATE ".PLANETS." SET `id_luna` = '0' WHERE `id_luna` = '".$PLANET['id']."' LIMIT 1;
-						UPDATE ".USERS." SET `current_planet` = `id_planet` WHERE `id` = '".$USER['id']."';");
+						$db->multi_query("DELETE FROM ".PLANETS." WHERE `id` = '".$PLANET['id']."' LIMIT 1;UPDATE ".PLANETS." SET `id_luna` = '0' WHERE `id_luna` = '".$PLANET['id']."' LIMIT 1;UPDATE ".USERS." SET `current_planet` = `id_planet` WHERE `id` = '".$USER['id']."';");
 					}
-					$template->message($LNG['ov_planet_abandoned'], '?page=overview', 3);
 				}
-			}
-			else
-			{
-				$template->assign_vars(array(
-					'name'						=> $PLANET['name'],
-					'galaxy'					=> $PLANET['galaxy'],
-					'system'					=> $PLANET['system'],
-					'planet'					=> $PLANET['planet'],
-					'ov_password'				=> $LNG['ov_password'],
-					'ov_with_pass'				=> $LNG['ov_with_pass'],
-					'ov_security_confirm'		=> $LNG['ov_security_confirm'],
-					'ov_security_request'		=> $LNG['ov_security_request'],
-					'ov_delete_planet'			=> $LNG['ov_delete_planet'],
-				));
-				
-				$template->show('overview_deleteplanet.tpl');
 			}
 		break;
 		default:
@@ -410,6 +369,19 @@ function ShowOverviewPage()
 				'ov_no_admins_online'		=> $LNG['ov_no_admins_online'],
 				'ov_userbanner'				=> $LNG['ov_userbanner'],
 				'ov_teamspeak'				=> $LNG['ov_teamspeak'],
+				'ov_your_planet'			=> $LNG['ov_your_planet'],
+				'ov_coords'					=> $LNG['ov_coords'],
+				'ov_planet_name'			=> $LNG['ov_planet_name'],
+				'ov_actions'				=> $LNG['ov_actions'],
+				'ov_abandon_planet'			=> $LNG['ov_abandon_planet'],
+				'ov_planet_rename'			=> $LNG['ov_planet_rename'],
+				'ov_planet_rename_action'	=> $LNG['ov_planet_rename_action'],	
+				'ov_password'				=> $LNG['ov_password'],
+				'ov_with_pass'				=> $LNG['ov_with_pass'],
+				'ov_security_confirm'		=> $LNG['ov_security_confirm'],
+				'ov_security_request'		=> $LNG['ov_security_request'],
+				'ov_delete_planet'			=> $LNG['ov_delete_planet'],
+				'ov_planet_abandoned'		=> $LNG['ov_planet_abandoned'],
 				'path'						=> str_replace('game.php', '', $_SERVER['PHP_SELF']),
 			));
 			

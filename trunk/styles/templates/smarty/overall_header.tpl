@@ -4,6 +4,7 @@
 <head>
 <link rel="stylesheet" type="text/css" href="{$dpath}formate.css">
 <link rel="stylesheet" type="text/css" href="styles/css/jquery.ui.css">
+<link rel="stylesheet" type="text/css" href="styles/css/mbContainer.css">
 <link rel="icon" href="favicon.ico">
 <title>{$title}</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -22,6 +23,8 @@ ctimestamp		= {$smarty.now};
 <![endif]-->
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+<script type="text/javascript" src="./scripts/jquery.metadata.js"></script>
+<script type="text/javascript" src="./scripts/mbContainer.js"></script>
 <script type="text/javascript" src="./scripts/overlib.js"></script>
 <script type="text/javascript" src="./scripts/global.js"></script>
 {foreach item=scriptname from=$scripts}
