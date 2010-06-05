@@ -116,9 +116,9 @@ class GalaxyRows
 	{
 		global $resource, $USER, $PLANET, $CONF, $LNG;
 		
-		if($PLANET[$resource[41]] > 0 && $GalaxyRowPlanet['userid'] != $USER['id'] && $GalaxyRowPlanet["galaxy"] == $PLANET['galaxy'])
+		if($PLANET[$resource[42]] > 0 && $GalaxyRowPlanet['userid'] != $USER['id'] && $GalaxyRowPlanet["galaxy"] == $PLANET['galaxy'])
 		{
-			$PhRange 		 = $this->GetPhalanxRange($PLANET[$resource[41]]);
+			$PhRange 		 = $this->GetPhalanxRange($PLANET[$resource[42]]);
 			$SystemLimitMin  = max(1, $PLANET['system'] - $PhRange);
 			$SystemLimitMax  = $PLANET['system'] + $PhRange;
 			$PhalanxTypeLink = ($GalaxyRowPlanet['system'] <= $SystemLimitMax && $GalaxyRowPlanet['system'] >= $SystemLimitMin) ? $LNG['gl_phalanx']:false;
