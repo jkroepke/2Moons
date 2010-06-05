@@ -88,7 +88,8 @@ class ShowOfficierPage
 		$Extra	  = request_var('extra', 0);
 				
 		$PlanetRess = new ResourceUpdate();
-		$PlanetRess->CalcResource()->SavePlanetToDB();
+		$PlanetRess->CalcResource();
+		$PlanetRess->SavePlanetToDB();
 		
 		if ($action == "send")
 		{

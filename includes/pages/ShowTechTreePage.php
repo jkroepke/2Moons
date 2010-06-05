@@ -26,7 +26,8 @@ function ShowTechTreePage()
 	global $resource, $requeriments, $LNG, $reslist, $USER, $PLANET;
 	
 	$PlanetRess = new ResourceUpdate();
-	$PlanetRess->CalcResource()->SavePlanetToDB();
+	$PlanetRess->CalcResource();
+	$PlanetRess->SavePlanetToDB();
 	
 	$template	= new template();
 	

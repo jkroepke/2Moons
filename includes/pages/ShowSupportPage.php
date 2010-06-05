@@ -27,7 +27,8 @@ class ShowSupportPage
 		$id 			= request_var('id', 0);
 		
 		$PlanetRess = new ResourceUpdate();
-		$PlanetRess->CalcResource()->SavePlanetToDB();
+		$PlanetRess->CalcResource();
+		$PlanetRess->SavePlanetToDB();
 		
 		$this->template	= new template();
 		

@@ -24,8 +24,10 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 function ShowBannedPage()
 {
 	global $USER, $PLANET, $LNG, $db;
+	
 	$PlanetRess = new ResourceUpdate();
-	$PlanetRess->CalcResource()->SavePlanetToDB();
+	$PlanetRess->CalcResource();
+	$PlanetRess->SavePlanetToDB();
 
 	$template	= new template();
 	$template->page_header();

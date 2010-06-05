@@ -28,7 +28,8 @@ function ShowRecordsPage()
 	require_once(ROOT_PATH."cache/CacheRecords.php");
 	
 	$PlanetRess = new ResourceUpdate();
-	$PlanetRess->CalcResource()->SavePlanetToDB();
+	$PlanetRess->CalcResource();
+	$PlanetRess->SavePlanetToDB();
 
 	$template	= new template();
 	$template->page_header();

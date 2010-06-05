@@ -131,7 +131,9 @@ class ShowAlliancePage
 		if (empty($id))		unset($id);
 		
 		$PlanetRess = new ResourceUpdate();
-		$PlanetRess->CalcResource()->SavePlanetToDB();
+		$PlanetRess->CalcResource();
+		$PlanetRess->SavePlanetToDB();
+			
 	
 		$this->template	= new template();
 	

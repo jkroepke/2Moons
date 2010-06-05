@@ -173,7 +173,8 @@ function ShowTraderPage()
 	}
 	else
 	{
-		$PlanetRess->CalcResource()->SavePlanetToDB();
+		$PlanetRess->CalcResource();
+		$PlanetRess->SavePlanetToDB();
 		$template->assign_vars(array(
 			'tr_cost_dm_trader'			=> sprintf($LNG['tr_cost_dm_trader'], pretty_number(DARKMATTER_FOR_TRADER), $LNG['Darkmatter']),
 			'tr_call_trader_who_buys'	=> $LNG['tr_call_trader_who_buys'],

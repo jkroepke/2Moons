@@ -37,7 +37,7 @@ class MissionCaseAttack extends MissionFunctions
 		require_once(ROOT_PATH.'includes/classes/class.PlanetRessUpdate.'.PHP_EXT);
 		
 		$PlanetRess = new ResourceUpdate();
-		list($TargetUser, $targetPlanet)	= $PlanetRess->CalcResource($TargetUser, $targetPlanet)->SavePlanetToDB($TargetUser, $targetPlanet);
+		list($targetUser, $targetPlanet)	= $PlanetRess->CalcResource($targetUser, $targetPlanet, $this->_fleet['fleet_start_time'], true);
 
 		$TargetUserID	= $targetUser['id'];
 		$attackFleets	= array();

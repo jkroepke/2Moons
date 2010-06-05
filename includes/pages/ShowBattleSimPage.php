@@ -118,7 +118,8 @@ function ShowBattleSimPage()
 	}
 
 	$PlanetRess = new ResourceUpdate();
-	$PlanetRess->CalcResource()->SavePlanetToDB();
+	$PlanetRess->CalcResource();
+	$PlanetRess->SavePlanetToDB();
 		
 	foreach($reslist['fleet'] as $ID)
 	{

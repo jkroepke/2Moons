@@ -27,9 +27,6 @@ function ShowOverviewPage()
 
 	include_once(ROOT_PATH . 'includes/functions/InsertJavaScriptChronoApplet.' . PHP_EXT);
 	include_once(ROOT_PATH . 'includes/classes/class.FlyingFleetsTable.' . PHP_EXT);
-	
-	$PlanetRess = new ResourceUpdate();
-	$PlanetRess->CalcResource()->SavePlanetToDB();
 
 	$template	= new template();
 	$template->page_header();
@@ -75,7 +72,10 @@ function ShowOverviewPage()
 			}
 		break;
 		default:
-			
+				
+			$PlanetRess = new ResourceUpdate();
+			$PlanetRess->CalcResource();
+			$PlanetRess->SavePlanetToDB();
 			$FlyingFleetsTable = new FlyingFleetsTable();
 			
 			$OwnFleets = $db->query("SELECT * FROM ".FLEETS." WHERE `fleet_owner` = '" . $USER['id'] . "';");
