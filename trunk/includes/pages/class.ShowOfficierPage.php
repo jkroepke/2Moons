@@ -161,7 +161,6 @@ class ShowOfficierPage
 		));
 		
 		$template->show("officier_overview.tpl");
-		$PlanetRess->SavePlanetToDB($USER, $PLANET);
 	}
 }
 ?>
