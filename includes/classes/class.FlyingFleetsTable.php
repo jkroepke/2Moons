@@ -25,17 +25,13 @@ class FlyingFleetsTable
 {
 	private function BuildHostileFleetPlayerLink($FleetRow, $Names)
 	{
-		global $LNG, $USER, $db;
+		global $LNG, $USER;
 
-		$Link  		 = $Names['target_username']. " ";
-		$Link 		.= "<a href=\"javascript:f('game.php?page=messages&amp;mode=write&amp;id=".$FleetRow['fleet_owner']."','');\">";
-		$Link 		.= "<img src=\"".$USER['dpath']."img/m.gif\" title=\"".$LNG['write_message']."\" border=\"0\" alt=\"\"></a>";
-
-		return $Link;
+		return $Names['target_username'].' <a href="javascript:f(\'game.php?page=messages&amp;mode=write&amp;id='.$FleetRow['fleet_owner'].'\',\'\');\"><img src="'.$USER['dpath'].'img/m.gif" title="'.$LNG['write_message'].'" border="0" alt=""></a>';
 	}
 
 	// For ShowFlyingFleets.php in admin panel.
-	public function BuildFlyingFleetTable ()
+	public function BuildFlyingFleetTable()
 	{
 		global $LNG, $db;
 
@@ -113,7 +109,7 @@ class FlyingFleetsTable
 		$FleetRec     = explode(";", $FleetRow['fleet_array']);
 		$FleetPopup   = "<a href='#' onmouseover=\"return overlib('";
 		$FleetPopup  .= "<table width=200>";
-		if(!defined('IN_ADMIN') && !$isAKS)
+		if(!defined('IN_ADMIN'))
 		{
 			if($USER['spy_tech'] < 2 && $FleetRow['fleet_owner'] != $USER['id'])
 			{
@@ -199,14 +195,14 @@ class FlyingFleetsTable
 		
 		$FleetPrefix	= ($Owner == true) ? 'own' : '';
 		$MissionType    = $FleetRow['fleet_mission'];
-		$FleetContent   = $this->CreateFleetPopupedFleetLink($FleetRow, (($MissionType == 1 || $MissionType == 2) && $FleetRow['fleet_owner'] != $USER['id'] && $Status == 0) ? $LNG['cff_acs_fleet'] : $LNG['ov_fleet'], $FleetPrefix.$FleetStyle[$MissionType]);
+		$FleetContent   = $this->CreateFleetPopupedFleetLink($FleetRow, (($MissionType == 1 || $MissionType == 2) && $FleetRow['fleet_owner'] != $USER['id'] && $Status == 0 && $Owner == true) ? $LNG['cff_acs_fleet'] : $LNG['ov_fleet'], $FleetPrefix.$FleetStyle[$MissionType]);
 		$FleetCapacity  = $this->CreateFleetPopupedMissionLink($FleetRow, $LNG['type_mission'][$MissionType], $FleetPrefix.$FleetStyle[$MissionType]);
 		$StartType      = $FleetRow['fleet_start_type'];
 		$TargetType     = $FleetRow['fleet_end_type'];
 		$FleetGroup     = $FleetRow['fleet_group'];
 		$FleetStatus	= array ( 0 => 'flight', 1 => 'return' , 2 => 'holding');
 
-		if (($MissionType == 1 || $MissionType == 2) && $FleetRow['fleet_owner'] != $USER['id'] && $Status == 0)
+		if (($MissionType == 1 || $MissionType == 2) && $FleetRow['fleet_owner'] != $USER['id'] && $Status == 0 && $Owner == true)
 		{
 			$StartID = $LNG['cff_of'].' '.$Names['own_username'].' ';
 			$StartID  .= $LNG['cff_goes'];
@@ -256,7 +252,7 @@ class FlyingFleetsTable
 
 			$StartID .= $Names['own_planetname'].' '.GetStartAdressLink ( $FleetRow, $FleetPrefix.$FleetStyle[ $MissionType ] );
 
-			if ( $MissionType != 15 )
+			if ($MissionType != 15)
 			{
 				if($TargetType == 1)
 					$TargetID  = $LNG['cff_from_planet'];
@@ -268,7 +264,7 @@ class FlyingFleetsTable
 			else
 				$TargetID  = $LNG['cff_from_position'];
 
-			$TargetID .= $Names['target_planetname'].' '.GetTargetAdressLink ( $FleetRow, $FleetPrefix.$FleetStyle[$MissionType]);
+			$TargetID .= $Names['target_planetname'].' '.GetTargetAdressLink($FleetRow, $FleetPrefix.$FleetStyle[$MissionType]);
 		}
 		
 		if ($MissionType == 10)
