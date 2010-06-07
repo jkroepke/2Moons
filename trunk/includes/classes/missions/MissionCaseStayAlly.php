@@ -50,10 +50,10 @@ class MissionCaseStayAlly extends MissionFunctions
 		$LNG				= $this->GetUserLang($this->_fleet['fleet_owner']);	
 		
 		$Message = sprintf($LNG['sys_tran_mess_owner'], $TargetName, GetTargetAdressLink($this->_fleet, ''), $this->_fleet['fleet_resource_metal'], $LNG['Metal'], $this->_fleet['fleet_resource_crystal'], $LNG['Crystal'], $this->_fleet['fleet_resource_deuterium'], $LNG['Deuterium'] );
-		SendSimpleMessage ($StartOwner, 0, $this->_fleet['fleet_start_time'], 5, $LNG['sys_mess_tower'], $LNG['sys_mess_transport'], $Message);
+		SendSimpleMessage ($StartOwner, '', $this->_fleet['fleet_start_time'], 5, $LNG['sys_mess_tower'], $LNG['sys_mess_transport'], $Message);
 
 		$Message = sprintf($LNG['sys_tran_mess_user'], $StartName, GetStartAdressLink($this->_fleet, ''), $TargetName, GetTargetAdressLink($this->_fleet, ''), $this->_fleet['fleet_resource_metal'], $LNG['Metal'], $this->_fleet['fleet_resource_crystal'], $LNG['Crystal'], $this->_fleet['fleet_resource_deuterium'], $LNG['Deuterium']);
-		SendSimpleMessage ($TargetOwner, 0, $this->_fleet['fleet_start_time'], 5, $LNG['sys_mess_tower'], $LNG['sys_mess_transport'], $Message);
+		SendSimpleMessage ($TargetOwner, '', $this->_fleet['fleet_start_time'], 5, $LNG['sys_mess_tower'], $LNG['sys_mess_transport'], $Message);
 
 		$this->UpdateFleet('fleet_mess', 2);
 		$this->SaveFleet();

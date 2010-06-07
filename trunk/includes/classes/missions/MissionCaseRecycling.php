@@ -81,7 +81,7 @@ class MissionCaseRecycling extends MissionFunctions
 
 		$LNG			= $this->GetUserLang($this->_fleet['fleet_owner']);
 		$Message 		= sprintf($LNG['sys_recy_gotten'], pretty_number($RecycledGoods['metal']), $LNG['Metal'], pretty_number($RecycledGoods['crystal']), $LNG['Crystal']);
-		SendSimpleMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_start_time'], 4, $LNG['sys_mess_tower'], $LNG['sys_recy_report'], $Message);
+		SendSimpleMessage($this->_fleet['fleet_owner'], '', $this->_fleet['fleet_start_time'], 4, $LNG['sys_mess_tower'], $LNG['sys_recy_report'], $Message);
 		
 		$this->UpdateFleet('fleet_resource_metal', bcadd($this->_fleet['fleet_resource_metal'], $RecycledGoods['metal']));
 		$this->UpdateFleet('fleet_resource_crystal', bcadd($this->_fleet['fleet_resource_crystal'], $RecycledGoods['crystal']));
@@ -99,7 +99,7 @@ class MissionCaseRecycling extends MissionFunctions
 		$LNG				= $this->GetUserLang($this->_fleet['fleet_owner']);
 	
 		$Message         = sprintf( $LNG['sys_tran_mess_owner'], $TargetName, GetStartAdressLink($this->_fleet, ''), pretty_number($this->_fleet['fleet_resource_metal']), $LNG['Metal'], pretty_number($this->_fleet['fleet_resource_crystal']), $LNG['Crystal'], pretty_number($this->_fleet['fleet_resource_deuterium']), $LNG['Deuterium'] );
-		SendSimpleMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_end_time'], 4, $LNG['sys_mess_tower'], $LNG['sys_mess_fleetback'], $Message);
+		SendSimpleMessage($this->_fleet['fleet_owner'], '', $this->_fleet['fleet_end_time'], 4, $LNG['sys_mess_tower'], $LNG['sys_mess_fleetback'], $Message);
 
 		$this->RestoreFleet();
 	}
