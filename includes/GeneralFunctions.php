@@ -516,7 +516,7 @@ function SendSimpleMessage($Owner, $Sender, $Time, $Type, $From, $Subject, $Mess
 		$Time = TIMESTAMP;
 
 	$db->query("INSERT INTO ".MESSAGES." SET `message_owner` = '". $Owner ."', `message_sender` = '". $Sender ."', `message_time` = '" . $Time . "', `message_type` = '". $Type ."', `message_from` = '". $db->sql_escape($From) ."', `message_subject` = '". $db->sql_escape($Subject) ."', `message_text` = '".$db->sql_escape($Message)."', `message_unread` = '".$Unread."';");
-	$db->query("UPDATE ".USERS." SET `new_message` = `new_message` + 1".(($Owner != 0) ? " WHERE `id` = '".$Owner."'").";");
+	$db->query("UPDATE ".USERS." SET `new_message` = `new_message` + 1".(($Owner != 0) ? " WHERE `id` = '".$Owner."'" : "").";");
 }
 	
 function shortly_number($number)
