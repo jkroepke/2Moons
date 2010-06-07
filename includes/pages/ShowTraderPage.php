@@ -188,7 +188,5 @@ function ShowTraderPage()
 
 		$template->show("trader_overview.tpl");
 	}
-	
-	$PlanetRess->SavePlanetToDB($USER, $PLANET);
 }
 ?>
