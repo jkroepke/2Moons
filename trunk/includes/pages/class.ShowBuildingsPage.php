@@ -87,7 +87,7 @@ class ShowBuildingsPage
 			$BuildArray   				= explode (",", $QueueArray[0]);
 			$PLANET['b_building']    	= $BuildArray[3];
 			$PLANET['b_building_id'] 	= implode(";", $QueueArray);
-			$PlanetRess->SetNextQueueElementOnTop();
+			list($USER, $PLANET)	= $PlanetRess->SetNextQueueElementOnTop($USER, $PLANET);
 		}
 		
 		return $ReturnValue;
