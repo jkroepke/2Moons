@@ -279,7 +279,7 @@ class MissionCaseAttack extends MissionFunctions
 			break;
 		}
 		
-		$rid	= md5(microtime(true));
+		$rid	= md5(microtime(true).mt_rand(1,100));
 			
 		$SQLQuery  = "INSERT INTO ".RW." SET ";
 		$SQLQuery .= "`time` = '".$this->_fleet['fleet_start_time']."', ";
