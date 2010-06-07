@@ -85,69 +85,48 @@ function ShowOverviewPage()
 			while ($FleetRow = $db->fetch_array($OwnFleets))
 			{
 				$Record++;
-						
-				$StartTime 		= $FleetRow['fleet_start_time'];
-				$StayTime 		= $FleetRow['fleet_end_stay'];
-				$EndTime 		= $FleetRow['fleet_end_time'];
-				$hedefgalaksi 	= $FleetRow['fleet_end_galaxy'];
-				$hedefsistem 	= $FleetRow['fleet_end_system'];
-				$hedefgezegen 	= $FleetRow['fleet_end_planet'];
-				$mess 			= $FleetRow['fleet_mess'];
-				$filogrubu 		= $FleetRow['fleet_group'];
-				$id 			= $FleetRow['fleet_id'];
-				$Label = "fs";
 				
-				if ($StartTime > TIMESTAMP)
+				if ($FleetRow['fleet_start_time'] > TIMESTAMP && ($FleetRow['fleet_group'] == 0 || !in_array($FleetRow['fleet_group'], $ACSDone)))
 				{
-					if($FleetRow['fleet_group'] == 0 || !in_array($FleetRow['fleet_group'], $ACSDone))
-					{
-						if($FleetRow['fleet_group'] != 0)
-							$ACSDone[]		= $FleetRow['fleet_group'];
+					$ACSDone[]		= $FleetRow['fleet_group'];
 					
-						$fpage[$StartTime.$id] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 0, true, $Label, $Record, true);
-					}
+					$fpage[$FleetRow['fleet_start_time'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 0, true, 'fs', $Record, true);
 				}
 
-				if(($FleetRow['fleet_mission'] != 4 || ($FleetRow['fleet_mission'] == 4 && $FleetRow['fleet_mess'] == 1)) && ($FleetRow['fleet_mission'] != 10))
-				{
-					$Label = "ft";
-					if ($StayTime > TIMESTAMP)
-					{
-						$fpage[$StayTime.$id] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 2, true, $Label, $Record);
-					}
-					$Label = "fe";
-
-					if ($EndTime > TIMESTAMP)
-					{
-						$fpage[$EndTime.$id] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 1, true, $Label, $Record);
-					}
-				}
-			}
-			$db->free_result($OwnFleets);
-
-			$OtherFleets = $db->query("SELECT * FROM ".FLEETS." WHERE `fleet_target_owner` = '" . $USER['id'] . "';");
-
-			$Record = 2000;
-			while ($FleetRow = $db->fetch_array($OtherFleets))
-			{
-				if ($FleetRow['fleet_owner'] == $USER['id'] || $FleetRow['fleet_mission'] != 8)
+				if($FleetRow['fleet_mission'] == 10 || ($FleetRow['fleet_mission'] == 4 && $FleetRow['fleet_mess'] == 0))
 					continue;
 	
-				$Record++;
-				$StartTime 	= $FleetRow['fleet_start_time'];
-				$StayTime 	= $FleetRow['fleet_end_stay'];
-				$id 		= $FleetRow['fleet_id'];
-
-				if ($StartTime > TIMESTAMP)
+				if ($FleetRow['fleet_end_stay'] > TIMESTAMP)
 				{
-					$Label = "ofs";
-					$fpage[$StartTime.$id] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, false, $Label, $Record);
+						$fpage[$FleetRow['fleet_end_stay'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 2, true, 'ft', $Record);
+				}
+
+				if ($FleetRow['fleet_end_time'] > TIMESTAMP)
+				{
+					$fpage[$FleetRow['fleet_end_time'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 1, true, 'fe', $Record);
+				}
+			}
+			
+			$db->free_result($OwnFleets);
+
+			$OtherFleets = $db->query("SELECT * FROM ".FLEETS." WHERE `fleet_target_owner` = '".$USER['id']."' AND `fleet_owner` != '".$USER['id']."';");
+
+			$Record = 2000;
+			$ACSDone	= array();
+			while ($FleetRow = $db->fetch_array($OtherFleets))
+			{			
+				$Record++;
+
+				if ($FleetRow['fleet_start_time'] > TIMESTAMP && ($FleetRow['fleet_group'] == 0 || !in_array($FleetRow['fleet_group'], $ACSDone)))
+				{
+					$ACSDone[]		= $FleetRow['fleet_group'];
+										
+					$fpage[$FleetRow['fleet_start_time'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 0, false, 'ofs', $Record, true);
 				}
 				
-				if ($FleetRow['fleet_mission'] == 5 && $StayTime > TIMESTAMP)
+				if ($FleetRow['fleet_mission'] == 5 && $FleetRow['fleet_end_stay'] > TIMESTAMP)
 				{
-					$Label = "oft";
-					$fpage[$StayTime.$id] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, false, $Label, $Record);
+					$fpage[$FleetRow['fleet_end_stay'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 2, false, 'oft', $Record);
 				}
 			}
 			$db->free_result($OtherFleets);

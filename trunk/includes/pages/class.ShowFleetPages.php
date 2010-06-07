@@ -456,7 +456,7 @@ class ShowFleetPages extends FleetFunctions
 			$target = "g".$galaxy."s".$system."p".$planet."t".$planettype;
 			if($acs_target_mr == $target)
 			{
-				$aks_count_mr = $db->query("SELECT * FROM ".AKS." WHERE `id` = '".$fleet_group."' AND `eingeladen` LIKE '%".$USER['id']."%' AND 'fleet_start_time' > '".TIMESTAMP."';");
+				$aks_count_mr = $db->query("SELECT COUNT(*) as state FROM ".AKS." WHERE `id` = '".$fleet_group."' AND `eingeladen` LIKE '%".$USER['id']."%' AND 'fleet_start_time' > '".TIMESTAMP."';");
 				if ($db->num_rows($aks_count_mr) > 0)
 					$fleet_group_mr = $fleet_group;
 			}
