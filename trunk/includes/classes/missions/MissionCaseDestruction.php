@@ -235,9 +235,8 @@ class MissionCaseDestruction extends MissionFunctions
 		require_once('GenerateReport.'.PHP_EXT);
 		$raport 		  = GenerateReport($result, $steal, $MoonChance, $GottenMoon, $totaltime, $this->_fleet, $LNG, $destext);
 
-		$rid   = md5(microtime(true));
-		$QryInsertRapport  = 'INSERT INTO '.RW.' SET ';
-		$QryInsertRapport .= '`time` = '.$this->_fleet['fleet_start_time'].', ';
+		$rid	= md5(microtime(true).mt_rand(1,100));
+		
 		foreach ($attackFleets as $fleetID => $attacker)
 		{
 			$USERs2[$attacker['user']['id']] = $attacker['user']['id'];
@@ -247,6 +246,9 @@ class MissionCaseDestruction extends MissionFunctions
 		{
 			$USERs2[$defender['user']['id']] = $defender['user']['id'];
 		}
+
+		$QryInsertRapport  = 'INSERT INTO '.RW.' SET ';
+		$QryInsertRapport .= '`time` = '.$this->_fleet['fleet_start_time'].', ';
 		$QryInsertRapport .= '`owners` = "'.implode(',', $USERs2).'", ';
 		$QryInsertRapport .= '`rid` = "'. $rid .'", ';
 		$QryInsertRapport .= '`raport` = "'. $db->sql_escape($raport) .'"';

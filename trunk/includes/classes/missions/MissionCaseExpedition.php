@@ -293,7 +293,7 @@ class MissionCaseExpedition extends MissionFunctions
 				require_once('GenerateReport.'.PHP_EXT);					
 				$raport 		= GenerateReport($result, $steal, $MoonChance, $GottenMoon, $totaltime, $this->_fleet, $LNG);
 
-				$rid   			= md5(microtime(true));
+				$rid			= md5(microtime(true).mt_rand(1,100));
 					
 				$SQLQuery  = "INSERT INTO ".RW." SET 
 							  `time` = '".TIMESTAMP."',
