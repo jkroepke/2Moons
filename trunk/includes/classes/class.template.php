@@ -56,7 +56,7 @@ class template extends Smarty
 	
 	private function planetmenu()
 	{
-		global $LNG;
+		global $LNG, $USER;
 		if(empty($this->UserPlanets))
 			$this->getplanets();
 		
