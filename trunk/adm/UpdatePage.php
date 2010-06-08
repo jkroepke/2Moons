@@ -75,7 +75,7 @@ if ($USER['authlevel'] != 3) die();
 	{
 		case "download":
 			require_once(ROOT_PATH.'includes/libs/zip/zip.lib.'.PHP_EXT);
-			$UpdateArray 	= unserialize(file_get_contents("http://update.jango-online.de/index.php?action=getupdate",FALSE,$context));
+			$UpdateArray 	= unserialize(file_get_contents("http://update.2moons.xnova-reloaded.eu/index.php?action=getupdate",FALSE,$context));
 			if(!is_array($UpdateArray['revs']))
 				exitupdate(array('debug' => array('noupdate' => "Kein Update vorhanden!")));
 				
@@ -130,7 +130,7 @@ if ($USER['authlevel'] != 3) die();
 		case "update":
 			require_once(ROOT_PATH.'includes/libs/ftp/ftp.class.'.PHP_EXT);
 			require_once(ROOT_PATH.'includes/libs/ftp/ftpexception.class.'.PHP_EXT);
-			$UpdateArray 	= unserialize(file_get_contents("http://update.jango-online.de/index.php?action=getupdate",FALSE,$context));
+			$UpdateArray 	= unserialize(file_get_contents("http://update.2moons.xnova-reloaded.eu/index.php?action=getupdate",FALSE,$context));
 			if(!is_array($UpdateArray['revs']))
 				exitupdate(array('debug' => array('noupdate' => "Kein Update vorhanden!")));
 				
