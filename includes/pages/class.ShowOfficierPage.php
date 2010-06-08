@@ -98,7 +98,7 @@ class ShowOfficierPage
 				$this->UpdateExtra($Extra);		
 		}
 		
-		$PlanetRess->SavePlanetToDB()
+		$PlanetRess->SavePlanetToDB();
 		$template	= new template();
 		$template->loadscript('time.js');
 		
