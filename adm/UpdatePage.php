@@ -65,7 +65,7 @@ if ($USER['authlevel'] != 3) die();
 	elseif(isset($Patchlevel[2]))
 		$Level		= $Patchlevel[2];
 	else
-		$Level		= 665;
+		$Level		= 733;
 		
 	$opts = array('http' => array('method'=> "GET", 'header'=> "Patchlevel: ".$Level."\r\n"));
 			
@@ -239,7 +239,7 @@ if ($USER['authlevel'] != 3) die();
 			$i = 0;
 			if(!function_exists('file_get_contents') || !function_exists('fsockopen')) {
 				$parse['planetes'] = "<tr><th>Function file_get_contents oder fsockopen deactive</th></tr>";
-			} elseif(($RAW = @file_get_contents("http://update.jango-online.de/index.php?action=update",FALSE,$context)) !== false)
+			} elseif(($RAW = @file_get_contents("http://update.2moons.xnova-reloaded.eu/index.php?action=update",FALSE,$context)) !== false)
 			{
 				$UpdateArray 	= unserialize($RAW);
 				if(is_array($UpdateArray['revs']))
