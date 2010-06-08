@@ -4,7 +4,7 @@
 # *                                                                          #
 # * 2MOONS                                                                   #
 # *                                                                          #
-# * @copyright Copyright (C) 2010 By ShadoX from titanspace.org               #
+# * @copyright Copyright (C) 2010 By ShadoX from titanspace.org              #
 # *                                                                          #
 # *	                                                                         #
 # *  This program is free software: you can redistribute it and/or modify    #
@@ -25,7 +25,7 @@ function calculateSteal($attackFleets, $defenderPlanet, $ForSim = false)
 	global $pricelist, $db;
 	
 	$SortFleets = array();
-	$Sumcapacity  = 0;
+	$Sumcapacity  = '0';
 	foreach($attackFleets as $FleetID => $Attacker)
 	{
 		$SortFleets[$FleetID]		= '0';
@@ -34,9 +34,12 @@ function calculateSteal($attackFleets, $defenderPlanet, $ForSim = false)
 			$SortFleets[$FleetID]		= bcadd($SortFleets[$FleetID], bcmul($pricelist[$Element]['capacity'], floattostring($amount)));
 		}
 		
-		$SortFleets[$FleetID]	= bcsub($SortFleets[$FleetID], bcadd($Attacker['fleet']['fleet_resource_metal'], bcadd($Attacker['fleet']['fleet_resource_crystal'], $Attacker['fleet']['fleet_resource_deuterium'])));
+		$SortFleets[$FleetID]	= bcsub($SortFleets[$FleetID], $Attacker['fleet']['fleet_resource_metal']);
+		$SortFleets[$FleetID]	= bcsub($SortFleets[$FleetID], $Attacker['fleet']['fleet_resource_crystal']);
+		$SortFleets[$FleetID]	= bcsub($SortFleets[$FleetID], $Attacker['fleet']['fleet_resource_deuterium']);
 		$Sumcapacity			= bcadd($Sumcapacity, $SortFleets[$FleetID]);
 	}
+	
 	$AllCapacity		= $Sumcapacity;
 	
 	// Step 1

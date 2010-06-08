@@ -154,6 +154,9 @@ class MissionCaseAttack extends MissionFunctions
 			}
 		}	
 		
+		$db->multi_query($SQL);
+		$SQL	= "";
+		
 		if ($result['won'] == "a")
 		{
 			require_once('calculateSteal.'.PHP_EXT);

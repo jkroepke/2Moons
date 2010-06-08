@@ -193,7 +193,14 @@ class ResourceUpdate
 				continue;					
 			}
 			
-			$GetBuildShips					= max(min(bcdiv($PLANET['b_hangar'], $BuildTime), $Count), 0);
+			$GetBuildShips					= max(min(bcdiv($PLANET['b_hangar'], $BuildTime, 0), $Count), 0);
+			
+			if($GetBuildShips == 0)
+			{
+				$PLANET['b_hangar_id'] .= $Element.",".$Count.";";
+				continue;
+			}
+			
 			$PLANET['b_hangar']				-= bcmul($GetBuildShips, $BuildTime);
 			$this->Builded[$Element]		= bcadd($GetBuildShips, $this->Builded[$Element]);
 			$PLANET[$resource[$Element]]	= bcadd($GetBuildShips, $PLANET[$resource[$Element]]);
@@ -409,7 +416,7 @@ class ResourceUpdate
 					`p`.`id` = '". $PLANET['id'] ."' AND
 					`u`.`id` = '".$USER['id']."';";
 		$db->query($Qry);
-		
+		var_dump($Qry);
 		return array($USER, $PLANET);
 	}
 }
