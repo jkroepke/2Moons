@@ -88,8 +88,7 @@ class ShowOfficierPage
 		$Extra	  = request_var('extra', 0);
 				
 		$PlanetRess = new ResourceUpdate();
-		$PlanetRess->CalcResource();
-		$PlanetRess->SavePlanetToDB();
+		$PlanetRess->CalcResource();;
 		
 		if ($action == "send")
 		{
@@ -99,6 +98,7 @@ class ShowOfficierPage
 				$this->UpdateExtra($Extra);		
 		}
 		
+		$PlanetRess->SavePlanetToDB()
 		$template	= new template();
 		$template->loadscript('time.js');
 		
