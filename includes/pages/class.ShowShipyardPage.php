@@ -56,6 +56,7 @@ class ShowShipyardPage
 
 		return $ResType;
 	}
+	
 	private function CancelAuftr($CancelArray) 
 	{
 		global $USER, $PLANET;
@@ -65,6 +66,7 @@ class ShowShipyardPage
 			$ElementQ	= explode(',', $ElementQueue[$Auftr-1]);
 			$Element	= $ElementQ[0];
 			$Count		= $ElementQ[1];
+			
 			if ($Element == 214 && $USER['rpg_destructeur'] == 1) $Count = $Count / 2;
 			
 			$Resses		= $this->GetElementRessources($Element, $Count);
@@ -77,14 +79,12 @@ class ShowShipyardPage
 		$PLANET['b_hangar_id']	= implode(';', $ElementQueue);
 	}
 	
-	private function GetRestPrice($Element, $USERfactor = true)
+	private function GetRestPrice($Element, $Factor = true)
 	{
 		global $USER, $PLANET, $pricelist, $resource, $LNG;
 
-		if ($USERfactor)
-		{
+		if ($Factor)
 			$level = ($PLANET[$resource[$Element]]) ? $PLANET[$resource[$Element]] : $USER[$resource[$Element]];
-		}
 
 		$array = array(
 			'metal'      => $LNG['Metal'],
@@ -93,21 +93,19 @@ class ShowShipyardPage
 			'energy_max' => $LNG['Energy'],
 			'darkmatter' => $LNG['Darkmatter'],
 		);
+		
 		$restprice	= array();
 		foreach ($array as $ResType => $ResTitle)
 		{
-			if ($pricelist[$Element][$ResType] != 0)
-			{
-				if ($USERfactor)
-				{
-					$cost = floor($pricelist[$Element][$ResType] * pow($pricelist[$Element]['factor'], $level));
-				}
-				else
-				{
-					$cost = floor($pricelist[$Element][$ResType]);
-				}
-				$restprice[$ResTitle] = pretty_number(max($cost - (($PLANET[$ResType]) ? $PLANET[$ResType] : $USER[$ResType]), 0));
-			}
+			if ($pricelist[$Element][$ResType] == 0)
+				continue;
+			
+			if ($Factor)
+				$cost = floor($pricelist[$Element][$ResType] * pow($pricelist[$Element]['factor'], $level));
+			else
+				$cost = floor($pricelist[$Element][$ResType]);
+			
+			$restprice[$ResTitle] = pretty_number(max($cost - (($PLANET[$ResType]) ? $PLANET[$ResType] : $USER[$ResType]), 0));
 		}
 
 		return $restprice;
@@ -135,7 +133,6 @@ class ShowShipyardPage
 		$PlanetRess = new ResourceUpdate();
 		$PlanetRess->CalcResource();
 		
-		
 		$NotBuilding = true;
 
 		if (!empty($PLANET['b_building_id']))
@@ -154,36 +151,34 @@ class ShowShipyardPage
 		if (!empty($fmenge) && $NotBuilding == true)
 		{
 			$AddedInQueue = false;
-
+			
+			$ebuild = explode(";",$PLANET['b_hangar_id']);
+			if (count($ebuild) - 1 >= MAX_FLEET_OR_DEFS_IN_BUILD)
+			{
+				$template->message(sprintf($LNG['bd_max_builds'], MAX_FLEET_OR_DEFS_IN_BUILD), "?page=buildings&mode=fleet", 3);
+				exit;
+			}
+				
 			foreach($fmenge as $Element => $Count)
 			{
 				$Element = in_array($Element, $reslist['fleet']) ? $Element : NULL;
-				if(empty($Element))
-					continue;
-					
 				$Count	= is_numeric($Count) ? $Count : 0;
 				$Count 	= min($Count, MAX_FLEET_OR_DEFS_PER_ROW);
-				$ebuild = explode(";",$PLANET['b_hangar_id']);
-				if (count($ebuild) - 1 >= MAX_FLEET_OR_DEFS_IN_BUILD)
-				{
-					$template->message(sprintf($LNG['bd_max_builds'], MAX_FLEET_OR_DEFS_IN_BUILD), "?page=buildings&mode=fleet", 3);
-					exit;
-				}
-				elseif ($Count > 0 && IsTechnologieAccessible ($USER, $PLANET, $Element))
-				{
-					$MaxElements = $this->GetMaxConstructibleElements($Element);
-					$Count		 = min($MaxElements, $Count);
-					$Ressource 	 = $this->GetElementRessources($Element, $Count);
-					$PLANET['metal']	 -= $Ressource['metal'];
-					$PLANET['crystal']   -= $Ressource['crystal'];
-					$PLANET['deuterium'] -= $Ressource['deuterium'];
-					$USER['darkmatter']  -= $Ressource['darkmatter'];
+				if(empty($Element) || empty($Count) || !IsTechnologieAccessible ($USER, $PLANET, $Element))
+					continue;
+					
+				$MaxElements = $this->GetMaxConstructibleElements($Element);
+				$Count		 = min($MaxElements, $Count);
+				$Ressource 	 = $this->GetElementRessources($Element, $Count);
+				$PLANET['metal']	 -= $Ressource['metal'];
+				$PLANET['crystal']   -= $Ressource['crystal'];
+				$PLANET['deuterium'] -= $Ressource['deuterium'];
+				$USER['darkmatter']  -= $Ressource['darkmatter'];
 
-					if ($Element == 214 && $USER['rpg_destructeur'] == 1)
-						$Count = 2 * $Count;
+				if ($Element == 214 && $USER['rpg_destructeur'] == 1)
+					$Count = 2 * $Count;
 
-					$PLANET['b_hangar_id']    .= $Element .",".floattostring($Count).";";
-				}
+				$PLANET['b_hangar_id']    .= $Element.','.floattostring($Count).';';
 			}
 		}
 				
@@ -213,7 +208,7 @@ class ShowShipyardPage
 					'name'			=> $LNG['tech'][$Element],
 					'descriptions'	=> $LNG['res']['descriptions'][$Element],
 					'price'			=> GetElementPrice($USER, $PLANET, $Element, false),
-					'restprice'		=> $this->GetRestPrice($Element),
+					'restprice'		=> $this->GetRestPrice($Element, false),
 					'time'			=> pretty_time(GetBuildingTime($USER, $PLANET, $Element)),
 					'IsAvailable'	=> IsElementBuyable($USER, $PLANET, $Element, false),
 					'Available'		=> pretty_number($PLANET[$resource[$Element]]),
@@ -307,99 +302,67 @@ class ShowShipyardPage
 		}
 		
 		if (isset($fmenge) && $NotBuilding == true)
-		{
+		{	
+			$ebuild = explode(";",$PLANET['b_hangar_id']);
+			if (count($ebuild) - 1 >= MAX_FLEET_OR_DEFS_IN_BUILD)
+			{
+				$template->message(sprintf($LNG['bd_max_builds'], MAX_FLEET_OR_DEFS_IN_BUILD), "?page=buildings&mode=fleet", 3);
+				exit;
+			}
+			
 			$Missiles[502] = $PLANET[$resource[502]];
 			$Missiles[503] = $PLANET[$resource[503]];
 			$SiloSize      = $PLANET[$resource[44]];
 			$MaxMissiles   = $SiloSize * 10;
 			$BuildQueue    = $PLANET['b_hangar_id'];
-			$BuildArray    = explode (";", $BuildQueue);
+			$BuildArray    = explode(";", $BuildQueue);
 
 			for ($QElement = 0; $QElement < count($BuildArray); $QElement++)
 			{
 				$ElmentArray = explode (",", $BuildArray[$QElement] );
-				if($ElmentArray[0] == 502)
-				{
-					$Missiles[502] += $ElmentArray[1];
-				}
-				elseif($ElmentArray[0] == 503)
-				{
-					$Missiles[503] += $ElmentArray[1];
-				}
+				$Missiles[$ElmentArray[0]] += $ElmentArray[1];
 			}
-
 
 			foreach($fmenge as $Element => $Count)
 			{
-				$Element = in_array($Element, $reslist['defense']) ? $Element : NULL;
-				if(empty($Element))
+				$Element 	= in_array($Element, $reslist['defense']) ? $Element : NULL;
+				$Count		= is_numeric($Count) ? $Count : 0;
+				$Count 		= min($Count, MAX_FLEET_OR_DEFS_PER_ROW);
+				
+				if(empty($Element) || empty($Count) || !IsTechnologieAccessible($USER, $PLANET, $Element))
 					continue;
 					
-				$Count	= is_numeric($Count) ? $Count : 0;
-				$Count 	= min($Count, MAX_FLEET_OR_DEFS_PER_ROW);
-				$ebuild = explode(";",$PLANET['b_hangar_id']);
-				if (count($ebuild) - 1 >= MAX_FLEET_OR_DEFS_IN_BUILD)
+				$MaxElements = $this->GetMaxConstructibleElements($Element);
+				if ($Element == 502 || $Element == 503)
 				{
-					$template->message(sprintf($LNG['bd_max_builds'], MAX_FLEET_OR_DEFS_IN_BUILD), "?page=buildings&mode=fleet", 3);
-				}
-				elseif ($Count != 0 && IsTechnologieAccessible($USER, $PLANET, $Element))
-				{
-					$MaxElements = $this->GetMaxConstructibleElements($Element);
-					if ($Element == 502 || $Element == 503)
-					{
-						$ActuMissiles  = $Missiles[502] + ( 2 * $Missiles[503] );
-						$MissilesSpace = $MaxMissiles - $ActuMissiles;
-						if ($Element == 502)
-						{
-							if ( $Count > $MissilesSpace )
-							{
-								$Count = $MissilesSpace;
-							}
-						}
-						else
-						{
-							if ( $Count > floor( $MissilesSpace / 2 ) )
-							{
-								$Count = floor( $MissilesSpace / 2 );
-							}
-						}
-						if ($Count > $MaxElements)
-						{
-							$Count = $MaxElements;
-						}
-						$Missiles[$Element] += $Count;
-					}
-					elseif(in_array($Element, $reslist['one']))
-					{
-						$InQueue = strpos ( $PLANET['b_hangar_id'], $Element.",");
-						$IsBuildpp = ($PLANET[$resource[$Element]] >= 1) ? TRUE : FALSE;
-						if(!$IsBuildpp && $InQueue === FALSE)
-						{
-							$Count = 1;
-						}
-						else
-						{
-							$Count = 0;
-						}
-					}
+					$ActuMissiles  = $Missiles[502] + ( 2 * $Missiles[503] );
+					$MissilesSpace = $MaxMissiles - $ActuMissiles;
+					
+					if ($Element == 502)
+						$Count = min($Count, $MissilesSpace);
 					else
-					{
-						if ($Count > $MaxElements)
-						{
-							$Count = $MaxElements;
-						}
-					}
+						$Count = min($Count, floor($MissilesSpace / 2));
+	
+					$Count 		= min($Count, $MaxElements);
 
-					$Ressource = $this->GetElementRessources($Element, $Count);
-					if ($Count >= 1)
-					{
-						$PLANET['metal']           -= $Ressource['metal'];
-						$PLANET['crystal']         -= $Ressource['crystal'];
-						$PLANET['deuterium']       -= $Ressource['deuterium'];
-						$USER['darkmatter'] 	   -= $Ressource['darkmatter'];
-						$PLANET['b_hangar_id']     .= "". $Element .",". $Count .";";
-					}
+					$Missiles[$Element] += $Count;
+				} elseif(in_array($Element, $reslist['one'])) {
+					$Count 		= ($PLANET[$resource[$Element]] == 0 && strpos($PLANET['b_hangar_id'], $Element.',') === false) ? 1 : 0;
+				} else {
+					$Count 		= min($Count, $MaxElements);
 				}
+				
+				if ($Count < 1)
+					continue;
+				
+				$Ressource = $this->GetElementRessources($Element, $Count);
+
+				$PLANET['metal']           -= $Ressource['metal'];
+				$PLANET['crystal']         -= $Ressource['crystal'];
+				$PLANET['deuterium']       -= $Ressource['deuterium'];
+				$USER['darkmatter'] 	   -= $Ressource['darkmatter'];
+				
+				$PLANET['b_hangar_id']     .= $Element.','.floattostring($Count).';';
 			}
 		}
 				
@@ -422,29 +385,20 @@ class ShowShipyardPage
 		
 		foreach($reslist['defense'] as $Element)
 		{
-			if (IsTechnologieAccessible($USER, $PLANET, $Element))
-			{
-				if(in_array($Element, $reslist['one']))
-				{
-					$InQueue 		= strpos($PLANET['b_hangar_id'], $Element.",");
-					$IsBuild	 	= ($PLANET[$resource[$Element]] >= 1) ? true : false;
-					$AlreadyBuild 	= ($IsBuild || $InQueue) ? true : false;
-				}
-				else
-					unset($AlreadyBuild);
-					
-				$DefenseList[]	= array(
-					'id'			=> $Element,
-					'name'			=> $LNG['tech'][$Element],
-					'descriptions'	=> $LNG['res']['descriptions'][$Element],
-					'price'			=> GetElementPrice($USER, $PLANET, $Element, false),
-					'restprice'		=> $this->GetRestPrice($Element),
-					'time'			=> pretty_time(GetBuildingTime($USER, $PLANET, $Element)),
-					'IsAvailable'	=> IsElementBuyable($USER, $PLANET, $Element, false),
-					'Available'		=> pretty_number($PLANET[$resource[$Element]]),
-					'AlreadyBuild'	=> $AlreadyBuild,
-				);
-			}
+			if(!IsTechnologieAccessible($USER, $PLANET, $Element))
+				continue;
+	
+			$DefenseList[]	= array(
+				'id'			=> $Element,
+				'name'			=> $LNG['tech'][$Element],
+				'descriptions'	=> $LNG['res']['descriptions'][$Element],
+				'price'			=> GetElementPrice($USER, $PLANET, $Element, false),
+				'restprice'		=> $this->GetRestPrice($Element),
+				'time'			=> pretty_time(GetBuildingTime($USER, $PLANET, $Element)),
+				'IsAvailable'	=> IsElementBuyable($USER, $PLANET, $Element, false),
+				'Available'		=> pretty_number($PLANET[$resource[$Element]]),
+				'AlreadyBuild'	=> (in_array($Element, $reslist['one']) && (strpos($PLANET['b_hangar_id'], $Element.",") !== false || $PLANET[$resource[$Element]] != 0)) ? true : false,
+			);
 		}
 
 		if(!empty($PLANET['b_hangar_id']))
