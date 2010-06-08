@@ -416,7 +416,6 @@ class ResourceUpdate
 					`p`.`id` = '". $PLANET['id'] ."' AND
 					`u`.`id` = '".$USER['id']."';";
 		$db->query($Qry);
-		var_dump($Qry);
 		return array($USER, $PLANET);
 	}
 }
