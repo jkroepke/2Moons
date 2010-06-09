@@ -398,7 +398,7 @@ class ResourceUpdate
 		{
 			foreach($this->Builded as $Element => $Count)
 			{
-				if(!isset($resource[$Element]))
+				if(empty($resource[$Element]))
 					throw new Exception('ID '.$Element.' is not on $resource!');
 					
 				if(isset($PLANET[$resource[$Element]]))

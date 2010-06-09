@@ -21,22 +21,33 @@
 
 class ShowOptionsPage
 {
-	private function CheckIfIsBuilding()
+	private function CheckVMode()
 	{
 		global $db, $USER;
-		$query = $db->query("SELECT `b_building`, `b_hangar` FROM ".PLANETS." WHERE id_owner = '".$USER['id']."'  AND `destruyed` = 0;");
+
+		list($fleets) = $db->uniquequery("SELECT COUNT(*) FROM ".FLEETS." WHERE `fleet_owner` = '".$USER['id']."' OR `fleet_target_owner` = '".$USER['id']."';");
 		
-		while($id = $db->fetch_array($query))
+		if($fleets != 0)
+			return false;
+
+		$query = $db->query("SELECT * FROM ".PLANETS." WHERE id_owner = '".$USER['id']."' AND `destruyed` = 0;");
+		
+		$PlanetRess = new ResourceUpdate();
+		
+		while($CPLANET = $db->fetch_array($query))
 		{
-			if(!(empty($id['b_building']) && empty($id['b_hangar'])))
-				return true;
+			list($USER, $CPLANET)	= $PlanetRess->CalcResource($USER, $CPLANET, TIMESTAMP, true);
+		
+			if(!empty($CPLANET['b_building']) || !empty($CPLANET['b_hangar']))
+				return false;
 		}
 
-		$fleets = $db->fetch_array($db->query("SELECT * FROM ".FLEETS." WHERE `fleet_owner` = '".$USER['id']."' OR `fleet_target_owner` = '".$USER['id']."';"));
-		if(!empty($fleets))
-			return true;
+		$db->free_result($query);
+		
+		if(!empty($USER['b_tech']))
+			return false;
 
-		return false;
+		return true;
 	}
 	
 	public function ShowOptionsPage()
@@ -112,9 +123,9 @@ class ShowOptionsPage
 				
 				if ($urlaubs_modus == 'on')
 				{
-					if($this->CheckIfIsBuilding())
+					if(!$this->CheckVMode())
 					{
-						$template->message($LNG['op_cant_activate_vacation_mode'], "game.php?page=options",1);
+						$template->message($LNG['op_cant_activate_vacation_mode'], '?page=options', 3);
 						exit;
 					}
 					
