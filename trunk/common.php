@@ -92,8 +92,7 @@ if (INSTALL != true)
 		require_once(ROOT_PATH . 'includes/classes/class.CheckSession.'.PHP_EXT);
 
 		$Session       	= new CheckSession();
-		$Result			= $Session->CheckUser($IsUserChecked);
-		if (!$Result) die(header('Location: '.ROOT_PATH.'index.php'));
+		if(!$Session->CheckUser()) exit(header('Location: '.ROOT_PATH.'index.php'));
 	
 		$Session		= NULL;	
 		unset($Session);
@@ -125,7 +124,9 @@ if (INSTALL != true)
 		}
 				
 		$USER	= $db->uniquequery("SELECT u.*, s.`total_rank`, s.`total_points` FROM ".USERS." as u LEFT JOIN ".STATPOINTS." as s ON s.`id_owner` = u.`id` AND s.`stat_type` = '1' WHERE u.`id` = '".$_SESSION['id']."';");
-		if(empty($USER['lang'])) {
+		if(empty($USER)) {
+			exit(header('Location: '.ROOT_PATH.'index.php'));
+		}elseif(empty($USER['lang'])) {
 			$USER['lang']	= $CONF['lang'];
 			$db->query("UPDATE ".USERS." SET `lang` ='".$USER['lang']."' WHERE `id` = '".$USER['id']."';");
 		}
@@ -158,9 +159,13 @@ if (INSTALL != true)
 
 		if(empty($PLANET)){
 			$PLANET = $db->uniquequery("SELECT * FROM `".PLANETS."` WHERE `id` = '".$USER['id_planet']."';");
+			
+			if(empty($PLANET)){
+				throw new Exception("Main Planet does not exist!");
+			}
 		}
 			
-		include_once(ROOT_PATH.'includes/functions/CheckPlanetUsedFields.' . PHP_EXT);
+		require_once(ROOT_PATH.'includes/functions/CheckPlanetUsedFields.' . PHP_EXT);
 		CheckPlanetUsedFields($PLANET);
 	} else {
 		//Login
