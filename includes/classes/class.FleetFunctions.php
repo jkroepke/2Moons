@@ -248,7 +248,6 @@ abstract class FleetFunctions
 		
 		while($row = $db->fetch_array($GetAKS))
 		{
-			$AksStartTime = $db->fetch_array($db->query("SELECT MAX(`fleet_start_time`) AS time FROM ".FLEETS." WHERE `fleet_group` = '".$row['id']."'  AND 'fleet_start_time' > '".TIMESTAMP."';"));
 			$AKSList[]	= array(
 				'id'			=> $row['id'],
 				'name'			=> $row['name'],
@@ -256,9 +255,10 @@ abstract class FleetFunctions
 				'system'		=> $row['system'],
 				'planet'		=> $row['planet'],
 				'planet_type'	=> $row['planet_type'],
-				'time'			=> date("d. M y H:i:s", $AksStartTime['time']),
 			);
 		}
+		
+		$db->free_result($GetAKS);
 		
 		return $AKSList;
 	}
@@ -267,7 +267,7 @@ abstract class FleetFunctions
 	{
 		global $db;
 
-		$ActualFleets = $db->num_rows($db->query("SELECT fleet_id FROM ".FLEETS." WHERE `fleet_owner`='".$CurrentUserID."'".(($Mission != 0)?" AND `fleet_mission` = '".$Mission."'":"")." AND `fleet_mission` <> 10;"));
+		list($ActualFleets) = $db->uniquequery("SELECT COUNT(*) FROM ".FLEETS." WHERE `fleet_owner` = '".$CurrentUserID."'".(($Mission != 0)?" AND `fleet_mission` = '".$Mission."'":"")." AND `fleet_mission` <> 10;");
 		return $ActualFleets;
 	}	
 	

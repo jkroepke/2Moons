@@ -48,7 +48,7 @@ function ShowBuddyPage()
 				break;
 
 				case 3:
-					$test = $db->fetch_array($db->query("SELECT `id` FROM ".BUDDY." WHERE `sender`='".$USER['id']."' AND `owner`='".$uid."' OR `owner`='".$USER['id']."' AND `sender`='".$uid."';"));
+					$test = $db->fetch_array($db->query("SELECT `id` FROM ".BUDDY." WHERE (`sender`='".$USER['id']."' AND `owner`='".$uid."') OR (`owner`='".$USER['id']."' AND `sender`='".$uid."');"));
 					if(!isset($test))
 					{
 						$text = request_var('text','');

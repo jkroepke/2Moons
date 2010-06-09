@@ -41,41 +41,41 @@ function calculateSteal($attackFleets, $defenderPlanet, $ForSim = false)
 	}
 	
 	$AllCapacity		= $Sumcapacity;
-	
+
 	// Step 1
-	$booty['metal'] 	= min(bcdiv($Sumcapacity, 3), bcdiv($defenderPlanet['metal'], 2));
+	$booty['metal'] 	= min(bcdiv($Sumcapacity, 3), bcdiv(floattostring($defenderPlanet['metal']), 2));
 	$Sumcapacity		= bcsub($Sumcapacity, $booty['metal']);
 	 
 	// Step 2
-	$booty['crystal'] 	= min(bcdiv($Sumcapacity, 2), bcdiv($defenderPlanet['crystal'], 2));
+	$booty['crystal'] 	= min(bcdiv($Sumcapacity, 2), bcdiv(floattostring($defenderPlanet['crystal']), 2));
 	$Sumcapacity		= bcsub($Sumcapacity, $booty['crystal']);
 	 
 	// Step 3
-	$booty['deuterium'] = min($Sumcapacity, bcdiv($defenderPlanet['deuterium'], 2));
+	$booty['deuterium'] = min($Sumcapacity, bcdiv(floattostring($defenderPlanet['deuterium']), 2));
 	$Sumcapacity		= bcsub($Sumcapacity, $booty['deuterium']);
 		 
 	// Step 4
 	$oldMetalBooty  	= $booty['metal'];
-	$booty['metal'] 	= bcadd($booty['metal'], min(bcdiv($Sumcapacity, 2), max(bcsub(bcdiv($defenderPlanet['metal'], 2), $booty['metal']), 0)));
+	$booty['metal'] 	= bcadd($booty['metal'], min(bcdiv($Sumcapacity, 2), max(bcsub(bcdiv(floattostring($defenderPlanet['metal']), 2), $booty['metal']), 0)));
 	$Sumcapacity		= bcsub($Sumcapacity, bcsub($booty['metal'], $oldMetalBooty));
 		 
 	// Step 5
-	$booty['crystal'] 	= bcadd($booty['crystal'], min($Sumcapacity, max(bcsub(bcdiv($defenderPlanet['crystal'], 2), $booty['crystal']), 0)));
-		 		
-	if($ForSim)
+	$booty['crystal'] 	= bcadd($booty['crystal'], min($Sumcapacity, max(bcsub(bcdiv(floattostring($defenderPlanet['crystal']), 2), $booty['crystal']), 0)));
+			
+	if($ForSim) 
 		return $booty;
 
 	$Qry	= "";
 
+	
 	foreach($SortFleets as $FleetID => $Capacity)
 	{
-		$Factor			= bcdiv($Capacity, $AllCapacity);
-		$Qry .= 'UPDATE '.FLEETS.' SET ';
-		$Qry .= '`fleet_resource_metal` = `fleet_resource_metal` + '.bcmul($booty['metal'], $Factor).', ';
-		$Qry .= '`fleet_resource_crystal` = `fleet_resource_crystal` +'.bcmul($booty['crystal'], $Factor).', ';
-		$Qry .= '`fleet_resource_deuterium` = `fleet_resource_deuterium` +'.bcmul($booty['deuterium'], $Factor).' ';
-		$Qry .= 'WHERE fleet_id = '.$FleetID.' ';
-		$Qry .= 'LIMIT 1;';		
+		$Factor			= bcdiv($Capacity, $AllCapacity, 10);
+		$Qry .= "UPDATE ".FLEETS." SET ";
+		$Qry .= "`fleet_resource_metal` = `fleet_resource_metal` + '".bcmul($booty['metal'], $Factor, 0)."', ";
+		$Qry .= "`fleet_resource_crystal` = `fleet_resource_crystal` + '".bcmul($booty['crystal'], $Factor, 0)."', ";
+		$Qry .= "`fleet_resource_deuterium` = `fleet_resource_deuterium` + '".bcmul($booty['deuterium'], $Factor, 0)."' ";
+		$Qry .= "WHERE fleet_id = '".$FleetID."';";		
 	}
 	
 	$db->multi_query($Qry);
