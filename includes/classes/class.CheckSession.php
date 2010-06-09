@@ -25,7 +25,7 @@ class CheckSession
 	{
 		global $CONF, $db;
 
-		if(!isset($_SESSION['id']))
+		if(empty($_SESSION['id']))
 			return false;
 		
 		$SelectPlanet  = request_var('cp',0);
