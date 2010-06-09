@@ -162,7 +162,7 @@ class MissionCaseAttack extends MissionFunctions
 			require_once('calculateSteal.'.PHP_EXT);
 			$steal = calculateSteal($attackFleets, $targetPlanet);
 		}
-			
+		
 		foreach ($defense as $fleetID => $defender)
 		{
 			if ($fleetID != 0)

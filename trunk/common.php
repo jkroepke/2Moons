@@ -19,12 +19,9 @@
 # *																			 #
 ##############################################################################
 
-if(!(function_exists("spl_autoload_register")))
+if(!function_exists('spl_autoload_register'))
 	exit("PHP is missing <a href=\"http://php.net/spl\">Standard PHP Library (SPL)</a> support");
 	
-if(!(function_exists("bcadd")))
-	exit("PHP is missing <a href=\"http://php.net/bcmath\">BCMath Arbitrary Precision Mathematics (BCMath)</a> support");
-
 if((!defined('INSTALL') || INSTALL == false) && (!file_exists(ROOT_PATH.'config.php') || filesize(ROOT_PATH.'config.php') == 0))
 	exit(header("Location:" . ROOT_PATH .  "install/"));
 	
@@ -57,12 +54,13 @@ if(function_exists('set_magic_quotes_runtime'))
 if(!defined('LOGIN') || !defined('IN_CRON'))
 	session_start();
 
+if(!function_exists('bcadd'))
+	require_once(ROOT_PATH.'includes/bcmath.'.PHP_EXT);
+
 require_once(ROOT_PATH . 'includes/constants.'.PHP_EXT);
 require_once(ROOT_PATH . 'includes/classes/class.MySQLi.'.PHP_EXT);
 require_once(ROOT_PATH . 'includes/GeneralFunctions.'.PHP_EXT);
-require_once(ROOT_PATH . 'includes/vars.'.PHP_EXT);
-
-date_default_timezone_set("Europe/Berlin");
+require_once(ROOT_PATH . 'includes/vars.'.PHP_EXT);date_default_timezone_set("Europe/Berlin");
 set_error_handler('msg_handler', E_ALL);
 set_exception_handler('exception_handler');
 
