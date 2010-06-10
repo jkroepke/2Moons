@@ -1004,6 +1004,15 @@ $LNG['log_searchindb_inac']			= 'Inaktiv';
 $LNG['log_search_advert_popup']		= 'To activate / deactivate history do so from the Permissions section. Click to go to the permissions panel.';
 //###########################################################//
 
+// Support
+
+$LNG['sp_admin_answer']				= '%s (Admin) schreib am %s<br><br><font color="red">%s</font>';
+$LNG['sp_answer_message_title']		= 'Support Ticket #%d',;
+$LNG['sp_answer_message']			= 'Es wurde auf Ihr Ticket #%d eine Antwort geschreiben!';
+$LNG['sp_admin_closed']				= '%s (Admin) closed the ticket on %s';
+$LNG['sp_admin_open']				= '%s (Admin) reopen the ticket on %s';
+
+
 // QuickEditor
 
 $LNG['qe_send']						= 'Absenden';

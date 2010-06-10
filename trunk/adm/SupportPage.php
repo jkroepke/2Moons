@@ -39,37 +39,23 @@ if($_GET['ticket'] == 0){
 		while($ticket = $db->fetch_array($query)){
 			switch($ticket['status']){
 				case 0:
-				$status = "<font color=red>Geschlossen</font>";
+					$status = '<font color="red">'.$LNG['supp_close'].'</font>';
 				break;
 				case 1:
-				$status = "<font color=green>Offen</font>";
+					$status = '<font color="green">'.$LNG['supp_open'].'</font>';
 				break;
 				case 2:
-				$status = "<font color=orange>Admin-Antwort</font>";
+					$status = '<font color="orange">'.$LNG['supp_admin_answer'].'</font>';
 				break;
 				case 3:
-				$status = "<font color=green>Spieler-Antwort</font>";
+					$status = '<font color="green">'.$LNG['supp_player_answer'].'</font>';
 				break;
 			}	
-		
-		$playername = $ticket['username'];	
-		if($ticket['status'] == 0){	
-		$parse['tickets_g'] .= "<tr>"
-						    ."<th>".$ticket['ID']."</th>"
-						    ."<th>".$playername."</th>"
-							."<th><a href='?ticket=".$ticket['ID']."'>".$ticket['subject']."</a></th>"
-							."<th>". $status ."</th>"
-							."<th>".date("j. M Y H:i:s",$ticket['time'])."</th>"
-							."</tr>";
-		}else {
-		$parse['tickets'] .= "<tr>"
-						    ."<th>".$ticket['ID']."</th>"
-						    ."<th>".$playername."</th>"
-							."<th><a href='?ticket=".$ticket['ID']."'>".$ticket['subject']."</a></th>"
-							."<th>". $status ."</th>"
-							."<th>".date("j. M Y H:i:s",$ticket['time'])."</th>"
-							."</tr>";		
-		}
+			if($ticket['status'] == 0){	
+			$parse['tickets_g'] .= "<tr><th>".$ticket['ID']."</th><th>".$ticket['username']."</th><th><a href='?ticket=".$ticket['ID']."'>".$ticket['subject']."</a></th><th>". $status ."</th><th>".date("j. M Y H:i:s", $ticket['time'])."</th></tr>";
+			} else {
+			$parse['tickets'] .= "<tr><th>".$ticket['ID']."</th><th>".$ticket['username']."</th><th><a href='?ticket=".$ticket['ID']."'>".$ticket['subject']."</a></th><th>". $status ."</th><th>".date("j. M Y H:i:s",$ticket['time'])."</th></tr>";		
+			}
 		}
 		display(parsetemplate(gettemplate('adm/supp'), $parse), false, '', true, false);
 		
@@ -77,7 +63,7 @@ if($_GET['ticket'] == 0){
 
 
 
-}elseif($_GET['sendenticket'] =="1"){
+} elseif($_GET['sendenticket'] =="1") {
 /// Eintragen eines Neuen Tickets
 
 
@@ -103,32 +89,32 @@ if(empty($tickettext) OR empty($subject)){
 	$antworttext = nl2br($_POST['senden_antwort_text']);
 	$antwortticketid = $_POST['senden_antwort_id'];
 
-if(empty($antworttext) OR empty($antwortticketid)){
-/// Pr¸fen ob beide felder mit Text versehen sind
-		display(parsetemplate(gettemplate('adm/supp_t_send_error'), $parse), false, '', true, false);
-}else{
+	if(empty($antworttext) OR empty($antwortticketid)){
+	/// Pr¸fen ob beide felder mit Text versehen sind
+			display(parsetemplate(gettemplate('adm/supp_t_send_error'), $parse), false, '', true, false);
+	} else {
 
-		$query = $db->query("SELECT * FROM ".SUPP." WHERE `id` = '".$antwortticketid."';");
-		while($ticket = $db->fetch_array($query))
-		{
-		$newtext = $ticket['text'].'<br><br><hr>'.$USER['username'].'(Admin) schreib am '.date("j. M Y H:i:s", TIMESTAMP).'<br><br><font color="red">'.$antworttext.'</font>';
+			$query = $db->query("SELECT * FROM ".SUPP." WHERE `id` = '".$antwortticketid."';");
+			while($ticket = $db->fetch_array($query))
+			{
+			$newtext = $ticket['text'].'<br><br><hr>'.sprintf($LNG['sp_admin_answer'], $USER['username'], date("j. M Y H:i:s", TIMESTAMP), $antworttext);
 
-		$QryUpdatemsg  = "UPDATE ".SUPP." SET ";
-		$QryUpdatemsg .= "`text` = '".$db->sql_escape($newtext)."',";
-		$QryUpdatemsg .= "`status` = '2'";
-		$QryUpdatemsg .= "WHERE ";
-		$QryUpdatemsg .= "`id` = '". $antwortticketid ."' ";
-		$db->query( $QryUpdatemsg);
-		$SuppTicket	= $db->fetch_array($db->query("SELECT player_id FROM ".SUPP." WHERE `id` = '". $antwortticketid ."'"));
-		SendSimpleMessage($SuppTicket['player_id'], '', TIMESTAMP, 4, $USER['username'], "Support Ticket #".$antwortticketid, "Es wurde auf Ihr Ticket #".$antwortticketid." eine Antwort geschreiben!");
-		header("Location: SupportPage.php");
+			$QryUpdatemsg  = "UPDATE ".SUPP." SET ";
+			$QryUpdatemsg .= "`text` = '".$db->sql_escape($newtext)."',";
+			$QryUpdatemsg .= "`status` = '2'";
+			$QryUpdatemsg .= "WHERE ";
+			$QryUpdatemsg .= "`id` = '". $antwortticketid ."' ";
+			$db->query($QryUpdatemsg);
+			$SuppTicket	= $db->fetch_array($db->query("SELECT player_id FROM ".SUPP." WHERE `id` = '". $antwortticketid ."'"));
+			SendSimpleMessage($SuppTicket['player_id'], '', TIMESTAMP, 4, $USER['username'], sprintf($LNG['sp_answer_message_title'], $antwortticketid), sprintf($LNG['sp_answer_messsge'], $antwortticketid));
+			header("Location: SupportPage.php");
+		}
+
 	}
-
-}
 }elseif($_GET['schliessen'] =="1"){
 		$schlieﬂen = $_GET['ticket'];
 		$ticket = $db->fetch_array($db->query("SELECT text FROM ".SUPP." WHERE `id` = '".$schlieﬂen."';"));
-		$newtext = $ticket['text'].'<br><br><hr>'.$USER['username'].'(Admin) hat das Ticket am '.date("j. M Y H:i:s", TIMESTAMP).' geschlossen!';
+		$newtext = $ticket['text'].'<br><br><hr>'.sprintf($LNG['sp_admin_closed'], $USER['username'], date("j. M Y H:i:s", TIMESTAMP));
 		$QryUpdatemsg  = "UPDATE ".SUPP." SET ";
 		$QryUpdatemsg .= "`text` = '".$db->sql_escape($newtext)."',";
 		$QryUpdatemsg .= "`status` = '0'";
@@ -140,7 +126,7 @@ if(empty($antworttext) OR empty($antwortticketid)){
 }elseif($_GET['offnen'] =="1"){
 		$schlieﬂen = $_GET['ticket'];
 		$ticket = $db->fetch_array($db->query("SELECT text FROM ".SUPP." WHERE `id` = '".$schlieﬂen."';"));
-		$newtext = $ticket['text'].'<br><br><hr>'.$USER['username'].'(Admin) hat das Ticket am '.date("j. M Y H:i:s", TIMESTAMP).' ge&ouml;ffnet!';
+		$newtext = $ticket['text'].'<br><br><hr>'.sprintf($LNG['sp_admin_open'], $USER['username'], date("j. M Y H:i:s", TIMESTAMP));
 		$QryUpdatemsg  = "UPDATE ".SUPP." SET ";
 		$QryUpdatemsg .= "`text` = '".$db->sql_escape($newtext)."',";
 		$QryUpdatemsg .= "`status` = '2'";
@@ -153,20 +139,20 @@ if(empty($antworttext) OR empty($antwortticketid)){
 /// Listenanzeige des einen tickets
 	$query2 = $db->query("SELECT s.*, u.username as username , u.id FROM ".SUPP." as s, ".USERS." as u  WHERE s.ID = '".$_GET['ticket']."' AND u.id=s.player_id;");
 	while($ticket2 = $db->fetch_array($query2)){
-			switch($ticket2['status']){
+			switch($ticket['status']){
 				case 0:
-				$status = "<font color=red>Geschlossen</font>";
+					$status = '<font color="red">'.$LNG['supp_close'].'</font>';
 				break;
 				case 1:
-				$status = "<font color=green>Offen</font>";
+					$status = '<font color="green">'.$LNG['supp_open'].'</font>';
 				break;
 				case 2:
-				$status = "<font color=yellow>Admin-Antwort</font>";
+					$status = '<font color="orange">'.$LNG['supp_admin_answer'].'</font>';
 				break;
 				case 3:
-				$status = "<font color=green>Spieler-Antwort</font>";
+					$status = '<font color="green">'.$LNG['supp_player_answer'].'</font>';
 				break;
-			}	
+			}		
 		
 		$playername2 = $ticket2['username'];	
 				

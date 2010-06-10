@@ -97,6 +97,7 @@ function ShowPhalanxPage()
 		if ($FleetRow['fleet_end_time'] > TIMESTAMP)
 			$fpage[$FleetRow['fleet_end_time'].$FleetRow['fleet_id']]	= $FlyingFleetsTable->BuildFleetEventTable($FleetRow, 1, $IsOwner, 'fe', $Record);
 	}
+	
 	$db->free_result($FleetToTarget);
 	
 	if(isset($fpage))
