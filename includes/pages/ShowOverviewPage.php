@@ -78,7 +78,7 @@ function ShowOverviewPage()
 			$PlanetRess->SavePlanetToDB();
 			$FlyingFleetsTable = new FlyingFleetsTable();
 			
-			$OwnFleets = $db->query("SELECT * FROM ".FLEETS." WHERE `fleet_owner` = '" . $USER['id'] . "';");
+			$OwnFleets = $db->query("SELECT * FROM ".FLEETS." WHERE `fleet_owner` = '".$USER['id']."';");
 			$Record = 0;
 
 			$ACSDone	= array();
@@ -98,7 +98,7 @@ function ShowOverviewPage()
 	
 				if ($FleetRow['fleet_end_stay'] > TIMESTAMP)
 				{
-						$fpage[$FleetRow['fleet_end_stay'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 2, true, 'ft', $Record);
+					$fpage[$FleetRow['fleet_end_stay'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 2, true, 'ft', $Record);
 				}
 
 				if ($FleetRow['fleet_end_time'] > TIMESTAMP)
@@ -133,14 +133,14 @@ function ShowOverviewPage()
 			
 			$template->getplanets();
 			
-			foreach($template->UserPlanets as $ID => $USERPlanet)
+			foreach($template->UserPlanets as $ID => $CPLANET)
 			{		
-				if ($ID == $USER["current_planet"] || $USERPlanet['planet_type'] == 3)
+				if ($ID == $USER["current_planet"] || $CPLANET['planet_type'] == 3)
 					continue;
 
-				if (!empty($USERPlanet['b_building_id']))
+				if (!empty($CPLANET['b_building_id']))
 				{
-					$QueueArray      = explode ( ";", $USERPlanet['b_building_id']);
+					$QueueArray      = explode ( ";", $CPLANET['b_building_id']);
 					$CurrentBuild    = explode ( ",", $QueueArray[0] );
 					
 					if($CurrentBuild[3] - TIMESTAMP > 0)
@@ -152,9 +152,9 @@ function ShowOverviewPage()
 					$BuildPlanet     = $LNG['ov_free'];
 					
 				$AllPlanets[] = array(
-					'id'	=> $USERPlanet['id'],
-					'name'	=> $USERPlanet['name'],
-					'image'	=> $USERPlanet['image'],
+					'id'	=> $CPLANET['id'],
+					'name'	=> $CPLANET['name'],
+					'image'	=> $CPLANET['image'],
 					'build'	=> $BuildPlanet,
 				);
 			}
