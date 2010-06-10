@@ -40,7 +40,7 @@ function ShowPhalanxPage()
 	$System 			= request_var('system', 0);
 	$Planet  			= request_var('planet', 0);
 	
-	if($Galaxy != $PLANET['galaxy'] || $System > ($CurrentSystem + $PhRange) || $System < max(1, $CurrentSystem - $PhRange))
+	if($Galaxy != $PLANET['galaxy'] || $System > ($PLANET['system'] + $PhRange) || $System < max(1, $PLANET['system'] - $PhRange))
 	{
 		$template->message($LNG['px_out_of_range'], false, 0, true);
 		exit;	
