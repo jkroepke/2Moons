@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `prefix_aks` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `uni1_alliance` (
+CREATE TABLE IF NOT EXISTS `prefix_alliance` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `ally_name` varchar(50) DEFAULT '',
   `ally_tag` varchar(20) DEFAULT '',
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `uni1_alliance` (
   KEY `ally_name` (`ally_name`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `uni1_banned` (
+CREATE TABLE IF NOT EXISTS `prefix_banned` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `who` varchar(64) NOT NULL DEFAULT '',
   `theme` varchar(500) NOT NULL,
@@ -52,9 +52,9 @@ CREATE TABLE IF NOT EXISTS `uni1_banned` (
   `author` varchar(64) NOT NULL DEFAULT '',
   `email` varchar(64) NOT NULL DEFAULT '',
   KEY `ID` (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `uni1_buddy` (
+CREATE TABLE IF NOT EXISTS `prefix_buddy` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `sender` int(11) NOT NULL DEFAULT '0',
   `owner` int(11) NOT NULL DEFAULT '0',
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `uni1_buddy` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `uni1_chat` (
+CREATE TABLE IF NOT EXISTS `prefix_chat` (
   `messageid` int(5) unsigned NOT NULL AUTO_INCREMENT,
   `user` varchar(255) NOT NULL DEFAULT '',
   `message` varchar(255) NOT NULL,
@@ -72,9 +72,9 @@ CREATE TABLE IF NOT EXISTS `uni1_chat` (
   PRIMARY KEY (`messageid`),
   KEY `timestamp` (`timestamp`),
   KEY `ally_id` (`ally_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `uni1_config` (
+CREATE TABLE IF NOT EXISTS `prefix_config` (
   `config_name` varchar(64) NOT NULL,
   `config_value` varchar(255) NOT NULL,
   PRIMARY KEY (`config_name`)
@@ -150,7 +150,7 @@ INSERT INTO `prefix_config` (`config_name`, `config_value`) VALUES
 ('moduls', '1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1'),
 ('stat_last_db_update', '0');
 
-CREATE TABLE IF NOT EXISTS `uni1_diplo` (
+CREATE TABLE IF NOT EXISTS `prefix_diplo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `owner_1` int(11) NOT NULL,
   `owner_2` int(11) NOT NULL,
@@ -171,7 +171,7 @@ CREATE TABLE IF NOT EXISTS `prefix_errors` (
   PRIMARY KEY (`error_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `uni1_fleets` (
+CREATE TABLE IF NOT EXISTS `prefix_fleets` (
   `fleet_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `fleet_owner` int(11) NOT NULL DEFAULT '0',
   `fleet_mission` tinyint(3) unsigned NOT NULL DEFAULT '0',
@@ -206,7 +206,7 @@ CREATE TABLE IF NOT EXISTS `uni1_fleets` (
   KEY `fleet_start_time` (`fleet_start_time`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `uni1_messages` (
+CREATE TABLE IF NOT EXISTS `prefix_messages` (
   `message_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `message_owner` int(11) NOT NULL DEFAULT '0',
   `message_sender` int(11) NOT NULL DEFAULT '0',
@@ -223,7 +223,7 @@ CREATE TABLE IF NOT EXISTS `uni1_messages` (
   KEY `message_unread` (`message_unread`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `uni1_news` (
+CREATE TABLE IF NOT EXISTS `prefix_news` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `user` varchar(64) NOT NULL,
   `date` int(11) NOT NULL,
@@ -232,7 +232,7 @@ CREATE TABLE IF NOT EXISTS `uni1_news` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `uni1_notes` (
+CREATE TABLE IF NOT EXISTS `prefix_notes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `owner` int(11) DEFAULT NULL,
   `time` int(11) DEFAULT NULL,
@@ -242,7 +242,7 @@ CREATE TABLE IF NOT EXISTS `uni1_notes` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `uni1_planets` (
+CREATE TABLE IF NOT EXISTS `prefix_planets` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT 'Hauptplanet',
   `id_owner` int(11) DEFAULT NULL,
@@ -355,7 +355,7 @@ CREATE TABLE IF NOT EXISTS `uni1_planets` (
   KEY `destruyed` (`destruyed`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `uni1_rw` (
+CREATE TABLE IF NOT EXISTS `prefix_rw` (
   `owners` varchar(255) NOT NULL,
   `rid` varchar(72) NOT NULL,
   `raport` text NOT NULL,
@@ -363,7 +363,7 @@ CREATE TABLE IF NOT EXISTS `uni1_rw` (
   PRIMARY KEY (`rid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `uni1_statpoints` (
+CREATE TABLE IF NOT EXISTS `prefix_statpoints` (
   `id_owner` int(11) NOT NULL,
   `id_ally` int(11) NOT NULL,
   `stat_type` int(2) NOT NULL,
@@ -394,7 +394,7 @@ CREATE TABLE IF NOT EXISTS `uni1_statpoints` (
   KEY `id_owner_2` (`id_owner`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `uni1_supp` (
+CREATE TABLE IF NOT EXISTS `prefix_supp` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `player_id` int(11) NOT NULL,
   `time` int(11) NOT NULL,
@@ -405,7 +405,7 @@ CREATE TABLE IF NOT EXISTS `uni1_supp` (
   KEY `player_id` (`player_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `uni1_topkb` (
+CREATE TABLE IF NOT EXISTS `prefix_topkb` (
   `id_owner1` tinyint(20) NOT NULL DEFAULT '0',
   `angreifer` varchar(64) NOT NULL DEFAULT '',
   `id_owner2` tinyint(20) NOT NULL DEFAULT '0',
@@ -419,7 +419,7 @@ CREATE TABLE IF NOT EXISTS `uni1_topkb` (
   KEY `gesamtunits` (`gesamtunits`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `uni1_users` (
+CREATE TABLE IF NOT EXISTS `prefix_users` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(64) NOT NULL DEFAULT '',
   `password` varchar(64) NOT NULL DEFAULT '',
@@ -529,7 +529,7 @@ CREATE TABLE IF NOT EXISTS `uni1_users` (
   KEY `onlinetime` (`onlinetime`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `uni1_users_valid` (
+CREATE TABLE IF NOT EXISTS `prefix_users_valid` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(64) NOT NULL DEFAULT '',
   `cle` varchar(30) NOT NULL,

@@ -267,8 +267,8 @@ abstract class FleetFunctions
 	{
 		global $db;
 
-		list($ActualFleets) = $db->uniquequery("SELECT COUNT(*) FROM ".FLEETS." WHERE `fleet_owner` = '".$CurrentUserID."'".(($Mission != 0)?" AND `fleet_mission` = '".$Mission."'":"")." AND `fleet_mission` <> 10;");
-		return $ActualFleets;
+		$ActualFleets = $db->uniquequery("SELECT COUNT(*) as state FROM ".FLEETS." WHERE `fleet_owner` = '".$CurrentUserID."'".(($Mission != 0)?" AND `fleet_mission` = '".$Mission."'":"")." AND `fleet_mission` <> 10;");
+		return $ActualFleets['state'];
 	}	
 	
 	public static function SendFleetBack($CurrentUser, $FleetID)
