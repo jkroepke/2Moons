@@ -122,7 +122,7 @@ class MissionCaseDestruction extends MissionFunctions
 					$SQL	.= "UPDATE ".FLEETS." SET `fleet_array` = '".substr($fleetArray, 0, -1)."', `fleet_amount` = '".$totalCount."', `fleet_mess` = '1' WHERE `fleet_id` = '".$fleetID."';";
 			}
 		}	
-		
+		$db->multi_query($SQL);
 		if ($result['won'] == "a")
 		{
 			require_once('calculateSteal.'.PHP_EXT);
@@ -170,6 +170,7 @@ class MissionCaseDestruction extends MissionFunctions
 						 LIMIT 1;";
 			}
 		}
+		$db->multi_query($SQL);
 		
 		$FleetDebris      = $result['debree']['att'][0] + $result['debree']['def'][0] + $result['debree']['att'][1] + $result['debree']['def'][1];
 		$StrAttackerUnits = sprintf ($LNG['sys_attacker_lostunits'], $result['lost']['att']);
