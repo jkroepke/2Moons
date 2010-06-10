@@ -206,6 +206,7 @@ $LNG['px_no_deuterium']					= 'You do not have enough deuterium!';
 $LNG['px_scan_position']					= 'Scan Position';
 $LNG['px_fleet_movement']					= 'Current fleet movements';
 $LNG['px_no_fleet']						= 'No fleet movements present.';
+$LNG['px_out_of_range']						= 'Out of Range';
 
 //----------------------------------------------------------------------------//
 //EMPIRE
