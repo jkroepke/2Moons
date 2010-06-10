@@ -790,6 +790,7 @@ $LNG['op_general_settings']				= 'General Options';
 $LNG['op_sort_planets_by']					= 'Sort planets by:';
 $LNG['op_sort_kind']						= 'Assortment sequence:';
 $LNG['op_skin_example']					= 'Skin path (z.B. C:/2moons/skins/)';
+$LNG['op_lang']							= 'Language';
 $LNG['op_show_skin']						= 'Display skin';
 $LNG['op_deactivate_ipcheck']				= 'Disable IP Check';
 $LNG['op_galaxy_settings']					= 'Galaxy View Options';

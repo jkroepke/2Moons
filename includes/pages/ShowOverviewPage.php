@@ -161,11 +161,7 @@ function ShowOverviewPage()
 				
 			if ($PLANET['id_luna'] != 0)
 			{
-				$lunarow = $db->uniquequery("SELECT `id`, `name` FROM ".PLANETS." WHERE `id` = '".$PLANET['id_luna']."';");
-				$Moon = array(
-					'id'	=> $lunarow['id'],
-					'name'	=> $lunarow['name'],
-				);
+				$Moon = $db->uniquequery("SELECT `id`, `name` FROM ".PLANETS." WHERE `id` = '".$PLANET['id_luna']."';");
 			}
 
 			if (!empty($PLANET['b_building_id']))
@@ -236,19 +232,16 @@ function ShowOverviewPage()
 			
 			$OnlineAdmins = $db->query("SELECT `id`,`username` FROM ".USERS." WHERE `onlinetime` >= '".(TIMESTAMP-10*60)."' AND `authlevel` > '0';");
 			
-			if(isset($OnlineAdmins)) {
-				while ($AdminRow = $db->fetch_array($OnlineAdmins)) {
-					$AdminsOnline[$AdminRow['id']]	= $AdminRow['username'];
-				}
+			while ($AdminRow = $db->fetch_array($OnlineAdmins)) {
+				$AdminsOnline[$AdminRow['id']]	= $AdminRow['username'];
 			}
-			
+		
 			$db->free_result($OnlineAdmins);
 			
 			if (isset($fpage) && is_array($fpage))
 				ksort($fpage);
 				
 			$template->assign_vars(array(
-				'date_time'					=> date("D M j H:i:s", TIMESTAMP),
 				'user_rank'					=> sprintf($LNG['ov_userrank_info'], pretty_number($USER['total_points']), $LNG['ov_place'], $USER['total_rank'], $USER['total_rank'], $LNG['ov_of'], $CONF['users_amount']),
 				'is_news'					=> $CONF['OverviewNewsFrame'],
 				'news'						=> makebr($CONF['OverviewNewsText']),
