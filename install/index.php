@@ -153,6 +153,7 @@ switch ($Mode) {
 
 			$parse['first']		= "Verbindung zur Datenbank erfolgreich...";
 			$connection->multi_query(str_replace("prefix_", $prefix, file_get_contents('install.sql'))); 
+			var_dump(str_replace("prefix_", $prefix, file_get_contents('install.sql')));
 			$parse['second']	= $LNG['step2_db_ok'];
 			
 			$numcookie = mt_rand(1000, 9999999999);

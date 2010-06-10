@@ -121,6 +121,8 @@ class ShowFleetPages extends FleetFunctions
 			);
 		}
 
+		$db->free_result($CurrentFleets);
+		
 		foreach($reslist['fleet'] as $FleetID)
 		{
 			if ($PLANET[$resource[$FleetID]] > 0)
