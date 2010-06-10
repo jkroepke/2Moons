@@ -40,64 +40,64 @@ function ShowPhalanxPage()
 	$System 			= request_var('system', 0);
 	$Planet  			= request_var('planet', 0);
 	
-	$SystemLimitMin  	= max(1, $CurrentSystem - $PhRange);
-	$SystemLimitMax  	= $CurrentSystem + $PhRange;
+	if($Galaxy != $PLANET['galaxy'] || $System > ($CurrentSystem + $PhRange) || $System < max(1, $CurrentSystem - $PhRange))
+	{
+		$template->message($LNG['px_out_of_range'], false, 0, true);
+		exit;	
+	}
 	
 	if ($PLANET['deuterium'] < 5000)
 	{
 		$template->message($LNG['px_no_deuterium'], false, 0, true);
 		exit;
 	}
-	
-	if($System <= $SystemLimitMax && $System >= $SystemLimitMin && $Galaxy == $PLANET['galaxy'])
+
+	$PLANET['deuterium'] -= 5000;
+	$db->query("UPDATE ".PLANETS." SET `deuterium` = `deuterium` - '5000' WHERE `id` = '".$PLANET['id']."';");
+	$TargetInfo = $db->uniquequery("SELECT name, id_owner FROM ".PLANETS." WHERE `galaxy` = '".$Galaxy."' AND `system` = '".$System."' AND `planet` = '".$Planet."' AND `planet_type` = '1';");
+
+	$SQL  = "SELECT * FROM ".FLEETS." ";
+	$SQL .= "WHERE ( ";
+	$SQL .= "`fleet_start_galaxy` = '". $Galaxy ."' AND ";
+	$SQL .= "`fleet_start_system` = '". $System ."' AND ";
+	$SQL .= "`fleet_start_planet` = '". $Planet ."' AND ";
+	$SQL .= "`fleet_start_type` = '1' ";
+	$SQL .= ") OR ( ";
+	$SQL .= "`fleet_end_galaxy` = '". $Galaxy ."' AND ";
+	$SQL .= "`fleet_end_system` = '". $System ."' AND ";
+	$SQL .= "`fleet_end_planet` = '". $Planet ."' AND ";
+	$SQL .= "`fleet_end_type` = '1' ";
+	$SQL .= ") ORDER BY `fleet_start_time`;";
+
+	$FleetToTarget  = $db->query($SQL);
+		
+	while ($FleetRow = $db->fetch_array($FleetToTarget))
 	{
-		$PLANET['deuterium'] -= 5000;
-		$db->query("UPDATE ".PLANETS." SET `deuterium` = `deuterium` - '5000' WHERE `id` = '".$PLANET['id']."';");
-		$TargetInfo = $db->uniquequery("SELECT name, id_owner FROM ".PLANETS." WHERE `galaxy` = '".$Galaxy."' AND `system` = '".$System."' AND `planet` = '".$Planet."' AND `planet_type` = '1';");
+		$Record++;
+	
+		$IsOwner	= ($FleetRow['fleet_owner'] == $TargetInfo['id_owner']) ? true : false;
 
-		$SQL  = "SELECT * FROM ".FLEETS." ";
-		$SQL .= "WHERE ( ";
-		$SQL .= "`fleet_start_galaxy` = '". $Galaxy ."' AND ";
-		$SQL .= "`fleet_start_system` = '". $System ."' AND ";
-		$SQL .= "`fleet_start_planet` = '". $Planet ."' AND ";
-		$SQL .= "`fleet_start_type` = '1' ";
-		$SQL .= ") OR ( ";
-		$SQL .= "`fleet_end_galaxy` = '". $Galaxy ."' AND ";
-		$SQL .= "`fleet_end_system` = '". $System ."' AND ";
-		$SQL .= "`fleet_end_planet` = '". $Planet ."' AND ";
-		$SQL .= "`fleet_end_type` = '1' ";
-		$SQL .= ") ORDER BY `fleet_start_time`;";
+		$FleetRow['fleet_resource_metal']     	= 0;
+		$FleetRow['fleet_resource_crystal']   	= 0;
+		$FleetRow['fleet_resource_deuterium'] 	= 0;
+		$FleetRow['fleet_resource_darkmatter'] 	= 0;
 
-		$FleetToTarget  = $db->query($SQL);
-		
-		while ($FleetRow = $db->fetch_array($FleetToTarget))
-		{
-			$Record++;
-		
-			$IsOwner	= ($FleetRow['fleet_owner'] == $TargetInfo['id_owner']) ? true : false;
+		if ($FleetRow['fleet_start_time'] > TIMESTAMP)
+			$fpage[$FleetRow['fleet_start_time'].$FleetRow['fleet_id']]	= $FlyingFleetsTable->BuildFleetEventTable($FleetRow, 0, $IsOwner, 'fs', $Record);
 
-			$FleetRow['fleet_resource_metal']     	= 0;
-			$FleetRow['fleet_resource_crystal']   	= 0;
-			$FleetRow['fleet_resource_deuterium'] 	= 0;
-			$FleetRow['fleet_resource_darkmatter'] 	= 0;
-
-			if ($FleetRow['fleet_start_time'] > TIMESTAMP)
-				$fpage[$FleetRow['fleet_start_time'].$FleetRow['fleet_id']]	= $FlyingFleetsTable->BuildFleetEventTable($FleetRow, 0, $IsOwner, 'fs', $Record);
-
-			if ($FleetRow['fleet_mission'] == 4)
-				continue;
+		if ($FleetRow['fleet_mission'] == 4)
+			continue;
 			
-			if ($FleetRow['fleet_end_stay'] > TIMESTAMP)
-				$fpage[$FleetRow['fleet_end_stay'].$FleetRow['fleet_id']]	= $FlyingFleetsTable->BuildFleetEventTable($FleetRow, 2, $IsOwner, 'ft', $Record);
+		if ($FleetRow['fleet_end_stay'] > TIMESTAMP)
+			$fpage[$FleetRow['fleet_end_stay'].$FleetRow['fleet_id']]	= $FlyingFleetsTable->BuildFleetEventTable($FleetRow, 2, $IsOwner, 'ft', $Record);
 
-			if ($IsOwner == false)
-				continue;
-			
-			if ($FleetRow['fleet_end_time'] > TIMESTAMP)
-				$fpage[$FleetRow['fleet_end_time'].$FleetRow['fleet_id']]	= $FlyingFleetsTable->BuildFleetEventTable($FleetRow, 1, $IsOwner, 'fe', $Record);
-		}
-		$db->free_result($FleetToTarget);
+		if ($IsOwner == false)
+			continue;
+		
+		if ($FleetRow['fleet_end_time'] > TIMESTAMP)
+			$fpage[$FleetRow['fleet_end_time'].$FleetRow['fleet_id']]	= $FlyingFleetsTable->BuildFleetEventTable($FleetRow, 1, $IsOwner, 'fe', $Record);
 	}
+	$db->free_result($FleetToTarget);
 	
 	if(isset($fpage))
 		ksort($fpage);

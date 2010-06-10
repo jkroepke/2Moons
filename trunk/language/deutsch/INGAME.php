@@ -202,10 +202,11 @@ $LNG['gl_ajax_status_fail']				= 'Error';
 
 //----------------------------------------------------------------------------//
 //PHALANX
-$LNG['px_no_deuterium']					= 'Sie haben nicht genügend Deuterium!';
+$LNG['px_no_deuterium']						= 'Sie haben nicht genügend Deuterium!';
 $LNG['px_scan_position']					= 'Scan Position';
 $LNG['px_fleet_movement']					= 'Momentane Flottenbewegungen';
-$LNG['px_no_fleet']						= 'Keine Flottenbewegungen vorhanden.';
+$LNG['px_no_fleet']							= 'Keine Flottenbewegungen vorhanden.';
+$LNG['px_out_of_range']						= 'Out of Range';
 
 //----------------------------------------------------------------------------//
 //IMPERIUM
