@@ -1006,7 +1006,7 @@ $LNG['log_search_advert_popup']    = 'To activate / deactivate history do so fro
 // Support
 
 $LNG['sp_admin_answer']				= '%s (Admin) wrote on %s<br><br><font color="red">%s</font>';
-$LNG['sp_answer_message_title']		= 'Support Ticket #%d',;
+$LNG['sp_answer_message_title']		= 'Support Ticket #%d';
 $LNG['sp_answer_message']			= 'On your ticket #%d a reply was posted!';
 $LNG['sp_admin_closed']				= '%s (Admin) hat das Ticket am %s geschlossen!';
 $LNG['sp_admin_open']				= '%s (Admin) hat das Ticket am %s geöffnet!';
