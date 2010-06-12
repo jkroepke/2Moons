@@ -5,7 +5,7 @@ Bitte beachten Sie, dass dieser Schritt zwingend notwendig ist, um ein registrie
 
 Um Ihre Registrierung abzuschließen, klicken Sie bitte auf folgenden Link:
 
-<a href='%3$s?page=reg&amp;mode=valid&amp;id=%7$s&amp;clef=%4$s'>%3$s?page=reg&mode=valid&id=%7$s&clef=%4$s</a>
+<a href='%3$s?page=reg&amp;mode=valid&amp;lang=%7$s&amp;clef=%4$s'>%3$s?page=reg&mode=valid&lang=%7$s&clef=%4$s</a>
 
 Ihre Logindaten:
 
