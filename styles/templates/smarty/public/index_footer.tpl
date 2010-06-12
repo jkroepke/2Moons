@@ -39,6 +39,13 @@ lang				= "{$lang}";
         }
     })();
 </script>
+{if $game_captcha}
+<script type="text/javascript">
+if(recaptchaload == true) {
+	showRecaptcha();
+}
+</script>
+{/if}
 {if $ga_active}
 <script type="text/javascript">
 try{
