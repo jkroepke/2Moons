@@ -1,5 +1,5 @@
 {if !$getajax}{include file="public/index_header.tpl"}{/if}
-{if $game_captcha}<script type="text/javascript">$(document).ready(function(){ldelim}showRecaptcha();{rdelim});</script>{/if}
+{if $game_captcha}<script type="text/javascript">recaptchaload = true;</script>{/if}
 <table id='registration' class='box-complex box box-full box1'><tr><td><table class='box1_box-header box-header'><tr><td class='box1_box-header-left box-header-left'>&nbsp;</td><td class='box1_box-header-center box-header-center'>&nbsp;</td><td class='box1_box-header-right box-header-right'>&nbsp;</td></tr></table></td></tr><tr><td><table class='box1_box-content box-content'><tr><td class='box1_box-content-left box-content-left'>&nbsp;</td><td class='box1_box-content-center box-content-center'><div class='box1_content'><center>
 <div id='logo_v2'></div>
 <br>

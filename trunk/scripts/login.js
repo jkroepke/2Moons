@@ -1,10 +1,20 @@
+$(document).ready(function(){
+	$("#background-content").ajaxStart(function () {
+		$("#body").mask("Loading...");
+	});
+				
+	$("#background-content").ajaxStop(function () {
+		$("#body").unmask();
+	});
+});
+
 soundManager.flashVersion = 9;
 soundManager.url = 'scripts';
 soundManager.debugMode = false;
 soundManager.useHighPerformance = true;
 soundManager.defaultOptions.volume = 33;
 soundManager.onload = function() {
-var loginbgm = soundManager.createSound({
+	var loginbgm = soundManager.createSound({
 		id: 'aSound',
 		url: 'scripts/bgm_login.mp3',
 		volume: 50
@@ -39,6 +49,7 @@ function ajax(url){
 		} else {
 			$.get(url, function(data){
 				$('#background-content').html(data);
+				showRecaptcha();
 			});
 		}
 	} else {
@@ -47,16 +58,6 @@ function ajax(url){
 		});
 	}
 }
-
-$(document).ready(function(){
-	$("#background-content").ajaxStart(function () {
-		$("#body").mask("Loading...");
-	});
-				
-	$("#background-content").ajaxStop(function () {
-		$("#body").unmask();
-	});
-});
 
 function changeAction(type) {
     if ($('#Uni').val() == '') {
@@ -83,7 +84,7 @@ function showRecaptcha(element)
 	Recaptcha.create(cappublic, 'display_captcha', {
 		theme: 'custom',
 		lang: 'de',
-		tabindex: '4',
+		tabindex: '6',
 		custom_theme_widget: 'display_captcha'
 	});
 }
