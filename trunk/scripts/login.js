@@ -50,7 +50,6 @@ function ajax(url){
 			$.get(url, function(data){
 				$('#background-content').html(data);
 			});
-			window.setTimeout('showRecaptcha()', 100);
 		}
 	} else {
 		$.get(url, function(data){
