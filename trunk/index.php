@@ -648,7 +648,7 @@ switch ($page) {
 				header("Location: ./game.php?page=overview");
 				exit ();
 			} else {
-				$template->message($LNG['login_error'], "./", 2, true);
+				$template->message($LNG['login_error'], './', 3, true);
 			}
 		} else {
 			$template->assign_vars(array(
