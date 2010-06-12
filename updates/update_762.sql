@@ -1,0 +1,1 @@
+UPDATE prefix_config SET `config_value` =  '5.1.672' WHERE `config_name` = 'VERSION';

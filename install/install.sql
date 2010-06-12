@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `prefix_config` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO `prefix_config` (`config_name`, `config_value`) VALUES
-('VERSION', '5.0.665'),
+('VERSION', '5.1.672'),
 ('users_amount', '1'),
 ('game_speed', '2500'),
 ('fleet_speed', '2500'),
@@ -535,6 +535,7 @@ CREATE TABLE IF NOT EXISTS `prefix_users_valid` (
   `cle` varchar(30) NOT NULL,
   `password` varchar(64) NOT NULL DEFAULT '',
   `email` varchar(64) NOT NULL DEFAULT '',
+  `lang` varchar(10) NOT NULL DEFAULT 'deutsch',
   `date` int(11) NOT NULL DEFAULT '0',
   `planet` varchar(64) NOT NULL DEFAULT 'Hauptplanet',
   `ip` varchar(16) NOT NULL,
