@@ -24,12 +24,11 @@ class MissionCaseMIP extends MissionFunctions
 	function __construct($Fleet)
 	{
 		$this->_fleet	= $Fleet;
-		require_once('calculateMIPAttack.'PHP_EXT);
 	}
 	
 	function TargetEvent()
 	{
-		global $db;
+		global $db, $resource, $reslist;
 		$SQL = "";
 		foreach($reslist['defense'] as $Element)
 		{
@@ -49,14 +48,16 @@ class MissionCaseMIP extends MissionFunctions
 		$Target				= (!in_array($this->_fleet['fleet_target_obj'], $reslist['defense']) || $this->_fleet['fleet_target_obj'] == 502 || $this->_fleet['fleet_target_obj'] == 0) ? 401 : $this->_fleet['fleet_target_obj'];
 		foreach($reslist['defense'] as $Element)		
 		{
-				$TargetDefensive[$Element]	= $TargetInfo[$resource[$Element]];
+			$TargetDefensive[$Element]	= $TargetInfo[$resource[$Element]];
 		}
 
 		$message 			= "";
 		$sql 				= "";
-		
-		$LNG			= $this->GetUserLang($this->_fleet['fleet_owner']);
 			
+		$LNG				= $this->GetUserLang(0);
+		$LNG				+= $this->GetUserLang(0, 'TECH');
+		
+		require_once('calculateMIPAttack.'.PHP_EXT);	
 		if ($TargetInfo[$resource[502]] >= $this->_fleet['fleet_amount'])
 		{
 			$message 	= $LNG['sys_irak_no_att'];
