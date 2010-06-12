@@ -27,67 +27,67 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 
 		$PlanetName            = "";
 
-		$QryGetMoonPlanetData  = "SELECT id_luna,id_level,planet_type,id,name,temp_max,temp_min FROM ".PLANETS." ";
-		$QryGetMoonPlanetData .= "WHERE ";
-		$QryGetMoonPlanetData .= "`galaxy` = '". $Galaxy ."' AND ";
-		$QryGetMoonPlanetData .= "`system` = '". $System ."' AND ";
-		$QryGetMoonPlanetData .= "`planet` = '". $Planet ."';";
-		$MoonPlanet = $db->fetch_array($db->query ( $QryGetMoonPlanetData));
+		$SQL  = "SELECT id_luna,id_level,planet_type,id,name,temp_max,temp_min FROM ".PLANETS." ";
+		$SQL .= "WHERE ";
+		$SQL .= "`galaxy` = '". $Galaxy ."' AND ";
+		$SQL .= "`system` = '". $System ."' AND ";
+		$SQL .= "`planet` = '". $Planet ."';";
+		$SQL .= "`planet_type` = '1';";
+		$MoonPlanet = $db->uniquequery($SQL);
 
-		if ($MoonPlanet['id_luna'] == 0 && $MoonPlanet['planet_type'] == 1)
-		{
-			$SizeMin                = round(pow((3 * $Chance)+10,0.5) * 1000);
-			$SizeMax                = round(pow((3 * $Chance)+20,0.5) * 1000);
+		if ($MoonPlanet['id_luna'] != 0)
+			return false;
 
-			$PlanetName             = $MoonPlanet['name'];
+		$SizeMin                = round(pow((3 * $Chance)+10,0.5) * 1000);
+		$SizeMax                = round(pow((3 * $Chance)+20,0.5) * 1000);
 
-			$maxtemp                = $MoonPlanet['temp_max'] - rand(10, 45);
-			$mintemp                = $MoonPlanet['temp_min'] - rand(10, 45);
-			$size                   = rand($SizeMin, $SizeMax);
+		$PlanetName             = $MoonPlanet['name'];
 
-			$QryInsertMoonInPlanet  = "INSERT INTO ".PLANETS." SET ";
-			$QryInsertMoonInPlanet .= "`name` = '". ( ($MoonName == '') ? $LNG['fcm_moon'] : $MoonName ) ."', ";
-			$QryInsertMoonInPlanet .= "`id_owner` = '". $Owner ."', ";
-			$QryInsertMoonInPlanet .= "`id_level` = '".$MoonPlanet['id_level']."', ";
-			$QryInsertMoonInPlanet .= "`galaxy` = '". $Galaxy ."', ";
-			$QryInsertMoonInPlanet .= "`system` = '". $System ."', ";
-			$QryInsertMoonInPlanet .= "`planet` = '". $Planet ."', ";
-			$QryInsertMoonInPlanet .= "`last_update` = '". TIMESTAMP ."', ";
-			$QryInsertMoonInPlanet .= "`planet_type` = '3', ";
-			$QryInsertMoonInPlanet .= "`image` = 'mond', ";
-			$QryInsertMoonInPlanet .= "`diameter` = '". $size ."', ";
-			$QryInsertMoonInPlanet .= "`field_max` = '1', ";
-			$QryInsertMoonInPlanet .= "`temp_min` = '". $mintemp ."', ";
-			$QryInsertMoonInPlanet .= "`temp_max` = '". $maxtemp ."', ";
-			$QryInsertMoonInPlanet .= "`metal` = '0', ";
-			$QryInsertMoonInPlanet .= "`metal_perhour` = '0', ";
-			$QryInsertMoonInPlanet .= "`metal_max` = '".BASE_STORAGE_SIZE."', ";
-			$QryInsertMoonInPlanet .= "`crystal` = '0', ";
-			$QryInsertMoonInPlanet .= "`crystal_perhour` = '0', ";
-			$QryInsertMoonInPlanet .= "`crystal_max` = '".BASE_STORAGE_SIZE."', ";
-			$QryInsertMoonInPlanet .= "`deuterium` = '0', ";
-			$QryInsertMoonInPlanet .= "`deuterium_perhour` = '0', ";
-			$QryInsertMoonInPlanet .= "`deuterium_max` = '".BASE_STORAGE_SIZE."';";
-			$db->query( $QryInsertMoonInPlanet);
+		$maxtemp                = $MoonPlanet['temp_max'] - rand(10, 45);
+		$mintemp                = $MoonPlanet['temp_min'] - rand(10, 45);
+		$size                   = rand($SizeMin, $SizeMax);
+
+		$SQL  = "INSERT INTO ".PLANETS." SET ";
+		$SQL .= "`name` = '". ( ($MoonName == '') ? $LNG['fcm_moon'] : $MoonName ) ."', ";
+		$SQL .= "`id_owner` = '". $Owner ."', ";
+		$SQL .= "`id_level` = '".$MoonPlanet['id_level']."', ";
+		$SQL .= "`galaxy` = '". $Galaxy ."', ";
+		$SQL .= "`system` = '". $System ."', ";
+		$SQL .= "`planet` = '". $Planet ."', ";
+		$SQL .= "`last_update` = '". TIMESTAMP ."', ";
+		$SQL .= "`planet_type` = '3', ";
+		$SQL .= "`image` = 'mond', ";
+		$SQL .= "`diameter` = '". $size ."', ";
+		$SQL .= "`field_max` = '1', ";
+		$SQL .= "`temp_min` = '". $mintemp ."', ";
+		$SQL .= "`temp_max` = '". $maxtemp ."', ";
+		$SQL .= "`metal` = '0', ";
+		$SQL .= "`metal_perhour` = '0', ";
+		$SQL .= "`metal_max` = '".BASE_STORAGE_SIZE."', ";
+		$SQL .= "`crystal` = '0', ";
+		$SQL .= "`crystal_perhour` = '0', ";
+		$SQL .= "`crystal_max` = '".BASE_STORAGE_SIZE."', ";
+		$SQL .= "`deuterium` = '0', ";
+		$SQL .= "`deuterium_perhour` = '0', ";
+		$SQL .= "`deuterium_max` = '".BASE_STORAGE_SIZE."';";
+		$db->query($SQL);
 				
-			$QryGetMoonPlanetData  = "SELECT id FROM ".PLANETS." ";
-			$QryGetMoonPlanetData .= "WHERE ";
-			$QryGetMoonPlanetData .= "`galaxy` = '". $Galaxy ."' AND ";
-			$QryGetMoonPlanetData .= "`system` = '". $System ."' AND ";
-			$QryGetMoonPlanetData .= "`planet` = '". $Planet ."' AND ";
-			$QryGetMoonPlanetData .= "`planet_type` = '3';";
-			$Moonid = $db->fetch_array($db->query ($QryGetMoonPlanetData));
+		$SQL  = "SELECT id FROM ".PLANETS." ";
+		$SQL .= "WHERE ";
+		$SQL .= "`galaxy` = '". $Galaxy ."' AND ";
+		$SQL .= "`system` = '". $System ."' AND ";
+		$SQL .= "`planet` = '". $Planet ."' AND ";
+		$SQL .= "`planet_type` = '3';";
+		$Moonid = $db->uniquequery($SQL);
 				
-
-			$QryUpdateMoonInGalaxy  = "UPDATE ".PLANETS." SET ";
-			$QryUpdateMoonInGalaxy .= "`id_luna` = '". $Moonid['id'] ."' ";
-			$QryUpdateMoonInGalaxy .= "WHERE ";
-			$QryUpdateMoonInGalaxy .= "`galaxy` = '". $Galaxy ."' AND ";
-			$QryUpdateMoonInGalaxy .= "`system` = '". $System ."' AND ";
-			$QryUpdateMoonInGalaxy .= "`planet` = '". $Planet ."' AND ";
-			$QryUpdateMoonInGalaxy .= "`planet_type` = '1';";				
-			$db->query( $QryUpdateMoonInGalaxy);
-		}
+		$SQL  = "UPDATE ".PLANETS." SET ";
+		$SQL .= "`id_luna` = '". $Moonid['id'] ."' ";
+		$SQL .= "WHERE ";
+		$SQL .= "`galaxy` = '". $Galaxy ."' AND ";
+		$SQL .= "`system` = '". $System ."' AND ";
+		$SQL .= "`planet` = '". $Planet ."' AND ";
+		$SQL .= "`planet_type` = '1';";				
+		$db->query($SQL);
 
 		return $PlanetName;
 	}
