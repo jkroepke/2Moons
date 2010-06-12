@@ -214,14 +214,14 @@ class MissionCaseAttack extends MissionFunctions
 		$DebrisField      	= $StrAttackerUnits ."<br>". $StrDefenderUnits ."<br>". $StrRuins;
 		$MoonChance       	= min(round($FleetDebris / 100000 * MOON_CHANCE_FACTOR ,0), 20);
 
-		$UserChance 		= ($MoonChance != 0) ? mt_rand(1, 100) : 0;
+		$UserChance 		= mt_rand(1, 100);
 			
 		$ChanceMoon			= sprintf ($LNG['sys_moonproba'], $MoonChance);
 
-		if (($UserChance > 0) && ($UserChance <= $MoonChance) && ($targetPlanet['id_luna'] == 0) && ($targetPlanet['planet_type'] == 1))
+		if ($targetPlanet['planet_type'] == 1 && $targetPlanet['id_luna'] == 0 && $MoonChance > 0 && $UserChance <= $MoonChance)
 		{		
 			require_once(ROOT_PATH.'includes/functions/CreateOneMoonRecord.'.PHP_EXT);
-			$TargetPlanetName = CreateOneMoonRecord($this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet'], $TargetUserID, $this->_fleet['fleet_start_time'], '', $MoonChance );
+			$TargetPlanetName = CreateOneMoonRecord($this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet'], $TargetUserID, $this->_fleet['fleet_start_time'], '', $MoonChance);
 			$GottenMoon       = sprintf($LNG['sys_moonbuilt'], $TargetPlanetName, $this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet']);
 			$GottenMoon 	 .= "<br>";
 			if(DESTROY_DERBIS_MOON_CREATE) {
@@ -234,7 +234,7 @@ class MissionCaseAttack extends MissionFunctions
 		}
 		else
 		{
-			$GottenMoon 	  = "";
+			$GottenMoon 	  = '';
 			$DerbisMetal	  = bcadd($targetPlanet['der_metal'], bcadd($result['debree']['att'][0], $result['debree']['def'][0]));
 			$DerbisCrystal	  = bcadd($targetPlanet['der_crystal'], bcadd($result['debree']['att'][1], $result['debree']['def'][1]));
 		}
@@ -252,7 +252,7 @@ class MissionCaseAttack extends MissionFunctions
 		$db->query($Qry);
 
 		require_once('GenerateReport.'.PHP_EXT);
-		$raport 		  = GenerateReport($result, $steal, $MoonChance,$GottenMoon, $totaltime, $this->_fleet, $LNG);
+		$raport 		  = GenerateReport($result, $steal, $MoonChance, $GottenMoon, $totaltime, $this->_fleet, $LNG);
 			
 		$WhereAtt = "";
 		$WhereDef = "";
