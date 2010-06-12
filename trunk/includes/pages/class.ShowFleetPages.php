@@ -453,18 +453,14 @@ class ShowFleetPages extends FleetFunctions
 		}
 			
 		$fleet_group_mr = 0;
-		if($fleet_group > 0 && $mission == 2)
+		if($fleet_group > 0 && $mission == 2 & $acs_target_mr == 'g'.$galaxy.'s'.$system.'p'.$planet.'t'.$planettype)
 		{
-			$target = "g".$galaxy."s".$system."p".$planet."t".$planettype;
-			if($acs_target_mr == $target)
-			{
-				$aks_count_mr = $db->query("SELECT COUNT(*) as state FROM ".AKS." WHERE `id` = '".$fleet_group."' AND `eingeladen` LIKE '%".$USER['id']."%' AND 'fleet_start_time' > '".TIMESTAMP."';");
-				if ($db->num_rows($aks_count_mr) > 0)
-					$fleet_group_mr = $fleet_group;
-			}
+			$aks_count_mr = $db->uniquequery("SELECT COUNT(*) as state FROM ".AKS." WHERE `id` = '".$fleet_group."' AND `eingeladen` LIKE '%".$USER['id']."%';");
+			if ($aks_count_mr['state'] > 0)
+				$fleet_group_mr = $fleet_group;
 		}
 
-		if (($fleet_group == 0) && ($mission == 2))
+		if ($mission == 2 && $fleet_group_mr == 0)
 			$mission = 1;
 
 					
@@ -573,30 +569,27 @@ class ShowFleetPages extends FleetFunctions
 			}
 		}
 
-		if (!($mission == 15 || $mission == 8))
+		if ($mission == 5)
 		{
-			if ($HeDBRec['ally_id'] != $MyDBRec['ally_id'] && $mission == 4)
-			{
-				$template->message("<font color=\"red\"><b>".$LNG['fl_stay_not_on_enemy']."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
-				exit;
-			}
-
-			if ($TargetPlanet['ally_deposit'] < 1 && $HeDBRec != $MyDBRec && $mission == 5)
+			
+			if ($TargetPlanet['ally_deposit'] < 1)
 			{
 				$template->message("<font color=\"red\"><b>".$LNG['fl_not_ally_deposit']."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
 				exit;
 			}
-
-			if (($TargetPlanet["id_owner"] == $PLANET["id_owner"]) && (($mission == 1) || ($mission == 6)))
-				parent::GotoFleetPage();
-
-			if (($TargetPlanet["id_owner"] != $PLANET["id_owner"]) && ($mission == 4))
+			
+			$buddy	= $db->uniquequery("SELECT COUNT(*) as state FROM ".BUDDY." WHERE `active` = '1' AND (`owner` = '".$HeDBRec['id']."' AND `sender` = '".$MyDBRec['id']."') OR (`owner` = '".$MyDBRec['id']."' AND `sender` = '".$HeDBRec['id']."');");
+						
+			if($HeDBRec['ally_id'] != $MyDBRec['ally_id'] && $buddy['state'] == 0)
 			{
-				$template->message ("<font color=\"red\"><b>".$LNG['fl_deploy_only_your_planets']."</b></font>","game." . PHP_EXT . "?page=fleet", 2);
+				$template->message("<font color=\"red\"><b>".$LNG['fl_no_same_alliance']."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
 				exit;
 			}
+			
+			
+			
 		}
-
+		
 		if(parent::CheckUserSpeed())
 			parent::GotoFleetPage();
 	

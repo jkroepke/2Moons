@@ -5,14 +5,27 @@ $LNG['Description'] = 'Beschreibung';
 
 $LNG['changelog']   = array(
 
-'RC5.1' => 'ShadoX 31.05.10
+'RC5.1' => 'ShadoX 12.06.10
 - ADD: New Facebook API
-- ADD: Wäsche aufgehangen
+- ADD: Für Halten muss man in der Ally/Buddy sein
+- ADD: Name des HP bei der Reg.
+- FIX: reCAPTCHA wird beim Direkt Link nicht geladen
+- FIX: Englische VaildMail
+- FIX: IRaks
+- FIX: Langauge Select beim Registieren
+- FIX: Koloniename
 - FIX: UMode
 - FIX: Admin Hack via Facebook
 - FIX: Flottenrückkehr
 - FIX: Nachrichten Transport
 - FIX: Forschung
+- FIX: Phalax
+- FIX: Steal
+- FIX: BuildQueue
+- FIX: Install
+- FIX: Forschungen
+- DIV: Sicherheit im Game erhöht
+- DIV: Diverse Anpassungen am Game
 ',
 'RC5.0' => 'ShadoX 30.05.10
 - ADD: Neue Schiffe
