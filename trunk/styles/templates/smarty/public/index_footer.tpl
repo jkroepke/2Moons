@@ -41,7 +41,7 @@ lang				= "{$lang}";
 </script>
 {if $game_captcha}
 <script type="text/javascript">
-if(recaptchaload == true) {
+if(typeof recaptchaload != "undefined" && recaptchaload == true) {
 	showRecaptcha();
 }
 </script>
