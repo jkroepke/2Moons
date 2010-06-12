@@ -31,7 +31,7 @@ class MissionCaseColonisation extends MissionFunctions
 		global $db, $resource;
 		$iPlanetCount 	= $db->uniquequery("SELECT count(*) as kolo FROM ".PLANETS." WHERE `id_owner` = '". $this->_fleet['fleet_owner'] ."' AND `planet_type` = '1' AND `destruyed` = '0';");
 		$iGalaxyPlace 	= $db->uniquequery("SELECT count(*) AS plani FROM ".PLANETS." WHERE `galaxy` = '". $this->_fleet['fleet_end_galaxy']."' AND `system` = '". $this->_fleet['fleet_end_system']."' AND `planet` = '". $this->_fleet['fleet_end_planet']."';");
-		$PlayerTech		= $db->uniquequery("SELECT ".$resource[124]." FROM ".USERS." WHERE `id` = '".$this->_fleet['fleet_owner']."';");
+		$PlayerTech		= $db->uniquequery("SELECT `authlevel`, `".$resource[124]."` FROM ".USERS." WHERE `id` = '".$this->_fleet['fleet_owner']."';");
 		$LNG			= $this->GetUserLang($this->_fleet['fleet_owner']);
 		
 		if ($iGalaxyPlace['plani'] != 0)
@@ -47,7 +47,7 @@ class MissionCaseColonisation extends MissionFunctions
 		else
 		{
 			require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.'.PHP_EXT);
-			$NewOwnerPlanet = CreateOnePlanetRecord($this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet'], $this->_fleet['fleet_owner'], $LNG['fcp_colony'], false);
+			$NewOwnerPlanet = CreateOnePlanetRecord($this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet'], $this->_fleet['fleet_owner'], $LNG['fcp_colony'], false, $PlayerTech['authlevel']);
 			if($NewOwnerPlanet !== true)
 			{
 				$TheMessage = sprintf($LNG['sys_colo_badpos'], GetTargetAdressLink($this->_fleet, ''));
