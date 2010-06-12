@@ -181,9 +181,9 @@ class template extends Smarty
 		global $USER, $CONF, $LNG;
 		$this->assign_vars(array(
 			'title'			=> $CONF['game_name'],
-			'dpath'			=> $USER['dpath'],
+			'dpath'			=> (empty($USER['dpath']) ? DEFAULT_SKINPATH : $USER['dpath']),
 			'is_pmenu'		=> $USER['settings_planetmenu'],
-			'thousands_sep'	=> (!empty($LNG['locale']['thousands_sep']) ? $LNG['locale']['thousands_sep'] : "."),
+			'thousands_sep'	=> (!empty($LNG['locale']['thousands_sep']) ? $LNG['locale']['thousands_sep'] : '.'),
 		));
 	}
 	

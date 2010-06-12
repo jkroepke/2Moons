@@ -638,6 +638,7 @@ class ShowFleetPages extends FleetFunctions
 		
 		$PlanetRess = new ResourceUpdate();
 		$PlanetRess->CalcResource();
+		
 		$TransportMetal		 = min($TransportMetal, $PLANET['metal']);
 		$TransportCrystal 	 = min($TransportCrystal, $PLANET['crystal']);
 		$TransportDeuterium  = min($TransportDeuterium, ($PLANET['deuterium'] - $consumption));

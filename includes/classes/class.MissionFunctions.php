@@ -59,7 +59,6 @@ class MissionFunctions
 			if (empty($Group)) continue;
 
 			$Class			= explode(',', $Group);
-			if(!isset($resource[$Class[0]])) continue;
 			$QryUpdFleet	.= "p.`".$resource[$Class[0]]."` = p.`".$resource[$Class[0]]."` + '".$Class[1]."', ";
 		}
 
@@ -77,6 +76,7 @@ class MissionFunctions
 			$Qry  .= "p.`galaxy` = '". $this->_fleet['fleet_start_galaxy'] ."' AND p.`system` = '". $this->_fleet['fleet_start_system'] ."' AND p.`planet` = '". $this->_fleet['fleet_start_planet'] ."' AND p.`planet_type` = '". $this->_fleet['fleet_start_type'] ."' ";
 		else
 			$Qry  .= "p.`galaxy` = '". $this->_fleet['fleet_end_galaxy'] ."' AND p.`system` = '". $this->_fleet['fleet_end_system'] ."' AND p.`planet` = '". $this->_fleet['fleet_end_planet'] ."' AND p.`planet_type` = '". $this->_fleet['fleet_end_type'] ."' ";
+		
 		$Qry  .= "AND u.id = p.id_owner;";
 		$Qry  .= "DELETE FROM ".FLEETS." WHERE `fleet_id` = '".$this->_fleet['fleet_id']."';";
 		$db->multi_query($Qry);
