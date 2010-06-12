@@ -31,7 +31,7 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 		$SQL .= "WHERE ";
 		$SQL .= "`galaxy` = '". $Galaxy ."' AND ";
 		$SQL .= "`system` = '". $System ."' AND ";
-		$SQL .= "`planet` = '". $Planet ."';";
+		$SQL .= "`planet` = '". $Planet ."' AND ";
 		$SQL .= "`planet_type` = '1';";
 		$MoonPlanet = $db->uniquequery($SQL);
 
