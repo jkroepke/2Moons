@@ -172,7 +172,7 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 		
 		$SQL  = "INSERT INTO ".PLANETS." SET ";
 
-		if($HomeWorld == false)
+		if(!empty($PlanetName))
 			$SQL .= "`name` = '".$PlanetName."', ";
 		
 		$SQL .= "`id_owner` = '".$PlanetOwnerID."', ";

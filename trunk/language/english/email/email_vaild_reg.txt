@@ -1,4 +1,4 @@
-Hello %1$s,<br>
+Hello %1$s,
 thank you for registering at %2$s
 
 Before we can activate your account, one more step is needed.
@@ -6,7 +6,7 @@ Please note that this step is mandatory in order to become a registered user. Yo
 
 In order to complete your registration please click the following activation link:
 
-<a href='%3$sindex.php?page=reg&amp;mode=valid&amp;pseudo=%1$s&amp;clef=%4$s'>%3$sindex.php?page=reg&amp;mode=valid&amp;pseudo=%1$s&amp;clef=%4$s</a>
+<a href='%3$s?page=reg&amp;mode=valid&amp;lang=%7$s&amp;clef=%4$s'>%3$s?page=reg&mode=valid&lang=%7$s&clef=%4$s</a>
 
 Your login data:
 

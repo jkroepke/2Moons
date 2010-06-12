@@ -110,19 +110,19 @@ switch ($page) {
 						$UserName		= $i.$UserName;
 				}
 				
-				$QryInsertUser = "INSERT INTO ".USERS." SET ";
-				$QryInsertUser .= "`username` = '" .$db->sql_escape($UserName)."', ";
-				$QryInsertUser .= "`email` = '" . $UserMail . "', ";
-				$QryInsertUser .= "`email_2` = '" . $UserMail . "', ";
-				$QryInsertUser .= "`ip_at_reg` = '" . $UserIP . "', ";
-				$QryInsertUser .= "`id_planet` = '0', ";
-				$QryInsertUser .= "`onlinetime` = '" . time () . "', ";
-				$QryInsertUser .= "`register_time` = '" . time () . "', ";
-				$QryInsertUser .= "`password` = '" . $UserPass . "', ";
-				$QryInsertUser .= "`dpath` = '" . DEFAULT_SKINPATH . "', ";
-				$QryInsertUser .= "`fb_id` = '" . $fb_user . "', ";
-				$QryInsertUser .= "`uctime`= '0';";
-				$db->query($QryInsertUser);
+				$SQL = "INSERT INTO ".USERS." SET ";
+				$SQL .= "`username` = '" .$db->sql_escape($UserName)."', ";
+				$SQL .= "`email` = '" . $UserMail . "', ";
+				$SQL .= "`email_2` = '" . $UserMail . "', ";
+				$SQL .= "`ip_at_reg` = '" . $UserIP . "', ";
+				$SQL .= "`id_planet` = '0', ";
+				$SQL .= "`onlinetime` = '" . time () . "', ";
+				$SQL .= "`register_time` = '" . time () . "', ";
+				$SQL .= "`password` = '" . $UserPass . "', ";
+				$SQL .= "`dpath` = '" . DEFAULT_SKINPATH . "', ";
+				$SQL .= "`fb_id` = '" . $fb_user . "', ";
+				$SQL .= "`uctime`= '0';";
+				$db->query($SQL);
 			
 				if($CONF['smtp_host'] != '' && $CONF['smtp_port'] != 0 && $CONF['smtp_user'] != '' && $CONF['smtp_pass'] != '')
 				{				
@@ -187,17 +187,17 @@ switch ($page) {
 				}
 				$PlanetID = $db->fetch_array($db->query("SELECT `id` FROM ".PLANETS." WHERE `id_owner` = '".$NewUser ['id']."';" ));
 				
-				$QryUpdateUser = "UPDATE " . USERS . " SET ";
-				$QryUpdateUser .= "`id_planet` = '" . $PlanetID ['id'] . "', ";
-				$QryUpdateUser .= "`current_planet` = '" . $PlanetID ['id'] . "', ";
-				$QryUpdateUser .= "`galaxy` = '" . $Galaxy . "', ";
-				$QryUpdateUser .= "`system` = '" . $System . "', ";
-				$QryUpdateUser .= "`planet` = '" . $Planet . "' ";
-				$QryUpdateUser .= "WHERE ";
-				$QryUpdateUser .= "`id` = '" . $NewUser ['id'] . "' ";
-				$QryUpdateUser .= "LIMIT 1;";
-				$QryUpdateUser .= "INSERT INTO ".STATPOINTS." (`id_owner`, `id_ally`, `stat_type`, `stat_code`, `tech_rank`, `tech_old_rank`, `tech_points`, `tech_count`, `build_rank`, `build_old_rank`, `build_points`, `build_count`, `defs_rank`, `defs_old_rank`, `defs_points`, `defs_count`, `fleet_rank`, `fleet_old_rank`, `fleet_points`, `fleet_count`, `total_rank`, `total_old_rank`, `total_points`, `total_count`, `stat_date`) VALUES (".$NewUser['id'].", 0, 1, 1, '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0, '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0, '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0, 1, 0, 0, 0, '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0, ".TIMESTAMP.");";				
-				$db->multi_query ( $QryUpdateUser );
+				$SQL = "UPDATE " . USERS . " SET ";
+				$SQL .= "`id_planet` = '" . $PlanetID ['id'] . "', ";
+				$SQL .= "`current_planet` = '" . $PlanetID ['id'] . "', ";
+				$SQL .= "`galaxy` = '" . $Galaxy . "', ";
+				$SQL .= "`system` = '" . $System . "', ";
+				$SQL .= "`planet` = '" . $Planet . "' ";
+				$SQL .= "WHERE ";
+				$SQL .= "`id` = '" . $NewUser ['id'] . "' ";
+				$SQL .= "LIMIT 1;";
+				$SQL .= "INSERT INTO ".STATPOINTS." (`id_owner`, `id_ally`, `stat_type`, `stat_code`, `tech_rank`, `tech_old_rank`, `tech_points`, `tech_count`, `build_rank`, `build_old_rank`, `build_points`, `build_count`, `defs_rank`, `defs_old_rank`, `defs_points`, `defs_count`, `fleet_rank`, `fleet_old_rank`, `fleet_points`, `fleet_count`, `total_rank`, `total_old_rank`, `total_points`, `total_count`, `stat_date`) VALUES (".$NewUser['id'].", 0, 1, 1, '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0, '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0, '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0, 1, 0, 0, 0, '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0, ".TIMESTAMP.");";				
+				$db->multi_query ( $SQL );
 				
 				$from 		= $LNG ['welcome_message_from'];
 				$sender 	= $LNG ['welcome_message_sender'];
@@ -274,29 +274,35 @@ switch ($page) {
 		switch ($mode) {
 			case 'send' :
 			
-				$errors = "";
+				$errors 	= '';
 				
-				$UserPass 	= request_var ('password', '');
-				$UserPass2 	= request_var ('password2', '');
-				$UserName 	= trim(request_var('character', '', UTF8_SUPPORT));
-				$UserEmail 	= trim(request_var('email', ''));
-				$UserEmail2	= trim(request_var('email2', ''));
-				$agbrules 	= request_var ('rgt', '');
-				$Exist['userv'] = $db->fetch_array($db->query("SELECT username, email FROM ".USERS." WHERE username = '".$db->sql_escape($UserName)."' OR email = '".$db->sql_escape($UserEmail)."';"));
-				$Exist['vaild'] = $db->fetch_array($db->query("SELECT username, email FROM ".USERS_VALID." WHERE username = '".$db->sql_escape($UserName)."' OR email = '".$db->sql_escape($UserEmail)."';"));
+				$UserPass 	= request_var('password', '');
+				$UserPass2 	= request_var('password2', '');
+				$UserName 	= request_var('character', '', UTF8_SUPPORT);
+				$UserPlanet	= request_var('planet', '', UTF8_SUPPORT);
+				$UserEmail 	= request_var('email', '');
+				$UserEmail2	= request_var('email2', '');
+				$agbrules 	= request_var('rgt', '');
+				$UserLang 	= request_var('lang', '');
 				
-				if ($CONF ['capaktiv'] === '1') {
-					require_once ('includes/libs/reCAPTCHA/recaptchalib.php');
-					$resp = recaptcha_check_answer($CONF['capprivate'], $_SERVER ["REMOTE_ADDR"], request_var ( 'recaptcha_challenge_field', '' ), request_var ( 'recaptcha_response_field', '' ) );
+				if ($CONF['capaktiv'] === '1') {
+					require_once('includes/libs/reCAPTCHA/recaptchalib.php');
+					$resp = recaptcha_check_answer($CONF['capprivate'], $_SERVER['REMOTE_ADDR'], request_var('recaptcha_challenge_field', ''), request_var('recaptcha_response_field', ''));
 					if (!$resp->is_valid)
 						$errorlist .= $LNG['wrong_captcha'];
 				}
 				
+				$Exist['userv'] = $db->uniquequery("SELECT username, email FROM ".USERS." WHERE username = '".$db->sql_escape($UserName)."' OR email = '".$db->sql_escape($UserEmail)."';");
+				$Exist['vaild'] = $db->uniquequery("SELECT username, email FROM ".USERS_VALID." WHERE username = '".$db->sql_escape($UserName)."' OR email = '".$db->sql_escape($UserEmail)."';");
+								
 				if (!ValidateAddress($UserEmail)) 
 					$errors .= $LNG['invalid_mail_adress'];
 				
-				if (!$UserName) 
+				if (empty($UserName))
 					$errors .= $LNG['empty_user_field'];
+				
+				if (empty($UserPlanet))
+					$errors .= $LNG['empty_planet_field'];
 				
 				if (strlen($UserPass) < 6)
 					$errors .= $LNG['password_lenght_error'];
@@ -308,7 +314,10 @@ switch ($page) {
 					$errors .= $LNG['different_mails'];
 				
 				if (!CheckName($UserName))
-					$errors .= (UTF8_SUPPORT) ? $LNG['user_field_no_space'] : $LNG['user_field_no_alphanumeric'];			
+					$errors .= (UTF8_SUPPORT) ? $LNG['user_field_no_space'] : $LNG['user_field_no_alphanumeric'];				
+				
+				if (!CheckName($UserPlanet))
+					$errors .= (UTF8_SUPPORT) ? $LNG['planet_field_no_space'] : $LNG['planet_field_no_alphanumeric'];			
 				
 				if ($agbrules != 'on')
 					$errors .= $LNG['terms_and_conditions'];
@@ -320,51 +329,58 @@ switch ($page) {
 					$errors .= $LNG['mail_already_exists'];
 				
 				if (!empty($errors)) {
-					message($errors, "index.php?page=reg&lang=".DEFAULT_LANG, "3", false, false );
-				} else {
-					$md5newpass = md5($UserPass);
-					
-					$characters = array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" );
-					$size = 15;
-					for($i = 0; $i < $size; $i ++) {
-						$clef .= ($i % 2) ? strtoupper ( $characters [array_rand ( $characters )] ) : $characters [array_rand ( $characters )];
-					}
-
-					if($CONF['user_valid'] == 0 || $CONF['smtp_host'] == '' || $CONF['smtp_port'] == 0 || $CONF['smtp_user'] == '' || $CONF['smtp_pass'] == '')
-					{
-						$QryInsertUser = "INSERT INTO " . USERS_VALID . " SET ";
-						$QryInsertUser .= "`username` = '" . $db->sql_escape ( $UserName ) . "', ";
-						$QryInsertUser .= "`email` = '" . $db->sql_escape ( $UserEmail ) . "', ";
-						$QryInsertUser .= "`date` = '" . time () . "', ";
-						$QryInsertUser .= "`cle` = '" . $clef . "', ";
-						$QryInsertUser .= "`password`='" . $md5newpass . "', ";
-						$QryInsertUser .= "`ip` = '" . $_SERVER ["REMOTE_ADDR"] . "'; ";
-						$db->query($QryInsertUser);
-						
-						exit(header("Location: index.php?page=reg&mode=valid&id=".$md5newpass."&clef=" . $clef));
-					}					
-
-					$MailSubject 	= $LNG['reg_mail_message_pass'];
-					$MailRAW		= file_get_contents("./language/".$CONF['lang']."/email/email_vaild_reg.txt");
-					$MailContent	= sprintf($MailRAW, $UserName, $CONF['game_name'], "http://".$_SERVER['SERVER_NAME'].$_SERVER["PHP_SELF"], $clef, $UserPass, ADMINEMAIL, $md5newpass);
-		
-					MailSend($UserEmail, $UserName, $MailSubject, $MailContent);
-					$QryInsertUser = "INSERT INTO " . USERS_VALID . " SET ";
-					$QryInsertUser .= "`username` = '" . $db->sql_escape ( $UserName ) . "', ";
-					$QryInsertUser .= "`email` = '" . $db->sql_escape ( $UserEmail ) . "', ";
-					$QryInsertUser .= "`date` = '" . time () . "', ";
-					$QryInsertUser .= "`cle` = '" . $clef . "', ";
-					$QryInsertUser .= "`password`='" . $md5newpass . "', ";
-					$QryInsertUser .= "`ip` = '" . $_SERVER ["REMOTE_ADDR"] . "'; ";
-					$db->query ($QryInsertUser);
-					message($LNG['reg_completed'], "?lang=".DEFAULT_LANG, 10, false, false );
+					$template->message($errors, '?page=reg&lang='.DEFAULT_LANG, 3, true);
+					exit;
 				}
+				
+				$md5newpass = md5($UserPass);
+					
+				$characters = array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" );
+				$size = 15;
+				for($i = 0; $i < $size; $i ++) {
+					$clef .= ($i % 2) ? strtoupper ( $characters [array_rand ( $characters )] ) : $characters [array_rand ( $characters )];
+				}
+
+				if($CONF['user_valid'] == 0 || $CONF['smtp_host'] == '' || $CONF['smtp_port'] == 0 || $CONF['smtp_user'] == '' || $CONF['smtp_pass'] == '')
+				{
+					$SQL = "INSERT INTO " . USERS_VALID . " SET ";
+					$SQL .= "`username` = '".$db->sql_escape($UserName)."', ";
+					$SQL .= "`email` = '".$db->sql_escape($UserEmail)."', ";
+					$SQL .= "`lang` = '".$db->sql_escape($UserLang)."', ";
+					$SQL .= "`planet` = '".$db->sql_escape($UserPlanet)."', ";
+					$SQL .= "`date` = '".TIMESTAMP."', ";
+					$SQL .= "`cle` = '".$clef."', ";
+					$SQL .= "`password` = '".$md5newpass."', ";
+					$SQL .= "`ip` = '".$_SERVER['REMOTE_ADDR']."'; ";
+					$db->query($SQL);
+					
+					exit(header("Location: index.php?page=reg&mode=valid&lang=".$UserLang."&clef=".$clef));
+				}					
+
+				$MailSubject 	= $LNG['reg_mail_message_pass'];
+				$MailRAW		= file_get_contents("./language/".$CONF['lang']."/email/email_vaild_reg.txt");
+				$MailContent	= sprintf($MailRAW, $UserName, $CONF['game_name'], "http://".$_SERVER['SERVER_NAME'].$_SERVER["PHP_SELF"], $clef, $UserPass, ADMINEMAIL, $UserLang);
+		
+				MailSend($UserEmail, $UserName, $MailSubject, $MailContent);
+				
+				$SQL = "INSERT INTO " . USERS_VALID . " SET ";
+				$SQL .= "`username` = '".$db->sql_escape($UserName)."', ";
+				$SQL .= "`email` = '".$db->sql_escape($UserEmail)."', ";
+				$SQL .= "`lang` = '".$db->sql_escape($UserLang)."', ";
+				$SQL .= "`planet` = '".$db->sql_escape($UserPlanet)."', ";
+				$SQL .= "`date` = '".TIMESTAMP."', ";
+				$SQL .= "`cle` = '".$clef."', ";
+				$SQL .= "`password` = '".$md5newpass."', ";
+				$SQL .= "`ip` = '".$_SERVER['REMOTE_ADDR']."'; ";
+				$db->query($SQL);
+			
+				$template->message($LNG['reg_completed'], '?lang='.DEFAULT_LANG, 10, true);
 			break;
 			case 'valid' :		
 				$pseudo 	 = request_var('id', '');
 				$clef 		 = request_var('clef', '');
 				$admin 	 	 = request_var('admin', 0);
-				$Valider	 = $db->fetch_array($db->query("SELECT `username`, `password`, `email`, `ip` FROM ".USERS_VALID." WHERE `cle` = '".$db->sql_escape($clef)."' AND `password` = '".$db->sql_escape($pseudo)."';"));
+				$Valider	 = $db->uniquequery("SELECT `username`, `password`, `email`, `ip`, `planet`, `lang` FROM ".USERS_VALID." WHERE `cle` = '".$db->sql_escape($clef)."';");
 				
 				if($Valider == "") 
 					die(header("Location: ./"));
@@ -373,20 +389,23 @@ switch ($page) {
 				$UserPass 	 = $Valider['password'];
 				$UserMail 	 = $Valider['email'];
 				$UserIP 	 = $Valider['ip'];
+				$UserPlanet	 = $Valider['planet'];
+				$UserLang 	 = $Valider['lang'];
 					
-				$QryInsertUser = "INSERT INTO " . USERS . " SET ";
-				$QryInsertUser .= "`username` = '" . $UserName . "', ";
-				$QryInsertUser .= "`email` = '" . $UserMail . "', ";
-				$QryInsertUser .= "`email_2` = '" . $UserMail . "', ";
-				$QryInsertUser .= "`ip_at_reg` = '" . $UserIP . "', ";
-				$QryInsertUser .= "`id_planet` = '0', ";
-				$QryInsertUser .= "`onlinetime` = '" . time () . "', ";
-				$QryInsertUser .= "`register_time` = '" . time () . "', ";
-				$QryInsertUser .= "`password` = '" . $UserPass . "', ";
-				$QryInsertUser .= "`dpath` = '" . DEFAULT_SKINPATH . "', ";
-				$QryInsertUser .= "`uctime`= '0';";
-				$QryInsertUser .= "DELETE FROM " . USERS_VALID . " WHERE username='" . $UserName . "';";
-				$db->multi_query($QryInsertUser);
+				$SQL = "INSERT INTO " . USERS . " SET ";
+				$SQL .= "`username` = '".$UserName . "', ";
+				$SQL .= "`email` = '".$UserMail."', ";
+				$SQL .= "`email_2` = '".$UserMail."', ";
+				$SQL .= "`lang` = '".$UserLang."', ";
+				$SQL .= "`ip_at_reg` = '".$UserIP."', ";
+				$SQL .= "`id_planet` = '0', ";
+				$SQL .= "`onlinetime` = '".TIMESTAMP."', ";
+				$SQL .= "`register_time` = '".TIMESTAMP. "', ";
+				$SQL .= "`password` = '".$UserPass."', ";
+				$SQL .= "`dpath` = '".DEFAULT_SKINPATH."', ";
+				$SQL .= "`uctime`= '0';";
+				$SQL .= "DELETE FROM ".USERS_VALID." WHERE `username` = '".$UserName."';";
+				$db->multi_query($SQL);
 
 				if($CONF['smtp_host'] != '' && $CONF['smtp_port'] != 0 && $CONF['smtp_user'] != '' && $CONF['smtp_pass'] != '')
 				{				
@@ -446,27 +465,27 @@ switch ($page) {
 						$newpos_checked = true;
 					}
 				}
-				$PlanetID = $db->fetch_array($db->query("SELECT `id` FROM ".PLANETS." WHERE `id_owner` = '".$NewUser ['id']."';" ));
+				$PlanetID 	= $db->uniquequery("SELECT `id` FROM ".PLANETS." WHERE `id_owner` = '".$NewUser['id']."';");
 				
-				$QryUpdateUser = "UPDATE " . USERS . " SET ";
-				$QryUpdateUser .= "`id_planet` = '" . $PlanetID ['id'] . "', ";
-				$QryUpdateUser .= "`current_planet` = '" . $PlanetID ['id'] . "', ";
-				$QryUpdateUser .= "`galaxy` = '" . $Galaxy . "', ";
-				$QryUpdateUser .= "`system` = '" . $System . "', ";
-				$QryUpdateUser .= "`planet` = '" . $Planet . "' ";
-				$QryUpdateUser .= "WHERE ";
-				$QryUpdateUser .= "`id` = '" . $NewUser ['id'] . "' ";
-				$QryUpdateUser .= "LIMIT 1;";
-				$QryUpdateUser .= "INSERT INTO ".STATPOINTS." (`id_owner`, `id_ally`, `stat_type`, `stat_code`, `tech_rank`, `tech_old_rank`, `tech_points`, `tech_count`, `build_rank`, `build_old_rank`, `build_points`, `build_count`, `defs_rank`, `defs_old_rank`, `defs_points`, `defs_count`, `fleet_rank`, `fleet_old_rank`, `fleet_points`, `fleet_count`, `total_rank`, `total_old_rank`, `total_points`, `total_count`, `stat_date`) VALUES (".$NewUser['id'].", 0, 1, 1, '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0, '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0, '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0, 1, 0, 0, 0, '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0, ".TIMESTAMP.");";
-				$db->multi_query ( $QryUpdateUser );
+				$SQL = "UPDATE ".USERS." SET ";
+				$SQL .= "`id_planet` = '" . $PlanetID ['id']."', ";
+				$SQL .= "`current_planet` = '".$PlanetID ['id']."', ";
+				$SQL .= "`galaxy` = '".$Galaxy."', ";
+				$SQL .= "`system` = '".$System."', ";
+				$SQL .= "`planet` = '".$Planet."' ";
+				$SQL .= "WHERE ";
+				$SQL .= "`id` = '".$NewUser['id']."' ";
+				$SQL .= "LIMIT 1;";
+				$SQL .= "INSERT INTO ".STATPOINTS." (`id_owner`, `id_ally`, `stat_type`, `stat_code`, `tech_rank`, `tech_old_rank`, `tech_points`, `tech_count`, `build_rank`, `build_old_rank`, `build_points`, `build_count`, `defs_rank`, `defs_old_rank`, `defs_points`, `defs_count`, `fleet_rank`, `fleet_old_rank`, `fleet_points`, `fleet_count`, `total_rank`, `total_old_rank`, `total_points`, `total_count`, `stat_date`) VALUES (".$NewUser['id'].", 0, 1, 1, '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0, '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0, '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0, 1, 0, 0, 0, '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0, ".TIMESTAMP.");";
+				$db->multi_query($SQL);
 				
-				$from 		= $LNG ['welcome_message_from'];
-				$sender 	= $LNG ['welcome_message_sender'];
-				$Subject 	= $LNG ['welcome_message_subject'];
+				$from 		= $LNG['welcome_message_from'];
+				$sender 	= $LNG['welcome_message_sender'];
+				$Subject 	= $LNG['welcome_message_subject'];
 				$message 	= sprintf($LNG['welcome_message_content'], $CONF['game_name']);
-				SendSimpleMessage ( $NewUser ['id'], $sender, $Time, 1, $from, $Subject, $message );
+				SendSimpleMessage($NewUser['id'], $sender, $Time, 1, $from, $Subject, $message);
 				
-				$db->query ( "UPDATE " . CONFIG . " SET `config_value` = `config_value` + '1' WHERE `config_name` = 'users_amount';" );
+				$db->query("UPDATE ".CONFIG." SET `config_value` = `config_value` + '1' WHERE `config_name` = 'users_amount';" );
 				if ($admin == 1) {
 					echo sprintf($LNG['user_active'], $UserName);
 				} else {
@@ -498,6 +517,7 @@ switch ($page) {
 					'pass2_reg'						=> $LNG['pass2_reg'],
 					'email_reg'						=> $LNG['email_reg'],
 					'email2_reg'					=> $LNG['email2_reg'],
+					'planet_reg'					=> $LNG['planet_reg'],
 					'lang_reg'						=> $LNG['lang_reg'],
 					'captcha_reg'					=> $LNG['captcha_reg'],
 					'register_now'					=> $LNG['register_now'],

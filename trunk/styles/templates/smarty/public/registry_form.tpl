@@ -37,8 +37,12 @@
 		<td><input name="email2" size="30" maxlength="40" type="text" tabindex="4" class="input-text"></td>
 	</tr>
 	<tr>
+		<td>{$planet_reg}:</td>
+		<td><input name="planet" size="30" maxlength="40" type="text" tabindex="5" class="input-text"></td>
+	</tr>
+	<tr>
 		<td>{$lang_reg}:</td>
-		<td><select name="lang" id="lang" style="width: 206px;">{html_options options=$AvailableLangs selected=$lang}</select></td>
+		<td><select name="lang" style="width: 206px;" tabindex="6">{html_options options=$AvailableLangs selected=$lang}</select></td>
 	</tr>
 	{if $game_captcha}
 	<tr>
@@ -47,7 +51,7 @@
 	<div class="recaptcha_only_if_audio"><a href="javascript:Recaptcha.switch_type('image')">{$captcha_get_image}</a></div>
 	<div><a href="javascript:Recaptcha.showhelp()">{$captcha_help}</a></div>
 	</td>
-		<td><br><center><div id="display_captcha" style="display:none"><div id="recaptcha_image"></div><input type="text" id="recaptcha_response_field" size="30" maxlength="40" tabindex="6" name="recaptcha_response_field" class="input-text"></div></center></td>
+		<td><br><center><div id="display_captcha" style="display:none"><div id="recaptcha_image"></div><input type="text" id="recaptcha_response_field" size="30" maxlength="40" tabindex="7" name="recaptcha_response_field" class="input-text"></div></center></td>
 	</tr>
 	{/if}
 	<tr>
