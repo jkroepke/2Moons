@@ -49,8 +49,8 @@ function ajax(url){
 		} else {
 			$.get(url, function(data){
 				$('#background-content').html(data);
-				showRecaptcha();
 			});
+			window.setTimeout('showRecaptcha()', 100);
 		}
 	} else {
 		$.get(url, function(data){
