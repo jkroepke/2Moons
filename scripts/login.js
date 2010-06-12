@@ -81,6 +81,9 @@ function changeAction(type) {
 
 function showRecaptcha(element) 
 {
+	if(IsCaptchaActive == 0)
+		return;
+		
 	Recaptcha.create(cappublic, 'display_captcha', {
 		theme: 'custom',
 		lang: 'de',
