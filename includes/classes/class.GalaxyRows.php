@@ -38,7 +38,7 @@ class GalaxyRows
 	{
 		global $USER, $PLANET, $resource, $LNG;
 
-		if ($PLANET[$resource[502]] > 0 && $GalaxyRowPlanet['galaxy'] == $PLANET['galaxy'])
+		if ($PLANET[$resource[503]] > 0 && $GalaxyRowPlanet['galaxy'] == $PLANET['galaxy'])
 		{
 			$Range = $this->GetMissileRange();
 			$SystemLimitMin = max($PLANET['system'] - $Range, 1);
@@ -124,7 +124,7 @@ class GalaxyRows
 			$PhalanxTypeLink = ($GalaxyRowPlanet['system'] <= $SystemLimitMax && $GalaxyRowPlanet['system'] >= $SystemLimitMin) ? $LNG['gl_phalanx']:false;
 		}
 
-		if ($PLANET[$resource[502]] > 0 && $GalaxyRowPlanet['userid'] != $USER['id'] && $GalaxyRowPlanet["galaxy"] == $PLANET['galaxy'])
+		if ($PLANET[$resource[503]] > 0 && $GalaxyRowPlanet['userid'] != $USER['id'] && $GalaxyRowPlanet["galaxy"] == $PLANET['galaxy'])
 		{
 			$MiRange 		= $this->GetMissileRange();
 			$SystemLimitMin = max(1, $PLANET['system'] - $MiRange);
