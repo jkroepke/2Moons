@@ -290,16 +290,13 @@ class MissionCaseExpedition extends MissionFunctions
 					}
 				}
 
-				require_once('GenerateReport.'.PHP_EXT);					
-				$raport 		= GenerateReport($result, $steal, $MoonChance, $GottenMoon, $totaltime, $this->_fleet, $LNG);
-
-				$rid			= md5(microtime(true).mt_rand(1,100));
+				require_once('GenerateReport.'.PHP_EXT);
+				$raport		= GenerateReport($result, $INFO);
+				$rid		= md5(microtime(true).mt_rand(1,100));
+			
+				file_put_contents(ROOT_PATH.'raports/raport_'.$rid.'.php', '<?php'."\n".'$raport = '.$raport.';'."\n".'?>');
 					
-				$SQLQuery  = "INSERT INTO ".RW." SET 
-							  `time` = '".TIMESTAMP."',
-							  `owners` = '".$this->_fleet['fleet_owner'].",0', 
-							  `rid` = '". $rid ."',
-							  `raport` = '".$db->sql_escape($raport)."';";	
+				$SQLQuery  = "INSERT INTO ".RW." SET `time` = '".TIMESTAMP."', `owners` = '".$this->_fleet['fleet_owner'].",0', `rid` = '". $rid ."', `raport` = '';";	
 				$db->query($SQLQuery);
 				$MessageAtt = sprintf($LNG['sys_mess_attack_report_mess'], $rid, $ColorAtt, $LNG['sys_mess_attack_report'], sprintf($LNG['sys_adress_planet'], $this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet']), $ColorAtt, $LNG['sys_perte_attaquant'], pretty_number($result['lost']['att']), $ColorDef, $LNG['sys_perte_defenseur'], pretty_number($result['lost']['def']), $LNG['sys_gain'], $LNG['Metal'], pretty_number($steal['metal']), $LNG['Crystal'], pretty_number($steal['crystal']), $LNG['Deuterium'], pretty_number($steal['deuterium']), $LNG['sys_debris'], $LNG['Metal'], pretty_number($result['debree']['att'][0]+$result['debree']['def'][0]), $LNG['Crystal'], pretty_number($result['debree']['att'][1]+$result['debree']['def'][1]));
 				SendSimpleMessage($this->_fleet['fleet_owner'], '', $this->_fleet['fleet_start_time'], 3, $LNG['sys_mess_tower'], $LNG['sys_mess_attack_report'], $MessageAtt);

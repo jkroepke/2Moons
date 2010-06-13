@@ -76,11 +76,12 @@ if (INSTALL != true)
 	
 	$cfgresult = $db->query("SELECT HIGH_PRIORITY * FROM `".CONFIG."`;");
 
-	while ($row = $db->fetch($cfgresult))
+	while ($row = $db->fetch_array($cfgresult))
 	{
 		$CONF[$row['config_name']] = $row['config_value'];
 	}
 	$db->free_result($cfgresult);
+	
 	$CONF['moduls']	= explode(";", $CONF['moduls']);
 
 	define('VERSION'		, 'RC'.$CONF['VERSION']);
@@ -169,7 +170,7 @@ if (INSTALL != true)
 		CheckPlanetUsedFields($PLANET);
 	} else {
 		//Login
-		define('DEFAULT_LANG'	, (empty($_REQUEST['lang'])) ? ((empty($CONF['lang'])) ? 'deutsch' : $CONF['lang']) : $_REQUEST['lang']);
+		define('DEFAULT_LANG'	, (!empty($_REQUEST['lang'])) ? $_REQUEST['lang'] : $CONF['lang']);
 		includeLang('INGAME');
 		require_once(ROOT_PATH . 'includes/classes/class.template.'.PHP_EXT);
 	}

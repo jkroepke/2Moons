@@ -21,17 +21,18 @@
 
 define('INSIDE'  , true);
 define('INSTALL' , false);
+define('IN_CRON' , true);
 
 define('ROOT_PATH', './');
 include(ROOT_PATH . 'extension.inc');
 include(ROOT_PATH . 'common.'.PHP_EXT);
 
-if (empty($_SESSION)) die(header('Location: index.php'));
+if (empty($_SESSION)) exit;
 
 // Output transparent gif
 header('Cache-Control: no-cache');
-#header('Content-type: image/gif');
-#header('Content-length: 43');
+header('Content-type: image/gif');
+header('Content-length: 43');
 header('Expires: 0');
 			
 $cron = request_var('cron','');
