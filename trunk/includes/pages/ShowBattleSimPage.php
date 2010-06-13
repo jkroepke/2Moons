@@ -107,11 +107,13 @@ function ShowBattleSimPage()
 
 		$rid   				= md5(microtime(true));
 		
+		file_put_contents(ROOT_PATH.'raports/raport_'.$rid.'.php', '<?php'."\n".'$raport = '.$raport.';'."\n".'?>');
+			
 		$SQLQuery  = "INSERT INTO ".RW." SET ";
 		$SQLQuery .= "`time` = '".TIMESTAMP."', ";
 		$SQLQuery .= "`owners` = '".$USER['id'].",0', ";
 		$SQLQuery .= "`rid` = '".$rid."', ";
-		$SQLQuery .= "`raport` = '".$db->sql_escape($raport)."';";
+		$SQLQuery .= "`raport` = '';";
 		$db->query($SQLQuery);
 		echo($rid);
 		exit;
