@@ -60,7 +60,7 @@ if(!function_exists('bcadd'))
 require_once(ROOT_PATH . 'includes/constants.'.PHP_EXT);
 require_once(ROOT_PATH . 'includes/classes/class.MySQLi.'.PHP_EXT);
 require_once(ROOT_PATH . 'includes/GeneralFunctions.'.PHP_EXT);
-require_once(ROOT_PATH . 'includes/vars.'.PHP_EXT);date_default_timezone_set("Europe/Berlin");
+require_once(ROOT_PATH . 'includes/vars.'.PHP_EXT);
 set_error_handler('msg_handler', E_ALL);
 set_exception_handler('exception_handler');
 
