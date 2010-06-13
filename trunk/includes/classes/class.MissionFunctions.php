@@ -119,7 +119,7 @@ class MissionFunctions
 		else
 			$USR	= $db->uniquequery("SELECT `lang` FROM ".USERS." WHERE `id` = '".$ID."';");
 		
-		require(ROOT_PATH.'language/'.$USR['lang'].'/'.$File.'.'.PHP_EXT);
+		require(ROOT_PATH.'language/'.(in_array($USR['lang'], $CONF['alllangs']) ? $USR['lang'] : $CONF['lang']).'/'.$File.'.'.PHP_EXT);
 		return $LNG;
 	}
 	

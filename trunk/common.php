@@ -82,8 +82,8 @@ if (INSTALL != true)
 	}
 	$db->free_result($cfgresult);
 	
-	$CONF['moduls']	= explode(";", $CONF['moduls']);
-
+	$CONF['moduls']		= explode(";", $CONF['moduls']);
+	$CONF['alllangs']	= GetLangs();
 	define('VERSION'		, 'RC'.$CONF['VERSION']);
 
 	@setlocale(LC_ALL, $LNG['local_info'][0], $LNG['local_info'][1], $LNG['local_info'][2]);
@@ -132,7 +132,7 @@ if (INSTALL != true)
 			$db->query("UPDATE ".USERS." SET `lang` ='".$USER['lang']."' WHERE `id` = '".$USER['id']."';");
 		}
 		
-		define('DEFAULT_LANG', $USER['lang']);
+		define('DEFAULT_LANG', array_key_exists($USER['lang'], $CONF['alllangs']) ? $USER['lang'] : $CONF['lang']);
 		includeLang('INGAME');
 		includeLang('TECH');
 		
