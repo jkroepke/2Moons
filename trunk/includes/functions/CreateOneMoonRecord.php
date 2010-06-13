@@ -21,11 +21,9 @@
 
 if(!defined('INSIDE')) die('Hacking attempt!');
 
-	function CreateOneMoonRecord ( $Galaxy, $System, $Planet, $Owner, $MoonID, $MoonName, $Chance)
+	function CreateOneMoonRecord($Galaxy, $System, $Planet, $Owner, $MoonID, $MoonName, $Chance)
 	{
 		global $LNG, $USER, $db;
-
-		$PlanetName            = "";
 
 		$SQL  = "SELECT id_luna,id_level,planet_type,id,name,temp_max,temp_min FROM ".PLANETS." ";
 		$SQL .= "WHERE ";
@@ -38,13 +36,11 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 		if ($MoonPlanet['id_luna'] != 0)
 			return false;
 
-		$SizeMin                = round(pow((3 * $Chance)+10,0.5) * 1000);
-		$SizeMax                = round(pow((3 * $Chance)+20,0.5) * 1000);
+		$SizeMin                = round(pow((3 * $Chance) + 10, 0.5) * 1000);
+		$SizeMax                = round(pow((3 * $Chance) + 20, 0.5) * 1000);
 
-		$PlanetName             = $MoonPlanet['name'];
-
-		$maxtemp                = $MoonPlanet['temp_max'] - rand(10, 45);
-		$mintemp                = $MoonPlanet['temp_min'] - rand(10, 45);
+		$maxtemp                = $MoonPlanet['temp_max'] - mt_rand(10, 45);
+		$mintemp                = $MoonPlanet['temp_min'] - mt_rand(10, 45);
 		$size                   = rand($SizeMin, $SizeMax);
 
 		$SQL  = "INSERT INTO ".PLANETS." SET ";
@@ -89,7 +85,7 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 		$SQL .= "`planet_type` = '1';";				
 		$db->query($SQL);
 
-		return $PlanetName;
+		return $MoonPlanet['name'];
 	}
 
 ?>

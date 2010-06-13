@@ -101,11 +101,11 @@ switch ($Mode) {
 			$parse['config'] = "<tr><th>".$LNG['reg_file']." - config.php</th></th><th><span class=\"no\">".$LNG['reg_not_found']."</span>";
 			$error++;
 		}
-		$directories = array('adm/logs/', 'cache/', 'cache/UserBanner/');
+		$directories = array('adm/logs/', 'cache/', 'cache/UserBanner/', 'raport/');
 		$dirs = "";
 		foreach ($directories as $dir)
 		{
-			if(is_dir(ROOT_PATH . $dir) ||  @mkdir(ROOT_PATH . $dir, 0777)){
+			if(is_dir(ROOT_PATH . $dir) || @mkdir(ROOT_PATH . $dir, 0777)){
 				if(is_writable(ROOT_PATH . $dir) || @chmod(ROOT_PATH . $dir, 0777)){
 						$chmod = "<span class=\"yes\"> - ".$LNG['reg_writable']."</span>";
 					} else {

@@ -27,29 +27,31 @@ include(ROOT_PATH . 'extension.inc');
 include(ROOT_PATH . 'common.'.PHP_EXT);
 
 includeLang('TECH');	
+includeLang('FLEET');	
 	
-$raportrow 	= $db->uniquequery("SELECT * FROM ".RW." WHERE `rid` = '".($db->sql_escape(request_var('raport','',true)))."';");
+$RID	= request_var('raport', '');
 
-$report = stripslashes($raportrow["raport"]);
-foreach ($LNG['tech_rc'] as $id => $s_name)
-{
-	$str_replace1  	= array("[ship[".$id."]]");
-	$str_replace2  	= array($s_name);
-	$report 		= str_replace($str_replace1, $str_replace2, $report);
+if(file_exists(ROOT_PATH.'raports/raport_'.$RID.'.php')) {
+	require_once(ROOT_PATH.'raports/raport_'.$RID.'.php');
+} else {
+	
+	$raportrow 	= $db->uniquequery("SELECT * FROM ".RW." WHERE `rid` = '".$db->sql_escape($RID)."';");
+
+	$raport = stripslashes($raportrow["raport"]);
+	foreach ($LNG['tech_rc'] as $id => $s_name)
+	{
+		$str_replace1  	= array("[ship[".$id."]]");
+		$str_replace2  	= array($s_name);
+		$raport 		= str_replace($str_replace1, $str_replace2, $report);
+	}
 }
-$no_fleet 		= "<table border=1 align=\"center\"><tr><th>".$LNG['cr_type']."</th></tr><tr><th>".$LNG['cr_total']."</th></tr><tr><th>".$LNG['cr_weapons']."</th></tr><tr><th>".$LNG['cr_shields']."</th></tr><tr><th>".$LNG['cr_armor']."</th></tr></table>";
-$destroyed 		= "<table border=1 align=\"center\"><tr><th><font color=\"red\"><strong>".$LNG['cr_destroyed']."</strong></font></th></tr></table>";
-$str_replace1  	= array($no_fleet);
-$str_replace2  	= array($destroyed);
-$report 		= str_replace($str_replace1, $str_replace2, $report);
-$Page 		   .= $report;
 
 $template	= new template();
 
 $template->page_header();
 $template->page_footer();
 
-$template->assign('raport', $Page);
+$template->assign('raport', $raport);
 $template->show('raport.tpl');
 
 ?>

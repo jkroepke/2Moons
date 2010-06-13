@@ -4,13 +4,6 @@ class statbuilder{
 
 	function __construct()
 	{
-		$this->lang			= $GLOBALS['LNG'];
-		$this->resource		= $GLOBALS['resource'];
-		$this->pricelist	= $GLOBALS['pricelist'];
-		$this->reslist		= $GLOBALS['reslist'];
-		$this->config		= $GLOBALS['CONF'];
-		$this->db			= $GLOBALS['db'];
-	
 		$this->starttime   	= microtime(true);
 		$this->memory		= array(round(memory_get_usage() / 1024,1),round(memory_get_usage(1) / 1024,1));
 		$this->time   		= TIMESTAMP;
@@ -18,12 +11,13 @@ class statbuilder{
 
 	private function SomeStatsInfos()
 	{
+		global $db;
 		$result['stats_time']		= $this->time;
 		$result['totaltime']    	= round(microtime(true) - $this->starttime, 7);
 		$result['memory_peak']		= array(round(memory_get_peak_usage() / 1024,1),round(memory_get_peak_usage(1) / 1024,1));
 		$result['initial_memory']	= $this->memory;
 		$result['end_memory']		= array(round(memory_get_usage() / 1024,1),round(memory_get_usage(1) / 1024,1));
-		$result['sql_count']		= $this->db->get_sql();
+		$result['sql_count']		= $db->get_sql();
 		return $result;
 	}
 	
@@ -43,32 +37,64 @@ class statbuilder{
 	
 	private function DeleteSome()
 	{
-		$this->db->query("LOCK TABLES ".ALLIANCE." WRITE, ".CHAT." WRITE, ".CONFIG." WRITE, ".FLEETS." WRITE, ".MESSAGES." WRITE, ".PLANETS." WRITE, ".RW." WRITE, ".SUPP." WRITE, ".STATPOINTS." WRITE, ".TOPKB." WRITE, ".USERS." WRITE;");
+		global $db;
+		$db->query("LOCK TABLES ".ALLIANCE." WRITE, ".CHAT." WRITE, ".CONFIG." WRITE, ".FLEETS." WRITE, ".MESSAGES." WRITE, ".PLANETS." WRITE, ".RW." WRITE, ".SUPP." WRITE, ".STATPOINTS." WRITE, ".TOPKB." WRITE, ".USERS." WRITE;");
 	
 		//Delete old messages
 		$del_before 	= TIMESTAMP - (60 * 60 * 24 * 3); // 3 DAY
 		$del_inactive 	= TIMESTAMP - (60 * 60 * 24 * 30); // 1 MONTH
 		$del_deleted 	= TIMESTAMP - (60 * 60 * 24 * 7); // 1 WEEK
-		$TopKBLow		= $this->db->fetch_array($this->db->query("SELECT gesamtunits FROM ".TOPKB." ORDER BY gesamtunits DESC LIMIT 99,1"));
-		$this->db->multi_query("DELETE FROM `".MESSAGES."` WHERE `message_time` < '". $del_before ."';DELETE FROM `".RW."` WHERE `time` < '". $del_before ."';DELETE FROM ".SUPP." WHERE `time` < '".$del_before."' AND `status` = 0;DELETE FROM ".CHAT." WHERE `timestamp` < '".$del_before."';DELETE FROM ".ALLIANCE." WHERE `ally_members` = '0';DELETE FROM ".PLANETS." WHERE `destruyed` < ".TIMESTAMP." AND `destruyed` != 0;DELETE FROM ".TOPKB." WHERE `gesamtunits` < '".((isset($TopKBLow)) ? $TopKBLow['gesamtunits'] : 0)."';");
+		
+		$db->multi_query("DELETE FROM `".MESSAGES."` WHERE `message_time` < '". $del_before ."';DELETE FROM ".SUPP." WHERE `time` < '".$del_before."' AND `status` = 0;DELETE FROM ".CHAT." WHERE `timestamp` < '".$del_before."';DELETE FROM ".ALLIANCE." WHERE `ally_members` = '0';DELETE FROM ".PLANETS." WHERE `destruyed` < ".TIMESTAMP." AND `destruyed` != 0;");
 
-		$ChooseToDelete = $this->db->query("SELECT `id` FROM `".USERS."` WHERE ((`db_deaktjava` < '".$del_deleted."' AND `db_deaktjava` <> 0) OR `onlinetime` < '".$del_inactive."') AND `authlevel` = '0';");
+		$ChooseToDelete = $db->query("SELECT `id` FROM `".USERS."` WHERE ((`db_deaktjava` < '".$del_deleted."' AND `db_deaktjava` <> 0) OR `onlinetime` < '".$del_inactive."') AND `authlevel` = '0';");
 		
 		if(isset($ChooseToDelete))
 		{
 			include_once(ROOT_PATH.'includes/functions/DeleteSelectedUser.'.PHP_EXT);
-			while($delete = $this->db->fetch_array($ChooseToDelete))
+			while($delete = $db->fetch_array($ChooseToDelete))
 			{
 				DeleteSelectedUser($delete['id']);
 			}	
 		}
-		$this->db->query("UNLOCK TABLES;");
+		
+		$db->free_result($ChooseToDelete);
+
+		$DelRW	= $db->query("SELECT `rid` FROM ".RW." WHERE `time` < '". $del_before ."';");
+		
+		if(isset($DelRW))
+		{
+			while($RID = $db->fetch_array($DelRW))
+			{
+				unlink(ROOT_PATH.'/raports/raport_'.$RID.'.php');
+			}	
+			$db->query("DELETE FROM ".RW." WHERE `time` < '". $del_before ."';");
+		}
+		$db->free_result($DelRW);
+		
+		$TopKBLow		= $db->uniquequery("SELECT gesamtunits FROM ".TOPKB." ORDER BY gesamtunits DESC LIMIT 99,1");
+	
+		$TKBRW			= $db->query("SELECT `rid` FROM ".TOPKB." WHERE `gesamtunits` < '".((isset($TopKBLow)) ? $TopKBLow['gesamtunits'] : 0)."';");
+		
+		if(isset($DelRW))
+		{
+			while($RID = $db->fetch_array($TKBRW))
+			{
+				unlink(ROOT_PATH.'/raports/topkb_'.$RID.'.php');
+			}	
+			$db->query("DELETE FROM ".TOPKB." WHERE `gesamtunits` < '".((isset($TopKBLow)) ? $TopKBLow['gesamtunits'] : 0)."';");
+		}
+		
+		$db->free_result($TKBRW);
+		
+		$db->query("UNLOCK TABLES;");
 	}
 
 	private function RebuildRecordCache() 
 	{
+		global $reslist;
 		$array	= "";
-		foreach(array_merge($this->reslist['build'], $this->reslist['tech'], $this->reslist['fleet'], $this->reslist['defense']) as $ElementID) {
+		foreach(array_merge($reslist['build'], $reslist['tech'], $reslist['fleet'], $reslist['defense']) as $ElementID) {
 			$array	.= $ElementID." => array('username' => '".$this->maxinfos[$ElementID]['username']."', 'maxlvl' => '".$this->maxinfos[$ElementID]['maxlvl']."'),\n";
 		}
 		$file	= "<?php \n//The File is created on ".date("d. M y H:i:s", TIMESTAMP)."\n$"."RecordsArray = array(\n".$array."\n);\n?>";
@@ -77,135 +103,143 @@ class statbuilder{
 	
 	private function GetUsersInfosFromDB()
 	{
+		global $db, $resource, $reslist;
 		$select_defenses	=	'';
 		$select_buildings	=	'';
 		$selected_tech		=	'';
 		$select_fleets		=	'';
 		
-		foreach($this->reslist['defense'] as $Defense){
-			$select_defenses	.= " p.".$this->resource[$Defense].",";
+		foreach($reslist['defense'] as $Defense){
+			$select_defenses	.= " p.".$resource[$Defense].",";
 		}
 				
-		foreach($this->reslist['build'] as $Building){
-			$select_buildings	.= " p.".$this->resource[$Building].",";
+		foreach($reslist['build'] as $Building){
+			$select_buildings	.= " p.".$resource[$Building].",";
 		}
 		
-		foreach($this->reslist['tech'] as $Techno){
-			$selected_tech	.= " u.".$this->resource[$Techno].",";
+		foreach($reslist['tech'] as $Techno){
+			$selected_tech	.= " u.".$resource[$Techno].",";
 		}	
 		
-		foreach($this->reslist['fleet'] as $Fleet){
-			$select_fleets	.= " p.".$this->resource[$Fleet].",";
+		foreach($reslist['fleet'] as $Fleet){
+			$select_fleets	.= " p.".$resource[$Fleet].",";
 		}		
 
-		$SQLFleets	=  $this->db->query('SELECT fleet_array, fleet_owner, fleet_id FROM '.FLEETS.';');
-		while ($CurFleets = $this->db->fetch($SQLFleets))
+		$SQLFleets	=  $db->query('SELECT fleet_array, fleet_owner, fleet_id FROM '.FLEETS.';');
+		while ($CurFleets = $db->fetch_array($SQLFleets))
 		{
 			$FlyingFleets[$CurFleets['fleet_owner']][$CurFleets['fleet_id']]	= $CurFleets['fleet_array'];
 		}
 		
+		$db->free_result($SQLFleets);
+		
 		$Return['Fleets'] 	= $FlyingFleets;		
-		$Return['Planets']	= $this->db->query('SELECT DISTINCT '.$select_defenses.$select_fleets.$select_buildings.' p.id_owner, u.authlevel, u.bana, u.id, u.username FROM '.PLANETS.' as p LEFT JOIN '.USERS.' as u ON u.id = p.id_owner;');
-		$Return['Users']	= $this->db->query('SELECT DISTINCT '.$selected_tech.' u.id, u.ally_id, u.authlevel, u.bana, u.username, s.tech_rank AS old_tech_rank, s.build_rank AS old_build_rank, s.defs_rank AS old_defs_rank, s.fleet_rank AS old_fleet_rank, s.total_rank AS old_total_rank FROM '.USERS.' as u LEFT JOIN '.STATPOINTS.' as s ON s.stat_type = 1 AND s.stat_code = 1 AND s.id_owner = u.id GROUP BY s.id_owner, u.id, u.authlevel;');
-		$Return['Alliance']	= $this->db->query('SELECT DISTINCT a.id, s.tech_rank AS old_tech_rank, s.build_rank AS old_build_rank, s.defs_rank AS old_defs_rank, s.fleet_rank AS old_fleet_rank, s.total_rank AS old_total_rank FROM '.ALLIANCE.' as a LEFT JOIN '.STATPOINTS.' as s ON s.stat_type = 2 AND s.stat_code = 1 AND s.id_owner = a.id;');
-		update_config('users_amount', $this->db->num_rows($Return['Users']));
+		$Return['Planets']	= $db->query('SELECT DISTINCT '.$select_defenses.$select_fleets.$select_buildings.' p.id_owner, u.authlevel, u.bana, u.id, u.username FROM '.PLANETS.' as p LEFT JOIN '.USERS.' as u ON u.id = p.id_owner;');
+		$Return['Users']	= $db->query('SELECT DISTINCT '.$selected_tech.' u.id, u.ally_id, u.authlevel, u.bana, u.username, s.tech_rank AS old_tech_rank, s.build_rank AS old_build_rank, s.defs_rank AS old_defs_rank, s.fleet_rank AS old_fleet_rank, s.total_rank AS old_total_rank FROM '.USERS.' as u LEFT JOIN '.STATPOINTS.' as s ON s.stat_type = 1 AND s.stat_code = 1 AND s.id_owner = u.id GROUP BY s.id_owner, u.id, u.authlevel;');
+		$Return['Alliance']	= $db->query('SELECT DISTINCT a.id, s.tech_rank AS old_tech_rank, s.build_rank AS old_build_rank, s.defs_rank AS old_defs_rank, s.fleet_rank AS old_fleet_rank, s.total_rank AS old_total_rank FROM '.ALLIANCE.' as a LEFT JOIN '.STATPOINTS.' as s ON s.stat_type = 2 AND s.stat_code = 1 AND s.id_owner = a.id;');
+		update_config('users_amount', $db->num_rows($Return['Users']));
 		
 		return $Return;
 	}
 	
 	private function SaveDataIntoDB($Data)
 	{
+		global $db;
 		if(!empty($Data))
-			$this->db->multi_query($Data);
+			$db->multi_query($Data);
 	}
 
 	private function GetTechnoPoints($CurrentUser) 
 	{
+		global $resource, $reslist, $pricelist, $CONF;
 		$TechCounts = 0;
 		$TechPoints = 0;
 
-		foreach($this->reslist['tech'] as $Techno) 
+		foreach($reslist['tech'] as $Techno) 
 		{
-			if($CurrentUser[$this->resource[$Techno]] == 0) continue;
+			if($CurrentUser[$resource[$Techno]] == 0) continue;
 
-			$this->SetMaxInfo($Techno, $CurrentUser[$this->resource[$Techno]], $CurrentUser['username']);
+			$this->SetMaxInfo($Techno, $CurrentUser[$resource[$Techno]], $CurrentUser['username']);
 			
-			$Units	= ($this->pricelist[$Techno]['metal'] + $this->pricelist[$Techno]['crystal'] + $this->pricelist[$Techno]['deuterium']);
-			for($Level = 1; $Level <= $CurrentUser[$this->resource[$Techno]]; $Level++)
+			$Units	= ($pricelist[$Techno]['metal'] + $pricelist[$Techno]['crystal'] + $pricelist[$Techno]['deuterium']);
+			for($Level = 1; $Level <= $CurrentUser[$resource[$Techno]]; $Level++)
 			{
-				$TechPoints	+= $Units * pow($this->pricelist[$Techno]['factor'], $Level);
+				$TechPoints	+= $Units * pow($pricelist[$Techno]['factor'], $Level);
 			}
-			$TechCounts		+= $CurrentUser[$this->resource[$Techno]];
+			$TechCounts		+= $CurrentUser[$resource[$Techno]];
 		}
 		$RetValue['count'] 	= $TechCounts;
-		$RetValue['points'] = $TechPoints / $this->config['stat_settings'];
+		$RetValue['points'] = $TechPoints / $CONF['stat_settings'];
 
 		return $RetValue;
 	}
 
 	private function GetBuildPoints($CurrentPlanet) 
 	{
+		global $resource, $reslist, $pricelist, $CONF;
 		$BuildCounts = 0;
 		$BuildPoints = 0;
-		reset($this->reslist['build']);
 		
-		foreach($this->reslist['build'] as $Build)
+		foreach($reslist['build'] as $Build)
 		{
-			if($CurrentPlanet[$this->resource[$Build]] == 0) continue;
+			if($CurrentPlanet[$resource[$Build]] == 0) continue;
 
-			$this->SetMaxInfo($Build, $CurrentPlanet[$this->resource[$Build]], $CurrentPlanet['username']);
+			$this->SetMaxInfo($Build, $CurrentPlanet[$resource[$Build]], $CurrentPlanet['username']);
 			
-			$Units			 = $this->pricelist[$Build]['metal'] + $this->pricelist[$Build]['crystal'] + $this->pricelist[$Build]['deuterium'];
-			for($Level = 1; $Level <= $CurrentPlanet[$this->resource[$Build]]; $Level++)
+			$Units			 = $pricelist[$Build]['metal'] + $pricelist[$Build]['crystal'] + $pricelist[$Build]['deuterium'];
+			for($Level = 1; $Level <= $CurrentPlanet[$resource[$Build]]; $Level++)
 			{
-				$BuildPoints	+= $Units * pow($this->pricelist[$Build]['factor'], $Level);
+				$BuildPoints	+= $Units * pow($pricelist[$Build]['factor'], $Level);
 			}
-			$BuildCounts	+= $CurrentPlanet[$this->resource[$Build]];
+			$BuildCounts	+= $CurrentPlanet[$resource[$Build]];
 		}
 		$RetValue['count'] 	= $BuildCounts;
-		$RetValue['points'] = $BuildPoints / $this->config['stat_settings'];
+		$RetValue['points'] = $BuildPoints / $CONF['stat_settings'];
 		return $RetValue;
 	}
 
 	private function GetDefensePoints($CurrentPlanet) 
 	{
+		global $resource, $reslist, $pricelist, $CONF;
 		$DefenseCounts = 0;
 		$DefensePoints = 0;
 				
-		foreach($this->reslist['defense'] as $Defense) {
-			$this->SetMaxInfo($Defense, $CurrentPlanet[$this->resource[$Defense]], $CurrentPlanet['username']);
+		foreach($reslist['defense'] as $Defense) {
+			$this->SetMaxInfo($Defense, $CurrentPlanet[$resource[$Defense]], $CurrentPlanet['username']);
 			
-			$Units			= $this->pricelist[$Defense]['metal'] + $this->pricelist[$Defense]['crystal'] + $this->pricelist[$Defense]['deuterium'];
-			$DefensePoints += $Units * $CurrentPlanet[$this->resource[$Defense]];
-			$DefenseCounts += $CurrentPlanet[$this->resource[$Defense]];
+			$Units			= $pricelist[$Defense]['metal'] + $pricelist[$Defense]['crystal'] + $pricelist[$Defense]['deuterium'];
+			$DefensePoints += $Units * $CurrentPlanet[$resource[$Defense]];
+			$DefenseCounts += $CurrentPlanet[$resource[$Defense]];
 		}
 		
 		$RetValue['count'] = $DefenseCounts;
-		$RetValue['points'] = $DefensePoints / $this->config['stat_settings'];
+		$RetValue['points'] = $DefensePoints / $CONF['stat_settings'];
 		return $RetValue;
 	}
 
 	private function GetFleetPoints($CurrentPlanet) 
 	{
+		global $resource, $reslist, $pricelist, $CONF;
 		$FleetCounts = 0;
 		$FleetPoints = 0;
 	
-		foreach($this->reslist['fleet'] as $Fleet) {
+		foreach($reslist['fleet'] as $Fleet) {
 		
-			$this->SetMaxInfo($Fleet, $CurrentPlanet[$this->resource[$Fleet]], $CurrentPlanet['username']);
+			$this->SetMaxInfo($Fleet, $CurrentPlanet[$resource[$Fleet]], $CurrentPlanet['username']);
 			
-			$Units			= $this->pricelist[$Fleet]['metal'] + $this->pricelist[$Fleet]['crystal'] + $this->pricelist[$Fleet]['deuterium'];
-			$FleetPoints   += $Units * $CurrentPlanet[$this->resource[$Fleet]];
-			$FleetCounts   += $CurrentPlanet[$this->resource[$Fleet]];
+			$Units			= $pricelist[$Fleet]['metal'] + $pricelist[$Fleet]['crystal'] + $pricelist[$Fleet]['deuterium'];
+			$FleetPoints   += $Units * $CurrentPlanet[$resource[$Fleet]];
+			$FleetCounts   += $CurrentPlanet[$resource[$Fleet]];
 		}
 		$RetValue['count'] = $FleetCounts;
-		$RetValue['points'] = $FleetPoints / $this->config['stat_settings'];
+		$RetValue['points'] = $FleetPoints / $CONF['stat_settings'];
 
 		return $RetValue;
 	}
 
 	private function GetFlyingFleetPoints($FleetArray) 
 	{
+		global $resource, $reslist, $pricelist, $CONF;
 		$FleetRec   	= explode(";", $FleetArray);
 		$FleetCounts	= 0;
 		$FleetPoints	= 0;
@@ -223,14 +257,14 @@ class statbuilder{
 			if (empty($Group)) continue;
 			
 			$Ship    	   = explode(",", $Group);
-			$Units         = $this->pricelist[$Ship[0]]['metal'] + $this->pricelist[$Ship[0]]['crystal'] + $this->pricelist[$Ship[0]]['deuterium'];
+			$Units         = $pricelist[$Ship[0]]['metal'] + $pricelist[$Ship[0]]['crystal'] + $pricelist[$Ship[0]]['deuterium'];
 			$FleetPoints   += $Units * $Ship[1];
 			$FleetCounts   += $Ship[1];
 		}
 		
 		
 		$RetValue['count'] 	= $FleetCounts;
-		$RetValue['points'] = $FleetPoints / $this->config['stat_settings'];
+		$RetValue['points'] = $FleetPoints / $CONF['stat_settings'];
 		return $RetValue;
 	}
 
@@ -241,125 +275,127 @@ class statbuilder{
 	
 	private function SetNewRanks()
 	{
+		global $db, $CONF;
 		$QryUpdateStats = "";
 		
 		$Rank           = 1;
-		$RankQry        = $this->db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.`stat_type` = '1' AND s.`id_owner` = `u`.id ".(($this->config['stat'] == 2)?'AND u.`authlevel` < '.$this->config['stat_level'].' ':'')." ORDER BY `tech_points` DESC;");
-		while ($CurUser = $this->db->fetch($RankQry))
+		$RankQry        = $db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.`stat_type` = '1' AND s.`id_owner` = `u`.id ".(($CONF['stat'] == 2)?'AND u.`authlevel` < '.$CONF['stat_level'].' ':'')." ORDER BY `tech_points` DESC;");
+		while ($CurUser = $db->fetch($RankQry))
 		{
 			$tech[$CurUser['id_owner']]	= $Rank;
 			$Rank++;
 		}
 
-		$this->db->free_result($RankQry);
+		$db->free_result($RankQry);
 
 		$Rank           = 1;
-		$RankQry        = $this->db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.`stat_type` = '1' AND s.`id_owner` = `u`.id ".(($this->config['stat'] == 2)?'AND u.`authlevel` < '.$this->config['stat_level'].' ':'')." ORDER BY `build_points` DESC;");
-		while ($CurUser = $this->db->fetch($RankQry))
+		$RankQry        = $db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.`stat_type` = '1' AND s.`id_owner` = `u`.id ".(($CONF['stat'] == 2)?'AND u.`authlevel` < '.$CONF['stat_level'].' ':'')." ORDER BY `build_points` DESC;");
+		while ($CurUser = $db->fetch($RankQry))
 		{
 			$build[$CurUser['id_owner']] = $Rank;
 			$Rank++;
 		}
 
-		$this->db->free_result($RankQry);
+		$db->free_result($RankQry);
 			
 		$Rank           = 1;
-		$RankQry        = $this->db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.`stat_type` = '1' AND s.`id_owner` = `u`.id ".(($this->config['stat'] == 2)?'AND u.`authlevel` < '.$this->config['stat_level'].' ':'')." ORDER BY `defs_points` DESC;");
-		while ($CurUser = $this->db->fetch($RankQry))
+		$RankQry        = $db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.`stat_type` = '1' AND s.`id_owner` = `u`.id ".(($CONF['stat'] == 2)?'AND u.`authlevel` < '.$CONF['stat_level'].' ':'')." ORDER BY `defs_points` DESC;");
+		while ($CurUser = $db->fetch($RankQry))
 		{
 			$defs[$CurUser['id_owner']]	= $Rank;
 			$Rank++;
 		}
 
-		$this->db->free_result($RankQry);
+		$db->free_result($RankQry);
 			
 		$Rank           = 1;
-		$RankQry        = $this->db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.`stat_type` = '1' AND s.`id_owner` = `u`.id ".(($this->config['stat'] == 2)?'AND u.`authlevel` < '.$this->config['stat_level'].' ':'')." ORDER BY `fleet_points` DESC;");
-		while ($CurUser = $this->db->fetch($RankQry))
+		$RankQry        = $db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.`stat_type` = '1' AND s.`id_owner` = `u`.id ".(($CONF['stat'] == 2)?'AND u.`authlevel` < '.$CONF['stat_level'].' ':'')." ORDER BY `fleet_points` DESC;");
+		while ($CurUser = $db->fetch($RankQry))
 		{
 			$fleet[$CurUser['id_owner']] = $Rank;
 			$Rank++;
 		}
 
-		$this->db->free_result($RankQry);
+		$db->free_result($RankQry);
 			
 		$Rank           = 1;
-		$RankQry        = $this->db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.`stat_type` = '1' AND s.`id_owner` = `u`.id ".(($this->config['stat'] == 2)?'AND u.`authlevel` < '.$this->config['stat_level'].' ':'')." ORDER BY `total_points` DESC;");
+		$RankQry        = $db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.`stat_type` = '1' AND s.`id_owner` = `u`.id ".(($CONF['stat'] == 2)?'AND u.`authlevel` < '.$CONF['stat_level'].' ':'')." ORDER BY `total_points` DESC;");
 
-		while($CurUser = $this->db->fetch_array($RankQry))
+		while($CurUser = $db->fetch_array($RankQry))
 		{
 			$QryUpdateStats .= "UPDATE ".STATPOINTS." SET `tech_rank` = '". $tech[$CurUser['id_owner']] ."', `build_rank` = '". $build[$CurUser['id_owner']] ."', `defs_rank` = '". $defs[$CurUser['id_owner']] ."', `fleet_rank` = '". $fleet[$CurUser['id_owner']] ."', `total_rank` = '". $Rank ."' WHERE  `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $CurUser['id_owner'] ."';";
 			$Rank++;
 		}
 
-		$this->db->free_result($RankQry);
+		$db->free_result($RankQry);
 			
 			
 		$Rank           = 1;
-		$RankQry        = $this->db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s WHERE s.`stat_type` = '2' ORDER BY `tech_points` DESC;");
-		while ($CurUser = $this->db->fetch($RankQry))
+		$RankQry        = $db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s WHERE s.`stat_type` = '2' ORDER BY `tech_points` DESC;");
+		while ($CurUser = $db->fetch($RankQry))
 		{
 			$tech[$CurUser['id_owner']]	= $Rank;
 			$Rank++;
 		}
 	
-		$this->db->free_result($RankQry);
+		$db->free_result($RankQry);
 		
 		$Rank           = 1;
-		$RankQry        = $this->db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s WHERE s.`stat_type` = '2' ORDER BY `build_points` DESC;");
-		while ($CurUser = $this->db->fetch($RankQry))
+		$RankQry        = $db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s WHERE s.`stat_type` = '2' ORDER BY `build_points` DESC;");
+		while ($CurUser = $db->fetch($RankQry))
 		{
 			$build[$CurUser['id_owner']] = $Rank;
 			$Rank++;
 		}
 
-		$this->db->free_result($RankQry);
+		$db->free_result($RankQry);
 			
 		$Rank           = 1;
-		$RankQry        = $this->db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s WHERE s.`stat_type` = '2' ORDER BY `defs_points` DESC;");
-		while ($CurUser = $this->db->fetch($RankQry))
+		$RankQry        = $db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s WHERE s.`stat_type` = '2' ORDER BY `defs_points` DESC;");
+		while ($CurUser = $db->fetch($RankQry))
 		{
 			$defs[$CurUser['id_owner']]	= $Rank;
 			$Rank++;
 		}
 
-		$this->db->free_result($RankQry);
+		$db->free_result($RankQry);
 		
 		$Rank           = 1;
-		$RankQry        = $this->db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s WHERE s.`stat_type` = '2' ORDER BY `fleet_points` DESC;");
-		while ($CurUser = $this->db->fetch($RankQry))
+		$RankQry        = $db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s WHERE s.`stat_type` = '2' ORDER BY `fleet_points` DESC;");
+		while ($CurUser = $db->fetch($RankQry))
 		{
 			$fleet[$CurUser['id_owner']] = $Rank;
 			$Rank++;
 		}
 
-		$this->db->free_result($RankQry);
+		$db->free_result($RankQry);
 			
 		$Rank           = 1;
-		$RankQry        = $this->db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s WHERE s.`stat_type` = '2' ORDER BY `total_points` DESC;");
+		$RankQry        = $db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s WHERE s.`stat_type` = '2' ORDER BY `total_points` DESC;");
 
-		while($CurUser = $this->db->fetch_array($RankQry))
+		while($CurUser = $db->fetch_array($RankQry))
 		{
 			$QryUpdateStats .= "UPDATE ".STATPOINTS." SET `tech_rank` = '". $tech[$CurUser['id_owner']] ."', `build_rank` = '". $build[$CurUser['id_owner']] ."', `defs_rank` = '". $defs[$CurUser['id_owner']] ."', `fleet_rank` = '". $fleet[$CurUser['id_owner']] ."', `total_rank` = '". $Rank ."' WHERE  `stat_type` = '2' AND `stat_code` = '1' AND `id_owner` = '". $CurUser['id_owner'] ."';";
 			$Rank++;
 		}
 
-		$this->db->free_result($RankQry);
+		$db->free_result($RankQry);
 		
 		return $QryUpdateStats;
 	}
 	
 	final public function MakeStats()
 	{
+		global $db, $CONF;
 		$this->DeleteSome();
 		
 		$TotalData	= $this->GetUsersInfosFromDB();
 		$FinalSQL	= 'TRUNCATE TABLE '.STATPOINTS.';';
 		$FinalSQL	.= "INSERT INTO ".STATPOINTS." (`id_owner`, `id_ally`, `stat_type`, `stat_code`, `tech_old_rank`, `tech_points`, `tech_count`, `build_old_rank`, `build_points`, `build_count`, `defs_old_rank`, `defs_points`, `defs_count`, `fleet_old_rank`, `fleet_points`, `fleet_count`, `total_old_rank`, `total_points`, `total_count`, `stat_date`) VALUES ";
 		
-		while($PlanetData = $this->db->fetch_array($TotalData['Planets']))
+		while($PlanetData = $db->fetch_array($TotalData['Planets']))
 		{		
-			if(($PlanetData['authlevel'] >= $this->config['stat_level'] && $this->config['stat'] == 1) || !empty($PlanetData['bana'])) continue;
+			if(($PlanetData['authlevel'] >= $CONF['stat_level'] && $CONF['stat'] == 1) || !empty($PlanetData['bana'])) continue;
 			
  			if(!isset($UserPoints[$PlanetData['id_owner']]))
 				$UserPoints[$PlanetData['id_owner']]['build']['count'] = $UserPoints[$PlanetData['id_owner']]['build']['points'] = $UserPoints[$PlanetData['id_owner']]['fleet']['count'] = $UserPoints[$PlanetData['id_owner']]['fleet']['points'] = $UserPoints[$PlanetData['id_owner']]['defense']['count'] = $UserPoints[$PlanetData['id_owner']]['defense']['points'] = 0;
@@ -376,11 +412,11 @@ class statbuilder{
 			$UserPoints[$PlanetData['id_owner']]['defense']['points']	+= $DefensePoints['points'];
 		}
 		
-		$this->db->free_result($TotalData['Planets']);
+		$db->free_result($TotalData['Planets']);
 		
-		while($UserData	= $this->db->fetch_array($TotalData['Users']))
+		while($UserData	= $db->fetch_array($TotalData['Users']))
 		{
-			if (($UserData['authlevel'] >= $this->config['stat_level'] && $this->config['stat'] == 1) || !empty($UserData['bana']))
+			if (($UserData['authlevel'] >= $CONF['stat_level'] && $CONF['stat'] == 1) || !empty($UserData['bana']))
 			{	
 				if($UserData['ally_id'] != 0 && !isset($AllyPoints[$UserData['ally_id']]))
 				{
@@ -447,7 +483,7 @@ class statbuilder{
 			$FinalSQL  .= "('".$UserData['id']."','".$UserData['ally_id']."',1,1,'".$UserData['old_tech_rank']."', '".$this->removeE($UserPoints[$UserData['id']]['techno']['points'])."', '".$this->removeE($UserPoints[$UserData['id']]['techno']['count'])."', '".$UserData['old_build_rank']."','".$this->removeE($UserPoints[$UserData['id']]['build']['points'])."', '".$this->removeE($UserPoints[$UserData['id']]['build']['count'])."', '".$UserData['old_defs_rank']."', '".$this->removeE($UserPoints[$UserData['id']]['defense']['points'])."', '".$this->removeE($UserPoints[$UserData['id']]['defense']['count'])."', '".$UserData['old_fleet_rank']."', '".$this->removeE($UserPoints[$UserData['id']]['fleet']['points'])."', '".$this->removeE($UserPoints[$UserData['id']]['fleet']['count'])."', '".$UserData['old_total_rank']."', '".$this->removeE($UserPoints[$UserData['id']]['total']['points'])."', '".$this->removeE($UserPoints[$UserData['id']]['total']['count'])."', '".$this->time."'), ";
 		}
 		
-		$this->db->free_result($TotalData['Users']);
+		$db->free_result($TotalData['Users']);
 		
 		$FinalSQL	= substr($FinalSQL, 0, -2).';';
 		
@@ -457,7 +493,7 @@ class statbuilder{
 		if(count($AllyPoints) != 0)
 		{
 			$AllySQL = "INSERT INTO ".STATPOINTS." (`id_owner`, `id_ally`, `stat_type`, `stat_code`, `tech_old_rank`, `tech_points`, `tech_count`, `build_old_rank`, `build_points`, `build_count`, `defs_old_rank`, `defs_points`, `defs_count`, `fleet_old_rank`, `fleet_points`, `fleet_count`, `total_old_rank`, `total_points`, `total_count`, `stat_date`) VALUES ";
-			while($AllianceData	= $this->db->fetch_array($TotalData['Alliance']))
+			while($AllianceData	= $db->fetch_array($TotalData['Alliance']))
 			{
 				$AllySQL  .= "('".$AllianceData['id']."',0,2,1, '".$AllyPoints['old_tech_rank']."', '".$this->removeE($AllyPoints[$AllianceData['id']]['techno']['points'])."', '".$this->removeE($AllyPoints[$AllianceData['id']]['techno']['count'])."', '".$AllianceData['old_build_rank']."', '".$this->removeE($AllyPoints[$AllianceData['id']]['build']['points'])."', '".$this->removeE($AllyPoints[$AllianceData['id']]['build']['count'])."', '".$AllianceData['old_defs_rank']."', '".$this->removeE($AllyPoints[$AllianceData['id']]['defense']['points'])."', '".$this->removeE($AllyPoints[$AllianceData['id']]['defense']['count'])."', '".$AllianceData['old_fleet_rank']."', '".$this->removeE($AllyPoints[$AllianceData['id']]['fleet']['points'])."', '".$this->removeE($AllyPoints[$AllianceData['id']]['fleet']['count'])."', '".$AllianceData['old_total_rank']."', '".$this->removeE($AllyPoints[$AllianceData['id']]['total']['points'])."', '".$this->removeE($AllyPoints[$AllianceData['id']]['total']['count'])."', '".$this->time."'), ";
 			}
@@ -466,7 +502,7 @@ class statbuilder{
 			$this->SaveDataIntoDB($AllySQL);
 		}		
 			
-		$this->db->free_result($TotalData['Alliance']);
+		$db->free_result($TotalData['Alliance']);
 		
 		$RankSQL    = $this->SetNewRanks();
 
