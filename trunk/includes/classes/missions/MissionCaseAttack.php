@@ -223,7 +223,6 @@ class MissionCaseAttack extends MissionFunctions
 		$INFO['fleet_start_time']	= $this->_fleet['fleet_start_time'];
 		$INFO['moon']['des']		= 0;
 		$INFO['moon']['chance'] 	= $MoonChance;
-		$INFO['expo']
 		
 		require_once('GenerateReport.'.PHP_EXT);
 		$raport		= GenerateReport($result, $INFO);
