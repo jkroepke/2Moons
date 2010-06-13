@@ -192,7 +192,7 @@ class MissionCaseAttack extends MissionFunctions
 
 				$SQL .= "UPDATE ".PLANETS." SET ";
 				$SQL .= $fleetArray;
-				$SQL .= "`metal` = `metal` - '".floattostring($steal['metal'])."', `crystal` = `crystal` - '".floattostring($steal['crystal'])."', `deuterium` = `deuterium` - '".floattostring(steal['deuterium'])."' WHERE `galaxy` = '".$this->_fleet['fleet_end_galaxy']."' AND `system` = '".$this->_fleet['fleet_end_system']."' AND `planet` = '".$this->_fleet['fleet_end_planet']."' AND `planet_type` = '".$this->_fleet['fleet_end_type']."';";
+				$SQL .= "`metal` = `metal` - '".floattostring($steal['metal'])."', `crystal` = `crystal` - '".floattostring($steal['crystal'])."', `deuterium` = `deuterium` - '".floattostring($steal['deuterium'])."' WHERE `galaxy` = '".$this->_fleet['fleet_end_galaxy']."' AND `system` = '".$this->_fleet['fleet_end_system']."' AND `planet` = '".$this->_fleet['fleet_end_planet']."' AND `planet_type` = '".$this->_fleet['fleet_end_type']."';";
 			}
 		}
 		
