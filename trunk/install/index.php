@@ -40,7 +40,7 @@ if (empty($Page)) { $Page = 1;       }
 
 		
 switch ($Mode) {
-	case'license':
+	case 'license':
 		$frame  = parsetemplate(gettemplate('install/ins_license'), false);
 	break;
 	case 'intro':
@@ -239,82 +239,23 @@ switch ($Mode) {
 			header("Location: ../adm/index.php");		
 		}
 		break;
-	case'upgrade':
-		if ($_POST)
-		{
-			function makedirs($directories)
-			{
-				foreach ($directories as $dir)
-				{
-					mkdir(ROOT_PATH . $dir, 0777);
-				}
-			}
-			$Qry1 = "UPDATE ".CONFIG." SET `config_value` = '".RCINSTALL_VERSION."' WHERE `config_name` = 'VERSION' LIMIT 1;";
-			$Qry2 = "ALTER TABLE ".PLANETS." CHANGE `der_metal` `der_metal` BIGINT( 11 ) UNSIGNED NOT NULL DEFAULT '0', CHANGE `der_crystal` `der_crystal` BIGINT( 11 ) UNSIGNED NOT NULL DEFAULT '0';";
-			$Qry3 = "INSERT INTO ".CONFIG." (`config_name`, `config_value`) VALUES ('smtp_host', ''),('smtp_port', ''),('smtp_user', ''),('smtp_pass', ''),('smtp_ssl', ''),('user_valid', '');";
-			$Qry4 = "ALTER TABLE ".ALLIANCE." CHANGE `ally_text` `ally_text` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;";
-			$Qry5 = "INSERT INTO ".CONFIG." (`config_name`, `config_value`) VALUES ('ts_version', '2');";
-			$Qry6 = "ALTER TABLE ".MESSAGES." CHANGE `message_text` `message_text` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL;";
-			$Qry7 = "DROP TABLE ".LOTERIA.";";
-			$Qry8 = "ALTER TABLE ".USERS." DROP `loteria_sus`";
-			$Qry9 = "DELETE FROM ".CONFIG." WHERE `uni1_config`.`config_name` = 'configloteria' LIMIT 1;";
-			$Qry10 = "DELETE FROM ".CONFIG." WHERE `uni1_config`.`config_name` = 'Loteria' LIMIT 1;";
-			$Qry11 = "ALTER TABLE ".PLANETS." CHANGE `metal` `metal` DOUBLE(132,8) UNSIGNED NOT NULL DEFAULT '0.00000000', CHANGE `metal_perhour` `metal_perhour` INT(11) UNSIGNED NOT NULL DEFAULT '0', CHANGE `metal_max` `metal_max` BIGINT(20) UNSIGNED NULL DEFAULT '100000', CHANGE `crystal` `crystal` DOUBLE(132,8) UNSIGNED NOT NULL DEFAULT '0.00000000', CHANGE `crystal_perhour` `crystal_perhour` INT(11) UNSIGNED NOT NULL DEFAULT '0', CHANGE `crystal_max` `crystal_max` BIGINT(20) UNSIGNED NULL DEFAULT '100000', CHANGE `deuterium` `deuterium` DOUBLE(132,8) UNSIGNED NOT NULL DEFAULT '0.00000000', CHANGE `deuterium_perhour` `deuterium_perhour` INT(11) UNSIGNED NOT NULL DEFAULT '0', CHANGE `deuterium_max` `deuterium_max` BIGINT(20) UNSIGNED NULL DEFAULT '100000'";
-			$Qry12 = "ALTER TABLE ".SUPP." CHANGE `text` `text` TEXT CHARACTER SET utf8 COLLATE utf8_bin NOT NULL";
-			$Qry13 = "ALTER TABLE ".USERS." CHANGE `settings_allylogo` `settings_planetmenu` TINYINT( 4 ) NOT NULL DEFAULT '1';";
-			$Qry14 = "ALTER TABLE ".ALLIANCE." CHANGE `ally_name` `ally_name` VARCHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL , CHANGE `ally_tag` `ally_tag` VARCHAR( 20 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;";
-			$Qry15 = "ALTER TABLE ".ALLIANCE." CHANGE `ally_ranks` `ally_ranks` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL;";
-			$Qry16 = "ALTER TABLE ".USERS." ADD `dm_attack` INT NOT NULL, ADD `dm_defensive` INT NOT NULL, ADD `dm_buildtime` INT NOT NULL, ADD `dm_researchtime` INT NOT NULL, ADD `dm_resource` INT NOT NULL, ADD `dm_energie` INT NOT NULL, ADD `dm_fleettime` INT NOT NULL;";
-			$Qry17 = "INSERT INTO ".MODULE."(`id`, `modulo`, `estado`) VALUES (NULL, 'DM-Bank', '1');";
-			$Qry18 = "CREATE TABLE ".PLUGINS."` (`status` tinyint(11) NOT NULL DEFAULT '0',`plugin` varchar(32) NOT NULL) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
-			$Qry19 = "UPDATE ".PLANETS." SET `field_max` = '1' WHERE `planet_type` = 3;";
-			$Qry20 = "ALTER TABLE ".PLANETS." ADD `bahamut` BIGINT( 11 ) NOT NULL DEFAULT '0';;";
-			$Qry21 = "ALTER TABLE ".PLANETS." ADD `orbital_station` BIGINT( 11 ) NOT NULL DEFAULT '0';";
-			$Qry22 = "ALTER TABLE ".PLANETS." ADD `thriller` BIGINT( 11 ) NOT NULL DEFAULT '0';";
-			$Qry23 = "CREATE TABLE ".DIPLO." ( `id` int(11) NOT NULL AUTO_INCREMENT, `owner_1` int(11) NOT NULL, `owner_2` int(11) NOT NULL, `level` tinyint(1) NOT NULL, `accept` tinyint(1) NOT NULL, `accept_text` varchar(255) NOT NULL, PRIMARY KEY (`id`), KEY `owner_1` (`owner_1`,`owner_2`)) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
-			$Qry24 = "ALTER TABLE ".ALLIANCE." ADD `ally_diplo` TINYINT( 1 ) NOT NULL DEFAULT '1';";
-			$Qry25 = "ALTER TABLE ".USERS." ADD `settings_tnstor` TINYINT( 1 ) NOT NULL DEFAULT '1' AFTER `settings_rep`;";
-			$Qry26 = "ALTER TABLE ".USERS." CHANGE `design` `design` TINYINT( 1 ) NOT NULL DEFAULT '1', CHANGE `noipcheck` `noipcheck` TINYINT( 1 ) NOT NULL DEFAULT '1', CHANGE `spio_anz` `spio_anz` TINYINT( 2 ) NOT NULL DEFAULT '1', CHANGE `settings_tooltiptime` `settings_tooltiptime` TINYINT( 1 ) NOT NULL DEFAULT '5', CHANGE `settings_fleetactions` `settings_fleetactions` TINYINT( 1 ) NOT NULL DEFAULT '0', CHANGE `settings_planetmenu` `settings_planetmenu` TINYINT( 1 ) NOT NULL DEFAULT '1', CHANGE `settings_esp` `settings_esp` TINYINT( 1 ) NOT NULL DEFAULT '1', CHANGE `settings_wri` `settings_wri` TINYINT( 1 ) NOT NULL DEFAULT '1', CHANGE `settings_bud` `settings_bud` TINYINT( 1 ) NOT NULL DEFAULT '1';";
-			$Qry27 = "ALTER TABLE ".PLANETS." ADD `university` BIGINT( 11 ) NOT NULL DEFAULT '0';";
-			$Qry28 = "INSERT INTO ".CONFIG." (`config_name`, `config_value`) VALUES ('fb_on', '0'), ('fb_apikey', ''), ('fb_skey', '');";
-			$Qry29 = "ALTER TABLE ".USERS." ADD `fb_id` VARCHAR( 15 ) NOT NULL DEFAULT '0';";
-			$Qry30 = "ALTER TABLE ".USERS." ADD INDEX (`fb_id`);";
-			$Qry31 = "INSERT INTO ".CONFIG." (`config_name`,`config_value`) VALUES ('ga_active', '0'), ('ga_key', '');";
-			switch($_POST['version'])
-			{	
-				case '4.0':
-					makedirs(array('cache/', 'cache/UserBanner/'));
-					$QrysArray = $Qry1.$Qry2.$Qry3.$Qry4.$Qry5.$Qry6.$Qry7.$Qry8.$Qry9.$Qry10.$Qry11.$Qry12.$Qry13.$Qry14.$Qry15.$Qry16.$Qry17.$Qry18.$Qry19.$Qry20.$Qry21.$Qry22.$Qry23.$Qry24.$Qry25.$Qry26.$Qry27.$Qry28.$Qry29.$Qry30.$Qry30.$Qry31;
-				break;	
-				case '4.2':
-					$QrysArray = $Qry1.$Qry2.$Qry5.$Qry6.$Qry7.$Qry8.$Qry9.$Qry10.$Qry11.$Qry12.$Qry13.$Qry14.$Qry15.$Qry16.$Qry17.$Qry18.$Qry19.$Qry20.$Qry21.$Qry22.$Qry23.$Qry24.$Qry25.$Qry26.$Qry27.$Qry28.$Qry29.$Qry30.$Qry30.$Qry31;
-				break;	
-				case '4.3':
-					$QrysArray = $Qry1.$Qry12.$Qry13.$Qry14.$Qry15.$Qry16.$Qry17.$Qry18.$Qry19.$Qry20.$Qry21.$Qry22.$Qry23.$Qry24.$Qry25.$Qry26.$Qry27.$Qry28.$Qry29.$Qry30.$Qry30.$Qry31;
-				break;	
-				case '5.0b1':
-					$QrysArray = $Qry1.$Qry14.$Qry15.$Qry16.$Qry17.$Qry18.$Qry19.$Qry20.$Qry21.$Qry22.$Qry23.$Qry24.$Qry25.$Qry26.$Qry27.$Qry28.$Qry29.$Qry30.$Qry30.$Qry31;
-				break;	
-				case '5.0b2':
-					$QrysArray = $Qry1.$Qry14.$Qry15.$Qry16.$Qry17.$Qry18.$Qry19.$Qry20.$Qry21.$Qry22.$Qry23.$Qry24.$Qry25.$Qry26.$Qry27.$Qry28.$Qry29.$Qry30.$Qry30.$Qry31;
-				break;
-				case '5.0b3':
-					$QrysArray = $Qry1.$Qry18.$Qry19.$Qry20.$Qry21.$Qry22.$Qry23.$Qry24.$Qry25.$Qry26.$Qry27.$Qry28.$Qry29.$Qry30.$Qry30.$Qry31;
-				break;
-				case '5.0b5':
-					$QrysArray = $Qry1.$Qry19.$Qry20.$Qry21.$Qry22.$Qry23.$Qry24.$Qry25.$Qry26.$Qry27.$Qry28.$Qry29.$Qry30.$Qry31;
-				break;
-				case '5.0b6':
-					$QrysArray = $Qry31;
-				break;
-			}	
-			$db->multi_query($QrysArray);
+	case 'convert':
+		if(!file_exists(ROOT_PATH.'config.php') || filesize(ROOT_PATH.'config.php') == 0)
+			message($LNG['convert_install'], '?', 3);
+		
+		if($_POST) {
+			$GLOBALS['database']['host']			= $_POST['host'];
+			$GLOBALS['database']['port']			= $_POST['port'];
+			$GLOBALS['database']['user']			= $_POST['user'];
+			$GLOBALS['database']['userpw']			= $_POST['passwort'];
+			$GLOBALS['database']['databasename']    = $_POST['db'];
+			require_once('class.convert.'.PHP_EXT);
+			new convert($_POST['version'], $_POST['prefix']);
+			message($LNG['convert_done'], '?', 3);
 			
-			message("Upgrade zu 2Moons RC".RCINSTALL_VERSION." erfolgreich!<br><br><a href=\"../index.php\">Zur Startseite</a>", "", "", false, false);
+		} else {
+			$frame  = parsetemplate(gettemplate('install/ins_convert'), $parse);
 		}
-		else
-			$frame = parsetemplate(gettemplate('install/ins_update'), false);
-		break;
 	default:
 }
 $parse['ins_state']    = $Page;

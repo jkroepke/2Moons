@@ -45,5 +45,11 @@ $LNG['step3_admin_mail']	= "Administrator E-Mail Adress:";
 
 
 $LNG['step4_need_fields']	= "You have to fill out all fields!";
+
+$LNG['convert_install']		= "Please execute an installation of 2moons first!";
+$LNG['convert_version']		= "[15:28:45] Inforcer: Choose your current version:";
+$LNG['convert_info']		= "Enter your old database data here!";
+$LNG['convert_submit']		= "Convert to 2Moons";
+$LNG['convert_done']		= "Task executed successfully!";
 		
 ?>
