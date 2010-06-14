@@ -37,8 +37,8 @@
 					<option label="XG Proyecto 2.9.4" value="xgp">XG Proyecto 2.9.4</option>
 				</optgroup>
 				<optgroup label="XNova SVN">
-					<option label="XNova SVN v2.0" value="xsvn">XNova SVN v2.0</option>
-					<option label="XNova SVN v2.1" value="xsvn">XNova SVN v2.1</option>
+					<option label="XNova SVN v2.0" value="xsvn20">XNova SVN v2.0</option>
+					<option label="XNova SVN v2.1" value="xsvn21">XNova SVN v2.1</option>
 				</optgroup><!-- 
 				<optgroup label="Spacebeginners">
 					<option label="Spacebeginners v3" value="sb3">Spacebeginners v3</option>

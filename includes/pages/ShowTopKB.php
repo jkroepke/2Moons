@@ -34,7 +34,20 @@ function ShowTopKB()
 			$template->page_footer();
 			
 			$ReportID 	= request_var('rid','');
-			$RaportRAW 	= $db->uniquequery("SELECT * FROM ".TOPKB." WHERE `rid` = '".$db->sql_escape($ReportID)."';");
+			if(file_exists(ROOT_PATH.'raports/topkb_'.$RID.'.php')) {
+				require_once(ROOT_PATH.'raports/topkb_'.$RID.'.php');
+			} else {
+				
+				$RaportRAW 	= $db->uniquequery("SELECT * FROM ".TOPKB." WHERE `rid` = '".$db->sql_escape($ReportID)."';");
+
+				$raport = stripslashes($raportrow["raport"]);
+				foreach ($LNG['tech_rc'] as $id => $s_name)
+				{
+					$str_replace1  	= array("[ship[".$id."]]");
+					$str_replace2  	= array($s_name);
+					$raport 		= str_replace($str_replace1, $str_replace2, $report);
+				}
+			}
 			
 			foreach ($LNG['tech_rc'] as $id => $s_name)
 			{
@@ -45,7 +58,7 @@ function ShowTopKB()
 			$template->assign_vars(array(
 				'attacker'	=> $RaportRAW['angreifer'],
 				'defender'	=> $RaportRAW['defender'],
-				'report'	=> stripslashes(str_replace($ship, $shipname, $RaportRAW["raport"])),
+				'report'	=> $raport,
 			));
 			
 			$template->show("topkb_report.tpl");
