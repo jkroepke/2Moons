@@ -163,7 +163,7 @@ class ShowShipyardPage
 			{
 				$Element = in_array($Element, $reslist['fleet']) ? $Element : NULL;
 				$Count	= is_numeric($Count) ? $Count : 0;
-				$Count 	= min($Count, MAX_FLEET_OR_DEFS_PER_ROW);
+				$Count 	= max(min($Count, MAX_FLEET_OR_DEFS_PER_ROW), 0);
 				if(empty($Element) || empty($Count) || !IsTechnologieAccessible ($USER, $PLANET, $Element))
 					continue;
 					
@@ -327,7 +327,7 @@ class ShowShipyardPage
 			{
 				$Element 	= in_array($Element, $reslist['defense']) ? $Element : NULL;
 				$Count		= is_numeric($Count) ? $Count : 0;
-				$Count 		= min($Count, MAX_FLEET_OR_DEFS_PER_ROW);
+				$Count 		= max(min($Count, MAX_FLEET_OR_DEFS_PER_ROW), 0);
 				
 				if(empty($Element) || empty($Count) || !IsTechnologieAccessible($USER, $PLANET, $Element))
 					continue;
