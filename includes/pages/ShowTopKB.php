@@ -32,6 +32,8 @@ function ShowTopKB()
 		case "showkb":
 			$template->page_header();
 			$template->page_footer();
+
+			includeLang('FLEET');	
 			
 			$ReportID 	= request_var('rid','');
 			if(file_exists(ROOT_PATH.'raports/topkb_'.$ReportID.'.php')) {
