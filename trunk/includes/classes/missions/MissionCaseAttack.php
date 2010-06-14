@@ -229,7 +229,7 @@ class MissionCaseAttack extends MissionFunctions
 		$rid		= md5(microtime(true).mt_rand(1,100));
 	
 		file_put_contents(ROOT_PATH.'raports/raport_'.$rid.'.php', '<?php'."\n".'$raport = '.$raport.';'."\n".'?>');
-		file_put_contents(ROOT_PATH.'raports/topkb_'.$rid.'.php', '<?php'."\n".'$raport = '.$raport.';'."\n".'?>');
+		file_put_contents(ROOT_PATH.'raports/topkb_'.$rid.'.php', '<?php'."\n".'$raport = '.preg_replace("/\[(\d+)\:(\d+)\:(\d+)\]/i", "[X:X:X]", $raport).';'."\n".'?>');
 		
 		$WhereAtt = "";
 		$WhereDef = "";
@@ -281,7 +281,7 @@ class MissionCaseAttack extends MissionFunctions
 		$SQLQuery .= "`defender` = '".implode(' & ', $Defender['name'])."', ";
 		$SQLQuery .= "`gesamtunits` = '".floattostring($result['lost']['att'] + $result['lost']['def'])."', ";
 		$SQLQuery .= "`rid` = '". $rid ."', ";
-		$SQLQuery .= "`raport` = '". $db->sql_escape(preg_replace("/\[(\d+)\:(\d+)\:(\d+)\]/i", "[X:X:X]", $raport)) ."',";
+		$SQLQuery .= "`raport` = '',";
 		$SQLQuery .= "`fleetresult` = '". $result['won'] ."';";		
 		$SQLQuery .= "UPDATE ".USERS." SET ";
         $SQLQuery .= "`wons` = wons + ".$Won.", ";
