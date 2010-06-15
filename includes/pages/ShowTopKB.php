@@ -38,8 +38,8 @@ function ShowTopKB()
 			$ReportID 	= request_var('rid','');
 			if(file_exists(ROOT_PATH.'raports/topkb_'.$ReportID.'.php')) {
 				require_once(ROOT_PATH.'raports/topkb_'.$ReportID.'.php');
+				$RaportRAW 	= $db->uniquequery("SELECT `angreifer`, `defender` FROM ".TOPKB." WHERE `rid` = '".$db->sql_escape($ReportID)."';");
 			} else {
-				
 				$RaportRAW 	= $db->uniquequery("SELECT * FROM ".TOPKB." WHERE `rid` = '".$db->sql_escape($ReportID)."';");
 				$raport = stripslashes($RaportRAW['raport']);
 
