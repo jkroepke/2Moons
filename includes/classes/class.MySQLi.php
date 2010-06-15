@@ -232,15 +232,6 @@ class DB_mysqli extends mysqli
 	{
 		return $this->mysqli->insert_id;
 	}
-	/**
-	 * Returns the last inserted id of a table.
-	 *
-	 * @return integer	The last inserted id
-	 */
-	public function error()
-	{
-		return $this->mysqli->error;
-	}
 
 	/**
 	 * Escapes a string for a safe SQL query.
@@ -308,29 +299,28 @@ class DB_mysqli extends mysqli
 		return $resource->close();
 	}
 	
-	public function multi_query($resource, $clear_result_cache = true)
+	public function multi_query($resource)
 	{	
 		$Timer	= microtime(true);
 		if(parent::multi_query($resource))
 		{
-			if ($clear_result_cache) {
-				do {
-					if($result = parent::store_result())
-					{
-						$this->free_result($result);
-						$this->queryCount++;
-					}
-					if(!parent::more_results()){break;}
+			do {
+			    if ($result = parent::store_result())
+					$result->free();
+				
+				$this->queryCount++;
 					
-				} while (parent::next_result());
-			
-			}
+				if(!parent::more_results()){break;}
+					
+				} while (parent::next_result());		
 		}
-		else
+		
+		$this->time	+= (microtime(true) - $Timer);
+	
+		if ($this->errno)
 		{
 			throw new Exception("SQL Error: ".$this->error."<br /><br />Query Code: ".$resource);
-    	}
-		$this->time	+= (microtime(true) - $Timer);
+		}
 	}
 	
 	public function get_sql()

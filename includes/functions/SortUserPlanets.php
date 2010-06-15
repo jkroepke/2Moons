@@ -27,7 +27,7 @@ function SortUserPlanets ($CurrentUser)
 	$Order = ( $CurrentUser['planet_sort_order'] == 1 ) ? "DESC" : "ASC" ;
 	$Sort  = $CurrentUser['planet_sort'];
 
-	$QryPlanets  = "SELECT `id`, `name`, `galaxy`, `system`, `planet`, `planet_type`, `image`, `b_building`, `b_building_id` FROM ".PLANETS." WHERE `id_owner` = '". $CurrentUser['id'] ."' AND `destruyed` = 0 ORDER BY ";
+	$QryPlanets  = "SELECT `id`, `name`, `galaxy`, `system`, `planet`, `planet_type`, `image`, `b_building`, `b_building_id` FROM ".PLANETS." WHERE `id_owner` = '". $CurrentUser['id'] ."' AND `destruyed` = '0' ORDER BY ";
 
 	if($Sort == 0)
 		$QryPlanets .= "`id` ". $Order;
