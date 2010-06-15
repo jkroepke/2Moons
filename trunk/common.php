@@ -86,8 +86,6 @@ if (INSTALL != true)
 	$CONF['alllangs']	= GetLangs();
 	define('VERSION'		, 'RC'.$CONF['VERSION']);
 
-	@setlocale(LC_ALL, $LNG['local_info'][0], $LNG['local_info'][1], $LNG['local_info'][2]);
-	$LNG['locale'] = localeconv();
 	if (!defined('LOGIN') && !defined('IN_CRON'))
 	{
 		require_once(ROOT_PATH . 'includes/classes/class.CheckSession.'.PHP_EXT);
