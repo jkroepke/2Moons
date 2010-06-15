@@ -516,11 +516,7 @@ function exception_handler($exception) {
 function SendSimpleMessage($Owner, $Sender, $Time, $Type, $From, $Subject, $Message, $Unread = 1)
 {
 	global $db;
-	if (empty($Time))
-		$Time = TIMESTAMP;
-
-	$db->query("INSERT INTO ".MESSAGES." SET `message_owner` = '". $Owner ."', `message_sender` = '". $Sender ."', `message_time` = '" . $Time . "', `message_type` = '". $Type ."', `message_from` = '". $db->sql_escape($From) ."', `message_subject` = '". $db->sql_escape($Subject) ."', `message_text` = '".$db->sql_escape($Message)."', `message_unread` = '".$Unread."';");
-	$db->query("UPDATE ".USERS." SET `new_message` = `new_message` + 1".(($Owner != 0) ? " WHERE `id` = '".$Owner."'" : "").";");
+	$db->multi_query("UPDATE ".USERS." SET `new_message` = `new_message` + 1".(($Owner != 0) ? " WHERE `id` = '".$Owner."'" : "").";INSERT INTO ".MESSAGES." SET `message_owner` = '".$Owner."', `message_sender` = '".$Sender."', `message_time` = '".((empty($Time)) ? TIMESTAMP : $Time)."', `message_type` = '".$Type."', `message_from` = '". $db->sql_escape($From) ."', `message_subject` = '". $db->sql_escape($Subject) ."', `message_text` = '".$db->sql_escape($Message)."', `message_unread` = '".$Unread."';");
 }
 	
 function shortly_number($number)

@@ -488,6 +488,8 @@ $LNG['mg_message']							= 'Message';
 $LNG['mg_characters']						= 'Characters';
 $LNG['mg_send']							= 'Send';
 $LNG['mg_game_message']					= 'Game Message';
+$LNG['mg_message_send']			= 'Message sended!';
+$LNG['mg_empty_text']				= 'Enter a Text';
 
 //----------------------------------------------------------------------------//
 //ALLIANCE
@@ -814,6 +816,8 @@ $LNG['op_deactivate_ipcheck_descrip']		= 'IP check means that a security logout 
 $LNG['op_spy_probes_number_descrip']		= 'Number of espionage probes that can be sent directly from each scan in the Galaxy menu.';
 $LNG['op_activate_vacation_mode_descrip']	= 'Vacation mode will protect you during long absences. It can only be activated if nothing is being built (fleet, building, or defense), nothing is being researched, and none of your fleets are underway. Once it is activated, you are protected from new attacks. Attacks that have already started will be carried out. During vacation mode, production is set to zero and must be manually returned to 100 % after vacation mode ends. Vacation mode lasts a minimum of two days and can only be deactivated after this time.';
 $LNG['op_dlte_account_descrip']			= 'If you mark this box, your account will be deleted automatically after 7 days.';
+$LNG['op_not_vaild_mail']					= 'You have not entered a valid eMail addy!';
+$LNG['op_change_mail_exist']				= 'The entered eMail %s is already in use!';
 $LNG['op_sort_normal']						= 'Order of creation';
 $LNG['op_sort_koords']						= 'Coordinates';
 $LNG['op_sort_abc']						= 'Alphabet';
