@@ -23,10 +23,9 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 
 class GalaxyRows
 {
-	private function GetMissileRange()
+	public function GetMissileRange($Level)
 	{
-		global $resource, $USER;
-		return max(($USER[$resource[117]] * 5) - 1, 0);
+		return max(($Level * 5) - 1, 0);
 	}
 
 	public function GetPhalanxRange($PhalanxLevel)
@@ -40,7 +39,7 @@ class GalaxyRows
 
 		if ($PLANET[$resource[503]] > 0 && $GalaxyRowPlanet['galaxy'] == $PLANET['galaxy'])
 		{
-			$Range = $this->GetMissileRange();
+			$Range = $this->GetMissileRange($USER[$resource[117]]);
 			$SystemLimitMin = max($PLANET['system'] - $Range, 1);
 			$SystemLimitMax = $PLANET['system'] + $Range;
 			if ($GalaxyRowPlanet['system'] <= $SystemLimitMax && $GalaxyRowPlanet['system'] >= $SystemLimitMin)
@@ -126,7 +125,7 @@ class GalaxyRows
 
 		if ($PLANET[$resource[503]] > 0 && $GalaxyRowPlanet['userid'] != $USER['id'] && $GalaxyRowPlanet["galaxy"] == $PLANET['galaxy'])
 		{
-			$MiRange 		= $this->GetMissileRange();
+			$MiRange 		= $this->GetMissileRange($USER[$resource[117]]);
 			$SystemLimitMin = max(1, $PLANET['system'] - $MiRange);
 			$SystemLimitMax = $PLANET['system'] + $MiRange;
 			$MissileBtn 	= ($GalaxyRowPlanet['system'] <= $SystemLimitMax && $GalaxyRowPlanet['system'] >= $SystemLimitMin) ? true : false;

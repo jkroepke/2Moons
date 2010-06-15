@@ -179,9 +179,9 @@ function colorGreen($n)
 	return '<font color="#00ff00">' . $n . '</font>';
 }
 
-function pretty_number($n, $floor = true)
+function pretty_number($n)
 {
-	return number_format(($floor) ? floattostring($n) : $n, 0, (!empty($GLOBALS['lang']['locale']['decimal_point']) ? $GLOBALS['lang']['locale']['decimal_point'] : ","), (!empty($GLOBALS['lang']['locale']['thousands_sep']) ? $GLOBALS['lang']['locale']['thousands_sep'] : "."));
+	return number_format(floattostring($n), 0, ',', '.');
 }
 
 function set_var(&$result, $var, $type, $multibyte = false)

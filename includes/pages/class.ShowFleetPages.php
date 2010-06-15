@@ -943,7 +943,7 @@ class ShowFleetPages extends FleetFunctions
 
 	public static function MissilesAjax()
 	{	
-		global $USER, $PLANET, $LNG, $CONF, $db, $reslist;
+		global $USER, $PLANET, $LNG, $CONF, $db, $reslist, $resource;
 	
 		include_once(ROOT_PATH . 'includes/functions/IsVacationMode.' . PHP_EXT);
 		
@@ -955,18 +955,21 @@ class ShowFleetPages extends FleetFunctions
 		$pziel 				= request_var('Target',"");
 		
 		$PlanetRess 		= new ResourceUpdate($USER, $PLANET);
-
+		$Target 			= $db->uniquequery("SELECT `id_owner`, `id_level` FROM ".PLANETS." WHERE `galaxy` = '".$TargetGalaxy."' AND `system` = '".$TargetSystem."' AND `planet` = '".$TargetPlanet."' AND `planet_type` = '1';");
+		
 		$Distance			= abs($TargetSystem - $PLANET['system']);
-		$tempvar2 			= ($USER['impulse_motor_tech'] * 2) - 1;
-		$Target 			= $db->fetch_array($db->query("SELECT id_owner, id_level FROM ".PLANETS." WHERE galaxy = ".$TargetGalaxy." AND system = ".$TargetSystem." AND planet = ".$TargetPlanet." AND planet_type = 1 limit 1;"));
-
+		
+		require_once(ROOT_PATH.'includes/classes/class.GalaxyRows.'.PHP_EXT);
+		
+		$GalaxyRows	= new GalaxyRows();
+		
 		if (IsVacationMode($USER))
 			$error = $LNG['fl_vacation_mode_active'];
 		elseif ($PLANET['silo'] < 4)
 			$error = $LNG['ma_silo_level'];
 		elseif ($USER['impulse_motor_tech'] == 0)
 			$error = $LNG['ma_impulse_drive_required'];
-		elseif ($Distance >= $tempvar2 || $TargetGalaxy != $PLANET['galaxy'])
+		elseif ($TargetGalaxy != $PLANET['galaxy'] || $Distance > $GalaxyRows->GetMissileRange($USER[$resource[117]]))
 			$error = $LNG['ma_not_send_other_galaxy'];
 		elseif (!$Target)
 			$error = $LNG['ma_planet_doesnt_exists'];
@@ -1006,7 +1009,7 @@ class ShowFleetPages extends FleetFunctions
 		$SpeedFactor    	 = parent::GetGameSpeedFactor();
 		$Duration 			 = max(round((30 + (60 * $Distance)/$SpeedFactor)),30);
 
-		$DefenseLabel = ($pziel == 0) ? $LNG['ma_all'] : $LNG['tech'][$pziel];
+		$DefenseLabel 		 = ($pziel == 0) ? $LNG['ma_all'] : $LNG['tech'][$pziel];
 
 		$sql = "INSERT INTO ".FLEETS." SET
 				fleet_owner = '".$USER['id']."',
