@@ -145,7 +145,6 @@ class ShowOptionsPage
 					$urlaubs_modus = "0";
 
 				$SQLQuery	.=  "UPDATE ".USERS." SET
-								`email` = '".$db_email."',
 								`dpath` = '".$db->sql_escape($dpath)."',
 								`design` = '".$design."',
 								`noipcheck` = '".$noipcheck."',
@@ -172,32 +171,48 @@ class ShowOptionsPage
 					else
 						$SQLQuery	.= "UPDATE ".PLANETS." SET `id_level` = '0' WHERE `id_owner` = '".$USER['id']."';";
 				}
+								
+				if (!empty($db_email) && md5($db_password) == $USER["password"])
+				{
+					if(!ValidateAddress($db_email)) {
+						$template->message($LNG['op_not_vaild_mail'], "game.php?page=options", 3)
+						exit;
+					}
 				
+					$query = $db->uniquequery("SELECT id FROM ".USERS." WHERE email = '".$db->sql_escape($db_email)."' OR email_2 = '".$db->sql_escape($db_email)."';");
+
+					if (!empty($query)) {
+						$template->message(sprintf($LNG['op_change_mail_exist'], $db_email), "game.php?page=options", 3)
+						exit;
+					}
+					
+					$SQLQuery	.= "UPDATE ".USERS." SET `email` = '".$db->sql_escape($db_email)."', `setmail` = '".(TIMESTAMP + 604800)."' WHERE `id` = '".$USER['id']."';";
+				}				
 				
 				if (!empty($newpass1) && md5($db_password) == $USER["password"] && $newpass1 == $newpass2)
 				{
 					$newpass 	 = md5($newpass1);
 					$SQLQuery	.= "UPDATE ".USERS." SET `password` = '".$newpass."' WHERE `id` = '".$USER['id']."';";
 					session_destroy();
-					$template->message($LNG['op_password_changed'],"index.php",1);
+					$template->message($LNG['op_password_changed'],"index.php", 3);
 				}
 				elseif ($USER['username'] != $USERname)
 				{
 					if (!CheckName($USERname))
-						$template->message($LNG['op_user_name_no_alphanumeric'], "game.php?page=options", 1);
+						$template->message($LNG['op_user_name_no_alphanumeric'], "game.php?page=options", 3);
 					elseif($USER['uctime'] >= TIMESTAMP - (60 * 60 * 24 * 7))
-						$template->message($LNG['op_change_name_pro_week'], "game.php?page=options", 1);
+						$template->message($LNG['op_change_name_pro_week'], "game.php?page=options", 3);
 					else
 					{
 						$query = $db->uniquequery("SELECT id FROM ".USERS." WHERE username='".$db->sql_escape($USERname)."';");
 						
 						if (!empty($query))
-							$template->message(sprintf($LNG['op_change_name_exist'], $USERname), "game.php?page=options", 1);
+							$template->message(sprintf($LNG['op_change_name_exist'], $USERname), "game.php?page=options", 3);
 						else 
 						{
 							$SQLQuery	.= "UPDATE ".USERS." SET `username` = '".$db->sql_escape($USERname)."', `uctime` = '".TIMESTAMP."' WHERE `id`= '".$USER['id']."';";
 							session_destroy();
-							$template->message($LNG['op_username_changed'], "index.php", 1);
+							$template->message($LNG['op_username_changed'], "index.php", 3);
 						}
 					}
 				}

@@ -495,6 +495,8 @@ $LNG['mg_message']							= 'Nachricht';
 $LNG['mg_characters']						= 'Zeichen';
 $LNG['mg_send']							= 'Absenden';
 $LNG['mg_game_message']					= 'Game Message';
+$LNG['mg_message_send']			= 'Nachricht gesendet!';
+$LNG['mg_empty_text']				= 'Gebe ein Text ein!';
 
 //----------------------------------------------------------------------------//
 //ALLIANCE
@@ -821,6 +823,8 @@ $LNG['op_deactivate_ipcheck_descrip']		= 'IP-Check bedeutet, dass automatisch ei
 $LNG['op_spy_probes_number_descrip']		= 'Anzahl der Spionagesonden, die bei jedem Scan aus dem Galaxiemenu direkt versendet werden.';
 $LNG['op_activate_vacation_mode_descrip']	= 'Der Urlaubsmodus soll während längerer Abwesenheitszeiten schützen. Man kann ihn nur aktivieren, wenn nichts gebaut und geforscht wird und auch keine eigenen Flotten unterwegs sind. Ist er aktiviert, schützt er euch vor neuen Angriffen, bereits begonnene Angriffe werden jedoch fortgesetzt. Während des Urlaubsmodus wird die Produktion auf Null gesetzt und muss nach Beenden des Urlaubsmodus manüll wieder auf 100% gesetzt werden. Der Urlaubsmodus Dauert mindestens 2 Tage, erst danach könnt ihr ihn wieder deaktivieren.';
 $LNG['op_dlte_account_descrip']			= 'Wenn du hier ein Hacken setzt, wird dein Account nach 7 Tagen automatisch komplett gelöscht.';
+$LNG['op_not_vaild_mail']					= 'Du hast keine gültige E-Mail Adresse angegeben!';
+$LNG['op_change_mail_exist']				= 'Die angegebende E-Mail Adresse %s wird bereits verwendet!';
 $LNG['op_sort_normal']						= 'Reihenfolge der Entstehung';
 $LNG['op_sort_koords']						= 'Koordinaten';
 $LNG['op_sort_abc']						= 'Alphabet';

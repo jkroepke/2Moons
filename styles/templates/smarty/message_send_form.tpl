@@ -3,13 +3,14 @@
 
 function check(){
 	if(document.message.text.value == '') {
-		alert('Gebe einen Text ein!');
+		alert('{$mg_empty_text}');
 		return false;
 	} else {
-		$.post('game.php?page=messages&mode=write&id={$id}&send=1&ajax=1', $('#message').serialize());
-		alert('Nachricht gesendet');
-		window.close();
-		return true;
+		$.post('game.php?page=messages&mode=write&id={$id}&send=1&ajax=1', $('#message').serialize(), function(data) {
+			alert(data);
+			window.close();
+			return true;
+		});
 	}
 }
 </script>

@@ -514,6 +514,7 @@ CREATE TABLE IF NOT EXISTS `prefix_users` (
   `lostunits` bigint(20) NOT NULL DEFAULT '0',
   `desunits` bigint(20) NOT NULL DEFAULT '0',
   `uctime` int(11) NOT NULL DEFAULT '0',
+  `setmail` int(11) NOT NULL DEFAULT '0',
   `dm_attack` int(11) NOT NULL DEFAULT '0',
   `dm_defensive` int(11) NOT NULL DEFAULT '0',
   `dm_buildtime` int(11) NOT NULL DEFAULT '0',

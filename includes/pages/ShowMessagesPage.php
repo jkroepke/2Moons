@@ -29,8 +29,8 @@ function ShowMessagesPage()
 	$MessPageMode  	= request_var('mode', '');
 	$DeleteWhat    	= request_var('deletemessages','');
 	$Send 		  	= request_var('send',0);
-	$OwnerID       	= request_var('id',0);
-	$Subject 		= request_var('subject','',true);
+	$OwnerID       	= request_var('id', 0);
+	$Subject 		= request_var('subject', '', true);
 	
 	$MessageType   	= array ( 0, 1, 2, 3, 4, 5, 15, 50, 99, 100, 999);
 	$TitleColor    	= array ( 0 => '#FFFF00', 1 => '#FF6699', 2 => '#FF3300', 3 => '#FF9900', 4 => '#773399', 5 => '#009933', 15 => '#6495ed', 50 => '#666600', 99 => '#007070', 100 => '#ABABAB', 999 => '#CCCCCC');
@@ -50,10 +50,10 @@ function ShowMessagesPage()
 			if ($Send)
 			{
 				$Owner   = $OwnerID;
-				$Message = makebr(request_var('text','',true));
-				$Sender  = $USER['id'];
-				$From    = $USER['username'] ." [".$USER['galaxy'].":".$USER['system'].":".$USER['planet']."]";
-				SendSimpleMessage($Owner, $Sender, '', 1, $From, $Subject, $Message);
+				$Message = makebr(request_var('text', '', true));
+				$From    = $USER['username'].' ['.$USER['galaxy'].':'.$USER['system'].':'.$USER['planet'].']';
+				SendSimpleMessage($OwnerID, $USER['id'], '', 1, $From, $Subject, $Message);
+				exit($LNG['mg_message_send']);
 			}
 
 			$template->assign_vars(array(	
@@ -63,6 +63,7 @@ function ShowMessagesPage()
 				'mg_message'	=> $LNG['mg_message'],
 				'mg_characters'	=> $LNG['mg_characters'],
 				'mg_subject'	=> $LNG['mg_subject'],
+				'mg_empty_text'	=> $LNG['mg_empty_text'],
 				'subject'		=> (empty($Subject)) ? $LNG['mg_no_subject'] : $Subject,
 				'id'			=> $OwnerID,
 				'username'		=> $OwnerRecord['username'],
