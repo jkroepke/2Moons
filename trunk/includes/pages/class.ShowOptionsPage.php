@@ -175,14 +175,14 @@ class ShowOptionsPage
 				if (!empty($db_email) && md5($db_password) == $USER["password"])
 				{
 					if(!ValidateAddress($db_email)) {
-						$template->message($LNG['op_not_vaild_mail'], "game.php?page=options", 3)
+						$template->message($LNG['op_not_vaild_mail'], "game.php?page=options", 3);
 						exit;
 					}
 				
 					$query = $db->uniquequery("SELECT id FROM ".USERS." WHERE email = '".$db->sql_escape($db_email)."' OR email_2 = '".$db->sql_escape($db_email)."';");
 
 					if (!empty($query)) {
-						$template->message(sprintf($LNG['op_change_mail_exist'], $db_email), "game.php?page=options", 3)
+						$template->message(sprintf($LNG['op_change_mail_exist'], $db_email), "game.php?page=options", 3);
 						exit;
 					}
 					
