@@ -161,14 +161,15 @@ class ShowShipyardPage
 				
 			foreach($fmenge as $Element => $Count)
 			{
-				$Element = in_array($Element, $reslist['fleet']) ? $Element : NULL;
-				$Count	= is_numeric($Count) ? $Count : 0;
-				$Count 	= max(min($Count, MAX_FLEET_OR_DEFS_PER_ROW), 0);
+				$Element 		= in_array($Element, $reslist['fleet']) ? $Element : NULL;
+				$Count			= is_numeric($Count) ? $Count : 0;
+				$Count 			= max(min($Count, MAX_FLEET_OR_DEFS_PER_ROW), 0);
+				$MaxElements 	= $this->GetMaxConstructibleElements($Element);
+				$Count		 	= min($MaxElements, $Count);
+				
 				if(empty($Element) || empty($Count) || !IsTechnologieAccessible ($USER, $PLANET, $Element))
 					continue;
 					
-				$MaxElements = $this->GetMaxConstructibleElements($Element);
-				$Count		 = min($MaxElements, $Count);
 				$Ressource 	 = $this->GetElementRessources($Element, $Count);
 				$PLANET['metal']	 -= $Ressource['metal'];
 				$PLANET['crystal']   -= $Ressource['crystal'];
@@ -325,14 +326,14 @@ class ShowShipyardPage
 
 			foreach($fmenge as $Element => $Count)
 			{
-				$Element 	= in_array($Element, $reslist['defense']) ? $Element : NULL;
-				$Count		= is_numeric($Count) ? $Count : 0;
-				$Count 		= max(min($Count, MAX_FLEET_OR_DEFS_PER_ROW), 0);
+				$Element 		= in_array($Element, $reslist['defense']) ? $Element : NULL;
+				$Count			= is_numeric($Count) ? $Count : 0;
+				$Count 			= max(min($Count, MAX_FLEET_OR_DEFS_PER_ROW), 0);	
+				$MaxElements	= $this->GetMaxConstructibleElements($Element);
 				
-				if(empty($Element) || empty($Count) || !IsTechnologieAccessible($USER, $PLANET, $Element))
+				if(empty($Element) || empty($Count) || empty($MaxElements) || !IsTechnologieAccessible($USER, $PLANET, $Element))
 					continue;
-					
-				$MaxElements = $this->GetMaxConstructibleElements($Element);
+				
 				if ($Element == 502 || $Element == 503)
 				{
 					$ActuMissiles  = $Missiles[502] + ( 2 * $Missiles[503] );

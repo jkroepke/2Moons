@@ -204,7 +204,6 @@ class MissionCaseAttack extends MissionFunctions
 		$MoonChance       	= min(round(bcdiv($FleetDebris, "100000") * MOON_CHANCE_FACTOR, 0), 20);
 		$UserChance 		= mt_rand(1, 100);
 		
-		var_dump(array($MoonChance, $UserChance));
 		if ($targetPlanet['planet_type'] == 1 && $targetPlanet['id_luna'] == 0 && $MoonChance > 0 && $UserChance <= $MoonChance)
 		{		
 			require_once(ROOT_PATH.'includes/functions/CreateOneMoonRecord.'.PHP_EXT);

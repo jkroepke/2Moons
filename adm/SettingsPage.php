@@ -254,7 +254,7 @@ function DisplayGameSettingsPage ( $CurrentUser )
 		}	
 
 		LogFunction($Log, "ConfigLog", $AreLog);
-		var_dump($CONF['ftp_user_pass']);
+		
 		update_config('noobprotectiontime'		, $CONF['noobprotectiontime']	 );
 		update_config('noobprotectionmulti'		, $CONF['noobprotectionmulti']	 );
 		update_config('noobprotection'			, $CONF['noobprotection']		 );
