@@ -314,18 +314,21 @@ class ShowFleetPages extends FleetFunctions
 		$MisInfo['CurrentUser']		= $USER;
 		
 		$MissionOutput	 			= parent::GetFleetMissions($MisInfo);
+		
 		if(empty($MissionOutput))
 		{
 			$template->message("<font color=\"red\"><b>". $LNG['fl_empty_target']."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
 			exit;
 		}
+		
 		$GameSpeedFactor   		 	= parent::GetGameSpeedFactor();		
 		$FleetSpeed  				= parent::GetFleetMaxSpeed($FleetArray, $USER);
 		$MaxFleetSpeed				= ($FleetSpeed / 10) * $GenFleetSpeed;
 		$distance      				= parent::GetTargetDistance($PLANET['galaxy'], $TargetGalaxy, $PLANET['system'], $TargetSystem, $PLANET['planet'], $TargetPlanet);
 		$duration      				= parent::GetMissionDuration($GenFleetSpeed, $MaxFleetSpeed, $distance, $GameSpeedFactor, $USER);
 		$consumption				= parent::GetFleetConsumption($FleetArray, $duration, $distance, $MaxFleetSpeed, $USER, $GameSpeedFactor);
- 		if($consumption > $PLANET['deuterium'])
+ 		
+		if($consumption > $PLANET['deuterium'])
 		{
 			$template->message("<font color=\"red\"><b>". sprintf($LNG['fl_no_enought_deuterium'], $LNG['Deuterium'], pretty_number($PLANET['deuterium'] - $consumption), $LNG['Deuterium'])."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
 			exit;
@@ -351,9 +354,6 @@ class ShowFleetPages extends FleetFunctions
 			'StaySelector' 					=> $MissionOutput['StayBlock'],
 			'fl_mission'					=> $LNG['fl_mission'],
 			'fl_resources'					=> $LNG['fl_resources'],
-			'Metal'							=> $LNG['Metal'],
-			'Crystal'						=> $LNG['Crystal'],
-			'Deuterium'						=> $LNG['Deuterium'],
 			'fl_max'						=> $LNG['fl_max'],
 			'fl_resources_left'				=> $LNG['fl_resources_left'],
 			'fl_all_resources'				=> $LNG['fl_all_resources'],
