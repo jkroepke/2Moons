@@ -84,10 +84,19 @@ class ShowBuildingsPage
 			$PLANET['b_building']    	= 0;
 			$PLANET['b_building_id'] 	= '';
 		} else {
-			$BuildArray   				= explode (",", $QueueArray[0]);
+			$BuildEndTime	= TIMESTAMP;
+			foreach($QueueArray as $ID => $Elements)
+			{
+				$ListIDArray        = explode(',', $Elements);
+				$BuildEndTime       += $ListIDArray[2];
+				$ListIDArray[3]		= $BuildEndTime;
+				$NewQueueArray[]	= implode(',', $ListIDArray);				
+			}
+			
+			$BuildArray   				= explode (",", $NewQueueArray[0]);
 			$PLANET['b_building']    	= $BuildArray[3];
-			$PLANET['b_building_id'] 	= implode(";", $QueueArray);
-			list($USER, $PLANET)	= $PlanetRess->SetNextQueueElementOnTop($USER, $PLANET);
+			$PLANET['b_building_id'] 	= implode(";", $NewQueueArray);
+			list($USER, $PLANET)		= $PlanetRess->SetNextQueueElementOnTop($USER, $PLANET);
 		}
 		
 		return $ReturnValue;
