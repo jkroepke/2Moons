@@ -52,7 +52,7 @@ class MissionCaseMIP extends MissionFunctions
 		}
 
 		$message 			= "";
-		$sql 				= "";
+		$SQL 				= "";
 			
 		$LNG				= $this->GetUserLang(0);
 		$LNG				+= $this->GetUserLang(0, 'TECH');
@@ -62,7 +62,7 @@ class MissionCaseMIP extends MissionFunctions
 		{
 			$message 	= $LNG['sys_irak_no_att'];
 			$x 		 	= $resource[502];
-			$sql .= "UPDATE ".PLANETS." SET " . $x . " = " . $x . "-" . $this->_fleet['fleet_amount'] . " WHERE id = " . $TargetInfo['id'].";";
+			$SQL .= "UPDATE ".PLANETS." SET " . $x . " = " . $x . "-" . $this->_fleet['fleet_amount'] . " WHERE id = " . $TargetInfo['id'].";";
 		}
 		else
 		{
@@ -75,14 +75,18 @@ class MissionCaseMIP extends MissionFunctions
 			$irak 	= calculateMIPAttack($TargetInfo["defence_tech"], $OwnerInfo["military_tech"], $this->_fleet['fleet_amount'], $TargetDefensive, $Target, $TargetInfo[$resource[502]]);
 			ksort($irak, SORT_NUMERIC);
 			$Count = 0;
-			foreach ($irak as $id => $destroy)
+			foreach ($irak as $Element => $destroy)
 			{
+				if(empty($resource[$Element]))
+					continue;
+
 				if ($id != 502)
 					$message .= $LNG['tech'][$id] . " (- " . $destroy . ")<br>";
+				
+				if ($destroy == 0)
+					continue;
 
-				$x 		= $resource[$id];
-				$x1 	= $x ."-". ;
-				$sql 	.= "UPDATE ".PLANETS." SET `".$x." = ".$x." - '".$destroy."' WHERE id = ".$TargetInfo['id'].";";
+				$SQL 	.= "UPDATE ".PLANETS." SET `".$resource[$Element]." = ".$resource[$Element]." - '".$destroy."' WHERE id = ".$TargetInfo['id'].";";
 			}
 		}
 				
@@ -93,8 +97,8 @@ class MissionCaseMIP extends MissionFunctions
 	
 		SendSimpleMessage($this->_fleet['fleet_owner'], '', $this->_fleet['fleet_start_time'], 3, $LNG['sys_mess_tower'], $LNG['sys_irak_subject'] , $Message);
 		SendSimpleMessage($TargetInfo['id_owner'], '', $this->_fleet['fleet_start_time'], 3, $LNG['sys_mess_tower'], $LNG['sys_irak_subject'] , $Message);
-		$sql				.= "DELETE FROM ".FLEETS." WHERE fleet_id = '" . $this->_fleet['fleet_id'] . "';";
-		$db->multi_query($sql);
+		$SQL				.= "DELETE FROM ".FLEETS." WHERE fleet_id = '" . $this->_fleet['fleet_id'] . "';";
+		$db->multi_query($SQL);
 	}
 	
 	function EndStayEvent()
