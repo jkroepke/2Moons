@@ -77,7 +77,7 @@ class MissionCaseMIP extends MissionFunctions
 			$Count = 0;
 			foreach ($irak as $Element => $destroy)
 			{
-				if(empty($resource[$Element]))
+				if(empty($Element))
 					continue;
 
 				if ($id != 502)
