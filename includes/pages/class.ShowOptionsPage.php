@@ -172,7 +172,7 @@ class ShowOptionsPage
 						$SQLQuery	.= "UPDATE ".PLANETS." SET `id_level` = '0' WHERE `id_owner` = '".$USER['id']."';";
 				}
 								
-				if (!empty($db_email) && md5($db_password) == $USER["password"])
+				if (!empty($db_email) && $db_email != $USER['email'] && md5($db_password) == $USER['password'])
 				{
 					if(!ValidateAddress($db_email)) {
 						$template->message($LNG['op_not_vaild_mail'], "game.php?page=options", 3);

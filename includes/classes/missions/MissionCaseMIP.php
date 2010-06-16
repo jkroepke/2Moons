@@ -81,8 +81,8 @@ class MissionCaseMIP extends MissionFunctions
 					$message .= $LNG['tech'][$id] . " (- " . $destroy . ")<br>";
 
 				$x 		= $resource[$id];
-				$x1 	= $x ."-". $destroy;
-				$sql 	.= "UPDATE ".PLANETS." SET " . $x . " = " . $x1 . " WHERE id = " . $TargetInfo['id'].";";
+				$x1 	= $x ."-". ;
+				$sql 	.= "UPDATE ".PLANETS." SET `".$x." = ".$x." - '".$destroy."' WHERE id = ".$TargetInfo['id'].";";
 			}
 		}
 				
