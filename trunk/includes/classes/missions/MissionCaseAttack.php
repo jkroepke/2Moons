@@ -132,25 +132,27 @@ class MissionCaseAttack extends MissionFunctions
 		require_once('calculateAttack.'.PHP_EXT);
 
 		$result 	= calculateAttack($attackFleets, $defense);
+
+		$SQL		= "";
 			
 		foreach ($attackFleets as $fleetID => $attacker)
 		{
 			$fleetArray = '';
 			$totalCount = 0;
 			foreach ($attacker['detail'] as $element => $amount)
-			{
+			{				
 				if ($amount)
-					$fleetArray .= $element.','.$amount.';';
+					$fleetArray .= $element.','.floattostring($amount).';';
 
 				$totalCount += $amount;
-			
-				if ($totalCount <= 0)
-					$SQL	.= "DELETE FROM ".FLEETS." WHERE `fleet_id`= '".$fleetID."';";
-				else
-					$SQL	.= "UPDATE ".FLEETS." SET `fleet_array` = '".substr($fleetArray, 0, -1)."', `fleet_amount` = '".$totalCount."', `fleet_mess` = '1' WHERE `fleet_id` = '".$fleetID."';";
 			}
+			
+			if ($totalCount <= 0)
+				$SQL	.= "DELETE FROM ".FLEETS." WHERE `fleet_id`= '".$fleetID."';";
+			else
+				$SQL	.= "UPDATE ".FLEETS." SET `fleet_mess` = '1', `fleet_array` = '".substr($fleetArray, 0, -1)."', `fleet_amount` = '".$totalCount."' WHERE `fleet_id` = '".$fleetID."';";
 		}	
-		
+	
 		$db->multi_query($SQL);
 		$SQL	= "";
 		
@@ -170,7 +172,7 @@ class MissionCaseAttack extends MissionFunctions
 				foreach ($defender['def'] as $element => $amount)
 				{
 					if ($amount)
-						$fleetArray .= $element.','.$amount.';';
+						$fleetArray .= $element.','.floattostring($amount).';';
 						
 					$totalCount += $amount;
 				}
@@ -187,7 +189,7 @@ class MissionCaseAttack extends MissionFunctions
 
 				foreach ($defender['def'] as $element => $amount)
 				{
-					$fleetArray .= "`".$resource[$element]."` = '".$amount."', ";
+					$fleetArray .= "`".$resource[$element]."` = '".floattostring($amount)."', ";
 				}
 
 				$SQL .= "UPDATE ".PLANETS." SET ";

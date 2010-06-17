@@ -98,24 +98,29 @@ class MissionCaseDestruction extends MissionFunctions
 		require_once('calculateAttack.'.PHP_EXT);
 		$result 	= calculateAttack($attackFleets, $defense);
 
+		$SQL		= "";
+			
 		foreach ($attackFleets as $fleetID => $attacker)
 		{
 			$fleetArray = '';
 			$totalCount = 0;
 			foreach ($attacker['detail'] as $element => $amount)
-			{
+			{				
 				if ($amount)
-					$fleetArray .= $element.','.$amount.';';
+					$fleetArray .= $element.','.floattostring($amount).';';
 
 				$totalCount += $amount;
-			
-				if ($totalCount <= 0)
-					$SQL	.= "DELETE FROM ".FLEETS." WHERE `fleet_id`= '".$fleetID."';";
-				else
-					$SQL	.= "UPDATE ".FLEETS." SET `fleet_array` = '".substr($fleetArray, 0, -1)."', `fleet_amount` = '".$totalCount."', `fleet_mess` = '1' WHERE `fleet_id` = '".$fleetID."';";
 			}
+			
+			if ($totalCount <= 0)
+				$SQL	.= "DELETE FROM ".FLEETS." WHERE `fleet_id`= '".$fleetID."';";
+			else
+				$SQL	.= "UPDATE ".FLEETS." SET `fleet_mess` = '1', `fleet_array` = '".substr($fleetArray, 0, -1)."', `fleet_amount` = '".floattostring($totalCount)."' WHERE `fleet_id` = '".$fleetID."';";
 		}	
+	
 		$db->multi_query($SQL);
+		$SQL	= "";
+		
 		if ($result['won'] == "a")
 		{
 			require_once('calculateSteal.'.PHP_EXT);
@@ -131,14 +136,16 @@ class MissionCaseDestruction extends MissionFunctions
 
 				foreach ($defender['def'] as $element => $amount)
 				{
-					if ($amount) $fleetArray .= $element.','.$amount.';';
-						$totalCount += $amount;
+					if ($amount)
+						$fleetArray .= $element.','.floattostring($amount).';';
+						
+					$totalCount += $amount;
 				}
 
 				if ($totalCount <= 0)
 					$SQL	.= "DELETE FROM ".FLEETS." WHERE `fleet_id`= '".$fleetID."';";
 				else
-					$SQL	.= "UPDATE ".FLEETS." SET `fleet_array` = '".substr($fleetArray, 0, -1)."', `fleet_amount` = '".$totalCount."' WHERE `fleet_id` = '".$fleetID."';";
+					$SQL	.= "UPDATE ".FLEETS." SET `fleet_array` = '".substr($fleetArray, 0, -1)."', `fleet_amount` = '".floattostring($totalCount)."' WHERE `fleet_id` = '".$fleetID."';";
 			}
 			else
 			{
@@ -147,22 +154,15 @@ class MissionCaseDestruction extends MissionFunctions
 
 				foreach ($defender['def'] as $element => $amount)
 				{
-					$fleetArray .= "`".$resource[$element]."` = '".$amount."', ";
+					$fleetArray .= "`".$resource[$element]."` = '".floattostring($amount)."', ";
 				}
 
 				$SQL .= "UPDATE ".PLANETS." SET ";
 				$SQL .= $fleetArray;
-				$SQL .= "`metal` = `metal` - '". $steal['metal'] ."',
-						 `crystal` = `crystal` - '". $steal['crystal'] ."',
-						 `deuterium` = `deuterium` - '". $steal['deuterium'] ."'
-						 WHERE
-						 `galaxy` = '". $this->_fleet['fleet_end_galaxy'] ."' AND
-						 `system` = '". $this->_fleet['fleet_end_system'] ."' AND
-						 `planet` = '". $this->_fleet['fleet_end_planet'] ."' AND
-						 `planet_type` = '". $this->_fleet['fleet_end_type'] ."'
-						 LIMIT 1;";
+				$SQL .= "`metal` = `metal` - '".floattostring($steal['metal'])."', `crystal` = `crystal` - '".floattostring($steal['crystal'])."', `deuterium` = `deuterium` - '".floattostring($steal['deuterium'])."' WHERE `galaxy` = '".$this->_fleet['fleet_end_galaxy']."' AND `system` = '".$this->_fleet['fleet_end_system']."' AND `planet` = '".$this->_fleet['fleet_end_planet']."' AND `planet_type` = '".$this->_fleet['fleet_end_type']."';";
 			}
 		}
+		
 		$db->multi_query($SQL);
 		
 		switch ($result['won']) {
