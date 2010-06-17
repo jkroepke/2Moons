@@ -86,7 +86,7 @@ class MissionCaseMIP extends MissionFunctions
 				if ($destroy == 0)
 					continue;
 
-				$SQL 	.= "UPDATE ".PLANETS." SET `".$resource[$Element]." = ".$resource[$Element]." - '".$destroy."' WHERE id = ".$TargetInfo['id'].";";
+				$SQL 	.= "UPDATE ".PLANETS." SET `".$resource[$Element]."` = `".$resource[$Element]."` - '".$destroy."' WHERE id = ".$TargetInfo['id'].";";
 			}
 		}
 				

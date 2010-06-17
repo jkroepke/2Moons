@@ -38,7 +38,8 @@ class statbuilder{
 	private function DeleteSome()
 	{
 		global $db;
-		$db->query("LOCK TABLES ".ALLIANCE." WRITE, ".CHAT." WRITE, ".CONFIG." WRITE, ".FLEETS." WRITE, ".MESSAGES." WRITE, ".PLANETS." WRITE, ".RW." WRITE, ".SUPP." WRITE, ".STATPOINTS." WRITE, ".TOPKB." WRITE, ".USERS." WRITE;");
+		v
+		$db->query("LOCK TABLES ".ALLIANCE." WRITE, ".BUDDY." WRITE, ".CHAT." WRITE, ".CONFIG." WRITE, ".FLEETS." WRITE, ".NOTES." WRITE, ".MESSAGES." WRITE, ".PLANETS." WRITE, ".RW." WRITE, ".SUPP." WRITE, ".STATPOINTS." WRITE, ".TOPKB." WRITE, ".USERS." WRITE;");
 	
 		//Delete old messages
 		$del_before 	= TIMESTAMP - (60 * 60 * 24 * 3); // 3 DAY
@@ -66,7 +67,7 @@ class statbuilder{
 		{
 			while($RID = $db->fetch_array($DelRW))
 			{
-				unlink(ROOT_PATH.'/raports/raport_'.$RID['rid'].'.php');
+				@unlink(ROOT_PATH.'raports/raport_'.$RID['rid'].'.php');
 			}	
 			$db->query("DELETE FROM ".RW." WHERE `time` < '". $del_before ."';");
 		}
@@ -80,7 +81,7 @@ class statbuilder{
 		{
 			while($RID = $db->fetch_array($TKBRW))
 			{
-				unlink(ROOT_PATH.'/raports/topkb_'.$RID['rid'].'.php');
+				@unlink(ROOT_PATH.'raports/topkb_'.$RID['rid'].'.php');
 			}	
 			$db->query("DELETE FROM ".TOPKB." WHERE `gesamtunits` < '".((isset($TopKBLow)) ? $TopKBLow['gesamtunits'] : 0)."';");
 		}
