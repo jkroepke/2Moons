@@ -19,9 +19,9 @@
 # *                                                                          #
 ##############################################################################
 
-function ShowFleetShortcuts($USER)
+function ShowFleetShortcuts()
 {
-	global $LNG, $db;
+	global $USER, $LNG, $db;
 
 	$a = request_var('a','');
 	$mode = request_var('mode', '');
