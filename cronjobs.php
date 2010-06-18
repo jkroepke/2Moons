@@ -50,6 +50,7 @@ switch($cron)
 	case "opdb":
 		if (TIMESTAMP >= ($CONF['stat_last_db_update'] + (60 * 60 * 24)))
 		{
+			update_config('stat_last_db_update', TIMESTAMP);
 			require(ROOT_PATH . 'config.' . PHP_EXT);
 			$prueba = $db->query("SHOW TABLE STATUS from ".DB_NAME.";");
 			$table = "";
@@ -68,7 +69,6 @@ switch($cron)
 				$banner	= new StatBanner();
 				$banner->BuildIMGforAll();
 			}
-			update_config('stat_last_db_update', TIMESTAMP);
 		}
 	break;
 }

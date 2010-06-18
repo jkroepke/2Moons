@@ -328,7 +328,7 @@ class ResourceUpdate
 						$Needed      = GetBuildingPrice($USER, $PLANET, $Element, true, $ForDestroy);
 						$Message     = sprintf($LNG['sys_notenough_money'], $PLANET['name'], $PLANET['id'], $PLANET['galaxy'], $PLANET['system'], $PLANET['planet'], $LNG['tech'][$Element], pretty_number ($PLANET['metal']), $LNG['Metal'], pretty_number ($PLANET['crystal']), $LNG['Crystal'], pretty_number ($PLANET['deuterium']), $LNG['Deuterium'], pretty_number ($Needed['metal']), $LNG['Metal'], pretty_number ($Needed['crystal']), $LNG['Crystal'], pretty_number ($Needed['deuterium']), $LNG['Deuterium']);
 					}
-					SendSimpleMessage($USER['id'], '', '', 99, $LNG['sys_buildlist'], $LNG['sys_buildlist_fail'], $Message);
+					SendSimpleMessage($USER['id'], 0, '', 99, $LNG['sys_buildlist'], $LNG['sys_buildlist_fail'], $Message);
 				}
 
 				array_shift($QueueArray);

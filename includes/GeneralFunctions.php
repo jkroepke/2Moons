@@ -217,7 +217,6 @@ function set_var(&$result, $var, $type, $multibyte = false)
 *
 * Used to get passed variable
 */
-
 function request_var($var_name, $default, $multibyte = false, $cookie = false)
 {
 	if (!$cookie && isset($_COOKIE[$var_name]))
@@ -229,12 +228,13 @@ function request_var($var_name, $default, $multibyte = false, $cookie = false)
 		$_REQUEST[$var_name] = isset($_POST[$var_name]) ? $_POST[$var_name] : $_GET[$var_name];
 	}
 
-	if (!isset($_REQUEST[$var_name]) || (is_array($_REQUEST[$var_name]) && !is_array($default)) || (is_array($default) && !is_array($_REQUEST[$var_name])))
+	$super_global = ($cookie) ? '_COOKIE' : '_REQUEST';
+	if (!isset($GLOBALS[$super_global][$var_name]) || is_array($GLOBALS[$super_global][$var_name]) != is_array($default))
 	{
 		return (is_array($default)) ? array() : $default;
 	}
 
-	$var = $_REQUEST[$var_name];
+	$var = $GLOBALS[$super_global][$var_name];
 	if (!is_array($default))
 	{
 		$type = gettype($default);
@@ -516,7 +516,14 @@ function exception_handler($exception) {
 function SendSimpleMessage($Owner, $Sender, $Time, $Type, $From, $Subject, $Message, $Unread = 1)
 {
 	global $db;
-	$db->multi_query("UPDATE ".USERS." SET `new_message` = `new_message` + 1".(($Owner != 0) ? " WHERE `id` = '".$Owner."'" : "").";INSERT INTO ".MESSAGES." SET `message_owner` = '".$Owner."', `message_sender` = '".$Sender."', `message_time` = '".((empty($Time)) ? TIMESTAMP : $Time)."', `message_type` = '".$Type."', `message_from` = '". $db->sql_escape($From) ."', `message_subject` = '". $db->sql_escape($Subject) ."', `message_text` = '".$db->sql_escape($Message)."', `message_unread` = '".$Unread."';");
+	if($Owner != 0)
+		$SQL	= "UPDATE ".USERS." SET `new_message` = `new_message` + '1' WHERE `id` = '".$Owner."';";
+	else
+		$SQL	= "UPDATE ".USERS." SET `new_message` = `new_message` + '1';";
+
+	$SQL	.= "INSERT INTO ".MESSAGES." SET `message_owner` = '".$Owner."', `message_sender` = '".$Sender."', `message_time` = '".((empty($Time)) ? TIMESTAMP : $Time)."', `message_type` = '".$Type."', `message_from` = '". $db->sql_escape($From) ."', `message_subject` = '". $db->sql_escape($Subject) ."', `message_text` = '".$db->sql_escape($Message)."', `message_unread` = '".$Unread."';";
+
+	$db->multi_query($SQL);
 }
 	
 function shortly_number($number)
