@@ -56,7 +56,7 @@ class MissionCaseMIP extends MissionFunctions
 			
 		$LNG				= $this->GetUserLang(0);
 		$LNG				+= $this->GetUserLang(0, 'TECH');
-		
+				
 		require_once('calculateMIPAttack.'.PHP_EXT);	
 		if ($TargetInfo[$resource[502]] >= $this->_fleet['fleet_amount'])
 		{
@@ -81,7 +81,7 @@ class MissionCaseMIP extends MissionFunctions
 					continue;
 
 				if ($id != 502)
-					$message .= $LNG['tech'][$id] . " (- " . $destroy . ")<br>";
+					$message .= $LNG['tech'][$Element]." (- ".$destroy.")<br>";
 				
 				if ($destroy == 0)
 					continue;
