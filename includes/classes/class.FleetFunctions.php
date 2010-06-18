@@ -455,7 +455,7 @@ abstract class FleetFunctions
 				if ($MissionInfo['IsAKS'] != "0:0:0" && $UsedPlanet && !CheckModule(1))
 					$missiontype[2] = $LNG['type_mission'][2];
 
-				if (!$YourPlanet && $MissionInfo['planettype'] == 3 && isset($MissionInfo['Ship'][214]) && !CheckModule(24))
+				if (!$YourPlanet && $MissionInfo['planettype'] == 3 && isset($MissionInfo['Ship'][214]) && !CheckModule(29))
 					$missiontype[9] = $LNG['type_mission'][9];
 
 				if ($YourPlanet && $MissionInfo['planettype'] == 3 && self::OnlyShipByID($MissionInfo['Ship'], 220) && !CheckModule(31))
