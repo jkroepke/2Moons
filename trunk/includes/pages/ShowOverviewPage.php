@@ -86,7 +86,7 @@ function ShowOverviewPage()
 			{
 				$Record++;
 				
-				if ($FleetRow['fleet_start_time'] > TIMESTAMP && ($FleetRow['fleet_group'] == 0 || !in_array($FleetRow['fleet_group'], $ACSDone)))
+				if ($FleetRow['fleet_mess'] != 1 && $FleetRow['fleet_start_time'] > TIMESTAMP && ($FleetRow['fleet_group'] == 0 || !in_array($FleetRow['fleet_group'], $ACSDone)))
 				{
 					$ACSDone[]		= $FleetRow['fleet_group'];
 					
@@ -96,7 +96,7 @@ function ShowOverviewPage()
 				if($FleetRow['fleet_mission'] == 10 || ($FleetRow['fleet_mission'] == 4 && $FleetRow['fleet_mess'] == 0))
 					continue;
 	
-				if ($FleetRow['fleet_end_stay'] > TIMESTAMP)
+				if ($FleetRow['fleet_mess'] != 1 && $FleetRow['fleet_end_stay'] > TIMESTAMP)
 				{
 					$fpage[$FleetRow['fleet_end_stay'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 2, true, 'ft', $Record);
 				}
@@ -117,14 +117,14 @@ function ShowOverviewPage()
 			{			
 				$Record++;
 
-				if ($FleetRow['fleet_start_time'] > TIMESTAMP && ($FleetRow['fleet_group'] == 0 || !in_array($FleetRow['fleet_group'], $ACSDone)))
+				if ($FleetRow['fleet_mess'] != 1 && $FleetRow['fleet_start_time'] > TIMESTAMP && ($FleetRow['fleet_group'] == 0 || !in_array($FleetRow['fleet_group'], $ACSDone)))
 				{
 					$ACSDone[]		= $FleetRow['fleet_group'];
 										
 					$fpage[$FleetRow['fleet_start_time'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 0, false, 'ofs', $Record, true);
 				}
 				
-				if ($FleetRow['fleet_mission'] == 5 && $FleetRow['fleet_end_stay'] > TIMESTAMP)
+				if ($FleetRow['fleet_mess'] != 1 && $FleetRow['fleet_mission'] == 5 && $FleetRow['fleet_end_stay'] > TIMESTAMP)
 				{
 					$fpage[$FleetRow['fleet_end_stay'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 2, false, 'oft', $Record);
 				}

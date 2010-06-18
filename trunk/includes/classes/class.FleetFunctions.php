@@ -294,7 +294,7 @@ abstract class FleetFunctions
 			}
 		}
 		
-		$db->query("UPDATE ".FLEETS." SET `fleet_start_time` = '".TIMESTAMP."', `fleet_end_stay` = '".TIMESTAMP."', `fleet_end_time` = '".((TIMESTAMP - $FleetRow['start_time']) + TIMESTAMP)."', `fleet_mess` = '1' WHERE `fleet_id` = '" . $FleetID . "';");
+		$db->query("UPDATE ".FLEETS." SET `start_time` = '".TIMESTAMP."', `fleet_end_stay` = '".TIMESTAMP."', `fleet_end_time` = '".((TIMESTAMP - $FleetRow['start_time']) + TIMESTAMP)."', `fleet_mess` = '1' WHERE `fleet_id` = '" . $FleetID . "';");
 	}
 	
 	public static function GetExtraInputs($FleetArray, $Player)
