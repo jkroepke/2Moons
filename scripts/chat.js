@@ -1,12 +1,5 @@
-// * chat.js
-// *
-// * @version 2.0
-// * @copyright 2008 by e-Zobar for XNova
-// * @copyright 2010 by ShadoX for 2Moons
-
-
 function addBBcode(bbcode){
-	if( bbcode=='*URL*'){
+	if(bbcode=='*URL*'){
 		var link = window.prompt("Bitte geben sie einen Link ein:", "http://");
 		var beschreibung = window.prompt("Bitte geben sie eine Beschreiben f&uuml;r den Link ein (optional):", "");
 		if(beschreibung != ''){

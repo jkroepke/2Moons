@@ -278,23 +278,22 @@ abstract class FleetFunctions
 		$FleetRow = $db->uniquequery("SELECT `start_time`, `fleet_mission`, `fleet_group`, `fleet_owner`, `fleet_mess` FROM ".FLEETS." WHERE `fleet_id` = '". $FleetID ."';");
 		if ($FleetRow['fleet_owner'] != $CurrentUser['id'] || $FleetRow['fleet_mess'] == 1)
 			return;
+			
+		$where		= 'fleet_id';
 
-		if($FleetRow['fleet_group'] > 0)
+		if($FleetRow['fleet_mission'] == 1 && $FleetRow['fleet_group'] > 0)
 		{
 			$Aks = $db->uniquequery("SELECT teilnehmer FROM ".AKS." WHERE id = '". $FleetRow['fleet_group'] ."';");
 
-			if ($FleetRow['fleet_mission'] == 2)
-			{
-				$db->query("UPDATE ".FLEETS." SET `fleet_group` = '0' WHERE `fleet_id` = '".  $FleetID ."';");
-			}
-			elseif($FleetRow['fleet_mission'] == 1 && $Aks['teilnehmer'] == $FleetRow['fleet_owner'])
+			if($Aks['teilnehmer'] == $FleetRow['fleet_owner'])
 			{
 				$db->query("DELETE FROM ".AKS." WHERE id ='". $FleetRow['fleet_group'] ."';");
-				$db->query("UPDATE ".FLEETS." SET `fleet_group` = '0' WHERE `fleet_group` = '". $FleetRow['fleet_group'] ."';");
+				$FleetID	= $FleetRow['fleet_group'];
+				$where		= 'fleet_group';
 			}
 		}
 		
-		$db->query("UPDATE ".FLEETS." SET `start_time` = '".TIMESTAMP."', `fleet_end_stay` = '".TIMESTAMP."', `fleet_end_time` = '".((TIMESTAMP - $FleetRow['start_time']) + TIMESTAMP)."', `fleet_mess` = '1' WHERE `fleet_id` = '" . $FleetID . "';");
+		$db->query("UPDATE ".FLEETS." SET `fleet_group` = '0', `start_time` = '".TIMESTAMP."', `fleet_end_stay` = '".TIMESTAMP."', `fleet_end_time` = '".((TIMESTAMP - $FleetRow['start_time']) + TIMESTAMP)."', `fleet_mess` = '1' WHERE `".$where."` = '".$FleetID."';");
 	}
 	
 	public static function GetExtraInputs($FleetArray, $Player)
