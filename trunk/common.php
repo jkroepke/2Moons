@@ -25,14 +25,14 @@ if(!function_exists('spl_autoload_register'))
 if((!defined('INSTALL') || INSTALL == false) && (!file_exists(ROOT_PATH.'config.php') || filesize(ROOT_PATH.'config.php') == 0))
 	exit(header("Location:" . ROOT_PATH .  "install/"));
 	
-ob_start("ob_gzhandler");	
+ob_start('ob_gzhandler');	
 @ignore_user_abort(true);
 @set_time_limit(120);
 error_reporting(E_ALL ^ E_NOTICE);
 @ini_set('display_errors', 1);
 date_default_timezone_set("Europe/Berlin");
 header('Content-Type: text/html; charset=UTF-8');
-header('Content-Encoding: '.zlib_get_coding_type());
+header('Content-Encoding: gzip');
 define('TIMESTAMP',	$_SERVER['REQUEST_TIME']);
 
 if(file_exists(ROOT_PATH . 'config.php'))
@@ -106,26 +106,25 @@ if (INSTALL != true)
 			update_config('stats_fly_lock', TIMESTAMP);
 			$db->query("LOCK TABLE ".AKS." WRITE, ".RW." WRITE, ".MESSAGES." WRITE, ".FLEETS." WRITE, ".PLANETS." WRITE, ".PLANETS." as p WRITE, ".TOPKB." WRITE, ".USERS." WRITE, ".USERS." as u WRITE, ".STATPOINTS." WRITE;");
 				
-			$fleetquery = $db->query("SELECT * FROM ".FLEETS." WHERE (`fleet_start_time` <= '". TIMESTAMP ."' AND `fleet_mess` = '0') OR (`fleet_end_time` <= '". TIMESTAMP ."' AND `fleet_mess` = '1') OR (`fleet_end_stay` <= '". TIMESTAMP ."' AND `fleet_mess` = '2') ORDER BY `fleet_start_time` ASC;");
-			if($db->num_rows($fleetquery) > 0)
+			$FLEET = $db->query("SELECT * FROM ".FLEETS." WHERE (`fleet_start_time` <= '". TIMESTAMP ."' AND `fleet_mess` = '0') OR (`fleet_end_time` <= '". TIMESTAMP ."' AND `fleet_mess` = '1') OR (`fleet_end_stay` <= '". TIMESTAMP ."' AND `fleet_mess` = '2') ORDER BY `fleet_start_time` ASC;");
+			if($db->num_rows($FLEET) > 0)
 			{
 				require_once(ROOT_PATH . 'includes/classes/class.FlyingFleetHandler.'.PHP_EXT);
 			
-				new FlyingFleetHandler($fleetquery);
+				new FlyingFleetHandler($FLEET);
 			}
-			$db->free_result($fleetquery);
+			$db->free_result($FLEET);
 			$db->query("UNLOCK TABLES");  
 			update_config('stats_fly_lock', 0);
 		}
 		elseif (TIMESTAMP >= ($CONF['stats_fly_lock'] + (60 * 5))){
 			update_config('stats_fly_lock', 0);
-			$db->query("UNLOCK TABLES");  
 		}
 				
 		$USER	= $db->uniquequery("SELECT u.*, s.`total_rank`, s.`total_points` FROM ".USERS." as u LEFT JOIN ".STATPOINTS." as s ON s.`id_owner` = u.`id` AND s.`stat_type` = '1' WHERE u.`id` = '".$_SESSION['id']."';");
 		if(empty($USER)) {
 			exit(header('Location: '.ROOT_PATH.'index.php'));
-		}elseif(empty($USER['lang'])) {
+		} elseif(empty($USER['lang'])) {
 			$USER['lang']	= $CONF['lang'];
 			$db->query("UPDATE ".USERS." SET `lang` ='".$USER['lang']."' WHERE `id` = '".$USER['id']."';");
 		}
@@ -152,20 +151,21 @@ if (INSTALL != true)
 		{
 			require_once(ROOT_PATH . 'includes/classes/class.template.'.PHP_EXT);
 			require_once(ROOT_PATH . 'includes/classes/class.PlanetRessUpdate.'.PHP_EXT);
-		}
-		
-		$PLANET = $db->uniquequery("SELECT * FROM `".PLANETS."` WHERE `id` = '".$USER['current_planet']."';");
 
-		if(empty($PLANET)){
-			$PLANET = $db->uniquequery("SELECT * FROM `".PLANETS."` WHERE `id` = '".$USER['id_planet']."';");
-			
+		
+			$PLANET = $db->uniquequery("SELECT * FROM `".PLANETS."` WHERE `id` = '".$USER['current_planet']."';");
+
 			if(empty($PLANET)){
-				throw new Exception("Main Planet does not exist!");
+				$PLANET = $db->uniquequery("SELECT * FROM `".PLANETS."` WHERE `id` = '".$USER['id_planet']."';");
+				
+				if(empty($PLANET)){
+					throw new Exception("Main Planet does not exist!");
+				}
 			}
+				
+			require_once(ROOT_PATH.'includes/functions/CheckPlanetUsedFields.' . PHP_EXT);
+			CheckPlanetUsedFields($PLANET);
 		}
-			
-		require_once(ROOT_PATH.'includes/functions/CheckPlanetUsedFields.' . PHP_EXT);
-		CheckPlanetUsedFields($PLANET);
 	} else {
 		//Login
 		define('DEFAULT_LANG'	, (!empty($_REQUEST['lang'])) ? $_REQUEST['lang'] : $CONF['lang']);
