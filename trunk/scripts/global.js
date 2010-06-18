@@ -65,8 +65,8 @@ function allydiplo(action, id, level) {
 
 function pretty_time_update(div) {
 
-	var bocs 	= document.getElementById(div).innerHTML;
-	var boc		= bocs.split(" ");
+	var bocs 	= $('#'+div).html();
+	var boc		= bocs.split(' ');
 	if(boc.length > 3)
 	{
 		var Tage	= boc[0].replace(/d/g, "");
@@ -136,20 +136,17 @@ function pretty_time_update(div) {
 			Minute = "0" + Minute;
 		}	
 		if(Sekunde == 0 && Minute == 0 && Stunde == 0){
-			document.getElementById(div).innerHTML = "Fertig";
+			$('#'+div).html('Fertig');
 			window.clearInterval('si_'+div);
 		}
 		else {
-			document.getElementById(div).innerHTML = Stunde + "h "+Minute+"m "+Sekunde+"s";
+			$('#'+div).html(Stunde + 'h '+Minute+'m '+Sekunde+'s');
 		}
-
 	}
 }
 
 function ajax(datei, id) {
-	$.get(datei+"&ajax=1", function(data){
-		$("#"+id).html(data);
-	});
+	$('#'+id).load(datei+'&ajax=1');
 }
 
 function Servertime(timestamp)
@@ -229,4 +226,18 @@ function removeE(Number) {
 		return Number;
 	else
 		return parseFloat(Number).toPrecision(e+1);
+}
+
+function messages(ID)
+{
+	var count = $('#unread_'+ID).text();
+	var lmnew = $('#newmesnum_'+ID).text();
+	
+	if(lmnew - count <= 0)
+		$('#newmes').text('');
+	else
+		$('#newmesnum').text(parseInt(lmnew) - parseInt(count));
+
+	$('#unread_'+ID).text('0');
+	$('#unread_100').text(parseInt($('#unread_100').text()) - parseInt(count));
 }
