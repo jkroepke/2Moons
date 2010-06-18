@@ -488,7 +488,7 @@ $LNG['mg_message']							= 'Message';
 $LNG['mg_characters']						= 'Characters';
 $LNG['mg_send']							= 'Send';
 $LNG['mg_game_message']					= 'Game Message';
-$LNG['mg_message_send']			= 'Message sended!';
+$LNG['mg_message_send']			= 'Message sent!';
 $LNG['mg_empty_text']				= 'Enter a Text';
 
 //----------------------------------------------------------------------------//
