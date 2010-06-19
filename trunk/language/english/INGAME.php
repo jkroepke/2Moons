@@ -199,6 +199,12 @@ $LNG['gl_activity']                                            = '(*)';
 $LNG['gl_activity_inactive']                                   = '(%d min)';
 $LNG['gl_ajax_status_ok']                    = 'Done';
 $LNG['gl_ajax_status_fail']                = 'Error';
+$LNG['gl_free_desc'] 					= 'A big, uninhabited planet. Here is an ideal spot to found a new colony.';
+$LNG['gl_free'] 						= 'Free';
+$LNG['gl_yes'] 							= 'Yes';
+$LNG['gl_no'] 							= 'No';
+$LNG['gl_points'] 							= 'Points';
+$LNG['gl_player']							= 'Player';
 
 //----------------------------------------------------------------------------//
 //PHALANX

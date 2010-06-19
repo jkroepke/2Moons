@@ -167,7 +167,7 @@ class GalaxyRows
 		$protection      	= $CONF['noobprotection'];
 		$protectiontime  	= $CONF['noobprotectiontime'];
 		$protectionmulti 	= $CONF['noobprotectionmulti'];
-		$CurrentPoints 		= $GalaxyRowPlanet['total_points'];
+		$CurrentPoints 		= $USER['total_points'];
 		$RowUserPoints 		= $GalaxyRowPlanet['total_points'];
 		$IsNoobProtec		= CheckNoobProtec($USER, $GalaxyRowPlanet, $GalaxyRowPlanet['onlinetime']);
 				
@@ -221,6 +221,7 @@ class GalaxyRows
 			'id'			=> $GalaxyRowPlanet['userid'],
 			'username'		=> htmlspecialchars($GalaxyRowPlanet['username'],ENT_QUOTES,"UTF-8"),
 			'rank'			=> $GalaxyRowPlanet['total_rank'],
+			'points'		=> pretty_number($GalaxyRowPlanet['total_points']),
 			'playerrank'	=> sprintf($LNG['gl_in_the_rank'], htmlspecialchars($GalaxyRowPlanet['username'],ENT_QUOTES,"UTF-8"), $GalaxyRowPlanet['total_rank']),
 			'Systemtatus'	=> $Systemtatus,
 			'Systemtatus2'	=> $Systemtatus2,

@@ -194,11 +194,18 @@ $LNG['gl_temperature']						= 'Temperatur';
 $LNG['gl_phalanx']							= 'Phalanx';
 $LNG['gl_planet_destroyed']				= 'Zerstörter Planet';
 $LNG['gl_playercard']						= 'Playercard';
+$LNG['gl_player']							= 'Spieler';
 $LNG['gl_in_the_rank']						= 'Spieler %s auf Platz %d';
 $LNG['gl_activity']						= '(*)';
 $LNG['gl_activity_inactive']				= '(%d min)';
 $LNG['gl_ajax_status_ok']					= 'Done';
 $LNG['gl_ajax_status_fail']				= 'Error';
+$LNG['gl_free_desc'] 					= 'Ein großer unbesiedelter Planet. Hier währe ein idealer Ort um eine neue Kolonie zu gründen.';
+$LNG['gl_free'] 						= 'Frei';
+$LNG['gl_yes'] 							= 'Ja';
+$LNG['gl_no'] 							= 'Nein';
+$LNG['gl_points'] 							= 'Punkte';
+$LNG['gl_player']							= 'Spieler';
 
 //----------------------------------------------------------------------------//
 //PHALANX
