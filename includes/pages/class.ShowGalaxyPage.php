@@ -214,6 +214,7 @@ class ShowGalaxyPage extends GalaxyRows
 			'gl_player'					=> $LNG['gl_player'],
 			'gl_playercard'				=> $LNG['gl_playercard'],
 			'gl_phalanx'				=> $LNG['gl_phalanx'],
+			'gl_points'					=> $LNG['gl_points'],
 			'gl_ajax_status_ok'			=> $LNG['gl_ajax_status_ok'],
 			'gl_ajax_status_fail'		=> $LNG['gl_ajax_status_fail'],
 			'write_message'				=> $LNG['write_message'],

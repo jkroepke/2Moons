@@ -72,7 +72,7 @@
 		<td class="c" style="white-space: nowrap;">{$gl_alliance}</td>
 		<td class="c" style="white-space: nowrap;">{$gl_actions}</td>
 	</tr>
-    {foreach item=GalaxyRows key=planet item=GalaxyRow from=$GalaxyRows}
+    {foreach key=planet item=GalaxyRow from=$GalaxyRows}
 	<tr>
 	<th width="30"><a href="game.php?page=fleet&amp;galaxy={$galaxy}&amp;system={$system}&amp;planet={$planet}&amp;planettype=1">{$planet}</a></th>
 	{if is_array($GalaxyRow)}

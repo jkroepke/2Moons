@@ -41,7 +41,7 @@ switch($page)
 		if(CheckModule(11))
 			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
-		include_once(ROOT_PATH . 'includes/pages/class.ShowGalaxyPage.' . PHP_EXT);
+		include_once(ROOT_PATH . 'includes/pages/class.ShowGalaxy2DPage.' . PHP_EXT);
 		$ShowGalaxyPage = new ShowGalaxyPage();
 	break;
 	case 'phalanx':
@@ -107,7 +107,8 @@ switch($page)
 		ShowFleetShortcuts();
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
-	case 'buildings':$mode = request_var('mode', '');
+	case 'buildings':
+		$mode = request_var('mode', '');
 		switch ($mode)
 		{
 			case 'research':
