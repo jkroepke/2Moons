@@ -369,7 +369,7 @@ class ResourceUpdate
 	
 	public function SavePlanetToDB($USER = NULL, $PLANET = NULL)
 	{
-		global $resource, $db;
+		global $resource, $db, $reslist;
 		
 		if(empty($USER))
 			global $USER;
