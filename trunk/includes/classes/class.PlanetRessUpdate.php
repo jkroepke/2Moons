@@ -403,8 +403,10 @@ class ResourceUpdate
 			{
 				if(empty($resource[$Element]))
 					throw new Exception('ID '.$Element.' is not on $resource!');
-					
-				if(isset($PLANET[$resource[$Element]]))
+				
+				if(in_array($Element, $reslist['one']))
+					$Qry	.= "`p`.`".$resource[$Element]."` = '1', ";					
+				elseif(isset($PLANET[$resource[$Element]]))
 					$Qry	.= "`p`.`".$resource[$Element]."` = `p`.`".$resource[$Element]."` + '".$Count."', ";
 				elseif(isset($USER[$resource[$Element]]))
 					$Qry	.= "`u`.`".$resource[$Element]."` = `u`.`".$resource[$Element]."` + '".$Count."', ";

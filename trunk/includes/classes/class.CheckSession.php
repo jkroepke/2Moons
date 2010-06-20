@@ -36,7 +36,6 @@ class CheckSession
 		$Qry .= "`onlinetime` = '".TIMESTAMP."', ";
 		$Qry .= "`current_page` = '".$db->sql_escape($_SERVER['REQUEST_URI']) ."', ";
 		$Qry .= "`user_lastip` = '".$_SERVER['REMOTE_ADDR'] ."', ";
-		$Qry .= "`user_agent` = '".(isset($IsPlanetMine))."', ";
 		
 		if(isset($IsPlanetMine))
 			$Qry .= "`current_planet` = '".$IsPlanetMine['id']."', ";

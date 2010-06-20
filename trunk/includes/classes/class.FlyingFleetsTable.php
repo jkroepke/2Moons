@@ -20,8 +20,8 @@ class FlyingFleetsTable
 
 		while ($CurrentFleet = $db->fetch_array($FlyingFleets))
 		{
-			$FleetOwner       = $db->fetch_array($db->query("SELECT `username` FROM ".USERS." WHERE `id` = '". $CurrentFleet['fleet_owner'] ."';"));
-			$TargetOwner      = $db->fetch_array($db->query("SELECT `username` FROM ".USERS." WHERE `id` = '". $CurrentFleet['fleet_target_owner'] ."';"));
+			$FleetOwner       = $db->uniquequery("SELECT `username` FROM ".USERS." WHERE `id` = '". $CurrentFleet['fleet_owner'] ."';");
+			$TargetOwner      = $db->uniquequery("SELECT `username` FROM ".USERS." WHERE `id` = '". $CurrentFleet['fleet_target_owner'] ."';");
 
 			$Bloc['Id']       = $CurrentFleet['fleet_id'];
 			$Bloc['Mission']  = $this->CreateFleetPopupedMissionLink ( $CurrentFleet, $LNG['type_mission'][ $CurrentFleet['fleet_mission'] ], '' );
@@ -52,7 +52,12 @@ class FlyingFleetsTable
 			}
 
 			$Bloc['En_Time']  = date('G:i:s d/n/Y', $CurrentFleet['fleet_end_time']);
-
+			
+			if($CurrentFleet['fleet_busy'] == 0)
+				$Bloc['lock']	= "<a href='?id=".$CurrentFleet['fleet_id']."&lock=1'><font color='red'>".$LNG['ff_lock']."</font></a>";
+			else
+				$Bloc['lock']	= "<a href='?id=".$CurrentFleet['fleet_id']."&lock=0'><font color='green'>".$LNG['ff_unlock']."</font></a>";
+			
 			$table .= parsetemplate(gettemplate('adm/fleet_rows'), $Bloc);
 		}
 
