@@ -63,9 +63,9 @@ class MissionCaseExpedition extends MissionFunctions
 			$FleetPoints   			   += $Class[1] * $Expowert[$Class[0]];			
 		}
 			
-		$FleetCapacity    	 -= $this->_fleet['fleet_resource_metal'] + $this->_fleet['fleet_resource_crystal'] + $this->_fleet['fleet_resource_deuterium'] + $this->_fleet['fleet_resource_darkmatter'];
+		$FleetCapacity		-= $this->_fleet['fleet_resource_metal'] + $this->_fleet['fleet_resource_crystal'] + $this->_fleet['fleet_resource_deuterium'] + $this->_fleet['fleet_resource_darkmatter'];
 					
-		$GetEvent	= mt_rand(1, 20);
+		$GetEvent			= mt_rand(0, 20);
 			
 		switch($GetEvent)
 		{
@@ -147,51 +147,39 @@ class MissionCaseExpedition extends MissionFunctions
 					$MaxFound	= 1200000;
 				}
 					
-				$StatFactor = $db->uniquequery("SELECT MAX(total_points) as total FROM `".STATPOINTS."` WHERE `stat_type` = 1;");
+				$StatFactor 	= $db->uniquequery("SELECT MAX(total_points) as total FROM `".STATPOINTS."` WHERE `stat_type` = 1;");
 					
-				$MaxPoints = ($StatFactor['total'] < 5000000) ? 4500 : 6000;
-						
-				$FoundPoints = 0;
-				foreach($reslist['fleet'] as $ID)
+				$MaxPoints 		= ($StatFactor['total'] < 5000000) ? 4500 : 6000;
+					
+				$FoundShips		= max(min(round($Size * $FleetPoints), $MaxPoints), 10000);
+				$MinFound		= mt_rand(7000, 10000);
+			
+				$FoundShipMess	= "";
+				$LNG			= $this->GetUserLang($this->_fleet['fleet_owner'], 'TECH');
+				
+				foreach($reslist['fleet'] as $ID) 
 				{
-					if (!isset($FleetCount[$ID])) continue;
-					$FoundShips		 = max(min(round($Size * $FleetPoints), $MaxPoints), 0);
-					$FoundPoints	 += $FoundShips * ($pricelist[$ID]['metal'] + $pricelist[$ID]['crystal']);
+					#if(!isset($FleetCount[$ID])) continue;
+					$Count				= mt_rand(1, floor($FoundShips / ($pricelist[$ID]['metal'] + $pricelist[$ID]['crystal'])));
+					$FleetCount[$ID]	= bcadd($Count, $FleetCount[$ID]);
+					$FoundShips	 		-= $Count * ($pricelist[$ID]['metal'] + $pricelist[$ID]['crystal']);
+					$FoundShipMess   	.= '<br>'.$LNG['tech'][$ID].': '.pretty_number($Count);
+					if($FoundShips <= 0)
+						break;
 				}
 					
-				$MinFound	= mt_rand(7000, 10000);
-				if($FoundPoints < $MinFound)
-				{
-					while($FoundPoints < $MinFound) {
-						foreach($FoundShips as $ID => $Count) {
-							$FoundShips[$ID]	+= 1;
-							$FoundPoints	 	+= ($pricelist[$ID]['metal'] + $pricelist[$ID]['crystal']);
-						}
-					}
-				} elseif($FoundPoints > $MaxFound) {
-					while($FoundPoints > $MaxFound) {
-						foreach($FoundShips as $ID => $Count) {
-							$FoundShips[$ID]	-= 1;
-							$FoundPoints	 	-= ($pricelist[$ID]['metal'] + $pricelist[$ID]['crystal']);
-						}
-					}					
-				}
-					
+				$Message	.= $FoundShipMess;
 				$NewFleetArray = "";
-				$FoundShipMess = "";
 
 				foreach ($FleetCount as $ID => $Count)
 				{
 					if (empty($Count)) continue;
 					
-					$FleetCount		 += ($Count + $FoundShips[$ID]);
-					$NewFleetArray   .= $ID.",".($Count + $FoundShips[$ID]).";";
-					$FoundShipMess   .= "<br>". $LNG['tech'][$Ship].": ".$Count;
+					$NewFleetArray   .= $ID.",".floattostring($Count).";";
 				}
-				$Message	.= $FoundShipMess;
-				
-				$this->UpdateFleet('fleet_array', $this->_fleet['fleet_array'].$NewFleetArray);
-				$this->UpdateFleet('fleet_amount', $this->_fleet['fleet_amount'] + $FleetCount);
+								
+				$this->UpdateFleet('fleet_array', $NewFleetArray);
+				$this->UpdateFleet('fleet_amount', array_sum($FleetCount));
 			break;
 			case 4:
 			case 12:
