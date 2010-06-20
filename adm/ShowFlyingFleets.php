@@ -32,6 +32,12 @@ include(ROOT_PATH. 'includes/classes/class.FlyingFleetsTable.' . PHP_EXT);
 
 if ($Observation != 1) die();
 
+$id	= request_var('id', 0);
+if(!empty($id)){
+	$db->query("UPDATE ".FLEETS." SET `fleet_busy` = '".$db->sql_escape(request_var('lock', 0))."' WHERE `fleet_id` = '".$db->sql_escape($id)."';");
+} 
+
+
 $parse				= $LNG;
 $FlyingFleetsTable 	= new FlyingFleetsTable();
 $parse['flt_table'] = $FlyingFleetsTable->BuildFlyingFleetTable();

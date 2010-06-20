@@ -465,6 +465,9 @@ $LNG['ff_arrival_hour']		= 'Arribal time';
 $LNG['ff_go_back_now']			= 'Back';
 $LNG['ff_delete_succes']		= 'Flight deleted successfully';
 $LNG['ff_goback_succes']		= "The flight is now returning to it's original planet";
+$LNG['ff_lock']					= "Lock";
+$LNG['ff_unlock']				= "Unlock";
+
 //###########################################################//
 
 

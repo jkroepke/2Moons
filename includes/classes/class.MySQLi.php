@@ -79,14 +79,15 @@ class DB_mysqli extends mysqli
 		$Timer	= microtime(true);
 		if($result = parent::query($resource))
 		{
+			$this->time	+= (microtime(true) - $Timer);
+			$this->SQL[]	= $resource;
 			$this->queryCount++;
 			return $result;
 		}
 		else
 		{
-			throw new Exception("SQL Error: ".$this->error."<br /><br />Query Code: ".$resource);
+			throw new Exception("SQL Error: ".$this->error."<br><br>Query Code: ".$resource);
 		}
-		$this->time	+= (microtime(true) - $Timer);
 		return;
 		
 	}
@@ -102,11 +103,12 @@ class DB_mysqli extends mysqli
 		$Timer	= microtime(true);
 		if($result = parent::query($resource))
 		{
+			$this->time	+= (microtime(true) - $Timer);
+			$this->SQL[]	= $resource;
 			$this->queryCount++;
 			$Return = $result->fetch_array(MYSQLI_ASSOC);
 			$result->close();
 			return $Return;
-			$this->time	+= (microtime(true) - $Timer);
 		}
 		else
 		{
@@ -312,14 +314,15 @@ class DB_mysqli extends mysqli
 					
 				if(!parent::more_results()){break;}
 					
-				} while (parent::next_result());		
+			} while (parent::next_result());		
 		}
 		
 		$this->time	+= (microtime(true) - $Timer);
+		$this->SQL[]	= $resource;
 	
 		if ($this->errno)
 		{
-			throw new Exception("SQL Error: ".$this->error."<br /><br />Query Code: ".$resource);
+			throw new Exception("SQL Error: ".$this->error."<br><br>Query Code: ".$resource);
 		}
 	}
 	
