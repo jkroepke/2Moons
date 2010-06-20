@@ -376,6 +376,9 @@ class ResourceUpdate
 			
 		if(empty($PLANET))
 			global $PLANET;
+		
+		if($USER['urlaubs_modus'] == 1)
+			return array($USER, $PLANET);
 			
 		$Qry	= "UPDATE ".PLANETS." as p, ".USERS." as u SET
 				   `p`.`metal` = '".floattostring($PLANET['metal'], 6)."',
