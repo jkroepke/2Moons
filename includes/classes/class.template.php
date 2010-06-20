@@ -285,6 +285,7 @@ class template extends Smarty
 	
 	public function message($mes, $dest = false, $time = 3, $Fatal = false)
 	{
+		global $LNG;
 		$this->page_header();
 		if(!$Fatal){
 			$this->page_topnav();

@@ -36,7 +36,7 @@ class ResourceUpdate
 			global $PLANET;
 			
 		if($USER['urlaubs_modus'] == 1)
-			return $this;
+			return array($USER, $PLANET);
 			
 		if($this->Build)
 		{
