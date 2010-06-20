@@ -238,6 +238,20 @@ function messages(ID)
 	else
 		$('#newmesnum').text(parseInt(lmnew) - parseInt(count));
 
-	$('#unread_'+ID).text('0');
-	$('#unread_100').text(parseInt($('#unread_100').text()) - parseInt(count));
+	if(ID == 100) {
+		$('#unread_0').text('0');
+		$('#unread_1').text('0');
+		$('#unread_2').text('0');
+		$('#unread_3').text('0');
+		$('#unread_4').text('0');
+		$('#unread_5').text('0');
+		$('#unread_15').text('0');
+		$('#unread_99').text('0');
+		$('#unread_100').text('0');
+	} else {
+		$('#unread_'+ID).text('0');
+		if(ID != 50 && ID != 999) {
+			$('#unread_100').text(parseInt($('#unread_100').text()) - parseInt(count));
+		}
+	}
 }
