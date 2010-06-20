@@ -25,7 +25,7 @@ function ShowResourcesPage()
 {
 	global $LNG, $ProdGrid, $resource, $reslist, $CONF, $db, $ExtraDM, $USER, $PLANET;
 	
-	if ($PLANET['planet_type'] == 3)
+	if ($PLANET['planet_type'] == 3 || $USER['urlaubs_modus'] == 1)
 	{
 		$CONF['metal_basic_income']     = 0;
 		$CONF['crystal_basic_income']   = 0;

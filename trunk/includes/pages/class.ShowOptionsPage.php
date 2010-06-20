@@ -141,8 +141,6 @@ class ShowOptionsPage
 									`solar_satelit_porcent` = '0'
 									WHERE `id_owner` = '".$USER["id"]."';";
 				}
-				else
-					$urlaubs_modus = "0";
 
 				$SQLQuery	.=  "UPDATE ".USERS." SET
 								`dpath` = '".$db->sql_escape($dpath)."',
