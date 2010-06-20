@@ -155,11 +155,11 @@ class MissionCaseExpedition extends MissionFunctions
 				$MinFound		= mt_rand(7000, 10000);
 			
 				$FoundShipMess	= "";
-				$LNG			= $this->GetUserLang($this->_fleet['fleet_owner'], 'TECH');
+				$LNG			+= $this->GetUserLang($this->_fleet['fleet_owner'], 'TECH');
 				
 				foreach($reslist['fleet'] as $ID) 
 				{
-					#if(!isset($FleetCount[$ID])) continue;
+					if(!isset($FleetCount[$ID])) continue;
 					$Count				= mt_rand(1, floor($FoundShips / ($pricelist[$ID]['metal'] + $pricelist[$ID]['crystal'])));
 					$FleetCount[$ID]	= bcadd($Count, $FleetCount[$ID]);
 					$FoundShips	 		-= $Count * ($pricelist[$ID]['metal'] + $pricelist[$ID]['crystal']);
