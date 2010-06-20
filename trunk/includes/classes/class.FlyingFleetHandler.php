@@ -43,7 +43,7 @@ class FlyingFleetHandler
 		require_once('class.MissionFunctions.'.PHP_EXT);
 		while ($CurrentFleet = $db->fetch_array($fleetquery))
 		{
-			if($this->IfFleetBusy($CurrentFleet['fleet_id'])) continue;
+			if(!$this->IfFleetBusy($CurrentFleet['fleet_id'])) continue;
 			
 			require_once('missions/'.$MissionsPattern[$CurrentFleet['fleet_mission']].'.'.PHP_EXT);
 			$Mission	= new $MissionsPattern[$CurrentFleet['fleet_mission']]($CurrentFleet);
