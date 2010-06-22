@@ -4,6 +4,12 @@
 {$title}&nbsp;(<a href="?page=changelog">{$smarty.const.VERSION}</a>)
 </p>
 <table width="100%" cellspacing="0" cellpadding="0">
+<tr>
+	<td>
+		<img src="{$dpath}gfx/ogame-produktion.jpg" width="110" height="40" alt="">
+	</td>
+
+</tr>
 {if $authlevel > 0}
 <tr>
 	<td>
@@ -13,12 +19,6 @@
 	</td>
 </tr>
 {/if}
-<tr>
-	<td>
-		<img src="{$dpath}gfx/ogame-produktion.jpg" width="110" height="40" alt="">
-	</td>
-
-</tr>
 <tr>
 	<td>
 		<div align="center">
