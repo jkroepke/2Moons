@@ -34,7 +34,7 @@ function ShowResourcesPage()
 
 	$SubQry               = "";
 
-	if ($_POST)
+	if ($_POST && $USER['urlaubs_modus'] == 0)
 	{
 		foreach($_POST as $Field => $Value)
 		{
@@ -115,6 +115,9 @@ function ShowResourcesPage()
 				$deuterium[$ProdID]	= floor(eval($ProdGrid[$ProdID]['formule']['deuterium']) * (0.01 * $post_porcent) * ($CONF['resource_multiplier']));
 				$energy[$ProdID]	= floor(eval($ProdGrid[$ProdID]['formule']['energy'])    * ($CONF['resource_multiplier']));
 			} else {
+				if($ProdID == 12 && $PLANET['deuterium'] == 0)
+					continue;
+				
 				$deu_en[$ProdID]	= floor(eval($ProdGrid[$ProdID]['formule']['deuterium']) * ($CONF['resource_multiplier']));
 				$energy_en[$ProdID]	= floor(eval($ProdGrid[$ProdID]['formule']['energy']) * ($CONF['resource_multiplier']));
 			}

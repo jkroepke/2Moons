@@ -73,8 +73,8 @@ class ShowOptionsPage
 		{
 			case "exit":
 				if ($exit == 'on' and $USER['urlaubs_until'] <= TIMESTAMP)
-					$SQLQuery	.= "UPDATE ".USERS." SET `urlaubs_modus` = '0', `urlaubs_until` = '0' WHERE `id` = '".$USER['id']."' LIMIT 1;UPDATE ".PLANETS." SET `last_update` = '".TIMESTAMP."' WHERE `id_owner` = '".$USER["id"]."';";
-				
+					$SQLQuery	.= "UPDATE ".USERS." SET `urlaubs_modus` = '0', `urlaubs_until` = '0' WHERE `id` = '".$USER['id']."' LIMIT 1;UPDATE ".PLANETS." SET `last_update` = '".TIMESTAMP."', `energy_used` = '10', `energy_max` = '10', `metal_mine_porcent` = '10', `crystal_mine_porcent` = '10', `deuterium_sintetizer_porcent` = '10', `solar_plant_porcent` = '10', `fusion_plant_porcent` = '10', `solar_satelit_porcent` = '10' WHERE `id_owner` = '".$USER["id"]."';";
+
 				if ($db_deaktjava == 'on')
 					$SQLQuery	.= "UPDATE ".USERS." SET `db_deaktjava` = '".TIMESTAMP."' WHERE `id` = '".$USER['id']."' LIMIT 1;";
 				else
