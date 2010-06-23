@@ -95,13 +95,14 @@ class ResourceUpdate
 				$BuildLevel 		= $PLANET[$resource[$ProdID]];
 				$Caps['metal_perhour']		+= floor(eval($ProdGrid[$ProdID]['formule']['metal'])     * $CONF['resource_multiplier'] * (1 + (($USER['rpg_geologue'] * 0.05) + ($USER['metal_proc_tech'] * 0.02) + ((TIMESTAMP - $USER[$resource[703]] <= 0) ? ($ExtraDM[703]['add']) : 0))));
 				$Caps['crystal_perhour']	+= floor(eval($ProdGrid[$ProdID]['formule']['crystal'])   * $CONF['resource_multiplier'] * (1 + (($USER['rpg_geologue'] * 0.05) + ($USER['crystal_proc_tech'] * 0.02) + ((TIMESTAMP - $USER[$resource[703]] <= 0) ? ($ExtraDM[703]['add']) : 0))));
-				if ($ProdID < 4)
-				{
+			
+				if ($ProdID < 4) {
 					$Caps['deuterium_perhour'] 	+= floor(eval($ProdGrid[$ProdID]['formule']['deuterium']) * $CONF['resource_multiplier'] * (1 + (($USER['rpg_geologue'] * 0.05) + ($USER['deuterium_proc_tech'] * 0.02) + ((TIMESTAMP - $USER[$resource[703]] <= 0) ? ($ExtraDM[703]['add']) : 0))));
 					$Caps['energy_used']   		+= floor(eval($ProdGrid[$ProdID]['formule']['energy']) * ($CONF['resource_multiplier']));
-				}
-				elseif ($ProdID >= 4 )
-				{
+				} else {
+					if($ProdID == 12 && $PLANET['deuterium'] == 0)
+						continue;
+
 					$Caps['deuterium_used'] 	+= floor(eval($ProdGrid[$ProdID]['formule']['deuterium']) * ($CONF['resource_multiplier']));
 					$Caps['energy_max']			+= floor(eval($ProdGrid[$ProdID]['formule']['energy']) * ($CONF['resource_multiplier']) * (1 + ($USER['rpg_ingenieur'] * 0.05)) * ((TIMESTAMP - $USER[$resource[704]] <= 0) ? (1 + $ExtraDM[704]['add']) : 1));
 				}

@@ -5,10 +5,12 @@ $LNG['Description'] = 'Beschreibung';
 
 $LNG['changelog']   = array(
 
-'RC5.1' => 'ShadoX 12.06.10
-- ADD: New Facebook API
+'RC5.1' => 'ShadoX 23.06.10
 - ADD: Für Halten muss man in der Ally/Buddy sein
 - ADD: Name des HP bei der Reg.
+- ADD: Passwort Abfrage bei Authlevel/Reset
+- FIX: Flottenverluste
+- FIX: AKW, wenn keine Deuterium vorhanden ist
 - FIX: reCAPTCHA wird beim Direkt Link nicht geladen
 - FIX: Englische VaildMail
 - FIX: IRaks
@@ -24,6 +26,8 @@ $LNG['changelog']   = array(
 - FIX: BuildQueue
 - FIX: Install
 - FIX: Forschungen
+- DIV: Mienen auf 100% nach UMode
+- DIV: Full MultiLangauge Support
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game
 ',

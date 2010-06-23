@@ -5,7 +5,33 @@ $LNG['Description'] = 'Beschreibung';
 
 $LNG['changelog']   = array(
 
-'RC5.0' => 'ShadoX 08.05.10
+'RC5.1' => 'ShadoX 23.06.10
+- ADD: Für Halten muss man in der Ally/Buddy sein
+- ADD: Name des HP bei der Reg.
+- ADD: Passwort Abfrage bei Authlevel/Reset
+- FIX: Flottenverluste
+- FIX: AKW, wenn keine Deuterium vorhanden ist
+- FIX: reCAPTCHA wird beim Direkt Link nicht geladen
+- FIX: Englische VaildMail
+- FIX: IRaks
+- FIX: Langauge Select beim Registieren
+- FIX: Koloniename
+- FIX: UMode
+- FIX: Admin Hack via Facebook
+- FIX: Flottenrückkehr
+- FIX: Nachrichten Transport
+- FIX: Forschung
+- FIX: Phalax
+- FIX: Steal
+- FIX: BuildQueue
+- FIX: Install
+- FIX: Forschungen
+- DIV: Mienen auf 100% nach UMode
+- DIV: Full MultiLangauge Support
+- DIV: Sicherheit im Game erhöht
+- DIV: Diverse Anpassungen am Game
+',
+'RC5.0' => 'ShadoX 30.05.10
 - ADD: Neue Schiffe
 - ADD: Support Planet in System != 15
 - ADD: Cookie für LoginMusik
@@ -14,10 +40,16 @@ $LNG['changelog']   = array(
 - ADD: Kampfsimulator
 - ADD: bcmath for JS
 - DEL: PluginSystem
+- FIX: View Database Logindata, if connections problems to database.
 - FIX: Dublicate Ressis Bug
 - FIX: Bewerbungstext
 - FIX: Support
+- FIX: Mondzerstörung
+- FIX: Flotten
+- FIX: Gebäude Cheat
 - FIX: Resource Bug
+- FIX: Shipyard supports now Trillion \'Build per Row\'
+- FIX: Darmatter Kosten bei Verteidigung
 - FIX: Mood Löschung
 - FIX: Intergal. Netzwerk
 - FIX: class.FlyingFleetMissions.php on 1183:SQL Error (Duplicate entry \'Key\' for key \'rid\')
@@ -30,6 +62,9 @@ $LNG['changelog']   = array(
 - FIX: Große HoF KBs
 - FIX: GebäudeCheat
 - FIX: Statistiken Fehler bei neuen Spielern
+- DIV: Use IE7-js for IE CSS Fixs
+- DIV: Use Googles Host for jQuery JS
+- DIV: Updatet TS 3 Lib
 - DIV: Flottenquery vereinfacht
 - DIV: Sicherheit im Game erhöht
 - DIV: Leftmenu
