@@ -139,7 +139,7 @@ if(empty($tickettext) OR empty($subject)){
 /// Listenanzeige des einen tickets
 	$query2 = $db->query("SELECT s.*, u.username as username , u.id FROM ".SUPP." as s, ".USERS." as u  WHERE s.ID = '".$_GET['ticket']."' AND u.id=s.player_id;");
 	while($ticket2 = $db->fetch_array($query2)){
-			switch($ticket['status']){
+			switch($ticket2['status']){
 				case 0:
 					$status = '<font color="red">'.$LNG['supp_close'].'</font>';
 				break;

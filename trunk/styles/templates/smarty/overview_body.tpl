@@ -4,7 +4,7 @@
 <div id="content" class="content">
     <table width="519" align="center">
         <tr>
-        	<td class="c" colspan="4"><a onclick="javascript:$('.containerPlus').mb_open();" title="{$ov_planetmenu}" style="cursor:pointer;">{$ov_planet} "<span class="planetname">{$planetname}</span>"</a> ({$username})</td>
+        	<td class="c" colspan="4"><a onclick="$('.containerPlus').mb_open();" title="{$ov_planetmenu}" style="cursor:pointer;">{$ov_planet} "<span class="planetname">{$planetname}</span>"</a> ({$username})</td>
         </tr>
         {if $messages}
 		<tr><th colspan="4"><a href="?page=messages">{$messages}</a></th></tr>
@@ -92,9 +92,6 @@
 		slideTimer:300,
         autoscroll:true,
       });
-	  if (!$("#demoContainer").mb_getState("closed")){
-        $('#close').fadeIn();$('#actions').fadeIn(); $("#open").hide(); $('#open_change').hide();
-      }
 	});
 
 	function checkrename()

@@ -1,5 +1,3 @@
-<script>document.body.style.overflow = "auto";</script> 
-<body>
 <form action="" method="post">
 <table width="30%">
 <tr><td class="c" colspan="6">{mod_title}</td></tr>
@@ -38,7 +36,7 @@
 <th><input type="checkbox" checked="checked" disabled="disabled"/></th>
 <th><input type="checkbox"{log_a} name="log_a"/></th>
 </tr>
-<tr><th colspan="6"><input type="submit" value="{button_submit}" name="mode" /></th></tr>
+<tr><th colspan="6"><input type="button" value="{button_submit}" name="mode" onclick="$('.containerPlus').mb_open();$('.containerPlus').mb_centerOnWindow(true);"></th></tr>
 </table>
 
 <br />
@@ -49,5 +47,30 @@
 <tr><th><img src="../styles/images/r5.png" /></th><th>{mod_power_tools}</th></tr>
 <tr><th><img src="../styles/images/r6.png" /></th><th>{mod_power_loog}</th></tr>
 </table>
+<div id="demoContainer" class="containerPlus draggable resizable { buttons:'c', skin:'black', width:'580', height:'50',dock:'dock',closed:'true'}" style="position:absolute;top:250px;left:400px; height:50%">
+    <div class="no"><div class="ne"><div class="n">{adm_password}</div></div>
+      <div class="o"><div class="e"><div class="c">
+        <div class="mbcontainercontent"><center>{adm_password_info}<br>
+		{adm_password}: <input type="password" name="password"><br><br>
+		<input type="submit" value="{button_submit}"></center>
+        </div>
+      </div></div></div>
+      <div >
+        <div class="so"><div class="se"><div class="s"> </div></div></div>
+      </div>
+    </div>
+  </div>
 </form>
-</body>
+
+<script type="text/javascript">
+	$(function(){
+      $(".containerPlus").buildContainers({
+        containment: 'document',
+        elementsPath: '../styles/css/mbContainer/',
+        onClose:function(o){void(0);},
+        effectDuration:500,
+		slideTimer:300,
+        autoscroll:true,
+      });
+	});
+</script>
