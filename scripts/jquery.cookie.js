@@ -1,12 +1,14 @@
-/**
- * Cookie plugin
- *
- * Copyright (c) 2006 Klaus Hartl (stilbuero.de)
- * Dual licensed under the MIT and GPL licenses:
- * http://www.opensource.org/licenses/mit-license.php
- * http://www.gnu.org/licenses/gpl.html
- *
- */
+
+/*******************************************************************************
+ jquery.mb.components
+ Copyright (c) 2001-2010. Matteo Bicocchi (Pupunzi); Open lab srl, Firenze - Italy
+ email: mbicocchi@open-lab.com
+ site: http://pupunzi.com
+
+ Licences: MIT, GPL
+ http://www.opensource.org/licenses/mit-license.php
+ http://www.gnu.org/licenses/gpl.html
+ ******************************************************************************/
 
 /**
  * Create a cookie with the given name and value and other optional parameters.
@@ -53,11 +55,13 @@
  * @cat Plugins/Cookie
  * @author Klaus Hartl/klaus.hartl@stilbuero.de
  */
+document.$cookie=true;
 jQuery.cookie = function(name, value, options) {
     if (typeof value != 'undefined') { // name and value given, set cookie
         options = options || {};
         if (value === null) {
             value = '';
+            options = $.extend({}, options); // clone object since it's unexpected behavior if the expired property were changed
             options.expires = -1;
         }
         var expires = '';
@@ -71,7 +75,7 @@ jQuery.cookie = function(name, value, options) {
             }
             expires = '; expires=' + date.toUTCString(); // use expires attribute, max-age is not supported by IE
         }
-        // CAUTION: Needed to parenthesize options.path and options.domain
+        // NOTE Needed to parenthesize options.path and options.domain
         // in the following expressions, otherwise they evaluate to undefined
         // in the packed version for some reason...
         var path = options.path ? '; path=' + (options.path) : '';

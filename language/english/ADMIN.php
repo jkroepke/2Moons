@@ -25,6 +25,10 @@
 ##############################################################################
 
 //---------------	GENERAL	------------------------// 
+
+$LNG['adm_password']		= 'Password';
+$LNG['adm_password_info']	= 'Gebe dein Passwort ein, um dich zu vertifizeren!';
+$LNG['adm_bad_password']	= 'Wrong password!';
 $LNG['404_page']			= 'You do not have sufficient permissions';
 $LNG['adm_cp_title']		= 'Administration control Panel';
 $LNG['adm_cp_index']		= 'Home';

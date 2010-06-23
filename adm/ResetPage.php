@@ -104,8 +104,13 @@ function ResetUniverse ( $CurrentUser )
 }
 
 
-if ($_POST)
-{
+if ($_POST) {
+	if(md5($_POST['password']) != $USER['password']) {
+		$parse['good']	=	'<tr><th colspan="2"><center><font color=red>'.$LNG['adm_bad_password'].'</font></center></th></tr>';
+		display(parsetemplate(gettemplate('adm/ResetBody'), $parse), false, '', true, false);
+		exit;
+	}
+	
  $Log	.=	"\n".$LNG['log_the_user'].$USER['username']." ".$LNG['log_reseteo'].":\n";
  if ($_POST['resetall']	!=	'on')
  {

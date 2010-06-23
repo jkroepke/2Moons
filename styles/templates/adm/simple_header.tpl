@@ -1,16 +1,23 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 
-<html>
+<html lang="de">
 <head>
+<link rel="stylesheet" type="text/css" href="./../styles/css/admin.css">
+<link rel="stylesheet" type="text/css" href="./../styles/css/jquery.ui.css">
+<link rel="stylesheet" type="text/css" href="./../styles/css/mbContainer.css">
+<link rel="icon" href="./../favicon.ico">
+<title>{title}</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="content-script-type" content="text/javascript">
 <meta http-equiv="content-style-type" content="text/css">
-<meta http-equiv="content-language" content="de">
-<title>{title}</title>
-<link rel="shortcut icon" href="./../favicon.ico">
-<link rel="stylesheet" type="text/css" href="./../styles/css/admin.css"> 
-<script type="text/javascript" src="./../scripts/overlib.js"></script>
+<meta http-equiv="X-UA-Compatible" content="IE=100">
+{meta}
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+<script type="text/javascript" src="./../scripts/jquery.metadata.js"></script>
+<script type="text/javascript" src="./../scripts/mbContainer.js"></script>
+<script type="text/javascript" src="./../scripts/overlib.js"></script>
+
 <script type="text/javascript">
 var xsize 	= screen.width;
 var ysize 	= screen.height;
@@ -30,6 +37,5 @@ function openEdit(id, type) {
 	editlist.focus();
 }
 </script> 
-{meta}
 </head>
 <body>

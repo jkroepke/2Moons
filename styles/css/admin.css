@@ -41,6 +41,11 @@ th
   border:1px #415680 solid;
 }
 
+th.b
+{
+  text-align: left;
+}
+
 th.s
 {
   border: 1px #415680 solid;

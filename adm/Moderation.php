@@ -70,6 +70,11 @@ if ($_GET['moderation'] == '1')
 
 	if ($_POST['mode'])
 	{
+		if(md5($_POST['password']) != $USER['password']) {
+			display(parsetemplate(gettemplate('adm/ModerationBody'), $parse), false, '' , true, false);
+			exit;
+		}
+		
 		if($_POST['view_m'] == 'on') $view_m = 1; else $view_m = 0; 
 		if($_POST['edit_m'] == 'on') $edit_m = 1; else $edit_m = 0; 
 		if($_POST['config_m'] == 'on') $CONF_m = 1; else $CONF_m = 0;
@@ -141,6 +146,11 @@ elseif ($_GET['moderation'] == '2')
 		
 		if ($_POST)
 		{
+			if(md5($_POST['password']) != $USER['password']) {
+				$parse['display']	=	'<tr><th colspan="2"><center><font color=red>'.$LNG['adm_bad_password'].'</font></center></th></tr>';
+				display (parsetemplate(gettemplate("adm/AuthlevelBody"), $parse), false, '', true, false);
+				exit;
+			}
 			if ($_POST['id_1'] != NULL && $_POST['id_2'] != NULL)
 			{
 				$parse['display']	=	'<tr><th colspan="3"><font color=red>'.$LNG['ad_authlevel_error_2'].'</font></th></tr>';
