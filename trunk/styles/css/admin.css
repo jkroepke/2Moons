@@ -1,48 +1,5 @@
 body 
 {	
-	padding: 0;
-	margin: 0;
-	height: 100%;
-}
-
-a.out {
-	font-size: 13px;
-	font-stretch:expanded;
-	border: 1px #FF0000 solid;
-	color: #FF0000;
-	cursor: pointer;
-	text-align:center;
-}
-a.out:hover {
-	font-size: 13px;
-	text-decoration: none;
-	border: 1px #FF0000 solid;
-	cursor: pointer;
-	color: #FFFFFF;
-	background-color: #CC0000;
-	text-align:center;
-}
-
-a.topn {
-	font-size: 13px;
-	font-stretch:expanded;
-	border: 1px #FFFFFF solid;
-	color: #FFFFFF;
-	cursor: pointer;
-	text-align:center;
-}
-a.topn:hover {
-	font-size: 13px;
-	text-decoration: none;
-	border: 1px #FFFFFF solid;
-	cursor: pointer;
-	color: #000000;
-	background-color: #66CCFF;
-	text-align:center;
-}
-
-/* body 
-{	
 	color                		: #E6EBFB;
   	background-image     		: url(../images/bg1.jpg);
 	background-color			: #050E1F;
@@ -64,7 +21,7 @@ table
 {
 	border: 0px #000000 solid;
 	font-size: 10px;
-	background-color: #1b232c; 
+	background-color: #1b232c;            /*#344566;*/
 }
 
 textarea
@@ -180,10 +137,96 @@ img
 
 
 
+/* MENU */
+.menu
+{
+	background:#050E1F;
+	color:#00FF00;
+}
+
+table.s 
+{
+	border: 0px;
+	font-size: 10px;
+	_font-size: 11px;
+	background-color: #050E1F;
+	filter: alpha(opacity=100);
+  	_moz-opacity: 1.0;
+  	_khtml-opacity: 1.0;
+  	opacity: 1.0;
+}
+
+th.ForIE
+{
+  border: 0px #415680 solid;
+  font-size: 10px;
+  font-family: Tahoma,sans-serif;
+  background-color:#050E1F;
+}
+
+th.ForIEHover
+{
+	border: 1px #415680 solid;
+	background-color: #0F1F3C;
+}
+
+td.t
+{
+	border-bottom: 2px #0099FF solid;
+	border:0px;
+	text-align:center;
+	color: #0099FF;
+	font-size:14px;
+	font-weight:bolder;
+	background-color: #050E1F;
+}
 
 
 
-/* Informacion detallada de usuarios 
+/* TOPNAV */
+.topnav
+{	
+	background:#050E1F;
+}
+
+a.out {
+	font-size: 13px;
+	font-stretch:expanded;
+	border: 1px #FF0000 solid;
+	color: #FF0000;
+	cursor: pointer;
+	text-align:center;
+}
+a.out:hover {
+	font-size: 13px;
+	text-decoration: none;
+	border: 1px #FF0000 solid;
+	cursor: pointer;
+	color: #FFFFFF;
+	background-color: #CC0000;
+	text-align:center;
+}
+
+a.topn {
+	font-size: 13px;
+	font-stretch:expanded;
+	border: 1px #FFFFFF solid;
+	color: #FFFFFF;
+	cursor: pointer;
+	text-align:center;
+}
+a.topn:hover {
+	font-size: 13px;
+	text-decoration: none;
+	border: 1px #FFFFFF solid;
+	cursor: pointer;
+	color: #000000;
+	background-color: #66CCFF;
+	text-align:center;
+}
+
+
+/* Informacion detallada de usuarios */
 td.p
 {
 	border-bottom:solid #000000;
@@ -209,4 +252,4 @@ select, textarea, input, button{
 }
 .no{
 	color:red;
-} */
+}
