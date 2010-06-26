@@ -243,7 +243,7 @@ abstract class FleetFunctions
 	{
 		global $db;
 		
-		$GetAKS 	= $db->query("SELECT * FROM ".AKS." WHERE `eingeladen` LIKE '%".$CurrentUserID."%';");
+		$GetAKS 	= $db->query("SELECT `id`, `name`, `galaxy`, `system`, `planet`, `planet_type` FROM ".AKS." WHERE `eingeladen` LIKE '%".$CurrentUserID."%';");
 		$AKSList	= array();
 		
 		while($row = $db->fetch_array($GetAKS))

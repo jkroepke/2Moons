@@ -152,7 +152,7 @@ class FlyingFleetsTable
 		return $db->uniquequery("SELECT ou.username as own_username,
 		tu.username as target_username,
 		op.name as own_planetname,
-		tp.name as targer_planetname
+		tp.name as target_planetname
 		FROM ".USERS." as ou
 		LEFT JOIN ".USERS." tu ON tu.id = '".$FleetRow['fleet_target_owner']."'
 		LEFT JOIN ".PLANETS." op ON op.`galaxy` = '".$FleetRow['fleet_start_galaxy']."' AND op.`system` = '".$FleetRow['fleet_start_system']."' AND op.`planet` = '".$FleetRow['fleet_start_planet']."' AND op.`planet_type` = '".$FleetRow['fleet_start_type']."'

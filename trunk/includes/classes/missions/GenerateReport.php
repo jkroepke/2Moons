@@ -249,7 +249,9 @@ function GenerateReport($RESULT, $INFO)
 			$html .= '".sprintf($LNG["sys_moonbuilt"], "'.$INFO['moon']['name'].'", "'.$INFO['end_galaxy'].'", "'.$INFO['end_system'].'", "'.$INFO['end_planet'].'")."';
 		}
 	}
-	
+	if(isset($INFO['moon']['battlesim'])) {
+		$html .= $INFO['moon']['battlesim'];
+	}
 	$html .= '"';
 	return $html;
 }

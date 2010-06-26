@@ -263,9 +263,9 @@ class ShowAlliancePage
 					case 'apply':
 						if($USER['ally_request'] == 0)
 						{
-							$text	= request_var('text' , '');
+							$text	= request_var('text' , '', true);
 							
-							$allyrow = $db->fetch_array($db->query("SELECT `ally_tag`, `ally_request`, `ally_request_notallow` FROM ".ALLIANCE." WHERE id='".$db->sql_escape($allyid)."';"));
+							$allyrow = $db->uniquequery("SELECT `ally_tag`, `ally_request`, `ally_request_notallow` FROM ".ALLIANCE." WHERE id='".$db->sql_escape($allyid)."';");
 
 							if (!$allyrow)
 								header("Location: ?page=alliance");

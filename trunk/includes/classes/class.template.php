@@ -30,6 +30,7 @@ class template extends Smarty
 		$this->force_compile 		= false;
 		$this->caching 				= false;
 		$this->compile_check		= true;
+		$this->php_handling			= SMARTY_PHP_QUOTE;
 		$this->template_dir 		= ROOT_PATH . TEMPLATE_DIR."smarty/";
 		$this->compile_dir 			= ROOT_PATH ."cache/";
 		$this->script				= array();
@@ -49,9 +50,7 @@ class template extends Smarty
 		
 	public function assign_vars($assign)
 	{
-		foreach($assign as $AssignName => $AssignContent) {
-			$this->assign($AssignName, $AssignContent);
-		}
+		$this->assign($assign);
 	}
 	
 	private function planetmenu()
@@ -198,6 +197,15 @@ class template extends Smarty
 		));
 	}
 	
+	private function adm_header()
+	{
+		global $LNG, $CONF;
+		$this->assign_vars(array(
+			'scripts'	=> $this->script,
+			'title'		=> $CONF['game_name'].' - '.$LNG['adm_cp_title'],
+		));
+	}
+	
 	public function set_index()
 	{
 		global $USER, $CONF, $LNG;
@@ -254,24 +262,29 @@ class template extends Smarty
 	public function show($file)
 	{		
 		global $USER, $CONF, $LNG, $db;
-		if($this->page['header'] == true)
-			$this->header();
-			
-		if($this->page['topnav'] == true)
-			$this->topnav();
-			
-		if($this->page['leftmenu'] == true)
-			$this->leftmenu();
-			
-		if($this->page['planetmenu'] == true)
-			$this->planetmenu();
-			
-		if($this->page['footer'] == true)
-			$this->footer();
+		if(defined('IN_ADMIN')) {
+			if($this->page['header'] == true)
+				$this->adm_header();			
+		} else {
+			if($this->page['header'] == true)
+				$this->header();
+				
+			if($this->page['topnav'] == true)
+				$this->topnav();
+				
+			if($this->page['leftmenu'] == true)
+				$this->leftmenu();
+				
+			if($this->page['planetmenu'] == true)
+				$this->planetmenu();
+				
+			if($this->page['footer'] == true)
+				$this->footer();
 
-		$this->assign_vars(array(
-			'sql_num'	=> ((!defined('INSTALL') || !defined('IN_ADMIN')) && $USER['authlevel'] == 3 && $CONF['debug'] == 1) ? "<center><div id=\"footer\">SQL Abfragen:".$db->get_sql()." (".round($db->time, 4)." Sekunden) - Seiten generiert in ".round(microtime(true) - STARTTIME, 4)." Sekunden</div></center>" : "",
-		));
+			$this->assign_vars(array(
+				'sql_num'	=> ((!defined('INSTALL') || !defined('IN_ADMIN')) && $USER['authlevel'] == 3 && $CONF['debug'] == 1) ? "<center><div id=\"footer\">SQL Abfragen:".$db->get_sql()." (".round($db->time, 4)." Sekunden) - Seiten generiert in ".round(microtime(true) - STARTTIME, 4)." Sekunden</div></center>" : "",
+			));
+		}
 		$this->display($file);
 	}
 	

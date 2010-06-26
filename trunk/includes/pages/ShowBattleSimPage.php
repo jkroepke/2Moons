@@ -81,19 +81,18 @@ function ShowBattleSimPage()
 		$start 				= microtime(true);
 		$result 			= calculateAttack($attack, $defense);
 		$totaltime 			= microtime(true) - $start;
-		$steal				= calculateSteal($attack, array('metal' => $BattleArray[0][1][1], 'crystal' => $BattleArray[0][1][2], 'deuterium' => $BattleArray[0][1][3]), true);
+		if ($result['won'] == "a") {
+			$steal				= calculateSteal($attack, array('metal' => $BattleArray[0][1][1], 'crystal' => $BattleArray[0][1][2], 'deuterium' => $BattleArray[0][1][3]), true);
+		} else {
+			$steal				= array('metal' => 0, 'crystal' => 0, 'deuterium' => 0);
+		}
 		$FleetDebris      	= $result['debree']['att'][0] + $result['debree']['def'][0] + $result['debree']['att'][1] + $result['debree']['def'][1];
 		$StrAttackerUnits 	= sprintf($LNG['sys_attacker_lostunits'], $result['lost']['att']);
 		$StrDefenderUnits 	= sprintf($LNG['sys_defender_lostunits'], $result['lost']['def']);
 		$StrRuins         	= sprintf($LNG['sys_gcdrunits'], $result['debree']['def'][0] + $result['debree']['att'][0], $LNG['Metal'], $result['debree']['def'][1] + $result['debree']['att'][1], $LNG['Crystal']);
 		$DebrisField      	= $StrAttackerUnits ."<br>". $StrDefenderUnits ."<br>". $StrRuins;
-		$MoonChance       	= min(round($FleetDebris / 100000,0),20);
-		$UserChance 	 	= mt_rand(1, 100);
-		$ChanceMoon 		= sprintf($LNG['sys_moonproba'], $MoonChance);
+		$MoonChance       	= min(round($FleetDebris / 100000, 0), 20);
 		$AllSteal			= array_sum($steal);
-		
-		if ($UserChance <= $MoonChance)
-			$GottenMoon       = sprintf($LNG['sys_moonbuilt'], $LNG['fl_moon'], 1, 33, 7)."<br>";
 		
 		$RaportInfo			= sprintf($LNG['bs_derbis_raport'], 
 		ceil($FleetDebris / $pricelist[219]['capacity']), $LNG['tech'][219],
@@ -102,8 +101,12 @@ function ShowBattleSimPage()
 		ceil($AllSteal / $pricelist[202]['capacity']), $LNG['tech'][202], 
 		ceil($AllSteal / $pricelist[203]['capacity']), $LNG['tech'][203], 
 		ceil($AllSteal / $pricelist[217]['capacity']), $LNG['tech'][217])."<br>";
-		
-		$raport 			= GenerateReport($result, $steal, $MoonChance, $GottenMoon, $totaltime, array('fleet_start_time' => TIMESTAMP), $LNG, '', $RaportInfo);
+		$INFO['moon']['battlesim']	= $RaportInfo;
+		$INFO['steal']				= $steal;
+		$INFO['fleet_start_time']	= TIMESTAMP;
+		$INFO['moon']['des']		= 0;
+		$INFO['moon']['chance'] 	= $MoonChance;
+		$raport 			= GenerateReport($result, $INFO);
 
 		$rid   				= md5(microtime(true));
 		
