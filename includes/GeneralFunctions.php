@@ -494,7 +494,7 @@ function exception_handler($exception) {
 	echo '<title>'.$CONF['game_name'].' - FATAL ERROR</title>';
 	echo '<link rel="shortcut icon" href="./favicon.ico">';
 	echo '<link rel="stylesheet" type="text/css" href="'.DEFAULT_SKINPATH.'formate.css">';
-	echo '<script language="JavaScript"> ';
+	echo '<script type="text/javascript"> ';
 	echo 'function blockError(){return true;} ';
 	echo 'window.onerror = blockError; ';
 	echo '</script>';
@@ -506,7 +506,7 @@ function exception_handler($exception) {
     echo '<b>File: </b>'.$exception->getFile().'<br>';
     echo '<b>Line: </b>'.$exception->getLine().'<br>';
     echo '<b>PHP-Version: </b>'.PHP_VERSION.'<br>';
-	echo '<b>Debug Backtrace:</b><br>'.makebr($exception->getTraceAsString()).'</th>';
+	echo '<b>Debug Backtrace:</b><br>'.makebr(htmlspecialchars($exception->getTraceAsString())).'</th>';
 	echo '</tr>';
 	echo '</table>';
 	echo '</body>';			
@@ -571,6 +571,13 @@ function GetLangs()
 		$return[$LNG]	= ucwords($LNG);
 	}
 	return $return;
+}
+
+if(!function_exists('ctype_alnum'))
+{
+    function ctype_alnum($test){
+        return preg_match("/[^A-z0-9_\- ]/", $test) != 1;
+    }
 }
 
 ?>

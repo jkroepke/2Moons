@@ -381,7 +381,8 @@ class ResourceUpdate
 		if($USER['urlaubs_modus'] == 1)
 			return array($USER, $PLANET);
 			
-		$Qry	= "UPDATE ".PLANETS." as p, ".USERS." as u SET
+		$Qry	= "LOCK TABLE ".PLANETS." as p WRITE, ".USERS." as u WRITE;
+				   UPDATE ".PLANETS." as p, ".USERS." as u SET
 				   `p`.`metal` = '".floattostring($PLANET['metal'], 6)."',
 				   `p`.`crystal` = '".floattostring($PLANET['crystal'], 6)."',
 				   `p`.`deuterium` = '".floattostring($PLANET['deuterium'], 6)."',
@@ -420,8 +421,9 @@ class ResourceUpdate
 					`u`.`b_tech_planet` = '".$USER['b_tech_planet']."'
 					WHERE
 					`p`.`id` = '". $PLANET['id'] ."' AND
-					`u`.`id` = '".$USER['id']."';";
-		$db->query($Qry);
+					`u`.`id` = '".$USER['id']."';
+					UNLOCK TABLES;";
+		$db->multi_query($Qry);
 		return array($USER, $PLANET);
 	}
 }

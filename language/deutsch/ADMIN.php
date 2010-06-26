@@ -334,10 +334,12 @@ $LNG['ow_proyect_leader']			= 'Projektleitung';
 $LNG['ow_translator']				= 'Übersetzter';
 $LNG['ow_special_thanks']			= 'Besonderes Dankeschön';
 $LNG['ow_install_file_detected']	= 'Das ./install/ Verzeichnis wurde gefunden. Bitte dies umbennen oder löschen, damit ihr Game geschützt ist.';
-$LNG['ow_config_file_writable']	= 'Die config.php ist beschreibabr. Ändere bitte die config.php bitte in CHMOD 444 (read only).';
+$LNG['ow_config_file_writable']		= 'Die config.php ist beschreibar. Ändere bitte die config.php bitte in CHMOD 444 (read only).';
 $LNG['ow_database_errors']			= 'Es sind Fehler vorhanden!';
+$LNG['ow_handler_errors']			= 'Der Fleet-Handler hatte ein Fehler! - Letzter Start: %s - Nächster Start: %s';
+$LNG['ow_smtp_errors']				= 'Überprüfe deine SMTP-Einstellunden! - Momentan können keine Mails gesendet werden!';
 $LNG['ow_old_version']				= 'Eine neue Version ist verfügbar.';
-$LNG['ow_none']					= 'Keine Warnungen';
+$LNG['ow_none']						= 'Keine Warnungen';
 //###########################################################//
 
 
@@ -348,7 +350,7 @@ $LNG['se_lang']						= 'Sprache';
 $LNG['se_general_speed']				= 'Gamespeed';
 $LNG['se_normal_speed']				= 'Normaler Gamespeed: 1 <br> Maximal empfohlende Einstellungen: 20';
 $LNG['se_normal_speed_resoruces']		= 'Normaler Rohstoffspeed: 1 <br> Maximal empfohlende Einstellungen: 20';
-$LNG['se_normal_speed_fleett']			= 'Normaler Flottenspeed: 1 <br> Maximal empfohlende Einstellungen: 20';
+$LNG['se_normal_speed_fleet']			= 'Normaler Flottenspeed: 1 <br> Maximal empfohlende Einstellungen: 20';
 $LNG['se_fleet_speed']					= 'Flottenspeed';
 $LNG['se_resources_producion_speed']	= 'Rohstoffspeed';
 $LNG['se_forum_link']					= 'Forum link';
@@ -1111,6 +1113,11 @@ $LNG['modul'][26]						= 'Suche';
 $LNG['modul'][27]						= 'Support Tickets';
 $LNG['modul'][28]						= 'Techtree';
 
-$LNG['ative']							= 'AKTIV';
-$LNG['deative']						= 'NICHT AKTIV';
+$LNG['mod_module']						= 'Module';
+$LNG['mod_info']						= 'Module im Game<br><font color="red">Admins können weiterhin die Bereiche betreten!</font>';
+$LNG['mod_active']						= 'AKTIV';
+$LNG['mod_deactive']					= 'NICHT AKTIV';
+$LNG['mod_change_active']				= 'Aktivieren';
+$LNG['mod_change_deactive']				= 'Deaktivieren';
+
 ?>

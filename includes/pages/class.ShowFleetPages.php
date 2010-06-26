@@ -413,9 +413,12 @@ class ShowFleetPages extends FleetFunctions
 		
 		if (IsVacationMode($USER))
 		{
-			$template->message($LNG['fl_vacation_mode_active'],"game.php?page=overview",2);
+			$template->message($LNG['fl_vacation_mode_active'], 'game.php?page=overview', 2);
 			exit;
 		}
+		
+		if ($_SESSION['oldpath'] != 'game.php?page=fleet2')
+			parent::GotoFleetPage();
 	
 		if (!($planettype >= 1 || $planettype <= 3))
 			parent::GotoFleetPage();
@@ -687,7 +690,8 @@ class ShowFleetPages extends FleetFunctions
 			}
 		}
 		
-		$QryInsertFleet  = "INSERT INTO ".FLEETS." SET 
+		$QryInsertFleet  = "LOCK TABLE ".FLEETS." WRITE, ".PLANETS." WRITE;
+							INSERT INTO ".FLEETS." SET 
 							`fleet_owner` = '". $USER['id'] ."', 
 							`fleet_mission` = '". $mission ."',
 							`fleet_amount` = '". $FleetShipCount ."',
@@ -712,7 +716,8 @@ class ShowFleetPages extends FleetFunctions
 							UPDATE `".PLANETS."` SET
 							".substr($FleetSubQRY,0,-2)."
 							WHERE
-							`id` = ". $PLANET['id'] ." LIMIT 1;";
+							`id` = ". $PLANET['id'] ." LIMIT 1;
+							UNLOCK TABLES;";
 
 
 		$db->multi_query($QryInsertFleet);
@@ -762,15 +767,11 @@ class ShowFleetPages extends FleetFunctions
 		$thisplanet		= $PLANET['planet'];
 		$thisplanettype = $PLANET['planet_type'];
 		
-		$galaxy 		= request_var('galaxy',0);
-		$system 		= request_var('system',0);
-		$planet 		= request_var('planet',0);
-		$planettype		= request_var('planettype',0);
-		$mission		= request_var('mission',0);
-		$fleet          = array();
-		$speedalls      = array();
-		$PartialFleet   = false;
-		$PartialCount   = 0;
+		$galaxy 		= request_var('galaxy', 0);
+		$system 		= request_var('system', 0);
+		$planet 		= request_var('planet', 0);
+		$planettype		= request_var('planettype', 0);
+		$mission		= request_var('mission', 0);
 		
 		$CurrentFlyingFleets = parent::GetCurrentFleets($USER['id']);	
 		switch($mission)
@@ -832,7 +833,7 @@ class ShowFleetPages extends FleetFunctions
 		$QrySelectEnemy .= "`system` = '". $system ."' AND ";
 		$QrySelectEnemy .= "`planet` = '". $planet ."' AND ";
 		$QrySelectEnemy .= "`planet_type` = '". $planettype ."';";
-		$TargetRow	   = $db->fetch_array($db->query($QrySelectEnemy));
+		$TargetRow	   = $db->uniquequery($QrySelectEnemy);
 
 		if($TargetRow['id_level'] > $USER['authlevel'] && $mission == 6 && $CONF['adm_attack'] == 0)
 			exit("619; ".$LNG['fa_action_not_allowed']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserGRecycles." ".$UserMissiles);
@@ -909,7 +910,8 @@ class ShowFleetPages extends FleetFunctions
 		}
 
 
-		$QryUpdate  = "INSERT INTO ".FLEETS." SET ";
+		$QryUpdate  = "LOCK TABLE ".FLEETS." WRITE, ".PLANETS." WRITE;";
+		$QryUpdate .= "INSERT INTO ".FLEETS." SET ";
 		$QryUpdate .= "`fleet_owner` = '". $USER['id'] ."', ";
 		$QryUpdate .= "`fleet_mission` = '". $mission ."', ";
 		$QryUpdate .= "`fleet_amount` = '". $FleetShipCount ."', ";
@@ -931,6 +933,7 @@ class ShowFleetPages extends FleetFunctions
 		$QryUpdate .= "`deuterium` = '".floattostring($UserDeuterium)."' " ;
 		$QryUpdate .= "WHERE ";
 		$QryUpdate .= "`id` = '". $PLANET['id'] ."';";
+		$QryUpdate .= "UNLOCK TABLES;";
 		$db->multi_query($QryUpdate);
 
 		$CurrentFlyingFleets++;

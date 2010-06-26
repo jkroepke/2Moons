@@ -337,6 +337,7 @@ $LNG['ow_special_thanks']			= 'Special thanks';
 $LNG['ow_install_file_detected']	= 'install/ directory was found. For security reasons, we recommend remove or rename it.';
 $LNG['ow_config_file_writable']	= 'The config.php file could be written, it is advisable to be placed in chmod 444 (read only).';
 $LNG['ow_database_errors']			= 'There are errors present!';
+$LNG['ow_handler_errors']			= 'Der Fleet-Handler hatte ein Fehler! - Letzter Start: %s - Nächster Start: %s';
 $LNG['ow_old_version']				= 'A new version is available.';
 $LNG['ow_none']					= 'No warnings';
 //###########################################################//

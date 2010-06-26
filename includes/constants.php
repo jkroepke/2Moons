@@ -133,6 +133,13 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	define('GEOLOGUE'				  ,   0.05);
 	define('INGENIEUR'				  ,   0.05);
 	
+	// AdminAuthlevels
+	
+	define('AUTH_ADM'                 , 3);
+	define('AUTH_OPS'                 , 2);
+	define('AUTH_MOD'                 , 1);
+	
+	
 	// Data Tabells
 	define('DB_NAME'				  , $database["databasename"]);
 	define('DB_PREFIX'			  	  , $database["tableprefix"]);

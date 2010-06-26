@@ -32,9 +32,12 @@ class CheckSession
 		if(!empty($SelectPlanet))
 			$IsPlanetMine =	$db->uniquequery("SELECT `id` FROM ".PLANETS." WHERE `id` = '". $SelectPlanet ."' AND `id_owner` = '".$_SESSION['id']."';");
 		
+		$_SESSION['oldpath']	= $_SESSION['path'];
+		$_SESSION['path']		= basename($_SERVER['SCRIPT_NAME']).(!empty($_SERVER['QUERY_STRING']) ? '?'.$_SERVER['QUERY_STRING'] : '');
+		
 		$Qry  = "UPDATE ".USERS." SET ";
 		$Qry .= "`onlinetime` = '".TIMESTAMP."', ";
-		$Qry .= "`current_page` = '".$db->sql_escape($_SERVER['REQUEST_URI']) ."', ";
+		$Qry .= "`current_page` = '".$db->sql_escape($_SESSION['path']) ."', ";
 		$Qry .= "`user_lastip` = '".$_SERVER['REMOTE_ADDR'] ."', ";
 		
 		if(isset($IsPlanetMine))
