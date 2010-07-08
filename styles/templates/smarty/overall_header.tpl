@@ -3,7 +3,6 @@
 <html lang="de">
 <head>
 <link rel="stylesheet" type="text/css" href="{$dpath}formate.css">
-<link rel="stylesheet" type="text/css" href="styles/css/jquery.ui.css">
 <link rel="stylesheet" type="text/css" href="styles/css/mbContainer.css">
 <link rel="icon" href="favicon.ico">
 <title>{$title}</title>

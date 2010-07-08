@@ -51,7 +51,7 @@ function ShowBuddyPage()
 					$test = $db->fetch_array($db->query("SELECT `id` FROM ".BUDDY." WHERE (`sender`='".$USER['id']."' AND `owner`='".$uid."') OR (`owner`='".$USER['id']."' AND `sender`='".$uid."');"));
 					if(!isset($test))
 					{
-						$text = request_var('text','');
+						$text = request_var('text', '', UTF8_SUPPORT);
 						$db->query("INSERT INTO ".BUDDY." SET `sender` = '".$USER['id']."', `owner` = '".$uid."', `active` = '0', `text` = '".$db->sql_escape($text)."';");
 						exit($LNG['bu_request_send']);
 					}
