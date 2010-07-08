@@ -16,8 +16,13 @@
 		$("#submit:visible").removeAttr('style').hide().fadeOut();
 		$("#wait:hidden").removeAttr('style').hide().fadeIn();
 		$.post('?page=battlesim&action=send', $('#battlesim').serialize(), function(data){
-			kb.location.href = 'CombatReport.php?raport='+data;
-			kb.focus();
+			if(data.length == 32) {
+				kb.focus();
+				kb.location.href = 'CombatReport.php?raport='+data;
+			} else {
+				kb.window.close();
+				alert(data);
+			}
 		});
 		
 		setTimeout(function(){$("#submit:hidden").removeAttr('style').hide().fadeIn();}, 10000);

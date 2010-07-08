@@ -1,14 +1,14 @@
 {if !$getajax}{include file="public/index_header.tpl"}{/if}
 <center>
   <p>&nbsp;</p>
-  <p><span class="Estilo3">{$welcome_to} {$servername}</span></p>
+  <p><span class="estilo3">{$welcome_to} {$servername}</span></p>
   <p align="center"><span style="text-align: left;">{$server_description}</span></p>
   <p align="center">&nbsp;</p>
   <table>
     <tr><td><ul>{foreach item=InfoRow from=$server_infos}<li><strong>{$InfoRow}</strong></li>{/foreach}
   </ul>
   <div align="center">
-    <p class="Estilo1">&nbsp;</p>
+    <p class="estilo1">&nbsp;</p>
     </div></td></tr>
   </table>
   <br>
@@ -20,7 +20,7 @@
                                   <tbody>
                                     <tr align="center">
 
-                                      <td><span class="Estilo5"><label for="Uni">{$universe}</label></span></td>
+                                      <td><span class="estilo5"><label for="Uni">{$universe}</label></span></td>
                                       <td><select name="Uni" id="Uni" style="width: 188px; position: relative; left: 4px;">
             <option value="">{$chose_a_uni}</option>
 			{html_options options=$AvailableUnis selected='./'}

@@ -38,6 +38,29 @@ lang				= "{$lang}";
             }
         }
     })();
+	
+function downloadJSAtOnload() {
+	CreateJSLoad('http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js');
+	CreateJSLoad('scripts/soundmanager2.js');
+	CreateJSLoad('scripts/jquery.loadmask.js');
+	CreateJSLoad('scripts/jquery.cookie.js');
+	{if $game_captcha}CreateJSLoad('http://api.recaptcha.net/js/recaptcha_ajax.js');{/if}
+	{if $fb_active}CreateJSLoad('http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php');{/if}
+}
+
+function CreateJSLoad(file) {
+	var element = document.createElement("script");
+	element.src = file;
+	document.body.appendChild(element);
+}
+
+// Check for browser support of event handling capability
+if (window.addEventListener)
+	window.addEventListener("load", downloadJSAtOnload, false);
+else if (window.attachEvent)
+	window.attachEvent("onload", downloadJSAtOnload);
+else 
+	window.onload = downloadJSAtOnload;
 </script>
 {if $game_captcha}
 <script type="text/javascript">

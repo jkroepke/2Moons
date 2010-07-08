@@ -1,528 +1,524 @@
-td.s
-{
-  color                : #E6EBFB;
-}
-
-th
-{
-  text-align           : center;
-  padding-left         : 3px;
-  padding-right        : 3px;
-}
-
-td.a
-{
-  height               : 39px;
-  text-align           : center;
-}
-
-td.b
-{
-  padding              : 3px;
-}
-
-table table
-{
-  border               : 0px;
-}
-
-.content {
-overflow : visible;
-position : absolute;
-height: 504px;
-left : 190px;
-width : 80% !important;
-top: 91px;
-}
-html, body {
-overflow : auto;
-}
-html {
-height : 100%;
-width : 100%;
-margin : 0;
-padding : 0;
-}
-
-body {
-margin-top : 7px;
-margin-left : 0;
-background-color : #000000;
-background-image : url(img/bkd_page.gif);
-background-repeat : repeat;
-background-position : top left;
-background-attachment : fixed;
-}
-
-body, input, select, textarea, a, td, th, tr, table{
-font-family : Verdana, Tahoma, Helvetica, sans-serif;
-font-size : 10px;
-color : #CCC;
-}
-
-td.f, input, select, option, textarea {
-background-color : #393939;
-}
-
-select{
-border : 1px solid #212121;
-}
-
-.allymember {
-color : lime;
-}
-.noob {
-color : #a0ffa0;
-}
-.strong {
-color : #ffa0a0;
-}
-.vacation {
-color : #659ec7;
-}
-.inactive {
-color : #cccccc;
-}
-.longinactive {
-color : #999999;
-}
-.banned {
-text-decoration : line-through;
-}
-.ownattack {
-color : #66cc33;
-}
-.owncolony {
-color : #c1c1c1;
-}
-.owndeploy {
-color : #666666;
-}
-.owndestroy {
-color : #ffff99;
-}
-.ownespionage {
-color : #ffcc66;
-}
-.ownfederation {
-color : #cc6666;
-}
-.ownharvest {
-color : #ceff68;
-}
-.ownhold {
-color : #80a0c0;
-}
-.ownmissile {
-color : #ffcc66;
-}
-.owntransport {
-color : #a0ffa0;
-}
-.attack {
-color : red;
-}
-.colony {
-color : lime;
-}
-.deploy {
-color : lime;
-}
-.destroy {
-color : #d4a017;
-}
-.espionage {
-color : #ff6600;
-}
-.federation {
-color : red;
-}
-.harvest {
-color : lime;
-}
-.hold {
-color : #3399cc;
-}
-.missile {
-color : #ff6600;
-}
-.transport {
-color : lime;
-}
-.success {
-color : lime;
-}
-.error {
-color : red;
-}
-.warning {
-color : #FF8040;
-}
-.notice {
-color : yellow;
-}
-.return {
-color : #444444;
-}
-
-table, table tr th, td, th, p {
-font-weight : normal;
-empty-cells : show;
-background-color : transparent;
-}
-img, p table, table table {
-border : 0;
-}
-
-th, td.a, td.b, td.c, td.f, td.g, td.h, td.i, td.j, td.l, td.m, td.n, td.o, td.q, td.r, td.v, textarea, p td, body table td p {
-border : 1px solid #212121;
-background-image : url(img/bkd_bg.png);
-background-repeat : repeat-x;
-}
-th.s {
-border : 0 solid #212121;
-background-color:transparent;
-background-image:none;
-}
-input {
-margin : 2px;
-border : 1px solid #212121;
-text-align : center;
-}
-td.c input {
-margin : 0;
-}
-
-#menu {
-background-image : url(img/bkd_navigation.png);
-background-position : 0;
-background-repeat : no-repeat;
-position: absolute !important;
-width : 192px;
-height : 769px;
-text-align : center;
-z-index : 500;
-top : 0;
-left : 0;
-}
-#menu .p {
-margin:0;
-padding:0;
-position:absolute;
-left:35px;
-top:29px;
-white-space:nowrap;
-}
-#menu table {
-margin-top : 50px;
-}
-#menu div {
-background-image : url(img/td_test.jpg);
-background-position : 0 0;
-background-repeat : no-repeat;
-padding-top : 6px;
-padding-left : 0px;
-text-align : left;
-}
-#menu img {
-width : 190px;
-height : 8px;
-background-position : left bottom;
-}
-#menu td {
-background-color : transparent;
-padding	: 1px !important;
-}
-#menu div a {
-padding-left : 20px;
-}
-#menu div a:hover {
-text-decoration : none;
-background-image : url(img/link_hover.jpg);
-background-position : 0;
-background-repeat : no-repeat;
-text-align : left;
-}
-
-form * th table tr th{
-border: 0 none;
+td.s {
+color:#E6EBFB
 }
 
 th {
-text-align : center;
-padding-left : 3px;
-padding-right : 3px;
-background-image : url(img/bkd_bg.png);
-background-repeat : repeat-x;
+background:url(img/bkd_bg.png) repeat-x;
+padding-left:3px;
+padding-right:3px;
+text-align:center
 }
+
+td.a {
+height:39px;
+text-align:center
+}
+
+td.b {
+padding:3px
+}
+
+.content {
+height:504px;
+left:190px;
+overflow:visible;
+position:absolute;
+top:91px;
+width:80%!important
+}
+
+html,body {
+overflow:auto
+}
+
+html {
+height:100%;
+margin:0;
+padding:0;
+width:100%
+}
+
+body {
+background:url(img/bkd_page.gif) top left fixed #000;
+margin-left:0;
+margin-top:7px
+}
+
+body,input,select,textarea,a,td,th,tr,table {
+color:#CCC;
+font-family:Verdana, Tahoma, Helvetica, sans-serif;
+font-size:10px
+}
+
+td.f,input,select,option,textarea {
+background:#393939
+}
+
+select {
+border:1px solid #212121
+}
+
+.strong {
+color:#ffa0a0
+}
+
+.vacation {
+color:#659ec7
+}
+
+.inactive {
+color:#ccc
+}
+
+.longinactive {
+color:#999
+}
+
+.ownattack {
+color:#6c3
+}
+
+.owncolony {
+color:#c1c1c1
+}
+
+.owndeploy {
+color:#666
+}
+
+.owndestroy {
+color:#ff9
+}
+
+.ownfederation {
+color:#c66
+}
+
+.ownharvest {
+color:#ceff68
+}
+
+.ownhold {
+color:#80a0c0
+}
+
+.destroy {
+color:#d4a017
+}
+
+.hold {
+color:#39c
+}
+
+.warning {
+color:#FF8040
+}
+
+.notice {
+color:#FF0
+}
+
+.return {
+color:#444
+}
+
+table,table tr th,td,th,p {
+empty-cells:show;
+font-weight:400;
+}
+
+table {
+background-color: transparent
+}
+
+th,td.a,td.b,td.c,td.f,td.g,td.h,td.i,td.j,td.l,td.m,td.n,td.o,td.q,td.r,td.v,textarea{
+background:url(img/bkd_bg.png) repeat-x;
+border:1px solid #212121
+}
+
+th.s {
+border:0 solid #212121
+}
+
+input {
+border:1px solid #212121;
+margin:2px;
+text-align:center
+}
+
+td.c input {
+margin:0
+}
+
+#menu {
+background:url(img/bkd_navigation.png) no-repeat 0;
+height:769px;
+left:0;
+position:absolute!important;
+text-align:center;
+top:0;
+width:192px;
+z-index:500
+}
+
+#menu .p {
+left:35px;
+margin:0;
+padding:0;
+position:absolute;
+top:29px;
+white-space:nowrap
+}
+
+#menu table {
+margin-top:50px
+}
+
+#menu div {
+background:url(img/td_test.jpg) no-repeat;
+padding-left:0;
+padding-top:6px;
+text-align:left
+}
+
+#menu img {
+height:8px;
+width:190px
+}
+
+#menu td {
+padding:1px!important
+}
+
+#menu div a {
+padding-left:20px
+}
+
+#menu div a:hover {
+background:url(img/link_hover.jpg) no-repeat 0;
+text-align:left;
+text-decoration:none
+}
+
 td.c {
-text-align : left;
-font-weight : normal;
-color : #666666;
-padding-left : 3px;
-line-height : 18px;
-height : 22px;
-background-image : url(img/bkd_title.png);
-background-repeat : repeat;
+background:url(img/bkd_title.png);
+color:#666;
+font-weight:400;
+height:22px;
+line-height:18px;
+padding-left:3px;
+text-align:left
 }
 
 textarea {
-width : 97%;
+width:97%
 }
 
 td.l {
-background-color : #000000;
-color : #777777;
-vertical-align : top;
-padding : 2px;
-line-height : 14px;
+background:#000;
+color:#777;
+line-height:14px;
+padding:2px;
+vertical-align:top
 }
+
 div.z {
-font-weight : normal;
+font-weight:400
 }
+
 a {
-text-decoration : none;
-font-weight : normal;
+font-weight:400;
+text-decoration:none
 }
 
 a:hover {
-color : #ceff68;
-text-decoration : underline;
+color:#ceff68;
+text-decoration:underline
 }
+
 body table tr td table tr td.l {
-line-height : 15px;
-background-color : #000000;
+background:#000;
+line-height:15px
 }
 
 h1 {
-font-size : 1px;
-font-family : Verdana, Tahoma, Helvetica, sans-serif;
-text-align : right;
-visibility : hidden;
+font-family:Verdana, Tahoma, Helvetica, sans-serif;
+font-size:1px;
+text-align:right;
+visibility:hidden
 }
-a[title~="Geschwindigkeit:"]:after {
-content : " (" attr(title) ")";
-color : #ceff68;
+
+a[title~=geschwindigkeit]:after {
+color:#ceff68;
+content:" (" attr(title) ")"
 }
+
 a:focus {
-outline : none;
-border : none;
+border:none;
+outline:none
 }
-td.l table tbody tr td {
-background-color : transparent;
-}
+
 tr span a {
-color : white;
+color:#FFF
 }
 
 #header_top {
+height:auto;
 margin-left:95px;
-top : 0;
-text-align : center;
-height : auto;
-overflow : hidden !important;
-text-align: center;
+overflow:hidden!important;
+text-align:center;
+top:0
 }
 
-tr.header, table.header {
-width : 80%;
+tr.header,table.header {
+width:80%
 }
+
 .header {
-overflow : hidden;
-vertical-align : middle;
+overflow:hidden;
+vertical-align:middle
 }
+
 #footer {
-background-color:#000000;
-background-position:center bottom;
-background-repeat:repeat;
-border:1px solid white;
-bottom:0px;
-position:fixed;
+background:#000;
+border:1px solid #FFF;
+bottom:0;
 margin-left:12.5%;
 margin-right:12.5%;
+position:fixed;
 text-align:center;
-width:75%;
+width:75%
 }
+
 #menu2 {
-overflow:auto;
 height:auto;
-width: 174px;
-background-color: transparent;
-position: fixed;
-top: 13px;
+overflow:auto;
+position:absolute;
 right:10px;
-position: absolute;
-z-index: 0;
-} 
+top:13px;
+width:174px;
+z-index:0
+}
+
 #menu2 a:hover {
-text-decoration:none;
-}
-#overDiv  > table{
-border : 1px solid #666666;
-background-color : #212121;
-color : #666666;
-margin : 0;
-padding : 0;
-}
-.faq{
-color: #000000;
+text-decoration:none
 }
 
+#overDiv > table {
+background-color:#212121;
+border:1px solid #666666;
+color:#666666;
+margin:0;
+padding:0;
+}
 
-/* Some Shit for jQuery UI */
+.faq {
+color:#000
+}
 
 .ui-tabs .ui-tabs-hide {
-     display: none;
+display:none
 }
 
-#dialog label, #dialog input { display:block; }
-#dialog label { margin-top: 0.5em; }
-#dialog input, #dialog textarea { width: 95%; }
-#tabs { margin-top: 1em; }
-#tabs li .ui-icon-close { float: left; margin: 0.4em 0.2em 0 0; cursor: pointer; }
-#add_tab { cursor: pointer; }
+#dialog label,#dialog input {
+display:block
+}
 
+#dialog label {
+margin-top:.5em
+}
 
-.u_button{
-text-decoration:underline;
+#dialog input,#dialog textarea {
+width:95%
 }
-.s_button{
-text-decoration:line-through;
+
+#tabs {
+margin-top:1em
 }
-.b_button{
-font-weight:bold;
+
+#tabs li .ui-icon-close {
+cursor:pointer;
+float:left;
+margin:.4em .2em 0 0
 }
-.i_button{
-font-style:italic;
+
+#add_tab {
+cursor:pointer
 }
+
+.u_button {
+text-decoration:underline
+}
+
+.b_button {
+font-weight:700
+}
+
+.i_button {
+font-style:italic
+}
+
 .btn {
-	background: transparent url('img/buttons.gif') no-repeat scroll 0 0;
-	width:20px;
-	height:20px;
-	margin-right:5px;
-	display:inline-block;
-}
-
-.bold {
-	background-position:0 0;
-}
-
-.bold:hover {
-	background-position:0 -25px;
-}
-
-.italic {
-	background-position:-25px 0;
+background:url(img/buttons.gif) no-repeat;
+display:inline-block;
+height:20px;
+margin-right:5px;
+width:20px
 }
 
 .italic:hover {
-	background-position:-25px -25px;
+background:-25px
 }
 
 .underline {
-	background-position:-50px 0;
+background:-50px
 }
 
 .underline:hover {
-	background-position:-50px -25px;
+background:-50px
 }
 
 .link {
-	background-position:-75px 0;
+background:-75px
 }
 
 .link:hover {
-	background-position:-75px -25px;
+background:-75px
 }
 
 .quote {
-	background-position:-100px 0;
+background:-100px
 }
 
 .quote:hover {
-	background-position:-100px -25px;
+background:-100px
 }
 
 .code {
-	background-position:-125px 0;
+background:-125px
 }
 
 .code:hover {
-	background-position:-125px -25px;
+background:-125px
 }
 
 .image {
-	background-position:-150px 0;
+background:-150px
 }
 
 .image:hover {
-	background-position:-150px -25px;
+background:-150px
 }
 
 .nlist {
-	background-position:-175px 0;
+background:-175px
 }
 
 .nlist:hover {
-	background-position:-175px -25px;
+background:-175px
 }
 
 .blist {
-	background-position:-200px 0;
+background:-200px
 }
 
 .blist:hover {
-	background-position:-200px -25px;
+background:-200px
 }
 
 .litem {
-	background-position:-225px 0;
+background:-225px
 }
 
 .litem:hover {
-	background-position:-225px -25px;
+background:-225px
 }
 
 .back {
-	background-position:-250px 0;
-}
-
-.back:hover {
-	background-position:-250px -25px;
-}
-
-.back_disable {
-	background-position:-250px -50px;
+background:-250px
 }
 
 .forward {
-	background-position:-275px 0;
-}
-
-.forward:hover {
-	background-position:-275px -25px;
-}
-
-.forward_disable {
-	background-position:-275px -50px;
+background:-275px
 }
 
 .usize {
-	background-position:-300px 0;
+background:-300px
 }
 
 .usize:hover {
-	background-position:-300px -25px;
+background:-300px
 }
 
 .dsize {
-	background-position:-325px 0;
+background:-325px
 }
 
 .dsize:hover {
-	background-position:-325px -25px;
+background:-325px
 }
 
-.ui-progressbar-value { background-image: url(img/processbar.png); }
+.ui-progressbar-value {
+background:url(img/processbar.png)
+}
 
-#progressbar { height: 10px;}
+table table,img,p table,table table {
+border:0
+}
+
+.allymember,.colony,.deploy,.harvest,.transport,.success {
+color:lime
+}
+
+.noob,.owntransport {
+color:#a0ffa0
+}
+
+.banned,.s_button {
+text-decoration:line-through
+}
+
+.ownespionage,.ownmissile {
+color:#fc6
+}
+
+.attack,.federation,.error {
+color:red
+}
+
+.espionage,.missile {
+color:#f60
+}
+
+.bold:hover,.italic {
+background:-25px
+}
+
+.back:hover,.back_disable {
+background:-250px
+}
+
+.forward:hover,.forward_disable {
+background:-275px
+}
+
+/* jQuery UI CSS */
+
+.ui-progressbar .ui-progressbar-value {
+height:100%;
+margin:-1px
+}
+
+.ui-corner-left {
+-moz-border-radius-bottomleft:4px;
+-moz-border-radius-topleft:4px
+}
+
+.ui-progressbar {
+height:10px;
+text-align:left
+}
+
+.ui-corner-all {
+-moz-border-radius:4px
+}

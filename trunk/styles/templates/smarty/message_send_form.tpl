@@ -2,7 +2,7 @@
 <script type="text/javascript">
 
 function check(){
-	if(document.message.text.value == '') {
+	if($('#text').val().length == 0) {
 		alert('{$mg_empty_text}');
 		return false;
 	} else {
@@ -26,11 +26,10 @@ function check(){
         <th><input type="text" name="subject" id="subject" size="40" maxlength="40" value="{$subject}"></th>
     </tr><tr>
         <th>{$mg_message} (<span id="cntChars">0</span> / 5000 {$mg_characters})</th>
-        <th><textarea name="text" id="text" cols="40" rows="10" onkeyup="$('#cntChars').text($('#text').val().length);" ></textarea></th>
+        <th><textarea name="text" id="text" cols="40" rows="10" onkeyup="$('#cntChars').text($('#text').val().length);"></textarea></th>
     </tr><tr>
-        <th colspan="2"><input type="button" onClick="check();" name="button" value="{$mg_send}">
-</th>
-</tr>
+        <th colspan="2"><input type="button" onClick="check();" name="button" value="{$mg_send}"></th>
+	</tr>
 </table>
 </form>
 {include file="overall_footer.tpl"}

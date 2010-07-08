@@ -40,6 +40,7 @@ function ShowBattleSimPage()
 
 	if($action == 'send')
 	{
+		$Counts	= array(0, 0);
 		foreach($BattleArray as $BattleSlotID => $BattleSlot)
 		{
 			if(isset($BattleSlot[0]) && (array_sum($BattleSlot[0]) > 0 || $BattleSlotID == 0))
@@ -53,7 +54,11 @@ function ShowBattleSimPage()
 					if(!in_array($ID, $reslist['fleet']) || $BattleSlot[0][$ID] <= 0)
 						unset($BattleSlot[0][$ID]);
 				}
+				
+				if($Counts[0] == 0 && $BattleSlotID != 0)
+					exit('ERROR');
 					
+				$Counts[0]					= $Counts[0] + array_sum($BattleSlot[1]);
 				$attack[$Att]['detail'] 	= $BattleSlot[0];
 			}
 				
@@ -69,7 +74,12 @@ function ShowBattleSimPage()
 					if(!in_array($ID, $reslist['fleet']) && !in_array($ID, $reslist['defense']))
 						unset($BattleSlot[1][$ID]);
 				}
-					
+
+				if($Countd[1] == 0 && $BattleSlotID != 0)
+					exit('ERROR');
+
+				$Countd[1]					= $Countd[1] + array_sum($BattleSlot[1]);
+				
 				$defense[$Def]['def']	 	= $BattleSlot[1];
 			}
 		}

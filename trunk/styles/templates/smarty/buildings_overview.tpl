@@ -12,33 +12,32 @@
     <table width="80%" align="center">	
 		{foreach item=BuildInfoRow from=$BuildInfoList}
 		<tr>
-			<th class="l" rowspan="2" width="120">
+			<th rowspan="2" width="120">
 				<a href="javascript:info({$BuildInfoRow.id});">
 					<img border="0" src="{$dpath}gebaeude/{$BuildInfoRow.id}.gif" alt="{$BuildInfoRow.name}" align="top" width="120" height="120">
 				</a>
 			</th>
 			<td class="c">
-				<img src="./styles/images/transparent.gif" alt="" width="0" height="0">&nbsp;<a href="javascript:info({$BuildInfoRow.id});">{$BuildInfoRow.name}</a>{if $BuildInfoRow.level > 0} ({$bd_lvl} {$BuildInfoRow.level}){/if}
+				<a href="javascript:info({$BuildInfoRow.id});">{$BuildInfoRow.name}</a>{if $BuildInfoRow.level > 0} ({$bd_lvl} {$BuildInfoRow.level}){/if}
 			</td>
 		</tr>
 		<tr>
-			<td colspan="1" class="l">
-				<table border="0" cellpadding="0" cellspacing="0">
+			<th>
+				<table style="width:100%">
 					<tbody>
 						<tr>
-							<td style="text-align:left;width:10px"><img src="./styles/images/transparent.gif" alt="" style="width:10px;height:100px"></td>
-							<td style="text-align:left;width:90%">{$BuildInfoRow.descriptions}<br><br>{$BuildInfoRow.price}</td>
+							<td style="text-align:left;width:90%;padding:10px;">{$BuildInfoRow.descriptions}<br><br>{$BuildInfoRow.price}</td>
 							<td style="text-align:center;vertical-align:middle;width:100px">
 							{$BuildInfoRow.BuildLink}
 							</td>
 						</tr>
 					</tbody>
 				</table>
-			</td>
+			</th>
 		</tr>
 		<tr>
-			<td colspan="2" style="padding:0px;" class="b">  
-				<table width="100%" border="0" cellpadding="0" cellspacing="0">
+			<td colspan="2" class="b" style="margin-bottom:10px;">  
+				<table style="width:100%">
 					<tbody>
 						<tr>
 							<td style="text-align:left;">
@@ -71,9 +70,6 @@
 					</tbody>
 				</table>
 			</td>
-		</tr>
-		<tr>
-			<td colspan="2"><img src="./styles/images/transparent.gif" alt="" width="1" height="10"></td>
 		</tr>
 		{/foreach}
     </table>

@@ -2,8 +2,8 @@
 
 <html lang="de" xmlns:fb="http://www.facebook.com/2008/fbml">
 <head>
-<link rel='stylesheet' type='text/css' href='styles/css/jquery.loadmask.css'>
 <link rel='stylesheet' type='text/css' href='styles/css/login.css'>
+<link rel='stylesheet' type='text/css' href='styles/css/login_bg.css'>
 <link rel="icon" href="favicon.ico">
 <title>{$servername}</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -100,6 +100,7 @@
 	<td class='languages_container'>
 	<span class="flags de"><a href="?lang=deutsch">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></span>
 	<span class="flags en"><a href="?lang=english">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></span>
+	<span class="flags es"><a href="?lang=spanish">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></span>
 	<span class="flags ru"><a href="?lang=russian">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></span>
 	&nbsp;&bull;&nbsp;<a onclick="music()" style="cursor:pointer;" id="music">Music: OFF</a></td>
   </tr>
