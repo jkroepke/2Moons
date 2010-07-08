@@ -216,7 +216,7 @@ class MissionCaseDestruction extends MissionFunctions
 		$rid		= md5(microtime(true).mt_rand(1,100));
 	
 		file_put_contents(ROOT_PATH.'raports/raport_'.$rid.'.php', '<?php'."\n".'$raport = '.$raport.';'."\n".'?>');
-		file_put_contents(ROOT_PATH.'raports/topkb_'.$rid.'.php', '<?php'."\n".'$raport = '.preg_replace("/\[(\d+)\:(\d+)\:(\d+)\]/i", "[X:X:X]", $raport).';'."\n".'?>');
+		file_put_contents(ROOT_PATH.'raports/topkb_'.$rid.'.php', '<?php'."\n".'$raport = '.preg_replace(array("/\[\d+\:\d+\:\d+\]/i", "/\d{3}\%/i"), array("[X:X:X]", "XXX%"), $raport).';'."\n".'?>');
 		
 		$WhereAtt = "";
 		$WhereDef = "";
