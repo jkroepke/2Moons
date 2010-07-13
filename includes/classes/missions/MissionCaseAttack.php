@@ -184,17 +184,13 @@ class MissionCaseAttack extends MissionFunctions
 			}
 			else
 			{
-				$fleetArray = '';
+				$DEFFLEET = '';
 				$totalCount = 0;
 
 				foreach ($defender['def'] as $element => $amount)
 				{
-					$fleetArray .= "`".$resource[$element]."` = '".floattostring($amount)."', ";
+					$DEFFLEET .= "`".$resource[$element]."` = '".floattostring($amount)."', ";
 				}
-
-				$SQL .= "UPDATE ".PLANETS." SET ";
-				$SQL .= $fleetArray;
-				$SQL .= "`metal` = `metal` - '".floattostring($steal['metal'])."', `crystal` = `crystal` - '".floattostring($steal['crystal'])."', `deuterium` = `deuterium` - '".floattostring($steal['deuterium'])."' WHERE `galaxy` = '".$this->_fleet['fleet_end_galaxy']."' AND `system` = '".$this->_fleet['fleet_end_system']."' AND `planet` = '".$this->_fleet['fleet_end_planet']."' AND `planet_type` = '".$this->_fleet['fleet_end_type']."';";
 			}
 		}
 		
@@ -261,8 +257,12 @@ class MissionCaseAttack extends MissionFunctions
 		}
 							
 		$SQLQuery  = "UPDATE ".PLANETS." SET ";
+		$SQLQuery .= $DEFFLEET;
 		$SQLQuery .= "`der_metal` = '".$DerbisMetal."', ";
-		$SQLQuery .= "`der_crystal` = '".$DerbisCrystal."' ";
+		$SQLQuery .= "`der_crystal` = '".$DerbisCrystal."', ";
+		$SQLQuery .= "`metal` = `metal` - '".$steal['metal']."', ";
+		$SQLQuery .= "`crystal` = `crystal` - '".$steal['crystal']."', ";
+		$SQLQuery .= "`deuterium` = `deuterium` - '".$steal['deuterium']."' ";
 		$SQLQuery .= "WHERE ";
 		$SQLQuery .= "`galaxy` = '" . $this->_fleet['fleet_end_galaxy'] . "' AND ";
 		$SQLQuery .= "`system` = '" . $this->_fleet['fleet_end_system'] . "' AND ";
