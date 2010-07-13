@@ -29,7 +29,7 @@ function GenerateReport($RESULT, $INFO)
 		$html 		.= '".$LNG["sys_attack_title"]." '.date("D M j H:i:s", $INFO['fleet_start_time']).'. <br><br>';
 	
 	$round_no 	= 1;
-	$des 		= 0;
+	$des		= array('att' => array(), 'def' => array());
 	
 	foreach($RESULT['rw'] as $round => $data1)
 	{
@@ -83,7 +83,7 @@ function GenerateReport($RESULT, $INFO)
 			}
 			else
 			{
-				$des = 1;
+				$des['att'][] = 1;
 				$ships1 = '<tr><br><br>". $LNG["sys_destroyed"]."<br></tr>';
 				$count1 = '';
 			}
@@ -156,7 +156,7 @@ function GenerateReport($RESULT, $INFO)
 			}
 			else
 			{
-				$des = 1;
+				$des['def'][] = 1;
 				$ships1 = '<tr><br><br>".$LNG["sys_destroyed"]."<br></tr>';
 				$count1 = '';
 			}
@@ -200,7 +200,7 @@ function GenerateReport($RESULT, $INFO)
 		}
 				
 		$html .= '</tr></table>';
-		if ($des) break;
+		if (array_sum($des['att']) == count($attackers2) || array_sum($des['def']) == count($defenders2)) break;
 				
 		$html .= '".$LNG["fleet_attack_1"]." '.pretty_number($data1['attack']['total']).' ".$LNG["fleet_attack_2"]." '.pretty_number(min($data1['defShield'], $data1['attack']['total'])).' ".$LNG["damage"]."<br>';
 		$html .= '".$LNG["fleet_defs_1"]." '.pretty_number($data1['defense']['total']).' ".$LNG["fleet_defs_2"]." '.pretty_number(min($data1['attackShield'], $data1['defense']['total'])).' ".$LNG["damage"]."<br><br>';
