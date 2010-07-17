@@ -132,13 +132,13 @@ function bbcode_code($action, $attributes, $content, $params, $node_object) {
 
 function bbcode_img ($action, $attributes, $content, $params, $node_object) {
 	if ($action == 'validate') return true;
-	return "<img src=\"".htmlentities($content)."\" alt=\"\" border=\"0\" />";
+	return '<img src="'.htmlentities($content).'" alt="" border="">';
 }
 
 function bbcode_background($action, $attributes, $content, $params, $node_object) {
     if (!isset ($attributes['default'])) {
         $url = $content;
-        $text = htmlspecialchars ($content);
+        $text = htmlspecialchars($content);
     } else {
         $url = $attributes['default'];
         $text = $content;

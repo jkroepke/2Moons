@@ -21,7 +21,7 @@
 
 if(!defined('INSIDE')) die('Hacking attempt!');
 
-	function CreateOneMoonRecord($Galaxy, $System, $Planet, $Owner, $MoonID, $MoonName, $Chance)
+	function CreateOneMoonRecord($Galaxy, $System, $Planet, $Owner, $MoonID, $MoonName, $Chance, $Size = 0)
 	{
 		global $LNG, $USER, $db;
 
@@ -36,12 +36,16 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 		if ($MoonPlanet['id_luna'] != 0)
 			return false;
 
-		$SizeMin                = round(pow((3 * $Chance) + 10, 0.5) * 1000);
-		$SizeMax                = round(pow((3 * $Chance) + 20, 0.5) * 1000);
-
+		if($Size == 0) {
+			$SizeMin                = round(pow((3 * $Chance) + 10, 0.5) * 1000);
+			$SizeMax                = round(pow((3 * $Chance) + 20, 0.5) * 1000);
+			$size                   = rand($SizeMin, $SizeMax);
+		} else {
+			$size = $Size;
+		}
+		
 		$maxtemp                = $MoonPlanet['temp_max'] - mt_rand(10, 45);
 		$mintemp                = $MoonPlanet['temp_min'] - mt_rand(10, 45);
-		$size                   = rand($SizeMin, $SizeMax);
 
 		$SQL  = "INSERT INTO ".PLANETS." SET ";
 		$SQL .= "`name` = '". ( ($MoonName == '') ? $LNG['fcm_moon'] : $MoonName ) ."', ";

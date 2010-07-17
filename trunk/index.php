@@ -25,7 +25,7 @@ define('LOGIN', true );
 
 $InLogin = true;
 
-define('ROOT_PATH'	,'./');
+define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 
 include_once(ROOT_PATH . 'extension.inc');
 include_once(ROOT_PATH . 'common.' . PHP_EXT);
@@ -304,7 +304,7 @@ switch ($page) {
 				if (empty($UserPlanet))
 					$errors .= $LNG['empty_planet_field'];
 				
-				if (strlen($UserPass) < 6)
+				if (!isset($UserPass{5}))
 					$errors .= $LNG['password_lenght_error'];
 				
 				if ($UserPass != $UserPass2)
@@ -358,7 +358,7 @@ switch ($page) {
 				}					
 
 				$MailSubject 	= $LNG['reg_mail_message_pass'];
-				$MailRAW		= file_get_contents("./language/".$CONF['lang']."/email/email_vaild_reg.txt");
+				$MailRAW		= file_get_contents("./language/".$UserLang."/email/email_vaild_reg.txt");
 				$MailContent	= sprintf($MailRAW, $UserName, $CONF['game_name'], "http://".$_SERVER['SERVER_NAME'].$_SERVER["PHP_SELF"], $clef, $UserPass, ADMINEMAIL, $UserLang);
 		
 				MailSend($UserEmail, $UserName, $MailSubject, $MailContent);
@@ -410,7 +410,7 @@ switch ($page) {
 				if($CONF['smtp_host'] != '' && $CONF['smtp_port'] != 0 && $CONF['smtp_user'] != '' && $CONF['smtp_pass'] != '')
 				{				
 					$MailSubject	= sprintf($LNG['reg_mail_reg_done'], $CONF['game_name']);	
-					$MailRAW		= file_get_contents("./language/".$CONF['lang']."/email/email_reg_done.txt");
+					$MailRAW		= file_get_contents("./language/".$UserLang."/email/email_reg_done.txt");
 					$MailContent	= sprintf($MailRAW, $UserName, $CONF['game_name']);	
 					MailSend($UserMail, $UserName, $MailSubject, $MailContent);
 				}

@@ -70,5 +70,4 @@
 <table width="70%" id="infobox" style="border: 3px solid red; text-align:center;"><tr><td>{$tn_vacation_mode} {$vacation}</td></tr></table>
 {/if}
 </center>
-
 </div>

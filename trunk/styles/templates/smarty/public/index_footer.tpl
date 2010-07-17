@@ -8,21 +8,15 @@ lang_reg_closed		= "{$register_closed}";
 cappublic			= "{$cappublic}";
 fb_permissions		= "{$fb_perm}";
 lang				= "{$lang}";
-    (function() {
+(function() {
         var s = [
             "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js",
             "scripts/soundmanager2.js",
             "scripts/jquery.loadmask.js",
             "scripts/jquery.cookie.js",
-	        {if $game_captcha}
-			"http://api.recaptcha.net/js/recaptcha_ajax.js",
-			{/if}
-			{if $fb_active}
-			"http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php",
-			{/if}
-			{if $ga_active}
-			"http://www.google-analytics.com/ga.js",
-			{/if}
+			{if $fb_active}"http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php",{/if}
+            {if $game_captcha}"http://www.google.com/recaptcha/api/js/recaptcha_ajax.js",{/if}
+			{if $ga_active}"http://www.google-analytics.com/ga.js",{/if}
             "scripts/login.js",
         ];
 
@@ -38,29 +32,6 @@ lang				= "{$lang}";
             }
         }
     })();
-	
-function downloadJSAtOnload() {
-	CreateJSLoad('http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js');
-	CreateJSLoad('scripts/soundmanager2.js');
-	CreateJSLoad('scripts/jquery.loadmask.js');
-	CreateJSLoad('scripts/jquery.cookie.js');
-	{if $game_captcha}CreateJSLoad('http://api.recaptcha.net/js/recaptcha_ajax.js');{/if}
-	{if $fb_active}CreateJSLoad('http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php');{/if}
-}
-
-function CreateJSLoad(file) {
-	var element = document.createElement("script");
-	element.src = file;
-	document.body.appendChild(element);
-}
-
-// Check for browser support of event handling capability
-if (window.addEventListener)
-	window.addEventListener("load", downloadJSAtOnload, false);
-else if (window.attachEvent)
-	window.attachEvent("onload", downloadJSAtOnload);
-else 
-	window.onload = downloadJSAtOnload;
 </script>
 {if $game_captcha}
 <script type="text/javascript">

@@ -32,6 +32,7 @@ class CheckSession
 		if(!empty($SelectPlanet))
 			$IsPlanetMine =	$db->uniquequery("SELECT `id` FROM ".PLANETS." WHERE `id` = '". $SelectPlanet ."' AND `id_owner` = '".$_SESSION['id']."';");
 		
+		
 		$_SESSION['oldpath']	= $_SESSION['path'];
 		$_SESSION['path']		= basename($_SERVER['SCRIPT_NAME']).(!empty($_SERVER['QUERY_STRING']) ? '?'.$_SERVER['QUERY_STRING'] : '');
 		
