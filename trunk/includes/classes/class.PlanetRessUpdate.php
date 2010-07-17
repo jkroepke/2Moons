@@ -27,7 +27,7 @@ class ResourceUpdate
 		$this->Build					= $Build;
 	}
 	
-	public function CalcResource($USER = NULL, $PLANET = NULL, $SAVE = false)
+	public function CalcResource($USER = NULL, $PLANET = NULL, $TIME = 0, $SAVE = false)
 	{
 		if(empty($USER))
 			global $USER;
@@ -35,23 +35,26 @@ class ResourceUpdate
 		if(empty($PLANET))
 			global $PLANET;
 			
+		if(empty($TIME))
+			$TIME = TIMESTAMP;
+			
 		if($USER['urlaubs_modus'] == 1)
 			return array($USER, $PLANET);
 			
 		if($this->Build)
 		{
-			list($USER, $PLANET)	= $this->ShipyardQueue($USER, $PLANET);
+			list($USER, $PLANET)	= $this->ShipyardQueue($USER, $PLANET, $TIME);
 			
-			if($USER['b_tech'] != 0 && $USER['b_tech'] < TIMESTAMP)
+			if($USER['b_tech'] != 0 && $USER['b_tech'] < $TIME)
 				list($USER, $PLANET)	= $this->ResearchQueue($USER, $PLANET);
 			if($PLANET['b_building'] != 0)
-				list($USER, $PLANET)	= $this->BuildingQueue($USER, $PLANET);
+				list($USER, $PLANET)	= $this->BuildingQueue($USER, $PLANET, $TIME);
 		}	
 
-		list($USER, $PLANET)	= $this->UpdateRessource($USER, $PLANET, TIMESTAMP);
+		list($USER, $PLANET)	= $this->UpdateRessource($USER, $PLANET, $TIME);
 		
 		if($SAVE == true)
-			list($USER, $PLANET)	= $this->SavePlanetToDB($USER, $PLANET);
+			list($USER, $PLANET)	= $this->SavePlanetToDB($USER, $PLANET, $TIME);
 			
 		return array($USER, $PLANET);
 	}
@@ -93,18 +96,18 @@ class ResourceUpdate
 			{
 				$BuildLevelFactor	= $PLANET[$resource[$ProdID]."_porcent" ];
 				$BuildLevel 		= $PLANET[$resource[$ProdID]];
-				$Caps['metal_perhour']		+= floor(eval($ProdGrid[$ProdID]['formule']['metal'])     * $CONF['resource_multiplier'] * (1 + (($USER['rpg_geologue'] * 0.05) + ($USER['metal_proc_tech'] * 0.02) + ((TIMESTAMP - $USER[$resource[703]] <= 0) ? ($ExtraDM[703]['add']) : 0))));
-				$Caps['crystal_perhour']	+= floor(eval($ProdGrid[$ProdID]['formule']['crystal'])   * $CONF['resource_multiplier'] * (1 + (($USER['rpg_geologue'] * 0.05) + ($USER['crystal_proc_tech'] * 0.02) + ((TIMESTAMP - $USER[$resource[703]] <= 0) ? ($ExtraDM[703]['add']) : 0))));
+				$Caps['metal_perhour']		+= floor(eval($ProdGrid[$ProdID]['formule']['metal'])     * $CONF['resource_multiplier'] * (1 + (($USER['rpg_geologue'] * 0.05) + ($USER['metal_proc_tech'] * 0.02) + (($TIME - $USER[$resource[703]] <= 0) ? ($ExtraDM[703]['add']) : 0))));
+				$Caps['crystal_perhour']	+= floor(eval($ProdGrid[$ProdID]['formule']['crystal'])   * $CONF['resource_multiplier'] * (1 + (($USER['rpg_geologue'] * 0.05) + ($USER['crystal_proc_tech'] * 0.02) + (($TIME - $USER[$resource[703]] <= 0) ? ($ExtraDM[703]['add']) : 0))));
 			
 				if ($ProdID < 4) {
-					$Caps['deuterium_perhour'] 	+= floor(eval($ProdGrid[$ProdID]['formule']['deuterium']) * $CONF['resource_multiplier'] * (1 + (($USER['rpg_geologue'] * 0.05) + ($USER['deuterium_proc_tech'] * 0.02) + ((TIMESTAMP - $USER[$resource[703]] <= 0) ? ($ExtraDM[703]['add']) : 0))));
+					$Caps['deuterium_perhour'] 	+= floor(eval($ProdGrid[$ProdID]['formule']['deuterium']) * $CONF['resource_multiplier'] * (1 + (($USER['rpg_geologue'] * 0.05) + ($USER['deuterium_proc_tech'] * 0.02) + (($TIME - $USER[$resource[703]] <= 0) ? ($ExtraDM[703]['add']) : 0))));
 					$Caps['energy_used']   		+= floor(eval($ProdGrid[$ProdID]['formule']['energy']) * ($CONF['resource_multiplier']));
 				} else {
 					if($ProdID == 12 && $PLANET['deuterium'] == 0)
 						continue;
 
 					$Caps['deuterium_used'] 	+= floor(eval($ProdGrid[$ProdID]['formule']['deuterium']) * ($CONF['resource_multiplier']));
-					$Caps['energy_max']			+= floor(eval($ProdGrid[$ProdID]['formule']['energy']) * ($CONF['resource_multiplier']) * (1 + ($USER['rpg_ingenieur'] * 0.05)) * ((TIMESTAMP - $USER[$resource[704]] <= 0) ? (1 + $ExtraDM[704]['add']) : 1));
+					$Caps['energy_max']			+= floor(eval($ProdGrid[$ProdID]['formule']['energy']) * ($CONF['resource_multiplier']) * (1 + ($USER['rpg_ingenieur'] * 0.05)) * (($TIME - $USER[$resource[704]] <= 0) ? (1 + $ExtraDM[704]['add']) : 1));
 				}
 			}
 			
@@ -156,7 +159,7 @@ class ResourceUpdate
 		return array($USER, $PLANET);
 	}
 	
-	private function ShipyardQueue($USER, $PLANET)
+	private function ShipyardQueue($USER, $PLANET, $TIME)
 	{
 		global $resource;
 
@@ -168,7 +171,7 @@ class ResourceUpdate
 		
 		$BuildQueue                 = explode(';', $PLANET['b_hangar_id']);
 		$AcumTime					= 0;
-		$PLANET['b_hangar'] 		+= (TIMESTAMP - $PLANET['last_update']);
+		$PLANET['b_hangar'] 		+= ($TIME - $PLANET['last_update']);
 		foreach ($BuildQueue as $Node => $Array)
 		{
 			if (empty($Array))
@@ -215,21 +218,21 @@ class ResourceUpdate
 		return array($USER, $PLANET);
 	}
 	
-	private function BuildingQueue($USER, $PLANET) 
+	private function BuildingQueue($USER, $PLANET, $TIME) 
 	{
 		while(true)
 		{	
-			list($USER, $PLANET, $Result)	= $this->CheckPlanetBuildingQueue($USER, $PLANET);
+			list($USER, $PLANET, $Result)	= $this->CheckPlanetBuildingQueue($USER, $PLANET, $TIME);
 			if(!$Result)
 				break;
 			
-			list($USER, $PLANET)	= $this->SetNextQueueElementOnTop($USER, $PLANET);
+			list($USER, $PLANET)	= $this->SetNextQueueElementOnTop($USER, $PLANET, $TIME);
 		}
 		
 		return array($USER, $PLANET);
 	}
 	
-	private function CheckPlanetBuildingQueue($USER, $PLANET)
+	private function CheckPlanetBuildingQueue($USER, $PLANET, $TIME)
 	{
 		global $resource, $db;
 		
@@ -246,7 +249,7 @@ class ResourceUpdate
 		$BuildEndTime 	= $BuildArray[3];
 		$BuildMode    	= $BuildArray[4];
 			
-		if ($BuildEndTime > TIMESTAMP)
+		if ($BuildEndTime > $TIME)
 			return array($USER, $PLANET, false);
 
 		$ForDestroy = ($BuildMode == 'destroy') ? true : false;
@@ -279,7 +282,7 @@ class ResourceUpdate
 		}
 	}	
 	
-	public function SetNextQueueElementOnTop($USER, $PLANET)
+	public function SetNextQueueElementOnTop($USER, $PLANET, $TIME)
 	{
 		global $LNG, $resource, $db;
 
@@ -292,7 +295,7 @@ class ResourceUpdate
 
 		$QueueArray 	= explode (";", $PLANET['b_building_id']);
 		$Loop       	= true;
-		$BuildEndTime	= TIMESTAMP;
+		$BuildEndTime	= $TIME;
 		while ($Loop == true)
 		{
 			$ListIDArray         = explode ( ",", $QueueArray[0]);
@@ -368,7 +371,7 @@ class ResourceUpdate
 		return array($USER, $PLANET);
 	}
 	
-	public function SavePlanetToDB($USER = NULL, $PLANET = NULL)
+	public function SavePlanetToDB($USER = NULL, $PLANET = NULL, $TIME = 0)
 	{
 		global $resource, $db, $reslist;
 		
@@ -377,6 +380,9 @@ class ResourceUpdate
 			
 		if(empty($PLANET))
 			global $PLANET;
+			
+		if(empty($TIME))
+			$TIME = TIMESTAMP;
 		
 		if($USER['urlaubs_modus'] == 1)
 			return array($USER, $PLANET);

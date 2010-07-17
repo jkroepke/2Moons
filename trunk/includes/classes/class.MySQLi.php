@@ -80,7 +80,6 @@ class DB_mysqli extends mysqli
 		if($result = parent::query($resource))
 		{
 			$this->time	+= (microtime(true) - $Timer);
-			$this->SQL[]	= $resource;
 			$this->queryCount++;
 			return $result;
 		}
@@ -104,7 +103,6 @@ class DB_mysqli extends mysqli
 		if($result = parent::query($resource))
 		{
 			$this->time	+= (microtime(true) - $Timer);
-			$this->SQL[]	= $resource;
 			$this->queryCount++;
 			$Return = $result->fetch_array(MYSQLI_ASSOC);
 			$result->close();
@@ -138,7 +136,7 @@ class DB_mysqli extends mysqli
 	 */
 	public function fetch_array($result)
 	{
-		return is_object($result) ? $result->fetch_array(MYSQLI_ASSOC) : array();
+		return $result->fetch_array(MYSQLI_ASSOC);
 	}
 
 	/**
@@ -150,7 +148,7 @@ class DB_mysqli extends mysqli
 	 */
 	public function fetch_num($result)
 	{
-		return is_object($result) ? $result->fetch_array(MYSQLI_NUM) : array();
+		return $result->fetch_array(MYSQLI_NUM);
 	}
 
 	/**
@@ -162,7 +160,7 @@ class DB_mysqli extends mysqli
 	 */
 	public function fetch($result)
 	{
-		return is_object($result) ? $result->fetch_assoc() : array();
+		return $result->fetch_assoc();
 	}
 	
 	/**
@@ -206,11 +204,7 @@ class DB_mysqli extends mysqli
 	 */
 	public function num_rows($query)
 	{
-		if($query)
-		{
-			return $query->num_rows;
-		}
-		return 0;
+		return $query->num_rows;
 	}
 
 	/**
