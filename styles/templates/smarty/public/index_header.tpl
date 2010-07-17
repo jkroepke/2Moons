@@ -101,6 +101,7 @@
 	<span class="flags de"><a href="?lang=deutsch">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></span>
 	<span class="flags en"><a href="?lang=english">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></span>
 	<span class="flags es"><a href="?lang=spanish">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></span>
+	<span class="flags pt"><a href="?lang=portuguese">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></span>
 	<span class="flags ru"><a href="?lang=russian">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></span>
 	&nbsp;&bull;&nbsp;<a onclick="music()" style="cursor:pointer;" id="music">Music: OFF</a></td>
   </tr>

@@ -53,13 +53,12 @@ function GenerateReport($RESULT, $INFO)
 			$coord1 = $data2['fleet']['fleet_start_galaxy'];
 			$coord2 = $data2['fleet']['fleet_start_system'];
 			$coord3 = $data2['fleet']['fleet_start_planet'];
+			$coord4 = $data2['fleet']['fleet_end_galaxy'];
+			$coord5 = $data2['fleet']['fleet_end_system'];
+			$coord6 = $data2['fleet']['fleet_end_planet'];
 			$weap 	= ($data2['user']['military_tech'] * 10);
 			$shie 	= ($data2['user']['defence_tech'] * 10);
 			$armr 	= ($data2['user']['shield_tech'] * 10);
-
-			if($coord4 == 0){$coord4 += $data2['fleet']['fleet_end_galaxy'];}
-			if($coord5 == 0){$coord5 += $data2['fleet']['fleet_end_system'];}
-			if($coord6 == 0){$coord6 += $data2['fleet']['fleet_end_planet'];}
 
 			$fl_info1  	= '<td><table><tr><th>".$LNG["sys_attack_attacker_pos"]." '.$name.' (['.$coord1.':'.$coord2.':'.$coord3.'])<br>".$LNG["sys_ship_weapon"]." '.$weap.'% - ".$LNG["sys_ship_shield"]." '.$shie.'% - ".$LNG["sys_ship_armour"]." '.$armr.'%';
 			$table1  	= '<table border=\'1\' align=\'center\' width=\'100%\'>';
@@ -249,6 +248,7 @@ function GenerateReport($RESULT, $INFO)
 			$html .= '".sprintf($LNG["sys_moonbuilt"], "'.$INFO['moon']['name'].'", "'.$INFO['end_galaxy'].'", "'.$INFO['end_system'].'", "'.$INFO['end_planet'].'")."';
 		}
 	}
+	
 	if(isset($INFO['moon']['battlesim'])) {
 		$html .= $INFO['moon']['battlesim'];
 	}

@@ -291,8 +291,8 @@ class MissionCaseAttack extends MissionFunctions
         $SQLQuery .= "`wons` = wons + ".$Won.", ";
         $SQLQuery .= "`loos` = loos + ".$Lose.", ";
         $SQLQuery .= "`draws` = draws + ".$Draw.", ";
-        $SQLQuery .= "`kbmetal` = kbmetal + ".floattostring($result['debree']['att'][0]+$result['debree']['def'][0]).", ";
-        $SQLQuery .= "`kbcrystal` = kbcrystal + ".floattostring($result['debree']['att'][1]+$result['debree']['def'][1]).", ";
+        $SQLQuery .= "`kbmetal` = kbmetal + ".floattostring($result['debree']['att'][0] + $result['debree']['def'][0]).", ";
+        $SQLQuery .= "`kbcrystal` = kbcrystal + ".floattostring($result['debree']['att'][1] + $result['debree']['def'][1]).", ";
         $SQLQuery .= "`lostunits` = lostunits + ".floattostring($result['lost']['att']).", ";
         $SQLQuery .= "`desunits` = desunits + ".floattostring($result['lost']['def'])." ";
         $SQLQuery .= "WHERE ";
@@ -301,8 +301,8 @@ class MissionCaseAttack extends MissionFunctions
         $SQLQuery .= "`wons` = wons + ". $Lose .", ";
         $SQLQuery .= "`loos` = loos + ". $Won .", ";
         $SQLQuery .= "`draws` = draws + ". $Draw  .", ";
-        $SQLQuery .= "`kbmetal` = kbmetal + ".floattostring($result['debree']['att'][0]+$result['debree']['def'][0]).", ";
-        $SQLQuery .= "`kbcrystal` = kbcrystal + ".floattostring($result['debree']['att'][1]+$result['debree']['def'][1]).", ";
+        $SQLQuery .= "`kbmetal` = kbmetal + ".floattostring($result['debree']['att'][0] + $result['debree']['def'][0]).", ";
+        $SQLQuery .= "`kbcrystal` = kbcrystal + ".floattostring($result['debree']['att'][1] + $result['debree']['def'][1]).", ";
         $SQLQuery .= "`lostunits` = lostunits + ".floattostring($result['lost']['def']).", ";
         $SQLQuery .= "`desunits` = desunits + ".floattostring($result['lost']['att'])." ";
         $SQLQuery .= "WHERE ";
