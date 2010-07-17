@@ -308,7 +308,7 @@ class MissionCaseAttack extends MissionFunctions
         $SQLQuery .= "WHERE ";
         $SQLQuery .= substr($WhereDef, 0, -4).";";
 		$db->multi_query($SQLQuery);
-			var_dump($SQLQuery);
+		
 		switch($result['won'])
 		{
 			case "r":
