@@ -206,29 +206,33 @@ function calculateAttack(&$attackers, &$defenders)
 
 		foreach ($attackers as $fleetID => $attacker) {
 			foreach ($defenders as $fleetID2 => $defender) {
-				foreach($attacker['detail'] as $element => $amount) {
-					if ($amount <= 0)
-						continue;
-						
-					foreach ($CombatCaps[$element]['sd'] as $c => $d) {
-						if (!isset($defender['def'][$c]) || $d <= 0) 
+				if($attacker_moc > 0) {
+					foreach($attacker['detail'] as $element => $amount) {
+						if ($amount <= 0)
 							continue;
-						
-						$d = $d / $defender['techs'][0] / $defender['techs'][1] * $attacker['techs'][2];
-						$defender_n[$fleetID2][$c] -= min($defender_n[$fleetID2][$c], floor($amount * $d * (rand(0, 100) / 200) * $defensePct[$fleetID2] * ($amount / $attackAmount[$fleetID])));
+							
+						foreach ($CombatCaps[$element]['sd'] as $c => $d) {
+							if (!isset($defender['def'][$c]) || $d <= 0) 
+								continue;
+							
+							$d = $d / $defender['techs'][0] / $defender['techs'][1] * $attacker['techs'][2];
+							$defender_n[$fleetID2][$c] -= min($defender_n[$fleetID2][$c], floor($amount * $d * (rand(0, 100) / 200) * $defensePct[$fleetID2] * ($amount / $attackAmount[$fleetID])));
+						}
 					}
 				}
 				
-				foreach($defender['def'] as $element => $amount) {
-					if ($amount <= 0)
-						continue;
-					
-					foreach ($CombatCaps[$element]['sd'] as $c => $d) {
-						if (!isset($attacker['detail'][$c]) || $d <= 0) 
+				if($defender_moc > 0) {
+					foreach($defender['def'] as $element => $amount) {
+						if ($amount <= 0)
 							continue;
+						
+						foreach ($CombatCaps[$element]['sd'] as $c => $d) {
+							if (!isset($attacker['detail'][$c]) || $d <= 0) 
+								continue;
 
-						$d = $d / $defender['techs'][0] / $defender['techs'][1] * $attacker['techs'][2];
-						$attacker_n[$fleetID][$c] -= min($attacker_n[$fleetID][$c], floor($amount * $d * (rand(0,100) / 200) * $attackPct[$fleetID] * ($amount / $defenseAmount[$fleetID2])));
+							$d = $d / $defender['techs'][0] / $defender['techs'][1] * $attacker['techs'][2];
+							$attacker_n[$fleetID][$c] -= min($attacker_n[$fleetID][$c], floor($amount * $d * (rand(0,100) / 200) * $attackPct[$fleetID] * ($amount / $defenseAmount[$fleetID2])));
+						}
 					}
 				}
 			}
