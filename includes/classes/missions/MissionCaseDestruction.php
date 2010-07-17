@@ -37,7 +37,7 @@ class MissionCaseDestruction extends MissionFunctions
 		require_once(ROOT_PATH.'includes/classes/class.PlanetRessUpdate.'.PHP_EXT);
 		
 		$PlanetRess 						= new ResourceUpdate();
-		list($TargetUser, $targetPlanet)	= $PlanetRess->CalcResource($TargetUser, $targetPlanet, $this->_fleet['fleet_start_time'], true);
+		list($TargetUser, $targetPlanet)	= $PlanetRess->CalcResource($TargetUser, $targetPlanet, true, $this->_fleet['fleet_start_time']);
 
 		
 		$attackFleets[$this->_fleet['fleet_id']]['fleet'] = $this->_fleet;

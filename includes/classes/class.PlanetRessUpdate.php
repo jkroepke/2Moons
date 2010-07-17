@@ -27,7 +27,7 @@ class ResourceUpdate
 		$this->Build					= $Build;
 	}
 	
-	public function CalcResource($USER = NULL, $PLANET = NULL, $TIME = 0, $SAVE = false)
+	public function CalcResource($USER = NULL, $PLANET = NULL, $SAVE = false, $TIME = 0)
 	{
 		if(empty($USER))
 			global $USER;
@@ -54,7 +54,7 @@ class ResourceUpdate
 		list($USER, $PLANET)	= $this->UpdateRessource($USER, $PLANET, $TIME);
 		
 		if($SAVE == true)
-			list($USER, $PLANET)	= $this->SavePlanetToDB($USER, $PLANET, $TIME);
+			list($USER, $PLANET)	= $this->SavePlanetToDB($USER, $PLANET);
 			
 		return array($USER, $PLANET);
 	}
@@ -371,7 +371,7 @@ class ResourceUpdate
 		return array($USER, $PLANET);
 	}
 	
-	public function SavePlanetToDB($USER = NULL, $PLANET = NULL, $TIME = 0)
+	public function SavePlanetToDB($USER = NULL, $PLANET = NULL)
 	{
 		global $resource, $db, $reslist;
 		
@@ -380,10 +380,7 @@ class ResourceUpdate
 			
 		if(empty($PLANET))
 			global $PLANET;
-			
-		if(empty($TIME))
-			$TIME = TIMESTAMP;
-		
+					
 		if($USER['urlaubs_modus'] == 1)
 			return array($USER, $PLANET);
 			
