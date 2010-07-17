@@ -42,9 +42,9 @@ class statbuilder{
 		$db->query("LOCK TABLES ".ALLIANCE." WRITE, ".BUDDY." WRITE, ".CHAT." WRITE, ".CONFIG." WRITE, ".FLEETS." WRITE, ".NOTES." WRITE, ".MESSAGES." WRITE, ".PLANETS." WRITE, ".RW." WRITE, ".SUPP." WRITE, ".STATPOINTS." WRITE, ".TOPKB." WRITE, ".USERS." WRITE;");
 	
 		//Delete old messages
-		$del_before 	= TIMESTAMP - (60 * 60 * 24 * 3); // 3 DAY
-		$del_inactive 	= TIMESTAMP - (60 * 60 * 24 * 30); // 1 MONTH
-		$del_deleted 	= TIMESTAMP - (60 * 60 * 24 * 7); // 1 WEEK
+		$del_before 	= strtotime("-3 day");
+		$del_inactive 	= strtotime("-30 day");
+		$del_deleted 	= strtotime("-7 day");
 		
 		$db->multi_query("DELETE FROM `".MESSAGES."` WHERE `message_time` < '". $del_before ."';DELETE FROM ".SUPP." WHERE `time` < '".$del_before."' AND `status` = 0;DELETE FROM ".CHAT." WHERE `timestamp` < '".$del_before."';DELETE FROM ".ALLIANCE." WHERE `ally_members` = '0';DELETE FROM ".PLANETS." WHERE `destruyed` < ".TIMESTAMP." AND `destruyed` != 0;UPDATE ".USERS." SET `email_2` = `email` WHERE `setmail` < '".TIMESTAMP."';");
 
