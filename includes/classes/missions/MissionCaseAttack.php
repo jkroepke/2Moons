@@ -190,7 +190,7 @@ class MissionCaseAttack extends MissionFunctions
 				$SQL .= $fleetArray;
 				$SQL .= "`metal` = `metal` - '".$steal['metal']."', ";
 				$SQL .= "`crystal` = `crystal` - '".$steal['crystal']."', ";
-				$SQL .= "`deuterium` = `deuterium` - '".$steal['deuterium']."', ";
+				$SQL .= "`deuterium` = `deuterium` - '".$steal['deuterium']."' ";
 				$SQL .= "WHERE ";
 				$SQL .= "`galaxy` = '".$this->_fleet['fleet_end_galaxy']."' AND ";
 				$SQL .= "`system` = '".$this->_fleet['fleet_end_system']."' AND ";
@@ -201,7 +201,10 @@ class MissionCaseAttack extends MissionFunctions
 		
 		$db->multi_query($SQL);
 		
-		$DerbisMetal		= bcadd($targetPlanet['der_metal'], bcadd($result['debree']['att'][0], $result['debree']['def'][0]));
+		if($this->_fleet['fleet_end_type'] == 3)
+			$targetPlanet 		= array_merge($targetPlanet, $db->uniquequery("SELECT `der_metal`, `der_crystal` FROM ".PLANETS." WHERE `galaxy` = '". $this->_fleet['fleet_end_galaxy'] ."' AND `system` = '". $this->_fleet['fleet_end_system']."' AND `planet` = '".$this->_fleet['fleet_end_planet']."' AND `planet_type` = '1';"));
+		
+		$DerbisMetal		= bcadd($targetPlanet[''], bcadd($result['debree']['att'][0], $result['debree']['def'][0]));
 		$DerbisCrystal		= bcadd($targetPlanet['der_crystal'], bcadd($result['debree']['att'][1], $result['debree']['def'][1]));	
 		$FleetDebris		= bcadd($DerbisMetal, $DerbisCrystal);
 		$MoonChance       	= min(round(bcdiv($FleetDebris, "100000") * MOON_CHANCE_FACTOR, 0), 20);
@@ -262,10 +265,6 @@ class MissionCaseAttack extends MissionFunctions
 		}
 							
 		$SQLQuery  = "UPDATE ".PLANETS." SET ";
-		$SQLQuery .= $DEFFLEET;
-		$SQLQuery .= "`metal` = `metal` - '".$steal['metal']."', ";
-		$SQLQuery .= "`crystal` = `crystal` - '".$steal['crystal']."', ";
-		$SQLQuery .= "`deuterium` = `deuterium` - '".$steal['deuterium']."', ";
 		$SQLQuery .= "`der_metal` = '".$DerbisMetal."', ";
 		$SQLQuery .= "`der_crystal` = '".$DerbisCrystal."' ";
 		$SQLQuery .= "WHERE ";
@@ -309,7 +308,7 @@ class MissionCaseAttack extends MissionFunctions
         $SQLQuery .= "WHERE ";
         $SQLQuery .= substr($WhereDef, 0, -4).";";
 		$db->multi_query($SQLQuery);
-			
+			var_dump($SQLQuery);
 		switch($result['won'])
 		{
 			case "r":
