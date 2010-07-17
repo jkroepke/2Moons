@@ -178,24 +178,25 @@ class MissionCaseDestruction extends MissionFunctions
 				
 				if($tirage <= $chance) {
 					$db->multi_query("DELETE FROM ".PLANETS." WHERE `id` = '".$targetPlanet['id']."';UPDATE ".PLANETS." SET `id_luna` = '0' WHERE `id_luna` = '". $targetPlanet['id'] ."';UPDATE ".FLEETS." SET `fleet_start_type` = '1' WHERE `fleet_start_galaxy` = '".$this->_fleet['fleet_end_galaxy']."' AND `fleet_start_system` = '".$this->_fleet['fleet_end_system']."' AND `fleet_start_planet` = '".$this->_fleet['fleet_end_planet']."' AND `fleet_start_type` = '".$this->_fleet['fleet_end_type']."';UPDATE ".FLEETS." SET `fleet_end_time` = ('".$this->_fleet['fleet_start_time']."' - `start_time`) + '".$this->_fleet['fleet_start_time']."', `fleet_mess` = '1' WHERE `fleet_end_galaxy` = '".$this->_fleet['fleet_end_galaxy']."' AND `fleet_end_system` = '".$this->_fleet['fleet_end_system']."' AND `fleet_end_planet` = '".$this->_fleet['fleet_end_planet']."' AND `fleet_end_type` = '".$this->_fleet['fleet_end_type']."';");
-					$INFO['moon']['desfail'] == 0;
+					$INFO['moon']['desfail'] = 0;
 				} else {
-					$INFO['moon']['desfail'] == 2;
+					$INFO['moon']['desfail'] = 2;
 				}
 				
 				if($tirage2 <= $chance2) {
-					$INFO['moon']['fleetfail'] == 1;
+					$INFO['moon']['fleetfail'] = 1;
 					$db->query("DELETE FROM ".FLEETS." WHERE `fleet_id` = '". $this->_fleet["fleet_id"] ."';");
 				} else {
-					$INFO['moon']['fleetfail'] == 0;
+					$INFO['moon']['fleetfail'] = 0;
 				}
 			break;
 			case "r":
-				$destext 		  .= sprintf ($LNG['sys_destruc_mess'], $DepName , $this->_fleet['fleet_start_galaxy'], $this->_fleet['fleet_start_system'], $this->_fleet['fleet_start_planet'], $this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet'])."<br>";
+				$INFO['moon']['desfail'] = 1;
+				$destext 		  .= sprintf ($LNG['sys_destruc_mess'], $this->_fleet['fleet_start_galaxy'], $this->_fleet['fleet_start_system'], $this->_fleet['fleet_start_planet'], $this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet'])."<br>";
 				$destext 		  .= $LNG['sys_destruc_stop'] ."<br>";
 			break;
 			case "w":
-				$INFO['moon']['desfail']= 1;
+				$INFO['moon']['desfail'] = 1;
 				$destext 		  .= sprintf ($LNG['sys_destruc_mess'], $this->_fleet['fleet_start_galaxy'], $this->_fleet['fleet_start_system'], $this->_fleet['fleet_start_planet'], $this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet'])."<br>";
 				$destext 		  .= $LNG['sys_destruc_stop'] ."<br>";
 			break;

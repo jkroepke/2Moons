@@ -132,7 +132,6 @@ class MissionCaseAttack extends MissionFunctions
 		require_once('calculateAttack.'.PHP_EXT);
 
 		$result 	= calculateAttack($attackFleets, $defense);
-
 		$SQL		= "";
 			
 		foreach ($attackFleets as $fleetID => $attacker)
@@ -182,8 +181,6 @@ class MissionCaseAttack extends MissionFunctions
 			else
 			{
 				$DEFFLEET = '';
-				$totalCount = 0;
-
 				foreach ($defender['def'] as $element => $amount)
 				{
 					$DEFFLEET .= "`".$resource[$element]."` = '".floattostring($amount)."', ";
