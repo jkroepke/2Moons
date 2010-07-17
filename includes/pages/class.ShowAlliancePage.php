@@ -753,15 +753,15 @@ class ShowAlliancePage
 										if(!empty($id))
 										{
 											$text		= request_var('text', '', true);
-											$Alliances	= $db->fetch_array($db->query("SELECT `ally_tag`, `ally_name` FROM ".ALLIANCE." WHERE id = '".$id."';"));
+											$Alliances	= $db->uniquequery("SELECT `ally_tag`, `ally_name` FROM ".ALLIANCE." WHERE id = '".$id."';");
 											if($Level == 4)
 											{
-												$AllyUsers 	= $db->query("SELECT `id` FROM ".USERS." as s WHERE s.ally_id = '".$ally['id']."' OR s.ally_id = '".$DiploInfo[$Level][$id][1]."';");
+												$AllyUsers 	= $db->query("SELECT `id` FROM ".USERS." as s WHERE s.ally_id = '".$ally['id']."' OR s.ally_id = '".$id."';");
 												while($User = $db->fetch_array($AllyUsers)) {	
 													SendSimpleMessage($User['id'], $USER['id'],'', 2,$LNG['al_circular_alliance'].$ally['ally_tag']." &amp; ".$Alliances['ally_tag'], $LNG['al_diplo_war'], sprintf($LNG['al_diplo_war_mes'], $ally['ally_name'], $Alliances['ally_name'], $LNG['al_diplo_level'][$Level], $text));
 												}											
 											} else {
-												$RanksRAW = $db->fetch_array($db->query("SELECT `ally_ranks`, `ally_owner` FROM ".ALLIANCE." WHERE id = '".$id."';"));
+												$RanksRAW = $db->uniquequery("SELECT `ally_ranks`, `ally_owner` FROM ".ALLIANCE." WHERE id = '".$id."';");
 												$Ranks = unserialize($RanksRAW['ally_ranks']);
 												if(is_array($Ranks))
 												{
