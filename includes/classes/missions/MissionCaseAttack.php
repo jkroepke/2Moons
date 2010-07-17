@@ -180,7 +180,7 @@ class MissionCaseAttack extends MissionFunctions
 			}
 			else
 			{
-				$DEFFLEET = '';
+				$fleetArray = '';
 				foreach ($defender['def'] as $element => $amount)
 				{
 					$fleetArray .= "`".$resource[$element]."` = '".floattostring($amount)."', ";
