@@ -183,8 +183,19 @@ class MissionCaseAttack extends MissionFunctions
 				$DEFFLEET = '';
 				foreach ($defender['def'] as $element => $amount)
 				{
-					$DEFFLEET .= "`".$resource[$element]."` = '".floattostring($amount)."', ";
+					$fleetArray .= "`".$resource[$element]."` = '".floattostring($amount)."', ";
 				}
+				
+				$SQL .= "UPDATE ".PLANETS." SET ";
+				$SQL .= $fleetArray;
+				$SQL .= "`metal` = `metal` - '".$steal['metal']."', ";
+				$SQL .= "`crystal` = `crystal` - '".$steal['crystal']."', ";
+				$SQL .= "`deuterium` = `deuterium` - '".$steal['deuterium']."', ";
+				$SQL .= "WHERE ";
+				$SQL .= "`galaxy` = '".$this->_fleet['fleet_end_galaxy']."' AND ";
+				$SQL .= "`system` = '".$this->_fleet['fleet_end_system']."' AND ";
+				$SQL .= "`planet` = '".$this->_fleet['fleet_end_planet']."' AND ";
+				$SQL .= "`planet_type` = '".$this->_fleet['fleet_end_type']."';";
 			}
 		}
 		
@@ -252,17 +263,16 @@ class MissionCaseAttack extends MissionFunctions
 							
 		$SQLQuery  = "UPDATE ".PLANETS." SET ";
 		$SQLQuery .= $DEFFLEET;
-		$SQLQuery .= "`der_metal` = '".$DerbisMetal."', ";
-		$SQLQuery .= "`der_crystal` = '".$DerbisCrystal."', ";
 		$SQLQuery .= "`metal` = `metal` - '".$steal['metal']."', ";
 		$SQLQuery .= "`crystal` = `crystal` - '".$steal['crystal']."', ";
-		$SQLQuery .= "`deuterium` = `deuterium` - '".$steal['deuterium']."' ";
+		$SQLQuery .= "`deuterium` = `deuterium` - '".$steal['deuterium']."', ";
+		$SQLQuery .= "`der_metal` = '".$DerbisMetal."', ";
+		$SQLQuery .= "`der_crystal` = '".$DerbisCrystal."' ";
 		$SQLQuery .= "WHERE ";
 		$SQLQuery .= "`galaxy` = '" . $this->_fleet['fleet_end_galaxy'] . "' AND ";
 		$SQLQuery .= "`system` = '" . $this->_fleet['fleet_end_system'] . "' AND ";
 		$SQLQuery .= "`planet` = '" . $this->_fleet['fleet_end_planet'] . "' AND ";
-		$SQLQuery .= "`planet_type` = '1' ";
-		$SQLQuery .= "LIMIT 1;";
+		$SQLQuery .= "`planet_type` = '1';";
 		$SQLQuery .= "INSERT INTO ".RW." SET ";
 		$SQLQuery .= "`time` = '".$this->_fleet['fleet_start_time']."', ";
 		$SQLQuery .= "`owners` = '".implode(',', array_merge($Attacker['id'], $Defender['id']))."', ";
