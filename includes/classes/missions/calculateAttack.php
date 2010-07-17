@@ -215,7 +215,7 @@ function calculateAttack(&$attackers, &$defenders)
 							continue;
 						
 						$d = $d / $defender['techs'][0] / $defender['techs'][1] * $attacker['techs'][2];
-						$defender_n[$fleetID2][$c] -= min($defender_n[$fleetID2][$c], floor(($amount * $d * (rand(0,100) / 200) * $defensePct[$fleetID2] * ($amount / $attackAmount[$fleetID])));
+						$defender_n[$fleetID2][$c] -= min($defender_n[$fleetID2][$c], floor($amount * $d * (rand(0, 100) / 200) * $defensePct[$fleetID2] * ($amount / $attackAmount[$fleetID])));
 					}
 				}
 				
@@ -228,7 +228,7 @@ function calculateAttack(&$attackers, &$defenders)
 							continue;
 
 						$d = $d / $defender['techs'][0] / $defender['techs'][1] * $attacker['techs'][2];
-						$attacker_n[$fleetID][$c] -= min($attacker_n[$fleetID][$c], floor(($amount * $d * rand(0,100) / 200) * $attackPct[$fleetID] * ($amount / $defenseAmount[$fleetID2])));
+						$attacker_n[$fleetID][$c] -= min($attacker_n[$fleetID][$c], floor($amount * $d * (rand(0,100) / 200) * $attackPct[$fleetID] * ($amount / $defenseAmount[$fleetID2])));
 					}
 				}
 			}
