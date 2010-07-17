@@ -86,7 +86,7 @@ function ShowOverviewPage()
 			{
 				$Record++;
 				
-				if ($FleetRow['fleet_mess'] != 1 && $FleetRow['fleet_start_time'] > TIMESTAMP && ($FleetRow['fleet_group'] == 0 || !in_array($FleetRow['fleet_group'], $ACSDone)))
+				if ($FleetRow['fleet_mess'] == 0 && $FleetRow['fleet_start_time'] > TIMESTAMP && ($FleetRow['fleet_group'] == 0 || !in_array($FleetRow['fleet_group'], $ACSDone)))
 				{
 					$ACSDone[]		= $FleetRow['fleet_group'];
 					
