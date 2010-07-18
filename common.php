@@ -25,14 +25,13 @@ if(!function_exists('spl_autoload_register'))
 if((!defined('INSTALL') || INSTALL == false) && (!file_exists(ROOT_PATH.'config.php') || filesize(ROOT_PATH.'config.php') == 0))
 	exit(header("Location:" . ROOT_PATH .  "install/"));
 	
-ob_start('ob_gzhandler');	
 @ignore_user_abort(true);
 @set_time_limit(120);
 error_reporting(E_ALL ^ E_NOTICE);
+@ini_set('zlib.output_compression', 'On');
 @ini_set('display_errors', 1);
 date_default_timezone_set("Europe/Berlin");
 header('Content-Type: text/html; charset=UTF-8');
-header('Content-Encoding: gzip');
 define('TIMESTAMP',	$_SERVER['REQUEST_TIME']);
 
 if(file_exists(ROOT_PATH . 'config.php'))
@@ -44,9 +43,6 @@ session_set_cookie_params(86400);
 
 if(!defined('INSTALL') || !defined('IN_ADMIN') || !defined('IN_CRON'))
 	define("STARTTIME",	microtime(true));
-	
-if(function_exists('memcache_connect'))
-	session_save_path('tcp://localhost:11211?persistent=1&weight=1&timeout=1&retry_interval=15');
 
 if(function_exists('set_magic_quotes_runtime'))
 	@set_magic_quotes_runtime(0);
@@ -91,7 +87,7 @@ if (INSTALL != true)
 		require_once(ROOT_PATH . 'includes/classes/class.CheckSession.'.PHP_EXT);
 
 		$Session       	= new CheckSession();
-		if(!$Session->CheckUser()) exit(header('Location: '.ROOT_PATH.'index.php'));
+		if(!$Session->CheckUser()) exit(header('Location: index.php'));
 	
 		$Session		= NULL;	
 		unset($Session);
@@ -101,7 +97,7 @@ if (INSTALL != true)
 			trigger_error($CONF['close_reason'], E_USER_NOTICE);
 		}
 		
-		if(request_var('ajax', 0) == 0 /*&& $CONF['stats_fly_lock'] == 0*/ && !defined('IN_ADMIN'))
+		if(request_var('ajax', 0) == 0 && !defined('IN_ADMIN'))
 		{	
 			update_config('stats_fly_lock', TIMESTAMP);
 			$db->query("LOCK TABLE ".AKS." WRITE, ".RW." WRITE, ".MESSAGES." WRITE, ".FLEETS." WRITE, ".PLANETS." WRITE, ".PLANETS." as p WRITE, ".TOPKB." WRITE, ".USERS." WRITE, ".USERS." as u WRITE, ".STATPOINTS." WRITE;");
@@ -115,9 +111,6 @@ if (INSTALL != true)
 			}
 			$db->free_result($FLEET);
 			$db->query("UNLOCK TABLES");  
-			update_config('stats_fly_lock', 0);
-		}
-		elseif (TIMESTAMP >= ($CONF['stats_fly_lock'] + (60 * 5))){
 			update_config('stats_fly_lock', 0);
 		}
 				
