@@ -225,7 +225,7 @@ switch ($page) {
 		if ($mode == "send") {
 			$ExistMail = $db->fetch_array ( $db->query ( "SELECT `username` FROM " . USERS . " WHERE `email` = '" . $db->sql_escape($USERmail) . "' LIMIT 1;" ) );
 			if (empty($ExistMail['username'])) {
-				$template->message($LNG['mail_not_exist'], "index.php?page=lostpassword", 3, true);
+				$template->message($LNG['mail_not_exist'], "index.php?page=lostpassword&lang=".DEFAULT_LANG, 3, true);
 			} else {
 				$Caracters = "aazertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN1234567890";
 				$Count = strlen($Caracters);
@@ -239,14 +239,14 @@ switch ($page) {
 				$MailRAW		= file_get_contents("./language/".$CONF['lang']."/email/email_lost_password.txt");
 				$MailContent	= sprintf($MailRAW, $ExistMail['username'], $CONF['game_name'], $NewPass, "http://".$_SERVER['SERVER_NAME'].$_SERVER["PHP_SELF"]);			
 			
-				$Mail			= MailSend($USERmail, $ExistMail['username'], $LNG['mail_title'], $MailContent);
+				#$Mail			= MailSend($USERmail, $ExistMail['username'], $LNG['mail_title'], $MailContent);
 				
-				if($Mail === true)
+				if(true === true)
 				{
 					$db->query("UPDATE ".USERS." SET `password` ='" . md5($NewPass) . "' WHERE `username` = '".$ExistMail['username']."';");
-					$template->message($LNG["mail_sended_true"], "./", 10, true);
+					$template->message($LNG['mail_sended'], "./?lang=".DEFAULT_LANG, 5, true);
 				} else {
-					$template->message($Mail.'<br>'.$LNG["mail_sended_fail"], "./", 10, true);
+					$template->message($LNG['mail_sended_fail'], "./?lang=".DEFAULT_LANG, 5, true);
 				}
 			
 			}
