@@ -20,7 +20,7 @@ $LNG['menu_disclamer']		= 'Impressum';
 $LNG['mail_not_exist'] 		= 'Die angegebende E-Mail Adresse existiert nicht!';
 $LNG['mail_title']				= 'Neues Passwort';
 $LNG['mail_text']				= 'Dein neuen Passwort ist: ';
-$LNG['mail_sended']			= 'Dein Passwort wurde erfolgreich gesendet!';
+$LNG['mail_sended']			= 'Dein Passwort wurde an deine E-Mail Adresse erfolgreich gesendet!';
 $LNG['mail_sended_fail']		= 'E-Mail konnte nicht gesendet werden.!';
 $LNG['server_infos']			= array(
 	"Ein Weltraum-Strategiespiel in Echtzeit.",
@@ -64,7 +64,7 @@ $LNG['reg_mail_message_pass']		= 'Noch ein Schritt zur Aktivierung Ihres Usernam
 $LNG['reg_mail_reg_done']			= 'Willkommen bei %s!';
 $LNG['invalid_mail_adress']		= 'Ungültige E-mail Adresse!<br>';
 $LNG['empty_user_field']			= 'Bitte alle Felder ausfüllen!<br>';
-$LNG['password_lenght_error']		= 'Das Passwort muss mindestens 4 Zeichen lang sein!<br>';
+$LNG['password_lenght_error']		= 'Das Passwort muss mindestens 6 Zeichen lang sein!<br>';
 $LNG['user_field_no_alphanumeric']	= 'Bitte beim Username nur alphanumerische Zeichen eingeben!<br>';
 $LNG['user_field_no_space']		= 'Bitte beim Username keine Leerzeichen eingeben!<br>';
 $LNG['planet_field_no_alphanumeric']	= 'Bitte beim Planetennamen nur alphanumerische Zeichen eingeben!<br>';
@@ -81,6 +81,7 @@ $LNG['welcome_message_subject']	= 'Wilkommenen';
 $LNG['welcome_message_content']	= 'Wilkommen beim %s!<br>Baue zuerst ein Solarkraftwerk, denn Energie wird für die spätere Rohstoffproduktion benötigt. Um diese zu bauen, klicke links im Menu auf "Gebäude". Danach baue das 4. Gebäude von oben. Da du nun Energie hast, kannst du anfangen Minen zu bauen. Gehe dazu wieder im Menü auf Gebäude und baue eine Metallmine, danach wieder eine Kristallmine. Um Schiffe bauen zu können musst du zuerst eine Raumschiffswerft gebaut haben. Was dafür benötigt wird findest du links im Menüpunkt Technologie. Das Team wünscht dir viel Spaß beim Erkunden des Universums!';
 $LNG['newpass_smtp_email_error']	= '<br><br>Ein Fehler trat auf. Dein Passwort ist: ';
 $LNG['reg_completed']				= 'Danke für ihre Anmeldung! Sie erhalten eine E-Mail mit einem aktivierungs Link.';
+$LNG['planet_already_exists']		= 'Die Planetenposition ist bereits belget!<br>';
 
 //registry_form.tpl
 $LNG['server_message_reg']			= 'Registriere dich jetzt und werde ein Teil von';

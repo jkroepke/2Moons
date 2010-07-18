@@ -909,15 +909,15 @@ $LNG['cff_to_destination']					= 'Heading to destination';
 $LNG['fcm_moon']							= 'Mond';
 $LNG['fcm_info']							= 'Information';
 $LNG['fcp_colony']							= 'Kolonie';
-$LNG['fgp_require']						= 'Benötigt: ';
+$LNG['fgp_require']							= 'Benötigt: ';
 $LNG['fgf_time']							= 'Bauzeit: ';
-$LNG['sys_module_inactive']        	 	= 'Modul inaktiv';
+$LNG['sys_module_inactive']        	 		= 'Modul inaktiv';
 
 //----------------------------------------------------------------------------//
 // CombatReport.php
-$LNG['cr_lost_contact']					= 'Der Kontakt ist mit der Flotten verloren geganen.';
+$LNG['cr_lost_contact']						= 'Der Kontakt ist mit der Flotten verloren geganen.';
 $LNG['cr_first_round']						= '(Die Flotte wurde in der 1. Runde zerstört)';
-$LNG['cr_type']							= 'Typ';
+$LNG['cr_type']								= 'Typ';
 $LNG['cr_total']							= 'Total';
 $LNG['cr_weapons']							= 'Waffen';
 $LNG['cr_shields']							= 'Schild';
@@ -927,19 +927,19 @@ $LNG['cr_destroyed']						= 'Zerstört!';
 //----------------------------------------------------------------------------//
 // FleetAjax.php
 $LNG['fa_not_enough_probes']				= 'Fehler, keine Sonden vorhanden';
-$LNG['fa_galaxy_not_exist']				= 'Fehler, Galaxie nicht vorhanden';
-$LNG['fa_system_not_exist']				= 'Fehler, System nicht vorhanden';
-$LNG['fa_planet_not_exist']				= 'Fehler, Planet nicht vorhanden';
+$LNG['fa_galaxy_not_exist']					= 'Fehler, Galaxie nicht vorhanden';
+$LNG['fa_system_not_exist']					= 'Fehler, System nicht vorhanden';
+$LNG['fa_planet_not_exist']					= 'Fehler, Planet nicht vorhanden';
 $LNG['fa_not_enough_fuel']					= 'Fehler, nicht genügend Deuterium vorhanden';
 $LNG['fa_no_more_slots']					= 'Fehler, keine Slots verfügbar';
-$LNG['fa_no_recyclers']					= 'Fehler, Keine Recycler vorhanden';
-$LNG['fa_no_fleetroom']					= 'Fehler, Deuteriumverbrauch größer als Transportkapazität';
+$LNG['fa_no_recyclers']						= 'Fehler, Keine Recycler vorhanden';
+$LNG['fa_no_fleetroom']						= 'Fehler, Deuteriumverbrauch größer als Transportkapazität';
 $LNG['fa_mission_not_available']			= 'Fehler, Mission nichtr verfügbar';
-$LNG['fa_no_spios']						= 'Fehler, keine Sonden vorhanden';
+$LNG['fa_no_spios']							= 'Fehler, keine Sonden vorhanden';
 $LNG['fa_vacation_mode']					= 'Fehler, Spieler befindet sich im Urlaubsmodus';
 $LNG['fa_week_player']						= 'Fehler, Spieler ist zu schwach';
 $LNG['fa_strong_player']					= 'Fehler, Spieler ist zu stark';
-$LNG['fa_not_spy_yourself']				= 'Fehler, sie können sich nicht selber spionieren';
+$LNG['fa_not_spy_yourself']					= 'Fehler, sie können sich nicht selber spionieren';
 $LNG['fa_not_attack_yourself']				= 'Fehler, sie können sich nicht selber angreifen';
 $LNG['fa_action_not_allowed']				= 'Fehler, Systemfehler';
 $LNG['fa_vacation_mode_current']			= 'Fehler, sie befinden sich im Urlaubsmdous';
