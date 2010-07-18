@@ -5,6 +5,26 @@ $LNG['Description'] = 'Beschreibung';
 
 $LNG['changelog']   = array(
 
+'RC5.2' => 'ShadoX 17.07.10
+- ADD: Russian Language (ssAAss &amp; InquisitorEA)
+- ADD: Portuguese Language (morgado)
+- ADD: Spanish Language (ZideN) ALPHA (!)
+- FIX: UTF-8 Support for Buddy Requests
+- FIX: Messages Notify
+- FIX: Phalanx
+- FIX: Installer
+- FIX: Trümmerfeld bei Mondangriffen
+- FIX: Ressourcenberechnung bei Angriffen
+- DIV: Removeold Settings
+- DIV: Recoding ACP
+- DIV: Optimized CSS for Login
+- DIV: zlib.output_compression wird statt ob_gzhandler genutzt
+- DIV: Change Path for reCAPTCHA AJAX
+- DIV: Remove old UGamla Functions
+- DIV: Sicherheit im Game erhöht
+- DIV: Include New Version of Soundmanager (2.96a.20100624)
+- DIV: Diverse Anpassungen am Game
+',
 'RC5.1' => 'ShadoX 23.06.10
 - ADD: Für Halten muss man in der Ally/Buddy sein
 - ADD: Name des HP bei der Reg.
