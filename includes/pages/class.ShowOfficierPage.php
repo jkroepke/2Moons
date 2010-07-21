@@ -37,14 +37,7 @@ class ShowOfficierPage
 			}
 		}
 		
-		if ($USER[$resource[$Officier]] < $pricelist[$Officier]['max'])
-		{
-			return 1;
-		}
-		else
-		{
-			return -1;
-		}
+		return ($USER[$resource[$Officier]] < $pricelist[$Officier]['max']) ? 1 : -1;
 	}
 
 	public function UpdateExtra($Element)
@@ -55,11 +48,11 @@ class ShowOfficierPage
 		{
 			$USER[$resource[$Element]] = TIMESTAMP + $ExtraDM[$Element]['time'] * 3600;
 			$USER['darkmatter']         -= $ExtraDM[$Element]['darkmatter'];
-			$QryUpdateUser  = "UPDATE ".USERS." SET ";
-			$QryUpdateUser .= "`".$resource[$Element]."` = '". $USER[$resource[$Element]] ."' ";
-			$QryUpdateUser .= "WHERE ";
-			$QryUpdateUser .= "`id` = '". $USER['id'] ."';";
-			$db->query($QryUpdateUser);
+			$SQL  = "UPDATE ".USERS." SET ";
+			$SQL .= "`".$resource[$Element]."` = '". $USER[$resource[$Element]] ."' ";
+			$SQL .= "WHERE ";
+			$SQL .= "`id` = '". $USER['id'] ."';";
+			$db->query($SQL);
 		}
 	}
 
@@ -71,11 +64,11 @@ class ShowOfficierPage
 		{
 			$USER[$resource[$Selected]] += 1;
 			$USER['darkmatter']         -= DM_PRO_OFFICIER_LEVEL;
-			$QryUpdateUser  = "UPDATE ".USERS." SET ";
-			$QryUpdateUser .= "`".$resource[$Selected]."` = '". $USER[$resource[$Selected]] ."' ";
-			$QryUpdateUser .= "WHERE ";
-			$QryUpdateUser .= "`id` = '". $USER['id'] ."';";
-			$db->query($QryUpdateUser);
+			$SQL  = "UPDATE ".USERS." SET ";
+			$SQL .= "`".$resource[$Selected]."` = '". $USER[$resource[$Selected]] ."' ";
+			$SQL .= "WHERE ";
+			$SQL .= "`id` = '". $USER['id'] ."';";
+			$db->query($SQL);
 		}
 	}
 	
@@ -129,16 +122,16 @@ class ShowOfficierPage
 		{
 			foreach($reslist['officier'] as $Element)
 			{
-				if (($Result = $this->IsOfficierAccessible($Element)) !== 0)
-				{
-					$OfficierList[]	= array(
-						'id' 	 	=> $Element,
-						'level'  	=> $USER[$resource[$Element]],
-						'name'		=> $LNG['tech'][$Element],
-						'desc'  	=> $LNG['res']['descriptions'][$Element],	
-						'Result'	=> $Result,
-					);
-				}
+				if (($Result = $this->IsOfficierAccessible($Element)) === 0)
+					continue;
+
+				$OfficierList[]	= array(
+					'id' 	 	=> $Element,
+					'level'  	=> $USER[$resource[$Element]],
+					'name'		=> $LNG['tech'][$Element],
+					'desc'  	=> $LNG['res']['descriptions'][$Element],	
+					'Result'	=> $Result,
+				);
 			}
 		}
 		
