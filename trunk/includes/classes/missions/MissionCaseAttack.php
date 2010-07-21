@@ -204,7 +204,7 @@ class MissionCaseAttack extends MissionFunctions
 		if($this->_fleet['fleet_end_type'] == 3)
 			$targetPlanet 		= array_merge($targetPlanet, $db->uniquequery("SELECT `der_metal`, `der_crystal` FROM ".PLANETS." WHERE `galaxy` = '". $this->_fleet['fleet_end_galaxy'] ."' AND `system` = '". $this->_fleet['fleet_end_system']."' AND `planet` = '".$this->_fleet['fleet_end_planet']."' AND `planet_type` = '1';"));
 		
-		$DerbisMetal		= bcadd($targetPlanet[''], bcadd($result['debree']['att'][0], $result['debree']['def'][0]));
+		$DerbisMetal		= bcadd($targetPlanet['der_metal'], bcadd($result['debree']['att'][0], $result['debree']['def'][0]));
 		$DerbisCrystal		= bcadd($targetPlanet['der_crystal'], bcadd($result['debree']['att'][1], $result['debree']['def'][1]));	
 		$FleetDebris		= bcadd($DerbisMetal, $DerbisCrystal);
 		$MoonChance       	= min(round(bcdiv($FleetDebris, "100000") * MOON_CHANCE_FACTOR, 0), 20);
