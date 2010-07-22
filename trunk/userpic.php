@@ -38,13 +38,13 @@ includeLang('INGAME');
 
 require_once(ROOT_PATH."includes/classes/class.StatBanner.php");
 
-$banner = new StatBanner();
-$banner->ShowStatBanner($id);
-
 if(!isset($_GET['debug'])) {
 	header('Expires: '.gmdate('D, d M Y H:i:s', TIMESTAMP + 7200)).' GMT';
 	header("Cache-Control: max-age=7200, private");
 	header("Content-type: image/png"); 
 }
+
+$banner = new StatBanner();
+$banner->ShowStatBanner($id);
 
 ?>
