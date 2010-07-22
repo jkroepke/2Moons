@@ -19,10 +19,13 @@
 # *                                                                          #
 ##############################################################################
 
+if(!function_exists('spl_autoload_register'))
+	exit("PHP is missing <a href=\"http://php.net/spl\">Standard PHP Library (SPL)</a> support");
+
 define('INSIDE'  			, true);
 define('INSTALL' 			, true);
-define('RCINSTALL_VERSION' 	, "5.0");
-define('REVISION' 			, "571");
+define('RCINSTALL_VERSION' 	, "5.1");
+define('REVISION' 			, "851");
 
 define('ROOT_PATH', './../');
 include(ROOT_PATH . 'extension.inc');
@@ -101,7 +104,7 @@ switch ($Mode) {
 			$parse['config'] = "<tr><th>".$LNG['reg_file']." - config.php</th></th><th><span class=\"no\">".$LNG['reg_not_found']."</span>";
 			$error++;
 		}
-		$directories = array('adm/logs/', 'cache/', 'cache/UserBanner/', 'raport/');
+		$directories = array('adm/logs/', 'cache/', 'cache/UserBanner/', 'raports/');
 		$dirs = "";
 		foreach ($directories as $dir)
 		{
