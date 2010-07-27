@@ -21,13 +21,13 @@
 
 function calculateMIPAttack($TargetDefTech, $OwnerAttTech, $ipm, $TargetDefensive, $pri_target, $adm)
 {
-	global $pricelist, $reslist;
+	global $pricelist, $reslist, $CombatCaps;
 	// Based on http://websim.speedsim.net/ JS-IRak Simulation
 	unset($TargetDefensive[503]);
 	$GetTargetKeys	= array_keys($TargetDefensive);
 	
 	$life_fac		= $TargetDefTech / 10 + 1;
-	$life_fac_a 	= 12000 * ($OwnerAttTech / 10 + 1);
+	$life_fac_a 	= $CombatCaps[503]['attack'] * ($OwnerAttTech / 10 + 1);
 	
 	$ipm -= $adm;
 	$adm = 0;
