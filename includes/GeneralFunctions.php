@@ -19,35 +19,20 @@
 # *                                                                          #
 ##############################################################################
 
-function unset_vars( $prefix )
-{
-	$vars = array_keys($GLOBALS);
-	for( $n = 0, $i = 0;  $i < count($vars);  $i ++ )
-		if( strpos($vars[$i], $prefix) === 0 )
-		{
-			unset($GLOBALS[$vars[$i]]);
-			$n ++;
-		}
-
-	return $n;
-}
-
-function update_config($CONF_name, $CONF_value )
+function update_config($Name, $Value)
 {
 	global $CONF, $db;
-	if(isset($CONF[$CONF_name]))
-		$db->query("UPDATE ".CONFIG." SET `config_value` = '".$CONF_value."' WHERE `config_name` = '".$CONF_name."';");
+	$CONF[$Name]	= $Value;
+	
+	if(isset($CONF[$Name]))
+		$db->query("UPDATE ".CONFIG." SET `config_value` = '".$Value."' WHERE `config_name` = '".$Name."';");
 	else
-		$db->query("INSERT INTO ".CONFIG." (`config_name`, `config_value`) VALUES ('".$CONF_name."', '".$CONF_value."');");
+		$db->query("INSERT INTO ".CONFIG." (`config_name`, `config_value`) VALUES ('".$Name."', '".$Value."');");
 }
 
 function ValidateAddress($address) {
     if (function_exists('filter_var')) {
-		if(filter_var($address, FILTER_VALIDATE_EMAIL) === FALSE) {
-			return false;
-		} else {
-			return true;
-		}
+		return filter_var($address, FILTER_VALIDATE_EMAIL) !== FALSE;
     } else {
 		return preg_match('/^(?:[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+\.)*[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+@(?:(?:(?:[a-zA-Z0-9_](?:[a-zA-Z0-9_\-](?!\.)){0,61}[a-zA-Z0-9_-]?\.)+[a-zA-Z0-9_](?:[a-zA-Z0-9_\-](?!$)){0,61}[a-zA-Z0-9_]?)|(?:\[(?:(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\]))$/', $address);
     }
@@ -55,30 +40,10 @@ function ValidateAddress($address) {
 
 function message($mes, $dest = "", $time = "3", $topnav = false, $menu = true)
 {
-	if(defined('IN_ADMIN') || (defined('INSTALL') && INSTALL != false)) {
-		display(parsetemplate(gettemplate('adm/message_body'), array('mes' => $mes)), $topnav, (($dest != "") ? "<meta http-equiv=\"refresh\" content=\"$time;URL=$dest\">" : ""), true, (!defined('IN_ADMIN')? $menu : false));
-	} else {
-		require_once(ROOT_PATH . 'includes/classes/class.template.'.PHP_EXT);
-		$template = new template();
-		$template->message($mes, $dest, $time, !$topnav);
-	}
+	require_once(ROOT_PATH . 'includes/classes/class.template.'.PHP_EXT);
+	$template = new template();
+	$template->message($mes, $dest, $time, !$topnav);
 	exit;
-}
-
-function display ($page, $topnav = true, $metatags = '', $AdminPage = false, $menu = true)
-{
-	echo AdminUserHeader($metatags);
-	echo "\n<center>\n". $page ."\n</center>\n";
-	echo gettemplate('adm/simple_footer');
-}
-
-function AdminUserHeader($metatags = '')
-{
-	global $CONF;
-
-	$parse['title'] 	 = (!defined('IN_ADMIN')) ? "2Moons - Installer" : $CONF['game_name']." - Admin CP";
-	$parse['meta'] 		 = $metatags;
-	return parsetemplate(gettemplate('adm/simple_header'), $parse);
 }
 
 function CalculateMaxPlanetFields($planet)
@@ -115,25 +80,11 @@ function pretty_time_hour ($seconds)
 	return $time;
 }
 
-function parsetemplate ($template, $array)
-{
-	return preg_replace('#\{([a-z0-9\-_]*?)\}#Ssie', '( ( isset($array[\'\1\']) ) ? $array[\'\1\'] : \'\' );', $template);
-}
-
-function gettemplate ($templatename)
-{
-	if(!($temp = @file_get_contents(ROOT_PATH . TEMPLATE_DIR . $templatename . ".tpl")))
-	{
-		throw new Exception('Konnte Templatefile '. $templatename .' nicht finden!');
-	}
-	return $temp;
-}
-
 function includeLang ($filename, $ext = '.php')
 {
 	global $LNG;
 	if(file_exists(ROOT_PATH . "language/".DEFAULT_LANG."/".$filename.$ext))
-		include_once(ROOT_PATH . "language/".DEFAULT_LANG."/".$filename.$ext);
+		require(ROOT_PATH . "language/".DEFAULT_LANG."/".$filename.$ext);
 	else
 		throw new Exception('LangFile '.$filename.$ext.' ('.DEFAULT_LANG.') not found!');
 }
@@ -152,7 +103,7 @@ function GetTargetAdressLink ( $FleetRow, $FleetType )
 	return $Link;
 }
 
-function BuildPlanetAdressLink ( $CurrentPlanet )
+function BuildPlanetAdressLink($CurrentPlanet)
 {
 	$Link  = "<a href=\"game.php?page=galaxy&amp;mode=3&amp;galaxy=".$CurrentPlanet['galaxy']."&amp;system=".$CurrentPlanet['system']."\">";
 	$Link .= "[".$CurrentPlanet['galaxy'].":".$CurrentPlanet['system'].":".$CurrentPlanet['planet']."]</a>";
@@ -171,12 +122,12 @@ function colorNumber($n, $s = '')
 
 function colorRed($n)
 {
-	return '<font color="#ff0000">' . $n . '</font>';
+	return '<span style="color:#ff0000">' . $n . '</span>';
 }
 
 function colorGreen($n)
 {
-	return '<font color="#00ff00">' . $n . '</font>';
+	return '<font style="color:#00ff00">' . $n . '</span>';
 }
 
 function pretty_number($n)
@@ -295,7 +246,7 @@ function request_var($var_name, $default, $multibyte = false, $cookie = false)
 
 function msg_handler($errno, $msg_text, $errfile, $errline)
 {
-	global  $msg_title, $msg_long_text, $CONF, $db;
+	global  $msg_title, $msg_long_text, $CONF;
 	if (!error_reporting()) return false;
 	switch ($errno)
 	{
@@ -474,16 +425,8 @@ function CheckName($String)
 }
 
 function exception_handler($exception) {
-	global $CONF, $db;
+	global $CONF;
 
-	if(is_object($db))
-	{
-		$db->rollback();
-		$db->kill($db->thread_id);
-	}
-	
-	@ob_flush();
-	@ob_start();
 	echo '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">';
 	echo '<html>';
 	echo '<head>';
