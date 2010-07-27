@@ -146,6 +146,12 @@ class template extends Smarty
 			$CONF['deuterium_basic_income'] = 0;
 		}
 		
+		if($USER['urlaubs_modus'] == 1) {
+			$CONF['metal_basic_income']     = 0;
+			$CONF['crystal_basic_income']   = 0;
+			$CONF['deuterium_basic_income'] = 0;
+		}
+                		
 		$this->assign_vars(array(
 			'energy'			=> (($PLANET["energy_max"] + $PLANET["energy_used"]) < 0) ? colorRed(pretty_number($PLANET["energy_max"] + $PLANET["energy_used"]) . "/" . pretty_number($PLANET["energy_max"])) : pretty_number($PLANET["energy_max"] + $PLANET["energy_used"]) . "/" . pretty_number($PLANET["energy_max"]),
 			'metal'				=> ($PLANET["metal"] >= $PLANET["metal_max"]) ? colorRed(pretty_number($PLANET["metal"])) : pretty_number($PLANET["metal"]),
@@ -196,7 +202,11 @@ class template extends Smarty
 	{
 		global $CONF;
 		$this->assign_vars(array(
+<<<<<<< .mine
+			'cron'		=> ((TIMESTAMP >= ($CONF['stat_last_update'] + (60 * $CONF['stat_update_time']))) ? "<img src=\"cronjobs.php?cron=stats\" alt=\"\" height=\"1\" width=\"1\">" : "").((TIMESTAMP >= ($CONF['stat_last_db_update'] + (60 * 60 * 24))) ? "<img src=\"cronjobs.php?cron=opdb\" alt=\"\" height=\"1\" width=\"1\">" : ""),
+=======
 			'cron'		=> ((TIMESTAMP >= ($CONF['stat_last_update'] + (60 * $CONF['stat_update_time']))) ? "<img src=\"./cronjobs.php?cron=stats\" alt=\"\" height=\"1\" width=\"1\">" : "").((TIMESTAMP >= ($CONF['stat_last_db_update'] + (60 * 60 * 24))) ? "<img src=\"./cronjobs.php?cron=opdb\" alt=\"\" height=\"1\" width=\"1\">" : ""),
+>>>>>>> .r855
 			'scripts'	=> $this->script,
 			'ga_active'	=> $CONF['ga_active'],
 			'ga_key'	=> $CONF['ga_key'],
