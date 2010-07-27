@@ -60,13 +60,12 @@ class MissionCaseRecycling extends MissionFunctions
 		$RecycledGoods['crystal'] = min($Target['crystal'], bcdiv($RecyclerCapacity, 2));	
 		
 		$RecyclerCapacity		  = bcsub($RecyclerCapacity, bcadd($RecycledGoods['metal'], $RecycledGoods['crystal']));
-		
 		if($RecyclerCapacity !== '0')
 		{
 			if(max($RecycledGoods['metal'], $Target['metal']) === $Target['metal'])
-				$RecycledGoods['crystal'] = bcadd($RecycledGoods['crystal'], min(bcsub($Target['crystal'], $RecycledGoods['crystal']), $RecyclerCapacity));
-			else
 				$RecycledGoods['metal']   = bcadd($RecycledGoods['metal'], min(bcsub($Target['metal'], $RecycledGoods['metal']), $RecyclerCapacity));
+			else
+				$RecycledGoods['crystal'] = bcadd($RecycledGoods['crystal'], min(bcsub($Target['crystal'], $RecycledGoods['crystal']), $RecyclerCapacity));
 		}
 		
 		$Qry	= "UPDATE ".PLANETS." SET
