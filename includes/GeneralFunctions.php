@@ -523,4 +523,38 @@ if(!function_exists('ctype_alnum'))
     }
 }
 
+function display ($page, $topnav = true, $metatags = '', $AdminPage = false, $menu = true)
+{
+	global $CONF;
+
+	$parse['title'] 	 = (!defined('IN_ADMIN')) ? "2Moons - Installer" : $CONF['game_name']." - Admin CP";
+	$parse['meta'] 		 = $metatags;
+	echo parsetemplate(gettemplate('adm/simple_header'), $parse);
+	echo "\n<center>\n". $page ."\n</center>\n";
+	echo gettemplate('adm/simple_footer');
+}
+
+function AdminUserHeader($metatags = '')
+{
+	global $CONF;
+
+	$parse['title'] 	 = (!defined('IN_ADMIN')) ? "2Moons - Installer" : $CONF['game_name']." - Admin CP";
+	$parse['meta'] 		 = $metatags;
+	return parsetemplate(gettemplate('adm/simple_header'), $parse);
+}
+
+function parsetemplate ($template, $array)
+{
+	return preg_replace('#\{([a-z0-9\-_]*?)\}#Ssie', '( ( isset($array[\'\1\']) ) ? $array[\'\1\'] : \'\' );', $template);
+}
+
+function gettemplate ($templatename)
+{
+	if(!($temp = @file_get_contents(ROOT_PATH . TEMPLATE_DIR . $templatename . ".tpl")))
+	{
+		throw new Exception('Konnte Templatefile '. $templatename .' nicht finden!');
+	}
+	return $temp;
+}
+
 ?>
