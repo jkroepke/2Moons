@@ -40,17 +40,7 @@ function SortUserPlanets ($CurrentUser)
 	
 	while($Planet = $db->fetch_array($PlanetRAW))
 	{
-		$Planets[$Planet['id']]	= array(
-			'id'			=> $Planet['id'],
-			'name'			=> $Planet['name'],
-			'galaxy'		=> $Planet['galaxy'],
-			'system'		=> $Planet['system'],
-			'planet'		=> $Planet['planet'],
-			'planet_type'	=> $Planet['planet_type'],
-			'image'			=> $Planet['image'],
-			'b_building'	=> $Planet['b_building'],
-			'b_building_id'	=> $Planet['b_building_id'],
-		);
+		$Planets[$Planet['id']]	= $Planet;
 	}
 	
 	$db->free_result($PlanetRAW);

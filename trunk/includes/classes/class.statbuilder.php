@@ -77,7 +77,7 @@ class statbuilder{
 	
 		$TKBRW			= $db->query("SELECT `rid` FROM ".TOPKB." WHERE `gesamtunits` < '".((isset($TopKBLow)) ? $TopKBLow['gesamtunits'] : 0)."';");
 		
-		if(isset($DelRW))
+		if(isset($TKBRW))
 		{
 			while($RID = $db->fetch_array($TKBRW))
 			{
