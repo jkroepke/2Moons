@@ -1,192 +1,23 @@
-body 
-{	
-	color                		: #E6EBFB;
-  	background-image     		: url(../images/bg1.jpg);
-	background-color			: #050E1F;
-  	background-repeat    		: no-repeat;
-	background-position			: center;
-	background-attachment		: fixed;
-  	font-size            		: 10px;
-	_font-size           		: 11px;
-  	font-family          		: Tahoma,sans-serif;
-	font-style					: normal;
-	line-height					: normal;
-	font-weight					: normal;
-	font-variant				: normal;
-	text-transform				: none;
-	text-decoration				: none;
+html, body{
+	padding: 0px;
+	margin: 0px;
+	height: 100%;
 }
 
-table 
-{
-	border: 0px #000000 solid;
-	font-size: 10px;
-	background-color: #1b232c;            /*#344566;*/
+table{
+	margin: auto;
 }
 
-textarea
-{
-	font:Verdana, Arial, Helvetica, sans-serif;
-  	color               : #FFFFFF;
-  	background-color    : #091D39;
-  	width               : 85%;
-	border:1px #FFFFFF solid;
+.yes{
+	color:green;
+}
+.no{
+	color:red;
 }
 
-
-th
-{
-  font-size: 10px;
-  font-family: Tahoma,sans-serif;
-  border:1px #415680 solid;
-}
-
-th.b
-{
-  text-align: left;
-}
-
-th.s
-{
-  border: 1px #415680 solid;
-  font-size: 10px;
-  font-family: Tahoma,sans-serif;
-}
-
-td
-{
-	border: 1px solid #415680;
-	text-align:center;
-	color: #0099FF;
-	font-size:13px;
-	font-weight:bolder;
-}
-
-td.k
-{
-	border-bottom: hidden;
-	text-align:center;
-	color: #0099FF;
-	font-size:15px;
-	font-weight:bolder;
-	background-color: #0A1B2A;
-}
-
-input[type='submit'], select
-{
-	cursor:pointer;
-}
-
-td.c
-{
-  font-weight          : bold;
-  color                : #E6EBFB;
-  padding-left         : 3px;
-  background-image     : url(../images/Adm/c.gif);
-}
-
-
-tr
-{
-	height:18px;
-}
-
-
-a 
-{
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 10px;
-	color: #FFFFFF;
-	text-decoration: none;
-	cursor: pointer;
-}
-a:hover {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 10px;
-	text-decoration: none;
-	cursor: pointer;
-	color: #66CCFF;
-	text-decoration: none;
-}
-
-
-a.ForIEHoverr
-{
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 10px;
-	color: #FFFFFF;
-	text-decoration: none;
-	cursor: pointer;
-}
-
-a.ForIEHoverLime
-{
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 10px;
-	text-decoration: none;
-	cursor: pointer;
-	color: #00FF00;
-	text-decoration: none;
-}
-
-
-img
-{
-	border:0px;
-}
-
-
-
-/* MENU */
-.menu
-{
-	background:#050E1F;
-	color:#00FF00;
-}
-
-table.s 
-{
-	border: 0px;
-	font-size: 10px;
-	_font-size: 11px;
-	background-color: #050E1F;
-	filter: alpha(opacity=100);
-  	_moz-opacity: 1.0;
-  	_khtml-opacity: 1.0;
-  	opacity: 1.0;
-}
-
-th.ForIE
-{
-  border: 0px #415680 solid;
-  font-size: 10px;
-  font-family: Tahoma,sans-serif;
-  background-color:#050E1F;
-}
-
-th.ForIEHover
-{
-	border: 1px #415680 solid;
-	background-color: #0F1F3C;
-}
-
-td.t
-{
-	border-bottom: 2px #0099FF solid;
-	border:0px;
-	text-align:center;
-	color: #0099FF;
-	font-size:14px;
-	font-weight:bolder;
-	background-color: #050E1F;
-}
-
-
-
-/* TOPNAV */
-.topnav
-{	
-	background:#050E1F;
+.content{
+	position: static !important;
+	width: 100% !important;
 }
 
 a.out {
@@ -225,31 +56,6 @@ a.topn:hover {
 	text-align:center;
 }
 
-
-/* Informacion detallada de usuarios */
-td.p
-{
-	border-bottom:solid #000000;
-	text-align:center;
-	color: #0099FF;
-	font-size:14px;
-	filter: alpha(opacity=0);
-  	_moz-opacity: 0.0;
-  	_khtml-opacity: 0.0;
-  	opacity: 0.0;
-}
-
-select, textarea, input, button{
-	border: 1px solid #415680;
-	color: #E6EBFB;
-	font-size:11px;
-	font-family:Tahoma,sans-serif;
-	background : #0A123B;
-}
-
-.yes{
-	color:green;
-}
-.no{
-	color:red;
-}
+.button{background:url(../images/Adm/blank.gif);border:1px lime solid;color:#FFFFFF;}
+.button:hover{background:url(../images/Adm/blank.gif);border:1px aqua solid;cursor:pointer;color:#FFFFFF;}
+.span{ vertical-align:baseline}

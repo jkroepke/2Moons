@@ -1,11 +1,5 @@
 <?php
 
-//LOCAL INFO
- 
-$LNG['local_info'][0]						= 'de_DE.UTF-8'; // Linux
-$LNG['local_info'][1]						= 'de'; // Linux
-$LNG['local_info'][2]						= 'DEU'; // Windows (http://msdn.microsoft.com/en-us/library/39cwe7zf%28vs.71%29.aspx)
-
 //SERVER GENERALS
 $LNG['Metal']								= 'Metall';
 $LNG['Crystal']							= 'Kristall';
@@ -472,7 +466,7 @@ $LNG['mg_type'][3]    						= 'Kampf- berichte';
 $LNG['mg_type'][4]    						= 'System Nachrichten';
 $LNG['mg_type'][5]    						= 'Transport Nachrichten';
 $LNG['mg_type'][15]   						= 'Expedition- berichte';
-$LNG['mg_type'][50]						= 'Game Nachrichten';
+$LNG['mg_type'][50]							= 'Game Nachrichten';
 $LNG['mg_type'][99]   						= 'Bauschleifen Nachrichten';
 $LNG['mg_type'][100]						= 'Alle Nachrichten';
 $LNG['mg_type'][999]						= 'Postausgang';

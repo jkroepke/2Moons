@@ -654,7 +654,7 @@ switch ($page) {
 			$login = $db->uniquequery("SELECT `id`,`username`,`authlevel`,`password`,`banaday` FROM " . USERS . " WHERE `username` = '".$db->sql_escape($luser)."' AND `password` = '".md5($lpass)."';");
 			
 			if (isset($login)) {
-				if ($login['banaday'] <= time () && $login['banaday'] != '0') {
+				if ($login['banaday'] <= TIMESTAMP) {
 					$db->query("UPDATE " . USERS . " SET `banaday` = '0', `bana` = '0' WHERE `username` = '" . $login ['username'] . "';");
 				}
 				

@@ -1,77 +1,77 @@
 <?php
 
 /**
-* Smarty Internal Plugin Debug
-* 
-* Class to collect data for the Smarty Debugging Consol
-* 
-* @package Smarty
-* @subpackage Debug
-* @author Uwe Tews 
-*/
+ * Smarty Internal Plugin Debug
+ * 
+ * Class to collect data for the Smarty Debugging Consol
+ * 
+ * @package Smarty
+ * @subpackage Debug
+ * @author Uwe Tews 
+ */
 /**
-* Smarty Internal Plugin Debug Class
-*/
+ * Smarty Internal Plugin Debug Class
+ */
 class Smarty_Internal_Debug extends Smarty_Internal_Data {
     // template data
     static $template_data = array();
 
     /**
-    * Start logging of compile time
-    */
+     * Start logging of compile time
+     */
     public static function start_compile($template)
     {
         $key = self::get_key($template);
-        self::$template_data[$key]['start_time'] = self::get_time();
+        self::$template_data[$key]['start_time'] = microtime(true);
     } 
 
     /**
-    * End logging of compile time
-    */
+     * End logging of compile time
+     */
     public static function end_compile($template)
     {
         $key = self::get_key($template);
-        self::$template_data[$key]['compile_time'] += self::get_time() - self::$template_data[$key]['start_time'];
+        self::$template_data[$key]['compile_time'] += microtime(true) - self::$template_data[$key]['start_time'];
     } 
 
     /**
-    * Start logging of render time
-    */
+     * Start logging of render time
+     */
     public static function start_render($template)
     {
         $key = self::get_key($template);
-        self::$template_data[$key]['start_time'] = self::get_time();
+        self::$template_data[$key]['start_time'] = microtime(true);
     } 
 
     /**
-    * End logging of compile time
-    */
+     * End logging of compile time
+     */
     public static function end_render($template)
     {
         $key = self::get_key($template);
-        self::$template_data[$key]['render_time'] += self::get_time() - self::$template_data[$key]['start_time'];
+        self::$template_data[$key]['render_time'] += microtime(true) - self::$template_data[$key]['start_time'];
     } 
 
     /**
-    * Start logging of cache time
-    */
+     * Start logging of cache time
+     */
     public static function start_cache($template)
     {
         $key = self::get_key($template);
-        self::$template_data[$key]['start_time'] = self::get_time();
+        self::$template_data[$key]['start_time'] = microtime(true);
     } 
 
     /**
-    * End logging of cache time
-    */
+     * End logging of cache time
+     */
     public static function end_cache($template)
     {
         $key = self::get_key($template);
-        self::$template_data[$key]['cache_time'] += self::get_time() - self::$template_data[$key]['start_time'];
+        self::$template_data[$key]['cache_time'] += microtime(true) - self::$template_data[$key]['start_time'];
     } 
     /**
-    * Opens a window for the Smarty Debugging Consol and display the data
-    */
+     * Opens a window for the Smarty Debugging Consol and display the data
+     */
     public static function display_debug($smarty)
     { 
         // prepare information of assigned variables
@@ -79,6 +79,10 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data {
         ksort($_assigned_vars);
         $_config_vars = $smarty->config_vars;
         ksort($_config_vars);
+        $ldelim = $smarty->left_delimiter;
+        $rdelim = $smarty->right_delimiter;
+        $smarty->left_delimiter = '{';
+        $smarty->right_delimiter = '}';
         $_template = new Smarty_Template ($smarty->debug_tpl, $smarty);
         $_template->caching = false;
         $_template->force_compile = false;
@@ -88,15 +92,17 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data {
         $_template->assign('template_data', self::$template_data);
         $_template->assign('assigned_vars', $_assigned_vars);
         $_template->assign('config_vars', $_config_vars);
-        $_template->assign('execution_time', $smarty->_get_time() - $smarty->start_time);
+        $_template->assign('execution_time', microtime(true) - $smarty->start_time);
         echo $smarty->fetch($_template);
+        $smarty->left_delimiter = $ldelim;
+        $smarty->right_delimiter = $rdelim;
     } 
 
     /**
-    * get_key
-    */
+     * get_key
+     */
     static function get_key($template)
-    {
+    { 
         // calculate Uid if not already done
         if ($template->templateUid == '') {
             $template->getTemplateFilepath();
@@ -111,18 +117,6 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data {
             self::$template_data[$key]['cache_time'] = 0;
             return $key;
         } 
-    } 
-
-    /**
-    * return current time
-    * 
-    * @returns double current time
-    */
-    static function get_time()
-    {
-        $_mtime = microtime();
-        $_mtime = explode(" ", $_mtime);
-        return (double)($_mtime[1]) + (double)($_mtime[0]);
     } 
 } 
 
