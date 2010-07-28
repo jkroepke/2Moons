@@ -19,11 +19,6 @@
 # *																			 #
 ##############################################################################
 
-if(!function_exists('spl_autoload_register'))
-	exit("PHP is missing <a href=\"http://php.net/spl\">Standard PHP Library (SPL)</a> support");
-	
-if((!defined('INSTALL') || INSTALL == false) && (!file_exists(ROOT_PATH.'config.php') || filesize(ROOT_PATH.'config.php') == 0))
-	exit(header("Location:" . ROOT_PATH .  "install/"));
 	
 @ignore_user_abort(true);
 @set_time_limit(120);
@@ -97,7 +92,7 @@ if (INSTALL != true)
 			trigger_error($CONF['close_reason'], E_USER_NOTICE);
 		}
 		
-		if(request_var('ajax', 0) == 0 && !defined('IN_ADMIN'))
+		if(request_var('ajax', 0) == 0 /*&& $CONF['stats_fly_lock'] == 0*/ && !defined('IN_ADMIN'))
 		{	
 			update_config('stats_fly_lock', TIMESTAMP);
 			$db->query("LOCK TABLE ".AKS." WRITE, ".RW." WRITE, ".MESSAGES." WRITE, ".FLEETS." WRITE, ".PLANETS." WRITE, ".PLANETS." as p WRITE, ".TOPKB." WRITE, ".USERS." WRITE, ".USERS." as u WRITE, ".STATPOINTS." WRITE;");
@@ -113,10 +108,13 @@ if (INSTALL != true)
 			$db->query("UNLOCK TABLES");  
 			update_config('stats_fly_lock', 0);
 		}
+		elseif (TIMESTAMP >= ($CONF['stats_fly_lock'] + (60 * 5))){
+			update_config('stats_fly_lock', 0);
+		}
 				
 		$USER	= $db->uniquequery("SELECT u.*, s.`total_rank`, s.`total_points` FROM ".USERS." as u LEFT JOIN ".STATPOINTS." as s ON s.`id_owner` = u.`id` AND s.`stat_type` = '1' WHERE u.`id` = '".$_SESSION['id']."';");
 		if(empty($USER)) {
-			exit(header('Location: '.ROOT_PATH.'index.php'));
+			exit(header('Location: index.php'));
 		} elseif(empty($USER['lang'])) {
 			$USER['lang']	= $CONF['lang'];
 			$db->query("UPDATE ".USERS." SET `lang` ='".$USER['lang']."' WHERE `id` = '".$USER['id']."';");
@@ -134,18 +132,9 @@ if (INSTALL != true)
 			exit;
 		}
 			
-		if (defined('IN_ADMIN'))
+		if (!defined('IN_ADMIN'))
 		{
-			require_once('AdminFunctions/Autorization.' . PHP_EXT);
-			includeLang('ADMIN');
-			$dpath     = "../". DEFAULT_SKINPATH;			
-		}
-		else
-		{
-			require_once(ROOT_PATH . 'includes/classes/class.template.'.PHP_EXT);
 			require_once(ROOT_PATH . 'includes/classes/class.PlanetRessUpdate.'.PHP_EXT);
-
-		
 			$PLANET = $db->uniquequery("SELECT * FROM `".PLANETS."` WHERE `id` = '".$USER['current_planet']."';");
 
 			if(empty($PLANET)){
@@ -158,17 +147,21 @@ if (INSTALL != true)
 				
 			require_once(ROOT_PATH.'includes/functions/CheckPlanetUsedFields.' . PHP_EXT);
 			CheckPlanetUsedFields($PLANET);
+		} else {
+			includeLang('ADMIN');
 		}
+		
+		require_once(ROOT_PATH.'includes/classes/class.template.'.PHP_EXT);
 	} else {
 		//Login
 		define('DEFAULT_LANG'	, (!empty($_REQUEST['lang'])) ? $_REQUEST['lang'] : $CONF['lang']);
 		includeLang('INGAME');
-		require_once(ROOT_PATH . 'includes/classes/class.template.'.PHP_EXT);
+		require_once(ROOT_PATH.'includes/classes/class.template.'.PHP_EXT);
 	}
 }
 else
 {
-	$dpath     = "../" . DEFAULT_SKINPATH;
+	require_once(ROOT_PATH.'includes/classes/class.template.'.PHP_EXT);
 }
 
 ?>

@@ -32,7 +32,7 @@ function smarty_function_html_select_time($params, $smarty, $template)
 
     /* Default values. */
     $prefix = "Time_";
-    $time = TIMESTAMP;
+    $time = time();
     $display_hours = true;
     $display_minutes = true;
     $display_seconds = true;
