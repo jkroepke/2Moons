@@ -25,6 +25,9 @@ if(!function_exists('spl_autoload_register'))
 if(!class_exists('mysqli'))
 	exit("PHP is missing <a href=\"http://php.net/mysqli\">MySQL Improved Extension</a> support");
 
+if(!is_writable('../cache'))
+	exit("Set Cache Dir to CHMOD 777!");
+
 define('INSIDE'  			, true);
 define('INSTALL' 			, true);
 define('RCINSTALL_VERSION' 	, "6.0");

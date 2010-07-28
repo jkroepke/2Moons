@@ -27,6 +27,9 @@ $InLogin = true;
 
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 
+if(INSTALL == false && (!file_exists(ROOT_PATH.'config.php') || filesize(ROOT_PATH.'config.php') == 0))
+	exit(header("Location:" . ROOT_PATH .  "install/"));
+	
 include_once(ROOT_PATH . 'extension.inc');
 include_once(ROOT_PATH . 'common.' . PHP_EXT);
 
