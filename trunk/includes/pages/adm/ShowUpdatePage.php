@@ -42,7 +42,7 @@ function exitupdate($LOG){
 			$Page .= $content."<br>";
 		}
 	}
-	$Page .= "<br><a href='?page=update'>Weiter</a>";
+	$Page .= "<br><a href='?page=update&amp;action=update'>Weiter</a>";
 
 	$template = new template();
 	$template->message($Page, false, 0, true);
@@ -52,6 +52,7 @@ function exitupdate($LOG){
 
 function ShowUpdatePage()
 {
+	global $LNG, $CONF, $db;
 	$Patchlevel	= explode(".",VERSION);
 	if($_REQUEST['history'] == 1)
 		$Level		= 0;	
