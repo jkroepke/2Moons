@@ -34,7 +34,7 @@ $LNG['adm_cp_index']		= 'Startseite';
 $LNG['mu_moderation_page']	= 'Rechte';
 $LNG['adm_cp_logout']		= 'Verlassen';
 
-//	MISCEL�NEO - MISCELLANEOUS
+//	MISCELÁNEO - MISCELLANEOUS
 $LNG['ad_number']			= 'ID';
 $LNG['ad_max']				= '(max. %d)';
 $LNG['only_numbers']		= 'Du kannst nur Zahlen eingeben!';
@@ -54,7 +54,7 @@ $LNG['time_seconds']	= 'Sekunden';
 //###########################################################//
 
 
-//---------------	�SI O NO? - YES OR NO? - JA ODER NEIN?	------------------------// 
+//---------------	¿SI O NO? - YES OR NO? - JA ODER NEIN?	------------------------// 
 $LNG['one_is_yes'][1]	= 'Ja';
 $LNG['one_is_yes'][0]	= 'Nein';
 
@@ -87,11 +87,6 @@ $LNG['input_id_ally']		= 'Allianz ID';
 //---------------	RECURSOS - RESOURCES - ROHSTOFFE	------------------------// 
 $LNG['resources_title']	        = 'Rohstoffe';
 $LNG['count_res']			= 'Anzahl Rohstoffe';
-$LNG['metal']				= 'Metall';
-$LNG['crystal']			= 'Kristall';
-$LNG['deuterium']			= 'Deuterium';
-$LNG['energy']				= 'Energie';
-$LNG['darkmatter']			= 'Dunkle Materie';
 //###########################################################//
 
 
@@ -103,13 +98,6 @@ $LNG['researchs_title']	= 'Forschung';
 $LNG['officiers_title']	= 'Offiziere';
 //###########################################################//
 
-
-//---------------	CONSULTAS SQL - SQL QUERIES	------------------------//
-$LNG['qe_title_menu']	        = 'SQL queries';
-$LNG['qe_execute']				= 'SQL Queries Execute';
-$LNG['qe_succes']				= 'Erfolgreich ausgeführt';
-$LNG['qe_note']				= 'Mehre Abfragen müssen durch ein Semikolon \';\' getrennt werden!s';
-//###########################################################//
 
 
 //---------------	EDITOR	------------------------//
@@ -156,10 +144,10 @@ $LNG['ad_delete_defenses_succes']	= 'Löschen der Verteidigungen war erfolgreich
 //	EDIFICIOS - BUILDINGS - GEBÄUDE
 $LNG['ad_buildings_title']	= 'Gebäude bearbeiten';
 $LNG['ad_planet_id']		= 'ID Planet oder Mond';
-$LNG['ad_levels']		= 'Anzahl der Stufe';
+$LNG['ad_levels']			= 'Anzahl der Stufe';
+$LNG['ad_count']			= 'Anzahl';
 $LNG['ad_add_succes']		= 'Hinzufügen der Gebäude war erfolgreich!';
 $LNG['ad_delete_succes']	= 'Löschen der Gebäude war erfolgreich!';
-$LNG['ad_error_moon_only']	= 'Das Mondgebäude kann man nur auf einen Mond bauen!!';
 
 // DATOS PERSONALES - PERSONAL DATA
 $LNG['ad_personal_title']		= 'Persönliche Daten bearbeiten';
@@ -213,7 +201,7 @@ $LNG['ad_pla_delete_planet_s']	= 'Planet erfolgreich gelöscht';
 //###########################################################//
 
 
-//---------------	PANEL DE SUSPENSI�N - BAN PANEL - BANN PANEL	------------------------//
+//---------------	PANEL DE SUSPENSIÓN - BAN PANEL - BANN PANEL	------------------------//
 $LNG['bo_the_player']			= 'Spieler ';
 $LNG['bo_the_player2']			= 'Der Spieler ';
 $LNG['bo_banned']			= ' Sperren erfolgreich';
@@ -233,7 +221,7 @@ $LNG['bo_bbb_go_back']			= '[ Zurück ]';
 $LNG['bo_bbb_go_act']			= '[ Neuladen ]';
 $LNG['bo_bbb_title_1']			= 'Suspension system';
 $LNG['bo_bbb_title_2']			= 'Wann soll die Sperre aufgehoben werden';
-$LNG['bo_bbb_title_3']			= 'Suspension System<br><font color=red>Dieser Spieler ist bereits gesperrt';
+$LNG['bo_bbb_title_3']			= 'Suspension System &bull; <font color=red>Dieser Spieler ist bereits gesperrt';
 $LNG['bo_bbb_title_4']			= 'Um die Dauer der Sperre zu verkürzen, fürge ein Minus vor der Minutenzahl hinzu, Beispiel: -5 ';
 $LNG['bo_bbb_title_5']			= 'gesperrt bis';
 $LNG['bo_bbb_title_6']			= 'Datum ändern';
@@ -255,7 +243,7 @@ $LNG['et_encript']			= 'Generieren';
 //###########################################################//
 
 
-//---------------	CONFIGURACI�N DE ESTAD�STICAS - STATS CONFIG - Stats-Config	------------------------//
+//---------------	CONFIGURACIÓN DE ESTADÍSTICAS - STATS CONFIG - Stats-Config	------------------------//
 $LNG['cs_title']					= 'Einstellungen der Parameter der Statistik';
 $LNG['cs_point_per_resources_used']			= '1 Punkt als Wert';
 $LNG['cs_resources']					= 'Rohstoffe';
@@ -324,7 +312,7 @@ $LNG['od_select_action']		= 'Auswählen';
 //###########################################################//
 
 
-//---------------	P�GINA DE INICIO - OVERVIEW	------------------------//
+//---------------	PÁGINA DE INICIO - OVERVIEW	------------------------//
 $LNG['ow_title']					= 'Willkommen zu 2Moons';
 $LNG['ow_welcome_text']			= 'Herzlich Willkommen zum allseits beliebten 2Moons. (:';
 $LNG['ow_overview']				= 'Kontrollzentrum';
@@ -344,7 +332,7 @@ $LNG['ow_none']						= 'Keine Warnungen';
 //###########################################################//
 
 
-//---------------	CONFIGURACI�N DEL JUEGO - GAME CONFIG	------------------------//
+//---------------	CONFIGURACIÓN DEL JUEGO - GAME CONFIG	------------------------//
 $LNG['se_server_parameters']			= 'Server Einstellungen';
 $LNG['se_name']						= 'Name';
 $LNG['se_lang']						= 'Sprache';
@@ -430,7 +418,7 @@ $LNG['se_google_key_info']				= 'Der Identify-Key für ihre Webseite. Diese begi
 //###########################################################//
 
 
-//---------------	MODERACI�N - MODERATION	------------------------//
+//---------------	MODERACIÓN - MODERATION	------------------------//
 //	PERMISOS - PERMISSIONS
 $LNG['mod_title']					= 'Admin powers';
 $LNG['mod_range']					= 'Rank';
@@ -462,22 +450,24 @@ $LNG['ff_flying_fleets']		= 'Fleets in flight';
 $LNG['ff_ammount']				= 'Quantity';
 $LNG['ff_mission']				= 'Mission';
 $LNG['ff_beginning']			= 'Start';
+$LNG['ff_id']					= 'ID';
 $LNG['ff_departure']			= 'Von';
 $LNG['ff_departure_hour']		= 'Departure time';
 $LNG['ff_objective']			= 'Ziel';
 $LNG['ff_arrival']				= 'Objetive';
 $LNG['ff_hold_position']		= 'Haltenposition';
-$LNG['ff_arrival_hour']		= 'Arribal time';
+$LNG['ff_arrival_hour']			= 'Arribal time';
 $LNG['ff_go_back_now']			= 'Back';
 $LNG['ff_delete_succes']		= 'Flight deleted successfully';
 $LNG['ff_goback_succes']		= "The flight is now returning to it's original planet";
 $LNG['ff_lock']					= "Lock";
 $LNG['ff_unlock']				= "Unlock";
+$LNG['ff_no_fleets']			= "Zurzeit sind keine Flotten unterwegs";
 
 //###########################################################//
 
 
-//---------------	ACTUALIZACI�N DE ESTADISTICAS - UPDATE STATS	------------------------//
+//---------------	ACTUALIZACIÓN DE ESTADISTICAS - UPDATE STATS	------------------------//
 $LNG['sb_top_memory']			= 'Peak Memory: %p KB / max. %m KB <br>';
 $LNG['sb_final_memory']			= 'Speiecherauslastung beim Ende: %e KB / max. %m KB<br>';
 $LNG['sb_start_memory']			= 'Speiecherauslastung beim Start: %i KB / max. %m KB<br>';
@@ -569,7 +559,7 @@ $LNG['re_reset_excess']					= 'Options restarted successfully';
 //###########################################################//
 
 
-//---------------	INFORMACI�N DE CUENTAS - DATA ACCOUNTS	------------------------//
+//---------------	INFORMACIÓN DE CUENTAS - DATA ACCOUNTS	------------------------//
 $LNG['ac_user_id_required']					= 'You must select any user!';
 $LNG['ac_select_one_id']					= 'Please choose only one user!';
 $LNG['ac_no_character']					= 'We do not accept letters, only numbers!';
@@ -750,7 +740,7 @@ $LNG['se_confirm_planet']	=	'The planet selected will be erased completely, eith
 $SE_ID		=	"ID";
 $SE_NAME	=	"Name";
 
-// B�SQUEDA EN TABLA DE USUARIOS
+// BÚSQUEDA EN TABLA DE USUARIOS
 $LNG['se_search_users'][0]	=	$SE_ID;
 $LNG['se_search_users'][1]	=	$SE_NAME;
 $LNG['se_search_users'][2]	=	'E-mail';
@@ -761,7 +751,7 @@ $LNG['se_search_users'][6]	=	'Authority';
 $LNG['se_search_users'][7]	=	'Suspended?';
 $LNG['se_search_users'][8]	=	'Vacations?';
 
-// B�SQUEDA EN TABLA DE PLANETAS
+// BÚSQUEDA EN TABLA DE PLANETAS
 $LNG['se_search_planets'][0]	=	$SE_ID;
 $LNG['se_search_planets'][1]	=	$SE_NAME;
 $LNG['se_search_planets'][2]	=	"Owner";
@@ -771,7 +761,7 @@ $LNG['se_search_planets'][5]	=	"System";
 $LNG['se_search_planets'][6]	=	"Planet";
 $LNG['se_search_planets'][7]	=	"Has moon?";
 
-// B�SQUEDA EN TABLA DE SUSPENDIDOS
+// BÚSQUEDA EN TABLA DE SUSPENDIDOS
 $LNG['se_search_banned'][0]	=	$SE_ID;
 $LNG['se_search_banned'][1]	=	$SE_NAME;
 $LNG['se_search_banned'][2]	=	"Date of suspended";
@@ -779,7 +769,7 @@ $LNG['se_search_banned'][3]	=	"Date of reactivation";
 $LNG['se_search_banned'][4]	=	"Reason";
 $LNG['se_search_banned'][5]	=	"Author";
 
-// B�SQUEDA EN TABLA DE LA ALIANZA
+// BÚSQUEDA EN TABLA DE LA ALIANZA
 $LNG['se_search_alliance'][0]	=	$SE_ID;
 $LNG['se_search_alliance'][1]	=	$SE_NAME;
 $LNG['se_search_alliance'][2]	=	"TAG";
@@ -829,7 +819,7 @@ $LNG['po_delete_planet']			=	'Delete planet';
 $LNG['po_name_planet']				=	'Name of the planet';
 $LNG['po_complete_all']			=	'Invalid data or coordinates already in use!';
 $LNG['po_complete_all2']			=	'Error in coordinates!';
-$LNG['po_complete_succes']			=	'Planet created successfully! | <a href="AccountEditorPage.php">Edit planet</a>';
+$LNG['po_complete_succes']			=	'Planet created successfully! | <a href="?page=accounteditor">Edit planet</a>';
 $LNG['po_complete_invalid']			=	'Invalid data!';
 $LNG['po_complete_invalid2']			=	'Planet does not exist!';
 $LNG['po_complete_invalid3']			=	'Planets can only be deleted!';
@@ -857,8 +847,8 @@ $LNG['po_delete_moon']				= 'Mond Löschen';
 $LNG['sp_admin_answer']				= '%s (Admin) schreib am %s<br><br><font color="red">%s</font>';
 $LNG['sp_answer_message_title']		= 'Support Ticket #%d';
 $LNG['sp_answer_message']			= 'Es wurde auf Ihr Ticket #%d eine Antwort geschreiben!';
-$LNG['sp_admin_closed']				= '%s (Admin) closed the ticket on %s';
-$LNG['sp_admin_open']				= '%s (Admin) reopen the ticket on %s';
+$LNG['sp_admin_closed']				= '%s (Admin) hat das Ticket am %s geschlossen!';
+$LNG['sp_admin_open']				= '%s (Admin) hat das Ticket am %s geöffnet!';
 
 
 // QuickEditor
@@ -959,5 +949,22 @@ $LNG['mod_active']						= 'AKTIV';
 $LNG['mod_deactive']					= 'NICHT AKTIV';
 $LNG['mod_change_active']				= 'Aktivieren';
 $LNG['mod_change_deactive']				= 'Deaktivieren';
+
+
+//News
+
+$LNG['nws_news']						= 'News';
+$LNG['nws_head_create']					= 'News erstellen';
+$LNG['nws_head_edit']					= 'News %s bearbeiten';
+$LNG['nws_id']							= 'ID';
+$LNG['nws_title']						= 'Titel';
+$LNG['nws_date']						= 'Datum';
+$LNG['nws_from']						= 'Von';
+$LNG['nws_del']							= 'Del';
+$LNG['nws_confirm']						= 'Bist du sicher, dass du die Nachricht %s entfernen willst?';
+$LNG['nws_create']						= 'News erstellen';
+$LNG['nws_total']						= 'Insgesamt %d News vorhanden';
+$LNG['nws_content']						= 'Inhalt';
+
 
 ?>

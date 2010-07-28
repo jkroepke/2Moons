@@ -44,8 +44,6 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
     public $mustCompile = null;
     public $suppressHeader = false;
     public $suppressFileDependency = false;
-    public $extract_code = false;
-    public $extracted_compiled_code = '';
     public $has_nocache_code = false; 
     // Rendered content
     public $rendered_content = null; 
@@ -806,6 +804,26 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
         } 
     } 
 
+    /**
+     * creates a loacal Smarty variable for array assihgments
+     */
+    public function createLocalArrayVariable($tpl_var, $nocache = false, $scope = SMARTY_LOCAL_SCOPE)
+    {
+        if (!isset($this->tpl_vars[$tpl_var])) {
+            $tpl_var_inst = $this->getVariable($tpl_var, null, true, false);
+            if ($tpl_var_inst instanceof Undefined_Smarty_Variable) {
+                $this->tpl_vars[$tpl_var] = new Smarty_variable(array(), $nocache, $scope);
+            } else {
+                $this->tpl_vars[$tpl_var] = clone $tpl_var_inst;
+                if ($scope != SMARTY_LOCAL_SCOPE) {
+                    $this->tpl_vars[$tpl_var]->scope = $scope;
+                } 
+            } 
+        } 
+        if (!(is_array($this->tpl_vars[$tpl_var]->value) || $this->tpl_vars[$tpl_var]->value instanceof ArrayAccess)) {
+            settype($this->tpl_vars[$tpl_var]->value, 'array');
+        } 
+    } 
     /**
      * wrapper for display
      */

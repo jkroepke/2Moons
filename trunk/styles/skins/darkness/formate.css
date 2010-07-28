@@ -316,151 +316,6 @@ padding:0;
 color:#000
 }
 
-.ui-tabs .ui-tabs-hide {
-display:none
-}
-
-#dialog label,#dialog input {
-display:block
-}
-
-#dialog label {
-margin-top:.5em
-}
-
-#dialog input,#dialog textarea {
-width:95%
-}
-
-#tabs {
-margin-top:1em
-}
-
-#tabs li .ui-icon-close {
-cursor:pointer;
-float:left;
-margin:.4em .2em 0 0
-}
-
-#add_tab {
-cursor:pointer
-}
-
-.u_button {
-text-decoration:underline
-}
-
-.b_button {
-font-weight:700
-}
-
-.i_button {
-font-style:italic
-}
-
-.btn {
-background:url(img/buttons.gif) no-repeat;
-display:inline-block;
-height:20px;
-margin-right:5px;
-width:20px
-}
-
-.italic:hover {
-background:-25px
-}
-
-.underline {
-background:-50px
-}
-
-.underline:hover {
-background:-50px
-}
-
-.link {
-background:-75px
-}
-
-.link:hover {
-background:-75px
-}
-
-.quote {
-background:-100px
-}
-
-.quote:hover {
-background:-100px
-}
-
-.code {
-background:-125px
-}
-
-.code:hover {
-background:-125px
-}
-
-.image {
-background:-150px
-}
-
-.image:hover {
-background:-150px
-}
-
-.nlist {
-background:-175px
-}
-
-.nlist:hover {
-background:-175px
-}
-
-.blist {
-background:-200px
-}
-
-.blist:hover {
-background:-200px
-}
-
-.litem {
-background:-225px
-}
-
-.litem:hover {
-background:-225px
-}
-
-.back {
-background:-250px
-}
-
-.forward {
-background:-275px
-}
-
-.usize {
-background:-300px
-}
-
-.usize:hover {
-background:-300px
-}
-
-.dsize {
-background:-325px
-}
-
-.dsize:hover {
-background:-325px
-}
-
-.ui-progressbar-value {
-background:url(img/processbar.png)
-}
 
 table table,img,p table,table table {
 border:0
@@ -490,35 +345,146 @@ color:red
 color:#f60
 }
 
-.bold:hover,.italic {
-background:-25px
+.u_button{
+text-decoration:underline;
+}
+.s_button{
+text-decoration:line-through;
+}
+.b_button{
+font-weight:bold;
+}
+.i_button{
+font-style:italic;
+}
+.btn {
+	background: transparent url('img/buttons.gif') no-repeat scroll 0 0;
+	width:20px;
+	height:20px;
+	margin-right:5px;
+	display:inline-block;
 }
 
-.back:hover,.back_disable {
-background:-250px
+.bold {
+	background-position:0 0;
 }
 
-.forward:hover,.forward_disable {
-background:-275px
+.bold:hover {
+	background-position:0 -25px;
 }
 
-/* jQuery UI CSS */
-
-.ui-progressbar .ui-progressbar-value {
-height:100%;
-margin:-1px
+.italic {
+	background-position:-25px 0;
 }
 
-.ui-corner-left {
--moz-border-radius-bottomleft:4px;
--moz-border-radius-topleft:4px
+.italic:hover {
+	background-position:-25px -25px;
 }
 
-.ui-progressbar {
-height:10px;
-text-align:left
+.underline {
+	background-position:-50px 0;
 }
 
-.ui-corner-all {
--moz-border-radius:4px
+.underline:hover {
+	background-position:-50px -25px;
 }
+
+.link {
+	background-position:-75px 0;
+}
+
+.link:hover {
+	background-position:-75px -25px;
+}
+
+.quote {
+	background-position:-100px 0;
+}
+
+.quote:hover {
+	background-position:-100px -25px;
+}
+
+.code {
+	background-position:-125px 0;
+}
+
+.code:hover {
+	background-position:-125px -25px;
+}
+
+.image {
+	background-position:-150px 0;
+}
+
+.image:hover {
+	background-position:-150px -25px;
+}
+
+.nlist {
+	background-position:-175px 0;
+}
+
+.nlist:hover {
+	background-position:-175px -25px;
+}
+
+.blist {
+	background-position:-200px 0;
+}
+
+.blist:hover {
+	background-position:-200px -25px;
+}
+
+.litem {
+	background-position:-225px 0;
+}
+
+.litem:hover {
+	background-position:-225px -25px;
+}
+
+.back {
+	background-position:-250px 0;
+}
+
+.back:hover {
+	background-position:-250px -25px;
+}
+
+.back_disable {
+	background-position:-250px -50px;
+}
+
+.forward {
+	background-position:-275px 0;
+}
+
+.forward:hover {
+	background-position:-275px -25px;
+}
+
+.forward_disable {
+	background-position:-275px -50px;
+}
+
+.usize {
+	background-position:-300px 0;
+}
+
+.usize:hover {
+	background-position:-300px -25px;
+}
+
+.dsize {
+	background-position:-325px 0;
+}
+
+.dsize:hover {
+	background-position:-325px -25px;
+}
+
+.ui-progressbar-value { background-image: url(img/processbar.png); }
+
+#progressbar { height: 10px;}
