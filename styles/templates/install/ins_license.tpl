@@ -1,3 +1,4 @@
+{include file="install/ins_header.tpl"}
 <tr>
 <th>
 <h3 style="text-align: center;">GNU GENERAL PUBLIC LICENSE</h3>
@@ -632,3 +633,4 @@ copy of the Program in return for a fee.</p>
 <p>END OF TERMS AND CONDITIONS</p>
 </th>
 </tr>
+{include file="install/ins_footer.tpl"}
