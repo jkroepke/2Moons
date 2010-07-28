@@ -195,5 +195,6 @@ $LNG['type_mission'][9]  					= 'Destruir';
 $LNG['type_mission'][11]  					= 'Investigaci&oacute;n DM';
 $LNG['type_mission'][15] 					= 'Expedici&oacute;n';
 
+// Traducido por ZideN
 
 ?>

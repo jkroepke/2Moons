@@ -1,7 +1,7 @@
 <?php
 
 //general
-$LNG['index']				= 'Indice';
+$LNG['index']				= '&Iacute;ndice';
 $LNG['register']			= 'Registro';
 $LNG['forum']				= 'Foro';
 $LNG['send']				= 'Aceptar';
@@ -10,7 +10,7 @@ $LNG['menu_news']			= 'Noticias';
 $LNG['menu_rules']			= 'Reglas';
 $LNG['menu_agb']			= 'T&C'; 
 $LNG['menu_pranger']		= 'Baneados';
-$LNG['menu_top100']		    = 'Salon de la Fama';
+$LNG['menu_top100']		    = 'Sal&oacute;n de la Fama';
 $LNG['menu_disclamer']		= 'Contacto';
 	 
 /* ------------------------------------------------------------------------------------------ */
@@ -48,8 +48,8 @@ $LNG['pass']					= 'Contrase&ntilde;a';
 $LNG['remember_pass']			= 'Auto-Login';
 $LNG['lostpassword']			= 'Recordar Contrase&ntilde;a';
 $LNG['welcome_to']				= 'Bienvenido a';
-$LNG['server_description']		= '<strong>%s</strong> es un juego de estrategia localizado en el espacio. Miles de jugadores por todo el mundo compiten al mismo tiempo. Para jugar solo necesitas un navegador web.';
-$LNG['server_register']		    = 'Registrate Ahora!';
+$LNG['server_description']		= '<strong>%s</strong> es un juego de estrategia en el espacio. Compite con jugadores las 24h para conquistar el universo.';
+$LNG['server_register']		    = 'Registrate Ahora';
 $LNG['server_message']			= 'Reg&iacute;strese ahora y experimente una nueva y emocionante aventura en el mundo de';
 $LNG['login']					= 'Login';
 $LNG['disclamer']				= 'Contacto';
@@ -76,7 +76,7 @@ $LNG['different_mails']			    = 'Ha introducido dos E-Mail diferentes!<br>';
 $LNG['welcome_message_from']		= 'Administrador';
 $LNG['welcome_message_sender']		= 'Administrador';
 $LNG['welcome_message_subject']	    = 'Bienvenido';
-$LNG['welcome_message_content']	    = 'Bienvenido a %s!<br>En primer lugar construye una Planta de energ&iacute;a solar, porque la energ&iacute;a es necesaria para la posterior producci&oacute;n de materias primas. Para construila, haga clic en Edificios del panel izquierdo. Hay que tener energ&iacute;a, puede comenzar a construir las minas. Vuelve al men&uacute; Edificio y construye una mina de metal, y luego otra vez una mina de cristal. El equipo le desea mucha diversi&oacute;n y comienza a explorar el universo!';
+$LNG['welcome_message_content']	    = 'Bienvenido a %s!<br>En primer lugar construye una Planta de energ&iacute;a solar, porque la energ&iacute;a es necesaria para la posterior producci&oacute;n de materias primas. Para construila, haga clic en Edificios del panel izquierdo. Cuando tengas la energ&iacute;a, puedes comenzar a construir las minas. Vuelve al men&uacute; Edificio y construye una mina de metal, y luego otra vez una mina de cristal. El equipo le desea mucha diversi&oacute;n y comienza a explorar el universo!';
 $LNG['newpass_smtp_email_error']	= '<br><br>Se produjo un error. Su contrase&ntilde;a es: ';
 $LNG['reg_completed']				= 'Gracias por tu registro! Usted recibir&aacute; un correo electr&oacute;nico con un enlace de activaci&oacute;n.';
 
@@ -89,8 +89,9 @@ $LNG['pass_reg']					= 'Contrase&ntilde;a';
 $LNG['pass2_reg']					= 'Confirmar Contrase&ntilde;a';
 $LNG['email_reg']					= 'Direccion E-mail';
 $LNG['email2_reg']					= 'Confirmar Direccion E-mail';
-$LNG['register_now']				= 'Registrate!';
-$LNG['captcha_reg']				    = 'Pregunta de Seguridad';
+$LNG['register_now']				= 'Registrate';
+$LNG['lang_reg']					= 'Idioma';
+$LNG['captcha_reg']				    = 'Clave de Seguridad';
 $LNG['accept_terms_and_conditions'] = 'Acepto las <a onclick="ajax(\'?page=rules&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\');" style="cursor:pointer;">Reglas</a> y <a onclick="ajax(\'?page=agb&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\');" style="cursor:pointer;">T&C</a>';
 $LNG['captcha_reload']				= 'Recarga';
 $LNG['captcha_help']				= 'Ayuda';
@@ -106,67 +107,49 @@ $LNG['reg_closed']					= 'Registro Cerrado';
 //Rules
 $LNG['rules_overview']				= "Reglas";
 $LNG['rules']						= array(
-	"Cuentas"					=> "Cada jugador se le permite controlar una sola cuenta. Cada cuenta tiene derecho a ser desempe&ntilde;ado por un solo jugador a la vez, sentado en cuenta que la &uacute;nica excepci&oacute;n.
-Cuenta sesi&oacute;n facultar&aacute; a un determinado jugador a tener en cuenta su vigilada bajo las siguientes regulaciones:
+	"Cuentas"					=> "El due&ntilde;o de una cuenta ser&aacute; siempre el due&ntilde;o de la direcci&oacute;n de e-mail permanente que figure en la cuenta de juego.
+La cuenta de juego debe ser usada y gestionada exclusivamente por su due&ntilde;o. La &uacute;nica excepci&oacute;n permitida es el Cuidado de cuenta (Account Sitting).
 
-- Soy administrador debe ser informado antes de que &eacute;ste tenga lugar, mediante la apertura de un billete.
-- No se permiten movimientos de flota mientras la cuenta es estar sentado a menos que un ataque que puede redada contra la cuenta es de entrada, en cuyo caso usted puede salvar su flota (s) por el despliegue o transporte a un planeta o una luna de propiedad de la teniendo en s&aacute;b No se puede estrellar un ataque de entrada en caso de que usted tendr&iacute;a que mover una flota para ello.
-- Una cuenta puede ser cuidada durante un per&iacute;odo m&aacute;ximo de 48 horas continuas (permiso de administrador debe ser obtenido en los casos donde se necesita una ampliaci&oacute;n del plazo).
-El Cuidador puede, en la cuenta de que est&aacute; cuidando y mientras dure el per&iacute;odo de sesi&oacute;n:
-
-- Gastar recursos en edificios o investigaciones.
-- Fleetsave de cualquier buque que inminentemente amenazada por un ataque de la flota de entrada, s&oacute;lo con un despliegue o transporte a una de las cuentas de propios planetas.
-- Poner la cuenta en modo vacaciones.
-
-El Cuidador no puede:
-
-- Los recursos de transporte, ni entre los planetas / lunas de la cuenta que est&aacute; cuidando, ni a ning&uacute;n otro planeta / luna.
-- Gastar recursos en las estructuras de defensa o barcos.
-- Cuidar una cuenta si ya ha cuidado otra durante los &uacute;ltimos 7 d&iacute;as.
-- Cuidar una cuenta que ha sido cuidada durante los &uacute;ltimos 7 d&iacute;as.
-- Quitar una cuenta del modo de vacaciones.",
+El cambio de una cuenta dentro de un universo debe ser efectuado con la asistencia y bajo la supervisi&oacute;n del GO. Puedes contactar con el GO desde la p&aacute;gina http://support.ogame.com.es
+Cuando una cuenta ha cambiado de due&ntilde;o, deben pasar por lo menos 30 d&iacute;as antes que &eacute;sta pueda cambiar de due&ntilde;o otra vez. Despu&eacute;s de que el nuevo due&ntilde;o haya tomado posesi&oacute;n de la cuenta, debe cambiar la direcci&oacute;n de e-mail durante las primeras 12 horas.
+A cada jugador se le permite jugar con una sola cuenta por universo.
+En caso de que dos o m&aacute;s cuentas est&eacute;n siendo jugadas, ya sea ocasional, habitual o permanentemente, desde la misma conexi&oacute;n de Internet (por ejemplo: desde el colegio, universidad o Internet caf&eacute;), se aconseja comunicarlo preventivamente al GO del universo. 
+En este caso, las cuentas citadas no podr&aacute;n tener ning&uacute;n contacto de flota mientras utilicen la misma conexi&oacute;n. No se permiten tampoco similitudes entre las cuentas.
+El Sitting permite confiarle a otro jugador el cuidado de una cuenta.
+En este caso, antes de que el Sitting se produzca, es obligatorio informar previamente al GO del universo a trav&eacute;s del Sistema de Tickets.
+Una cuenta puede ser cuidada durante un per&iacute;odo m&aacute;ximo de 12 horas.
+El per&iacute;odo de Sitting se considera finalizado una vez el titular de la cuenta entre en ella.
+No est&aacute; permitido ning&uacute;n tipo de movimiento de las flotas mientras la cuenta est&eacute; siendo cuidada. En caso de un ataque, se permite &uacute;nicamente el despliegue o el transporte de la flota (o de las flotas) a uno de los planetas o luna de la cuenta cuidada.
+El cuidador puede utilizar recursos para la construcci&oacute;n de edificios o investigaciones, pero no puede utilizarlos de ninguna manera para la construcci&oacute;n de instalaciones de defensas o naves.
+S&oacute;lo est&aacute; permitido cuidar de una cuenta que no haya sido cuidada en los &uacute;ltimos 7 d&iacute;as.",
 
 
-	"Molesto"					=> "No est&aacute; permitido a ninguna cuenta obtener provecho injusto de otra cuenta de menor puntuaci&oacute;n en cuesti&oacute;n de recursos.
-Esto incluye pero no limitado a:
-
-- Enviar recursos de una cuenta de menor puntuaci&oacute;n a una de mayor puntuaci&oacute;n sin obtener nada tangible a cambio.
-- Un jugador destruya su flota contra una mayor puntuaci&oacute;n, una para el de mayor puntuaci&oacute;n, para mantener los escombros y, en consecuencia, obteniendo provecho.
-- Los pr&eacute;stamos que no se devuelven en 48 horas.
-- Operaciones en las que el jugador de mayor puntuaci&oacute;n no devuelve los recursos dentro de las 48 horas.
-- Jugadores que una extorsi&oacute;n jugador de mayor puntuaci&oacute;n envi&aacute;ndole recursos.
-- Comercios que producen un provecho injusto para el jugador de mayor puntuaci&oacute;n, al caer fuera de la siguiente gama de relaciones:
+	"Pushing"					=> "Est&aacute; estrictamente prohibido obtener provecho injusto de otra cuenta de menor puntuaci&oacute;n en forma de recursos.
+Se entiende por Pushing, entre otras cosas, la transferencia de recursos de un jugador con una puntuaci&oacute;n baja a un jugador de mayor puntuaci&oacute;n, sin obtener alguna contraprestaci&oacute;n a cambio, o tambi&eacute;n la destrucci&oacute;n intencional de una flota contra un jugador de mayor puntuaci&oacute;n para as&iacute; sacar provecho de los escombros.
+Los comercios deben ser concluidos en un plazo de 48 horas.
+Para excepciones (como el reparto de un ataque conjunto, recompensas, ayuda para el reciclaje, etc.) se ha de pedir permiso al GO a trav&eacute;s del sistema de tickets
+Para evitar un provecho injusto para el jugador de mayor puntuaci&oacute;n, se debe seguir unos patrones:
 
 03:02:01 d&oacute;nde cada unidad de deuterio se valora en 2 unidades de cristal o 3 unidades de metal.
 
 02:01:01 d&oacute;nde cada unidad de deuterio se valora en 1 unidad de cristal o 2 unidades de metal.
 ",
 
-	"Paliza"					=> "No est&aacute; permitido atacar a cualquier planeta o luna de propiedad de un jugador m&aacute;s de 6 veces en un periodo de 24 horas.
-
-Bashing s&oacute;lo est&aacute; permitido cuando la Alianza est&aacute; en guerra con otra alianza. La guerra debe ser anunciado en el foro y ambos l&iacute;deres deben estar de acuerdo con los t&eacute;rminos.",
+	"Bashing"					=> "No est&aacute; permitido atacar a un planeta o luna de un jugador m&aacute;s de 6 veces durante un per&iacute;odo de 24 horas. Esta regla se aplica tambi&eacute;n a las misiones para destruir la luna.
+En los universos especiales y en el foro, la regla relacionada con el Bashing puede ser cambiada o derogada.
+El Bashing de un jugador est&aacute; permitido solamente cuando la propia alianza est&aacute; en guerra con otra alianza. La guerra deber&aacute; ser declarada en la secci&oacute;n correspondiente del foro, y deber&aacute; cumplir las normas establecidas por el foro.
+",
 
 	
 	"Bugusing"					=> "El uso de un bug con fines de lucro anyones intencionadamente, o no reportar un bug intencionadamente est&aacute; estrictamente prohibido.",
 
 
-	"Amenazas de la vida real"	=> "A entender que se va a localizar y da&ntilde;ar a otro jugador, est&aacute; prohibido.",
+	"Amenazas en la vida real"	=> "Est&aacute; prohibido insinuar que se va a localizar y causar da&ntilde;o a un jugador, a un miembro del equipo, a un empleado de StarGame o a cualquier persona.",
 
-	"Spam"			=> "Asituaci&oacute;n ny intento de saturar la interfaz del jugador usando cualquier m&eacute;todo est&aacute; prohibido. Esto incluye pero no limitado a:
+	"Spam"			=> "Cualquier tipo de insulto y de spam est&aacute; prohibido.",
 
-- La mensajer&iacute;a privada de spam
-- Sondas de spam
-- Informaci&oacute;n general spam",
-
-  "Guerras"                    => "Despu&eacute;s de los l&iacute;deres de las alianzas est&aacute;n de acuerdo con la guerra, es oficialmente el. Y continuar&aacute; hasta que una de las alianzas se cancela. Para cancelar oficialmente la guerra tienen que cancelar el pacto de la guerra en el juego, y anuncian que en el hilo que empez&oacute; inicialmente.
-Mientras que la guerra est&aacute; en la norma entre los ataques a las alianzas que se trate no tiene importancia. Significado los miembros pertenecientes a las alianzas en dicha guerra se puede atacar a una cantidad infinita de veces con pena corporal.
-Si bien la alianza se da por vencido y cancela la guerra, el Estado entrar&aacute; en vigor golpear de nuevo, y cualquier miembro de que se rompa despu&eacute;s de la guerra ha terminado con ser castigado con una prohibici&oacute;n de d&iacute;a 1, m&aacute;s si el grado de ataque es muy alto.
-
-Si la alianza oposici&oacute;n cuenta con una flota en vuelo. Y la guerra se cancela antes de que lleguen. No van a ser castigados por ese ataque. Pero cualquier flota enviada despu&eacute;s de la cancelaci&oacute;n de la guerra se cuentan para el Estado que golpea.
-
-
-Para Nueva Wars uno de los l&iacute;deres tienen que crear un nuevo hilo en la guerra / la secci&oacute;n de la diplomacia.
-All&iacute; se puede establecer una normativa espec&iacute;fica o conjunto de t&eacute;rminos que quieren para la guerra. Cualquier normas establecidas en el lugar, y que se acuerden por la alianza de oposici&oacute;n debe estar en barbecho, y no debe contradecir las normas establecidas aqu&iacute;.",
+  "Infracciones a las reglas antes citadas"                    => "Conforme a su gravedad, las infracciones a las reglas antes citadas ser&aacute;n sancionadas con amonestaciones o con la completa expulsi&oacute;n del juego.
+Los GO's responsables determinan el tipo y la duraci&oacute;n de la sanci&oacute;n y son las personas de contacto en caso de bloqueos de cuenta.",
 
 );
 
@@ -268,6 +251,6 @@ $LNG['disclamer_adress']		= "Direccion";
 $LNG['disclamer_tel']			= "Telefono:";
 $LNG['disclamer_email']		    = "Direccion E-mail";
 
-// Translated into English by Languar . All rights reversed (C) 2010
+// Traducido por ZideN
 
 ?>

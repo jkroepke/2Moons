@@ -1,11 +1,5 @@
 <?php
 
-//LOCAL INFO
- 
-$LNG['local_info'][0]                        = 'de_DE.UTF-8'; // Linux
-$LNG['local_info'][1]                        = 'de'; // Linux
-$LNG['local_info'][2]                        = 'DEU'; // Windows (http://msdn.microsoft.com/en-us/library/39cwe7zf%28vs.71%29.aspx)
-
 //SERVER GENERALS
 $LNG['Metal']								= 'Metal';
 $LNG['Crystal']							    = 'Cristal';
@@ -194,11 +188,18 @@ $LNG['gl_temperature']						= 'Temperatura';
 $LNG['gl_phalanx']							= 'Phalanx';
 $LNG['gl_planet_destroyed']				= 'Destruir Planeta';
 $LNG['gl_playercard']						= 'Perfil';
+$LNG['gl_player']                                                       = 'Jugador';
 $LNG['gl_in_the_rank']						= 'Jugador %s est&aacute; en la posici&oacute;n %d';
 $LNG['gl_activity']                                            = '(*)';
 $LNG['gl_activity_inactive']                                   = '(%d min)';
 $LNG['gl_ajax_status_ok']                    = 'OK';
 $LNG['gl_ajax_status_fail']                = 'Error';
+$LNG['gl_free_desc']                                    = 'Un planeta deshabitado. Este es un lugar ideal para fundar una nueva colonia.';
+$LNG['gl_free']                                                 = 'Libre';
+$LNG['gl_yes']                                                  = 'Incluso';
+$LNG['gl_no']                                                   = 'No';
+$LNG['gl_points']                                                       = 'Puntos';
+$LNG['gl_player']                                                       = 'Jugador';
 
 //----------------------------------------------------------------------------//
 //PHALANX
@@ -206,6 +207,7 @@ $LNG['px_no_deuterium']					= 'No tienes suficiente deuterio!';
 $LNG['px_scan_position']					= 'Escanear posici&oacute;n';
 $LNG['px_fleet_movement']					= 'Movimiento actual de flotas';
 $LNG['px_no_fleet']						= 'No hay movimientos de flota.';
+$LNG['px_out_of_range']                                         = 'Fuera de alcance';
 
 //----------------------------------------------------------------------------//
 //IMPERIUM
@@ -300,6 +302,7 @@ $LNG['fl_no_slots']						= 'No hay m&aacute;s slots disponibles!';
 $LNG['fl_empty_transport']					= 'No puedes transportar 0 recursos';
 $LNG['fl_planet_populed']					= '&#161;Este planeta esta ocupado!';
 $LNG['fl_stay_not_on_enemy']				= '&#161;No puedes estacionar flotas en el enemigo!';
+$LNG['fl_no_same_alliance']                 = 'El jugador del planeta de destino debe ser su compañero de alianza o ser un amigo!';
 $LNG['fl_not_ally_deposit']				= '&#161;No hay deposito de la alianza!';
 $LNG['fl_deploy_only_your_planets']		= '&#161;S&oacute;lo puedes desplegar flotas en tus planetas!';
 $LNG['fl_no_enought_deuterium']			= 'No tienes deuterio suficiente. Consumo de Deuterio: ';
@@ -492,6 +495,8 @@ $LNG['mg_message']							= 'Mensaje';
 $LNG['mg_characters']						= 'Caracteres';
 $LNG['mg_send']							= 'Enviar';
 $LNG['mg_game_message']					= 'Mensajes del juego';
+$LNG['mg_message_send']                 = 'Mensaje enviado!';
+$LNG['mg_empty_text']                           = 'Introduce el texto!';
 
 //----------------------------------------------------------------------------//
 //ALLIANCE
@@ -504,9 +509,12 @@ $LNG['al_click_to_send_request']			= 'Click aqui para enviar su solicitud a la a
 $LNG['al_tag_required']					= 'Falta la etiqueta de la alianza.';
 $LNG['al_name_required']					= 'Falta el nombre de la alianza.';
 $LNG['al_already_exists']					= 'La alianza %s ya existe.';
+$LNG['al_creation_too_less_points']        = 'No tienes suficientes puntos para entrar en la alianza.';
 $LNG['al_created']							= 'La alianza %s ha sido creada';
 $LNG['al_continue']						= 'Continuar';
 $LNG['al_alliance_closed']					= 'Esta alianza no admite m&aacute;s miembros';
+$LNG['al_max_members_reached']            = 'Se ha llegado al n&uacute;mero m&aacute;ximo de miembros.<br><a href="?page=alliance">Atras</a>';
+$LNG['al_too_less_points']                 = 'Usted no tiene suficientes puntos para que pueda enviar su solicitud a la alianza.<br><a href="?page=alliance">Atras</a>';
 $LNG['al_request_confirmation_message']	= 'Solicitud registrada. Recibiras un mensaje cuando tu solicitud sea aceptada / rechazada. <br><a href="game.php?page=alliance">Volver</a>';
 $LNG['al_default_request_text']			= 'Los l&iacute;deres de la alianza no han creado un ejemplo de solicitud, o no tienen pretenciones.';
 $LNG['al_write_request']					= 'Escribir solicitud a la alianza %s';
@@ -539,7 +547,7 @@ $LNG['al_you_was_declined']				= 'Fuiste rechazado en ';
 $LNG['al_has_declined']					= '</b> a rechazado tu solicitud.<br>Mensaje del fundador: <br>';
 $LNG['al_no_requests']						= 'No hay solicitudes';
 $LNG['al_request_from']					= 'Solicitud de "%s"';
-$LNG['al_no_request_pending']				= 'Hay %n solicitud/es pendiente/s';
+$LNG['al_no_request_pending']				= 'Hay %d solicitud/es pendiente/s';
 $LNG['al_name']							= 'nombre';
 $LNG['al_new_name']						= 'Nuevo nombre';
 $LNG['al_tag']								= 'etiqueta';
@@ -572,6 +580,8 @@ $LNG['al_reason']							= 'Motivo';
 $LNG['al_characters']						= 'caracteres';
 $LNG['al_request_list']					= 'Lista de solicitudes';
 $LNG['al_candidate']						= 'Candidato';
+$LNG['al_candidate_points']                = 'Puntos del candidato:';
+$LNG['al_candidate_rank']                = 'Rango del Candidato:';
 $LNG['al_request_date']					= 'Fecha de solicitud';
 $LNG['al_transfer_alliance']				= 'Transferir alianza';
 $LNG['al_transfer_to']						= 'Transferir a';
@@ -611,6 +621,8 @@ $LNG['al_texts']							= 'Textos';
 $LNG['al_manage_options']					= 'Opciones';
 $LNG['al_manage_image']					= 'Im&aacute;gen de la alianza';
 $LNG['al_manage_requests']					= 'Solicitudes';
+$LNG['al_set_max_members']                = 'N&uacute;mero m&aacute;ximo de miembros';
+$LNG['al_set_min_points']                = 'La puntuación mínima para loas solicitudes';
 $LNG['al_manage_diplo']                    = 'Diplomacia de la alianza';
 $LNG['al_requests_not_allowed']			= 'No permitidas(alianza cerrada)';
 $LNG['al_requests_allowed']				= 'Permitidas(alianza abierta)';
@@ -817,6 +829,8 @@ $LNG['op_deactivate_ipcheck_descrip']		= 'La comprobaci&oacute;n de IP significa
 $LNG['op_spy_probes_number_descrip']		= 'Cantidad de sondas de espionaje que ser&aacute;n enviadas en cada espionaje desde el men&uacute; de galaxia';
 $LNG['op_activate_vacation_mode_descrip']	= 'El modo vacaciones protege tu cuenta durante tu ausencia';
 $LNG['op_dlte_account_descrip']			= 'Seleccionando esta opciones borrar&aacute;s tu cuenta dentro de 7 d&iacute;as';
+$LNG['op_not_vaild_mail']                                       = 'Usted no tiene una direcci&oacute;n v&aacute;lida de correo electr&oacute;nico especificada!';
+$LNG['op_change_mail_exist']                            = 'La direcci&oacute;n de correo electr&oacute;nico %s ya est&aacute; en uso!';
 $LNG['op_sort_normal']						= 'Orden de creaci&oacute;n';
 $LNG['op_sort_koords']						= 'Coordenadas';
 $LNG['op_sort_abc']						= 'Alfabeticamente';
@@ -1233,5 +1247,7 @@ $LNG['bs_techno']							= "Tecnolog&iacute;a";
 $LNG['bs_send']							= "Enviar";
 $LNG['bs_cancel']							= "Restablecer";
 $LNG['bs_wait']							= "Por favor, espere 10 segundos para la simulaci&oacute;n siguiente";
+
+// Traducido por ZideN
 
 ?>
