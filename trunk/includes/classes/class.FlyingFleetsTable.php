@@ -15,7 +15,8 @@ class FlyingFleetsTable
 	public function BuildFlyingFleetTable()
 	{
 		global $LNG, $db;
-
+		$Table	= array();
+		
 		$FlyingFleets = $db->query("SELECT * FROM ".FLEETS." ORDER BY `fleet_end_time` ASC;");
 
 		while ($CurrentFleet = $db->fetch_array($FlyingFleets))
@@ -58,10 +59,10 @@ class FlyingFleetsTable
 			else
 				$Bloc['lock']	= "<a href='?id=".$CurrentFleet['fleet_id']."&lock=0'><font color='green'>".$LNG['ff_unlock']."</font></a>";
 			
-			$table .= parsetemplate(gettemplate('adm/fleet_rows'), $Bloc);
+			$Table[]	= $Bloc;
 		}
 
-		return $table;
+		return $Table;
 	}
 
        

@@ -3,7 +3,7 @@
 /**
  * Project:     Smarty: the PHP compiling template engine
  * File:        Smarty.class.php
- * SVN:         $Id: Smarty.class.php 3557 2010-04-28 20:30:27Z Uwe.Tews $
+ * SVN:         $Id: Smarty.class.php 3624 2010-07-07 22:08:10Z Uwe.Tews $
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -124,7 +124,7 @@ class Smarty extends Smarty_Internal_Data {
     // cache directory
     public $cache_dir = null; 
     // config directory
-    public $CONF_dir = null; 
+    public $config_dir = null; 
     // force template compiling?
     public $force_compile = false; 
     // check template for modifications?
@@ -159,6 +159,7 @@ class Smarty extends Smarty_Internal_Data {
     public $security_policy = null;
     public $security_handler = null;
     public $direct_access_security = true; 
+    public $trusted_dir = array();
     // debug mode
     public $debugging = false;
     public $debugging_ctrl = 'NONE';
@@ -167,11 +168,11 @@ class Smarty extends Smarty_Internal_Data {
     // When set, smarty does uses this value as error_reporting-level.
     public $error_reporting = null; 
     // config var settings
-    public $CONF_overwrite = true; //Controls whether variables with the same name overwrite each other.
-    public $CONF_booleanize = true; //Controls whether config values of on/true/yes and off/false/no get converted to boolean
-    public $CONF_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.                                                      
+    public $config_overwrite = true; //Controls whether variables with the same name overwrite each other.
+    public $config_booleanize = true; //Controls whether config values of on/true/yes and off/false/no get converted to boolean
+    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.                                                      
     // config vars
-    public $CONF_vars = array(); 
+    public $config_vars = array(); 
     // assigned tpl vars
     public $tpl_vars = array(); 
     // assigned global tpl vars
@@ -204,6 +205,8 @@ class Smarty extends Smarty_Internal_Data {
     public $plugin_search_order = array('function', 'block', 'compiler', 'class'); 
     // registered objects
     public $registered_objects = array(); 
+    // registered classes
+    public $registered_classes = array(); 
     // registered filters
     public $registered_filters = array(); 
     // autoload filter
@@ -243,7 +246,7 @@ class Smarty extends Smarty_Internal_Data {
         if (is_callable('mb_internal_encoding')) {
             mb_internal_encoding(SMARTY_RESOURCE_CHAR_SET);
         } 
-        $this->start_time = $this->_get_TIMESTAMP; 
+        $this->start_time = microtime(true); 
         // set exception handler
         if (!empty($this->exception_handler))
             set_exception_handler($this->exception_handler); 

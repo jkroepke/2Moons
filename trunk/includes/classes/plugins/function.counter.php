@@ -2,7 +2,7 @@
 /**
  * Smarty plugin
  * @package Smarty
- * @subpackage plugins
+ * @subpackage PluginsFunction
  */
 
 
@@ -74,7 +74,4 @@ function smarty_function_counter($params, $smarty)
     return $retval;
     
 }
-
-/* vim: set expandtab: */
-
 ?>

@@ -31,6 +31,10 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_CompileBase {
         $from = $_attr['from'];
         $item = $_attr['item'];
 
+        if (substr_compare("\$_smarty_tpl->getVariable($item)", $from,0, strlen("\$_smarty_tpl->getVariable($item)")) == 0) {
+            $this->compiler->trigger_template_error("item parameter {$item} may not be the same parameter at 'from'");
+        } 
+
         if (isset($_attr['key'])) {
             $key = $_attr['key'];
         } else {
@@ -80,7 +84,7 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_CompileBase {
         } 
         $output .= " \$_from = $from; if (!is_array(\$_from) && !is_object(\$_from)) { settype(\$_from, 'array');}\n";
         if ($usesPropTotal) {
-            $output .= " \$_smarty_tpl->tpl_vars[$item]->total=count(\$_from);\n";
+            $output .= " \$_smarty_tpl->tpl_vars[$item]->total=(\$_from instanceof Traversable)?iterator_count(\$_from):count(\$_from);\n";
         } 
         if ($usesPropIteration) {
             $output .= " \$_smarty_tpl->tpl_vars[$item]->iteration=0;\n";

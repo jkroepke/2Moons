@@ -2,7 +2,7 @@
 /**
  * Smarty plugin
  * @package Smarty
- * @subpackage plugins
+ * @subpackage PluginsFunction
  */
 
 /**
@@ -100,7 +100,4 @@ function smarty_function_cycle($params, $smarty)
     
     return $retval;
 }
-
-/* vim: set expandtab: */
-
 ?>

@@ -29,10 +29,10 @@ class template extends Smarty
 		$this->allow_php_templates	= true;
 		$this->force_compile 		= false;
 		$this->caching 				= false;
-		$this->compile_check		= true;
+		$this->compile_check		= true; #Set false for production!
 		$this->php_handling			= SMARTY_PHP_QUOTE;
-		$this->template_dir 		= ROOT_PATH . TEMPLATE_DIR."smarty/";
-		$this->compile_dir 			= ROOT_PATH ."cache/";
+		$this->template_dir 		= ROOT_PATH.TEMPLATE_DIR;
+		$this->compile_dir 			= ROOT_PATH.'cache/';
 		$this->script				= array();
 		$this->page					= array();
 	}
@@ -139,13 +139,13 @@ class template extends Smarty
 			$SelectorVaules[]	= $this->phpself."&amp;cp=".$CurPlanet['id']."&amp;re=0";
 			$SelectorNames[]	= $CurPlanet['name'].(($CurPlanet['planet_type'] == 3) ? " (" . $LNG['fcm_moon'] . ")":"")."&nbsp;[".$CurPlanet['galaxy'].":".$CurPlanet['system'].":".$CurPlanet['planet']."]&nbsp;&nbsp;";
 		}
-
+		
 		if($USER['urlaubs_modus'] == 1) {
 			$CONF['metal_basic_income']     = 0;
 			$CONF['crystal_basic_income']   = 0;
 			$CONF['deuterium_basic_income'] = 0;
 		}
-                		
+		
 		$this->assign_vars(array(
 			'energy'			=> (($PLANET["energy_max"] + $PLANET["energy_used"]) < 0) ? colorRed(pretty_number($PLANET["energy_max"] + $PLANET["energy_used"]) . "/" . pretty_number($PLANET["energy_max"])) : pretty_number($PLANET["energy_max"] + $PLANET["energy_used"]) . "/" . pretty_number($PLANET["energy_max"]),
 			'metal'				=> ($PLANET["metal"] >= $PLANET["metal_max"]) ? colorRed(pretty_number($PLANET["metal"])) : pretty_number($PLANET["metal"]),
@@ -318,6 +318,13 @@ class template extends Smarty
 			'fcm_info'	=> $LNG['fcm_info'],
 			'Fatal'		=> $Fatal,
 		));
+		
+		if (defined('IN_ADMIN')) {
+			$this->assign_vars(array(
+				'dpath'		=> './styles/skins/darkness/',
+				'isadmin'	=> true,
+			));
+		}
 		$this->gotoside($dest, $time);
 		$this->show('error_message_body.tpl');
 	}

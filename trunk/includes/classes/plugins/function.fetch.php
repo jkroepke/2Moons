@@ -64,7 +64,7 @@ function smarty_function_fetch($params, $smarty, $template)
                     $port = $uri_parts['port'];
                 }
                 if(!empty($uri_parts['user'])) {
-                    $USER = $uri_parts['user'];
+                    $user = $uri_parts['user'];
                 }
                 if(!empty($uri_parts['pass'])) {
                     $pass = $uri_parts['pass'];
@@ -78,7 +78,7 @@ function smarty_function_fetch($params, $smarty, $template)
                             break;
                         case "user":
                             if(!empty($param_value)) {
-                                $USER = $param_value;
+                                $user = $param_value;
                             }
                             break;
                         case "pass":
@@ -170,8 +170,8 @@ function smarty_function_fetch($params, $smarty, $template)
                             fputs($fp, $curr_header."\r\n");
                         }
                     }
-                    if(!empty($USER) && !empty($pass)) {
-                        fputs($fp, "Authorization: BASIC ".base64_encode("$USER:$pass")."\r\n");
+                    if(!empty($user) && !empty($pass)) {
+                        fputs($fp, "Authorization: BASIC ".base64_encode("$user:$pass")."\r\n");
                     }
 
                     fputs($fp, "\r\n");
