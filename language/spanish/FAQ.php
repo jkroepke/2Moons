@@ -21,4 +21,6 @@ Del mismo modo se han recicl&aacute;do a mano lo suficiente como para salir y co
 );
 
 $LNG['faq_overview']	= "Guia de Novatos";
+
+// Traducido por ZideN
 ?>

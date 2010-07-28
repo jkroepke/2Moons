@@ -1,6 +1,9 @@
 <?php
 
-//---------------	GENERAL	------------------------// 
+//---------------	GENERAL	------------------------//
+$LNG['adm_password']            = 'Contrase&ntilde;a';
+$LNG['adm_password_info']       = 'Ingrese su contrase&ntilde;a para que se vertifique!';
+$LNG['adm_bad_password']        = 'Contrase&ntilde;a Incorrecta!';
 $LNG['404_page']			= 'Usted no tiene suficientes permisos';
 $LNG['adm_cp_title']		= 'Administrador';
 $LNG['adm_cp_index']		= 'Inicio';
@@ -279,6 +282,7 @@ $LNG['ma_send_global_message']    = 'Enviar mensaje global';
 $LNG['ma_subject']                = 'Asunto';
 $LNG['ma_characters']            = 'Caracteres';
 $LNG['ma_none']                = 'Mensaje Global';
+$LNG['ma_message']                              = 'Mensaje';
 //###########################################################//
 
 
@@ -309,6 +313,7 @@ $LNG['ow_special_thanks']			= 'Agradecimientos Especiales';
 $LNG['ow_install_file_detected']	= 'install / se ha encontrado. Por razones de seguridad, se recomienda eliminar o cambiarle el nombre.';
 $LNG['ow_config_file_writable']	= 'El archivo config.php se podr&iacute;a escribir, es aconsejable que se colocar&aacute; en chmod 444 (s&oacute;lo lectura).';
 $LNG['ow_database_errors']			= 'Hay errores presentes!';
+$LNG['ow_handler_errors']           = 'El Controlador de flota tiene un error! - &Uacute;ltimo inicio: %s - Siguiente Inicio: %s';
 $LNG['ow_old_version']				= 'Hay una nueva version disponible.';
 $LNG['ow_none']					= 'Ninguna Advertencia';
 //###########################################################//
@@ -432,6 +437,7 @@ $LNG['ff_flying_fleets']        = 'Flotas en Vuelo';
 $LNG['ff_ammount']                = 'Cantidad';
 $LNG['ff_mission']                = 'Mision';
 $LNG['ff_beginning']            = 'Salida';
+$LNG['ff_id']                                   = 'ID';
 $LNG['ff_departure']            = 'De';
 $LNG['ff_departure_hour']        = 'Hora de Salida';
 $LNG['ff_objective']            = 'Destino';
@@ -441,6 +447,8 @@ $LNG['ff_arrival_hour']        = 'Hora de Llegada';
 $LNG['ff_go_back_now']            = 'Atras';
 $LNG['ff_delete_succes']        = 'Vuelo eliminado correctamente';
 $LNG['ff_goback_succes']        = "El vuelo regresa ahora al planeta original";
+$LNG['ff_unlock']                               = "Desbloquear";
+$LNG['ff_no_fleets']                    = "No hay flotas en vuelo";
 //###########################################################//
 
 
@@ -821,6 +829,14 @@ $LNG['po_add_moon']                = 'A&ntilde;adir Luna';
 $LNG['po_delete_moon']                = 'Borrar Luna';
 //###########################################################//
 
+// Support
+
+$LNG['sp_admin_answer']                         = '%s (Admin) ha escrito en %s<br><br><font color="red">%s</font>';
+$LNG['sp_answer_message_title']         = 'Ticket soporte #%d';
+$LNG['sp_answer_message']                       = 'En su billete #%d ha recibido una respuesta!';
+$LNG['sp_admin_closed']                         = '%s (Admin) tiene el billete %s cerrado!';
+$LNG['sp_admin_open']                           = '%s (Admin) tiene el billete %s abierto!';
+
 
 //---------------	HISTORIAL - LOG	------------------------//
 $LNG['log_log_body_build']            = 'Edificios de registro';
@@ -1019,7 +1035,8 @@ $LNG['ts_udpport']						= 'TCP Port';
 $LNG['ts_tcpport']						= 'UDP Port';
 $LNG['ts_serverip']					= 'Server-IP';
 $LNG['ts_timeout']						= 'Timeout'; 
-$LNG['ts_server_query']				= 'Server Query Port'; 
+$LNG['ts_server_query']				= 'Server Query Port';
+$LNG['ts_server_id']                                    = 'Server ID';
 
 //----------------------------------------------------------------------------//
 //FacebookSettingPage.php
@@ -1071,6 +1088,29 @@ $LNG['modul'][26]                        = 'Buscar';
 $LNG['modul'][27]                        = 'Tickets de Soporte';
 $LNG['modul'][28]                        = 'Tecnologia';
 
-$LNG['ative']                            = 'ACTIVADO';
-$LNG['deative']                          = 'NO ACTIVADO';
+$LNG['mod_module']                                              = 'Modulo';
+$LNG['mod_info']                                                = 'Modulos del juego<br><font color="red">Solo administradores pueden acceder a esta zona!</font>';
+$LNG['mod_active']                                              = 'ACTIVADO';
+$LNG['mod_deactive']                                    = 'DESACTIVADO';
+$LNG['mod_change_active']                               = 'Activar';
+$LNG['mod_change_deactive']                             = 'Desactivar';
+
+
+//News
+
+$LNG['nws_news']                                                = 'Noticias';
+$LNG['nws_head_create']                                 = 'Crear Noticia';
+$LNG['nws_head_edit']                                   = 'Editar noticia %s';
+$LNG['nws_id']                                                  = 'ID';
+$LNG['nws_title']                                               = 'Titulo';
+$LNG['nws_date']                                                = 'Fecha';
+$LNG['nws_from']                                                = 'De';
+$LNG['nws_del']                                                 = 'del';
+$LNG['nws_confirm']                                             = 'Est&aacute;s seguro de que el mensaje %s sea eliminado?';
+$LNG['nws_create']                                              = 'Crear Noticias';
+$LNG['nws_total']                                               = 'Total %d noticias disponibles';
+$LNG['nws_content']                                             = 'Contenido';
+
+// Traducido por ZideN
+
 ?>
