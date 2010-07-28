@@ -27,8 +27,8 @@ if(!class_exists('mysqli'))
 
 define('INSIDE'  			, true);
 define('INSTALL' 			, true);
-define('RCINSTALL_VERSION' 	, "5.2");
-define('REVISION' 			, "865");
+define('RCINSTALL_VERSION' 	, "6.0");
+define('REVISION' 			, "874");
 
 define('ROOT_PATH', './../');
 include(ROOT_PATH . 'extension.inc');

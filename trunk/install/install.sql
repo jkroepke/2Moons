@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `prefix_config` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO `prefix_config` (`config_name`, `config_value`) VALUES
-('VERSION', '5.1.672'),
+('VERSION', '6.0.874'),
 ('users_amount', '1'),
 ('game_speed', '2500'),
 ('fleet_speed', '2500'),
