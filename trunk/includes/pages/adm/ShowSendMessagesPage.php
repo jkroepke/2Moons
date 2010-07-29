@@ -23,7 +23,7 @@
 if ($USER['rights']['ToolsCanUse'] == 0) exit;
 
 function ShowSendMessagesPage() {
-	global $USER, $LNG;
+	global $USER, $LNG, $db;
 
 	if ($_GET['mode'] == 'send')
 	{
@@ -51,6 +51,7 @@ function ShowSendMessagesPage() {
 			$Message 	= '<span style="color:'.$color.';font-weight:bold;">'.$Message.'</span>';
 
 			SendSimpleMessage(0, $USER['id'], TIMESTAMP, 50, $From, $Subject, $Message, 0);
+			$db->query("UPDATE ".USERS." SET `new_gmessage` = `new_gmessage` + '1';");
 			exit($LNG['ma_message_sended']);
 		} else {
 			exit($LNG['ma_subject_needed']);

@@ -246,7 +246,7 @@ function messages(ID)
 		var lmnew = parseInt($('#newmesnum').text());
 	
 		$('#unread_'+ID).text('0');
-		if(ID != 50 && ID != 999) {
+		if(ID != 999) {
 			$('#unread_100').text($('#unread_100').text() - count);
 		}
 		if(lmnew - count <= 0)
