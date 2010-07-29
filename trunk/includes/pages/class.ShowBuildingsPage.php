@@ -198,7 +198,7 @@ class ShowBuildingsPage
 		}
 	}
 
-	private function __construct()
+	private function ShowBuildingQueue()
 	{
 		global $LNG, $CONF, $PLANET, $USER;
 		
@@ -286,7 +286,7 @@ class ShowBuildingsPage
 		return $RetValue;
 	}
 
-	public function ShowBuildingsPage()
+	public function __construct()
 	{
 		global $ProdGrid, $LNG, $resource, $reslist, $CONF, $db, $PLANET, $USER;
 
