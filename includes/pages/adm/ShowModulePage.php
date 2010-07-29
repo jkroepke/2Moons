@@ -28,6 +28,7 @@ function ShowModulePage()
 	if($_GET['mode']) {
 		$CONF['moduls'][request_var('id', 0)]	= ($_GET['mode'] == 'aktiv') ? 1 : 0;
 		update_config('moduls', implode(";", $CONF['moduls']));
+		$CONF['moduls']		= explode(";", $CONF['moduls']);
 	}
 
 	foreach($LNG['modul'] as $ID => $Name) {
