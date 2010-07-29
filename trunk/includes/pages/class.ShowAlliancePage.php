@@ -103,7 +103,7 @@ class ShowAlliancePage
 		$this->template->show("alliance_ainfo.tpl");
 	}
 	
-	public function ShowAlliancePage()
+	public function __construct()
 	{
 		global $USER, $PLANET, $LNG, $db;
 

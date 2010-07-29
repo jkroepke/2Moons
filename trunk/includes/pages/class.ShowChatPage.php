@@ -60,7 +60,7 @@ class ShowChatPage
 		exit($msg);
 	}
 	
-	public function ShowChatPage(){
+	public function __construct(){
 		global $CONF, $dpath, $LNG, $db, $USER, $PLANET;
 
 		$mode 		= request_var('mode', '');

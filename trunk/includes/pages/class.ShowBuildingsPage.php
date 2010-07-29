@@ -198,7 +198,7 @@ class ShowBuildingsPage
 		}
 	}
 
-	private function ShowBuildingQueue()
+	private function __construct()
 	{
 		global $LNG, $CONF, $PLANET, $USER;
 		

@@ -42,7 +42,7 @@ function exitupdate($LOG){
 			$Page .= $content."<br>";
 		}
 	}
-	$Page .= "<br><a href='?page=update&amp;action=update'>Weiter</a>";
+	$Page .= "<br><a href='?page=update'>Weiter</a>";
 
 	$template = new template();
 	$template->message($Page, false, 0, true);

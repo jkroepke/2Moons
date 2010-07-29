@@ -80,7 +80,7 @@ class ShowGalaxyPage extends GalaxyRows
 		return array('Result' => $Result, 'planetcount' => $COUNT);
 	}
 
-	public function ShowGalaxyPage()
+	public function __construct()
 	{
 		global $USER, $PLANET, $dpath, $resource, $LNG, $db, $reslist;
 		

@@ -4,7 +4,7 @@
 {$Info}
 {$RevList}
 <tr>
-<th><a href="?history=1">History</a></th>
+<th><a href="?page=update&amp;action=history">History</a></th>
 </tr>
 </table>
 {include file="adm/overall_footer.tpl"}

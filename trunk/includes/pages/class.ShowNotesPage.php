@@ -78,7 +78,7 @@ class ShowNotesPage
 		$template->show('notes_send_form.tpl');
 	}
 
-	private function ShowNotes()
+	private function __construct()
 	{
 		global $LNG, $db, $USER;
 
