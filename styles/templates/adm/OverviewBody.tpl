@@ -13,9 +13,13 @@
 <table width="80%">
 	<tr>
     	<td class="c">{$ow_overview}</td>
+		<td class="c">Facebook</td>
     </tr>
 	<tr>
     	<th style="height:50px"><div align="justify">{$ow_welcome_text}</div></th>
+		<th style="width:292px" align="center" rowspan="8">
+			<iframe src="http://www.facebook.com/plugins/likebox.php?id=129282307106646&amp;width=292&amp;connections=10&amp;stream=true&amp;header=true&amp;height=587" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:292px; height:587px;" allowTransparency="true"></iframe>
+		</th>
     </tr>
     <tr>
         <td class="c">{$ow_support}</td>

@@ -230,14 +230,6 @@ function removeE(Number) {
 
 function messages(ID)
 {
-	var count = $('#unread_'+ID).text();
-	var lmnew = $('#newmesnum_'+ID).text();
-	
-	if(lmnew - count <= 0)
-		$('#newmes').text('');
-	else
-		$('#newmesnum').text(parseInt(lmnew) - parseInt(count));
-
 	if(ID == 100) {
 		$('#unread_0').text('0');
 		$('#unread_1').text('0');
@@ -248,10 +240,18 @@ function messages(ID)
 		$('#unread_15').text('0');
 		$('#unread_99').text('0');
 		$('#unread_100').text('0');
+		$('#newmes').text('');
 	} else {
+		var count = parseInt($('#unread_'+ID).text());
+		var lmnew = parseInt($('#newmesnum').text());
+	
 		$('#unread_'+ID).text('0');
 		if(ID != 50 && ID != 999) {
-			$('#unread_100').text(parseInt($('#unread_100').text()) - parseInt(count));
+			$('#unread_100').text($('#unread_100').text() - count);
 		}
+		if(lmnew - count <= 0)
+			$('#newmes').text('');
+		else
+			$('#newmesnum').text(lmnew - count);
 	}
 }

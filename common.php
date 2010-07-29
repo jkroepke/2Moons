@@ -20,11 +20,11 @@
 ##############################################################################
 
 	
-@ignore_user_abort(true);
-@set_time_limit(120);
+ignore_user_abort(true);
+set_time_limit(120);
 error_reporting(E_ALL ^ E_NOTICE);
-@ini_set('zlib.output_compression', 'On');
-@ini_set('display_errors', 1);
+ini_set('zlib.output_compression', 'On');
+ini_set('display_errors', 1);
 date_default_timezone_set("Europe/Berlin");
 header('Content-Type: text/html; charset=UTF-8');
 define('TIMESTAMP',	$_SERVER['REQUEST_TIME']);
@@ -39,9 +39,7 @@ session_set_cookie_params(86400);
 if(!defined('INSTALL') || !defined('IN_ADMIN') || !defined('IN_CRON'))
 	define("STARTTIME",	microtime(true));
 
-if(function_exists('set_magic_quotes_runtime'))
-	@set_magic_quotes_runtime(0);
-
+	
 if(!defined('LOGIN') || !defined('IN_CRON'))
 	session_start();
 
@@ -57,6 +55,8 @@ set_exception_handler('exception_handler');
 
 if($database)
 	$db = new DB_MySQLi();
+else
+	exit(header("Location:" . ROOT_PATH .  "install/"));
 
 unset($database);
 

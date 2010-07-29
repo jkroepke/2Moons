@@ -38,7 +38,7 @@
 <th><a href="?page=news&amp;action=delete&amp;id={$NewsRow.id}" onclick="return confirm('{$NewsRow.confirm}');"><img border="0" src="./styles/images/r1.png"></a></td>
 </tr>
 {/foreach}
-<tr><th colspan="5>"<a href="?page=news&amp;action=create">{$nws_create}</a></th></tr>
+<tr><th colspan="5"><a href="?page=news&amp;action=create">{$nws_create}</a></th></tr>
 <tr><th colspan="5">{$nws_total}</th></tr>
 </table>
 {include file="adm/overall_footer.tpl"}
