@@ -239,7 +239,7 @@ switch ($page) {
 				$MailRAW		= file_get_contents("./language/".$CONF['lang']."/email/email_lost_password.txt");
 				$MailContent	= sprintf($MailRAW, $ExistMail['username'], $CONF['game_name'], $NewPass, "http://".$_SERVER['SERVER_NAME'].$_SERVER["PHP_SELF"]);			
 			
-				#$Mail			= MailSend($USERmail, $ExistMail['username'], $LNG['mail_title'], $MailContent);
+				$Mail			= MailSend($USERmail, $ExistMail['username'], $LNG['mail_title'], $MailContent);
 				
 				if(true === true)
 				{
