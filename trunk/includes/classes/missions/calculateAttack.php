@@ -154,8 +154,10 @@ function calculateAttack(&$attackers, &$defenders)
 			$attacker_n[$fleetID] = array();
 
 			foreach($attacker['detail'] as $element => $amount) {
-				if ($amount <= 0)
+				if ($amount <= 0) {
+					$attacker_n[$fleetID][$element] = 0;
 					continue;
+				}
 
 				$defender_moc = $amount * ($defenseDamage['total'] * $attackPct[$fleetID]) / $attackAmount[$fleetID];
 				
@@ -183,8 +185,10 @@ function calculateAttack(&$attackers, &$defenders)
 			$defender_n[$fleetID] = array();
 
 			foreach($defender['def'] as $element => $amount) {
-				if ($amount <= 0)
+				if ($amount <= 0) {
+					$defender_n[$fleetID][$element] = 0;
 					continue;
+				}
 
 				$attacker_moc = $amount * ($attackDamage['total'] * $defensePct[$fleetID]) / $defenseAmount[$fleetID];
 				
@@ -240,16 +244,15 @@ function calculateAttack(&$attackers, &$defenders)
 
 		$ROUND[$ROUNDC]['attackShield'] = $attacker_shield;
 		$ROUND[$ROUNDC]['defShield'] = $defender_shield;
-
 		foreach ($attackers as $fleetID => $attacker) {
-			$attackers[$fleetID]['detail'] = array_map('round', $attacker_n[$fleetID]);
+			$attackers[$fleetID]['detail'] =  array_map('round', $attacker_n[$fleetID]);
 		}
 
 		foreach ($defenders as $fleetID => $defender) {
 			$defenders[$fleetID]['def'] = array_map('round', $defender_n[$fleetID]);
 		}
 	}
-
+	
 	if ($attackAmount['total'] <= 0 && $defenseAmount['total'] > 0) {
 		$won = "r"; // defender
 	} elseif ($attackAmount['total'] > 0 && $defenseAmount['total'] <= 0) {
@@ -271,6 +274,7 @@ function calculateAttack(&$attackers, &$defenders)
 	}
 
 	$DRESDefs = array('metal' => 0, 'crystal' => 0);
+
 	foreach ($defenders as $fleetID => $defender) {
 		foreach ($defender['def'] as $element => $amount) {
 			if ($element < 300) {							// flotte defenseur en CDR
@@ -291,7 +295,7 @@ function calculateAttack(&$attackers, &$defenders)
 			}
 		}
 	}
-
+	
 	$totalLost = array('att' => $TRES['attacker'], 'def' => $TRES['defender']);
 	$debAttMet = ($ARES['metal'] * ($CONF['Fleet_Cdr'] / 100));
 	$debAttCry = ($ARES['crystal'] * ($CONF['Fleet_Cdr'] / 100));
