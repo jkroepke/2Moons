@@ -197,7 +197,7 @@ CREATE TABLE IF NOT EXISTS `prefix_fleets` (
   `fleet_group` varchar(15) NOT NULL DEFAULT '0',
   `fleet_mess` enum('0','1','2') NOT NULL DEFAULT '0',
   `start_time` int(11) DEFAULT NULL,
-  `fleet_busy` tinyint(1) NOT NULL DEFAULT '0',
+  `fleet_busy` enum('0','1') NOT NULL DEFAULT '0',
   PRIMARY KEY (`fleet_id`),
   KEY `fleet_mess` (`fleet_mess`),
   KEY `fleet_target_owner` (`fleet_target_owner`),
@@ -228,7 +228,7 @@ CREATE TABLE IF NOT EXISTS `prefix_news` (
   `user` varchar(64) NOT NULL,
   `date` int(11) NOT NULL,
   `title` varchar(64) NOT NULL,
-  `text` varchar(255) NOT NULL,
+  `text` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -236,7 +236,7 @@ CREATE TABLE IF NOT EXISTS `prefix_notes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `owner` int(11) DEFAULT NULL,
   `time` int(11) DEFAULT NULL,
-  `priority` tinyint(1) DEFAULT NULL,
+  `priority` enum('0','1','2') DEFAULT NULL DEFAULT '1',
   `title` varchar(32) DEFAULT NULL,
   `text` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -457,6 +457,7 @@ CREATE TABLE IF NOT EXISTS `prefix_users` (
   `urlaubs_until` int(11) NOT NULL DEFAULT '0',
   `db_deaktjava` int(11) NOT NULL DEFAULT '0',
   `new_message` int(11) NOT NULL DEFAULT '0',
+  `new_gmessage` int(11) NOT NULL DEFAULT '0',
   `fleet_shortcut` text,
   `b_tech_planet` int(11) NOT NULL DEFAULT '0',
   `b_tech` int(11) unsigned NOT NULL DEFAULT '0',
@@ -486,7 +487,6 @@ CREATE TABLE IF NOT EXISTS `prefix_users` (
   `ally_request_text` text,
   `ally_register_time` int(11) NOT NULL DEFAULT '0',
   `ally_rank_id` int(11) NOT NULL DEFAULT '0',
-  `current_luna` int(11) NOT NULL DEFAULT '0',
   `rpg_geologue` tinyint(2) unsigned NOT NULL DEFAULT '0',
   `rpg_amiral` tinyint(2) NOT NULL DEFAULT '0',
   `rpg_ingenieur` tinyint(2) NOT NULL DEFAULT '0',

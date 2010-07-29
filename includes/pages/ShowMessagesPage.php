@@ -156,11 +156,13 @@ function ShowMessagesPage()
 				}
 				
 				$db->free_result($UsrMess);
-				#$db->multi_query("UPDATE ".USERS." SET `new_message` = ".(($MessCategory != 100) ? "IF(`new_message` - '".$UnRead."' < 0, `new_message` - '".$UnRead."', 0)" : "'0'")." WHERE `id` = '".$USER['id']."';UPDATE ".MESSAGES." SET `message_unread` = '0' WHERE `message_owner` = '".$USER['id']."'".(($MessCategory != 100) ? " AND `message_type` = '".$MessCategory."'" : "").";");
-				if($MessCategory == 100)
-					$db->multi_query("UPDATE ".USERS." SET `new_message` = '0' WHERE `id` = '".$USER['id']."';UPDATE ".MESSAGES." SET `message_unread` = '0' WHERE `message_owner` = '".$USER['id']."'".(($MessCategory != 100) ? " AND `message_type` = '".$MessCategory."'" : "").";");			
+			
+				if($MessCategory == 50)
+					$db->multi_query("UPDATE ".USERS." SET `new_message` = `new_message` - `new_gmessage`, `new_gmessage` = '0' WHERE `id` = '".$USER['id']."';");			
+				elseif($MessCategory == 100)
+					$db->multi_query("UPDATE ".USERS." SET `new_message` = '0' WHERE `id` = '".$USER['id']."';UPDATE ".MESSAGES." SET `message_unread` = '0' WHERE `message_owner` = '".$USER['id']."';");			
 				else
-					$db->multi_query("UPDATE ".USERS." SET `new_message` = '".max($USER['new_message'] - $UnRead, 0)."' WHERE `id` = '".$USER['id']."';UPDATE ".MESSAGES." SET `message_unread` = '0' WHERE `message_owner` = '".$USER['id']."'".(($MessCategory != 100) ? " AND `message_type` = '".$MessCategory."'" : "").";");
+					$db->multi_query("UPDATE ".USERS." SET `new_message` = '".max($USER['new_message'] - $UnRead, 0)."' WHERE `id` = '".$USER['id']."';UPDATE ".MESSAGES." SET `message_unread` = '0' WHERE `message_owner` = '".$USER['id']."' AND `message_type` = '".$MessCategory."';");
 			}
 			
 			$template->assign_vars(array(	
@@ -216,6 +218,7 @@ function ShowMessagesPage()
 			
 			$db->free_result($UsrMess);
 			
+			$UnRead[50]			+= $USER['new_gmessage'];
 			$UnRead[100]		= is_array($UnRead) ? array_sum($UnRead) : 0;
 			$TotalMess[100]		= is_array($TotalMess) ? (array_sum($TotalMess) - $TotalMess[50]) : 0;
 			$TotalMess[999]		= $MessOut['count'];
