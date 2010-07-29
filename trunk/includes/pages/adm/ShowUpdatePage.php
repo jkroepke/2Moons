@@ -54,7 +54,7 @@ function ShowUpdatePage()
 {
 	global $LNG, $CONF, $db;
 	$Patchlevel	= explode(".",VERSION);
-	if($_REQUEST['history'] == 1)
+	if($_REQUEST['action'] == 'history')
 		$Level		= 0;	
 	elseif(isset($Patchlevel[2]))
 		$Level		= $Patchlevel[2];
