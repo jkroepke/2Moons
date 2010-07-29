@@ -119,7 +119,7 @@ class ShowResearchPage
 		return $restprice;
 	}
 
-	public function ShowResearchPage ()
+	public function __construct()
 	{
 		global $PLANET, $USER, $LNG, $resource, $reslist, $CONF, $db, $pricelist;
 

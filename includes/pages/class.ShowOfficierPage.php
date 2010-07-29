@@ -72,7 +72,7 @@ class ShowOfficierPage
 		}
 	}
 	
-	public function ShowOfficierPage()
+	public function __construct()
 	{
 		global $USER, $PLANET, $resource, $reslist, $LNG, $db, $ExtraDM;
 		

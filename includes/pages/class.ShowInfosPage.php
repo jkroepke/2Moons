@@ -168,7 +168,7 @@ class ShowInfosPage
 		return $Combo;
 	}
 
-	public function ShowInfosPage ()
+	public function __construct()
 	{
 		global $USER, $PLANET, $dpath, $LNG, $resource, $pricelist, $reslist, $CombatCaps, $ProdGrid, $CONF;
 

@@ -51,7 +51,7 @@ class ShowOptionsPage
 		return true;
 	}
 	
-	public function ShowOptionsPage()
+	public function __construct()
 	{
 		global $USER, $PLANET, $CONF, $LNG, $db;
 
