@@ -23,10 +23,10 @@
 {foreach name=User item=User from=$Users}
 <tr>
 <th>{$User.id}</th>
-<th>{$User.username}</th>"
-	<th><nobr>" . date("d.m.Y H:i:s", {$User.date})</nobr></th>"
-	<th>{$User.email}</th>"
-	<th>{$User.ip}</th>"
+<th>{$User.username}</th>
+	<th><nobr>{$User.date}</nobr></th>
+	<th>{$User.email}</th>
+	<th>{$User.ip}</th>
 	<th><a href="javascript:ajax('./index.php?page=reg&mode=valid&id={$User.password}clef={$User.cle}&admin=1&getajax=1','{$User.username}');">Aktivieren</a></th>
 	<th><a href="?page=active&amp;action=delete&id={$User.id}" onclick="return confirm('Bist du sicher, dass du den User {$User.username} entfernen willst?');"><img border="0" src="./styles/images/r1.png"></a></th>
 </tr>
