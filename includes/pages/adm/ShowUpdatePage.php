@@ -250,12 +250,17 @@ function ShowUpdatePage()
 							$Info		= "<tr><td class=\"c\" colspan=\"5\">Aktuelle Updates</td></tr>";
 						}
 						
+						$edit	= "";
+						foreach($RevInfo['edit'] as $file) {							
+							$edit	.= '<a href="http://code.google.com/p/2moons/source/diff?spec=svn'.$Rev.'&r='.$Rev.'&format=side&path='.$file.'" target="diff">'.str_replace("/trunk/", "", $file).'</a><br>';
+						}
+						
 						$RevList .= "<tr>
 						".(($Patchlevel[2] == $Rev)?"<td class=c colspan=5>Momentane Version</td></tr><tr>":((($Patchlevel[2] - 1) == $Rev)?"<td class=c colspan=5>Alte Updates</td></tr><tr>":""))."
 						<td class=c >".(($Patchlevel[2] == $Rev)?"<font color=\"red\">":"")."Revision " . $Rev . " ".date("d. M y H:i:s", $RevInfo['timestamp'])." von ".$RevInfo['author'].(($Patchlevel[2] == $Rev)?"</font>":"")."</td></tr>
 						<tr><th>".makebr($RevInfo['log'])."</th></tr>
 						".((!empty($RevInfo['add']))?"<tr><th>ADD:<br>".str_replace("/trunk/", "", implode("<br>\n", $RevInfo['add']))."</b></th></tr>":"")."
-						".((!empty($RevInfo['edit']))?"<tr><th>EDIT:<br>".str_replace("/trunk/", "", implode("<br>\n", $RevInfo['edit']))."</b></th></tr>":"")."
+						".((!empty($RevInfo['edit']))?"<tr><th>EDIT:<br>".$edit."</b></th></tr>":"")."
 						".((!empty($RevInfo['del']))?"<tr><th>DEL:<br>".str_replace("/trunk/", "", implode("<br>\n", $RevInfo['del']))."</b></th></tr>":"")."
 						</tr>";
 					}
