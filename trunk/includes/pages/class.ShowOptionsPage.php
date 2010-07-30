@@ -37,7 +37,7 @@ class ShowOptionsPage
 		while($CPLANET = $db->fetch_array($query))
 		{
 			if($CPLANET['id'] != $USER['current_planet'])
-				list($USER, $CPLANET)	= $PlanetRess->CalcResource($USER, $CPLANET, TIMESTAMP, true);
+				list($USER, $CPLANET)	= $PlanetRess->CalcResource($USER, $CPLANET, true, TIMESTAMP);
 		
 			if(!empty($CPLANET['b_building']) || !empty($CPLANET['b_hangar']))
 				return false;
