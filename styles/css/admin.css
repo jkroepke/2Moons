@@ -60,3 +60,11 @@ a.topn:hover {
 .button:hover{background:url(../images/Adm/blank.gif);border:1px aqua solid;cursor:pointer;color:#FFFFFF;}
 .span{ vertical-align:baseline}
 .gf-snippet, .gfc-resultsHeader{display:none}
+
+.fbConnectWidgetTopmost {
+border-style:none !important;
+}
+.lightblue_box {
+background-color:transparent !important;
+border:medium none !important;
+}
