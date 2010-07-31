@@ -199,24 +199,25 @@ abstract class FleetFunctions
 	
 	public static function GetUserShotcut($CurrentUser)
 	{
-		if (!empty($CurrentUser['fleet_shortcut']))
-		{
-			$Shoutcut = explode("\r\n", $CurrentUser['fleet_shortcut']);
+		if (empty($CurrentUser['fleet_shortcut']))
+			return array();
 
-			foreach ($Shoutcut as $a => $b)
-			{
-				if (empty($b)) continue;
-				
-				$ShortCutRow = explode(',', $b);
-				
-				$ShortCutList[] = array(
-					'name'			=> $ShortCutRow[0],
-					'galaxy'		=> $ShortCutRow[1],
-					'system'		=> $ShortCutRow[2],
-					'planet'		=> $ShortCutRow[3],
-					'planet_type'	=> $ShortCutRow[4],
-				);
-			}
+		$Shoutcut 		= explode("\r\n", $CurrentUser['fleet_shortcut']);
+		$ShortCutList	= array();
+
+		foreach ($Shoutcut as $a => $b)
+		{
+			if (empty($b)) continue;
+			
+			$ShortCutRow = explode(',', $b);
+			
+			$ShortCutList[] = array(
+				'name'			=> $ShortCutRow[0],
+				'galaxy'		=> $ShortCutRow[1],
+				'system'		=> $ShortCutRow[2],
+				'planet'		=> $ShortCutRow[3],
+				'planet_type'	=> $ShortCutRow[4],
+			);
 		}
 		return $ShortCutList;
 	}
@@ -423,7 +424,7 @@ abstract class FleetFunctions
 	public static function GetAvailableMissions($MissionInfo)
 	{
 		global $LNG, $db;
-		$GetInfoPlanet 			= $db->fetch_array($db->query("SELECT `id_owner` FROM `".PLANETS."` WHERE `galaxy` = ".$MissionInfo['galaxy']." AND `system` = ".$MissionInfo['system']." AND `planet` = ".$MissionInfo['planet']." AND `planet_type` = '1';"));
+		$GetInfoPlanet 			= $db->uniquequery("SELECT `id_owner` FROM `".PLANETS."` WHERE `galaxy` = ".$MissionInfo['galaxy']." AND `system` = ".$MissionInfo['system']." AND `planet` = ".$MissionInfo['planet']." AND `planet_type` = '1';");
 		$YourPlanet				= (isset($GetInfoPlanet['id_owner']) && $GetInfoPlanet['id_owner'] == $MissionInfo['CurrentUser']['id']) ? true : false;
 		$UsedPlanet				= (isset($GetInfoPlanet['id_owner'])) ? true : false;
 		
