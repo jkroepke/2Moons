@@ -22,8 +22,8 @@
 </tr>
 {foreach name=User item=User from=$Users}
 <tr>
-<th>{$User.id}</th>
-<th>{$User.username}</th>
+	<th>{$User.id}</th>
+	<th>{$User.name}</th>
 	<th><nobr>{$User.date}</nobr></th>
 	<th>{$User.email}</th>
 	<th>{$User.ip}</th>
