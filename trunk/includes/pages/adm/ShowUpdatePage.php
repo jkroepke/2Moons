@@ -158,15 +158,17 @@ function ShowUpdatePage()
 				{
 					foreach($RevInfo['add'] as $File)
 					{	
-						if($File == "/trunk/updates/update_".$Rev.".sql")
-						{
+						if($File == "/trunk/updates/update_".$Rev.".sql") {
 							$db->multi_query(str_replace("prefix_", DB_PREFIX, file_get_contents($SVN_ROOT.$File)));
 							continue;
+						} elseif($File == "/trunk/updates/update_".$Rev.".php") {
+							require($SVN_ROOT.$File);
 						} else {
 							if (strpos($File, '.') !== false) {		
 								$Data = fopen($SVN_ROOT.$File, "r");
 								if ($ftp->uploadFromFile($Data, str_replace("/trunk/", "", $File))) {
 									$LOG['update'][$Rev][$File]	= "OK! - Updated";
+
 								} else {
 									$LOG['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht hochladen";
 								}

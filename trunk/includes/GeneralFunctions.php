@@ -130,9 +130,9 @@ function colorGreen($n)
 	return '<font style="color:#00ff00">' . $n . '</span>';
 }
 
-function pretty_number($n)
+function pretty_number($n, $dec = 0)
 {
-	return number_format(floattostring($n), 0, ',', '.');
+	return number_format(floattostring($n, $dec), 0, ',', '.');
 }
 
 function set_var(&$result, $var, $type, $multibyte = false)
