@@ -480,10 +480,7 @@ class ShowFleetPages extends FleetFunctions
 		
 		if (!is_array($FleetArray))
 			parent::GotoFleetPage();
-		
-		if(!array_key_exists($mission, parent::GetAvailableMissions(array('CurrentUser' => $USER,'galaxy' => $galaxy, 'system' => $system,'planet' => $planet, 'planettype' => $planettype,'IsAKS' => $acs_target_mr, 'Ship' =>  $FleetArray))))
-			parent::GotoFleetPage();
-		
+				
 		$FleetStorage        = 0;
 		$FleetShipCount      = 0;
 		$fleet_array         = "";
@@ -587,15 +584,12 @@ class ShowFleetPages extends FleetFunctions
 			{
 				$template->message("<font color=\"red\"><b>".$LNG['fl_no_same_alliance']."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
 				exit;
-			}
-			
-			
-			
+			}		
 		}
 		
-		if(parent::CheckUserSpeed())
+		if(parent::CheckUserSpeed() || !array_key_exists($mission, parent::GetAvailableMissions(array('CurrentUser' => $USER,'galaxy' => $galaxy, 'system' => $system,'planet' => $planet, 'planettype' => $planettype,'IsAKS' => $acs_target_mr, 'Ship' =>  $FleetArray))))
 			parent::GotoFleetPage();
-	
+
 
 		$FleetSpeed  	= parent::GetFleetMaxSpeed($FleetArray, $USER);
 		$MaxFleetSpeed	= ($FleetSpeed / 10) * $GenFleetSpeed;
