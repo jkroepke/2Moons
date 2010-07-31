@@ -27,7 +27,7 @@
 	<th><nobr>{$User.date}</nobr></th>
 	<th>{$User.email}</th>
 	<th>{$User.ip}</th>
-	<th><a href="javascript:ajax('./index.php?page=reg&mode=valid&id={$User.password}clef={$User.cle}&admin=1&getajax=1','{$User.username}');">Aktivieren</a></th>
+	<th><a href="javascript:ajax('./index.php?page=reg&mode=valid&lang={$UserLang}&clef={$User.cle}','{$User.username}');">Aktivieren</a></th>
 	<th><a href="?page=active&amp;action=delete&id={$User.id}" onclick="return confirm('Bist du sicher, dass du den User {$User.username} entfernen willst?');"><img border="0" src="./styles/images/r1.png"></a></th>
 </tr>
 {/foreach}	
