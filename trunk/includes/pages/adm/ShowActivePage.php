@@ -24,7 +24,7 @@ if ($USER['rights']['EditUsers'] == 0) exit();
 
 function ShowActivePage()
 {
-	global $LNG, $db;
+	global $LNG, $db, $USER;
 	$id = request_var('id', 0);
 	if($_GET['action'] == 'delete' && !empty($id))
 		$db->query("DELETE FROM ".USERS_VALID." WHERE `id` = '".$id."';");
@@ -48,6 +48,7 @@ function ShowActivePage()
 	$template->page_header();
 	$template->assign_vars(array(	
 		'Users'		=> $Users,
+		'UserLang'	=> $USER['lang'],
 	));
 	
 	$template->show('adm/ActivePage.tpl');
