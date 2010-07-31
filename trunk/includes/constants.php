@@ -98,10 +98,7 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	//
 	define('ENABLE_SIMULATOR_LINK'    , true);
 	
-	
-	// FOR ADVANCE USERS
-	
-	define('USE_NEW_BATTLE_ENGINE'	  , false);
+	define('SESSION_LIFETIME'		  , 43200);
 	
 	//DISCLAMER INFOS
 

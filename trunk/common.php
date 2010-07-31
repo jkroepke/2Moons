@@ -31,10 +31,22 @@ define('TIMESTAMP',	$_SERVER['REQUEST_TIME']);
 
 if(file_exists(ROOT_PATH . 'config.php'))
 	require_once(ROOT_PATH . 'config.'.PHP_EXT);
+	
+require_once(ROOT_PATH . 'includes/constants.'.PHP_EXT);
 
-session_name($dbsettings["secretword"]);
+ini_set('session.save_path', ROOT_PATH.'cache/sessions');
+ini_set('upload_tmp_dir', ROOT_PATH.'cache/sessions');
+ini_set('session.use_cookies', '1');
+ini_set('session.use_only_cookies', '1');
+session_set_cookie_params(SESSION_LIFETIME, '/', '.'.str_replace('www.', '', $_SERVER["HTTP_HOST"]));
 session_cache_limiter('nocache');
-session_set_cookie_params(86400);
+session_name($dbsettings["secretword"]);
+ini_set('session.use_trans_sid', 0);
+ini_set('session.auto_start', '0');
+ini_set('session.serialize_handler', 'php');  
+ini_set('session.gc_maxlifetime', SESSION_LIFETIME);
+ini_set('session.gc_probability', '1');
+ini_set('session.gc_divisor',  '1000');
 
 if(!defined('INSTALL') || !defined('IN_ADMIN') || !defined('IN_CRON'))
 	define("STARTTIME",	microtime(true));
@@ -46,7 +58,6 @@ if(!defined('LOGIN') || !defined('IN_CRON'))
 if(!function_exists('bcadd'))
 	require_once(ROOT_PATH.'includes/bcmath.'.PHP_EXT);
 
-require_once(ROOT_PATH . 'includes/constants.'.PHP_EXT);
 require_once(ROOT_PATH . 'includes/classes/class.MySQLi.'.PHP_EXT);
 require_once(ROOT_PATH . 'includes/GeneralFunctions.'.PHP_EXT);
 require_once(ROOT_PATH . 'includes/vars.'.PHP_EXT);

@@ -175,6 +175,11 @@ function ShowUpdatePage()
 								fclose($Data);
 							} else {
 								if ($ftp->makeDir(str_replace("/trunk/", "", $File), 1)) {
+									if(PHP_SAPI == 'apache2handler')
+										$ftp->chmod(str_replace("/trunk/", "", $File), '0777');
+									else
+										$ftp->chmod(str_replace("/trunk/", "", $File), '0755');
+										
 									$LOG['update'][$Rev][$File]	= "OK! - Updated";
 								} else {
 									$LOG['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht hochladen";
