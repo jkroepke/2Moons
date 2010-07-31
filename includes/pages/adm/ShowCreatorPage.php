@@ -207,13 +207,13 @@ function ShowCreatorPage()
 				
 				
 				$ISUser		= $db->uniquequery("SELECT id, authlevel FROM ".USERS." WHERE `id` = '".$id."';");
-				if(CheckPlanetIfExist($Galaxy, $System, $Planet, $Planettype = 1) || !isset($ISUser)) {
+				if(CheckPlanetIfExist($Galaxy, $System, $Planet) || !isset($ISUser)) {
 					$template->message($LNG['po_complete_all'], '?page=create&mode=planet', 3, true);
 					exit;
 				}
 				
 				require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.'.PHP_EXT);
-				CreateOnePlanetRecord ($galaxy, $system, $planet, $id, '', '', false) ; 
+				CreateOnePlanetRecord($Galaxy, $System, $Planet, $id, '', '', false) ; 
 						
 				$SQL  = "UPDATE ".PLANETS." SET ";
 				
