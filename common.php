@@ -66,7 +66,7 @@ set_exception_handler('exception_handler');
 
 if($database)
 	$db = new DB_MySQLi();
-else
+elseif(INSTALL != true)
 	exit(header("Location:" . ROOT_PATH .  "install/"));
 
 unset($database);
