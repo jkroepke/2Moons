@@ -71,7 +71,7 @@ function ShowMessageListPage()
 			$ViewPage = $MaxPage;
 	}
 	
-	if ($_POST['delsel'] && is_array($_POST['sele']) && $_POST['page'])
+	if ($_POST['delsel'] && is_array($_POST['sele']))
 	{
 		if ($DelSel == true)
 		{
@@ -83,7 +83,7 @@ function ShowMessageListPage()
 		}
 	}
 	
-	if ($DelDat == true && $_POST['deldat'] && $_POST['sele'] >= 1 && is_numeric($_POST['selday']) && is_numeric($_POST['selmonth']) && is_numeric($_POST['selyear']) && $_POST['page'])
+	if ($DelDat == true && $_POST['deldat'] && $_POST['sele'] >= 1 && is_numeric($_POST['selday']) && is_numeric($_POST['selmonth']) && is_numeric($_POST['selyear']))
 	{
 		$SelDay    = $_POST['selday'];
 		$SelMonth  = $_POST['selmonth'];
