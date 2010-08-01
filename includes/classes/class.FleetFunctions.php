@@ -43,7 +43,7 @@ abstract class FleetFunctions
 		switch($Ship)
 		{
 			case 202:
-				return $pricelist[$Ship]['speed'] * (($Player['impulse_motor_tech'] >= 5) ? (1 + (0.2 * $Player['impulse_motor_tech'])) : (1 + (0.1 * $Player['combustion_tech'])));
+				return (($Player['impulse_motor_tech'] >= 5) ? $pricelist[$Ship]['speed2'] * (1 + (0.2 * $Player['impulse_motor_tech'])) : $pricelist[$Ship]['speed'] * (1 + (0.1 * $Player['combustion_tech'])));
 			break;
 			case 203:
 			case 204:
@@ -58,7 +58,7 @@ abstract class FleetFunctions
 				return $pricelist[$Ship]['speed'] * (1 + (0.2 * $Player['impulse_motor_tech']));
 			break;
 			case 211:
-				return $pricelist[$Ship]['speed'] * (($Player['hyperspace_motor_tech'] >= 8) ? (1 + (0.3 * $Player['hyperspace_motor_tech'])) : (1 + (0.2 * $Player['impulse_motor_tech'])));
+				return (($Player['hyperspace_motor_tech'] >= 8) ? $pricelist[$Ship]['speed2'] * (1 + (0.3 * $Player['hyperspace_motor_tech'])) : $pricelist[$Ship]['speed'] * (1 + (0.2 * $Player['impulse_motor_tech'])));
 			break;
 			case 207:
 			case 213:

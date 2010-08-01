@@ -2,8 +2,8 @@
 <center>
 <table width="60%">
     <tr>
-		<th>Informationens-Vorlange zum Posten eines Bugs im <a href="http://www.xnova-reloaded.eu/" style="font-size:11px;font-family:Tahoma,sans-serif;">xnova-reloaded Forum</a><br>Ohne diese Vorlage gibt es keinen Support!
-			<textarea rows="15">Server Infos: {$info}
+                <th>Informations-Vorlage zum Posten eines Bugs im <a href="http://bugs.2moons-systems.com/" style="font-size:11px;font-family:Tahoma,sans-serif;" target="tracker">2Moons Bugtracker</a><br>Ohne diese Vorlage gibt es keinen Support!
+                        <textarea rows="15">Server Infos: {$info}
 PHP-Version: {$vPHP}
 PHP API: {$vAPI}
 MySQL-Client-Version: {$vMySQLc}
@@ -15,9 +15,9 @@ JSON Verfügbar: {$json}
 Problem besteht seit Installation:
 Verwendeter Editor:
 Screenshot:
-Problembeschreibung: 
-			</textarea>
-		</th>
+Problembeschreibung:
+                        </textarea>
+                </th>
     </tr>
 </table>
 </center>
