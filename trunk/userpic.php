@@ -23,8 +23,10 @@
 ##############################################################################
 
 define('INSIDE'  , true);
+define('LOGIN'   , false);
 define('INSTALL' , false);
 define('IN_CRON' , true);
+
 define('ROOT_PATH' ,'./');
 
 include(ROOT_PATH . 'extension.inc');

@@ -52,7 +52,7 @@ if(!defined('INSTALL') || !defined('IN_ADMIN') || !defined('IN_CRON'))
 	define("STARTTIME",	microtime(true));
 
 	
-if(!defined('LOGIN') || !defined('IN_CRON'))
+if(!defined('LOGIN'))
 	session_start();
 
 if(!function_exists('bcadd'))
@@ -71,7 +71,7 @@ elseif(INSTALL != true)
 
 unset($database);
 
-if (INSTALL != true)
+if (INSTALL != true || defined('IN_CRON'))
 {
 	require_once(ROOT_PATH.'includes/functions/GetBuildingTime.'.PHP_EXT);
 	require_once(ROOT_PATH.'includes/functions/SortUserPlanets.'.PHP_EXT);
