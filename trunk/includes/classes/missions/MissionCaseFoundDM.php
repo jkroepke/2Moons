@@ -25,6 +25,7 @@ class MissionCaseFoundDM extends MissionFunctions
 	const CHANCE_SHIP = 0.25; 
 	const MIN_FOUND = 423; 
 	const MAX_FOUND = 1278; 
+	const MAX_CHANCE = 50; 
 		
 	function __construct($Fleet)
 	{
@@ -41,7 +42,7 @@ class MissionCaseFoundDM extends MissionFunctions
 	{
 		$LNG			= $this->GetUserLang($this->_fleet['fleet_owner']);
 		$chance 		= mt_rand(0, 100);
-		if($chance <= (self::CHANCE + $this->_fleet['fleet_amount'] * self::CHANCE_SHIP)) {
+		if($chance <= min(self::MAX_CHANCE, (self::CHANCE + $this->_fleet['fleet_amount'] * self::CHANCE_SHIP))) {
 			$FoundDark 	= mt_rand(self::MIN_FOUND, self::MAX_FOUND);
 			$this->UpdateFleet('fleet_resource_darkmatter', $FoundDark);
 			$Message 	= $LNG['sys_expe_found_dm_'.mt_rand(1, 3).'_'.mt_rand(1, 2).''];
