@@ -124,7 +124,7 @@ function ShowUpdatePage()
 		case "update":
 			require_once(ROOT_PATH.'includes/libs/ftp/ftp.class.'.PHP_EXT);
 			require_once(ROOT_PATH.'includes/libs/ftp/ftpexception.class.'.PHP_EXT);
-			$UpdateArray 	= unserialize(file_get_contents("http://update.2moons.xnova-reloaded.eu/index.php?action=getupdate",FALSE,$context));
+			$UpdateArray 	= unserialize(file_get_contents("http://update.2moons-systems.com/index.php?action=getupdate",FALSE,$context));
 			if(!is_array($UpdateArray['revs']))
 				exitupdate(array('debug' => array('noupdate' => "Kein Update vorhanden!")));
 				
@@ -246,7 +246,7 @@ function ShowUpdatePage()
 			
 			if(!function_exists('file_get_contents') || !function_exists('fsockopen')) {
 				$template->message('Function file_get_contents oder fsockopen deactive', false, 0, true);
-			} elseif(($RAW = @file_get_contents("http://update.2moons.xnova-reloaded.eu/index.php?action=update",FALSE,$context)) !== false) {
+			} elseif(($RAW = @file_get_contents("http://update.2moons-systems.com/index.php?action=update",FALSE,$context)) !== false) {
 				$UpdateArray 	= unserialize($RAW);
 				if(is_array($UpdateArray['revs']))
 				{
