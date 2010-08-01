@@ -69,7 +69,7 @@ function ShowUpdatePage()
 	{
 		case "download":
 			require_once(ROOT_PATH.'includes/libs/zip/zip.lib.'.PHP_EXT);
-			$UpdateArray 	= unserialize(file_get_contents("http://update.2moons.xnova-reloaded.eu/index.php?action=getupdate",FALSE,$context));
+			$UpdateArray 	= unserialize(file_get_contents("http://update.2moons-systems.com/index.php?action=getupdate",FALSE,$context));
 			if(!is_array($UpdateArray['revs']))
 				exitupdate(array('debug' => array('noupdate' => "Kein Update vorhanden!")));
 				
