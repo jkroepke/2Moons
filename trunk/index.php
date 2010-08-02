@@ -658,7 +658,7 @@ switch ($page) {
 					$db->query("UPDATE " . USERS . " SET `banaday` = '0', `bana` = '0' WHERE `username` = '" . $login ['username'] . "';");
 				}
 				
-				@session_start();
+				session_start();
 				$_SESSION['id']			= $login['id'];
 				$_SESSION['username']	= $login['username'];
 				$_SESSION['authlevel']	= $login['authlevel'];
@@ -666,7 +666,7 @@ switch ($page) {
 				$db->query("UPDATE `" . USERS . "` SET `current_planet` = `id_planet` WHERE `id` = '".$login["id"]."';" );
 
 				header("Location: ./game.php?page=overview");
-				exit ();
+				exit();
 			} else {
 				$template->message($LNG['login_error'], './', 3, true);
 			}
