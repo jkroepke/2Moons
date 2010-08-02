@@ -68,7 +68,7 @@
 	<th>&nbsp;</th>
 </tr><tr>
 	<th>{$se_verfiy_mail}<br></th>
-	<th><input name="user_valid"{if $user_vaild} checked="checked"{/if} type="checkbox"></th>
+	<th><input name="user_valid"{if $user_valid} checked="checked"{/if} type="checkbox"></th>
 	<th><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_verfiy_mail_info}", CENTER, OFFSETX, -150, OFFSETY, -10, WIDTH, 250);' onMouseOut='return nd();'/></th>
 </tr><tr>
 	<th>{$se_admin_protection}</th>
