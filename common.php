@@ -19,7 +19,9 @@
 # *																			 #
 ##############################################################################
 
-	
+if(!defined('INSTALL') || !defined('IN_ADMIN') || !defined('IN_CRON'))
+	define("STARTTIME",	microtime(true));
+
 ignore_user_abort(true);
 set_time_limit(120);
 error_reporting(E_ALL ^ E_NOTICE);
@@ -47,14 +49,10 @@ ini_set('session.serialize_handler', 'php');
 ini_set('session.gc_maxlifetime', SESSION_LIFETIME);
 ini_set('session.gc_probability', '1');
 ini_set('session.gc_divisor',  '1000');
-
-if(!defined('INSTALL') || !defined('IN_ADMIN') || !defined('IN_CRON'))
-	define("STARTTIME",	microtime(true));
-
 	
 if(!defined('LOGIN'))
 	session_start();
-
+	
 if(!function_exists('bcadd'))
 	require_once(ROOT_PATH.'includes/bcmath.'.PHP_EXT);
 
@@ -71,7 +69,7 @@ elseif(INSTALL != true)
 
 unset($database);
 
-if (INSTALL != true || defined('IN_CRON'))
+if (INSTALL != true)
 {
 	require_once(ROOT_PATH.'includes/functions/GetBuildingTime.'.PHP_EXT);
 	require_once(ROOT_PATH.'includes/functions/SortUserPlanets.'.PHP_EXT);

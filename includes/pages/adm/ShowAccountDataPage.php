@@ -95,13 +95,13 @@ function ShowAccountDataPage()
 			$techoffi	= "";
 			for($i = 0; $i < max(count($reslist['officier']), count($reslist['tech'])); $i++)
 			{
-				if(isset($parse['techno'][$i]))
-					$techoffi	.= "<tr><th>".$LNG['tech'][$parse['techno'][$i]].": <font color=aqua>".$UserQuery[$resource[$parse['techno'][$i]]]."</font></th>";
+				if(isset($techno[$i]))
+					$techoffi	.= "<tr><th>".$LNG['tech'][$techno[$i]].": <font color=aqua>".$UserQuery[$resource[$techno[$i]]]."</font></th>";
 				else
 					$techoffi	.= "<tr><th>&nbsp;</th>";
 				
-				if($parse['officier'][$i])
-					$techoffi	.= "<th>".$LNG['tech'][$parse['officier'][$i]].": <font color=aqua>".$UserQuery[$resource[$parse['officier'][$i]]]."</font></th></tr>";
+				if(isset($officier[$i]))
+					$techoffi	.= "<th>".$LNG['tech'][$officier[$i]].": <font color=aqua>".$UserQuery[$resource[$officier[$i]]]."</font></th></tr>";
 				else
 					$techoffi	.= "<th>&nbsp;</th></tr>";	
 			}
@@ -449,6 +449,8 @@ function ShowAccountDataPage()
 				'sus_longer'					=> $sus_longer,
 				'sus_reason'					=> $sus_reason,
 				'sus_author'					=> $sus_author,
+				'techoffi'						=> $techoffi,
+				'mo'							=> $mo,
 				
 				'buildings_title'				=> $LNG['buildings_title'],
 				'researchs_title	'			=> $LNG['researchs_title'],
@@ -515,15 +517,13 @@ function ShowAccountDataPage()
 				'Crystal'						=> $LNG['Crystal'],
 				'Deuterium'						=> $LNG['Deuterium'],
 				'Energy'						=> $LNG['Energy'],
-				'darkmatter'					=> $LNG['darkmatter'],
-				'mo'							=> $LNG['mo'],
+				'Darkmatter'					=> $LNG['Darkmatter'],
 				'buildings_title'				=> $LNG['buildings_title'],
 				'ships_title'					=> $LNG['ships_title'],
 				'defenses_title'				=> $LNG['defenses_title'],
 				'ac_officier_research'			=> $LNG['ac_officier_research'],
 				'researchs_title'				=> $LNG['researchs_title'],
 				'officiers_title'				=> $LNG['officiers_title'],
-				'techoffi'						=> $LNG['techoffi'],
 				'ac_name'						=> $LNG['ac_name'],
 				'input_id'						=> $LNG['input_id'],
 				'ac_coords'						=> $LNG['ac_coords'],

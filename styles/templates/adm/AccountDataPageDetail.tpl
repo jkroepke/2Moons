@@ -224,14 +224,14 @@ border:0px;background:url(./styles/images/Adm/blank.gif);text-align:right;paddin
 			<table width="70%" align="center">
 			<tr>
 				<td class="c">{$ac_name}</td>
-				<td class="c">{$metal}</td>
-				<td class="c">{$crystal}</td>
-				<td class="c">{$deuterium}</td>
-				<td class="c">{$energy}</td>
+				<td class="c">{$Metal}</td>
+				<td class="c">{$Crystal}</td>
+				<td class="c">{$Deuterium}</td>
+				<td class="c">{$Energy}</td>
 			</tr>
 				{$resources}
 			<tr>
-				<th colspan="5" height="30px">{$darkmatter}: &nbsp;&nbsp;{$mo}</th>
+				<th colspan="5" height="30px">{$Darkmatter}: &nbsp;&nbsp;{$mo}</th>
 			</tr>
 			</table>
 			<br >
