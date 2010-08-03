@@ -301,7 +301,7 @@ if ( defined('INSIDE'))
 		408 => array ( 'metal' =>      50000, 'crystal' =>      50000, 'deuterium' =>         0, 'energy' => 0, 'darkmatter' =>  0, 'factor' => 1 ),
         409 => array ( 'metal' =>   10000000, 'crystal' =>    5000000, 'deuterium' =>   2500000, 'energy' => 0, 'darkmatter' =>  0, 'factor' => 1 ),
 		410 => array ( 'metal' =>   15000000, 'crystal' =>   15000000, 'deuterium' =>         0, 'energy' => 0, 'darkmatter' =>  0, 'factor' => 1 ),
-		411 => array ( 'metal' => 5000000000, 'crystal' => 2000000000, 'deuterium' => 500000000, 'energy' => 1000000, 'darkmatter' =>  10000, 'factor' => 1 ),         
+		411 => array ( 'metal' => 5000000000, 'crystal' => 2000000000, 'deuterium' => 500000000, 'energy_max' => 1000000, 'darkmatter' =>  10000, 'factor' => 1 ),         
 		
 		502 => array ( 'metal' =>   8000, 'crystal' =>       0, 'deuterium' =>    2000, 'energy' => 0, 'darkmatter' =>  0, 'factor' => 1 ),
 		503 => array ( 'metal' =>  12500, 'crystal' =>    2500, 'deuterium' =>   10000, 'energy' => 0, 'darkmatter' =>  0, 'factor' => 1 ),
