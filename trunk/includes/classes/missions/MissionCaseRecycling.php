@@ -55,17 +55,18 @@ class MissionCaseRecycling extends MissionFunctions
 		$IncomingFleetGoods = $this->_fleet['fleet_resource_metal'] + $this->_fleet['fleet_resource_crystal'] + $this->_fleet['fleet_resource_deuterium'];
 		if ($IncomingFleetGoods > $OtherFleetCapacity)
 			$RecyclerCapacity	= bcsub($RecyclerCapacity, bcsub($IncomingFleetGoods, $OtherFleetCapacity));
-				
+
+			
 		$RecycledGoods['metal']   = min($Target['metal'], bcdiv($RecyclerCapacity, 2));
 		$RecycledGoods['crystal'] = min($Target['crystal'], bcdiv($RecyclerCapacity, 2));	
-		
+
 		$RecyclerCapacity		  = bcsub($RecyclerCapacity, bcadd($RecycledGoods['metal'], $RecycledGoods['crystal']));
 		if($RecyclerCapacity !== '0')
 		{
-			if(max($RecycledGoods['metal'], $Target['metal']) === $Target['metal'])
-				$RecycledGoods['metal']   = bcadd($RecycledGoods['metal'], min(bcsub($Target['metal'], $RecycledGoods['metal']), $RecyclerCapacity));
-			else
+			if($RecycledGoods['metal'] === $Target['metal'])
 				$RecycledGoods['crystal'] = bcadd($RecycledGoods['crystal'], min(bcsub($Target['crystal'], $RecycledGoods['crystal']), $RecyclerCapacity));
+			else
+				$RecycledGoods['metal']   = bcadd($RecycledGoods['metal'], min(bcsub($Target['metal'], $RecycledGoods['metal']), $RecyclerCapacity));
 		}
 		
 		$Qry	= "UPDATE ".PLANETS." SET
