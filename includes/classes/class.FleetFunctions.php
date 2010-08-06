@@ -184,10 +184,8 @@ abstract class FleetFunctions
 		global $LNG, $resource;
 		$Missions 			= self::GetAvailableMissions($MisInfo);
 
-		if (!empty($Missions[15]))
-		{
-			for($i = 1;$i <= $MisInfo['CurrentUser'][$resource[124]];$i++)
-			{	
+		if (!empty($Missions[15])) {
+			for($i = 1;$i <= $MisInfo['CurrentUser'][$resource[124]];$i++) {	
 				$StayBlock[$i]	= $i;
 			}
 		}
@@ -424,7 +422,7 @@ abstract class FleetFunctions
 	public static function GetAvailableMissions($MissionInfo)
 	{
 		global $LNG, $db;
-		$GetInfoPlanet 			= $db->uniquequery("SELECT `id_owner` FROM `".PLANETS."` WHERE `galaxy` = ".$MissionInfo['galaxy']." AND `system` = ".$MissionInfo['system']." AND `planet` = ".$MissionInfo['planet']." AND `planet_type` = '1';");
+		$GetInfoPlanet 			= $db->uniquequery("SELECT `id_owner`, `der_metal`, `der_crystal` FROM `".PLANETS."` WHERE `galaxy` = ".$MissionInfo['galaxy']." AND `system` = ".$MissionInfo['system']." AND `planet` = ".$MissionInfo['planet']." AND `planet_type` = '1';");
 		$YourPlanet				= (isset($GetInfoPlanet['id_owner']) && $GetInfoPlanet['id_owner'] == $MissionInfo['CurrentUser']['id']) ? true : false;
 		$UsedPlanet				= (isset($GetInfoPlanet['id_owner'])) ? true : false;
 		
@@ -435,7 +433,7 @@ abstract class FleetFunctions
 				$missiontype[8] = $LNG['type_mission'][8];
 		} else {
 			if (!$UsedPlanet) {
-				if (isset($MissionInfo['Ship'][208]) && $MissionInfo['planettype'] == 1 && !CheckModule(35))
+				if (isset($MissionInfo['Ship'][208]) && $MissionInfo['planettype'] == 1 && !CheckModule(35) && !($GetInfoPlanet['der_metal'] == 0 && $GetInfoPlanet['der_crystal'] == 0))
 					$missiontype[7] = $LNG['type_mission'][7];
 			} else {
 				if(!CheckModule(34))
