@@ -230,7 +230,8 @@ class ShowFleetPages extends FleetFunctions
 			$Fleet[$ShipID]				= $amount;
 			$FleetRoom			   	   += $pricelist[$ShipID]['capacity'] * $amount;
 		}
-
+		
+		
 		if (!is_array($Fleet))
 			parent::GotoFleetPage();
 
@@ -304,6 +305,16 @@ class ShowFleetPages extends FleetFunctions
 		$usedfleet					= request_var('usedfleet','', true);
 
 		$FleetArray    				= parent::GetFleetArray($usedfleet);
+		
+		if($TargetPlanettype == 2)
+		{
+			$GetInfoPlanet 			= $db->uniquequery("SELECT `id_owner`, `der_metal`, `der_crystal` FROM `".PLANETS."` WHERE `galaxy` = ".$TargetGalaxy ." AND `system` = ".$TargetSystem." AND `planet` = ".$TargetPlanet." AND `planet_type` = '1';");
+			if($GetInfoPlanet['der_metal'] == 0 && $GetInfoPlanet['der_crystal'] == 0)
+			{
+				$template->message("<font color=\"red\"><b>".$LNG['fl_no_empty_derbis']."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
+				exit;
+			}	
+		}
 		
 		$MisInfo['galaxy']     		= $TargetGalaxy;		
 		$MisInfo['system'] 	  		= $TargetSystem;	

@@ -326,7 +326,7 @@ $LNG['fl_bonus']							= 'Bonus';
 $LNG['fl_bonus_attack']					= 'Angiff';
 $LNG['fl_bonus_defensive']					= 'Verteidigung';
 $LNG['fl_bonus_shield']					= 'Panzerung';
-
+$LNG['fl_no_empty_derbis']				= 'Trümmerfeld existiert nicht!';
 
 //----------------------------------------------------------------------------//
 //BUILDINGS - RESEARCH - SHIPYARD - DEFENSES
