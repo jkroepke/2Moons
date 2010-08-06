@@ -168,7 +168,7 @@ class template extends Smarty
 			'tn_vacation_mode'	=> $LNG['tn_vacation_mode'],
 			'closed'			=> !$CONF['game_disable'] ? $LNG['ov_closed'] : false,
 			'vacation'			=> $USER['urlaubs_modus'] ? date('d.m.Y H:i:s',$USER['urlaubs_until']) : false,
-			'delete'			=> $USER['db_deaktjava'] ? sprintf($LNG['tn_delete_mode'], date('d. M Y\, h:i:s',$USER['db_deaktjava'] + (60 * 60 * 24 * 7))) : false,
+			'delete'			=> $USER['db_deaktjava'] ? sprintf($LNG['tn_delete_mode'], date('d. M Y\, H:i:s', strtotime("+7 day", $USER['db_deaktjava']))) : false,
 			'image'				=> $PLANET['image'],
 			'settings_tnstor'	=> $USER['settings_tnstor'],
 			'SelectorVaules'	=> $SelectorVaules,
