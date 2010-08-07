@@ -84,7 +84,7 @@ if (INSTALL != true)
 	
 	$CONF['moduls']		= explode(";", $CONF['moduls']);
 	$CONF['alllangs']	= GetLangs();
-	define('VERSION'		, 'RC'.$CONF['VERSION']);
+	define('VERSION'		, $CONF['VERSION']);
 
 	if (!defined('LOGIN') && !defined('IN_CRON'))
 	{
