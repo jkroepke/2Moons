@@ -5,7 +5,7 @@ $LNG['Description'] = 'Beschreibung';
 
 $LNG['changelog']   = array(
 
-'RC6' => 'ShadoX 07.08.10
+'v1.0' => 'ShadoX 07.08.10
 - FIX: Global Messages
 - FIX: Forgotten Password
 - FIX: Gamereset
