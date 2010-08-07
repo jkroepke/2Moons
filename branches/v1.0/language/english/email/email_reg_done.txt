@@ -1,0 +1,7 @@
+Hello %1$s,
+Thank you for registering at %2$s
+
+We are glad that you chose to become a part of our community and we hope you will enjoy yourself!
+
+Regards,
+%2$s - Team
