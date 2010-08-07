@@ -121,7 +121,7 @@ function ShowResetPage()
 
 		if ($_POST['alliances']	==	'on'){
 			$db->query("TRUNCATE TABLE ".ALLIANCE.";");
-			$db->query("UPDATE".USERS." SET `ally_id` = '0', `ally_name` = '', `ally_request` = '0', `ally_request_text` = 'NULL', `ally_register_time` = '0', `ally_rank_id` = '0';");}
+			$db->query("UPDATE ".USERS." SET `ally_id` = '0', `ally_name` = '', `ally_request` = '0', `ally_request_text` = 'NULL', `ally_register_time` = '0', `ally_rank_id` = '0';");}
 
 		if ($_POST['fleets']	==	'on')
 			$db->query( "TRUNCATE TABLE ".FLEETS.";");
