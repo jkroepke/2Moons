@@ -5,6 +5,25 @@ $LNG['Description'] = 'Beschreibung';
 
 $LNG['changelog']   = array(
 
+'RC6' => 'ShadoX 07.08.10
+- FIX: Global Messages
+- FIX: Forgotten Password
+- FIX: Gamereset
+- FIX: Ressouce Glitch
+- FIX: Accout Informationen
+- FIX: Destroying Fleet after Fights
+- FIX: User Activation on ACP
+- FIX: Account delection
+- FIX: Bonusspeed for small cargo
+- FIX: Recycling Derbis
+- FIX: Message delection on ACP
+- FIX: Modules on English language
+- FIX: UpdatePage
+- FIX: class.ShowShipyardPage.php on line 43: Division by zero
+- DIV: Limited Random on Dm Mission
+- DIV: Changed System of Rapidfire
+- DIV: Solved Problems with BattleSimulator
+',
 'RC6' => 'ShadoX 28.07.10
 - ADD: Russian Language (ssAAss &amp; InquisitorEA)
 - ADD: Portuguese Language (morgado)
