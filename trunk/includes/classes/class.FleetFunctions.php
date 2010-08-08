@@ -242,7 +242,7 @@ abstract class FleetFunctions
 	{
 		global $db;
 		
-		$GetAKS 	= $db->query("SELECT `id`, `name`, `galaxy`, `system`, `planet`, `planet_type` FROM ".AKS." WHERE `eingeladen` LIKE '%".$CurrentUserID."%';");
+		$GetAKS 	= $db->query("SELECT `id`, `name`, `galaxy`, `system`, `planet`, `planet_type` FROM ".AKS." WHERE `teilnehmer` = '".$CurrentUserID."' OR `eingeladen` LIKE '%,".$CurrentUserID.",%';");
 		$AKSList	= array();
 		
 		while($row = $db->fetch_array($GetAKS))
@@ -352,7 +352,7 @@ abstract class FleetFunctions
 			`system` = '" . $daten['fleet_end_system'] . "',
 			`planet` = '" . $daten['fleet_end_planet'] . "',
 			`planet_type` = '" . $daten['fleet_end_type'] . "',
-			`eingeladen` = '" . $aks_invited_mr . "';
+			`eingeladen` = '".$aks_invited_mr.",';
 			");
 
 			$db->query("UPDATE ".FLEETS." SET
@@ -398,7 +398,7 @@ abstract class FleetFunctions
 				$add_user_message_mr = "<font color=\"red\">".$LNG['fl_player']." ".$addname." ".$LNG['fl_dont_exist'];
 			else
 			{
-				$aks['eingeladen'] = $aks['eingeladen'].','.$added_user_id_mr;
+				$aks['eingeladen'] = $aks['eingeladen'].$added_user_id_mr.',';
 				$db->query("UPDATE ".AKS." SET `eingeladen` = '".$aks['eingeladen']."' WHERE `id` = '".$daten['fleet_group']."';");
 				$add_user_message_mr = "<font color=\"lime\">".$LNG['fl_player']." ".$addname." ". $LNG['fl_add_to_attack'];
 				$invite_message = $LNG['fl_player'] . $CurrentUser['username'] . $LNG['fl_acs_invitation_message'];
@@ -408,13 +408,13 @@ abstract class FleetFunctions
 		$members = explode(",", $aks['eingeladen']);
 		foreach($members as $a => $b)
 		{
-			if (!empty($b))
+			if (empty($b))
+				continue;
+
+			$member_qry_mr = $db->query("SELECT `username` FROM ".USERS." WHERE `id` ='".$b."' ;");
+			while($row = $db->fetch_array($member_qry_mr))
 			{
-				$member_qry_mr = $db->query("SELECT `username` FROM ".USERS." WHERE `id` ='".$b."' ;");
-				while($row = $db->fetch_array($member_qry_mr))
-				{
-					$pageDos .= "<option>".$row['username']."</option>";
-				}
+				$pageDos .= "<option>".$row['username']."</option>";
 			}
 		}
 
