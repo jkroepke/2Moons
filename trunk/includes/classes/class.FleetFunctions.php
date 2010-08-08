@@ -321,9 +321,10 @@ abstract class FleetFunctions
 	{
 		global $resource, $pricelist, $reslist, $LNG, $db;
 
-		$fleetid 		= $fleetid;
-		$addname		= request_var('addtogroup','',UTF8_SUPPORT);
-		$aks_invited_mr	= request_var('aks_invited_mr',0);
+		$addname		= request_var('addtogroup', '', UTF8_SUPPORT);
+		$aks_invited_mr	= request_var('aks_invited_mr', 0);
+		$name			= request_var('name', '', UTF8_SUPPORT);
+		
 
 		$query = $db->query("SELECT * FROM ".FLEETS." WHERE fleet_id = '" . $fleetid . "';");
 
@@ -334,7 +335,7 @@ abstract class FleetFunctions
 
 		if ($daten['fleet_start_time'] <= TIMESTAMP || $daten['fleet_end_time'] < TIMESTAMP || $daten['fleet_mess'] == 1)
 			exit(header("Location: game.".PHP_EXT."?page=fleet"));
-
+				
 		if (empty($daten['fleet_group']))
 		{
 			$rand 			= mt_rand(100000, 999999999);
@@ -373,7 +374,15 @@ abstract class FleetFunctions
 			
 			$aks	= $db->fetch_array($AKSRAW);
 		}
-		
+	
+		if(!empty($name)) {
+			if(UTF8_SUPPORT && !ctype_alnum($name)) {
+				exit($LNG['fl_acs_newname_alphanum']);
+			}
+			$db->query("UPDATE ".AKS." SET `name` = '".$db->sql_escape($name)."' WHERE `id` = '".$daten['fleet_group']."';");
+			exit;
+		}	
+
 		if(!empty($addname))
 		{
 			$member_qry_mr 		= $db->fetch_array($db->query("SELECT `id` FROM ".USERS." WHERE `username` = '".$db->sql_escape($addname)."' ;"));
@@ -415,6 +424,9 @@ abstract class FleetFunctions
 			'aks_invited_mr'		=> $aks['eingeladen'],
 			'aks_code_mr'			=> $aks['name'],
 			'add_user_message_mr'	=> $add_user_message_mr,
+			'fl_acs_change'			=> $LNG['fl_acs_change'],
+			'fl_acs_change_name'	=> $LNG['fl_acs_change_name'],
+
 		);
 		return $AKSArray;
 	}

@@ -16,28 +16,28 @@ google.load("feeds", "1");
 <br>
 <table width="80%">
 	<tr>
-    	<td class="c" colspan="2">{$ow_overview}</td>
+    	<td class="c">{$ow_overview}</td>
 		<td class="c">Facebook</td>
     </tr>
 	<tr>
-    	<th style="height:50px" colspan="2"><div align="justify">{$ow_welcome_text}</div></th>
+    	<th style="height:50px"><div align="justify">{$ow_welcome_text}</div></th>
 		<th style="width:292px" align="center" rowspan="9">
-			<iframe src="http://www.facebook.com/plugins/likebox.php?id=129282307106646&amp;width=292&amp;connections=10&amp;stream=true&amp;header=true&amp;height=587" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:292px; height:587px;" allowTransparency="true"></iframe>
+			<iframe id="fb_iframe" src="http://www.facebook.com/plugins/likebox.php?id=129282307106646&amp;width=292&amp;connections=10&amp;stream=true&amp;header=true&amp;height=587" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:292px; height:587px; background-color: #FFF" allowTransparency="true"></iframe>
 		</th>
     </tr>
     <tr>
-        <td class="c" colspan="2">{$ow_support}</td>
+        <td class="c">{$ow_support}</td>
     </tr>
     <tr>
-        <th colspan="2"><a href="http://code.google.com/p/2moons/source/list" target="_blank">SVN Revision List</a><br>
+        <th><a href="http://code.google.com/p/2moons/source/list" target="_blank">SVN Revision List</a><br>
 		<a href="http://www.titanspace.org/" target="_blank">Offical Betauni</a><br>
 		<a href="http://www.xnova-reloaded.de/" target="_blank">xnova-reloaded.de - {$ow_forum}</a></th>
     </tr> 
 	<tr>
-		<td class="c" colspan="2">Newest Updates</td>
+		<td class="c">Newest Updates</td>
 	</tr>
 	<tr>
-		<th align="center" colspan="2">
+		<th align="center">
 			<div id="feed"></div>
 			<script type="text/javascript">
 			      function initialize() {
@@ -51,10 +51,10 @@ google.load("feeds", "1");
 		</th>
 	</tr>  
     <tr>
-    	<td class="c" colspan="2">{$ow_credits}</td>
+    	<td class="c">{$ow_credits}</td>
     </tr>
     <tr>
-    	<th colspan="2">
+    	<th>
             <table width="475" align="center" style="text-align:center;">
                 <tr>
 					<td><h3>{$ow_proyect_leader}</h3></td>
@@ -85,10 +85,9 @@ google.load("feeds", "1");
     </tr>
 	<tr>
 		<td class="c">Donate - Paypal</td>
-		<td class="c">Donate - Webmoney</td>
 	</tr>
 	<tr>
-		<th align="center" style="width:50%;">
+		<th align="center">
 		<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
 		<input type="hidden" name="cmd" value="_s-xclick">
 		<input type="hidden" name="hosted_button_id" value="CM6PQFUATN7MS">
@@ -96,44 +95,13 @@ google.load("feeds", "1");
 		<img alt="" border="0" src="https://www.paypal.com/de_DE/i/scr/pixel.gif" width="1" height="1">
 		</form>
 		</th>
-		<th align="center" style="width:50%;">
-			Coming Soon....
-			<table width="100%" align="center" style="text-align:center;">
-                <tr>
-					<td style="width:50%;">
-						<form id="pay" name="pay" method="POST" action="https://merchant.wmtransfer.com/lmi/payment.asp" target="_blank">
-						Amount to Donate:<br>
-						<select name="LMI_PAYMENT_AMOUNT">
-							<option value="1.0">1 WMZ</option>
-							<option value="1.0">5 WMZ</option>
-							<option value="1.0">10 WMZ</option>
-							<option value="1.0">20 WMZ</option>
-						</select>
-						<input type="hidden" name="LMI_PAYMENT_DESC" value="2Moons Donate">
-						<input type="hidden" name="LMI_PAYEE_PURSE" value="Z312353243682">
-						<input type="hidden" name="LMI_SIM_MODE" value="0">
-						<input type="submit" value="Donate" disabled>
-						</form>
-					</td>
-					<td style="width:50%;">
-						<form id="pay" name="pay" method="POST" action="https://merchant.wmtransfer.com/lmi/payment.asp" target="_blank">
-						Amount to Donate:<br>
-						<select name="LMI_PAYMENT_AMOUNT">
-							<option value="1.0">50 WMR</option>
-							<option value="1.0">200 WMR</option>
-							<option value="1.0">400 WMR</option>
-							<option value="1.0">800 WMR</option>
-						</select>
-						<input type="hidden" name="LMI_PAYMENT_DESC" value="2Moons Donate">
-						<input type="hidden" name="LMI_PAYEE_PURSE" value="R351391147470">
-						<input type="hidden" name="LMI_SIM_MODE" value="0">
-						<input type="submit" value="Donate" disabled>
-						</form>
-					</td>
-				</tr>
-			</table>
-		</th>
 	</tr>
 </table>
 </center>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.UIStory_Message').css("color","#CCCCCC");
+
+});
+</script>
 {include file="adm/overall_footer.tpl"}

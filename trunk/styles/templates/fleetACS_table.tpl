@@ -6,10 +6,10 @@
 			<td class="c" colspan="2">{$fl_sac_of_fleet}</td>
 		</tr>
 		<tr style="height:20px;">
-			<td class="c" colspan="2">{$fl_modify_sac_name}</td>
+			<td class="c" colspan="2">{$fl_modify_sac_name} (<a href="javascript:Rename();">{$fl_acs_change}</a>)</td>
 		</tr>
 		<tr>
-			<th colspan="2">{$aks_code_mr}<br>{$add_user_message_mr}</th>
+			<th colspan="2"><span id="aks_name">{$aks_code_mr}</span></th>
 		</tr>
 		<tr style="height:20px;">
 			<td class="c" style="width:50%;">{$fl_members_invited}</td>
@@ -26,4 +26,16 @@
 			</th>
 		</tr>
 	</table>
-	</form>
+</form>
+<script type="text/javascript">
+function Rename(){
+	Name = prompt("{$fl_acs_change_name}", "{$aks_code_mr}");
+	$.get('?page=fleet&action=getakspage&fleetid={$fleetid}&name='+Name, function(data) {
+		if(data != "") {
+			alert(data);
+			return;
+		}
+		$('#aks_name').text(Name);
+	});
+}
+</script>
