@@ -291,7 +291,7 @@ $LNG['info'][12]['description']  = 'Im Atomkraftwerk werden Atome gespalten, um 
 // ----------------------------------------------------------------------------------------------------------
 // Gebäude
 $LNG['info'][6]['name']			 = 'TechoDome';
-$LNG['info'][6]['description']   = 'Der TechoDome verringert die Forschungszeit pro Stufe um 8%';
+$LNG['info'][6]['description']   = 'Aufgrund der immer zeitaufwendigeren Forschungen, haben sich die klügsten Köpfe der intergalaktischen Forschungsnetzwerke zusammengetan und den TechnoDome entwickelt. Es halbiert die Forschungszeiten, wie die allseits bekannte und beliebte Nanitenfabrik die Bauzeiten, was die imensen Baukosten nur allzu rechtfertigt.';
 $LNG['info'][14]['name']		 = 'Roboterfabrik';
 $LNG['info'][14]['description']  = 'Roboterfabriken stellen einfache Arbeitskräfte zur Verfügung, die beim Bau der planetaren Infrastruktur eingesetzt werden können. Jede Stufe erhöht damit die Geschwindigkeit des Ausbaus von Gebäuden.';
 $LNG['info'][15]['name']		 = 'Nanitenfabrik';
