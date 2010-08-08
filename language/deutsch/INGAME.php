@@ -318,7 +318,7 @@ $LNG['fl_dont_exist']						= ' existiert nicht.';
 $LNG['fl_acs_invitation_message']			= ' läd Sie zu einem AKS ein.';
 $LNG['fl_acs_invitation_title']			= 'AKS Einladung';
 $LNG['fl_sac_of_fleet']					= 'Flotten-AKS';
-$LNG['fl_modify_sac_name']					= 'AKS-Name ändern';
+$LNG['fl_modify_sac_name']					= 'AKS-Name';
 $LNG['fl_members_invited']					= 'Eingeladen';
 $LNG['fl_invite_members']					= 'Einladen';
 $LNG['fl_simulate']						= 'Simulieren';
@@ -327,6 +327,10 @@ $LNG['fl_bonus_attack']					= 'Angiff';
 $LNG['fl_bonus_defensive']					= 'Verteidigung';
 $LNG['fl_bonus_shield']					= 'Panzerung';
 $LNG['fl_no_empty_derbis']				= 'Trümmerfeld existiert nicht!';
+$LNG['fl_acs_newname_alphanum']			= 'Der Name darf nur aus alphanumerische Zeichen bestehen.';
+$LNG['fl_acs_change']					= 'Ändern';
+$LNG['fl_acs_change_name']				= 'Geben sie einen neuen Namen ein';
+
 
 //----------------------------------------------------------------------------//
 //BUILDINGS - RESEARCH - SHIPYARD - DEFENSES
