@@ -46,11 +46,10 @@ function ShowAccountEditorPage()
 					$SQL .= "`crystal` = `crystal` + '".$cristal."', ";
 					$SQL .= "`deuterium` = `deuterium` + '".$deut ."' ";
 					$SQL .= "WHERE ";
-					$SQL .= "`id` = '". $id ."' ";
+					$SQL .= "`id` = '". $id ."';";
 					$db->query($SQL);
 
-					if ($id_dark != NULL)
-					{
+					if (!empty($id_dark)) {
 						$SQL  = "UPDATE ".USERS." SET ";
 						$SQL .= "`darkmatter` = `darkmatter` + '". $dark ."' ";
 						$SQL .= "WHERE ";
@@ -66,16 +65,14 @@ function ShowAccountEditorPage()
 					$SQL .= "`crystal` = `crystal` - '". $cristal ."', ";
 					$SQL .= "`deuterium` = `deuterium` - '". $deut ."' ";
 					$SQL .= "WHERE ";
-					$SQL .= "`id` = '". $id ."' ";
+					$SQL .= "`id` = '".$id."';";
 					$db->query($SQL);
 
-
-					if ($id_dark != NULL)
-					{
+					if (!empty($id_dark)) {
 						$SQL  = "UPDATE ".USERS." SET ";
 						$SQL .= "`darkmatter` = `darkmatter` - '". $dark ."' ";
 						$SQL .= "WHERE ";
-						$SQL .= "`id` = '". $id_dark ."' ";
+						$SQL .= "`id` = '". $id_dark ."';";
 						$db->query($SQL);
 					}
 					$template->message($LNG['ad_delete_sucess'], '?page=accounteditor&edit=resources');
