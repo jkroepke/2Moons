@@ -110,7 +110,7 @@ switch ($Mode) {
 			$config = "<tr><th>".$LNG['reg_file']." - config.php</th></th><th><span class=\"no\">".$LNG['reg_not_found']."</span>";
 			$error++;
 		}
-		$directories = array('cache/', 'cache/UserBanner/', 'cache/UserBanner/', 'raports/');
+		$directories = array('cache/', 'cache/UserBanner/', 'cache/sessions/', 'raports/');
 		$dirs = "";
 		foreach ($directories as $dir)
 		{
