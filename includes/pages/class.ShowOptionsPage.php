@@ -25,11 +25,10 @@ class ShowOptionsPage
 	{
 		global $db, $USER;
 
-		list($fleets) = $db->uniquequery("SELECT COUNT(*) FROM ".FLEETS." WHERE `fleet_owner` = '".$USER['id']."' OR `fleet_target_owner` = '".$USER['id']."';");
-		
-		if($fleets != 0)
+		$fleets = $db->uniquequery("SELECT COUNT(*) as state FROM ".FLEETS." WHERE `fleet_owner` = '".$USER['id']."' OR `fleet_target_owner` = '".$USER['id']."';");
+		if($fleets['state'] != 0)
 			return false;
-
+					
 		$query = $db->query("SELECT * FROM ".PLANETS." WHERE id_owner = '".$USER['id']."' AND `destruyed` = 0;");
 		
 		$PlanetRess = new ResourceUpdate();
