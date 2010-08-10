@@ -507,7 +507,7 @@ function CheckModule($ID)
 
 function GetLangs()
 {
-	return $LNG['langs'];
+	return $GLOBALS['LNG']['langs'];
 }
 
 if(!function_exists('ctype_alnum'))
