@@ -98,11 +98,13 @@
       </tr>
     </table></td>
 	<td class='languages_container'>
-	<span class="flags de"><a href="?lang=deutsch">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></span>
-	<span class="flags en"><a href="?lang=english">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></span>
-	<span class="flags es"><a href="?lang=spanish">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></span>
-	<span class="flags pt"><a href="?lang=portuguese">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></span>
-	<span class="flags ru"><a href="?lang=russian">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></span>
+	<a href="?lang=de"><img src="./styles/images/login/de.png" alt="" width="16" height="11"></a>
+	<a href="?lang=en"><img src="./styles/images/login/en.png" alt="" width="16" height="11"></a>
+	<a href="?lang=es"><img src="./styles/images/login/es.png" alt="" width="16" height="11"></a>
+	<a href="?lang=pt"><img src="./styles/images/login/pt.png" alt="" width="16" height="11"></a>
+	<a href="?lang=ru"><img src="./styles/images/login/ru.png" alt="" width="16" height="11"></a>
+	<a href="?lang=cn"><img src="./styles/images/login/cn.png" alt="" width="16" height="11"></a>
+	<a href="?lang=hr"><img src="./styles/images/login/hr.png" alt="" width="16" height="11"></a>
 	&nbsp;&bull;&nbsp;<a onclick="music()" style="cursor:pointer;" id="music">Music: OFF</a></td>
   </tr>
 </table>

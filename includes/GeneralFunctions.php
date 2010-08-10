@@ -507,13 +507,7 @@ function CheckModule($ID)
 
 function GetLangs()
 {
-	$LNGs	= array_diff(scandir(ROOT_PATH.'language/'), array('..', '.', '.svn', '.htaccess', 'index.htm'));
-	$return = array();
-	foreach($LNGs as $LNG)
-	{
-		$return[$LNG]	= ucwords($LNG);
-	}
-	return $return;
+	return $LNG['langs'];
 }
 
 if(!function_exists('ctype_alnum'))
