@@ -1,0 +1,7 @@
+Bok %1$s,
+Hvala vam za registraciju u %2$s
+
+Drago nam je sto ste izabrali da postanete dio nase zajednice i nadamo se da cete uzivati!
+
+Pozdrav,
+%2$s - Team

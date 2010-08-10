@@ -277,7 +277,7 @@ function ShowConfigPage()
 		'ftp_root_path'         	  	=> $CONF['ftp_root_path'],
         'ga_active'               		=> $CONF['ga_active'],
 		'ga_key'           				=> $CONF['ga_key'],
-		'Selector'						=> array('langs' => $CONF['alllangs'], 'mail' => array('' => $LNG['se_smtp_ssl_1'], 'ssl' => $LNG['se_smtp_ssl_2'], 'tls' => $LNG['se_smtp_ssl_3'])),
+		'Selector'						=> array('langs' => GetLangs(), 'mail' => array('' => $LNG['se_smtp_ssl_1'], 'ssl' => $LNG['se_smtp_ssl_2'], 'tls' => $LNG['se_smtp_ssl_3'])),
 		'lang'							=> $CONF['lang'],
 	));
 	
