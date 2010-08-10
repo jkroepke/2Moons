@@ -85,7 +85,6 @@ if (INSTALL != true)
 	$CONF['moduls']		= explode(";", $CONF['moduls']);
 	$CONF['alllangs']	= GetLangs();
 	define('VERSION'		, $CONF['VERSION']);
-
 	if (!defined('LOGIN') && !defined('IN_CRON'))
 	{
 		require_once(ROOT_PATH . 'includes/classes/class.CheckSession.'.PHP_EXT);
@@ -129,7 +128,7 @@ if (INSTALL != true)
 			$db->query("UPDATE ".USERS." SET `lang` ='".$USER['lang']."' WHERE `id` = '".$USER['id']."';");
 		}
 		
-		define('DEFAULT_LANG', array_key_exists($USER['lang'], $CONF['alllangs']) ? $USER['lang'] : $CONF['lang']);
+		define('DEFAULT_LANG', $USER['lang']);
 		includeLang('INGAME');
 		includeLang('TECH');
 		
