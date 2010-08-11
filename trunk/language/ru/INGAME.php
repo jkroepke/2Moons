@@ -1,14 +1,14 @@
 <?php
 
 //LANUAGES
-$LNG['langs']	= array(
-	'de' => 'Deutsch', 
-	'en' => 'Englisch', 
-	'es' => 'Spanisch', 
-	'ru' => 'Russisch', 
-	'pt' => 'Portogisisch', 
-	'cn' => 'Kroatisch', 
-	'hr' => 'Chnesisch',
+$LNG['langs']    = array(
+    'de' => 'Deutsch', 
+    'en' => 'English', 
+    'es' => 'Español', 
+    'ru' => 'Русский', 
+    'pt' => 'Português',
+    'cn' => 'Hrvatski',
+    'hr' => '中文',
 );
 
 // Основная часть сервера
