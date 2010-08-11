@@ -7,41 +7,6 @@ $(document).ready(function(){
 		$("#body").unmask();
 	});
 });
- 
-soundManager.url = 'scripts';
-soundManager.flashVersion = 8;
-soundManager.onready(function() {
-	if (soundManager.supported()) {
-		var loginbgm = soundManager.createSound({
-			id: 'aSound',
-			url: 'scripts/bgm_login.mp3',
-			volume: 50
-		});
-		if($.cookie('music') == null || $.cookie('music') == "on"){
-			loginbgm.play();
-			$('#music').text("Music: ON");
-		}
-	} else {
-		alert('SoundManager failed to load');
-	}
-});
-
-function music() {
-	var loginbgm = soundManager.getSoundById('aSound');
-	var idmusic = $('#music');
-	if(idmusic.text() != "Music: ON")
-	{
-		loginbgm.play();
-		idmusic.text("Music: ON");
-		$.cookie('music', 'on');
-	}
-	else
-	{
-		loginbgm.stop();
-		idmusic.text("Music: OFF");
-		$.cookie('music', 'off');
-	}
-}
 
 function ajax(url){
 	if(url == '?page=reg&getajax=1'){

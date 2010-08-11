@@ -7,10 +7,9 @@ $LNG['langs']    = array(
     'es' => 'Español', 
     'ru' => 'Русский', 
     'pt' => 'Português',
-    'cn' => 'Hrvatski',
-    'hr' => '中文',
+    'cn' => '简体中文',
+    'hr' => 'Hrvatski',
 );
-
 
 //SERVER GENERALS
 $LNG['Metal']								= 'Metal';

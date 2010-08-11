@@ -196,7 +196,7 @@ class template extends Smarty
 	{
 		global $CONF;
 		$this->assign_vars(array(
-			'cron'		=> ((TIMESTAMP >= ($CONF['stat_last_update'] + (60 * $CONF['stat_update_time']))) ? "<img src=\"./cronjobs.php?cron=stats\" alt=\"\" height=\"1\" width=\"1\">" : "").((TIMESTAMP >= ($CONF['stat_last_db_update'] + (60 * 60 * 24))) ? "<img src=\"./cronjobs.php?cron=opdb\" alt=\"\" height=\"1\" width=\"1\">" : ""),
+			'cron'		=> ((TIMESTAMP >= ($CONF['stat_last_update'] + (60 * $CONF['stat_update_time']))) ? "<img src=\"./cronjobs.php?cron=stats\" alt=\"\" height=\"1\" width=\"1\">" : "").((TIMESTAMP >= ($CONF['stat_last_db_update'] + (60 * 60 * 24))) ? "<img src=\"./cronjobs.php?cron=opdb\" alt=\"\" height=\"1\" width=\"1\">" : "").((!CheckModule(37) && TIMESTAMP >= ($CONF['stat_last_banner_update'] + (60 * $CONF['stat_banner_update_time']))) ? "<img src=\"./cronjobs.php?cron=banner\" alt=\"\" height=\"1\" width=\"1\">" : ""),
 			'scripts'	=> $this->script,
 			'ga_active'	=> $CONF['ga_active'],
 			'ga_key'	=> $CONF['ga_key'],
@@ -235,6 +235,8 @@ class template extends Smarty
 			'reg_close'			=> $CONF['reg_closed'],
 			'ga_active'			=> $CONF['ga_active'],
 			'ga_key'			=> $CONF['ga_key'],
+			'bgm_active'		=> $CONF['bgm_active'],
+			'bgm_file'			=> $CONF['bgm_file'],
 			'getajax'			=> request_var('getajax', 0),
 			'lang'				=> DEFAULT_LANG,
 		));

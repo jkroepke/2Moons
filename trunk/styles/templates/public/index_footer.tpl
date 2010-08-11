@@ -11,9 +11,9 @@ lang				= "{$lang}";
 (function() {
         var s = [
             "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js",
-            "scripts/soundmanager2.js",
             "scripts/jquery.loadmask.js",
             "scripts/jquery.cookie.js",
+            {if $bgm_active}"scripts/soundmanager2.js",{/if}
 			{if $fb_active}"http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php",{/if}
             {if $game_captcha}"http://www.google.com/recaptcha/api/js/recaptcha_ajax.js",{/if}
 			{if $ga_active}"http://www.google-analytics.com/ga.js",{/if}
@@ -50,6 +50,45 @@ pageTracker._trackPageview();
 {if $fb_active}
 <script type="text/javascript">	
 FB.init("{$fb_key}", "scripts/xd_receiver.htm");
+</script>
+{/if}
+{if $bgm_active}
+<script type="text/javascript">	
+ 
+soundManager.url = 'scripts';
+soundManager.flashVersion = 8;
+soundManager.onready(function() {
+	if (soundManager.supported()) {
+		var loginbgm = soundManager.createSound({
+			id: 'aSound',
+			url: '{$bgm_file}',
+			volume: 50
+		});
+		if($.cookie('music') == null || $.cookie('music') == "on"){
+			loginbgm.play();
+			$('#music').text("Music: ON");
+		}
+	} else {
+		alert('SoundManager failed to load');
+	}
+});
+
+function music() {
+	var loginbgm = soundManager.getSoundById('aSound');
+	var idmusic = $('#music');
+	if(idmusic.text() != "Music: ON")
+	{
+		loginbgm.play();
+		idmusic.text("Music: ON");
+		$.cookie('music', 'on');
+	}
+	else
+	{
+		loginbgm.stop();
+		idmusic.text("Music: OFF");
+		$.cookie('music', 'off');
+	}
+}
 </script>
 {/if}
 </body>
