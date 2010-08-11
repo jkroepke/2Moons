@@ -10,17 +10,17 @@ $LNG['menu_news']			= 'News';
 $LNG['menu_rules']			= 'Rules'; 
 $LNG['menu_agb']			= 'T&C'; 
 $LNG['menu_pranger']		= 'Banned';
-$LNG['menu_top100']		= 'Hall of Fame';	 
+$LNG['menu_top100']			= 'Hall of Fame';	 
 $LNG['menu_disclamer']		= 'Contact';	 
 	 
 /* ------------------------------------------------------------------------------------------ */
 
 //index.php
 //case lostpassword
-$LNG['mail_not_exist'] 		= 'The e-mail address does not exist!';
+$LNG['mail_not_exist'] 			= 'The e-mail address does not exist!';
 $LNG['mail_title']				= 'New Password';
 $LNG['mail_text']				= 'Your new password is: ';
-$LNG['mail_sended']			= 'Your password has been sent successfully!';
+$LNG['mail_sended']				= 'Your password has been sent successfully!';
 $LNG['mail_sended_fail']		= 'E-mail could not be sent.!';
 $LNG['server_infos']			= array(
 	"A space strategy game in real time.",
@@ -30,15 +30,15 @@ $LNG['server_infos']			= array(
 );
 
 //case default
-$LNG['login_error']			= 'Wrong username / password! <br><a href="index.php">Back</a>';
-$LNG['screenshots']			= 'Screenshots';
+$LNG['login_error']				= 'Wrong username / password! <br><a href="index.php">Back</a>';
+$LNG['screenshots']				= 'Screenshots';
 $LNG['universe']				= 'Universe';
-$LNG['chose_a_uni']			= 'Choose a universe';
+$LNG['chose_a_uni']				= 'Choose a universe';
 
 /* ------------------------------------------------------------------------------------------ */
 
 //lostpassword.tpl
-$LNG['lost_pass_title']		= 'Recover password';
+$LNG['lost_pass_title']			= 'Recover password';
 $LNG['retrieve_pass']			= 'Restore';
 $LNG['email']					= 'E-mail Address';
 
@@ -49,7 +49,7 @@ $LNG['remember_pass']			= 'Auto-Login';
 $LNG['lostpassword']			= 'Forgot Password?';
 $LNG['welcome_to']				= 'Welcome to';
 $LNG['server_description']		= '<strong>%s</strong> is a space strategy game with hundreds of players simultaneously try to be the best. All you need to play is a standard web browser (FireFox is recommended).';
-$LNG['server_register']		= 'Please register now!';
+$LNG['server_register']			= 'Please register now!';
 $LNG['server_message']			= 'Sign up now and experience a new and exciting in the world of';
 $LNG['login']					= 'Login';
 $LNG['disclamer']				= 'Contact';
@@ -58,34 +58,35 @@ $LNG['login_info']				= 'By logging in I accept the <a onclick="ajax(\'?page=rul
 /* ------------------------------------------------------------------------------------------ */
 
 //reg.php - Registrierung
-$LNG['register_closed']			= 'Registration is closed!';
-$LNG['register_at']				= 'Registered at ';
+$LNG['register_closed']				= 'Registration is closed!';
+$LNG['register_at']					= 'Registered at ';
 $LNG['reg_mail_message_pass']		= 'One more step to activate your username';
 $LNG['reg_mail_reg_done']			= 'Welcome to %s!';
-$LNG['invalid_mail_adress']		= 'Invalid e-mail address!<br>';
+$LNG['invalid_mail_adress']			= 'Invalid e-mail address!<br>';
 $LNG['empty_user_field']			= 'Please fill in all fields!<br>';
 $LNG['password_lenght_error']		= 'The password must be at least 4 characters long!<br>';
 $LNG['user_field_no_alphanumeric']	= 'Please enter the username only alphanumeric characters!<br>';
-$LNG['user_field_no_space']		= 'Please do not enter the user name blank!<br>';
-$LNG['planet_field_no_alphanumeric']	= 'Please enter the planet name only alphanumeric characters!<br>';
+$LNG['user_field_no_space']			= 'Please do not enter the user name blank!<br>';
+$LNG['planet_field_no_alphanumeric']= 'Please enter the planet name only alphanumeric characters!<br>';
 $LNG['planet_field_no_space']		= 'Please do not enter the planet name blank!<br>';
 $LNG['terms_and_conditions']		= 'You must accept <a href="index.php?page=agb">T&C</a> and <a href="index.php?page=rules>Rules</a> please!<br>';
-$LNG['user_already_exists']		= 'The username is already taken!<br>';
-$LNG['mail_already_exists']		= 'The e-mail address is already in use!<br>';
+$LNG['user_already_exists']			= 'The username is already taken!<br>';
+$LNG['mail_already_exists']			= 'The e-mail address is already in use!<br>';
 $LNG['wrong_captcha']				= 'Security Code is incorrect!<br>';
-$LNG['different_passwords']		= 'You have entered 2 different passwords!<br>';
-$LNG['different_mails']			= 'You have entered 2 different email addresses!<br>';
+$LNG['different_passwords']			= 'You have entered 2 different passwords!<br>';
+$LNG['different_mails']				= 'You have entered 2 different email addresses!<br>';
 $LNG['welcome_message_from']		= 'Administrator';
 $LNG['welcome_message_sender']		= 'Administrator';
-$LNG['welcome_message_subject']	= 'Welcome';
-$LNG['welcome_message_content']	= 'Welcome to %s!<br>First build a solar power,because energy is needed for the subsequent production of raw materials. To build it, left click in the menu on "building". Then build the 4th Building from the top. There you have energy, you can begin to build mines. Go back to the menu on the building and build a metal mine, then again a crystal mine. In order to be able to build ships you need to have first built a shipyard. What is needed for that you find in the left menu technology. The team wishes you much fun exploring the universe!';
+$LNG['welcome_message_subject']		= 'Welcome';
+$LNG['welcome_message_content']		= 'Welcome to %s!<br>First build a solar power,because energy is needed for the subsequent production of raw materials. To build it, left click in the menu on "building". Then build the 4th Building from the top. There you have energy, you can begin to build mines. Go back to the menu on the building and build a metal mine, then again a crystal mine. In order to be able to build ships you need to have first built a shipyard. What is needed for that you find in the left menu technology. The team wishes you much fun exploring the universe!';
 $LNG['newpass_smtp_email_error']	= '<br><br>An error occurred. Your password is: ';
 $LNG['reg_completed']				= 'Thank you for your subscription! You will receive an email with an activation link.';
+$LNG['planet_already_exists']		= 'The planet position is already occupied! <br>';
 
 //registry_form.tpl
 $LNG['server_message_reg']			= 'Sign up now and be a part of';
-$LNG['register_at_reg']			= 'Registered at';
-$LNG['uni_reg']					= 'Universe';
+$LNG['register_at_reg']				= 'Registered at';
+$LNG['uni_reg']						= 'Universe';
 $LNG['user_reg']					= 'User';
 $LNG['pass_reg']					= 'Password';
 $LNG['pass2_reg']					= 'Confirm Password';
@@ -94,14 +95,14 @@ $LNG['email2_reg']					= 'Confirm E-mail Address';
 $LNG['planet_reg']					= 'Name of Mainplanet';
 $LNG['lang_reg']					= 'Language';
 $LNG['register_now']				= 'Register!';
-$LNG['captcha_reg']				= 'Security question';
-$LNG['accept_terms_and_conditions']= 'I Accept <a onclick="ajax(\'?page=rules&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\');" style="cursor:pointer;">Rules</a> and <a onclick="ajax(\'?page=agb&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\');" style="cursor:pointer;">T&C</a>';
+$LNG['captcha_reg']					= 'Security question';
+$LNG['accept_terms_and_conditions']	= 'I Accept <a onclick="ajax(\'?page=rules&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\');" style="cursor:pointer;">Rules</a> and <a onclick="ajax(\'?page=agb&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\');" style="cursor:pointer;">T&C</a>';
 $LNG['captcha_reload']				= 'Reloading';
 $LNG['captcha_help']				= 'Help';
 $LNG['captcha_get_image']			= 'Load Bild-CAPTCHA';
 $LNG['captcha_reload']				= 'New CAPTCHA';
 $LNG['captcha_get_audio']			= 'Load Sound-CAPTCHA';
-$LNG['user_active']                = 'User %s has been activated!';
+$LNG['user_active']                	= 'User %s has been activated!';
 
 //registry_closed.tpl
 $LNG['info']						= 'Information';
@@ -174,7 +175,7 @@ There they can set any specific rules or terms, they want for the war. Any rules
 
 );
 
-$LNG['rules_info1']				= "";
+$LNG['rules_info1']				= "However, it becomes in this <a href=\"%s\" target=\"_blank\">Forum</a> and over the initial page in the Game informed about it...";
 $LNG['rules_info2']				= "To complement this, the <a onclick=\"ajax('?page=agb&getajax=1');\" style=\"cursor:pointer;\">T&C</a> are considered and followed!</font>";
 
 
@@ -264,13 +265,13 @@ A change or addition will be published at least one week before the entry in For
 
 //Facebook Connect
 
-$LNG['fb_perm']                = 'Access prohibited. %s needs all the rights so you can login with your Facebook account. \n Alternatively, you can login without a Facebook account!';
+$LNG['fb_perm']                	= 'Access prohibited. %s needs all the rights so you can login with your Facebook account. \n Alternatively, you can login without a Facebook account!';
 
 //NEWS
 
 $LNG['news_overview']			= "News";
 $LNG['news_from']				= "On %s by %s";
-$LNG['news_does_not_exist']	= "No news available!";
+$LNG['news_does_not_exist']		= "No news available!";
 
 //Impressum
 
@@ -278,7 +279,7 @@ $LNG['disclamer']				= "Disclaimer";
 $LNG['disclamer_name']			= "Name";
 $LNG['disclamer_adress']		= "Address";
 $LNG['disclamer_tel']			= "Phone:";
-$LNG['disclamer_email']		= "E-mail Address";
+$LNG['disclamer_email']			= "E-mail Address";
 
 // Translated into English by Languar . All rights reversed (C) 2010
 

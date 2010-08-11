@@ -10,7 +10,7 @@ $LNG['menu_upgrade']		= "Upgrade";
 $LNG['intro_lang']			= "Language";
 $LNG['intro_instal']		= "Installation";
 $LNG['intro_welcome']		= "Welcome to 2Moons!";
-$LNG['intro_text']			= "2Moons is one of the best oGame clones.<br>2Moons is the best in development. 2Moons features stability, flexibility, dynamic structure, quality and usability. We hope to always exceed your expecttions.<br><br>The installation system guides you through the install or upgrade from an older version to the latest. On questions or trouble don't hesitate to contact us.<br><br>2Moons is an open source project licensed under the GNU GPL v3. For the license please click on the item in the menu.<br><br>Before the installation starts, a test is conducted, if system requirements are met.";
+$LNG['intro_text']			= "One of the best clones of OGame is 2 Moons.<br>The latest is and 2 Moons the stablest flat rate was ever developed. 2 of Moon shines by stability, flexibility, dynamics, quality and user-friendliness. We hope always to be better than her expectations.<br><br>The installation system guides you through the install or upgrade from an older version to the latest. On questions or trouble don't hesitate to contact us.<br><br>2Moons is an open source project licensed under the GNU GPL v3. For the license please click on the item in the menu.<br><br>Before the installation starts, a test is conducted, if system requirements are met.";
 
 $LNG['reg_yes']			= "Yes";
 $LNG['reg_no']				= "No";
