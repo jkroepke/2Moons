@@ -107,7 +107,7 @@ INSERT INTO `prefix_config` (`config_name`, `config_value`) VALUES
 ('forum_url', 'http://www.xnova-reloaded.eu/'),
 ('adm_attack', '0'),
 ('debug', '0'),
-('lang', 'deutsch'),
+('lang', 'de'),
 ('stat', '0'),
 ('stat_level', '2'),
 ('stat_last_update', '1'),
@@ -148,7 +148,11 @@ INSERT INTO `prefix_config` (`config_name`, `config_value`) VALUES
 ('ga_active', '0'),
 ('ga_key', ''),
 ('moduls', '1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1'),
-('stat_last_db_update', '0');
+('stat_last_db_update', '0'),
+('bgm_active', '1'), 
+('bgm_file', './scripts/bgm_login.mp3'), 
+('stat_last_banner_update', '0'), 
+('stat_banner_update_time', '1440');
 
 CREATE TABLE IF NOT EXISTS `prefix_diplo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
