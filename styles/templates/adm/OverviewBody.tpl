@@ -66,19 +66,19 @@ google.load("feeds", "1");
 					<td><h3>Team</h3></td>
                 </tr>
                 <tr>
-					<td>Inforcer - Language<br>neox301291 - GFX</td>
+					<td>neox301291 - GFX<br>steath1 - Board Moderrator</td>
                 </tr>
 		        <tr>
 					<td><h3>{$ow_translator}</h3></td>
                 </tr>
                 <tr>
-					<td>languar (english)<br>ssAAss (russian)<br>InquisitorEA (russian)<br>morgado (portuguese)<br>ZideN (spanish)</td>
+					<td>languar (english)<br>ssAAss (russian)<br>InquisitorEA (russian)<br>morgado (portuguese)<br>ZideN (spanish)<br>werst (croatian)<br>hanhot (chinese)</td>
                 </tr> 
                 <tr>
 					<td><h3>{$ow_special_thanks}</h3></td>
                 </tr>
                 <tr>
-					<td>lucky<br>Metusalem<br>Meikel<br>Phil<br>Schnippi<br>Vobi<br>Onko<br>Sycrog<br>Raito<br>Chlorel<br>e-Zobar<br>Flousedid<br>Allen Spielern im <a href="http://www.titanspace.org" target="blank">Betauni</a> ...<br>... sowie der Community auf xnova-reloaded.eu</td>
+					<td>lucky<br>Metusalem<br>Meikel<br>Phil<br>Schnippi<br>Inforcer<br>Vobi<br>Onko<br>Sycrog<br>Raito<br>Chlorel<br>e-Zobar<br>Flousedid<br>Allen Spielern im <a href="http://www.titanspace.org" target="blank">Betauni</a> ...<br>... sowie der Community auf xnova-reloaded.eu</td>
                 </tr>    
             </table>
         </th>

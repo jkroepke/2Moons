@@ -179,6 +179,16 @@
     <th>{$se_google_key}</th>
     <th><input name="ga_key" size="20" maxlength="15" value="{$ga_key}" type="text"></th>
 	<th><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_google_key_info}", CENTER, OFFSETX, -150, OFFSETY, -20, WIDTH, 250);' onMouseOut='return nd();'></th>
+</tr><tr>
+	<td class="c" colspan="2">{$se_bgm_login}</td><td class="c">&nbsp;</td>
+</tr><tr>
+    <th>{$se_bgm_active}</th>
+    <th><input name="bgm_active"{if $bgm_active} checked="checked"{/if} type="checkbox"></th>
+	<th><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_bgm_info}", CENTER, OFFSETX, -150, OFFSETY, -20, WIDTH, 250);' onMouseOut='return nd();'></th>
+</tr><tr>
+    <th>{$se_bgm_file}</th>
+    <th><input name="bgm_file" size="40" value="{$bgm_file}" type="text"></th>
+	<th><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_bgm_file_info}", CENTER, OFFSETX, -150, OFFSETY, -20, WIDTH, 250);' onMouseOut='return nd();'></th>
 </tr>
 <tr>
 	<th colspan="3"><input value="{$se_save_parameters}" type="submit"></th>

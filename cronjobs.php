@@ -64,11 +64,15 @@ switch($cron)
 			}
 			$db->query("OPTIMIZE TABLE ".substr($table, 0, -2).";");
 			unset($database);
-			if(!CheckModule(37)){
-				require_once(ROOT_PATH . 'includes/classes/class.StatBanner.php');
-				$banner	= new StatBanner();
-				$banner->BuildIMGforAll();
-			}
+		}
+	break;
+	case "banner":
+		if (!CheckModule(37) && TIMESTAMP >= ($CONF['stat_last_banner_update'] + (60 * $CONF['stat_banner_update_time'])))
+		{
+			update_config('stat_last_banner_update', TIMESTAMP);
+			require_once(ROOT_PATH . 'includes/classes/class.StatBanner.php');
+			$banner	= new StatBanner();
+			$banner->BuildIMGforAll();
 		}
 	break;
 }

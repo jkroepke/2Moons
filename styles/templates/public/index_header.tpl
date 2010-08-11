@@ -105,7 +105,7 @@
 	<a href="?lang=ru"><img src="./styles/images/login/ru.png" alt="" width="16" height="11"></a>
 	<a href="?lang=cn"><img src="./styles/images/login/cn.png" alt="" width="16" height="11"></a>
 	<a href="?lang=hr"><img src="./styles/images/login/hr.png" alt="" width="16" height="11"></a>
-	&nbsp;&bull;&nbsp;<a onclick="music()" style="cursor:pointer;" id="music">Music: OFF</a></td>
+	{if $bgm_active}&nbsp;&bull;&nbsp;<a onclick="music()" style="cursor:pointer;" id="music">Music: OFF</a></td>{/if}
   </tr>
 </table>
 <br>

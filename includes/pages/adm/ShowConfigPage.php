@@ -87,6 +87,12 @@ function ShowConfigPage()
 			$CONF['ga_active'] = 0;
 		}
 		
+		if (isset($_POST['bgm_active']) && $_POST['bgm_active'] == 'on') {
+			$CONF['bgm_active'] = 1;
+		} else {
+			$CONF['bgm_active'] = 0;
+		}
+		
 		$CONF['close_reason']			= request_var('close_reason', '', true);
 		$CONF['game_name']				= request_var('game_name', '', true);
 		$CONF['forum_url'] 				= request_var('forum_url', '', true);
@@ -106,6 +112,7 @@ function ShowConfigPage()
 		$CONF['cappublic']				= request_var('cappublic', '');
 		$CONF['min_build_time']			= request_var('min_build_time', 0);
 		$CONF['ga_key']					= request_var('ga_key', '', true);
+		$CONF['bgm_file']				= request_var('bgm_file', '', true);
 		$CONF['smtp_host']				= request_var('smtp_host', '', true);
 		$CONF['smtp_port']				= request_var('smtp_port', 0);
 		$CONF['smtp_user']				= request_var('smtp_user', '', true);
@@ -158,6 +165,8 @@ function ShowConfigPage()
 		update_config('ftp_root_path'			, $CONF['ftp_root_path']);
 		update_config('ga_active'				, $CONF['ga_active']);
 		update_config('ga_key'					, $CONF['ga_key']);
+		update_config('bgm_active'				, $CONF['bgm_active']);
+		update_config('bgm_file'				, $CONF['bgm_file']);
 	}
 	
 	$template	= new template();
@@ -214,6 +223,7 @@ function ShowConfigPage()
 		'se_recaptcha_desc'				=> $LNG['se_recaptcha_desc'],
 		'se_recaptcha_public'			=> $LNG['se_recaptcha_public'],
 		'se_recaptcha_private'			=> $LNG['se_recaptcha_private'],
+		'se_smtp'						=> $LNG['se_smtp'],
 		'se_smtp_info'					=> $LNG['se_smtp_info'],
 		'se_smtp_host'					=> $LNG['se_smtp_host'],
 		'se_smtp_host_info'				=> $LNG['se_smtp_host_info'],
@@ -236,6 +246,12 @@ function ShowConfigPage()
 		'se_google_active'				=> $LNG['se_google_active'],
 		'se_google_info'				=> $LNG['se_google_info'],
 		'se_google_key'					=> $LNG['se_google_key'],
+		'se_google_key_info'			=> $LNG['se_google_key_info'],
+		'se_bgm_login'					=> $LNG['se_bgm_login'],
+		'se_bgm_active'					=> $LNG['se_bgm_active'],
+		'se_bgm_info'					=> $LNG['se_bgm_info'],
+		'se_bgm_file'					=> $LNG['se_bgm_file'],
+		'se_bgm_file_info'				=> $LNG['se_bgm_file_info'],
 		'se_google_key_info'			=> $LNG['se_google_key_info'],
 		'se_save_parameters'			=> $LNG['se_save_parameters'],
 		'game_name'						=> $CONF['game_name'],
@@ -277,6 +293,8 @@ function ShowConfigPage()
 		'ftp_root_path'         	  	=> $CONF['ftp_root_path'],
         'ga_active'               		=> $CONF['ga_active'],
 		'ga_key'           				=> $CONF['ga_key'],
+        'bgm_active'               		=> $CONF['bgm_active'],
+		'bgm_file'           			=> $CONF['bgm_file'],
 		'Selector'						=> array('langs' => GetLangs(), 'mail' => array('' => $LNG['se_smtp_ssl_1'], 'ssl' => $LNG['se_smtp_ssl_2'], 'tls' => $LNG['se_smtp_ssl_3'])),
 		'lang'							=> $CONF['lang'],
 	));

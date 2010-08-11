@@ -244,21 +244,22 @@ $LNG['et_encript']			= 'Generieren';
 
 
 //---------------	CONFIGURACIÓN DE ESTADÍSTICAS - STATS CONFIG - Stats-Config	------------------------//
-$LNG['cs_title']					= 'Einstellungen der Parameter der Statistik';
-$LNG['cs_point_per_resources_used']			= '1 Punkt als Wert';
+$LNG['cs_title']						= 'Einstellungen der Parameter der Statistik';
+$LNG['cs_point_per_resources_used']		= '1 Punkt als Wert';
 $LNG['cs_resources']					= 'Rohstoffe';
 $LNG['cs_users_per_block']				= 'Benutzer pro Block (min. 10)';
 $LNG['cs_fleets_on_block']				= 'Update Flotten im Block';
-$LNG['cs_time_between_updates']			= 'Die Zeit zwischen den Aktualisierungen der Statistiken';
-$LNG['cs_minutes']					= 'Minuten';
+$LNG['cs_time_between_updates']			= 'Zeitinterval der Aktualisierungen der Statistiken';
+$LNG['cs_minutes']						= 'Minuten';
 $LNG['cs_points_to_zero']				= 'Administratoren 0 Punkte zuweisen...';
 $LNG['cs_access_lvl']					= '... ab Ranklevel (Authlevel)';
-$LNG['cs_save_changes']				= 'Speichern';
+$LNG['cs_save_changes']					= 'Speichern';
 $LNG['cs_timeact_1']					= 'Letzte Update war am: ';
-$LNG['cs_yes']						= 'Ja';
-$LNG['cs_no']						= 'Nein';
-$LNG['cs_no_view']					= 'Admins ausblenden';
-
+$LNG['cs_yes']							= 'Ja';
+$LNG['cs_no']							= 'Nein';
+$LNG['cs_no_view']						= 'Admins ausblenden';
+$LNG['cs_banner_time_between_updates']	= 'Zeitinterval der Aktualisierungen der Statistikenbanner';
+$LNG['cs_banner_title']					= 'Einstellungen der Parameter der Statistikbanner';
 //###########################################################//
 
 
@@ -409,11 +410,16 @@ $LNG['se_ftp_user']					= 'FTP User:';
 $LNG['se_ftp_pass']					= 'FTP Passwort:';
 $LNG['se_ftp_dir']						= 'FTP Gamepfad:';
 $LNG['se_ftp_dir_info']				= 'Hier ist der Pfad zum Game im FTP-Server gemeint. Der Pfad muss ohne Slash enden und mit einem beginnen!<br>Beispiel: /httpdocs';
-$LNG['se_google']						= 'Google Analytics - EInstellungen';
+$LNG['se_google']						= 'Google Analytics - Einstellungen';
 $LNG['se_google_info']					= 'Google Analytics ist die Unternehmenslösung für Webanalysen, mit der Sie wertvolle Erkenntnisse über die Zugriffe auf Ihre Website und die Wirkung Ihrer Marketingstrategien gewinnen. Dank der leistungsstarken, flexiblen und nutzerfreundlichen Funktionen können Sie jetzt Ihre Zugriffsdaten auf ganz neue Weise analysieren und anzeigen. Mit Google Analytics können Sie Ihre Werbung zielgerichtet gestalten, Ihre Marketingkampagnen stärken und Websites mit hohen Conversion-Raten entwickeln.';
 $LNG['se_google_active']				= 'Aktivieren?';
 $LNG['se_google_key']					= 'Analytics Key';
 $LNG['se_google_key_info']				= 'Der Identify-Key für ihre Webseite. Diese beginnt immer mit UA, z.B.: UA-13185300-3';
+$LNG['se_bgm_login']					= 'Loginmusik';
+$LNG['se_bgm_active']					= 'Aktivieren?';
+$LNG['se_bgm_info']						= 'Die Musik, die auf der Startseite im Hintergrund läuft.';
+$LNG['se_bgm_file']						= 'Pfad:';
+$LNG['se_bgm_file_info']				= 'Relative oder absolute Pfadangaben möglich!';
 	
 //###########################################################//
 
