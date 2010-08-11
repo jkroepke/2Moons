@@ -26,20 +26,20 @@
 
 //---------------	GENERAL	------------------------// 
 
-$ LNG ['adm_password'] 			= 'password'; 
-$ LNG ['adm_password_info']		= 'enters your password to certify you'!; 
-$ LNG ['adm_bad_password'] 		= 'wrong password'!; 
-$ LNG [' 404_ page '] 			= 'you do not have the necessary right to it'; 
-$ LNG ['adm_cp_title'] 			= 'administration centre'; 
-$ LNG ['adm_cp_index'] 			= 'initial page'; 
-$ LNG ['mu_moderation_page'] 	= 'right'; 
-$ LNG ['adm_cp_logout'] 		= 'quit'; 
+$LNG['adm_password'] 			= 'password'; 
+$LNG['adm_password_info']		= 'enters your password to certify you'!; 
+$LNG['adm_bad_password'] 		= 'wrong password'!; 
+$LNG[' 404_ page '] 			= 'you do not have the necessary right to it'; 
+$LNG['adm_cp_title'] 			= 'administration centre'; 
+$LNG['adm_cp_index'] 			= 'initial page'; 
+$LNG['mu_moderation_page'] 	= 'right'; 
+$LNG['adm_cp_logout'] 		= 'quit'; 
 
 //	MISCELaNEO - MISCELLANEOUS
-$ LNG ['ad_number'] 			= 'ID'; 
-$ LNG ['ad_max']  				= '(max. % d)'; 
-$ LNG ['only_numbers']			= 'you can enter only numbers '!; 
-$ LNG ['select_option'] 		= 'vote...'; 
+$LNG['ad_number'] 			= 'ID'; 
+$LNG['ad_max']  				= '(max. % d)'; 
+$LNG['only_numbers']			= 'you can enter only numbers '!; 
+$LNG['select_option'] 		= 'vote...'; 
 
 // 	RANGO - RANK
 $LNG['rank'][0]					= 'Player';
