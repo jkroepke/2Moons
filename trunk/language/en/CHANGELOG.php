@@ -1,7 +1,7 @@
 <?php
 
 $LNG['Version']     = 'Version';
-$LNG['Description'] = 'Beschreibung';
+$LNG['Description'] = 'Description';
 
 $LNG['changelog']   = array(
 
