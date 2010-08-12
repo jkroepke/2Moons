@@ -36,7 +36,7 @@ define('REVISION' 			, "874");
 define('ROOT_PATH', './../');
 include(ROOT_PATH . 'extension.inc');
 include(ROOT_PATH . 'common.'.PHP_EXT);
-define('DEFAULT_LANG'	, (empty($_REQUEST['lang'])) ? 'deutsch' : $_REQUEST['lang']);
+define('DEFAULT_LANG'	, (empty($_REQUEST['lang'])) ? 'de' : $_REQUEST['lang']);
 includeLang('INSTALL');
 $Mode     = $_GET['mode'];
 $Page     = $_GET['page'];
