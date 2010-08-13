@@ -151,7 +151,7 @@ abstract class FleetFunctions
 		{
 			$ShipSpeed         = self::GetShipSpeed($Ship, $Player);
 			$ShipConsumption   = self::GetShipConsumption($Ship, $Player);
-			$spd               = 35000 / (round($MissionDuration,0) * $GameSpeed - 10) * sqrt($MissionDistance * 10 / $ShipSpeed);
+			$spd               = 35000 / (round($MissionDuration, 0) * $GameSpeed - 10) * sqrt($MissionDistance * 10 / $ShipSpeed);
 			$basicConsumption  = $ShipConsumption * $Count;
 			$consumption      += $basicConsumption * $MissionDistance / 35000 * (($spd / 10) + 1) * (($spd / 10) + 1);
 		}

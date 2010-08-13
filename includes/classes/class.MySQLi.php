@@ -238,7 +238,7 @@ class DB_mysqli extends mysqli
 	 */
 	public function sql_escape($string)
 	{
-		return parent::escape_string($string);
+		return addcslashes(parent::escape_string($string), '%_');
 	}
 
 	/**
