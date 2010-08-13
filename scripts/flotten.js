@@ -47,7 +47,6 @@ function setTargetLong(galaxy, solarsystem, planet, planettype, mission, cnt) {
 
 function maxspeed() {
 	var msp = document.getElementsByName("speedallsmin")[0].value;
-	var speeds = 
 	return msp / 10 * speed();
 }
 
