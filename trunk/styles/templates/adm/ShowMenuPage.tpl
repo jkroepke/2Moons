@@ -25,9 +25,14 @@
 	<tr>
        	<td><div align="center"><a href="?page=statsconf" target="Hauptframe">{$mu_stats_options}</a></div></td>
    	</tr>
+	{if $Admin == 1}
     <tr>
         <td><div align="center"><a href="?page=update" target="Hauptframe">{$mu_update}</a></div></td>
     </tr>
+    <tr>
+        <td><div align="center"><a href="?page=mods" target="Hauptframe">{$mu_mod_update}</a></div></td>
+    </tr>
+	{/if}
 {/if}		
 {if $EditUsers == 1}
 	<tr>

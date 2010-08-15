@@ -2,9 +2,9 @@
 {include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
 <div id="content" class="content">
-    <table width="600" align="center">
+    <table style="width:50%">
         <tr>
-          <td class="c" colspan="8">{$al_users_list}</td>
+          <th colspan="8">{$al_users_list}</th>
         </tr>
         <tr>
           <th>{$al_num}</th>
@@ -18,18 +18,18 @@
         </tr>
         {foreach name=Memberlist item=MemberInfo from=$Memberlist}
 		<tr>
-			<th>{$smarty.foreach.Memberlist.iteration}</th>
-			<th>{$MemberInfo.username}</th>
-			<th><a href="javascript:f('game.php?page=messages&amp;mode=write&amp;id={$MemberInfo.id}','');"><img src="{$dpath}img/m.gif" border="0" title="{$rite_message}"></a></th>
-			<th>{$MemberInfo.range}</th>
-			<th>{$MemberInfo.points}</th>
-			<th><a href="game.php?page=galaxy&amp;mode=3&amp;galaxy={$MemberInfo.galaxy}&amp;system={$MemberInfo.system}">[{$MemberInfo.galaxy}:{$MemberInfo.system}:{$MemberInfo.planet}]</a></th>
-			<th>{$MemberInfo.register_time}</th>
-			<th>{if $seeonline}{if $MemberInfo.onlinetime < 4}<font color="lime">{$al_memberlist_on}</font>{elseif $MemberInfo.onlinetime >= 4 && $MemberInfo.onlinetime <= 15}<font color="yellow">{$MemberInfo.onlinetime} {$al_memberlist_min}</font>{else}<font color="red">{$al_memberlist_off}</font>{/if}{else}-{/if}</th>
+			<td>{$smarty.foreach.Memberlist.iteration}</td>
+			<td>{$MemberInfo.username}</td>
+			<td><a href="javascript:f('game.php?page=messages&amp;mode=write&amp;id={$MemberInfo.id}','');"><img src="{$dpath}img/m.gif" border="0" title="{$write_message}"></a></td>
+			<td>{$MemberInfo.range}</td>
+			<td>{$MemberInfo.points}</td>
+			<td><a href="game.php?page=galaxy&amp;mode=3&amp;galaxy={$MemberInfo.galaxy}&amp;system={$MemberInfo.system}">[{$MemberInfo.galaxy}:{$MemberInfo.system}:{$MemberInfo.planet}]</a></td>
+			<td>{$MemberInfo.register_time}</td>
+			<td>{if $seeonline}{if $MemberInfo.onlinetime < 4}<span style="color:lime">{$al_memberlist_on}</span>{elseif $MemberInfo.onlinetime >= 4 && $MemberInfo.onlinetime <= 15}<style="color:yellow">{$MemberInfo.onlinetime} {$al_memberlist_min}</span>{else}< style="color:red">{$al_memberlist_off}</span>{/if}{else}-{/if}</td>
 		</tr>
 		{/foreach}
         <tr>
-          <td class="c" colspan="9"><a href="game.php?page=alliance">{$al_back}</a></td>
+          <th colspan="8"><a href="game.php?page=alliance">{$al_back}</a></th>
         </tr>
     </table>
 </div>

@@ -3,20 +3,20 @@
 {include file="left_menu.tpl"}
 <div id="content" class="content">
    <form action="game.php?page=alliance&amp;mode=make&amp;action=send" method="POST">
-        <table width="519" align="center">
+        <table class="table519">
             <tr>
-                <td class="c" colspan=2>{$al_make_alliance}</td>
+                <th colspan=2>{$al_make_alliance}</th>
             </tr>
             <tr>
-                <th>{$al_make_ally_tag_required}</th>
-                <th><input type="text" name="atag" size="8" maxlength="8" value=""></th>
+                <td>{$al_make_ally_tag_required}</td>
+                <td><input type="text" name="atag" size="8" maxlength="8" value=""></td>
             </tr>
             <tr>
-                <th>{$al_make_ally_name_required}</th>
-                <th><input type="text" name="aname" size="20" maxlength="30" value=""></th>
+                <td>{$al_make_ally_name_required}</th>
+                <td><input type="text" name="aname" size="20" maxlength="30" value=""></td>
             </tr>
             <tr>
-                <th colspan="2"><input type="submit" value="{$al_make_submit}"></th>
+                <td colspan="2"><input type="submit" value="{$al_make_submit}"></td>
             </tr>
         </table>
     </form>
