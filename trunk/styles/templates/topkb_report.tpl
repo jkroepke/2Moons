@@ -1,11 +1,9 @@
 {include file="overall_header.tpl"}
-<table border="0" width="100%">
-<tr align="center">
-<td width="40%"><span style="font-size:22px;font-weight:bold;">{$attacker}</span>
-</td><td>
-<span style="font-size:22px;font-weight:bold;">VS</span>
-</td><td width="40%"><span style="font-size:22px;font-weight:bold;">{$defender}</span></td></tr></table>
-<center>
+<table style="width:100%">
+<tr>
+	<td class="tansparent" style="width:40%;font-size:22px;font-weight:bold;">{$attacker}</td>
+	<td class="tansparent" style="font-size:22px;font-weight:bold;">VS</td>
+	<td class="tansparent" style="width:40%;font-size:22px;font-weight:bold;">{$defender}</td>
+</tr></table>
 {$report}
-</center>
 {include file="overall_footer.tpl"}

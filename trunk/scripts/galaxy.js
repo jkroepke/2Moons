@@ -57,6 +57,6 @@ function setShips(ship, count) {
 }
 
 function galaxy_submit(value) {
-	document.getElementById('auto').name = value;
-	document.getElementById('galaxy_form').submit();
+	$('#auto').attr('name', value);
+	$('#galaxy_form').submit();
 }

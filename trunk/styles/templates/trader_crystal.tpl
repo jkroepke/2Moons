@@ -9,27 +9,27 @@ res_b = {$mod_ma_res_b};
     <form id="trader" action="" method="post">
     <input type="hidden" name="ress" value="crystal">
 	<input type="hidden" name="action" value="trade">
-    <table width="569" align="center">
+    <table class="table569">
     <tr>
-        <td class="c" colspan="5"><b>{$tr_sell_crystal}</b></td>
+        <th>{$tr_sell_crystal}</th>
     </tr><tr>
-        <th>{$tr_resource}</th>
-        <th>{$tr_amount}</th>
-        <th>{$tr_quota_exchange}</th>
+        <td>{$tr_resource}</td>
+        <td>{$tr_amount}</td>
+        <td>{$tr_quota_exchange}</td>
     </tr><tr>
-        <th>{$Crystal}</th>
-        <th><span id='crystal'></span>&nbsp;</th>
-        <th>1</th>
+        <td>{$Crystal}</td>
+        <td><span id='crystal'></span>&nbsp;</td>
+        <td>1</td>
     </tr><tr>
-        <th>{$Metal}</th>
-        <th><input name="metal" id="metal" type="text" value="0" onkeyup="calcul('{$ress}')"></th>
-        <th>{$mod_ma_res_a}</th>
+        <td>{$Metal}</td>
+        <td><input name="metal" id="metal" type="text" value="0" onkeyup="calcul('{$ress}')"></td>
+        <td>{$mod_ma_res_a}</td>
     </tr><tr>
-        <th>{$Deuterium}</th>
-        <th><input name="deuterium" id="deuterium" type="text" value="0" onkeyup="calcul('{$ress}')"></th>
-        <th>{$mod_ma_res_b}</th>
+        <td>{$Deuterium}</td>
+        <td><input name="deuterium" id="deuterium" type="text" value="0" onkeyup="calcul('{$ress}')"></td>
+        <td>{$mod_ma_res_b}</td>
     </tr><tr>
-        <th colspan="6"><input type="submit" value="{$tr_exchange}"></th>
+        <td colspan="3"><input type="submit" value="{$tr_exchange}"></td>
     </tr>
     </table>
     </form>

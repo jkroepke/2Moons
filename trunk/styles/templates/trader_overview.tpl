@@ -3,11 +3,11 @@
 {include file="left_menu.tpl"}
 <div id="content" class="content">
 <form action="game.php?page=trader" method="post">
-    <table width="600" align="center">
+    <table style="width:519px;">
     <tr>
-        <td class="c" colspan="10">{$tr_call_trader}<td>
+        <th colspan="10">{$tr_call_trader}</th>
     </tr><tr>
-        <th colspan="10">{$tr_call_trader_who_buys}
+        <td colspan="10">{$tr_call_trader_who_buys}
           <select name="ress">
             <option value="metal">{$Metal}</option>
             <option value="crystal">{$Crystal}</option>
@@ -15,7 +15,7 @@
         </select>
         <br><br>{$tr_cost_dm_trader}<br><br>
         {$tr_exchange_quota}<br>
-        <input type="submit" value="{$tr_call_trader_submit}"></th>
+        <input type="submit" value="{$tr_call_trader_submit}"></td>
     </tr>
     </table>
     </form>
