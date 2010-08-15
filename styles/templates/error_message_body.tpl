@@ -8,12 +8,12 @@
 {/if}
 {/if}
 <div id="content" class="content">
-    <table width="519" align="center">
+    <table style="min-width:519px;width:519px;">
 		<tr>
-            <td class="c">{$fcm_info}</td>
+            <th>{$fcm_info}</th>
         </tr>
 		<tr>
-            <th class="errormessage">{$mes}</th>
+            <td>{$mes}</td>
         </tr>
     </table>
 </div>

@@ -22,70 +22,70 @@
 <input type="hidden" name="thisresource3" 	value="{$thisdeuterium}">
 <br>
 <div id="content" class="content">
-    <table border="0" cellpadding="0" cellspacing="1" width="519" align="center">
+   	<table class="table519">
         <tr>
-        	<td class="c" colspan="2">{$thisgalaxy}:{$thissystem}:{$thisplanet} - {if $thisplanet_type == 3}{$fl_moon}{else}{$fl_planet}{/if}</td>
+        	<th colspan="2">{$thisgalaxy}:{$thissystem}:{$thisplanet} - {if $thisplanet_type == 3}{$fl_moon}{else}{$fl_planet}{/if}</th>
         </tr>
 		<tr>
-			<td class="c">{$fl_mission}</td>
-        	<td class="c">{$fl_resources}</td>
+			<th>{$fl_mission}</th>
+        	<th>{$fl_resources}</th>
         </tr>
-		<tr align="left" valign="top">
-			<th width="50%" style=";margin:0;padding:0;">
+		<tr class="left top">
+			<td style="width:50%;margin:0;padding:0;">
         		<table border="0" cellpadding="0" cellspacing="0" width="259" style="margin:0;padding:0;">
         			{foreach item=MissionName key=MissionID from=$MissionSelector}
 					<tr style="height:20px;">
-						<th style="text-align:left">
+						<td class="transparent left">
 						<input id="radio_{$MissionID}" type="radio" name="mission" value="{$MissionID}" {if $mission == $MissionID}checked="checked"{/if} style="width:60px;"><label for="radio_{$MissionID}">{$MissionName}</label><br>
-							{if $MissionID == 15}<br><p style="color:red;padding-left:13px;">{$fl_expedition_alert_message}"</p><br>{/if}
-							{if $MissionID == 11}<br><p style="color:red;padding-left:13px;">{$fl_dm_alert_message}</p><br>{/if}
-						</th>
+							{if $MissionID == 15}<br><div style="color:red;padding-left:13px;">{$fl_expedition_alert_message}"</div><br>{/if}
+							{if $MissionID == 11}<br><div style="color:red;padding-left:13px;">{$fl_dm_alert_message}</div><br>{/if}
+						</td>
 					</tr>
 					{/foreach}
         		</table>
-        	</th>
-        	<th style="vertical-align:top;">
+        	</td>
+        	<td class="top"
 				<table border="0" cellpadding="0" cellspacing="0" width="259">
                     <tr style="height:20px;">
-        				<th>{$Metal}</th>
-        				<th><a href="javascript:maxResource('1');">{$fl_max}</a></th>
-        				<th><input name="resource1" size="10" onchange="calculateTransportCapacity();" type="text"></th>
+        				<td class="transparent">{$Metal}</td>
+        				<td class="transparent"><a href="javascript:maxResource('1');">{$fl_max}</a></th>
+        				<td class="transparent"><input name="resource1" size="10" onchange="calculateTransportCapacity();" type="text"></td>
         			</tr>
                     <tr style="height:20px;">
-        				<th>{$Crystal}</th>
-        				<th><a href="javascript:maxResource('2');">{$fl_max}</a></th>
-        				<th><input name="resource2" size="10" onchange="calculateTransportCapacity();" type="text"></th>
+        				<td class="transparent">{$Crystal}</td>
+        				<td class="transparent"><a href="javascript:maxResource('2');">{$fl_max}</a></th>
+        				<td class="transparent"><input name="resource2" size="10" onchange="calculateTransportCapacity();" type="text"></td>
         			</tr>
                     <tr style="height:20px;">
-        				<th>{$Deuterium}</th>
-        				<th><a href="javascript:maxResource('3');">{$fl_max}</a></th>
-        				<th><input name="resource3" size="10" onchange="calculateTransportCapacity();" type="text"></th>
+        				<td class="transparent">{$Deuterium}</td>
+        				<td class="transparent"><a href="javascript:maxResource('3');">{$fl_max}</a></td>
+        				<td class="transparent"><input name="resource3" size="10" onchange="calculateTransportCapacity();" type="text"></td>
         			</tr>
                     <tr style="height:20px;">
-        				<th>{$fl_resources_left}</th>
-        				<th colspan="2"><div id="remainingresources">-</div></th>
+        				<td class="transparent">{$fl_resources_left}</td>
+        				<td class="transparent" colspan="2" id="remainingresources">-</td>
         			</tr>
                     <tr style="height:20px;">
-        				<th colspan="3"><a href="javascript:maxResources()">{$fl_all_resources}</a></th>
+        				<td class="transparent" colspan="3"><a href="javascript:maxResources()">{$fl_all_resources}</a></td>
         			</tr>
                     <tr style="height:20px;">
-        				<th colspan="3">{$fl_fuel_consumption}: {$consumption}</th>
+        				<td class="transparent" colspan="3">{$fl_fuel_consumption}: {$consumption}</td>
         			</tr>
 					{if $StaySelector}
 					<tr style="height:20px;">
-						<td class="c" colspan="3">{$fl_hold_time}</td>
+						<th class="transparent" colspan="3">{$fl_hold_time}</th>
 					</tr>
 					<tr style="height:20px;">
-						<th colspan="3">
+						<td class="transparent" colspan="3">
 						{html_options name=holdingtime options=$StaySelector} {$fl_hours}
-						</th>
+						</td>
 					</tr>
 					{/if}
 				</table>
-			</th>
+			</td>
 		</tr>
         <tr style="height:20px;">
-        	<th colspan="2"><input value="{$fl_continue}" type="submit"></th>
+        	<td colspan="2"><input value="{$fl_continue}" type="submit"></td>
         </tr>
     </table>
 </div>

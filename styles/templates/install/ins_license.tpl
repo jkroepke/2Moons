@@ -1,8 +1,8 @@
 {include file="install/ins_header.tpl"}
 <tr>
-<th>
-<h3 style="text-align: center;">GNU GENERAL PUBLIC LICENSE</h3>
-<p style="text-align: center;">Version 3, 29 June 2007</p>
+<td>
+<h3 >GNU GENERAL PUBLIC LICENSE</h3>
+<p >Version 3, 29 June 2007</p>
 
 <p>Copyright &copy; 2007 Free Software Foundation, Inc.
  &lt;<a href="http://fsf.org/">http://fsf.org/</a>&gt;</p><p>

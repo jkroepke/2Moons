@@ -2,103 +2,103 @@
 {include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
 <div id="content" class="content">
-    <table border="0" cellpadding="0" cellspacing="1" width="80%" align="center">
+    <table>
         <tbody>
             <tr>
-                <td class="c" colspan="{$colspan}">{$iv_imperium_title}</td>
+                <th colspan="{$colspan}">{$iv_imperium_title}</th>
             </tr>
             <tr>
-                <th style="width:{100/$colspan}%;">{$iv_planet}</th>
+                <td style="width:{100/$colspan}%;">{$iv_planet}</td>
 				{foreach item=PlanetsInfoRow from=$PlanetsList}
-				<th style="width:{100/$colspan}%;"><a href="game.php?page=overview&amp;cp={$PlanetsInfoRow.InfoList.id}&amp;re=0"><img width="80" height="80" border="0" src="{$dpath}planeten/small/s_{$PlanetsInfoRow.InfoList.image}.jpg" alt="{$PlanetsInfoRow.InfoList.name}"></a></th>
+				<td style="width:{100/$colspan}%;"><a href="game.php?page=overview&amp;cp={$PlanetsInfoRow.InfoList.id}&amp;re=0"><img width="80" height="80" border="0" src="{$dpath}planeten/small/s_{$PlanetsInfoRow.InfoList.image}.jpg" alt="{$PlanetsInfoRow.InfoList.name}"></a></td>
 				{/foreach}
             </tr>
             <tr>
-				<th>{$iv_name}</th>
+				<td>{$iv_name}</td>
 				{foreach item=PlanetsInfoRow from=$PlanetsList}
-					<th>{$PlanetsInfoRow.InfoList.name}</th>
+					<td>{$PlanetsInfoRow.InfoList.name}</td>
 				{/foreach}
             </tr>
             <tr>
-				<th>{$iv_coords}</th>
+				<td>{$iv_coords}</td>
 				{foreach item=PlanetsInfoRow from=$PlanetsList}
-					<th><a href="game.php?page=galaxy&amp;mode=3&amp;galaxy={$PlanetsInfoRow.InfoList.galaxy}&amp;system={$PlanetsInfoRow.InfoList.system}">[{$PlanetsInfoRow.InfoList.galaxy}:{$PlanetsInfoRow.InfoList.system}:{$PlanetsInfoRow.InfoList.planet}]</a></th>
+					<td><a href="game.php?page=galaxy&amp;mode=3&amp;galaxy={$PlanetsInfoRow.InfoList.galaxy}&amp;system={$PlanetsInfoRow.InfoList.system}">[{$PlanetsInfoRow.InfoList.galaxy}:{$PlanetsInfoRow.InfoList.system}:{$PlanetsInfoRow.InfoList.planet}]</a></td>
 				{/foreach}
             </tr>
             <tr>
-				<th>{$iv_fields}</th>
+				<td>{$iv_fields}</td>
 				{foreach item=PlanetsInfoRow from=$PlanetsList}
-					<th>{$PlanetsInfoRow.InfoList.field_current}/{$PlanetsInfoRow.InfoList.field_max}</th>
+					<td>{$PlanetsInfoRow.InfoList.field_current}/{$PlanetsInfoRow.InfoList.field_max}</td>
 				{/foreach}
 			</tr>
             <tr>
-            <td class="c" colspan="{$colspan}" align="left">{$iv_resources}</td>
+				<th colspan="{$colspan}">{$iv_resources}</th>
             </tr>
             <tr>
-				<th>{$Metal}</th>
+				<td>{$Metal}</td>
 				{foreach item=PlanetsInfoRow from=$PlanetsList}
-					<th>{$PlanetsInfoRow.InfoList.metal}</th>
+					<td>{$PlanetsInfoRow.InfoList.metal}</td>
 				{/foreach}
 			</tr>
             <tr>
-				<th>{$Crystal}</th>
+				<td>{$Crystal}</td>
 				{foreach item=PlanetsInfoRow from=$PlanetsList}
-					<th>{$PlanetsInfoRow.InfoList.crystal}</th>
+					<td>{$PlanetsInfoRow.InfoList.crystal}</td>
 				{/foreach}
 			</tr>
             <tr>
-				<th>{$Deuterium}</th>
+				<td>{$Deuterium}</td>
 				{foreach item=PlanetsInfoRow from=$PlanetsList}
-					<th>{$PlanetsInfoRow.InfoList.deuterium}</th>
+					<td>{$PlanetsInfoRow.InfoList.deuterium}</td>
 				{/foreach}
 			</tr>
             <tr>
-				<th>{$Energy}</th>
+				<td>{$Energy}</td>
 				{foreach item=PlanetsInfoRow from=$PlanetsList}
-					<th>{$PlanetsInfoRow.InfoList.energy_used}/{$PlanetsInfoRow.InfoList.energy_max}</th>
+					<td>{$PlanetsInfoRow.InfoList.energy_used}/{$PlanetsInfoRow.InfoList.energy_max}</td>
 				{/foreach}
             </tr>
 			<tr>
-                <td class="c" colspan="{$colspan}" align="left">{$iv_buildings}</td>
+                <th colspan="{$colspan}">{$iv_buildings}</th>
             </tr>
 				{foreach item=Builds from=$build}
 					<tr>
-					<th>{$tech.$Builds}</th>
+					<td>{$tech.$Builds}</td>
 					{foreach item=PlanetsInfoRow from=$PlanetsList}
-						<th>{$PlanetsInfoRow.BuildsList.$Builds}</th>
+						<td>{$PlanetsInfoRow.BuildsList.$Builds}</td>
 					{/foreach}
 					</tr>
 				{/foreach}
 			<tr>
-                <td class="c" colspan="{$colspan}" align="left">{$iv_technology}</td>
+                <th colspan="{$colspan}">{$iv_technology}</th>
 			</tr>
 				{foreach item=Researchs from=$research}
 					<tr>
-					<th>{$tech.$Researchs}</th>
+					<td>{$tech.$Researchs}</td>
 					{foreach item=PlanetsInfoRow from=$PlanetsList}
-						<th>{$ResearchList.$Researchs}</th>
+						<td>{$ResearchList.$Researchs}</td>
 					{/foreach}
 					</tr>
 				{/foreach}
             <tr>
-                <td class="c" colspan="{$colspan}" align="left">{$iv_ships}</td>
+                <th colspan="{$colspan}">{$iv_ships}</th>
             </tr>
 				{foreach item=Fleets from=$fleet}
 					<tr>
-					<th>{$tech.$Fleets}</th>
+					<td>{$tech.$Fleets}</td>
 					{foreach item=PlanetsInfoRow from=$PlanetsList}
-						<th>{$PlanetsInfoRow.FleetsList.$Fleets}</th>
+						<td>{$PlanetsInfoRow.FleetsList.$Fleets}</td>
 					{/foreach}
 					</tr>
 				{/foreach}
             <tr>
-                <td class="c" colspan="{$colspan}" align="left">{$iv_defenses}</td>
+                <th colspan="{$colspan}">{$iv_defenses}</th>
             </tr>
 				{foreach item=Defenses from=$defense}
 					<tr>
-					<th>{$tech.$Defenses}</th>
+					<td>{$tech.$Defenses}</td>
 					{foreach item=PlanetsInfoRow from=$PlanetsList}
-						<th>{$PlanetsInfoRow.DefensesList.$Defenses}</th>
+						<td>{$PlanetsInfoRow.DefensesList.$Defenses}</td>
 					{/foreach}
 					</tr>
 				{/foreach}

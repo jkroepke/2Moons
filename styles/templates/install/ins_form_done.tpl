@@ -1,6 +1,6 @@
 {include file="install/ins_header.tpl"}
 <tr>
-  <th colspan="2">
+  <td>
 	<form method="POST" action="?mode=ins&amp;page=3{$lang}">
 	<br>
     {$first}
@@ -10,10 +10,10 @@
     {$third}
     <br>
     <br>
-    </th>
+    </td>
 </tr>
 <tr>
-  <th colspan="2"><input type="submit" value="{$continue}"></th>
+  <td><input type="submit" value="{$continue}"></td>
 </tr>
 </form>
 {include file="install/ins_footer.tpl"}

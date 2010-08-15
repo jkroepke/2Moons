@@ -1,258 +1,43 @@
-<div id='leftmenu'>
-<div id='menu'>
-<p class="p">
-{$title}&nbsp;(<a href="?page=changelog">{$smarty.const.VERSION}</a>)
-</p>
-<table width="100%" cellspacing="0" cellpadding="0">
-<tr>
-	<td>
-		<img src="{$dpath}gfx/ogame-produktion.jpg" width="110" height="40" alt="">
-	</td>
+<div id="leftmenu">
+	<ul id="menu">
+		<li style="background-image: url('{$dpath}img/menu-top.png');width:200px;height:100px;cursor:pointer" onclick="document.location = './game.php?page=changelog';"></li>
+		<li style="background-image: url('{$dpath}img/menu_wirt.png');width:200px;height:30px;"></li>
+		<li><a href="?page=overview">{$lm_overview}</a></li>
+		<li><a href="?page=imperium">{$lm_empire}</a></li>
+		<li><a href="?page=buildings&amp;mode=research">{$lm_research}</a></li>
+		<li><a href="?page=buildings">{$lm_buildings}</a></li>
+		<li><a href="?page=buildings&amp;mode=fleet">{$lm_shipshard}</a></li>
+		<li><a href="?page=buildings&amp;mode=defense">{$lm_defenses}</a></li>
+		<li><a href="?page=officier">{$lm_officiers}</a></li>
+		<li><a href="?page=trader">{$lm_trader}</a></li>
+		<li><a href="?page=fleet">{$lm_fleet}</a></li>
+		<li><a href="?page=techtree">{$lm_technology}</a></li>
+		<li><a href="?page=resources">{$lm_resources}</a></li>
 
-</tr>
-{if $authlevel > 0}
-<tr>
-	<td>
-		<div align="center">
-			<a href="./admin.php"><font color="lime">{$lm_administration}</font></a>
-		</div>
-	</td>
-</tr>
-{/if}
-<tr>
-	<td>
-		<div align="center">
-			<a href="?page=overview">{$lm_overview}</a>
-		</div>
-	</td>
-</tr>
-<tr>
-	<td>
+		<li style="background-image: url('{$dpath}img/menu_com.png');width:200px;height:30px;"></li>
+		<li><a href="?page=galaxy">{$lm_galaxy}</a></li>
+		<li><a href="?page=alliance">{$lm_alliance}</a></li>
+		<li><a href="{$forum_url}" target="forum">{$lm_forums}</a></li>
+		<li><a href="?page=statistics">{$lm_statistics}</a></li>
+		<li><a href="?page=records">{$lm_records}</a></li>
+		<li><a href="?page=topkb">{$lm_topkb}</a></li>
+		<li><a href="?page=search">{$lm_search}</a></li>
+		<li><a href="?page=chat">{$lm_chat}</a></li>
+		<li><a href="?page=support">{$lm_support}</a></li>
+		<li><a href="?page=faq">{$lm_faq}</a></li>
+		<li><a href="?page=banned">{$lm_banned}</a></li>
+		<li><a href="./?page=rules" target="forum">{$lm_rules}</a></li>
+		<li><a href="?page=battlesim">{$lm_battlesim}</a></li>
 
-		<div align="center">
-			<a href="?page=imperium">{$lm_empire}</a>
-		</div>
-	</td>
-</tr>
-<tr>
-	<td>
-		<div align="center">
-			<a href="?page=buildings">{$lm_buildings}</a>
-
-		</div>
-	</td>
-</tr>
-<tr>
-	<td>
-		<div align="center">
-			<a href="?page=resources">{$lm_resources}</a>
-		</div>
-	</td>
-
-</tr>
-<tr>
-	<td>
-		<div align="center">
-			<a href="?page=trader">{$lm_trader}</a>
-		</div>
-	</td>
-</tr>
-<tr>
-	<td>
-
-		<div align="center">
-			<a href="?page=buildings&amp;mode=research">{$lm_research}</a>
-		</div>
-	</td>
-</tr>
-<tr>
-	<td>
-		<div align="center">
-			<a href="?page=buildings&amp;mode=fleet">{$lm_shipshard}</a>
-
-		</div>
-	</td>
-</tr>
-<tr>
-	<td>
-		<div align="center">
-			<a href="?page=fleet">{$lm_fleet}</a>
-		</div>
-	</td>
-
-</tr>
-<tr>
-	<td>
-		<div align="center">
-			<a href="?page=techtree">{$lm_technology}</a>
-		</div>
-	</td>
-</tr>
-<tr>
-	<td>
-
-		<div align="center">
-			<a href="?page=galaxy">{$lm_galaxy}</a>
-		</div>
-	</td>
-</tr>
-<tr>
-	<td>
-		<div align="center">
-			<a href="?page=buildings&amp;mode=defense">{$lm_defenses}</a>
-
-		</div>
-	</td>
-</tr>
-<tr>
-	<td>
-		<img src="{$dpath}gfx/user-menu.jpg" width="110" height="40" alt="">
-	</td>
-</tr>
-<tr>
-	<td>
-		<div align="center">
-
-			<a href="?page=alliance">{$lm_alliance}</a>
-		</div>
-	</td>
-</tr>
-<tr>
-	<td>
-		<div align="center">
-			<a href="{$forum_url}" target="forum">{$lm_forums}</a>
-		</div>
-
-	</td>
-</tr>
-<tr>
-	<td>
-		<div align="center">
-			<a href="?page=officier">{$lm_officiers}</a>
-		</div>
-	</td>
-</tr>
-<tr>
-
-	<td>
-		<div align="center">
-			<a href="?page=statistics">{$lm_statistics}</a>
-		</div>
-	</td>
-</tr>
-<tr>
-	<td>
-		<div align="center">
-
-			<a href="?page=records">{$lm_records}</a>
-		</div>
-	</td>
-</tr>
-<tr>
-	<td>
-		<div align="center">
-			<a href="?page=topkb">{$lm_topkb}</a>
-		</div>
-
-	</td>
-</tr>
-<tr>
-	<td>
-		<div align="center">
-			<a href="?page=search">{$lm_search}</a>
-		</div>
-	</td>
-</tr>
-<tr>
-	<td>
-		<div align="center">
-			<a href="?page=battlesim">{$lm_battlesim}</a>
-		</div>
-	</td>
-</tr>
-<tr>
-
-	<td>
-		<img src="{$dpath}gfx/user-menu.jpg" width="110" height="40" alt="">
-	</td>
-</tr>
-<tr>
-	<td>
-		<div align="center">
-			<a href="?page=messages">{$lm_messages}{if $new_message > 0}<span id="newmes"> (<span id="newmesnum">{$new_message}</span>)</span>{/if}</a>
-		</div>
-
-	</td>
-</tr>
-<tr>
-	<td>
-		<div align="center">
-			<a href="javascript:f('?page=notes','{$lm_notes}');">{$lm_notes}</a>
-		</div>
-	</td>
-</tr>
-<tr>
-
-	<td>
-		<div align="center">
-			<a href="?page=buddy">{$lm_buddylist}</a>
-		</div>
-	</td>
-</tr>
-<tr>
-	<td>
-		<div align="center">
-
-			<a href="?page=chat">{$lm_chat}</a>
-		</div>
-	</td>
-</tr>
-<tr>
-	<td>
-		<div align="center">
-			<a href="?page=support">{$lm_support}</a>
-		</div>
-
-	</td>
-</tr>
-<tr>
-	<td>
-		<div align="center">
-			<a href="?page=faq">{$lm_faq}</a>
-		</div>
-	</td>
-</tr>
-<tr>
-
-	<td>
-		<div align="center">
-			<a href="?page=options">{$lm_options}</a>
-		</div>
-	</td>
-</tr>
-<tr>
-	<td>
-		<div align="center">
-
-			<a href="?page=banned">{$lm_banned}</a>
-		</div>
-	</td>
-</tr>
-<tr>
-	<td>
-		<div align="center">
-			<a href="./?page=rules" target="forum">{$lm_rules}</a>
-		</div>
-
-	</td>
-</tr>
-<tr>
-	<td>
-		<div align="center">
-			<a href="?page=logout">{$lm_logout}</a>
-		</div>
-	</td>
-</tr>
-</table>
-</div>
+		<li style="background-image: url('{$dpath}img/menu_acc.png');width:200px;height:30px;"></li>
+		<li><a href="?page=messages">{$lm_messages}{if $new_message > 0}<span id="newmes"> (<span id="newmesnum">{$new_message}</span>)</span>{/if}</a></li>
+		<li><a href="javascript:f('?page=notes','{$lm_notes}');">{$lm_notes}</a></li>
+		<li><a href="?page=buddy">{$lm_buddylist}</a></li>
+		<li><a href="?page=options">{$lm_options}</a></li>
+		<li><a href="?page=logout">{$lm_logout}</a></li>    
+		{if $authlevel > 0}
+		<li><a href="./admin.php" style="color:lime">{$lm_administration} ({$smarty.const.VERSION})</a></li>
+		{/if}
+		<li style="background-image: url('{$dpath}img/menu-foot.png');width:200px;height:30px;"></li>
+	</ul>
 </div>
