@@ -14,6 +14,7 @@
     </table>
 	<br>
 	{/if}
+	<form action="" method="POST">
     <table>	
 		{foreach name=FleetList item=FleetListRow from=$FleetList}
 		<tr>
@@ -69,6 +70,7 @@
 		{/foreach}
 		{if $NotBuilding}<tr><th colspan="2" style="text-align:center"><input type="submit" value="{$bd_build_ships}"></th></tr>{/if}
     </table>
+	</form>
 </div>
 {include file="planet_menu.tpl"}
 {include file="overall_footer.tpl"}
