@@ -89,7 +89,7 @@
 	$(function(){
       $(".containerPlus").buildContainers({
         containment:"document",
-        elementsPatd:"styles/css/mbContainer/",
+        elementsPath:"styles/css/mbContainer/",
         onClose:function(o){},
         effectDuration:500,
 		slideTimer:300,
