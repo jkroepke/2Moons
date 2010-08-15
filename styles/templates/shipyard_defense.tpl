@@ -68,6 +68,7 @@
 			</td>
 		</tr>
 		{/foreach}
+		{if $NotBuilding}<tr><th colspan="2" style="text-align:center"><input type="submit" value="{$bd_build_ships}"></th></tr>{/if}
     </table>
 </div>
 {include file="planet_menu.tpl"}
