@@ -473,23 +473,23 @@ function shortly_number($number)
 {
 	// MAS DEL TRILLON
 	if ($number >= 1000000000000000000000000)
-		return pretty_number(($number/1000000000000000000000))."&nbsp;<font color=lime>T+</font>";
+		return pretty_number(($number/1000000000000000000000))." T+";
 	
 	// TRILLON
 	elseif ($number >= 1000000000000000000 && $number < 1000000000000000000000000)
-		return pretty_number(($number/1000000000000000000))."&nbsp;<font color=lime>T</font>";
+		return pretty_number(($number/1000000000000000000))." T";
 		
 	// BILLON
 	elseif ($number >= 1000000000000 && $number < 1000000000000000000)
-		return pretty_number(($number/1000000000000))."&nbsp;<font color=lime>B</font>";
+		return pretty_number(($number/1000000000000))." B";
 	
 	// MILLON
 	elseif ($number >= 1000000 && $number < 1000000000000)
-		return pretty_number(($number/1000000))."&nbsp;<font color=lime>M</font>";
+		return pretty_number(($number/1000000))." M";
 		
 	// MIL
 	elseif ($number >= 1000 && $number < 1000000)
-		return pretty_number(($number/1000))."&nbsp;<font color=lime>K</font>";
+		return pretty_number(($number/1000))." K";
 	
 	// NUMERO SIN DEFINIR	
 	else
@@ -508,6 +508,14 @@ function CheckModule($ID)
 function GetLangs()
 {
 	return $GLOBALS['LNG']['langs'];
+}
+
+function redirectTo($URL)
+{
+	if($_SERVER['SERVER_PROTOCOL'] == 'HTTP/1.1')
+		header('HTTP/1.1 303 See Other');
+	
+	header('Location: '.PROTOCOL.$_SERVER['HTTP_HOST'].HTTP_ROOT.$URL);
 }
 
 if(!function_exists('ctype_alnum'))

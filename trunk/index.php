@@ -65,8 +65,7 @@ switch ($page) {
 				
 				$db->query("UPDATE `" . USERS . "` SET `current_planet` = `id_planet` WHERE `id` = '".$login["id"]."';" );
 
-				header("Location: ./game.php?page=overview");
-				exit ();
+				redirectTo("game.".PHP_EXT."?page=overview");
 			} else {
 				$USER_details = $fb->api_client->users_getInfo($fb_user, array('first_name','last_name','proxied_email','username','contact_email'));  
 				if(!empty($USER_details[0]['contact_email']) && ValidateAddress($USER_details[0]['contact_email'])) 
@@ -213,11 +212,11 @@ switch ($page) {
 					$_SESSION['id']			= $NewUser['id'];
 					$_SESSION['username']	= $UserName;
 					$_SESSION['authlevel']	= 0;
-					header("location:game.php?page=overview");
+					redirectTo("game.".PHP_EXT."?page=overview");
 				}
 			}
 		} else {
-			header("Location: index.php");
+			redirectTo("index.".PHP_EXT);
 		}
 	break;
 	case 'lostpassword': 
@@ -354,7 +353,7 @@ switch ($page) {
 					$SQL .= "`ip` = '".$_SERVER['REMOTE_ADDR']."'; ";
 					$db->query($SQL);
 					
-					exit(header("Location: index.php?page=reg&mode=valid&lang=".$UserLang."&clef=".$clef));
+					redirectTo("index.".PHP_EXT."?page=reg&mode=valid&lang=".$UserLang."&clef=".$clef);
 				}					
 
 				$MailSubject 	= $LNG['reg_mail_message_pass'];
@@ -415,7 +414,7 @@ switch ($page) {
 					MailSend($UserMail, $UserName, $MailSubject, $MailContent);
 				}
 				
-				$NewUser = $db->fetch_array ( $db->query ( "SELECT `id` FROM " . USERS . " WHERE `username` = '" . $UserName . "';" ) );
+				$NewUser = $db->uniquequery("SELECT `id` FROM ".USERS." WHERE `username` = '" . $UserName . "';");
 				
 				$LastSettedGalaxyPos = $CONF['LastSettedGalaxyPos'];
 				$LastSettedSystemPos = $CONF['LastSettedSystemPos'];
@@ -494,8 +493,7 @@ switch ($page) {
 					$_SESSION['username']	= $UserName;
 					$_SESSION['authlevel']	= 0;	
 					
-					header("location:game.php?page=overview");
-				
+					redirectTo("game.".PHP_EXT."?page=overview");
 				}
 			break;
 			default:
@@ -665,7 +663,7 @@ switch ($page) {
 				
 				$db->query("UPDATE `" . USERS . "` SET `current_planet` = `id_planet` WHERE `id` = '".$login["id"]."';" );
 
-				header("Location: ./game.php?page=overview");
+				redirectTo("game.".PHP_EXT."?page=overview");
 				exit();
 			} else {
 				$template->message($LNG['login_error'], './', 3, true);

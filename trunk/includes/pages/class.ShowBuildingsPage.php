@@ -240,8 +240,8 @@ class ShowBuildingsPage
 						$ListIDRow .= "<tr>";
 						if ($ListID == 1)
 						{
-							$ListIDRow .= "<td class=\"l\" width=\"70%\">". $ListID .".: ". $ElementTitle ." ".$BuildLevel.(($BuildMode == 'destroy') ? ' '.$LNG['bd_dismantle'] : '')."<br><br><div id=\"progressbar\"></div></td>";
-							$ListIDRow .= "<th>";
+							$ListIDRow .= "<td width=\"70%\">". $ListID .".: ". $ElementTitle ." ".$BuildLevel.(($BuildMode == 'destroy') ? ' '.$LNG['bd_dismantle'] : '')."<br><br><div id=\"progressbar\"></div></td>";
+							$ListIDRow .= "<td>";
 							$ListIDRow .= "		<div id=\"blc\" class=\"z\">". $BuildTime ."<br>";
 							$ListIDRow .= "		<a href=\"game.php?page=buildings&amp;cmd=cancel\">".$LNG['bd_interrupt']."</a></div>";
 							$ListIDRow .= "		<script type=\"text/javascript\">";
@@ -268,12 +268,12 @@ class ShowBuildingsPage
 						}
 						else
 						{
-							$ListIDRow .= "<td class=\"l\" width=\"70%\">". $ListID .".: ". $ElementTitle ." ".$BuildLevel.(($BuildMode == 'destroy') ? ' '.$LNG['bd_dismantle'] : '')."</td>";
-							$ListIDRow .= "<th>";
-							$ListIDRow .= "		<a href=\"game.php?page=buildings&amp;cmd=remove&amp;listid=". $ListID ."\">".$LNG['bd_cancel']."</a></font>";
+							$ListIDRow .= "<td width=\"70%\">". $ListID .".: ". $ElementTitle ." ".$BuildLevel.(($BuildMode == 'destroy') ? ' '.$LNG['bd_dismantle'] : '')."</td>";
+							$ListIDRow .= "<td>";
+							$ListIDRow .= "		<a href=\"game.php?page=buildings&amp;cmd=remove&amp;listid=". $ListID ."\">".$LNG['bd_cancel']."</a>";
 						}
-						$ListIDRow .= "<br><font color=\"lime\">". date("d. M y H:i:s" ,$BuildEndTime) ."</font>";
-						$ListIDRow .= "	</th>";
+						$ListIDRow .= "<br><span style=\"color:lime\">". date("d. M y H:i:s" ,$BuildEndTime) ."</span>";
+						$ListIDRow .= "	</td>";
 						$ListIDRow .= "</tr>";
 					}
 				}
@@ -356,16 +356,16 @@ class ShowBuildingsPage
 				$NextBuildLevel        	= $PLANET[$resource[$Element]] + 1;
 
 				if ($RoomIsOk && $CanBuildElement)
-					$parse['click'] = ($HaveRessources == true) ? "<a href=\"game.php?page=buildings&amp;cmd=insert&amp;building=". $Element ."\"><font color=\"#00FF00\">".(($Queue['lenght'] != 0) ? $LNG['bd_add_to_list'] : (($NextBuildLevel == 1) ? $LNG['bd_build'] : $LNG['bd_build_next_level'] . $NextBuildLevel))."</font></a>" : "<font color=\"#FF0000\">".(($NextBuildLevel == 1) ? $LNG['bd_build'] : $LNG['bd_build_next_level'] . $NextBuildLevel)."</font>";
+					$parse['click'] = ($HaveRessources == true) ? "<a href=\"game.php?page=buildings&amp;cmd=insert&amp;building=". $Element ."\"><span style=\"color:#00FF00\">".(($Queue['lenght'] != 0) ? $LNG['bd_add_to_list'] : (($NextBuildLevel == 1) ? $LNG['bd_build'] : $LNG['bd_build_next_level'] . $NextBuildLevel))."</span></a>" : "<span style=\"color:#FF0000\">".(($NextBuildLevel == 1) ? $LNG['bd_build'] : $LNG['bd_build_next_level'] . $NextBuildLevel)."</span>";
 				elseif ($RoomIsOk && !$CanBuildElement)
-					$parse['click'] = "<font color=\"#FF0000\">".(($NextBuildLevel == 1) ? $LNG['bd_build'] : $LNG['bd_build_next_level'] . $NextBuildLevel) ."</font>";
+					$parse['click'] = "<span style=\"color:#FF0000\">".(($NextBuildLevel == 1) ? $LNG['bd_build'] : $LNG['bd_build_next_level'] . $NextBuildLevel) ."</span>";
 				else
-					$parse['click'] = "<font color=\"#FF0000\">".$LNG['bd_no_more_fields']."</font>";
+					$parse['click'] = "<span style=\"color:#FF0000\">".$LNG['bd_no_more_fields']."</span>";
 
 				if ($Element == 31 && $USER['b_tech'] > TIMESTAMP)
-					$parse['click'] = "<font color=\"#FF0000\">".$LNG['bd_working']."</font>";
+					$parse['click'] = "<span style=\"color:#FF0000\">".$LNG['bd_working']."</span>";
 				elseif (($Element == 15 || $Element == 21) && !empty($PLANET['b_hangar_id']))
-					$parse['click'] = "<font color=\"#FF0000\">".$LNG['bd_working']."</font>";
+					$parse['click'] = "<span style=\"color:#FF0000\">".$LNG['bd_working']."</span>";
 				
 				$BuildInfoList[]	= array(
 					'id'			=> $Element,

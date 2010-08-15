@@ -290,7 +290,7 @@ class template extends Smarty
 				$this->footer();
 
 			$this->assign_vars(array(
-				'sql_num'	=> ((!defined('INSTALL') || !defined('IN_ADMIN')) && $USER['authlevel'] == 3 && $CONF['debug'] == 1) ? "<center><div id=\"footer\">SQL Abfragen:".$db->get_sql()." (".round($db->time, 4)." Sekunden) - Seiten generiert in ".round(microtime(true) - STARTTIME, 4)." Sekunden</div></center>" : "",
+				'sql_num'	=> ((!defined('INSTALL') || !defined('IN_ADMIN')) && $USER['authlevel'] == 3 && $CONF['debug'] == 1) ? "<div id=\"footer\">SQL Abfragen:".$db->get_sql()." (".round($db->time, 4)." Sekunden) - Seiten generiert in ".round(microtime(true) - STARTTIME, 4)." Sekunden</div>" : "",
 			));
 		}
 		$this->display($file);

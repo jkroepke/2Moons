@@ -105,9 +105,9 @@ function storage() {
 }
 
 function fleetInfo() {
-	document.getElementById("speed").innerHTML = speed() * 10 + "%";
-	document.getElementById("target").innerHTML = target();
-	document.getElementById("distance").innerHTML = distance();
+	$("#speed").html(speed() * 10 + "%");
+	$("#target").html(target());
+	$("#distance").html(distance());
 	var seconds = duration();
 	var hours = Math.floor(seconds / 3600);
 	seconds -= hours * 3600;
@@ -119,23 +119,23 @@ function fleetInfo() {
 	if (seconds < 10) {
 		seconds = "0" + seconds;
 	}
-	document.getElementById("duration").innerHTML = hours + (":" + minutes + ":" + seconds + " h");
+	$("#duration").html(hours + (":" + minutes + ":" + seconds + " h"));
 	var stor = storage();
 	var cons = consumption();
-	document.getElementById("maxspeed").innerHTML = number_format(maxspeed());
+	$("#maxspeed").html(number_format(maxspeed()));
 	if (stor >= 0) {
-		document.getElementById("consumption").innerHTML = "<font color=\"lime\">" + cons + "</font>";
-		document.getElementById("storage").innerHTML = "<font color=\"lime\">" + stor + "</font>";
+		$("#consumption").html("<font color=\"lime\">" + cons + "</font>");
+		$("#storage").html("<font color=\"lime\">" + stor + "</font>");
 	} else {
-		document.getElementById("consumption").innerHTML = "<font color=\"red\">" + cons + "</font>";
-		document.getElementById("storage").innerHTML = "<font color=\"red\">" + stor + "</font>";
+		$("#consumption").html("<font color=\"red\">" + cons + "</font>");
+		$("#storage").html("<font color=\"red\">" + stor + "</font>");
 	}
 	calculateTransportCapacity();
 }
 
 
 function shortInfo() {
-	document.getElementById("distance").innerHTML = number_format(distance());
+	$("#distance").html(number_format(distance()));
 	var seconds = duration();
 	var hours = Math.floor(seconds / 3600);
 	seconds -= hours * 3600;
@@ -147,16 +147,16 @@ function shortInfo() {
 	if (seconds < 10) {
 		seconds = "0" + seconds;
 	}
-	document.getElementById("duration").innerHTML = hours + (":" + minutes + ":" + seconds + " h");
+	$("#duration").html(hours + (":" + minutes + ":" + seconds + " h"));
 	var stor = storage();
 	var cons = consumption();
-	document.getElementById("maxspeed").innerHTML = number_format(maxspeed());
+	$("#maxspeed").html(number_format(maxspeed()));
 	if (stor >= 0) {
-		document.getElementById("consumption").innerHTML = "<font color=\"lime\">" + number_format(cons) + "</font>";
-		document.getElementById("storage").innerHTML = "<font color=\"lime\">" + number_format(stor) + "</font>";
+		$("#consumption").html("<font color=\"lime\">" + number_format(cons) + "</font>");
+		$("#storage").html("<font color=\"lime\">" + number_format(stor) + "</font>");
 	} else {
-		document.getElementById("consumption").innerHTML = "<font color=\"red\">" + number_format(cons) + "</font>";
-		document.getElementById("storage").innerHTML = "<font color=\"red\">" + number_format(stor) + "</font>";
+		$("#consumption").html("<font color=\"red\">" + number_format(cons) + "</font>");
+		$("#storage").html("<font color=\"red\">" + number_format(stor) + "</font>");
 	}
 }
 

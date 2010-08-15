@@ -7,9 +7,6 @@
 # * @copyright Copyright (C) 2010 By ShadoX from titanspace.de               #
 # * @copyright Copyright (C) 2008 - 2009 By lucky from Xtreme-gameZ.com.ar   #
 # * @translate by                                                            #
-# * @author I_LOVE_XNOVA_GAMES                                               #
-# * @author BigSmoke                                                         #
-# * @author PeterPan                                                         #
 # * @author ShadoX                                                           #
 # *	                                                                         #
 # *  This program is free software: you can redistribute it and/or modify    #
@@ -521,6 +518,7 @@ $LNG['mu_chat']                   	= 'Chat-Admin';
 $LNG['mu_lotterie']               	= 'Lotterie';
 $LNG['mu_module']                 	= 'Module';
 $LNG['mu_update']                 	= 'Game-Updates';
+$LNG['mu_mod_update']              	= 'Mod Versions Control';
 $LNG['mu_fb_options'] 				= 'Facebook Connect';
 $LNG['mu_ts_options'] 				= 'Teamspeak Optionen';
 $LNG['mu_game_info'] 				= 'Informationen';
@@ -971,6 +969,20 @@ $LNG['nws_confirm']						= 'Bist du sicher, dass du die Nachricht %s entfernen w
 $LNG['nws_create']						= 'News erstellen';
 $LNG['nws_total']						= 'Insgesamt %d News vorhanden';
 $LNG['nws_content']						= 'Inhalt';
+
+//Mod Versions Control
+
+$LNG['mvc_title']						= 'Titel';
+$LNG['mvc_author']						= 'Author';
+$LNG['mvc_version']						= 'Version';
+$LNG['mvc_link']						= 'Link';
+$LNG['mvc_update_yes']					= 'Ein Update ist verfügbar!';
+$LNG['mvc_update_no']					= 'Aktuellste Version ist installiert!';
+$LNG['mvc_update_version']				= 'Aktuellste Version';
+$LNG['mvc_update_date']					= 'Released';
+$LNG['mvc_announcement']				= 'Ankündigung';
+$LNG['mvc_download']					= 'Download';
+$LNG['mvc_desc']						= 'Beschreibung';
 
 
 ?>

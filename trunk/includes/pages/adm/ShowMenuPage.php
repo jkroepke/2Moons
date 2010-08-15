@@ -30,6 +30,7 @@ function ShowMenuPage()
 		'EditUsers'					=> $USER['rights']['EditUsers'],
 		'CONFGame'					=> $USER['rights']['CONFGame'],
 		'ToolsCanUse'				=> $USER['rights']['ToolsCanUse'],
+		'Admin'						=> $USER['authlevel'] == AUTH_ADM ? 1: 0,
 		'mu_game_info'				=> $LNG['mu_game_info'],
 		'mu_settings'				=> $LNG['mu_settings'],
 		'mu_ts_options'				=> $LNG['mu_ts_options'],
@@ -63,6 +64,7 @@ function ShowMenuPage()
 		'mu_mess_list'				=> $LNG['mu_mess_list'],
 		'mu_info_account_page'		=> $LNG['mu_info_account_page'],
 		'mu_search_page'			=> $LNG['mu_search_page'],
+		'mu_mod_update'				=> $LNG['mu_mod_update'],
 	));
 	
 	$template->show('adm/ShowMenuPage.tpl');

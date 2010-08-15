@@ -86,7 +86,7 @@ class ShowNotesPage
 		$Note 		= $db->uniquequery("SELECT * FROM ".NOTES." WHERE id = '".$NotesID."' AND owner = '".$USER['id']."';");
 
 		if(!$Note)
-			die(header("Location: game.php?page=notes"));
+			die(redirectTo("game.php?page=notes"));
 		
 		$template	= new template();
 

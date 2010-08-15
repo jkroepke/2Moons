@@ -26,9 +26,9 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	define('DEFAULT_SKINPATH' 		  , 'styles/skins/darkness/');
 	define('TEMPLATE_DIR'     		  , 'styles/templates/');
 	
-    define('ADMINEMAIL'               , "info@".str_replace("www.","",$_SERVER['HTTP_HOST']));
-	
-	define('REALPATH'                 , "http://".$_SERVER['HTTP_HOST'].str_replace("\\","",dirname($_SERVER['SCRIPT_NAME'])."/"));
+	define('PROTOCOL'				  , !empty($_SERVER["HTTPS"]) ? 'https://' : 'http://');
+	define('HTTP_ROOT'				  , str_replace(array('\\', '//'), '/', dirname($_SERVER['SCRIPT_NAME'])).'/');
+
 	define('PHPEXT'                   , "php");
 	
 	// UNIVERSE DATA, GALAXY, SYSTEMS AND PLANETS || DEFAULT 9-499-15 RESPECTIVELY

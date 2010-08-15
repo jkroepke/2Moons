@@ -136,7 +136,7 @@ function calculateAttack(&$attackers, &$defenders)
 			$temp2	= $defender['def'];
 		}
 
-		$ROUND[$ROUNDC] = array('attackers' => $attackers, 'defenders' => $defenders, 'attack' => $attackDamage, 'defense' => $defenseDamage, 'attackA' => $attackAmount, 'defenseA' => $defenseAmount, 'infoA' => $attArray, 'infoD' => $defArray);
+		$ROUND[$ROUNDC] = array('attackers' => $attackers, 'defenders' => $defenders, 'attackA' => $attackAmount, 'defenseA' => $defenseAmount, 'infoA' => $attArray, 'infoD' => $defArray);
 
 		if ($defenseAmount['total'] <= 0 || $attackAmount['total'] <= 0) {
 			break;
@@ -158,6 +158,7 @@ function calculateAttack(&$attackers, &$defenders)
 		// CALCUL DES PERTES !!!
 		$attacker_n = array();
 		$attacker_shield = 0;
+		$defenderAttack	= 0;
 		foreach ($attackers as $fleetID => $attacker) {
 			$attacker_n[$fleetID] = array();
 
@@ -180,6 +181,8 @@ function calculateAttack(&$attackers, &$defenders)
 					}
 				}
 				
+				$defenderAttack	+= $defender_moc;
+				
 				if (($attArray[$fleetID][$element]['def'] / $amount) >= $defender_moc) {
 					$attacker_n[$fleetID][$element] = round($amount);
 					$attacker_shield += $defender_moc;
@@ -199,7 +202,7 @@ function calculateAttack(&$attackers, &$defenders)
 
 		$defender_n = array();
 		$defender_shield = 0;
-
+		$attackerAttack	= 0;
 		foreach ($defenders as $fleetID => $defender) {
 			$defender_n[$fleetID] = array();
 
@@ -221,6 +224,8 @@ function calculateAttack(&$attackers, &$defenders)
 					}
 				}
 				
+				$attackerAttack	+= $attacker_moc;
+				
 				if (($defArray[$fleetID][$element]['def'] / $amount) >= $attacker_moc) {
 					$defender_n[$fleetID][$element] = round($amount);
 					$defender_shield += $attacker_moc;
@@ -236,7 +241,9 @@ function calculateAttack(&$attackers, &$defenders)
 				$defender_n[$fleetID][$element] = max(ceil($amount - $ile_removePoints), 0);
 			}
 		}
-
+		
+		$ROUND[$ROUNDC]['attack'] = $defenderAttack;
+		$ROUND[$ROUNDC]['defense'] = $defender_shield;
 		$ROUND[$ROUNDC]['attackShield'] = $attacker_shield;
 		$ROUND[$ROUNDC]['defShield'] = $defender_shield;
 		foreach ($attackers as $fleetID => $attacker) {

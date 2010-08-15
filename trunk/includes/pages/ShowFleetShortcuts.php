@@ -40,7 +40,7 @@ function ShowFleetShortcuts()
 			$type	= request_var('t', 0);
 			$USER['fleet_shortcut'] .= $name.','.$gala.','.$sys.','.$plan.','.$type."\r\n";
 			$db->query("UPDATE ".USERS." SET `fleet_shortcut` = '".$USER['fleet_shortcut']."' WHERE `id` = '".$USER['id']."';");
-			header("Location: game.".PHP_EXT."?page=shortcuts");
+			redirectTo("game.".PHP_EXT."?page=shortcuts");
 		}
 	
 		$template->assign_vars(array(	
@@ -76,11 +76,11 @@ function ShowFleetShortcuts()
 			}
 			$USER['fleet_shortcut'] = implode("\r\n", $scarray);
 			$db->query("UPDATE ".USERS." SET fleet_shortcut='".$USER['fleet_shortcut']."' WHERE id=".$USER['id'].";");
-			exit(header("Location: ?page=shortcuts"));
+			exit(redirectTo("game.".PHP_EXT."?page=shortcuts"));
 		}
 
 		if (empty($USER['fleet_shortcut']))
-			header("Location: ?page=shortcuts");
+			redirectTo("game.".PHP_EXT."?page=shortcuts");
 		
 		$template->assign_vars(array(	
 			'fl_back'				=> $LNG['fl_back'],
