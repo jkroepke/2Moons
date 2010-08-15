@@ -1,12 +1,10 @@
-<div id='messagebox' style="text-align:center;"></div>
-<div id='errorbox' style="text-align:center;"></div>
 {$cron}
 {$sql_num}
 {if $metal_max}
 <script type="text/javascript">
-met			= parseInt($("#current_metal").text().replace(/\{$thousands_sep}/g,""));
-cry			= parseInt($("#current_crystal").text().replace(/\{$thousands_sep}/g,""));
-deu 		= parseInt($("#current_deuterium").text().replace(/\{$thousands_sep}/g,""));
+met			= parseInt($("#current_metal").text().replace(/\./g, ''));
+cry			= parseInt($("#current_crystal").text().replace(/\./g, ''));
+deu 		= parseInt($("#current_deuterium").text().replace(/\./g, ''));
 met_max 	= {$js_metal_max};
 cry_max 	= {$js_crystal_max};
 deu_max 	= {$js_deuterium_max};

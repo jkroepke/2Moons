@@ -1,103 +1,102 @@
 {include file="overall_header.tpl"}
-<table width="90%" align="center">
-<tbody>
+<table style="width:90%">
 <tr>
-<td colspan="3" class="c"><b>{$pl_overview}</b></td>
+<th colspan="3">{$pl_overview}</th>
 </tr>
 <tr>
-<th width="40%">{$pl_name}</th>
-<th colspan="2">{$name}</th>
+<td style="width:40%">{$pl_name}</td>
+<td colspan="2">{$name}</td>
 </tr>
 <tr>
-<th>{$pl_homeplanet}</th>
-<th colspan="2">{$homeplanet} <a href='javascript:window.opener.focus();' onclick='window.opener.location.href = "game.php?page=galaxy&amp;mode=3&amp;galaxy={$galaxy}&amp;system={$system}";'>[{$galaxy}:{$system}:{$planet}]</a></th>
+<td>{$pl_homeplanet}</td>
+<td colspan="2">{$homeplanet} <a href='javascript:window.opener.focus();' onclick='window.opener.location.href = "game.php?page=galaxy&amp;mode=3&amp;galaxy={$galaxy}&amp;system={$system}";'>[{$galaxy}:{$system}:{$planet}]</a></td>
 </tr>
 <tr>
-<th>{$pl_ally}</th>
-<th colspan="2">{if $allyname}<a href='javascript:window.opener.focus();' onclick='window.opener.location.href = "game.php?page=alliance&amp;mode=ainfo&amp;a={$allyid}";'>{$allyname}</a>{else}-{/if}</th>
+<td>{$pl_ally}</td>
+<td colspan="2">{if $allyname}<a href='javascript:window.opener.focus();' onclick='window.opener.location.href = "game.php?page=alliance&amp;mode=ainfo&amp;a={$allyid}";'>{$allyname}</a>{else}-{/if}</td>
 </tr>
 <tr>
-<td class="c">&nbsp;</td>
-<td class="c">{$pl_points}</td>
-<td class="c">{$pl_range}</td>
+<td>&nbsp;</td>
+<td>{$pl_points}</td>
+<td>{$pl_range}</td>
 </tr>
 <tr>
-<th>{$pl_builds}</th>
-<th>{$build_points}</th>
-<th>{$build_rank}</th>
+<td>{$pl_builds}</td>
+<td>{$build_points}</td>
+<td>{$build_rank}</td>
 </tr>
 <tr>
-<th>{$pl_tech}</th>
-<th>{$tech_points}</th>
-<th>{$tech_rank}</th>
+<td>{$pl_tech}</td>
+<td>{$tech_points}</td>
+<td>{$tech_rank}</td>
 </tr>
 <tr>
-<th>{$pl_fleet}</th>
-<th>{$fleet_points}</th>
-<th>{$fleet_rank}</th>
+<td>{$pl_fleet}</td>
+<td>{$fleet_points}</td>
+<td>{$fleet_rank}</td>
 </tr>
 <tr>
-<th>{$pl_def}</th>
-<th>{$defs_points}</th>
-<th>{$defs_rank}</th>
+<td>{$pl_def}</td>
+<td>{$defs_points}</td>
+<td>{$defs_rank}</td>
 </tr>
 <tr>
-<th>{$pl_total}</th>
-<th>{$total_points}</th>
-<th>{$total_rank}</th>
+<td>{$pl_total}</td>
+<td>{$total_points}</td>
+<td>{$total_rank}</td>
 </tr>
 <tr>
-<td colspan="3" class="c" width="100%">{$pl_fightstats}</td>
+<th colspan="3">{$pl_fightstats}</th>
 </tr>
 <tr>
-<th>&nbsp;</th>
-<th><b>{$pl_fights}</b></th>
-<th align="right"><b>{$pl_fprocent}</b></th>
+<td>&nbsp;</td>
+<td>{$pl_fights}</td>
+<td class="right">{$pl_fprocent}</td>
 </tr>
 <tr>
-<th>{$pl_fightwon}</th>
-<th><b>{$wons}</b></th>
-<th align="right"><b>{$siegprozent} %</b></th>
+<td>{$pl_fightwon}</td>
+<td>{$wons}</td>
+<td class="right">{$siegprozent} %</td>
 </tr>
 <tr>
-<th>{$pl_fightdraw}</th>
-<th><b>{$draws}</b></th>
-<th align="right"><b>{$drawsprozent} %</b></th>
+<td>{$pl_fightdraw}</td>
+<td>{$draws}</td>
+<td class="right">{$drawsprozent} %</td>
 </tr>
 <tr>
-<th>{$pl_fightlose}</th>
-<th><b>{$loos}</b></th>
-<th align="right"><b>{$loosprozent} %</b></th>
+<td>{$pl_fightlose}</td>
+<td>{$loos}</td>
+<td class="right">{$loosprozent} %</td>
 </tr>
 <tr>
-<th>{$pl_totalfight}</th>
-<th><b>{$totalfights}</b></th>
-<th align="right"><b>100%</b></th>
+<td>{$pl_totalfight}</td>
+<td>{$totalfights}</td>
+<td class="right">100%</td>
 </tr>
 <tr>
-<td colspan="3" class="c" width="100%">{$playerdestory}:</td>
+<th colspan="3">{$playerdestory}:</th>
 </tr>
 <tr>
-<th>{$pl_unitsshot}</th>
-<th colspan="2"><b>{$desunits}</b></th>
+<td>{$pl_unitsshot}</td>
+<td colspan="2">{$desunits}</td>
 </tr>
 <tr>
-<th>{$pl_unitslose}</th>
-<th colspan="2"><b>{$lostunits}</b></th>
+<td>{$pl_unitslose}</td>
+<td colspan="2">{$lostunits}</td>
 </tr>
 <tr>
-<th>{$pl_dermetal}</th>
-<th colspan="2"><b>{$kbmetal}</b></th>
+<td>{$pl_dermetal}</td>
+<td colspan="2">{$kbmetal}</td>
 </tr>
 <tr>
-<th>{$pl_dercrystal}</th>
-<th colspan="2"><b>{$kbcrystal}</b></th>
+<td>{$pl_dercrystal}</td>
+<td colspan="2">{$kbcrystal}</td>
 </tr>
 <tr>
-<td colspan="3" class="c" width="100%">Sonstiges</td>
+<th colspan="3">Sonstiges</th>
 </tr>
 <tr>
-<th><a href="javascript:f('game.php?page=buddy&amp;mode=2&amp;u={$id}','');" title="{$pl_buddy}">{$pl_buddy}</a></th><th colspan="2"><a href="javascript:f('game.php?page=messages&amp;mode=write&amp;id={$id}');" title="{$pl_message}">{$pl_message}</a></th>
+<td><a href="javascript:f('game.php?page=buddy&amp;mode=2&amp;u={$id}','');" title="{$pl_buddy}">{$pl_buddy}</a></td><td colspan="2"><a href="javascript:f('game.php?page=messages&amp;mode=write&amp;id={$id}');" title="{$pl_message}">{$pl_message}</a></td>
 </tr>
 </table>
 {include file="overall_footer.tpl"}

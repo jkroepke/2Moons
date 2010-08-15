@@ -2,20 +2,20 @@
 {include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
 <div id="content" class="content">
-<table width="590" align="center">
+<table style="min-width:590px;width:590px;">
 <tbody>
 <tr><td colspan="3" class="c" style="text-align:center;">{$update}</td></tr>
 {foreach item=Elementlist key=Section from=$Records}
 <tr>
-<td width="199" class="c">{$Section}</td>
-<td width="203" class="c">{$player}</td>
-<td width="172" class="c">{$level}</td>
+<th style="width:199px">{$Section}</th>
+<th style="width:203px">{$player}</th>
+<th style="width:172px">{$level}</th>
 </tr>
 {foreach item=ElementInfo key=ElementName from=$Elementlist}
 <tr>
-<th width="199" class="a">{$ElementName}</th>
-<th width="203" class="a">{$ElementInfo.winner}</th>
-<th width="172" class="a">{$ElementInfo.count}</th>
+<td style="width:199px">{$ElementName}</td>
+<td style="width:203px">{$ElementInfo.winner}</td>
+<td style="width:172px">{$ElementInfo.count}</td>
 </tr>
 {/foreach}
 {/foreach}
