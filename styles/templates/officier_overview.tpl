@@ -3,27 +3,28 @@
 {include file="left_menu.tpl"}
 <div id="content" class="content">
 	{if $ExtraDMList}
-    <table width="80%" align="center">
-    <tr>
-        <td class="c" colspan="3">{$of_dm_trade}</td>
-    </tr>
-	{foreach item=ExtraDMInfo from=$ExtraDMList}
+    <table>	
+	    <tr>
+			<th colspan="2">{$of_dm_trade}</th>
+		</tr>
+		{foreach item=ExtraDMInfo from=$ExtraDMList}
 		<tr>
-			<th class="l" rowspan="2" width="120">
-				<img border="0" src="{$dpath}gebaeude/{$ExtraDMInfo.id}.gif" alt="{$ExtraDMInfo.name}" align="top" width="120" height="120">
-			</th>
-			<td class="c" style="color:#FFFFFF;">
-				<img src="./styles/images/transparent.gif" alt="" width="0" height="0">&nbsp;{$ExtraDMInfo.name}
+			<td rowspan="2" style="width:120px;">
+				<a href="javascript:void(0);">
+					<img src="{$dpath}gebaeude/{$ExtraDMInfo.id}.gif" alt="{$ExtraDMInfo.name}" width="120" height="120">
+				</a>
 			</td>
+			<th>
+				<a href="javascript:void(0);">{$ExtraDMInfo.name}</a>
+			</th>
 		</tr>
 		<tr>
-			<td colspan="1" class="l">
-				<table border="0" cellpadding="0" cellspacing="0">
+			<td>
+				<table style="width:100%">
 					<tbody>
 						<tr>
-							<td style="text-align:left;width:10px"><img src="./styles/images/transparent.gif" alt="" style="width:10px;height:100px"></td>
-							<td style="text-align:left;width:90%">{$ExtraDMInfo.desc}<br><br>{$Darkmatter}: {if $ExtraDMInfo.isok}<font color="lime">{$ExtraDMInfo.price}</font>{else}<font color="#FF0000">{$ExtraDMInfo.price}</font>{/if} {$in_dest_durati}: <font color="lime">{$ExtraDMInfo.time}</font></td>
-							<td style="text-align:center;vertical-align:middle;width:100px;color:#FFFFFF">
+							<td class="transparent left" style="width:90%;padding:10px;">{$ExtraDMInfo.desc}<br><br>{$Darkmatter}: {if $ExtraDMInfo.isok}<span style="color:lime">{$ExtraDMInfo.price}</span>{else}<span style="color:#FF0000">{$ExtraDMInfo.price}</span>{/if} {$in_dest_durati}: <span style="color:lime">{$ExtraDMInfo.time}</span></td>
+							<td class="transparent" style="vertical-align:middle;width:100px">
 							{if $ExtraDMInfo.active > 0}
 							<script type="text/javascript">
 							getsectime('time_{$ExtraDMInfo.id}', {$ExtraDMInfo.active});
@@ -34,59 +35,52 @@
 							<br>
 							<a href="?page=officier&amp;extra={$ExtraDMInfo.id}&amp;action=send">{$of_update}</a>{/if}
 							{else}{if $ExtraDMInfo.isok}
-							<a href="?page=officier&amp;extra={$ExtraDMInfo.id}&amp;action=send"><font color="#00FF00">{$of_recruit}</font></a>{else}<font color="#FF0000">{$of_recruit}</font>{/if}{/if}
+							<a href="?page=officier&amp;extra={$ExtraDMInfo.id}&amp;action=send"><span style="color:#00FF00">{$of_recruit}</span></a>{else}<span style="color:#FF0000">{$of_recruit}</span>{/if}{/if}
 							</td>
 						</tr>
 					</tbody>
 				</table>
 			</td>
 		</tr>
-		<tr>
-			<td colspan="2"><img src="./styles/images/transparent.gif" alt="" width="1" height="10"></td>
-		</tr>
-	{/foreach}
+		{/foreach}
     </table>
 	<br><br>
 	{/if}
 	{if $OfficierList}
-    <table width="80%" align="center">
-    <tr>
-        <td class="c" colspan="3">{$of_available_points} {$user_darkmatter} {$of_darkmatter}</td>
-    </tr>
-	{foreach item=OfficierInfo from=$OfficierList}
+	<table>	
 		<tr>
-			<th class="l" rowspan="2" width="120">
+			<th colspan="2">{$of_available_points} {$user_darkmatter} {$of_darkmatter}</th>
+		</tr>
+		{foreach item=OfficierInfo from=$OfficierList}
+		<tr>
+			<td rowspan="2" style="width:120px;">
 				<a href="javascript:info({$OfficierInfo.id});">
-					<img border="0" src="styles/images/officiers/{$OfficierInfo.id}.jpg" alt="{$OfficierInfo.name}" align="top" width="120" height="120">
+					<img src="styles/images/officiers/{$OfficierInfo.id}.jpg" alt="{$OfficierInfo.name}" width="120" height="120">
 				</a>
-			</th>
-			<td class="c">
-				<img src="./styles/images/transparent.gif" alt="" width="0" height="0">&nbsp;<a href="javascript:info({$OfficierInfo.id});">{$OfficierInfo.name}</a> ({$of_lvl} {$OfficierInfo.level})
 			</td>
+			<th>
+				<a href="javascript:info({$OfficierInfo.id});">{$OfficierInfo.name}</a> ({$of_lvl} {$OfficierInfo.level})
+			</th>
 		</tr>
 		<tr>
-			<td colspan="1" class="l">
-				<table border="0" cellpadding="0" cellspacing="0">
+			<td>
+				<table style="width:100%">
 					<tbody>
 						<tr>
-							<td style="text-align:left;width:10px"><img src="./styles/images/transparent.gif" alt="" width="0" height="100"></td>
-							<td style="text-align:left;width:90%">{$OfficierInfo.desc}</td>
-							<td style="text-align:center;vertical-align:middle;width:100px">
+							<td class="transparent left" style="width:90%;padding:10px;">{$OfficierInfo.desc}</td>
+							<td class="transparent" style="vertical-align:middle;width:100px">
 							{if $OfficierInfo.Result == 1}
 								{if $user_darkmatter >= 1}
-									<a href="?page=officier&amp;offi={$OfficierInfo.id}&amp;action=send"><font color="#00ff00">{$of_recruit}</font></a>
-								{else}<font color="red">{$of_recruit}</font>{/if}
-							{else}<font color="red">{$of_max_lvl}</font>{/if}
+									<a href="?page=officier&amp;offi={$OfficierInfo.id}&amp;action=send"><span style="color:#00ff00">{$of_recruit}</span></a>
+								{else}<span style="color:red">{$of_recruit}</span>{/if}
+							{else}<span style="color:red">{$of_max_lvl}</span>{/if}
 							</td>
 						</tr>
 					</tbody>
 				</table>
 			</td>
 		</tr>
-		<tr>
-			<td colspan="2"><img src="./styles/images/transparent.gif" alt="" width="1" height="10"></td>
-		</tr>
-	{/foreach}
+		{/foreach}
     </table>
 	{/if}
 </div>
