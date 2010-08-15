@@ -65,7 +65,7 @@ set_exception_handler('exception_handler');
 if($database)
 	$db = new DB_MySQLi();
 elseif(INSTALL != true)
-	rediectTo("install/");
+	redirectTo("install/");
 
 unset($database);
 
