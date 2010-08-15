@@ -5,14 +5,9 @@ var hoehe	= 300;
 var xpos	= (xsize-breite) / 2;
 var ypos	= (ysize-hoehe) / 2;
 
-window.onerror = blockError; 
-
-function blockError(){return true;} 
-
-$(".autocomplete").attr("autocomplete","off");
-
 $(document).ready(function () {
-	$('#content').css("top", $('#infobox').height()+95+'px');
+	if($('#infobox').height() != null)
+		$('#content').css("top", $('#infobox').height()+95+'px');
 });
 
 function var_dump(obj) {
@@ -104,11 +99,11 @@ function pretty_time_update(div) {
 			Minute = "0" + Minute;
 		}	
 		if(Sekunde == 0 && Minute == 0 && Stunde == 0 && Tage == 0){
-			document.getElementById(div).innerHTML = "Fertig";
+			$('#'+div).html("Fertig");
 			window.clearInterval('si_'+div);
 		}
 		else {
-			document.getElementById(div).innerHTML = Tage + "d " + Stunde + "h "+Minute+"m "+Sekunde+"s";
+			$('#'+div).html(Tage + "d " + Stunde + "h "+Minute+"m "+Sekunde+"s");
 		}
 	} else {
 		var Stunde	= boc[0].replace(/h/g, "");

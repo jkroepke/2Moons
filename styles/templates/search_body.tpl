@@ -3,16 +3,16 @@
 {include file="left_menu.tpl"}
 <div id="content" class="content">
     <form action="" method="post">
-     <table width="519" align="center">
+     <table style="width:50%">
       <tr>
-       <td class="c">{$sh_search_in_the_universe}</td>
+       <th>{$sh_search_in_the_universe}</th>
       </tr>
       <tr>
-       <th>
+       <td>
 		{html_options name=type options=$SeachTypes selected=$SeachType}
         <input type="text" name="searchtext" value="{$SeachInput}">
         <input type="submit" value="{$sh_search}">
-       </th>
+       </td>
       </tr>
     </table>
     </form>

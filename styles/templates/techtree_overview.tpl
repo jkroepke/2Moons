@@ -2,39 +2,27 @@
 {include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
 <div id="content" class="content">
-<table width="569" align="center">
+<table style="min-width:569px;width:569px;">
 {foreach item=TechInfo from=$TechTreeList}
 {if !is_array($TechInfo)}
 <tr>
-	<td class="c">{$TechInfo}</td>
-	<td class="c">{$tt_requirements}</td>
+	<th>{$TechInfo}</th>
+	<th>{$tt_requirements}</th>
 </tr>
 {else}
 <tr>
-	<th class="l" width="40%">
-	<table width="100%">
-	<tr>
-		<td style="background-color: transparent;" align="left"><a href="javascript:info('{$TechInfo.id}');">{$TechInfo.name}</a></td>
-	</tr>
-	</table>
-	</th>
-	<th class="l" width="60%">
-	<table width="100%">
-	<tr>
-	<td style="background-color: transparent;" align="left">
+	<td><a href="javascript:info('{$TechInfo.id}');">{$TechInfo.name}</a></td>
+	<td>
 	{if $TechInfo.need}
 		{foreach item=NeedLevel from=$TechInfo.need.{$TechInfo.id}}
 			{if $NeedLevel.own >= $NeedLevel.count}
-				<font color="#00ff00">{$lang.{$NeedLevel.id}} ({$tt_lvl}{$NeedLevel.own}/{$NeedLevel.count})</font><br>
+				<span style="color:#00ff00;">{$lang.{$NeedLevel.id}} ({$tt_lvl}{$NeedLevel.own}/{$NeedLevel.count})</span><br>
 			{else}
-				<font color="#ff0000">{$lang.{$NeedLevel.id}} ({$tt_lvl}{$NeedLevel.own}/{$NeedLevel.count})</font><br>
+				<span style="color:#ff0000;">{$lang.{$NeedLevel.id}} ({$tt_lvl}{$NeedLevel.own}/{$NeedLevel.count})</span><br>
 			{/if}
 		{/foreach}
 	{/if}
 	</td>
-	</tr>
-	</table>
-	</th>
 </tr>
 {/if}
 {/foreach}

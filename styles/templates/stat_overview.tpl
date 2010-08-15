@@ -2,17 +2,17 @@
 {include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
 <div id="content" class="content">
-    <form name="stats" method="post" action="">
-        <table width="519" align="center">
+    <form name="stats" id="stats" method="post" action="">
+        <table class="table519">
             <tr>
-               <td colspan="6" class="c">{$st_statistics}({$st_updated}: {$stat_date})</td>
+				<th>{$st_statistics}({$st_updated}: {$stat_date})</th>
             </tr>
             <tr>
-                <th colspan="6" class="c">{$st_show} <select name="who" onChange="javascript:document.stats.submit()">{html_options options=$Selectors.who selected=$who}</select> {$st_per} <select name="type" onChange="javascript:document.stats.submit()">{html_options options=$Selectors.type selected=$type}</select> {$st_in_the_positions} <select name="range" onChange="javascript:document.stats.submit()">{html_options options=$Selectors.range selected=$range}</select></th>
+                <td>{$st_show} <select name="who" onChange="$('#stats').submit();">{html_options options=$Selectors.who selected=$who}</select> {$st_per} <select name="type" onChange="$('#stats').submit();">{html_options options=$Selectors.type selected=$type}</select> {$st_in_the_positions} <select name="range" onChange="$('#stats').submit();">{html_options options=$Selectors.range selected=$range}</select></td>
             </tr>
         </table>
     </form>
-    <table width="519" align="center">
+    <table class="table519">
 	{if $who == 1}
 		{include file="stat_playertable.tpl"}
  	{elseif $who == 2}

@@ -1,16 +1,16 @@
 <tr>
-	<td class="c" width="60">{$st_position}</td>
-	<td class="c">{$st_alliance}</td>	
-	<td class="c">{$st_members}</td>
-	<td class="c">{$st_points}</td>
-	<td class="c">{$st_per_member}</td>
+	<th style="width:60px;">{$st_position}</th>
+	<th>{$st_alliance}</th>	
+	<th>{$st_members}</th>
+	<th>{$st_points}</th>
+	<th>{$st_per_member}</th>
 </tr>
 {foreach name=RangeList item=RangeInfo from=$RangeList}
 <tr>
-	<th><a href="#" onmouseover='return overlib("{if $RangeInfo.ranking == 0}<font color=&#34;#87CEEB"&#34;>*</font>{elseif $RangeInfo.ranking < 0}<font color=&#34;red&#34;>-{$RangeInfo.ranking}</font>{elseif $RangeInfo.ranking > 0}<font color=&#34;green&#34;>+{$RangeInfo.ranking}</font>{/if}");' onmouseout='return nd();'>{$RangeInfo.rank}</a></th>
-	<th><a href="game.php?page=alliance&mode=ainfo&a={$RangeInfo.id}" target="ally">{if $RangeInfo.id == $CUser_ally}<font color="lime">{$RangeInfo.name}</font>{else}{$RangeInfo.name}{/if}</a></th>
-	<th>{$RangeInfo.members}</th>
-	<th>{$RangeInfo.points}</th>
-	<th>{$RangeInfo.mppoints}</th>
+	<td><a href="#" onmouseover='return overlib("{if $RangeInfo.ranking == 0}<span style=&#39;color:#87CEEB&#39;>*</span>{elseif $RangeInfo.ranking < 0}<span style=&#39;color:red&#39;>-{$RangeInfo.ranking}</span>{elseif $RangeInfo.ranking > 0}<span style=&#39;color:green&#39;>+{$RangeInfo.ranking}</span>{/if}", WIDTH, 10);' onmouseout='return nd();'>{$RangeInfo.rank}</a></td>
+	<td><a href="game.php?page=alliance&amp;mode=ainfo&amp;a={$RangeInfo.id}" target="ally"{if $RangeInfo.id == $CUser_ally} style="color:lime"{/if}>{$RangeInfo.name}</a></td>
+	<td>{$RangeInfo.members}</td>
+	<td>{$RangeInfo.points}</td>
+	<td>{$RangeInfo.mppoints}</td>
 </tr>
 {/foreach}
