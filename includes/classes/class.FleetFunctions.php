@@ -309,12 +309,7 @@ abstract class FleetFunctions
 	
 	public static function GotoFleetPage()
 	{
-		if (!headers_sent()) {
-			$temp = debug_backtrace();
-			header("Location: game.".PHP_EXT."?page=fleet");
-			header("X-FAIL-AT-LINE: ".str_replace($_SERVER["DOCUMENT_ROOT"],'.',$temp[0]['file'])." on ".$temp[0]['line']);
-		}
-		exit;
+		redirectTo("game.".PHP_EXT."?page=fleet");
 	}
 
 	function GetAKSPage($CurrentUser, $CurrentPlanet, $fleetid)
@@ -329,12 +324,12 @@ abstract class FleetFunctions
 		$query = $db->query("SELECT * FROM ".FLEETS." WHERE fleet_id = '" . $fleetid . "';");
 
 		if ($db->num_rows($query) != 1)
-			exit(header("Location: game.".PHP_EXT."?page=fleet"));
+			self::GotoFleetPage();
 
 		$daten = $db->fetch_array($query);
 
 		if ($daten['fleet_start_time'] <= TIMESTAMP || $daten['fleet_end_time'] < TIMESTAMP || $daten['fleet_mess'] == 1)
-			exit(header("Location: game.".PHP_EXT."?page=fleet"));
+			self::GotoFleetPage();
 				
 		if (empty($daten['fleet_group']))
 		{
@@ -370,7 +365,7 @@ abstract class FleetFunctions
 			$AKSRAW = $db->query("SELECT `id`, `eingeladen`, `name` FROM ".AKS." WHERE `id` = '" . $daten['fleet_group'] . "';");
 
 			if ($db->num_rows($AKSRAW) != 1)
-				exit(header("Location: game.".PHP_EXT."?page=fleet"));
+				self::GotoFleetPage();
 			
 			$aks	= $db->fetch_array($AKSRAW);
 		}
@@ -385,13 +380,13 @@ abstract class FleetFunctions
 
 		if(!empty($addname))
 		{
-			$member_qry_mr 		= $db->fetch_array($db->query("SELECT `id` FROM ".USERS." WHERE `username` = '".$db->sql_escape($addname)."' ;"));
+			$member_qry_mr 		= $db->uniquequery("SELECT `id` FROM ".USERS." WHERE `username` = '".$db->sql_escape($addname)."';");
 			$added_user_id_mr 	= $member_qry_mr['id'];
 			
 			foreach(explode(",", $aks['eingeladen']) as $a => $b)
 			{
 				if (!empty($b) && $added_user_id_mr == $b)
-					header("Location: game.php?page=fleet&action=getakspage&fleetid=".$daten['fleet_id']);
+					redirectTo("game.php?page=fleet&action=getakspage&fleetid=".$daten['fleet_id']);
 			}
 
 			if(empty($added_user_id_mr))
@@ -459,6 +454,7 @@ abstract class FleetFunctions
 						$missiontype[1] = $LNG['type_mission'][1];
 					if(!CheckModule(32))
 						$missiontype[5] = $LNG['type_mission'][5];}
+						
 				elseif(!CheckModule(36)) {
 					$missiontype[4] = $LNG['type_mission'][4];}
 					

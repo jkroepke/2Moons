@@ -37,6 +37,7 @@ define('ROOT_PATH', './../');
 include(ROOT_PATH . 'extension.inc');
 include(ROOT_PATH . 'common.'.PHP_EXT);
 define('DEFAULT_LANG'	, (empty($_REQUEST['lang'])) ? 'de' : $_REQUEST['lang']);
+includeLang('INGAME');
 includeLang('INSTALL');
 $Mode     = $_GET['mode'];
 $Page     = $_GET['page'];
@@ -104,10 +105,10 @@ switch ($Mode) {
 					$chmod = " - <span class=\"no\">".$LNG['reg_not_writable']."</span>";
 					$error++;
 				}
-			$config = "<tr><th>".$LNG['reg_file']." - config.php</th></th><th><span class=\"yes\">".$LNG['reg_found']."</span>".$chmod."</th></tr>";		
+			$config = "<tr><td>".$LNG['reg_file']." - config.php</td><td><span class=\"yes\">".$LNG['reg_found']."</span>".$chmod."</td></tr>";		
 			@fclose($res);
 		} else {
-			$config = "<tr><th>".$LNG['reg_file']." - config.php</th></th><th><span class=\"no\">".$LNG['reg_not_found']."</span>";
+			$config = "<tr><td>".$LNG['reg_file']." - config.php</td><td><span class=\"no\">".$LNG['reg_not_found']."</span></td></tr>";
 			$error++;
 		}
 		$directories = array('cache/', 'cache/UserBanner/', 'cache/sessions/', 'raports/');
@@ -121,16 +122,16 @@ switch ($Mode) {
 						$chmod = " - <span class=\"no\">".$LNG['reg_not_writable']."</span>";
 						$error++;
 					}
-				$dirs .= "<tr><th>".$LNG['reg_dir']." - ".$dir."</th></th><th><span class=\"yes\">".$LNG['reg_found']."</span>".$chmod."</th></tr>";
+				$dirs .= "<tr><td>".$LNG['reg_dir']." - ".$dir."</th><td><span class=\"yes\">".$LNG['reg_found']."</span>".$chmod."</td></tr>";
 				
 			} else {
-				$dirs .= "<tr><th>".$LNG['reg_dir']." - ".$dir."</th></th><th><span class=\"no\">".$LNG['reg_not_found']."</span>";
+				$dirs .= "<tr><td>".$LNG['reg_dir']." - ".$dir."</td><td><span class=\"no\">".$LNG['reg_not_found']."</span></td></tr>";
 				$error++;
 			}
 		}
 		
 		if($error == 0){
-			$done = "<tr><th colspan=\"2\"><a href=\"index.php?mode=ins&page=1&amp;lang=".DEFAULT_LANG."\">".$LNG['continue']."</a></th></tr>";
+			$done = "<tr><td colspan=\"2\"><a href=\"index.php?mode=ins&page=1&amp;lang=".DEFAULT_LANG."\">".$LNG['continue']."</a></td></tr>";
 		}
 		
 		$template->assign_vars(array(

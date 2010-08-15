@@ -26,44 +26,18 @@ class ShowResearchPage
 	private function CheckLabSettingsInQueue()
 	{
 		global $PLANET;
-		if ($PLANET['b_building_id'] != 0)
-		{
-			$CurrentQueue = $PLANET['b_building_id'];
-			if (strpos ($CurrentQueue, ";"))
-			{
-				// FIX BY LUCKY - IF THE LAB IS IN QUEUE THE USER CANT RESEARCH ANYTHING...
-				$QueueArray		= explode (";", $CurrentQueue);
+		if ($PLANET['b_building_id'] == 0)
+			return true;
+			
+		$QueueArray		= explode (";", $PLANET['b_building_id']);
 
-				for($i = 0; $i < MAX_BUILDING_QUEUE_SIZE; $i++)
-				{
-					$ListIDArray	= explode (",", $QueueArray[$i]);
-					$Element		= $ListIDArray[0];
-
-					if($Element == 31)
-						break;
-				}
-				// END - FIX
-			}
-			else
-			{
-				$CurrentBuilding = $CurrentQueue;
-			}
-
-			if ($CurrentBuilding == 31 or $Element == 31) // ADDED (or $Element == 31) BY LUCKY
-			{
-				$return = false;
-			}
-			else
-			{
-				$return = true;
-			}
-		}
-		else
-		{
-			$return = true;
+		for($i = 0; $i < MAX_BUILDING_QUEUE_SIZE; $i++)	{
+			$ListIDArray	= explode (",", $QueueArray[$i]);
+			if($ListIDArray[0] == 6 || $ListIDArray[0] == 31)
+				return false;
 		}
 
-		return $return;
+		return true;
 	}
 
 	private function CheckAndGetLabLevel()
@@ -89,9 +63,7 @@ class ShowResearchPage
 		global $USER, $PLANET, $pricelist, $resource, $LNG;
 
 		if ($Factor)
-		{
 			$level = ($PLANET[$resource[$Element]]) ? $PLANET[$resource[$Element]] : $USER[$resource[$Element]];
-		}
 
 		$array = array(
 			'metal'      => $LNG['Metal'],
@@ -154,7 +126,7 @@ class ShowResearchPage
 					if (empty($USER['b_tech']))
 						break;
 
-					$costs						= GetBuildingPrice($USER, $PLANET, $Element);
+					$costs						= GetBuildingPrice($USER, $PLANET, $USER['b_tech_id']);
 					if($PLANET['id'] == $USER['b_tech_planet'])
 					{
 						$PLANET['metal']      		+= $costs['metal'];

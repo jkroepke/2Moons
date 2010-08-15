@@ -55,7 +55,7 @@ function ShowResourcesPage()
 			$QryUpdatePlanet .= "`id` = '". $PLANET['id'] ."';";
 			$db->query($QryUpdatePlanet);
 		}
-		header("Location: game.php?page=resources");
+		redirectTo("game.php?page=resources");
 		exit;		
 	}
 	

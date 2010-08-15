@@ -21,7 +21,7 @@
 
 function GenerateReport($RESULT, $INFO)
 {
-	$html 		= '"';
+	$html 		= '"<div style=\"width:100%;text-align:center\">';
 	
 	if($INFO['moon']['des'] == 1)
 		$html 		.= '".$LNG["sys_destruc_title"]." '.date("D M j H:i:s", $INFO['fleet_start_time']).'. <br><br>';
@@ -60,21 +60,21 @@ function GenerateReport($RESULT, $INFO)
 			$shie 	= ($data2['user']['defence_tech'] * 10);
 			$armr 	= ($data2['user']['shield_tech'] * 10);
 
-			$fl_info1  	= '<td><table><tr><th>".$LNG["sys_attack_attacker_pos"]." '.$name.' (['.$coord1.':'.$coord2.':'.$coord3.'])<br>".$LNG["sys_ship_weapon"]." '.$weap.'% - ".$LNG["sys_ship_shield"]." '.$shie.'% - ".$LNG["sys_ship_armour"]." '.$armr.'%';
-			$table1  	= '<table border=\'1\' align=\'center\' width=\'100%\'>';
+			$fl_info1  	= '<td class=\"transparent\"><table><tr><td>".$LNG["sys_attack_attacker_pos"]." '.$name.' (['.$coord1.':'.$coord2.':'.$coord3.'])<br>".$LNG["sys_ship_weapon"]." '.$weap.'% - ".$LNG["sys_ship_shield"]." '.$shie.'% - ".$LNG["sys_ship_armour"]." '.$armr.'%';
+			$table1  	= '<table width=\'100%\'>';
 
 			if (array_sum($data2['detail']) != 0)
 			{
-				$ships1  = '<tr><th>".$LNG["sys_ship_type"]."</th>';
-				$count1  = '<tr><th>".$LNG["sys_ship_count"]."</th>';
+				$ships1  = '<tr><td class=\"transparent\">".$LNG["sys_ship_type"]."</td>';
+				$count1  = '<tr><td class=\"transparent\">".$LNG["sys_ship_count"]."</td>';
 
 				foreach($data2['detail'] as $ship_id1 => $ship_count1)
 				{
 					if ($ship_count1 <= 0)
 						continue;
 
-					$ships1 .= '<th>".$LNG["tech"]['.$ship_id1.']."</th>';
-					$count1 .= '<th>'.pretty_number($ship_count1).'</th>';
+					$ships1 .= '<td class=\"transparent\">".$LNG["tech"]['.$ship_id1.']."</td>';
+					$count1 .= '<td class=\"transparent\">'.pretty_number($ship_count1).'</td>';
 				}
 
 				$ships1 .= '</tr>';
@@ -83,7 +83,7 @@ function GenerateReport($RESULT, $INFO)
 			else
 			{
 				$des['att'][] = 1;
-				$ships1 = '<tr><br><br>". $LNG["sys_destroyed"]."<br></tr>';
+				$ships1 = '<tr><td class=\"transparent\"><br><br>". $LNG["sys_destroyed"]."<br></td></tr>';
 				$count1 = '';
 			}
 
@@ -92,23 +92,23 @@ function GenerateReport($RESULT, $INFO)
 
 		foreach($attackers2 as $fleet_id2 => $data3)
 		{
-			$weap1		= '<tr><th>".$LNG["sys_ship_weapon"]."</th>';
-			$shields1	= '<tr><th>".$LNG["sys_ship_shield"]."</th>';
-			$armour1	= '<tr><th>".$LNG["sys_ship_armour"]."</th>';
+			$weap1		= '<tr><td class=\"transparent\">".$LNG["sys_ship_weapon"]."</td>';
+			$shields1	= '<tr><td class=\"transparent\">".$LNG["sys_ship_shield"]."</td>';
+			$armour1	= '<tr><td class=\"transparent\">".$LNG["sys_ship_armour"]."</td>';
 			foreach($data3 as $ship_id2 => $ship_points1)
 			{
 				if($ship_points1['shield'] <= 0)
 					continue;
 
-				$weap1 		.= '<th>'.pretty_number($ship_points1['att']).'</th>';
-				$shields1 	.= '<th>'.pretty_number($ship_points1['def']).'</th>';
-				$armour1 	.= '<th>'.pretty_number($ship_points1['shield']).'</th>';
+				$weap1 		.= '<td class=\"transparent\">'.pretty_number($ship_points1['att']).'</td>';
+				$shields1 	.= '<td class=\"transparent\">'.pretty_number($ship_points1['def']).'</td>';
+				$armour1 	.= '<td class=\"transparent\">'.pretty_number($ship_points1['shield']).'</td>';
 			}
 
 			$weap1 		.= '</tr>';
 			$shields1 	.= '</tr>';
 			$armour1 	.= '</tr>';
-			$endtable1 	= '</table></th></tr></table></td>';
+			$endtable1 	= '</table></td></tr></table></td>';
 
 			$info_part2[$fleet_id2] = $weap1.$shields1.$armour1.$endtable1;
 
@@ -119,7 +119,7 @@ function GenerateReport($RESULT, $INFO)
 			else
 			{
 				$html .= $info_part1[$fleet_id2];
-				$html .= '</table></th></tr></table><br><br>';
+				$html .= '</table></td></tr></table><br><br>';
 			}
 		}
 		
@@ -133,21 +133,21 @@ function GenerateReport($RESULT, $INFO)
 			$shie = ($data2['user']['defence_tech'] * 10);
 			$armr = ($data2['user']['shield_tech'] * 10);
 
-			$fl_info1	= '<td><table><tr><th>".$LNG["sys_attack_defender_pos"]." '.$name.' (['.$coord4.':'.$coord5.':'.$coord6.'])<br>".$LNG["sys_ship_weapon"]." '.$weap.'% - ".$LNG["sys_ship_shield"]." '.$shie.'% - ".$LNG["sys_ship_armour"]." '.$armr.'%';
+			$fl_info1	= '<td class=\"transparent\"><table><tr><td>".$LNG["sys_attack_defender_pos"]." '.$name.' (['.$coord4.':'.$coord5.':'.$coord6.'])<br>".$LNG["sys_ship_weapon"]." '.$weap.'% - ".$LNG["sys_ship_shield"]." '.$shie.'% - ".$LNG["sys_ship_armour"]." '.$armr.'%';
 			$table1  	= '<table border=\'1\' align=\'center\' width=\'100%\'>';
 
 			if (array_sum($data2['def']) != 0)
 			{
-				$ships1  = '<tr><th>".$LNG["sys_ship_type"]."</th>';
-				$count1  = '<tr><th>".$LNG["sys_ship_count"]."</th>';
+				$ships1  = '<tr><td class=\"transparent\">".$LNG["sys_ship_type"]."</td>';
+				$count1  = '<tr><td class=\"transparent\">".$LNG["sys_ship_count"]."</td>';
 
 				foreach($data2['def'] as $ship_id1 => $ship_count1)
 				{
 					if ($ship_count1 == 0)
 						continue;
 
-					$ships1 .= '<th>".$LNG["tech"]['.$ship_id1.']."</th>';
-					$count1 .= '<th>'.pretty_number($ship_count1).'</th>';
+					$ships1 .= '<td class=\"transparent\">".$LNG["tech"]['.$ship_id1.']."</td>';
+					$count1 .= '<td class=\"transparent\">'.pretty_number($ship_count1).'</td>';
 				}
 
 				$ships1 .= '</tr>';
@@ -156,7 +156,7 @@ function GenerateReport($RESULT, $INFO)
 			else
 			{
 				$des['def'][] = 1;
-				$ships1 = '<tr><br><br>".$LNG["sys_destroyed"]."<br></tr>';
+				$ships1 = '<tr><td class=\"transparent\"><br><br>".$LNG["sys_destroyed"]."<br></td></tr>';
 				$count1 = '';
 			}
 
@@ -165,24 +165,24 @@ function GenerateReport($RESULT, $INFO)
 
 		foreach($defenders2 as $fleet_id2 => $data3)
 		{
-			$weap1  	= '<tr><th>".$LNG["sys_ship_weapon"]."</th>';
-			$shields1  	= '<tr><th>".$LNG["sys_ship_shield"]."</th>';
-			$armour1  	= '<tr><th>".$LNG["sys_ship_armour"]."</th>';
+			$weap1  	= '<tr><td class=\"transparent\">".$LNG["sys_ship_weapon"]."</td>';
+			$shields1  	= '<tr><td class=\"transparent\">".$LNG["sys_ship_shield"]."</td>';
+			$armour1  	= '<tr><td class=\"transparent\">".$LNG["sys_ship_armour"]."</td>';
 
 			foreach( $data3 as $ship_id2 => $ship_points1)
 			{
 				if($ship_points1['shield'] <= 0)
 					continue;
 
-				$weap1 		.= '<th>'.pretty_number($ship_points1['att']).'</th>';
-				$shields1 	.= '<th>'.pretty_number($ship_points1['def']).'</th>';
-				$armour1 	.= '<th>'.pretty_number($ship_points1['shield']).'</th>';
+				$weap1 		.= '<td class=\"transparent\">'.pretty_number($ship_points1['att']).'</td>';
+				$shields1 	.= '<td class=\"transparent\">'.pretty_number($ship_points1['def']).'</td>';
+				$armour1 	.= '<td class=\"transparent\">'.pretty_number($ship_points1['shield']).'</td>';
 			}
 
 			$weap1 		.= '</tr>';
 			$shields1 	.= '</tr>';
 			$armour1 	.= '</tr>';
-			$endtable1 	= '</table></th></tr></table>';
+			$endtable1 	= '</table></td></tr></table>';
 
 			$info_part2[$fleet_id2] = $weap1.$shields1.$armour1.$endtable1;
 
@@ -194,15 +194,15 @@ function GenerateReport($RESULT, $INFO)
 			else
 			{
 				$html .= $info_part1[$fleet_id2];
-				$html .= '</table></th></tr></table><br><br>';
+				$html .= '</table></td></tr></table><br><br>';
 			}
 		}
 				
 		$html .= '</tr></table>';
 		if (array_sum($des['att']) == count($attackers2) || array_sum($des['def']) == count($defenders2)) break;
 				
-		$html .= '".$LNG["fleet_attack_1"]." '.pretty_number($data1['attack']['total']).' ".$LNG["fleet_attack_2"]." '.pretty_number($data1['defShield']).' ".$LNG["damage"]."<br>';
-		$html .= '".$LNG["fleet_defs_1"]." '.pretty_number($data1['defense']['total']).' ".$LNG["fleet_defs_2"]." '.pretty_number($data1['attackShield']).' ".$LNG["damage"]."<br><br>';
+		$html .= '".$LNG["fleet_attack_1"]." '.pretty_number($data1['attack']).' ".$LNG["fleet_attack_2"]." '.pretty_number($data1['defShield']).' ".$LNG["damage"]."<br>';
+		$html .= '".$LNG["fleet_defs_1"]." '.pretty_number($data1['defense']).' ".$LNG["fleet_defs_2"]." '.pretty_number($data1['attackShield']).' ".$LNG["damage"]."<br><br>';
 		$round_no++;			
 	}
 
@@ -252,7 +252,7 @@ function GenerateReport($RESULT, $INFO)
 	if(isset($INFO['moon']['battlesim'])) {
 		$html .= $INFO['moon']['battlesim'];
 	}
-	$html .= '"';
+	$html .= '</div>"';
 	return $html;
 }
 	

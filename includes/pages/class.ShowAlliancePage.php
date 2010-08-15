@@ -146,7 +146,7 @@ class ShowAlliancePage
 		if ($USER['ally_id'] != 0 && $USER['ally_request'] != 0)
 		{
 			$db->query("UPDATE `".USERS."` SET `ally_id` = 0 WHERE `id` = ".$USER['id'].";");
-			header("location:game.". PHP_EXT . "?page=alliance");
+			header("location:?page=alliance");
 		}
 		
 		switch($USER['ally_id'])
@@ -156,7 +156,7 @@ class ShowAlliancePage
 					case 'ainfo':
 						$allyrow = $db->fetch_array($db->query("SELECT * FROM ".ALLIANCE." WHERE ally_tag='".$db->sql_escape($tag)."' OR id='".$db->sql_escape($a)."';"));
 
-						if (!$allyrow) die(header("Location: game.". PHP_EXT . "?page=alliance"));
+						if (!$allyrow) die(redirectTo("game.".PHP_EXT."?page=alliance"));
 						
 						$this->ainfo($allyrow, $USER, $PLANET);					
 					break;
@@ -219,7 +219,7 @@ class ShowAlliancePage
 							}		
 						
 						} else {
-							header("Location: game.". PHP_EXT . "?page=alliance");
+							redirectTo("game.".PHP_EXT."?page=alliance");
 						}
 					break;
 					case 'search';
@@ -257,7 +257,7 @@ class ShowAlliancePage
 							
 							$this->template->show("alliance_searchform.tpl");
 						} else {
-							header("Location: ?page=alliance");
+							redirectTo("game.".PHP_EXT."?page=alliance");
 						}
 					break;
 					case 'apply':
@@ -268,7 +268,7 @@ class ShowAlliancePage
 							$allyrow = $db->uniquequery("SELECT `ally_tag`, `ally_request`, `ally_request_notallow` FROM ".ALLIANCE." WHERE id='".$db->sql_escape($allyid)."';");
 
 							if (!$allyrow)
-								header("Location: ?page=alliance");
+								redirectTo("game.".PHP_EXT."?page=alliance");
 									
 							if($allyrow['ally_request_notallow'] == 1)
 							{
@@ -297,7 +297,7 @@ class ShowAlliancePage
 								}
 							}
 						} else {
-							header("Location: ?page=alliance");
+							redirectTo("game.".PHP_EXT."?page=alliance");
 						}
 					break;
 					default:
@@ -346,7 +346,7 @@ class ShowAlliancePage
 				if (!$ally)
 				{
 					$db->query("UPDATE `".USERS."` SET `ally_id` = 0 WHERE `id` = ".$USER['id'].";");
-					header("Location: ?page=alliance");
+					redirectTo("game.".PHP_EXT."?page=alliance");
 				}
 				$ally_ranks = unserialize($ally['ally_ranks']);
 				
@@ -364,7 +364,7 @@ class ShowAlliancePage
 					case 'ainfo':
 						$allyrow = $db->fetch_array($db->query("SELECT * FROM ".ALLIANCE." WHERE ally_tag='".$db->sql_escape($tag)."' OR id='".$db->sql_escape($a)."';"));
 
-						if (!$allyrow) die(header("Location: ?page=alliance"));
+						if (!$allyrow) redirectTo("game.".PHP_EXT."?page=alliance");
 						
 						$this->ainfo($allyrow, $USER, $PLANET);	
 					break;
@@ -381,7 +381,7 @@ class ShowAlliancePage
 					break;
 					case 'memberslist':
 						if (!$USER['rights']['memberlist'])
-							header("Location: ?page=alliance");
+							redirectTo("game.".PHP_EXT."?page=alliance");
 						
 						if ($sort1 && $sort2)
 						{
@@ -466,7 +466,7 @@ class ShowAlliancePage
 					break;
 					case 'circular':
 						if (!$USER['rights']['roundmail'])
-							header("Location: ?page=alliance");
+							redirectTo("game.".PHP_EXT."?page=alliance");
 
 						if ($action == "send")
 						{
@@ -512,10 +512,10 @@ class ShowAlliancePage
 						$this->template->show("alliance_circular.tpl");
 					break;
 					case 'admin':
-						if(!$USER['rights']['admin']) exit(header("Location: ?page=alliance"));
+						if(!$USER['rights']['admin']) exit(redirectTo("game.".PHP_EXT."?page=alliance"));
 						switch($edit) {
 							case 'rights':
-								if (!$USER['rights']['righthand']) exit(header("Location: ?page=alliance"));
+								if (!$USER['rights']['righthand']) exit(redirectTo("game.".PHP_EXT."?page=alliance"));
 								
 								$rankname 	= request_var('newrangname', '', UTF8_SUPPORT);
 								$pid 		= $_POST['id'];			
@@ -538,7 +538,7 @@ class ShowAlliancePage
 									$ranks = serialize($ally_ranks);
 									$db->query("UPDATE ".ALLIANCE." SET `ally_ranks`='" . $ranks . "' WHERE `id`='" . $ally['id']."';");
 
-									header("Location: ?page=alliance&mode=admin&edit=rights");
+									redirectTo("game.".PHP_EXT."?page=alliance&mode=admin&edit=rights");
 									exit();
 								}
 								elseif (is_array($pid))
@@ -561,7 +561,7 @@ class ShowAlliancePage
 									$ranks = serialize($ally_ranks_new);
 
 									$db->query("UPDATE ".ALLIANCE." SET `ally_ranks`='" . $ranks . "' WHERE `id`='" . $ally['id'] ."';");
-									header("Location: ?page=alliance&mode=admin&edit=rights");
+									redirectTo("game.".PHP_EXT."?page=alliance&mode=admin&edit=rights");
 									exit;
 
 								}
@@ -741,7 +741,7 @@ class ShowAlliancePage
 							break;
 							case 'diplo':
 								if (!$USER['rights']['righthand'])
-									header("location:game.". PHP_EXT . "?page=alliance");
+									header("location:?page=alliance");
 								
 								$action		= request_var('action', '');
 								$id			= request_var('id', 0);
@@ -813,7 +813,7 @@ class ShowAlliancePage
 											}
 											$db->query("UPDATE ".DIPLO." SET `accept` = '1', `accept_text` = '' WHERE `id`='".$id."' LIMIT 1;");
 										}
-										header("Location: ?page=alliance&mode=admin&edit=diplo");
+										redirectTo("game.".PHP_EXT."?page=alliance&mode=admin&edit=diplo");
 									break;
 									case 'decline':
 										if(!empty($id))
@@ -824,7 +824,7 @@ class ShowAlliancePage
 											}
 											$db->query("DELETE FROM ".DIPLO." WHERE `id` ='".$id."' LIMIT 1;");
 										}
-										header("Location: ?page=alliance&mode=admin&edit=diplo");
+										redirectTo("game.".PHP_EXT."?page=alliance&mode=admin&edit=diplo");
 									break;
 									case 'delete':
 										if(!empty($id))
@@ -838,7 +838,7 @@ class ShowAlliancePage
 											}
 											$db->query("DELETE FROM ".DIPLO." WHERE `id` ='".$id."' LIMIT 1;");
 										}
-										header("Location: ?page=alliance&mode=admin&edit=diplo");
+										redirectTo("game.".PHP_EXT."?page=alliance&mode=admin&edit=diplo");
 									break;
 									default:
 										$this->template->assign_vars(array(
@@ -863,7 +863,7 @@ class ShowAlliancePage
 							case 'requests':
 							
 								if (!$USER['rights']['seeapply'] || !$USER['rights']['changeapply'])
-									header("location:game.". PHP_EXT . "?page=alliance");
+									header("location:?page=alliance");
 
 								$text  	= makebr(request_var('text', '', true));
 
@@ -873,7 +873,7 @@ class ShowAlliancePage
 
 									SendSimpleMessage($id, $USER['id'],'', 2,$ally['ally_tag'],$LNG['al_you_was_acceted'] . $ally['ally_name'], $LNG['al_hi_the_alliance'] . $ally['ally_name'] . $LNG['al_has_accepted'] . $text);
 
-									exit(header('Location: ?page=alliance&mode=admin&edit=ally'));
+									exit(redirectTo('game.'.PHP_EXT.'?page=alliance&mode=admin&edit=ally'));
 								}
 								elseif($action == $LNG['al_decline_request'])
 								{
@@ -881,7 +881,7 @@ class ShowAlliancePage
 
 									SendSimpleMessage($id, $USER['id'],'', 2,$ally['ally_tag'],$LNG['al_you_was_declined'] . $ally['ally_name'], $LNG['al_hi_the_alliance'] . $ally['ally_name'] . $LNG['al_has_declined'] . $text);
 
-									exit(header('Location: ?page=alliance&mode=admin&edit=ally'));
+									exit(redirectTo('game.'.PHP_EXT.'?page=alliance&mode=admin&edit=ally'));
 								}
 
 								$query = $db->query("SELECT id,username,ally_request_text,ally_register_time FROM ".USERS." WHERE ally_request='".$ally['id']."';");
@@ -943,23 +943,23 @@ class ShowAlliancePage
 							break;
 							case 'exit':
 								if (!$USER['rights']['close'])
-									exit(header("Location: ?page=alliance"));
+									exit(redirectTo("game.".PHP_EXT."?page=alliance"));
 
 								$db->query("UPDATE ".USERS." SET `ally_name` = '', `ally_id` = '0' WHERE `ally_id`='".$ally['id']."';");
 								$db->query("DELETE FROM ".ALLIANCE." WHERE id = '".$ally['id']."' LIMIT 1;");
 								$db->query("DELETE FROM ".DIPLO." WHERE `owner_1` = '".$ally['id']."' OR `owner_2` = '".$ally['id']."';");
-								exit(header("Location: ?page=alliance"));
+								exit(redirectTo("game.".PHP_EXT."?page=alliance"));
 							break;
 							case 'transfer':
 								if ($ally['ally_owner'] != $USER['id'])
-									exit(header("Location: ?page=alliance"));
+									exit(redirectTo("game.".PHP_EXT."?page=alliance"));
 									
 								$postleader = request_var('newleader', 0);
 								if (!empty($postleader))
 								{
 									$Rank = $db->fetch_array($db->query("SELECT `ally_rank_id` FROM ".USERS." WHERE `id` = '".$postleader."';"));
 									$db->multi_query("UPDATE ".USERS." SET `ally_rank_id` = '".$Rank['ally_rank_id']."' WHERE `id` = '".$USER['id']."';UPDATE ".USERS." SET `ally_rank_id`= '0' WHERE `id` = '".$postleader."';UPDATE ".ALLIANCE." SET `ally_owner` = '".$postleader."' WHERE `id` = '".$USER['ally_id']."';");
-									exit(header("Location: ?page=alliance"));
+									exit(redirectTo("game.".PHP_EXT."?page=alliance"));
 								}
 								else
 								{
@@ -998,7 +998,7 @@ class ShowAlliancePage
 									$ally['ally_diplo'] 			= request_var('diplo', 0);
 
 									if ($ally['ally_request_notallow'] != 0 && $ally['ally_request_notallow'] != 1)
-										exit(header("Location: ?page=alliance"));
+										exit(redirectTo("game.".PHP_EXT."?page=alliance"));
 
 									$db->query("UPDATE ".ALLIANCE." SET
 									`ally_owner_range` = '".$db->sql_escape($ally['ally_owner_range'])."',

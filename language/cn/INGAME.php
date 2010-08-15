@@ -865,7 +865,7 @@ $LNG['bn_writemail']						= '电子邮件到 %s 写';
 //----------------------------------------------------------------------------//
 //class.CheckSession.php
 
-$LNG['css_account_banned_message']			= '您的帐户已被封禁，如遇问题请联系';
+$LNG['css_account_banned_message']			= '您的帐户已被封禁，如遇问题请联系OGAME@HANHOT.COM';
 $LNG['css_account_banned_expire']			= '你封禁到 %s gespeert!<br><a href="./index.php?page=pranger">Pranger</a>';
 $LNG['css_goto_homeside']					= '<a href="./index.php">前往首页</a>';
 $LNG['css_server_maintrace']				= '服务器信息<br><br>游戏已经关闭<br><br>原因: %s';

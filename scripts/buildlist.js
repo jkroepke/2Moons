@@ -1,5 +1,4 @@
-function Buildlist() 
-{
+function Buildlist() {
 	v           = new Date();
 	var timeout = 1;
 	n           = new Date();

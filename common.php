@@ -40,7 +40,7 @@ ini_set('session.save_path', ROOT_PATH.'cache/sessions');
 ini_set('upload_tmp_dir', ROOT_PATH.'cache/sessions');
 ini_set('session.use_cookies', '1');
 ini_set('session.use_only_cookies', '1');
-session_set_cookie_params(SESSION_LIFETIME, '/', '.'.str_replace('www.', '', $_SERVER["HTTP_HOST"]));
+session_set_cookie_params(SESSION_LIFETIME, '/');
 session_cache_limiter('nocache');
 session_name($dbsettings["secretword"]);
 ini_set('session.use_trans_sid', 0);

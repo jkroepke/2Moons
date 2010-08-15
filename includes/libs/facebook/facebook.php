@@ -283,7 +283,7 @@ class Facebook {
       // get a frame within a frame.
       echo "<script type=\"text/javascript\">\ntop.location.href = \"$url\";\n</script>";
     } else {
-      header('Location: ' . $url);
+      redirectTo($url);
     }
     exit;
   }

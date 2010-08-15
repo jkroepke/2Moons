@@ -131,6 +131,10 @@ switch($page)
 		include_once(ROOT_PATH . 'includes/pages/adm/ShowTopnavPage.' . PHP_EXT);
 		ShowTopnavPage();
 	break;
+	case 'mods':
+		include_once(ROOT_PATH . 'includes/pages/adm/ShowModVersionPage.' . PHP_EXT);
+		ShowModVersionPage();
+	break;
 	case 'overview':
 		include_once(ROOT_PATH . 'includes/pages/adm/ShowOverviewPage.' . PHP_EXT);
 		ShowOverviewPage();

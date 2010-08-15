@@ -394,7 +394,6 @@ class ShowFleetPages extends FleetFunctions
 
 		$template	= new template();
 		$template->loadscript('flotten.js');
-		$template->loadscript('ocnt.js');
 		$template->gotoside('?page=fleet');
 		$template->page_header();	
 		$template->page_topnav();
