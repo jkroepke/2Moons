@@ -1,32 +1,32 @@
 {include file="overall_header.tpl"}
 <form action="game.php?page=notes&amp;action=delete" method="POST">
-  <table width="519" align="center">
+  <table style="width:90%;">
     <tr>
-      <td class="c" colspan="4">{$nt_notes}</td>
+      <th colspan="4">{$nt_notes}</th>
     </tr>
     <tr>
-      <th colspan="4"><a href="game.php?page=notes&amp;action=create">{$nt_create_new_note}</a></th>
+      <td colspan="4"><a href="game.php?page=notes&amp;action=create">{$nt_create_new_note}</a></td>
     </tr>
     <tr>
-      <td class="c">{$nt_dlte_note}</td>
-      <td class="c">{$nt_date_note}</td>
-      <td class="c">{$nt_subject_note}</td>
-      <td class="c">{$nt_size_note}</td>
+      <th>{$nt_dlte_note}</th>
+      <th>{$nt_date_note}</th>
+      <th>{$nt_subject_note}</th>
+      <th>{$nt_size_note}</th>
     </tr>
 	{foreach item=NoteInfo name=NoteList from=$NoteList}
 	<tr>
-		<th width="20"><input name="delmes[{$NoteInfo.id}]" type="checkbox"></th>
-		<th width="150">{$NoteInfo.time}</th>
-		<th><a href="game.php?page=notes&amp;action=show&amp;id={$NoteInfo.id}">
+		<td style="width:20px;"><input name="delmes[{$NoteInfo.id}]" type="checkbox"></td>
+		<td style="width:150px;">{$NoteInfo.time}</td>
+		<td><a href="game.php?page=notes&amp;action=show&amp;id={$NoteInfo.id}">
 		{if {$NoteInfo.priority} == 0}
-		<font color="lime">{$NoteInfo.title}</font>
+		<span style="color:lime">{$NoteInfo.title}</span>
 		{elseif {$NoteInfo.priority} == 2}
-		<font color="red">{$NoteInfo.title}</font>
+		<span style="color:red">{$NoteInfo.title}</span>
 		{else}
-		<font color="yellow">{$NoteInfo.title}</font>
+		<span style="color:yellow">{$NoteInfo.title}</span>
 		{/if}
-		</a></th>
-		<th align="right" width="40">{$NoteInfo.size}</th>
+		</a></td>
+		<td style="width:40px;">{$NoteInfo.size}</td>
 	</tr>
 	{/foreach}
 	{if {$smarty.foreach.NoteList.total} == 0}<tr><th colspan="4">{$nt_you_dont_have_notes}</th>{/if}
