@@ -23,7 +23,7 @@
 if ( !defined('INSIDE') ) die(header("location:../"));
 
 	//TEMPLATES DEFAULT SETTINGS
-	define('DEFAULT_SKINPATH' 		  , 'styles/skins/darkness/');
+	define('DEFAULT_SKINPATH' 		  , 'styles/skins/gow/');
 	define('TEMPLATE_DIR'     		  , 'styles/templates/');
 	
 	define('PROTOCOL'				  , !empty($_SERVER["HTTPS"]) ? 'https://' : 'http://');
