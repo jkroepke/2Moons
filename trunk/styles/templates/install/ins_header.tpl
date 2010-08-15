@@ -2,10 +2,8 @@
 
 <html lang="de">
 <head>
-<link rel="stylesheet" type="text/css" href="../styles/skins/darkness/formate.css">
+<link rel="stylesheet" type="text/css" href="../styles/skins/gow/formate.css">
 <link rel="stylesheet" type="text/css" href="../styles/css/admin.css">
-<link rel="stylesheet" type="text/css" href="../styles/css/jQuery.ui.css">
-<link rel="stylesheet" type="text/css" href="../styles/css/mbContainer.css">
 <link rel="icon" href="./favicon.ico">
 <title>{$title}</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -26,32 +24,13 @@
 {foreach item=scriptname from=$scripts}
 <script type="text/javascript" src="../scripts/{$scriptname}"></script>
 {/foreach}
-<script type="text/javascript">
-var xsize 	= screen.width;
-var ysize 	= screen.height;
-var breite	= 720;
-var hoehe	= 300;
-var xpos	= (xsize-breite) / 2;
-var ypos	= (ysize-hoehe) / 2;
-
-
-function useropen(target_url) {
-	var userlist = window.open("UserListPage.php?action=edit&id="+ target_url, "info", "scrollbars=yes,statusbar=no,toolbar=no,location=no,directories=no,resizable=no,menubar=no,width=850,height=600,screenX="+((xsize-600)/2)+",screenY="+((ysize-850)/2)+",top="+((ysize-600)/2)+",left="+((xsize-850)/2));
-	userlist.focus();
-}
-
-function openEdit(id, type) {
-	var editlist = window.open("?page=qeditor&edit="+type+"&id="+id, "edit", "scrollbars=yes,statusbar=no,toolbar=no,location=no,directories=no,resizable=no,menubar=no,width=850,height=600,screenX="+((xsize-600)/2)+",screenY="+((ysize-850)/2)+",top="+((ysize-600)/2)+",left="+((xsize-850)/2));
-	editlist.focus();
-}
-</script> 
 </head>
 <body>
 <div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
 <table width="700">
 <tr>
-	<td colspan="3" class="c" align="center">{$intro_instal}</td>
+	<th colspan="3">{$intro_instal}</th>
 </tr>
 <tr>
-	<th colspan="3" align="center">[<a href="index.php?mode=intro&amp;{$lang}">{$menu_intro}</a> &bull; <a href="index.php?mode=req&amp;{$lang}">{$menu_install}</a> &bull; <a href="index.php?mode=license&amp;{$lang}">{$menu_license}</a> &bull; <a href="index.php?mode=convert&amp;{$lang}">{$menu_convert}</a>]</th>
+	<td colspan="3">[<a href="index.php?mode=intro&amp;{$lang}">{$menu_intro}</a> &bull; <a href="index.php?mode=req&amp;{$lang}">{$menu_install}</a> &bull; <a href="index.php?mode=license&amp;{$lang}">{$menu_license}</a> &bull; <a href="index.php?mode=convert&amp;{$lang}">{$menu_convert}</a>]</td>
 </tr>

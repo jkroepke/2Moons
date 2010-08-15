@@ -1,21 +1,21 @@
 {include file="install/ins_header.tpl"}
 <tr>
-	<th>
-		<table width="75%" align="center">
+	<td>
+		<table stylw="width:75%">
 			<tr>
-				<th>{$req_php_need}</th><th>{$PHP}</th>
+				<td>{$req_php_need}</td><td>{$PHP}</td>
 			</tr>
 			<tr>
-				<th>{$req_smode_active}</th><th>{$safemode}</th>
+				<td>{$req_smode_active}</td><td>{$safemode}</th>
 			</tr>
 			<tr>
-				<th>{$reg_gd_need}</th><th>{$gdlib}</th>
+				<td>{$reg_gd_need}</td><td>{$gdlib}</td>
 			</tr>
 			{$dir}
 			{$config}
 			{$done}
 		</table>
-	</th>
+	</td>
 	</th>
 </tr>
 {include file="install/ins_footer.tpl"}

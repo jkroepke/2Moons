@@ -2,49 +2,49 @@
 {include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
 <div id="content" class="content">
-<table border="0" cellpadding="0" cellspacing="1" width="519" align="center">
+<table class="table519">
 	<tr style="height:20px">
-		<td class="c" colspan="2"><span class="success">{$fl_fleet_sended}</span></td>
+		<th colspan="2" class="success">{$fl_fleet_sended}</span></th>
 	</tr>
     <tr style="height:20px">
-        <th>{$fl_mission}</th>
-        <th>{$mission}</th>
+        <td>{$fl_mission}</td>
+        <td>{$mission}</td>
 	</tr>
     <tr style="height:20px">
-        <th>{$fl_distance}</th>
-        <th>{$distance}</th>
+        <td>{$fl_distance}</td>
+        <td>{$distance}</td>
     </tr>
     <tr style="height:20px">
-        <th>{$fl_fleet_speed}</th>
-        <th>{$speedallsmin}</th>
+        <td>{$fl_fleet_speed}</td>
+        <td>{$speedallsmin}</td>
     </tr>
     <tr style="height:20px">
-        <th>{$fl_fuel_consumption}</th>
-        <th>{$consumption}</th>
+        <td>{$fl_fuel_consumption}</td>
+        <td>{$consumption}</td>
     </tr>
     <tr style="height:20px">
-        <th>{$fl_from}</th>
-        <th>{$from}</th>
+        <td>{$fl_from}</td>
+        <td>{$from}</td>
     </tr>
     <tr style="height:20px">
-        <th>{$fl_destiny}</th>
-        <th>{$destination}</th>
+        <td>{$fl_destiny}</td>
+        <td>{$destination}</td>
     </tr>
     <tr style="height:20px">
-        <th>{$fl_arrival_time}</th>
-        <th>{$start_time}</th>
+        <td>{$fl_arrival_time}</td>
+        <td>{$start_time}</td>
     </tr>
     <tr style="height:20px">
-        <th>{$fl_return_time}</th>
-        <th>{$end_time}</th>
+        <td>{$fl_return_time}</td>
+        <td>{$end_time}</td>
     </tr>
     <tr style="height:20px">
-        <td class="c" colspan="2">{$fl_fleet}</td>
+        <th colspan="2">{$fl_fleet}</th>
     </tr>
 	{foreach key=Shipname item=Shipcount from=$FleetList}
 	<tr>
-	<th>{$Shipname}</th>
-	<th>{$Shipcount}</th>
+	<td>{$Shipname}</td>
+	<td>{$Shipcount}</td>
 	</tr>
 	{/foreach}
 </table>

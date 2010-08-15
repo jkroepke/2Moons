@@ -1,34 +1,34 @@
 {include file="install/ins_header.tpl"}
 <tr>
-	<th colspan="2">{$convert_info}</th>
+	<td colspan="2">{$convert_info}</td>
 </tr>
 <tr>
-	<th>{$step1_mysql_server}</th>
-	<th><input type="text" name="host" value="localhost" size="30"></th>
+	<td>{$step1_mysql_server}</td>
+	<td><input type="text" name="host" value="localhost" size="30"></td>
 </tr>
 <tr>
-	<th>{$step1_mysql_port}</th>
-	<th><input type="text" name="port" value="3306" size="30"></th>
+	<td>{$step1_mysql_port}</td>
+	<td><input type="text" name="port" value="3306" size="30"></td>
 </tr>
 <tr>
-	<th>{$step1_mysql_dbname}</th>
-	<th><input type="text" name="db" value="" size="30"></th>
+	<td>{$step1_mysql_dbname}</td>
+	<td><input type="text" name="db" value="" size="30"></td>
 </tr>
 <tr>
-	<th>{$step1_mysql_dbuser}</th>
-	<th><input type="text" name="user" value="" size="30"></th>
+	<td>{$step1_mysql_dbuser}</td>
+	<td><input type="text" name="user" value="" size="30"></td>
 </tr>
 <tr>
-	<th>{$step1_mysql_dbpass}</th>
-	<th><input type="password" name="passwort" value="" size="30"></th>
+	<td>{$step1_mysql_dbpass}</td>
+	<td><input type="password" name="passwort" value="" size="30"></td>
 </tr>
 <tr>
-	<th>{$step1_mysql_prefix}</th>
-	<th><input type="text" name="prefix" value="uni1_" size="30"></th>
+	<td>{$step1_mysql_prefix}</td>
+	<td><input type="text" name="prefix" value="uni1_" size="30"></td>
 </tr>
 <tr>
-	<th>{$convert_version}</th>
-	<th>
+	<td>{$convert_version}</td>
+	<td>
 		<select name="version">
 			<optgroup label="XG Proyecto">
 				<option label="XG Proyecto 2.9.0" value="xgp">XG Proyecto 2.9.0</option>
@@ -46,9 +46,9 @@
 				<option label="Spacebeginners v4" value="sb4">Spacebeginners v4</option>
 			</optgroup> -->
         </select>
-    </th>
+    </td>
 </tr>        
 <tr>
-	<th align="center" colspan="2"><input type="submit" value="{$convert_submit}"></th>
+	<td colspan="2"><input type="submit" value="{$convert_submit}"></td>
 </tr>
 {include file="install/ins_footer.tpl"}
