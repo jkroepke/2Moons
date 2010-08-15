@@ -1,5 +1,8 @@
+html{
+height:100%
+}
+
 html,body {
-height:100%;
 margin:0;
 overflow:auto;
 padding:0;
@@ -7,7 +10,8 @@ width:100%
 }
 
 body {
-background:url(img/bkd_page.jpg) top left fixed #000
+background:url(img/bkd_page.jpg) top left fixed #000;
+overflow:hidden
 }
 
 body,input,select,textarea,a,td,th,tr,table {
@@ -232,13 +236,15 @@ margin:0;
 padding:0;
 position:absolute;
 top:-20px;
-width:200px
+max-width:200px;
+min-width:150px;
+width:15%;
 }
 
 #menu li {
 font:67.5% "Lucida Sans Unicode", "Bitstream Vera Sans", "Trebuchet Unicode MS", "Lucida Grande", Verdana, Helvetica, sans-serif;
 margin:0;
-padding:0
+padding:0;
 }
 
 #menu a {

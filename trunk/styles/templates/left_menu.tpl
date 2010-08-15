@@ -1,7 +1,7 @@
 <div id="leftmenu">
 	<ul id="menu">
-		<li style="background-image: url('{$dpath}img/menu-top.png');width:200px;height:100px;cursor:pointer" onclick="document.location = './game.php?page=changelog';"></li>
-		<li style="background-image: url('{$dpath}img/menu_wirt.png');width:200px;height:30px;"></li>
+		<li style="background-image: url('{$dpath}img/menu-top.png');height:100px;cursor:pointer" onclick="document.location = './game.php?page=changelog';"></li>
+		<li style="background-image: url('{$dpath}img/menu_wirt.png');height:30px;"></li>
 		<li><a href="?page=overview">{$lm_overview}</a></li>
 		<li><a href="?page=imperium">{$lm_empire}</a></li>
 		<li><a href="?page=buildings&amp;mode=research">{$lm_research}</a></li>
@@ -14,7 +14,7 @@
 		<li><a href="?page=techtree">{$lm_technology}</a></li>
 		<li><a href="?page=resources">{$lm_resources}</a></li>
 
-		<li style="background-image: url('{$dpath}img/menu_com.png');width:200px;height:30px;"></li>
+		<li style="background-image: url('{$dpath}img/menu_com.png');height:30px;"></li>
 		<li><a href="?page=galaxy">{$lm_galaxy}</a></li>
 		<li><a href="?page=alliance">{$lm_alliance}</a></li>
 		<li><a href="{$forum_url}" target="forum">{$lm_forums}</a></li>
@@ -29,7 +29,7 @@
 		<li><a href="./?page=rules" target="forum">{$lm_rules}</a></li>
 		<li><a href="?page=battlesim">{$lm_battlesim}</a></li>
 
-		<li style="background-image: url('{$dpath}img/menu_acc.png');width:200px;height:30px;"></li>
+		<li style="background-image: url('{$dpath}img/menu_acc.png');height:30px;"></li>
 		<li><a href="?page=messages">{$lm_messages}{if $new_message > 0}<span id="newmes"> (<span id="newmesnum">{$new_message}</span>)</span>{/if}</a></li>
 		<li><a href="javascript:f('?page=notes','{$lm_notes}');">{$lm_notes}</a></li>
 		<li><a href="?page=buddy">{$lm_buddylist}</a></li>
@@ -38,6 +38,6 @@
 		{if $authlevel > 0}
 		<li><a href="./admin.php" style="color:lime">{$lm_administration} ({$smarty.const.VERSION})</a></li>
 		{/if}
-		<li style="background-image: url('{$dpath}img/menu-foot.png');width:200px;height:30px;"></li>
+		<li style="background-image: url('{$dpath}img/menu-foot.png');height:30px;"></li>
 	</ul>
 </div>
