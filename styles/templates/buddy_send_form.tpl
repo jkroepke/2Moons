@@ -2,33 +2,32 @@
 <script type="text/javascript" src="scripts/cntchar.js"></script>
 <script type="text/javascript">
 
-function check(){ldelim}
-	if(document.buddy.text.value == '') {ldelim}
+function check(){
+	if(document.buddy.text.value == '') {
 		alert('Gebe einen Text ein!');
 		return false;
-	{rdelim} else {ldelim}
-		$.post('game.php?page=buddy&mode=1&sm=3&u={$id}&ajax=1', $('#buddy').serialize(), function(data){ldelim}
+	} else {
+		$.post('game.php?page=buddy&mode=1&sm=3&u={$id}&ajax=1', $('#buddy').serialize(), function(data){
 			alert(data);
 			window.close();
-		{rdelim});
+		});
 		return true;
-	{rdelim}
-{rdelim}
+	}
+}
 </script>
 <form name="buddy" id="buddy">
-    <table width="95%" align="center">
+    <table style="width:95%">
     <tr>
-        <td class="c" colspan="2">{$bu_request_message}</td>
+        <th colspan="2">{$bu_request_message}</th>
     </tr><tr>
-        <th>{$bu_player}</th>
-        <th>{$username}</th>
+        <td>{$bu_player}</td>
+        <td>{$username}</td>
     </tr><tr>
-        <th>{$mg_message} (<span id="cntChars">0</span> / 5000 {$mg_characters})</th>
-        <th><textarea name="text" id="text" cols="40" rows="10" size="100"></textarea></th>
+        <td>{$mg_message} (<span id="cntChars">0</span> / 5000 {$mg_characters})</td>
+        <td><textarea name="text" id="text" cols="40" rows="10" size="100"></textarea></td>
     </tr><tr>
-        <th colspan="2"><input type="button" onClick="return check();" name="button" value="{$bu_send}">
-</th>
-</tr>
+        <td colspan="2"><input type="button" onClick="return check();" name="button" value="{$bu_send}"></td>
+	</tr>
 </table>
 </form>
 {include file="overall_footer.tpl"}

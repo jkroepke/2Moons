@@ -3,32 +3,32 @@
 {include file="left_menu.tpl"}
 <div id="content" class="content">
     <form action="" method="POST">
-        <table width="519" align="center">
+        <table class="table519">
             <tr>
-                <td class="c" colspan="2">{$al_find_alliances}</td>
+                <th colspan="2">{$al_find_alliances}</th>
             </tr>
             <tr>
-                <th>{$al_find_text}</th>
-                <th><input type="text" name="searchtext" value="{$searchtext}"> <input type="submit" value="{$al_find_submit}"></th>
+                <td>{$al_find_text}</td>
+                <td><input type="text" name="searchtext" value="{$searchtext}"> <input type="submit" value="{$al_find_submit}"></td>
             </tr>
         </table>
     </form>
 	{if is_array($SeachResult)}
-	<table width="519" align="center">
+	<table class="table519">
         <tr>
-            <td class="c">{$al_ally_info_tag}</td>
-            <td class="c">{$al_ally_info_name}</td>
-            <td class="c">{$al_ally_info_members}</td>
+            <th>{$al_ally_info_tag}</th>
+            <th>{$al_ally_info_name}</th>
+            <th>{$al_ally_info_members}</th>
         </tr>
 		{foreach item=SeachRow from=$SeachResult}
         <tr>
-			<th><a href="game.php?page=alliance&amp;mode=apply&amp;allyid={$SeachRow.id}">{$SeachRow.tag}</a></th>
-			<th>{$SeachRow.name}</th>
-			<th>{$SeachRow.members}</th>
+			<td><a href="game.php?page=alliance&amp;mode=apply&amp;allyid={$SeachRow.id}">{$SeachRow.tag}</a></td>
+			<td>{$SeachRow.name}</td>
+			<td>{$SeachRow.members}</td>
 		</tr>
 		{foreachelse}
         <tr>
-			<th colspan="3">{$al_find_no_alliances}</th>
+			<td colspan="3">{$al_find_no_alliances}</td>
 		</tr>
 		{/foreach}
     </table>

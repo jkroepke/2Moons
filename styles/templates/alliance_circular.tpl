@@ -1,5 +1,4 @@
 {include file="overall_header.tpl"}
-<script type="text/javascript" src="scripts/cntchar.js"></script>
 <script type="text/javascript">
 
 function check(){
@@ -17,27 +16,27 @@ function check(){
 </script>
 <br>
     <form name="message" id="message">
-      <table width="530" align="center">
+      <table style="width:95%">
         <tr>
-          <td class="c" colspan="2">{$al_circular_send_ciruclar}</td>
+          <th colspan="2">{$al_circular_send_ciruclar}</th>
         </tr>
         <tr>
-          <th>{$al_receiver}</th>
-          <th>
+          <td>{$al_receiver}</td>
+          <td>
             {html_options name=r options=$RangeList}
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>{$al_message} (<span id="cntChars">0</span> / 5000 {$al_characters})</th>
-          <th>
-            <textarea name="text" cols="60" rows="10" onkeyup="javascript:cntchar(5000)"></textarea>
-          </th>
+          <td>{$al_message} (<span id="cntChars">0</span> / 5000 {$al_characters})</td>
+          <td>
+            <textarea name="text" cols="60" rows="10" onkeyup="$('#cntChars').text($(this).val().length);"></textarea>
+          </td>
         </tr>
         <tr>
-          <td class="c" colspan="2" style="text-align:center;">
+          <th colspan="2" style="text-align:center;">
             <input type="reset" value="{$al_circular_reset}">
             <input type="button" onClick="return check();" name="button" value="{$al_circular_send_submit}">
-          </td>
+          </th>
         </tr>
       </table>
     </form>

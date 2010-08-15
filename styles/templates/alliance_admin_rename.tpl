@@ -3,16 +3,16 @@
 {include file="left_menu.tpl"}
 <div id="content" class="content">
     <form action="" method="POST">
-    <table width="519" align="center">
+    <table class="table519">
         <tr>
-          <td class="c" colspan="2">{$caso} {$al_change_title}</td>
+          <th colspan="2">{$caso} {$al_change_title}</th>
         </tr>
         <tr>
-          <th>{$caso_titulo}</th>
-          <th><input type="text" name="newname"> <input type="submit" value="{$al_change_submit}"></th>
+          <td>{$caso_titulo}</td>
+          <td><input type="text" name="newname"> <input type="submit" value="{$al_change_submit}"></td>
         </tr>
         <tr>
-          <td class="c" colspan="9"><a href="game.php?page=alliance&amp;mode=admin&amp;edit=ally">{$al_back}</a></td>
+          <th colspan="9"><a href="game.php?page=alliance&amp;mode=admin&amp;edit=ally">{$al_back}</a></th>
         </tr>
     </table>
     </form>

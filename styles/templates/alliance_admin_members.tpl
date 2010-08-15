@@ -2,9 +2,9 @@
 {include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
 <div id="content" class="content">
-    <table width="519" align="center">
+    <table style="width:50%">
         <tr>
-			<td class="c" colspan="9">{$al_users_list}</td>
+			<th colspan="9">{$al_users_list}</th>
         </tr>
         <tr>
             <th>{$al_num}</th>
@@ -19,31 +19,31 @@
         </tr>
         {foreach name=Memberlist item=MemberInfo from=$Memberlist}
 		<tr>
-			<th>{$smarty.foreach.Memberlist.iteration}</th>
-			<th>{$MemberInfo.username}</th>
-			<th><a href="javascript:f('game.php?page=messages&amp;mode=write&amp;id={$MemberInfo.id}','');"><img src="{$dpath}img/m.gif" border="0" title="{$rite_message}" alt="{$rite_message}"></a></th>
-			<th>{$MemberInfo.range}</th>
-			<th>{$MemberInfo.points}</th>
-			<th><a href="game.php?page=galaxy&amp;mode=3&amp;galaxy={$MemberInfo.galaxy}&amp;system={$MemberInfo.system}">[{$MemberInfo.galaxy}:{$MemberInfo.system}:{$MemberInfo.planet}]</a></th>
-			<th>{$MemberInfo.register_time}</th>
-			<th>{$MemberInfo.onlinetime}</th>
-			<th>{if $MemberInfo.action > 0}<a href="game.php?page=alliance&amp;mode=admin&amp;edit=members&amp;action=edit&amp;id={$MemberInfo.id}"><img src="{$dpath}pic/key.gif" border="0" alt=""></a>
+			<td>{$smarty.foreach.Memberlist.iteration}</td>
+			<td>{$MemberInfo.username}</td>
+			<td><a href="javascript:f('game.php?page=messages&amp;mode=write&amp;id={$MemberInfo.id}','');"><img src="{$dpath}img/m.gif" border="0" title="{$rite_message}" alt="{$rite_message}"></a></td>
+			<td>{$MemberInfo.range}</td>
+			<td>{$MemberInfo.points}</td>
+			<td><a href="game.php?page=galaxy&amp;mode=3&amp;galaxy={$MemberInfo.galaxy}&amp;system={$MemberInfo.system}">[{$MemberInfo.galaxy}:{$MemberInfo.system}:{$MemberInfo.planet}]</a></td>
+			<td>{$MemberInfo.register_time}</td>
+			<td>{$MemberInfo.onlinetime}</td>
+			<td>{if $MemberInfo.action > 0}<a href="game.php?page=alliance&amp;mode=admin&amp;edit=members&amp;action=edit&amp;id={$MemberInfo.id}"><img src="{$dpath}pic/key.gif" border="0" alt=""></a>
 			{if $MemberInfo.action == 2}<a href="game.php?page=alliance&amp;mode=admin&amp;edit=members&amp;action=kick&amp;id={$MemberInfo.id}" onclick="javascript:return confirm('{$MemberInfo.kick}');"><img src="{$dpath}pic/abort.gif" border="0" alt=""></a>{/if}{else}-{/if}
-		</th>
+			</td>
 		</tr>
 		{if $MemberInfo.id == $id}
 		<tr>
-			<th colspan="9">
+			<td colspan="9">
 			<form action="game.php?page=alliance&amp;mode=admin&amp;edit=members&amp;action=edit&amp;id={$MemberInfo.id}" name="editar_usu_rango" method="POST">
 				{html_options name=newrang options=$Selector selected=$MemberInfo.rank_id}
 				<input type="submit" value="{$al_ok}"> 
 			</form>
-			</th>
+			</td>
 		</tr>
 		{/if}
 		{/foreach}
         <tr>
-            <td class="c" colspan="9"><a href="game.php?page=alliance&amp;mode=admin&amp;edit=ally">{$al_back}</a></td>
+            <th colspan="9"><a href="game.php?page=alliance&amp;mode=admin&amp;edit=ally">{$al_back}</a></th>
         </tr>
     </table>
 </div>
