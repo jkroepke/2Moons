@@ -54,7 +54,7 @@ class ShowChatPage
 		while($Message = $db->fetch_array($Chat)){
 			$nick = "<a href=\"javascript:addSmiley('->".(strip_tags($Message["user"])).": ')\">".$Message["user"]."</a>";
 			$mess = $this->BBCodeMSG($Message["message"]);
-			$msg .= "<div align=\"left\" style='color:white;'><span style='font:menu;'>".(($USER['authlevel'] > 0) ? "<a href=\"javascript:del('".$Message['messageid']."')\">[X]</a> " : "")."[".date("m/d H:i:s", $Message["timestamp"])."]</span> <span style='width:50px;font:menu;'><b>".$nick."</b></span> : ".$mess."<br></div>";
+			$msg .= "<div align=\"left\" style='color:white;'><span style='font:menu;'>".(($USER['authlevel'] > 0) ? "<a href=\"javascript:del('".$Message['messageid']."')\">[X]</a> " : "")."[".date("m/d H:i:s", $Message["timestamp"])."]</span> <span style='font:menu;font-weight:700'>".$nick."</span> : ".$mess."</div>";
 		}
 		$db->free_result($Chat);
 		exit($msg);
