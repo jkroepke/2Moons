@@ -26,7 +26,7 @@ function check(){
         <td><input type="text" name="subject" id="subject" size="40" maxlength="40" value="{$subject}"></td>
     </tr><tr>
         <td>{$mg_message} (<span id="cntChars">0</span> / 5000 {$mg_characters})</th>
-        <td><textarea name="text" cols="40" rows="10" onkeyup="$('#cntChars').text($(this).val().length);"></textarea></td>
+        <td><textarea name="text" id="text" cols="40" rows="10" onkeyup="$('#cntChars').text($(this).val().length);"></textarea></td>
     </tr><tr>
         <td colspan="2"><input type="button" onClick="check();" name="button" value="{$mg_send}"></td>
 	</tr>
