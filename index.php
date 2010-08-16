@@ -199,10 +199,9 @@ switch ($page) {
 				$db->multi_query ( $SQL );
 				
 				$from 		= $LNG ['welcome_message_from'];
-				$sender 	= $LNG ['welcome_message_sender'];
 				$Subject 	= $LNG ['welcome_message_subject'];
 				$message 	= sprintf($LNG['welcome_message_content'], $CONF['game_name']);
-				SendSimpleMessage ( $NewUser ['id'], $sender, $Time, 1, $from, $Subject, $message );
+				SendSimpleMessage ( $NewUser ['id'], 1, $Time, 1, $from, $Subject, $message );
 				
 				$db->query ( "UPDATE " . CONFIG . " SET `config_value` = `config_value` + '1' WHERE `config_name` = 'users_amount';" );
 				if ($admin == 1) {
@@ -479,10 +478,9 @@ switch ($page) {
 				$db->multi_query($SQL);
 				
 				$from 		= $LNG['welcome_message_from'];
-				$sender 	= $LNG['welcome_message_sender'];
 				$Subject 	= $LNG['welcome_message_subject'];
 				$message 	= sprintf($LNG['welcome_message_content'], $CONF['game_name']);
-				SendSimpleMessage($NewUser['id'], $sender, $Time, 1, $from, $Subject, $message);
+				SendSimpleMessage($NewUser['id'], 1, $Time, 1, $from, $Subject, $message);
 				
 				$db->query("UPDATE ".CONFIG." SET `config_value` = `config_value` + '1' WHERE `config_name` = 'users_amount';" );
 				if ($admin == 1) {

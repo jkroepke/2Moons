@@ -58,7 +58,7 @@ class FlyingFleetHandler
 			$Mission = NULL;
 			unset($Mission);
 
-			$db->query("UPDATE ".FLEETS." SET `fleet_busy` = 0 WHERE `fleet_id` = '".$CurrentFleet['fleet_id']."';");
+			$db->query("UPDATE ".FLEETS." SET `fleet_busy` = '0' WHERE `fleet_id` = '".$CurrentFleet['fleet_id']."';");
 		}
 	}
 	
