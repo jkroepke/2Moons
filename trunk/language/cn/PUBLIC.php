@@ -48,7 +48,7 @@ $LNG['pass']					= '密码';
 $LNG['remember_pass']			= '自动登录';
 $LNG['lostpassword']			= '忘记密码?';
 $LNG['welcome_to']				= '欢迎来到';
-$LNG['server_description']		= '<strong>%s</strong> 是一个 <strong>星际空间战略游戏  与数百上千名游戏玩家</strong> 激烈网上星际对战 <strong>XO.HANHOT.COM</strong> 由我们免费为您在中国提供所有服务.';
+$LNG['server_description']		= '<strong>%s</strong> 是一个 <strong>星际空间战略游戏  与数百上千名游戏玩家</strong> 激烈网上星际对战 <strong>由我们免费为您提供中文所有服务</strong> ';
 $LNG['server_register']		= '现在就注册！';
 $LNG['server_message']			= '立即注册，体验新的和令人兴奋的世界';
 $LNG['login']					= '登录';
@@ -78,7 +78,7 @@ $LNG['different_mails']			= '你有两个不同的电子邮件地址!<br>';
 $LNG['welcome_message_from']		= '管理';
 $LNG['welcome_message_sender']		= '管理';
 $LNG['welcome_message_subject']	= '欢迎';
-$LNG['welcome_message_content']	= '欢迎来到 %s!<br>在这里开创自己的帝国。一个崭新残酷的世界正等待着你的开启。你，或者会成为整个宇宙的王者！又或者成为其他帝国征服的对象，一切旨在你的王者之气！<br>  本游戏由晗网（HANHOT）非盈利独立运营并维护，将不定期进行程序升级，以便提供更好的游戏环境，希望您能够玩得愉快！<br>  新手第一步，赶快发展自己的科技，然后加入联盟，慢慢壮大。<br>   如有问题可以请教老玩家或者交给左边的客服。（注意：如果您的账号在非假期模式下超出3个月未登陆，我们将对其进行删除以维护系统数据。）<br>【请再阅读邮件后删除不用的邮件以便提高游戏处理速度】';
+$LNG['welcome_message_content']	= '欢迎来到 %s!<br>在这里开创自己的帝国。一个崭新残酷的世界正等待着你的开启。你，或者会成为整个宇宙的王者！又或者成为其他帝国征服的对象，一切旨在你的王者之气！<br>  本游戏由我们非盈利独立运营并维护，将不定期进行程序升级，以便提供更好的游戏环境，希望您能够玩得愉快！<br>  新手第一步，赶快发展自己的科技，然后加入联盟，慢慢壮大。<br>   如有问题可以请教老玩家或者交给左边的客服。（注意：如果您的账号在非假期模式下超出3个月未登陆，我们将对其进行删除以维护系统数据。）<br>【请再阅读邮件后删除不用的邮件以便提高游戏处理速度】';
 $LNG['newpass_smtp_email_error']	= '<br><br>发生错误。您的密码是： ';
 $LNG['reg_completed']				= '感谢您注册！您将收到一个激活链接的电子邮件。';
 //registry_form.tpl

@@ -1,14 +1,14 @@
 <?php
 
-//LANUAGES
+// Языки
 $LNG['langs']    = array(
-    'de' => 'Deutsch', 
-    'en' => 'English', 
-    'es' => 'Español', 
-    'ru' => 'Русский', 
-    'pt' => 'Português',
-    'cn' => '简体中文',
-    'hr' => 'Hrvatski',
+                                     'de' => 'Deutsch',
+                                     'en' => 'English',
+                                     'es' => 'Español',
+                                     'ru' => 'Русский',
+                                     'pt' => 'Português',
+                                     'cn' => '简体中文',
+                                     'hr' => 'Hrvatski',
 );
 
 // Основная часть сервера
@@ -319,7 +319,7 @@ $LNG['fl_dont_exist']                     = ' не смог присоедини
 $LNG['fl_acs_invitation_message']         = ' приглашает Вас присоединиться к САБу';
 $LNG['fl_acs_invitation_title']           = 'Приглашение в САБ';
 $LNG['fl_sac_of_fleet']                   = 'Флот САБа';
-$LNG['fl_modify_sac_name']                = 'Изменить название САБа';
+$LNG['fl_modify_sac_name']                = 'Название САБа';
 $LNG['fl_members_invited']                = 'Игрок успешно приглашён';
 $LNG['fl_invite_members']                 = 'Пригласить игрока в САБ';
 $LNG['fl_simulate']                       = 'Симулировать';
@@ -327,6 +327,10 @@ $LNG['fl_bonus']                          = 'Бонус';
 $LNG['fl_bonus_attack']                   = 'Вооружение';
 $LNG['fl_bonus_defensive']                = 'Броня';
 $LNG['fl_bonus_shield']                   = 'Щиты';
+$LNG['fl_no_empty_derbis']                = 'Поле обломков не существует!';
+$LNG['fl_acs_newname_alphanum']           = 'Название может содержать только алфавитно-цифровые символы.';
+$LNG['fl_acs_change']                     = 'Переименовать';
+$LNG['fl_acs_change_name']                = 'Введите новое название';
 
 // Постройки - Исследования - Верфь - Оборона
 $LNG['bd_dismantle']                      = 'Разрушить';
@@ -359,8 +363,8 @@ $LNG['bd_maxlevel']                       = 'Максимально достиж
 $LNG['bd_on']                             = 'на';
 $LNG['bd_max_builds']                     = 'Максимальное количество построек в очереди %d!';
 $LNG['bd_next_level']                     = 'Следующий уровень:';
-$LNG['bd_need_engine']                    = 'Потребляет <font color="#FF0000">%s</font> энергии';
-$LNG['bd_more_engine']                    = 'Производит <font color="#00FF00">%s</font> энергии';
+$LNG['bd_need_engine']                    = 'Потребляет <span style="color:#FF0000">%s</span> %s энергии';
+$LNG['bd_more_engine']                    = 'Производит <span style="color:#00FF00">%s</span> %s энергии';
 $LNG['bd_jump_gate_action']               = 'Переместиться';
 $LNG['bd_cancel_warning']                 = 'При удалении из очереди будет восстановленно только 60% ресурсов!';
 $LNG['bd_cancel_send']                    = 'Выбрать - Удалить';

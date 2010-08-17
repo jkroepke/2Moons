@@ -7,9 +7,6 @@
 # * @copyright Copyright (C) 2010 By ShadoX from titanspace.de               #
 # * @copyright Copyright (C) 2008 - 2009 By lucky from Xtreme-gameZ.com.ar   #
 # * @translate by                                                            #
-# * @author I_LOVE_XNOVA_GAMES                                               #
-# * @author BigSmoke                                                         #
-# * @author PeterPan                                                         #
 # * @author ShadoX                                                           #
 # *	                                                                         #
 # *  This program is free software: you can redistribute it and/or modify    #
@@ -21,7 +18,7 @@
 # *  but WITHOUT ANY WARRANTY; without even the implied warranty of          #
 # *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the           #
 # *  GNU General Public License for more details.                            #
-# *  由晗网汉化-http://xo.hanhot.com                                                                 #
+# *                                                                          #
 ##############################################################################
 
 //---------------	GENERAL	------------------------// 
@@ -245,21 +242,22 @@ $LNG['et_encript']			= '生成';
 
 
 //---------------	CONFIGURACIÓN DE ESTADÍSTICAS - STATS CONFIG - Stats-Config	------------------------//
-$LNG['cs_title']					= '对统计参数设置';
-$LNG['cs_point_per_resources_used']			= '1点积分作为一种价值';
+$LNG['cs_title']						= '设置参数的统计';
+$LNG['cs_point_per_resources_used']		= '1点的积分';
 $LNG['cs_resources']					= '资源';
-$LNG['cs_users_per_block']				= '用户每块（最少10）';
-$LNG['cs_fleets_on_block']				= '该区块更新船队';
-$LNG['cs_time_between_updates']			= '之间对统计数据的更新时间';
-$LNG['cs_minutes']					= '分';
+$LNG['cs_users_per_block']				= '每块用户(至少10)';
+$LNG['cs_fleets_on_block']				= '更新积分';
+$LNG['cs_time_between_updates']			= '时间间隔，统计更新';
+$LNG['cs_minutes']						= '纪要';
 $LNG['cs_points_to_zero']				= '管理员分配0点...';
-$LNG['cs_access_lvl']					= '... 从 Ranklevel(Authlevel)';
-$LNG['cs_save_changes']				= '保存';
-$LNG['cs_timeact_1']					= '最后更新于: ';
-$LNG['cs_yes']						= '是';
-$LNG['cs_no']						= '没有';
-$LNG['cs_no_view']					= '管理员';
-
+$LNG['cs_access_lvl']					= '... ab Ranklevel (Authlevel)';
+$LNG['cs_save_changes']					= '保存';
+$LNG['cs_timeact_1']					= '最后更新于： ';
+$LNG['cs_yes']							= '是';
+$LNG['cs_no']							= '不是';
+$LNG['cs_no_view']						= '管理员隐藏';
+$LNG['cs_banner_time_between_updates']	= '时间间隔，统计更新横幅';
+$LNG['cs_banner_title']					= '统计参数的设置横幅';
 //###########################################################//
 
 
@@ -520,7 +518,7 @@ $LNG ['mu_ts_options'] ='使用TeamSpeak选项';
 $LNG ['mu_game_info'] ='信息'; 
 $LNG ['mu_vaild_users'] ='用户活动'; 
 $LNG ['mu_news'] ='新闻'; 
-
+$LNG['mu_mod_update']              	= '国防部版本控制';
 //###########################################################//
 
 
@@ -963,6 +961,19 @@ $LNG['nws_confirm']						= '你确定要删除 %s 这条新闻吗?';
 $LNG['nws_create']						= '创建新闻';
 $LNG['nws_total']						= '共有 %d 条新闻';
 $LNG['nws_content']						= '内容';
+//Mod Versions Control
+
+$LNG['mvc_title']						= '标题';
+$LNG['mvc_author']						= '作者';
+$LNG['mvc_version']						= '版本';
+$LNG['mvc_link']						= '链接';
+$LNG['mvc_update_yes']					= '更新使用!';
+$LNG['mvc_update_no']					= '安装最新版本!';
+$LNG['mvc_update_version']				= '最新版本';
+$LNG['mvc_update_date']					= '发布';
+$LNG['mvc_announcement']				= '公告';
+$LNG['mvc_download']					= '下载';
+$LNG['mvc_desc']						= '说明';
 
 
 ?>

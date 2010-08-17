@@ -1,19 +1,19 @@
-Hallo %1$s,
-vielen Dank, dass Sie sich in unserem Game %2$s registriert haben. Bevor Ihr Benutzerkonto aktiviert und Ihre Registrierung abgeschlossen werden kann, m黶sen Sie noch einen letzten Schritt unternehmen.
+您好！ %1$s,
+感谢您注册： %2$s
 
-Bitte beachten Sie, dass dieser Schritt zwingend notwendig ist, um ein registrierter Benutzer zu werden. Sie m黶sen den Link unten nur ein einziges Mal aufrufen, um Ihr Benutzerkonto zu aktivieren.
+您需要激活您的帐户，只需要一个步骤。
+请注意，这一步是强制性的，成为注册用户。你必须调用下面的链接点击一次，以验证您的身份。
 
-Um Ihre Registrierung abzuschlie遝n, klicken Sie bitte auf folgenden Link:
+为了完成您的注册激活，请点击以下链接：
 
-<a href='%3$s?page=reg&amp;mode=valid&amp;lang=%7$s&amp;clef=%4$s'>%3$s?page=reg&amp;mode=valid&amp;lang=%7$s&amp;clef=%4$s</a>
+<a href='%3$s?page=reg&amp;mode=valid&amp;lang=%7$s&amp;clef=%4$s'>%3$s?page=reg&mode=valid&lang=%7$s&clef=%4$s</a>
 
-Ihre Logindaten:
+您的登录信息：
 
-Username : %1$s
-Passwort : %5$s
+游戏账号 : %1$s
+登录密码 : %5$s
 
-Sollten Sie immer noch Probleme mit der Registrierung haben, kontaktieren Sie bitte den Webmaster unter dieser E-Mail-Adresse: <a href='mailto:%6$s'>%6$s</a>
+如果你对注册有任何问题，请联系游戏管理员: <a href='mailto:%6$s'>%6$s</a>
 
-Mit freundlichen Gren,
-
-%2$s - Team
+谢谢,
+%2$s - 运营团队
