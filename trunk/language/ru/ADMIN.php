@@ -863,6 +863,13 @@ $LNG['modul'][28]                      = 'Технологии';
 $LNG['ative']                          = 'Включён';
 $LNG['deative']                        = 'Отключён';
 
+$LNG['mod_module'] 						= 'Модули';
+$LNG['mod_info'] 						= 'Модули игры';
+$LNG['mod_active'] 						= 'Включён';
+$LNG['mod_deactive']					= 'Отключён';
+$LNG['mod_change_active'] 				= 'Активирован';
+$LNG['mod_change_deactive'] 			= 'Деактивирован';
+
 // Новости
 $LNG['nws_news']                       = 'Новости';
 $LNG['nws_head_create']                = 'Создать новость';
