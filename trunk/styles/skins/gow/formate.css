@@ -95,7 +95,7 @@ padding-bottom:5px;
 left:205px;
 overflow:visible;
 position:absolute;
-top:95px;
+margin-top:10px;
 width:80%!important
 }
 
@@ -205,10 +205,11 @@ border:none
 background:url(img/topnavbg.png) repeat-x;
 border-radius:0 0 15px 15px;
 height:auto;
-margin:0 auto;
+margin-left:210px;
+margin-right:210px;
 text-align:center;
-top:0;
-width:1000px
+top:0px;
+width:80%
 }
 
 tr.header,table.header {
@@ -236,9 +237,7 @@ margin:0;
 padding:0;
 position:absolute;
 top:-20px;
-max-width:200px;
-min-width:150px;
-width:15%;
+width:200px;
 }
 
 #menu li {
@@ -320,4 +319,8 @@ width:569px !important
 
 .res_current_max,.attack,.federation,.error {
 color:red
+}
+
+.ui-progressbar-value {
+background-image: url(img/processbar.png)
 }
