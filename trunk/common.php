@@ -100,7 +100,7 @@ if (INSTALL != true)
 			trigger_error($CONF['close_reason'], E_USER_NOTICE);
 		}
 		
-		if(request_var('ajax', 0) == 0 /*&& $CONF['stats_fly_lock'] == 0*/ && !defined('IN_ADMIN'))
+		if(request_var('ajax', 0) == 1 && !defined('IN_ADMIN'))
 		{	
 			update_config('stats_fly_lock', TIMESTAMP);
 			$db->query("LOCK TABLE ".AKS." WRITE, ".RW." WRITE, ".MESSAGES." WRITE, ".FLEETS." WRITE, ".PLANETS." WRITE, ".PLANETS." as p WRITE, ".TOPKB." WRITE, ".USERS." WRITE, ".USERS." as u WRITE, ".STATPOINTS." WRITE;");
@@ -128,7 +128,6 @@ if (INSTALL != true)
 			$db->query("UPDATE ".USERS." SET `lang` ='".$USER['lang']."' WHERE `id` = '".$USER['id']."';");
 		}
 		
-		define('DEFAULT_LANG', $USER['lang']);
 		includeLang('INGAME');
 		includeLang('TECH');
 		
@@ -162,7 +161,6 @@ if (INSTALL != true)
 		require_once(ROOT_PATH.'includes/classes/class.template.'.PHP_EXT);
 	} else {
 		//Login
-		define('DEFAULT_LANG'	, (!empty($_REQUEST['lang'])) ? $_REQUEST['lang'] : $CONF['lang']);
 		includeLang('INGAME');
 		require_once(ROOT_PATH.'includes/classes/class.template.'.PHP_EXT);
 	}

@@ -15,7 +15,7 @@
 	{foreach item=PlayerInfo from=$PrangerList name=Pranger}
 	<tr>
 		<td><center><b>{$PlayerInfo.player}</b></center></td>
-		<td><center><b>{$PlayerInfo.tdeme}</b></center></td>
+		<td><center><b>{$PlayerInfo.theme}</b></center></td>
 		<td><center><b>{$PlayerInfo.from}</b></center></td>
 		<td><center><b>{$PlayerInfo.to}</b></center></td>
 		<td><center><b><a href="mailto:{$PlayerInfo.mail}" title="{$PlayerInfo.info}">{$PlayerInfo.admin}</a></b></center></td>
