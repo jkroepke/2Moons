@@ -1,8 +1,7 @@
-Hallo %1$s,
-Danke, dass Sie sich bei %2$s als Benutzer registriert haben!
+您好！ %1$s,
+感谢您在 %2$s 注册成功！
 
-Wir freuen uns, dass Sie sich entschieden haben, ein Teil unserer Community zu werden und hoffen, dass es Ihnen gefallen wird.
+我们很高兴您成为这个游戏的一份子，欢迎您的加入，祝您玩得愉快！
 
-Mit freundlichen Gr&uuml;&szlig;en
-
-%2$s - Team
+谢谢,
+%2$s - 运营团队

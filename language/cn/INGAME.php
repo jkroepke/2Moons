@@ -1,5 +1,4 @@
 <?php
-
 //LANUAGES
 $LNG['langs']    = array(
     'de' => 'Deutsch', 
@@ -10,6 +9,7 @@ $LNG['langs']    = array(
     'cn' => '简体中文',
     'hr' => 'Hrvatski',
 );
+
 
 //SERVER GENERALS
 $LNG['Metal']								= '金属';
@@ -95,8 +95,8 @@ $LNG['lm_battlesim']						= "战斗模拟器";
 $LNG['ov_newname_alphanum']				= '该行星名称只能包含字母数字字符.';
 $LNG['ov_newname_no_space']				= '该行星名称不能包含空格.';
 $LNG['ov_planet_abandoned']				= '星球遗弃成功!';
-$LNG['ov_principal_planet_cant_abanone']	= '不能遗弃自己的母星!';
-$LNG['ov_abandon_planet_not_possible']		= '没有被删除，如果舰队活动如期举行,从他们的殖民地';
+$LNG['ov_principal_planet_cant_abanone']	= '不能遗弃自己的主星!';
+$LNG['ov_abandon_planet_not_possible']		= '殖民地不能放弃！可能您的舰队正在活动。';
 $LNG['ov_wrong_pass']						= '不正确的密码。请再试一次！';
 $LNG['ov_have_new_message']				= '你有一个新邮件！（点击查看）';
 $LNG['ov_have_new_messages']				= '你有 %d 条新信息';
@@ -349,8 +349,8 @@ $LNG['bd_interrupt']						= '暂停';
 $LNG['bd_cancel']							= '取消';
 $LNG['bd_working']							= '繁忙';
 $LNG['bd_build']							= '建造';
-$LNG['bd_build_next_level']					= '升级级别 ';
-$LNG['bd_add_to_list']						= '生产队列添加';
+$LNG['bd_build_next_level']					= '升级建筑 ';
+$LNG['bd_add_to_list']						= '添加到生产队列';
 $LNG['bd_no_more_fields']					= '星球扩大!';
 $LNG['bd_remaining']						= '消耗资源:';
 $LNG['bd_lab_required']						= '您必须先将研究室建起!';
@@ -371,11 +371,11 @@ $LNG['bd_continue']							= '下一步';
 $LNG['bd_ready']							= '完成';
 $LNG['bd_finished']							= '完成';
 $LNG['bd_maxlevel']							= '最高水平已经达到！';
-$LNG['bd_on']								= 'no';
+$LNG['bd_on']								= '关于';
 $LNG['bd_max_builds']						= '可以最大. %d 个舰船生产!';
 $LNG['bd_next_level']						= '下一个级别:';
-$LNG['bd_need_engine']						= '使用 <font color="#FF0000">%s</font> %s 更多';
-$LNG['bd_more_engine']						= '生产 <font color="#00FF00">%s</font> %s 更多';
+$LNG['bd_need_engine']						= '使用 <span style="color:#FF0000">%s</span> %s 更多';
+$LNG['bd_more_engine']						= '生产 <span style="color:#00FF00">%s</span> %s 更多';
 $LNG['bd_jump_gate_action']					= '跳跃';
 $LNG['bd_cancel_warning']					= '如果拆除只能恢复60％的资源！';
 $LNG['bd_cancel_send']						= '选择>删除';
@@ -391,7 +391,7 @@ $LNG['rs_amount']							= '编号';
 $LNG['rs_lvl']								= '级别';
 $LNG['rs_production_on_planet']			= '资源的行星 "%s"';
 $LNG['rs_basic_income']					= '基本收入';
-$LNG['rs_storage_capacity']				= '可用性';
+$LNG['rs_storage_capacity']				= '储存容量';
 $LNG['rs_calculate']						= '计算';
 $LNG['rs_sum']								= '共有';
 $LNG['rs_daily']							= '每天';
@@ -403,12 +403,12 @@ $LNG['rs_ress_bonus']						= '奖金(Offizere/DM-Bonus):';
 $LNG['of_recruit']							= '获得';
 $LNG['of_max_lvl']							= '最高水平';
 $LNG['of_available_points']				= '可用积分:';
-$LNG['of_points_per_thousand_darkmatter']	= '(1 分 每 %d %s)';
+$LNG['of_points_per_thousand_darkmatter']	= '(1 积分 每 %d %s)';
 $LNG['of_lvl']								= '级别';
-$LNG['of_dm_trade']						= '%s - 存储';
+$LNG['of_dm_trade']						= '%s - 黑市';
 $LNG['of_still']							= '甚至';
 $LNG['of_active']							= '活跃';
-$LNG['of_update']							= '替换';
+$LNG['of_update']							= '升级';
 
 //----------------------------------------------------------------------------//
 //TRADER
@@ -438,11 +438,11 @@ $LNG['tt_lvl']								= '级别 ';
 
 //----------------------------------------------------------------------------//
 //INFOS
-$LNG['in_jump_gate_done']					= '船队发送成功。您能跳门再次注意到这个优势在一小时内： ';
+$LNG['in_jump_gate_done']					= '船队发送成功。下次跳跃时间： ';
 $LNG['in_jump_gate_error_data']			= '错误，数据不正确';
-$LNG['in_jump_gate_not_ready_target']		= '该Zielsprungtor还没有准备好';
+$LNG['in_jump_gate_not_ready_target']		= '月球上的跳跃门还没有准备好';
 $LNG['in_jump_gate_doesnt_have_one']		= '你没有跳门';
-$LNG['in_jump_gate_already_used']			= '该jumpgate还没有准备好 ';
+$LNG['in_jump_gate_already_used']			= '跳跃门还需要充能: ';
 $LNG['in_jump_gate_available']				= '编号';
 $LNG['in_rf_again']    					= '速射对';
 $LNG['in_rf_from']     					= '速射';
@@ -460,7 +460,7 @@ $LNG['in_shield_pt']   					= '盾牌实力';
 $LNG['in_attack_pt']   					= '攻击';
 $LNG['in_capacity']    					= '能力';
 $LNG['in_units']       					= '单位';
-$LNG['in_base_speed'] 						= 'Geschwindichkeit';
+$LNG['in_base_speed'] 						= '基础速率';
 $LNG['in_consumption'] 					= '重氢消耗';
 $LNG['in_jump_gate_start_moon']			= '月球基地';
 $LNG['in_jump_gate_finish_moon']			= '奔向月球';
@@ -704,29 +704,29 @@ $LNG['al_leave_ally']					= '你真的要离开联盟?';
 //BUDDY
 $LNG['bu_request_exists']					= '已在好友名单的玩家';
 $LNG['bu_cannot_request_yourself']			= '您不能添加自己到好友名单';
-$LNG['bu_request_message']					= '问题文本';
+$LNG['bu_request_message']					= '请求消息';
 $LNG['bu_player']							= '玩家';
 $LNG['bu_request_text']					= '理由';
 $LNG['bu_characters']						= '字符';
 $LNG['bu_back']							= '返回';
 $LNG['bu_send']							= '发送';
-$LNG['bu_cancel_request']					= '复原';
-$LNG['bu_accept']							= '答案';
-$LNG['bu_decline']							= '下降';
+$LNG['bu_cancel_request']					= '取消请求';
+$LNG['bu_accept']							= '接受';
+$LNG['bu_decline']							= '拒绝';
 $LNG['bu_connected']						= '在线';
-$LNG['bu_minutes']							= ' 分';
+$LNG['bu_minutes']							= ' 我的';
 $LNG['bu_disconnected']					= '离线';
 $LNG['bu_online']							= '在线';
 $LNG['bu_buddy_list']						= '好友名单';
-$LNG['bu_requests']						= '问题';
+$LNG['bu_requests']						= '请求';
 $LNG['bu_alliance']						= '联盟';
-$LNG['bu_coords']							= '协调';
+$LNG['bu_coords']							= '坐标';
 $LNG['bu_text']							= '文字';
 $LNG['bu_action']							= '动作';
-$LNG['bu_my_requests']						= '我的要求';
+$LNG['bu_my_requests']						= '我的请求';
 $LNG['bu_partners']						= '朋友';
 $LNG['bu_delete']							= '删除';
-$LNG['bu_no_request']						= '没有问题存在!';
+$LNG['bu_no_request']						= '没有好友请求存在!';
 $LNG['bu_no_buddys']						= '没有好友存在!';
 $LNG['bu_request_send']					= '请求发送';
 
@@ -777,7 +777,7 @@ $LNG['st_write_message']					= '悄悄话';
 $LNG['sh_tag']								= '标签';
 $LNG['sh_name']							= '名字';
 $LNG['sh_members']							= '会员';
-$LNG['sh_points']							= '朋克';
+$LNG['sh_points']							= '积分';
 $LNG['sh_search_in_the_universe']			= '在宇宙中搜寻';
 $LNG['sh_player_name']						= '玩家';
 $LNG['sh_planet_name']						= '星球';
@@ -788,7 +788,7 @@ $LNG['sh_write_message']					= '悄悄话';
 $LNG['sh_buddy_request']					= '好友列表';
 $LNG['sh_alliance']						= '联盟';
 $LNG['sh_planet']							= '行星';
-$LNG['sh_coords']							= '协调';
+$LNG['sh_coords']							= '坐标';
 $LNG['sh_position']						= '等级';
 
 //----------------------------------------------------------------------------//
@@ -813,7 +813,7 @@ $LNG['op_general_settings']				= '设置总';
 $LNG['op_sort_planets_by']					= '由行星排序';
 $LNG['op_sort_kind']						= '排序顺序';
 $LNG['op_lang']							= '语言';
-$LNG['op_skin_example']					= 'Grafikpfad（例如C：/XO/skins /）';
+$LNG['op_skin_example']					= '选择游戏皮肤';
 $LNG['op_show_skin']						= '皮肤';
 $LNG['op_deactivate_ipcheck']				= 'IP检查';
 $LNG['op_galaxy_settings']					= '星系视图设置';
@@ -834,21 +834,21 @@ $LNG['op_activate_vacation_mode']			= '度假模式';
 $LNG['op_dlte_account']					= '删除帐号';
 $LNG['op_email_adress_descrip']			= '这个电子邮件地址是可以改变你。经过7天没有变化，也注册为永久地址。';
 $LNG['op_deactivate_ipcheck_descrip']		= 'IP的检查手段，他们自动收到Sicherheitslogout如果IP被更改或两个人同时从不同的IP地址记录在一个帐户。可以禁用IP检查了安全风险';
-$LNG['op_spy_probes_number_descrip']		= '间谍探针数，每次扫描发送直接从Galaxiemenu。';
-$LNG['op_activate_vacation_mode_descrip']	= '休假方式，是保障在长时间的缺席。你可以激活它只是如果不建立和研究，而不是拥有自己的船队去。当打开时，它可抵御新的攻击，已开始袭击仍在继续。假日期间，模式，生产设置为零，并已停止休假模式手动重置为100％。休假模式至少持续两天，才可以禁用他。';
+$LNG['op_spy_probes_number_descrip']		= '间谍数目可以发送每个扫描探针直接到银河菜单。';
+$LNG['op_activate_vacation_mode_descrip']	= '休假方式，是保障在长时间的缺席。你可以激活它只是如果不建立和研究，而不是拥有自己的船队去。当打开时，它可抵御新的攻击，已开始袭击仍在继续。假日期间，模式，生产设置为零，并已停止休假模式手动重置为100％。休假模式至少持续两天，才可以禁用它。';
 $LNG['op_dlte_account_descrip']			= '如果你想在这里是一个黑客将被自动删除您的帐户后7天完全。';
 $LNG['op_not_vaild_mail']					= '您没有一个有效的e - mail地址！';
 $LNG['op_change_mail_exist']				= '电子邮件地址 %s 已经在使用！';
 $LNG['op_sort_normal']						= '创造的秩序';
-$LNG['op_sort_koords']						= '协调';
+$LNG['op_sort_koords']						= '坐标';
 $LNG['op_sort_abc']						= '字母';
-$LNG['op_sort_up']							= '升';
-$LNG['op_sort_down']						= '下降';
+$LNG['op_sort_up']							= '升序';
+$LNG['op_sort_down']						= '降序';
 $LNG['op_user_name_no_alphanumeric']		= '请输入用户名称只有字母数字字符';
-$LNG['op_change_name_pro_week']			= '你能更改用户名称只每周1倍';
+$LNG['op_change_name_pro_week']			= '你能更改用户名称只能每周1次';
 $LNG['op_change_name_exist']				= '用户名 %s 已经存在';
-$LNG['op_active_build_messages']			= '构建信息';
-$LNG['op_small_storage']					= '减少记忆号码';
+$LNG['op_active_build_messages']			= '建立消息队列';
+$LNG['op_small_storage']					= '缩短存储数字显示';
 
 //----------------------------------------------------------------------------//
 //BANNED
@@ -865,7 +865,7 @@ $LNG['bn_writemail']						= '电子邮件到 %s 写';
 //----------------------------------------------------------------------------//
 //class.CheckSession.php
 
-$LNG['css_account_banned_message']			= '您的帐户已被封禁，如遇问题请联系OGAME@HANHOT.COM';
+$LNG['css_account_banned_message']			= '您的帐户已被封禁，如遇问题请管理员';
 $LNG['css_account_banned_expire']			= '你封禁到 %s gespeert!<br><a href="./index.php?page=pranger">Pranger</a>';
 $LNG['css_goto_homeside']					= '<a href="./index.php">前往首页</a>';
 $LNG['css_server_maintrace']				= '服务器信息<br><br>游戏已经关闭<br><br>原因: %s';
@@ -916,12 +916,12 @@ $LNG['fcm_moon']							= '月球';
 $LNG['fcm_info']							= '信息';
 $LNG['fcp_colony']							= '殖民地';
 $LNG['fgp_require']						= '要求: ';
-$LNG['fgf_time']							= '建设: ';
+$LNG['fgf_time']							= '建设耗时: ';
 $LNG['sys_module_inactive']        	 	= '模块禁用';
 
 //----------------------------------------------------------------------------//
 // CombatReport.php
-$LNG['cr_lost_contact']					= '接触是失去了geganen船队。';
+$LNG['cr_lost_contact']					= '该舰队已经失去了联络。';
 $LNG['cr_first_round']						= '（该舰队被摧毁在第一回合）';
 $LNG['cr_type']							= '类型';
 $LNG['cr_total']							= '共有';
@@ -939,8 +939,8 @@ $LNG['fa_planet_not_exist']				= '错误，行星不存在！';
 $LNG['fa_not_enough_fuel']					= '错误，没有足够的重氢存在！';
 $LNG['fa_no_more_slots']					= '错误，没有更多队列！';
 $LNG['fa_no_recyclers']					= '错误，没有回收舰！';
-$LNG['fa_no_fleetroom']					= '错误，重氢消费和更大的承载能力！';
-$LNG['fa_mission_not_available']			= '错误，使命民间用！';
+$LNG['fa_no_fleetroom']					= '错误，重氢消耗大于的承载能力！';
+$LNG['fa_mission_not_available']			= '错误，这不是用任务！';
 $LNG['fa_no_spios']						= '错误，没有足够的探测卫星使用！';
 $LNG['fa_vacation_mode']					= '错误，玩家是在度假模式！';
 $LNG['fa_week_player']						= '错误，玩家过于软弱！';
@@ -948,7 +948,7 @@ $LNG['fa_strong_player']					= '错误，玩家过于强大！';
 $LNG['fa_not_spy_yourself']				= '故障，无法在自己的星球从事间谍活动！';
 $LNG['fa_not_attack_yourself']				= '错误，舰队不能攻击自身！';
 $LNG['fa_action_not_allowed']				= '错误，系统错误！';
-$LNG['fa_vacation_mode_current']			= '错误，他们在Urlaubsmdous';
+$LNG['fa_vacation_mode_current']			= '错误，他在度假模式！';
 $LNG['fa_sending']							= '发送';
 
 //----------------------------------------------------------------------------//
@@ -1007,7 +1007,7 @@ $LNG['pl_fightwon']  						= '胜利';
 $LNG['pl_fightdraw']  						= '获得';
 $LNG['pl_fightlose']  						= '丢失';
 $LNG['pl_totalfight']      				= '总战斗';
-$LNG['pl_destroy']    						= '%s 已经参与了下列破坏';
+$LNG['pl_destroy']    						= '%s 参与了下列破坏';
 $LNG['pl_unitsshot']    					= '武器单位';
 $LNG['pl_unitslose']    					= '损失单位';
 $LNG['pl_dermetal']    					= '金属残骸';
