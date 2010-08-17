@@ -298,7 +298,7 @@ function ShowOverviewPage()
 				'ov_security_request'		=> $LNG['ov_security_request'],
 				'ov_delete_planet'			=> $LNG['ov_delete_planet'],
 				'ov_planet_abandoned'		=> $LNG['ov_planet_abandoned'],
-				'path'						=> str_replace('game.php', '', $_SERVER['PHP_SELF']),
+				'path'						=> PROTOCOL.$_SERVER['HTTP_HOST'].HTTP_ROOT,
 			));
 			
 			$template->show("overview_body.tpl");

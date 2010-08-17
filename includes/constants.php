@@ -29,6 +29,7 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	define('PROTOCOL'				  , !empty($_SERVER["HTTPS"]) ? 'https://' : 'http://');
 	define('HTTP_ROOT'				  , str_replace(array('\\', '//'), '/', dirname($_SERVER['SCRIPT_NAME'])).'/');
 
+	define('DEFAULT_LANG'             , "de"); // For Fatal Errors!
 	define('PHPEXT'                   , "php");
 	
 	// UNIVERSE DATA, GALAXY, SYSTEMS AND PLANETS || DEFAULT 9-499-15 RESPECTIVELY

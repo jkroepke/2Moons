@@ -83,10 +83,19 @@ function pretty_time_hour ($seconds)
 function includeLang ($filename, $ext = '.php')
 {
 	global $LNG;
-	if(file_exists(ROOT_PATH . "language/".DEFAULT_LANG."/".$filename.$ext))
-		require(ROOT_PATH . "language/".DEFAULT_LANG."/".$filename.$ext);
+	if(isset($GLOBALS['USER']))
+		$LANG	= $GLOBALS['USER']['lang'];
+	elseif(isset($_REQUEST['lang']) && ctype_alnum($_REQUEST['lang']) && !isset($_REQUEST['lang']{3}))
+		$LANG	= $_REQUEST['lang'];
+	elseif(isset($GLOBALS['CONF']))
+		$LANG	= $GLOBALS['CONF']['lang'];
 	else
-		throw new Exception('LangFile '.$filename.$ext.' ('.DEFAULT_LANG.') not found!');
+		$LANG	= DEFAULT_LANG;
+		
+	if(file_exists(ROOT_PATH . "language/".$LANG."/".$filename.$ext))
+		require(ROOT_PATH . "language/".$LANG."/".$filename.$ext);
+	else
+		throw new Exception('LangFile '.$filename.$ext.' ('.$LANG.') not found!');
 }
 
 function GetStartAdressLink ( $FleetRow, $FleetType )
@@ -246,7 +255,7 @@ function request_var($var_name, $default, $multibyte = false, $cookie = false)
 
 function msg_handler($errno, $msg_text, $errfile, $errline)
 {
-	global  $msg_title, $msg_long_text, $CONF;
+	global $msg_title, $msg_long_text, $CONF;
 	if (!error_reporting()) return false;
 	switch ($errno)
 	{
@@ -273,19 +282,12 @@ function msg_handler($errno, $msg_text, $errfile, $errline)
 			echo '<meta http-equiv="content-language" content="de">';
 			echo '<title>'.$CONF['game_name'].' - FATAL ERROR</title>';
 			echo '<link rel="shortcut icon" href="./favicon.ico">';
-			echo '<link rel="stylesheet" type="text/css" href="styles/css/default.css">';
-			echo '<link rel="stylesheet" type="text/css" href="styles/css/formate.css">';
 			echo '<link rel="stylesheet" type="text/css" href="'.DEFAULT_SKINPATH.'formate.css">';
-			echo '<script type="text/javascript" src="scripts/overlib.js"></script>';
-			echo '<script language="JavaScript"> ';
-			echo 'function blockError(){return true;} ';
-			echo 'window.onerror = blockError; ';
-			echo '</script>';
 			echo '</head>';
 			echo '<body>';
 			echo '<table width="80%" align="center">';
 			echo '<tr>';
-            echo '<th class="errormessage">PHP: ERROR in file <b>' . $errfile . '</b> on line <b>' . $errline . '</b>:<br> <b>' . $msg_text . '</b></th>';
+            echo '<td>PHP: ERROR in file <b>' . $errfile . '</b> on line <b>' . $errline . '</b>:<br> <b>' . $msg_text . '</b></td>';
 			echo '</tr>';
 			echo '</table>';
 			echo '</body>';			
@@ -304,23 +306,16 @@ function msg_handler($errno, $msg_text, $errfile, $errline)
 			echo '<meta http-equiv="content-language" content="de">';
 			echo '<title>'.$CONF['game_name'].' - Informations</title>';
 			echo '<link rel="shortcut icon" href="./favicon.ico">';
-			echo '<link rel="stylesheet" type="text/css" href="styles/css/default.css">';
-			echo '<link rel="stylesheet" type="text/css" href="styles/css/formate.css">';
 			echo '<link rel="stylesheet" type="text/css" href="'.DEFAULT_SKINPATH.'formate.css">';
-			echo '<script type="text/javascript" src="scripts/overlib.js"></script>';
-			echo '<script language="JavaScript"> ';
-			echo 'function blockError(){return true;} ';
-			echo 'window.onerror = blockError; ';
-			echo '</script>';
 			echo '</head>';
 			echo '<body>';
-			echo '<table style="width:80%;position:absolute;top:30%;bottom:50%;left:10%;right:10%;" align="center">';
+			echo '<table style="width:80%;position:absolute;top:30%;bottom:50%;left:10%;right:10%;">';
 			echo '<tr>';
-			echo '<td class="c">';
+			echo '<th>';
 			echo 'Informationen:';
-			echo '</td>';
+			echo '</th>';
 			echo '</tr>';
-            echo '<th class="errormessage"><b>' . $msg_text . '</b></th>';
+            echo '<td><b>' . $msg_text . '</b></td>';
 			echo '</tr>';
 			echo '</table>';
 			echo '</body>';			
@@ -380,13 +375,13 @@ function MailSend($MailTarget, $MailTargetName, $MailSubject, $MailContent)
 	
 }
 
-function makebr($text, $xhtml = false)
+function makebr($text)
 {
     // XHTML FIX for PHP 5.3.0
 	// Danke an Meikel
 	
-    $BR = ($xhtml === true) ? "<br />\n" : "<br>\n";
-    return (version_compare(PHP_VERSION, "5.3.0", ">=")) ? nl2br($text, $xhtml) : strtr($text, array("\r\n" => $BR, "\r" => $BR, "\n" => $BR)); 
+    $BR = "<br>\n";
+    return (version_compare(PHP_VERSION, "5.3.0", ">=")) ? nl2br($text, false) : strtr($text, array("\r\n" => $BR, "\r" => $BR, "\n" => $BR)); 
 }
 
 function CheckPlanetIfExist($Galaxy, $System, $Planet, $Planettype = 1)
@@ -395,7 +390,6 @@ function CheckPlanetIfExist($Galaxy, $System, $Planet, $Planettype = 1)
 	$QrySelectGalaxy = $db->uniquequery("SELECT id FROM ".PLANETS." WHERE `galaxy` = '".$Galaxy."' AND `system` = '".$System."' AND `planet` = '".$Planet."' AND `planet_type` = '".$Planettype."';");
 	return (isset($QrySelectGalaxy)) ? true : false;
 }
-
 
 function CheckNoobProtec($OwnerPlayer, $TargetPlayer, $TargetOnline)
 {	
@@ -411,12 +405,6 @@ function CheckNoobProtec($OwnerPlayer, $TargetPlayer, $TargetOnline)
 		$Noobplayer		= ((round($OwnerPlayer['total_points'] * 0.2) > $TargetPlayer['total_points'] && $IamNoobplayer) || ($TargetNoobplayer && !$IamNoobplayer)) ? true : false;
 	}
 	return array("NoobPlayer" => $Noobplayer, "StrongPlayer" => $StrongPlayer);
-}
-
-function GetRealHostName()
-{
-	$array = explode(".",$_SERVER['HTTP_HOST']);
-	return (count($array) == 3) ? $array[1].".".$array[2] : $_SERVER['HTTP_HOST'];
 }
 
 function CheckName($String)
@@ -443,12 +431,18 @@ function exception_handler($exception) {
 	echo '</script>';
 	echo '</head>';
 	echo '<body>';
-	echo '<table width="80%" align="center">';
+	echo '<table width="80%">';
 	echo '<tr>';
-    echo '<th class="errormessage" style="text-align: left;"><b>Message: </b>'.$exception->getMessage().'<br>';
+	echo '<th>';
+	echo 'Error:';
+	echo '</th>';
+	echo '</tr>';
+	echo '<tr>';
+    echo '<td class="left"><b>Message: </b>'.$exception->getMessage().'<br>';
     echo '<b>File: </b>'.$exception->getFile().'<br>';
     echo '<b>Line: </b>'.$exception->getLine().'<br>';
     echo '<b>PHP-Version: </b>'.PHP_VERSION.'<br>';
+    echo '<b>2Moons Version: </b>'.VERSION.'<br>';
 	echo '<b>Debug Backtrace:</b><br>'.makebr(htmlspecialchars($exception->getTraceAsString())).'</th>';
 	echo '</tr>';
 	echo '</table>';
