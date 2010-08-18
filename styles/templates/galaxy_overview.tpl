@@ -39,7 +39,7 @@
 	</table>
 	</form>
 	{if $mode == 2}
-    <form action="game.php?page=missiles&amp;galaxy={$galaxy}&amp;system={$system}&amp;planet={$planet}" metdod="POST">
+    <form action="game.php?page=missiles&amp;galaxy={$galaxy}&amp;system={$system}&amp;planet={$planet}" method="POST">
 	<tr>
 		<table class="table569">
 			<tr>
