@@ -71,7 +71,7 @@ switch ($page) {
 				if(!empty($USER_details[0]['contact_email']) && ValidateAddress($USER_details[0]['contact_email'])) 
 					$UserMail 	=  $USER_details[0]['contact_email'];
 				else 
-					exit(header("Location: index.php"));
+					redirectTo("index.".PHP_EXT);
 				
 				$Exist['alruser'] = $db->uniquequery("SELECT id,username,authlevel FROM ".USERS." WHERE `email` = '".$UserMail."';");
 				if(isset($Exist['alruser']))
@@ -81,7 +81,7 @@ switch ($page) {
 					$_SESSION['id']			= $Exist['alruser']['id'];
 					$_SESSION['username']	= $Exist['alruser']['username'];
 					$_SESSION['authlevel']	= $Exist['alruser']['authlevel'];
-					exit(header("Location: ./game.php?page=overview"));
+					redirectTo("game.".PHP_EXT."?page=overview");
 				}
 				
 				$Caracters = "aazertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN1234567890";
