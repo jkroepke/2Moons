@@ -100,7 +100,7 @@ if (INSTALL != true)
 			trigger_error($CONF['close_reason'], E_USER_NOTICE);
 		}
 		
-		if(request_var('ajax', 0) == 1 && !defined('IN_ADMIN'))
+		if(request_var('ajax', 0) == 0 && !defined('IN_ADMIN'))
 		{	
 			update_config('stats_fly_lock', TIMESTAMP);
 			$db->query("LOCK TABLE ".AKS." WRITE, ".RW." WRITE, ".MESSAGES." WRITE, ".FLEETS." WRITE, ".PLANETS." WRITE, ".PLANETS." as p WRITE, ".TOPKB." WRITE, ".USERS." WRITE, ".USERS." as u WRITE, ".STATPOINTS." WRITE;");
