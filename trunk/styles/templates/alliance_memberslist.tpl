@@ -25,7 +25,7 @@
 			<td>{$MemberInfo.points}</td>
 			<td><a href="game.php?page=galaxy&amp;mode=3&amp;galaxy={$MemberInfo.galaxy}&amp;system={$MemberInfo.system}">[{$MemberInfo.galaxy}:{$MemberInfo.system}:{$MemberInfo.planet}]</a></td>
 			<td>{$MemberInfo.register_time}</td>
-			<td>{if $seeonline}{if $MemberInfo.onlinetime < 4}<span style="color:lime">{$al_memberlist_on}</span>{elseif $MemberInfo.onlinetime >= 4 && $MemberInfo.onlinetime <= 15}<style="color:yellow">{$MemberInfo.onlinetime} {$al_memberlist_min}</span>{else}< style="color:red">{$al_memberlist_off}</span>{/if}{else}-{/if}</td>
+			<td>{if $seeonline}{if $MemberInfo.onlinetime < 4}<span style="color:lime">{$al_memberlist_on}</span>{elseif $MemberInfo.onlinetime >= 4 && $MemberInfo.onlinetime <= 15}<span style="color:yellow">{$MemberInfo.onlinetime} {$al_memberlist_min}</span>{else}<span style="color:red">{$al_memberlist_off}</span>{/if}{else}-{/if}</td>
 		</tr>
 		{/foreach}
         <tr>
