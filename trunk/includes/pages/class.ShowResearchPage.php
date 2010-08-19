@@ -118,7 +118,7 @@ class ShowResearchPage
 		$TheCommand		= request_var('cmd','');
 		$Element     	= request_var('tech', 0);
 		$PlanetRess 	= new ResourceUpdate();
-		if (!empty($TheCommand) && !empty($Element) && in_array($Element, $reslist['tech']) && $USER[$resource[$Element]] < $pricelist[$Element]['max'])
+		if (!empty($TheCommand))
 		{
 			switch($TheCommand)
 			{
@@ -142,7 +142,7 @@ class ShowResearchPage
 					$USER['b_tech_planet']		= 0;
 				break;
 				case 'search':
-					if (!empty($USER['b_tech']) || !IsTechnologieAccessible($USER, $PLANET, $Element) || !IsElementBuyable($USER, $PLANET, $Element))
+					if (!empty($USER['b_tech']) || empty($Element) || !in_array($Element, $reslist['tech']) || $USER[$resource[$Element]] >= $pricelist[$Element]['max'] || !IsTechnologieAccessible($USER, $PLANET, $Element) || !IsElementBuyable($USER, $PLANET, $Element))
 						break;
 						
 					$costs						= GetBuildingPrice($USER, $PLANET, $Element);
