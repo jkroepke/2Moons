@@ -1,7 +1,7 @@
 {include file="overall_header.tpl"}
 {include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
-<form action="game.php?page=fleet3" method="post" onsubmit='this.submit.disabled = true;'>
+<form action="game.php?page=fleet3" method="post">
 <input type="hidden" name="galaxy"      	value="{$galaxy}">
 <input type="hidden" name="system"      	value="{$system}">
 <input type="hidden" name="planet"      	value="{$planet}">
@@ -85,7 +85,7 @@
 			</td>
 		</tr>
         <tr style="height:20px;">
-        	<td colspan="2"><input value="{$fl_continue}" type="submit"></td>
+        	<td colspan="2"><script type="text/javascript">document.write('<input value="{$fl_continue}" type="submit" onclick="$(this).attr(\'disabled\',\'disabled\');"');</script></td>
         </tr>
     </table>
 </div>
