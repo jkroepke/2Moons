@@ -402,7 +402,7 @@ class ShowFleetPages extends FleetFunctions
 		$template->page_footer();
 
 		
-		$mission 				= request_var('mission', 0);
+		$mission 				= request_var('mission', 3);
 		$galaxy     			= request_var('galaxy', 0);
 		$system     			= request_var('system', 0);
 		$planet     			= request_var('planet', 0);

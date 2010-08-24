@@ -510,6 +510,7 @@ function redirectTo($URL)
 		header('HTTP/1.1 303 See Other');
 	
 	header('Location: '.PROTOCOL.$_SERVER['HTTP_HOST'].HTTP_ROOT.$URL);
+	exit;
 }
 
 if(!function_exists('ctype_alnum'))
