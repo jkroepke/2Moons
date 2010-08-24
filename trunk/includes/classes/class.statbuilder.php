@@ -109,34 +109,34 @@ class statbuilder{
 		$select_buildings	=	'';
 		$selected_tech		=	'';
 		$select_fleets		=	'';
-		
-		foreach($reslist['defense'] as $Defense){
-			$select_defenses	.= " p.".$resource[$Defense].",";
-		}
 				
 		foreach($reslist['build'] as $Building){
 			$select_buildings	.= " p.".$resource[$Building].",";
 		}
 		
 		foreach($reslist['tech'] as $Techno){
-			$selected_tech	.= " u.".$resource[$Techno].",";
+			$selected_tech		.= " u.".$resource[$Techno].",";
 		}	
 		
 		foreach($reslist['fleet'] as $Fleet){
-			$select_fleets	.= " p.".$resource[$Fleet].",";
-		}		
+			$select_fleets		.= " SUM(p.".$resource[$Fleet].") as ".$resource[$Fleet].",";
+		}	
+		
+		foreach($reslist['defense'] as $Defense){
+			$select_defenses	.= " SUM(p.".$resource[$Defense].") as ".$resource[$Defense].",";
+		}	
 
-		$SQLFleets	=  $db->query('SELECT fleet_array, fleet_owner, fleet_id FROM '.FLEETS.';');
+		$SQLFleets	=  $db->query('SELECT fleet_array, fleet_owner FROM '.FLEETS.';');
 		while ($CurFleets = $db->fetch_array($SQLFleets))
 		{
-			$FlyingFleets[$CurFleets['fleet_owner']][$CurFleets['fleet_id']]	= $CurFleets['fleet_array'];
+			$FlyingFleets[$CurFleets['fleet_owner']][]	= $CurFleets['fleet_array'];
 		}
 		
 		$db->free_result($SQLFleets);
 		
 		$Return['Fleets'] 	= $FlyingFleets;		
-		$Return['Planets']	= $db->query('SELECT DISTINCT '.$select_defenses.$select_fleets.$select_buildings.' p.id_owner, u.authlevel, u.bana, u.id, u.username FROM '.PLANETS.' as p LEFT JOIN '.USERS.' as u ON u.id = p.id_owner;');
-		$Return['Users']	= $db->query('SELECT DISTINCT '.$selected_tech.' u.id, u.ally_id, u.authlevel, u.bana, u.username, s.tech_rank AS old_tech_rank, s.build_rank AS old_build_rank, s.defs_rank AS old_defs_rank, s.fleet_rank AS old_fleet_rank, s.total_rank AS old_total_rank FROM '.USERS.' as u LEFT JOIN '.STATPOINTS.' as s ON s.stat_type = 1 AND s.stat_code = 1 AND s.id_owner = u.id GROUP BY s.id_owner, u.id, u.authlevel;');
+		$Return['Planets']	= $db->query('SELECT DISTINCT '.$select_buildings.' p.id_owner, u.authlevel, u.bana FROM '.PLANETS.' as p LEFT JOIN '.USERS.' as u ON u.id = p.id_owner;');
+		$Return['Users']	= $db->query('SELECT DISTINCT '.$selected_tech.$select_fleets.$select_defenses.' u.id, u.ally_id, u.authlevel, u.bana, u.username, s.tech_rank AS old_tech_rank, s.build_rank AS old_build_rank, s.defs_rank AS old_defs_rank, s.fleet_rank AS old_fleet_rank, s.total_rank AS old_total_rank FROM '.USERS.' as u LEFT JOIN '.STATPOINTS.' as s ON s.stat_type = 1 AND s.stat_code = 1 AND s.id_owner = u.id LEFT JOIN '.PLANETS.' as p ON u.id = p.id_owner GROUP BY s.id_owner, u.id, u.authlevel;');
 		$Return['Alliance']	= $db->query('SELECT DISTINCT a.id, s.tech_rank AS old_tech_rank, s.build_rank AS old_build_rank, s.defs_rank AS old_defs_rank, s.fleet_rank AS old_fleet_rank, s.total_rank AS old_total_rank FROM '.ALLIANCE.' as a LEFT JOIN '.STATPOINTS.' as s ON s.stat_type = 2 AND s.stat_code = 1 AND s.id_owner = a.id;');
 		update_config('users_amount', $db->num_rows($Return['Users']));
 		
@@ -162,17 +162,15 @@ class statbuilder{
 
 			$this->SetMaxInfo($Techno, $CurrentUser[$resource[$Techno]], $CurrentUser['username']);
 			
-			$Units	= ($pricelist[$Techno]['metal'] + $pricelist[$Techno]['crystal'] + $pricelist[$Techno]['deuterium']);
+			$Units	= ($pricelist[$Techno]['metal'] + $pricelist[$Techno]['crystal'] + $pricelist[$Techno]['deuterium']) / $CONF['stat_settings'];
 			for($Level = 1; $Level <= $CurrentUser[$resource[$Techno]]; $Level++)
 			{
 				$TechPoints	+= $Units * pow($pricelist[$Techno]['factor'], $Level);
 			}
 			$TechCounts		+= $CurrentUser[$resource[$Techno]];
 		}
-		$RetValue['count'] 	= $TechCounts;
-		$RetValue['points'] = $TechPoints / $CONF['stat_settings'];
-
-		return $RetValue;
+		
+		return array('count' => $TechCounts,'points' => $TechPoints);
 	}
 
 	private function GetBuildPoints($CurrentPlanet) 
@@ -187,16 +185,15 @@ class statbuilder{
 
 			$this->SetMaxInfo($Build, $CurrentPlanet[$resource[$Build]], $CurrentPlanet['username']);
 			
-			$Units			 = $pricelist[$Build]['metal'] + $pricelist[$Build]['crystal'] + $pricelist[$Build]['deuterium'];
+			$Units			 = ($pricelist[$Build]['metal'] + $pricelist[$Build]['crystal'] + $pricelist[$Build]['deuterium']) / $CONF['stat_settings'];
 			for($Level = 1; $Level <= $CurrentPlanet[$resource[$Build]]; $Level++)
 			{
 				$BuildPoints	+= $Units * pow($pricelist[$Build]['factor'], $Level);
 			}
 			$BuildCounts	+= $CurrentPlanet[$resource[$Build]];
 		}
-		$RetValue['count'] 	= $BuildCounts;
-		$RetValue['points'] = $BuildPoints / $CONF['stat_settings'];
-		return $RetValue;
+
+		return array('count' => $BuildCounts,'points' => $BuildPoints);
 	}
 
 	private function GetDefensePoints($CurrentPlanet) 
@@ -208,14 +205,12 @@ class statbuilder{
 		foreach($reslist['defense'] as $Defense) {
 			$this->SetMaxInfo($Defense, $CurrentPlanet[$resource[$Defense]], $CurrentPlanet['username']);
 			
-			$Units			= $pricelist[$Defense]['metal'] + $pricelist[$Defense]['crystal'] + $pricelist[$Defense]['deuterium'];
+			$Units			= ($pricelist[$Defense]['metal'] + $pricelist[$Defense]['crystal'] + $pricelist[$Defense]['deuterium']) / $CONF['stat_settings'];
 			$DefensePoints += $Units * $CurrentPlanet[$resource[$Defense]];
 			$DefenseCounts += $CurrentPlanet[$resource[$Defense]];
 		}
-		
-		$RetValue['count'] = $DefenseCounts;
-		$RetValue['points'] = $DefensePoints / $CONF['stat_settings'];
-		return $RetValue;
+var_dump($CurrentPlanet, $DefenseCounts);
+		return array('count' => $DefenseCounts, 'points' => $DefensePoints);
 	}
 
 	private function GetFleetPoints($CurrentPlanet) 
@@ -228,14 +223,12 @@ class statbuilder{
 		
 			$this->SetMaxInfo($Fleet, $CurrentPlanet[$resource[$Fleet]], $CurrentPlanet['username']);
 			
-			$Units			= $pricelist[$Fleet]['metal'] + $pricelist[$Fleet]['crystal'] + $pricelist[$Fleet]['deuterium'];
+			$Units			= ($pricelist[$Fleet]['metal'] + $pricelist[$Fleet]['crystal'] + $pricelist[$Fleet]['deuterium']) / $CONF['stat_settings'];
 			$FleetPoints   += $Units * $CurrentPlanet[$resource[$Fleet]];
 			$FleetCounts   += $CurrentPlanet[$resource[$Fleet]];
 		}
-		$RetValue['count'] = $FleetCounts;
-		$RetValue['points'] = $FleetPoints / $CONF['stat_settings'];
-
-		return $RetValue;
+		
+		return array('count' => $FleetCounts, 'points' => $FleetPoints);
 	}
 
 	private function GetFlyingFleetPoints($FleetArray) 
@@ -258,15 +251,12 @@ class statbuilder{
 			if (empty($Group)) continue;
 			
 			$Ship    	   = explode(",", $Group);
-			$Units         = $pricelist[$Ship[0]]['metal'] + $pricelist[$Ship[0]]['crystal'] + $pricelist[$Ship[0]]['deuterium'];
+			$Units         = ($pricelist[$Ship[0]]['metal'] + $pricelist[$Ship[0]]['crystal'] + $pricelist[$Ship[0]]['deuterium']) / $CONF['stat_settings'];
 			$FleetPoints   += $Units * $Ship[1];
 			$FleetCounts   += $Ship[1];
 		}
 		
-		
-		$RetValue['count'] 	= $FleetCounts;
-		$RetValue['points'] = $FleetPoints / $CONF['stat_settings'];
-		return $RetValue;
+		return array('count' => $FleetCounts, 'points' => $FleetPoints);
 	}
 
 	private function removeE($Numeric)
@@ -399,18 +389,12 @@ class statbuilder{
 			if(($PlanetData['authlevel'] >= $CONF['stat_level'] && $CONF['stat'] == 1) || !empty($PlanetData['bana'])) continue;
 			
  			if(!isset($UserPoints[$PlanetData['id_owner']]))
-				$UserPoints[$PlanetData['id_owner']]['build']['count'] = $UserPoints[$PlanetData['id_owner']]['build']['points'] = $UserPoints[$PlanetData['id_owner']]['fleet']['count'] = $UserPoints[$PlanetData['id_owner']]['fleet']['points'] = $UserPoints[$PlanetData['id_owner']]['defense']['count'] = $UserPoints[$PlanetData['id_owner']]['defense']['points'] = 0;
+				$UserPoints[$PlanetData['id_owner']]['build']['count'] = $UserPoints[$PlanetData['id_owner']]['build']['points'] = 0;
 			
 			$BuildPoints		= $this->GetBuildPoints($PlanetData);
-			$FleetPoints		= $this->GetFleetPoints($PlanetData);
-			$DefensePoints		= $this->GetDefensePoints($PlanetData);
 
 			$UserPoints[$PlanetData['id_owner']]['build']['count'] 		+= $BuildPoints['count'];
 			$UserPoints[$PlanetData['id_owner']]['build']['points'] 	+= $BuildPoints['points'];
-			$UserPoints[$PlanetData['id_owner']]['fleet']['count'] 		+= $FleetPoints['count'];
-			$UserPoints[$PlanetData['id_owner']]['fleet']['points'] 	+= $FleetPoints['points'];
-			$UserPoints[$PlanetData['id_owner']]['defense']['count'] 	+= $DefensePoints['count'];
-			$UserPoints[$PlanetData['id_owner']]['defense']['points']	+= $DefensePoints['points'];
 		}
 		
 		$db->free_result($TotalData['Planets']);
@@ -436,8 +420,14 @@ class statbuilder{
 				continue;
 			}
 			
-			$TechnoPoints			= $this->GetTechnoPoints($UserData);
+			$FleetPoints		= $this->GetFleetPoints($UserData);
+			$DefensePoints		= $this->GetDefensePoints($UserData);
+			$TechnoPoints		= $this->GetTechnoPoints($UserData);
 			
+			$UserPoints[$UserData['id']]['fleet']['count'] 		= $FleetPoints['count'];
+			$UserPoints[$UserData['id']]['fleet']['points'] 	= $FleetPoints['points'];
+			$UserPoints[$UserData['id']]['defense']['count'] 	= $DefensePoints['count'];
+			$UserPoints[$UserData['id']]['defense']['points']	= $DefensePoints['points'];
 			$UserPoints[$UserData['id']]['techno']['count'] 	= $TechnoPoints['count'];
 			$UserPoints[$UserData['id']]['techno']['points'] 	= $TechnoPoints['points'];
 
