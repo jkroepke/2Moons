@@ -85,7 +85,7 @@
 			</td>
 		</tr>
         <tr style="height:20px;">
-        	<td colspan="2"><script type="text/javascript">document.write('<input value="{$fl_continue}" type="submit" onclick="$(this).attr(\'disabled\',\'disabled\');"');</script></td>
+        	<td colspan="2"><script type="text/javascript">document.write('<input value="{$fl_continue}" type="submit" onclick="window.setTimeout(&quot;$(this).attr(\'disabled\',\'disabled\');&quot;, 10)"></input>');</script></td>
         </tr>
     </table>
 </div>
