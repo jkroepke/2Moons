@@ -58,12 +58,9 @@ class ShowResearchPage
 		return $lablevel;
 	}
 	
-	private function GetRestPrice ($Element, $Factor = true)
+	private function GetRestPrice($Element)
 	{
 		global $USER, $PLANET, $pricelist, $resource, $LNG;
-
-		if ($Factor)
-			$level = ($PLANET[$resource[$Element]]) ? $PLANET[$resource[$Element]] : $USER[$resource[$Element]];
 
 		$array = array(
 			'metal'      => $LNG['Metal'],
@@ -80,10 +77,7 @@ class ShowResearchPage
 			if (empty($pricelist[$Element][$ResType]))
 				continue;
 
-			if ($Factor)
-				$cost = floor($pricelist[$Element][$ResType] * pow($pricelist[$Element]['factor'], $level));
-			else
-				$cost = floor($pricelist[$Element][$ResType]);
+			$cost = floor($pricelist[$Element][$ResType] * pow($pricelist[$Element]['factor'], $USER[$resource[$Element]]));
 
 			$restprice[$ResTitle] = pretty_number(max($cost - (($PLANET[$ResType]) ? $PLANET[$ResType] : $USER[$ResType]), 0));
 		}
@@ -227,7 +221,7 @@ class ShowResearchPage
 					'descr'  	=> $LNG['res']['descriptions'][$Element],
 					'price'  	=> GetElementPrice($USER, $PLANET, $Element),					
 					'time' 		=> pretty_time(GetBuildingTime($USER, $PLANET, $Element)),
-					'restprice'	=> $this->GetRestPrice($Element, true),
+					'restprice'	=> $this->GetRestPrice($Element),
 					'elvl'		=> ($Element == 106) ? ($USER['rpg_espion'] * ESPION)." (".$LNG['tech'][610].")" : (($Element == 108) ? ($USER['rpg_commandant'] * COMMANDANT)." (".$LNG['tech'][611].")" : false),
 					'lvl'		=> $USER[$resource[$Element]],
 					'link'  	=> $TechnoLink,

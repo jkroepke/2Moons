@@ -82,6 +82,7 @@ function ShowOverviewPage()
 			$Record = 0;
 
 			$ACSDone	= array();
+			$fpage  	= array();
 			while ($FleetRow = $db->fetch_array($OwnFleets))
 			{
 				$Record++;
@@ -189,6 +190,7 @@ function ShowOverviewPage()
 				$Build 				= $LNG['ov_free'];
 			}
 
+			$Teamspeak = '';			
 			if ($CONF['ts_modon'] == 1) {
 				if($CONF['ts_version'] == 2){
 					include_once(ROOT_PATH . "includes/libs/teamspeak/class.teamspeak2.".PHP_EXT);
@@ -238,8 +240,8 @@ function ShowOverviewPage()
 		
 			$db->free_result($OnlineAdmins);
 			
-			if (isset($fpage) && is_array($fpage))
-				ksort($fpage);
+			if (isset($fpage))
+				ksort($fpage);				
 				
 			$template->assign_vars(array(
 				'user_rank'					=> sprintf($LNG['ov_userrank_info'], pretty_number($USER['total_points']), $LNG['ov_place'], $USER['total_rank'], $USER['total_rank'], $LNG['ov_of'], $CONF['users_amount']),

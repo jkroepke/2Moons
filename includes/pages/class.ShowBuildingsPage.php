@@ -23,12 +23,9 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 
 class ShowBuildingsPage
 {	
-	private function GetRestPrice($Element, $Factor = true)
+	private function GetRestPrice($Element)
 	{
 		global $pricelist, $resource, $LNG, $USER, $PLANET;
-
-		if ($Factor)
-			$level = ($PLANET[$resource[$Element]]) ? $PLANET[$resource[$Element]] : $USER[$resource[$Element]];
 
 		$array = array(
 			'metal'      => $LNG['Metal'],
@@ -45,10 +42,7 @@ class ShowBuildingsPage
 			if ($pricelist[$Element][$ResType] == 0)
 				continue;
 
-			if ($Factor)
-				$cost = floor($pricelist[$Element][$ResType] * pow($pricelist[$Element]['factor'], $level));
-			else
-				$cost = floor($pricelist[$Element][$ResType]);
+			$cost = floor($pricelist[$Element][$ResType] * pow($pricelist[$Element]['factor'], $PLANET[$resource[$Element]]));
 			
 			$restprice[$ResTitle] = pretty_number(max($cost - (($PLANET[$ResType]) ? $PLANET[$ResType] : $USER[$ResType]), 0));
 		}
@@ -378,7 +372,7 @@ class ShowBuildingsPage
 					'time'        	=> pretty_time(GetBuildingTime($USER, $PLANET, $Element)),
 					'EnergyNeed'	=> (isset($EnergyNeed)) ? sprintf(($EnergyNeed < 0) ? $LNG['bd_need_engine'] : $LNG['bd_more_engine'] , pretty_number(abs($EnergyNeed)), $LNG['Energy']) : "",
 					'BuildLink'		=> $parse['click'],
-					'restprice'		=> $this->GetRestPrice($Element, true),
+					'restprice'		=> $this->GetRestPrice($Element),
 				);
 			}
 		}
