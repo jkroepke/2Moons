@@ -48,7 +48,7 @@
             	<td><div id="duration">-</div></td>
             </tr>
             <tr style="height:20px;">
-                <td>{$fl_fuel_consumption}</td
+                <td>{$fl_fuel_consumption}</td>
                 <td><div id="consumption">-</div></td>
             </tr>
             <tr style="height:20px;">

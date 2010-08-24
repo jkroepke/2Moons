@@ -44,7 +44,7 @@
 					{/foreach}
         		</table>
         	</td>
-        	<td class="top"
+        	<td class="top">
 				<table border="0" cellpadding="0" cellspacing="0" width="259">
                     <tr style="height:20px;">
         				<td class="transparent">{$Metal}</td>
