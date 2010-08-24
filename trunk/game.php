@@ -24,6 +24,7 @@ define('INSTALL' , false);
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 
 require_once(ROOT_PATH.'extension.inc');
+require_once(ROOT_PATH.'includes/functions/GetBuildingPrice.'.PHP_EXT);
 require_once(ROOT_PATH.'includes/functions/GetBuildingTime.'.PHP_EXT);
 require_once(ROOT_PATH.'includes/functions/IsElementBuyable.'.PHP_EXT);
 require_once(ROOT_PATH.'includes/functions/SortUserPlanets.'.PHP_EXT);

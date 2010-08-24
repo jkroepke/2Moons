@@ -19,12 +19,10 @@
 # *																			 #
 ##############################################################################
 
-function GetElementPrice ($USER, $planet, $Element, $USERfactor = true) { 
+function GetElementPrice ($USER, $PLANET, $Element, $USERfactor = true) { 
      global $pricelist, $resource, $LNG; 
 		if ($USERfactor)
-			$level = (isset($planet[$resource[$Element]])) ? $planet[$resource[$Element]] : $USER[$resource[$Element]];
-
-		$is_buyeable = true;
+			$level = (isset($PLANET[$resource[$Element]])) ? $PLANET[$resource[$Element]] : $USER[$resource[$Element]];
 
 		$array = array(
 			'metal'      => $LNG['Metal'],
@@ -44,11 +42,8 @@ function GetElementPrice ($USER, $planet, $Element, $USERfactor = true) {
 				else
 					$cost = floor($pricelist[$Element][$ResType]);
 
-				if ((isset($planet[$ResType]) && $cost > $planet[$ResType]) || (isset($USER[$ResType]) && $cost > $USER[$ResType]))
-				{
+				if ((isset($PLANET[$ResType]) && $cost > $PLANET[$ResType]) || (isset($USER[$ResType]) && $cost > $USER[$ResType]))
 					$text .= "<b style=\"color:red;\" id=\"".$ResType."_".$Element."\">" . pretty_number($cost) . "</b> ";
-					$is_buyeable = false;
-				}
 				else
 					$text .= "<b style=\"color:lime;\" id=\"".$ResType."_".$Element."\">" . pretty_number($cost) . "</b> ";
 			}
