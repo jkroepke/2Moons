@@ -222,9 +222,10 @@ abstract class FleetFunctions
 	
 	public static function GetColonyList($Colony)
 	{
+		global $PLANET;
 		foreach($Colony as $CurPlanetID => $CurPlanet)
 		{
-			if ($CurrentPlanet['galaxy'] == $CurPlanet['galaxy'] && $CurrentPlanet['system'] == $CurPlanet['system'] && $CurrentPlanet['planet'] == $CurPlanet['planet'] && $CurrentPlanet['planet_type'] == $CurPlanet['planet_type']) continue;
+			if ($PLANET['galaxy'] == $CurPlanet['galaxy'] && $PLANET['system'] == $CurPlanet['system'] && $PLANET['planet'] == $CurPlanet['planet'] && $PLANET['planet_type'] == $CurPlanet['planet_type']) continue;
 			
 			$ColonyList[] = array(
 				'name'			=> $CurPlanet['name'],
