@@ -71,9 +71,6 @@ unset($database);
 
 if (INSTALL != true)
 {
-	require_once(ROOT_PATH.'includes/functions/GetBuildingTime.'.PHP_EXT);
-	require_once(ROOT_PATH.'includes/functions/SortUserPlanets.'.PHP_EXT);
-	
 	$cfgresult = $db->query("SELECT HIGH_PRIORITY * FROM `".CONFIG."`;");
 
 	while ($row = $db->fetch_array($cfgresult))
@@ -83,7 +80,6 @@ if (INSTALL != true)
 	$db->free_result($cfgresult);
 	
 	$CONF['moduls']		= explode(";", $CONF['moduls']);
-	$CONF['alllangs']	= GetLangs();
 	define('VERSION'		, $CONF['VERSION']);
 	if (!defined('LOGIN') && !defined('IN_CRON'))
 	{
@@ -133,9 +129,7 @@ if (INSTALL != true)
 		
 		if($USER['bana'] == 1)
 		{
-			require_once(ROOT_PATH . 'includes/classes/class.template.'.PHP_EXT);
-			$template	= new template();
-			$template->message("<font size=\"6px\">".$LNG['css_account_banned_message']."</font><br><br>".sprintf($LNG['css_account_banned_expire'],date("d. M y H:i", $USER['banaday']))."<br><br>".$LNG['css_goto_homeside'], false, 0, true);
+			trigger_error("<font size=\"6px\">".$LNG['css_account_banned_message']."</font><br><br>".sprintf($LNG['css_account_banned_expire'],date("d. M y H:i", $USER['banaday']))."<br><br>".$LNG['css_goto_homeside'], E_USER_NOTICE);
 			exit;
 		}
 			
@@ -157,17 +151,12 @@ if (INSTALL != true)
 		} else {
 			includeLang('ADMIN');
 		}
-		
-		require_once(ROOT_PATH.'includes/classes/class.template.'.PHP_EXT);
 	} else {
 		//Login
 		includeLang('INGAME');
-		require_once(ROOT_PATH.'includes/classes/class.template.'.PHP_EXT);
 	}
 }
-else
-{
-	require_once(ROOT_PATH.'includes/classes/class.template.'.PHP_EXT);
-}
+
+require_once(ROOT_PATH.'includes/classes/class.template.'.PHP_EXT);
 
 ?>

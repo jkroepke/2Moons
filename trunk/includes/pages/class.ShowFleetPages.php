@@ -673,6 +673,9 @@ class ShowFleetPages extends FleetFunctions
 		$PLANET['deuterium']	-= ($TransportDeuterium + $consumption);
 		$PlanetRess->SavePlanetToDB();
 		
+		if(connection_aborted())
+			exit;
+		
 		if ($fleet_group_mr != 0)
 		{
 			$AksStartTime = $db->uniquequery("SELECT MAX(`fleet_start_time`) AS Start FROM ".FLEETS." WHERE `fleet_group` = '". $fleet_group_mr . "';");
@@ -912,7 +915,9 @@ class ShowFleetPages extends FleetFunctions
 			$FleetDBArray    .= $Ship .",". $Count .";";
 			$FleetSubQRY     .= "`".$resource[$Ship] . "` = `" . $resource[$Ship] . "` - " . $Count . " , ";
 		}
-
+	
+		if(connection_aborted())
+			exit;
 
 		$QryUpdate  = "LOCK TABLE ".FLEETS." WRITE, ".PLANETS." WRITE;";
 		$QryUpdate .= "INSERT INTO ".FLEETS." SET ";
@@ -1017,7 +1022,10 @@ class ShowFleetPages extends FleetFunctions
 		$Duration 			 = max(round((30 + (60 * $Distance)/$SpeedFactor)),30);
 
 		$DefenseLabel 		 = ($pziel == 0) ? $LNG['ma_all'] : $LNG['tech'][$pziel];
-
+		
+		if(connection_aborted())
+			exit;
+			
 		$sql = "INSERT INTO ".FLEETS." SET
 				fleet_owner = '".$USER['id']."',
 				fleet_mission = '10',

@@ -21,38 +21,37 @@
 
 if(!defined('INSIDE')) die('Hacking attempt!');
 
-	function IsElementBuyable ($CurrentUser, $CurrentPlanet, $Element, $Incremental = true, $ForDestroy = false)
+	function IsElementBuyable ($USER, $PLANET, $Element, $Incremental = true, $ForDestroy = false)
 	{
 		global $pricelist, $resource;
 
 		include_once(ROOT_PATH . 'includes/functions/IsVacationMode.' . PHP_EXT);
 
-	    if (IsVacationMode($CurrentUser))
+	    if (IsVacationMode($USER))
 	       return false;
 
 		if ($Incremental)
-			$level  = ($CurrentPlanet[$resource[$Element]]) ? $CurrentPlanet[$resource[$Element]] : $CurrentUser[$resource[$Element]];
+			$level  = isset($PLANET[$resource[$Element]]) ? $PLANET[$resource[$Element]] : $USER[$resource[$Element]];
 
-		$RetValue = true;
 		$array    = array('metal', 'crystal', 'deuterium', 'energy_max', 'darkmatter');
 
 		foreach ($array as $ResType)
 		{
-			if (!empty($pricelist[$Element][$ResType]))
-			{
-				if ($Incremental)
-					$cost[$ResType]  = floor($pricelist[$Element][$ResType] * pow($pricelist[$Element]['factor'], $level));
-				else
-					$cost[$ResType]  = floor($pricelist[$Element][$ResType]);
+			if (empty($pricelist[$Element][$ResType]))
+				continue;
 
-				if ($ForDestroy)
-					$cost[$ResType]  = floor($cost[$ResType] / 2);
+			if ($Incremental)
+				$cost[$ResType]  = floor($pricelist[$Element][$ResType] * pow($pricelist[$Element]['factor'], $level));
+			else
+				$cost[$ResType]  = floor($pricelist[$Element][$ResType]);
 
-				if ((isset($CurrentPlanet[$ResType]) && $cost[$ResType] > $CurrentPlanet[$ResType]) || (isset($CurrentUser[$ResType]) && $cost[$ResType] > $CurrentUser[$ResType]))
-					$RetValue = false;
-			}
+			if ($ForDestroy)
+				$cost[$ResType]  = floor($cost[$ResType] / 2);
+
+			if ((isset($PLANET[$ResType]) && $cost[$ResType] > $PLANET[$ResType]) || (isset($USER[$ResType]) && $cost[$ResType] > $USER[$ResType]))
+				return false;
 		}
-		return $RetValue;
+		return true;
 	}
 
 ?>
