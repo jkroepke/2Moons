@@ -209,7 +209,7 @@ class statbuilder{
 			$DefensePoints += $Units * $CurrentPlanet[$resource[$Defense]];
 			$DefenseCounts += $CurrentPlanet[$resource[$Defense]];
 		}
-var_dump($CurrentPlanet, $DefenseCounts);
+		
 		return array('count' => $DefenseCounts, 'points' => $DefensePoints);
 	}
 
