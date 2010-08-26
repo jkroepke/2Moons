@@ -124,6 +124,13 @@ if (INSTALL != true)
 			$db->query("UPDATE ".USERS." SET `lang` ='".$USER['lang']."' WHERE `id` = '".$USER['id']."';");
 		}
 		
+		if(!empty($USER['lang']))
+			$LANG	= $USER['lang'];
+		elseif(!empty($CONF['lang']))
+			$LANG	= $CONF['lang'];
+		else
+			$LANG	= DEFAULT_LANG;
+		
 		includeLang('INGAME');
 		includeLang('TECH');
 		
@@ -153,6 +160,13 @@ if (INSTALL != true)
 		}
 	} else {
 		//Login
+		if(isset($_REQUEST['lang']) && ctype_alnum($_REQUEST['lang']) && !isset($_REQUEST['lang']{3}))
+			$LANG	= $_REQUEST['lang'];
+		elseif(isset($GLOBALS['CONF']))
+			$LANG	= $GLOBALS['CONF']['lang'];
+		else
+			$LANG	= DEFAULT_LANG;
+			
 		includeLang('INGAME');
 	}
 }

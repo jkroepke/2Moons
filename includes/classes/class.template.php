@@ -214,7 +214,7 @@ class template extends Smarty
 	
 	public function set_index()
 	{
-		global $USER, $CONF, $LNG;
+		global $USER, $CONF, $LNG, $LANG;
 		$this->assign_vars(array(
 			'cappublic'			=> $CONF['cappublic'],
 			'servername' 		=> $CONF['game_name'],
@@ -238,7 +238,7 @@ class template extends Smarty
 			'bgm_active'		=> $CONF['bgm_active'],
 			'bgm_file'			=> $CONF['bgm_file'],
 			'getajax'			=> request_var('getajax', 0),
-			'lang'				=> DEFAULT_LANG,
+			'lang'				=> $LANG,
 		));
 	}
 		
