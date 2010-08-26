@@ -82,16 +82,7 @@ function pretty_time_hour ($seconds)
 
 function includeLang ($filename, $ext = '.php')
 {
-	global $LNG;
-	if(isset($GLOBALS['USER']))
-		$LANG	= $GLOBALS['USER']['lang'];
-	elseif(isset($_REQUEST['lang']) && ctype_alnum($_REQUEST['lang']) && !isset($_REQUEST['lang']{3}))
-		$LANG	= $_REQUEST['lang'];
-	elseif(isset($GLOBALS['CONF']))
-		$LANG	= $GLOBALS['CONF']['lang'];
-	else
-		$LANG	= DEFAULT_LANG;
-		
+	global $LNG, $LANG;		
 	if(file_exists(ROOT_PATH . "language/".$LANG."/".$filename.$ext))
 		require(ROOT_PATH . "language/".$LANG."/".$filename.$ext);
 	else
