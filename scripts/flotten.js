@@ -76,7 +76,7 @@ function duration() {
 	var msp = maxspeed();
 	var sp = speed();
 	var dist = distance();
-	return Math.max(Math.floor((3500 / (sp * 0.1) * Math.pow(dist * 10 / msp, 0.5) + 10) * fleetspeedfactor / speedfactor), 5);
+	return Math.max(Math.round((3500 / (sp * 0.1) * Math.pow(dist * 10 / msp, 0.5) + 10) * fleetspeedfactor / speedfactor), 5);
 }
 
 
