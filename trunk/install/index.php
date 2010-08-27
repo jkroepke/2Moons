@@ -36,7 +36,12 @@ define('REVISION' 			, "874");
 define('ROOT_PATH', './../');
 include(ROOT_PATH . 'extension.inc');
 include(ROOT_PATH . 'common.'.PHP_EXT);
-define('DEFAULT_LANG'	, (empty($_REQUEST['lang'])) ? 'de' : $_REQUEST['lang']);
+
+if(isset($_REQUEST['lang']) && ctype_alnum($_REQUEST['lang']) && !isset($_REQUEST['lang']{3}))
+	$LANG	= $_REQUEST['lang'];
+else
+	$LANG	= DEFAULT_LANG;
+	
 includeLang('INGAME');
 includeLang('INSTALL');
 $Mode     = $_GET['mode'];
@@ -50,7 +55,8 @@ if (empty($Page)) { $Page = 1;       }
 $template	= new template();
 $template->assign_vars(array(
 	'scripts'		=> $template->script,
-	'lang'			=> 'lang='.DEFAULT_LANG,
+	'rawlang'		=> $LANG,
+	'lang'			=> 'lang='.$LANG,
 	'title'			=> 'Installer &bull; 2Moons',
 	'intro_instal'	=> $LNG['intro_instal'],
 	'menu_intro'	=> $LNG['menu_intro'],
@@ -131,7 +137,7 @@ switch ($Mode) {
 		}
 		
 		if($error == 0){
-			$done = "<tr><td colspan=\"2\"><a href=\"index.php?mode=ins&page=1&amp;lang=".DEFAULT_LANG."\">".$LNG['continue']."</a></td></tr>";
+			$done = "<tr><td colspan=\"2\"><a href=\"index.php?mode=ins&page=1&amp;lang=".$LANG."\">".$LNG['continue']."</a></td></tr>";
 		}
 		
 		$template->assign_vars(array(
@@ -174,14 +180,14 @@ switch ($Mode) {
 			$connection = new DB_MySQLi();
 			
 			if (mysqli_connect_errno()) {
-				exit($template->message(sprintf($LNG['step2_db_con_fail'], mysqli_connect_error()),"?mode=ins&page=1&lang=".DEFAULT_LANG));
+				exit($template->message(sprintf($LNG['step2_db_con_fail'], mysqli_connect_error()),"?mode=ins&page=1&lang=".$LANG));
 			}
 
 			@chmod("../config.php",0777);
 			$dz = @fopen("../config.php", "w");
 			if (!$dz)
 			{
-				exit($template->message($LNG['step2_conf_op_fail'],"?mode=ins&page=1&lang=".DEFAULT_LANG));
+				exit($template->message($LNG['step2_conf_op_fail'],"?mode=ins&page=1&lang=".$LANG));
 			}
 
 			$first		= "Verbindung zur Datenbank erfolgreich...";
@@ -191,7 +197,7 @@ switch ($Mode) {
 			
 			$numcookie = mt_rand(1000, 9999999999);
 			fwrite($dz, "<?php \n");
-			fwrite($dz, "if(!defined(\"INSIDE\")){ header(\"location:".ROOT_PATH."\"); } \n\n");
+			fwrite($dz, "if(!defined(\"INSIDE\")) exit; \n\n");
 			fwrite($dz, "//### Database access ###//\n\n");
 			fwrite($dz, "\$database[\"host\"]          = \"".$GLOBALS['database']['host']."\";\n");
 			fwrite($dz, "\$database[\"port\"]          = \"".$GLOBALS['database']['port']."\";\n");
@@ -234,7 +240,7 @@ switch ($Mode) {
 
 			if (empty($_POST['adm_user']) && empty($_POST['adm_pas']) && empty($_POST['adm_email']))
 			{
-				message($LNG['step4_need_fields'],"?mode=ins&page=3&".$parse['lang'], 2, false, false);
+				message($LNG['step4_need_fields'],"?mode=ins&page=3&".$LANG, 2, false, false);
 				exit();
 			}
 			
