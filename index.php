@@ -223,7 +223,7 @@ switch ($page) {
 		if ($mode == "send") {
 			$ExistMail = $db->fetch_array ( $db->query ( "SELECT `username` FROM " . USERS . " WHERE `email` = '" . $db->sql_escape($USERmail) . "' LIMIT 1;" ) );
 			if (empty($ExistMail['username'])) {
-				$template->message($LNG['mail_not_exist'], "index.php?page=lostpassword&lang=".DEFAULT_LANG, 3, true);
+				$template->message($LNG['mail_not_exist'], "index.php?page=lostpassword&lang=".$LANG, 3, true);
 			} else {
 				$Caracters = "aazertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN1234567890";
 				$Count = strlen($Caracters);
@@ -242,9 +242,9 @@ switch ($page) {
 				if(true === true)
 				{
 					$db->query("UPDATE ".USERS." SET `password` ='" . md5($NewPass) . "' WHERE `username` = '".$ExistMail['username']."';");
-					$template->message($LNG['mail_sended'], "./?lang=".DEFAULT_LANG, 5, true);
+					$template->message($LNG['mail_sended'], "./?lang=".$LANG, 5, true);
 				} else {
-					$template->message($LNG['mail_sended_fail'], "./?lang=".DEFAULT_LANG, 5, true);
+					$template->message($LNG['mail_sended_fail'], "./?lang=".$LANG, 5, true);
 				}
 			
 			}
@@ -327,7 +327,7 @@ switch ($page) {
 					$errors .= $LNG['mail_already_exists'];
 				
 				if (!empty($errors)) {
-					$template->message($errors, '?page=reg&lang='.DEFAULT_LANG, 3, true);
+					$template->message($errors, '?page=reg&lang='.$LANG, 3, true);
 					exit;
 				}
 				
@@ -372,7 +372,7 @@ switch ($page) {
 				$SQL .= "`ip` = '".$_SERVER['REMOTE_ADDR']."'; ";
 				$db->query($SQL);
 			
-				$template->message($LNG['reg_completed'], '?lang='.DEFAULT_LANG, 10, true);
+				$template->message($LNG['reg_completed'], '?lang='.$LANG, 10, true);
 			break;
 			case 'valid' :		
 				$pseudo 	 = request_var('id', '');
@@ -517,7 +517,7 @@ switch ($page) {
 					'lang_reg'						=> $LNG['lang_reg'],
 					'captcha_reg'					=> $LNG['captcha_reg'],
 					'register_now'					=> $LNG['register_now'],
-					'accept_terms_and_conditions'	=> sprintf($LNG['accept_terms_and_conditions'], DEFAULT_LANG),
+					'accept_terms_and_conditions'	=> sprintf($LNG['accept_terms_and_conditions'], $LANG),
 					'captcha_reload'				=> $LNG['captcha_reload'],
 					'captcha_help'					=> $LNG['captcha_help'],
 					'captcha_get_image'				=> $LNG['captcha_get_image'],
@@ -673,7 +673,7 @@ switch ($page) {
 				'server_description'	=> sprintf($LNG['server_description'], $CONF['game_name']),
 				'server_infos'			=> $LNG['server_infos'],
 				'login'					=> $LNG['login'],
-				'login_info'			=> sprintf($LNG['login_info'], DEFAULT_LANG),
+				'login_info'			=> sprintf($LNG['login_info'], $LANG),
 				'user'					=> $LNG['user'],
 				'pass'					=> $LNG['pass'],
 				'lostpassword'			=> $LNG['lostpassword'],

@@ -53,7 +53,7 @@ $LNG['server_register']		= 'Registrieren sie sich Jetzt!';
 $LNG['server_message']			= 'Registriere dich jetzt und erlebe eine neue spannende im Welt von';
 $LNG['login']					= 'Login';
 $LNG['disclamer']				= 'Impressum';
-$LNG['login_info']				= 'Mit dem Login akzeptiere ich die <a onclick="ajax(\'?page=rules&amp;\'+\'getajax=1\');" style="cursor:pointer;">Regeln</a> und die <a onclick="ajax(\'?page=agb&amp;\'+\'getajax=1\');" style="cursor:pointer;">AGB`s</a>';
+$LNG['login_info']				= 'Mit dem Login akzeptiere ich die <a onclick="ajax(\'?page=rules&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\');" style="cursor:pointer;">Regeln</a> und die <a onclick="ajax(\'?page=agb&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\');" style="cursor:pointer;">AGB`s</a>';
 
 /* ------------------------------------------------------------------------------------------ */
 
