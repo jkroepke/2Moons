@@ -333,8 +333,7 @@ class ShowFleetPages extends FleetFunctions
 		}
 		
 		$GameSpeedFactor   		 	= parent::GetGameSpeedFactor();		
-		$FleetSpeed  				= parent::GetFleetMaxSpeed($FleetArray, $USER);
-		$MaxFleetSpeed				= ($FleetSpeed / 10) * $GenFleetSpeed;
+		$MaxFleetSpeed 				= parent::GetFleetMaxSpeed($FleetArray, $USER);
 		$distance      				= parent::GetTargetDistance($PLANET['galaxy'], $TargetGalaxy, $PLANET['system'], $TargetSystem, $PLANET['planet'], $TargetPlanet);
 		$duration      				= parent::GetMissionDuration($GenFleetSpeed, $MaxFleetSpeed, $distance, $GameSpeedFactor, $USER);
 		$consumption				= parent::GetFleetConsumption($FleetArray, $duration, $distance, $MaxFleetSpeed, $USER, $GameSpeedFactor);
@@ -601,8 +600,7 @@ class ShowFleetPages extends FleetFunctions
 			parent::GotoFleetPage();
 
 
-		$FleetSpeed  	= parent::GetFleetMaxSpeed($FleetArray, $USER);
-		$MaxFleetSpeed	= ($FleetSpeed / 10) * $GenFleetSpeed;
+		$MaxFleetSpeed 	= parent::GetFleetMaxSpeed($FleetArray, $USER);
 		$SpeedFactor    = parent::GetGameSpeedFactor();
 		$distance      	= parent::GetTargetDistance($thisgalaxy, $galaxy, $thissystem, $system, $thisplanet, $planet);
 		$duration      	= parent::GetMissionDuration($GenFleetSpeed, $MaxFleetSpeed, $distance, $SpeedFactor, $USER);
