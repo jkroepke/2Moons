@@ -295,7 +295,7 @@ class ShowBuildingsPage
 		$PlanetRess 	= new ResourceUpdate();
 		$PlanetRess->CalcResource();
 		
-		if(!empty($Element) && (IsTechnologieAccessible($USER, $PLANET, $Element) && in_array($Element, $reslist['allow'][$PLANET['planet_type']]) && ($Element == 31 && $USER["b_tech_planet"] == 0 || $Element != 31) && ((($Element == 15 || $Element == 21) && empty($PLANET['b_hangar_id'])) || ($Element != 15 || $Element != 21))) || $TheCommand == "cancel" || $TheCommand == "remove")
+		if(!empty($Element) && $USER['urlaubs_modus'] == 0 && (IsTechnologieAccessible($USER, $PLANET, $Element) && in_array($Element, $reslist['allow'][$PLANET['planet_type']]) && ($Element == 31 && $USER["b_tech_planet"] == 0 || $Element != 31) && ((($Element == 15 || $Element == 21) && empty($PLANET['b_hangar_id'])) || ($Element != 15 || $Element != 21))) || $TheCommand == "cancel" || $TheCommand == "remove")
 		{
 			switch($TheCommand)
 			{
