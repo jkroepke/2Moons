@@ -83,7 +83,7 @@ class ShowOfficierPage
 		$PlanetRess = new ResourceUpdate();
 		$PlanetRess->CalcResource();;
 		
-		if ($action == "send")
+		if ($action == "send" && $USER['urlaubs_modus'] == 0)
 		{
 			if(!empty($Offi) && !CheckModule(8))
 				$this->UpdateOfficier($Offi);

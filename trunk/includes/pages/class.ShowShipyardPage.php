@@ -148,7 +148,7 @@ class ShowShipyardPage
 			}
 		}
 		
-		if (!empty($fmenge) && $NotBuilding == true)
+		if (!empty($fmenge) && $NotBuilding == true && $USER['urlaubs_modus'] == 0)
 		{
 			$AddedInQueue = false;
 			
@@ -183,7 +183,7 @@ class ShowShipyardPage
 			}
 		}
 				
-		if ($action == "delete" && is_array($cancel))
+		if ($action == "delete" && is_array($cancel) && $USER['urlaubs_modus'] == 0)
 			$this->CancelAuftr($cancel);
 
 		$PlanetRess->SavePlanetToDB();
@@ -302,7 +302,7 @@ class ShowShipyardPage
 			}
 		}
 		
-		if (isset($fmenge) && $NotBuilding == true)
+		if (isset($fmenge) && $NotBuilding == true && $USER['urlaubs_modus'] == 0)
 		{	
 			$ebuild = explode(";",$PLANET['b_hangar_id']);
 			if (count($ebuild) - 1 >= MAX_FLEET_OR_DEFS_IN_BUILD)
@@ -367,7 +367,7 @@ class ShowShipyardPage
 			}
 		}
 				
-		if ($action == "delete" && is_array($cancel))
+		if ($action == "delete" && is_array($cancel) && $USER['urlaubs_modus'] == 0)
 			$this->CancelAuftr($cancel);
 
 		$PlanetRess->SavePlanetToDB();

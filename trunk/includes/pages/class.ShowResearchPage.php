@@ -112,7 +112,7 @@ class ShowResearchPage
 		$TheCommand		= request_var('cmd','');
 		$Element     	= request_var('tech', 0);
 		$PlanetRess 	= new ResourceUpdate();
-		if (!empty($TheCommand))
+		if ($USER['urlaubs_modus'] == 0 && !empty($TheCommand))
 		{
 			switch($TheCommand)
 			{
