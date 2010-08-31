@@ -5,13 +5,14 @@ $LNG['Description'] = 'Beschreibung';
 
 $LNG['changelog']   = array(
 
-'v1.0' => 'ShadoX 15.08.10
+'v1.1' => 'ShadoX 31.08.10
 - ADD: GoW Skin
 - ADD: Mod Versions Control
 - ADD: Cronjoboption für Banner
 - ADD: Options for Loginmusic
 - FIX: Anzeigefehler in Raports
 - FIX: Ressoucre Hack
+- FIX: Fleet Bugs
 - DEL: Unused Pictures
 - DIV: Optimized CSS
 - DIV: Changed HTML Tree (Changed td.c to th / th to td)
