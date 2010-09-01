@@ -1027,6 +1027,13 @@ $LNG['chat_disc']                          	= 'Chat';
 $LNG['chat_message']                       	= 'Message';
 $LNG['chat_send']                          	= 'Sending';
 $LNG['chat_admin']                       	= '<font color="red">Admin %s</font>';
+$LNG['chat_color_white']					= 'White';
+$LNG['chat_color_blue']						= 'Blue';
+$LNG['chat_color_yellow']					= 'Yellow';
+$LNG['chat_color_green']					= 'Green';
+$LNG['chat_color_pink']						= 'Pink';
+$LNG['chat_color_red']						= 'Red';
+$LNG['chat_color_orange']					= 'Orange';
 
 //----------------------------------------------------------------------------//
 // Support

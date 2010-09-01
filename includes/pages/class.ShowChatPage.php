@@ -97,10 +97,17 @@ class ShowChatPage
 
 					
 				$template->assign_vars(array(
-					'ctype'			=> $ctype,
-					'chat_send'		=> $LNG['chat_send'],
-					'chat_disc'		=> $LNG['chat_disc'],
-					'chat_message'	=> $LNG['chat_message'],
+					'ctype'				=> $ctype,
+					'chat_send'			=> $LNG['chat_send'],
+					'chat_disc'			=> $LNG['chat_disc'],
+					'chat_message'		=> $LNG['chat_message'],
+					'chat_color_white'	=> $LNG['chat_color_white'],
+                    'chat_color_blue'	=> $LNG['chat_color_blue'],
+                    'chat_color_yellow'	=> $LNG['chat_color_yellow'],
+                    'chat_color_green'	=> $LNG['chat_color_green'],
+                    'chat_color_pink'	=> $LNG['chat_color_pink'],
+                    'chat_color_red'	=> $LNG['chat_color_red'],
+                    'chat_color_orange'	=> $LNG['chat_color_orange'],
 				));
 				
 				$template->show("chat_overview.tpl");

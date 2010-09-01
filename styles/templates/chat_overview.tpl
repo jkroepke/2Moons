@@ -21,13 +21,13 @@
 	</tr>
 	<tr>
 		<td>BB-Codes: Schriftfarbe: <select name="color" id="chat_color">
-			<option style="color:white;" value="white">Wei&szlig;</option>
-			<option style="color:blue;" value="blue">Blau</option>
-			<option style="color:yellow;" value="yellow">Gelb</option>
-			<option style="color:green;" value="green">Gr&uuml;n</option>
-			<option style="color:pink;" value="pink">Pink</option>
-			<option style="color:red;" value="red">Rot</option>
-			<option style="color:orange;" value="orange">Orange</option>
+			<option style="color:white;" value="white">{$chat_color_white}</option>
+			<option style="color:blue;" value="blue">{$chat_color_blue}</option>
+			<option style="color:yellow;" value="yellow">{$chat_color_yellow}</option>
+			<option style="color:green;" value="green">{$chat_color_green}</option>
+			<option style="color:pink;" value="pink">{$chat_color_pink}</option>
+			<option style="color:red;" value="red">{$chat_color_red}</option>
+			<option style="color:orange;" value="orange">{$chat_color_orange}</option>
 		</select>
 		&nbsp;&nbsp;
 		<input type="button" style="font-weight:bold" name="Bold" value="B" onClick="addBBcode('[b] [/b]')" />
