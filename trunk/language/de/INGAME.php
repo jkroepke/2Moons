@@ -1021,13 +1021,20 @@ $LNG['pl_etc']   							= 'Sonstiges';
 //----------------------------------------------------------------------------//
 // Chat
 
-$LNG['chat_title']                         = 'Chat';
-$LNG['chat_ally_title']                    = 'Allianzchat';  
+$LNG['chat_title']                         	= 'Chat';
+$LNG['chat_ally_title']                    	= 'Allianzchat';  
 
-$LNG['chat_disc']                          = 'Chat';
-$LNG['chat_message']                       = 'Nachricht';
-$LNG['chat_send']                          = 'Senden';
+$LNG['chat_disc']                          	= 'Chat';
+$LNG['chat_message']                       	= 'Nachricht';
+$LNG['chat_send']                          	= 'Senden';
 $LNG['chat_admin']                       	= '<font color="red">Admin %s</font>';
+$LNG['chat_color_white']					= 'Weiß';
+$LNG['chat_color_blue']						= 'Blau';
+$LNG['chat_color_yellow']					= 'Gelb';
+$LNG['chat_color_green']					= 'Grün';
+$LNG['chat_color_pink']						= 'Pink';
+$LNG['chat_color_red']						= 'Rot';
+$LNG['chat_color_orange']					= 'Orange';
 
 //----------------------------------------------------------------------------//
 // Support
