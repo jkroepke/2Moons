@@ -135,7 +135,7 @@ class statbuilder{
 		$db->free_result($SQLFleets);
 		
 		$Return['Fleets'] 	= $FlyingFleets;		
-		$Return['Planets']	= $db->query('SELECT DISTINCT '.$select_buildings.' p.id_owner, u.authlevel, u.bana, u.username FROM '.PLANETS.' as p LEFT JOIN '.USERS.' as u ON u.id = p.id_owner;');
+		$Return['Planets']	= $db->query('SELECT DISTINCT '.$select_buildings.'p.id, p.id_owner, u.authlevel, u.bana, u.username FROM '.PLANETS.' as p LEFT JOIN '.USERS.' as u ON u.id = p.id_owner;');
 		$Return['Users']	= $db->query('SELECT DISTINCT '.$selected_tech.$select_fleets.$select_defenses.' u.id, u.ally_id, u.authlevel, u.bana, u.username, s.tech_rank AS old_tech_rank, s.build_rank AS old_build_rank, s.defs_rank AS old_defs_rank, s.fleet_rank AS old_fleet_rank, s.total_rank AS old_total_rank FROM '.USERS.' as u LEFT JOIN '.STATPOINTS.' as s ON s.stat_type = 1 AND s.stat_code = 1 AND s.id_owner = u.id LEFT JOIN '.PLANETS.' as p ON u.id = p.id_owner GROUP BY s.id_owner, u.id, u.authlevel;');
 		$Return['Alliance']	= $db->query('SELECT DISTINCT a.id, s.tech_rank AS old_tech_rank, s.build_rank AS old_build_rank, s.defs_rank AS old_defs_rank, s.fleet_rank AS old_fleet_rank, s.total_rank AS old_total_rank FROM '.ALLIANCE.' as a LEFT JOIN '.STATPOINTS.' as s ON s.stat_type = 2 AND s.stat_code = 1 AND s.id_owner = a.id;');
 		update_config('users_amount', $db->num_rows($Return['Users']));
@@ -162,7 +162,7 @@ class statbuilder{
 
 			$this->SetMaxInfo($Techno, $CurrentUser[$resource[$Techno]], $CurrentUser['username']);
 			
-			$Units	= ($pricelist[$Techno]['metal'] + $pricelist[$Techno]['crystal'] + $pricelist[$Techno]['deuterium']) / $CONF['stat_settings'];
+			$Units	= $pricelist[$Techno]['metal'] + $pricelist[$Techno]['crystal'] + $pricelist[$Techno]['deuterium'];
 			for($Level = 1; $Level <= $CurrentUser[$resource[$Techno]]; $Level++)
 			{
 				$TechPoints	+= $Units * pow($pricelist[$Techno]['factor'], $Level);
@@ -170,7 +170,7 @@ class statbuilder{
 			$TechCounts		+= $CurrentUser[$resource[$Techno]];
 		}
 		
-		return array('count' => $TechCounts,'points' => $TechPoints);
+		return array('count' => $TechCounts, 'points' => ($TechPoints / $CONF['stat_settings']));
 	}
 
 	private function GetBuildPoints($CurrentPlanet) 
@@ -185,15 +185,14 @@ class statbuilder{
 
 			$this->SetMaxInfo($Build, $CurrentPlanet[$resource[$Build]], $CurrentPlanet['username']);
 			
-			$Units			 = ($pricelist[$Build]['metal'] + $pricelist[$Build]['crystal'] + $pricelist[$Build]['deuterium']) / $CONF['stat_settings'];
+			$Units			 = $pricelist[$Build]['metal'] + $pricelist[$Build]['crystal'] + $pricelist[$Build]['deuterium'];
 			for($Level = 1; $Level <= $CurrentPlanet[$resource[$Build]]; $Level++)
 			{
 				$BuildPoints	+= $Units * pow($pricelist[$Build]['factor'], $Level);
 			}
 			$BuildCounts	+= $CurrentPlanet[$resource[$Build]];
 		}
-
-		return array('count' => $BuildCounts,'points' => $BuildPoints);
+		return array('count' => $BuildCounts, 'points' => ($BuildPoints / $CONF['stat_settings']));
 	}
 
 	private function GetDefensePoints($CurrentPlanet) 
@@ -205,12 +204,12 @@ class statbuilder{
 		foreach($reslist['defense'] as $Defense) {
 			$this->SetMaxInfo($Defense, $CurrentPlanet[$resource[$Defense]], $CurrentPlanet['username']);
 			
-			$Units			= ($pricelist[$Defense]['metal'] + $pricelist[$Defense]['crystal'] + $pricelist[$Defense]['deuterium']) / $CONF['stat_settings'];
+			$Units			= $pricelist[$Defense]['metal'] + $pricelist[$Defense]['crystal'] + $pricelist[$Defense]['deuterium'];
 			$DefensePoints += $Units * $CurrentPlanet[$resource[$Defense]];
 			$DefenseCounts += $CurrentPlanet[$resource[$Defense]];
 		}
 		
-		return array('count' => $DefenseCounts, 'points' => $DefensePoints);
+		return array('count' => $DefenseCounts, 'points' => ($DefensePoints / $CONF['stat_settings']));
 	}
 
 	private function GetFleetPoints($CurrentPlanet) 
@@ -223,12 +222,12 @@ class statbuilder{
 		
 			$this->SetMaxInfo($Fleet, $CurrentPlanet[$resource[$Fleet]], $CurrentPlanet['username']);
 			
-			$Units			= ($pricelist[$Fleet]['metal'] + $pricelist[$Fleet]['crystal'] + $pricelist[$Fleet]['deuterium']) / $CONF['stat_settings'];
+			$Units			= $pricelist[$Fleet]['metal'] + $pricelist[$Fleet]['crystal'] + $pricelist[$Fleet]['deuterium'];
 			$FleetPoints   += $Units * $CurrentPlanet[$resource[$Fleet]];
 			$FleetCounts   += $CurrentPlanet[$resource[$Fleet]];
 		}
 		
-		return array('count' => $FleetCounts, 'points' => $FleetPoints);
+		return array('count' => $FleetCounts, 'points' => ($FleetPoints / $CONF['stat_settings']));
 	}
 
 	private function GetFlyingFleetPoints($FleetArray) 

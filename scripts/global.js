@@ -161,7 +161,7 @@ function Servertime(timestamp)
 	if (hora < 10) { hora0 = "0"; }
 	else { hora0 = ""; }
 	var Week = new Array("Son", "Mon", "Tue", "Wen", "Thr", "Fri", "Sat");
-	var Month = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Mar", "Sep", "Oct", "Nov", "Dec");
+	var Month = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
 	$("#servertime").text(Week[weeks] + " " + Month[mez] + " " + data + " " + hora0 + hora + ":" + min0 + min + ":" + seg0 + seg);
 	timestamp++;
 	window.setTimeout("Servertime("+timestamp+");",1000);	
