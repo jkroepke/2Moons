@@ -1070,7 +1070,7 @@ $LNG['supp_player_answer'] 				= 'Spieler-Antwort';
 // Rekorde 
 
 $LNG['rec_build']  						= 'Gebäude';
-$LNG['rec_specb']							= 'Besondere Gebäude';
+$LNG['rec_specb']						= 'Besondere Gebäude';
 $LNG['rec_playe']  						= 'Spieler';
 $LNG['rec_defes']  						= 'Verteidigung';
 $LNG['rec_fleet']  						= 'Schiffe';
@@ -1078,24 +1078,31 @@ $LNG['rec_techn']  						= 'Forschung';
 $LNG['rec_level']  						= 'Level';
 $LNG['rec_nbre']   						= 'Anzahl';
 $LNG['rec_rien']   						= '-';
-$LNG['rec_last_update_on']   				= 'Letztes Update um : %s';
+$LNG['rec_last_update_on']   			= 'Letztes Update um : %s';
 
 
 //----------------------------------------------------------------------------//
 // BattleSimulator
 
 
-$LNG['bs_derbis_raport']					= "Es werden %s %s oder %s %s für das Trümmerfeld benötigt.";
+$LNG['bs_derbis_raport']				= "Es werden %s %s oder %s %s für das Trümmerfeld benötigt.";
 $LNG['bs_steal_raport']					= "Für die Beute werden %s %s oder %s %s oder %s %s benötigt.";
-$LNG['bs_names']							= "Schiffname";
-$LNG['bs_atter']							= "Angreifer";
-$LNG['bs_deffer']							= "Verteidiger";
-$LNG['bs_steal']							= "Rohstoffe(für Steal):";
-$LNG['bs_techno']							= "Techniken";
+$LNG['bs_names']						= "Schiffname";
+$LNG['bs_atter']						= "Angreifer";
+$LNG['bs_deffer']						= "Verteidiger";
+$LNG['bs_steal']						= "Rohstoffe(für Steal):";
+$LNG['bs_techno']						= "Techniken";
 $LNG['bs_send']							= "Absenden";
-$LNG['bs_cancel']							= "Zurücksetzen";
+$LNG['bs_cancel']						= "Zurücksetzen";
 $LNG['bs_wait']							= "Warte 10 Sekunden für nächste Simulation";
 
+//----------------------------------------------------------------------------//
+// Logout
+$LNG['lo_title']						= 'Logout erfolgreich! Bis bald';
+$LNG['lo_logout']						= 'Session wurde beendet';
+$LNG['lo_redirect']						= 'Weiterleitung';
+$LNG['lo_notify']						= 'Sie werden in <span id="seconds">5</span>s weitergeleitet';
+$LNG['lo_continue']						= 'Klicken Sie hier, um nicht zu warten';
 
 
 // Translated into German by Slaver . All rights reversed (C) 2010

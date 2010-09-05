@@ -21,7 +21,7 @@
 
 if(!defined('INSIDE')) die('Hacking attempt!');
 
-function ShowFAQ()
+function ShowFAQPage()
 {
 	global $USER, $PLANET, $LNG;
 	$PlanetRess = new ResourceUpdate();
