@@ -262,6 +262,7 @@ function ShowConfigPage()
 		'game_speed'					=> ($CONF['game_speed'] / 2500),
 		'fleet_speed'					=> ($CONF['fleet_speed'] / 2500),
 		'resource_multiplier'			=> $CONF['resource_multiplier'],
+		'halt_speed'					=> $CONF['halt_speed'],
 		'forum_url'						=> $CONF['forum_url'],
 		'initial_fields'				=> $CONF['initial_fields'],
 		'metal_basic_income'			=> $CONF['metal_basic_income'],
