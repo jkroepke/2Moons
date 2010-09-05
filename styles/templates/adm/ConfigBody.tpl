@@ -27,6 +27,10 @@
 	<th><input name="resource_multiplier" value="{$resource_multiplier}" type="text"></th>
 	<th><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_normal_speed_resoruces}", CENTER, OFFSETX, -150, OFFSETY, -10, WIDTH, 250);' onMouseOut='return nd();'></th>
 </tr><tr>
+	<th>{$se_halt_speed}</th>
+	<th><input name="halt_speed" value="{$halt_speed}" type="text"></th>
+	<th><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_normal_speed_halt}", CENTER, OFFSETX, -150, OFFSETY, -10, WIDTH, 250);' onMouseOut='return nd();'></th>
+</tr><tr>
 	<th>{$se_forum_link}</th>
 	<th><input name="forum_url" size="60" maxlength="254" value="{$forum_url}" type="text"></th>
 	<th>&nbsp;</th>
