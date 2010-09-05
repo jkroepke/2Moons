@@ -195,17 +195,20 @@ class ShowAlliancePage
 								}
 								
 								$db->multi_query("INSERT INTO ".ALLIANCE." SET
-								`ally_name`='".$db->sql_escape($aname)."',
-								`ally_tag`='".$db->sql_escape($atag)."' ,
-								`ally_owner`='".$USER['id']."',
-								`ally_owner_range`='Leader',
-								`ally_members`='1',
-								`ally_register_time`='" . TIMESTAMP."';
-								UPDATE ".USERS." SET
-								`ally_id`= (SELECT `id` FROM ".ALLIANCE." WHERE ally_name = '".$db->sql_escape($aname)."'),
-								`ally_name` = '".$db->sql_escape($aname)."',
-								`ally_register_time` = '" . TIMESTAMP . "'
-								WHERE `id` = '".$USER['id']."';");
+                                `ally_name`='".$db->sql_escape($aname)."',
+                                `ally_tag`='".$db->sql_escape($atag)."' ,
+                                `ally_owner`='".$USER['id']."',
+                                `ally_owner_range`='Leader',
+                                `ally_members`='1',
+                                `ally_register_time`='" . TIMESTAMP."';
+                                UPDATE ".USERS." SET
+                                `ally_id`= (SELECT `id` FROM ".ALLIANCE." WHERE ally_name = '".$db->sql_escape($aname)."'),
+                                `ally_name` = '".$db->sql_escape($aname)."',
+                                `ally_register_time` = '" . TIMESTAMP . "'
+                                WHERE `id` = '".$USER['id']."';
+                                UPDATE ".STATPOINTS." SET
+                                `id_ally` = (SELECT `id` FROM ".ALLIANCE." WHERE ally_name = '".$db->sql_escape($aname)."')
+                                WHERE `id_owner` = '".$USER['id']."';");
 											
 								$this->template->message(sprintf($LNG['al_created'], $atag),"?page=alliance", 3);
 							} else {
@@ -373,7 +376,7 @@ class ShowAlliancePage
 							$this->template->message($LNG['al_founder_cant_leave_alliance'], "?page=alliance", 3);
 						elseif ($action = "send")
 						{
-							$db->multi_query("UPDATE ".USERS." SET `ally_id` = 0, `ally_name` = '', ally_rank_id = 0 WHERE `id`='".$USER['id']."';UPDATE ".ALLIANCE." SET `ally_members` = `ally_members` - 1 WHERE `id`='".$ally['id']."';");
+							$db->multi_query("UPDATE ".USERS." SET `ally_id` = 0, `ally_name` = '', ally_rank_id = 0 WHERE `id`='".$USER['id']."';UPDATE ".ALLIANCE." SET `ally_members` = `ally_members` - 1 WHERE `id`='".$ally['id']."';UPDATE ".STATPOINTS." SET `id_ally` = '0' WHERE `id_ally` = '".$ally['id']."' AND `id_owner` = '".$USER['id']."';");
 							$this->template->message(sprintf($LNG['al_leave_sucess'], $ally['ally_name']), "game.php?page=alliance", 2);
 						}
 						else
@@ -631,7 +634,7 @@ class ShowAlliancePage
 
 								if($NewRang != '')
 								{
-									$q = $db->fetch_array($db->query("SELECT id FROM ".USERS." WHERE id='".$db->sql_escape($id)."' LIMIT 1;"));
+									$q = $db->uniquequery("SELECT id FROM ".USERS." WHERE id='".$db->sql_escape($id)."';");
 
 									if (isset($ally_ranks[$NewRang-1]) && $q['id'] != $ally['ally_owner'])
 									{
@@ -640,10 +643,10 @@ class ShowAlliancePage
 								}
 								elseif($action == "kick" && !empty($id) && $USER['rights']['kick'])
 								{
-									$u = $db->fetch_array($db->query("SELECT id FROM ".USERS." WHERE id = '".$db->sql_escape($id)."' AND `ally_id` = '".$ally['id']."' AND 'id' != '".$ally['ally_owner']."';"));
+									$u = $db->uniquequery("SELECT id FROM ".USERS." WHERE id = '".$db->sql_escape($id)."' AND `ally_id` = '".$ally['id']."' AND 'id' != '".$ally['ally_owner']."';");
 									
 									if (!empty($u['id']))
-										$db->multi_query("UPDATE ".USERS." SET `ally_id` = '0', `ally_name` = '', `ally_rank_id` = 0 WHERE `id` = '".$u['id']."';UPDATE ".ALLIANCE." SET `ally_members` = ally_members - 1 WHERE `id` = '".$ally['id']."';");
+                                        $db->multi_query("UPDATE ".USERS." SET `ally_id` = '0', `ally_name` = '', `ally_rank_id` = 0 WHERE `id` = '".$u['id']."';UPDATE ".ALLIANCE." SET `ally_members` = ally_members - 1 WHERE `id` = '".$ally['id']."';UPDATE ".STATPOINTS." SET `id_ally` = '0' WHERE `id_ally` = '".$ally['id']."' AND `id_owner` = '".$u['id']."';");
 								}
 
 								if ($sort1 && $sort2)
@@ -868,20 +871,20 @@ class ShowAlliancePage
 								$text  	= makebr(request_var('text', '', true));
 
 								if ($action == $LNG['al_acept_request'])
-								{
-									$db->multi_query("UPDATE ".ALLIANCE." SET `ally_members` = `ally_members` + 1 WHERE id='".$ally['id']."';UPDATE ".USERS." SET ally_name='".$ally['ally_name']."', ally_request_text='', ally_request='0', ally_id='".$ally['id']."' WHERE id='".$db->sql_escape($id)."';");
+                                {
+                                    $db->multi_query("UPDATE ".ALLIANCE." SET `ally_members` = `ally_members` + 1 WHERE id='".$ally['id']."';UPDATE ".USERS." SET ally_name='".$ally['ally_name']."', ally_request_text='', ally_request='0', ally_id='".$ally['id']."' WHERE id='".$db->sql_escape($id)."';UPDATE ".STATPOINTS." SET `id_ally` = '".$ally['id']."' WHERE `id_owner` = '".$id."';");
 
-									SendSimpleMessage($id, $USER['id'],'', 2,$ally['ally_tag'],$LNG['al_you_was_acceted'] . $ally['ally_name'], $LNG['al_hi_the_alliance'] . $ally['ally_name'] . $LNG['al_has_accepted'] . $text);
+                                    SendSimpleMessage($id, $USER['id'],'', 2,$ally['ally_tag'],$LNG['al_you_was_acceted'] . $ally['ally_name'], $LNG['al_hi_the_alliance'] . $ally['ally_name'] . $LNG['al_has_accepted'] . $text);
 
-									exit(redirectTo('game.'.PHP_EXT.'?page=alliance&mode=admin&edit=ally'));
-								}
+                                    redirectTo('game.'.PHP_EXT.'?page=alliance&mode=admin&edit=ally');
+                                }
 								elseif($action == $LNG['al_decline_request'])
 								{
 									$db->query("UPDATE ".USERS." SET ally_request_text='',ally_request='0',ally_id='0' WHERE id='".$db->sql_escape($id)."';");
 
 									SendSimpleMessage($id, $USER['id'],'', 2,$ally['ally_tag'],$LNG['al_you_was_declined'] . $ally['ally_name'], $LNG['al_hi_the_alliance'] . $ally['ally_name'] . $LNG['al_has_declined'] . $text);
 
-									exit(redirectTo('game.'.PHP_EXT.'?page=alliance&mode=admin&edit=ally'));
+									redirectTo('game.'.PHP_EXT.'?page=alliance&mode=admin&edit=ally');
 								}
 
 								$query = $db->query("SELECT id,username,ally_request_text,ally_register_time FROM ".USERS." WHERE ally_request='".$ally['id']."';");
@@ -943,23 +946,21 @@ class ShowAlliancePage
 							break;
 							case 'exit':
 								if (!$USER['rights']['close'])
-									exit(redirectTo("game.".PHP_EXT."?page=alliance"));
+									redirectTo("game.".PHP_EXT."?page=alliance");
 
-								$db->query("UPDATE ".USERS." SET `ally_name` = '', `ally_id` = '0' WHERE `ally_id`='".$ally['id']."';");
-								$db->query("DELETE FROM ".ALLIANCE." WHERE id = '".$ally['id']."' LIMIT 1;");
-								$db->query("DELETE FROM ".DIPLO." WHERE `owner_1` = '".$ally['id']."' OR `owner_2` = '".$ally['id']."';");
-								exit(redirectTo("game.".PHP_EXT."?page=alliance"));
+								$db->query("UPDATE ".USERS." SET `ally_name` = '', `ally_id` = '0' WHERE `ally_id`='".$ally['id']."';UPDATE ".STATPOINTS." SET `id_ally` = '0' WHERE `id_ally` = '".$ally['id']."';DELETE FROM ".ALLIANCE." WHERE id = '".$ally['id']."';DELETE FROM ".DIPLO." WHERE `owner_1` = '".$ally['id']."' OR `owner_2` = '".$ally['id']."';");
+								redirectTo("game.".PHP_EXT."?page=alliance");
 							break;
 							case 'transfer':
 								if ($ally['ally_owner'] != $USER['id'])
-									exit(redirectTo("game.".PHP_EXT."?page=alliance"));
+									redirectTo("game.".PHP_EXT."?page=alliance");
 									
 								$postleader = request_var('newleader', 0);
 								if (!empty($postleader))
 								{
-									$Rank = $db->fetch_array($db->query("SELECT `ally_rank_id` FROM ".USERS." WHERE `id` = '".$postleader."';"));
+									$Rank = $db->uniquequery("SELECT `ally_rank_id` FROM ".USERS." WHERE `id` = '".$postleader."';");
 									$db->multi_query("UPDATE ".USERS." SET `ally_rank_id` = '".$Rank['ally_rank_id']."' WHERE `id` = '".$USER['id']."';UPDATE ".USERS." SET `ally_rank_id`= '0' WHERE `id` = '".$postleader."';UPDATE ".ALLIANCE." SET `ally_owner` = '".$postleader."' WHERE `id` = '".$USER['ally_id']."';");
-									exit(redirectTo("game.".PHP_EXT."?page=alliance"));
+									redirectTo("game.".PHP_EXT."?page=alliance");
 								}
 								else
 								{

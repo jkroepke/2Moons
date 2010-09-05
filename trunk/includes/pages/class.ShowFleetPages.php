@@ -610,7 +610,7 @@ class ShowFleetPages extends FleetFunctions
 		
 		if ($mission == 15)
 		{
-			$StayDuration    = max($holdingtime, 1) * 3600;
+			$StayDuration    = (max($holdingtime, 1) * 3600) / $CONF['halt_speed'];
 			$StayTime        = $fleet['start_time'] + $StayDuration;
 		}
 		elseif ($mission == 5)
@@ -620,7 +620,7 @@ class ShowFleetPages extends FleetFunctions
 		}
 		elseif ($mission == 11)
 		{
-			$StayDuration    = 3600;
+			$StayDuration    = 3600 / $CONF['halt_speed'];
 			$StayTime        = $fleet['start_time'] + $StayDuration;
 		}
 		else

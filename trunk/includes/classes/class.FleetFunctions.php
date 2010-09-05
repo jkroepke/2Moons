@@ -186,11 +186,12 @@ abstract class FleetFunctions
 
 		if (!empty($Missions[15])) {
 			for($i = 1;$i <= $MisInfo['CurrentUser'][$resource[124]];$i++) {	
-				$StayBlock[$i]	= $i;
+				$StayBlock[$i]	= $i / $CONF['halt_speed'];
 			}
 		}
 		elseif(!empty($Missions[5]))
 			$StayBlock = array(1 => 1, 2 => 2, 4 => 4, 8 => 8, 12 => 12, 16 => 16, 32 => 32);
+		
 		
 		return array('MissionSelector' => $Missions, 'StayBlock' => $StayBlock);
 	}	

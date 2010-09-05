@@ -99,6 +99,7 @@ function ShowConfigPage()
 		$CONF['game_speed'] 			= (2500 * request_var('game_speed', 0.0));
 		$CONF['fleet_speed'] 			= (2500 * request_var('fleet_speed', 0.0));
 		$CONF['resource_multiplier']	= request_var('resource_multiplier', 0.0);
+		$CONF['halt_speed']				= request_var('halt_speed', 0.0);
 		$CONF['initial_fields']			= request_var('initial_fields', 0);
 		$CONF['metal_basic_income']		= request_var('metal_basic_income', 0);
 		$CONF['crystal_basic_income']	= request_var('crystal_basic_income', 0);
@@ -141,6 +142,7 @@ function ShowConfigPage()
 		update_config('game_speed'				, $CONF['game_speed']);
 		update_config('fleet_speed'				, $CONF['fleet_speed']);
 		update_config('resource_multiplier'		, $CONF['resource_multiplier']);
+		update_config('halt_speed'				, $CONF['halt_speed']);
 		update_config('initial_fields'			, $CONF['initial_fields']);
 		update_config('metal_basic_income'		, $CONF['metal_basic_income']);
 		update_config('crystal_basic_income'	, $CONF['crystal_basic_income']);
@@ -180,10 +182,12 @@ function ShowConfigPage()
 		'se_lang'						=> $LNG['se_lang'],
 		'se_general_speed'				=> $LNG['se_general_speed'],
 		'se_fleet_speed'				=> $LNG['se_fleet_speed'],
+		'se_halt_speed'					=> $LNG['se_halt_speed'],
 		'se_normal_speed'				=> $LNG['se_normal_speed'],
 		'se_normal_speed_fleet'			=> $LNG['se_normal_speed_fleet'],
 		'se_resources_producion_speed'	=> $LNG['se_resources_producion_speed'],
 		'se_normal_speed_resoruces'		=> $LNG['se_normal_speed_resoruces'],
+		'se_normal_speed_halt'			=> $LNG['se_normal_speed_halt'],
 		'se_forum_link'					=> $LNG['se_forum_link'	],
 		'se_server_op_close'			=> $LNG['se_server_op_close'],
 		'se_server_status_message'		=> $LNG['se_server_status_message'],
