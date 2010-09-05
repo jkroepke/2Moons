@@ -181,7 +181,7 @@ abstract class FleetFunctions
 	
 	public static function GetFleetMissions($MisInfo)
 	{
-		global $LNG, $resource;
+		global $LNG, $resource, $CONF;
 		$Missions 			= self::GetAvailableMissions($MisInfo);
 
 		if (!empty($Missions[15])) {
