@@ -68,7 +68,7 @@ class ShowInfosPage
 			if ( $NextJumpTime == 0 )
 			{
 				$TargetPlanet = request_var('jmpto',0);
-				$TargetGate   = $db->fetch_array($db->query("SELECT `id`, `sprungtor`, `last_jump_time` FROM ".PLANETS." WHERE `id` = '". $db->sql_escape($TargetPlanet) ."';"));
+				$TargetGate   = $db->uniquequery("SELECT `id`, `sprungtor`, `last_jump_time` FROM ".PLANETS." WHERE `id` = '".$TargetPlanet."';");
 
 				if ($TargetGate['sprungtor'] > 0)
 				{
@@ -153,17 +153,13 @@ class ShowInfosPage
 	private function BuildJumpableMoonCombo ( $USER, $PLANET )
 	{
 		global $resource, $db;
-		$QrySelectMoons  = "SELECT ".$resource[43].", id, galaxy, system, planet FROM ".PLANETS." WHERE `planet_type` = '3' AND `id_owner` = '". $USER['id'] ."';";
+		$QrySelectMoons  = "SELECT id, galaxy, system, planet FROM ".PLANETS." WHERE `id` != '".$PLANET['id']."' AND `planet_type` = '3' AND `id_owner` = '". $USER['id'] ."' AND `".$resource[43]."` > '0';";
 		$MoonList        = $db->query ( $QrySelectMoons);
 		$Combo           = "";
-		while ( $CurMoon = $db->fetch($MoonList) )
+		while ( $CurMoon = $db->fetch_array($MoonList) )
 		{
-			if ( $CurMoon['id'] != $PLANET['id'] )
-			{
-				$RestString = $this->GetNextJumpWaitTime ( $CurMoon );
-				if ($CurMoon[$resource[43]] >= 1)
-					$Combo .= "<option value=\"". $CurMoon['id'] ."\">[". $CurMoon['galaxy'] .":". $CurMoon['system'] .":". $CurMoon['planet'] ."] ". $CurMoon['name'] . $RestString['string'] ."</option>\n";
-			}
+			$RestString = $this->GetNextJumpWaitTime ( $CurMoon );
+			$Combo 		.= "<option value=\"". $CurMoon['id'] ."\">[". $CurMoon['galaxy'] .":". $CurMoon['system'] .":". $CurMoon['planet'] ."] ". $CurMoon['name'] . $RestString['string'] ."</option>\n";
 		}
 		return $Combo;
 	}
