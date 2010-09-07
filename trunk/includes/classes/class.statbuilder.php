@@ -270,7 +270,7 @@ class statbuilder{
 		
 		$Rank           = 1;
 		$RankQry        = $db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.`stat_type` = '1' AND s.`id_owner` = `u`.id ".(($CONF['stat'] == 2)?'AND u.`authlevel` < '.$CONF['stat_level'].' ':'')." ORDER BY `tech_points` DESC;");
-		while ($CurUser = $db->fetch($RankQry))
+		while ($CurUser = $db->fetch_array($RankQry))
 		{
 			$tech[$CurUser['id_owner']]	= $Rank;
 			$Rank++;
@@ -280,7 +280,7 @@ class statbuilder{
 
 		$Rank           = 1;
 		$RankQry        = $db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.`stat_type` = '1' AND s.`id_owner` = `u`.id ".(($CONF['stat'] == 2)?'AND u.`authlevel` < '.$CONF['stat_level'].' ':'')." ORDER BY `build_points` DESC;");
-		while ($CurUser = $db->fetch($RankQry))
+		while ($CurUser = $db->fetch_array($RankQry))
 		{
 			$build[$CurUser['id_owner']] = $Rank;
 			$Rank++;
@@ -290,7 +290,7 @@ class statbuilder{
 			
 		$Rank           = 1;
 		$RankQry        = $db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.`stat_type` = '1' AND s.`id_owner` = `u`.id ".(($CONF['stat'] == 2)?'AND u.`authlevel` < '.$CONF['stat_level'].' ':'')." ORDER BY `defs_points` DESC;");
-		while ($CurUser = $db->fetch($RankQry))
+		while ($CurUser = $db->fetch_array($RankQry))
 		{
 			$defs[$CurUser['id_owner']]	= $Rank;
 			$Rank++;
@@ -300,7 +300,7 @@ class statbuilder{
 			
 		$Rank           = 1;
 		$RankQry        = $db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.`stat_type` = '1' AND s.`id_owner` = `u`.id ".(($CONF['stat'] == 2)?'AND u.`authlevel` < '.$CONF['stat_level'].' ':'')." ORDER BY `fleet_points` DESC;");
-		while ($CurUser = $db->fetch($RankQry))
+		while ($CurUser = $db->fetch_array($RankQry))
 		{
 			$fleet[$CurUser['id_owner']] = $Rank;
 			$Rank++;
@@ -322,7 +322,7 @@ class statbuilder{
 			
 		$Rank           = 1;
 		$RankQry        = $db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s WHERE s.`stat_type` = '2' ORDER BY `tech_points` DESC;");
-		while ($CurUser = $db->fetch($RankQry))
+		while ($CurUser = $db->fetch_array($RankQry))
 		{
 			$tech[$CurUser['id_owner']]	= $Rank;
 			$Rank++;
@@ -332,7 +332,7 @@ class statbuilder{
 		
 		$Rank           = 1;
 		$RankQry        = $db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s WHERE s.`stat_type` = '2' ORDER BY `build_points` DESC;");
-		while ($CurUser = $db->fetch($RankQry))
+		while ($CurUser = $db->fetch_array($RankQry))
 		{
 			$build[$CurUser['id_owner']] = $Rank;
 			$Rank++;
@@ -342,7 +342,7 @@ class statbuilder{
 			
 		$Rank           = 1;
 		$RankQry        = $db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s WHERE s.`stat_type` = '2' ORDER BY `defs_points` DESC;");
-		while ($CurUser = $db->fetch($RankQry))
+		while ($CurUser = $db->fetch_array($RankQry))
 		{
 			$defs[$CurUser['id_owner']]	= $Rank;
 			$Rank++;
@@ -352,7 +352,7 @@ class statbuilder{
 		
 		$Rank           = 1;
 		$RankQry        = $db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s WHERE s.`stat_type` = '2' ORDER BY `fleet_points` DESC;");
-		while ($CurUser = $db->fetch($RankQry))
+		while ($CurUser = $db->fetch_array($RankQry))
 		{
 			$fleet[$CurUser['id_owner']] = $Rank;
 			$Rank++;
