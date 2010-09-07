@@ -24,11 +24,7 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 
 class DB_mysqli extends mysqli
 {
-	public $mysqli;
-	protected $queryCount = 0;
-	protected $qTime = array();
-	protected $query;
-	protected $result;
+	protected $con;
 
 	/**
 	 * Constructor: Set database access data.
@@ -43,10 +39,13 @@ class DB_mysqli extends mysqli
 	 */
 	public function __construct()
 	{
-		global $database;
-		$this->time		= 0;
-		
-		@parent::__construct($database["host"], $database["user"], $database["userpw"], $database["databasename"], $database["port"]);
+		$this->con = $GLOBALS['database'];
+
+        if (!isset($this->con['port'])) {
+            $this->con['port'] = 3306;
+        }
+
+		@parent::__construct($this->con['host'], $this->con['user'], $this->con['userpw'], $this->con['databasename'], $this->con['port']);
 
 		if($this->connect_errno)
 		{
@@ -54,7 +53,6 @@ class DB_mysqli extends mysqli
 			exit;
 		}		
 		parent::set_charset("utf8");
-		return true;
 	}
 	
 	/**
@@ -76,10 +74,8 @@ class DB_mysqli extends mysqli
 	 */
 	public function query($resource)
 	{
-		$Timer	= microtime(true);
 		if($result = parent::query($resource))
 		{
-			$this->time	+= (microtime(true) - $Timer);
 			$this->queryCount++;
 			return $result;
 		}
@@ -87,8 +83,7 @@ class DB_mysqli extends mysqli
 		{
 			throw new Exception("SQL Error: ".$this->error."<br><br>Query Code: ".$resource);
 		}
-		return;
-		
+        return false;
 	}
 	/**
 	 * Purpose a query on selected database.
@@ -97,35 +92,20 @@ class DB_mysqli extends mysqli
 	 *
 	 * @return resource	Results of the query
 	 */
+
 	public function uniquequery($resource)
 	{		
-		$Timer	= microtime(true);
-		if($result = parent::query($resource))
-		{
-			$this->time	+= (microtime(true) - $Timer);
-			$this->queryCount++;
-			$Return = $result->fetch_array(MYSQLI_ASSOC);
-			$result->close();
-			return $Return;
-		}
-		else
+		if(false === ($result = parent::query($resource)))
 		{
 			throw new Exception("SQL Error: ".$this->error."<br /><br />Query Code: ".$resource);
-		}
-		return;
+		}	
+		
+		$this->queryCount++;
+		$Return = $result->fetch_array(MYSQLI_ASSOC);
+		$result->close();
+		return $Return;
 		
 	}	
-	/**
-	 * Returns the row of a query as an object.
-	 *
-	 * @param resource	The SQL query id
-	 *
-	 * @return object	The data of a row
-	 */
-	public function fetch_object($result)
-	{
-		return $result->fetch_object();
-	}
 
 	/**
 	 * Returns the row of a query as an array.
@@ -152,50 +132,6 @@ class DB_mysqli extends mysqli
 	}
 
 	/**
-	 * Fetch a result row as an associative array.
-	 *
-	 * @param resource	The SQL query id
-	 *
-	 * @return array	The data of a row
-	 */
-	public function fetch($result)
-	{
-		return $result->fetch_assoc();
-	}
-	
-	/**
-	 * Returns the value from a result resource.
-	 *
-	 * @param resource	The SQL query id
-	 * @param string	The column name to fetch
-	 * @param integer	Row number in result to fetch
-	 *
-	 * @return mixed
-	 */
-	public function fetch_field($result, $field, $row = null)
-	{
-		if($row !== null)
-		{
-			$result->data_seek($row);
-		}
-		$this->result = $this->fetch($result);
-		return $this->result[$field];
-	}
-
-	/**
-	 * Get a row as an enumerated array.
-	 *
-	 * @param resource	The SQL query id
-	 *
-	 * @return array
-	 */
-	public function fetch_row($result)
-	{
-		$this->result = $result->fetch_row();
-		return $this->result;
-	}
-
-	/**
 	 * Returns the total row numbers of a query.
 	 *
 	 * @param resource	The SQL query id
@@ -205,28 +141,6 @@ class DB_mysqli extends mysqli
 	public function num_rows($query)
 	{
 		return $query->num_rows;
-	}
-
-	/**
-	 * Returns the number of affected rows by the last query.
-	 *
-	 * @return integer	Affected rows
-	 */
-	public function affected_rows()
-	{
-		$affected_rows = $this->mysqli->affected_rows;
-		if($affected_rows < 0) { $affected_rows = 0; }
-		return $affected_rows;
-	}
-
-	/**
-	 * Returns the last inserted id of a table.
-	 *
-	 * @return integer	The last inserted id
-	 */
-	public function insert_id()
-	{
-		return $this->mysqli->insert_id;
 	}
 
 	/**
@@ -269,18 +183,6 @@ class DB_mysqli extends mysqli
 	public function getDatabaseType()
 	{
 		return "mysqli";
-	}
-
-	/**
-	 * Resets a mysqli resource to row number 0.
-	 *
-	 * @param resource	Resource to reset
-	 *
-	 * @return void
-	 */
-	public function reset_resource($result)
-	{
-		return $result->data_seek(0);
 	}
 
 	/**

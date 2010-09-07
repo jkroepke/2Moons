@@ -28,13 +28,9 @@ function ShowAccountDataPage()
 
 	$template 	= new template();
 	$template->page_header();
-
-	if ($_POST)
+	$id_u	= request_var('id_u', 0);
+	if (!empty($id_u))
 	{
-		$id_u	= request_var('id_u', 0);
-		if(empty($id_u))
-			$id_u	= request_var('id_u2', 0);
-	
 		$OnlyQueryLogin 	= $db->uniquequery("SELECT `id`, `authlevel` FROM ".USERS." WHERE `id` = '".$id_u."';");
 
 		if(!isset($OnlyQueryLogin))

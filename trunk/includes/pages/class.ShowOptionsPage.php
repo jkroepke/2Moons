@@ -52,7 +52,7 @@ class ShowOptionsPage
 	
 	public function __construct()
 	{
-		global $USER, $PLANET, $CONF, $LNG, $db;
+		global $USER, $PLANET, $CONF, $LNG, $LANG, $db;
 
 		$mode 			= request_var('mode', '');
 		$exit 			= request_var('exit_modus', '');
@@ -107,7 +107,7 @@ class ShowOptionsPage
 				$newpass2				= request_var('newpass2', '');		
 				$hof					= request_var('hof', '');	
 				$adm_pl_prot			= request_var('adm_pl_prot', '');	
-				$LNGs					= request_var('langs', '');	
+				$langs					= request_var('langs', 'de');	
 
 				$design 				= ($design == 'on') ? 1 : 0;
 				$hof 					= ($hof == 'on') ? 1 : 0;
@@ -120,6 +120,7 @@ class ShowOptionsPage
 				$settings_tnstor 		= ($settings_tnstor == 'on') ? 1 : 0;
 				$settings_planetmenu	= ($settings_planetmenu == 'on') ? 1 : 0;
 				$db_deaktjava 			= ($db_deaktjava == 'on') ? TIMESTAMP : 0;
+				$langs					= array_key_exists($langs, $LNG['langs']) ? $langs : $LANG;
 				
 				if ($urlaubs_modus == 'on')
 				{
@@ -158,7 +159,7 @@ class ShowOptionsPage
 								`settings_mis` = '".$settings_mis."',
 								`settings_tnstor` = '".$settings_tnstor."',
 								`db_deaktjava` = '".$db_deaktjava."',
-								`lang` = '".$db->sql_escape($LNGs)."',
+								`lang` = '".$langs."',
 								`hof` = '".$hof."',
 								`settings_rep` = '".$settings_rep."' 
 								WHERE `id` = '".$USER["id"]."';";

@@ -495,16 +495,6 @@ switch ($page) {
 				}
 			break;
 			default:
-				$dir = opendir(ROOT_PATH.'language');
-				while (($cdir = readdir($dir)) !== false)
-				{
-					if($cdir == '.' || $cdir == '..' || $cdir == '.htaccess' || $cdir == '.svn')
-						continue;
-					
-					$AvailableLangs[$cdir]	= ucwords($cdir);
-				}
-				closedir($dir);
-				
 				$template->assign_vars(array(
 					'server_message_reg'			=> $LNG['server_message_reg'],
 					'register_at_reg'				=> $LNG['register_at_reg'],
@@ -524,7 +514,7 @@ switch ($page) {
 					'captcha_reload'				=> $LNG['captcha_reload'],
 					'captcha_get_audio'				=> $LNG['captcha_get_audio'],
 					'AvailableUnis'					=> $AvailableUnis,
-					'AvailableLangs'				=> $AvailableLangs,
+					'AvailableLangs'				=> $LNG['langs'],
 					'uni_reg'						=> $LNG['uni_reg'],
 					'chose_a_uni'					=> $LNG['chose_a_uni'],
 				));
