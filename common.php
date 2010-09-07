@@ -162,8 +162,8 @@ if (INSTALL != true)
 		//Login
 		if(isset($_REQUEST['lang']) && ctype_alnum($_REQUEST['lang']) && !isset($_REQUEST['lang']{3}))
 			$LANG	= $_REQUEST['lang'];
-		elseif(isset($GLOBALS['CONF']))
-			$LANG	= $GLOBALS['CONF']['lang'];
+		elseif(isset($CONF['lang']))
+			$LANG	= $CONF['lang'];
 		else
 			$LANG	= DEFAULT_LANG;
 			
