@@ -8,7 +8,7 @@
     </tr>
 	{if $ally_image}
     <tr>
-		<th colspan="2">
+		<td colspan="2">
 			<img src="{$ally_image}" alt="{$ally_tag}">
 		</td>
 	</tr>
