@@ -242,10 +242,10 @@ function calculateAttack(&$attackers, &$defenders)
 			}
 		}
 		
-		$ROUND[$ROUNDC]['attack'] = $defenderAttack;
-		$ROUND[$ROUNDC]['defense'] = $defender_shield;
+		$ROUND[$ROUNDC]['attack'] 		= $attackerAttack;
+		$ROUND[$ROUNDC]['defense'] 		= $defenderAttack;
 		$ROUND[$ROUNDC]['attackShield'] = $attacker_shield;
-		$ROUND[$ROUNDC]['defShield'] = $defender_shield;
+		$ROUND[$ROUNDC]['defShield'] 	= $defender_shield;
 		foreach ($attackers as $fleetID => $attacker) {
 			$attackers[$fleetID]['detail'] =  array_map('round', $attacker_n[$fleetID]);
 		}
