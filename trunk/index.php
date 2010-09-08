@@ -617,7 +617,7 @@ switch ($page) {
 		break;
 	case 'news' :
 		$NewsRAW	= $db->query ("SELECT date,title,text,user FROM ".NEWS." ORDER BY id DESC;");
-		while ($NewsRow = $db->fetch($NewsRAW)) {
+		while ($NewsRow = $db->fetch_array($NewsRAW)) {
 			$NewsList[]	= array(
 				'title' => $NewsRow['title'],
 				'from' 	=> sprintf($LNG['news_from'], date("d. M Y H:i:s", $NewsRow['date']), $NewsRow['user']),
