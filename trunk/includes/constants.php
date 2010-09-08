@@ -38,9 +38,7 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	define('MAX_PLANET_IN_SYSTEM'     ,  15);
 
 	// FACTOR FOR THE PLANETSIZE
-	
 	define('PLANET_SIZE_FACTOR'		  , 1.0);
-
 	
 	// NUMBER OF COLUMNS FOR SPY REPORTS
 	define('SPY_REPORT_ROW'           , 2);
@@ -67,6 +65,7 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	// 1.0 TO 100% - 1.1% FOR 110 AND SO ON
 	define('MAX_OVERFLOW'             , 1.0);
 
+	// The Limit of DM Mission (ID: 11)
 	define('MAX_DM_MISSIONS'		  , 1);
 	
 	define('DARKMATTER_FOR_TRADER'	  , 750);
@@ -80,44 +79,42 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	// IF SET true, the derbis will be delete, when a moon is created.
 	define('DESTROY_DERBIS_MOON_CREATE', true);
 	
+	// Factor for Metal/Crystal and Deuterium Storages
 	define('STORAGE_FACTOR'			  , 1.0);
 	
 	// DARKMATTER PRICE FOR OFFICIER LEVEL
-	
 	define('DM_PRO_OFFICIER_LEVEL'	  , 1000);
 	
 	// INITIAL RESOURCE OF NEW PLANETS
+	define('BUILD_METAL'              , 500);
+	define('BUILD_CRISTAL'            , 500);
+	define('BUILD_DEUTERIUM'          , 0);
 	
-	define('BUILD_METAL'              ,     500);
-	define('BUILD_CRISTAL'            ,     500);
-	define('BUILD_DEUTERIUM'          ,       0);
+	// Max Round on Combats
+	define('MAX_ATTACK_ROUNDS'		  , 6);
 	
-	define('MAX_ATTACK_ROUNDS'		  ,       6);
+	// Min Time for VMod in Seconds!
+	define('VACATION_MIN_TIME'		  , 259200);	
 	
-	define('VACATION_MIN_TIME'		  ,  259200);	
-	
-	//
+	// Enable the one-Click SImulation on Spy-Raports
 	define('ENABLE_SIMULATOR_LINK'    , true);
 	
+	// Max. User Session in Seconds
 	define('SESSION_LIFETIME'		  , 43200);
 	
-	//DISCLAMER INFOS
-
+	// DISCLAMER INFOS
 	define('DICLAMER_NAME'            , "Edit constans.php!");
 	define('DICLAMER_ADRESS1'         , "Edit constans.php!");
 	define('DICLAMER_ADRESS2'         , "Edit constans.php!");
 	define('DICLAMER_TEL'     		  , "Edit constans.php!");
 	define('DICLAMER_EMAIL'    		  , "Edit constans.php!");
+
+	// Time betwin Jumps for Jumpgates
+	define('JUMPGATE_WAIT_TIME'		  , 3600);
 	
-	// UTF-8 Support for Names
-	
+	// UTF-8 Support for Names (Requried for non-english Chars!)
 	define('UTF8_SUPPORT'          	  , false);	
 	
-	
-	define('USE_OLD_EXPO'          	  , false);	
-
-	define('SMARTY_SPL_AUTOLOAD'      ,      1);
-		
 	// OFFICIERS DEFAULT VALUES
 	define('COMMANDANT'				  ,      3);
 	define('AMIRAL'				  	  ,   0.05);
@@ -132,11 +129,9 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	define('INGENIEUR'				  ,   0.05);
 	
 	// AdminAuthlevels
-	
 	define('AUTH_ADM'                 , 3);
 	define('AUTH_OPS'                 , 2);
 	define('AUTH_MOD'                 , 1);
-	
 	
 	// Data Tabells
 	define('DB_NAME'				  , $database["databasename"]);
