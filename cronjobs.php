@@ -54,7 +54,7 @@ switch($cron)
 			require(ROOT_PATH . 'config.' . PHP_EXT);
 			$prueba = $db->query("SHOW TABLE STATUS from ".DB_NAME.";");
 			$table = "";
-			while($pru = $db->fetch($prueba)){
+			while($pru = $db->fetch_array($prueba)){
 				$compprefix = explode("_",$pru["Name"]);  
 				
 				if(($compprefix[0]."_") == $database["tableprefix"])
