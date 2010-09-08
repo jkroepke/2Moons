@@ -31,8 +31,7 @@ class ShowInfosPage
 		$LastJumpTime   = $CurMoon['last_jump_time'];
 		if ($JumpGateLevel > 0)
 		{
-			$WaitBetweenJmp = (60 * 60) * (1 / $JumpGateLevel);
-			$NextJumpTime   = $LastJumpTime + $WaitBetweenJmp;
+			$NextJumpTime   = $LastJumpTime + JUMPGATE_WAIT_TIME;
 			if ($NextJumpTime >= TIMESTAMP)
 			{
 				$RestWait   = $NextJumpTime - TIMESTAMP;
@@ -59,76 +58,57 @@ class ShowInfosPage
 	{
 		global $USER, $PLANET, $resource, $LNG, $db, $reslist;
 
-		if ($_POST)
+		if (!$_POST)
+			return false;
+		
+		$RestString   = $this->GetNextJumpWaitTime($PLANET);
+		$NextJumpTime = $RestString['value'];
+		$JumpTime     = TIMESTAMP;
+
+		if ($NextJumpTime != 0)
+			return $LNG['in_jump_gate_already_used'] . $RestString['string'];
+			
+		$TargetPlanet = request_var('jmpto',0);
+		$TargetGate   = $db->uniquequery("SELECT `id`, `last_jump_time` FROM ".PLANETS." WHERE `id` = '".$TargetPlanet."' AND `sprungtor` > '0';");
+
+		if (!isset($TargetGate))
+			return $LNG['in_jump_gate_doesnt_have_one'];
+			
+		$RestString   = $this->GetNextJumpWaitTime($TargetGate);
+		
+		if ($RestString['value'] != 0)
+			return $LNG['in_jump_gate_not_ready_target'].$RestString['string'];
+		
+		$ShipArray   = array();
+		$SubQueryOri = "";
+		$SubQueryDes = "";
+
+		foreach($reslist['fleet'] as $Ship)
 		{
-			$RestString   = $this->GetNextJumpWaitTime($PLANET);
-			$NextJumpTime = $RestString['value'];
-			$JumpTime     = TIMESTAMP;
-
-			if ( $NextJumpTime == 0 )
-			{
-				$TargetPlanet = request_var('jmpto',0);
-				$TargetGate   = $db->uniquequery("SELECT `id`, `sprungtor`, `last_jump_time` FROM ".PLANETS." WHERE `id` = '".$TargetPlanet."';");
-
-				if ($TargetGate['sprungtor'] > 0)
-				{
-					$RestString   = $this->GetNextJumpWaitTime ( $TargetGate );
-					$NextDestTime = $RestString['value'];
-
-					if ( $NextDestTime == 0 )
-					{
-						$ShipArray   = array();
-						$SubQueryOri = "";
-						$SubQueryDes = "";
-
-						foreach($reslist['fleet'] as $Ship)
-						{
-							$ShipArray[$Ship]	=	min(max(request_var('c'.$Ship, 0.0), 0), $PLANET[$resource[$Ship]]);
-							$SubQueryOri .= "`". $resource[ $Ship ] ."` = `". $resource[ $Ship ] ."` - '". floattostring($ShipArray[ $Ship ]) ."', ";
-							$SubQueryDes .= "`". $resource[ $Ship ] ."` = `". $resource[ $Ship ] ."` + '". floattostring($ShipArray[ $Ship ]) ."', ";
-							$PLANET[$resource[$Ship]] -= floattostring($ShipArray[$Ship]);
-						}
-
-						if ($SubQueryOri != "")
-						{
-							$QryUpdate  = "UPDATE ".PLANETS." SET ";
-							$QryUpdate .= $SubQueryOri;
-							$QryUpdate .= "`last_jump_time` = '". $JumpTime ."' ";
-							$QryUpdate .= "WHERE ";
-							$QryUpdate .= "`id` = '". $PLANET['id'] ."';";
-							$QryUpdate .= "UPDATE ".PLANETS." SET ";
-							$QryUpdate .= $SubQueryDes;
-							$QryUpdate .= "`last_jump_time` = '". $JumpTime ."' ";
-							$QryUpdate .= "WHERE ";
-							$QryUpdate .= "`id` = '". $TargetGate['id'] ."';";
-							$db->multi_query($QryUpdate);
-
-							$PLANET['last_jump_time'] = $JumpTime;
-							$RestString    = $this->GetNextJumpWaitTime ( $PLANET );
-							$RetMessage    = $LNG['in_jump_gate_done'] . $RestString['string'];
-						}
-						else
-						{
-							$RetMessage = $LNG['in_jump_gate_error_data'];
-						}
-					}
-					else
-					{
-						$RetMessage = $LNG['in_jump_gate_not_ready_target'] . $RestString['string'];
-					}
-				}
-				else
-				{
-					$RetMessage = $LNG['in_jump_gate_doesnt_have_one'];
-				}
-			}
-			else
-			{
-				$RetMessage = $LNG['in_jump_gate_already_used'] . $RestString['string'];
-			}
+			$ShipArray[$Ship]	=	min(max(request_var('c'.$Ship, 0.0), 0), $PLANET[$resource[$Ship]]);
+			$SubQueryOri 		.= "`". $resource[ $Ship ] ."` = `". $resource[ $Ship ] ."` - '". floattostring($ShipArray[ $Ship ]) ."', ";
+			$SubQueryDes 		.= "`". $resource[ $Ship ] ."` = `". $resource[ $Ship ] ."` + '". floattostring($ShipArray[ $Ship ]) ."', ";
+			$PLANET[$resource[$Ship]] -= floattostring($ShipArray[$Ship]);
 		}
 
-		return $RetMessage;
+		if (empty($SubQueryOri))
+			return $LNG['in_jump_gate_error_data'];
+
+		$SQL  = "UPDATE ".PLANETS." SET ";
+		$SQL .= $SubQueryOri;
+		$SQL .= "`last_jump_time` = '". $JumpTime ."' ";
+		$SQL .= "WHERE ";
+		$SQL .= "`id` = '". $PLANET['id'] ."';";
+		$SQL .= "UPDATE ".PLANETS." SET ";
+		$SQL .= $SubQueryDes;
+		$SQL .= "`last_jump_time` = '". $JumpTime ."' ";
+		$SQL .= "WHERE ";
+		$SQL .= "`id` = '". $TargetGate['id'] ."';";
+		$db->multi_query($SQL);
+
+		$PLANET['last_jump_time'] 	= $JumpTime;
+		$RestString    = $this->GetNextJumpWaitTime($PLANET);
+		return $LNG['in_jump_gate_done'].$RestString['string'];
 	}
 
 	private function BuildFleetListRows ($PLANET)
@@ -137,14 +117,14 @@ class ShowInfosPage
 
 		foreach($reslist['fleet'] as $Ship)
 		{
-			if ($PLANET[$resource[$Ship]] > 0)
-			{
-				$GateFleetList[]	= array(
-					'id'        => $Ship,
-					'name'      => $LNG['tech'][$Ship],
-					'max'       => pretty_number($PLANET[$resource[$Ship]]),
-				);
-			}
+			if ($PLANET[$resource[$Ship]] <= 0)
+				continue;
+			
+			$GateFleetList[]	= array(
+				'id'        => $Ship,
+				'name'      => $LNG['tech'][$Ship],
+				'max'       => pretty_number($PLANET[$resource[$Ship]]),
+			);
 		}
 		
 		return $GateFleetList;
