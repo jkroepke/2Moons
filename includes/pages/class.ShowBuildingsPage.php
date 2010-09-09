@@ -96,7 +96,7 @@ class ShowBuildingsPage
 		return $ReturnValue;
 	}
 
-	private function RemoveBuildingFromQueue($QueueID)
+	private function RemoveBuildingFromQueue($QueueID, $PlanetRess)
 	{
 		global $PLANET;
 		if ($QueueID <= 1 || empty($PLANET['b_building_id']))
@@ -107,7 +107,7 @@ class ShowBuildingsPage
 		$QueueArray    = explode ( ";", $CurrentQueue );
 		$ActualCount   = count ( $QueueArray );
 		if($ActualCount <= 1)
-			return $this->CancelBuildingFromQueue();
+			return $this->CancelBuildingFromQueue($PlanetRess);
 				
 		$ListIDArray   = explode ( ",", $QueueArray[$QueueID - 2] );
 		$BuildEndTime  = $ListIDArray[3];
@@ -303,7 +303,7 @@ class ShowBuildingsPage
 					$this->CancelBuildingFromQueue($PlanetRess);
 				break;
 				case 'remove':
-					$this->RemoveBuildingFromQueue($ListID);
+					$this->RemoveBuildingFromQueue($ListID, $PlanetRess);
 				break;
 				case 'insert':
 					$this->AddBuildingToQueue($Element, true);
