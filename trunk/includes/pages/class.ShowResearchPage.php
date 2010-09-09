@@ -105,14 +105,14 @@ class ShowResearchPage
 			exit;
 		}
 		
-		$bContinue	= (!$this->CheckLabSettingsInQueue($PLANET)) ? true : false;
+		$bContinue		= !$this->CheckLabSettingsInQueue($PLANET) ? true : false;
 		
 		$PLANET[$resource[31].'_inter']	= $this->CheckAndGetLabLevel($USER, $PLANET);		
 		
 		$TheCommand		= request_var('cmd','');
 		$Element     	= request_var('tech', 0);
 		$PlanetRess 	= new ResourceUpdate();
-		if ($USER['urlaubs_modus'] == 0 && !empty($TheCommand))
+		if ($USER['urlaubs_modus'] == 0 && !empty($TheCommand) && $bContinue)
 		{
 			switch($TheCommand)
 			{
