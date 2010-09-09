@@ -948,7 +948,7 @@ class ShowAlliancePage
 								if (!$USER['rights']['close'])
 									redirectTo("game.".PHP_EXT."?page=alliance");
 
-								$db->query("UPDATE ".USERS." SET `ally_name` = '', `ally_id` = '0' WHERE `ally_id`='".$ally['id']."';UPDATE ".STATPOINTS." SET `id_ally` = '0' WHERE `id_ally` = '".$ally['id']."';DELETE FROM ".ALLIANCE." WHERE id = '".$ally['id']."';DELETE FROM ".DIPLO." WHERE `owner_1` = '".$ally['id']."' OR `owner_2` = '".$ally['id']."';");
+								$db->multi_query("UPDATE ".USERS." SET `ally_name` = '', `ally_id` = '0' WHERE `ally_id`='".$ally['id']."';UPDATE ".STATPOINTS." SET `id_ally` = '0' WHERE `id_ally` = '".$ally['id']."';DELETE FROM ".ALLIANCE." WHERE id = '".$ally['id']."';DELETE FROM ".DIPLO." WHERE `owner_1` = '".$ally['id']."' OR `owner_2` = '".$ally['id']."';");
 								redirectTo("game.".PHP_EXT."?page=alliance");
 							break;
 							case 'transfer':
