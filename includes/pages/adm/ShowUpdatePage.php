@@ -61,7 +61,7 @@ function ShowUpdatePage()
 	else
 		$Level		= 1020;
 		
-	$opts 			= array('http' => array('method'=> "GET", 'header'=> "Patchlevel: ".$Level."\r\nUser-Agent: 2Moons Update API (Rev ".$Patchlevel[2]."\r\n"));
+	$opts 			= array('http' => array('method'=> "GET", 'header'=> "Patchlevel: ".$Level."\r\nUser-Agent: 2Moons Update API (Rev ".$Patchlevel[2].")\r\n"));
 			
 	$context 		= stream_context_create($opts);
 	

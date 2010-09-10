@@ -105,7 +105,7 @@ class ShowResearchPage
 			exit;
 		}
 		
-		$bContinue		= !$this->CheckLabSettingsInQueue($PLANET) ? true : false;
+		$bContinue		= $this->CheckLabSettingsInQueue($PLANET) ? true : false;
 		
 		$PLANET[$resource[31].'_inter']	= $this->CheckAndGetLabLevel($USER, $PLANET);		
 		
@@ -230,7 +230,7 @@ class ShowResearchPage
 		}
 		$template->assign_vars(array(
 			'ResearchList'			=> $ResearchList,
-			'IsLabinBuild'			=> $bContinue,
+			'IsLabinBuild'			=> !$bContinue,
 			'bd_building_lab'		=> $LNG['bd_building_lab'],
 			'bd_remaining'			=> $LNG['bd_remaining'],			
 			'bd_lvl'				=> $LNG['bd_lvl'],			
