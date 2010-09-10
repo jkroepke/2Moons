@@ -1,4 +1,5 @@
-﻿<?php
+<?php
+
 
 //LANUAGES
 $LNG['langs']    = array(
@@ -27,7 +28,7 @@ $LNG['type_mission'][2]  					= 'Grupni napad';
 $LNG['type_mission'][3]  					= 'Transport';
 $LNG['type_mission'][4]  					= 'Stacioniraj';
 $LNG['type_mission'][5]  					= 'Parkiraj';
-$LNG['type_mission'][6]  					= 'spijuniraj';
+$LNG['type_mission'][6]  					= 'Spijuniraj';
 $LNG['type_mission'][7]  					= 'Koloniziraj';
 $LNG['type_mission'][8]  					= 'Recikliraj';
 $LNG['type_mission'][9]  					= 'Unisti';
@@ -73,7 +74,7 @@ $LNG['lm_statistics']						= 'Statistika';
 $LNG['lm_search']							= 'Trazi';
 $LNG['lm_options']							= 'Postavke';
 $LNG['lm_banned']							= 'Kaznjeni';
-$LNG['lm_contact']							= 'kontakt';
+$LNG['lm_contact']							= 'Kontakt';
 $LNG['lm_forums']							= 'Forum';
 $LNG['lm_logout']							= 'Odjava';
 $LNG['lm_administration']					= 'Administracija';
@@ -114,7 +115,7 @@ $LNG['ov_distance_unit']					= 'km';
 $LNG['ov_temperature']						= 'Temperatura';
 $LNG['ov_aprox']							= 'Priblizno';
 $LNG['ov_temp_unit']						= '°C';
-$LNG['ov_to']								= 'prema';
+$LNG['ov_to']								= 'od';
 $LNG['ov_position']						= 'Pozicija';
 $LNG['ov_points']							= 'Bodovi';
 $LNG['ov_security_request']				= 'Sigurnosno pitanje';
@@ -300,7 +301,7 @@ $LNG['fl_expedition_tech_required']		= 'Potrebna tehnologija Astrofizika!';
 $LNG['fl_expedition_fleets_limit']			= 'Dostupne flote za ekspediciju dosegle limit!';
 $LNG['fl_week_player']						= 'Igrac je preslab!';
 $LNG['fl_strong_player']					= 'Igrac je prejak!';
-$LNG['fl_in_vacation_player']				= 'Igrac je modusu (Odmor)';
+$LNG['fl_in_vacation_player']				= 'Igrac je u modusu (Odmor)';
 $LNG['fl_no_slots']						= 'Nema dostupnih slotova!';
 $LNG['fl_empty_transport']					= 'Nemozes transportirati 0 resursa!';
 $LNG['fl_planet_populed']					= 'Ovaj planet je vec zauzet!';
@@ -327,7 +328,7 @@ $LNG['fl_invite_members']					= 'Pozovi sudionike';
 $LNG['fl_bonus']							= 'Bonus';
 $LNG['fl_bonus_attack']					= 'Napad';
 $LNG['fl_bonus_defensive']					= 'Obrana';
-$LNG['fl_bonus_shield']					= 'stit';
+$LNG['fl_bonus_shield']					= 'Stit';
 
 //----------------------------------------------------------------------------//
 //BUILDINGS - RESEARCH - SHIPYARD - DEFENSES
@@ -341,7 +342,7 @@ $LNG['bd_add_to_list']						= 'Dodaj u produkcijski red';
 $LNG['bd_no_more_fields']					= 'Nema vise praznih polja na planeti za gradnju!';
 $LNG['bd_remaining']						= 'Trebas jos ovoliko resursa za izgradnju:';
 $LNG['bd_lab_required']					= 'Moras prvo izgraditi Centar za istrazivanje!';
-$LNG['bd_building_lab']					= 'Ne mozes istraziti kada se laboratorij gradi!';
+$LNG['bd_building_lab']					= 'Ne mozes istrazivati kada se laboratorij gradi!';
 $LNG['bd_max_lvl']							= '(Max. Level: %s)';
 $LNG['bd_lvl']								= 'Level';
 $LNG['bd_research']						= 'Istrazivanja';
@@ -496,7 +497,7 @@ $LNG['mg_game_message']					= 'Poruka od igre';
 //----------------------------------------------------------------------------//
 //ALLIANCE
 
-$LNG['al_newname_alphanum']				= 'Ime saveza mora se sastojati samo od alfanumerickih znakove.';
+$LNG['al_newname_alphanum']				= 'Ime saveza mora se sastojati samo od alfanumerickih znakova.';
 $LNG['al_newname_no_space']				= 'Ime saveza nesmije sadrzavati razmak.';
 $LNG['al_description_message'] 			= 'Opis saveza';
 $LNG['al_web_text']						= 'Web saveza';
@@ -651,9 +652,9 @@ $LNG['al_memberlist_min']					= 'min';
 $LNG['al_memberlist_on']					= 'Online';
 $LNG['al_memberlist_off']					= 'Offline';
 $LNG['al_diplo']                            = 'Diplomacija';
-$LNG['al_diplo_level'][0]                    = 'Wing';
-$LNG['al_diplo_level'][1]                    = 'Savez ';
-$LNG['al_diplo_level'][2]                    = 'Savez za trgovanje';
+$LNG['al_diplo_level'][0]                    = 'Krilo';
+$LNG['al_diplo_level'][1]                    = 'Saveznici ';
+$LNG['al_diplo_level'][2]                    = 'Trgovinski odnosi';
 $LNG['al_diplo_level'][3]                    = 'Ugovor o nenapadanju';
 $LNG['al_diplo_level'][4]                    = 'Rat';
 $LNG['al_diplo_no_entry']                    = '- Ne postoji ugovor -';
@@ -858,7 +859,7 @@ $LNG['sys_attack_defender_pos'] 			= "Branitelj";
 $LNG['sys_ship_type'] 						= "Vrsta";
 $LNG['sys_ship_count'] 					= "broj";
 $LNG['sys_ship_weapon'] 					= "Oruzje";
-$LNG['sys_ship_shield'] 					= "stit";
+$LNG['sys_ship_shield'] 					= "Stit";
 $LNG['sys_ship_armour'] 					= "Oklop";
 $LNG['sys_destroyed'] 						= "Unisten";
 $LNG['fleet_attack_1'] 					= "Napadacka flota puca ukupnom snagom od";
@@ -879,7 +880,7 @@ $LNG['sys_spy_defenses'] 					= "obrana";
 $LNG['sys_mess_qg'] 						= "Glavno sjediste";
 $LNG['sys_mess_spy_report_moon']			= "(Mjesec)";
 $LNG['sys_mess_spy_report'] 				= "Izvjesce spijunaze";
-$LNG['sys_mess_spy_lostproba'] 			= "Vjerojatnost otkrivanja sijunaze : %d %% ";
+$LNG['sys_mess_spy_lostproba'] 			= "Vjerojatnost otkrivanja spijunaze : %d %% ";
 $LNG['sys_mess_spy_control'] 				= "Kontrola svemira";
 $LNG['sys_mess_spy_activity'] 				= "Aktivnost spijunaze";
 $LNG['sys_mess_spy_ennemyfleet'] 			= "Neprijateljska flote sa druge planete";
@@ -979,14 +980,14 @@ $LNG['sys_expe_attackname_1']				= 'Pirati';
 $LNG['sys_expe_attackname_2'] 				= 'Alijeni'; 	
 $LNG['sys_expe_back_home'] 				= 'Vasa ekspedicija se vratila u hangar.<br>Oni su donjeli %s %s, %s %s, %s %s i %s %s .';
 $LNG['sys_expe_back_home_without_dm']		        = 'Vasa ekspedicija se vratila u hangar.';
-$LNG['sys_expe_back_home_with_dm']			= 'Vasa ekspedicija se vratila u hangar.<br>Otkrili su %s(%s) deformirane posude.<br>moze biti spaseno.';
+$LNG['sys_expe_back_home_with_dm']			= 'Vasa ekspedicija se vratila u hangar.<br>Otkrili su %s(%s)<br>';
 $LNG['sys_mess_transport'] 				= 'Izvjesce transporta';
 $LNG['sys_tran_mess_owner']		 		= 'Jedna od tvoje flote stigla je na planetu %s %s ostavila je %s %s, %s %s i %s %s.';
 $LNG['sys_tran_mess_user'] 		 		= 'Prijateljska flota %s %s stigla %s %s i dostavlja %s %s, %s %s i %s %s.';
 $LNG['sys_mess_fleetback'] 				= 'Povratak flote';
 $LNG['sys_tran_mess_back'] 				= 'Jedna tvoja flota vraca se nazad na planetu %s %s .';
 $LNG['sys_recy_gotten'] 					= 'Vasi recikleri prikupili su %s %s i %s %s';
-$LNG['sys_notenough_money'] 				= 'ONa vasem planetu %s <a href="./game.php?page=buildings&amp;cp=%d&amp;re=0">[%d:%d:%d]</a> Vi nemate dovoljno sredstava za izgradnju a %s . <br>Vi imate %s %s , %s %s i %s %s. <br>Troskovi izgradnje su %s %s , %s %s i %s %s.';
+$LNG['sys_notenough_money'] 				= 'Na vasem planetu %s <a href="./game.php?page=buildings&amp;cp=%d&amp;re=0">[%d:%d:%d]</a> Vi nemate dovoljno sredstava za izgradnju a %s . <br>Vi imate %s %s , %s %s i %s %s. <br>Troskovi izgradnje su %s %s , %s %s i %s %s.';
 $LNG['sys_nomore_level'] 					= 'Mozete pokusati unistiti jednu zgradu koju vise netrebate( %s ).';
 $LNG['sys_buildlist'] 						= 'Red proizvodnje';
 $LNG['sys_buildlist_fail'] 				= 'Izgradnja nije moguca';
@@ -1018,7 +1019,7 @@ $LNG['sys_module_inactive']                = 'Modul onesposobljen';
 $LNG['ccs_multiple_users']					= 'Cookie Error! Netko je prijavljen na tvoj racun. Izbrisite kolacice i pokusajte ponovno. Ako se problem nastavi, obratite se administratoru.';
 $LNG['ccs_other_user']						= 'Cookie Error! Izbrisite kolacice i pokusajte ponovno. Ako se problem nastavi, obratite se administratoru.<br> Error Code. 272';
 $LNG['css_different_password']				= 'Cookie Error! Izbrisite kolacice i pokusajte ponovno. Ako se problem nastavi, obratite se administratoru.<br> Error Code. 273';
-$LNG['css_account_banned_message']			= 'VAs KORISNIcKI RAAcUN JE KAzNJEN';
+$LNG['css_account_banned_message']			= 'VAS KORISNICKI RACUN JE KAZNJEN';
 $LNG['css_account_banned_expire']			= 'Vi ste %s do!<br><a href="./index.php?page=pranger">Kaznjeni</a>';
 $LNG['css_goto_homeside']					= '<a href="./index.php">Idite na pocetnu stranicu</a>';
 $LNG['css_server_maintrace']				= 'Poruka servera<br><br>Igra je trenutno nedostupna.<br><br>razlog: %s';
@@ -1040,7 +1041,7 @@ $LNG['cff_from_the_moon']                    = 'mjesec ';
 $LNG['cff_the_planet']                        = '  planetu ';
 $LNG['cff_debris_field']                    = 'na rusevinu ';
 $LNG['cff_to_the_moon']                    = 'na mjesec ';
-$LNG['cff_the_position']                    = ' sa Pozicije ';
+$LNG['cff_the_position']                    = '  Poziciju ';
 $LNG['cff_to_the_planet']                    = ' ';
 $LNG['cff_the_moon']                        = ' na mjesec ';
 $LNG['cff_from_planet']                    = '  planetu ';
@@ -1067,7 +1068,7 @@ $LNG['cff_to_destination']                    = 'Stigla do odredista';
 // EXTRA LANGUAGE FUNCTIONS
 $LNG['fcm_moon']							= 'mjesec';
 $LNG['fcm_info']							= 'Informacije';
-$LNG['fcp_colony']							= 'Colonija';
+$LNG['fcp_colony']							= 'Kolonija';
 $LNG['fgp_require']						= 'Zahtjev: ';
 $LNG['fgf_time']							= 'Vrijeme izgradnje: ';
 
@@ -1130,7 +1131,7 @@ $LNG['tkb_gratz']                  		= 'Top 100 najvecih bitaka 1na1';
 $LNG['tkb_platz']                  		= 'Mjesto';
 $LNG['tkb_owners']             			= 'Sudionici';
 $LNG['tkb_datum']                  		= 'Datum';
-$LNG['tkb_units']             				= 'Jedinica';
+$LNG['tkb_units']             				= 'Steta';
 $LNG['tkb_legende']               		 	= '<b>Legenda: </b>';
 $LNG['tkb_gewinner']              		 	= '<b>-Pobjednik-</b>';
 $LNG['tkb_verlierer']              		= '<b>-Gubitnik-</b>';
@@ -1176,6 +1177,13 @@ $LNG['chat_disc']                          = 'Chat';
 $LNG['chat_message']                       = 'Poruka';
 $LNG['chat_send']                          = 'Posalji';
 $LNG['chat_admin']                       	= '<font color="red">Admin %s</font>';
+$LNG['chat_color_white']                                        = 'Bijela';
+$LNG['chat_color_blue']                                         = 'Plava';
+$LNG['chat_color_yellow']                                       = 'Zuta';
+$LNG['chat_color_green']                                        = 'Zelena';
+$LNG['chat_color_pink']                                         = 'Roza';
+$LNG['chat_color_red']                                          = 'Crvena';
+$LNG['chat_color_orange']                                       = 'Narancasta';
 
 //----------------------------------------------------------------------------//
 // Support

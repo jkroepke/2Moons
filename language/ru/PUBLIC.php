@@ -50,7 +50,7 @@ $LNG['server_register']              = 'Зарегистрироваться!';
 $LNG['server_message']               = 'Присоединяйтесь и станьте частью невероятного мира';
 $LNG['login']                        = 'Логин';
 $LNG['disclamer']                    = 'Контакты';
-$LNG['login_info']                   = 'Я принимаю <a onclick="ajax(\'?page=rules&amp;\'+\'getajax=1\');" style="cursor:pointer;">Правила</a> и <a onclick="ajax(\'?page=agb&amp;\'+\'getajax=1\');" style="cursor:pointer;">Положения</a>';
+$LNG['login_info']                   = 'Я принимаю <a onclick="ajax(\'?page=rules&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\');" style="cursor:pointer;">Правила</a> и <a onclick="ajax(\'?page=agb&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\');" style="cursor:pointer;">Положения</a>';
 
 // reg.php - Регистрация
 $LNG['register_closed']              = 'Регистрация закрыта!';
@@ -77,6 +77,7 @@ $LNG['welcome_message_content']      = 'Добро пожаловать в %s!<b
 $LNG['newpass_smtp_email_error']     = '<br><br>Произошла ошибка при отправке пароля на Вашу электронную почту. Ваш пароль: ';
 $LNG['reg_completed']                = 'Спасибо за регистрацию! Вы получите письмо на электронную почту с ссылкой на активацию аккаунта.';
 $LNG['planet_already_exists']        = 'Планета уже существует!<br>';
+
 // registry_form.tpl
 $LNG['server_message_reg']           = 'Присоединяйтесь и станьте частью невероятного мира';
 $LNG['register_at_reg']              = 'Регистрация в ';
@@ -98,11 +99,11 @@ $LNG['captcha_reload']               = 'Новая CAPTCHA';
 $LNG['captcha_get_audio']            = 'Звуковая CAPTCHA';
 $LNG['user_active']                  = 'Аккаунт %s активирован!';
 
-//registry_closed.tpl
+// registry_closed.tpl
 $LNG['info']                         = 'Информация';
 $LNG['reg_closed']                   = 'Регистрация закрыта';
 
-//Rules
+// Правила
 $LNG['rules_overview']               = "Правила";
 $LNG['rules']                        = array(
 
@@ -177,7 +178,7 @@ $LNG['rules_info1']                  = "Правила размещены на <
 $LNG['rules_info2']                  = "Данные правила являются частью <a onclick=\"ajax('?page=agb&getajax=1');\" style=\"cursor:pointer;\">Положений</a>, которые также должны соблюдаться!</font>";
 
 
-//AGB
+// Общие положения
 
 $LNG['agb_overview']                 = "Положения";
 $LNG['agb']                          = array(

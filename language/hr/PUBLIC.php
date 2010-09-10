@@ -64,11 +64,11 @@ $LNG['reg_mail_message_pass']		= 'Jos jedan korak da aktivirate svoje korisnicko
 $LNG['reg_mail_reg_done']			= 'Dobrodosli na %s!';
 $LNG['invalid_mail_adress']		= 'Pogresna e-mail adresa!<br>';
 $LNG['empty_user_field']			= 'Molimo Vas da ispunite sva polja!<br>';
-$LNG['password_lenght_error']		= 'Lozinka treba imati barem 4 znakova!<br>';
+$LNG['password_lenght_error']		= 'Lozinka treba imati vise od 4 znakova!<br>';
 $LNG['user_field_no_alphanumeric']	= 'Molimo unesite korisnicko ime samo alfanumerickim znakovima!<br>';
-$LNG['user_field_no_space']		= 'Polje za korisnicko ime nemože ostati prazno!<br>';
+$LNG['user_field_no_space']		= 'Polje za korisnicko ime nemoze ostati prazno!<br>';
 $LNG['planet_field_no_alphanumeric']	= 'Unesite ime planeti samo alfanumerickim znakovima!<br>';
-$LNG['planet_field_no_space']		= 'Polje za ime planete nemože ostati prazno!<br>';
+$LNG['planet_field_no_space']		= 'Polje za ime planete nemoze ostati prazno!<br>';
 $LNG['terms_and_conditions']		= 'Morate prihvatiti <a href="index.php?page=agb">Uslovi i Odredbe</a> i <a href="index.php?page=rules>Pravila</a> hvala!<br>';
 $LNG['user_already_exists']		= 'Korisnicko ime je vec zauzeto!<br>';
 $LNG['mail_already_exists']		= 'E-mail adresa je vec u uporabi!<br>';
@@ -78,7 +78,7 @@ $LNG['different_mails']			= 'Upisali ste dvije razlicite adrese!<br>';
 $LNG['welcome_message_from']		= 'Administrator';
 $LNG['welcome_message_sender']		= 'Administrator';
 $LNG['welcome_message_subject']	= 'Dobrodosli';
-$LNG['welcome_message_content']	= 'Dobrodosli na %s!<br>Prvo izgradite solarnu elektranu,jer energija je potrebna za kasniju proizvodnju sirovina. Kako ga izgraditi,lijevi klik u izborniku na "zgrade".Zatim izgraditi cetvrtu zgradu od vrha.Sada imate energije, možete poceti graditi rudnike. Vratite se na meni izgradnju i izgradite rudnik metala,pa opet rudnik kristala. Da bi mogli graditi brodove trebate imati prvo izgradeno brodogradilista.sto je potrebno za izgradnju to cete naci u lijevom izborniku tehnologije.Sybaron zim želi vam puno zabave u istraživanju svemira!';
+$LNG['welcome_message_content']	= 'Dobrodosli na %s!<br>Prvo izgradite solarnu elektranu,jer energija je potrebna za kasniju proizvodnju sirovina. Kako ga izgraditi,lijevi klik u izborniku na "zgrade".Zatim izgraditi cetvrtu zgradu od vrha.Sada imate energije, mozete poceti graditi rudnike. Vratite se na meni izgradnju i izgradite rudnik metala,pa opet rudnik kristala. Da bi mogli graditi brodove trebate imati prvo izgradeno brodogradilista.sto je potrebno za izgradnju to cete naci u lijevom izborniku tehnologije.Sybaron tim zeli vam puno zabave u istrazivanju svemira!';
 $LNG['newpass_smtp_email_error']	= '<br><br>Doslo je do pogreske. Vasa lozinka je: ';
 $LNG['reg_completed']				= 'Hvala Vam na registraciji! Primit cete e-mail s aktivacijskim linkom.';
 
@@ -108,163 +108,148 @@ $LNG['info']						= 'Informacije';
 $LNG['reg_closed']					= 'Registracija je zavrsila';
 
 //Rules
-$LNG['rules_overview']				= "Rules";
+$LNG['rules_overview']				= "Pravila";
 $LNG['rules']						= array(
-	"Accounts"					=> "Each player is allowed to control a single account. Each account is entitled to be played by a single player at a time, account sitting being the only exception.
-Account sitting entitles a given player to have his account watched over under the following regulations:
+	"Racuni"					=> "Cuvanje racuna je dozvoljeno samo pod sljedecim uvjetima:
 
-- Am admin must be informed before the sitting takes place, by opening a ticket.
-- No Fleet movements are allowed while the account is being sat unless an attack that may raid or crash the account is incoming, in which case you may save your fleet(s) by deploying or transporting to a planet or to a moon owned by the account being sat. You may not ninja an incoming attack in cases where you would need to move a fleet for it.
-- An account may only be sat for a maximum period of 48 continuous hours (admin permission needs to be obtained in cases where a time extension is needed).
-The sitter may, on the account being sat and while the sitting period lasts:
+    * Svaki se racun moze cuvati najduze 48 sati
+    * Morate obavjestiti Administratora o cuvanju
+    * Kada se cuva racun, dozvoljeno je koristiti resurse samo lokalno, znaci ono sto je na planeti mozete trositi na gradnju ili unaprijedivanje gradevina. Nije dozvoljeno transportirati resurse izmedu planeta (mjeseca) onome tko cuva racun
+    * Prije sljedeceg cuvanja, vlasnik se MORA ponovo ulogirati. Isti igraci nemogu stalno cuvati iste racune (znaci ako ste danas cuvali nekome racun, sljedeci put to mora raditi netko drugi)
+    * Kada se vlasnik ponovo ulogira, mora proci minimalno 7 dana do mogucnosti za novo cuvanje koje nesmije napraviti osoba koja je zadnja cuvala racun
+    * Nakon sto je cuvaru istekao period cuvanja, on sljedecih 7 dana nesmije cuvati nijedan drugi racun 
 
-- Spend Resources on buildings or researches.
-- Fleetsave any ship that imminently endangered by an incoming attacking fleet, only with a deployment or transport mission to one of the accounts own planets.
-- Place an account into vacation mode.
+Nije dozvoljeno
 
-The sitter may not:
-
-- Transport resources, neither between planets/moons of the account being sat, nor to any other planet/moon.
-- Spend Resources on defensive structures or ships.
-- Sit an account if he sat another one within the previous 7 days.
-- Sit an account that was sat within the previous 7 days.
-- Remove an account from vacation mode.",
+    * Nikakvo pokretanje flote nije dozvoljeno dok se cuva racun, jedino je dozvoljen Fleetsave, ali samo ako je netko napao dok je cuvan racun. Fleetsave je dozvoljen samo na vlasnikove planete ili mjesece
+    * Od trenutka kada je najavljno cuvanje, samo se cuvar smije logirati, ako se ulogira vlasnik, smatra se da je cuvanje zavrseno
+    * Nije dozvoljeno da vise igraca cuva jedan racun tijekom perioda cuvanja.
+    * Slanje resursa ili napadanje samog sebe za vrijeme cuanja tudeg accounta rezultirati ce trajnim banom.
+    * Aktivno koristenje cuvanog racuna (spijuniranje i/ili falangiranje) rezultirati ce brisanjem racuna ",
 
 
-	"Pushing"					=> "It is not allowed for any account to obtain unfair profit out of a lower ranked account in a matter of resources.
-This includes but is not limited to:
+	"Pushing"					=> "    *  Pushing je zabranjen i za njega ide trajni ban.
+    * Kada nize rangirani igrac salje resurse vise rangiranom igracu
+    * Takoder kada slabije rangirani igrac salje resurse vise rangiranom pod ucjenom napada
+    * Kada neocekivano primite resurse od nize rangiranog igraca, ne mozete ih zadrzati, vec ih morate vratiti
+    * Posudba nije dozvoljena
+    * Trgovina mora biti zavrsena unutar 48 sati.
+	*Trgovina je sljedecem omjeru.3:2:1 gdje svaka jedinica deuterija vrijedi 2 jedinice kristala i 3 jedinice metala.2:1:1 gdje svaka jedinica deuterija vrijedi 1 jedinicu kristala i 2 jedinice metala.",
 
-- Resources sent from a lower ranked account to a higher ranked one with nothing tangible in return.
-- A player crashing his fleet into a higher ranked one for the higher ranked one to keep the Debris Field, and thus profiting from it.
-- Loans that are not returned within 48 hours.
-- Trades in which the higher ranked player does not return the resources within 48 hours.
-- Players answering to a higher ranked player extortion by paying resources.
-- Trades that mean an unfair profit to the higher ranked player by falling outside the following range of ratios:
+	"Bashing"					=> "Maksimalno je dozvoljeno po 6 napada na svaku od planeta ili mjeseca istog igraca u roku od 24 sata.
 
-3:2:1 Where each unit of deuterium is worth 2 units of crystal or 3 units of metal.
-
-2:1:1 Where each unit of deuterium is worth 1 unit of crystal or 2 units of metal.
-",
-
-	"Bashing"					=> "It is not allowed to attack any given planet or moon owned by a player over 6 times in a single 24 hours period.
-
-Bashing is only allowed when your Alliance is at war with another Alliance. The war must be announced in the forum and both leaders must agree to the terms.",
+Bashing je dozvoljen kada su 2 Saveza u ratu.Rat mora biti objavljena na forumu i oba lidera moraju pristati na uvjete.",
 
 	
-	"Bugusing"					=> "Using a bug for anyones profit intentionally or not reporting a bug intentionally is strictly forbidden.",
+	"Bugusing"					=> "Iskoristavanja bugova nije dozvoljeno.",
 
 
-	"Real life threats"	=> "Implying that you are going to locate and harm another player, is forbidden.",
+	"Prijetnje u stvarnom zivotu"	=> "Bilo kakva prijetnja koja je povezana sa stvarnim zivotom biti ce najstroze sankcionirana.",
 
-	"Spam"			=> "Any situation intended to saturate a players interface through any method is forbidden. This includes but is not limited to:
+	"Spam i uvrede"			=> "Spam, uvrede, nacionalizam, politika nisu dozvoljeni
+Politicki provokativni nickovi ili imena saveza nisu dozvoljeni
+Moralno opasni, pornografski, nacionalno uvrijedljivi, politicki ustrojeni nickovi, savezna imena, slike saveza, postovi i provokacije nisu dozvoljene.
+Igra ne sluzi kao politicka platforma!!! Tim uzima sebi za pravo da odlucuje nad svakom slucaju",
 
-- Personal Messages spam
-- Probes spam
-- Overview spam",
+  "Ratovi"                    => "Savez moze objaviti rat drugom savezu tako da stavi post objave u vec ranije odredeno mjesto u diplomaciji na forumu. Suradnistvo izmedu saveza ili saveza i igraca je moguce ali ne treba biti posebno objavljeno.
 
-  "Wars"                    => "After the Leaders of the alliances both agree to the war, it is officially on. And will continue until one of the alliances cancels it. To officially cancel the war they need to cancel the war pact from in-game, and announce it in the thread they started initially.
-While the war is on, the bashing rule between the alliances involved does not count. Meaning any members belonging to the alliances in said war can be attack an infinite amount of times with out punishment.
-If either alliance gives up and cancels the war, the bashing rule will take effect again, and any members breaking it after the war has ended with be punished with a 1 day ban, More if the degree of attack is extremely high.
+Rat znaci da se igraci mogu napadati bez bojazni da ce dobiti ban za bashing.
 
-If the opposing alliance has a fleet in flight. And the war is canceled before they arrive. They will NOT be punished for that attack. But any fleet sent after the war cancellation will count toward the bashing rule.
+Nakon 12 sati od objave rata se ukida pravilo o bashingu, time dopustajuci da se upozore svi igraci o ratu.
 
-
-For New Wars one of the leaders need to create a new thread in the war/diplomacy section.
-There they can set any specific rules or terms, they want for the war. Any rules set in place, and are agreed to by the opposing alliance must be fallowed, and must not contradict any rules set here.",                          
+Ako jedan igrac napusti savez, rat se vise ne odnosi na njega i stupaju na snagu normalna pravila o bashingu.",                          
 
 );
 
 $LNG['rules_info1']				= "";
-$LNG['rules_info2']				= "To complement this, the <a onclick=\"ajax('?page=agb&getajax=1');\" style=\"cursor:pointer;\">T&C</a> are considered and followed!</font>";
+$LNG['rules_info2']				= "Kako bi upotpunili ovaj <a onclick=\"ajax('?page=agb&getajax=1');\" style=\"cursor:pointer;\">Uslovi i odredbe</a> are considered and followed!</font>";
 
 
 //AGB
 
-$LNG['agb_overview']				= "Terms and Conditions";
+$LNG['agb_overview']				= "Uslovi i odredbe";
 $LNG['agb']						= array(
-	"Service content"				=> array( 
-		"The recognition of the Policies are necessary prerequisite to be able to participate in the game.
-They apply to all offers on the part of operators, including the Forum and other Game-content.",
-		
-		"The service is free.
-Thus there are no claims to the availability, delivery, functionality, or damages.
-Furthermore, the player has no claims to restore, account should have been adversely treated.",
+	"Usluga sadrzaja"				=> array( 
+		"Ovo je nuzan preduvjet da bi mogli sudjelovati u igri.
+On se primjenjuje na forum i igru. "
+
+"Usluga je besplatna.
+Stoga ne postoje prava na dostupnost, dostavu, funkcionalnost, odnosno povrat nastale stete.
+Nadalje, igrac nema prava na povrat racuna ako je prekrsio uslove i odredbe.",
 	),
 
-	"Membership"				=> array(
-		"By logging on in the game and / or the Forum membership will start in the game.",
-		
-		"Which begins with the declaration Membership may be terminated on the part of the member by deleting the account or by letter of an administrator.
-The erasure of data for technical reasons can not be made immediately.",
-		
-		"Terminated by the operator No user has any right to participate in tenders of the operator.
-The operator reserves the right to delete accounts.
-The decision to delete an account is solely and exclusively to the operator and administrator and operator.
-Any legal claim to a membership is excluded.",
-		
-		"All rights remain with the operator.",
+	"Clanstvo"				=> array(
+		"Registriranjem u igru ili na forum pocinje clanstvo. "
+
+"Clanstvo moze prestati brisanjem racuna ili pismom administratora.
+Brisanje podataka iz tehnickih razloga ne mogu napraviti odmah. "
+
+"Prekinut od strane Administratora korisnici nemaju pravo sudjelovanja u natjecajima za operatora.
+Administrator zadrzava pravo brisanja racuna.
+Odluka za brisanje racuna je samo i iskljucivo na administratoru.",
 	),
 
-	"Contents / Responsibility"	=> "For the content of the various game-communications capabilities, users are responsible. Pornographic, racist, abusive or otherwise violates applicable law contrary content outside the responsibility of the operator.
-Violations can lead to immediate cancellation or revocation.",
+	"Sadrzaj / Odgovornost"	=> "Za razni ostali sadrzaj, korisnici su sami odgovorni. Pornografski, rasisticki, uvredljiv ili neki drugi nacin koji krsi vazeci zakon u suprotnosti sadrzaja izvan su odgovornosti administratora.
+Krsenje moze dovesti do brisanja racuna.",
 
-	"Prohibited procedures"			=> array(
-		"The user is not authorized to use hardware / software or other substances or mechanisms associated with the web site, which can interfere with the function and the game.
-The user may not continue to take any action that may cause undue stress or increased technical capacity.
-The user is not allowed to manipulate content generated by the operator or interfere in any way with the game.",
+	"Zabranjeni postupci"			=> array(
+		"Korisnik nije ovlasten koristiti hardware / software ili druge tvari ili mehanizme povezane s web-stranicom, sto moze utjecati na funkciju i igru.
+Korisnik ne moze nastaviti poduzimati nikakve radnje koje mogu uzrokovati stres ili nepotrebno povecanu tehnicku sposobnost.
+Korisnik ne smije manipulirati sadrzajem generiran od strane operatora ili na bilo koji nacin mijesati istog u igru.",
 		
-		"Any type of bot, script or other automated features are prohibited.
-The game can be played only in the browser. Even its functions should not be used to gain an advantage in the game.
-Thus, no advertising shall be blocked. The decision of when a software is beneficial for the players, lies solely with the operator / with the administrators / operators.",
+		"Bilo koja vrsta bot,skripte ili drugih automatiziranih obiljezja su zabranjena.
+Igra se moze igrati samo u pregledniku. Cak i njegove funkcija ne bi trebalo koristiti da dobijete prednost u igri.
+Dakle,reklama ce biti blokirana. Odluka kada je softver koristan za igrace i smije li se koristiti,lezi iskljucivo na odluci administratora .",
 		
 	
 	),
 
-	"Restrictions on Use"		=> array(
-		"A player may only use each one account per universe, so-called \ Multinationals \ are not allowed and will be deleted without warning can / will be locked.
-The decision of when there is a \ multi \ lies solely with the operator / administrators / operators.",
+	"Ogranicenja koristenja"		=> array(
+		"Igrac moze koristiti samo jedan racun po svemiru, takozvani \ Multiaccount \ nije dozvoljen te ce biti izbrisani bez upozorenja.
+Odluka kada postoji \ multi \ lezi iskljucivo na odluci administratora (igranje sa iste IP).",
 		
-		"Particulars shall be governed by the rules.",
+		"Pojedinosti ce se voditi prema pravilima.",
 		
-		"Lockouts can permanently at the discretion of the operator or temporary.
-Similarly, closures may extend to one or all play areas.
-The decision will be suspended when and how long a player who is only with the operator / with the administrators / operators.",
+		"Lockouts opciju moze trajno ili po vlastitom nahodenju privremeno ili stalno napraviti jedino administrator.
+Slicno tome,lockouts moze se prosiriti na jednu ili sva raspoloziva podrucja u igri.
+Odluka ce biti obustavljena kada i koliko dugo treba za provjeru igraca od strane administratora
+Napomena,administrator moze pojedinom igracu zabraniti pristup npr.pregledu galaksije idr.",
 	),
 
-	"Privacy"					=> array(
-		"The operator reserves the right to store data of the players in order to monitor compliance with the rules, terms of use and applicable law.
-Filed all required and submitted by the player or his / her account information.
-These (IPs are associated with periods of use and usage, the email address given during registration and other data.
-In the forum, made there in the profile are stored.",
-		
-		"This data will be released under certain circumstances to carry out statutory duties to clerks and other authorized persons.
-Furthermore, data can (if need be issued) under certain circumstances to third parties.",
-		
-		"The user can object to the storage of personal data at any time. An appeal is a termination right.",
+	"Privatnost"					=> array(
+		"Administrator zadrzava pravo za pohranu podataka od igraca kako bi se pratilo pridrzavanje pravila, uvjete koristenja i mjerodavno pravo.
+Varalica sve potrebne i podnesena od strane igraca ili njegov racun.
+Ovi (IP povezane s razdobljima uporabe i koristenja, e-mail adresu dati tijekom registracije i drugih podataka.
+Na forumu i u profilu su pohranjene. "
+
+"Ovi podaci ce biti iskoristeni pod odredenim okolnostima za provodenje zakonom propisane duznosti sluzbenika i drugih ovlastenih osoba.
+Nadalje, podaci se mogu (ako treba izdati) pod odredenim okolnostima trecim osobama. "
+
+"Korisnici mogu prigovoriti pohrani osobnih podataka u bilo koje vrijeme. zalba je prestanak ovih prava.",
 	),
 
-	"Rights of the operator of the Accounts"	=> array(
-		"All accounts and all the virtual objects remain in the possession and ownership of the operator.
-The player does not obtain ownership and other rights to any account or parts.
-All rights remain with the operator.
-A transfer of exploitation or other rights to the user will take place at any time.",
+	"Prava administratorskog racuna"	=> array(
+		"Svi racuni i sve virtualne objekte ostaju u posjedu i vlasnistvu administratora.
+Igrac ne stjece vlasnistvo i druga prava na bilo koji racun ili dijelove.
+Sva prava ostaju s administratorom.
+Prijenos eksploatacije ili drugih prava na korisnika ce se odrzati u bilo koje vrijeme.",
 		
-		"Unauthorized sale, use, copy, distribute, reproduce or otherwise violate the rights (eg on account) of the operator will be reported to authorities and prosecuted.
-Expressly permitted is the free, permanent transfer of the account and the actions of their own resources in the universe, unless and except as permitted by the rules.",
+		"Neovlastena prodaja, koristenje, kopiranje, distribuiranje, reproduciranje ili na drugi nacin krsenje prava (npr. na racunu) od administratora ce biti prijavljeni vlastima na procesuiranje.
+Dozvoljena je sve sto je dopusteno u pravilima.",
 	),
 
-	"Liability"	=> "The operator of each universe is not liable for any damages.
-A liability is excluded except for damage caused by intent or gross negligence and all damage to life and health.
-In this regard, is expressly pointed out that computer games can pose significant health risks.
-Damages are not within the meaning of the operator.",
+	"Odgovornost"	=> "Administrator nije odgovoran za bilo kakvu stetu.
+Odgovornost je iskljucena, osim za stete uzrokovane namjerom ili grubom nepaznjom i sve stete za zivot i zdravlje.
+U tom smislu, izricito je naglasio da racunalne igre mogu predstavljati znacajan rizik za zdravlje.
+stete nisu u smislu od strane administratora.",
 
-	"Changes to Terms"	=> "The operator reserves the right to modify these terms at any time or extend.
-A change or addition will be published at least one week before the entry in Forum.",
+	"Izmjene Uvjeta"	=> "Administrator zadrzava pravo izmjene ovih uvjeta u bilo koje vrijeme ili produljenje.
+Osim toga promijene  ce biti objavljene najkasnije tjedan dana prije stupanja na forumu.",
 );
 
 //Facebook Connect
 
-$LNG['fb_perm']                = 'Pristup zabranjen. %s možete se prijaviti sa svojim Facebook korisnickim racunom. \n možete se prijaviti bez Facebook racuna!';
+$LNG['fb_perm']                = 'Pristup zabranjen. %s mozete se prijaviti sa svojim Facebook korisnickim racunom. \n mozete se prijaviti bez Facebook racuna!';
 
 //NEWS
 

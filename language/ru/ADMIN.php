@@ -284,9 +284,11 @@ $LNG['se_lang']                        = 'Язык';
 $LNG['se_general_speed']               = 'Скорость игры';
 $LNG['se_normal_speed']                = 'Нормальная скорость игры: 1 <br> Рекомендованная максимальная скорость: 20';
 $LNG['se_normal_speed_resoruces']      = 'Нормальная скорость продукции: 1 <br> Рекомендованная максимальная скорость: 20';
-$LNG['se_normal_speed_fleett']         = 'Нормальная скорость флота: 1 <br> Рекомендованная максимальная скорость: 20';
+$LNG['se_normal_speed_fleet']          = 'Нормальная скорость флота: 1 <br> Рекомендованная максимальная скорость: 20';
+$LNG['se_normal_speed_halt']           = 'Нормальная скорость экспедиции: 1 <br> Рекомендованная максимальная скорость: 20';
 $LNG['se_fleet_speed']                 = 'Скорость флота';
 $LNG['se_resources_producion_speed']   = 'Скорость продукции';
+$LNG['se_halt_speed']                  = 'Скорость экспедиции';
 $LNG['se_forum_link']                  = 'Форум';
 $LNG['se_server_op_close']             = 'Сервер онлайн';
 $LNG['se_server_status_message']       = 'Причина отключения';
@@ -771,9 +773,9 @@ $LNG['po_delete_moon']                 = 'Удалить луну';
 // Тех. поддержка
 $LNG['sp_admin_answer']                = '%s (Админ) ответил в %s<br><br><font color="red">%s</font>';
 $LNG['sp_answer_message_title']        = 'Заявка #%d';
-$LNG['sp_answer_message']              = 'На Вашу заявку #%d был дан ответ!';
-$LNG['sp_admin_closed']                = '%s (Админ) закрыл заявку %s!';
-$LNG['sp_admin_open']                  = '%s (Админ) открыл заявку %s!';
+$LNG['sp_answer_message']              = 'На Вашу заявку #%d был дан ответ. Ответ смотрите в меню Тех. поддержка.';
+$LNG['sp_admin_closed']                = '%s (Админ) открыл заявку %s!';
+$LNG['sp_admin_open']                  = '%s (Админ) закрыл заявку %s!';
 
 // Быстрый редактор
 $LNG['qe_send']                        = 'Отправить';
@@ -860,15 +862,12 @@ $LNG['modul'][26]                      = 'Поиск';
 $LNG['modul'][27]                      = 'Техническая поддержка';
 $LNG['modul'][28]                      = 'Технологии';
 
-$LNG['ative']                          = 'Включён';
-$LNG['deative']                        = 'Отключён';
-
-$LNG['mod_module'] 						= 'Модули';
-$LNG['mod_info'] 						= 'Модули игры';
-$LNG['mod_active'] 						= 'Включён';
+$LNG['mod_module']						= 'Модули';
+$LNG['mod_info']						= 'Модули игры<br><font color="red">Только администраторы могут изменять состояние модулей!</font>';
+$LNG['mod_active']						= 'Включён';
 $LNG['mod_deactive']					= 'Отключён';
-$LNG['mod_change_active'] 				= 'Активирован';
-$LNG['mod_change_deactive'] 			= 'Деактивирован';
+$LNG['mod_change_active']				= 'Включить';
+$LNG['mod_change_deactive']				= 'Отключить';
 
 // Новости
 $LNG['nws_news']                       = 'Новости';

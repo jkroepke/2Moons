@@ -1,21 +1,21 @@
 <?php
 
-$LNG['continue']			= "Continue";
+$LNG['continue']			= "Nastavi";
 
 $LNG['menu_intro']			= "Intro";
-$LNG['menu_install']		= "Install";
-$LNG['menu_license']		= "License";
-$LNG['menu_upgrade']		= "Upgrade";
+$LNG['menu_install']		= "Instalacija";
+$LNG['menu_license']		= "Licenca";
+$LNG['menu_upgrade']		= "Nadogradnja";
 
-$LNG['intro_lang']			= "Language";
-$LNG['intro_instal']		= "Installation";
-$LNG['intro_welcome']		= "Welcome to 2Moons!";
-$LNG['intro_text']			= "2Moons is one of the best oGame clones.<br>2Moons is the best in development. 2Moons features stability, flexibility, dynamic structure, quality and usability. We hope to always exceed your expecttions.<br><br>The installation system guides you through the install or upgrade from an older version to the latest. On questions or trouble don't hesitate to contact us.<br><br>2Moons is an open source project licensed under the GNU GPL v3. For the license please click on the item in the menu.<br><br>Before the installation starts, a test is conducted, if system requirements are met.";
+$LNG['intro_lang']			= "Jezik";
+$LNG['intro_instal']		= "Instaliraj";
+$LNG['intro_welcome']		= "Dobrodosli na 2Moons!";
+$LNG['intro_text']			= "2Moons je jedan od najboljih klonova ogame.<br>2Moons je najbolji u razvoju. 2Moons znacajke stabilnost, fleksibilnost, dinamicka struktura, kvalitete i upotrebljivosti. Nadamo se da uvijek premašili expecttions.<br><br>Instalacijski sustav vas vodi kroz instalaciju ili nadogradnju iz starije verzije na najnovije. Na pitanja ili teškoca ne ustrucavajte se kontaktirati nas.<br><br>2Moons je open source projekt licenciran pod GNU GPL v3. Za licencu kliknite na stavku u izborniku.<br><br>Prije instalacije pocinje, testiranje se provodi, ako su ispunjeni zahtjevi sustava.";
 
-$LNG['reg_yes']			= "Yes";
-$LNG['reg_no']				= "No";
-$LNG['reg_found']			= "Found";
-$LNG['reg_not_found']		= "Not found";
+$LNG['reg_yes']			= "Da";
+$LNG['reg_no']				= "Ne";
+$LNG['reg_found']			= "Pronadeno";
+$LNG['reg_not_found']		= "Nije pronadeno";
 $LNG['reg_writable']		= "Writable";
 $LNG['reg_not_writable']	= "Not writable";
 $LNG['reg_file']			= "File";
