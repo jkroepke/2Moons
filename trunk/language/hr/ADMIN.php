@@ -426,7 +426,7 @@ $LNG['se_google_key_info']				= 'Identify the key for their website. This always
 
 //---------------	MODERACI�N - MODERATION	------------------------//
 //	PERMISOS - PERMISSIONS
-  $LNG['mod_title']                = 'Admin powers';
+  $LNG['mod_title']                = 'Admin ovlasti';
 $LNG['mod_range']                = 'Rank';
 $LNG['mod_power_view']            = 'Power of observation';
 $LNG['mod_power_edit']            = 'Edit power';
