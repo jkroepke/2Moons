@@ -474,12 +474,12 @@ class ShowAlliancePage
 						if ($action == "send")
 						{
 							$r 		= request_var('r', 0);
-							$text 	= request_var('text', '', true);
+							$text 	= makebr(request_var('text', '', true));
 
 							if ($r == 0)
-								$sq = $db->query("SELECT id,username FROM ".USERS." WHERE ally_id='".$USER['ally_id']."';");
+								$sq = $db->query("SELECT id, username FROM ".USERS." WHERE ally_id = '".$USER['ally_id']."';");
 							else
-								$sq = $db->query("SELECT id,username FROM ".USERS." WHERE ally_id='".$USER['ally_id']."' AND ally_rank_id='".$db->sql_escape($r)."';");
+								$sq = $db->query("SELECT id, username FROM ".USERS." WHERE ally_id = '".$USER['ally_id']."' AND ally_rank_id='".$r."';");
 
 							$list = '';
 
