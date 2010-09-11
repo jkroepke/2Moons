@@ -84,7 +84,7 @@ $LNG['input_id_ally']		= '联盟号';
 
 //---------------	RECURSOS - RESOURCES - ROHSTOFFE	------------------------// 
 $LNG['resources_title']	        = '资源';
-$LNG['count_res']			= '商品编号';
+$LNG['count_res']			= '资源编号';
 //###########################################################//
 
 
@@ -93,7 +93,7 @@ $LNG['buildings_title']	= '建造';
 $LNG['ships_title']		= '舰队';
 $LNG['defenses_title']		= '防御';
 $LNG['researchs_title']	= '研究';
-$LNG['officiers_title']	= '雇佣兵';
+$LNG['officiers_title']	= '雇佣';
 //###########################################################//
 
 
@@ -110,39 +110,39 @@ $LNG['ad_editor_researchs']	= '研究';
 $LNG['ad_editor_officiers']	= '人员';
 $LNG['ad_editor_personal']		= '个人资料';
 $LNG['ad_editor_planets']		= '行星&月亮';
-$LNG['ad_editor_resources']	= '原料';
+$LNG['ad_editor_resources']	= '资源';
 $LNG['ad_editor_alliances']	= '联盟';
-$LNG['ad_editor_authlevels']	= '管理的权利';
+$LNG['ad_editor_authlevels']	= '管理的权限';
 
 //	INVESTIGACIONES - RESEARCHS - FORSCHUNGEN
-$LNG['ad_add_succes']		= '添加的研究成功';
-$LNG['ad_delete_succes']	= '删除的研究成功!';
+$LNG['ad_add_succes']		= '添加研究成功';
+$LNG['ad_delete_succes']	= '删除研究成功!';
 $LNG['ad_research_title']	= '研究过程';
 
 //	OFICIALES - OFFICIERS - OFFIZIERE
-$LNG['ad_offi_title']		= '人员编辑';
-$LNG['ad_offi_succes_add']	= '添加人员成功!';
-$LNG['ad_offi_succes_delete']	= '删除人员成功!';
+$LNG['ad_offi_title']		= '雇佣编辑';
+$LNG['ad_offi_succes_add']	= '添加雇佣成功!';
+$LNG['ad_offi_succes_delete']	= '删除雇佣成功!';
 
 //	RECURSOS - RESOURCES - ROHSTOFFE
-$LNG['ad_add_sucess']		= '添加原料成功!';
-$LNG['ad_delete_sucess']	= '删除成功!';
-$LNG['ad_main_title']		= '管理原材料和技术';
+$LNG['ad_add_sucess']		= '添加资源成功!';
+$LNG['ad_delete_sucess']	= '删除资源成功!';
+$LNG['ad_main_title']		= '管理资源和技术';
 
 //	NAVES - SHIPS - SCHIFFE
-$LNG['ad_ships_title']		= '船编辑';
-$LNG['ad_add_sucess_ships']	= '添加船被成功';
-$LNG['ad_delete_sucess_ships']	= '删除该船舶成功';
+$LNG['ad_ships_title']		= '舰队编辑';
+$LNG['ad_add_sucess_ships']	= '添加舰队被成功';
+$LNG['ad_delete_sucess_ships']	= '删除该舰队成功';
 
 //	DEFENSAS - DEFENSES - VERTEIDIGUNG
 $LNG['ad_defenses_title']		= '防御编辑';
-$LNG['ad_add_defenses_succes']		= '新增的抗辩成功';
-$LNG['ad_delete_defenses_succes']	= '删除的抗辩成功';
+$LNG['ad_add_defenses_succes']		= '新增防御成功';
+$LNG['ad_delete_defenses_succes']	= '删除防御成功';
 
 //	EDIFICIOS - BUILDINGS - GEBÄUDE
-$LNG['ad_buildings_title']	= '建设工作';
+$LNG['ad_buildings_title']	= '建设编辑';
 $LNG['ad_planet_id']		= 'ID 行星或月亮';
-$LNG['ad_levels']		= '步数';
+$LNG['ad_levels']		= '级别';
 $LNG['ad_count']			= '数';
 $LNG['ad_add_succes']		= '添加建设成功了！';
 $LNG['ad_delete_succes']	= '删除建设成功了！';
@@ -160,10 +160,10 @@ $LNG['ad_personal_vacat']		= '渡假模式';
 $LNG['ad_ally_title']		= '联盟编辑';
 $LNG['ad_ally_change_id']	= '联盟改变创始人';
 $LNG['ad_ally_name']		= '编辑姓名';
-$LNG['ad_ally_tag']		= '编辑联盟TAG';
+$LNG['ad_ally_tag']		= '编辑简称';
 $LNG['ad_ally_text1']		= '联盟说明';
 $LNG['ad_ally_text2']		= '内部文字';
-$LNG['ad_ally_text3']		= '提交申请';
+$LNG['ad_ally_text3']		= '申请文字';
 $LNG['ad_ally_delete']		= '联盟删除';
 $LNG['ad_ally_delete_u']	= '删除用户';
 $LNG['ad_ally_user_id']	= '(输入姓名)';
@@ -179,8 +179,8 @@ $LNG['ad_pla_change_id']	= '变更所有者（用户ID）进入';
 $LNG['ad_pla_edit_diameter']	= '大小编辑';
 $LNG['ad_pla_edit_fields']	= '编辑字段';
 $LNG['ad_pla_delete_b']	= '所有建筑物删除';
-$LNG['ad_pla_delete_s']	= '所有船舶删除';
-$LNG['ad_pla_delete_d']	= '所有抗辩删除';
+$LNG['ad_pla_delete_s']	= '所有舰队删除';
+$LNG['ad_pla_delete_d']	= '所有防御删除';
 $LNG['ad_pla_delete_hd']	= '船厂和删除Verteidigunsanlagen Bauschleife';
 $LNG['ad_pla_delete_cb']	= 'Bauschleife删除';
 $LNG['ad_pla_delete_planet']	= '删除行星';
@@ -319,7 +319,7 @@ $LNG['ow_support']					= '支持';
 $LNG['ow_credits']					= '积分';
 $LNG['ow_forum']					= '论坛';
 $LNG['ow_proyect_leader']			= '项目';
-$LNG['ow_translator']				= '翻译';
+$LNG['ow_translator']				= '语言翻译';
 $LNG['ow_special_thanks']			= '特别感谢';
 $LNG['ow_install_file_detected']	= '/安装/目录找到。请重命名或删除它，以便保护游戏的安全';
 $LNG['ow_config_file_writable']	= '是beschreibabr的config.php。请更改config.php中请文件模式444（只读）。';
@@ -339,12 +339,14 @@ $LNG['se_general_speed']				= '游戏速度';
 $LNG['se_normal_speed']				= '正常游戏速度：1 <br>建议最大设置：20';
 $LNG['se_normal_speed_resoruces']		= '正常资源速度：1 <br>建议最大设置：20';
 $LNG['se_normal_speed_fleet']			= '正常舰队速度：1 <br>建议最大设置：20';
+$LNG['se_normal_speed_halt']   = '正常展览速度: 1 <br> 建议最大设置: 20'; 
 $LNG['se_fleet_speed']					= '舰队速度';
 $LNG['se_resources_producion_speed']	= '原始速度';
+$LNG['se_halt_speed']    = '展览速度'; 
 $LNG['se_forum_link']					= '论坛连接';
 $LNG['se_server_op_close']				= '开放游戏';
 $LNG['se_server_status_message']		= '关闭的原因';
-$LNG['se_server_planet_parameters']	= 'Planteneinstellungen';
+$LNG['se_server_planet_parameters']	= '星球设置';
 $LNG['se_initial_fields']				= '空间大小:';
 $LNG['se_fields']						= '数值';
 $LNG['se_per_hour']					= '每小时';
@@ -366,9 +368,9 @@ $LNG['se_ships_cdr']			        = '舰队的TF';
 $LNG['se_def_cdr_message']				= '被摧毁Veteidigung在TF的百分之去。';
 $LNG['se_ships_cdr_message']			= '被摧毁的机队，在TF是百分比。';
 $LNG['se_noob_protect']				= '新手保护';
-$LNG['se_noob_protect2']				= '新手保护点到x';
-$LNG['se_noob_protect3']				= 'Noobschutzfaktor';
-$LNG['se_noob_protect_e2']				= '直至这个分数是新手玩家的积极保护';
+$LNG['se_noob_protect2']				= '新手保护积分';
+$LNG['se_noob_protect3']				= '新手保护条件';
+$LNG['se_noob_protect_e2']				= '该分数一下为新手保护';
 $LNG['se_noob_protect_e3']				= '点击这里查看更多的信息';
 $LNG['se_recaptcha_whats']				= '什么是验证码的？';
 $LNG['se_recaptcha_head']				= '验证码的 - 设置';
@@ -377,7 +379,7 @@ $LNG['se_recaptcha_public']			='公共密钥';
 $LNG['se_recaptcha_private']			= '私人密码匙：';
 $LNG['se_recaptcha_active']			= '验证码的启用';
 $LNG['se_reg_closed']					= '注册包括';
-$LNG['se_min_build_time']				= '最小建设';
+$LNG['se_min_build_time']				= '最小建设时间，当设置为1时，不管技术多高，也需要1秒时间建设。';
 $LNG['se_min_build_time_info']			= '在这里，您投入了大量的建筑施工，船队和研究最低，国防。这是默认情况下设置为1秒。<br>如果这里是进入了一个零，这将被停用<br> <font color=orange>时出现错误，这是停用</font>';
 $LNG['se_news_head']					= '新闻设置';
 $LNG['se_news_active']					= '新闻启用';
@@ -436,7 +438,7 @@ $LNG['ad_authlevel_error_2'] ='选择只有一个玩家';
 $LNG['ad_authlevel_error_3'] ='你不能改变创作者的职级'; 
 $LNG['ad_authlevel_insert_id'] ='输入一个ID（可选）：'; 
 $LNG['ad_authlevel_aa'] ='[查看管理]'; 
-$LNG['ad_authlevel_oo'] ='[见经营]'; 
+$LNG['ad_authlevel_oo'] ='[见运营]'; 
 $LNG['ad_authlevel_mm'] ='[见Moderratoren]'; 
 $LNG['ad_authlevel_jj'] ='[查看玩家]'; 
 $LNG['ad_authlevel_tt'] ='[显示全部]'; 
@@ -458,8 +460,8 @@ $LNG['ff_arrival_hour'] ='到达时间';
 $LNG['ff_go_back_now'] ='返回'; 
 $LNG['ff_delete_succes'] ='飞行成功删除'; 
 $LNG['ff_goback_succes'] ='现在的飞行回到它的原行星'; 
-$LNG['ff_lock']					= "锁";
-$LNG['ff_unlock']				= "开锁";
+$LNG['ff_lock']					= "正常";
+$LNG['ff_unlock']				= "错误";
 $LNG['ff_no_fleets']			= "目前，有没有舰队在活动。";
 
 //###########################################################//
@@ -493,12 +495,12 @@ $LNG ['mu_ban_options'] ='拉黑面板';
 $LNG ['mu_moon_options'] ='月亮管理'; 
 $LNG ['mu_observation'] ='数据管理'; 
 $LNG ['mu_flying_fleets'] ='活动舰队'; 
-$LNG ['mu_user_list'] ='球员名单'; 
+$LNG ['mu_user_list'] ='玩家列表'; 
 $LNG ['mu_moon_list'] ='月亮列表'; 
 $LNG ['mu_mess_list'] ='邮件列表'; 
 $LNG ['mu_planet_list'] ='地球列表'; 
 $LNG ['mu_error_list'] ='数据库错误'; 
-$LNG ['mu_active_planets'] ='主动行星'; 
+$LNG ['mu_active_planets'] ='活动星球'; 
 $LNG ['mu_tools'] ='工具'; 
 $LNG ['mu_md5_encripter'] ='MD5加密工具'; 
 $LNG ['mu_optimize_db'] ='数据库'; 
@@ -517,8 +519,8 @@ $LNG ['mu_fb_options'] ='Facebook的连接';
 $LNG ['mu_ts_options'] ='使用TeamSpeak选项'; 
 $LNG ['mu_game_info'] ='信息'; 
 $LNG ['mu_vaild_users'] ='用户活动'; 
-$LNG ['mu_news'] ='新闻'; 
-$LNG['mu_mod_update']              	= '国防部版本控制';
+$LNG ['mu_news'] ='外部新闻'; 
+$LNG['mu_mod_update']              	= '官方版本控制';
 //###########################################################//
 
 
@@ -687,18 +689,18 @@ $LNG ['se_search_title'] ='高级';
 $LNG ['se_order_list_now'] ='搜索顺序'; 
 $LNG ['se_input_name'] ='姓名'; 
 $LNG ['se_input_g'] ='银河'; 
-$LNG ['se_input_s'] ='系统'; 
+$LNG ['se_input_s'] ='星系'; 
 $LNG ['se_input_p'] ='行星'; 
 $LNG ['se_input_inacti'] ='无为'; 
-$LNG ['se_input_submit'] ='订购'; 
-$LNG ['se_input_authlevel'] ='监督'; 
+$LNG ['se_input_submit'] ='提交'; 
+$LNG ['se_input_authlevel'] ='权限'; 
 $LNG ['se_input_email'] ='电子邮件'; 
 $LNG ['se_input_time'] ='时'; 
 $LNG ['se_input_longer'] ='时间'; 
-$LNG ['se_input_authlevel'] ='监督'; 
+$LNG ['se_input_authlevel'] ='权限'; 
 $LNG ['se_input_prop'] ='所有者'; 
-$LNG ['se_input_asc'] ='优势'; 
-$LNG ['se_input_desc'] ='后裔'; 
+$LNG ['se_input_asc'] ='强者'; 
+$LNG ['se_input_desc'] ='弱者'; 
 $LNG ['se_input_activity'] ='活动'; 
 $LNG ['se_input_register'] ='注册'; 
 $LNG ['se_input_members'] ='成员数量'; 
@@ -730,7 +732,7 @@ $LNG ['se__next'] ='下一步';
 $LNG ['se__before'] ='回'; 
 $LNG ['se_search_info'] ='搜寻'; 
 $LNG ['se_asc_desc'] ='升序/降序'; 
-$LNG ['se_search_order'] ='订购'; 
+$LNG ['se_search_order'] ='项目'; 
 $LNG ['se_search_edit'] ='编辑'; 
 $LNG ['se_delete_succes_p'] ='删除成功！'; 
 $LNG ['se_confirm_planet'] ='选择的行星将完全被删除，要么主要还是一个殖民地的星球，你要继续吗？。行星名称：'; 
@@ -745,7 +747,7 @@ $LNG['se_search_users'][2]	=	'E-mail';
 $LNG['se_search_users'][3]	=	'最后一次活动';
 $LNG['se_search_users'][4]	=	'登记日期';
 $LNG['se_search_users'][5]	=	'最后一个 IP';
-$LNG['se_search_users'][6]	=	'监督';
+$LNG['se_search_users'][6]	=	'权限';
 $LNG['se_search_users'][7]	=	'暂停?';
 $LNG['se_search_users'][8]	=	'休假?';
 
@@ -755,7 +757,7 @@ $LNG['se_search_planets'][1]	=	$SE_NAME;
 $LNG['se_search_planets'][2]	=	"所有者";
 $LNG['se_search_planets'][3]	=	"上次活动";
 $LNG['se_search_planets'][4]	=	"银河";
-$LNG['se_search_planets'][5]	=	"系统";
+$LNG['se_search_planets'][5]	=	"星系";
 $LNG['se_search_planets'][6]	=	"行星";
 $LNG['se_search_planets'][7]	=	"有月球?";
 
@@ -807,7 +809,7 @@ $LNG ['new_name'] ='姓名';
 
 //	CREADOR DE PLANETAS - PLANETS MAKER
 $LNG['po_galaxy']				=	'银河';
-$LNG['po_system']				=	'太阳系';
+$LNG['po_system']				=	'星系';
 $LNG['po_planet']				=	'行星';
 $LNG['po_colony']				=	'殖民地';
 $LNG['po_fields_max']				=	'字段';
@@ -870,19 +872,19 @@ $LNG['qe_temp']						= '温度';
 //----------------------------------------------------------------------------//
 
 // ChatPage.php
-$LNG['ch_title']                       = '行政聊天';
-$LNG['ch_list']                        = "消息盒子";
+$LNG['ch_title']                       = '聊天';
+$LNG['ch_list']                        = "消息列表";
 $LNG['ch_clear']                       = "删除聊天";
 $LNG['ch_id_msg']                      = "ID";
 $LNG['ch_delete_msg']                  = "删除";
-$LNG['ch_user']                        = "播放器";
+$LNG['ch_user']                        = "玩家";
 $LNG['ch_time']                        = "日期";
 $LNG['ch_nbs']                         = "新闻...";  
 
 //----------------------------------------------------------------------------//
 //TeamSpeakSettingPage.php
 $LNG['ts_settings']					= 'teamspeak设置';
-$LNG['ts_active']						= '使用TeamSpeak国防部启用';
+$LNG['ts_active']						= '使用TeamSpeak启用';
 $LNG['ts_version']						= '服务器版本:';
 $LNG['ts_udpport']						= 'TCP 端口';
 $LNG['ts_tcpport']						= 'UDP 端口';

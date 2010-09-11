@@ -53,40 +53,40 @@ $LNG['tn_delete_mode']						= '您在我们 %s 已删除的账户！';
 
 //----------------------------------------------------------------------------//
 //LEFT MENU
-$LNG['lm_overview']						= '概况';
+$LNG['lm_overview']						= '星际概况';
 $LNG['lm_galaxy']							= '星系(坐标)';
-$LNG['lm_empire']							= '帝国';
-$LNG['lm_fleet']							= '舰队';
-$LNG['lm_buildings']						= '大厦';
-$LNG['lm_research']						= '研究';
-$LNG['lm_shipshard']						= '船厂';
-$LNG['lm_defenses']						= '防御';
-$LNG['lm_resources']						= '资源';
-$LNG['lm_officiers']						= '雇佣';
-$LNG['lm_trader']							= '商贸';
-$LNG['lm_technology']						= '科技';
-$LNG['lm_messages']						= '邮件';
-$LNG['lm_alliance']						= '联盟';
-$LNG['lm_buddylist']						= '好友';
-$LNG['lm_notes']							= '笔记';
-$LNG['lm_statistics']						= '排名';
-$LNG['lm_search']							= '搜索';
-$LNG['lm_options']							= '设置';
-$LNG['lm_banned']							= '封禁';
+$LNG['lm_empire']							= '帝国统治';
+$LNG['lm_fleet']							= '星际舰队';
+$LNG['lm_buildings']						= '大厦(建设)';
+$LNG['lm_research']						= '研究科技';
+$LNG['lm_shipshard']						= '星际船厂';
+$LNG['lm_defenses']						= '防御工事';
+$LNG['lm_resources']						= '资源开采';
+$LNG['lm_officiers']						= '雇佣军官';
+$LNG['lm_trader']							= '星痕商贸';
+$LNG['lm_technology']						= '科技发展';
+$LNG['lm_messages']						= '消息邮件';
+$LNG['lm_alliance']						= '星际联盟';
+$LNG['lm_buddylist']						= '友好帝国';
+$LNG['lm_notes']							= '星痕笔记';
+$LNG['lm_statistics']						= '排名(积分)';
+$LNG['lm_search']							= '星痕搜索';
+$LNG['lm_options']							= '系统设置';
+$LNG['lm_banned']							= '监狱(封号)';
 $LNG['lm_contact']							= '联系';
-$LNG['lm_forums']							= '论坛';
+$LNG['lm_forums']							= '官方论坛';
 $LNG['lm_logout']							= '安全退出(注销)';
 $LNG['lm_administration']					= '管理';
 $LNG['lm_game_speed']						= '游戏';
 $LNG['lm_fleet_speed']						= '舰队';
 $LNG['lm_resources_speed']					= '资源';
 $LNG['lm_queue']							= '排名';
-$LNG['lm_topkb']							= '名人堂';
-$LNG['lm_faq']								= '帮助';
-$LNG['lm_records']							= '记录';
-$LNG['lm_chat']							= '聊天';
+$LNG['lm_topkb']							= '重大战役';
+$LNG['lm_faq']								= '帮助&FAQ';
+$LNG['lm_records']							= '宇宙记录';
+$LNG['lm_chat']							= '国王聊天';
 $LNG['lm_support']							= '客服(BUG)';
-$LNG['lm_rules']							= '规则';
+$LNG['lm_rules']							= '星痕规则';
 $LNG['lm_battlesim']						= "战斗模拟器";
 
 //----------------------------------------------------------------------------//
@@ -99,7 +99,7 @@ $LNG['ov_principal_planet_cant_abanone']	= '不能遗弃自己的主星!';
 $LNG['ov_abandon_planet_not_possible']		= '殖民地不能放弃！可能您的舰队正在活动。';
 $LNG['ov_wrong_pass']						= '不正确的密码。请再试一次！';
 $LNG['ov_have_new_message']				= '你有一个新邮件！（点击查看）';
-$LNG['ov_have_new_messages']				= '你有 %d 条新信息';
+$LNG['ov_have_new_messages']				= '你有 %d 条新信息（点击阅读）！！';
 $LNG['ov_planetmenu']						= '星球更名/遗弃';
 $LNG['ov_free']							= '空闲';
 $LNG['ov_news']							= '新闻';
@@ -133,7 +133,7 @@ $LNG['ov_developed_fields']                = '开放的领域';
 $LNG['ov_max_developed_fields']			= '最大. 发展的领域';
 $LNG['ov_fleet']							= '舰队';
 $LNG['ov_admins_online']					= '管理员(在线):';
-$LNG['ov_no_admins_online']				= '管理员不在线!';
+$LNG['ov_no_admins_online']				= '管理员不在线,有问题请到论坛交流!';
 $LNG['ov_userbanner']						= '统计旗帜';
 $LNG['ov_userrank_info']					= '%s (%s <a href="game.php?page=statistics&amp;range=%d">%d</a> %s %s)';
 $LNG['ov_teamspeak_not_online']			= '目前没有可用的服务器。我们希望您能够理解.';
@@ -152,10 +152,10 @@ $LNG['gl_vacation']						= '度假模式';
 $LNG['gl_banned']							= '锁定';
 $LNG['gl_inactive_seven']					= '7 天无效';
 $LNG['gl_inactive_twentyeight']			= '28 天空闲';
-$LNG['gl_s']								= 's';
-$LNG['gl_w']								= 'n';
-$LNG['gl_v']								= 'u';
-$LNG['gl_b']								= 'g';
+$LNG['gl_s']								= '强';
+$LNG['gl_w']								= '弱';
+$LNG['gl_v']								= '休';
+$LNG['gl_b']								= '封';
 $LNG['gl_i']								= 'i';
 $LNG['gl_I']								= 'I';
 $LNG['gl_populed_planets']					= '%d 个殖民星球';
@@ -191,7 +191,7 @@ $LNG['gl_alliance_page']					= '联盟页面';
 $LNG['gl_see_on_stats']					= '帝国排名';
 $LNG['gl_alliance_web_page']				= '联盟主页';
 $LNG['gl_debris_field']					= '星际残骸';
-$LNG['gl_collect']							= '拆除';
+$LNG['gl_collect']							= '回收残骸';
 $LNG['gl_resources']						= '资源';
 $LNG['gl_features']						= '属性';
 $LNG['gl_diameter']						= '直径';
@@ -240,7 +240,7 @@ $LNG['fl_onway']							= '舰队星球';
 $LNG['fl_r']								= '(R)';
 $LNG['fl_a']								= '(A)';
 $LNG['fl_send_back']						= '回航';
-$LNG['fl_acs']								= '链接';
+$LNG['fl_acs']								= 'ACS';
 $LNG['fl_no_more_slots']					= '没有更多队列';
 $LNG['fl_speed_title']						= '速度 ';
 $LNG['fl_continue']						= '下达指令';
@@ -303,16 +303,16 @@ $LNG['fl_all_resources']					= '最大承载资源';
 $LNG['fl_empty_target']					= '没有目标 (行星不存在?)';
 $LNG['fl_expedition_alert_message']		= '警告！敌方帝国的探险队也可能在这里探索，很可能发生战争！';
 $LNG['fl_dm_alert_message']				= '要小心, 如果在 %s %s 已经被发现，摧毁舰队!';
-$LNG['fl_vacation_mode_active']			= '您是在度假模式！';
+$LNG['fl_vacation_mode_active']			= '帝国正在度假模式！';
 $LNG['fl_expedition_tech_required']		= '您没有足够的技术探险！';
 $LNG['fl_expedition_fleets_limit']			= '您不能启动更多的探险！';
-$LNG['fl_week_player']						= '该帝国对我们来说太软弱！';
-$LNG['fl_strong_player']					= '该帝国对我们来说太强大！';
+$LNG['fl_week_player']						= '该帝国对我们来说太软弱！欺负他等于欺负自己的良心！';
+$LNG['fl_strong_player']					= '该帝国对我们来说太强大！回家种好田等以后拿卫星砸他！';
 $LNG['fl_in_vacation_player']				= '玩家在度假模式！';
 $LNG['fl_no_slots']						= '没有更多的队列！';
 $LNG['fl_empty_transport']					= '没有资源载入！';
 $LNG['fl_planet_populed']					= '星球殖民';
-$LNG['fl_no_same_alliance']				= '目标是母星的玩家必须在您的联盟或好友名单！';
+$LNG['fl_no_same_alliance']				= '目标是主星的玩家必须在您的联盟或好友名单！';
 $LNG['fl_not_ally_deposit']				= '我们的目标是不要联盟。';
 $LNG['fl_deploy_only_your_planets']		= '您只能部署在您的殖民星球舰队';
 $LNG['fl_no_enought_deuterium']			= '您没有足够的 %可用。您缺少 %s %s!';
@@ -326,14 +326,14 @@ $LNG['fl_fleet']							= '舰队';
 $LNG['fl_player']							= '玩家 ';
 $LNG['fl_add_to_attack']					= ' 已被邀请.';
 $LNG['fl_dont_exist']						= ' 不存在.';
-$LNG['fl_acs_invitation_message']			= ' 欢迎您到ACS的.';
-$LNG['fl_acs_invitation_title']			= 'AKS 算法邀请';
-$LNG['fl_sac_of_fleet']					= '舰队AKS算法';
+$LNG['fl_acs_invitation_message']			= ' 欢迎您到ACS.';
+$LNG['fl_acs_invitation_title']			= 'ACS 算法邀请';
+$LNG['fl_sac_of_fleet']					= '舰队ACS算法';
 $LNG['fl_modify_sac_name']					= 'AKS-名称';
 $LNG['fl_members_invited']					= '邀请';
 $LNG['fl_invite_members']					= '请';
 $LNG['fl_simulate']						= '模拟';
-$LNG['fl_bonus']							= '奖金';
+$LNG['fl_bonus']							= '科技加成';
 $LNG['fl_bonus_attack']					= '攻击';
 $LNG['fl_bonus_defensive']					= '防御';
 $LNG['fl_bonus_shield']					= '装甲';
@@ -344,33 +344,33 @@ $LNG['fl_acs_change_name']    = '输入一个新名称';
 
 //----------------------------------------------------------------------------//
 //BUILDINGS - RESEARCH - SHIPYARD - DEFENSES
-$LNG['bd_dismantle']						= '拆除';
-$LNG['bd_interrupt']						= '暂停';
-$LNG['bd_cancel']							= '取消';
-$LNG['bd_working']							= '繁忙';
-$LNG['bd_build']							= '建造';
-$LNG['bd_build_next_level']					= '升级建筑 ';
-$LNG['bd_add_to_list']						= '添加到生产队列';
-$LNG['bd_no_more_fields']					= '星球扩大!';
+$LNG['bd_dismantle']						= '【拆除建筑】';
+$LNG['bd_interrupt']						= '【暂停】';
+$LNG['bd_cancel']							= '【取消】';
+$LNG['bd_working']							= '【繁忙中】';
+$LNG['bd_build']							= '【建造】';
+$LNG['bd_build_next_level']					= '【升级】';
+$LNG['bd_add_to_list']						= '【添加到生产队列】';
+$LNG['bd_no_more_fields']					= '警告:星球需要扩大！！';
 $LNG['bd_remaining']						= '消耗资源:';
 $LNG['bd_lab_required']						= '您必须先将研究室建起!';
-$LNG['bd_building_lab']						= '研究室将扩大!';
+$LNG['bd_building_lab']						= '研究室正在扩建中...';
 $LNG['bd_max_lvl']							= '(最高级别: %s)';
 $LNG['bd_lvl']								= '级别';
-$LNG['bd_research']							= '研究';
+$LNG['bd_research']							= '【研究】';
 $LNG['bd_shipyard_required']				= '你首先需要对这个星球建设星际船厂!';
 $LNG['bd_building_shipyard']				= '该纳米厂或船厂目前正在扩大!';
 $LNG['bd_available']						= '可用的: ';
-$LNG['bd_build_ships']						= '提交';
+$LNG['bd_build_ships']						= '执行';
 $LNG['bd_protection_shield_only_one']		= '一种方法可以屏蔽穹顶建筑的!';
-$LNG['bd_build_defenses']					= '提交';
-$LNG['bd_actual_production']				= '目前的资源生产:';
+$LNG['bd_build_defenses']					= '执行';
+$LNG['bd_actual_production']				= '当前正在生产:';
 $LNG['bd_completed']						= '完成';
 $LNG['bd_operating']						= '运行';
 $LNG['bd_continue']							= '下一步';
 $LNG['bd_ready']							= '完成';
 $LNG['bd_finished']							= '完成';
-$LNG['bd_maxlevel']							= '最高水平已经达到！';
+$LNG['bd_maxlevel']							= '已经达到最高级别！';
 $LNG['bd_on']								= '关于';
 $LNG['bd_max_builds']						= '可以最大. %d 个舰船生产!';
 $LNG['bd_next_level']						= '下一个级别:';
@@ -396,11 +396,11 @@ $LNG['rs_calculate']						= '计算';
 $LNG['rs_sum']								= '共有';
 $LNG['rs_daily']							= '每天';
 $LNG['rs_weekly']							= '每周';
-$LNG['rs_ress_bonus']						= '奖金(Offizere/DM-Bonus):';
+$LNG['rs_ress_bonus']						= '加成(Offizere/DM-Bonus):';
 
 //----------------------------------------------------------------------------//
 //OFFICIERS
-$LNG['of_recruit']							= '获得';
+$LNG['of_recruit']							= '【雇佣】';
 $LNG['of_max_lvl']							= '最高水平';
 $LNG['of_available_points']				= '可用积分:';
 $LNG['of_points_per_thousand_darkmatter']	= '(1 积分 每 %d %s)';
@@ -502,7 +502,7 @@ $LNG['mg_message_title']					= '邮件';
 $LNG['mg_message_type']					= '邮件';
 $LNG['mg_total']							= '共有';
 $LNG['mg_game_operators']					= '晗网星痕帝国免费运营';
-$LNG['mg_error']							= '没有找到接收机!';
+$LNG['mg_error']							= '没有找到玩家!';
 $LNG['mg_overview']						= '新闻管理';
 $LNG['mg_send_new']						= '消息';
 $LNG['mg_send_to']							= '收件人';
@@ -755,7 +755,7 @@ $LNG['nt_no_text']							= '没有文字';
 
 //----------------------------------------------------------------------------//
 //STATISTICS
-$LNG['st_player']							= '玩家';
+$LNG['st_player']							= '帝国';
 $LNG['st_alliance']						= '联盟';
 $LNG['st_points']							= '积分';
 $LNG['st_fleets']							= '舰队';
@@ -776,12 +776,12 @@ $LNG['st_write_message']					= '悄悄话';
 //SEARCH
 $LNG['sh_tag']								= '标签';
 $LNG['sh_name']							= '名字';
-$LNG['sh_members']							= '会员';
+$LNG['sh_members']							= '玩家';
 $LNG['sh_points']							= '积分';
 $LNG['sh_search_in_the_universe']			= '在宇宙中搜寻';
 $LNG['sh_player_name']						= '玩家';
 $LNG['sh_planet_name']						= '星球';
-$LNG['sh_alliance_tag']					= '联盟标签';
+$LNG['sh_alliance_tag']					= '联盟简称';
 $LNG['sh_alliance_name']					= '联盟名称';
 $LNG['sh_search']							= '搜索';
 $LNG['sh_write_message']					= '悄悄话';
@@ -793,12 +793,12 @@ $LNG['sh_position']						= '等级';
 
 //----------------------------------------------------------------------------//
 //OPTIONS
-$LNG['op_cant_activate_vacation_mode']		= '你不能在度假模式中建造舰队。';
+$LNG['op_cant_activate_vacation_mode']		= '你不能在度假模式中建造舰队！';
 $LNG['op_password_changed']				= '密码已被更改<br><a href="index.php" target="_top">返回</a>';
 $LNG['op_username_changed']				= '用户名更改<br><a href="index.php" target="_top">返回</a>';
 $LNG['op_options_changed']					= '设置保存.<br><a href="game.php?page=options">返回</a>';
-$LNG['op_vacation_mode_active_message']	= '度假模式启用。休假模式，直到至少： ';
-$LNG['op_end_vacation_mode']				= '休假方式退出';
+$LNG['op_vacation_mode_active_message']	= '度假模式启用！取消休假模式，至少需要： ';
+$LNG['op_end_vacation_mode']				= '退出度假模式';
 $LNG['op_save_changes']					= '保存设置';
 $LNG['op_admin_title_options']				= '管理员选项';
 $LNG['op_admin_planets_protection']		= '管理保护';
@@ -865,7 +865,7 @@ $LNG['bn_writemail']						= '电子邮件到 %s 写';
 //----------------------------------------------------------------------------//
 //class.CheckSession.php
 
-$LNG['css_account_banned_message']			= '您的帐户已被封禁，如遇问题请管理员';
+$LNG['css_account_banned_message']			= '您的帐户已被封禁，如遇问题请联系OGAME@HANHOT.COM';
 $LNG['css_account_banned_expire']			= '你封禁到 %s gespeert!<br><a href="./index.php?page=pranger">Pranger</a>';
 $LNG['css_goto_homeside']					= '<a href="./index.php">前往首页</a>';
 $LNG['css_server_maintrace']				= '服务器信息<br><br>游戏已经关闭<br><br>原因: %s';
@@ -885,7 +885,7 @@ $LNG['cff_ships']							= ' 单位.';
 $LNG['cff_from_the_planet']					= ' 星球 ==> ';
 $LNG['cff_from_the_moon']					= '月球 ';
 $LNG['cff_the_planet']						= ' 星球==> ';
-$LNG['cff_debris_field']					= '遗址 ';
+$LNG['cff_debris_field']					= '星际残骸 ';
 $LNG['cff_to_the_moon']						= '月球 ';
 $LNG['cff_the_position']					= '坐标: ';
 $LNG['cff_to_the_planet']					= '星球==>';
@@ -922,7 +922,7 @@ $LNG['sys_module_inactive']        	 	= '模块禁用';
 //----------------------------------------------------------------------------//
 // CombatReport.php
 $LNG['cr_lost_contact']					= '该舰队已经失去了联络。';
-$LNG['cr_first_round']						= '（该舰队被摧毁在第一回合）';
+$LNG['cr_first_round']						= '（帝国耻辱！该舰队被摧毁在第一回合）';
 $LNG['cr_type']							= '类型';
 $LNG['cr_total']							= '共有';
 $LNG['cr_weapons']							= '武器';
@@ -989,13 +989,13 @@ $LNG['tkb_missing']              		  	= '<br>在活动<br>失踪：用户帐户�
 // playercard.php
 $LNG['pl_overview']  						= '玩家编号';
 $LNG['pl_name'] 							= '用户名';
-$LNG['pl_homeplanet'] 						= '母星球';
+$LNG['pl_homeplanet'] 						= '主星';
 $LNG['pl_ally']     						= '联盟';
 $LNG['pl_message']    						= '悄悄话';
 $LNG['pl_buddy']        					= '朋友询问';
 $LNG['pl_points']      					= '积分';
 $LNG['pl_range']         					= '排名';
-$LNG['pl_builds']     						= '建造';
+$LNG['pl_builds']     						= '建筑';
 $LNG['pl_tech']    						= '研究';
 $LNG['pl_fleet']       					= '舰队';
 $LNG['pl_def']         					= '防御';
@@ -1005,9 +1005,9 @@ $LNG['pl_fights']     						= '战争';
 $LNG['pl_fprocent']       					= '战争配额';
 $LNG['pl_fightwon']  						= '胜利';
 $LNG['pl_fightdraw']  						= '获得';
-$LNG['pl_fightlose']  						= '丢失';
+$LNG['pl_fightlose']  						= '战败';
 $LNG['pl_totalfight']      				= '总战斗';
-$LNG['pl_destroy']    						= '%s 参与了下列破坏';
+$LNG['pl_destroy']    						= '%s 摧毁数据';
 $LNG['pl_unitsshot']    					= '武器单位';
 $LNG['pl_unitslose']    					= '损失单位';
 $LNG['pl_dermetal']    					= '金属残骸';
@@ -1023,7 +1023,15 @@ $LNG['chat_ally_title']                    = '联盟聊天';
 $LNG['chat_disc']                          = '聊天';
 $LNG['chat_message']                       = '邮件';
 $LNG['chat_send']                          = '发送';
-$LNG['chat_admin']                       	= '<font color="red">管理员 %s</font>';
+$LNG['chat_admin']                       	= '<font color="red">管理员<img src="../images/adminy.gif" height="10" />%s</font>';
+$LNG['chat_color_white']					= '白色';
+$LNG['chat_color_blue']						= '蓝色';
+$LNG['chat_color_yellow']					= '黄色';
+$LNG['chat_color_green']					= '绿色';
+$LNG['chat_color_pink']						= '粉红';
+$LNG['chat_color_red']						= '红色';
+$LNG['chat_color_orange']					= '橙色';
+
 
 //----------------------------------------------------------------------------//
 // Support
@@ -1039,7 +1047,7 @@ $LNG['input_text'] 						= '更新:';
 $LNG['answer_new'] 						= '一个答复:';
 $LNG['text'] 								= '内容';
 $LNG['message_a'] 							= '现在的信息:';
-$LNG['sendit_a'] 							= '消息被插入.';
+$LNG['sendit_a'] 							= '留言被更新.';
 $LNG['message_t'] 							= '现在的留言:';
 $LNG['sendit_t'] 							= '留言已发表成功.';
 $LNG['close_t'] 							= '该留言已被关闭.';
@@ -1059,7 +1067,7 @@ $LNG['supp_player_answer'] 				= '玩家,答案';
 // Rekorde 
 
 $LNG['rec_build']  						= '建造';
-$LNG['rec_specb']							= '特殊建筑物';
+$LNG['rec_specb']					    = '特殊建筑物';
 $LNG['rec_playe']  						= '玩家';
 $LNG['rec_defes']  						= '防御';
 $LNG['rec_fleet']  						= '舰队';
@@ -1067,25 +1075,34 @@ $LNG['rec_techn']  						= '研究';
 $LNG['rec_level']  						= '等级';
 $LNG['rec_nbre']   						= '编号';
 $LNG['rec_rien']   						= '-';
-$LNG['rec_last_update_on']   				= '最后更新于 : %s';
+$LNG['rec_last_update_on']   			= '最后更新于 : %s';
 
 
 //----------------------------------------------------------------------------//
 // BattleSimulator
 
 
-$LNG['bs_derbis_raport']					= "有 %s %s 或 %s %s 所需的星际残骸.";
+$LNG['bs_derbis_raport']				= "有 %s %s 或 %s %s 所需的星际残骸.";
 $LNG['bs_steal_raport']					= "获得的战利品 %s %s 或 %s %s 或 %s %s 需要.";
-$LNG['bs_names']							= "舰队名称";
-$LNG['bs_atter']							= "攻击";
-$LNG['bs_deffer']							= "防御";
-$LNG['bs_steal']							= "资源（运输）:";
-$LNG['bs_techno']							= "科技";
+$LNG['bs_names']						= "舰队名称";
+$LNG['bs_atter']						= "攻击";
+$LNG['bs_deffer']						= "防御";
+$LNG['bs_steal']						= "资源（运输）:";
+$LNG['bs_techno']						= "科技";
 $LNG['bs_send']							= "提交";
-$LNG['bs_cancel']							= "重置";
+$LNG['bs_cancel']						= "重置";
 $LNG['bs_wait']							= "请等待下一个模拟10秒";
 
 
+
+
+//----------------------------------------------------------------------------//
+// Logout
+$LNG['lo_title']						= '账户注销成功! 再见!';
+$LNG['lo_logout']						= '退出成功';
+$LNG['lo_redirect']						= '转向';
+$LNG['lo_notify']						= '页面将在 <span id="seconds">5</span>秒 后,进行跳转.';
+$LNG['lo_continue']						= '如果不能跳转,请点击这里';
 
 // Translated into German by Slaver . All rights reversed (C) 2010
 //由晗网汉化-http://xo.hanhot.com  
