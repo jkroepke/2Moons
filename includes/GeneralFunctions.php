@@ -456,27 +456,16 @@ function SendSimpleMessage($Owner, $Sender, $Time, $Type, $From, $Subject, $Mess
 	
 function shortly_number($number)
 {
-	// MAS DEL TRILLON
 	if ($number >= 1000000000000000000000000)
-		return pretty_number(($number/1000000000000000000000))." T+";
-	
-	// TRILLON
-	elseif ($number >= 1000000000000000000 && $number < 1000000000000000000000000)
-		return pretty_number(($number/1000000000000000000))." T";
-		
-	// BILLON
-	elseif ($number >= 1000000000000 && $number < 1000000000000000000)
-		return pretty_number(($number/1000000000000))." B";
-	
-	// MILLON
-	elseif ($number >= 1000000 && $number < 1000000000000)
-		return pretty_number(($number/1000000))." M";
-		
-	// MIL
-	elseif ($number >= 1000 && $number < 1000000)
-		return pretty_number(($number/1000))." K";
-	
-	// NUMERO SIN DEFINIR	
+		return pretty_number($number/1000000000000000000000).' T+';
+	elseif ($number >= 1000000000000000000)
+		return pretty_number($number/1000000000000000000).' T';
+	elseif ($number >= 1000000000000)
+		return pretty_number($number/1000000000000).' B';
+	elseif ($number >= 1000000)
+		return pretty_number($number/1000000).' M';
+	elseif ($number >= 1000)
+		return pretty_number($number/1000).' K';
 	else
 		return pretty_number($number);
 }
