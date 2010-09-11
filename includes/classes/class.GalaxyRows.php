@@ -212,9 +212,9 @@ class GalaxyRows
 			$Systemtatus 	= "";
 		}
 
-		if ($Systemtatus2 != '')
+		if (!empty($Systemtatus2))
 		{
-			$Systemtatus2 	= "<font color=\"white\">(</font>".$Systemtatus2."<font color=\"white\">)</font>";
+			$Systemtatus2 	= "<span style=\"color:white\">(</span>".$Systemtatus2."<span style=\"color:white\">)</span>";
 		}
 
 		$Result	= array(
