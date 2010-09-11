@@ -250,12 +250,12 @@ class statbuilder{
 			if (empty($Group)) continue;
 			
 			$Ship    	   = explode(",", $Group);
-			$Units         = ($pricelist[$Ship[0]]['metal'] + $pricelist[$Ship[0]]['crystal'] + $pricelist[$Ship[0]]['deuterium']) / $CONF['stat_settings'];
+			$Units         = $pricelist[$Ship[0]]['metal'] + $pricelist[$Ship[0]]['crystal'] + $pricelist[$Ship[0]]['deuterium'];
 			$FleetPoints   += $Units * $Ship[1];
 			$FleetCounts   += $Ship[1];
 		}
 		
-		return array('count' => $FleetCounts, 'points' => $FleetPoints);
+		return array('count' => $FleetCounts, 'points' => ($FleetPoints / $CONF['stat_settings']));
 	}
 
 	private function removeE($Numeric)

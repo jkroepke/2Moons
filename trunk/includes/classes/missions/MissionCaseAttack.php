@@ -203,10 +203,11 @@ class MissionCaseAttack extends MissionFunctions
 		
 		if($this->_fleet['fleet_end_type'] == 3)
 			$targetPlanet 		= array_merge($targetPlanet, $db->uniquequery("SELECT `der_metal`, `der_crystal` FROM ".PLANETS." WHERE `galaxy` = '". $this->_fleet['fleet_end_galaxy'] ."' AND `system` = '". $this->_fleet['fleet_end_system']."' AND `planet` = '".$this->_fleet['fleet_end_planet']."' AND `planet_type` = '1';"));
-		
-		$DerbisMetal		= bcadd($targetPlanet['der_metal'], bcadd($result['debree']['att'][0], $result['debree']['def'][0]));
-		$DerbisCrystal		= bcadd($targetPlanet['der_crystal'], bcadd($result['debree']['att'][1], $result['debree']['def'][1]));	
-		$FleetDebris		= bcadd($DerbisMetal, $DerbisCrystal);
+		$ShootMetal			= bcadd($result['debree']['att'][0], $result['debree']['def'][0]);
+		$ShootCrystal		= bcadd($result['debree']['att'][1], $result['debree']['def'][1]);
+		$FleetDebris		= bcadd($ShootMetal, $ShootCrystal);
+		$DerbisMetal		= bcadd($targetPlanet['der_metal'], $ShootMetal);
+		$DerbisCrystal		= bcadd($targetPlanet['der_crystal'], $ShootCrystal);	
 		$MoonChance       	= min(round(bcdiv($FleetDebris, "100000") * MOON_CHANCE_FACTOR, 0), 20);
 		$UserChance 		= mt_rand(1, 100);
 		
@@ -291,8 +292,8 @@ class MissionCaseAttack extends MissionFunctions
         $SQL .= "`wons` = wons + ".$Won.", ";
         $SQL .= "`loos` = loos + ".$Lose.", ";
         $SQL .= "`draws` = draws + ".$Draw.", ";
-        $SQL .= "`kbmetal` = kbmetal + ".floattostring($result['debree']['att'][0] + $result['debree']['def'][0]).", ";
-        $SQL .= "`kbcrystal` = kbcrystal + ".floattostring($result['debree']['att'][1] + $result['debree']['def'][1]).", ";
+        $SQL .= "`kbmetal` = kbmetal + ".floattostring($ShootMetal).", ";
+        $SQL .= "`kbcrystal` = kbcrystal + ".floattostring($ShootCrystal).", ";
         $SQL .= "`lostunits` = lostunits + ".floattostring($result['lost']['att']).", ";
         $SQL .= "`desunits` = desunits + ".floattostring($result['lost']['def'])." ";
         $SQL .= "WHERE ";
@@ -301,8 +302,8 @@ class MissionCaseAttack extends MissionFunctions
         $SQL .= "`wons` = wons + ". $Lose .", ";
         $SQL .= "`loos` = loos + ". $Won .", ";
         $SQL .= "`draws` = draws + ". $Draw  .", ";
-        $SQL .= "`kbmetal` = kbmetal + ".floattostring($result['debree']['att'][0] + $result['debree']['def'][0]).", ";
-        $SQL .= "`kbcrystal` = kbcrystal + ".floattostring($result['debree']['att'][1] + $result['debree']['def'][1]).", ";
+        $SQL .= "`kbmetal` = kbmetal + ".floattostring($ShootMetal).", ";
+        $SQL .= "`kbcrystal` = kbcrystal + ".floattostring($ShootCrystal).", ";
         $SQL .= "`lostunits` = lostunits + ".floattostring($result['lost']['def']).", ";
         $SQL .= "`desunits` = desunits + ".floattostring($result['lost']['att'])." ";
         $SQL .= "WHERE ";
