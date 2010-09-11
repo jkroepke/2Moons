@@ -50,6 +50,7 @@ $LNG['time_minutes']	= '分';
 $LNG['time_seconds']	= '秒';
 //###########################################################//
 
+$LNG['info_information']	= '信息提交后，没有这项法案在<a href="http://www.xnova-reloaded.eu/index.php?page=Board&boardID=85" target="tracker">2Moons Board</a><br>错误是没有支持!';
 
 //---------------	¿SI O NO? - YES OR NO? - JA ODER NEIN?	------------------------// 
 $LNG['one_is_yes'][1]	= '是';

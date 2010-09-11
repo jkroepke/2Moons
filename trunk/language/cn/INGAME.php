@@ -1018,7 +1018,9 @@ $LNG['pl_etc']   							= '其他';
 // Chat
 
 $LNG['chat_title']                         = '聊天';
-$LNG['chat_ally_title']                    = '联盟聊天';  
+$LNG['chat_ally_title']                    = '联盟聊天'; 
+$LNG['chat_bbcode']                    		= 'UBB代码';  
+$LNG['chat_fontcolor']                    	= '字体颜色';   
 
 $LNG['chat_disc']                          = '聊天';
 $LNG['chat_message']                       = '邮件';
@@ -1054,6 +1056,7 @@ $LNG['close_t'] 							= '该留言已被关闭.';
 $LNG['sendit_error'] 						= '错误:';
 $LNG['sendit_error_msg'] 					= '你忘了输入些什么!';
 $LNG['supp_admin_system'] 					= '支持-Adminpanel';
+$LNG['supp_send'] 						    = '提交发送';
 $LNG['close_ticket'] 						= '留言关闭';
 $LNG['open_ticket'] 						= '留言打开';
 $LNG['player'] 							= '玩家的名字';
