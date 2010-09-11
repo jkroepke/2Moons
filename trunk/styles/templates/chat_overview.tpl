@@ -20,7 +20,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td>BB-Codes: Schriftfarbe: <select name="color" id="chat_color">
+		<td>{$chat_bbcode}: {$chat_fontcolor}: <select name="color" id="chat_color">
 			<option style="color:white;" value="white">{$chat_color_white}</option>
 			<option style="color:blue;" value="blue">{$chat_color_blue}</option>
 			<option style="color:yellow;" value="yellow">{$chat_color_yellow}</option>

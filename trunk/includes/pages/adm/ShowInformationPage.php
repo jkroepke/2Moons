@@ -24,19 +24,20 @@ if ($USER['rights']['CONFGame'] == 0) exit;
 
 function ShowInformationPage()
 {
-	global $db;
+	global $db, $LNG;
 	$template	= new template();
 	$template->page_header();
 	$template->assign_vars(array(	
-		'info'		=> $_SERVER['SERVER_SOFTWARE'],
-		'vPHP'		=> PHP_VERSION,
-		'vAPI'		=> PHP_SAPI,
-		'vGame'		=> VERSION,
-		'vMySQLc'	=> $db->getVersion(),
-		'vMySQLs'	=> $db->getServerVersion(),
-		'root'		=> $_SERVER['SERVER_NAME'],
-		'gameroot'	=> $_SERVER['SERVER_NAME'].str_replace('/admin.php', '', $_SERVER['PHP_SELF']),
-		'json'		=> function_exists('json_encode') ? 'Ja' : 'Nein',
+		'info_information'	=> $LNG['info_information'],
+		'info'				=> $_SERVER['SERVER_SOFTWARE'],
+		'vPHP'				=> PHP_VERSION,
+		'vAPI'				=> PHP_SAPI,
+		'vGame'				=> VERSION,
+		'vMySQLc'			=> $db->getVersion(),
+		'vMySQLs'			=> $db->getServerVersion(),
+		'root'				=> $_SERVER['SERVER_NAME'],
+		'gameroot'			=> $_SERVER['SERVER_NAME'].str_replace('/admin.php', '', $_SERVER['PHP_SELF']),
+		'json'				=> function_exists('json_encode') ? 'Ja' : 'Nein',
 	));
 	
 	$template->show('adm/ShowInformationPage.tpl');

@@ -101,6 +101,8 @@ class ShowChatPage
 					'chat_send'			=> $LNG['chat_send'],
 					'chat_disc'			=> $LNG['chat_disc'],
 					'chat_message'		=> $LNG['chat_message'],
+					'chat_bbcode'		=> $LNG['chat_bbcode'],
+					'chat_fontcolor'	=> $LNG['chat_fontcolor'],
 					'chat_color_white'	=> $LNG['chat_color_white'],
                     'chat_color_blue'	=> $LNG['chat_color_blue'],
                     'chat_color_yellow'	=> $LNG['chat_color_yellow'],

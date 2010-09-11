@@ -2,7 +2,7 @@
 <center>
 <table width="60%">
     <tr>
-                <th>Informations-Vorlage zum Posten eines Bugs im <a href="http://bugs.2moons-systems.com/" style="font-size:11px;font-family:Tahoma,sans-serif;" target="tracker">2Moons Bugtracker</a><br>Ohne diese Vorlage gibt es keinen Support!
+                <th>{$info_information}
                         <textarea rows="15">Server Infos: {$info}
 PHP-Version: {$vPHP}
 PHP API: {$vAPI}

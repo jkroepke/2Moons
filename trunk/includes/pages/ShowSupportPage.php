@@ -112,6 +112,7 @@ class ShowSupportPage
 			'subject'				=> $LNG['subject'],
 			'status'				=> $LNG['status'],
 			'ticket_posted'			=> $LNG['ticket_posted'],
+			'supp_send'				=> $LNG['supp_send'],
 			'supp_close'			=> $LNG['supp_close'],
 			'supp_open'				=> $LNG['supp_open'],
 			'supp_admin_answer'		=> $LNG['supp_admin_answer'],

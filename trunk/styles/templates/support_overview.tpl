@@ -35,7 +35,7 @@
 				<tr>
 					<td>
 					{if $TicketInfo.status != 0}
-					<textarea cols="50" rows="10" name="text"></textarea><br><input type="submit" value="Absenden">
+					<textarea cols="50" rows="10" name="text"></textarea><br><input type="submit" value="{$supp_send}">
 					{/if}
 					</td>
 				</tr>
@@ -66,7 +66,7 @@
 				<tr>
 					<td colspan="2">
 						<textarea name="text" cols="50" rows="10"></textarea>
-						<input type="submit" value="Absenden">
+						<input type="submit" value="{$supp_send}">
 					</td>
 				</tr>
 			</table>
