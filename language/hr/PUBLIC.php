@@ -220,10 +220,10 @@ Napomena,administrator moze pojedinom igracu zabraniti pristup npr.pregledu gala
 		"Administrator zadrzava pravo za pohranu podataka od igraca kako bi se pratilo pridrzavanje pravila, uvjete koristenja i mjerodavno pravo.
 Varalica sve potrebne i podnesena od strane igraca ili njegov racun.
 Ovi (IP povezane s razdobljima uporabe i koristenja, e-mail adresu dati tijekom registracije i drugih podataka.
-Na forumu i u profilu su pohranjene. "
+Na forumu i u profilu su pohranjene. ",
 
 "Ovi podaci ce biti iskoristeni pod odredenim okolnostima za provodenje zakonom propisane duznosti sluzbenika i drugih ovlastenih osoba.
-Nadalje, podaci se mogu (ako treba izdati) pod odredenim okolnostima trecim osobama. "
+Nadalje, podaci se mogu (ako treba izdati) pod odredenim okolnostima trecim osobama. ",
 
 "Korisnici mogu prigovoriti pohrani osobnih podataka u bilo koje vrijeme. zalba je prestanak ovih prava.",
 	),
