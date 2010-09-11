@@ -1,17 +1,9 @@
-html{
-height:100%
-}
-
-html,body {
-margin:0;
-overflow:auto;
-padding:0;
-width:100%
-}
-
 body {
 background:url(img/bkd_page.jpg) top left fixed #000;
-overflow:hidden
+margin:0;
+padding:0;
+height:100%;
+width:100%
 }
 
 body,input,select,textarea,a,td,th,tr,table {
@@ -92,9 +84,7 @@ border:1px solid #212121
 
 .content {
 padding-bottom:5px;
-left:205px;
-overflow:visible;
-position:absolute;
+margin-left:205px;
 margin-top:10px;
 width:80%!important
 }

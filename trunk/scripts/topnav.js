@@ -3,12 +3,12 @@
 // @version 1.0
 // @copyright 2010 by ShadoX
 
-var event	= new Date();
+var start	= new Date();
 
 function update()
 {
 	var now = new Date();
-	var seconds	= (Date.parse(now) - Date.parse(event)) / 1000;
+	var seconds	= (Date.parse(now) - Date.parse(start)) / 1000;
 	if(met_max<=met||isNaN(met)) {
 		$('#current_metal').addClass('res_current_max');
 		$("#current_metal").html(number_format(removeE(Math.round(Math.max(met_max,met)))));
