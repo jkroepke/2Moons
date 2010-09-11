@@ -171,7 +171,7 @@ $LNG['agb_overview']				= "Uslovi i odredbe";
 $LNG['agb']						= array(
 	"Usluga sadrzaja"				=> array( 
 		"Ovo je nuzan preduvjet da bi mogli sudjelovati u igri.
-On se primjenjuje na forum i igru. "
+On se primjenjuje na forum i igru. ",
 
 "Usluga je besplatna.
 Stoga ne postoje prava na dostupnost, dostavu, funkcionalnost, odnosno povrat nastale stete.
@@ -179,10 +179,10 @@ Nadalje, igrac nema prava na povrat racuna ako je prekrsio uslove i odredbe.",
 	),
 
 	"Clanstvo"				=> array(
-		"Registriranjem u igru ili na forum pocinje clanstvo. "
+		"Registriranjem u igru ili na forum pocinje clanstvo. ",
 
 "Clanstvo moze prestati brisanjem racuna ili pismom administratora.
-Brisanje podataka iz tehnickih razloga ne mogu napraviti odmah. "
+Brisanje podataka iz tehnickih razloga ne mogu napraviti odmah. ",
 
 "Prekinut od strane Administratora korisnici nemaju pravo sudjelovanja u natjecajima za operatora.
 Administrator zadrzava pravo brisanja racuna.
