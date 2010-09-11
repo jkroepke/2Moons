@@ -38,7 +38,7 @@ $LNG['adm_cp_logout']					= 'Quit';
 //	MISCELaNEO - MISCELLANEOUS
 $LNG['ad_number'] 					= 'ID'; 
 $LNG['ad_max']  					= '(max. % d)'; 
-$LNG['only_numbers']					= 'you can only enter numbers '!; 
+$LNG['only_numbers']					= 'you can only enter numbers !'; 
 $LNG['select_option']	 				= 'Select...'; 
 
 // 	RANGO - RANK
