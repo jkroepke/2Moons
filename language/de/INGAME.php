@@ -1023,6 +1023,8 @@ $LNG['pl_etc']   							= 'Sonstiges';
 
 $LNG['chat_title']                         	= 'Chat';
 $LNG['chat_ally_title']                    	= 'Allianzchat';  
+$LNG['chat_bbcode']                    		= 'BB-Codes';  
+$LNG['chat_fontcolor']                    	= 'Schriftfarbe';  
 
 $LNG['chat_disc']                          	= 'Chat';
 $LNG['chat_message']                       	= 'Nachricht';
@@ -1039,31 +1041,32 @@ $LNG['chat_color_orange']					= 'Orange';
 //----------------------------------------------------------------------------//
 // Support
 
-$LNG['supp_header'] 						= 'Support-System';
-$LNG['supp_header_g'] 						= 'Geschlossende Tickets';
-$LNG['ticket_id'] 							= '#Ticket-ID';
-$LNG['subject'] 							= 'Betreff';
+$LNG['supp_header'] 					= 'Support-System';
+$LNG['supp_header_g'] 					= 'Geschlossende Tickets';
+$LNG['ticket_id'] 						= '#Ticket-ID';
+$LNG['subject'] 						= 'Betreff';
 $LNG['status'] 							= 'Status';
-$LNG['ticket_posted'] 						= 'Ticket vom';
+$LNG['ticket_posted'] 					= 'Ticket vom';
 $LNG['ticket_new'] 						= 'Neues Ticket erstellen';
 $LNG['input_text'] 						= 'Beischreibung:';
 $LNG['answer_new'] 						= 'Eine Antwort schreiben:';
-$LNG['text'] 								= 'Details';
-$LNG['message_a'] 							= 'Status der Nachricht:';
-$LNG['sendit_a'] 							= 'Nachricht wurde eingefügt.';
-$LNG['message_t'] 							= 'Status des Tickets:';
-$LNG['sendit_t'] 							= 'Ticket wurde eingetragen.';
-$LNG['close_t'] 							= 'Ticket wurde geschlossen.';
-$LNG['sendit_error'] 						= 'Fehler:';
-$LNG['sendit_error_msg'] 					= 'Du hast vergessen etwas einzutragen!';
-$LNG['supp_admin_system'] 					= 'Support-Adminpanel';
-$LNG['close_ticket'] 						= 'Ticket schließen';
-$LNG['open_ticket'] 						= 'Ticket öffnen';
+$LNG['text'] 							= 'Details';
+$LNG['message_a'] 						= 'Status der Nachricht:';
+$LNG['sendit_a'] 						= 'Nachricht wurde eingefügt.';
+$LNG['message_t'] 						= 'Status des Tickets:';
+$LNG['supp_send'] 						= 'Absenden';
+$LNG['sendit_t'] 						= 'Ticket wurde eingetragen.';
+$LNG['close_t'] 						= 'Ticket wurde geschlossen.';
+$LNG['sendit_error'] 					= 'Fehler:';
+$LNG['sendit_error_msg'] 				= 'Du hast vergessen etwas einzutragen!';
+$LNG['supp_admin_system'] 				= 'Support-Adminpanel';
+$LNG['close_ticket'] 					= 'Ticket schließen';
+$LNG['open_ticket'] 					= 'Ticket öffnen';
 $LNG['player'] 							= 'Spielernamen';
-$LNG['supp_ticket_close']					= 'Ticket geschlossen';
+$LNG['supp_ticket_close']				= 'Ticket geschlossen';
 $LNG['supp_close'] 						= 'Geschlossen';
-$LNG['supp_open'] 							= 'Offen';
-$LNG['supp_admin_answer'] 					= 'Admin-Antwort';
+$LNG['supp_open'] 						= 'Offen';
+$LNG['supp_admin_answer'] 				= 'Admin-Antwort';
 $LNG['supp_player_answer'] 				= 'Spieler-Antwort';
 
 //----------------------------------------------------------------------------//
