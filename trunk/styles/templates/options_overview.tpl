@@ -5,7 +5,7 @@
     <form action="?page=options&amp;mode=change" method="post">
     <table style="min-width:519px;width:519px;">
     <tbody>
-	{if $user_autdlevel > 0}
+	{if $user_authlevel > 0}
 	<tr>
 		<th colspan="2">{$op_admin_title_options}</th>
 	</tr><tr>
