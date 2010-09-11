@@ -368,6 +368,10 @@ $LNG['bd_more_engine']                    = 'Производит <span style="c
 $LNG['bd_jump_gate_action']               = 'Переместиться';
 $LNG['bd_cancel_warning']                 = 'При удалении из очереди будет восстановленно только 60% ресурсов!';
 $LNG['bd_cancel_send']                    = 'Выбрать - Удалить';
+$LNG['sys_notenough_money']               = 'На планете %s <a href="?page=buildings&amp;cp=%d&amp;re=0">[%d:%d:%d]</a> недостаточно ресурсов для строительства %s. <br>У Вас имеется: %s %s , %s %s и %s %s. <br>Стоимость строительства: %s %s , %s %s и %s %s.';
+$LNG['sys_nomore_level']                  = 'Вы пытаетесь разрушить здание, которое уже разрушено ( %s ).';
+$LNG['sys_buildlist']                     = 'Список строительства';
+$LNG['sys_buildlist_fail']                = 'Строительство невозможно';
 
 // Ресурсы
 $LNG['rs_amount']                         = 'Количество';
@@ -978,6 +982,8 @@ $LNG['pl_etc']                            = 'Разное';
 // Чат
 $LNG['chat_title']                        = 'Чат';
 $LNG['chat_ally_title']                   = 'Чат альянса';
+$LNG['chat_bbcode']                       = 'BB-коды';
+$LNG['chat_fontcolor']                    = 'Цвет шрифта';
 $LNG['chat_disc']                         = 'Чат';
 $LNG['chat_message']                      = 'Сообщение';
 $LNG['chat_send']                         = 'Отправить';
@@ -1004,6 +1010,7 @@ $LNG['text']                              = 'Текст';
 $LNG['message_a']                         = 'Статус сообщения:';
 $LNG['sendit_a']                          = 'Сообщение отпавлено.';
 $LNG['message_t']                         = 'Состояние заявки:';
+$LNG['supp_send']                         = 'Отправить';
 $LNG['sendit_t']                          = 'Заявка отправлена.';
 $LNG['close_t']                           = 'Заявка закрыта.';
 $LNG['sendit_error']                      = 'Ошибка:';
