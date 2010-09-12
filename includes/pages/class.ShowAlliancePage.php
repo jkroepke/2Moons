@@ -1088,7 +1088,7 @@ class ShowAlliancePage
 							$range = $LNG['al_new_member_rank_text'];
 
 						$StatsData 					= $db->uniquequery("SELECT SUM(wons) as wons, SUM(loos) as loos, SUM(draws) as draws, SUM(kbmetal) as kbmetal, SUM(kbcrystal) as kbcrystal, SUM(lostunits) as lostunits, SUM(desunits) as desunits FROM ".USERS." WHERE ally_id='" . $ally['id'] . "';");
-
+						$Reuqests					= $db->uniquequery("SELECT COUNT(*) as state FROM ".USERS." WHERE ally_request='".$ally['id']."';");
 						$this->template->assign_vars(array(
 							'DiploInfo'					=> $this->GetDiplo($ally['id']),		
 							'al_diplo_level'			=> $LNG['al_diplo_level'],
@@ -1101,7 +1101,8 @@ class ShowAlliancePage
 							'ally_description'			=> bbcode($ally['ally_description']),
 							'ally_text' 				=> bbcode($ally['ally_text']),
 							'range'						=> $range,
-							'requests'					=> sprintf($LNG['al_new_requests'], $db->num_rows($db->query("SELECT id FROM ".USERS." WHERE ally_request='".$ally['id']."';"))),
+							'requests'					=> sprintf($LNG['al_new_requests'], $Reuqests['state']),
+							'req_count'					=> $Reuqests['state'],
 							'al_requests'				=> $LNG['al_requests'],
 							'al_leave_alliance'			=> $LNG['al_leave_alliance'],
 							'al_rank'					=> $LNG['al_rank'],
@@ -1125,6 +1126,7 @@ class ShowAlliancePage
 							'pl_unitslose'				=> $LNG['pl_unitslose'],
 							'pl_dermetal'				=> $LNG['pl_dermetal'],
 							'pl_dercrystal'				=> $LNG['pl_dercrystal'],
+							'al_goto_chat'				=> $LNG['al_goto_chat'],
 							'al_continue'				=> $LNG['al_continue'],
 							'al_leave_alliance'			=> $LNG['al_leave_alliance'],
 							'al_leave_ally'				=> $LNG['al_leave_ally'],
