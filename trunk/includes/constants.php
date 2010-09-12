@@ -85,6 +85,9 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	// DARKMATTER PRICE FOR OFFICIER LEVEL
 	define('DM_PRO_OFFICIER_LEVEL'	  , 1000);
 	
+	// Max Amount of Fleets where allow on one ACS
+	define('MAX_FLEETS_PER_ACS'	  	  , 16);
+	
 	// INITIAL RESOURCE OF NEW PLANETS
 	define('BUILD_METAL'              , 500);
 	define('BUILD_CRISTAL'            , 500);

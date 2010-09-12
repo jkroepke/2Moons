@@ -676,22 +676,26 @@ class ShowFleetPages extends FleetFunctions
 		
 		if ($fleet_group_mr != 0)
 		{
-			$AksStartTime = $db->uniquequery("SELECT MAX(`fleet_start_time`) AS Start FROM ".FLEETS." WHERE `fleet_group` = '". $fleet_group_mr . "';");
-
-			if ($AksStartTime['Start'] >= $fleet['start_time'])
+			$AksStartTime = $db->uniquequery("SELECT MAX(`fleet_start_time`) AS Start FROM ".FLEETS." WHERE `fleet_group` = '". $fleet_group_mr . "' AND '".MAX_FLEETS_PER_ACS."' > (SELECT COUNT(*) FROM ".FLEETS." WHERE `fleet_group` = '". $fleet_group_mr . "');");
+			if (isset($AksStartTime)) 
 			{
-				$fleet['end_time'] 	   += $AksStartTime['Start'] - $fleet['start_time'];
-				$fleet['start_time'] 	= $AksStartTime['Start'];
-			}
-			else
-			{
-				$QryUpdateFleets = "UPDATE ".FLEETS." SET ";
-				$QryUpdateFleets .= "`fleet_start_time` = '".$fleet['start_time']."', ";
-				$QryUpdateFleets .= "`fleet_end_time` = fleet_end_time + '".($fleet['start_time'] - $AksStartTime['Start'])."' ";
-				$QryUpdateFleets .= "WHERE ";
-				$QryUpdateFleets .= "`fleet_group` = '". $fleet_group_mr ."';";
-				$db->query($QryUpdateFleets);
-				$fleet['end_time'] 	    += $fleet['start_time'] - $AksStartTime['Start'];
+				if ($AksStartTime['Start'] >= $fleet['start_time'])
+				{
+					$fleet['end_time'] 	   += $AksStartTime['Start'] - $fleet['start_time'];
+					$fleet['start_time'] 	= $AksStartTime['Start'];
+				}
+				else
+				{
+					$QryUpdateFleets = "UPDATE ".FLEETS." SET ";
+					$QryUpdateFleets .= "`fleet_start_time` = '".$fleet['start_time']."', ";
+					$QryUpdateFleets .= "`fleet_end_time` = fleet_end_time + '".($fleet['start_time'] - $AksStartTime['Start'])."' ";
+					$QryUpdateFleets .= "WHERE ";
+					$QryUpdateFleets .= "`fleet_group` = '". $fleet_group_mr ."';";
+					$db->query($QryUpdateFleets);
+					$fleet['end_time'] 	    += $fleet['start_time'] - $AksStartTime['Start'];
+				}
+			} else {
+				$mission	= 1;
 			}
 		}
 		
