@@ -551,6 +551,7 @@ $LNG['al_users_list']						= 'lista clanova (igraci: %d)';
 $LNG['al_manage_alliance']					= 'upravljanje savezom';
 $LNG['al_send_circular_message']			= 'posalji kruznu poruku';
 $LNG['al_new_requests']					= '%d novo zahtjev/i';
+$LNG['al_goto_chat']					= 'Natrag na chat saveza';
 $LNG['al_save']							= 'Spremi';
 $LNG['al_dlte']							= 'Izbrisi';
 $LNG['al_rank_name']						= 'Rank';

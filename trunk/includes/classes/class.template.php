@@ -183,12 +183,12 @@ class template extends Smarty
 	
     private function header()
     {
-        global $USER, $CONF;
+        global $USER, $CONF, $LANG;
         $this->assign_vars(array(
-            'title'            => $CONF['game_name'],
-            'dpath'            => (empty($USER['dpath']) ? DEFAULT_SKINPATH : $USER['dpath']),
-            'is_pmenu'         => $USER['settings_planetmenu'],
-            'thousands_sep'    => '.',
+            'title'				=> $CONF['game_name'],
+            'dpath'				=> (empty($USER['dpath']) ? DEFAULT_SKINPATH : $USER['dpath']),
+            'is_pmenu'			=> $USER['settings_planetmenu'],
+            'lang'    			=> $LANG,
         ));
     }
 	

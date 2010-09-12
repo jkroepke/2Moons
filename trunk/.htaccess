@@ -16,15 +16,7 @@ Deny from All
 AddDefaultCharset utf-8
 FileETag MTime Size
 Options -Indexes
-
-<IfModule mod_rewrite.c>
-RewriteEngine on
-RewriteRule ^styles/templates/ / [R]
-RewriteRule ^language/ / [R]
-RewriteRule ^includes/ / [R]
-RewriteRule ^cache/ / [R]
-RewriteRule ^raports/ / [R]
-</IfModule>
+DirectoryIndex index.php
 
 <IfModule mod_deflate.c>
 AddOutputFilterByType DEFLATE text/plain
