@@ -287,7 +287,7 @@ switch ($page) {
 					require_once('includes/libs/reCAPTCHA/recaptchalib.php');
 					$resp = recaptcha_check_answer($CONF['capprivate'], $_SERVER['REMOTE_ADDR'], $_REQUEST['recaptcha_challenge_field'], $_REQUEST['recaptcha_response_field']);
 					if (!$resp->is_valid)
-						$error .= $LNG['wrong_captcha'];
+						$errors .= $LNG['wrong_captcha'];
 				}
 				
 				$Exist['userv'] = $db->uniquequery("SELECT username, email FROM ".USERS." WHERE username = '".$db->sql_escape($UserName)."' OR email = '".$db->sql_escape($UserEmail)."';");
@@ -492,6 +492,20 @@ switch ($page) {
 					$_SESSION['authlevel']	= 0;	
 					
 					redirectTo("game.".PHP_EXT."?page=overview");
+				}
+			break;
+			case 'check':
+				$action	= request_var('action', '');
+				switch($action)
+				{
+					case 'username':
+						$Name	= request_var('username', '', UTF8_SUPPORT);
+						$Count	= array_sum(array_merge($db->uniquequery("SELECT COUNT(*) as var1 FROM ".USERS." WHERE `username` = '".$db->sql_escape($Name)."';"), $db->uniquequery("SELECT COUNT(*) as var2 FROM ".USERS_VALID." WHERE `username` = '".$db->sql_escape($Name)."';")));
+						echo $Count;
+					break;
+					case 'mail':
+					
+					break;
 				}
 			break;
 			default:
