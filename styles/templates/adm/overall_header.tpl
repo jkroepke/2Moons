@@ -2,10 +2,9 @@
 
 <html lang="de">
 <head>
+<link rel="stylesheet" type="text/css" href="./styles/css/ingame.css">
 <link rel="stylesheet" type="text/css" href="./styles/skins/darkness/formate.css">
 <link rel="stylesheet" type="text/css" href="./styles/css/admin.css">
-<link rel="stylesheet" type="text/css" href="./styles/css/jQuery.ui.css">
-<link rel="stylesheet" type="text/css" href="./styles/css/mbContainer.css">
 <link rel="icon" href="./favicon.ico">
 <title>{$title}</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
