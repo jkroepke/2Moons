@@ -101,9 +101,9 @@ switch ($page) {
 				
 				while(!$IfNameExist)
 				{
-					$Exist['userv'] = $db->fetch_array($db->query("SELECT username FROM ".USERS." WHERE username = '".$UserName."';"));
-					$Exist['vaild'] = $db->fetch_array($db->query("SELECT username FROM ".USERS_VALID." WHERE username = '".$UserName."';"));
-					if(!isset($Exist['userv']) && !isset($Exist['vaild']))
+					$Exist['userv'] = $db->uniquequery("SELECT username FROM ".USERS." WHERE username = '".$UserName."';");
+					$Exist['valid'] = $db->uniquequery("SELECT username FROM ".USERS_VALID." WHERE username = '".$UserName."';");
+					if(!isset($Exist['userv']) && !isset($Exist['valid']))
 						$IfNameExist	= true;
 					else
 						$UserName		= $i.$UserName;
@@ -285,13 +285,13 @@ switch ($page) {
 				
 				if ($CONF['capaktiv'] === '1') {
 					require_once('includes/libs/reCAPTCHA/recaptchalib.php');
-					$resp = recaptcha_check_answer($CONF['capprivate'], $_SERVER['REMOTE_ADDR'], request_var('recaptcha_challenge_field', ''), request_var('recaptcha_response_field', ''));
+					$resp = recaptcha_check_answer($CONF['capprivate'], $_SERVER['REMOTE_ADDR'], $_REQUEST['recaptcha_challenge_field'], $_REQUEST['recaptcha_response_field']);
 					if (!$resp->is_valid)
-						$errorlist .= $LNG['wrong_captcha'];
+						$error .= $LNG['wrong_captcha'];
 				}
 				
 				$Exist['userv'] = $db->uniquequery("SELECT username, email FROM ".USERS." WHERE username = '".$db->sql_escape($UserName)."' OR email = '".$db->sql_escape($UserEmail)."';");
-				$Exist['vaild'] = $db->uniquequery("SELECT username, email FROM ".USERS_VALID." WHERE username = '".$db->sql_escape($UserName)."' OR email = '".$db->sql_escape($UserEmail)."';");
+				$Exist['valid'] = $db->uniquequery("SELECT username, email FROM ".USERS_VALID." WHERE username = '".$db->sql_escape($UserName)."' OR email = '".$db->sql_escape($UserEmail)."';");
 								
 				if (!ValidateAddress($UserEmail)) 
 					$errors .= $LNG['invalid_mail_adress'];
@@ -320,10 +320,10 @@ switch ($page) {
 				if ($agbrules != 'on')
 					$errors .= $LNG['terms_and_conditions'];
 
-				if ((isset($Exist['userv']['username']) || isset($Exist['vaild']['username']) && ($UserName == $Exist['userv']['username'] || $UserName == $Exist['vaild']['username'])))
+				if ((isset($Exist['userv']['username']) || isset($Exist['valid']['username']) && ($UserName == $Exist['userv']['username'] || $UserName == $Exist['valid']['username'])))
 					$errors .= $LNG['user_already_exists'];
 
-				if ((isset($Exist['userv']['email']) || isset($Exist['vaild']['email'])) && ($UserEmail == $Exist['userv']['email'] || $UserEmail == $Exist['vaild']['email']))
+				if ((isset($Exist['userv']['email']) || isset($Exist['valid']['email'])) && ($UserEmail == $Exist['userv']['email'] || $UserEmail == $Exist['valid']['email']))
 					$errors .= $LNG['mail_already_exists'];
 				
 				if (!empty($errors)) {
