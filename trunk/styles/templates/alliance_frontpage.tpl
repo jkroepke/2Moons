@@ -28,9 +28,9 @@
             <td>{$range}{if $rights.admin} (<a href="?page=alliance&amp;mode=admin&amp;edit=ally">{$al_manage_alliance}</a>){/if}</td>
         </tr>
         <tr>
-            <td colspan="2"><a href="javascript:f('?page=chat&amp;chat_type=ally','');">Zum Allianz-Chat</a></td>
+            <td colspan="2"><a href="javascript:f('?page=chat&amp;chat_type=ally','');">{$al_goto_chat}</a></td>
         </tr> 
-		{if $rights.seeapply && $requests != 0}		
+		{if $rights.seeapply && $req_count > 0}		
         <tr>
 			<td>{$al_requests}</td><td><a href="?page=alliance&amp;mode=admin&amp;edit=requests">{$requests}</a></td>
 		</tr>
