@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 
-<html lang="de">
+<html lang="{$lang}">
 <head>
 <title>{$title}</title>
 {if $goto}
 <meta http-equiv="refresh" content="{$gotoinsec};URL={$goto}">
 {/if}
+<meta http-equiv="content-language" content="{$lang}">
+<meta name="robots" content="index, follow">
 <link rel="stylesheet" type="text/css" href="./styles/css/ingame.css">
 <link rel="stylesheet" type="text/css" href="{$dpath}formate.css">
 <link rel="icon" href="favicon.ico">
