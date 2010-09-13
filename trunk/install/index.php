@@ -94,21 +94,6 @@ switch ($Mode) {
 			$error++;
 		}
 
-##########################################################
-
-		if (! is_writable(ROOT_PATH."includes")) {
-			die("fatal error: 'chmod 0777 " . ROOT_PATH."includes' via FTP client");
-		}
-
-		if (! is_readable(ROOT_PATH."includes/config.php")) {
-			file_put_contents(ROOT_PATH."includes/config.php", '');
-			if (false === @chmod(ROOT_PATH."includes/config.php", 0666)) {
-				die('fatal error: set with your FTP client this file' . ROOT_PATH."includes/config.php on 0666");
-			}
-		}
-
-##########################################################
-
 		if(!extension_loaded('gd')){
 			$gdlib = "<span class=\"no\">".$LNG['reg_no']."</span>";
 		} else {
@@ -126,10 +111,10 @@ switch ($Mode) {
 					$chmod = " - <span class=\"no\">".$LNG['reg_not_writable']."</span>";
 					$error++;
 				}
-			$config = "<tr><td>".$LNG['reg_file']." - config.php</td><td><span class=\"yes\">".$LNG['reg_found']."</span>".$chmod."</td></tr>";
+			$config = "<tr><td>".$LNG['reg_file']." - ./includes/config.php</td><td><span class=\"yes\">".$LNG['reg_found']."</span>".$chmod."</td></tr>";
 			@fclose($res);
 		} else {
-			$config = "<tr><td>".$LNG['reg_file']." - config.php</td><td><span class=\"no\">".$LNG['reg_not_found']."</span></td></tr>";
+			$config = "<tr><td>".$LNG['reg_file']." - ./includes/config.php</td><td><span class=\"no\">".$LNG['reg_not_found']."</span></td></tr>";
 			$error++;
 		}
 		$directories = array('cache/', 'cache/UserBanner/', 'cache/sessions/', 'raports/');
