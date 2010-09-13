@@ -41,7 +41,7 @@ if(isset($_REQUEST['lang']) && ctype_alnum($_REQUEST['lang']) && !isset($_REQUES
 	$LANG	= $_REQUEST['lang'];
 else
 	$LANG	= DEFAULT_LANG;
-	
+
 includeLang('INGAME');
 includeLang('INSTALL');
 $Mode     = $_GET['mode'];
@@ -85,7 +85,7 @@ switch ($Mode) {
 			$PHP = "<span class=\"yes\">".$LNG['reg_yes'].", ".PHP_VERSION."</span>";
 		} else {
 			$PHP = "<span class=\"no\">".$LNG['reg_no'].", ".PHP_VERSION."</span>";
-			$error++;	
+			$error++;
 		}
 		if(@ini_get('safe_mode') == 0){
 			$safemode = "<span class=\"yes\">".$LNG['reg_yes']."</span>";
@@ -93,7 +93,22 @@ switch ($Mode) {
 			$safemode = "<span class=\"no\">".$LNG['reg_no']."</span>";
 			$error++;
 		}
-		
+
+##########################################################
+
+		if (! is_writable(ROOT_PATH."includes")) {
+			die("fatal error: 'chmod 0777 " . ROOT_PATH."includes' via FTP client");
+		}
+
+		if (! is_readable(ROOT_PATH."includes/config.php")) {
+			file_put_contents(ROOT_PATH."includes/config.php", '');
+			if (false === @chmod(ROOT_PATH."includes/config.php", 0666)) {
+				die('fatal error: set with your FTP client this file' . ROOT_PATH."includes/config.php on 0666");
+			}
+		}
+
+##########################################################
+
 		if(!extension_loaded('gd')){
 			$gdlib = "<span class=\"no\">".$LNG['reg_no']."</span>";
 		} else {
@@ -103,7 +118,7 @@ switch ($Mode) {
 			else
 				$gdlib = "<span class=\"yes\">".$LNG['reg_yes'].", ".$Info['GD Version']."</span>";
 		}
-		
+
 		if(file_exists(ROOT_PATH."includes/config.php") || ($res = @fopen(ROOT_PATH."includes/config.php","w+") === true)){
 			if(is_writable(ROOT_PATH."includes/config.php") || @chmod(ROOT_PATH."includes/config.php", 0777)){
 					$chmod = "<span class=\"yes\"> - ".$LNG['reg_writable']."</span>";
@@ -111,7 +126,7 @@ switch ($Mode) {
 					$chmod = " - <span class=\"no\">".$LNG['reg_not_writable']."</span>";
 					$error++;
 				}
-			$config = "<tr><td>".$LNG['reg_file']." - config.php</td><td><span class=\"yes\">".$LNG['reg_found']."</span>".$chmod."</td></tr>";		
+			$config = "<tr><td>".$LNG['reg_file']." - config.php</td><td><span class=\"yes\">".$LNG['reg_found']."</span>".$chmod."</td></tr>";
 			@fclose($res);
 		} else {
 			$config = "<tr><td>".$LNG['reg_file']." - config.php</td><td><span class=\"no\">".$LNG['reg_not_found']."</span></td></tr>";
@@ -129,17 +144,17 @@ switch ($Mode) {
 						$error++;
 					}
 				$dirs .= "<tr><td>".$LNG['reg_dir']." - ".$dir."</th><td><span class=\"yes\">".$LNG['reg_found']."</span>".$chmod."</td></tr>";
-				
+
 			} else {
 				$dirs .= "<tr><td>".$LNG['reg_dir']." - ".$dir."</td><td><span class=\"no\">".$LNG['reg_not_found']."</span></td></tr>";
 				$error++;
 			}
 		}
-		
+
 		if($error == 0){
 			$done = "<tr><td colspan=\"2\"><a href=\"index.php?mode=ins&page=1&amp;lang=".$LANG."\">".$LNG['continue']."</a></td></tr>";
 		}
-		
+
 		$template->assign_vars(array(
 			'safemode'			=> $safemode,
 			'dir'				=> $dirs,
@@ -167,7 +182,7 @@ switch ($Mode) {
 				'continue'				=> $LNG['continue'],
 			));
 			$template->show('install/ins_form.tpl');
-			
+
 		}
 		elseif ($Page == 2) {
 			$GLOBALS['database']['host']			= request_var('host', '');
@@ -176,9 +191,9 @@ switch ($Mode) {
 			$GLOBALS['database']['userpw']			= request_var('passwort', '', true);
 			$prefix 								= request_var('prefix', '', true);
 			$GLOBALS['database']['databasename']    = request_var('db', '', true);
-			
+
 			$connection = new DB_MySQLi();
-			
+
 			if (mysqli_connect_errno()) {
 				exit($template->message(sprintf($LNG['step2_db_con_fail'], mysqli_connect_error()),"?mode=ins&page=1&lang=".$LANG));
 			}
@@ -188,10 +203,10 @@ switch ($Mode) {
 				exit($template->message($LNG['step2_conf_op_fail'],"?mode=ins&page=1&lang=".$LANG));
 
 			$first		= "Verbindung zur Datenbank erfolgreich...";
-			$connection->multi_query(str_replace("prefix_", $prefix, file_get_contents('install.sql'))); 
-			
+			$connection->multi_query(str_replace("prefix_", $prefix, file_get_contents('install.sql')));
+
 			$second	= $LNG['step2_db_ok'];
-			
+
 			file_put_contents("../includes/config.php", "<?php\n".
 			"//### Database access ###//\n\n".
 			"\$database['host']          = '".$GLOBALS['database']['host']."';\n".
@@ -205,7 +220,7 @@ switch ($Mode) {
 			"?>");
 			fclose($dz);
 			@chmod("../config.php",0444);
-			
+
 			$third	= "config.php erfolgreich erstellt...";
 			$template->assign_vars(array(
 				'first'					=> $first,
@@ -238,7 +253,7 @@ switch ($Mode) {
 				message($LNG['step4_need_fields'],"?mode=ins&page=3&".$LANG, 2, false, false);
 				exit();
 			}
-			
+
 			$SQL  = "INSERT INTO ".USERS." SET ";
 			$SQL .= "`id`                = '1', ";
 			$SQL .= "`username`          = '". $adm_user ."', ";
@@ -258,7 +273,7 @@ switch ($Mode) {
 			$SQL .= "`id_level`          = '0', ";
 			$SQL .= "`galaxy`            = '1', ";
 			$SQL .= "`system`            = '1', ";
-			$SQL .= "`name`              = 'Hauptplanet', "; 
+			$SQL .= "`name`              = 'Hauptplanet', ";
 			$SQL .= "`planet`            = '1', ";
 			$SQL .= "`last_update`       = '". TIMESTAMP ."', ";
 			$SQL .= "`planet_type`       = '1', ";
@@ -281,15 +296,15 @@ switch ($Mode) {
 			@session_start();
 			$_SESSION['id']			= '1';
 			$_SESSION['username']	= $adm_user;
-			$_SESSION['authlevel']	= 3;	
-		
-			header("Location: ../admin.php");		
+			$_SESSION['authlevel']	= 3;
+
+			header("Location: ../admin.php");
 		}
 		break;
 	case 'convert':
 		if(!file_exists(ROOT_PATH.'config.php') || filesize(ROOT_PATH.'config.php') == 0)
 			message($LNG['convert_install'], '?', 3);
-		
+
 		if($_POST) {
 			$GLOBALS['database']['host']			= $_POST['host'];
 			$GLOBALS['database']['port']			= $_POST['port'];
@@ -299,7 +314,7 @@ switch ($Mode) {
 			require_once('class.convert.'.PHP_EXT);
 			new convert($_POST['version'], $_POST['prefix']);
 			$template->message($LNG['convert_done'], '?', 3);
-			
+
 		} else {
 			$template->assign_vars(array(
 				'step1_mysql_server'	=> $LNG['step1_mysql_server'],
@@ -311,7 +326,7 @@ switch ($Mode) {
 				'convert_version'		=> $LNG['convert_version'],
 				'convert_submit'		=> $LNG['convert_submit'],
 			));
-			
+
 			$template->show('install/ins_convert.tpl');
 		}
 	default:
