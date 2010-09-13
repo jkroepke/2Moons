@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 //SHORT NAMES FOR COMBAT REPORTS
 $LNG['tech_rc'] = array (
@@ -23,6 +23,12 @@ $LNG['tech_rc'] = array (
 220 => 'Sondador de MN',
 221 => 'Paradine',
 222 => 'T.Destroyer',
+223 => 'Stars catcher',
+224 => 'Ifrit',
+225 => 'Shiva',
+226 => 'Catoblepas',
+227 => 'Ixion',
+228 => 'Odin',
 
 401 => "L.Misseis.",
 402 => "Laser L.",
@@ -32,6 +38,7 @@ $LNG['tech_rc'] = array (
 406 => "C.Plasma",
 407 => "P.Escudo",
 408 => "G.Escudo",
+409 => 'Gigantic signpost dome',
 410 => 'C.Gravitação',
 411 => 'S.Orbital',
 );
@@ -55,14 +62,18 @@ $LNG['tech'] = array(
 31 => "Laboratório de Pesquisas",
 33 => "Terra-Formador",
 34 => "Depósito da aliança",
+44 => "Silo de Mísseis",
+
 
 40 => 'Edifícios especiais',
 41 => 'Base lunar',
 42 => 'Sensor Phalanx',
 43 => 'P. de Salto Quântico',
-44 => "Silo de Mísseis",
- 
-// Technologies
+
+
+
+
+// Tecnologias
 100 => 'Pesquisas',
 106 => 'Tecnologia de Espionagem',
 108 => 'Tecnologia de Computadores',
@@ -79,7 +90,9 @@ $LNG['tech'] = array(
 122 => 'Tecnologia de Plasma',
 123 => 'Rede Intergaláctica de Pesquisas',
 124 => 'Exploração Espacial',
-125 => 'Tecnologia de Astrofísica',
+131 => 'Maximização da produção de Metal',
+132 => 'Maximização da produção de Cristal',
+133 => 'Maximização da produçao de Deutério',
 199 => 'Tecnologia de Gravitação',
 
 200 => "Naves",
@@ -104,6 +117,12 @@ $LNG['tech'] = array(
 220 => 'Sondador de MN',
 221 => 'Paradine',
 222 => 'Titan Destroyer',
+223 => 'Stars catcher',
+224 => 'Ifrit',
+225 => 'Shiva',
+226 => 'Catoblepas',
+227 => 'Ixion',
+228 => 'Odin',
 
 400 => 'Sistemas de Defesa',
 401 => 'Lançador de Mísseis',
@@ -114,6 +133,7 @@ $LNG['tech'] = array(
 406 => 'Canhão de Plasma',
 407 => 'P. Escudo Planetário',
 408 => 'G. Escudo Planetário',
+409 => 'Gigantic signpost dome',
 410 => 'Canhão de Gravitação',
 411 => 'S. Orbital de Defesa',
 
@@ -121,12 +141,29 @@ $LNG['tech'] = array(
 503 => 'Míssil Interplanetário',
 
 600 => 'Oficiais',
-601 => 'Comandante',
+601 => 'Geólogo',
 602 => 'Almirante',
 603 => 'Engenheiro',
-604 => 'Geólogo',
-605 => 'Tecnocrata',
+604 => 'Tecnocrata',
+605 => 'Constructor',
+606 => 'Cientista',
+607 => 'Especialista de Armazenamento',
+608 => 'Ministro da Defesa',
+609 => 'Guardião',
+610 => 'Espião',
+611 => 'Comandante',
+612 => 'Destruidor',
+613 => 'General',
+614 => 'Conquistador',
+615 => 'Imperador',
 
+700 => 'Optimização de Armas',
+701 => 'Optimização de Escudos',
+702 => 'Coordenação na construção',
+703 => 'Optimização de Recursos',
+704 => 'Optimização de Energia',
+705 => 'Optimização de Pesquisas',
+706 => 'Coordenação de Frotas',
 );
 
 $LNG['res']['descriptions'] = array(
@@ -165,7 +202,9 @@ $LNG['res']['descriptions'] = array(
 122 => "Tecnologia mais avançada que a tecnologia de iões que, em vez de acelerar iões, acelera o plasma com um grande poder energético. Desta forma cria-se um raio que ocasiona danos enormes aos objectos que atinge.",
 123 => "Os cientistas dos teus planetas podem comunicar uns com os outros graças a esta rede.",
 124 => "A tecnologia de Exploração Espacial inclui formas de pesquisa à distância e permite o uso de módulos de pesquisa nas naves. Estes últimos são compostos por uma base de dados funcional num laboratório móvel.",
-125 => "Com o módulo de pesquisa de astrofísica, poderás colonizar um planeta extra a cada dois desenvolvimentos desta tecnologia.<br>Poderás colonizar 6 planetas sem esta tec para começar.",
+131 => 'Aumentar a procução da mina de metal por 2%',
+132 => 'Aumentar a produção da mina de cristal por 2%',
+133 => 'Aumentar a produção do sintetizador de deuterio por 2%',
 199 => "Um gráviton é uma partícula elementar responsável pelos efeitos da gravitação.",
 
 202 => "Estas naves são aproximadamente do tamanho de uma nave de combate, mas não são equipadas nem com motores nem com armamento de combate, para deixar mais espaço para os recursos a transportar.",
@@ -188,7 +227,13 @@ $LNG['res']['descriptions'] = array(
 219 => 'O Giga.Reciclador é uma nave muito desejada devido à sua capacidade de carga e velocidade.',
 220 => 'Após longos anos de pesquisas, foi possivel criar a nave que rastreia matéria negra .',
 221 => 'Este navio é um dos navios mais poderosos do universo jamais feito. O Paradine viaja com o seu Motor de Gravitação incrivelmente alto de uma fenda no tempo que devora todos os adversários. Os seus escudos repelem quase qualquer ataque.',
-222 => 'Esta nave é o resultado de anos de pesquisa. Os cientístas juntaram-se para criar esse monstro chamado Titan Destroyer. Equipado com as armas mais potentes, incluindo o Canhão de Gravitação.',
+222 => 'Esta nave é o resultado de anos de pesquisa. Os cientístas juntaram-se para criar esse monstro chamado Titã Destruidor. Equipado com as armas mais potentes, incluindo o Canhão de Gravitação.',
+223 => 'Esta nave utiliza a radiação das estrelas para construir uma carga para o poderoso "Laser das Estrelas". Com armadura de primeira classe e escudos esta é a unica nave que sobrevive quando atingida por um Canhão de Gravitação.',
+224 => 'Esta nave está equipada com as melhores armas projéctil da galáxia, mas não tem armas laser. Tremendo poder de fogo que supera todos os anteriores. Cerca de 500.000 milhões de projecteis em diamante são disparados por minuto, mesmo a melhor armadura é penetrável. É uma das cinco titãs do espaço.',
+225 => 'Esta nave está equipada com as melhores armas a laser e de iões da galáxia, mas não possui armas de projectéis.O poderoso laser supera quase tudo o que havia antes. A força da luz concentrada com uma força devastadora que quebra quase qualquer escudo. É uma das cinco titãs do espaço.',
+226 => 'Esta nave tem um dos maiores espaços de carga instalados que uma grande quantidade de matérias-primas podem ser transportadas. Também está equipada com proteções extremamente poderosas, por isso também é bom para a defesa de um planeta. No entanto o poder do ataque é inexistente. É uma das cinco titãs do espaço.',
+227 => 'A melhor nave atacante que existe. Com a sua velocidade e agilidade, é uma arma extremamente perigosa. É uma das cinco titãs do espaço.',
+228 => 'O tamanho desta nave é equivalente a quatro vezes um ser humano e, portanto, podem facilmente penetrar em fortalezas inimigas para destruí-la por dentro. A sua velocidade é incomparável. É uma das cinco titãs do espaço.',
 
 401 => "O lançador de mísseis é um sistema de defesa simples e barato. Tornam-se muito eficazes em número e podem ser construídos sem pesquisa específica porque é uma arma de balística simples.",
 402 => "Para acompanhar o ritmo com a velocidade sempre crescente do desenvolvimento das tecnologias de naves espaciais, os cientistas tiveram que criar um tipo novo de sistema da defesa capaz de destruír as naves mais fortes.",
@@ -198,12 +243,36 @@ $LNG['res']['descriptions'] = array(
 406 => "A tecnologia de laser foi melhorada, a tecnologia de iões alcançou a sua fase final. Pensou-se que seria impossível criar sistemas de armas mais eficazes. A possibilidade de combinar os dois sistemas mudou este pensamento.",
 407 => "Muito tempo antes da instalação dos escudos em embarcações, os geradores já existiam na superfície dos planetas. Cobriam os planetas e eram capazes de absorver quantidades enormes de danos antes de serem destruídos.",
 408 => "O grande escudo planetário cobre o planeta para absorver quantidades enormes de tiros.",
+409 => 'A evolução da tecnologia do Grande escudo planetario. Consome muito mais energia mas é capaz de aguentar um numero bem maior de ataques.',
 410 => 'Após anos de pesquisa sobre a força gravitacional os pesquisadores desenvolveram um Canhão de Gravitação que produz pequenos Gravitões concentrados e podem ser disparados contra o inimigo..',
 411 => 'Esta plataforma de proporções gigantescas, as maiores, que foram alguma vez vistas no universo. É uma plataforma imovél defensiva. Não tem accionamento directo e é realizada por Graviton.',
 
 502 => "O míssil de intercepção destrói os mísseis interplanetários atacantes.",
 503 => "O míssil interplanetário destrói os sistemas de defesa do inimigo.",
 
+601 => 'O Geólogo é um experiente astromineralogista e cristalografista. Ele assiste as suas equipas de metalurgia e química assim como cuida das comunicações interplanetárias optimizando o seu uso e na refinação das matérias-primas por todo o império.<br><br><font color="red">+5% na produção de recursos. Nivel max: 20</font>',
+602 => 'O Almirante de frota é um experiente veterano de Guerra e estratega também.. Nos combates mais difíceis, ele é capaz de definir uma estratégia e transmiti-la aos seus subordinados. Um sábio imperador pode confiar no seu suporte em batalhas.<br><br><font color="red">+5% em escudos. Nivel max: 20</font>',
+603 => 'O engenheiro é especialista na gestão de energia. Em épocas de paz, aumenta a energia de todas as tuas colónias. Em caso de ataque, assegura a fonte de energia aos canhões defensivos, evitando uma eventual sobrecarga, reduzindo deste modo as perdas na batalha.<br><br><font color="red">+5% de Energia . Nivel max: 10</font>',
+604 => 'A Ordem dos cientistas é composta por grandes génios. Podes encontrá-los sempre a discutir questôes que desafiariam a lógica de qualquer pessoa. Nenhuma pessoa normal conseguirá descobrir o código desta ordem, e é a sua presença que inspira todos investigadores no Império a conseguir mais e melhor.<br><br><font color="red">-5% do tempo de construção de naves. Nivel max: 10</font>',
+605 => 'O construtor tem o seu DNA alterado, apenas estes homens seriam capazes de construir uma cidade num curto periodo de tempo.<br><br><font color="red">-10% do tempo de construção. Nivel max: 3</font>',
+606 => 'Os cientistas sao uma especie de clã concorrente aos tecnocratas. Especializam-se na evolução da tecnologia.<br><br><font color="red">-10% do tempo do pesquisa. Nivel Maximo: 3</font>',
+607 => 'O armazenamento faz parte da irmandade do planeta Hsac. O seu lema era ganhar o maximo, o que implica aumentar a capacidade de armazenamento. Desde então a tecnica de armazenamento tem evoluido.<br><br><font color="red">+50% da capacidade de armazenamento. Nivel Maximo:2</font>',
+608 => 'O ministro da defesa e um membro exercito imperial. Concentrado no seu trabalho é capaz de construir uma defesa formidável num curto periodo de tempo.<br><br><font color="red">-50% no tempo de construção de defesas</font>',
+609 => 'O guardião é um membro do exército imperial e tem como objectivo fazer evoluir as defesas de um planeta.<br><br><font color="red">Desbloqueia o Grande Escudo Planetário </font>',
+610 => 'O espião é uma personagem enigmática. Nunca ninguem viu a sua verdadeira face, a unica maneira de isso acontecer seria sendo morto. <br><br><font color="red">+5 Niveis de Espionagem. Nivel max: 2</font>',
+611 => 'O comandante faz parte do exército imperial e especializou-se na arte de coordenar as frotas. O seu cérebro e capaz de calcular um grande número de trajectorias.<br><br><font color="red">+3 espaços para frotas.</font>',
+612 => 'O destruidor é também um membro do exército imperial mas sem piedade. Desfaz tudo que se mete no seu caminho apenas por diversão. Está neste momento a desenvolver um novo metodo de produção da Estrela da Morte.<br><br><font color="red">Duas estrelas da morte por uma.</font>',
+613 => 'O general é uma personagem que serviu durante muitos anos o exército imperial. Os trabalhadores tem uma produção mais rápida na sua presença.<br><br><font color="red">+10% da velocidade de produção de naves</font>',
+614 => 'Esta personagem possui qualidades de conquista inigualáveis. Este sugere que tu te tornes um Raider. O Raider e o nivel mais alto da guarda imperial Raider',
+615 => 'Quando colocados sob o comando do imperador todos os oficiais do império, combinando suas habilidades para dominar o universo são capazes de se tornar num adversário quase invisível.',
+
+700 => 'Aumenta o valor do ataque das naves em %s%%. Este bonús é temporário.',
+701 => 'Aumenta o valor dos escudos e defesas das navem em %s%%. Este bonús é temporário.',
+702 => 'Diminui o tempo da construção de edificios em %s%%. Este bonús é temporário.',
+703 => 'Aumenta a produção de recursos em %s%%. Este bonús é temporário.',
+704 => 'Aumenta a produção de energia em %s%%. Este bonús é temporário.',
+705 => 'Encurta o tempo de pesquisa em %s%%. Este bonús é temporário.',
+706 => 'Encurta o tempo de voo em %s%%. Este bonús é temporário. Não afecta expedições.',
 );
 
 
@@ -259,72 +328,76 @@ $LNG['info'][44]['description']  = "O silo de mísseis é a estrutura de lançam
 
 // ----------------------------------------------------------------------------------------------------------
 // Forschung
-$LNG['info'][106]['name']        = "Tecnologia de Espionagem";
-$LNG['info'][106]['description'] = "A tecnologia de espionagem resulta de pesquisas sobre sensores de dados, equipamento e conhecimento da inteligência de que um império necessita para se proteger de ataques, mas também para dirigir ataques contra o inimigo. A evolução desta tecnologia aumenta os detalhes, e informações obtidos.<br/><br/>O resultado de espionagem depende também da força e do nível de espionagem do jogador adverso. A evolução do nível da tecnologia de espionagem define também o nível dos detalhes sobre uma frota que se aproxima do teu planeta:<br/>- Nível 2 adiciona o número de naves á informação sobre a frota;<br/>- Nível 4 adiciona o tipo das naves que se aproximam;<br/>- Nível 8 adiciona finalmente detalhes sobre o tipo e o número de naves que se aproximam.</br><br/>Em geral, a tecnologia de espionagem é muito importante para um império, seja ele agressivo ou amigável. Conselho: começar a pesquisar esta área tecnológica logo depois de ter á sua disposição as primeiras naves de transporte.";
-$LNG['info'][108]['name']        = "Tecnologia de Computadores";
-$LNG['info'][108]['description'] = "A informática é utilizada para construir processos de dados cada vez mais evoluídos e controlar unidades. Cada evolução desta tecnologia aumenta o número de frotas que podem ser comandadas em mesmo tempo. Aumentando esta tecnologia, permite mais actividade e assim um melhor rendimento, isso tomando em conta as frotas militares assim como transportes de carga e espionagem. Será uma boa ideia aumentar constantemente a pesquisa nesta área para fornecer uma flexibilidade adequada ao império.";
-$LNG['info'][109]['name']        = "Tecnologia de Armas";
-$LNG['info'][109]['description'] = "A tecnologia de armas trata do desenvolvimento dos sistemas de armas existentes. é focalizada principalmente no aumento do poder e da eficiência das armas.<br/>Com esta tecnologia, e aumentando o seu nível, a mesma arma tem mais poder e causa mais danos - cada nível aumenta o poder de fogo em 10%.<br/>A tecnologia de armas é importante permanecer a um nível elevado, para não facilitar a tarefa dos inimigos.";
-$LNG['info'][110]['name']        = "Tecnologia de Escudo";
-$LNG['info'][110]['description'] = "A tecnologia de escudo é utilizada para criar um escudo protector. Cada evolução do nível desta tecnologia aumenta a protecção em 10%. O nível do melhoramento aumenta basicamente a quantidade de energia que o escudo pode absorver antes de ser destruido. Esta tecnologia não só aumenta a qualidade dos escudos das naves, como também do escudo protector planetário.";
-$LNG['info'][111]['name']        = "Tecnologia de Blindagem";
-$LNG['info'][111]['description'] = "Para uma dada liga que provou ser eficaz, a estrutura molecular pode ser alterada de maneira a manipular o seu comportamento numa situação de combate e incorporar as realizações tecnológicas. Cada evolução do nível desta tecnologia aumenta a blindagem em 10%.";
-$LNG['info'][113]['name']        = "Tecnologia de Energia";
-$LNG['info'][113]['description'] = "A tecnologia da energia trata do conhecimento das fontes de energia, das soluções de armazenamento e das tecnologias que fornecem o que é mais básico: Energia. São necessários determinados níveis de evolução desta tecnologia para permitir o acesso a novas tecnologias que confiam no conhecimento da energia.";
-$LNG['info'][114]['name']        = "Tecnologia de Hiperespaço";
-$LNG['info'][114]['description'] = "A tecnologia de hiperespaço fornece o conhecimento para as viagens no hiperespaço utilizadas por muitas naves de guerra. é uma nova e complicada espécie de tecnologia que requer um equipamento caro de laboratório e facilidades de testes.";
-$LNG['info'][115]['name']        = "Motor de Combustão";
-$LNG['info'][115]['description'] = "Os motores de combustão pertencem aos motores antigos e são baseados na repulsão. As partículas são aceleradas deixando o motor criar uma força repulsiva que move a nave no sentido oposto. A eficiência destes motores de combustão é baixa, mas são baratos e de confiança.<br/>Pesquisar e evoluir esta tecnologia aumenta a velocidade de combustão dos motores e assim a velocidade das naves, cada evolução aumenta a velocidade em 10%. Esta tecnologia é de grande importãncia para um império emergente, e deve ser pesquisado o mais cedo possível.";
-$LNG['info'][117]['name']        = "Motor de Impulsão";
-$LNG['info'][117]['description'] = "Uma grande parte de matéria repulsada resulta em restos e lixo, criados pela fusão nuclear. Cada evolução desta tecnologia aumenta em 20% a velocidade das naves mais pesadas como o cruzador, bombardeiro, caça pesado e nave de colonização. Os motores de impulsão são um desenvolvimento adicional aos motores de combustão, aumentam a eficiência e abaixam o consumo de combustível relativo á velocidade.";
-$LNG['info'][118]['name']        = "Motor Propulsor de Hiperespaço";
-$LNG['info'][118]['description'] = "O motor propulsor é baseado na curvatura do espaço-tempo. Desta maneira, o ambiente das naves que utilizam este motor propulsor comprime-se, permitindo que as naves percorram grandes distãncias em muito pouco tempo. A evolução do motor propulsor aumenta a velocidade de algumas naves em 30%. Requesitos: Tecnologia de Hiperespaço (Nível 3) Laboratório de Pesquisa (Nível 7).";
-$LNG['info'][120]['name']        = "Tecnologia Laser";
-$LNG['info'][120]['description'] = "O laser (amplificação de luz pela emissão estimulada da radiação) cria um raio intenso de luz, que concentra uma grande quantidade de energia. O laser tem várias áreas de aplicação como os sistemas ópticos de computadores, e as armas com alto poder destructivo. O conhecimento desta tecnologia é fundamental para a investigação de novas armas.<br/>Requisitos: Laboratório de Pesquisas (Nível 1) Tecnologia de Energia (Nível 2).";
-$LNG['info'][121]['name']        = "Tecnologia de Iôes";
-$LNG['info'][121]['description'] = "Ao acelerar iôes um raio letal é criado, e causa danos importantes aos objectos que atinge.";
-$LNG['info'][122]['name']        = "Tecnologia de Plasma";
-$LNG['info'][122]['description'] = "Tecnologia mais avançada que a tecnologia de iôes, em vez de acelerar iôes, acelera-se o plasma com um grande poder energético, desta forma cria-se um raio que ocasiona danos enormes aos objectos que atinge.";
-$LNG['info'][123]['name']        = "Rede Intergaláctica de Pesquisas";
-$LNG['info'][123]['description'] = "Os cientistas dos teus planetas podem comunicar uns com os outros graças a esta rede.<br/>No nível 0, terás apenas o benefício de ligar o satélite ao teu laboratório de pesquisas mais evoluído. Com o nível 1, ligarás os 2 laboratórios mais evoluídos. Cada nível acrescenta mais um laboratório. Desta maneira, as pesquisas serão efectuadas com a máxima velocidade.";
-$LNG['info'][124]['name']        = "Tecnologia de Exploração Espacial";
-$LNG['info'][124]['description'] = "A tecnologia de Exploração Espacial inclui formas de pesquisa á distância e permite o uso de módulos de pesquisa nas naves, estes últimos são compostos por uma base de dados funcional num laboratório móvel. Para assegurar a segurança destas naves durante situações de pesquisa extremas, o módulo contêm o seu próprio sistema de energia que cria um poderoso campo de forças á volta do módulo durante uma emergência.";
-$LNG['info'][125]['name']        = "Astrofísica";
-$LNG['info'][125]['description'] = "Mais desenvolvimentos no campo da astrofísica permite-te a a construção de laboratórios que por sua vez poderão ser adaptados a um maior número de naves. Isto permite-nos fazer expedições a áreas remotas do espaço possíveis. Esta tecnologia permite-te ainda colonizar as galáxias. Por cada 2 níveis desta tecnologia poderás colonizar um planeta extra.";
-$LNG['info'][199]['name']        = "Tecnologia de Gravitação";
-$LNG['info'][199]['description'] = "Um gráviton é uma partícula elementar responsável pelos efeitos da gravitação. Com o aceleramento de partículas gravitacionais, um campo gravitacional artificial é criado com uma força atractiva que pode não só destruir naves mas também luas inteiras. De maneira a produzir a quantidade necessária de partículas de gravitação, o planeta tem que poder criar uma quantidade maciça de energia. Requisitos: Laboratório de Pesquisas (Nível 12).";
+$LNG['info'][106]['name']        = 'Tecnologia de Espionagem';
+$LNG['info'][106]['description'] = 'A tecnologia de espionagem resulta de pesquisas sobre sensores de dados, equipamento e conhecimento da inteligência de que um império necessita para se proteger de ataques, mas também para dirigir ataques contra o inimigo. A evolução desta tecnologia aumenta os detalhes, e informações obtidos.<br/><br/>O resultado de espionagem depende também da força e do nível de espionagem do jogador adverso. A evolução do nível da tecnologia de espionagem define também o nível dos detalhes sobre uma frota que se aproxima do teu planeta:<br/>- Nível 2 adiciona o número de naves á informação sobre a frota;<br/>- Nível 4 adiciona o tipo das naves que se aproximam;<br/>- Nível 8 adiciona finalmente detalhes sobre o tipo e o número de naves que se aproximam.</br><br/>Em geral, a tecnologia de espionagem é muito importante para um império, seja ele agressivo ou amigável. Conselho: começar a pesquisar esta área tecnológica logo depois de ter á sua disposição as primeiras naves de transporte.';
+$LNG['info'][108]['name']        = 'Tecnologia de Computadores';
+$LNG['info'][108]['description'] = 'A informática é utilizada para construir processos de dados cada vez mais evoluídos e controlar unidades. Cada evolução desta tecnologia aumenta o número de frotas que podem ser comandadas em mesmo tempo. Aumentando esta tecnologia, permite mais actividade e assim um melhor rendimento, isso tomando em conta as frotas militares assim como transportes de carga e espionagem. Será uma boa ideia aumentar constantemente a pesquisa nesta área para fornecer uma flexibilidade adequada ao império.';
+$LNG['info'][109]['name']        = 'Tecnologia de Armas';
+$LNG['info'][109]['description'] = 'A tecnologia de armas trata do desenvolvimento dos sistemas de armas existentes. é focalizada principalmente no aumento do poder e da eficiência das armas.<br/>Com esta tecnologia, e aumentando o seu nível, a mesma arma tem mais poder e causa mais danos - cada nível aumenta o poder de fogo em 10%.<br/>A tecnologia de armas é importante permanecer a um nível elevado, para não facilitar a tarefa dos inimigos.';
+$LNG['info'][110]['name']        = 'Tecnologia de Escudo';
+$LNG['info'][110]['description'] = 'A tecnologia de escudo é utilizada para criar um escudo protector. Cada evolução do nível desta tecnologia aumenta a protecção em 10%. O nível do melhoramento aumenta basicamente a quantidade de energia que o escudo pode absorver antes de ser destruido. Esta tecnologia não só aumenta a qualidade dos escudos das naves, como também do escudo protector planetário.';
+$LNG['info'][111]['name']        = 'Tecnologia de Blindagem';
+$LNG['info'][111]['description'] = 'Para uma dada liga que provou ser eficaz, a estrutura molecular pode ser alterada de maneira a manipular o seu comportamento numa situação de combate e incorporar as realizações tecnológicas. Cada evolução do nível desta tecnologia aumenta a blindagem em 10%.';
+$LNG['info'][113]['name']        = 'Tecnologia de Energia';
+$LNG['info'][113]['description'] = 'A tecnologia da energia trata do conhecimento das fontes de energia, das soluções de armazenamento e das tecnologias que fornecem o que é mais básico: Energia. São necessários determinados níveis de evolução desta tecnologia para permitir o acesso a novas tecnologias que confiam no conhecimento da energia.';
+$LNG['info'][114]['name']        = 'Tecnologia de Hiperespaço';
+$LNG['info'][114]['description'] = 'A tecnologia de hiperespaço fornece o conhecimento para as viagens no hiperespaço utilizadas por muitas naves de guerra. é uma nova e complicada espécie de tecnologia que requer um equipamento caro de laboratório e facilidades de testes.';
+$LNG['info'][115]['name']        = 'Motor de Combustão';
+$LNG['info'][115]['description'] = 'Os motores de combustão pertencem aos motores antigos e são baseados na repulsão. As partículas são aceleradas deixando o motor criar uma força repulsiva que move a nave no sentido oposto. A eficiência destes motores de combustão é baixa, mas são baratos e de confiança.<br/>Pesquisar e evoluir esta tecnologia aumenta a velocidade de combustão dos motores e assim a velocidade das naves, cada evolução aumenta a velocidade em 10%. Esta tecnologia é de grande importãncia para um império emergente, e deve ser pesquisado o mais cedo possível.';
+$LNG['info'][117]['name']        = 'Motor de Impulsão';
+$LNG['info'][117]['description'] = 'Uma grande parte de matéria repulsada resulta em restos e lixo, criados pela fusão nuclear. Cada evolução desta tecnologia aumenta em 20% a velocidade das naves mais pesadas como o cruzador, bombardeiro, caça pesado e nave de colonização. Os motores de impulsão são um desenvolvimento adicional aos motores de combustão, aumentam a eficiência e abaixam o consumo de combustível relativo á velocidade.';
+$LNG['info'][118]['name']        = 'Motor Propulsor de Hiperespaço';
+$LNG['info'][118]['description'] = 'O motor propulsor é baseado na curvatura do espaço-tempo. Desta maneira, o ambiente das naves que utilizam este motor propulsor comprime-se, permitindo que as naves percorram grandes distãncias em muito pouco tempo. A evolução do motor propulsor aumenta a velocidade de algumas naves em 30%. Requesitos: Tecnologia de Hiperespaço (Nível 3) Laboratório de Pesquisa (Nível 7).';
+$LNG['info'][120]['name']        = 'Tecnologia Laser';
+$LNG['info'][120]['description'] = 'O laser (amplificação de luz pela emissão estimulada da radiação) cria um raio intenso de luz, que concentra uma grande quantidade de energia. O laser tem várias áreas de aplicação como os sistemas ópticos de computadores, e as armas com alto poder destructivo. O conhecimento desta tecnologia é fundamental para a investigação de novas armas.<br/>Requisitos: Laboratório de Pesquisas (Nível 1) Tecnologia de Energia (Nível 2).';
+$LNG['info'][121]['name']        = 'Tecnologia de Iôes';
+$LNG['info'][121]['description'] = 'Ao acelerar iôes um raio letal é criado, e causa danos importantes aos objectos que atinge.';
+$LNG['info'][122]['name']        = 'Tecnologia de Plasma';
+$LNG['info'][122]['description'] = 'Tecnologia mais avançada que a tecnologia de iôes, em vez de acelerar iôes, acelera-se o plasma com um grande poder energético, desta forma cria-se um raio que ocasiona danos enormes aos objectos que atinge.';
+$LNG['info'][123]['name']        = 'Rede Intergaláctica de Pesquisas';
+$LNG['info'][123]['description'] = 'Os cientistas dos teus planetas podem comunicar uns com os outros graças a esta rede.<br/>No nível 0, terás apenas o benefício de ligar o satélite ao teu laboratório de pesquisas mais evoluído. Com o nível 1, ligarás os 2 laboratórios mais evoluídos. Cada nível acrescenta mais um laboratório. Desta maneira, as pesquisas serão efectuadas com a máxima velocidade.';
+$LNG['info'][124]['name']        = 'Tecnologia de Exploração Espacial';
+$LNG['info'][124]['description'] = 'A tecnologia de Exploração Espacial inclui formas de pesquisa á distância e permite o uso de módulos de pesquisa nas naves, estes últimos são compostos por uma base de dados funcional num laboratório móvel. Para assegurar a segurança destas naves durante situações de pesquisa extremas, o módulo contêm o seu próprio sistema de energia que cria um poderoso campo de forças á volta do módulo durante uma emergência.';
+$LNG['info'][131]['name']        = 'Maximização da produção de Metal';
+$LNG['info'][131]['description'] = 'Aumentar a procução da mina de metal por 2%';
+$LNG['info'][132]['name']        = 'Maximização da produção de Cristal';
+$LNG['info'][132]['description'] = 'Aumentar a produção da mina de cristal por 2%';
+$LNG['info'][133]['name']        = 'Maximização da produção de Deutério';
+$LNG['info'][133]['description'] = 'Aumentar a produção do sintetizador de deuterio por 2%';
+$LNG['info'][199]['name']        = 'Tecnologia de Gravitação';
+$LNG['info'][199]['description'] = 'Um gráviton é uma partícula elementar responsável pelos efeitos da gravitação. Com o aceleramento de partículas gravitacionais, um campo gravitacional artificial é criado com uma força atractiva que pode não só destruir naves mas também luas inteiras. De maneira a produzir a quantidade necessária de partículas de gravitação, o planeta tem que poder criar uma quantidade maciça de energia. Requisitos: Laboratório de Pesquisas (Nível 12).';
 
 
 // ----------------------------------------------------------------------------------------------------------
-// Schiffe
-$LNG['info'][202]['name']        = "Cargueiro Pequeno";
-$LNG['info'][202]['description'] = "Estas naves são aproximadamente do tamanho de uma nave de combate, mas não são equipadas nem com motores nem com armamento de combate, para deixar mais espaço para os recursos a transportar. O cargueiro pequeno pode transportar até 5.000 unidades de recursos.<br/>A velocidade básica dos teus cargueiros pequenos é aumentada logo que a tecnologia de impulsão nível 5 for pesquisada, já que ficam equipados com motores de impulsão.";
-$LNG['info'][203]['name']        = "Cargueiro Grande";
-$LNG['info'][203]['description'] = "Esta nave não deve atacar sozinha, pois a sua estrutura não lhe permite resistrir muito tempo aos sistemas de defesa. O seu motor de combustão altamente sofisticado permite-lhe ser um fornecedor rápido do recursos. Normalmente, acompanha as frotas em invasões a planetas para capturar e roubar recursos ao inimigo.";
-$LNG['info'][204]['name']        = "Caça Ligeiro";
-$LNG['info'][204]['description'] = "Considerando a sua estrutura, agilidade e alta velocidade, o caça ligeiro pode ser definido como uma boa arma no principio do jogo, e um bom acompanhante para as naves mais sofisticadas e poderosas.";
-$LNG['info'][205]['name']        = "Caça Pesado";
-$LNG['info'][205]['description'] = "Durante a evolução do caça ligeiro os investigadores chegaram ao ponto onde a tecnologia convencional alcança os seus limites. De maneira a fornecer agilidade ao novo caça, um poderoso motor de impulsão foi usado pela primeira vez. Apesar dos custos e da complexidade adicionais, novas possibilidades tornaram-se disponíveis. Com o uso da tecnologia de impulsão e a integridade estrutural aumentada, foi possível dar ao caça pesado um sistema de armas e uma resistência necessitando mais energia transformando a nave numa verdadeira ameaça para o inimigo.";
-$LNG['info'][206]['name']        = "Cruzador";
-$LNG['info'][206]['description'] = "Com os lasers pesados e os canhões do iões que emergem nos campos de batalha, as naves básicas de combate encontravam cada vez mais em dificuldade. Apesar de muitas modificações nos sistemas de arma estas naves não podiam ser aumentadas ou evoluidas bastante para poder rivalizar com os novos sistemas de defesa.<br/>Por esta razão, foi decidido desenvolver uma nova nave, poderosa e com sistemas de armas devastadores. Nasceu então o cruzador.<br/>Os cruzadores possuem um sistema de armas três vezes mais poderoso do que aquele encontrado no caça pesado e uma velocidade de tiro aumentada. A velocidade do cruzador é a mais rápida já vista. Infelizmente, com o aparecimento mais tarde dos novos e mais fortes sistemas de defesa como os canhões de Gauss e os lançadores de plasma, o domínio dos cruzadores acabou. O cruzador tem RapidFire(10) contra os lançadores de mísseis e contra os caças ligeiros, isso quer dizer que um cruzador destrói sempre mais de um míssil ou caça ligeiro a cada round.";
-$LNG['info'][207]['name']        = "Nave de Batalha";
-$LNG['info'][207]['description'] = "As naves de batalha constituem a espinha dorsal de qualquer frota militar. Os sistemas de armas poderosos e a resistência inigualável da nave de batalha adicionados à alta velocidade e à capacidade de carga importante fazem desta nave um perigo constante, em qualquer situação e contra qualquer oponente.";
-$LNG['info'][208]['name']        = "Nave de Colonização";
-$LNG['info'][208]['description'] = "Esta nave permite colonizar novos planetas, outros mundos, onde nenhum homem ainda se aventurou no passado. Um império pode possuir até 8 colónias. As naves de colonização têm dupla utilização. Podem servir como cargueiros (não recomendado pela sua lentidão), e como naves de colonização. Se pretendes colonizar um planeta, não envies recursos com a nave de colonização, pois estes serão perdidos.";
-$LNG['info'][209]['name']        = "Reciclador";
-$LNG['info'][209]['description'] = "Os combates no espaço parecem tornar-se cada vez mais impressionantes onde numa única batalha milhares de naves podem ser destruídas, e os restos perdidos para sempre. Os cargueiros não têm os meios para recolher esses recursos valiosos.<br/>Com o desenvolvimento das naves espaciais, veio a ser possível recolher aqueles campos de ruínas. Um reciclador é do tamanho de um cargueiro grande e tem uma capacidade de armazenamento limitada de 20.000 unidades.";
-$LNG['info'][210]['name']        = "Sonda de Espionagem";
-$LNG['info'][210]['description'] = "As sondas de espionagem são drones com uma rapidez impressionante de propulsão utilizados para espiar os inimigos. Com um sistema de comunicação altamente avançado as sondas podem emitir dados a grande distância.<br/>Quando chegam ao planeta alvo, as sondas permanecem na orbita de maneira a recolher os dados do planeta. Durante esse período é relativamente fácil detectá-las. Uma vez detectadas, devido à fraqueza da sua estrutura, as sondas não podem resistir muito tempo aos tiros dos sistemas de defesa, e são rapidamente destruidas.<br/>Para que o tempo de permanencia em órbita seja o mais reduzido possível, é conveniente ter uma Tecnologia de Espionagem bem desenvolvida.";
-$LNG['info'][211]['name']        = "Bombardeiro";
-$LNG['info'][211]['description'] = "O bombardeiro é uma nave espacial desenvolvida para destruir os sistemas de defesa planetários mais recentes e poderosos. Dotado de um sistema de escolha de alvo guiado ao laser, e de bombas de plasma, o bombardeiro é uma arma destrutiva.<br/>A velocidade básica dos teus bombardeiros é aumentada assim que seja pesquisado o motor de hiperespaço nível 8, já que ficam equipadas com o motor de hiperespaço.";
-$LNG['info'][212]['name']        = "Satélite Solar";
-$LNG['info'][212]['description'] = "Os satélites solares são satélites simples situados na órbita de um planeta, equipados de células fotovoltaicas, capazes de transferir energia para o planeta. A energia é transmitida ao planeta graças a um feixe de laser especial.<br/>Estes satélites são uma ajuda ao nível da procura de energia, mas não resistem aos tiros das naves inimigas, e desta maneira a perda de os satélites pode ser fatal para a sobrevivência energética do teu planeta.";
-$LNG['info'][213]['name']        = "Destruidor";
-$LNG['info'][213]['description'] = "Com o destruidor, a mãe de todas as naves entra na arena. O sistema de armas desta nave é constituído por canhões de ion-plasma e canhões de Gauss, adicionando um sistema de detecção e escolha de alvo, a nave pode destruir caças ligeiros voando em plena velocidade com 99% de probabilidade. A agilidade deste monstro de guerra é evidentemente embora a velocidade seja um grande ponto negativo, mas o destruidor pode ser considerado mais como uma estação de combate do que uma nave, com uma capacidade de transporte importante, acompanha as naves de batalha e dá uma ajudinha decisiva.";
-$LNG['info'][214]['name']        = "Estrela da Morte";
-$LNG['info'][214]['description'] = "Uma embarcação deste tamanho e deste poder necessita uma quantidade gigantesca de recursos e mão de obra que podem ser fornecidos somente pelos impérios mais importantes de todo o universo.";
-$LNG['info'][215]['name']        = "Interceptor";
-$LNG['info'][215]['description'] = "Esta nave, uma filigrana tecnológica, é mortal na altura de destruir frotas inimigas. Com os seus canhões de laser aperfeiçoados, mantém uma posição privilegiada entre as naves pesadas, onde pode destruir bastantes em menos de nada. Devido ao seu pequeno design e ao seu enorme poderio de armas, a capacidade de carga é mínima, mas isto é compensado com um consumo baixo de combustível do motor de hiperespaço embutido.";
+// Schiff'
+$LNG['info'][202]['name']        = 'Cargueiro Pequeno';
+$LNG['info'][202]['description'] = 'Estas naves são aproximadamente do tamanho de uma nave de combate, mas não são equipadas nem com motores nem com armamento de combate, para deixar mais espaço para os recursos a transportar. O cargueiro pequeno pode transportar até 5.000 unidades de recursos.<br/>A velocidade básica dos teus cargueiros pequenos é aumentada logo que a tecnologia de impulsão nível 5 for pesquisada, já que ficam equipados com motores de impulsão.';
+$LNG['info'][203]['name']        = 'Cargueiro Grande';
+$LNG['info'][203]['description'] = 'Esta nave não deve atacar sozinha, pois a sua estrutura não lhe permite resistrir muito tempo aos sistemas de defesa. O seu motor de combustão altamente sofisticado permite-lhe ser um fornecedor rápido do recursos. Normalmente, acompanha as frotas em invasões a planetas para capturar e roubar recursos ao inimigo.';
+$LNG['info'][204]['name']        = 'Caça Ligeiro';
+$LNG['info'][204]['description'] = 'Considerando a sua estrutura, agilidade e alta velocidade, o caça ligeiro pode ser definido como uma boa arma no principio do jogo, e um bom acompanhante para as naves mais sofisticadas e poderosas.';
+$LNG['info'][205]['name']        = 'Caça Pesado';
+$LNG['info'][205]['description'] = 'Durante a evolução do caça ligeiro os investigadores chegaram ao ponto onde a tecnologia convencional alcança os seus limites. De maneira a fornecer agilidade ao novo caça, um poderoso motor de impulsão foi usado pela primeira vez. Apesar dos custos e da complexidade adicionais, novas possibilidades tornaram-se disponíveis. Com o uso da tecnologia de impulsão e a integridade estrutural aumentada, foi possível dar ao caça pesado um sistema de armas e uma resistência necessitando mais energia transformando a nave numa verdadeira ameaça para o inimigo.';
+$LNG['info'][206]['name']        = 'Cruzador';
+$LNG['info'][206]['description'] = 'Com os lasers pesados e os canhões do iões que emergem nos campos de batalha, as naves básicas de combate encontravam cada vez mais em dificuldade. Apesar de muitas modificações nos sistemas de arma estas naves não podiam ser aumentadas ou evoluidas bastante para poder rivalizar com os novos sistemas de defesa.<br/>Por esta razão, foi decidido desenvolver uma nova nave, poderosa e com sistemas de armas devastadores. Nasceu então o cruzador.<br/>Os cruzadores possuem um sistema de armas três vezes mais poderoso do que aquele encontrado no caça pesado e uma velocidade de tiro aumentada. A velocidade do cruzador é a mais rápida já vista. Infelizmente, com o aparecimento mais tarde dos novos e mais fortes sistemas de defesa como os canhões de Gauss e os lançadores de plasma, o domínio dos cruzadores acabou. O cruzador tem RapidFire(10) contra os lançadores de mísseis e contra os caças ligeiros, isso quer dizer que um cruzador destrói sempre mais de um míssil ou caça ligeiro a cada round.';
+$LNG['info'][207]['name']        = 'Nave de Batalha';
+$LNG['info'][207]['description'] = 'As naves de batalha constituem a espinha dorsal de qualquer frota militar. Os sistemas de armas poderosos e a resistência inigualável da nave de batalha adicionados à alta velocidade e à capacidade de carga importante fazem desta nave um perigo constante, em qualquer situação e contra qualquer oponente.';
+$LNG['info'][208]['name']        = 'Nave de Colonização';
+$LNG['info'][208]['description'] = 'Esta nave permite colonizar novos planetas, outros mundos, onde nenhum homem ainda se aventurou no passado. Um império pode possuir até 8 colónias. As naves de colonização têm dupla utilização. Podem servir como cargueiros (não recomendado pela sua lentidão), e como naves de colonização. Se pretendes colonizar um planeta, não envies recursos com a nave de colonização, pois estes serão perdidos.';
+$LNG['info'][209]['name']        = 'Reciclador';
+$LNG['info'][209]['description'] = 'Os combates no espaço parecem tornar-se cada vez mais impressionantes onde numa única batalha milhares de naves podem ser destruídas, e os restos perdidos para sempre. Os cargueiros não têm os meios para recolher esses recursos valiosos.<br/>Com o desenvolvimento das naves espaciais, veio a ser possível recolher aqueles campos de ruínas. Um reciclador é do tamanho de um cargueiro grande e tem uma capacidade de armazenamento limitada de 20.000 unidades.';
+$LNG['info'][210]['name']        = 'Sonda de Espionagem';
+$LNG['info'][210]['description'] = 'As sondas de espionagem são drones com uma rapidez impressionante de propulsão utilizados para espiar os inimigos. Com um sistema de comunicação altamente avançado as sondas podem emitir dados a grande distância.<br/>Quando chegam ao planeta alvo, as sondas permanecem na orbita de maneira a recolher os dados do planeta. Durante esse período é relativamente fácil detectá-las. Uma vez detectadas, devido à fraqueza da sua estrutura, as sondas não podem resistir muito tempo aos tiros dos sistemas de defesa, e são rapidamente destruidas.<br/>Para que o tempo de permanencia em órbita seja o mais reduzido possível, é conveniente ter uma Tecnologia de Espionagem bem desenvolvida.';
+$LNG['info'][211]['name']        = 'Bombardeiro';
+$LNG['info'][211]['description'] = 'O bombardeiro é uma nave espacial desenvolvida para destruir os sistemas de defesa planetários mais recentes e poderosos. Dotado de um sistema de escolha de alvo guiado ao laser, e de bombas de plasma, o bombardeiro é uma arma destrutiva.<br/>A velocidade básica dos teus bombardeiros é aumentada assim que seja pesquisado o motor de hiperespaço nível 8, já que ficam equipadas com o motor de hiperespaço.';
+$LNG['info'][212]['name']        = 'Satélite Solar';
+$LNG['info'][212]['description'] = 'Os satélites solares são satélites simples situados na órbita de um planeta, equipados de células fotovoltaicas, capazes de transferir energia para o planeta. A energia é transmitida ao planeta graças a um feixe de laser especial.<br/>Estes satélites são uma ajuda ao nível da procura de energia, mas não resistem aos tiros das naves inimigas, e desta maneira a perda de os satélites pode ser fatal para a sobrevivência energética do teu planeta.';
+$LNG['info'][213]['name']        = 'Destruidor';
+$LNG['info'][213]['description'] = 'Com o destruidor, a mãe de todas as naves entra na arena. O sistema de armas desta nave é constituído por canhões de ion-plasma e canhões de Gauss, adicionando um sistema de detecção e escolha de alvo, a nave pode destruir caças ligeiros voando em plena velocidade com 99% de probabilidade. A agilidade deste monstro de guerra é evidentemente embora a velocidade seja um grande ponto negativo, mas o destruidor pode ser considerado mais como uma estação de combate do que uma nave, com uma capacidade de transporte importante, acompanha as naves de batalha e dá uma ajudinha decisiva.';
+$LNG['info'][214]['name']        = 'Estrela da Morte';
+$LNG['info'][214]['description'] = 'Uma embarcação deste tamanho e deste poder necessita uma quantidade gigantesca de recursos e mão de obra que podem ser fornecidos somente pelos impérios mais importantes de todo o universo.';
+$LNG['info'][215]['name']        = 'Interceptor';
+$LNG['info'][215]['description'] = 'Esta nave, uma filigrana tecnológica, é mortal na altura de destruir frotas inimigas. Com os seus canhões de laser aperfeiçoados, mantém uma posição privilegiada entre as naves pesadas, onde pode destruir bastantes em menos de nada. Devido ao seu pequeno design e ao seu enorme poderio de armas, a capacidade de carga é mínima, mas isto é compensado com um consumo baixo de combustível do motor de hiperespaço embutido.';
 $LNG['info'][216]['name']        = 'Estrela Destruidora';
 $LNG['info'][216]['description'] = 'O sucessor das populares estrelas da morte, um pouco mais rápido e mais forte, devido ao seu melhor armamento e motores mais potentes torna está nave um perigo para as luas.';
 $LNG['info'][217]['name']        = 'Evo. Transportador';
@@ -339,48 +412,82 @@ $LNG['info'][221]['name']        = 'Paradine';
 $LNG['info'][221]['description'] = 'Este navio é um dos navios mais poderosos do universo jamais feito. O Paradine viaja com o seu Motor de Gravitação incrivelmente alto de uma fenda no tempo que devora todos os adversários. Os seus escudos repelem quase qualquer ataque, faz desta nave um dos principais alvos a abater de qualquer frota inimíga.';
 $LNG['info'][222]['name']        = 'Titan Destroyer';
 $LNG['info'][222]['description'] = 'Esta nave é o resultado de anos de pesquisa. Os cientístas juntaram-se para criar esse monstro chamado Titan Destroyer. Equipado com as armas mais potentes, incluindo o Canhão de Gravitação é possível destruir todo o tipo de naves em poucos segundos e recolher os seus restos mortais, no seu armazém enorme.';
+$LNG['info'][223]['name']        = 'Caçador de estrelas';
+$LNG['info'][223]['description'] = 'Esta nave utiliza a radiação das estrelas para construir uma carga para o poderoso "Laser das Estrelas". Com armadura de primeira classe e escudos esta é a unica nave que sobrevive quando atingida por um Canhão de Gravitação.';
+$LNG['info'][224]['name']        = 'Titã do Espaço Ifrit';
+$LNG['info'][224]['description'] = 'Esta nave está equipada com as melhores armas projéctil da galáxia, mas não tem armas laser. Tremendo poder de fogo que supera todos os anteriores. Cerca de 500.000 milhões de projecteis em diamante são disparados por minuto, mesmo a melhor armadura é penetrável. É uma das cinco tatans do espaço.';
+$LNG['info'][225]['name']        = 'Titã do Espaço Shiva';
+$LNG['info'][225]['description'] = 'Esta nave está equipada com as melhores armas a laser e de iões da galáxia, mas não possui armas de projectéis.O poderoso laser supera quase tudo o que havia antes. A força da luz concentrada com uma força devastadora que quebra quase qualquer escudo. É uma das cinco titãs do espaço. ';
+$LNG['info'][226]['name']        = 'Titã do Espaço Catoblepas';
+$LNG['info'][226]['description'] = 'Esta nave tem um dos maiores espaços de carga instalados que uma grande quantidade de matérias-primas podem ser transportadas. Também está equipada com proteções extremamente poderosas, por isso também é bom para a defesa de um planeta. No entanto o poder do ataque é inexistente. É uma das cinco titãs do espaço. ';
+$LNG['info'][227]['name']        = 'Titã do Espaço Ixion';
+$LNG['info'][227]['description'] = 'A melhor nave atacante que existe. Com a sua velocidade e agilidade, é uma arma extremamente perigosa. É uma das cinco titãs do espaço. ';
+$LNG['info'][228]['name']        = 'Titã do Espaço Odin';
+$LNG['info'][228]['description'] = 'O tamanho desta nave é equivalente a quatro vezes um ser humano e, portanto, podem facilmente penetrar em fortalezas inimigas para destruí-la por dentro. A sua velocidade é incomparável. É uma das cinco titãs do espaço.';
 
 
 // ----------------------------------------------------------------------------------------------------------
 // Verteidigung
-$LNG['info'][401]['name']        = "Lançador de Mísseis";
-$LNG['info'][401]['description'] = "O lançador de mísseis é um sistema de defesa simples e barato. Tornam-se muito eficazes em número e podem ser construídos sem pesquisa específica porque é uma arma de balística simples. Os custos de fabricação baixos fazem desta arma defensiva um adversário apropriado para frotas pequenas.<br/>Em geral, os sistemas de defesa desactivam-se ao alcançar parâmetros operacionais críticos de maneira a fornecer uma possibilidade de reparação. 70% da defesa planetária destruída pode ser reparada depois dum combate.";
-$LNG['info'][402]['name']        = "Laser Ligeiro";
-$LNG['info'][402]['description'] = "Para acompanhar o ritmo com a velocidade sempre crescente do desenvolvimento das tecnologias de naves espaciais, os cientistas tiveram que criar um tipo novo de sistema da defesa capaz de destruír as naves mais fortes.<br/>Rapidamente, o laser ligeiro foi inventado, este pode disparar um feixe de laser altamente concentrado no alvo e criar danos muito mais elevados do que o impacto de mísseis balísticos. Um preço baixo da unidade era um objetivo essencial do projeto, por isso a estrutura basica não foi melhorada comparada ao lançador de mísseis.";
-$LNG['info'][403]['name']        = "Laser Pesado";
-$LNG['info'][403]['description'] = "O laser pesado é uma evolução directa do laser ligeiro, a integridade estrutural foi evoluída e aumentada e materiais novos foram adoptados. Com os novos sistemas de energia e novos computadores, muito mais energia pode ser utilizada e dirigida para disparar fogo sobre o inimigo.";
-$LNG['info'][404]['name']        = "Canhão de Gauss";
-$LNG['info'][404]['description'] = "Durante muito tempo pensou-se que as armas de projécteis iam ser como a tecnologia de fusão e de energia, o desenvolvimento da propulsão de hiperespaço e o desenvolvimento de protecções melhoradas ficando antigas até que a tecnologia de energia, que a tinha posta de lado naquele tempo, as fez renascer. O princípio já era conhecido no século XX - o princípio de aceleração de partículas. Um canhão de gauss (canhão eletromagnético) não é nada mais que um acelerador de partículas, onde os projécteis com um peso de várias toneladas começam a ser acelerados. Mesmo as protecções modernas, a blindagem ou os escudos têm dificuldades em resistir a esta força, acabando um projéctil por atravessar completamente o objecto. Os sistemas de defesa desactivam-se quando estão demasiado estragados. Depois de uma batalha, 70% dos sistemas danificados podem ser reparados.";
-$LNG['info'][405]['name']        = "Canhão de Iões";
-$LNG['info'][405]['description'] = "No século XXI existiu algo com o nome de PEM. O PEM era um pulso eletromagnético que causava uma tensão adicional em cada circuito, o que provocava muitos incidentes de obstrução nos instrumentos mais sensíveis. O PEM foi baseado em mísseis e bombas, e também em relação às bombas atómicas. O PEM foi depois evoluído para fazer objectos incapazes de agir sem serem destruidos. Hoje, o canhão de iões é a versão mais moderna do PEM que lança uma onda de iões contra um objecto (naves), destabilizando-lhe desta maneira as protecções e a electrónica. A força cinética não é significativa. Os cruzadores também utilizam esta tecnologia. é interessante não destruir uma embarcação mas paralizá-la. Depois de uma batalha 70% dos sistemas danificados podem ser reparados.";
-$LNG['info'][406]['name']        = "Canhão de Plasma";
-$LNG['info'][406]['description'] = "A tecnologia de laser foi melhorada, a tecnologia de iões alcançou a sua fase final. Pensou-se que seria impossível criar sistemas de armas mais eficazes. A possibilidade de combinar os dois sistemas mudou este pensamento. Sabia-se já que a tecnologia de fusão, das partículas dos lasers (geralmente deutério) faz aumentar a temperatura até milhões de graus. A tecnologia de iões permite o carregamento elétrico das partículas, a ligação em redes de estabilidade e a aceleração das partículas. Assim nasce o plasma. A esfera de plasma é azul e visualmente atractiva, mas é difícil pensar que um grupo de embarcações fique muito feliz de a ver. O canhão de plasma é uma das armas mais poderosas, embora seja uma tecnologia é muito cara. Depois de uma batalha, 70% dos sistemas danificados podem ser reparados.";
-$LNG['info'][407]['name']        = "Pequeno Escudo Planetário";
-$LNG['info'][407]['description'] = "Muito tempo antes da instalação dos escudos em embarcações, os geradores já existiam na superfície dos planetas. Cobriam os planetas e eram capazes de absorver quantidades enormes de danos antes de serem destruídos. Os ataques com frotas ligeiras falhavam frequentemente quando se encontravam com estes geradores. Mais tarde, foi imaginado a criação de um enorme escudo planetário. Para cada planeta um escudo planetário.";
-$LNG['info'][408]['name']        = "Grande Escudo Planetário";
-$LNG['info'][408]['description'] = "O grande escudo planetário cobre o planeta para absorver quantidades enormes de tiros. A sua resistência é muito maior daquela encontrada no pequeno escudo planetário e francamente resistente contra o RapidFire das naves de combate.";
+$LNG['info'][401]['name']        = 'Lançador de Mísseis';
+$LNG['info'][401]['description'] = 'O lançador de mísseis é um sistema de defesa simples e barato. Tornam-se muito eficazes em número e podem ser construídos sem pesquisa específica porque é uma arma de balística simples. Os custos de fabricação baixos fazem desta arma defensiva um adversário apropriado para frotas pequenas.<br/>Em geral, os sistemas de defesa desactivam-se ao alcançar parâmetros operacionais críticos de maneira a fornecer uma possibilidade de reparação. 70% da defesa planetária destruída pode ser reparada depois dum combate.';
+$LNG['info'][402]['name']        = 'Laser Ligeiro';
+$LNG['info'][402]['description'] = 'Para acompanhar o ritmo com a velocidade sempre crescente do desenvolvimento das tecnologias de naves espaciais, os cientistas tiveram que criar um tipo novo de sistema da defesa capaz de destruír as naves mais fortes.<br/>Rapidamente, o laser ligeiro foi inventado, este pode disparar um feixe de laser altamente concentrado no alvo e criar danos muito mais elevados do que o impacto de mísseis balísticos. Um preço baixo da unidade era um objetivo essencial do projeto, por isso a estrutura basica não foi melhorada comparada ao lançador de mísseis.';
+$LNG['info'][403]['name']        = 'Laser Pesado';
+$LNG['info'][403]['description'] = 'O laser pesado é uma evolução directa do laser ligeiro, a integridade estrutural foi evoluída e aumentada e materiais novos foram adoptados. Com os novos sistemas de energia e novos computadores, muito mais energia pode ser utilizada e dirigida para disparar fogo sobre o inimigo.';
+$LNG['info'][404]['name']        = 'Canhão de Gauss';
+$LNG['info'][404]['description'] = 'Durante muito tempo pensou-se que as armas de projécteis iam ser como a tecnologia de fusão e de energia, o desenvolvimento da propulsão de hiperespaço e o desenvolvimento de protecções melhoradas ficando antigas até que a tecnologia de energia, que a tinha posta de lado naquele tempo, as fez renascer. O princípio já era conhecido no século XX - o princípio de aceleração de partículas. Um canhão de gauss (canhão eletromagnético) não é nada mais que um acelerador de partículas, onde os projécteis com um peso de várias toneladas começam a ser acelerados. Mesmo as protecções modernas, a blindagem ou os escudos têm dificuldades em resistir a esta força, acabando um projéctil por atravessar completamente o objecto. Os sistemas de defesa desactivam-se quando estão demasiado estragados. Depois de uma batalha, 70% dos sistemas danificados podem ser reparados.';
+$LNG['info'][405]['name']        = 'Canhão de Iões';
+$LNG['info'][405]['description'] = 'No século XXI existiu algo com o nome de PEM. O PEM era um pulso eletromagnético que causava uma tensão adicional em cada circuito, o que provocava muitos incidentes de obstrução nos instrumentos mais sensíveis. O PEM foi baseado em mísseis e bombas, e também em relação às bombas atómicas. O PEM foi depois evoluído para fazer objectos incapazes de agir sem serem destruidos. Hoje, o canhão de iões é a versão mais moderna do PEM que lança uma onda de iões contra um objecto (naves), destabilizando-lhe desta maneira as protecções e a electrónica. A força cinética não é significativa. Os cruzadores também utilizam esta tecnologia. é interessante não destruir uma embarcação mas paralizá-la. Depois de uma batalha 70% dos sistemas danificados podem ser reparados.';
+$LNG['info'][406]['name']        = 'Canhão de Plasma';
+$LNG['info'][406]['description'] = 'A tecnologia de laser foi melhorada, a tecnologia de iões alcançou a sua fase final. Pensou-se que seria impossível criar sistemas de armas mais eficazes. A possibilidade de combinar os dois sistemas mudou este pensamento. Sabia-se já que a tecnologia de fusão, das partículas dos lasers (geralmente deutério) faz aumentar a temperatura até milhões de graus. A tecnologia de iões permite o carregamento elétrico das partículas, a ligação em redes de estabilidade e a aceleração das partículas. Assim nasce o plasma. A esfera de plasma é azul e visualmente atractiva, mas é difícil pensar que um grupo de embarcações fique muito feliz de a ver. O canhão de plasma é uma das armas mais poderosas, embora seja uma tecnologia é muito cara. Depois de uma batalha, 70% dos sistemas danificados podem ser reparados.';
+$LNG['info'][407]['name']        = 'Pequeno Escudo Planetário';
+$LNG['info'][407]['description'] = 'Muito tempo antes da instalação dos escudos em embarcações, os geradores já existiam na superfície dos planetas. Cobriam os planetas e eram capazes de absorver quantidades enormes de danos antes de serem destruídos. Os ataques com frotas ligeiras falhavam frequentemente quando se encontravam com estes geradores. Mais tarde, foi imaginado a criação de um enorme escudo planetário. Para cada planeta um escudo planetário.';
+$LNG['info'][408]['name']        = 'Grande Escudo Planetário';
+$LNG['info'][408]['description'] = 'O grande escudo planetário cobre o planeta para absorver quantidades enormes de tiros. A sua resistência é muito maior daquela encontrada no pequeno escudo planetário e francamente resistente contra o RapidFire das naves de combate.';
+$LNG['info'][409]['name']        = 'Giant Shield Dome';
+$LNG['info'][409]['description'] = 'The further development of the Large Shield Dome. It is based on the same technologies can also use considerably more energy to deter enemy attacks.';
 $LNG['info'][410]['name']        = 'Canhão de Gravitação';
 $LNG['info'][410]['description'] = 'Após anos de pesquisa sobre a força gravitacional os pesquisadores desenvolveram um Canhão de Gravitação que produs pequenos Gravitões concentrados e podem ser disparados contra o inimigo. Esta foi uma das descobertas feitas logo de seguida depois das Estrelas da Morte, os cientístas já andavam desesperados devido a não haver sistemas de defesa capazes de destruir EDMs, então criaram este canhão mortal.';
 $LNG['info'][411]['name']        = 'Sistema Orbitál de Defesa';
 $LNG['info'][411]['description'] = 'Esta plataforma de proporções gigantescas, as maiores, que foram alguma vez vistas no universo. É uma plataforma imovél defensiva. Não tem acionamento direto e é realizada por Graviton tem uma órbita estável no planeta. O início deste processo exige massas elevadas de energia. Os pesquisadores estão a trabalhar em maneiras de construir naves nesta plataforma, a fim de usá-las como um anel externo de defesa, permitindo que o adversário mais difícil do planeta não tenha ipoteses de entrar nas nossas defesas. Devido à dimensão enorme, só é possível ter um desses monstros.';
 // ----------------------------------------------------------------------------------------------------------
 // Raketen
-$LNG['info'][502]['name']        = "Míssil de Intercepção";
-$LNG['info'][502]['description'] = "O míssil de intercepção destrói os mísseis interplanetários atacantes. Cada míssil de intercepção pode destruir um míssil interplanetário lançado em ataque.";
-$LNG['info'][503]['name']        = "Míssil Interplanetário";
-$LNG['info'][503]['description'] = "O míssil interplanetário destrói os sistemas de defesa do inimigo. Os sistemas destruidos desta maneira não podem ser reparados.";
+$LNG['info'][502]['name']        = 'Míssil de Intercepção';
+$LNG['info'][502]['description'] = 'O míssil de intercepção destrói os mísseis interplanetários atacantes. Cada míssil de intercepção pode destruir um míssil interplanetário lançado em ataque.';
+$LNG['info'][503]['name']        = 'Míssil Interplanetário';
+$LNG['info'][503]['description'] = 'O míssil interplanetário destrói os sistemas de defesa do inimigo. Os sistemas destruidos desta maneira não podem ser reparados.';
 
 // ----------------------------------------------------------------------------------------------------------
 // oficiais
-$LNG['info'][601]['name']        = "Comandante";
-$LNG['info'][601]['description'] = "A posição de Comandante estabeleceu-se automaticamente na Guerra moderna. Por causa da estrutura de comandos simplificada, as instruções poderão ser processadas mais rapidamente.";
-$LNG['info'][602]['name']        = "Almirante";
-$LNG['info'][602]['description'] = "O Almirante de frota é um experiente veterano de Guerra e estratega também.. Nos combates mais difíceis, ele é capaz de definir uma estratégia e transmiti-la aos seus subordinados. Um sábio imperador pode confiar no seu suporte em batalhas.";
-$LNG['info'][603]['name']        = "Engenheiro";
-$LNG['info'][603]['description'] = "O engenheiro é especialista na gestão de energia. Em épocas de paz, aumenta a energia de todas as tuas colónias. Em caso de ataque, assegura a fonte de energia aos canhões defensivos, evitando uma eventual sobrecarga, reduzindo deste modo as perdas na batalha.";
-$LNG['info'][604]['name']        = "Geólogo";
-$LNG['info'][604]['description'] = "O Geólogo é um experiente astromineralogista e cristalografista. Ele assiste as suas equipas de metalurgia e química assim como cuida das comunicações interplanetárias optimizando o seu uso e na refinação das matérias-primas por todo o império.";
-$LNG['info'][605]['name']        = "Tecnocrata";
-$LNG['info'][605]['description'] = "A Ordem dos cientistas é composta por grandes génios. Podes encontrá-los sempre a discutir questôes que desafiariam a lógica de qualquer pessoa. Nenhuma pessoa normal conseguirá descobrir o código desta ordem, e é a sua presença que inspira todos investigadores no Império a conseguir mais e melhor.";
+$LNG['info'][601]['name']        = 'Geólogo';
+$LNG['info'][601]['description'] = '<br><br>'O Geólogo é um experiente astromineralogista e cristalografista. Ele assiste as suas equipas de metalurgia e química assim como cuida das comunicações interplanetárias optimizando o seu uso e na refinação das matérias-primas por todo o império.<br><br><font color="red">+5% na produção de recursos. Nivel max: 20</font>';
+$LNG['info'][602]['name']        = 'Almirante';
+$LNG['info'][602]['description'] = '<br><br>'O Almirante de frota é um experiente veterano de Guerra e estratega também.. Nos combates mais difíceis, ele é capaz de definir uma estratégia e transmiti-la aos seus subordinados. Um sábio imperador pode confiar no seu suporte em batalhas.<br><br><font color="red">+5% em escudos. Nivel max: 20</font>';
+$LNG['info'][603]['name']        = 'Engenheiro';
+$LNG['info'][603]['description'] = '<br><br>'O engenheiro é especialista na gestão de energia. Em épocas de paz, aumenta a energia de todas as tuas colónias. Em caso de ataque, assegura a fonte de energia aos canhões defensivos, evitando uma eventual sobrecarga, reduzindo deste modo as perdas na batalha.<br><br><font color="red">+5% de Energia . Nivel max: 10</font>';
+$LNG['info'][604]['name']        = 'Tecnocrata';
+$LNG['info'][604]['description'] = '<br><br>'A Ordem dos cientistas é composta por grandes génios. Podes encontrá-los sempre a discutir questôes que desafiariam a lógica de qualquer pessoa. Nenhuma pessoa normal conseguirá descobrir o código desta ordem, e é a sua presença que inspira todos investigadores no Império a conseguir mais e melhor.<br><br><font color="red">-5% do tempo de construção de naves. Nivel max: 10</font>';
+$LNG['info'][605]['name']        = 'Construtor';
+$LNG['info'][605]['description'] = '<br><br>'O construtor tem o seu DNA alterado, apenas um destes homens seria capaz de construir uma cidade num curto periodo de tempo. <br><br><font color="red">-10% do tempo de construção. Nivel max: 3</font>';
+$LNG['info'][606]['name']    	 = 'Cientista';
+$LNG['info'][606]['description'] = '<br><br>'Os cientistas sao uma especie de clã concorrente aos tecnocratas. Especializam-se na evolução da tecnologia.<br><br><font color="red">-10% do tempo do pesquisa. Nivel Maximo: 3</font>';
+$LNG['info'][607]['name']    	 = 'Especialista de Armazenamento';
+$LNG['info'][607]['description'] = '<br><br>'O armazenamento faz parte da irmandade do planeta Hsac. O seu lema era ganhar o maximo, o que implica aumentar a capacidade de armazenamento. Desde então a tecnica de armazenamento tem evoluido.<br><br><font color="red">+50% da capacidade de armazenamento. Nivel Maximo:2</font>';
+$LNG['info'][608]['name']    	 = 'Ministro da Defesa';
+$LNG['info'][608]['description'] = '<br><br>'O ministro da defesa e um membro exercito imperial. Concentrado no seu trabalho é capaz de construir uma defesa formidável num curto periodo de tempo.<br><br><font color="red">-50% no tempo de construção de defesas</font>';
+$LNG['info'][609]['name']    	 = 'Guardião';
+$LNG['info'][609]['description'] = '<br><br>'O guardião é um membro do exército imperial e tem como objectivo fazer evoluir as defesas de um planeta.<br><br><font color="red">Desbloqueia o Grande Escudo Planetário</font>';
+$LNG['info'][610]['name']    	 = 'Espião';
+$LNG['info'][610]['description'] = '<br><br>'O espião é uma personagem enigmática. Nunca ninguem viu a sua verdadeira face, a unica maneira de isso acontecer seria sendo morto.<br><br><font color="red">+5 Niveis de Espionagem. Nivel max: 2</font>';
+$LNG['info'][611]['name']    	 = 'Comandante';
+$LNG['info'][611]['description'] = '<br><br>'O comandante faz parte do exército imperial e especializou-se na arte de coordenar as frotas. O seu cérebro e capaz de calcular um grande número de trajectorias.<br><br><font color="red">+3 espaços de frota. Nivel max: 3 </font>';
+$LNG['info'][612]['name']    	 = 'Destruidor';
+$LNG['info'][612]['description'] = '<br><br>'O destruidor é também um membro do exército imperial mas sem piedade. Desfaz tudo que se mete no seu caminho apenas por diversão. Está neste momento a desenvolver um novo metodo de produção da Estrela da Morte.<br><br><font color="red">Duas estrelas da morte por uma. Nivel max: 1 </font>';
+$LNG['info'][613]['name']    	 = 'General';
+$LNG['info'][613]['description'] = '<br><br>'O general é uma personagem que serviu durante muitos anos o exército imperial. Os trabalhadores tem uma produção de naves mais rápida na sua presença. <br><br><font color=\"red\">+10% na velocidade de produção de naves. Nivel max: 3</font>';
+$LNG['info'][614]['name']    	 = 'Conquistador';
+$LNG['info'][614]['description'] = '<br><br>'Esta personagem possui qualidades de conquista inigualáveis. Este sugere que tu te tornes um Raider. O Raider e o nivel mais alto da guarda imperial Raider';
+$LNG['info'][615]['name']    	 = 'Imperador';
+$LNG['info'][615]['description'] = '<br><br>'Quando colocados sob o comando do imperador todos os oficiais do império, combinando suas habilidades para dominar o universo são capazes de se tornar num adversário quase invisívelO imperador colocado sob o seu comando disponíveis para todos os oficiais do império, combinando suas habilidades para dominar o universo e tornar-se um adversário quase invisíveis';
 
 ?>

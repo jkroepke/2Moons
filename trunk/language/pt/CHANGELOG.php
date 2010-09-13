@@ -5,6 +5,117 @@ $LNG['Description'] = 'Beschreibung';
 
 $LNG['changelog']   = array(
 
+'v1.1' => 'ShadoX 31.08.10
+
+- ADD: GoW Skin
+
+- ADD: Mod Versions Control
+
+- ADD: Cronjoboption für Banner
+
+- ADD: Options for Loginmusic
+
+- FIX: Anzeigefehler in Raports
+
+- FIX: Ressoucre Hack
+
+- FIX: Fleet Bugs
+
+- DEL: Unused Pictures
+
+- DIV: Optimized CSS
+
+- DIV: Changed HTML Tree (Changed td.c to th / th to td)
+
+- DIV: Update to HTML 5
+
+',
+
+'v1.0' => 'ShadoX 07.08.10
+
+- FIX: Global Messages
+
+- FIX: Forgotten Password
+
+- FIX: Gamereset
+
+- FIX: Ressouce Glitch
+
+- FIX: Accout Informationen
+
+- FIX: Destroying Fleet after Fights
+
+- FIX: User Activation on ACP
+
+- FIX: Account delection
+
+- FIX: Bonusspeed for small cargo
+
+- FIX: Recycling Derbis
+
+- FIX: Message delection on ACP
+
+- FIX: Modules on English language
+
+- FIX: UpdatePage
+
+- FIX: class.ShowShipyardPage.php on line 43: Division by zero
+
+- DIV: Limited Random on Dm Mission
+
+- DIV: Changed System of Rapidfire
+
+- DIV: Solved Problems with BattleSimulator
+
+',
+
+'RC6' => 'ShadoX 28.07.10
+
+- ADD: Russian Language (ssAAss &amp; InquisitorEA)
+
+- ADD: Portuguese Language (morgado)
+
+- ADD: Spanish Language (ZideN) ALPHA (!)
+
+- FIX: UTF-8 Support for Buddy Requests
+
+- FIX: Messages Notify
+
+- FIX: Phalanx
+
+- FIX: Installer
+
+- FIX: Trümmerfeld bei Mondangriffen
+
+- FIX: Trümmerfeldabbau
+
+- FIX: Ressourcenberechnung bei Angriffen
+
+- FIX: Mondzerstörung
+
+- DIV: Neue Loginmusik
+
+- DIV: Removeold Settings
+
+- DIV: Recoding ACP
+
+- DIV: Optimized CSS for Login
+
+- DIV: zlib.output_compression wird statt ob_gzhandler genutzt
+
+- DIV: Change Path for reCAPTCHA AJAX
+
+- DIV: Remove old UGamla Functions
+
+- DIV: Sicherheit im Game erhöht
+
+- DIV: Include New Version of Soundmanager (2.96a.20100624)
+
+- DIV: Update Smarty Engine
+
+- DIV: Diverse Anpassungen am Game
+
+',
 'RC5.1' => 'ShadoX 23.06.10
 - ADD: Für Halten muss man in der Ally/Buddy sein
 - ADD: Name des HP bei der Reg.
