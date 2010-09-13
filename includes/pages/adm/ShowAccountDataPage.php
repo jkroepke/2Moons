@@ -20,7 +20,7 @@
 # *                                                                          #
 ##############################################################################
 
-if ($USER['rights']['Observation'] == 0) exit;
+if ($USER['rights'][str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__)] != 1) exit;
 
 function ShowAccountDataPage()
 {
@@ -36,10 +36,6 @@ function ShowAccountDataPage()
 		if(!isset($OnlyQueryLogin))
 		{
 			exit($template->message($LNG['ac_username_doesnt'], '?page=accoutdata'));
-		}
-		elseif($USER['authlevel'] != 3 && $OnlyQueryLogin['authlevel'] > $USER['authlevel'])
-		{
-			exit($template->message($LNG['ac_no_rank_level'], '?page=accoutdata'));
 		}
 		else
 		{
@@ -295,9 +291,9 @@ function ShowAccountDataPage()
 						<th>".$PlanetsWhile['id']."</th>
 						<th>".pretty_number($PlanetsWhile['diameter'])."</th>
 						<th>".pretty_number($PlanetsWhile['field_current'])."/".pretty_number($PlanetsWhile['field_max'])."</th>
-						<th>".pretty_number($PlanetsWhile['temp_min'])."/".pretty_number($PlanetsWhile['temp_max'])."</th>
-						<th><a href=\"javascript:openEdit('".$PlanetsWhile['id']."', 'planet');\" border=\"0\"><img src=\"./styles/images/Adm/GO.png\" title=".$LNG['se_search_edit']."></a></th>
-					</tr>";
+						<th>".pretty_number($PlanetsWhile['temp_min'])."/".pretty_number($PlanetsWhile['temp_max'])."</th>"
+						.(($USER['rights']['ShowQuickEditorPage'] == 1) ? "<th><a href=\"javascript:openEdit('".$PlanetsWhile['id']."', 'planet');\" border=\"0\"><img src=\"./styles/images/Adm/GO.png\" title=".$LNG['se_search_edit']."></a></th>" : "").
+					"</tr>";
 					
 					
 					$SumOfEnergy	= ($PlanetsWhile['energy_max'] + $PlanetsWhile['energy_used']);
@@ -446,8 +442,9 @@ function ShowAccountDataPage()
 				'sus_reason'					=> $sus_reason,
 				'sus_author'					=> $sus_author,
 				'techoffi'						=> $techoffi,
-				'mo'							=> $mo,
+				'canedit'						=> $USER['rights']['ShowQuickEditorPage'],
 				
+				'buildings_title'				=> $LNG['buildings_title'],
 				'buildings_title'				=> $LNG['buildings_title'],
 				'researchs_title	'			=> $LNG['researchs_title'],
 				'ships_title'					=> $LNG['ships_title'],

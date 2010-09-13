@@ -16,9 +16,9 @@
 	{if $TechInfo.need}
 		{foreach item=NeedLevel from=$TechInfo.need.{$TechInfo.id}}
 			{if $NeedLevel.own >= $NeedLevel.count}
-				<span style="color:#00ff00;">{$lang.{$NeedLevel.id}} ({$tt_lvl}{$NeedLevel.own}/{$NeedLevel.count})</span><br>
+				<span style="color:#00ff00;">{$LNG.{$NeedLevel.id}} ({$tt_lvl}{$NeedLevel.own}/{$NeedLevel.count})</span><br>
 			{else}
-				<span style="color:#ff0000;">{$lang.{$NeedLevel.id}} ({$tt_lvl}{$NeedLevel.own}/{$NeedLevel.count})</span><br>
+				<span style="color:#ff0000;">{$LNG.{$NeedLevel.id}} ({$tt_lvl}{$NeedLevel.own}/{$NeedLevel.count})</span><br>
 			{/if}
 		{/foreach}
 	{/if}

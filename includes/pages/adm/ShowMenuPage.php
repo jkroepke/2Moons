@@ -26,11 +26,7 @@ function ShowMenuPage()
 	$template	= new template();
 	$template->page_header();
 	$template->assign_vars(array(	
-		'Observation'				=> $USER['rights']['Observation'],
-		'EditUsers'					=> $USER['rights']['EditUsers'],
-		'CONFGame'					=> $USER['rights']['CONFGame'],
-		'ToolsCanUse'				=> $USER['rights']['ToolsCanUse'],
-		'Admin'						=> $USER['authlevel'] == AUTH_ADM ? 1: 0,
+		'rights'					=> $USER['rights'],
 		'mu_game_info'				=> $LNG['mu_game_info'],
 		'mu_settings'				=> $LNG['mu_settings'],
 		'mu_ts_options'				=> $LNG['mu_ts_options'],

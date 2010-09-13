@@ -20,7 +20,7 @@
 # *                                                                          #
 ##############################################################################
 
-if ($USER['authlevel'] != AUTH_ADM) exit;
+if ($USER['rights'][str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__)] != 1) exit;
 
 function ShowModVersionPage()
 {
@@ -34,7 +34,7 @@ function ShowModVersionPage()
 	
 	foreach($MVC as &$Mod) {
 		$Mod['description']	= $Mod['description'][$USER['lang']];
-		$Update	= simplexml_load_file($Mod['update']);
+		$Update	= @simplexml_load_file($Mod['update']);
 		$Update	= $Update->$Mod['tag'];
 		if(version_compare($Mod['version'], $Update->version, '<')) {
 			$Mod['update']		= colorRed($LNG['mvc_update_yes']);

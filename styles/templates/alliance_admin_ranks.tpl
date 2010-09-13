@@ -29,7 +29,7 @@
 		<td><input type="checkbox" name="u{$RankInfo.id}r5"{if $RankInfo.admin} checked="checked"{/if}{if !$admin}disabled{/if}></td>
 		<td><input type="checkbox" name="u{$RankInfo.id}r6"{if $RankInfo.memberlist_on} checked="checked"{/if}{if !$memberlist_on}disabled{/if}></td>
 		<td><input type="checkbox" name="u{$RankInfo.id}r7"{if $RankInfo.roundmail} checked="checked"{/if}{if !$roundmail}disabled{/if}></td>
-		<td><input type="checkbox" name="u{$RankInfo.id}r8"{if $RankInfo.rightdand} checked="checked"{/if}{if !$rightdand}disabled{/if}></td>
+		<td><input type="checkbox" name="u{$RankInfo.id}r8"{if $RankInfo.righthand} checked="checked"{/if}{if !$righthand}disabled{/if}></td>
 	</tr>
 	{foreachelse}
 	<tr>

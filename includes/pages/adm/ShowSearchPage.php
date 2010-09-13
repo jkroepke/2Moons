@@ -20,7 +20,7 @@
 # *                                                                          #
 ##############################################################################
 
-if ($USER['rights']['Observation'] == 0) exit;
+if ($USER['rights'][str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__)] != 1) exit;
 
 require_once(ROOT_PATH . 'includes/functions/DeleteSelectedUser.'.PHP_EXT);
 
@@ -284,7 +284,7 @@ function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialS
 	$QueryCSearch	 =	"SELECT COUNT(".$ArrayEx[0].") AS `total` FROM ".DB_PREFIX.$Table." ";
 	$QueryCSearch	.=	$WhereItem." ";
 	$QueryCSearch	.=	$SpecifyWhere." ".$SpecialSpecify." ";
-	$CountQuery		=	$db->fetch_array($db->query($QueryCSearch));
+	$CountQuery		=	$db->uniquequery($QueryCSearch);
 	
 	if ($CountQuery['total'] > 0)
 	{
@@ -331,19 +331,19 @@ function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialS
 	
 		if ($Table == "users") 
 		{
-			$Search['LIST']	.=	"<td class=c>".$LNG['se_search_info']."</td>";
+			if ($USER['rights']['ShowAccountDataPage'] == 1)
+				$Search['LIST']	.=	"<td class=c>".$LNG['se_search_info']."</td>";
 
-
-			if ($USER['authlevel']	==	'3')
+			if ($USER['authlevel'] == AUTH_ADM)
 				$Search['LIST']	.=	"<td class=c>".$LNG['button_delete']."</td>";
 		}
 		
 		if ($Table == "planets")
 		{				
-			if ($USER['rights']['EditUsers'] == '1')
+			if ($USER['rights']['ShowQuickEditorPage'] == 1)
 				$Search['LIST']	.=	"<td class=c>".$LNG['se_search_edit']."</td>";
 				
-			if ($USER['authlevel'] == '3')
+			if ($USER['authlevel'] == AUTH_ADM)
 				$Search['LIST']	.=	"<td class=c>".$LNG['button_delete']."</td>";
 		}
 
@@ -385,8 +385,8 @@ function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialS
 		
 			if ($Table == "users")
 			{
-				$Search['LIST']	.=	"<th><a href=\"?page=accountdata&amp;id_u=".$WhileResult[0]."\"><img title=\"".$WhileResult[1]."\" src=\"./styles/images/Adm/GO.png\"></a></th>";
-			
+				if ($USER['rights']['ShowAccountDataPage'] == 1)
+					$Search['LIST']	.=	"<th><a href=\"?page=accountdata&amp;id_u=".$WhileResult[0]."\"><img title=\"".$WhileResult[1]."\" src=\"./styles/images/Adm/GO.png\"></a></th>";
 			
 				if ($USER['authlevel']	==	'3')
 				{
@@ -401,7 +401,7 @@ function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialS
 		
 			if ($Table == "planets"){
 			
-				if ($USER['rights']['EditUsers'] == '1')
+				if ($USER['rights']['ShowQuickEditorPage'] == 1)
 					$Search['LIST']	.=	"<th><a href=\"javascript:openEdit('".$WhileResult[0]."', 'planet');\" border=\"0\"><img src=\"./styles/images/Adm/GO.png\" title=".$LNG['se_search_edit']."></a></th>";
 					
 				if ($USER['authlevel'] == '3')

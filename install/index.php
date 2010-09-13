@@ -104,8 +104,8 @@ switch ($Mode) {
 				$gdlib = "<span class=\"yes\">".$LNG['reg_yes'].", ".$Info['GD Version']."</span>";
 		}
 		
-		if(file_exists(ROOT_PATH."config.php") || ($res = @fopen(ROOT_PATH."config.php","w+") === true)){
-			if(is_writable(ROOT_PATH."config.php") || @chmod(ROOT_PATH."config.php", 0777)){
+		if(file_exists(ROOT_PATH."includes/config.php") || ($res = @fopen(ROOT_PATH."includes/config.php","w+") === true)){
+			if(is_writable(ROOT_PATH."includes/config.php") || @chmod(ROOT_PATH."includes/config.php", 0777)){
 					$chmod = "<span class=\"yes\"> - ".$LNG['reg_writable']."</span>";
 				} else {
 					$chmod = " - <span class=\"no\">".$LNG['reg_not_writable']."</span>";
@@ -183,31 +183,26 @@ switch ($Mode) {
 				exit($template->message(sprintf($LNG['step2_db_con_fail'], mysqli_connect_error()),"?mode=ins&page=1&lang=".$LANG));
 			}
 
-			@chmod("../config.php",0777);
-			$dz = @fopen("../config.php", "w");
-			if (!$dz)
-			{
+			@chmod("../includes/config.php", 0777);
+			if (is_writable('../includes/config.php'))
 				exit($template->message($LNG['step2_conf_op_fail'],"?mode=ins&page=1&lang=".$LANG));
-			}
 
 			$first		= "Verbindung zur Datenbank erfolgreich...";
 			$connection->multi_query(str_replace("prefix_", $prefix, file_get_contents('install.sql'))); 
 			
 			$second	= $LNG['step2_db_ok'];
 			
-			$numcookie = mt_rand(1000, 9999999999);
-			fwrite($dz, "<?php \n");
-			fwrite($dz, "if(!defined(\"INSIDE\")) exit; \n\n");
-			fwrite($dz, "//### Database access ###//\n\n");
-			fwrite($dz, "\$database[\"host\"]          = \"".$GLOBALS['database']['host']."\";\n");
-			fwrite($dz, "\$database[\"port\"]          = \"".$GLOBALS['database']['port']."\";\n");
-			fwrite($dz, "\$database[\"user\"]          = \"".$GLOBALS['database']['user']."\";\n");
-			fwrite($dz, "\$database[\"userpw\"]        = \"".$GLOBALS['database']['userpw']."\";\n");
-			fwrite($dz, "\$database[\"databasename\"]  = \"".$GLOBALS['database']['databasename']."\";\n");
-			fwrite($dz, "\$database[\"tableprefix\"]   = \"".$prefix."\";\n");
-			fwrite($dz, "\$dbsettings[\"secretword\"]  = \"2Moons_".$numcookie."\";\n\n");
-			fwrite($dz, "//### Do not change beyond here ###//\n");
-			fwrite($dz, "?>");
+			file_put_contents("../includes/config.php", "<?php\n".
+			"//### Database access ###//\n\n".
+			"\$database['host']          = '".$GLOBALS['database']['host']."';\n".
+			"\$database['port']          = '".$GLOBALS['database']['port']."';\n".
+			"\$database['user']          = '".$GLOBALS['database']['user']."';\n".
+			"\$database['userpw']        = '".$GLOBALS['database']['userpw']."';\n".
+			"\$database['databasename']  = '".$GLOBALS['database']['databasename']."';\n".
+			"\$database['tableprefix']   = '".$prefix."';\n".
+			"\$dbsettings['secretword']  = '2Moons_".mt_rand(1000, 9999999999)."';\n\n".
+			"//### Do not change beyond here ###//\n".
+			"?>");
 			fclose($dz);
 			@chmod("../config.php",0444);
 			

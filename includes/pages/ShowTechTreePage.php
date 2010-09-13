@@ -63,7 +63,7 @@ function ShowTechTreePage()
 	$template->assign_vars(array(
 		'TechTreeList'		=> $TechTreeList,
 		'tt_requirements'	=> $LNG['tt_requirements'],
-		'lang'				=> $LNG['tech'],
+		'LNG'				=> $LNG['tech'],
 		'tt_lvl'			=> $LNG['tt_lvl'],
 	));
 

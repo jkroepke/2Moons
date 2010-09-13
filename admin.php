@@ -30,8 +30,6 @@ require_once(ROOT_PATH . 'common.' . PHP_EXT);
 
 if ($USER['authlevel'] < AUTH_MOD) exit;
 
-require_once(ROOT_PATH . 'includes/adm_auth.' . PHP_EXT);
-
 $page = request_var('page', '');
 switch($page)
 {
