@@ -208,7 +208,7 @@ border:0px;background:url(./styles/images/Adm/blank.gif);text-align:right;paddin
 				<td class="c">{$ac_diameter}</td>
 				<td class="c">{$ac_fields}</td>
 				<td class="c">{$ac_temperature}</td>
-				<td class="c">{$se_search_edit}</td>
+				{if $canedit == 1}<td class="c">{$se_search_edit}</td>{/if}
 			</tr>
 				{$planets_moons}
 			</table>

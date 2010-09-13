@@ -20,7 +20,7 @@
 # *                                                                          #
 ##############################################################################
 
-if ($USER['authlevel'] != AUTH_ADM) exit;
+if ($USER['rights'][str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__)] != 1) exit;
 
 function ShowStatUpdatePage() {
 	global $LNG;

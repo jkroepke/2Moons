@@ -87,7 +87,7 @@ class ShowFleetPages extends FleetFunctions
 		$planettype     = request_var('planettype', $PLANET['planet_type']);
 		$target_mission = request_var('target_mission', 0);
 		
-		$CurrentFleets 		= $db->query("SELECT * FROM ".FLEETS." WHERE `fleet_owner` = '".$USER['id']."' AND `fleet_mission` <> 10;");
+		$CurrentFleets 		= $db->query("SELECT * FROM ".FLEETS." WHERE `fleet_owner` = '".$USER['id']."' AND `fleet_mission` <> 10 ORDER BY `fleet_end_time` ASC;");
 		$CountCurrentFleets	= $db->num_rows($CurrentFleets);
 
 		while ($CurrentFleetsRow = $db->fetch_array($CurrentFleets))
