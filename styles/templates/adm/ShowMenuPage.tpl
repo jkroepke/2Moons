@@ -139,7 +139,6 @@
    	<tr>
 		<td><div align="center"><a href="javascript:void(0);"><font color="lime">{$mu_tools}</font></a></div></td>
    	</tr>
-{/if}
 {if $rights.ShowSendMessagesPage}
 	<tr>
        	<td><div align="center"><a href="?page=globalmessage" target="Hauptframe">{$mu_global_message}</a></div></td>

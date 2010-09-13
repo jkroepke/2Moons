@@ -31,8 +31,8 @@ date_default_timezone_set("Europe/Berlin");
 header('Content-Type: text/html; charset=UTF-8');
 define('TIMESTAMP',	$_SERVER['REQUEST_TIME']);
 
-if(file_exists(ROOT_PATH . 'config.php'))
-	require_once(ROOT_PATH . 'config.'.PHP_EXT);
+if(file_exists(ROOT_PATH . 'includes/config.php'))
+	require_once(ROOT_PATH . 'includes/config.'.PHP_EXT);
 	
 require_once(ROOT_PATH . 'includes/constants.'.PHP_EXT);
 
@@ -116,7 +116,7 @@ if (INSTALL != true)
 			update_config('stats_fly_lock', 0);
 		}
 				
-		$USER	= $db->uniquequery("SELECT u.*, s.`total_rank`, s.`total_points` FROM ".USERS." as u LEFT JOIN ".STATPOINTS." as s ON s.`id_owner` = u.`id` AND s.`stat_type` = '1' WHERE u.`id` = '".$_SESSION['id']."';");
+		$USER	= $db->uniquequery("SELECT u.*, s.`total_points`, s.`total_rank` FROM ".USERS." as u LEFT JOIN ".STATPOINTS." as s ON s.`id_owner` = u.`id` AND s.`stat_type` = '1' WHERE u.`id` = '".$_SESSION['id']."';");
 		if(empty($USER)) {
 			exit(header('Location: index.php'));
 		} elseif(empty($USER['lang'])) {
@@ -156,6 +156,7 @@ if (INSTALL != true)
 			require_once(ROOT_PATH.'includes/functions/CheckPlanetUsedFields.' . PHP_EXT);
 			CheckPlanetUsedFields($PLANET);
 		} else {
+			$USER['rights']	= unserialize($USER['rights']);
 			includeLang('ADMIN');
 		}
 	} else {
