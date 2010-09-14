@@ -5,6 +5,30 @@ $LNG['Description'] = 'Beschreibung';
 
 $LNG['changelog']   = array(
 
+'v1.2' => 'ShadoX 14.09.10
+- ADD: Set Max Fleets on ACS (Default: 16)
+- ADD: New RightsSystem on ACP
+- ADD: .htaccess Protection for some dirs
+- FIX: Expedition
+- FIX: Servertime at Overview
+- FIX: Research Hack while Build ID:6 or 31
+- FIX: Alliance Exit
+- FIX: See not invited ACS
+- FIX: overLIB Problems with Internet Explorer
+- FIX: Multilanguages Iusses
+- FIX: reCAPTCHA
+- FIX: Admin Protection
+- FIX: Moon Creation Explod
+- FIX: Rights on Alliance
+- FIX: Jumpgate
+- FIX: Build Points
+- FIX: Some HTML Errors
+- FIX: Linebreaks on Alliance Rundmails
+- FIX: UMode
+- DIV: Update Langauges
+- DIV: Sicherheit im Game erhöht
+- DIV: Diverse Anpassungen am Game
+',
 'v1.1' => 'ShadoX 31.08.10
 - ADD: GoW Skin
 - ADD: Mod Versions Control
@@ -17,6 +41,8 @@ $LNG['changelog']   = array(
 - DIV: Optimized CSS
 - DIV: Changed HTML Tree (Changed td.c to th / th to td)
 - DIV: Update to HTML 5
+- DIV: Sicherheit im Game erhöht
+- DIV: Diverse Anpassungen am Game
 ',
 'v1.0' => 'ShadoX 07.08.10
 - FIX: Global Messages
@@ -36,6 +62,8 @@ $LNG['changelog']   = array(
 - DIV: Limited Random on Dm Mission
 - DIV: Changed System of Rapidfire
 - DIV: Solved Problems with BattleSimulator
+- DIV: Sicherheit im Game erhöht
+- DIV: Diverse Anpassungen am Game
 ',
 'RC6' => 'ShadoX 28.07.10
 - ADD: Russian Language (ssAAss &amp; InquisitorEA)
