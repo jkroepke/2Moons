@@ -10,10 +10,14 @@ $LNG['menu_news']			= 'News';
 $LNG['menu_rules']			= 'Regeln'; 
 $LNG['menu_agb']			= 'AGB'; 
 $LNG['menu_pranger']		= 'Pranger';	 
-$LNG['menu_top100']		= 'Hall of Fame';	 
+$LNG['menu_top100']			= 'Hall of Fame';	 
 $LNG['menu_disclamer']		= 'Impressum';	 
 	 
 /* ------------------------------------------------------------------------------------------ */
+
+$LNH['music_off']			= 'Music: OFF';
+$LNH['music_on']			= 'Music: ON';
+
 
 //index.php
 //case lostpassword
@@ -38,7 +42,7 @@ $LNG['chose_a_uni']			= 'Wähle ein Universum';
 /* ------------------------------------------------------------------------------------------ */
 
 //lostpassword.tpl
-$LNG['lost_pass_title']		= 'Passwort wiederherstellen';
+$LNG['lost_pass_title']			= 'Passwort wiederherstellen';
 $LNG['retrieve_pass']			= 'Wiederherstellen';
 $LNG['email']					= 'E-Mail Adresse';
 
@@ -49,7 +53,7 @@ $LNG['remember_pass']			= 'Auto-Login';
 $LNG['lostpassword']			= 'Passwort vergessen?';
 $LNG['welcome_to']				= 'Willkommen bei';
 $LNG['server_description']		= '<strong>%s</strong> ist ein <strong>Weltraum strategie Spiel mit hunderten Spielern</strong> die erdumgreifend <strong>gleichzeitig</strong> versuche der/die Beste zu werden. Alles was ihr zum spielen braucht ist ein standart Webbrowser.';
-$LNG['server_register']		= 'Registrieren sie sich Jetzt!';
+$LNG['server_register']			= 'Registrieren sie sich Jetzt!';
 $LNG['server_message']			= 'Registriere dich jetzt und erlebe eine neue spannende im Welt von';
 $LNG['login']					= 'Login';
 $LNG['disclamer']				= 'Impressum';
@@ -85,8 +89,8 @@ $LNG['planet_already_exists']		= 'Die Planetenposition ist bereits belget!<br>';
 
 //registry_form.tpl
 $LNG['server_message_reg']			= 'Registriere dich jetzt und werde ein Teil von';
-$LNG['register_at_reg']			= 'Registriert bei';
-$LNG['uni_reg']					= 'Universum';
+$LNG['register_at_reg']				= 'Registriert bei';
+$LNG['uni_reg']						= 'Universum';
 $LNG['user_reg']					= 'User';
 $LNG['pass_reg']					= 'Passwort';
 $LNG['pass2_reg']					= 'Passwort wiederhohlen';
@@ -95,14 +99,14 @@ $LNG['email2_reg']					= 'E-mail Adresse wiederhohlen';
 $LNG['planet_reg']					= 'Name des Haputplaneten';
 $LNG['lang_reg']					= 'Sprache';
 $LNG['register_now']				= 'Registrieren!';
-$LNG['captcha_reg']				= 'Sicherheitsfrage';
-$LNG['accept_terms_and_conditions']= 'Bitte <a onclick="ajax(\'?page=rules&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\);" style="cursor:pointer;">Regeln</a> und <a onclick="ajax(\'?page=agb&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\);" style="cursor:pointer;">AGB`s</a> aktzeptieren';
+$LNG['captcha_reg']					= 'Sicherheitsfrage';
+$LNG['accept_terms_and_conditions']	= 'Bitte <a onclick="ajax(\'?page=rules&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\);" style="cursor:pointer;">Regeln</a> und <a onclick="ajax(\'?page=agb&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\);" style="cursor:pointer;">AGB`s</a> aktzeptieren';
 $LNG['captcha_reload']				= 'Neuladen';
 $LNG['captcha_help']				= 'Hilfe';
 $LNG['captcha_get_image']			= 'Lade Bild-CAPTCHA';
 $LNG['captcha_reload']				= 'Neues CAPTCHA';
 $LNG['captcha_get_audio']			= 'Lade Sound-CAPTCHA';
-$LNG['user_active']				= 'User %s wurde aktiviert!';
+$LNG['user_active']					= 'User %s wurde aktiviert!';
 
 //registry_closed.tpl
 $LNG['info']						= 'Informationen';

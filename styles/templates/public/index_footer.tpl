@@ -65,7 +65,7 @@ soundManager.onready(function() {
 		});
 		if($.cookie('music') == null || $.cookie('music') == "on"){
 			loginbgm.play();
-			$('#music').text("Music: ON");
+			$('#music').text("{$music_on}");
 		}
 	} else {
 		alert('SoundManager failed to load');
@@ -75,16 +75,16 @@ soundManager.onready(function() {
 function music() {
 	var loginbgm = soundManager.getSoundById('aSound');
 	var idmusic = $('#music');
-	if(idmusic.text() != "Music: ON")
+	if(idmusic.text() != "{$music_on}")
 	{
 		loginbgm.play();
-		idmusic.text("Music: ON");
+		idmusic.text("{$music_on});
 		$.cookie('music', 'on');
 	}
 	else
 	{
 		loginbgm.stop();
-		idmusic.text("Music: OFF");
+		idmusic.text("{$music_off}");
 		$.cookie('music', 'off');
 	}
 }
