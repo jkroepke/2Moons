@@ -130,8 +130,11 @@ class ShowOptionsPage
 						exit;
 					}
 					
-					$SQLQuery	.= "UPDATE ".USERS." SET `urlaubs_modus` = '1', `urlaubs_until` = '".(TIMESTAMP + VACATION_MIN_TIME)."' WHERE `id` = '".$USER["id"]."';";
-					$SQLQuery	.=  "UPDATE ".PLANETS." SET
+					$SQLQuery	.= "UPDATE ".USERS." SET 
+									`urlaubs_modus` = '1',
+									`urlaubs_until` = '".(TIMESTAMP + VACATION_MIN_TIME)."'
+									WHERE `id` = '".$USER["id"]."';";
+									"UPDATE ".PLANETS." SET
 									`energy_used` = '0',
 									`energy_max` = '0',
 									`metal_mine_porcent` = '0',
@@ -140,7 +143,10 @@ class ShowOptionsPage
 									`solar_plant_porcent` = '0',
 									`fusion_plant_porcent` = '0',
 									`solar_satelit_porcent` = '0'
-									WHERE `id_owner` = '".$USER["id"]."';";
+									`metal_perhour`    =    '0',
+                                    `crystal_perhour`    =    '0',
+                                    `deuterium_perhour`    =    '0'
+                                    WHERE `id_owner` = '".$USER["id"]."';";
 				}
 
 				$SQLQuery	.=  "UPDATE ".USERS." SET
