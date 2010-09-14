@@ -23,7 +23,7 @@ $LNH['music_on']			= 'Music: ON';
 //case lostpassword
 $LNG['mail_not_exist'] 		= 'Die angegebende E-Mail Adresse existiert nicht!';
 $LNG['mail_title']				= 'Neues Passwort';
-$LNG['mail_text']				= 'Dein neuen Passwort ist: ';
+$LNG['mail_text']				= 'Dein neues Passwort lautet: ';
 $LNG['mail_sended']			= 'Dein Passwort wurde an deine E-Mail Adresse erfolgreich gesendet!';
 $LNG['mail_sended_fail']		= 'E-Mail konnte nicht gesendet werden.!';
 $LNG['server_infos']			= array(
@@ -52,9 +52,15 @@ $LNG['pass']					= 'Passwort';
 $LNG['remember_pass']			= 'Auto-Login';
 $LNG['lostpassword']			= 'Passwort vergessen?';
 $LNG['welcome_to']				= 'Willkommen bei';
+<<<<<<< .mine
+$LNG['server_description']		= '<strong>%s</strong> ist ein <strong>Weltraum strategie Spiel mit hunderten Spielern</strong> die erd umgreifend <strong>gleichzeitig</strong> versuche der/die Beste zu werden. Alles was ihr zum spielen braucht ist ein standart Webbrowser.';
+$LNG['server_register']		= 'Registrieren Sie sich Jetzt!';
+$LNG['server_message']			= 'Registriere dich jetzt und erlebe eine neue, spannende Welt ';
+=======
 $LNG['server_description']		= '<strong>%s</strong> ist ein <strong>Weltraum strategie Spiel mit hunderten Spielern</strong> die erdumgreifend <strong>gleichzeitig</strong> versuche der/die Beste zu werden. Alles was ihr zum spielen braucht ist ein standart Webbrowser.';
 $LNG['server_register']			= 'Registrieren sie sich Jetzt!';
 $LNG['server_message']			= 'Registriere dich jetzt und erlebe eine neue spannende im Welt von';
+>>>>>>> .r1051
 $LNG['login']					= 'Login';
 $LNG['disclamer']				= 'Impressum';
 $LNG['login_info']				= 'Mit dem Login akzeptiere ich die <a onclick="ajax(\'?page=rules&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\');" style="cursor:pointer;">Regeln</a> und die <a onclick="ajax(\'?page=agb&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\');" style="cursor:pointer;">AGB`s</a>';
@@ -81,11 +87,11 @@ $LNG['different_passwords']		= 'Sie haben 2 unterschiedliche Passwörter eingege
 $LNG['different_mails']			= 'Sie haben 2 unterschiedliche E-Mail Adressen!<br>';
 $LNG['welcome_message_from']		= 'Administrator';
 $LNG['welcome_message_sender']		= 'Administrator';
-$LNG['welcome_message_subject']	= 'Wilkommenen';
-$LNG['welcome_message_content']	= 'Wilkommen beim %s!<br>Baue zuerst ein Solarkraftwerk, denn Energie wird für die spätere Rohstoffproduktion benötigt. Um diese zu bauen, klicke links im Menu auf "Gebäude". Danach baue das 4. Gebäude von oben. Da du nun Energie hast, kannst du anfangen Minen zu bauen. Gehe dazu wieder im Menü auf Gebäude und baue eine Metallmine, danach wieder eine Kristallmine. Um Schiffe bauen zu können musst du zuerst eine Raumschiffswerft gebaut haben. Was dafür benötigt wird findest du links im Menüpunkt Technologie. Das Team wünscht dir viel Spaß beim Erkunden des Universums!';
+$LNG['welcome_message_subject']	= 'Willkommenen';
+$LNG['welcome_message_content']	= 'Willkommen beim %s!<br>Baue zuerst ein Solarkraftwerk, denn Energie wird für die spätere Rohstoffproduktion benötigt. Um diese zu bauen, klicke links im Menu auf "Gebäude". Danach baue das 4. Gebäude von oben. Da du nun Energie hast, kannst du anfangen Minen zu bauen. Gehe dazu wieder im Menü auf Gebäude und baue eine Metallmine, danach wieder eine Kristallmine. Um Schiffe bauen zu können musst du zuerst eine Raumschiffswerft gebaut haben. Was dafür benötigt wird findest du links im Menüpunkt Technologie. Das Team wünscht dir viel Spaß beim Erkunden des Universums!';
 $LNG['newpass_smtp_email_error']	= '<br><br>Ein Fehler trat auf. Dein Passwort ist: ';
 $LNG['reg_completed']				= 'Danke für ihre Anmeldung! Sie erhalten eine E-Mail mit einem aktivierungs Link.';
-$LNG['planet_already_exists']		= 'Die Planetenposition ist bereits belget!<br>';
+$LNG['planet_already_exists']		= 'Die Planetenposition ist bereits belegt!<br>';
 
 //registry_form.tpl
 $LNG['server_message_reg']			= 'Registriere dich jetzt und werde ein Teil von';
@@ -96,7 +102,7 @@ $LNG['pass_reg']					= 'Passwort';
 $LNG['pass2_reg']					= 'Passwort wiederhohlen';
 $LNG['email_reg']					= 'E-mail Adresse';
 $LNG['email2_reg']					= 'E-mail Adresse wiederhohlen';
-$LNG['planet_reg']					= 'Name des Haputplaneten';
+$LNG['planet_reg']					= 'Name des Hauptplaneten';
 $LNG['lang_reg']					= 'Sprache';
 $LNG['register_now']				= 'Registrieren!';
 $LNG['captcha_reg']					= 'Sicherheitsfrage';
