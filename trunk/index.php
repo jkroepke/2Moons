@@ -250,11 +250,12 @@ switch ($page) {
 			}
 		} else {
 			$template->assign_vars(array(
-				'email'			=> $LNG['email'],
-				'uni_reg'		=> $LNG['uni_reg'],
-				'send'			=> $LNG['send'],
-				'AvailableUnis'	=> $AvailableUnis,
-				'chose_a_uni'	=> $LNG['chose_a_uni'],
+				'email'				=> $LNG['email'],
+				'uni_reg'			=> $LNG['uni_reg'],
+				'send'				=> $LNG['send'],
+				'AvailableUnis'		=> $AvailableUnis,
+				'chose_a_uni'		=> $LNG['chose_a_uni'],
+				'lost_pass_title'	=> $LNG['lost_pass_title'],
 			));
 			$template->display('public/lostpassword.tpl');
 		}
@@ -531,6 +532,8 @@ switch ($page) {
 					'AvailableLangs'				=> $LNG['langs'],
 					'uni_reg'						=> $LNG['uni_reg'],
 					'chose_a_uni'					=> $LNG['chose_a_uni'],
+					'register'						=> $LNG['register'],
+					'send'							=> $LNG['send'],
 				));
 				$template->display('public/registry_form.tpl');
 			break;
@@ -552,7 +555,10 @@ switch ($page) {
 		));
 		$template->display('public/index_rules.tpl');
 		break;
-	case 'screens' :
+	case 'screens':
+		$template->assign_vars(array(
+			'screenshots'           => $LNG['screenshots'],
+		));
 		$template->display('public/index_screens.tpl');
 		break;
 	case 'top100' :

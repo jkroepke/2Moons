@@ -231,6 +231,8 @@ class template extends Smarty
 			'menu_pranger'		=> $LNG['menu_pranger'],
 			'menu_top100'		=> $LNG['menu_top100'],
 			'menu_disclamer'	=> $LNG['menu_disclamer'],
+			'music_off'			=> $LNG['music_off'],
+			'music_on'			=> $LNG['music_on'],
 			'game_captcha'		=> $CONF['capaktiv'],
 			'reg_close'			=> $CONF['reg_closed'],
 			'ga_active'			=> $CONF['ga_active'],
