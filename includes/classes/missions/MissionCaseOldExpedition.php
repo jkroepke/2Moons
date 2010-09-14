@@ -154,15 +154,17 @@ class MissionCaseOldExpedition extends MissionFunctions
 		}
 		elseif ($Hasard>= 8 && $Hasard < 11)
 		{
-			$FoundChance = $FleetPoints / $FleetCount;
+			$LNG			+= $this->GetUserLang($this->_fleet['fleet_owner'], 'TECH');
+			$FoundChance 	= $FleetPoints / $FleetCount;
+			$FoundShip		= array();
 			for ($Ship = 202; $Ship < 220; $Ship++)
 			{
-				if ($LaFlotte[$Ship] != 0)
-				{
-					$FoundShip[$Ship] = round($LaFlotte[$Ship] * $RatioGain[$Ship]);
-					if ($FoundShip[$Ship]> 0)
-						$LaFlotte[$Ship] += $FoundShip[$Ship];
-				}
+				if ($LaFlotte[$Ship] == 0)
+						continue;
+
+				$FoundShip[$Ship] = round($LaFlotte[$Ship] * $RatioGain[$Ship]);
+				if ($FoundShip[$Ship] > 0)
+					$LaFlotte[$Ship] += $FoundShip[$Ship];
 			}
 			$NewFleetArray = "";
 			$FoundShipMess = "";
@@ -174,7 +176,7 @@ class MissionCaseOldExpedition extends MissionFunctions
 			foreach ($FoundShip as $Ship => $Count)
 			{	
 				if ($Count != 0)
-					$FoundShipMess   .= $Count." ".$LNG['tech'][$Ship].",";
+					$FoundShipMess   .= $Count." ".$LNG['tech'][$Ship].",<br>\n";
 			}
 
 			$this->UpdateFleet('fleet_array', $NewFleetArrays);
