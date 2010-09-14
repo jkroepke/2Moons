@@ -142,7 +142,7 @@ class ShowOptionsPage
 									`deuterium_sintetizer_porcent` = '0',
 									`solar_plant_porcent` = '0',
 									`fusion_plant_porcent` = '0',
-									`solar_satelit_porcent` = '0'
+									`solar_satelit_porcent` = '0',
 									`metal_perhour`    =    '0',
                                     `crystal_perhour`    =    '0',
                                     `deuterium_perhour`    =    '0'
