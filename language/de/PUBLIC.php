@@ -52,15 +52,12 @@ $LNG['pass']					= 'Passwort';
 $LNG['remember_pass']			= 'Auto-Login';
 $LNG['lostpassword']			= 'Passwort vergessen?';
 $LNG['welcome_to']				= 'Willkommen bei';
-<<<<<<< .mine
 $LNG['server_description']		= '<strong>%s</strong> ist ein <strong>Weltraum strategie Spiel mit hunderten Spielern</strong> die erd umgreifend <strong>gleichzeitig</strong> versuche der/die Beste zu werden. Alles was ihr zum spielen braucht ist ein standart Webbrowser.';
 $LNG['server_register']		= 'Registrieren Sie sich Jetzt!';
 $LNG['server_message']			= 'Registriere dich jetzt und erlebe eine neue, spannende Welt ';
-=======
 $LNG['server_description']		= '<strong>%s</strong> ist ein <strong>Weltraum strategie Spiel mit hunderten Spielern</strong> die erdumgreifend <strong>gleichzeitig</strong> versuche der/die Beste zu werden. Alles was ihr zum spielen braucht ist ein standart Webbrowser.';
 $LNG['server_register']			= 'Registrieren sie sich Jetzt!';
 $LNG['server_message']			= 'Registriere dich jetzt und erlebe eine neue spannende im Welt von';
->>>>>>> .r1051
 $LNG['login']					= 'Login';
 $LNG['disclamer']				= 'Impressum';
 $LNG['login_info']				= 'Mit dem Login akzeptiere ich die <a onclick="ajax(\'?page=rules&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\');" style="cursor:pointer;">Regeln</a> und die <a onclick="ajax(\'?page=agb&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\');" style="cursor:pointer;">AGB`s</a>';
