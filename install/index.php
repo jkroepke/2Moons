@@ -177,7 +177,7 @@ switch ($Mode) {
 			$prefix 								= request_var('prefix', '', true);
 			$GLOBALS['database']['databasename']    = request_var('db', '', true);
 
-			$connection = new DB_MySQLi();
+			$connection = new DB_MySQLi(true);
 
 			if (mysqli_connect_errno()) {
 				exit($template->message(sprintf($LNG['step2_db_con_fail'], mysqli_connect_error()),"?mode=ins&page=1&lang=".$LANG, 3, true));
@@ -285,7 +285,7 @@ switch ($Mode) {
 		break;
 	case 'convert':
 		if(!file_exists(ROOT_PATH.'config.php') || filesize(ROOT_PATH.'config.php') == 0)
-			exit($LNG['convert_install'],"?lang=".$LANG, 3, true));
+			exit($template->message($LNG['convert_install'],"?lang=".$LANG, 3, true));
 
 		if($_POST) {
 			$GLOBALS['database']['host']			= $_POST['host'];
