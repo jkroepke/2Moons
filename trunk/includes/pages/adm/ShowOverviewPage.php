@@ -53,6 +53,7 @@ function ShowOverviewPage()
 		'ow_title'			=> $LNG['ow_title'],
 		'ow_forum'			=> $LNG['ow_forum'],
 		'Messages'			=> $Message,
+		'date'				=> date('m\_Y', TIMESTAMP),
 	));
 	
 	$template->show('adm/OverviewBody.tpl');
