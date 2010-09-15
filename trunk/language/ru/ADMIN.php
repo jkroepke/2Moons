@@ -456,7 +456,6 @@ $LNG['mu_planets_options']             = 'Опции планет';
 $LNG['mu_user_logs']                   = 'Лог';
 $LNG['mu_support']                     = 'Техническая поддержка';
 $LNG['mu_chat']                        = 'Редактор чата';
-$LNG['mu_lotterie']                    = 'Лотерея';
 $LNG['mu_module']                      = 'Модули';
 $LNG['mu_update']                      = 'Обновление игры';
 $LNG['mu_mod_update']                  = 'Мод управления версиями';
@@ -800,16 +799,6 @@ $LNG['qe_fields']                      = 'Поля';
 $LNG['qe_coords']                      = 'Координаты';
 $LNG['qe_temp']                        = 'Температура';
 
-// ChatPage.php
-$LNG['ch_title']                       = "Редактор чата";
-$LNG['ch_list']                        = "Список сообщений";
-$LNG['ch_clear']                       = "Очистить чат";
-$LNG['ch_id_msg']                      = "ID";
-$LNG['ch_delete_msg']                  = "Удалить";
-$LNG['ch_user']                        = "Игрок";
-$LNG['ch_time']                        = "Дата";
-$LNG['ch_nbs']                         = "сообщений всего";
-
 // TeamSpeakSettingPage.php
 $LNG['ts_settings']                    = 'Настройки Teamspeak';
 $LNG['ts_active']                      = 'Teamspeak включён?';
@@ -838,6 +827,8 @@ $LNG['modul'][6]                       = 'Друзья';
 $LNG['modul'][7]                       = 'Чат';
 $LNG['modul'][8]                       = 'Банк Тёмной материи';
 $LNG['modul'][9]                       = 'Флот';
+
+
 $LNG['modul'][10]                      = 'Флот - Обработчик';
 $LNG['modul'][11]                      = 'Галактика';
 $LNG['modul'][12]                      = 'Зал славы';
