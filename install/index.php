@@ -180,12 +180,12 @@ switch ($Mode) {
 			$connection = new DB_MySQLi();
 
 			if (mysqli_connect_errno()) {
-				exit($template->message(sprintf($LNG['step2_db_con_fail'], mysqli_connect_error()),"?mode=ins&page=1&lang=".$LANG));
+				exit($template->message(sprintf($LNG['step2_db_con_fail'], mysqli_connect_error()),"?mode=ins&page=1&lang=".$LANG, 3, true));
 			}
 
 			@chmod("../includes/config.php", 0777);
 			if (is_writable('../includes/config.php'))
-				exit($template->message($LNG['step2_conf_op_fail'],"?mode=ins&page=1&lang=".$LANG));
+				exit($template->message($LNG['step2_conf_op_fail'], "?mode=ins&page=1&lang=".$LANG, 3, true));
 
 			$first		= "Verbindung zur Datenbank erfolgreich...";
 			$connection->multi_query(str_replace("prefix_", $prefix, file_get_contents('install.sql')));
@@ -234,11 +234,8 @@ switch ($Mode) {
 			$md5pass    = md5($adm_pass);
 
 			if (empty($_POST['adm_user']) && empty($_POST['adm_pas']) && empty($_POST['adm_email']))
-			{
-				message($LNG['step4_need_fields'],"?mode=ins&page=3&".$LANG, 2, false, false);
-				exit();
-			}
-
+				exit($template->message($LNG['step4_need_fields'],"?mode=ins&page=3&lang=".$LANG, 3, true));
+	
 			$SQL  = "INSERT INTO ".USERS." SET ";
 			$SQL .= "`id`                = '1', ";
 			$SQL .= "`username`          = '". $adm_user ."', ";
@@ -288,7 +285,7 @@ switch ($Mode) {
 		break;
 	case 'convert':
 		if(!file_exists(ROOT_PATH.'config.php') || filesize(ROOT_PATH.'config.php') == 0)
-			message($LNG['convert_install'], '?', 3);
+			exit($LNG['convert_install'],"?lang=".$LANG, 3, true));
 
 		if($_POST) {
 			$GLOBALS['database']['host']			= $_POST['host'];
