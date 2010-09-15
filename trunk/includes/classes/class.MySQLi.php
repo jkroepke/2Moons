@@ -37,7 +37,7 @@ class DB_mysqli extends mysqli
 	 *
 	 * @return void
 	 */
-	public function __construct()
+	public function __construct($test = false)
 	{
 		$this->con = $GLOBALS['database'];
 
@@ -49,8 +49,12 @@ class DB_mysqli extends mysqli
 
 		if($this->connect_errno)
 		{
-			throw new Exception("Connection to database failed: ".$this->connect_error);
-			exit;
+			if($test != true) {
+				throw new Exception("Connection to database failed: ".$this->connect_error);
+				exit;
+			} else {
+				return false;
+			}
 		}		
 		parent::set_charset("utf8");
 	}
@@ -62,7 +66,8 @@ class DB_mysqli extends mysqli
 	 */
 	public function __destruct()
 	{	
-		parent::close();
+		if(!$this->connect_errno)
+			parent::close();
 	}
 
 	/**

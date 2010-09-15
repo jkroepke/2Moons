@@ -7,8 +7,8 @@
 {include file="left_menu.tpl"}
 {/if}
 {/if}
-<div id="content" class="content">
-    <table style="min-width:519px;width:519px;">
+<div id="content">
+    <table class="table519">
 		<tr>
             <th>{$fcm_info}</th>
         </tr>

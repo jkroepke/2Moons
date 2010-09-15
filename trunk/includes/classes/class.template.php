@@ -323,12 +323,17 @@ class template extends Smarty
 			'Fatal'		=> $Fatal,
 		));
 		
-		if (defined('IN_ADMIN')) {
+		if(INSTALL == true) {
+			$this->assign_vars(array(
+				'cd'		=> '../',
+			));	
+		} elseif (defined('IN_ADMIN')) {
 			$this->assign_vars(array(
 				'dpath'		=> './styles/skins/darkness/',
 				'isadmin'	=> true,
 			));
 		}
+		
 		$this->gotoside($dest, $time);
 		$this->show('error_message_body.tpl');
 	}

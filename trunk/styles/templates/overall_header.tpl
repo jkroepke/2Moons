@@ -8,17 +8,17 @@
 {/if}
 <meta http-equiv="content-language" content="{$lang}">
 <meta name="robots" content="index, follow">
-<link rel="stylesheet" type="text/css" href="./styles/css/ingame.css">
-<link rel="stylesheet" type="text/css" href="{$dpath}formate.css">
+<link rel="stylesheet" type="text/css" href="{$cd}styles/css/ingame.css">
+<link rel="stylesheet" type="text/css" href="{$cd}{$dpath}formate.css">
 <link rel="icon" href="favicon.ico">
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js"></script>
-<script type="text/javascript" src="./scripts/jquery.metadata.js"></script>
-<script type="text/javascript" src="./scripts/mbContainer.js"></script>
-<script type="text/javascript" src="./scripts/overlib.js"></script>
-<script type="text/javascript" src="./scripts/global.js"></script>
+<script type="text/javascript" src="{$cd}scripts/jquery.metadata.js"></script>
+<script type="text/javascript" src="{$cd}scripts/mbContainer.js"></script>
+<script type="text/javascript" src="{$cd}scripts/overlib.js"></script>
+<script type="text/javascript" src="{$cd}scripts/global.js"></script>
 {foreach item=scriptname from=$scripts}
-<script type="text/javascript" src="./scripts/{$scriptname}"></script>
+<script type="text/javascript" src="{$cd}scripts/{$scriptname}"></script>
 {/foreach}
 <script type="text/javascript">
 ctimestamp		= {$smarty.now};
