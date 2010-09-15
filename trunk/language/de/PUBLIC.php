@@ -34,9 +34,11 @@ $LNG['server_infos']			= array(
 );
 
 //case default
-$LNG['login_error']			= 'Falscher Benutzername/Passwort! <br><a href="index.php">Zurück</a>';
+$LNG['login_error_1']		= 'Falscher Benutzername/Passwort!';
+$LNG['login_error_2']		= 'Jemand hat sich von einem anderem PC in deinem Account eingeloggt!';
+$LNG['login_error_3']		= 'Deine Session ist abgelaufen!';
 $LNG['screenshots']			= 'Screenshots';
-$LNG['universe']				= 'Universum';
+$LNG['universe']			= 'Universum';
 $LNG['chose_a_uni']			= 'Wähle ein Universum';
 
 /* ------------------------------------------------------------------------------------------ */

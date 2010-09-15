@@ -57,6 +57,7 @@ if(!function_exists('bcadd'))
 	require_once(ROOT_PATH.'includes/bcmath.'.PHP_EXT);
 
 require_once(ROOT_PATH . 'includes/classes/class.MySQLi.'.PHP_EXT);
+require_once(ROOT_PATH . 'includes/classes/class.Session.'.PHP_EXT);
 require_once(ROOT_PATH . 'includes/GeneralFunctions.'.PHP_EXT);
 require_once(ROOT_PATH . 'includes/vars.'.PHP_EXT);
 set_error_handler('msg_handler', E_ALL);
@@ -83,13 +84,11 @@ if (INSTALL != true)
 	define('VERSION'		, $CONF['VERSION']);
 	if (!defined('LOGIN') && !defined('IN_CRON'))
 	{
-		require_once(ROOT_PATH . 'includes/classes/class.CheckSession.'.PHP_EXT);
-
-		$Session       	= new CheckSession();
-		if(!$Session->CheckUser()) exit(header('Location: index.php'));
-	
-		$Session		= NULL;	
-		unset($Session);
+		$SESSION       	= new Session();
+		
+		if(!$SESSION->IsUserLogin()) redirectTo('index.php?code=3');
+		
+		$SESSION->UpdateSession();
 		
 		if($CONF['game_disable'] == 0 && $_SESSION['authlevel'] == 0)
 		{
@@ -143,7 +142,7 @@ if (INSTALL != true)
 		if (!defined('IN_ADMIN'))
 		{
 			require_once(ROOT_PATH . 'includes/classes/class.PlanetRessUpdate.'.PHP_EXT);
-			$PLANET = $db->uniquequery("SELECT * FROM `".PLANETS."` WHERE `id` = '".$USER['current_planet']."';");
+			$PLANET = $db->uniquequery("SELECT * FROM `".PLANETS."` WHERE `id` = '".$_SESSION['planet']."';");
 
 			if(empty($PLANET)){
 				$PLANET = $db->uniquequery("SELECT * FROM `".PLANETS."` WHERE `id` = '".$USER['id_planet']."';");

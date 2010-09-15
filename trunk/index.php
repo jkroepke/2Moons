@@ -52,19 +52,14 @@ switch ($page) {
 		
 		if($fb_user)
 		{
-			$login = $db->uniquequery("SELECT `id`,`username`,`authlevel`,`banaday` FROM " . USERS . " WHERE `fb_id` = '".$fb_user."';");
+			$login = $db->uniquequery("SELECT `id`, `username`, `authlevel`, `id_planet`, `banaday` FROM " . USERS . " WHERE `fb_id` = '".$fb_user."';");
 			if (isset($login)) {
 				if ($login['banaday'] <= time () && $login['banaday'] != '0') {
 					$db->query("UPDATE " . USERS . " SET `banaday` = '0', `bana` = '0' WHERE `username` = '" . $login ['username'] . "';");
 				}
+				$SESSION       	= new Session();
+				$SESSION->CreateSession($login['id'], $login['username'], $login['id_planet'], $login['authlevel']);
 				
-				@session_start();
-				$_SESSION['id']			= $login['id'];
-				$_SESSION['username']	= $login['username'];
-				$_SESSION['authlevel']	= $login['authlevel'];
-				
-				$db->query("UPDATE `" . USERS . "` SET `current_planet` = `id_planet` WHERE `id` = '".$login["id"]."';" );
-
 				redirectTo("game.".PHP_EXT."?page=overview");
 			} else {
 				$USER_details = $fb->api_client->users_getInfo($fb_user, array('first_name','last_name','proxied_email','username','contact_email'));  
@@ -73,14 +68,15 @@ switch ($page) {
 				else 
 					redirectTo("index.".PHP_EXT);
 				
-				$Exist['alruser'] = $db->uniquequery("SELECT id,username,authlevel FROM ".USERS." WHERE `email` = '".$UserMail."';");
+				$Exist['alruser'] = $db->uniquequery("SELECT `id`, `username`, `authlevel`, `id_planet`, `banaday` FROM ".USERS." WHERE `email` = '".$UserMail."';");
 				if(isset($Exist['alruser']))
 				{
-					$db->query("UPDATE `".USERS."` SET `fb_id` = '".$fb_user."' WHERE `id` ='".$Exist['alruser']['id']."';");
-					@session_start();
-					$_SESSION['id']			= $Exist['alruser']['id'];
-					$_SESSION['username']	= $Exist['alruser']['username'];
-					$_SESSION['authlevel']	= $Exist['alruser']['authlevel'];
+					if ($Exist['alruser']['banaday'] <= time () && $Exist['alruser']['banaday'] != '0') {
+						$db->query("UPDATE ".USERS." SET `banaday` = '0', `bana` = '0' WHERE `username` = '".$Exist['alruser']['id']."';");
+					}
+					$db->query("UPDATE `".USERS."` SET `fb_id` = '".$fb_user."' WHERE `id` = '".$Exist['alruser']['id']."';");
+					$SESSION       	= new Session();
+					$SESSION->CreateSession($Exist['alruser']['id'], $Exist['alruser']['username'], $Exist['alruser']['id_planet'], $Exist['alruser']['authlevel']);
 					redirectTo("game.".PHP_EXT."?page=overview");
 				}
 				
@@ -134,7 +130,7 @@ switch ($page) {
 					MailSend($UserMail, $UserName, $LNG['mail_title'], $MailContent);		
 				}
 				
-				$NewUser = $db->fetch_array ( $db->query ( "SELECT `id` FROM " . USERS . " WHERE `username` = '".$UserName."' AND `password` = '".$UserPass."';" ) );
+				$NewUser = $db->uniquequery( "SELECT `id` FROM " . USERS . " WHERE `username` = '".$UserName."' AND `password` = '".$UserPass."';");
 				
 				$LastSettedGalaxyPos = $CONF['LastSettedGalaxyPos'];
 				$LastSettedSystemPos = $CONF['LastSettedSystemPos'];
@@ -184,11 +180,10 @@ switch ($page) {
 						$newpos_checked = true;
 					}
 				}
-				$PlanetID = $db->fetch_array($db->query("SELECT `id` FROM ".PLANETS." WHERE `id_owner` = '".$NewUser ['id']."';" ));
+				$PlanetID = $db->uniquequery("SELECT `id` FROM ".PLANETS." WHERE `id_owner` = '".$NewUser ['id']."';");
 				
 				$SQL = "UPDATE " . USERS . " SET ";
 				$SQL .= "`id_planet` = '" . $PlanetID ['id'] . "', ";
-				$SQL .= "`current_planet` = '" . $PlanetID ['id'] . "', ";
 				$SQL .= "`galaxy` = '" . $Galaxy . "', ";
 				$SQL .= "`system` = '" . $System . "', ";
 				$SQL .= "`planet` = '" . $Planet . "' ";
@@ -204,15 +199,9 @@ switch ($page) {
 				SendSimpleMessage ( $NewUser ['id'], 1, $Time, 1, $from, $Subject, $message );
 				
 				$db->query ( "UPDATE " . CONFIG . " SET `config_value` = `config_value` + '1' WHERE `config_name` = 'users_amount';" );
-				if ($admin == 1) {
-					echo "User ".$UserName." wurde aktiviert!";
-				} else {
-					@session_start();
-					$_SESSION['id']			= $NewUser['id'];
-					$_SESSION['username']	= $UserName;
-					$_SESSION['authlevel']	= 0;
-					redirectTo("game.".PHP_EXT."?page=overview");
-				}
+				$SESSION       	= new Session();
+				$SESSION->CreateSession($NewUser['id'], $UserName, $PlanetID['id']);
+				redirectTo("game.".PHP_EXT."?page=overview");
 			}
 		} else {
 			redirectTo("index.".PHP_EXT);
@@ -468,7 +457,6 @@ switch ($page) {
 				
 				$SQL = "UPDATE ".USERS." SET ";
 				$SQL .= "`id_planet` = '" . $PlanetID ['id']."', ";
-				$SQL .= "`current_planet` = '".$PlanetID ['id']."', ";
 				$SQL .= "`galaxy` = '".$Galaxy."', ";
 				$SQL .= "`system` = '".$System."', ";
 				$SQL .= "`planet` = '".$Planet."' ";
@@ -487,11 +475,9 @@ switch ($page) {
 				if ($admin == 1) {
 					echo sprintf($LNG['user_active'], $UserName);
 				} else {
-					session_start();
-					$_SESSION['id']			= $NewUser['id'];
-					$_SESSION['username']	= $UserName;
-					$_SESSION['authlevel']	= 0;	
-					
+					$SESSION       	= new Session();
+					$SESSION->CreateSession($NewUser['id'], $UserName,  $PlanetID['id']);
+
 					redirectTo("game.".PHP_EXT."?page=overview");
 				}
 			break;
@@ -657,26 +643,26 @@ switch ($page) {
 		if ($_POST) {
 			$luser = request_var('username', '', UTF8_SUPPORT);
 			$lpass = request_var('password', '', UTF8_SUPPORT);
-			$login = $db->uniquequery("SELECT `id`,`username`,`authlevel`,`password`,`banaday` FROM " . USERS . " WHERE `username` = '".$db->sql_escape($luser)."' AND `password` = '".md5($lpass)."';");
+			$login = $db->uniquequery("SELECT `id`,`username`,`authlevel`,`id_planet`,`banaday` FROM " . USERS . " WHERE `username` = '".$db->sql_escape($luser)."' AND `password` = '".md5($lpass)."';");
 			
 			if (isset($login)) {
 				if ($login['banaday'] <= TIMESTAMP) {
 					$db->query("UPDATE " . USERS . " SET `banaday` = '0', `bana` = '0' WHERE `username` = '" . $login ['username'] . "';");
 				}
-				
-				session_start();
-				$_SESSION['id']			= $login['id'];
-				$_SESSION['username']	= $login['username'];
-				$_SESSION['authlevel']	= $login['authlevel'];
-				
-				$db->query("UPDATE `" . USERS . "` SET `current_planet` = `id_planet` WHERE `id` = '".$login["id"]."';" );
+				$SESSION       	= new Session();
+				$SESSION->CreateSession($login['id'], $login['username'], $login['id_planet'], $login['authlevel']);
 
 				redirectTo("game.".PHP_EXT."?page=overview");
-				exit();
 			} else {
-				$template->message($LNG['login_error'], './', 3, true);
+				redirectTo('index.php?code=1');
 			}
 		} else {
+			$Code	= request_var('code', 0);
+			if(!empty($Code)) {
+				$template->assign_vars(array(
+					'code'					=> $LNG['login_error_'.$Code],
+				));
+			}
 			$template->assign_vars(array(
 				'AvailableUnis'			=> $AvailableUnis,
 				'welcome_to'			=> $LNG['welcome_to'],

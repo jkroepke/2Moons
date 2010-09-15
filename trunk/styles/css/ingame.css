@@ -35,6 +35,7 @@
 .dsize:hover{background-position:-325px -25px;}
 .ui-progressbar-value{background-image:url(img/processbar.png);}
 #progressbar{height:10px;}
+.ferror{border:2px solid red;margin-left:200.5px;margin-bottom:1px; padding:2px;color:#FFFFFF}
 .ui-resizable{position:relative;}
 .ui-resizable-handle{position:absolute;font-size:0.1px;z-index:99999;display:block;}
 .ui-resizable-disabled .ui-resizable-handle, .ui-resizable-autohide .ui-resizable-handle{display:none;}

@@ -31,6 +31,9 @@ lang				= "{$lang}";
             }
         }
     })();
+{if $code}
+alert("{$code}");
+{/if}
 </script>
 {if $game_captcha}
 <script type="text/javascript">

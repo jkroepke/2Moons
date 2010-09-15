@@ -23,10 +23,9 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 
 function ShowLogoutPage()
 {
-	global $LNG;
-	session_destroy();
-	$params = session_get_cookie_params();
-    setcookie(session_name(), '', time() - 42000, $params["path"], $params["domain"], $params["secure"], $params["httponly"]);
+	global $LNG, $SESSION;
+	
+	$SESSION->DestroySession();
 	
 	$template	= new template();
 	$template->page_header();

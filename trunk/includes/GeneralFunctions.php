@@ -127,7 +127,7 @@ function colorRed($n)
 
 function colorGreen($n)
 {
-	return '<font style="color:#00ff00">' . $n . '</span>';
+	return '<span style="color:#00ff00">' . $n . '</span>';
 }
 
 function pretty_number($n, $dec = 0)
@@ -252,18 +252,16 @@ function msg_handler($errno, $msg_text, $errfile, $errline)
 	{
 		case E_USER_WARNING:
 		case E_WARNING:		
-			echo "<div style='border: 2px solid red; margin-left: 190.5px; margin-bottom: 1px; padding: 2px; color:#FFFFFF;'><b>[2Moons Debug] PHP Warning </b> in file <b>" . $errfile . "</b> on line <b>" . $errline . "</b>: <b>" . $msg_text . "</b></div>\n";
+			echo "<div class='ferror'><b>[2Moons Debug] PHP Warning </b> in file <b>" . $errfile . "</b> on line <b>" . $errline . "</b>: <b>" . $msg_text . "</b></div>\n";
 			return;
 
 		break;	
 		case E_STRICT:
-			echo "<div style='border: 2px solid red; margin-left: 190.5px; margin-bottom: 1px; padding: 2px;color:#FFFFFF;'><b>[2Moons Debug] PHP Notice </b> in file <b>" . $errfile . "</b> on line <b>" . $errline . "</b>: <b>" . $msg_text . "</b></div>\n";
+			echo "<div class='ferror'><b>[2Moons Debug] PHP Notice </b> in file <b>" . $errfile . "</b> on line <b>" . $errline . "</b>: <b>" . $msg_text . "</b></div>\n";
 			return;
 
 		break;
 		case E_USER_ERROR:
-			@ob_flush();
-			@ob_start();
 			echo '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">';
 			echo '<html>';
 			echo '<head>';
@@ -286,8 +284,6 @@ function msg_handler($errno, $msg_text, $errfile, $errline)
 			exit;
 		break;
 		case E_USER_NOTICE:
-			@ob_flush();
-			@ob_start();
 			echo '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">';
 			echo '<html>';
 			echo '<head>';
