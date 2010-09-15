@@ -19,55 +19,50 @@
 # *																			 #
 ##############################################################################
 
-if(!defined('INSIDE')) die('Hacking attempt!');
-
-	function DeleteSelectedUser($UserID)
+function DeleteSelectedUser($UserID)
+{
+	global $db ,$CONF;
+	
+	$TheUser = $db->uniquequery("SELECT ally_id FROM ".USERS." WHERE `id` = '".$UserID."';");
+	$SQL 	 = "";
+	
+	if ($TheUser['ally_id'] != 0 )
 	{
-		global $db ,$CONF;
-		
-		$TheUser = $db->fetch_array($db->query("SELECT ally_id FROM ".USERS." WHERE `id` = '" . $UserID . "';"));
-		$sql 	 = "";
-		
-		if ($TheUser['ally_id'] != 0 )
+		$TheAlly =  $db->uniquequery("SELECT ally_members FROM ".ALLIANCE." WHERE `id` = '".$TheUser['ally_id']."';");
+		$TheAlly['ally_members'] -= 1;
+
+		if ($TheAlly['ally_members'] > 0)
 		{
-			$TheAlly =  $db->fetch_array($db->query("SELECT ally_members FROM ".ALLIANCE." WHERE `id` = '" . $TheUser['ally_id'] . "';"));
-			$TheAlly['ally_members'] -= 1;
-
-			if ($TheAlly['ally_members'] > 0)
-			{
-				$sql .= "UPDATE ".ALLIANCE." SET `ally_members` = '" . $TheAlly['ally_members'] . "' WHERE `id` = '" . $TheUser['ally_id'] . "';";
-			}
-			else
-			{
-				$sql .= "DELETE FROM ".ALLIANCE." WHERE `id` = '" . $TheUser['ally_id'] . "';";
-				$sql .= "DELETE FROM ".STATPOINTS." WHERE `stat_type` = '2' AND `id_owner` = '" . $TheUser['ally_id'] . "';";
-			}
-		}
-
-		$sql .= "DELETE FROM ".STATPOINTS." WHERE `stat_type` = '1' AND `id_owner` = '" . $UserID . "';";
-		$sql .= "DELETE FROM ".PLANETS." WHERE `id_owner` = '" . $UserID . "';";
-		$sql .= "DELETE FROM ".MESSAGES." WHERE `message_owner` = '" . $UserID . "' OR `message_sender` = '" . $UserID . "';";
-		$sql .= "DELETE FROM ".NOTES." WHERE `owner` = '" . $UserID . "';";
-		$sql .= "DELETE FROM ".FLEETS." WHERE `fleet_owner` = '" . $UserID . "';";
-		$sql .= "DELETE FROM ".BUDDY." WHERE `owner` = '" . $UserID . "' OR `sender` = '" . $UserID . "';";
-		$sql .= "DELETE FROM ".USERS." WHERE `id` = '" . $UserID . "';";
-		$db->multi_query($sql);
-		update_config("users_amount", $CONF['users_amount'] - 1);
-	}
-   
-	function DeleteSelectedPlanet ($ID)
-	{
-		global $LNG, $db;
-
-		$QueryPlanet = $db->fetch_array($db->query("SELECT galaxy,planet,system,planet_type FROM ".PLANETS." WHERE id = '".$ID."';"));
-
-		if ($QueryPlanet['planet_type'] == '3')
-		{
-			$db->multi_query("DELETE FROM ".PLANETS." WHERE id = '".$ID."';UPDATE ".PLANETS." SET id_luna = 0 WHERE id_luna = '".$ID."';");
+			$SQL .= "UPDATE ".ALLIANCE." SET `ally_members` = '".$TheAlly['ally_members']."' WHERE `id` = '".$TheUser['ally_id']."';";
 		}
 		else
 		{
-			$db->query("DELETE FROM ".PLANETS." WHERE galaxy = '".$QueryPlanet['galaxy']."' AND system = '".$QueryPlanet['system']."' AND planet = '".$QueryPlanet['planet']."';");
+			$SQL .= "DELETE FROM ".ALLIANCE." WHERE `id` = '" . $TheUser['ally_id'] . "';";
+			$SQL .= "DELETE FROM ".STATPOINTS." WHERE `stat_type` = '2' AND `id_owner` = '".$TheUser['ally_id']."';";
 		}
 	}
+
+	$SQL .= "DELETE FROM ".BUDDY." WHERE `owner` = '".$UserID."' OR `sender` = '".$UserID."';";
+	$SQL .= "DELETE FROM ".FLEETS." WHERE `fleet_owner` = '".$UserID."';";
+	$SQL .= "DELETE FROM ".MESSAGES." WHERE `message_owner` = '".$UserID."' OR `message_sender` = '".$UserID."';";
+	$SQL .= "DELETE FROM ".NOTES." WHERE `owner` = '".$UserID."';";
+	$SQL .= "DELETE FROM ".PLANETS." WHERE `id_owner` = '".$UserID."';";
+	$SQL .= "DELETE FROM ".USERS." WHERE `id` = '".$UserID."';";
+	$SQL .= "DELETE FROM ".STATPOINTS." WHERE `stat_type` = '1' AND `id_owner` = '".$UserID."';";
+	$db->multi_query($SQL);
+	update_config("users_amount", $CONF['users_amount'] - 1);
+}
+   
+function DeleteSelectedPlanet ($ID)
+{
+	global $db;
+
+	$QueryPlanet = $db->uniquequery("SELECT galaxy,planet,system,planet_type FROM ".PLANETS." WHERE id = '".$ID."';");
+
+	if ($QueryPlanet['planet_type'] == '3')
+		$db->multi_query("DELETE FROM ".PLANETS." WHERE id = '".$ID."';UPDATE ".PLANETS." SET id_luna = '0' WHERE id_luna = '".$ID."';");
+	else
+		$db->query("DELETE FROM ".PLANETS." WHERE galaxy = '".$QueryPlanet['galaxy']."' AND system = '".$QueryPlanet['system']."' AND planet = '".$QueryPlanet['planet']."';");
+}
+
 ?>

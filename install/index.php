@@ -247,7 +247,6 @@ switch ($Mode) {
 			$SQL .= "`galaxy`            = '1', ";
 			$SQL .= "`system`            = '1', ";
 			$SQL .= "`planet`            = '1', ";
-			$SQL .= "`current_planet`    = '1', ";
 			$SQL .= "`register_time`     = '". TIMESTAMP ."', ";
 			$SQL .= "`password`          = '". $md5pass ."';";
 			$SQL .= "INSERT INTO ".PLANETS." SET ";

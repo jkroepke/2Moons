@@ -260,7 +260,6 @@ function ResetUniverse()
 
 		$SQL  = "UPDATE ".USERS." SET ";
 		$SQL .= "`id_planet` = '".      $PlanetID['id'] ."', ";
-		$SQL .= "`current_planet` = '". $PlanetID['id'] ."' ";
 		$SQL .= "WHERE ";
 		$SQL .= "`id` = '".             $NewUser['id']  ."';";
 		$db->query($SQL);

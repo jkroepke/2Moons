@@ -114,7 +114,6 @@ function ShowCreatorPage()
 								
 				$SQL = "UPDATE ".USERS." SET ";
 				$SQL .= "`id_planet` = '" . $ID_PLANET['id'] . "', ";
-				$SQL .= "`current_planet` = '" . $ID_PLANET['id'] . "', ";
 				$SQL .= "`galaxy` = '" . $Galaxy . "', ";
 				$SQL .= "`system` = '" . $System . "', ";
 				$SQL .= "`planet` = '" . $Planet . "' ";

@@ -55,7 +55,7 @@ class template extends Smarty
 	
 	private function planetmenu()
 	{
-		global $LNG, $USER;
+		global $LNG;
 		if(empty($this->UserPlanets))
 			$this->getplanets();
 		
@@ -82,7 +82,7 @@ class template extends Smarty
 		$this->assign_vars(array(	
 			'PlanetMenu' 		=> $Planetlist,
 			'show_planetmenu' 	=> $LNG['show_planetmenu'],
-			'current_pid'		=> $USER['current_planet'],
+			'current_pid'		=> $_SESSION['planet'],
 		));
 	}
 	
@@ -136,7 +136,7 @@ class template extends Smarty
 		
 		foreach($this->UserPlanets as $CurPlanetID => $CurPlanet)
 		{
-			$SelectorVaules[]	= $this->phpself."&amp;cp=".$CurPlanet['id']."&amp;re=0";
+			$SelectorVaules[]	= $this->phpself."&amp;cp=".$CurPlanet['id'];
 			$SelectorNames[]	= $CurPlanet['name'].(($CurPlanet['planet_type'] == 3) ? " (" . $LNG['fcm_moon'] . ")":"")."&nbsp;[".$CurPlanet['galaxy'].":".$CurPlanet['system'].":".$CurPlanet['planet']."]&nbsp;&nbsp;";
 		}
 		
@@ -164,7 +164,7 @@ class template extends Smarty
 			'js_metal_hr'		=> floattostring($PLANET['metal_perhour'] + $CONF['metal_basic_income'] * $CONF['resource_multiplier']),
 			'js_crystal_hr'		=> floattostring($PLANET['crystal_perhour'] + $CONF['crystal_basic_income'] * $CONF['resource_multiplier']),
 			'js_deuterium_hr'	=> floattostring($PLANET['deuterium_perhour'] + $CONF['deuterium_basic_income'] * $CONF['resource_multiplier']),
-			'current_panet'		=> $this->phpself."&amp;cp=".$USER['current_planet']."&amp;re=0",
+			'current_panet'		=> $this->phpself."&amp;cp=".$_SESSION['planet'],
 			'tn_vacation_mode'	=> $LNG['tn_vacation_mode'],
 			'closed'			=> !$CONF['game_disable'] ? $LNG['ov_closed'] : false,
 			'vacation'			=> $USER['urlaubs_modus'] ? date('d.m.Y H:i:s',$USER['urlaubs_until']) : false,

@@ -46,7 +46,7 @@ function ShowOverviewPage()
 				if (!CheckName($newname))
 					exit((UTF8_SUPPORT) ? $LNG['ov_newname_no_space'] : $LNG['ov_newname_alphanum']);
 				else
-					$db->query("UPDATE ".PLANETS." SET `name` = '".$db->sql_escape($newname)."' WHERE `id` = '". $USER['current_planet'] . "' LIMIT 1;");
+					$db->query("UPDATE ".PLANETS." SET `name` = '".$db->sql_escape($newname)."' WHERE `id` = '".$PLANET['id']. "' LIMIT 1;");
 			}
 		break;
 		case 'deleteplanet':
@@ -64,10 +64,11 @@ function ShowOverviewPage()
 				else
 				{
 					if($PLANET['planet_type'] == 1) {
-						$db->multi_query("UPDATE ".PLANETS." SET `destruyed` = '".(TIMESTAMP+ 86400)."' WHERE `id` = '".$USER['current_planet']."' LIMIT 1;UPDATE ".USERS." SET `current_planet` = `id_planet` WHERE `id` = '".$USER['id']."';DELETE FROM ".PLANETS." WHERE `id` = '".$PLANET['id_luna']."' LIMIT 1;");
+						$db->multi_query("UPDATE ".PLANETS." SET `destruyed` = '".(TIMESTAMP+ 86400)."' WHERE `id` = '".$PLANET['id']."' LIMIT 1;DELETE FROM ".PLANETS." WHERE `id` = '".$PLANET['id_luna']."' LIMIT 1;");
 					} else {
-						$db->multi_query("DELETE FROM ".PLANETS." WHERE `id` = '".$PLANET['id']."' LIMIT 1;UPDATE ".PLANETS." SET `id_luna` = '0' WHERE `id_luna` = '".$PLANET['id']."' LIMIT 1;UPDATE ".USERS." SET `current_planet` = `id_planet` WHERE `id` = '".$USER['id']."';");
+						$db->multi_query("DELETE FROM ".PLANETS." WHERE `id` = '".$PLANET['id']."' LIMIT 1;UPDATE ".PLANETS." SET `id_luna` = '0' WHERE `id_luna` = '".$PLANET['id']."' LIMIT 1;");
 					}
+					$_SESSION['planet']	= $USER['id_planet'];
 				}
 			}
 		break;
@@ -136,7 +137,7 @@ function ShowOverviewPage()
 			
 			foreach($template->UserPlanets as $ID => $CPLANET)
 			{		
-				if ($ID == $USER["current_planet"] || $CPLANET['planet_type'] == 3)
+				if ($ID == $_SESSION['planet'] || $CPLANET['planet_type'] == 3)
 					continue;
 
 				if (!empty($CPLANET['b_building_id']))
