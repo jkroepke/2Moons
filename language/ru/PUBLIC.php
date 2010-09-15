@@ -12,6 +12,8 @@ $LNG['menu_agb']                     = 'Положения';
 $LNG['menu_pranger']                 = 'Заблокированные';
 $LNG['menu_top100']                  = 'Зал славы';
 $LNG['menu_disclamer']               = 'Контакты';
+$LNH['music_off']                    = 'Музыка: Выкл.';
+$LNH['music_on']                     = 'Музыка: Вкл.';
 
 // index.php
 // Восстановление пароля
@@ -30,6 +32,9 @@ $LNG['server_infos']                 = array(
 
 // Стандартное
 $LNG['login_error']                  = 'Вы ввели неправильные данные! <br><a href="index.php">На главную</a>';
+$LNG['login_error_1']                = 'Неправильный логин или пароль!';
+$LNG['login_error_2']                = 'Кто-то вошёл в игру через ваш аккаунт с другого компьютера!';
+$LNG['login_error_3']                = 'Ваша сессия завершена!';
 $LNG['screenshots']                  = 'Скриншоты';
 $LNG['universe']                     = 'Вселенная';
 $LNG['chose_a_uni']                  = 'Выбрать...';
