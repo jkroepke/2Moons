@@ -144,7 +144,6 @@ li.ui-tabs-selected a, li.ui-state-disabled a, li.ui-state-processing a{cursor:t
 .ui-progressbar{height:2em;text-align:left;}
 .ui-progressbar .ui-progressbar-value{margin:-1px;height:100%;}
 
-@charset "utf-8";
 /* ----------------------------------------------------------------------------------------------------------------*/
 /* ---------->>> global settings needed for thickbox <<<-----------------------------------------------------------*/
 /* ----------------------------------------------------------------------------------------------------------------*/

@@ -6,7 +6,7 @@
 */
 		  
 // var tb_pathToImage = "img/layout/indicator.white.gif";
- var tb_pathToImage = "img/cluetip/wait.gif";
+var tb_pathToImage = "styles/images/fadebox/wait.gif";
 
 
 /*!!!!!!!!!!!!!!!!! edit below this line at your own risk !!!!!!!!!!!!!!!!!!!!!!!*/
