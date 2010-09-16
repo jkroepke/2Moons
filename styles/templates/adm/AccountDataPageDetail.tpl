@@ -92,7 +92,7 @@ border:0px;background:url(./styles/images/Adm/blank.gif);text-align:right;paddin
 			<tr><th height="22px">{$ac_act_time}</th><th>{$onlinetime}</th></tr>
 			<tr><th height="22px">{$ac_home_planet_id}</th><th>{$id_p}</th></tr>
 			<tr><th height="22px">{$ac_home_planet_coord}</th><th>[{$g}:{$s}:{$p}]</th></tr>
-			<tr><th height="22px">{$ac_user_system}</th><th>{$info}</th></tr>
+			{if $info}<tr><th height="22px">{$ac_user_system}</th><th>{$info}</th></tr>{/if}
 			<tr><th height="22px">{$ac_ranking}</th><th><a href="javascript:animatedcollapse.toggle('puntaje')">{$ac_see_ranking}</a></th></tr>
 			</table>
 			<br>

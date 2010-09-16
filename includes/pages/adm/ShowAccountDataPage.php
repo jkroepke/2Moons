@@ -41,16 +41,16 @@ function ShowAccountDataPage()
 		{
 			foreach(array_merge($reslist['officier'], $reslist['tech']) as $ID)
 			{
-				$SpecifyItemsUQ	.= "`".$resource[$ID]."`,";
+				$SpecifyItemsUQ	.= "u.`".$resource[$ID]."`,";
 			}
 		
 			// COMIENZA SAQUEO DE DATOS DE LA TABLA DE USUARIOS
 			$SpecifyItemsU	= 
-			"id,username,email,email_2,authlevel,id_planet,galaxy,system,planet,user_lastip,ip_at_reg,user_agent,darkmatter,register_time,onlinetime,noipcheck,urlaubs_modus,
-			 urlaubs_until,ally_id,ally_name,ally_request,".$SpecifyItemsUQ."
-			 ally_request_text,ally_register_time,ally_rank_id,bana,banaday";
+			"id,u.username,u.email,u.email_2,u.authlevel,u.id_planet,u.galaxy,u.system,u.planet,u.user_lastip,u.ip_at_reg,u.darkmatter,u.register_time,u.onlinetime,u.noipcheck,u.urlaubs_modus,u.
+			 urlaubs_until,u.ally_id,u.ally_name,u.ally_request,".$SpecifyItemsUQ."
+			 ally_request_text,u.ally_register_time,u.ally_rank_id,u.bana,u.banaday, s.user_ua";
 			
-			$UserQuery 	= 	$db->uniquequery("SELECT ".$SpecifyItemsU." FROM ".USERS." WHERE `id` = '".$id_u."';");
+			$UserQuery 	= 	$db->uniquequery("SELECT ".$SpecifyItemsU." FROM ".USERS." as u LEFT JOIN ".SESSION." as s ON s.user_id = u.id WHERE `id` = '".$id_u."';");
 
 			
 			$reg_time		= date("d-m-Y H:i:s", $UserQuery['register_time']);
@@ -65,7 +65,7 @@ function ShowAccountDataPage()
 			$g				= $UserQuery['galaxy'];
 			$s				= $UserQuery['system'];
 			$p				= $UserQuery['planet'];
-			$info			= $UserQuery['user_agent'];
+			$info			= $UserQuery['user_ua'];
 			$alianza		= $UserQuery['ally_name'];
 			$nivel			= $LNG['rank'][$UserQuery['authlevel']];
 			$ipcheck		= $LNG['ac_checkip'][$UserQuery['noipcheck']];
