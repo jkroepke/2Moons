@@ -297,21 +297,19 @@ abstract class FleetFunctions
 		$db->query("UPDATE ".FLEETS." SET `fleet_group` = '0', `start_time` = '".TIMESTAMP."', `fleet_end_stay` = '".TIMESTAMP."', `fleet_end_time` = '".((TIMESTAMP - $FleetRow['start_time']) + TIMESTAMP)."', `fleet_mess` = '1' WHERE `".$where."` = '".$FleetID."';");
 	}
 	
-	public static function GetExtraInputs($FleetArray, $Player)
+	public static function GetFleetShipInfo($FleetArray, $Player)
 	{
-		$FleetHiddenBlock = "";
-		foreach ($FleetArray as $ShipID => $Amount)
-		{
-			$FleetHiddenBlock	.= "<input type=\"hidden\" name=\"consumption". $ShipID ."\" value=\"". self::GetShipConsumption($ShipID, $Player) ."\">\n";
-			$FleetHiddenBlock	.= "<input type=\"hidden\" name=\"speed". $ShipID ."\"       value=\"". self::GetFleetMaxSpeed($ShipID, $Player) ."\">\n";
-			$FleetHiddenBlock	.= "<input type=\"hidden\" name=\"ship". $ShipID ."\"        value=\"". number_format($Amount, 0, '', '') ."\">\n";
+		$FleetInfo	= array();
+		foreach ($FleetArray as $ShipID => $Amount) {
+			$FleetInfo[$ShipID]	= array('consumption' => self::GetShipConsumption($ShipID, $Player), 'speed' => self::GetFleetMaxSpeed($ShipID, $Player), 'amount' => floattostring($Amount));
 		}
-		return $FleetHiddenBlock;
+		return $FleetInfo;
 	}
 	
 	public static function GotoFleetPage()
 	{
-		redirectTo("game.".PHP_EXT."?page=fleet");
+		throw new Exception("x");
+		#redirectTo("game.".PHP_EXT."?page=fleet");
 	}
 
 	function GetAKSPage($CurrentUser, $CurrentPlanet, $fleetid)
@@ -460,7 +458,7 @@ abstract class FleetFunctions
 				elseif(!CheckModule(36)) {
 					$missiontype[4] = $LNG['type_mission'][4];}
 					
-				if ($MissionInfo['IsAKS'] != "0:0:0" && $UsedPlanet && !CheckModule(1))
+				if (!empty($MissionInfo['IsAKS']) && !$YourPlanet && !CheckModule(1))
 					$missiontype[2] = $LNG['type_mission'][2];
 
 				if (!$YourPlanet && $MissionInfo['planettype'] == 3 && isset($MissionInfo['Ship'][214]) && !CheckModule(29))

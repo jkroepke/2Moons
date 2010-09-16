@@ -67,5 +67,17 @@ function NumberGetHumanReadable(value)
         precision = precision - 1;
     }
     
-    return number_format(value, precision, LocalizationStrings['decimalPoint'], LocalizationStrings['thousandSeperator']) + unit;
+    return removeE(number_format(value, precision, LocalizationStrings['decimalPoint'], LocalizationStrings['thousandSeperator'])) + unit;
+}
+
+function removeE(Number) {
+	Number	= String(Number);
+	if(Number.search(/e\+/) == -1)
+		return Number;
+	
+	var e = parseInt(Number.replace(/\S+.?e\+/g, ''));
+	if(isNaN(e) || e == 0)
+		return Number;
+	else
+		return parseFloat(Number).toPrecision(e+1);
 }

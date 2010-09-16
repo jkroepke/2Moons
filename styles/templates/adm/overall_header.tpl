@@ -14,14 +14,10 @@
 {if $goto}
 <meta http-equiv="refresh" content="{$gotoinsec};URL={$goto}">
 {/if}
-<!--[if lt IE 9]>
-<script type="text/javascript" src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
-<![endif]-->
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js"></script>
-<script type="text/javascript" src="./scripts/jquery.metadata.js"></script>
-<script type="text/javascript" src="./scripts/mbContainer.js"></script>
 <script type="text/javascript" src="./scripts/overlib.js"></script>
+<script type="text/javascript" src="./scripts/filterlist.js"></script>
 {foreach item=scriptname from=$scripts}
 <script type="text/javascript" src="./scripts/{$scriptname}"></script>
 {/foreach}

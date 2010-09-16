@@ -2,19 +2,9 @@
 {include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
 <form action="game.php?page=fleet2" method="post" onsubmit="return CheckTarget()" id="form">
-    <input type="hidden" name="speedallsmin"   		value="{$speedallsmin}">
-    <input type="hidden" name="usedfleet"      		value="{$fleetarray}">
-    <input type="hidden" name="thisgalaxy"     		value="{$galaxy}">
-    <input type="hidden" name="thissystem"     		value="{$system}">
-    <input type="hidden" name="thisplanet"     		value="{$planet}">
-    <input type="hidden" name="thisplanettype" 		value="{$planet_type}">
-    <input type="hidden" name="fleetroom" 			value="{$fleetroom}">
-    <input type="hidden" name="target_mission" 		value="{$target_mission}">
-    <input type="hidden" name="speedfactor" 		value="{$speedfactor}">
-    <input type="hidden" name="fleetspeedfactor" 	value="{$fleetspeedfactor}">
-	<input type="hidden" name="fleet_group"     	value="0">
-    <input type="hidden" name="acs_target_mr"   	value="0:0:0">
-    {$inputs}
+	<input type="hidden" name="fleet_group" value="0">
+	<input type="hidden" name="mission" value="{$mission}">
+	<input type="hidden" name="usedfleet" value="{$fleetarray}">
     <div id="content" class="content">
     	<table class="table519">
         	<tr style="height:20px;">
@@ -99,7 +89,7 @@
             </tr>
             {foreach item=AKSRow from=$AKSList}
 			<tr style="height:20px;"><td colspan="2">
-			<a href="javascript:setTarget({$AKSRow.galaxy},{$AKSRow.system},{$AKSRow.planet},{$AKSRow.planet_type});setACS({$AKSRow.id});setACS_target('g{$AKSRow.galaxy}s{$AKSRow.system}p{$AKSRow.planet}t{$AKSRow.planet_type}');updateVars();">{$AKSRow.name} - [{$AKSRow.galaxy}:{$AKSRow.system}:{$AKSRow.planet}]</a>
+				<a href="javascript:setACSTarget({$AKSRow.galaxy},{$AKSRow.system},{$AKSRow.planet},{$AKSRow.planet_type}, {$AKSRow.id});updateVars();">{$AKSRow.name} - [{$AKSRow.galaxy}:{$AKSRow.system}:{$AKSRow.planet}]</a>
 			</td></tr>
 			{/foreach}
 			{/if}
@@ -109,5 +99,8 @@
         </table>
     </div>
 </form>
+<script type="text/javascript">
+data	= {$fleetdata};
+</script>
 {include file="planet_menu.tpl"}
 {include file="overall_footer.tpl"}

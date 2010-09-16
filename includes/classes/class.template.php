@@ -33,6 +33,7 @@ class template extends Smarty
 		$this->php_handling			= SMARTY_PHP_QUOTE;
 		$this->template_dir 		= ROOT_PATH.TEMPLATE_DIR;
 		$this->compile_dir 			= ROOT_PATH.'cache/';
+		$this->jsscript				= array();
 		$this->script				= array();
 		$this->page					= array();
 	}
@@ -44,6 +45,11 @@ class template extends Smarty
 	}
 	
 	public function loadscript($script)
+	{
+		$this->jsscript[]				= $script;
+	}
+	
+	public function execscript($script)
 	{
 		$this->script[]				= $script;
 	}
@@ -199,10 +205,11 @@ class template extends Smarty
 	{
 		global $CONF;
 		$this->assign_vars(array(
-			'cron'		=> ((TIMESTAMP >= ($CONF['stat_last_update'] + (60 * $CONF['stat_update_time']))) ? "<img src=\"./cronjobs.php?cron=stats\" alt=\"\" height=\"1\" width=\"1\">" : "").((TIMESTAMP >= ($CONF['stat_last_db_update'] + (60 * 60 * 24))) ? "<img src=\"./cronjobs.php?cron=opdb\" alt=\"\" height=\"1\" width=\"1\">" : "").((!CheckModule(37) && TIMESTAMP >= ($CONF['stat_last_banner_update'] + (60 * $CONF['stat_banner_update_time']))) ? "<img src=\"./cronjobs.php?cron=banner\" alt=\"\" height=\"1\" width=\"1\">" : ""),
-			'scripts'	=> $this->script,
-			'ga_active'	=> $CONF['ga_active'],
-			'ga_key'	=> $CONF['ga_key'],
+			'cron'			=> ((TIMESTAMP >= ($CONF['stat_last_update'] + (60 * $CONF['stat_update_time']))) ? "<img src=\"./cronjobs.php?cron=stats\" alt=\"\" height=\"1\" width=\"1\">" : "").((TIMESTAMP >= ($CONF['stat_last_db_update'] + (60 * 60 * 24))) ? "<img src=\"./cronjobs.php?cron=opdb\" alt=\"\" height=\"1\" width=\"1\">" : "").((!CheckModule(37) && TIMESTAMP >= ($CONF['stat_last_banner_update'] + (60 * $CONF['stat_banner_update_time']))) ? "<img src=\"./cronjobs.php?cron=banner\" alt=\"\" height=\"1\" width=\"1\">" : ""),
+			'scripts'		=> $this->jsscript,
+			'execscript'	=> implode("\n", $this->script),
+			'ga_active'		=> $CONF['ga_active'],
+			'ga_key'		=> $CONF['ga_key'],
 		));
 	}
 	
