@@ -20,6 +20,7 @@ $LNG['Energy']                              = 'Energia';
 $LNG['Messages']                            = 'Mensagens';
 $LNG['write_message']                       = 'Escrever Mensagem';
 
+$LNG['ready']								= 'Pronto';
 $LNG['show_planetmenu']                     = 'Ocultar / Mostrar Planetas';
 
 $LNG['type_mission'][1]  					= 'Atacar';
@@ -341,7 +342,10 @@ $LNG['fl_no_empty_derbis']					= 'A extensão de escombros não existe! ';
 $LNG['fl_acs_newname_alphanum']				= 'O nome só pode consistir de sinais alfanuméricos. ';
 $LNG['fl_acs_change']						= 'Alterar';
 $LNG['fl_acs_change_name']					= 'Eles alteraram para um novo nome';
-
+$LNG['fl_error_not_avalible']				= 'O Planeta não esta actualmente disponivel!';
+$LNG['fl_error_empty_derbis']				= 'Não existem destroços disponiveis!';
+$LNG['fl_error_no_moon']					= 'Não esta presente nenhuma lua!';
+$LNG['fl_error_same_planet']				= 'O partida e destino no mesmo planeta!';
 
 //----------------------------------------------------------------------------//
 //BUILDINGS - RESEARCH - SHIPYARD - DEFENSES
@@ -1095,6 +1099,7 @@ $LNG['bs_techno']                           = "Tecnólogias";
 $LNG['bs_send']                             = "Simular";
 $LNG['bs_cancel']                           = "Limpar";
 $LNG['bs_wait']                             = "A procima simulação estará desponivel dentro de 10 segundos";
+$LNG['bs_wait']								= "Aguarde 10 segundos pela proxima simulação";
 
 //----------------------------------------------------------------------------//
 // Logout
