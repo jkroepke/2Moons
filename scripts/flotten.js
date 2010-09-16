@@ -213,7 +213,7 @@ function setNumber(name, number) {
 
 function CheckTarget()
 {
-	$.get('game.php?page=fleet1&mode=valid&galaxy'+document.getElementsByName("galaxy")[0].value+'&system='+document.getElementsByName("system")[0].value+'&planet='+document.getElementsByName("planet")[0].value+'&planet_type='+document.getElementsByName("planettype")[0].value, function(data)
+	$.get('game.php?page=fleet1&mode=valid&galaxy'+document.getElementsByName("galaxy")[0].value+'&system='+document.getElementsByName("system")[0].value+'&planet='+document.getElementsByName("planet")[0].value+'&planet_type='+document.getElementsByName("planettype")[0].value+'&ajax=1', function(data)
 	{
 		if(data == "OK") {
 			document.getElementById('form').submit();
