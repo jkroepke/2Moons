@@ -1,4 +1,5 @@
 {include file="adm/overall_header.tpl"}
+<script type="text/javascript" src="./scripts/animatedcollapse.js"></script>
 <script type="text/javascript">
 animatedcollapse.addDiv('pla', 'fade=1,height=auto')
 animatedcollapse.addDiv('inves', 'fade=1,height=auto')

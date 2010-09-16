@@ -210,7 +210,7 @@ class ShowFleetPages extends FleetFunctions
 		{
 			if($TargetGalaxy == $PLANET['galaxy'] && $TargetSystem == $PLANET['system'] && $TargetPlanet == $PLANET['planet'] && $TargetPlanettype == $PLANET['planet_type'])
 				exit($LNG['fl_error_same_planet']);
-			elseif($TargetPlanettype == 3 && CheckPlanetIfExist($TargetGalaxy, $TargetSystem, $TargetPlanet, 3))
+			elseif($TargetPlanettype == 3 && !CheckPlanetIfExist($TargetGalaxy, $TargetSystem, $TargetPlanet, 3))
 				exit($LNG['fl_error_no_moon']);
 			
 			if ($TargetPlanet != 16) 
@@ -240,7 +240,6 @@ class ShowFleetPages extends FleetFunctions
 		$template	= new template();
 		
 		$template->loadscript('flotten.js');
-		$template->loadscript('fleet1.js');
 		$template->page_header();	
 		$template->page_topnav();
 		$template->page_leftmenu();
@@ -262,25 +261,27 @@ class ShowFleetPages extends FleetFunctions
 		if (!is_array($Fleet))
 			parent::GotoFleetPage();
 
+		$template->execscript('updateVars();FleetTime();window.setInterval("FleetTime()", 1000);');
+	
+		$FleetData	= array(
+			'fleetroom'			=> floattostring($FleetRoom),
+			'gamespeed'			=> parent::GetGameSpeedFactor(),
+			'fleetspeedfactor'	=> ((TIMESTAMP - $USER[$resource[706]] <= 0) ? (1 - $ExtraDM[706]['add']) : 1) - (GENERAL * $USER['rpg_general']),
+			'planet'			=> array('galaxy' => $PLANET['galaxy'], 'system' => $PLANET['system'], 'planet' => $PLANET['planet'], 'planet_type' => $PLANET['planet_type']),
+			'maxspeed'			=> parent::GetFleetMaxSpeed($Fleet, $USER),
+			'ships'				=> parent::GetFleetShipInfo($Fleet, $USER),
+		);
 		$template->assign_vars(array(
-			'target_mission'		=> request_var('target_mission', 0),
-			'speedfactor'			=> parent::GetGameSpeedFactor(),
-			'speedallsmin' 			=> parent::GetFleetMaxSpeed($Fleet, $USER),
+			'mission'				=> request_var('target_mission', 0),
 			'Shoutcutlist'			=> parent::GetUserShotcut($USER),
 			'Colonylist' 			=> parent::GetColonyList($template->UserPlanets),
 			'AKSList' 				=> parent::IsAKS($USER['id']),
-			'inputs'				=> parent::GetExtraInputs($Fleet, $USER),
 			'AvailableSpeeds'		=> parent::GetAvailableSpeeds(),
 			'fleetarray'			=> parent::SetFleetArray($Fleet),
-			'galaxy'				=> $PLANET['galaxy'],
-			'system'				=> $PLANET['system'],
-			'planet'				=> $PLANET['planet'],
-			'planet_type' 			=> $PLANET['planet_type'],
 			'galaxy_post' 			=> $TargetGalaxy,
 			'system_post' 			=> $TargetSystem,
 			'planet_post' 			=> $TargetPlanet,
-			'fleetroom'				=> floattostring($FleetRoom),	
-			'fleetspeedfactor'		=> number_format(((TIMESTAMP - $USER[$resource[706]] <= 0) ? (1 - $ExtraDM[706]['add']) : 1) - (GENERAL * $USER['rpg_general']), 1, '.', ','),
+			'fleetdata'				=> json_encode($FleetData),
 			'options_selector'    	=> array(1 => $LNG['fl_planet'], 2 => $LNG['fl_debris'], 3 => $LNG['fl_moon']),
 			'options'				=> $TargetPlanettype,
 			'fl_send_fleet'			=> $LNG['fl_send_fleet'],
@@ -318,7 +319,6 @@ class ShowFleetPages extends FleetFunctions
 		
 		$template	= new template();
 		$template->loadscript('flotten.js');
-		$template->loadscript('fleet2.js');
 		$template->page_header();	
 		$template->page_topnav();
 		$template->page_leftmenu();
@@ -329,9 +329,9 @@ class ShowFleetPages extends FleetFunctions
 		$TargetSystem   			= request_var('system', 0);
 		$TargetPlanet   			= request_var('planet', 0);
 		$TargetPlanettype 			= request_var('planettype', 0);
-		$TargetMission 				= request_var('target_mission', 0);
+		$TargetMission 				= request_var('mission', 0);
 		$GenFleetSpeed  			= request_var('speed', 0);		
-		$acs_target_mr 				= request_var('acs_target_mr', '');
+		$fleet_group 				= request_var('fleet_group', 0);
 		$usedfleet					= request_var('usedfleet','', true);
 
 		$FleetArray    				= parent::GetFleetArray($usedfleet);
@@ -350,7 +350,7 @@ class ShowFleetPages extends FleetFunctions
 		$MisInfo['system'] 	  		= $TargetSystem;	
 		$MisInfo['planet'] 	  		= $TargetPlanet;		
 		$MisInfo['planettype'] 		= $TargetPlanettype;	
-		$MisInfo['IsAKS']			= $acs_target_mr;
+		$MisInfo['IsAKS']			= $fleet_group;
 		$MisInfo['Ship'] 			= $FleetArray;		
 		$MisInfo['CurrentUser']		= $USER;
 		
@@ -374,24 +374,29 @@ class ShowFleetPages extends FleetFunctions
 			exit;
 		}
 		
+		if(!empty($fleet_group))
+			$TargetMission	= 2;
+
+		$FleetData	= array(
+			'fleetroom'			=> floattostring(parent::GetFleetRoom($FleetArray)),
+			'consumption'		=> floattostring($consumption),
+		);
+			
+		$template->execscript('calculateTransportCapacity();');
 		$template->assign_vars(array(
-			'consumption'					=> floattostring(floor($consumption)),
-			'fleetroom'						=> floattostring(parent::GetFleetRoom($FleetArray)),
-			'speedallsmin'					=> $MaxFleetSpeed,
-			'speed'							=> $GenFleetSpeed,
-			'speedfactor'					=> $GameSpeedFactor,
+			'fleetdata'						=> json_encode($FleetData),
+			'consumption'					=> floattostring($consumption),
 			'mission'						=> $TargetMission,
+			'galaxy_post' 					=> $TargetGalaxy,
+			'system_post' 					=> $TargetSystem,
 			'thisgalaxy'			 		=> $PLANET['galaxy'],
 			'thissystem'			 		=> $PLANET['system'],
 			'thisplanet'			 		=> $PLANET['planet'],
 			'thisplanet_type'			 	=> $PLANET['planet_type'],
-			'thismetal'						=> floattostring(floor($PLANET['metal'])),
-			'thiscrystal'					=> floattostring(floor($PLANET['crystal'])),
-			'thisdeuterium' 				=> floattostring(floor($PLANET['deuterium'])),
-			'fl_planet'						=> $LNG['fl_planet'], 
-			'fl_moon'						=> $LNG['fl_moon'],
 			'MissionSelector' 				=> $MissionOutput['MissionSelector'],
 			'StaySelector' 					=> $MissionOutput['StayBlock'],
+			'fl_planet'						=> $LNG['fl_planet'], 
+			'fl_moon'						=> $LNG['fl_moon'],
 			'fl_mission'					=> $LNG['fl_mission'],
 			'fl_resources'					=> $LNG['fl_resources'],
 			'fl_max'						=> $LNG['fl_max'],
@@ -402,14 +407,14 @@ class ShowFleetPages extends FleetFunctions
 			'fl_hold_time'					=> $LNG['fl_hold_time'],
 			'fl_expedition_alert_message'	=> $LNG['fl_expedition_alert_message'],
 			'fl_dm_alert_message'			=> sprintf($LNG['fl_dm_alert_message'], $LNG['type_mission'][11], $LNG['Darkmatter']),
+			'fl_continue'					=> $LNG['fl_continue'],
+			'fleetarray'					=> $usedfleet,
 			'galaxy'						=> $TargetGalaxy,
 			'system'						=> $TargetSystem,
 			'planet'						=> $TargetPlanet,
 			'planettype'					=> $TargetPlanettype,
-			'acs_target_mr'					=> $acs_target_mr,
-			'fleet_group'					=> request_var('fleet_group', 0),
-			'usedfleet' 					=> $usedfleet,
-			'fl_continue'					=> $LNG['fl_continue'],
+			'fleet_group'					=> $fleet_group,
+			'speed' 						=> $GenFleetSpeed,
 		));
 		
 		$template->show('fleet2_table.tpl');
@@ -438,12 +443,12 @@ class ShowFleetPages extends FleetFunctions
 		$planettype 			= request_var('planettype', 0);
 		$fleet_group		 	= request_var('fleet_group', 0);
 		$GenFleetSpeed		 	= request_var('speed', 0);
-		$TransportMetal			= round(request_var('resource1', 0.0), 0);
-		$TransportCrystal		= round(request_var('resource2', 0.0), 0);
-		$TransportDeuterium		= round(request_var('resource3', 0.0), 0);
+		$TransportMetal			= round(request_var('metal', 0.0), 0);
+		$TransportCrystal		= round(request_var('crystal', 0.0), 0);
+		$TransportDeuterium		= round(request_var('deuterium', 0.0), 0);
 		$holdingtime 			= request_var('holdingtime', 0);
 		$acs_target_mr			= request_var('acs_target_mr', '');
-		$rawfleetarray			= request_var('usedfleet','',true);
+		$rawfleetarray			= request_var('usedfleet', '', true);
 
 		$thisgalaxy			 	= $PLANET['galaxy'];
 		$thissystem 			= $PLANET['system'];
@@ -486,17 +491,15 @@ class ShowFleetPages extends FleetFunctions
 		}
 			
 		$fleet_group_mr = 0;
-		if($fleet_group > 0 && $mission == 2 & $acs_target_mr == 'g'.$galaxy.'s'.$system.'p'.$planet.'t'.$planettype)
+		if(!empty($fleet_group) && $mission == 2)
 		{
 			$aks_count_mr = $db->uniquequery("SELECT COUNT(*) as state FROM ".AKS." WHERE `id` = '".$fleet_group."' AND `eingeladen` LIKE '%".$USER['id']."%';");
 			if ($aks_count_mr['state'] > 0)
 				$fleet_group_mr = $fleet_group;
+			else
+				$mission = 1;
 		}
-
-		if ($mission == 2 && $fleet_group_mr == 0)
-			$mission = 1;
-
-					
+				
 		$ActualFleets 		= parent::GetCurrentFleets($USER['id']);
 		
 		$TargetPlanet  		= $db->uniquequery("SELECT `id_owner`,`id_level`,`destruyed`,`ally_deposit` FROM ".PLANETS." WHERE `galaxy` = '". $db->sql_escape($galaxy) ."' AND `system` = '". $db->sql_escape($system) ."' AND `planet` = '". $db->sql_escape($planet) ."' AND `planet_type` = '". $db->sql_escape($planettype) ."';");

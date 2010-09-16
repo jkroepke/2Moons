@@ -57,6 +57,8 @@ function UhrzeitAnzeigen()
 UhrzeitAnzeigen();
 setInterval("UhrzeitAnzeigen()", 1000);
 
+{$execscript}
+
 {if $ga_active}
 var _gaq = _gaq || [];
 _gaq.push(['_setAccount', '{$ga_key}']);

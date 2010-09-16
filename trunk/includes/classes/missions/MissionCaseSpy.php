@@ -178,18 +178,17 @@ class MissionCaseSpy extends MissionFunctions
 		$LookAtLoop = true;
 		if ($Mode == 0)
 		{
-			$String  = "<table width=\"100%\"><tr><td class=\"c\" colspan=\"5\">";
-			$String .= $TitleString ." ". $TargetPlanet['name'];
-			$String .= " <a href=\"game.php?page=galaxy&mode=3&galaxy=". $TargetPlanet["galaxy"] ."&system=". $TargetPlanet["system"]. "\">";
-			$String .= "[". $TargetPlanet["galaxy"] .":". $TargetPlanet["system"] .":". $TargetPlanet["planet"] ."]</a>";
-			$String .= " von ". date("d. M Y H:i:s", $this->_fleet['fleet_start_time']) ."</td>";
-			$String .= "</tr><tr>";
-			$String .= "<td width=220>". $LNG['Metal']     ."</td><td width=220 align=right>". pretty_number($TargetPlanet['metal'])      ."</td><td>&nbsp;</td>";
-			$String .= "<td width=220>". $LNG['Crystal']   ."</td></td><td width=220 align=right>". pretty_number($TargetPlanet['crystal'])    ."</td>";
-			$String .= "</tr><tr>";
-			$String .= "<td width=220>". $LNG['Deuterium'] ."</td><td width=220 align=right>". pretty_number($TargetPlanet['deuterium'])  ."</td><td>&nbsp;</td>";
-			$String .= "<td width=220>". $LNG['Energy']    ."</td><td width=220 align=right>". pretty_number($TargetPlanet['energy_max']) ."</td>";
-			$String .= "</tr>";
+			$String  = '<table style="width:100%;"><tr><th colspan="5">'.$TitleString.' '.$TargetPlanet['name'];
+			$String .= ' <a href="game.php?page=galaxy&mode=3&galaxy='. $TargetPlanet['galaxy'] .'&system='. $TargetPlanet['system']. '">';
+			$String .= '['. $TargetPlanet['galaxy'] .':'. $TargetPlanet['system'] .':'. $TargetPlanet['planet'] .']</a>';
+			$String .= ' von '. date('d. M Y H:i:s', $this->_fleet['fleet_start_time']) .'</th>';
+			$String .= '</tr><tr>';
+			$String .= '<td style="width:25%;" class="left transparent">'. $LNG['Metal']     .'</td><td style="width:25%;" class="left transparent">'. pretty_number($TargetPlanet['metal'])      .'</td><td class="transparent">&nbsp;</td>';
+			$String .= '<td style="width:25%;" class="left transparent">'. $LNG['Crystal']   .'</td><td style="width:25%;" class="left transparent">'. pretty_number($TargetPlanet['crystal'])    .'</td>';
+			$String .= '</tr><tr>';
+			$String .= '<td style="width:25%;" class="left transparent">'. $LNG['Deuterium'] .'</td><td style="width:25%;" class="left transparent">'. pretty_number($TargetPlanet['deuterium'])  .'</td><td class="transparent">&nbsp;</td>';
+			$String .= '<td style="width:25%;" class="left transparent">'. $LNG['Energy']    .'</td><td style="width:25%;" class="left transparent">'. pretty_number($TargetPlanet['energy_max']) .'</td>';
+			$String .= '</tr>';
 			$Array[1]	= $TargetPlanet['metal'];
 			$Array[2]	= $TargetPlanet['crystal'];
 			$Array[3]	= $TargetPlanet['deuterium'];
@@ -245,7 +244,7 @@ class MissionCaseSpy extends MissionFunctions
 		
 		if ($LookAtLoop == true)
 		{
-			$String  	 = "<table width=\"100%\" cellspacing=\"1\"><tr><td class=\"c\" colspan=\"". ((2 * SPY_REPORT_ROW) + (SPY_REPORT_ROW - 1))."\">". $TitleString ."</td></tr>";
+			$String  	 = '<table style="width:100%;"><tr><th colspan="'. ((2 * SPY_REPORT_ROW) + (SPY_REPORT_ROW - 1)).'">'. $TitleString .'</th></tr>';
 			$Count       = 0;
 			$CurrentLook = 0;
 			while ($CurrentLook < $Loops)
@@ -259,27 +258,27 @@ class MissionCaseSpy extends MissionFunctions
 					if ($row == 0)
 						$String  .= "<tr>";
 
-					$String  .= "<td align=\"left\" width=\"25%\">".$LNG['tech'][$Item]."</td><td align=\"right\" width=\"25%\">".$TargetPlanet[$resource[$Item]]."</td>";
+					$String  .= '<td style="width:25%;" class="left transparent">'.$LNG['tech'][$Item].'</td><td style="width:25%;" class="left transparent">'.$TargetPlanet[$resource[$Item]].'</td>';
 						
 					$Array[$Item]	=  $TargetPlanet[$resource[$Item]];
 					$Count			+=  $TargetPlanet[$resource[$Item]];
 					$row++;
 					if ($row == SPY_REPORT_ROW)
 					{
-						$String  .= "</tr>";
+						$String  .= '</tr>';
 						$row      = 0;
 					} else {
-						$String  .= "<td>&nbsp;</td>";
+						$String  .= '<td class="transparent">&nbsp;</td>';
 					}
 				}
 
 				while ($row != 0)
 				{
-					$String  .= "<td style=\"display:none;\">&nbsp;</td><td style=\"display:none;\">&nbsp;</td>";
+					$String  	.= '<td class="transparent">&nbsp;</td><td class="transparent">&nbsp;</td>';
 					$row++;
 					if ($row == SPY_REPORT_ROW)
 					{
-						$String  .= "</tr>";
+						$String  .= '</tr>';
 						$row      = 0;
 					}
 				}
@@ -287,7 +286,7 @@ class MissionCaseSpy extends MissionFunctions
 			}
 		}
 		
-		$String .= "</table>";
+		$String .= '</table>';
 
 		$return['String'] = $String;
 		$return['Array']  = (is_array($Array) ? $Array : array());
