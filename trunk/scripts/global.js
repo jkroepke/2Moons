@@ -1,3 +1,29 @@
+LocalizationStrings = new Array();
+LocalizationStrings.timeunits = new Array();
+LocalizationStrings.timeunits.short = new Array();
+LocalizationStrings.timeunits.short.day = 't';
+LocalizationStrings.timeunits.short.hour = 'h';
+LocalizationStrings.timeunits.short.minute = 'm';
+LocalizationStrings.timeunits.short.second = 's';
+LocalizationStrings.status = new Array();
+LocalizationStrings.status.ready = '{$ready}';
+
+LocalizationStrings.decimalPoint = ",";
+LocalizationStrings.thousandSeperator = ".";
+LocalizationStrings.unitMega = 'M';
+LocalizationStrings.unitKilo = 'K';
+LocalizationStrings.unitMilliard = 'Mrd';
+
+$(document).ready(function () {
+	if($('#infobox').height() != null)
+		$('#content').css("margin-top", $('#infobox').height() + $('#infobox').css("margin-top"));
+});
+
+
+
+
+
+
 var xsize 	= screen.width;
 var ysize 	= screen.height;
 var breite	= 720;
@@ -5,18 +31,9 @@ var hoehe	= 300;
 var xpos	= (xsize-breite) / 2;
 var ypos	= (ysize-hoehe) / 2;
 
-$(document).ready(function () {
-	if($('#infobox').height() != null)
-		$('#content').css("top", $('#infobox').height()+95+'px');
-});
 
-function var_dump(obj) {
-   if(typeof obj == "object") {
-      return "Type: "+typeof(obj)+((obj.constructor) ? "\nConstructor: "+obj.constructor : "")+"\nValue: " + obj;
-   } else {
-      return "Type: "+typeof(obj)+"\nValue: "+obj;
-   }
-}
+
+
 
 function f(target_url, win_name) {
 	var new_win = window.open(target_url+"&ajax=1", win_name, "scrollbars=yes,statusbar=no,toolbar=no,location=no,directories=no,resizable=no,menubar=no,width=720,height=300,screenX="+xpos+",screenY="+ypos+",top="+ypos+",left="+xpos);
@@ -187,40 +204,6 @@ function maxcount(id){
 		return removeE(Math.floor(Math.min(metmax, crymax)));
 	else
 		return removeE(Math.floor(Math.min(metmax, Math.min(crymax, deumax))));
-}
-
-
-function number_format(n) {
-    ns = String(n).replace('.', ',');
-    var w = [];
-    while (ns.length > 0) {
-        var a = ns.length;
-        if (a >= 3) {
-            s = ns.substr(a - 3);
-            ns = ns.substr(0, a - 3);
-        } else {
-            s = ns;
-            ns = "";
-        }
-        w.push(s);
-    }
-    for (i = w.length - 1; i >= 0; i--) {
-        ns += w[i] + ".";
-    }
-    ns = ns.substr(0, ns.length - 1);
-    return ns.replace(/\.,/, ',');
-}
-
-function removeE(Number) {
-	Number	= String(Number);
-	if(Number.search(/e\+/) == -1)
-		return Number;
-	
-	var e = parseInt(Number.replace(/\S+.?e\+/g, ''));
-	if(isNaN(e) || e == 0)
-		return Number;
-	else
-		return parseFloat(Number).toPrecision(e+1);
 }
 
 function messages(ID)

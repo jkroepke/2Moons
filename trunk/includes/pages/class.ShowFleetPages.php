@@ -201,7 +201,38 @@ class ShowFleetPages extends FleetFunctions
 	public static function ShowFleet1Page()
 	{
 		global $USER, $PLANET, $resource, $pricelist, $reslist, $db, $LNG, $ExtraDM;
-
+		$TargetGalaxy 					= request_var('galaxy', $PLANET['galaxy']);
+		$TargetSystem 					= request_var('system', $PLANET['system']);
+		$TargetPlanet					= request_var('planet', $PLANET['planet']);
+		$TargetPlanettype 				= request_var('planet_type', $PLANET['planet_type']);
+		
+		if(request_var('mode', '') == 'valid')
+		{
+			if($TargetGalaxy == $PLANET['galaxy'] && $TargetSystem == $PLANET['system'] && $TargetPlanet == $PLANET['planet'] && $TargetPlanettype == $PLANET['planet_type'])
+				exit($LNG['fl_error_same_planet']);
+			elseif($TargetPlanettype == 3 && CheckPlanetIfExist($TargetGalaxy, $TargetSystem, $TargetPlanet, 3))
+				exit($LNG['fl_error_no_moon']);
+			
+			if ($TargetPlanet != 16) 
+			{
+				$Data	= $db->uniquequery("SELECT u.`urlaubs_modus`, p.`id_level`, p.`destruyed`, p.`der_metal`, p.`destruyed` FROM ".USERS." as u, ".PLANETS." as p WHERE p.`galaxy` = '".$TargetGalaxy."' AND p.`system` = '".$TargetSystem."' AND p.`planet` = '".$TargetPlanet."'  AND p.`planet_type` = '".(($TargetPlanettype == 2) ? 1 : $TargetPlanettype)."' AND `u`.`id` = p.`id_owner`;");
+				
+				if ($Data['urlaubs_modus'])
+					exit($LNG['fl_in_vacation_player']);
+				elseif ($Data['id_level'] > $_SESSION['authlevel'])
+					exit($LNG['fl_admins_cannot_be_attacked']);
+				elseif ($Data['destruyed'] != 0)
+					exit($LNG['fl_error_not_avalible']);
+				elseif($TargetPlanettype == 2 && $Data['der_metal'] == 0 && $Data['der_crystal'] == 0)
+					exit($LNG['fl_error_empty_derbis']);
+			} else {
+				if ($USER[$resource[124]] == 0)
+					exit($LNG['fl_expedition_tech_required']);
+				elseif (parent::GetCurrentFleets($USER['id'], 15) >= floor(sqrt($USER[$resource[124]])))
+					exit($LNG['fl_expedition_fleets_limit']);
+			}
+			exit('OK');
+		}
 		$PlanetRess = new ResourceUpdate();
 		$PlanetRess->CalcResource();
 		$PlanetRess->SavePlanetToDB();
@@ -209,17 +240,13 @@ class ShowFleetPages extends FleetFunctions
 		$template	= new template();
 		
 		$template->loadscript('flotten.js');
+		$template->loadscript('fleet1.js');
 		$template->page_header();	
 		$template->page_topnav();
 		$template->page_leftmenu();
 		$template->page_planetmenu();
 		$template->page_footer();
 		$template->getplanets();
-
-		$TargetGalaxy 					= request_var('galaxy', $PLANET['galaxy']);
-		$TargetSystem 					= request_var('system', $PLANET['system']);
-		$TargetPlanet					= request_var('planet', $PLANET['planet']);
-		$TargetPlanettype 				= request_var('planet_type', $PLANET['planet_type']);
 
 		foreach ($reslist['fleet'] as $id => $ShipID)
 		{
@@ -274,6 +301,8 @@ class ShowFleetPages extends FleetFunctions
 			'fl_acs_title'			=> $LNG['fl_acs_title'],
 			'fl_continue'			=> $LNG['fl_continue'],
 			'fl_no_colony'			=> $LNG['fl_no_colony'],
+			'fl_flying_arrival'		=> $LNG['fl_flying_arrival'],
+			'fl_flying_return'		=> $LNG['fl_flying_return'],
 		));
 		
 		$template->show('fleet1_table.tpl');
@@ -289,6 +318,7 @@ class ShowFleetPages extends FleetFunctions
 		
 		$template	= new template();
 		$template->loadscript('flotten.js');
+		$template->loadscript('fleet2.js');
 		$template->page_header();	
 		$template->page_topnav();
 		$template->page_leftmenu();

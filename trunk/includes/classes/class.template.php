@@ -147,10 +147,11 @@ class template extends Smarty
 		}
 		
 		$this->assign_vars(array(
+			'topnav'			=> true,
+			'metal'				=> $PLANET['metal'],
+			'crystal'			=> $PLANET['crystal'],
+			'deuterium'			=> $PLANET['deuterium'],
 			'energy'			=> (($PLANET["energy_max"] + $PLANET["energy_used"]) < 0) ? colorRed(pretty_number($PLANET["energy_max"] + $PLANET["energy_used"]) . "/" . pretty_number($PLANET["energy_max"])) : pretty_number($PLANET["energy_max"] + $PLANET["energy_used"]) . "/" . pretty_number($PLANET["energy_max"]),
-			'metal'				=> ($PLANET["metal"] >= $PLANET["metal_max"]) ? colorRed(pretty_number($PLANET["metal"])) : pretty_number($PLANET["metal"]),
-			'crystal'			=> ($PLANET["crystal"] >= $PLANET["crystal_max"]) ? colorRed(pretty_number($PLANET["crystal"])) : pretty_number($PLANET["crystal"]),
-			'deuterium'			=> ($PLANET["deuterium"] >= $PLANET["deuterium_max"]) ? colorRed(pretty_number($PLANET["deuterium"])) : pretty_number($PLANET["deuterium"]),
 			'darkmatter'		=> pretty_number($USER["darkmatter"]),
 			'metal_max'			=> shortly_number($PLANET["metal_max"]),
 			'crystal_max'		=> shortly_number($PLANET["crystal_max"]),
@@ -183,12 +184,14 @@ class template extends Smarty
 	
     private function header()
     {
-        global $USER, $CONF, $LANG;
+		global $USER, $CONF, $LANG, $LNG;
         $this->assign_vars(array(
             'title'				=> $CONF['game_name'],
             'dpath'				=> (empty($USER['dpath']) ? DEFAULT_SKINPATH : $USER['dpath']),
             'is_pmenu'			=> $USER['settings_planetmenu'],
             'lang'    			=> $LANG,
+            'ready'    			=> $LNG['ready'],
+			'date'				=> explode("|", date('Y\|n\|j\|G\|i\|s\|Z', TIMESTAMP)),
         ));
     }
 	

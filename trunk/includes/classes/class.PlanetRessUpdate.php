@@ -386,9 +386,9 @@ class ResourceUpdate
 			
 		$Qry	= "LOCK TABLE ".PLANETS." as p WRITE, ".USERS." as u WRITE;
 				   UPDATE ".PLANETS." as p, ".USERS." as u SET
-				   `p`.`metal` = '".floattostring($PLANET['metal'], 6)."',
-				   `p`.`crystal` = '".floattostring($PLANET['crystal'], 6)."',
-				   `p`.`deuterium` = '".floattostring($PLANET['deuterium'], 6)."',
+				   `p`.`metal` = '".floattostring($PLANET['metal'])."',
+				   `p`.`crystal` = '".floattostring($PLANET['crystal'])."',
+				   `p`.`deuterium` = '".floattostring($PLANET['deuterium'])."',
 				   `p`.`last_update` = '".$PLANET['last_update']."',
 				   `p`.`b_building` = '".$PLANET['b_building']."',
 				   `p`.`b_building_id` = '".$PLANET['b_building_id']."',

@@ -90,6 +90,5 @@
     </table>
 </div>
 </form>
-<script type="text/javascript">calculateTransportCapacity();</script>
 {include file="planet_menu.tpl"}
 {include file="overall_footer.tpl"}

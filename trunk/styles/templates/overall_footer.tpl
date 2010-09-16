@@ -1,34 +1,73 @@
 {$cron}
 {$sql_num}
-{if $metal_max}
 <script type="text/javascript">
-met			= parseInt($("#current_metal").text().replace(/\./g, ''));
-cry			= parseInt($("#current_crystal").text().replace(/\./g, ''));
-deu 		= parseInt($("#current_deuterium").text().replace(/\./g, ''));
-met_max 	= {$js_metal_max};
-cry_max 	= {$js_crystal_max};
-deu_max 	= {$js_deuterium_max};
-met_hr		= {$js_metal_hr};
-cry_hr		= {$js_crystal_hr};
-deu_hr		= {$js_deuterium_hr};
-
-update();
+var serverTime = new Date({$date.0}, {$date.1 - 1}, {$date.2}, {$date.3}, {$date.4}, {$date.5});
+var localTime = new Date();
+localTS = localTime.getTime();
+var startServerTime = localTime.getTime() - ({$date.6}) - localTime.getTimezoneOffset()*60*1000;
 </script>
+<script type="text/javascript" src="{$cd}scripts/jQuery.js"></script>
+<script type="text/javascript" src="{$cd}scripts/overlib.js"></script>
+<script type="text/javascript" src="{$cd}scripts/time.helper.js"></script>
+<script type="text/javascript" src="{$cd}scripts/date.helper.js"></script>
+<script type="text/javascript" src="{$cd}scripts/math.helper.js"></script>
+<script type="text/javascript" src="{$cd}scripts/notifybox.js"></script>
+<script type="text/javascript" src="{$cd}scripts/global.js"></script>
+{foreach item=scriptname from=$scripts}
+<script type="text/javascript" src="{$cd}scripts/{$scriptname}"></script>
+{/foreach}
+<script type="text/javascript">
+var timerHandler = new TimerHandler();
+{if $topnav}
+var resourceTickerMetal = {
+    available: {$metal},
+    limit: [0, {$js_metal_max}],
+    production: {$js_metal_hr},
+    valueElem: "current_metal"
+};
+var resourceTickerCrystal = {
+    available: {$crystal},
+    limit: [0, {$js_crystal_max}],
+    production: {$js_crystal_hr},
+    valueElem: "current_crystal"
+};
+var resourceTickerDeuterium = {
+    available: {$deuterium},
+    limit: [0, {$js_deuterium_max}],
+    production: {$js_deuterium_hr},
+    valueElem: "current_deuterium"
+};
+initRessource();
+
+vacation = 0;
+if (!vacation) {
+	new resourceTicker(resourceTickerMetal);
+	new resourceTicker(resourceTickerCrystal);
+	new resourceTicker(resourceTickerDeuterium);
+} 
 {/if}
+
+function UhrzeitAnzeigen()
+{
+    var Sekunden = serverTime.getSeconds();
+    serverTime.setSeconds(Sekunden+1);
+    if(document.getElementById("servertime"))
+		document.getElementById("servertime").innerHTML = getFormatedDate(serverTime.getTime(), '[M] [D] [d] [H]:[i]:[s]');
+}
+UhrzeitAnzeigen();
+setInterval("UhrzeitAnzeigen()", 1000);
+
 {if $ga_active}
-<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', '{$ga_key}']);
+_gaq.push(['_trackPageview']);
 
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', '{$ga_key}']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
 {/if}
+</script>
 </body>
 </html>

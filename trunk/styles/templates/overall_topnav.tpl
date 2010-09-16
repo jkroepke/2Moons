@@ -40,9 +40,9 @@
 						<td class="header res_name">{$Energy}</td>
 					</tr>
 					<tr class="header">
-						<td class="header res_current" id="current_metal">{$metal}</td>
-						<td class="header res_current" id="current_crystal">{$crystal}</td>
-						<td class="header res_current" id="current_deuterium">{$deuterium}</td>
+						<td class="header res_current" id="current_metal">{pretty_number($metal)}</td>
+						<td class="header res_current" id="current_crystal">{pretty_number($crystal)}</td>
+						<td class="header res_current" id="current_deuterium">{pretty_number($deuterium)}</td>
 						<td class="header res_current">{$darkmatter}</td>
 						<td class="header res_current">{$energy}</td>
 					</tr>
