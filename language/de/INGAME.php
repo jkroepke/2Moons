@@ -14,14 +14,15 @@ $LNG['langs']    = array(
 
 //SERVER GENERALS
 $LNG['Metal']								= 'Metall';
-$LNG['Crystal']							= 'Kristall';
+$LNG['Crystal']								= 'Kristall';
 $LNG['Deuterium']							= 'Deuterium';
 $LNG['Darkmatter']							= 'Dunkle Materie';
 $LNG['Energy']								= 'Energie';
 $LNG['Messages']							= 'Nachrichten';
 $LNG['write_message']						= 'Schreibe eine Nachricht';
 
-$LNG['show_planetmenu']					= 'anzeigen/ausblenden';
+$LNG['ready']								= 'Fertig';
+$LNG['show_planetmenu']						= 'anzeigen/ausblenden';
 
 $LNG['type_mission'][1]  					= 'Angreifen';
 $LNG['type_mission'][2]  					= 'Verbandsangriff';
@@ -288,6 +289,8 @@ $LNG['fl_send_fleet']						= 'Flotte verschicken';
 $LNG['fl_fleet_speed']						= 'Geschwindigkeit';
 $LNG['fl_distance']						= 'Entfernung';
 $LNG['fl_flying_time']						= 'Dauer (einer Strecke)';
+$LNG['fl_flying_arrival']				= 'Ankunft';
+$LNG['fl_flying_return']				= 'Rückkehr';
 $LNG['fl_fuel_consumption']				= 'Treibstoffverbrauch';
 $LNG['fl_max_speed']						= 'Maximale Geschwindigkeit';
 $LNG['fl_cargo_capacity']					= 'Laderaumkapazität';
@@ -342,7 +345,6 @@ $LNG['fl_no_empty_derbis']				= 'Trümmerfeld existiert nicht!';
 $LNG['fl_acs_newname_alphanum']			= 'Der Name darf nur aus alphanumerische Zeichen bestehen.';
 $LNG['fl_acs_change']					= 'Ändern';
 $LNG['fl_acs_change_name']				= 'Geben sie einen neuen Namen ein';
-
 
 //----------------------------------------------------------------------------//
 //BUILDINGS - RESEARCH - SHIPYARD - DEFENSES

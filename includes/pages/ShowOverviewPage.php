@@ -28,12 +28,6 @@ function ShowOverviewPage()
 	include_once(ROOT_PATH . 'includes/functions/InsertJavaScriptChronoApplet.' . PHP_EXT);
 	include_once(ROOT_PATH . 'includes/classes/class.FlyingFleetsTable.' . PHP_EXT);
 
-	$template	= new template();
-	$template->page_header();
-	$template->page_topnav();
-	$template->page_leftmenu();
-	$template->page_planetmenu();
-	$template->page_footer();	
 
 	$mode = request_var('mode','');
 	
@@ -56,11 +50,11 @@ function ShowOverviewPage()
 				$IfFleets = $db->query("SELECT fleet_id FROM ".FLEETS." WHERE (`fleet_owner` = '".$USER['id']."' AND `fleet_start_galaxy` = '".$PLANET['galaxy']."' AND `fleet_start_system` = '".$PLANET['system']."' AND `fleet_start_planet` = '".$PLANET['planet']."') OR (`fleet_target_owner` = '".$USER['id']."' AND `fleet_end_galaxy` = '".$PLANET['galaxy']."' AND `fleet_end_system` = '".$PLANET['system']."' AND `fleet_end_planet` = '".$PLANET['planet']."');");
 				
 				if ($db->num_rows($IfFleets) > 0)
-					exit($LNG['ov_abandon_planet_not_possible']);
+					exit(json_encode(array('mess' => $LNG['ov_abandon_planet_not_possible'])));
 				elseif ($USER['id_planet'] == $USER["current_planet"])
-					exit($LNG['ov_principal_planet_cant_abanone']);
+					exit(json_encode(array('mess' => $LNG['ov_principal_planet_cant_abanone'])));
 				elseif (md5($password) != $USER["password"])
-					exit($LNG['ov_wrong_pass']);
+					exit(json_encode(array('mess' => $LNG['ov_wrong_pass'])));
 				else
 				{
 					if($PLANET['planet_type'] == 1) {
@@ -69,11 +63,19 @@ function ShowOverviewPage()
 						$db->multi_query("DELETE FROM ".PLANETS." WHERE `id` = '".$PLANET['id']."' LIMIT 1;UPDATE ".PLANETS." SET `id_luna` = '0' WHERE `id_luna` = '".$PLANET['id']."' LIMIT 1;");
 					}
 					$_SESSION['planet']	= $USER['id_planet'];
+					exit(json_encode(array('ok' => true, 'mess' => $LNG['ov_planet_abandoned'])));
 				}
 			}
 		break;
 		default:
-				
+			$template	= new template();
+			$template->page_header();
+			$template->page_topnav();
+			$template->page_leftmenu();
+			$template->page_planetmenu();
+			$template->page_footer();	
+			$template->loadscript('overview.js');			
+			$template->loadscript('mbContainer.js');			
 			$PlanetRess = new ResourceUpdate();
 			$PlanetRess->CalcResource();
 			$PlanetRess->SavePlanetToDB();

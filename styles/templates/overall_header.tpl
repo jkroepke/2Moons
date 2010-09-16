@@ -11,18 +11,7 @@
 <link rel="stylesheet" type="text/css" href="{$cd}styles/css/ingame.css">
 <link rel="stylesheet" type="text/css" href="{$cd}{$dpath}formate.css">
 <link rel="icon" href="favicon.ico">
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js"></script>
-<script type="text/javascript" src="{$cd}scripts/jquery.metadata.js"></script>
-<script type="text/javascript" src="{$cd}scripts/mbContainer.js"></script>
-<script type="text/javascript" src="{$cd}scripts/overlib.js"></script>
-<script type="text/javascript" src="{$cd}scripts/global.js"></script>
-{foreach item=scriptname from=$scripts}
-<script type="text/javascript" src="{$cd}scripts/{$scriptname}"></script>
-{/foreach}
-<script type="text/javascript">
-ctimestamp		= {$smarty.now};
-</script>
 </head>
 <body>
 <div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
+<div id="fadeBox" class="fadeBox" style="display:none;"><div><span id="fadeBoxStyle" class="success"></span><p id="fadeBoxContent"></p><br class="clearfloat" /></div></div>
