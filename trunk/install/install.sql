@@ -445,6 +445,7 @@ CREATE TABLE IF NOT EXISTS `prefix_users` (
   `email_2` varchar(64) NOT NULL DEFAULT '',
   `lang` enum('de', 'en', 'es', 'ru', 'pt', 'cn', 'hr') NOT NULL DEFAULT 'de',
   `authlevel` enum('0','1','2','3') NOT NULL DEFAULT '0',
+  `rights` TEXT NOT NULL DEFAULT '',
   `id_planet` int(11) NOT NULL DEFAULT '0',
   `galaxy` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `system` smallint(5) unsigned NOT NULL DEFAULT '0',
