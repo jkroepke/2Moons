@@ -345,6 +345,10 @@ $LNG['fl_no_empty_derbis']				= 'Trümmerfeld existiert nicht!';
 $LNG['fl_acs_newname_alphanum']			= 'Der Name darf nur aus alphanumerische Zeichen bestehen.';
 $LNG['fl_acs_change']					= 'Ändern';
 $LNG['fl_acs_change_name']				= 'Geben sie einen neuen Namen ein';
+$LNG['fl_error_not_avalible']			= 'Planet kan zur Zeit nicht angeflogen werden!';
+$LNG['fl_error_empty_derbis']			= 'Kein Trümerfeld vorhanden!';
+$LNG['fl_error_no_moon']				= 'Kein Mond vorhanden!';
+$LNG['fl_error_same_planet']			= 'Start- und Zielplanet sind identisch!';
 
 //----------------------------------------------------------------------------//
 //BUILDINGS - RESEARCH - SHIPYARD - DEFENSES
