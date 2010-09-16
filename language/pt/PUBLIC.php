@@ -1,238 +1,144 @@
 <?php
 
 //general
-
-$LNG['index']                          = 'Login';
-
-$LNG['register']                       = 'Registo';
-
-$LNG['forum']                          = 'Fórum';
-
-$LNG['send']                           = 'Enviar';
-
-$LNG['menu_index']                     = 'Login';    
-  
-$LNG['menu_news']                      = 'Noticias';  
+$LNG['index']                          	= 'Login';
+$LNG['register']                       	= 'Registo';
+$LNG['forum']                          	= 'Fórum';
+$LNG['send']                           	= 'Enviar';
+$LNG['menu_index']                     	= 'Login';    
+$LNG['menu_news']                      	= 'Noticias';     
+$LNG['menu_rules']                     	= 'Régras';
+$LNG['menu_agb']                       	= 'T&C';
+$LNG['menu_pranger']                   	= 'Banidos';   
+$LNG['menu_top100']                    	= 'Top de Fama';     
+$LNG['menu_disclamer']                 	= 'Contactar';  
       
-$LNG['menu_rules']                     = 'Régras';
-
-$LNG['menu_agb']                       = 'T&C';
-
-$LNG['menu_pranger']                   = 'Banidos';   
- 
-$LNG['menu_top100']                    = 'Top de Fama'; 
-       
-$LNG['menu_disclamer']                 = 'Contactar';  
-         
 /* ------------------------------------------------------------------------------------------ */
+
+$LNH['music_off']						= 'Musica: OFF';
+$LNH['music_on']						= 'Musica: ON';
 
 //index.php
 //case lostpassword
-
-$LNG['mail_not_exist']                 = 'Este E-Mail não existe!';
-
-$LNG['mail_title']                     = 'Nova Password';
-
-$LNG['mail_text']                      = 'A nova password é: ';
-
-$LNG['mail_sended']                    = 'A nova password foi enviada com êxito!';
-
-$LNG['mail_sended_fail']               = 'O E-Mail não pôde ser enviado.!';
-
-$LNG['server_infos']                   = array(
-
+$LNG['mail_not_exist']                 	= 'Este E-Mail não existe!';
+$LNG['mail_title']                     	= 'Nova Password';
+$LNG['mail_text']                      	= 'A nova password é: ';
+$LNG['mail_sended']                    	= 'A nova password foi enviada com êxito!';
+$LNG['mail_sended_fail']               	= 'O E-Mail não pôde ser enviado.!';
+$LNG['server_infos']                   	= array(
         "Um jogo de estratégia espacial em tempo real.",
-
         "Joga juntamente com centenas de outros jogadores.",  
-
         "Não precisas de fazer download, apenas necessitas de um browser.",   
-        
         "Registo Gratuito",
+
 );
 
 //case default
-
-$LNG['login_error']                    = 'Erro Nome / Password ! <br><a href="index.php">Voltar</a>';
-
-$LNG['screenshots']                    = 'Imagens';
-
-$LNG['universe']                       = 'Universo';
-
-$LNG['chose_a_uni']                    = 'Escolha o universo';
+$LNG['login_error_1']					= 'Username/Password Incorrecto!';
+$LNG['login_error_2']					= 'Alguem entrou na tua conta apartir de outro computador!';
+$LNG['login_error_3']					= 'A tua sessão expirou!';
+$LNG['screenshots']                    	= 'Imagens';
+$LNG['universe']                       	= 'Universo';
+$LNG['chose_a_uni']                    	= 'Escolha o universo';
 
 /* ------------------------------------------------------------------------------------------ */
 
 //lostpassword.tpl
-
 $LNG['lost_pass_title']                = 'Recuperar password';
-
 $LNG['retrieve_pass']                  = 'Recuperar';
-
 $LNG['email']                          = 'Morada de E-Mail';
 
 //index_body.tpl
-
 $LNG['user']                           = 'Usuário';
-
 $LNG['pass']                           = 'Password';
-
 $LNG['remember_pass']                  = 'Auto-Login';
-
 $LNG['lostpassword']                   = 'Password esquecida?';
-
 $LNG['welcome_to']                     = 'O mundo  ';
-
 $LNG['server_description']             = 'É um jogo de estratégia emocionante com milhares de jogadores.<br><br>Entre e torne-se o imperador da galáxia.<br><br>Só precisa de um browser para jogar.';
-
 $LNG['server_register']                = 'Por favor, registe-se agora!';
-
 $LNG['server_message']                 = 'Registe-se agora e experimente um novo e emocionante mundo ';
-
 $LNG['login']                          = 'Login';
-
 $LNG['disclamer']                      = 'Ficha técnica';
-
 $LNG['login_info']                     = 'Com o meu login aceito as <a onclick="ajax(\'?page=rules&amp;\'+\'getajax=1\');" style="cursor:pointer;">Régras</a> e os <a onclick="ajax(\'?page=agb&amp;\'+\'getajax=1\');" style="cursor:pointer;">T&C</a>';
+
+
+
 
 /* ------------------------------------------------------------------------------------------ */
 
 //reg.php - Registrierung
-
 $LNG['register_closed']                = 'Sistema de registo fechado!';
-
 $LNG['register_at']                    = 'Registado em ';
-
 $LNG['reg_mail_message_pass']          = 'Ainda falta mais um passo para poder entrar na sua conta';
-
 $LNG['reg_mail_reg_done']              = 'Bem-vindo ao mundo %s!';
-
 $LNG['invalid_mail_adress']            = 'Este E-mail não e válido!<br>';
-
 $LNG['empty_user_field']               = 'Por favor, preencha os campos todos!<br>';
-
 $LNG['password_lenght_error']          = 'A password tem de conter pelo menos um minimo de 4 caracteres!<br>';
-
 $LNG['user_field_no_alphanumeric']     = 'Por favor, digite o nome do usuário apenas com caracteres alfanuméricos!<br>';
-
 $LNG['user_field_no_space']            = 'Por favor, não insira o nome de usuário com espaços ou em branco !<br>';
-
 $LNG['planet_field_no_alphanumeric']   = 'Por favor insira só caracteres alphanumericos!<br>';
-
 $LNG['planet_field_no_space']	       = 'Por favor não deixe o nome do planeta em branco!<br>';
-
 $LNG['terms_and_conditions']           = 'Aceito os <a href="index.php?page=agb">T&C</a> e as <a href="index.php?page=rules>Régras</a> de jogo!<br>';
-
 $LNG['user_already_exists']            = 'O username que escolheu já existe!<br>';
-
 $LNG['mail_already_exists']            = 'Este E-mail já existe!<br>';
-
 $LNG['wrong_captcha']                  = 'Código de Segurança incorrecto!<br>';
-
 $LNG['different_passwords']            = 'As 2 passwords que introduziu são diferentes!<br>';
-
 $LNG['different_mails']                = 'Os 2 E-Mails que introduziu são diferentes!<br>';
-
 $LNG['welcome_message_from']           = 'Administrador';
-
 $LNG['welcome_message_sender']         = 'A Equipa';
-
 $LNG['welcome_message_subject']        = 'Bem-vindo';
-
 $LNG['welcome_message_content']        = 'Bem-vindo ao mundo %s!<br>A primeira construção deverá ser uma planta de energia solar, porque a energia é necessária para a subsequente produção de matérias-primas. Para construí-la, clique no menu à esquerda, "Edifícios". <br>Em seguida, procure o quarto edifício a partir do topo. Lá tem a planta de energia: agora que já a construiu deve começar as minas de matérias-primas.<br> Volte para o menu dos edifícios e construa uma mina de metal, em seguida, uma mina de cristal. A fim de ser capaz de construir naves, mas para isso precisa de ter construído o hangar. <br>Poderá ver na página das tecnologias o que é necessário para que tenha acesso às varias naves, edifícios, e tecnologias.<br><br> A equipa do Vedra deseja-lhe muito divertimento a explorar o universo!';
-
 $LNG['newpass_smtp_email_error']       = '<br><br>Ocorreu um erro, a sua password é: ';
-
 $LNG['reg_completed']                  = 'Obrigado pela sua inscrição! Foi-lhe enviado um E-Mail com o link de activação da sua conta.<br><b>Caso não receba o mail nos proçimos minutos por favor contacte a Equipa Vedra atravez do fórum!</b>';
-
 $LNG['planet_already_exists']		   = 'Essa posição ja se encontra ocupada! <br>';
 
 //registry_form.tpl
-
 $LNG['server_message_reg']             = 'Registe-se agora e faça parte do mundo';
-
 $LNG['register_at_reg']                = 'Registado no';
-
 $LNG['uni_reg']                        = 'Uníverso';
-
 $LNG['user_reg']                       = 'Usuário';
-
 $LNG['pass_reg']                       = 'Password';
-
 $LNG['pass2_reg']                      = 'Repetir Password';
-
 $LNG['email_reg']                      = 'Morada de E-mail';
-
 $LNG['email2_reg']					   = 'Confirmar o Email';
-
 $LNG['planet_reg']					   = 'Name of Mainplanet';
-
 $LNG['lang_reg']                       = 'Língua de Jogo';
-
 $LNG['register_now']                   = 'Registar!';
-
 $LNG['captcha_reg']                    = 'Imagem de sugurança';
-
 $LNG['accept_terms_and_conditions']    = 'Por favor aceite as <a onclick="ajax(\'?page=rules&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\);" style="cursor:pointer;">Régras</a> e o <a onclick="ajax(\'?page=agb&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\);" style="cursor:pointer;">T&C</a>';
-
 $LNG['captcha_reload']                 = 'Reloading';
-
 $LNG['captcha_help']                   = 'Ajuda';
-
 $LNG['captcha_get_image']              = 'Imagem-CAPTCHA';
-
 $LNG['captcha_reload']                 = 'Nova-CAPTCHA';
-
 $LNG['captcha_get_audio']              = 'Som-CAPTCHA';
-
 $LNG['user_active']		       		   = 'Usuários %s activos!';
 
 //registry_closed.tpl
-
 $LNG['info']                           = 'Imformações';
-
 $LNG['reg_closed']                     = 'O sistema de registo encontra-se fechado';
+
 //Rules
-
 $LNG['rules_overview']                 = "Regras";
-
 $LNG['rules']                          = array(
-        "Contas"                      => "    
-
+      "Contas"                      => "    
     * Cada jogador apenas pode possuir uma conta por universo, mais do que uma será considerada multi-conta e as contas envolvidas serão sancionadas com o bloqueamento.
-
     * Quando o jogador normal ou ocasionalmente jogar a partir de um IP público (cyber-café, universidades, escolas, etc), um operador de jogo do universo em causa deve ser obrigatoriamente notificado.
-
     * Se contas de proprietários diferentes são normal, ocasional ou permanentemente jogadas a partir do mesmo IP, um operador de jogo do universo em causa deve ser obrigatoriamente notificado.
-
     * Nestes casos, as contas não estão autorizadas em nenhum caso a terem interacção de frotas que inclui ataques, trocas, envios de recursos, envio de sondas, etc.
-
     * Perfis que partilhem um mesmo IP, seja em casa ou no trabalho, também não têm permissão de fora desse IP, fazerem interacções de frota incluindo ataques em acs ou empréstimo de recicladores, a única excepção é se essa partilha de IP resultar num sitting de uma das contas - neste caso apenas poderão fazer interacção fora de um mesmo IP.
+    * Se duas ou mais contas partilharem regularmente o mesmo IP, nenhuma dessas contas poderá ser MoonMaker ou Moon Destroyers.",
 
+      "Multi-Contas"                  => "    
+    * Cada jogador apenas pode possuir uma conta por universo, mais do que uma será considerada multi-conta e as contas envolvidas serão sancionadas com o bloqueamento.
+    * Quando o jogador normal ou ocasionalmente jogar a partir de um IP público (cyber-café, universidades, escolas, etc), um operador de jogo do universo em causa deve ser obrigatoriamente notificado.
+    * Se contas de proprietários diferentes são normal, ocasional ou permanentemente jogadas a partir do mesmo IP, um operador de jogo do universo em causa deve ser obrigatoriamente notificado.
+    * Nestes casos, as contas não estão autorizadas em nenhum caso a terem interacção de frotas que inclui ataques, trocas, envios de recursos, envio de sondas, etc.
+    * Perfis que partilhem um mesmo IP, seja em casa ou no trabalho, também não têm permissão de fora desse IP, fazerem interacções de frota incluindo ataques em acs ou empréstimo de recicladores, a única excepção é se essa partilha de IP resultar num sitting de uma das contas - neste caso apenas poderão fazer interacção fora de um mesmo IP.
     * Se duas ou mais contas partilharem regularmente o mesmo IP, nenhuma dessas contas poderá ser MoonMaker ou Moon Destroyers.",
 
 
-
-
-        "Multi-Contas"                  => "    
-
-    * Cada jogador apenas pode possuir uma conta por universo, mais do que uma será considerada multi-conta e as contas envolvidas serão sancionadas com o bloqueamento.
-
-    * Quando o jogador normal ou ocasionalmente jogar a partir de um IP público (cyber-café, universidades, escolas, etc), um operador de jogo do universo em causa deve ser obrigatoriamente notificado.
-
-    * Se contas de proprietários diferentes são normal, ocasional ou permanentemente jogadas a partir do mesmo IP, um operador de jogo do universo em causa deve ser obrigatoriamente notificado.
-
-    * Nestes casos, as contas não estão autorizadas em nenhum caso a terem interacção de frotas que inclui ataques, trocas, envios de recursos, envio de sondas, etc.
-
-    * Perfis que partilhem um mesmo IP, seja em casa ou no trabalho, também não têm permissão de fora desse IP, fazerem interacções de frota incluindo ataques em acs ou empréstimo de recicladores, a única excepção é se essa partilha de IP resultar num sitting de uma das contas - neste caso apenas poderão fazer interacção fora de um mesmo IP.
-
-    * Se duas ou mais contas partilharem regularmente o mesmo IP, nenhuma dessas contas poderá ser MoonMaker ou Moon Destroyers.",
-
-
-
-        "Pushing"                          => "
- 
+      "Pushing"                          => "
    * Não é permitido o favorecimento através de recursos de uma conta com mais pontos por uma conta mais fraca.
- 
    * É considerado pushing:
           o Envio de recursos num único sentido por um jogador com menos pontuação do que aquele que recebe;
           o Acumulação de recursos num planeta com a intenção de beneficiar o atacante;
@@ -294,7 +200,6 @@ $LNG['rules_info2']                      = "Estas são para cumprir obrigatória
 //AGB
 
 $LNG['agb_overview']                     = "Termos e Condições";
-
 $LNG['agb']                              = array(
 
         "Objecto das condições de utilização; área de aplicação"             => array(
@@ -479,25 +384,16 @@ $LNG['fb_perm']				= 'Acesso proibido. %s Precisas de todos os direitos para fas
          
 //NEWS
 
-
-
 $LNG['news_overview']                          = "Noticias";
-
 $LNG['news_from']                              = "De %s a %s";
-
 $LNG['news_does_not_exist']                    = "Não há notícias desponiveis!";
 
 //Impressum
 
-
-
 $LNG['disclamer']                              = "Termos e Condições";
-
 $LNG['disclamer_name']                         = "Nome";
-
 $LNG['disclamer_adress']                       = "Morrada";
-
 $LNG['disclamer_tel']                          = "Telefone:";
-
 $LNG['disclamer_email']                        = "E-Mail";
+
 ?>
