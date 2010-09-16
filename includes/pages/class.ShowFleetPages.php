@@ -451,12 +451,9 @@ class ShowFleetPages extends FleetFunctions
 		$thisplanettype 		= $PLANET['planet_type'];
 		
 		if (IsVacationMode($USER))
-		{
-			$template->message($LNG['fl_vacation_mode_active'], 'game.php?page=overview', 2);
-			exit;
-		}
-		
-		if ($_SESSION['oldpath'] != 'game.php?page=fleet2')
+			exit($template->message($LNG['fl_vacation_mode_active'], 'game.php?page=overview', 2));
+	
+		if ($_SESSION['db']['user_side'] != 'game.php?page=fleet2')
 			parent::GotoFleetPage();
 	
 		if (!($planettype >= 1 || $planettype <= 3))
@@ -465,19 +462,13 @@ class ShowFleetPages extends FleetFunctions
 		if ($PLANET['galaxy'] == $galaxy && $PLANET['system'] == $system && $PLANET['planet'] == $planet && $PLANET['planet_type'] == $planettype)
 			parent::GotoFleetPage();
 
-		if ($galaxy > MAX_GALAXY_IN_WORLD || $galaxy < 1)
-			parent::GotoFleetPage();
-
-		if ($system > MAX_SYSTEM_IN_GALAXY || $system < 1)
-			parent::GotoFleetPage();
-
-		if ($planet > (MAX_PLANET_IN_SYSTEM + 1) || $planet < 1)
+		if ($galaxy > MAX_GALAXY_IN_WORLD || $galaxy < 1 || $system > MAX_SYSTEM_IN_GALAXY || $system < 1 || $planet > (MAX_PLANET_IN_SYSTEM + 1) || $planet < 1)
 			parent::GotoFleetPage();
 			
 		if (empty($mission))
 			parent::GotoFleetPage();	
 		
-		if (!is_numeric($TransportMetal + 0) || !is_numeric($TransportCrystal + 0) || !is_numeric($TransportDeuterium + 0))
+		if (!is_numeric($TransportMetal) || !is_numeric($TransportCrystal) || !is_numeric($TransportDeuterium))
 			parent::GotoFleetPage();
 
 		if ($TransportMetal + $TransportCrystal + $TransportDeuterium < 1 && $mission == 3)

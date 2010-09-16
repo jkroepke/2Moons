@@ -52,7 +52,10 @@ class Session
 	function UpdateSession()
 	{
 		global $CONF, $db;
-
+		
+		if(request_var('ajax', 0) == 1)
+			return true;
+			
 		$_SESSION['db']	= $this->GetSessionFromDB();
 		
 		if(empty($_SESSION['db']))
@@ -62,7 +65,6 @@ class Session
 		if(!empty($SelectPlanet))
 			$IsPlanetMine 	=	$db->uniquequery("SELECT `id` FROM ".PLANETS." WHERE `id` = '".$SelectPlanet."' AND `id_owner` = '".$_SESSION['id']."';");
 			
-		$_SESSION['oldpath']	= $_SESSION['db']['path'];
 		$_SESSION['path']		= $this->GetPath();
 		$_SESSION['planet']		= !empty($IsPlanetMine['id']) ? $IsPlanetMine['id'] : $_SESSION['planet'];
 		
