@@ -23,15 +23,14 @@
         {foreach name=FlyingFleets item=FlyingFleetRow from=$FlyingFleetList}
 		<tr>
 		<td>{$smarty.foreach.FlyingFleets.iteration}</td>
-		<td>
-		<a>{$FlyingFleetRow.missionname}</a>
+		<td>{$FlyingFleetRow.missionname}
 		{if $FlyingFleetRow.way == 1}
 			<br><a title="{$fl_returning}">{$fl_r}</a>
 		{else}
 			<br><a title="{$fl_onway}">{$fl_a}</a>
 		{/if}
 		</td>
-		<td><a href="#" onmouseover="return overlib('<table widtd=100% cellpadding=2 cellspacing=0><tr><td class=c colspan=2 style=text-align:center;>{$fl_info_detail}</td></tr>{foreach key=name item=count from=$FlyingFleetRow.FleetList}<tr><td>{$name}:</td><td>{$count}</td></tr>{/foreach}</table>', CENTER, WIDTH, 265);" onmouseout="return nd();">{$FlyingFleetRow.amount}</a></td>
+		<td><a href="#" onmouseover="return overlib('<table width=100%><tr><td class=c colspan=2 style=text-align:center;>{$fl_info_detail}</td></tr>{foreach key=name item=count from=$FlyingFleetRow.FleetList}<tr><td>{$name}:</td><td>{$count}</td></tr>{/foreach}</table>', CENTER, WIDTH, 265);" onmouseout="return nd();">{$FlyingFleetRow.amount}</a></td>
 		<td><a href="game.php?page=galaxy&amp;mode=3&amp;galaxy={$FlyingFleetRow.start_galaxy}&amp;system={$FlyingFleetRow.start_system}">[{$FlyingFleetRow.start_galaxy}:{$FlyingFleetRow.start_system}:{$FlyingFleetRow.start_planet}]</a></td>
 		<td>{$FlyingFleetRow.start_time}</td>
 		<td><a href="game.php?page=galaxy&amp;mode=3&amp;galaxy={$FlyingFleetRow.end_galaxy}&amp;system={$FlyingFleetRow.end_system}">[{$FlyingFleetRow.end_galaxy}:{$FlyingFleetRow.end_system}:{$FlyingFleetRow.end_planet}]</a></td>
@@ -96,7 +95,7 @@
 				<td>{if $FleetRow.id != 212} <a title="{$fl_speed_title} {$FleetRow.speed}">{$FleetRow.name}</a>{else}{$FleetRow.name}{/if}</td>
 				<td id="ship{$FleetRow.id}_value">{$FleetRow.count}</td>
 				{if $FleetRow.id != 212}
-				<td><a href="javascript:maxShip('ship{$FleetRow.id}');shortInfo();">{$fl_max}</a></td>
+				<td><a href="javascript:maxShip('ship{$FleetRow.id}');">{$fl_max}</a></td>
 				<td><input name="ship{$FleetRow.id}" id="ship{$FleetRow.id}_input" size="10" value="0"></td>
 				{else}
 				<td>&nbsp;</td><td>&nbsp;</td>
@@ -107,8 +106,8 @@
 			{if $smarty.foreach.Fleets.total == 0}
 			<td colspan="4">{$fl_no_ships}</td>
 			{else}
-			<td colspan="2"><a href="javascript:noShips();shortInfo();noResources();">{$fl_remove_all_ships}</a></td>
-			<td colspan="2"><a href="javascript:maxShips();shortInfo();">{$fl_select_all_ships}</a></td>
+			<td colspan="2"><a href="javascript:noShips();">{$fl_remove_all_ships}</a></td>
+			<td colspan="2"><a href="javascript:maxShips();">{$fl_select_all_ships}</a></td>
 			{/if}
 			</tr>
 			{if $slots_available}
