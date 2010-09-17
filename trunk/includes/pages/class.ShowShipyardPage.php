@@ -77,7 +77,7 @@ class ShowShipyardPage
 			$PLANET['crystal']		+= $Resses['crystal']		* 0.6;
 			$PLANET['deuterium']	+= $Resses['deuterium']		* 0.6;
 			$USER['darkmatter']		+= $Resses['darkmatter']	* 0.6;
-			unset($ElementQueue[$Auftr-1]);
+			unset($ElementQueue[$Auftr]);
 		}
 		$PLANET['b_hangar_id']	= implode(';', $ElementQueue);
 	}
