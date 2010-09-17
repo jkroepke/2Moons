@@ -56,5 +56,8 @@
 		{/foreach}
     </table>
 </div>
+<script type="text/javascript">
+data	= {$ScriptInfo};
+</script>
 {include file="planet_menu.tpl"}
 {include file="overall_footer.tpl"}
