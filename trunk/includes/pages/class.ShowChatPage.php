@@ -81,6 +81,7 @@ class ShowChatPage
 			break;
 			default:
 				$template	= new template();
+				$template->execscript("showMessage();;setInterval(showMessage,10000);");
 				$template->loadscript("chat.js");
 				$template->page_header();
 				$template->page_footer();
