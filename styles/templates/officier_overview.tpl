@@ -26,9 +26,6 @@
 							<td class="transparent left" style="width:90%;padding:10px;">{$ExtraDMInfo.desc}<br><br>{$Darkmatter}: {if $ExtraDMInfo.isok}<span style="color:lime">{$ExtraDMInfo.price}</span>{else}<span style="color:#FF0000">{$ExtraDMInfo.price}</span>{/if} {$in_dest_durati}: <span style="color:lime">{$ExtraDMInfo.time}</span></td>
 							<td class="transparent" style="vertical-align:middle;width:100px">
 							{if $ExtraDMInfo.active > 0}
-							<script type="text/javascript">
-							getsectime('time_{$ExtraDMInfo.id}', {$ExtraDMInfo.active});
-							</script>
 							{$of_still}<br>
 							<div id="time_{$ExtraDMInfo.id}" class="z">-</div>
 							{$of_active}{if $ExtraDMInfo.isok}
