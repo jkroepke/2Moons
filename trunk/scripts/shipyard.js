@@ -22,19 +22,12 @@ function BuildlistShipyard() {
 		v = new Date();
 		s = 0;
 	}
-	if ( s > 59 ) {
-		m = Math.floor(s / 60);
-		s = s - m * 60;
-	}
-	if ( m > 59 ) {
-		h = Math.floor(m / 60);
-		m = m - h * 60;
-	}
+	
 	if ( p > b.length - 2 ) {
 		element.html(ready);
 		return;
     } else {
-		element.html(b[p]+" "+h+":"+dezInt(m, 2)+":"+dezInt(s, 2));
+		element.html(b[p]+" "+GetRestTimeFormat(s));
 		window.setTimeout("BuildlistShipyard();", 1000);
     }
 }

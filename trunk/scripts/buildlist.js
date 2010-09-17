@@ -1,5 +1,3 @@
-var Gamename	= document.title;
-
 function ReBuildView() {
 	var HTML	= '<table style="width:80%">';
 	$.each(data.build, function(index, val) {
@@ -24,9 +22,10 @@ function ReBuildView() {
 }
 
 function Buildlist() {
-	var h	= 0;
-	var	m	= 0;
-	var s	= (data.build[0].endtime - (serverTime.getTime() / 1000));
+	var h		= 0;
+	var	m		= 0;
+	var s		= (data.build[0].endtime - (serverTime.getTime() / 1000));
+	
 	if ( s <= 0 ) {
 		if(data.build.length == 1){
 			$('#blc').html(data.bd_finished + '<br><a href=?page=build>'+data.bd_continue+'</a>');
@@ -40,17 +39,9 @@ function Buildlist() {
 		}
 	}
 	
-	if (s > 59) {
-		m = Math.floor( s / 60);
-		s = s - m * 60;
-	}
+	var time	= GetRestTimeFormat(s);
 	
-	if (m > 59) {
-		h = Math.floor( m / 60);
-		m = m - h * 60;
-	}
-	
-	$('#blc').html(dezInt(h, 2) + ':' + dezInt(m, 2) + ":" + dezInt(s, 2)+ '<br><a href="game.php?page=buildings&amp;cmd=cancel">'+data.bd_cancel+'</a>');
-	document.title	= dezInt(h, 2) + ':' + dezInt(m, 2) + ":" + dezInt(s, 2) + ' - ' + data.build[0].name + ' - ' + Gamename;
+	$('#blc').html(time + '<br><a href="game.php?page=buildings&amp;cmd=cancel">'+data.bd_cancel+'</a>');
+	document.title	= time + ' - ' + data.build[0].name + ' - ' + Gamename;
 	window.setTimeout('Buildlist();', 1000);
 }

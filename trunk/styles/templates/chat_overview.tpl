@@ -15,7 +15,7 @@
 	</tr>
 	<tr>
 		<td> 
-		{$chat_message}: <input name="msg" type="text" id="msg" style="width:75%" maxlength="255" onKeyPress="if(event.keyCode == 13){ addMessage(); } if (event.keyCode==60 || event.keyCode==62) event.returnValue = false; if (event.which==60 || event.which==62) return false;"> 
+		{$chat_message}: <input name="msg" type="text" id="msg" style="width:75%" maxlength="255"> 
 		<input type="submit" name="send" value="{$chat_send}" id="send">
 		</td>
 	</tr>
