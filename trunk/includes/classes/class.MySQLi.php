@@ -158,8 +158,9 @@ class DB_mysqli extends mysqli
 	
     public function sql_escape($string, $flag = false)
     {
-                return ($flag === false) ? parent::escape_string($string): return addcslashes(parent::escape_string($string), '%_');
+		return ($flag === false) ? parent::escape_string($string): addcslashes(parent::escape_string($string), '%_');
     }
+	
 	public function str_correction($str)
 	{
 		return stripcslashes($str);
