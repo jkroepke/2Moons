@@ -190,8 +190,9 @@ class ShowShipyardPage
 
 		if(!empty($PLANET['b_hangar_id']))
 		{
-			$template->loadscript('shipyard.js');
 			$template->loadscript('bcmath.js');
+			$template->loadscript('shipyard.js');
+			$template->execscript("ShipyardList();BuildlistShipyard();");
 		}
 		
 		$template->page_header();	
@@ -236,7 +237,7 @@ class ShowShipyardPage
 					$NbrePerType 	.= "'".$Element[1]."',";
 				}
 			}
-
+			
 			$template->assign_vars(array(
 				'a' 					=> $NbrePerType,
 				'b' 					=> $NamePerType,
@@ -374,8 +375,9 @@ class ShowShipyardPage
 
 		if(!empty($PLANET['b_hangar_id']))
 		{
-			$template->loadscript('shipyard.js');
 			$template->loadscript('bcmath.js');
+			$template->loadscript('shipyard.js');
+			$template->execscript("ShipyardList();BuildlistShipyard();");
 		}
 
 		$template->page_header();	
