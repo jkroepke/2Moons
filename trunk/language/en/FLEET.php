@@ -178,7 +178,6 @@ $LNG['sys_destruc_reussi']      		   	= 'The beams of the death stars reach the 
 $LNG['sys_destruc_null']        		   	= 'The death stars can not build up their full performance and implode.<br> The moon is not destroyed.';
 
 
-
 $LNG['fcp_colony']							= 'Colony';
 $LNG['fl_simulate']							= 'Simulate';
 
