@@ -6,8 +6,6 @@
 	c  				= new Array({$c}'');
 	b  				= new Array({$b}'');
 	a  				= new Array({$a}'');
-	z 				= new DecimalNumber(a[0],0);
-	window.onload 	= t;
 </script>
 <br>
 <form name="Atr" method="POST" action="">

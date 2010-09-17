@@ -2,13 +2,8 @@
 {include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
 <div id="content" class="content">
-{$BuildListScript}
-	{if $BuildList}
-    <table>
-        {$BuildList}
-    </table>
+    <div id="buildlist" style="display:none;"></div>
 	<br>
-	{/if}
     <table>	
 		{foreach item=BuildInfoRow from=$BuildInfoList}
 		<tr>
@@ -70,5 +65,10 @@
 		{/foreach}
     </table>
 </div>
+{if $data}
+<script type="text/javascript">
+data	= {$data};
+</script>
+{/if}
 {include file="planet_menu.tpl"}
 {include file="overall_footer.tpl"}

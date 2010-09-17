@@ -76,7 +76,7 @@ function allydiplo(action, id, level) {
 }
 
 function pretty_time_update(div) {
-
+return;
 	var bocs 	= $('#'+div).html();
 	var boc		= bocs.split(' ');
 	if(boc.length > 3)

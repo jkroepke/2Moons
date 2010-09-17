@@ -196,88 +196,25 @@ class ShowBuildingsPage
 	{
 		global $LNG, $CONF, $PLANET, $USER;
 		
+		if ($PLANET['b_building'] == 0)
+			return array();
+		
 		$CurrentQueue   = $PLANET['b_building_id'];
-		$QueueID        = 0;
-		if ($CurrentQueue != 0)
+		$QueueArray   	= explode(";", $CurrentQueue);
+		$ActualCount  	= count($QueueArray);
+
+		$ListIDRow		= "";
+		$ScriptData		= array();
+		
+		for ($QueueID = 0; $QueueID < $ActualCount; $QueueID++)
 		{
-			$QueueArray    = explode ( ";", $CurrentQueue );
-			$ActualCount   = count ( $QueueArray );
+			$BuildArray   = explode (",", $QueueArray[$QueueID]);
+			if ($BuildArray[3] < TIMESTAMP)
+				continue;
+
+			$ScriptData[] = array('element' => $BuildArray[0], 'level' => $BuildArray[1], 'time' => $BuildArray[2], 'name' => $LNG['tech'][$BuildArray[0]], 'mode' => (($BuildArray[4] == 'destroy') ? ' '.$LNG['bd_dismantle'] : ''), 'endtime' => $BuildArray[3]);
 		}
-		else
-		{
-			$QueueArray    = "0";
-			$ActualCount   = 0;
-		}
-
-		$ListIDRow    = "";
-
-		if ($ActualCount != 0)
-		{
-			$PlanetID     = $PLANET['id'];
-			for ($QueueID = 0; $QueueID < $ActualCount; $QueueID++)
-			{
-				$BuildArray   = explode (",", $QueueArray[$QueueID]);
-				$BuildEndTime = $BuildArray[3];
-				$CurrentTime  = TIMESTAMP;
-				if ($BuildEndTime >= $CurrentTime)
-				{
-					$ListID       = $QueueID + 1;
-					$Element      = $BuildArray[0];
-					$BuildLevel   = $BuildArray[1];
-					$BuildCTime   = $BuildArray[2];
-					$BuildMode    = $BuildArray[4];
-					$BuildTime    = $BuildEndTime - TIMESTAMP;
-					$ElementTitle = $LNG['tech'][$Element];
-
-					if ($ListID > 0)
-					{
-						$ListIDRow .= "<tr>";
-						if ($ListID == 1)
-						{
-							$ListIDRow .= "<td width=\"70%\">". $ListID .".: ". $ElementTitle ." ".$BuildLevel.(($BuildMode == 'destroy') ? ' '.$LNG['bd_dismantle'] : '')."<br><br><div id=\"progressbar\"></div></td>";
-							$ListIDRow .= "<td>";
-							$ListIDRow .= "		<div id=\"blc\" class=\"z\">". $BuildTime ."<br>";
-							$ListIDRow .= "		<a href=\"game.php?page=buildings&amp;cmd=cancel\">".$LNG['bd_interrupt']."</a></div>";
-							$ListIDRow .= "		<script type=\"text/javascript\">";
-							$ListIDRow .= "			pp = '". $BuildTime ."';\n";
-							$ListIDRow .= "			pm = 'cancel';\n";
-							$ListIDRow .= "			pl = '".$PLANET['id']."';\n";
-							$ListIDRow .= "			loc = 'buildings';\n";
-							$ListIDRow .= "			ne = '".$ElementTitle."';\n";
-							$ListIDRow .= "			gamename = '".$CONF['game_name']."';\n";
-							$ListIDRow .= "			bd_continue = '".$LNG['bd_continue']."';\n";
-							$ListIDRow .= "			bd_finished = '".$LNG['bd_finished']."';\n";
-							$ListIDRow .= "			bd_cancel = '".$LNG['bd_cancel']."';\n";
-							$ListIDRow .= "			Buildlist();;\n";
-							$ListIDRow .= "		</script>\n";
-							$ListIDRow .= "		<script type=\"text/javascript\">\n";
-							$ListIDRow .= "		function title() \n {var datem = document.getElementById('blc').innerHTML.split(\"<\");\n document.title = datem[0] + \" - ". $ElementTitle ." - ".$CONF['game_name']."\";\n  window.setTimeout('title();', 1000);}\n title();";
-							$ListIDRow .= "		$(function() {";
-							$ListIDRow .= "			$(\"#progressbar\").progressbar({";
-							$ListIDRow .= "				value: ".(($BuildCTime != 0) ? floattostring(abs(100 - ($BuildTime / $BuildCTime) * 100), 2, true):100)."";
-							$ListIDRow .= "			});";
-							$ListIDRow .= "			$(\".ui-progressbar-value\").animate({ width: \"100%\" }, ".($BuildTime * 1000).", \"linear\");";
-							$ListIDRow .= "		});";
-							$ListIDRow .= "		</script>";
-						}
-						else
-						{
-							$ListIDRow .= "<td width=\"70%\">". $ListID .".: ". $ElementTitle ." ".$BuildLevel.(($BuildMode == 'destroy') ? ' '.$LNG['bd_dismantle'] : '')."</td>";
-							$ListIDRow .= "<td>";
-							$ListIDRow .= "		<a href=\"game.php?page=buildings&amp;cmd=remove&amp;listid=". $ListID ."\">".$LNG['bd_cancel']."</a>";
-						}
-						$ListIDRow .= "<br><span style=\"color:lime\">". date("d. M y H:i:s" ,$BuildEndTime) ."</span>";
-						$ListIDRow .= "	</td>";
-						$ListIDRow .= "</tr>";
-					}
-				}
-			}
-		}
-
-		$RetValue['lenght']    = $ActualCount;
-		$RetValue['buildlist'] = $ListIDRow;
-
-		return $RetValue;
+		return $ScriptData;
 	}
 
 	public function __construct()
@@ -315,7 +252,7 @@ class ShowBuildingsPage
 		}
 		$PlanetRess->SavePlanetToDB();
 
-		$Queue = $this->ShowBuildingQueue();
+		$Queue	 = $this->ShowBuildingQueue();
 
 		$template	= new template();
 		$template->page_header();	
@@ -324,64 +261,66 @@ class ShowBuildingsPage
 		$template->page_planetmenu();
 		$template->page_footer();
 		
-		$CanBuildElement 	= ($Queue['lenght'] < (MAX_BUILDING_QUEUE_SIZE)) ? true : false;
+		$CanBuildElement 	= (count($Queue) < MAX_BUILDING_QUEUE_SIZE) ? true : false;
 		$BuildingPage       = "";
 		$CurrentMaxFields   = CalculateMaxPlanetFields($PLANET);
-		$RoomIsOk 			= ($PLANET["field_current"] < ($CurrentMaxFields - $Queue['lenght'])) ? true : false;
+		$RoomIsOk 			= ($PLANET["field_current"] < ($CurrentMaxFields - count($Queue))) ? true : false;
 				
 		$BuildEnergy		= $USER[$resource[113]];
 		$BuildLevelFactor   = 10;
 		$BuildTemp          = $PLANET['temp_max'];
 		foreach($reslist['allow'][$PLANET['planet_type']] as $ID => $Element)
 		{
-			if (IsTechnologieAccessible($USER, $PLANET, $Element))
+			if (!IsTechnologieAccessible($USER, $PLANET, $Element))
+				continue;
+
+			$HaveRessources        	= IsElementBuyable ($USER, $PLANET, $Element, true, false);
+			if(in_array($Element, $reslist['prod']))
 			{
-				$HaveRessources        	= IsElementBuyable ($USER, $PLANET, $Element, true, false);
-				if(in_array($Element, $reslist['prod']))
-				{
-					$BuildLevel         	= $PLANET[$resource[$Element]];
-					$Need 	                = floor(eval($ProdGrid[$Element]['formule']['energy']) * $CONF['resource_multiplier']) * (1 + ($USER['rpg_ingenieur'] * 0.05));
-					$BuildLevel			   += 1;
-					$Prod 	                = floor(eval($ProdGrid[$Element]['formule']['energy']) * $CONF['resource_multiplier']) * (1 + ($USER['rpg_ingenieur'] * 0.05));
-					$EnergyNeed        		= $Prod - $Need;
-				} else
-					unset($EnergyNeed);
-				$parse['click']        	= '';
-				$NextBuildLevel        	= $PLANET[$resource[$Element]] + 1;
-
-				if ($RoomIsOk && $CanBuildElement)
-					$parse['click'] = ($HaveRessources == true) ? "<a href=\"game.php?page=buildings&amp;cmd=insert&amp;building=". $Element ."\"><span style=\"color:#00FF00\">".(($Queue['lenght'] != 0) ? $LNG['bd_add_to_list'] : (($NextBuildLevel == 1) ? $LNG['bd_build'] : $LNG['bd_build_next_level'] . $NextBuildLevel))."</span></a>" : "<span style=\"color:#FF0000\">".(($NextBuildLevel == 1) ? $LNG['bd_build'] : $LNG['bd_build_next_level'] . $NextBuildLevel)."</span>";
-				elseif ($RoomIsOk && !$CanBuildElement)
-					$parse['click'] = "<span style=\"color:#FF0000\">".(($NextBuildLevel == 1) ? $LNG['bd_build'] : $LNG['bd_build_next_level'] . $NextBuildLevel) ."</span>";
-				else
-					$parse['click'] = "<span style=\"color:#FF0000\">".$LNG['bd_no_more_fields']."</span>";
-
-				if ($Element == 31 && $USER['b_tech'] > TIMESTAMP)
-					$parse['click'] = "<span style=\"color:#FF0000\">".$LNG['bd_working']."</span>";
-				elseif (($Element == 15 || $Element == 21) && !empty($PLANET['b_hangar_id']))
-					$parse['click'] = "<span style=\"color:#FF0000\">".$LNG['bd_working']."</span>";
+				$BuildLevel         	= $PLANET[$resource[$Element]];
+				$Need 	                = floor(eval($ProdGrid[$Element]['formule']['energy']) * $CONF['resource_multiplier']) * (1 + ($USER['rpg_ingenieur'] * 0.05));
+				$BuildLevel			   += 1;
+				$Prod 	                = floor(eval($ProdGrid[$Element]['formule']['energy']) * $CONF['resource_multiplier']) * (1 + ($USER['rpg_ingenieur'] * 0.05));
+				$EnergyNeed        		= $Prod - $Need;
+			} else
+				unset($EnergyNeed);
 				
-				$BuildInfoList[]	= array(
-					'id'			=> $Element,
-					'name'			=> $LNG['tech'][$Element],
-					'descriptions'	=> $LNG['res']['descriptions'][$Element],
-					'level'			=> $PLANET[$resource[$Element]],
-					'destroyress'	=> array_map('pretty_number', GetBuildingPrice ($USER, $PLANET, $Element, true, true)),
-					'destroytime'	=> pretty_time(GetBuildingTime($USER, $PLANET, $Element, true)),
-					'price'			=> GetElementPrice($USER, $PLANET, $Element, true),
-					'time'        	=> pretty_time(GetBuildingTime($USER, $PLANET, $Element)),
-					'EnergyNeed'	=> (isset($EnergyNeed)) ? sprintf(($EnergyNeed < 0) ? $LNG['bd_need_engine'] : $LNG['bd_more_engine'] , pretty_number(abs($EnergyNeed)), $LNG['Energy']) : "",
-					'BuildLink'		=> $parse['click'],
-					'restprice'		=> $this->GetRestPrice($Element),
-				);
-			}
+			$parse['click']        	= '';
+			$NextBuildLevel        	= $PLANET[$resource[$Element]] + 1;
+
+			if ($RoomIsOk && $CanBuildElement)
+				$parse['click'] = ($HaveRessources == true) ? "<a href=\"game.php?page=buildings&amp;cmd=insert&amp;building=". $Element ."\"><span style=\"color:#00FF00\">".(($PLANET['b_building'] != 0) ? $LNG['bd_add_to_list'] : (($NextBuildLevel == 1) ? $LNG['bd_build'] : $LNG['bd_build_next_level'] . $NextBuildLevel))."</span></a>" : "<span style=\"color:#FF0000\">".(($NextBuildLevel == 1) ? $LNG['bd_build'] : $LNG['bd_build_next_level'] . $NextBuildLevel)."</span>";
+			elseif ($RoomIsOk && !$CanBuildElement)
+				$parse['click'] = "<span style=\"color:#FF0000\">".(($NextBuildLevel == 1) ? $LNG['bd_build'] : $LNG['bd_build_next_level'] . $NextBuildLevel) ."</span>";
+			else
+				$parse['click'] = "<span style=\"color:#FF0000\">".$LNG['bd_no_more_fields']."</span>";
+
+			if ($Element == 31 && $USER['b_tech'] > TIMESTAMP)
+				$parse['click'] = "<span style=\"color:#FF0000\">".$LNG['bd_working']."</span>";
+			elseif (($Element == 15 || $Element == 21) && !empty($PLANET['b_hangar_id']))
+				$parse['click'] = "<span style=\"color:#FF0000\">".$LNG['bd_working']."</span>";
+			
+			$BuildInfoList[]	= array(
+				'id'			=> $Element,
+				'name'			=> $LNG['tech'][$Element],
+				'descriptions'	=> $LNG['res']['descriptions'][$Element],
+				'level'			=> $PLANET[$resource[$Element]],
+				'destroyress'	=> array_map('pretty_number', GetBuildingPrice ($USER, $PLANET, $Element, true, true)),
+				'destroytime'	=> pretty_time(GetBuildingTime($USER, $PLANET, $Element, true)),
+				'price'			=> GetElementPrice($USER, $PLANET, $Element, true),
+				'time'        	=> pretty_time(GetBuildingTime($USER, $PLANET, $Element)),
+				'EnergyNeed'	=> (isset($EnergyNeed)) ? sprintf(($EnergyNeed < 0) ? $LNG['bd_need_engine'] : $LNG['bd_more_engine'] , pretty_number(abs($EnergyNeed)), $LNG['Energy']) : "",
+				'BuildLink'		=> $parse['click'],
+				'restprice'		=> $this->GetRestPrice($Element),
+			);
 		}
 
-		if ($Queue['lenght'] > 0)
+		if ($PLANET['b_building'] != 0)
 		{
+			$template->execscript('ReBuildView();Buildlist();');
 			$template->loadscript('buildlist.js');
 			$template->assign_vars(array(
-				'BuildList'			=> $Queue['buildlist'],
+				'data'				=> json_encode(array('bd_cancel' => $LNG['bd_cancel'], 'bd_continue' => $LNG['bd_continue'], 'bd_finished' => $LNG['bd_finished'], 'build' => $Queue)),
 			));
 		}
 
