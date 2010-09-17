@@ -63,7 +63,10 @@ class ShowShipyardPage
 		$ElementQueue = explode(';', $PLANET['b_hangar_id']);
 		foreach ($CancelArray as $ID => $Auftr)
 		{
-			$ElementQ	= explode(',', $ElementQueue[$Auftr-1]);
+			if($Auftr == 0)
+				$PLANET['b_hangar']	= 0;
+				
+			$ElementQ	= explode(',', $ElementQueue[$Auftr]);
 			$Element	= $ElementQ[0];
 			$Count		= $ElementQ[1];
 			

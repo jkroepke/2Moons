@@ -1,4 +1,5 @@
-{$bd_actual_production}<div id="bx" class="z"></div>
+{$bd_actual_production}
+<div id="bx" class="z"></div>
 <script type="text/javascript">
 	hanger_id		= {$b_hangar_id_plus};
 	ready			= '{$bd_completed}';
@@ -16,7 +17,7 @@
 	<th>{$work_todo}</th>
 </tr>
 <tr>
-	<td><select name="auftr[]" id="auftr" size="10"><option>&nbsp;</option></select><br><br>{$bd_cancel_warning}<br><input type="Submit" value="{$bd_cancel_send}"></td>
+	<td><select name="auftr[]" id="auftr" size="10" multiple><option>&nbsp;</option></select><br><br>{$bd_cancel_warning}<br><input type="Submit" value="{$bd_cancel_send}"></td>
 </tr>
 <tr>
 	<th>&nbsp;</th>

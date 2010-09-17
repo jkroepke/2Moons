@@ -14,8 +14,10 @@ function BuildlistShipyard() {
 		if (z.toString() == '0') {
 			p++;
 			z = z.reset(a[p]);
+			ShipyardList();
+		} else {
+			document.getElementById('auftr').options[0].innerHTML	= z.toString() + " \"" + b[p] + "\" " + bd_operating;
 		}
-		ShipyardList();
 		hanger_id = 0;
 		v = new Date();
 		s = 0;
@@ -46,9 +48,9 @@ function ShipyardList() {
 	}
 	for ( iv = p; iv <= b.length - 2; iv++ ) {
 		if ( iv == p ) {
-			document.getElementById('auftr').options[document.getElementById('auftr').length] = new Option(z.toString() + " \"" + b[iv] + "\" " + bd_operating, iv + 1)
+			document.getElementById('auftr').options[document.getElementById('auftr').length] = new Option(z.toString() + " \"" + b[iv] + "\" " + bd_operating, iv);
 		} else {
-			document.getElementById('auftr').options[document.getElementById('auftr').length] = new Option(a[iv] + " \"" + b[iv] + "\"", iv + 2); 
+			document.getElementById('auftr').options[document.getElementById('auftr').length] = new Option(a[iv] + " \"" + b[iv] + "\"", iv); 
 		}
 	}
 }
