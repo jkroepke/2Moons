@@ -155,7 +155,6 @@ switch ($Mode) {
 	break;
 	case 'ins':
 		if ($Page == 1) {
-
 			$template->assign_vars(array(
 				'step1_notice_chmod'	=> $LNG['step1_notice_chmod'],
 				'step1_mysql_server'	=> $LNG['step1_mysql_server'],
@@ -167,9 +166,7 @@ switch ($Mode) {
 				'continue'				=> $LNG['continue'],
 			));
 			$template->show('install/ins_form.tpl');
-
-		}
-		elseif ($Page == 2) {
+		} elseif ($Page == 2) {
 			$GLOBALS['database']['host']			= request_var('host', '');
 			$GLOBALS['database']['port']			= request_var('port', 0);
 			$GLOBALS['database']['user']			= request_var('user', '', true);
@@ -184,7 +181,7 @@ switch ($Mode) {
 			}
 
 			@chmod("../includes/config.php", 0777);
-			if (is_writable('../includes/config.php'))
+			if (!is_writable('../includes/config.php'))
 				exit($template->message($LNG['step2_conf_op_fail'], "?mode=ins&page=1&lang=".$LANG, 3, true));
 
 			$first		= "Verbindung zur Datenbank erfolgreich...";
@@ -204,7 +201,7 @@ switch ($Mode) {
 			"//### Do not change beyond here ###//\n".
 			"?>");
 			fclose($dz);
-			@chmod("../config.php",0444);
+			@chmod("../includes/config.php", 0444);
 
 			$third	= "config.php erfolgreich erstellt...";
 			$template->assign_vars(array(
