@@ -93,7 +93,7 @@ class ShowOfficierPage
 		
 		$PlanetRess->SavePlanetToDB();
 		$template	= new template();
-		$template->loadscript('time.js');
+		$template->loadscript('officier.js');
 		
 		$template->page_header();
 		$template->page_topnav();
@@ -106,6 +106,10 @@ class ShowOfficierPage
 		{
 			foreach($reslist['dmfunc'] as $Element)
 			{
+				if($USER[$resource[$Element]] > TIMESTAMP)
+				{
+					$template->execscript("GetOfficerTime(".$Element.", ".($USER[$resource[$Element]] - TIMESTAMP).");");
+				}
 				$ExtraDMList[]	= array(
 					'id' 	 	=> $Element,
 					'active'  	=> $USER[$resource[$Element]] - TIMESTAMP,
