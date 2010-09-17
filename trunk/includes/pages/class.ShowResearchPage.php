@@ -182,8 +182,9 @@ class ShowResearchPage
 					{
 						if ($USER['b_tech_planet'] == $PLANET['id'])
 						{
-							$template->assign_vars(array(
-								'tech_time'		=> $USER['b_tech'] - TIMESTAMP,
+							$template->loadscript('research.js');
+							$ScriptInfo	= json_encode(array(
+								'tech_time'		=> $USER['b_tech'],
 								'tech_name'		=> '',
 								'game_name'		=> $CONF['game_name'],
 								'tech_lang'		=> $LNG['tech'][$USER['b_tech_id']],
@@ -195,8 +196,9 @@ class ShowResearchPage
 							));
 						} else {
 							$THEPLANET	= $db->uniquequery("SELECT `name` FROM ".PLANETS." WHERE `id` = '".$USER['b_tech_planet']."';");
-							$template->assign_vars(array(
-								'tech_time'		=> $USER['b_tech'] - TIMESTAMP,
+							$template->loadscript('research.js');
+							$ScriptInfo	= json_encode(array(
+								'tech_time'		=> $USER['b_tech'],
 								'tech_name'		=> $LNG['bd_on'].'<br>'.$THEPLANET['name'],
 								'tech_home'		=> $USER['b_tech_planet'],
 								'tech_id'		=> $USER['b_tech_id'],
@@ -208,7 +210,7 @@ class ShowResearchPage
 							));
 						}
 
-						$TechnoLink  = $template->fetch('buildings_research_script.tpl');
+						$TechnoLink  = '<div id="research"></div>';
 					}
 					else
 						$TechnoLink  = '<center>-</center>';
@@ -231,6 +233,7 @@ class ShowResearchPage
 		$template->assign_vars(array(
 			'ResearchList'			=> $ResearchList,
 			'IsLabinBuild'			=> !$bContinue,
+			'ScriptInfo'			=> $ScriptInfo,
 			'bd_building_lab'		=> $LNG['bd_building_lab'],
 			'bd_remaining'			=> $LNG['bd_remaining'],			
 			'bd_lvl'				=> $LNG['bd_lvl'],			
