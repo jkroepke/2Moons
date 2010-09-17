@@ -20,6 +20,7 @@ $LNG['Energy']								= 'Energy';
 $LNG['Messages']							= 'Messages';
 $LNG['write_message']						= 'Write a message';
 
+$LNG['ready']								= 'Ready';
 $LNG['show_planetmenu']						= 'Show / Hide';
 
 $LNG['type_mission'][1]  					= 'Attack';
@@ -287,6 +288,8 @@ $LNG['fl_send_fleet']						= 'Send Fleet';
 $LNG['fl_fleet_speed']						= 'Speed';
 $LNG['fl_distance']							= 'Distance';
 $LNG['fl_flying_time']						= 'Duration (one way)';
+$LNG['fl_flying_arrival']					= 'Arrival';
+$LNG['fl_flying_return']					= 'Return';
 $LNG['fl_fuel_consumption']					= 'Fuel consumption';
 $LNG['fl_max_speed']						= 'Maximum Speed';
 $LNG['fl_cargo_capacity']					= 'Cargo capacity';
@@ -341,7 +344,10 @@ $LNG['fl_no_empty_derbis']					= 'Expanse of rubble does not exist! ';
 $LNG['fl_acs_newname_alphanum']				= 'The name only may from alphanumeric signs consist. ';
 $LNG['fl_acs_change']						= 'Changing';
 $LNG['fl_acs_change_name']					= 'They enter a new name';
-
+$LNG['fl_error_not_avalible']				= 'Planet can not currently be served!';
+$LNG['fl_error_empty_derbis']				= 'No Debris Available!';
+$LNG['fl_error_no_moon']					= 'No moon present!';
+$LNG['fl_error_same_planet']				= 'Start and end are the same planet!';
 
 //----------------------------------------------------------------------------//
 //BUILDINGS - RESEARCH - SHIPYARD - DEFENSES
@@ -571,6 +577,7 @@ $LNG['al_users_list']						= 'member list (players: %d)';
 $LNG['al_manage_alliance']					= 'manage alliance';
 $LNG['al_send_circular_message']			= 'send circular message';
 $LNG['al_new_requests']						= '%d new request/s';
+$LNG['al_goto_chat']						= 'Go to Aliance-Chat';
 $LNG['al_save']								= 'Save';
 $LNG['al_dlte']								= 'Delete';
 $LNG['al_rank_name']						= 'Rank name';
@@ -1022,6 +1029,8 @@ $LNG['pl_etc']   							= 'Miscellaneous ';
 
 $LNG['chat_title']                         	= 'Chat';
 $LNG['chat_ally_title']                    	= 'Alliance chat';  
+$LNG['chat_bbcode']                    		= 'BB-Codes';  
+$LNG['chat_fontcolor']                    	= 'Font Color';  
 
 $LNG['chat_disc']                          	= 'Chat';
 $LNG['chat_message']                       	= 'Message';
@@ -1051,6 +1060,7 @@ $LNG['text'] 								= 'Details';
 $LNG['message_a'] 							= 'Status of the message:';
 $LNG['sendit_a'] 							= 'Message was inserted. ';
 $LNG['message_t'] 							= 'Status of the ticket: ';
+$LNG['supp_send'] 							= 'Send';
 $LNG['sendit_t'] 							= 'Ticket was typed in. ';
 $LNG['close_t'] 							= 'Ticket was closed. ';
 $LNG['sendit_error'] 						= 'ERROR:';
@@ -1095,7 +1105,13 @@ $LNG['bs_send']								= "Mailing";
 $LNG['bs_cancel']							= "Moving back";
 $LNG['bs_wait']								= "Wait for the next simulation for 10 seconds";
 
-
+//----------------------------------------------------------------------------//
+// Logout
+$LNG['lo_title']						= 'Logout successful! See you soon :)';
+$LNG['lo_logout']						= 'Session ended';
+$LNG['lo_redirect']						= 'Forward';
+$LNG['lo_notify']						= 'You will be redirected in <span id="seconds"> 5 </ span> s';
+$LNG['lo_continue']						= 'Click here if your not redirected.';
 
 
 

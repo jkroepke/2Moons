@@ -15,6 +15,10 @@ $LNG['menu_disclamer']		= 'Contact';
 	 
 /* ------------------------------------------------------------------------------------------ */
 
+$LNH['music_off']			= 'Music: OFF';
+$LNH['music_on']			= 'Music: ON';
+
+
 //index.php
 //case lostpassword
 $LNG['mail_not_exist'] 			= 'The e-mail address does not exist!';
@@ -32,6 +36,8 @@ $LNG['server_infos']			= array(
 //case default
 $LNG['login_error']				= 'Wrong username / password! <br><a href="index.php">Back</a>';
 $LNG['screenshots']				= 'Screenshots';
+$LNG['universe']				= 'Universe';
+$LNG['chose_a_uni']				= 'Choose a universe';
 $LNG['universe']				= 'Universe';
 $LNG['chose_a_uni']				= 'Choose a universe';
 

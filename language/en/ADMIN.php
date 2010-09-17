@@ -6,10 +6,7 @@
 # *                                                                          #
 # * @copyright Copyright (C) 2010 By ShadoX from titanspace.de               #
 # * @copyright Copyright (C) 2008 - 2009 By lucky from Xtreme-gameZ.com.ar   #
-# * @translate by                                                            #
-# * @author I_LOVE_XNOVA_GAMES                                               #
-# * @author BigSmoke                                                         #
-# * @author PeterPan                                                         #
+# * @translate by                                                            #                                                        #
 # * @author ShadoX                                                           #
 # *	                                                                         #
 # *  This program is free software: you can redistribute it and/or modify    #
@@ -25,7 +22,6 @@
 ##############################################################################
 
 //---------------	GENERAL	------------------------// 
-
 $LNG['adm_password']					= 'Password';
 $LNG['adm_password_info']				= 'Please enter you password for account verification!';
 $LNG['adm_bad_password']				= 'Wrong password!';
@@ -54,6 +50,7 @@ $LNG['time_minutes']					= 'Minutes';
 $LNG['time_seconds']					= 'Seconds';
 //###########################################################//
 
+$LNG['info_information']	= 'Submit bugs at: <a href="http://www.xnova-reloaded.eu/index.php?page=Board&boardID=85" target="tracker">2Moons Board</a><br>Or there is no support!';
 
 //---------------	�SI O NO? - YES OR NO? - JA ODER NEIN?	------------------------// 
 $LNG['one_is_yes'][1]					= 'Yes';
@@ -255,6 +252,8 @@ $LNG['cs_timeact_1']					= 'The Last Update occurred at: ';
 $LNG['cs_yes']						= 'Yes';
 $LNG['cs_no']						= 'No';
 $LNG['cs_no_view']					= 'Hide Admins';
+$LNG['cs_banner_time_between_updates']	= 'Time interval of the updates of the statistics Banner';
+$LNG['cs_banner_title']					= 'Settings of the parameters of Statistics Banner';
 //###########################################################//
 
 //---------------	ERROR LIST  ----------------------------//
@@ -281,12 +280,13 @@ $LNG['ml_see_all_messages']				= 'See ALL Messages';
 //###########################################################//
 
 //---------------	GLOBAL MESSAGE -------------------------//
- $LNG['ma_message_sended']				= 'Your Message has been Sent!';
-$LNG['ma_subject_needed']				= 'Your must enter a Subject!';
-$LNG['ma_send_global_message']				= 'Send a Global Message';
+ $LNG['ma_message_sended']			= 'Your Message has been Sent!';
+$LNG['ma_subject_needed']			= 'Your must enter a Subject!';
+$LNG['ma_send_global_message']		= 'Send a Global Message';
 $LNG['ma_subject']					= 'Subject';
-$LNG['ma_characters']					= 'Characters';
+$LNG['ma_characters']				= 'Characters';
 $LNG['ma_none']						= 'Global Message';
+$LNG['ma_message']					= 'Message';
 //###########################################################//
 
 //---------------	DATABASE	----------------------------//
@@ -316,9 +316,11 @@ $LNG['ow_install_file_detected']			= 'install/ directory was found. For security
 $LNG['ow_config_file_writable']				= 'The config.php file can be written to, we recommend that you set its file permissions to CHMOD 444 (read only).';
 $LNG['ow_database_errors']				= 'There are errors present!';
 $LNG['ow_handler_errors']				= 'The Fleet Handler has failed! Last Start: %s - Next Start: %s';
+$LNG['ow_smtp_errors']				= 'Check your SMTP settings! - Currently no mails are sent!';
 $LNG['ow_old_version']					= 'A New Version is Available!';
 $LNG['ow_none']						= 'No Warnings';
 //###########################################################//
+
 
 //---------------	GAME CONFIG	    ------------------------//
 $LNG['se_server_parameters']               		= 'Server Settings';
@@ -327,9 +329,11 @@ $LNG['se_lang']                            		= 'Language';
 $LNG['se_general_speed']                    		= 'Overall Game Speed';
 $LNG['se_normal_speed']                    		= 'Normal Game Speed: 1 <br> Maximum Recommended Game Speed: 20';
 $LNG['se_normal_speed_resoruces']           		= 'Normal Production Speed: 1 <br> Maximum Recommended Production Speed: 20';
-$LNG['se_normal_speed_fleett']              		= 'normal speed of fleets: 1 <br> Maximum Recommended Fleet Speed: 20';
+$LNG['se_normal_speed_fleet']              		= 'normal speed of fleets: 1 <br> Maximum Recommended Fleet Speed: 20';
+$LNG['se_normal_speed_halt']					= 'Normal Expo Speed: 1 <br> Maximum recommended settings: 20';
 $LNG['se_fleet_speed']                      		= 'Fleet Speed';
 $LNG['se_resources_producion_speed']        		= 'Resource Production Speed';
+$LNG['se_halt_speed']							= 'Expospeed';
 $LNG['se_forum_link']                       		= 'Link to your Forum';
 $LNG['se_server_op_close']                  		= 'Is your Server Online? - Check the box to open your server to Players';
 $LNG['se_server_status_message']			= 'Server Message - Put your Server or Maintanance Status Message here';
@@ -402,7 +406,12 @@ $LNG['se_google_info']					= 'Google Analytics is a solution that allows you to 
 $LNG['se_google_active']				= 'Activate Google Analytics?';
 $LNG['se_google_key']					= 'Google Analytics Key';
 $LNG['se_google_key_info']				= 'Once registered, Google with provide you with a key to identify your website, for their Analytics software. E.g. this always starts with UA: UA -13185300-3 ';
-	
+$LNG['se_bgm_login']					= 'Login Music';
+$LNG['se_bgm_active']					= 'Activate?';
+$LNG['se_bgm_info']						= 'The music playing on the home page in the background.';
+$LNG['se_bgm_file']						= 'Path:';
+$LNG['se_bgm_file_info']				= 'Relative or absolute paths possible!';
+
 //###########################################################//
 
 
@@ -432,11 +441,13 @@ $LNG['ad_authlevel_jj']        				= '[View Players]';
 $LNG['ad_authlevel_tt']        				= '[View All]';
 //###########################################################//
 
+
 //---------------	FLYING FLEETS	------------------------//
 $LNG['ff_flying_fleets']        			= 'Fleets in Flight';
 $LNG['ff_ammount']                			= 'Quantity';
 $LNG['ff_mission']                			= 'Mission Type';
 $LNG['ff_beginning']            			= 'Player';
+$LNG['ff_id']								= 'ID';
 $LNG['ff_departure']            			= 'Origination';
 $LNG['ff_departure_hour']        			= 'Departure Time';
 $LNG['ff_objective']            			= 'Objective';
@@ -449,19 +460,19 @@ $LNG['ff_goback_succes']        			= 'The Fleet is now returning to its originat
 $LNG['ff_lock']						= 'Lock';
 $LNG['ff_unlock']					= 'Unlock';
 $LNG['ff_no_fleets']					= 'No fleets are away at the present time.';
+
 //###########################################################//
+
 
 //---------------	UPDATE STATS	------------------------//
 $LNG['sb_top_memory']					= 'Peak Memory: %p KB / max. %m KB <br>';
 $LNG['sb_final_memory']					= 'Memory consumed at the end: %e KB / max. %m KB<br>';
 $LNG['sb_start_memory']					= 'Memory consumed at the beginning: %i KB / max. %m KB<br>';
 $LNG['sb_stats_update']					= 'Stats updated in: %t seconds<<br>';
-$LNG['sb_users_per_block']				= 'Number of Players per block: %n<br>';
-$LNG['sb_using_fleet_array']				= 'Using array of fleets in flight<br>';
-$LNG['sb_using_fleet_query']				= 'Using a query to the base of<br> data for the fleet user<br>';
 $LNG['sb_stats_updated']				= 'Updated statistics! <br>Details:<br>';
 $LNG['sb_sql_counts']					= 'SQL Query: %d';
 //###########################################################//
+
 
 //---------------	LISTA DE USUARIOS - USERS LIST	------------------------//
 $LNG['ul_sure_you_want_dlte']				= 'Are you sure that you want to remove?';
@@ -498,9 +509,9 @@ $LNG['mu_planets_options']            			= 'Planet Options';
 $LNG['mu_user_logs']                			= 'Log';
 $LNG['mu_support']                 			= 'Support Tickets';
 $LNG['mu_chat']                   			= 'Chat Administration';
-$LNG['mu_lotterie']               			= 'Lottery';
 $LNG['mu_module']                 			= 'Module';
 $LNG['mu_update']                 			= 'Game Updates';
+$LNG['mu_mod_update']              	= 'Mod Version Control';
 $LNG['mu_fb_options'] 					= 'Facebook Connect';
 $LNG['mu_ts_options'] 					= 'Teamspeak Options';
 $LNG['mu_game_info'] 					= 'Information';
@@ -508,6 +519,7 @@ $LNG['mu_vaild_users']					= 'User Activity';
 $LNG['mu_news']						= 'News'; 
 
 //###########################################################//
+
 
 //---------------	RESET UNIVERSE	------------------------//
 $LNG['re_reset_universe']		                = 'Reset Universe';
@@ -856,17 +868,6 @@ $LNG['qe_coords']					= 'Coordinates';
 $LNG['qe_temp']						= 'Temperature';
 
 //----------------------------------------------------------------------------//
-// ChatPage.php
-$LNG['ch_title']                       			= "Chat Administration";
-$LNG['ch_list']                        			= "News List";
-$LNG['ch_clear']                       			= "Delete Chat";
-$LNG['ch_id_msg']                      			= "ID";
-$LNG['ch_delete_msg']                  			= "Delete";
-$LNG['ch_user']                        			= "Player";
-$LNG['ch_time']                        			= "Date";
-$LNG['ch_nbs']                         			= "News ...";  
-
-//----------------------------------------------------------------------------//
 //TeamSpeakSettingPage.php
 $LNG['ts_settings']					= 'Teamspeak Settings';
 $LNG['ts_active']					= 'Activate Teamspeak Module?';
@@ -888,7 +889,6 @@ $LNG['fb_info']						= 'With Facebook Connect users who are logged on to Faceboo
 
 //----------------------------------------------------------------------------//
 //GameModule.php
-
 $LNG['modul'][0]                        		= 'Alliance';
 $LNG['modul'][2]                        		= 'Construction - Buildings';
 $LNG['modul'][3]                        		= 'Building - Research';
@@ -934,7 +934,6 @@ $LNG['mod_deactive']					= 'Inactive';
 $LNG['mod_change_active']				= 'Activated';
 $LNG['mod_change_deactive']				= 'Deactivated';
 
-
 //News
 
 $LNG['nws_news']					= 'News';
@@ -949,4 +948,19 @@ $LNG['nws_confirm']					= 'Are you sure that you want to remove %s the message?'
 $LNG['nws_create']					= 'Creating News';
 $LNG['nws_total']					= 'Total %d News Available';
 $LNG['nws_content']					= 'Contents';
+
+//Mod Versions Control
+
+$LNG['mvc_title']						= 'Title';
+$LNG['mvc_author']						= 'Author';
+$LNG['mvc_version']						= 'Version';
+$LNG['mvc_link']						= 'Link';
+$LNG['mvc_update_yes']					= 'An update is available!';
+$LNG['mvc_update_no']					= 'Latest version is installed!';
+$LNG['mvc_update_version']				= 'Latest Version';
+$LNG['mvc_update_date']					= 'Released';
+$LNG['mvc_announcement']				= 'Announcement';
+$LNG['mvc_download']					= 'Download';
+$LNG['mvc_desc']						= 'Description';
+
 ?>
