@@ -155,9 +155,14 @@ class DB_mysqli extends mysqli
 	 *
 	 * @return string Returns the escaped string, or false on error.
 	 */
-	public function sql_escape($string)
+	
+    public function sql_escape($string, $flag = false)
+    {
+                return ($flag === false) ? parent::escape_string($string): return addcslashes(parent::escape_string($string), '%_');
+    }
+	public function str_correction($str)
 	{
-		return addcslashes(parent::escape_string($string), '%_');
+		return stripcslashes($str);
 	}
 
 	/**

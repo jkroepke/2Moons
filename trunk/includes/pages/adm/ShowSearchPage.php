@@ -106,13 +106,13 @@ function ShowSearchPage()
 			$SpecifyWhere	=	"= '".$db->sql_escape($SearchKey)."'";
 		break;
 		case 'last':
-			$SpecifyWhere	=	"LIKE '".$db->sql_escape($SearchKey)."%'";
+			$SpecifyWhere	=	"LIKE '".$db->sql_escape($SearchKey, true)."%'";
 		break;
 		case 'first':
-			$SpecifyWhere	=	"LIKE '%".$db->sql_escape($SearchKey)."'";
+			$SpecifyWhere	=	"LIKE '%".$db->sql_escape($SearchKey, true)."'";
 		break;
 		default:
-			$SpecifyWhere	=	"LIKE '%".$db->sql_escape($SearchKey)."%'";
+			$SpecifyWhere	=	"LIKE '%".$db->sql_escape($SearchKey, true)."%'";
 		break;
 	};
 
