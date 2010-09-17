@@ -2,7 +2,6 @@
 {include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
 <div id="content" class="content">
-{$BuildListScript}
 	{if !$NotBuilding}<span style="color:red">{$bd_building_shipyard}</span><br>{/if}
 	{if $BuildList}
     <table>

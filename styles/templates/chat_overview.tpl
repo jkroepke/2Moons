@@ -75,10 +75,6 @@
 	</tr>
 </table>
 </form>
-<script type="text/javascript">
-setTimeout("showMessage()",50);
-setInterval(showMessage,10000);
-</script>
 {if !$ctype}
 </div>
 {include file="planet_menu.tpl"}
