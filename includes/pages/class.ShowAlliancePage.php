@@ -232,7 +232,7 @@ class ShowAlliancePage
 
 							if (!empty($searchtext))
 							{
-								$Search = $db->query("SELECT id, ally_tag, ally_name, ally_members FROM ".ALLIANCE." WHERE ally_name LIKE '%".$db->sql_escape($searchtext)."%' OR ally_tag LIKE '%".$db->sql_escape($searchtext)."%' LIMIT 30;");
+								$Search = $db->query("SELECT id, ally_tag, ally_name, ally_members FROM ".ALLIANCE." WHERE ally_name LIKE '%".$db->sql_escape($searchtext, true)."%' OR ally_tag LIKE '%".$db->sql_escape($searchtext, true)."%' LIMIT 30;");
 								$SeachResult	= array();
 								
 								while ($CurrRow = $db->fetch_array($Search))
