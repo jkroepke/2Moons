@@ -117,6 +117,7 @@
 </div>
 </div>
 <script type="text/javascript">
+buildtime	= {$buildtime} * 1000;
 ov_password	= "{$ov_password}";
 </script>
 {include file="planet_menu.tpl"}

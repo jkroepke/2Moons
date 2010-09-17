@@ -71,3 +71,20 @@ TimerHandler.prototype._timer = function() {
         }
     }
 }
+
+function GetRestTimeFormat(Secs) {
+	var s = Secs;
+	var m = 0;
+	var h = 0;
+	
+	if (s > 59) {
+		m = Math.floor( s / 60);
+		s = s - m * 60;
+	}
+	
+	if (m > 59) {
+		h = Math.floor( m / 60);
+		m = m - h * 60;
+	}
+	return dezInt(h, 2) + ':' + dezInt(m, 2) + ":" + dezInt(s, 2);
+}

@@ -142,19 +142,14 @@ function ShowOverviewPage()
 				if ($ID == $_SESSION['planet'] || $CPLANET['planet_type'] == 3)
 					continue;
 
-				if (!empty($CPLANET['b_building_id']))
-				{
-					$QueueArray      = explode ( ";", $CPLANET['b_building_id']);
-					$CurrentBuild    = explode ( ",", $QueueArray[0] );
-					
-					if($CurrentBuild[3] - TIMESTAMP > 0)
-						$BuildPlanet	 = $LNG['tech'][$CurrentBuild[0]]." (".$CurrentBuild[1].") <br><font color=\"#7f7f7f\">(".pretty_time($CurrentBuild[3] - TIMESTAMP).")</font>";
-					else
-						$BuildPlanet     = $LNG['ov_free'];
-				}
-				else
+				if (!empty($CPLANET['b_building']) && $CPLANET['b_building'] > TIMESTAMP) {
+					$Queue				= explode(';', $CPLANET['b_building_id']);
+					$CurrBuild			= explode(',', $Queue[0]);
+					$BuildPlanet		= $LNG['tech'][$CurrBuild[0]]." (".$CurrBuild[1].")<br><span style=\"color:#7F7F7F;\">(".pretty_time($CurrBuild[3] - TIMESTAMP).")</span>";
+				} else {
 					$BuildPlanet     = $LNG['ov_free'];
-					
+				}
+				
 				$AllPlanets[] = array(
 					'id'	=> $CPLANET['id'],
 					'name'	=> $CPLANET['name'],
@@ -168,29 +163,16 @@ function ShowOverviewPage()
 				$Moon = $db->uniquequery("SELECT `id`, `name` FROM ".PLANETS." WHERE `id` = '".$PLANET['id_luna']."';");
 			}
 
-			if (!empty($PLANET['b_building_id']))
+			if (!empty($PLANET['b_building']))
 			{
-				$BuildQueue  		 = explode (";", $PLANET['b_building_id']);
-				$CurrBuild 	 		 = explode (",", $BuildQueue[0]);
-				$RestTime 	 		 = $CurrBuild[3] - TIMESTAMP;
-				$Build 	   			.= $LNG['tech'][$CurrBuild[0]] . ' (' . ($CurrBuild[1]) . ')';
-				$Build 				.= "<br><div id=\"blc\" class=\"z\">" . pretty_time($RestTime) . "</div>";
-				$Build 				.= "\n<script type=\"text/javascript\">";
-				$Build 				.= "\n	pp = '" . $RestTime . "';\n";
-				$Build 				.= "\n	pl = '".$PLANET['id']."';\n";
-				$Build 				.= "\n	ne = '".$LNG['tech'][$CurrBuild[0]]."';\n";
-				$Build 				.= "\n	bd_continue = '".$LNG['bd_continue']."';\n";
-				$Build 				.= "\n	bd_finished = '".$LNG['bd_finished']."';\n";
-				$Build 				.= "\n	bd_cancel = '".$LNG['bd_cancel']."';\n";
-				$Build 				.= "\n  loc = 'overview';\n";
-				$Build 				.= "\n  gamename = '".$CONF['game_name']."';\n";
-				$Build 				.= "\n	Buildlist();\n";
-				$Build 				.= "\n</script>\n";
-				$template->loadscript('buildlist.js');
+				$Queue		= explode(';', $PLANET['b_building_id']);
+				$CurrBuild	= explode(',', $Queue[0]);
+				$Build		= $LNG['tech'][$CurrBuild[0]].' ('.$CurrBuild[1].')<br><div id="blc">"'.pretty_time($PLANET['b_building'] - TIMESTAMP).'</div>';
+				$template->execscript('BuildTime();');
 			}
 			else
 			{
-				$Build 				= $LNG['ov_free'];
+				$Build 		= $LNG['ov_free'];
 			}
 
 			$Teamspeak = '';			
@@ -255,6 +237,7 @@ function ShowOverviewPage()
 				'galaxy'					=> $PLANET['galaxy'],
 				'system'					=> $PLANET['system'],
 				'planet'					=> $PLANET['planet'],
+				'buildtime'					=> $PLANET['b_building'],
 				'userid'					=> $USER['id'],
 				'username'					=> $USER['username'],
 				'fleets'					=> $fpage,

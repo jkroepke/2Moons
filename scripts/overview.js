@@ -51,3 +51,13 @@ function cancel()
 	$('#newname').hide();
 	$('#password').show();
 }
+
+function BuildTime() {
+	var s	= (buildtime - serverTime.getTime()) / 1000;
+	if(s <= 0) {
+		document.location.href = "game.php?page=overview";
+		return;
+	}
+	$('#blc').text(GetRestTimeFormat(s));
+	window.setTimeout('BuildTime()', 1000);
+}

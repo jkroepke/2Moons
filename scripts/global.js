@@ -6,7 +6,6 @@ LocalizationStrings.timeunits.short.hour = 'h';
 LocalizationStrings.timeunits.short.minute = 'm';
 LocalizationStrings.timeunits.short.second = 's';
 LocalizationStrings.status = new Array();
-LocalizationStrings.status.ready = '{$ready}';
 
 LocalizationStrings.decimalPoint = ",";
 LocalizationStrings.thousandSeperator = ".";
@@ -185,9 +184,9 @@ function Servertime(timestamp)
 }
 
 function maxcount(id){
-	var metmax = met / parseInt($('#metal_'+id).text().replace(/\./g,""));
-	var crymax = cry / parseInt($('#crystal_'+id).text().replace(/\./g,""));
-	var deumax = deu / parseInt($('#deuterium_'+id).text().replace(/\./g,""));
+	var metmax = parseInt($('#current_metal').text().replace(/\./g, '')) / parseInt($('#metal_'+id).text().replace(/\./g,""));
+	var crymax = parseInt($('#current_crystal').text().replace(/\./g, '')) / parseInt($('#crystal_'+id).text().replace(/\./g,""));
+	var deumax = parseInt($('#current_deuterium').text().replace(/\./g, '')) / parseInt($('#deuterium_'+id).text().replace(/\./g,""));
 	if(isNaN(metmax) && isNaN(crymax) && isNaN(deumax))
 		return 0;
 	else if(isNaN(metmax) && isNaN(crymax))
