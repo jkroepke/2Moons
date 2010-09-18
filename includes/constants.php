@@ -27,7 +27,7 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	define('TEMPLATE_DIR'     		  , 'styles/templates/');
 	
 	define('PROTOCOL'				  , !empty($_SERVER["HTTPS"]) ? 'https://' : 'http://');
-	define('HTTP_ROOT'				  , str_replace(array('\\', '//'), '/', dirname($_SERVER['SCRIPT_NAME'])).'/');
+	define('HTTP_ROOT'				  , str_replace(basename($_SERVER["PHP_SELF"]), '', $_SERVER["PHP_SELF"]));
 
 	define('DEFAULT_LANG'             , "de"); // For Fatal Errors!
 	define('PHPEXT'                   , "php");
