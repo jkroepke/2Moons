@@ -29,7 +29,7 @@ function Buildlist() {
 	if ( s <= 0 ) {
 		if(data.build.length == 1){
 			$('#blc').html(data.bd_finished + '<br><a href=?page=build>'+data.bd_continue+'</a>');
-			document.location.href = 'game.php?page=buildings';
+			window.location.href = 'game.php?page=buildings';
 			return true;
 		} else {
 			data.build.shift();

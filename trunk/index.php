@@ -476,7 +476,7 @@ switch ($page) {
 					echo sprintf($LNG['user_active'], $UserName);
 				} else {
 					$SESSION       	= new Session();
-					$SESSION->CreateSession($NewUser['id'], $UserName,  $PlanetID['id']);
+					$SESSION->CreateSession($NewUser['id'], $UserName, $PlanetID['id']);
 
 					redirectTo("game.".PHP_EXT."?page=overview");
 				}
