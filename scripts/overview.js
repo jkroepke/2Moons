@@ -55,7 +55,7 @@ function cancel()
 function BuildTime() {
 	var s	= (buildtime - serverTime.getTime()) / 1000;
 	if(s <= 0) {
-		document.location.href = "game.php?page=overview";
+		window.location.href = "game.php?page=overview";
 		return;
 	}
 	$('#blc').text(GetRestTimeFormat(s));

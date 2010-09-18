@@ -1,4 +1,4 @@
-var days = new Array('Mon', 'Tus', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun');
+var days = new Array('Sun', 'Mon', 'Tus', 'Wed', 'Thu', 'Fri', 'Sat');
 var months = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
 
 function getFormatedDate(timestamp, format) {

@@ -36,6 +36,8 @@
 				<option label="XG Proyecto 2.9.2" value="xgp">XG Proyecto 2.9.2</option>
 				<option label="XG Proyecto 2.9.3" value="xgp">XG Proyecto 2.9.3</option>
 				<option label="XG Proyecto 2.9.4" value="xgp">XG Proyecto 2.9.4</option>
+				<option label="XG Proyecto 2.9.5" value="xgp">XG Proyecto 2.9.5</option>
+				<option label="XG Proyecto 2.9.6" value="xgp">XG Proyecto 2.9.6</option>
 			</optgroup>
 			<optgroup label="XNova SVN">
 				<option label="XNova SVN v2.0" value="xsvn20">XNova SVN v2.0</option>
