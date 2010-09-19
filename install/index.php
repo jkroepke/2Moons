@@ -87,21 +87,31 @@ switch ($Mode) {
 			$PHP = "<span class=\"no\">".$LNG['reg_no'].", ".PHP_VERSION."</span>";
 			$error++;
 		}
+		
 		if(@ini_get('safe_mode') == 0){
 			$safemode = "<span class=\"yes\">".$LNG['reg_yes']."</span>";
 		} else {
 			$safemode = "<span class=\"no\">".$LNG['reg_no']."</span>";
 			$error++;
 		}
+		
+		if(function_exists('json_encode')){
+			$json = "<span class=\"yes\">".$LNG['reg_yes']."</span>";
+		} else {
+			$json = "<span class=\"no\">".$LNG['reg_no']."</span>";
+			$error++;
+		}
 
-		if(!extension_loaded('gd')){
+		if(!extension_loaded('gd')) {
 			$gdlib = "<span class=\"no\">".$LNG['reg_no']."</span>";
 		} else {
 			$Info	= gd_info();
-			if(!$Info['PNG Support'])
+			if(!$Info['PNG Support']) {
 				$gdlib = "<span class=\"no\">".$LNG['reg_no']."</span>";
-			else
+				$error++;
+			} else {
 				$gdlib = "<span class=\"yes\">".$LNG['reg_yes'].", ".$Info['GD Version']."</span>";
+			}
 		}
 
 		if(file_exists(ROOT_PATH."includes/config.php") || ($res = @fopen(ROOT_PATH."includes/config.php","w+") === true)){
@@ -111,10 +121,10 @@ switch ($Mode) {
 					$chmod = " - <span class=\"no\">".$LNG['reg_not_writable']."</span>";
 					$error++;
 				}
-			$config = "<tr><td>".$LNG['reg_file']." - ./includes/config.php</td><td><span class=\"yes\">".$LNG['reg_found']."</span>".$chmod."</td></tr>";
+			$config = "<tr><td class=\"transparent\">".$LNG['reg_file']." - ./includes/config.php</td><td class=\"transparent\"><span class=\"yes\">".$LNG['reg_found']."</span>".$chmod."</td></tr>";
 			@fclose($res);
 		} else {
-			$config = "<tr><td>".$LNG['reg_file']." - ./includes/config.php</td><td><span class=\"no\">".$LNG['reg_not_found']."</span></td></tr>";
+			$config = "<tr><td class=\"transparent\">".$LNG['reg_file']." - ./includes/config.php</td><td class=\"transparent\"><span class=\"no\">".$LNG['reg_not_found']."</span></td></tr>";
 			$error++;
 		}
 		$directories = array('cache/', 'cache/UserBanner/', 'cache/sessions/', 'raports/');
@@ -128,21 +138,22 @@ switch ($Mode) {
 						$chmod = " - <span class=\"no\">".$LNG['reg_not_writable']."</span>";
 						$error++;
 					}
-				$dirs .= "<tr><td>".$LNG['reg_dir']." - ".$dir."</th><td><span class=\"yes\">".$LNG['reg_found']."</span>".$chmod."</td></tr>";
+				$dirs .= "<tr><td class=\"transparent\">".$LNG['reg_dir']." - ".$dir."</th><td class=\"transparent\"><span class=\"yes\">".$LNG['reg_found']."</span>".$chmod."</td></tr>";
 
 			} else {
-				$dirs .= "<tr><td>".$LNG['reg_dir']." - ".$dir."</td><td><span class=\"no\">".$LNG['reg_not_found']."</span></td></tr>";
+				$dirs .= "<tr><td class=\"transparent\">".$LNG['reg_dir']." - ".$dir."</td><td class=\"transparent\"><span class=\"no\">".$LNG['reg_not_found']."</span></td></tr>";
 				$error++;
 			}
 		}
 
 		if($error == 0){
-			$done = "<tr><td colspan=\"2\"><a href=\"index.php?mode=ins&page=1&amp;lang=".$LANG."\">".$LNG['continue']."</a></td></tr>";
+			$done = "<tr><td colspan=\"2\" class=\"transparent\"><a href=\"index.php?mode=ins&page=1&amp;lang=".$LANG."\">".$LNG['continue']."</a></td></tr>";
 		}
 
 		$template->assign_vars(array(
 			'safemode'			=> $safemode,
 			'dir'				=> $dirs,
+			'json'				=> $json,
 			'done'				=> $done,
 			'config'			=> $config,
 			'gdlib'				=> $gdlib,
@@ -150,6 +161,7 @@ switch ($Mode) {
 			'req_php_need'		=> $LNG['req_php_need'],
 			'req_smode_active'	=> $LNG['req_smode_active'],
 			'reg_gd_need'		=> $LNG['reg_gd_need'],
+			'reg_json_need'		=> $LNG['reg_json_need'],
 		));
 		$template->show('install/ins_req.tpl');
 	break;

@@ -1,15 +1,18 @@
 {include file="install/ins_header.tpl"}
 <tr>
 	<td>
-		<table stylw="width:75%">
+		<table style="width:100%">
 			<tr>
-				<td>{$req_php_need}</td><td>{$PHP}</td>
+				<td class="transparent">{$req_php_need}</td><td class="transparent">{$PHP}</td>
 			</tr>
 			<tr>
-				<td>{$req_smode_active}</td><td>{$safemode}</th>
+				<td class="transparent">{$req_smode_active}</td><td class="transparent">{$safemode}</th>
 			</tr>
 			<tr>
-				<td>{$reg_gd_need}</td><td>{$gdlib}</td>
+				<td class="transparent">{$reg_gd_need}</td><td class="transparent">{$gdlib}</td>
+			</tr>
+			<tr>
+				<td class="transparent">{$reg_json_need}</td><td class="transparent">{$json}</td>
 			</tr>
 			{$dir}
 			{$config}
