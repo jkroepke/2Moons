@@ -386,8 +386,8 @@ class statbuilder{
 				$UserPoints[$PlanetData['id_owner']]['build']['count'] = $UserPoints[$PlanetData['id_owner']]['build']['points'] = $UserPoints[$PlanetData['id_owner']]['fleet']['count'] = $UserPoints[$PlanetData['id_owner']]['fleet']['points'] = $UserPoints[$PlanetData['id_owner']]['defense']['count'] = $UserPoints[$PlanetData['id_owner']]['defense']['points'] = 0;
 			
 			$BuildPoints		= $this->GetBuildPoints($PlanetData);
-			$FleetPoints		= $this->GetFleetPoints($UserData);
-			$DefensePoints		= $this->GetDefensePoints($UserData);
+			$FleetPoints		= $this->GetFleetPoints($PlanetData);
+			$DefensePoints		= $this->GetDefensePoints($PlanetData);
 			
 			$UserPoints[$PlanetData['id_owner']]['build']['count'] 		+= $BuildPoints['count'];
 			$UserPoints[$PlanetData['id_owner']]['build']['points'] 	+= $BuildPoints['points'];
