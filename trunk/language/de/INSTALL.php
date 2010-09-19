@@ -22,6 +22,7 @@ $LNG['reg_file']			= "Datei";
 $LNG['reg_dir']				= "Ordner";
 $LNG['reg_gd_need']			= "GB-Lib vorhanden?";
 $LNG['reg_mysqli_need']		= "MySQLi vorhanden?";
+$LNG['reg_json_need']		= "JSON vorhanden?";
 $LNG['req_php_need']		= "PHP-Version (min. 5.2.5)";
 $LNG['req_smode_active']	= "Safemode aktiv?";
 
