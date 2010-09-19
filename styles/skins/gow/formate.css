@@ -6,10 +6,10 @@ height:100%;
 width:100%
 }
 
-body,input,select,textarea,a,td,th,tr,table {
+body,input,select,textarea,a,td,th,tr,table,#planet_menu_content  a:hover {
 color:#CCC;
 font-family:Verdana;
-font-size:10px
+font-size:10px;
 }
 
 input,select,option,textarea {
@@ -83,7 +83,7 @@ border:1px solid #212121
 }
 
 .content {
-padding-bottom:5px;
+padding-bottom:26px;
 margin-left:205px;
 margin-top:10px;
 width:80%!important
@@ -196,9 +196,7 @@ background:url(img/topnavbg.png) repeat-x;
 border-radius:0 0 15px 15px;
 height:auto;
 margin-left:210px;
-margin-right:210px;
 text-align:center;
-top:0px;
 width:80%
 }
 
@@ -228,6 +226,7 @@ padding:0;
 position:absolute;
 top:-20px;
 width:200px;
+padding-bottom:26px;
 }
 
 #menu li {
@@ -251,14 +250,25 @@ background:url(img/button-.png) #900;
 color:#fff
 }
 
-#menu2 {
-height:auto;
-overflow:auto;
-position:absolute;
-right:10px;
-top:13px;
-width:174px;
-z-index:0
+#planet_menu {
+width:100%;
+position:fixed;
+bottom:0px;
+z-index:2;
+}
+
+#planet_menu_header{
+background:url(img/bkd_title.png);
+height:21px;
+text-align:right;
+padding-right:10px;
+}
+
+#planet_menu_content{
+background:url(img/bkd_bg.png) no-repeat #090909;
+text-align:left;
+padding-bottom:5px;
+overflow: auto;
 }
 
 #overDiv > table {
@@ -289,11 +299,11 @@ color:#fc6
 color:#f60
 }
 
-a,#menu2 a:hover {
+a {
 text-decoration:none
 }
 
-th a,.res_current {
+th a,.res_current{
 color:#FFF
 }
 

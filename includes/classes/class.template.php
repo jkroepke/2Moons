@@ -61,27 +61,37 @@ class template extends Smarty
 	
 	private function planetmenu()
 	{
-		global $LNG;
+		global $LNG, $USER;
 		if(empty($this->UserPlanets))
 			$this->getplanets();
 		
+		$this->loadscript("planetmenu.js");
+		$this->execscript("PlanetMenu();");
+
+		$Scripttime	= array();
 		foreach($this->UserPlanets as $PlanetQuery)
 		{
 			if(!empty($PlanetQuery['b_building_id']))
 			{
-				$QueueArray	= explode ( ";", $PlanetQuery['b_building_id']);
-				$BuildArray	= explode (",", $QueueArray[0]);
+				$QueueArray						= explode(";", $PlanetQuery['b_building_id']);
+				$ActualCount					= count($QueueArray);
+				for ($ID = 0; $ID < $ActualCount; $ID++)
+				{
+					$ListIDArray						= explode(",", $QueueArray[$ID]);
+					
+					if($ListIDArray[3] > TIMESTAMP)
+						$Scripttime[$PlanetQuery['id']][]	= $ListIDArray[3];
+				}
 			}
 			
 			$Planetlist[$PlanetQuery['id']]	= array(
-				'url'		=> $this->phpself."&amp;cp=".$PlanetQuery['id']."&amp;re=0",
+				'url'		=> $this->phpself."&amp;cp=".$PlanetQuery['id'],
 				'name'		=> $PlanetQuery['name'].(($PlanetQuery['planet_type'] == 3) ? " (".$LNG['fcm_moon'].")":""),
 				'image'		=> $PlanetQuery['image'],
 				'galaxy'	=> $PlanetQuery['galaxy'],
 				'system'	=> $PlanetQuery['system'],
 				'planet'	=> $PlanetQuery['planet'],
 				'ptype'		=> $PlanetQuery['planet_type'],
-				'Buildtime'	=> (!empty($PlanetQuery['b_building_id']) && $BuildArray[3] - TIMESTAMP > 0) ? pretty_time($BuildArray[3] - TIMESTAMP) : false,
 			);
 		}
 		
@@ -89,6 +99,7 @@ class template extends Smarty
 			'PlanetMenu' 		=> $Planetlist,
 			'show_planetmenu' 	=> $LNG['show_planetmenu'],
 			'current_pid'		=> $_SESSION['planet'],
+			'Scripttime'		=> json_encode($Scripttime),
 		));
 	}
 	
