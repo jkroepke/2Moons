@@ -17,13 +17,9 @@ google.load("feeds", "1");
 <table width="80%">
 	<tr>
     	<td class="c" colspan="2">{$ow_overview}</td>
-		<td class="c">Facebook</td>
     </tr>
 	<tr>
-    	<th style="height:50px" colspan="2"><div align="justify">{$ow_welcome_text}</div></th>
-		<th style="width:292px;vertical-align:top" align="center" rowspan="11">
-			<iframe id="fb_iframe" src="http://www.facebook.com/plugins/likebox.php?id=129282307106646&amp;width=292&amp;connections=10&amp;stream=true&amp;header=true&amp;height=587" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:292px; height:587px; background-color: #FFF" allowTransparency="true"></iframe>
-		</th>
+    	<th style="height:50px" colspan="2">{$ow_welcome_text}<br><iframe src="http://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2F2Moons%2F129282307106646&amp;width=292&amp;connections=0&amp;stream=false&amp;header=false&amp;height=62" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:292px; height:62px;" allowTransparency="true"></iframe></th>
     </tr>
     <tr>
         <td class="c" colspan="2">{$ow_support}</td>
@@ -34,8 +30,8 @@ google.load("feeds", "1");
 		<a href="http://www.xnova-reloaded.de/" target="_blank">xnova-reloaded.de - {$ow_forum}</a></th>
     </tr> 
 	<tr>
-		<td class="c">Donate - Paypal</td>
-		<td class="c">Donate - Moneybookers</td>
+		<td class="c" style="width:50%;">Donate - Paypal</td>
+		<td class="c" style="width:50%;">Donate - Moneybookers</td>
 	</tr>
 	<tr>
 		<th colspan="2">
@@ -47,7 +43,7 @@ google.load("feeds", "1");
 					value: Math.min(donate_{$date},donate_max) / donate_max
 				});
 			});
-			document.write("Goal: "+donate_max+"&euro; &bull; The Month Amount: "+donate_{$date}+" ("+donate_{$date} / donate_max+")%");
+			document.write("Goal: "+donate_max+"&euro; &bull; The Month Amount: "+donate_{$date}+"&euro; ("+donate_{$date} / donate_max+")%");
 			</script>
 		</th>
 	</tr>
