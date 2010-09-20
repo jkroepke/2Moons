@@ -5,7 +5,7 @@
 <td>{if $MessInfo.type == 50 && $MessCategory == 999}{$mg_game_message}{else}{$MessInfo.from}{/if}</td>
 <td>{$MessInfo.subject}
 {if $MessInfo.type == 1 && $MessCategory != 999}
-<a href="javascript:f('game.php?page=messages&amp;mode=write&amp;id={$MessInfo.sender}&amp;subject=Re:{$MessInfo.subject|strip_tags}','');" title="Nachricht an {$MessInfo.from|strip_tags} schreiben">
+<a href="javascript:OpenPopup('game.php?page=messages&amp;mode=write&amp;id={$MessInfo.sender}&amp;subject=Re:{$MessInfo.subject|strip_tags}', '', 720, 300);" title="Nachricht an {$MessInfo.from|strip_tags} schreiben">
 <img src="{$dpath}img/m.gif" border="0"></a>
 {/if}
 </td></tr>

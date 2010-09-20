@@ -20,7 +20,7 @@
 		<tr>
 			<td>{$smarty.foreach.Memberlist.iteration}</td>
 			<td>{$MemberInfo.username}</td>
-			<td><a href="javascript:f('game.php?page=messages&amp;mode=write&amp;id={$MemberInfo.id}','');"><img src="{$dpath}img/m.gif" border="0" title="{$write_message}"></a></td>
+			<td><a href="javascript:OpenPopup('game.php?page=messages&amp;mode=write&amp;id={$MemberInfo.id}','' , 720, 300);"><img src="{$dpath}img/m.gif" border="0" title="{$write_message}"></a></td>
 			<td>{$MemberInfo.range}</td>
 			<td>{$MemberInfo.points}</td>
 			<td><a href="game.php?page=galaxy&amp;mode=3&amp;galaxy={$MemberInfo.galaxy}&amp;system={$MemberInfo.system}">[{$MemberInfo.galaxy}:{$MemberInfo.system}:{$MemberInfo.planet}]</a></td>

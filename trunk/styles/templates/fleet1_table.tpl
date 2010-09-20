@@ -58,7 +58,7 @@
                 <td id="storage">-</td>
             </tr>
             <tr style="height:20px;">
-                <th colspan="2">{$fl_shortcut} <a href="javascript:f('game.php?page=shortcuts','short');">{$fl_shortcut_add_edit}</a></th>
+                <th colspan="2">{$fl_shortcut} <a href="javascript:OpenPopup('game.php?page=shortcuts', 'short', 720, 300);">{$fl_shortcut_add_edit}</a></th>
             </tr>
             {foreach name=ShoutcutList item=ShoutcutRow from=$Shoutcutlist}
 			{if $smarty.foreach.ShoutcutList.iteration is odd}<tr style="height:20px;">{/if}

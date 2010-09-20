@@ -28,7 +28,7 @@
             <td>{$range}{if $rights.admin} (<a href="?page=alliance&amp;mode=admin&amp;edit=ally">{$al_manage_alliance}</a>){/if}</td>
         </tr>
         <tr>
-            <td colspan="2"><a href="javascript:f('?page=chat&amp;chat_type=ally','');">{$al_goto_chat}</a></td>
+            <td colspan="2"><a href="javascript:OpenPopup('?page=chat&amp;chat_type=ally', '', 800, 800);">{$al_goto_chat}</a></td>
         </tr> 
 		{if $rights.seeapply && $req_count > 0}		
         <tr>
@@ -37,7 +37,7 @@
         {/if}
 		{if $rights.roundmail}
 		<tr>
-			<td>{$al_circular_message}</td><td><a href="javascript:f('?page=alliance&amp;mode=circular','');">{$al_send_circular_message}</a></td>
+			<td>{$al_circular_message}</td><td><a href="javascript:OpenPopup('?page=alliance&amp;mode=circular','', 720, 300);">{$al_send_circular_message}</a></td>
 		</tr>
         {/if}
 		<tr>

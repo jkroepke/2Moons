@@ -18,12 +18,12 @@
 		{foreach name=FleetList item=FleetListRow from=$FleetList}
 		<tr>
 			<td rowspan="2" style="width:120px;">
-				<a href="javascript:info({$FleetListRow.id});">
+				<a href="javascript:OpenPopup('game.php?page=infos&gid='+{$FleetListRow.id}, '', 640, 510);">
 					<img src="{$dpath}gebaeude/{$FleetListRow.id}.gif" alt="{$FleetListRow.name}" width="120" height="120">
 				</a>
 			</td>
 			<th>
-				<a href="javascript:info({$FleetListRow.id});">{$FleetListRow.name}</a>{if $FleetListRow.Available != 0} ({$bd_available} {$FleetListRow.Available}){/if}
+				<a href="javascript:OpenPopup('game.php?page=infos&gid='+{$FleetListRow.id}, '', 640, 510);">{$FleetListRow.name}</a>{if $FleetListRow.Available != 0} ({$bd_available} {$FleetListRow.Available}){/if}
 			</th>
 		</tr>
 		<tr>

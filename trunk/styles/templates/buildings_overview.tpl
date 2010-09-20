@@ -8,12 +8,12 @@
 		{foreach item=BuildInfoRow from=$BuildInfoList}
 		<tr>
 			<td rowspan="2" style="width:120px;">
-				<a href="javascript:info({$BuildInfoRow.id});">
+				<a href="javascript:OpenPopup('game.php?page=infos&gid='+{$BuildInfoRow.id}, '', 640, 510);">
 					<img src="{$dpath}gebaeude/{$BuildInfoRow.id}.gif" alt="{$BuildInfoRow.name}" width="120" height="120">
 				</a>
 			</td>
 			<th>
-				<a href="javascript:info({$BuildInfoRow.id});">{$BuildInfoRow.name}</a>{if $BuildInfoRow.level > 0} ({$bd_lvl} {$BuildInfoRow.level}){/if}
+				<a href="javascript:OpenPopup('game.php?page=infos&gid='+{$BuildInfoRow.id}, '', 640, 510);">{$BuildInfoRow.name}</a>{if $BuildInfoRow.level > 0} ({$bd_lvl} {$BuildInfoRow.level}){/if}
 			</th>
 		</tr>
 		<tr>
@@ -50,7 +50,7 @@
 							{$BuildInfoRow.EnergyNeed}
 							{/if}
 							{if $BuildInfoRow.level > 0 && $BuildInfoRow.id != 33}
-							<br>{if $BuildInfoRow.id == 43}<a href="javascript:f('game.php?page=infos&gid=43','');">{$bd_jump_gate_action}</a>{/if}<br>
+							<br>{if $BuildInfoRow.id == 43}<a href="javascript:OpenPopup('game.php?page=infos&gid=43', '', 720, 300);">{$bd_jump_gate_action}</a>{/if}<br>
 							<a href="#" onmouseover='return overlib("<table style=width:100%;margin:0;padding:0><tr><th colspan=2>Kosten f&uuml;r Abriss {$BuildInfoRow.name} {$BuildInfoRow.level}</th></tr><tr><td>{$Metal}</td><td>{$BuildInfoRow.destroyress.metal}</td></tr><tr><td>{$Crystal}</td><td>{$BuildInfoRow.destroyress.crystal}</td></tr><tr><td>{$Deuterium}:</td><td>{$BuildInfoRow.destroyress.deuterium}</td></tr><tr><td>Dauer:</td><td>{$BuildInfoRow.destroytime}</td></tr><tr><td colspan=2><a href=game.php?page=buildings&amp;cmd=destroy&amp;building={$BuildInfoRow.id}>{$bd_dismantle}</a></td></tr></table>", STICKY, MOUSEOFF, DELAY, 50, CENTER, OFFSETX, 0, OFFSETY, -40, WIDTH, 265);' onmouseout="return nd();">{$bd_dismantle}</a>
 							{/if}
 							&nbsp;
