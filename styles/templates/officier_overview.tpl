@@ -51,12 +51,12 @@
 		{foreach item=OfficierInfo from=$OfficierList}
 		<tr>
 			<td rowspan="2" style="width:120px;">
-				<a href="javascript:info({$OfficierInfo.id});">
+				<a href="javascript:OpenPopup('game.php?page=infos&gid='+{$OfficierInfo.id}, '', 640, 510);">
 					<img src="styles/images/officiers/{$OfficierInfo.id}.jpg" alt="{$OfficierInfo.name}" width="120" height="120">
 				</a>
 			</td>
 			<th>
-				<a href="javascript:info({$OfficierInfo.id});">{$OfficierInfo.name}</a> ({$of_lvl} {$OfficierInfo.level})
+				<a href="javascript:OpenPopup('game.php?page=infos&gid='+{$OfficierInfo.id}, '', 640, 510);">{$OfficierInfo.name}</a> ({$of_lvl} {$OfficierInfo.level})
 			</th>
 		</tr>
 		<tr>

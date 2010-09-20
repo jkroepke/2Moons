@@ -31,7 +31,7 @@
 
 		<li style="background-image: url('{$dpath}img/menu_acc.png');height:30px;"></li>
 		<li><a href="?page=messages">{$lm_messages}{if $new_message > 0}<span id="newmes"> (<span id="newmesnum">{$new_message}</span>)</span>{/if}</a></li>
-		<li><a href="javascript:f('?page=notes','{$lm_notes}');">{$lm_notes}</a></li>
+		<li><a href="javascript:OpenPopup('?page=notes','{$lm_notes}', 720, 300);">{$lm_notes}</a></li>
 		<li><a href="?page=buddy">{$lm_buddylist}</a></li>
 		<li><a href="?page=options">{$lm_options}</a></li>
 		<li><a href="?page=logout">{$lm_logout}</a></li>    

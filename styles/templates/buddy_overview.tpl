@@ -13,7 +13,7 @@
 </tr>
 {foreach name=OutRequestList item=OutRequestInfo from=$OutRequestList}
 <tr>
-<td><a href="javascript:f('game.php?page=messages&amp;mode=write&amp;id={$OutRequestInfo.playerid}','');">{$OutRequestInfo.name}</a></td>
+<td><a href="javascript:OpenPopup('game.php?page=messages&amp;mode=write&amp;id={$OutRequestInfo.playerid}', '', 720, 300);">{$OutRequestInfo.name}</a></td>
 <td>{if {$OutRequestInfo.allyname}}<a href="game.php?page=alliance&amp;mode=ainfo&amp;a={$OutRequestInfo.allyid}">{$OutRequestInfo.allyname}</a>{else}-{/if}</td>
 <td><a href="game.php?page=galaxy&amp;mode=3&amp;galaxy={$OutRequestInfo.galaxy}&amp;system={$OutRequestInfo.system}">{$OutRequestInfo.galaxy}:{$OutRequestInfo.system}:{$OutRequestInfo.planet}</a></td>
 <td>{$OutRequestInfo.text}</td>
@@ -32,7 +32,7 @@
 </tr>
 {foreach name=MyRequestList item=MyRequestInfo from=$MyRequestList}
 <tr>
-<td><a href="javascript:f('game.php?page=messages&amp;mode=write&amp;id={$MyRequestInfo.playerid}','');">{$MyRequestInfo.name}</a></td>
+<td><a href="javascript:OpenPopup('game.php?page=messages&amp;mode=write&amp;id={$MyRequestInfo.playerid}', '', 720, 300);">{$MyRequestInfo.name}</a></td>
 <td>{if {$MyRequestInfo.allyname}}<a href="game.php?page=alliance&amp;mode=ainfo&amp;a={$MyRequestInfo.allyid}">{$MyRequestInfo.allyname}</a>{else}-{/if}</td>
 <td><a href="game.php?page=galaxy&amp;mode=3&amp;galaxy={$MyRequestInfo.galaxy}&amp;system={$MyRequestInfo.system}">{$MyRequestInfo.galaxy}:{$MyRequestInfo.system}:{$MyRequestInfo.planet}</a></td>
 <td>{$MyRequestInfo.text}</td>
@@ -50,7 +50,7 @@
 </tr>
 {foreach name=MyBuddyList item=MyBuddyInfo from=$MyBuddyList}
 <tr>
-<td><a href="javascript:f('game.php?page=messages&amp;mode=write&amp;id={$MyBuddyInfo.playerid}','');">{$MyBuddyInfo.name}</a></td>
+<td><a href="javascript:OpenPopup('game.php?page=messages&amp;mode=write&amp;id={$MyBuddyInfo.playerid}', '', 720, 300);">{$MyBuddyInfo.name}</a></td>
 <td>{if {$MyBuddyInfo.allyname}}<a href="game.php?page=alliance&amp;mode=ainfo&amp;a={$MyBuddyInfo.allyid}">{$MyBuddyInfo.allyname}</a>{else}-{/if}</td>
 <td><a href="game.php?page=galaxy&amp;mode=3&amp;galaxy={$MyBuddyInfo.galaxy}&amp;system={$MyBuddyInfo.system}">{$MyBuddyInfo.galaxy}:{$MyBuddyInfo.system}:{$MyBuddyInfo.planet}</a></td>
 <td>
