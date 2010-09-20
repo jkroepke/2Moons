@@ -51,27 +51,27 @@
 <tr>
 <td>&nbsp;</td>
 <td>{$pl_fights}</td>
-<td class="right">{$pl_fprocent}</td>
+<td>{$pl_fprocent}</td>
 </tr>
 <tr>
 <td>{$pl_fightwon}</td>
 <td>{$wons}</td>
-<td class="right">{$siegprozent} %</td>
+<td>{$siegprozent} %</td>
 </tr>
 <tr>
 <td>{$pl_fightdraw}</td>
 <td>{$draws}</td>
-<td class="right">{$drawsprozent} %</td>
+<td>{$drawsprozent} %</td>
 </tr>
 <tr>
 <td>{$pl_fightlose}</td>
 <td>{$loos}</td>
-<td class="right">{$loosprozent} %</td>
+<td>{$loosprozent} %</td>
 </tr>
 <tr>
 <td>{$pl_totalfight}</td>
 <td>{$totalfights}</td>
-<td class="right">100%</td>
+<td>100%</td>
 </tr>
 <tr>
 <th colspan="3">{$playerdestory}:</th>
