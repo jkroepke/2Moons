@@ -349,7 +349,7 @@ function ShowAccountEditorPage()
 					$PersonalQuery    .= "`email_2` = '".$db->sql_escape($email_2)."', ";
 
 				if(!empty($password) && $id != 1)
-					$PersonalQuery    .= "`password` = '".$db->sql_escape($password)."', ";
+					$PersonalQuery    .= "`password` = '".$db->sql_escape(md5($password))."', ";
 
 					
 				$Answer		= 0;
