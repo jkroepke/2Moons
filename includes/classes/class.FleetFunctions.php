@@ -308,8 +308,7 @@ abstract class FleetFunctions
 	
 	public static function GotoFleetPage()
 	{
-		throw new Exception("x");
-		#redirectTo("game.".PHP_EXT."?page=fleet");
+		redirectTo("game.".PHP_EXT."?page=fleet");
 	}
 
 	function GetAKSPage($CurrentUser, $CurrentPlanet, $fleetid)
