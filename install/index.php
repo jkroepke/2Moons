@@ -212,7 +212,6 @@ switch ($Mode) {
 			"\$dbsettings['secretword']  = '2Moons_".mt_rand(1000, 9999999999)."';\n\n".
 			"//### Do not change beyond here ###//\n".
 			"?>");
-			fclose($dz);
 			@chmod("../includes/config.php", 0444);
 
 			$third	= "config.php erfolgreich erstellt...";
