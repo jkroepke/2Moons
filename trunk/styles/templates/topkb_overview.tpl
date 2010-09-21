@@ -19,7 +19,7 @@
 {foreach item=RowInfo key=RowNR from=$TopKBList}
 <tr>
     <td>{$RowNR + 1}</td>
-    <td><a href="game.php?page=topkb&amp;action=showkb&amp;rid={$RowInfo.rid}" onclick="topkb('{$RowInfo.rid}');return false">
+    <td><a href="game.php?page=topkb&amp;action=showkb&amp;rid={$RowInfo.rid}" onclick="OpenPopup('game.php?page=topkb&mode=showkb&rid={$RowInfo.rid}', 'raport', screen.width, screen.height);return false;">
 	{if $RowInfo.result == "a"}
 	<span style="color:#00FF00">{$RowInfo.attacker}</span> VS <span style="color:#FF0000">{$RowInfo.defender}</span>
 	{elseif $RowInfo.result == "r"}
