@@ -15,8 +15,8 @@ $LNG['menu_disclamer']		= 'Impressum';
 	 
 /* ------------------------------------------------------------------------------------------ */
 
-$LNH['music_off']			= 'Music: OFF';
-$LNH['music_on']			= 'Music: ON';
+$LNG['music_off']			= 'Music: OFF';
+$LNG['music_on']			= 'Music: ON';
 
 
 //index.php
