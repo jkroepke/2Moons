@@ -6,7 +6,7 @@ function add(){
 }
 
 function check(){
-	var kb = window.open("about:blank", "kb", "scrollbars=yes,statusbar=no,toolbar=no,location=no,directories=no,resizable=no,menubar=no,width="+(xsize-100)+",height="+(ysize-100)+",screenX="+((xsize-(xsize-100))/2)+",screenY="+((ysize-(ysize-100))/2)+",top="+((ysize-(ysize-100))/2)+",left="+((xsize-(xsize-100))/2));
+	var kb = window.open('about:blank', 'kb', 'scrollbars=yes,statusbar=no,toolbar=no,location=no,directories=no,resizable=no,menubar=no,width='+screen.width+',height='+screen.height+', screenX=0, screenY=0, top=0, left=0');
 	$("#submit:visible").removeAttr('style').hide().fadeOut();
 	$("#wait:hidden").removeAttr('style').hide().fadeIn();
 	$.post('?page=battlesim&action=send', $('#battlesim').serialize(), function(data){
