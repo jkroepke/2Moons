@@ -50,11 +50,8 @@ $LNG['sys_mess_spy_ennemyfleet']      = 'Чужой флот с планеты';
 $LNG['sys_mess_spy_seen_at']          = 'был обнаружен вблизи от планеты';
 $LNG['sys_mess_spy_seen_at2']         = '';
 $LNG['sys_mess_spy_destroyed']        = '<font color="red">Ваши шпионские зонды были уничтожены!</font>';
-$LNG['sys_mess_attack_report_mess']   = '<a href="javascript:kb(\'%s\');"><center><font color="%s">%s %s</font></a><br><br><font color="%s">%s: %s</font> <font color="%s">%s: %s</font><br>%s %s:<font color="#adaead">%s</font> %s:<font color="#ef51ef">%s</font> %s:<font color="#f77542">%s</font><br>%s %s:<font color="#adaead">%s</font> %s:<font color="#ef51ef">%s</font><br></center>';
+$LNG['sys_mess_attack_report_mess']   = '<a href="CombatReport.php?raport=%s" onclick="OpenPopup(\'CombatReport.php?raport=%s\', \'combat\', screen.width, screen.height);return false"><center><font color="%s">%s %s</font></a><br><br><font color="%s">%s: %s</font> <font color="%s">%s: %s</font><br>%s %s:<font color="#adaead">%s</font> %s:<font color="#ef51ef">%s</font> %s:<font color="#f77542">%s</font><br>%s %s:<font color="#adaead">%s</font> %s:<font color="#ef51ef">%s</font><br></center>';
 $LNG['sys_adress_planet']             = '[%s:%s:%s]';
-$LNG['sys_stay_mess_goods']           = '%s : %s, %s : %s, %s : %s';
-$LNG['sys_stay_mess_back']            = 'Один из Ваших флотов достигает планеты ';
-$LNG['sys_stay_mess_bend']            = 'Флот доставляет: ';
 $LNG['sys_colo_mess_from']            = 'Колонизация';
 $LNG['sys_colo_mess_report']          = 'Доклад поселенцев';
 $LNG['sys_colo_defaultname']          = 'Колония';
@@ -169,7 +166,6 @@ $LNG['sys_destruc_mess']              = 'Флот с планеты [%d:%d:%d] �
 $LNG['sys_destruc_echec']             = 'На поверхности луны начинают появляться гигантские трещины, но что-то идёт не так, как надо, гравитон в реакторах вызывает реакцию и звёзды смерти разлетаются на куски.';
 $LNG['sys_destruc_reussi']            = 'На поверхности луны появляются гигантские трещины, вскоре луна раскалывается на куски, миссия выполнена. Флот возвращается домой.';
 $LNG['sys_destruc_null']              = 'Звёзды смерти не произвели достаточно мощный выстрел, миссия не выполнена. Флот возвращается домой.';
-$LNG['sys_module_inactive']           = 'Модуль отключён';
 
 $LNG['sys_stat_mess_stay']            = 'Удерживающийся флот';
 $LNG['sys_stat_mess']                 = 'Ваш флот достиг планеты %s и доставил груз: %s %s, %s %s и %s %s.';
@@ -178,7 +174,7 @@ $LNG['fcp_colony']                    = 'Планета';
 $LNG['fl_simulate']                   = 'Симулировать';
 
 $LNG['type_mission'][1]               = 'Атака';
-$LNG['type_mission'][2]               = 'Совсестная атака';
+$LNG['type_mission'][2]               = 'Совместная атака';
 $LNG['type_mission'][3]               = 'Транспорт';
 $LNG['type_mission'][4]               = 'Оставить';
 $LNG['type_mission'][5]               = 'Держаться';
