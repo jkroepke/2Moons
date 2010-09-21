@@ -20,6 +20,7 @@ $LNG['Energy']                            = 'Энергия';
 $LNG['Messages']                          = 'Сообщения';
 $LNG['write_message']                     = 'Написать сообщение';
 
+$LNG['ready']                             = 'Готово';
 $LNG['show_planetmenu']                   = 'показать/скрыть';
 
 $LNG['type_mission'][1]                   = 'Атака';
@@ -277,6 +278,8 @@ $LNG['fl_send_fleet']                     = 'Отправить флот';
 $LNG['fl_fleet_speed']                    = 'Скорость';
 $LNG['fl_distance']                       = 'Расстояние';
 $LNG['fl_flying_time']                    = 'Время полёта (в одну сторону)';
+$LNG['fl_flying_arrival']                 = 'Уход';
+$LNG['fl_flying_return']                  = 'Возврат';
 $LNG['fl_fuel_consumption']               = 'Потребление топлива';
 $LNG['fl_max_speed']                      = 'Максимальная скорость';
 $LNG['fl_cargo_capacity']                 = 'Грузоподъёмность';
@@ -331,6 +334,10 @@ $LNG['fl_no_empty_derbis']                = 'Поле обломков не су
 $LNG['fl_acs_newname_alphanum']           = 'Название может содержать только алфавитно-цифровые символы.';
 $LNG['fl_acs_change']                     = 'Переименовать';
 $LNG['fl_acs_change_name']                = 'Введите новое название';
+$LNG['fl_error_not_avalible']             = 'Колонизация этой планеты в данный момент невозможна!';
+$LNG['fl_error_empty_derbis']             = 'Поял обломков не существует!';
+$LNG['fl_error_no_moon']                  = 'Луны не существует!';
+$LNG['fl_error_same_planet']              = 'Пункт отправления и пункт назначения идентичны!';
 
 // Постройки - Исследования - Верфь - Оборона
 $LNG['bd_dismantle']                      = 'Разрушить';

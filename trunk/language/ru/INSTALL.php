@@ -22,6 +22,7 @@ $LNG['reg_file']           = "Файл";
 $LNG['reg_dir']            = "Папка";
 $LNG['reg_gd_need']        = "GB-Lib доступна?";
 $LNG['reg_mysqli_need']    = "MySQLi доступна?";
+$LNG['reg_json_need']      = "JSON доступен?";
 $LNG['req_php_need']       = "PHP-версия (мин. 5.2.5)";
 $LNG['req_smode_active']   = "Безопасный режим включён?";
 
