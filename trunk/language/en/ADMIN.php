@@ -111,17 +111,17 @@ $LNG['ad_editor_personal']				= 'Personal Data';
 $LNG['ad_editor_planets']				= 'Planets and Moons';
 $LNG['ad_editor_resources']				= 'Resources';
 $LNG['ad_editor_alliances']				= 'Alliance';
-$LNG['ad_editor_authlevels']				= 'Manage Permissions';
+$LNG['ad_editor_authlevels']			= 'Manage Permissions';
 
 // RESEARCH
 $LNG['ad_research_title']				= 'Edit Research';
-$LNG['ad_add_succes']	        			= 'Research added Successfully!';
+$LNG['ad_add_succes']	        		= 'Research added Successfully!';
 $LNG['ad_delete_succes']  				= 'Research deleted Successfully!';
 
 // OFFICERS
 $LNG['ad_offi_title']					= 'Edit Officers';
 $LNG['ad_offi_succes_add']				= 'Officers added Successfully!';
-$LNG['ad_offi_succes_delete']				= 'Officers deleted Succefully!';
+$LNG['ad_offi_succes_delete']			= 'Officers deleted Succefully!';
 
 // RESOURCES
 $LNG['ad_main_title']					= 'Manage Resources and Technologies'; 
@@ -131,20 +131,20 @@ $LNG['ad_delete_sucess']				= 'Resources deleted Successfully!';
 // SHIPS
 $LNG['ad_ships_title']					= 'Edit Ships';
 $LNG['ad_add_sucess_ships']				= 'Ships added Successfully!';
-$LNG['ad_delete_sucess_ships']				= 'Ships deleted Successfully!';
+$LNG['ad_delete_sucess_ships']			= 'Ships deleted Successfully!';
 
 // DEFENSE
-$LNG['ad_defenses_title']      				= 'Edit Defense';
-$LNG['ad_add_defenses_succes']				= 'Defense added Successfully!';
-$LNG['ad_delete_defenses_succes']			= 'Defense deleted successfully!';
+$LNG['ad_defenses_title']      			= 'Edit Defense';
+$LNG['ad_add_defenses_succes']			= 'Defense added Successfully!';
+$LNG['ad_delete_defenses_succes']		= 'Defense deleted successfully!';
 
 // BUILDINGS
 $LNG['ad_buildings_title']				= 'Edit Buildings';
 $LNG['ad_planet_id']					= 'ID Planet or Moon';
-$LNG['ad_levels']					= 'Levels Count';
-$LNG['ad_add_succes']        				= 'Buildings added Successfully!';
+$LNG['ad_levels']						= 'Levels Count';
+$LNG['ad_count']						= 'Count';
+$LNG['ad_add_succes']        			= 'Buildings added Successfully!';
 $LNG['ad_delete_succes']				= 'Buildings deleted Successfully!';
-$LNG['ad_error_moon_only']				= 'Lunar Buildings can only be added on Moons!';
 
 // PERSONAL DATA
 $LNG['ad_personal_title']				= 'Edit Personal Data';
