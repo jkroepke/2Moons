@@ -447,7 +447,6 @@ class ShowFleetPages extends FleetFunctions
 		$TransportCrystal		= round(request_var('crystal', 0.0), 0);
 		$TransportDeuterium		= round(request_var('deuterium', 0.0), 0);
 		$holdingtime 			= request_var('holdingtime', 0);
-		$acs_target_mr			= request_var('acs_target_mr', '');
 		$rawfleetarray			= request_var('usedfleet', '', true);
 
 		$thisgalaxy			 	= $PLANET['galaxy'];
@@ -620,7 +619,7 @@ class ShowFleetPages extends FleetFunctions
 			}		
 		}
 		
-		if(parent::CheckUserSpeed() || !array_key_exists($mission, parent::GetAvailableMissions(array('CurrentUser' => $USER,'galaxy' => $galaxy, 'system' => $system,'planet' => $planet, 'planettype' => $planettype,'IsAKS' => $acs_target_mr, 'Ship' =>  $FleetArray))))
+		if(parent::CheckUserSpeed() || !array_key_exists($mission, parent::GetAvailableMissions(array('CurrentUser' => $USER,'galaxy' => $galaxy, 'system' => $system, 'planet' => $planet, 'planettype' => $planettype, 'IsAKS' => $fleet_group, 'Ship' => $FleetArray))))
 			parent::GotoFleetPage();
 
 
