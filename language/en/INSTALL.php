@@ -12,16 +12,17 @@ $LNG['intro_instal']		= "Installation";
 $LNG['intro_welcome']		= "Welcome to 2Moons!";
 $LNG['intro_text']			= "One of the best clones of OGame is 2 Moons.<br>The latest is and 2 Moons the stablest flat rate was ever developed. 2 of Moon shines by stability, flexibility, dynamics, quality and user-friendliness. We hope always to be better than her expectations.<br><br>The installation system guides you through the install or upgrade from an older version to the latest. On questions or trouble don't hesitate to contact us.<br><br>2Moons is an open source project licensed under the GNU GPL v3. For the license please click on the item in the menu.<br><br>Before the installation starts, a test is conducted, if system requirements are met.";
 
-$LNG['reg_yes']			= "Yes";
+$LNG['reg_yes']				= "Yes";
 $LNG['reg_no']				= "No";
 $LNG['reg_found']			= "Found";
 $LNG['reg_not_found']		= "Not found";
 $LNG['reg_writable']		= "Writable";
 $LNG['reg_not_writable']	= "Not writable";
 $LNG['reg_file']			= "File";
-$LNG['reg_dir']			= "Folder";
-$LNG['reg_gd_need']		= "GB-Lib available?";
-$LNG['reg_mysqli_need']	= "MySQLi available?";
+$LNG['reg_dir']				= "Folder";
+$LNG['reg_gd_need']			= "GB-Lib available?";
+$LNG['reg_mysqli_need']		= "MySQLi available?";
+$LNG['reg_json_need']		= "JSON available?";
 $LNG['req_php_need']		= "PHP-Version (min. 5.2.5)";
 $LNG['req_smode_active']	= "Safemode active?";
 

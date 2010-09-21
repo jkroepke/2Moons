@@ -34,7 +34,9 @@ $LNG['server_infos']			= array(
 );
 
 //case default
-$LNG['login_error']				= 'Wrong username / password! <br><a href="index.php">Back</a>';
+$LNG['login_error_1']			= 'Wrong Username/Password!';
+$LNG['login_error_2']			= 'Someone has logged in from another PC in your account!';
+$LNG['login_error_3']			= 'Your session has expired!';
 $LNG['screenshots']				= 'Screenshots';
 $LNG['universe']				= 'Universe';
 $LNG['chose_a_uni']				= 'Choose a universe';
