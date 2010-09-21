@@ -5,7 +5,7 @@ $LNG['continue']			= "Continue";
 $LNG['menu_intro']			= "Intro";
 $LNG['menu_install']		= "Install";
 $LNG['menu_license']		= "License";
-$LNG['menu_upgrade']		= "Upgrade";
+$LNG['menu_convert']		= "Convert";
 
 $LNG['intro_lang']			= "Language";
 $LNG['intro_instal']		= "Installation";
