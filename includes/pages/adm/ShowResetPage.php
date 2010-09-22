@@ -61,7 +61,7 @@ function ShowResetPage()
 		}
 		
 		// HANGARES Y DEFENSAS
-		if ($_POST['defenses']	==	'on'){
+		if ($_POST['defenses']	==	'on')
 			$db->query("UPDATE ".PLANETS." SET ".implode(", ",$dbcol['defense']).";");
 	
 		if ($_POST['ships']	==	'on')
@@ -141,7 +141,7 @@ function ShowResetPage()
 			$db->query("TRUNCATE TABLE ".STATPOINTS.";");}
 
 		if ($_POST['moons']	==	'on'){
-			$db->query("DELETE FROM ".PLANETS." WHERE `planet_type` = '3';");}
+			$db->query("DELETE FROM ".PLANETS." WHERE `planet_type` = '3';");
 			$db->query("UPDATE ".PLANETS." SET `id_luna` = '0';");}
 
 		$template->message($LNG['re_reset_excess'], '?page=reset&sid='.session_id(), 3);
@@ -225,7 +225,7 @@ function ResetUniverse()
 	$db->query("TRUNCATE TABLE ".STATPOINTS.";");
 	$db->query("TRUNCATE TABLE ".TOPKB.";");
 
-	$AllUsers  = $db->query ("SELECT `username`,`password`,`email`, `email_2`,`authlevel`,`galaxy`,`system`,`planet`, `dpath`, `onlinetime`, `register_time`, `id_planet` FROM ".USERS."_s;");
+	$AllUsers  = $db->query ("SELECT `username`,`password`,`email`, `email_2`,`authlevel`,,`rights`,`galaxy`,`system`,`planet`, `dpath`, `onlinetime`, `register_time`, `id_planet` FROM ".USERS."_s;");
 	$LimitTime = TIMESTAMP - (30 * (24 * (60 * 60)));
 	$TransUser = 0;
 		
@@ -242,6 +242,7 @@ function ResetUniverse()
 		$SQL .= "`email_2` = '".       $TheUser['email_2']       ."', ";
 		$SQL .= "`id_planet` = '0', ";
 		$SQL .= "`authlevel` = '".     $TheUser['authlevel']     ."', ";
+		$SQL .= "`rights` = '".        $TheUser['tights']        ."', ";
 		$SQL .= "`dpath` = '".         $TheUser['dpath']         ."', ";
 		$SQL .= "`galaxy` = '".        $TheUser['galaxy']        ."', ";
 		$SQL .= "`system` = '".        $TheUser['system']        ."', ";
