@@ -75,13 +75,13 @@
 </div>
 <script type="text/javascript">
 function infodiv(i) {
-	if(i == 0){ $('#newbutton:visible').hide('blind', {}, 500);$('#new:hidden').show('blind', {}, 500); }
-	if(i != 0){ $('#newbutton:hidden').show('blind', {}, 500);$('#new:visible').hide('blind', {}, 500); }
+	if(i == 0){ $('#newbutton:visible').slideUp(500);$('#new:hidden').slideDown(500); }
+	if(i != 0){ $('#newbutton:hidden').slideDown(500);$('#new:visible').slideUp(500); }
 
 	{foreach key=TicketID item=TicketInfo from=$TicketsList}
-	$('#ticket_{$TicketID}:visible').hide('blind', {}, 500);
+	$('#ticket_{$TicketID}:visible').slideUp(500);
 	{/foreach}
-	$('#'+i).show('blind', {}, 500);
+	$('#'+i).slideDown(500);
 }
 </script>
 {include file="planet_menu.tpl"}
