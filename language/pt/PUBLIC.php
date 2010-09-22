@@ -15,8 +15,8 @@ $LNG['menu_disclamer']                 	= 'Contactar';
       
 /* ------------------------------------------------------------------------------------------ */
 
-$LNH['music_off']						= 'Musica: OFF';
-$LNH['music_on']						= 'Musica: ON';
+$LNG['music_off']						= 'Musica: OFF';
+$LNG['music_on']						= 'Musica: ON';
 
 //index.php
 //case lostpassword
