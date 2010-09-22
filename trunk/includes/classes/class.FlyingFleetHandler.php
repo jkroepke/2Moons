@@ -38,12 +38,13 @@ class FlyingFleetHandler
 			9	=> 'MissionCaseDestruction',
 			10	=> 'MissionCaseMIP',
 			11	=> 'MissionCaseFoundDM',
-			15	=> (USE_OLD_EXPO) ? 'MissionCaseOldExpedition' : 'MissionCaseExpedition',
+			15	=> 'MissionCaseExpedition',
 		);
+		
 		require_once('class.MissionFunctions.'.PHP_EXT);
 		while ($CurrentFleet = $db->fetch_array($fleetquery))
 		{
-			if(!$this->IfFleetBusy($CurrentFleet['fleet_id']) || !isset($MissionsPattern[$CurrentFleet['fleet_mission']])) continue;
+			if(!$this->IfFleetBusy($CurrentFleet['fleet_id'])) continue;
 			
 			require_once('missions/'.$MissionsPattern[$CurrentFleet['fleet_mission']].'.'.PHP_EXT);
 			$Mission	= new $MissionsPattern[$CurrentFleet['fleet_mission']]($CurrentFleet);
