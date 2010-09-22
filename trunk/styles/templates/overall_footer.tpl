@@ -7,13 +7,9 @@ localTS = localTime.getTime();
 var startServerTime = localTime.getTime() - ({$date.6}) - localTime.getTimezoneOffset()*60*1000;
 var Gamename	= document.title;
 var Ready	= "{$ready}";
+
 </script>
-<script type="text/javascript" src="{$cd}scripts/jQuery.js"></script>
-<script type="text/javascript" src="{$cd}scripts/overlib.js"></script>
-<script type="text/javascript" src="{$cd}scripts/time.helper.js"></script>
-<script type="text/javascript" src="{$cd}scripts/date.helper.js"></script>
-<script type="text/javascript" src="{$cd}scripts/math.helper.js"></script>
-<script type="text/javascript" src="{$cd}scripts/notifybox.js"></script>
+<script type="text/javascript" src="{$cd}scripts/base.js"></script>
 <script type="text/javascript" src="{$cd}scripts/global.js"></script>
 {foreach item=scriptname from=$scripts}
 <script type="text/javascript" src="{$cd}scripts/{$scriptname}"></script>
@@ -58,11 +54,6 @@ function UhrzeitAnzeigen()
 }
 UhrzeitAnzeigen();
 setInterval("UhrzeitAnzeigen()", 1000);
-
-{if $is_pmenu == 1}
-$('#menu').css('padding-bottom', '98px');
-$('#content').css('padding-bottom', '98px');
-{/if}
 
 {$execscript}
 

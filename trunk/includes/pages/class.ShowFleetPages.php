@@ -239,6 +239,7 @@ class ShowFleetPages extends FleetFunctions
 		
 		$template	= new template();
 		
+		$template->loadscript('notifybox.js');
 		$template->loadscript('flotten.js');
 		$template->page_header();	
 		$template->page_topnav();

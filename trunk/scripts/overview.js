@@ -2,7 +2,6 @@ $(function(){
   $(".containerPlus").buildContainers({
 	containment:"document",
 	elementsPath:"styles/css/mbContainer/",
-	onClose:function(o){},
 	effectDuration:500,
 	slideTimer:300,
 	autoscroll:true,

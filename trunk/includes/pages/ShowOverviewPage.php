@@ -73,9 +73,9 @@ function ShowOverviewPage()
 			$template->page_topnav();
 			$template->page_leftmenu();
 			$template->page_planetmenu();
-			$template->page_footer();	
-			$template->loadscript('overview.js');			
-			$template->loadscript('mbContainer.js');			
+			$template->page_footer();
+			$template->loadscript('mbContainer.js');
+			$template->loadscript('overview.js');
 			$PlanetRess = new ResourceUpdate();
 			$PlanetRess->CalcResource();
 			$PlanetRess->SavePlanetToDB();

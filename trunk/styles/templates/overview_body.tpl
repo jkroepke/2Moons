@@ -4,7 +4,7 @@
 <div id="content" class="content">
     <table style="min-width:519px;width:519px;">
         <tr>
-        	<th colspan="4"><a href="javascript:$('.containerPlus').mb_open();" title="{$ov_planetmenu}">{$ov_planet} "<span class="planetname">{$planetname}</span>"</a> ({$username})</th>
+        	<th colspan="4"><a href="javascript:;" onclick="$('.containerPlus').mb_open();$('.containerPlus').mb_centerOnWindow(false);" title="{$ov_planetmenu}">{$ov_planet} "<span class="planetname">{$planetname}</span>"</a> ({$username})</th>
         </tr>
         {if $messages}
 		<tr>
@@ -86,7 +86,7 @@
    </table>
 
 </div>
-<div id="demoContainer" class="containerPlus draggable resizable { buttons:'c', skin:'black', width:'580', height:'200',dock:'dock',closed:'true'}" style="position:absolute;top:250px;left:400px; height:50%">
+<div id="demoContainer" class="containerPlus { buttons:'c', skin:'black', width:'580', height:'200',dock:'dock',closed:'true'}" style="position:absolute;top:250px;left:400px; height:50%">
 <div class="no"><div class="ne"><div class="n">{$ov_planet_rename_action}</div></div>
   <div class="o"><div class="e"><div class="c">
 	<div class="mbcontainercontent">
