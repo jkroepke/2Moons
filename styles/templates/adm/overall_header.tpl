@@ -14,9 +14,7 @@
 {if $goto}
 <meta http-equiv="refresh" content="{$gotoinsec};URL={$goto}">
 {/if}
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js"></script>
-<script type="text/javascript" src="./scripts/overlib.js"></script>
+<script type="text/javascript" src="./scripts/base.js"></script>
 <script type="text/javascript" src="./scripts/filterlist.js"></script>
 {foreach item=scriptname from=$scripts}
 <script type="text/javascript" src="./scripts/{$scriptname}"></script>
