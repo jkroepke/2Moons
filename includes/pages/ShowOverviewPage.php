@@ -24,11 +24,6 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 function ShowOverviewPage()
 {
 	global $CONF, $LNG, $PLANET, $USER, $db, $resource;
-
-	include_once(ROOT_PATH . 'includes/functions/InsertJavaScriptChronoApplet.' . PHP_EXT);
-	include_once(ROOT_PATH . 'includes/classes/class.FlyingFleetsTable.' . PHP_EXT);
-
-
 	$mode = request_var('mode','');
 	
 	switch ($mode)
@@ -68,24 +63,23 @@ function ShowOverviewPage()
 			}
 		break;
 		default:
-			$template	= new template();
-			$template->page_header();
-			$template->page_topnav();
-			$template->page_leftmenu();
-			$template->page_planetmenu();
-			$template->page_footer();
-			$template->loadscript('mbContainer.js');
-			$template->loadscript('overview.js');
 			$PlanetRess = new ResourceUpdate();
 			$PlanetRess->CalcResource();
 			$PlanetRess->SavePlanetToDB();
-			$FlyingFleetsTable = new FlyingFleetsTable();
+			
+			$template	= new template();	
 			
 			$OwnFleets = $db->query("SELECT * FROM ".FLEETS." WHERE `fleet_owner` = '".$USER['id']."';");
 			$Record = 0;
-
+			if($db->num_rows($OwnFleets) > 0){
+				require_once(ROOT_PATH . 'includes/classes/class.FlyingFleetsTable.' . PHP_EXT);
+				$FlyingFleetsTable = new FlyingFleetsTable();
+				$template->execscript('FleetTime();window.setInterval("FleetTime()", 1000);');
+			}
+			
 			$ACSDone	= array();
 			$fpage  	= array();
+			$FleetData 	= array();
 			while ($FleetRow = $db->fetch_array($OwnFleets))
 			{
 				$Record++;
@@ -94,7 +88,8 @@ function ShowOverviewPage()
 				{
 					$ACSDone[]		= $FleetRow['fleet_group'];
 					
-					$fpage[$FleetRow['fleet_start_time'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 0, true, 'fs', $Record, true);
+					$fpage[$FleetRow['fleet_start_time'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable($FleetRow, 0, true, 'fs', $Record, true);
+					$FleetData[$FleetRow['fleet_start_time'].$FleetRow['fleet_id']]	= $fpage[$FleetRow['fleet_start_time'].$FleetRow['fleet_id']]['fleet_return'];
 				}
 
 				if($FleetRow['fleet_mission'] == 10 || ($FleetRow['fleet_mission'] == 4 && $FleetRow['fleet_mess'] == 0))
@@ -102,19 +97,27 @@ function ShowOverviewPage()
 	
 				if ($FleetRow['fleet_mess'] != 1 && $FleetRow['fleet_end_stay'] > TIMESTAMP)
 				{
-					$fpage[$FleetRow['fleet_end_stay'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 2, true, 'ft', $Record);
+					$fpage[$FleetRow['fleet_end_stay'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable($FleetRow, 2, true, 'ft', $Record);
+					$FleetData[$FleetRow['fleet_end_stay'].$FleetRow['fleet_id']]	= $fpage[$FleetRow['fleet_end_stay'].$FleetRow['fleet_id']]['fleet_return'];
 				}
 
 				if ($FleetRow['fleet_end_time'] > TIMESTAMP)
 				{
-					$fpage[$FleetRow['fleet_end_time'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 1, true, 'fe', $Record);
+					$fpage[$FleetRow['fleet_end_time'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable($FleetRow, 1, true, 'fe', $Record);
+					$FleetData[$FleetRow['fleet_end_time'].$FleetRow['fleet_id']]	= $fpage[$FleetRow['fleet_end_time'].$FleetRow['fleet_id']]['fleet_return'];
 				}
 			}
 			
 			$db->free_result($OwnFleets);
 
 			$OtherFleets = $db->query("SELECT * FROM ".FLEETS." WHERE `fleet_target_owner` = '".$USER['id']."' AND `fleet_owner` != '".$USER['id']."';");
-
+			
+			if(!isset($FlyingFleetsTable) && $db->num_rows($OtherFleets) > 0){
+				require_once(ROOT_PATH . 'includes/classes/class.FlyingFleetsTable.' . PHP_EXT);
+				$FlyingFleetsTable = new FlyingFleetsTable();
+				$template->execscript('FleetTime();window.setInterval("FleetTime()", 1000);');
+			}
+			
 			$Record = 2000;
 			$ACSDone	= array();
 			while ($FleetRow = $db->fetch_array($OtherFleets))
@@ -126,15 +129,17 @@ function ShowOverviewPage()
 					$ACSDone[]		= $FleetRow['fleet_group'];
 										
 					$fpage[$FleetRow['fleet_start_time'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 0, false, 'ofs', $Record, true);
+					$FleetData[$FleetRow['fleet_start_time'].$FleetRow['fleet_id']]	= $fpage[$FleetRow['fleet_start_time'].$FleetRow['fleet_id']]['fleet_return'];
 				}
 				
 				if ($FleetRow['fleet_mess'] != 1 && $FleetRow['fleet_mission'] == 5 && $FleetRow['fleet_end_stay'] > TIMESTAMP)
 				{
 					$fpage[$FleetRow['fleet_end_stay'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 2, false, 'oft', $Record);
+					$FleetData[$FleetRow['fleet_end_stay'].$FleetRow['fleet_id']]	= $fpage[$FleetRow['fleet_end_stay'].$FleetRow['fleet_id']]['fleet_return'];
 				}
 			}
 			$db->free_result($OtherFleets);
-			
+		
 			$template->getplanets();
 			
 			foreach($template->UserPlanets as $ID => $CPLANET)
@@ -227,7 +232,15 @@ function ShowOverviewPage()
 			
 			if (isset($fpage))
 				ksort($fpage);				
-				
+	
+			$template->loadscript('mbContainer.js');
+			$template->loadscript('overview.js');
+			$template->page_header();
+			$template->page_topnav();
+			$template->page_leftmenu();
+			$template->page_planetmenu();
+			$template->page_footer();
+			
 			$template->assign_vars(array(
 				'user_rank'					=> sprintf($LNG['ov_userrank_info'], pretty_number($USER['total_points']), $LNG['ov_place'], $USER['total_rank'], $USER['total_rank'], $LNG['ov_of'], $CONF['users_amount']),
 				'is_news'					=> $CONF['OverviewNewsFrame'],
@@ -241,6 +254,7 @@ function ShowOverviewPage()
 				'userid'					=> $USER['id'],
 				'username'					=> $USER['username'],
 				'fleets'					=> $fpage,
+				'FleetData'					=> json_encode($FleetData),
 				'build'						=> $Build,
 				'Moon'						=> $Moon,
 				'AllPlanets'				=> $AllPlanets,

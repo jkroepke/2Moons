@@ -293,7 +293,6 @@ class FlyingFleetsTable
 				$EventString .= $LNG['cff_toward'];
 				$EventString .= $TargetID;
 				$EventString .= $LNG['cff_with_the_mission_of'];
-				$FleetInfo['fleet_return'] = date('G:i:s', $FleetRow['fleet_start_time']);
 			}
 			elseif ($Status == 1)
 			{
@@ -304,7 +303,6 @@ class FlyingFleetsTable
 				$EventString .= $LNG['cff_back_to_the_planet'];			
 				$EventString .= $StartID;
 				$EventString .= $LNG['cff_with_the_mission_of'];
-				$FleetInfo['fleet_return'] = date('G:i:s', $FleetRow['fleet_end_time']);
 			}
 			elseif ($Status == 2)
 			{								
@@ -315,7 +313,6 @@ class FlyingFleetsTable
 				$EventString .= $LNG['cff_to_explore'];
 				$EventString .= $TargetID;
 				$EventString .= $LNG['cff_with_the_mission_of'];
-				$FleetInfo['fleet_return'] = date('G:i:s', $FleetRow['fleet_end_stay']);
 			}
 			$EventString .= $FleetCapacity;
 			$EventString = '<span class="'.$FleetStatus[$Status].' '.$FleetPrefix.$FleetStyle[$FleetRow['fleet_mission']].'">'.$EventString.'</span>';
@@ -331,12 +328,12 @@ class FlyingFleetsTable
 	       
 		if ($isAKS == true && $Status == 0 && ($FleetRow['fleet_mission'] == 1 || $FleetRow['fleet_mission'] == 2) && $FleetRow['fleet_group'] != 0)
 		{
-			$AKSFleets	      = $db->query("SELECT * FROM ".FLEETS." WHERE `fleet_group` = '".$FleetRow['fleet_group']."' ORDER BY `fleet_id` ASC;");
-			$EventString	    = '';
+			$AKSFleets		= $db->query("SELECT * FROM ".FLEETS." WHERE `fleet_group` = '".$FleetRow['fleet_group']."' ORDER BY `fleet_id` ASC;");
+			$EventString	= '';
 			while($AKSRow = $db->fetch_array($AKSFleets))
 			{
-				$Return	  = $this->GetEventString($AKSRow, $Status, $Owner, $Label, $Record);
-				$Rest	    = $Return[0];
+				$Return			= $this->GetEventString($AKSRow, $Status, $Owner, $Label, $Record);
+				$Rest			= $Return[0];
 				$EventString    .= $Return[1].'<br><br>';
 				$Time			= $Return[2];
 			}
@@ -345,12 +342,22 @@ class FlyingFleetsTable
 			list($Rest, $EventString, $Time) = $this->GetEventString($FleetRow, $Status, $Owner, $Label, $Record);
 			$EventString    .= '<br><br>';
 		}
-
-		$FleetInfo['fleet_javai']  = InsertJavaScriptChronoApplet ( $Label, $Record, $Rest, true );
-		$FleetInfo['fleet_order']  = $Label . $Record;
-		$FleetInfo['fleet_descr']  = substr($EventString, 0, -8);
-		$FleetInfo['fleet_javas']  = InsertJavaScriptChronoApplet ( $Label, $Record, $Rest, false );
-		$FleetInfo['fleet_return'] = date('G:i:s', $Time);
+		switch($Status)
+		{
+			case 0:
+				$FleetInfo['fleet_id']	= $FleetRow['fleet_start_time'].$FleetRow['fleet_id'];
+			break;
+			case 1:
+				$FleetInfo['fleet_id']	= $FleetRow['fleet_end_time'].$FleetRow['fleet_id'];
+			break;
+			case 2:
+				$FleetInfo['fleet_id']	= $FleetRow['fleet_end_stay'].$FleetRow['fleet_id'];
+			break;
+		}
+		
+		$FleetInfo['fleet_order']	= $Label . $Record;
+		$FleetInfo['fleet_descr']	= substr($EventString, 0, -8);
+		$FleetInfo['fleet_return']	= $Time;
 
 		return $FleetInfo;
 	}

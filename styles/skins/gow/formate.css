@@ -257,6 +257,11 @@ bottom:0px;
 z-index:2;
 }
 
+#planet_menu_link{
+font-weight:700;
+vertical-align:middle;
+}
+
 #planet_menu_header{
 background:url(img/bkd_title.png);
 height:21px;

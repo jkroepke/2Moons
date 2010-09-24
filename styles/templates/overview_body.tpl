@@ -4,7 +4,7 @@
 <div id="content" class="content">
     <table style="min-width:519px;width:519px;">
         <tr>
-        	<th colspan="4"><a href="javascript:;" onclick="$('.containerPlus').mb_open();$('.containerPlus').mb_centerOnWindow(false);" title="{$ov_planetmenu}">{$ov_planet} "<span class="planetname">{$planetname}</span>"</a> ({$username})</th>
+        	<th colspan="4"><a href="#" onclick="$('.containerPlus').mb_open();$('.containerPlus').mb_centerOnWindow(false);return false;" title="{$ov_planetmenu}">{$ov_planet} "<span class="planetname">{$planetname}</span>"</a> ({$username})</th>
         </tr>
         {if $messages}
 		<tr>
@@ -34,12 +34,9 @@
         </tr>
         {foreach item=FleetInfoRow from=$fleets}
 		<tr class="{$FleetInfoRow.fleet_status}">
-			<td>
-			{$FleetInfoRow.fleet_javai}
-				<div id="bxx{$FleetInfoRow.fleet_order}" class="z">-</div>
-			</td><td colspan="3">
+			<td id="fleettime_{$FleetInfoRow.fleet_id}" class="z">-</td>
+			<td colspan="3">
 				{$FleetInfoRow.fleet_descr}
-			{$FleetInfoRow.fleet_javas}
 			</td>
 		</tr>
 		{/foreach}
@@ -119,6 +116,7 @@
 <script type="text/javascript">
 buildtime	= {$buildtime} * 1000;
 ov_password	= "{$ov_password}";
+Fleets		= {$FleetData};
 </script>
 {include file="planet_menu.tpl"}
 {include file="overall_footer.tpl"}
