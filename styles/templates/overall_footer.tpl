@@ -4,7 +4,7 @@
 var serverTime = new Date({$date.0}, {$date.1 - 1}, {$date.2}, {$date.3}, {$date.4}, {$date.5});
 var localTime = new Date();
 localTS = localTime.getTime();
-var startServerTime = localTime.getTime() - ({$date.6}) - localTime.getTimezoneOffset()*60*1000;
+var ServerTimezoneOffset = {$date.6} + localTime.getTimezoneOffset()*60;
 var Gamename	= document.title;
 var Ready	= "{$ready}";
 

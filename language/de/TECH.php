@@ -253,7 +253,7 @@ $LNG['res']['descriptions'] = array(
 605 => 'Der Konstrukteur ist ein neuer Typ von Baumeistern. Sein ADN wurde für seine übermenschlichen Kräfte erhöht. Auf sich gestellt ermöglichten es diese "Männer", eine unabhängige Stadt zu errichten.<br><br><span style="color:red">-10% der Bauzeit</span>',
 606 => 'Die Wissenschaftler gehoeren zu einer den Technokraten konkurrierenden Gilde. Sie sind durch immer signifikantere Technologieverbesserungen hochspezialisiert.<br><br><span style="color:red">-10% der Forschungszeit.</span>',
 607 => 'Der Lagerexperte war Mitglied einer antiken Bruderschaft auf dem Planeten Hsac. Ihr Leitmotiv war es, ein Maximum an Lagerkapazität zu erreichen, weshalb sie einige wichtige Verbesserungen erfanden. Aus diesem Grund hat er, mit der Hilfe des Konstrukteurs, eine neue Lagerungsmethode entwickelt.<br><br><span style="color:red">+50% Lagerkapazität</span>',
-608 => 'Der Verteidigungsexperte ist Mitglied der imperialen Armee. Seine Unermüdlichkeit bei der Arbeit gestattete es ihm, in feindlichen Kolonien furchterregende Verteidigungsanlagen in geringerer Zeit zu konstruieren.<br><br><span style="color:red">-50% der Konstruktionszeit für Verteidigungsanlagen</span>',
+608 => 'Der Verteidigungsminister ist Mitglied der imperialen Armee. Seine Unermüdlichkeit bei der Arbeit gestattete es ihm, in feindlichen Kolonien furchterregende Verteidigungsanlagen in geringerer Zeit zu konstruieren.<br><br><span style="color:red">-50% der Konstruktionszeit für Verteidigungsanlagen</span>',
 609 => 'Der Bunker stellte der beeindruckenden Arbeit, die Sie an seinem Reich. Wir danken Ihnen dafür bietet Ihnen die Möglichkeit zu Bunker. Der Bunker ist die höchste Auszeichnung der Bergbau-Abschnitt des kaiserlichen Heeres.',
 610 => 'Der Spion ist eine rätselhafte Person. Niemand hat je sein Gesicht gesehen, zumindest hat es niemand überlebt. <br><br><span style="color:red">+5 Spionagelevel</span>',
 611 => 'Der Kommandant der imperialen Armee ist ein Meister in der Kunst der Flottenführung. Sein Gehirn kann die Flugrouten mehrerer Flotten um einiges schneller berechnen, als ein normaler Mensch das könnte.+3 Flottenslots.',
@@ -463,28 +463,28 @@ $LNG['info'][603]['name']		 = 'Ingenieur';
 $LNG['info'][603]['description'] = '<br><br>Der Ingenieur ist ein Spezialist der energietechnischen Betriebsführung. Er optimiert die Effektivität der Energiereserven der Kolonie und steigert somit die tatsächliche Energieproduktion.<br><br><span style="color:red">+5% Energie . Maximal Level 10 </span>';
 $LNG['info'][604]['name']		 = 'Technokrat';
 $LNG['info'][604]['description'] = '<br><br>Die Gilde der Technokraten sind die Wissenschafter der bekannten Genies. Man findet sie dort wo die Technik ihre Grenzen erreicht. Niemand versteht die Dechiffrierung der Kryptographie eines Technokraten, seine alleinige Präsenz inspiriert die Kontrukteure des ganzen Imperiums.<br><br><span style="color:red">-5% Produktionszeit von Raumschiffen. Maximal Level 10 </span>';
-$LNG['info'][605]['name']		 = 'Construkteur';
+$LNG['info'][605]['name']		 = 'Konstrukteur';
 $LNG['info'][605]['description'] = '<br><br>Der Konstrukteur ist ein Meister in der Planung von Gebäuden.<br><br><span style="color:red">-10% Bauzeit von Gebäuden. Maximal Level 3 </span>';
 $LNG['info'][606]['name']		 = 'Wissenschaftler';
 $LNG['info'][606]['description'] = '<br><br>Die Gilde der Wissenschaftler ist ein Zusammenschluss der erfolgreichsten Wissenschaftler des Imperiums. Sie sind die Spezialisten in der Verbesserung der Technologie.<br><br><span style="color:red">-10% Forschungszeit. Maximal Level 3 </span>';
 $LNG['info'][607]['name']		 = 'Lagermeister';
 $LNG['info'][607]['description'] = '<br><br>Der Lagerist beherrscht wertvolle Lagerungs- und Sortierkenntnisse. Durch hochentwickelte Lagertechniken und strukturelle Anpassungen, kann er das nutzbare Volumen eines Lageraumes deutlich erh&ouml;hen.<br><br><span style="color:red">+50% Lagerraum. Maximal Level. : 2</span>';
 $LNG['info'][608]['name']		 = 'Verteidiger';
-$LNG['info'][608]['description'] = '<br><br>Der Verteidiger ist Mitglied der imperialen Armee. Sein Elan und Ehrgeiz ermöglichen es jede Kolonie in Rekordzeit zu einen stark befestigtem Stützpunkt auszubauen.<br><br><span style="color:red">Bauzeit von Verteidigungsanlagen : -50%</span>';
+$LNG['info'][608]['description'] = '<br><br>Der Verteidigungsminister ist Mitglied der imperialen Armee. Sein Elan und Ehrgeiz ermöglichen es jede Kolonie in Rekordzeit zu einen stark befestigtem Stützpunkt auszubauen.<br><br><span style="color:red">Bauzeit von Verteidigungsanlagen : -50%</span>';
 $LNG['info'][609]['name']		 = 'Bunker';
-$LNG['info'][609]['description'] = '<br><br>Der Bunker sah die beeindruckende Arbeit, die Sie in seinem Königreich gefertigt haben. Um Ihnen zu danken, er&ouml;ffnet er Ihnen die Chance Bunker zu werden. Der Bunker ist die höchste Auszeichnung der Lagerstättenbranche der Imperialen Armee.<br><br><span style="color:red">Déblocage du Protecteur Planètaire</span>';
+$LNG['info'][609]['description'] = '<br><br>Der Bunker sah die beeindruckende Arbeit, die Sie in seinem Königreich gefertigt haben. Um Ihnen zu danken, er&ouml;ffnet er Ihnen die Chance Bunker zu werden. Der Bunker ist die höchste Auszeichnung der Lagerstättenbranche der Imperialen Armee.<br><br><span style="color:red">Freigabe zum Schutz des Planten</span>';
 $LNG['info'][610]['name']		 = 'Spion';
 $LNG['info'][610]['description'] = '<br><br>Der Spion ist eine rätselhafte Person. Niemand kennt jemals sein wirkliches Gesicht, und noch weniger ob er schon tot ist. <br><br><span style="color:red">+5 Level Spionagetechnik. Maximal Level 2</span>';
-$LNG['info'][611]['name']		 = 'Commandant';
-$LNG['info'][611]['description'] = '<br><br>Der Kommandant der imperialen Armee ist Meister im Umgang mit der Flotte. Seine jahrelangen Erfahrungen mit Flotten, mit vielen strategischen Eins&auml;tzen, sind eine Bereicherung f&uuml;r jeden Herrscher.<br><br><span style="color:red">+3 Flottenslots. Maximal Level 3 </span>';
+$LNG['info'][611]['name']		 = 'Commander';
+$LNG['info'][611]['description'] = '<br><br>Der Commander der imperialen Armee ist Meister im Umgang mit der Flotte. Seine jahrelangen Erfahrungen mit Flotten, mit vielen strategischen Eins&auml;tzen, sind eine Bereicherung f&uuml;r jeden Herrscher.<br><br><span style="color:red">+3 Flottenslots. Maximal Level 3 </span>';
 $LNG['info'][612]['name']		 = 'Zerstörer';
 $LNG['info'][612]['description'] = '<br><br>Der Zerstörer ist ein Offizier ohne Mitleid. Er hat Planeten nur zum Vergnügen dem Erdboden gleich gemacht. Er entdeckt momentan eine neue Methode um Massenvernichtungswaffen herzustellen.<br><br><span style="color:red">Baut 2 Todessterne zum Preis von einem. Maximal Level 1 </span>';
 $LNG['info'][613]['name']		 = 'General';
-$LNG['info'][613]['description'] = '<br><br>Der General ist eine ehrwürdige Person, der seit vielen Jahren in der Armee dient. Durch unzählige Manöver hat der General Strategien entwickelt, um die Flottengeschwindigkeiten in s&auml;mtlichen Konstellationen, verschiedenster Shiffstypen, zu optimieren.<br><br><font color=\"red\">+25% Geschwindigkeit der Schiffe. Maximal Level 3</span>';
-$LNG['info'][614]['name']		 = 'Raider';
-$LNG['info'][614]['description'] = '<br><br>Der Imperator bemerkte bei Ihnen die unleugbaren Qualitäten des Eroberns. Er schlägt Ihnen vor Raider zu werden. Der Raider ist der Grad der höchsten Ausbildung der Raider der imperialen Armee.<br><br><span style="color:red">Déblocage de la SuperNova</span>';
+$LNG['info'][613]['description'] = '<br><br>Der General ist eine ehrwürdige Person, der seit vielen Jahren in der Armee dient. Durch unzählige Manöver hat der General Strategien entwickelt, um die Flottengeschwindigkeiten in s&auml;mtlichen Konstellationen, verschiedenster Shiffstypen, zu optimieren.<br><br><span style="color:red">+25% Geschwindigkeit der Schiffe. Maximal Level</span>';
+$LNG['info'][614]['name']		 = 'Eroberer';
+$LNG['info'][614]['description'] = '<br><br>Der Imperator bemerkte bei Ihnen die unleugbaren Qualitäten des Eroberns. Er schlägt Ihnen vor Eroberer zu werden. Der Eroberer ist der Grad der höchsten Ausbildung der Eroberer der imperialen Armee.<br><br><span style="color:red">Freigabe für eine Supernova</span>';
 $LNG['info'][615]['name']		 = 'Imperator';
-$LNG['info'][615]['description'] = '<br><br>Sie haben gezeigt, dass Sie der größte Eroberer des Universums sind. Es ist Ihrer, solange Sie diesen Platz halten, den Sie bekommen haben.<br><br><span style="color:red">Déblocage du Destructeur Planètaire</span>';
+$LNG['info'][615]['description'] = '<br><br>Sie haben gezeigt, dass Sie der größte Eroberer des Universums sind. Es ist Ihrer, solange Sie diesen Platz halten, den Sie bekommen haben.<br><br><span style="color:red">Freigabe zur vernichtung</span>';
 
 
 ?>
