@@ -51,19 +51,17 @@ switch($cron)
 		if (TIMESTAMP >= ($CONF['stat_last_db_update'] + (60 * 60 * 24)))
 		{
 			update_config('stat_last_db_update', TIMESTAMP);
-			require(ROOT_PATH . 'config.' . PHP_EXT);
 			$prueba = $db->query("SHOW TABLE STATUS from ".DB_NAME.";");
 			$table = "";
 			while($pru = $db->fetch_array($prueba)){
 				$compprefix = explode("_",$pru["Name"]);  
 				
-				if(($compprefix[0]."_") == $database["tableprefix"])
+				if(($compprefix[0]."_") == DB_PREFIX)
 				{
 					$table .= "`".$pru["Name"]."`, ";
 				}
 			}
 			$db->query("OPTIMIZE TABLE ".substr($table, 0, -2).";");
-			unset($database);
 		}
 	break;
 	case "banner":
