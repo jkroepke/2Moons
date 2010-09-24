@@ -51,7 +51,6 @@ $LNG['sys_mess_spy_ennemyfleet'] 		= "Uma frota inimiga do planeta";
 $LNG['sys_mess_spy_seen_at'] 			= "Foi avistada perto do teu planeta";
 $LNG['sys_mess_spy_seen_at2']           = 'espionagem';
 $LNG['sys_mess_spy_destroyed']          = '<font color="red">As tua frota foi descoberta e destruida!</font>';
-$LNG['sys_mess_attack_report_mess']     = '<a href="javascript:kb(\'%s\');"><center><font color="%s">%s %s</font></a><br><br><font color="%s">%s: %s</font> <font color="%s">%s: %s</font><br>%s %s:<font color="#adaead">%s</font> %s:<font color="#ef51ef">%s</font> %s:<font color="#f77542">%s</font><br>%s %s:<font color="#adaead">%s</font> %s:<font color="#ef51ef">%s</font><br></center>';
 $LNG['sys_adress_planet']               = '[%s:%s:%s]';
 
 $LNG['sys_stat_mess_stay']           	= 'Frota Localizada';
