@@ -205,6 +205,7 @@ class template extends Smarty
         $this->assign_vars(array(
             'title'				=> $CONF['game_name'],
             'dpath'				=> (empty($USER['dpath']) ? DEFAULT_SKINPATH : $USER['dpath']),
+            'vmode'				=> $USER['urlaubs_modus'],
             'is_pmenu'			=> $USER['settings_planetmenu'],
             'lang'    			=> $LANG,
             'ready'    			=> $LNG['ready'],

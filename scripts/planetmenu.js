@@ -24,8 +24,7 @@ function PlanetMenu() {
 }
 
 function ShowPlanetMenu() {
-	$('#planet_menu_content').slideToggle(500);
-	if($('#menu').css('padding-bottom') == '98px') {
+	if($("#planet_menu_content:visible").length == 1) {
 		$.cookie('pmenu', 'off');
 		$('#menu').animate({'padding-bottom' :'26px'}, 500);
 		$('#content').animate({'padding-bottom': '26px'}, 500);
@@ -34,4 +33,5 @@ function ShowPlanetMenu() {
 		$('#menu').animate({'padding-bottom': '98px'}, 500);
 		$('#content').animate({'padding-bottom': '98px'}, 500);
 	}
+	$('#planet_menu_content').slideToggle(500);
 }

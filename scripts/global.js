@@ -13,11 +13,6 @@ LocalizationStrings.unitMega = 'M';
 LocalizationStrings.unitKilo = 'K';
 LocalizationStrings.unitMilliard = 'Mrd';
 
-$(document).ready(function () {
-	if($('#infobox').height() != null)
-		$('#content').css("margin-top", $('#infobox').height() + $('#infobox').css("margin-top"));
-});
-
 function OpenPopup(target_url, win_name, width, height) {
 	var new_win = window.open(target_url+'&ajax=1', win_name, 'scrollbars=yes,statusbar=no,toolbar=no,location=no,directories=no,resizable=no,menubar=no,width='+width+',height='+height+',screenX='+((screen.width-width) / 2)+",screenY="+((screen.height-height) / 2)+",top="+((screen.height-height) / 2)+",left="+((screen.width-width) / 2));
 	new_win.focus();
