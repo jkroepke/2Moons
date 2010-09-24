@@ -52,7 +52,7 @@ function cancel()
 }
 
 function BuildTime() {
-	var s	= (buildtime - serverTime.getTime()) / 1000;
+	var s	= (buildtime - serverTime.getTime()) / 1000 + ServerTimezoneOffset;
 	if(s <= 0) {
 		window.location.href = "game.php?page=overview";
 		return;
