@@ -37,7 +37,7 @@ var resourceTickerDeuterium = {
 };
 initRessource();
 
-vacation = 0;
+var vacation = {$vmode};
 if (!vacation) {
 	new resourceTicker(resourceTickerMetal);
 	new resourceTicker(resourceTickerCrystal);

@@ -64,17 +64,17 @@ function ReBuildView() {
 		HTML	+= '</tr>';
 	});
 	HTML	+= '</table>';
-	$('#buildlist').html(HTML);
-	$('#buildlist').fadeIn("fast");
-	$('#progressbar').progressbar({value: ((data.build[0].time != 0) ? 100 - ((data.build[0].endtime - (serverTime.getTime() / 1000)) / data.build[0].time) * 100 :100)});
-	$('.ui-progressbar-value').addClass('ui-corner-right').animate({width: "100%" }, data.build[0].endtime * 1000 - serverTime.getTime(), "linear");
+	$('#buildlist').html(HTML).fadeIn("fast");
+	$('#progressbar').progressbar({value: ((data.build[0].time != 0) ? 100 - ((data.build[0].endtime - (localTime.getTime() / 1000)) / data.build[0].time) * 100 :100)});
+	$('.ui-progressbar-value').addClass('ui-corner-right').animate({width: "100%" }, data.build[0].endtime * 1000 - localTime.getTime(), "linear");
 	return true;
 }
 
 function Buildlist() {
+	localTime.setSeconds(localTime.getSeconds() + 1);
 	var h		= 0;
 	var	m		= 0;
-	var s		= (data.build[0].endtime - (serverTime.getTime() / 1000));
+	var s		= (data.build[0].endtime - (localTime.getTime() / 1000));
 	
 	if ( s <= 0 ) {
 		if(data.build.length == 1){
@@ -85,7 +85,7 @@ function Buildlist() {
 			data.build.shift();
 			$('#buildlist').fadeOut("fast");
 			ReBuildView();
-			s	= (data.build[0].endtime - (serverTime.getTime() / 1000));
+			s	= (data.build[0].endtime - (localTime.getTime() / 1000));
 		}
 	}
 	
