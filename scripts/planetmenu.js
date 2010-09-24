@@ -12,13 +12,13 @@ if($.cookie('pmenu') != null) {
 
 function PlanetMenu() {
 	$.each(planetmenu, function(index, val) {
-		if(val.length != 0 && val[0] < serverTime.getTime() / 1000)
+		if(val.length != 0 && val[0] < serverTime.getTime() / 1000 + ServerTimezoneOffset)
 			val.shift();
 	
 		if(val.length == 0)
 			$('#planet_'+index).text(Ready);
 		else	
-			$('#planet_'+index).text(getFormatedTime(val[0] - serverTime.getTime() / 1000));
+			$('#planet_'+index).text(getFormatedTime(val[0] - serverTime.getTime() / 1000 + ServerTimezoneOffset));
 	});
 	window.setTimeout('PlanetMenu()', 1000);
 }
