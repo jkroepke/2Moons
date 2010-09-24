@@ -52,7 +52,6 @@ $LNG['sys_mess_spy_ennemyfleet'] 			= "A hostile fleet of the planet";
 $LNG['sys_mess_spy_seen_at'] 				= "became nearby your planet?";
 $LNG['sys_mess_spy_seen_at2'] 				= 'sighted';
 $LNG['sys_mess_spy_destroyed'] 				= '<font color="red">Your spying probes were destroyed! </font>';
-$LNG['sys_mess_attack_report_mess']			= '<a href="javascript:kb(\'%s\');"><center><font color="%s">%s %s</font></a><br><br><font color="%s">%s: %s</font> <font color="%s">%s: %s</font><br>%s %s:<font color="#adaead">%s</font> %s:<font color="#ef51ef">%s</font> %s:<font color="#f77542">%s</font><br>%s %s:<font color="#adaead">%s</font> %s:<font color="#ef51ef">%s</font><br></center>';
 $LNG['sys_adress_planet'] 					= '[%s:%s:%s]';
 
 $LNG['sys_stat_mess_stay']           		= 'Located fleet';
