@@ -1,7 +1,7 @@
 var brp = $('#research');
 
 function reseachtime(){
-	var s  = data.tech_time - (serverTime.getTime() / 1000);
+	var s  = data.tech_time - (serverTime.getTime() / 1000) + ServerTimezoneOffset;
 	var m  = 0;
 	var h  = 0;
 	if ( s < 0 ) {
