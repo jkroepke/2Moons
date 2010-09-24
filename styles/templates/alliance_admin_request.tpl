@@ -3,8 +3,8 @@
 {include file="left_menu.tpl"}
 <script type="text/javascript">
 function infodiv(i){
-$('.request:visible').hide('blind', {}, 500);
-$('#'+i).show('blind', {}, 500);
+$('.request:visible').slideUp(500);
+$('#'+i).slideDown(500);
 }
 </script>
 <div id="content" class="content">
