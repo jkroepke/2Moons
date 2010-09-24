@@ -225,7 +225,7 @@ function ResetUniverse()
 	$db->query("TRUNCATE TABLE ".STATPOINTS.";");
 	$db->query("TRUNCATE TABLE ".TOPKB.";");
 
-	$AllUsers  = $db->query ("SELECT `username`,`password`,`email`, `email_2`,`authlevel`,,`rights`,`galaxy`,`system`,`planet`, `dpath`, `onlinetime`, `register_time`, `id_planet` FROM ".USERS."_s;");
+	$AllUsers  = $db->query ("SELECT `username`,`password`,`email`, `email_2`,`authlevel`,`rights`,`galaxy`,`system`,`planet`, `dpath`, `onlinetime`, `register_time`, `id_planet` FROM ".USERS."_s;");
 	$LimitTime = TIMESTAMP - (30 * (24 * (60 * 60)));
 	$TransUser = 0;
 		
@@ -242,7 +242,7 @@ function ResetUniverse()
 		$SQL .= "`email_2` = '".       $TheUser['email_2']       ."', ";
 		$SQL .= "`id_planet` = '0', ";
 		$SQL .= "`authlevel` = '".     $TheUser['authlevel']     ."', ";
-		$SQL .= "`rights` = '".        $TheUser['tights']        ."', ";
+		$SQL .= "`rights` = '".        $TheUser['rights']        ."', ";
 		$SQL .= "`dpath` = '".         $TheUser['dpath']         ."', ";
 		$SQL .= "`galaxy` = '".        $TheUser['galaxy']        ."', ";
 		$SQL .= "`system` = '".        $TheUser['system']        ."', ";
@@ -259,10 +259,7 @@ function ResetUniverse()
 
 		$PlanetID       = $db->uniquequery("SELECT `id` FROM ".PLANETS." WHERE `id_owner` = '". $NewUser['id'] ."' LIMIT 1;");
 
-		$SQL  = "UPDATE ".USERS." SET ";
-		$SQL .= "`id_planet` = '".      $PlanetID['id'] ."', ";
-		$SQL .= "WHERE ";
-		$SQL .= "`id` = '".             $NewUser['id']  ."';";
+		$SQL  = "UPDATE ".USERS." SET `id_planet` = '". $PlanetID['id']."' WHERE `id` = '".$NewUser['id']."';";
 		$db->query($SQL);
 		$TransUser++;
 	}
