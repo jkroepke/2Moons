@@ -30,13 +30,6 @@ class ShowSupportPage
 		$PlanetRess->CalcResource();
 		$PlanetRess->SavePlanetToDB();
 		
-		$this->template	= new template();
-		
-		$this->template->page_header();
-		$this->template->page_topnav();
-		$this->template->page_leftmenu();
-		$this->template->page_planetmenu();
-		$this->template->page_footer();
 		switch($action){
 			case 'newticket':
 				$this->CreaeTicket();
@@ -57,18 +50,27 @@ class ShowSupportPage
 		$subject = request_var('subject','',true);
 		$text 	 = makebr(request_var('text','',true));
 
-		if(empty($text) || empty($subject))
-			exit($this->template->message($LNG['sendit_error_msg'],"game.php?page=support", 3));
-
-		$Qryinsertticket  = "INSERT ".SUPP." SET ";
-		$Qryinsertticket .= "`player_id` = '". $USER['id'] ."',";
-		$Qryinsertticket .= "`subject` = '". $db->sql_escape($subject) ."',";
-		$Qryinsertticket .= "`text` = '" .$db->sql_escape($text) ."',";
-		$Qryinsertticket .= "`time` = '". TIMESTAMP ."',";
-		$Qryinsertticket .= "`status` = '1'";
-		$db->query($Qryinsertticket);
+		$template	= new template();
+		$template->page_header();
+		$template->page_topnav();
+		$template->page_leftmenu();
+		$template->page_planetmenu();
+		$template->page_footer();
 		
-		$this->template->message($LNG['sendit_t'],"game.php?page=support", 3);
+		if(empty($text) || empty($subject)) {
+			$template->message($LNG['sendit_error_msg'], "game.php?page=support", 3);
+			exit;
+		}
+		
+		$SQL  = "INSERT ".SUPP." SET ";
+		$SQL .= "`player_id` = '". $USER['id'] ."',";
+		$SQL .= "`subject` = '". $db->sql_escape($subject) ."',";
+		$SQL .= "`text` = '" .$db->sql_escape($text) ."',";
+		$SQL .= "`time` = '". TIMESTAMP ."',";
+		$SQL .= "`status` = '1';";
+		$db->query($SQL);
+		
+		$template->message($LNG['sendit_t'], "game.php?page=support", 3);
 	}
 	
 	private function UpdateTicket($TicketID) 
@@ -76,15 +78,20 @@ class ShowSupportPage
 		global $USER, $db, $LNG;
 		
 		$text = request_var('text','',true);
-		
+		$template	= new template();
+		$template->page_header();
+		$template->page_topnav();
+		$template->page_leftmenu();
+		$template->page_planetmenu();
+		$template->page_footer();		
 		if(empty($text))
-			exit($this->template->message($LNG['sendit_error_msg'],"game.php?page=support", 3));
+			exit($template->message($LNG['sendit_error_msg'],"game.php?page=support", 3));
 		
 		$ticket = $db->uniquequery("SELECT text FROM ".SUPP." WHERE `id` = '".$TicketID."';");
 
 		$text 	= $ticket['text'].'<br><br><hr>'.$USER['username'].' schreib am '.date("d. M Y H:i:s", TIMESTAMP).'<br><br>'.makebr($text).'';
 		$db->query("UPDATE ".SUPP." SET `text` = '".$db->sql_escape($text) ."',`status` = '3' WHERE `id` = '". $db->sql_escape($TicketID) ."';");
-		$this->template->message($LNG['sendit_a'],"game.php?page=support", 3);
+		$template->message($LNG['sendit_a'],"game.php?page=support", 3);
 	}
 	
 	private function ShowSupportTickets()
@@ -103,8 +110,15 @@ class ShowSupportPage
 		}
 
 		$db->free_result($query);
-			
-		$this->template->assign_vars(array(	
+		$template	= new template();
+		$template->loadscript('support.js');
+		$template->page_header();
+		$template->page_topnav();
+		$template->page_leftmenu();
+		$template->page_planetmenu();
+		$template->page_footer();		
+		
+		$template->assign_vars(array(	
 			'TicketsList'			=> $TicketsList,
 			'text'					=> $LNG['text'],
 			'supp_header'			=> $LNG['supp_header'],
@@ -123,7 +137,7 @@ class ShowSupportPage
 			'ticket_new'			=> $LNG['ticket_new'],		
 		));
 			
-		$this->template->show("support_overview.tpl");
+		$template->show("support_overview.tpl");
 	}
 }
 ?>

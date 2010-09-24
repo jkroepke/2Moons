@@ -7,22 +7,22 @@
 			<th colspan="4">{$supp_header}</td>
 		</tr>
 		<tr>
-			<th width="10%">{$ticket_id}</td>
-			<th width="50%">{$subject}</td>
-			<th width="15%">{$status}</td>
-			<th width="25%">{$ticket_posted}</td>
+			<th style="width:10%">{$ticket_id}</td>
+			<th style="width:50%">{$subject}</td>
+			<th style="width:15%">{$status}</td>
+			<th style="width:25%">{$ticket_posted}</td>
 		</tr>
 		{foreach key=TicketID item=TicketInfo from=$TicketsList}	
 		<tr>
-		<td class='b'>{$TicketID}</td>
-		<td class='b'><a href="javascript:infodiv('ticket_{$TicketID}');">{$TicketInfo.subject}</a></td>
-		<td class='b'>{if $TicketInfo.status == 0}<font color="red">{$supp_close}</font>{elseif $TicketInfo.status == 1}<font color="green">{$supp_open}</font>{elseif $TicketInfo.status == 2}<font color="orange">{$supp_admin_answer}</font>{elseif $TicketInfo.status == 3}<font color="green">{$supp_player_answer}</font>{/if}</td>
-		<td class='b'>{$TicketInfo.date}</td>
+		<td>{$TicketID}</td>
+		<td><a href="#" onclick="ShowTicket('ticket_{$TicketID}');">{$TicketInfo.subject}</a></td>
+		<td>{if $TicketInfo.status == 0}<font color="red">{$supp_close}</font>{elseif $TicketInfo.status == 1}<font color="green">{$supp_open}</font>{elseif $TicketInfo.status == 2}<font color="orange">{$supp_admin_answer}</font>{elseif $TicketInfo.status == 3}<font color="green">{$supp_player_answer}</font>{/if}</td>
+		<td>{$TicketInfo.date}</td>
 		</tr>
 		{/foreach}
 	</table>
 	{foreach key=TicketID item=TicketInfo from=$TicketsList}
-	<div id="ticket_{$TicketID}" style="display:none;">
+	<div id="ticket_{$TicketID}" style="display:none;" class="tickets">
 		<form action="game.php?page=support&amp;action=send&amp;id={$TicketID}" method="POST">
 			<table style="width:50%">
 				<tr>
@@ -46,7 +46,7 @@
 	<div id="newbutton" style="display:block;">
 		<table style="width:50%">
 			<tr>
-				<th><a href="javascript:infodiv(0);">{$ticket_new}</a></th>
+				<th><a href="#" onclick="ShowTicket(0);">{$ticket_new}</a></th>
 			</tr>
 		</table>
 	</div>
@@ -73,16 +73,5 @@
 		</form>
 	</div>
 </div>
-<script type="text/javascript">
-function infodiv(i) {
-	if(i == 0){ $('#newbutton:visible').slideUp(500);$('#new:hidden').slideDown(500); }
-	if(i != 0){ $('#newbutton:hidden').slideDown(500);$('#new:visible').slideUp(500); }
-
-	{foreach key=TicketID item=TicketInfo from=$TicketsList}
-	$('#ticket_{$TicketID}:visible').slideUp(500);
-	{/foreach}
-	$('#'+i).slideDown(500);
-}
-</script>
 {include file="planet_menu.tpl"}
 {include file="overall_footer.tpl"}
