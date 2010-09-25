@@ -128,6 +128,7 @@ class MissionCaseExpedition extends MissionFunctions
 			break;
 			case 3:
 			case 10:
+			default:
 				unset($FleetCount[208]);
 				unset($FleetCount[209]);
 				unset($FleetCount[214]);
@@ -154,7 +155,9 @@ class MissionCaseExpedition extends MissionFunctions
 				$FoundShips		= max(min(round($Size * $FleetPoints), $MaxPoints), 10000);
 				$MinFound		= mt_rand(7000, 10000);
 			
-				$FoundShipMess	= "";
+				$FoundShipMess	= "";	
+				$NewFleetArray 	= "";
+
 				$LNG			+= $this->GetUserLang($this->_fleet['fleet_owner'], 'TECH');
 				
 				foreach($reslist['fleet'] as $ID) 
@@ -162,6 +165,7 @@ class MissionCaseExpedition extends MissionFunctions
 					if(!isset($FleetCount[$ID])) continue;
 					$Count				= mt_rand(1, floor($FoundShips / ($pricelist[$ID]['metal'] + $pricelist[$ID]['crystal'])));
 					$FleetCount[$ID]	= bcadd($Count, $FleetCount[$ID]);
+					$NewFleetArray  	.= $ID.",".floattostring($Count + $FleetCount[$ID]).";";
 					$FoundShips	 		-= $Count * ($pricelist[$ID]['metal'] + $pricelist[$ID]['crystal']);
 					$FoundShipMess   	.= '<br>'.$LNG['tech'][$ID].': '.pretty_number($Count);
 					if($FoundShips <= 0)
@@ -169,13 +173,11 @@ class MissionCaseExpedition extends MissionFunctions
 				}
 					
 				$Message	.= $FoundShipMess;
-				$NewFleetArray = "";
 
 				foreach ($FleetCount as $ID => $Count)
 				{
 					if (empty($Count)) continue;
 					
-					$NewFleetArray   .= $ID.",".floattostring($Count).";";
 				}
 								
 				$this->UpdateFleet('fleet_array', $NewFleetArray);
@@ -286,7 +288,22 @@ class MissionCaseExpedition extends MissionFunctions
 					
 				$SQLQuery  = "INSERT INTO ".RW." SET `time` = '".TIMESTAMP."', `owners` = '".$this->_fleet['fleet_owner'].",0', `rid` = '". $rid ."', `raport` = '';";	
 				$db->query($SQLQuery);
+				switch($result['won'])
+				{
+					case "r":
+						$ColorAtt = "red";
+						$ColorDef = "green";
+					break;
+					case "w":
+						$ColorAtt = "orange";
+						$ColorDef = "orange";	
+					case "a":
+						$ColorAtt = "green";
+						$ColorDef = "red";
+					break;
+				}
 				$MessageAtt = sprintf('<a href="CombatReport.php?raport=%s" onclick="OpenPopup(\'CombatReport.php?raport=%s\', \'combat\', screen.width, screen.height);return false"><center><font color="%s">%s %s</font></a><br><br><font color="%s">%s: %s</font> <font color="%s">%s: %s</font><br>%s %s:<font color="#adaead">%s</font> %s:<font color="#ef51ef">%s</font> %s:<font color="#f77542">%s</font><br>%s %s:<font color="#adaead">%s</font> %s:<font color="#ef51ef">%s</font><br></center>', $rid, $rid, $ColorAtt, $LNG['sys_mess_attack_report'], sprintf($LNG['sys_adress_planet'], $this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet']), $ColorAtt, $LNG['sys_perte_attaquant'], pretty_number($result['lost']['att']), $ColorDef, $LNG['sys_perte_defenseur'], pretty_number($result['lost']['def']), $LNG['sys_gain'], $LNG['Metal'], pretty_number($steal['metal']), $LNG['Crystal'], pretty_number($steal['crystal']), $LNG['Deuterium'], pretty_number($steal['deuterium']), $LNG['sys_debris'], $LNG['Metal'], pretty_number($result['debree']['att'][0]+$result['debree']['def'][0]), $LNG['Crystal'], pretty_number($result['debree']['att'][1]+$result['debree']['def'][1]));
+			
 				SendSimpleMessage($this->_fleet['fleet_owner'], '', $this->_fleet['fleet_start_time'], 3, $LNG['sys_mess_tower'], $LNG['sys_mess_attack_report'], $MessageAtt);
 			break;
 			case 5:
