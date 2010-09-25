@@ -2,7 +2,7 @@
 {include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
 <div id="content" class="content">
-<table >
+<table>
 <tr>
 <th colspan="11">{$mg_overview}</th>
 </tr>
@@ -16,10 +16,9 @@
 <td style="color:{$MessInfo.color};"><span id="unread_{$MessID}">{$MessInfo.unread}</span>/{$MessInfo.total}</td>
 {/foreach}
 </tr>
-<tr>
-<td class="tranparent" colspan="11" id="frame" style="margin:0px;padding:0px !important;">
-</td>
-</tr>
+</table>
+<div id="frame" style="width:80%;margin: 0 auto;"></div>
+<table>
 <tr>
 <th colspan="11">{$mg_game_operators}</th>
 </tr>
