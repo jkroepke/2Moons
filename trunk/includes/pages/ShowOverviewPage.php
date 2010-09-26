@@ -68,51 +68,6 @@ function ShowOverviewPage()
 			$PlanetRess->SavePlanetToDB();
 			
 			$template	= new template();	
-			
-			$OwnFleets = $db->query("SELECT DISTINCT * FROM ".FLEETS." WHERE `fleet_owner` = '".$USER['id']."' OR `fleet_target_owner` = '".$USER['id']."';");
-			$Record = 0;
-			if($db->num_rows($OwnFleets) > 0){
-				require_once(ROOT_PATH . 'includes/classes/class.FlyingFleetsTable.' . PHP_EXT);
-				$FlyingFleetsTable = new FlyingFleetsTable();
-				$template->execscript('FleetTime();window.setInterval("FleetTime()", 1000);');
-			}
-			
-			$ACSDone	= array();
-			$fpage  	= array();
-			$FleetData 	= array();
-			while ($FleetRow = $db->fetch_array($OwnFleets))
-			{
-				$Record++;
-				$IsOwner	= ($FleetRow['fleet_owner'] == $USER['id']) ? true : false;
-				
-				if ($FleetRow['fleet_mess'] == 0 && $FleetRow['fleet_start_time'] > TIMESTAMP && ($FleetRow['fleet_group'] == 0 || !in_array($FleetRow['fleet_group'], $ACSDone)))
-				{
-					$ACSDone[]		= $FleetRow['fleet_group'];
-					
-					$fpage[$FleetRow['fleet_start_time'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable($FleetRow, 0, $IsOwner, 'fs', $Record, true);
-					$FleetData[$FleetRow['fleet_start_time'].$FleetRow['fleet_id']]	= $fpage[$FleetRow['fleet_start_time'].$FleetRow['fleet_id']]['fleet_return'];
-				}
-
-				if($FleetRow['fleet_mission'] == 10 || ($FleetRow['fleet_mission'] == 4 && $FleetRow['fleet_mess'] == 0))
-					continue;
-	
-				if ($FleetRow['fleet_mess'] != 1 && $FleetRow['fleet_end_stay'] > TIMESTAMP)
-				{
-					$fpage[$FleetRow['fleet_end_stay'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable($FleetRow, 2, $IsOwner, 'ft', $Record);
-					$FleetData[$FleetRow['fleet_end_stay'].$FleetRow['fleet_id']]	= $fpage[$FleetRow['fleet_end_stay'].$FleetRow['fleet_id']]['fleet_return'];
-				}
-
-				if ($IsOwner == false)
-					continue;
-			
-				if ($FleetRow['fleet_end_time'] > TIMESTAMP)
-				{
-					$fpage[$FleetRow['fleet_end_time'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable($FleetRow, 1, $IsOwner, 'fe', $Record);
-					$FleetData[$FleetRow['fleet_end_time'].$FleetRow['fleet_id']]	= $fpage[$FleetRow['fleet_end_time'].$FleetRow['fleet_id']]['fleet_return'];
-				}
-			}
-			
-			$db->free_result($OwnFleets);
 			$template->getplanets();
 			
 			foreach($template->UserPlanets as $ID => $CPLANET)
@@ -203,11 +158,9 @@ function ShowOverviewPage()
 		
 			$db->free_result($OnlineAdmins);
 			
-			if (isset($fpage))
-				ksort($fpage);				
-	
 			$template->loadscript('mbContainer.js');
 			$template->loadscript('overview.js');
+			$template->execscript('GetFleets(true);');
 			$template->page_header();
 			$template->page_topnav();
 			$template->page_leftmenu();
@@ -226,8 +179,6 @@ function ShowOverviewPage()
 				'buildtime'					=> $PLANET['b_building'],
 				'userid'					=> $USER['id'],
 				'username'					=> $USER['username'],
-				'fleets'					=> $fpage,
-				'FleetData'					=> json_encode($FleetData),
 				'build'						=> $Build,
 				'Moon'						=> $Moon,
 				'AllPlanets'				=> $AllPlanets,

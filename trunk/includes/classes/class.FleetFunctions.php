@@ -268,7 +268,7 @@ abstract class FleetFunctions
 	{
 		global $db;
 
-		$ActualFleets = $db->uniquequery("SELECT COUNT(*) as state FROM ".FLEETS." WHERE `fleet_owner` = '".$CurrentUserID."'".(($Mission != 0)?" AND `fleet_mission` = '".$Mission."'":"")." AND `fleet_mission` <> 10;");
+		$ActualFleets = $db->uniquequery("SELECT COUNT(*) as state FROM ".FLEETS." WHERE `fleet_owner` = '".$CurrentUserID."' AND ".(($Mission != 0)?"`fleet_mission` = '".$Mission."'":"`fleet_mission` != 10").";");
 		return $ActualFleets['state'];
 	}	
 	
@@ -311,7 +311,7 @@ abstract class FleetFunctions
 		redirectTo("game.".PHP_EXT."?page=fleet");
 	}
 
-	function GetAKSPage($CurrentUser, $CurrentPlanet, $fleetid)
+	public static function GetAKSPage($CurrentUser, $CurrentPlanet, $fleetid)
 	{
 		global $resource, $pricelist, $reslist, $LNG, $db;
 

@@ -72,6 +72,7 @@ function ShowPhalanxPage()
 	$SQL .= ") ORDER BY `fleet_start_time`;";
 
 	$FleetToTarget  = $db->query($SQL);
+	$fpage		= array();
 	$FleetData	= array();
 	while ($FleetRow = $db->fetch_array($FleetToTarget))
 	{
@@ -107,7 +108,7 @@ function ShowPhalanxPage()
 	
 	$db->free_result($FleetToTarget);
 	
-	if(isset($fpage))
+	if(!empty($fpage))
 		ksort($fpage);
 
 	$template->assign_vars(array(

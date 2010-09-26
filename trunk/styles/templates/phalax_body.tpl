@@ -6,9 +6,9 @@
 <tr>
     <th colspan="2">{$px_fleet_movement}</th>
 </tr>
-    {foreach item=FleetInfoRow from=$fleets}
+    {foreach key=ID item=FleetInfoRow from=$fleets}
 		<tr class="{$FleetInfoRow.fleet_status}">
-			<td id="fleettime_{$FleetInfoRow.fleet_id}" class="z" style="width:92px;">-</td>
+			<td id="fleettime_{$ID}" style="width:92px;">-</td>
 			<td>
 				{$FleetInfoRow.fleet_descr}
 			</td>
