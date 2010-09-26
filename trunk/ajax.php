@@ -77,6 +77,7 @@ switch($action)
 		exit;
 	break;
 	case 'fleet1':
+		includeLang('TECH');
 		$USER							= $db->uniquequery("SELECT u.`".$resource[124]."`, p.`galaxy`, p.`system`, p.`planet`, p.`planet_type` FROM ".USERS." as u, ".PLANETS." as p WHERE p.`id` = '".$_SESSION['planet']."' AND u.`id` = '".$_SESSION['id']."';");
 		$TargetGalaxy 					= request_var('galaxy', $USER['galaxy']);
 		$TargetSystem 					= request_var('system', $USER['system']);
