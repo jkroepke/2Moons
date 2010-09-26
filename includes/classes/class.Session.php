@@ -32,7 +32,7 @@ class Session
 		return $db->uniquequery("SELECT * FROM ".SESSION." WHERE `sess_id` = '".session_id()."' AND `user_id` = '".$_SESSION['id']."' AND `user_ip` = '".sprintf("%u", ip2long($_SERVER['REMOTE_ADDR']))."';");
 	}
 	
-	function CreateSession($ID, $Username, $MainPlanet, $Authlevel = 0)
+	function CreateSession($ID, $Username, $MainPlanet, $Authlevel = 0, $dpath = DEFAULT_SKINPATH)
 	{
 		global $db;
 		session_start();
@@ -40,6 +40,7 @@ class Session
 		$_SESSION['username']	= $Username;
 		$_SESSION['authlevel']	= $Authlevel;	
 		$_SESSION['path']		= $this->GetPath();
+		$_SESSION['dpath']		= $dpath;
 		$_SESSION['planet']		= $MainPlanet;
 		$db->query("INSERT INTO ".SESSION." (`sess_id`, `user_id`, `user_ua`, `user_ip`, `user_side`, `user_method`, `user_lastactivity`) VALUES ('".session_id()."', '".$ID."', '".$db->sql_escape($_SERVER['HTTP_USER_AGENT'])."', '".sprintf("%u", ip2long($_SERVER['REMOTE_ADDR']))."', '".$db->sql_escape($_SESSION['path'])."', '".$_SERVER["REQUEST_METHOD"]."', '".TIMESTAMP."') ON DUPLICATE KEY UPDATE `sess_id` = '".session_id()."', `user_ua` = '".$db->sql_escape($_SERVER['HTTP_USER_AGENT'])."', `user_ip` = '".sprintf("%u", ip2long($_SERVER['REMOTE_ADDR']))."', `user_side` = '".$db->sql_escape($_SESSION['path'])."', `user_method` = '".$_SERVER["REQUEST_METHOD"]."';");
 	}

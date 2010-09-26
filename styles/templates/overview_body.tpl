@@ -2,7 +2,7 @@
 {include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
 <div id="content" class="content">
-    <table style="min-width:519px;width:519px;">
+    <table class="table519">
         <tr>
         	<th colspan="4"><a href="#" onclick="$('.containerPlus').mb_open();$('.containerPlus').mb_centerOnWindow(false);return false;" title="{$ov_planetmenu}">{$ov_planet} "<span class="planetname">{$planetname}</span>"</a> ({$username})</th>
         </tr>
@@ -32,14 +32,9 @@
         <tr>
         	<th colspan="4">{$ov_events}</th>
         </tr>
-        {foreach item=FleetInfoRow from=$fleets}
-		<tr class="{$FleetInfoRow.fleet_status}">
-			<td id="fleettime_{$FleetInfoRow.fleet_id}" class="z">-</td>
-			<td colspan="3">
-				{$FleetInfoRow.fleet_descr}
-			</td>
+		<tr id="fleets" style="display:none;">
+			<td colspan="4">
 		</tr>
-		{/foreach}
         <tr>
         	<td>{if $Moon}<a href="game.php?page=overview&amp;cp={$Moon.id}&amp;re=0" title="{$Moon.name}"><img src="{$dpath}planeten/mond.jpg" height="50" width="50" alt="{$Moon.name} ({$fcm_moon})"></a><br>{$Moon.name} ({$fcm_moon}){else}&nbsp;{/if}</td>
         	<td colspan="2"><img src="{$dpath}planeten/{$planetimage}.jpg" height="200" width="200" alt="{$planetname}"><br>{$build}</td>
@@ -116,7 +111,6 @@
 <script type="text/javascript">
 buildtime	= {$buildtime} * 1000;
 ov_password	= "{$ov_password}";
-Fleets		= {$FleetData};
 </script>
 {include file="planet_menu.tpl"}
 {include file="overall_footer.tpl"}

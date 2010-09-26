@@ -82,7 +82,7 @@ if (INSTALL != true)
 	
 	$CONF['moduls']		= explode(";", $CONF['moduls']);
 	define('VERSION'		, $CONF['VERSION']);
-	if (!defined('LOGIN') && !defined('IN_CRON'))
+	if (!defined('LOGIN') && !defined('IN_CRON') && !defined('AJAX'))
 	{
 		$SESSION       	= new Session();
 		
@@ -171,6 +171,7 @@ if (INSTALL != true)
 	}
 }
 
-require_once(ROOT_PATH.'includes/classes/class.template.'.PHP_EXT);
+if (!defined('AJAX'))
+	require_once(ROOT_PATH.'includes/classes/class.template.'.PHP_EXT);
 
 ?>

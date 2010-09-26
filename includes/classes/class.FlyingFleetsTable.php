@@ -8,7 +8,7 @@ class FlyingFleetsTable
     {
 		global $LNG, $USER;
 
-		return $Names['own_username'].' <a href="#" onclick="OpenPopup(\'game.php?page=messages&amp;mode=write&amp;id='.$FleetRow['fleet_owner'].'\', \'\', 720, 300);return falase;"><img src="'.$USER['dpath'].'img/m.gif" title="'.$LNG['write_message'].'" border="0" alt=""></a>';
+		return $Names['own_username'].' <a href="#" onclick="OpenPopup(\'game.php?page=messages&amp;mode=write&amp;id='.$FleetRow['fleet_owner'].'\', \'\', 720, 300);return falase;"><img src="'.$_SESSION['dpath'].'img/m.gif" title="'.$LNG['write_message'].'" border="0" alt=""></a>';
 	}
 
 	// For ShowFlyingFleets.php in admin panel.
@@ -89,26 +89,26 @@ class FlyingFleetsTable
 		return $MissionPopup;
 	}
 
-	private function CreateFleetPopupedFleetLink($FleetRow, $Texte, $FleetType)
+	private function CreateFleetPopupedFleetLink($FleetRow, $Texte, $FleetType, $Names)
 	{
-		global $LNG, $USER;
+		global $LNG;
 
 		$FleetRec     = explode(";", $FleetRow['fleet_array']);
 		$FleetPopup   = "<a href='#' onmouseover=\"return overlib('";
 		$FleetPopup  .= "<table width=200>";
 		if(!defined('IN_ADMIN'))
 		{
-			if($USER['spy_tech'] < 2 && $FleetRow['fleet_owner'] != $USER['id'])
+			if($Names['spy_tech'] < 2 && $FleetRow['fleet_owner'] != $_SESSION['id'])
 			{
 				$FleetPopup .= "<tr><td width=50% align=left><font color=white>".$LNG['cff_no_fleet_data']."<font></td></tr>";
 			}
-			elseif($USER['spy_tech'] >= 2 && $USER['spy_tech'] < 4 && $FleetRow['fleet_owner'] != $USER['id'])
+			elseif($Names['spy_tech'] >= 2 && $Names['spy_tech'] < 4 && $FleetRow['fleet_owner'] != $_SESSION['id'])
 			{
 				$FleetPopup .= "<tr><td width=50% align=left><font color=white>".$LNG['cff_aproaching'].$FleetRow['fleet_amount'].$LNG['cff_ships']."<font></td></tr>";
 			}
 			else
 			{
-				if($FleetRow['fleet_owner'] != $USER['id'])
+				if($FleetRow['fleet_owner'] != $_SESSION['id'])
 					$FleetPopup .= "<tr><td width=100% align=left><font color=white>".$LNG['cff_aproaching'].$FleetRow['fleet_amount'].$LNG['cff_ships'].":<font></td></tr>";
 
 				foreach($FleetRec as $Item => $Group)
@@ -116,13 +116,13 @@ class FlyingFleetsTable
 					if ($Group  != '')
 					{
 						$Ship    = explode(",", $Group);
-						if($FleetRow['fleet_owner'] == $USER['id'])
+						if($FleetRow['fleet_owner'] == $_SESSION['id'])
 							$FleetPopup .= "<tr><td width=50% align=left><font color=white>". $LNG['tech'][$Ship[0]] .":<font></td><td width=50% align=right><font color=white>". pretty_number($Ship[1]) ."<font></td></tr>";
-						elseif($FleetRow['fleet_owner'] != $USER['id'])
+						elseif($FleetRow['fleet_owner'] != $_SESSION['id'])
 						{
-							if($USER['spy_tech'] >= 4 && $USER['spy_tech'] < 8)
+							if($Names['spy_tech'] >= 4 && $Names['spy_tech'] < 8)
 								$FleetPopup .= "<tr><td width=50% align=left><font color=white>". $LNG['tech'][$Ship[0]] ."<font></td></tr>";
-							elseif($USER['spy_tech'] >= 8)
+							elseif($Names['spy_tech'] >= 8)
 								$FleetPopup .= "<tr><td width=50% align=left><font color=white>". $LNG['tech'][$Ship[0]] .":<font></td><td width=50% align=right><font color=white>". pretty_number($Ship[1]) ."<font></td></tr>";
 						}
 					}
@@ -151,6 +151,7 @@ class FlyingFleetsTable
 	{
 		global $db;
 		return $db->uniquequery("SELECT ou.username as own_username,
+		ou.spy_tech as spy_tech,
 		tu.username as target_username,
 		op.name as own_planetname,
 		tp.name as target_planetname
@@ -163,7 +164,7 @@ class FlyingFleetsTable
        
 	public function GetEventString($FleetRow, $Status, $Owner, $Label, $Record)
 	{
-		global $LNG, $USER;
+		global $LNG;
 		$FleetStyle  = array (
 			1 => 'attack',
 			2 => 'federation',
@@ -181,7 +182,7 @@ class FlyingFleetsTable
 		$Names		  = $this->GetNames($FleetRow);
 		$FleetPrefix    = ($Owner == true) ? 'own' : '';
 		$MissionType    = $FleetRow['fleet_mission'];
-		$FleetContent   = $this->CreateFleetPopupedFleetLink($FleetRow, (($MissionType == 1 || $MissionType == 2) && $FleetRow['fleet_owner'] != $USER['id'] && $Status == 0 && $Owner == true) ? $LNG['cff_acs_fleet'] : $LNG['ov_fleet'], $FleetPrefix.$FleetStyle[$MissionType]);
+		$FleetContent   = $this->CreateFleetPopupedFleetLink($FleetRow, (($MissionType == 1 || $MissionType == 2) && $FleetRow['fleet_owner'] != $_SESSION['id'] && $Status == 0 && $Owner == true) ? $LNG['cff_acs_fleet'] : $LNG['ov_fleet'], $FleetPrefix.$FleetStyle[$MissionType], $Names);
 		$FleetCapacity  = $this->CreateFleetPopupedMissionLink($FleetRow, $LNG['type_mission'][$MissionType], $FleetPrefix.$FleetStyle[$MissionType]);
 		$StartType      = $FleetRow['fleet_start_type'];
 		$TargetType     = $FleetRow['fleet_end_type'];
@@ -189,7 +190,7 @@ class FlyingFleetsTable
 		$FleetStatus    = array ( 0 => 'flight', 1 => 'return' , 2 => 'holding');
 
 
-		if (($MissionType == 1 || $MissionType == 2) && $FleetRow['fleet_owner'] != $USER['id'] && $Status == 0 && $Owner == true)
+		if (($MissionType == 1 || $MissionType == 2) && $FleetRow['fleet_owner'] != $_SESSION['id'] && $Status == 0 && $Owner == true)
 		{
 			$StartID = $LNG['cff_of'].' '.$Names['own_username'].' ';
 			$StartID  .= $LNG['cff_goes'];
@@ -269,7 +270,7 @@ class FlyingFleetsTable
 		{
 			if ($Owner == true)
 			{
-				if (($MissionType == 1 || $MissionType == 2) && $Status == 0 && $FleetRow['fleet_owner'] != $USER['id']) {
+				if (($MissionType == 1 || $MissionType == 2) && $Status == 0 && $FleetRow['fleet_owner'] != $_SESSION['id']) {
 					$EventString  = $LNG['cff_a'];
 				} else {
 					$EventString  = $LNG['cff_one_of_your'];
@@ -341,18 +342,6 @@ class FlyingFleetsTable
 		} else {
 			list($Rest, $EventString, $Time) = $this->GetEventString($FleetRow, $Status, $Owner, $Label, $Record);
 			$EventString    .= '<br><br>';
-		}
-		switch($Status)
-		{
-			case 0:
-				$FleetInfo['fleet_id']	= $FleetRow['fleet_start_time'].$FleetRow['fleet_id'];
-			break;
-			case 1:
-				$FleetInfo['fleet_id']	= $FleetRow['fleet_end_time'].$FleetRow['fleet_id'];
-			break;
-			case 2:
-				$FleetInfo['fleet_id']	= $FleetRow['fleet_end_stay'].$FleetRow['fleet_id'];
-			break;
 		}
 		
 		$FleetInfo['fleet_order']	= $Label . $Record;

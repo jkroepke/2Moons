@@ -52,13 +52,13 @@ switch ($page) {
 		
 		if($fb_user)
 		{
-			$login = $db->uniquequery("SELECT `id`, `username`, `authlevel`, `id_planet`, `banaday` FROM " . USERS . " WHERE `fb_id` = '".$fb_user."';");
+			$login = $db->uniquequery("SELECT `id`, `username`, `dpath`, `authlevel`, `id_planet`, `banaday` FROM ".USERS." WHERE `fb_id` = '".$fb_user."';");
 			if (isset($login)) {
 				if ($login['banaday'] <= time () && $login['banaday'] != '0') {
-					$db->query("UPDATE " . USERS . " SET `banaday` = '0', `bana` = '0' WHERE `username` = '" . $login ['username'] . "';");
+					$db->query("UPDATE " . USERS . " SET `banaday` = '0', `bana` = '0' WHERE `username` = '".$login['id']."';");
 				}
 				$SESSION       	= new Session();
-				$SESSION->CreateSession($login['id'], $login['username'], $login['id_planet'], $login['authlevel']);
+				$SESSION->CreateSession($login['id'], $login['username'], $login['id_planet'], $login['authlevel'], $login['dpath']);
 				
 				redirectTo("game.".PHP_EXT."?page=overview");
 			} else {
@@ -643,14 +643,14 @@ switch ($page) {
 		if ($_POST) {
 			$luser = request_var('username', '', UTF8_SUPPORT);
 			$lpass = request_var('password', '', UTF8_SUPPORT);
-			$login = $db->uniquequery("SELECT `id`,`username`,`authlevel`,`id_planet`,`banaday` FROM " . USERS . " WHERE `username` = '".$db->sql_escape($luser)."' AND `password` = '".md5($lpass)."';");
+			$login = $db->uniquequery("SELECT `id`,`username`,`dpath`,`authlevel`,`id_planet`,`banaday` FROM " . USERS . " WHERE `username` = '".$db->sql_escape($luser)."' AND `password` = '".md5($lpass)."';");
 			
 			if (isset($login)) {
 				if ($login['banaday'] <= TIMESTAMP) {
-					$db->query("UPDATE " . USERS . " SET `banaday` = '0', `bana` = '0' WHERE `username` = '" . $login ['username'] . "';");
+					$db->query("UPDATE " . USERS . " SET `banaday` = '0', `bana` = '0' WHERE `id` = '".$login['id']."';");
 				}
 				$SESSION       	= new Session();
-				$SESSION->CreateSession($login['id'], $login['username'], $login['id_planet'], $login['authlevel']);
+				$SESSION->CreateSession($login['id'], $login['username'], $login['id_planet'], $login['authlevel'], $login['dpath']);
 
 				redirectTo("game.".PHP_EXT."?page=overview");
 			} else {

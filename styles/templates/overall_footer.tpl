@@ -6,7 +6,9 @@ var localTime = new Date();
 localTS = localTime.getTime();
 var ServerTimezoneOffset = {$date.6} + localTime.getTimezoneOffset()*60;
 var Gamename	= document.title;
-var Ready	= "{$ready}";
+var Ready		= "{$ready}";
+var Skin		= "{$dpath}";
+var Lang		= "{$lang}";
 
 </script>
 <script type="text/javascript" src="{$cd}scripts/base.js"></script>

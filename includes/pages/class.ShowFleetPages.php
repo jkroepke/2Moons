@@ -206,33 +206,6 @@ class ShowFleetPages extends FleetFunctions
 		$TargetPlanet					= request_var('planet', $PLANET['planet']);
 		$TargetPlanettype 				= request_var('planet_type', $PLANET['planet_type']);
 		
-		if(request_var('mode', '') == 'valid')
-		{
-			if($TargetGalaxy == $PLANET['galaxy'] && $TargetSystem == $PLANET['system'] && $TargetPlanet == $PLANET['planet'] && $TargetPlanettype == $PLANET['planet_type'])
-				exit($LNG['fl_error_same_planet']);
-			elseif($TargetPlanettype == 3 && !CheckPlanetIfExist($TargetGalaxy, $TargetSystem, $TargetPlanet, 3))
-				exit($LNG['fl_error_no_moon']);
-			
-			if ($TargetPlanet != 16) 
-			{
-				$Data	= $db->uniquequery("SELECT u.`urlaubs_modus`, p.`id_level`, p.`destruyed`, p.`der_metal`, p.`der_crystal`, p.`destruyed` FROM ".USERS." as u, ".PLANETS." as p WHERE p.`galaxy` = '".$TargetGalaxy."' AND p.`system` = '".$TargetSystem."' AND p.`planet` = '".$TargetPlanet."'  AND p.`planet_type` = '".(($TargetPlanettype == 2) ? 1 : $TargetPlanettype)."' AND `u`.`id` = p.`id_owner`;");
-				
-				if ($Data['urlaubs_modus'])
-					exit($LNG['fl_in_vacation_player']);
-				elseif ($Data['id_level'] > $_SESSION['authlevel'])
-					exit($LNG['fl_admins_cannot_be_attacked']);
-				elseif ($Data['destruyed'] != 0)
-					exit($LNG['fl_error_not_avalible']);
-				elseif($TargetPlanettype == 2 && ($Data['der_metal'] != 0 || $Data['der_crystal'] != 0))
-					exit($LNG['fl_error_empty_derbis']);
-			} else {
-				if ($USER[$resource[124]] == 0)
-					exit($LNG['fl_expedition_tech_required']);
-				elseif (parent::GetCurrentFleets($USER['id'], 15) >= floor(sqrt($USER[$resource[124]])))
-					exit($LNG['fl_expedition_fleets_limit']);
-			}
-			exit('OK');
-		}
 		$PlanetRess = new ResourceUpdate();
 		$PlanetRess->CalcResource();
 		$PlanetRess->SavePlanetToDB();
