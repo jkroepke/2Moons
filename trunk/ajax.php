@@ -96,7 +96,7 @@ switch($action)
 				exit($LNG['fl_admins_cannot_be_attacked']);
 			elseif ($Data['destruyed'] != 0)
 				exit($LNG['fl_error_not_avalible']);
-			elseif($TargetPlanettype == 2 && ($Data['der_metal'] != 0 || $Data['der_crystal'] != 0))
+			elseif($TargetPlanettype == 2 && $Data['der_metal'] == 0 && $Data['der_crystal'] == 0)
 				exit($LNG['fl_error_empty_derbis']);
 		} else {
 			if ($USER[$resource[124]] == 0)
