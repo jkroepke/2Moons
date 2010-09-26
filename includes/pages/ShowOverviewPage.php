@@ -83,14 +83,13 @@ function ShowOverviewPage()
 			while ($FleetRow = $db->fetch_array($OwnFleets))
 			{
 				$Record++;
-				$IsOwner	= ($FleetRow['fleet_owner'] == $FleetRow['fleet_target_owner']) ? true : false;
-
+				$IsOwner	= ($FleetRow['fleet_owner'] == $USER['id']) ? true : false;
 				
 				if ($FleetRow['fleet_mess'] == 0 && $FleetRow['fleet_start_time'] > TIMESTAMP && ($FleetRow['fleet_group'] == 0 || !in_array($FleetRow['fleet_group'], $ACSDone)))
 				{
 					$ACSDone[]		= $FleetRow['fleet_group'];
 					
-					$fpage[$FleetRow['fleet_start_time'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable($FleetRow, $IsOwner, true, 'fs', $Record, true);
+					$fpage[$FleetRow['fleet_start_time'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable($FleetRow, 0, $IsOwner, 'fs', $Record, true);
 					$FleetData[$FleetRow['fleet_start_time'].$FleetRow['fleet_id']]	= $fpage[$FleetRow['fleet_start_time'].$FleetRow['fleet_id']]['fleet_return'];
 				}
 
@@ -99,7 +98,7 @@ function ShowOverviewPage()
 	
 				if ($FleetRow['fleet_mess'] != 1 && $FleetRow['fleet_end_stay'] > TIMESTAMP)
 				{
-					$fpage[$FleetRow['fleet_end_stay'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable($FleetRow, $IsOwner, true, 'ft', $Record);
+					$fpage[$FleetRow['fleet_end_stay'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable($FleetRow, 2, $IsOwner, 'ft', $Record);
 					$FleetData[$FleetRow['fleet_end_stay'].$FleetRow['fleet_id']]	= $fpage[$FleetRow['fleet_end_stay'].$FleetRow['fleet_id']]['fleet_return'];
 				}
 
@@ -108,7 +107,7 @@ function ShowOverviewPage()
 			
 				if ($FleetRow['fleet_end_time'] > TIMESTAMP)
 				{
-					$fpage[$FleetRow['fleet_end_time'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable($FleetRow, $IsOwner, true, 'fe', $Record);
+					$fpage[$FleetRow['fleet_end_time'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable($FleetRow, 1, $IsOwner, 'fe', $Record);
 					$FleetData[$FleetRow['fleet_end_time'].$FleetRow['fleet_id']]	= $fpage[$FleetRow['fleet_end_time'].$FleetRow['fleet_id']]['fleet_return'];
 				}
 			}

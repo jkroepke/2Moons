@@ -22,7 +22,7 @@
 		{/if}
         <tr>
         	<td style="white-space: nowrap;">{$ov_admins_online}</td>
-        	<td colspan="3">{foreach name=OnlineAdmins key=id item=Name from=$AdminsOnline}{if !$smarty.foreach.OnlineAdmins.first}&nbsp;&bull;&nbsp;{/if}<a href="javascript:OpenPopup('game.php?page=messages&amp;mode=write&amp;id={$id}','', 720, 300);">{$Name}</a>{foreachelse}{$ov_no_admins_online}{/foreach}</td>
+        	<td colspan="3">{foreach name=OnlineAdmins key=id item=Name from=$AdminsOnline}{if !$smarty.foreach.OnlineAdmins.first}&nbsp;&bull;&nbsp;{/if}<a href="#" onclick="OpenPopup('game.php?page=messages&amp;mode=write&amp;id={$id}','', 720, 300);return falase;">{$Name}</a>{foreachelse}{$ov_no_admins_online}{/foreach}</td>
         </tr>		
 		{if $Teamspeak}
 		<tr>

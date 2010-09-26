@@ -8,7 +8,7 @@ class FlyingFleetsTable
     {
 		global $LNG, $USER;
 
-		return $Names['own_username'].' <a href="javascript:f(\'game.php?page=messages&amp;mode=write&amp;id='.$FleetRow['fleet_owner'].'\',\'\');"><img src="'.$USER['dpath'].'img/m.gif" title="'.$LNG['write_message'].'" border="0" alt=""></a>';
+		return $Names['own_username'].' <a href="#" onclick="OpenPopup(\'game.php?page=messages&amp;mode=write&amp;id='.$FleetRow['fleet_owner'].'\', \'\', 720, 300);return falase;"><img src="'.$USER['dpath'].'img/m.gif" title="'.$LNG['write_message'].'" border="0" alt=""></a>';
 	}
 
 	// For ShowFlyingFleets.php in admin panel.
