@@ -11,7 +11,7 @@
 		<th>{$chat_disc}</th>
 	</tr>
 	<tr>
-		<td><div id="shoutbox" style="margin: 5px;vertical-align: text-top;height: {if !$ctype}360px{else}200px{/if};overflow:auto"></div></td>
+		<td><div id="shoutbox" style="margin: 5px;vertical-align: text-top;height: {if !$ctype}360px{else}550px;max-width:760px;{/if};overflow:auto"></div></td>
 	</tr>
 	<tr>
 		<td> 

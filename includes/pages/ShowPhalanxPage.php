@@ -32,6 +32,8 @@ function ShowPhalanxPage()
 	$GalaxyRows 		= new GalaxyRows();
 
 	$template			= new template();
+	$template->loadscript('phalanx.js');
+	$template->execscript('FleetTime();window.setInterval("FleetTime()", 1000);');
 	$template->page_header();
 	$template->page_footer();	
 	
@@ -70,7 +72,7 @@ function ShowPhalanxPage()
 	$SQL .= ") ORDER BY `fleet_start_time`;";
 
 	$FleetToTarget  = $db->query($SQL);
-		
+	$FleetData	= array();
 	while ($FleetRow = $db->fetch_array($FleetToTarget))
 	{
 		$Record++;
@@ -82,20 +84,25 @@ function ShowPhalanxPage()
 		$FleetRow['fleet_resource_deuterium'] 	= 0;
 		$FleetRow['fleet_resource_darkmatter'] 	= 0;
 
-		if ($FleetRow['fleet_mess'] == 0 && $FleetRow['fleet_start_time'] > TIMESTAMP)
+		if ($FleetRow['fleet_mess'] == 0 && $FleetRow['fleet_start_time'] > TIMESTAMP) {
 			$fpage[$FleetRow['fleet_start_time'].$FleetRow['fleet_id']]	= $FlyingFleetsTable->BuildFleetEventTable($FleetRow, 0, $IsOwner, 'fs', $Record);
-
+			$FleetData[$FleetRow['fleet_start_time'].$FleetRow['fleet_id']]	= $fpage[$FleetRow['fleet_start_time'].$FleetRow['fleet_id']]['fleet_return'];	
+		}
 		if ($FleetRow['fleet_mission'] == 4)
 			continue;
 			
-		if ($FleetRow['fleet_mess'] != 1 && $FleetRow['fleet_end_stay'] > TIMESTAMP)
+		if ($FleetRow['fleet_mess'] != 1 && $FleetRow['fleet_end_stay'] > TIMESTAMP) {
 			$fpage[$FleetRow['fleet_end_stay'].$FleetRow['fleet_id']]	= $FlyingFleetsTable->BuildFleetEventTable($FleetRow, 2, $IsOwner, 'ft', $Record);
+			$FleetData[$FleetRow['fleet_end_stay'].$FleetRow['fleet_id']]	= $fpage[$FleetRow['fleet_start_time'].$FleetRow['fleet_id']]['fleet_return'];	
+		}
 
 		if ($IsOwner == false)
 			continue;
 		
-		if ($FleetRow['fleet_end_time'] > TIMESTAMP)
+		if ($FleetRow['fleet_end_time'] > TIMESTAMP) {
 			$fpage[$FleetRow['fleet_end_time'].$FleetRow['fleet_id']]	= $FlyingFleetsTable->BuildFleetEventTable($FleetRow, 1, $IsOwner, 'fe', $Record);
+			$FleetData[$FleetRow['fleet_end_time'].$FleetRow['fleet_id']]	= $fpage[$FleetRow['fleet_start_time'].$FleetRow['fleet_id']]['fleet_return'];	
+		}
 	}
 	
 	$db->free_result($FleetToTarget);
@@ -109,6 +116,7 @@ function ShowPhalanxPage()
 		'phl_pl_place'   	=> $Planet,
 		'phl_pl_name'    	=> $TargetInfo['name'],
 		'fleets'		 	=> $fpage,
+		'FleetData'		 	=> json_encode($FleetData),
 		'px_scan_position'	=> $LNG['px_scan_position'],
 		'px_no_fleet'		=> $LNG['px_no_fleet'],
 		'px_fleet_movement'	=> $LNG['px_fleet_movement'],

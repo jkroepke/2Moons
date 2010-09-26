@@ -69,7 +69,7 @@ function ShowOverviewPage()
 			
 			$template	= new template();	
 			
-			$OwnFleets = $db->query("SELECT * FROM ".FLEETS." WHERE `fleet_owner` = '".$USER['id']."';");
+			$OwnFleets = $db->query("SELECT DISTINCT * FROM ".FLEETS." WHERE `fleet_owner` = '".$USER['id']."' OR `fleet_target_owner` = '".$USER['id']."';");
 			$Record = 0;
 			if($db->num_rows($OwnFleets) > 0){
 				require_once(ROOT_PATH . 'includes/classes/class.FlyingFleetsTable.' . PHP_EXT);
@@ -83,12 +83,14 @@ function ShowOverviewPage()
 			while ($FleetRow = $db->fetch_array($OwnFleets))
 			{
 				$Record++;
+				$IsOwner	= ($FleetRow['fleet_owner'] == $FleetRow['fleet_target_owner']) ? true : false;
+
 				
 				if ($FleetRow['fleet_mess'] == 0 && $FleetRow['fleet_start_time'] > TIMESTAMP && ($FleetRow['fleet_group'] == 0 || !in_array($FleetRow['fleet_group'], $ACSDone)))
 				{
 					$ACSDone[]		= $FleetRow['fleet_group'];
 					
-					$fpage[$FleetRow['fleet_start_time'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable($FleetRow, 0, true, 'fs', $Record, true);
+					$fpage[$FleetRow['fleet_start_time'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable($FleetRow, $IsOwner, true, 'fs', $Record, true);
 					$FleetData[$FleetRow['fleet_start_time'].$FleetRow['fleet_id']]	= $fpage[$FleetRow['fleet_start_time'].$FleetRow['fleet_id']]['fleet_return'];
 				}
 
@@ -97,49 +99,21 @@ function ShowOverviewPage()
 	
 				if ($FleetRow['fleet_mess'] != 1 && $FleetRow['fleet_end_stay'] > TIMESTAMP)
 				{
-					$fpage[$FleetRow['fleet_end_stay'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable($FleetRow, 2, true, 'ft', $Record);
+					$fpage[$FleetRow['fleet_end_stay'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable($FleetRow, $IsOwner, true, 'ft', $Record);
 					$FleetData[$FleetRow['fleet_end_stay'].$FleetRow['fleet_id']]	= $fpage[$FleetRow['fleet_end_stay'].$FleetRow['fleet_id']]['fleet_return'];
 				}
 
+				if ($IsOwner == false)
+					continue;
+			
 				if ($FleetRow['fleet_end_time'] > TIMESTAMP)
 				{
-					$fpage[$FleetRow['fleet_end_time'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable($FleetRow, 1, true, 'fe', $Record);
+					$fpage[$FleetRow['fleet_end_time'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable($FleetRow, $IsOwner, true, 'fe', $Record);
 					$FleetData[$FleetRow['fleet_end_time'].$FleetRow['fleet_id']]	= $fpage[$FleetRow['fleet_end_time'].$FleetRow['fleet_id']]['fleet_return'];
 				}
 			}
 			
 			$db->free_result($OwnFleets);
-
-			$OtherFleets = $db->query("SELECT * FROM ".FLEETS." WHERE `fleet_target_owner` = '".$USER['id']."' AND `fleet_owner` != '".$USER['id']."';");
-			
-			if(!isset($FlyingFleetsTable) && $db->num_rows($OtherFleets) > 0){
-				require_once(ROOT_PATH . 'includes/classes/class.FlyingFleetsTable.' . PHP_EXT);
-				$FlyingFleetsTable = new FlyingFleetsTable();
-				$template->execscript('FleetTime();window.setInterval("FleetTime()", 1000);');
-			}
-			
-			$Record = 2000;
-			$ACSDone	= array();
-			while ($FleetRow = $db->fetch_array($OtherFleets))
-			{			
-				$Record++;
-
-				if ($FleetRow['fleet_mess'] != 1 && $FleetRow['fleet_start_time'] > TIMESTAMP && ($FleetRow['fleet_group'] == 0 || !in_array($FleetRow['fleet_group'], $ACSDone)))
-				{
-					$ACSDone[]		= $FleetRow['fleet_group'];
-										
-					$fpage[$FleetRow['fleet_start_time'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 0, false, 'ofs', $Record, true);
-					$FleetData[$FleetRow['fleet_start_time'].$FleetRow['fleet_id']]	= $fpage[$FleetRow['fleet_start_time'].$FleetRow['fleet_id']]['fleet_return'];
-				}
-				
-				if ($FleetRow['fleet_mess'] != 1 && $FleetRow['fleet_mission'] == 5 && $FleetRow['fleet_end_stay'] > TIMESTAMP)
-				{
-					$fpage[$FleetRow['fleet_end_stay'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable ($FleetRow, 2, false, 'oft', $Record);
-					$FleetData[$FleetRow['fleet_end_stay'].$FleetRow['fleet_id']]	= $fpage[$FleetRow['fleet_end_stay'].$FleetRow['fleet_id']]['fleet_return'];
-				}
-			}
-			$db->free_result($OtherFleets);
-		
 			$template->getplanets();
 			
 			foreach($template->UserPlanets as $ID => $CPLANET)
