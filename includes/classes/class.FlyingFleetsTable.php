@@ -89,7 +89,7 @@ class FlyingFleetsTable
 		return $MissionPopup;
 	}
 
-	private function CreateFleetPopupedFleetLink($FleetRow, $Texte, $FleetType, $Names)
+	private function CreateFleetPopupedFleetLink($FleetRow, $Texte, $FleetType, $Names = array())
 	{
 		global $LNG;
 
