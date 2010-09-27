@@ -95,11 +95,11 @@ class ShowFleetPages extends FleetFunctions
 			$fleet = explode(";", $CurrentFleetsRow['fleet_array']);
 			foreach ($fleet as $ShipID => $ShipCount)
 			{
-				if (!empty($ShipCount))
-				{
-					$a = explode(",", $ShipCount);
-					$FleetList[$CurrentFleetsRow['fleet_id']][$LNG['tech'][$a[0]]] = pretty_number($a[1]);
-				}
+				if (empty($ShipCount))
+					continue;
+
+				$a = explode(",", $ShipCount);
+				$FleetList[$CurrentFleetsRow['fleet_id']][$LNG['tech'][$a[0]]] = pretty_number($a[1]);
 			}
 			
 			$FlyingFleetList[]	= array(
