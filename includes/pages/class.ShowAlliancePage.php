@@ -1036,6 +1036,9 @@ class ShowAlliancePage
 									break;
 								}
 
+								$this->template->loadscript('jquery.bbcodeeditor.js');
+								$this->template->loadscript('alliance.js');
+								$this->template->execscript("$('#cntChars').text($('#text').val().length);");
 								$this->template->assign_vars(array(
 									'al_characters'				=> $LNG['al_characters'],
 									'al_manage_alliance'		=> $LNG['al_manage_alliance'],

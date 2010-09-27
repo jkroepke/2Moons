@@ -86,13 +86,13 @@ class ShowNotesPage
 		$Note 		= $db->uniquequery("SELECT * FROM ".NOTES." WHERE id = '".$NotesID."' AND owner = '".$USER['id']."';");
 
 		if(!$Note)
-			die(redirectTo("game.php?page=notes"));
+			redirectTo("game.php?page=notes");
 		
 		$template	= new template();
 
 		$template->page_header();
 		$template->page_footer();
-
+		$template->execscript("$('#cntChars').text($('#text').val().length);");
 		$template->assign_vars(array(	
 			'nt_edit_note'		=> $LNG['nt_edit_note'],
 			'nt_priority'		=> $LNG['nt_priority'],
