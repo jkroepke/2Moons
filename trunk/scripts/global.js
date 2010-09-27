@@ -32,11 +32,6 @@ function allydiplo(action, id, level) {
     OpenPopup("game.php?page=alliance&mode=admin&edit=diplo&action="+action+vid+vlevel+"&ajax=1", "diplo", 720, 300);
 }
 
-
-function ajax(datei, id) {
-	$('#'+id).load(datei+'&ajax=1');
-}
-
 function maxcount(id){
 	var metmax = parseInt($('#current_metal').text().replace(/\./g, '')) / parseInt($('#metal_'+id).text().replace(/\./g,""));
 	var crymax = parseInt($('#current_crystal').text().replace(/\./g, '')) / parseInt($('#crystal_'+id).text().replace(/\./g,""));
@@ -57,32 +52,4 @@ function maxcount(id){
 		return removeE(Math.floor(Math.min(metmax, crymax)));
 	else
 		return removeE(Math.floor(Math.min(metmax, Math.min(crymax, deumax))));
-}
-
-function messages(ID)
-{
-	if(ID == 100) {
-		$('#unread_0').text('0');
-		$('#unread_1').text('0');
-		$('#unread_2').text('0');
-		$('#unread_3').text('0');
-		$('#unread_4').text('0');
-		$('#unread_5').text('0');
-		$('#unread_15').text('0');
-		$('#unread_99').text('0');
-		$('#unread_100').text('0');
-		$('#newmes').text('');
-	} else {
-		var count = parseInt($('#unread_'+ID).text());
-		var lmnew = parseInt($('#newmesnum').text());
-	
-		$('#unread_'+ID).text('0');
-		if(ID != 999) {
-			$('#unread_100').text($('#unread_100').text() - count);
-		}
-		if(lmnew - count <= 0)
-			$('#newmes').text('');
-		else
-			$('#newmesnum').text(lmnew - count);
-	}
 }
