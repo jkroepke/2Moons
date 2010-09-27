@@ -8,16 +8,15 @@
 </tr>
 <tr>
 {foreach name=MessageList key=MessID item=MessInfo from=$MessageList}
-<td style="width:{100 / $smarty.foreach.MessageList.total}%;"><a href="javascript:ajax('game.php?page=messages&amp;mode=show&amp;messcat={$MessID}','frame');" onclick="messages({$MessID});" style="color:{$MessInfo.color};">{$MessInfo.lang}</a></td>
+<td style="width:{100 / $smarty.foreach.MessageList.total}%;"><a href="#" onclick="Message.getMessages({$MessID});return false;" style="color:{$MessInfo.color};">{$MessInfo.lang}</a></td>
 {/foreach}
 </tr>
-<tr>
+<tr id="messcount">
 {foreach key=MessID item=MessInfo from=$MessageList}
-<td style="color:{$MessInfo.color};"><span id="unread_{$MessID}">{$MessInfo.unread}</span>/{$MessInfo.total}</td>
+<td style="color:{$MessInfo.color};"><span id="unread_{$MessID}">{$MessInfo.unread}</span>/<span id="total_{$MessID}">{$MessInfo.total}</span></td>
 {/foreach}
 </tr>
 </table>
-<div id="frame" style="width:80%;margin: 0 auto;"></div>
 <table>
 <tr>
 <th colspan="11">{$mg_game_operators}</th>

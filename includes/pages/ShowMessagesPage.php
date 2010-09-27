@@ -74,122 +74,12 @@ function ShowMessagesPage()
 			
 			$template->show("message_send_form.tpl");		
 		break;
-		case 'delete':
-			$DeleteWhat = request_var('deletemessages','');
-			$MessType	= request_var('mess_type', 0);
-			
-			if($MessType == 100 && $DeleteWhat == 'deletetypeall')
-				$DeleteWhat	= 'deleteall';
-				
-			switch($DeleteWhat)
-			{
-				case 'deleteall':
-					$db->query("DELETE FROM ".MESSAGES." WHERE `message_owner` = '". $USER['id'] ."';");
-				break;
-				case 'deletetypeall':
-					$db->query("DELETE FROM ".MESSAGES." WHERE `message_owner` = '". $USER['id'] ."' AND `message_type` = '".$MessType."';");
-				case 'deletemarked':
-					if(!empty($_POST['delmes']) && is_array($_POST['delmes']))
-					{
-						$SQLWhere = array();
-						foreach($_POST['delmes'] as $id => $b)
-						{
-							$SQLWhere[] = "`message_id` = '".(int) $id."'";
-						}
-						
-						$db->query("DELETE FROM ".MESSAGES." WHERE (".implode(" OR ",$SQLWhere).") AND `message_owner` = '". $USER['id'] ."'".(($MessType != 100)? " AND `message_type` = '".$MessType."' ":"").";");
-					}
-				break;
-				case 'deleteunmarked':
-					if(!empty($_POST['delmes']) && is_array($_POST['delmes']))
-					{
-						$SQLWhere = array();
-						foreach($_POST['delmes'] as $id => $b)
-						{
-							$SQLWhere[] = "`message_id` != '".(int) $id."'";
-						}
-						
-						$db->query("DELETE FROM ".MESSAGES." WHERE (".implode(" AND ",$SQLWhere).") AND `message_owner` = '". $USER['id'] ."'".(($MessType != 100)? " AND `message_type` = '".$MessType."' ":"").";");
-					}
-				break;
-			}
-			header("Location:game.php?page=messages");
-		break;
-		case 'show':
-			if($MessCategory == 999)
-			{
-				$UsrMess = $db->query("SELECT * FROM ".MESSAGES." WHERE `message_sender` = '".$USER['id']."' ORDER BY `message_time` DESC;");
-					
-				while ($CurMess = $db->fetch_array($UsrMess))
-				{
-					$CurrUsername	= $db->fetch_array($db->query("SELECT `username`, `galaxy`, `system`, `planet` FROM ".USERS." WHERE id = '".$CurMess['message_owner']."';"));
-					
-					$MessageList[$CurMess['message_id']]	= array(
-						'time'		=> date("d. M Y, H:i:s", $CurMess['message_time']),
-						'from'		=> $CurrUsername['username']." [".$CurrUsername['galaxy'].":".$CurrUsername['system'].":".$CurrUsername['planet']."]",
-						'subject'	=> $CurMess['message_subject'],
-						'type'		=> $CurMess['message_type'],
-						'text'		=> $CurMess['message_text'],
-					);
-				}			
-			} else {
-				if($MessCategory == 50)
-					$UsrMess = $db->query("SELECT * FROM ".MESSAGES." WHERE `message_owner` = '0' AND `message_type` = '".$MessCategory."' ORDER BY `message_time` DESC;");
-				elseif($MessCategory == 100)
-					$UsrMess = $db->query("SELECT * FROM ".MESSAGES." WHERE `message_owner` = '".$USER['id']."' ORDER BY `message_time` DESC;");
-				else
-					$UsrMess = $db->query("SELECT * FROM ".MESSAGES." WHERE `message_owner` = '".$USER['id']."' AND `message_type` = '".$MessCategory."' ORDER BY `message_time` DESC;");
-				
-				$UnRead	= 0;
-					
-				while ($CurMess = $db->fetch_array($UsrMess))
-				{
-					$UnRead	+= $CurMess['message_unread'];
-					$MessageList[$CurMess['message_id']]	= array(
-						'time'		=> date("d. M Y, H:i:s", $CurMess['message_time']),
-						'from'		=> $CurMess['message_from'],
-						'subject'	=> stripslashes($CurMess['message_subject']),
-						'type'		=> $CurMess['message_type'],
-						'sender'	=> $CurMess['message_sender'],
-						'text'		=> stripslashes($CurMess['message_text']),
-					);
-				}
-				
-				$db->free_result($UsrMess);
-			
-				if($MessCategory == 50)
-					$db->multi_query("UPDATE ".USERS." SET `new_message` = `new_message` - `new_gmessage`, `new_gmessage` = '0' WHERE `id` = '".$USER['id']."';");			
-				elseif($MessCategory == 100)
-					$db->multi_query("UPDATE ".USERS." SET `new_message` = '0' WHERE `id` = '".$USER['id']."';UPDATE ".MESSAGES." SET `message_unread` = '0' WHERE `message_owner` = '".$USER['id']."';");			
-				else
-					$db->multi_query("UPDATE ".USERS." SET `new_message` = '".max($USER['new_message'] - $UnRead, 0)."' WHERE `id` = '".$USER['id']."';UPDATE ".MESSAGES." SET `message_unread` = '0' WHERE `message_owner` = '".$USER['id']."' AND `message_type` = '".$MessCategory."';");
-			}
-			
-			$template->assign_vars(array(	
-				'MessageList'						=> $MessageList,
-				'mg_message_title'					=> $LNG['mg_message_title'],
-				'mg_action'							=> $LNG['mg_action'],
-				'mg_date'							=> $LNG['mg_date'],
-				'mg_from'							=> $LNG['mg_from'],
-				'mg_to'								=> $LNG['mg_to'],
-				'mg_subject'						=> $LNG['mg_subject'],
-				'mg_show_only_header_spy_reports'	=> $LNG['mg_show_only_header_spy_reports'],
-				'mg_delete_marked'					=> $LNG['mg_delete_marked'],
-				'mg_delete_type_all'				=> $LNG['mg_delete_type_all'],
-				'mg_delete_unmarked'				=> $LNG['mg_delete_unmarked'],
-				'mg_delete_all'						=> $LNG['mg_delete_all'],
-				'mg_confirm_delete'					=> $LNG['mg_confirm_delete'],
-				'mg_game_message'					=> $LNG['mg_game_message'],
-				'dpath'								=> $USER['dpath'],
-				'MessCategory'						=> $MessCategory,
-			));
-			$template->show("message_show.tpl");			
-		break;
 		default:
 			$PlanetRess = new ResourceUpdate();
 			$PlanetRess->CalcResource();
 			$PlanetRess->SavePlanetToDB();
 			
+			$template->loadscript('message.js');
 			$template->page_header();
 			$template->page_topnav();
 			$template->page_leftmenu();

@@ -125,7 +125,7 @@ switch($action)
 		if (!empty($password))
 		{
 			$USER		= $db->uniquequery("SELECT u.`current_planet`, u.`id_planet`, p.`galaxy`, p.`system`, p.`planet`, p.`id_luna` FROM ".USERS." as u, ".PLANETS." as p WHERE p.`id` = '".$_SESSION['planet']."' AND u.`id` = '".$_SESSION['id']."';");
-			$IfFleets	= $db->uniquequery("SELECT COUNT(*) as state FROM ".FLEETS." WHERE (`fleet_owner` = '".$USER['id']."' AND `fleet_start_galaxy` = '".$USER['galaxy']."' AND `fleet_start_system` = '".$USER['system']."' AND `fleet_start_planet` = '".$USER['planet']."') OR (`fleet_target_owner` = '".$USER['id']."' AND `fleet_end_galaxy` = '".$USER['galaxy']."' AND `fleet_end_system` = '".$USER['system']."' AND `fleet_end_planet` = '".$USER['planet']."');");
+			$IfFleets	= $db->uniquequery("SELECT COUNT(*) as state FROM ".FLEETS." WHERE (`fleet_owner` = '".$_SESSION['id']."' AND `fleet_start_galaxy` = '".$USER['galaxy']."' AND `fleet_start_system` = '".$USER['system']."' AND `fleet_start_planet` = '".$USER['planet']."') OR (`fleet_target_owner` = '".$_SESSION['id']."' AND `fleet_end_galaxy` = '".$USER['galaxy']."' AND `fleet_end_system` = '".$USER['system']."' AND `fleet_end_planet` = '".$USER['planet']."');");
 			
 			if ($IfFleets['state'] > 0)
 				exit(json_encode(array('mess' => $LNG['ov_abandon_planet_not_possible'])));
@@ -144,6 +144,123 @@ switch($action)
 				exit(json_encode(array('ok' => true, 'mess' => $LNG['ov_planet_abandoned'])));
 			}
 		}
+	break;
+	case 'getmessages':
+		$MessCategory  	= request_var('messcat', 0);
+		if($MessCategory == 999)
+		{
+			$UsrMess = $db->query("SELECT * FROM ".MESSAGES." WHERE `message_sender` = '".$_SESSION['id']."' ORDER BY `message_time` DESC;");
+				
+			while ($CurMess = $db->fetch_array($UsrMess))
+			{
+				$CurrUsername	= $db->uniquequery("SELECT `username`, `galaxy`, `system`, `planet` FROM ".USERS." WHERE id = '".$CurMess['message_owner']."';");
+				
+				$MessageList[$CurMess['message_id']]	= array(
+					'time'		=> date("d. M Y, H:i:s", $CurMess['message_time']),
+					'from'		=> $CurrUsername['username']." [".$CurrUsername['galaxy'].":".$CurrUsername['system'].":".$CurrUsername['planet']."]",
+					'subject'	=> $CurMess['message_subject'],
+					'type'		=> $CurMess['message_type'],
+					'text'		=> $CurMess['message_text'],
+				);
+			}		
+			$db->free_result($UsrMess);	
+			
+			echo json_encode($MessageList);
+			
+			exit;
+		}
+			
+		$UsrMess = $db->query("SELECT * FROM ".MESSAGES." WHERE `message_owner` = '".$_SESSION['id']."' OR (`message_owner` = '0' AND `message_type` = '50') ORDER BY `message_time` DESC;");
+			
+		while ($CurMess = $db->fetch_array($UsrMess))
+		{
+			$MessageList[$CurMess['message_id']]	= array(
+				'time'		=> date("d. M Y, H:i:s", $CurMess['message_time']),
+				'from'		=> $CurMess['message_from'],
+				'subject'	=> stripslashes($CurMess['message_subject']),
+				'sender'	=> $CurMess['message_sender'],
+				'type'		=> $CurMess['message_type'],
+				'text'		=> stripslashes($CurMess['message_text']),
+			);
+		}
+		
+		$db->free_result($UsrMess);	
+				
+		echo json_encode(array(
+			'MessageList'						=> $MessageList,
+			'LNG'								=> array(
+				'mg_message_title'					=> $LNG['mg_message_title'],
+				'mg_action'							=> $LNG['mg_action'],
+				'mg_date'							=> $LNG['mg_date'],
+				'mg_from'							=> $LNG['mg_from'],
+				'mg_to'								=> $LNG['mg_to'],
+				'mg_subject'						=> $LNG['mg_subject'],
+				'mg_show_only_header_spy_reports'	=> $LNG['mg_show_only_header_spy_reports'],
+				'mg_delete_marked'					=> $LNG['mg_delete_marked'],
+				'mg_delete_type_all'				=> $LNG['mg_delete_type_all'],
+				'mg_delete_unmarked'				=> $LNG['mg_delete_unmarked'],
+				'mg_delete_all'						=> $LNG['mg_delete_all'],
+				'mg_confirm_delete'					=> $LNG['mg_confirm_delete'],
+				'mg_game_message'					=> $LNG['mg_game_message'],
+			),
+		));
+		exit;
+	break;
+	case 'updatemessages':
+		$UnRead			= request_var('count', 0);
+		$MessCategory  	= request_var('messcat', 0);
+		if($MessCategory == 50)
+			$db->multi_query("UPDATE ".USERS." SET `new_message` = `new_message` - `new_gmessage`, `new_gmessage` = '0' WHERE `id` = '".$_SESSION['id']."';");			
+		elseif($MessCategory == 100)
+			$db->multi_query("UPDATE ".USERS." SET `new_message` = '0' WHERE `id` = '".$_SESSION['id']."';UPDATE ".MESSAGES." SET `message_unread` = '0' WHERE `message_owner` = '".$_SESSION['id']."';");			
+		else
+			$db->multi_query("UPDATE ".USERS." SET `new_message` = GREATEST(`new_message` - '".$UnRead."', 0) WHERE `id` = '".$_SESSION['id']."';UPDATE ".MESSAGES." SET `message_unread` = '0' WHERE `message_owner` = '".$_SESSION['id']."' AND `message_type` = '".$MessCategory."';");
+		header('HTTP/1.1 204 No Content');
+	break;
+	case 'deletemessages':
+		$DeleteWhat = request_var('deletemessages','');
+		$MessType	= request_var('mess_type', 0);
+		
+		if($MessType == 100 && $DeleteWhat == 'deletetypeall')
+			$DeleteWhat	= 'deleteall';
+		
+		
+		switch($DeleteWhat)
+		{
+			case 'deleteall':
+				$db->query("DELETE FROM ".MESSAGES." WHERE `message_owner` = '".$_SESSION['id']."';");
+			break;
+			case 'deletetypeall':
+				$db->query("DELETE FROM ".MESSAGES." WHERE `message_owner` = '".$_SESSION['id']."' AND `message_type` = '".$MessType."';");
+			case 'deletemarked':
+				if(!empty($_REQUEST['delmes']) && is_array($_REQUEST['delmes']))
+				{
+					$SQLWhere = array();
+					foreach($_REQUEST['delmes'] as $id => $b)
+					{
+						$SQLWhere[] = "`message_id` = '".(int) $id."'";
+					}
+					
+					$db->query("DELETE FROM ".MESSAGES." WHERE (".implode(" OR ",$SQLWhere).") AND `message_owner` = '".$_SESSION['id']."'".(($MessType != 100)? " AND `message_type` = '".$MessType."' ":"").";");
+				}
+			break;
+			case 'deleteunmarked':
+				if(!empty($_REQUEST['delmes']) && is_array($_REQUEST['delmes']))
+				{
+					$SQLWhere = array();
+					foreach($_REQUEST['delmes'] as $id => $b)
+					{
+						$SQLWhere[] = "`message_id` != '".(int) $id."'";
+					}
+					
+					$db->query("DELETE FROM ".MESSAGES." WHERE (".implode(" AND ",$SQLWhere).") AND `message_owner` = '".$_SESSION['id']."'".(($MessType != 100)? " AND `message_type` = '".$MessType."' ":"").";");
+				}
+			break;
+		}
+		header('HTTP/1.1 204 No Content');
+	break;
+	default:
+		header('HTTP/1.1 204 No Content');
 	break;
 }
 ?>
