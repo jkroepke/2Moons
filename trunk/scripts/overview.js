@@ -13,7 +13,7 @@ function checkrename()
 	if($('#newname').val() == '') {
 		return false;
 	} else {
-		$.post('game.php?page=overview&mode=renameplanet&ajax=1', $('#rename').serialize(), function(response){
+		$.get('ajax.php?action=renameplanet&lang='+Lang+'&'+$('#rename').serialize(), function(response){
 			if(response == '') {
 				$('.planetname').text($('#newname').val());
 				$('#demoContainer').mb_close();
@@ -30,7 +30,7 @@ function checkcancel()
 	if($('#password').val() == '') {
 		return false;
 	} else {
-		$.getJSON('game.php?page=overview&mode=deleteplanet&ajax=1'+$('#rename').serialize(), function(response){
+		$.getJSON('ajax.php?action=deleteplanet&lang='+Lang+'&'+$('#rename').serialize(), function(response){
 			if(response.ok) {
 				alert(response.mess);
 				document.location.href = 'game.php?page=overview';

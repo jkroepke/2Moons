@@ -30,7 +30,7 @@
 			<br><a title="{$fl_onway}">{$fl_a}</a>
 		{/if}
 		</td>
-		<td><a href="#" onmouseover="return overlib('<table width=100%><tr><td class=c colspan=2 style=text-align:center;>{$fl_info_detail}</td></tr>{foreach key=name item=count from=$FlyingFleetRow.FleetList}<tr><td>{$name}:</td><td>{$count}</td></tr>{/foreach}</table>', CENTER, WIDTH, 265);" onmouseout="return nd();">{$FlyingFleetRow.amount}</a></td>
+		<td><a href="#" onmouseover="return overlib('<table width=\'100%\'><tr><th colspan=\'2\' style=\'text-align:center;\'>{$fl_info_detail}</th></tr>{foreach key=name item=count from=$FlyingFleetRow.FleetList}<tr><td class=\'transparent\'>{$name}:</td><td class=\'transparent\'>{$count}</td></tr>{/foreach}</table>', CENTER, WIDTH, 265);" onmouseout="return nd();">{$FlyingFleetRow.amount}</a></td>
 		<td><a href="game.php?page=galaxy&amp;mode=3&amp;galaxy={$FlyingFleetRow.start_galaxy}&amp;system={$FlyingFleetRow.start_system}">[{$FlyingFleetRow.start_galaxy}:{$FlyingFleetRow.start_system}:{$FlyingFleetRow.start_planet}]</a></td>
 		<td>{$FlyingFleetRow.start_time}</td>
 		<td><a href="game.php?page=galaxy&amp;mode=3&amp;galaxy={$FlyingFleetRow.end_galaxy}&amp;system={$FlyingFleetRow.end_system}">[{$FlyingFleetRow.end_galaxy}:{$FlyingFleetRow.end_system}:{$FlyingFleetRow.end_planet}]</a></td>

@@ -53,7 +53,7 @@
 .mb-resize-resizable-se{cursor:se-resize;width:30px!important;height:30px!important;right:0!important;bottom:-10px!important;z-index:auto!important}
 .mbproxy{border:1px dotted gray;background:url(mbContainer/proxy.png)}
 .containerPlus{font-family:Verdana;font-size:13px;visibility:hidden}
-;.containerPlus .spacer{margin-top:10px}
+.containerPlus .spacer{margin-top:10px}
 .containerPlus .buttonBar{position:relative;top:0;float:right;margin-top:-23px;margin-right:15px}
 .containerPlus .buttonBar img{margin-left:5px}
 .containerPlus .mbcontainercontent{margin-right:-15px;padding-right:10px;overflow:auto}
@@ -119,7 +119,7 @@ li.ui-tabs-selected a,li.ui-state-disabled a,li.ui-state-processing a{cursor:tex
 .ui-tabs .ui-tabs-panel{display:block;border:0;background:none;padding:1em 1.4em}
 .ui-tabs .ui-tabs-hide{display:none!important}
 .ui-progressbar{height:2em;text-align:left}
-.ui-progressbar .ui-progressbar-value{height:100%;margin:-1px}
+.ui-progressbar .ui-progressbar-value{height:100%}
 #TB_window{font:12px Arial, Helvetica, sans-serif;background-color:transparent;position:fixed;z-index:104;color:#000;display:none;text-align:left;top:50%;left:50%}
 #TB_secondLine{font:10px Arial, Helvetica, sans-serif;color:#666}
 #TB_window a:link,#TB_window a:visited,#TB_window a:active,#TB_window a:focus{color:#666}
