@@ -79,7 +79,7 @@
           <td><input type="text" name="owner_range" value="{$ally_owner_range}" size="30"></td>
         </tr>
         <tr>
-          <td>{$al_view_stats}</d>
+          <td>{$al_view_stats}</td>
           <td>{html_options name=stats options=$YesNoSelector selected=$ally_stats_data}</td>
         </tr>
         <tr>
@@ -108,19 +108,5 @@
         </tr>  
      </table>
 </div>
-
-		<script type="text/javascript">$('#cntChars').text($('#text').val().length);</script>
-		<script type="text/javascript" src="scripts/jquery.bbcodeeditor.js"></script>
-		<script type="text/javascript">
-			$(function(){
-				$('.bbcode').bbcodeeditor(
-				{
-					bold:$('.bold'),italic:$('.italic'),underline:$('.underline'),link:$('.link'),quote:$('.quote'),code:$('.code'),image:$('.image'),
-					usize:$('.usize'),dsize:$('.dsize'),blist:$('.blist'),litem:$('.litem'),
-					back:$('.back'),forward:$('.forward'),back_disable:'btn back_disable',forward_disable:'btn forward_disable',
-					exit_warning:true,preview:$('.preview')
-				});
-			});
-		</script>
 {include file="planet_menu.tpl"}
 {include file="overall_footer.tpl"}
