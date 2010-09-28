@@ -484,21 +484,21 @@ $LNG['sb_sql_counts']			= 'SQL Abfrage: %d';
 
 
 //---------------	LISTA DE USUARIOS - USERS LIST	------------------------//
-$LNG['ul_sure_you_want_dlte']	= 'Are you sure that you want to remove?';
+$LNG['ul_sure_you_want_dlte']		= 'Are you sure that you want to remove?';
 //###########################################################//
 
 
 //---------------	MENU	------------------------//
 $LNG['mu_general']					= 'General';
 $LNG['mu_connected']				= 'Online';
-$LNG['mu_settings']				= 'Konfiguration';
+$LNG['mu_settings']					= 'Konfiguration';
 $LNG['mu_global_message']			= 'Globale Nachrichten';
 $LNG['mu_users_settings']			= 'Menü Bearbeiten';
-$LNG['mu_add_delete_resources']	= 'Account Editor';
+$LNG['mu_add_delete_resources']		= 'Account Editor';
 $LNG['mu_stats_options']			= 'Statistik Options';
-$LNG['mu_manage_users']			= 'User Verwalten';
+$LNG['mu_manage_users']				= 'User Verwalten';
 $LNG['mu_ban_options']				= 'Ban-Panel';
-$LNG['mu_moon_options']			= 'Mond Verwaltung';
+$LNG['mu_moon_options']				= 'Mond Verwaltung';
 $LNG['mu_observation']				= 'Überwachung';
 $LNG['mu_flying_fleets']			= 'Fliegende Flotten';
 $LNG['mu_user_list']				= 'Spielerliste';
@@ -510,13 +510,13 @@ $LNG['mu_active_planets']			= 'Aktive Planeten';
 $LNG['mu_tools']					= 'Tools';
 $LNG['mu_md5_encripter']			= 'MD5 Generator';
 $LNG['mu_optimize_db']				= 'Datenbank';
-$LNG['mu_manual_points_update']	= 'Manual Update Points';
-$LNG['mu_mpu_confirmation']		= 'Die Punkte werden automatisch aktualisiert. Um sie manuell zu aktualisieren, klicke OK';
+$LNG['mu_manual_points_update']		= 'Manual Update Points';
+$LNG['mu_mpu_confirmation']			= 'Die Punkte werden automatisch aktualisiert. Um sie manuell zu aktualisieren, klicke OK';
 $LNG['mu_search_page']				= 'Erweiterte Suche';
 $LNG['mu_info_account_page']		= 'Account Information';
 $LNG['mu_planets_options']			= 'Options Planets';
 $LNG['mu_user_logs']				= 'Log';
-$LNG['mu_support']                 = 'Support-Tickets';
+$LNG['mu_support']                 	= 'Support-Tickets';
 $LNG['mu_chat']                   	= 'Chat-Admin';
 $LNG['mu_module']                 	= 'Module';
 $LNG['mu_update']                 	= 'Game-Updates';
@@ -525,10 +525,12 @@ $LNG['mu_fb_options'] 				= 'Facebook Connect';
 $LNG['mu_ts_options'] 				= 'Teamspeak Optionen';
 $LNG['mu_game_info'] 				= 'Informationen';
 $LNG['mu_vaild_users']				= 'Aktivire User'; 
-$LNG['mu_news']					= 'News'; 
+$LNG['mu_news']						= 'News'; 
+$LNG['mu_clear_cache']				= 'Lösche Cache'; 
 
 //###########################################################//
 
+$LNG['cc_cache_clear']				= 'Cache gelöscht'; 
 
 //---------------	REINICIO DE UNIVERSO - RESET UNIVERSE	------------------------//
 $LNG['re_reset_universe']					= 'Reset Universum';

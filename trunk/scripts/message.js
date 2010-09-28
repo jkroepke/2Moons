@@ -70,7 +70,7 @@ Message	= {
 			Message.MessageCount();
 			
 		if(typeof Message.MessList == "undefined") {
-			$.getJSON('ajax.php?action=getmessages', function(data) {
+			$.getJSON('ajax.php?action=getmessages&lang='+Lang, function(data) {
 				Message.MessList	= data.MessageList;
 				Message.LNG			= data.LNG;
 				if(Message.MessID != 999)
