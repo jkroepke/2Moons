@@ -141,6 +141,10 @@ switch($page)
 		include_once(ROOT_PATH . 'includes/pages/adm/ShowMenuPage.' . PHP_EXT);
 		ShowMenuPage();
 	break;
+	case 'clearcache':
+		include_once(ROOT_PATH . 'includes/pages/adm/ShowClearCachePage.' . PHP_EXT);
+		ShowClearCachePage();
+	break;
 	default:
 		include_once(ROOT_PATH . 'includes/pages/adm/ShowIndexPage.' . PHP_EXT);
 		ShowIndexPage();

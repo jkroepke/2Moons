@@ -23,7 +23,7 @@
 if ($USER['rights'][str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__)] != 1) exit;
 function ShowRightsPage()
 {
-	global $LNG, $CONF, $db;
+	global $LNG, $CONF, $db, $USER;
 	$mode	= request_var('mode', '');
 	switch($mode)
 	{
@@ -37,7 +37,7 @@ function ShowRightsPage()
 			{
 				$id			= request_var('id_1', 0);
 				
-				if($id == 1) {
+				if($USER['id'] != 1 && $id == 1) {
 					$template->message($LNG['ad_authlevel_error_3'], '?page=rights&mode=rights&sid='.session_id());
 					exit;
 				}
@@ -116,7 +116,7 @@ function ShowRightsPage()
 				if($id == 0)
 					$id	= request_var('id_2', 0);
 					
-				if($id == 1) {
+				if($USER['id'] != 1 && $id == 1) {
 					$template->message($LNG['ad_authlevel_error_3'], '?page=rights&mode=users&sid='.session_id());
 					exit;
 				}	

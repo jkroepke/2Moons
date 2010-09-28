@@ -154,6 +154,11 @@
       	<td><div align="center"><a href="?page=statsupdate" target="Hauptframe" onClick=" return confirm('{$mu_mpu_confirmation}');">{$mu_manual_points_update}</a></div></td>
 	</tr>
 {/if}
+{if $rights.ShowClearCachePage}
+   	<tr>
+      	<td><div align="center"><a href="?page=clearcache" target="Hauptframe">{$mu_clear_cache}</a></div></td>
+	</tr>
+{/if}
 </table>
 </div>
 </div>
