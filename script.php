@@ -22,6 +22,9 @@ if(file_exists($CACHE) && !isset($_GET['cache'])) {
 require_once(ROOT_PATH.'includes/libs/JSMin/jsmin.php');
 
 $SCRIPTS	= explode(';', str_replace(array('/', '\\', '-', '.'), '', $_GET['script']));
+if(!is_array($SCRIPTS))
+	exit(header('HTTP/1.1 204 No Content'));
+	
 foreach($SCRIPTS as $FILE) {
 	$JSSOUCRE	= JSMin::minify(file_get_contents(ROOT_PATH.'scripts/'.$FILE.'.js'));
 	echo $JSSOUCRE;
