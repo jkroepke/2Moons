@@ -111,6 +111,10 @@ Message	= {
 		var infos	= $('#del').serializeArray();
 		var mode	= infos[infos.length-1].value;
 		infos.pop();
+		
+		if(Message.MessID == 100 && mode == 'deletetypeall')
+			mode == 'deleteall'
+		
 		switch (mode)
 		{
 			case 'deleteall':

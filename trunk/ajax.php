@@ -147,6 +147,7 @@ switch($action)
 	break;
 	case 'getmessages':
 		$MessCategory  	= request_var('messcat', 0);
+		$MessageList	= array();
 		if($MessCategory == 999)
 		{
 			$UsrMess = $db->query("SELECT * FROM ".MESSAGES." WHERE `message_sender` = '".$_SESSION['id']."' ORDER BY `message_time` DESC;");

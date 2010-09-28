@@ -46,7 +46,7 @@ class template extends Smarty
 	
 	public function loadscript($script)
 	{
-		$this->jsscript[]				= $script;
+		$this->jsscript[]			= substr($script, 0, -3);
 	}
 	
 	public function execscript($script)

@@ -24,10 +24,15 @@ class statbuilder{
 	private function SetMaxInfo($ID, $Count, $Name)
 	{
 		if(!isset($this->maxinfos[$ID]))
-			$this->maxinfos[$ID] = array('maxlvl' => 0, 'username' => '');
-
+			$this->maxinfos[$ID] = array('maxlvl' => 0, 'username' => array());
+		
+		if($Count == 0)
+			return false;
+		
 		if($this->maxinfos[$ID]['maxlvl'] < $Count)
-			$this->maxinfos[$ID] = array('maxlvl' => $Count, 'username' => $Name);
+			$this->maxinfos[$ID] = array('maxlvl' => $Count, 'username' => array($Name));
+		elseif($this->maxinfos[$ID]['maxlvl'] == $Count)
+			$this->maxinfos[$ID]['username']	= array_merge($this->maxinfos[$ID]['username'], array($Name));
 	}
 	
 	private function AnotherCronJobs()
@@ -96,7 +101,7 @@ class statbuilder{
 		global $reslist;
 		$array	= "";
 		foreach(array_merge($reslist['build'], $reslist['tech'], $reslist['fleet'], $reslist['defense']) as $ElementID) {
-			$array	.= $ElementID." => array('username' => '".$this->maxinfos[$ElementID]['username']."', 'maxlvl' => '".$this->maxinfos[$ElementID]['maxlvl']."'),\n";
+			$array	.= $ElementID." => array('username' => array('".implode("', '", array_unique($this->maxinfos[$ElementID]['username']))."'), 'maxlvl' => '".$this->maxinfos[$ElementID]['maxlvl']."'),\n";
 		}
 		$file	= "<?php \n//The File is created on ".date("d. M y H:i:s", TIMESTAMP)."\n$"."RecordsArray = array(\n".$array."\n);\n?>";
 		file_put_contents(ROOT_PATH."cache/CacheRecords.php", $file);

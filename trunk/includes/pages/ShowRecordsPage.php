@@ -24,9 +24,12 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 function ShowRecordsPage()
 {
 	global $USER, $PLANET, $LNG, $resource, $db, $CONF;
-
-	require_once(ROOT_PATH."cache/CacheRecords.php");
 	
+	if(file_exists(ROOT_PATH.'cache/CacheRecords.php'))
+		require_once(ROOT_PATH.'cache/CacheRecords.php');
+	else
+		$RecordsArray	= array();
+		
 	$PlanetRess = new ResourceUpdate();
 	$PlanetRess->CalcResource();
 	$PlanetRess->SavePlanetToDB();
@@ -41,28 +44,28 @@ function ShowRecordsPage()
 	foreach($RecordsArray as $ElementID => $ElementIDArray) {
 		if ($ElementID >=   1 && $ElementID <=  39 || $ElementID == 44) {
 			$Builds[$LNG['tech'][$ElementID]]	= array(
-				'winner'	=> ($ElementIDArray['maxlvl'] != 0) ? $ElementIDArray['username'] : $LNG['rec_rien'],
-				'count'		=> ($ElementIDArray['maxlvl'] != 0) ? pretty_number( $ElementIDArray['maxlvl'] ) : $LNG['rec_rien'],
+				'winner'	=> ($ElementIDArray['maxlvl'] != 0) ? implode("<br>\n", $ElementIDArray['username']) : $LNG['rec_rien'],
+				'count'		=> ($ElementIDArray['maxlvl'] != 0) ? pretty_number( $ElementIDArray['maxlvl']) : $LNG['rec_rien'],
 			);
 		} elseif ($ElementID >=  41 && $ElementID <=  99 && $ElementID != 44) {
 			$MoonsBuilds[$LNG['tech'][$ElementID]]	= array(
-				'winner'	=> ($ElementIDArray['maxlvl'] != 0) ? $ElementIDArray['username'] : $LNG['rec_rien'],
-				'count'		=> ($ElementIDArray['maxlvl'] != 0) ? pretty_number( $ElementIDArray['maxlvl'] ) : $LNG['rec_rien'],
+				'winner'	=> ($ElementIDArray['maxlvl'] != 0) ? implode("<br>\n", $ElementIDArray['username']) : $LNG['rec_rien'],
+				'count'		=> ($ElementIDArray['maxlvl'] != 0) ? pretty_number( $ElementIDArray['maxlvl']) : $LNG['rec_rien'],
 			);
 		} elseif ($ElementID >= 101 && $ElementID <= 199) {
 			$Techno[$LNG['tech'][$ElementID]]	= array(
-				'winner'	=> ($ElementIDArray['maxlvl'] != 0) ? $ElementIDArray['username'] : $LNG['rec_rien'],
-				'count'		=> ($ElementIDArray['maxlvl'] != 0) ? pretty_number( $ElementIDArray['maxlvl'] ) : $LNG['rec_rien'],
+				'winner'	=> ($ElementIDArray['maxlvl'] != 0) ? implode("<br>\n", $ElementIDArray['username']) : $LNG['rec_rien'],
+				'count'		=> ($ElementIDArray['maxlvl'] != 0) ? pretty_number( $ElementIDArray['maxlvl']) : $LNG['rec_rien'],
 			);
 		} elseif ($ElementID >= 201 && $ElementID <= 399) {
 			$Fleet[$LNG['tech'][$ElementID]]	= array(
-				'winner'	=> ($ElementIDArray['maxlvl'] != 0) ? $ElementIDArray['username'] : $LNG['rec_rien'],
-				'count'		=> ($ElementIDArray['maxlvl'] != 0) ? pretty_number( $ElementIDArray['maxlvl'] ) : $LNG['rec_rien'],
+				'winner'	=> ($ElementIDArray['maxlvl'] != 0) ? implode("<br>\n", $ElementIDArray['username']) : $LNG['rec_rien'],
+				'count'		=> ($ElementIDArray['maxlvl'] != 0) ? pretty_number( $ElementIDArray['maxlvl']) : $LNG['rec_rien'],
 			);
 		} elseif ($ElementID >= 401 && $ElementID <= 599) {
 			$Defense[$LNG['tech'][$ElementID]]	= array(
-				'winner'	=> ($ElementIDArray['maxlvl'] != 0) ? $ElementIDArray['username'] : $LNG['rec_rien'],
-				'count'		=> ($ElementIDArray['maxlvl'] != 0) ? pretty_number( $ElementIDArray['maxlvl'] ) : $LNG['rec_rien'],
+				'winner'	=> ($ElementIDArray['maxlvl'] != 0) ? implode("<br>\n", $ElementIDArray['username']) : $LNG['rec_rien'],
+				'count'		=> ($ElementIDArray['maxlvl'] != 0) ? pretty_number( $ElementIDArray['maxlvl']) : $LNG['rec_rien'],
 			);
 		}
 	}
