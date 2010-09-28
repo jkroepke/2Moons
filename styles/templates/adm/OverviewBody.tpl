@@ -1,5 +1,6 @@
 {include file="adm/overall_header.tpl"}
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript" src="http://update.2moons-systems.com/donate.js"></script>
 <script type="text/javascript" src="./scripts/buildlist.js"></script>
 <script type="text/javascript">
 google.load("feeds", "1");
@@ -37,14 +38,13 @@ google.load("feeds", "1");
 	<tr>
 		<th colspan="2">
 			<div id="progressbar"></div>
-			<script type="text/javascript" src="http://update.2moons-systems.com/donate.js"></script>
 			<script type="text/javascript">
 			$(function() {
 				$("#progressbar").progressbar({
 					value: Math.min(donate_{$date},donate_max) / donate_max * 100
 				});
 			});
-			document.write("Goal: "+donate_max+"&euro; &bull; The Month Amount: "+donate_{$date}+"&euro; ("+donate_{$date} / donate_max * 100+")%");
+			document.write("Goal: "+donate_max+"&euro; &bull; The Month Amount: "+donate_{$date}+"&euro; ("+donate_{$date} / donate_max * 100+"%)");
 			</script>
 		</th>
 	</tr>
@@ -136,7 +136,6 @@ google.load("feeds", "1");
 <script type="text/javascript">
 $(document).ready(function(){
 	$('.UIStory_Message').css("color","#CCCCCC");
-
 });
 </script>
 {include file="adm/overall_footer.tpl"}

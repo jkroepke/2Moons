@@ -55,7 +55,7 @@ switch ($page) {
 			$login = $db->uniquequery("SELECT `id`, `username`, `dpath`, `authlevel`, `id_planet`, `banaday` FROM ".USERS." WHERE `fb_id` = '".$fb_user."';");
 			if (isset($login)) {
 				if ($login['banaday'] <= time () && $login['banaday'] != '0') {
-					$db->query("UPDATE " . USERS . " SET `banaday` = '0', `bana` = '0' WHERE `username` = '".$login['id']."';");
+					$db->query("UPDATE " . USERS . " SET `banaday` = '0', `bana` = '0' WHERE `id` = '".$login['id']."';");
 				}
 				$SESSION       	= new Session();
 				$SESSION->CreateSession($login['id'], $login['username'], $login['id_planet'], $login['authlevel'], $login['dpath']);

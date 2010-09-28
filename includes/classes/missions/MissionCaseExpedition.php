@@ -65,14 +65,11 @@ class MissionCaseExpedition extends MissionFunctions
 			
 		$FleetCapacity		-= $this->_fleet['fleet_resource_metal'] + $this->_fleet['fleet_resource_crystal'] + $this->_fleet['fleet_resource_deuterium'] + $this->_fleet['fleet_resource_darkmatter'];
 					
-		$GetEvent			= mt_rand(0, 20);
+		$GetEvent			= mt_rand(0, 10);
 			
 		switch($GetEvent)
 		{
 			case 1:
-			case 9:
-			case 11:
-			case 20:
 				$WitchFound	= mt_rand(1,3);
 				
 				$FindSize = mt_rand(0, 100);
@@ -110,8 +107,6 @@ class MissionCaseExpedition extends MissionFunctions
 
 			break;
 			case 2:
-			case 15:
-			case 13:
 				$FindSize = mt_rand(0, 100);
 				if(10 < $FindSize) {
 					$Size		= mt_rand(100, 300);
@@ -127,7 +122,6 @@ class MissionCaseExpedition extends MissionFunctions
 				$this->UpdateFleet('fleet_resource_darkmatter', $this->_fleet['fleet_resource_darkmatter'] + $Size);
 			break;
 			case 3:
-			case 10:
 			default:
 				unset($FleetCount[208]);
 				unset($FleetCount[209]);
@@ -184,9 +178,7 @@ class MissionCaseExpedition extends MissionFunctions
 				$this->UpdateFleet('fleet_amount', array_sum($FleetCount));
 			break;
 			case 4:
-			case 12:
-			case 16:
-				$Chance	= mt_rand(1,2);
+			$Chance	= mt_rand(1,2);
 				if($Chance == 1) {
 					$Points	= array(-3,-5,-8);
 					$Which	= 1;
@@ -307,8 +299,6 @@ class MissionCaseExpedition extends MissionFunctions
 				SendSimpleMessage($this->_fleet['fleet_owner'], '', $this->_fleet['fleet_start_time'], 3, $LNG['sys_mess_tower'], $LNG['sys_mess_attack_report'], $MessageAtt);
 			break;
 			case 5:
-			case 17:
-			case 19:
 				$this->KillFleet();
 				$Message	= $LNG['sys_expe_lost_fleet_'.mt_rand(1,4)];
 			break;
