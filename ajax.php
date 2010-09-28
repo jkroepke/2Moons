@@ -124,7 +124,7 @@ switch($action)
 		$password =	request_var('password', '', true);
 		if (!empty($password))
 		{
-			$USER		= $db->uniquequery("SELECT u.`current_planet`, u.`id_planet`, p.`galaxy`, p.`system`, p.`planet`, p.`id_luna` FROM ".USERS." as u, ".PLANETS." as p WHERE p.`id` = '".$_SESSION['planet']."' AND u.`id` = '".$_SESSION['id']."';");
+			$USER		= $db->uniquequery("SELECT u.`password`, u.`id_planet`, p.`galaxy`, p.`system`, p.`planet`, p.`planet_type`, p.`id_luna` FROM ".USERS." as u, ".PLANETS." as p WHERE p.`id` = '".$_SESSION['planet']."' AND u.`id` = '".$_SESSION['id']."';");
 			$IfFleets	= $db->uniquequery("SELECT COUNT(*) as state FROM ".FLEETS." WHERE (`fleet_owner` = '".$_SESSION['id']."' AND `fleet_start_galaxy` = '".$USER['galaxy']."' AND `fleet_start_system` = '".$USER['system']."' AND `fleet_start_planet` = '".$USER['planet']."') OR (`fleet_target_owner` = '".$_SESSION['id']."' AND `fleet_end_galaxy` = '".$USER['galaxy']."' AND `fleet_end_system` = '".$USER['system']."' AND `fleet_end_planet` = '".$USER['planet']."');");
 			
 			if ($IfFleets['state'] > 0)
