@@ -153,6 +153,7 @@ class ShowResearchPage
 		
 		$PlanetRess->CalcResource();
 		$PlanetRess->SavePlanetToDB();
+		$ScriptInfo	= array();
 	
 		foreach($reslist['tech'] as $ID => $Element)
 		{
@@ -183,7 +184,7 @@ class ShowResearchPage
 						if ($USER['b_tech_planet'] == $PLANET['id'])
 						{
 							$template->loadscript('research.js');
-							$ScriptInfo	= json_encode(array(
+							$ScriptInfo	= array(
 								'tech_time'		=> $USER['b_tech'],
 								'tech_name'		=> '',
 								'game_name'		=> $CONF['game_name'],
@@ -197,7 +198,7 @@ class ShowResearchPage
 						} else {
 							$THEPLANET	= $db->uniquequery("SELECT `name` FROM ".PLANETS." WHERE `id` = '".$USER['b_tech_planet']."';");
 							$template->loadscript('research.js');
-							$ScriptInfo	= json_encode(array(
+							$ScriptInfo	= array(
 								'tech_time'		=> $USER['b_tech'],
 								'tech_name'		=> $LNG['bd_on'].'<br>'.$THEPLANET['name'],
 								'tech_home'		=> $USER['b_tech_planet'],
@@ -207,7 +208,7 @@ class ShowResearchPage
 								'bd_cancel'		=> $LNG['bd_cancel'],
 								'bd_ready'		=> $LNG['bd_ready'],
 								'bd_continue'	=> $LNG['bd_continue'],
-							));
+							);
 						}
 
 						$TechnoLink  = '<div id="research"></div>';
@@ -233,7 +234,7 @@ class ShowResearchPage
 		$template->assign_vars(array(
 			'ResearchList'			=> $ResearchList,
 			'IsLabinBuild'			=> !$bContinue,
-			'ScriptInfo'			=> $ScriptInfo,
+			'ScriptInfo'			=> json_encode($ScriptInfo),
 			'bd_building_lab'		=> $LNG['bd_building_lab'],
 			'bd_remaining'			=> $LNG['bd_remaining'],			
 			'bd_lvl'				=> $LNG['bd_lvl'],			
