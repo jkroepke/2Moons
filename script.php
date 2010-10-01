@@ -5,8 +5,8 @@ header('Content-Type: application/x-javascript');
 
 ini_set('zlib.output_compression', 'On');
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
-error_reporting(0);
-ini_set('display_errors', 0);
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 if(!isset($_GET['script']))
 	exit(header('HTTP/1.1 204 No Content'));
