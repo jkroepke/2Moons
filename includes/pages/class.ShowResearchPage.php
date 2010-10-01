@@ -194,7 +194,7 @@ class ShowResearchPage
 								'bd_cancel'		=> $LNG['bd_cancel'],
 								'bd_ready'		=> $LNG['bd_ready'],
 								'bd_continue'	=> $LNG['bd_continue'],
-							));
+							);
 						} else {
 							$THEPLANET	= $db->uniquequery("SELECT `name` FROM ".PLANETS." WHERE `id` = '".$USER['b_tech_planet']."';");
 							$template->loadscript('research.js');
