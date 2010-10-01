@@ -421,9 +421,9 @@ function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialS
 	}
 	else
 	{
-		$Result	 =	"<br><table border='0px' style='background:url(images/Adm/blank.gif);' width='100%'>";
-		$Result	.=	"<tr><th style='color:#00CC33;border: 2px red solid;' height='25px'><font color=red>".$LNG['se_no_data']."</font></th></tr>";
-		$Result	.=	"</table>";
+		$Result['LIST']	 =	"<br><table border='0px' style='background:url(images/Adm/blank.gif);' width='90%'>";
+		$Result['LIST']	.=	"<tr><th style='color:#00CC33;border: 2px red solid;' height='25px'><font color=red>".$LNG['se_no_data']."</font></th></tr>";
+		$Result['LIST']	.=	"</table>";
 		return $Result;
 	}
 }
