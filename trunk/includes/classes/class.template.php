@@ -222,6 +222,7 @@ class template extends Smarty
 			'execscript'	=> implode("\n", $this->script),
 			'ga_active'		=> $CONF['ga_active'],
 			'ga_key'		=> $CONF['ga_key'],
+			'debug'			=> $CONF['debug'],
 		));
 	}
 	
@@ -312,10 +313,6 @@ class template extends Smarty
 				
 			if($this->page['footer'] == true)
 				$this->footer();
-
-			$this->assign_vars(array(
-				'sql_num'	=> ((!defined('INSTALL') || !defined('IN_ADMIN')) && $USER['authlevel'] == 3 && $CONF['debug'] == 1) ? "<div id=\"footer\">SQL Abfragen:".$db->get_sql()." (".round($db->time, 4)." Sekunden) - Seiten generiert in ".round(microtime(true) - STARTTIME, 4)." Sekunden</div>" : "",
-			));
 		}
 		$this->display($file);
 	}
