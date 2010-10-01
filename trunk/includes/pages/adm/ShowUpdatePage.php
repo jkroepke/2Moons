@@ -231,7 +231,6 @@ function ShowUpdatePage()
 				$LastRev = $Rev;
 			}
 			$LOG['finish']['atrev'] = "UPDATE: OK! At Revision: ".$LastRev;
-			ClearCache();
 			// Verbindung schlieﬂen
 			update_config('VERSION', str_replace("RC","",$Patchlevel[0]).".".$Patchlevel[1].".".$LastRev);
 			exitupdate($LOG);
