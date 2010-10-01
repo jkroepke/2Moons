@@ -14,7 +14,7 @@ var Lang		= "{$lang}";
 <script type="text/javascript" src="{$cd}scripts/base.js"></script>
 <script type="text/javascript" src="{$cd}scripts/global.js"></script>
 {foreach item=scriptname from=$scripts}
-<script type="text/javascript" src="{$cd}scripts/{$scriptname}"></script>
+<script type="text/javascript" src="{$cd}scripts/{$scriptname}.js"></script>
 {/foreach}
 {else}
 <script type="text/javascript" src="{$cd}script.php?script=base;global{foreach item=scriptname from=$scripts};{$scriptname}{/foreach}"></script>
