@@ -1,5 +1,4 @@
 {$cron}
-{$sql_num}
 <script type="text/javascript">
 var serverTime = new Date({$date.0}, {$date.1 - 1}, {$date.2}, {$date.3}, {$date.4}, {$date.5});
 var localTime = new Date();
@@ -11,7 +10,15 @@ var Skin		= "{$dpath}";
 var Lang		= "{$lang}";
 
 </script>
+{if $debug = 1}
+<script type="text/javascript" src="{$cd}scripts/base.js"></script>
+<script type="text/javascript" src="{$cd}scripts/global.js"></script>
+{foreach item=scriptname from=$scripts}
+<script type="text/javascript" src="{$cd}scripts/{$scriptname}"></script>
+{/foreach}
+{else}
 <script type="text/javascript" src="{$cd}script.php?script=base;global{foreach item=scriptname from=$scripts};{$scriptname}{/foreach}"></script>
+{/if}
 <script type="text/javascript">
 var timerHandler = new TimerHandler();
 {if $topnav}
