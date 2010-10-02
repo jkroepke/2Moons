@@ -10,7 +10,7 @@ google.load("feeds", "1");
 <table width="90%" style="border:2px {if empty($Messages)}lime{else}red{/if} solid;text-align:center;font-weight:bold;">
 <tr>
     <td>{foreach item=Message from=$Messages}
-	<font color="red"><b>{$Message}</b></font><br><br>
+	<span style="color:red"><b>{$Message}</b></span><br><br>
 	{foreachelse}{$ow_none}{/foreach}
 	</td>
 </tr>
@@ -109,13 +109,13 @@ google.load("feeds", "1");
 					<td><h3>{$ow_proyect_leader}</h3></td>
                 </tr>
                 <tr>
-					<td><h3><font color="red">Slaver</font></h3></td>
+					<td><h3><span style="color:red">Slaver</span></h3></td>
                 </tr>
                 <tr>
 					<td><h3>Team</h3></td>
                 </tr>
                 <tr>
-					<td>Robbyn - GFX/Board Moderrator<br>steath1 - Developer/Board Moderrator</td>
+					<td><span style="color:orange">stealth1 - Entwickler/Moderator<br>Robbyn - GFX/Moderator</span></td>
                 </tr>
 		        <tr>
 					<td><h3>{$ow_translator}</h3></td>
