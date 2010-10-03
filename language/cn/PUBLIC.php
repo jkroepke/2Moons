@@ -14,7 +14,8 @@ $LNG['menu_top100']		= '名人堂';
 $LNG['menu_disclamer']		= '版本';	 
 	 
 /* ------------------------------------------------------------------------------------------ */
-
+$LNG['music_off']			= 'Music: 关';
+$LNG['music_on']			= 'Music: 开';
 //index.php
 //case lostpassword
 $LNG['mail_not_exist'] 		= '所报至E - mail地址不存在！';
@@ -30,7 +31,9 @@ $LNG['server_infos']			= array(
 );
 
 //case default
-$LNG['login_error']			= '错误的用户名和密码! <br><a href="index.php">请返回确认</a>';
+$LNG['login_error_1']		= '错误的用户名/密码！';
+$LNG['login_error_2']		= '有人从另一个地方登录你的账户！';
+$LNG['login_error_3']		= '为了账户安全,我们已经为你自动注销账户！';
 $LNG['screenshots']			= '游戏截图';
 $LNG['universe']				= '宇宙';
 $LNG['chose_a_uni']			= '选择星痕宇宙';
@@ -67,7 +70,7 @@ $LNG['empty_user_field']			= '请填写所有内容!<br>';
 $LNG['password_lenght_error']		= '密码必须至少4个字符长!<br>';
 $LNG['user_field_no_alphanumeric']	= '请输入用户名只有字母数字字符!<br>';
 $LNG['user_field_no_space']		= '请输入用户名没有空格!<br>';
-$LNG['planet_field_no_alphanumeric']	= '请填写星球名称只能是字母或数字!<br>';
+$LNG['planet_field_no_alphanumeric']	= '请填写星球名称只能是字母、汉字或数字!<br>';
 $LNG['planet_field_no_space']		= '星球名不能为空或有空格!<br>';
 $LNG['terms_and_conditions']		= '您必须同意 <a href="index.php?page=agb">服务条款</a> 和 <a href="index.php?page=rules>游戏规则</a> 才能注册!<br>';
 $LNG['user_already_exists']		= '用户名已被使用!<br>';
@@ -78,9 +81,10 @@ $LNG['different_mails']			= '你有两个不同的电子邮件地址!<br>';
 $LNG['welcome_message_from']		= '管理';
 $LNG['welcome_message_sender']		= '管理';
 $LNG['welcome_message_subject']	= '欢迎';
-$LNG['welcome_message_content']	= '欢迎来到 %s!<br>在这里开创自己的帝国。一个崭新残酷的世界正等待着你的开启。你，或者会成为整个宇宙的王者！又或者成为其他帝国征服的对象，一切旨在你的王者之气！<br>  如有问题可以到我们的官方论坛去请教老玩家或者交给左边的客服。（注意：如果您的账号在非假期模式下超出3个月未登陆，我们将对其进行删除以维护系统数据。）<br>【请在阅读邮件后删除不用的邮件以便提高游戏处理速度】';
+$LNG['welcome_message_content']	= '欢迎来到 %s!<br>在这里开创自己的帝国。一个崭新残酷的世界正等待着你的开启。你，或者会成为整个宇宙的王者！又或者成为其他帝国征服的对象，一切旨在你的王者之气！<br>  本游戏由我们非盈利独立运营并维护，将不定期进行程序升级，以便提供更好的游戏环境，希望您能够玩得愉快！<br>  【新手第一步】赶快发展自己的科技，军事和防御，然后加入联盟，慢慢壮大。<br> 如有问题可以到我们的官方论坛去请教老玩家或者交给左边的客服。（注意：如果您的账号在非假期模式下超出3个月未登陆，我们将对其进行删除以维护系统数据）<br>,b>请勿注册小号，否则发现同一IP登录直接删除账号，不管大号小号！一律删除！！</b><br>【请在阅读邮件后删除不用的邮件以便提高游戏处理速度】';
 $LNG['newpass_smtp_email_error']	= '<br><br>发生错误。您的密码是： ';
 $LNG['reg_completed']				= '感谢您注册！您将收到一个激活链接的电子邮件。';
+$LNG['planet_already_exists']		= '该行星的位置已经belget！<br>';
 //registry_form.tpl
 $LNG['server_message_reg']			= '现在我注册的一部分';
 $LNG['register_at_reg']			= '注册于';
@@ -91,7 +95,7 @@ $LNG['pass2_reg']					= '确认密码';
 $LNG['email_reg']					= 'E-mail地址';
 $LNG['email2_reg']					= 'E-mail确认';
 $LNG['planet_reg']					= '星球名';
-$LNG['lang_reg']					= '语言';
+$LNG['lang_reg']					= '语言（默认为中文）';
 $LNG['register_now']				= '马   上  注   册';
 $LNG['captcha_reg']				= '安全问题';
 $LNG['accept_terms_and_conditions']= '请接受并仔细查看 <a onclick="ajax(\'?page=rules&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\);" style="cursor:pointer;">游戏规则</a> 和 <a onclick="ajax(\'?page=agb&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\);" style="cursor:pointer;">服务条款</a> 。';
@@ -104,7 +108,7 @@ $LNG['user_active']				= '用户 %s 已经被封号!';
 
 //registry_closed.tpl
 $LNG['info']						= '系统信息';
-$LNG['reg_closed']					= '注册暂时已关闭，如有问题请到我们的论坛参与讨论。';
+$LNG['reg_closed']					= '注册暂时已关闭，如有问题请到我们的论坛参与讨论。（可以通过论坛申请游戏账号）';
 
 //Rules
 $LNG['rules_overview']				= "Regelwerk";
@@ -148,7 +152,7 @@ $LNG['rules']						= array(
 
 );
 
-$LNG['rules_info1']				= "你可以登录 <a href=\"%s\" target=\"_blank\">OGAME论坛</a> ，这里提供了在游戏中有关的信息 ...";
+$LNG['rules_info1']				= "你可以登录 <a href=\"%s\" target=\"_blank\">晗网OGAME论坛</a> ，这里提供了在游戏中有关的信息 ...";
 $LNG['rules_info2']				= "这是补充 <a onclick=\"ajax('?page=agb&getajax=1');\" style=\"cursor:pointer;\">条件</a> 遵守和履行!</font>";
 
 

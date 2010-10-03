@@ -416,6 +416,11 @@ $LNG['se_google_info']					= '谷歌分析是网络分析的商业解决方案�
 $LNG['se_google_active']				= '激活?';
 $LNG['se_google_key']					= '分析的关键';
 $LNG['se_google_key_info']				= '对他们的网站识别的关键。这往往是从UA, z.B.: UA-13185300-3';	
+$LNG['se_bgm_login']					= '登录背景音乐';
+$LNG['se_bgm_active']					= '启用?';
+$LNG['se_bgm_info']						= '音乐在首页进行播放。';
+$LNG['se_bgm_file']						= '音乐地址：';
+$LNG['se_bgm_file_info']				= '请填写音乐的相对或绝对路径！';
 //###########################################################//
 
 
