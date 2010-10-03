@@ -19,7 +19,7 @@
 # *                                                                          #
 ##############################################################################
 
-include_once("class.Smarty.".PHP_EXT);
+require(ROOT_PATH.'includes/libs/Smarty/Smarty.class.php');
 
 class template extends Smarty
 {
