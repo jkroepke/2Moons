@@ -12,6 +12,7 @@ Game Version: 2Moons {$vGame}
 Game Addresse: http://{$root}/
 Game Pfad: http://{$gameroot}/index.php
 JSON Verfügbar: {$json}
+Browser: {$browser}
 Problem besteht seit Installation:
 Verwendeter Editor:
 Screenshot:
