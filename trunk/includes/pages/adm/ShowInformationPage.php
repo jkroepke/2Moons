@@ -38,7 +38,7 @@ function ShowInformationPage()
 		'root'				=> $_SERVER['SERVER_NAME'],
 		'gameroot'			=> $_SERVER['SERVER_NAME'].str_replace('/admin.php', '', $_SERVER['PHP_SELF']),
 		'json'				=> function_exists('json_encode') ? 'Ja' : 'Nein',
-		'browser'			=> $_SERVER['HTTP_USER_AGENT'];
+		'browser'			=> $_SERVER['HTTP_USER_AGENT'],
 	));
 	
 	$template->show('adm/ShowInformationPage.tpl');
