@@ -367,6 +367,7 @@ function ShowAccountDataPage()
 				'DestruyeD'						=> $DestruyeD,
 				'destroyed'						=> $destroyed,
 				'resources'						=> $resources,
+				'mo'							=> $mo,
 				'names'							=> $names,
 				'build'							=> $build,
 				'fleet'							=> $fleet,
