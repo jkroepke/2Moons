@@ -517,7 +517,8 @@ $LNG['mg_message']							= '邮件';
 $LNG['mg_characters']						= '字符';
 $LNG['mg_send']							= '提交';
 $LNG['mg_game_message']					= '游戏讯息';
-
+$LNG['mg_message_send']			= '消息发送！';
+$LNG['mg_empty_text']				= '空消息！';
 
 //----------------------------------------------------------------------------//
 //ALLIANCE
@@ -1102,6 +1103,13 @@ $LNG['bs_techno']						= "科技";
 $LNG['bs_send']							= "提交";
 $LNG['bs_cancel']						= "重置";
 $LNG['bs_wait']							= "请等待下一个模拟10秒";
+//----------------------------------------------------------------------------//
+// Logout
+$LNG['lo_title']						= '账户注销成功! 再见!';
+$LNG['lo_logout']						= '退出成功';
+$LNG['lo_redirect']						= '转向';
+$LNG['lo_notify']						= '页面将在 <span id="seconds">5</span>秒 后,进行跳转.';
+$LNG['lo_continue']						= '如果不能跳转,请点击这里';
 
 
 // Translated into German by Slaver . All rights reversed (C) 2010 
