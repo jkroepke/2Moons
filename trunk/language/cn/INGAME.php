@@ -20,6 +20,7 @@ $LNG['Energy']								= '能源';
 $LNG['Messages']							= '邮件';
 $LNG['write_message']						= '写信息';
 
+$LNG['ready']								= '完成';
 $LNG['show_planetmenu']					= '显示/隐藏';
 
 $LNG['type_mission'][1]  					= '攻击';
@@ -49,7 +50,7 @@ $LNG['page_doesnt_exist']					= '所请求的页面不存在！';
 //----------------------------------------------------------------------------//
 //TOPNAV
 $LNG['tn_vacation_mode']					= '您正在使用度假模式！';
-$LNG['tn_delete_mode']						= '您在我们 %s 已删除的账户！';
+$LNG['tn_delete_mode']						= '您的账户 %s 我们会自动删除！';
 
 //----------------------------------------------------------------------------//
 //LEFT MENU
@@ -132,8 +133,8 @@ $LNG['ov_fields']							= '空间';
 $LNG['ov_developed_fields']                = '开放的领域';
 $LNG['ov_max_developed_fields']			= '最大. 发展的领域';
 $LNG['ov_fleet']							= '舰队';
-$LNG['ov_admins_online']					= '管理员(在线):';
-$LNG['ov_no_admins_online']				= '管理员不在线,有问题请到论坛交流!';
+$LNG['ov_admins_online']					= '管理员:';
+$LNG['ov_no_admins_online']				= '<b>管理员不在线,有问题请到论坛交流!</b>';
 $LNG['ov_userbanner']						= '统计旗帜';
 $LNG['ov_userrank_info']					= '%s (%s <a href="game.php?page=statistics&amp;range=%d">%d</a> %s %s)';
 $LNG['ov_teamspeak_not_online']			= '目前没有可用的服务器。我们希望您能够理解.';
@@ -287,6 +288,8 @@ $LNG['fl_send_fleet']						= '星际舰队';
 $LNG['fl_fleet_speed']						= '速度';
 $LNG['fl_distance']						= '距离';
 $LNG['fl_flying_time']						= '抵达时间（单程）';
+$LNG['fl_flying_arrival']				= '抵达';
+$LNG['fl_flying_return']				= '返回';
 $LNG['fl_fuel_consumption']				= '消耗资源';
 $LNG['fl_max_speed']						= '最大速度';
 $LNG['fl_cargo_capacity']					= '货运能力';
@@ -341,6 +344,10 @@ $LNG['fl_no_empty_derbis']				= '星际残骸不存在！';
 $LNG['fl_acs_newname_alphanum']   = '该名称只能包含字母数字字符。'; 
 $LNG['fl_acs_change']     = '改变';
 $LNG['fl_acs_change_name']    = '输入一个新名称'; 
+$LNG['fl_error_not_avalible']			= '星球目前没有活动！';
+$LNG['fl_error_empty_derbis']			= '没有 Trümerfeld 可用！';
+$LNG['fl_error_no_moon']				= '没有月球可用！';
+$LNG['fl_error_same_planet']			= '开始和结束都在同一星球!';
 
 //----------------------------------------------------------------------------//
 //BUILDINGS - RESEARCH - SHIPYARD - DEFENSES
@@ -569,6 +576,7 @@ $LNG['al_users_list']						= '盟员名单 (玩家: %d)';
 $LNG['al_manage_alliance']					= '联盟管理';
 $LNG['al_send_circular_message']			= '给盟员发信';
 $LNG['al_new_requests']					= '%d 个新的请求！';
+$LNG['al_goto_chat']					= '联盟-聊天';
 $LNG['al_save']							= '保存';
 $LNG['al_dlte']							= '删除';
 $LNG['al_rank_name']						= '排名姓名';
@@ -1018,23 +1026,12 @@ $LNG['pl_etc']   							= '其他';
 // Chat
 
 $LNG['chat_title']                         = '聊天';
-$LNG['chat_ally_title']                    = '联盟聊天'; 
-$LNG['chat_bbcode']                    		= 'UBB代码';  
-$LNG['chat_fontcolor']                    	= '字体颜色';   
+$LNG['chat_ally_title']                    = '联盟聊天';    
 
 $LNG['chat_disc']                          = '聊天';
 $LNG['chat_message']                       = '邮件';
 $LNG['chat_send']                          = '发送';
-$LNG['chat_admin']                       	= '<font color="red">管理员<img src="../images/adminy.gif" height="10" />%s</font>';
-$LNG['chat_color_white']					= '白色';
-$LNG['chat_color_blue']						= '蓝色';
-$LNG['chat_color_yellow']					= '黄色';
-$LNG['chat_color_green']					= '绿色';
-$LNG['chat_color_pink']						= '粉红';
-$LNG['chat_color_red']						= '红色';
-$LNG['chat_color_orange']					= '橙色';
-
-
+$LNG['chat_admin']                       	= '<font color="red">管理员%s</font>';
 //----------------------------------------------------------------------------//
 // Support
 
@@ -1042,29 +1039,30 @@ $LNG['supp_header'] 						= '客服支持系统';
 $LNG['supp_header_g'] 						= '关闭的留言';
 $LNG['ticket_id'] 							= '#留言ID';
 $LNG['subject'] 							= '标题';
-$LNG['status'] 							= '状态';
+$LNG['status'] 							    = '状态';
 $LNG['ticket_posted'] 						= '时间';
-$LNG['ticket_new'] 						= '新留言';
-$LNG['input_text'] 						= '更新:';
-$LNG['answer_new'] 						= '一个答复:';
+$LNG['ticket_new'] 						    = '新留言';
+$LNG['input_text'] 						    = '更新:';
+$LNG['answer_new'] 						    = '一个答复:';
 $LNG['text'] 								= '内容';
 $LNG['message_a'] 							= '现在的信息:';
 $LNG['sendit_a'] 							= '留言被更新.';
 $LNG['message_t'] 							= '现在的留言:';
+$LNG['supp_send'] 						= '提交';
 $LNG['sendit_t'] 							= '留言已发表成功.';
 $LNG['close_t'] 							= '该留言已被关闭.';
 $LNG['sendit_error'] 						= '错误:';
 $LNG['sendit_error_msg'] 					= '你忘了输入些什么!';
-$LNG['supp_admin_system'] 					= '支持-Adminpanel';
 $LNG['supp_send'] 						    = '提交发送';
+$LNG['supp_admin_system'] 					= '支持-Adminpanel';
 $LNG['close_ticket'] 						= '留言关闭';
 $LNG['open_ticket'] 						= '留言打开';
-$LNG['player'] 							= '玩家的名字';
+$LNG['player'] 							    = '玩家的名字';
 $LNG['supp_ticket_close']					= '留言关闭';
-$LNG['supp_close'] 						= '关闭';
+$LNG['supp_close'] 					     	= '关闭';
 $LNG['supp_open'] 							= '打开';
 $LNG['supp_admin_answer'] 					= '客服已回答';
-$LNG['supp_player_answer'] 				= '玩家,答案';
+$LNG['supp_player_answer'] 				    = '玩家,答案';
 
 //----------------------------------------------------------------------------//
 // Rekorde 
@@ -1097,16 +1095,5 @@ $LNG['bs_cancel']						= "重置";
 $LNG['bs_wait']							= "请等待下一个模拟10秒";
 
 
-
-
-//----------------------------------------------------------------------------//
-// Logout
-$LNG['lo_title']						= '账户注销成功! 再见!';
-$LNG['lo_logout']						= '退出成功';
-$LNG['lo_redirect']						= '转向';
-$LNG['lo_notify']						= '页面将在 <span id="seconds">5</span>秒 后,进行跳转.';
-$LNG['lo_continue']						= '如果不能跳转,请点击这里';
-
-// Translated into German by Slaver . All rights reversed (C) 2010
-//由晗网汉化-http://xo.hanhot.com  
+// Translated into German by Slaver . All rights reversed (C) 2010 
 ?>

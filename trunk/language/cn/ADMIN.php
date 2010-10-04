@@ -526,9 +526,10 @@ $LNG ['mu_ts_options'] ='使用TeamSpeak选项';
 $LNG ['mu_game_info'] ='信息'; 
 $LNG ['mu_vaild_users'] ='用户活动'; 
 $LNG ['mu_news'] ='外部新闻'; 
+$LNG['mu_clear_cache']    = '清除缓存'; 
 $LNG['mu_mod_update']              	= '官方版本控制';
 //###########################################################//
-
+$LNG['cc_cache_clear']    = '缓存中删除';
 
 //---------------	REINICIO DE UNIVERSO - RESET UNIVERSE	------------------------//
 $LNG['re_reset_universe']					= '重置宇宙';
