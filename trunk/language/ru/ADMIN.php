@@ -464,6 +464,10 @@ $LNG['mu_ts_options']                  = 'Teamspeak';
 $LNG['mu_game_info']                   = 'Информация';
 $LNG['mu_vaild_users']                 = 'Активация игроков';
 $LNG['mu_news']                        = 'Новости';
+$LNG['mu_clear_cache']				   = 'Очистить кэш';
+
+//Cache
+$LNG['cc_cache_clear']				   = 'Кэш очищен';
 
 // Обнуление вселенной
 $LNG['re_reset_universe']              = 'Обнулить вселенную';
