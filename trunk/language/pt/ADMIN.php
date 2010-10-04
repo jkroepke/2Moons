@@ -527,9 +527,11 @@ $LNG['mu_ts_options']                   = 'Opções Teamspeak';
 $LNG['mu_game_info']                    = 'Informação';
 $LNG['mu_vaild_users']				    = 'Actividade de Usuário';
 $LNG['mu_news']					        = 'Noticias';
+$LNG['mu_clear_cache']					= 'Limpar Cache'; 
 
 //###########################################################//
 
+$LNG['cc_cache_clear']					= 'Cache Limpo'; 
 
 //---------------    RESET AO UNIVERSO   ------------------------//
 $LNG['re_reset_universe'] 				= 'Reset ao Universo';
