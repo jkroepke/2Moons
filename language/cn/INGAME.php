@@ -1026,12 +1026,21 @@ $LNG['pl_etc']   							= '其他';
 // Chat
 
 $LNG['chat_title']                         = '聊天';
-$LNG['chat_ally_title']                    = '联盟聊天';    
+$LNG['chat_ally_title']                    = '联盟聊天';  
+$LNG['chat_bbcode']                    		= 'UBB代码';  
+$LNG['chat_fontcolor']                    	= '字体颜色';  
 
 $LNG['chat_disc']                          = '聊天';
 $LNG['chat_message']                       = '邮件';
 $LNG['chat_send']                          = '发送';
 $LNG['chat_admin']                       	= '<font color="red">管理员%s</font>';
+$LNG['chat_color_white']					= '白色';
+$LNG['chat_color_blue']						= '蓝色';
+$LNG['chat_color_yellow']					= '黄色';
+$LNG['chat_color_green']					= '绿色';
+$LNG['chat_color_pink']						= '粉红';
+$LNG['chat_color_red']						= '红色';
+$LNG['chat_color_orange']					= '橙色';
 //----------------------------------------------------------------------------//
 // Support
 
