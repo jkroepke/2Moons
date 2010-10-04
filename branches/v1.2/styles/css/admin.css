@@ -1,0 +1,74 @@
+html, body{
+	padding: 0px;
+	margin: 0px;
+	height: 100%;
+}
+
+table{
+	margin: auto;
+}
+
+.yes{
+	color:lime;
+}
+.no{
+	color:red;
+}
+
+.content{
+	position: static !important;
+	width: 100% !important;
+}
+
+a.out {
+	font-size: 13px;
+	font-stretch:expanded;
+	border: 1px #FF0000 solid;
+	color: #FF0000;
+	cursor: pointer;
+	text-align:center;
+}
+a.out:hover {
+	font-size: 13px;
+	text-decoration: none;
+	border: 1px #FF0000 solid;
+	cursor: pointer;
+	color: #FFFFFF;
+	background-color: #CC0000;
+	text-align:center;
+}
+
+a.topn {
+	font-size: 13px;
+	font-stretch:expanded;
+	border: 1px #FFFFFF solid;
+	color: #FFFFFF;
+	cursor: pointer;
+	text-align:center;
+}
+a.topn:hover {
+	font-size: 13px;
+	text-decoration: none;
+	border: 1px #FFFFFF solid;
+	cursor: pointer;
+	color: #000000;
+	background-color: #66CCFF;
+	text-align:center;
+}
+#progressbar{border: 1px solid}
+.ui-progressbar-value { background-image: url(http://jqueryui.com/demos/progressbar/images/pbar-ani.gif)};
+.button{background:url(../images/Adm/blank.gif);border:1px lime solid;color:#FFFFFF;}
+.button:hover{background:url(../images/Adm/blank.gif);border:1px aqua solid;cursor:pointer;color:#FFFFFF;}
+.span{ vertical-align:baseline}
+.gf-snippet, .gfc-resultsHeader{display:none}
+
+#fb_iframe.fbConnectWidgetTopmost {
+border-style:none !important;
+}
+#fb_iframe .lightblue_box {
+background-color:transparent !important;
+border:medium none !important;
+}
+#fb_iframe .UIIntentionalStory_Message{
+color: #CCCCCC;
+}
