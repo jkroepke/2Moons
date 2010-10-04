@@ -518,7 +518,6 @@ $LNG ['mu_planets_options'] ='选项行星';
 $LNG ['mu_user_logs'] ='日志'; 
 $LNG ['mu_support'] ='支持'; 
 $LNG ['mu_chat'] ='聊天管理员'; 
-$LNG ['mu_lotterie'] ='留言'; 
 $LNG ['mu_module'] ='模块'; 
 $LNG ['mu_update'] ='游戏更新'; 
 $LNG ['mu_fb_options'] ='Facebook的连接'; 
@@ -879,14 +878,6 @@ $LNG['qe_temp']						= '温度';
 //----------------------------------------------------------------------------//
 
 // ChatPage.php
-$LNG['ch_title']                       = '聊天';
-$LNG['ch_list']                        = "消息列表";
-$LNG['ch_clear']                       = "删除聊天";
-$LNG['ch_id_msg']                      = "ID";
-$LNG['ch_delete_msg']                  = "删除";
-$LNG['ch_user']                        = "玩家";
-$LNG['ch_time']                        = "日期";
-$LNG['ch_nbs']                         = "新闻...";  
 
 //----------------------------------------------------------------------------//
 //TeamSpeakSettingPage.php
