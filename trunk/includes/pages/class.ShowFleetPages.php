@@ -763,7 +763,7 @@ class ShowFleetPages extends FleetFunctions
 
 	public static function FleetAjax()
 	{
-		global $USER, $PLANET, $db, $resource, $LNG;
+		global $USER, $PLANET, $db, $resource, $LNG, $CONF;
 		$UserSpyProbes  = $PLANET[$resource[210]];
 		$UserRecycles   = $PLANET[$resource[209]];
 		$UserGRecycles  = $PLANET[$resource[219]];
