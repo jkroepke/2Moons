@@ -316,7 +316,7 @@ class ShowFleetPages extends FleetFunctions
 			$GetInfoPlanet 			= $db->uniquequery("SELECT `id_owner`, `der_metal`, `der_crystal` FROM `".PLANETS."` WHERE `galaxy` = ".$TargetGalaxy ." AND `system` = ".$TargetSystem." AND `planet` = ".$TargetPlanet." AND `planet_type` = '1';");
 			if($GetInfoPlanet['der_metal'] == 0 && $GetInfoPlanet['der_crystal'] == 0)
 			{
-				$template->message("<font color=\"red\"><b>".$LNG['fl_no_empty_derbis']."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
+				$template->message("<font color=\"red\"><b>".$LNG['fl_no_empty_derbis']."</b></font>", "game.php?page=fleet", 2);
 				exit;
 			}	
 		}
@@ -333,7 +333,7 @@ class ShowFleetPages extends FleetFunctions
 		
 		if(empty($MissionOutput))
 		{
-			$template->message("<font color=\"red\"><b>". $LNG['fl_empty_target']."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
+			$template->message("<font color=\"red\"><b>". $LNG['fl_empty_target']."</b></font>", "game.php?page=fleet", 2);
 			exit;
 		}
 		
@@ -345,7 +345,7 @@ class ShowFleetPages extends FleetFunctions
  		
 		if($consumption > $PLANET['deuterium'])
 		{
-			$template->message("<font color=\"red\"><b>". sprintf($LNG['fl_no_enought_deuterium'], $LNG['Deuterium'], pretty_number($PLANET['deuterium'] - $consumption), $LNG['Deuterium'])."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
+			$template->message("<font color=\"red\"><b>". sprintf($LNG['fl_no_enought_deuterium'], $LNG['Deuterium'], pretty_number($PLANET['deuterium'] - $consumption), $LNG['Deuterium'])."</b></font>", "game.php?page=fleet", 2);
 			exit;
 		}
 		
@@ -452,7 +452,7 @@ class ShowFleetPages extends FleetFunctions
 
 		if ($TransportMetal + $TransportCrystal + $TransportDeuterium < 1 && $mission == 3)
 		{
-			$template->message("<font color=\"lime\"><b>".$LNG['fl_empty_transport']."</b></font>", "game." . PHP_EXT . "?page=fleet", 1);
+			$template->message("<font color=\"lime\"><b>".$LNG['fl_empty_transport']."</b></font>", "game.php?page=fleet", 1);
 			exit;
 		}
 			
@@ -460,7 +460,7 @@ class ShowFleetPages extends FleetFunctions
 		
 		if (parent::GetMaxFleetSlots($USER) <= $ActualFleets)
 		{
-			$template->message($LNG['fl_no_slots'], "game." . PHP_EXT . "?page=fleet", 1);
+			$template->message($LNG['fl_no_slots'], "game.php?page=fleet", 1);
 			exit;
 		}
 			
@@ -516,7 +516,7 @@ class ShowFleetPages extends FleetFunctions
 
 			if ($maxexpde >= MAX_DM_MISSIONS)
 			{
-				$template->message("<font color=\"red\"><b>".$LNG['fl_expedition_fleets_limit']."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
+				$template->message("<font color=\"red\"><b>".$LNG['fl_expedition_fleets_limit']."</b></font>", "game.php?page=fleet", 2);
 				exit;
 			}
 		}
@@ -526,7 +526,7 @@ class ShowFleetPages extends FleetFunctions
 
 			if ($MaxExpedition == 0)
 			{
-				$template->message("<font color=\"red\"><b>".$LNG['fl_expedition_tech_required']."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
+				$template->message("<font color=\"red\"><b>".$LNG['fl_expedition_tech_required']."</b></font>", "game.php?page=fleet", 2);
 				exit;
 			}			
 							
@@ -535,7 +535,7 @@ class ShowFleetPages extends FleetFunctions
 			
 			if ($ExpeditionEnCours >= $EnvoiMaxExpedition)
 			{
-				$template->message("<font color=\"red\"><b>".$LNG['fl_expedition_fleets_limit']."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
+				$template->message("<font color=\"red\"><b>".$LNG['fl_expedition_fleets_limit']."</b></font>", "game.php?page=fleet", 2);
 				exit;
 			}
 		}
@@ -547,7 +547,7 @@ class ShowFleetPages extends FleetFunctions
 
 		if ($HeDBRec['urlaubs_modus'] && $mission != 8)
 		{
-			$template->message("<font color=\"lime\"><b>".$LNG['fl_in_vacation_player']."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
+			$template->message("<font color=\"lime\"><b>".$LNG['fl_in_vacation_player']."</b></font>", "game.php?page=fleet", 2);
 			exit;
 		}
 		
@@ -555,7 +555,7 @@ class ShowFleetPages extends FleetFunctions
 		{
 			if($TargetPlanet['id_level'] > $USER['authlevel'] && $CONF['adm_attack'] == 0)
 			{
-				$template->message("<font color=\"red\"><b>".$LNG['fl_admins_cannot_be_attacked']."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
+				$template->message("<font color=\"red\"><b>".$LNG['fl_admins_cannot_be_attacked']."</b></font>", "game.php?page=fleet", 2);
 				exit;
 			}
 			
@@ -566,12 +566,12 @@ class ShowFleetPages extends FleetFunctions
 			
 			if ($IsNoobProtec['NoobPlayer'])
 			{
-				$template->message("<font color=\"lime\"><b>".$LNG['fl_week_player']."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
+				$template->message("<font color=\"lime\"><b>".$LNG['fl_week_player']."</b></font>", "game.php?page=fleet", 2);
 				exit;
 			}
 			elseif ($IsNoobProtec['StrongPlayer'])
 			{
-				$template->message("<font color=\"red\"><b>".$LNG['fl_strong_player']."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
+				$template->message("<font color=\"red\"><b>".$LNG['fl_strong_player']."</b></font>", "game.php?page=fleet", 2);
 				exit;
 			}
 		}
@@ -581,7 +581,7 @@ class ShowFleetPages extends FleetFunctions
 			
 			if ($TargetPlanet['ally_deposit'] < 1)
 			{
-				$template->message("<font color=\"red\"><b>".$LNG['fl_not_ally_deposit']."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
+				$template->message("<font color=\"red\"><b>".$LNG['fl_not_ally_deposit']."</b></font>", "game.php?page=fleet", 2);
 				exit;
 			}
 			
@@ -589,7 +589,7 @@ class ShowFleetPages extends FleetFunctions
 						
 			if($HeDBRec['ally_id'] != $MyDBRec['ally_id'] && $buddy['state'] == 0)
 			{
-				$template->message("<font color=\"red\"><b>".$LNG['fl_no_same_alliance']."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
+				$template->message("<font color=\"red\"><b>".$LNG['fl_no_same_alliance']."</b></font>", "game.php?page=fleet", 2);
 				exit;
 			}		
 		}
@@ -648,19 +648,13 @@ class ShowFleetPages extends FleetFunctions
 
 		if ($PLANET['deuterium'] < $consumption)
 		{
-			$template->message("<font color=\"red\"><b>".sprintf($LNG['fl_no_enought_deuterium'], $LNG['Deuterium'], pretty_number($consumption - $PLANET['deuterium']), $LNG['Deuterium'])."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
+			$template->message("<font color=\"red\"><b>".sprintf($LNG['fl_no_enought_deuterium'], $LNG['Deuterium'], pretty_number($consumption - $PLANET['deuterium']), $LNG['Deuterium'])."</b></font>", "game.php?page=fleet", 2);
 			exit;
 		}
 		
 		if ($StorageNeeded > $FleetStorage)
 		{
-			$template->message("<font color=\"red\"><b>". $LNG['fl_no_enought_cargo_capacity'] . pretty_number($StorageNeeded - $FleetStorage)."</b></font>", "game." . PHP_EXT . "?page=fleet", 2);
-			exit;
-		}
-
-		if ($TargetPlanet['id_level'] > $USER['authlevel'] && $CONF['adm_attack'] == 0)
-		{
-			$template->message($LNG['fl_admins_cannot_be_attacked'], "game." . PHP_EXT . "?page=fleet",2);
+			$template->message("<font color=\"red\"><b>". $LNG['fl_no_enought_cargo_capacity'] . pretty_number($StorageNeeded - $FleetStorage)."</b></font>", "game.php?page=fleet", 2);
 			exit;
 		}
 				
