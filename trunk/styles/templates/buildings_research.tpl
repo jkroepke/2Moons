@@ -7,12 +7,12 @@
 		{foreach item=ResearchInfoRow from=$ResearchList}
 		<tr>
 			<td rowspan="2" style="width:120px;">
-				<a href="javascript:OpenPopup('game.php?page=infos&gid='+{$ResearchInfoRow.id}, '', 610, 510)">
+				<a href="javascript:OpenPopup('game.php?page=infos&gid={$ResearchInfoRow.id}', '', 610, 510)">
 					<img src="{$dpath}gebaeude/{$ResearchInfoRow.id}.gif" alt="{$ResearchInfoRow.name}" class="top" width="120" height="120">
 				</a>
 			</td>
 			<th>
-				<a href="javascript:OpenPopup('game.php?page=infos&gid='+{$ResearchInfoRow.id}, '', 640, 510);">{$ResearchInfoRow.name}</a>{if $ResearchInfoRow.lvl != 0} ({$bd_lvl} {$ResearchInfoRow.lvl}){/if}{if $ResearchInfoRow.elvl > 0} <span style="color:lime;">+{$ResearchInfoRow.elvl}</span>{/if} {$ResearchInfoRow.maxinfo}
+				<a href="javascript:OpenPopup('game.php?page=infos&gid={$ResearchInfoRow.id}', '', 640, 510);">{$ResearchInfoRow.name}</a>{if $ResearchInfoRow.lvl != 0} ({$bd_lvl} {$ResearchInfoRow.lvl}){/if}{if $ResearchInfoRow.elvl > 0} <span style="color:lime;">+{$ResearchInfoRow.elvl}</span>{/if} {$ResearchInfoRow.maxinfo}
 			</th>
 		</tr>
 		<tr>

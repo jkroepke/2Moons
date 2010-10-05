@@ -8,12 +8,12 @@
 		{foreach item=BuildInfoRow from=$BuildInfoList}
 		<tr>
 			<td rowspan="2" style="width:120px;">
-				<a href="javascript:OpenPopup('game.php?page=infos&gid='+{$BuildInfoRow.id}, '', 640, 510);">
+				<a href="javascript:OpenPopup('game.php?page=infos&gid={$BuildInfoRow.id}', '', 640, 510);">
 					<img src="{$dpath}gebaeude/{$BuildInfoRow.id}.gif" alt="{$BuildInfoRow.name}" width="120" height="120">
 				</a>
 			</td>
 			<th>
-				<a href="javascript:OpenPopup('game.php?page=infos&gid='+{$BuildInfoRow.id}, '', 640, 510);">{$BuildInfoRow.name}</a>{if $BuildInfoRow.level > 0} ({$bd_lvl} {$BuildInfoRow.level}){/if}
+				<a href="javascript:OpenPopup('game.php?page=infos&gid={$BuildInfoRow.id}', '', 640, 510);">{$BuildInfoRow.name}</a>{if $BuildInfoRow.level > 0} ({$bd_lvl} {$BuildInfoRow.level}){/if}
 			</th>
 		</tr>
 		<tr>
