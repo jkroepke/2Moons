@@ -171,15 +171,16 @@ class ResourceUpdate
 	{
 		global $resource;
 
-		if (empty($this->PLANET['b_hangar_id']))
-		{
+		if (empty($this->PLANET['b_hangar_id'])) {
 			$this->PLANET['b_hangar'] = 0;
+			return false;
 		}
 		
 		$BuildQueue                 = explode(';', $this->PLANET['b_hangar_id']);
 		$AcumTime					= 0;
-		$this->PLANET['b_hangar'] 		+= ($this->TIME - $this->PLANET['last_update']);
-		foreach ($BuildQueue as $Node => $Array)
+		$this->PLANET['b_hangar'] 	+= ($this->TIME - $this->PLANET['last_update']);
+		$BuildArray	= array();
+		foreach($BuildQueue as $Node => $Array)
 		{
 			if (empty($Array))
 				continue;
