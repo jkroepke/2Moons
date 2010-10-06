@@ -47,7 +47,7 @@ switch($page)
 		$ShowGalaxyPage = new ShowGalaxyPage();
 	break;
 	case 'phalanx':
-		if(CheckModule(9))
+		if(CheckModule(19))
 			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/ShowPhalanxPage.' . PHP_EXT);

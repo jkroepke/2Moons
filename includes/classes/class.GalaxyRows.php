@@ -115,7 +115,7 @@ class GalaxyRows
 	{
 		global $resource, $USER, $PLANET, $CONF, $LNG;
 		
-		if($PLANET[$resource[42]] > 0 && $GalaxyRowPlanet['userid'] != $USER['id'] && $GalaxyRowPlanet["galaxy"] == $PLANET['galaxy'])
+		if($PLANET[$resource[42]] > 0 && $GalaxyRowPlanet['userid'] != $USER['id'] && $GalaxyRowPlanet["galaxy"] == $PLANET['galaxy'] && !CheckModule(19))
 		{
 			$PhRange 		 = $this->GetPhalanxRange($PLANET[$resource[42]]);
 			$SystemLimitMin  = max(1, $PLANET['system'] - $PhRange);
