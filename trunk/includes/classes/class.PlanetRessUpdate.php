@@ -200,7 +200,7 @@ class ResourceUpdate
 			$BuildTime = $Item[2];
 			
 			if($BuildTime == 0) {
-				$this->Builded[$Element]		= bcadd($Count, $this->Builded[$Element]);
+				$this->Builded[$Element]			= bcadd($Count, $this->Builded[$Element]);
 				$this->PLANET[$resource[$Element]]	= bcadd($Count, $this->PLANET[$resource[$Element]]);
 				continue;					
 			}
@@ -213,10 +213,10 @@ class ResourceUpdate
 				continue;
 			}
 			
-			$this->PLANET['b_hangar']				-= bcmul($GetBuildShips, $BuildTime);
-			$this->Builded[$Element]		= bcadd($GetBuildShips, $this->Builded[$Element]);
+			$this->PLANET['b_hangar']			-= bcmul($GetBuildShips, $BuildTime);
+			$this->Builded[$Element]			= bcadd($GetBuildShips, $this->Builded[$Element]);
 			$this->PLANET[$resource[$Element]]	= bcadd($GetBuildShips, $this->PLANET[$resource[$Element]]);
-			$Count							= bcsub($Count, $GetBuildShips);						
+			$Count								= bcsub($Count, $GetBuildShips);						
 			
 			if ($Count == 0)
 				continue;
@@ -399,9 +399,9 @@ class ResourceUpdate
 				   `p`.`deuterium_max` = '".$PLANET['deuterium_max']."',
 				   `p`.`energy_used` = '".$PLANET['energy_used']."',
 				   `p`.`energy_max` = '".$PLANET['energy_max']."', ";
-		if (!empty($Builded))
+		if (!empty($this->Builded))
 		{
-			foreach($Builded as $Element => $Count)
+			foreach($this->Builded as $Element => $Count)
 			{
 				if(empty($resource[$Element]))
 					throw new Exception('ID '.$Element.' is not on $resource!');
