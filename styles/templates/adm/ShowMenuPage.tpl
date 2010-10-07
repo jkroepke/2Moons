@@ -4,7 +4,7 @@
 <img src="./styles/images/xgp-logo.png" alt="" style="height:50px;width:100px;position:absolute;top:10px;left:48px;">
 <table width="100%" cellspacing="0" cellpadding="0">
    	<tr>
-       	<td><div align="center"><a href="javascript:void(0);"><font color="lime">{$mu_general}</font></a></div></td>
+       	<td><div align="center"><a href="javascript:void(0);"><span style="color:lime">{$mu_general}</span></a></div></td>
    	</tr>
 {if $rights.ShowInformationPage}
 	<tr>
@@ -50,7 +50,7 @@
 		<td><img src="styles/skins/darkness/gfx/user-menu.jpg" width="110" height="40" alt=""></td>
 	</tr>
 	<tr>
-        <td><div align="center"><a href="javascript:void(0);"><font color="lime">{$mu_users_settings}</font></a></div></td>
+        <td><div align="center"><a href="javascript:void(0);"><span style="color:lime">{$mu_users_settings}</span></a></div></td>
     </tr>
 {if $rights.ShowCreatorPage}
 	<tr>
@@ -71,7 +71,7 @@
 		<td><img src="styles/skins/darkness/gfx/user-menu.jpg" width="110" height="40" alt=""></td>
 	</tr>
 	<tr>
-     	<td><div align="center"><a href="javascript:void(0);"><font color="lime">{$mu_observation}</font></a></div></td>
+     	<td><div align="center"><a href="javascript:void(0);"><span style="color:lime">{$mu_observation}</span></a></div></td>
    	</tr>
 {if $rights.ShowSearchPage}
 	<tr>
@@ -137,7 +137,7 @@
 		<td><img src="styles/skins/darkness/gfx/user-menu.jpg" width="110" height="40" alt=""></td>
 	</tr>
    	<tr>
-		<td><div align="center"><a href="javascript:void(0);"><font color="lime">{$mu_tools}</font></a></div></td>
+		<td><div align="center"><a href="javascript:void(0);"><span style="color:lime">{$mu_tools}</span></a></div></td>
    	</tr>
 {if $rights.ShowSendMessagesPage}
 	<tr>

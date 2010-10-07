@@ -104,7 +104,7 @@
 	</th>
 </tr><tr>
 	<th colspan="2" align="left">
-		{$bo_total_users}<font color="lime">{$usercount}</font>
+		{$bo_total_users}<span style="color:lime">{$usercount}</span>
 	</th>
 </tr>
 </table>
@@ -170,7 +170,7 @@
 	<input TYPE="button" onClick="UsersBan.reset();this.form.regexp.value=''" value="{$button_reset}"></th>
 </tr><tr>
 	<th colspan="2" align="left">
-		{$bo_total_banneds}<font color="lime">{$bancount}</font>
+		{$bo_total_banneds}<span style="color:lime">{$bancount}</span>
 	</th>
 </tr>
 </table>
