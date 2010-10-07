@@ -107,7 +107,7 @@ border:0px;background:url(./styles/images/Adm/blank.gif);text-align:right;paddin
 			<tr><th width="15%" class="centrado">{$defenses_title}</th><th width="40%">{$point_def} ({$count_def} {$defenses_title})</th><th width="5%" class="ranking"># {$ranking_def}</th></tr>
 			<tr><th width="15%" class="centrado">{$ships_title}</th><th width="40%">{$point_fleet} ({$count_fleet} {$ships_title})</th><th width="5%" class="ranking"># {$ranking_fleet}</th></tr>
 			<tr><th width="15%" class="centrado">{$buildings_title}</th><th width="40%">{$point_builds} ({$count_builds} {$buildings_title})</th><th width="5%" class="ranking"># {$ranking_builds}</th></tr>
-			<tr><th colspan="3" class="total">{$ac_total_points}<font color="#FF0000">{$total_points}</font></th></tr>
+			<tr><th colspan="3" class="total">{$ac_total_points}<span style="color:#FF0000">{$total_points}</span></th></tr>
 			</table>
 			<br>
 			</div>
@@ -190,7 +190,7 @@ border:0px;background:url(./styles/images/Adm/blank.gif);text-align:right;paddin
 			<tr><th width="15%">{$defenses_title}</th><th width="40%">{$point_def_ali} ({$count_def_ali} {$defenses_title})</th><th width="5%"># {$ranking_def_ali}</th></tr>
 			<tr><th width="15%">{$ships_title}</th><th width="40%">{$point_fleet_ali} ({$count_fleet_ali} {$ships_title})</th><th width="5%"># {$ranking_fleet_ali}</th></tr>
 			<tr><th width="15%">{$buildings_title}</th><th width="40%">{$point_builds_ali} ({$count_builds_ali} {$buildings_title})</th><th width="5%"># {$ranking_builds_ali}</th></tr>
-			<tr><th colspan="3">{$ac_total_points}<font color="#FF0000">{$total_points_ali}</font></th></tr>
+			<tr><th colspan="3">{$ac_total_points}<span style="color:#FF0000">{$total_points_ali}</span></th></tr>
 			</table>
 			<br>
 			</div>

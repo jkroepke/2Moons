@@ -81,7 +81,7 @@ animatedcollapse.init()
 {if !empty($error)}
 <tr>
 	<th colspan="8">
-		<font color="red">{$error}</font>
+		<span style="color:red">{$error}</span>
 	</th>
 </tr>
 {/if}
