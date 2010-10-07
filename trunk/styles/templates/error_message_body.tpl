@@ -7,7 +7,7 @@
 {include file="left_menu.tpl"}
 {/if}
 {/if}
-<div id="content">
+<div id="content" class="content">
     <table class="table519">
 		<tr>
             <th>{$fcm_info}</th>
