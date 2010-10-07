@@ -1,7 +1,7 @@
 {include file="install/ins_header.tpl"}
 <form method="POST" action="?mode=ins&amp;page=2&amp;{$lang}">
 <tr>
-	<td colspan="3"><font color="red">{$step1_notice_chmod}</font></td>
+	<td colspan="3"><span style="color:red">{$step1_notice_chmod}</span></td>
 </tr>
 <tr>
 	<td>{$step1_mysql_server}</td>

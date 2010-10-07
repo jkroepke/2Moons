@@ -16,7 +16,7 @@
 		<tr>
 		<td>{$TicketID}</td>
 		<td><a href="#" onclick="ShowTicket('ticket_{$TicketID}');">{$TicketInfo.subject}</a></td>
-		<td>{if $TicketInfo.status == 0}<font color="red">{$supp_close}</font>{elseif $TicketInfo.status == 1}<font color="green">{$supp_open}</font>{elseif $TicketInfo.status == 2}<font color="orange">{$supp_admin_answer}</font>{elseif $TicketInfo.status == 3}<font color="green">{$supp_player_answer}</font>{/if}</td>
+		<td>{if $TicketInfo.status == 0}<span style="color:red">{$supp_close}</span>{elseif $TicketInfo.status == 1}<span style="color:green">{$supp_open}</span>{elseif $TicketInfo.status == 2}<span style="color:orange">{$supp_admin_answer}</span>{elseif $TicketInfo.status == 3}<span style="color:green">{$supp_player_answer}</span>{/if}</td>
 		<td>{$TicketInfo.date}</td>
 		</tr>
 		{/foreach}

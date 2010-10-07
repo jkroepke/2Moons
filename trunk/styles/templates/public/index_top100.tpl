@@ -9,22 +9,22 @@
 	<tbody>
 	<tr>
 		<td colspan="4">
-			<font color="#E75B12">{$tkb_gratz}</font>
+			<span style="color:#E75B12">{$tkb_gratz}</span>
 		</td>
 	</tr><tr>
-		<td><font color="lime">{$tkb_platz}</font></td>
-		<td><font color="lime">{$tkb_owners}</font></td>
-		<td><font color="lime">{$tkb_datum}</font></td>
-		<td><font color="lime">{$tkb_units}</font></td>
+		<td><span style="color:lime">{$tkb_platz}</span></td>
+		<td><span style="color:lime">{$tkb_owners}</span></td>
+		<td><span style="color:lime">{$tkb_datum}</span></td>
+		<td><span style="color:lime">{$tkb_units}</span></td>
 	</tr>
 	{foreach item=RowInfo key=RowNR from=$TopKBList}
 	<tr>
 		<td>{$RowNR + 1}</td>
 		<td>
 		{if $RowInfo.result == "a"}
-		<font style="color:#00FF00">{$RowInfo.attacker}</font><font style="color:#FFFFFF"><b> VS </b></font><font style="color:#FF0000">{$RowInfo.defender}</font>
+		<span style="color:#00FF00">{$RowInfo.attacker}</span><span style="color:#FFFFFF"><b> VS </b></span><span style="color:#FF0000">{$RowInfo.defender}</span>
 		{elseif $RowInfo.result == "r"}
-		<font style="color:#FF0000">{$RowInfo.attacker}</font><font style="color:#FFFFFF"><b> VS </b></font><font style="color:#00FF00">{$RowInfo.defender}</font>
+		<span style="color:#FF0000">{$RowInfo.attacker}</span><span style="color:#FFFFFF"><b> VS </b></span><span style="color:#00FF00">{$RowInfo.defender}</span>
 		{else}
 		{$RowInfo.attacker}<b> VS </b>{$RowInfo.defender}
 		{/if}
@@ -34,7 +34,7 @@
 	</tr>
 	{/foreach}
 	<tr>
-	<td colspan="4">{$tkb_legende}<font style="color:#00FF00">{$tkb_gewinner}</font><font style="color:#FF0000">{$tkb_verlierer}</font></td>
+	<td colspan="4">{$tkb_legende}<span style="color:#00FF00">{$tkb_gewinner}</span><span style="color:#FF0000">{$tkb_verlierer}</span></td>
 	</tr>
 	</tbody>
 	</table>
