@@ -29,15 +29,15 @@ class MissionCaseDestruction extends MissionFunctions
 	function TargetEvent()
 	{
 		global $pricelist, $resource, $reslist, $db;
-		$targetPlanet = $db->uniquequery("SELECT * FROM ".PLANETS." WHERE `galaxy` = '". $this->_fleet['fleet_end_galaxy'] ."' AND `system` = '". $this->_fleet['fleet_end_system'] ."' AND `planet` = '". $this->_fleet['fleet_end_planet'] ."' AND `planet_type` = '". $this->_fleet['fleet_end_type'] ."' ;");
-		$targetUser   = $db->uniquequery("SELECT * FROM ".USERS." WHERE `id` = '".$targetPlanet['id_owner']."';");
-		$TargetUserID = $targetUser['id'];
+		$TargetPlanet = $db->uniquequery("SELECT * FROM ".PLANETS." WHERE `galaxy` = '". $this->_fleet['fleet_end_galaxy'] ."' AND `system` = '". $this->_fleet['fleet_end_system'] ."' AND `planet` = '". $this->_fleet['fleet_end_planet'] ."' AND `planet_type` = '". $this->_fleet['fleet_end_type'] ."' ;");
+		$TargetUser   = $db->uniquequery("SELECT * FROM ".USERS." WHERE `id` = '".$TargetPlanet['id_owner']."';");
+		$TargetUserID = $TargetUser['id'];
 		$attackFleets = array();
 	
 		require_once(ROOT_PATH.'includes/classes/class.PlanetRessUpdate.'.PHP_EXT);
 		
 		$PlanetRess 						= new ResourceUpdate();
-		list($TargetUser, $targetPlanet)	= $PlanetRess->CalcResource($TargetUser, $targetPlanet, true, $this->_fleet['fleet_start_time']);
+		list($TargetUser, $TargetPlanet)	= $PlanetRess->CalcResource($TargetUser, $TargetPlanet, true, $this->_fleet['fleet_start_time']);
 
 		
 		$attackFleets[$this->_fleet['fleet_id']]['fleet'] = $this->_fleet;
@@ -79,14 +79,14 @@ class MissionCaseDestruction extends MissionFunctions
 		}
 
 		$defense[0]['def'] = array();
-		$defense[0]['user'] = $targetUser;
+		$defense[0]['user'] = $TargetUser;
 		$DefenderRow['id'][] 	= $defense[0]['user']['id'];
 		$DefenderRow['name'][]	= $defense[0]['user']['username'];
 		for ($i = 200; $i < 500; $i++)
 		{
-			if (isset($resource[$i]) && isset($targetPlanet[$resource[$i]]))
+			if (isset($resource[$i]) && isset($TargetPlanet[$resource[$i]]))
 			{
-				$defense[0]['def'][$i] = $targetPlanet[$resource[$i]];
+				$defense[0]['def'][$i] = $TargetPlanet[$resource[$i]];
 			}
 		}
 
@@ -124,7 +124,7 @@ class MissionCaseDestruction extends MissionFunctions
 		if ($result['won'] == "a")
 		{
 			require_once('calculateSteal.'.PHP_EXT);
-			$steal = calculateSteal($attackFleets, $targetPlanet);
+			$steal = calculateSteal($attackFleets, $TargetPlanet);
 		}
 		
 		foreach ($defense as $fleetID => $defender)
@@ -167,7 +167,7 @@ class MissionCaseDestruction extends MissionFunctions
 		
 		switch ($result['won']) {
 			case "a":
-				$chance		 	= max(min(round((100 - sqrt($targetPlanet['diameter'])) * sqrt($attackFleets[$this->_fleet['fleet_id']]['detail'][214]), 1), 100), 0);
+				$chance		 	= max(min(round((100 - sqrt($TargetPlanet['diameter'])) * sqrt($attackFleets[$this->_fleet['fleet_id']]['detail'][214]), 1), 100), 0);
 				$chance2  		= round(sqrt($TargetPlanet['diameter'])/2);                 
 
 				$tirage 		= rand(0, 100);
@@ -177,7 +177,7 @@ class MissionCaseDestruction extends MissionFunctions
 				$INFO['moon']['chance2']	= $chance2;
 				
 				if($tirage <= $chance) {
-					$db->multi_query("DELETE FROM ".PLANETS." WHERE `id` = '".$targetPlanet['id']."';UPDATE ".PLANETS." SET `id_luna` = '0' WHERE `id_luna` = '". $targetPlanet['id'] ."';UPDATE ".FLEETS." SET `fleet_start_type` = '1' WHERE `fleet_start_galaxy` = '".$this->_fleet['fleet_end_galaxy']."' AND `fleet_start_system` = '".$this->_fleet['fleet_end_system']."' AND `fleet_start_planet` = '".$this->_fleet['fleet_end_planet']."' AND `fleet_start_type` = '".$this->_fleet['fleet_end_type']."';UPDATE ".FLEETS." SET `fleet_end_type` = '1' WHERE `fleet_end_galaxy` = '".$this->_fleet['fleet_end_galaxy']."' AND `fleet_end_system` = '".$this->_fleet['fleet_end_system']."' AND `fleet_end_planet` = '".$this->_fleet['fleet_end_planet']."' AND `fleet_end_type` = '".$this->_fleet['fleet_end_type']."' AND `fleet_id` != '".$this->_fleet['fleet_id']."';");
+					$db->multi_query("DELETE FROM ".PLANETS." WHERE `id` = '".$TargetPlanet['id']."';UPDATE ".PLANETS." SET `id_luna` = '0' WHERE `id_luna` = '". $TargetPlanet['id'] ."';UPDATE ".FLEETS." SET `fleet_start_type` = '1' WHERE `fleet_start_galaxy` = '".$this->_fleet['fleet_end_galaxy']."' AND `fleet_start_system` = '".$this->_fleet['fleet_end_system']."' AND `fleet_start_planet` = '".$this->_fleet['fleet_end_planet']."' AND `fleet_start_type` = '".$this->_fleet['fleet_end_type']."';UPDATE ".FLEETS." SET `fleet_end_type` = '1' WHERE `fleet_end_galaxy` = '".$this->_fleet['fleet_end_galaxy']."' AND `fleet_end_system` = '".$this->_fleet['fleet_end_system']."' AND `fleet_end_planet` = '".$this->_fleet['fleet_end_planet']."' AND `fleet_end_type` = '".$this->_fleet['fleet_end_type']."' AND `fleet_id` != '".$this->_fleet['fleet_id']."';");
 					$INFO['moon']['desfail'] = 0;
 				} else {
 					$INFO['moon']['desfail'] = 2;
@@ -247,8 +247,8 @@ class MissionCaseDestruction extends MissionFunctions
 			break;
 		}
 
-		$DerbisMetal		= bcadd($targetPlanet['der_metal'], bcadd($result['debree']['att'][0], $result['debree']['def'][0]));
-		$DerbisCrystal		= bcadd($targetPlanet['der_crystal'], bcadd($result['debree']['att'][1], $result['debree']['def'][1]));	
+		$DerbisMetal		= bcadd($TargetPlanet['der_metal'], bcadd($result['debree']['att'][0], $result['debree']['def'][0]));
+		$DerbisCrystal		= bcadd($TargetPlanet['der_crystal'], bcadd($result['debree']['att'][1], $result['debree']['def'][1]));	
 		
 		$SQLQuery  = "UPDATE ".PLANETS." SET ";
 		$SQLQuery .= "`der_metal` = '".$DerbisMetal."', ";
