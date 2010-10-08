@@ -553,7 +553,7 @@ class ShowFleetPages extends FleetFunctions
 		
 		if(!$YourPlanet && ($mission == 1 || $mission == 2 || $mission == 5 || $mission == 6 || $mission == 9))
 		{
-			if($TargetPlanet['id_level'] > $USER['authlevel'] && $CONF['adm_attack'] == 0)
+			if($TargetPlanet['id_level'] > $USER['authlevel'] && $CONF['adm_attack'] == 1)
 			{
 				$template->message("<font color=\"red\"><b>".$LNG['fl_admins_cannot_be_attacked']."</b></font>", "game.php?page=fleet", 2);
 				exit;
@@ -836,7 +836,7 @@ class ShowFleetPages extends FleetFunctions
 		$QrySelectEnemy .= "`planet_type` = '". $planettype ."';";
 		$TargetRow	   = $db->uniquequery($QrySelectEnemy);
 
-		if($TargetRow['id_level'] > $USER['authlevel'] && $mission == 6 && $CONF['adm_attack'] == 0)
+		if($TargetRow['id_level'] > $USER['authlevel'] && $mission == 6 && $CONF['adm_attack'] == 1)
 			exit("619; ".$LNG['fa_action_not_allowed']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserGRecycles." ".$UserMissiles);
 		
 		$TargetUser	   = GetUserByID($TargetRow['id_owner'], array('id','onlinetime','urlaubs_modus'));
@@ -985,7 +985,7 @@ class ShowFleetPages extends FleetFunctions
 			$error = $LNG['ma_no_missiles'];
 		elseif ($anz == 0)
 			$error = $LNG['ma_add_missile_number'];
-		elseif ($Target['id_level'] > $USER['authlevel'] && $CONF['adm_attack'] == 0)
+		elseif ($Target['id_level'] > $USER['authlevel'] && $CONF['adm_attack'] == 1)
 			$error = $LNG['fl_admins_cannot_be_attacked'];
 		
 		$TargetUser	   	= GetUserByID($Target['id_owner'], array('onlinetime'));
