@@ -173,6 +173,9 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $PlanetOwnerID, $Pla
 	if(!empty($PlanetName))
 		$SQL .= "`name` = '".$PlanetName."', ";
 	
+	if($CONF['adm_attack'] == 0)
+		$AuthLevel = 0;
+	
 	$SQL .= "`id_owner` = '".$PlanetOwnerID."', ";
 	$SQL .= "`id_level` = '".$AuthLevel."', ";
 	$SQL .= "`galaxy` = '".$Galaxy."', ";
