@@ -178,20 +178,22 @@ class MissionCaseSpy extends MissionFunctions
 		$LookAtLoop = true;
 		if ($Mode == 0)
 		{
-			$String  = '<table style="width:100%;"><tr><th colspan="5">'.$TitleString.' '.$TargetPlanet['name'];
-			$String .= ' <a href="game.php?page=galaxy&mode=3&galaxy='. $TargetPlanet['galaxy'] .'&system='. $TargetPlanet['system']. '">';
-			$String .= '['. $TargetPlanet['galaxy'] .':'. $TargetPlanet['system'] .':'. $TargetPlanet['planet'] .']</a>';
-			$String .= ' von '. date('d. M Y H:i:s', $this->_fleet['fleet_start_time']) .'</th>';
-			$String .= '</tr><tr>';
-			$String .= '<td style="width:25%;" class="left transparent">'. $LNG['Metal']     .'</td><td style="width:25%;" class="left transparent">'. pretty_number($TargetPlanet['metal'])      .'</td><td class="transparent">&nbsp;</td>';
-			$String .= '<td style="width:25%;" class="left transparent">'. $LNG['Crystal']   .'</td><td style="width:25%;" class="left transparent">'. pretty_number($TargetPlanet['crystal'])    .'</td>';
-			$String .= '</tr><tr>';
-			$String .= '<td style="width:25%;" class="left transparent">'. $LNG['Deuterium'] .'</td><td style="width:25%;" class="left transparent">'. pretty_number($TargetPlanet['deuterium'])  .'</td><td class="transparent">&nbsp;</td>';
-			$String .= '<td style="width:25%;" class="left transparent">'. $LNG['Energy']    .'</td><td style="width:25%;" class="left transparent">'. pretty_number($TargetPlanet['energy_max']) .'</td>';
-			$String .= '</tr>';
-			$Array[1]	= $TargetPlanet['metal'];
-			$Array[2]	= $TargetPlanet['crystal'];
-			$Array[3]	= $TargetPlanet['deuterium'];
+				$String  = '
+				<table style="width:100%;"><tr><th colspan="5">'.$TitleString.' <i> '.$TargetPlanet['name'].'
+				<a href="game.php?page=galaxy&mode=3&galaxy='. $TargetPlanet['galaxy'] .'&system='. $TargetPlanet['system']. '">
+				['. $TargetPlanet['galaxy'] .':'. $TargetPlanet['system'] .':'. $TargetPlanet['planet'] .']</a></i>
+                vom '. date('d.m Y - H:i:s \U\h\r', $this->_fleet['fleet_end_time']) .'</th>
+                </tr><tr>
+                <td style="width:25%;" class="left transparent">'. $LNG['Metal'] .'</td><td style="width:25%;" class="left transparent">'. pretty_number($TargetPlanet['metal']) .'</td><td class="transparent">&nbsp;</td>
+                <td style="width:25%;" class="left transparent">'. $LNG['Crystal']   .'</td><td style="width:25%;" class="left transparent">'. pretty_number($TargetPlanet['crystal'])    .'</td>
+                </tr><tr>
+                <td style="width:25%;" class="left transparent">'. $LNG['Deuterium'] .'</td><td style="width:25%;" class="left transparent">'. pretty_number($TargetPlanet['deuterium'])  .'</td><td class="transparent">&nbsp;</td>
+                <td style="width:25%;" class="left transparent">'. $LNG['Energy']    .'</td><td style="width:25%;" class="left transparent">'. pretty_number($TargetPlanet['energy_max']) .'</td>
+                </tr><tr>';
+						
+                $Array[1]       = $TargetPlanet['metal'];
+                $Array[2]       = $TargetPlanet['crystal'];
+                $Array[3]       = $TargetPlanet['deuterium'];
 			
 			$LookAtLoop = false;
 		}
