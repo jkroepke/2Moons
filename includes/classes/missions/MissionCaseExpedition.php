@@ -150,7 +150,7 @@ class MissionCaseExpedition extends MissionFunctions
 				$MinFound		= mt_rand(7000, 10000);
 			
 				$FoundShipMess	= "";	
-				$NewFleetArray 	= $this->_fleet['fleet_array'];
+				$NewFleetArray 	= "";
 
 				$LNG			+= $this->GetUserLang($this->_fleet['fleet_owner'], 'TECH');
 				
