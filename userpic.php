@@ -16,27 +16,37 @@
 # *  but WITHOUT ANY WARRANTY; without even the implied warranty of          #
 # *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the           #
 # *  GNU General Public License for more details.                            #
+# *	                                                                         #
+# *  You should have received a copy of the GNU General Public License       #
+# *  along with this program.  If not, see <http://www.gnu.org/licenses/>    #
 # *                                                                          #
 ##############################################################################
 
-if(!defined('INSIDE')) die('Hacking attempt!');
+define('INSIDE'  , true);
+define('LOGIN'   , false);
+define('INSTALL' , false);
+define('IN_CRON' , true);
 
-function ShowUserBanner()
-{
-	$id = request_var('id', 0);
+define('ROOT_PATH' ,'./');
 
-	if(CheckModule(37) || $id == 0) exit();
+include(ROOT_PATH . 'extension.inc');
+include(ROOT_PATH . 'common.'.PHP_EXT);
 
-	require_once(ROOT_PATH.'includes/classes/class.StatBanner.' . PHP_EXT);
+$id = request_var('id', 0);
 
-	if(!isset($_GET['debug'])) {
-		header('Expires: '.date('D, d M Y H:i:s', TIMESTAMP + 7200)).' GMT';
-		header("Cache-Control: max-age=7200, private");
-		header("Content-type: image/png"); 
-	}
+if(CheckModule(37) || $id == 0) exit();
 
-	$banner = new StatBanner();
-	$banner->ShowStatBanner($id);
-	
+includeLang('INGAME');
+
+require_once(ROOT_PATH."includes/classes/class.StatBanner.php");
+
+if(!isset($_GET['debug'])) {
+	header('Expires: '.gmdate('D, d M Y H:i:s', TIMESTAMP + 7200)).' GMT';
+	header("Cache-Control: max-age=7200, private");
+	header("Content-type: image/png"); 
 }
+
+$banner = new StatBanner();
+$banner->ShowStatBanner($id);
+
 ?>
