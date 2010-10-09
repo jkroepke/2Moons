@@ -302,11 +302,6 @@ switch($page)
 		ShowLogoutPage();
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
-	case 'userbanner':
-		include_once(ROOT_PATH . 'includes/pages/ShowUserBanner.' . PHP_EXT);
-		ShowUserBanner();
-	break;
-// ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'overview':
 	default:
 		include_once(ROOT_PATH . 'includes/pages/ShowOverviewPage.' . PHP_EXT);
