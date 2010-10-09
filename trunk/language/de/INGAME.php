@@ -1023,7 +1023,7 @@ $LNG['pl_unitsshot']    					= 'Geschossene Units';
 $LNG['pl_unitslose']    					= 'Verlorene Units';
 $LNG['pl_dermetal']    					= 'Gesamt Trümmerfeld Metall';
 $LNG['pl_dercrystal']   					= 'Gesamt Trümmerfeld Kristall';
-$LNG['pl_etc']   							= 'Sonstiges';
+$LNG['pl_etc']   							= 'Kontakt';
 
 //----------------------------------------------------------------------------//
 // Chat
