@@ -48,6 +48,7 @@ function ShowPlayerCard()
 
 	$template->assign_vars(array(	
 		'id'			=> $playerid,
+		'yourid'		=> $USER['id'],
 		'name'			=> $query['username'],
 		'homeplanet'	=> $query['name'],
 		'galaxy'		=> $query['galaxy'],
