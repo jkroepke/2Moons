@@ -158,7 +158,7 @@ class MissionCaseExpedition extends MissionFunctions
 				{
 					if(!isset($FleetCount[$ID])) continue;
 					$Count				= mt_rand(1, floor($FoundShips / ($pricelist[$ID]['metal'] + $pricelist[$ID]['crystal'])));
-					$FleetCount[$ID]	= bcadd($Count, $FleetCount[$ID]);
+					$FleetCount[$ID]	+= $Count;
 					$NewFleetArray  	.= $ID.",".floattostring($Count + $FleetCount[$ID]).";";
 					$FoundShips	 		-= $Count * ($pricelist[$ID]['metal'] + $pricelist[$ID]['crystal']);
 					$FoundShipMess   	.= '<br>'.$LNG['tech'][$ID].': '.pretty_number($Count);

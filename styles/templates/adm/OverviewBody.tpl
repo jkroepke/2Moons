@@ -28,7 +28,7 @@ google.load("feeds", "1");
     </tr>
     <tr>
         <th colspan="2"><a href="http://goo.gl/7eu8" target="_blank">Project Homepage</a><br>
-        <th colspan="2"><a href="http://code.google.com/p/2moons/source/list" target="_blank">SVN Revision List</a><br>
+        <a href="http://code.google.com/p/2moons/source/list" target="_blank">SVN Revision List</a><br>
 		<a href="http://www.titanspace.org/" target="_blank">Offical Betauni</a><br>
 		<a href="http://www.xnova-reloaded.de/" target="_blank">xnova-reloaded.de - {$ow_forum}</a></th>
     </tr> 

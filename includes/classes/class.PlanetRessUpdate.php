@@ -45,7 +45,7 @@ class ResourceUpdate
 		$this->GLOBALS	= !isset($USER, $PLANET) ? true : false;
 		$this->USER		= $this->GLOBALS ? $GLOBALS['USER'] : $USER;
 		$this->PLANET	= $this->GLOBALS ? $GLOBALS['PLANET'] : $PLANET;
-		$this->TIME		= empty($TIME) ? TIMESTAMP : $this->TIME;
+		$this->TIME		= empty($TIME) ? TIMESTAMP : $TIME;
 			
 		if($this->USER['urlaubs_modus'] == 1)
 			return $this->ReturnVars();
@@ -63,7 +63,7 @@ class ResourceUpdate
 		$this->UpdateRessource();
 		
 		if($SAVE == true)
-			$this->SavePlanetToDB();
+			$this->SavePlanetToDB($this->USER, $this->PLANET);
 			
 		return $this->ReturnVars();
 	}
