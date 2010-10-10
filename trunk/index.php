@@ -37,6 +37,7 @@ include_once(ROOT_PATH . 'includes/uni.config.inc.php');
 
 $template	= new template();
 $template->set_index();
+$template->cache = true;
 
 $page = request_var('page', '');
 $mode = request_var('mode', '');
