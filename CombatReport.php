@@ -31,27 +31,15 @@ includeLang('FLEET');
 	
 $RID	= request_var('raport', '');
 
-if(file_exists(ROOT_PATH.'raports/raport_'.$RID.'.php')) {
+if(file_exists(ROOT_PATH.'raports/raport_'.$RID.'.php'))
 	require_once(ROOT_PATH.'raports/raport_'.$RID.'.php');
-} else {
-	
-	$raportrow 	= $db->uniquequery("SELECT * FROM ".RW." WHERE `rid` = '".$db->sql_escape($RID)."';");
-
-	$raport = stripslashes($raportrow["raport"]);
-	foreach ($LNG['tech_rc'] as $id => $s_name)
-	{
-		$str_replace1  	= array("[ship[".$id."]]");
-		$str_replace2  	= array($s_name);
-		$raport 		= str_replace($str_replace1, $str_replace2, $report);
-	}
-}
 
 $template	= new template();
 
 $template->page_header();
 $template->page_footer();
 
-$template->assign('raport', $raport);
+$template->assign_vars(array('raport' => $raport));
 $template->show('raport.tpl');
 
 ?>
