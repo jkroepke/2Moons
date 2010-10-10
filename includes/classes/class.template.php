@@ -19,23 +19,40 @@
 # *                                                                          #
 ##############################################################################
 
-require(ROOT_PATH.'includes/libs/Smarty/Smarty.class.php');
-
-class template extends Smarty
+class template
 {
 	function __construct()
 	{	
-		parent::__construct();
-		$this->allow_php_templates	= true;
-		$this->force_compile 		= false;
-		$this->caching 				= false;
-		$this->compile_check		= true; #Set false for production!
-		$this->php_handling			= SMARTY_PHP_QUOTE;
-		$this->template_dir 		= ROOT_PATH.TEMPLATE_DIR;
-		$this->compile_dir 			= ROOT_PATH.'cache/';
 		$this->jsscript				= array();
 		$this->script				= array();
 		$this->page					= array();
+		$this->vars					= array();
+		$this->cache				= false;
+		$this->cachedir				= ROOT_PATH.'cache/';
+		$this->file					= '';
+		$this->template_dir			= ROOT_PATH.TEMPLATE_DIR;
+		$this->cachefile			= '';
+	}
+
+	public function render()
+	{
+		global $CONF;
+		require(ROOT_PATH.'includes/libs/Smarty/Smarty.class.php');
+		$TMP						= new Smarty();
+		$TMP->allow_php_templates	= true;
+		$TMP->force_compile 		= false;
+		$TMP->caching 				= false;
+		$TMP->compile_check			= true; #Set false for production!
+		$TMP->php_handling			= SMARTY_PHP_QUOTE;
+		$TMP->template_dir 			= $this->template_dir;
+		$TMP->compile_dir 			= $this->cachedir;
+		$TMP->assign($this->vars);
+		$PAGE						= $TMP->fetch($this->file);
+		if($this->cache && $CONF['debug'] == 0)
+		{
+			file_put_contents($this->cachefile, $PAGE);
+		}
+		return $PAGE;
 	}
 	
 	public function getplanets()
@@ -56,7 +73,7 @@ class template extends Smarty
 		
 	public function assign_vars($assign)
 	{
-		$this->assign($assign);
+		$this->vars	= array_merge($this->vars, $assign);
 	}
 	
 	private function planetmenu()
@@ -314,7 +331,8 @@ class template extends Smarty
 			if($this->page['footer'] == true)
 				$this->footer();
 		}
-		$this->display($file);
+		
+		$this->display();
 	}
 	
 	public function gotoside($dest, $time = 3)
@@ -323,6 +341,16 @@ class template extends Smarty
 			'gotoinsec'	=> $time,
 			'goto'		=> $dest,
 		));
+	}
+	
+	public function display($file)
+	{
+		$this->file			= $file;
+		$this->cachefile	= $this->cachedir.$this->cacheid.md5(md5_file($this->template_dir.$this->file).implode('', $this->vars)).'.tpl.php';
+		if($this->cache && $CONF['debug'] == 0 && file_exists($this->cachefile))
+			echo file_get_contents($this->cachefile);
+		else
+			echo $this->render();
 	}
 	
 	public function message($mes, $dest = false, $time = 3, $Fatal = false)

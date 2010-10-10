@@ -28,6 +28,7 @@ function ShowLogoutPage()
 	$SESSION->DestroySession();
 	
 	$template	= new template();
+	$template->cache	= true;
 	$template->page_header();
 	$template->page_footer();	
 	$template->assign_vars(array(
