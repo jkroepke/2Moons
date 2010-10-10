@@ -30,8 +30,8 @@ function BuildlistShipyard() {
 		s = 0;
 	}
 	
-	if ( p > data.b.length - 2 ) {
-		element.html(ready);
+	if ( p > data.b.length - 1 ) {
+		element.html(Ready);
 		return;
     } else {
 		element.html(data.b[p]+" "+GetRestTimeFormat(s));
@@ -43,14 +43,15 @@ function ShipyardList() {
 	while (document.getElementById('auftr').length > 0) {
 		document.getElementById('auftr').options[document.getElementById('auftr').length-1] = null;
 	}
-	if ( p > data.b.length - 2 ) {
-		document.getElementById('auftr').options[document.getElementById('auftr').length] = new Option(ready);
-	}
-	for ( iv = p; iv <= data.b.length - 2; iv++ ) {
-		if ( iv == p ) {
-			document.getElementById('auftr').options[document.getElementById('auftr').length] = new Option(z.toString() + " \"" + data.b[iv] + "\" " + bd_operating, iv);
-		} else {
-			document.getElementById('auftr').options[document.getElementById('auftr').length] = new Option(data.a[iv] + " \"" + data.b[iv] + "\"", iv); 
+	if (p > data.b.length - 1) {
+		document.getElementById('auftr').options[document.getElementById('auftr').length] = new Option(Ready);
+	} else {
+		for ( iv = p; iv <= data.b.length - 1; iv++ ) {
+			if ( iv == p ) {
+				document.getElementById('auftr').options[document.getElementById('auftr').length] = new Option(z.toString() + " \"" + data.b[iv] + "\" " + bd_operating, iv);
+			} else {
+				document.getElementById('auftr').options[document.getElementById('auftr').length] = new Option(data.a[iv] + " \"" + data.b[iv] + "\"", iv); 
+			}
 		}
 	}
 }

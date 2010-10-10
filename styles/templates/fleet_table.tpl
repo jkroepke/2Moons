@@ -70,7 +70,9 @@
 		<tr><td colspan="9">{$fl_no_more_slots}</td></tr>
 		{/if}
         </table>
-		{$AKSPage}
+		{if isset($aks_invited_mr)}
+		{include file="fleetACS_table.tpl"}
+		{/if}
         <form action="?page=fleet1" method="POST">
 		<input type="hidden" name="galaxy" value="{$galaxy}">
         <input type="hidden" name="system" value="{$system}">

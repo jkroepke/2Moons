@@ -420,7 +420,11 @@ abstract class FleetFunctions
 			'add_user_message_mr'	=> $add_user_message_mr,
 			'fl_acs_change'			=> $LNG['fl_acs_change'],
 			'fl_acs_change_name'	=> $LNG['fl_acs_change_name'],
-
+			'fl_invite_members'		=> $LNG['fl_invite_members'],
+			'fl_members_invited'	=> $LNG['fl_members_invited'],
+			'fl_modify_sac_name'	=> $LNG['fl_modify_sac_name'],
+			'fl_sac_of_fleet'		=> $LNG['fl_sac_of_fleet'],
+			'fl_continue'			=> $LNG['fl_continue'],
 		);
 		return $AKSArray;
 	}
