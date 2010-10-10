@@ -489,6 +489,20 @@ function redirectTo($URL)
 	exit;
 }
 
+function ClearCache()
+{
+	$DIRS	= array('cache/UserBanner/', 'cache/');
+	foreach($DIRS as $DIR) {
+		$FILES = array_diff(scandir($DIR), array('..', '.', '.htaccess'));
+		foreach($FILES as $FILE) {
+			if(is_dir(ROOT_PATH.$DIR.$FILE))
+				continue;
+				
+			unlink(ROOT_PATH.$DIR.$FILE);
+		}
+	}
+}
+
 if(!function_exists('ctype_alnum'))
 {
     function ctype_alnum($test){

@@ -47,7 +47,7 @@ switch($cron)
 			$result			= $stat->MakeStats();
 		}
 	break;
-	case "opdb":
+	case "daily":
 		if (TIMESTAMP >= ($CONF['stat_last_db_update'] + (60 * 60 * 24)))
 		{
 			update_config('stat_last_db_update', TIMESTAMP);
@@ -62,6 +62,7 @@ switch($cron)
 				}
 			}
 			$db->query("OPTIMIZE TABLE ".substr($table, 0, -2).";");
+			ClearCache();
 		}
 	break;
 	case "banner":

@@ -234,7 +234,7 @@ class template
 	{
 		global $CONF;
 		$this->assign_vars(array(
-			'cron'			=> ((TIMESTAMP >= ($CONF['stat_last_update'] + (60 * $CONF['stat_update_time']))) ? "<img src=\"./cronjobs.php?cron=stats\" alt=\"\" height=\"1\" width=\"1\">" : "").((TIMESTAMP >= ($CONF['stat_last_db_update'] + (60 * 60 * 24))) ? "<img src=\"./cronjobs.php?cron=opdb\" alt=\"\" height=\"1\" width=\"1\">" : "").((!CheckModule(37) && TIMESTAMP >= ($CONF['stat_last_banner_update'] + (60 * $CONF['stat_banner_update_time']))) ? "<img src=\"./cronjobs.php?cron=banner\" alt=\"\" height=\"1\" width=\"1\">" : ""),
+			'cron'			=> ((TIMESTAMP >= ($CONF['stat_last_update'] + (60 * $CONF['stat_update_time']))) ? "<img src=\"./cronjobs.php?cron=stats\" alt=\"\" height=\"1\" width=\"1\">" : "").((TIMESTAMP >= ($CONF['stat_last_db_update'] + (60 * 60 * 24))) ? "<img src=\"./cronjobs.php?cron=daily\" alt=\"\" height=\"1\" width=\"1\">" : "").((!CheckModule(37) && TIMESTAMP >= ($CONF['stat_last_banner_update'] + (60 * $CONF['stat_banner_update_time']))) ? "<img src=\"./cronjobs.php?cron=banner\" alt=\"\" height=\"1\" width=\"1\">" : ""),
 			'scripts'		=> $this->jsscript,
 			'execscript'	=> implode("\n", $this->script),
 			'ga_active'		=> $CONF['ga_active'],
@@ -332,7 +332,7 @@ class template
 				$this->footer();
 		}
 		
-		$this->display();
+		$this->display($file);
 	}
 	
 	public function gotoside($dest, $time = 3)
