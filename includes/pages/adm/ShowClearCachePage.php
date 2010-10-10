@@ -25,17 +25,9 @@ if ($USER['rights'][str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '',
 function ShowClearCachePage()
 {
 	global $LNG;
-	$DIRS	= array('cache/UserBanner/', 'cache/');
-	foreach($DIRS as $DIR) {
-		$FILES = array_diff(scandir($DIR), array('..', '.', '.htaccess'));
-		foreach($FILES as $FILE) {
-			if(is_dir(ROOT_PATH.$DIR.$FILE))
-				continue;
-				
-			unlink(ROOT_PATH.$DIR.$FILE);
-		}
-	}
+	ClearCache();
 	$template = new template();
+	$template->cache = true;
 	$template->message($LNG['cc_cache_clear']);
 }
 ?>

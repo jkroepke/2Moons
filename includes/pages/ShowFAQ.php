@@ -29,7 +29,7 @@ function ShowFAQPage()
 	$PlanetRess->SavePlanetToDB();
 
 	$template	= new template();
-				$template->cache	= true;
+	$template->cache	= true;
 	$template->page_header();
 	$template->page_topnav();
 	$template->page_leftmenu();
