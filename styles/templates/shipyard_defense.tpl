@@ -3,11 +3,28 @@
 {include file="left_menu.tpl"}
 <div id="content" class="content">
 	{if !$NotBuilding}<span style="color:red">{$bd_building_shipyard}</span><br>{/if}
-	{if $BuildList}
+	{if $BuildList != '[]'}
     <table>
 		<tr>
 			<td class="transparent">
-			{$BuildList}
+				<div id="bx" class="z"></div>
+				<br>
+				<form method="POST" action="">
+				<input type="hidden" name="mode" value="fleet">
+				<input type="hidden" name="action" value="delete">
+				<table>
+				<tr>
+					<th>&nbsp;</th>
+				</tr>
+				<tr>
+					<td><select name="auftr[]" id="auftr" size="10" multiple><option>&nbsp;</option></select><br><br>{$bd_cancel_warning}<br><input type="Submit" value="{$bd_cancel_send}"></td>
+				</tr>
+				<tr>
+					<th>&nbsp;</th>
+				</tr>
+				</table>
+				</form>
+				<br><span id="timeleft"></span><br><br>
 			</td>
 		</tr>
     </table>
@@ -72,5 +89,9 @@
     </table>
 	</form>
 </div>
+<script type="text/javascript">
+data			= {$BuildList};
+bd_operating	= '{$bd_operating}';
+</script>
 {include file="planet_menu.tpl"}
 {include file="overall_footer.tpl"}

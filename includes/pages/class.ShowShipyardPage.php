@@ -190,13 +190,6 @@ class ShowShipyardPage
 			$this->CancelAuftr($cancel);
 
 		$PlanetRess->SavePlanetToDB();
-
-		if(!empty($PLANET['b_hangar_id']))
-		{
-			$template->loadscript('bcmath.js');
-			$template->loadscript('shipyard.js');
-			$template->execscript("ShipyardList();BuildlistShipyard();");
-		}
 		
 		$template->page_header();	
 		$template->page_topnav();
@@ -221,39 +214,39 @@ class ShowShipyardPage
 			}
 		}
 		
+		$Buildlist	= array();
+		
 		if(!empty($PLANET['b_hangar_id']))
 		{
 			$ElementQueue = explode(';', $PLANET['b_hangar_id']);
-			$NbrePerType  = "";
-			$NamePerType  = "";
-			$TimePerType  = "";
+			$NbrePerType  = array();
+			$NamePerType  = array();
+			$TimePerType  = array();
 
 			foreach($ElementQueue as $ElementLine => $Element)
 			{
-				if ($Element != '')
-				{
-					$Element 		= explode(',', $Element);
-					$ElementTime  	= GetBuildingTime( $USER, $PLANET, $Element[0]);
-					$QueueTime   	+= $ElementTime * $Element[1];
-					$TimePerType 	.= $ElementTime.',';
-					$NamePerType 	.= "'".html_entity_decode($LNG['tech'][$Element[0]], ENT_NOQUOTES, "UTF-8")."',";
-					$NbrePerType 	.= "'".$Element[1]."',";
-				}
+				if (empty($Element))
+					continue;
+					
+				$Element 		= explode(',', $Element);
+				$ElementTime  	= GetBuildingTime( $USER, $PLANET, $Element[0]);
+				$QueueTime   	+= $ElementTime * $Element[1];
+				$TimePerType[] 	= $ElementTime;
+				$NamePerType[] 	= $LNG['tech'][$Element[0]];
+				$NbrePerType[] 	= $Element[1];
 			}
+
+			$template->loadscript('bcmath.js');
+			$template->loadscript('shipyard.js');
+			$template->execscript('ShipyardInit();');
 			
-			$template->assign_vars(array(
+			$Buildlist	= array(
 				'a' 					=> $NbrePerType,
 				'b' 					=> $NamePerType,
 				'c' 					=> $TimePerType,
 				'b_hangar_id_plus' 		=> $PLANET['b_hangar'],
 				'pretty_time_b_hangar' 	=> pretty_time(max($QueueTime - $PLANET['b_hangar'],0)),
-				'bd_completed'			=> $LNG['bd_completed'],
-				'bd_cancel_warning'		=> $LNG['bd_cancel_warning'],
-				'bd_cancel_send'		=> $LNG['bd_cancel_send'],
-				'bd_actual_production'	=> $LNG['bd_actual_production'],
-				'bd_operating'			=> $LNG['bd_operating'],
-			));
-			$Buildlist	= $template->fetch('shipyard_buildlist.tpl');
+			);
 		}
 		
 		$template->assign_vars(array(
@@ -264,7 +257,12 @@ class ShowShipyardPage
 			'fgf_time'				=> $LNG['fgf_time'],
 			'bd_build_ships'		=> $LNG['bd_build_ships'],
 			'bd_building_shipyard'	=> $LNG['bd_building_shipyard'],
-			'BuildList'				=> $Buildlist,
+			'bd_completed'			=> $LNG['bd_completed'],
+			'bd_cancel_warning'		=> $LNG['bd_cancel_warning'],
+			'bd_cancel_send'		=> $LNG['bd_cancel_send'],
+			'bd_actual_production'	=> $LNG['bd_actual_production'],
+			'bd_operating'			=> $LNG['bd_operating'],
+			'BuildList'				=> json_encode($Buildlist),
 			'maxlength'				=> strlen(MAX_FLEET_OR_DEFS_PER_ROW),
 		));
 		$template->show("shipyard_fleet.tpl");
@@ -376,13 +374,6 @@ class ShowShipyardPage
 
 		$PlanetRess->SavePlanetToDB();
 
-		if(!empty($PLANET['b_hangar_id']))
-		{
-			$template->loadscript('bcmath.js');
-			$template->loadscript('shipyard.js');
-			$template->execscript("ShipyardList();BuildlistShipyard();");
-		}
-
 		$template->page_header();	
 		$template->page_topnav();
 		$template->page_leftmenu();
@@ -406,40 +397,39 @@ class ShowShipyardPage
 				'AlreadyBuild'	=> (in_array($Element, $reslist['one']) && (strpos($PLANET['b_hangar_id'], $Element.",") !== false || $PLANET[$resource[$Element]] != 0)) ? true : false,
 			);
 		}
-
+		
+		$Buildlist	= array();
 		if(!empty($PLANET['b_hangar_id']))
 		{
 			$ElementQueue = explode(';', $PLANET['b_hangar_id']);
-			$NbrePerType  = "";
-			$NamePerType  = "";
-			$TimePerType  = "";
+			$NbrePerType  = array();
+			$NamePerType  = array();
+			$TimePerType  = array();
 
 			foreach($ElementQueue as $ElementLine => $Element)
 			{
-				if ($Element != '')
-				{
-					$Element 		= explode(',', $Element);
-					$ElementTime  	= GetBuildingTime( $USER, $PLANET, $Element[0]);
-					$QueueTime   	+= $ElementTime * $Element[1];
-					$TimePerType 	.= $ElementTime.',';
-					$NamePerType 	.= "'".html_entity_decode($LNG['tech'][$Element[0]], ENT_NOQUOTES, "UTF-8")."',";
-					$NbrePerType 	.= "'".$Element[1]."',";
-				}
+				if (empty($Element))
+					continue;
+				
+				$Element 		= explode(',', $Element);
+				$ElementTime  	= GetBuildingTime($USER, $PLANET, $Element[0]);
+				$QueueTime   	+= $ElementTime * $Element[1];
+				$TimePerType[] 	= $ElementTime;
+				$NamePerType[] 	= $LNG['tech'][$Element[0]];
+				$NbrePerType[]	= $Element[1];
 			}
 
-			$template->assign_vars(array(
+			$template->loadscript('bcmath.js');
+			$template->loadscript('shipyard.js');
+			$template->execscript('ShipyardInit();');
+			
+			$Buildlist	= array(
 				'a' 					=> $NbrePerType,
 				'b' 					=> $NamePerType,
 				'c' 					=> $TimePerType,
 				'b_hangar_id_plus' 		=> $PLANET['b_hangar'],
-				'pretty_time_b_hangar' 	=> pretty_time(max($QueueTime - $PLANET['b_hangar'],0)),
-				'bd_completed'			=> $LNG['bd_completed'],
-				'bd_cancel_warning'		=> $LNG['bd_cancel_warning'],
-				'bd_cancel_send'		=> $LNG['bd_cancel_send'],
-				'bd_actual_production'	=> $LNG['bd_actual_production'],
-				'bd_operating'			=> $LNG['bd_operating'],
-			));
-			$Buildlist	= $template->fetch('shipyard_buildlist.tpl');
+				'pretty_time_b_hangar' 	=> pretty_time(max($QueueTime - $PLANET['b_hangar'], 0)),				
+			);
 		}
 		
 		$template->assign_vars(array(
@@ -451,7 +441,11 @@ class ShowShipyardPage
 			'bd_build_ships'				=> $LNG['bd_build_ships'],
 			'bd_building_shipyard'			=> $LNG['bd_building_shipyard'],
 			'bd_protection_shield_only_one'	=> $LNG['bd_protection_shield_only_one'],
-			'BuildList'						=> $Buildlist,
+			'bd_cancel_warning'				=> $LNG['bd_cancel_warning'],
+			'bd_cancel_send'				=> $LNG['bd_cancel_send'],
+			'bd_operating'					=> $LNG['bd_operating'],
+			'bd_actual_production'			=> $LNG['bd_actual_production'],
+			'BuildList'						=> json_encode($Buildlist),
 			'maxlength'						=> strlen(MAX_FLEET_OR_DEFS_PER_ROW),
 		));
 		$template->show("shipyard_defense.tpl");
