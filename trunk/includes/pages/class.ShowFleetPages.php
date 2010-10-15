@@ -703,7 +703,7 @@ class ShowFleetPages extends FleetFunctions
 							`fleet_resource_metal` = '".floattostring($TransportMetal)."',
 							`fleet_resource_crystal` = '".floattostring($TransportCrystal)."',
 							`fleet_resource_deuterium` = '".floattostring($TransportDeuterium)."',
-							`fleet_target_owner` = '". $TargetPlanet['id_owner'] ."',
+							`fleet_target_owner` = '".(int)$TargetPlanet['id_owner'] ."',
 							`fleet_group` = '". $fleet_group_mr ."',
 							`start_time` = '". TIMESTAMP ."';
 							UPDATE `".PLANETS."` SET
