@@ -295,9 +295,9 @@ class ShowBuildingsPage
 			else
 				$parse['click'] = "<span style=\"color:#FF0000\">".$LNG['bd_no_more_fields']."</span>";
 
-			if ($Element == 31 && $USER['b_tech'] > TIMESTAMP)
+			if (($Element == 6 || $Element == 31) && $USER['b_tech'] > TIMESTAMP)
 				$parse['click'] = "<span style=\"color:#FF0000\">".$LNG['bd_working']."</span>";
-			elseif (($Element == 15 || $Element == 21) && !empty($PLANET['b_hangar_id']))
+			elseif (($Element == 14 || $Element == 15 || $Element == 21) && !empty($PLANET['b_hangar_id']))
 				$parse['click'] = "<span style=\"color:#FF0000\">".$LNG['bd_working']."</span>";
 			
 			$BuildInfoList[]	= array(
