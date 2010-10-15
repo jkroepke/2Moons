@@ -79,6 +79,9 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	// If ture, the calculation for Researchtime is like OGAME, if false its calculation with standart XNova Formula
 	define('NEW_RESEARCH'			  , true);
 	
+	// University reduction per level - standard 8%
+	define('UNIVERISTY_RESEARCH_REDUCTION'	, 8);
+	
 	// IF SET true, the derbis will be delete, when a moon is created.
 	define('DESTROY_DERBIS_MOON_CREATE', true);
 	
