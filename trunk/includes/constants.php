@@ -50,7 +50,10 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	define('FIELDS_BY_TERRAFORMER'	  , 5);
 
 	// NUMBER OF PLANETS THAT MAY HAVE A PLAYER WITHOUT TECHNO
-	define('STANDART_PLAYER_PLANETS'  , 9);	
+	define('STANDART_PLAYER_PLANETS'  , 9);
+
+	// MAXIMAL PLANETS ( -1 = unlimited )
+	define('MAX_PLANETS'             , 15);
 
 	// ADDED PLANET PRO 2 TECH LEVELS
 	define('PLANETS_PER_TECH' 		  , 1);	
@@ -79,8 +82,8 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	// If ture, the calculation for Researchtime is like OGAME, if false its calculation with standart XNova Formula
 	define('NEW_RESEARCH'			  , true);
 	
-	// University reduction per level - standard 8%
-	define('UNIVERISTY_RESEARCH_REDUCTION'	, 8);
+	// University reduction per level - standard 8% (Info: 1 = 100%)
+	define('UNIVERISTY_RESEARCH_REDUCTION'	, 0.08);
 	
 	// IF SET true, the derbis will be delete, when a moon is created.
 	define('DESTROY_DERBIS_MOON_CREATE', true);
