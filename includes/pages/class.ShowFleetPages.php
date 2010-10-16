@@ -552,7 +552,7 @@ class ShowFleetPages extends FleetFunctions
 			}
 			
 			$UserPoints    	= $USER;
-			$User2Points  	= $db->uniquequery("SELECT `total_points` FROM ".STATPOINTS." WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $HeDBRec['id'] ."';");
+			$User2Points  	= $db->uniquequery("SELECT `total_points` FROM ".STATPOINTS." WHERE `stat_type` = '1' AND `id_owner` = '". $HeDBRec['id'] ."';");
 		
 			$IsNoobProtec	= CheckNoobProtec($UserPoints, $User2Points, $HeDBRec['onlinetime']);
 			
@@ -852,7 +852,7 @@ class ShowFleetPages extends FleetFunctions
 			}
 
 			$UserPoints   	= $USER;
-			$User2Points  	= $db->uniquequery("SELECT `total_points` FROM ".STATPOINTS." WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $TargetRow['id_owner'] ."';");
+			$User2Points  	= $db->uniquequery("SELECT `total_points` FROM ".STATPOINTS." WHERE `stat_type` = '1' AND `id_owner` = '". $TargetRow['id_owner'] ."';");
 		
 			$IsNoobProtec	= CheckNoobProtec($UserPoints, $User2Points, $TargetUser['onlinetime']);
 			
@@ -983,7 +983,7 @@ class ShowFleetPages extends FleetFunctions
 		$TargetUser	   	= GetUserByID($Target['id_owner'], array('onlinetime'));
 		
 		$UserPoints   	= $USER;
-		$User2Points  	= $db->uniquequery("SELECT `total_points` FROM ".STATPOINTS." WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $Target['id_owner'] ."';");
+		$User2Points  	= $db->uniquequery("SELECT `total_points` FROM ".STATPOINTS." WHERE `stat_type` = '1' AND `id_owner` = '". $Target['id_owner'] ."';");
 		
 		$IsNoobProtec	= CheckNoobProtec($UserPoints, $User2Points, $TargetUser['onlinetime']);
 			
