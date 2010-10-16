@@ -436,7 +436,7 @@ CREATE TABLE IF NOT EXISTS `prefix_users` (
   `ip_at_reg` varchar(16) NOT NULL DEFAULT '',
   `register_time` int(11) NOT NULL DEFAULT '0',
   `onlinetime` int(11) NOT NULL DEFAULT '0',
-  `dpath` varchar(255) NOT NULL DEFAULT 'styles/skins/darkness/',
+  `dpath` varchar(255) NOT NULL DEFAULT 'styles/skins/gow/',
   `design` tinyint(4) NOT NULL DEFAULT '1',
   `noipcheck` tinyint(4) NOT NULL DEFAULT '1',
   `planet_sort` tinyint(1) NOT NULL DEFAULT '0',
