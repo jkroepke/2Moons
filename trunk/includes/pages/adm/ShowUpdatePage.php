@@ -139,6 +139,7 @@ function ShowUpdatePage()
 			catch (FTPException $error)
 			{
 				$LOG['debug']['connect']	= "FTP-Verbindungsaufbau: ERROR! ".$error->getMessage();
+				$ftp->close();
 				exitupdate($LOG);
 			}	
 						
@@ -149,6 +150,7 @@ function ShowUpdatePage()
 			else
 			{
 				$LOG['debug']['chdir']	= "FTP-Changedir(".$CONF['ftp_root_path']."): ERROR! Pfad nicht gefunden!";
+				$ftp->close();
 				exitupdate($LOG);
 			}
 			
@@ -230,8 +232,10 @@ function ShowUpdatePage()
 				}
 				$LastRev = $Rev;
 			}
+			$ftp->close();
 			$LOG['finish']['atrev'] = "UPDATE: OK! At Revision: ".$LastRev;
 			// Verbindung schlieﬂen
+			ClearCache();
 			update_config('VERSION', str_replace("RC","",$Patchlevel[0]).".".$Patchlevel[1].".".$LastRev);
 			exitupdate($LOG);
 		break;
