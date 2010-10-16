@@ -39,16 +39,6 @@ function ShowTopKB()
 			if(file_exists(ROOT_PATH.'raports/topkb_'.$ReportID.'.php')) {
 				require_once(ROOT_PATH.'raports/topkb_'.$ReportID.'.php');
 				$RaportRAW 	= $db->uniquequery("SELECT `angreifer`, `defender` FROM ".TOPKB." WHERE `rid` = '".$db->sql_escape($ReportID)."';");
-			} else {
-				$RaportRAW 	= $db->uniquequery("SELECT * FROM ".TOPKB." WHERE `rid` = '".$db->sql_escape($ReportID)."';");
-				$raport = stripslashes($RaportRAW['raport']);
-
-				foreach ($LNG['tech_rc'] as $id => $s_name)
-				{
-					$str_replace1  	= array("[ship[".$id."]]");
-					$str_replace2  	= array($s_name);
-					$raport 		= str_replace($str_replace1, $str_replace2, $raport);
-				}
 			}
 			
 			foreach ($LNG['tech_rc'] as $id => $s_name)

@@ -272,7 +272,6 @@ class MissionCaseDestruction extends MissionFunctions
 		$SQLQuery .= "`defender` = '".implode(' & ', $Defender['name'])."', ";
 		$SQLQuery .= "`gesamtunits` = '".floattostring($result['lost']['att'] + $result['lost']['def'])."', ";
 		$SQLQuery .= "`rid` = '". $rid ."', ";
-		$SQLQuery .= "`raport` = '',";
 		$SQLQuery .= "`fleetresult` = '". $result['won'] ."';";		
 		$SQLQuery .= "UPDATE ".USERS." SET ";
         $SQLQuery .= "`wons` = wons + ".$Won.", ";

@@ -376,7 +376,7 @@ class statbuilder{
 		
 		$TotalData	= $this->GetUsersInfosFromDB();
 		$FinalSQL	= 'TRUNCATE TABLE '.STATPOINTS.';';
-		$FinalSQL	.= "INSERT INTO ".STATPOINTS." (`id_owner`, `id_ally`, `stat_type`, `stat_code`, `tech_old_rank`, `tech_points`, `tech_count`, `build_old_rank`, `build_points`, `build_count`, `defs_old_rank`, `defs_points`, `defs_count`, `fleet_old_rank`, `fleet_points`, `fleet_count`, `total_old_rank`, `total_points`, `total_count`, `stat_date`) VALUES ";
+		$FinalSQL	.= "INSERT INTO ".STATPOINTS." (`id_owner`, `id_ally`, `stat_type`, `tech_old_rank`, `tech_points`, `tech_count`, `build_old_rank`, `build_points`, `build_count`, `defs_old_rank`, `defs_points`, `defs_count`, `fleet_old_rank`, `fleet_points`, `fleet_count`, `total_old_rank`, `total_points`, `total_count`) VALUES ";
 		
 		while($PlanetData = $db->fetch_array($TotalData['Planets']))
 		{		
@@ -404,7 +404,7 @@ class statbuilder{
 		{
 			if (($CONF['stat'] == 1 && $UserData['authlevel'] >= $CONF['stat_level']) || !empty($UserData['bana']))
 			{	
-				$FinalSQL  .= "(".$UserData['id'].",".$UserData['ally_id'].",1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,'".$this->time."'), ";
+				$FinalSQL  .= "(".$UserData['id'].",".$UserData['ally_id'].",1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0), ";
 				continue;
 			}
 			
@@ -443,7 +443,7 @@ class statbuilder{
 				$AllyPoints[$UserData['ally_id']]['total']['points']	+= $UserPoints[$UserData['id']]['total']['points'];
 			}
 			
-			$FinalSQL  .= "('".$UserData['id']."','".$UserData['ally_id']."',1,1,'".$UserData['old_tech_rank']."', '".floattostring($UserPoints[$UserData['id']]['techno']['points'])."', '".floattostring($UserPoints[$UserData['id']]['techno']['count'])."', '".$UserData['old_build_rank']."','".floattostring($UserPoints[$UserData['id']]['build']['points'])."', '".floattostring($UserPoints[$UserData['id']]['build']['count'])."', '".$UserData['old_defs_rank']."', '".floattostring($UserPoints[$UserData['id']]['defense']['points'])."', '".floattostring($UserPoints[$UserData['id']]['defense']['count'])."', '".$UserData['old_fleet_rank']."', '".floattostring($UserPoints[$UserData['id']]['fleet']['points'])."', '".floattostring($UserPoints[$UserData['id']]['fleet']['count'])."', '".$UserData['old_total_rank']."', '".floattostring($UserPoints[$UserData['id']]['total']['points'])."', '".floattostring($UserPoints[$UserData['id']]['total']['count'])."', '".$this->time."'), ";
+			$FinalSQL  .= "('".$UserData['id']."','".$UserData['ally_id']."', 1, '".(int)$UserData['old_tech_rank']."', '".floattostring($UserPoints[$UserData['id']]['techno']['points'])."', '".floattostring($UserPoints[$UserData['id']]['techno']['count'])."', '".(int)$UserData['old_build_rank']."','".floattostring($UserPoints[$UserData['id']]['build']['points'])."', '".floattostring($UserPoints[$UserData['id']]['build']['count'])."', '".(int)$UserData['old_defs_rank']."', '".floattostring($UserPoints[$UserData['id']]['defense']['points'])."', '".floattostring($UserPoints[$UserData['id']]['defense']['count'])."', '".(int)$UserData['old_fleet_rank']."', '".floattostring($UserPoints[$UserData['id']]['fleet']['points'])."', '".floattostring($UserPoints[$UserData['id']]['fleet']['count'])."', '".(int)$UserData['old_total_rank']."', '".floattostring($UserPoints[$UserData['id']]['total']['points'])."', '".floattostring($UserPoints[$UserData['id']]['total']['count'])."'), ";
 		}
 		
 		$db->free_result($TotalData['Users']);
@@ -458,7 +458,7 @@ class statbuilder{
 			$AllySQL = "INSERT INTO ".STATPOINTS." (`id_owner`, `id_ally`, `stat_type`, `stat_code`, `tech_old_rank`, `tech_points`, `tech_count`, `build_old_rank`, `build_points`, `build_count`, `defs_old_rank`, `defs_points`, `defs_count`, `fleet_old_rank`, `fleet_points`, `fleet_count`, `total_old_rank`, `total_points`, `total_count`, `stat_date`) VALUES ";
 			while($AllianceData	= $db->fetch_array($TotalData['Alliance']))
 			{
-				$AllySQL  .= "('".$AllianceData['id']."',0,2,1, '".$AllyPoints['old_tech_rank']."', '".floattostring($AllyPoints[$AllianceData['id']]['techno']['points'])."', '".floattostring($AllyPoints[$AllianceData['id']]['techno']['count'])."', '".$AllianceData['old_build_rank']."', '".floattostring($AllyPoints[$AllianceData['id']]['build']['points'])."', '".floattostring($AllyPoints[$AllianceData['id']]['build']['count'])."', '".$AllianceData['old_defs_rank']."', '".floattostring($AllyPoints[$AllianceData['id']]['defense']['points'])."', '".floattostring($AllyPoints[$AllianceData['id']]['defense']['count'])."', '".$AllianceData['old_fleet_rank']."', '".floattostring($AllyPoints[$AllianceData['id']]['fleet']['points'])."', '".floattostring($AllyPoints[$AllianceData['id']]['fleet']['count'])."', '".$AllianceData['old_total_rank']."', '".floattostring($AllyPoints[$AllianceData['id']]['total']['points'])."', '".floattostring($AllyPoints[$AllianceData['id']]['total']['count'])."', '".$this->time."'), ";
+				$AllySQL  .= "('".$AllianceData['id']."', 0, 2,'".(int)$AllyPoints['old_tech_rank']."', '".floattostring($AllyPoints[$AllianceData['id']]['techno']['points'])."', '".floattostring($AllyPoints[$AllianceData['id']]['techno']['count'])."', '".(int)$AllianceData['old_build_rank']."', '".floattostring($AllyPoints[$AllianceData['id']]['build']['points'])."', '".floattostring($AllyPoints[$AllianceData['id']]['build']['count'])."', '".(int)$AllianceData['old_defs_rank']."', '".floattostring($AllyPoints[$AllianceData['id']]['defense']['points'])."', '".floattostring($AllyPoints[$AllianceData['id']]['defense']['count'])."', '".(int)$AllianceData['old_fleet_rank']."', '".floattostring($AllyPoints[$AllianceData['id']]['fleet']['points'])."', '".floattostring($AllyPoints[$AllianceData['id']]['fleet']['count'])."', '".(int)$AllianceData['old_total_rank']."', '".floattostring($AllyPoints[$AllianceData['id']]['total']['points'])."', '".floattostring($AllyPoints[$AllianceData['id']]['total']['count'])."'), ";
 			}
 			unset($AllyPoints);
 			$AllySQL	= substr($AllySQL, 0, -2).';';
