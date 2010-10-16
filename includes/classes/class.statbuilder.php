@@ -1,6 +1,26 @@
 <?php
 
-class statbuilder{
+##############################################################################
+# *                                                                          #
+# * 2MOONS                                                                   #
+# *                                                                          #
+# * @copyright Copyright (C) 2010 By ShadoX from titanspace.de               #
+# *                                                                          #
+# *	                                                                         #
+# *  This program is free software: you can redistribute it and/or modify    #
+# *  it under the terms of the GNU General Public License as published by    #
+# *  the Free Software Foundation, either version 3 of the License, or       #
+# *  (at your option) any later version.                                     #
+# *	                                                                         #
+# *  This program is distributed in the hope that it will be useful,         #
+# *  but WITHOUT ANY WARRANTY; without even the implied warranty of          #
+# *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the           #
+# *  GNU General Public License for more details.                            #
+# *                                                                          #
+##############################################################################
+
+class statbuilder
+{
 
 	function __construct()
 	{
@@ -12,13 +32,14 @@ class statbuilder{
 	private function SomeStatsInfos()
 	{
 		global $db;
-		$result['stats_time']		= $this->time;
-		$result['totaltime']    	= round(microtime(true) - $this->starttime, 7);
-		$result['memory_peak']		= array(round(memory_get_peak_usage() / 1024,1),round(memory_get_peak_usage(1) / 1024,1));
-		$result['initial_memory']	= $this->memory;
-		$result['end_memory']		= array(round(memory_get_usage() / 1024,1),round(memory_get_usage(1) / 1024,1));
-		$result['sql_count']		= $db->get_sql();
-		return $result;
+		return array(
+			'stats_time'		=> $this->time,
+			'totaltime'    		=> round(microtime(true) - $this->starttime, 7),
+			'memory_peak'		=> array(round(memory_get_peak_usage() / 1024,1), round(memory_get_peak_usage(1) / 1024,1)),
+			'initial_memory'	=> $this->memory,
+			'end_memory'		=> array(round(memory_get_usage() / 1024,1), round(memory_get_usage(1) / 1024,1)),
+			'sql_count'			=> $db->get_sql(),
+		);
 	}
 	
 	private function SetMaxInfo($ID, $Count, $Name)
@@ -136,8 +157,8 @@ class statbuilder{
 		
 		$Return['Fleets'] 	= $FlyingFleets;		
 		$Return['Planets']	= $db->query('SELECT SQL_BIG_RESULT DISTINCT '.$select_buildings.$select_fleets.$select_defenses.'p.id, p.id_owner, u.authlevel, u.bana, u.username FROM '.PLANETS.' as p LEFT JOIN '.USERS.' as u ON u.id = p.id_owner;');
-		$Return['Users']	= $db->query('SELECT SQL_BIG_RESULT DISTINCT '.$selected_tech.' u.id, u.ally_id, u.authlevel, u.bana, u.username, s.tech_rank AS old_tech_rank, s.build_rank AS old_build_rank, s.defs_rank AS old_defs_rank, s.fleet_rank AS old_fleet_rank, s.total_rank AS old_total_rank FROM '.USERS.' as u LEFT JOIN '.STATPOINTS.' as s ON s.stat_type = 1 AND s.stat_code = 1 AND s.id_owner = u.id GROUP BY s.id_owner, u.id, u.authlevel;');
-		$Return['Alliance']	= $db->query('SELECT SQL_BIG_RESULT DISTINCT a.id, s.tech_rank AS old_tech_rank, s.build_rank AS old_build_rank, s.defs_rank AS old_defs_rank, s.fleet_rank AS old_fleet_rank, s.total_rank AS old_total_rank FROM '.ALLIANCE.' as a LEFT JOIN '.STATPOINTS.' as s ON s.stat_type = 2 AND s.stat_code = 1 AND s.id_owner = a.id;');
+		$Return['Users']	= $db->query('SELECT SQL_BIG_RESULT DISTINCT '.$selected_tech.' u.id, u.ally_id, u.authlevel, u.bana, u.username, s.tech_rank AS old_tech_rank, s.build_rank AS old_build_rank, s.defs_rank AS old_defs_rank, s.fleet_rank AS old_fleet_rank, s.total_rank AS old_total_rank FROM '.USERS.' as u LEFT JOIN '.STATPOINTS.' as s ON s.stat_type = 1 AND s.id_owner = u.id GROUP BY s.id_owner, u.id, u.authlevel;');
+		$Return['Alliance']	= $db->query('SELECT SQL_BIG_RESULT DISTINCT a.id, s.tech_rank AS old_tech_rank, s.build_rank AS old_build_rank, s.defs_rank AS old_defs_rank, s.fleet_rank AS old_fleet_rank, s.total_rank AS old_total_rank FROM '.ALLIANCE.' as a LEFT JOIN '.STATPOINTS.' as s ON s.stat_type = 2 AND s.id_owner = a.id;');
 		update_config('users_amount', $db->num_rows($Return['Users']));
 		
 		return $Return;
@@ -308,7 +329,7 @@ class statbuilder{
 
 		while($CurUser = $db->fetch_array($RankQry))
 		{
-			$QryUpdateStats .= "UPDATE ".STATPOINTS." SET `tech_rank` = '". $tech[$CurUser['id_owner']] ."', `build_rank` = '". $build[$CurUser['id_owner']] ."', `defs_rank` = '". $defs[$CurUser['id_owner']] ."', `fleet_rank` = '". $fleet[$CurUser['id_owner']] ."', `total_rank` = '". $Rank ."' WHERE  `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $CurUser['id_owner'] ."';";
+			$QryUpdateStats .= "UPDATE ".STATPOINTS." SET `tech_rank` = '". $tech[$CurUser['id_owner']] ."', `build_rank` = '". $build[$CurUser['id_owner']] ."', `defs_rank` = '". $defs[$CurUser['id_owner']] ."', `fleet_rank` = '". $fleet[$CurUser['id_owner']] ."', `total_rank` = '". $Rank ."' WHERE  `stat_type` = '1' AND `id_owner` = '". $CurUser['id_owner'] ."';";
 			$Rank++;
 		}
 
@@ -360,7 +381,7 @@ class statbuilder{
 
 		while($CurUser = $db->fetch_array($RankQry))
 		{
-			$QryUpdateStats .= "UPDATE ".STATPOINTS." SET `tech_rank` = '". $tech[$CurUser['id_owner']] ."', `build_rank` = '". $build[$CurUser['id_owner']] ."', `defs_rank` = '". $defs[$CurUser['id_owner']] ."', `fleet_rank` = '". $fleet[$CurUser['id_owner']] ."', `total_rank` = '". $Rank ."' WHERE  `stat_type` = '2' AND `stat_code` = '1' AND `id_owner` = '". $CurUser['id_owner'] ."';";
+			$QryUpdateStats .= "UPDATE ".STATPOINTS." SET `tech_rank` = '". $tech[$CurUser['id_owner']] ."', `build_rank` = '". $build[$CurUser['id_owner']] ."', `defs_rank` = '". $defs[$CurUser['id_owner']] ."', `fleet_rank` = '". $fleet[$CurUser['id_owner']] ."', `total_rank` = '". $Rank ."' WHERE  `stat_type` = '2' AND `id_owner` = '". $CurUser['id_owner'] ."';";
 			$Rank++;
 		}
 
@@ -455,7 +476,7 @@ class statbuilder{
 		
 		if(count($AllyPoints) != 0)
 		{
-			$AllySQL = "INSERT INTO ".STATPOINTS." (`id_owner`, `id_ally`, `stat_type`, `stat_code`, `tech_old_rank`, `tech_points`, `tech_count`, `build_old_rank`, `build_points`, `build_count`, `defs_old_rank`, `defs_points`, `defs_count`, `fleet_old_rank`, `fleet_points`, `fleet_count`, `total_old_rank`, `total_points`, `total_count`, `stat_date`) VALUES ";
+			$AllySQL = "INSERT INTO ".STATPOINTS." (`id_owner`, `id_ally`, `stat_type`, `tech_old_rank`, `tech_points`, `tech_count`, `build_old_rank`, `build_points`, `build_count`, `defs_old_rank`, `defs_points`, `defs_count`, `fleet_old_rank`, `fleet_points`, `fleet_count`, `total_old_rank`, `total_points`, `total_count`) VALUES ";
 			while($AllianceData	= $db->fetch_array($TotalData['Alliance']))
 			{
 				$AllySQL  .= "('".$AllianceData['id']."', 0, 2,'".(int)$AllyPoints['old_tech_rank']."', '".floattostring($AllyPoints[$AllianceData['id']]['techno']['points'])."', '".floattostring($AllyPoints[$AllianceData['id']]['techno']['count'])."', '".(int)$AllianceData['old_build_rank']."', '".floattostring($AllyPoints[$AllianceData['id']]['build']['points'])."', '".floattostring($AllyPoints[$AllianceData['id']]['build']['count'])."', '".(int)$AllianceData['old_defs_rank']."', '".floattostring($AllyPoints[$AllianceData['id']]['defense']['points'])."', '".floattostring($AllyPoints[$AllianceData['id']]['defense']['count'])."', '".(int)$AllianceData['old_fleet_rank']."', '".floattostring($AllyPoints[$AllianceData['id']]['fleet']['points'])."', '".floattostring($AllyPoints[$AllianceData['id']]['fleet']['count'])."', '".(int)$AllianceData['old_total_rank']."', '".floattostring($AllyPoints[$AllianceData['id']]['total']['points'])."', '".floattostring($AllyPoints[$AllianceData['id']]['total']['count'])."'), ";
