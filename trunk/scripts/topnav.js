@@ -41,11 +41,11 @@ function initRessource() {
 	document.getElementById('current_metal').innerHTML = NumberGetHumanReadable(resourceTickerMetal.available);
 	document.getElementById('current_crystal').innerHTML = NumberGetHumanReadable(resourceTickerCrystal.available);
 	document.getElementById('current_deuterium').innerHTML = NumberGetHumanReadable(resourceTickerDeuterium.available);
-	if(resourceTickerMetal.limit[1] < resourceTickerMetal.available)
+	if(resourceTickerMetal.limit[1] <= resourceTickerMetal.available)
 		document.getElementById('current_metal').className = 'header res_current res_current_max';
-	if(resourceTickerCrystal.limit[1] < resourceTickerCrystal.available)
+	if(resourceTickerCrystal.limit[1] <= resourceTickerCrystal.available)
 		document.getElementById('current_crystal').className = 'header res_current res_current_max';
-	if(resourceTickerDeuterium.limit[1] < resourceTickerDeuterium.available)
+	if(resourceTickerDeuterium.limit[1] <= resourceTickerDeuterium.available)
 		document.getElementById('current_deuterium').className = 'header res_current res_current_max';
 	
 }
