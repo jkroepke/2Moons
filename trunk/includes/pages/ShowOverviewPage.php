@@ -93,7 +93,8 @@ function ShowOverviewPage()
 			require_once(ROOT_PATH . "includes/libs/teamspeak/class.teamspeak3.".PHP_EXT);
 
 			$tsAdmin = new ts3admin($ip, $t_port);
-			if($tsAdmin->connect())
+			$Active	= $tsAdmin->connect();
+			if($Active['success'])
 			{
 				$tsAdmin->selectServer($sid);
 				#$tsAdmin->login($username, $password); Insert the SA Account Details, if Teamspeak banned you.
