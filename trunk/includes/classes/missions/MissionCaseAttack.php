@@ -208,7 +208,7 @@ class MissionCaseAttack extends MissionFunctions
 		$FleetDebris		= bcadd($ShootMetal, $ShootCrystal);
 		$DerbisMetal		= bcadd($targetPlanet['der_metal'], $ShootMetal);
 		$DerbisCrystal		= bcadd($targetPlanet['der_crystal'], $ShootCrystal);	
-		$MoonChance       	= min(round(bcdiv($FleetDebris, "100000") * MOON_CHANCE_FACTOR, 0), 20);
+		$MoonChance       	= min(round(bcdiv($FleetDebris, "100000") * MOON_CHANCE_FACTOR, 0), MAX_MOON_CHANCE);
 		$UserChance 		= mt_rand(1, 100);
 		
 		if ($targetPlanet['planet_type'] == 1 && $targetPlanet['id_luna'] == 0 && $MoonChance > 0 && $UserChance <= $MoonChance)
@@ -252,6 +252,7 @@ class MissionCaseAttack extends MissionFunctions
 		$Won = 0;
 		$Lose = 0; 
 		$Draw = 0;
+		
 		switch($result['won'])
 		{
 			case "a":
