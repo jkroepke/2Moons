@@ -21,10 +21,10 @@ $LNG['music_on']			= 'Music: ON';
 
 //index.php
 //case lostpassword
-$LNG['mail_not_exist'] 		= 'Die angegebende E-Mail Adresse existiert nicht!';
+$LNG['mail_not_exist'] 			= 'Die angegebende E-Mail Adresse existiert nicht!';
 $LNG['mail_title']				= 'Neues Passwort';
 $LNG['mail_text']				= 'Dein neues Passwort lautet: ';
-$LNG['mail_sended']			= 'Dein Passwort wurde an deine E-Mail Adresse erfolgreich gesendet!';
+$LNG['mail_sended']				= 'Dein Passwort wurde an deine E-Mail Adresse erfolgreich gesendet!';
 $LNG['mail_sended_fail']		= 'E-Mail konnte nicht gesendet werden.!';
 $LNG['server_infos']			= array(
 	"Ein Weltraum-Strategiespiel in Echtzeit.",
