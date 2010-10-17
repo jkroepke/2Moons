@@ -49,7 +49,7 @@ class StatBanner {
 		$date   = date("d.m.y");
 		
 		// Querys
-		$Query = $db->fetch_array($db->query("SELECT a.username, b.build_points, b.fleet_points, b.defs_points, b.tech_points, b.total_points, b.total_rank, c.name, c.galaxy, c.system, c.planet FROM ".USERS." as a, ".STATPOINTS." as b, ".PLANETS." as c WHERE a.id = '".$id."' AND b.stat_type = '1' AND b.stat_code = '1' AND b.id_owner = '".$id."' AND c.id = a.id_planet;"));
+		$Query = $db->fetch_array($db->query("SELECT a.username, b.build_points, b.fleet_points, b.defs_points, b.tech_points, b.total_points, b.total_rank, c.name, c.galaxy, c.system, c.planet FROM ".USERS." as a, ".STATPOINTS." as b, ".PLANETS." as c WHERE a.id = '".$id."' AND b.stat_type = '1' AND b.id_owner = '".$id."' AND c.id = a.id_planet;"));
 		// Variables
 		$b_univ   = $CONF['game_name'];
 		$b_user   = utf8_decode($Query['username']);
