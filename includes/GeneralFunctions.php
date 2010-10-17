@@ -509,6 +509,12 @@ function ClearCache()
 	}
 }
 
+function MaxPlanets($Level)
+{
+	$MaxPlanets = STANDART_PLAYER_PLANETS + ceil($Level / 2) * PLANETS_PER_TECH;
+	return MAX_PLANETS == -1 ? $MaxPlanets : min($MaxPlanets, MAX_PLANETS);
+}
+
 if(!function_exists('ctype_alnum'))
 {
     function ctype_alnum($test){
