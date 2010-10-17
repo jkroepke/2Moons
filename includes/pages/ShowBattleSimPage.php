@@ -125,8 +125,7 @@ function ShowBattleSimPage()
 		$SQLQuery  = "INSERT INTO ".RW." SET ";
 		$SQLQuery .= "`time` = '".TIMESTAMP."', ";
 		$SQLQuery .= "`owners` = '".$USER['id'].",0', ";
-		$SQLQuery .= "`rid` = '".$rid."', ";
-		$SQLQuery .= "`raport` = '';";
+		$SQLQuery .= "`rid` = '".$rid."';";
 		$db->query($SQLQuery);
 		echo($rid);
 		exit;
