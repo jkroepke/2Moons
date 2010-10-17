@@ -40,7 +40,7 @@ class MissionCaseColonisation extends MissionFunctions
 			$this->UpdateFleet('fleet_mess', 1);
 		}
 		
-		elseif($iPlanetCount['kolo'] >= $this->Max_Planets($PlayerTech[$resource[124]]))
+		elseif($iPlanetCount['kolo'] >= MaxPlanets($PlayerTech[$resource[124]]))
 		{
 			$TheMessage = sprintf($LNG['sys_colo_maxcolo'] , GetTargetAdressLink($this->_fleet, ''), $this->Max_Planets($PlayerTech[$resource[124]]));
 			$this->UpdateFleet('fleet_mess', 1);

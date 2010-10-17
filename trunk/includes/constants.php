@@ -53,7 +53,7 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	define('STANDART_PLAYER_PLANETS'  , 9);
 
 	// MAXIMAL PLANETS ( -1 = unlimited )
-	define('MAX_PLANETS'             , 15);
+	define('MAX_PLANETS'              , -1);
 
 	// ADDED PLANET PRO 2 TECH LEVELS
 	define('PLANETS_PER_TECH' 		  , 1);	
