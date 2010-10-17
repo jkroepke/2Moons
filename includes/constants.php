@@ -74,10 +74,14 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	// The Limit of DM Mission (ID: 11)
 	define('MAX_DM_MISSIONS'		  , 1);
 	
+	// Trader Tax
 	define('DARKMATTER_FOR_TRADER'	  , 750);
 	
 	// The Faction for the Moon Creation
 	define('MOON_CHANCE_FACTOR'		  , 1);
+	
+	// Maximal moon chance
+	define('MAX_MOON_CHANCE'		 , 20);
 	
 	// If ture, the calculation for Researchtime is like OGAME, if false its calculation with standart XNova Formula
 	define('NEW_RESEARCH'			  , true);

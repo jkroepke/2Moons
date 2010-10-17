@@ -56,9 +56,9 @@ function GenerateReport($RESULT, $INFO)
 			$coord4 = $data2['fleet']['fleet_end_galaxy'];
 			$coord5 = $data2['fleet']['fleet_end_system'];
 			$coord6 = $data2['fleet']['fleet_end_planet'];
-			$weap 	= ($data2['user']['military_tech'] * 10);
-			$shie 	= ($data2['user']['defence_tech'] * 10);
-			$armr 	= ($data2['user']['shield_tech'] * 10);
+			$weap 	= (($data2['user']['military_tech'] + (0.5 * $data2['user']['rpg_amiral']) + ((TIMESTAMP - $data2['user'][$resource[700]] <= 0) ? ($ExtraDM[700]['add'] * 10) : 0)) * 10);
+			$shie 	= (($data2['user']['defence_tech'] + (0.5 * $data2['user']['rpg_amiral']) + ((TIMESTAMP - $data2['user'][$resource[700]] <= 0) ? ($ExtraDM[701]['add'] * 10) : 0)) * 10);
+			$armr 	= (($data2['user']['shield_tech'] + (0.5 * $data2['user']['rpg_amiral'])) * 10);
 
 			$fl_info1  	= '<td class=\"transparent\"><table><tr><td>".$LNG["sys_attack_attacker_pos"]." '.$name.' (['.$coord1.':'.$coord2.':'.$coord3.'])<br>".$LNG["sys_ship_weapon"]." '.$weap.'% - ".$LNG["sys_ship_shield"]." '.$shie.'% - ".$LNG["sys_ship_armour"]." '.$armr.'%';
 			$table1  	= '<table width=\'100%\'>';
@@ -126,12 +126,12 @@ function GenerateReport($RESULT, $INFO)
 		$html .= '</tr></table>';
 		$html .= '<br><br>';
 		$html .= '<table><tr>';
-		foreach( $defenders1 as $fleet_id1 => $data2)
+		foreach($defenders1 as $fleet_id1 => $data2)
 		{
 			$name = $data2['user']['username'];
-			$weap = ($data2['user']['military_tech'] * 10);
-			$shie = ($data2['user']['defence_tech'] * 10);
-			$armr = ($data2['user']['shield_tech'] * 10);
+			$weap 	= (($data2['user']['military_tech'] + (0.5 * $data2['user']['rpg_amiral']) + ((TIMESTAMP - $data2['user'][$resource[700]] <= 0) ? ($ExtraDM[700]['add'] * 10) : 0)) * 10);
+			$shie 	= (($data2['user']['defence_tech'] + (0.5 * $data2['user']['rpg_amiral']) + ((TIMESTAMP - $data2['user'][$resource[700]] <= 0) ? ($ExtraDM[701]['add'] * 10) : 0)) * 10);
+			$armr 	= (($data2['user']['shield_tech'] + (0.5 * $data2['user']['rpg_amiral'])) * 10);
 
 			$fl_info1	= '<td class=\"transparent\"><table><tr><td>".$LNG["sys_attack_defender_pos"]." '.$name.' (['.$coord4.':'.$coord5.':'.$coord6.'])<br>".$LNG["sys_ship_weapon"]." '.$weap.'% - ".$LNG["sys_ship_shield"]." '.$shie.'% - ".$LNG["sys_ship_armour"]." '.$armr.'%';
 			$table1  	= '<table border=\'1\' align=\'center\' width=\'100%\'>';
