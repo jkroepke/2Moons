@@ -262,8 +262,7 @@ class MissionCaseDestruction extends MissionFunctions
 		$SQLQuery .= "INSERT INTO ".RW." SET ";
 		$SQLQuery .= "`time` = '".$this->_fleet['fleet_start_time']."', ";
 		$SQLQuery .= "`owners` = '".implode(',', array_merge($Attacker['id'], $Defender['id']))."', ";
-		$SQLQuery .= "`rid` = '".$rid."', ";
-		$SQLQuery .= "`raport` = '';";
+		$SQLQuery .= "`rid` = '".$rid."';";
 		$SQLQuery .= "INSERT INTO ".TOPKB." SET ";
 		$SQLQuery .= "`time` = '".$this->_fleet['fleet_start_time']."', ";
 		$SQLQuery .= "`id_owner1` = '".implode(',', $Attacker['id'])."', ";
