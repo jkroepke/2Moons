@@ -12,7 +12,9 @@
 <input type="text" name="system" size="3" maxlength="3"> :
 <input type="text" name="planet" size="2" maxlength="2"></th></tr>
 <tr><th>{$new_range}</th>
-<th>{html_options name=authlevel options=$Selector}</th></tr>
+<th>{html_options name=authlevel options=$Selector.auth}</th></tr>
+<tr><th>{$lang}</th>
+<th>{html_options name=lang options=$Selector.lang}</th></tr>
 <tr><th colspan="2"><input type="submit" value="{$new_add_user}"></th></tr>
 <tr>
    <th colspan="2" style="text-align:left;"><a href="?page=create">{$new_creator_go_back}</a>&nbsp;<a href="?page=create&amp;mode=user">{$new_creator_refresh}</a></th>

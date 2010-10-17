@@ -148,8 +148,9 @@ function ShowCreatorPage()
 				'email2_reg'			=> $LNG['email2_reg'],
 				'new_coord'				=> $LNG['new_coord'],
 				'new_range'				=> $LNG['new_range'],
+				'lang'					=> $LNG['op_lang'],		
 				'new_title'				=> $LNG['new_title'],
-				'Selector'				=> $AUTH,
+				'Selector'				=> array('auth' => $AUTH, 'lang' => array('de' => $LNG['langs']['de'], 'en' => $LNG['langs']['en'], 'es' => $LNG['langs']['es'], 'ru' => $LNG['langs']['ru'], 'pt' => $LNG['langs']['pt'], 'cn' => $LNG['langs']['cn'], 'hr' => $LNG['langs']['hr'])),  
 			));
 			$template->show('adm/CreatePageUser.tpl');
 		break;
