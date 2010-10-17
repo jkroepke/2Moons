@@ -126,9 +126,6 @@ function ShowResetPage()
 		if ($_POST['fleets']	==	'on')
 			$db->query( "TRUNCATE TABLE ".FLEETS.";");
 
-		if ($_POST['errors']	==	'on')
-			$db->query( "TRUNCATE TABLE ".ERRORS.";");
-
 		if ($_POST['banneds']	==	'on'){
 			$db->query("TRUNCATE TABLE ".BANNED.";");
 			$db->query("UPDATE ".USERS." SET `bana` = '0', `banaday` = '0';");}
@@ -216,12 +213,12 @@ function ResetUniverse()
 	$db->query("TRUNCATE TABLE ".ALLIANCE.";");
 	$db->query("TRUNCATE TABLE ".BANNED.";");
 	$db->query("TRUNCATE TABLE ".BUDDY.";");
-	$db->query("TRUNCATE TABLE ".ERRORS.";");
 	$db->query("TRUNCATE TABLE ".FLEETS.";");
 	$db->query("TRUNCATE TABLE ".MESSAGES.";");
 	$db->query("TRUNCATE TABLE ".NOTES.";");
 	$db->query("TRUNCATE TABLE ".RW.";");
 	$db->query("TRUNCATE TABLE ".SUPP.";");
+	$db->query("TRUNCATE TABLE ".SESSION.";");
 	$db->query("TRUNCATE TABLE ".STATPOINTS.";");
 	$db->query("TRUNCATE TABLE ".TOPKB.";");
 
