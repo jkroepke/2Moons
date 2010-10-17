@@ -22,7 +22,7 @@
 
 function ShowBattleSimPage()
 {
-	global $USER, $PLANET, $reslist, $pricelist, $LNG, $db;
+	global $USER, $PLANET, $reslist, $pricelist, $LNG, $db, $ExtraDM;
 	
 	$action			= request_var('action', '');
 	$Slots			= request_var('slots', 1);
