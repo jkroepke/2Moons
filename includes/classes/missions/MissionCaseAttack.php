@@ -276,8 +276,7 @@ class MissionCaseAttack extends MissionFunctions
 		$SQL .= "INSERT INTO ".RW." SET ";
 		$SQL .= "`time` = '".$this->_fleet['fleet_start_time']."', ";
 		$SQL .= "`owners` = '".implode(',', array_merge($Attacker['id'], $Defender['id']))."', ";
-		$SQL .= "`rid` = '".$rid."', ";
-		$SQL .= "`raport` = '';";
+		$SQL .= "`rid` = '".$rid."';";
 		$SQL .= "INSERT INTO ".TOPKB." SET ";
 		$SQL .= "`time` = '".$this->_fleet['fleet_start_time']."', ";
 		$SQL .= "`id_owner1` = '".implode(',', $Attacker['id'])."', ";
