@@ -146,8 +146,10 @@ class ShowShipyardPage
 			for($i = 0; $i < count($QueueArray); $i++)
 			{
 				$ListIDArray	= explode (",", $QueueArray[$i]);
-				if($ListIDArray[0] == 21 || $ListIDArray[0] == 15)
+				if($ListIDArray[0] == 21 || $ListIDArray[0] == 15) {
 					$NotBuilding = false;
+					break;
+				}
 			}
 		}
 		
@@ -293,14 +295,16 @@ class ShowShipyardPage
 
 		if (!empty($PLANET['b_building_id']))
 		{
-			$CurrentQueue = $PLANET['b_building_id'];
+			$CurrentQueue 	= $PLANET['b_building_id'];
 			$QueueArray		= explode (";", $CurrentQueue);
 
 			for($i = 0; $i < count($QueueArray); $i++)
 			{
 				$ListIDArray	= explode (",", $QueueArray[$i]);
-				if($ListIDArray[0] == 21 || $ListIDArray[0] == 15)
+				if($ListIDArray[0] == 21 || $ListIDArray[0] == 15) {
 					$NotBuilding = false;
+					break;
+				}
 			}
 		}
 		
