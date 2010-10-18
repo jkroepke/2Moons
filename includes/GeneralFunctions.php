@@ -371,12 +371,6 @@ function makebr($text)
     return (version_compare(PHP_VERSION, "5.3.0", ">=")) ? nl2br($text, false) : strtr($text, array("\r\n" => $BR, "\r" => $BR, "\n" => $BR)); 
 }
 
-function Max_Planets($Level)
-{
-	$MaxPlanets	=	STANDART_PLAYER_PLANETS + (ceil($Level / 2) * PLANETS_PER_TECH);
-	return (MAX_PLANETS == -1) ? $MaxPlanets : min($MaxPlanets, MAX_PLANETS);
-}
-
 function CheckPlanetIfExist($Galaxy, $System, $Planet, $Planettype = 1)
 {
 	global $db;
