@@ -103,10 +103,7 @@ function ShowOverviewPage()
 				$tsAdmin->quit();
 				$trafges 	= round(($sinfo['connection_bytes_received_total'] / 1024 / 1024) + ($sinfo['connection_bytes_sent_total'] / 1024 / 1024), 2);
 				$Debug		= $tsAdmin->getDebugLog();
-				if($Debug == "Error while fetching: 'error id=518 msg=not logged in'<br>")
-					$Teamspeak	= sprintf($LNG['ov_teamspeak_v3'], $ip, $port, $USER['username'], $sinfo['virtualserver_password'], ($sinfo['virtualserver_clientsonline'] - 1), $sinfo['virtualserver_maxclients'], $sinfo['virtualserver_channelsonline'], $trafges);
-				else
-					$Teamspeak	= $Debug;
+				$Teamspeak	= sprintf($LNG['ov_teamspeak_v3'], $ip, $port, $USER['username'], $sinfo['virtualserver_password'], ($sinfo['virtualserver_clientsonline'] - 1), $sinfo['virtualserver_maxclients'], $sinfo['virtualserver_channelsonline'], $trafges);
 			} else {
 				$Teamspeak 	= $LNG['ov_teamspeak_not_online'];		
 			}
