@@ -42,8 +42,12 @@ class statbuilder
 		);
 	}
 	
-	private function SetMaxInfo($ID, $Count, $Name)
+	private function SetMaxInfo($ID, $Count, $Data)
 	{
+		global $CONF;
+		if(($CONF['stat'] == 1 && $Data['authlevel'] >= $CONF['stat_level']) || !empty($Data['bana']))
+			return;
+		
 		if(!isset($this->maxinfos[$ID]))
 			$this->maxinfos[$ID] = array('maxlvl' => 0, 'username' => '');
 
@@ -157,7 +161,7 @@ class statbuilder
 		
 		$Return['Fleets'] 	= $FlyingFleets;		
 		$Return['Planets']	= $db->query('SELECT SQL_BIG_RESULT DISTINCT '.$select_buildings.$select_fleets.$select_defenses.'p.id, p.id_owner, u.authlevel, u.bana, u.username FROM '.PLANETS.' as p LEFT JOIN '.USERS.' as u ON u.id = p.id_owner;');
-		$Return['Users']	= $db->query('SELECT SQL_BIG_RESULT DISTINCT '.$selected_tech.' u.id, u.ally_id, u.authlevel, u.bana, u.username, s.tech_rank AS old_tech_rank, s.build_rank AS old_build_rank, s.defs_rank AS old_defs_rank, s.fleet_rank AS old_fleet_rank, s.total_rank AS old_total_rank FROM '.USERS.' as u LEFT JOIN '.STATPOINTS.' as s ON s.stat_type = 1 AND s.id_owner = u.id AND u.authlevel = 0 GROUP BY s.id_owner, u.id, u.authlevel;');
+		$Return['Users']	= $db->query('SELECT SQL_BIG_RESULT DISTINCT '.$selected_tech.' u.id, u.ally_id, u.authlevel, u.bana, u.username, s.tech_rank AS old_tech_rank, s.build_rank AS old_build_rank, s.defs_rank AS old_defs_rank, s.fleet_rank AS old_fleet_rank, s.total_rank AS old_total_rank FROM '.USERS.' as u LEFT JOIN '.STATPOINTS.' as s ON s.stat_type = 1 AND s.id_owner = u.id GROUP BY s.id_owner, u.id, u.authlevel;');
 		$Return['Alliance']	= $db->query('SELECT SQL_BIG_RESULT DISTINCT a.id, s.tech_rank AS old_tech_rank, s.build_rank AS old_build_rank, s.defs_rank AS old_defs_rank, s.fleet_rank AS old_fleet_rank, s.total_rank AS old_total_rank FROM '.ALLIANCE.' as a LEFT JOIN '.STATPOINTS.' as s ON s.stat_type = 2 AND s.id_owner = a.id;');
 		update_config('users_amount', $db->num_rows($Return['Users']));
 		
@@ -181,7 +185,7 @@ class statbuilder
 		{
 			if($CurrentUser[$resource[$Techno]] == 0) continue;
 
-			$this->SetMaxInfo($Techno, $CurrentUser[$resource[$Techno]], $CurrentUser['username']);
+			$this->SetMaxInfo($Techno, $CurrentUser[$resource[$Techno]], $CurrentUser);
 			
 			$Units	= $pricelist[$Techno]['metal'] + $pricelist[$Techno]['crystal'] + $pricelist[$Techno]['deuterium'];
 			for($Level = 1; $Level <= $CurrentUser[$resource[$Techno]]; $Level++)
@@ -204,7 +208,7 @@ class statbuilder
 		{
 			if($CurrentPlanet[$resource[$Build]] == 0) continue;
 
-			$this->SetMaxInfo($Build, $CurrentPlanet[$resource[$Build]], $CurrentPlanet['username']);
+			$this->SetMaxInfo($Build, $CurrentPlanet[$resource[$Build]], $CurrentPlanet);
 			
 			$Units			 = $pricelist[$Build]['metal'] + $pricelist[$Build]['crystal'] + $pricelist[$Build]['deuterium'];
 			for($Level = 1; $Level <= $CurrentPlanet[$resource[$Build]]; $Level++)
@@ -223,7 +227,7 @@ class statbuilder
 		$DefensePoints = 0;
 				
 		foreach($reslist['defense'] as $Defense) {
-			$this->SetMaxInfo($Defense, $CurrentPlanet[$resource[$Defense]], $CurrentPlanet['username']);
+			$this->SetMaxInfo($Defense, $CurrentPlanet[$resource[$Defense]], $CurrentPlanet);
 			
 			$Units			= $pricelist[$Defense]['metal'] + $pricelist[$Defense]['crystal'] + $pricelist[$Defense]['deuterium'];
 			$DefensePoints += $Units * $CurrentPlanet[$resource[$Defense]];
@@ -241,7 +245,7 @@ class statbuilder
 	
 		foreach($reslist['fleet'] as $Fleet) {
 		
-			$this->SetMaxInfo($Fleet, $CurrentPlanet[$resource[$Fleet]], $CurrentPlanet['username']);
+			$this->SetMaxInfo($Fleet, $CurrentPlanet[$resource[$Fleet]], $CurrentPlanet);
 			
 			$Units			= $pricelist[$Fleet]['metal'] + $pricelist[$Fleet]['crystal'] + $pricelist[$Fleet]['deuterium'];
 			$FleetPoints   += $Units * $CurrentPlanet[$resource[$Fleet]];
