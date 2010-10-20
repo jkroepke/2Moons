@@ -52,7 +52,7 @@ class statbuilder
 			$this->maxinfos[$ID] = array('maxlvl' => 0, 'username' => '');
 
 		if($this->maxinfos[$ID]['maxlvl'] < $Count)
-			$this->maxinfos[$ID] = array('maxlvl' => $Count, 'username' => $Name);
+			$this->maxinfos[$ID] = array('maxlvl' => $Count, 'username' => $Data['username');
 	}
 	
 	private function AnotherCronJobs()
