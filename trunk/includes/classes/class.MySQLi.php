@@ -102,11 +102,32 @@ class DB_mysqli extends mysqli
 	{		
 		if(false === ($result = parent::query($resource)))
 		{
-			throw new Exception("SQL Error: ".$this->error."<br /><br />Query Code: ".$resource);
+			throw new Exception("SQL Error: ".$this->error."<br><br>Query Code: ".$resource);
 		}	
 		
 		$this->queryCount++;
 		$Return = $result->fetch_array(MYSQLI_ASSOC);
+		$result->close();
+		return $Return;
+		
+	}
+	/**
+	 * Purpose a query on selected database.
+	 *
+	 * @param string	The SQL query
+	 *
+	 * @return resource	Results of the query
+	 */
+
+	public function countquery($resource)
+	{		
+		if(false === ($result = parent::query($resource)))
+		{
+			throw new Exception("SQL Error: ".$this->error."<br><br>Query Code: ".$resource);
+		}	
+		
+		$this->queryCount++;
+		list($Return) = $result->fetch_array(MYSQLI_NUM);
 		$result->close();
 		return $Return;
 		
