@@ -104,7 +104,7 @@ INSERT INTO `prefix_config` (`config_name`, `config_value`) VALUES
 ('noobprotection', '1'),
 ('noobprotectiontime', '5000'),
 ('noobprotectionmulti', '5'),
-('forum_url', 'http://www.xnova-reloaded.eu/'),
+('forum_url', 'http://www.2moons.cc'),
 ('adm_attack', '0'),
 ('debug', '0'),
 ('lang', 'de'),
