@@ -69,7 +69,7 @@ function ShowUpdatePage()
 	{
 		case "download":
 			require_once(ROOT_PATH.'includes/libs/zip/zip.lib.'.PHP_EXT);
-			$UpdateArray 	= unserialize(file_get_contents("http://update.2moons-systems.com/index.php?action=getupdate",FALSE,$context));
+			$UpdateArray 	= unserialize(@file_get_contents("http://update.service.2moons.cc/index.php?action=getupdate",FALSE,$context));
 			if(!is_array($UpdateArray['revs']))
 				exitupdate(array('debug' => array('noupdate' => "Kein Update vorhanden!")));
 				
@@ -84,7 +84,7 @@ function ShowUpdatePage()
 					foreach($RevInfo['add'] as $File)
 					{	
 						if (strpos($File, '.') !== false)
-							$zipfile->addFile(file_get_contents($SVN_ROOT.$File), str_replace("/trunk/", "", $File), $RevInfo['timestamp']);					
+							$zipfile->addFile(@file_get_contents($SVN_ROOT.$File), str_replace("/trunk/", "", $File), $RevInfo['timestamp']);					
 					}
 				}
 				if(!empty($RevInfo['edit']))
@@ -92,7 +92,7 @@ function ShowUpdatePage()
 					foreach($RevInfo['edit'] as $File)
 					{	
 						if (strpos($File, '.') !== false)
-							$zipfile->addFile(file_get_contents($SVN_ROOT.$File), str_replace("/trunk/", "", $File), $RevInfo['timestamp']);
+							$zipfile->addFile(@file_get_contents($SVN_ROOT.$File), str_replace("/trunk/", "", $File), $RevInfo['timestamp']);
 					}
 				}
 				if(!empty($RevInfo['del']))
@@ -124,7 +124,7 @@ function ShowUpdatePage()
 		case "update":
 			require_once(ROOT_PATH.'includes/libs/ftp/ftp.class.'.PHP_EXT);
 			require_once(ROOT_PATH.'includes/libs/ftp/ftpexception.class.'.PHP_EXT);
-			$UpdateArray 	= unserialize(file_get_contents("http://update.2moons-systems.com/index.php?action=getupdate",FALSE,$context));
+			$UpdateArray 	= unserialize(@file_get_contents("http://update.service.2moons.cc/index.php?action=getupdate",FALSE,$context));
 			if(!is_array($UpdateArray['revs']))
 				exitupdate(array('debug' => array('noupdate' => "Kein Update vorhanden!")));
 				
@@ -161,7 +161,7 @@ function ShowUpdatePage()
 					foreach($RevInfo['add'] as $File)
 					{	
 						if($File == "/trunk/updates/update_".$Rev.".sql") {
-							$db->multi_query(str_replace("prefix_", DB_PREFIX, file_get_contents($SVN_ROOT.$File)));
+							$db->multi_query(str_replace("prefix_", DB_PREFIX, @file_get_contents($SVN_ROOT.$File)));
 							continue;
 						} elseif($File == "/trunk/updates/update_".$Rev.".php") {
 							require($SVN_ROOT.$File);
@@ -197,7 +197,7 @@ function ShowUpdatePage()
 						if (strpos($File, '.') !== false) {
 							if($File == "/trunk/updates/update_".$Rev.".sql")
 							{
-								$db->multi_query(str_replace("prefix_", DB_PREFIX, file_get_contents($SVN_ROOT.$File)));
+								$db->multi_query(str_replace("prefix_", DB_PREFIX, @file_get_contents($SVN_ROOT.$File)));
 								continue;
 							} else {
 								$Data = fopen($SVN_ROOT.$File, "r");
@@ -248,8 +248,8 @@ function ShowUpdatePage()
 			$Info		= '';
 			
 			if(!function_exists('file_get_contents') || !function_exists('fsockopen')) {
-				$template->message('Function file_get_contents oder fsockopen deactive', false, 0, true);
-			} elseif(($RAW = @file_get_contents("http://update.2moons-systems.com/index.php?action=update",FALSE,$context)) !== false) {
+				$template->message('Function file_get_contents oder fsockopen deaktiviert', false, 0, true);
+			} elseif(($RAW = @file_get_contents("http://update.service.2moons.cc/index.php?action=update",FALSE,$context)) !== false) {
 				$UpdateArray 	= unserialize($RAW);
 				if(is_array($UpdateArray['revs']))
 				{
