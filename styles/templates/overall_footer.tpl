@@ -8,7 +8,7 @@ var Gamename	= document.title;
 var Ready		= "{$ready}";
 var Skin		= "{$dpath}";
 var Lang		= "{$lang}";
-
+var auth		= {$authlevel};
 </script>
 {if $debug = 1}
 <script type="text/javascript" src="{$cd}scripts/base.js"></script>
