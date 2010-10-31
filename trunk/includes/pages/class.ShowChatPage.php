@@ -36,28 +36,34 @@ class ShowChatPage
 	private function DelMeassageFromChat($MessageID) {
 		global $USER, $db;
 		
-		if($USER['authlevel'] == 0) exit;
-		
+		if($USER['authlevel'] == 0) 
+			exit;
+			
 		$db->query("DELETE FROM ".CHAT." WHERE `messageid` = '".$MessageID."';");
+		header('HTTP/1.1 204 No Content');
 	}
 	
 	private function SetMeassageInChat($chat_type, $msg) {
 		global $USER, $db, $LNG;
 		$db->query("INSERT INTO ".CHAT." (user, ally_id, message, timestamp) VALUES ('".(($USER['authlevel'] == 3) ? sprintf($LNG['chat_admin'], $USER['username']) : $USER['username'])."','".(($chat_type == "ally") ? $USER['ally_id'] : 0)."','".$msg."', '".TIMESTAMP."');");
+		header('HTTP/1.1 204 No Content');
 	}
 
 	private function GetMessages($chat_type) {
 		global $USER, $db;
-		$Chat 	= $db->query("SELECT * FROM ".CHAT." WHERE ally_id = '".(($chat_type == "ally") ? $USER['ally_id'] : 0)."' ORDER BY messageid DESC LIMIT ".$this->page_limit.";");
-		$msg 	= "";
+		$TimeStamp	= request_var('timestamp', 0);
+		$Chat 	= $db->query("SELECT * FROM ".CHAT." WHERE `timestamp` > '".$TimeStamp."' AND ally_id = '".(($chat_type == "ally") ? $USER['ally_id'] : 0)."' ORDER BY messageid DESC LIMIT ".$this->page_limit.";");
+		$msg 	= array();
 		
 		while($Message = $db->fetch_array($Chat)){
-			$nick = "<a href=\"javascript:addSmiley('->".(strip_tags($Message["user"])).": ')\">".$Message["user"]."</a>";
-			$mess = $this->BBCodeMSG($Message["message"]);
-			$msg .= "<div align=\"left\" style='color:white;'><span style='font:menu;'>".(($USER['authlevel'] > 0) ? "<a href=\"javascript:del('".$Message['messageid']."')\">[X]</a> " : "")."[".date("m/d H:i:s", $Message["timestamp"])."]</span> <span style='font:menu;font-weight:700'>".$nick."</span> : ".$mess."</div>";
+			$msg[$Message['messageid']] = array(
+				'date'	=> date("m/d H:i:s", $Message["timestamp"]),
+				'name'	=> "<a href=\"javascript:addSmiley('->".(strip_tags($Message["user"])).": ')\">".$Message["user"]."</a>",
+				'mess'	=> $this->BBCodeMSG($Message["message"]),
+			);
 		}
 		$db->free_result($Chat);
-		exit($msg);
+		echo json_encode($msg);
 	}
 	
 	public function __construct(){
@@ -81,8 +87,7 @@ class ShowChatPage
 			break;
 			default:
 				$template			= new template();
-				$template->cache	= true;
-				$template->execscript("showMessage();setInterval(showMessage,10000);");
+				$template->execscript("showMessage();setInterval(showMessage, 10000);");
 				$template->loadscript("chat.js");
 				$template->page_header();
 				$template->page_footer();
