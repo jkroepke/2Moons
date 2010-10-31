@@ -292,7 +292,7 @@ switch ($Mode) {
 		}
 		break;
 	case 'convert':
-		if(!file_exists(ROOT_PATH.'config.php') || filesize(ROOT_PATH.'config.php') == 0)
+		if(!file_exists(ROOT_PATH . 'includes/config.php'))
 			exit($template->message($LNG['convert_install'],"?lang=".$LANG, 3, true));
 
 		if($_POST) {

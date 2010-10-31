@@ -82,7 +82,7 @@ class ShowBuildingsPage
 			foreach($QueueArray as $ID => $Elements)
 			{
 				$ListIDArray        = explode(',', $Elements);
-				$BuildEndTime       += $ListIDArray[2];
+				$BuildEndTime       += GetBuildingTime($USER, $PLANET, $ListIDArray[0], $ListIDArray[4] == 'destroy');
 				$ListIDArray[3]		= $BuildEndTime;
 				$NewQueueArray[]	= implode(',', $ListIDArray);				
 			}
@@ -102,7 +102,7 @@ class ShowBuildingsPage
 
 	private function RemoveBuildingFromQueue($QueueID, $PlanetRess)
 	{
-		global $PLANET;
+		global $USER, $PLANET;
 		if ($QueueID <= 1 || empty($PLANET['b_building_id']))
 			return;
 		
@@ -118,13 +118,12 @@ class ShowBuildingsPage
 		for ($ID = $QueueID; $ID < $ActualCount; $ID++ )
 		{
 			$ListIDArray          = explode ( ",", $QueueArray[$ID] );
-			$BuildEndTime        += $ListIDArray[2];
+			$BuildEndTime        += GetBuildingTime($USER, $PLANET, $ListIDArray[0], $ListIDArray[4] == 'destroy');
 			$ListIDArray[3]       = $BuildEndTime;
 			$QueueArray[$ID - 1]  = implode ( ",", $ListIDArray );
 		}
 		unset ($QueueArray[$ActualCount - 1]);
 		$NewQueue     = implode ( ";", $QueueArray );
-	
 		$PLANET['b_building_id'] = $NewQueue;
 	}
 

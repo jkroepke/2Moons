@@ -304,8 +304,8 @@ class ResourceUpdate
 			$ListIDArray         = explode ( ",", $QueueArray[0]);
 			$Element             = $ListIDArray[0];
 			$Level               = $ListIDArray[1];
-			$BuildTime  	     = $ListIDArray[2];
-			$BuildEndTime        = $ListIDArray[3];
+			$BuildTime  	     = GetBuildingTime($this->USER, $this->PLANET, $Element, $ListIDArray[4] == 'destroy');
+			$BuildEndTime        = $this->TIME + $BuildTime;
 			$BuildMode           = $ListIDArray[4];
 			$ForDestroy 		 = ($BuildMode == 'destroy') ? true : false;
 
@@ -349,7 +349,7 @@ class ResourceUpdate
 					foreach($QueueArray as $ID => $QueueInfo)
 					{
 						$ListIDArray        = explode(",", $QueueInfo);
-						$BaseTime			+= $ListIDArray[2];
+						$BaseTime			+= GetBuildingTime($this->USER, $this->PLANET, $ListIDArray[0], $ListIDArray[4] == 'destroy');
 						$ListIDArray[3]		= $BaseTime;
 						$QueueArray[$ID]	= implode(",", $ListIDArray);
 					}
