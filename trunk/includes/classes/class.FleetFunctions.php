@@ -80,7 +80,7 @@ abstract class FleetFunctions
 		return array(10 => 100, 9 => 90, 8 => 80, 7 => 70, 6 => 60, 5 => 50, 4 => 40, 3 => 30, 2 => 20, 1 => 10);
 	}
 	
-	Public static function CheckUserSpeed()
+	Public static function CheckUserSpeed($GenFleetSpeed)
 	{
 		return (in_array($GenFleetSpeed, self::GetAvailableSpeeds())) ? true : false;
 	}
@@ -340,7 +340,6 @@ abstract class FleetFunctions
 			"INSERT INTO ".AKS." SET
 			`name` = '" . $aks_code_mr . "',
 			`teilnehmer` = '" . $CurrentUser['id'] . "',
-			`flotten` = '" . $fleetid . "',
 			`ankunft` = '" . $daten['fleet_start_time'] . "',
 			`galaxy` = '" . $daten['fleet_end_galaxy'] . "',
 			`system` = '" . $daten['fleet_end_system'] . "',
