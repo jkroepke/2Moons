@@ -48,11 +48,14 @@ class statbuilder
 		if(($CONF['stat'] == 1 && $Data['authlevel'] >= $CONF['stat_level']) || !empty($Data['bana']))
 			return;
 		
-		if(!isset($this->maxinfos[$ID]))
-			$this->maxinfos[$ID] = array('maxlvl' => 0, 'username' => '');
+		if(!isset($this->maxinfos[$Data['universe']]))
+			$this->maxinfos[$Data['universe']$Data['universe']] = array();
+			
+		if(!isset($this->maxinfos[$Data['universe']][$ID]))
+			$this->maxinfos[$Data['universe']][$ID] = array('maxlvl' => 0, 'username' => '');
 
-		if($this->maxinfos[$ID]['maxlvl'] < $Count)
-			$this->maxinfos[$ID] = array('maxlvl' => $Count, 'username' => $Data['username']);
+		if($this->maxinfos[$Data['universe']][$ID]['maxlvl'] < $Count)
+			$this->maxinfos[$Data['universe']][$ID] = array('maxlvl' => $Count, 'username' => $Data['username']);
 	}
 	
 	private function AnotherCronJobs()
@@ -119,12 +122,15 @@ class statbuilder
 	private function RebuildRecordCache() 
 	{
 		global $reslist;
-		$array	= "";
-		foreach(array_merge($reslist['build'], $reslist['tech'], $reslist['fleet'], $reslist['defense']) as $ElementID) {
-			$array	.= $ElementID." => array('username' => '".$this->maxinfos[$ElementID]['username']."', 'maxlvl' => '".$this->maxinfos[$ElementID]['maxlvl']."'),\n";
+		$Elements	= array_merge($reslist['build'], $reslist['tech'], $reslist['fleet'], $reslist['defense'])
+		foreach($this->maxinfos as $Uni	=> $Records) {
+			$array		= "";
+			foreach($Elements as $ElementID) {
+				$array	.= $ElementID." => array('username' => '".$Records[$ElementID]['username']."', 'maxlvl' => '".$Records[$ElementID]['maxlvl']."'),\n";
+			}
+			$file	= "<?php \n//The File is created on ".date("d. M y H:i:s", TIMESTAMP)."\n$"."RecordsArray = array(\n".$array."\n);\n?>";
+			file_put_contents(ROOT_PATH."cache/CacheRecords_Uni".$Uni.".php", $file);
 		}
-		$file	= "<?php \n//The File is created on ".date("d. M y H:i:s", TIMESTAMP)."\n$"."RecordsArray = array(\n".$array."\n);\n?>";
-		file_put_contents(ROOT_PATH."cache/CacheRecords.php", $file);
 	}
 	
 	private function GetUsersInfosFromDB()
@@ -160,7 +166,7 @@ class statbuilder
 		$db->free_result($SQLFleets);
 		
 		$Return['Fleets'] 	= $FlyingFleets;		
-		$Return['Planets']	= $db->query('SELECT SQL_BIG_RESULT DISTINCT '.$select_buildings.$select_fleets.$select_defenses.'p.id, p.id_owner, u.authlevel, u.bana, u.username FROM '.PLANETS.' as p LEFT JOIN '.USERS.' as u ON u.id = p.id_owner;');
+		$Return['Planets']	= $db->query('SELECT SQL_BIG_RESULT DISTINCT '.$select_buildings.$select_fleets.$select_defenses.'p.id, p.universe p.id_owner, u.authlevel, u.bana, u.username FROM '.PLANETS.' as p LEFT JOIN '.USERS.' as u ON u.id = p.id_owner;');
 		$Return['Users']	= $db->query('SELECT SQL_BIG_RESULT DISTINCT '.$selected_tech.' u.id, u.ally_id, u.authlevel, u.bana, u.username, s.tech_rank AS old_tech_rank, s.build_rank AS old_build_rank, s.defs_rank AS old_defs_rank, s.fleet_rank AS old_fleet_rank, s.total_rank AS old_total_rank FROM '.USERS.' as u LEFT JOIN '.STATPOINTS.' as s ON s.stat_type = 1 AND s.id_owner = u.id GROUP BY s.id_owner, u.id, u.authlevel;');
 		$Return['Alliance']	= $db->query('SELECT SQL_BIG_RESULT DISTINCT a.id, s.tech_rank AS old_tech_rank, s.build_rank AS old_build_rank, s.defs_rank AS old_defs_rank, s.fleet_rank AS old_fleet_rank, s.total_rank AS old_total_rank FROM '.ALLIANCE.' as a LEFT JOIN '.STATPOINTS.' as s ON s.stat_type = 2 AND s.id_owner = a.id;');
 		update_config('users_amount', $db->num_rows($Return['Users']));

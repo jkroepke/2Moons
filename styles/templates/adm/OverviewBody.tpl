@@ -1,6 +1,6 @@
 {include file="adm/overall_header.tpl"}
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-<script type="text/javascript" src="http://update.2moons-systems.com/donate.js"></script>
+<script type="text/javascript" src="http://update.service.2moons.cc/donate.js"></script>
 <script type="text/javascript" src="./scripts/buildlist.js"></script>
 <script type="text/javascript">
 google.load("feeds", "1");

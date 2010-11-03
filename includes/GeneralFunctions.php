@@ -19,15 +19,20 @@
 # *                                                                          #
 ##############################################################################
 
-function update_config($Name, $Value)
+function update_config($Values, $Global = false, $SpecUni = 0)
 {
 	global $CONF, $db;
-	$CONF[$Name]	= $Value;
-	
-	if(isset($CONF[$Name]))
-		$db->query("UPDATE ".CONFIG." SET `config_value` = '".$Value."' WHERE `config_name` = '".$Name."';");
+	$SQL	= "";
+	if(empty($SpecUni))
+		$UNI	= $GLOBALS['UNI'];
 	else
-		$db->query("INSERT INTO ".CONFIG." (`config_name`, `config_value`) VALUES ('".$Name."', '".$Value."');");
+		$UNI	= $SpecUni;
+		
+	foreach($Values as $Name => $Value) {
+		$CONF[$Name]	= $Value;
+		$SQL	.= "`".$Name."` = '".$Value."', ";
+	}
+	$db->query("UPDATE ".CONFIG." SET ".substr($SQL, 0, -2).(!$Global ? " WHERE `uni` = '".$UNI."'":"").";");
 }
 
 function ValidateAddress($address) {
@@ -371,10 +376,10 @@ function makebr($text)
     return (version_compare(PHP_VERSION, "5.3.0", ">=")) ? nl2br($text, false) : strtr($text, array("\r\n" => $BR, "\r" => $BR, "\n" => $BR)); 
 }
 
-function CheckPlanetIfExist($Galaxy, $System, $Planet, $Planettype = 1)
+function CheckPlanetIfExist($Galaxy, $System, $Planet, $Universe, $Planettype = 1)
 {
 	global $db;
-	$QrySelectGalaxy = $db->uniquequery("SELECT id FROM ".PLANETS." WHERE `galaxy` = '".$Galaxy."' AND `system` = '".$System."' AND `planet` = '".$Planet."' AND `planet_type` = '".$Planettype."';");
+	$QrySelectGalaxy = $db->uniquequery("SELECT id FROM ".PLANETS." WHERE `universe` = '".$Universe."' AND `galaxy` = '".$Galaxy."' AND `system` = '".$System."' AND `planet` = '".$Planet."' AND `planet_type` = '".$Planettype."';");
 	return (isset($QrySelectGalaxy)) ? true : false;
 }
 
@@ -437,15 +442,18 @@ function exception_handler($exception) {
 	echo '</html>';	
 }
 
-function SendSimpleMessage($Owner, $Sender, $Time, $Type, $From, $Subject, $Message, $Unread = 1)
+function SendSimpleMessage($Owner, $Sender, $Time, $Type, $From, $Subject, $Message, $Unread = 1, $Uni = 0)
 {
 	global $db;
+	if(empty($Uni))
+		$Uni	= $GLOBALS['UNI'];
+		
 	if($Owner != 0)
 		$SQL	= "UPDATE ".USERS." SET `new_message` = `new_message` + '1' WHERE `id` = '".$Owner."';";
 	else
-		$SQL	= "UPDATE ".USERS." SET `new_message` = `new_message` + '1';";
+		$SQL	= "UPDATE ".USERS." SET `new_message` = `new_message` + '1' WHERE `universe` = '".$Uni.";";
 
-	$SQL	.= "INSERT INTO ".MESSAGES." SET `message_owner` = '".$Owner."', `message_sender` = '".(int)$Sender."', `message_time` = '".((empty($Time)) ? TIMESTAMP : $Time)."', `message_type` = '".$Type."', `message_from` = '". $db->sql_escape($From) ."', `message_subject` = '". $db->sql_escape($Subject) ."', `message_text` = '".$db->sql_escape($Message)."', `message_unread` = '".$Unread."';";
+	$SQL	.= "INSERT INTO ".MESSAGES." SET `message_owner` = '".$Owner."', `message_sender` = '".(int)$Sender."', `message_time` = '".((empty($Time)) ? TIMESTAMP : $Time)."', `message_type` = '".$Type."', `message_from` = '". $db->sql_escape($From) ."', `message_subject` = '". $db->sql_escape($Subject) ."', `message_text` = '".$db->sql_escape($Message)."', `message_unread` = '".$Unread."', `message_universe` = '".$Uni."';";
 
 	$db->multi_query($SQL);
 }

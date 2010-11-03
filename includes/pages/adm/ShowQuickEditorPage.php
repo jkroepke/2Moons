@@ -52,11 +52,11 @@ function ShowQuickEditorPage()
 				$QryUpdateString	.= "`deuterium` = '".floattostring(round(abs(request_var('deuterium', 0.0)), 0))."', ";
 				$QryUpdateString	.= "`field_max` = '".request_var('field_max', 0)."', ";
 				$QryUpdateString	.= "`name` = '".$db->sql_escape(request_var('name', ''))."' ";
-				$QryUpdateString	.= "WHERE `id` = '".$id."' LIMIT 1;";
+				$QryUpdateString	.= "WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';";
 				$db->query($QryUpdateString);
 				exit(sprintf($LNG['qe_edit_sucess'] , $PlanetData['name'], $PlanetData['galaxy'], $PlanetData['system'], $PlanetData['planet']));
 			}
-			$UserInfo				= $db->uniquequery("SELECT `username` FROM ".USERS." WHERE `id` = '".$PlanetData['id_owner']."'");
+			$UserInfo				= $db->uniquequery("SELECT `username` FROM ".USERS." WHERE `id` = '".$PlanetData['id_owner']."' AND `universe` = '".$_SESSION['adminuni']."';");
 
 			$build = $defense = $fleet	= array();
 			

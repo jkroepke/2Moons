@@ -12,6 +12,7 @@ $LNG['menu_agb']			= 'AGB';
 $LNG['menu_pranger']		= 'Pranger';	 
 $LNG['menu_top100']			= 'Hall of Fame';	 
 $LNG['menu_disclamer']		= 'Impressum';	 
+$LNG['uni_closed']			= '(offline)';	 
 	 
 /* ------------------------------------------------------------------------------------------ */
 

@@ -71,12 +71,7 @@ class MissionFunctions
 		$Qry  .= "p.`deuterium` = p.`deuterium` + '".floattostring($this->_fleet['fleet_resource_deuterium'])."', ";
 		$Qry  .= "u.`darkmatter` = u.`darkmatter` + '".floattostring($this->_fleet['fleet_resource_darkmatter'])."' ";
 		$Qry  .= "WHERE ";
-
-		if ($Start == true)
-			$Qry  .= "p.`galaxy` = '". $this->_fleet['fleet_start_galaxy'] ."' AND p.`system` = '". $this->_fleet['fleet_start_system'] ."' AND p.`planet` = '". $this->_fleet['fleet_start_planet'] ."' AND p.`planet_type` = '". $this->_fleet['fleet_start_type'] ."' ";
-		else
-			$Qry  .= "p.`galaxy` = '". $this->_fleet['fleet_end_galaxy'] ."' AND p.`system` = '". $this->_fleet['fleet_end_system'] ."' AND p.`planet` = '". $this->_fleet['fleet_end_planet'] ."' AND p.`planet_type` = '". $this->_fleet['fleet_end_type'] ."' ";
-		
+		$Qry  .= "p.`id` = '".($Start == true ? $this->_fleet['fleet_start_id'] : $this->_fleet['fleet_end_id'])."' ";
 		$Qry  .= "AND u.id = p.id_owner;";
 		$Qry  .= "DELETE FROM ".FLEETS." WHERE `fleet_id` = '".$this->_fleet['fleet_id']."';";
 		$db->multi_query($Qry);
@@ -90,13 +85,7 @@ class MissionFunctions
 		$Qry  .= "`crystal` = `crystal` + '".floattostring($this->_fleet['fleet_resource_crystal'])."', ";
 		$Qry  .= "`deuterium` = `deuterium` + '".floattostring($this->_fleet['fleet_resource_deuterium'])."' ";
 		$Qry  .= "WHERE ";
-
-		if ($Start == true)
-			$Qry  .= "`galaxy` = '". $this->_fleet['fleet_start_galaxy'] ."' AND `system` = '". $this->_fleet['fleet_start_system'] ."' AND `planet` = '". $this->_fleet['fleet_start_planet'] ."' AND `planet_type` = '". $this->_fleet['fleet_start_type'] ."' ";
-		else
-			$Qry  .= "`galaxy` = '". $this->_fleet['fleet_end_galaxy'] ."' AND `system` = '". $this->_fleet['fleet_end_system'] ."' AND `planet` = '". $this->_fleet['fleet_end_planet'] ."' AND `planet_type` = '". $this->_fleet['fleet_end_type'] ."' ";
-
-		$Qry  .= "LIMIT 1;";
+		$Qry  .= "p.`id` = '".($Start == true ? $this->_fleet['fleet_start_id'] : $this->_fleet['fleet_end_id'])."';";
 		$db->query($Qry);
 		
 		$this->UpdateFleet('fleet_resource_metal', '0');

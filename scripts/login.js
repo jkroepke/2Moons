@@ -1,13 +1,5 @@
 function ajax(url){
-	if(url == '?page=reg&getajax=1'){
-		if(IsRegActive == 1){
-			alert(lang_reg_closed);  
-		} else {
-			$('#background-content').load(url);
-		}
-	} else {
-		$('#background-content').load(url);
-	}
+	$('#background-content').load(url);
 }
 
 function changeAction(type) {
@@ -15,15 +7,16 @@ function changeAction(type) {
         alert($("#Uni :selected").text());
 		return false;
     } else {
+		return true;
         switch(type){
 			case "login":
 				document.login.action = $('#Uni').val();
 			break;
 			case "reg":
-				document.reg.action = $('#Uni').val() + "?page=reg&mode=send&lang="+lang;
+				document.reg.action = "?page=reg&mode=send&lang="+lang;
 			break;
 			case "lostpassword":
-				document.lostpassword.action = $('#Uni').val() + "?page=lostpassword&mode=send&lang="+lang;
+				document.lostpassword.action = "?page=lostpassword&mode=send&lang="+lang;
 			break;
 		}
 		return true;
@@ -49,13 +42,13 @@ function fbLogincheck() {
 			if(!permsare){
 				FB.Connect.showPermissionDialog('email', function(perms) {
 					if (perms) {
-						document.location = $('#Uni').val()+"index.php?page=facebook";
+						document.location = "index.php?page=facebook";
 					} else {
 						alert(fb_permissions);
 					}
 				});
 			} else {
-				document.location = $('#Uni').val()+"index.php?page=facebook";
+				document.location = "index.php?page=facebook";
 			}
 		});
 	});

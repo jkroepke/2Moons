@@ -23,10 +23,13 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 
 function ShowRecordsPage()
 {
-	global $USER, $PLANET, $LNG, $resource, $db, $CONF;
+	global $USER, $PLANET, $LNG, $resource, $db, $CONF, $UNI;
 
-	require_once(ROOT_PATH."cache/CacheRecords.php");
-	
+	if(file_exits(ROOT_PATH."cache/CacheRecords_Uni".$UNI.".php"));
+		require_once(ROOT_PATH."cache/CacheRecords_Uni".$UNI.".php");
+	else
+		$RecordsArray	= array();
+		
 	$PlanetRess = new ResourceUpdate();
 	$PlanetRess->CalcResource();
 	$PlanetRess->SavePlanetToDB();
@@ -44,7 +47,7 @@ function ShowRecordsPage()
 				'winner'	=> ($ElementIDArray['maxlvl'] != 0) ? $ElementIDArray['username'] : $LNG['rec_rien'],
 				'count'		=> ($ElementIDArray['maxlvl'] != 0) ? pretty_number( $ElementIDArray['maxlvl'] ) : $LNG['rec_rien'],
 			);
-		} elseif ($ElementID >=  41 && $ElementID <=  99 && $ElementID != 44) {
+		} elseif ($ElementID >=  41 && $ElementID <= 99 && $ElementID != 44) {
 			$MoonsBuilds[$LNG['tech'][$ElementID]]	= array(
 				'winner'	=> ($ElementIDArray['maxlvl'] != 0) ? $ElementIDArray['username'] : $LNG['rec_rien'],
 				'count'		=> ($ElementIDArray['maxlvl'] != 0) ? pretty_number( $ElementIDArray['maxlvl'] ) : $LNG['rec_rien'],

@@ -23,7 +23,7 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 
 function ShowPlayerCard()
 {
-	global $USER, $PLANET, $LNG, $db;
+	global $USER, $PLANET, $LNG, $UNI, $db;
 	
 	$template	= new template();
 	$template->page_header();
@@ -31,7 +31,7 @@ function ShowPlayerCard()
 	
     $playerid 	= request_var('id', 0);
 		
-    $query 		= $db->uniquequery("SELECT a.wons, a.loos, a.draws, a.kbmetal, a.kbcrystal, a.lostunits, a.desunits, a.ally_id, a.ally_name, a.username, a.galaxy, a.system, a.planet, b.name, c.tech_rank, c.tech_points, c.build_rank, c.build_points, c.defs_rank, c.defs_points, c.fleet_rank, c.fleet_points, c.total_rank, c.total_points FROM ".USERS." as a, ".PLANETS." as b, ".STATPOINTS." as c WHERE a.id = '". $db->sql_escape($playerid) ."' AND a.id_planet = b.id AND a.id = c.id_owner AND c.stat_type = 1;");
+    $query 		= $db->uniquequery("SELECT a.wons, a.loos, a.draws, a.kbmetal, a.kbcrystal, a.lostunits, a.desunits, a.ally_id, a.ally_name, a.username, a.galaxy, a.system, a.planet, b.name, c.tech_rank, c.tech_points, c.build_rank, c.build_points, c.defs_rank, c.defs_points, c.fleet_rank, c.fleet_points, c.total_rank, c.total_points FROM ".USERS." as a, ".PLANETS." as b, ".STATPOINTS." as c WHERE a.universe = '".$UNI."' AND a.id = '". $db->sql_escape($playerid) ."' AND a.id_planet = b.id AND a.id = c.id_owner AND c.stat_type = 1;");
 
 	$totalfights = $query['wons'] + $query['loos'] + $query['draws'];
 	

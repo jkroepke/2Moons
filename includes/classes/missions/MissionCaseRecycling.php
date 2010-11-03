@@ -31,10 +31,7 @@ class MissionCaseRecycling extends MissionFunctions
 		global $db, $pricelist;
 		$Qry 	= "SELECT der_metal as metal,der_crystal as crystal FROM ".PLANETS."
 				   WHERE 
-				   `galaxy` = '".$this->_fleet['fleet_end_galaxy']."' AND
-				   `system` = '".$this->_fleet['fleet_end_system']."' AND 
-				   `planet` = '".$this->_fleet['fleet_end_planet']."' AND
-				   `planet_type` = '1';";
+				   `id` = '".$this->_fleet['fleet_end_id']."';";
 		
 		$Target	= $db->uniquequery($Qry);
 
@@ -73,10 +70,7 @@ class MissionCaseRecycling extends MissionFunctions
 				  `der_metal` = `der_metal` - '".$RecycledGoods['metal']."',
 				  `der_crystal` = `der_crystal` - '".$RecycledGoods['crystal']."'
 				  WHERE
-				  `galaxy` = '".$this->_fleet['fleet_end_galaxy']."' AND
-				  `system` = '".$this->_fleet['fleet_end_system']."' AND
-				  `planet` = '".$this->_fleet['fleet_end_planet']."' AND
-				  `planet_type` = '1';";
+				  `id` = '".$this->_fleet['fleet_end_id']."';";
 		$db->query($Qry);
 
 		$LNG			= $this->GetUserLang($this->_fleet['fleet_owner']);

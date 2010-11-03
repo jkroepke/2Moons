@@ -23,7 +23,7 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 
 function ShowTopKB()
 {
-	global $USER, $PLANET, $LNG, $db;
+	global $USER, $PLANET, $LNG, $UNI, $db;
 	$mode = request_var('mode','');
 
 	$template	= new template();
@@ -66,7 +66,7 @@ function ShowTopKB()
 			$template->page_planetmenu();
 			$template->page_footer();
 			
-			$top = $db->query("SELECT * FROM ".TOPKB." ORDER BY gesamtunits DESC LIMIT 100;");
+			$top = $db->query("SELECT * FROM ".TOPKB." WHERE `universe` = '".$UNI."' ORDER BY gesamtunits DESC LIMIT 100;");
 			while($data = $db->fetch_array($top)) {
 				$TopKBList[]	= array(
 					'result'	=> $data['fleetresult'],

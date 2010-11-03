@@ -29,25 +29,13 @@ class MissionCaseTransport extends MissionFunctions
 	function TargetEvent()
 	{
 		global $db;
-		$Qry	  	= "SELECT name FROM ".PLANETS." 
-					   WHERE 
-					   `galaxy` = '". $this->_fleet['fleet_start_galaxy'] ."' AND
-					   `system` = '". $this->_fleet['fleet_start_system'] ."' AND
-					   `planet` = '". $this->_fleet['fleet_start_planet'] ."' AND
-					   `planet_type` = '". $this->_fleet['fleet_start_type'] ."';";
-		$Result     	= $db->uniquequery($Qry);
-		$StartName      = $Result['name'];
-		$StartOwner     = $this->_fleet['fleet_owner'];
+		$StartPlanet      = $db->uniquequery("SELECT name FROM ".PLANETS." WHERE `id` = '". $this->_fleet['fleet_start_id'] ."';");
+		$StartName        = $StartPlanet['name'];
+		$StartOwner       = $this->_fleet['fleet_owner'];
 
-		$Qry		= "SELECT name FROM ".PLANETS."
-					   WHERE
-					   `galaxy` = '". $this->_fleet['fleet_end_galaxy'] ."' AND
-					   `system` = '". $this->_fleet['fleet_end_system'] ."' AND
-					   `planet` = '". $this->_fleet['fleet_end_planet'] ."' AND
-					   `planet_type` = '". $this->_fleet['fleet_end_type'] ."';";
-		$Result     	= $db->uniquequery($Qry);
-		$TargetName     = $Result['name'];
-		$TargetOwner    = $this->_fleet['fleet_target_owner'];
+		$TargetPlanet     = $db->uniquequery("SELECT name FROM ".PLANETS." WHERE `id` = '". $this->_fleet['fleet_end_id'] ."';");
+		$TargetName       = $TargetPlanet['name'];
+		$TargetOwner      = $this->_fleet['fleet_target_owner'];
 		
 		$LNG			= $this->GetUserLang($StartOwner);
 		$Message        = sprintf($LNG['sys_tran_mess_owner'], $TargetName, GetTargetAdressLink($this->_fleet, ''), pretty_number($this->_fleet['fleet_resource_metal']), $LNG['Metal'], pretty_number($this->_fleet['fleet_resource_crystal']), $LNG['Crystal'], pretty_number($this->_fleet['fleet_resource_deuterium']), $LNG['Deuterium']);

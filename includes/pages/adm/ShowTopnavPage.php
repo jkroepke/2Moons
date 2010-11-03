@@ -22,10 +22,14 @@
 
 function ShowTopnavPage()
 {
-	global $LNG, $USER;
+	global $LNG, $USER, $db, $UNI, $CONF;
 	$template	= new template();
 	$template->page_header();
-	
+	$AvailableUnis[$CONF['uni']]	= $CONF['game_name'];
+	$Query	= $db->query("SELECT `uni`, `game_name` FROM ".CONFIG." WHERE `uni` != '".$UNI."';");
+	while($Unis	= $db->fetch_array($Query)) {
+		$AvailableUnis[$Unis['uni']]	= $Unis['game_name'];
+	}
 	$template->assign_vars(array(	
 		'ad_authlevel_title'	=> $LNG['ad_authlevel_title'],
 		're_reset_universe'		=> $LNG['re_reset_universe'],
@@ -36,6 +40,8 @@ function ShowTopnavPage()
 		'sid'					=> session_id(),
 		'id'					=> $USER['id'],
 		'authlevel'				=> $USER['authlevel'],
+		'AvailableUnis'			=> $AvailableUnis,
+		'UNI'					=> $UNI,
 	));
 	
 	$template->show('adm/ShowTopnavPage.tpl');

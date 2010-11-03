@@ -41,7 +41,7 @@ switch($cron)
 	case "stats":
 		if (TIMESTAMP >= ($CONF['stat_last_update'] + (60 * $CONF['stat_update_time'])))
 		{
-			update_config('stat_last_update', TIMESTAMP);
+			update_config(array('stat_last_update' => TIMESTAMP), true);
 			require_once(ROOT_PATH . 'includes/classes/class.statbuilder.php');
 			$stat			= new Statbuilder();
 			$result			= $stat->MakeStats();
@@ -50,7 +50,7 @@ switch($cron)
 	case "daily":
 		if (TIMESTAMP >= ($CONF['stat_last_db_update'] + (60 * 60 * 24)))
 		{
-			update_config('stat_last_db_update', TIMESTAMP);
+			update_config(array('stat_last_db_update' => TIMESTAMP), true);
 			$prueba = $db->query("SHOW TABLE STATUS from ".DB_NAME.";");
 			$table = "";
 			while($pru = $db->fetch_array($prueba)){
@@ -68,7 +68,7 @@ switch($cron)
 	case "banner":
 		if (!CheckModule(37) && TIMESTAMP >= ($CONF['stat_last_banner_update'] + (60 * $CONF['stat_banner_update_time'])))
 		{
-			update_config('stat_last_banner_update', TIMESTAMP);
+			update_config(array('stat_last_banner_update' => TIMESTAMP), true);
 			require_once(ROOT_PATH . 'includes/classes/class.StatBanner.php');
 			$banner	= new StatBanner();
 			$banner->BuildIMGforAll();

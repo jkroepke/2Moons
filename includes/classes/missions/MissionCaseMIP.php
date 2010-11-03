@@ -37,10 +37,7 @@ class MissionCaseMIP extends MissionFunctions
 			
 		$QryTarget		 	= "SELECT ".USERS.".defence_tech, ".PLANETS.".id, ".PLANETS.".id_owner, ".substr($SQL, 0, -2)."
 							   FROM ".PLANETS.", ".USERS."
-							   WHERE ".PLANETS.".`galaxy` = '".$this->_fleet['fleet_end_galaxy']."' AND 
-							   ".PLANETS.".`system` = '".$this->_fleet['fleet_end_system']."' AND 
-							   ".PLANETS.".`planet` = '".$this->_fleet['fleet_end_planet']."' AND 
-							   ".PLANETS.".`planet_type` = '1' AND 
+							   WHERE ".PLANETS.".`id` = '".$this->_fleet['fleet_end_id']."' AND 
 							   ".PLANETS.".id_owner = ".USERS.".id;";
 								   
 		$TargetInfo			= $db->uniquequery($QryTarget);					   

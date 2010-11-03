@@ -44,15 +44,15 @@ class ShowChatPage
 	}
 	
 	private function SetMeassageInChat($chat_type, $msg) {
-		global $USER, $db, $LNG;
-		$db->query("INSERT INTO ".CHAT." (user, ally_id, message, timestamp) VALUES ('".(($USER['authlevel'] == 3) ? sprintf($LNG['chat_admin'], $USER['username']) : $USER['username'])."','".(($chat_type == "ally") ? $USER['ally_id'] : 0)."','".$msg."', '".TIMESTAMP."');");
+		global $USER, $db, $LNG, $UNI;
+		$db->query("INSERT INTO ".CHAT." (user, ally_id, message, timestamp, universe) VALUES ('".(($USER['authlevel'] == 3) ? sprintf($LNG['chat_admin'], $USER['username']) : $USER['username'])."','".(($chat_type == "ally") ? $USER['ally_id'] : 0)."','".$msg."', '".TIMESTAMP."', '".$UNI."');");
 		header('HTTP/1.1 204 No Content');
 	}
 
 	private function GetMessages($chat_type) {
 		global $USER, $db;
 		$TimeStamp	= request_var('timestamp', 0);
-		$Chat 	= $db->query("SELECT * FROM ".CHAT." WHERE `timestamp` > '".$TimeStamp."' AND ally_id = '".(($chat_type == "ally") ? $USER['ally_id'] : 0)."' ORDER BY messageid DESC LIMIT ".$this->page_limit.";");
+		$Chat 	= $db->query("SELECT * FROM ".CHAT." WHERE `universe` = '".$UNI."' AND `timestamp` > '".$TimeStamp."' AND ally_id = '".(($chat_type == "ally") ? $USER['ally_id'] : 0)."' ORDER BY messageid DESC LIMIT ".$this->page_limit.";");
 		$msg 	= array();
 		
 		while($Message = $db->fetch_array($Chat)){

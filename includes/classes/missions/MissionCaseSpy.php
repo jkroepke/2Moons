@@ -35,13 +35,10 @@ class MissionCaseSpy extends MissionFunctions
 		
 		$CurrentUser         = $db->uniquequery("SELECT spy_tech,rpg_espion FROM ".USERS." WHERE `id` = '".$this->_fleet['fleet_owner']."';");
 		$CurrentUserID       = $this->_fleet['fleet_owner'];
-		$QryGetTargetPlanet  = "SELECT * FROM ".PLANETS." ";
-		$QryGetTargetPlanet .= "WHERE ";
-		$QryGetTargetPlanet .= "`galaxy` = '". $this->_fleet['fleet_end_galaxy'] ."' AND ";
-		$QryGetTargetPlanet .= "`system` = '". $this->_fleet['fleet_end_system'] ."' AND ";
-		$QryGetTargetPlanet .= "`planet` = '". $this->_fleet['fleet_end_planet'] ."' AND ";
-		$QryGetTargetPlanet .= "`planet_type` = '". $this->_fleet['fleet_end_type'] ."';";
-		$TargetPlanet        = $db->uniquequery($QryGetTargetPlanet);
+		$SQL 				 = "SELECT * FROM ".PLANETS." ";
+		$SQL 				.= "WHERE ";
+		$SQL 				.= "`id` = '". $this->_fleet['fleet_end_id'] ."';";
+		$TargetPlanet        = $db->uniquequery($SQL);
 		$TargetUserID        = $TargetPlanet['id_owner'];
 		$CurrentPlanet       = $db->uniquequery("SELECT name,system,galaxy,planet FROM ".PLANETS." WHERE `galaxy` = '".$this->_fleet['fleet_start_galaxy']."' AND `system` = '".$this->_fleet['fleet_start_system']."' AND `planet` = '".$this->_fleet['fleet_start_planet']."';");
 		$CurrentSpyLvl       = max(($CurrentUser['spy_tech'] + ($CurrentUser['rpg_espion'] * ESPION)), 1);
@@ -224,7 +221,7 @@ class MissionCaseSpy extends MissionFunctions
 	
 		if ($Mode == 1)
 		{
-			$def = $db->query('SELECT * FROM '.FLEETS.' WHERE `fleet_mission` = 5 AND `fleet_end_galaxy` = '. $this->_fleet['fleet_end_galaxy'] .' AND `fleet_end_system` = '. $this->_fleet['fleet_end_system'] .' AND `fleet_end_type` = '. $this->_fleet['fleet_end_type'] .' AND `fleet_end_planet` = '. $this->_fleet['fleet_end_planet'] .' AND fleet_start_time<'.TIMESTAMP.' AND fleet_end_stay>='.TIMESTAMP.';');
+			$def = $db->query('SELECT * FROM '.FLEETS.' WHERE `fleet_mission` = 5 AND `fleet_end_id` = '. $this->_fleet['fleet_end_id'].' AND fleet_start_time<'.TIMESTAMP.' AND fleet_end_stay>='.TIMESTAMP.';');
 			while ($defRow = $db->fetch_array($def))
 			{
 				$defRowDef = explode(';', $defRow['fleet_array']);

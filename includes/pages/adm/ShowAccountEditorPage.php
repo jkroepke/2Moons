@@ -24,7 +24,7 @@ if ($USER['rights'][str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '',
 
 function ShowAccountEditorPage() 
 {
-	global $USER, $db, $LNG, $reslist, $resource;
+	global $USER, $db, $LNG, $reslist, $resource, $UNI;
 	$template 	= new template();
 	$template->page_header();
 	switch($_GET['edit'])
@@ -46,14 +46,14 @@ function ShowAccountEditorPage()
 					$SQL .= "`crystal` = `crystal` + '".$cristal."', ";
 					$SQL .= "`deuterium` = `deuterium` + '".$deut ."' ";
 					$SQL .= "WHERE ";
-					$SQL .= "`id` = '". $id ."';";
+					$SQL .= "`id` = '". $id ."' AND `universe` = '".$_SESSION['adminuni']."';";
 					$db->query($SQL);
 
 					if (!empty($id_dark)) {
 						$SQL  = "UPDATE ".USERS." SET ";
 						$SQL .= "`darkmatter` = `darkmatter` + '". $dark ."' ";
 						$SQL .= "WHERE ";
-						$SQL .= "`id` = '". $id_dark ."' ";
+						$SQL .= "`id` = '". $id_dark ."' AND `universe` = '".$_SESSION['adminuni']."' ";
 						$db->query($SQL);
 					}
 					$template->message($LNG['ad_add_sucess'], '?page=accounteditor&edit=resources');
@@ -65,7 +65,7 @@ function ShowAccountEditorPage()
 					$SQL .= "`crystal` = `crystal` - '". $cristal ."', ";
 					$SQL .= "`deuterium` = `deuterium` - '". $deut ."' ";
 					$SQL .= "WHERE ";
-					$SQL .= "`id` = '".$id."';";
+					$SQL .= "`id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';";
 					$db->query($SQL);
 
 					if (!empty($id_dark)) {
@@ -109,7 +109,7 @@ function ShowAccountEditorPage()
 					}
 					$SQL .= implode(", ", $QryUpdate);
 					$SQL .= "WHERE ";
-					$SQL .= "`id` = '".request_var('id', 0)."';";
+					$SQL .= "`id` = '".request_var('id', 0)."' AND `universe` = '".$_SESSION['adminuni']."';";
 					$db->query($SQL);
 
 					$template->message($LNG['ad_add_sucess_ships'], '?page=accounteditor&edit=ships');
@@ -123,7 +123,7 @@ function ShowAccountEditorPage()
 					}
 					$SQL .= implode(", ", $QryUpdate);
 					$SQL .= "WHERE ";
-					$SQL .= "`id` = '".request_var('id', 0)."';";
+					$SQL .= "`id` = '".request_var('id', 0)."' AND `universe` = '".$_SESSION['adminuni']."';";
 					$db->query($SQL);
 					
 					$template->message($LNG['ad_delete_sucess_ships'], '?page=accounteditor&edit=ships');
@@ -167,7 +167,7 @@ function ShowAccountEditorPage()
 					}
 					$SQL .= implode(", ", $QryUpdate);
 					$SQL .= "WHERE ";
-					$SQL .= "`id` = '".request_var('id', 0)."';";
+					$SQL .= "`id` = '".request_var('id', 0)."' AND `universe` = '".$_SESSION['adminuni']."';";
 					$db->query($SQL);
 
 					$template->message($LNG['ad_add_defenses_succes'], '?page=accounteditor&edit=defenses');
@@ -181,7 +181,7 @@ function ShowAccountEditorPage()
 					}
 					$SQL .= implode(", ", $QryUpdate);
 					$SQL .= "WHERE ";
-					$SQL .= "`id` = '".request_var('id', 0)."';";
+					$SQL .= "`id` = '".request_var('id', 0)."' AND `universe` = '".$_SESSION['adminuni']."';";
 					$db->query( $SQL);
 					$Name	=	$LNG['log_nomoree'];
 					$template->message($LNG['ad_delete_defenses_succes'], '?page=accounteditor&edit=defenses');
@@ -216,7 +216,7 @@ function ShowAccountEditorPage()
 		case 'buildings':
 			if($_POST)
 			{
-				$PlanetData	= $db->uniquequery("SELECT `planet_type` FROM ".PLANETS." WHERE `id` = '".request_var('id', 0)."';");
+				$PlanetData	= $db->uniquequery("SELECT `planet_type` FROM ".PLANETS." WHERE `id` = '".request_var('id', 0)."' AND `universe` = '".$_SESSION['adminuni']."';");
 				if ($_POST['add'])
 				{
 					$SQL  = "UPDATE ".PLANETS." SET ";
@@ -226,7 +226,7 @@ function ShowAccountEditorPage()
 					}
 					$SQL .= implode(", ", $QryUpdate);
 					$SQL .= "WHERE ";
-					$SQL .= "`id` = '".request_var('id', 0)."';";
+					$SQL .= "`id` = '".request_var('id', 0)."' AND `universe` = '".$_SESSION['adminuni']."';";
 					$db->query($SQL);
 
 					$template->message($LNG['ad_add_succes'], '?page=accounteditor&edit=buildings');
@@ -240,7 +240,7 @@ function ShowAccountEditorPage()
 					}
 					$SQL .= implode(", ", $QryUpdate);
 					$SQL .= "WHERE ";
-					$SQL .= "`id` = '".request_var('id', 0)."';";
+					$SQL .= "`id` = '".request_var('id', 0)."' AND `universe` = '".$_SESSION['adminuni']."';";
 					$db->query($SQL);
 					
 					$template->message($LNG['ad_delete_succes'], '?page=accounteditor&edit=buildings');
@@ -283,7 +283,7 @@ function ShowAccountEditorPage()
 					}
 					$SQL .= implode(", ", $QryUpdate);
 					$SQL .= "WHERE ";
-					$SQL .= "`id` = '".request_var('id', 0)."';";
+					$SQL .= "`id` = '".request_var('id', 0)."' AND `universe` = '".$_SESSION['adminuni']."';";
 					$db->query($SQL);
 
 					$template->message($LNG['ad_add_succes'], '?page=accounteditor&edit=researchs');
@@ -297,7 +297,7 @@ function ShowAccountEditorPage()
 					}
 					$SQL .= implode(", ", $QryUpdate);
 					$SQL .= "WHERE ";
-					$SQL .= "`id` = '".request_var('id', 0)."';";
+					$SQL .= "`id` = '".request_var('id', 0)."' AND `universe` = '".$_SESSION['adminuni']."';";
 					$db->query($SQL);
 	
 					$template->message($LNG['ad_delete_succes'], '?page=accounteditor&edit=researchs');
@@ -361,7 +361,7 @@ function ShowAccountEditorPage()
 				}
 				
 				$PersonalQuery    .=  "`urlaubs_modus` = '".$Answer."', `urlaubs_until` = '".$TimeAns."' ";			
-				$PersonalQuery    .= "WHERE `id` = '".$id."'";
+				$PersonalQuery    .= "WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."'";
 				$db->query($PersonalQuery);
 				
 				$template->message($LNG['ad_personal_succes'], '?page=accounteditor&edit=personal');
@@ -401,7 +401,7 @@ function ShowAccountEditorPage()
 					}
 					$SQL .= implode(", ", $QryUpdate);
 					$SQL .= "WHERE ";
-					$SQL .= "`id` = '".request_var('id', 0)."';";
+					$SQL .= "`id` = '".request_var('id', 0)."' AND `universe` = '".$_SESSION['adminuni']."';";
 					$db->query($SQL);
 					
 					$template->message($LNG['ad_offi_succes_add'], '?page=accounteditor&edit=officiers');
@@ -415,7 +415,7 @@ function ShowAccountEditorPage()
 					}
 					$SQL .= implode(", ", $QryUpdate);
 					$SQL .= "WHERE ";
-					$SQL .= "`id` = '".request_var('id', 0)."';";
+					$SQL .= "`id` = '".request_var('id', 0)."' AND `universe` = '".$_SESSION['adminuni']."';";
 					$db->query($SQL);
 					
 					$template->message($LNG['ad_offi_succes_delete'], '?page=accounteditor&edit=officiers');
@@ -465,7 +465,7 @@ function ShowAccountEditorPage()
 				$planet			= request_var('p', 0);
 
 				if (!empty($name))
-					$db->query("UPDATE ".PLANETS." SET `name` = '".$db->sql_escape($name)."' WHERE `id` = '".$id."';");
+					$db->query("UPDATE ".PLANETS." SET `name` = '".$db->sql_escape($name)."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
 						
 				if ($buildings == 'on')
 				{
@@ -473,7 +473,7 @@ function ShowAccountEditorPage()
 						$BUILD[]	= "`".$resource[$ID]."` = '0'";
 					}
 						
-					$db->query("UPDATE ".PLANETS." SET ".implode(', ',$BUILD)." WHERE `id` = '".$id."';");
+					$db->query("UPDATE ".PLANETS." SET ".implode(', ',$BUILD)." WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
 				}
 					
 				if ($ships == 'on')
@@ -482,7 +482,7 @@ function ShowAccountEditorPage()
 						$SHIPS[]	= "`".$resource[$ID]."` = '0'";
 					}
 					
-					$db->query("UPDATE ".PLANETS." SET ".implode(', ',$SHIPS)." WHERE `id` = '".$id."';");
+					$db->query("UPDATE ".PLANETS." SET ".implode(', ',$SHIPS)." WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
 				}
 						
 				if ($defenses == 'on')
@@ -491,36 +491,36 @@ function ShowAccountEditorPage()
 						$DEFS[]	= "`".$resource[$ID]."` = '0'";
 					}
 				
-					$db->query("UPDATE ".PLANETS." SET ".implode(', ',$DEFS)." WHERE `id` = '".$id."';");
+					$db->query("UPDATE ".PLANETS." SET ".implode(', ',$DEFS)." WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
 				}
 
 				if ($c_hangar == 'on')
-					$db->query("UPDATE ".PLANETS." SET `b_hangar` = '0', `b_hangar_plus` = '0', `b_hangar_id` = '' WHERE `id` = '".$id."';");
+					$db->query("UPDATE ".PLANETS." SET `b_hangar` = '0', `b_hangar_plus` = '0', `b_hangar_id` = '' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
 
 				if ($c_buildings == 'on')
-					$db->query("UPDATE ".PLANETS." SET `b_building` = '0', `b_building_id` = '' WHERE `id` = '".$id."';");
+					$db->query("UPDATE ".PLANETS." SET `b_building` = '0', `b_building_id` = '' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
 
 				if (!empty($diameter))
-					$db->query("UPDATE ".PLANETS." SET `diameter` = '".$diameter."' WHERE `id` = '".$id."';");
+					$db->query("UPDATE ".PLANETS." SET `diameter` = '".$diameter."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
 
 				if (!empty($fields))
-					$db->query("UPDATE ".PLANETS." SET `field_max` = '".$fields."' WHERE `id` = '".$id."';");
+					$db->query("UPDATE ".PLANETS." SET `field_max` = '".$fields."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
 						
 				if ($change_pos == 'on' && $galaxy > 0 && $system > 0 && $planet > 0 && $galaxy <= MAX_GALAXY_IN_WORLD && $system <= MAX_SYSTEM_IN_GALAXY && $planet <= MAX_PLANET_IN_SYSTEM)
 				{
-					$P	=	$db->uniquequery("SELECT galaxy,system,planet,planet_type FROM ".PLANETS." WHERE `id` = '".$id."';");
+					$P	=	$db->uniquequery("SELECT galaxy,system,planet,planet_type FROM ".PLANETS." WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
 					if ($P['planet_type'] == '1')
 					{
-						if (CheckPlanetIfExist($galaxy, $system, $planet, $P['planet_type']))
+						if (CheckPlanetIfExist($galaxy, $system, $planet, $UNI, $P['planet_type']))
 						{
 							$template->message($LNG['ad_pla_error_planets3'], '?page=accounteditor&edit=planets');
 							exit;
 						}
 
-						$db->query ("UPDATE ".PLANETS." SET `galaxy` = '".$galaxy."', `system` = '".$system."', `planet` = '".$planet."' WHERE `id` = '".$id."';");
+						$db->query ("UPDATE ".PLANETS." SET `galaxy` = '".$galaxy."', `system` = '".$system."', `planet` = '".$planet."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
 
 					} else {
-						if(CheckPlanetIfExist($galaxy, $system, $planet, $P['planet_type']))
+						if(CheckPlanetIfExist($galaxy, $system, $planet, $UNI, $P['planet_type']))
 						{
 							$template->message($LNG['ad_pla_error_planets5'], '?page=accounteditor&edit=planets');
 							exit;
@@ -536,10 +536,10 @@ function ShowAccountEditorPage()
 							
 						$db->query("UPDATE ".PLANETS." SET `id_luna` = '0' WHERE `galaxy` = '".$P['galaxy']."' AND `system` = '".$P['system']."' AND `planet` = '".$P['planet']."' AND `planet_type` = '1';");
 						$db->query("UPDATE ".PLANETS." SET `id_luna` = '".$id."'  WHERE `galaxy` = '".$galaxy."' AND `system` = '".$system."' AND `planet` = '".$planet."' AND planet_type = '1';");
-						$db->query("UPDATE ".PLANETS." SET `galaxy` = '".$galaxy."', `system` = '".$system."', `planet` = '".$planet."' WHERE `id` = '".$id."';");
+						$db->query("UPDATE ".PLANETS." SET `galaxy` = '".$galaxy."', `system` = '".$system."', `planet` = '".$planet."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
 						
 						$QMOON2	=	$db->uniquequery("SELECT id_level, id_owner FROM ".PLANETS." WHERE `galaxy` = '".$galaxy."' AND `system` = '".$system."' AND `planet` = '".$planet."';");
-						$db->query("UPDATE ".PLANETS." SET `galaxy` = '".$galaxy."', `system` = '".$system."', `planet` = '".$planet."', `id_owner` = '".$QMOON2['id_owner']."', `id_level` = '".$QMOON2['id_level']."' WHERE `id` = '".$id."' AND `planet_type` = '3';");
+						$db->query("UPDATE ".PLANETS." SET `galaxy` = '".$galaxy."', `system` = '".$system."', `planet` = '".$planet."', `id_owner` = '".$QMOON2['id_owner']."', `id_level` = '".$QMOON2['id_level']."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."' AND `planet_type` = '3';");
 					}
 				}
 
@@ -582,35 +582,35 @@ function ShowAccountEditorPage()
 				$delete			=	request_var('delete', '');
 				$delete_u		=	request_var('delete_u', '');
 
-				$QueryF	=	$db->uniquequery("SELECT * FROM ".ALLIANCE." WHERE `id` = '".$id."';");
+				$QueryF	=	$db->uniquequery("SELECT * FROM ".ALLIANCE." WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
 
 				if (!empty($name))
-					$db->multi_query("UPDATE ".ALLIANCE." SET `ally_name` = '".$name."' WHERE `id` = '".$id."';UPDATE ".USERS." SET `ally_name` = '".$name."' WHERE `ally_id` = '".$id."';");
+					$db->multi_query("UPDATE ".ALLIANCE." SET `ally_name` = '".$name."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';UPDATE ".USERS." SET `ally_name` = '".$name."' WHERE `ally_id` = '".$id."';");
 
 				if (!empty($tag))
-					$db->query("UPDATE ".ALLIANCE." SET `ally_tag` = '".$tag."' WHERE `id` = '".$id."';");
+					$db->query("UPDATE ".ALLIANCE." SET `ally_tag` = '".$tag."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
 
 				$QueryF2	=	$db->uniquequery("SELECT ally_id FROM ".USERS." WHERE `id` = '".$changeleader."';");
-				$db->multi_query("UPDATE ".ALLIANCE." SET `ally_owner` = '".$changeleader."' WHERE `id` = '".$id."';UPDATE ".USERS." SET `ally_rank_id` = '0' WHERE `id` = '".$changeleader."';");
+				$db->multi_query("UPDATE ".ALLIANCE." SET `ally_owner` = '".$changeleader."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';UPDATE ".USERS." SET `ally_rank_id` = '0' WHERE `id` = '".$changeleader."';");
 						
 				if (!empty($externo))
-					$db->query("UPDATE ".ALLIANCE." SET `ally_description` = '".$externo."' WHERE `id` = '".$id."';");
+					$db->query("UPDATE ".ALLIANCE." SET `ally_description` = '".$externo."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
 				
 				if (!empty($interno))
-					$db->query("UPDATE ".ALLIANCE." SET `ally_text` = '".$interno."' WHERE `id` = '".$id."';");
+					$db->query("UPDATE ".ALLIANCE." SET `ally_text` = '".$interno."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
 					
 				if (!empty($solicitud))
-					$db->query("UPDATE ".ALLIANCE." SET `ally_request` = '".$solicitud."' WHERE `id` = '".$id."';");
+					$db->query("UPDATE ".ALLIANCE." SET `ally_request` = '".$solicitud."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
 				
 				if ($delete == 'on')
 				{
-					$db->query("DELETE FROM ".ALLIANCE." WHERE `id` = '".$id."';");
+					$db->query("DELETE FROM ".ALLIANCE." WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
 					$db->query("UPDATE ".USERS." SET `ally_id` = '0', `ally_name` = '', `ally_request` = '0', `ally_rank_id` = '0', `ally_register_time` = '0', `ally_request` = '0' WHERE `ally_id` = '".$id."';");
 				}
 
 				if (!empty($delete_u))
 				{
-					$db->query("UPDATE ".ALLIANCE." SET `ally_members` = ally_members - 1 WHERE `id` = '".$id."';");
+					$db->query("UPDATE ".ALLIANCE." SET `ally_members` = ally_members - 1 WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
 					$db->query("UPDATE ".USERS." SET `ally_id` = '0', `ally_name` = '', `ally_request` = '0', `ally_rank_id` = '0', `ally_register_time` = '0', `ally_request` = '0' WHERE `id` = '".$delete_u."' AND `ally_id` = '".$id."';");			
 				}
 
