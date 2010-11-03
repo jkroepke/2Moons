@@ -30,7 +30,7 @@ class MissionCaseAttack extends MissionFunctions
 	{	
 		global $pricelist, $resource, $reslist, $db, $ExtraDM;
 		
-		$targetPlanet 	= $db->uniquequery("SELECT * FROM ".PLANETS." WHERE `galaxy` = '". $this->_fleet['fleet_end_galaxy'] ."' AND `system` = '". $this->_fleet['fleet_end_system']."' AND `planet` = '".$this->_fleet['fleet_end_planet']."' AND `planet_type` = '".$this->_fleet['fleet_end_type']."';");
+		$targetPlanet 	= $db->uniquequery("SELECT * FROM ".PLANETS." WHERE `id` = '". $this->_fleet['fleet_end_id'] ."';");
 		$targetUser   	= $db->uniquequery("SELECT * FROM ".USERS." WHERE id = '".$targetPlanet['id_owner']."';");
 				
 		require_once(ROOT_PATH.'includes/classes/class.PlanetRessUpdate.'.PHP_EXT);
@@ -91,7 +91,7 @@ class MissionCaseAttack extends MissionFunctions
 
 		$defense = array();
 
-		$def = $db->query("SELECT * FROM ".FLEETS." WHERE `fleet_mission` = '5' AND `fleet_end_galaxy` = '". $this->_fleet['fleet_end_galaxy']."' AND `fleet_end_system` = '".$this->_fleet['fleet_end_system']."' AND `fleet_end_type` = '".$this->_fleet['fleet_end_type']."' AND `fleet_end_planet` = '".$this->_fleet['fleet_end_planet']."' AND fleet_start_time <= '".TIMESTAMP."' AND fleet_end_stay >= '".TIMESTAMP."';");
+		$def = $db->query("SELECT * FROM ".FLEETS." WHERE `fleet_mission` = '5' AND `fleet_end_id` = '".$this->_fleet['fleet_end_id']."' AND fleet_start_time <= '".TIMESTAMP."' AND fleet_end_stay >= '".TIMESTAMP."';");
 		while ($defRow = $db->fetch_array($def))
 		{
 			$defense[$defRow['fleet_id']]['user'] = $db->uniquequery("SELECT id,username,military_tech,defence_tech,shield_tech,rpg_amiral,dm_defensive,dm_attack FROM ".USERS." WHERE id = '".$defRow['fleet_owner']."';");
@@ -192,17 +192,14 @@ class MissionCaseAttack extends MissionFunctions
 				$SQL .= "`crystal` = `crystal` - '".$steal['crystal']."', ";
 				$SQL .= "`deuterium` = `deuterium` - '".$steal['deuterium']."' ";
 				$SQL .= "WHERE ";
-				$SQL .= "`galaxy` = '".$this->_fleet['fleet_end_galaxy']."' AND ";
-				$SQL .= "`system` = '".$this->_fleet['fleet_end_system']."' AND ";
-				$SQL .= "`planet` = '".$this->_fleet['fleet_end_planet']."' AND ";
-				$SQL .= "`planet_type` = '".$this->_fleet['fleet_end_type']."';";
+				$SQL .= "`id` = '".$this->_fleet['fleet_end_id']."';";
 			}
 		}
 		
 		$db->multi_query($SQL);
 		
 		if($this->_fleet['fleet_end_type'] == 3)
-			$targetPlanet 		= array_merge($targetPlanet, $db->uniquequery("SELECT `der_metal`, `der_crystal` FROM ".PLANETS." WHERE `galaxy` = '". $this->_fleet['fleet_end_galaxy'] ."' AND `system` = '". $this->_fleet['fleet_end_system']."' AND `planet` = '".$this->_fleet['fleet_end_planet']."' AND `planet_type` = '1';"));
+			$targetPlanet 		= array_merge($targetPlanet, $db->uniquequery("SELECT `der_metal`, `der_crystal` FROM ".PLANETS." WHERE `id_luna` = '".$this->_fleet['fleet_end_id']."';"));
 		$ShootMetal			= bcadd($result['debree']['att'][0], $result['debree']['def'][0]);
 		$ShootCrystal		= bcadd($result['debree']['att'][1], $result['debree']['def'][1]);
 		$FleetDebris		= bcadd($ShootMetal, $ShootCrystal);
@@ -214,7 +211,7 @@ class MissionCaseAttack extends MissionFunctions
 		if ($targetPlanet['planet_type'] == 1 && $targetPlanet['id_luna'] == 0 && $MoonChance > 0 && $UserChance <= $MoonChance)
 		{		
 			require_once(ROOT_PATH.'includes/functions/CreateOneMoonRecord.'.PHP_EXT);
-			$INFO['moon']['name'] 	= CreateOneMoonRecord($this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet'], $TargetUserID, $this->_fleet['fleet_start_time'], '', $MoonChance);
+			$INFO['moon']['name'] 	= CreateOneMoonRecord($this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet'], $this->_fleet['fleet_universe'], $TargetUserID, $this->_fleet['fleet_start_time'], '', $MoonChance);
 			$INFO['end_galaxy'] = $this->_fleet['fleet_end_galaxy'];
 			$INFO['end_system'] = $this->_fleet['fleet_end_system'];
 			$INFO['end_planet'] = $this->_fleet['fleet_end_planet'];
@@ -270,10 +267,7 @@ class MissionCaseAttack extends MissionFunctions
 		$SQL .= "`der_metal` = '".$DerbisMetal."', ";
 		$SQL .= "`der_crystal` = '".$DerbisCrystal."' ";
 		$SQL .= "WHERE ";
-		$SQL .= "`galaxy` = '" . $this->_fleet['fleet_end_galaxy'] . "' AND ";
-		$SQL .= "`system` = '" . $this->_fleet['fleet_end_system'] . "' AND ";
-		$SQL .= "`planet` = '" . $this->_fleet['fleet_end_planet'] . "' AND ";
-		$SQL .= "`planet_type` = '1';";
+		$SQL .= "`id` = '".$this->_fleet['fleet_end_id']."';";
 		$SQL .= "INSERT INTO ".RW." SET ";
 		$SQL .= "`time` = '".$this->_fleet['fleet_start_time']."', ";
 		$SQL .= "`owners` = '".implode(',', array_merge($Attacker['id'], $Defender['id']))."', ";

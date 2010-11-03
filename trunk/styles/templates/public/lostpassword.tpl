@@ -8,10 +8,10 @@
 <table style="width:100%;text-align:center;padding-top:3px;" align="center">
 <tr>
 <td>{$uni_reg}</td>
-<td><select name="Uni" id="Uni" style="width: 188px;">
-<option value="">{$chose_a_uni}</option>
-{html_options options=$AvailableUnis selected='./'}
-</select>
+<td><select name="Uni" id="Uni" style="width: 188px; position: relative; left: 4px;">
+            <option value="">{$chose_a_uni}</option>
+			{foreach item=Universe key=ID from=$AvailableUnis}<option value="{$ID}">{$Universe.game_name}{if $Universe.game_disable == 1} {$uni_closed}{/if}</option>{/foreach}
+			</select>
 </td></tr><tr><td>
 {$email}:</td><td>
 <input name="email" style="width: 183px;" class="input-text" type="text">

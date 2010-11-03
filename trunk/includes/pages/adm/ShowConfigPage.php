@@ -127,48 +127,52 @@ function ShowConfigPage()
 		$Temp							= request_var('ftp_user_pass', '', true);
 		$CONF['ftp_user_pass']			= ((str_pad('', strlen($CONF['ftp_user_pass']), 'x') == $Temp) ? $CONF['ftp_user_pass'] : $Temp);
 
-		update_config('noobprotectiontime'		, $CONF['noobprotectiontime']);
-		update_config('noobprotectionmulti'		, $CONF['noobprotectionmulti']);
-		update_config('noobprotection'			, $CONF['noobprotection']);
-		update_config('Defs_Cdr'				, $CONF['Defs_Cdr']);
-		update_config('Fleet_Cdr'				, $CONF['Fleet_Cdr']);
-		update_config('game_disable'			, $CONF['game_disable']);
-		update_config('close_reason'			, $CONF['close_reason']);
-        update_config('OverviewNewsFrame'		, $CONF['OverviewNewsFrame']);
-		update_config('reg_closed'				, $CONF['reg_closed']);
-        update_config('OverviewNewsText'		, $CONF['OverviewNewsText']);
-		update_config('game_name'				, $CONF['game_name']);
-		update_config('forum_url'				, $CONF['forum_url']);
-		update_config('game_speed'				, $CONF['game_speed']);
-		update_config('fleet_speed'				, $CONF['fleet_speed']);
-		update_config('resource_multiplier'		, $CONF['resource_multiplier']);
-		update_config('halt_speed'				, $CONF['halt_speed']);
-		update_config('initial_fields'			, $CONF['initial_fields']);
-		update_config('metal_basic_income'		, $CONF['metal_basic_income']);
-		update_config('crystal_basic_income'	, $CONF['crystal_basic_income']);
-		update_config('deuterium_basic_income'	, $CONF['deuterium_basic_income']);
-		update_config('debug'					, $CONF['debug']);
-		update_config('adm_attack'				, $CONF['adm_attack']);
-		update_config('lang'					, $CONF['lang']);
-		update_config('capaktiv'				, $CONF['capaktiv']);
-		update_config('capprivate'				, $CONF['capprivate']);
-		update_config('cappublic'				, $CONF['cappublic']);
-		update_config('min_build_time'			, $CONF['min_build_time']);
-		update_config('smtp_host'				, $CONF['smtp_host']);
-		update_config('smtp_port'				, $CONF['smtp_port']);
-		update_config('smtp_user'				, $CONF['smtp_user']);
-		update_config('smtp_pass'				, $CONF['smtp_pass']);
-		update_config('smtp_ssl'				, $CONF['smtp_ssl']);
-		update_config('smtp_sendmail'			, $CONF['smtp_sendmail']);
-		update_config('user_valid'				, $CONF['user_valid']);
-		update_config('ftp_server'				, $CONF['ftp_server']);
-		update_config('ftp_user_name'			, $CONF['ftp_user_name']);
-		update_config('ftp_user_pass'			, $CONF['ftp_user_pass']);
-		update_config('ftp_root_path'			, $CONF['ftp_root_path']);
-		update_config('ga_active'				, $CONF['ga_active']);
-		update_config('ga_key'					, $CONF['ga_key']);
-		update_config('bgm_active'				, $CONF['bgm_active']);
-		update_config('bgm_file'				, $CONF['bgm_file']);
+		update_config(array(
+			'noobprotectiontime'	=> $CONF['noobprotectiontime'],
+			'noobprotectionmulti'	=> $CONF['noobprotectionmulti'],
+			'noobprotection'		=> $CONF['noobprotection'],
+			'Defs_Cdr'				=> $CONF['Defs_Cdr'],
+			'Fleet_Cdr'				=> $CONF['Fleet_Cdr'],
+			'game_disable'			=> $CONF['game_disable'],
+			'close_reason'			=> $CONF['close_reason'],
+			'OverviewNewsFrame'		=> $CONF['OverviewNewsFrame'],
+			'reg_closed'			=> $CONF['reg_closed'],
+			'OverviewNewsText'		=> $CONF['OverviewNewsText'],
+			'game_name'				=> $CONF['game_name'],
+			'forum_url'				=> $CONF['forum_url'],
+			'game_speed'			=> $CONF['game_speed'],
+			'fleet_speed'			=> $CONF['fleet_speed'],
+			'resource_multiplier'	=> $CONF['resource_multiplier'],
+			'halt_speed'			=> $CONF['halt_speed'],
+			'initial_fields'		=> $CONF['initial_fields'],
+			'metal_basic_income'	=> $CONF['metal_basic_income'],
+			'crystal_basic_income'	=> $CONF['crystal_basic_income'],
+			'deuterium_basic_income'=> $CONF['deuterium_basic_income'],
+			'debug'					=> $CONF['debug'],
+			'adm_attack'			=> $CONF['adm_attack'],
+			'lang'					=> $CONF['lang'],
+			'min_build_time'		=> $CONF['min_build_time'],
+			'user_valid'			=> $CONF['user_valid']
+		), false, $_SESSION['adminuni']);
+		update_config(array(	
+			'smtp_host'				=> $CONF['smtp_host'],
+			'smtp_port'				=> $CONF['smtp_port'],
+			'smtp_user'				=> $CONF['smtp_user'],
+			'smtp_pass'				=> $CONF['smtp_pass'],
+			'smtp_ssl'				=> $CONF['smtp_ssl'],
+			'smtp_sendmail'			=> $CONF['smtp_sendmail'],
+			'ftp_server'			=> $CONF['ftp_server'],
+			'ftp_user_name'			=> $CONF['ftp_user_name'],
+			'ftp_user_pass'			=> $CONF['ftp_user_pass'],
+			'ftp_root_path'			=> $CONF['ftp_root_path'],
+			'ga_active'				=> $CONF['ga_active'],
+			'ga_key'				=> $CONF['ga_key'],
+			'bgm_active'			=> $CONF['bgm_active'],
+			'bgm_file'				=> $CONF['bgm_file'],
+			'capaktiv'				=> $CONF['capaktiv'],
+			'capprivate'			=> $CONF['capprivate'],
+			'cappublic'				=> $CONF['cappublic']
+		), true);
 	}
 	
 	$template	= new template();

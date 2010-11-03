@@ -132,6 +132,7 @@ class GalaxyRows
 		}
 
 		$Result = array(
+			'id'			=> $GalaxyRowPlanet['id'],
 			'name'			=> htmlspecialchars($GalaxyRowPlanet['name'],ENT_QUOTES,"UTF-8"),
 			'image'			=> $GalaxyRowPlanet['image'],
 			'phalax'		=> $PhalanxTypeLink,

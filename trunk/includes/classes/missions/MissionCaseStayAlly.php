@@ -29,21 +29,11 @@ class MissionCaseStayAlly extends MissionFunctions
 	function TargetEvent()
 	{	
 		global $db;
-		$Qry	= "SELECT name FROM ".PLANETS." 
-				   WHERE 
-				   `galaxy` = '". $this->_fleet['fleet_start_galaxy'] ."' AND
-				   `system` = '". $this->_fleet['fleet_start_system'] ."' AND
-				   `planet` = '". $this->_fleet['fleet_start_planet'] ."';";
-		$StartPlanet      = $db->uniquequery($Qry);
+		$StartPlanet      = $db->uniquequery("SELECT name FROM ".PLANETS." WHERE `id` = '". $this->_fleet['fleet_start_id'] ."';");
 		$StartName        = $StartPlanet['name'];
 		$StartOwner       = $this->_fleet['fleet_owner'];
 
-		$Qry	= "SELECT name FROM ".PLANETS."
-				   WHERE
-			  	   `galaxy` = '". $this->_fleet['fleet_end_galaxy'] ."' AND
-				   `system` = '". $this->_fleet['fleet_end_system'] ."' AND
-				   `planet` = '". $this->_fleet['fleet_end_planet'] ."';";
-		$TargetPlanet     = $db->uniquequery($Qry);
+		$TargetPlanet     = $db->uniquequery("SELECT name FROM ".PLANETS." WHERE `id` = '". $this->_fleet['fleet_end_id'] ."';");
 		$TargetName       = $TargetPlanet['name'];
 		$TargetOwner      = $this->_fleet['fleet_target_owner'];
 			

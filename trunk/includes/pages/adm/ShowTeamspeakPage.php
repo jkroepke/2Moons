@@ -38,13 +38,16 @@ function ShowTeamspeakPage() {
 		$CONF['ts_timeout']	= request_var('ts_to', 0);
 		$CONF['ts_version']	= request_var('ts_v', 0);
 		
-		update_config('ts_timeout'	, $CONF['ts_timeout']);
-		update_config('ts_modon'	, $CONF['ts_modon']);
-		update_config('ts_server'	, $CONF['ts_server']);
-		update_config('ts_tcpport'	, $CONF['ts_tcpport']);
-		update_config('ts_udpport'	, $CONF['ts_udpport']);
-		update_config('ts_version'	, $CONF['ts_version']);
-	}	$template	= new template();
+		update_config(array(
+			'ts_timeout'	=> $CONF['ts_timeout'],
+			'ts_modon'		=> $CONF['ts_modon'],
+			'ts_server'		=> $CONF['ts_server'],
+			'ts_tcpport'	=> $CONF['ts_tcpport'],
+			'ts_udpport'	=> $CONF['ts_udpport'],
+			'ts_version'	=> $CONF['ts_version']
+		), false, $_SESSION['adminuni']);
+	}
+	$template	= new template();
 	
 	$template->page_header();
 	$template->assign_vars(array(

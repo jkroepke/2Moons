@@ -254,7 +254,7 @@ class template
 	
 	public function set_index()
 	{
-		global $USER, $CONF, $LNG, $LANG;
+		global $USER, $CONF, $LNG, $LANG, $UNI;
 		$this->assign_vars(array(
 			'cappublic'			=> $CONF['cappublic'],
 			'servername' 		=> $CONF['game_name'],
@@ -281,6 +281,7 @@ class template
 			'bgm_file'			=> $CONF['bgm_file'],
 			'getajax'			=> request_var('getajax', 0),
 			'lang'				=> $LANG,
+			'UNI'				=> $UNI,
 		));
 	}
 		

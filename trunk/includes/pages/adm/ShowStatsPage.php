@@ -33,11 +33,12 @@ function ShowStatsPage()
 		$CONF['stat_banner_update_time']	= request_var('stat_banner_update_time', 0);
 		$CONF['stat_level']					= request_var('stat_level', 0);
 		
-		update_config('stat_settings',  $CONF['stat_settings']);
-		update_config('stat', $CONF['stat']);
-		update_config('stat_update_time',  $CONF['stat_update_time']);
-		update_config('stat_banner_update_time',  $CONF['stat_banner_update_time']);
-		update_config('stat_level',  $CONF['stat_level']);
+		update_config(array(
+			'stat_settings' =>  $CONF['stat_settings'], 
+			'stat' => $CONF['stat'],
+			'stat_update_time' => $CONF['stat_update_time'],
+			'stat_banner_update_time' => $CONF['stat_banner_update_time'],
+			'stat_level' => $CONF['stat_level']), true);
 		
 	}
 	

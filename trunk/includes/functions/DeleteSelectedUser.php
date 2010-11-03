@@ -23,7 +23,7 @@ function DeleteSelectedUser($UserID)
 {
 	global $db ,$CONF;
 	
-	$TheUser = $db->uniquequery("SELECT ally_id FROM ".USERS." WHERE `id` = '".$UserID."';");
+	$TheUser = $db->uniquequery("SELECT universe, ally_id FROM ".USERS." WHERE `id` = '".$UserID."';");
 	$SQL 	 = "";
 	
 	if ($TheUser['ally_id'] != 0 )
@@ -50,19 +50,49 @@ function DeleteSelectedUser($UserID)
 	$SQL .= "DELETE FROM ".USERS." WHERE `id` = '".$UserID."';";
 	$SQL .= "DELETE FROM ".STATPOINTS." WHERE `stat_type` = '1' AND `id_owner` = '".$UserID."';";
 	$db->multi_query($SQL);
-	update_config("users_amount", $CONF['users_amount'] - 1);
+	
+	$SQL	= $db->query("SELECT fleet_id FROM ".FLEETS." WHERE `fleet_target_owner` = '".$UserID."';");
+	while($SQL as $FleetID) {
+		SendFleetBack($UserID, $FleetID)
+	}
+	update_config(array('users_amount' => $CONF['users_amount'] - 1), $TheUser['universe']);
 }
-   
+
+function SendFleetBack($CurrentUser, $FleetID)
+{
+	global $db;	
+
+	$FleetRow = $db->uniquequery("SELECT `start_time`, `fleet_mission`, `fleet_group`, `fleet_owner`, `fleet_mess` FROM ".FLEETS." WHERE `fleet_id` = '". $FleetID ."';");
+	if ($FleetRow['fleet_owner'] != $CurrentUser || $FleetRow['fleet_mess'] == 1)
+		return;
+		
+	$where		= 'fleet_id';
+
+	if($FleetRow['fleet_mission'] == 1 && $FleetRow['fleet_group'] > 0)
+	{
+		$Aks = $db->uniquequery("SELECT teilnehmer FROM ".AKS." WHERE id = '". $FleetRow['fleet_group'] ."';");
+
+		if($Aks['teilnehmer'] == $FleetRow['fleet_owner'])
+		{
+			$db->query("DELETE FROM ".AKS." WHERE id ='". $FleetRow['fleet_group'] ."';");
+			$FleetID	= $FleetRow['fleet_group'];
+			$where		= 'fleet_group';
+		}
+	}
+	
+	$db->query("UPDATE ".FLEETS." SET `fleet_group` = '0', `start_time` = '".TIMESTAMP."', `fleet_end_stay` = '".TIMESTAMP."', `fleet_end_time` = '".((TIMESTAMP - $FleetRow['start_time']) + TIMESTAMP)."', `fleet_mess` = '1' WHERE `".$where."` = '".$FleetID."';");
+}
+
 function DeleteSelectedPlanet ($ID)
 {
 	global $db;
 
-	$QueryPlanet = $db->uniquequery("SELECT galaxy,planet,system,planet_type FROM ".PLANETS." WHERE id = '".$ID."';");
+	$QueryPlanet = $db->uniquequery("SELECT universe,galaxy,planet,system,planet_type FROM ".PLANETS." WHERE id = '".$ID."';");
 
 	if ($QueryPlanet['planet_type'] == '3')
 		$db->multi_query("DELETE FROM ".PLANETS." WHERE id = '".$ID."';UPDATE ".PLANETS." SET id_luna = '0' WHERE id_luna = '".$ID."';");
 	else
-		$db->query("DELETE FROM ".PLANETS." WHERE galaxy = '".$QueryPlanet['galaxy']."' AND system = '".$QueryPlanet['system']."' AND planet = '".$QueryPlanet['planet']."';");
+		$db->query("DELETE FROM ".PLANETS." WHERE universe = '".$QueryPlanet['universe']."' AND galaxy = '".$QueryPlanet['galaxy']."' AND system = '".$QueryPlanet['system']."' AND planet = '".$QueryPlanet['planet']."';");
 }
 
 ?>

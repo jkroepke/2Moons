@@ -32,7 +32,7 @@
 <tr><th style="text-align:left">{$re_reset_messages}</th><th style="text-align:right"><input type="checkbox" name="messages"></th></tr>
 <tr><th style="text-align:left">{$re_reset_statpoints}</th><th style="text-align:right"><input type="checkbox" name="statpoints"></th></tr>
 
-<tr><td class="c" style="text-align:left;color:#FF0000;">{$re_reset_all}</td><td class="c" style="text-align:right;margin-right:2px;padding-right:5px;width:10px;"><input type="checkbox" name="resetall"></td></tr>
+<tr><td class="c" style="text-align:left;color:#FF0000;">{$re_reset_all}</td><td class="c" style="text-align:right;margin-right:2px;padding-right:5px;width:10px;"><input type="checkbox" name="resetall" onclick="$('input').attr('checked', 'checked');"></td></tr>
 
 
 <tr><th colspan="2" height="60"><input type="submit" value="{$button_submit}"></th></tr>

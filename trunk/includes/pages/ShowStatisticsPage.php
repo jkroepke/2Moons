@@ -23,7 +23,7 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 
 function ShowStatisticsPage()
 {
-	global $USER, $PLANET, $CONF, $dpath, $LNG, $db;
+	global $USER, $PLANET, $CONF, $dpath, $LNG, $db, $UNI;
 	
 	$PlanetRess = new ResourceUpdate();
 	$PlanetRess->CalcResource();
@@ -82,9 +82,9 @@ function ShowStatisticsPage()
 	switch($who)
 	{
 		case 1:
-			$MaxUsers 	= $db->uniquequery("SELECT COUNT(*) AS `count` FROM ".USERS." WHERE `db_deaktjava` = '0';");
-			$range		= min($range, $MaxUsers['count']);			
-			$LastPage 	= ceil($MaxUsers['count'] / 100);
+			$MaxUsers 	= $db->countquery("SELECT COUNT(*) FROM ".USERS." WHERE `universe` = '".$UNI."' AND `db_deaktjava` = '0';");
+			$range		= min($range, $MaxUsers);			
+			$LastPage 	= ceil($MaxUsers / 100);
 			
 			for ($Page = 0; $Page < $LastPage; $Page++)
 			{
@@ -97,7 +97,7 @@ function ShowStatisticsPage()
 
 			$stats_sql	=	'SELECT DISTINCT s.*, u.id, u.username, u.ally_id, u.ally_name FROM '.STATPOINTS.' as s
 			INNER JOIN '.USERS.' as u ON u.id = s.id_owner
-			WHERE s.`stat_type` = 1 '.(($CONF['stat'] == 2)?'AND u.`authlevel` < '.$CONF['stat_level'].' ':'').'
+			WHERE s.`universe` = '.$UNI.' AND s.`stat_type` = 1 '.(($CONF['stat'] == 2)?'AND u.`authlevel` < '.$CONF['stat_level'].' ':'').'
 			ORDER BY `'. $Order .'` ASC LIMIT '. $start .',100;';
 
 			$query = $db->query($stats_sql);
@@ -118,9 +118,9 @@ function ShowStatisticsPage()
 			$db->free_result($query);
 		break;
 		case 2:
-			$MaxAllys 	= $db->uniquequery("SELECT COUNT(*) AS `count` FROM ".ALLIANCE.";");
-			$range		= min($range, $MaxAllys['count']);
-			$LastPage 	= ceil($MaxAllys['count'] / 100);
+			$MaxAllys 	= $db->countquery("SELECT COUNT(*) FROM ".ALLIANCE." WHERE `ally_universe` = "'.$UNI.'";");
+			$range		= min($range, $MaxAllys);
+			$LastPage 	= ceil($MaxAllys / 100);
 			for ($Page = 0; $Page < $LastPage; $Page++)
 			{
 				$PageValue      				= ($Page * 100) + 1;
@@ -132,7 +132,7 @@ function ShowStatisticsPage()
 
 			$stats_sql	=	'SELECT DISTINCT s.*, a.id, a.ally_members, a.ally_name FROM '.STATPOINTS.' as s
 			INNER JOIN '.ALLIANCE.' as a ON a.id = s.id_owner
-			WHERE `stat_type` = 2
+			WHERE `universe` = '.$UNI.' AND `stat_type` = 2
 			ORDER BY `'. $Order .'` ASC LIMIT '. $start .',100;';
 
 			$query = $db->query($stats_sql);

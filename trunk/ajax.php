@@ -88,7 +88,7 @@ switch($action)
 			exit($LNG['fl_error_same_planet']);
 		
 		if ($TargetPlanet != 16) {
-			$Data	= $db->uniquequery("SELECT u.`urlaubs_modus`, p.`id_level`, p.`destruyed`, p.`der_metal`, p.`der_crystal`, p.`destruyed` FROM ".USERS." as u, ".PLANETS." as p WHERE p.`galaxy` = '".$TargetGalaxy."' AND p.`system` = '".$TargetSystem."' AND p.`planet` = '".$TargetPlanet."'  AND p.`planet_type` = '".(($TargetPlanettype == 2) ? 1 : $TargetPlanettype)."' AND `u`.`id` = p.`id_owner`;");
+			$Data	= $db->uniquequery("SELECT u.`urlaubs_modus`, p.`id_level`, p.`destruyed`, p.`der_metal`, p.`der_crystal`, p.`destruyed` FROM ".USERS." as u, ".PLANETS." as p WHERE p.universe = '".$UNI."' AND p.`galaxy` = '".$TargetGalaxy."' AND p.`system` = '".$TargetSystem."' AND p.`planet` = '".$TargetPlanet."'  AND p.`planet_type` = '".(($TargetPlanettype == 2) ? 1 : $TargetPlanettype)."' AND `u`.`id` = p.`id_owner`;");
 			if ($TargetPlanettype == 3 && !isset($Data))
 				exit($LNG['fl_error_no_moon']);
 			elseif ($Data['urlaubs_modus'])
@@ -124,8 +124,8 @@ switch($action)
 		$password =	request_var('password', '', true);
 		if (!empty($password))
 		{
-			$USER		= $db->uniquequery("SELECT u.`password`, u.`id_planet`, p.`galaxy`, p.`system`, p.`planet`, p.`planet_type`, p.`id_luna` FROM ".USERS." as u, ".PLANETS." as p WHERE p.`id` = '".$_SESSION['planet']."' AND u.`id` = '".$_SESSION['id']."';");
-			$IfFleets	= $db->uniquequery("SELECT COUNT(*) as state FROM ".FLEETS." WHERE (`fleet_owner` = '".$_SESSION['id']."' AND `fleet_start_galaxy` = '".$USER['galaxy']."' AND `fleet_start_system` = '".$USER['system']."' AND `fleet_start_planet` = '".$USER['planet']."') OR (`fleet_target_owner` = '".$_SESSION['id']."' AND `fleet_end_galaxy` = '".$USER['galaxy']."' AND `fleet_end_system` = '".$USER['system']."' AND `fleet_end_planet` = '".$USER['planet']."');");
+			$USER		= $db->uniquequery("SELECT u.`password`, u.`id_planet`, p.`planet_type`, p.`id_luna` FROM ".USERS." as u, ".PLANETS." as p WHERE p.`id` = '".$_SESSION['planet']."' AND u.`id` = '".$_SESSION['id']."';");
+			$IfFleets	= $db->uniquequery("SELECT COUNT(*) as state FROM ".FLEETS." WHERE (`fleet_owner` = '".$_SESSION['id']."' AND `fleet_start_id` = '".$_SESSION['planet']."') OR (`fleet_target_owner` = '".$_SESSION['id']."' AND `fleet_end_id` = '".$_SESSION['planet']."');");
 			
 			if ($IfFleets['state'] > 0)
 				exit(json_encode(array('mess' => $LNG['ov_abandon_planet_not_possible'])));

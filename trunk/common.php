@@ -72,14 +72,17 @@ unset($database);
 
 if (INSTALL != true)
 {
-	$cfgresult = $db->query("SELECT HIGH_PRIORITY * FROM `".CONFIG."`;");
-
-	while ($row = $db->fetch_array($cfgresult))
-	{
-		$CONF[$row['config_name']] = $row['config_value'];
-	}
-	$db->free_result($cfgresult);
-	
+	if(!isset($_SESSION['uni'])) {
+		if(UNIS_WILDCAST) {
+			$UNI	= explode('.', $_SERVER['HTTP_HOST']);
+			$UNI	= substr($UNI[0], 0, 3) == 'uni' ? substr($UNI[0], 3) : 1;
+		} else {
+			$UNI	= 1;
+		}
+	} else {
+		$UNI	= $_SESSION['uni'];
+	}	
+	$CONF = $db->uniquequery("SELECT HIGH_PRIORITY * FROM `".CONFIG."` WHERE `uni` = '".$UNI."';");
 	$CONF['moduls']		= explode(";", $CONF['moduls']);
 	define('VERSION'		, $CONF['VERSION']);
 	if (!defined('LOGIN') && !defined('IN_CRON') && !defined('AJAX'))
@@ -92,12 +95,12 @@ if (INSTALL != true)
 		
 		if($CONF['game_disable'] == 0 && $_SESSION['authlevel'] == 0)
 		{
-			trigger_error($CONF['close_reason'], E_USER_NOTICE);
+			message($CONF['close_reason']);
 		}
 		
 		if(request_var('ajax', 0) == 0 && !defined('IN_ADMIN'))
 		{	
-			update_config('stats_fly_lock', TIMESTAMP);
+			update_config(array('stats_fly_lock' => TIMESTAMP), true);
 			$db->query("LOCK TABLE ".AKS." WRITE, ".RW." WRITE, ".MESSAGES." WRITE, ".FLEETS." WRITE, ".PLANETS." WRITE, ".PLANETS." as p WRITE, ".TOPKB." WRITE, ".USERS." WRITE, ".USERS." as u WRITE, ".STATPOINTS." WRITE;");
 			
 			$FLEET = $db->query("SELECT * FROM ".FLEETS." WHERE (`fleet_start_time` <= '". TIMESTAMP ."' AND `fleet_mess` = '0') OR (`fleet_end_time` <= '". TIMESTAMP ."' AND `fleet_mess` = '1') OR (`fleet_end_stay` <= '". TIMESTAMP ."' AND `fleet_mess` = '2') ORDER BY `fleet_start_time` ASC;");
@@ -109,10 +112,9 @@ if (INSTALL != true)
 			}
 			$db->free_result($FLEET);
 			$db->query("UNLOCK TABLES");  
-			update_config('stats_fly_lock', 0);
-		}
-		elseif (TIMESTAMP >= ($CONF['stats_fly_lock'] + (60 * 5))){
-			update_config('stats_fly_lock', 0);
+			update_config(array('stats_fly_lock' => 0), true);
+		} elseif (TIMESTAMP >= ($CONF['stats_fly_lock'] + (60 * 5))) {
+			update_config(array('stats_fly_lock' => 0), true);
 		}
 				
 		$USER	= $db->uniquequery("SELECT u.*, s.`total_points`, s.`total_rank` FROM ".USERS." as u LEFT JOIN ".STATPOINTS." as s ON s.`id_owner` = u.`id` AND s.`stat_type` = '1' WHERE u.`id` = '".$_SESSION['id']."';");

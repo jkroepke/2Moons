@@ -31,7 +31,7 @@ function ShowAccountDataPage()
 	$id_u	= request_var('id_u', 0);
 	if (!empty($id_u))
 	{
-		$OnlyQueryLogin 	= $db->uniquequery("SELECT `id`, `authlevel` FROM ".USERS." WHERE `id` = '".$id_u."';");
+		$OnlyQueryLogin 	= $db->uniquequery("SELECT `id`, `authlevel` FROM ".USERS." WHERE `id` = '".$id_u."' AND `universe` = '".$_SESSION['adminuni']."';");
 
 		if(!isset($OnlyQueryLogin))
 		{
@@ -528,7 +528,7 @@ function ShowAccountDataPage()
 		exit;
 	}
 	$Userlist	= "";
-	$UserWhileLogin	= $db->query("SELECT `id`, `username`, `authlevel` FROM ".USERS." WHERE `authlevel` <= '".$USER['authlevel']."' ORDER BY `username` ASC;");
+	$UserWhileLogin	= $db->query("SELECT `id`, `username`, `authlevel` FROM ".USERS." WHERE `authlevel` <= '".$USER['authlevel']."' AND `universe` = '".$_SESSION['adminuni']."' ORDER BY `username` ASC;");
 	while($UserList	= $db->fetch_array($UserWhileLogin))
 	{
 		$Userlist	.= "<option value=\"".$UserList['id']."\">".$UserList['username']."&nbsp;&nbsp;(".$LNG['rank'][$UserList['authlevel']].")</option>";

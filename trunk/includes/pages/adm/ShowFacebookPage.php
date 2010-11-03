@@ -33,9 +33,11 @@ function ShowFacebookPage() {
 		$CONF['fb_apikey']	= request_var('fb_apikey', '');
 		$CONF['fb_skey'] 	= request_var('fb_skey', '');
 	
-		update_config('fb_on'		, $CONF['fb_on']);
-		update_config('fb_apikey'	, $CONF['fb_apikey']);
-		update_config('fb_skey'		, $CONF['fb_skey']);
+		update_config(array(
+			'fb_on'		=> $CONF['fb_on'],
+			'fb_apikey'	=> $CONF['fb_apikey'],
+			'fb_skey'	=> $CONF['fb_skey']
+		), true);
 	}
 	
 	$template	= new template();

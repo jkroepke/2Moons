@@ -47,12 +47,12 @@ function ShowMessageListPage()
 	}
 
 	if ($Selected < 100)
-		$Mess      = $db->uniquequery("SELECT COUNT(*) AS `max` FROM ".MESSAGES." WHERE `message_type` = '". $Selected ."';");
+		$Mess      = $db->countquery("SELECT COUNT(*) FROM ".MESSAGES." WHERE `message_type` = '".$Selected."' AND `message_universe` = '".$_SESSION['adminuni']."';;");
 	elseif ($Selected == 100)
-		$Mess      = $db->uniquequery("SELECT COUNT(*) AS `max` FROM ".MESSAGES.";");
+		$Mess      = $db->countquery("SELECT COUNT(*) FROM ".MESSAGES." WHERE `message_universe` = '".$_SESSION['adminuni']."';;");
 	
 	
-	$MaxPage   = ceil($Mess['max'] / 25);
+	$MaxPage   = ceil($Mess / 25);
 
 	if($Prev   == true)
 	{
@@ -106,9 +106,9 @@ function ShowMessageListPage()
 
 	$StartRec            = (($ViewPage - 1) * 25);
 	if ($Selected < 100)
-		$Messages            = $db->query("SELECT u.username, m.* FROM ".MESSAGES." as m, ".USERS." as u WHERE `message_type` = '". $Selected ."' AND m.`message_owner` = u.`id` ORDER BY `message_time` DESC LIMIT ". $StartRec .",25;");
+		$Messages            = $db->query("SELECT u.username, m.* FROM ".MESSAGES." as m, ".USERS." as u WHERE m.`message_type` = '". $Selected ."' AND m.`message_owner` = u.`id` AND `message_universe` = '".$_SESSION['adminuni']."' ORDER BY `message_time` DESC LIMIT ". $StartRec .",25;");
 	elseif ($Selected == 100)
-		$Messages            = $db->query("SELECT u.username, m.* FROM ".MESSAGES." as m, ".USERS." as u WHERE m.`message_owner` = u.`id` ORDER BY `message_time` DESC LIMIT ". $StartRec .",25;");
+		$Messages            = $db->query("SELECT u.username, m.* FROM ".MESSAGES." as m, ".USERS." as u WHERE m.`message_owner` = u.`id` AND m.`message_universe` = '".$_SESSION['adminuni']."' ORDER BY `message_time` DESC LIMIT ". $StartRec .",25;");
 
 	while($row = $db->fetch_array($Messages))
 	{

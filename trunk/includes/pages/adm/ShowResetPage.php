@@ -28,14 +28,7 @@ function ShowResetPage()
 	$template	= new template();
 	$template->page_header();
 	if ($_POST)
-	{
-		if ($_POST['resetall'] == 'on')
-		{
-			ResetUniverse();
-			$template->message($LNG['re_reset_excess'], '?page=reset&sid='.session_id(), 3);
-			exit;
-		}
-		
+	{		
 		foreach($reslist['build'] as $ID)
 		{
 			$dbcol['build'][$ID]	= "`".$resource[$ID]."` = '0'";
@@ -62,35 +55,35 @@ function ShowResetPage()
 		
 		// HANGARES Y DEFENSAS
 		if ($_POST['defenses']	==	'on')
-			$db->query("UPDATE ".PLANETS." SET ".implode(", ",$dbcol['defense']).";");
+			$db->query("UPDATE ".PLANETS." SET ".implode(", ",$dbcol['defense'])." AND `universe` = '".$_SESSION['adminuni']."';");
 	
 		if ($_POST['ships']	==	'on')
-			$db->query("UPDATE ".PLANETS." SET ".implode(", ",$dbcol['fleet']).";");
+			$db->query("UPDATE ".PLANETS." SET ".implode(", ",$dbcol['fleet'])." AND `universe` = '".$_SESSION['adminuni']."';");
 	
 		if ($_POST['h_d']	==	'on')
-			$db->query("UPDATE ".PLANETS." SET `b_hangar` = '0', `b_hangar_plus` = '0', `b_hangar_id` = ''");
+			$db->query("UPDATE ".PLANETS." SET `b_hangar` = '0', `b_hangar_plus` = '0', `b_hangar_id` = '' AND `universe` = '".$_SESSION['adminuni']."';");
 	
 
 		// EDIFICIOS
 		if ($_POST['edif_p']	==	'on')
-			$db->query("UPDATE ".PLANETS." SET ".implode(", ",$dbcol['build'])." WHERE `planet_type` = '1';");
+			$db->query("UPDATE ".PLANETS." SET ".implode(", ",$dbcol['build'])." WHERE `planet_type` = '1' AND `universe` = '".$_SESSION['adminuni']."';");
 	
 		if ($_POST['edif_l']	==	'on')
-			$db->query("UPDATE ".PLANETS." SET ".implode(", ",$dbcol['build'])." WHERE `planet_type` = '3';");
+			$db->query("UPDATE ".PLANETS." SET ".implode(", ",$dbcol['build'])." WHERE `planet_type` = '3' AND `universe` = '".$_SESSION['adminuni']."';");
 	
 		if ($_POST['edif']	==	'on')
-			$db->query("UPDATE ".PLANETS." SET `b_building` = '0', `b_building_id` = '';");
+			$db->query("UPDATE ".PLANETS." SET `b_building` = '0', `b_building_id` = '' AND `universe` = '".$_SESSION['adminuni']."';");
 	
 
 		// INVESTIGACIONES Y OFICIALES
 		if ($_POST['inves']	==	'on')
-			$db->query("UPDATE ".USERS." SET ".implode(", ",$dbcol['tech']).";");
+			$db->query("UPDATE ".USERS." SET ".implode(", ",$dbcol['tech'])." AND `universe` = '".$_SESSION['adminuni']."';");
 	
 		if ($_POST['ofis']	==	'on')
-			$db->query("UPDATE ".USERS." SET ".implode(", ",$dbcol['officier']).";");
+			$db->query("UPDATE ".USERS." SET ".implode(", ",$dbcol['officier'])." AND `universe` = '".$_SESSION['adminuni']."';");
 	
 		if ($_POST['inves_c']	==	'on')
-			$db->query("UPDATE ".USERS." SET `b_tech_planet` = '0', `b_tech` = '0', `b_tech_id` = '0';");
+			$db->query("UPDATE ".USERS." SET `b_tech_planet` = '0', `b_tech` = '0', `b_tech_id` = '0' AND `universe` = '".$_SESSION['adminuni']."';");
 	
 	
 		// RECURSOS
@@ -98,21 +91,21 @@ function ShowResetPage()
 			$db->query("UPDATE ".USERS." SET `darkmatter` = '0';");
 	
 		if ($_POST['resources']	==	'on')
-			$db->query("UPDATE ".PLANETS." SET `metal` = '0', `crystal` = '0', `deuterium` = '0';");
+			$db->query("UPDATE ".PLANETS." SET `metal` = '0', `crystal` = '0', `deuterium` = '0' AND `universe` = '".$_SESSION['adminuni']."';");
 	
 		// GENERAL
 		if ($_POST['notes']	==	'on')
 			$db->query("TRUNCATE TABLE ".NOTES.";");
 
 		if ($_POST['rw']	==	'on'){
-			$TKBRW			= $db->query("SELECT `rid` FROM ".TOPKB.";");
+			$TKBRW			= $db->query("SELECT `rid` FROM ".TOPKB." AND `universe` = '".$_SESSION['adminuni']."';");
 		
 			if(isset($TKBRW))
 			{
 				while($RID = $db->fetch_array($TKBRW)) {
 					@unlink(ROOT_PATH.'raports/topkb_'.$RID['rid'].'.php');
 				}
-				$db->query("TRUNCATE TABLE ".RW.";");		
+				$db->query("TRUNCATE TABLE ".TOBKB.";");		
 			}
 		}
 
@@ -120,26 +113,26 @@ function ShowResetPage()
 			$db->query("TRUNCATE TABLE ".BUDDY.";");
 
 		if ($_POST['alliances']	==	'on'){
-			$db->query("TRUNCATE TABLE ".ALLIANCE.";");
-			$db->query("UPDATE ".USERS." SET `ally_id` = '0', `ally_name` = '', `ally_request` = '0', `ally_request_text` = 'NULL', `ally_register_time` = '0', `ally_rank_id` = '0';");}
+			$db->query("DELETE FROM ".ALLIANCE." AND `ally_universe` = '".$_SESSION['adminuni']."';");
+			$db->query("UPDATE ".USERS." SET `ally_id` = '0', `ally_name` = '', `ally_request` = '0', `ally_request_text` = 'NULL', `ally_register_time` = '0', `ally_rank_id` = '0' WHERE `universe` = '".$_SESSION['adminuni']."';");}
 
 		if ($_POST['fleets']	==	'on')
-			$db->query( "TRUNCATE TABLE ".FLEETS.";");
+			$db->query("DELETE FROM ".FLEETS." WHERE `fleetuniverse` = '".$_SESSION['adminuni']."';");
 
 		if ($_POST['banneds']	==	'on'){
-			$db->query("TRUNCATE TABLE ".BANNED.";");
-			$db->query("UPDATE ".USERS." SET `bana` = '0', `banaday` = '0';");}
+			$db->query("DELETE FROM ".BANNED." WHERE `universe` = '".$_SESSION['adminuni']."';");
+			$db->query("UPDATE ".USERS." SET `bana` = '0', `banaday` = '0' WHERE `universe` = '".$_SESSION['adminuni']."';");}
 
 		if ($_POST['messages']	==	'on'){
-			$db->query("TRUNCATE TABLE ".MESSAGES.";");
-			$db->query("UPDATE ".USERS." SET `new_message` = '0';");}
+			$db->query("DELETE FROM ".MESSAGES." WHERE `message_universe` = '".$_SESSION['adminuni']."';");
+			$db->query("UPDATE ".USERS." SET `new_message` = '0' WHERE `universe` = '".$_SESSION['adminuni']."';");}
 
 		if ($_POST['statpoints']	==	'on'){
-			$db->query("TRUNCATE TABLE ".STATPOINTS.";");}
+			$db->query("DELETE FROM ".STATPOINTS." WHERE `universe` = '".$_SESSION['adminuni']."';");}
 
 		if ($_POST['moons']	==	'on'){
-			$db->query("DELETE FROM ".PLANETS." WHERE `planet_type` = '3';");
-			$db->query("UPDATE ".PLANETS." SET `id_luna` = '0';");}
+			$db->query("DELETE FROM ".PLANETS." WHERE `planet_type` = '3' AND `universe` = '".$_SESSION['adminuni']."';");
+			$db->query("UPDATE ".PLANETS." SET `id_luna` = '0' WHERE `universe` = '".$_SESSION['adminuni']."';");}
 
 		$template->message($LNG['re_reset_excess'], '?page=reset&sid='.session_id(), 3);
 		exit;
@@ -177,93 +170,6 @@ function ShowResetPage()
 	));
 	
 	$template->show('adm/ResetPage.tpl');
-}
-
-
-function ResetUniverse()
-{
-	global $db, $USER;
-	$db->query("RENAME TABLE ".PLANETS." TO ".PLANETS."_s;");
-	$db->query("RENAME TABLE ".USERS." TO ".USERS."_s;");
-
-	$db->query("CREATE TABLE IF NOT EXISTS ".PLANETS." ( LIKE ".PLANETS."_s );");
-	$db->query("CREATE TABLE IF NOT EXISTS ".USERS." ( LIKE ".USERS."_s );");
-	
-	$DelRW	= $db->query("SELECT `rid` FROM ".RW.";");
-		
-	if(isset($DelRW))
-	{
-		while($RID = $db->fetch_array($DelRW)) {
-			@unlink(ROOT_PATH.'raports/raport_'.$RID['rid'].'.php');
-		}
-	}
-	$db->free_result($DelRW);
-	
-	$TKBRW			= $db->query("SELECT `rid` FROM ".TOPKB.";");
-		
-	if(isset($TKBRW))
-	{
-		while($RID = $db->fetch_array($TKBRW)) {
-			@unlink(ROOT_PATH.'raports/topkb_'.$RID['rid'].'.php');
-		}	
-	}
-	$db->free_result($TKBRW);
-	
-	$db->query("TRUNCATE TABLE ".AKS.";");
-	$db->query("TRUNCATE TABLE ".ALLIANCE.";");
-	$db->query("TRUNCATE TABLE ".BANNED.";");
-	$db->query("TRUNCATE TABLE ".BUDDY.";");
-	$db->query("TRUNCATE TABLE ".FLEETS.";");
-	$db->query("TRUNCATE TABLE ".MESSAGES.";");
-	$db->query("TRUNCATE TABLE ".NOTES.";");
-	$db->query("TRUNCATE TABLE ".RW.";");
-	$db->query("TRUNCATE TABLE ".SUPP.";");
-	$db->query("TRUNCATE TABLE ".SESSION.";");
-	$db->query("TRUNCATE TABLE ".STATPOINTS.";");
-	$db->query("TRUNCATE TABLE ".TOPKB.";");
-
-	$AllUsers  = $db->query ("SELECT `username`,`password`,`email`, `email_2`,`authlevel`,`rights`,`galaxy`,`system`,`planet`, `dpath`, `onlinetime`, `register_time`, `id_planet` FROM ".USERS."_s;");
-	$LimitTime = TIMESTAMP - (30 * (24 * (60 * 60)));
-	$TransUser = 0;
-		
-	require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.'.PHP_EXT);
-			
-	while ( $TheUser = $db->fetch_array($AllUsers) )
-	{
-		if ($TheUser['onlinetime'] <= $LimitTime )
-			continue;
-			
-		$SQL  = "INSERT INTO ".USERS." SET ";
-		$SQL .= "`username` = '".      $TheUser['username']      ."', ";
-		$SQL .= "`email` = '".         $TheUser['email']         ."', ";
-		$SQL .= "`email_2` = '".       $TheUser['email_2']       ."', ";
-		$SQL .= "`id_planet` = '0', ";
-		$SQL .= "`authlevel` = '".     $TheUser['authlevel']     ."', ";
-		$SQL .= "`rights` = '".        $TheUser['rights']        ."', ";
-		$SQL .= "`dpath` = '".         $TheUser['dpath']         ."', ";
-		$SQL .= "`galaxy` = '".        $TheUser['galaxy']        ."', ";
-		$SQL .= "`system` = '".        $TheUser['system']        ."', ";
-		$SQL .= "`planet` = '".        $TheUser['planet']        ."', ";
-		$SQL .= "`register_time` = '". $TheUser['register_time'] ."', ";
-		$SQL .= "`onlinetime` = '".    TIMESTAMP."', ";
-		$SQL .= "`password` = '".      $TheUser['password']      ."';";
-		$db->query($SQL);
-
-		$NewUser        = $db->uniquequery("SELECT `id` FROM ".USERS." WHERE `username` = '". $TheUser['username'] ."' LIMIT 1;");
-		$UserPlanet     = $db->uniquequery("SELECT `name` FROM ".PLANETS."_s WHERE `id` = '". $TheUser['id_planet']."';");
-
-		CreateOnePlanetRecord($TheUser['galaxy'], $TheUser['system'], $TheUser['planet'], $NewUser['id'], $UserPlanet['name'], true, $TheUser['authlevel']);
-
-		$PlanetID       = $db->uniquequery("SELECT `id` FROM ".PLANETS." WHERE `id_owner` = '". $NewUser['id'] ."' LIMIT 1;");
-
-		$SQL  = "UPDATE ".USERS." SET `id_planet` = '". $PlanetID['id']."' WHERE `id` = '".$NewUser['id']."';";
-		$db->query($SQL);
-		$TransUser++;
-	}
-		
-	$db->query("UPDATE ".CONFIG." SET `config_value` = '". $TransUser ."' WHERE `config_name` = 'users_amount' LIMIT 1;");
-	$db->query("DROP TABLE ".PLANETS."_s;");
-	$db->query("DROP TABLE ".USERS."_s;");
 }
 
 ?>

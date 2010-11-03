@@ -17,7 +17,7 @@ class FlyingFleetsTable
 		global $LNG, $db;
 		$Table	= array();
 		
-		$FlyingFleets = $db->query("SELECT * FROM ".FLEETS." ORDER BY `fleet_end_time` ASC;");
+		$FlyingFleets = $db->query("SELECT * FROM ".FLEETS." WHERE `fleeT_universe` = '".$_SESSION['adminuni']."' ORDER BY `fleet_end_time` ASC;");
 
 		while ($CurrentFleet = $db->fetch_array($FlyingFleets))
 		{
@@ -157,8 +157,8 @@ class FlyingFleetsTable
 		tp.name as target_planetname
 		FROM ".USERS." as ou
 		LEFT JOIN ".USERS." tu ON tu.id = '".$FleetRow['fleet_target_owner']."'
-		LEFT JOIN ".PLANETS." op ON op.`galaxy` = '".$FleetRow['fleet_start_galaxy']."' AND op.`system` = '".$FleetRow['fleet_start_system']."' AND op.`planet` = '".$FleetRow['fleet_start_planet']."' AND op.`planet_type` = '".$FleetRow['fleet_start_type']."'
-		LEFT JOIN ".PLANETS." tp ON tp.`galaxy` = '".$FleetRow['fleet_end_galaxy']."' AND tp.`system` = '".$FleetRow['fleet_end_system']."' AND tp.`planet` = '".$FleetRow['fleet_end_planet']."' AND tp.`planet_type` = '".$FleetRow['fleet_end_type']."'
+		LEFT JOIN ".PLANETS." op ON op.`id` = '".$FleetRow['fleet_start_id']."'
+		LEFT JOIN ".PLANETS." tp ON tp.`id` = '".$FleetRow['fleet_end_id']."'
 		WHERE ou.id = '".$FleetRow['fleet_owner']."';");
 	}
        

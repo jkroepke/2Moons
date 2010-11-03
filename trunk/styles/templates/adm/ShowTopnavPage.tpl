@@ -1,6 +1,11 @@
 {include file="adm/overall_header.tpl"}
 <div style="font-size:22px;font-weight:bolder;font-variant:small-caps;text-align:center;width:100%;">{$adm_cp_title}</div><br><br>
 <div align="right">
+{if $authlevel == $smarty.const.AUTH_ADM}
+<select name="Uni" id="Uni" onselect="top.location = 'admin.php?page={$smarty.get.page}&uni='+$(this).val();">
+{html_options options=$AvailableUnis selected=$UNI}
+</select>
+{/if}
 <a href="admin.php?page=overview" target="Hauptframe" class="topn">&nbsp;{$adm_cp_index}&nbsp;</a>
 {if $authlevel == $smarty.const.AUTH_ADM}
 <a href="?page=rights&amp;mode=rights&amp;sid={$sid}" target="Hauptframe" class="topn">&nbsp;{$mu_moderation_page}&nbsp;</a>

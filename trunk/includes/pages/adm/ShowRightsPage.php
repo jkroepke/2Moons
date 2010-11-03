@@ -76,7 +76,7 @@ function ShowRightsPage()
 				$WHEREUSERS	=	"WHERE `authlevel` = '0'";			
 				
 				
-			$QueryUsers	=	$db->query("SELECT `id`, `username`, `authlevel` FROM ".USERS." ".$WHEREUSERS.";");
+			$QueryUsers	=	$db->query("SELECT `id`, `username`, `authlevel` FROM ".USERS." ".$WHEREUSERS." AND `universe` = '".$_SESSION['adminuni']."';");
 				
 			$UserList	= "";
 			while ($List = $db->fetch_array($QueryUsers)) {
@@ -136,7 +136,7 @@ function ShowRightsPage()
 				$WHEREUSERS	=	"WHERE `authlevel` = '0'";			
 				
 				
-			$QueryUsers	=	$db->query("SELECT `id`, `username`, `authlevel` FROM ".USERS." ".$WHEREUSERS.";");
+			$QueryUsers	=	$db->query("SELECT `id`, `username`, `authlevel` FROM ".USERS." ".$WHEREUSERS." AND `universe` = '".$_SESSION['adminuni']."';");
 				
 			$UserList	= "";
 			while ($List = $db->fetch_array($QueryUsers)) {

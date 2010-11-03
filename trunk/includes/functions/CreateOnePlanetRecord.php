@@ -19,7 +19,7 @@
 # *																			 #
 ##############################################################################
 
-function CreateOnePlanetRecord($Galaxy, $System, $Position, $PlanetOwnerID, $PlanetName = '', $HomeWorld = false, $AuthLevel = 0)
+function CreateOnePlanetRecord($Galaxy, $System, $Position, $Universe, $PlanetOwnerID, $PlanetName = '', $HomeWorld = false, $AuthLevel = 0)
 {
 	global $LNG, $db, $CONF;
 
@@ -35,7 +35,7 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $PlanetOwnerID, $Pla
 		throw new Exception("Access denied for CreateOnePlanetRecord.php.<br>Try to create a planet at position:".$Galaxy.":".$System.":".$Position);
 	}
 	
-	if (CheckPlanetIfExist($Galaxy, $System, $Position)) {
+	if (CheckPlanetIfExist($Galaxy, $System, $Position, $UNI)) {
 		return false;
 	}
 
@@ -176,6 +176,7 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $PlanetOwnerID, $Pla
 	if($CONF['adm_attack'] == 0)
 		$AuthLevel = 0;
 	
+	$SQL .= "`universe` = '".$Universe."', ";
 	$SQL .= "`id_owner` = '".$PlanetOwnerID."', ";
 	$SQL .= "`id_level` = '".$AuthLevel."', ";
 	$SQL .= "`galaxy` = '".$Galaxy."', ";

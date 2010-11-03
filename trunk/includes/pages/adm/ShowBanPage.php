@@ -34,7 +34,7 @@ function ShowBanPage()
 	if ($_GET['view'] == 'bana')
 		$WHEREBANA	= "AND `bana` = '1'";
 
-	$UserList		= $db->query("SELECT `username`, `id`, `bana` FROM ".USERS." WHERE `id` != 1 AND `authlevel` <= '".$USER['authlevel']."' ".$WHEREBANA." ORDER BY ".$ORDER." ASC;");
+	$UserList		= $db->query("SELECT `username`, `id`, `bana` FROM ".USERS." WHERE `id` != 1 AND `authlevel` <= '".$USER['authlevel']."' AND `universe` = '".$_SESSION['adminuni']."' ".$WHEREBANA." ORDER BY ".$ORDER." ASC;");
 
 	$UserSelect	= array('List' => '', 'ListBan' => '');
 	
@@ -53,7 +53,7 @@ function ShowBanPage()
 		$ORDER2	=	"username";
 		
 	$Banneds		=0;
-	$UserListBan	= $db->query("SELECT `username`, `id` FROM ".USERS." WHERE `bana` = '1' ORDER BY ".$ORDER2." ASC;");
+	$UserListBan	= $db->query("SELECT `username`, `id` FROM ".USERS." WHERE `bana` = '1' AND `universe` = '".$_SESSION['adminuni']."' ORDER BY ".$ORDER2." ASC;");
 	while ($b = $db->fetch_array($UserListBan))
 	{
 		$UserSelect['ListBan']	.=	'<option value="'.$b['username'].'">'.$b['username'].'&nbsp;&nbsp;(ID:&nbsp;'.$b['id'].')</option>';
@@ -69,7 +69,7 @@ function ShowBanPage()
 	if(isset($_POST['panel']))
 	{
 		$Name					= request_var('ban_name', '', true);
-		$BANUSER				= $db->uniquequery("SELECT b.theme, b.longer, u.id, u.urlaubs_modus, u.banaday FROM ".USERS." as u LEFT JOIN ".BANNED." as b ON u.`username` = b.`who` WHERE u.`username` = '".$db->sql_escape($Name)."';");
+		$BANUSER				= $db->uniquequery("SELECT b.theme, b.longer, u.id, u.urlaubs_modus, u.banaday FROM ".USERS." as u LEFT JOIN ".BANNED." as b ON u.`username` = b.`who` WHERE u.`username` = '".$db->sql_escape($Name)."' AND u.`universe` = '".$_SESSION['adminuni']."';");
 			
 		if ($BANUSER['banaday'] <= TIMESTAMP)
 		{
@@ -144,7 +144,7 @@ function ShowBanPage()
 			$SQL     .= "`longer` = '". $BannedUntil ."', ";
 			$SQL     .= "`author` = '". $admin ."', ";
 			$SQL     .= "`email` = '". $mail ."' ";
-			$SQL     .= "WHERE `who2` = '".$Name."';";
+			$SQL     .= "WHERE `who2` = '".$Name."' AND `universe` = '".$_SESSION['adminuni']."';";
 			$db->query($SQL);
 		} else {
 			$SQL      = "INSERT INTO ".BANNED." SET ";
@@ -154,6 +154,7 @@ function ShowBanPage()
 			$SQL     .= "`time` = '".TIMESTAMP."', ";
 			$SQL     .= "`longer` = '". $BannedUntil ."', ";
 			$SQL     .= "`author` = '". $admin ."', ";
+			$SQL     .= "`universe` = '".$_SESSION['adminuni']."', ";
 			$SQL     .= "`email` = '". $mail ."';";
 			$db->query($SQL);
 		}
@@ -169,14 +170,14 @@ function ShowBanPage()
 		}
 
 		$SQL    .= "WHERE ";
-		$SQL    .= "`username` = '". $Name ."';";
+		$SQL    .= "`username` = '". $Name ."' AND `universe` = '".$_SESSION['adminuni']."';";
 		$db->query($SQL);
 
 		$template->message($LNG['bo_the_player'].$Name.$LNG['bo_banned'], '?page=bans');
 		exit;
 	} elseif(isset($_POST['unban_name'])) {
 		$Name	= request_var('unban_name', '', true);
-		$db->multi_query("DELETE FROM ".BANNED." WHERE who = '".$db->sql_escape($Name)."';UPDATE ".USERS." SET bana = '0', banaday = '0' WHERE username = '".$db->sql_escape($Name)."';");
+		$db->multi_query("DELETE FROM ".BANNED." WHERE who = '".$db->sql_escape($Name)."' AND `universe` = '".$_SESSION['adminuni']."';UPDATE ".USERS." SET bana = '0', banaday = '0' WHERE username = '".$db->sql_escape($Name)."' AND `universe` = '".$_SESSION['adminuni']."';");
 		$template->message($LNG['bo_the_player2'].$Name.$LNG['bo_unbanned'], '?page=bans');
 		exit;
 	}

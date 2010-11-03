@@ -22,7 +22,7 @@
 
 function ShowPhalanxPage()
 {
-	global $USER, $PLANET, $LNG, $db;
+	global $USER, $PLANET, $LNG, $db, $UNI;
 
 	include_once(ROOT_PATH.'includes/functions/InsertJavaScriptChronoApplet.' . PHP_EXT);
 	include_once(ROOT_PATH.'includes/classes/class.FlyingFleetsTable.' . PHP_EXT);
@@ -56,22 +56,14 @@ function ShowPhalanxPage()
 
 	$PLANET['deuterium'] -= 5000;
 	$db->query("UPDATE ".PLANETS." SET `deuterium` = `deuterium` - '5000' WHERE `id` = '".$PLANET['id']."';");
-	$TargetInfo = $db->uniquequery("SELECT name, id_owner FROM ".PLANETS." WHERE `galaxy` = '".$Galaxy."' AND `system` = '".$System."' AND `planet` = '".$Planet."' AND `planet_type` = '1';");
-
-	$SQL  = "SELECT * FROM ".FLEETS." ";
-	$SQL .= "WHERE ( ";
-	$SQL .= "`fleet_start_galaxy` = '". $Galaxy ."' AND ";
-	$SQL .= "`fleet_start_system` = '". $System ."' AND ";
-	$SQL .= "`fleet_start_planet` = '". $Planet ."' AND ";
-	$SQL .= "`fleet_start_type` = '1' ";
-	$SQL .= ") OR ( ";
-	$SQL .= "`fleet_end_galaxy` = '". $Galaxy ."' AND ";
-	$SQL .= "`fleet_end_system` = '". $System ."' AND ";
-	$SQL .= "`fleet_end_planet` = '". $Planet ."' AND ";
-	$SQL .= "`fleet_end_type` = '1' ";
-	$SQL .= ") ORDER BY `fleet_start_time`;";
-
-	$FleetToTarget  = $db->query($SQL);
+	$TargetInfo = $db->uniquequery("SELECT id, name, id_owner FROM ".PLANETS." WHERE`universe` = '".$UNI."' AND `galaxy` = '".$Galaxy."' AND `system` = '".$System."' AND `planet` = '".$Planet."' AND `planet_type` = '1';");
+	if(empty($TargetInfo))
+	{
+		$template->message($LNG['px_out_of_range'], false, 0, true);
+		exit;	
+	}
+	
+	$FleetToTarget  = $db->query("SELECT * FROM ".FLEETS." WHERE `fleet_start_id` = '".$TargetInfo['id']."' OR `fleet_end_id` = '".$TargetInfo['id']."' ORDER BY `fleet_start_time`;");
 	$fpage		= array();
 	$FleetData	= array();
 	while ($FleetRow = $db->fetch_array($FleetToTarget))
