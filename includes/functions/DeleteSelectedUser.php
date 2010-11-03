@@ -52,8 +52,8 @@ function DeleteSelectedUser($UserID)
 	$db->multi_query($SQL);
 	
 	$SQL	= $db->query("SELECT fleet_id FROM ".FLEETS." WHERE `fleet_target_owner` = '".$UserID."';");
-	while($SQL as $FleetID) {
-		SendFleetBack($UserID, $FleetID)
+	while($FleetID = $db->fetch_array($SQL)) {
+		SendFleetBack($UserID, $FleetID);
 	}
 	update_config(array('users_amount' => $CONF['users_amount'] - 1), $TheUser['universe']);
 }
