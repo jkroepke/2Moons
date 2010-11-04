@@ -1,5 +1,6 @@
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
+
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -9,7 +10,6 @@ CREATE TABLE IF NOT EXISTS `prefix_aks` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT NULL,
   `teilnehmer` varchar(50) DEFAULT NULL,
-  `flotten` varchar(500) DEFAULT NULL,
   `ankunft` int(32) DEFAULT NULL,
   `galaxy` int(2) DEFAULT NULL,
   `system` int(4) DEFAULT NULL,
@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS `prefix_aks` (
   `planet_type` tinyint(1) DEFAULT NULL,
   `eingeladen` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `prefix_alliance` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -37,10 +37,12 @@ CREATE TABLE IF NOT EXISTS `prefix_alliance` (
   `ally_members` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `ally_stats` enum('0','1') NOT NULL DEFAULT '1',
   `ally_diplo` enum('0','1') NOT NULL DEFAULT '1',
+  `ally_universe` tinyint(3) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `ally_tag` (`ally_tag`),
-  KEY `ally_name` (`ally_name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+  KEY `ally_name` (`ally_name`),
+  KEY `ally_universe` (`ally_universe`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `prefix_banned` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -51,8 +53,11 @@ CREATE TABLE IF NOT EXISTS `prefix_banned` (
   `longer` int(11) NOT NULL DEFAULT '0',
   `author` varchar(64) NOT NULL DEFAULT '',
   `email` varchar(64) NOT NULL DEFAULT '',
-  KEY `ID` (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+  `universe` tinyint(3) unsigned NOT NULL,
+  KEY `ID` (`id`),
+  KEY `universe` (`universe`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 
 CREATE TABLE IF NOT EXISTS `prefix_buddy` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -61,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `prefix_buddy` (
   `active` enum('0','1') NOT NULL DEFAULT '0',
   `text` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `prefix_chat` (
   `messageid` int(5) unsigned NOT NULL AUTO_INCREMENT,
@@ -69,87 +74,88 @@ CREATE TABLE IF NOT EXISTS `prefix_chat` (
   `message` varchar(255) NOT NULL,
   `timestamp` int(11) NOT NULL DEFAULT '0',
   `ally_id` int(11) NOT NULL DEFAULT '0',
+  `universe` tinyint(3) unsigned NOT NULL,
   PRIMARY KEY (`messageid`),
   KEY `timestamp` (`timestamp`),
-  KEY `ally_id` (`ally_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
-
-CREATE TABLE IF NOT EXISTS `prefix_config` (
-  `config_name` varchar(64) NOT NULL,
-  `config_value` varchar(255) NOT NULL,
-  PRIMARY KEY (`config_name`)
+  KEY `ally_id` (`ally_id`),
+  KEY `universe` (`universe`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-INSERT INTO `prefix_config` (`config_name`, `config_value`) VALUES
-('VERSION', '1.2.1086'),
-('users_amount', '1'),
-('game_speed', '2500'),
-('fleet_speed', '2500'),
-('halt_speed', '1'),
-('resource_multiplier', '1'),
-('Fleet_Cdr', '30'),
-('Defs_Cdr', '30'),
-('initial_fields', '163'),
-('COOKIE_NAME', '2Moons'),
-('game_name', '2Moons'),
-('game_disable', '1'),
-('close_reason', 'Game ist zurzeit geschlossen'),
-('metal_basic_income', '20'),
-('crystal_basic_income', '10'),
-('deuterium_basic_income', '0'),
-('energy_basic_income', '0'),
-('LastSettedGalaxyPos', '1'),
-('LastSettedSystemPos', '1'),
-('LastSettedPlanetPos', '1'),
-('noobprotection', '1'),
-('noobprotectiontime', '5000'),
-('noobprotectionmulti', '5'),
-('forum_url', 'http://www.2moons.cc'),
-('adm_attack', '0'),
-('debug', '0'),
-('lang', 'de'),
-('stat', '0'),
-('stat_level', '2'),
-('stat_last_update', '0'),
-('stat_settings', '1000'),
-('stat_update_time', '15'),
-('stat_last_banner_update', '0'), 
-('stat_banner_update_time', '1440'),
-('stat_last_db_update', '0'),
-('stats_fly_lock', '0'),
-('ts_modon', '0'),
-('ts_server', '12.34.56.78'),
-('ts_tcpport', '51234'),
-('ts_udpport', '8767'),
-('ts_timeout', '1'),
-('ts_version', '2'),
-('reg_closed', '0'),
-('OverviewNewsFrame', '1'),
-('OverviewNewsText', 'Herzlich Willkommen bei 2Moons v1.2!'),
-('capaktiv', '0'),
-('cappublic', ''),
-('capprivate', ''),
-('min_build_time', '1'),
-('cron_lock', '0'),
-('smtp_host', ''),
-('smtp_port', ''),
-('smtp_user', ''),
-('smtp_pass', ''),
-('smtp_ssl', ''),
-('smtp_sendmail', ''),
-('user_valid', '0'),
-('ftp_server', ''),
-('ftp_user_name', ''),
-('ftp_user_pass', ''),
-('ftp_root_path', ''),
-('fb_on', '0'),
-('fb_apikey', ''),
-('fb_skey', ''),
-('ga_active', '0'),
-('ga_key', ''),
-('moduls', '1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1'),
-('bgm_active', '0'), 
-('bgm_file', '');
+CREATE TABLE IF NOT EXISTS `prefix_config` (
+  `uni` int(11) NOT NULL,
+  `VERSION` varchar(8) NOT NULL,
+  `users_amount` int(11) NOT NULL,
+  `game_speed` int(11) NOT NULL,
+  `fleet_speed` int(11) NOT NULL,
+  `resource_multiplier` int(11) NOT NULL,
+  `halt_speed` int(11) NOT NULL,
+  `Fleet_Cdr` int(11) NOT NULL,
+  `Defs_Cdr` int(11) NOT NULL,
+  `initial_fields` int(11) NOT NULL,
+  `bgm_active` int(11) NOT NULL,
+  `bgm_file` varchar(100) NOT NULL,
+  `game_name` varchar(30) NOT NULL,
+  `game_disable` int(11) NOT NULL,
+  `close_reason` text NOT NULL,
+  `metal_basic_income` int(11) NOT NULL,
+  `crystal_basic_income` int(11) NOT NULL,
+  `deuterium_basic_income` int(11) NOT NULL,
+  `energy_basic_income` int(11) NOT NULL,
+  `LastSettedGalaxyPos` int(11) NOT NULL,
+  `LastSettedSystemPos` int(11) NOT NULL,
+  `LastSettedPlanetPos` int(11) NOT NULL,
+  `noobprotection` int(11) NOT NULL,
+  `noobprotectiontime` int(11) NOT NULL,
+  `noobprotectionmulti` int(11) NOT NULL,
+  `forum_url` varchar(40) NOT NULL,
+  `adm_attack` int(11) NOT NULL,
+  `debug` int(11) NOT NULL,
+  `lang` varchar(10) NOT NULL,
+  `stat` int(11) NOT NULL,
+  `stat_level` int(11) NOT NULL,
+  `stat_last_update` int(11) NOT NULL,
+  `stat_settings` int(11) NOT NULL,
+  `stat_update_time` int(11) NOT NULL,
+  `stat_last_db_update` int(11) NOT NULL,
+  `stats_fly_lock` int(11) NOT NULL,
+  `stat_last_banner_update` int(11) NOT NULL,
+  `stat_banner_update_time` int(11) NOT NULL,
+  `cron_lock` int(11) NOT NULL,
+  `ts_modon` int(11) NOT NULL,
+  `ts_server` int(11) NOT NULL,
+  `ts_tcpport` int(11) NOT NULL,
+  `ts_udpport` int(11) NOT NULL,
+  `ts_timeout` int(11) NOT NULL,
+  `ts_version` int(11) NOT NULL,
+  `reg_closed` int(11) NOT NULL,
+  `OverviewNewsFrame` int(11) NOT NULL,
+  `OverviewNewsText` text NOT NULL,
+  `capaktiv` int(11) NOT NULL,
+  `cappublic` varchar(42) NOT NULL,
+  `capprivate` varchar(42) NOT NULL,
+  `min_build_time` int(11) NOT NULL,
+  `smtp_host` int(11) NOT NULL,
+  `smtp_port` int(11) NOT NULL,
+  `smtp_user` int(11) NOT NULL,
+  `smtp_pass` int(11) NOT NULL,
+  `smtp_ssl` int(11) NOT NULL,
+  `smtp_sendmail` int(11) NOT NULL,
+  `user_valid` int(11) NOT NULL,
+  `ftp_server` int(11) NOT NULL,
+  `ftp_user_name` int(11) NOT NULL,
+  `ftp_user_pass` int(11) NOT NULL,
+  `ftp_root_path` int(11) NOT NULL,
+  `fb_on` int(11) NOT NULL,
+  `fb_apikey` varchar(42) NOT NULL,
+  `fb_skey` varchar(42) NOT NULL,
+  `ga_active` varchar(42) NOT NULL,
+  `ga_key` varchar(42) NOT NULL,
+  `moduls` varchar(100) NOT NULL,
+  PRIMARY KEY (`uni`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+INSERT INTO `prefix_config` (`uni`, `VERSION`, `users_amount`, `game_speed`, `fleet_speed`, `resource_multiplier`, `halt_speed`, `Fleet_Cdr`, `Defs_Cdr`, `initial_fields`, `bgm_active`, `bgm_file`, `game_name`, `game_disable`, `close_reason`, `metal_basic_income`, `crystal_basic_income`, `deuterium_basic_income`, `energy_basic_income`, `LastSettedGalaxyPos`, `LastSettedSystemPos`, `LastSettedPlanetPos`, `noobprotection`, `noobprotectiontime`, `noobprotectionmulti`, `forum_url`, `adm_attack`, `debug`, `lang`, `stat`, `stat_level`, `stat_last_update`, `stat_settings`, `stat_update_time`, `stat_last_db_update`, `stats_fly_lock`, `stat_last_banner_update`, `stat_banner_update_time`, `cron_lock`, `ts_modon`, `ts_server`, `ts_tcpport`, `ts_udpport`, `ts_timeout`, `ts_version`, `reg_closed`, `OverviewNewsFrame`, `OverviewNewsText`, `capaktiv`, `cappublic`, `capprivate`, `min_build_time`, `smtp_host`, `smtp_port`, `smtp_user`, `smtp_pass`, `smtp_ssl`, `smtp_sendmail`, `user_valid`, `ftp_server`, `ftp_user_name`, `ftp_user_pass`, `ftp_root_path`, `fb_on`, `fb_apikey`, `fb_skey`, `ga_active`, `ga_key`, `moduls`) VALUES
+(1, '1.0.1232', 2, 2500, 2500, 1, 1, 30, 30, 163, 0, '', '2Moons', 1, 'Game ist zurzeit geschlossen', 20, 10, 0, 0, 1, 3, 1, 0, 0, 0, 'http://2moons.cc', 1, 0, 'de', 0, 2, 1288527583, 1000, 25, 1288860107, 0, 1288860107, 1440, 0, 0, 1270, 8767, 51234, 1, 2, 0, 1, 'Herzlich Willkommen bei 2Moons v1.3!', 0, '', '', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '0', '', '1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1');
 
 CREATE TABLE IF NOT EXISTS `prefix_diplo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -160,26 +166,29 @@ CREATE TABLE IF NOT EXISTS `prefix_diplo` (
   `accept_text` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `owner_1` (`owner_1`,`owner_2`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `prefix_fleets` (
-  `fleet_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `fleet_id` bigint(11) unsigned NOT NULL AUTO_INCREMENT,
   `fleet_owner` int(11) NOT NULL DEFAULT '0',
   `fleet_mission` enum('1','2','3','4','5','6','7','8','9','10','11','15') NOT NULL DEFAULT '3',
   `fleet_amount` bigint(20) unsigned NOT NULL DEFAULT '0',
   `fleet_array` text,
+  `fleet_universe` tinyint(3) unsigned NOT NULL,
   `fleet_start_time` int(11) NOT NULL DEFAULT '0',
+  `fleet_start_id` int(11) unsigned NOT NULL,
   `fleet_start_galaxy` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `fleet_start_system` smallint(5) unsigned NOT NULL DEFAULT '0',
   `fleet_start_planet` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `fleet_start_type` enum('1','2','3') NOT NULL DEFAULT '1',
   `fleet_end_time` int(11) NOT NULL DEFAULT '0',
   `fleet_end_stay` int(11) NOT NULL DEFAULT '0',
+  `fleet_end_id` int(11) unsigned NOT NULL,
   `fleet_end_galaxy` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `fleet_end_system` smallint(5) unsigned NOT NULL DEFAULT '0',
   `fleet_end_planet` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `fleet_end_type` enum('1','2','3') NOT NULL DEFAULT '1',
-  `fleet_target_obj` int(2) NOT NULL DEFAULT '0',
+  `fleet_target_obj` tinyint(2) unsigned NOT NULL DEFAULT '0',
   `fleet_resource_metal` bigint(11) unsigned NOT NULL DEFAULT '0',
   `fleet_resource_crystal` bigint(11) unsigned NOT NULL DEFAULT '0',
   `fleet_resource_deuterium` bigint(11) unsigned NOT NULL DEFAULT '0',
@@ -194,8 +203,11 @@ CREATE TABLE IF NOT EXISTS `prefix_fleets` (
   KEY `fleet_target_owner` (`fleet_target_owner`),
   KEY `fleet_end_stay` (`fleet_end_stay`),
   KEY `fleet_end_time` (`fleet_end_time`),
-  KEY `fleet_start_time` (`fleet_start_time`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+  KEY `fleet_start_time` (`fleet_start_time`),
+  KEY `fleet_start_id` (`fleet_start_id`),
+  KEY `fleet_end_id` (`fleet_end_id`),
+  KEY `fleet_universe` (`fleet_universe`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `prefix_messages` (
   `message_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -207,14 +219,14 @@ CREATE TABLE IF NOT EXISTS `prefix_messages` (
   `message_subject` varchar(48) DEFAULT NULL,
   `message_text` text,
   `message_unread` enum('0','1') NOT NULL DEFAULT '1',
+  `message_universe` tinyint(3) unsigned NOT NULL,
   PRIMARY KEY (`message_id`),
   KEY `message_owner` (`message_owner`),
   KEY `message_type` (`message_type`),
   KEY `message_sender` (`message_sender`),
-  KEY `message_type_2` (`message_type`),
-  KEY `message_owner_2` (`message_owner`),
-  KEY `message_unread` (`message_unread`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+  KEY `message_unread` (`message_unread`),
+  KEY `message_universe` (`message_universe`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `prefix_news` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -223,7 +235,7 @@ CREATE TABLE IF NOT EXISTS `prefix_news` (
   `title` varchar(64) NOT NULL,
   `text` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `prefix_notes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -233,13 +245,14 @@ CREATE TABLE IF NOT EXISTS `prefix_notes` (
   `title` varchar(32) DEFAULT NULL,
   `text` text,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `prefix_planets` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT 'Hauptplanet',
   `id_owner` int(11) DEFAULT NULL,
   `id_level` int(11) DEFAULT NULL,
+  `universe` tinyint(3) unsigned NOT NULL,
   `galaxy` tinyint(3) NOT NULL DEFAULT '0',
   `system` smallint(5) NOT NULL DEFAULT '0',
   `planet` tinyint(3) NOT NULL DEFAULT '0',
@@ -343,7 +356,8 @@ CREATE TABLE IF NOT EXISTS `prefix_planets` (
   KEY `id_luna` (`id_luna`),
   KEY `galaxy` (`galaxy`,`system`,`planet`,`planet_type`),
   KEY `id_owner` (`id_owner`),
-  KEY `destruyed` (`destruyed`)
+  KEY `destruyed` (`destruyed`),
+  KEY `universe` (`universe`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `prefix_rw` (
@@ -370,6 +384,7 @@ CREATE TABLE IF NOT EXISTS `prefix_statpoints` (
   `id_owner` int(11) NOT NULL,
   `id_ally` int(11) NOT NULL,
   `stat_type` int(2) NOT NULL,
+  `universe` tinyint(3) unsigned NOT NULL,
   `tech_rank` int(11) NOT NULL,
   `tech_old_rank` int(11) NOT NULL,
   `tech_points` bigint(20) unsigned NOT NULL,
@@ -392,7 +407,8 @@ CREATE TABLE IF NOT EXISTS `prefix_statpoints` (
   `total_count` int(11) NOT NULL,
   KEY `stat_type` (`stat_type`),
   KEY `id_owner` (`id_owner`),
-  KEY `id_owner_2` (`id_owner`)
+  KEY `id_owner_2` (`id_owner`),
+  KEY `universe` (`universe`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `prefix_supp` (
@@ -404,7 +420,7 @@ CREATE TABLE IF NOT EXISTS `prefix_supp` (
   `status` int(1) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `player_id` (`player_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `prefix_topkb` (
   `id_owner1` tinyint(20) NOT NULL DEFAULT '0',
@@ -415,8 +431,10 @@ CREATE TABLE IF NOT EXISTS `prefix_topkb` (
   `rid` varchar(72) NOT NULL DEFAULT '',
   `fleetresult` varchar(64) NOT NULL DEFAULT '',
   `time` int(11) unsigned NOT NULL DEFAULT '0',
+  `universe` tinyint(3) unsigned NOT NULL,
   PRIMARY KEY (`rid`),
-  KEY `gesamtunits` (`gesamtunits`)
+  KEY `gesamtunits` (`gesamtunits`),
+  KEY `universe` (`universe`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `prefix_users` (
@@ -429,6 +447,7 @@ CREATE TABLE IF NOT EXISTS `prefix_users` (
   `authlevel` enum('0','1','2','3') NOT NULL DEFAULT '0',
   `rights` text NOT NULL,
   `id_planet` int(11) NOT NULL DEFAULT '0',
+  `universe` tinyint(3) unsigned NOT NULL,
   `galaxy` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `system` smallint(5) unsigned NOT NULL DEFAULT '0',
   `planet` tinyint(3) unsigned NOT NULL DEFAULT '0',
@@ -523,13 +542,13 @@ CREATE TABLE IF NOT EXISTS `prefix_users` (
   `dm_fleettime` int(11) NOT NULL DEFAULT '0',
   `fb_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `username` (`username`),
   KEY `fb_id` (`fb_id`),
   KEY `authlevel` (`authlevel`),
   KEY `onlinetime` (`onlinetime`),
-  KEY `dm_fleettime` (`dm_fleettime`)
+  KEY `dm_fleettime` (`dm_fleettime`),
+  KEY `username` (`username`),
+  KEY `universe` (`universe`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
-
 
 CREATE TABLE IF NOT EXISTS `prefix_users_valid` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -541,8 +560,10 @@ CREATE TABLE IF NOT EXISTS `prefix_users_valid` (
   `planet` varchar(64) NOT NULL DEFAULT 'Hauptplanet',
   `ip` varchar(16) NOT NULL,
   `lang` enum('de','en','es','ru','pt','cn','hr') NOT NULL DEFAULT 'de',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+  `universe` tinyint(3) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `cle` (`cle`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
