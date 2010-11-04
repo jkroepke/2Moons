@@ -118,7 +118,7 @@ function ShowStatisticsPage()
 			$db->free_result($query);
 		break;
 		case 2:
-			$MaxAllys 	= $db->countquery("SELECT COUNT(*) FROM ".ALLIANCE." WHERE `ally_universe` = "'.$UNI.'";");
+			$MaxAllys 	= $db->countquery("SELECT COUNT(*) FROM ".ALLIANCE." WHERE `ally_universe` = '".$UNI."';");
 			$range		= min($range, $MaxAllys);
 			$LastPage 	= ceil($MaxAllys / 100);
 			for ($Page = 0; $Page < $LastPage; $Page++)
