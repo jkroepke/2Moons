@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `prefix_buddy` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `prefix_chat` (
-  `messageid` int(5) unsigned NOT NULL AUTO_INCREMENT,
+  `messageid` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `user` varchar(255) NOT NULL DEFAULT '',
   `message` varchar(255) NOT NULL,
   `timestamp` int(11) NOT NULL DEFAULT '0',
@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `prefix_chat` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `prefix_config` (
-  `uni` int(11) NOT NULL,
+  `uni` tinyint(3) unsigned NOT NULL AUTO_INCREMENT ,
   `VERSION` varchar(8) NOT NULL,
   `users_amount` int(11) NOT NULL,
   `game_speed` int(11) NOT NULL,
@@ -439,8 +439,8 @@ CREATE TABLE IF NOT EXISTS `prefix_topkb` (
 
 CREATE TABLE IF NOT EXISTS `prefix_users` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `username` varchar(64) NOT NULL DEFAULT '',
-  `password` varchar(64) NOT NULL DEFAULT '',
+  `username` varchar(32) NOT NULL DEFAULT '',
+  `password` varchar(32) NOT NULL DEFAULT '',
   `email` varchar(64) NOT NULL DEFAULT '',
   `email_2` varchar(64) NOT NULL DEFAULT '',
   `lang` enum('de','en','es','ru','pt','cn','hr') NOT NULL DEFAULT 'de',

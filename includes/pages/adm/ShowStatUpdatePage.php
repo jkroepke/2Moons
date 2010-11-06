@@ -33,7 +33,7 @@ function ShowStatUpdatePage() {
 	$stats_end_time	= sprintf($LNG['sb_stats_update'], $result['totaltime']);
 	$stats_sql		= sprintf($LNG['sb_sql_counts'], $result['sql_count']);
 
-	update_config('stat_last_update', $result['stats_time']);
+	update_config(array('stat_last_update' => $result['stats_time']), true);
 
 	$template = new template();
 	$template->message($LNG['sb_stats_updated'].$stats_end_time.$memory_i.$memory_e.$memory_p.$stats_sql, false, 0, true);

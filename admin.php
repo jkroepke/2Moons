@@ -152,6 +152,10 @@ switch($page)
 		include_once(ROOT_PATH . 'includes/pages/adm/ShowClearCachePage.' . PHP_EXT);
 		ShowClearCachePage();
 	break;
+	case 'universe':
+		include_once(ROOT_PATH . 'includes/pages/adm/ShowUniversePage.' . PHP_EXT);
+		ShowUniversePage();
+	break;
 	default:
 		include_once(ROOT_PATH . 'includes/pages/adm/ShowIndexPage.' . PHP_EXT);
 		ShowIndexPage();

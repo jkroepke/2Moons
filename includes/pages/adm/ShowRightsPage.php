@@ -20,7 +20,7 @@
 # *                                                                          #
 ##############################################################################
 
-if ($USER['rights'][str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__)] != 1) exit;
+if ($USER['rights'][str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__)] != 1 || $_GET['sid'] != session_id()) exit;
 function ShowRightsPage()
 {
 	global $LNG, $CONF, $db, $USER;
@@ -67,16 +67,16 @@ function ShowRightsPage()
 			}
 							
 			if ($_GET['get'] == 'adm')
-				$WHEREUSERS	=	"WHERE `authlevel` = '3'";
+				$WHEREUSERS	=	"AND `authlevel` = '3'";
 			elseif ($_GET['get'] == 'ope')
-				$WHEREUSERS	=	"WHERE `authlevel` = '2'";
+				$WHEREUSERS	=	"AND `authlevel` = '2'";
 			elseif ($_GET['get'] == 'mod')
-				$WHEREUSERS	=	"WHERE `authlevel` = '1'";
+				$WHEREUSERS	=	"AND `authlevel` = '1'";
 			elseif ($_GET['get'] == 'pla')
-				$WHEREUSERS	=	"WHERE `authlevel` = '0'";			
+				$WHEREUSERS	=	"AND `authlevel` = '0'";			
 				
 				
-			$QueryUsers	=	$db->query("SELECT `id`, `username`, `authlevel` FROM ".USERS." ".$WHEREUSERS." AND `universe` = '".$_SESSION['adminuni']."';");
+			$QueryUsers	=	$db->query("SELECT `id`, `username`, `authlevel` FROM ".USERS." WHERE `universe` = '".$_SESSION['adminuni']."'".$WHEREUSERS.";");
 				
 			$UserList	= "";
 			while ($List = $db->fetch_array($QueryUsers)) {
@@ -127,16 +127,16 @@ function ShowRightsPage()
 			}
 							
 			if ($_GET['get'] == 'adm')
-				$WHEREUSERS	=	"WHERE `authlevel` = '3'";
+				$WHEREUSERS	=	"AND `authlevel` = '3'";
 			elseif ($_GET['get'] == 'ope')
-				$WHEREUSERS	=	"WHERE `authlevel` = '2'";
+				$WHEREUSERS	=	"AND `authlevel` = '2'";
 			elseif ($_GET['get'] == 'mod')
-				$WHEREUSERS	=	"WHERE `authlevel` = '1'";
+				$WHEREUSERS	=	"AND `authlevel` = '1'";
 			elseif ($_GET['get'] == 'pla')
-				$WHEREUSERS	=	"WHERE `authlevel` = '0'";			
+				$WHEREUSERS	=	"AND `authlevel` = '0'";			
 				
 				
-			$QueryUsers	=	$db->query("SELECT `id`, `username`, `authlevel` FROM ".USERS." ".$WHEREUSERS." AND `universe` = '".$_SESSION['adminuni']."';");
+			$QueryUsers	=	$db->query("SELECT `id`, `username`, `authlevel` FROM ".USERS." WHERE `universe` = '".$_SESSION['adminuni']."'".$WHEREUSERS.";");
 				
 			$UserList	= "";
 			while ($List = $db->fetch_array($QueryUsers)) {
