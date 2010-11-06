@@ -8,6 +8,7 @@
 {/if}
 <a href="admin.php?page=overview" target="Hauptframe" class="topn">&nbsp;{$adm_cp_index}&nbsp;</a>
 {if $authlevel == $smarty.const.AUTH_ADM}
+<a href="?page=universe&amp;sid={$sid}" target="Hauptframe" class="topn">&nbsp;{$mu_universe}&nbsp;</a>
 <a href="?page=rights&amp;mode=rights&amp;sid={$sid}" target="Hauptframe" class="topn">&nbsp;{$mu_moderation_page}&nbsp;</a>
 <a href="?page=rights&amp;mode=users&amp;sid={$sid}" target="Hauptframe" class="topn">&nbsp;{$ad_authlevel_title}&nbsp;</a>
 {/if}

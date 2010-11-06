@@ -33,7 +33,7 @@ function showMessage(){
 				HTML	+= '<a href="javascript:del(\''+id+'\')\">[X]</a>';
 			HTML	+= '['+mess.date+']</span> <span style="font:menu;font-weight:700">'+mess.name+'</span> : '+mess.mess+'</div>';
 		});
-		$('#shoutbox').html($('#shoutbox').html()+HTML);
+		$('#shoutbox').html(HTML+$('#shoutbox').html());
 		LastGet = serverTime.getTime() / 1000;
 	});	
 }

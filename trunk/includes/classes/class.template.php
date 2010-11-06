@@ -40,6 +40,7 @@ class template
 		require(ROOT_PATH.'includes/libs/Smarty/Smarty.class.php');
 		$TMP						= new Smarty();
 		$TMP->allow_php_templates	= true;
+		$TMP->allow_php_tag 		= true;
 		$TMP->force_compile 		= false;
 		$TMP->caching 				= false;
 		$TMP->compile_check			= true; #Set false for production!
