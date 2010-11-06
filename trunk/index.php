@@ -56,7 +56,7 @@ switch ($page) {
 					$db->query("UPDATE " . USERS . " SET `banaday` = '0', `bana` = '0' WHERE `id` = '".$login['id']."' AND `universe` = '".$UNI."';");
 				}
 				$SESSION       	= new Session();
-				$SESSION->CreateSession($login['id'], $login['username'], $login['id_planet'], $login['authlevel'], $login['dpath']);
+				$SESSION->CreateSession($login['id'], $login['username'], $login['id_planet'], $UNI, $login['authlevel'], $login['dpath']);
 				
 				redirectTo("game.".PHP_EXT."?page=overview");
 			} else {
@@ -66,7 +66,7 @@ switch ($page) {
 				else 
 					redirectTo("index.".PHP_EXT);
 				
-				$Exist['alruser'] = $db->uniquequery("SELECT `id`, `username`, `authlevel`, `id_planet`, `banaday` FROM ".USERS." WHERE `email` = '".$UserMail."';");
+				$Exist['alruser'] = $db->uniquequery("SELECT `id`, `username`, `dpath`, `authlevel`, `id_planet`, `banaday` FROM ".USERS." WHERE `email` = '".$UserMail."';");
 				if(isset($Exist['alruser']))
 				{
 					if ($Exist['alruser']['banaday'] <= time () && $Exist['alruser']['banaday'] != '0') {
@@ -74,7 +74,7 @@ switch ($page) {
 					}
 					$db->query("UPDATE `".USERS."` SET `fb_id` = '".$fb_user."' WHERE `id` = '".$Exist['alruser']['id']."';");
 					$SESSION       	= new Session();
-					$SESSION->CreateSession($Exist['alruser']['id'], $Exist['alruser']['username'], $Exist['alruser']['id_planet'], $Exist['alruser']['authlevel']);
+					$SESSION->CreateSession($Exist['alruser']['id'], $Exist['alruser']['username'], $Exist['alruser']['id_planet'], $UNI, $Exist['alruser']['authlevel'], $Exist['alruser']['dpath']);
 					redirectTo("game.".PHP_EXT."?page=overview");
 				}
 				
@@ -171,7 +171,7 @@ switch ($page) {
 					if (!CheckPlanetIfExist($Galaxy, $System, $Planet, $UNI))
 					{
 						require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.'.PHP_EXT);
-						CreateOnePlanetRecord ($Galaxy, $System, $Planet, $NewUser['id'], $UserPlanet, true);
+						CreateOnePlanetRecord ($Galaxy, $System, $Planet, $UNI, $NewUser['id'], $UserPlanet, true);
 						update_config(array('LastSettedGalaxyPos' => $LastSettedGalaxyPos, 'LastSettedSystemPos' => $LastSettedSystemPos, 'LastSettedPlanetPos' => $LastSettedPlanetPos));
 						$newpos_checked = true;
 					}
@@ -193,10 +193,10 @@ switch ($page) {
 				$Subject 	= $LNG ['welcome_message_subject'];
 				$message 	= sprintf($LNG['welcome_message_content'], $CONF['game_name']);
 				SendSimpleMessage ( $NewUser ['id'], 1, $Time, 1, $from, $Subject, $message );
-				
-				$db->query ( "UPDATE " . CONFIG . " SET `config_value` = `config_value` + '1' WHERE `config_name` = 'users_amount';" );
+								
+				update_config(array('users_amount' => $CONF['users_amount'] + 1));
 				$SESSION       	= new Session();
-				$SESSION->CreateSession($NewUser['id'], $UserName, $PlanetID['id']);
+				$SESSION->CreateSession($NewUser['id'], $UserName, $PlanetID['id'], $UNI);
 				redirectTo("game.".PHP_EXT."?page=overview");
 			}
 		} else {
