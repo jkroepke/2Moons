@@ -50,7 +50,7 @@ class ShowChatPage
 	}
 
 	private function GetMessages($chat_type) {
-		global $USER, $db;
+		global $USER, $db, $UNI;
 		$TimeStamp	= request_var('timestamp', 0);
 		$Chat 	= $db->query("SELECT * FROM ".CHAT." WHERE `universe` = '".$UNI."' AND `timestamp` > '".$TimeStamp."' AND ally_id = '".(($chat_type == "ally") ? $USER['ally_id'] : 0)."' ORDER BY messageid DESC LIMIT ".$this->page_limit.";");
 		$msg 	= array();
