@@ -41,7 +41,7 @@ function ShowSearchPage()
 	$searchtext = request_var('searchtext','');
 	switch($type) {
 		case 'playername':
-			$search = $db->query("SELECT a.id, a.username, a.ally_id, a.ally_name, a.galaxy, a.system, a.planet, b.name, c.total_rank FROM ".USERS." as a LEFT JOIN ".PLANETS." as b ON b.id = a.id_planet LEFT JOIN ".STATPOINTS." as c ON c.stat_type = 1 AND c.id_owner = a.id WHERE a.`universe` = "'.$UNI.'" AND a.username LIKE '%".$db->sql_escape($searchtext, true)."%' LIMIT 25;");
+			$search = $db->query("SELECT a.id, a.username, a.ally_id, a.ally_name, a.galaxy, a.system, a.planet, b.name, c.total_rank FROM ".USERS." as a LEFT JOIN ".PLANETS." as b ON b.id = a.id_planet LEFT JOIN ".STATPOINTS." as c ON c.stat_type = 1 AND c.id_owner = a.id WHERE a.`universe` = '".$UNI."' AND a.username LIKE '%".$db->sql_escape($searchtext, true)."%' LIMIT 25;");
 			while($s = $db->fetch_array($search))
 			{
 				$SearchResult[]	= array(
