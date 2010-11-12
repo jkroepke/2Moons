@@ -18,4 +18,7 @@
 		<th><a href="?page=universe&action=delete&id={$ID}&sid={$SID}"><img src="./styles/images/r1.png" alt=""></a></th>
 	</tr>
 	{/foreach}
+	<tr>
+	<th><a href="?page=universe&action=create&sid={$SID}">Create a new</a></th>
+</table>
 {include file="adm/overall_footer.tpl"}

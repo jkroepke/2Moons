@@ -23,12 +23,12 @@ function update_config($Values, $Global = false, $SpecUni = 0)
 {
 	global $CONF, $db;
 	$SQL	= "";
-	if(empty($SpecUni))
-		$UNI	= $GLOBALS['UNI'];
-	else
-		$UNI	= $SpecUni;
+	$UNI	= (empty($SpecUni)) ? $GLOBALS['UNI'] : $SpecUni;
 		
 	foreach($Values as $Name => $Value) {
+		if(!isset($CONF[$Name]))
+			continue;
+			
 		$CONF[$Name]	= $Value;
 		$SQL	.= "`".$Name."` = '".$Value."', ";
 	}
