@@ -25,7 +25,39 @@ function ShowUniversePage() {
 	global $CONF, $LNG, $db, $UNI;
 	$template	= new template();
 	$template->page_header();
-
+	if($_REQUEST['action'] == 'delete' && !empty($_REQUEST['id']) && $_REQUEST['id'] != 1) {
+		$ID	= (int) $_REqUEST['id'];
+		$db->multi_query("DELETE FROM ".AKS." WHERE `universe` = ".$ID.";
+		DELETE FROM ".ALLICANCE." WHERE `ally_universe` = ".$ID.";
+		DELETE FROM ".BANNED." WHERE `universe` = ".$ID.";
+		DELETE FROM ".CHAT." WHERE `universe` = ".$ID.";
+		DELETE FROM ".CONFIG." WHERE `uni` = ".$ID.";
+		DELETE FROM ".FLEETS." WHERE `fleet_universe` = ".$ID.";
+		DELETE FROM ".PLANETS." WHERE `universe` = ".$ID.";
+		DELETE FROM ".STATPOINTS." WHERE `universe` = ".$ID.";
+		DELETE FROM ".TOPKB." WHERE `universe` = ".$ID.";
+		DELETE FROM ".USERS." WHERE `universe` = ".$ID.";
+		DELETE FROM ".USERS_VALLD." WHERE `universe` = ".$ID.";");
+		
+		if($_SESSION['adminuni'] == $ID)
+			$_SESSION['adminuni']	= $ID;
+	}elseif($_REQUEST['action'] == 'create') {
+		$ID	= (int) $_REqUEST['id'];
+		$db->multi_query("DELETE FROM ".AKS." WHERE `universe` = ".$ID.";
+		DELETE FROM ".ALLICANCE." WHERE `ally_universe` = ".$ID.";
+		DELETE FROM ".BANNED." WHERE `universe` = ".$ID.";
+		DELETE FROM ".CHAT." WHERE `universe` = ".$ID.";
+		DELETE FROM ".CONFIG." WHERE `uni` = ".$ID.";
+		DELETE FROM ".FLEETS." WHERE `fleet_universe` = ".$ID.";
+		DELETE FROM ".PLANETS." WHERE `universe` = ".$ID.";
+		DELETE FROM ".STATPOINTS." WHERE `universe` = ".$ID.";
+		DELETE FROM ".TOPKB." WHERE `universe` = ".$ID.";
+		DELETE FROM ".USERS." WHERE `universe` = ".$ID.";
+		DELETE FROM ".USERS_VALLD." WHERE `universe` = ".$ID.";");
+		
+		if($_SESSION['adminuni'] == $ID)
+			$_SESSION['adminuni']	= $ID;
+	}
 	$Unis				= array();
 	$Unis[$CONF['uni']]	= $CONF;
 	$Query	= $db->query("SELECT * FROM ".CONFIG." WHERE `uni` != '".$UNI."';");
