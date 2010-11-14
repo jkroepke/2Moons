@@ -84,8 +84,9 @@ function ShowUpdatePage()
 				{
 					foreach($RevInfo['add'] as $File)
 					{	
-						if(in_array($File, $Files['add'] || strpos($File, '.') !== false)
-							continue;	
+						if(in_array($File, $Files['add']) || strpos($File, '.') != false)
+							
+							continue;
 						$Files['add'][] = $File;
 						
 						$zipfile->addFile(@file_get_contents($SVN_ROOT.$File), str_replace("/trunk/", "", $File), $RevInfo['timestamp']);					
@@ -95,18 +96,20 @@ function ShowUpdatePage()
 				{
 					foreach($RevInfo['edit'] as $File)
 					{	
-						if(in_array($File, $Files['edit'] || strpos($File, '.') !== false)
-							continue;
-						$Files['edit'][] = $File;
+						if(in_array($File, $Files['edit']) || strpos($File, '.') != false) 
 						
-						$zipfile->addFile(@file_get_contents($SVN_ROOT.$File), str_replace("/trunk/", "", $File), $RevInfo['timestamp']);
+							continue;
+							$Files['edit'][] = $File;
+							
+							$zipfile->addFile(@file_get_contents($SVN_ROOT.$File), str_replace("/trunk/", "", $File), $RevInfo['timestamp']);
+						
 					}
 				}
 				if(!empty($RevInfo['del']))
 				{
 					foreach($RevInfo['del'] as $File)
 					{
-						if(in_array($File, $Files['del'] || strpos($File, '.') !== false)
+						if(in_array($File, $Files['del']) || strpos($File, '.') !== false)
 							continue;
 						$Files['del'][] = $File;
 
@@ -169,7 +172,7 @@ function ShowUpdatePage()
 				{
 					foreach($RevInfo['add'] as $File)
 					{
-						if(in_array($File, $Files['add'])
+						if(in_array($File, $Files['add']))
 							continue;	
 						$Files['add'][] = $File;
 						if($File == "/trunk/updates/update_".$Rev.".sql") {
@@ -206,7 +209,7 @@ function ShowUpdatePage()
 				{
 					foreach($RevInfo['edit'] as $File)
 					{	
-						if(in_array($File, $Files['edit'])
+						if(in_array($File, $Files['edit']))
 							continue;
 						$Files['edit'][] = $File;
 						if (strpos($File, '.') !== false) {
@@ -230,7 +233,7 @@ function ShowUpdatePage()
 				{
 					foreach($RevInfo['del'] as $File)
 					{
-						if(in_array($File, $Files['del'])
+						if(in_array($File, $Files['del']))
 							continue;
 							
 						$Files['del'][] = $File;
