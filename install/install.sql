@@ -81,8 +81,7 @@ CREATE TABLE IF NOT EXISTS `prefix_chat` (
   KEY `universe` (`universe`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `prefix_config` (
-  `uni` tinyint(3) unsigned NOT NULL AUTO_INCREMENT ,
+  `uni` int(11) NOT NULL AUTO_INCREMENT,
   `VERSION` varchar(8) NOT NULL,
   `users_amount` int(11) NOT NULL,
   `game_speed` int(11) NOT NULL,
@@ -122,7 +121,7 @@ CREATE TABLE IF NOT EXISTS `prefix_config` (
   `stat_banner_update_time` int(11) NOT NULL,
   `cron_lock` int(11) NOT NULL,
   `ts_modon` int(11) NOT NULL,
-  `ts_server` int(11) NOT NULL,
+  `ts_server` varchar(15) NOT NULL,
   `ts_tcpport` int(11) NOT NULL,
   `ts_udpport` int(11) NOT NULL,
   `ts_timeout` int(11) NOT NULL,
@@ -134,17 +133,17 @@ CREATE TABLE IF NOT EXISTS `prefix_config` (
   `cappublic` varchar(42) NOT NULL,
   `capprivate` varchar(42) NOT NULL,
   `min_build_time` int(11) NOT NULL,
-  `smtp_host` int(11) NOT NULL,
+  `smtp_host` varchar(32) NOT NULL,
   `smtp_port` int(11) NOT NULL,
-  `smtp_user` int(11) NOT NULL,
-  `smtp_pass` int(11) NOT NULL,
+  `smtp_user` varchar(32) NOT NULL,
+  `smtp_pass` varchar(32) NOT NULL,
   `smtp_ssl` int(11) NOT NULL,
-  `smtp_sendmail` int(11) NOT NULL,
+  `smtp_sendmail` varchar(32) NOT NULL,
   `user_valid` int(11) NOT NULL,
-  `ftp_server` int(11) NOT NULL,
-  `ftp_user_name` int(11) NOT NULL,
-  `ftp_user_pass` int(11) NOT NULL,
-  `ftp_root_path` int(11) NOT NULL,
+  `ftp_server` varchar(32) NOT NULL,
+  `ftp_user_name` varchar(32) NOT NULL,
+  `ftp_user_pass` varchar(32) NOT NULL,
+  `ftp_root_path` varchar(32) NOT NULL,
   `fb_on` int(11) NOT NULL,
   `fb_apikey` varchar(42) NOT NULL,
   `fb_skey` varchar(42) NOT NULL,
@@ -155,7 +154,7 @@ CREATE TABLE IF NOT EXISTS `prefix_config` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO `prefix_config` (`uni`, `VERSION`, `users_amount`, `game_speed`, `fleet_speed`, `resource_multiplier`, `halt_speed`, `Fleet_Cdr`, `Defs_Cdr`, `initial_fields`, `bgm_active`, `bgm_file`, `game_name`, `game_disable`, `close_reason`, `metal_basic_income`, `crystal_basic_income`, `deuterium_basic_income`, `energy_basic_income`, `LastSettedGalaxyPos`, `LastSettedSystemPos`, `LastSettedPlanetPos`, `noobprotection`, `noobprotectiontime`, `noobprotectionmulti`, `forum_url`, `adm_attack`, `debug`, `lang`, `stat`, `stat_level`, `stat_last_update`, `stat_settings`, `stat_update_time`, `stat_last_db_update`, `stats_fly_lock`, `stat_last_banner_update`, `stat_banner_update_time`, `cron_lock`, `ts_modon`, `ts_server`, `ts_tcpport`, `ts_udpport`, `ts_timeout`, `ts_version`, `reg_closed`, `OverviewNewsFrame`, `OverviewNewsText`, `capaktiv`, `cappublic`, `capprivate`, `min_build_time`, `smtp_host`, `smtp_port`, `smtp_user`, `smtp_pass`, `smtp_ssl`, `smtp_sendmail`, `user_valid`, `ftp_server`, `ftp_user_name`, `ftp_user_pass`, `ftp_root_path`, `fb_on`, `fb_apikey`, `fb_skey`, `ga_active`, `ga_key`, `moduls`) VALUES
-(1, '1.0.1232', 2, 2500, 2500, 1, 1, 30, 30, 163, 0, '', '2Moons', 1, 'Game ist zurzeit geschlossen', 20, 10, 0, 0, 1, 3, 1, 0, 0, 0, 'http://2moons.cc', 1, 0, 'de', 0, 2, 1288527583, 1000, 25, 1288860107, 0, 1288860107, 1440, 0, 0, 1270, 8767, 51234, 1, 2, 0, 1, 'Herzlich Willkommen bei 2Moons v1.3!', 0, '', '', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '0', '', '1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1');
+(1, '1.0.1232', 1, 2500, 2500, 1, 1, 30, 30, 163, 0, '', '2Moons', 1, 'Game ist zurzeit geschlossen', 20, 10, 0, 0, 1, 1, 1, 0, 0, 0, 'http://2moons.cc', 1, 0, 'de', 0, 2, 1288527583, 1000, 25, 1288860107, 0, 1288860107, 1440, 0, 0, '127.0.0.1', 8767, 51234, 1, 2, 0, 1, 'Herzlich Willkommen bei 2Moons v1.3!', 0, '', '', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '0', '', '1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1');
 
 CREATE TABLE IF NOT EXISTS `prefix_diplo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,

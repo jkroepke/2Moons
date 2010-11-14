@@ -72,7 +72,9 @@ unset($database);
 
 if (INSTALL != true)
 {
-	if(!isset($_SESSION['uni'])) {
+	if(defined('IN_ADMIN') && isset($_SESSION['adminuni'])) {
+		$UNI = $_SESSION['adminuni'];
+	} elseif(!isset($_SESSION['uni'])) {
 		if(UNIS_WILDCAST) {
 			$UNI	= explode('.', $_SERVER['HTTP_HOST']);
 			$UNI	= substr($UNI[0], 0, 3) == 'uni' ? substr($UNI[0], 3) : 1;
@@ -82,8 +84,11 @@ if (INSTALL != true)
 	} else {
 		$UNI	= $_SESSION['uni'];
 	}	
+	
 	$CONF = $db->uniquequery("SELECT HIGH_PRIORITY * FROM `".CONFIG."` WHERE `uni` = '".$UNI."';");
 	$CONF['moduls']		= explode(";", $CONF['moduls']);
+	
+		
 	define('VERSION'		, $CONF['VERSION']);
 	if (!defined('LOGIN') && !defined('IN_CRON') && !defined('AJAX'))
 	{

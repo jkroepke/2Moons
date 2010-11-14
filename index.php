@@ -19,6 +19,12 @@
 # *                                                                          #
 ##############################################################################
 
+if (isset($_GET['action']) && $_GET['action'] == 'keepalive')
+{
+	header('Content-Type: image/gif');
+	die("\x47\x49\x46\x38\x39\x61\x01\x00\x01\x00\x80\x00\x00\x00\x00\x00\x00\x00\x00\x21\xF9\x04\x01\x00\x00\x00\x00\x2C\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02\x44\x01\x00\x3B");
+}
+
 define('INSIDE', true );
 define('INSTALL', false );
 define('LOGIN', true );
@@ -236,10 +242,11 @@ switch ($page) {
 			}
 		} else {
 			$AvailableUnis[$CONF['uni']]	= array('uni' => $CONF['uni'], 'game_disable' => $CONF['game_disable'], 'game_name' => $CONF['game_name']);
-			$Query	= $db->query("SELECT `uni`, `game_disable`, `game_name` FROM ".CONFIG." WHERE `uni` != '".$UNI."';");
+			$Query	= $db->query("SELECT `uni`, `game_disable`, `game_name` FROM ".CONFIG." WHERE `uni` != '".$UNI."' ORDER BY `uni` ASC;");
 			while($Unis	= $db->fetch_array($Query)) {
 				$AvailableUnis[$Unis['uni']]	= $Unis;
 			}
+			ksort($AvailableUnis);
 			$template->assign_vars(array(
 				'email'				=> $LNG['email'],
 				'uni_reg'			=> $LNG['uni_reg'],
@@ -486,10 +493,11 @@ switch ($page) {
 			break;
 			default:
 				$AvailableUnis[$CONF['uni']]	= array('uni' => $CONF['uni'], 'game_disable' => $CONF['game_disable'], 'game_name' => $CONF['game_name']);
-				$Query	= $db->query("SELECT `uni`, `game_disable`, `game_name` FROM ".CONFIG." WHERE `uni` != '".$Universe."';");
+				$Query	= $db->query("SELECT `uni`, `game_disable`, `game_name` FROM ".CONFIG." WHERE `uni` != '".$Universe."' ORDER BY `uni` ASC;");
 				while($Unis	= $db->fetch_array($Query)) {
 					$AvailableUnis[$Unis['uni']]	= $Unis;
 				}
+				ksort($AvailableUnis);
 				$template->assign_vars(array(
 					'server_message_reg'			=> $LNG['server_message_reg'],
 					'register_at_reg'				=> $LNG['register_at_reg'],
@@ -558,10 +566,11 @@ switch ($page) {
 		}
 		
 		$AvailableUnis[$CONF['uni']]	= array('uni' => $CONF['uni'], 'game_disable' => $CONF['game_disable'], 'game_name' => $CONF['game_name']);
-		$Query	= $db->query("SELECT `uni`, `game_disable`, `game_name` FROM ".CONFIG." WHERE `uni` != '".$Universe."';");
+		$Query	= $db->query("SELECT `uni`, `game_disable`, `game_name` FROM ".CONFIG." WHERE `uni` != '".$Universe."' ORDER BY `uni` ASC;");
 		while($Unis	= $db->fetch_array($Query)) {
 			$AvailableUnis[$Unis['uni']]	= $Unis;
 		}	
+		ksort($AvailableUnis);
 			
 		$template->assign_vars(array(	
 			'AvailableUnis'	=> $AvailableUnis,
@@ -598,10 +607,11 @@ switch ($page) {
 		}
 		
 		$AvailableUnis[$CONF['uni']]	= array('uni' => $CONF['uni'], 'game_disable' => $CONF['game_disable'], 'game_name' => $CONF['game_name']);
-		$Query	= $db->query("SELECT `uni`, `game_disable`, `game_name` FROM ".CONFIG." WHERE `uni` != '".$UNI."';");
+		$Query	= $db->query("SELECT `uni`, `game_disable`, `game_name` FROM ".CONFIG." WHERE `uni` != '".$UNI."' ORDER BY `uni` ASC;");
 		while($Unis	= $db->fetch_array($Query)) {
 			$AvailableUnis[$Unis['uni']]	= $Unis;
 		}
+		ksort($AvailableUnis);
 		
 		$template->assign_vars(array(	
 			'AvailableUnis'				=> $AvailableUnis,
@@ -667,10 +677,11 @@ switch ($page) {
 			}
 		} else {
 			$AvailableUnis[$CONF['uni']]	= array('uni' => $CONF['uni'], 'game_disable' => $CONF['game_disable'], 'game_name' => $CONF['game_name']);
-			$Query	= $db->query("SELECT `uni`, `game_disable`, `game_name` FROM ".CONFIG." WHERE `uni` != '".$UNI."';");
+			$Query	= $db->query("SELECT `uni`, `game_disable`, `game_name` FROM ".CONFIG." WHERE `uni` != '".$UNI."' ORDER BY `uni` ASC;");
 			while($Unis	= $db->fetch_array($Query)) {
 				$AvailableUnis[$Unis['uni']]	= $Unis;
 			}
+			ksort($AvailableUnis);
 			$Code	= request_var('code', 0);
 			if(!empty($Code)) {
 				$template->assign_vars(array(

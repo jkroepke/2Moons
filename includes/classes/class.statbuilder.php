@@ -299,111 +299,127 @@ class statbuilder
 	private function SetNewRanks()
 	{
 		global $db, $CONF;
+		$Unis	= array($CONF['uni']);
+		$Query	= $db->query("SELECT `uni` FROM ".CONFIG." WHERE `uni` != '".$UNI."' ORDER BY `uni` ASC;");
+		while($Uni	= $db->fetch_array($Query)) {
+			$Unis[]	= $Uni['uni'];
+		}
+		
+		
 		$QryUpdateStats = "";
-		
-		$Rank           = 1;
-		$RankQry        = $db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.`stat_type` = '1' AND s.`id_owner` = `u`.id ".(($CONF['stat'] == 2)?'AND u.`authlevel` < '.$CONF['stat_level'].' ':'')." ORDER BY `tech_points` DESC;");
-		while ($CurUser = $db->fetch_array($RankQry))
+		foreach($Unis as $Uni)
 		{
-			$tech[$CurUser['id_owner']]	= $Rank;
-			$Rank++;
-		}
+			$tech			= array();
+			$Rank           = 1;
+			$RankQry        = $db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.`universe` = '".$Uni."' AND s.`stat_type` = '1' AND s.`id_owner` = `u`.id ".(($CONF['stat'] == 2)?'AND u.`authlevel` < '.$CONF['stat_level'].' ':'')." ORDER BY `tech_points` DESC;");
+			while ($CurUser = $db->fetch_array($RankQry))
+			{
+				$tech[$CurUser['id_owner']]	= $Rank;
+				$Rank++;
+			}
 
-		$db->free_result($RankQry);
+			$db->free_result($RankQry);
 
-		$Rank           = 1;
-		$RankQry        = $db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.`stat_type` = '1' AND s.`id_owner` = `u`.id ".(($CONF['stat'] == 2)?'AND u.`authlevel` < '.$CONF['stat_level'].' ':'')." ORDER BY `build_points` DESC;");
-		while ($CurUser = $db->fetch_array($RankQry))
-		{
-			$build[$CurUser['id_owner']] = $Rank;
-			$Rank++;
-		}
+			$build			= array();
+			$Rank           = 1;
+			$RankQry        = $db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.`universe` = '".$Uni."' AND  s.`stat_type` = '1' AND s.`id_owner` = `u`.id ".(($CONF['stat'] == 2)?'AND u.`authlevel` < '.$CONF['stat_level'].' ':'')." ORDER BY `build_points` DESC;");
+			while ($CurUser = $db->fetch_array($RankQry))
+			{
+				$build[$CurUser['id_owner']] = $Rank;
+				$Rank++;
+			}
 
-		$db->free_result($RankQry);
+			$db->free_result($RankQry);
+				
+			$defs			= array();
+			$Rank           = 1;
+			$RankQry        = $db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.`universe` = '".$Uni."' AND  s.`stat_type` = '1' AND s.`id_owner` = `u`.id ".(($CONF['stat'] == 2)?'AND u.`authlevel` < '.$CONF['stat_level'].' ':'')." ORDER BY `defs_points` DESC;");
+			while ($CurUser = $db->fetch_array($RankQry))
+			{
+				$defs[$CurUser['id_owner']]	= $Rank;
+				$Rank++;
+			}
+
+			$db->free_result($RankQry);
+				
+			$fleet			= array();
+			$Rank           = 1;
+			$RankQry        = $db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.`universe` = '".$Uni."' AND  s.`stat_type` = '1' AND s.`id_owner` = `u`.id ".(($CONF['stat'] == 2)?'AND u.`authlevel` < '.$CONF['stat_level'].' ':'')." ORDER BY `fleet_points` DESC;");
+			while ($CurUser = $db->fetch_array($RankQry))
+			{
+				$fleet[$CurUser['id_owner']] = $Rank;
+				$Rank++;
+			}
+
+			$db->free_result($RankQry);
+				
+			$Rank           = 1;
+			$RankQry        = $db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.`universe` = '".$Uni."' AND  s.`stat_type` = '1' AND s.`id_owner` = `u`.id ".(($CONF['stat'] == 2)?'AND u.`authlevel` < '.$CONF['stat_level'].' ':'')." ORDER BY `total_points` DESC;");
+
+			while($CurUser = $db->fetch_array($RankQry))
+			{
+				$QryUpdateStats .= "UPDATE ".STATPOINTS." SET `tech_rank` = '". $tech[$CurUser['id_owner']] ."', `build_rank` = '". $build[$CurUser['id_owner']] ."', `defs_rank` = '". $defs[$CurUser['id_owner']] ."', `fleet_rank` = '". $fleet[$CurUser['id_owner']] ."', `total_rank` = '". $Rank ."' WHERE `stat_type` = '1' AND `id_owner` = '". $CurUser['id_owner'] ."';";
+				$Rank++;
+			}
+
+			$db->free_result($RankQry);
+				
+				
+			$tech			= array();
+			$Rank           = 1;
+			$RankQry        = $db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s WHERE s.`universe` = '".$Uni."' AND  s.`stat_type` = '2' ORDER BY `tech_points` DESC;");
+			while ($CurUser = $db->fetch_array($RankQry))
+			{
+				$tech[$CurUser['id_owner']]	= $Rank;
+				$Rank++;
+			}
+
+			$db->free_result($RankQry);
 			
-		$Rank           = 1;
-		$RankQry        = $db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.`stat_type` = '1' AND s.`id_owner` = `u`.id ".(($CONF['stat'] == 2)?'AND u.`authlevel` < '.$CONF['stat_level'].' ':'')." ORDER BY `defs_points` DESC;");
-		while ($CurUser = $db->fetch_array($RankQry))
-		{
-			$defs[$CurUser['id_owner']]	= $Rank;
-			$Rank++;
-		}
+			$build			= array();
+			$Rank           = 1;
+			$RankQry        = $db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s WHERE s.`universe` = '".$Uni."' AND  s.`stat_type` = '2' ORDER BY `build_points` DESC;");
+			while ($CurUser = $db->fetch_array($RankQry))
+			{
+				$build[$CurUser['id_owner']] = $Rank;
+				$Rank++;
+			}
 
-		$db->free_result($RankQry);
+			$db->free_result($RankQry);
+				
+			$defs			= array();
+			$Rank           = 1;
+			$RankQry        = $db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s WHERE s.`universe` = '".$Uni."' AND  s.`stat_type` = '2' ORDER BY `defs_points` DESC;");
+			while ($CurUser = $db->fetch_array($RankQry))
+			{
+				$defs[$CurUser['id_owner']]	= $Rank;
+				$Rank++;
+			}
+
+			$db->free_result($RankQry);
 			
-		$Rank           = 1;
-		$RankQry        = $db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.`stat_type` = '1' AND s.`id_owner` = `u`.id ".(($CONF['stat'] == 2)?'AND u.`authlevel` < '.$CONF['stat_level'].' ':'')." ORDER BY `fleet_points` DESC;");
-		while ($CurUser = $db->fetch_array($RankQry))
-		{
-			$fleet[$CurUser['id_owner']] = $Rank;
-			$Rank++;
+			$fleet			= array();
+			$Rank           = 1;
+			$RankQry        = $db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s WHERE s.`universe` = '".$Uni."' AND  s.`stat_type` = '2' ORDER BY `fleet_points` DESC;");
+			while ($CurUser = $db->fetch_array($RankQry))
+			{
+				$fleet[$CurUser['id_owner']] = $Rank;
+				$Rank++;
+			}
+
+			$db->free_result($RankQry);
+				
+			$Rank           = 1;
+			$RankQry        = $db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s WHERE s.`universe` = '".$Uni."' AND s.`stat_type` = '2' ORDER BY `total_points` DESC;");
+
+			while($CurUser = $db->fetch_array($RankQry))
+			{
+				$QryUpdateStats .= "UPDATE ".STATPOINTS." SET `tech_rank` = '". $tech[$CurUser['id_owner']] ."', `build_rank` = '". $build[$CurUser['id_owner']] ."', `defs_rank` = '". $defs[$CurUser['id_owner']] ."', `fleet_rank` = '". $fleet[$CurUser['id_owner']] ."', `total_rank` = '". $Rank ."' WHERE `stat_type` = '2' AND `id_owner` = '". $CurUser['id_owner'] ."';";
+				$Rank++;
+			}
+
+			$db->free_result($RankQry);
 		}
-
-		$db->free_result($RankQry);
-			
-		$Rank           = 1;
-		$RankQry        = $db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.`stat_type` = '1' AND s.`id_owner` = `u`.id ".(($CONF['stat'] == 2)?'AND u.`authlevel` < '.$CONF['stat_level'].' ':'')." ORDER BY `total_points` DESC;");
-
-		while($CurUser = $db->fetch_array($RankQry))
-		{
-			$QryUpdateStats .= "UPDATE ".STATPOINTS." SET `tech_rank` = '". $tech[$CurUser['id_owner']] ."', `build_rank` = '". $build[$CurUser['id_owner']] ."', `defs_rank` = '". $defs[$CurUser['id_owner']] ."', `fleet_rank` = '". $fleet[$CurUser['id_owner']] ."', `total_rank` = '". $Rank ."' WHERE  `stat_type` = '1' AND `id_owner` = '". $CurUser['id_owner'] ."';";
-			$Rank++;
-		}
-
-		$db->free_result($RankQry);
-			
-			
-		$Rank           = 1;
-		$RankQry        = $db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s WHERE s.`stat_type` = '2' ORDER BY `tech_points` DESC;");
-		while ($CurUser = $db->fetch_array($RankQry))
-		{
-			$tech[$CurUser['id_owner']]	= $Rank;
-			$Rank++;
-		}
-	
-		$db->free_result($RankQry);
-		
-		$Rank           = 1;
-		$RankQry        = $db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s WHERE s.`stat_type` = '2' ORDER BY `build_points` DESC;");
-		while ($CurUser = $db->fetch_array($RankQry))
-		{
-			$build[$CurUser['id_owner']] = $Rank;
-			$Rank++;
-		}
-
-		$db->free_result($RankQry);
-			
-		$Rank           = 1;
-		$RankQry        = $db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s WHERE s.`stat_type` = '2' ORDER BY `defs_points` DESC;");
-		while ($CurUser = $db->fetch_array($RankQry))
-		{
-			$defs[$CurUser['id_owner']]	= $Rank;
-			$Rank++;
-		}
-
-		$db->free_result($RankQry);
-		
-		$Rank           = 1;
-		$RankQry        = $db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s WHERE s.`stat_type` = '2' ORDER BY `fleet_points` DESC;");
-		while ($CurUser = $db->fetch_array($RankQry))
-		{
-			$fleet[$CurUser['id_owner']] = $Rank;
-			$Rank++;
-		}
-
-		$db->free_result($RankQry);
-			
-		$Rank           = 1;
-		$RankQry        = $db->query("SELECT s.`id_owner` FROM ".STATPOINTS." as s WHERE s.`stat_type` = '2' ORDER BY `total_points` DESC;");
-
-		while($CurUser = $db->fetch_array($RankQry))
-		{
-			$QryUpdateStats .= "UPDATE ".STATPOINTS." SET `tech_rank` = '". $tech[$CurUser['id_owner']] ."', `build_rank` = '". $build[$CurUser['id_owner']] ."', `defs_rank` = '". $defs[$CurUser['id_owner']] ."', `fleet_rank` = '". $fleet[$CurUser['id_owner']] ."', `total_rank` = '". $Rank ."' WHERE  `stat_type` = '2' AND `id_owner` = '". $CurUser['id_owner'] ."';";
-			$Rank++;
-		}
-
-		$db->free_result($RankQry);
-		
 		return $QryUpdateStats;
 	}
 	

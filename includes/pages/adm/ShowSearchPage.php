@@ -129,7 +129,7 @@ function ShowSearchPage()
 			$NameLang		=	$LNG['se_search_users'];
 			$SpecifyItems	=	"id,username,email_2,onlinetime,register_time,user_lastip,authlevel,bana,urlaubs_modus";
 			$SName			=	$LNG['se_input_userss'];
-			
+			$SpecialSpecify	= "";
 			if ($SearchFile == "vacation"){
 				$SpecialSpecify	=	"AND urlaubs_modus = '1'";
 				$SName			=	$LNG['se_input_vacatii'];}
@@ -147,6 +147,8 @@ function ShowSearchPage()
 				$SName			=	$LNG['se_input_admm'];}
 				
 				
+			$SpecialSpecify	.=	" AND `universe` = '".$_SESSION['adminuni']."'";
+			
 			(($SearchFor == "name") ? $WhereItem = "WHERE username" : $WhereItem = "WHERE id");
 			$ArrayOSec		=	array("id", "username", "email_2", "onlinetime", "register_time", "user_lastip", "authlevel", "bana", "urlaubs_modus");
 			$Array0SecCount	=	count($ArrayOSec);
@@ -166,15 +168,15 @@ function ShowSearchPage()
 			if ($SearchFile == "planet"){
 				$SpecialSpecify	=	"AND planet_type = '1'";
 				$SName			=	$LNG['se_input_planett'];}
-				
-			if ($SearchFile == "moon"){
+			elseif ($SearchFile == "moon"){
 				$SpecialSpecify	=	"AND planet_type = '3'";
 				$SName			=	$LNG['se_input_moonn'];}
-				
-			if ($SearchFile == "p_connect"){
+			elseif ($SearchFile == "p_connect"){
 				$SpecialSpecify	=	"AND last_update >= '".(TIMESTAMP - 60 * 60)."'";
 				$SName			=	$LNG['se_input_act_pla'];}
-				
+			
+			
+			$SpecialSpecify	.=	" AND `universe` = '".$_SESSION['adminuni']."'";
 			
 			(($SearchFor == "name") ? $WhereItem = "WHERE name" : $WhereItem = "WHERE id");
 			
@@ -192,6 +194,7 @@ function ShowSearchPage()
 			$NameLang		=	$LNG['se_search_banned'];
 			$SpecifyItems	=	"id,who,time,longer,theme,author";
 			$SName			=	$LNG['se_input_susss'];
+			$SpecialSpecify	=	" AND `universe` = '".$_SESSION['adminuni']."'";
 			
 			(($SearchFor == "name") ? $WhereItem = "WHERE who" : $WhereItem = "WHERE id");
 			
@@ -210,6 +213,7 @@ function ShowSearchPage()
 			$NameLang		=	$LNG['se_search_alliance'];
 			$SpecifyItems	=	"id,ally_name,ally_tag,ally_owner,ally_register_time,ally_members";
 			$SName			=	$LNG['se_input_allyy'];
+			$SpecialSpecify	=	" AND `ally_universe` = '".$_SESSION['adminuni']."'";
 			
 			(($SearchFor == "name") ? $WhereItem = "WHERE ally_name" : $WhereItem = "WHERE id");
 			

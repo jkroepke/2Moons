@@ -19,6 +19,6 @@
 	</tr>
 	{/foreach}
 	<tr>
-	<th><a href="?page=universe&action=create&sid={$SID}">Create a new</a></th>
+	<th colspan="6"><a href="?page=universe&action=create&sid={$SID}">Create a new</a></th>
 </table>
 {include file="adm/overall_footer.tpl"}
