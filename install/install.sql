@@ -81,6 +81,7 @@ CREATE TABLE IF NOT EXISTS `prefix_chat` (
   KEY `universe` (`universe`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `prefix_config`(  
   `uni` int(11) NOT NULL AUTO_INCREMENT,
   `VERSION` varchar(8) NOT NULL,
   `users_amount` int(11) NOT NULL,
