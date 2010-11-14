@@ -23,7 +23,7 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 
 function ShowOverviewPage()
 {
-	global $CONF, $LNG, $PLANET, $USER, $db, $resource;
+	global $CONF, $LNG, $PLANET, $USER, $db, $resource, $UNI;
 	$PlanetRess = new ResourceUpdate();
 	$PlanetRess->CalcResource();
 	$PlanetRess->SavePlanetToDB();
@@ -110,7 +110,7 @@ function ShowOverviewPage()
 		}
 	}
 	
-	$OnlineAdmins 	= $db->query("SELECT `id`,`username` FROM ".USERS." WHERE `onlinetime` >= '".(TIMESTAMP-10*60)."' AND `authlevel` > '0';");
+	$OnlineAdmins 	= $db->query("SELECT `id`,`username` FROM ".USERS." WHERE `universe` = '".$UNI."' AND `onlinetime` >= '".(TIMESTAMP-10*60)."' AND `authlevel` > '0';");
 	while ($AdminRow = $db->fetch_array($OnlineAdmins)) {
 		$AdminsOnline[$AdminRow['id']]	= $AdminRow['username'];
 	}

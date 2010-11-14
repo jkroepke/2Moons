@@ -24,7 +24,7 @@ function update_config($Values, $Global = false, $SpecUni = 0)
 	global $CONF, $db;
 	$SQL	= "";
 	$UNI	= (empty($SpecUni)) ? $GLOBALS['UNI'] : $SpecUni;
-		
+	
 	foreach($Values as $Name => $Value) {
 		if(!isset($CONF[$Name]))
 			continue;

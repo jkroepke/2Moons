@@ -42,7 +42,7 @@ class Session
 		$_SESSION['path']		= $this->GetPath();
 		$_SESSION['dpath']		= $dpath;
 		$_SESSION['planet']		= $MainPlanet;
-		$_SESSION['universe']	= $MainPlanet;
+		$_SESSION['uni']		= $Universe;
 		$db->query("INSERT INTO ".SESSION." (`sess_id`, `user_id`, `user_ua`, `user_ip`, `user_side`, `user_method`, `user_lastactivity`) VALUES ('".session_id()."', '".$ID."', '".$db->sql_escape($_SERVER['HTTP_USER_AGENT'])."', '".sprintf("%u", ip2long($_SERVER['REMOTE_ADDR']))."', '".$db->sql_escape($_SESSION['path'])."', '".$_SERVER["REQUEST_METHOD"]."', '".TIMESTAMP."') ON DUPLICATE KEY UPDATE `sess_id` = '".session_id()."', `user_ua` = '".$db->sql_escape($_SERVER['HTTP_USER_AGENT'])."', `user_ip` = '".sprintf("%u", ip2long($_SERVER['REMOTE_ADDR']))."', `user_side` = '".$db->sql_escape($_SESSION['path'])."', `user_method` = '".$_SERVER["REQUEST_METHOD"]."';");
 	}
 	

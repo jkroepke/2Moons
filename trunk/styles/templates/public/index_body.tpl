@@ -20,10 +20,10 @@
                                   <tbody>
                                     <tr align="center">
 
-                                      <td><span class="estilo5"><label for="Uni">{$universe}</label></span></td>
-                                      <td><select name="Uni" id="Uni" style="width: 188px; position: relative; left: 4px;">
+                                      <td><span class="estilo5"><label for="universe">{$universe}</label></span></td>
+                                      <td><select name="universe" id="universe" style="width: 188px; position: relative; left: 4px;">
             <option value="">{$chose_a_uni}</option>
-					{foreach item=Universe key=ID from=$AvailableUnis}<option value="{$ID}">{$Universe.game_name}{if $Universe.game_disable == 0} {$uni_closed}{/if}</option>{/foreach}
+					{foreach $AvailableUnis as $ID => $Universe}<option value="{$ID}">{$Universe.game_name}{if $Universe.game_disable == 0} {$uni_closed}{/if}</option>{/foreach}
                   </select>
 &nbsp;</td>
                                     </tr>

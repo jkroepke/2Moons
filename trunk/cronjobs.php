@@ -34,7 +34,7 @@ header('Cache-Control: no-cache');
 header('Content-type: image/gif');
 header('Content-length: 43');
 header('Expires: 0');
-			
+echo("\x47\x49\x46\x38\x39\x61\x01\x00\x01\x00\x80\x00\x00\x00\x00\x00\x00\x00\x00\x21\xF9\x04\x01\x00\x00\x00\x00\x2C\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02\x44\x01\x00\x3B");
 $cron = request_var('cron','');
 switch($cron) 
 {
@@ -56,7 +56,7 @@ switch($cron)
 			while($pru = $db->fetch_array($prueba)){
 				$compprefix = explode("_",$pru["Name"]);  
 				
-				if(($compprefix[0]."_") == DB_PREFIX)
+				if($compprefix[0].'_' == DB_PREFIX && $compprefix[1] != 'session')
 				{
 					$table .= "`".$pru["Name"]."`, ";
 				}

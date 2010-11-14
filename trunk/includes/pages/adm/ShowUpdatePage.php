@@ -77,31 +77,40 @@ function ShowUpdatePage()
 			
 			$zipfile 	= new zipfile();
 			$TodoDelete	= "";
+			$Files		= array('add' => array(), 'edit' => array(), 'del' => array());
 			foreach($UpdateArray['revs'] as $Rev => $RevInfo) 
 			{
 				if(!empty($RevInfo['add']))
 				{
 					foreach($RevInfo['add'] as $File)
 					{	
-						if (strpos($File, '.') !== false)
-							$zipfile->addFile(@file_get_contents($SVN_ROOT.$File), str_replace("/trunk/", "", $File), $RevInfo['timestamp']);					
+						if(in_array($File, $Files['add'] || strpos($File, '.') !== false)
+							continue;	
+						$Files['add'][] = $File;
+						
+						$zipfile->addFile(@file_get_contents($SVN_ROOT.$File), str_replace("/trunk/", "", $File), $RevInfo['timestamp']);					
 					}
 				}
 				if(!empty($RevInfo['edit']))
 				{
 					foreach($RevInfo['edit'] as $File)
 					{	
-						if (strpos($File, '.') !== false)
-							$zipfile->addFile(@file_get_contents($SVN_ROOT.$File), str_replace("/trunk/", "", $File), $RevInfo['timestamp']);
+						if(in_array($File, $Files['edit'] || strpos($File, '.') !== false)
+							continue;
+						$Files['edit'][] = $File;
+						
+						$zipfile->addFile(@file_get_contents($SVN_ROOT.$File), str_replace("/trunk/", "", $File), $RevInfo['timestamp']);
 					}
 				}
 				if(!empty($RevInfo['del']))
 				{
 					foreach($RevInfo['del'] as $File)
 					{
-						if (strpos($File, '.') !== false) {
-							$TodoDelete	.= str_replace("/trunk/", "", $File)."\r\n";
-						}
+						if(in_array($File, $Files['del'] || strpos($File, '.') !== false)
+							continue;
+						$Files['del'][] = $File;
+
+						$TodoDelete	.= str_replace("/trunk/", "", $File)."\r\n";
 					}
 				}
 				$LastRev = $Rev;
@@ -110,7 +119,7 @@ function ShowUpdatePage()
 			if(!empty($TodoDelete))
 				$zipfile->addFile($TodoDelete, "!TodoDelete!.txt", $RevInfo['timestamp']);
 			
-			update_config('VERSION', str_replace("RC","",$Patchlevel[0]).".".$Patchlevel[1].".".$LastRev);
+			update_config(array('VERSION' => $Patchlevel[0].".".$Patchlevel[1].".".$LastRev), true);
 			// Header für Download senden
 			header("HTTP/1.1 200 OK");
 			header("Content-Type: application/force-download");
@@ -153,13 +162,16 @@ function ShowUpdatePage()
 				$ftp->close();
 				exitupdate($LOG);
 			}
-			
+			$Files	= array('add' => array(), 'edit' => array(), 'del' => array());
 			foreach($UpdateArray['revs'] as $Rev => $RevInfo) 
 			{
 				if(!empty($RevInfo['add']))
 				{
 					foreach($RevInfo['add'] as $File)
-					{	
+					{
+						if(in_array($File, $Files['add'])
+							continue;	
+						$Files['add'][] = $File;
 						if($File == "/trunk/updates/update_".$Rev.".sql") {
 							$db->multi_query(str_replace("prefix_", DB_PREFIX, @file_get_contents($SVN_ROOT.$File)));
 							continue;
@@ -194,6 +206,9 @@ function ShowUpdatePage()
 				{
 					foreach($RevInfo['edit'] as $File)
 					{	
+						if(in_array($File, $Files['edit'])
+							continue;
+						$Files['edit'][] = $File;
 						if (strpos($File, '.') !== false) {
 							if($File == "/trunk/updates/update_".$Rev.".sql")
 							{
@@ -215,6 +230,10 @@ function ShowUpdatePage()
 				{
 					foreach($RevInfo['del'] as $File)
 					{
+						if(in_array($File, $Files['del'])
+							continue;
+							
+						$Files['del'][] = $File;
 						if (strpos($File, '.') !== false) {
 							if ($ftp->delete(str_replace("/trunk/", "", $File))) {
 								$LOG['update'][$Rev][$File]	= "OK! - Gel&ouml;scht";
@@ -236,7 +255,7 @@ function ShowUpdatePage()
 			$LOG['finish']['atrev'] = "UPDATE: OK! At Revision: ".$LastRev;
 			// Verbindung schließen
 			ClearCache();
-			update_config('VERSION', str_replace("RC","",$Patchlevel[0]).".".$Patchlevel[1].".".$LastRev);
+			update_config(array('VERSION' => $Patchlevel[0].".".$Patchlevel[1].".".$LastRev), true);
 			exitupdate($LOG);
 		break;
 		default:
