@@ -44,6 +44,10 @@ switch($page)
 		include_once(ROOT_PATH . 'includes/pages/adm/ShowInformationPage.' . PHP_EXT);
 		ShowInformationPage();
 	break;
+	case 'backup':
+		include_once(ROOT_PATH . 'includes/pages/adm/ShowBackupPage.' . PHP_EXT);
+		ShowBackupPage();
+	break;
 	case 'rights':
 		include_once(ROOT_PATH . 'includes/pages/adm/ShowRightsPage.' . PHP_EXT);
 		ShowRightsPage();

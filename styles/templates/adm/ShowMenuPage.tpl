@@ -144,6 +144,9 @@
        	<td><div align="center"><a href="?page=globalmessage" target="Hauptframe">{$mu_global_message}</a></div></td>
    	</tr>
 {/if}
+<tr>
+       	<td><div align="center"><a href="?page=backup" target="Hauptframe">{$mu_backup_page}</a></div></td>
+   	</tr>
 {if $rights.ShowPassEncripterPage}
    	<tr>
        	<td><div align="center"><a href="?page=password" target="Hauptframe">{$mu_md5_encripter}</a></div></td>

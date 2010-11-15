@@ -44,6 +44,14 @@ $LNG['rank'][1]	= 'Moderator';
 $LNG['rank'][2]	= 'Operator';
 $LNG['rank'][3]	= 'Administrator';
 
+//Backup - System
+$LNG['backup_system']		=	'Backup-System';
+$LNG['backup_erstellen']	=	'Neues Backup erstellen';
+$LNG['backup_erstellt']		=	'Das erstellen des Backups war erfolgreich.';
+$LNG['backup_datei']		=	'Backup-Dateien';
+$LNG['sql_befehle']			=	'SQL-Befehle';
+$LNG['keine_backups']		=	'Keine Backups vorhanden';
+
 // 	TIEMPO - TIME
 $LNG['time_days']	= 'Tage';
 $LNG['time_hours']	= 'Stunden';
@@ -528,6 +536,7 @@ $LNG['mu_game_info'] 				= 'Informationen';
 $LNG['mu_vaild_users']				= 'Aktivire User'; 
 $LNG['mu_news']						= 'News'; 
 $LNG['mu_clear_cache']				= 'Lösche Cache'; 
+$LNG['mu_backup_page']				= 'Backup erstellen';
 
 //###########################################################//
 
