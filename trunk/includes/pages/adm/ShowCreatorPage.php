@@ -46,6 +46,10 @@ function ShowCreatorPage()
 				$Galaxy 	= request_var('galaxy', 0);
 				$System 	= request_var('system', 0);
 				$Planet 	= request_var('planet', 0);
+				
+				if($USER['authlevel']	!=	3)
+				$Univer     = $USER['universe'];
+				else
 				$Univer		= request_var('uni','');
 				
 				if ($CONF['capaktiv'] === '1') {
@@ -148,8 +152,12 @@ function ShowCreatorPage()
 				$AvailableUnis[$Unis['uni']]	= $Unis;
 			}
 			
+			$UniName	=	$db->query("SELECT uni,game_name FROM ".CONFIG." WHERE uni = '".$USER['universe']."'");
+			$UniN		=	$UniName->fetch_array();
+			
 			$template->assign_vars(array(	
 				'AvailableUnis'			=> $AvailableUnis,
+				'admin_auth'			=> $USER['authlevel'],
 				'new_add_user'			=> $LNG['new_add_user'],
 				'new_creator_refresh'	=> $LNG['new_creator_refresh'],
 				'new_creator_go_back'	=> $LNG['new_creator_go_back'],
