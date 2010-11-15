@@ -90,6 +90,33 @@ function ShowUniversePage() {
 		$db->query("UPDATE ".USERS." SET `id_planet` = '".$PlanetID."' WHERE `id` = '".$UserID."';");
 		$db->query("INSERT INTO ".STATPOINTS." (`id_owner`, `id_ally`, `stat_type`, `universe`, `tech_rank`, `tech_old_rank`, `tech_points`, `tech_count`, `build_rank`, `build_old_rank`, `build_points`, `build_count`, `defs_rank`, `defs_old_rank`, `defs_points`, `defs_count`, `fleet_rank`, `fleet_old_rank`, `fleet_points`, `fleet_count`, `total_rank`, `total_old_rank`, `total_points`, `total_count`) VALUES ('".$UserID."', '0', '1', '".$UniID."', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');");
 		update_config(array('users_amount' => 1), false, $UniID);
+	} elseif($_REQUEST['action'] == 'download' && !empty($_REQUEST['id']) && $_REQUEST['id'] != 1) {
+		header("Content-type: application/force-download");
+		header("Content-Transfer-Encoding: Binary");
+		
+		$Backup	= serialize(array(
+			'AKS'			=> $db->fetchquery("SELECT * FROM ".AKS." ORDER BY `id` ASC;"),
+			'ALLIANCE'		=> $db->fetchquery("SELECT * FROM ".ALLIANCE." ORDER BY `id` ASC;"),
+			'BANNED'		=> $db->fetchquery("SELECT * FROM ".BANNED." ORDER BY `id` ASC;"),
+			'BUDDY'			=> $db->fetchquery("SELECT * FROM ".BUDDY." ORDER BY `id` ASC;"),
+			'CHAT'			=> $db->fetchquery("SELECT * FROM ".CHAT." ORDER BY `messageid` ASC;"),
+			'CONFIG'		=> $db->fetchquery("SELECT * FROM ".CONFIG." WHERE `uni` = ".$_REQUEST['id'].";"),
+			'DIPLO'			=> $db->fetchquery("SELECT * FROM ".DIPLO." ORDER BY `id` ASC;"),
+			'FLEETS'		=> $db->fetchquery("SELECT * FROM ".FLEETS." ORDER BY `fleet_id` ASC;"),
+			'MESSAGES'		=> $db->fetchquery("SELECT * FROM ".MESSAGES." ORDER BY `message_id` ASC;"),
+			'NOTES'			=> $db->fetchquery("SELECT * FROM ".NOTES." ORDER BY `id` ASC;"),
+			'PLANETS'		=> $db->fetchquery("SELECT * FROM ".PLANETS." ORDER BY `id` ASC;"),
+			'STATPOINTS'	=> $db->fetchquery("SELECT * FROM ".STATPOINTS.";"),
+			'SUPP'			=> $db->fetchquery("SELECT * FROM ".SUPP." ORDER BY `id` ASC;"),
+			'TOPKB'			=> $db->fetchquery("SELECT * FROM ".TOPKB." ORDER BY `rid` ASC;"),
+			'USERS'			=> $db->fetchquery("SELECT * FROM ".USERS." ORDER BY `id` ASC;"),
+			'USERS_VALID'	=> $db->fetchquery("SELECT * FROM ".USERS_VALID." ORDER BY `id` ASC;"),
+		));
+		
+		header("Content-length: ".strlen($Backup));
+		header("Content-Disposition: attachment; filename=Uni_".$_REQUEST['id']."_".date('d.m.y').".2moons");
+		echo $Backup;
+		exit;
 	}
 	$Unis				= array();
 	$Unis[$CONF['uni']]	= $CONF;

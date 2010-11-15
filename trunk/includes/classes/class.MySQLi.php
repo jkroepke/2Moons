@@ -100,12 +100,7 @@ class DB_mysqli extends mysqli
 
 	public function uniquequery($resource)
 	{		
-		if(false === ($result = parent::query($resource)))
-		{
-			throw new Exception("SQL Error: ".$this->error."<br><br>Query Code: ".$resource);
-		}	
-		
-		$this->queryCount++;
+		$result = $this->query($resource);
 		$Return = $result->fetch_array(MYSQLI_ASSOC);
 		$result->close();
 		return $Return;
@@ -121,17 +116,29 @@ class DB_mysqli extends mysqli
 
 	public function countquery($resource)
 	{		
-		if(false === ($result = parent::query($resource)))
-		{
-			throw new Exception("SQL Error: ".$this->error."<br><br>Query Code: ".$resource);
-		}	
-		
-		$this->queryCount++;
+		$result = $this->query($resource);
 		list($Return) = $result->fetch_array(MYSQLI_NUM);
 		$result->close();
 		return $Return;
-		
 	}	
+	/**
+	 * Purpose a query on selected database.
+	 *
+	 * @param string	The SQL query
+	 *
+	 * @return resource	Results of the query
+	 */
+
+	public function fetchquery($resource)
+	{		
+		$result = $this->query($resource);
+		$Return	= array();
+		while($Data	= $result->fetch_array(MYSQLI_ASSOC))
+			$Return[]	= $Data;
+			
+		$result->close();
+		return $Return;
+	}
 
 	/**
 	 * Returns the row of a query as an array.
