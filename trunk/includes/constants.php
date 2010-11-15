@@ -26,7 +26,7 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	define('DEFAULT_SKINPATH' 		  , 'styles/skins/gow/');
 	define('TEMPLATE_DIR'     		  , 'styles/templates/');
 	
-	define('PROTOCOL'				  , $_SERVER["HTTPS"] == 'on' ? 'https://' : 'http://');
+	define('PROTOCOL'				  , (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"]  == 'on') ? 'https://' : 'http://');
 	define('HTTP_ROOT'				  , str_replace(basename($_SERVER["PHP_SELF"]), '', $_SERVER["PHP_SELF"]));
 
 	define('DEFAULT_LANG'             , "de"); // For Fatal Errors!

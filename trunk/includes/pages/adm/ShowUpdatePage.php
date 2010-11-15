@@ -20,6 +20,7 @@
 ##############################################################################
 
 if ($USER['rights'][str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__)] != 1) exit;
+set_time_limit(0);
 
 function exitupdate($LOG){
 	$Page	= "";
