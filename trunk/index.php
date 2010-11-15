@@ -455,7 +455,7 @@ switch ($page) {
 						break;
 					}
 					
-					if (!CheckPlanetIfExist($Galaxy, $System, $Planet))
+					if (!CheckPlanetIfExist($Galaxy, $System, $Planet, $UserUni))
 					{					
 						require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.'.PHP_EXT);
 						CreateOnePlanetRecord ($Galaxy, $System, $Planet, $UserUni, $NewUser['id'], $UserPlanet, true);

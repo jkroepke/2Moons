@@ -2,27 +2,6 @@ function ajax(url){
 	$('#background-content').load(url);
 }
 
-function changeAction(type) {
-    if ($('#Uni').val() == '') {
-        alert($("#Uni :selected").text());
-		return false;
-    } else {
-		return true;
-        switch(type){
-			case "login":
-				document.login.action = $('#Uni').val();
-			break;
-			case "reg":
-				document.reg.action = "?page=reg&mode=send&lang="+lang;
-			break;
-			case "lostpassword":
-				document.lostpassword.action = "?page=lostpassword&mode=send&lang="+lang;
-			break;
-		}
-		return true;
-    }
-}
-
 function showRecaptcha(element) 
 {
 	if(IsCaptchaActive == 0)
