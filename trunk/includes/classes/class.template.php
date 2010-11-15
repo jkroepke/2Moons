@@ -348,7 +348,7 @@ class template
 	public function display($file)
 	{
 		$this->file			= $file;
-		$this->cachefile	= $this->cachedir.$this->cacheid.md5(md5_file($this->template_dir.$this->file).implode('', $this->vars)).'.tpl.php';
+		$this->cachefile	= $this->cachedir.$this->cacheid.md5(filemtime($this->template_dir.$this->file).implode('', $this->vars)).'.tpl.php';
 		if($this->cache && $CONF['debug'] == 0 && file_exists($this->cachefile))
 			echo file_get_contents($this->cachefile);
 		else

@@ -211,9 +211,9 @@ switch ($page) {
 	break;
 	case 'lostpassword': 
 		if ($mode == "send") {
-			$USERmail = request_var('email', '' );
-			$USERmail = request_var('email', '' );
-			$ExistMail = $db->uniquequery("SELECT `username` FROM ".USERS." WHERE `email` = '".$db->sql_escape($USERmail)."' AND `universe` = '".$UNI."';");
+			$USERmail = request_var('email', '');
+			$Universe = request_var('universe', 0);
+			$ExistMail = $db->uniquequery("SELECT `username` FROM ".USERS." WHERE `email` = '".$db->sql_escape($USERmail)."' AND `universe` = '".$Universe."';");
 			if (empty($ExistMail['username'])) {
 				$template->message($LNG['mail_not_exist'], "index.php?page=lostpassword&lang=".$LANG, 3, true);
 			} else {
@@ -233,7 +233,7 @@ switch ($page) {
 				
 				if(true === true)
 				{
-					$db->query("UPDATE ".USERS." SET `password` ='" . md5($NewPass) . "' WHERE `username` = '".$ExistMail['username']."' AND `universe` = '".$UNI."';");
+					$db->query("UPDATE ".USERS." SET `password` ='" . md5($NewPass) . "' WHERE `username` = '".$ExistMail['username']."' AND `universe` = '".$Universe."';");
 					$template->message($LNG['mail_sended'], "./?lang=".$LANG, 5, true);
 				} else {
 					$template->message($LNG['mail_sended_fail'], "./?lang=".$LANG, 5, true);
@@ -241,10 +241,10 @@ switch ($page) {
 			
 			}
 		} else {
-			$AvailableUnis[$CONF['uni']]	= array('uni' => $CONF['uni'], 'game_disable' => $CONF['game_disable'], 'game_name' => $CONF['game_name']);
+			$AvailableUnis[$CONF['uni']]	= $CONF['game_name'].($CONF['game_disable'] == 0 ? $LNG['uni_closed'] : '');
 			$Query	= $db->query("SELECT `uni`, `game_disable`, `game_name` FROM ".CONFIG." WHERE `uni` != '".$UNI."' ORDER BY `uni` ASC;");
 			while($Unis	= $db->fetch_array($Query)) {
-				$AvailableUnis[$Unis['uni']]	= $Unis;
+				$AvailableUnis[$Unis['uni']]	= $Unis['game_name'].($Unis['game_disable'] == 0 ? $LNG['uni_closed'] : '');
 			}
 			ksort($AvailableUnis);
 			$template->assign_vars(array(
@@ -259,7 +259,6 @@ switch ($page) {
 		}
 		break;
 	case 'reg' :
-		
 		if ($CONF['reg_closed'] == 1){
 			$template->assign_vars(array(
 				'closed'	=> $LNG['reg_closed'],
@@ -281,6 +280,7 @@ switch ($page) {
 				$UserEmail2	= request_var('email2', '');
 				$agbrules 	= request_var('rgt', '');
 				$UserLang 	= request_var('lang', '');
+				$Universe 	= request_var('universe', 0);
 				
 				if ($CONF['capaktiv'] === '1') {
 					require_once('includes/libs/reCAPTCHA/recaptchalib.php');
@@ -289,8 +289,8 @@ switch ($page) {
 						$errors .= $LNG['wrong_captcha'];
 				}
 				
-				$Exist['userv'] = $db->uniquequery("SELECT username, email FROM ".USERS." WHERE `universe` = '".$UNI."' AND (username = '".$db->sql_escape($UserName)."' OR email = '".$db->sql_escape($UserEmail)."');");
-				$Exist['valid'] = $db->uniquequery("SELECT username, email FROM ".USERS_VALID." WHERE `universe` = '".$UNI."' AND (username = '".$db->sql_escape($UserName)."' OR email = '".$db->sql_escape($UserEmail)."');");
+				$Exist['userv'] = $db->uniquequery("SELECT username, email FROM ".USERS." WHERE `universe` = '".$Universe."' AND (username = '".$db->sql_escape($UserName)."' OR email = '".$db->sql_escape($UserEmail)."');");
+				$Exist['valid'] = $db->uniquequery("SELECT username, email FROM ".USERS_VALID." WHERE `universe` = '".$Universe."' AND (username = '".$db->sql_escape($UserName)."' OR email = '".$db->sql_escape($UserEmail)."');");
 								
 				if (!ValidateAddress($UserEmail)) 
 					$errors .= $LNG['invalid_mail_adress'];
@@ -347,7 +347,7 @@ switch ($page) {
 					$SQL .= "`planet` = '".$db->sql_escape($UserPlanet)."', ";
 					$SQL .= "`date` = '".TIMESTAMP."', ";
 					$SQL .= "`cle` = '".$clef."', ";
-					$SQL .= "`universe` = '".$UNI."', ";
+					$SQL .= "`universe` = '".$Universe."', ";
 					$SQL .= "`password` = '".$md5newpass."', ";
 					$SQL .= "`ip` = '".$_SERVER['REMOTE_ADDR']."'; ";
 					$db->query($SQL);
@@ -368,7 +368,7 @@ switch ($page) {
 				$SQL .= "`planet` = '".$db->sql_escape($UserPlanet)."', ";
 				$SQL .= "`date` = '".TIMESTAMP."', ";
 				$SQL .= "`cle` = '".$clef."', ";
-				$SQL .= "`universe` = '".$UNI."', ";
+				$SQL .= "`universe` = '".$Universe."', ";
 				$SQL .= "`password` = '".$md5newpass."', ";
 				$SQL .= "`ip` = '".$_SERVER['REMOTE_ADDR']."'; ";
 				$db->query($SQL);
@@ -492,10 +492,10 @@ switch ($page) {
 				}
 			break;
 			default:
-				$AvailableUnis[$CONF['uni']]	= array('uni' => $CONF['uni'], 'game_disable' => $CONF['game_disable'], 'game_name' => $CONF['game_name']);
-				$Query	= $db->query("SELECT `uni`, `game_disable`, `game_name` FROM ".CONFIG." WHERE `uni` != '".$Universe."' ORDER BY `uni` ASC;");
+				$AvailableUnis[$CONF['uni']]	= $CONF['game_name'].($CONF['game_disable'] == 0 ? $LNG['uni_closed'] : '');
+				$Query	= $db->query("SELECT `uni`, `game_disable`, `game_name` FROM ".CONFIG." WHERE `uni` != '".$UNI."' ORDER BY `uni` ASC;");
 				while($Unis	= $db->fetch_array($Query)) {
-					$AvailableUnis[$Unis['uni']]	= $Unis;
+					$AvailableUnis[$Unis['uni']]	= $Unis['game_name'].($Unis['game_disable'] == 0 ? $LNG['uni_closed'] : '');
 				}
 				ksort($AvailableUnis);
 				$template->assign_vars(array(
@@ -565,11 +565,11 @@ switch ($page) {
 			);
 		}
 		
-		$AvailableUnis[$CONF['uni']]	= array('uni' => $CONF['uni'], 'game_disable' => $CONF['game_disable'], 'game_name' => $CONF['game_name']);
-		$Query	= $db->query("SELECT `uni`, `game_disable`, `game_name` FROM ".CONFIG." WHERE `uni` != '".$Universe."' ORDER BY `uni` ASC;");
+		$AvailableUnis[$CONF['uni']]	= $CONF['game_name'].($CONF['game_disable'] == 0 ? $LNG['uni_closed'] : '');
+		$Query	= $db->query("SELECT `uni`, `game_disable`, `game_name` FROM ".CONFIG." WHERE `uni` != '".$UNI."' ORDER BY `uni` ASC;");
 		while($Unis	= $db->fetch_array($Query)) {
-			$AvailableUnis[$Unis['uni']]	= $Unis;
-		}	
+			$AvailableUnis[$Unis['uni']]	= $Unis['game_name'].($Unis['game_disable'] == 0 ? $LNG['uni_closed'] : '');
+		}
 		ksort($AvailableUnis);
 			
 		$template->assign_vars(array(	
@@ -606,10 +606,10 @@ switch ($page) {
 			);
 		}
 		
-		$AvailableUnis[$CONF['uni']]	= array('uni' => $CONF['uni'], 'game_disable' => $CONF['game_disable'], 'game_name' => $CONF['game_name']);
+		$AvailableUnis[$CONF['uni']]	= $CONF['game_name'].($CONF['game_disable'] == 0 ? $LNG['uni_closed'] : '');
 		$Query	= $db->query("SELECT `uni`, `game_disable`, `game_name` FROM ".CONFIG." WHERE `uni` != '".$UNI."' ORDER BY `uni` ASC;");
 		while($Unis	= $db->fetch_array($Query)) {
-			$AvailableUnis[$Unis['uni']]	= $Unis;
+			$AvailableUnis[$Unis['uni']]	= $Unis['game_name'].($Unis['game_disable'] == 0 ? $LNG['uni_closed'] : '');
 		}
 		ksort($AvailableUnis);
 		
@@ -676,10 +676,10 @@ switch ($page) {
 				redirectTo('index.php?code=1');
 			}
 		} else {
-			$AvailableUnis[$CONF['uni']]	= array('uni' => $CONF['uni'], 'game_disable' => $CONF['game_disable'], 'game_name' => $CONF['game_name']);
+			$AvailableUnis[$CONF['uni']]	= $CONF['game_name'].($CONF['game_disable'] == 0 ? $LNG['uni_closed'] : '');
 			$Query	= $db->query("SELECT `uni`, `game_disable`, `game_name` FROM ".CONFIG." WHERE `uni` != '".$UNI."' ORDER BY `uni` ASC;");
 			while($Unis	= $db->fetch_array($Query)) {
-				$AvailableUnis[$Unis['uni']]	= $Unis;
+				$AvailableUnis[$Unis['uni']]	= $Unis['game_name'].($Unis['game_disable'] == 0 ? $LNG['uni_closed'] : '');
 			}
 			ksort($AvailableUnis);
 			$Code	= request_var('code', 0);
@@ -702,8 +702,6 @@ switch ($page) {
 				'screenshots'			=> $LNG['screenshots'],
 				'chose_a_uni'			=> $LNG['chose_a_uni'],
 				'universe'				=> $LNG['universe'],
-				'universe'				=> $LNG['universe'],
-				'uni_closed'			=> $LNG['uni_closed'],
 			));
 			$template->display('public/index_body.tpl');
 		}

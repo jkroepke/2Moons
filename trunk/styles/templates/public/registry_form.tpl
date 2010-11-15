@@ -16,9 +16,9 @@
 <table style="width:100%;text-align:center;padding-top:3px;" align="center">
 	<tr>
 		<td>{$uni_reg}:</td>
-		<td><select name="Uni" id="Uni" style="width: 188px; position: relative; left: 4px;">
+		<td><select name="universe" id="universe" style="width: 188px; position: relative; left: 4px;">
             <option value="">{$chose_a_uni}</option>
-			{foreach item=Universe key=ID from=$AvailableUnis}<option value="{$ID}">{$Universe.game_name}{if $Universe.game_disable < 1} {$uni_closed}{/if}</option>{/foreach}
+			{html_options options=$AvailableUnis selected=$UNI}
 			</select></td> 
 	</tr>
 	<tr>
