@@ -47,10 +47,10 @@ function ShowCreatorPage()
 				$System 	= request_var('system', 0);
 				$Planet 	= request_var('planet', 0);
 				
-				if($USER['authlevel'] != AUTH_ADM)
-					$Univer     = $_SESSION['adminuni'];
+				if($USER['authlevel']	!=	AUTH_ADM)
+				$Univer     = $_SESSION['adminuni'];
 				else
-					$Univer		= request_var('uni','');
+				$Univer		= request_var('uni','');
 				
 				if ($CONF['capaktiv'] === '1') {
 					require_once('includes/libs/reCAPTCHA/recaptchalib.php');
@@ -145,15 +145,12 @@ function ShowCreatorPage()
 			if($USER['authlevel'] >= AUTH_ADM)
 				$AUTH[AUTH_ADM]	= $LNG['user_level'][AUTH_ADM];
 				
-			$UniListe	=	$db->query("SELECT uni,game_name FROM ".CONFIG."");
 			
 			$Query	= $db->query("SELECT `uni`, `game_name` FROM ".CONFIG." ORDER BY `uni` ASC;");
 			while($Unis	= $db->fetch_array($Query)) {
 				$AvailableUnis[$Unis['uni']]	= $Unis;
 			}
 			
-			$UniName	=	$db->query("SELECT uni,game_name FROM ".CONFIG." WHERE uni = '".$USER['universe']."'");
-			$UniN		=	$UniName->fetch_array();
 			
 			$template->assign_vars(array(	
 				'AvailableUnis'			=> $AvailableUnis,
@@ -161,7 +158,7 @@ function ShowCreatorPage()
 				'new_add_user'			=> $LNG['new_add_user'],
 				'new_creator_refresh'	=> $LNG['new_creator_refresh'],
 				'new_creator_go_back'	=> $LNG['new_creator_go_back'],
-				'universe'				=> $LNG['universe'],
+				'universe'				=> $LNG['mu_universe'],
 				'user_reg'				=> $LNG['user_reg'],
 				'pass_reg'				=> $LNG['pass_reg'],
 				'pass2_reg'				=> $LNG['pass2_reg'],
@@ -182,8 +179,12 @@ function ShowCreatorPage()
 				$MoonName  	= request_var('name', '', UTF8_SUPPORT);
 				$Diameter	= request_var('diameter', 0);
 				$FieldMax	= request_var('field_max', 0);
+				if($USER['authlevel'] == AUTH_ADM)
+				$Univer		= request_var('uni','');
+				else
+				$Univer		= $_SESSION['adminuni'];
 			
-				$MoonPlanet	= $db->uniquequery("SELECT `temp_max`, `temp_min`, `id_luna`, `galaxy`, `system`, `planet`, `planet_type`, `destruyed`, `id_level`, `id_owner` FROM ".PLANETS." WHERE `id` = '".$PlanetID."' AND `universe` = '".$_SESSION['adminuni']."' AND `planet_type` = '1' AND `destruyed` = '0';");
+				$MoonPlanet	= $db->uniquequery("SELECT `temp_max`, `temp_min`, `id_luna`, `galaxy`, `system`, `planet`, `planet_type`, `destruyed`, `id_level`, `id_owner` FROM ".PLANETS." WHERE `id` = '".$PlanetID."' AND `universe` = '".$Univer."' AND `planet_type` = '1' AND `destruyed` = '0';");
 
 				if (!isset($MoonPlanet)) {
 					$template->message($LNG['mo_planet_doesnt_exist'], '?page=create&mode=moon', 3, true);
@@ -192,15 +193,23 @@ function ShowCreatorPage()
 			
 				require_once(ROOT_PATH.'includes/functions/CreateOneMoonRecord.'.PHP_EXT);
 				
-				if(CreateOneMoonRecord($MoonPlanet['galaxy'], $MoonPlanet['system'], $MoonPlanet['planet'], $_SESSION['adminuni'], $MoonPlanet['id_owner'], 0, $MoonName, 20, (($_POST['diameter_check'] == 'on') ? 0: $Diameter)) !== false)
+				if(CreateOneMoonRecord($MoonPlanet['galaxy'], $MoonPlanet['system'], $MoonPlanet['planet'], $Univer, $MoonPlanet['id_owner'], 0, $MoonName, 20, (($_POST['diameter_check'] == 'on') ? 0: $Diameter)) !== false)
 					$template->message($LNG['mo_moon_added'], '?page=create&mode=moon', 3, true);
 				else
 					$template->message($LNG['mo_moon_unavaible'], '?page=create&mode=moon', 3, true);
 				
 				exit;
 			}
+			
+			$Query	= $db->query("SELECT `uni`, `game_name` FROM ".CONFIG." ORDER BY `uni` ASC;");
+			while($Unis	= $db->fetch_array($Query)) {
+				$AvailableUnis[$Unis['uni']]	= $Unis;
+			}
 		
-			$template->assign_vars(array(	
+			$template->assign_vars(array(
+				'AvailableUnis'			=> $AvailableUnis,
+				'admin_auth'			=> $USER['authlevel'],	
+				'universum'				=> $LNG['mu_universe'],
 				'po_add_moon'			=> $LNG['po_add_moon'],
 				'input_id_planet'		=> $LNG['input_id_planet'],
 				'mo_moon_name'			=> $LNG['mo_moon_name'],
@@ -225,16 +234,20 @@ function ShowCreatorPage()
 				$Planet      = request_var('planet', 0);
 				$name        = request_var('name', '', UTF8_SUPPORT);
 				$field_max   = request_var('field_max', 0);
+				if($USER['authlevel'] == AUTH_ADM)
+				$Univer		 = request_var('uni','');
+				else
+				$Univer		 = $_SESSION['adminuni'];
 				
 				
-				$ISUser		= $db->uniquequery("SELECT id, authlevel FROM ".USERS." WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
-				if(CheckPlanetIfExist($Galaxy, $System, $Planet, $_SESSION['adminuni']) || !isset($ISUser)) {
+				$ISUser		= $db->uniquequery("SELECT id, authlevel FROM ".USERS." WHERE `id` = '".$id."' AND `universe` = '".$Univer."';");
+				if(CheckPlanetIfExist($Galaxy, $System, $Planet, $Univer) || !isset($ISUser)) {
 					$template->message($LNG['po_complete_all'], '?page=create&mode=planet', 3, true);
 					exit;
 				}
 				
 				require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.'.PHP_EXT);
-				CreateOnePlanetRecord($Galaxy, $System, $Planet, $_SESSION['adminuni'], $id, '', '', false) ; 
+				CreateOnePlanetRecord($Galaxy, $System, $Planet, $Univer, $id, '', '', false) ; 
 						
 				$SQL  = "UPDATE ".PLANETS." SET ";
 				
@@ -246,7 +259,7 @@ function ShowCreatorPage()
 
 				$SQL .= "`id_level` = '".$ISUser['authlevel']."' ";
 				$SQL .= "WHERE ";
-				$SQL .= "`universe` = '". $_SESSION['adminuni'] ."' AND ";
+				$SQL .= "`universe` = '". $Univer ."' AND ";
 				$SQL .= "`galaxy` = '". $Galaxy ."' AND ";
 				$SQL .= "`system` = '". $System ."' AND ";
 				$SQL .= "`planet` = '". $Planet ."' AND ";
@@ -256,8 +269,16 @@ function ShowCreatorPage()
 				$template->message($LNG['po_complete_succes'], '?page=create&mode=planet', 3, true);
 				exit;
 			}
+			
+			$Query	= $db->query("SELECT `uni`, `game_name` FROM ".CONFIG." ORDER BY `uni` ASC;");
+			while($Unis	= $db->fetch_array($Query)) {
+				$AvailableUnis[$Unis['uni']]	= $Unis;
+			}
 
 			$template->assign_vars(array(	
+				'AvailableUnis'			=> $AvailableUnis,
+				'admin_auth'			=> $USER['authlevel'],	
+				'universum'				=> $LNG['mu_universe'],
 				'po_add_planet'			=> $LNG['po_add_planet'],
 				'po_galaxy'				=> $LNG['po_galaxy'],
 				'po_system'				=> $LNG['po_system'],

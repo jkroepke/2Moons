@@ -21,6 +21,16 @@
 	<th>{$mo_fields_avaibles}</th>
 	<th colspan="2"><input type="text" name="field_max" size="5" maxlength="5" value="1"></th>
 </tr>
+{if $admin_auth == 3}
+<tr>
+	<th>{$universum}</th>
+	<th colspan="2">
+    <select name="uni">
+    	{foreach $AvailableUnis as $ID => $Universe}<option value="{$ID}">{$Universe.game_name}</option>{/foreach}
+    </select>
+    </th>
+</tr>
+{/if}
 <tr>
 	<th colspan="3"><input type="submit" value="{$button_add}"></th>
 </tr><tr>
