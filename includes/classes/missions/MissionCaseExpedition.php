@@ -302,6 +302,7 @@ class MissionCaseExpedition extends MissionFunctions
 				$this->KillFleet();
 				$Message	= $LNG['sys_expe_lost_fleet_'.mt_rand(1,4)];
 			break;
+			/* Bugged :/
 			case 6:
 				$MoreTime	= mt_rand(0, 100);
 				if($MoreTime < 75) {
@@ -311,7 +312,7 @@ class MissionCaseExpedition extends MissionFunctions
 					$this->UpdateFleet('fleet_end_time', round($this->_fleet['fleet_end_stay'] + ($this->_fleet['fleet_end_time'] - $this->_fleet['fleet_end_stay']) / 2));
 					$Message = $LNG['sys_expe_time_fast_'.mt_rand(1,3)];
 				}
-			break;
+			break; */
 			default:
 				$Message	= $LNG['sys_expe_nothing_'.mt_rand(1,8)];
 			break;
