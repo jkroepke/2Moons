@@ -46,6 +46,7 @@ function ShowCreatorPage()
 				$Galaxy 	= request_var('galaxy', 0);
 				$System 	= request_var('system', 0);
 				$Planet 	= request_var('planet', 0);
+				$Univer		= request_var('uni','');
 				
 				if ($CONF['capaktiv'] === '1') {
 					require_once('includes/libs/reCAPTCHA/recaptchalib.php');
@@ -98,23 +99,24 @@ function ShowCreatorPage()
 				$SQL .= "`authlevel` = '".$UserAuth."', ";
 				$SQL .= "`ip_at_reg` = '".$_SERVER['REMOTE_ADDR']."', ";
 				$SQL .= "`id_planet` = '0', ";
+				$SQL .= "`universe` = '".$Univer."',";
 				$SQL .= "`onlinetime` = '".TIMESTAMP."', ";
 				$SQL .= "`register_time` = '".TIMESTAMP. "', ";
 				$SQL .= "`password` = '".md5($UserPass)."', ";
 				$SQL .= "`dpath` = '".DEFAULT_SKINPATH."', ";
 				$SQL .= "`uctime`= '0';";
 				$db->query($SQL);
-				$db->query("UPDATE ".CONFIG." SET `config_value` = config_value + '1' WHERE `config_name` = 'users_amount';");
+				$db->query("UPDATE ".CONFIG." SET `users_amount` = users_amount + '1' WHERE `uni` = '".$Univer."';");
 
 				$ID_USER 	= $db->uniquequery("SELECT `id` FROM ".USERS." WHERE `username` = '".$db->sql_escape($UserName)."';");
 				
 				require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.'.PHP_EXT);
-				CreateOnePlanetRecord($Galaxy, $System, $Planet, $_SESSION['adminuni'] ,$ID_USER['id'], $UserPlanet, true, $UserAuth);
+				CreateOnePlanetRecord($Galaxy, $System, $Planet, $Univer ,$ID_USER['id'], $UserPlanet, true, $UserAuth);
 				$ID_PLANET 	= $db->uniquequery("SELECT `id` FROM ".PLANETS." WHERE `id_owner` = '".$ID_USER['id']."';");
 								
 				$SQL = "UPDATE ".USERS." SET ";
 				$SQL .= "`id_planet` = '".$ID_PLANET['id']."', ";
-				$SQL .= "`universe` = '".$_SESSION['adminuni']."', ";
+				$SQL .= "`universe` = '".$Univer."', ";
 				$SQL .= "`galaxy` = '".$Galaxy."', ";
 				$SQL .= "`system` = '".$System."', ";
 				$SQL .= "`planet` = '".$Planet."' ";
@@ -138,11 +140,20 @@ function ShowCreatorPage()
 				
 			if($USER['authlevel'] >= AUTH_ADM)
 				$AUTH[AUTH_ADM]	= $LNG['user_level'][AUTH_ADM];
+				
+			$UniListe	=	$db->query("SELECT uni,game_name FROM ".CONFIG."");
+			
+			$Query	= $db->query("SELECT `uni`, `game_name` FROM ".CONFIG." ORDER BY `uni` ASC;");
+			while($Unis	= $db->fetch_array($Query)) {
+				$AvailableUnis[$Unis['uni']]	= $Unis;
+			}
 			
 			$template->assign_vars(array(	
+				'AvailableUnis'			=> $AvailableUnis,
 				'new_add_user'			=> $LNG['new_add_user'],
 				'new_creator_refresh'	=> $LNG['new_creator_refresh'],
 				'new_creator_go_back'	=> $LNG['new_creator_go_back'],
+				'universe'				=> $LNG['universe'],
 				'user_reg'				=> $LNG['user_reg'],
 				'pass_reg'				=> $LNG['pass_reg'],
 				'pass2_reg'				=> $LNG['pass2_reg'],
