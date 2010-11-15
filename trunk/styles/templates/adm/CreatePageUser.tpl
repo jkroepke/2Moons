@@ -7,6 +7,11 @@
 <tr><th>{$pass2_reg}</th><th><input type="password" name="password2"></th></tr>
 <tr><th>{$email_reg}</th><th><input type="text" name="email"></th></tr>
 <tr><th>{$email2_reg}</th><th><input type="text" name="email2"></th></tr>
+<tr><th>{$universe}</th><th>
+<select name="uni">
+{foreach $AvailableUnis as $ID => $Universe}<option value="{$ID}">{$Universe.game_name}</option>{/foreach}
+</select>
+</th></tr>
 <tr><th>{$new_coord}</th><th>
 <input type="text" name="galaxy" size="1" maxlength="1"> :
 <input type="text" name="system" size="3" maxlength="3"> :
