@@ -23,7 +23,6 @@ if(!defined('INSTALL') || !defined('IN_ADMIN') || !defined('IN_CRON'))
 	define("STARTTIME",	microtime(true));
 
 ignore_user_abort(true);
-set_time_limit(120);
 error_reporting(E_ALL ^ E_NOTICE);
 ini_set('zlib.output_compression', 'On');
 ini_set('display_errors', 1);

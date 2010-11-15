@@ -25,7 +25,7 @@ function ShowRecordsPage()
 {
 	global $USER, $PLANET, $LNG, $resource, $db, $CONF, $UNI;
 
-	if(file_exists(ROOT_PATH."cache/CacheRecords_Uni".$UNI.".php"));
+	if(file_exists(ROOT_PATH."cache/CacheRecords_Uni".$UNI.".php"))
 		require_once(ROOT_PATH."cache/CacheRecords_Uni".$UNI.".php");
 	else
 		$RecordsArray	= array();

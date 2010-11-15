@@ -5,7 +5,26 @@ $LNG['Description'] = 'Beschreibung';
 
 $LNG['changelog']   = array(
 
-'v1.2' => 'ShadoX 14.09.10
+'v1.3' => 'ShadoX 15.11.10
+- ADD: MultiUniverse Support
+- ADD: Limit of max Colony
+- ADD: Template Cache System
+- ADD: Daily Cronjob for clear Cache
+- FIX: ACS
+- FIX: Admin Attack
+- FIX: SSL on IIS
+- FIX: Admin on Records
+- FIX: Noobprotection for Holding Mission
+- FIX: BattleReports show correct Techs now
+- FIX: ResetPage
+- FIX: Updated Ressource on TargetPlanet on Attacks
+- FIX: Fleetspeed Hack
+- FIX: BuildTime Hack
+- FIX: Cache System
+- FIX: UpdateSystem dont donwload same Files now
+- DIV: Update TS³ Lib, reCAPTCHA Lib, Smarty and jQuery
+',
+'v1.2' => 'ShadoX 04.10.10
 - ADD: Set Max Fleets on ACS (Default: 16)
 - ADD: New RightsSystem on ACP
 - ADD: .htaccess Protection for some dirs
