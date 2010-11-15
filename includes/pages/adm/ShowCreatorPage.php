@@ -47,10 +47,10 @@ function ShowCreatorPage()
 				$System 	= request_var('system', 0);
 				$Planet 	= request_var('planet', 0);
 				
-				if($USER['authlevel']	!=	3)
-				$Univer     = $USER['universe'];
+				if($USER['authlevel'] != AUTH_ADM)
+					$Univer     = $_SESSION['adminuni'];
 				else
-				$Univer		= request_var('uni','');
+					$Univer		= request_var('uni','');
 				
 				if ($CONF['capaktiv'] === '1') {
 					require_once('includes/libs/reCAPTCHA/recaptchalib.php');
