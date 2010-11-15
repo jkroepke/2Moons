@@ -114,15 +114,14 @@ switch ($Mode) {
 			}
 		}
 
-		if(file_exists(ROOT_PATH."includes/config.php") || ($res = @fopen(ROOT_PATH."includes/config.php","w+") === true)){
+		if(file_exists(ROOT_PATH."includes/config.php") || touch(ROOT_PATH."includes/config.php")){
 			if(is_writable(ROOT_PATH."includes/config.php") || @chmod(ROOT_PATH."includes/config.php", 0777)){
-					$chmod = "<span class=\"yes\"> - ".$LNG['reg_writable']."</span>";
-				} else {
-					$chmod = " - <span class=\"no\">".$LNG['reg_not_writable']."</span>";
-					$error++;
-				}
+				$chmod = "<span class=\"yes\"> - ".$LNG['reg_writable']."</span>";
+			} else {
+				$chmod = " - <span class=\"no\">".$LNG['reg_not_writable']."</span>";
+				$error++;
+			}
 			$config = "<tr><td class=\"transparent\">".$LNG['reg_file']." - ./includes/config.php</td><td class=\"transparent\"><span class=\"yes\">".$LNG['reg_found']."</span>".$chmod."</td></tr>";
-			@fclose($res);
 		} else {
 			$config = "<tr><td class=\"transparent\">".$LNG['reg_file']." - ./includes/config.php</td><td class=\"transparent\"><span class=\"no\">".$LNG['reg_not_found']."</span></td></tr>";
 			$error++;
