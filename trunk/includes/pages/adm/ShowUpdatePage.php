@@ -43,7 +43,7 @@ function exitupdate($LOG){
 			$Page .= $content."<br>";
 		}
 	}
-	$Page .= "<br><a href='?page=update'>Weiter</a>";
+	$Page .= "<br><a href='?page=update'>".$LNG['up_weiter']."</a>";
 
 	$template = new template();
 	$template->message($Page, false, 0, true);
@@ -67,9 +67,9 @@ function ShowUpdatePage()
 	elseif(isset($Patchlevel[2]))
 		$Level		= $Patchlevel[2];
 	else
-		$Level		= 1260;
+		$Level		= 1060;
 		
-	$opts 			= array('http' => array('method'=> "GET", 'header'=> "Patchlevel: ".$Level."\r\nUser-Agent: 2Moons Update API (Rev ".$Patchlevel[2].")\r\n"));
+	$opts 			= array('http' => array('method'=> "GET", 'header'=> "Patchlevel: ".$Level."\r\n".$LNG['up_agent']."".$Patchlevel[2].")\r\n"));
 			
 	$context 		= stream_context_create($opts);
 	
@@ -79,7 +79,7 @@ function ShowUpdatePage()
 			require_once(ROOT_PATH.'includes/libs/zip/zip.lib.'.PHP_EXT);
 			$UpdateArray 	= unserialize(@file_get_contents("http://update.service.2moons.cc/index.php?action=getupdate",FALSE,$context));
 			if(!is_array($UpdateArray['revs']))
-				exitupdate(array('debug' => array('noupdate' => "Kein Update vorhanden!")));
+				exitupdate(array('debug' => array('noupdate' => $LNG['up_kein_update'])));
 				
 			$SVN_ROOT		= $UpdateArray['info']['svn'];
 			
@@ -146,7 +146,7 @@ function ShowUpdatePage()
 			require_once(ROOT_PATH.'includes/libs/ftp/ftpexception.class.'.PHP_EXT);
 			$UpdateArray 	= unserialize(@file_get_contents("http://update.service.2moons.cc/index.php?action=getupdate",FALSE,$context));
 			if(!is_array($UpdateArray['revs']))
-				exitupdate(array('debug' => array('noupdate' => "Kein Update vorhanden!")));
+				exitupdate(array('debug' => array('noupdate' => $LNG['up_kein_update'])));
 				
 			$SVN_ROOT		= $UpdateArray['info']['svn'];
 			$CONFIG 		= array("host" => $CONF['ftp_server'], "username" => $CONF['ftp_user_name'], "password" => $CONF['ftp_user_pass'], "port"     => 21 ); 
@@ -154,22 +154,22 @@ function ShowUpdatePage()
 			{
 				$ftp = FTP::getInstance(); 
 				$ftp->connect($CONFIG);
-				$LOG['debug']['connect']	= "FTP-Verbindungsaufbau: OK!";
+				$LOG['debug']['connect']	= $LNG['up_ftp_ok'];
 			}
 			catch (FTPException $error)
 			{
-				$LOG['debug']['connect']	= "FTP-Verbindungsaufbau: ERROR! ".$error->getMessage();
+				$LOG['debug']['connect']	= $LNG['up_ftp_error']."".$error->getMessage();
 				$ftp->close();
 				exitupdate($LOG);
 			}	
 						
 			if($ftp->changeDir($CONF['ftp_root_path']))
 			{
-				$LOG['debug']['chdir']	= "FTP-Changedir(".$CONF['ftp_root_path']."): OK!";
+				$LOG['debug']['chdir']	= $LNG['up_ftp_change']."".$CONF['ftp_root_path']."): ".$LNG['up_ftp_ok'];
 			}
 			else
 			{
-				$LOG['debug']['chdir']	= "FTP-Changedir(".$CONF['ftp_root_path']."): ERROR! Pfad nicht gefunden!";
+				$LOG['debug']['chdir']	= $LNG['up_ftp_change']."".$CONF['ftp_root_path']."): ".$LNG['up_ftp_change_error'];
 				$ftp->close();
 				exitupdate($LOG);
 			}
@@ -192,10 +192,10 @@ function ShowUpdatePage()
 							if (strpos($File, '.') !== false) {		
 								$Data = fopen($SVN_ROOT.$File, "r");
 								if ($ftp->uploadFromFile($Data, str_replace("/trunk/", "", $File))) {
-									$LOG['update'][$Rev][$File]	= "OK! - Updated";
+									$LOG['update'][$Rev][$File]	= $LNG['up_ok_update'];
 
 								} else {
-									$LOG['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht hochladen";
+									$LOG['update'][$Rev][$File]	= $LNG['up_error_update'];
 								}
 								fclose($Data);
 							} else {
@@ -205,9 +205,9 @@ function ShowUpdatePage()
 									else
 										$ftp->chmod(str_replace("/trunk/", "", $File), '0755');
 										
-									$LOG['update'][$Rev][$File]	= "OK! - Updated";
+									$LOG['update'][$Rev][$File]	= $LNG['up_ok_update'];
 								} else {
-									$LOG['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht hochladen";
+									$LOG['update'][$Rev][$File]	= $LNG['up_error_update'];
 								}				
 							}
 						}
@@ -228,9 +228,9 @@ function ShowUpdatePage()
 							} else {
 								$Data = fopen($SVN_ROOT.$File, "r");
 								if ($ftp->uploadFromFile($Data, str_replace("/trunk/", "", $File))) {
-									$LOG['update'][$Rev][$File]	= "OK! - Updated";
+									$LOG['update'][$Rev][$File]	= $LNG['up_ok_update'];
 								} else {
-									$LOG['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht hochladen";
+									$LOG['update'][$Rev][$File]	= $LNG['up_error_update'];
 								}
 								fclose($Data);
 							}
@@ -247,15 +247,15 @@ function ShowUpdatePage()
 						$Files['del'][] = $File;
 						if (strpos($File, '.') !== false) {
 							if ($ftp->delete(str_replace("/trunk/", "", $File))) {
-								$LOG['update'][$Rev][$File]	= "OK! - Gel&ouml;scht";
+								$LOG['update'][$Rev][$File]	= $LNG['up_delete_file'];
 							} else {
-								$LOG['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht l&ouml;schen";
+								$LOG['update'][$Rev][$File]	= $LNG['up_error_delete_file'];
 							}
 						} else {
 							if ($ftp->removeDir(str_replace("/trunk/", "", $File), 1 )) {
-								$LOG['update'][$Rev][$File]	= "OK! - Gel&ouml;scht";
+								$LOG['update'][$Rev][$File]	= $LNG['up_delete_file'];
 							} else {
-								$LOG['update'][$Rev][$File]	= "ERROR! - Konnte Datei nicht l&ouml;schen";
+								$LOG['update'][$Rev][$File]	= $LNG['up_error_delete_file'];
 							}						
 						}
 					}
@@ -263,7 +263,7 @@ function ShowUpdatePage()
 				$LastRev = $Rev;
 			}
 			$ftp->close();
-			$LOG['finish']['atrev'] = "UPDATE: OK! At Revision: ".$LastRev;
+			$LOG['finish']['atrev'] = $LNG['up_update_ok_rev']." ".$LastRev;
 			// Verbindung schließen
 			ClearCache();
 			update_config(array('VERSION' => $Patchlevel[0].".".$Patchlevel[1].".".$LastRev), true);
@@ -278,7 +278,7 @@ function ShowUpdatePage()
 			$Info		= '';
 			
 			if(!function_exists('file_get_contents') || !function_exists('fsockopen')) {
-				$template->message('Function file_get_contents oder fsockopen deaktiviert', false, 0, true);
+				$template->message($LNG['up_error_fsockopen'], false, 0, true);
 			} elseif(($RAW = @file_get_contents("http://update.service.2moons.cc/index.php?action=update",FALSE,$context)) !== false) {
 				$UpdateArray 	= unserialize($RAW);
 				if(is_array($UpdateArray['revs']))
@@ -286,8 +286,8 @@ function ShowUpdatePage()
 					foreach($UpdateArray['revs'] as $Rev => $RevInfo) 
 					{
 						if(!(empty($RevInfo['add']) && empty($RevInfo['edit'])) && $Patchlevel[2] < $Rev){
-							$Update		= "<tr><th><a href=\"?page=update&amp;action=update\">Update</a> - <a href=\"?page=update&amp;action=download\">Download Patch Files</a></th></tr>";
-							$Info		= "<tr><td class=\"c\" colspan=\"5\">Aktuelle Updates</td></tr>";
+							$Update		= "<tr><th><a href=\"?page=update&amp;action=update\">Update</a> - <a href=\"?page=update&amp;action=download\">".$LNG['up_download_patch_files']."</a></th></tr>";
+							$Info		= "<tr><td class=\"c\" colspan=\"5\">".$LNG['up_aktuelle_updates']."</td></tr>";
 						}
 						
 						$edit	= "";
@@ -298,12 +298,12 @@ function ShowUpdatePage()
 						}
 
 						$RevList .= "<tr>
-						".(($Patchlevel[2] == $Rev)?"<td class=c colspan=5>Momentane Version</td></tr><tr>":((($Patchlevel[2] - 1) == $Rev)?"<td class=c colspan=5>Alte Updates</td></tr><tr>":""))."
-						<td class=c >".(($Patchlevel[2] == $Rev)?"<font color=\"red\">":"")."Revision " . $Rev . " ".date("d. M y H:i:s", $RevInfo['timestamp'])." von ".$RevInfo['author'].(($Patchlevel[2] == $Rev)?"</font>":"")."</td></tr>
+						".(($Patchlevel[2] == $Rev)?"<td class=c colspan=5>".$LNG['up_momentane_version']."</td></tr><tr>":((($Patchlevel[2] - 1) == $Rev)?"<td class=c colspan=5>".$LNG['up_alte_updates']."</td></tr><tr>":""))."
+						<td class=c >".(($Patchlevel[2] == $Rev)?"<font color=\"red\">":"")."".$LNG['up_revision']."" . $Rev . " ".date("d. M y H:i:s", $RevInfo['timestamp'])."".$LNG['ml_from']." ".$RevInfo['author'].(($Patchlevel[2] == $Rev)?"</font>":"")."</td></tr>
 						<tr><th>".makebr($RevInfo['log'])."</th></tr>
-						".((!empty($RevInfo['add']))?"<tr><th>ADD:<br>".str_replace("/trunk/", "", implode("<br>\n", $RevInfo['add']))."</b></th></tr>":"")."
-						".((!empty($RevInfo['edit']))?"<tr><th>EDIT:<br>".$edit."</b></th></tr>":"")."
-						".((!empty($RevInfo['del']))?"<tr><th>DEL:<br>".str_replace("/trunk/", "", implode("<br>\n", $RevInfo['del']))."</b></th></tr>":"")."
+						".((!empty($RevInfo['add']))?"<tr><th>".$LNG['up_add']."<br>".str_replace("/trunk/", "", implode("<br>\n", $RevInfo['add']))."</b></th></tr>":"")."
+						".((!empty($RevInfo['edit']))?"<tr><th>".$LNG['up_edit']."<br>".$edit."</b></th></tr>":"")."
+						".((!empty($RevInfo['del']))?"<tr><th>".$LNG['up_del']."<br>".str_replace("/trunk/", "", implode("<br>\n", $RevInfo['del']))."</b></th></tr>":"")."
 						</tr>";
 					}
 				}
@@ -317,7 +317,7 @@ function ShowUpdatePage()
 					
 				$template->show('adm/UpdatePage.tpl');
 			} else {
-				$template->message('Update Server currently not available', false, 0, true);
+				$template->message($LNG['up_update_server'], false, 0, true);
 			}
 		break;
 	}

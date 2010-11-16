@@ -993,4 +993,29 @@ $LNG['uvs_new']							= 'Universum hinzufügen';
 $LNG['uvs_import']						= 'Universum Importieren';
 $LNG['uvs_upload']						= 'Hochladen';
 
+//Update Page
+$LNG['up_weiter']						= 'Weiter';
+$LNG['up_agent']						= 'User-Agent: 2Moons Update API (Rev ';
+$LNG['up_kein_update']					= 'Kein Update vorhanden!';
+$LNG['up_ftp_ok']						= 'FTP-Verbindungsaufbau: OK!';
+$LNG['up_ftp_error']					= 'FTP-Verbindungsaufbau: ERROR! ';
+$LNG['up_ftp_change']					= 'FTP-Changedir(';
+$LNG['up_ftp_ok']						= 'OK!';
+$LNG['up_ftp_change_error']				= 'ERROR! Pfad nicht gefunden!';
+$LNG['up_ok_update']					= 'OK! - Updated';
+$LNG['up_error_update']					= 'ERROR! - Konnte Datei nicht hochladen';
+$LNG['up_delete_file']					= 'Erfolgreich gelöscht';
+$LNG['up_error_delete_file']			= 'ERROR! - Konnte Datei nicht löschen';
+$LNG['up_update_ok_rev']				= 'UPDATE: OK! At Revision: ';
+$LNG['up_error_fsockopen']				= 'Funktion file_get_contents oder fsockopen deaktiviert';
+$LNG['up_download_patch_files']			= 'Download Patch Dateien';
+$LNG['up_aktuelle_updates']				= 'Aktuelle Updates';
+$LNG['up_momentane_version']			= 'Momentane Version';
+$LNG['up_alte_updates']					= 'Alte Updates';
+$LNG['up_revision']						= 'Revision ';
+$LNG['up_add']							= 'Hinzu:';
+$LNG['up_edit']							= 'Edit:';
+$LNG['up_del']							= 'Lösch';
+$LNG['up_update_server']				= 'Update Server zurzeit nicht erreichbar!';
+
 ?>

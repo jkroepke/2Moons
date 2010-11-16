@@ -413,7 +413,7 @@ function ShowUniversePage() {
 		'uni_off'				=> $LNG['uvs_off'],
 		'new_uni'				=> $LNG['uvs_new'],
 		'import_uni'			=> $LNG['uvs_import'],
-		'upload'				=> $LNG['uvs_uplaod'],
+		'upload'				=> $LNG['uvs_upload'],
 	));
 	
 	$template->show('adm/UniversePage.tpl');
