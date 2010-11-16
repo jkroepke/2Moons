@@ -54,13 +54,20 @@ function exitupdate($LOG){
 function ShowUpdatePage()
 {
 	global $LNG, $CONF, $db;
-	$Patchlevel	= explode(".",VERSION);
+	if(isset($_REQUEST['version']))
+	{
+		$Temp	= explode('.', $_REQUEST['version']);
+		$Temp	= array_map('intval', $Temp);
+		update_config(array('VERSION' => $Temp[0].'.'.$Temp[1].'.'.$Temp[2]), true);
+	}
+	
+	$Patchlevel	= explode(".",$CONF['VERSION']);
 	if($_REQUEST['action'] == 'history')
 		$Level		= 0;	
 	elseif(isset($Patchlevel[2]))
 		$Level		= $Patchlevel[2];
 	else
-		$Level		= 1020;
+		$Level		= 1260;
 		
 	$opts 			= array('http' => array('method'=> "GET", 'header'=> "Patchlevel: ".$Level."\r\nUser-Agent: 2Moons Update API (Rev ".$Patchlevel[2].")\r\n"));
 			
@@ -302,6 +309,7 @@ function ShowUpdatePage()
 				}
 								
 				$template->assign_vars(array(	
+					'version'	=> $CONF['VERSION'],
 					'RevList'	=> $RevList,
 					'Update'	=> $Update,
 					'Info'		=> $Info,
