@@ -25,10 +25,11 @@
 $LNG['adm_password']					= 'Password';
 $LNG['adm_password_info']				= 'Please enter you password for account verification!';
 $LNG['adm_bad_password']				= 'Wrong password!';
-$LNG['404_page']					= 'You do not have sufficient permissions to enter this Page';
+$LNG['404_page']						= 'You do not have sufficient permissions to enter this Page';
 $LNG['adm_cp_title']					= 'Administrative Control Panel';
 $LNG['adm_cp_index']					= 'Home';
 $LNG['mu_moderation_page']				= 'Permissions';
+$LNG['mu_universe']						= 'Universen';
 $LNG['adm_cp_logout']					= 'Quit';
 
 //	MISCELaNEO - MISCELLANEOUS
