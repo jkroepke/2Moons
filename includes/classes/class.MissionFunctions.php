@@ -85,7 +85,7 @@ class MissionFunctions
 		$Qry  .= "`crystal` = `crystal` + '".floattostring($this->_fleet['fleet_resource_crystal'])."', ";
 		$Qry  .= "`deuterium` = `deuterium` + '".floattostring($this->_fleet['fleet_resource_deuterium'])."' ";
 		$Qry  .= "WHERE ";
-		$Qry  .= "p.`id` = '".($Start == true ? $this->_fleet['fleet_start_id'] : $this->_fleet['fleet_end_id'])."';";
+		$Qry  .= "`id` = '".($Start == true ? $this->_fleet['fleet_start_id'] : $this->_fleet['fleet_end_id'])."';";
 		$db->query($Qry);
 		
 		$this->UpdateFleet('fleet_resource_metal', '0');
