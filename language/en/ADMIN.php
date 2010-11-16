@@ -966,4 +966,18 @@ $LNG['mvc_announcement']				= 'Announcement';
 $LNG['mvc_download']					= 'Download';
 $LNG['mvc_desc']						= 'Description';
 
+//Universe Page
+$LNG['uvs_id']							= 'ID';
+$LNG['uvs_name']						= 'Name';
+$LNG['uvs_speeds']						= 'Speeds';
+$LNG['uvs_players']						= 'Players';
+$LNG['uvs_open']						= 'Open';
+$LNG['uvs_export']						= 'Export';
+$LNG['uvs_delete']						= 'Delete';
+$LNG['uvs_on']							= 'On';
+$LNG['uvs_off']							= 'Off';
+$LNG['uvs_new']							= 'Create Universe';
+$LNG['uvs_import']						= 'Import Universe';
+$LNG['uvs_upload']						= 'Upload';
+
 ?>
