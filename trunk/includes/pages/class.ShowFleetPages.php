@@ -824,7 +824,7 @@ class ShowFleetPages extends FleetFunctions
 		$SQL .= "`galaxy` = '".$galaxy."' AND ";
 		$SQL .= "`system` = '".$system."' AND ";
 		$SQL .= "`planet` = '".$planet."' AND ";
-		$SQL .= "`planet_type` = '".$planettype."';";
+		$SQL .= "`planet_type` = '".($planettype == 2 ? 1 : $planettype)."';";
 		$TargetRow	   = $db->uniquequery($SQL);
 
 		if($TargetRow['id_level'] > $USER['authlevel'] && $mission == 6 && $CONF['adm_attack'] == 1)

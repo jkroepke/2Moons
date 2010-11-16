@@ -29,12 +29,7 @@ class MissionCaseRecycling extends MissionFunctions
 	function TargetEvent()
 	{	
 		global $db, $pricelist;
-		$Qry 	= "SELECT der_metal as metal,der_crystal as crystal FROM ".PLANETS."
-				   WHERE 
-				   `id` = '".$this->_fleet['fleet_end_id']."';";
-		
-		$Target	= $db->uniquequery($Qry);
-
+		$Target				 = $db->uniquequery("SELECT der_metal as metal,der_crystal as crystal FROM ".PLANETS." WHERE `id` = '".$this->_fleet['fleet_end_id']."';");
 		$FleetRecord         = explode(";", $this->_fleet['fleet_array']);
 		$RecyclerCapacity    = 0;
 		$OtherFleetCapacity  = 0;
