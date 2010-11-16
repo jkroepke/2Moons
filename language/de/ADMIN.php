@@ -529,7 +529,6 @@ $LNG['mu_game_info'] 				= 'Informationen';
 $LNG['mu_vaild_users']				= 'Aktivire User'; 
 $LNG['mu_news']						= 'News'; 
 $LNG['mu_clear_cache']				= 'Lösche Cache'; 
-$LNG['mu_backup_page']				= 'Backup erstellen';
 
 //###########################################################//
 

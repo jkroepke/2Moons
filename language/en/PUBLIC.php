@@ -11,7 +11,8 @@ $LNG['menu_rules']			= 'Rules';
 $LNG['menu_agb']			= 'T&C'; 
 $LNG['menu_pranger']		= 'Banned';
 $LNG['menu_top100']			= 'Hall of Fame';	 
-$LNG['menu_disclamer']		= 'Contact';	 
+$LNG['menu_disclamer']		= 'Contact';	  
+$LNG['uni_closed']			= '(offline)';
 	 
 /* ------------------------------------------------------------------------------------------ */
 
