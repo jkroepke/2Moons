@@ -23,7 +23,7 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 
 function ShowMessagesPage()
 {
-	global $USER, $PLANET, $CONF, $dpath, $LNG, $db;
+	global $USER, $PLANET, $CONF, $dpath, $LNG, $db, $UNI;
 
 	$MessCategory  	= request_var('messcat',0);
 	$MessPageMode  	= request_var('mode', '');
@@ -87,7 +87,7 @@ function ShowMessagesPage()
 			$template->page_footer();
 	
 			$UsrMess 	= $db->query("SELECT `message_type`, `message_unread` FROM ".MESSAGES." WHERE `message_owner` = '".$USER['id']."' OR `message_type` = '50';");
-			$GameOps 	= $db->query("SELECT `username`, `email` FROM ".USERS." WHERE `authlevel` != '0' ORDER BY `username` ASC;");
+			$GameOps 	= $db->query("SELECT `username`, `email` FROM ".USERS." WHERE `universe` = '".$UNI."' AND`authlevel` != '0' ORDER BY `username` ASC;");
 			$MessOut	= $db->uniquequery("SELECT COUNT(*) as count FROM ".MESSAGES." WHERE message_sender = '".$USER['id']."';");
 			
 			while($Ops = $db->fetch_array($GameOps))
