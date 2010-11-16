@@ -665,12 +665,12 @@ class ShowFleetPages extends FleetFunctions
 				}
 				else
 				{
-					$QryUpdateFleets = "UPDATE ".FLEETS." SET ";
-					$QryUpdateFleets .= "`fleet_start_time` = '".$fleet['start_time']."', ";
-					$QryUpdateFleets .= "`fleet_end_time` = fleet_end_time + '".($fleet['start_time'] - $AksStartTime['Start'])."' ";
-					$QryUpdateFleets .= "WHERE ";
-					$QryUpdateFleets .= "`fleet_group` = '".$fleet_group_mr."';";
-					$db->query($QryUpdateFleets);
+					$SQLFleets = "UPDATE ".FLEETS." SET ";
+					$SQLFleets .= "`fleet_start_time` = '".$fleet['start_time']."', ";
+					$SQLFleets .= "`fleet_end_time` = fleet_end_time + '".($fleet['start_time'] - $AksStartTime['Start'])."' ";
+					$SQLFleets .= "WHERE ";
+					$SQLFleets .= "`fleet_group` = '".$fleet_group_mr."';";
+					$db->query($SQLFleets);
 					$fleet['end_time'] 	    += $fleet['start_time'] - $AksStartTime['Start'];
 				}
 			} else {
@@ -901,37 +901,38 @@ class ShowFleetPages extends FleetFunctions
 			$FleetSubQRY     .= "`".$resource[$Ship] . "` = `" . $resource[$Ship] . "` - " . $Count . " , ";
 		}
 	
+		$SQL  = "LOCK TABLE ".FLEETS." WRITE, ".PLANETS." WRITE;";
+		$SQL .= "INSERT INTO ".FLEETS." SET ";
+		$SQL .= "`fleet_owner` = '".$USER['id']."', ";
+		$SQL .= "`fleet_mission` = '".$mission."', ";
+		$SQL .= "`fleet_amount` = '".$FleetShipCount."', ";
+		$SQL .= "`fleet_array` = '".$FleetDBArray."', ";
+		$SQL .= "`fleet_universe` = '".$UNI."', ";
+		$SQL .= "`fleet_start_time` = '".$fleet['start_time']. "', ";
+		$SQL .= "`fleet_start_id` = '".$PLANET['id']."', ";
+		$SQL .= "`fleet_start_galaxy` = '".$PLANET['galaxy']."', ";
+		$SQL .= "`fleet_start_system` = '".$PLANET['system']."', ";
+		$SQL .= "`fleet_start_planet` = '".$PLANET['planet']."', ";
+		$SQL .= "`fleet_start_type` = '".$PLANET['planet_type']."', ";
+		$SQL .= "`fleet_end_time` = '".$fleet['end_time']."', ";
+		$SQL .= "`fleet_end_id` = '".$TargetRow['id']."', ";
+		$SQL .= "`fleet_end_galaxy` = '".$galaxy."', ";
+		$SQL .= "`fleet_end_system` = '".$system."', ";
+		$SQL .= "`fleet_end_planet` = '".$planet."', ";
+		$SQL .= "`fleet_end_type` = '".$planettype."', ";
+		$SQL .= "`fleet_target_owner` = '".$TargetRow['id_owner']."', ";
+		$SQL .= "`start_time` = '".TIMESTAMP."';";
+		$SQL .= "UPDATE ".PLANETS." SET ";
+		$SQL .= $FleetSubQRY;
+		$SQL .= "`deuterium` = '".floattostring($UserDeuterium)."' " ;
+		$SQL .= "WHERE ";
+		$SQL .= "`id` = '".$PLANET['id']."';";
+		$SQL .= "UNLOCK TABLES;";
+		
 		if(connection_aborted())
 			exit;
-
-		$QryUpdate  = "LOCK TABLE ".FLEETS." WRITE, ".PLANETS." WRITE;";
-		$QryUpdate .= "INSERT INTO ".FLEETS." SET ";
-		$QryUpdate .= "`fleet_owner` = '".$USER['id']."', ";
-		$QryUpdate .= "`fleet_mission` = '".$mission."', ";
-		$QryUpdate .= "`fleet_amount` = '".$FleetShipCount."', ";
-		$QryUpdate .= "`fleet_array` = '".$FleetDBArray."', ";
-		$QryUpdate .= "`fleet_universe` = '".$UNI."', ";
-		$QryUpdate .= "`fleet_start_time` = '".$fleet['start_time']. "', ";
-		$QryUpdate .= "`fleet_start_id = '".$PLANET['galaxy']."', ";
-		$QryUpdate .= "`fleet_start_galaxy` = '".$PLANET['galaxy']."', ";
-		$QryUpdate .= "`fleet_start_system` = '".$PLANET['system']."', ";
-		$QryUpdate .= "`fleet_start_planet` = '".$PLANET['planet']."', ";
-		$QryUpdate .= "`fleet_start_type` = '".$PLANET['planet_type']."', ";
-		$QryUpdate .= "`fleet_end_time` = '".$fleet['end_time']."', ";
-		$QryUpdate .= "`fleet_end_id` = '".$TargetRow['id']."', ";
-		$QryUpdate .= "`fleet_end_galaxy` = '".$galaxy."', ";
-		$QryUpdate .= "`fleet_end_system` = '".$system."', ";
-		$QryUpdate .= "`fleet_end_planet` = '".$planet."', ";
-		$QryUpdate .= "`fleet_end_type` = '".$planettype."', ";
-		$QryUpdate .= "`fleet_target_owner` = '".$TargetRow['id_owner']."', ";
-		$QryUpdate .= "`start_time` = '".TIMESTAMP."';";
-		$QryUpdate .= "UPDATE ".PLANETS." SET ";
-		$QryUpdate .= $FleetSubQRY;
-		$QryUpdate .= "`deuterium` = '".floattostring($UserDeuterium)."' " ;
-		$QryUpdate .= "WHERE ";
-		$QryUpdate .= "`id` = '".$PLANET['id']."';";
-		$QryUpdate .= "UNLOCK TABLES;";
-		$db->multi_query($QryUpdate);
+			
+		$db->multi_query($SQL);
 
 		$CurrentFlyingFleets++;
 
