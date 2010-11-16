@@ -402,6 +402,18 @@ function ShowUniversePage() {
 		'button_submit'			=> $LNG['button_submit'],
 		'Unis'					=> $Unis,
 		'SID'					=> session_id(),
+		'id'					=> $LNG['uvs_id'],
+		'name'					=> $LNG['uvs_name'],
+		'speeds'				=> $LNG['uvs_speeds'],
+		'players'				=> $LNG['uvs_players'],
+		'open'					=> $LNG['uvs_open'],
+		'export'				=> $LNG['uvs_export'],
+		'delete'				=> $LNG['uvs_delete'],
+		'uni_on'				=> $LNG['uvs_on'],
+		'uni_off'				=> $LNG['uvs_off'],
+		'new_uni'				=> $LNG['uvs_new'],
+		'import_uni'			=> $LNG['uvs_import'],
+		'upload'				=> $LNG['uvs_uplaod'],
 	));
 	
 	$template->show('adm/UniversePage.tpl');

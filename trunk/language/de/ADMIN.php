@@ -44,13 +44,6 @@ $LNG['rank'][1]	= 'Moderator';
 $LNG['rank'][2]	= 'Operator';
 $LNG['rank'][3]	= 'Administrator';
 
-//Backup - System
-$LNG['backup_system']		=	'Backup-System';
-$LNG['backup_erstellen']	=	'Neues Backup erstellen';
-$LNG['backup_erstellt']		=	'Das erstellen des Backups war erfolgreich.';
-$LNG['backup_datei']		=	'Backup-Dateien';
-$LNG['sql_befehle']			=	'SQL-Befehle';
-$LNG['keine_backups']		=	'Keine Backups vorhanden';
 
 // 	TIEMPO - TIME
 $LNG['time_days']	= 'Tage';
@@ -987,5 +980,18 @@ $LNG['mvc_announcement']				= 'Ankündigung';
 $LNG['mvc_download']					= 'Download';
 $LNG['mvc_desc']						= 'Beschreibung';
 
+//Universe Page
+$LNG['uvs_id']							= 'ID';
+$LNG['uvs_name']						= 'Name';
+$LNG['uvs_speeds']						= 'Geschwindigkeit';
+$LNG['uvs_players']						= 'Spieler';
+$LNG['uvs_open']						= 'Öffnen';
+$LNG['uvs_export']						= 'Exportieren';
+$LNG['uvs_delete']						= 'Löschen';
+$LNG['uvs_on']							= 'On';
+$LNG['uvs_off']							= 'Off';
+$LNG['uvs_new']							= 'Universum hinzufügen';
+$LNG['uvs_import']						= 'Universum Importieren';
+$LNG['uvs_upload']						= 'Hochladen';
 
 ?>
