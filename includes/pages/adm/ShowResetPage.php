@@ -105,7 +105,7 @@ function ShowResetPage()
 				while($RID = $db->fetch_array($TKBRW)) {
 					@unlink(ROOT_PATH.'raports/topkb_'.$RID['rid'].'.php');
 				}
-				$db->query("TRUNCATE TABLE ".TOBKB.";");		
+				$db->query("DELETE FROM ".TOPKB." WHERE `universe` = '".$_SESSION['adminuni']."';");		
 			}
 		}
 
