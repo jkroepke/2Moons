@@ -329,3 +329,9 @@ color:red
 .ui-progressbar-value {
 background-image: url(img/processbar.png)
 }
+
+#fleetstatustable td{
+background: transparent;
+background-image: none;
+border: 0 none
+}
