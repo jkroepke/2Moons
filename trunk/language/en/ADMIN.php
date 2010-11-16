@@ -1006,4 +1006,18 @@ $LNG['up_edit']							= 'Edit:';
 $LNG['up_del']							= 'Dele';
 $LNG['up_update_server']				= 'Update Server currently not available';
 
+//Active Page
+$LNG['ap_id']							= 'ID';
+$LNG['ap_username']						= 'Username';
+$LNG['ap_datum']						= 'Date';
+$LNG['ap_email']						= 'E-Mail';
+$LNG['ap_ip']							= 'IP';
+$LNG['ap_aktivieren']					= 'Activate';
+$LNG['ap_del']							= 'Del';
+$LNG['ap_sicher']						= 'You are you reliably which you ';
+$LNG['ap_entfernen']					= ' to remove would like?';
+$LNG['ap_insgesamt']					= 'Altogether ';
+$LNG['ap_nicht_aktivierte']				= ' user did not activate available.';
+$LNG['ap_nicht_aktivierte_user']		= 'User did not activate';
+
 ?>
