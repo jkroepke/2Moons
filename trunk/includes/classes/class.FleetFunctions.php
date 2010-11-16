@@ -430,8 +430,8 @@ abstract class FleetFunctions
 	
 	public static function GetAvailableMissions($MissionInfo)
 	{
-		global $LNG, $db;
-		$GetInfoPlanet 			= $db->uniquequery("SELECT `id_owner`, `der_metal`, `der_crystal` FROM `".PLANETS."` WHERE `galaxy` = ".$MissionInfo['galaxy']." AND `system` = ".$MissionInfo['system']." AND `planet` = ".$MissionInfo['planet']." AND `planet_type` = '1';");
+		global $LNG, $db, $UNI;
+		$GetInfoPlanet 			= $db->uniquequery("SELECT `id_owner`, `der_metal`, `der_crystal` FROM `".PLANETS."` WHERE `universe` = '".$UNI."' AND `galaxy` = ".$MissionInfo['galaxy']." AND `system` = ".$MissionInfo['system']." AND `planet` = ".$MissionInfo['planet']." AND `planet_type` = '1';");
 		$YourPlanet				= (isset($GetInfoPlanet['id_owner']) && $GetInfoPlanet['id_owner'] == $MissionInfo['CurrentUser']['id']) ? true : false;
 		$UsedPlanet				= (isset($GetInfoPlanet['id_owner'])) ? true : false;
 		
@@ -470,7 +470,7 @@ abstract class FleetFunctions
 					$missiontype[11] = $LNG['type_mission'][11];
 			}
 		}
-							
+		
 		return $missiontype;
 	}
 }

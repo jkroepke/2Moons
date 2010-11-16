@@ -418,7 +418,7 @@ class ShowFleetPages extends FleetFunctions
 
 		if (IsVacationMode($USER))
 			exit($template->message($LNG['fl_vacation_mode_active'], 'game.php?page=overview', 2));
-	
+
 		if ($_SESSION['db']['user_side'] != 'game.php?page=fleet2')
 			parent::GotoFleetPage();
 	
@@ -581,7 +581,7 @@ class ShowFleetPages extends FleetFunctions
 			}		
 		}
 		
-		if(parent::CheckUserSpeed($GenFleetSpeed) || !array_key_exists($mission, parent::GetAvailableMissions(array('CurrentUser' => $USER,'galaxy' => $galaxy, 'system' => $system, 'planet' => $planet, 'planettype' => $planettype, 'IsAKS' => $fleet_group, 'Ship' => $FleetArray))))
+		if(!parent::CheckUserSpeed($GenFleetSpeed) || !array_key_exists($mission, parent::GetAvailableMissions(array('CurrentUser' => $USER,'galaxy' => $galaxy, 'system' => $system, 'planet' => $planet, 'planettype' => $planettype, 'IsAKS' => $fleet_group, 'Ship' => $FleetArray))))
 			parent::GotoFleetPage();
 
 
