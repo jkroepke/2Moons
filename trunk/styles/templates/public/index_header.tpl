@@ -95,11 +95,9 @@
 	<td class='languages_container'>
 	<a href="?lang=de"><img src="./styles/images/login/de.png" alt="" width="16" height="11"></a>
 	<a href="?lang=en"><img src="./styles/images/login/en.png" alt="" width="16" height="11"></a>
-	<a href="?lang=es"><img src="./styles/images/login/es.png" alt="" width="16" height="11"></a>
 	<a href="?lang=pt"><img src="./styles/images/login/pt.png" alt="" width="16" height="11"></a>
 	<a href="?lang=ru"><img src="./styles/images/login/ru.png" alt="" width="16" height="11"></a>
 	<a href="?lang=cn"><img src="./styles/images/login/cn.png" alt="" width="16" height="11"></a>
-	<a href="?lang=hr"><img src="./styles/images/login/hr.png" alt="" width="16" height="11"></a>
 	{if $bgm_active}&nbsp;&bull;&nbsp;<a onclick="music()" style="cursor:pointer;" id="music">{$music_off}</a></td>{/if}
   </tr>
 </table>
