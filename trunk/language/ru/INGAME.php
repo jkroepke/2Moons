@@ -2,13 +2,11 @@
 
 // Языки
 $LNG['langs']    = array(
-                                     'de' => 'Deutsch',
-                                     'en' => 'English',
-                                     'es' => 'Español',
-                                     'ru' => 'Русский',
-                                     'pt' => 'Português',
-                                     'cn' => '简体中文',
-                                     'hr' => 'Hrvatski',
+    'de' => 'Deutsch', 
+    'en' => 'English', 
+    'ru' => 'Русский', 
+    'pt' => 'Português',
+    'cn' => '简体中文',
 );
 
 // Основная часть сервера

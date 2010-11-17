@@ -34,10 +34,12 @@ $LNG['step1_mysql_dbuser']	= "MySQL-DB-User: <br> Bspl.: root";
 $LNG['step1_mysql_dbpass']	= "MySQL-DB-Passwort: <br> Bspl.: 12345";
 $LNG['step1_mysql_prefix']	= "MySQL-DB-Prefix: <br> Bspl.: uni1_";
 
-$LNG['step2_db_ok']			= "Datenbank Tabellen erfolgreich erstellt....";
+$LNG['step2_db_connet_ok']	= "Verbindung zur Datenbank erfolgreich...";
+$LNG['step2_db_create_ok']	= "Datenbank Tabellen erfolgreich erstellt....";
 $LNG['step2_db_error']		= "Fehler beim erstellen der Datenbank-Tabellen: %s";
 $LNG['step2_db_con_fail']	= "Keine Verbindung der Datenbank.<br> %s";
 $LNG['step2_conf_op_fail']	= "config.php wurde nicht auf CHMOD 777 eingestellt!";
+$LNG['step2_conf_create']	= "config.php erfolgreich erstellt...";
 
 $LNG['step3_create_admin']	= "Erstellung einer Adminkontos";
 $LNG['step3_admin_name']	= "Administrator Username:";
