@@ -280,6 +280,7 @@ class MissionCaseAttack extends MissionFunctions
 		$SQL .= "`defender` = '".implode(' & ', $Defender['name'])."', ";
 		$SQL .= "`gesamtunits` = '".floattostring($result['lost']['att'] + $result['lost']['def'])."', ";
 		$SQL .= "`rid` = '". $rid ."', ";
+		$SQL .= "`universe` = '".$this->_fleet['fleet_universe']."', ";
 		$SQL .= "`fleetresult` = '". $result['won'] ."';";		
 		$SQL .= "UPDATE ".USERS." SET ";
         $SQL .= "`wons` = wons + ".$Won.", ";
