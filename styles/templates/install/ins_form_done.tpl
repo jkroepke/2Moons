@@ -1,7 +1,7 @@
 {include file="install/ins_header.tpl"}
 <tr>
   <td>
-	<form method="POST" action="?mode=ins&amp;page=3{$lang}">
+	<form method="POST" action="?mode=ins&amp;page=3&{$lang}">
 	<br>
     {$first}
     <br>

@@ -3,11 +3,9 @@
 $LNG['langs']    = array(
     'de' => 'Deutsch', 
     'en' => 'English', 
-    'es' => 'Español', 
     'ru' => 'Русский', 
     'pt' => 'Português',
     'cn' => '简体中文',
-    'hr' => 'Hrvatski',
 );
 
 

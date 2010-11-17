@@ -195,10 +195,7 @@ switch ($Mode) {
 			if (!is_writable('../includes/config.php'))
 				exit($template->message($LNG['step2_conf_op_fail'], "?mode=ins&page=1&lang=".$LANG, 3, true));
 
-			$first		= "Verbindung zur Datenbank erfolgreich...";
 			$connection->multi_query(str_replace("prefix_", $prefix, file_get_contents('install.sql')));
-
-			$second	= $LNG['step2_db_ok'];
 
 			file_put_contents("../includes/config.php", "<?php\n".
 			"//### Database access ###//\n\n".
@@ -213,11 +210,10 @@ switch ($Mode) {
 			"?>");
 			@chmod("../includes/config.php", 0444);
 
-			$third	= "config.php erfolgreich erstellt...";
 			$template->assign_vars(array(
-				'first'					=> $first,
-				'second'				=> $second,
-				'third'					=> $third,
+				'first'					=> $LNG['step2_db_connet_ok'],
+				'second'				=> $LNG['step2_db_create_ok'],
+				'third'					=> $LNG['step2_conf_create'],
 				'continue'				=> $LNG['continue'],
 			));
 			$template->show('install/ins_form_done.tpl');
