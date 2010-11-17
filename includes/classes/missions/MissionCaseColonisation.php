@@ -47,7 +47,7 @@ class MissionCaseColonisation extends MissionFunctions
 		else
 		{
 			require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.'.PHP_EXT);
-			$NewOwnerPlanet = CreateOnePlanetRecord($this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet'], $this->_fleet['fleet_end_id'], $this->_fleet['fleet_owner'], $LNG['fcp_colony'], false, $PlayerTech['authlevel']);
+			$NewOwnerPlanet = CreateOnePlanetRecord($this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet'], $this->_fleet['fleet_universe'], $this->_fleet['fleet_end_id'], $this->_fleet['fleet_owner'], $LNG['fcp_colony'], false, $PlayerTech['authlevel']);
 			if($NewOwnerPlanet !== true)
 			{
 				$TheMessage = sprintf($LNG['sys_colo_badpos'], GetTargetAdressLink($this->_fleet, ''));
