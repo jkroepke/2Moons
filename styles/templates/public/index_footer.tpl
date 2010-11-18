@@ -81,7 +81,7 @@ function music() {
 	if(idmusic.text() != "{$music_on}")
 	{
 		loginbgm.play();
-		idmusic.text("{$music_on});
+		idmusic.text("{$music_on}");
 		$.cookie('music', 'on');
 	}
 	else
