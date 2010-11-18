@@ -8,6 +8,16 @@ if($.cookie('pmenu') != null) {
 		$('#menu').css('padding-bottom', '26px');
 		$('#content').css('padding-bottom', '26px');
 	}
+} else {
+	if($("#planet_menu_content:visible").length == 1) {
+		$.cookie('pmenu', 'on');
+		$('#menu').css('padding-bottom', '98px');
+		$('#content').css('padding-bottom', '98px');
+	} else {
+		$.cookie('pmenu', 'off');
+		$('#menu').css('padding-bottom', '26px');
+		$('#content').css('padding-bottom', '26px');
+	}	
 }
 
 function PlanetMenu() {
