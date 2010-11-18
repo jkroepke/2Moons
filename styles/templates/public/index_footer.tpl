@@ -10,9 +10,7 @@ fb_permissions		= "{$fb_perm}";
 lang				= "{$lang}";
 (function() {
         var s = [
-            "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js",
-            {if $bgm_active}"scripts/jquery.cookie.js",
-            "scripts/soundmanager2.js",{/if}
+            "scripts/base.js",
 			{if $fb_active}"http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php",{/if}
             {if $game_captcha}"http://www.google.com/recaptcha/api/js/recaptcha_ajax.js",{/if}
 			{if $ga_active}"http://www.google-analytics.com/ga.js",{/if}
@@ -55,6 +53,7 @@ FB.init("{$fb_key}", "scripts/xd_receiver.htm");
 </script>
 {/if}
 {if $bgm_active}
+<script type="text/javascript" src="scripts/soundmanager2.js"></script>	
 <script type="text/javascript">	
  
 soundManager.url = 'scripts';
