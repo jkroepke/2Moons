@@ -2,11 +2,11 @@
 
 // Языки
 $LNG['langs']    = array(
-    'de' => 'Deutsch', 
-    'en' => 'English', 
-    'ru' => 'Русский', 
-    'pt' => 'Português',
-    'cn' => '简体中文',
+                                     'de' => 'Deutsch',
+                                     'en' => 'English',
+                                     'ru' => 'Русский',
+                                     'pt' => 'Português',
+                                     'cn' => '简体中文',
 );
 
 // Основная часть сервера
@@ -83,7 +83,8 @@ $LNG['lm_records']                        = 'Рекорды';
 $LNG['lm_chat']                           = 'Чат';
 $LNG['lm_support']                        = 'Тех. поддержка';
 $LNG['lm_rules']                          = 'Правила';
-$LNG['lm_battlesim']                      = "Симулятор боя";
+$LNG['lm_battlesim']                      = 'Симулятор боя';
+$LNG['lm_tm']                             = 'Тёмная материя';
 
 // Обзор
 $LNG['ov_newname_alphanum']               = 'Название планеты может содержать только буквы и цифры (латиница).';
@@ -164,7 +165,7 @@ $LNG['gl_all_defenses']                   = 'Всё';
 $LNG['gl_objective']                      = 'Цель';
 $LNG['gl_missil_launch_action']           = 'Атаковать';
 $LNG['gl_galaxy']                         = 'Галактика';
-$LNG['gl_solar_system']                   = 'Солненая система';
+$LNG['gl_solar_system']                   = 'Солнечная система';
 $LNG['gl_show']                           = 'Показать';
 $LNG['gl_pos']                            = 'Позиция';
 $LNG['gl_planet']                         = 'Планета';
@@ -536,11 +537,11 @@ $LNG['al_transfer_alliance']              = 'Передать альянс';
 $LNG['al_disolve_alliance']               = 'Расформировать альянс';
 $LNG['al_founder_rank_text']              = 'Основатель';
 $LNG['al_new_member_rank_text']           = 'Новичок';
-$LNG['al_acept_request']                  = 'Принять';
+$LNG['al_acept_request']                  = 'Prinyat';
 $LNG['al_you_was_acceted']                = 'Вас приняли в альянс ';
 $LNG['al_hi_the_alliance']                = 'Привет!<br>Альянс <b>';
 $LNG['al_has_accepted']                   = '</b> принял Вашу заявку.<br>Сообщение главы: <br>';
-$LNG['al_decline_request']                = 'Отклонить';
+$LNG['al_decline_request']                = 'Otklonit';
 $LNG['al_you_was_declined']               = 'Вас не приняли в альянс ';
 $LNG['al_has_declined']                   = '</b> отклонил вашу заявку!<br>Сообщение главы: <br>';
 $LNG['al_no_requests']                    = 'Нет заявок';
