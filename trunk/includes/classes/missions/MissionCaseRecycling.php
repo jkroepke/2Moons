@@ -29,10 +29,11 @@ class MissionCaseRecycling extends MissionFunctions
 	function TargetEvent()
 	{	
 		global $db, $pricelist;
-		$Target				 = $db->uniquequery("SELECT der_metal as metal,der_crystal as crystal FROM ".PLANETS." WHERE `id` = '".$this->_fleet['fleet_end_id']."';");
+		$Target				 = $db->uniquequery("SELECT der_metal, der_crystal FROM ".PLANETS." WHERE `id` = '".$this->_fleet['fleet_end_id']."';");
 		$FleetRecord         = explode(";", $this->_fleet['fleet_array']);
 		$RecyclerCapacity    = 0;
 		$OtherFleetCapacity  = 0;
+		
 		foreach ($FleetRecord as $Item => $Group)
 		{
 			if (empty($Group)) continue;
@@ -42,31 +43,25 @@ class MissionCaseRecycling extends MissionFunctions
 				$RecyclerCapacity   = bcadd($RecyclerCapacity, bcmul($pricelist[$Class[0]]['capacity'], $Class[1]));
 			else
 				$OtherFleetCapacity = bcadd($OtherFleetCapacity, bcmul($pricelist[$Class[0]]['capacity'], $Class[1]));
-		}
-
-		$IncomingFleetGoods = $this->_fleet['fleet_resource_metal'] + $this->_fleet['fleet_resource_crystal'] + $this->_fleet['fleet_resource_deuterium'];
-		if ($IncomingFleetGoods > $OtherFleetCapacity)
-			$RecyclerCapacity	= bcsub($RecyclerCapacity, bcsub($IncomingFleetGoods, $OtherFleetCapacity));
-
-			
-		$RecycledGoods['metal']   = min($Target['metal'], bcdiv($RecyclerCapacity, 2));
-		$RecycledGoods['crystal'] = min($Target['crystal'], bcdiv($RecyclerCapacity, 2));	
-
-		$RecyclerCapacity		  = bcsub($RecyclerCapacity, bcadd($RecycledGoods['metal'], $RecycledGoods['crystal']));
-		if($RecyclerCapacity !== '0')
-		{
-			if($RecycledGoods['metal'] === $Target['metal'])
-				$RecycledGoods['crystal'] = bcadd($RecycledGoods['crystal'], min(bcsub($Target['crystal'], $RecycledGoods['crystal']), $RecyclerCapacity));
-			else
-				$RecycledGoods['metal']   = bcadd($RecycledGoods['metal'], min(bcsub($Target['metal'], $RecycledGoods['metal']), $RecyclerCapacity));
-		}
+		}		
 		
-		$Qry	= "UPDATE ".PLANETS." SET
-				  `der_metal` = `der_metal` - '".$RecycledGoods['metal']."',
-				  `der_crystal` = `der_crystal` - '".$RecycledGoods['crystal']."'
-				  WHERE
-				  `id` = '".$this->_fleet['fleet_end_id']."';";
-		$db->query($Qry);
+		$IncomingFleetGoods 	= $this->_fleet['fleet_resource_metal'] + $this->_fleet['fleet_resource_crystal'] + $this->_fleet['fleet_resource_deuterium'];
+		if ($IncomingFleetGoods > $OtherFleetCapacity)
+			$RecyclerCapacity	= bcsub($RecyclerCapacity, bcsub($IncomingFleetGoods, $OtherFleetCapacity));		
+		
+		$RecycledGoods['metal']   	= min($Target['der_metal'], bcdiv($RecyclerCapacity, 2));
+		$RecycledGoods['crystal'] 	= min($Target['der_crystal'], bcdiv($RecyclerCapacity, 2));		
+		$Target['der_metal']		= bcsub($Target['der_metal'], $RecycledGoods['metal']);
+		$Target['der_crystal']		= bcsub($Target['der_crystal'], $RecycledGoods['crystal']);
+		
+		$RecyclerCapacity			= bcsub($RecyclerCapacity, bcadd($RecycledGoods['metal'], $RecycledGoods['crystal']));
+		if($Target['der_metal'] !== '0')
+			$RecycledGoods['metal']   = bcadd($RecycledGoods['metal'], min($Target['der_metal'], $RecyclerCapacity));
+		elseif($Target['der_crystal'] !== '0')
+			$RecycledGoods['crystal'] = bcadd($RecycledGoods['crystal'], min($Target['der_crystal'], $RecyclerCapacity));
+	
+	
+		$db->query("UPDATE ".PLANETS." SET `der_metal` = `der_metal` - '".$RecycledGoods['metal']."', `der_crystal` = `der_crystal` - '".$RecycledGoods['crystal']."' WHERE `id` = '".$this->_fleet['fleet_end_id']."';");
 
 		$LNG			= $this->GetUserLang($this->_fleet['fleet_owner']);
 		$Message 		= sprintf($LNG['sys_recy_gotten'], pretty_number($RecycledGoods['metal']), $LNG['Metal'], pretty_number($RecycledGoods['crystal']), $LNG['Crystal']);
