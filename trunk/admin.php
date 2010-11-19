@@ -30,6 +30,13 @@ require_once(ROOT_PATH . 'common.' . PHP_EXT);
 
 if ($USER['authlevel'] < AUTH_MOD) exit;
 
+if(!isset($_SESSION['admin_login']) || $_SESSION['admin_login'] != $USER['password'])
+{
+	include_once(ROOT_PATH . 'includes/pages/adm/ShowLoginPage.' . PHP_EXT);
+	ShowLoginPage();
+	exit;
+}
+
 $page = request_var('page', '');
 $uni = request_var('uni', 0);
 
@@ -37,7 +44,7 @@ if($USER['authlevel'] == AUTH_ADM && !empty($uni))
 	$_SESSION['adminuni'] = $uni;
 if(empty($_SESSION['adminuni']))
 	$_SESSION['adminuni'] = $UNI;
-	
+
 switch($page)
 {
 	case 'infos':

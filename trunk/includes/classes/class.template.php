@@ -372,19 +372,18 @@ class template
 			'Fatal'		=> $Fatal,
 		));
 		
+		$this->gotoside($dest, $time);
 		if(INSTALL == true) {
 			$this->assign_vars(array(
 				'cd'		=> '../',
 			));	
+			$this->show('error_message_body.tpl');
 		} elseif (defined('IN_ADMIN')) {
 			$this->assign_vars(array(
 				'dpath'		=> './styles/skins/darkness/',
-				'isadmin'	=> true,
 			));
+			$this->show('adm/error_message_body.tpl');
 		}
-		
-		$this->gotoside($dest, $time);
-		$this->show('error_message_body.tpl');
 	}
 }
 

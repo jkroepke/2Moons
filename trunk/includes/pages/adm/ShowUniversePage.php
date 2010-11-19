@@ -119,6 +119,10 @@ function ShowUniversePage() {
 		exit;
 	} elseif ($_REQUEST['action'] == 'import' && isset($_FILES['file']['tmp_name'])) {
 		$Data	= unserialize(file_get_contents($_FILES['file']['tmp_name']));
+		if(isset($Data) && is_array($Data) || empty($Data)) {
+			$template->message($LNG['uvs_error'], '?page=universe&sid='.session_id(), 5);
+			exit;
+		}
 		$TABLES	= $db->query("SHOW TABLE STATUS WHERE Name like '".DB_PREFIX."_%';");
 		$TABLEINFO	= array();
 		while($TABLE = $db->fetch_array($TABLES))
