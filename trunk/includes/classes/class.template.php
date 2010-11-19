@@ -373,17 +373,19 @@ class template
 		));
 		
 		$this->gotoside($dest, $time);
-		if(INSTALL == true) {
-			$this->assign_vars(array(
-				'cd'		=> '../',
-			));	
-			$this->show('error_message_body.tpl');
-		} elseif (defined('IN_ADMIN')) {
+		if (defined('IN_ADMIN')) {
 			$this->assign_vars(array(
 				'dpath'		=> './styles/skins/darkness/',
 			));
 			$this->show('adm/error_message_body.tpl');
+			exit;
 		}
+		if(INSTALL == true) {
+			$this->assign_vars(array(
+				'cd'		=> '../',
+			));
+		}
+		$this->show('error_message_body.tpl');
 	}
 }
 
