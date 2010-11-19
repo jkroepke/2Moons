@@ -29,7 +29,7 @@ class Session
 	function GetSessionFromDB()
 	{
 		global $db;
-		return $db->uniquequery("SELECT * FROM ".SESSION." WHERE `sess_id` = '".session_id()."' AND `user_id` = '".$_SESSION['id']."' AND `user_ip` = '".sprintf("%u", ip2long($_SERVER['REMOTE_ADDR']))."';");
+		return $db->uniquequery("SELECT * FROM ".SESSION." WHERE `sess_id` = '".session_id()."' AND `user_id` = '".$_SESSION['id']."';");
 	}
 	
 	function CreateSession($ID, $Username, $MainPlanet, $Universe, $Authlevel = 0, $dpath = DEFAULT_SKINPATH)
@@ -43,7 +43,7 @@ class Session
 		$_SESSION['dpath']		= $dpath;
 		$_SESSION['planet']		= $MainPlanet;
 		$_SESSION['uni']		= $Universe;
-		$db->query("INSERT INTO ".SESSION." (`sess_id`, `user_id`, `user_ua`, `user_ip`, `user_side`, `user_method`, `user_lastactivity`) VALUES ('".session_id()."', '".$ID."', '".$db->sql_escape($_SERVER['HTTP_USER_AGENT'])."', '".sprintf("%u", ip2long($_SERVER['REMOTE_ADDR']))."', '".$db->sql_escape($_SESSION['path'])."', '".$_SERVER["REQUEST_METHOD"]."', '".TIMESTAMP."') ON DUPLICATE KEY UPDATE `sess_id` = '".session_id()."', `user_ua` = '".$db->sql_escape($_SERVER['HTTP_USER_AGENT'])."', `user_ip` = '".sprintf("%u", ip2long($_SERVER['REMOTE_ADDR']))."', `user_side` = '".$db->sql_escape($_SESSION['path'])."', `user_method` = '".$_SERVER["REQUEST_METHOD"]."';");
+		$db->query("INSERT INTO ".SESSION." (`sess_id`, `user_id`, `user_ua`, `user_ip`, `user_side`, `user_method`, `user_lastactivity`) VALUES ('".session_id()."', '".$ID."', '".$db->sql_escape($_SERVER['HTTP_USER_AGENT'])."', '".$_SERVER['REMOTE_ADDR']."', '".$db->sql_escape($_SESSION['path'])."', '".$_SERVER["REQUEST_METHOD"]."', '".TIMESTAMP."') ON DUPLICATE KEY UPDATE `sess_id` = '".session_id()."', `user_ua` = '".$db->sql_escape($_SERVER['HTTP_USER_AGENT'])."', `user_ip` = '".$_SERVER['REMOTE_ADDR']."', `user_side` = '".$db->sql_escape($_SESSION['path'])."', `user_method` = '".$_SERVER["REQUEST_METHOD"]."';");
 	}
 	
 	function GetPath()
@@ -59,8 +59,7 @@ class Session
 			return true;
 			
 		$_SESSION['db']	= $this->GetSessionFromDB();
-		
-		if(empty($_SESSION['db']))
+		if(empty($_SESSION['db']) || !$this->CompareIPs($_SESSION['db']['user_ip']))
 			redirectTo('index.php?code=2');
 		
 		$SelectPlanet  		= request_var('cp',0);
@@ -69,11 +68,11 @@ class Session
 			
 		$_SESSION['path']		= $this->GetPath();
 		$_SESSION['planet']		= !empty($IsPlanetMine['id']) ? $IsPlanetMine['id'] : $_SESSION['planet'];
-		
+
 		$SQL  = "UPDATE ".USERS." as u, ".SESSION." as s SET ";
 		$SQL .= "u.`onlinetime` = '".TIMESTAMP."', ";
 		$SQL .= "u.`user_lastip` = '".$_SERVER['REMOTE_ADDR'] ."', ";
-		$SQL .= "s.`user_ip` = '".sprintf("%u", ip2long($_SERVER['REMOTE_ADDR']))."', ";
+		$SQL .= "s.`user_ip` = '".$_SERVER['REMOTE_ADDR']."', ";
 		$SQL .= "s.`user_side` = '".$db->sql_escape($_SESSION['path'])."', ";
 		$SQL .= "s.`user_ua` = '".$db->sql_escape($_SERVER['HTTP_USER_AGENT'])."', ";
 		$SQL .= "s.`user_method` = '".$_SERVER["REQUEST_METHOD"]."', ";
@@ -85,11 +84,51 @@ class Session
 		return true;
 	}
 	
+	function CompareIPs($IP)
+	{
+		if (strpos($_SERVER['REMOTE_ADDR'], ':') !== false && strpos($IP, ':') !== false)
+		{
+			$s_ip = $this->short_ipv6($IP, COMPARE_IP_BLOCKS);
+			$u_ip = $this->short_ipv6($_SERVER['REMOTE_ADDR'], COMPARE_IP_BLOCKS);
+		}
+		else
+		{
+			$s_ip = implode('.', array_slice(explode('.', $IP), 0, COMPARE_IP_BLOCKS));
+			$u_ip = implode('.', array_slice(explode('.', $_SERVER['REMOTE_ADDR']), 0, COMPARE_IP_BLOCKS));
+		}
+		
+		return ($s_ip == $u_ip);
+	}
+
+	function short_ipv6($ip, $length)
+	{
+		if ($length < 1)
+		{
+			return '';
+		}
+
+		$blocks = substr_count($ip, ':') + 1;
+		if ($blocks < 9)
+		{
+			$ip = str_replace('::', ':' . str_repeat('0000:', 9 - $blocks), $ip);
+		}
+		if ($ip[0] == ':')
+		{
+			$ip = '0000' . $ip;
+		}
+		if ($length < 4)
+		{
+			$ip = implode(':', array_slice(explode(':', $ip), 0, 1 + $length));
+		}
+
+		return $ip;
+	}
+	
 	function DestroySession()
 	{
 		session_destroy();
 		$params = session_get_cookie_params();
-		setcookie(session_name(), '', time() - 42000, $params["path"], $params["domain"], $params["secure"], $params["httponly"]);
+		setcookie(session_name(), '', time() - 42000);
 	}
 }
 ?>

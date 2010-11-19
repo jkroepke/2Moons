@@ -982,7 +982,7 @@ $LNG['mvc_desc']						= 'Beschreibung';
 //Universe Page
 $LNG['uvs_id']							= 'ID';
 $LNG['uvs_name']						= 'Name';
-$LNG['uvs_speeds']						= 'Geschwindigkeit';
+$LNG['uvs_speeds']						= 'Speed';
 $LNG['uvs_players']						= 'Spieler';
 $LNG['uvs_open']						= 'Öffnen';
 $LNG['uvs_export']						= 'Exportieren';
@@ -992,6 +992,7 @@ $LNG['uvs_off']							= 'Off';
 $LNG['uvs_new']							= 'Universum hinzufügen';
 $LNG['uvs_import']						= 'Universum Importieren';
 $LNG['uvs_upload']						= 'Hochladen';
+$LNG['uvs_error']						= 'Ungültige oder Fehlerhafte Importfile!';
 
 //Update Page
 $LNG['up_weiter']						= 'Weiter';

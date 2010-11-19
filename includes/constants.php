@@ -104,6 +104,10 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	// Max Amount of Fleets where allow on one ACS
 	define('MAX_FLEETS_PER_ACS'	  	  , 16);
 	
+	// How much IP Block ll be checked
+	// 1 = (AAA); 2 = (AAA.BBB); 3 = (AAA.BBB.CCC)
+	define('COMPARE_IP_BLOCKS'	  	  , 2);
+	
 	// INITIAL RESOURCE OF NEW PLANETS
 	define('BUILD_METAL'              , 500);
 	define('BUILD_CRISTAL'            , 500);
