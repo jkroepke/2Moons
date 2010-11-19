@@ -371,7 +371,7 @@ CREATE TABLE IF NOT EXISTS `prefix_session` (
   `sess_id` varchar(32) NOT NULL,
   `user_id` int(11) unsigned NOT NULL,
   `user_ua` varchar(100) NOT NULL,
-  `user_ip` varchar(40) unsigned NOT NULL,
+  `user_ip` varchar(40) NOT NULL,
   `user_side` varchar(50) NOT NULL,
   `user_method` varchar(4) NOT NULL,
   `user_lastactivity` int(11) NOT NULL,
