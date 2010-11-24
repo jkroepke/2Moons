@@ -56,9 +56,9 @@ function GenerateReport($RESULT, $INFO)
 			$coord4 = $data2['fleet']['fleet_end_galaxy'];
 			$coord5 = $data2['fleet']['fleet_end_system'];
 			$coord6 = $data2['fleet']['fleet_end_planet'];
-			$weap 	= $data2['techs'][0];
-			$shie 	= $data2['techs'][1];
-			$armr 	= $data2['techs'][2];
+			$weap 	= $data2['techs'][0] * 100;
+			$shie 	= $data2['techs'][1] * 100;
+			$armr 	= $data2['techs'][2] * 100;
 
 			$fl_info1  	= '<td class=\"transparent\"><table><tr><td>".$LNG["sys_attack_attacker_pos"]." '.$name.' (['.$coord1.':'.$coord2.':'.$coord3.'])<br>".$LNG["sys_ship_weapon"]." '.$weap.'% - ".$LNG["sys_ship_shield"]." '.$shie.'% - ".$LNG["sys_ship_armour"]." '.$armr.'%';
 			$table1  	= '<table width=\'100%\'>';
@@ -129,9 +129,9 @@ function GenerateReport($RESULT, $INFO)
 		foreach($defenders1 as $fleet_id1 => $data2)
 		{
 			$name = $data2['user']['username'];
-			$weap 	= $data2['techs'][0];
-			$shie 	= $data2['techs'][1];
-			$armr 	= $data2['techs'][2];
+			$weap 	= $data2['techs'][0] * 100;
+			$shie 	= $data2['techs'][1] * 100;
+			$armr 	= $data2['techs'][2] * 100;
 
 			$fl_info1	= '<td class=\"transparent\"><table><tr><td>".$LNG["sys_attack_defender_pos"]." '.$name.' (['.$coord4.':'.$coord5.':'.$coord6.'])<br>".$LNG["sys_ship_weapon"]." '.$weap.'% - ".$LNG["sys_ship_shield"]." '.$shie.'% - ".$LNG["sys_ship_armour"]." '.$armr.'%';
 			$table1  	= '<table border=\'1\' align=\'center\' width=\'100%\'>';
