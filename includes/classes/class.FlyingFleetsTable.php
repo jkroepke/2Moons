@@ -326,29 +326,34 @@ class FlyingFleetsTable
 	public function BuildFleetEventTable($FleetRow, $Status, $Owner, $Label, $Record, $isAKS = false)
 	{
 		global $LNG, $db;
-	       
-		if ($isAKS == true && $Status == 0 && ($FleetRow['fleet_mission'] == 1 || $FleetRow['fleet_mission'] == 2) && $FleetRow['fleet_group'] != 0)
-		{
-			$AKSFleets		= $db->query("SELECT * FROM ".FLEETS." WHERE `fleet_group` = '".$FleetRow['fleet_group']."' ORDER BY `fleet_id` ASC;");
-			$EventString	= '';
-			while($AKSRow = $db->fetch_array($AKSFleets))
-			{
-				$Return			= $this->GetEventString($AKSRow, $Status, $Owner, $Label, $Record);
-				$Rest			= $Return[0];
-				$EventString    .= $Return[1].'<br><br>';
-				$Time			= $Return[2];
-			}
-			$db->free_result($AKSFleets);
-		} else {
-			list($Rest, $EventString, $Time) = $this->GetEventString($FleetRow, $Status, $Owner, $Label, $Record);
-			$EventString    .= '<br><br>';
-		}
 		
-		$FleetInfo['fleet_order']	= $Label . $Record;
-		$FleetInfo['fleet_descr']	= substr($EventString, 0, -8);
-		$FleetInfo['fleet_return']	= $Time;
-
-		return $FleetInfo;
+	    if($FleetRow['fleet_owner'] == $_SESSION['id'])
+		{
+			if ($isAKS == true && $Status == 0 && ($FleetRow['fleet_mission'] == 1 || $FleetRow['fleet_mission'] == 2) && $FleetRow['fleet_group'] != 0)
+			{
+				$AKSFleets		= $db->query("SELECT * FROM ".FLEETS." WHERE `fleet_group` = '".$FleetRow['fleet_group']."' ORDER BY `fleet_id` ASC;");
+				$EventString	= '';
+				while($AKSRow = $db->fetch_array($AKSFleets))
+				{
+					$Return			= $this->GetEventString($AKSRow, $Status, $Owner, $Label, $Record);
+					$Rest			= $Return[0];
+					$EventString    .= $Return[1].'<br><br>';
+					$Time			= $Return[2];
+				}
+				$db->free_result($AKSFleets);
+			}
+			else
+			{
+				list($Rest, $EventString, $Time) = $this->GetEventString($FleetRow, $Status, $Owner, $Label, $Record);
+				$EventString    .= '<br><br>';	
+			}
+			
+			$FleetInfo['fleet_order']	= $Label . $Record;
+			$FleetInfo['fleet_descr']	= substr($EventString, 0, -8);
+			$FleetInfo['fleet_return']	= $Time;
+	
+			return $FleetInfo;
+		}
 	}
 }
 ?>

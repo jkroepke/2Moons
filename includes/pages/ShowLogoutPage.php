@@ -23,7 +23,9 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 
 function ShowLogoutPage()
 {
-	global $LNG, $SESSION;
+	global $db, $LNG, $SESSION;
+	
+	$loeschen	= $db->query("DELETE FROM ".SESSION." WHERE user_id = '".$_SESSION['id']."'");
 	
 	$SESSION->DestroySession();
 	
