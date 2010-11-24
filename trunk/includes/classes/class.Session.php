@@ -126,6 +126,9 @@ class Session
 	
 	function DestroySession()
 	{
+		global $db;
+		
+		$loeschen	= $db->query("DELETE FROM ".SESSION." WHERE user_id = '".$_SESSION['id']."'"); 
 		session_destroy();
 		$params = session_get_cookie_params();
 		setcookie(session_name(), '', time() - 42000);
