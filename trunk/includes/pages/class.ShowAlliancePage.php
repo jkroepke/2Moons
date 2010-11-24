@@ -105,7 +105,7 @@ class ShowAlliancePage
 	
 	public function __construct()
 	{
-		global $USER, $PLANET, $LNG, $db;
+		global $USER, $PLANET, $LNG, $db, $UNI;
 
 		$parse 		= $LNG;
 
@@ -200,7 +200,8 @@ class ShowAlliancePage
                                 `ally_owner`='".$USER['id']."',
                                 `ally_owner_range`='Leader',
                                 `ally_members`='1',
-                                `ally_register_time`='" . TIMESTAMP."';
+                                `ally_register_time`='" . TIMESTAMP."',
+								`ally_universe` ='".$UNI."';
                                 UPDATE ".USERS." SET
                                 `ally_id`= (SELECT `id` FROM ".ALLIANCE." WHERE ally_name = '".$db->sql_escape($aname)."'),
                                 `ally_name` = '".$db->sql_escape($aname)."',
