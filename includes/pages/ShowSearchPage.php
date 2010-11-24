@@ -23,7 +23,7 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 
 function ShowSearchPage()
 {
-	global $USER, $PLANET, $dpath, $LNG, $db;
+	global $USER, $PLANET, $dpath, $LNG, $db, $UNI;
 
 	$PlanetRess = new ResourceUpdate();
 	$PlanetRess->CalcResource();
