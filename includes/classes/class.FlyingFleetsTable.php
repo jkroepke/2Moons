@@ -327,7 +327,7 @@ class FlyingFleetsTable
 	{
 		global $LNG, $db;
 		
-	    if($FleetRow['fleet_owner'] == $_SESSION['id'])
+		if(($FleetRow['fleet_mission'] == 8 && $_SESSION['id'] == $FleetRow['fleet_owner']) || $FleetRow['fleet_mission'] != 8)
 		{
 			if ($isAKS == true && $Status == 0 && ($FleetRow['fleet_mission'] == 1 || $FleetRow['fleet_mission'] == 2) && $FleetRow['fleet_group'] != 0)
 			{
