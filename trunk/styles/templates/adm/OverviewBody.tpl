@@ -1,6 +1,6 @@
 {include file="adm/overall_header.tpl"}
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-<script type="text/javascript" src="http://update.service.2moons.cc/donate.js"></script>
+<script type="text/javascript" src="http://update.xnova.de/donate.js"></script>
 <script type="text/javascript" src="./scripts/buildlist.js"></script>
 <script type="text/javascript">
 google.load("feeds", "1");
@@ -27,10 +27,10 @@ google.load("feeds", "1");
         <td class="c" colspan="2">{$ow_support}</td>
     </tr>
     <tr>
-        <th colspan="2"><a href="http://goo.gl/7eu8" target="_blank">Project Homepage</a><br>
+        <th colspan="2"><a href="http://o.gl/7eu8" target="_blank">Project Homepage</a><br>
         <a href="http://code.google.com/p/2moons/source/list" target="_blank">SVN Revision List</a><br>
 		<a href="http://www.titanspace.org/" target="_blank">Offical Betauni</a><br>
-		<a href="http://www.xnova-reloaded.de/" target="_blank">xnova-reloaded.de - {$ow_forum}</a></th>
+		<a href="http://www.xnova.de/" target="_blank">xnova.de - {$ow_forum}</a></th>
     </tr> 
 	<tr>
 		<td class="c" style="width:50%;">Donate - Paypal</td>
@@ -115,7 +115,7 @@ google.load("feeds", "1");
 					<td><h3>Team</h3></td>
                 </tr>
                 <tr>
-					<td><span style="color:orange">stealth1 - Entwickler/Moderator<br>Robbyn - GFX/Moderator</span></td>
+					<td><span style="color:orange">stealth1 - Entwickler/Moderator<br>Robbyn - GFX/Moderator<br>Lyon - Moderrator<br>Freak1992 - Moderrator</span></td>
                 </tr>
 		        <tr>
 					<td><h3>{$ow_translator}</h3></td>
