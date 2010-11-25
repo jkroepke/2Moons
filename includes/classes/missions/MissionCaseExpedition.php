@@ -65,7 +65,7 @@ class MissionCaseExpedition extends MissionFunctions
 			
 		$FleetCapacity		-= $this->_fleet['fleet_resource_metal'] + $this->_fleet['fleet_resource_crystal'] + $this->_fleet['fleet_resource_deuterium'] + $this->_fleet['fleet_resource_darkmatter'];
 					
-		$GetEvent			= mt_rand(0, 10);
+		$GetEvent			= mt_rand(1, 6);
 			
 		switch($GetEvent)
 		{
