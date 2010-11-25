@@ -51,7 +51,7 @@ $LNG['time_minutes']	                = 'Minutos';
 $LNG['time_seconds']	                = 'Segundos';
 //###########################################################//
 
-$LNG['info_information']	= 'Submeta informações de bugs em <a href="http://www.xnova-reloaded.eu/index.php?page=Board&boardID=85" target="tracker">2Moons Board</a><br>Sem cumprir esta regra não obtem suporte!';
+$LNG['info_information']	= 'Submeta informações de bugs em <a href="http://www.xnova.de" target="tracker">2Moons Board</a><br>Sem cumprir esta regra não obtem suporte!';
 
 //---------------	Sim ou Não	------------------------//
 $LNG['one_is_yes'][1]	               	= 'Sim';
