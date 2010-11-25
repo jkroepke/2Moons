@@ -52,7 +52,7 @@ $LNG['time_minutes']	= 'Minuten';
 $LNG['time_seconds']	= 'Sekunden';
 //###########################################################//
 
-$LNG['info_information']	= 'Informations-Vorlage zum Posten eines Bugs im <a href="http://www.xnova-reloaded.eu/index.php?page=Board&boardID=85" target="tracker">2Moons Board</a><br>Ohne diese Vorlage gibt es keinen Support!';
+$LNG['info_information']	= 'Informations-Vorlage zum Posten eines Bugs im <a href="http://www.xnova.de" target="tracker">2Moons Board</a><br>Ohne diese Vorlage gibt es keinen Support!';
 
 //---------------	¿SI O NO? - YES OR NO? - JA ODER NEIN?	------------------------// 
 $LNG['one_is_yes'][1]	= 'Ja';
