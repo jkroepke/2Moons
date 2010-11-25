@@ -77,7 +77,7 @@ function ShowUpdatePage()
 	{
 		case "download":
 			require_once(ROOT_PATH.'includes/libs/zip/zip.lib.'.PHP_EXT);
-			$UpdateArray 	= unserialize(@file_get_contents("http://update.service.2moons.cc/index.php?action=getupdate",FALSE,$context));
+			$UpdateArray 	= unserialize(@file_get_contents("http://update.xnova.de/index.php?action=getupdate",FALSE,$context));
 			if(!is_array($UpdateArray['revs']))
 				exitupdate(array('debug' => array('noupdate' => $LNG['up_kein_update'])));
 				
@@ -144,7 +144,7 @@ function ShowUpdatePage()
 		case "update":
 			require_once(ROOT_PATH.'includes/libs/ftp/ftp.class.'.PHP_EXT);
 			require_once(ROOT_PATH.'includes/libs/ftp/ftpexception.class.'.PHP_EXT);
-			$UpdateArray 	= unserialize(@file_get_contents("http://update.service.2moons.cc/index.php?action=getupdate",FALSE,$context));
+			$UpdateArray 	= unserialize(@file_get_contents("http://update.xnova.de/index.php?action=getupdate",FALSE,$context));
 			if(!is_array($UpdateArray['revs']))
 				exitupdate(array('debug' => array('noupdate' => $LNG['up_kein_update'])));
 				
@@ -279,7 +279,7 @@ function ShowUpdatePage()
 			
 			if(!function_exists('file_get_contents') || !function_exists('fsockopen')) {
 				$template->message($LNG['up_error_fsockopen'], false, 0, true);
-			} elseif(($RAW = @file_get_contents("http://update.service.2moons.cc/index.php?action=update",FALSE,$context)) !== false) {
+			} elseif(($RAW = @file_get_contents("http://update.xnova.de/index.php?action=update",FALSE,$context)) !== false) {
 				$UpdateArray 	= unserialize($RAW);
 				if(is_array($UpdateArray['revs']))
 				{
