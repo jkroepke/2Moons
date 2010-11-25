@@ -115,7 +115,7 @@ google.load("feeds", "1");
 					<td><h3>Team</h3></td>
                 </tr>
                 <tr>
-					<td><span style="color:orange">stealth1 - Entwickler/Moderator<br>Robbyn - GFX/Moderator<br>Lyon - Moderrator<br>Freak1992 - Moderrator</span></td>
+					<td><span style="color:orange">stealth1 - Entwickler/Moderator<br>Robbyn - Entwickler/Moderator<br>Lyon - Moderrator<br>Freak1992 - Moderrator</span></td>
                 </tr>
 		        <tr>
 					<td><h3>{$ow_translator}</h3></td>
