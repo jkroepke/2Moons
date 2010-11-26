@@ -46,7 +46,7 @@ class ShowOfficierPage
 		
 		if ((floor($USER['darkmatter'] / $ExtraDM[$Element]['darkmatter'])) > 0 && in_array($Element, $reslist['dmfunc']))
 		{
-			if($USER[$resource[$Element]] == 0)
+			if($USER[$resource[$Element]] == 0 || $USER[$resource[$Element]] < TIMESTAMP)
 			{
 				$USER[$resource[$Element]] = TIMESTAMP + $ExtraDM[$Element]['time'] * 3600;
 				$USER['darkmatter']         -= $ExtraDM[$Element]['darkmatter'];
