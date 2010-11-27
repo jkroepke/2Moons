@@ -126,13 +126,7 @@ $LNG['rules']						= array(
 	Die Weitergabe eines Accounts darf max. alle 3 Monate und ausschliesslich unentgeltlich erfolgen. 
 	Ausnamhen beim Operator melden.",
 
-	"Multiaccounts"				=> "Der Besitzer eines Accounts ist immer der Inhaber der festen E-mail Adresse. Ein Account darf ausschließlich alleine gespielt werden. 
-	Eine Ausnahme bildet nur das Sitten. Sollte es notwendig werden, dass der Account eines Anderen überwacht oder in den Urlaubsmodus gesetzt werden muss, 
-	so ist der zuständige Operator vorher zu informieren und dessen Genehmigung einzuholen. Für kurzfristiges Sitten unter 12 Stunden reicht eine Meldung an den Operator. 
-	Beim Sitten sind sämtliche Flottenbewegungen verboten, lediglich das Saven der Flotte auf Koordinaten des Gesitteten und das Verbauen der Rohstoffe auf dem Planeten, auf dem sie liegen, ist erlaubt. 
-	Ein Account darf für höchstens 72h gesittet werden. Bei Ausnahmen muss die Erlaubniss eines Operators vorliegen.
-	Die Weitergabe eines Accounts darf max. alle 3 Monate und ausschliesslich unentgeltlich erfolgen. 
-	Ausnamhen beim Operator melden.",
+	"Multiaccounts"				=> "Es ist jedem Spieler nur erlaubt, einen Account pro Universum zu spielen. Falls zwei oder mehrere Accounts üblicherweise, gelegentlich oder dauerhaft vom selben Internetanschluss aus gespielt werden (z.B. Schulen, Universitäten oder Internetcafés), so müssen sie, dies bereits im Vorfeld einem Admin mitzuteilen. In solchen Fällen ist den betreffenden Accounts jeglicher Flottenkontakt untersagt, während sie den selben Internetanschluss nutzen. Ebenso sind weitere Gemeinsamkeiten untersagt.",
 
 	"Pushen"					=> "Pushen ist grundsätzlich verboten. Als Pushing werden alle Ressourcen-Lieferungen ohne angemessene Gegenleistung von punktschwächeren Accounts an punktstärkere Accounts gesehen. 
 	Ausnahmen müssen im Vorfeld vom Operator genehmigt werden. Eine fehlende Genehmigung kann eine Sperre wegen Pushens nach sich ziehen.
