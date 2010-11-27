@@ -82,7 +82,7 @@ abstract class FleetFunctions
 	
 	Public static function CheckUserSpeed($GenFleetSpeed)
 	{
-		return (in_array($GenFleetSpeed, self::GetAvailableSpeeds())) ? true : false;
+		return (array_key_exists($GenFleetSpeed, self::GetAvailableSpeeds())) ? true : false;
 	}
 
 	public static function GetTargetDistance ($OrigGalaxy, $DestGalaxy, $OrigSystem, $DestSystem, $OrigPlanet, $DestPlanet)
