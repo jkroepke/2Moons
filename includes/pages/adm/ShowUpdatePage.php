@@ -277,10 +277,15 @@ function ShowUpdatePage()
 			$Update		= '';
 			$Info		= '';
 			
-			if(!function_exists('file_get_contents') || !function_exists('fsockopen')) {
+			if(!function_exists('file_get_contents') || !function_exists('fsockopen') || ini_get('allow_url_fopen') == 0) {
 				$template->message($LNG['up_error_fsockopen'], false, 0, true);
-			} elseif(($RAW = @file_get_contents("http://update.xnova.de/index.php?action=update",FALSE,$context)) !== false) {
-				$UpdateArray 	= unserialize($RAW);
+			} 
+			ob_start();
+			echo file_get_contents("http://update.xnova.de/index.php?action=update", FALSE, $context);
+			$Data 	= ob_get_clean();
+			if(false === ($UpdateArray = unserialize($Data))) {
+				$template->message($LNG['up_update_server']."<br>".substr(strip_tags($Data), strpos(strip_tags($Data), 'failed to open stream: ') + 23), false, 0, true);
+			} else {
 				if(is_array($UpdateArray['revs']))
 				{
 					foreach($UpdateArray['revs'] as $Rev => $RevInfo) 
@@ -316,8 +321,6 @@ function ShowUpdatePage()
 				));
 					
 				$template->show('adm/UpdatePage.tpl');
-			} else {
-				$template->message($LNG['up_update_server'], false, 0, true);
 			}
 		break;
 	}
