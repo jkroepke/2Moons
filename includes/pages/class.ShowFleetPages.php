@@ -580,7 +580,6 @@ class ShowFleetPages extends FleetFunctions
 				exit;
 			}		
 		}
-		
 		if(!parent::CheckUserSpeed($GenFleetSpeed) || !array_key_exists($mission, parent::GetAvailableMissions(array('CurrentUser' => $USER,'galaxy' => $galaxy, 'system' => $system, 'planet' => $planet, 'planettype' => $planettype, 'IsAKS' => $fleet_group, 'Ship' => $FleetArray))))
 			parent::GotoFleetPage();
 

@@ -92,9 +92,9 @@ function ShowUpdatePage()
 				{
 					foreach($RevInfo['add'] as $File)
 					{	
-						if(in_array($File, $Files['add']) || strpos($File, '.') != false)
-							
+						if(in_array($File, $Files['add']) || strpos($File, '.') === false)
 							continue;
+							
 						$Files['add'][] = $File;
 						
 						$zipfile->addFile(@file_get_contents($SVN_ROOT.$File), str_replace("/trunk/", "", $File), $RevInfo['timestamp']);					
@@ -104,9 +104,9 @@ function ShowUpdatePage()
 				{
 					foreach($RevInfo['edit'] as $File)
 					{	
-						if(in_array($File, $Files['edit']) || strpos($File, '.') != false) 
-						
+						if(in_array($File, $Files['edit']) || strpos($File, '.') === false) 
 							continue;
+							
 							$Files['edit'][] = $File;
 							
 							$zipfile->addFile(@file_get_contents($SVN_ROOT.$File), str_replace("/trunk/", "", $File), $RevInfo['timestamp']);
@@ -117,7 +117,7 @@ function ShowUpdatePage()
 				{
 					foreach($RevInfo['del'] as $File)
 					{
-						if(in_array($File, $Files['del']) || strpos($File, '.') !== false)
+						if(in_array($File, $Files['del']) || strpos($File, '.') === false)
 							continue;
 						$Files['del'][] = $File;
 
@@ -299,7 +299,7 @@ function ShowUpdatePage()
 
 						$RevList .= "<tr>
 						".(($Patchlevel[2] == $Rev)?"<td class=c colspan=5>".$LNG['up_momentane_version']."</td></tr><tr>":((($Patchlevel[2] - 1) == $Rev)?"<td class=c colspan=5>".$LNG['up_alte_updates']."</td></tr><tr>":""))."
-						<td class=c >".(($Patchlevel[2] == $Rev)?"<font color=\"red\">":"")."".$LNG['up_revision']."" . $Rev . " ".date("d. M y H:i:s", $RevInfo['timestamp'])."".$LNG['ml_from']." ".$RevInfo['author'].(($Patchlevel[2] == $Rev)?"</font>":"")."</td></tr>
+						<td class=c >".(($Patchlevel[2] == $Rev)?"<font color=\"red\">":"")."".$LNG['up_revision']."" . $Rev . " ".date("d. M y H:i:s", $RevInfo['timestamp'])." ".$LNG['ml_from']." ".$RevInfo['author'].(($Patchlevel[2] == $Rev)?"</font>":"")."</td></tr>
 						<tr><th>".makebr($RevInfo['log'])."</th></tr>
 						".((!empty($RevInfo['add']))?"<tr><th>".$LNG['up_add']."<br>".str_replace("/trunk/", "", implode("<br>\n", $RevInfo['add']))."</b></th></tr>":"")."
 						".((!empty($RevInfo['edit']))?"<tr><th>".$LNG['up_edit']."<br>".$edit."</b></th></tr>":"")."
