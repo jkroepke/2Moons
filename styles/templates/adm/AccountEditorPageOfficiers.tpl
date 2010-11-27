@@ -7,7 +7,7 @@
 </tr><tr>
 	<td class="c" colspan="7">{$officiers_title}</td>
 </tr><tr>
-	<th colspan="2">{$input_id_p_m}</th>
+	<th colspan="2">{$input_id_user}</th>
 	<th><input name="id" type="text" value="0" size="3"></th>
 </tr><tr>
 	<td class="c">{$ad_number}</td>
