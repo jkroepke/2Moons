@@ -39,7 +39,7 @@ function ShowUniversePage() {
 		DELETE FROM ".USERS_VALID." WHERE `universe` = ".$ID.";");
 		
 		if($_SESSION['adminuni'] == $ID)
-			$_SESSION['adminuni']	= $ID;
+			$_SESSION['adminuni']	= $UNI;
 	} elseif($_REQUEST['action'] == 'create') {
 		$ID	= (int) $_REQUEST['id'];
 		$db->query("INSERT INTO ".CONFIG." (`uni`, `VERSION`, `users_amount`, `game_speed`, `fleet_speed`, `resource_multiplier`, `halt_speed`, `Fleet_Cdr`, `Defs_Cdr`, 
@@ -119,7 +119,7 @@ function ShowUniversePage() {
 		exit;
 	} elseif ($_REQUEST['action'] == 'import' && isset($_FILES['file']['tmp_name'])) {
 		$Data	= unserialize(file_get_contents($_FILES['file']['tmp_name']));
-		if(isset($Data) && is_array($Data) || empty($Data)) {
+		if(isset($Data) || !is_array($Data) || empty($Data)) {
 			$template->message($LNG['uvs_error'], '?page=universe&sid='.session_id(), 5);
 			exit;
 		}
