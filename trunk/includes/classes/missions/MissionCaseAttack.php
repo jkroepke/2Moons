@@ -267,7 +267,10 @@ class MissionCaseAttack extends MissionFunctions
 		$SQL .= "`der_metal` = '".$DerbisMetal."', ";
 		$SQL .= "`der_crystal` = '".$DerbisCrystal."' ";
 		$SQL .= "WHERE ";
-		$SQL .= "`id` = '".$this->_fleet['fleet_end_id']."';";
+		$SQL .= "`galaxy` = '" . $this->_fleet['fleet_end_galaxy'] . "' AND ";
+        $SQL .= "`system` = '" . $this->_fleet['fleet_end_system'] . "' AND ";
+        $SQL .= "`planet` = '" . $this->_fleet['fleet_end_planet'] . "' AND ";
+        $SQL .= "`planet_type` = '1';";
 		$SQL .= "INSERT INTO ".RW." SET ";
 		$SQL .= "`time` = '".$this->_fleet['fleet_start_time']."', ";
 		$SQL .= "`owners` = '".implode(',', array_merge($Attacker['id'], $Defender['id']))."', ";
