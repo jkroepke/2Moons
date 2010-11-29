@@ -116,7 +116,7 @@ switch ($page) {
 				$SQL .= "`email_2` = '" . $UserMail . "', ";
 				$SQL .= "`ip_at_reg` = '" . $UserIP . "', ";
 				$SQL .= "`id_planet` = '0', ";
-				$SQL .= "`onlinetime` = '".TIMESTAMP"', ";
+				$SQL .= "`onlinetime` = '".TIMESTAMP."', ";
 				$SQL .= "`register_time` = '".TIMESTAMP."', ";
 				$SQL .= "`password` = '" . $UserPass . "', ";
 				$SQL .= "`lang` = '".$LANG."', ";
