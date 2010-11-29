@@ -116,9 +116,10 @@ switch ($page) {
 				$SQL .= "`email_2` = '" . $UserMail . "', ";
 				$SQL .= "`ip_at_reg` = '" . $UserIP . "', ";
 				$SQL .= "`id_planet` = '0', ";
-				$SQL .= "`onlinetime` = '" . time () . "', ";
-				$SQL .= "`register_time` = '" . time () . "', ";
+				$SQL .= "`onlinetime` = '".TIMESTAMP"', ";
+				$SQL .= "`register_time` = '".TIMESTAMP."', ";
 				$SQL .= "`password` = '" . $UserPass . "', ";
+				$SQL .= "`lang` = '".$LANG."', ";
 				$SQL .= "`dpath` = '" . DEFAULT_SKINPATH . "', ";
 				$SQL .= "`fb_id` = '" . $fb_user . "', ";
 				$SQL .= "`uctime`= '0';";
