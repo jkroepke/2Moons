@@ -159,7 +159,6 @@ function ShowUpdatePage()
 			catch (FTPException $error)
 			{
 				$LOG['debug']['connect']	= $LNG['up_ftp_error']."".$error->getMessage();
-				$ftp->close();
 				exitupdate($LOG);
 			}	
 						
@@ -170,7 +169,6 @@ function ShowUpdatePage()
 			else
 			{
 				$LOG['debug']['chdir']	= $LNG['up_ftp_change']."".$CONF['ftp_root_path']."): ".$LNG['up_ftp_change_error'];
-				$ftp->close();
 				exitupdate($LOG);
 			}
 			$Files	= array('add' => array(), 'edit' => array(), 'del' => array());
@@ -262,7 +260,6 @@ function ShowUpdatePage()
 				}
 				$LastRev = $Rev;
 			}
-			$ftp->close();
 			$LOG['finish']['atrev'] = $LNG['up_update_ok_rev']." ".$LastRev;
 			// Verbindung schlieﬂen
 			ClearCache();
