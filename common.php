@@ -50,7 +50,7 @@ ini_set('session.gc_probability', '1');
 ini_set('session.gc_divisor',  '1000');
 ini_set('session.cookie_httponly', true);
 	
-if(!defined('LOGIN'))
+if(!defined('LOGIN') && INSTALL == false)
 	session_start();
 	
 if(!function_exists('bcadd'))

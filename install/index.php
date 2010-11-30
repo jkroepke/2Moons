@@ -25,13 +25,8 @@ if(!function_exists('spl_autoload_register'))
 if(!class_exists('mysqli'))
 	exit("PHP is missing <a href=\"http://php.net/mysqli\">MySQL Improved Extension</a> support");
 
-if(!is_writable('../cache'))
-	exit("Set Cache Dir to CHMOD 777!");
-
 define('INSIDE'  			, true);
 define('INSTALL' 			, true);
-define('RCINSTALL_VERSION' 	, "6.0");
-define('REVISION' 			, "874");
 
 define('ROOT_PATH', './../');
 include(ROOT_PATH . 'extension.inc');
@@ -79,8 +74,34 @@ switch ($Mode) {
 		));
 		$template->show('install/ins_intro.tpl');
 	break;
+	case 'ftp':
+		require_once(ROOT_PATH.'includes/libs/ftp/ftp.class.'.PHP_EXT);
+		require_once(ROOT_PATH.'includes/libs/ftp/ftpexception.class.'.PHP_EXT);
+		includeLang('ADMIN');
+		$CONFIG = array("host" => $_GET['host'], "username" => $_GET['user'], "password" => $_GET['pass'], "port" => 21); 
+		try
+		{
+			$ftp = FTP::getInstance(); 
+			$ftp->connect($CONFIG);
+		}
+		catch (FTPException $error)
+		{
+			exit($LNG['up_ftp_error']);
+		}	
+					
+		if(!$ftp->changeDir($_GET['path']))
+			exit($LNG['up_ftp_change_error']);
+			
+		$ftp->chmod('cache', 0777);
+		$ftp->chmod('cache/UserBanner', 0777);
+		$ftp->chmod('cache/sessions', 0777);
+		$ftp->chmod('raports', 0777);
+		$ftp->chmod('includes', 0777);
+		exit;
+	break;
 	case 'req':
 		$error = 0;
+		$ftp = 0;
 		if(version_compare(PHP_VERSION, "5.2.5", ">=")){
 			$PHP = "<span class=\"yes\">".$LNG['reg_yes'].", ".PHP_VERSION."</span>";
 		} else {
@@ -120,11 +141,13 @@ switch ($Mode) {
 			} else {
 				$chmod = " - <span class=\"no\">".$LNG['reg_not_writable']."</span>";
 				$error++;
+				$ftp++;
 			}
-			$config = "<tr><td class=\"transparent\">".$LNG['reg_file']." - ./includes/config.php</td><td class=\"transparent\"><span class=\"yes\">".$LNG['reg_found']."</span>".$chmod."</td></tr>";
+			$config = "<tr><td class=\"transparent\">".$LNG['reg_file']." - includes/config.php</td><td class=\"transparent\"><span class=\"yes\">".$LNG['reg_found']."</span>".$chmod."</td></tr>";
 		} else {
-			$config = "<tr><td class=\"transparent\">".$LNG['reg_file']." - ./includes/config.php</td><td class=\"transparent\"><span class=\"no\">".$LNG['reg_not_found']."</span></td></tr>";
+			$config = "<tr><td class=\"transparent\">".$LNG['reg_file']." - includes/config.php</td><td class=\"transparent\"><span class=\"no\">".$LNG['reg_not_found']."</span></td></tr>";
 			$error++;
+			$ftp++;
 		}
 		$directories = array('cache/', 'cache/UserBanner/', 'cache/sessions/', 'raports/');
 		$dirs = "";
@@ -136,12 +159,14 @@ switch ($Mode) {
 					} else {
 						$chmod = " - <span class=\"no\">".$LNG['reg_not_writable']."</span>";
 						$error++;
+						$ftp++;
 					}
 				$dirs .= "<tr><td class=\"transparent\">".$LNG['reg_dir']." - ".$dir."</th><td class=\"transparent\"><span class=\"yes\">".$LNG['reg_found']."</span>".$chmod."</td></tr>";
 
 			} else {
 				$dirs .= "<tr><td class=\"transparent\">".$LNG['reg_dir']." - ".$dir."</td><td class=\"transparent\"><span class=\"no\">".$LNG['reg_not_found']."</span></td></tr>";
 				$error++;
+				$ftp++;
 			}
 		}
 
@@ -157,6 +182,7 @@ switch ($Mode) {
 			'config'			=> $config,
 			'gdlib'				=> $gdlib,
 			'PHP'				=> $PHP,
+			'ftp'				=> $ftp,
 			'req_php_need'		=> $LNG['req_php_need'],
 			'req_smode_active'	=> $LNG['req_smode_active'],
 			'reg_gd_need'		=> $LNG['reg_gd_need'],
