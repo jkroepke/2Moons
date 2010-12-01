@@ -300,7 +300,7 @@ class statbuilder
 	{
 		global $db, $CONF;
 		$Unis	= array($CONF['uni']);
-		$Query	= $db->query("SELECT `uni` FROM ".CONFIG." WHERE `uni` != '".$UNI."' ORDER BY `uni` ASC;");
+		$Query	= $db->query("SELECT `uni` FROM ".CONFIG." WHERE `uni` != '".$CONF['uni']."' ORDER BY `uni` ASC;");
 		while($Uni	= $db->fetch_array($Query)) {
 			$Unis[]	= $Uni['uni'];
 		}
