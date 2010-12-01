@@ -40,13 +40,17 @@ includeLang('INGAME');
 
 require_once(ROOT_PATH."includes/classes/class.StatBanner.php");
 
-if(!isset($_GET['debug'])) {
-	header('Expires: '.gmdate('D, d M Y H:i:s', TIMESTAMP + 7200)).' GMT';
-	header("Cache-Control: max-age=7200, private");
+if(!isset($_GET['debug']))
 	header("Content-type: image/png"); 
-}
 
 $banner = new StatBanner();
-$banner->ShowStatBanner($id);
+$Data	= $banner->GetData($id);
+$ETag	= md5(implode('', $Data));
+header('ETag: '.$ETag);
+if(isset($_SERVER['HTTP_IF_NONE_MATCH']) && $_SERVER['HTTP_IF_NONE_MATCH'] == $ETag) {
+	header('HTTP/1.0 304 Not Modified');
+	exit;
+}
+$banner->CreateBanner($Data);
 
 ?>

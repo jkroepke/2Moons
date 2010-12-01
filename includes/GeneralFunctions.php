@@ -512,6 +512,17 @@ function MaxPlanets($Level)
 	return MAX_PLANETS == -1 ? $MaxPlanets : min($MaxPlanets, MAX_PLANETS);
 }
 
+function GetCrons()
+{
+	global $CONF;
+	$Crons	= '';
+	if(TIMESTAMP >= ($CONF['stat_last_update'] + (60 * $CONF['stat_update_time'])))
+		$Crons	.= '<img src="./cronjobs.php?cron=stats" alt="" height="1" width="1">';
+	if(TIMESTAMP >= ($CONF['stat_last_db_update'] + 86400)) //Daily Cronjob
+		$Crons	.= '<img src="./cronjobs.php?cron=daily" alt="" height="1" width="1">';
+	return $Crons;
+}
+
 if(!function_exists('ctype_alnum'))
 {
     function ctype_alnum($test){

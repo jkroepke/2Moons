@@ -23,19 +23,6 @@
 	<tr>
       <th colspan="2">{$cs_timeact_1} {$timeact}</th>
     </tr>
-    <tr>
-      <td colspan="2" class="c">{$cs_banner_title}</td>
-    </tr>	
-    <tr>
-      <th>{$cs_banner_time_between_updates} ({$cs_minutes})</th>
-      <th><input type="text" name="stat_banner_update_time" value="{$stat_banner_update_time}"></th>
-    </tr>
-	<tr>
-      <th colspan="2">{$cs_timeact_1} {$banneract}</th>
-    </tr>
-    <tr>
-      <th colspan="2"><input type="submit" value="{$cs_save_changes}"></th>
-    </tr>
   </table>
 </form>
 {include file="adm/overall_footer.tpl"}
