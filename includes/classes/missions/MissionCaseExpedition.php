@@ -21,7 +21,6 @@
 
 class MissionCaseExpedition extends MissionFunctions
 {
-		
 	function __construct($Fleet)
 	{
 		$this->_fleet	= $Fleet;
@@ -87,23 +86,23 @@ class MissionCaseExpedition extends MissionFunctions
 					$Message	= $LNG['sys_expe_found_ress_3_'.mt_rand(1,2)];
 				}	
 		
-			$StatFactor = $db->uniquequery("SELECT MAX(total_points) as total FROM `".STATPOINTS."` WHERE `stat_type` = 1;");
-					
-			$MaxPoints	= ($StatFactor['total'] < 5000000) ? 9000 : 12000;
-			$Size		= min($Factor * MAX(MIN($FleetPoints / 1000, $MaxPoints), 200),$FleetCapacity);
-					
-			switch($WitchFound)
-			{
-				case 1:
-					$this->UpdateFleet('fleet_resource_metal', $this->_fleet['fleet_resource_metal'] + $Size);
-				break;
-				case 2:
-					$this->UpdateFleet('fleet_resource_crystal', $this->_fleet['fleet_resource_crystal'] + $Size);
-				break;
-				case 3:
-					$this->UpdateFleet('fleet_resource_deuterium', $this->_fleet['fleet_resource_deuterium'] + $Size);
-				break;
-			}
+				$StatFactor = $db->uniquequery("SELECT MAX(total_points) as total FROM `".STATPOINTS."` WHERE `stat_type` = 1 AND `universe` = '".$this->_fleet['fleet_universe']."';");
+						
+				$MaxPoints	= ($StatFactor['total'] < 5000000) ? 9000 : 12000;
+				$Size		= min($Factor * MAX(MIN($FleetPoints / 1000, $MaxPoints), 200), $FleetCapacity);
+						
+				switch($WitchFound)
+				{
+					case 1:
+						$this->UpdateFleet('fleet_resource_metal', $this->_fleet['fleet_resource_metal'] + $Size);
+					break;
+					case 2:
+						$this->UpdateFleet('fleet_resource_crystal', $this->_fleet['fleet_resource_crystal'] + $Size);
+					break;
+					case 3:
+						$this->UpdateFleet('fleet_resource_deuterium', $this->_fleet['fleet_resource_deuterium'] + $Size);
+					break;
+				}
 
 			break;
 			case 2:
@@ -142,9 +141,9 @@ class MissionCaseExpedition extends MissionFunctions
 					$MaxFound	= 1200000;
 				}
 					
-				$StatFactor 	= $db->uniquequery("SELECT MAX(total_points) as total FROM `".STATPOINTS."` WHERE `stat_type` = 1;");
+				$StatFactor 	= $db->countquery("SELECT MAX(total_points) FROM `".STATPOINTS."` WHERE `stat_type` = 1 AND `universe` = '".$this->_fleet['fleet_universe']."';");
 					
-				$MaxPoints 		= ($StatFactor['total'] < 5000000) ? 4500 : 6000;
+				$MaxPoints 		= ($StatFactor < 5000000) ? 4500 : 6000;
 					
 				$FoundShips		= max(min(round($Size * $FleetPoints), $MaxPoints), 10000);
 				$MinFound		= mt_rand(7000, 10000);
@@ -167,13 +166,7 @@ class MissionCaseExpedition extends MissionFunctions
 				}
 					
 				$Message	.= $FoundShipMess;
-
-				foreach ($FleetCount as $ID => $Count)
-				{
-					if (empty($Count)) continue;
-					
-				}
-								
+							
 				$this->UpdateFleet('fleet_array', $NewFleetArray);
 				$this->UpdateFleet('fleet_amount', array_sum($FleetCount));
 			break;
