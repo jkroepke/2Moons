@@ -23,6 +23,9 @@
 	<tr>
       <th colspan="2">{$cs_timeact_1} {$timeact}</th>
     </tr>
+    <tr>
+      <th colspan="2"><input type="submit" value="{$cs_save_changes}"></th>
+    </tr>
   </table>
 </form>
 {include file="adm/overall_footer.tpl"}
