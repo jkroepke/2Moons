@@ -39,40 +39,19 @@ abstract class FleetFunctions
 
 	private static function GetShipSpeed($Ship, $Player)
 	{
-		global $pricelist;
-		switch($Ship)
-		{
-			case 202:
-				return (($Player['impulse_motor_tech'] >= 5) ? $pricelist[$Ship]['speed2'] * (1 + (0.2 * $Player['impulse_motor_tech'])) : $pricelist[$Ship]['speed'] * (1 + (0.1 * $Player['combustion_tech'])));
-			break;
-			case 203:
-			case 204:
-			case 209:
-			case 210:
-			case 226:
-				return $pricelist[$Ship]['speed'] * (1 + (0.1 * $Player['combustion_tech']));
-			break;
-			case 205:
-			case 206:
-			case 208:
-				return $pricelist[$Ship]['speed'] * (1 + (0.2 * $Player['impulse_motor_tech']));
-			break;
-			case 211:
-				return (($Player['hyperspace_motor_tech'] >= 8) ? $pricelist[$Ship]['speed2'] * (1 + (0.3 * $Player['hyperspace_motor_tech'])) : $pricelist[$Ship]['speed'] * (1 + (0.2 * $Player['impulse_motor_tech'])));
-			break;
-			case 207:
-			case 213:
-			case 214:
-			case 215:
-			case 216:
-			case 217:
-			case 218:
-			case 219:
-			case 220:
-			default:
-				return $pricelist[$Ship]['speed'] * (1 + (0.3 * $Player['hyperspace_motor_tech']));
-			break;
-		}
+		global $pricelist$pricelist;
+		if($pricelist[$Ship]['tech'] == 1) // Combustion
+			return $pricelist[$Ship]['speed'] * (1 + (0.1 * $Player['combustion_tech']));
+		elseif($pricelist[$Ship]['tech'] == 2) // Impulse
+			return $pricelist[$Ship]['speed'] * (1 + (0.2 * $Player['impulse_motor_tech']));
+		elseif($pricelist[$Ship]['tech'] == 3) // Hyperspace
+			return $pricelist[$Ship]['speed'] * (1 + (0.3 * $Player['hyperspace_motor_tech']));
+		elseif($pricelist[$Ship]['tech'] == 4) // Special: Small Transporter
+			return (($Player['impulse_motor_tech'] >= 5) ? $pricelist[$Ship]['speed2'] * (1 + (0.2 * $Player['impulse_motor_tech'])) : $pricelist[$Ship]['speed'] * (1 + (0.1 * $Player['combustion_tech'])));
+		elseif($pricelist[$Ship]['tech'] == 5) // Special: Battleship
+			return (($Player['hyperspace_motor_tech'] >= 8) ? $pricelist[$Ship]['speed2'] * (1 + (0.3 * $Player['hyperspace_motor_tech'])) : $pricelist[$Ship]['speed'] * (1 + (0.2 * $Player['impulse_motor_tech'])));
+		else
+			return 0;
 	}
 	
 	public static function GetAvailableSpeeds()
