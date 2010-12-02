@@ -249,75 +249,6 @@ function request_var($var_name, $default, $multibyte = false, $cookie = false)
 	return $var;
 }
 
-function msg_handler($errno, $msg_text, $errfile, $errline)
-{
-	global $msg_title, $msg_long_text, $CONF;
-	if (!error_reporting()) return false;
-	switch ($errno)
-	{
-		case E_USER_WARNING:
-		case E_WARNING:		
-			echo "<div class='ferror'><b>[2Moons Debug] PHP Warning </b> in file <b>" . $errfile . "</b> on line <b>" . $errline . "</b>: <b>" . $msg_text . "</b></div>\n";
-			return;
-
-		break;	
-		case E_STRICT:
-			echo "<div class='ferror'><b>[2Moons Debug] PHP Notice </b> in file <b>" . $errfile . "</b> on line <b>" . $errline . "</b>: <b>" . $msg_text . "</b></div>\n";
-			return;
-
-		break;
-		case E_USER_ERROR:
-			echo '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">';
-			echo '<html>';
-			echo '<head>';
-			echo '<meta http-equiv="content-type" content="text/html; charset=UTF-8">';
-			echo '<meta http-equiv="content-script-type" content="text/javascript">';
-			echo '<meta http-equiv="content-style-type" content="text/css">';
-			echo '<meta http-equiv="content-language" content="de">';
-			echo '<title>'.$CONF['game_name'].' - FATAL ERROR</title>';
-			echo '<link rel="shortcut icon" href="./favicon.ico">';
-			echo '<link rel="stylesheet" type="text/css" href="'.DEFAULT_SKINPATH.'formate.css">';
-			echo '</head>';
-			echo '<body>';
-			echo '<table width="80%" align="center">';
-			echo '<tr>';
-            echo '<td>PHP: ERROR in file <b>' . $errfile . '</b> on line <b>' . $errline . '</b>:<br> <b>' . $msg_text . '</b></td>';
-			echo '</tr>';
-			echo '</table>';
-			echo '</body>';			
-			echo '</html>';	
-			exit;
-		break;
-		case E_USER_NOTICE:
-			echo '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">';
-			echo '<html>';
-			echo '<head>';
-			echo '<meta http-equiv="content-type" content="text/html; charset=UTF-8">';
-			echo '<meta http-equiv="content-script-type" content="text/javascript">';
-			echo '<meta http-equiv="content-style-type" content="text/css">';
-			echo '<meta http-equiv="content-language" content="de">';
-			echo '<title>'.$CONF['game_name'].' - Informations</title>';
-			echo '<link rel="shortcut icon" href="./favicon.ico">';
-			echo '<link rel="stylesheet" type="text/css" href="'.DEFAULT_SKINPATH.'formate.css">';
-			echo '</head>';
-			echo '<body>';
-			echo '<table style="width:80%;position:absolute;top:30%;bottom:50%;left:10%;right:10%;">';
-			echo '<tr>';
-			echo '<th>';
-			echo 'Informationen:';
-			echo '</th>';
-			echo '</tr>';
-            echo '<td><b>' . $msg_text . '</b></td>';
-			echo '</tr>';
-			echo '</table>';
-			echo '</body>';			
-			echo '</html>';	
-			exit;
-		break;
-	}
-	return true;
-}
-
 function GetUserByID($UserID, $GetInfo = "*")
 {
 	global $db;
@@ -405,8 +336,10 @@ function CheckName($String)
 }
 
 function exception_handler($exception) {
-	global $CONF;
-
+	global $CONF, $ELOG;
+	if(isset($ELOG))
+		$ELOG->_toFile(E_ERROR, $exception->getMessage(), $exception->getFile(), $exception->getLine());
+		
 	echo '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">';
 	echo '<html>';
 	echo '<head>';
@@ -435,11 +368,12 @@ function exception_handler($exception) {
     echo '<b>Line: </b>'.$exception->getLine().'<br>';
     echo '<b>PHP-Version: </b>'.PHP_VERSION.'<br>';
     echo '<b>2Moons Version: </b>'.VERSION.'<br>';
-	echo '<b>Debug Backtrace:</b><br>'.makebr(htmlspecialchars($exception->getTraceAsString())).'</th>';
+	echo '<b>Debug Backtrace:</b><br>'.makebr(str_replace($_SERVER['DOCUMENT_ROOT'], '.', htmlspecialchars($exception->getTraceAsString()))).'</th>';
 	echo '</tr>';
 	echo '</table>';
 	echo '</body>';			
-	echo '</html>';	
+	echo '</html>';
+	exit;
 }
 
 function SendSimpleMessage($Owner, $Sender, $Time, $Type, $From, $Subject, $Message, $Unread = 1, $Uni = 0)
