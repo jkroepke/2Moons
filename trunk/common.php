@@ -22,6 +22,8 @@
 if(!defined('INSTALL') || !defined('IN_ADMIN') || !defined('IN_CRON'))
 	define("STARTTIME",	microtime(true));
 
+require_once(ROOT_PATH . 'includes/classes/class.ErrorLogging.'.PHP_EXT);
+$ELOG	= new ErrorLogging();
 ignore_user_abort(true);
 error_reporting(E_ALL ^ E_NOTICE);
 ini_set('zlib.output_compression', 'On');
@@ -60,7 +62,6 @@ require_once(ROOT_PATH . 'includes/classes/class.MySQLi.'.PHP_EXT);
 require_once(ROOT_PATH . 'includes/classes/class.Session.'.PHP_EXT);
 require_once(ROOT_PATH . 'includes/GeneralFunctions.'.PHP_EXT);
 require_once(ROOT_PATH . 'includes/vars.'.PHP_EXT);
-set_error_handler('msg_handler', E_ALL);
 set_exception_handler('exception_handler');
 
 if($database)

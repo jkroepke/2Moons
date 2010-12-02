@@ -149,7 +149,7 @@ switch ($Mode) {
 			$error++;
 			$ftp++;
 		}
-		$directories = array('cache/', 'cache/UserBanner/', 'cache/sessions/', 'raports/');
+		$directories = array('cache/', 'cache/UserBanner/', 'cache/sessions/', 'raports/', 'includes/');
 		$dirs = "";
 		foreach ($directories as $dir)
 		{
