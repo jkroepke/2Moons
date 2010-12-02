@@ -39,7 +39,7 @@ abstract class FleetFunctions
 
 	private static function GetShipSpeed($Ship, $Player)
 	{
-		global $pricelist$pricelist;
+		global $pricelist;
 		if($pricelist[$Ship]['tech'] == 1) // Combustion
 			return $pricelist[$Ship]['speed'] * (1 + (0.1 * $Player['combustion_tech']));
 		elseif($pricelist[$Ship]['tech'] == 2) // Impulse
