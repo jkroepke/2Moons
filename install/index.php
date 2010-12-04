@@ -110,9 +110,9 @@ switch ($Mode) {
 		}
 		
 		if(@ini_get('safe_mode') == 0){
-			$safemode = "<span class=\"yes\">".$LNG['reg_yes']."</span>";
+			$safemode = "<span class=\"yes\">".$LNG['reg_no']."</span>";
 		} else {
-			$safemode = "<span class=\"no\">".$LNG['reg_no']."</span>";
+			$safemode = "<span class=\"no\">".$LNG['reg_yes']."</span>";
 			$error++;
 		}
 		
