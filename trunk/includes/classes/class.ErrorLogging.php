@@ -104,7 +104,7 @@ class ErrorLogging
 	 */
 	public function _customError($errNo, $errStr, $errFile, $errLine)
 	{
-		if (!error_reporting()) return false;
+		if (!error_reporting() || $errNo == E_DEPRECATED) return false;
 
 		$this->_backTrace = $this->_debugBacktrace(2);
 		
@@ -201,6 +201,8 @@ class ErrorLogging
 				return 'PHP Warning';
 			case E_PARSE:
 				return 'PHP Parse error';
+			case E_DEPRECATED:
+				return 'PHP Deprecated';
 		}
 	}
 	
