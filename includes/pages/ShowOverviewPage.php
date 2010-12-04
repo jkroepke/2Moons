@@ -69,46 +69,6 @@ function ShowOverviewPage()
 	{
 		$Build 		= $LNG['ov_free'];
 	}
-
-	$Teamspeak = '';			
-	if ($CONF['ts_modon'] == 1) {
-		if($CONF['ts_version'] == 2){
-			include_once(ROOT_PATH . "includes/libs/teamspeak/class.teamspeak2.".PHP_EXT);
-			$ts = new cyts();
-			if($ts->connect($CONF['ts_server'], $CONF['ts_tcpport'], $CONF['ts_udpport'], $CONF['ts_timeout']))
-			{
-				$tsdata 	= $ts->info_serverInfo();
-				$tsdata2 	= $ts->info_globalInfo();
-				$ts->disconnect();
-				$trafges 	= pretty_number(($tsdata2["total_bytessend"] / 1024 / 1024) + $tsdata2["total_bytesreceived"] / 1024 / 1024);
-				$Teamspeak	= sprintf($LNG['ov_teamspeak_v2'], $CONF['ts_server'], $CONF['ts_udpport'], $USER['username'], $tsdata["server_currentusers"], $tsdata["server_maxusers"], $tsdata["server_currentchannels"], $trafges);
-			} else {
-				$Teamspeak	= $LNG['ov_teamspeak_not_online'];
-			}
-		} elseif($CONF['ts_version'] == 3){
-			$ip 	= $CONF['ts_server'];
-			$port 	= $CONF['ts_tcpport'];
-			$t_port = $CONF['ts_udpport'];
-			$sid 	= $CONF['ts_timeout']; 
-			require_once(ROOT_PATH . "includes/libs/teamspeak/class.teamspeak3.".PHP_EXT);
-
-			$tsAdmin = new ts3admin($ip, $t_port);
-			$Active	= $tsAdmin->connect();
-			if($Active['success'])
-			{
-				$tsAdmin->selectServer($sid);
-				#$tsAdmin->login($username, $password); Insert the SA Account Details, if Teamspeak banned you.
-				$sinfo	= $tsAdmin->serverInfo();
-				$tsAdmin->logout();
-				$tsAdmin->quit();
-				$trafges 	= round(($sinfo['connection_bytes_received_total'] / 1024 / 1024) + ($sinfo['connection_bytes_sent_total'] / 1024 / 1024), 2);
-				$Debug		= $tsAdmin->getDebugLog();
-				$Teamspeak	= sprintf($LNG['ov_teamspeak_v3'], $ip, $port, $USER['username'], $sinfo['virtualserver_password'], ($sinfo['virtualserver_clientsonline'] - 1), $sinfo['virtualserver_maxclients'], $sinfo['virtualserver_channelsonline'], $trafges);
-			} else {
-				$Teamspeak 	= $LNG['ov_teamspeak_not_online'];		
-			}
-		}
-	}
 	
 	$OnlineAdmins 	= $db->query("SELECT `id`,`username` FROM ".USERS." WHERE `universe` = '".$UNI."' AND `onlinetime` >= '".(TIMESTAMP-10*60)."' AND `authlevel` > '0';");
 	while ($AdminRow = $db->fetch_array($OnlineAdmins)) {
@@ -142,7 +102,7 @@ function ShowOverviewPage()
 		'Moon'						=> $Moon,
 		'AllPlanets'				=> $AllPlanets,
 		'AdminsOnline'				=> $AdminsOnline,
-		'Teamspeak'					=> $Teamspeak,
+		'Teamspeak'					=> GetTeamspeakData(),
 		'messages'					=> ($USER['new_message'] > 0) ? (($USER['new_message'] == 1) ? $LNG['ov_have_new_message'] : sprintf($LNG['ov_have_new_messages'], pretty_number($USER['new_message']))): false,
 		'planet_diameter'			=> pretty_number($PLANET['diameter']),
 		'planet_field_current' 		=> $PLANET['field_current'],

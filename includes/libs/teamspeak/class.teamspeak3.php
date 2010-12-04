@@ -5,22 +5,32 @@
  *   begin                : Saturday, Dec 19, 2009							<br />
  *   copyright            : (C) 2009-2010 Par0nid Solutions					<br />
  *   email                : par0noid@gmx.de									<br />
- *   version              : 0.5.7											<br />
- *   last modified        : Saturday, Oct 16, 2010							<br />
- *   build				  : 5124355											<br />
+ *   version              : 0.5.9											<br />
+ *   last modified        : Tuesday, Nov 02, 2010							<br />
+ *   build				  : 5124364											<br />
  * 
 
     This file is a powerful library for querying TeamSpeak3 servers.<br />																			
-    Ts3Admin is free software; you can redistribute it and/or modify			
-    it under the terms of the GNU General Public License as published by	
-    the Free Software Foundation version 1.3.
+    
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
 /**
  * @author		Par0noid Solutions <par0noid@gmx.de>
  * @package		ts3admin
- * @version		0.5.7
+ * @version		0.5.9
  * @copyright	Copyright (c) 2009-2010, Stefan Z.
  * @link		http://ts3admin.6x.to
  */
@@ -660,6 +670,30 @@ class ts3admin {
 		if(!empty($cgid)) { $cgid = ' cgid='.$cgid; }
 		
 		return $this->getData('multi', 'channelgroupclientlist '.$cid.$clid.$cgid);
+	}
+
+/**
+  * channelGroupCopy creates a copy of the channel group specified with scgid. If tcgid is set to 0, the server will create a new group. To overwrite an existing group, simply set tcgid to the ID of a designated target group. If a target group is set, the name parameter will be ignored.<br><br><br>
+  *
+  * <b>Output:</b><br>
+  * <code>
+  * Array
+  * {
+  *  [cgid] => 86
+  * }
+  * </code>
+  *
+  * @author     Par0noid Solutions
+  * @access		public
+  * @param		integer	$scgid	sourceChannelGroupId
+  * @param		integer	$tcgid	targetChannelGroupId 
+  * @param		integer $name	groupName
+  * @param		integer	$type	groupDbType (0 = template, 1 = normal, 2 = query | Default: 1)
+  * @return     array groupId
+  */
+	function ChannelGroupCopy($scgid, $tcgid, $name, $type = 1) {
+		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		return $this->getData('array', 'channelgroupcopy scgid='.$scgid.' tcgid='.$tcgid.' name='.$this->escapeText($name).' type='.$type);
 	}
 
 /**
@@ -2435,6 +2469,30 @@ class ts3admin {
 	}
 
 /**
+  * serverGroupCopy creates a copy of the server group specified with ssgid. If tsgid is set to 0, the server will create a new group. To overwrite an existing group, simply set tsgid to the ID of a designated target group. If a target group is set, the name parameter will be ignored.<br><br><br>
+  *
+  * <b>Output:</b><br>
+  * <code>
+  * Array
+  * {
+  *  [sgid] => 86
+  * }
+  * </code>
+  *
+  * @author     Par0noid Solutions
+  * @access		public
+  * @param		integer	$ssgid	sourceServerGroupId
+  * @param		integer	$tsgid	targetServerGroupId 
+  * @param		integer $name	groupName
+  * @param		integer	$type	groupDbType (0 = template, 1 = normal, 2 = query | Default: 1)
+  * @return     array groupId
+  */
+	function serverGroupCopy($ssgid, $tsgid, $name, $type = 1) {
+		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		return $this->getData('array', 'servergroupcopy ssgid='.$ssgid.' tsgid='.$tsgid.' name='.$this->escapeText($name).' type='.$type);
+	}
+
+/**
   * serverGroupDelete Deletes the server group specified with sgid<br>
   *	If force is set to 1, the server group will be deleted even if there are clients within.
   *
@@ -3497,3 +3555,4 @@ class ts3admin {
 	}
 	
 }
+?>
