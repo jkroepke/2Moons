@@ -31,10 +31,10 @@ if (empty($_SESSION)) exit;
 
 // Output transparent gif
 header('Cache-Control: no-cache');
-header('Content-type: image/gif');
-header('Content-length: 43');
+#header('Content-type: image/gif');
+#header('Content-length: 43');
 header('Expires: 0');
-echo("\x47\x49\x46\x38\x39\x61\x01\x00\x01\x00\x80\x00\x00\x00\x00\x00\x00\x00\x00\x21\xF9\x04\x01\x00\x00\x00\x00\x2C\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02\x44\x01\x00\x3B");
+#echo("\x47\x49\x46\x38\x39\x61\x01\x00\x01\x00\x80\x00\x00\x00\x00\x00\x00\x00\x00\x21\xF9\x04\x01\x00\x00\x00\x00\x2C\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02\x44\x01\x00\x3B");
 $cron = request_var('cron','');
 switch($cron) 
 {
@@ -63,6 +63,32 @@ switch($cron)
 			}
 			$db->query("OPTIMIZE TABLE ".substr($table, 0, -2).";");
 			ClearCache();
+		}
+	break;
+	case "teamspeak":
+		if ($CONF['ts_modon'] == 1 && TIMESTAMP >= ($CONF['ts_cron_last'] + 60 * $CONF['ts_cron_interval']))
+		{
+			update_config(array('ts_cron_last' => TIMESTAMP), true);
+			if($CONF['ts_version'] == 2)
+			{
+				include_once(ROOT_PATH.'includes/libs/teamspeak/class.teamspeak2.'.PHP_EXT);
+				$ts = new cyts();
+				if($ts->connect($CONF['ts_server'], $CONF['ts_tcpport'], $CONF['ts_udpport'], $CONF['ts_timeout'])) {
+					file_put_contents(ROOT_PATH.'cache/teamspeak_cache.php', serialize(array($ts->info_serverInfo(), $ts->info_globalInfo())));
+					$ts->disconnect();
+				}
+			} elseif($CONF['ts_version'] == 3){
+				require_once(ROOT_PATH . "includes/libs/teamspeak/class.teamspeak3.".PHP_EXT);
+				$tsAdmin 	= new ts3admin($CONF['ts_server'], $CONF['ts_udpport'], $CONF['ts_timeout']);
+				$Active		= $tsAdmin->connect();
+				if($Active['success']) {
+					$tsAdmin->selectServer($CONF['ts_tcpport'], 'port', true);
+					$tsAdmin->login($CONF['ts_login'], $CONF['ts_password']);
+					file_put_contents(ROOT_PATH.'cache/teamspeak_cache.php', serialize($tsAdmin->serverInfo()));
+					$tsAdmin->logout();
+				}
+				var_dump($tsAdmin->getDebugLog());
+			}
 		}
 	break;
 }

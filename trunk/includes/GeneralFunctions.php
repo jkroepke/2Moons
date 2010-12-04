@@ -452,9 +452,35 @@ function GetCrons()
 	$Crons	= '';
 	if(TIMESTAMP >= ($CONF['stat_last_update'] + (60 * $CONF['stat_update_time'])))
 		$Crons	.= '<img src="./cronjobs.php?cron=stats" alt="" height="1" width="1">';
+	if($CONF['ts_modon'] == 1 && TIMESTAMP >= ($CONF['ts_cron_last'] + 60 * $CONF['ts_cron_interval']))
+		$Crons	.= '<img src="./cronjobs.php?cron=teamspeak" alt="" height="1" width="1">';
 	if(TIMESTAMP >= ($CONF['stat_last_db_update'] + 86400)) //Daily Cronjob
 		$Crons	.= '<img src="./cronjobs.php?cron=daily" alt="" height="1" width="1">';
 	return $Crons;
+}
+
+function GetTeamspeakData()
+{
+	global $CONF, $USER, $LNG;
+	if ($CONF['ts_modon'] == 0)
+		return false;
+	elseif(!file_exists(ROOT_PATH.'cache/teamspeak_cache.php'))
+		return $LNG['ov_teamspeak_not_online'];
+	
+	$Data		= unserialize(file_get_contents(ROOT_PATH.'cache/teamspeak_cache.php'));
+	if(!is_array($Data))
+		return $LNG['ov_teamspeak_not_online'];
+		
+	$Teamspeak 	= '';			
+
+	if($CONF['ts_version'] == 2) {
+		$trafges 	= pretty_number($Data[1]['total_bytessend'] / 1048576 + $Data[1]['total_bytesreceived'] / 1048576);
+		$Teamspeak	= sprintf($LNG['ov_teamspeak_v2'], $CONF['ts_server'], $CONF['ts_udpport'], $USER['username'], $Data[0]["server_currentusers"], $Data[0]["server_maxusers"], $Data[0]["server_currentchannels"], $trafges);
+	} elseif($CONF['ts_version'] == 3){
+		$trafges 	= pretty_number($Data['data']['connection_bytes_received_total'] / 1048576 + $Data['data']['connection_bytes_sent_total'] / 1048576);
+		$Teamspeak	= sprintf($LNG['ov_teamspeak_v3'], $CONF['ts_server'], $CONF['ts_tcpport'], $USER['username'], $Data['data']['virtualserver_password'], ($Data['data']['virtualserver_clientsonline'] - 1), $Data['data']['virtualserver_maxclients'], $Data['data']['virtualserver_channelsonline'], $trafges);
+	}
+	return $Teamspeak;
 }
 
 if(!function_exists('ctype_alnum'))

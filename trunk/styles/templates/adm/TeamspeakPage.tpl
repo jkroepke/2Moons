@@ -1,14 +1,14 @@
 {include file="adm/overall_header.tpl"}
 <script type='text/javascript'>
 function change2(){
-	document.getElementById("lang_udp").innerHTML	= "{$ts_udpport}:";
-	document.getElementById("lang_to").innerHTML	= "{$ts_timeout}:";
+	$("#lang_udp").text("{$ts_udpport}:");
 	document.getElementsByName("ts_v")[0].checked = true;
+	$(".v3only").hide();
 }
 function change3(){
-	document.getElementById("lang_udp").innerHTML	= "{$ts_server_query}:";
-	document.getElementById("lang_to").innerHTML	= "{$ts_server_id}:";
+	$("#lang_udp").text("{$ts_server_query}:");
 	document.getElementsByName("ts_v")[1].checked = true;
+	$(".v3only").show();
 }
 </script>
 
@@ -33,10 +33,19 @@ function change3(){
 </tr><tr>
 	<th id="lang_udp">{$ts_udpport}:</th>
 	<th><input name="ts_udp" maxlength="5" size="10" value="{$ts_udp}" type="text"></th>
+</tr><tr class="v3only">
+	<th>{$ts_sq_login}:</th>
+	<th><input name="ts_login" size="10" value="{$ts_login}" type="text"></th>
+</tr><tr class="v3only">
+	<th>{$ts_sq_pass}:</th>
+	<th><input name="ts_password" size="10" value="{$ts_password}" type="password"></th>
 </tr><tr>
-	<th id="lang_to">{$ts_timeout}:</th>
+	<th>{$ts_timeout}:</th>
 	<th><input name="ts_to" maxlength="2" size="10" value="{$ts_to}" type="text"></th>
-</tr></tr>
+</tr><tr>
+	<th>{$ts_lng_cron}:</th>
+	<th><input name="ts_cron" maxlength="2" size="10" value="{$ts_cron}" type="text"></th>
+</tr><tr>
 	<th colspan="3"><input value="{$se_save_parameters}" type="submit"></th>
 </tr>
 </table>

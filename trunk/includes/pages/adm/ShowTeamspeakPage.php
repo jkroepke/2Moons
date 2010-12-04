@@ -32,20 +32,26 @@ function ShowTeamspeakPage() {
 			$CONF['ts_modon'] = 0;
 		}
 		
-		$CONF['ts_server']	= request_var('ts_ip', '');
-		$CONF['ts_tcpport']	= request_var('ts_tcp', 0);
-		$CONF['ts_udpport']	= request_var('ts_udp', 0);
-		$CONF['ts_timeout']	= request_var('ts_to', 0);
-		$CONF['ts_version']	= request_var('ts_v', 0);
+		$CONF['ts_server']			= request_var('ts_ip', '');
+		$CONF['ts_tcpport']			= request_var('ts_tcp', 0);
+		$CONF['ts_udpport']			= request_var('ts_udp', 0);
+		$CONF['ts_timeout']			= request_var('ts_to', 0);
+		$CONF['ts_version']			= request_var('ts_v', 0);
+		$CONF['ts_login']			= request_var('ts_login', '');
+		$CONF['ts_password']		= request_var('ts_password', '', true);
+		$CONF['ts_cron_interval']	= request_var('ts_cron', 0);
 		
 		update_config(array(
-			'ts_timeout'	=> $CONF['ts_timeout'],
-			'ts_modon'		=> $CONF['ts_modon'],
-			'ts_server'		=> $CONF['ts_server'],
-			'ts_tcpport'	=> $CONF['ts_tcpport'],
-			'ts_udpport'	=> $CONF['ts_udpport'],
-			'ts_version'	=> $CONF['ts_version']
-		), false, $_SESSION['adminuni']);
+			'ts_timeout'		=> $CONF['ts_timeout'],
+			'ts_modon'			=> $CONF['ts_modon'],
+			'ts_server'			=> $CONF['ts_server'],
+			'ts_tcpport'		=> $CONF['ts_tcpport'],
+			'ts_udpport'		=> $CONF['ts_udpport'],
+			'ts_version'		=> $CONF['ts_version'],
+			'ts_login'			=> $CONF['ts_login'],
+			'ts_password'		=> $CONF['ts_password'],
+			'ts_cron_interval'	=> $CONF['ts_cron_interval']
+		), true);
 	}
 	$template	= new template();
 	
@@ -60,13 +66,18 @@ function ShowTeamspeakPage() {
 		'ts_udpport'			=> $LNG['ts_udpport'],
 		'ts_timeout'			=> $LNG['ts_timeout'],
 		'ts_server_query'		=> $LNG['ts_server_query'],
-		'ts_server_id'			=> $LNG['ts_server_id'],
+		'ts_sq_login'			=> $LNG['ts_login'],
+		'ts_sq_pass'			=> $LNG['ts_pass'],
+		'ts_lng_cron'			=> $LNG['ts_cron'],
 		'ts_to'					=> $CONF['ts_timeout'],
 		'ts_on'					=> $CONF['ts_modon'],
 		'ts_ip'					=> $CONF['ts_server'],
 		'ts_tcp'				=> $CONF['ts_tcpport'],
 		'ts_udp'				=> $CONF['ts_udpport'],
 		'ts_v'					=> $CONF['ts_version'],
+		'ts_login'				=> $CONF['ts_login'],
+		'ts_password'			=> $CONF['ts_password'],
+		'ts_cron'				=> $CONF['ts_cron_interval']
 	));
 	$template->show('adm/TeamspeakPage.tpl');
 

@@ -882,15 +882,17 @@ $LNG['qe_temp']						= 'Temperatur';
 
 //----------------------------------------------------------------------------//
 //TeamSpeakSettingPage.php
-$LNG['ts_settings']					= 'Teamspeak Einstellungen';
+$LNG['ts_settings']						= 'Teamspeak Einstellungen';
 $LNG['ts_active']						= 'Teamspeak-Mod aktivieren?';
 $LNG['ts_version']						= 'Server-Version:';
 $LNG['ts_udpport']						= 'TCP Port';
 $LNG['ts_tcpport']						= 'UDP Port';
-$LNG['ts_serverip']					= 'Server-IP';
+$LNG['ts_serverip']						= 'Server-IP';
 $LNG['ts_timeout']						= 'Timeout'; 
-$LNG['ts_server_query']				= 'Server Query Port'; 
-$LNG['ts_server_id']					= 'Server ID'; 
+$LNG['ts_server_query']					= 'ServerQuery Port'; 
+$LNG['ts_login']						= 'ServerQuery Login'; 
+$LNG['ts_pass']							= 'ServerQuery Password'; 
+$LNG['ts_cron']							= 'Update Rate'; 
 
 //----------------------------------------------------------------------------//
 //FacebookSettingPage.php
