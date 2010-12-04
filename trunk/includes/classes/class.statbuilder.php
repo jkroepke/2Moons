@@ -434,7 +434,7 @@ class statbuilder
 		
 		while($PlanetData = $db->fetch_array($TotalData['Planets']))
 		{		
-			if(($CONF['stat'] == 1 && $PlanetData['authlevel'] >= $CONF['stat_level']) || !empty($PlanetData['bana'])) continue;
+			if((in_array($CONF['stat'], array(1, 2)) && $PlanetData['authlevel'] >= $CONF['stat_level']) || !empty($PlanetData['bana'])) continue;
 			
  			if(!isset($UserPoints[$PlanetData['id_owner']]))
 				$UserPoints[$PlanetData['id_owner']]['build']['count'] = $UserPoints[$PlanetData['id_owner']]['build']['points'] = $UserPoints[$PlanetData['id_owner']]['fleet']['count'] = $UserPoints[$PlanetData['id_owner']]['fleet']['points'] = $UserPoints[$PlanetData['id_owner']]['defense']['count'] = $UserPoints[$PlanetData['id_owner']]['defense']['points'] = 0;
@@ -463,7 +463,7 @@ class statbuilder
 			
 			$UniData[$UserData['universe']]++;
 				
-			if (($CONF['stat'] == 1 && $UserData['authlevel'] >= $CONF['stat_level']) || !empty($UserData['bana']))
+			if ((in_array($CONF['stat'], array(1, 2)) && $UserData['authlevel'] >= $CONF['stat_level']) || !empty($UserData['bana']))
 			{	
 				$FinalSQL  .= "(".$UserData['id'].",".$UserData['ally_id'].",1,".$UserData['universe'].",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0), ";
 				continue;
