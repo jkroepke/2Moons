@@ -25,7 +25,7 @@ if(!defined('INSTALL') || !defined('IN_ADMIN') || !defined('IN_CRON'))
 require_once(ROOT_PATH . 'includes/classes/class.ErrorLogging.'.PHP_EXT);
 $ELOG	= new ErrorLogging();
 ignore_user_abort(true);
-error_reporting(E_ALL ^ E_NOTICE);
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
 ini_set('zlib.output_compression', 'On');
 ini_set('display_errors', 1);
 date_default_timezone_set("Europe/Berlin");
