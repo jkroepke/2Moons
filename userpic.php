@@ -45,6 +45,9 @@ if(!isset($_GET['debug']))
 
 $banner = new StatBanner();
 $Data	= $banner->GetData($id);
+if(!isset($Data) || !is_array($Data))
+	exit;
+	
 $ETag	= md5(implode('', $Data));
 header('ETag: '.$ETag);
 if(isset($_SERVER['HTTP_IF_NONE_MATCH']) && $_SERVER['HTTP_IF_NONE_MATCH'] == $ETag) {
