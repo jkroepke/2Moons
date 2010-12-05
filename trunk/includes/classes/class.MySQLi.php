@@ -57,6 +57,7 @@ class DB_mysqli extends mysqli
 			}
 		}		
 		parent::set_charset("utf8");
+		parent::query("SET SESSION sql_mode = '';");
 	}
 	
 	/**
