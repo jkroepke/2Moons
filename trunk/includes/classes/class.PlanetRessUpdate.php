@@ -70,11 +70,11 @@ class ResourceUpdate
 	
 	private function UpdateRessource()
 	{
-		global $ProdGrid, $resource, $reslist, $CONF, $ExtraDM;
+		global $ProdGrid, $resource, $reslist, $CONF, $ExtraDM, $OfficerInfo;
 		
-		$this->PLANET['metal_max']			= floor(2.5 * pow(1.8331954764, $this->PLANET[$resource[22]])) * 5000 * (1 + ($this->USER['rpg_stockeur'] * 0.5)) * $CONF['resource_multiplier'] * STORAGE_FACTOR;
-		$this->PLANET['crystal_max']		= floor(2.5 * pow(1.8331954764, $this->PLANET[$resource[23]])) * 5000 * (1 + ($this->USER['rpg_stockeur'] * 0.5)) * $CONF['resource_multiplier'] * STORAGE_FACTOR;
-		$this->PLANET['deuterium_max']		= floor(2.5 * pow(1.8331954764, $this->PLANET[$resource[24]])) * 5000 * (1 + ($this->USER['rpg_stockeur'] * 0.5)) * $CONF['resource_multiplier'] * STORAGE_FACTOR;
+		$this->PLANET['metal_max']			= floor(2.5 * pow(1.8331954764, $this->PLANET[$resource[22]])) * 5000 * (1 + ($this->USER['rpg_stockeur'] * $OfficerInfo[607]['info'])) * $CONF['resource_multiplier'] * STORAGE_FACTOR;
+		$this->PLANET['crystal_max']		= floor(2.5 * pow(1.8331954764, $this->PLANET[$resource[23]])) * 5000 * (1 + ($this->USER['rpg_stockeur'] * $OfficerInfo[607]['info'])) * $CONF['resource_multiplier'] * STORAGE_FACTOR;
+		$this->PLANET['deuterium_max']		= floor(2.5 * pow(1.8331954764, $this->PLANET[$resource[24]])) * 5000 * (1 + ($this->USER['rpg_stockeur'] * $OfficerInfo[607]['info'])) * $CONF['resource_multiplier'] * STORAGE_FACTOR;
 		
 		$MaxMetalStorage                	= $this->PLANET['metal_max']     * MAX_OVERFLOW;
 		$MaxCristalStorage              	= $this->PLANET['crystal_max']   * MAX_OVERFLOW;

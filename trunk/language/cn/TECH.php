@@ -245,23 +245,6 @@ $LNG['res']['descriptions'] = array(
 502 => "拦截导弹能拦截并摧毁进攻的星际导弹。",
 503 => "星际导弹是很好用的星际武器。被星际导弹摧毁的地方防御不能再修复。",
 
-
-601 => '地质学者是太空矿物学及结晶学的专家。他在化学以及冶金方面协助他的团队并且改善了星际间的通讯以及将帝国内的矿物做更有效的提炼运用.<br><br><br><br><span style="color:red">+5% 资源产量.最大等级: 20</span>',
-602 => '星际上将是一位老练的退役军人和老练的战略家。在艰难的战役中，他能创造整体优势以及联络他的副舰队指挥官。在战斗中，高明的君主仰赖他的能力，并且能在战斗中指挥更多数量的舰队.<br><br><span style="color:red">+5% 护盾，减少武器对舰艇和船只的损伤. 最大等级: 20</span>',
-603 => '工程师是能源管理方面的专家。在和平的时候他能增加帝国整体的能源。在遭受到攻击的时候，他将提供足够的能源给大炮，避免过载，并且降低在战斗中的损失.<br><br><span style="color:red">+5% 能量.最大等级: 10</span>',
-604 => '技术专家公会是由许多天才科学家组成的，你会发现他们总是想尽办法突破现代科学技术的瓶颈。我们鼓励科学家留在我们的帝国进行研究，研究一般人不会想去破解的科技技术!<br><br><span style="color:red">-5% 舰船建造时间.最大等级: 10</span>',
-605 => '设计专家，是一种新型的建设者。他的DNA被修改过，从而给他超人的实力!<br><br><span style="color:red">-10% 建筑时间.最大等级: 3</span>',
-606 => '科学家比技术专家更加精通技术，他们专门研究技术的改善.<br><br><span style="color:red">-10% 研究时间.最大等级: 3</span>',
-607 => '司贻族人的座右铭是赢取最大值，他们研究新的存贮技术!<br><br><span style="color:red">+50% 存贮空间.最大等级: 2</span>',
-608 => '前皇家军队的成员，他们热衷于在短时间内建立强大的防御力量.!<br><br><span style="color:red">-50% 防御建筑时间.最大等级: 2</span>',
-609 => '专门破坏星球防护的人群，没事离他们远点!<br><br><span style="color:red">清除星球防护盾</span>',
-610 => '间谍是一个另人感到神秘的职业。没有人见过他真实的面目，除非他们已经死亡!<br><br><span style="color:red">+5 侦查等级.最大等级: 2</span>',
-611 => '随着指挥官加入帝国军队，增加了舰队通道的数量。他的大脑可以计算不少舰队轨迹，远远超过了一个正常人!<br><br><span style="color:red">+3 舰队通道.最大等级: 3</span>',
-612 => '噬星上将已屠杀整个行星为乐趣，他研究生产了死星。!<br><br><span style="color:red">2 被死星建造速度.最大等级: 1</span>',
-613 => '令人尊敬的将军是在军队服务许多年的人。 工作者，船制造者，在他的指挥下，舰队将提供更高的速度!<br><br><span style="color:red">+25% 舰队速度.最大等级: 3</span>',
-614 => '帝国君主指定您成为魂斗罗.<br><br><span style="color:red">解除超星锁定.最大等级: 1</span>',
-615 => '至高无上的宇宙征服者!<br><br><span style="color:red">清除星球毁灭者.最大等级: 1</span>',
-
 700 => '增加了船只和防御攻击值 %s%%. 效率只是暂时的.',
 701 => '提高了船舶的盾牌和防御系统的值 %s%%.效率只是暂时的 .',
 702 => '缩短建筑建造时间 %s%%. 效率只是暂时的.',
@@ -623,35 +606,35 @@ $LNG['info'][503]['description'] = '星际导弹能摧毁敌方的防御设施�
 // ----------------------------------------------------------------------------------------------------------
 // Offiziere
 $LNG['info'][601]['name']    	= '地质学家';
-$LNG['info'][601]['description'] = '<br><br>地质学者是太空矿物学及结晶学的专家。他在化学以及冶金方面协助他的团队并且改善了星际间的通讯以及将帝国内的矿物做更有效的提炼运用.<br><br><span style="color:red">+5% 资源产量.最大等级: 20</span>';
+$LNG['info'][601]['description'] = '<br><br>地质学者是太空矿物学及结晶学的专家。他在化学以及冶金方面协助他的团队并且改善了星际间的通讯以及将帝国内的矿物做更有效的提炼运用.<br><br><span style="color:red">+%s%% 资源产量.最大等级: %s</span>';
 $LNG['info'][602]['name']    	= '海军上将';
-$LNG['info'][602]['description'] = '<br><br>星际上将是一位老练的退役军人和老练的战略家。在艰难的战役中，他能创造整体优势以及联络他的副舰队指挥官。在战斗中，高明的君主仰赖他的能力，并且能在战斗中指挥更多数量的舰队.<br><br><span style="color:red">+5% 护盾，减少武器对舰艇和船只的损伤. 最大等级: 20</span>';
+$LNG['info'][602]['description'] = '<br><br>星际上将是一位老练的退役军人和老练的战略家。在艰难的战役中，他能创造整体优势以及联络他的副舰队指挥官。在战斗中，高明的君主仰赖他的能力，并且能在战斗中指挥更多数量的舰队.<br><br><span style="color:red">+%s%% 护盾，减少武器对舰艇和船只的损伤. 最大等级: %s</span>';
 $LNG['info'][603]['name']    	= '工程师';
-$LNG['info'][603]['description'] = '<br><br>工程师是能源管理方面的专家。在和平的时候他能增加帝国整体的能源。在遭受到攻击的时候，他将提供足够的能源给大炮，避免过载，并且降低在战斗中的损失.<br><br><span style="color:red">+5% 能量.最大等级: 10</span>';
+$LNG['info'][603]['description'] = '<br><br>工程师是能源管理方面的专家。在和平的时候他能增加帝国整体的能源。在遭受到攻击的时候，他将提供足够的能源给大炮，避免过载，并且降低在战斗中的损失.<br><br><span style="color:red">+%s%% 能量.最大等级: %s</span>';
 $LNG['info'][604]['name']    	= '技术专家';
-$LNG['info'][604]['description'] = '<br><br>技术专家公会是由许多天才科学家组成的，你会发现他们总是想尽办法突破现代科学技术的瓶颈。我们鼓励科学家留在我们的帝国进行研究，研究一般人不会想去破解的科技技术!<br><br><span style="color:red">-5% 舰船建造时间.最大等级: 10</span>';
+$LNG['info'][604]['description'] = '<br><br>技术专家公会是由许多天才科学家组成的，你会发现他们总是想尽办法突破现代科学技术的瓶颈。我们鼓励科学家留在我们的帝国进行研究，研究一般人不会想去破解的科技技术!<br><br><span style="color:red">-%s%% 舰船建造时间.最大等级: %s</span>';
 $LNG['info'][605]['name']    	= '设计师';
-$LNG['info'][605]['description'] = '<br><br>设计专家，是一种新型的建设者。他的DNA被修改过，从而给他超人的实力!<br><br><span style="color:red">-10% 建筑时间.最大等级: 3</span>';
+$LNG['info'][605]['description'] = '<br><br>设计专家，是一种新型的建设者。他的DNA被修改过，从而给他超人的实力!<br><br><span style="color:red">-%s%% 建筑时间.最大等级: %s</span>';
 $LNG['info'][606]['name']    	= '科学专家';
-$LNG['info'][606]['description'] = '<br><br>科学家比技术专家更加精通技术，他们专门研究技术的改善.<br><br><span style="color:red">-10% 研究时间.最大等级: 3</span>';
+$LNG['info'][606]['description'] = '<br><br>科学家比技术专家更加精通技术，他们专门研究技术的改善.<br><br><span style="color:red">-%s%% 研究时间.最大等级: %s</span>';
 $LNG['info'][607]['name']    	= '司贻族人';
-$LNG['info'][607]['description'] = '<br><br>司贻族人的座右铭是赢取最大值，他们研究新的存贮技术!<br><br><span style="color:red">+50% 存贮空间.最大等级: 2</span>';
+$LNG['info'][607]['description'] = '<br><br>司贻族人的座右铭是赢取最大值，他们研究新的存贮技术!<br><br><span style="color:red">+%s%% 存贮空间.最大等级: %s</span>';
 $LNG['info'][608]['name']    	= '建设专家';
-$LNG['info'][608]['description'] = '<br><br>前皇家军队的成员，他们热衷于在短时间内建立强大的防御力量.!<br><br><span style="color:red">-50% 防御建筑时间.最大等级: 2</span>';
+$LNG['info'][608]['description'] = '<br><br>前皇家军队的成员，他们热衷于在短时间内建立强大的防御力量.!<br><br><span style="color:red">-%s%% 防御建筑时间.最大等级: %s</span>';
 $LNG['info'][609]['name']    	= '皇家防御';
-$LNG['info'][609]['description'] = '<br><br>专门破坏星球防护的人群，没事离他们远点!<br><br><span style="color:red">清除星球防护盾</span>';
+$LNG['info'][609]['description'] = '<br><br>专门破坏星球防护的人群，没事离他们远点!<br><br><span style="color:red">清除星球防护盾.最大等级: %s</span>';
 $LNG['info'][610]['name']    	= '星际007';
-$LNG['info'][610]['description'] = '<br><br>间谍是一个另人感到神秘的职业。没有人见过他真实的面目，除非他们已经死亡!<br><br><span style="color:red">+5 侦查等级.最大等级: 2</span>';
+$LNG['info'][610]['description'] = '<br><br>间谍是一个另人感到神秘的职业。没有人见过他真实的面目，除非他们已经死亡!<br><br><span style="color:red">+%s 侦查等级.最大等级: %s</span>';
 $LNG['info'][611]['name']    	= '舰队司令';
-$LNG['info'][611]['description'] = '<br><br>随着指挥官加入帝国军队，增加了舰队通道的数量。他的大脑可以计算不少舰队轨迹，远远超过了一个正常人!<br><br><span style="color:red">+3 舰队通道.最大等级: 3</span>';
+$LNG['info'][611]['description'] = '<br><br>随着指挥官加入帝国军队，增加了舰队通道的数量。他的大脑可以计算不少舰队轨迹，远远超过了一个正常人!<br><br><span style="color:red">+%s 舰队通道.最大等级: %s</span>';
 $LNG['info'][612]['name']    	= '噬星上将';
-$LNG['info'][612]['description'] = '<br><br>噬星上将已屠杀整个行星为乐趣，他研究生产了死星。!<br><br><span style="color:red">2 被死星建造速度.最大等级: 1</span>';
+$LNG['info'][612]['description'] = '<br><br>噬星上将已屠杀整个行星为乐趣，他研究生产了死星。!<br><br><span style="color:red">2 被死星建造速度.最大等级: %s</span>';
 $LNG['info'][613]['name']    	= '星际总理';
-$LNG['info'][613]['description'] = '<br><br>令人尊敬的将军是在军队服务许多年的人。 工作者，船制造者，在他的指挥下，舰队将提供更高的速度!<br><br><span style="color:red">+25% 舰队速度.最大等级: 3</span>';
+$LNG['info'][613]['description'] = '<br><br>令人尊敬的将军是在军队服务许多年的人。 工作者，船制造者，在他的指挥下，舰队将提供更高的速度!<br><br><span style="color:red">+%s%% 舰队速度.最大等级: %s</span>';
 $LNG['info'][614]['name']    	= '魂斗罗';
-$LNG['info'][614]['description'] = '<br><br>帝国君主指定您成为魂斗罗.<br><br><span style="color:red">解除超星锁定.最大等级: 1</span>';
+$LNG['info'][614]['description'] = '<br><br>帝国君主指定您成为魂斗罗.<br><br><span style="color:red">解除超星锁定.最大等级: %s</span>';
 $LNG['info'][615]['name']    	= '帝国征服者';
-$LNG['info'][615]['description'] = '<br><br>至高无上的宇宙征服者!<br><br><span style="color:red">清除星球毁灭者.最大等级: 1</span>';
+$LNG['info'][615]['description'] = '<br><br>至高无上的宇宙征服者!<br><br><span style="color:red">清除星球毁灭者.最大等级: %s</span>';
 
 
 ?>

@@ -22,7 +22,7 @@
 
 function calculateAttack(&$attackers, &$defenders)
 {
-	global $pricelist, $CombatCaps, $CONF, $resource, $ExtraDM;
+	global $pricelist, $CombatCaps, $CONF, $resource, $ExtraDM, $OfficerInfo;
 
 	$TRES 	= array('attacker' => 0, 'defender' => 0);
 	$ARES 	= $DRES = array('metal' => 0, 'crystal' => 0);
@@ -85,9 +85,9 @@ function calculateAttack(&$attackers, &$defenders)
 			$attackShield[$fleetID] = 0;
 			$attackAmount[$fleetID] = 0;
 
-			$attTech	= (1 + (0.1 * $attacker['user']['military_tech']) + (0.05 * $attacker['user']['rpg_amiral']) + ((TIMESTAMP - $attacker['user'][$resource[700]] <= 0) ? $ExtraDM[700]['add'] : 0)); //attaque
-			$defTech	= (1 + (0.1 * $attacker['user']['defence_tech']) + (0.05 * $attacker['user']['rpg_amiral']) + ((TIMESTAMP - $attacker['user'][$resource[701]] <= 0) ? $ExtraDM[701]['add'] : 0)); //bouclier
-			$shieldTech = (1 + (0.1 * $attacker['user']['shield_tech']) + (0.05 * $attacker['user']['rpg_amiral'])); //coque
+			$attTech	= (1 + (0.1 * $attacker['user']['military_tech']) + ($OfficerInfo[602]['info'] * $attacker['user']['rpg_amiral']) + ((TIMESTAMP - $attacker['user'][$resource[700]] <= 0) ? $ExtraDM[700]['add'] : 0)); //attaque
+			$defTech	= (1 + (0.1 * $attacker['user']['defence_tech']) + ($OfficerInfo[602]['info'] * $attacker['user']['rpg_amiral']) + ((TIMESTAMP - $attacker['user'][$resource[701]] <= 0) ? $ExtraDM[701]['add'] : 0)); //bouclier
+			$shieldTech = (1 + (0.1 * $attacker['user']['shield_tech']) + ($OfficerInfo[602]['info'] * $attacker['user']['rpg_amiral'])); //coque
 			$attackers[$fleetID]['techs'] = array($shieldTech, $defTech, $attTech);
 				
 			foreach ($attacker['detail'] as $element => $amount) {
@@ -112,9 +112,9 @@ function calculateAttack(&$attackers, &$defenders)
 			$defenseShield[$fleetID] = 0;
 			$defenseAmount[$fleetID] = 0;
 
-			$attTech	= (1 + (0.1 * $defender['user']['military_tech']) + (0.05 * $defender['user']['rpg_amiral']) + ((TIMESTAMP - $defender['user'][$resource[700]] <= 0) ? $ExtraDM[700]['add'] : 0)); //attaquue
-			$defTech	= (1 + (0.1 * $defender['user']['defence_tech']) + (0.05 * $defender['user']['rpg_amiral']) + ((TIMESTAMP - $defender['user'][$resource[701]] <= 0) ? $ExtraDM[701]['add'] : 0)); //bouclier
-			$shieldTech = (1 + (0.1 * $defender['user']['shield_tech']) + (0.05 * $defender['user']['rpg_amiral'])); //coque
+			$attTech	= (1 + (0.1 * $defender['user']['military_tech']) + ($OfficerInfo[602]['info'] * $defender['user']['rpg_amiral']) + ((TIMESTAMP - $defender['user'][$resource[700]] <= 0) ? $ExtraDM[700]['add'] : 0)); //attaquue
+			$defTech	= (1 + (0.1 * $defender['user']['defence_tech']) + ($OfficerInfo[602]['info'] * $defender['user']['rpg_amiral']) + ((TIMESTAMP - $defender['user'][$resource[701]] <= 0) ? $ExtraDM[701]['add'] : 0)); //bouclier
+			$shieldTech = (1 + (0.1 * $defender['user']['shield_tech']) + ($OfficerInfo[602]['info'] * $defender['user']['rpg_amiral'])); //coque
 			$defenders[$fleetID]['techs'] = array($shieldTech, $defTech, $attTech);
 
 			foreach ($defender['def'] as $element => $amount) {

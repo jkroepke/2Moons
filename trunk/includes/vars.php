@@ -429,6 +429,26 @@ if ( defined('INSIDE'))
 		706 => array('time' => 24, 'darkmatter' => 3000, 'add' => 0.1),
 	);
 	
+	// Officer Settings
+	// false = no modificaiton possible
+	$OfficerInfo = array(
+		601 => array('info' => 0.05),
+		602 => array('info' => 0.05),
+		603 => array('info' => 0.05),
+		604 => array('info' => 0.05),
+		605 => array('info' => 0.1),
+		606 => array('info' => 0.1),
+		607 => array('info' => 0.5),
+		608 => array('info' => 0.25),
+		609 => array('info' => false),
+		610 => array('info' => 5),
+		611 => array('info' => 3),
+		612 => array('info' => false),
+		613 => array('info' => 0.10),
+		614 => array('info' => false),
+		615 => array('info' => false),
+	);
+	
 	$reslist['allow']    = array ( 1 => array(1,  2,  3,  4,  6, 12, 14, 15, 21, 22, 23, 24, 31, 33, 34, 44), 3 => array(12, 14, 21, 22, 23, 24, 34, 41, 42, 43));
 	$reslist['build']    = array (   1,   2,   3,   4,   6,  12,  14,  15,  21,  22,  23,  24,  31,  33,  34,  44,  41,  42,  43);
 	$reslist['tech']     = array ( 106, 108, 109, 110, 111, 113, 114, 115, 117, 118, 120, 121, 122, 123, 124, 131, 132, 133, 199);

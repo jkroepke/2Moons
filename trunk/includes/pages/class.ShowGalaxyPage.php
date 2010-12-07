@@ -79,7 +79,7 @@ class ShowGalaxyPage extends GalaxyRows
 
 	public function __construct()
 	{
-		global $USER, $PLANET, $dpath, $resource, $LNG, $db, $reslist;
+		global $USER, $PLANET, $dpath, $resource, $LNG, $db, $reslist, $OfficerInfo;
 		
 		$template		= new template();	
 		$template->page_header();
@@ -148,7 +148,7 @@ class ShowGalaxyPage extends GalaxyRows
 			'current'					=> $current,
 			'currentmip'				=> pretty_number($PLANET[$resource[503]]),
 			'maxfleetcount'				=> $maxfleet,
-			'fleetmax'					=> ($USER['computer_tech'] + 1) + ($USER['rpg_commandant'] * COMMANDANT),
+			'fleetmax'					=> ($USER['computer_tech'] + 1) + ($USER['rpg_commandant'] * $OfficerInfo[611]['info']),
 			'grecyclers'   				=> pretty_number($PLANET[$resource[219]]),
 			'recyclers'   				=> pretty_number($PLANET[$resource[209]]),
 			'spyprobes'   				=> pretty_number($PLANET[$resource[210]]),
