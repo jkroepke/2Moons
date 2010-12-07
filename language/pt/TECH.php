@@ -250,22 +250,6 @@ $LNG['res']['descriptions'] = array(
 502 => "O míssil de intercepção destrói os mísseis interplanetários atacantes.",
 503 => "O míssil interplanetário destrói os sistemas de defesa do inimigo.",
 
-601 => 'O Geólogo é um experiente astromineralogista e cristalografista. Ele assiste as suas equipas de metalurgia e química assim como cuida das comunicações interplanetárias optimizando o seu uso e na refinação das matérias-primas por todo o império.<br><br><font color="red">+5% na produção de recursos. Nivel max: 20</font>',
-602 => 'O Almirante de frota é um experiente veterano de Guerra e estratega também.. Nos combates mais difíceis, ele é capaz de definir uma estratégia e transmiti-la aos seus subordinados. Um sábio imperador pode confiar no seu suporte em batalhas.<br><br><font color="red">+5% em escudos. Nivel max: 20</font>',
-603 => 'O engenheiro é especialista na gestão de energia. Em épocas de paz, aumenta a energia de todas as tuas colónias. Em caso de ataque, assegura a fonte de energia aos canhões defensivos, evitando uma eventual sobrecarga, reduzindo deste modo as perdas na batalha.<br><br><font color="red">+5% de Energia . Nivel max: 10</font>',
-604 => 'A Ordem dos cientistas é composta por grandes génios. Podes encontrá-los sempre a discutir questôes que desafiariam a lógica de qualquer pessoa. Nenhuma pessoa normal conseguirá descobrir o código desta ordem, e é a sua presença que inspira todos investigadores no Império a conseguir mais e melhor.<br><br><font color="red">-5% do tempo de construção de naves. Nivel max: 10</font>',
-605 => 'O construtor tem o seu DNA alterado, apenas estes homens seriam capazes de construir uma cidade num curto periodo de tempo.<br><br><font color="red">-10% do tempo de construção. Nivel max: 3</font>',
-606 => 'Os cientistas sao uma especie de clã concorrente aos tecnocratas. Especializam-se na evolução da tecnologia.<br><br><font color="red">-10% do tempo do pesquisa. Nivel Maximo: 3</font>',
-607 => 'O armazenamento faz parte da irmandade do planeta Hsac. O seu lema era ganhar o maximo, o que implica aumentar a capacidade de armazenamento. Desde então a tecnica de armazenamento tem evoluido.<br><br><font color="red">+50% da capacidade de armazenamento. Nivel Maximo:2</font>',
-608 => 'O ministro da defesa e um membro exercito imperial. Concentrado no seu trabalho é capaz de construir uma defesa formidável num curto periodo de tempo.<br><br><font color="red">-50% no tempo de construção de defesas</font>',
-609 => 'O guardião é um membro do exército imperial e tem como objectivo fazer evoluir as defesas de um planeta.<br><br><font color="red">Desbloqueia o Grande Escudo Planetário </font>',
-610 => 'O espião é uma personagem enigmática. Nunca ninguem viu a sua verdadeira face, a unica maneira de isso acontecer seria sendo morto. <br><br><font color="red">+5 Niveis de Espionagem. Nivel max: 2</font>',
-611 => 'O comandante faz parte do exército imperial e especializou-se na arte de coordenar as frotas. O seu cérebro e capaz de calcular um grande número de trajectorias.<br><br><font color="red">+3 espaços para frotas.</font>',
-612 => 'O destruidor é também um membro do exército imperial mas sem piedade. Desfaz tudo que se mete no seu caminho apenas por diversão. Está neste momento a desenvolver um novo metodo de produção da Estrela da Morte.<br><br><font color="red">Duas estrelas da morte por uma.</font>',
-613 => 'O general é uma personagem que serviu durante muitos anos o exército imperial. Os trabalhadores tem uma produção mais rápida na sua presença.<br><br><font color="red">+10% da velocidade de produção de naves</font>',
-614 => 'Esta personagem possui qualidades de conquista inigualáveis. Este sugere que tu te tornes um Raider. O Raider e o nivel mais alto da guarda imperial Raider',
-615 => 'Quando colocados sob o comando do imperador todos os oficiais do império, combinando suas habilidades para dominar o universo são capazes de se tornar num adversário quase invisível.',
-
 700 => 'Aumenta o valor do ataque das naves em %s%%. Este bonús é temporário.',
 701 => 'Aumenta o valor dos escudos e defesas das navem em %s%%. Este bonús é temporário.',
 702 => 'Diminui o tempo da construção de edificios em %s%%. Este bonús é temporário.',
@@ -460,34 +444,34 @@ $LNG['info'][503]['description'] = 'O míssil interplanetário destrói os siste
 // ----------------------------------------------------------------------------------------------------------
 // oficiais
 $LNG['info'][601]['name']        = 'Geólogo';
-$LNG['info'][601]['description'] = '<br><br>O Geólogo é um experiente astromineralogista e cristalografista. Ele assiste as suas equipas de metalurgia e química assim como cuida das comunicações interplanetárias optimizando o seu uso e na refinação das matérias-primas por todo o império.<br><br><font color="red">+5% na produção de recursos. Nivel max: 20</font>';
+$LNG['info'][601]['description'] = '<br><br>O Geólogo é um experiente astromineralogista e cristalografista. Ele assiste as suas equipas de metalurgia e química assim como cuida das comunicações interplanetárias optimizando o seu uso e na refinação das matérias-primas por todo o império.<br><br><font color="red">+%s%% na produção de recursos. Nivel max: %s</font>';
 $LNG['info'][602]['name']        = 'Almirante';
-$LNG['info'][602]['description'] = '<br><br>O Almirante de frota é um experiente veterano de Guerra e estratega também.. Nos combates mais difíceis, ele é capaz de definir uma estratégia e transmiti-la aos seus subordinados. Um sábio imperador pode confiar no seu suporte em batalhas.<br><br><font color="red">+5% em escudos. Nivel max: 20</font>';
+$LNG['info'][602]['description'] = '<br><br>O Almirante de frota é um experiente veterano de Guerra e estratega também.. Nos combates mais difíceis, ele é capaz de definir uma estratégia e transmiti-la aos seus subordinados. Um sábio imperador pode confiar no seu suporte em batalhas.<br><br><font color="red">+%s%% em escudos. Nivel max: %s</font>';
 $LNG['info'][603]['name']        = 'Engenheiro';
-$LNG['info'][603]['description'] = '<br><br>O engenheiro é especialista na gestão de energia. Em épocas de paz, aumenta a energia de todas as tuas colónias. Em caso de ataque, assegura a fonte de energia aos canhões defensivos, evitando uma eventual sobrecarga, reduzindo deste modo as perdas na batalha.<br><br><font color="red">+5% de Energia . Nivel max: 10</font>';
+$LNG['info'][603]['description'] = '<br><br>O engenheiro é especialista na gestão de energia. Em épocas de paz, aumenta a energia de todas as tuas colónias. Em caso de ataque, assegura a fonte de energia aos canhões defensivos, evitando uma eventual sobrecarga, reduzindo deste modo as perdas na batalha.<br><br><font color="red">+%s%% de Energia . Nivel max: %s</font>';
 $LNG['info'][604]['name']        = 'Tecnocrata';
-$LNG['info'][604]['description'] = '<br><br>A Ordem dos cientistas é composta por grandes génios. Podes encontrá-los sempre a discutir questôes que desafiariam a lógica de qualquer pessoa. Nenhuma pessoa normal conseguirá descobrir o código desta ordem, e é a sua presença que inspira todos investigadores no Império a conseguir mais e melhor.<br><br><font color="red">-5% do tempo de construção de naves. Nivel max: 10</font>';
+$LNG['info'][604]['description'] = '<br><br>A Ordem dos cientistas é composta por grandes génios. Podes encontrá-los sempre a discutir questôes que desafiariam a lógica de qualquer pessoa. Nenhuma pessoa normal conseguirá descobrir o código desta ordem, e é a sua presença que inspira todos investigadores no Império a conseguir mais e melhor.<br><br><font color="red">-%s%% do tempo de construção de naves. Nivel max: %s</font>';
 $LNG['info'][605]['name']        = 'Construtor';
-$LNG['info'][605]['description'] = '<br><br>O construtor tem o seu DNA alterado, apenas um destes homens seria capaz de construir uma cidade num curto periodo de tempo. <br><br><font color="red">-10% do tempo de construção. Nivel max: 3</font>';
+$LNG['info'][605]['description'] = '<br><br>O construtor tem o seu DNA alterado, apenas um destes homens seria capaz de construir uma cidade num curto periodo de tempo. <br><br><font color="red">-%s%% do tempo de construção. Nivel max: %s</font>';
 $LNG['info'][606]['name']    	 = 'Cientista';
-$LNG['info'][606]['description'] = '<br><br>Os cientistas sao uma especie de clã concorrente aos tecnocratas. Especializam-se na evolução da tecnologia.<br><br><font color="red">-10% do tempo do pesquisa. Nivel Maximo: 3</font>';
+$LNG['info'][606]['description'] = '<br><br>Os cientistas sao uma especie de clã concorrente aos tecnocratas. Especializam-se na evolução da tecnologia.<br><br><font color="red">-%s%% do tempo do pesquisa. Nivel Maximo: %s</font>';
 $LNG['info'][607]['name']    	 = 'Especialista de Armazenamento';
-$LNG['info'][607]['description'] = '<br><br>O armazenamento faz parte da irmandade do planeta Hsac. O seu lema era ganhar o maximo, o que implica aumentar a capacidade de armazenamento. Desde então a tecnica de armazenamento tem evoluido.<br><br><font color="red">+50% da capacidade de armazenamento. Nivel Maximo:2</font>';
+$LNG['info'][607]['description'] = '<br><br>O armazenamento faz parte da irmandade do planeta Hsac. O seu lema era ganhar o maximo, o que implica aumentar a capacidade de armazenamento. Desde então a tecnica de armazenamento tem evoluido.<br><br><font color="red">+%s%% da capacidade de armazenamento. Nivel Maximo: %s</font>';
 $LNG['info'][608]['name']    	 = 'Ministro da Defesa';
-$LNG['info'][608]['description'] = '<br><br>O ministro da defesa e um membro exercito imperial. Concentrado no seu trabalho é capaz de construir uma defesa formidável num curto periodo de tempo.<br><br><font color="red">-50% no tempo de construção de defesas</font>';
+$LNG['info'][608]['description'] = '<br><br>O ministro da defesa e um membro exercito imperial. Concentrado no seu trabalho é capaz de construir uma defesa formidável num curto periodo de tempo.<br><br><font color="red">-%s%% no tempo de construção de defesas. Nivel max: %s</font>';
 $LNG['info'][609]['name']    	 = 'Guardião';
-$LNG['info'][609]['description'] = '<br><br>O guardião é um membro do exército imperial e tem como objectivo fazer evoluir as defesas de um planeta.<br><br><font color="red">Desbloqueia o Grande Escudo Planetário</font>';
+$LNG['info'][609]['description'] = '<br><br>O guardião é um membro do exército imperial e tem como objectivo fazer evoluir as defesas de um planeta.<br><br><font color="red">Desbloqueia o Grande Escudo Planetário. Nivel max: %s</font>';
 $LNG['info'][610]['name']    	 = 'Espião';
-$LNG['info'][610]['description'] = '<br><br>O espião é uma personagem enigmática. Nunca ninguem viu a sua verdadeira face, a unica maneira de isso acontecer seria sendo morto.<br><br><font color="red">+5 Niveis de Espionagem. Nivel max: 2</font>';
+$LNG['info'][610]['description'] = '<br><br>O espião é uma personagem enigmática. Nunca ninguem viu a sua verdadeira face, a unica maneira de isso acontecer seria sendo morto.<br><br><font color="red">+%s Niveis de Espionagem. Nivel max: %s</font>';
 $LNG['info'][611]['name']    	 = 'Comandante';
-$LNG['info'][611]['description'] = '<br><br>O comandante faz parte do exército imperial e especializou-se na arte de coordenar as frotas. O seu cérebro e capaz de calcular um grande número de trajectorias.<br><br><font color="red">+3 espaços de frota. Nivel max: 3 </font>';
+$LNG['info'][611]['description'] = '<br><br>O comandante faz parte do exército imperial e especializou-se na arte de coordenar as frotas. O seu cérebro e capaz de calcular um grande número de trajectorias.<br><br><font color="red">+%s espaços de frota. Nivel max: %s</font>';
 $LNG['info'][612]['name']    	 = 'Destruidor';
-$LNG['info'][612]['description'] = '<br><br>O destruidor é também um membro do exército imperial mas sem piedade. Desfaz tudo que se mete no seu caminho apenas por diversão. Está neste momento a desenvolver um novo metodo de produção da Estrela da Morte.<br><br><font color="red">Duas estrelas da morte por uma. Nivel max: 1 </font>';
+$LNG['info'][612]['description'] = '<br><br>O destruidor é também um membro do exército imperial mas sem piedade. Desfaz tudo que se mete no seu caminho apenas por diversão. Está neste momento a desenvolver um novo metodo de produção da Estrela da Morte.<br><br><font color="red">Duas estrelas da morte por uma. Nivel max: %s</font>';
 $LNG['info'][613]['name']    	 = 'General';
-$LNG['info'][613]['description'] = '<br><br>O general é uma personagem que serviu durante muitos anos o exército imperial. Os trabalhadores tem uma produção de naves mais rápida na sua presença. <br><br><font color=\"red\">+10% na velocidade de produção de naves. Nivel max: 3</font>';
+$LNG['info'][613]['description'] = '<br><br>O general é uma personagem que serviu durante muitos anos o exército imperial. Os trabalhadores tem uma produção de naves mais rápida na sua presença. <br><br><font color="red">+%s%% na velocidade de produção de naves. Nivel max: %s</font>';
 $LNG['info'][614]['name']    	 = 'Conquistador';
-$LNG['info'][614]['description'] = '<br><br>Esta personagem possui qualidades de conquista inigualáveis. Este sugere que tu te tornes um Raider. O Raider e o nivel mais alto da guarda imperial Raider';
+$LNG['info'][614]['description'] = '<br><br>Esta personagem possui qualidades de conquista inigualáveis. Este sugere que tu te tornes um Raider. O Raider e o nivel mais alto da guarda imperial Raider.<br><br><font color="red">Nivel max: %s</font>';
 $LNG['info'][615]['name']    	 = 'Imperador';
-$LNG['info'][615]['description'] = '<br><br>Quando colocados sob o comando do imperador todos os oficiais do império, combinando suas habilidades para dominar o universo são capazes de se tornar num adversário quase invisívelO imperador colocado sob o seu comando disponíveis para todos os oficiais do império, combinando suas habilidades para dominar o universo e tornar-se um adversário quase invisíveis';
+$LNG['info'][615]['description'] = '<br><br>Quando colocados sob o comando do imperador todos os oficiais do império, combinando suas habilidades para dominar o universo são capazes de se tornar num adversário quase invisívelO imperador colocado sob o seu comando disponíveis para todos os oficiais do império, combinando suas habilidades para dominar o universo e tornar-se um adversário quase invisíveis.<br><br><font color="red">Nivel max: %s</font>';
 
 ?>

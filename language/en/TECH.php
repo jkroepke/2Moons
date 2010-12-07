@@ -247,22 +247,6 @@ $LNG['res']['descriptions'] = array(
 502 => 'Interceptor missiles are used to destroy attacking Interplanetary missiles.',
 503 => 'Interplanetary missiles are used to destroy the opponents defenses.',
 
-601 => 'Geologist is an expert in mining and astro crystallography. Attend their equipment in metallurgy and chemistry and is also responsible for interplanetary communications to optimize the use and refinement of raw material throughout the empire.<br><br><font color="red">+5% to production of recources</font>',
-602 => 'The Admiral is an experienced veteran and a skillful strategist. The hardest battle is able to get an idea of the situation and contact their admirals subordinates. A wise emperor could rely on their help during the fighting.<br><br><font color="red">+5% To shields</font>',
-603 => 'The Engineer is a specialist in energy management. In peacetime, it increases the energy of all the colonies.<br><br><font color="red">+5% Energy</font>',
-604 => 'The guild is composed of technocrats authentic genius, and always find that dangerous edge where it all explode into a thousand pieces before they could find an explanation and technology rational.<br><br><font color="red">-5% Of the construction time of spacecraft</font>',
-605 => 'The constructor has altered their DNA, only one of these men can build an entire city in a short time.<br><br><font color="red">-10% Of the construction time</font>',
-606 => 'Scientists are part of a guild to concurrent technocrats. They specialize in the improvement of technologies.<br><br><font color="red">-10% Of research time.</font>',
-607 => 'Storage is part of the ancient brotherhood of the planet Hsac. His motto is to win the maximum, which is why we need huge storage space. Thus has developed a new storage technique.<br><br><font color="red">+50% Storage capacity</font>',
-608 => 'The Minister of Defence is a member of the imperial army. focus on your job allows you to build a formidable defense in a short period of time.<br><br><font color="red">-50% Of the construction time for defenses</font>',
-609 => 'The guard is part of the imperial army and its goal is to develop technologies that improve the planetary defenses.<br><br><font color="red">unlocks Giant Shield Dome</font>',
-610 => 'Spy is an enigmatic person. No one ever saw his true face, the only way would be killed. <br><br><font color="red">+5 Espionage Level</font>',
-611 => 'The commander is part of the Imperial Army has mastered the art of managing fleets. Your brain can calculate the trajectories of a large number of fleets. <br><br><font color="red">+3 Fleet slots.</font>',
-612 => 'The destructor is a member of the imperial army without mercy. Slaughter everything that is on its way just for fun. It is currently developing a new method of producing the Death Star.<br><br><font color="red">2 for 1 Deathstars.</font>',
-613 => 'The general is a person who has served for many years to the imperial army. manufacturers produce ships faster in its presence.<br><br><font color="red">+10% Speed of production for ships</font>',
-614 => 'The Conqueror said to you the undeniable qualities of conquest. He suggests you become a Raider. The Raider is the highest level of training of the Imperial Guard Raider',
-615 => 'The emperor placed under his command available to all officers in the empire, combining their skills to dominate the universe and to become an opponent almost Invinsible.',
-
 700 => 'Increases the attack value of the ships and defenses by %s%%. The bonus is only temporary.',
 701 => 'Increases the value of ships shields and defenses by %s%%. The bonus is only temporary.',
 702 => 'Shorten the construction time for buildings by %s%%. The bonus is only temporary.',
@@ -457,35 +441,35 @@ $LNG['info'][503]['description'] = 'Interplanetary Missiles (IPM) are your offen
 // ----------------------------------------------------------------------------------------------------------
 // Offiziere
 $LNG['info'][601]['name']    	= 'Geologist';
-$LNG['info'][601]['description'] = '<br><br>Geologist is an expert in mining and astro crystallography. Attend their equipment in metallurgy and chemistry and is also responsible for interplanetary communications to optimize the use and refinement of raw material throughout the empire.<br><br><font color="red"> +5% to production of resources. Max Level 20</font>';
+$LNG['info'][601]['description'] = '<br><br>Geologist is an expert in mining and astro crystallography. Attend their equipment in metallurgy and chemistry and is also responsible for interplanetary communications to optimize the use and refinement of raw material throughout the empire.<br><br><font color="red"> +%s%% to production of resources. Max Level %s</font>';
 $LNG['info'][602]['name']    	= 'Admiral';
-$LNG['info'][602]['description'] = '<br><br>The Admiral is an experienced veteran and a skillful strategist. The hardest battle is able to get an idea of the situation and contact their admirals subordinates. A wise emperor could rely on their help during the fighting.<br><br><font color="red">+5% To shields. Max Level 20 </font>';
+$LNG['info'][602]['description'] = '<br><br>The Admiral is an experienced veteran and a skillful strategist. The hardest battle is able to get an idea of the situation and contact their admirals subordinates. A wise emperor could rely on their help during the fighting.<br><br><font color="red">+%s%% To shields. Max Level %s</font>';
 $LNG['info'][603]['name']    	= 'Engineer';
-$LNG['info'][603]['description'] = '<br><br>The Engineer is a specialist in energy management. In peacetime, it increases the energy of all the colonies.<br><br><font color="red">+5% Energy . Max Level 10 </font>';
+$LNG['info'][603]['description'] = '<br><br>The Engineer is a specialist in energy management. In peacetime, it increases the energy of all the colonies.<br><br><font color="red">+%s%% Energy . Max Level %s </font>';
 $LNG['info'][604]['name']    	= 'Technocrat';
-$LNG['info'][604]['description'] = '<br><br>The guild is composed of technocrats authentic genius, and always find that dangerous edge where it all explode into a thousand pieces before they could find an explanation and technology rational.<br><br><font color="red">-5% Of the construction time of spacecraft. Max Level 10 </font>';
+$LNG['info'][604]['description'] = '<br><br>The guild is composed of technocrats authentic genius, and always find that dangerous edge where it all explode into a thousand pieces before they could find an explanation and technology rational.<br><br><font color="red">-%s%% Of the construction time of spacecraft. Max Level %s </font>';
 $LNG['info'][605]['name']    	= 'Constructor';
-$LNG['info'][605]['description'] = '<br><br>The constructor has altered their DNA, only one of these men can build an entire city in a short time. <br><br><font color="red">-10% Of the construction time. Max Level 3 </font>';
+$LNG['info'][605]['description'] = '<br><br>The constructor has altered their DNA, only one of these men can build an entire city in a short time. <br><br><font color="red">-%s%% Of the construction time. Max Level %s</font>';
 $LNG['info'][606]['name']    	= 'Scientologist';
-$LNG['info'][606]['description'] = '<br><br>Scientists are part of a guild to concurrent technocrats. They specialize in the improvement of technologies. <br><br><font color="red">-10% Of research time. Max Level 3 </font>';
+$LNG['info'][606]['description'] = '<br><br>Scientists are part of a guild to concurrent technocrats. They specialize in the improvement of technologies. <br><br><font color="red">-%s%% Of research time. Max Level %s</font>';
 $LNG['info'][607]['name']    	= 'Storage expert';
-$LNG['info'][607]['description'] = '<br><br>Storage is part of the ancient brotherhood of the planet Hsac. His motto is to win the maximum, which is why we need huge storage space. Thus has developed a new storage technique. <br><br><font color="red">+50% Storage capacity. Max Level 2</font>';
+$LNG['info'][607]['description'] = '<br><br>Storage is part of the ancient brotherhood of the planet Hsac. His motto is to win the maximum, which is why we need huge storage space. Thus has developed a new storage technique. <br><br><font color="red">+%s%% Storage capacity. Max Level %s</font>';
 $LNG['info'][608]['name']    	= 'Minister of Defence';
-$LNG['info'][608]['description'] = '<br><br>The Minister of Defence is a member of the imperial army. focus on your job allows you to build a formidable defense in a short period of time.<br><br><font color="red">-50% Of the construction time for defenses</font>';
+$LNG['info'][608]['description'] = '<br><br>The Minister of Defence is a member of the imperial army. focus on your job allows you to build a formidable defense in a short period of time.<br><br><font color="red">-%s%% Of the construction time for defenses. Max Level %s</font>';
 $LNG['info'][609]['name']    	= 'Guardian';
-$LNG['info'][609]['description'] = '<br><br>The Guardian is part of the imperial army and its goal is to develop technologies that improve the planetary defenses.<br><br><font color="red">unlocks Giant Shield Dome</font>';
+$LNG['info'][609]['description'] = '<br><br>The Guardian is part of the imperial army and its goal is to develop technologies that improve the planetary defenses.<br><br><font color="red">unlocks Giant Shield Dome. Max Level %s</font>';
 $LNG['info'][610]['name']    	= 'Spy';
-$LNG['info'][610]['description'] = '<br><br>Spy is an enigmatic person. No one ever saw his true face, the only way would be killed. <br><br><font color="red">+5 Espionage Level. Max Level 2</font>';
+$LNG['info'][610]['description'] = '<br><br>Spy is an enigmatic person. No one ever saw his true face, the only way would be killed. <br><br><font color="red">+%s Espionage Level. Max Level %s</font>';
 $LNG['info'][611]['name']    	= 'Commander';
-$LNG['info'][611]['description'] = '<br><br>The commander is part of the Imperial Army has mastered the art of managing fleets. Your brain can calculate the trajectories of a large number of fleets.<br><br><font color="red">+3 Fleet slots. Max Level 3 </font>';
+$LNG['info'][611]['description'] = '<br><br>The commander is part of the Imperial Army has mastered the art of managing fleets. Your brain can calculate the trajectories of a large number of fleets.<br><br><font color="red">+%s Fleet slots. Max Level %s</font>';
 $LNG['info'][612]['name']    	= 'Destroyer';
-$LNG['info'][612]['description'] = '<br><br>The destructor is a member of the imperial army without mercy. Slaughter everything that is on its way just for fun. It is currently developing a new method of producing the Death Star.<br><br><font color="red">2 for 1 Deathstars. Max Level 1 </font>';
+$LNG['info'][612]['description'] = '<br><br>The destructor is a member of the imperial army without mercy. Slaughter everything that is on its way just for fun. It is currently developing a new method of producing the Death Star.<br><br><font color="red">2 for 1 Deathstars. Max Level %s</font>';
 $LNG['info'][613]['name']    	= 'General';
-$LNG['info'][613]['description'] = '<br><br>The general is a person who has served for many years to the imperial army. manufacturers produce ships faster in its presence. <br><br><font color=\"red\">+10% Speed of production for ships. Max Level 3</font>';
+$LNG['info'][613]['description'] = '<br><br>The general is a person who has served for many years to the imperial army. manufacturers produce ships faster in its presence. <br><br><font color="red">+%s%% Speed of production for ships. Max Level %s</font>';
 $LNG['info'][614]['name']    	= 'Conqueror';
-$LNG['info'][614]['description'] = '<br><br>The Conqueror said to you the undeniable qualities of conquest. He suggests you become a Raider. The Raider is the highest level of training of the Imperial Guard Raider';
+$LNG['info'][614]['description'] = '<br><br>The Conqueror said to you the undeniable qualities of conquest. He suggests you become a Raider. The Raider is the highest level of training of the Imperial Guard Raider. <br><br><font color="red">Max Level %s</font>';
 $LNG['info'][615]['name']    	= 'Emperor';
-$LNG['info'][615]['description'] = '<br><br>The emperor placed under his command available to all officers in the empire, combining their skills to dominate the universe and to become an opponent almost Invinsible.';
+$LNG['info'][615]['description'] = '<br><br>The emperor placed under his command available to all officers in the empire, combining their skills to dominate the universe and to become an opponent almost Invinsible. <br><br><font color="red">Max Level %s</font>';
 
 // Translated into English by Languar . All rights reversed (C) 2010
 

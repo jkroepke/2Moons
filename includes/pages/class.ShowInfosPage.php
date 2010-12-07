@@ -146,7 +146,7 @@ class ShowInfosPage
 
 	public function __construct()
 	{
-		global $USER, $PLANET, $dpath, $LNG, $resource, $pricelist, $reslist, $CombatCaps, $ProdGrid, $CONF;
+		global $USER, $PLANET, $dpath, $LNG, $resource, $pricelist, $reslist, $CombatCaps, $ProdGrid, $CONF, $OfficerInfo;
 
 		$BuildID 	= request_var('gid', 0);
 		
@@ -162,13 +162,13 @@ class ShowInfosPage
 			$CurrentBuildtLvl	= $PLANET[$resource[$BuildID]];
 			$BuildEnergy		= $USER[$resource[113]];
 			$BuildLevel     	= ($CurrentBuildtLvl > 0) ? $CurrentBuildtLvl : 1;
-			$Prod[1]         	= (floor(eval($ProdGrid[$BuildID]['formule']['metal'])     * $CONF['resource_multiplier']) * (1 + ($USER['rpg_geologue']  * GEOLOGUE)));
-			$Prod[2]         	= (floor(eval($ProdGrid[$BuildID]['formule']['crystal'])   * $CONF['resource_multiplier']) * (1 + ($USER['rpg_geologue']  * GEOLOGUE)));
-			$Prod[3]          	= (floor(eval($ProdGrid[$BuildID]['formule']['deuterium']) * $CONF['resource_multiplier']) * (1 + ($USER['rpg_geologue']  * GEOLOGUE)));
+			$Prod[1]         	= (floor(eval($ProdGrid[$BuildID]['formule']['metal'])     * $CONF['resource_multiplier']) * (1 + ($USER['rpg_geologue']  * $OfficerInfo[601]['info'])));
+			$Prod[2]         	= (floor(eval($ProdGrid[$BuildID]['formule']['crystal'])   * $CONF['resource_multiplier']) * (1 + ($USER['rpg_geologue']  * $OfficerInfo[601]['info'])));
+			$Prod[3]          	= (floor(eval($ProdGrid[$BuildID]['formule']['deuterium']) * $CONF['resource_multiplier']) * (1 + ($USER['rpg_geologue']  * $OfficerInfo[601]['info'])));
 			$BuildStartLvl   	= max($CurrentBuildtLvl - 2, 1);
 
 			if( $BuildID >= 4 )
-				$Prod[4] = (floor(eval($ProdGrid[$BuildID]['formule']['energy'])    * $CONF['resource_multiplier']) * (1 + ($USER['rpg_ingenieur'] * INGENIEUR)));
+				$Prod[4] = (floor(eval($ProdGrid[$BuildID]['formule']['energy'])    * $CONF['resource_multiplier']) * (1 + ($USER['rpg_ingenieur'] * $OfficerInfo[603]['info'])));
 			else
 				$Prod[4] = (floor(eval($ProdGrid[$BuildID]['formule']['energy'])    * $CONF['resource_multiplier']));
 
@@ -277,11 +277,26 @@ class ShowInfosPage
 			$GateFleetList['moons']			= $this->BuildJumpableMoonCombo($USER, $PLANET);
 			$GateFleetList['fleets']		= $this->BuildFleetListRows($PLANET);
 		}
+		if (in_array($BuildID, $reslist['officier']))
+		{
+			if ($OfficerInfo[$BuildID]['info'])
+			{
+				$description = sprintf($LNG['info'][$BuildID]['description'], ((is_float($OfficerInfo[$BuildID]['info']))? $OfficerInfo[$BuildID]['info'] * 100 : $OfficerInfo[$BuildID]['info']), $pricelist[$BuildID]['max']);	
+			}
+			else
+			{
+				$description = sprintf($LNG['info'][$BuildID]['description'], $pricelist[$BuildID]['max']);
+			}
+		}
+		else
+		{
+			$description = $LNG['info'][$BuildID]['description'];
+		}
 		$template->assign_vars(array(		
 			'id'							=> $BuildID,
 			'name'							=> $LNG['info'][$BuildID]['name'],
 			'image'							=> $BuildID,
-			'description'					=> $LNG['info'][$BuildID]['description'],
+			'description'					=> $description,
 			'ProductionTable'				=> $ProductionTable,
 			'RapidFire'						=> $RapidFire,
 			'Level'							=> $CurrentBuildtLvl,

@@ -77,7 +77,7 @@ class ShowOfficierPage
 	
 	public function __construct()
 	{
-		global $USER, $PLANET, $resource, $reslist, $LNG, $db, $ExtraDM;
+		global $USER, $PLANET, $resource, $reslist, $LNG, $db, $ExtraDM, $OfficerInfo, $pricelist;
 		
 		$action   = request_var('action', '');
 		$Offi	  = request_var('offi', 0);
@@ -131,12 +131,21 @@ class ShowOfficierPage
 			{
 				if (($Result = $this->IsOfficierAccessible($Element)) === 0)
 					continue;
-
+				
+				if ($OfficerInfo[$Element]['info'])
+				{
+					$description = sprintf($LNG['info'][$Element]['description'], is_float($OfficerInfo[$Element]['info']) ? $OfficerInfo[$Element]['info'] * 100 : $OfficerInfo[$Element]['info'], $pricelist[$Element]['max']);	
+				}
+				else
+				{
+					$description = sprintf($LNG['info'][$Element]['description'], $pricelist[$Element]['max']);
+				}
+				
 				$OfficierList[]	= array(
 					'id' 	 	=> $Element,
 					'level'  	=> $USER[$resource[$Element]],
 					'name'		=> $LNG['tech'][$Element],
-					'desc'  	=> $LNG['res']['descriptions'][$Element],	
+					'desc'  	=> $description,
 					'Result'	=> $Result,
 				);
 			}

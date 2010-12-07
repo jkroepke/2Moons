@@ -138,19 +138,6 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	// UTF-8 Support for Names (Requried for non-english Chars!)
 	define('UTF8_SUPPORT'          	  , false);	
 	
-	// OFFICIERS DEFAULT VALUES
-	define('COMMANDANT'				  ,      3);
-	define('AMIRAL'				  	  ,   0.05);
-	define('ESPION'				  	  ,      5);
-	define('CONSTRUCTEUR'             ,    0.1);
-	define('SCIENTIFIQUE'			  ,    0.1);
-	define('GENERAL'			      ,   0.10);
-	define('DEFENSEUR'			  	  ,   0.25);
-	define('TECHNOCRATE'			  ,   0.05);
-	define('STOCKEUR'				  ,    0.5);
-	define('GEOLOGUE'				  ,   0.05);
-	define('INGENIEUR'				  ,   0.05);
-	
 	// AdminAuthlevels
 	define('AUTH_ADM'                 , 3);
 	define('AUTH_OPS'                 , 2);

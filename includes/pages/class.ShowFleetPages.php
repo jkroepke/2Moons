@@ -192,7 +192,7 @@ class ShowFleetPages extends FleetFunctions
 
 	public static function ShowFleet1Page()
 	{
-		global $USER, $PLANET, $resource, $pricelist, $reslist, $db, $LNG, $ExtraDM;
+		global $USER, $PLANET, $resource, $pricelist, $reslist, $db, $LNG, $ExtraDM, $OfficerInfo;
 		$TargetGalaxy 					= request_var('galaxy', $PLANET['galaxy']);
 		$TargetSystem 					= request_var('system', $PLANET['system']);
 		$TargetPlanet					= request_var('planet', $PLANET['planet']);
@@ -232,7 +232,7 @@ class ShowFleetPages extends FleetFunctions
 		$FleetData	= array(
 			'fleetroom'			=> floattostring($FleetRoom),
 			'gamespeed'			=> parent::GetGameSpeedFactor(),
-			'fleetspeedfactor'	=> ((TIMESTAMP - $USER[$resource[706]] <= 0) ? (1 - $ExtraDM[706]['add']) : 1) - (GENERAL * $USER['rpg_general']),
+			'fleetspeedfactor'	=> ((TIMESTAMP - $USER[$resource[706]] <= 0) ? (1 - $ExtraDM[706]['add']) : 1) - ($OfficerInfo[613]['info'] * $USER['rpg_general']),
 			'planet'			=> array('galaxy' => $PLANET['galaxy'], 'system' => $PLANET['system'], 'planet' => $PLANET['planet'], 'planet_type' => $PLANET['planet_type']),
 			'maxspeed'			=> parent::GetFleetMaxSpeed($Fleet, $USER),
 			'ships'				=> parent::GetFleetShipInfo($Fleet, $USER),
