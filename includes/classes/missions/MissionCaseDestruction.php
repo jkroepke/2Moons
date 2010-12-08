@@ -177,8 +177,8 @@ class MissionCaseDestruction extends MissionFunctions
 				$INFO['moon']['chance2']	= $chance2;
 				
 				if($tirage <= $chance) {
-					$EndPlanet		= $db->query("SELECT `id` FROM ".PLANETS." WHERE `id_luna` = '".$this->_fleet['fleet_end_id']."';");
-					$db->multi_query("DELETE FROM ".PLANETS." WHERE `id` = '".$TargetPlanet['id']."';UPDATE ".PLANETS." SET `id_luna` = '0' WHERE `id_luna` = '". $TargetPlanet['id'] ."';UPDATE ".FLEETS." SET `fleet_start_type` = '1',`fleet_start_id` = '".$StartPlanet['id']."' WHERE `fleet_start_id` = '".$this->_fleet['fleet_end_id']."';UPDATE ".FLEETS." SET `fleet_end_type` = '1', `fleet_end_type` = '".$EndPlanet."', `fleet_mission` = IF(`fleet_mission` = 9, 1, `fleet_mission`) WHERE `fleet_end_id` = '".$this->_fleet['fleet_end_id']."' AND `fleet_id` != '".$this->_fleet['fleet_id']."';");
+					$EndPlanet		= $db->uniquequery("SELECT `id` FROM ".PLANETS." WHERE `id_luna` = '".$this->_fleet['fleet_end_id']."';");
+					$db->multi_query("DELETE FROM ".PLANETS." WHERE `id` = '".$TargetPlanet['id']."';UPDATE ".PLANETS." SET `id_luna` = '0' WHERE `id_luna` = '". $TargetPlanet['id'] ."';UPDATE ".FLEETS." SET `fleet_start_type` = '1',`fleet_start_id` = '".$this->_fleet['fleet_start_id']."' WHERE `fleet_start_id` = '".$this->_fleet['fleet_end_id']."';UPDATE ".FLEETS." SET `fleet_end_type` = '1', `fleet_end_type` = '".$EndPlanet."', `fleet_mission` = IF(`fleet_mission` = 9, 1, `fleet_mission`) WHERE `fleet_end_id` = '".$this->_fleet['fleet_end_id']."' AND `fleet_id` != '".$this->_fleet['fleet_id']."';");
 					$INFO['moon']['desfail'] = 0;
 				} else {
 					$INFO['moon']['desfail'] = 2;
