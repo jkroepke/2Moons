@@ -65,7 +65,9 @@ CREATE TABLE IF NOT EXISTS `prefix_buddy` (
   `owner` int(11) NOT NULL DEFAULT '0',
   `active` enum('0','1') NOT NULL DEFAULT '0',
   `text` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `universe` tinyint(3) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `universe` (`universe`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `prefix_chat` (
@@ -159,7 +161,7 @@ CREATE TABLE IF NOT EXISTS `prefix_config`(
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO `prefix_config` (`uni`, `VERSION`, `users_amount`, `game_speed`, `fleet_speed`, `resource_multiplier`, `halt_speed`, `Fleet_Cdr`, `Defs_Cdr`, `initial_fields`, `bgm_active`, `bgm_file`, `game_name`, `game_disable`, `close_reason`, `metal_basic_income`, `crystal_basic_income`, `deuterium_basic_income`, `energy_basic_income`, `LastSettedGalaxyPos`, `LastSettedSystemPos`, `LastSettedPlanetPos`, `noobprotection`, `noobprotectiontime`, `noobprotectionmulti`, `forum_url`, `adm_attack`, `debug`, `lang`, `stat`, `stat_level`, `stat_last_update`, `stat_settings`, `stat_update_time`, `stat_last_db_update`, `stats_fly_lock`, `stat_last_banner_update`, `stat_banner_update_time`, `cron_lock`, `ts_modon`, `ts_server`, `ts_tcpport`, `ts_udpport`, `ts_timeout`, `ts_version`, `reg_closed`, `OverviewNewsFrame`, `OverviewNewsText`, `capaktiv`, `cappublic`, `capprivate`, `min_build_time`, `smtp_host`, `smtp_port`, `smtp_user`, `smtp_pass`, `smtp_ssl`, `smtp_sendmail`, `user_valid`, `ftp_server`, `ftp_user_name`, `ftp_user_pass`, `ftp_root_path`, `fb_on`, `fb_apikey`, `fb_skey`, `ga_active`, `ga_key`, `moduls`) VALUES
-(1, '1.0.1320', 1, 2500, 2500, 1, 1, 30, 30, 163, 0, '', '2Moons', 1, 'Game ist zurzeit geschlossen', 20, 10, 0, 0, 1, 1, 1, 0, 0, 0, 'http://www.xnova.de', 1, 0, 'de', 0, 2, 1288527583, 1000, 25, 1288860107, 0, 1288860107, 1440, 0, 0, '127.0.0.1', 8767, 51234, 1, 2, 0, 1, 'Herzlich Willkommen bei 2Moons v1.3!', 0, '', '', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '0', '', '1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1');
+(1, '1.0.1341', 1, 2500, 2500, 1, 1, 30, 30, 163, 0, '', '2Moons', 1, 'Game ist zurzeit geschlossen', 20, 10, 0, 0, 1, 1, 1, 0, 0, 0, 'http://www.xnova.de', 1, 0, 'de', 0, 2, 1288527583, 1000, 25, 1288860107, 0, 1288860107, 1440, 0, 0, '127.0.0.1', 8767, 51234, 1, 2, 0, 1, 'Herzlich Willkommen bei 2Moons v1.3!', 0, '', '', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '0', '', '1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1');
 
 CREATE TABLE IF NOT EXISTS `prefix_diplo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -168,8 +170,10 @@ CREATE TABLE IF NOT EXISTS `prefix_diplo` (
   `level` tinyint(1) NOT NULL,
   `accept` tinyint(1) NOT NULL,
   `accept_text` varchar(255) NOT NULL,
+  `universe` tinyint(3) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `owner_1` (`owner_1`,`owner_2`)
+  KEY `owner_1` (`owner_1`,`owner_2`),
+  KEY `universe` (`universe`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `prefix_fleets` (
@@ -248,8 +252,10 @@ CREATE TABLE IF NOT EXISTS `prefix_notes` (
   `priority` enum('0','1','2') DEFAULT '1',
   `title` varchar(32) DEFAULT NULL,
   `text` text,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `universe` tinyint(3) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `universe` (`universe`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `prefix_planets` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -422,9 +428,11 @@ CREATE TABLE IF NOT EXISTS `prefix_supp` (
   `subject` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `text` text NOT NULL,
   `status` int(1) NOT NULL,
+  `universe` tinyint(3) NOT NULL,
   PRIMARY KEY (`ID`),
-  KEY `player_id` (`player_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  KEY `player_id` (`player_id`),
+  KEY `universe` (`universe`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `prefix_topkb` (
   `id_owner1` tinyint(20) NOT NULL DEFAULT '0',
