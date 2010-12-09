@@ -106,8 +106,6 @@ class ErrorLogging
 	{
 		if (!error_reporting() || $errNo == E_DEPRECATED) return false;
 
-		$this->_backTrace = $this->_debugBacktrace(2);
-		
 		$this->_toFile($errNo, $errStr, $errFile, $errLine);
 		exit;
 	}
@@ -203,6 +201,8 @@ class ErrorLogging
 				return 'PHP Parse error';
 			case E_DEPRECATED:
 				return 'PHP Deprecated';
+			default:
+				return 'PHP Unknown '.$errNo;
 		}
 	}
 	

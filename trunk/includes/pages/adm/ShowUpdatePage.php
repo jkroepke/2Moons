@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 ##############################################################################
 # *                                                                          #
@@ -132,13 +132,14 @@ function ShowUpdatePage()
 			
 			update_config(array('VERSION' => $Patchlevel[0].".".$Patchlevel[1].".".$LastRev), true);
 			// Header für Download senden
-			header("HTTP/1.1 200 OK");
+			$File	= $zipfile->file(); 		
+			header("Content-length: ".strlen($File));
 			header("Content-Type: application/force-download");
 			header('Content-Disposition: attachment; filename="patch_'.$Level.'_to_'.$LastRev.'.zip"');
 			header("Content-Transfer-Encoding: binary");
 
 			// Zip File senden
-			echo $zipfile->file(); 
+			echo $File; 
 			exit;			
 		break;
 		case "update":
@@ -288,7 +289,7 @@ function ShowUpdatePage()
 					foreach($UpdateArray['revs'] as $Rev => $RevInfo) 
 					{
 						if(!(empty($RevInfo['add']) && empty($RevInfo['edit'])) && $Patchlevel[2] < $Rev){
-							$Update		= "<tr><th><a href=\"?page=update&amp;action=update\">Update</a> - <a href=\"?page=update&amp;action=download\">".$LNG['up_download_patch_files']."</a></th></tr>";
+							$Update		= "<tr><th><a href=\"?page=update&amp;action=update\">Update</a>".(function_exists('gzcompress') ? " - <a href=\"?page=update&amp;action=download\">".$LNG['up_download_patch_files']."</a>":"")."</th></tr>";
 							$Info		= "<tr><td class=\"c\" colspan=\"5\">".$LNG['up_aktuelle_updates']."</td></tr>";
 						}
 						

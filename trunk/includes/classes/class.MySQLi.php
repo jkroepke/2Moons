@@ -130,13 +130,18 @@ class DB_mysqli extends mysqli
 	 * @return resource	Results of the query
 	 */
 
-	public function fetchquery($resource)
+	public function fetchquery($resource, $encode = array())
 	{		
 		$result = $this->query($resource);
 		$Return	= array();
-		while($Data	= $result->fetch_array(MYSQLI_ASSOC))
+		$Col	= 0;
+		while($Data	= $result->fetch_array(MYSQLI_ASSOC)) {
+			foreach($Data as $Key => $Store) {
+				if(in_array($Key, $encode))
+					$Data[$Key]	= base64_encode($Store);
+			}
 			$Return[]	= $Data;
-			
+		}
 		$result->close();
 		return $Return;
 	}
