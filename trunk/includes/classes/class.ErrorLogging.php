@@ -186,6 +186,9 @@ class ErrorLogging
 	
 	public function _toFile($errNo, $errStr, $errFile, $errLine)
 	{
+		if(!is_writable(str_replace('\\', '/',dirname($_SERVER['SCRIPT_FILENAME'])).'/includes/error.log'))
+			return;
+			
 		file_put_contents(str_replace('\\', '/',dirname($_SERVER['SCRIPT_FILENAME'])).'/includes/error.log', "[".date('d-M-Y H:i:s', TIMESTAMP)."] ".$this->_getErrorType($errNo).": ".$errStr." in ".$errFile." on line ".$errLine."\r\n", FILE_APPEND);
 	}
 
