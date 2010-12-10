@@ -59,7 +59,7 @@ abstract class FleetFunctions
 		return array(10 => 100, 9 => 90, 8 => 80, 7 => 70, 6 => 60, 5 => 50, 4 => 40, 3 => 30, 2 => 20, 1 => 10);
 	}
 	
-	Public static function CheckUserSpeed($GenFleetSpeed)
+	public static function CheckUserSpeed($GenFleetSpeed)
 	{
 		return (array_key_exists($GenFleetSpeed, self::GetAvailableSpeeds())) ? true : false;
 	}
