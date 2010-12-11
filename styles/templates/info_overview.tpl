@@ -3,7 +3,7 @@
     <table>
     <tbody>
     <tr>
-        <th colspan="2">{$name}</td>
+        <th colspan="2">{$name}</th>
     </tr><tr>
         <td colspan="2">
         <table>
@@ -52,7 +52,7 @@
 	<tr style="height:20px;">
 	<td>{$in_jump_gate_start_moon}</td><td>{$GateFleetList.start_link}</td>
 	</tr><tr style="height:20px;">
-	<td>{$in_jump_gate_finish_moon}</th>
+	<td>{$in_jump_gate_finish_moon}</td>
 	<td><select name="jmpto">{$GateFleetList.moons}</select></td></tr>
 	{if $GateFleetList.jump}
 	<tr>
@@ -70,8 +70,8 @@
 	{/if}
 	{foreach name=GateFleetList item=GateFleetRow from=$GateFleetList.fleets}
 	<tr>
-		<td>{$GateFleetRow.name} ({$GateFleetRow.max} {$gate_ship_dispo})</td>
-		<td><input tabindex="{$smarty.foreach.GateFleetList.iteration}" name="c{$GateFleetRow.id}" size="7" value="0" type="text"></td>
+		<td>{$GateFleetRow.name} (<span id="ship{$GateFleetRow.id}_value">{$GateFleetRow.max}</span> {$gate_ship_dispo})</td>
+		<td><input tabindex="{$smarty.foreach.GateFleetList.iteration}" name="ship{$GateFleetRow.id}" id="ship{$GateFleetRow.id}_input" size="7" value="0" type="text"><input onclick="javascript:maxShip('ship{$GateFleetRow.id}');" value="max" type="button"></td>
 	</tr>
 	{/foreach}
 	<tr>
