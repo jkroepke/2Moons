@@ -85,7 +85,7 @@ class ShowInfosPage
 
 		foreach($reslist['fleet'] as $Ship)
 		{
-			$ShipArray[$Ship]	=	min(max(request_var('c'.$Ship, 0.0), 0), $PLANET[$resource[$Ship]]);
+			$ShipArray[$Ship]	=	min(max(request_var('ship'.$Ship, 0.0), 0), $PLANET[$resource[$Ship]]);
 			$SubQueryOri 		.= "`". $resource[ $Ship ] ."` = `". $resource[ $Ship ] ."` - '". floattostring($ShipArray[ $Ship ]) ."', ";
 			$SubQueryDes 		.= "`". $resource[ $Ship ] ."` = `". $resource[ $Ship ] ."` + '". floattostring($ShipArray[ $Ship ]) ."', ";
 			$PLANET[$resource[$Ship]] -= floattostring($ShipArray[$Ship]);
@@ -262,6 +262,7 @@ class ShowInfosPage
 		}
 		elseif($BuildID == 43 && $PLANET[$resource[43]] > 0)
 		{
+			$template->loadscript('flotten.js');
 			$GateFleetList['jump']			= $this->DoFleetJump();
 			$RestString               		= $this->GetNextJumpWaitTime($PLANET);
 			if ($RestString['value'] != 0)
