@@ -94,9 +94,9 @@
             </tr>
            	{foreach name=Fleets item=FleetRow from=$FleetsOnPlanet}
 			<tr style="height:20px;">
-				<td>{if $FleetRow.id != 212} <a title="{$fl_speed_title} {$FleetRow.speed}">{$FleetRow.name}</a>{else}{$FleetRow.name}{/if}</td>
+				<td>{if $FleetRow.speed != 0} <a title="{$fl_speed_title} {$FleetRow.speed}">{$FleetRow.name}</a>{else}{$FleetRow.name}{/if}</td>
 				<td id="ship{$FleetRow.id}_value">{$FleetRow.count}</td>
-				{if $FleetRow.id != 212}
+				{if $FleetRow.speed != 0}
 				<td><a href="javascript:maxShip('ship{$FleetRow.id}');">{$fl_max}</a></td>
 				<td><input name="ship{$FleetRow.id}" id="ship{$FleetRow.id}_input" size="10" value="0"></td>
 				{else}
