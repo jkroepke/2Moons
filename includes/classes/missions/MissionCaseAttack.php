@@ -226,10 +226,9 @@ class MissionCaseAttack extends MissionFunctions
 		$INFO['fleet_start_time']	= $this->_fleet['fleet_start_time'];
 		$INFO['moon']['des']		= 0;
 		$INFO['moon']['chance'] 	= $MoonChance;
-		
+		$INFO['attvsdef']			= implode(' & ', $Attacker['name']).' vs '.implode(' & ', $Defender['name']);
 		require_once('GenerateReport.'.PHP_EXT);
 		$raport		= GenerateReport($result, $INFO);
-		$rid		= md5(microtime(true).mt_rand(1,100));
 	
 		file_put_contents(ROOT_PATH.'raports/raport_'.$rid.'.php', '<?php'."\n".'$raport = '.$raport.';'."\n".'?>');
 		file_put_contents(ROOT_PATH.'raports/topkb_'.$rid.'.php', '<?php'."\n".'$raport = '.preg_replace("/\[\d+\:\d+\:\d+\]/i", "[X:X:X]", $raport).';'."\n".'?>');

@@ -212,6 +212,7 @@ class MissionCaseDestruction extends MissionFunctions
 		$INFO['end_galaxy'] 		= $this->_fleet['fleet_end_galaxy'];
 		$INFO['end_system']			= $this->_fleet['fleet_end_system'];
 		$INFO['end_planet']			= $this->_fleet['fleet_end_planet'];
+		$INFO['attvsdef']			= implode(' & ', $Attacker['name']).' vs '.implode(' & ', $Defender['name']);
 			
 		require_once('GenerateReport.'.PHP_EXT);
 		$raport		= GenerateReport($result, $INFO);

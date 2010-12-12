@@ -252,7 +252,7 @@ function GenerateReport($RESULT, $INFO)
 	if(isset($INFO['moon']['battlesim'])) {
 		$html .= $INFO['moon']['battlesim'];
 	}
-	$html .= '</div>"';
+	$html .= '</div><script type=\"text/javascript\">RaportInfo = '.addcslashes(json_encode(array($RESULT['won'], ($RESULT['lost']['att'] + $RESULT['lost']['def']), $RESULT['debree']['att'][0], $RESULT['debree']['def'][0], $INFO['attvsdef'])), '"').';</script>"';
 	return $html;
 }
 	
