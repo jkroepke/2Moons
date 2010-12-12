@@ -47,10 +47,10 @@ class DB_mysqli extends mysqli
 
 		@parent::__construct($this->con['host'], $this->con['user'], $this->con['userpw'], $this->con['databasename'], $this->con['port']);
 
-		if($this->connect_errno)
+		if(mysqli_connect_error())
 		{
 			if($test != true) {
-				throw new Exception("Connection to database failed: ".$this->connect_error);
+				throw new Exception("Connection to database failed: ".mysqli_connect_error());
 				exit;
 			} else {
 				return false;
