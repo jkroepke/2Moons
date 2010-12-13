@@ -21,6 +21,12 @@
 
 class Session
 {
+
+    public function __construct()  
+	{
+		session_start();
+	}
+	
 	function IsUserLogin()
 	{
 		return !empty($_SESSION['id']);
@@ -35,15 +41,15 @@ class Session
 	function CreateSession($ID, $Username, $MainPlanet, $Universe, $Authlevel = 0, $dpath = DEFAULT_SKINPATH)
 	{
 		global $db;
-		session_start();
+		$Path					= $this->GetPath();
+		$db->query("INSERT INTO ".SESSION." (`sess_id`, `user_id`, `user_ua`, `user_ip`, `user_side`, `user_method`, `user_lastactivity`) VALUES ('".session_id()."', '".$ID."', '".$db->sql_escape($_SERVER['HTTP_USER_AGENT'])."', '".$_SERVER['REMOTE_ADDR']."', '".$db->sql_escape($Path)."', '".$_SERVER["REQUEST_METHOD"]."', '".TIMESTAMP."') ON DUPLICATE KEY UPDATE `sess_id` = '".session_id()."', `user_ua` = '".$db->sql_escape($_SERVER['HTTP_USER_AGENT'])."', `user_ip` = '".$_SERVER['REMOTE_ADDR']."', `user_side` = '".$db->sql_escape($Path)."', `user_method` = '".$_SERVER["REQUEST_METHOD"]."';");
 		$_SESSION['id']			= $ID;
 		$_SESSION['username']	= $Username;
 		$_SESSION['authlevel']	= $Authlevel;	
-		$_SESSION['path']		= $this->GetPath();
+		$_SESSION['path']		= $Path;
 		$_SESSION['dpath']		= $dpath;
 		$_SESSION['planet']		= $MainPlanet;
 		$_SESSION['uni']		= $Universe;
-		$db->query("INSERT INTO ".SESSION." (`sess_id`, `user_id`, `user_ua`, `user_ip`, `user_side`, `user_method`, `user_lastactivity`) VALUES ('".session_id()."', '".$ID."', '".$db->sql_escape($_SERVER['HTTP_USER_AGENT'])."', '".$_SERVER['REMOTE_ADDR']."', '".$db->sql_escape($_SESSION['path'])."', '".$_SERVER["REQUEST_METHOD"]."', '".TIMESTAMP."') ON DUPLICATE KEY UPDATE `sess_id` = '".session_id()."', `user_ua` = '".$db->sql_escape($_SERVER['HTTP_USER_AGENT'])."', `user_ip` = '".$_SERVER['REMOTE_ADDR']."', `user_side` = '".$db->sql_escape($_SESSION['path'])."', `user_method` = '".$_SERVER["REQUEST_METHOD"]."';");
 	}
 	
 	function GetPath()

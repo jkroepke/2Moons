@@ -122,10 +122,6 @@ class MissionCaseExpedition extends MissionFunctions
 			break;
 			case 3:
 			default:
-				unset($FleetCount[208]);
-				unset($FleetCount[209]);
-				unset($FleetCount[214]);
-				
 				$FindSize = mt_rand(0, 100);
 				if(10 < $FindSize) {
 					$Size		= mt_rand(2, 50);
@@ -152,18 +148,20 @@ class MissionCaseExpedition extends MissionFunctions
 				$NewFleetArray 	= "";
 
 				$LNG			+= $this->GetUserLang($this->_fleet['fleet_owner'], 'TECH');
-				
+				$Found			= array();
 				foreach($reslist['fleet'] as $ID) 
 				{
-					if(!isset($FleetCount[$ID])) continue;
+					if(!isset($FleetCount[$ID]) || $ID == 208 || $ID == 209 || $ID == 214) continue;
 					$Count				= mt_rand(1, floor($FoundShips / ($pricelist[$ID]['metal'] + $pricelist[$ID]['crystal'])));
-					$FleetCount[$ID]	+= $Count;
-					$NewFleetArray  	.= $ID.",".floattostring($Count + $FleetCount[$ID]).";";
+					$Found[$ID]			+= $Count;
 					$FoundShips	 		-= $Count * ($pricelist[$ID]['metal'] + $pricelist[$ID]['crystal']);
 					$FoundShipMess   	.= '<br>'.$LNG['tech'][$ID].': '.pretty_number($Count);
 					if($FoundShips <= 0)
 						break;
 				}
+				
+				foreach($Found as $ID => $Count)
+					$NewFleetArray  	.= $ID.",".floattostring($Count + $FleetCount[$ID]).";";
 					
 				$Message	.= $FoundShipMess;
 							
