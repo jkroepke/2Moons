@@ -21,12 +21,6 @@
 
 class Session
 {
-
-    public function __construct()  
-	{
-		session_start();
-	}
-	
 	function IsUserLogin()
 	{
 		return !empty($_SESSION['id']);
@@ -65,8 +59,11 @@ class Session
 			return true;
 			
 		$_SESSION['db']	= $this->GetSessionFromDB();
-		if(empty($_SESSION['db']) || !$this->CompareIPs($_SESSION['db']['user_ip']))
+		
+		if(empty($_SESSION['db']) || !$this->CompareIPs($_SESSION['db']['user_ip'])) {
+			$this->DestroySession();
 			redirectTo('index.php?code=2');
+		}
 		
 		$SelectPlanet  		= request_var('cp',0);
 		if(!empty($SelectPlanet))
@@ -133,10 +130,8 @@ class Session
 	function DestroySession()
 	{
 		global $db;
-		
-		$loeschen	= $db->query("DELETE FROM ".SESSION." WHERE user_id = '".$_SESSION['id']."'"); 
+		$db->query("DELETE FROM ".SESSION." WHERE sess_id = '".session_id()."'"); 
 		session_destroy();
-		$params = session_get_cookie_params();
 		setcookie(session_name(), '', time() - 42000);
 	}
 }

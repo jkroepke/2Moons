@@ -197,6 +197,6 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $Universe, $PlanetOw
 	$SQL .= "`deuterium_perhour` = '".$CONF['deuterium_basic_income']."';";
 	
 	$db->query($SQL);
-	return true;
+	return $db->GetInsertID();
 }
 ?>

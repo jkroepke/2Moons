@@ -136,74 +136,50 @@ switch ($page) {
 					MailSend($UserMail, $UserName, $LNG['mail_title'], $MailContent);		
 				}
 				
-				$NewUser = $db->uniquequery( "SELECT `id` FROM " . USERS . " WHERE `username` = '".$UserName."' AND `password` = '".$UserPass."' AND `universe` = '".$UNI."';");
+				$NewUser = $db->GetInsertID();
 				
 				$LastSettedGalaxyPos = $CONF['LastSettedGalaxyPos'];
 				$LastSettedSystemPos = $CONF['LastSettedSystemPos'];
 				$LastSettedPlanetPos = $CONF['LastSettedPlanetPos'];
-				
-				while (!isset($newpos_checked)) {
-					for($Galaxy = $LastSettedGalaxyPos; $Galaxy <= MAX_GALAXY_IN_WORLD; $Galaxy ++) {
-						for($System = $LastSettedSystemPos; $System <= MAX_SYSTEM_IN_GALAXY; $System ++) {
-							for($Posit = $LastSettedPlanetPos; $Posit <= 4; $Posit ++) {
-								$Planet = mt_rand(4, 12);
-								
-								switch ($LastSettedPlanetPos) {
-									case 1 :
-										$LastSettedPlanetPos += 1;
-										break;
-									case 2 :
-										$LastSettedPlanetPos += 1;
-										break;
-									case 3 :
-										if ($LastSettedSystemPos == MAX_SYSTEM_IN_GALAXY) {
-											$LastSettedGalaxyPos += 1;
-											$LastSettedSystemPos = 1;
-											$LastSettedPlanetPos = 1;
-											break;
-										} else {
-											$LastSettedPlanetPos = 1;
-										}
-										
-										$LastSettedSystemPos += 1;
-										break;
-								}
-								break;
-							}
-							break;
+				require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.'.PHP_EXT);
+				while (true) {
+					$Planet = mt_rand(4, 12);
+					if ($LastSettedPlanetPos < 3) {
+						$LastSettedPlanetPos += 1;
+					} else {
+						if ($LastSettedSystemPos == MAX_SYSTEM_IN_GALAXY) {
+							$LastSettedGalaxyPos += 1;
+							$LastSettedSystemPos = 1;
+							$LastSettedPlanetPos = 1;
+						} else {
+							$LastSettedSystemPos += 1;
+							$LastSettedPlanetPos = 1;
 						}
+					}
+					if (($PlanetID = CreateOnePlanetRecord($LastSettedGalaxyPos, $LastSettedSystemPos, $Planet, $UNI, $NewUser, $UserPlanet, true)) !== false)
 						break;
-					}
-					
-					if (!CheckPlanetIfExist($Galaxy, $System, $Planet, $UNI))
-					{
-						require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.'.PHP_EXT);
-						CreateOnePlanetRecord ($Galaxy, $System, $Planet, $UNI, $NewUser['id'], $UserPlanet, true);
-						update_config(array('LastSettedGalaxyPos' => $LastSettedGalaxyPos, 'LastSettedSystemPos' => $LastSettedSystemPos, 'LastSettedPlanetPos' => $LastSettedPlanetPos));
-						$newpos_checked = true;
-					}
 				}
-				$PlanetID = $db->uniquequery("SELECT `id` FROM ".PLANETS." WHERE `id_owner` = '".$NewUser ['id']."';");
-				
+				var_dump($PlanetID, $LastSettedGalaxyPos, $LastSettedSystemPos, $Planet, $UNI, $NewUser, $UserPlanet);
 				$SQL = "UPDATE " .USERS." SET ";
-				$SQL .= "`id_planet` = '" . $PlanetID ['id'] . "', ";
+				$SQL .= "`id_planet` = '".PlanetID."', ";
 				$SQL .= "`galaxy` = '" . $Galaxy . "', ";
 				$SQL .= "`system` = '" . $System . "', ";
 				$SQL .= "`planet` = '" . $Planet . "' ";
 				$SQL .= "WHERE ";
-				$SQL .= "`id` = '" . $NewUser ['id'] . "' ";
+				$SQL .= "`id` = '".$NewUser."' ";
 				$SQL .= "LIMIT 1;";
-				$SQL .= "INSERT INTO ".STATPOINTS." (`id_owner`, `id_ally`, `stat_type`, `tech_rank`, `tech_old_rank`, `tech_points`, `tech_count`, `build_rank`, `build_old_rank`, `build_points`, `build_count`, `defs_rank`, `defs_old_rank`, `defs_points`, `defs_count`, `fleet_rank`, `fleet_old_rank`, `fleet_points`, `fleet_count`, `total_rank`, `total_old_rank`, `total_points`, `total_count`) VALUES (".$NewUser['id'].", 0, 1, '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0, '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0, '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0, 1, 0, 0, 0, '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0);";				
+				$SQL .= "INSERT INTO ".STATPOINTS." (`id_owner`, `id_ally`, `stat_type`, `tech_rank`, `tech_old_rank`, `tech_points`, `tech_count`, `build_rank`, `build_old_rank`, `build_points`, `build_count`, `defs_rank`, `defs_old_rank`, `defs_points`, `defs_count`, `fleet_rank`, `fleet_old_rank`, `fleet_points`, `fleet_count`, `total_rank`, `total_old_rank`, `total_points`, `total_count`) VALUES (".$NewUser.", 0, 1, '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0, '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0, '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0, 1, 0, 0, 0, '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0);";				
 				$db->multi_query ( $SQL );
 				
 				$from 		= $LNG ['welcome_message_from'];
 				$Subject 	= $LNG ['welcome_message_subject'];
 				$message 	= sprintf($LNG['welcome_message_content'], $CONF['game_name']);
-				SendSimpleMessage ( $NewUser ['id'], 1, $Time, 1, $from, $Subject, $message );
+				SendSimpleMessage($NewUser, 1, $Time, 1, $from, $Subject, $message );
 								
-				update_config(array('users_amount' => $CONF['users_amount'] + 1));
+				update_config(array('LastSettedGalaxyPos' => $LastSettedGalaxyPos, 'LastSettedSystemPos' => $LastSettedSystemPos, 'LastSettedPlanetPos' => $LastSettedPlanetPos, 'users_amount' => $CONF['users_amount'] + 1));
+				session_start();
 				$SESSION       	= new Session();
-				$SESSION->CreateSession($NewUser['id'], $UserName, $PlanetID['id'], $UNI);
+				$SESSION->CreateSession($NewUser, $UserName, $PlanetID, $UNI);
 				redirectTo("game.".PHP_EXT."?page=overview");
 			}
 		} else {
@@ -270,9 +246,6 @@ switch ($page) {
 		}
 		switch ($mode) {
 			case 'send' :
-			
-				$errors 	= '';
-				
 				$UserPass 	= request_var('password', '');
 				$UserPass2 	= request_var('password2', '');
 				$UserName 	= request_var('character', '', UTF8_SUPPORT);
@@ -292,6 +265,7 @@ switch ($page) {
 				
 				$Exist['userv'] = $db->uniquequery("SELECT username, email FROM ".USERS." WHERE `universe` = '".$Universe."' AND (username = '".$db->sql_escape($UserName)."' OR email = '".$db->sql_escape($UserEmail)."');");
 				$Exist['valid'] = $db->uniquequery("SELECT username, email FROM ".USERS_VALID." WHERE `universe` = '".$Universe."' AND (username = '".$db->sql_escape($UserName)."' OR email = '".$db->sql_escape($UserEmail)."');");
+				$errors 	= '';
 								
 				if (!ValidateAddress($UserEmail)) 
 					$errors .= $LNG['invalid_mail_adress'];
@@ -333,35 +307,8 @@ switch ($page) {
 				
 				$md5newpass = md5($UserPass);
 					
-				$characters = array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" );
-				$size = 15;
-				for($i = 0; $i < $size; $i ++) {
-					$clef .= ($i % 2) ? strtoupper ( $characters [array_rand ( $characters )] ) : $characters [array_rand ( $characters )];
-				}
+				$clef	= uniqid('2m');
 
-				if($CONF['user_valid'] == 0 || $CONF['smtp_host'] == '' || $CONF['smtp_port'] == 0 || $CONF['smtp_user'] == '' || $CONF['smtp_pass'] == '')
-				{
-					$SQL = "INSERT INTO ".USERS_VALID." SET ";
-					$SQL .= "`username` = '".$db->sql_escape($UserName)."', ";
-					$SQL .= "`email` = '".$db->sql_escape($UserEmail)."', ";
-					$SQL .= "`lang` = '".$db->sql_escape($UserLang)."', ";
-					$SQL .= "`planet` = '".$db->sql_escape($UserPlanet)."', ";
-					$SQL .= "`date` = '".TIMESTAMP."', ";
-					$SQL .= "`cle` = '".$clef."', ";
-					$SQL .= "`universe` = '".$Universe."', ";
-					$SQL .= "`password` = '".$md5newpass."', ";
-					$SQL .= "`ip` = '".$_SERVER['REMOTE_ADDR']."'; ";
-					$db->query($SQL);
-					
-					redirectTo("index.".PHP_EXT."?page=reg&mode=valid&lang=".$UserLang."&clef=".$clef);
-				}					
-
-				$MailSubject 	= $LNG['reg_mail_message_pass'];
-				$MailRAW		= file_get_contents("./language/".$UserLang."/email/email_vaild_reg.txt");
-				$MailContent	= sprintf($MailRAW, $UserName, $CONF['game_name'], "http://".$_SERVER['SERVER_NAME'].$_SERVER["PHP_SELF"], $clef, $UserPass, ADMINEMAIL, $UserLang);
-		
-				MailSend($UserEmail, $UserName, $MailSubject, $MailContent);
-				
 				$SQL = "INSERT INTO ".USERS_VALID." SET ";
 				$SQL .= "`username` = '".$db->sql_escape($UserName)."', ";
 				$SQL .= "`email` = '".$db->sql_escape($UserEmail)."', ";
@@ -373,15 +320,23 @@ switch ($page) {
 				$SQL .= "`password` = '".$md5newpass."', ";
 				$SQL .= "`ip` = '".$_SERVER['REMOTE_ADDR']."'; ";
 				$db->query($SQL);
+				
+				if($CONF['user_valid'] == 0 || $CONF['smtp_host'] == '' || $CONF['smtp_port'] == 0 || $CONF['smtp_user'] == '' || $CONF['smtp_pass'] == '') {
+					redirectTo("index.".PHP_EXT."?page=reg&mode=valid&lang=".$UserLang."&clef=".$clef);
+				} else {
+					$MailSubject 	= $LNG['reg_mail_message_pass'];
+					$MailRAW		= file_get_contents("./language/".$UserLang."/email/email_vaild_reg.txt");
+					$MailContent	= sprintf($MailRAW, $UserName, $CONF['game_name'], "http://".$_SERVER['SERVER_NAME'].$_SERVER["PHP_SELF"], $clef, $UserPass, ADMINEMAIL, $UserLang);
 			
-				$template->message($LNG['reg_completed'], '?lang='.$LANG, 10, true);
+					MailSend($UserEmail, $UserName, $MailSubject, $MailContent);
+					$template->message($LNG['reg_completed'], '?lang='.$LANG, 10, true);
+				}								
 			break;
 			case 'valid' :		
 				$pseudo 	 = request_var('id', '');
 				$clef 		 = request_var('clef', '');
 				$admin 	 	 = request_var('admin', 0);
 				$Valider	 = $db->uniquequery("SELECT `username`, `password`, `email`, `ip`, `planet`, `lang`, `universe` FROM ".USERS_VALID." WHERE `cle` = '".$db->sql_escape($clef)."';");
-				
 				if($Valider == "") 
 					die(header("Location: ./"));
 				
@@ -406,9 +361,8 @@ switch ($page) {
 				$SQL .= "`password` = '".$UserPass."', ";
 				$SQL .= "`dpath` = '".DEFAULT_SKINPATH."', ";
 				$SQL .= "`uctime`= '0';";
-				$SQL .= "DELETE FROM ".USERS_VALID." WHERE `username` = '".$UserName."';";
-				$db->multi_query($SQL);
-
+				$db->query($SQL);
+				$NewUser = $db->GetInsertID();
 				if($CONF['smtp_host'] != '' && $CONF['smtp_port'] != 0 && $CONF['smtp_user'] != '' && $CONF['smtp_pass'] != '')
 				{				
 					$MailSubject	= sprintf($LNG['reg_mail_reg_done'], $CONF['game_name']);	
@@ -417,77 +371,53 @@ switch ($page) {
 					MailSend($UserMail, $UserName, $MailSubject, $MailContent);
 				}
 				
-				$NewUser = $db->uniquequery("SELECT `id` FROM ".USERS." WHERE `universe` = '".$UserUni."' AND `username` = '".$UserName."';");
 				
 				$LastSettedGalaxyPos = $CONF['LastSettedGalaxyPos'];
 				$LastSettedSystemPos = $CONF['LastSettedSystemPos'];
 				$LastSettedPlanetPos = $CONF['LastSettedPlanetPos'];
-				
-				while (!isset($newpos_checked)) {
-					for($Galaxy = $LastSettedGalaxyPos; $Galaxy <= MAX_GALAXY_IN_WORLD; $Galaxy ++) {
-						for($System = $LastSettedSystemPos; $System <= MAX_SYSTEM_IN_GALAXY; $System ++) {
-							for($Posit = $LastSettedPlanetPos; $Posit <= 4; $Posit ++) {
-								$Planet = round ( rand ( 4, 12 ) );
-								
-								switch ($LastSettedPlanetPos) {
-									case 1 :
-										$LastSettedPlanetPos += 1;
-										break;
-									case 2 :
-										$LastSettedPlanetPos += 1;
-										break;
-									case 3 :
-										if ($LastSettedSystemPos == MAX_SYSTEM_IN_GALAXY) {
-											$LastSettedGalaxyPos += 1;
-											$LastSettedSystemPos = 1;
-											$LastSettedPlanetPos = 1;
-											break;
-										} else {
-											$LastSettedPlanetPos = 1;
-										}
-										
-										$LastSettedSystemPos += 1;
-										break;
-								}
-								break;
-							}
-							break;
+				require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.'.PHP_EXT);			
+				while (true) {
+					$Planet = mt_rand(4, 12);
+					if ($LastSettedPlanetPos < 3) {
+						$LastSettedPlanetPos += 1;
+					} else {
+						if ($LastSettedSystemPos == MAX_SYSTEM_IN_GALAXY) {
+							$LastSettedGalaxyPos += 1;
+							$LastSettedSystemPos = 1;
+							$LastSettedPlanetPos = 1;
+						} else {
+							$LastSettedSystemPos += 1;
+							$LastSettedPlanetPos = 1;
 						}
+					}
+					if (($PlanetID = CreateOnePlanetRecord($LastSettedGalaxyPos, $LastSettedSystemPos, $Planet, $UserUni, $NewUser, $UserPlanet, true)) !== false)
 						break;
-					}
-					
-					if (!CheckPlanetIfExist($Galaxy, $System, $Planet, $UserUni))
-					{					
-						require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.'.PHP_EXT);
-						CreateOnePlanetRecord ($Galaxy, $System, $Planet, $UserUni, $NewUser['id'], $UserPlanet, true);
-						update_config(array('LastSettedGalaxyPos' => $LastSettedGalaxyPos, 'LastSettedSystemPos' => $LastSettedSystemPos, 'LastSettedPlanetPos' => $LastSettedPlanetPos));
-						$newpos_checked = true;
-					}
 				}
-				$PlanetID 	= $db->uniquequery("SELECT `id` FROM ".PLANETS." WHERE `id_owner` = '".$NewUser['id']."';");
-				
-				$SQL = "UPDATE ".USERS." SET ";
-				$SQL .= "`id_planet` = '" . $PlanetID ['id']."', ";
+			
+				$SQL = "DELETE FROM ".USERS_VALID." WHERE `cle` = '".$db->sql_escape($clef)."';";
+				$SQL .= "UPDATE ".USERS." SET ";
+				$SQL .= "`id_planet` = '".$PlanetID."', ";
 				$SQL .= "`galaxy` = '".$Galaxy."', ";
 				$SQL .= "`system` = '".$System."', ";
 				$SQL .= "`planet` = '".$Planet."' ";
 				$SQL .= "WHERE ";
-				$SQL .= "`id` = '".$NewUser['id']."' ";
+				$SQL .= "`id` = '".$NewUser."' ";
 				$SQL .= "LIMIT 1;";
-				$SQL .= "INSERT INTO ".STATPOINTS." (`id_owner`, `id_ally`, `stat_type`, `tech_rank`, `tech_old_rank`, `tech_points`, `tech_count`, `build_rank`, `build_old_rank`, `build_points`, `build_count`, `defs_rank`, `defs_old_rank`, `defs_points`, `defs_count`, `fleet_rank`, `fleet_old_rank`, `fleet_points`, `fleet_count`, `total_rank`, `total_old_rank`, `total_points`, `total_count`) VALUES (".$NewUser['id'].", 0, 1, '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0, '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0, '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0, 1, 0, 0, 0, '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0);";
+				$SQL .= "INSERT INTO ".STATPOINTS." (`id_owner`, `id_ally`, `stat_type`, `universe`, `tech_rank`, `tech_old_rank`, `tech_points`, `tech_count`, `build_rank`, `build_old_rank`, `build_points`, `build_count`, `defs_rank`, `defs_old_rank`, `defs_points`, `defs_count`, `fleet_rank`, `fleet_old_rank`, `fleet_points`, `fleet_count`, `total_rank`, `total_old_rank`, `total_points`, `total_count`) VALUES (".$NewUser.", 0, 1, ".$UserUni.", '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0, '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0, '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0, 1, 0, 0, 0, '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0);";
 				$db->multi_query($SQL);
 				
 				$from 		= $LNG['welcome_message_from'];
 				$Subject 	= $LNG['welcome_message_subject'];
 				$message 	= sprintf($LNG['welcome_message_content'], $CONF['game_name']);
-				SendSimpleMessage($NewUser['id'], 1, $Time, 1, $from, $Subject, $message);
+				SendSimpleMessage($NewUser, 1, $Time, 1, $from, $Subject, $message);
 				
-				update_config(array('users_amount' => $CONF['users_amount'] + 1));
+				update_config(array('users_amount' => $CONF['users_amount'] + 1, 'LastSettedGalaxyPos' => $LastSettedGalaxyPos, 'LastSettedSystemPos' => $LastSettedSystemPos, 'LastSettedPlanetPos' => $LastSettedPlanetPos));
 				if ($admin == 1) {
 					echo sprintf($LNG['user_active'], $UserName);
 				} else {
+					session_start();
 					$SESSION       	= new Session();
-					$SESSION->CreateSession($NewUser['id'], $UserName, $PlanetID['id'], $UserUni);
+					$SESSION->CreateSession($NewUser, $UserName, $PlanetID, $UserUni);
 
 					redirectTo("game.".PHP_EXT."?page=overview");
 				}
@@ -669,6 +599,7 @@ switch ($page) {
 				if ($login['banaday'] <= TIMESTAMP) {
 					$db->query("UPDATE " . USERS . " SET `banaday` = '0', `bana` = '0' WHERE `id` = '".$login['id']."';");
 				}
+				session_start();
 				$SESSION       	= new Session();
 				$SESSION->CreateSession($login['id'], $login['username'], $login['id_planet'], $luniv, $login['authlevel'], $login['dpath']);
 
