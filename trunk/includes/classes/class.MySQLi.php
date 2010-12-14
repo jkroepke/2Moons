@@ -183,6 +183,18 @@ class DB_mysqli extends mysqli
 	}
 
 	/**
+	 * Returns the total row numbers of a query.
+	 *
+	 * @param resource	The SQL query id
+	 *
+	 * @return integer	The total row number
+	 */
+	public function GetInsertID()
+	{
+		return $this->insert_id;
+	}
+
+	/**
 	 * Escapes a string for a safe SQL query.
 	 *
 	 * @param string The string that is to be escaped.

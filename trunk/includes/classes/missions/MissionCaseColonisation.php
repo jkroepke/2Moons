@@ -48,7 +48,7 @@ class MissionCaseColonisation extends MissionFunctions
 		{
 			require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.'.PHP_EXT);
 			$NewOwnerPlanet = CreateOnePlanetRecord($this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet'], $this->_fleet['fleet_universe'], $this->_fleet['fleet_owner'], $LNG['fcp_colony'], false, $PlayerTech['authlevel']);
-			if($NewOwnerPlanet !== true)
+			if($NewOwnerPlanet === false)
 			{
 				$TheMessage = sprintf($LNG['sys_colo_badpos'], GetTargetAdressLink($this->_fleet, ''));
 				$this->UpdateFleet('fleet_mess', 1);
@@ -57,10 +57,9 @@ class MissionCaseColonisation extends MissionFunctions
 			{
 				$TheMessage = sprintf($LNG['sys_colo_allisok'], GetTargetAdressLink($this->_fleet, ''));
 				$this->StoreGoodsToPlanet();
-				if ($this->_fleet['fleet_amount'] == 1)
-					$db->query("DELETE FROM ".FLEETS." WHERE fleet_id=" . $this->_fleet["fleet_id"].";");
-				else
-				{
+				if ($this->_fleet['fleet_amount'] == 1) {
+					$this->KillFleet();
+				} else {
 					$CurrentFleet = explode(";", $this->_fleet['fleet_array']);
 					$NewFleet     = '';
 					foreach ($CurrentFleet as $Item => $Group)

@@ -74,17 +74,8 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 		$SQL .= "`deuterium_max` = '".BASE_STORAGE_SIZE."';";
 		$db->query($SQL);
 				
-		$SQL  = "SELECT id FROM ".PLANETS." ";
-		$SQL .= "WHERE ";
-		$SQL .= "`universe` = '".$Universe."' AND ";
-		$SQL .= "`galaxy` = '".$Galaxy."' AND ";
-		$SQL .= "`system` = '".$System."' AND ";
-		$SQL .= "`planet` = '".$Planet."' AND ";
-		$SQL .= "`planet_type` = '3';";
-		$Moonid = $db->uniquequery($SQL);
-				
 		$SQL  = "UPDATE ".PLANETS." SET ";
-		$SQL .= "`id_luna` = '".$Moonid['id']."' ";
+		$SQL .= "`id_luna` = '".$db->GetInsertID()."' ";
 		$SQL .= "WHERE ";
 		$SQL .= "`universe` = '".$Universe."' AND ";
 		$SQL .= "`galaxy` = '".$Galaxy."' AND ";

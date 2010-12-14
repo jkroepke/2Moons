@@ -104,14 +104,17 @@ class MissionFunctions
 	{
 		global $db, $CONF;
 		if($ID == 0)
-			$USR['lang']	= $CONF['lang'];
+			$LANGUAGE	= $CONF['lang'];
 		else
-			$USR			= $db->uniquequery("SELECT `lang` FROM ".USERS." WHERE `id` = '".$ID."';");
+			$LANGUAGE	= $db->countquery("SELECT `lang` FROM ".USERS." WHERE `id` = '".$ID."';");
 				
-		if(empty($USR['lang']))
+		if(empty($LANGUAGE))
 			throw new Exception('Found no lang Record on UserID: '.$ID);
-		
-		require(ROOT_PATH.'language/'.$USR['lang'].'/'.$File.'.'.PHP_EXT);
+		if(file_exists(ROOT_PATH.'language/'.$LANGUAGE.'/'.$File.'.'.PHP_EXT))
+			require(ROOT_PATH.'language/'.$LANGUAGE.'/'.$File.'.'.PHP_EXT);
+		else
+			require(ROOT_PATH.'language/'.$CONF['lang'].'/'.$File.'.'.PHP_EXT);
+			
 		return $LNG;
 	}
 	
