@@ -80,7 +80,9 @@ if (INSTALL != true)
 	} elseif(!isset($_SESSION['uni'])) {
 		if(UNIS_WILDCAST) {
 			$UNI	= explode('.', $_SERVER['HTTP_HOST']);
-			$UNI	= substr($UNI[0], 0, 3) == 'uni' ? substr($UNI[0], 3) : 1;
+			$UNI	= substr($UNI[0], 3);
+			if(!is_numeric($UNI))
+				$UNI	= 1;
 		} else {
 			$UNI	= 1;
 		}
