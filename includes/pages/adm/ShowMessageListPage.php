@@ -103,22 +103,24 @@ function ShowMessageListPage()
 	for($cPage = 1; $cPage <= $MaxPage; $cPage++) {
 		$Selector['pages'][$cPage]	= $cPage.'/'.$MaxPage;
 	}
-
+	
 	$StartRec            = (($ViewPage - 1) * 25);
-	if ($Selected < 100)
-		$Messages            = $db->query("SELECT u.username, m.* FROM ".MESSAGES." as m, ".USERS." as u WHERE m.`message_type` = '". $Selected ."' AND m.`message_owner` = u.`id` AND `message_universe` = '".$_SESSION['adminuni']."' ORDER BY `message_time` DESC LIMIT ". $StartRec .",25;");
+	if ($Selected == 50)
+		$Messages            = $db->query("SELECT * FROM ".MESSAGES." WHERE `message_type` = '". $Selected ."' AND `message_universe` = '".$_SESSION['adminuni']."' ORDER BY `message_time` DESC LIMIT ". $StartRec .",25;");
 	elseif ($Selected == 100)
 		$Messages            = $db->query("SELECT u.username, m.* FROM ".MESSAGES." as m, ".USERS." as u WHERE m.`message_owner` = u.`id` AND m.`message_universe` = '".$_SESSION['adminuni']."' ORDER BY `message_time` DESC LIMIT ". $StartRec .",25;");
-
+	else
+		$Messages            = $db->query("SELECT u.username, m.* FROM ".MESSAGES." as m, ".USERS." as u WHERE m.`message_type` = '". $Selected ."' AND m.`message_owner` = u.`id` AND `message_universe` = '".$_SESSION['adminuni']."' ORDER BY `message_time` DESC LIMIT ". $StartRec .",25;");
+	
 	while($row = $db->fetch_array($Messages))
 	{
 		$MessagesList[]	= array(
 			'id'		=> $row['message_id'],
 			'from'		=> $row['message_from'],
-			'to'		=> $row['username'].' '.$LNG['input_id'].':'.$row['message_owner'],
+			'to'		=> ($Selected != 50) ? $row['username'].' '.$LNG['input_id'].':'.$row['message_owner'] : 'Universe',
 			'subject'	=> $row['message_subject'],
 			'text'		=> $row['message_text'],
-			'time'		=> str_replace(' ', '&nbsp;', date("d/M/y H:i:s", $row['message_time'])),
+			'time'		=> str_replace(' ', '&nbsp;', date("d. M y H:i:s", $row['message_time'])),
 		);
 	}	
 
