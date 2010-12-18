@@ -19,7 +19,7 @@
 # *                                                                          #
 ##############################################################################
 
-if(!defined('INSIDE')) die('Hacking attempt!');
+
 
 require_once(ROOT_PATH . 'includes/classes/class.FleetFunctions.' . PHP_EXT);
 
@@ -410,12 +410,12 @@ class ShowFleetPages extends FleetFunctions
 		$planettype 			= request_var('planettype', 0);
 		$fleet_group		 	= request_var('fleet_group', 0);
 		$GenFleetSpeed		 	= request_var('speed', 0);
-		$TransportMetal			= abs(round(request_var('metal', 0.0), 0));
-		$TransportCrystal		= abs(round(request_var('crystal', 0.0), 0));
-		$TransportDeuterium		= abs(round(request_var('deuterium', 0.0), 0));
+		$TransportMetal			= request_outofint('metal');
+		$TransportCrystal		= request_outofint('crystal');
+		$TransportDeuterium		= request_outofint('deuterium');
 		$holdingtime 			= request_var('holdingtime', 0);
 		$rawfleetarray			= request_var('usedfleet', '', true);
-				
+
 		if (IsVacationMode($USER))
 			exit($template->message($LNG['fl_vacation_mode_active'], 'game.php?page=overview', 2));
 

@@ -147,10 +147,14 @@ if (INSTALL != true)
 		
 		if($USER['bana'] == 1)
 		{
-			trigger_error("<font size=\"6px\">".$LNG['css_account_banned_message']."</font><br><br>".sprintf($LNG['css_account_banned_expire'],date("d. M y H:i", $USER['banaday']))."<br><br>".$LNG['css_goto_homeside'], E_USER_NOTICE);
+			message("<font size=\"6px\">".$LNG['css_account_banned_message']."</font><br><br>".sprintf($LNG['css_account_banned_expire'],date("d. M y H:i", $USER['banaday']))."<br><br>".$LNG['css_goto_homeside']);
 			exit;
 		}
-			
+		
+		if($_SESSION['authlevel'] != $USER['authlevel']) {
+			$db->query("UPDATE ".USERS." SET `authlevel` ? '".$_SESSION['authlevel']."' WHERE `id` = ".$USER['id'].";");
+			redirectTo('index.php');		
+		}
 		if (!defined('IN_ADMIN'))
 		{
 			require_once(ROOT_PATH . 'includes/classes/class.PlanetRessUpdate.'.PHP_EXT);
@@ -163,13 +167,13 @@ if (INSTALL != true)
 					throw new Exception("Main Planet does not exist!");
 				}
 			}
-				
-			require_once(ROOT_PATH.'includes/functions/CheckPlanetUsedFields.' . PHP_EXT);
-			CheckPlanetUsedFields($PLANET);
 		} else {
 			$USER['rights']	= unserialize($USER['rights']);
 			includeLang('ADMIN');
 		}
+		
+		$_SESSION['USER']	= $USER;
+		$_SESSION['PLANET']	= $PLANET;
 	} else {
 		//Login
 		if(isset($_REQUEST['lang']) && ctype_alnum($_REQUEST['lang']) && !isset($_REQUEST['lang']{3}))

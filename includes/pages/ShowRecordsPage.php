@@ -19,16 +19,11 @@
 # *                                                                          #
 ##############################################################################
 
-if(!defined('INSIDE')) die('Hacking attempt!');
+require(ROOT_PATH.'includes/classes/class.Records.php');	
 
 function ShowRecordsPage()
 {
 	global $USER, $PLANET, $LNG, $resource, $db, $CONF, $UNI;
-
-	if(file_exists(ROOT_PATH."cache/CacheRecords_Uni".$UNI.".php"))
-		require_once(ROOT_PATH."cache/CacheRecords_Uni".$UNI.".php");
-	else
-		$RecordsArray	= array();
 		
 	$PlanetRess = new ResourceUpdate();
 	$PlanetRess->CalcResource();
@@ -40,6 +35,9 @@ function ShowRecordsPage()
 	$template->page_leftmenu();
 	$template->page_planetmenu();
 	$template->page_footer();
+	
+	$Records		= new records();
+	$RecordsArray	= $Records->GetRecords($UNI);
 	
 	foreach($RecordsArray as $ElementID => $ElementIDArray) {
 		if ($ElementID >=   1 && $ElementID <=  39 || $ElementID == 44) {
