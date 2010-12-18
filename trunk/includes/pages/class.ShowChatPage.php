@@ -19,7 +19,7 @@
 # *                                                                          #
 ##############################################################################
 
-if(!defined('INSIDE')) die('Hacking attempt!');
+
 
 class ShowChatPage
 {
