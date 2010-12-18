@@ -52,7 +52,7 @@ class ShowOptionsPage
 	
 	public function __construct()
 	{
-		global $USER, $PLANET, $CONF, $LNG, $LANG, $db;
+		global $USER, $PLANET, $CONF, $LNG, $LANG, $UNI, $SESSION, $db;
 
 		$mode 			= request_var('mode', '');
 		$exit 			= request_var('exit_modus', '');
@@ -199,6 +199,7 @@ class ShowOptionsPage
 				{
 					$newpass 	 = md5($newpass1);
 					$SQLQuery	.= "UPDATE ".USERS." SET `password` = '".$newpass."' WHERE `id` = '".$USER['id']."';";
+					$SESSION->DestroySession();
 					session_destroy();
 					$template->message($LNG['op_password_changed'],"index.php", 3);
 				}
@@ -216,8 +217,12 @@ class ShowOptionsPage
 							$template->message(sprintf($LNG['op_change_name_exist'], $USERname), '?page=options', 3);
 						else 
 						{
+							require(ROOT_PATH.'includes/classes/class.Records.php');
+							$Records		= new records();
+							$RecordsArray	= $Records->RenameRecordOwner($USER['username'], $USERname, $UNI);
+
 							$SQLQuery	.= "UPDATE ".USERS." SET `username` = '".$db->sql_escape($USERname)."', `uctime` = '".TIMESTAMP."' WHERE `id`= '".$USER['id']."';";
-							session_destroy();
+							$SESSION->DestroySession();
 							$template->message($LNG['op_username_changed'], 'index.php', 3);
 						}
 					}

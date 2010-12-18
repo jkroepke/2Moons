@@ -19,9 +19,10 @@
 # *                                                                          #
 ##############################################################################
 
-class statbuilder
-{
+require(ROOT_PATH.'includes/classes/class.Records.php');
 
+class statbuilder extends records
+{
 	function __construct()
 	{
 		$this->starttime   	= microtime(true);
@@ -40,22 +41,6 @@ class statbuilder
 			'end_memory'		=> array(round(memory_get_usage() / 1024,1), round(memory_get_usage(1) / 1024,1)),
 			'sql_count'			=> $db->get_sql(),
 		);
-	}
-	
-	private function SetMaxInfo($ID, $Count, $Data)
-	{
-		global $CONF;
-		if(($CONF['stat'] == 1 && $Data['authlevel'] >= $CONF['stat_level']) || !empty($Data['bana']))
-			return;
-		
-		if(!isset($this->maxinfos[$Data['universe']]))
-			$this->maxinfos[$Data['universe']] = array();
-			
-		if(!isset($this->maxinfos[$Data['universe']][$ID]))
-			$this->maxinfos[$Data['universe']][$ID] = array('maxlvl' => 0, 'username' => '');
-
-		if($this->maxinfos[$Data['universe']][$ID]['maxlvl'] < $Count)
-			$this->maxinfos[$Data['universe']][$ID] = array('maxlvl' => $Count, 'username' => $Data['username']);
 	}
 	
 	private function AnotherCronJobs()
@@ -103,42 +88,29 @@ class statbuilder
 		{
 			while($RID = $db->fetch_array($DelRW))
 			{
-				@unlink(ROOT_PATH.'raports/raport_'.$RID['rid'].'.php');
+				unlink(ROOT_PATH.'raports/raport_'.$RID['rid'].'.php');
 			}	
 			$db->query("DELETE FROM ".RW." WHERE `time` < '". $del_before ."';");
 		}
 		$db->free_result($DelRW);
 		
-		$TopKBLow		= $db->uniquequery("SELECT gesamtunits FROM ".TOPKB." ORDER BY gesamtunits DESC LIMIT 99,1");
-	
-		$TKBRW			= $db->query("SELECT `rid` FROM ".TOPKB." WHERE `gesamtunits` < '".((isset($TopKBLow)) ? $TopKBLow['gesamtunits'] : 0)."';");
-		
-		if(isset($TKBRW))
+		$TopKBLow		= $db->uniquequery("SELECT gesamtunits FROM ".TOPKB." ORDER BY gesamtunits DESC LIMIT 99,1;");
+		if(isset($TopKBLow))
 		{
-			while($RID = $db->fetch_array($TKBRW))
+			$TKBRW			= $db->query("SELECT `rid` FROM ".TOPKB." WHERE `gesamtunits` < '".((isset($TopKBLow)) ? $TopKBLow['gesamtunits'] : 0)."';");	
+			if(isset($TKBRW))
 			{
-				@unlink(ROOT_PATH.'raports/topkb_'.$RID['rid'].'.php');
-			}	
-			$db->query("DELETE FROM ".TOPKB." WHERE `gesamtunits` < '".((isset($TopKBLow)) ? $TopKBLow['gesamtunits'] : 0)."';");
+				while($RID = $db->fetch_array($TKBRW))
+				{
+					unlink(ROOT_PATH.'raports/topkb_'.$RID['rid'].'.php');
+				}	
+				$db->query("DELETE FROM ".TOPKB." WHERE `gesamtunits` < '".((isset($TopKBLow)) ? $TopKBLow['gesamtunits'] : 0)."';");
+			}
+			
+			$db->free_result($TKBRW);
 		}
-		
-		$db->free_result($TKBRW);
 		
 		$db->query("UNLOCK TABLES;");
-	}
-
-	private function RebuildRecordCache() 
-	{
-		global $reslist;
-		$Elements	= array_merge($reslist['build'], $reslist['tech'], $reslist['fleet'], $reslist['defense']);
-		foreach($this->maxinfos as $Uni	=> $Records) {
-			$array		= "";
-			foreach($Elements as $ElementID) {
-				$array	.= $ElementID." => array('username' => '".$Records[$ElementID]['username']."', 'maxlvl' => '".$Records[$ElementID]['maxlvl']."'),\n";
-			}
-			$file	= "<?php \n//The File is created on ".date("d. M y H:i:s", TIMESTAMP)."\n$"."RecordsArray = array(\n".$array."\n);\n?>";
-			file_put_contents(ROOT_PATH."cache/CacheRecords_Uni".$Uni.".php", $file);
-		}
 	}
 	
 	private function GetUsersInfosFromDB()
@@ -198,7 +170,7 @@ class statbuilder
 		{
 			if($CurrentUser[$resource[$Techno]] == 0) continue;
 
-			$this->SetMaxInfo($Techno, $CurrentUser[$resource[$Techno]], $CurrentUser);
+			$this->SetIfRecord($Techno, $CurrentUser[$resource[$Techno]], $CurrentUser);
 			
 			$Units	= $pricelist[$Techno]['metal'] + $pricelist[$Techno]['crystal'] + $pricelist[$Techno]['deuterium'];
 			for($Level = 1; $Level <= $CurrentUser[$resource[$Techno]]; $Level++)
@@ -221,7 +193,7 @@ class statbuilder
 		{
 			if($CurrentPlanet[$resource[$Build]] == 0) continue;
 
-			$this->SetMaxInfo($Build, $CurrentPlanet[$resource[$Build]], $CurrentPlanet);
+			$this->SetIfRecord($Build, $CurrentPlanet[$resource[$Build]], $CurrentPlanet);
 			
 			$Units			 = $pricelist[$Build]['metal'] + $pricelist[$Build]['crystal'] + $pricelist[$Build]['deuterium'];
 			for($Level = 1; $Level <= $CurrentPlanet[$resource[$Build]]; $Level++)
@@ -240,7 +212,7 @@ class statbuilder
 		$DefensePoints = 0;
 				
 		foreach($reslist['defense'] as $Defense) {
-			$this->SetMaxInfo($Defense, $CurrentPlanet[$resource[$Defense]], $CurrentPlanet);
+			$this->SetIfRecord($Defense, $CurrentPlanet[$resource[$Defense]], $CurrentPlanet);
 			
 			$Units			= $pricelist[$Defense]['metal'] + $pricelist[$Defense]['crystal'] + $pricelist[$Defense]['deuterium'];
 			$DefensePoints += $Units * $CurrentPlanet[$resource[$Defense]];
@@ -258,7 +230,7 @@ class statbuilder
 	
 		foreach($reslist['fleet'] as $Fleet) {
 		
-			$this->SetMaxInfo($Fleet, $CurrentPlanet[$resource[$Fleet]], $CurrentPlanet);
+			$this->SetIfRecord($Fleet, $CurrentPlanet[$resource[$Fleet]], $CurrentPlanet);
 			
 			$Units			= $pricelist[$Fleet]['metal'] + $pricelist[$Fleet]['crystal'] + $pricelist[$Fleet]['deuterium'];
 			$FleetPoints   += $Units * $CurrentPlanet[$resource[$Fleet]];
@@ -532,7 +504,7 @@ class statbuilder
 
 		$this->SaveDataIntoDB($RankSQL);
 		$this->CheckUniverseAccounts($UniData);
-		$this->RebuildRecordCache();
+		$this->BuildRecordCache();
 		$this->AnotherCronJobs();		
 		return $this->SomeStatsInfos();
 	}
