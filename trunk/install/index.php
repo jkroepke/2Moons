@@ -272,7 +272,7 @@ switch ($Mode) {
 			$SQL .= "`email_2`           = '". $adm_email ."', ";
 			$SQL .= "`ip_at_reg`         = '". $_SERVER['REMOTE_ADDR'] . "', ";
 			$SQL .= "`authlevel`         = '3', ";
-			$SQL .= "`rights` 			 = 'a:25:{s:19:\"ShowAccountDataPage\";i:1;s:21:\"ShowAccountEditorPage\";i:1;s:14:\"ShowActivePage\";i:1;s:11:\"ShowBanPage\";i:1;s:18:\"ShowClearCachePage\";i:1;s:14:\"ShowConfigPage\";i:1;s:15:\"ShowCreatorPage\";i:1;s:16:\"ShowFacebookPage\";i:1;s:19:\"ShowFlyingFleetPage\";i:1;s:19:\"ShowInformationPage\";i:1;s:19:\"ShowMessageListPage\";i:1;s:18:\"ShowModVersionPage\";i:1;s:14:\"ShowModulePage\";i:1;s:12:\"ShowNewsPage\";i:1;s:21:\"ShowPassEncripterPage\";i:1;s:19:\"ShowQuickEditorPage\";i:1;s:13:\"ShowResetPage\";i:1;s:14:\"ShowRightsPage\";i:1;s:14:\"ShowSearchPage\";i:1;s:20:\"ShowSendMessagesPage\";i:1;s:18:\"ShowStatUpdatePage\";i:1;s:13:\"ShowStatsPage\";i:1;s:15:\"ShowSupportPage\";i:1;s:17:\"ShowTeamspeakPage\";i:1;s:14:\"ShowUpdatePage\";i:1;}', ";
+			$SQL .= "`rights` 			 = 'a:27:{s:19:\"ShowAccountDataPage\";i:1;s:21:\"ShowAccountEditorPage\";i:1;s:14:\"ShowActivePage\";i:1;s:11:\"ShowBanPage\";i:1;s:18:\"ShowClearCachePage\";i:1;s:14:\"ShowConfigPage\";i:1;s:15:\"ShowCreatorPage\";i:1;s:16:\"ShowFacebookPage\";i:1;s:19:\"ShowFlyingFleetPage\";i:1;s:19:\"ShowInformationPage\";i:1;s:13:\"ShowLoginPage\";i:1;s:19:\"ShowMessageListPage\";i:1;s:18:\"ShowModVersionPage\";i:1;s:14:\"ShowModulePage\";i:1;s:12:\"ShowNewsPage\";i:1;s:21:\"ShowPassEncripterPage\";i:1;s:19:\"ShowQuickEditorPage\";i:1;s:13:\"ShowResetPage\";i:1;s:14:\"ShowRightsPage\";i:1;s:14:\"ShowSearchPage\";i:1;s:20:\"ShowSendMessagesPage\";i:1;s:18:\"ShowStatUpdatePage\";i:1;s:13:\"ShowStatsPage\";i:1;s:15:\"ShowSupportPage\";i:1;s:17:\"ShowTeamspeakPage\";i:1;s:16:\"ShowUniversePage\";i:1;s:14:\"ShowUpdatePage\";i:1;}', ";
 			$SQL .= "`id_planet`         = '1', ";
 			$SQL .= "`universe`          = '1', ";
 			$SQL .= "`galaxy`            = '1', ";
@@ -306,10 +306,11 @@ switch ($Mode) {
 			$SQL .= "`deuterium_max`     = '1000000';";
 			$SQL .= "INSERT INTO ".STATPOINTS." (`id_owner`, `id_ally`, `stat_type`, `tech_rank`, `tech_old_rank`, `tech_points`, `tech_count`, `build_rank`, `build_old_rank`, `build_points`, `build_count`, `defs_rank`, `defs_old_rank`, `defs_points`, `defs_count`, `fleet_rank`, `fleet_old_rank`, `fleet_points`, `fleet_count`, `total_rank`, `total_old_rank`, `total_points`, `total_count`) VALUES ('1', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');";
 			$db->multi_query($SQL);
-			
+
+			session_start();
 			$SESSION       	= new Session();
 			$SESSION->CreateSession(1, $adm_user, 1, 1, 3);
-
+			$_SESSION['admin_login']	= $adm_pass;
 			header("Location: ../admin.php");
 		}
 		break;
