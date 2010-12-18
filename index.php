@@ -159,12 +159,12 @@ switch ($page) {
 					if (($PlanetID = CreateOnePlanetRecord($LastSettedGalaxyPos, $LastSettedSystemPos, $Planet, $UNI, $NewUser, $UserPlanet, true)) !== false)
 						break;
 				}
-				var_dump($PlanetID, $LastSettedGalaxyPos, $LastSettedSystemPos, $Planet, $UNI, $NewUser, $UserPlanet);
+				
 				$SQL = "UPDATE " .USERS." SET ";
 				$SQL .= "`id_planet` = '".PlanetID."', ";
-				$SQL .= "`galaxy` = '" . $Galaxy . "', ";
-				$SQL .= "`system` = '" . $System . "', ";
-				$SQL .= "`planet` = '" . $Planet . "' ";
+				$SQL .= "`galaxy` = '".$LastSettedGalaxyPos."', ";
+				$SQL .= "`system` = '".$LastSettedSystemPos."', ";
+				$SQL .= "`planet` = '".$Planet."' ";
 				$SQL .= "WHERE ";
 				$SQL .= "`id` = '".$NewUser."' ";
 				$SQL .= "LIMIT 1;";
@@ -397,8 +397,8 @@ switch ($page) {
 				$SQL = "DELETE FROM ".USERS_VALID." WHERE `cle` = '".$db->sql_escape($clef)."';";
 				$SQL .= "UPDATE ".USERS." SET ";
 				$SQL .= "`id_planet` = '".$PlanetID."', ";
-				$SQL .= "`galaxy` = '".$Galaxy."', ";
-				$SQL .= "`system` = '".$System."', ";
+				$SQL .= "`galaxy` = '".$LastSettedGalaxyPos."', ";
+				$SQL .= "`system` = '".$LastSettedSystemPos."', ";
 				$SQL .= "`planet` = '".$Planet."' ";
 				$SQL .= "WHERE ";
 				$SQL .= "`id` = '".$NewUser."' ";
