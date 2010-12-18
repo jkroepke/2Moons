@@ -19,8 +19,6 @@
 # *                                                                          #
 ##############################################################################
 
-if(!defined('INSIDE')) die('Hacking attempt!');
-
 function ShowBannedPage()
 {
 	global $USER, $PLANET, $LNG, $db;
