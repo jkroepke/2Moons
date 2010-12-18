@@ -161,7 +161,7 @@ switch ($page) {
 				}
 				
 				$SQL = "UPDATE " .USERS." SET ";
-				$SQL .= "`id_planet` = '".PlanetID."', ";
+				$SQL .= "`id_planet` = '".$PlanetID."', ";
 				$SQL .= "`galaxy` = '".$LastSettedGalaxyPos."', ";
 				$SQL .= "`system` = '".$LastSettedSystemPos."', ";
 				$SQL .= "`planet` = '".$Planet."' ";
