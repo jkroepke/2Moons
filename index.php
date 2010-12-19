@@ -48,7 +48,9 @@ $mode = request_var('mode', '');
 switch ($page) {
 	case 'facebook':
 		if($CONF['fb_on'] == 0)
-			exit(header("Location: index.php"));
+			redirectTo("index.".PHP_EXT);
+
+		$CONF		= $db->uniquequery("SELECT `initial_fields`, `LastSettedGalaxyPos`, `LastSettedSystemPos`, `LastSettedPlanetPos`, `smtp_host`, `smtp_port`, `smtp_user`, `smtp_pass`, `game_name`, `users_amount` FROM ".CONFIG." WHERE `uni` = ".$UNI.";");
 			
 		include_once(ROOT_PATH . 'includes/libs/facebook/facebook.php');
 		$fb = new Facebook($CONF['fb_apikey'], $CONF['fb_skey']);
@@ -349,7 +351,7 @@ switch ($page) {
 				$UserPlanet	= $Valider['planet'];
 				$UserLang 	= $Valider['lang'];
 				$UserUni 	= $Valider['universe'];
-				$CONF		= $db->uniquequery("SELECT `LastSettedGalaxyPos`, `LastSettedSystemPos`, `LastSettedPlanetPos`, `smtp_host`, `smtp_port`, `smtp_user`, `smtp_pass`, `game_name`, `users_amount` FROM ".CONFIG." WHERE `uni` = ".$UserUni.";");
+				$CONF		= $db->uniquequery("SELECT `initial_fields`, `LastSettedGalaxyPos`, `LastSettedSystemPos`, `LastSettedPlanetPos`, `smtp_host`, `smtp_port`, `smtp_user`, `smtp_pass`, `game_name`, `users_amount`, `metal_basic_income`, `crystal_basic_income`, `deuterium_basic_income` FROM ".CONFIG." WHERE `uni` = ".$UserUni.";");
 				
 				$SQL = "INSERT INTO " . USERS . " SET ";
 				$SQL .= "`username` = '".$UserName . "', ";
