@@ -102,7 +102,7 @@ class ErrorLogging
 	 * @param Int $errLine Error line
 	 * @return none
 	 */
-	public function _customError($errNo, $errStr, $errFile, $errLine)
+	public function _customError($errNo, $errStr, $errFile, $errLine, $Fatal = false)
 	{
 		if (!error_reporting() || $errNo == E_DEPRECATED) return false;
 

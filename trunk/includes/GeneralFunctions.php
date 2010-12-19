@@ -414,6 +414,9 @@ function floattostring($Numeric, $Pro = 0, $Output = false){
 
 function CheckModule($ID)
 {
+	if(!isset($GLOBALS['CONF']['moduls'][$ID])) 
+		$GLOBALS['CONF']['moduls'][$ID] = 1;
+	
 	return ($GLOBALS['USER']['authlevel'] == 0 && $GLOBALS['CONF']['moduls'][$ID] == 0) ? true : false;
 }
 

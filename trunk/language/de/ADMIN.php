@@ -938,6 +938,7 @@ $LNG['modul'][20]						= 'Playercard';
 $LNG['modul'][21]						= 'Pranger';
 $LNG['modul'][22]						= 'Rekorde';
 $LNG['modul'][23]						= 'Rohstoffe';
+$LNG['modul'][38]						= 'Schrotthändler';
 $LNG['modul'][25]						= 'Statistiken';
 $LNG['modul'][37]						= 'Statistiken Banner';
 $LNG['modul'][26]						= 'Suche';
