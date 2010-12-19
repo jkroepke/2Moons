@@ -15,7 +15,7 @@
   <table style='width: 950px;'><tr><th><table id='home_login' class='box-complex box box-compact box6'><tr><td><table class='box6_box-header box-header'><tr><td class='box6_box-header-left box-header-left'>&nbsp;</td><td class='box6_box-header-center box-header-center'><div class='box6_box-title-wrapper box-title-wrapper'><div class='box6_box-title-container box-title-container'><table class='box6_box-title box-title'><tr><td class='box6_box-title-left box-title-left'>&nbsp;</td>
 <td class='box6_box-title-center box-title-center'>{$login}</td>
 <td class='box6_box-title-right box-title-right'>&nbsp;</td></tr></table></div></div></td><td class='box6_box-header-right box-header-right'>&nbsp;</td></tr></table></td></tr><tr><td><table class='box6_box-content box-content'><tr><td class='box6_box-content-left box-content-left'>&nbsp;</td><td class='box6_box-content-center box-content-center'><div class='box6_content'><div class='box6_box-title-pad box-title-pad'>&nbsp;</div>
-  <form name="login" action="" method="post" onsubmit="return changeAction('login');">
+  <form name="login" action="index.php" method="post">
 		<table class="layout" style="width: 320px; height: 65px;">
 		  <tbody>
 			<tr align="center">
