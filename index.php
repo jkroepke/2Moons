@@ -142,7 +142,9 @@ switch ($page) {
 				$LastSettedSystemPos = $CONF['LastSettedSystemPos'];
 				$LastSettedPlanetPos = $CONF['LastSettedPlanetPos'];
 				require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.'.PHP_EXT);
-				while (true) {
+				$PlanetID = false;
+				
+				while ($PlanetID === false) {
 					$Planet = mt_rand(4, 12);
 					if ($LastSettedPlanetPos < 3) {
 						$LastSettedPlanetPos += 1;
@@ -156,8 +158,8 @@ switch ($page) {
 							$LastSettedPlanetPos = 1;
 						}
 					}
-					if (($PlanetID = CreateOnePlanetRecord($LastSettedGalaxyPos, $LastSettedSystemPos, $Planet, $UNI, $NewUser, $UserPlanet, true)) !== false)
-						break;
+					
+					$PlanetID = CreateOnePlanetRecord($LastSettedGalaxyPos, $LastSettedSystemPos, $Planet, $UserUni, $NewUser, $UserPlanet, true);
 				}
 				
 				$SQL = "UPDATE " .USERS." SET ";
@@ -255,7 +257,7 @@ switch ($page) {
 				$agbrules 	= request_var('rgt', '');
 				$UserLang 	= request_var('lang', '');
 				$Universe 	= request_var('universe', 0);
-				
+	
 				if ($CONF['capaktiv'] === '1') {
 					require_once('includes/libs/reCAPTCHA/recaptchalib.php');
 					$resp = recaptcha_check_answer($CONF['capprivate'], $_SERVER['REMOTE_ADDR'], $_REQUEST['recaptcha_challenge_field'], $_REQUEST['recaptcha_response_field']);
@@ -333,21 +335,22 @@ switch ($page) {
 				}								
 			break;
 			case 'valid' :		
-				$pseudo 	 = request_var('id', '');
-				$clef 		 = request_var('clef', '');
-				$admin 	 	 = request_var('admin', 0);
-				$Valider	 = $db->uniquequery("SELECT `username`, `password`, `email`, `ip`, `planet`, `lang`, `universe` FROM ".USERS_VALID." WHERE `cle` = '".$db->sql_escape($clef)."';");
-				if($Valider == "") 
-					die(header("Location: ./"));
+				$pseudo 	= request_var('id', '');
+				$clef 		= request_var('clef', '');
+				$admin 	 	= request_var('admin', 0);
+				$Valider	= $db->uniquequery("SELECT `username`, `password`, `email`, `ip`, `planet`, `lang`, `universe` FROM ".USERS_VALID." WHERE `cle` = '".$db->sql_escape($clef)."';");
+				if(!isset($Valider)) 
+					redirectTo('index.php?page=reg');
 				
-				$UserName 	 = $Valider['username'];
-				$UserPass 	 = $Valider['password'];
-				$UserMail 	 = $Valider['email'];
-				$UserIP 	 = $Valider['ip'];
-				$UserPlanet	 = $Valider['planet'];
-				$UserLang 	 = $Valider['lang'];
-				$UserUni 	 = $Valider['universe'];
-					
+				$UserName 	= $Valider['username'];
+				$UserPass 	= $Valider['password'];
+				$UserMail 	= $Valider['email'];
+				$UserIP 	= $Valider['ip'];
+				$UserPlanet	= $Valider['planet'];
+				$UserLang 	= $Valider['lang'];
+				$UserUni 	= $Valider['universe'];
+				$CONF		= $db->uniquequery("SELECT `LastSettedGalaxyPos`, `LastSettedSystemPos`, `LastSettedPlanetPos`, `smtp_host`, `smtp_port`, `smtp_user`, `smtp_pass`, `game_name`, `users_amount` FROM ".CONFIG." WHERE `uni` = ".$UserUni.";");
+				
 				$SQL = "INSERT INTO " . USERS . " SET ";
 				$SQL .= "`username` = '".$UserName . "', ";
 				$SQL .= "`universe` = '".$UserUni . "', ";
@@ -363,7 +366,8 @@ switch ($page) {
 				$SQL .= "`uctime`= '0';";
 				$db->query($SQL);
 				$NewUser = $db->GetInsertID();
-				if($CONF['smtp_host'] != '' && $CONF['smtp_port'] != 0 && $CONF['smtp_user'] != '' && $CONF['smtp_pass'] != '')
+				
+				if(!empty($CONF['smtp_host']) && !empty($CONF['smtp_port']) && !empty($CONF['smtp_user']) && !empty($CONF['smtp_pass']))
 				{				
 					$MailSubject	= sprintf($LNG['reg_mail_reg_done'], $CONF['game_name']);	
 					$MailRAW		= file_get_contents("./language/".$UserLang."/email/email_reg_done.txt");
@@ -375,8 +379,10 @@ switch ($page) {
 				$LastSettedGalaxyPos = $CONF['LastSettedGalaxyPos'];
 				$LastSettedSystemPos = $CONF['LastSettedSystemPos'];
 				$LastSettedPlanetPos = $CONF['LastSettedPlanetPos'];
-				require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.'.PHP_EXT);			
-				while (true) {
+				require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.'.PHP_EXT);	
+				$PlanetID = false;
+				
+				while ($PlanetID === false) {
 					$Planet = mt_rand(4, 12);
 					if ($LastSettedPlanetPos < 3) {
 						$LastSettedPlanetPos += 1;
@@ -390,8 +396,8 @@ switch ($page) {
 							$LastSettedPlanetPos = 1;
 						}
 					}
-					if (($PlanetID = CreateOnePlanetRecord($LastSettedGalaxyPos, $LastSettedSystemPos, $Planet, $UserUni, $NewUser, $UserPlanet, true)) !== false)
-						break;
+					
+					$PlanetID = CreateOnePlanetRecord($LastSettedGalaxyPos, $LastSettedSystemPos, $Planet, $UserUni, $NewUser, $UserPlanet, true);
 				}
 			
 				$SQL = "DELETE FROM ".USERS_VALID." WHERE `cle` = '".$db->sql_escape($clef)."';";

@@ -16,9 +16,8 @@
 <table style="width:100%;text-align:center;padding-top:3px;" align="center">
 	<tr>
 		<td>{$uni_reg}:</td>
-		<td><select name="universe" id="universe" style="width: 188px; position: relative; left: 4px;">
-            <option value="">{$chose_a_uni}</option>
-			{html_options options=$AvailableUnis selected=$UNI}
+		<td><select name="universe" id="universe" style="width: 206px;">
+            {html_options options=$AvailableUnis selected=$UNI}
 			</select></td> 
 	</tr>
 	<tr>

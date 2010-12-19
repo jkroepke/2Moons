@@ -35,7 +35,7 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $Universe, $PlanetOw
 		throw new Exception("Access denied for CreateOnePlanetRecord.php.<br>Try to create a planet at position:".$Galaxy.":".$System.":".$Position);
 	}
 	
-	if (CheckPlanetIfExist($Galaxy, $System, $Position, $UNI)) {
+	if (CheckPlanetIfExist($Galaxy, $System, $Position, $Universe)) {
 		return false;
 	}
 
