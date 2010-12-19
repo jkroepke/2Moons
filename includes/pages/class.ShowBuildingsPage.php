@@ -226,9 +226,7 @@ class ShowBuildingsPage
 
 		include_once(ROOT_PATH . 'includes/functions/IsTechnologieAccessible.' . PHP_EXT);
 		include_once(ROOT_PATH . 'includes/functions/GetElementPrice.' . PHP_EXT);
-		include_once(ROOT_PATH . 'includes/functions/CheckPlanetUsedFields.' . PHP_EXT);
 		
-		CheckPlanetUsedFields($PLANET);
 		$TheCommand  	= request_var('cmd','');
         $Element     	= request_var('building',0);
         $ListID      	= request_var('listid',0);
