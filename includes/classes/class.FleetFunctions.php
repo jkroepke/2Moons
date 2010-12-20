@@ -286,7 +286,11 @@ abstract class FleetFunctions
 	}
 	
 	public static function GotoFleetPage()
-	{
+	{	
+		if($GLOBALS['CONF']['debug'] == 1) {
+			$temp = debug_backtrace();
+			header("X-FAIL-AT-LINE: ".str_replace($_SERVER["DOCUMENT_ROOT"],'.',$temp[0]['file'])." on ".$temp[0]['line']);
+		}
 		redirectTo("game.".PHP_EXT."?page=fleet");
 	}
 

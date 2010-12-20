@@ -103,6 +103,16 @@
 	<th><input name="noobprotectionmulti" value="{$noobprot3}" type="text"></th>
 	<th><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_noob_protect_e3}", CENTER, OFFSETX, -150, OFFSETY, -20, WIDTH, 250);' onMouseOut='return nd();'></th>
 </tr><tr>
+	<td class="c" colspan="2">{$se_trader_head}</td><td class="c">&nbsp;</td>
+</tr><tr>
+    <th>{$se_trader_ships}</th>
+    <th><input name="trade_allowed_ships" maxlength="50" size="60" value="{$trade_allowed_ships}" type="text"></th>
+	<th>&nbsp;</th>
+</tr><tr>
+    <th>{$se_trader_charge}</th>
+    <th><input name="trade_charge" maxlength="5" size="10" value="{$trade_charge}" type="text"></th>
+	<th></th>
+</tr><tr>
 	<td class="c" colspan="2">{$se_news_head}</td><td class="c">&nbsp;</td>
 </tr><tr>
     <th>{$se_news_active}</th>

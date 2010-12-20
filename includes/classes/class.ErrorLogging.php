@@ -105,9 +105,8 @@ class ErrorLogging
 	public function _customError($errNo, $errStr, $errFile, $errLine, $Fatal = false)
 	{
 		if (!error_reporting() || $errNo == E_DEPRECATED) return false;
-
+		if (!$Fatal) echo "<b>".$this->_getErrorType($errNo)."</b>: ".$errStr." in ".$errFile." on line ".$errLine;
 		$this->_toFile($errNo, $errStr, $errFile, $errLine);
-		exit;
 	}
 	
 	/**
@@ -180,7 +179,7 @@ class ErrorLogging
 		$this->_lastError = error_get_last();
 		if($this->_lastError['type'] == 1 || $this->_lastError['type'] == 4 || $this->_lastError['type'] == 16 || $this->_lastError['type'] == 64 || $this->_lastError['type'] == 256 || $this->_lastError['type'] == 4096)
 		{
-			$this->_customError($this->_lastError['type'], $this->_lastError['message'], $this->_lastError['file'], $this->_lastError['line']);
+			$this->_customError($this->_lastError['type'], $this->_lastError['message'], $this->_lastError['file'], $this->_lastError['line'], true);
 		}
 	}
 	

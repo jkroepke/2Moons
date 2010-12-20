@@ -64,6 +64,7 @@ $LNG['lm_defenses']							= 'Verteidigung';
 $LNG['lm_resources']						= 'Rohstoffe';
 $LNG['lm_officiers']						= 'Offiziere';
 $LNG['lm_trader']							= 'Händler';
+$LNG['lm_fleettrader']						= 'Schrotthändler';
 $LNG['lm_technology']						= 'Technologie';
 $LNG['lm_messages']							= 'Nachrichten';
 $LNG['lm_alliance']							= 'Allianz';
@@ -1092,17 +1093,25 @@ $LNG['rec_last_update_on']		   			= 'Letztes Update um : %s';
 //----------------------------------------------------------------------------//
 // BattleSimulator
 
+$LNG['bs_derbis_raport']					= 'Es werden %s %s oder %s %s für das Trümmerfeld benötigt.';
+$LNG['bs_steal_raport']						= 'Für die Beute werden %s %s oder %s %s oder %s %s benötigt.';
+$LNG['bs_names']							= 'Schiffname';
+$LNG['bs_atter']							= 'Angreifer';
+$LNG['bs_deffer']							= 'Verteidiger';
+$LNG['bs_steal']							= 'Rohstoffe(für Steal):';
+$LNG['bs_techno']							= 'Techniken';
+$LNG['bs_send']								= 'Absenden';
+$LNG['bs_cancel']							= 'Zurücksetzen';
+$LNG['bs_wait']								= 'Warte 10 Sekunden für nächste Simulation';
 
-$LNG['bs_derbis_raport']					= "Es werden %s %s oder %s %s für das Trümmerfeld benötigt.";
-$LNG['bs_steal_raport']						= "Für die Beute werden %s %s oder %s %s oder %s %s benötigt.";
-$LNG['bs_names']							= "Schiffname";
-$LNG['bs_atter']							= "Angreifer";
-$LNG['bs_deffer']							= "Verteidiger";
-$LNG['bs_steal']							= "Rohstoffe(für Steal):";
-$LNG['bs_techno']							= "Techniken";
-$LNG['bs_send']								= "Absenden";
-$LNG['bs_cancel']							= "Zurücksetzen";
-$LNG['bs_wait']								= "Warte 10 Sekunden für nächste Simulation";
+//----------------------------------------------------------------------------//
+// Fleettrader
+
+$LNG['ft_head']								= 'Schrotthandler';
+$LNG['ft_count']							= 'Anzahl';
+$LNG['ft_max']								= 'max';
+$LNG['ft_total']							= 'TOTAL';
+$LNG['ft_charge']							= 'Händlergebühr';
 
 //----------------------------------------------------------------------------//
 // Logout
