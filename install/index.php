@@ -122,6 +122,19 @@ switch ($Mode) {
 			$json = "<span class=\"no\">".$LNG['reg_no']."</span>";
 			$error++;
 		}
+		
+		if(function_exists('bcadd')){
+			$bcmath = "<span class=\"yes\">".$LNG['reg_yes']."</span>";
+		} else {
+			$bcmath = "<span class=\"ok\">".$LNG['reg_no']."</span>";
+		}
+		
+		if(function_exists('ini_set')){
+			$iniset = "<span class=\"yes\">".$LNG['reg_yes']."</span>";
+		} else {
+			$iniset = "<span class=\"no\">".$LNG['reg_no']."</span>";
+			$error++;
+		}
 
 		if(!extension_loaded('gd')) {
 			$gdlib = "<span class=\"no\">".$LNG['reg_no']."</span>";
@@ -135,7 +148,7 @@ switch ($Mode) {
 			}
 		}
 
-		if(file_exists(ROOT_PATH."includes/config.php") || touch(ROOT_PATH."includes/config.php")){
+		if(file_exists(ROOT_PATH."includes/config.php") || @touch(ROOT_PATH."includes/config.php")){
 			if(is_writable(ROOT_PATH."includes/config.php") || @chmod(ROOT_PATH."includes/config.php", 0777)){
 				$chmod = "<span class=\"yes\"> - ".$LNG['reg_writable']."</span>";
 			} else {
@@ -183,10 +196,22 @@ switch ($Mode) {
 			'gdlib'				=> $gdlib,
 			'PHP'				=> $PHP,
 			'ftp'				=> $ftp,
+			'bcmath'			=> $bcmath,
+			'iniset'			=> $iniset,
 			'req_php_need'		=> $LNG['req_php_need'],
 			'req_smode_active'	=> $LNG['req_smode_active'],
 			'reg_gd_need'		=> $LNG['reg_gd_need'],
 			'reg_json_need'		=> $LNG['reg_json_need'],
+			'reg_iniset_need'	=> $LNG['reg_iniset_need'],
+			'reg_bcmath_need'	=> $LNG['reg_bcmath_need'],
+			'req_ftp'			=> $LNG['req_ftp'],
+			'req_ftp_info'		=> $LNG['req_ftp_info'],
+			'req_ftp_host'		=> $LNG['req_ftp_host'],
+			'req_ftp_username'	=> $LNG['req_ftp_username'],
+			'req_ftp_password'	=> $LNG['req_ftp_password'],
+			'req_ftp_dir'		=> $LNG['req_ftp_dir'],
+			'req_ftp_send'		=> $LNG['req_ftp_send'],
+			'req_ftp_pass_info'	=> $LNG['req_ftp_pass_info'],
 		));
 		$template->show('install/ins_req.tpl');
 	break;

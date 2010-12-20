@@ -30,6 +30,7 @@ function Total()
 
 function Reset()
 {
+	$('#count').val(0);
 	$('#total_metal').text(0);
 	$('#total_crystal').text(0);
 	$('#total_deuterium').text(0);
