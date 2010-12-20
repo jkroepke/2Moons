@@ -134,6 +134,7 @@ class template
 			'lm_buildings'		=> $LNG['lm_buildings'],
 			'lm_resources'		=> $LNG['lm_resources'],
 			'lm_trader'			=> $LNG['lm_trader'],
+			'lm_fleettrader'	=> $LNG['lm_fleettrader'],
 			'lm_research'		=> $LNG['lm_research'],
 			'lm_shipshard'		=> $LNG['lm_shipshard'],
 			'lm_fleet'			=> $LNG['lm_fleet'],
@@ -352,11 +353,16 @@ class template
 	public function display($file)
 	{
 		$this->file			= $file;
-		$this->cachefile	= $this->cachedir.$this->cacheid.md5(filemtime($this->template_dir.$this->file).implode('', $this->vars)).'.tpl.php';
-		if($this->cache && $CONF['debug'] == 0 && file_exists($this->cachefile))
-			echo file_get_contents($this->cachefile);
-		else
+		if($this->cache && $CONF['debug'] == 0)
+		{
+			$this->cachefile	= $this->cachedir.$this->cacheid.md5(filemtime($this->template_dir.$this->file).implode('', $this->vars)).'.tpl.php';
+			if(file_exists($this->cachefile))
+				echo file_get_contents($this->cachefile);
+			else
+				echo $this->render();
+		} else {
 			echo $this->render();
+		}
 	}
 	
 	public function message($mes, $dest = false, $time = 3, $Fatal = false)

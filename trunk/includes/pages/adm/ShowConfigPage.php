@@ -123,6 +123,9 @@ function ShowConfigPage()
 		$CONF['ftp_server']				= request_var('ftp_server', '', true);
 		$CONF['ftp_user_name']			= request_var('ftp_user_name', '', true);
 		$CONF['ftp_root_path']			= request_var('ftp_root_path', '', true);
+		$CONF['trade_allowed_ships']	= request_var('trade_allowed_ships', '');
+		$CONF['trade_charge']			= request_var('trade_charge', 0.0);
+		$CONF['ftp_root_path']			= request_var('ftp_root_path', '', true);
 		
 		$Temp							= request_var('ftp_user_pass', '', true);
 		$CONF['ftp_user_pass']			= ((str_pad('', strlen($CONF['ftp_user_pass']), 'x') == $Temp) ? $CONF['ftp_user_pass'] : $Temp);
@@ -152,7 +155,9 @@ function ShowConfigPage()
 			'adm_attack'			=> $CONF['adm_attack'],
 			'lang'					=> $CONF['lang'],
 			'min_build_time'		=> $CONF['min_build_time'],
-			'user_valid'			=> $CONF['user_valid']
+			'user_valid'			=> $CONF['user_valid'],
+			'trade_charge'			=> $CONF['trade_charge'],
+			'trade_allowed_ships'	=> $CONF['trade_allowed_ships']
 		), false, $_SESSION['adminuni']);
 		update_config(array(	
 			'smtp_host'				=> $CONF['smtp_host'],
@@ -221,6 +226,9 @@ function ShowConfigPage()
 		'se_noob_protect2'				=> $LNG['se_noob_protect2'],
 		'se_noob_protect_e2'			=> $LNG['se_noob_protect_e2'],
 		'se_noob_protect_e3'			=> $LNG['se_noob_protect_e3'],
+		'se_trader_head'				=> $LNG['se_trader_head'],
+		'se_trader_ships'				=> $LNG['se_trader_ships'],
+		'se_trader_charge'				=> $LNG['se_trader_charge'],
 		'se_news_head'					=> $LNG['se_news_head'],
 		'se_news_active'				=> $LNG['se_news_active'],
 		'se_news_info'					=> $LNG['se_news_info'],
@@ -304,6 +312,8 @@ function ShowConfigPage()
 		'ga_key'           				=> $CONF['ga_key'],
         'bgm_active'               		=> $CONF['bgm_active'],
 		'bgm_file'           			=> $CONF['bgm_file'],
+		'trade_allowed_ships'        	=> $CONF['trade_allowed_ships'],
+		'trade_charge'		        	=> $CONF['trade_charge'],
 		'Selector'						=> array('langs' => GetLangs(), 'mail' => array('' => $LNG['se_smtp_ssl_1'], 'ssl' => $LNG['se_smtp_ssl_2'], 'tls' => $LNG['se_smtp_ssl_3'])),
 		'lang'							=> $CONF['lang'],
 	));

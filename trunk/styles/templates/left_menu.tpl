@@ -10,6 +10,7 @@
 		<li><a href="?page=buildings&amp;mode=defense">{$lm_defenses}</a></li>
 		<li><a href="?page=officier">{$lm_officiers}</a></li>
 		<li><a href="?page=trader">{$lm_trader}</a></li>
+		<li><a href="?page=fleettrader">{$lm_fleettrader}</a></li>
 		<li><a href="?page=fleet">{$lm_fleet}</a></li>
 		<li><a href="?page=techtree">{$lm_technology}</a></li>
 		<li><a href="?page=resources">{$lm_resources}</a></li>

@@ -28,6 +28,7 @@ ignore_user_abort(true);
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 ini_set('zlib.output_compression', 'On');
 ini_set('display_errors', 1);
+bcscale(0);		
 date_default_timezone_set("Europe/Berlin");
 header('Content-Type: text/html; charset=UTF-8');
 define('TIMESTAMP',	$_SERVER['REQUEST_TIME']);
@@ -152,7 +153,7 @@ if (INSTALL != true)
 		}
 		
 		if($_SESSION['authlevel'] != $USER['authlevel']) {
-			$db->query("UPDATE ".USERS." SET `authlevel` ? '".$_SESSION['authlevel']."' WHERE `id` = ".$USER['id'].";");
+			$db->query("UPDATE ".USERS." SET `authlevel` = '".$_SESSION['authlevel']."' WHERE `id` = ".$USER['id'].";");
 			redirectTo('index.php');		
 		}
 		if (!defined('IN_ADMIN'))
