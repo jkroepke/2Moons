@@ -20,4 +20,8 @@ function bcpow($Num1 ,$Num2, $Scale = 0) {
 	return round(pow($Num1, $Num2), $Scale);
 }
 
+function bcscale() {
+	return true;
+}
+
 ?>
