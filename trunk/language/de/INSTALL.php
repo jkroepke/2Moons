@@ -10,7 +10,7 @@ $LNG['menu_convert']		= "Convertor";
 $LNG['intro_lang']			= "Sprache";
 $LNG['intro_instal']		= "Installation";
 $LNG['intro_welcome']		= "Herzlich Willkommen beim 2Moons!";
-$LNG['intro_text']			= "2Moons ist eines der besten Klone von OGame.<br>2Moons ist die neueste und stabilste Pauschale je entwickelt wurde. 2Moons glänzt durch Stabilität, Flexibilität, Dynamik, Qualität und Benutzerfreundlichkeit. Wir hoffen immer besser zu sein als ihre Erwartungen.<br><br>Das Installations-System führt Sie durch die Installation, oder Upgrade auf einer vorherigen Version auf die neueste ein. Jede Frage, ein Problem zögern Sie bitte nicht, unsere Entwicklung und Unterstützung zu ersuchen.<br><br>2Moons ist ein OpenSource-Projekt und ist under GNU GPL v3 lizenziert. Zur Lizenz klicken Sie bitte im Menu auf die entsprechenden Menüpunkt.<br><br>Bevor die Installation gestartet werden kann, wird vorher ein kleiner Test durchgeführt, ob sie die Mindestanforderungen unterstützen.";
+$LNG['intro_text']			= "2Moons ist eines der besten Klone von OGame.<br>2Moons ist die neueste und stabilste XNova Version je entwickelt wurde. 2Moons glänzt durch Stabilität, Flexibilität, Dynamik, Qualität und Benutzerfreundlichkeit. Wir hoffen immer besser zu sein als ihre Erwartungen.<br><br>Das Installations-System führt Sie durch die Installation, oder Upgrade auf einer vorherigen Version auf die neueste ein. Jede Frage, ein Problem zögern Sie bitte nicht, unsere Entwicklung und Unterstützung zu ersuchen.<br><br>2Moons ist ein OpenSource-Projekt und ist under GNU GPL v3 lizenziert. Zur Lizenz klicken Sie bitte im Menu auf die entsprechenden Menüpunkt.<br><br>Bevor die Installation gestartet werden kann, wird vorher ein kleiner Test durchgeführt, ob sie die Mindestanforderungen unterstützen.";
 
 $LNG['reg_yes']				= "Ja";
 $LNG['reg_no']				= "Nein";
@@ -23,8 +23,18 @@ $LNG['reg_dir']				= "Ordner";
 $LNG['reg_gd_need']			= "GB-Lib vorhanden?";
 $LNG['reg_mysqli_need']		= "MySQLi vorhanden?";
 $LNG['reg_json_need']		= "JSON vorhanden?";
+$LNG['reg_bcmath_need']		= "BCMath vorhanden?";
+$LNG['reg_iniset_need']		= "ini_set erlaubt?";
 $LNG['req_php_need']		= "PHP-Version (min. 5.2.5)";
 $LNG['req_smode_active']	= "Safemode aktiv?";
+$LNG['req_ftp']				= "FTP";
+$LNG['req_ftp_info']		= "Gebe deine FTP Daten ein, um die Probleme zu beheben.";
+$LNG['req_ftp_host']		= "FTP-Host";
+$LNG['req_ftp_username']	= "Username";
+$LNG['req_ftp_password']	= "Password";
+$LNG['req_ftp_dir']			= "Pfad zu 2Moons";
+$LNG['req_ftp_send']		= "Absenden";
+$LNG['req_ftp_pass_info']	= "Ihr Passwort wird nicht gespeichert!";
 
 $LNG['step1_notice_chmod']	= "Vergewissern Sie sich, das die config.php auf \"CHMOD 777\", also beschreibar, steht!";
 $LNG['step1_mysql_server']	= "MySQL-DB-Server: <br>Standart: localhost";

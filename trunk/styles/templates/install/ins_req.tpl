@@ -14,6 +14,12 @@
 			<tr>
 				<td class="transparent">{$reg_json_need}</td><td class="transparent">{$json}</td>
 			</tr>
+			<tr>
+				<td class="transparent">{$reg_bcmath_need}</td><td class="transparent">{$json}</td>
+			</tr>
+			<tr>
+				<td class="transparent">{$reg_iniset_need}</td><td class="transparent">{$json}</td>
+			</tr>
 			{$dir}
 			{$config}
 			{$done}
@@ -22,29 +28,30 @@
 </tr>
 {if $ftp != 0}
 <tr>
+	<th colspan="2">{$req_ftp}</th>
+</tr>
+<tr>
 	<td>
 		<form name="ftp" id="ftp" action="" onsubmit="return false;">
 		<table style="width:100%">
+
 			<tr>
-				<th>FTP</th>
+				<td class="transparent" colspan="2">{$req_ftp_info}</td>
 			</tr>
 			<tr>
-				<td class="transparent" colspan="2">Gebe deine FTP Daten ein, um die Verzeichnissrechte zu &auml;ndern.</td>
+				<td class="transparent">{$req_ftp_host}:</td><td class="transparent"><input type="text" name="host"></td>
 			</tr>
 			<tr>
-				<td class="transparent">FTP-Host:</td><td class="transparent"><input type="text name="host"></td>
+				<td class="transparent">{$req_ftp_username}:</td><td class="transparent"><input type="text" name="user"></th>
 			</tr>
 			<tr>
-				<td class="transparent">Username:</td><td class="transparent"><input type="text name="user"></th>
+				<td class="transparent">{$req_ftp_password}:</td><td class="transparent"><input type="password" name="pass"></td>
 			</tr>
 			<tr>
-				<td class="transparent">Password:</td><td class="transparent"><input type="pasword name="pass"></td>
+				<td class="transparent">{$req_ftp_dir}:</td><td class="transparent"><input type="text" name="path"></td>
 			</tr>
 			<tr>
-				<td class="transparent">Pfad zu 2Moons:</td><td class="transparent"><input type="text name="path"></td>
-			</tr>
-			<tr>
-				<td class="transparent right" colspan="2"><input type="button" value="Absenden" onclick="submitftp();"><br>Ihr Passwort wird nicht gespeichert!</td>
+				<td class="transparent right" colspan="2"><input type="button" value="{$req_ftp_send}" onclick="submitftp();"><br>{$req_ftp_pass_info}</td>
 			</tr>
 			</table>
 		</form>
