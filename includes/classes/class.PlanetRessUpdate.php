@@ -198,7 +198,7 @@ class ResourceUpdate
 			$Element   = $Item[0];
 			$Count     = $Item[1];
 			$BuildTime = $Item[2];
-			
+			$Element   = (int)$Element;
 			if($BuildTime == 0) {
 				$this->Builded[$Element]			= bcadd($Count, $this->Builded[$Element]);
 				$this->PLANET[$resource[$Element]]	= bcadd($Count, $this->PLANET[$resource[$Element]]);
@@ -403,6 +403,7 @@ class ResourceUpdate
 		{
 			foreach($this->Builded as $Element => $Count)
 			{
+				$Element	= (int)$Element;
 				if(empty($resource[$Element]))
 					throw new Exception('ID '.$Element.' is not on $resource!');
 				
