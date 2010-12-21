@@ -242,7 +242,7 @@ function request_var($var_name, $default, $multibyte = false, $cookie = false)
 
 function request_outofint($var_name, $Negative = false)
 {
-	return $Negative ? round(request_var($var_name, 0.0), 0) : abs(round(request_var($var_name, 0.0), 0)) ;
+	return $Negative ? round(request_var($var_name, 0.0), 0) : max(round(request_var($var_name, 0.0), 0), 0) ;
 }
 
 function GetUserByID($UserID, $GetInfo = "*")
