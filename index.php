@@ -330,7 +330,7 @@ switch ($page) {
 				} else {
 					$MailSubject 	= $LNG['reg_mail_message_pass'];
 					$MailRAW		= file_get_contents("./language/".$UserLang."/email/email_vaild_reg.txt");
-					$MailContent	= sprintf($MailRAW, $UserName, $CONF['game_name'], "http://".$_SERVER['SERVER_NAME'].$_SERVER["PHP_SELF"], $clef, $UserPass, ADMINEMAIL, $UserLang);
+					$MailContent	= sprintf($MailRAW, $UserName, $CONF['game_name'], "http://".$_SERVER['SERVER_NAME'].$_SERVER["PHP_SELF"], $clef, $UserPass, $CONF['smtp_sendmail'], $UserLang);
 			
 					MailSend($UserEmail, $UserName, $MailSubject, $MailContent);
 					$template->message($LNG['reg_completed'], '?lang='.$LANG, 10, true);
