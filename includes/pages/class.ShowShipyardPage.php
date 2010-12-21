@@ -167,7 +167,7 @@ class ShowShipyardPage
 			foreach($fmenge as $Element => $Count)
 			{
 				$Element 		= in_array($Element, $reslist['fleet']) ? $Element : NULL;
-				$Count			= is_numeric($Count) ? $Count : 0;
+				$Count			= is_numeric($Count) ? round($Count) : 0;
 				$Count 			= max(min($Count, MAX_FLEET_OR_DEFS_PER_ROW), 0);
 				$MaxElements 	= $this->GetMaxConstructibleElements($Element);
 				$Count		 	= min($MaxElements, $Count);
