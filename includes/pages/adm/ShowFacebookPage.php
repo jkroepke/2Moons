@@ -53,6 +53,8 @@ function ShowFacebookPage() {
 		'fb_on'					=> $CONF['fb_on'],
 		'fb_apikey'				=> $CONF['fb_apikey'],
 		'fb_skey'				=> $CONF['fb_skey'],
+		'fb_curl'				=> function_exists('curl_init') ? 1 : 0,
+		'fb_curl_info'			=> function_exists('curl_init') ? $LNG['fb_curl_yes'] : $LNG['fb_curl_no'],
 	));
 	$template->show('adm/FacebookPage.tpl');
 }

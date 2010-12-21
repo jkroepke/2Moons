@@ -2,8 +2,9 @@
 </div></div>
 </td></tr></table>
 </div>
-<script type="text/javascript" src="scripts/base.js">
-<script type="text/javascript" src="scripts/login.js">
+<div id="fb-root"></div>
+<script type="text/javascript" src="scripts/base.js"></script>
+<script type="text/javascript" src="scripts/login.js"></script>
 <script type="text/javascript">
 IsCaptchaActive 	= {$game_captcha};
 IsRegActive 		= {$reg_close};
@@ -33,9 +34,9 @@ pageTracker._trackPageview();
 } catch(err) {}</script>
 {/if}
 {if $fb_active}
-<script type="text/javascript" src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php"></script>
+<script type="text/javascript" src="http://connect.facebook.net/en_US/all.js"></script>
 <script type="text/javascript">	
-FB.init("{$fb_key}", "scripts/xd_receiver.htm");
+initFB("{$fb_key}");
 </script>
 {/if}
 {if $bgm_active}

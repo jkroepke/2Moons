@@ -35,7 +35,7 @@
 			</tr>
 			<tr>
 				<td colspan="2" align="center"><input name="submit" value="{$login}" type="submit" class="input-text"><br>
-				{if $fb_active}<br><br><a href="javascript:void(0);" onclick="fbLogincheck(); return false;"><img src="http://b.static.ak.fbcdn.net/rsrc.php/zB6N8/hash/4li2k73z.gif" alt=""></a>{/if}
+				{if $fb_active}<br><br><a href="javascript:void(0);" onclick="loginFB(); return false;"><img src="http://b.static.ak.fbcdn.net/rsrc.php/zB6N8/hash/4li2k73z.gif" alt=""></a>{/if}
 				<br><br><small>{$login_info}</small></td>
 			</tr>
 		  </tbody>
