@@ -27,7 +27,7 @@ function ShowFleetTraderPage()
 	$CONF['trade_allowed_ships']	= explode(',', $CONF['trade_allowed_ships']);
 	$ID								= request_var('id', 0);
 	if(!empty($ID) && in_array($ID, $CONF['trade_allowed_ships'])) {
-		$Count						= min(request_var('count', '0'), $PLANET[$resource[$ID]]);
+		$Count						= max(min(request_var('count', '0'), $PLANET[$resource[$ID]]), 0);
 		$PLANET['metal']			= bcadd($PLANET['metal'], bcmul($Count, bcmul($pricelist[$ID]['metal'], (float) $CONF['trade_charge'])));
 		$PLANET['crystal']			= bcadd($PLANET['crystal'], bcmul($Count, bcmul($pricelist[$ID]['crystal'], (float) $CONF['trade_charge'])));
 		$PLANET['deuterium']		= bcadd($PLANET['deuterium'], bcmul($Count, bcmul($pricelist[$ID]['deuterium'], (float) $CONF['trade_charge'])));

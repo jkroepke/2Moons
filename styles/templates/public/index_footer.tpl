@@ -1,6 +1,9 @@
+
 </div></div>
 </td></tr></table>
 </div>
+<script type="text/javascript" src="scripts/base.js">
+<script type="text/javascript" src="scripts/login.js">
 <script type="text/javascript">
 IsCaptchaActive 	= {$game_captcha};
 IsRegActive 		= {$reg_close};
@@ -8,32 +11,13 @@ lang_reg_closed		= "{$register_closed}";
 cappublic			= "{$cappublic}";
 fb_permissions		= "{$fb_perm}";
 lang				= "{$lang}";
-(function() {
-        var s = [
-            "scripts/base.js",
-			{if $fb_active}"http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php",{/if}
-            {if $game_captcha}"http://www.google.com/recaptcha/api/js/recaptcha_ajax.js",{/if}
-			{if $ga_active}"http://www.google-analytics.com/ga.js",{/if}
-            "scripts/login.js",
-        ];
 
-        var sc = "script", tp = "text/javascript", sa = "setAttribute", doc = document, ua = window.navigator.userAgent;
-        for(var i=0, l=s.length; i<l; ++i) {
-            if(ua.indexOf("Firefox")!==-1 || ua.indexOf("Opera")!==-1) {
-                var t=doc.createElement(sc);
-                t[sa]("src", s[i]);
-                t[sa]("type", tp);
-                doc.getElementsByTagName("head")[0].appendChild(t);
-            } else {
-                doc.writeln("<" + sc + " type=\"" + tp + "\" src=\"" + s[i] + "\"></" + sc + ">");
-            }
-        }
-    })();
 {if $code}
 alert("{$code}");
 {/if}
 </script>
 {if $game_captcha}
+<script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
 <script type="text/javascript">
 if(typeof recaptchaload != "undefined" && recaptchaload == true) {
 	showRecaptcha();
@@ -41,6 +25,7 @@ if(typeof recaptchaload != "undefined" && recaptchaload == true) {
 </script>
 {/if}
 {if $ga_active}
+<script type="text/javascript" src="http://www.google-analytics.com/ga.js"></script>
 <script type="text/javascript">
 try{
 var pageTracker = _gat._getTracker("{$ga_key}");
@@ -48,6 +33,7 @@ pageTracker._trackPageview();
 } catch(err) {}</script>
 {/if}
 {if $fb_active}
+<script type="text/javascript" src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php"></script>
 <script type="text/javascript">	
 FB.init("{$fb_key}", "scripts/xd_receiver.htm");
 </script>
