@@ -249,7 +249,7 @@ function GetUserByID($UserID, $GetInfo = "*")
 {
 	global $db;
 	
-	if(is_array($GetInfo)){
+	if(is_array($GetInfo)) {
 		$GetOnSelect = "";
 		foreach($GetInfo as $id => $col)
 		{

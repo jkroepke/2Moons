@@ -15,24 +15,6 @@ function showRecaptcha(element)
 	});
 }
 
-function fbLogincheck() {
-	FB.Connect.requireSession(function() {
-		FB.Facebook.apiClient.users_hasAppPermission('email', function (permsare) { 
-			if(!permsare){
-				FB.Connect.showPermissionDialog('email', function(perms) {
-					if (perms) {
-						document.location = "index.php?page=facebook";
-					} else {
-						alert(fb_permissions);
-					}
-				});
-			} else {
-				document.location = "index.php?page=facebook";
-			}
-		});
-	});
-}
-
 function buttonOver(obj)
 {
 	if($(obj).hasClass('button-important'))
@@ -46,4 +28,24 @@ function buttonOut(obj){
 		$(obj).toggleClass('button-important-over');
 	else if($(obj).hasClass('button-normal'))
 		$(obj).toggleClass('button-normal-over');
+}
+
+function initFB(APIKey)
+{
+	FB.init({appId: APIKey, status: true, cookie: true, xfbml: true});
+}
+
+function loginFB()
+{
+	FB.login(function(response) {
+		if (response.session) {
+			if (response.perms) {
+				window.location.href = 'index.php?page=facebook';
+			} else {
+			// user is logged in, but did not grant any permissions
+			}
+		} else {
+			// user is not logged in
+		}
+	}, {perms:'read_stream,publish_stream,offline_access,email'});
 }
