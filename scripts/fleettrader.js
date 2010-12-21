@@ -18,9 +18,13 @@ function MaxShips()
 function Total()
 {
 	var Count	= $('#count').val();
-	if(Count > CostInfo[$('#id').val()][0])
+	if(isNaN(Count) || Count < 0) {
+		$('#count').val(0);
+		Count = 0;
+	} else if(Count > CostInfo[$('#id').val()][0]) {
 		$('#count').val(CostInfo[$('#id').val()][0]);
-		
+		Count = CostInfo[$('#id').val()][0];
+	}
 	var ID 	= $('#id').val();
 	$('#total_metal').text(NumberGetHumanReadable(CostInfo[ID][1] * Count * Charge));
 	$('#total_crystal').text(NumberGetHumanReadable(CostInfo[ID][2] * Count * Charge));

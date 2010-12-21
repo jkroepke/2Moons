@@ -32,7 +32,7 @@ function buttonOut(obj){
 
 function initFB(APIKey)
 {
-	FB.init({appId: APIKey, status: true, cookie: true, xfbml: true});
+	FB.init({appId: APIKey, status: false, cookie: true});
 }
 
 function loginFB()
