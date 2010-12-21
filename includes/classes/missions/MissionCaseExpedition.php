@@ -316,7 +316,7 @@ class MissionCaseExpedition extends MissionFunctions
 	
 	function ReturnEvent()
 	{
-		global $LNG;
+		global $LANG;
 		$LNG			= $LANG->GetUserLang($this->_fleet['fleet_owner']);
 		$Message 		= sprintf($LNG['sys_expe_back_home'], $LNG['Metal'], pretty_number($this->_fleet['fleet_resource_metal']), $LNG['Crystal'], pretty_number($this->_fleet['fleet_resource_crystal']),  $LNG['Deuterium'], pretty_number($this->_fleet['fleet_resource_deuterium']), $LNG['Darkmatter'], pretty_number($this->_fleet['fleet_resource_darkmatter']));
 		SendSimpleMessage($this->_fleet['fleet_owner'], '', $this->_fleet['fleet_end_time'], 15, $LNG['sys_mess_tower'], $LNG['sys_expe_report'], $Message);
