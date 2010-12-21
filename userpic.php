@@ -36,7 +36,8 @@ $id = request_var('id', 0);
 
 if(CheckModule(37) || $id == 0) exit();
 
-$LANG->includeLang(array('INGAME'));
+$LANG->GetLangFromBrowser();
+$LANG->includeLang(array('BANNER'));
 
 require_once(ROOT_PATH."includes/classes/class.StatBanner.php");
 
@@ -54,6 +55,9 @@ if(isset($_SERVER['HTTP_IF_NONE_MATCH']) && $_SERVER['HTTP_IF_NONE_MATCH'] == $E
 	header('HTTP/1.0 304 Not Modified');
 	exit;
 }
-$banner->CreateBanner($Data);
+if(in_array($LANG->getUser(), array('ru'))) //Find a Way to fix Chinese now.
+	$banner->CreateUTF8Banner($Data);
+else
+	$banner->CreateBanner($Data);
 
 ?>

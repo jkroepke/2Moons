@@ -16,6 +16,7 @@ $LNG['changelog']   = array(
 - ADD: AdminHack Protection
 - ADD: FTP Service on Installer to solved the CHMOD Problems
 - ADD: New Chat System
+- ADD: Cyrillic Char support for UserBanner
 - FIX: Facebook Connector
 - FIX: ACS
 - FIX: UpdateSystem
@@ -38,6 +39,7 @@ $LNG['changelog']   = array(
 - DIV: Fleet Ressoucres go up tp 18.446.744.073.709.551.616
 - DIV: Allow Change Version on ACP
 - DIV: Get Language via HTTP Header on Index
+- DIV: Use Facebooks new Graph API now.
 - DIV: Update TS³ Lib, Soundmanager, reCAPTCHA Lib, Smarty and jQuery
 ',
 'v1.2' => 'ShadoX 04.10.10

@@ -47,15 +47,15 @@ class StatBanner {
 
 		// Variables
 		$b_univ   = $Query['game_name'];
-		$b_user   = utf8_decode($Query['username']);
-		$b_planet = utf8_decode($Query['name']);
+		$b_user   = $Query['username'];
+		$b_planet = $Query['name'];
 		$b_xyz    = "[".$Query['galaxy'].":".$Query['system'].":".$Query['planet']."]";
-		$b_lvl    = "".$Query['total_rank']  ."/".$Query['users_amount']."";
-		$b_build  = "".utf8_decode($LNG['st_buildings']) .": ".pretty_number($Query['build_points'])."";
-		$b_fleet  = "".utf8_decode($LNG['st_fleets']) .": ".pretty_number($Query['fleet_points'])."";
-		$b_def    = "".utf8_decode($LNG['st_defenses']) .": ".pretty_number($Query['defs_points'])."";
-		$b_search = "".utf8_decode($LNG['st_researh']) .": ".pretty_number($Query['tech_points'])."";
-		$b_total  = "".utf8_decode($LNG['st_points']) .": ".pretty_number($Query['total_points'])."";
+		$b_lvl    = $Query['total_rank']  ."/".$Query['users_amount'];
+		$b_build  = $LNG['ub_buildings'].": ".pretty_number($Query['build_points']);
+		$b_fleet  = $LNG['ub_fleets'].": ".pretty_number($Query['fleet_points']);
+		$b_def    = $LNG['ub_defenses'] .": ".pretty_number($Query['defs_points']);
+		$b_search = $LNG['ub_researh'] .": ".pretty_number($Query['tech_points']);
+		$b_total  = $LNG['ub_points'] .": ".pretty_number($Query['total_points']);
 
 		// Colors
 		$red    = hexdec(substr($this->textcolor,0,2));
@@ -85,5 +85,86 @@ class StatBanner {
 		ImagePNG($image);
 		imagedestroy($image);
 	}
+	
+	public function CreateUTF8Banner($Query) {
+		global $LNG, $LANG;
+		$image  = imagecreatefrompng($this->source);
+		$date   = date("d.m.y");
+
+		$Font	= ROOT_PATH.'styles/arial.ttf';
+		// Variables
+		$b_univ   = $Query['game_name'];
+		$b_user   = $Query['username'];
+		$b_planet = $Query['name'];
+		$b_xyz    = "[".$Query['galaxy'].":".$Query['system'].":".$Query['planet']."]";
+		$b_lvl    = $Query['total_rank']  ."/".$Query['users_amount'];
+		$b_build  = $LNG['ub_buildings'] .": ".pretty_number($Query['build_points']);
+		$b_fleet  = $LNG['ub_fleets'] .": ".pretty_number($Query['fleet_points']);
+		$b_def    = $LNG['ub_defenses'] .": ".pretty_number($Query['defs_points']);
+		$b_search = $LNG['ub_researh'] .": ".pretty_number($Query['tech_points']);
+		$b_total  = $LNG['ub_points'] .": ".pretty_number($Query['total_points']);
+
+
+		// Colors
+		$red    = hexdec(substr($this->textcolor,0,2));
+		$green  = hexdec(substr($this->textcolor,2,4));
+		$blue   = hexdec(substr($this->textcolor,4,6));
+		$select = imagecolorallocate($image,$red,$green,$blue);
+
+		// Display
+        // Univers name
+        imagettftext($image, 7, 0, $this->CenterTextBanner($b_univ, 1, 630), 65, $select, $Font, LanguageConv::ToCyrillic($b_univ));
+        // Today date
+        imagettftext($image, 7, 0, $this->CenterTextBanner($date, 1, 630), 75, $select, $Font, $date);
+        // Player name
+        imagettftext($image, 10, 0, 15, 18, $select, $Font, LanguageConv::ToCyrillic($b_user));
+        // Player b_planet
+        imagettftext($image, 10, 0, 150, 18, $select, $Font, LanguageConv::ToCyrillic($b_planet." ".$b_xyz));
+        // Player level
+        imagettftext($image, 14, 0, $this->CenterTextBanner($b_lvl,10,795), 46, $select, $Font, $b_lvl);
+        // Player stats
+        imagettftext($image, 10, 0, 15,  36, $select, $Font, LanguageConv::ToCyrillic($b_build));
+        imagettftext($image, 10, 0, 15,  51, $select, $Font, LanguageConv::ToCyrillic($b_fleet));
+        imagettftext($image, 10, 0, 230, 36, $select, $Font, LanguageConv::ToCyrillic($b_search));
+        imagettftext($image, 10, 0, 230, 51, $select, $Font, LanguageConv::ToCyrillic($b_def));
+        imagettftext($image, 10, 0, 15,  66, $select, $Font, LanguageConv::ToCyrillic($b_total));
+		// Creat and delete banner
+		ImagePNG($image);
+		imagedestroy($image);
+	}
+	
+	function win2uni($s)
+	{
+		$s = convert_cyr_string($s,'w','i'); //  win1251 -> iso8859-5
+		$c = strlen($s);
+		//  iso8859-5 -> unicode:
+		for ($result='', $i = 0; $i < $c; $i++) {
+			$charcode = ord($s[$i]);
+			$result .= ($charcode>175)?"&#".(1040+($charcode-176)).";":$s[$i];
+		}
+		return $result;
+	}
+}
+
+class LanguageConv {
+
+//  Translate iso encoding to unicode
+    function iso2uni ($isoline){
+    for ($i=0; $i < strlen($isoline); $i++){
+        $thischar=substr($isoline, $i, 1);
+        $charcode=ord($thischar);
+        $uniline.=($charcode>175) ? "&#" . (1040+($charcode-176)). ";" : $thischar;
+    }
+    return $uniline;
+    }
+
+    function ToCyrillic($aTxt) {
+    if(false) {
+        $aTxt = convert_cyr_string($aTxt,  "w",  "k"); 
+    }
+    $isostring = convert_cyr_string($aTxt,  "k",  "i");
+    $unistring = LanguageConv::iso2uni($isostring);
+    return $unistring;
+    }
 }
 ?>
