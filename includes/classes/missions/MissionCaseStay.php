@@ -28,7 +28,8 @@ class MissionCaseStay extends MissionFunctions
 	
 	function TargetEvent()
 	{	
-		$LNG				= $this->GetUserLang($this->_fleet['fleet_owner']);
+		global $LANG;
+		$LNG				= $LANG->GetUserLang($this->_fleet['fleet_owner']);
 		
 		$TargetUserID       = $this->_fleet['fleet_target_owner'];
 		$TargetMessage      = sprintf($LNG['sys_stat_mess'], GetTargetAdressLink($this->_fleet, ''), pretty_number($this->_fleet['fleet_resource_metal']), $LNG['Metal'], pretty_number($this->_fleet['fleet_resource_crystal']), $LNG['Crystal'], pretty_number($this->_fleet['fleet_resource_deuterium']), $LNG['Deuterium']);
@@ -44,7 +45,8 @@ class MissionCaseStay extends MissionFunctions
 	
 	function ReturnEvent()
 	{
-		$LNG				= $this->GetUserLang($this->_fleet['fleet_owner']);
+		global $LANG;
+		$LNG				= $LANG->GetUserLang($this->_fleet['fleet_owner']);
 	
 		$TargetUserID       = $this->_fleet['fleet_target_owner'];
 		$TargetMessage      = sprintf($LNG['sys_stat_mess'], GetStartAdressLink($this->_fleet, ''), pretty_number($this->_fleet['fleet_resource_metal']), $LNG['Metal'], pretty_number($this->_fleet['fleet_resource_crystal']), $LNG['Crystal'], pretty_number($this->_fleet['fleet_resource_deuterium']), $LNG['Deuterium']);

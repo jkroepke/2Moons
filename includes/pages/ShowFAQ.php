@@ -19,11 +19,9 @@
 # *                                                                          #
 ##############################################################################
 
-
-
 function ShowFAQPage()
 {
-	global $USER, $PLANET, $LNG;
+	global $USER, $PLANET, $LNG, $LANG;
 	$PlanetRess = new ResourceUpdate();
 	$PlanetRess->CalcResource();
 	$PlanetRess->SavePlanetToDB();
@@ -35,7 +33,7 @@ function ShowFAQPage()
 	$template->page_planetmenu();
 	$template->page_footer();
 
-	includeLang('FAQ');		
+	$LANG->includeLang(array('FAQ'));		
 	$template->assign_vars(array(	
 		'FAQList'		=> $LNG['faq'],
 		'faq_overview'	=> $LNG['faq_overview'],

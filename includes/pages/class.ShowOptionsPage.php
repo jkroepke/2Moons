@@ -107,7 +107,7 @@ class ShowOptionsPage
 				$newpass2				= request_var('newpass2', '');		
 				$hof					= request_var('hof', '');	
 				$adm_pl_prot			= request_var('adm_pl_prot', '');	
-				$langs					= request_var('langs', 'de');	
+				$langs					= request_var('langs', $LANG->getUser());	
 
 				$design 				= ($design == 'on') ? 1 : 0;
 				$hof 					= ($hof == 'on') ? 1 : 0;
@@ -120,7 +120,8 @@ class ShowOptionsPage
 				$settings_tnstor 		= ($settings_tnstor == 'on') ? 1 : 0;
 				$settings_planetmenu	= ($settings_planetmenu == 'on') ? 1 : 0;
 				$db_deaktjava 			= ($db_deaktjava == 'on') ? TIMESTAMP : 0;
-				$langs					= array_key_exists($langs, $LNG['langs']) ? $langs : $LANG;
+				$langs					= in_array($langs, $LANG->getAllowedLangs()) ? $langs : $LANG->getUser();
+				
 				
 				if ($urlaubs_modus == 'on')
 				{
@@ -272,7 +273,7 @@ class ShowOptionsPage
 						'langs'								=> $USER['lang'],
 						'adm_pl_prot_data'					=> $PLANET['id_level'],					
 						'user_authlevel'					=> $USER['authlevel'],					
-						'Selectors'							=> array('Sort' => array(0 => $LNG['op_sort_normal'], 1 => $LNG['op_sort_koords'], 2 => $LNG['op_sort_abc']), 'SortUpDown' => array(0 => $LNG['op_sort_up'], 1 => $LNG['op_sort_down']), 'Skins' => array_diff(scandir(ROOT_PATH.'styles/skins/'), array('..', '.', '.svn', '.htaccess', 'index.htm','darkness')), 'lang' => GetLangs()),
+						'Selectors'							=> array('Sort' => array(0 => $LNG['op_sort_normal'], 1 => $LNG['op_sort_koords'], 2 => $LNG['op_sort_abc']), 'SortUpDown' => array(0 => $LNG['op_sort_up'], 1 => $LNG['op_sort_down']), 'Skins' => array_diff(scandir(ROOT_PATH.'styles/skins/'), array('..', '.', '.svn', '.htaccess', 'index.htm','darkness')), 'lang' => $LANG->getAllowedLangs(false)),
 						'planet_sort'						=> $USER['planet_sort'],
 						'planet_sort_order'					=> $USER['planet_sort_order'],
 						'uctime'							=> (TIMESTAMP - $USER['uctime'] >= (60 * 60 * 24 * 7)) ? true : false,

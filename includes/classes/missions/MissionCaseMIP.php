@@ -28,20 +28,20 @@ class MissionCaseMIP extends MissionFunctions
 	
 	function TargetEvent()
 	{
-		global $db, $resource, $reslist;
+		global $db, $resource, $reslist, $LANG, $CONF;
 		$SQL = "";
 		foreach($reslist['defense'] as $Element)
 		{
 			$SQL	.= PLANETS.".".$resource[$Element].", ";
 		}
 			
-		$QryTarget		 	= "SELECT ".USERS.".defence_tech, ".PLANETS.".id, ".PLANETS.".id_owner, ".substr($SQL, 0, -2)."
+		$QryTarget		 	= "SELECT ".USERS.".lang, ".USERS.".defence_tech, ".PLANETS.".id, ".PLANETS.".id_owner, ".substr($SQL, 0, -2)."
 							   FROM ".PLANETS.", ".USERS."
 							   WHERE ".PLANETS.".`id` = '".$this->_fleet['fleet_end_id']."' AND 
 							   ".PLANETS.".id_owner = ".USERS.".id;";
 								   
 		$TargetInfo			= $db->uniquequery($QryTarget);					   
-		$OwnerInfo			= $db->uniquequery("SELECT `military_tech` FROM ".USERS." WHERE `id` = '".$this->_fleet['fleet_owner']."';");					   
+		$OwnerInfo			= $db->uniquequery("SELECT `lang`, `military_tech` FROM ".USERS." WHERE `id` = '".$this->_fleet['fleet_owner']."';");					   
 		$Target				= (!in_array($this->_fleet['fleet_target_obj'], $reslist['defense']) || $this->_fleet['fleet_target_obj'] == 502 || $this->_fleet['fleet_target_obj'] == 0) ? 401 : $this->_fleet['fleet_target_obj'];
 		foreach($reslist['defense'] as $Element)		
 		{
@@ -51,8 +51,7 @@ class MissionCaseMIP extends MissionFunctions
 		$message 			= "";
 		$SQL 				= "";
 			
-		$LNG				= $this->GetUserLang(0);
-		$LNG				+= $this->GetUserLang(0, 'TECH');
+		$LNG				= $LANG->GetUserLang($CONF['lang'], array('FLEET', 'TECH'));
 				
 		require_once('calculateMIPAttack.'.PHP_EXT);	
 		if ($TargetInfo[$resource[502]] >= $this->_fleet['fleet_amount'])
@@ -90,13 +89,13 @@ class MissionCaseMIP extends MissionFunctions
 			}
 		}
 				
-		$UserPlanet 		= $db->fetch_array($db->query("SELECT name FROM ".PLANETS." WHERE id = '" . $this->_fleet['fleet_owner'] . "';"));
+		$UserPlanet 		= $db->uniquequery("SELECT name FROM ".PLANETS." WHERE id = '" . $this->_fleet['fleet_owner'] . "';"));
 		$OwnerLink			= $UserPlanet['name']."[".$this->_fleet['fleet_start_galaxy'].":".$this->_fleet['fleet_start_system'].":".$this->_fleet['fleet_start_planet']."]";
 		$TargetLink 		= $TargetInfo['name']."[".$this->_fleet['fleet_end_galaxy'].":".$this->_fleet['fleet_end_system'].":".$this->_fleet['fleet_end_planet']."]";;
 		$Message			= sprintf($LNG['sys_irak_mess'], $this->_fleet['fleet_amount'], $OwnerLink, $TargetLink).(empty($message) ? $LNG['sys_irak_no_def'] : $message);
 	
 		SendSimpleMessage($this->_fleet['fleet_owner'], '', $this->_fleet['fleet_start_time'], 3, $LNG['sys_mess_tower'], $LNG['sys_irak_subject'] , $Message);
-		SendSimpleMessage($TargetInfo['id_owner'], '', $this->_fleet['fleet_start_time'], 3, $LNG['sys_mess_tower'], $LNG['sys_irak_subject'] , $Message);
+		SendSimpleMessage($this->_fleet['fleet_target_owner'], '', $this->_fleet['fleet_start_time'], 3, $LNG['sys_mess_tower'], $LNG['sys_irak_subject'] , $Message);
 		$SQL				.= "DELETE FROM ".FLEETS." WHERE fleet_id = '" . $this->_fleet['fleet_id'] . "';";
 		$db->multi_query($SQL);
 	}

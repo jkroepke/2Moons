@@ -26,8 +26,7 @@ define('ROOT_PATH', './');
 include(ROOT_PATH . 'extension.inc');
 include(ROOT_PATH . 'common.'.PHP_EXT);
 
-includeLang('TECH');	
-includeLang('FLEET');	
+$LANG->includeLang(array('FLEET', 'TECH'));
 	
 $RID	= request_var('raport', '');
 
