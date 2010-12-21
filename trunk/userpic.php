@@ -36,7 +36,7 @@ $id = request_var('id', 0);
 
 if(CheckModule(37) || $id == 0) exit();
 
-includeLang('INGAME');
+$LANG->includeLang(array('INGAME'));
 
 require_once(ROOT_PATH."includes/classes/class.StatBanner.php");
 

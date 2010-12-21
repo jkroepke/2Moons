@@ -36,8 +36,6 @@ define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 include_once(ROOT_PATH . 'extension.inc');
 include_once(ROOT_PATH . 'common.' . PHP_EXT);
 
-includeLang('PUBLIC');
-
 $template	= new template();
 $template->set_index();
 $template->cache = true;
@@ -449,7 +447,7 @@ switch ($page) {
 					'lang_reg'						=> $LNG['lang_reg'],
 					'captcha_reg'					=> $LNG['captcha_reg'],
 					'register_now'					=> $LNG['register_now'],
-					'accept_terms_and_conditions'	=> sprintf($LNG['accept_terms_and_conditions'], $LANG),
+					'accept_terms_and_conditions'	=> sprintf($LNG['accept_terms_and_conditions'], $LANG->getUser()),
 					'captcha_reload'				=> $LNG['captcha_reload'],
 					'captcha_help'					=> $LNG['captcha_help'],
 					'captcha_get_image'				=> $LNG['captcha_get_image'],
@@ -634,7 +632,7 @@ switch ($page) {
 				'server_description'	=> sprintf($LNG['server_description'], $CONF['game_name']),
 				'server_infos'			=> $LNG['server_infos'],
 				'login'					=> $LNG['login'],
-				'login_info'			=> sprintf($LNG['login_info'], $LANG),
+				'login_info'			=> sprintf($LNG['login_info'], $LANG->getUser()),
 				'user'					=> $LNG['user'],
 				'pass'					=> $LNG['pass'],
 				'lostpassword'			=> $LNG['lostpassword'],

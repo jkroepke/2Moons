@@ -230,7 +230,7 @@ class template
             'vmode'				=> $USER['urlaubs_modus'],
             'is_pmenu'			=> $USER['settings_planetmenu'],
 			'authlevel'			=> $USER['authlevel'],
-            'lang'    			=> $LANG,
+            'lang'    			=> $LANG->getUser(),
             'ready'    			=> $LNG['ready'],
 			'date'				=> explode("|", date('Y\|n\|j\|G\|i\|s\|Z', TIMESTAMP)),
         ));
@@ -286,7 +286,7 @@ class template
 			'bgm_active'		=> $CONF['bgm_active'],
 			'bgm_file'			=> $CONF['bgm_file'],
 			'getajax'			=> request_var('getajax', 0),
-			'lang'				=> $LANG,
+			'lang'				=> $LANG->getUser(),
 			'UNI'				=> $UNI,
 		));
 	}

@@ -23,7 +23,7 @@
 
 function ShowTopKB()
 {
-	global $USER, $PLANET, $LNG, $UNI, $db;
+	global $USER, $PLANET, $LNG, $UNI, $db, $LANG;
 	$mode = request_var('mode','');
 
 	$template	= new template();
@@ -33,7 +33,7 @@ function ShowTopKB()
 			$template->page_header();
 			$template->page_footer();
 
-			includeLang('FLEET');	
+			$LANG->includeLang(array('FLEET'));
 			
 			$ReportID 	= request_var('rid','');
 			if(file_exists(ROOT_PATH.'raports/topkb_'.$ReportID.'.php')) {

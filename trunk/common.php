@@ -62,6 +62,7 @@ if(!function_exists('bcadd'))
 	require_once(ROOT_PATH.'includes/bcmath.'.PHP_EXT);
 
 require_once(ROOT_PATH . 'includes/classes/class.MySQLi.'.PHP_EXT);
+require_once(ROOT_PATH . 'includes/classes/class.Lang.'.PHP_EXT);
 require_once(ROOT_PATH . 'includes/classes/class.Session.'.PHP_EXT);
 require_once(ROOT_PATH . 'includes/GeneralFunctions.'.PHP_EXT);
 require_once(ROOT_PATH . 'includes/vars.'.PHP_EXT);
@@ -71,6 +72,8 @@ if($database)
 	$db = new DB_MySQLi();
 elseif(INSTALL != true)
 	redirectTo("install/");
+
+$LANG	= new Language();	
 
 unset($database);
 
@@ -93,7 +96,8 @@ if (INSTALL != true)
 	
 	$CONF = $db->uniquequery("SELECT HIGH_PRIORITY * FROM `".CONFIG."` WHERE `uni` = '".$UNI."';");
 	$CONF['moduls']		= explode(";", $CONF['moduls']);
-	
+	$LANG->setDefault($CONF['lang']);
+		
 		
 	define('VERSION'		, $CONF['VERSION']);
 	if (!defined('LOGIN') && !defined('IN_CRON') && !defined('AJAX'))
@@ -133,18 +137,11 @@ if (INSTALL != true)
 			exit(header('Location: index.php'));
 		} elseif(empty($USER['lang'])) {
 			$USER['lang']	= $CONF['lang'];
-			$db->query("UPDATE ".USERS." SET `lang` ='".$USER['lang']."' WHERE `id` = '".$USER['id']."';");
+			$db->query("UPDATE ".USERS." SET `lang` = '".$USER['lang']."' WHERE `id` = '".$USER['id']."';");
 		}
 		
-		if(!empty($USER['lang']))
-			$LANG	= $USER['lang'];
-		elseif(!empty($CONF['lang']))
-			$LANG	= $CONF['lang'];
-		else
-			$LANG	= DEFAULT_LANG;
-		
-		includeLang('INGAME');
-		includeLang('TECH');
+		$LANG->setDefault($USER['lang']);	
+		$LANG->includeLang(array('INGAME', 'TECH'));
 		
 		if($USER['bana'] == 1)
 		{
@@ -170,21 +167,15 @@ if (INSTALL != true)
 			}
 		} else {
 			$USER['rights']	= unserialize($USER['rights']);
-			includeLang('ADMIN');
+			$LANG->includeLang(array('ADMIN'));
 		}
 		
 		$_SESSION['USER']	= $USER;
 		$_SESSION['PLANET']	= $PLANET;
 	} else {
 		//Login
-		if(isset($_REQUEST['lang']) && ctype_alnum($_REQUEST['lang']) && !isset($_REQUEST['lang']{3}))
-			$LANG	= $_REQUEST['lang'];
-		elseif(isset($CONF['lang']))
-			$LANG	= $CONF['lang'];
-		else
-			$LANG	= DEFAULT_LANG;
-			
-		includeLang('INGAME');
+		$LANG->GetLangFromBrowser();
+		$LANG->includeLang(array('INGAME', 'PUBLIC'));
 	}
 }
 

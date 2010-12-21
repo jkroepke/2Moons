@@ -85,15 +85,6 @@ function pretty_time_hour ($seconds)
 	return $time;
 }
 
-function includeLang ($filename, $ext = '.php')
-{
-	global $LNG, $LANG;		
-	if(file_exists(ROOT_PATH . "language/".$LANG."/".$filename.$ext))
-		require(ROOT_PATH . "language/".$LANG."/".$filename.$ext);
-	else
-		throw new Exception('LangFile '.$filename.$ext.' ('.$LANG.') not found!');
-}
-
 function GetStartAdressLink ( $FleetRow, $FleetType )
 {
 	$Link  = "<a href=\"game.php?page=galaxy&amp;mode=3&amp;galaxy=".$FleetRow['fleet_start_galaxy']."&amp;system=".$FleetRow['fleet_start_system']."\" class=\"". $FleetType ."\">";
@@ -418,11 +409,6 @@ function CheckModule($ID)
 		$GLOBALS['CONF']['moduls'][$ID] = 1;
 	
 	return ($GLOBALS['USER']['authlevel'] == 0 && $GLOBALS['CONF']['moduls'][$ID] == 0) ? true : false;
-}
-
-function GetLangs()
-{
-	return $GLOBALS['LNG']['langs'];
 }
 
 function redirectTo($URL)

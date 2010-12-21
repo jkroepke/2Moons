@@ -19,12 +19,9 @@
 # *                                                                          #
 ##############################################################################
 
-
-
-
 function ShowChangelogPage()
 {
-	global $USER, $PLANET, $LNG;
+	global $USER, $PLANET, $LNG, $LANG;
 
 	$PlanetRess = new ResourceUpdate();
 	$PlanetRess->CalcResource();
@@ -38,7 +35,7 @@ function ShowChangelogPage()
 	$template->page_planetmenu();
 	$template->page_footer();
 
-	includeLang('CHANGELOG');	
+	$LANG->includeLang(array('CHANGELOG'));	
 	$template->assign_vars(array(	
 		'ChangelogList'	=> array_map('makebr',$LNG['changelog']),
 		'Version'		=> $LNG['Version'],

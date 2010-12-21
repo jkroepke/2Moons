@@ -22,7 +22,7 @@
 
 function ShowBattleSimPage()
 {
-	global $USER, $PLANET, $reslist, $pricelist, $LNG, $db, $ExtraDM;
+	global $USER, $PLANET, $reslist, $pricelist, $LNG, $db, $ExtraDM, $LANG;
 	
 	$action			= request_var('action', '');
 	$Slots			= request_var('slots', 1);
@@ -84,7 +84,7 @@ function ShowBattleSimPage()
 			}
 		}
 		
-		includeLang('FLEET');
+		$LANG->includeLang(array('FLEET'));
 		require_once(ROOT_PATH.'includes/classes/missions/calculateAttack.'.PHP_EXT);
 		require_once(ROOT_PATH.'includes/classes/missions/calculateSteal.'.PHP_EXT);
 		require_once(ROOT_PATH.'includes/classes/missions/GenerateReport.'.PHP_EXT);

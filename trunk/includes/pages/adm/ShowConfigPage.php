@@ -24,7 +24,7 @@ if ($USER['rights'][str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '',
 
 function ShowConfigPage()
 {
-	global $CONF, $LNG, $USER;
+	global $CONF, $LNG, $USER, $LANG;
 
 	if ($_POST['opt_save'] == "1")
 	{
@@ -314,7 +314,7 @@ function ShowConfigPage()
 		'bgm_file'           			=> $CONF['bgm_file'],
 		'trade_allowed_ships'        	=> $CONF['trade_allowed_ships'],
 		'trade_charge'		        	=> $CONF['trade_charge'],
-		'Selector'						=> array('langs' => GetLangs(), 'mail' => array('' => $LNG['se_smtp_ssl_1'], 'ssl' => $LNG['se_smtp_ssl_2'], 'tls' => $LNG['se_smtp_ssl_3'])),
+		'Selector'						=> array('langs' => $LANG->getAllowedLangs(false), 'mail' => array('' => $LNG['se_smtp_ssl_1'], 'ssl' => $LNG['se_smtp_ssl_2'], 'tls' => $LNG['se_smtp_ssl_3'])),
 		'lang'							=> $CONF['lang'],
 	));
 	

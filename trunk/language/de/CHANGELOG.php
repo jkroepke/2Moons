@@ -5,12 +5,21 @@ $LNG['Description'] = 'Beschreibung';
 
 $LNG['changelog']   = array(
 
-'v1.3' => 'ShadoX 15.11.10
+'v1.3' => 'ShadoX 21.12.10
 - ADD: MultiUniverse Support
+- ADD: IPv6 Support
 - ADD: Limit of max Colony
 - ADD: Template Cache System
 - ADD: Daily Cronjob for clear Cache
+- ADD: Fleettrader
+- ADD: SessionSystem
+- ADD: AdminHack Protection
+- ADD: FTP Service on Installer to solved the CHMOD Problems
+- ADD: New Chat System
+- FIX: Facebook Connector
 - FIX: ACS
+- FIX: UpdateSystem
+- FIX: Ressource Cheat
 - FIX: Admin Attack
 - FIX: SSL on IIS
 - FIX: Admin on Records
@@ -21,8 +30,15 @@ $LNG['changelog']   = array(
 - FIX: Fleetspeed Hack
 - FIX: BuildTime Hack
 - FIX: Cache System
+- FIX: Moondestruction
+- FIX: Teamspeak API for Teamspeak 3 Servers
 - FIX: UpdateSystem dont donwload same Files now
-- DIV: Update TS³ Lib, reCAPTCHA Lib, Smarty and jQuery
+- DIV: Max Buttons on Jumpgate
+- DIV: OfficiersVars now on vars.php
+- DIV: Fleet Ressoucres go up tp 18.446.744.073.709.551.616
+- DIV: Allow Change Version on ACP
+- DIV: Get Language via HTTP Header on Index
+- DIV: Update TS³ Lib, Soundmanager, reCAPTCHA Lib, Smarty and jQuery
 ',
 'v1.2' => 'ShadoX 04.10.10
 - ADD: Set Max Fleets on ACS (Default: 16)

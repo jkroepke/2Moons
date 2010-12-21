@@ -32,13 +32,8 @@ define('ROOT_PATH', './../');
 include(ROOT_PATH . 'extension.inc');
 include(ROOT_PATH . 'common.'.PHP_EXT);
 
-if(isset($_REQUEST['lang']) && ctype_alnum($_REQUEST['lang']) && !isset($_REQUEST['lang']{3}))
-	$LANG	= $_REQUEST['lang'];
-else
-	$LANG	= DEFAULT_LANG;
-
-includeLang('INGAME');
-includeLang('INSTALL');
+$LANG->GetLangFromBrowser();
+$LANG->includeLang(array('INGAME', 'INSTALL'));
 $Mode     = $_GET['mode'];
 $Page     = $_GET['page'];
 $phpself  = $_SERVER['PHP_SELF'];
@@ -66,7 +61,7 @@ switch ($Mode) {
 	break;
 	case 'intro':
 		$template->assign_vars(array(
-			'Selector'		=> GetLangs(),
+			'Selector'		=> $LANG->getAllowedLangs(false),
 			'intro_text'	=> $LNG['intro_text'],
 			'intro_welcome'	=> $LNG['intro_welcome'],
 			'intro_install'	=> $LNG['intro_install'],
@@ -77,7 +72,7 @@ switch ($Mode) {
 	case 'ftp':
 		require_once(ROOT_PATH.'includes/libs/ftp/ftp.class.'.PHP_EXT);
 		require_once(ROOT_PATH.'includes/libs/ftp/ftpexception.class.'.PHP_EXT);
-		includeLang('ADMIN');
+		$LANG->includeLang(array('ADMIN'));
 		$CONFIG = array("host" => $_GET['host'], "username" => $_GET['user'], "password" => $_GET['pass'], "port" => 21); 
 		try
 		{

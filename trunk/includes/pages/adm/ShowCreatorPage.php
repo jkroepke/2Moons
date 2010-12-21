@@ -25,7 +25,7 @@ if ($USER['rights'][str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '',
 
 function ShowCreatorPage()
 {
-	global $LNG, $db, $USER, $UNI;
+	global $LNG, $db, $USER, $UNI, $LANG;
 
 	$template	= new template();
 	$template->page_header();
@@ -33,7 +33,7 @@ function ShowCreatorPage()
 	switch ($_GET['mode'])
 	{
 		case 'user':
-			includeLang('PUBLIC');
+			$LANG->includeLang(array('PUBLIC'));
 			if ($_POST)
 			{
 				$UserName 	= request_var('name', '', UTF8_SUPPORT);

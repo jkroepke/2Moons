@@ -98,25 +98,6 @@ class MissionFunctions
 		global $db;
 		$this->kill	= 1;
 		$db->query("DELETE FROM ".FLEETS." WHERE `fleet_id` = '".$this->_fleet['fleet_id']."';");
-	}
-	
-	function GetUserLang($ID, $File = 'FLEET')
-	{
-		global $db, $CONF;
-		if($ID == 0)
-			$LANGUAGE	= $CONF['lang'];
-		else
-			$LANGUAGE	= $db->countquery("SELECT `lang` FROM ".USERS." WHERE `id` = '".$ID."';");
-				
-		if(empty($LANGUAGE))
-			throw new Exception('Found no lang Record on UserID: '.$ID);
-		if(file_exists(ROOT_PATH.'language/'.$LANGUAGE.'/'.$File.'.'.PHP_EXT))
-			require(ROOT_PATH.'language/'.$LANGUAGE.'/'.$File.'.'.PHP_EXT);
-		else
-			require(ROOT_PATH.'language/'.$CONF['lang'].'/'.$File.'.'.PHP_EXT);
-			
-		return $LNG;
-	}
-	
+	}	
 }
 ?>

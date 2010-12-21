@@ -31,14 +31,12 @@ $SESSION       	= new Session();
 
 if(!$SESSION->IsUserLogin() || ($CONF['game_disable'] == 0 && $_SESSION['authlevel'] == 0))
 	exit(json_encode(array()));
-
-includeLang('INGAME');
 	
 $action	= request_var('action', '');
 switch($action)
 {
 	case 'getfleets':
-		includeLang('TECH');
+		$LANG->includeLang(array('INGAME', 'TECH'));
 		$OwnFleets = $db->query("SELECT DISTINCT * FROM ".FLEETS." WHERE `fleet_owner` = '".$_SESSION['id']."' OR `fleet_target_owner` = '".$_SESSION['id']."';");
 		$Record = 0;
 		if($db->num_rows($OwnFleets) == 0)
