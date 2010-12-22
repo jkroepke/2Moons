@@ -1,13 +1,5 @@
 <?php
 
-//LANUAGES
-$LNG['langs']    = array(
-    'de' => 'Deutsch', 
-    'en' => 'English', 
-    'ru' => 'Русский', 
-    'pt' => 'Português',
-    'cn' => '简体中文',
-);
 //SERVER GENERALS
 $LNG['Metal']								= 'Metal';
 $LNG['Crystal']								= 'Crystal';
