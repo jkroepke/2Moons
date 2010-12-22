@@ -40,25 +40,25 @@ class MissionCaseRecycling extends MissionFunctions
 
 			$Class       			= explode (",", $Group);
 			if ($Class[0] == 209 || $Class[0] == 219)
-				$RecyclerCapacity   = bcadd($RecyclerCapacity, bcmul($pricelist[$Class[0]]['capacity'], $Class[1]));
+				$RecyclerCapacity   = HLadd($RecyclerCapacity, HLmul($pricelist[$Class[0]]['capacity'], $Class[1]));
 			else
-				$OtherFleetCapacity = bcadd($OtherFleetCapacity, bcmul($pricelist[$Class[0]]['capacity'], $Class[1]));
+				$OtherFleetCapacity = HLadd($OtherFleetCapacity, HLmul($pricelist[$Class[0]]['capacity'], $Class[1]));
 		}		
 		
 		$IncomingFleetGoods 	= $this->_fleet['fleet_resource_metal'] + $this->_fleet['fleet_resource_crystal'] + $this->_fleet['fleet_resource_deuterium'];
 		if ($IncomingFleetGoods > $OtherFleetCapacity)
-			$RecyclerCapacity	= bcsub($RecyclerCapacity, bcsub($IncomingFleetGoods, $OtherFleetCapacity));		
+			$RecyclerCapacity	= HLsub($RecyclerCapacity, HLsub($IncomingFleetGoods, $OtherFleetCapacity));		
 		
-		$RecycledGoods['metal']   	= min($Target['der_metal'], bcdiv($RecyclerCapacity, 2));
-		$RecycledGoods['crystal'] 	= min($Target['der_crystal'], bcdiv($RecyclerCapacity, 2));		
-		$Target['der_metal']		= bcsub($Target['der_metal'], $RecycledGoods['metal']);
-		$Target['der_crystal']		= bcsub($Target['der_crystal'], $RecycledGoods['crystal']);
+		$RecycledGoods['metal']   	= min($Target['der_metal'], HLdiv($RecyclerCapacity, 2));
+		$RecycledGoods['crystal'] 	= min($Target['der_crystal'], HLdiv($RecyclerCapacity, 2));		
+		$Target['der_metal']		= HLsub($Target['der_metal'], $RecycledGoods['metal']);
+		$Target['der_crystal']		= HLsub($Target['der_crystal'], $RecycledGoods['crystal']);
 		
-		$RecyclerCapacity			= bcsub($RecyclerCapacity, bcadd($RecycledGoods['metal'], $RecycledGoods['crystal']));
+		$RecyclerCapacity			= HLsub($RecyclerCapacity, HLadd($RecycledGoods['metal'], $RecycledGoods['crystal']));
 		if($Target['der_metal'] !== '0')
-			$RecycledGoods['metal']   = bcadd($RecycledGoods['metal'], min($Target['der_metal'], $RecyclerCapacity));
+			$RecycledGoods['metal']   = HLadd($RecycledGoods['metal'], min($Target['der_metal'], $RecyclerCapacity));
 		elseif($Target['der_crystal'] !== '0')
-			$RecycledGoods['crystal'] = bcadd($RecycledGoods['crystal'], min($Target['der_crystal'], $RecyclerCapacity));
+			$RecycledGoods['crystal'] = HLadd($RecycledGoods['crystal'], min($Target['der_crystal'], $RecyclerCapacity));
 	
 	
 		$db->query("UPDATE ".PLANETS." SET `der_metal` = `der_metal` - '".$RecycledGoods['metal']."', `der_crystal` = `der_crystal` - '".$RecycledGoods['crystal']."' WHERE `id` = '".$this->_fleet['fleet_end_id']."';");
@@ -67,8 +67,8 @@ class MissionCaseRecycling extends MissionFunctions
 		$Message 		= sprintf($LNG['sys_recy_gotten'], pretty_number($RecycledGoods['metal']), $LNG['Metal'], pretty_number($RecycledGoods['crystal']), $LNG['Crystal']);
 		SendSimpleMessage($this->_fleet['fleet_owner'], '', $this->_fleet['fleet_start_time'], 4, $LNG['sys_mess_tower'], $LNG['sys_recy_report'], $Message);
 		
-		$this->UpdateFleet('fleet_resource_metal', bcadd($this->_fleet['fleet_resource_metal'], $RecycledGoods['metal']));
-		$this->UpdateFleet('fleet_resource_crystal', bcadd($this->_fleet['fleet_resource_crystal'], $RecycledGoods['crystal']));
+		$this->UpdateFleet('fleet_resource_metal', HLadd($this->_fleet['fleet_resource_metal'], $RecycledGoods['metal']));
+		$this->UpdateFleet('fleet_resource_crystal', HLadd($this->_fleet['fleet_resource_crystal'], $RecycledGoods['crystal']));
 		$this->UpdateFleet('fleet_mess', 1);
 		$this->SaveFleet();
 	}

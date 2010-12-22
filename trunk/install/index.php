@@ -118,7 +118,7 @@ switch ($Mode) {
 			$error++;
 		}
 		
-		if(function_exists('bcadd')){
+		if(function_exists('HLadd')){
 			$bcmath = "<span class=\"yes\">".$LNG['reg_yes']."</span>";
 		} else {
 			$bcmath = "<span class=\"ok\">".$LNG['reg_no']."</span>";

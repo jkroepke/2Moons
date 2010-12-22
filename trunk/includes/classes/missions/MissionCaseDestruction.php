@@ -249,8 +249,8 @@ class MissionCaseDestruction extends MissionFunctions
 			break;
 		}
 
-		$DerbisMetal		= bcadd($TargetPlanet['der_metal'], bcadd($result['debree']['att'][0], $result['debree']['def'][0]));
-		$DerbisCrystal		= bcadd($TargetPlanet['der_crystal'], bcadd($result['debree']['att'][1], $result['debree']['def'][1]));	
+		$DerbisMetal		= HLadd($TargetPlanet['der_metal'], HLadd($result['debree']['att'][0], $result['debree']['def'][0]));
+		$DerbisCrystal		= HLadd($TargetPlanet['der_crystal'], HLadd($result['debree']['att'][1], $result['debree']['def'][1]));	
 		
 		$SQLQuery  = "UPDATE ".PLANETS." SET ";
 		$SQLQuery .= "`der_metal` = '".$DerbisMetal."', ";

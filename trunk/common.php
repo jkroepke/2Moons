@@ -22,13 +22,10 @@
 if(!defined('INSTALL') || !defined('IN_ADMIN') || !defined('IN_CRON'))
 	define("STARTTIME",	microtime(true));
 
-require_once(ROOT_PATH . 'includes/classes/class.ErrorLogging.'.PHP_EXT);
-$ELOG	= new ErrorLogging();
 ignore_user_abort(true);
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 ini_set('zlib.output_compression', 'On');
 ini_set('display_errors', 1);
-bcscale(0);		
 date_default_timezone_set("Europe/Berlin");
 header('Content-Type: text/html; charset=UTF-8');
 define('TIMESTAMP',	$_SERVER['REQUEST_TIME']);
@@ -54,13 +51,11 @@ ini_set('session.gc_divisor', '1000');
 ini_set('session.bug_compat_warn', '0');
 ini_set('session.bug_compat_42', '0');
 ini_set('session.cookie_httponly', true);
-	
+ini_set('magic_quotes_runtime', 0);
+
 if(!defined('LOGIN') && INSTALL == false)
 	session_start();
 	
-if(!function_exists('bcadd'))
-	require_once(ROOT_PATH.'includes/bcmath.'.PHP_EXT);
-
 require_once(ROOT_PATH . 'includes/classes/class.MySQLi.'.PHP_EXT);
 require_once(ROOT_PATH . 'includes/classes/class.Lang.'.PHP_EXT);
 require_once(ROOT_PATH . 'includes/classes/class.Session.'.PHP_EXT);
@@ -74,7 +69,7 @@ elseif(INSTALL != true)
 	redirectTo("install/");
 
 $LANG	= new Language();	
-
+$BCMATH	= function_exists('bcadd');
 unset($database);
 
 if (INSTALL != true)
