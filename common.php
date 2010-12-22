@@ -98,7 +98,6 @@ if (INSTALL != true)
 	$CONF['moduls']		= explode(";", $CONF['moduls']);
 	$LANG->setDefault($CONF['lang']);
 		
-		
 	define('VERSION'		, $CONF['VERSION']);
 	if (!defined('LOGIN') && !defined('IN_CRON') && !defined('AJAX'))
 	{
@@ -112,7 +111,6 @@ if (INSTALL != true)
 		{
 			message($CONF['close_reason']);
 		}
-		
 		if(request_var('ajax', 0) == 0 && !defined('IN_ADMIN'))
 		{	
 			update_config(array('stats_fly_lock' => TIMESTAMP), true);
@@ -172,7 +170,7 @@ if (INSTALL != true)
 		
 		$_SESSION['USER']	= $USER;
 		$_SESSION['PLANET']	= $PLANET;
-	} else {
+	} elseif(defined('LOGIN')) {
 		//Login
 		$LANG->GetLangFromBrowser();
 		$LANG->includeLang(array('INGAME', 'PUBLIC'));
