@@ -1,14 +1,5 @@
 <?php
 
-// Языки
-$LNG['langs']    = array(
-                                     'de' => 'Deutsch',
-                                     'en' => 'English',
-                                     'ru' => 'Русский',
-                                     'pt' => 'Português',
-                                     'cn' => '简体中文',
-);
-
 // Основная часть сервера
 $LNG['Metal']                             = 'Металл';
 $LNG['Crystal']                           = 'Кристалл';
