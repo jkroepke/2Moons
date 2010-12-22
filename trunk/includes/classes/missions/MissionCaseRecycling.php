@@ -28,7 +28,7 @@ class MissionCaseRecycling extends MissionFunctions
 	
 	function TargetEvent()
 	{	
-		global $db, $pricelist;
+		global $db, $pricelist, $LANG;
 		$Target				 = $db->uniquequery("SELECT der_metal, der_crystal FROM ".PLANETS." WHERE `id` = '".$this->_fleet['fleet_end_id']."';");
 		$FleetRecord         = explode(";", $this->_fleet['fleet_array']);
 		$RecyclerCapacity    = 0;
