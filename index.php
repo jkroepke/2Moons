@@ -460,7 +460,7 @@ switch ($page) {
 					'captcha_reload'				=> $LNG['captcha_reload'],
 					'captcha_get_audio'				=> $LNG['captcha_get_audio'],
 					'AvailableUnis'					=> $AvailableUnis,
-					'AvailableLangs'				=> $LNG['langs'],
+					'AvailableLangs'				=> $LANG->getAllowedLangs(false),
 					'uni_reg'						=> $LNG['uni_reg'],
 					'chose_a_uni'					=> $LNG['chose_a_uni'],
 					'register'						=> $LNG['register'],
