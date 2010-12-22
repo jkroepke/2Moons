@@ -332,9 +332,7 @@ function CheckName($String)
 }
 
 function exception_handler($exception) {
-	global $CONF, $ELOG;
-	if(isset($ELOG))
-		$ELOG->_toFile(E_ERROR, $exception->getMessage(), $exception->getFile(), $exception->getLine());
+	global $CONF;
 		
 	echo '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">';
 	echo '<html>';
@@ -363,6 +361,7 @@ function exception_handler($exception) {
     echo '<b>File: </b>'.$exception->getFile().'<br>';
     echo '<b>Line: </b>'.$exception->getLine().'<br>';
     echo '<b>PHP-Version: </b>'.PHP_VERSION.'<br>';
+    echo '<b>PHP-API: </b>'.php_sapi_name().'<br>';
     echo '<b>2Moons Version: </b>'.VERSION.'<br>';
 	echo '<b>Debug Backtrace:</b><br>'.makebr(str_replace($_SERVER['DOCUMENT_ROOT'], '.', htmlspecialchars($exception->getTraceAsString()))).'</th>';
 	echo '</tr>';
@@ -477,11 +476,28 @@ function GetTeamspeakData()
 	return $Teamspeak;
 }
 
+//Math Functions
+
+function HLadd($Num1, $Num2) {
+	return ($GLOBALS['BCMATH'] == true && ($Num1 > PHP_INT_MAX || $Num2 > PHP_INT_MAX)) ? bcadd($Num1, $Num2, 0) : ($Num1 + $Num2);
+}
+
+function HLsub($Num1, $Num2) {
+	return ($GLOBALS['BCMATH'] == true && ($Num1 > PHP_INT_MAX || $Num2 > PHP_INT_MAX)) ? bcsub($Num1, $Num2, 0) : ($Num1 - $Num2);
+}
+
+function HLmul($Num1, $Num2) {
+	return ($GLOBALS['BCMATH'] == true && ($Num1 > PHP_INT_MAX || $Num2 > PHP_INT_MAX)) ? bcmul($Num1, $Num2, 0) : ($Num1 * $Num2);
+}
+
+function HLdiv($Num1, $Num2) {
+	return ($GLOBALS['BCMATH'] == true && ($Num1 > PHP_INT_MAX || $Num2 > PHP_INT_MAX)) ? bcdiv($Num1, $Num2, 0) : ($Num1 / $Num2);
+}
+
 if(!function_exists('ctype_alnum'))
 {
     function ctype_alnum($test){
         return preg_match("/[^A-z0-9_\- ]/", $test) != 1;
     }
 }
-
 ?>
