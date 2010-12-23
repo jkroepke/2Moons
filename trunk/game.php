@@ -283,7 +283,7 @@ switch($page)
 		if(CheckModule(27))
 			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
-		include_once($xnova_root . 'includes/pages/ShowSupportPage.php');
+		include_once(ROOT_PATH . 'includes/pages/ShowSupportPage.php');
         new ShowSupportPage();
     break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//	

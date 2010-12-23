@@ -98,8 +98,8 @@ class ShowSupportPage
 	{
 		global $USER, $PLANET, $db, $LNG;
 				
-		$query		= $db->query("SELECT ID,time,text,subject,status FROM ".SUPP." WHERE `player_id` = '".$USER['id']."';");
-		
+		$query			= $db->query("SELECT ID,time,text,subject,status FROM ".SUPP." WHERE `player_id` = '".$USER['id']."';");
+		$TicketsList	= array();
 		while($ticket = $db->fetch_array($query)){	
 			$TicketsList[$ticket['ID']]	= array(
 				'status'	=> $ticket['status'],

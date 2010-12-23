@@ -45,6 +45,7 @@ function ShowTechTreePage()
 			$TechTreeList[]	= $ElementName;
 		else
 		{
+			$RequeriList	= array();
 			if(isset($requeriments[$Element]))
 			{
 				foreach($requeriments[$Element] as $RegID => $RedCount)

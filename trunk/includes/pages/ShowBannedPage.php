@@ -34,8 +34,9 @@ function ShowBannedPage()
 	$template->page_planetmenu();
 	$template->page_footer();
 
-	$query = $db->query("SELECT * FROM ".BANNED." ORDER BY `id`;");
-
+	$query			= $db->query("SELECT * FROM ".BANNED." ORDER BY `id`;");
+	$PrangerList	= array();
+	
 	while($u = $db->fetch_array($query))
 	{
 		$PrangerList[]	= array(
@@ -52,7 +53,7 @@ function ShowBannedPage()
 	$db->free_result($query);
 	
 	$template->assign_vars(array(	
-		'PrangerList'					=> $PrangerList,
+		'PrangerList'				=> $PrangerList,
 		'bn_no_players_banned'		=> $LNG['bn_no_players_banned'],
 		'bn_exists'					=> $LNG['bn_exists'],
 		'bn_players_banned'			=> $LNG['bn_players_banned'],

@@ -23,7 +23,7 @@ if(!defined('INSTALL') || !defined('IN_ADMIN') || !defined('IN_CRON'))
 	define("STARTTIME",	microtime(true));
 
 ignore_user_abort(true);
-error_reporting(E_ERROR | E_WARNING | E_PARSE);
+error_reporting(E_ALL ^ E_NOTICE);
 ini_set('zlib.output_compression', 'On');
 ini_set('display_errors', 1);
 date_default_timezone_set("Europe/Berlin");
@@ -147,6 +147,8 @@ if (INSTALL != true)
 			$db->query("UPDATE ".USERS." SET `authlevel` = '".$_SESSION['authlevel']."' WHERE `id` = ".$USER['id'].";");
 			redirectTo('index.php');		
 		}
+		
+		$_SESSION['USER']	= $USER;
 		if (!defined('IN_ADMIN'))
 		{
 			require_once(ROOT_PATH . 'includes/classes/class.PlanetRessUpdate.'.PHP_EXT);
@@ -159,13 +161,11 @@ if (INSTALL != true)
 					throw new Exception("Main Planet does not exist!");
 				}
 			}
+			$_SESSION['PLANET']	= $PLANET;
 		} else {
 			$USER['rights']	= unserialize($USER['rights']);
 			$LANG->includeLang(array('ADMIN'));
 		}
-		
-		$_SESSION['USER']	= $USER;
-		$_SESSION['PLANET']	= $PLANET;
 	} elseif(defined('LOGIN')) {
 		//Login
 		$LANG->GetLangFromBrowser();

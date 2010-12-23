@@ -407,7 +407,7 @@ function CheckModule($ID)
 	if(!isset($GLOBALS['CONF']['moduls'][$ID])) 
 		$GLOBALS['CONF']['moduls'][$ID] = 1;
 	
-	return ($GLOBALS['USER']['authlevel'] == 0 && $GLOBALS['CONF']['moduls'][$ID] == 0) ? true : false;
+	return ((!isset($_SESSION) || $_SESSION['authlevel'] == 0) && $GLOBALS['CONF']['moduls'][$ID] == 0) ? true : false;
 }
 
 function redirectTo($URL)
@@ -476,22 +476,36 @@ function GetTeamspeakData()
 	return $Teamspeak;
 }
 
+function r_implode($glue, $pieces)
+{
+	$retVal	= array();
+	foreach($pieces as $r_pieces)
+	{
+		if(is_array($r_pieces))
+			$retVal[] = r_implode($glue, $r_pieces);
+		else
+			$retVal[] = $r_pieces;
+	}
+	return implode($glue, $retVal);
+} 
+
+
 //Math Functions
 
 function HLadd($Num1, $Num2) {
-	return ($GLOBALS['BCMATH'] == true && ($Num1 > PHP_INT_MAX || $Num2 > PHP_INT_MAX)) ? bcadd($Num1, $Num2, 0) : ($Num1 + $Num2);
+	return ($GLOBALS['BCMATH'] === true && ($Num1 > PHP_INT_MAX || $Num2 > PHP_INT_MAX)) ? bcadd($Num1, $Num2, 0) : ($Num1 + $Num2);
 }
 
 function HLsub($Num1, $Num2) {
-	return ($GLOBALS['BCMATH'] == true && ($Num1 > PHP_INT_MAX || $Num2 > PHP_INT_MAX)) ? bcsub($Num1, $Num2, 0) : ($Num1 - $Num2);
+	return ($GLOBALS['BCMATH'] === true && ($Num1 > PHP_INT_MAX || $Num2 > PHP_INT_MAX)) ? bcsub($Num1, $Num2, 0) : ($Num1 - $Num2);
 }
 
 function HLmul($Num1, $Num2) {
-	return ($GLOBALS['BCMATH'] == true && ($Num1 > PHP_INT_MAX || $Num2 > PHP_INT_MAX)) ? bcmul($Num1, $Num2, 0) : ($Num1 * $Num2);
+	return ($GLOBALS['BCMATH'] === true && ($Num1 > PHP_INT_MAX || $Num2 > PHP_INT_MAX)) ? bcmul($Num1, $Num2, 0) : ($Num1 * $Num2);
 }
 
 function HLdiv($Num1, $Num2) {
-	return ($GLOBALS['BCMATH'] == true && ($Num1 > PHP_INT_MAX || $Num2 > PHP_INT_MAX)) ? bcdiv($Num1, $Num2, 0) : ($Num1 / $Num2);
+	return ($GLOBALS['BCMATH'] === true && ($Num1 > PHP_INT_MAX || $Num2 > PHP_INT_MAX)) ? bcdiv($Num1, $Num2, 0) : ($Num1 / $Num2);
 }
 
 if(!function_exists('ctype_alnum'))

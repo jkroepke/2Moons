@@ -92,7 +92,7 @@ class GalaxyRows
 		return $Result;
 	}
 
-	public function GalaxyRowMoon($GalaxyRowUser, $GalaxyRowMoon)
+	public function GalaxyRowMoon($GalaxyRowMoon)
 	{
 		global $USER, $PLANET, $LNG, $resource;
 
@@ -100,12 +100,12 @@ class GalaxyRows
 			'name'		=> htmlspecialchars($GalaxyRowMoon['name'], ENT_QUOTES, "UTF-8"),
 			'temp_min'	=> number_format($GalaxyRowMoon['temp_min'], 0, '', '.'), 
 			'diameter'	=> number_format($GalaxyRowMoon['diameter'], 0, '', '.'),
-			'attack'	=> ($GalaxyRowUser['userid'] != $USER['id']) ? $LNG['type_mission'][1]:false,
+			'attack'	=> ($GalaxyRowMoon['id_owner'] != $USER['id']) ? $LNG['type_mission'][1]:false,
 			'transport'	=> $LNG['type_mission'][3],
-			'stay'		=> ($GalaxyRowUser['userid'] == $USER['id']) ? $LNG['type_mission'][4]:false,
-			'stayally'	=> ($GalaxyRowUser['userid'] != $USER['id']) ? $LNG['type_mission'][5]:false,
-			'spionage'	=> ($GalaxyRowUser['userid'] != $USER['id']) ? $LNG['type_mission'][6]:false,
-			'destroy'	=> ($GalaxyRowUser['userid'] != $USER['id'] && $PLANET[$resource[214]] > 0) ? $LNG['type_mission'][9]:false,
+			'stay'		=> ($GalaxyRowMoon['id_owner'] == $USER['id']) ? $LNG['type_mission'][4]:false,
+			'stayally'	=> ($GalaxyRowMoon['id_owner'] != $USER['id']) ? $LNG['type_mission'][5]:false,
+			'spionage'	=> ($GalaxyRowMoon['id_owner'] != $USER['id']) ? $LNG['type_mission'][6]:false,
+			'destroy'	=> ($GalaxyRowMoon['id_owner'] != $USER['id'] && $PLANET[$resource[214]] > 0) ? $LNG['type_mission'][9]:false,
 		);
 
 		return $Result;
@@ -121,6 +121,8 @@ class GalaxyRows
 			$SystemLimitMin  = max(1, $PLANET['system'] - $PhRange);
 			$SystemLimitMax  = $PLANET['system'] + $PhRange;
 			$PhalanxTypeLink = ($GalaxyRowPlanet['system'] <= $SystemLimitMax && $GalaxyRowPlanet['system'] >= $SystemLimitMin) ? $LNG['gl_phalanx']:false;
+		} else {
+			$PhalanxTypeLink = false;
 		}
 
 		if ($PLANET[$resource[503]] > 0 && $GalaxyRowPlanet['userid'] != $USER['id'] && $GalaxyRowPlanet["galaxy"] == $PLANET['galaxy'])
@@ -129,6 +131,8 @@ class GalaxyRows
 			$SystemLimitMin = max(1, $PLANET['system'] - $MiRange);
 			$SystemLimitMax = $PLANET['system'] + $MiRange;
 			$MissileBtn 	= ($GalaxyRowPlanet['system'] <= $SystemLimitMax && $GalaxyRowPlanet['system'] >= $SystemLimitMin) ? true : false;
+		} else {
+			$MissileBtn 	= false;
 		}
 
 		$Result = array(

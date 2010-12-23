@@ -125,8 +125,8 @@ class ShowNotesPage
 		$template->page_header();
 		$template->page_footer();
 		
-		$NotesRAW = $db->query("SELECT * FROM ".NOTES." WHERE owner = ".$USER['id']." ORDER BY time DESC;");
-
+		$NotesRAW 	= $db->query("SELECT * FROM ".NOTES." WHERE owner = ".$USER['id']." ORDER BY time DESC;");
+		$NoteList	= array();
 		while($Note = $db->fetch_array($NotesRAW))
 		{
 			$NoteList[]	= array(

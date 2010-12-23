@@ -159,7 +159,6 @@ class ShowOfficierPage
 			'of_recruit'			=> $LNG['of_recruit'],
 			'of_darkmatter' 		=> sprintf($LNG['of_points_per_thousand_darkmatter'], DM_PRO_OFFICIER_LEVEL, $LNG['Darkmatter']),
 			'of_available_points'	=> $LNG['of_available_points'],
-			'alv_points'			=> $LNG['alv_points'],
 			'of_lvl'				=> $LNG['of_lvl'],
 			'in_dest_durati'		=> $LNG['in_dest_durati'],
 			'of_still'				=> $LNG['of_still'],

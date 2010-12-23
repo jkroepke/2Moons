@@ -136,8 +136,8 @@ class statbuilder extends records
 		foreach($reslist['defense'] as $Defense){
 			$select_defenses	.= " p.".$resource[$Defense].",";
 		}	
-
-		$SQLFleets	=  $db->query('SELECT fleet_array, fleet_owner FROM '.FLEETS.';');
+		$FlyingFleets	= array();
+		$SQLFleets		= $db->query('SELECT fleet_array, fleet_owner FROM '.FLEETS.';');
 		while ($CurFleets = $db->fetch_array($SQLFleets))
 		{
 			$FlyingFleets[$CurFleets['fleet_owner']][]	= $CurFleets['fleet_array'];
@@ -399,7 +399,8 @@ class statbuilder extends records
 	{
 		global $db, $CONF;
 		$this->DeleteSome();
-		
+		$AllyPoints	= array();
+		$UserPoints	= array();
 		$TotalData	= $this->GetUsersInfosFromDB();
 		$FinalSQL	= 'TRUNCATE TABLE '.STATPOINTS.';';
 		$FinalSQL	.= "INSERT INTO ".STATPOINTS." (`id_owner`, `id_ally`, `stat_type`, `universe`, `tech_old_rank`, `tech_points`, `tech_count`, `build_old_rank`, `build_points`, `build_count`, `defs_old_rank`, `defs_points`, `defs_count`, `fleet_old_rank`, `fleet_points`, `fleet_count`, `total_old_rank`, `total_points`, `total_count`) VALUES ";

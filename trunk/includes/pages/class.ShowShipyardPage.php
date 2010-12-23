@@ -19,8 +19,6 @@
 # *                                                                          #
 ##############################################################################
 
-
-
 class ShowShipyardPage
 {
 	private function GetMaxConstructibleElements($Element)
@@ -39,7 +37,7 @@ class ShowShipyardPage
 		if ($pricelist[$Element]['darkmatter'] != 0)
 			$MAX[]				= floor($USER['darkmatter'] / $pricelist[$Element]['darkmatter']);
 
-		if ($pricelist[$Element]['energy'] != 0)
+		if ($pricelist[$Element]['energy_max'] != 0)
 			$MAX[]				= floor($PLANET['energy_max'] / $pricelist[$Element]['energy_max']);
 
 		return min($MAX);
@@ -87,7 +85,7 @@ class ShowShipyardPage
 		global $USER, $PLANET, $pricelist, $resource, $LNG;
 
 		if ($Factor)
-			$level = ($PLANET[$resource[$Element]]) ? $PLANET[$resource[$Element]] : $USER[$resource[$Element]];
+			$level = isset($PLANET[$resource[$Element]]) ? $PLANET[$resource[$Element]] : $USER[$resource[$Element]];
 
 		$array = array(
 			'metal'      => $LNG['Metal'],
@@ -129,8 +127,8 @@ class ShowShipyardPage
 			exit;
 		}
 		
-		$fmenge	= $_POST['fmenge'];
-		$cancel	= $_POST['auftr'];
+		$fmenge	= request_var('fmenge', $reslist['fleet']);
+		$cancel	= request_var('auftr', range(0, MAX_FLEET_OR_DEFS_IN_BUILD - 1));
 		$action	= request_var('action', '');
 		
 		$PlanetRess = new ResourceUpdate();
@@ -163,10 +161,11 @@ class ShowShipyardPage
 				$template->message(sprintf($LNG['bd_max_builds'], MAX_FLEET_OR_DEFS_IN_BUILD), "?page=buildings&mode=fleet", 3);
 				exit;
 			}
-				
 			foreach($fmenge as $Element => $Count)
 			{
-				$Element 		= in_array($Element, $reslist['fleet']) ? $Element : NULL;
+				if(empty($Count))
+					continue;
+					
 				$Count			= is_numeric($Count) ? round($Count) : 0;
 				$Count 			= max(min($Count, MAX_FLEET_OR_DEFS_PER_ROW), 0);
 				$MaxElements 	= $this->GetMaxConstructibleElements($Element);
@@ -224,7 +223,7 @@ class ShowShipyardPage
 			$NbrePerType  = array();
 			$NamePerType  = array();
 			$TimePerType  = array();
-
+			$QueueTime	= 0;
 			foreach($ElementQueue as $ElementLine => $Element)
 			{
 				if (empty($Element))
@@ -285,8 +284,8 @@ class ShowShipyardPage
 			exit;
 		}
 
-		$fmenge	= $_POST['fmenge'];
-		$cancel	= $_POST['auftr'];
+		$fmenge	= request_var('fmenge', $reslist['fleet']);
+		$cancel	= request_var('auftr', range(0, MAX_FLEET_OR_DEFS_IN_BUILD - 1));
 		$action	= request_var('action', '');
 								
 		$PlanetRess = new ResourceUpdate();
@@ -326,13 +325,16 @@ class ShowShipyardPage
 
 			for ($QElement = 0; $QElement < count($BuildArray); $QElement++)
 			{
-				$ElmentArray = explode (",", $BuildArray[$QElement] );
-				$Missiles[$ElmentArray[0]] += $ElmentArray[1];
+				$ElmentArray = explode(",", $BuildArray[$QElement]);
+				if(isset($Missiles[$ElmentArray[0]]))
+					$Missiles[$ElmentArray[0]] += $ElmentArray[1];
 			}
 
 			foreach($fmenge as $Element => $Count)
 			{
-				$Element 		= in_array($Element, $reslist['defense']) ? $Element : NULL;
+				if(empty($Count))
+					continue;
+					
 				$Count			= is_numeric($Count) ? $Count : 0;
 				$Count 			= max(min($Count, MAX_FLEET_OR_DEFS_PER_ROW), 0);	
 				$MaxElements	= $this->GetMaxConstructibleElements($Element);
@@ -409,7 +411,7 @@ class ShowShipyardPage
 			$NbrePerType  = array();
 			$NamePerType  = array();
 			$TimePerType  = array();
-
+			$QueueTime	  = 0;
 			foreach($ElementQueue as $ElementLine => $Element)
 			{
 				if (empty($Element))

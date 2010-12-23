@@ -86,10 +86,11 @@ function ShowMessagesPage()
 			$template->page_planetmenu();
 			$template->page_footer();
 	
-			$UsrMess 	= $db->query("SELECT `message_type`, `message_unread` FROM ".MESSAGES." WHERE `message_owner` = '".$USER['id']."' OR `message_type` = '50';");
-			$GameOps 	= $db->query("SELECT `username`, `email` FROM ".USERS." WHERE `universe` = '".$UNI."' AND`authlevel` != '0' ORDER BY `username` ASC;");
 			$MessOut	= $db->uniquequery("SELECT COUNT(*) as count FROM ".MESSAGES." WHERE message_sender = '".$USER['id']."';");
-			
+			$OpsList	= array();
+			$TotalMess	= array(0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 15 => 0, 50 => 0, 99 => 0, 100 => 0, 999 => 0);
+			$UnRead		= array(0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 15 => 0, 50 => 0, 99 => 0, 100 => 0, 999 => 0);
+			$GameOps 	= $db->query("SELECT `username`, `email` FROM ".USERS." WHERE `universe` = '".$UNI."' AND`authlevel` != '0' ORDER BY `username` ASC;");		
 			while($Ops = $db->fetch_array($GameOps))
 			{	
 				$OpsList[]	= array(
@@ -97,9 +98,9 @@ function ShowMessagesPage()
 					'email'		=> $Ops['email'],
 				);
 			}
-
 			$db->free_result($GameOps);
-			
+
+			$UsrMess 	= $db->query("SELECT `message_type`, `message_unread` FROM ".MESSAGES." WHERE `message_owner` = '".$USER['id']."' OR `message_type` = '50';");	
 			while ($CurMess = $db->fetch_array($UsrMess))
 			{
 				$UnRead[$CurMess['message_type']]		+= $CurMess['message_unread'];
