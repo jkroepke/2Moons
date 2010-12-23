@@ -147,7 +147,7 @@ class MissionCaseExpedition extends MissionFunctions
 				$FoundShipMess	= "";	
 				$NewFleetArray 	= "";
 
-				$LNG			+= $LANG->GetUserLang($this->_fleet['fleet_owner'], 'TECH');
+				$LNG			+= $LANG->GetUserLang($this->_fleet['fleet_owner'], array('TECH'));
 				$Found			= array();
 				foreach($reslist['fleet'] as $ID) 
 				{
