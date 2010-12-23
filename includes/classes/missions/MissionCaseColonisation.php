@@ -55,6 +55,7 @@ class MissionCaseColonisation extends MissionFunctions
 			}
 			else
 			{
+				$this->_fleet['fleet_end_id']	= $NewOwnerPlanet;
 				$TheMessage = sprintf($LNG['sys_colo_allisok'], GetTargetAdressLink($this->_fleet, ''));
 				$this->StoreGoodsToPlanet();
 				if ($this->_fleet['fleet_amount'] == 1) {
