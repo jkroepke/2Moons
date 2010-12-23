@@ -45,7 +45,7 @@ class records
 		foreach($this->maxinfos as $Uni	=> $Records) {
 			$array		= "";
 			foreach($Elements as $ElementID) {
-				$array	.= $ElementID." => array('username' => '".$Records[$ElementID]['username']."', 'maxlvl' => '".$Records[$ElementID]['maxlvl']."'),\n";
+				$array	.= $ElementID." => array('username' => '".(isset($Records[$ElementID]['username']) ? $Records[$ElementID]['username'] : '-')."', 'maxlvl' => '".(isset($Records[$ElementID]['maxlvl']) ? $Records[$ElementID]['maxlvl'] : '-')."'),\n";
 			}
 			$file	= "<?php \n//The File is created on ".date("d. M y H:i:s", TIMESTAMP)."\n$"."RecordsArray = array(\n".$array."\n);\n?>";
 			file_put_contents(sprintf(ROOT_PATH.$this->File, $Uni), $file);

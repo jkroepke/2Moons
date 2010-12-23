@@ -62,7 +62,6 @@ function ShowMenuPage()
 		'mu_search_page'			=> $LNG['mu_search_page'],
 		'mu_mod_update'				=> $LNG['mu_mod_update'],
 		'mu_clear_cache'			=> $LNG['mu_clear_cache'],
-		'mu_backup_page'			=> $LNG['mu_backup_page'],
 	));
 	
 	$template->show('adm/ShowMenuPage.tpl');

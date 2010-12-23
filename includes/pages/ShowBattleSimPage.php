@@ -34,10 +34,11 @@ function ShowBattleSimPage()
 		{
 			$BattleArray[0][1][$ID]	= $Count;
 		}
+	} elseif(isset($_REQUEST['battleinput'])) {
+		$BattleArray	= $_REQUEST['battleinput'];
+	} else {
+		$BattleArray	= array();
 	}
-	else
-		$BattleArray	= $_REQUEST['battleinput'];		
-
 	if($action == 'send')
 	{
 		$Counts	= array(0, 0);

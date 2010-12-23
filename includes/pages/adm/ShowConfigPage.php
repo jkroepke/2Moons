@@ -25,74 +25,20 @@ if ($USER['rights'][str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '',
 function ShowConfigPage()
 {
 	global $CONF, $LNG, $USER, $LANG;
-
-	if ($_POST['opt_save'] == "1")
+	if (!empty($_POST))
 	{
-		$Log	.=	"\n".$LNG['log_the_user'].$USER['username'].$LNG['log_sett_no1'].":\n";
+		$CONF['game_disable']			= isset($_POST['closed']) && $_POST['closed'] == 'on' ? 1 : 0;
+		$CONF['noobprotection'] 		= isset($_POST['noobprotection']) && $_POST['noobprotection'] == 'on' ? 1 : 0;
+		$CONF['debug'] 					= isset($_POST['debug']) && $_POST['debug'] == 'on' ? 1 : 0;
+		$CONF['adm_attack'] 			= isset($_POST['adm_attack']) && $_POST['adm_attack'] == 'on' ? 1 : 0;		
+		$CONF['OverviewNewsFrame']  	= isset($_POST['newsframe']) && $_POST['newsframe'] == 'on' ? 1 : 0;
+		$CONF['capaktiv'] 				= isset($_POST['capaktiv']) && $_POST['capaktiv'] == 'on' ? 1 : 0;
+		$CONF['reg_closed'] 			= isset($_POST['reg_closed']) && $_POST['reg_closed'] == 'on' ? 1 : 0;
+		$CONF['user_valid']				= isset($_POST['user_valid']) && $_POST['user_valid'] == 'on' ? 1 : 0;
+		$CONF['ga_active'] 				= isset($_POST['ga_active']) && $_POST['ga_active'] == 'on' ? 1 : 0;
+		$CONF['bgm_active'] 			= isset($_POST['bgm_active']) && $_POST['bgm_active'] == 'on' ? 1 : 0;
 		
-
-		if(isset($_POST['closed']) && $_POST['closed'] == 'on') {
-			$CONF['game_disable']		= 1;
-		} else {
-			$CONF['game_disable']		= 0;
-		}
-		
-		if (isset($_POST['noobprotection']) && $_POST['noobprotection'] == 'on') {
-			$CONF['noobprotection'] 	= 1;
-		} else {
-			$CONF['noobprotection'] 	= 0;
-		}
-		
-		if (isset($_POST['debug']) && $_POST['debug'] == 'on') {
-			$CONF['debug'] 				= 1;
-		} else {
-			$CONF['debug'] 				= 0;
-		}
-		
-		if (isset($_POST['adm_attack']) && $_POST['adm_attack'] == 'on') {
-			$CONF['adm_attack'] 		= 1;
-		} else {
-			$CONF['adm_attack'] 		= 0;
-		}
-		
-		if (isset($_POST['newsframe']) && $_POST['newsframe'] == 'on') {
-			$CONF['OverviewNewsFrame']  = 1;
-			$CONF['OverviewNewsText']   = $_POST['NewsText'];
-        } else {
-			$CONF['OverviewNewsFrame']  = 0;
-			$CONF['OverviewNewsText']   = $_POST['NewsText'];
-        }	
-
-		if (isset($_POST['capaktiv']) && $_POST['capaktiv'] == 'on') {
-			$CONF['capaktiv'] 			= 1;
-		} else {
-			$CONF['capaktiv'] 			= 0;
-		}
-
-		if (isset($_POST['reg_closed']) && $_POST['reg_closed'] == 'on') {
-			$CONF['reg_closed'] = 1;
-		} else {
-			$CONF['reg_closed'] = 0;
-		}
-		
-		if (isset($_POST['user_valid']) && $_POST['user_valid'] == 'on') {
-			$CONF['user_valid'] = 1;
-		} else {
-			$CONF['user_valid'] = 0;
-		}
-		
-		if (isset($_POST['ga_active']) && $_POST['ga_active'] == 'on') {
-			$CONF['ga_active'] = 1;
-		} else {
-			$CONF['ga_active'] = 0;
-		}
-		
-		if (isset($_POST['bgm_active']) && $_POST['bgm_active'] == 'on') {
-			$CONF['bgm_active'] = 1;
-		} else {
-			$CONF['bgm_active'] = 0;
-		}
-		
+		$CONF['OverviewNewsText']		= request_var('NewsText', '', true);
 		$CONF['close_reason']			= request_var('close_reason', '', true);
 		$CONF['game_name']				= request_var('game_name', '', true);
 		$CONF['forum_url'] 				= request_var('forum_url', '', true);
@@ -185,8 +131,6 @@ function ShowConfigPage()
 	$template->assign_vars(array(
 		'se_server_parameters'			=> $LNG['se_server_parameters'],
 		'se_name'						=> $LNG['se_name'],
-		'se_server_name'				=> $LNG['se_server_name'],
-		'se_cookie_name'				=> $LNG['se_cookie_name'],
 		'se_cookie_advert'				=> $LNG['se_cookie_advert'],
 		'se_lang'						=> $LNG['se_lang'],
 		'se_general_speed'				=> $LNG['se_general_speed'],
@@ -284,7 +228,6 @@ function ShowConfigPage()
 		'close_reason'					=> $CONF['close_reason'],
 		'debug'							=> $CONF['debug'],
 		'adm_attack'					=> $CONF['adm_attack'],
-		'cookie'						=> $CONF['COOKIE_NAME'],
 		'defenses'						=> $CONF['Defs_Cdr'],
 		'shiips'						=> $CONF['Fleet_Cdr'],
 		'noobprot'						=> $CONF['noobprotection'],

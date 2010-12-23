@@ -19,8 +19,6 @@
 # *                                                                          #
 ##############################################################################
 
-
-
 class ShowAlliancePage
 {
 	private function GetDiplo($allyid)
@@ -120,15 +118,6 @@ class ShowAlliancePage
 		$action   	= request_var('action' 		, '');
 		$allyid   	= request_var('allyid'  	, '');
 		$tag      	= request_var('tag' 		, '');
-
-		if (empty($sort2))	unset($sort2);
-		if (empty($a))		unset($a);
-		if (empty($mode)) 	unset($mode);
-		if (empty($sort1))	unset($sort1);
-		if (empty($edit))	unset($edit);
-		if (empty($rank))	unset($rank);
-		if (empty($kick))	unset($kick);
-		if (empty($id))		unset($id);
 		
 		$PlanetRess = new ResourceUpdate();
 		$PlanetRess->CalcResource();
@@ -989,7 +978,7 @@ class ShowAlliancePage
 								$text 		= request_var('text', '0', true);
 								$t        	= request_var('t', 1 );
 								
-								if ($_POST['options'])
+								if (isset($_POST['options']))
 								{
 
 									$ally['ally_owner_range'] 		= request_var('owner_range','', true);
@@ -1042,7 +1031,8 @@ class ShowAlliancePage
 								$this->template->assign_vars(array(
 									'al_characters'				=> $LNG['al_characters'],
 									'al_manage_alliance'		=> $LNG['al_manage_alliance'],
-									'al_textsal_message'		=> $LNG['al_textsal_message'],
+									'al_texts'					=> $LNG['al_texts'],
+									'al_message'				=> $LNG['al_message'],
 									'al_manage_ranks'			=> $LNG['al_manage_ranks'],
 									'al_manage_members'			=> $LNG['al_manage_members'],
 									'al_manage_change_tag'		=> $LNG['al_manage_change_tag'],

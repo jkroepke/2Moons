@@ -102,7 +102,7 @@
         <th colspan="2">{$op_vacation_delete_mode}</th>
     </tr><tr>
         <td><a title="{$op_activate_vacation_mode_descrip}">{$op_activate_vacation_mode}</a></td>
-        <td><input name="urlaubs_modus" type="checkbox" {if $opt_modev_data == 1}checked="checked"{/if}></td>
+        <td><input name="urlaubs_modus" type="checkbox"></td>
     </tr><tr>
         <td><a title="{$op_dlte_account_descrip}">{$op_dlte_account}</a></td>
         <td><input name="db_deaktjava" type="checkbox" {if $opt_delac_data > 0}checked="checked"{/if}></td>

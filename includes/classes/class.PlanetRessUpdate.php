@@ -205,14 +205,16 @@ class ResourceUpdate
 				continue;					
 			}
 			
-			$GetBuildShips					= max(min(HLdiv($this->PLANET['b_hangar'], $BuildTime, 0), $Count), 0);
-			
+			$GetBuildShips						= max(min(substr(HLdiv($this->PLANET['b_hangar'], $BuildTime), 0, 1), $Count), 0);
 			if($GetBuildShips == 0)
 			{
-				$this->PLANET['b_hangar_id'] .= $Element.",".$Count.";";
+				$this->PLANET['b_hangar_id'] 	.= $Element.",".$Count.";";
 				continue;
 			}
 			
+			if(!isset($this->Builded[$Element]))
+				$this->Builded[$Element] = 0;
+				
 			$this->PLANET['b_hangar']			-= HLmul($GetBuildShips, $BuildTime);
 			$this->Builded[$Element]			= HLadd($GetBuildShips, $this->Builded[$Element]);
 			$this->PLANET[$resource[$Element]]	= HLadd($GetBuildShips, $this->PLANET[$resource[$Element]]);

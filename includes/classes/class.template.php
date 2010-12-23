@@ -25,7 +25,7 @@ class template
 	{	
 		$this->jsscript				= array();
 		$this->script				= array();
-		$this->page					= array();
+		$this->page					= array('header' => false, 'topnav' => false, 'leftmenu' => false, 'planetmenu' => false, 'footer' => false);
 		$this->vars					= array();
 		$this->cache				= false;
 		$this->cachedir				= ROOT_PATH.'cache/';
@@ -49,7 +49,6 @@ class template
 		
 		$TMP->caching 				= false;
 		$TMP->compile_check			= true; #Set false for production!
-		$TMP->php_handling			= SMARTY_PHP_QUOTE;
 		$TMP->template_dir 			= $this->template_dir;
 		$TMP->assign($this->vars);
 		$PAGE						= $TMP->fetch($this->file);
@@ -233,6 +232,9 @@ class template
             'lang'    			=> $LANG->getUser(),
             'ready'    			=> $LNG['ready'],
 			'date'				=> explode("|", date('Y\|n\|j\|G\|i\|s\|Z', TIMESTAMP)),
+			'cd'				=> './',
+			'gotoinsec'			=> false,
+			'goto'				=> false,
         ));
     }
 	
@@ -255,6 +257,9 @@ class template
 		$this->assign_vars(array(
 			'scripts'	=> $this->script,
 			'title'		=> $CONF['game_name'].' - '.$LNG['adm_cp_title'],
+			'cd'		=> './',
+			'gotoinsec'	=> false,
+			'goto'		=> false,
 		));
 	}
 	
@@ -353,9 +358,9 @@ class template
 	public function display($file)
 	{
 		$this->file			= $file;
-		if($this->cache && $CONF['debug'] == 0)
+		if($this->cache && $GLOBALS['CONF']['debug'] == 0)
 		{
-			$this->cachefile	= $this->cachedir.$this->cacheid.md5(filemtime($this->template_dir.$this->file).implode('', $this->vars)).'.tpl.php';
+			$this->cachefile	= $this->cachedir.md5(filemtime($this->template_dir.$this->file).r_implode('', $this->vars)).'.tpl.php';
 			if(file_exists($this->cachefile))
 				echo file_get_contents($this->cachefile);
 			else
@@ -380,6 +385,7 @@ class template
 			'mes'		=> $mes,
 			'fcm_info'	=> $LNG['fcm_info'],
 			'Fatal'		=> $Fatal,
+			'cd'		=> (INSTALL == true) ? '../' : './',
 		));
 		
 		$this->gotoside($dest, $time);
@@ -389,11 +395,6 @@ class template
 			));
 			$this->show('adm/error_message_body.tpl');
 			exit;
-		}
-		if(INSTALL == true) {
-			$this->assign_vars(array(
-				'cd'		=> '../',
-			));
 		}
 		$this->show('error_message_body.tpl');
 	}

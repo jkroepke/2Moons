@@ -98,8 +98,9 @@ function ShowBuddyPage()
 			$template->page_planetmenu();
 			$template->page_footer();
 			$BuddyListRAW	= $db->query("SELECT a.`active`, a.`sender`, a.`id` as buddyid, a.`text`, b.`id`, b.`username`, b.`onlinetime`, b.`galaxy`, b.`system`, b.`planet`, b.`ally_id`, b.`ally_name` FROM ".BUDDY." as a, ".USERS." as b WHERE (a.`sender` = '".$USER['id']."' AND b.`id` = a.`owner`) OR (a.`owner` = '".$USER['id']."' AND b.`id` = a.`sender`);");
-
-						
+			$MyRequestList	= array();
+			$OutRequestList	= array();
+			$MyBuddyList	= array();		
 			while($BuddyList = $db->fetch_array($BuddyListRAW))
 			{
 				if($BuddyList['active']	== 0)
@@ -164,7 +165,6 @@ function ShowBuddyPage()
 				'bu_action'			=> $LNG['bu_action'],
 				'bu_my_requests'	=> $LNG['bu_my_requests'],
 				'bu_partners'		=> $LNG['bu_partners'],
-				'bu_estate'			=> $LNG['bu_estate'],
 				'bu_no_request'		=> $LNG['bu_no_request'],
 				'bu_no_buddys'		=> $LNG['bu_no_buddys'],
 				'bu_no_buddys'		=> $LNG['bu_no_buddys'],
