@@ -65,7 +65,7 @@ $LNG['tech'] = array(
  44 => 'Raketensilo',
 
 
- 40 => 'Mondgeb&auml;ude',
+ 40 => 'Mondgebäude',
  41 => 'Basisstützpunkt',
  42 => 'Sensorenphalax',
  43 => 'Sprungtor',
@@ -212,20 +212,20 @@ $LNG['res']['descriptions'] = array(
 208 => 'Fremde Planeten können mit diesem Schiff kolonisiert werden.',
 209 => 'Mit dem Recycler lassen sich Rohstoffe aus Trümmerfeldern gewinnen.',
 210 => 'Spionagesonden sind kleine wendige Drohnen, welche über weite Entfernungen hinweg Daten über Flotten und Planeten liefern.',
-211 => 'Der Bomber wurde extra entwickelt, um die Verteidigung eines Planeten zu zerst&ouml;ren.',
+211 => 'Der Bomber wurde extra entwickelt, um die Verteidigung eines Planeten zu zerstören.',
 212 => 'Solarsatelliten sind einfache Plattformen aus Solarzellen, die sich in einem hohen stationären Orbit befinden. Sie sammeln das Sonnenlicht und geben es per Laser an die Bodenstation weiter.',
 213 => 'Der Zerstörer ist der König unter den Kriegsschiffen.',
 214 => 'Die Zerstörungskraft des Todessterns ist unübertroffen und er kann als einziges Schiff Monde zerstören.',
 215 => 'Der Schlachtkreuzer ist auf das Abfangen feindlicher Flotten spezialisiert.',
-216 => 'Der Nachfolger des beliebten Todessterns, etwas schneller und st&auml;rker.',
-217 => 'Ist der eine Weiterentwicklung des gro&szlig;en Transporters. Er hat mehr Ladeverm&ouml;gen und fliegt schneller.',
+216 => 'Der Nachfolger des beliebten Todessterns, etwas schneller und stärker.',
+217 => 'Ist der eine Weiterentwicklung des gro&szlig;en Transporters. Er hat mehr Ladevermögen und fliegt schneller.',
 218 => 'Der Supergau schlechthin, allerdings sehr langsam.',
 219 => 'Ist eine gigantische Weltraumrecycleanlage und hyperschnell.',
 220 => 'Mit diesem Schiff ist es nach Jahre langen forschen mölich Dunkle Materie an seinem Mond zu sammeln.',
 221 => 'Dieses Schiff ist einer der stärksten Schiffe die dieses Universum je betreten hat. Der Spaltenreißer reist mit seiner unglaublich hohen Gravitontechnik einen Riss in die Zeit, der alle Gegner verschlingt. Seine Schilde totzen fast jeden Angriff.',
 222 => 'Dieses Schiff ist das Ergebnis von Jahrelangem Forschen. Alle Kaiser taten sich zusammen um dieses Monstrum eines Zerstörers zu erschaffen. Ausgestattet mit den stärksten Laser- und Projektilgeschützen inklusive Gravitonkanonen ist es möglich Monde innerhalb von Sekunden zu zerstören und ihre Überreste einzusammeln um sie in ihrem gigantischen Lagerraum zu verstauen.',
 223 => 'Dieses Schiff ist in der Lage die Strahlung der Sterne zu Speichern und zu bündeln um einem Mächtigen "Sternenlaser" zu entfesseln. Wenige Waffen aber dafür gerade zu erstklassige Panzerung und Schilde. Er ist der einzige Kreuzer der den Schuss einer Gravitonkanone Überleben könnte.',
-224 => 'Dieses Schiff ist mit den besten Projektilwaffen der Galaxie ausgestattet, jedoch keine Laserwaffen. Eine gewaltige Schusskraft, die fast alles &uuml;bertrifft, was es bisher gab. ca. 500.000.000.000 Diamantenkugeln werden in einer Minute geschossen, womit sogar die beste Raumschiffpanzerung durchdringbar ist.',
+224 => 'Dieses Schiff ist mit den besten Projektilwaffen der Galaxie ausgestattet, jedoch keine Laserwaffen. Eine gewaltige Schusskraft, die fast alles übertrifft, was es bisher gab. ca. 500.000.000.000 Diamantenkugeln werden in einer Minute geschossen, womit sogar die beste Raumschiffpanzerung durchdringbar ist.',
 225 => 'Dieses Schiff ist mit den besten Laser- und Ionenwaffen der Galaxie ausgestattet besitzt jedoch keine Projektilwaffen. Ein gewaltiger Laser der fast alles übertrifft was es bisher gab. Die Kraft von gebündeltem Licht mit verheerender Zerstörungskraft der fast alle Schilde durchbricht. Es ist eines der 5 Raumtitanen.',
 226 => 'Dieses Schiff ist mit einem der größten Frachträume ausgestattet um große Mengen an Rohstoffen transportieren zu können. Zudem ist es mit extrem starken Schilden ausgerüstet weswegen es auch gut zur Verteidigung von Planeten ist. An Angriffskraft mangelt es jedoch. Es ist eines der 5 Raumtitanen.',
 227 => 'Der beste Jäger den es gibt. Durch seine Geschwindigkeit und seine Wendigkeit ist es eine extrem gefährliche Waffe, die wenn sie mit anderen Strahl-Schiffen in den Kampf geschickt wir, selbst einen Lune Noire zerstören kann. Es ist eines der 5 Raumtitanen.',
@@ -259,9 +259,9 @@ $LNG['res']['descriptions'] = array(
 // ----------------------------------------------------------------------------------------------------------
 // Minen Gebäude
 $LNG['info'][1]['name']			 = 'Metallmine';
-$LNG['info'][1]['description']   = 'Hauptrohstofflieferanten für den Bau tragender Strukturen von Bauwerken und Schiffen. Metall ist der billigste Rohstoff, dafür wird er mehr benötigt als die anderen. Metall braucht zur Herstellung am wenigsten Energie. Je gr&ouml;sser die Minen ausgebaut sind, desto tiefer sind sie. Bei den meisten Planeten befindet sich das Metall in großer Tiefe, durch diese tieferen Minen können mehr Metalle abgebaut werden, die Produktion steigt. Gleichzeitig muss für die grössere Metallmine mehr Energie zur Verfügung gestellt werden.';
+$LNG['info'][1]['description']   = 'Hauptrohstofflieferanten für den Bau tragender Strukturen von Bauwerken und Schiffen. Metall ist der billigste Rohstoff, dafür wird er mehr benötigt als die anderen. Metall braucht zur Herstellung am wenigsten Energie. Je grösser die Minen ausgebaut sind, desto tiefer sind sie. Bei den meisten Planeten befindet sich das Metall in großer Tiefe, durch diese tieferen Minen können mehr Metalle abgebaut werden, die Produktion steigt. Gleichzeitig muss für die grössere Metallmine mehr Energie zur Verfügung gestellt werden.';
 $LNG['info'][2]['name']			 = 'Kristallmine';
-$LNG['info'][2]['description']   = 'Baut Mineralien ab, die f&uuml;r die Feinelektronik ben&ouml;tigt werden. Sie ben&ouml;tigt jedoch mehr, da sie die Mineralien gleich in n&ouml;tige Legierungen verarbeitet.';
+$LNG['info'][2]['description']   = 'Baut Mineralien ab, die für die Feinelektronik benötigt werden. Sie benötigt jedoch mehr, da sie die Mineralien gleich in nötige Legierungen verarbeitet.';
 $LNG['info'][3]['name']			 = 'Deuteriumsynthetisierer';
 $LNG['info'][3]['description']   = 'Deuterium ist schwerer Wasserstoff. Daher sind ähnlich wie bei den Minen die grössten Vorräte auf dem Grund des Meeres. Der Ausbau des Synthetisierers sorgt ebenfalls für die Erschliessung dieser Deuterium-Tiefenlagerstätten. Deuterium wird als Treibstoff für die Schiffe, für fast alle Forschungen, für einen Blick in die Galaxie sowie für den Sensorphalanx-Scan benötigt.';
 
@@ -275,7 +275,7 @@ $LNG['info'][12]['description']  = 'Im Atomkraftwerk werden Atome gespalten, um 
 // ----------------------------------------------------------------------------------------------------------
 // Gebäude
 $LNG['info'][6]['name']			 = 'TechoDome';
-$LNG['info'][6]['description']   = 'Aufgrund der immer zeitaufwendigeren Forschungen, haben sich die klügsten Köpfe der intergalaktischen Forschungsnetzwerke zusammengetan und den TechnoDome entwickelt. Es halbiert die Forschungszeiten, wie die allseits bekannte und beliebte Nanitenfabrik die Bauzeiten, was die imensen Baukosten nur allzu rechtfertigt.';
+$LNG['info'][6]['description']   = 'Aufgrund der immer zeitaufwendigeren Forschungen, haben sich die klügsten Köpfe der intergalaktischen Forschungsnetzwerke zusammengetan und den TechnoDome entwickelt. Es verkürzt die Forschungszeiten um 8%';
 $LNG['info'][14]['name']		 = 'Roboterfabrik';
 $LNG['info'][14]['description']  = 'Roboterfabriken stellen einfache Arbeitskräfte zur Verfügung, die beim Bau der planetaren Infrastruktur eingesetzt werden können. Jede Stufe erhöht damit die Geschwindigkeit des Ausbaus von Gebäuden.';
 $LNG['info'][15]['name']		 = 'Nanitenfabrik';
@@ -326,7 +326,7 @@ $LNG['info'][114]['description'] = 'Durch die Einbindung der 4. und 5. Dimension
 $LNG['info'][115]['name']        = 'Verbrennungstriebwerk';
 $LNG['info'][115]['description'] = 'Verbrennungstriebwerke basieren auf dem uralten Prinzip des Rückstosses. Hocherhitzte Materie wird weggeschleudert und treibt das Schiff in die entgegengesetzte Richtung. Der Wirkungsgrad dieser Triebwerke ist eher gering, aber sie sind billig und zuverlässig und benötigen kaum Wartung. Ausserdem verbrauchen sie weniger Raum und sind deshalb gerade auf kleineren Schiffen immer wieder zu finden. Da Verbrennungstriebwerke die Grundlage jeder Raumfahrt sind, sollten sie so früh wie möglich erforscht werden. Die Weiterentwicklung dieser Triebwerke macht folgende Schiffe um 10% des Grundwertes pro Stufe schneller: Kleine und große Transporter, Leichte Jäger, Recycler und Spionagesonden.';
 $LNG['info'][117]['name']        = 'Impulstriebwerk';
-$LNG['info'][117]['description'] = 'Das Impulstriebwerk basiert auf dem R&uuml;kstossprinzip, wobei die Strahlmasse zum Grossteil als Abfallprodukt der zur Energiegewinnung verwendeten Kernfusion entsteht. Zusätzlich kann weitere Masse eingespritzt werden. Die Weiterentwicklung dieser Triebwerke macht folgende Schiffe um 20% des Grundwertes pro Stufe schneller: Bomber, Kreuzer, Schwere Jäger und Kolonieschiffe. Interplanetarraketen können pro Stufe weiter fliegen.';
+$LNG['info'][117]['description'] = 'Das Impulstriebwerk basiert auf dem Rükstossprinzip, wobei die Strahlmasse zum Grossteil als Abfallprodukt der zur Energiegewinnung verwendeten Kernfusion entsteht. Zusätzlich kann weitere Masse eingespritzt werden. Die Weiterentwicklung dieser Triebwerke macht folgende Schiffe um 20% des Grundwertes pro Stufe schneller: Bomber, Kreuzer, Schwere Jäger und Kolonieschiffe. Interplanetarraketen können pro Stufe weiter fliegen.';
 $LNG['info'][118]['name']        = 'Hyperraumantrieb';
 $LNG['info'][118]['description'] = 'Durch eine Raumzeitverkrümmung wird in unmittelbarer Umgebung eines Schiffes der Raum komprimiert, womit sich weite Strecken sehr schnell zurücklegen lassen. Je höher der Hyperraumantrieb entwickelt ist, desto höher wird die Kompression des Raumes, wodurch sich pro Stufe die Geschwindigkeit der Schiffe die damit ausgestattet sind (Schlachtkreuzer, Schlachtschiffe, Zerstörer und Todessterne) um 30% erhöht. Voraussetzungen: Hyperraumtechnik (Stufe 3) Forschungslabor (Stufe 7).';
 $LNG['info'][120]['name']        = 'Lasertechnik';
@@ -353,7 +353,7 @@ $LNG['info'][199]['description'] = 'Ein Graviton ist ein Partikel, das keine Mas
 $LNG['info'][202]['name']        = 'Kleiner Transporter';
 $LNG['info'][202]['description'] = 'Transporter haben ungefähr die gleiche Größe wie Jäger, verzichten aber auf leistungsfähige Antriebe und Bordwaffen, um Platz für Frachtraum zu schaffen. Der kleine Transporter verfügt über eine Ladekapazität von 5.000 Ressourceneinheiten. Aufgrund ihrer geringen Feuerkraft werden Transporter oft von anderen Schiffen eskortiert.';
 $LNG['info'][203]['name']        = 'Großer Transporter';
-$LNG['info'][203]['description'] = 'Dieses Schiff hat kaum Waffen oder andere Technologien an Bord. Aus diesem Grunde sollten sie nie alleine losgeschickt werden. Der große Transporter dient durch sein hochentwickeltes Verbrennungstriebwerk als schneller Ressourcenlieferant zwischen den Planeten und natürlich begleitet er die Flotten auf ihren &Uuml;berf&auml;llen feindlicher Planeten, um m&ouml;glichst viele Ressourcen zu erobern, der gro&szlig;e Transporter verfügt über eine Ladekapazität von 25.000 Ressourceneinheiten.';
+$LNG['info'][203]['description'] = 'Dieses Schiff hat kaum Waffen oder andere Technologien an Bord. Aus diesem Grunde sollten sie nie alleine losgeschickt werden. Der große Transporter dient durch sein hochentwickeltes Verbrennungstriebwerk als schneller Ressourcenlieferant zwischen den Planeten und natürlich begleitet er die Flotten auf ihren überfällen feindlicher Planeten, um möglichst viele Ressourcen zu erobern, der gro&szlig;e Transporter verfügt über eine Ladekapazität von 25.000 Ressourceneinheiten.';
 $LNG['info'][204]['name']        = 'Leichter Jäger';
 $LNG['info'][204]['description'] = 'Der leichte Jäger ist ein wendiges Schiff, das auf fast jedem Planeten vorgefunden wird. Die Kosten sind nicht besonders hoch, Schildstärke und Ladekapazität sind allerdings sehr gering.';
 $LNG['info'][205]['name']        = 'Schwerer Jäger';
@@ -361,7 +361,7 @@ $LNG['info'][205]['description'] = 'Bei der Weiterentwicklung des leichten Jäge
 $LNG['info'][206]['name']        = 'Kreuzer';
 $LNG['info'][206]['description'] = 'Mit der Entwicklung der schweren Laser und der Ionenkanonen kamen die Jäger immer mehr in Bedrängnis. Trotz vieler Modifikationen konnte die Waffenstärke und die Panzerung nicht so weit gesteigert werden, um diesen Verteidigungsgeschützen wirksam begegnen zu können. Deshalb entschied man sich, eine neue Schiffsklasse zu konstruieren, die mehr Panzerung und mehr Feuerkraft in sich vereinte. Der Kreuzer war geboren. Kreuzer sind fast dreimal so stark gepanzert wie schwere Jäger und verfügen über mehr als die doppelte Schusskraft. Zudem sind sie sehr schnell. Gegen mittlere Verteidigung gibt es keine bessere Waffe. Kreuzer beherrschten fast ein Jahrhundert lang unumschränkt das All. Mit dem Aufkommen der Gaussgeschütze und Plasmawerfer endete ihre Vorherrschaft. Jedoch werden sie auch heute noch gerne gegen Jägerverbände eingesetzt.';
 $LNG['info'][207]['name']        = 'Schlachtschiff';
-$LNG['info'][207]['description'] = 'Schlachtschiffe bilden meist das R&uuml;ckrat einer Flotte. Ihre schweren Gesch&uuml;tze, die hohe Geschwindigkeit und der gro&szlig;e Frachtraum, machen sie zu ernst zu nehmenden Gegnern.';
+$LNG['info'][207]['description'] = 'Schlachtschiffe bilden meist das Rückrat einer Flotte. Ihre schweren Geschütze, die hohe Geschwindigkeit und der gro&szlig;e Frachtraum, machen sie zu ernst zu nehmenden Gegnern.';
 $LNG['info'][208]['name']        = 'Kolonieschiff';
 $LNG['info'][208]['description'] = 'Dieses gut gepanzerte Schiff dient der Eroberung neuer Planeten, was für ein aufstrebendes Imperium unerlässlich ist. Das Schiff wird auf der neuen Kolonie als Rohstofflieferant genutzt, in dem es wieder auseinander gebaut wird und alles wiederverwertbare Material für die Erschliessung der neuen Welt genutzt wird. Pro Imperium können inklusive Hauptplanet maximal 9 Planeten kolonisiert werden.';
 $LNG['info'][209]['name']        = 'Recycler';
@@ -387,23 +387,23 @@ $LNG['info'][218]['description'] = 'Dieses Schiff ist eine Verbesserung mehrerer
 $LNG['info'][219]['name']        = 'Gigarecycler';
 $LNG['info'][219]['description'] = 'Dieses Schiff ist eine wahrhaft gigantische Recykelanlage im Weltraum mit Atemberaubender Geschwindigkeit und riesigem Lageraum! Geschaffen für große Imperien.';
 $LNG['info'][220]['name']        = 'Intergalaktischer D. Materiesammler';
-$LNG['info'][220]['description'] = 'Mit diesem Schiff ist es nach jahrelangem Forschen m&ouml;glich, Dunkle Materie an seinem Mond zu sammeln.';
+$LNG['info'][220]['description'] = 'Mit diesem Schiff ist es nach jahrelangem Forschen möglich, Dunkle Materie an seinem Mond zu sammeln.';
 $LNG['info'][221]['name']        = 'Spaltenreißer';
-$LNG['info'][221]['description'] = 'Dieses Schiff ist eines der st&auml;rksten Schiffe die dieses Universum je betreten hat. Der Spaltenrei&szlig;er reisst mit seiner unglaublich hohen Gravitontechnik einen Riss in die Zeit, der alle Gegner verschlingt. Seine Schilde trotzen fast jedem Angriff.';
+$LNG['info'][221]['description'] = 'Dieses Schiff ist eines der stärksten Schiffe die dieses Universum je betreten hat. Der Spaltenrei&szlig;er reisst mit seiner unglaublich hohen Gravitontechnik einen Riss in die Zeit, der alle Gegner verschlingt. Seine Schilde trotzen fast jedem Angriff.';
 $LNG['info'][222]['name']        = 'Bahamut';
-$LNG['info'][222]['description'] = 'Dieses Schiff ist das Ergebnis von jahrelangen Forschens. Alle Kaiser taten sich zusammen, um dieses Monstrum eines Zerst&ouml;rers zu erschaffen. Ausgestattet mit den st&auml;rksten Laser- und Projektilgesch&uuml;tzen, inklusive Gravitonkanonen, ist es m&ouml;glich, Monde innerhalb von Sekunden zu zerst&ouml;ren und ihre &Uuml;berreste einzusammeln, um sie in ihrem gigantischen Lagerraum zu verstauen.';
+$LNG['info'][222]['description'] = 'Dieses Schiff ist das Ergebnis von jahrelangen Forschens. Alle Kaiser taten sich zusammen, um dieses Monstrum eines Zerstörers zu erschaffen. Ausgestattet mit den stärksten Laser- und Projektilgeschützen, inklusive Gravitonkanonen, ist es möglich, Monde innerhalb von Sekunden zu zerstören und ihre überreste einzusammeln, um sie in ihrem gigantischen Lagerraum zu verstauen.';
 $LNG['info'][223]['name']        = 'Sternenfänger';
-$LNG['info'][223]['description'] = 'Dieses Schiff ist in der Lage, die Strahlung der Sterne zu speichern und zu b&uuml;ndeln, um einen m&auml;chtigen "Sternenlaser" zu entfesseln. Wenige Waffen, aber daf&uuml;r gerade zu erstklassige Panzerung und Schilde. Er ist der einzige Kreuzer, der den Schuss einer Gravitonkanone &uuml;berleben k&ouml;nnte.';
+$LNG['info'][223]['description'] = 'Dieses Schiff ist in der Lage, die Strahlung der Sterne zu speichern und zu bündeln, um einen mächtigen "Sternenlaser" zu entfesseln. Wenige Waffen, aber dafür gerade zu erstklassige Panzerung und Schilde. Er ist der einzige Kreuzer, der den Schuss einer Gravitonkanone überleben könnte.';
 $LNG['info'][224]['name']        = 'Raumtitan Ifrit';
-$LNG['info'][224]['description'] = 'Dieses Schiff ist trotz seiner Gr&ouml;&szlig;e eines der st&auml;rksten Schiffe die existieren. Seine Gr&ouml;&szlig;e entspricht dem 4-fachen eines Menschen und kann deswegen leicht in feindliche Forts eindringen um sie von innen zu zerst&ouml;ren. Seine Geschwindigkeit ist un&uuml;bertroffen. Es ist eines der 5 Raumtitanen.';
+$LNG['info'][224]['description'] = 'Dieses Schiff ist trotz seiner Grö&szlig;e eines der stärksten Schiffe die existieren. Seine Grö&szlig;e entspricht dem 4-fachen eines Menschen und kann deswegen leicht in feindliche Forts eindringen um sie von innen zu zerstören. Seine Geschwindigkeit ist unübertroffen. Es ist eines der 5 Raumtitanen.';
 $LNG['info'][225]['name']        = 'Raumtitan Shiva';
-$LNG['info'][225]['description'] = 'Dieses Schiff ist mit den besten Laser- und Ionenwaffen der Galaxie ausgestattet, jedoch keine Projektilwaffen. Ein gewaltiger Laser der fast alles &uuml;bertrifft was es bisher gab. Die Kraft von geb&uuml;ndeltem Licht, mit verheerender Zerst&ouml;rungskraft, der fast alle Schilde durchbricht. Es ist eines der 5 Raumtitanen.';
+$LNG['info'][225]['description'] = 'Dieses Schiff ist mit den besten Laser- und Ionenwaffen der Galaxie ausgestattet, jedoch keine Projektilwaffen. Ein gewaltiger Laser der fast alles übertrifft was es bisher gab. Die Kraft von gebündeltem Licht, mit verheerender Zerstörungskraft, der fast alle Schilde durchbricht. Es ist eines der 5 Raumtitanen.';
 $LNG['info'][226]['name']        = 'Raumtitan Catoblepas';
-$LNG['info'][226]['description'] = 'Dieses Schiff ist mit einem der gr&ouml;&szlig;ten Frachtr&auml;ume ausgestattet, um gro&szlig;e Mengen an Rohstoffen transportieren zu k&ouml;nnen. Zudem ist es mit extrem starken Schilden ausger&uuml;stet, weswegen es auch gut zur Verteidigung von Planeten ist. An Angriffskraft mangelt es jedoch. Es ist eines der 5 Raumtitanen.';
+$LNG['info'][226]['description'] = 'Dieses Schiff ist mit einem der grö&szlig;ten Frachträume ausgestattet, um gro&szlig;e Mengen an Rohstoffen transportieren zu können. Zudem ist es mit extrem starken Schilden ausgerüstet, weswegen es auch gut zur Verteidigung von Planeten ist. An Angriffskraft mangelt es jedoch. Es ist eines der 5 Raumtitanen.';
 $LNG['info'][227]['name']        = 'Raumtitan Ixion';
 $LNG['info'][227]['description'] = 'Der beste Jäger den es gibt. Durch seine Geschwindigkeit und seine Wendigkeit ist es eine extrem gefährliche Waffe, die wenn sie mit anderen Strahl-Schiffen in den Kampf geschickt wird, selbst einen Lune Noire zerstören kann. Es ist eines der 5 Raumtitanen.';
 $LNG['info'][228]['name']        = 'Raumtitan Odin';
-$LNG['info'][228]['description'] = 'Dieses Schiff ist trotz seiner Gr&ouml;&szlig;e eines der st&auml;rksten Schiffe die existieren. Seine Gr&ouml;&szlig;e entspricht dem 4-fachen eines Menschen und kann deswegen leicht in feindliche Forts eindringen, um sie von innen zu zerst&ouml;ren. Seine Geschwindigkeit ist un&uuml;bertroffen. Es ist eines der 5 Raumtitanen.';
+$LNG['info'][228]['description'] = 'Dieses Schiff ist trotz seiner Grö&szlig;e eines der stärksten Schiffe die existieren. Seine Grö&szlig;e entspricht dem 4-fachen eines Menschen und kann deswegen leicht in feindliche Forts eindringen, um sie von innen zu zerstören. Seine Geschwindigkeit ist unübertroffen. Es ist eines der 5 Raumtitanen.';
 
 
 // ----------------------------------------------------------------------------------------------------------
@@ -429,7 +429,7 @@ $LNG['info'][409]['description'] = 'Die Weiterentwicklung der Großen Schildkupp
 $LNG['info'][410]['name']        = 'Gravitonkannone';
 $LNG['info'][410]['description'] = 'Sie basiert, wie der Name schon sagt, auf einer Gravitonkraft, bekannt aus dem Todesstern und aus besseren Schiffen.';
 $LNG['info'][411]['name']        = 'Orbitale Verteidigungsplattform';
-$LNG['info'][411]['description'] = 'Diese Plattform, mit gigantischem Ausma&szlig;, ist das Gr&ouml;&szlig;te was das Universum je gesehen hat. Es ist eine unbewegliche defensive Plattform. Sie besitzt keinen direkten Antrieb und wird durch Gravitonforschung in einer stabilen Umlaufbahn des Planeten gehalten. Das Starten dieses Vorgangs erfordert hohe Massen an Energie. Die Forscher arbeiten an einer Möglichkeit, auf dieser Plattform Schiffe zu bauen, um sie als einen äusseren Verteidigungsring zu nutzen, der es dem Gegner erschwert zur Planetaren Verteidigung durchzubrechen. Durch das gigantische Ausmaß ist es nur möglich einer dieser Monster zu besitzen.';
+$LNG['info'][411]['description'] = 'Diese Plattform, mit gigantischem Ausma&szlig;, ist das Grö&szlig;te was das Universum je gesehen hat. Es ist eine unbewegliche defensive Plattform. Sie besitzt keinen direkten Antrieb und wird durch Gravitonforschung in einer stabilen Umlaufbahn des Planeten gehalten. Das Starten dieses Vorgangs erfordert hohe Massen an Energie. Die Forscher arbeiten an einer Möglichkeit, auf dieser Plattform Schiffe zu bauen, um sie als einen äusseren Verteidigungsring zu nutzen, der es dem Gegner erschwert zur Planetaren Verteidigung durchzubrechen. Durch das gigantische Ausmaß ist es nur möglich einer dieser Monster zu besitzen.';
 // ----------------------------------------------------------------------------------------------------------
 // Raketen
 $LNG['info'][502]['name']        = 'Abfangraketen';
@@ -442,7 +442,7 @@ $LNG['info'][503]['description'] = 'Intercontinentalraketen zerstören die gegne
 $LNG['info'][601]['name']		 = 'Geologe';
 $LNG['info'][601]['description'] = '<br><br>Der Geologoe ist ein Experte bekannt in der Gesteinsphysiologie und der Kristallographie. Mit seinem Expertenteam bestehend aus Metall-Ingenieuren und Chemikern, assistiert er den interplanetaren Regierungen in der Recherche nach neuen Quellen und diese sicher gewinnen zu können.<br><br><span style="color:red"> +%s%% Rohstoff Produktion. Maximal Level %s</span>';
 $LNG['info'][602]['name']		 = 'Admiral';
-$LNG['info'][602]['description'] = '<br><br>Der Flottenadmiral ist ein Kriegsveteran und ein gefürchteter Stratege. Sogar wenn die Schlacht aussichtslos scheint, bewahrt er einen k&uuml;hlen Kopf, um Herr der Lage zu bleiben und den Kontakt zu seinen unterstellten Flottenkommandeuren aufrecht zu erhalten. Ein Imperator sollte sich den Flottenadmiral leisten um seine Angriffe zu koordinieren und um mehr Flotten in den Kampf ziehen zu lassen.<br><br><span style="color:red">+%s%% Schilde, Panzerung und Waffenstärke. Maximal Level %s </span>';
+$LNG['info'][602]['description'] = '<br><br>Der Flottenadmiral ist ein Kriegsveteran und ein gefürchteter Stratege. Sogar wenn die Schlacht aussichtslos scheint, bewahrt er einen kühlen Kopf, um Herr der Lage zu bleiben und den Kontakt zu seinen unterstellten Flottenkommandeuren aufrecht zu erhalten. Ein Imperator sollte sich den Flottenadmiral leisten um seine Angriffe zu koordinieren und um mehr Flotten in den Kampf ziehen zu lassen.<br><br><span style="color:red">+%s%% Schilde, Panzerung und Waffenstärke. Maximal Level %s </span>';
 $LNG['info'][603]['name']		 = 'Ingenieur';
 $LNG['info'][603]['description'] = '<br><br>Der Ingenieur ist ein Spezialist der energietechnischen Betriebsführung. Er optimiert die Effektivität der Energiereserven der Kolonie und steigert somit die tatsächliche Energieproduktion.<br><br><span style="color:red">+%s%% Energie. Maximal Level %s</span>';
 $LNG['info'][604]['name']		 = 'Technokrat';
@@ -452,19 +452,19 @@ $LNG['info'][605]['description'] = '<br><br>Der Konstrukteur ist ein Meister in 
 $LNG['info'][606]['name']		 = 'Wissenschaftler';
 $LNG['info'][606]['description'] = '<br><br>Die Gilde der Wissenschaftler ist ein Zusammenschluss der erfolgreichsten Wissenschaftler des Imperiums. Sie sind die Spezialisten in der Verbesserung der Technologie.<br><br><span style="color:red">-%s%% Forschungszeit. Maximal Level %s</span>';
 $LNG['info'][607]['name']		 = 'Lagermeister';
-$LNG['info'][607]['description'] = '<br><br>Der Lagerist beherrscht wertvolle Lagerungs- und Sortierkenntnisse. Durch hochentwickelte Lagertechniken und strukturelle Anpassungen, kann er das nutzbare Volumen eines Lageraumes deutlich erh&ouml;hen.<br><br><span style="color:red">+%s%% Lagerraum. Maximal Level. : %s</span>';
+$LNG['info'][607]['description'] = '<br><br>Der Lagerist beherrscht wertvolle Lagerungs- und Sortierkenntnisse. Durch hochentwickelte Lagertechniken und strukturelle Anpassungen, kann er das nutzbare Volumen eines Lageraumes deutlich erhöhen.<br><br><span style="color:red">+%s%% Lagerraum. Maximal Level. : %s</span>';
 $LNG['info'][608]['name']		 = 'Verteidiger';
 $LNG['info'][608]['description'] = '<br><br>Der Verteidigungsminister ist Mitglied der imperialen Armee. Sein Elan und Ehrgeiz ermöglichen es jede Kolonie in Rekordzeit zu einen stark befestigtem Stützpunkt auszubauen.<br><br><span style="color:red">Bauzeit von Verteidigungsanlagen reduziert um -%s%%. Maximal Level %s</span>';
 $LNG['info'][609]['name']		 = 'Bunker';
-$LNG['info'][609]['description'] = '<br><br>Der Bunker sah die beeindruckende Arbeit, die Sie in seinem Königreich gefertigt haben. Um Ihnen zu danken, er&ouml;ffnet er Ihnen die Chance Bunker zu werden. Der Bunker ist die höchste Auszeichnung der Lagerstättenbranche der Imperialen Armee.<br><br><span style="color:red">Freigabe für den Bau einer Großen Schildkuppel. Maximal Level %s</span>';
+$LNG['info'][609]['description'] = '<br><br>Der Bunker sah die beeindruckende Arbeit, die Sie in seinem Königreich gefertigt haben. Um Ihnen zu danken, eröffnet er Ihnen die Chance Bunker zu werden. Der Bunker ist die höchste Auszeichnung der Lagerstättenbranche der Imperialen Armee.<br><br><span style="color:red">Freigabe für den Bau einer Großen Schildkuppel. Maximal Level %s</span>';
 $LNG['info'][610]['name']		 = 'Spion';
 $LNG['info'][610]['description'] = '<br><br>Der Spion ist eine rätselhafte Person. Niemand kennt jemals sein wirkliches Gesicht, und noch weniger ob er schon tot ist. <br><br><span style="color:red">+%s Level Spionagetechnik. Maximal Level %s</span>';
 $LNG['info'][611]['name']		 = 'Commander';
-$LNG['info'][611]['description'] = '<br><br>Der Commander der imperialen Armee ist Meister im Umgang mit der Flotte. Seine jahrelangen Erfahrungen mit Flotten, mit vielen strategischen Eins&auml;tzen, sind eine Bereicherung f&uuml;r jeden Herrscher.<br><br><span style="color:red">+%s Flottenslots. Maximal Level %s </span>';
+$LNG['info'][611]['description'] = '<br><br>Der Commander der imperialen Armee ist Meister im Umgang mit der Flotte. Seine jahrelangen Erfahrungen mit Flotten, mit vielen strategischen Einsätzen, sind eine Bereicherung für jeden Herrscher.<br><br><span style="color:red">+%s Flottenslots. Maximal Level %s </span>';
 $LNG['info'][612]['name']		 = 'Zerstörer';
 $LNG['info'][612]['description'] = '<br><br>Der Zerstörer ist ein Offizier ohne Mitleid. Er hat Planeten nur zum Vergnügen dem Erdboden gleich gemacht. Er entdeckt momentan eine neue Methode um Massenvernichtungswaffen herzustellen.<br><br><span style="color:red">Baut 2 Todessterne zum Preis von einem. Maximal Level %s </span>';
 $LNG['info'][613]['name']		 = 'General';
-$LNG['info'][613]['description'] = '<br><br>Der General ist eine ehrwürdige Person, der seit vielen Jahren in der Armee dient. Durch unzählige Manöver hat der General Strategien entwickelt, um die Flottengeschwindigkeiten in s&auml;mtlichen Konstellationen, verschiedenster Shiffstypen, zu optimieren.<br><br><span style="color:red">+%s%% Geschwindigkeit der Schiffe. Maximal Level %s</span>';
+$LNG['info'][613]['description'] = '<br><br>Der General ist eine ehrwürdige Person, der seit vielen Jahren in der Armee dient. Durch unzählige Manöver hat der General Strategien entwickelt, um die Flottengeschwindigkeiten in sämtlichen Konstellationen, verschiedenster Shiffstypen, zu optimieren.<br><br><span style="color:red">+%s%% Geschwindigkeit der Schiffe. Maximal Level %s</span>';
 $LNG['info'][614]['name']		 = 'Eroberer';
 $LNG['info'][614]['description'] = '<br><br>Der Imperator bemerkte bei Ihnen die unleugbaren Qualitäten des Eroberns. Er schlägt Ihnen vor Eroberer zu werden. Der Eroberer ist der Grad der höchsten Ausbildung der Eroberer der imperialen Armee.<br><br><span style="color:red">Freigabe für eine Supernova. Maximal Level %s</span>';
 $LNG['info'][615]['name']		 = 'Imperator';
