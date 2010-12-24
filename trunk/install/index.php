@@ -45,8 +45,8 @@ if (empty($Page)) { $Page = 1;       }
 $template	= new template();
 $template->assign_vars(array(
 	'scripts'		=> $template->script,
-	'rawlang'		=> $LANG,
-	'lang'			=> 'lang='.$LANG,
+	'rawlang'		=> $LANG->GetUser(),
+	'lang'			=> 'lang='.$LANG->GetUser(),
 	'title'			=> 'Installer &bull; 2Moons',
 	'intro_instal'	=> $LNG['intro_instal'],
 	'menu_intro'	=> $LNG['menu_intro'],
@@ -179,7 +179,7 @@ switch ($Mode) {
 		}
 
 		if($error == 0){
-			$done = "<tr><td colspan=\"2\" class=\"transparent\"><a href=\"index.php?mode=ins&page=1&amp;lang=".$LANG."\">".$LNG['continue']."</a></td></tr>";
+			$done = "<tr><td colspan=\"2\" class=\"transparent\"><a href=\"index.php?mode=ins&page=1&amp;lang=".$LANG->GetUser()."\">".$LNG['continue']."</a></td></tr>";
 		}
 
 		$template->assign_vars(array(
@@ -234,12 +234,12 @@ switch ($Mode) {
 			$connection = new DB_MySQLi(true);
 
 			if (mysqli_connect_errno()) {
-				exit($template->message(sprintf($LNG['step2_db_con_fail'], mysqli_connect_error()),"?mode=ins&page=1&lang=".$LANG, 3, true));
+				exit($template->message(sprintf($LNG['step2_db_con_fail'], mysqli_connect_error()),"?mode=ins&page=1&lang=".$LANG->GetUser(), 3, true));
 			}
 
 			@chmod("../includes/config.php", 0777);
 			if (!is_writable('../includes/config.php'))
-				exit($template->message($LNG['step2_conf_op_fail'], "?mode=ins&page=1&lang=".$LANG, 3, true));
+				exit($template->message($LNG['step2_conf_op_fail'], "?mode=ins&page=1&lang=".$LANG->GetUser(), 3, true));
 
 			$connection->multi_query(str_replace("prefix_", $prefix, file_get_contents('install.sql')));
 
@@ -283,7 +283,7 @@ switch ($Mode) {
 			$md5pass    = md5($adm_pass);
 
 			if (empty($_POST['adm_user']) && empty($_POST['adm_pas']) && empty($_POST['adm_email']))
-				exit($template->message($LNG['step4_need_fields'],"?mode=ins&page=3&lang=".$LANG, 3, true));
+				exit($template->message($LNG['step4_need_fields'],"?mode=ins&page=3&lang=".$LANG->GetUser(), 3, true));
 	
 			$SQL  = "INSERT INTO ".USERS." SET ";
 			$SQL .= "`id`                = '1', ";
@@ -336,7 +336,7 @@ switch ($Mode) {
 		break;
 	case 'convert':
 		if(!file_exists(ROOT_PATH . 'includes/config.php'))
-			exit($template->message($LNG['convert_install'],"?lang=".$LANG, 3, true));
+			exit($template->message($LNG['convert_install'],"?lang=".$LANG->GetUser(), 3, true));
 
 		if($_POST) {
 			$GLOBALS['database']['host']			= $_POST['host'];
