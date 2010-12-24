@@ -38,7 +38,7 @@ function ShowConfigPage()
 		$CONF['ga_active'] 				= isset($_POST['ga_active']) && $_POST['ga_active'] == 'on' ? 1 : 0;
 		$CONF['bgm_active'] 			= isset($_POST['bgm_active']) && $_POST['bgm_active'] == 'on' ? 1 : 0;
 		
-		$CONF['OverviewNewsText']		= request_var('NewsText', '', true);
+		$CONF['OverviewNewsText']		= $_POST['NewsText'];
 		$CONF['close_reason']			= request_var('close_reason', '', true);
 		$CONF['game_name']				= request_var('game_name', '', true);
 		$CONF['forum_url'] 				= request_var('forum_url', '', true);
