@@ -30,7 +30,7 @@ function update_config($Values, $Global = false, $SpecUni = 0)
 			continue;
 			
 		$CONF[$Name]	= $Value;
-		$SQL	.= "`".$Name."` = '".$Value."', ";
+		$SQL	.= "`".$Name."` = '".$db->sql_escape($Value)."', ";
 	}
 	$db->query("UPDATE ".CONFIG." SET ".substr($SQL, 0, -2).(!$Global ? " WHERE `uni` = '".$UNI."'":"").";");
 }

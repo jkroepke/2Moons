@@ -134,7 +134,7 @@ if (INSTALL != true)
 			$db->query("UPDATE ".USERS." SET `lang` = '".$USER['lang']."' WHERE `id` = '".$USER['id']."';");
 		}
 		
-		$LANG->setDefault($USER['lang']);	
+		$LANG->setUser($USER['lang']);	
 		$LANG->includeLang(array('INGAME', 'TECH'));
 		
 		if($USER['bana'] == 1)
