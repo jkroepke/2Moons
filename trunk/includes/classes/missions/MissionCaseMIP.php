@@ -89,7 +89,7 @@ class MissionCaseMIP extends MissionFunctions
 			}
 		}
 				
-		$UserPlanet 		= $db->uniquequery("SELECT name FROM ".PLANETS." WHERE id = '" . $this->_fleet['fleet_owner'] . "';"));
+		$UserPlanet 		= $db->uniquequery("SELECT name FROM ".PLANETS." WHERE id = '" . $this->_fleet['fleet_owner'] . "';");
 		$OwnerLink			= $UserPlanet['name']."[".$this->_fleet['fleet_start_galaxy'].":".$this->_fleet['fleet_start_system'].":".$this->_fleet['fleet_start_planet']."]";
 		$TargetLink 		= $TargetInfo['name']."[".$this->_fleet['fleet_end_galaxy'].":".$this->_fleet['fleet_end_system'].":".$this->_fleet['fleet_end_planet']."]";;
 		$Message			= sprintf($LNG['sys_irak_mess'], $this->_fleet['fleet_amount'], $OwnerLink, $TargetLink).(empty($message) ? $LNG['sys_irak_no_def'] : $message);
