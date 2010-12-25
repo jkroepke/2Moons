@@ -168,7 +168,7 @@ switch ($page) {
 					}
 				}
 				
-				$PlanetID = CreateOnePlanetRecord($LastSettedGalaxyPos, $LastSettedSystemPos, $Planet, $UserUni, $NewUser, $UserPlanet, true);
+				$PlanetID = CreateOnePlanetRecord($LastSettedGalaxyPos, $LastSettedSystemPos, $Planet, $UNI, $NewUser, $UserPlanet, true);
 			}
 			
 			$SQL = "UPDATE " .USERS." SET ";
@@ -187,7 +187,7 @@ switch ($page) {
 			$message 	= sprintf($LNG['welcome_message_content'], $CONF['game_name']);
 			SendSimpleMessage($NewUser, 1, $Time, 1, $from, $Subject, $message );
 							
-			update_config(array('LastSettedGalaxyPos' => $LastSettedGalaxyPos, 'LastSettedSystemPos' => $LastSettedSystemPos, 'LastSettedPlanetPos' => $LastSettedPlanetPos, 'users_amount' => $CONF['users_amount'] + 1));
+			update_config(array('LastSettedGalaxyPos' => $LastSettedGalaxyPos, 'LastSettedSystemPos' => $LastSettedSystemPos, 'LastSettedPlanetPos' => $LastSettedPlanetPos, 'users_amount' => $CONF['users_amount'] + 1), false, $UNI);
 			session_start();
 			$SESSION       	= new Session();
 			$SESSION->CreateSession($NewUser, $UserName, $PlanetID, $UNI);
@@ -423,7 +423,7 @@ switch ($page) {
 				$message 	= sprintf($LNG['welcome_message_content'], $CONF['game_name']);
 				SendSimpleMessage($NewUser, 1, $Time, 1, $from, $Subject, $message);
 				
-				update_config(array('users_amount' => $CONF['users_amount'] + 1, 'LastSettedGalaxyPos' => $LastSettedGalaxyPos, 'LastSettedSystemPos' => $LastSettedSystemPos, 'LastSettedPlanetPos' => $LastSettedPlanetPos));
+				update_config(array('users_amount' => $CONF['users_amount'] + 1, 'LastSettedGalaxyPos' => $LastSettedGalaxyPos, 'LastSettedSystemPos' => $LastSettedSystemPos, 'LastSettedPlanetPos' => $LastSettedPlanetPos), false, $UserUni);
 				if ($admin == 1) {
 					echo sprintf($LNG['user_active'], $UserName);
 				} else {
