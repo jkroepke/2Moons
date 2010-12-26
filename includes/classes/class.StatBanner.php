@@ -93,9 +93,9 @@ class StatBanner {
 
 		$Font	= ROOT_PATH.'styles/arial.ttf';
 		// Variables
-		$b_univ   = $Query['game_name'];
-		$b_user   = $Query['username'];
-		$b_planet = $Query['name'];
+		$b_univ   = iconv("UTF-8", "koi8-r", $Query['game_name']);
+		$b_user   = iconv("UTF-8", "koi8-r", $Query['username']);
+		$b_planet = iconv("UTF-8", "koi8-r", $Query['name']);
 		$b_xyz    = "[".$Query['galaxy'].":".$Query['system'].":".$Query['planet']."]";
 		$b_lvl    = $Query['total_rank']  ."/".$Query['users_amount'];
 		$b_build  = $LNG['ub_buildings'] .": ".pretty_number($Query['build_points']);
@@ -131,18 +131,6 @@ class StatBanner {
 		// Creat and delete banner
 		ImagePNG($image);
 		imagedestroy($image);
-	}
-	
-	function win2uni($s)
-	{
-		$s = convert_cyr_string($s,'w','i'); //  win1251 -> iso8859-5
-		$c = strlen($s);
-		//  iso8859-5 -> unicode:
-		for ($result='', $i = 0; $i < $c; $i++) {
-			$charcode = ord($s[$i]);
-			$result .= ($charcode>175)?"&#".(1040+($charcode-176)).";":$s[$i];
-		}
-		return $result;
 	}
 }
 
