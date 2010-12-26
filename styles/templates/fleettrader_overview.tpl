@@ -15,7 +15,7 @@
 			{$ft_count}: <input type="text" id="count" name="count" onkeyup="Total();"><a href="#" onclick="MaxShips();">{$ft_max}</a><br><br>
 			{$Metal}: <span id="metal" style="font-weight:800;"></span> &bull; {$Crystal}: <span id="crystal" style="font-weight:800;"></span> &bull; {$Deuterium}: <span id="deuterium" style="font-weight:800;"></span> &bull; {$Darkmatter}: <span id="darkmatter" style="font-weight:800;"></span><br><br>
 			{$ft_total}: {$Metal}: <span id="total_metal" style="font-weight:800;"></span> &bull; {$Crystal}: <span id="total_crystal" style="font-weight:800;"></span> &bull; {$Deuterium} <span id="total_deuterium" style="font-weight:800;"></span> &bull; {$Darkmatter}: <span id="total_darkmatter" style="font-weight:800;"></span><br><br>
-			<input type="submit" value="Absenden"><br>{$ft_charge}: <span id="charge"></span></div>
+			<input type="submit" value="{$ft_absenden}"><br>{$ft_charge}: <span id="charge"></span></div>
 		</td></tr>
 	</table>
 </form>

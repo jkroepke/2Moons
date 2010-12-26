@@ -1102,6 +1102,7 @@ $LNG['ft_count']							= 'Anzahl';
 $LNG['ft_max']								= 'max';
 $LNG['ft_total']							= 'TOTAL';
 $LNG['ft_charge']							= 'Händlergebühr';
+$LNG['ft_absenden']							= 'Absenden';
 
 //----------------------------------------------------------------------------//
 // Logout

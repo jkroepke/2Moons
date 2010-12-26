@@ -57,6 +57,7 @@ function ShowFleetTraderPage()
 		'ft_max'					=> $LNG['ft_max'],
 		'ft_total'					=> $LNG['ft_total'],
 		'ft_charge'					=> $LNG['ft_charge'],
+		'ft_absenden'					=> $LNG['ft_absenden'],
 		'Metal'						=> $LNG['Metal'],
 		'Crystal'					=> $LNG['Crystal'],
 		'Deuterium'					=> $LNG['Deuterium'],
