@@ -309,7 +309,7 @@ switch ($page) {
 					$errors .= $LNG['mail_already_exists'];
 				
 				if (!empty($errors)) {
-					$template->message($errors, '?page=reg&lang='.$LANG, 3, true);
+					$template->message($errors, '?page=reg&lang='.$LANG->getUser(), 3, true);
 					exit;
 				}
 				
@@ -337,7 +337,7 @@ switch ($page) {
 					$MailContent	= sprintf($MailRAW, $UserName, $CONF['game_name'], "http://".$_SERVER['SERVER_NAME'].$_SERVER["PHP_SELF"], $clef, $UserPass, $CONF['smtp_sendmail'], $UserLang);
 			
 					MailSend($UserEmail, $UserName, $MailSubject, $MailContent);
-					$template->message($LNG['reg_completed'], '?lang='.$LANG, 10, true);
+					$template->message($LNG['reg_completed'], '?lang='.$UserLang, 10, true);
 				}								
 			break;
 			case 'valid' :		
