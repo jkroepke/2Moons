@@ -64,6 +64,7 @@ $LNG['lm_contact']                        = 'Тех. поддержка';
 $LNG['lm_forums']                         = 'Форум';
 $LNG['lm_logout']                         = 'Выход';
 $LNG['lm_administration']                 = 'Админка';
+$LNG['lm_fleettrader']			  = 'Скупщик флота';
 $LNG['lm_game_speed']                     = 'Скорость игры';
 $LNG['lm_fleet_speed']                    = 'Скорость флота';
 $LNG['lm_resources_speed']                = 'Скорость ресурсов';
@@ -1045,6 +1046,15 @@ $LNG['bs_techno']                         = "Технологии";
 $LNG['bs_send']                           = "Симулировать";
 $LNG['bs_cancel']                         = "Обнулить";
 $LNG['bs_wait']                           = "Пожалуйста, подождите 10 секунд перед следующей симуляцией";
+
+// Fleettrader
+
+$LNG['ft_head']								= 'Флот на металлолом';
+$LNG['ft_count']							= 'Кол-во';
+$LNG['ft_max']								= 'макс.';
+$LNG['ft_total']							= 'общее';
+$LNG['ft_charge']							= 'Процент торговцу';
+$LNG['ft_absenden']							= 'Продать';
 
 // Выход
 $LNG['lo_title']                          = 'Вы вышли. До скорого!';
