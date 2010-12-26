@@ -205,7 +205,7 @@ class ResourceUpdate
 				continue;					
 			}
 			
-			$GetBuildShips						= max(min(substr(HLdiv($this->PLANET['b_hangar'], $BuildTime), 0, 1), $Count), 0);
+			$GetBuildShips						= max(min(round(HLdiv($this->PLANET['b_hangar'], $BuildTime)), $Count), 0);
 			if($GetBuildShips == 0)
 			{
 				$this->PLANET['b_hangar_id'] 	.= $Element.",".$Count.";";
