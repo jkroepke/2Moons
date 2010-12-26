@@ -268,7 +268,7 @@ function MailSend($MailTarget, $MailTargetName, $MailSubject, $MailContent)
 {
 	global $CONF;
 	require_once('./includes/classes/class.phpmailer.php');
-	$mail             = new PHPMailer();
+	$mail             = new PHPMailer(true);
 	$mail->IsSMTP();
 	try{
 		$mail->SMTPDebug  = 0;    
@@ -493,19 +493,19 @@ function r_implode($glue, $pieces)
 //Math Functions
 
 function HLadd($Num1, $Num2) {
-	return ($GLOBALS['BCMATH'] === true && ($Num1 > PHP_INT_MAX || $Num2 > PHP_INT_MAX)) ? bcadd($Num1, $Num2, 0) : ($Num1 + $Num2);
+	return ($GLOBALS['BCMATH'] === true) ? bcadd($Num1, $Num2, 0) : ($Num1 + $Num2); // && ($Num1 > PHP_INT_MAX || $Num2 > PHP_INT_MAX)
 }
 
 function HLsub($Num1, $Num2) {
-	return ($GLOBALS['BCMATH'] === true && ($Num1 > PHP_INT_MAX || $Num2 > PHP_INT_MAX)) ? bcsub($Num1, $Num2, 0) : ($Num1 - $Num2);
+	return ($GLOBALS['BCMATH'] === true) ? bcsub($Num1, $Num2, 0) : ($Num1 - $Num2); // && ($Num1 > PHP_INT_MAX || $Num2 > PHP_INT_MAX)
 }
 
 function HLmul($Num1, $Num2) {
-	return ($GLOBALS['BCMATH'] === true && ($Num1 > PHP_INT_MAX || $Num2 > PHP_INT_MAX)) ? bcmul($Num1, $Num2, 0) : ($Num1 * $Num2);
+	return ($GLOBALS['BCMATH'] === true) ? bcmul($Num1, $Num2, 0) : ($Num1 * $Num2); // && ($Num1 > PHP_INT_MAX || $Num2 > PHP_INT_MAX)
 }
 
 function HLdiv($Num1, $Num2) {
-	return ($GLOBALS['BCMATH'] === true && ($Num1 > PHP_INT_MAX || $Num2 > PHP_INT_MAX)) ? bcdiv($Num1, $Num2, 0) : ($Num1 / $Num2);
+	return ($GLOBALS['BCMATH'] === true) ? bcdiv($Num1, $Num2, 0) : ($Num1 / $Num2); // && ($Num1 > PHP_INT_MAX || $Num2 > PHP_INT_MAX)
 }
 
 if(!function_exists('ctype_alnum'))
