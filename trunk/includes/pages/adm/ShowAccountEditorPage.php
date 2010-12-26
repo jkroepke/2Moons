@@ -217,6 +217,10 @@ function ShowAccountEditorPage()
 			if($_POST)
 			{
 				$PlanetData	= $db->uniquequery("SELECT `planet_type` FROM ".PLANETS." WHERE `id` = '".request_var('id', 0)."' AND `universe` = '".$_SESSION['adminuni']."';");
+				if(!isset($PlanetData))
+				{
+					$template->message($LNG['ad_add_not_exist'], '?page=accounteditor&edit=buildings');
+				}
 				if ($_POST['add'])
 				{
 					$SQL  = "UPDATE ".PLANETS." SET ";
