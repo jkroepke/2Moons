@@ -316,7 +316,7 @@ class PHPMailer {
   private   $CustomHeader   = array();
   private   $message_type   = '';
   private   $boundary       = array();
-  protected $LNGuage       = array();
+  protected $language       = array();
   private   $error_count    = 0;
   private   $sign_cert_file = "";
   private   $sign_key_file  = "";
