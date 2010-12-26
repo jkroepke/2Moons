@@ -116,6 +116,8 @@ $LNG['ad_editor_resources']	= 'Rohstoffe';
 $LNG['ad_editor_alliances']	= 'Allianz';
 $LNG['ad_editor_authlevels']	= 'verwalte Rechte';
 
+$LNG['ad_add_not_exist']		= 'ID existiert nicht!';
+
 //	INVESTIGACIONES - RESEARCHS - FORSCHUNGEN
 $LNG['ad_add_succes']		= 'Hinzufügen der Forschungen war erfolgreich!';
 $LNG['ad_delete_succes']	= 'Löschen der Forschungen war erfolgreich!';
