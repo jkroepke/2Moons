@@ -23,7 +23,10 @@ class ShowOptionsPage
 {
 	private function CheckVMode()
 	{
-		global $db, $USER;
+		global $db, $USER, $PLANET;
+
+		if(!empty($USER['b_tech']) || !empty($PLANET['b_building']) || !empty($PLANET['b_hangar']))
+			return false;
 
 		$fleets = $db->countquery("SELECT COUNT(*) FROM ".FLEETS." WHERE `fleet_owner` = '".$USER['id']."' OR `fleet_target_owner` = '".$USER['id']."';");
 		if($fleets != 0)
@@ -40,19 +43,18 @@ class ShowOptionsPage
 		
 			if(!empty($CPLANET['b_building']) || !empty($CPLANET['b_hangar']))
 				return false;
+			
+			unset($CPLANET);
 		}
 
 		$db->free_result($query);
 		
-		if(!empty($USER['b_tech']))
-			return false;
-
 		return true;
 	}
 	
 	public function __construct()
 	{
-		global $USER, $PLANET, $CONF, $LNG, $LANG, $UNI, $SESSION, $db;
+		global $USER, $PLANET, $CONF, $LNG, $LANG, $UNI, $db;
 
 		$mode 			= request_var('mode', '');
 		$exit 			= request_var('exit_modus', '');
