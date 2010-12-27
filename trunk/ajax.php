@@ -31,7 +31,7 @@ $SESSION       	= new Session();
 
 if(!$SESSION->IsUserLogin() || ($CONF['game_disable'] == 0 && $_SESSION['authlevel'] == 0))
 	exit(json_encode(array()));
-
+$LANG->setUser($_SESSION['USER']['lang']);
 $LANG->includeLang(array('INGAME'));
 $action	= request_var('action', '');
 switch($action)
