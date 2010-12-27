@@ -81,6 +81,7 @@ $LNG['ad_editor_planets']              = 'Планеты и луны';
 $LNG['ad_editor_resources']            = 'Ресурсы';
 $LNG['ad_editor_alliances']            = 'Альянс';
 $LNG['ad_editor_authlevels']           = 'Полномочия';
+$LNG['ad_add_not_exist']               = 'Указанный ID не существует!';
 
 // Исследования
 $LNG['ad_add_succes']                  = 'Уровни технологии успешно добавлены!';
@@ -326,14 +327,14 @@ $LNG['se_recaptcha_whats']             = 'Регистрация';
 $LNG['se_recaptcha_head']              = 'Защитный код reCAPTCHA';
 $LNG['se_recaptcha_desc']              = 'Позволяет оградить игру от спам-ботов. <a href="http://recaptcha.net/whyrecaptcha.html">http://recaptcha.net/whyrecaptcha.html</a>.';
 $LNG['se_recaptcha_public']            = 'Открытый ключ:';
-$LNG['se_recaptcha_private']           = 'Частный ключ:';
+$LNG['se_recaptcha_private']           = 'Личный ключ:';
 $LNG['se_recaptcha_active']            = 'Включение';
 $LNG['se_reg_closed']                  = 'Регистрация закрыта';
 $LNG['se_min_build_time']              = 'Мин. время строительства';
 $LNG['se_min_build_time_info']         = 'Минимальное время строительства построек, флота, обороны и исследований. По умолчанию установлено значение - 1 секунда (0 - отключение)<br><font color=orange>Если выставить 0 - возможны ошибки!</font>';
-$LNG['se_trader_head']			   	   = 'Настройки скупки';
-$LNG['se_trader_ships']			       = 'Доступных судов:';
-$LNG['se_trader_charge']               = 'Торговый взнос:';
+$LNG['se_trader_head']                 = 'Настройки скупщика флота';
+$LNG['se_trader_ships']                = 'Корабли:';
+$LNG['se_trader_charge']               = 'Стоимость:';
 $LNG['se_news_head']                   = 'Настройки новостей';
 $LNG['se_news_active']                 = 'Включение';
 $LNG['se_news_limit']                  = 'Максимум 255 символов!';
@@ -587,11 +588,7 @@ $LNG['ac_suspended_time']              = 'Когда';
 $LNG['ac_suspended_longer']            = 'Заблокирован до';
 $LNG['ac_suspended_reason']            = 'Причина';
 $LNG['ac_suspended_autor']             = 'Кто забанил';
-$LNG['ac_note_k']                      .= '<table><tr><th width=10%><font color=lime>T+</font></th><th>Больше 1кккк (триллион)</th></tr>';
-$LNG['ac_note_k']                      .= '<tr><th width=10%><font color=lime>T</font></th><th>Меньше или равно 1кккк (триллион)</th></tr>';
-$LNG['ac_note_k']                      .= '<tr><th width=10%><font color=lime>B</font></th><th>Меньше или равно 1ккк (миллиард)</th></tr>';
-$LNG['ac_note_k']                      .= '<tr><th width=10%><font color=lime>M</font></th><th>Меньше или равно 1кк (миллион)</th></tr>';
-$LNG['ac_note_k']                      .= '<tr><th width=10%><font color=lime>K</font></th><th>Меньше или равно 1к (тысяча)</th></tr></table>';
+$LNG['ac_note_k']                      = '<table><tr><th width=10%><font color=lime>T+</font></th><th>Больше 1кккк (триллион)</th></tr><tr><th width=10%><font color=lime>T</font></th><th>Меньше или равно 1кккк (триллион)</th></tr><tr><th width=10%><font color=lime>B</font></th><th>Меньше или равно 1ккк (миллиард)</th></tr><tr><th width=10%><font color=lime>M</font></th><th>Меньше или равно 1кк (миллион)</th></tr><tr><th width=10%><font color=lime>K</font></th><th>Меньше или равно 1к (тысяча)</th></tr></table>';
 $LNG['ac_leyend']                      = '[ Легенда ]';
 $LNG['ac_no_rank_level']               = 'У Вас не достаточно прав для просмотра информации об этом игроке!';
 
@@ -822,6 +819,8 @@ $LNG['fb_active']                      = 'Facebook подключён?';
 $LNG['fb_api_key']                     = 'Facebook API ключ';
 $LNG['fb_secrectkey']                  = 'Facebook секретный ключ';
 $LNG['fb_info']                        = 'При подключении к Facebook Вы должны войти.<br><br>Чтобы использовать эту возможость Вы должны быть зарегистрированы на Facebook. Кроме того необходимо создать приложение. Это можно сделать по следующей ссылке <a href="http://www.facebook.com/developers/">http://www.facebook.com/developers/</a>. Когда Вы разместите в игре ключи, можно будет подключаться к Facebook.<br><br><font color="red">Для подключения к Facebook почтовая рассылка должна быть включена! (SMTP настройки)</font>';
+$LNG['fb_curl_yes']                    = '<span style="color:green">cURL установлен!</span>';
+$LNG['fb_curl_no']                     = '<span style="color:red">cURL не установлен! Для функционирования Facebook необходимо установить cURL на сервер!</span>';
 
 // GameModule.php
 $LNG['modul'][0]                       = 'Альянс';
@@ -836,8 +835,7 @@ $LNG['modul'][9]                       = 'Флот';
 $LNG['modul'][10]                      = 'Флот - Обработчик';
 $LNG['modul'][11]                      = 'Галактика';
 $LNG['modul'][12]                      = 'Зал славы';
-$LNG['modul'][13]                      = 'Скупщик';
-$LNG['modul'][38]                      = 'Скупщик флота';
+$LNG['modul'][13]                      = 'Скупщик ресурсов';
 $LNG['modul'][14]                      = 'Информация';
 $LNG['modul'][15]                      = 'Империя';
 $LNG['modul'][32]                      = 'Задание - Переработать';
@@ -858,18 +856,19 @@ $LNG['modul'][20]                      = 'Игрок';
 $LNG['modul'][21]                      = 'Заблокированные';
 $LNG['modul'][22]                      = 'Рекорды';
 $LNG['modul'][23]                      = 'Ресурсы';
+$LNG['modul'][38]                      = 'Скупщик флота';
 $LNG['modul'][25]                      = 'Статистика';
 $LNG['modul'][37]                      = 'Баннер-статистика';
 $LNG['modul'][26]                      = 'Поиск';
 $LNG['modul'][27]                      = 'Техническая поддержка';
 $LNG['modul'][28]                      = 'Технологии';
 
-$LNG['mod_module']						= 'Модули';
-$LNG['mod_info']						= 'Модули игры<br><font color="red">Только администраторы могут изменять состояние модулей!</font>';
-$LNG['mod_active']						= 'Включён';
-$LNG['mod_deactive']					= 'Отключён';
-$LNG['mod_change_active']				= 'Включить';
-$LNG['mod_change_deactive']				= 'Отключить';
+$LNG['mod_module']                     = 'Модули';
+$LNG['mod_info']                       = 'Модули игры<br><font color="red">Только администраторы могут изменять состояние модулей!</font>';
+$LNG['mod_active']                     = 'Включён';
+$LNG['mod_deactive']                   = 'Отключён';
+$LNG['mod_change_active']              = 'Включить';
+$LNG['mod_change_deactive']            = 'Отключить';
 
 // Новости
 $LNG['nws_news']                       = 'Новости';
@@ -911,6 +910,7 @@ $LNG['uvs_off']                        = 'Отключить';
 $LNG['uvs_new']                        = 'Создать вселенную';
 $LNG['uvs_import']                     = 'Импорт';
 $LNG['uvs_upload']                     = 'Загрузить';
+$LNG['uvs_error']                      = 'Неверный или некорректный импорт файлов!';
 
 // Страница обновления
 $LNG['up_weiter']                      = 'Далее';
@@ -951,6 +951,6 @@ $LNG['ap_insgesamt']                   = 'Всего ';
 $LNG['ap_nicht_aktivierte']            = ' неактивированных игроков.';
 $LNG['ap_nicht_aktivierte_user']       = 'Нет неактивированных игроков.';
 
-// Translated into Russian by InquisitorEA. All rights reserved (C) 2010
+// Translated into Russian by InquisitorEA. All rights reserved (C) 2010-2011
 
 ?>
