@@ -22,7 +22,9 @@
 ##############################################################################
 
 //---------------	GENERAL	------------------------// 
+$LNG['adm_login']		= 'Login';
 $LNG['adm_password']		= 'Passwort';
+$LNG['adm_absenden']		= 'Absenden';
 $LNG['adm_password_info']	= 'Gebe dein Passwort ein, um dich zu vertifizeren!';
 $LNG['adm_bad_password']	= 'Falsches Passwort!';
 $LNG['404_page']			= 'Du hast nicht die nötige Berechtigung dazu';

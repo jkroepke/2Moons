@@ -1,7 +1,9 @@
 <?php
 
 // Общее
+$LNG['adm_login']                      = 'Логин';
 $LNG['adm_password']                   = 'Пароль';
+$LNG['adm_absenden']			= 'Войти';
 $LNG['adm_password_info']              = 'Введите пароль для авторизации!';
 $LNG['adm_bad_password']               = 'Неправильный пароль!';
 $LNG['404_page']                       = 'У Вас недостаточно прав';
@@ -81,6 +83,7 @@ $LNG['ad_editor_planets']              = 'Планеты и луны';
 $LNG['ad_editor_resources']            = 'Ресурсы';
 $LNG['ad_editor_alliances']            = 'Альянс';
 $LNG['ad_editor_authlevels']           = 'Полномочия';
+$LNG['ad_add_not_exist']		= 'ID не существует!';
 $LNG['ad_add_not_exist']               = 'Указанный ID не существует!';
 
 // Исследования

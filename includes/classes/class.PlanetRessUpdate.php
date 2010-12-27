@@ -427,6 +427,7 @@ class ResourceUpdate
 					`u`.`id` = '".$USER['id']."';
 					UNLOCK TABLES;";
 		$db->multi_query($Qry);
+		$this->Builded	= array();
 		return array($USER, $PLANET);
 	}
 }
