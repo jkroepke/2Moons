@@ -24,6 +24,6 @@ $LNG['faq']			= array(
 
 $LNG['faq_overview']	= "FAQ";
 
-// Translated into Russian by InquisitorEA. All rights reserved (C) 2010
+// Translated into Russian by InquisitorEA. All rights reserved (C) 2010-2011
 
 ?>
