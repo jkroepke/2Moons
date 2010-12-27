@@ -914,7 +914,7 @@ $LNG['uvs_error']                      = 'Неверный или некорре
 
 // Страница обновления
 $LNG['up_weiter']                      = 'Далее';
-$LNG['up_agent']                       = 'Система обновлений: 2Moons API (Ревизия ';
+$LNG['up_agent']	                   = 'User-Agent: 2Moons Update API (Rev ';
 $LNG['up_kein_update']                 = 'Нет доступных обновлений!';
 $LNG['up_ftp_ok']                      = 'FTP-соединение: ОК!';
 $LNG['up_ftp_error']                   = 'FTP-соединение: ОШИБКА! ';

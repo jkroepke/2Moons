@@ -200,7 +200,7 @@ switch ($page) {
 			$Universe = request_var('universe', 0);
 			$ExistMail = $db->uniquequery("SELECT `username` FROM ".USERS." WHERE `email` = '".$db->sql_escape($USERmail)."' AND `universe` = '".$Universe."';");
 			if (empty($ExistMail['username'])) {
-				$template->message($LNG['mail_not_exist'], "index.php?page=lostpassword&lang=".$LANG, 3, true);
+				$template->message($LNG['mail_not_exist'], "index.php?page=lostpassword&lang=".$LANG->getUser(), 3, true);
 			} else {
 				$Caracters = "aazertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN1234567890";
 				$Count = strlen($Caracters);
