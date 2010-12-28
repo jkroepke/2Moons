@@ -83,7 +83,6 @@ $LNG['ad_editor_planets']              = 'Планеты и луны';
 $LNG['ad_editor_resources']            = 'Ресурсы';
 $LNG['ad_editor_alliances']            = 'Альянс';
 $LNG['ad_editor_authlevels']           = 'Полномочия';
-$LNG['ad_add_not_exist']		= 'ID не существует!';
 $LNG['ad_add_not_exist']               = 'Указанный ID не существует!';
 
 // Исследования

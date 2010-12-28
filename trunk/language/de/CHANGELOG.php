@@ -5,7 +5,7 @@ $LNG['Description'] = 'Beschreibung';
 
 $LNG['changelog']   = array(
 
-'v1.3' => 'ShadoX 21.12.10
+'v1.3' => 'ShadoX 28.12.10
 - ADD: MultiUniverse Support
 - ADD: IPv6 Support
 - ADD: Limit of max Colony
@@ -40,6 +40,7 @@ $LNG['changelog']   = array(
 - DIV: Allow Change Version on ACP
 - DIV: Get Language via HTTP Header on Index
 - DIV: Use Facebooks new Graph API now.
+- DIV: Set new location for error.log
 - DIV: Update TS³ Lib, Soundmanager, reCAPTCHA Lib, Smarty and jQuery
 ',
 'v1.2' => 'ShadoX 04.10.10
