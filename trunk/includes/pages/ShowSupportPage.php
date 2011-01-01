@@ -51,11 +51,6 @@ class ShowSupportPage
 		$text 	 = makebr(request_var('text','',true));
 
 		$template	= new template();
-		$template->page_header();
-		$template->page_topnav();
-		$template->page_leftmenu();
-		$template->page_planetmenu();
-		$template->page_footer();
 		
 		if(empty($text) || empty($subject)) {
 			$template->message($LNG['sendit_error_msg'], "game.php?page=support", 3);
@@ -78,12 +73,7 @@ class ShowSupportPage
 		global $USER, $db, $LNG;
 		
 		$text = request_var('text','',true);
-		$template	= new template();
-		$template->page_header();
-		$template->page_topnav();
-		$template->page_leftmenu();
-		$template->page_planetmenu();
-		$template->page_footer();		
+		$template	= new template();	
 		if(empty($text))
 			exit($template->message($LNG['sendit_error_msg'],"game.php?page=support", 3));
 		

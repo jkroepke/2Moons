@@ -25,13 +25,14 @@ class template
 	{	
 		$this->jsscript				= array();
 		$this->script				= array();
-		$this->page					= array('header' => false, 'topnav' => false, 'leftmenu' => false, 'planetmenu' => false, 'footer' => false);
 		$this->vars					= array();
 		$this->cache				= false;
 		$this->cachedir				= ROOT_PATH.'cache/';
 		$this->file					= '';
 		$this->template_dir			= ROOT_PATH.TEMPLATE_DIR;
 		$this->cachefile			= '';
+		$this->phpself				= '';
+		$this->Popup				= false;
 	}
 
 	public function render()
@@ -80,17 +81,20 @@ class template
 		$this->vars	= array_merge($this->vars, $assign);
 	}
 	
-	private function planetmenu()
+	private function Menus()
 	{
-		global $LNG, $USER;
+		global $PLANET, $LNG, $USER, $CONF;
+		//PlanetMenu
 		if(empty($this->UserPlanets))
 			$this->getplanets();
 		
 		$this->loadscript("planetmenu.js");
+		$this->loadscript("topnav.js");
 		$this->execscript("PlanetMenu();");
-
-		$Scripttime	= array();
-		foreach($this->UserPlanets as $PlanetQuery)
+		$this->phpself	= "?page=".request_var('page', '')."&amp;mode=".request_var('mode', '');
+		$PlanetSelect	= array();
+		$Scripttime		= array();
+		foreach($this->UserPlanets as $CurPlanetID => $PlanetQuery)
 		{
 			if(!empty($PlanetQuery['b_building_id']))
 			{
@@ -114,20 +118,20 @@ class template
 				'planet'	=> $PlanetQuery['planet'],
 				'ptype'		=> $PlanetQuery['planet_type'],
 			);
+			
+			$PlanetSelect[$this->phpself."&amp;cp=".$PlanetQuery['id']]	= $PlanetQuery['name'].(($PlanetQuery['planet_type'] == 3) ? " (" . $LNG['fcm_moon'] . ")":"")."&nbsp;[".$PlanetQuery['galaxy'].":".$PlanetQuery['system'].":".$PlanetQuery['planet']."]&nbsp;&nbsp;";
 		}
 		
+		if($USER['urlaubs_modus'] == 1) {
+			$CONF['metal_basic_income']     = 0;
+			$CONF['crystal_basic_income']   = 0;
+			$CONF['deuterium_basic_income'] = 0;
+		}		
 		$this->assign_vars(array(	
 			'PlanetMenu' 		=> $Planetlist,
 			'show_planetmenu' 	=> $LNG['show_planetmenu'],
-			'current_pid'		=> $_SESSION['planet'],
-			'Scripttime'		=> json_encode($Scripttime),
-		));
-	}
-	
-	private function leftmenu()
-	{
-		global $CONF, $LNG, $USER;
-		$this->assign_vars(array(	
+			'current_pid'		=> $PLANET['id'],
+			'Scripttime'		=> json_encode($Scripttime),	
 			'lm_overview'		=> $LNG['lm_overview'],
 			'lm_empire'			=> $LNG['lm_empire'],
 			'lm_buildings'		=> $LNG['lm_buildings'],
@@ -161,30 +165,6 @@ class template
 			'new_message' 		=> $USER['new_message'],
 			'forum_url'			=> $CONF['forum_url'],
 			'lm_administration'	=> $LNG['lm_administration'],
-		));
-	}
-	
-	private function topnav()
-	{
-		global $PLANET, $LNG, $USER, $CONF;
-		$this->phpself			= "?page=".request_var('page', '')."&amp;mode=".request_var('mode', '');
-		$this->loadscript("topnav.js");
-		if(empty($this->UserPlanets))
-			$this->getplanets();
-		
-		foreach($this->UserPlanets as $CurPlanetID => $CurPlanet)
-		{
-			$SelectorVaules[]	= $this->phpself."&amp;cp=".$CurPlanet['id'];
-			$SelectorNames[]	= $CurPlanet['name'].(($CurPlanet['planet_type'] == 3) ? " (" . $LNG['fcm_moon'] . ")":"")."&nbsp;[".$CurPlanet['galaxy'].":".$CurPlanet['system'].":".$CurPlanet['planet']."]&nbsp;&nbsp;";
-		}
-		
-		if($USER['urlaubs_modus'] == 1) {
-			$CONF['metal_basic_income']     = 0;
-			$CONF['crystal_basic_income']   = 0;
-			$CONF['deuterium_basic_income'] = 0;
-		}
-		
-		$this->assign_vars(array(
 			'topnav'			=> true,
 			'metal'				=> $PLANET['metal'],
 			'crystal'			=> $PLANET['crystal'],
@@ -203,15 +183,14 @@ class template
 			'js_metal_hr'		=> floattostring($PLANET['metal_perhour'] + $CONF['metal_basic_income'] * $CONF['resource_multiplier']),
 			'js_crystal_hr'		=> floattostring($PLANET['crystal_perhour'] + $CONF['crystal_basic_income'] * $CONF['resource_multiplier']),
 			'js_deuterium_hr'	=> floattostring($PLANET['deuterium_perhour'] + $CONF['deuterium_basic_income'] * $CONF['resource_multiplier']),
-			'current_panet'		=> $this->phpself."&amp;cp=".$_SESSION['planet'],
+			'current_planet'	=> $this->phpself."&amp;cp=".$PLANET['id'],
 			'tn_vacation_mode'	=> $LNG['tn_vacation_mode'],
 			'closed'			=> !$CONF['game_disable'] ? $LNG['ov_closed'] : false,
 			'vacation'			=> $USER['urlaubs_modus'] ? date('d.m.Y H:i:s',$USER['urlaubs_until']) : false,
 			'delete'			=> $USER['db_deaktjava'] ? sprintf($LNG['tn_delete_mode'], date('d. M Y\, H:i:s', strtotime("+7 day", $USER['db_deaktjava']))) : false,
 			'image'				=> $PLANET['image'],
 			'settings_tnstor'	=> $USER['settings_tnstor'],
-			'SelectorVaules'	=> $SelectorVaules,
-			'SelectorNames'		=> $SelectorNames,
+			'PlanetSelect'		=> $PlanetSelect,
 			'Metal'				=> $LNG['Metal'],
 			'Crystal'			=> $LNG['Crystal'],
 			'Deuterium'			=> $LNG['Deuterium'],
@@ -220,7 +199,7 @@ class template
 		));
 	}
 	
-    private function header()
+    private function main()
     {
 		global $USER, $CONF, $LANG, $LNG;
         $this->assign_vars(array(
@@ -235,23 +214,14 @@ class template
 			'cd'				=> './',
 			'gotoinsec'			=> false,
 			'goto'				=> false,
-        ));
-    }
-	
-	private function footer()
-	{
-		global $CONF;
-		$this->assign_vars(array(
-			'cron'			=> GetCrons(),
-			'scripts'		=> $this->jsscript,
-			'execscript'	=> implode("\n", $this->script),
-			'ga_active'		=> $CONF['ga_active'],
-			'ga_key'		=> $CONF['ga_key'],
-			'debug'			=> $CONF['debug'],
+			'cron'				=> GetCrons(),
+			'ga_active'			=> $CONF['ga_active'],
+			'ga_key'			=> $CONF['ga_key'],
+			'debug'				=> $CONF['debug'],
 		));
 	}
 	
-	private function adm_header()
+	private function adm_main()
 	{
 		global $LNG, $CONF;
 		$this->assign_vars(array(
@@ -263,7 +233,7 @@ class template
 		));
 	}
 	
-	public function set_index()
+	public function login_main()
 	{
 		global $USER, $CONF, $LNG, $LANG, $UNI;
 		$this->assign_vars(array(
@@ -296,54 +266,28 @@ class template
 		));
 	}
 		
-	public function page_header()
+	public function isPopup()
 	{
-		$this->page['header']		= true;
+		$this->Popup		= true;
 	}
-	
-	public function page_topnav()
-	{
-		$this->page['topnav']		= true;
-	}
-	
-	public function page_leftmenu()
-	{
-		$this->page['leftmenu']		= true;
-	}
-	
-	public function page_planetmenu()
-	{
-		$this->page['planetmenu']	= true;
-	}
-	
-	public function page_footer()
-	{
-		$this->page['footer']		= true;
-	}
-	
+		
 	public function show($file)
 	{		
 		global $USER, $CONF, $LNG, $db;
 		if(defined('IN_ADMIN')) {
-			if($this->page['header'] == true)
-				$this->adm_header();			
+			$this->adm_main();			
+		} elseif(defined('LOGIN')) {
+			$this->login_main();	
 		} else {
-			if($this->page['header'] == true)
-				$this->header();
-				
-			if($this->page['topnav'] == true)
-				$this->topnav();
-				
-			if($this->page['leftmenu'] == true)
-				$this->leftmenu();
-				
-			if($this->page['planetmenu'] == true)
-				$this->planetmenu();
-				
-			if($this->page['footer'] == true)
-				$this->footer();
+			$this->main();
+			if($this->Popup === false)
+				$this->Menus();
 		}
 		
+		$this->assign_vars(array(
+			'scripts'			=> $this->jsscript,
+			'execscript'		=> implode("\n", $this->script),
+		));
 		$this->display($file);
 	}
 	
@@ -373,14 +317,9 @@ class template
 	public function message($mes, $dest = false, $time = 3, $Fatal = false)
 	{
 		global $LNG;
-		$this->page_header();
-		if(!$Fatal){
-			$this->page_topnav();
-			$this->page_leftmenu();
-			$this->page_planetmenu();
-		}
-		$this->page_footer();
-
+		if($Fatal)
+			$this->isPopup(true);
+	
 		$this->assign_vars(array(
 			'mes'		=> $mes,
 			'fcm_info'	=> $LNG['fcm_info'],

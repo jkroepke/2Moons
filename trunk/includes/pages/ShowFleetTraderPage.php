@@ -40,11 +40,6 @@ function ShowFleetTraderPage()
 	$template	= new template();
 	$template->loadscript('fleettrader.js');
 	$template->execscript('updateVars();');
-	$template->page_header();
-	$template->page_topnav();
-	$template->page_leftmenu();
-	$template->page_planetmenu();
-	$template->page_footer();
 	$Cost	= array();
 	foreach($CONF['trade_allowed_ships'] as $ID)
 	{
@@ -57,11 +52,7 @@ function ShowFleetTraderPage()
 		'ft_max'					=> $LNG['ft_max'],
 		'ft_total'					=> $LNG['ft_total'],
 		'ft_charge'					=> $LNG['ft_charge'],
-		'ft_absenden'					=> $LNG['ft_absenden'],
-		'Metal'						=> $LNG['Metal'],
-		'Crystal'					=> $LNG['Crystal'],
-		'Deuterium'					=> $LNG['Deuterium'],
-		'Darkmatter'				=> $LNG['Darkmatter'],
+		'ft_absenden'				=> $LNG['ft_absenden'],
 		'trade_allowed_ships'		=> $CONF['trade_allowed_ships'],
 		'CostInfos'					=> json_encode($Cost),
 		'Charge'					=> $CONF['trade_charge'],

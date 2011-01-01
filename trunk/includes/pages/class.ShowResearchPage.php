@@ -92,12 +92,7 @@ class ShowResearchPage
 		include_once(ROOT_PATH . 'includes/functions/IsTechnologieAccessible.' . PHP_EXT);
 		include_once(ROOT_PATH . 'includes/functions/GetElementPrice.' . PHP_EXT);
 		
-		$template	= new template();
-		$template->page_header();	
-		$template->page_topnav();
-		$template->page_leftmenu();
-		$template->page_planetmenu();
-		$template->page_footer();				
+		$template	= new template();			
 		
 		if ($PLANET[$resource[31]] == 0)
 		{

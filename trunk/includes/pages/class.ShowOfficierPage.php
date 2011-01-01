@@ -96,14 +96,7 @@ class ShowOfficierPage
 		
 		$PlanetRess->SavePlanetToDB();
 		$template	= new template();
-		$template->loadscript('officier.js');
-		
-		$template->page_header();
-		$template->page_topnav();
-		$template->page_leftmenu();
-		$template->page_planetmenu();
-		$template->page_footer();
-		
+		$template->loadscript('officier.js');		
 
 		if(!CheckModule(8)) 
 		{

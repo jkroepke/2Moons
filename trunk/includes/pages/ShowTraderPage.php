@@ -34,11 +34,6 @@ function ShowTraderPage()
 	
 	$template	= new template();
 	$template->loadscript("trader.js");
-	$template->page_topnav();
-	$template->page_header();
-	$template->page_leftmenu();
-	$template->page_planetmenu();
-	$template->page_footer();
 
 	if ($ress != '')
 	{

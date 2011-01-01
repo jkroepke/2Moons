@@ -27,11 +27,6 @@ function ShowFAQPage()
 	$PlanetRess->SavePlanetToDB();
 
 	$template	= new template();
-	$template->page_header();
-	$template->page_topnav();
-	$template->page_leftmenu();
-	$template->page_planetmenu();
-	$template->page_footer();
 
 	$LANG->includeLang(array('FAQ'));		
 	$template->assign_vars(array(	

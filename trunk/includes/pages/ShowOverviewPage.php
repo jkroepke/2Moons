@@ -80,11 +80,6 @@ function ShowOverviewPage()
 	$template->loadscript('mbContainer.js');
 	$template->loadscript('overview.js');
 	$template->execscript('GetFleets(true);');
-	$template->page_header();
-	$template->page_topnav();
-	$template->page_leftmenu();
-	$template->page_planetmenu();
-	$template->page_footer();
 	
 	$template->assign_vars(array(
 		'user_rank'					=> sprintf($LNG['ov_userrank_info'], pretty_number($USER['total_points']), $LNG['ov_place'], $USER['total_rank'], $USER['total_rank'], $LNG['ov_of'], $CONF['users_amount']),

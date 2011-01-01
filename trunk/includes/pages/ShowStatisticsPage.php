@@ -19,8 +19,6 @@
 # *                                                                          #
 ##############################################################################
 
-
-
 function ShowStatisticsPage()
 {
 	global $USER, $PLANET, $CONF, $dpath, $LNG, $db, $UNI;
@@ -30,12 +28,7 @@ function ShowStatisticsPage()
 	$PlanetRess->SavePlanetToDB();
 	
 	$template	= new template();
-	$template->page_header();
-	$template->page_topnav();
-	$template->page_leftmenu();
-	$template->page_planetmenu();
-	$template->page_footer();
-
+	$template->isPopup(true);
 	$who   	= request_var('who', 1);
 	$type  	= request_var('type', 1);
 	$range 	= request_var('range', 1);

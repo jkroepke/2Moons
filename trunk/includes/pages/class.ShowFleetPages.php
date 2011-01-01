@@ -39,11 +39,6 @@ class ShowFleetPages extends FleetFunctions
 	
 		$template	= new template();
 		$template->loadscript('flotten.js');
-		$template->page_header();	
-		$template->page_topnav();
-		$template->page_leftmenu();
-		$template->page_planetmenu();
-		$template->page_footer();
 		
 		if(!empty($FleetID))
 		{
@@ -206,12 +201,6 @@ class ShowFleetPages extends FleetFunctions
 		
 		$template->loadscript('notifybox.js');
 		$template->loadscript('flotten.js');
-		$template->page_header();	
-		$template->page_topnav();
-		$template->page_leftmenu();
-		$template->page_planetmenu();
-		$template->page_footer();
-		$template->getplanets();
 
 		foreach ($reslist['fleet'] as $id => $ShipID)
 		{
@@ -286,11 +275,6 @@ class ShowFleetPages extends FleetFunctions
 		
 		$template	= new template();
 		$template->loadscript('flotten.js');
-		$template->page_header();	
-		$template->page_topnav();
-		$template->page_leftmenu();
-		$template->page_planetmenu();
-		$template->page_footer();
 		
 		$TargetGalaxy  				= request_var('galaxy', 0);
 		$TargetSystem   			= request_var('system', 0);
@@ -396,11 +380,6 @@ class ShowFleetPages extends FleetFunctions
 		$template	= new template();
 		$template->loadscript('flotten.js');
 		$template->gotoside('?page=fleet');
-		$template->page_header();	
-		$template->page_topnav();
-		$template->page_leftmenu();
-		$template->page_planetmenu();
-		$template->page_footer();
 
 		
 		$mission 				= request_var('mission', 3);

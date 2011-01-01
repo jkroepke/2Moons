@@ -40,8 +40,7 @@ function ShowMessagesPage()
 	switch ($MessPageMode)
 	{
 		case 'write':
-			$template->page_header();
-			$template->page_footer();		
+			$template->isPopup(true);		
 			$OwnerRecord = $db->uniquequery("SELECT a.galaxy, a.system, a.planet, b.username, b.id_planet FROM ".PLANETS." as a, ".USERS." as b WHERE b.id = '".$OwnerID."' AND a.id = b.id_planet;");
 
 			if (!$OwnerRecord)
@@ -80,11 +79,6 @@ function ShowMessagesPage()
 			$PlanetRess->SavePlanetToDB();
 			
 			$template->loadscript('message.js');
-			$template->page_header();
-			$template->page_topnav();
-			$template->page_leftmenu();
-			$template->page_planetmenu();
-			$template->page_footer();
 	
 			$MessOut	= $db->uniquequery("SELECT COUNT(*) as count FROM ".MESSAGES." WHERE message_sender = '".$USER['id']."';");
 			$OpsList	= array();

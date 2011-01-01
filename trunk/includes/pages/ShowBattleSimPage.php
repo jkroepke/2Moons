@@ -150,11 +150,6 @@ function ShowBattleSimPage()
 
 	$template	= new template();			
 	$template->loadscript('battlesim.js');
-	$template->page_header();
-	$template->page_topnav();
-	$template->page_leftmenu();
-	$template->page_planetmenu();
-	$template->page_footer();
 	
 	$template->assign_vars(array(
 		'lm_battlesim'	=> $LNG['lm_battlesim'],

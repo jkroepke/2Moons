@@ -19,8 +19,6 @@
 # *                                                                          #
 ##############################################################################
 
-
-
 function ShowBuddyPage()
 {
 	global $USER, $PLANET, $LNG, $db;
@@ -70,8 +68,7 @@ function ShowBuddyPage()
 			}
 			else
 			{
-				$template->page_header();
-				$template->page_footer();
+				$template->isPopup(true);
 
 				$Player = $db->uniquequery("SELECT `username` FROM ".USERS." WHERE `id`='".$uid."';");
 

@@ -32,10 +32,9 @@ function ShowPhalanxPage()
 	$GalaxyRows 		= new GalaxyRows();
 
 	$template			= new template();
+	$template->isPopup(true);
 	$template->loadscript('phalanx.js');
 	$template->execscript('FleetTime();window.setInterval("FleetTime()", 1000);');
-	$template->page_header();
-	$template->page_footer();	
 	
 	$PhRange 		 	= $GalaxyRows->GetPhalanxRange($PLANET['phalanx']);
 	$Galaxy 			= request_var('galaxy', 0);

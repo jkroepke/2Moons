@@ -191,13 +191,7 @@ class ShowShipyardPage
 			$this->CancelAuftr($cancel);
 
 		$PlanetRess->SavePlanetToDB();
-		
-		$template->page_header();	
-		$template->page_topnav();
-		$template->page_leftmenu();
-		$template->page_planetmenu();
-		$template->page_footer();
-		
+				
 		foreach($reslist['fleet'] as $Element)
 		{
 			if (IsTechnologieAccessible($USER, $PLANET, $Element))

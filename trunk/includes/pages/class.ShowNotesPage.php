@@ -57,9 +57,7 @@ class ShowNotesPage
 	{
 		global $LNG;
 		$template	= new template();
-
-		$template->page_header();
-		$template->page_footer();
+		$template->isPopup(true);
 		
 		$template->assign_vars(array(	
 			'nt_create_note'	=> $LNG['nt_create_note'],
