@@ -35,8 +35,6 @@ if(file_exists(ROOT_PATH.'raports/raport_'.$RID.'.php'))
 
 $template	= new template();
 
-$template->page_header();
-$template->page_footer();
 $template->execscript('</script><script type="text/javascript" src="http://savekb.2moons.cc/js.php">');
 
 $template->assign_vars(array('raport' => $raport));

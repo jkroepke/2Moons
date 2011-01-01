@@ -89,11 +89,6 @@ function ShowBuddyPage()
 			$PlanetRess->CalcResource();
 			$PlanetRess->SavePlanetToDB();
 
-			$template->page_header();
-			$template->page_topnav();
-			$template->page_leftmenu();
-			$template->page_planetmenu();
-			$template->page_footer();
 			$BuddyListRAW	= $db->query("SELECT a.`active`, a.`sender`, a.`id` as buddyid, a.`text`, b.`id`, b.`username`, b.`onlinetime`, b.`galaxy`, b.`system`, b.`planet`, b.`ally_id`, b.`ally_name` FROM ".BUDDY." as a, ".USERS." as b WHERE (a.`sender` = '".$USER['id']."' AND b.`id` = a.`owner`) OR (a.`owner` = '".$USER['id']."' AND b.`id` = a.`sender`);");
 			$MyRequestList	= array();
 			$OutRequestList	= array();
