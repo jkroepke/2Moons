@@ -27,8 +27,7 @@ function ShowPassEncripterPage()
 	global $LNG;
 	$Password	= request_var('md5q', '', true);
 	
-	$template	= new template();
-	$template->page_header();
+	$template	= new template();
 
 	$template->assign_vars(array(
 		'md5_md5' 			=> $Password,

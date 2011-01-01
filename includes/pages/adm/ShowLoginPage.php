@@ -27,7 +27,7 @@ function ShowLoginPage()
 	}
 
 	$template	= new template();
-	$template->page_header();
+
 	$template->assign_vars(array(	
 		'adm_login'			=> $LNG['adm_login'],
 		'adm_password'			=> $LNG['adm_password'],

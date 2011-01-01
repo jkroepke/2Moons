@@ -45,8 +45,7 @@ function ShowModVersionPage()
 		}		
 	}
 	
-	$template	= new template();
-	$template->page_header();
+	$template	= new template();
 	$template->assign_vars(array(
 		'MVC'					=> $MVC,
 		'mvc_title'				=> $LNG['mvc_title'],

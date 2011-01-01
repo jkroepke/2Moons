@@ -63,8 +63,7 @@ function ShowBanPage()
 	$db->free_result($UserListBan);
 
 	$template	= new template();
-	$template->loadscript('filterlist.js');
-	$template->page_header();
+	$template->loadscript('filterlist.js');
 
 	if(isset($_POST['panel']))
 	{

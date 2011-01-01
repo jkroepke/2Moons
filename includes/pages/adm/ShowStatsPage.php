@@ -40,8 +40,7 @@ function ShowStatsPage()
 		
 	}
 	
-	$template	= new template();
-	$template->page_header();
+	$template	= new template();
 
 	$template->assign_vars(array(	
 		'stat_level'						=> $CONF['stat_level'],

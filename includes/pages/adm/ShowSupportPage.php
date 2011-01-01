@@ -25,8 +25,7 @@ function ShowSupportPage()
 {
 	global $USER, $LNG, $db;
 
-	$template			= new template();
-	$template->page_header();
+	$template			= new template();
 	
 	$ID	= request_var('id', 0);
 	

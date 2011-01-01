@@ -86,8 +86,7 @@ function ShowSearchPage()
 			'500'	=> '500',	
 		)
 	);
-	$template	= new template();
-	$template->page_header();
+	$template	= new template();
 	
 	
 	

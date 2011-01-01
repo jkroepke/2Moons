@@ -25,8 +25,7 @@ if ($USER['rights'][str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '',
 function ShowAccountEditorPage() 
 {
 	global $USER, $db, $LNG, $reslist, $resource, $UNI;
-	$template 	= new template();
-	$template->page_header();
+	$template 	= new template();
 	switch($_GET['edit'])
 	{
 		case 'resources':

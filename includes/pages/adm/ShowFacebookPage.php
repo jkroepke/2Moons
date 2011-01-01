@@ -41,8 +41,7 @@ function ShowFacebookPage() {
 	}
 	
 	$template	= new template();
-	
-	$template->page_header();
+	
 	$template->assign_vars(array(
 		'se_save_parameters'	=> $LNG['se_save_parameters'],
 		'fb_info'				=> $LNG['fb_info'],

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 ##############################################################################
 # *                                                                          #
@@ -421,6 +421,8 @@ $LNG['se_bgm_active']					= 'Activado?';
 $LNG['se_bgm_info']						= 'A musica de fundo que toca na pagina principal.';
 $LNG['se_bgm_file']						= 'Caminho:';
 $LNG['se_bgm_file_info']				= 'Caminhos possivel ou absoluto possiveis!';
+$LNG['se_trader_ships']					= 'Naves liberadas';
+$LNG['se_trader_charge']					= 'Taxa da troca';
 
 //###########################################################//
 
@@ -890,6 +892,9 @@ $LNG['ts_serverip']                     = 'IP do Servidor';
 $LNG['ts_timeout']                      = 'Timeout'; 
 $LNG['ts_server_query']                 = 'Porta do Servidor de Querys'; 
 $LNG['ts_server_id']					= 'ID do Servidor';
+$LNG['ts_login']					= 'Usuario ServerQuery';
+$LNG['ts_pass']					= 'Senha ServerQuery';
+$LNG['ts_cron']					= 'Atualizar taxa';
 
 //----------------------------------------------------------------------------//
 //FacebookSettingPage.php
@@ -898,6 +903,8 @@ $LNG['fb_active']                       = 'FacebookConnect activo?';
 $LNG['fb_api_key']                      = 'Facebook API Key';
 $LNG['fb_secrectkey']                   = 'Facebook Secret Key';
 $LNG['fb_info']                         = 'Com o Facebook Connect os usuários podem que estão conectados ao Facebook, com o meu log in, clique ou registre-se. <br><br>Para usar este sistema, deves ser registrado com Faceebok. Além disso, você deve criar um aplicativo. Registar <a href="http://www.facebook.com/developers/">http://www.facebook.com/developers/</a> Como conectar URL tens de activar o sistema e por as duas chaves.<br><br><font color="red">Para o envio de E-Mails deves ter o sistema de envio activo! (SMTP Settings)</font>';
+$LNG['fb_curl_yes']					= '<span style="color:green">O cURL esta instalado no Servidor!</span>';
+$LNG['fb_curl_no']					= '<span style="color:red">Extenção cURL não esta instalado!, o FaceBook requer que você instale para que ele funcione!</span>';
 
 //----------------------------------------------------------------------------//
 //GameModule.php
@@ -975,6 +982,57 @@ $LNG['mvc_announcement']				= 'Anuncio';
 $LNG['mvc_download']					= 'Download';
 $LNG['mvc_desc']						= 'Descrição';
 
+//Página do Universo
+$LNG['uvs_id']					= 'ID';
+$LNG['uvs_name']					= 'Nome';
+$LNG['uvs_speeds']					= 'Velocidade';
+$LNG['uvs_players']					= 'Jogadores';
+$LNG['uvs_open']					= 'Abrir';
+$LNG['uvs_export']					= 'Exportar;
+$LNG['uvs_delete']					= 'Deletar';
+$LNG['uvs_on']					= 'On';
+$LNG['uvs_off']					= 'Off';
+$LNG['uvs_new']					= 'Adicionar Universo';
+$LNG['uvs_import']					= 'Importar Universo';
+$LNG['uvs_upload']					= 'Upload';
+$LNG['uvs_error']					= 'Falha ao importar o arquivo	';
 
+//Página Update
+
+$LNG['up_weiter']					= 'Seguinte';
+$LNG['up_agent']					= 'User-Agent: Atualização 2Moons API (Rev ';
+$LNG['up_kein_update']					= 'Não há atualização disponivel!';
+$LNG['up_ftp_ok']					= 'Conexão do FTP: OK!';
+$LNG['up_ftp_error']					= 'Conexão do FTP: ERRO!';
+$LNG['up_ftp_change']					= 'Mudar FTP(';
+$LNG['up_ftp_change_error']					= 'OK! Atualizado! Revisão: ';
+$LNG['up_error_update']					= 'ERRO! - Não é possível fazer upload do arquivo';
+$LNG['up_delete_file']					= 'Apagado com sucesso';
+$LNG['up_error_delete_file']					= 'ERRO! - Não foi possível excluir arquivo';
+$LNG['up_update_ok_rev']					= 'UPDATE: OK! Atualizado! Revisão:';
+$LNG['up_error_fsockopen']					= 'Função file_get_contents com defeito ou fsockopen';
+$LNG['up_download_patch_files']					= 'Baixar Arquivo Patch';
+$LNG['up_aktuelle_updates']					= 'Atualizações Recentes';
+$LNG['up_momentane_version']					= 'Versão atual';
+$LNG['up_alte_updates']					= 'Atualização antiga';
+$LNG['up_revision']					= 'Revisão';
+$LNG['up_add']					= 'Adicionado em:';
+$LNG['up_edit']					= 'Editar';
+$LNG['up_del']					= 'Excluir';
+$LNG['up_update_server']					= 'Atualização do servidor não disponível';
+
+//Página Ativa
+$LNG['ap_id']					= 'ID';
+$LNG['ap_username']					= 'Nome do Usuário';
+$LNG['ap_datum']					= 'Data';
+$LNG['ap_email']					= 'Email';
+$LNG['ap_ip']					= 'IP';
+$LNG['ap_aktivieren']					= 'Ativar';
+$LNG['ap_del']					= 'Excluir';
+$LNG['ap_sicher']					= 'Tem cerqueza que você';
+$LNG['ap_entfernen']					= 'deseja remover';
+$LNG['ap_insgesamt']					= 'Geral';
+$LNG['ap_nicht_aktivierte']					= 'Não foi ativado pelo usuário';
+$LNG['ap_nicht_aktivierte_user']					= 'Usuário não ativado';
 
 ?>

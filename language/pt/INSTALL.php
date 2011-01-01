@@ -25,6 +25,16 @@ $LNG['reg_mysqli_need']			= "MySQLi disponivel?";
 $LNG['reg_json_need']			= "JSON disponivel?";
 $LNG['req_php_need']			= "PHP-Version (min. 5.2.5)";
 $LNG['req_smode_active']		= "Safemode activo?";
+$LNG['reg_bcmath_need']					= "BCMath Disponível?";
+$LNG['reg_iniset_need']					= "ini_set permitido?";
+$LNG['req_ftp']					= "FTP";
+$LNG['req_ftp_info']					= "Diga os dados do seu FTP para resolver o problema.";
+$LNG['req_ftp_host']					= "Host do FTP";
+$LNG['req_ftp_username']					= "Usuário";
+$LNG['req_ftp_password']					= "Senha";
+$LNG['req_ftp_dir']					= "Caminho para 2Moons";
+$LNG['req_ftp_send']					= "Enviar";
+$LNG['req_ftp_pass_info']					= "Sua senha não será Salva!";
 
 $LNG['step1_notice_chmod']		= "Confirme se config.php esta configurado em \"CHMOD 777\", para poder gravar os dados!";
 $LNG['step1_mysql_server']		= "MySQL-Base de dados do Server: <br>Standard: localhost";
@@ -38,6 +48,9 @@ $LNG['step2_db_ok']				= "Tabela de base de dados criada...";
 $LNG['step2_db_error']			= "Erro ao criar a tabela(s) da base de dados: %s";
 $LNG['step2_db_con_fail']		= "Não há conexão à base de dados<br> %s";
 $LNG['step2_conf_op_fail']		= "config.php não esta configurado em CHMOD 777!";
+$LNG['step2_db_connet_ok']					= "A conexão com o banco de dados foi com sucesso ...";
+$LNG['step2_db_create_ok']					= "Tabelas de banco de dados criado com sucesso ....";
+$LNG['step2_conf_create']					= "config.php criado com sucesso ...";
 
 $LNG['step3_create_admin']		= "Criação da Conta Administrativa";
 $LNG['step3_admin_name']		= "Username do Admin:";

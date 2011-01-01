@@ -37,7 +37,6 @@ include_once(ROOT_PATH . 'extension.inc');
 include_once(ROOT_PATH . 'common.' . PHP_EXT);
 
 $template	= new template();
-$template->set_index();
 $template->cache = true;
 
 $page = request_var('page', '');

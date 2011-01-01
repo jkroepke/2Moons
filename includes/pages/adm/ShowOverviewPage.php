@@ -38,8 +38,7 @@ function ShowOverviewPage()
 			$Message[]	= $LNG['ow_smtp_errors'];
 	}
 	
-	$template	= new template();
-	$template->page_header();
+	$template	= new template();
 
 	$template->assign_vars(array(	
 		'ow_none'			=> $LNG['ow_none'],

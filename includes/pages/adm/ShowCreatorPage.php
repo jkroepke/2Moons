@@ -27,8 +27,7 @@ function ShowCreatorPage()
 {
 	global $LNG, $db, $USER, $UNI, $LANG;
 
-	$template	= new template();
-	$template->page_header();
+	$template	= new template();
 	
 	switch ($_GET['mode'])
 	{

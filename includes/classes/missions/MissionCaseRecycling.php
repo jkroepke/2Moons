@@ -63,7 +63,7 @@ class MissionCaseRecycling extends MissionFunctions
 	
 		$db->query("UPDATE ".PLANETS." SET `der_metal` = `der_metal` - '".$RecycledGoods['metal']."', `der_crystal` = `der_crystal` - '".$RecycledGoods['crystal']."' WHERE `id` = '".$this->_fleet['fleet_end_id']."';");
 
-		$LNG			= $LANG->GetUserLang($this->_fleet['fleet_owner']);
+		$LNG			= Language::GetUserLang($this->_fleet['fleet_owner']);
 		$Message 		= sprintf($LNG['sys_recy_gotten'], pretty_number($RecycledGoods['metal']), $LNG['Metal'], pretty_number($RecycledGoods['crystal']), $LNG['Crystal']);
 		SendSimpleMessage($this->_fleet['fleet_owner'], '', $this->_fleet['fleet_start_time'], 4, $LNG['sys_mess_tower'], $LNG['sys_recy_report'], $Message);
 		
@@ -81,7 +81,7 @@ class MissionCaseRecycling extends MissionFunctions
 	function ReturnEvent()
 	{
 		global $LANG;
-		$LNG				= $LANG->GetUserLang($this->_fleet['fleet_owner']);
+		$LNG				= Language::GetUserLang($this->_fleet['fleet_owner']);
 	
 		$Message         = sprintf( $LNG['sys_tran_mess_owner'], $TargetName, GetStartAdressLink($this->_fleet, ''), pretty_number($this->_fleet['fleet_resource_metal']), $LNG['Metal'], pretty_number($this->_fleet['fleet_resource_crystal']), $LNG['Crystal'], pretty_number($this->_fleet['fleet_resource_deuterium']), $LNG['Deuterium'] );
 		SendSimpleMessage($this->_fleet['fleet_owner'], '', $this->_fleet['fleet_end_time'], 4, $LNG['sys_mess_tower'], $LNG['sys_mess_fleetback'], $Message);

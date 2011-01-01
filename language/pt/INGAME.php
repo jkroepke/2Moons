@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 //SERVER GENERALS
 $LNG['Metal']								= 'Metal';
@@ -247,6 +247,7 @@ $LNG['fl_departure']						= 'Partida';
 $LNG['fl_destiny']							= 'Destino';
 $LNG['fl_objective']						= 'Objectivo';
 $LNG['fl_arrival']							= 'Chegada';
+$LNG['lm_fleettrader']						= 'Sucateiros';
 $LNG['fl_info_detail']                      = 'Frota-Detalhes';
 $LNG['fl_order']							= 'Ordem';
 $LNG['fl_new_mission_title']			    = 'Por favor escolhe a tua frota para esta missão:';
@@ -1091,6 +1092,17 @@ $LNG['bs_send']                             = "Simular";
 $LNG['bs_cancel']                           = "Limpar";
 $LNG['bs_wait']                             = "A procima simulação estará desponivel dentro de 10 segundos";
 $LNG['bs_wait']								= "Aguarde 10 segundos pela proxima simulação";
+
+//----------------------------------------------------------------------------//
+// Sucatador
+
+$LNG['lm_fleettrader']						= 'Sucateiros';
+$LNG['ft_head']								= 'Sucateio';
+$LNG['ft_count']							= 'Número';
+$LNG['ft_max']								= 'max';
+$LNG['ft_total']							= 'TOTAL';
+$LNG['ft_charge']							= 'Taxa do Sucateiro';
+$LNG['ft_absenden']							= 'Enviar';	
 
 //----------------------------------------------------------------------------//
 // Logout

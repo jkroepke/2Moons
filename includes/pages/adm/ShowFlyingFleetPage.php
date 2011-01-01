@@ -35,8 +35,7 @@ function ShowFlyingFleetPage()
 
 	$FlyingFleetsTable 	= new FlyingFleetsTable();
 	$template			= new template();
-	
-	$template->page_header();
+	
 	$template->assign_vars(array(
 		'FleetList'			=> $FlyingFleetsTable->BuildFlyingFleetTable(),
 		'ff_id'				=> $LNG['ff_id'],

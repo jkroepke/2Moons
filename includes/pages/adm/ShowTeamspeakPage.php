@@ -54,8 +54,7 @@ function ShowTeamspeakPage() {
 		), true);
 	}
 	$template	= new template();
-	
-	$template->page_header();
+	
 	$template->assign_vars(array(
 		'se_save_parameters'	=> $LNG['se_save_parameters'],
 		'ts_tcpport'			=> $LNG['ts_tcpport'],

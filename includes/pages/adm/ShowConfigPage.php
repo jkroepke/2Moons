@@ -126,8 +126,7 @@ function ShowConfigPage()
 		), true);
 	}
 	
-	$template	= new template();
-	$template->page_header();
+	$template	= new template();
 	$template->assign_vars(array(
 		'se_server_parameters'			=> $LNG['se_server_parameters'],
 		'se_name'						=> $LNG['se_name'],

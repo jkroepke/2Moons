@@ -30,7 +30,6 @@ function ShowRightsPage()
 		case 'rights':
 
 			$template	= new template();
-			$template->page_header();
 			$template->loadscript('filterlist.js');
 			
 			if ($_POST)
@@ -105,7 +104,6 @@ function ShowRightsPage()
 		break;
 		case 'users':
 			$template	= new template();
-			$template->page_header();
 			$template->loadscript('filterlist.js');
 			
 			if ($_POST)
