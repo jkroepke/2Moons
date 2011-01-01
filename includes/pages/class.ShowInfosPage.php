@@ -151,9 +151,7 @@ class ShowInfosPage
 		$BuildID 	= request_var('gid', 0);
 		
 		$template	= new template();
-
-		$template->page_header();
-		$template->page_footer();
+		$template->isPopup(true);
 	
 		if(in_array($BuildID, $reslist['prod']) && $BuildID != 212)
 		{

@@ -65,11 +65,6 @@ class ShowOptionsPage
 		$PlanetRess->SavePlanetToDB();
 	
 		$template	= new template();
-		$template->page_header();	
-		$template->page_topnav();
-		$template->page_leftmenu();
-		$template->page_planetmenu();
-		$template->page_footer();
 		$SQLQuery = "";
 		switch($mode)
 		{

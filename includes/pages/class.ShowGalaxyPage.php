@@ -90,11 +90,6 @@ class ShowGalaxyPage extends GalaxyRows
 		global $USER, $PLANET, $dpath, $resource, $LNG, $db, $reslist, $OfficerInfo;
 		
 		$template		= new template();	
-		$template->page_header();
-		$template->page_topnav();
-		$template->page_leftmenu();
-		$template->page_planetmenu();
-		$template->page_footer();
 		$template->loadscript('galaxy.js');	
 		
 		$maxfleet       = $db->num_rows($db->query("SELECT fleet_id FROM ".FLEETS." WHERE `fleet_owner` = '". $USER['id'] ."' AND `fleet_mission` != 10;"));

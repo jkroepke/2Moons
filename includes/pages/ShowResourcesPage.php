@@ -64,11 +64,6 @@ function ShowResourcesPage()
 	$PlanetRess->SavePlanetToDB();
 
 	$template	= new template();
-	$template->page_header();
-	$template->page_topnav();
-	$template->page_leftmenu();
-	$template->page_planetmenu();
-	$template->page_footer();
 	
 	if ($PLANET['energy_max'] == 0 && $PLANET['energy_used'] > 0)
 	{

@@ -257,11 +257,6 @@ class ShowBuildingsPage
 		$Queue	 = $this->ShowBuildingQueue();
 
 		$template	= new template();
-		$template->page_header();	
-		$template->page_topnav();
-		$template->page_leftmenu();
-		$template->page_planetmenu();
-		$template->page_footer();
 		
 		$CanBuildElement 	= (count($Queue) < MAX_BUILDING_QUEUE_SIZE) ? true : false;
 		$BuildingPage       = "";

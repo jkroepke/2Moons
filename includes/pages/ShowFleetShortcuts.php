@@ -27,8 +27,7 @@ function ShowFleetShortcuts()
 	$mode = request_var('mode', '');
 	
 	$template	= new template();
-	$template->page_header();
-	$template->page_footer();
+	$template->isPopup(true);
 	if ($mode == "add")
 	{
 		if ($_POST)

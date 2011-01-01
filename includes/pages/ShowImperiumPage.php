@@ -31,11 +31,6 @@ function ShowImperiumPage()
 	
 	$template	= new template();
 	$template->loadscript("trader.js");
-	$template->page_topnav();
-	$template->page_header();
-	$template->page_leftmenu();
-	$template->page_planetmenu();
-	$template->page_footer();
 	
 	$SQLArray 	= array_merge($reslist['build'], $reslist['fleet'], $reslist['defense']);
 	$Query		= "";

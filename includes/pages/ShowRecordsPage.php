@@ -30,11 +30,7 @@ function ShowRecordsPage()
 	$PlanetRess->SavePlanetToDB();
 
 	$template	= new template();
-	$template->page_header();
-	$template->page_topnav();
-	$template->page_leftmenu();
-	$template->page_planetmenu();
-	$template->page_footer();
+	$template->isPopup(true);
 	
 	$Records		= new records();
 	$RecordsArray	= $Records->GetRecords($UNI);

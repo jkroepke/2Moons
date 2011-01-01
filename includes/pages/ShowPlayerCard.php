@@ -26,8 +26,7 @@ function ShowPlayerCard()
 	global $USER, $PLANET, $LNG, $UNI, $db;
 	
 	$template	= new template();
-	$template->page_header();
-	$template->page_footer();
+	$template->isPopup(true);
 	
     $playerid 	= request_var('id', 0);
 		

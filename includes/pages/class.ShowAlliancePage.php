@@ -125,13 +125,6 @@ class ShowAlliancePage
 			
 	
 		$this->template	= new template();
-	
-		$this->template->page_topnav();
-		$this->template->page_header();
-		$this->template->page_leftmenu();
-		$this->template->page_planetmenu();
-		$this->template->page_footer();
-
 		if ($USER['ally_id'] != 0 && $USER['ally_request'] != 0)
 		{
 			$db->query("UPDATE `".USERS."` SET `ally_id` = 0 WHERE `id` = ".$USER['id'].";");

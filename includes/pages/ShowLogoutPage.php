@@ -29,8 +29,7 @@ function ShowLogoutPage()
 	
 	$template	= new template();
 	$template->cache	= true;
-	$template->page_header();
-	$template->page_footer();	
+	$template->isPopup(true);	
 	$template->assign_vars(array(
 		'lo_title'		=> $LNG['lo_title'],
 		'lo_logout'		=> $LNG['lo_logout'],

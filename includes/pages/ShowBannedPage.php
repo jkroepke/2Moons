@@ -28,12 +28,6 @@ function ShowBannedPage()
 	$PlanetRess->SavePlanetToDB();
 
 	$template	= new template();
-	$template->page_header();
-	$template->page_topnav();
-	$template->page_leftmenu();
-	$template->page_planetmenu();
-	$template->page_footer();
-
 	$query			= $db->query("SELECT * FROM ".BANNED." ORDER BY `id`;");
 	$PrangerList	= array();
 	

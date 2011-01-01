@@ -30,8 +30,7 @@ function ShowTopKB()
 	
 	switch($mode){
 		case "showkb":
-			$template->page_header();
-			$template->page_footer();
+			$template->isPopup(true);
 
 			$LANG->includeLang(array('FLEET'));
 			
@@ -59,12 +58,6 @@ function ShowTopKB()
 			$PlanetRess = new ResourceUpdate();
 			$PlanetRess->CalcResource();
 			$PlanetRess->SavePlanetToDB();
-
-			$template->page_header();
-			$template->page_topnav();
-			$template->page_leftmenu();
-			$template->page_planetmenu();
-			$template->page_footer();
 			
 			$top = $db->query("SELECT * FROM ".TOPKB." WHERE `universe` = '".$UNI."' ORDER BY gesamtunits DESC LIMIT 100;");
 			while($data = $db->fetch_array($top)) {
