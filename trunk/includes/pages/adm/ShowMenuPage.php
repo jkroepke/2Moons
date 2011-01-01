@@ -23,8 +23,7 @@
 function ShowMenuPage()
 {
 	global $USER, $LNG;
-	$template	= new template();
-	$template->page_header();
+	$template	= new template();
 	$template->assign_vars(array(	
 		'rights'					=> $USER['rights'],
 		'mu_game_info'				=> $LNG['mu_game_info'],

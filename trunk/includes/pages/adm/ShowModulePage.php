@@ -38,8 +38,7 @@ function ShowModulePage()
 		);
 	}
 	
-	$template	= new template();
-	$template->page_header();
+	$template	= new template();
 	$template->assign_vars(array(
 		'Modules'				=> $Modules,
 		'mod_module'			=> $LNG['mod_module'],

@@ -25,8 +25,7 @@ if ($USER['rights'][str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '',
 function ShowInformationPage()
 {
 	global $db, $LNG;
-	$template	= new template();
-	$template->page_header();
+	$template	= new template();
 	$template->assign_vars(array(	
 		'info_information'	=> $LNG['info_information'],
 		'info'				=> $_SERVER['SERVER_SOFTWARE'],
@@ -38,7 +37,7 @@ function ShowInformationPage()
 		'root'				=> $_SERVER['SERVER_NAME'],
 		'gameroot'			=> $_SERVER['SERVER_NAME'].str_replace('/admin.php', '', $_SERVER['PHP_SELF']),
 		'json'				=> function_exists('json_encode') ? 'Ja' : 'Nein',
-		'bcmath'			=> function_exists('bc_add') ? 'Ja' : 'Nein',
+		'bcmath'			=> function_exists('bcadd') ? 'Ja' : 'Nein',
 		'browser'			=> $_SERVER['HTTP_USER_AGENT'],
 	));
 	

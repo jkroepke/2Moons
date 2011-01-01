@@ -47,8 +47,7 @@ function ShowNewsPage(){
 		);
 	}
 	
-	$template	= new template();
-	$template->page_header();
+	$template	= new template();
 
 	if($_GET['action'] == 'edit' && isset($_GET['id'])) {
 		$News = $db->uniquequery("SELECT id, title, text FROM ".NEWS." WHERE id = '".$db->sql_escape($_GET['id'])."';");

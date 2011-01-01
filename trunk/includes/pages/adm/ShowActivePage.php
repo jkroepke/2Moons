@@ -44,8 +44,7 @@ function ShowActivePage()
 		);
 	}
 
-	$template	= new template();
-	$template->page_header();
+	$template	= new template();
 	$template->assign_vars(array(	
 		'Users'				=> $Users,
 		'UserLang'			=> $USER['lang'],

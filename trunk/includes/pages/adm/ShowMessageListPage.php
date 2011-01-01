@@ -124,8 +124,7 @@ function ShowMessageListPage()
 		);
 	}	
 
-	$template 	= new template();
-	$template->page_header();
+	$template 	= new template();
 	$template->loadscript('global.js');
 
 	$template->assign_vars(array(	

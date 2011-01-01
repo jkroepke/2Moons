@@ -269,7 +269,6 @@ function ShowUpdatePage()
 		break;
 		default:
 			$template 	= new template();
-			$template->page_header();
 			
 			$RevList	= '';
 			$Update		= '';

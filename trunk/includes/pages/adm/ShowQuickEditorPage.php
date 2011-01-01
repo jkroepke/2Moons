@@ -91,7 +91,6 @@ function ShowQuickEditorPage()
 			}
 
 			$template	= new template();
-			$template->page_header();
 			$template->assign_vars(array(	
 				'qe_resources'	=> $LNG['qe_resources'],
 				'Metal'			=> $LNG['Metal'],
@@ -132,8 +131,7 @@ function ShowQuickEditorPage()
 				'crystal_c'		=> pretty_number($PlanetData['crystal']),
 				'deuterium_c'	=> pretty_number($PlanetData['deuterium']),
 				));
-	
-	$template->show('adm/QuickEditorPlanet.tpl');
+			$template->show('adm/QuickEditorPlanet.tpl');
 		break;
 		case 'player':
 		break;

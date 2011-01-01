@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 //general
 $LNG['index']                          	= 'Login';
@@ -11,7 +11,8 @@ $LNG['menu_rules']                     	= 'Régras';
 $LNG['menu_agb']                       	= 'T&C';
 $LNG['menu_pranger']                   	= 'Banidos';   
 $LNG['menu_top100']                    	= 'Top de Fama';     
-$LNG['menu_disclamer']                 	= 'Contactar';  
+$LNG['menu_disclamer']                 	= 'Contactar';
+$LNG['uni_closed']			= '(Offline)';	   
       
 /* ------------------------------------------------------------------------------------------ */
 

@@ -23,8 +23,7 @@
 function ShowTopnavPage()
 {
 	global $LNG, $USER, $db, $UNI, $CONF;
-	$template	= new template();
-	$template->page_header();
+	$template	= new template();
 	$AvailableUnis[$CONF['uni']]	= $CONF['game_name'];
 	$Query	= $db->query("SELECT `uni`, `game_name` FROM ".CONFIG." WHERE `uni` != '".$UNI."' ORDER BY `uni` DESC;");
 	while($Unis	= $db->fetch_array($Query)) {

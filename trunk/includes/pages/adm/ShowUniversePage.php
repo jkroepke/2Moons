@@ -24,7 +24,7 @@ set_time_limit(0);
 function ShowUniversePage() {
 	global $CONF, $LNG, $db, $UNI, $USER;
 	$template	= new template();
-	$template->page_header();
+
 	if($_REQUEST['action'] == 'delete' && !empty($_REQUEST['id']) && $_REQUEST['id'] != 1) {
 		$ID	= (int) $_REQUEST['id'];
 		if($UNI != $ID){

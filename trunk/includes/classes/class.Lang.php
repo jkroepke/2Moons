@@ -129,6 +129,9 @@ class Language
 		else
 			$LANGUAGE	= $ID;
 	
+		if(!in_array($LANGUAGE, self::getAllowedLangs()))
+			$LANGUAGE	= $this->Default;
+	
 		if(empty($Files))
 			$Files	= array('FLEET');
 	

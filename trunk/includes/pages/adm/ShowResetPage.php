@@ -25,8 +25,7 @@ if ($USER['id'] != 1 || $_GET['sid'] != session_id()) exit;
 function ShowResetPage()
 {
 	global $db, $LNG, $reslist, $resource;
-	$template	= new template();
-	$template->page_header();
+	$template	= new template();
 	if ($_POST)
 	{		
 		foreach($reslist['build'] as $ID)

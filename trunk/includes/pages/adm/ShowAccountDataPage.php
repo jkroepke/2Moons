@@ -26,8 +26,7 @@ function ShowAccountDataPage()
 {
 	global $USER, $reslist, $resource, $db, $LNG;
 
-	$template 	= new template();
-	$template->page_header();
+	$template 	= new template();
 	$id_u	= request_var('id_u', 0);
 	if (!empty($id_u))
 	{

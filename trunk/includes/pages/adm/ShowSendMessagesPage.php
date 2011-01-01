@@ -58,8 +58,7 @@ function ShowSendMessagesPage() {
 		}
 	}
 	
-	$template	= new template();
-	$template->page_header();
+	$template	= new template();
 
 	$template->assign_vars(array(
 		'mg_empty_text' 			=> $LNG['mg_empty_text'],
