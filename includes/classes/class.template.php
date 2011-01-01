@@ -84,6 +84,7 @@ class template
 	private function Menus()
 	{
 		global $PLANET, $LNG, $USER, $CONF;
+		
 		//PlanetMenu
 		if(empty($this->UserPlanets))
 			$this->getplanets();
@@ -281,6 +282,7 @@ class template
 		} else {
 			$this->main();
 			if($this->Popup === false)
+				if(!empty($USER))
 				$this->Menus();
 		}
 		

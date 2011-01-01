@@ -28,7 +28,6 @@ function ShowStatisticsPage()
 	$PlanetRess->SavePlanetToDB();
 	
 	$template	= new template();
-	$template->isPopup(true);
 	$who   	= request_var('who', 1);
 	$type  	= request_var('type', 1);
 	$range 	= request_var('range', 1);

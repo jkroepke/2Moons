@@ -102,11 +102,6 @@ class ShowSupportPage
 		$db->free_result($query);
 		$template	= new template();
 		$template->loadscript('support.js');
-		$template->page_header();
-		$template->page_topnav();
-		$template->page_leftmenu();
-		$template->page_planetmenu();
-		$template->page_footer();		
 		
 		$template->assign_vars(array(	
 			'TicketsList'			=> $TicketsList,
