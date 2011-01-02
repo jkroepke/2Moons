@@ -1,0 +1,5 @@
+Witaj %1$s,
+Dziekujemy za rejestracje na %2$s
+Cieszymy sie, ze wybrales Nasza spolecznosc. Dolozymy wszelkich staran, aby gra byla jak najlepsza!
+Pozdrawiamy,
+%2$s - Team

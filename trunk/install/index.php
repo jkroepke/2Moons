@@ -43,17 +43,7 @@ if (empty($Mode)) { $Mode = 'intro'; }
 if (empty($Page)) { $Page = 1;       }
 
 $template	= new template();
-$template->assign_vars(array(
-	'scripts'		=> $template->script,
-	'rawlang'		=> $LANG->GetUser(),
-	'lang'			=> 'lang='.$LANG->GetUser(),
-	'title'			=> 'Installer &bull; 2Moons',
-	'intro_instal'	=> $LNG['intro_instal'],
-	'menu_intro'	=> $LNG['menu_intro'],
-	'menu_install'	=> $LNG['menu_install'],
-	'menu_license'	=> $LNG['menu_license'],
-	'menu_convert'	=> $LNG['menu_convert'],
-));
+
 
 switch ($Mode) {
 	case 'license':

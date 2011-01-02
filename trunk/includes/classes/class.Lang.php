@@ -27,6 +27,7 @@ class Language
 		'ru' => 'Русский', 
 		'pt' => 'Português',
 		'cn' => '简体中文',
+		'pl' => 'Polski',
 	);
 	
 	public $Default	= '';

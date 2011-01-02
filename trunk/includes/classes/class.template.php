@@ -264,6 +264,21 @@ class template
 			'UNI'				=> $UNI,
 		));
 	}
+	
+	public function install_main()
+	{
+		global $LNG, $LANG;
+		$this->assign_vars(array(
+			'rawlang'		=> $LANG->GetUser(),
+			'lang'			=> 'lang='.$LANG->GetUser(),
+			'title'			=> 'Installer &bull; 2Moons',
+			'intro_instal'	=> $LNG['intro_instal'],
+			'menu_intro'	=> $LNG['menu_intro'],
+			'menu_install'	=> $LNG['menu_install'],
+			'menu_license'	=> $LNG['menu_license'],
+			'menu_convert'	=> $LNG['menu_convert'],
+		));
+	}
 		
 	public function isPopup()
 	{
@@ -273,7 +288,9 @@ class template
 	public function show($file)
 	{		
 		global $USER, $CONF, $LNG, $db;
-		if(defined('IN_ADMIN')) {
+		if(INSTALL === true) {
+			$this->install_main();			
+		} elseif(defined('IN_ADMIN')) {
 			$this->adm_main();			
 		} elseif(defined('LOGIN')) {
 			$this->login_main();	
