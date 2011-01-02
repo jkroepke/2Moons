@@ -198,6 +198,7 @@ class ShowFleetPages extends FleetFunctions
 		$PlanetRess->SavePlanetToDB();
 		
 		$template	= new template();
+		$template->getplanets();
 		
 		$template->loadscript('notifybox.js');
 		$template->loadscript('flotten.js');

@@ -213,8 +213,6 @@ class template
             'ready'    			=> $LNG['ready'],
 			'date'				=> explode("|", date('Y\|n\|j\|G\|i\|s\|Z', TIMESTAMP)),
 			'cd'				=> './',
-			'gotoinsec'			=> false,
-			'goto'				=> false,
 			'cron'				=> GetCrons(),
 			'ga_active'			=> $CONF['ga_active'],
 			'ga_key'			=> $CONF['ga_key'],
@@ -282,7 +280,6 @@ class template
 		} else {
 			$this->main();
 			if($this->Popup === false)
-				if(!empty($USER))
 				$this->Menus();
 		}
 		
