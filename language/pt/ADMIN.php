@@ -988,7 +988,8 @@ $LNG['uvs_name']					= 'Nome';
 $LNG['uvs_speeds']					= 'Velocidade';
 $LNG['uvs_players']					= 'Jogadores';
 $LNG['uvs_open']					= 'Abrir';
-$LNG['uvs_export']					= 'Exportar;
+$LNG['uvs_export']					= 'Exportar
+';
 $LNG['uvs_delete']					= 'Deletar';
 $LNG['uvs_on']					= 'On';
 $LNG['uvs_off']					= 'Off';
