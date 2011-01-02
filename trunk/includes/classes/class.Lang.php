@@ -45,16 +45,15 @@ class Language
 	
 	function setDefault($LANG)
 	{
-		if(!empty($LANG)) {
+		if(!empty($LANG) && in_array($LANG, self::getAllowedLangs())) {
 			$this->Default	= $LANG;
-			if(empty($this->User))
-				$this->User	= $LANG;	
+			$this->User		= $LANG;	
 		}
 	}
 	
 	function setUser($LANG)
 	{
-		if(!empty($LANG))
+		if(!empty($LANG) && in_array($LANG, self::getAllowedLangs()))
 			$this->User	= $LANG;		
 	}
 	

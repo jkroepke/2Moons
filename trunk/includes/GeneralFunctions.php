@@ -271,7 +271,7 @@ function MailSend($MailTarget, $MailTargetName, $MailSubject, $MailContent)
 	$mail             = new PHPMailer(true);
 	$mail->IsSMTP();
 	try{
-		$mail->SMTPDebug  = 0;    
+		$mail->SMTPDebug  = ($CONF['debug'] == 1) ? 2 : 0;    
 		$mail->SMTPAuth   = true;  
 		$mail->IsHTML(true);		
 		$mail->SMTPSecure = $CONF['smtp_ssl'];  						
