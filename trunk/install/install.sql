@@ -573,7 +573,7 @@ CREATE TABLE IF NOT EXISTS `prefix_users_valid` (
   `date` int(11) NOT NULL DEFAULT '0',
   `planet` varchar(64) NOT NULL DEFAULT 'Hauptplanet',
   `ip` varchar(16) NOT NULL,
-  `lang` enum('de','en','es','ru','pt','cn','hr') NOT NULL DEFAULT 'de',
+  `lang` varchar(2) NOT NULL DEFAULT 'de',
   `universe` tinyint(3) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `cle` (`cle`)

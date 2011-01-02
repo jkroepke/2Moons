@@ -61,8 +61,7 @@ class ResourceUpdate
 		}	
 
 		$this->UpdateRessource();
-		
-		if($SAVE == true)
+		if($SAVE === true)
 			$this->SavePlanetToDB($this->USER, $this->PLANET);
 			
 		return $this->ReturnVars();
@@ -381,10 +380,9 @@ class ResourceUpdate
 			global $USER;
 			
 		if(empty($PLANET))
-			global $PLANET;
-			
-		$Qry	= "LOCK TABLE ".PLANETS." as p WRITE, ".USERS." as u WRITE;
-				   UPDATE ".PLANETS." as p, ".USERS." as u SET
+			global $PLANET;;
+		$Qry	= "LOCK TABLE ".PLANETS." as p WRITE, ".USERS." as u WRITE, ".SESSION." as s WRITE;
+				   UPDATE ".PLANETS." as p, ".USERS." as u, ".SESSION." as s SET
 				   `p`.`metal` = '".floattostring($PLANET['metal'])."',
 				   `p`.`crystal` = '".floattostring($PLANET['crystal'])."',
 				   `p`.`deuterium` = '".floattostring($PLANET['deuterium'])."',
@@ -400,7 +398,8 @@ class ResourceUpdate
 				   `p`.`crystal_max` = '".$PLANET['crystal_max']."',
 				   `p`.`deuterium_max` = '".$PLANET['deuterium_max']."',
 				   `p`.`energy_used` = '".$PLANET['energy_used']."',
-				   `p`.`energy_max` = '".$PLANET['energy_max']."', ";
+				   `p`.`energy_max` = '".$PLANET['energy_max']."',
+				   `p`.`b_hangar` = '". $PLANET['b_hangar'] ."', ";
 		if (!empty($this->Builded))
 		{
 			foreach($this->Builded as $Element => $Count)
@@ -417,14 +416,16 @@ class ResourceUpdate
 					$Qry	.= "`u`.`".$resource[$Element]."` = `u`.`".$resource[$Element]."` + '".$Count."', ";
 			}
 		}
-		$Qry	.= "`p`.`b_hangar` = '". $PLANET['b_hangar'] ."',
-					`u`.`darkmatter` = '".$USER['darkmatter']."',
+		foreach($GLOBALS['UPDATE'] as $Table => $Info)
+			$Qry	.= $Table." = '".$Info."',";
+		$Qry	.= "`u`.`darkmatter` = '".$USER['darkmatter']."',
 					`u`.`b_tech` = '".$USER['b_tech']."',
 					`u`.`b_tech_id` = '".$USER['b_tech_id']."',
 					`u`.`b_tech_planet` = '".$USER['b_tech_planet']."'
 					WHERE
 					`p`.`id` = '". $PLANET['id'] ."' AND
-					`u`.`id` = '".$USER['id']."';
+					`u`.`id` = '".$USER['id']."' AND 
+					`s`.`sess_id` = '".session_id()."';
 					UNLOCK TABLES;";
 		$db->multi_query($Qry);
 		$this->Builded	= array();

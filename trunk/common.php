@@ -52,7 +52,10 @@ ini_set('session.bug_compat_warn', '0');
 ini_set('session.bug_compat_42', '0');
 ini_set('session.cookie_httponly', true);
 ini_set('magic_quotes_runtime', 0);
-ini_set('error_log', ROOT_PATH.'/includes/error.log');
+if(defined('CLI') && CLI === true)
+	ini_set('error_log', ROOT_PATH.'/includes/cli_error.log');
+else
+	ini_set('error_log', ROOT_PATH.'/includes/error.log');
 
 if(!defined('LOGIN') && INSTALL == false)
 	session_start();
@@ -95,7 +98,7 @@ if (INSTALL != true)
 	$LANG->setDefault($CONF['lang']);
 		
 	define('VERSION'		, $CONF['VERSION']);
-	if (!defined('LOGIN') && !defined('IN_CRON') && !defined('AJAX'))
+	if (!defined('CLI') && !defined('LOGIN') && !defined('IN_CRON') && !defined('AJAX'))
 	{
 		$SESSION       	= new Session();
 		
@@ -107,24 +110,9 @@ if (INSTALL != true)
 		{
 			message($CONF['close_reason']);
 		}
-		if(request_var('ajax', 0) == 0 && !defined('IN_ADMIN'))
-		{	
-			update_config(array('stats_fly_lock' => TIMESTAMP), true);
-			$db->query("LOCK TABLE ".AKS." WRITE, ".RW." WRITE, ".MESSAGES." WRITE, ".FLEETS." WRITE, ".PLANETS." WRITE, ".PLANETS." as p WRITE, ".TOPKB." WRITE, ".USERS." WRITE, ".USERS." as u WRITE, ".STATPOINTS." WRITE;");
-			
-			$FLEET = $db->query("SELECT * FROM ".FLEETS." WHERE (`fleet_start_time` <= '". TIMESTAMP ."' AND `fleet_mess` = '0') OR (`fleet_end_time` <= '". TIMESTAMP ."' AND `fleet_mess` = '1') OR (`fleet_end_stay` <= '". TIMESTAMP ."' AND `fleet_mess` = '2') ORDER BY `fleet_start_time` ASC;");
-			if($db->num_rows($FLEET) > 0)
-			{
-				require_once(ROOT_PATH . 'includes/classes/class.FlyingFleetHandler.'.PHP_EXT);
-			
-				new FlyingFleetHandler($FLEET);
-			}
-			$db->free_result($FLEET);
-			$db->query("UNLOCK TABLES");  
-			update_config(array('stats_fly_lock' => 0), true);
-		} elseif (TIMESTAMP >= ($CONF['stats_fly_lock'] + (60 * 5))) {
-			update_config(array('stats_fly_lock' => 0), true);
-		}
+		
+		if(CheckModule(10))
+			require(ROOT_PATH.'/includes/Fleethandler.php');
 				
 		$USER	= $db->uniquequery("SELECT u.*, s.`total_points`, s.`total_rank` FROM ".USERS." as u LEFT JOIN ".STATPOINTS." as s ON s.`id_owner` = u.`id` AND s.`stat_type` = '1' WHERE u.`id` = '".$_SESSION['id']."';");
 		if(empty($USER)) {
@@ -173,7 +161,7 @@ if (INSTALL != true)
 	}
 }
 
-if (!defined('AJAX'))
+if (!defined('AJAX') && !defined('CLI'))
 	require_once(ROOT_PATH.'includes/classes/class.template.'.PHP_EXT);
 
 ?>
