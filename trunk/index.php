@@ -29,8 +29,6 @@ define('INSIDE', true );
 define('INSTALL', false );
 define('LOGIN', true );
 
-$InLogin = true;
-
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 	
 include_once(ROOT_PATH . 'extension.inc');
@@ -239,7 +237,7 @@ switch ($page) {
 				'chose_a_uni'		=> $LNG['chose_a_uni'],
 				'lost_pass_title'	=> $LNG['lost_pass_title'],
 			));
-			$template->display('public/lostpassword.tpl');
+			$template->show('public/lostpassword.tpl');
 		}
 		break;
 	case 'reg' :
@@ -248,7 +246,7 @@ switch ($page) {
 				'closed'	=> $LNG['reg_closed'],
 				'info'		=> $LNG['info'],
 			));
-			$template->display('public/registry_closed.tpl');
+			$template->show('public/registry_closed.tpl');
 			exit;
 		}
 		switch ($mode) {
@@ -466,7 +464,7 @@ switch ($page) {
 					'send'							=> $LNG['send'],
 					'uni_closed'					=> $LNG['uni_closed'],
 				));
-				$template->display('public/registry_form.tpl');
+				$template->show('public/registry_form.tpl');
 			break;
 		}
 		break;
@@ -475,7 +473,7 @@ switch ($page) {
 			'agb'				=> $LNG['agb'],
 			'agb_overview'		=> $LNG['agb_overview'],
 		));
-		$template->display('public/index_agb.tpl');
+		$template->show('public/index_agb.tpl');
 		break;
 	case 'rules' :
 		$template->assign_vars(array(
@@ -484,13 +482,13 @@ switch ($page) {
 			'rules_info1'		=> sprintf($LNG['rules_info1'], $CONF['forum_url']),
 			'rules_info2'		=> $LNG['rules_info2'],
 		));
-		$template->display('public/index_rules.tpl');
+		$template->show('public/index_rules.tpl');
 		break;
 	case 'screens':
 		$template->assign_vars(array(
 			'screenshots'           => $LNG['screenshots'],
 		));
-		$template->display('public/index_screens.tpl');
+		$template->show('public/index_screens.tpl');
 		break;
 	case 'top100' :
 		$Universe = request_var('universe', 1);
@@ -529,7 +527,7 @@ switch ($page) {
 			'TopKBList'		=> $TopKBList,
 		));
 			
-		$template->display('public/index_top100.tpl');
+		$template->show('public/index_top100.tpl');
 		break;
 	case 'pranger' :
 		$Universe = request_var('universe', 1);
@@ -570,7 +568,7 @@ switch ($page) {
 			'bn_by'						=> $LNG['bn_by'],
 		));
 		
-		$template->display('public/index_pranger.tpl');
+		$template->show('public/index_pranger.tpl');
 		break;
 	case 'disclamer':
 		$template->assign_vars(array(
@@ -580,7 +578,7 @@ switch ($page) {
 			'disclamer_tel'		=> $LNG['disclamer_tel'],
 			'disclamer_email'	=> $LNG['disclamer_email'],
 		));
-		$template->display('public/index_disclamer.tpl');
+		$template->show('public/index_disclamer.tpl');
 		break;
 	case 'news' :
 		$NewsRAW	= $db->query ("SELECT date,title,text,user FROM ".NEWS." ORDER BY id DESC;");
@@ -597,7 +595,7 @@ switch ($page) {
 			'news_does_not_exist'	=> $LNG['news_does_not_exist'],
 		));
 		
-		$template->display('public/index_news.tpl');
+		$template->show('public/index_news.tpl');
 	break;
 	default :
 		if ($_POST) {
@@ -646,7 +644,7 @@ switch ($page) {
 				'chose_a_uni'			=> $LNG['chose_a_uni'],
 				'universe'				=> $LNG['universe'],
 			));
-			$template->display('public/index_body.tpl');
+			$template->show('public/index_body.tpl');
 		}
 	break;
 }
