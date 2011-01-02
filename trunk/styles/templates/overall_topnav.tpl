@@ -7,7 +7,7 @@
 						<td class="header" style="width: 50px;"><img src="{$dpath}planeten/small/s_{$image}.jpg" height="50" width="50" alt="Planetenbild"></td> 
 						<td class="header">	  
 						<select onChange="document.location = $(this).val();">
-						{html_options options=$PlanetSelect selected=$current_panet}
+						{html_options options=$PlanetSelect selected=$current_planet}
 						</select>
 						</td>
 					</tr>
