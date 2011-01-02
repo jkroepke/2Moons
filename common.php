@@ -110,8 +110,8 @@ if (INSTALL != true)
 		{
 			message($CONF['close_reason']);
 		}
-		
-		if(CheckModule(10))
+
+		if(!CheckModule(10))
 			require(ROOT_PATH.'/includes/Fleethandler.php');
 				
 		$USER	= $db->uniquequery("SELECT u.*, s.`total_points`, s.`total_rank` FROM ".USERS." as u LEFT JOIN ".STATPOINTS." as s ON s.`id_owner` = u.`id` AND s.`stat_type` = '1' WHERE u.`id` = '".$_SESSION['id']."';");
