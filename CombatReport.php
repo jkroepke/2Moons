@@ -24,8 +24,7 @@ define('INSTALL' , false);
 
 define('ROOT_PATH', './');
 include(ROOT_PATH . 'extension.inc');
-include(ROOT_PATH . 'common.'.PHP_EXT);
-require_once(ROOT_PATH . 'includes/functions/SortUserPlanets.'.PHP_EXT);
+include(ROOT_PATH . 'common.'.PHP_EXT
 
 $LANG->includeLang(array('FLEET', 'TECH'));
 	
@@ -36,6 +35,7 @@ if(file_exists(ROOT_PATH.'raports/raport_'.$RID.'.php'))
 
 $template	= new template();
 
+$template->isPopup(true);
 $template->execscript('</script><script type="text/javascript" src="http://savekb.2moons.cc/js.php">');
 
 $template->assign_vars(array('raport' => $raport));

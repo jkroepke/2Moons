@@ -49,7 +49,10 @@ class DB_mysqli extends mysqli
 
 		if(mysqli_connect_error())
 		{
-			if($test != true) {
+			if(defined('CLI') && CLI === true) {
+				echo mysqli_connect_error()."\r\n";
+				exit(2);
+			} elseif($test != true) {
 				throw new Exception("Connection to database failed: ".mysqli_connect_error());
 				exit;
 			} else {
@@ -67,7 +70,7 @@ class DB_mysqli extends mysqli
 	 */
 	public function __destruct()
 	{	
-		if(!$this->connect_errno)
+		if(!mysqli_connect_error())
 			parent::close();
 	}
 

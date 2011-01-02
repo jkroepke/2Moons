@@ -87,9 +87,7 @@ class ShowNotesPage
 			redirectTo("game.php?page=notes");
 		
 		$template	= new template();
-
-		$template->page_header();
-		$template->page_footer();
+		$template->isPopup(true);
 		$template->execscript("$('#cntChars').text($('#text').val().length);");
 		$template->assign_vars(array(	
 			'nt_edit_note'		=> $LNG['nt_edit_note'],
@@ -119,7 +117,7 @@ class ShowNotesPage
 		global $LNG, $db, $USER;
 
 		$template	= new template();
-				
+		$template->isPopup(true);				
 		$NotesRAW 	= $db->query("SELECT * FROM ".NOTES." WHERE owner = ".$USER['id']." ORDER BY time DESC;");
 		$NoteList	= array();
 		while($Note = $db->fetch_array($NotesRAW))

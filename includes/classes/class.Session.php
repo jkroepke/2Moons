@@ -71,19 +71,15 @@ class Session
 			
 		$_SESSION['path']		= $this->GetPath();
 		$_SESSION['planet']		= !empty($IsPlanetMine['id']) ? $IsPlanetMine['id'] : $_SESSION['planet'];
-
-		$SQL  = "UPDATE ".USERS." as u, ".SESSION." as s SET ";
-		$SQL .= "u.`onlinetime` = '".TIMESTAMP."', ";
-		$SQL .= "u.`user_lastip` = '".$_SERVER['REMOTE_ADDR'] ."', ";
-		$SQL .= "s.`user_ip` = '".$_SERVER['REMOTE_ADDR']."', ";
-		$SQL .= "s.`user_side` = '".$db->sql_escape($_SESSION['path'])."', ";
-		$SQL .= "s.`user_ua` = '".$db->sql_escape($_SERVER['HTTP_USER_AGENT'])."', ";
-		$SQL .= "s.`user_method` = '".$_SERVER["REQUEST_METHOD"]."', ";
-		$SQL .= "s.`user_lastactivity` = '".TIMESTAMP."' ";
-		$SQL .= "WHERE ";
-		$SQL .= "u.`id` = '".$_SESSION['id']."' AND s.`sess_id` = '".session_id()."';";
-		$db->multi_query($SQL);
-
+		$GLOBALS['UPDATE']	= array(
+			'u.`onlinetime`'		=> TIMESTAMP,
+			'u.`user_lastip`'		=> $_SERVER['REMOTE_ADDR'],
+			's.`user_ip`'			=> $_SERVER['REMOTE_ADDR'],
+			's.`user_side`'			=> $db->sql_escape($_SESSION['path']),
+			's.`user_ua`'			=> $db->sql_escape($_SERVER['HTTP_USER_AGENT']),
+			's.`user_method`'		=> $_SERVER["REQUEST_METHOD"],
+			's.`user_lastactivity`'	=> TIMESTAMP
+		);
 		return true;
 	}
 	
