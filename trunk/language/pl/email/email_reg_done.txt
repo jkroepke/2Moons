@@ -1,0 +1,7 @@
+Witamy %1$s,
+Dziêkujemy za zarajestrowanie siê w serwisie %2$s
+
+Cieszymy siê ,¿e zosta³eœ czêœci¹ naszej spo³ecznoœci. ¯yczymy ci mi³ych chwil spêdzonych z %2$s.
+
+Pozdrowienia,
+Dru¿yna - %2$s
