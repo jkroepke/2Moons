@@ -373,12 +373,6 @@ class ShowShipyardPage
 			$this->CancelAuftr($cancel);
 
 		$PlanetRess->SavePlanetToDB();
-
-		$template->page_header();	
-		$template->page_topnav();
-		$template->page_leftmenu();
-		$template->page_planetmenu();
-		$template->page_footer();
 		
 		foreach($reslist['defense'] as $Element)
 		{
