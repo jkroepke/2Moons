@@ -2,20 +2,20 @@
 <center>
 <table width="500">
 <tr>
-    <td class="c" colspan="3">{$mod_module}</td>
+    <th colspan="3">{$mod_module}</th>
 </tr>
 <tr>
-    <th colspan="3"><strong>{$mod_info}</strong></th>
+    <td colspan="3"><strong>{$mod_info}</strong></td>
 </tr>
 {foreach key=ID item=Info from=$Modules}
 <tr>
-	<th>{$Info.name}</th>
+	<td>{$Info.name}</td>
 	{if $Info.state == 1}
-		<th style="color:green"><b>{$mod_active}</b></th>
-		<th><a href="?page=module&amp;mode=deaktiv&amp;id={$ID}">{$mod_change_deactive}</a></th>
+		<td style="color:green"><b>{$mod_active}</b></td>
+		<td><a href="?page=module&amp;mode=deaktiv&amp;id={$ID}">{$mod_change_deactive}</a></td>
 	{else}
-		<th style="color:red"><b>{$mod_deactive}</b></th>
-		<th><a href="?page=module&amp;mode=aktiv&amp;id={$ID}">{$mod_change_active}</a></th>
+		<td style="color:red"><b>{$mod_deactive}</b></td>
+		<td><a href="?page=module&amp;mode=aktiv&amp;id={$ID}">{$mod_change_active}</a></td>
 	{/if}
 	</tr>
 {/foreach}

@@ -1,12 +1,12 @@
 {include file="adm/overall_header.tpl"}
-<div id="content" class="content">
+<div id="content">
 	<form action="" method="POST">
     <table style="width:569px;margin-top:30px;">
 		<tr>
-            <td class="c">{$adm_login}</td>
+            <th>{$adm_login}</th>
         </tr>
 		<tr>
-            <th>{$adm_password}: <input type="password" name="admin_pw"><br><input type="submit" value="{$adm_absenden}"></th></th>
+            <td>{$adm_password}: <input type="password" name="admin_pw"><br><input type="submit" value="{$adm_absenden}"></td></td>
         </tr>
     </table>
 	</form>

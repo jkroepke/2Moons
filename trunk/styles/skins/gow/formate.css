@@ -283,7 +283,9 @@ color:#666;
 margin:0;
 padding:0
 }
-
+#overDiv font {
+color:#FFF
+}
 .allymember,.colony,.deploy,.harvest,.transport,.success {
 color:lime
 }

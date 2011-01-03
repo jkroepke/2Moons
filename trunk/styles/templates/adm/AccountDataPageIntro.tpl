@@ -1,9 +1,9 @@
 {include file="adm/overall_header.tpl"}
 <form action="" method="POST" name="users">
 <table width="50%">
-<td colspan="3" class="c"><center>{$ac_enter_user_id}</center></td>
+<th colspan="3">{$ac_enter_user_id}</th>
 <tr>
-<th>
+<td>
 	<select name="id_u" size="20" style="width:80%;">
 		{$Userlist}
 	</select>
@@ -44,13 +44,13 @@
 	<a href="javascript:UserList.set('^Z')" title="{$bo_select_title} Z">Z</A>
 
 	<br>
-	<input name="regexp" onKeyUp="UserList.set(this.value)">
-	<input type="button" onClick="UserList.set(this.form.regexp.value)" value="{$button_filter}">
-	<input type="button" onClick="UserList.reset();this.form.regexp.value=''" value="{$button_deselect}">
-</th>
+	<input name="regexp" onKeyUp="UserList.set(tdis.value)">
+	<input type="button" onClick="UserList.set(tdis.form.regexp.value)" value="{$button_filter}">
+	<input type="button" onClick="UserList.reset();tdis.form.regexp.value=''" value="{$button_deselect}">
+</td>
 </tr>
-<tr><th height="45">{$ac_select_id_num}&nbsp;<input type="text" name="id_u2" size="4"></th></tr>
-<tr><th colspan="3"><input type="Submit" value="{$button_submit}"></th></tr>
+<tr><td height="45">{$ac_select_id_num}&nbsp;<input type="text" name="id_u2" size="4"></td></tr>
+<tr><td colspan="3"><input type="Submit" value="{$button_submit}"></td></tr>
 </table>
 </form>
 {include file="adm/overall_footer.tpl"}

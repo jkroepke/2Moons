@@ -2,38 +2,38 @@
 {foreach item=Mod from=$MVC}
 <table width="60%">
     <tr>
-		<td class="c" colspan="2">{$Mod.title}</td>
+		<th colspan="2">{$Mod.title}</th>
     </tr>
     <tr>
-		<th>{$mvc_title}:</th><th>{$Mod.title}</th>
+		<td>{$mvc_title}:</td><td>{$Mod.title}</td>
     </tr>
     <tr>
-		<th>{$mvc_author}:</th><th>{$Mod.author}</th>
+		<td>{$mvc_author}:</td><td>{$Mod.author}</td>
     </tr>
     <tr>
-		<th>{$mvc_version}:</th><th>{$Mod.version}</th>
+		<td>{$mvc_version}:</td><td>{$Mod.version}</td>
     </tr>
     <tr>
-		<th>{$mvc_link}:</th><th><a href="{$Mod.link}" target="_blank">{$Mod.link}</a></th>
+		<td>{$mvc_link}:</td><td><a href="{$Mod.link}" target="_blank">{$Mod.link}</a></td>
     </tr>
     <tr>
-		<th>{$mvc_desc}:</th><th>{$Mod.description}</th>
+		<td>{$mvc_desc}:</td><td>{$Mod.description}</td>
     </tr>
     <tr>
-		<th colspan="2">{$Mod.update}</th>
+		<td colspan="2">{$Mod.update}</td>
     </tr>
 	{if $Mod.udetails}
 	<tr>
-		<th>{$mvc_update_version}:</th><th>{$Mod.udetails.version}</th>
+		<td>{$mvc_update_version}:</td><td>{$Mod.udetails.version}</td>
     </tr>
 	<tr>
-		<th>{$mvc_update_date}:</th><th>{$Mod.udetails.date}</th>
+		<td>{$mvc_update_date}:</td><td>{$Mod.udetails.date}</td>
     </tr>
     <tr>
-		<th>{$mvc_download}:</th><th><a href="{$Mod.udetails.download}" target="_blank">{$Mod.udetails.download}</a></th>
+		<td>{$mvc_download}:</td><td><a href="{$Mod.udetails.download}" target="_blank">{$Mod.udetails.download}</a></td>
 	</tr>
     <tr>
-		<th>{$mvc_announcement}:</th><th><a href="{$Mod.udetails.announcement}" target="_blank">{$Mod.udetails.announcement}</a></th>
+		<td>{$mvc_announcement}:</td><td><a href="{$Mod.udetails.announcement}" target="_blank">{$Mod.udetails.announcement}</a></td>
     </tr>
 	{/if}
 </table>

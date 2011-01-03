@@ -58,6 +58,7 @@ function ShowMenuPage()
 		'mu_moon_list'				=> $LNG['mu_moon_list'],
 		'mu_mess_list'				=> $LNG['mu_mess_list'],
 		'mu_info_account_page'		=> $LNG['mu_info_account_page'],
+		'mu_multiip_page'			=> $LNG['mu_multiip'],
 		'mu_search_page'			=> $LNG['mu_search_page'],
 		'mu_mod_update'				=> $LNG['mu_mod_update'],
 		'mu_clear_cache'			=> $LNG['mu_clear_cache'],

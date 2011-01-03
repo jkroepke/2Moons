@@ -3,41 +3,41 @@
 <form action="" method="post" name="countt">
 <table width="50%">
 <tr>
-	<td class="c" colspan="3">{$bantitle}</td>
+	<th colspan="3">{$bantitle}</th>
 </tr><tr>
-	<th>{$bo_username}</th>
-	<th colspan="2"><input name="ban_name" type="text" value="{$name}" readonly="true" class="character"/></th>
+	<td>{$bo_username}</td>
+	<td colspan="2"><input name="ban_name" type="text" value="{$name}" readonly="true" class="character"/></td>
 </tr><tr>
-	<th>{$bo_reason} <br><br>{$bo_characters_1}<input id="result2" value="50" size="2" readonly="true" class="character"></th> 
-	<th colspan="2"><textarea name="why" maxlength="50" cols="20" rows="5" onkeyup="$('#result2').val(50 - parseInt($(this).val().length));">{$reas}</textarea></th>
+	<td>{$bo_reason} <br><br>{$bo_characters_1}<input id="result2" value="50" size="2" readonly="true" class="character"></td> 
+	<td colspan="2"><textarea name="why" maxlengtd="50" cols="20" rows="5" onkeyup="$('#result2').val(50 - parseInt($(tdis).val().lengtd));">{$reas}</textarea></td>
 </tr>
 	{$timesus}
 <tr>
-	<td class="c" colspan="2">{$changedate}</td>
+	<th colspan="2">{$changedate}</th>
 	{$changedate_advert}
 </tr><tr>
-	<th>{$time_days}</th>
-	<th><input name="days" type="text" value="0" size="5"></th>
-	{if $changedate_advert}<th>&nbsp;</th>{/if}
+	<td>{$time_days}</td>
+	<td><input name="days" type="text" value="0" size="5"></td>
+	{if $changedate_advert}<td>&nbsp;</td>{/if}
 </tr><tr>
-	<th>{$time_hours}</th>
-	<th><input name="hour" type="text" value="0" size="5"></th>
-	{if $changedate_advert}<th>&nbsp;</th>{/if}
+	<td>{$time_hours}</td>
+	<td><input name="hour" type="text" value="0" size="5"></td>
+	{if $changedate_advert}<td>&nbsp;</td>{/if}
 </tr><tr>
-	<th>{$time_minutes}</th>
-	<th><input name="mins" type="text" value="0" size="5"></th>
-	{if $changedate_advert}<th>&nbsp;</th>{/if}
+	<td>{$time_minutes}</td>
+	<td><input name="mins" type="text" value="0" size="5"></td>
+	{if $changedate_advert}<td>&nbsp;</td>{/if}
 </tr><tr>
-	<th>{$time_seconds}</th>
-	<th><input name="secs" type="text" value="0" size="5"></th>
-	{if $changedate_advert}<th>&nbsp;</th>{/if}
+	<td>{$time_seconds}</td>
+	<td><input name="secs" type="text" value="0" size="5"></td>
+	{if $changedate_advert}<td>&nbsp;</td>{/if}
 </tr><tr>
-	<td class="c" colspan="3">{$bo_vacaations}</td>
+	<th colspan="3">{$bo_vacaations}</th>
 </tr><tr>
-	<th>{$bo_vacation_mode}</th>
-	<th colspan="2"><input name="vacat" type="checkbox"{if $vacation} checked = "checked"{/if}></th>
+	<td>{$bo_vacation_mode}</td>
+	<td colspan="2"><input name="vacat" type="checkbox"{if $vacation} checked = "checked"{/if}></td>
 </tr><tr>
-	<th colspan="3">
+	<td colspan="3">
 	<input type="submit" value="{$button_submit}" name="bannow" style="width:20%;"/>
 </tr>
 </table>
@@ -48,10 +48,10 @@
 <td style="border:0px;width:50%">
 <table align="center" width="90%">
 <tr>
-	<td class="c" colspan="4">{$bo_ban_player}</td>
+	<th colspan="4">{$bo_ban_player}</th>
 </tr>
 <tr>
-	<th colspan="2">
+	<td colspan="2">
 	<select name="ban_name" style="width:70%;" size="20">
 	{$UserSelect.List}
 	</select>
@@ -93,19 +93,19 @@
 	<a href="javascript:UserList.set('^Y')" title="{$bo_select_title} Y">Y</A>
 	<a href="javascript:UserList.set('^Z')" title="{$bo_select_title} Z">Z</A>
 	<br>
-	<input NAME="regexp" onKeyUp="UserList.set(this.value)">
-	<input TYPE="button" onClick="UserList.set(this.form.regexp.value)" value="{$button_filter}">
-	<input TYPE="button" onClick="UserList.reset();this.form.regexp.value=''" value="{$button_deselect}">
-</th>
+	<input NAME="regexp" onKeyUp="UserList.set(tdis.value)">
+	<input TYPE="button" onClick="UserList.set(tdis.form.regexp.value)" value="{$button_filter}">
+	<input TYPE="button" onClick="UserList.reset();tdis.form.regexp.value=''" value="{$button_deselect}">
+</td>
 </tr><tr>
-	<th colspan="2">
+	<td colspan="2">
 	<input type="submit" value="{$button_submit}" name="panel" style="width:20%;">&nbsp;
-	<input TYPE="button" onClick="UserList.reset();this.form.regexp.value=''" value="{$button_reset}">
-	</th>
+	<input TYPE="button" onClick="UserList.reset();tdis.form.regexp.value=''" value="{$button_reset}">
+	</td>
 </tr><tr>
-	<th colspan="2" align="left">
+	<td colspan="2" align="left">
 		{$bo_total_users}<span style="color:lime">{$usercount}</span>
-	</th>
+	</td>
 </tr>
 </table>
 </form>
@@ -115,10 +115,10 @@
 <form action="" method="POST" name="userban">
 <table align="center" width="90%">
 <tr>
-	<td class="c" colspan="2">{$bo_unban_player}</td>
+	<th colspan="2">{$bo_unban_player}</th>
 </tr>
 <tr>
-	<th colspan="2">
+	<td colspan="2">
 	<select name="unban_name" size="20" style="width:70%;">
 	{$UserSelect.ListBan}
 	</select>
@@ -160,18 +160,18 @@
 	<a href="javascript:UsersBan.set('^Z')" title="{$bo_select_title} Z">Z</A>
 
 	<br>
-	<input NAME="regexp" onKeyUp="UsersBan.set(this.value)">
-	<input TYPE="button" onClick="UsersBan.set(this.form.regexp.value)" value="{$button_filter}">
-	<input TYPE="button" onClick="UsersBan.set(this.form.regexp.value)" value="{$button_deselect}">
-</th>
+	<input NAME="regexp" onKeyUp="UsersBan.set(tdis.value)">
+	<input TYPE="button" onClick="UsersBan.set(tdis.form.regexp.value)" value="{$button_filter}">
+	<input TYPE="button" onClick="UsersBan.set(tdis.form.regexp.value)" value="{$button_deselect}">
+</td>
 </tr>
 <tr>
-	<th colspan="2"><input value="{$button_submit}" type="submit" style="width:20%;">&nbsp;
-	<input TYPE="button" onClick="UsersBan.reset();this.form.regexp.value=''" value="{$button_reset}"></th>
+	<td colspan="2"><input value="{$button_submit}" type="submit" style="width:20%;">&nbsp;
+	<input TYPE="button" onClick="UsersBan.reset();tdis.form.regexp.value=''" value="{$button_reset}"></td>
 </tr><tr>
-	<th colspan="2" align="left">
+	<td colspan="2" align="left">
 		{$bo_total_banneds}<span style="color:lime">{$bancount}</span>
-	</th>
+	</td>
 </tr>
 </table>
 </form>

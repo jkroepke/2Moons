@@ -2,38 +2,38 @@
 <form action="" method="post">
 <table width="45%">
 <tr>
-<th colspan="3" align="left"><a href="?page=accounteditor">
-<img src="./styles/images/Adm/arrowright.png" width="16" height="10"> {$ad_back_to_menu}</a></th>
+<td colspan="3" align="left"><a href="?page=accounteditor">
+<img src="./styles/images/Adm/arrowright.png" width="16" height="10"> {$ad_back_to_menu}</a></td>
 </tr><tr>
-	<td class="c" colspan="7">{$ad_personal_title}</td>
+	<th colspan="7">{$ad_personal_title}</th>
 </tr><tr>
-	<th>{$input_id}</th>
-	<th><input name="id" type="text"></th>
+	<td>{$input_id}</td>
+	<td><input name="id" type="text"></td>
 </tr><tr>
-	<th>{$ad_personal_name}</th>
-	<th><input name="username" type="text"></th>
+	<td>{$ad_personal_name}</td>
+	<td><input name="username" type="text"></td>
 </tr><tr>
-	<th>{$ad_personal_pass}</th>
-	<th><input name="password" type="password"></th>
+	<td>{$ad_personal_pass}</td>
+	<td><input name="password" type="password"></td>
 </tr><tr>
-	<th>{$ad_personal_email}</th>
-	<th><input name="email" type="text"></th>
+	<td>{$ad_personal_email}</td>
+	<td><input name="email" type="text"></td>
 </tr><tr>
-	<th>{$ad_personal_email2}</th>
-	<th><input name="email_2" type="text"></th>
+	<td>{$ad_personal_email2}</td>
+	<td><input name="email_2" type="text"></td>
 </tr><tr>
-	<th>{$ad_personal_vacat}</th>
-	<th>{html_options name=vacation options=$Selector}</th>
+	<td>{$ad_personal_vacat}</td>
+	<td>{html_options name=vacation options=$Selector}</td>
 </tr><tr>
-	<th>{$time_days}</th><th><input name="d" type="text" size="5" maxlength="5"></th>
+	<td>{$time_days}</td><td><input name="d" type="text" size="5" maxlengtd="5"></td>
 </tr><tr>
-	<th>{$time_hours}</th><th><input name="h" type="text" size="5" maxlength="10"></th>
+	<td>{$time_hours}</td><td><input name="h" type="text" size="5" maxlengtd="10"></td>
 </tr><tr>
-	<th>{$time_minutes}</th><th><input name="m" type="text" size="5" maxlength="10"></th>
+	<td>{$time_minutes}</td><td><input name="m" type="text" size="5" maxlengtd="10"></td>
 </tr><tr>
-	<th>{$time_seconds}</th><th><input name="s" type="text" size="5" maxlength="10"></th>
+	<td>{$time_seconds}</td><td><input name="s" type="text" size="5" maxlengtd="10"></td>
 </tr><tr>
-	<th colspan="3"><input type="submit" value="{$button_submit}"></th>
+	<td colspan="3"><input type="submit" value="{$button_submit}"></td>
 </tr>
 </table>
 </form>

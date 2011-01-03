@@ -2,7 +2,7 @@
 <div style="font-size:22px;font-weight:bolder;font-variant:small-caps;text-align:center;width:100%;">{$adm_cp_title}</div><br><br>
 <div align="right">
 {if $authlevel == $smarty.const.AUTH_ADM}
-<select name="Uni" id="Uni" onchange="top.location = 'admin.php?uni='+$(this).val();">
+<select name="Uni" id="Uni" onchange="top.location = 'admin.php?uni='+$(tdis).val();">
 {html_options options=$AvailableUnis selected=$UNI}
 </select>
 {/if}

@@ -2,16 +2,16 @@
 <form action="" method="POST">
 <table width="800">
 <tr>
-<td class="c">Version</td>
+<th>Version</th>
 </tr>
 <tr>
-<th>Version: <input type="text" name="version" size="8" value="{$version}"> <input type="submit" value="Send"></th>
+<td>Version: <input type="text" name="version" size="8" value="{$version}"> <input type="submit" value="Send"></td>
 </tr>
 {$Update}
 {$Info}
 {$RevList}
 <tr>
-<th><a href="?page=update&amp;action=history">History</a></th>
+<td><a href="?page=update&amp;action=history">History</a></td>
 </tr>
 </table>
 </form>

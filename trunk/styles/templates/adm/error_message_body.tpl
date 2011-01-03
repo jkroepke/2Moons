@@ -2,10 +2,10 @@
 <div id="content" class="content">
     <table style="width:519px;">
 		<tr>
-            <td class="c">{$fcm_info}</td>
+            <th>{$fcm_info}</th>
         </tr>
 		<tr>
-            <th>{$mes}</th>
+            <td>{$mes}</td>
         </tr>
     </table>
 </div>
