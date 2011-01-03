@@ -52,6 +52,7 @@ $LNG['lm_research']							= 'Research';
 $LNG['lm_shipshard']						= 'Shipyard';
 $LNG['lm_defenses']							= 'Defense';
 $LNG['lm_resources']						= 'Resources';
+$LNG['lm_fleettrader']						= 'Fleet-Trader';
 $LNG['lm_officiers']						= 'Officiers & DM-Store';
 $LNG['lm_trader']							= 'Trader';
 $LNG['lm_technology']						= 'Technology';
@@ -889,22 +890,22 @@ $LNG['cff_to_the_moon']						= 'the moon ';
 $LNG['cff_the_position']					= 'Position ';
 $LNG['cff_to_the_planet']					= '';
 $LNG['cff_the_moon']						= ' the moon ';
-$LNG['cff_from_planet']						= 'the planet ';
+$LNG['cff_from_planet']						= 'planet ';
 $LNG['cff_from_debris_field']				= 'the expanse of rubble ';
-$LNG['cff_from_the_moon']					= 'the moon ';
+$LNG['cff_from_the_moon']					= 'moon ';
 $LNG['cff_from_position']					= 'of the position ';
 $LNG['cff_missile_attack']					= 'Missile attack';
 $LNG['cff_from']							= ' of ';
 $LNG['cff_to']								= ' to this ';
-$LNG['cff_one_of_your']						= 'One of you ';
+$LNG['cff_one_of_your']						= 'Your ';
 $LNG['cff_acs_fleet']						= 'Association fleet ';
 $LNG['cff_a']								= 'One ';
-$LNG['cff_of']								= ' of the player ';
-$LNG['cff_goes']							= ' of the planet ';
+$LNG['cff_of']								= ' Player ';
+$LNG['cff_goes']							= ' From Planet ';
 $LNG['cff_toward']							= ' reach ';
 $LNG['cff_back_to_the_planet']				= ' back to the planet ';
 $LNG['cff_with_the_mission_of']				= '. Mission: ';
-$LNG['cff_to_explore']						= ' is in the orbit of ';
+$LNG['cff_to_explore']						= ' is orbiting ';
 $LNG['cff_comming_back']					= ' sweep ';
 $LNG['cff_back']							= 'Comming back';
 $LNG['cff_to_destination']					= 'Heading to destination';
@@ -1093,6 +1094,15 @@ $LNG['bs_techno']							= "Techniques";
 $LNG['bs_send']								= "Mailing";
 $LNG['bs_cancel']							= "Moving back";
 $LNG['bs_wait']								= "Wait for the next simulation for 10 seconds";
+
+//----------------------------------------------------------------------------//
+// Fleettrader
+$LNG['ft_head']								= 'Fleet-Trader';
+$LNG['ft_count']							= 'Number';
+$LNG['ft_max']								= 'Max';
+$LNG['ft_total']							= 'Total';
+$LNG['ft_charge']							= 'Trader Fee';
+$LNG['ft_absenden']							= 'Submit';
 
 //----------------------------------------------------------------------------//
 // Logout

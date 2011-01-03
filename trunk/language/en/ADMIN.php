@@ -21,22 +21,26 @@
 # *                                                                          #
 ##############################################################################
 
-//---------------	GENERAL	------------------------// 
+//---------------	GENERAL	------------------------//
+$LNG['adm_login']		= 'Login';
+$LNG['adm_absenden']		= 'Submit'; 
 $LNG['adm_password']					= 'Password';
 $LNG['adm_password_info']				= 'Please enter you password for account verification!';
-$LNG['adm_bad_password']				= 'Wrong password!';
-$LNG['404_page']						= 'You do not have sufficient permissions to enter this Page';
-$LNG['adm_cp_title']					= 'Administrative Control Panel';
+$LNG['adm_bad_password']				= 'Incorrect password!';
+$LNG['404_page']						= 'Insufficient permissions to enter this Page';
+$LNG['adm_cp_title']					= 'Admin Control Panel';
 $LNG['adm_cp_index']					= 'Home';
 $LNG['mu_moderation_page']				= 'Permissions';
-$LNG['mu_universe']						= 'Universen';
+$LNG['mu_universe']						= 'Universe';
 $LNG['adm_cp_logout']					= 'Quit';
 
 //	MISCELaNEO - MISCELLANEOUS
 $LNG['ad_number'] 					= 'ID'; 
 $LNG['ad_max']  					= '(max. % d)'; 
-$LNG['only_numbers']					= 'you can only enter numbers !'; 
+$LNG['only_numbers']					= 'Numbers 0-9 Only!'; 
 $LNG['select_option']	 				= 'Select...'; 
+$LNG['ad_add_not_exist']		= 'ID does not exist!';
+
 
 // 	RANGO - RANK
 $LNG['rank'][0]						= 'Player';
@@ -68,18 +72,18 @@ $LNG['button_add']            				= 'Add';
 $LNG['button_delete']        				= 'Delete';
 $LNG['button_filter']        				= 'Filter';
 $LNG['button_deselect']    				= 'Deselect';
-$LNG['button_reset']        				= 'Restart';
+$LNG['button_reset']        				= 'Reset';
 $LNG['button_des_se']        				= 'Select/Deselect All';
 //###########################################################//
 
 
 //---------------	ID's	------------------------//
 $LNG['input_id']            				= 'ID';
-$LNG['input_id_user']       				= 'ID PLAYER';
-$LNG['input_id_planet']    				= 'ID PLANET';
-$LNG['input_id_moon']        				= 'ID MOON';
-$LNG['input_id_p_m']        				= 'ID PLANET or MOON';
-$LNG['input_id_ally']        				= 'ID ALLIANCE';
+$LNG['input_id_user']       				= 'PLAYER ID';
+$LNG['input_id_planet']    				= 'PLANET ID';
+$LNG['input_id_moon']        				= 'MOON ID';
+$LNG['input_id_p_m']        				= 'PLANET or MOON ID';
+$LNG['input_id_ally']        				= 'ALLIANCE ID';
 //###########################################################//
 
 
@@ -148,16 +152,16 @@ $LNG['ad_add_succes']        			= 'Buildings added Successfully!';
 $LNG['ad_delete_succes']				= 'Buildings deleted Successfully!';
 
 // PERSONAL DATA
-$LNG['ad_personal_title']				= 'Edit Personal Data';
+$LNG['ad_personal_title']				= 'Edit Player Data';
 $LNG['ad_personal_name']				= 'Name';
 $LNG['ad_personal_email']				= 'Email Address';
-$LNG['ad_personal_email2']				= 'Permanent Email Address';
+$LNG['ad_personal_email2']				= 'Confirm Email Address';
 $LNG['ad_personal_pass']				= 'Password';
-$LNG['ad_personal_succes']				= 'Settings changed Successfully!';
-$LNG['ad_personal_vacat']				= 'Vacations Mode?';
+$LNG['ad_personal_succes']				= 'Settings Updated!';
+$LNG['ad_personal_vacat']				= 'Vacation Mode?';
 
 // ALLIANCES
-$LNG['ad_ally_title']					= 'Edit Alliances';
+$LNG['ad_ally_title']					= 'Edit Alliance';
 $LNG['ad_ally_change_id']				= 'Change the Leader of the Alliance';
 $LNG['ad_ally_name']					= 'Edit Name';
 $LNG['ad_ally_tag']					= 'Edit TAG';
@@ -169,8 +173,8 @@ $LNG['ad_ally_delete_u']				= 'Delete Player';
 $LNG['ad_ally_user_id']					= '(Enter Player ID)';
 $LNG['ad_ally_succes']					= 'Operation performed Successfully!';
 $LNG['ad_ally_not_exist3']				= 'The Player does not exist or is not a member of the Alliance!';
-$LNG['ad_ally_not_exist']				= 'The Alliance does not exist!';
-$LNG['ad_ally_not_exist2']				= 'The Player does not exist!';
+$LNG['ad_ally_not_exist']				= 'Alliance not found!';
+$LNG['ad_ally_not_exist2']				= 'Player not found!';
 
 // PLANETS AND MOONS
 $LNG['ad_pla_title']					= 'Edit Planets and/or Moons';
@@ -187,7 +191,7 @@ $LNG['ad_pla_delete_planet']				= 'Delete Planet';
 $LNG['ad_pla_title_a']					= 'If you have a Moon also changed hands this will';
 $LNG['ad_pla_title_l']					= 'If you have a Moon also this position will be changed';
 $LNG['ad_pla_change_p']					= 'Change position of this Planet';
-$LNG['ad_pla_change_pp']        			= 'Accent Mark to make the change of position';
+$LNG['ad_pla_change_pp']        			= 'Check to Confirm Changes';
 $LNG['ad_pla_succes']					= 'Changes made Successfully!';
 $LNG['ad_pla_error_planets']    			= 'Moons can not change Owners!';
 $LNG['ad_pla_error_user']				= 'The Player does not exist!';
@@ -412,6 +416,9 @@ $LNG['se_bgm_active']					= 'Activate?';
 $LNG['se_bgm_info']						= 'The music playing on the home page in the background.';
 $LNG['se_bgm_file']						= 'Path:';
 $LNG['se_bgm_file_info']				= 'Relative or absolute paths possible!';
+$LNG['se_trader_head']					= 'Fleet-trader Settings';
+$LNG['se_trader_ships']				= 'Allowed Ships:';
+$LNG['se_trader_charge']				= 'Trader Fee:';
 
 //###########################################################//
 
@@ -881,7 +888,9 @@ $LNG['ts_tcpport']					= 'UDP Port';
 $LNG['ts_serverip']					= 'Server IP';
 $LNG['ts_timeout']					= 'Timeout'; 
 $LNG['ts_server_query']					= 'Server Query Port';
-$LNG['ts_server_id']					= 'Server ID';  
+$LNG['ts_login']						= 'ServerQuery Login'; 
+$LNG['ts_pass']							= 'ServerQuery Password'; 
+$LNG['ts_cron']							= 'Update Rate'; 
 
 //----------------------------------------------------------------------------//
 //FacebookSettingPage.php
@@ -890,6 +899,8 @@ $LNG['fb_active']					= 'Facebook Connect activate?';
 $LNG['fb_api_key']					= 'Facebook API Key';
 $LNG['fb_secrectkey']					= 'Facebook Secret Key';
 $LNG['fb_info']						= 'With Facebook Connect users who are logged on to Facebook, log in with my click, or register. <br>  to use this feature, you must be registered with Faceebok itself. In addition, you must create an Application. This you can do to <a href="http://www.facebook.com/developers/"> http://www.facebook.com/developers/ </ a>. As Connect URL, you must enter the URL to the game. Then you are carrying here the Keys and your game should be ready Facebook. <br> <font Color="red"> for FB Connect, the mail delivery will be available! (SMTP settings)</font>';
+$LNG['fb_curl_yes']						= '<span style="color:green">cURL Installed!</span>';
+$LNG['fb_curl_no']						= '<span style="color:red">cURL Not Installed! Facebook Requires cURL extension to work!</span>';
 
 //----------------------------------------------------------------------------//
 //GameModule.php
@@ -980,6 +991,7 @@ $LNG['uvs_off']							= 'Off';
 $LNG['uvs_new']							= 'Create Universe';
 $LNG['uvs_import']						= 'Import Universe';
 $LNG['uvs_upload']						= 'Upload';
+$LNG['uvs_error']						= 'Invalid Import File!';
 
 //Update Page
 $LNG['up_weiter']						= 'Further';
