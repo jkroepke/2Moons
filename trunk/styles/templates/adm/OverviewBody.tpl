@@ -58,7 +58,7 @@ google.load("feeds", "1");
 		</form>
 		</td>
 		<td align="center">
-		<img src="http://www.moneybookers.com/images/logos/additional_logos/de_donatewitd.gif" style="background:transparent;border:0px none;">
+		<img src="http://www.moneybookers.com/images/logos/additional_logos/de_donatewith.gif" style="background:transparent;border:0px none;">
 		<form action="https://www.moneybookers.com/app/payment.pl" target="_blank">
 		<input type="hidden" name="pay_to_email" value="slaver7@gmail.com">
 		<input type="hidden" name="recipient_description" value="Donation for 2Moons">
@@ -66,9 +66,9 @@ google.load("feeds", "1");
 		<input type="hidden" name="cancel_url_target" value="1">
 		<input type="hidden" name="dynamic_descriptor" value="Descriptor">
 		<input type="hidden" name="language" value="DE">
-		<input type="hidden" name="confirmation_note" value="tdank you for tdis Donation">
+		<input type="hidden" name="confirmation_note" value="Thank you for tdis Donation">
 		<input type="hidden" name="detail1_description" value="Donation">
-		<input type="hidden" name="detail1_text" value="tdank you for tdis donation!">
+		<input type="hidden" name="detail1_text" value="Thank you for tdis donation!">
 		<input type="hidden" name="rec_period" value="1">
 		<input type="hidden" name="rec_grace_period" value="1">
 		<input type="hidden" name="rec_cycle" value="day">
