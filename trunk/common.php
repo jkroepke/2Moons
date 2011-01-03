@@ -26,7 +26,6 @@ ignore_user_abort(true);
 error_reporting(E_ALL ^ E_NOTICE);
 ini_set('zlib.output_compression', 'On');
 ini_set('display_errors', 1);
-date_default_timezone_set("Europe/Berlin");
 header('Content-Type: text/html; charset=UTF-8');
 define('TIMESTAMP',	$_SERVER['REQUEST_TIME']);
 
