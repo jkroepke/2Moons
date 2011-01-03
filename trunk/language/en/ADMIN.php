@@ -6,7 +6,9 @@
 # *                                                                          #
 # * @copyright Copyright (C) 2010 By ShadoX from titanspace.de               #
 # * @copyright Copyright (C) 2008 - 2009 By lucky from Xtreme-gameZ.com.ar   #
-# * @translate by                                                            #                                                        #
+# * @translate by languar                                                    #                                                        #
+# * @translate by languar                                                    #                                                        #
+# * @translate by cheekyvimto                                                #                                                        #
 # * @author ShadoX                                                           #
 # *	                                                                         #
 # *  This program is free software: you can redistribute it and/or modify    #
@@ -55,7 +57,7 @@ $LNG['time_minutes']					= 'Minutes';
 $LNG['time_seconds']					= 'Seconds';
 //###########################################################//
 
-$LNG['info_information']	= 'Submit bugs at: <a href="http://www.xnova.de" target="tracker">2Moons Board</a><br>Or there is no support!';
+$LNG['info_information']	= 'Submit bugs at: <a href="http://2moons.cc" target="tracker">2Moons Board</a><br>Or there is no support!';
 
 //---------------	�SI O NO? - YES OR NO? - JA ODER NEIN?	------------------------// 
 $LNG['one_is_yes'][1]					= 'Yes';
@@ -525,6 +527,7 @@ $LNG['mu_ts_options'] 					= 'Teamspeak Options';
 $LNG['mu_game_info'] 					= 'Information';
 $LNG['mu_vaild_users']					= 'User Activity'; 
 $LNG['mu_news']						= 'News'; 
+$LNG['mu_multiip']					= 'MultiIP'; 
 $LNG['mu_clear_cache']				= 'Clear Cache'; 
 
 //###########################################################//

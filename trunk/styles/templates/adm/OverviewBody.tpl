@@ -121,7 +121,14 @@ google.load("feeds", "1");
 					<td class="transparent"><h3>{$ow_translator}</h3></td>
                 </tr>
                 <tr>
-					<td class="transparent">languar (english)<br>ssAAss (russian)<br>InquisitorEA (russian)<br>MiguelR(english &amp; portuguese)<br>Naykee (portuguese)<br>ZideN (spanish)<br>hanhot (chinese)<br>cyceron (polnisch)</td>
+					<td class="transparent">languar (english)<br>
+					cheekyvimto (english)<br>
+					ssAAss (russian)<br>
+					InquisitorEA (russian)<br>
+					MiguelR(english &amp; portuguese)<br>
+					Naykee (portuguese)<br>
+					hanhot (chinese)<br>
+					cyceron (polnisch)</td>
                 </tr> 
                 <tr>
 					<td class="transparent"><h3>{$ow_special_tdanks}</h3></td>
