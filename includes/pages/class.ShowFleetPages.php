@@ -975,12 +975,6 @@ class ShowFleetPages extends FleetFunctions
 			$error = $LNG['fl_strong_player'];		
 				
 		$template	= new template();
-
-		$template->page_header();
-		$template->page_topnav();
-		$template->page_leftmenu();
-		$template->page_planetmenu();
-		$template->page_footer();
 		if ($error != "")
 		{
 			$template->message($error);
