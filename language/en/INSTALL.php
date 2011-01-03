@@ -25,6 +25,14 @@ $LNG['reg_mysqli_need']		= "MySQLi available?";
 $LNG['reg_json_need']		= "JSON available?";
 $LNG['req_php_need']		= "PHP-Version (min. 5.2.5)";
 $LNG['req_smode_active']	= "Safemode active?";
+$LNG['req_ftp']				= "FTP";
+$LNG['req_ftp_info']		= "Enter your FTP Details.";
+$LNG['req_ftp_host']		= "FTP Host";
+$LNG['req_ftp_username']	= "Username";
+$LNG['req_ftp_password']	= "Password";
+$LNG['req_ftp_dir']			= "2Moons Path";
+$LNG['req_ftp_send']		= "Submit";
+$LNG['req_ftp_pass_info']	= "Enter Password Details.";
 
 $LNG['step1_notice_chmod']	= "Make sure the config.php is set to \"CHMOD 777\", so it is writable!";
 $LNG['step1_mysql_server']	= "MySQL-DB-Server: <br>Standard: localhost";
@@ -34,10 +42,12 @@ $LNG['step1_mysql_dbuser']	= "MySQL-DB-User: <br> Ex.: root";
 $LNG['step1_mysql_dbpass']	= "MySQL-DB-Password: <br> Ex.: 12345";
 $LNG['step1_mysql_prefix']	= "MySQL-DB-Prefix: <br> Ex.: uni1_";
 
-$LNG['step2_db_ok']		= "Datenvase table were successfully created....";
 $LNG['step2_db_error']		= "Error creating database table(s): %s";
 $LNG['step2_db_con_fail']	= "No connection to the database.<br> %s";
 $LNG['step2_conf_op_fail']	= "config.php was not CHMOD 777!";
+$LNG['step2_db_connet_ok']	= "Database connection successful...";
+$LNG['step2_db_create_ok']	= "Database tables created successfully...";
+$LNG['step2_conf_create']	= "config.php created successfully...";
 
 $LNG['step3_create_admin']	= "Creation of admin account";
 $LNG['step3_admin_name']	= "Administrator Username:";
