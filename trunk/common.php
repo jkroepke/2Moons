@@ -73,6 +73,7 @@ elseif(INSTALL != true)
 
 $LANG	= new Language();	
 $BCMATH	= function_exists('bcadd');
+$UPDATE	= array();
 unset($database);
 
 if (INSTALL != true)
