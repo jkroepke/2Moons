@@ -535,6 +535,7 @@ $LNG['mu_ts_options'] 				= 'Teamspeak Optionen';
 $LNG['mu_game_info'] 				= 'Informationen';
 $LNG['mu_vaild_users']				= 'Aktivire User'; 
 $LNG['mu_news']						= 'News'; 
+$LNG['mu_multiip']					= 'MultiIP'; 
 $LNG['mu_clear_cache']				= 'Lösche Cache'; 
 
 //###########################################################//

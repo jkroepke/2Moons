@@ -163,6 +163,10 @@ switch($page)
 		include_once(ROOT_PATH . 'includes/pages/adm/ShowUniversePage.' . PHP_EXT);
 		ShowUniversePage();
 	break;
+	case 'multiips':
+		include_once(ROOT_PATH . 'includes/pages/adm/ShowMultiIPPage.' . PHP_EXT);
+		ShowMultiIPPage();
+	break;
 	default:
 		include_once(ROOT_PATH . 'includes/pages/adm/ShowIndexPage.' . PHP_EXT);
 		ShowIndexPage();
