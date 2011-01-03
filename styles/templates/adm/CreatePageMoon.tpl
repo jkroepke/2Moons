@@ -2,39 +2,39 @@
 <form action="" method="post">
 <table width="40%">
 <tr>
-	<td class="c" colspan="3">{$po_add_moon}</td>
+	<th colspan="3">{$po_add_moon}</th>
 </tr>
 <tr>
-	<th>{$input_id_planet}</th>
-	<th colspan="2"><input  type="text" name="add_moon" value="" size="3"></th>
+	<td>{$input_id_planet}</td>
+	<td colspan="2"><input  type="text" name="add_moon" value="" size="3"></td>
 </tr>
 <tr>
-	<th>{$mo_moon_name}</th>
-	<th colspan="2"><input type="text" value="{$mo_moon}" name="name"></th>
+	<td>{$mo_moon_name}</td>
+	<td colspan="2"><input type="text" value="{$mo_moon}" name="name"></td>
 </tr>
 <tr>
-	<th>{$mo_diameter}</th>
-	<th colspan="2"><input type="text" name="diameter" size="5" maxlength="5">
-	<input type="checkbox" checked="checked" name="diameter_check"> (Random)</th>
+	<td>{$mo_diameter}</td>
+	<td colspan="2"><input type="text" name="diameter" size="5" maxlengtd="5">
+	<input type="checkbox" checked="checked" name="diameter_check"> (Random)</td>
 </tr>
 <tr>
-	<th>{$mo_fields_avaibles}</th>
-	<th colspan="2"><input type="text" name="field_max" size="5" maxlength="5" value="1"></th>
+	<td>{$mo_fields_avaibles}</td>
+	<td colspan="2"><input type="text" name="field_max" size="5" maxlengtd="5" value="1"></td>
 </tr>
-{if $admin_auth == 3}
+{if $admin_autd == 3}
 <tr>
-	<th>{$universum}</th>
-	<th colspan="2">
+	<td>{$universum}</td>
+	<td colspan="2">
     <select name="uni">
     	{foreach $AvailableUnis as $ID => $Universe}<option value="{$ID}">{$Universe.game_name}</option>{/foreach}
     </select>
-    </th>
+    </td>
 </tr>
 {/if}
 <tr>
-	<th colspan="3"><input type="submit" value="{$button_add}"></th>
+	<td colspan="3"><input type="submit" value="{$button_add}"></td>
 </tr><tr>
-   <th colspan="2" style="text-align:left;"><a href="?page=create">{$new_creator_go_back}</a>&nbsp;<a href="?page=create&mode=moon">{$new_creator_refresh}</a></th>
+   <td colspan="2" style="text-align:left;"><a href="?page=create">{$new_creator_go_back}</a>&nbsp;<a href="?page=create&mode=moon">{$new_creator_refresh}</a></td>
 </tr>
 </table>
 </form>

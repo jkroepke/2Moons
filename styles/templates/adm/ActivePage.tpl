@@ -9,28 +9,28 @@
 </script>
 <table width="450">
 <tr>
-	<td class="c" colspan="7">{$nicht_aktivierte_u}</td>
+	<th colspan="7">{$nicht_aktivierte_u}</th>
 </tr>
 <tr>
-	<th>{$id}</th>
-	<th>{$username}</th>
-	<th>{$datum}</th>
-	<th>{$email}</th>
-	<th>{$ip}</th>
-	<th>{$aktivieren}</th>
-	<th>{$del}</th>
+	<td>{$id}</td>
+	<td>{$username}</td>
+	<td>{$datum}</td>
+	<td>{$email}</td>
+	<td>{$ip}</td>
+	<td>{$aktivieren}</td>
+	<td>{$del}</td>
 </tr>
 {foreach name=User item=User from=$Users}
 <tr>
-	<th>{$User.id}</th>
-	<th>{$User.name}</th>
-	<th><nobr>{$User.date}</nobr></th>
-	<th>{$User.email}</th>
-	<th>{$User.ip}</th>
-	<th><a href="javascript:ajax('./index.php?page=reg&mode=valid&lang={$UserLang}&clef={$User.cle}&admin=1','{$User.username}');">{$aktivieren}</a></th>
-	<th><a href="?page=active&amp;action=delete&id={$User.id}" onclick="return confirm('{$sicher}{$User.username} {$entfernen}');"><img border="0" src="./styles/images/r1.png"></a></th>
+	<td>{$User.id}</td>
+	<td>{$User.name}</td>
+	<td><nobr>{$User.date}</nobr></td>
+	<td>{$User.email}</td>
+	<td>{$User.ip}</td>
+	<td><a href="javascript:ajax('./index.php?page=reg&mode=valid&lang={$UserLang}&clef={$User.cle}&admin=1','{$User.username}');">{$aktivieren}</a></td>
+	<td><a href="?page=active&amp;action=delete&id={$User.id}" onclick="return confirm('{$sicher}{$User.username} {$entfernen}');"><img border="0" src="./styles/images/r1.png"></a></td>
 </tr>
 {/foreach}	
-<tr><th colspan="8">{$insgesamt} {$smarty.foreach.User.total} {$nicht_aktivierte}</th></tr>
+<tr><td colspan="8">{$insgesamt} {$smarty.foreach.User.total} {$nicht_aktivierte}</td></tr>
 </table>
 {include file="adm/overall_footer.tpl"}

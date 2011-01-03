@@ -3,9 +3,9 @@
 {include file="adm/overall_header.tpl"}
 <table width="55%">
 <tr>
-	<td class="c" colspan="7">{$ad_authlevel_title}</td>
+	<th colspan="7">{$ad_authlevel_title}</th>
 </tr><tr>
-	<th colspan="2">
+	<td colspan="2">
 	<select name="id_1" size="20" style="width:80%;">
 		{$UserList}
 	</select>
@@ -51,18 +51,18 @@
 	<A HREF="javascript:UserList.set('^Z')" TITLE="{$bo_select_title} Z">Z</A>
 
 	<BR>
-	<INPUT NAME="regexp" onKeyUp="UserList.set(this.value)">
-	<INPUT TYPE="button" onClick="UserList.set(this.form.regexp.value)" value="{$button_filter}">
-	<INPUT TYPE="button" onClick="UserList.reset();this.form.regexp.value=''" value="{$button_deselect}">
-	</th>
+	<INPUT NAME="regexp" onKeyUp="UserList.set(tdis.value)">
+	<INPUT TYPE="button" onClick="UserList.set(tdis.form.regexp.value)" value="{$button_filter}">
+	<INPUT TYPE="button" onClick="UserList.reset();tdis.form.regexp.value=''" value="{$button_deselect}">
+	</td>
 </tr><tr>
-	<th>{$ad_authlevel_insert_id}</th>
-	<th><input name="id_2" type="text" size="5"></th>
+	<td>{$ad_authlevel_insert_id}</td>
+	<td><input name="id_2" type="text" size="5"></td>
 </tr><tr>
-	<th>{$ad_authlevel_auth}</th>
-	<th>{html_options name=authlevel options=$Selector}</th>
+	<td>{$ad_authlevel_autd}</td>
+	<td>{html_options name=authlevel options=$Selector}</td>
 </tr><tr>
-	<th colspan="3"><input type="submit" value="{$button_submit}"></th>
+	<td colspan="3"><input type="submit" value="{$button_submit}"></td>
 </tr>
 </table>
 {include file="adm/overall_footer.tpl"}

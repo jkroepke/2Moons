@@ -3,7 +3,7 @@
 <html lang="de">
 <head>
 <link rel="stylesheet" type="text/css" href="./styles/css/ingame.css">
-<link rel="stylesheet" type="text/css" href="./styles/skins/darkness/formate.css">
+<link rel="stylesheet" type="text/css" href="./styles/skins/gow/formate.css">
 <link rel="stylesheet" type="text/css" href="./styles/css/admin.css">
 <link rel="icon" href="./favicon.ico">
 <title>{$title}</title>

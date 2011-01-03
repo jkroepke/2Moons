@@ -2,9 +2,9 @@
 <form action="" method="post" name="users">
 <table width="55%">
 <tr>
-	<td class="c" colspan="7">{$ad_authlevel_title}</td>
+	<th colspan="7">{$ad_authlevel_title}</th>
 </tr><tr>
-	<th colspan="2">
+	<td colspan="2">
 	<select name="id_1" size="20" style="width:80%;">
 		{$UserList}
 	</select>
@@ -47,12 +47,12 @@
 	<a href="javascript:UserList.set('^Z')" title="{$bo_select_title} Z">Z</a>
 
 	<BR>
-	<INPUT NAME="regexp" onKeyUp="UserList.set(this.value)">
-	<INPUT TYPE="button" onClick="UserList.set(this.form.regexp.value)" value="{$button_filter}">
-	<INPUT TYPE="button" onClick="UserList.reset();this.form.regexp.value=''" value="{$button_deselect}">
-	</th>
+	<INPUT NAME="regexp" onKeyUp="UserList.set(tdis.value)">
+	<INPUT TYPE="button" onClick="UserList.set(tdis.form.regexp.value)" value="{$button_filter}">
+	<INPUT TYPE="button" onClick="UserList.reset();tdis.form.regexp.value=''" value="{$button_deselect}">
+	</td>
 </tr>
-	<th colspan="3"><input type="submit" value="{$button_submit}"></th>
+	<td colspan="3"><input type="submit" value="{$button_submit}"></td>
 </tr>
 </table>
 {include file="adm/overall_footer.tpl"}

@@ -1,30 +1,30 @@
 {include file="adm/overall_header.tpl"}
 <form action="" method="post">
 <table width="45%">
-<tr><td class="c" colspan="2">{$new_title}</td></tr>
-<tr><th>{$user_reg}</th><th><input type="text" name="name"></th></tr>
-<tr><th>{$pass_reg}</th><th><input type="password" name="password"></th></tr>
-<tr><th>{$pass2_reg}</th><th><input type="password" name="password2"></th></tr>
-<tr><th>{$email_reg}</th><th><input type="text" name="email"></th></tr>
-<tr><th>{$email2_reg}</th><th><input type="text" name="email2"></th></tr>
-{if $admin_auth == 3}
-<tr><th>{$universe}</th><th>
+<tr><th colspan="2">{$new_title}</th></tr>
+<tr><td>{$user_reg}</td><td><input type="text" name="name"></td></tr>
+<tr><td>{$pass_reg}</td><td><input type="password" name="password"></td></tr>
+<tr><td>{$pass2_reg}</td><td><input type="password" name="password2"></td></tr>
+<tr><td>{$email_reg}</td><td><input type="text" name="email"></td></tr>
+<tr><td>{$email2_reg}</td><td><input type="text" name="email2"></td></tr>
+{if $admin_autd == 3}
+<tr><td>{$universe}</td><td>
 <select name="uni">
 {foreach $AvailableUnis as $ID => $Universe}<option value="{$ID}">{$Universe.game_name}</option>{/foreach}
 </select>
-</th></tr>
+</td></tr>
 {/if}
-<tr><th>{$new_coord}</th><th>
-<input type="text" name="galaxy" size="1" maxlength="1"> :
-<input type="text" name="system" size="3" maxlength="3"> :
-<input type="text" name="planet" size="2" maxlength="2"></th></tr>
-<tr><th>{$new_range}</th>
-<th>{html_options name=authlevel options=$Selector.auth}</th></tr>
-<tr><th>{$lang}</th>
-<th>{html_options name=lang options=$Selector.lang}</th></tr>
-<tr><th colspan="2"><input type="submit" value="{$new_add_user}"></th></tr>
+<tr><td>{$new_coord}</td><td>
+<input type="text" name="galaxy" size="1" maxlengtd="1"> :
+<input type="text" name="system" size="3" maxlengtd="3"> :
+<input type="text" name="planet" size="2" maxlengtd="2"></td></tr>
+<tr><td>{$new_range}</td>
+<td>{html_options name=authlevel options=$Selector.autd}</td></tr>
+<tr><td>{$lang}</td>
+<td>{html_options name=lang options=$Selector.lang}</td></tr>
+<tr><td colspan="2"><input type="submit" value="{$new_add_user}"></td></tr>
 <tr>
-   <th colspan="2" style="text-align:left;"><a href="?page=create">{$new_creator_go_back}</a>&nbsp;<a href="?page=create&amp;mode=user">{$new_creator_refresh}</a></th>
+   <td colspan="2" style="text-align:left;"><a href="?page=create">{$new_creator_go_back}</a>&nbsp;<a href="?page=create&amp;mode=user">{$new_creator_refresh}</a></td>
 </tr>
 </table>
 </form>

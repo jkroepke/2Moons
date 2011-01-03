@@ -2,35 +2,35 @@
 <form action="" method="post">
 <table width="50%">
 <tr>
-<th colspan="3" align="left"><a href="?page=accounteditor">
-<img src="./styles/images/Adm/arrowright.png" width="16" height="10"> {$ad_back_to_menu}</a></th>
+<td colspan="3" align="left"><a href="?page=accounteditor">
+<img src="./styles/images/Adm/arrowright.png" width="16" height="10"> {$ad_back_to_menu}</a></td>
 </tr><tr>
-	<td class="c" colspan="2">{$resources_title}</td>
+	<th colspan="2">{$resources_title}</th>
 </tr><tr>
-	<th>{$input_id_p_m}</th>
-	<th><input name="id" type="text" value="0" size="3"></th>
+	<td>{$input_id_p_m}</td>
+	<td><input name="id" type="text" value="0" size="3"></td>
 </tr><tr>
-	<th>{$Metal}</th>
-	<th><input name="metal" type="text" value="0"></th>
+	<td>{$Metal}</td>
+	<td><input name="metal" type="text" value="0"></td>
 </tr><tr>
-	<th>{$Crystal}</th>
-	<th><input name="cristal" type="text" value="0"></th>
+	<td>{$Crystal}</td>
+	<td><input name="cristal" type="text" value="0"></td>
 </tr><tr>
-	<th>{$Deuterium}</th>
-	<th><input name="deut" type="text" value="0"></th>
+	<td>{$Deuterium}</td>
+	<td><input name="deut" type="text" value="0"></td>
 </tr><tr>
-	<td class="c" colspan="2">{$Darkmatter}</td>
+	<th colspan="2">{$Darkmatter}</th>
 </tr><tr>
-	<th>{$input_id_user}</th>
-	<th><input name="id_dark" type="text" value="0" size="3"></th>
+	<td>{$input_id_user}</td>
+	<td><input name="id_dark" type="text" value="0" size="3"></td>
 </tr><tr>
-	<th>{$Darkmatter}</th>
-	<th><input name="dark" type="text" value="0"></th>
+	<td>{$Darkmatter}</td>
+	<td><input name="dark" type="text" value="0"></td>
 </tr><tr>
-	<th colspan="2">
+	<td colspan="2">
 	<input type="reset" value="{$button_reset}"><br><br>
 	<input type="Submit" value="{$button_add}" name="add">&nbsp;
-	<input type="Submit" value="{$button_delete}" name="delete"></th>
+	<input type="Submit" value="{$button_delete}" name="delete"></td>
 </tr>
 </table>
 </form>

@@ -9,91 +9,91 @@ animatedcollapse.init()
 <form action="" method="POST">
 <table width="90%">
 <tr>
-<td>
+<td class="transparent left">
 <input type="checkbox" {$minimize} name="minimize"><input type="submit" value="{$se_contrac}" class="button">
-<img src="./styles/images/Adm/GO.png" onClick="javascript:animatedcollapse.toggle('search')" style="cursor:pointer;padding-right:60px;" onMouseOver='return overlib("{$ac_minimize_maximize}", CENTER, OFFSETX, 120, OFFSETY, 5, WIDTH, 200);' onMouseOut='return nd();'>
+<img src="./styles/images/Adm/GO.png" onClick="javascript:animatedcollapse.toggle('search')" style="cursor:pointer;padding-right:60px;" onMouseOver='return overlib("{$ac_minimize_maximize}", CENTER, OFFSETX, 120, OFFSETY, 5, width, 200);' onMouseOut='return nd();'>
 </td>
 </tr>
 </table>
 <div id="search"{$diisplaay}>
 <table width="90%">
 	<tr>
-		<td class="c" colspan="8">
+		<th colspan="8">
 			{$se_search_title}
 		</td>
 	</tr>
 	<tr>
-		<th>
+		<td>
 			{$se_intro}
-		</th>
-		<th>
+		</td>
+		<td>
 			{$se_type_typee}
-		</th>
-		<th>
+		</td>
+		<td>
 			{$se_search_in}
-		</th>
-		<th>
+		</td>
+		<td>
 			{$se_filter_title}
-		</th>
-		<th>
+		</td>
+		<td>
 			{$se_limit}
-		</th>
-		<th>
+		</td>
+		<td>
 			{$se_asc_desc}
-		</th>
+		</td>
 		{if $OrderBYParse}
-		<th>
+		<td>
 			{$se_search_order}
-		</th>
+		</td>
 		{/if}
-		<th>
+		<td>
 			&nbsp;
-		</th>
+		</td>
 	</tr>
 <tr>
-	<th>
+	<td>
 		<input type="text" name="key_user" value="{$search}">
-	</th>
-	<th>
+	</td>
+	<td>
 		{html_options name=search options=$Selector.list selected=$SearchFile}
-	</th>
-	<th>
+	</td>
+	<td>
 		{html_options name=search_in options=$Selector.search selected=$SearchFor}
-	</th>
-	<th>
-		{html_options name=fucki options=$Selector.filter selected=$SearchMethod}
-	</th>
-	<th>
+	</td>
+	<td>
+		{html_options name=fucki options=$Selector.filter selected=$Searchmethod}
+	</td>
+	<td>
 		{html_options name=limit options=$Selector.limit selected=$limit}
-	</th>
-	<th>
+	</td>
+	<td>
 		{html_options name=key_acc options=$Selector.order selected=$OrderBY}
-	</th>
+	</td>
 	{if $OrderBYParse}
-	<th>
+	<td>
 		{html_options name=key_order options=$OrderBYParse selected=$Order}
-	</th>
+	</td>
 	{/if}
-	<th>
+	<td>
 		<input type="submit" value="{$se_search}">
-	</th>
+	</td>
 </tr>
 {if !empty($error)}
 <tr>
-	<th colspan="8">
+	<td colspan="8">
 		<span style="color:red">{$error}</span>
-	</th>
+	</td>
 </tr>
 {/if}
 </table>
 </div>
 <br>
-<table width="90%" border="0px" style="background:url(../styles/images/Adm/blank.gif);">
+<table width="90%" border="0px">
 {$PAGES}
 </table>
 {$LIST}
 <br>
-<table width="90%" border="0px" style="background:url(../styles/images/Adm/blank.gif);">
+<table width="90%" border="0px">
 {$PAGES}
 </table>
 </form>

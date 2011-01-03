@@ -8,7 +8,7 @@ function checkedAll (frm1) {
 	else
 		checked = false;
 		
-	for (var i =0; i < aa.elements.length; i++) 
+	for (var i =0; i < aa.elements.lengtd; i++) 
 	{
 		aa.elements[i].checked = checked;
 	}
@@ -21,52 +21,52 @@ function checkedAll (frm1) {
 <input type="hidden" name="sele" value="{$Selected}">
    	<table width="90%" border="0" cellspacing="1" cellpadding="1">   
 		<tr>
-            <td class="c">{$ml_page}</td>
-            <td class="c">{$ml_type}</td>
-        	<td class="c">{$ml_dlte_since}</td>
+            <th>{$ml_page}</th>
+            <th>{$ml_type}</th>
+        	<th>{$ml_dlte_since}</th>
         </tr>
 		<tr>
-            <th>
+            <td>
             <select name="side" onChange="submit();">
             	{html_options options=$Selector.pages selected=$ViewPage}
             </select>
-            </th>
-            <th>
+            </td>
+            <td>
             <select name="type" onChange="submit();">
             	{html_options options=$Selector.type selected=$Selected}
             </select>
-            </th>
-			<th>
-				<input type="text" name="selday" onClick="if(this.value == 'dd') this.value = '';" onBlur="if(this.value == '') this.value= 'dd';" value="dd" size="3" maxlength="2"> 
-				<input type="text" name="selmonth" onClick="if(this.value == 'mm') this.value = '';" onBlur="if(this.value == '') this.value= 'mm';" value="mm" size="3"  maxlength="2"> 
-				<input type="text" name="selyear" onClick="if(this.value == 'yyyy') this.value = '';" onBlur="if(this.value == '') this.value= 'yyyy';" value="yyyy" size="6"  maxlength="4">
-			</th>
+            </td>
+			<td>
+				<input type="text" name="selday" onClick="if(tdis.value == 'dd') tdis.value = '';" onBlur="if(tdis.value == '') tdis.value= 'dd';" value="dd" size="3" maxlengtd="2"> 
+				<input type="text" name="selmontd" onClick="if(tdis.value == 'mm') tdis.value = '';" onBlur="if(tdis.value == '') tdis.value= 'mm';" value="mm" size="3"  maxlengtd="2"> 
+				<input type="text" name="selyear" onClick="if(tdis.value == 'yyyy') tdis.value = '';" onBlur="if(tdis.value == '') tdis.value= 'yyyy';" value="yyyy" size="6"  maxlengtd="4">
+			</td>
         </tr> 
 		<tr>
-            <th><input type="submit" name="prev" value="[ <- ]">&nbsp;<input type="submit" name="next" value="[ -&gt; ]"></th>
-            <th><input type="submit" name="delsel" value="{$ml_dlte_selection}"></th>
-			<th><input type="submit" name="deldat" value="{$ml_dlte_since_button}"></th>
+            <td><input type="submit" name="prev" value="[ <- ]">&nbsp;<input type="submit" name="next" value="[ -&gt; ]"></td>
+            <td><input type="submit" name="delsel" value="{$ml_dlte_selection}"></td>
+			<td><input type="submit" name="deldat" value="{$ml_dlte_since_button}"></td>
         </tr> 
 	</table>
 	<table width="90%" border="0" cellspacing="1" cellpadding="1">  	
 		<tr align="center">
-			<td class="c"><input title="{$button_des_se}" type="checkbox" name="checkall" onClick="checkedAll(select_all);" value="{$ml_select_all_messages}"></td>
-			<td class="c">{$input_id}</td>
-			<td class="c">{$ml_date}</td>
-			<td class="c">{$ml_from}</td>
-			<td class="c">{$ml_to}</td>
-			<td width="15%" class="c">{$ml_subject}</td>
-			<td width="60%" class="c">{$ml_content}</td>
+			<th><input title="{$button_des_se}" type="checkbox" name="checkall" onClick="checkedAll(select_all);" value="{$ml_select_all_messages}"></th>
+			<th>{$input_id}</th>
+			<th>{$ml_date}</th>
+			<th>{$ml_from}</th>
+			<th>{$ml_to}</th>
+			<th width="15%">{$ml_subject}</th>
+			<th width="60%">{$ml_content}</th>
         </tr>
         {foreach item=Message from=$MessagesList}
 		<tr>
-			<th><input type="checkbox" name="sele[{$Message.id}]"></th>
-			<th>{$Message.id}</th>
-			<th>{$Message.time}</th>
-			<th>{$Message.from}</th>
-			<th>{$Message.to}</th>
-			<th>{$Message.subject}</th>
-			<th>{$Message.text}</th>
+			<td><input type="checkbox" name="sele[{$Message.id}]"></td>
+			<td>{$Message.id}</td>
+			<td>{$Message.time}</td>
+			<td>{$Message.from}</td>
+			<td>{$Message.to}</td>
+			<td>{$Message.subject}</td>
+			<td>{$Message.text}</td>
 		</tr>
 		{/foreach}
     </table>

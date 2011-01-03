@@ -2,7 +2,7 @@
 <center>
 <table width="60%">
     <tr>
-                <th>{$info_information}
+                <td>{$info_information}
                         <textarea rows="15">Server Infos: {$info}
 PHP-Version: {$vPHP}
 PHP API: {$vAPI}
@@ -12,14 +12,14 @@ Game Version: 2Moons {$vGame}
 Game Addresse: http://{$root}/
 Game Pfad: http://{$gameroot}/index.php
 JSON Verfügbar: {$json}
-BCMath Verfügbar: {$bcmath}
+BCMatd Verfügbar: {$bcmatd}
 Browser: {$browser}
 Problem besteht seit Installation:
 Verwendeter Editor:
 Screenshot:
 Problembeschreibung:
                         </textarea>
-                </th>
+                </td>
     </tr>
 </table>
 </center>

@@ -330,24 +330,24 @@ function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialS
 		$Search['LIST']	.=	"<tr>";
 	
 		for ($i = 0; $i < $CountArray; $i++)
-			$Search['LIST']	.=	"<td class=c>".$NameLang[$i]."</td>";
+			$Search['LIST']	.=	"<th>".$NameLang[$i]."</th>";
 	
 		if ($Table == "users") 
 		{
 			if ($USER['rights']['ShowAccountDataPage'] == 1)
-				$Search['LIST']	.=	"<td class=c>".$LNG['se_search_info']."</td>";
+				$Search['LIST']	.=	"<th>".$LNG['se_search_info']."</th>";
 
 			if ($USER['authlevel'] == AUTH_ADM)
-				$Search['LIST']	.=	"<td class=c>".$LNG['button_delete']."</td>";
+				$Search['LIST']	.=	"<th>".$LNG['button_delete']."</th>";
 		}
 		
 		if ($Table == "planets")
 		{				
 			if ($USER['rights']['ShowQuickEditorPage'] == 1)
-				$Search['LIST']	.=	"<td class=c>".$LNG['se_search_edit']."</td>";
+				$Search['LIST']	.=	"<th>".$LNG['se_search_edit']."</th>";
 				
 			if ($USER['authlevel'] == AUTH_ADM)
-				$Search['LIST']	.=	"<td class=c>".$LNG['button_delete']."</td>";
+				$Search['LIST']	.=	"<th>".$LNG['button_delete']."</th>";
 		}
 
 		
@@ -383,13 +383,13 @@ function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialS
 				$WhileResult[7]	= 	$WhileResult[7] > 0 ? "<font color=lime>".$LNG['one_is_yes'][1]."</font>" : $LNG['one_is_yes'][0];
 			}
 			for ($i = 0; $i < $CountArray; $i++)
-				$Search['LIST']	.=	"<th>".$WhileResult[$i]."</th>";
+				$Search['LIST']	.=	"<td>".$WhileResult[$i]."</td>";
 		
 		
 			if ($Table == "users")
 			{
 				if ($USER['rights']['ShowAccountDataPage'] == 1)
-					$Search['LIST']	.=	"<th><a href=\"?page=accountdata&amp;id_u=".$WhileResult[0]."\"><img title=\"".$WhileResult[1]."\" src=\"./styles/images/Adm/GO.png\"></a></th>";
+					$Search['LIST']	.=	"<td><a href=\"?page=accountdata&amp;id_u=".$WhileResult[0]."\"><img title=\"".$WhileResult[1]."\" src=\"./styles/images/Adm/GO.png\"></a></d>";
 			
 				if ($USER['authlevel']	==	'3')
 				{
@@ -398,23 +398,23 @@ function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialS
 					else
 						$DELETEBUTTON	=	"-";
 					
-					$Search['LIST']	.=	"<th>".$DELETEBUTTON."</th>";
+					$Search['LIST']	.=	"<td>".$DELETEBUTTON."</td>";
 				}
 			}
 		
 			if ($Table == "planets"){
 			
 				if ($USER['rights']['ShowQuickEditorPage'] == 1)
-					$Search['LIST']	.=	"<th><a href=\"javascript:openEdit('".$WhileResult[0]."', 'planet');\" border=\"0\"><img src=\"./styles/images/Adm/GO.png\" title=".$LNG['se_search_edit']."></a></th>";
+					$Search['LIST']	.=	"<td><a href=\"javascript:openEdit('".$WhileResult[0]."', 'planet');\" border=\"0\"><img src=\"./styles/images/Adm/GO.png\" title=".$LNG['se_search_edit']."></a></td>";
 					
 				if ($USER['authlevel'] == '3')
-					$Search['LIST']	.=	"<th><a href=\"?page=search&amp;delete=planet&planet=".$WhileResult[0]."\" border=\"0\" onclick=\"return confirm('".$LNG['se_confirm_planet']." ".$WhileResult[1]."');\"><img src=\"./styles/images/r1.png\" title=".$LNG['button_delete']."></a></th>";
+					$Search['LIST']	.=	"<td><a href=\"?page=search&amp;delete=planet&planet=".$WhileResult[0]."\" border=\"0\" onclick=\"return confirm('".$LNG['se_confirm_planet']." ".$WhileResult[1]."');\"><img src=\"./styles/images/r1.png\" title=".$LNG['button_delete']."></a></td>";
 			}
 			
 			$Search['LIST']	.=	"</tr>";
 		}
 		
-		$Search['LIST']	.=	"<tr><th colspan=20>".$LNG['se_input_hay']."<font color=lime>".$CountQuery['total']."</font>".$SName."</th></tr>";
+		$Search['LIST']	.=	"<tr><td colspan=20>".$LNG['se_input_hay']."<font color=lime>".$CountQuery['total']."</font>".$SName."</td></tr>";
 		$Search['LIST']	.=	"</table>";
 	
 	
@@ -425,7 +425,7 @@ function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialS
 	else
 	{
 		$Result['LIST']	 =	"<br><table border='0px' style='background:url(images/Adm/blank.gif);' width='90%'>";
-		$Result['LIST']	.=	"<tr><th style='color:#00CC33;border: 2px red solid;' height='25px'><font color=red>".$LNG['se_no_data']."</font></th></tr>";
+		$Result['LIST']	.=	"<tr><td style='color:#00CC33;border: 2px red solid;' height='25px'><font color=red>".$LNG['se_no_data']."</font></td></tr>";
 		$Result['LIST']	.=	"</table>";
 		return $Result;
 	}

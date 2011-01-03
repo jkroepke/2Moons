@@ -1,34 +1,34 @@
 {include file="adm/overall_header.tpl"}
 <table width="842px">
 	<tr>
-		<td colspan="5" class="c" width="500"><center>{$supp_header}</center></td>
+		<th colspan="5" width="500">{$supp_header}</th>
 	</tr>
 	<tr>
-		<td class="c" width="10%"><center>{$ticket_id}</center></td>
-		<td class="c" width="10%"><center>{$player}</center></td>
-		<td class="c" width="40%"><center>{$subject}</center></td>
-		<td class="c" width="15%"><center>{$status}</center></td>
-		<td class="c" width="25%"><center>{$ticket_posted}</center></td>
+		<th width="10%">{$ticket_id}</th>
+		<th width="10%">{$player}</th>
+		<th width="40%">{$subject}</th>
+		<th width="15%">{$status}</th>
+		<th width="25%">{$ticket_posted}</th>
 	</tr>	
 	{foreach item=Ticket from=$tickets.open}
-	<tr><th>{$Ticket.id}</th><th>{$Ticket.username}</th><th><a href="?page=support&amp;action=detail&amp;id={$Ticket.id}">{$Ticket.subject}</a></th><th>{$Ticket.status}</th><th>{$Ticket.date}</th></tr>
+	<tr><td>{$Ticket.id}</td><td>{$Ticket.username}</td><td><a href="?page=support&amp;action=detail&amp;id={$Ticket.id}">{$Ticket.subject}</a></td><td>{$Ticket.status}</td><td>{$Ticket.date}</td></tr>
 	{/foreach}
 </table>
 {if !empty($tickets.closed)}
 <br><br>
 <table width="842px">
 	<tr>
-		<td colspan="5" class="c" width="500"><center>{$supp_header_g}</center></td>
+		<th colspan="5" width="500">{$supp_header_g}</th>
 	</tr>
 	<tr>
-		<td class="c" width="10%"><center>{$ticket_id}</center></td>
-		<td class="c" width="10%"><center>{$player}</center></td>
-		<td class="c" width="40%"><center>{$subject}</center></td>
-		<td class="c" width="15%"><center>{$status}</center></td>
-		<td class="c" width="25%"><center>{$ticket_posted}</center></td>
+		<th width="10%">{$ticket_id}</th>
+		<th width="10%">{$player}</th>
+		<th width="40%">{$subject}</th>
+		<th width="15%">{$status}</th>
+		<th width="25%">{$ticket_posted}</th>
 	</tr>
 	{foreach item=Ticket from=$tickets.closed}
-	<tr><th>{$Ticket.id}</th><th>{$Ticket.username}</th><th><a href="?page=support&amp;action=detail&amp;id={$Ticket.id}">{$Ticket.subject}</a></th><th>{$Ticket.status}</th><th>{$Ticket.date}</th></tr>
+	<tr><td>{$Ticket.id}</td><td>{$Ticket.username}</td><td><a href="?page=support&amp;action=detail&amp;id={$Ticket.id}">{$Ticket.subject}</a></td><td>{$Ticket.status}</td><td>{$Ticket.date}</td></tr>
 	{/foreach}
 </table>
 {/if}
@@ -36,33 +36,33 @@
 <br><br>
 <table width="842px">
 	<tr>
-		<td class="c" width="10%">{$ticket_id}</td>
-		<td class="c" width="10%">{$player}</td>
-		<td class="c" width="40%">{$subject}</td>
-		<td class="c" width="15%">{$status}</td>
-		<td class="c" width="25%">{$ticket_posted}</td>
+		<th width="10%">{$ticket_id}</th>
+		<th width="10%">{$player}</th>
+		<th width="40%">{$subject}</th>
+		<th width="15%">{$status}</th>
+		<th width="25%">{$ticket_posted}</th>
 	</tr>
 	<tr>
-		<th>{$t_id}</th>
-		<th>{$t_username}</th>
-		<th>{$t_subject}</a></th>
-		<th>{$t_statustext}</th>
-		<th>{$t_date}</th></tr>
+		<td>{$t_id}</td>
+		<td>{$t_username}</td>
+		<td>{$t_subject}</a></td>
+		<td>{$t_statustext}</td>
+		<td>{$t_date}</td></tr>
 </table>
 
 
 <table width="842px">
 	<tr>
-		<td class="c">{$text}</td>
+		<th>{$text}</td>
 	</tr>
 	<tr>
-		<th>{$t_text}</th>
+		<td>{$t_text}</td>
 	</tr>
 	<tr>
-		<td class="c">{$answer_new}</td>
+		<th>{$answer_new}</td>
 	</tr>
 	<tr>
-		<th>
+		<td>
 			<form action="?page=support&amp;action=send&amp;id={$t_id}" method="POST">
 			<textarea cols="70" rows="10" name="text"></textarea>
 			<br><input type="submit" value="{$button_submit}">
@@ -74,7 +74,7 @@
 			<form action="?page=support&amp;action=open&amp;id={$t_id}" method="POST">
 			<input type="submit" value="{$open_ticket}"></form>
 			{/if}
-		</th>
+		</td>
 	</tr>
 </table>
 
