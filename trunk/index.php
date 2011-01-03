@@ -69,6 +69,7 @@ switch ($page) {
 			if ($login['banaday'] <= time () && $login['banaday'] != '0') {
 				$db->query("UPDATE " . USERS . " SET `banaday` = '0', `bana` = '0' WHERE `id` = '".$login['id']."' AND `universe` = '".$UNI."';");
 			}
+			session_start();
 			$SESSION       	= new Session();
 			$SESSION->CreateSession($login['id'], $login['username'], $login['id_planet'], $UNI, $login['authlevel'], $login['dpath']);
 			
