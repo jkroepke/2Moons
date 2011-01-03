@@ -181,7 +181,7 @@
 	<td>&nbsp;</td>
 </tr><tr>
 	<td>{$se_ftp_dir}</td>
-	<td><input name="ftp_root_patd" size="20" value="{$ftp_root_patd}" type="text" autocomplete="off"></td>
+	<td><input name="ftp_root_path" size="20" value="{$ftp_root_path}" type="text" autocomplete="off"></td>
 	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_ftp_dir_info}", CENTER, OFFSETX, -150, OFFSETY, -20, width, 250);' onMouseOut='return nd();'></td>
 </tr><tr>
 	<th colspan="2">{$se_google}</th><th>&nbsp;</th>
