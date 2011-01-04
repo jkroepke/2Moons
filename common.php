@@ -136,7 +136,6 @@ if (INSTALL != true)
 			redirectTo('index.php');		
 		}
 		
-		$_SESSION['USER']	= $USER;
 		if (!defined('IN_ADMIN'))
 		{
 			require_once(ROOT_PATH . 'includes/classes/class.PlanetRessUpdate.'.PHP_EXT);
@@ -149,7 +148,6 @@ if (INSTALL != true)
 					throw new Exception("Main Planet does not exist!");
 				}
 			}
-			$_SESSION['PLANET']	= $PLANET;
 		} else {
 			$USER['rights']	= unserialize($USER['rights']);
 			$LANG->includeLang(array('ADMIN'));

@@ -134,7 +134,7 @@ switch($action)
 			else
 			{
 				if($_SESSION['PLANET']['planet_type'] == 1) {
-					$db->multi_query("UPDATE ".PLANETS." SET `destruyed` = '".(TIMESTAMP+ 86400)."' WHERE `id` = '".$_SESSION['planet']."';DELETE FROM ".PLANETS." WHERE `id` = '".$_SESSION['USER']['id_luna']."';");
+					$db->multi_query("UPDATE ".PLANETS." SET `destruyed` = '".(TIMESTAMP+ 86400)."' WHERE `id` = '".$_SESSION['planet']."';DELETE FROM ".PLANETS." WHERE `id` = '".$_SESSION['PLANET']['id_luna']."';");
 				} else {
 					$db->multi_query("UPDATE ".PLANETS." SET `id_luna` = '0' WHERE `id_luna` = '".$_SESSION['planet']."';DELETE FROM ".PLANETS." WHERE `id` = '".$_SESSION['planet']."';");
 				}

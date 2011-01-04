@@ -287,7 +287,7 @@ class template
 		
 	public function show($file)
 	{		
-		global $USER, $CONF, $LNG, $db;
+		global $USER, $PLANET, $CONF, $LNG, $db;
 		if(INSTALL === true) {
 			$this->install_main();			
 		} elseif(defined('IN_ADMIN')) {
@@ -295,6 +295,10 @@ class template
 		} elseif(defined('LOGIN')) {
 			$this->login_main();	
 		} else {
+			if(!defined('AJAX')) {
+				$_SESSION['USER']	= $USER;
+				$_SESSION['PLANET']	= $PLANET;
+			}
 			$this->main();
 			if($this->Popup === false)
 				$this->Menus();
@@ -304,6 +308,7 @@ class template
 			'scripts'			=> $this->jsscript,
 			'execscript'		=> implode("\n", $this->script),
 		));
+		
 		$this->display($file);
 	}
 	
