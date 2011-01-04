@@ -38,7 +38,7 @@ class ShowAlliancePage
 		return $Return;
 	}
 
-	private function ainfo($ally) 
+	private function ainfo($ally, $template) 
 	{
 		global $LNG, $db, $USER, $PLANET;
 		
@@ -46,7 +46,7 @@ class ShowAlliancePage
 		
 		if ($ally['ally_diplo'] == 1 && ($DiploInfo = $this->GetDiplo($ally['id'])) !== array())
 		{
-			$this->template->assign_vars(array(
+			$template->assign_vars(array(
 				'DiploInfo'			=> $DiploInfo,		
 				'al_diplo_level'	=> $LNG['al_diplo_level'],
 				'al_diplo'			=> $LNG['al_diplo'],
@@ -56,7 +56,7 @@ class ShowAlliancePage
 		{
 			$StatsData 					= $db->uniquequery("SELECT SUM(wons) as wons, SUM(loos) as loos, SUM(draws) as draws, SUM(kbmetal) as kbmetal, SUM(kbcrystal) as kbcrystal, SUM(lostunits) as lostunits, SUM(desunits) as desunits FROM ".USERS." WHERE ally_id='" . $ally['id'] . "';");
 
-			$this->template->assign_vars(array(
+			$template->assign_vars(array(
 				'al_Allyquote'	=> $LNG['al_Allyquote'],
 				'pl_totalfight'	=> $LNG['pl_totalfight'],
 				'pl_fightwon'	=> $LNG['pl_fightwon'],
@@ -76,7 +76,7 @@ class ShowAlliancePage
 				'dercrystal'	=> pretty_number($StatsData['kbcrystal']),
 			));
 		}
-		$this->template->assign_vars(array(
+		$template->assign_vars(array(
 			'al_ally_info_members'		=> $LNG['al_ally_info_members'],
 			'al_ally_info_name'			=> $LNG['al_ally_info_name'],
 			'al_ally_info_tag'			=> $LNG['al_ally_info_tag'],
@@ -98,7 +98,7 @@ class ShowAlliancePage
 			'ally_request'          	=> ($USER['ally_id'] == 0 && $ally['ally_request_notallow'] == 0) ? true : false,
 		));
 		
-		$this->template->show("alliance_ainfo.tpl");
+		$template->show("alliance_ainfo.tpl");
 	}
 	
 	public function __construct()
@@ -124,7 +124,7 @@ class ShowAlliancePage
 		$PlanetRess->SavePlanetToDB();
 			
 	
-		$this->template	= new template();
+		$template	= new template();
 		if ($USER['ally_id'] != 0 && $USER['ally_request'] != 0)
 		{
 			$db->query("UPDATE `".USERS."` SET `ally_id` = 0 WHERE `id` = ".$USER['id'].";");
@@ -140,7 +140,7 @@ class ShowAlliancePage
 
 						if (!$allyrow) die(redirectTo("game.".PHP_EXT."?page=alliance"));
 						
-						$this->ainfo($allyrow, $USER, $PLANET);					
+						$this->ainfo($allyrow, $USER, $PLANET, $template);					
 					break;
 					case 'make':
 						if($USER['ally_request'] == 0)
@@ -152,19 +152,19 @@ class ShowAlliancePage
 								
 								if (empty($atag))
 								{
-									$this->template->message($LNG['al_tag_required'], "?page=alliance&mode=make", 3);
+									$template->message($LNG['al_tag_required'], "?page=alliance&mode=make", 3);
 									exit;
 								}
 
 								if (empty($aname))
 								{
-									$this->template->message($LNG['al_name_required'], "?page=alliance&mode=make", 3);
+									$template->message($LNG['al_name_required'], "?page=alliance&mode=make", 3);
 									exit;
 								}
 								
 								if (!CheckName($aname) || !CheckName($atag))
 								{
-									$this->template->message((UTF8_SUPPORT) ? $LNG['al_newname_no_space'] : $LNG['al_newname_alphanum'], "?page=alliance&mode=make", 3);
+									$template->message((UTF8_SUPPORT) ? $LNG['al_newname_no_space'] : $LNG['al_newname_alphanum'], "?page=alliance&mode=make", 3);
 									exit;
 								}
 								
@@ -172,7 +172,7 @@ class ShowAlliancePage
 
 								if (isset($tagquery))
 								{
-									$this->template->message(sprintf($LNG['al_already_exists'], $aname), "?page=alliance&mode=make", 3);
+									$template->message(sprintf($LNG['al_already_exists'], $aname), "?page=alliance&mode=make", 3);
 									exit;
 								}
 								
@@ -193,15 +193,15 @@ class ShowAlliancePage
                                 `id_ally` = (SELECT `id` FROM ".ALLIANCE." WHERE ally_name = '".$db->sql_escape($aname)."')
                                 WHERE `id_owner` = '".$USER['id']."';");
 											
-								$this->template->message(sprintf($LNG['al_created'], $atag),"?page=alliance", 3);
+								$template->message(sprintf($LNG['al_created'], $atag),"?page=alliance", 3);
 							} else {
-								$this->template->assign_vars(array(
+								$template->assign_vars(array(
 									'al_make_alliance'				=> $LNG['al_make_alliance'],
 									'al_make_ally_tag_required'		=> $LNG['al_make_ally_tag_required'],
 									'al_make_ally_name_required'	=> $LNG['al_make_ally_name_required'],
 									'al_make_submit'				=> $LNG['al_make_submit'],
 								));	
-								$this->template->show("alliance_make.tpl");
+								$template->show("alliance_make.tpl");
 							}		
 						
 						} else {
@@ -228,7 +228,7 @@ class ShowAlliancePage
 									);
 								}
 							}
-							$this->template->assign_vars(array(
+							$template->assign_vars(array(
 								'searchtext'						=> $searchtext,
 								'SeachResult'						=> $SeachResult,
 								'al_find_submit'					=> $LNG['al_find_submit'],
@@ -241,7 +241,7 @@ class ShowAlliancePage
 								'al_ally_info_tag'					=> $LNG['al_ally_info_tag'],
 							));	
 							
-							$this->template->show("alliance_searchform.tpl");
+							$template->show("alliance_searchform.tpl");
 						} else {
 							redirectTo("game.".PHP_EXT."?page=alliance");
 						}
@@ -258,7 +258,7 @@ class ShowAlliancePage
 									
 							if($allyrow['ally_request_notallow'] == 1)
 							{
-								$this->template->message($LNG['al_alliance_closed']);
+								$template->message($LNG['al_alliance_closed']);
 								exit;
 							}
 							else
@@ -267,9 +267,9 @@ class ShowAlliancePage
 								{
 									$db->query("UPDATE ".USERS." SET `ally_request`='".$db->sql_escape($allyid)."', ally_request_text='" .$db->sql_escape($text). "', ally_register_time='" . TIMESTAMP . "' WHERE `id`='" . $USER['id'] . "';");
 
-									$this->template->message($LNG['al_request_confirmation_message'], "?page=alliance");
+									$template->message($LNG['al_request_confirmation_message'], "?page=alliance");
 								} else {
-									$this->template->assign_vars(array(
+									$template->assign_vars(array(
 										'allyid'					=> $allyid,
 										'al_your_request_title'		=> $LNG['al_your_request_title'],
 										'applytext'					=> (!empty($allyrow['ally_request'])) ? $allyrow['ally_request'] : $LNG['al_default_request_text'],
@@ -279,7 +279,7 @@ class ShowAlliancePage
 										'al_message'				=> $LNG['al_message'],
 									));	
 									
-									$this->template->show("alliance_applyform.tpl");
+									$template->show("alliance_applyform.tpl");
 								}
 							}
 						} else {
@@ -295,7 +295,7 @@ class ShowAlliancePage
 							if ($bcancel)
 							{
 								$db->query("UPDATE ".USERS." SET `ally_request`= 0 WHERE `id`='".$USER['id']."';");
-								$this->template->assign_vars(array(
+								$template->assign_vars(array(
 									'al_your_request_title'			=> $LNG['al_your_request_title'],
 									'button_text'					=> $LNG['al_continue'],
 									'request_text'					=> sprintf($LNG['al_request_deleted'], $allyquery['ally_tag']),
@@ -304,7 +304,7 @@ class ShowAlliancePage
 							}
 							else
 							{								
-								$this->template->assign_vars(array(
+								$template->assign_vars(array(
 									'al_your_request_title'			=> $LNG['al_your_request_title'],
 									'button_text'					=> $LNG['al_delete_request'],
 									'request_text'					=> sprintf($LNG['al_request_wait_message'], $allyquery['ally_tag']),
@@ -312,16 +312,16 @@ class ShowAlliancePage
 								));	
 							}
 
-							$this->template->show("alliance_apply_waitform.tpl");
+							$template->show("alliance_apply_waitform.tpl");
 						}
 						else
 						{
-							$this->template->assign_vars(array(
+							$template->assign_vars(array(
 								'al_alliance_search'			=> $LNG['al_alliance_search'],
 								'al_alliance_make'				=> $LNG['al_alliance_make'],
 								'al_alliance'					=> $LNG['al_alliance'],
 							));	
-							$this->template->show("alliance_defaultmenu.tpl");
+							$template->show("alliance_defaultmenu.tpl");
 						}
 					break;
 				}
@@ -352,18 +352,18 @@ class ShowAlliancePage
 
 						if (!$allyrow) redirectTo("game.".PHP_EXT."?page=alliance");
 						
-						$this->ainfo($allyrow, $USER, $PLANET);	
+						$this->ainfo($allyrow, $USER, $PLANET, $template);	
 					break;
 					case 'exit':
 						if ($ally['ally_owner'] == $USER['id'])
-							$this->template->message($LNG['al_founder_cant_leave_alliance'], "?page=alliance", 3);
+							$template->message($LNG['al_founder_cant_leave_alliance'], "?page=alliance", 3);
 						elseif ($action = "send")
 						{
 							$db->multi_query("UPDATE ".USERS." SET `ally_id` = 0, `ally_name` = '', ally_rank_id = 0 WHERE `id`='".$USER['id']."';UPDATE ".ALLIANCE." SET `ally_members` = `ally_members` - 1 WHERE `id`='".$ally['id']."';UPDATE ".STATPOINTS." SET `id_ally` = '0' WHERE `id_ally` = '".$ally['id']."' AND `id_owner` = '".$USER['id']."';");
-							$this->template->message(sprintf($LNG['al_leave_sucess'], $ally['ally_name']), "game.php?page=alliance", 2);
+							$template->message(sprintf($LNG['al_leave_sucess'], $ally['ally_name']), "game.php?page=alliance", 2);
 						}
 						else
-							$this->template->message(sprintf($LNG['al_do_you_really_want_to_go_out'], $ally['ally_name'])."<br><a href=\"?page=alliance&amp;mode=exit&amp;action=send\">".$LNG['al_go_out_yes']."</a>");
+							$template->message(sprintf($LNG['al_do_you_really_want_to_go_out'], $ally['ally_name'])."<br><a href=\"?page=alliance&amp;mode=exit&amp;action=send\">".$LNG['al_go_out_yes']."</a>");
 					break;
 					case 'memberslist':
 						if (!$USER['rights']['memberlist'])
@@ -429,7 +429,7 @@ class ShowAlliancePage
 						if (count($Memberlist) != $ally['ally_members'])
 							$db->query("UPDATE ".ALLIANCE." SET `ally_members`='".count($Memberlist)."' WHERE `id`='".$ally['id']."';");				
 						
-						$this->template->assign_vars(array(
+						$template->assign_vars(array(
 							'Memberlist'		=> $Memberlist,
 							'sort'				=> ($sort2 == 1) ? 2 : 1,
 							'seeonline'			=> $USER['rights']['memberlist_on'],
@@ -448,7 +448,7 @@ class ShowAlliancePage
 							'al_memberlist_min'	=> $LNG['al_memberlist_min'],
 						));
 						
-						$this->template->show("alliance_memberslist.tpl");						
+						$template->show("alliance_memberslist.tpl");						
 					break;
 					case 'circular':
 						if (!$USER['rights']['roundmail'])
@@ -456,23 +456,24 @@ class ShowAlliancePage
 
 						if ($action == "send")
 						{
-							$r 		= request_var('r', 0);
-							$text 	= makebr(request_var('text', '', true));
+							$r 			= request_var('r', 0);
+							$subject 	= request_var('subject', '', true);
+							$text 		= makebr(request_var('text', '', true));
 
 							if ($r == 0)
-								$sq = $db->query("SELECT id, username FROM ".USERS." WHERE ally_id = '".$USER['ally_id']."';");
+								$sq = $db->query("SELECT id, username FROM ".USERS." WHERE `ally_id` = '".$USER['ally_id']."';");
 							else
-								$sq = $db->query("SELECT id, username FROM ".USERS." WHERE ally_id = '".$USER['ally_id']."' AND ally_rank_id='".$r."';");
+								$sq = $db->query("SELECT id, username FROM ".USERS." WHERE `ally_id` = '".$USER['ally_id']."' AND `ally_rank_id` = '".$r."';");
 
-							$list = '';
-
+							$list 	= '';
+							$title	= $LNG['al_circular_alliance'].$ally['ally_tag'];
+							$text	= sprintf($LNG['al_circular_front_text'], $USER['username'])."<br>".$text;
+							
 							while ($u = $db->fetch_array($sq))
 							{
-								SendSimpleMessage($u['id'],$USER['id'],'',2,$LNG['al_circular_alliance'].$ally['ally_tag'],$USER['username'],$text);
-
+								SendSimpleMessage($u['id'], $USER['id'], '', 2, $title, $subject, $text);
 								$list .= "\n".$u['username'];
 							}
-
 							exit($LNG['al_circular_sended'].$list);
 						}
 
@@ -486,7 +487,7 @@ class ShowAlliancePage
 							}
 						}
 						
-						$this->template->assign_vars(array(
+						$template->assign_vars(array(
 							'RangeList'						=> $RangeList,
 							'al_circular_send_ciruclar'		=> $LNG['al_circular_send_ciruclar'],
 							'al_circular_reset'				=> $LNG['al_circular_reset'],
@@ -494,8 +495,10 @@ class ShowAlliancePage
 							'al_circular_send_submit'		=> $LNG['al_circular_send_submit'],
 							'al_characters'					=> $LNG['al_characters'],
 							'al_receiver'					=> $LNG['al_receiver'],
+							'mg_subject'					=> $LNG['mg_subject'],
+							'mg_no_subject'					=> $LNG['mg_no_subject'],
 						));	
-						$this->template->show("alliance_circular.tpl");
+						$template->show("alliance_circular.tpl");
 					break;
 					case 'admin':
 						if(!$USER['rights']['admin']) exit(redirectTo("game.".PHP_EXT."?page=alliance"));
@@ -577,7 +580,7 @@ class ShowAlliancePage
 									}
 								}
 
-								$this->template->assign_vars(array(
+								$template->assign_vars(array(
 									'AllyRanks'						=> $AllyRanks,
 									'memberlist_on'					=> $USER['rights']['memberlist_on'],
 									'memberlist'					=> $USER['rights']['memberlist'],
@@ -610,7 +613,7 @@ class ShowAlliancePage
 									'al_legend_right_hand'			=> $LNG['al_legend_right_hand'],
 								));	
 
-								$this->template->show("alliance_admin_ranks.tpl");
+								$template->show("alliance_admin_ranks.tpl");
 							break;
 							case 'members':
 								$NewRang	= request_var('newrang', '');
@@ -704,7 +707,7 @@ class ShowAlliancePage
 								if (count($Memberlist) != $ally['ally_members'])
 									$db->query("UPDATE ".ALLIANCE." SET `ally_members`='".count($Memberlist)."' WHERE `id`='".$ally['id']."';");				
 								
-								$this->template->assign_vars(array(
+								$template->assign_vars(array(
 									'Selector'			=> $Selector,
 									'Memberlist'		=> $Memberlist,
 									'sort'				=> ($sort2 == 1) ? 2 : 1,
@@ -723,7 +726,7 @@ class ShowAlliancePage
 									'al_actions'		=> $LNG['al_actions'],
 									'al_ok'				=> $LNG['al_ok'],
 								));
-								$this->template->show("alliance_admin_members.tpl");
+								$template->show("alliance_admin_members.tpl");
 							break;
 							case 'diplo':
 								if (!$USER['rights']['righthand'])
@@ -779,7 +782,7 @@ class ShowAlliancePage
 										{
 											$AllianceList[$Alliance['id']]	= $Alliance['ally_name'];
 										}
-										$this->template->assign_vars(array(
+										$template->assign_vars(array(
 											'AllianceList' 			=> $AllianceList,
 											'al_diplo_create' 		=> $LNG['al_diplo_create'],
 											'al_diplo_ally' 		=> $LNG['al_diplo_ally'],
@@ -788,7 +791,7 @@ class ShowAlliancePage
 											'al_diplo_level_des' 	=> $LNG['al_diplo_level_des'],
 											'al_applyform_send'		=> $LNG['al_applyform_send'],
 										));
-										$this->template->show("alliance_admin_diplo_form.tpl");
+										$template->show("alliance_admin_diplo_form.tpl");
 									break;
 									case 'accept':
 										if(!empty($id))
@@ -827,7 +830,7 @@ class ShowAlliancePage
 										redirectTo("game.".PHP_EXT."?page=alliance&mode=admin&edit=diplo");
 									break;
 									default:
-										$this->template->assign_vars(array(
+										$template->assign_vars(array(
 											'DiploInfo' 					=> $DiploInfo,
 											'al_diplo_create' 				=> $LNG['al_diplo_create'],
 											'al_diplo_level' 				=> $LNG['al_diplo_level'],
@@ -842,7 +845,7 @@ class ShowAlliancePage
 											'al_back'						=> $LNG['al_back'],
 											'ally_id'						=> $ally['id'],
 										));
-										$this->template->show("alliance_admin_diplo.tpl");
+										$template->show("alliance_admin_diplo.tpl");
 									break;
 								}
 							break;
@@ -882,7 +885,7 @@ class ShowAlliancePage
 									);
 								}
 								
-								$this->template->assign_vars(array(
+								$template->assign_vars(array(
 									'RequestList'			=> $RequestList,
 									'requestcount'			=> sprintf($LNG['al_no_request_pending'],count($RequestList)),
 									'al_no_requests'		=> $LNG['al_no_requests'],
@@ -897,7 +900,7 @@ class ShowAlliancePage
 									'al_decline_request'	=> $LNG['al_decline_request'],
 									'al_reply_to_request'	=> $LNG['al_reply_to_request'],
 								));	
-								$this->template->show("alliance_admin_request.tpl");
+								$template->show("alliance_admin_request.tpl");
 							break;
 							case 'tag':
 								$name = request_var('newname', '', UTF8_SUPPORT);
@@ -905,13 +908,13 @@ class ShowAlliancePage
 								if (!empty($name))
 									$db->query("UPDATE ".ALLIANCE." SET `ally_tag` = '". $db->sql_escape($name) ."' WHERE `id` = '". $USER['ally_id'] ."';");
 									
-								$this->template->assign_vars(array(
+								$template->assign_vars(array(
 									'caso'					=> $LNG['al_tag'],
 									'caso_titulo'			=> $LNG['al_new_tag'],
 									'al_change_submit'		=> $LNG['al_change_submit'],
 									'al_back'				=> $LNG['al_back'],
 								));	
-								$this->template->show("alliance_admin_rename.tpl");
+								$template->show("alliance_admin_rename.tpl");
 							break;
 							case 'name':
 								$name = request_var('newname', '', UTF8_SUPPORT);
@@ -919,13 +922,13 @@ class ShowAlliancePage
 								if (!empty($name))
 									$db->multi_query("UPDATE ".ALLIANCE." SET `ally_name` = '". $db->sql_escape($name) ."' WHERE `id` = '". $USER['ally_id'] ."';UPDATE ".USERS." SET `ally_name` = '". $db->sql_escape($name) ."' WHERE `ally_id` = '". $ally['id'] ."';");
 					
-								$this->template->assign_vars(array(
+								$template->assign_vars(array(
 									'caso'					=> $LNG['al_name'],
 									'caso_titulo'			=> $LNG['al_new_name'],
 									'al_change_submit'		=> $LNG['al_change_submit'],
 									'al_back'				=> $LNG['al_back'],
 								));	
-								$this->template->show("alliance_admin_rename.tpl");
+								$template->show("alliance_admin_rename.tpl");
 							break;
 							case 'exit':
 								if (!$USER['rights']['close'])
@@ -957,14 +960,14 @@ class ShowAlliancePage
 										}
 									}
 						
-									$this->template->assign_vars(array(
+									$template->assign_vars(array(
 										'TransferUsers'					=> $TransferUsers,
 										'al_transfer_alliance'			=> $LNG['al_transfer_alliance'],
 										'al_transfer_to'				=> $LNG['al_transfer_to'],
 										'al_back'						=> $LNG['al_back'],
 										'al_transfer_submit'			=> $LNG['al_transfer_submit'],
 									));	
-									$this->template->show("alliance_admin_transfer.tpl");
+									$template->show("alliance_admin_transfer.tpl");
 								}
 							break;
 							default:
@@ -1019,9 +1022,9 @@ class ShowAlliancePage
 									break;
 								}
 
-								$this->template->loadscript('alliance.js');
-								$this->template->execscript("$('#cntChars').text($('#text').val().length);");
-								$this->template->assign_vars(array(
+								$template->loadscript('alliance.js');
+								$template->execscript("$('#cntChars').text($('#text').val().length);");
+								$template->assign_vars(array(
 									'al_characters'				=> $LNG['al_characters'],
 									'al_manage_alliance'		=> $LNG['al_manage_alliance'],
 									'al_texts'					=> $LNG['al_texts'],
@@ -1060,7 +1063,7 @@ class ShowAlliancePage
 									'ally_stats_data'			=> $ally['ally_stats'],
 									'ally_diplo_data'			=> $ally['ally_diplo'],
 								));	
-								$this->template->show("alliance_admin.tpl");
+								$template->show("alliance_admin.tpl");
 							break;
 						}
 					break;
@@ -1075,7 +1078,7 @@ class ShowAlliancePage
 
 						$StatsData 					= $db->uniquequery("SELECT SUM(wons) as wons, SUM(loos) as loos, SUM(draws) as draws, SUM(kbmetal) as kbmetal, SUM(kbcrystal) as kbcrystal, SUM(lostunits) as lostunits, SUM(desunits) as desunits FROM ".USERS." WHERE ally_id='" . $ally['id'] . "';");
 						$Reuqests					= $db->uniquequery("SELECT COUNT(*) as state FROM ".USERS." WHERE ally_request='".$ally['id']."';");
-						$this->template->assign_vars(array(
+						$template->assign_vars(array(
 							'DiploInfo'					=> $this->GetDiplo($ally['id']),		
 							'al_diplo_level'			=> $LNG['al_diplo_level'],
 							'al_diplo'					=> $LNG['al_diplo'],
@@ -1127,7 +1130,7 @@ class ShowAlliancePage
 							'isowner'					=> ($ally['ally_owner'] != $USER['id']) ? true : false,
 							'rights'					=> $USER['rights'],
 						));
-						$this->template->show("alliance_frontpage.tpl");
+						$template->show("alliance_frontpage.tpl");
 					break;
 				}
 			break;

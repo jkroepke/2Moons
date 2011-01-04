@@ -566,6 +566,7 @@ $LNG['al_user_list']						= 'Memberliste';
 $LNG['al_users_list']						= 'Memberliste (Spieler: %d)';
 $LNG['al_manage_alliance']					= 'Allianz verwalten';
 $LNG['al_send_circular_message']			= 'Rundmail schreiben';
+$LNG['al_circular_front_text']				= 'Der Spieler %s schreibt folgendes:';
 $LNG['al_new_requests']						= '%d neue Bewerbung(en)';
 $LNG['al_goto_chat']						= 'Zum Allianz-Chat';
 $LNG['al_save']								= 'Speichern';

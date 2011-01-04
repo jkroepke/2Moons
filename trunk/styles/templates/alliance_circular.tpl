@@ -25,7 +25,10 @@ function check(){
           <td>
             {html_options name=r options=$RangeList}
           </td>
-        </tr>
+        </tr><tr>
+        <td>{$mg_subject}</td>
+        <td><input type="text" name="subject" id="subject" size="40" maxlength="40" value="{$mg_no_subject}"></td>
+		</tr>
         <tr>
           <td>{$al_message} (<span id="cntChars">0</span> / 5000 {$al_characters})</td>
           <td>
