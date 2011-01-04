@@ -1,9 +1,7 @@
 <?php
 
 // Общее
-$LNG['adm_login']                      = 'Логин';
 $LNG['adm_password']                   = 'Пароль';
-$LNG['adm_absenden']			= 'Войти';
 $LNG['adm_password_info']              = 'Введите пароль для авторизации!';
 $LNG['adm_bad_password']               = 'Неправильный пароль!';
 $LNG['404_page']                       = 'У Вас недостаточно прав';
@@ -32,7 +30,7 @@ $LNG['time_minutes']                   = 'Минут';
 $LNG['time_seconds']                   = 'Секунд';
 
 // Информация о сервере
-$LNG['info_information']               = 'Информация: сообщение об ошибках можете отправлять в <a href="http://www.xnova-reloaded.eu/index.php?page=Board&boardID=85" target="tracker">Центр поддержки</a><br>Техническая поддержка осуществляется только по этому адресу!';
+$LNG['info_information']               = 'Информация: сообщение об ошибках можете отправлять в <a href="http://2moons.cc" target="tracker">Центр поддержки</a>.<br>Техническая поддержка осуществляется только по этому адресу!';
 
 // Да или Нет
 $LNG['one_is_yes'][1]                  = 'Да';
@@ -469,6 +467,7 @@ $LNG['mu_ts_options']                  = 'Teamspeak';
 $LNG['mu_game_info']                   = 'Информация';
 $LNG['mu_vaild_users']                 = 'Активация игроков';
 $LNG['mu_news']                        = 'Новости';
+$LNG['mu_multiip']                     = 'Мультиаккаунты';
 $LNG['mu_clear_cache']				   = 'Очистить кэш';
 
 // Кэш
@@ -813,7 +812,9 @@ $LNG['ts_tcpport']                     = 'UDP порт';
 $LNG['ts_serverip']                    = 'IP сервера';
 $LNG['ts_timeout']                     = 'Задержка';
 $LNG['ts_server_query']                = 'Серверный запрос порта';
-$LNG['ts_server_id']                   = 'ID сервера';
+$LNG['ts_login']                       = 'Логин сервера';
+$LNG['ts_pass']                        = 'Пароль сервера';
+$LNG['ts_cron']                        = 'Частота обновления';
 
 // FacebookSettingPage.php
 $LNG['fb_settings']                    = 'Facebook настройки подключения';
@@ -916,7 +917,7 @@ $LNG['uvs_error']                      = 'Неверный или некорре
 
 // Страница обновления
 $LNG['up_weiter']                      = 'Далее';
-$LNG['up_agent']	                   = 'User-Agent: 2Moons Update API (Rev ';
+$LNG['up_agent']                       = 'User-Agent: 2Moons Update API (Rev ';
 $LNG['up_kein_update']                 = 'Нет доступных обновлений!';
 $LNG['up_ftp_ok']                      = 'FTP-соединение: ОК!';
 $LNG['up_ftp_error']                   = 'FTP-соединение: ОШИБКА! ';

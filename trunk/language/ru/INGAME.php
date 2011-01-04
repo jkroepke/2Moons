@@ -546,6 +546,7 @@ $LNG['al_user_list']                      = 'список членов';
 $LNG['al_users_list']                     = 'список членов (Игрок: %d)';
 $LNG['al_manage_alliance']                = 'управление альянсом';
 $LNG['al_send_circular_message']          = 'Отправить общее сообщение';
+$LNG['al_circular_front_text']            = '%s пишет:';
 $LNG['al_new_requests']                   = 'Новых заявок: %d';
 $LNG['al_goto_chat']                      = 'Чат альянса';
 $LNG['al_save']                           = 'Сохранить';
