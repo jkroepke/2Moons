@@ -1,7 +1,9 @@
 <?php
 
 // Общее
+$LNG['adm_login']                      = 'Логин';
 $LNG['adm_password']                   = 'Пароль';
+$LNG['adm_absenden']				   = 'Войти';
 $LNG['adm_password_info']              = 'Введите пароль для авторизации!';
 $LNG['adm_bad_password']               = 'Неправильный пароль!';
 $LNG['404_page']                       = 'У Вас недостаточно прав';
