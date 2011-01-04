@@ -566,6 +566,7 @@ $LNG['al_user_list']						= 'Member List';
 $LNG['al_users_list']						= 'member list (players: %d)';
 $LNG['al_manage_alliance']					= 'manage alliance';
 $LNG['al_send_circular_message']			= 'send circular message';
+$LNG['al_circular_front_text']				= 'The player %s following writes:';
 $LNG['al_new_requests']						= '%d new request/s';
 $LNG['al_goto_chat']						= 'Go to Aliance-Chat';
 $LNG['al_save']								= 'Save';
