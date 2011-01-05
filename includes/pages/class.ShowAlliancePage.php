@@ -140,7 +140,7 @@ class ShowAlliancePage
 
 						if (!$allyrow) die(redirectTo("game.".PHP_EXT."?page=alliance"));
 						
-						$this->ainfo($allyrow, $USER, $PLANET, $template);					
+						$this->ainfo($allyrow, $template);					
 					break;
 					case 'make':
 						if($USER['ally_request'] == 0)
@@ -352,7 +352,7 @@ class ShowAlliancePage
 
 						if (!$allyrow) redirectTo("game.".PHP_EXT."?page=alliance");
 						
-						$this->ainfo($allyrow, $USER, $PLANET, $template);	
+						$this->ainfo($allyrow, $template);	
 					break;
 					case 'exit':
 						if ($ally['ally_owner'] == $USER['id'])
