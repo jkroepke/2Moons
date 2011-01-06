@@ -1,5 +1,5 @@
 {include file="adm/overall_header.tpl"}
-<div id="content" class="content">
+<div id="content">
     <table style="width:519px;">
 		<tr>
             <th>{$fcm_info}</th>
