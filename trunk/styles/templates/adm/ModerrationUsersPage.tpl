@@ -51,15 +51,15 @@
 	<A HREF="javascript:UserList.set('^Z')" TITLE="{$bo_select_title} Z">Z</A>
 
 	<BR>
-	<INPUT NAME="regexp" onKeyUp="UserList.set(tdis.value)">
-	<INPUT TYPE="button" onClick="UserList.set(tdis.form.regexp.value)" value="{$button_filter}">
-	<INPUT TYPE="button" onClick="UserList.reset();tdis.form.regexp.value=''" value="{$button_deselect}">
+	<INPUT NAME="regexp" onKeyUp="UserList.set(this.value)">
+	<INPUT TYPE="button" onClick="UserList.set(this.form.regexp.value)" value="{$button_filter}">
+	<INPUT TYPE="button" onClick="UserList.reset();this.form.regexp.value=''" value="{$button_deselect}">
 	</td>
 </tr><tr>
 	<td>{$ad_authlevel_insert_id}</td>
 	<td><input name="id_2" type="text" size="5"></td>
 </tr><tr>
-	<td>{$ad_authlevel_autd}</td>
+	<td>{$ad_authlevel_auth}</td>
 	<td>{html_options name=authlevel options=$Selector}</td>
 </tr><tr>
 	<td colspan="3"><input type="submit" value="{$button_submit}"></td>
