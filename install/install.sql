@@ -144,7 +144,7 @@ CREATE TABLE IF NOT EXISTS `prefix_config`(
   `smtp_port` int(11) NOT NULL,
   `smtp_user` varchar(32) NOT NULL,
   `smtp_pass` varchar(32) NOT NULL,
-  `smtp_ssl` int(11) NOT NULL,
+  `smtp_ssl` enum('', 'ssl', 'tls') NOT NULL,
   `smtp_sendmail` varchar(32) NOT NULL,
   `user_valid` int(11) NOT NULL,
   `ftp_server` varchar(32) NOT NULL,
