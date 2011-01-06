@@ -54,7 +54,7 @@ class ShowOptionsPage
 	
 	public function __construct()
 	{
-		global $USER, $PLANET, $CONF, $LNG, $LANG, $UNI, $db;
+		global $USER, $PLANET, $CONF, $LNG, $LANG, $UNI, $db, $SESSION;
 
 		$mode 			= request_var('mode', '');
 		$exit 			= request_var('exit_modus', '');
