@@ -9,7 +9,7 @@
 	<td colspan="2"><input name="ban_name" type="text" value="{$name}" readonly="true" class="character"/></td>
 </tr><tr>
 	<td>{$bo_reason} <br><br>{$bo_characters_1}<input id="result2" value="50" size="2" readonly="true" class="character"></td> 
-	<td colspan="2"><textarea name="why" maxlengtd="50" cols="20" rows="5" onkeyup="$('#result2').val(50 - parseInt($(tdis).val().lengtd));">{$reas}</textarea></td>
+	<td colspan="2"><textarea name="why" maxlengtd="50" cols="20" rows="5" onkeyup="$('#result2').val(50 - parseInt($(this).val().lengtd));">{$reas}</textarea></td>
 </tr>
 	{$timesus}
 <tr>
@@ -93,14 +93,14 @@
 	<a href="javascript:UserList.set('^Y')" title="{$bo_select_title} Y">Y</A>
 	<a href="javascript:UserList.set('^Z')" title="{$bo_select_title} Z">Z</A>
 	<br>
-	<input NAME="regexp" onKeyUp="UserList.set(tdis.value)">
-	<input TYPE="button" onClick="UserList.set(tdis.form.regexp.value)" value="{$button_filter}">
-	<input TYPE="button" onClick="UserList.reset();tdis.form.regexp.value=''" value="{$button_deselect}">
+	<input NAME="regexp" onKeyUp="UserList.set(this.value)">
+	<input TYPE="button" onClick="UserList.set(this.form.regexp.value)" value="{$button_filter}">
+	<input TYPE="button" onClick="UserList.reset();this.form.regexp.value=''" value="{$button_deselect}">
 </td>
 </tr><tr>
 	<td colspan="2">
 	<input type="submit" value="{$button_submit}" name="panel" style="width:20%;">&nbsp;
-	<input TYPE="button" onClick="UserList.reset();tdis.form.regexp.value=''" value="{$button_reset}">
+	<input TYPE="button" onClick="UserList.reset();this.form.regexp.value=''" value="{$button_reset}">
 	</td>
 </tr><tr>
 	<td colspan="2" align="left">
@@ -160,14 +160,14 @@
 	<a href="javascript:UsersBan.set('^Z')" title="{$bo_select_title} Z">Z</A>
 
 	<br>
-	<input NAME="regexp" onKeyUp="UsersBan.set(tdis.value)">
-	<input TYPE="button" onClick="UsersBan.set(tdis.form.regexp.value)" value="{$button_filter}">
-	<input TYPE="button" onClick="UsersBan.set(tdis.form.regexp.value)" value="{$button_deselect}">
+	<input NAME="regexp" onKeyUp="UsersBan.set(this.value)">
+	<input TYPE="button" onClick="UsersBan.set(this.form.regexp.value)" value="{$button_filter}">
+	<input TYPE="button" onClick="UsersBan.set(this.form.regexp.value)" value="{$button_deselect}">
 </td>
 </tr>
 <tr>
 	<td colspan="2"><input value="{$button_submit}" type="submit" style="width:20%;">&nbsp;
-	<input TYPE="button" onClick="UsersBan.reset();tdis.form.regexp.value=''" value="{$button_reset}"></td>
+	<input TYPE="button" onClick="UsersBan.reset();this.form.regexp.value=''" value="{$button_reset}"></td>
 </tr><tr>
 	<td colspan="2" align="left">
 		{$bo_total_banneds}<span style="color:lime">{$bancount}</span>

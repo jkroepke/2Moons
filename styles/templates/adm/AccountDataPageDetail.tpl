@@ -82,7 +82,7 @@ border:0px;background:url(./styles/images/Adm/blank.gif);text-align:right;paddin
 			<tr><td height="22px">{$ac_name}</td><td>{$nombre}</td></tr>
 			<tr><td height="22px">{$ac_mail}</td><td>{$email_1}</td></tr>
 			<tr><td height="22px">{$ac_perm_mail}</td><td>{$email_2}</td></tr>
-			<tr><td height="22px">{$ac_autd_level}</td><td>{$nivel}</td></tr>
+			<tr><td height="22px">{$ac_auth_level}</td><td>{$nivel}</td></tr>
 			<tr><td height="22px">{$ac_on_vacation}</td><td>{$vacas}</td></tr>
 			<tr><td height="22px">{$ac_banned}</td><td>{$suspen} {$mas}</td></tr>
 			<tr><td height="22px">{$ac_alliance}</td><td>{$alianza}{$id_ali}</td></tr>
@@ -119,7 +119,7 @@ border:0px;background:url(./styles/images/Adm/blank.gif);text-align:right;paddin
 			<tr><td>{$ac_suspended_time}</td><td>{$sus_time}</td></tr>
 			<tr><td>{$ac_suspended_longer}</td><td>{$sus_longer}</td></tr>
 			<tr><td>{$ac_suspended_reason}</td><td>{$sus_reason}</td></tr>
-			<tr><td>{$ac_suspended_autor}</td><td>{$sus_autdor}</td></tr>
+			<tr><td>{$ac_suspended_autor}</td><td>{$sus_author}</td></tr>
 			</table>
 			<br>
 			</div>

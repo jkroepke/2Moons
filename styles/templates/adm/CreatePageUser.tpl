@@ -7,7 +7,7 @@
 <tr><td>{$pass2_reg}</td><td><input type="password" name="password2"></td></tr>
 <tr><td>{$email_reg}</td><td><input type="text" name="email"></td></tr>
 <tr><td>{$email2_reg}</td><td><input type="text" name="email2"></td></tr>
-{if $admin_autd == 3}
+{if $admin_auth == 3}
 <tr><td>{$universe}</td><td>
 <select name="uni">
 {foreach $AvailableUnis as $ID => $Universe}<option value="{$ID}">{$Universe.game_name}</option>{/foreach}
@@ -19,7 +19,7 @@
 <input type="text" name="system" size="3" maxlengtd="3"> :
 <input type="text" name="planet" size="2" maxlengtd="2"></td></tr>
 <tr><td>{$new_range}</td>
-<td>{html_options name=authlevel options=$Selector.autd}</td></tr>
+<td>{html_options name=authlevel options=$Selector.auth}</td></tr>
 <tr><td>{$lang}</td>
 <td>{html_options name=lang options=$Selector.lang}</td></tr>
 <tr><td colspan="2"><input type="submit" value="{$new_add_user}"></td></tr>

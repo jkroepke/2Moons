@@ -21,7 +21,7 @@
 	<td>{$mo_fields_avaibles}</td>
 	<td colspan="2"><input type="text" name="field_max" size="5" maxlengtd="5" value="1"></td>
 </tr>
-{if $admin_autd == 3}
+{if $admin_auth == 3}
 <tr>
 	<td>{$universum}</td>
 	<td colspan="2">

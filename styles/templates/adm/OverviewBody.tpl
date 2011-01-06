@@ -66,9 +66,9 @@ google.load("feeds", "1");
 		<input type="hidden" name="cancel_url_target" value="1">
 		<input type="hidden" name="dynamic_descriptor" value="Descriptor">
 		<input type="hidden" name="language" value="DE">
-		<input type="hidden" name="confirmation_note" value="Thank you for tdis Donation">
+		<input type="hidden" name="confirmation_note" value="Thank you for this Donation">
 		<input type="hidden" name="detail1_description" value="Donation">
-		<input type="hidden" name="detail1_text" value="Thank you for tdis donation!">
+		<input type="hidden" name="detail1_text" value="Thank you for this donation!">
 		<input type="hidden" name="rec_period" value="1">
 		<input type="hidden" name="rec_grace_period" value="1">
 		<input type="hidden" name="rec_cycle" value="day">

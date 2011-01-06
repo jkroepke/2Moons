@@ -18,7 +18,7 @@
 </tr><tr>
    <td>{$po_fields_max}</td>
    <td><input name="field_max" type="text" size="6" maxlengtd="10"></td>
-</tr>{if $admin_autd == 3}
+</tr>{if $admin_auth == 3}
 <tr>
 	<td>{$universum}</td>
 	<td colspan="2">

@@ -47,9 +47,9 @@
 	<a href="javascript:UserList.set('^Z')" title="{$bo_select_title} Z">Z</a>
 
 	<BR>
-	<INPUT NAME="regexp" onKeyUp="UserList.set(tdis.value)">
-	<INPUT TYPE="button" onClick="UserList.set(tdis.form.regexp.value)" value="{$button_filter}">
-	<INPUT TYPE="button" onClick="UserList.reset();tdis.form.regexp.value=''" value="{$button_deselect}">
+	<INPUT NAME="regexp" onKeyUp="UserList.set(this.value)">
+	<INPUT TYPE="button" onClick="UserList.set(this.form.regexp.value)" value="{$button_filter}">
+	<INPUT TYPE="button" onClick="UserList.reset();this.form.regexp.value=''" value="{$button_deselect}">
 	</td>
 </tr>
 	<td colspan="3"><input type="submit" value="{$button_submit}"></td>
