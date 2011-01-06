@@ -21,7 +21,8 @@
 
 class records
 {
-	public $File	= "cache/CacheRecords_Uni%d.php";
+	public static $File	= "cache/CacheRecords_Uni%d.php";
+	public $maxinfos	= array();
 	
 	function SetIfRecord($ID, $Count, $Data)
 	{
@@ -48,23 +49,23 @@ class records
 				$array	.= $ElementID." => array('username' => '".(isset($Records[$ElementID]['username']) ? $Records[$ElementID]['username'] : '-')."', 'maxlvl' => '".(isset($Records[$ElementID]['maxlvl']) ? $Records[$ElementID]['maxlvl'] : '-')."'),\n";
 			}
 			$file	= "<?php \n//The File is created on ".date("d. M y H:i:s", TIMESTAMP)."\n$"."RecordsArray = array(\n".$array."\n);\n?>";
-			file_put_contents(sprintf(ROOT_PATH.$this->File, $Uni), $file);
+			file_put_contents(sprintf(ROOT_PATH.self::$File, $Uni), $file);
 		}
 	}
 	
 	function RenameRecordOwner($OldName, $NewName, $Uni)
 	{
-		$Content	= file_get_contents(sprintf(ROOT_PATH.$this->File, $Uni));	
+		$Content	= file_get_contents(sprintf(ROOT_PATH.self::$File, $Uni));	
 		$Content	= str_replace("array('username' => '".$OldName."'", "array('username' => '".$NewName."'", $Content);	
-		file_put_contents(sprintf(ROOT_PATH.$this->File, $Uni), $Content);	
+		file_put_contents(sprintf(ROOT_PATH.self::$File, $Uni), $Content);	
 	}
 	
 	function GetRecords($Uni)
 	{
-		if(!file_exists(sprintf(ROOT_PATH.$this->File, $Uni)))
+		if(!file_exists(sprintf(ROOT_PATH.self::$File, $Uni)))
 			return array();
 		
-		require(sprintf(ROOT_PATH.$this->File, $Uni));
+		require(sprintf(ROOT_PATH.self::$File, $Uni));
 		return $RecordsArray;
 	}
 }
