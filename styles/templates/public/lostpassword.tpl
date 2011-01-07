@@ -8,7 +8,7 @@
 <table style="width:100%;text-align:center;padding-top:3px;" align="center">
 <tr>
 <td>{$uni_reg}</td>
-<td><select name="Uni" id="Uni" style="width: 188px;">
+<td><select name="universe" id="Uni" style="width: 188px;">
             {html_options options=$AvailableUnis selected=$UNI}
 			</select>
 </td></tr><tr><td>
