@@ -177,13 +177,7 @@ class ShowBuildingsPage
 			foreach($QueueArray as $QueueSub)
 			{
 				$QueueSubArray = explode ( ",",$QueueSub);
-				if ($QueueSubArray[0] == $Element)
-				{
-					if($QueueSubArray[4] == 'build')
-						$InArray++;
-					else
-						$InArray--;
-				}		
+				($QueueSubArray[0] == $Element) ? (($QueueSubArray[4] == 'build') ? $InArray++ : $InArray--): '';
 			}
 			$PLANET[$resource[$Element]] += $InArray;
 			$BuildTime  	= GetBuildingTime($USER, $PLANET, $Element, !$AddMode);
@@ -224,8 +218,8 @@ class ShowBuildingsPage
 	{
 		global $ProdGrid, $LNG, $resource, $reslist, $CONF, $db, $PLANET, $USER;
 
-		include_once(ROOT_PATH . 'includes/functions/IsTechnologieAccessible.' . PHP_EXT);
-		include_once(ROOT_PATH . 'includes/functions/GetElementPrice.' . PHP_EXT);
+		include_once(ROOT_PATH . 'includes/functions/IsTechnologieAccessible.php');
+		include_once(ROOT_PATH . 'includes/functions/GetElementPrice.php');
 		
 		$TheCommand  	= request_var('cmd','');
         $Element     	= request_var('building',0);
