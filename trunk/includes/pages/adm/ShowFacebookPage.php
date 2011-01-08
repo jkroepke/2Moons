@@ -25,11 +25,7 @@ function ShowFacebookPage() {
 	global $CONF, $LNG;
 	if ($_POST)
 	{
-		if (isset($_POST['fb_on']) && $_POST['fb_on'] == 'on' && !empty($_POST['fb_skey']) && !empty($_POST['fb_apikey'])) {
-			$CONF['fb_on'] = 1;
-		} else {
-			$CONF['fb_on'] = 0;
-		}
+		$CONF['fb_on']		= isset($_POST['fb_on']) && $_POST['fb_on'] == 'on' && !empty($_POST['fb_skey']) && !empty($_POST['fb_apikey']) ? 1 : 0;
 		$CONF['fb_apikey']	= request_var('fb_apikey', '');
 		$CONF['fb_skey'] 	= request_var('fb_skey', '');
 	
@@ -41,7 +37,8 @@ function ShowFacebookPage() {
 	}
 	
 	$template	= new template();
-	
+	
+
 	$template->assign_vars(array(
 		'se_save_parameters'	=> $LNG['se_save_parameters'],
 		'fb_info'				=> $LNG['fb_info'],

@@ -25,7 +25,8 @@ if ($USER['rights'][str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '',
 function ShowAccountEditorPage() 
 {
 	global $USER, $db, $LNG, $reslist, $resource, $UNI;
-	$template 	= new template();
+	$template 	= new template();
+
 	switch($_GET['edit'])
 	{
 		case 'resources':
@@ -537,9 +538,7 @@ function ShowAccountEditorPage()
 							exit;
 						}
 							
-						$db->query("UPDATE ".PLANETS." SET `id_luna` = '0' WHERE `galaxy` = '".$P['galaxy']."' AND `system` = '".$P['system']."' AND `planet` = '".$P['planet']."' AND `planet_type` = '1';");
-						$db->query("UPDATE ".PLANETS." SET `id_luna` = '".$id."'  WHERE `galaxy` = '".$galaxy."' AND `system` = '".$system."' AND `planet` = '".$planet."' AND planet_type = '1';");
-						$db->query("UPDATE ".PLANETS." SET `galaxy` = '".$galaxy."', `system` = '".$system."', `planet` = '".$planet."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
+						$db->multi_query("UPDATE ".PLANETS." SET `id_luna` = '0' WHERE `galaxy` = '".$P['galaxy']."' AND `system` = '".$P['system']."' AND `planet` = '".$P['planet']."' AND `planet_type` = '1';UPDATE ".PLANETS." SET `id_luna` = '".$id."'  WHERE `galaxy` = '".$galaxy."' AND `system` = '".$system."' AND `planet` = '".$planet."' AND planet_type = '1';UPDATE ".PLANETS." SET `galaxy` = '".$galaxy."', `system` = '".$system."', `planet` = '".$planet."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
 						
 						$QMOON2	=	$db->uniquequery("SELECT id_level, id_owner FROM ".PLANETS." WHERE `galaxy` = '".$galaxy."' AND `system` = '".$system."' AND `planet` = '".$planet."';");
 						$db->query("UPDATE ".PLANETS." SET `galaxy` = '".$galaxy."', `system` = '".$system."', `planet` = '".$planet."', `id_owner` = '".$QMOON2['id_owner']."', `id_level` = '".$QMOON2['id_level']."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."' AND `planet_type` = '3';");
@@ -607,14 +606,12 @@ function ShowAccountEditorPage()
 				
 				if ($delete == 'on')
 				{
-					$db->query("DELETE FROM ".ALLIANCE." WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
-					$db->query("UPDATE ".USERS." SET `ally_id` = '0', `ally_name` = '', `ally_request` = '0', `ally_rank_id` = '0', `ally_register_time` = '0', `ally_request` = '0' WHERE `ally_id` = '".$id."';");
+					$db->multi_query("DELETE FROM ".ALLIANCE." WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';UPDATE ".USERS." SET `ally_id` = '0', `ally_name` = '', `ally_request` = '0', `ally_rank_id` = '0', `ally_register_time` = '0', `ally_request` = '0' WHERE `ally_id` = '".$id."';");
 				}
 
 				if (!empty($delete_u))
 				{
-					$db->query("UPDATE ".ALLIANCE." SET `ally_members` = ally_members - 1 WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
-					$db->query("UPDATE ".USERS." SET `ally_id` = '0', `ally_name` = '', `ally_request` = '0', `ally_rank_id` = '0', `ally_register_time` = '0', `ally_request` = '0' WHERE `id` = '".$delete_u."' AND `ally_id` = '".$id."';");			
+					$db->multi_query("UPDATE ".ALLIANCE." SET `ally_members` = ally_members - 1 WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';UPDATE ".USERS." SET `ally_id` = '0', `ally_name` = '', `ally_request` = '0', `ally_rank_id` = '0', `ally_register_time` = '0', `ally_request` = '0' WHERE `id` = '".$delete_u."' AND `ally_id` = '".$id."';");
 				}
 
 

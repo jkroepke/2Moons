@@ -25,11 +25,8 @@ if ($USER['rights'][str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '',
 function ShowBanPage() 
 {
 	global $LNG, $db, $USER;
-
-	if ($_GET['order'] == 'id')
-		$ORDER	= "id";
-	else
-		$ORDER	= "username";
+	
+	$ORDER = $_GET['order'] == 'id' ? "id" : "username";
 
 	if ($_GET['view'] == 'bana')
 		$WHEREBANA	= "AND `bana` = '1'";
@@ -46,11 +43,8 @@ function ShowBanPage()
 	}
 
 	$db->free_result($UserList);
-
-	if ($_GET['order2'] == 'id')
-		$ORDER2	=	"id";
-	else
-		$ORDER2	=	"username";
+	
+	$ORDER2 = $_GET['order2'] == 'id' ? "id" : "username";
 		
 	$Banneds		=0;
 	$UserListBan	= $db->query("SELECT `username`, `id` FROM ".USERS." WHERE `bana` = '1' AND `universe` = '".$_SESSION['adminuni']."' ORDER BY ".$ORDER2." ASC;");
@@ -63,7 +57,8 @@ function ShowBanPage()
 	$db->free_result($UserListBan);
 
 	$template	= new template();
-	$template->loadscript('filterlist.js');
+	$template->loadscript('filterlist.js');
+
 
 	if(isset($_POST['panel']))
 	{
@@ -126,11 +121,8 @@ function ShowBanPage()
 
 		if ($BANUSER['longer'] > TIMESTAMP)
 			$BanTime          += ($BANUSER['longer'] - TIMESTAMP);
-			
-		if (($BanTime + TIMESTAMP) < TIMESTAMP)
-			$BannedUntil       = TIMESTAMP;
-		else
-			$BannedUntil       = TIMESTAMP + $BanTime;
+		
+		$BannedUntil = ($BanTime + TIMESTAMP) < TIMESTAMP ? TIMESTAMP : TIMESTAMP + $BanTime;
 		
 		
 		if ($BANUSER['banaday'] > TIMESTAMP)
@@ -161,13 +153,7 @@ function ShowBanPage()
 		$SQL     = "UPDATE ".USERS." SET ";
 		$SQL    .= "`bana` = '1', ";
 		$SQL    .= "`banaday` = '". $BannedUntil ."', ";
-
-		if(isset($_POST['vacat'])) {
-			$SQL    .= "`urlaubs_modus` = '1'";
-		} else {
-			$SQL    .= "`urlaubs_modus` = '0'";
-		}
-
+		$SQL	.= isset($_POST['vacat']) ? "`urlaubs_modus` = '1'" : "`urlaubs_modus` = '0'";
 		$SQL    .= "WHERE ";
 		$SQL    .= "`username` = '". $Name ."' AND `universe` = '".$_SESSION['adminuni']."';";
 		$db->query($SQL);

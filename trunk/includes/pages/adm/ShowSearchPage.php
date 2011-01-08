@@ -86,7 +86,8 @@ function ShowSearchPage()
 			'500'	=> '500',	
 		)
 	);
-	$template	= new template();
+	$template	= new template();
+
 	
 	
 	
@@ -309,10 +310,7 @@ function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialS
 			
 			for ($i = 1; $i <= $NumberOfPages; $i++)
 			{ 
-				if ($Page == $i) 
-					$PAGEE	.= "&nbsp;".$Page."&nbsp;"; 
-				else
-					$PAGEE	.= " <a href='".$UrlForPage."&amp;side=".$i.$Minimize."'>".$i."</a> ";	
+				$PAGEE .= $Page == $i ? "&nbsp;".$Page."&nbsp;" : " <a href='".$UrlForPage."&amp;side=".$i.$Minimize."'>".$i."</a> ";
 			}
 
 			if(($Page - 1) > 0) 
@@ -357,12 +355,8 @@ function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialS
 		while ($WhileResult	=	$db->fetch_num($FinalQuery))
 		{
 			$Search['LIST']	 .=	"<tr>";
-			if ($Table == "users"){
-				if ($_GET['search'] == "online")
-					$WhileResult[3]	=	pretty_time( TIMESTAMP - $WhileResult[3] );
-				else
-					$WhileResult[3]	=	date("d-m-Y H:i:s", $WhileResult[3] );
-					
+			if ($Table == "users"){				
+				$WhileResult[3] = $_GET['search'] == "online" ? pretty_time( TIMESTAMP - $WhileResult[3] ) : date("d-m-Y H:i:s", $WhileResult[3] );
 				$WhileResult[4]	=	date("d-m-Y H:i:s", $WhileResult[4]);
 				
 				$WhileResult[6]	=	$LNG['rank'][$WhileResult[6]];
@@ -393,10 +387,7 @@ function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialS
 			
 				if ($USER['authlevel']	==	'3')
 				{
-					if ($WhileResult[0] != $USER['id'] || $WhileResult[0] != 1)
-						$DELETEBUTTON	=	"<a href=\"?page=search&amp;delete=user&amp;user=".$WhileResult[0]."\" border=\"0\" onclick=\"return confirm('".$LNG['ul_sure_you_want_dlte']." ".$WhileResult[1]."?');\"><img src=\"./styles/images/r1.png\" title=".$WhileResult[1]."></a>";
-					else
-						$DELETEBUTTON	=	"-";
+					$DELETEBUTTON = $WhileResult[0] != $USER['id'] || $WhileResult[0] != 1 ? "<a href=\"?page=search&amp;delete=user&amp;user=".$WhileResult[0]."\" border=\"0\" onclick=\"return confirm('".$LNG['ul_sure_you_want_dlte']." ".$WhileResult[1]."?');\"><img src=\"./styles/images/r1.png\" title=".$WhileResult[1]."></a>" : "-";
 					
 					$Search['LIST']	.=	"<td>".$DELETEBUTTON."</td>";
 				}

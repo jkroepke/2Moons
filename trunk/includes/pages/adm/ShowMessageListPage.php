@@ -57,18 +57,12 @@ function ShowMessageListPage()
 	if($Prev   == true)
 	{
 		$CurrPage -= 1;
-		if ($CurrPage >= 1)
-			$ViewPage = $CurrPage;
-		else
-			$ViewPage = 1;
+		$ViewPage = $CurrPage >= 1 ? $CurrPage : 1;
 	}
 	elseif ($Next   == true && $_POST['page'])
 	{
 		$CurrPage += 1;
-		if ($CurrPage <= $MaxPage)
-			$ViewPage = $CurrPage;
-		else
-			$ViewPage = $MaxPage;
+		$ViewPage = $CurrPage <= $MaxPage ? $CurrPage : $MaxPage;
 	}
 	
 	if ($_POST['delsel'] && is_array($_POST['sele']))
@@ -91,8 +85,7 @@ function ShowMessageListPage()
 		$LimitDate = mktime (0,0,0, $SelMonth, $SelDay, $SelYear );
 		if ($LimitDate !== false)
 		{
-			$db->query("DELETE FROM ".MESSAGES." WHERE `message_time` <= '".$LimitDate."';");
-			$db->query("DELETE FROM ".RW." WHERE `time` <= '".$LimitDate ."';");
+			$db->multi_query("DELETE FROM ".MESSAGES." WHERE `message_time` <= '".$LimitDate."';DELETE FROM ".RW." WHERE `time` <= '".$LimitDate ."';");
 		}
 	}
 
@@ -124,7 +117,8 @@ function ShowMessageListPage()
 		);
 	}	
 
-	$template 	= new template();
+	$template 	= new template();
+
 	$template->loadscript('global.js');
 
 	$template->assign_vars(array(	

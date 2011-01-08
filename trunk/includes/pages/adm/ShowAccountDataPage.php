@@ -26,7 +26,8 @@ function ShowAccountDataPage()
 {
 	global $USER, $reslist, $resource, $db, $LNG;
 
-	$template 	= new template();
+	$template 	= new template();
+
 	$id_u	= request_var('id_u', 0);
 	if (!empty($id_u))
 	{
@@ -86,15 +87,9 @@ function ShowAccountDataPage()
 			$techoffi	= "";
 			for($i = 0; $i < max(count($reslist['officier']), count($reslist['tech'])); $i++)
 			{
-				if(isset($techno[$i]))
-					$techoffi	.= "<tr><th>".$LNG['tech'][$techno[$i]].": <font color=aqua>".$UserQuery[$resource[$techno[$i]]]."</font></th>";
-				else
-					$techoffi	.= "<tr><th>&nbsp;</th>";
+				$techoffi .= isset($techno[$i]) ? "<tr><th>".$LNG['tech'][$techno[$i]].": <font color=aqua>".$UserQuery[$resource[$techno[$i]]]."</font></th>" : "<tr><th>&nbsp;</th>";
 				
-				if(isset($officier[$i]))
-					$techoffi	.= "<th>".$LNG['tech'][$officier[$i]].": <font color=aqua>".$UserQuery[$resource[$officier[$i]]]."</font></th></tr>";
-				else
-					$techoffi	.= "<th>&nbsp;</th></tr>";	
+				$techoffi .= isset($officier[$i]) ? "<th>".$LNG['tech'][$officier[$i]].": <font color=aqua>".$UserQuery[$resource[$officier[$i]]]."</font></th></tr>" : "<th>&nbsp;</th></tr>";				
 			}
 			
 			if ($UserQuery['bana'] != 0)
@@ -172,13 +167,8 @@ function ShowAccountDataPage()
 				$ali_cant				= $AllianceQuery['ally_members'];
 				$ally_register_time	= date("d-m-Y H:i:s", $AllianceQuery['ally_register_time']);
 				$ali_lider						= $AllianceQuery['ally_owner'];
-					
-					
-				if($AllianceQuery['ally_web'] != NULL)
-					$ali_web = "<a href=".$AllianceQuery['ally_web']." target=_blank>".$AllianceQuery['ally_web']."</a>";
-				else
-					$ali_web = $LNG['ac_no_web'];
-					
+				$ali_web				= $AllianceQuery['ally_web'] != NULL ? "<a href=".$AllianceQuery['ally_web']." target=_blank>".$AllianceQuery['ally_web']."</a>" : $LNG['ac_no_web'];
+										
 					
 				if($AllianceQuery['ally_description'] != NULL)
 				{
@@ -319,12 +309,7 @@ function ShowAccountDataPage()
 						$RES[$resource[$ID]]	.= "<th width=\"60\"><a title=\"".pretty_number($PlanetsWhile[$resource[$ID]])."\">".shortly_number($PlanetsWhile[$resource[$ID]])."</a></th>";
 					}
 					
-					
-					if ($MoonZ != 0)
-						$MoonHave	= "<a href=\"javascript:animatedcollapse.toggle('especiales')\" class=\"link\"><img src=\"./styles/images/Adm/arrowright.png\" width=\"16\" height=\"10\"/> ".$LNG['moon_build']."</a>";
-					else
-						$MoonHave	= "<span class=\"no_moon\"><img src=\"./styles/images/Adm/arrowright.png\" width=\"16\" height=\"10\"/>".$LNG['moon_build']."&nbsp;".$LNG['ac_moons_no']."</span>";	
-					
+					$MoonHave = $MoonZ != 0 ? "<a href=\"javascript:animatedcollapse.toggle('especiales')\" class=\"link\"><img src=\"./styles/images/Adm/arrowright.png\" width=\"16\" height=\"10\"/> ".$LNG['moon_build']."</a>" : "<span class=\"no_moon\"><img src=\"./styles/images/Adm/arrowright.png\" width=\"16\" height=\"10\"/>".$LNG['moon_build']."&nbsp;".$LNG['ac_moons_no']."</span>";					
 				}
 				
 				$DestruyeD	= 0;
