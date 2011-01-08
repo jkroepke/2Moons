@@ -20,7 +20,7 @@
 ##############################################################################
 
 function bbcode($text) {
-	require_once(ROOT_PATH.'includes/classes/class.BBCode.'.PHP_EXT);
+	require_once(ROOT_PATH.'includes/classes/class.BBCode.php');
 	$bbcode = new BBCode();
 
 	$bbcode->addParser ('list', 'bbcode_stripcontents');
@@ -179,12 +179,8 @@ function bbcode_list ($action, $attributes, $content, $params, $node_object) {
 		}
 		return true;
 	}
-	if (isset($attributes['default'])) {
-		return "<ol start=\"".$attributes['default']."\">".$content."</ol>";
-	}
-	else {
-		return "<ul>".$content."</ul>";
-	}
+	$bbcode = isset($attributes['default']) ? "<ol start=\"".$attributes['default']."\">".$content."</ol>" : "<ul>".$content."</ul>";
+	return $bbcode;
 }
 
 

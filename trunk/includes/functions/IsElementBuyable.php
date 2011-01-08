@@ -25,7 +25,7 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 	{
 		global $pricelist, $resource;
 
-		include_once(ROOT_PATH . 'includes/functions/IsVacationMode.' . PHP_EXT);
+		include_once(ROOT_PATH . 'includes/functions/IsVacationMode.php');
 
 	    if (IsVacationMode($USER))
 	       return false;
@@ -39,11 +39,8 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 		{
 			if (empty($pricelist[$Element][$ResType]))
 				continue;
-
-			if ($Incremental)
-				$cost[$ResType]  = floor($pricelist[$Element][$ResType] * pow($pricelist[$Element]['factor'], $level));
-			else
-				$cost[$ResType]  = floor($pricelist[$Element][$ResType]);
+			
+			$cost[$ResType] = $Incremental ? floor($pricelist[$Element][$ResType] * pow($pricelist[$Element]['factor'], $level)) : floor($pricelist[$Element][$ResType]);
 
 			if ($ForDestroy)
 				$cost[$ResType]  = floor($cost[$ResType] / 2);

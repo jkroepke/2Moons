@@ -31,10 +31,7 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 		$array = array('metal', 'crystal', 'deuterium', 'darkmatter', 'energy_max');
 		foreach ($array as $ResType)
 		{
-			if ($Incremental)
-				$cost[$ResType] = floor($pricelist[$Element][$ResType] * pow($pricelist[$Element]['factor'], $level));
-			else
-				$cost[$ResType] = floor($pricelist[$Element][$ResType]);
+			$cost[$ResType] = $Incremental ? floor($pricelist[$Element][$ResType] * pow($pricelist[$Element]['factor'], $level)) : floor($pricelist[$Element][$ResType]);
 
 			if ($ForDestroy == true)
 				$cost[$ResType] /= 2;

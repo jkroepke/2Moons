@@ -32,7 +32,7 @@ define('LOGIN', true );
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 	
 include_once(ROOT_PATH . 'extension.inc');
-include_once(ROOT_PATH . 'common.' . PHP_EXT);
+include_once(ROOT_PATH . 'common.php');
 
 $template	= new template();
 $template->cache = true;
@@ -271,41 +271,24 @@ switch ($page) {
 				
 				$Exist['userv'] = $db->uniquequery("SELECT username, email FROM ".USERS." WHERE `universe` = '".$Universe."' AND (username = '".$db->sql_escape($UserName)."' OR email = '".$db->sql_escape($UserEmail)."');");
 				$Exist['valid'] = $db->uniquequery("SELECT username, email FROM ".USERS_VALID." WHERE `universe` = '".$Universe."' AND (username = '".$db->sql_escape($UserName)."' OR email = '".$db->sql_escape($UserEmail)."');");
+				
 				$errors 	= '';
-								
-				if (!ValidateAddress($UserEmail)) 
-					$errors .= $LNG['invalid_mail_adress'];
-				
-				if (empty($UserName))
-					$errors .= $LNG['empty_user_field'];
-				
-				if (empty($UserPlanet))
-					$errors .= $LNG['empty_planet_field'];
-				
-				if (!isset($UserPass{5}))
-					$errors .= $LNG['password_lenght_error'];
-				
-				if ($UserPass != $UserPass2)
-					$errors .= $LNG['different_passwords'];				
-				
-				if ($UserEmail != $UserEmail2)
-					$errors .= $LNG['different_mails'];
+				$errors	   .= !ValidateAddress($UserEmail) ? $LNG['invalid_mail_adress'] : '';
+				$errors	   .= empty($UserName) ? $LNG['empty_user_field'] : '';
+				$errors	   .= empty($UserPlanet) ? 	$LNG['empty_planet_field'] : '';			
+				$errors	   .= !isset($UserPass{5}) ? $LNG['password_lenght_error'] : '';					
+				$errors	   .= $UserPass != $UserPass2 ? $LNG['different_passwords'] : '';				
+				$errors	   .= $UserEmail != $UserEmail2 ? $LNG['different_mails'] : '';		
+				$errors	   .= $agbrules != 'on' ? $LNG['terms_and_conditions'] : '';
+				$errors    .= (isset($Exist['userv']['username']) || isset($Exist['valid']['username']) && ($UserName == $Exist['userv']['username'] || $UserName == $Exist['valid']['username'])) ? $LNG['user_already_exists'] : '';
+				$errors    .= (isset($Exist['userv']['email']) || isset($Exist['valid']['email'])) && ($UserEmail == $Exist['userv']['email'] || $UserEmail == $Exist['valid']['email']) ? $LNG['mail_already_exists'] : '';
 				
 				if (!CheckName($UserName))
 					$errors .= (UTF8_SUPPORT) ? $LNG['user_field_no_space'] : $LNG['user_field_no_alphanumeric'];				
 				
 				if (!CheckName($UserPlanet))
 					$errors .= (UTF8_SUPPORT) ? $LNG['planet_field_no_space'] : $LNG['planet_field_no_alphanumeric'];			
-				
-				if ($agbrules != 'on')
-					$errors .= $LNG['terms_and_conditions'];
-
-				if ((isset($Exist['userv']['username']) || isset($Exist['valid']['username']) && ($UserName == $Exist['userv']['username'] || $UserName == $Exist['valid']['username'])))
-					$errors .= $LNG['user_already_exists'];
-
-				if ((isset($Exist['userv']['email']) || isset($Exist['valid']['email'])) && ($UserEmail == $Exist['userv']['email'] || $UserEmail == $Exist['valid']['email']))
-					$errors .= $LNG['mail_already_exists'];
-				
+								
 				if (!empty($errors)) {
 					$template->message($errors, '?page=reg&lang='.$LANG->getUser(), 3, true);
 					exit;
