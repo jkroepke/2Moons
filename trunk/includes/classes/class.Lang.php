@@ -87,12 +87,7 @@ class Language
             }
                 
             $LANG_code = explode ('-', $matches[1]);
-
-            if (isset($matches[2])) {
-                    $LANG_quality = (float)$matches[2];
-            } else {
-                    $LANG_quality = 1.0;
-            }
+			$LANG_quality = isset($matches[2]) ? (float)$matches[2] : 1.0;
 
             while (count ($LANG_code)) {
                 if (in_array (strtolower (join ('-', $LANG_code)),  self::getAllowedLangs())) {
@@ -123,11 +118,8 @@ class Language
 	
 	function GetUserLang($ID, $Files = array())
 	{
-		global $db, $CONF;		
-		if(is_numeric($ID) || !in_array($ID, self::getAllowedLangs()))
-			$LANGUAGE	= $db->countquery("SELECT `lang` FROM ".USERS." WHERE `id` = '".$ID."';");
-		else
-			$LANGUAGE	= $ID;
+		global $db, $CONF;	
+		$LANGUAGE = is_numeric($ID) || !in_array($ID, self::getAllowedLangs()) ? $db->countquery("SELECT `lang` FROM ".USERS." WHERE `id` = '".$ID."';") : $ID;
 	
 		if(!in_array($LANGUAGE, self::getAllowedLangs()))
 			$LANGUAGE	= $this->Default;

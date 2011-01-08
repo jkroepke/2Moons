@@ -22,12 +22,8 @@
 function GenerateReport($RESULT, $INFO)
 {
 	$html 		= '"<div style=\"width:100%;text-align:center\">';
-	
-	if($INFO['moon']['des'] == 1)
-		$html 		.= '".$LNG["sys_destruc_title"]." '.date("D M j H:i:s", $INFO['fleet_start_time']).'. <br><br>';
-	else
-		$html 		.= '".$LNG["sys_attack_title"]." '.date("D M j H:i:s", $INFO['fleet_start_time']).'. <br><br>';
-	
+	$html	   .= $INFO['moon']['des'] == 1 ? '".$LNG["sys_destruc_title"]." '.date("D M j H:i:s", $INFO['fleet_start_time']).'. <br><br>' : '".$LNG["sys_attack_title"]." '.date("D M j H:i:s", $INFO['fleet_start_time']).'. <br><br>';
+		
 	$round_no 	= 1;
 	$des		= array('att' => array(), 'def' => array());
 	
@@ -230,12 +226,7 @@ function GenerateReport($RESULT, $INFO)
 			$html .= '".$LNG["sys_destruc_stop"]."<br>';
 		} else {
 			$html .= '".sprintf($LNG["sys_destruc_lune"], "'.$INFO['moon']['chance'].'")."<br>".$LNG["sys_destruc_mess1"]."';
-			if($INFO['moon']['desfail'] == 0) {
-				$html .= '".$LNG["sys_destruc_reussi"]."';
-			} else {
-				$html .= '".$LNG["sys_destruc_null"]."';
-			}
-			
+			$html .= $INFO['moon']['desfail'] == 0 ? '".$LNG["sys_destruc_reussi"]."' : '".$LNG["sys_destruc_null"]."';			
 			$html .= '<br>".sprintf($LNG["sys_destruc_rip"], "'.$INFO['moon']['chance2'].'")."';
 			if($INFO['moon']['fleetfail'] == 1) {
 				$html .= '".$LNG["sys_destruc_echec"]."';

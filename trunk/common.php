@@ -30,9 +30,9 @@ header('Content-Type: text/html; charset=UTF-8');
 define('TIMESTAMP',	$_SERVER['REQUEST_TIME']);
 
 if(file_exists(ROOT_PATH . 'includes/config.php'))
-	require_once(ROOT_PATH . 'includes/config.'.PHP_EXT);
+	require_once(ROOT_PATH . 'includes/config.php');
 	
-require_once(ROOT_PATH . 'includes/constants.'.PHP_EXT);
+require_once(ROOT_PATH . 'includes/constants.php');
 
 ini_set('session.save_path', ROOT_PATH.'cache/sessions');
 ini_set('upload_tmp_dir', ROOT_PATH.'cache/sessions');
@@ -59,11 +59,11 @@ else
 if(!defined('LOGIN') && INSTALL == false)
 	session_start();
 	
-require_once(ROOT_PATH . 'includes/classes/class.MySQLi.'.PHP_EXT);
-require_once(ROOT_PATH . 'includes/classes/class.Lang.'.PHP_EXT);
-require_once(ROOT_PATH . 'includes/classes/class.Session.'.PHP_EXT);
-require_once(ROOT_PATH . 'includes/GeneralFunctions.'.PHP_EXT);
-require_once(ROOT_PATH . 'includes/vars.'.PHP_EXT);
+require_once(ROOT_PATH . 'includes/classes/class.MySQLi.php');
+require_once(ROOT_PATH . 'includes/classes/class.Lang.php');
+require_once(ROOT_PATH . 'includes/classes/class.Session.php');
+require_once(ROOT_PATH . 'includes/GeneralFunctions.php');
+require_once(ROOT_PATH . 'includes/vars.php');
 set_exception_handler('exception_handler');
 
 if($database)
@@ -160,6 +160,6 @@ if (INSTALL != true)
 }
 
 if (!defined('AJAX') && !defined('CLI'))
-	require_once(ROOT_PATH.'includes/classes/class.template.'.PHP_EXT);
+	require_once(ROOT_PATH.'includes/classes/class.template.php');
 
 ?>
