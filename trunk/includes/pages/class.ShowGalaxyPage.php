@@ -82,7 +82,7 @@ class ShowGalaxyPage extends GalaxyRows
 		$template		= new template();	
 		$template->loadscript('galaxy.js');	
 		
-		$maxfleet       = $db->query($db->num_rows("SELECT fleet_id FROM ".FLEETS." WHERE `fleet_owner` = '". $USER['id'] ."' AND `fleet_mission` != 10;"));
+		$maxfleet       = $db->num_rows($db->query("SELECT fleet_id FROM ".FLEETS." WHERE `fleet_owner` = '". $USER['id'] ."' AND `fleet_mission` != 10;"));
 		
 		$mode			= request_var('mode', 0);
 		$galaxyLeft		= request_var('galaxyLeft', '');
