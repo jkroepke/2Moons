@@ -108,10 +108,7 @@ class MissionCaseSpy extends MissionFunctions
 			$SpyerChances  	= mt_rand(0, 100);
 		}
 		
-		if ($TargetChances >= $SpyerChances)
-			$DestProba = $LNG['sys_mess_spy_destroyed'];
-		else
-			$DestProba = sprintf( $LNG['sys_mess_spy_lostproba'], $TargetChances);
+		$DestProba = $TargetChances >= $SpyerChances ? $LNG['sys_mess_spy_destroyed'] : sprintf( $LNG['sys_mess_spy_lostproba'], $TargetChances);
 
 		$AttackLink  = "<center>";
 		$AttackLink .= "<a href=\"game.php?page=fleet&amp;galaxy=". $this->_fleet['fleet_end_galaxy'] ."&amp;system=". $this->_fleet['fleet_end_system'] ."";

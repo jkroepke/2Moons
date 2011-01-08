@@ -37,15 +37,8 @@ function GetElementPrice ($USER, $PLANET, $Element, $USERfactor = true) {
 			if ($pricelist[$Element][$ResType] != 0)
 			{
 				$text .= $ResTitle . ": ";
-				if ($USERfactor)
-					$cost = floor($pricelist[$Element][$ResType] * pow($pricelist[$Element]['factor'], $level));
-				else
-					$cost = floor($pricelist[$Element][$ResType]);
-
-				if ((isset($PLANET[$ResType]) && $cost > $PLANET[$ResType]) || (isset($USER[$ResType]) && $cost > $USER[$ResType]))
-					$text .= "<b style=\"color:red;\" id=\"".$ResType."_".$Element."\">" . pretty_number($cost) . "</b> ";
-				else
-					$text .= "<b style=\"color:lime;\" id=\"".$ResType."_".$Element."\">" . pretty_number($cost) . "</b> ";
+				$cost  = $USERfactor ? floor($pricelist[$Element][$ResType] * pow($pricelist[$Element]['factor'], $level)) : floor($pricelist[$Element][$ResType]);
+				$text .= (isset($PLANET[$ResType]) && $cost > $PLANET[$ResType]) || (isset($USER[$ResType]) && $cost > $USER[$ResType]) ? "<b style=\"color:red;\" id=\"".$ResType."_".$Element."\">" . pretty_number($cost) . "</b> " : "<b style=\"color:lime;\" id=\"".$ResType."_".$Element."\">" . pretty_number($cost) . "</b> ";
 			}
 		}
     return $text; 

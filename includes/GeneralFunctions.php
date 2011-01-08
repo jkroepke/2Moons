@@ -36,11 +36,10 @@ function update_config($Values, $Global = false, $SpecUni = 0)
 }
 
 function ValidateAddress($address) {
-    if (function_exists('filter_var')) {
-		return filter_var($address, FILTER_VALIDATE_EMAIL) !== FALSE;
-    } else {
-		return preg_match('/^(?:[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+\.)*[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+@(?:(?:(?:[a-zA-Z0-9_](?:[a-zA-Z0-9_\-](?!\.)){0,61}[a-zA-Z0-9_-]?\.)+[a-zA-Z0-9_](?:[a-zA-Z0-9_\-](?!$)){0,61}[a-zA-Z0-9_]?)|(?:\[(?:(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\]))$/', $address);
-    }
+	
+	$ValideAdress = function_exists('filter_var') ? filter_var($address, FILTER_VALIDATE_EMAIL) !== FALSE : preg_match('/^(?:[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+\.)*[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+@(?:(?:(?:[a-zA-Z0-9_](?:[a-zA-Z0-9_\-](?!\.)){0,61}[a-zA-Z0-9_-]?\.)+[a-zA-Z0-9_](?:[a-zA-Z0-9_\-](?!$)){0,61}[a-zA-Z0-9_]?)|(?:\[(?:(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\]))$/', $address);
+	
+	return $ValideAdress;
 }
 
 function message($mes, $dest = "", $time = "3", $topnav = false, $menu = true)
@@ -481,10 +480,7 @@ function r_implode($glue, $pieces)
 	$retVal	= array();
 	foreach($pieces as $r_pieces)
 	{
-		if(is_array($r_pieces))
-			$retVal[] = r_implode($glue, $r_pieces);
-		else
-			$retVal[] = $r_pieces;
+		$retVal[] = is_array($r_pieces) ? r_implode($glue, $r_pieces) : $r_pieces;
 	}
 	return implode($glue, $retVal);
 } 
