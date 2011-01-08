@@ -163,14 +163,8 @@ class ShowResearchPage
 				elseif ($USER['b_tech_id'] == 0)
 				{
 					$LevelToDo = 1 + $USER[$resource[$Element]];
-					if ($CanBeDone && $this->CheckLabSettingsInQueue($PLANET))
-					{
-						$TechnoLink = "<a href=\"game.php?page=buildings&amp;mode=research&amp;cmd=search&amp;tech=".$Element."\"><font color=\"#00FF00\">".$LNG['bd_research'].(($LevelToDo == 1) ? "" : "<br>".$LNG['bd_lvl']." ".$LevelToDo)."</font></a>";
-					}
-					else
-					{
-						$TechnoLink = "<font color=\"#FF0000\">".$LNG['bd_research'].(($LevelToDo == 1) ? "" : "<br>".$LNG['bd_lvl']." ".$LevelToDo)."</font>";
-					}
+					
+					$TechnoLink = $CanBeDone && $this->CheckLabSettingsInQueue($PLANET) ? "<a href=\"game.php?page=buildings&amp;mode=research&amp;cmd=search&amp;tech=".$Element."\"><font color=\"#00FF00\">".$LNG['bd_research'].(($LevelToDo == 1) ? "" : "<br>".$LNG['bd_lvl']." ".$LevelToDo)."</font></a>" : "<font color=\"#FF0000\">".$LNG['bd_research'].(($LevelToDo == 1) ? "" : "<br>".$LNG['bd_lvl']." ".$LevelToDo)."</font>";
 				}
 				else
 				{

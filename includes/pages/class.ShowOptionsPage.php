@@ -72,10 +72,7 @@ class ShowOptionsPage
 				if ($exit == 'on' and $USER['urlaubs_until'] <= TIMESTAMP)
 					$SQLQuery	.= "UPDATE ".USERS." SET `urlaubs_modus` = '0', `urlaubs_until` = '0' WHERE `id` = '".$USER['id']."' LIMIT 1;UPDATE ".PLANETS." SET `last_update` = '".TIMESTAMP."', `energy_used` = '10', `energy_max` = '10', `metal_mine_porcent` = '10', `crystal_mine_porcent` = '10', `deuterium_sintetizer_porcent` = '10', `solar_plant_porcent` = '10', `fusion_plant_porcent` = '10', `solar_satelit_porcent` = '10' WHERE `id_owner` = '".$USER["id"]."';";
 
-				if ($db_deaktjava == 'on')
-					$SQLQuery	.= "UPDATE ".USERS." SET `db_deaktjava` = '".TIMESTAMP."' WHERE `id` = '".$USER['id']."' LIMIT 1;";
-				else
-					$SQLQuery	.= "UPDATE ".USERS." SET `db_deaktjava` = '0' WHERE `id` = '".$USER['id']."' LIMIT 1;";
+				$SQLQuery .= $db_deaktjava == 'on' ? "UPDATE ".USERS." SET `db_deaktjava` = '".TIMESTAMP."' WHERE `id` = '".$USER['id']."' LIMIT 1;" : "UPDATE ".USERS." SET `db_deaktjava` = '0' WHERE `id` = '".$USER['id']."' LIMIT 1;";
 				
 				$db->multi_query($SQLQuery);
 				$template->message($LNG['op_options_changed'], '?page=options', 1);
@@ -170,10 +167,7 @@ class ShowOptionsPage
 				
 				if ($USER['authlevel'] > 0)
 				{
-					if ($adm_pl_prot == 'on')
-						$SQLQuery	.= "UPDATE ".PLANETS." SET `id_level` = '".$USER['authlevel']."' WHERE `id_owner` = '".$USER['id']."';";
-					else
-						$SQLQuery	.= "UPDATE ".PLANETS." SET `id_level` = '0' WHERE `id_owner` = '".$USER['id']."';";
+					$SQLQuery .= $adm_pl_prot == 'on' ? "UPDATE ".PLANETS." SET `id_level` = '".$USER['authlevel']."' WHERE `id_owner` = '".$USER['id']."';" : "UPDATE ".PLANETS." SET `id_level` = '0' WHERE `id_owner` = '".$USER['id']."';";
 				}
 								
 				if (!empty($db_email) && $db_email != $USER['email'] && md5($db_password) == $USER['password'])

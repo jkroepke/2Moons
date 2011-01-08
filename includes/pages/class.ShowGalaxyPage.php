@@ -66,21 +66,11 @@ class ShowGalaxyPage extends GalaxyRows
 			$Result[$Planet]['user']		= $this->GalaxyRowUser($GalaxyRowPlanet);
 			$Result[$Planet]['planet']		= $this->GalaxyRowPlanet($GalaxyRowPlanet);
 			$Result[$Planet]['planetname']	= $this->GalaxyRowPlanetName ($GalaxyRowPlanet);
-								
-			if ($GalaxyRowPlanet['userid'] != $USER['id'])
-				$Result[$Planet]['action']	= $this->GalaxyRowActions($GalaxyRowPlanet);
-			else
-				$Result[$Planet]['action']	= false;
-
-			if ($GalaxyRowPlanet['ally_id'] != 0)
-				$Result[$Planet]['ally']	= $this->GalaxyRowAlly($GalaxyRowPlanet);
-			else
-				$Result[$Planet]['ally']	= false;
-				
-			if ($GalaxyRowPlanet['der_metal'] > 0 || $GalaxyRowPlanet['der_crystal'] > 0)
-				$Result[$Planet]['derbis']	= $this->GalaxyRowDebris($GalaxyRowPlanet);
-			else
-				$Result[$Planet]['derbis']	= false;		
+			
+			$Result[$Planet]['action']	= $GalaxyRowPlanet['userid'] != $USER['id'] ? $this->GalaxyRowActions($GalaxyRowPlanet) : false;
+			$Result[$Planet]['ally']	= $GalaxyRowPlanet['allay_id'] != 0 ? $this->GalaxyRowAlly($GalaxyRowPlanet) : false;
+			$Result[$Planet]['derbis']	= $GalaxyRowPlanet['der_metal'] > 0 || $GalaxyRowPlanet['der_crystal'] > 0 ? $this->GalaxyRowDebris($GalaxyRowPlanet) : false;
+											
 		}
 		return array('Result' => $Result, 'planetcount' => $COUNT);
 	}
@@ -92,7 +82,7 @@ class ShowGalaxyPage extends GalaxyRows
 		$template		= new template();	
 		$template->loadscript('galaxy.js');	
 		
-		$maxfleet       = $db->num_rows($db->query("SELECT fleet_id FROM ".FLEETS." WHERE `fleet_owner` = '". $USER['id'] ."' AND `fleet_mission` != 10;"));
+		$maxfleet       = $db->query($db->num_rows("SELECT fleet_id FROM ".FLEETS." WHERE `fleet_owner` = '". $USER['id'] ."' AND `fleet_mission` != 10;"));
 		
 		$mode			= request_var('mode', 0);
 		$galaxyLeft		= request_var('galaxyLeft', '');

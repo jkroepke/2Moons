@@ -459,11 +459,8 @@ class ShowAlliancePage
 							$r 			= request_var('r', 0);
 							$subject 	= request_var('subject', '', true);
 							$text 		= makebr(request_var('text', '', true));
-
-							if ($r == 0)
-								$sq = $db->query("SELECT id, username FROM ".USERS." WHERE `ally_id` = '".$USER['ally_id']."';");
-							else
-								$sq = $db->query("SELECT id, username FROM ".USERS." WHERE `ally_id` = '".$USER['ally_id']."' AND `ally_rank_id` = '".$r."';");
+								
+							$sq = $r == 0 ? $db->query("SELECT id, username FROM ".USERS." WHERE `ally_id` = '".$USER['ally_id']."';") : $db->query("SELECT id, username FROM ".USERS." WHERE `ally_id` = '".$USER['ally_id']."' AND `ally_rank_id` = '".$r."';");
 
 							$list 	= '';
 							$title	= $LNG['al_circular_alliance'].$ally['ally_tag'];
