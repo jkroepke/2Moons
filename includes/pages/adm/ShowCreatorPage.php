@@ -27,7 +27,8 @@ function ShowCreatorPage()
 {
 	global $LNG, $db, $USER, $UNI, $LANG;
 
-	$template	= new template();
+	$template	= new template();
+
 	
 	switch ($_GET['mode'])
 	{
@@ -45,12 +46,8 @@ function ShowCreatorPage()
 				$Galaxy 	= request_var('galaxy', 0);
 				$System 	= request_var('system', 0);
 				$Planet 	= request_var('planet', 0);
-				
-				if($USER['authlevel']	!=	AUTH_ADM)
-				$Univer     = $_SESSION['adminuni'];
-				else
-				$Univer		= request_var('uni','');
-				
+				$Univer		= $USER['authlevel'] != AUTH_ADM ? $_SESSION['adminuni'] : request_var('uni','');
+								
 				if ($CONF['capaktiv'] === '1') {
 					require_once('includes/libs/reCAPTCHA/recaptchalib.php');
 					$resp = recaptcha_check_answer($CONF['capprivate'], $_SERVER['REMOTE_ADDR'], request_var('recaptcha_challenge_field', ''), request_var('recaptcha_response_field', ''));
@@ -167,7 +164,7 @@ function ShowCreatorPage()
 				'new_range'				=> $LNG['new_range'],
 				'lang'					=> $LNG['op_lang'],		
 				'new_title'				=> $LNG['new_title'],
-				'Selector'				=> array('auth' => $AUTH, 'lang' => array('de' => $LNG['langs']['de'], 'en' => $LNG['langs']['en'], 'es' => $LNG['langs']['es'], 'ru' => $LNG['langs']['ru'], 'pt' => $LNG['langs']['pt'], 'cn' => $LNG['langs']['cn'], 'hr' => $LNG['langs']['hr'])),  
+				'Selector'				=> array('auth' => $AUTH, 'lang' => $LANG->getAllowedLangs(false)),  
 			));
 			$template->show('adm/CreatePageUser.tpl');
 		break;

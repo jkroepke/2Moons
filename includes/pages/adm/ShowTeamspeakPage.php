@@ -26,12 +26,7 @@ function ShowTeamspeakPage() {
 
 	if ($_POST)
 	{
-		if (isset($_POST['ts_on']) && $_POST['ts_on'] == 'on') {
-			$CONF['ts_modon'] = 1;
-		} else {
-			$CONF['ts_modon'] = 0;
-		}
-		
+		$CONF['ts_modon'] 			= isset($_POST['ts_on']) && $_POST['ts_on'] == 'on' ? 1 : 0;		
 		$CONF['ts_server']			= request_var('ts_ip', '');
 		$CONF['ts_tcpport']			= request_var('ts_tcp', 0);
 		$CONF['ts_udpport']			= request_var('ts_udp', 0);
@@ -54,7 +49,8 @@ function ShowTeamspeakPage() {
 		), true);
 	}
 	$template	= new template();
-	
+	
+
 	$template->assign_vars(array(
 		'se_save_parameters'	=> $LNG['se_save_parameters'],
 		'ts_tcpport'			=> $LNG['ts_tcpport'],
