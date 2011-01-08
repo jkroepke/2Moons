@@ -115,7 +115,7 @@ google.load("feeds", "1");
 					<td class="transparent"><h3>Team</h3></td>
                 </tr>
                 <tr>
-					<td class="transparent"><span style="color:orange">stealtd1 - Entwickler/Moderator<br>Robbyn - Entwickler/Moderator<br>Lyon - Moderator<br>Freak1992 - Moderator</span></td>
+					<td class="transparent"><span style="color:orange">stealth - Entwickler/Moderator<br>Robbyn - Entwickler/Moderator<br>Lyon - Moderator<br>Freak1992 - Moderator</span></td>
                 </tr>
 		        <tr>
 					<td class="transparent"><h3>{$ow_translator}</h3></td>

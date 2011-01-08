@@ -101,10 +101,7 @@ class ShowShipyardPage
 			if ($pricelist[$Element][$ResType] == 0)
 				continue;
 			
-			if ($Factor)
-				$cost = floor($pricelist[$Element][$ResType] * pow($pricelist[$Element]['factor'], $level));
-			else
-				$cost = floor($pricelist[$Element][$ResType]);
+			$cost = $Factor ? floor($pricelist[$Element][$ResType] * pow($pricelist[$Element]['factor'], $level)) : floor($pricelist[$Element][$ResType]);
 			
 			$restprice[$ResTitle] = pretty_number(max($cost - (($PLANET[$ResType]) ? $PLANET[$ResType] : $USER[$ResType]), 0));
 		}
@@ -340,12 +337,8 @@ class ShowShipyardPage
 				{
 					$ActuMissiles  = $Missiles[502] + ( 2 * $Missiles[503] );
 					$MissilesSpace = $MaxMissiles - $ActuMissiles;
-					
-					if ($Element == 502)
-						$Count = min($Count, $MissilesSpace);
-					else
-						$Count = min($Count, floor($MissilesSpace / 2));
-	
+					$Count = $Element == 502 ? min($Count, $MissilesSpace) : min($Count, floor($MissilesSpace / 2));
+						
 					$Count 		= min($Count, $MaxElements);
 
 					$Missiles[$Element] += $Count;

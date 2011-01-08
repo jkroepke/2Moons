@@ -125,15 +125,8 @@ class ShowOfficierPage
 				if (($Result = $this->IsOfficierAccessible($Element)) === 0)
 					continue;
 				
-				if ($OfficerInfo[$Element]['info'])
-				{
-					$description = sprintf($LNG['info'][$Element]['description'], is_float($OfficerInfo[$Element]['info']) ? $OfficerInfo[$Element]['info'] * 100 : $OfficerInfo[$Element]['info'], $pricelist[$Element]['max']);	
-				}
-				else
-				{
-					$description = sprintf($LNG['info'][$Element]['description'], $pricelist[$Element]['max']);
-				}
-				
+				$description = $OfficerInfo[$Element]['info'] ? sprintf($LNG['info'][$Element]['description'], is_float($OfficerInfo[$Element]['info']) ? $OfficerInfo[$Element]['info'] * 100 : $OfficerInfo[$Element]['info'], $pricelist[$Element]['max']) : sprintf($LNG['info'][$Element]['description'], $pricelist[$Element]['max']);
+								
 				$OfficierList[]	= array(
 					'id' 	 	=> $Element,
 					'level'  	=> $USER[$resource[$Element]],

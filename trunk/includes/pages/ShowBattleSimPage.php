@@ -92,11 +92,9 @@ function ShowBattleSimPage()
 		$start 				= microtime(true);
 		$result 			= calculateAttack($attack, $defense);
 		$totaltime 			= microtime(true) - $start;
-		if ($result['won'] == "a") {
-			$steal				= calculateSteal($attack, array('metal' => $BattleArray[0][1][1], 'crystal' => $BattleArray[0][1][2], 'deuterium' => $BattleArray[0][1][3]), true);
-		} else {
-			$steal				= array('metal' => 0, 'crystal' => 0, 'deuterium' => 0);
-		}
+		
+		$steal = $result['won'] == "a" ? calculateSteal($attack, array('metal' => $BattleArray[0][1][1], 'crystal' => $BattleArray[0][1][2], 'deuterium' => $BattleArray[0][1][3]), true) : array('metal' => 0, 'crystal' => 0, 'deuterium' => 0);
+		
 		$FleetDebris      	= $result['debree']['att'][0] + $result['debree']['def'][0] + $result['debree']['att'][1] + $result['debree']['def'][1];
 		$StrAttackerUnits 	= sprintf($LNG['sys_attacker_lostunits'], $result['lost']['att']);
 		$StrDefenderUnits 	= sprintf($LNG['sys_defender_lostunits'], $result['lost']['def']);
