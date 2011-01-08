@@ -44,7 +44,7 @@ function ValidateAddress($address) {
 
 function message($mes, $dest = "", $time = "3", $topnav = false, $menu = true)
 {
-	require_once(ROOT_PATH . 'includes/classes/class.template.'.PHP_EXT);
+	require_once(ROOT_PATH . 'includes/classes/class.template.php');
 	$template = new template();
 	$template->message($mes, $dest, $time, !$topnav);
 	exit;
@@ -63,14 +63,14 @@ function pretty_time ($seconds)
 	$ms = floor($seconds / 60 % 60);
 	$sr = floor($seconds / 1 % 60);
 
-	if ($hs < 10) { $hh = "0" . $hs; } else { $hh = $hs; }
-	if ($ms < 10) { $mm = "0" . $ms; } else { $mm = $ms; }
-	if ($sr < 10) { $ss = "0" . $sr; } else { $ss = $sr; }
+	$hh = $hs < 10 ? "0" . $hs : $hs;
+	$mm = $ms < 10 ? "0" . $ms : $ms;
+	$ss = $sr < 10 ? "0" . $sr : $sr;
 
-	$time = '';
-	if ($day != 0) { $time .= $day . 'd '; }
-	if ($hs  != 0) { $time .= $hh . 'h ';  } else { $time .= '00h '; }
-	if ($ms  != 0) { $time .= $mm . 'm ';  } else { $time .= '00m '; }
+	$time  = '';
+	$time .= $day != 0 ? $day . 'd ' : '';
+	$time .= $hs  != 0 ? $hh . 'h ' : '00h ';
+	$time .= $ms  != 0 ? $mm . 'm ' : '00m ';
 	$time .= $ss . 's';
 
 	return $time;
@@ -79,8 +79,8 @@ function pretty_time ($seconds)
 function pretty_time_hour ($seconds)
 {
 	$min = floor($seconds / 60 % 60);
-	$time = '';
-	if ($min != 0) { $time .= $min . 'min '; }
+	$time  = '';
+	$time .= $min != 0 ? $min . 'min ' : '';
 	return $time;
 }
 
@@ -442,12 +442,12 @@ function GetCrons()
 {
 	global $CONF;
 	$Crons	= '';
-	if(TIMESTAMP >= ($CONF['stat_last_update'] + (60 * $CONF['stat_update_time'])))
-		$Crons	.= '<img src="./cronjobs.php?cron=stats" alt="" height="1" width="1">';
-	if($CONF['ts_modon'] == 1 && TIMESTAMP >= ($CONF['ts_cron_last'] + 60 * $CONF['ts_cron_interval']))
-		$Crons	.= '<img src="./cronjobs.php?cron=teamspeak" alt="" height="1" width="1">';
-	if(TIMESTAMP >= ($CONF['stat_last_db_update'] + 86400)) //Daily Cronjob
-		$Crons	.= '<img src="./cronjobs.php?cron=daily" alt="" height="1" width="1">';
+	$Crons .= TIMESTAMP >= ($CONF['stat_last_update'] + (60 * $CONF['stat_update_time'])) ? '<img src="./cronjobs.php?cron=stats" alt="" height="1" width="1">' : '';
+	
+	$Crons .= $CONF['ts_modon'] == 1 && TIMESTAMP >= ($CONF['ts_cron_last'] + 60 * $CONF['ts_cron_interval']) ? '<img src="./cronjobs.php?cron=teamspeak" alt="" height="1" width="1">' : '';
+	
+	$Crons .= TIMESTAMP >= ($CONF['stat_last_db_update'] + 86400) ? '<img src="./cronjobs.php?cron=daily" alt="" height="1" width="1">' : ''; //Daily Cronjob
+	
 	return $Crons;
 }
 
