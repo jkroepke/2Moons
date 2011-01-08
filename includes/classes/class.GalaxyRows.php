@@ -42,10 +42,7 @@ class GalaxyRows
 			$Range = $this->GetMissileRange($USER[$resource[117]]);
 			$SystemLimitMin = max($PLANET['system'] - $Range, 1);
 			$SystemLimitMax = $PLANET['system'] + $Range;
-			if ($GalaxyRowPlanet['system'] <= $SystemLimitMax && $GalaxyRowPlanet['system'] >= $SystemLimitMin)
-				$MissileBtn = true;
-			else
-				$MissileBtn = false;
+			$MissileBtn = $GalaxyRowPlanet['system'] <= $SystemLimitMax && $GalaxyRowPlanet['system'] >= $SystemLimitMin ? true : false;
 		}
 
 		$Result = array(

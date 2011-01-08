@@ -24,11 +24,11 @@ define('INSTALL' , false);
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 
 require_once(ROOT_PATH.'extension.inc');
-require_once(ROOT_PATH.'includes/functions/GetBuildingPrice.'.PHP_EXT);
-require_once(ROOT_PATH.'includes/functions/GetBuildingTime.'.PHP_EXT);
-require_once(ROOT_PATH.'includes/functions/IsElementBuyable.'.PHP_EXT);
-require_once(ROOT_PATH.'includes/functions/SortUserPlanets.'.PHP_EXT);
-require_once(ROOT_PATH.'common.'.PHP_EXT);
+require_once(ROOT_PATH.'includes/functions/GetBuildingPrice.php');
+require_once(ROOT_PATH.'includes/functions/GetBuildingTime.php');
+require_once(ROOT_PATH.'includes/functions/IsElementBuyable.php');
+require_once(ROOT_PATH.'includes/functions/SortUserPlanets.php');
+require_once(ROOT_PATH.'common.php');
 	
 $page = request_var('page','');
 switch($page)
