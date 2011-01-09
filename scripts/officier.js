@@ -7,3 +7,7 @@ function GetOfficerTime(Element, Time)
 	Time--;
 	window.setTimeout("GetOfficerTime("+Element+", "+Time+")", 1000)
 }
+
+function openPayment() {
+	OpenPopup('pay.php?mode=out', 'payment', 650, 350);
+}

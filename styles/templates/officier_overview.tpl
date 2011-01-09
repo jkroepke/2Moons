@@ -2,6 +2,18 @@
 {include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
 <div id="content" class="content">
+	<table>
+		<tr>
+			<th>Dunkle Materie kaufen</th>
+		</tr>
+		<tr>
+			<td>
+				<b>Schnell und sicher Dunkle Materie kaufen, mit PayPal...</b><br><br>
+				<button onclick="openPayment();">Jetzt mit Dunkle Materie kaufen</button>
+			</td>
+			</tr>
+	</table>
+	<br>
 	{if $ExtraDMList}
     <table>	
 	    <tr>

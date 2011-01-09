@@ -217,9 +217,9 @@ switch ($page) {
 				if(true === true)
 				{
 					$db->query("UPDATE ".USERS." SET `password` ='" . md5($NewPass) . "' WHERE `username` = '".$ExistMail['username']."' AND `universe` = '".$Universe."';");
-					$template->message($LNG['mail_sended'], "./?lang=".$LANG, 5, true);
+					$template->message($LNG['mail_sended'], "./?lang=".$LANG->getUser(), 5, true);
 				} else {
-					$template->message($LNG['mail_sended_fail'], "./?lang=".$LANG, 5, true);
+					$template->message($LNG['mail_sended_fail'], "./?lang=".$LANG->getUser(), 5, true);
 				}
 			
 			}

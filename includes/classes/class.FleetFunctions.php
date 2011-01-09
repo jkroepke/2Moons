@@ -437,7 +437,7 @@ abstract class FleetFunctions
 				if (!$YourPlanet) {
 					if(!CheckModule(1))
 						$missiontype[1] = $LNG['type_mission'][1];
-					if(!CheckModule(32))
+					if(!CheckModule(33))
 						$missiontype[5] = $LNG['type_mission'][5];}
 						
 				elseif(!CheckModule(36)) {
