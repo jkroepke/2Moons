@@ -191,7 +191,6 @@ class ShowOptionsPage
 				{
 					$newpass 	 = md5($newpass1);
 					$SQLQuery	.= "UPDATE ".USERS." SET `password` = '".$newpass."' WHERE `id` = '".$USER['id']."';";
-					$SESSION->DestroySession();
 					session_destroy();
 					$template->message($LNG['op_password_changed'],"index.php", 3);
 				}
