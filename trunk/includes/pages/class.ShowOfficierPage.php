@@ -77,7 +77,7 @@ class ShowOfficierPage
 	
 	public function __construct()
 	{
-		global $USER, $PLANET, $resource, $reslist, $LNG, $db, $ExtraDM, $OfficerInfo, $pricelist;
+		global $USER, $CONF, $PLANET, $resource, $reslist, $LNG, $db, $ExtraDM, $OfficerInfo, $pricelist;
 		
 		$action   = request_var('action', '');
 		$Offi	  = request_var('offi', 0);
@@ -88,9 +88,9 @@ class ShowOfficierPage
 		
 		if ($action == "send" && $USER['urlaubs_modus'] == 0)
 		{
-			if(!empty($Offi) && !CheckModule(8))
+			if(!empty($Offi) && !CheckModule(18))
 				$this->UpdateOfficier($Offi);
-			elseif(!empty($Extra) && !CheckModule(18))
+			elseif(!empty($Extra) && !CheckModule(8))
 				$this->UpdateExtra($Extra);		
 		}
 		

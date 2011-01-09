@@ -503,7 +503,7 @@ class ShowFleetPages extends FleetFunctions
 			exit;
 		}
 		
-		if(!$YourPlanet && ($mission == 1 || $mission == 2 || $mission == 6 || $mission == 9))
+		if(!$YourPlanet && ($mission == 1 || $mission == 2 || $mission == 5 || $mission == 6 || $mission == 9))
 		{
 			if($TargetPlanet['id_level'] > $USER['authlevel'] && $CONF['adm_attack'] == 1)
 			{
