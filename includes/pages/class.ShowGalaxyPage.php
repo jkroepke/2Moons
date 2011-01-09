@@ -68,7 +68,7 @@ class ShowGalaxyPage extends GalaxyRows
 			$Result[$Planet]['planetname']	= $this->GalaxyRowPlanetName ($GalaxyRowPlanet);
 			
 			$Result[$Planet]['action']	= $GalaxyRowPlanet['userid'] != $USER['id'] ? $this->GalaxyRowActions($GalaxyRowPlanet) : false;
-			$Result[$Planet]['ally']	= $GalaxyRowPlanet['allay_id'] != 0 ? $this->GalaxyRowAlly($GalaxyRowPlanet) : false;
+			$Result[$Planet]['ally']	= $GalaxyRowPlanet['ally_id'] != 0 ? $this->GalaxyRowAlly($GalaxyRowPlanet) : false;
 			$Result[$Planet]['derbis']	= $GalaxyRowPlanet['der_metal'] > 0 || $GalaxyRowPlanet['der_crystal'] > 0 ? $this->GalaxyRowDebris($GalaxyRowPlanet) : false;
 											
 		}
