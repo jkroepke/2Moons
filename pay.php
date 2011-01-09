@@ -40,7 +40,7 @@ switch($mode)
 		if($CODE !== 'OK')
 			exit;
 		
-		§db->query("UPDATE ".USERS." SET `darkmatter` = `darkmatter` + '".(int)$_POST['amount']."' WHERE `email_2` = '".$db->sql_escape(reqeust_var('email_2', '')).";");
+		$db->query("UPDATE ".USERS." SET `darkmatter` = `darkmatter` + '".(int)$_POST['amount']."' WHERE `email_2` = '".$db->sql_escape(reqeust_var('email_2', '')).";");
 		
 		exit('OK');
 	break;
