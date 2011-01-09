@@ -126,7 +126,7 @@ switch ($page) {
 			$SQL .= "`onlinetime` = '".TIMESTAMP."', ";
 			$SQL .= "`register_time` = '".TIMESTAMP."', ";
 			$SQL .= "`password` = '" . $UserPass . "', ";
-			$SQL .= "`lang` = '".$LANG."', ";
+			$SQL .= "`lang` = '".$LANG->GetLangFromBrowser()."', ";
 			$SQL .= "`dpath` = '" . DEFAULT_SKINPATH . "', ";
 			$SQL .= "`fb_id` = '" . $uid . "', ";
 			$SQL .= "`uctime`= '0';";
