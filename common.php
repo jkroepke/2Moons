@@ -131,6 +131,8 @@ if (INSTALL != true)
 			exit;
 		}
 		
+		$db->query("UPDATE ".USERS." SET new_message = 0 WHERE new_message < 0 ");
+		
 		if($_SESSION['authlevel'] != $USER['authlevel']) {
 			$db->query("UPDATE ".USERS." SET `authlevel` = '".$_SESSION['authlevel']."' WHERE `id` = ".$USER['id'].";");
 			redirectTo('index.php');		
