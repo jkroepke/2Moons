@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 //SHORT NAMES FOR COMBAT REPORTS
 $LNG['tech_rc'] = array (
