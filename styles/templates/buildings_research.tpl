@@ -2,7 +2,7 @@
 {include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
 <div id="content" class="content">
-    {if $IsLabinBuild}<span style="color:ff0000">{$bd_building_lab}</span>{/if}
+    {if $IsLabinBuild}<table width="70%" id="infobox" style="border: 2px solid red; text-align:center;background:transparent"><tr><td>{$bd_building_lab}</td></tr></table><br><br>{/if}
     <table>	
 		{foreach item=ResearchInfoRow from=$ResearchList}
 		<tr>
