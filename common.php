@@ -130,9 +130,7 @@ if (INSTALL != true)
 			message("<font size=\"6px\">".$LNG['css_account_banned_message']."</font><br><br>".sprintf($LNG['css_account_banned_expire'],date("d. M y H:i", $USER['banaday']))."<br><br>".$LNG['css_goto_homeside']);
 			exit;
 		}
-		
-		$db->query("UPDATE ".USERS." SET new_message = 0 WHERE new_message < 0 ");
-		
+				
 		if($_SESSION['authlevel'] != $USER['authlevel']) {
 			$db->query("UPDATE ".USERS." SET `authlevel` = '".$_SESSION['authlevel']."' WHERE `id` = ".$USER['id'].";");
 			redirectTo('index.php');		
