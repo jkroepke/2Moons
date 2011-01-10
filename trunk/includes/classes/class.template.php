@@ -76,9 +76,12 @@ class template
 		$this->script[]				= $script;
 	}
 		
-	public function assign_vars($assign)
+	public function assign_vars($var = array(), $val = null) 
 	{
-		$this->vars	= array_merge($this->vars, $assign);
+		if (!is_null($val))
+			$var = array($var => $val);
+		
+		$this->vars	= array_merge($this->vars, $var);
 	}
 	
 	private function Menus()
