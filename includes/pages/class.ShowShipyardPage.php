@@ -124,7 +124,7 @@ class ShowShipyardPage
 			exit;
 		}
 		
-		$fmenge	= request_var('fmenge', $reslist['fleet']);
+		$fmenge	= $_POST['fmenge'];
 		$cancel	= request_var('auftr', range(0, MAX_FLEET_OR_DEFS_IN_BUILD - 1));
 		$action	= request_var('action', '');
 		
@@ -160,7 +160,7 @@ class ShowShipyardPage
 			}
 			foreach($fmenge as $Element => $Count)
 			{
-				if(empty($Count))
+				if(empty($Count) || !in_array($Element, $reslist['fleet']))
 					continue;
 					
 				$Count			= is_numeric($Count) ? round($Count) : 0;
@@ -275,7 +275,7 @@ class ShowShipyardPage
 			exit;
 		}
 
-		$fmenge	= request_var('fmenge', $reslist['fleet']);
+		$fmenge	= $_POST['fmenge'];
 		$cancel	= request_var('auftr', range(0, MAX_FLEET_OR_DEFS_IN_BUILD - 1));
 		$action	= request_var('action', '');
 								
@@ -323,7 +323,7 @@ class ShowShipyardPage
 
 			foreach($fmenge as $Element => $Count)
 			{
-				if(empty($Count))
+				if(empty($Count) || !in_array($Element, $reslist['defense']))
 					continue;
 					
 				$Count			= is_numeric($Count) ? $Count : 0;
