@@ -40,12 +40,12 @@ class ResourceUpdate
 		}
 	}
 	
-	public function CalcResource($USER = NULL, $PLANET = NULL, $SAVE = false, $TIME = 0)
+	public function CalcResource($USER = NULL, $PLANET = NULL, $SAVE = false, $TIME = NULL)
 	{
 		$this->GLOBALS	= !isset($USER, $PLANET) ? true : false;
 		$this->USER		= $this->GLOBALS ? $GLOBALS['USER'] : $USER;
 		$this->PLANET	= $this->GLOBALS ? $GLOBALS['PLANET'] : $PLANET;
-		$this->TIME		= empty($TIME) ? TIMESTAMP : $TIME;
+		$this->TIME		= is_null($TIME) ? TIMESTAMP : $TIME;
 			
 		if($this->USER['urlaubs_modus'] == 1)
 			return $this->ReturnVars();
@@ -372,15 +372,18 @@ class ResourceUpdate
 		$this->USER['b_tech_planet']						= 0;
 	}
 	
-	public function SavePlanetToDB($USER = NULL, $PLANET = NULL)
+	public function SavePlanetToDB($USER = NULL, $PLANET = NULL, $UPDATE = NULL)
 	{
 		global $resource, $db, $reslist;
 		
-		if(empty($USER))
+		if(is_null($USER))
 			global $USER;
 			
-		if(empty($PLANET))
-			global $PLANET;;
+		if(is_null($PLANET))
+			global $PLANET;
+			
+		$UPDATE	= is_null($UPDATE) ? $GLOBALS['UPDATE']	: $UPDATE;
+		
 		$Qry	= "LOCK TABLE ".PLANETS." as p WRITE, ".USERS." as u WRITE, ".SESSION." as s WRITE;
 				   UPDATE ".PLANETS." as p, ".USERS." as u, ".SESSION." as s SET
 				   `p`.`metal` = '".floattostring($PLANET['metal'])."',
