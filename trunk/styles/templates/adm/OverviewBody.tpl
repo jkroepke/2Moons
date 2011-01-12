@@ -9,8 +9,8 @@ google.load("feeds", "1");
 <h1>{$ow_title}</h1>
 <table width="90%" style="border:2px {if empty($Messages)}lime{else}red{/if} solid;text-align:center;font-weight:bold;">
 <tr>
-    <td>{foreach item=Message from=$Messages}
-	<span style="color:red"><b>{$Message}</b></span><br><br>
+    <td class="transparent">{foreach item=Message from=$Messages}
+	<span style="color:red">{$Message}</span><br>
 	{foreachelse}{$ow_none}{/foreach}
 	</td>
 </tr>
@@ -27,10 +27,10 @@ google.load("feeds", "1");
         <th colspan="2">{$ow_support}</th>
     </tr>
     <tr>
-        <td colspan="2"><a href="http://o.gl/7eu8" target="_blank">Project Homepage</a><br>
+        <td colspan="2"><a href="http://code.google.com/p/2moons/" target="_blank">Project Homepage</a><br>
         <a href="http://code.google.com/p/2moons/source/list" target="_blank">SVN Revision List</a><br>
 		<a href="http://www.titanspace.org/" target="_blank">Offical Betauni</a><br>
-		<a href="http://www.xnova.de/" target="_blank">xnova.de - {$ow_forum}</a></td>
+		<a href="http://2moons.cc/" target="_blank">2moons.cc - {$ow_forum}</a></td>
     </tr> 
 	<tr>
 		<th style="width:50%;">Donate - Paypal</th>
@@ -45,7 +45,7 @@ google.load("feeds", "1");
 					value: Math.min(donate_{$date},donate_max) / donate_max * 100
 				});
 			});
-			document.write("Goal: "+donate_max+"&euro; &bull; tde Month Amount: "+donate_{$date}+"&euro; ("+donate_{$date} / donate_max * 100+"%)");
+			document.write("Goal: "+donate_max+"&euro; &bull; Month Amount: "+donate_{$date}+"&euro; ("+donate_{$date} / donate_max * 100+"%)");
 			</script>
 		</td>
 	</tr>
@@ -131,7 +131,7 @@ google.load("feeds", "1");
 					cyceron (polnisch)</td>
                 </tr> 
                 <tr>
-					<td class="transparent"><h3>{$ow_special_tdanks}</h3></td>
+					<td class="transparent"><h3>{$ow_special_thanks}</h3></td>
                 </tr>
                 <tr>
 					<td class="transparent">lucky<br>Metusalem<br>Meikel<br>Phil<br>Schnippi<br>Inforcer<br>Vobi<br>Onko<br>Sycrog<br>Raito<br>Chlorel<br>e-Zobar<br>Flousedid<br>Allen Spielern im <a href="http://www.titanspace.org" target="blank">Betauni</a> ...<br>... sowie der Community auf xnova-reloaded.eu</td>
