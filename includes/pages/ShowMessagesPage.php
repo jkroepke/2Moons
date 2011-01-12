@@ -80,7 +80,7 @@ function ShowMessagesPage()
 			
 			$template->loadscript('message.js');
 	
-			$MessOut	= $db->uniquequery("SELECT COUNT(*) as count FROM ".MESSAGES." WHERE message_sender = '".$USER['id']."';");
+			$MessOut	= $db->countquery("SELECT COUNT(*) FROM ".MESSAGES." WHERE message_sender = '".$USER['id']."';");
 			$OpsList	= array();
 			$TotalMess	= array(0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 15 => 0, 50 => 0, 99 => 0, 100 => 0, 999 => 0);
 			$UnRead		= array(0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 15 => 0, 50 => 0, 99 => 0, 100 => 0, 999 => 0);
@@ -106,7 +106,7 @@ function ShowMessagesPage()
 			$UnRead[50]			+= $USER['new_gmessage'];
 			$UnRead[100]		= is_array($UnRead) ? array_sum($UnRead) : 0;
 			$TotalMess[100]		= is_array($TotalMess) ? (array_sum($TotalMess) - $TotalMess[50]) : 0;
-			$TotalMess[999]		= $MessOut['count'];
+			$TotalMess[999]		= $MessOut;
 			
 			
 			foreach($TitleColor as $MessageID => $MessageColor) {

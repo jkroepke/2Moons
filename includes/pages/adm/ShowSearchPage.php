@@ -382,8 +382,8 @@ function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialS
 		
 			if ($Table == "users")
 			{
-				if ($USER['rights']['ShowAccountDataPage'] == 1)
-					$Search['LIST']	.=	"<td><a href=\"?page=accountdata&amp;id_u=".$WhileResult[0]."\"><img title=\"".$WhileResult[1]."\" src=\"./styles/images/Adm/GO.png\"></a></d>";
+				if ($USER['rights']['ShowQuickEditorPage'] == 1)
+					$Search['LIST']	.=	"<td><a href=\"javascript:openEdit('".$WhileResult[0]."', 'player');\" border=\"0\"><img title=\"".$WhileResult[1]."\" src=\"./styles/images/Adm/GO.png\"></a></d>";
 			
 				if ($USER['authlevel']	==	'3')
 				{

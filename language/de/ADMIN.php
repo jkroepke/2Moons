@@ -853,22 +853,28 @@ $LNG['sp_admin_open']				= '%s (Admin) hat das Ticket am %s geöffnet!';
 
 // QuickEditor
 
-$LNG['qe_send']						= 'Absenden';
+$LNG['qe_send']							= 'Absenden';
 $LNG['qe_reset']						= 'Zurücksetzten';
 $LNG['qe_build']						= 'Gebäude';
+$LNG['qe_tech']							= 'Forschung';
 $LNG['qe_fleet']						= 'Flotte';
 $LNG['qe_defensive']					= 'Verteigung';
 $LNG['qe_resources']					= 'Rohstoffe';
 $LNG['qe_id']							= 'ID';
-$LNG['qe_name']						= 'Name';
+$LNG['qe_name']							= 'Name';
+$LNG['qe_level']						= 'Stufe';
 $LNG['qe_count']						= 'Vorhanden';
 $LNG['qe_input']						= 'Eingabe';
-$LNG['qe_edit_sucess']					= 'Planet %s [%d:%d:%d] erfolgreich bearbeitet!';
-$LNG['qe_info']						= 'Informationen';
+$LNG['qe_edit_planet_sucess']			= 'Planet %s [%d:%d:%d] erfolgreich bearbeitet!';
+$LNG['qe_edit_player_sucess']			= 'User %s (ID: %d) erfolgreich bearbeitet!';
+$LNG['qe_info']							= 'Informationen';
 $LNG['qe_owner']						= 'Besitzter';
 $LNG['qe_fields']						= 'Felder';
+$LNG['qe_password']						= 'Passwort';
 $LNG['qe_coords']						= 'Koordinaten';
-$LNG['qe_temp']						= 'Temperatur';
+$LNG['qe_hpcoords']						= 'HP-Koordinaten';
+$LNG['qe_temp']							= 'Temperatur';
+$LNG['qe_change']						= 'Ändern';
 
 //----------------------------------------------------------------------------//
 //TeamSpeakSettingPage.php
