@@ -81,6 +81,9 @@ function Buildlist() {
 			document.title	= Ready + ' - ' + Gamename;
 			window.setTimeout("window.location.href = 'game.php?page=buildings'", 1000);
 			return true;
+		} else if(data.build[0].reload === true){
+			window.location.href = 'game.php?page=buildings';
+			return true;
 		} else {
 			data.build.shift();
 			$('#buildlist').fadeOut("fast");

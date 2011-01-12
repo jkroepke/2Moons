@@ -209,7 +209,7 @@ class ShowBuildingsPage
 			if ($BuildArray[3] < TIMESTAMP)
 				continue;
 
-			$ScriptData[] = array('element' => $BuildArray[0], 'level' => $BuildArray[1], 'time' => $BuildArray[2], 'name' => $LNG['tech'][$BuildArray[0]], 'mode' => (($BuildArray[4] == 'destroy') ? ' '.$LNG['bd_dismantle'] : ''), 'endtime' => $BuildArray[3]);
+			$ScriptData[] = array('element' => $BuildArray[0], 'level' => $BuildArray[1], 'time' => $BuildArray[2], 'name' => $LNG['tech'][$BuildArray[0]], 'mode' => (($BuildArray[4] == 'destroy') ? ' '.$LNG['bd_dismantle'] : ''), 'endtime' => $BuildArray[3], 'reload' => in_array($BuildArray[0], array(14, 15)));
 		}
 		return $ScriptData;
 	}
@@ -327,6 +327,7 @@ class ShowBuildingsPage
 			'fgf_time'				=> $LNG['fgf_time'],
 			'bd_remaining'			=> $LNG['bd_remaining'],
 			'bd_jump_gate_action'	=> $LNG['bd_jump_gate_action'],
+			'bd_price_for_destroy'	=> $LNG['bd_price_for_destroy'],
 		));
 			
 		$template->show("buildings_overview.tpl");

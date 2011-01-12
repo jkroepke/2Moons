@@ -17,7 +17,7 @@
 		{if $rights.ShowBanPage}<li><a href="?page=bans" target="Hauptframe">{$mu_ban_options}</a></li>{/if}
 		<li><a href="javascript:void(0);"><span style="color:lime">{$mu_observation}</span></a></li>
 		{if $rights.ShowSearchPage}<li><a href="?page=search&amp;search=online&amp;minimize=on" target="Hauptframe">{$mu_connected}</a></li>{/if}
-		{if $rights.ShowSupportPage}<li><a href="?page=support" target="Hauptframe">{$mu_support}</a></li>{/if}
+		{if $rights.ShowSupportPage}<li><a href="?page=support" target="Hauptframe">{$mu_support}{if $supportticks != 0} ({$supportticks}){/if}</a></li>{/if}
 		{if $rights.ShowActivePage}<li><a href="?page=active" target="Hauptframe">{$mu_vaild_users}</a></li>{/if}
 		{if $rights.ShowSearchPage}<li><a href="?page=search&amp;search=p_connect&amp;minimize=on" target="Hauptframe">{$mu_active_planets}</a></li>{/if}
 		{if $rights.ShowFlyingFleetPage}<li><a href="?page=fleets" target="Hauptframe">{$mu_flying_fleets}</a></li>{/if}

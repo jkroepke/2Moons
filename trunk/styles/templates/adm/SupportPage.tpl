@@ -63,15 +63,15 @@
 	</tr>
 	<tr>
 		<td>
-			<form action="?page=support&amp;action=send&amp;id={$t_id}" method="POST">
+			<form action="?page=support&amp;action=send&amp;id={$t_id}&amp;reload=l" method="POST">
 			<textarea cols="70" rows="10" name="text"></textarea>
 			<br><input type="submit" value="{$button_submit}">
 			</form><hr>
 			{if $t_status != 0}
-			<form action="?page=support&amp;action=close&amp;id={$t_id}" method="POST">
+			<form action="?page=support&amp;action=close&amp;id={$t_id}&amp;reload=l" method="POST">
 			<input type="submit" value="{$close_ticket}"></form>
 			{else}
-			<form action="?page=support&amp;action=open&amp;id={$t_id}" method="POST">
+			<form action="?page=support&amp;action=open&amp;id={$t_id}&amp;reload=l" method="POST">
 			<input type="submit" value="{$open_ticket}"></form>
 			{/if}
 		</td>

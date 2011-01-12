@@ -51,7 +51,7 @@ function ShowSupportPage()
 		break;
 		case 'open':
 			$ticket = $db->uniquequery("SELECT text FROM ".SUPP." WHERE `id` = '".$ID."';");
-			$newtext = $ticket['text'].'<br><br><hr>'.sprintf($LNG['sp_admin_closed'], $USER['username'], date("j. M Y H:i:s", TIMESTAMP));
+			$newtext = $ticket['text'].'<br><br><hr>'.sprintf($LNG['sp_admin_open'], $USER['username'], date("j. M Y H:i:s", TIMESTAMP));
 			$SQL  = "UPDATE ".SUPP." SET ";
 			$SQL .= "`text` = '".$db->sql_escape($newtext)."',";
 			$SQL .= "`status` = '2'";
@@ -61,7 +61,7 @@ function ShowSupportPage()
 		break;
 		case 'close':
 			$ticket = $db->uniquequery("SELECT text FROM ".SUPP." WHERE `id` = '".$ID."';");
-			$newtext = $ticket['text'].'<br><br><hr>'.sprintf($LNG['sp_admin_open'], $USER['username'], date("j. M Y H:i:s", TIMESTAMP));
+			$newtext = $ticket['text'].'<br><br><hr>'.sprintf($LNG['sp_admin_closed'], $USER['username'], date("j. M Y H:i:s", TIMESTAMP));
 			$SQL  = "UPDATE ".SUPP." SET ";
 			$SQL .= "`text` = '".$db->sql_escape($newtext)."',";
 			$SQL .= "`status` = '0'";
@@ -93,10 +93,7 @@ function ShowSupportPage()
 		if($_GET['action'] == 'detail' && $ID == $ticket['ID'])
 			$TINFO	= $ticket;
 			
-		if($ticket['status'] == 0){	
-			if($_GET['action'] == 'detail')
-				continue;
-				
+		if($ticket['status'] == 0){					
 			$tickets['closed'][]	= array(
 				'id'		=> $ticket['ID'],
 				'username'	=> $ticket['username'],
@@ -118,6 +115,9 @@ function ShowSupportPage()
 	
 	if($_GET['action'] == 'detail')
 	{
+		if($TINFO['status'] != 0)
+			unset($tickets['closed']);
+		
 		switch($TINFO['status']){
 			case 0:
 				$status = '<font color="red">'.$LNG['supp_close'].'</font>';

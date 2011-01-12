@@ -365,6 +365,7 @@ $LNG['bd_actual_production']				= 'Aktuelle Produktion:';
 $LNG['bd_completed']						= 'Fertig';
 $LNG['bd_operating']						= 'in Arbeit';
 $LNG['bd_continue']							= 'Weiter';
+$LNG['bd_price_for_destroy']				= 'Kosten für Abriss:';
 $LNG['bd_ready']							= 'Fertig';
 $LNG['bd_finished']							= 'Fertig';
 $LNG['bd_maxlevel']							= 'Maximale Stufe erreicht';

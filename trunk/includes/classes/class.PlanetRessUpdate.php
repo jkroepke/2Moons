@@ -302,14 +302,14 @@ class ResourceUpdate
 		$BuildEndTime	= $this->TIME;
 		while ($Loop == true)
 		{
-			$ListIDArray         = explode ( ",", $QueueArray[0]);
+			$ListIDArray         = explode(",", $QueueArray[0]);
 			$Element             = $ListIDArray[0];
 			$Level               = $ListIDArray[1];
 			$BuildTime  	     = GetBuildingTime($this->USER, $this->PLANET, $Element, $ListIDArray[4] == 'destroy');
 			$BuildEndTime        = $this->TIME + $BuildTime;
 			$BuildMode           = $ListIDArray[4];
+			$QueueArray[0]		 = implode(",", array($Element, $Level, $BuildTime, $BuildEndTime, $BuildMode));
 			$ForDestroy 		 = ($BuildMode == 'destroy') ? true : false;
-
 			$HaveNoMoreLevel     = false;
 								
 			$HaveRessources 	 = IsElementBuyable($this->USER, $this->PLANET, $Element, true, $ForDestroy);
