@@ -2,6 +2,7 @@
 {include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
 <div id="content" class="content">
+	{if $Payenabled}
 	<table>
 		<tr>
 			<th>Dunkle Materie kaufen</th>
@@ -14,6 +15,7 @@
 			</tr>
 	</table>
 	<br>
+	{/if}
 	{if $ExtraDMList}
     <table>	
 	    <tr>
