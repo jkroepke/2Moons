@@ -29,7 +29,7 @@
 	<tr>
         <td colspan="2">
             <table>
-            <tr><th>{$in_level}</th><th>{if $id == 3}{$in_prod_energy}{else}{$in_prod_p_hour}{/if}</th><th>{$in_difference}</th><th>{if $id == 12}{$in_used_deuter}{elseif $id == 3}{$in_prod_energy}{else}{$in_used_energy}{/if}</th><th>{$in_difference}</th></tr>
+            <tr><th>{$in_level}</th><th>{if $id == 12}{$in_prod_energy}{else}{$in_prod_p_hour}{/if}</th><th>{$in_difference}</th><th>{if $id == 12}{$in_used_deuter}{elseif $id == 3}{$in_prod_energy}{else}{$in_used_energy}{/if}</th><th>{$in_difference}</th></tr>
 			{foreach item=LevelRow from=$ProductionTable}
             <tr><td>{if $Level == $LevelRow.BuildLevel}<span style="color:#ff0000">{$LevelRow.BuildLevel}</span>{else}{$LevelRow.BuildLevel}{/if}</td><td>{$LevelRow.prod}</td><td>{$LevelRow.prod_diff}</td><td>{$LevelRow.need}</td><td>{$LevelRow.need_diff}</td></tr>
 			{/foreach}

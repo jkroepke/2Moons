@@ -25,14 +25,17 @@ function ShowOverviewPage()
 	global $LNG, $USER, $CONF;
 	
 	$Message	= array();
-	
+
 	if ($USER['authlevel'] >= AUTH_ADM)
 	{
-		if(is_writable(ROOT_PATH.'config.php'))
+		if(is_writable(ROOT_PATH.'includes/config.php'))
 			$Message[]	= $LNG['ow_config_file_writable'];
-	
-		if($CONF['stats_fly_lock'] != 0)
-			$Message[]	= sprintf($LNG['ow_handler_errors'], date("d. M y H:i:s" ,$CONF['stats_fly_lock']), date("d. M y H:i:s", $CONF['stats_fly_lock'] + 5 * 60));
+		
+		if(!is_writable(ROOT_PATH.'includes'))
+			$Message[]	= sprintf($LNG['ow_dir_not_writable'], 'raports');
+			
+		if(!is_writable(ROOT_PATH.'raports'))
+			$Message[]	= sprintf($LNG['ow_dir_not_writable'], 'raports');
 		
 		if($CONF['user_valid'] == 1 && (empty($CONF['smtp_host']) || empty($CONF['smtp_port']) || empty($CONF['smtp_user']) || empty($CONF['smtp_pass'])))
 			$Message[]	= $LNG['ow_smtp_errors'];

@@ -336,7 +336,7 @@ class ResourceUpdate
 						$Needed      = GetBuildingPrice($this->USER, $this->PLANET, $Element, true, $ForDestroy);
 						$Message     = sprintf($LNG['sys_notenough_money'], $this->PLANET['name'], $this->PLANET['id'], $this->PLANET['galaxy'], $this->PLANET['system'], $this->PLANET['planet'], $LNG['tech'][$Element], pretty_number ($this->PLANET['metal']), $LNG['Metal'], pretty_number ($this->PLANET['crystal']), $LNG['Crystal'], pretty_number ($this->PLANET['deuterium']), $LNG['Deuterium'], pretty_number ($Needed['metal']), $LNG['Metal'], pretty_number ($Needed['crystal']), $LNG['Crystal'], pretty_number ($Needed['deuterium']), $LNG['Deuterium']);
 					}
-					SendSimpleMessage($this->USER['id'], '', ($BuildEndTime - $BuildTime), 99, $LNG['sys_buildlist'], $LNG['sys_buildlist_fail'], $Message);				
+					SendSimpleMessage($this->USER['id'], '', $this->TIME, 99, $LNG['sys_buildlist'], $LNG['sys_buildlist_fail'], $Message);				
 				}
 
 				array_shift($QueueArray);
@@ -350,7 +350,8 @@ class ResourceUpdate
 					foreach($QueueArray as $ID => $QueueInfo)
 					{
 						$ListIDArray        = explode(",", $QueueInfo);
-						$BaseTime			+= GetBuildingTime($this->USER, $this->PLANET, $ListIDArray[0], $ListIDArray[4] == 'destroy');
+						$ListIDArray[2]		= GetBuildingTime($this->USER, $this->PLANET, $ListIDArray[0], $ListIDArray[4] == 'destroy');
+						$BaseTime			+= $ListIDArray[2];
 						$ListIDArray[3]		= $BaseTime;
 						$QueueArray[$ID]	= implode(",", $ListIDArray);
 					}

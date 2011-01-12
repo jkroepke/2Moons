@@ -22,7 +22,7 @@
 ##############################################################################
 
 //---------------	GENERAL	------------------------// 
-$LNG['adm_login']		= 'Login';
+$LNG['adm_login']			= 'Login';
 $LNG['adm_password']		= 'Passwort';
 $LNG['adm_absenden']		= 'Absenden';
 $LNG['adm_password_info']	= 'Gebe dein Passwort ein, um dich zu vertifizeren!';
@@ -70,7 +70,7 @@ $LNG['button_submit']		= 'Senden';
 $LNG['button_add']			= 'Hinzufügen';
 $LNG['button_delete']		= 'Löschen';
 $LNG['button_filter']		= 'Filter';
-$LNG['button_deselect']	= 'Auswahl Entfernen';
+$LNG['button_deselect']		= 'Auswahl Entfernen';
 $LNG['button_reset']		= 'Restart';
 $LNG['button_des_se']		= 'alles auswählen/abwählen';
 //###########################################################//
@@ -79,7 +79,7 @@ $LNG['button_des_se']		= 'alles auswählen/abwählen';
 //---------------	ID's	------------------------//
 $LNG['input_id']			= 'ID';
 $LNG['input_id_user']		= 'Spieler ID';
-$LNG['input_id_planet']	= 'Planet ID';
+$LNG['input_id_planet']		= 'Planet ID';
 $LNG['input_id_moon']		= 'Mond ID';
 $LNG['input_id_p_m']		= 'Planet oder Mond ID';
 $LNG['input_id_ally']		= 'Allianz ID';
@@ -302,25 +302,10 @@ $LNG['ma_none']					= 'Globale Nachrichten';
 $LNG['ma_message']				= 'Nachricht';
 //###########################################################//
 
-
-//---------------	BASE DE DATOS - DATA BASES - Data Bases	------------------------//
-$LNG['od_not_opt']				= 'Fehler!';
-$LNG['od_not_check']		    = 'Fehler!';
-$LNG['od_opt']					= 'Optimiert!';
-$LNG['od_rep']					= 'Fix!';
-$LNG['od_check_ok']			= 'Tabelle in Ordnung!';
-$LNG['od_opt_db']				= 'Datenbank';
-$LNG['od_optimize']			= 'Optimieren';
-$LNG['od_repair']				= 'Reparieren';
-$LNG['od_check']				= 'Überprüfen';
-$LNG['od_select_action']		= 'Auswählen';
-//###########################################################//
-
-
 //---------------	PÁGINA DE INICIO - OVERVIEW	------------------------//
 $LNG['ow_title']					= 'Willkommen zu 2Moons';
-$LNG['ow_welcome_text']			= 'Herzlich Willkommen zum allseits beliebten 2Moons. (:';
-$LNG['ow_overview']				= 'Kontrollzentrum';
+$LNG['ow_welcome_text']				= 'Herzlich Willkommen zum allseits beliebten 2Moons. (:';
+$LNG['ow_overview']					= 'Kontrollzentrum';
 $LNG['ow_support']					= 'Support';
 $LNG['ow_credits']					= 'Credits';
 $LNG['ow_forum']					= 'Forum';
@@ -332,6 +317,7 @@ $LNG['ow_config_file_writable']		= 'Die config.php ist beschreibar. Ändere bitt
 $LNG['ow_database_errors']			= 'Es sind Fehler vorhanden!';
 $LNG['ow_handler_errors']			= 'Der Fleet-Handler hatte ein Fehler! - Letzter Start: %s - Nächster Start: %s';
 $LNG['ow_smtp_errors']				= 'Überprüfe deine SMTP-Einstellungen! - Momentan können keine Mails gesendet werden!';
+$LNG['ow_dir_not_writable']			= './%s ist nicht beschreibar!';
 $LNG['ow_old_version']				= 'Eine neue Version ist verfügbar.';
 $LNG['ow_none']						= 'Keine Warnungen';
 //###########################################################//
