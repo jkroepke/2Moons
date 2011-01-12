@@ -6,19 +6,19 @@ function check(){
 		opener.location.reload();
 		window.close();
 	});
-	return true;
+	return false;
 }
 </script>
-<form method="post" id="userform">
+<form method="post" id="userform" action="" onsubmit="return check();">
 <table width="100%" style="color:#FFFFFF"><tr>
         <th colspan="3">{$qe_info}</th>
 </tr>
-<tr><td width="50%">{$qe_idq}:</td><td width="50%">{$id}</td></tr>
+<tr style="height:26px;"><td width="50%">{$qe_id}:</td><td width="50%">{$id}</td></tr>
 <tr><td width="50%">{$qe_name}:</td><td width="50%"><input name="name" type="text" size="15" value="{$name}"></td></tr>
-<tr><td width="50%">{$qe_coords}:</td><td width="50%">[{$galaxy}:{$system}:{$planet}]</td></tr>
-<tr><td width="50%">{$qe_owner}:</td><td width="50%">{$ownername} ({$qe_id}: {$ownerid})</td></tr>
+<tr style="height:26px;"><td width="50%">{$qe_coords}:</td><td width="50%">[{$galaxy}:{$system}:{$planet}]</td></tr>
+<tr style="height:26px;"><td width="50%">{$qe_owner}:</td><td width="50%">{$ownername} ({$qe_id}: {$ownerid})</td></tr>
 <tr><td width="50%">{$qe_fields}:</td><td width="50%">{$field_min} / <input name="field_max" type="text" size="3" value="{$field_max}"></td></tr>
-<tr><td width="50%">{$qe_temp}:</td><td width="50%">{$temp_min} / {$temp_max}</td></tr>
+<tr style="height:26px;"><td width="50%">{$qe_temp}:</td><td width="50%">{$temp_min} / {$temp_max}</td></tr>
 </table>
 <table width="100%" style="color:#FFFFFF">
 <tr>
@@ -36,7 +36,7 @@ function check(){
         <th colspan="3">{$qe_build}</th>
 </tr>
 <tr>
-        <td>{$qe_name}</td><td>{$qe_count}</td><td>{$qe_input}</td>
+        <td>{$qe_name}</td><td>{$qe_level}</td><td>{$qe_input}</td>
 </tr>
 {foreach item=Element from=$build}
 <tr><td width="30%">{$Element.name}:</td><td width="30%">{$Element.count}</td><td width="40%"><input name="{$Element.type}" type="text" value="{$Element.input}"></td>
@@ -64,7 +64,7 @@ function check(){
 <tr><td width="30%">{$Element.name}:</td><td width="30%">{$Element.count}</td><td width="40%"><input name="{$Element.type}" type="text" value="{$Element.input}"></td>
 {/foreach}
 <tr>
-        <td colspan="3"><input type="button" onClick="return check();" value="{$qe_send}"> <input type="reset" value="{$qe_reset}"></td>
+        <td colspan="3"><input type="submit" value="{$qe_send}"> <input type="reset" value="{$qe_reset}"></td>
 </tr>
 </table>
 </form>

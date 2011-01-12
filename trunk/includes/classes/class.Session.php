@@ -58,9 +58,9 @@ class Session
 		if(request_var('ajax', 0) == 1)
 			return true;
 			
-		$_SESSION['db']	= $this->GetSessionFromDB();
+		$_SESSION['last']	= $this->GetSessionFromDB();
 		
-		if(empty($_SESSION['db']) || !$this->CompareIPs($_SESSION['db']['user_ip'])) {
+		if(empty($_SESSION['last']) || !$this->CompareIPs($_SESSION['last']['user_ip'])) {
 			$this->DestroySession();
 			redirectTo('index.php?code=2');
 		}

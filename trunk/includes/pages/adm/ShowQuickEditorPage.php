@@ -24,7 +24,7 @@ if ($USER['rights'][str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '',
 
 function ShowQuickEditorPage()
 {
-	global $LNG, $db, $reslist, $resource;
+	global $USER, $LNG, $db, $reslist, $resource;
 	$action	= request_var('action', '');
 	$edit	= request_var('edit', '');
 	$id 	= request_var('id', 0);
@@ -42,19 +42,19 @@ function ShowQuickEditorPage()
 			$reslist['build']	= $reslist['allow'][$PlanetData['planet_type']];
 			
 			if($action == 'send'){
-				$QryUpdateString	= "UPDATE ".PLANETS." SET ";
+				$SQL	= "UPDATE ".PLANETS." SET ";
 				foreach($DataIDs as $ID)
 				{
-					$QryUpdateString	.= "`".$resource[$ID]."` = '".floattostring(round(abs(request_var($resource[$ID], 0.0)), 0))."', ";
+					$SQL	.= "`".$resource[$ID]."` = '".request_outofint($resource[$ID])."', ";
 				}
-				$QryUpdateString	.= "`metal` = '".floattostring(round(abs(request_var('metal', 0.0)), 0))."', ";
-				$QryUpdateString	.= "`crystal` = '".floattostring(round(abs(request_var('crystal', 0.0)), 0))."', ";
-				$QryUpdateString	.= "`deuterium` = '".floattostring(round(abs(request_var('deuterium', 0.0)), 0))."', ";
-				$QryUpdateString	.= "`field_max` = '".request_var('field_max', 0)."', ";
-				$QryUpdateString	.= "`name` = '".$db->sql_escape(request_var('name', '', UTF8_SUPPORT))."' ";
-				$QryUpdateString	.= "WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';";
-				$db->query($QryUpdateString);
-				exit(sprintf($LNG['qe_edit_sucess'] , $PlanetData['name'], $PlanetData['galaxy'], $PlanetData['system'], $PlanetData['planet']));
+				$SQL	.= "`metal` = '".request_outofint('metal')."', ";
+				$SQL	.= "`crystal` = '".request_outofint('crystal')."', ";
+				$SQL	.= "`deuterium` = '".request_outofint('deuterium')."', ";
+				$SQL	.= "`field_max` = '".request_var('field_max', 0)."', ";
+				$SQL	.= "`name` = '".$db->sql_escape(request_var('name', '', UTF8_SUPPORT))."' ";
+				$SQL	.= "WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';";
+				$db->query($SQL);
+				exit(sprintf($LNG['qe_edit_planet_sucess'], $PlanetData['name'], $PlanetData['galaxy'], $PlanetData['system'], $PlanetData['planet']));
 			}
 			$UserInfo				= $db->uniquequery("SELECT `username` FROM ".USERS." WHERE `id` = '".$PlanetData['id_owner']."' AND `universe` = '".$_SESSION['adminuni']."';");
 
@@ -101,6 +101,7 @@ function ShowQuickEditorPage()
 				'qe_build'		=> $LNG['qe_build'],
 				'qe_input'		=> $LNG['qe_input'],
 				'qe_count'		=> $LNG['qe_count'],
+				'qe_level'		=> $LNG['qe_level'],
 				'qe_name'		=> $LNG['qe_name'],
 				'qe_reset'		=> $LNG['qe_reset'],
 				'qe_send'		=> $LNG['qe_send'],
@@ -130,10 +131,74 @@ function ShowQuickEditorPage()
 				'metal_c'		=> pretty_number($PlanetData['metal']),
 				'crystal_c'		=> pretty_number($PlanetData['crystal']),
 				'deuterium_c'	=> pretty_number($PlanetData['deuterium']),
-				));
+			));
 			$template->show('adm/QuickEditorPlanet.tpl');
 		break;
 		case 'player':
+			foreach($reslist['tech'] as $ID)
+			{
+				$SpecifyItemsPQ	.= "`".$resource[$ID]."`,";
+			}
+			$UserData	= $db->uniquequery("SELECT ".$SpecifyItemsPQ." `username`, `authlevel`, `galaxy`, `system`, `planet`, `id_planet`, `darkmatter` FROM ".USERS." WHERE `id` = '".$id."';");
+			$ChangePW	= $USER['id'] == 1 || ($id != 1 && $USER['authlevel'] > $UserData['authlevel']);
+		
+			if($action == 'send'){
+				$SQL	= "UPDATE ".USERS." SET ";
+				foreach($reslist['tech'] as $ID)
+				{
+					$SQL	.= "`".$resource[$ID]."` = '".abs(request_var($resource[$ID], 0))."', ";
+				}
+				$SQL	.= "`darkmatter` = '".max(request_var('darkmatter', 0), 0)."', ";
+				if(!empty($_POST['password']) && $ChangePW)
+					$SQL	.= "`password` = '".md5(request_var('password', '', true))."', ";
+				$SQL	.= "`username` = '".$db->sql_escape(request_var('name', '', UTF8_SUPPORT))."' ";
+				$SQL	.= "WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';";
+				$db->sql_escape($SQL);
+				exit(sprintf($LNG['qe_edit_player_sucess'], $UserData['username'], $id));
+			}
+			$PlanetInfo				= $db->uniquequery("SELECT `name` FROM ".PLANETS." WHERE `id` = '".$UserData['id_planet']."' AND `universe` = '".$_SESSION['adminuni']."';");
+
+			$tech	= array();
+			
+			foreach($reslist['tech'] as $ID)
+			{
+				$tech[]	= array(
+					'type'	=> $resource[$ID],
+					'name'	=> $LNG['tech'][$ID],
+					'count'	=> pretty_number($UserData[$resource[$ID]]),
+					'input'	=> $UserData[$resource[$ID]]
+				);
+			}
+
+			$template	= new template();
+			$template->assign_vars(array(	
+				'qe_resources'	=> $LNG['qe_resources'],
+				'Darkmatter'	=> $LNG['Darkmatter'],
+				'qe_tech'		=> $LNG['qe_tech'],
+				'qe_input'		=> $LNG['qe_input'],
+				'qe_level'		=> $LNG['qe_level'],
+				'qe_name'		=> $LNG['qe_name'],
+				'qe_reset'		=> $LNG['qe_reset'],
+				'qe_send'		=> $LNG['qe_send'],
+				'qe_password'	=> $LNG['qe_password'],
+				'qe_owner'		=> $LNG['qe_owner'],
+				'qe_hpcoords'	=> $LNG['qe_hpcoords'],
+				'qe_id'			=> $LNG['qe_id'],
+				'qe_info'		=> $LNG['qe_info'],
+				'qe_change'		=> $LNG['qe_change'],
+				'tech'			=> $tech,
+				'id'			=> $id,
+				'planetid'		=> $UserData['id_planet'],
+				'planetname'	=> $PlanetInfo['name'],
+				'name'			=> $UserData['username'],
+				'galaxy'		=> $UserData['galaxy'],
+				'system'		=> $UserData['system'],
+				'planet'		=> $UserData['planet'],
+				'ChangePW'		=> $ChangePW,
+				'darkmatter'	=> floattostring($UserData['darkmatter']),
+				'darkmatter_c'	=> pretty_number($UserData['darkmatter']),
+			));
+			$template->show('adm/QuickEditorUser.tpl');
 		break;
 	}
 }
