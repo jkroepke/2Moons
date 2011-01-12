@@ -88,14 +88,14 @@ function ShowResetPage()
 	
 		// RECURSOS
 		if ($_POST['dark']	==	'on')
-			$db->query("UPDATE ".USERS." SET `darkmatter` = '0';");
+			$db->query("UPDATE ".USERS." SET `darkmatter` = '0' WHERE `universe` = '".$_SESSION['adminuni']."';");
 	
 		if ($_POST['resources']	==	'on')
-			$db->query("UPDATE ".PLANETS." SET `metal` = '0', `crystal` = '0', `deuterium` = '0' WHERE `universe` = '".$_SESSION['adminuni']."';");
+			$db->query("UPDATE ".PLANETS." SET `metal` = '".BUILD_METAL."', `crystal` = '".BUILD_CRISTAL."', `deuterium` = '".BUILD_DEUTERIUM."' WHERE `universe` = '".$_SESSION['adminuni']."';");
 	
 		// GENERAL
 		if ($_POST['notes']	==	'on')
-			$db->query("TRUNCATE TABLE ".NOTES.";");
+			$db->query("DELETE FROM ".NOTES." WHERE `universe` = '".$_SESSION['adminuni']."';");
 
 		if ($_POST['rw']	==	'on'){
 			$TKBRW			= $db->query("SELECT `rid` FROM ".TOPKB." WHERE `universe` = '".$_SESSION['adminuni']."';");
@@ -110,7 +110,7 @@ function ShowResetPage()
 		}
 
 		if ($_POST['friends']	==	'on')
-			$db->query("TRUNCATE TABLE ".BUDDY.";");
+			$db->query("DELETE FROM ".BUDDY." WHERE `universe` = '".$_SESSION['adminuni']."';");
 
 		if ($_POST['alliances']	==	'on'){
 			$db->multi_query("DELETE FROM ".ALLIANCE." WHERE `ally_universe` = '".$_SESSION['adminuni']."';UPDATE ".USERS." SET `ally_id` = '0', `ally_name` = '', `ally_request` = '0', `ally_request_text` = 'NULL', `ally_register_time` = '0', `ally_rank_id` = '0' WHERE `universe` = '".$_SESSION['adminuni']."';");}

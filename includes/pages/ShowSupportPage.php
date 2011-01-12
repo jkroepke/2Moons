@@ -45,7 +45,7 @@ class ShowSupportPage
 
 	private function CreaeTicket()
 	{
-		global $USER, $db, $LNG;
+		global $USER, $UNI, $db, $LNG;
 		
 		$subject = request_var('subject','',true);
 		$text 	 = makebr(request_var('text','',true));
@@ -62,7 +62,8 @@ class ShowSupportPage
 		$SQL .= "`subject` = '". $db->sql_escape($subject) ."',";
 		$SQL .= "`text` = '" .$db->sql_escape($text) ."',";
 		$SQL .= "`time` = '". TIMESTAMP ."',";
-		$SQL .= "`status` = '1';";
+		$SQL .= "`status` = '1',";
+		$SQL .= "`universe` = '".$UNI."';";
 		$db->query($SQL);
 		
 		$template->message($LNG['sendit_t'], "game.php?page=support", 3);
