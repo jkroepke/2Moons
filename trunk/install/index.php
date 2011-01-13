@@ -30,7 +30,7 @@ define('INSTALL' 			, true);
 
 define('ROOT_PATH', str_replace('\\', '/',dirname(dirname(__FILE__))).'/');
 include(ROOT_PATH . 'extension.inc');
-include(ROOT_PATH . 'common.'.PHP_EXT);
+include(ROOT_PATH . 'common.php');
 
 $LANG->GetLangFromBrowser();
 $LANG->includeLang(array('INGAME', 'INSTALL'));
@@ -60,8 +60,8 @@ switch ($Mode) {
 		$template->show('install/ins_intro.tpl');
 	break;
 	case 'ftp':
-		require_once(ROOT_PATH.'includes/libs/ftp/ftp.class.'.PHP_EXT);
-		require_once(ROOT_PATH.'includes/libs/ftp/ftpexception.class.'.PHP_EXT);
+		require_once(ROOT_PATH.'includes/libs/ftp/ftp.class.php');
+		require_once(ROOT_PATH.'includes/libs/ftp/ftpexception.class.php');
 		$LANG->includeLang(array('ADMIN'));
 		$CONFIG = array("host" => $_GET['host'], "username" => $_GET['user'], "password" => $_GET['pass'], "port" => 21); 
 		try
@@ -330,7 +330,7 @@ switch ($Mode) {
 			$GLOBALS['database']['user']			= $_POST['user'];
 			$GLOBALS['database']['userpw']			= $_POST['passwort'];
 			$GLOBALS['database']['databasename']    = $_POST['db'];
-			require_once('class.convert.'.PHP_EXT);
+			require_once('class.convert.php');
 			new convert($_POST['version'], $_POST['prefix']);
 			$template->message($LNG['convert_done'], '?', 3);
 

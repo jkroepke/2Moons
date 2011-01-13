@@ -33,7 +33,7 @@ class MissionCaseAttack extends MissionFunctions
 		$targetPlanet 	= $db->uniquequery("SELECT * FROM ".PLANETS." WHERE `id` = '". $this->_fleet['fleet_end_id'] ."';");
 		$targetUser   	= $db->uniquequery("SELECT * FROM ".USERS." WHERE id = '".$targetPlanet['id_owner']."';");
 				
-		require_once(ROOT_PATH.'includes/classes/class.PlanetRessUpdate.'.PHP_EXT);
+		require_once(ROOT_PATH.'includes/classes/class.PlanetRessUpdate.php');
 		
 		$PlanetRess 						= new ResourceUpdate();
 		list($targetUser, $targetPlanet)	= $PlanetRess->CalcResource($targetUser, $targetPlanet, true, $this->_fleet['fleet_start_time']);
@@ -129,7 +129,7 @@ class MissionCaseAttack extends MissionFunctions
 		$Defender['id']		= array_unique($DefenderRow['id']);
 		$Defender['name']	= array_unique($DefenderRow['name']);
 
-		require_once('calculateAttack.'.PHP_EXT);
+		require_once('calculateAttack.php');
 
 		$result 	= calculateAttack($attackFleets, $defense);
 		$SQL		= "";
@@ -151,7 +151,7 @@ class MissionCaseAttack extends MissionFunctions
 		
 		if ($result['won'] == "a")
 		{
-			require_once('calculateSteal.'.PHP_EXT);
+			require_once('calculateSteal.php');
 			$steal = calculateSteal($attackFleets, $targetPlanet);
 		}
 		
@@ -204,7 +204,7 @@ class MissionCaseAttack extends MissionFunctions
 		
 		if ($targetPlanet['planet_type'] == 1 && $targetPlanet['id_luna'] == 0 && $MoonChance > 0 && $UserChance <= $MoonChance)
 		{		
-			require_once(ROOT_PATH.'includes/functions/CreateOneMoonRecord.'.PHP_EXT);
+			require_once(ROOT_PATH.'includes/functions/CreateOneMoonRecord.php');
 			$INFO['moon']['name'] 	= CreateOneMoonRecord($this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet'], $this->_fleet['fleet_universe'], $TargetUserID, $this->_fleet['fleet_start_time'], '', $MoonChance);
 			$INFO['end_galaxy'] = $this->_fleet['fleet_end_galaxy'];
 			$INFO['end_system'] = $this->_fleet['fleet_end_system'];
@@ -221,7 +221,7 @@ class MissionCaseAttack extends MissionFunctions
 		$INFO['moon']['des']		= 0;
 		$INFO['moon']['chance'] 	= $MoonChance;
 		$INFO['attvsdef']			= implode(' & ', $Attacker['name']).' vs '.implode(' & ', $Defender['name']);
-		require_once('GenerateReport.'.PHP_EXT);
+		require_once('GenerateReport.php');
 		$raport						= GenerateReport($result, $INFO);
 		$rid						= md5(microtime(true).mt_rand(1,100));
 	

@@ -22,7 +22,7 @@
 
 if ($USER['rights'][str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__)] != 1) exit;
 
-require_once(ROOT_PATH. 'includes/classes/class.FlyingFleetsTable.'.PHP_EXT);
+require_once(ROOT_PATH. 'includes/classes/class.FlyingFleetsTable.php');
 
 function ShowFlyingFleetPage()
 {
@@ -35,7 +35,8 @@ function ShowFlyingFleetPage()
 
 	$FlyingFleetsTable 	= new FlyingFleetsTable();
 	$template			= new template();
-	
+	
+
 	$template->assign_vars(array(
 		'FleetList'			=> $FlyingFleetsTable->BuildFlyingFleetTable(),
 		'ff_id'				=> $LNG['ff_id'],

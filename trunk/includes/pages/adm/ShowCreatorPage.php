@@ -110,7 +110,7 @@ function ShowCreatorPage()
 
 				$ID_USER 	= $db->uniquequery("SELECT `id` FROM ".USERS." WHERE `username` = '".$db->sql_escape($UserName)."';");
 				
-				require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.'.PHP_EXT);
+				require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.php');
 				CreateOnePlanetRecord($Galaxy, $System, $Planet, $Univer ,$ID_USER['id'], $UserPlanet, true, $UserAuth);
 				$ID_PLANET 	= $db->uniquequery("SELECT `id` FROM ".PLANETS." WHERE `id_owner` = '".$ID_USER['id']."';");
 								
@@ -187,7 +187,7 @@ function ShowCreatorPage()
 					exit;
 				}
 			
-				require_once(ROOT_PATH.'includes/functions/CreateOneMoonRecord.'.PHP_EXT);
+				require_once(ROOT_PATH.'includes/functions/CreateOneMoonRecord.php');
 				
 				if(CreateOneMoonRecord($MoonPlanet['galaxy'], $MoonPlanet['system'], $MoonPlanet['planet'], $Univer, $MoonPlanet['id_owner'], 0, $MoonName, 20, (($_POST['diameter_check'] == 'on') ? 0: $Diameter)) !== false)
 					$template->message($LNG['mo_moon_added'], '?page=create&mode=moon', 3, true);
@@ -242,7 +242,7 @@ function ShowCreatorPage()
 					exit;
 				}
 				
-				require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.'.PHP_EXT);
+				require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.php');
 				CreateOnePlanetRecord($Galaxy, $System, $Planet, $Univer, $id, '', '', false) ; 
 						
 				$SQL  = "UPDATE ".PLANETS." SET ";
