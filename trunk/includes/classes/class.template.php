@@ -35,11 +35,6 @@ class template
 		$this->Popup				= false;
 	}
 	
-	public function __set($var, $val = null)
-	{
-		$this->vars[$var]	= $val;
-	}
-	
 	public function render()
 	{
 		global $CONF;
