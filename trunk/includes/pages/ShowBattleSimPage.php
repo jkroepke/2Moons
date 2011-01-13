@@ -76,8 +76,8 @@ function ShowBattleSimPage()
 						unset($BattleSlot[1][$ID]);
 				}
 
-				($Countd[1] == 0 && $BattleSlotID != 0) ? 
-					exit('ERROR') : '';
+				if($Countd[1] == 0 && $BattleSlotID != 0)
+					exit('ERROR');
 
 				$Countd[1]					= $Countd[1] + array_sum($BattleSlot[1]);
 				

@@ -37,7 +37,8 @@ switch($mode)
 	break;
 	case 'ipn':
 		$CODE	= file_get_contents('http://pay.2moons.cc/useripn.php?key='.$CONF['paymentkey'].'&id='.$_POST['id']);
-		($CODE !== 'OK') ? exit : '';
+		if($CODE !== 'OK')
+			exit;
 		
 		$db->query("UPDATE ".USERS." SET `darkmatter` = `darkmatter` + '".(int)$_POST['amount']."' WHERE `email_2` = '".$db->sql_escape(reqeust_var('email_2', '')).";");
 		
