@@ -54,48 +54,48 @@ function ShowResetPage()
 		}
 		
 		// HANGARES Y DEFENSAS
-		if ($_POST['defenses']	==	'on')
-			$db->query("UPDATE ".PLANETS." SET ".implode(", ",$dbcol['defense'])." AND `universe` = '".$_SESSION['adminuni']."';");
+		($_POST['defenses']	==	'on') ?
+			$db->query("UPDATE ".PLANETS." SET ".implode(", ",$dbcol['defense'])." AND `universe` = '".$_SESSION['adminuni']."';") : '';
 	
-		if ($_POST['ships']	==	'on')
-			$db->query("UPDATE ".PLANETS." SET ".implode(", ",$dbcol['fleet'])." AND `universe` = '".$_SESSION['adminuni']."';");
+		($_POST['ships']	==	'on') ? 
+			$db->query("UPDATE ".PLANETS." SET ".implode(", ",$dbcol['fleet'])." AND `universe` = '".$_SESSION['adminuni']."';") : '';
 	
-		if ($_POST['h_d']	==	'on')
-			$db->query("UPDATE ".PLANETS." SET `b_hangar` = '0', `b_hangar_plus` = '0', `b_hangar_id` = '' AND `universe` = '".$_SESSION['adminuni']."';");
+		($_POST['h_d']	==	'on') ? 
+			$db->query("UPDATE ".PLANETS." SET `b_hangar` = '0', `b_hangar_plus` = '0', `b_hangar_id` = '' AND `universe` = '".$_SESSION['adminuni']."';") : '';
 	
 
 		// EDIFICIOS
-		if ($_POST['edif_p']	==	'on')
-			$db->query("UPDATE ".PLANETS." SET ".implode(", ",$dbcol['build'])." WHERE `planet_type` = '1' AND `universe` = '".$_SESSION['adminuni']."';");
+		($_POST['edif_p']	==	'on') ? 
+			$db->query("UPDATE ".PLANETS." SET ".implode(", ",$dbcol['build'])." WHERE `planet_type` = '1' AND `universe` = '".$_SESSION['adminuni']."';") : '';
 	
-		if ($_POST['edif_l']	==	'on')
-			$db->query("UPDATE ".PLANETS." SET ".implode(", ",$dbcol['build'])." WHERE `planet_type` = '3' AND `universe` = '".$_SESSION['adminuni']."';");
+		($_POST['edif_l']	==	'on') ? 
+			$db->query("UPDATE ".PLANETS." SET ".implode(", ",$dbcol['build'])." WHERE `planet_type` = '3' AND `universe` = '".$_SESSION['adminuni']."';") : '';
 	
-		if ($_POST['edif']	==	'on')
-			$db->query("UPDATE ".PLANETS." SET `b_building` = '0', `b_building_id` = '' WHERE `universe` = '".$_SESSION['adminuni']."';");
+		($_POST['edif']	==	'on') ? 
+			$db->query("UPDATE ".PLANETS." SET `b_building` = '0', `b_building_id` = '' WHERE `universe` = '".$_SESSION['adminuni']."';") : '';
 	
 
 		// INVESTIGACIONES Y OFICIALES
-		if ($_POST['inves']	==	'on')
-			$db->query("UPDATE ".USERS." SET ".implode(", ",$dbcol['tech'])." WHERE `universe` = '".$_SESSION['adminuni']."';");
+		($_POST['inves']	==	'on') ? 
+			$db->query("UPDATE ".USERS." SET ".implode(", ",$dbcol['tech'])." WHERE `universe` = '".$_SESSION['adminuni']."';") : '';
 	
-		if ($_POST['ofis']	==	'on')
-			$db->query("UPDATE ".USERS." SET ".implode(", ",$dbcol['officier'])." WHERE`universe` = '".$_SESSION['adminuni']."';");
+		($_POST['ofis']	==	'on') ? 
+			$db->query("UPDATE ".USERS." SET ".implode(", ",$dbcol['officier'])." WHERE`universe` = '".$_SESSION['adminuni']."';") : '';
 	
-		if ($_POST['inves_c']	==	'on')
-			$db->query("UPDATE ".USERS." SET `b_tech_planet` = '0', `b_tech` = '0', `b_tech_id` = '0' WHERE `universe` = '".$_SESSION['adminuni']."';");
+		($_POST['inves_c']	==	'on') ? 
+			$db->query("UPDATE ".USERS." SET `b_tech_planet` = '0', `b_tech` = '0', `b_tech_id` = '0' WHERE `universe` = '".$_SESSION['adminuni']."';") : '';
 	
 	
 		// RECURSOS
-		if ($_POST['dark']	==	'on')
-			$db->query("UPDATE ".USERS." SET `darkmatter` = '0' WHERE `universe` = '".$_SESSION['adminuni']."';");
+		($_POST['dark']	==	'on') ? 
+			$db->query("UPDATE ".USERS." SET `darkmatter` = '0' WHERE `universe` = '".$_SESSION['adminuni']."';") : '';
 	
-		if ($_POST['resources']	==	'on')
-			$db->query("UPDATE ".PLANETS." SET `metal` = '".BUILD_METAL."', `crystal` = '".BUILD_CRISTAL."', `deuterium` = '".BUILD_DEUTERIUM."' WHERE `universe` = '".$_SESSION['adminuni']."';");
+		($_POST['resources']	==	'on') ? 
+			$db->query("UPDATE ".PLANETS." SET `metal` = '".BUILD_METAL."', `crystal` = '".BUILD_CRISTAL."', `deuterium` = '".BUILD_DEUTERIUM."' WHERE `universe` = '".$_SESSION['adminuni']."';") : '';
 	
 		// GENERAL
-		if ($_POST['notes']	==	'on')
-			$db->query("DELETE FROM ".NOTES." WHERE `universe` = '".$_SESSION['adminuni']."';");
+		($_POST['notes']	==	'on') ? 
+			$db->query("DELETE FROM ".NOTES." WHERE `universe` = '".$_SESSION['adminuni']."';") : '';
 
 		if ($_POST['rw']	==	'on'){
 			$TKBRW			= $db->query("SELECT `rid` FROM ".TOPKB." WHERE `universe` = '".$_SESSION['adminuni']."';");
@@ -109,26 +109,26 @@ function ShowResetPage()
 			}
 		}
 
-		if ($_POST['friends']	==	'on')
-			$db->query("DELETE FROM ".BUDDY." WHERE `universe` = '".$_SESSION['adminuni']."';");
+		($_POST['friends']	==	'on') ? 
+			$db->query("DELETE FROM ".BUDDY." WHERE `universe` = '".$_SESSION['adminuni']."';") : '';
 
-		if ($_POST['alliances']	==	'on'){
-			$db->multi_query("DELETE FROM ".ALLIANCE." WHERE `ally_universe` = '".$_SESSION['adminuni']."';UPDATE ".USERS." SET `ally_id` = '0', `ally_name` = '', `ally_request` = '0', `ally_request_text` = 'NULL', `ally_register_time` = '0', `ally_rank_id` = '0' WHERE `universe` = '".$_SESSION['adminuni']."';");}
+		($_POST['alliances']	==	'on') ? 
+			$db->multi_query("DELETE FROM ".ALLIANCE." WHERE `ally_universe` = '".$_SESSION['adminuni']."';UPDATE ".USERS." SET `ally_id` = '0', `ally_name` = '', `ally_request` = '0', `ally_request_text` = 'NULL', `ally_register_time` = '0', `ally_rank_id` = '0' WHERE `universe` = '".$_SESSION['adminuni']."';") : '';
 
-		if ($_POST['fleets']	==	'on')
-			$db->query("DELETE FROM ".FLEETS." WHERE `fleet_universe` = '".$_SESSION['adminuni']."';");
+		($_POST['fleets']	==	'on') ? 
+			$db->query("DELETE FROM ".FLEETS." WHERE `fleet_universe` = '".$_SESSION['adminuni']."';") : '';
 
-		if ($_POST['banneds']	==	'on'){
-			$db->multi_query("DELETE FROM ".BANNED." WHERE `universe` = '".$_SESSION['adminuni']."';UPDATE ".USERS." SET `bana` = '0', `banaday` = '0' WHERE `universe` = '".$_SESSION['adminuni']."';");}
+		($_POST['banneds']	==	'on') ? 
+			$db->multi_query("DELETE FROM ".BANNED." WHERE `universe` = '".$_SESSION['adminuni']."';UPDATE ".USERS." SET `bana` = '0', `banaday` = '0' WHERE `universe` = '".$_SESSION['adminuni']."';") : '';
 
-		if ($_POST['messages']	==	'on'){
-			$db->multi_query("DELETE FROM ".MESSAGES." WHERE `message_universe` = '".$_SESSION['adminuni']."';UPDATE ".USERS." SET `new_message` = '0' WHERE `universe` = '".$_SESSION['adminuni']."';");}
+		($_POST['messages']	==	'on') ?
+			$db->multi_query("DELETE FROM ".MESSAGES." WHERE `message_universe` = '".$_SESSION['adminuni']."';UPDATE ".USERS." SET `new_message` = '0' WHERE `universe` = '".$_SESSION['adminuni']."';") : '';
 
-		if ($_POST['statpoints']	==	'on'){
-			$db->query("DELETE FROM ".STATPOINTS." WHERE `universe` = '".$_SESSION['adminuni']."';");}
+		($_POST['statpoints']	==	'on') ? 
+			$db->query("DELETE FROM ".STATPOINTS." WHERE `universe` = '".$_SESSION['adminuni']."';") : '';
 
-		if ($_POST['moons']	==	'on'){
-			$db->multi_query("DELETE FROM ".PLANETS." WHERE `planet_type` = '3' AND `universe` = '".$_SESSION['adminuni']."';UPDATE ".PLANETS." SET `id_luna` = '0' WHERE `universe` = '".$_SESSION['adminuni']."';");}
+		($_POST['moons']	==	'on') ? 
+			$db->multi_query("DELETE FROM ".PLANETS." WHERE `planet_type` = '3' AND `universe` = '".$_SESSION['adminuni']."';UPDATE ".PLANETS." SET `id_luna` = '0' WHERE `universe` = '".$_SESSION['adminuni']."';") : '';
 
 		$template->message($LNG['re_reset_excess'], '?page=reset&sid='.session_id(), 3);
 		exit;

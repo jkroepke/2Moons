@@ -272,8 +272,8 @@ function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialS
 		
 	$ArrayEx	=	explode(",", $SpecifyItems);
 
-	if (!$Order || !in_array($Order, $ArrayOSec))
-		$Order	=	$ArrayEx[0];
+	(!$Order || !in_array($Order, $ArrayOSec)) ?
+		$Order	=	$ArrayEx[0] : '';
 		
 	$CountArray	=	count($ArrayEx);
 	
@@ -313,11 +313,11 @@ function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialS
 				$PAGEE .= $Page == $i ? "&nbsp;".$Page."&nbsp;" : " <a href='".$UrlForPage."&amp;side=".$i.$Minimize."'>".$i."</a> ";
 			}
 
-			if(($Page - 1) > 0) 
-				$BEFORE	= "<a href='".$UrlForPage."&amp;side=".$BeforePage.$Minimize."'><img src=\"./styles/images/Adm/arrowleft.png\" title=".$LNG['se__before']." height=10 width=14></a> ";
+			(($Page - 1) > 0) ? 
+				$BEFORE	= "<a href='".$UrlForPage."&amp;side=".$BeforePage.$Minimize."'><img src=\"./styles/images/Adm/arrowleft.png\" title=".$LNG['se__before']." height=10 width=14></a> " : '';
 		
-			if(($Page + 1) <= $NumberOfPages) 
-				$NEXT	= "<a href='".$UrlForPage."&amp;side=".$NextPage.$Minimize."'><img src=\"./styles/images/Adm/arrowright.png\" title=".$LNG['se__next']." height=10 width=14></a>";
+			(($Page + 1) <= $NumberOfPages) ?
+				$NEXT	= "<a href='".$UrlForPage."&amp;side=".$NextPage.$Minimize."'><img src=\"./styles/images/Adm/arrowright.png\" title=".$LNG['se__next']." height=10 width=14></a>" : '';
 		
 
 			$Search['PAGES']	= '<tr><td colspan="3" style="color:#00CC33;border: 1px lime solid;text-align:center;">'.$BEFORE.'&nbsp;'.$PAGEE.'&nbsp;'.$NEXT.'</td></tr>';
@@ -332,20 +332,20 @@ function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialS
 	
 		if ($Table == "users") 
 		{
-			if ($USER['rights']['ShowAccountDataPage'] == 1)
-				$Search['LIST']	.=	"<th>".$LNG['se_search_info']."</th>";
+			($USER['rights']['ShowAccountDataPage'] == 1) ? 
+				$Search['LIST']	.=	"<th>".$LNG['se_search_info']."</th>" : '';
 
-			if ($USER['authlevel'] == AUTH_ADM)
-				$Search['LIST']	.=	"<th>".$LNG['button_delete']."</th>";
+			($USER['authlevel'] == AUTH_ADM) ? 
+				$Search['LIST']	.=	"<th>".$LNG['button_delete']."</th>" : '';
 		}
 		
 		if ($Table == "planets")
 		{				
-			if ($USER['rights']['ShowQuickEditorPage'] == 1)
-				$Search['LIST']	.=	"<th>".$LNG['se_search_edit']."</th>";
+			($USER['rights']['ShowQuickEditorPage'] == 1) ? 
+				$Search['LIST']	.=	"<th>".$LNG['se_search_edit']."</th>" : '';
 				
-			if ($USER['authlevel'] == AUTH_ADM)
-				$Search['LIST']	.=	"<th>".$LNG['button_delete']."</th>";
+			($USER['authlevel'] == AUTH_ADM) ? 
+				$Search['LIST']	.=	"<th>".$LNG['button_delete']."</th>" : '';
 		}
 
 		
@@ -369,8 +369,8 @@ function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialS
 				$WhileResult[3]	=	date("d-m-Y H:i:s", $WhileResult[3]);
 			}
 			
-			if ($Table == "alliance")
-				$WhileResult[4]	=	date("d-m-Y H:i:s", $WhileResult[4]);
+			($Table == "alliance") ? 
+				$WhileResult[4]	=	date("d-m-Y H:i:s", $WhileResult[4]) : '';
 				
 			if ($Table == "planets") {
 				$WhileResult[3]	=	pretty_time(TIMESTAMP - $WhileResult[3]);
@@ -382,8 +382,8 @@ function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialS
 		
 			if ($Table == "users")
 			{
-				if ($USER['rights']['ShowQuickEditorPage'] == 1)
-					$Search['LIST']	.=	"<td><a href=\"javascript:openEdit('".$WhileResult[0]."', 'player');\" border=\"0\"><img title=\"".$WhileResult[1]."\" src=\"./styles/images/Adm/GO.png\"></a></d>";
+				($USER['rights']['ShowQuickEditorPage'] == 1) ? 
+					$Search['LIST']	.=	"<td><a href=\"javascript:openEdit('".$WhileResult[0]."', 'player');\" border=\"0\"><img title=\"".$WhileResult[1]."\" src=\"./styles/images/Adm/GO.png\"></a></d>" : '';
 			
 				if ($USER['authlevel']	==	'3')
 				{
@@ -395,11 +395,11 @@ function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialS
 		
 			if ($Table == "planets"){
 			
-				if ($USER['rights']['ShowQuickEditorPage'] == 1)
-					$Search['LIST']	.=	"<td><a href=\"javascript:openEdit('".$WhileResult[0]."', 'planet');\" border=\"0\"><img src=\"./styles/images/Adm/GO.png\" title=".$LNG['se_search_edit']."></a></td>";
+				($USER['rights']['ShowQuickEditorPage'] == 1) ? 
+					$Search['LIST']	.=	"<td><a href=\"javascript:openEdit('".$WhileResult[0]."', 'planet');\" border=\"0\"><img src=\"./styles/images/Adm/GO.png\" title=".$LNG['se_search_edit']."></a></td>" : '';
 					
-				if ($USER['authlevel'] == '3')
-					$Search['LIST']	.=	"<td><a href=\"?page=search&amp;delete=planet&planet=".$WhileResult[0]."\" border=\"0\" onclick=\"return confirm('".$LNG['se_confirm_planet']." ".$WhileResult[1]."');\"><img src=\"./styles/images/r1.png\" title=".$LNG['button_delete']."></a></td>";
+				($USER['authlevel'] == '3') ? 
+					$Search['LIST']	.=	"<td><a href=\"?page=search&amp;delete=planet&planet=".$WhileResult[0]."\" border=\"0\" onclick=\"return confirm('".$LNG['se_confirm_planet']." ".$WhileResult[1]."');\"><img src=\"./styles/images/r1.png\" title=".$LNG['button_delete']."></a></td>" : '';
 			}
 			
 			$Search['LIST']	.=	"</tr>";

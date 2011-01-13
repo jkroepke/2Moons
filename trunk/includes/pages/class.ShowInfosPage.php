@@ -213,11 +213,11 @@ class ShowInfosPage
 		{
 			for ($Type = 200; $Type < 500; $Type++)
 			{
-				if ($CombatCaps[$BuildID]['sd'][$Type] > 1)
-					$RapidFire['to'][$LNG['tech'][$Type]] = $CombatCaps[$BuildID]['sd'][$Type];
+				($CombatCaps[$BuildID]['sd'][$Type] > 1) ? 
+					$RapidFire['to'][$LNG['tech'][$Type]] = $CombatCaps[$BuildID]['sd'][$Type] : '';
 					
-				if ($CombatCaps[$Type]['sd'][$BuildID] > 1)
-					$RapidFire['from'][$LNG['tech'][$Type]] = $CombatCaps[$Type]['sd'][$BuildID];
+				($CombatCaps[$Type]['sd'][$BuildID] > 1) ? 
+					$RapidFire['from'][$LNG['tech'][$Type]] = $CombatCaps[$Type]['sd'][$BuildID] : '';
 			}
 
 			$FleetInfo[$LNG['in_struct_pt']]		= pretty_number($pricelist[$BuildID]['metal'] + $pricelist[$BuildID]['crystal']);
@@ -233,11 +233,11 @@ class ShowInfosPage
 		{
 			for ($Type = 200; $Type < 500; $Type++)
 			{
-				if ($CombatCaps[$BuildID]['sd'][$Type] > 1)
-					$RapidFire['to'][$LNG['tech'][$Type]] = $CombatCaps[$BuildID]['sd'][$Type];
+				($CombatCaps[$BuildID]['sd'][$Type] > 1) ? 
+					$RapidFire['to'][$LNG['tech'][$Type]] = $CombatCaps[$BuildID]['sd'][$Type] : '';
 					
-				if ($CombatCaps[$Type]['sd'][$BuildID] > 1)
-					$RapidFire['from'][$LNG['tech'][$Type]] = $CombatCaps[$Type]['sd'][$BuildID];
+				($CombatCaps[$Type]['sd'][$BuildID] > 1) ? 
+					$RapidFire['from'][$LNG['tech'][$Type]] = $CombatCaps[$Type]['sd'][$BuildID] : '';
 			}
 
 			$FleetInfo[$LNG['in_struct_pt']]		= pretty_number($pricelist[$BuildID]['metal'] + $pricelist[$BuildID]['crystal']);
@@ -262,14 +262,11 @@ class ShowInfosPage
 			$GateFleetList['moons']			= $this->BuildJumpableMoonCombo($USER, $PLANET);
 			$GateFleetList['fleets']		= $this->BuildFleetListRows($PLANET);
 		}
-		if (in_array($BuildID, $reslist['officier']))
-		{
-			$description = $OfficerInfo[$BuildID]['info'] ? sprintf($LNG['info'][$BuildID]['description'], ((is_float($OfficerInfo[$BuildID]['info']))? $OfficerInfo[$BuildID]['info'] * 100 : $OfficerInfo[$BuildID]['info']), $pricelist[$BuildID]['max']) : sprintf($LNG['info'][$BuildID]['description'], $pricelist[$BuildID]['max']);
-		}
-		else
-		{
-			$description = $LNG['info'][$BuildID]['description'];
-		}
+		(in_array($BuildID, $reslist['officier'])) ? 
+			$description = $OfficerInfo[$BuildID]['info'] ? sprintf($LNG['info'][$BuildID]['description'], ((is_float($OfficerInfo[$BuildID]['info']))? $OfficerInfo[$BuildID]['info'] * 100 : $OfficerInfo[$BuildID]['info']), $pricelist[$BuildID]['max']) : sprintf($LNG['info'][$BuildID]['description'], $pricelist[$BuildID]['max'])
+		:			
+		$description = $LNG['info'][$BuildID]['description'];
+		
 		$template->assign_vars(array(		
 			'id'							=> $BuildID,
 			'name'							=> $LNG['info'][$BuildID]['name'],

@@ -75,8 +75,8 @@ class ShowSupportPage
 		
 		$text = request_var('text','',true);
 		$template	= new template();	
-		if(empty($text))
-			exit($template->message($LNG['sendit_error_msg'],"game.php?page=support", 3));
+		(empty($text)) ? 
+			exit($template->message($LNG['sendit_error_msg'],"game.php?page=support", 3)) : '';
 		
 		$ticket = $db->uniquequery("SELECT text FROM ".SUPP." WHERE `id` = '".$TicketID."';");
 

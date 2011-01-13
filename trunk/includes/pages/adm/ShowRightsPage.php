@@ -41,13 +41,12 @@ function ShowRightsPage()
 					exit;
 				}
 				
-				if($_POST['action'] == 'send') {
-					$db->query("UPDATE ".USERS." SET `rights` = '".serialize(array_map('intval', $_POST['rights']))."' WHERE `id` = '".$id."';");
-				}
+				($_POST['action'] == 'send') ?
+					$db->query("UPDATE ".USERS." SET `rights` = '".serialize(array_map('intval', $_POST['rights']))."' WHERE `id` = '".$id."';") : '';
 				
 				$Rights	= $db->uniquequery("SELECT rights FROM ".USERS." WHERE `id` = '".$id."';");
-				if(($Rights['rights'] = unserialize($Rights['rights'])) === false)
-					$Rights['rights']	= array();
+				(($Rights['rights'] = unserialize($Rights['rights'])) === false) ? 
+					$Rights['rights']	= array() : '';
 				
 				$Files	= array_map('prepare', array_diff(scandir(ROOT_PATH.'includes/pages/adm/'), array('.', '..', '.svn', 'index.html', '.htaccess', 'ShowIndexPage.php', 'ShowOverviewPage.php', 'ShowMenuPage.php', 'ShowTopnavPage.php')));
 				
@@ -111,8 +110,8 @@ function ShowRightsPage()
 				$id			= request_var('id_1', 0);
 				$authlevel	= request_var('authlevel', 0);
 				
-				if($id == 0)
-					$id	= request_var('id_2', 0);
+				($id == 0) ? 
+					$id	= request_var('id_2', 0) : '';
 					
 				if($USER['id'] != 1 && $id == 1) {
 					$template->message($LNG['ad_authlevel_error_3'], '?page=rights&mode=users&sid='.session_id());

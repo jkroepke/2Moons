@@ -28,8 +28,8 @@ function ShowModVersionPage()
 	$MVC	= array();
 	$Files	= scandir(ROOT_PATH.'includes/functions/mvc/');
 	foreach($Files as $File) {
-		if(substr($File, 0, 4) == 'mvc_')
-			require(ROOT_PATH.'includes/functions/mvc/'.$File);
+		(substr($File, 0, 4) == 'mvc_') ? 
+			require(ROOT_PATH.'includes/functions/mvc/'.$File) : '';
 	}
 	
 	foreach($MVC as &$Mod) {
@@ -45,7 +45,8 @@ function ShowModVersionPage()
 		}		
 	}
 	
-	$template	= new template();
+	$template	= new template();
+
 	$template->assign_vars(array(
 		'MVC'					=> $MVC,
 		'mvc_title'				=> $LNG['mvc_title'],
