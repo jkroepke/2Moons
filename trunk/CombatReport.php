@@ -23,7 +23,6 @@ define('INSIDE'  , true);
 define('INSTALL' , false);
 
 define('ROOT_PATH', './');
-include(ROOT_PATH . 'extension.inc');
 include(ROOT_PATH . 'common.php');
 
 $LANG->includeLang(array('FLEET', 'TECH'));

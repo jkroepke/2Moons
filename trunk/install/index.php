@@ -29,7 +29,6 @@ define('INSIDE'  			, true);
 define('INSTALL' 			, true);
 
 define('ROOT_PATH', str_replace('\\', '/',dirname(dirname(__FILE__))).'/');
-include(ROOT_PATH . 'extension.inc');
 include(ROOT_PATH . 'common.php');
 
 $LANG->GetLangFromBrowser();

@@ -24,7 +24,6 @@ define('INSTALL' , false);
 define('IN_CRON' , true);
 
 define('ROOT_PATH', './');
-include(ROOT_PATH . 'extension.inc');
 include(ROOT_PATH . 'common.php');
 
 if (empty($_SESSION)) exit;

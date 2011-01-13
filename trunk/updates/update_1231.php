@@ -23,7 +23,6 @@ define('INSIDE', true );
 define('INSTALL', false );
 define('LOGIN', true );
 define('ROOT_PATH', './');
-include_once(ROOT_PATH . 'extension.inc');
 include_once(ROOT_PATH . 'common.php');
 $db->query("DROP TABLE ".CONFIG.";");
 $db->query("CREATE TABLE `".CONFIG."` (

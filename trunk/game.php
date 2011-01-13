@@ -23,7 +23,6 @@ define('INSIDE'  , true);
 define('INSTALL' , false);
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 
-require_once(ROOT_PATH.'extension.inc');
 require_once(ROOT_PATH.'includes/functions/GetBuildingPrice.php');
 require_once(ROOT_PATH.'includes/functions/GetBuildingTime.php');
 require_once(ROOT_PATH.'includes/functions/IsElementBuyable.php');

@@ -23,8 +23,6 @@ define('INSIDE', true );
 define('INSTALL', false );
 define('LOGIN', true );
 define('ROOT_PATH'	,'./');
-
-include_once(ROOT_PATH . 'extension.inc');
 include_once(ROOT_PATH . 'common.php');
 $Qry	= $db->query("SELECT b_tech, b_tech_id, id_owner FROM ".PLANETS." WHERE b_tech_id != '0';");
 
