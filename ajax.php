@@ -25,7 +25,6 @@ define('AJAX', true );
 
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 	
-include_once(ROOT_PATH . 'extension.inc');
 include_once(ROOT_PATH . 'common.php');
 $SESSION       	= new Session();
 

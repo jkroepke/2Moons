@@ -4,7 +4,6 @@ if(php_sapi_name() === 'cli') {
 	define('CLI', true);
 	define('INSIDE', true);
 	define('ROOT_PATH', str_replace('\\', '/', dirname(dirname(__FILE__))).'/');
-	include_once(ROOT_PATH . 'extension.inc');
 	include_once(ROOT_PATH . 'common.php');
 	ini_set('display_errors', 0);
 }

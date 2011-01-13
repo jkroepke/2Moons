@@ -29,7 +29,6 @@ define('IN_CRON' , true);
 
 define('ROOT_PATH' ,'./');
 
-include(ROOT_PATH . 'extension.inc');
 include(ROOT_PATH . 'common.php');
 
 $id = request_var('id', 0);

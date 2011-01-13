@@ -42,9 +42,9 @@ function ShowTraderPage()
 				if($action == "trade")
 				{
 					if ($USER['darkmatter'] < DARKMATTER_FOR_TRADER)
-						$template->message(sprintf($LNG['tr_empty_darkmatter'], $LNG['Darkmatter']), "game." . PHP_EXT . "?page=trader", 1);
+						$template->message(sprintf($LNG['tr_empty_darkmatter'], $LNG['Darkmatter']), "game.php?page=trader", 1);
 					elseif ($crystal < 0 || $deut < 0)
-						$template->message($LNG['tr_only_positive_numbers'], "game." . PHP_EXT . "?page=trader",1);
+						$template->message($LNG['tr_only_positive_numbers'], "game.php?page=trader",1);
 					else
 					{
 						$trade	= ($crystal * 2 + $deut * 4);
@@ -55,10 +55,10 @@ function ShowTraderPage()
 							$PLANET['crystal']   += $crystal;
 							$PLANET['deuterium'] += $deut;
 							$USER['darkmatter']	-= DARKMATTER_FOR_TRADER;
-							$template->message($LNG['tr_exchange_done'],"game." . PHP_EXT . "?page=trader",1);
+							$template->message($LNG['tr_exchange_done'],"game.php?page=trader",1);
 						}
 						else
-							$template->message($LNG['tr_not_enought_metal'], "game." . PHP_EXT . "?page=trader", 1);
+							$template->message($LNG['tr_not_enought_metal'], "game.php?page=trader", 1);
 							
 						$PlanetRess->SavePlanetToDB();
 					}
@@ -84,9 +84,9 @@ function ShowTraderPage()
 				if($action == "trade")
 				{
 					if ($USER['darkmatter'] < DARKMATTER_FOR_TRADER)
-						$template->message(sprintf($LNG['tr_empty_darkmatter'], $LNG['Darkmatter']), "game." . PHP_EXT . "?page=trader", 1);
+						$template->message(sprintf($LNG['tr_empty_darkmatter'], $LNG['Darkmatter']), "game.php?page=trader", 1);
 					elseif ($metal < 0 || $deut < 0)
-						$template->message($LNG['tr_only_positive_numbers'], "game." . PHP_EXT . "?page=trader",1);
+						$template->message($LNG['tr_only_positive_numbers'], "game.php?page=trader",1);
 					else
 					{
 						$trade	= ($metal * 0.5 + $deut * 2);						
@@ -97,10 +97,10 @@ function ShowTraderPage()
 							$PLANET['crystal']   -= $trade;
 							$PLANET['deuterium'] += $deut;
 							$USER['darkmatter']	-= DARKMATTER_FOR_TRADER;
-							$template->message($LNG['tr_exchange_done'],"game." . PHP_EXT . "?page=trader",1);
+							$template->message($LNG['tr_exchange_done'],"game.php?page=trader",1);
 						}
 						else
-							$template->message($LNG['tr_not_enought_crystal'], "game." . PHP_EXT . "?page=trader", 1);
+							$template->message($LNG['tr_not_enought_crystal'], "game.php?page=trader", 1);
 						
 						$PlanetRess->SavePlanetToDB();
 					}
@@ -126,9 +126,9 @@ function ShowTraderPage()
 				if($action == "trade")
 				{
 					if ($USER['darkmatter'] < DARKMATTER_FOR_TRADER)
-						$template->message(sprintf($LNG['tr_empty_darkmatter'], $LNG['Darkmatter']), "game." . PHP_EXT . "?page=trader", 1);
+						$template->message(sprintf($LNG['tr_empty_darkmatter'], $LNG['Darkmatter']), "game.php?page=trader", 1);
 					elseif ($metal < 0 || $crystal < 0)
-						message($LNG['tr_only_positive_numbers'], "game." . PHP_EXT . "?page=trader",1);
+						message($LNG['tr_only_positive_numbers'], "game.php?page=trader",1);
 					else
 					{
 						$trade	= ($metal * 0.25 + $crystal * 0.5);						
@@ -139,10 +139,10 @@ function ShowTraderPage()
 							$PLANET['crystal']   += $crystal;
 							$PLANET['deuterium'] -= $trade;
 							$USER['darkmatter']	-= DARKMATTER_FOR_TRADER;
-							$template->message($LNG['tr_exchange_done'],"game." . PHP_EXT . "?page=trader", 1);
+							$template->message($LNG['tr_exchange_done'],"game.php?page=trader", 1);
 						}
 						else
-							$template->message($LNG['tr_not_enought_deuterium'], "game." . PHP_EXT . "?page=trader", 1);
+							$template->message($LNG['tr_not_enought_deuterium'], "game.php?page=trader", 1);
 							
 						$PlanetRess->SavePlanetToDB();
 					}

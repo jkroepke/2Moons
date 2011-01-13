@@ -31,7 +31,6 @@ define('LOGIN', true );
 
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 	
-include_once(ROOT_PATH . 'extension.inc');
 include_once(ROOT_PATH . 'common.php');
 
 $template	= new template();
@@ -43,7 +42,7 @@ $mode = request_var('mode', '');
 switch ($page) {
 	case 'facebook':
 		if($CONF['fb_on'] == 0)
-			redirectTo("index.".PHP_EXT);
+			redirectTo("index.php");
 
 		$CONF		= $db->uniquequery("SELECT `fb_apikey`, `fb_skey`, `initial_fields`, `LastSettedGalaxyPos`, `LastSettedSystemPos`, `LastSettedPlanetPos`, `smtp_host`, `smtp_port`, `smtp_user`, `smtp_pass`, `game_name`, `users_amount` FROM ".CONFIG." WHERE `uni` = ".$UNI.";");
 			
@@ -57,12 +56,12 @@ switch ($page) {
 
 		// Session based API call.
 		if (!$session)
-			redirectTo("index.".PHP_EXT);
+			redirectTo("index.php");
 
 		$uid = $facebook->getUser();
 
 		if (!$uid)
-		redirectTo("index.".PHP_EXT);
+		redirectTo("index.php");
 
 		$login = $db->uniquequery("SELECT `id`, `username`, `dpath`, `authlevel`, `id_planet`, `banaday` FROM ".USERS." WHERE `universe` = '".$UNI."' AND `fb_id` = '".$uid."';");
 		if (isset($login)) {
@@ -73,7 +72,7 @@ switch ($page) {
 			$SESSION       	= new Session();
 			$SESSION->CreateSession($login['id'], $login['username'], $login['id_planet'], $UNI, $login['authlevel'], $login['dpath']);
 			
-			redirectTo("game.".PHP_EXT."?page=overview");
+			redirectTo("game.php?page=overview");
 		} else {
 			$me = $facebook->api('/me');
 			$UserMail 	=  $me['email'];
@@ -88,7 +87,7 @@ switch ($page) {
 				session_start();
 				$SESSION       	= new Session();
 				$SESSION->CreateSession($Exist['alruser']['id'], $Exist['alruser']['username'], $Exist['alruser']['id_planet'], $UNI, $Exist['alruser']['authlevel'], $Exist['alruser']['dpath']);
-				redirectTo("game.".PHP_EXT."?page=overview");
+				redirectTo("game.php?page=overview");
 			}
 			
 			$Caracters = "aazertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN1234567890";
@@ -189,7 +188,7 @@ switch ($page) {
 			session_start();
 			$SESSION       	= new Session();
 			$SESSION->CreateSession($NewUser, $UserName, $PlanetID, $UNI);
-			redirectTo("game.".PHP_EXT."?page=overview");
+			redirectTo("game.php?page=overview");
 		}
 	break;
 	case 'lostpassword': 
@@ -311,7 +310,7 @@ switch ($page) {
 				$db->query($SQL);
 				
 				if($CONF['user_valid'] == 0 || $CONF['smtp_host'] == '' || $CONF['smtp_port'] == 0 || $CONF['smtp_user'] == '' || $CONF['smtp_pass'] == '') {
-					redirectTo("index.".PHP_EXT."?page=reg&mode=valid&lang=".$UserLang."&clef=".$clef);
+					redirectTo("index.php?page=reg&mode=valid&lang=".$UserLang."&clef=".$clef);
 				} else {
 					$MailSubject 	= $LNG['reg_mail_message_pass'];
 					$MailRAW		= file_get_contents("./language/".$UserLang."/email/email_vaild_reg.txt");
@@ -412,7 +411,7 @@ switch ($page) {
 					$SESSION       	= new Session();
 					$SESSION->CreateSession($NewUser, $UserName, $PlanetID, $UserUni);
 
-					redirectTo("game.".PHP_EXT."?page=overview");
+					redirectTo("game.php?page=overview");
 				}
 			break;
 			default:
