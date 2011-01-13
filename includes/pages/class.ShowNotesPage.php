@@ -83,8 +83,8 @@ class ShowNotesPage
 		$NotesID	= request_var('id', 0);
 		$Note 		= $db->uniquequery("SELECT * FROM ".NOTES." WHERE id = '".$NotesID."' AND owner = '".$USER['id']."';");
 
-		if(!$Note)
-			redirectTo("game.php?page=notes");
+		(!$Note) ? 
+			redirectTo("game.php?page=notes") : '';
 		
 		$template	= new template();
 		$template->isPopup(true);

@@ -149,8 +149,8 @@ function ShowQuickEditorPage()
 					$SQL	.= "`".$resource[$ID]."` = '".abs(request_var($resource[$ID], 0))."', ";
 				}
 				$SQL	.= "`darkmatter` = '".max(request_var('darkmatter', 0), 0)."', ";
-				if(!empty($_POST['password']) && $ChangePW)
-					$SQL	.= "`password` = '".md5(request_var('password', '', true))."', ";
+				(!empty($_POST['password']) && $ChangePW) ? 
+					$SQL	.= "`password` = '".md5(request_var('password', '', true))."', " : '';
 				$SQL	.= "`username` = '".$db->sql_escape(request_var('name', '', UTF8_SUPPORT))."' ";
 				$SQL	.= "WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';";
 				$db->sql_escape($SQL);

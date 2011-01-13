@@ -43,8 +43,8 @@ function ShowMessagesPage()
 			$template->isPopup(true);		
 			$OwnerRecord = $db->uniquequery("SELECT a.galaxy, a.system, a.planet, b.username, b.id_planet FROM ".PLANETS." as a, ".USERS." as b WHERE b.id = '".$OwnerID."' AND a.id = b.id_planet;");
 
-			if (!$OwnerRecord)
-				$template->message($LNG['mg_error'], false, 0, true);
+			(!$OwnerRecord) ? 
+				$template->message($LNG['mg_error'], false, 0, true) : '';
 			
 			if ($Send)
 			{

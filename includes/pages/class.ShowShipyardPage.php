@@ -25,20 +25,20 @@ class ShowShipyardPage
 	{
 		global $pricelist, $PLANET, $USER;
 
-		if ($pricelist[$Element]['metal'] != 0)
-			$MAX[]				= floor($PLANET['metal'] / $pricelist[$Element]['metal']);
+		($pricelist[$Element]['metal'] != 0) ? 
+			$MAX[]				= floor($PLANET['metal'] / $pricelist[$Element]['metal']) : '';
 
-		if ($pricelist[$Element]['crystal'] != 0)
-			$MAX[]				= floor($PLANET['crystal'] / $pricelist[$Element]['crystal']);
+		($pricelist[$Element]['crystal'] != 0) ? 
+			$MAX[]				= floor($PLANET['crystal'] / $pricelist[$Element]['crystal']) : '';
 
-		if ($pricelist[$Element]['deuterium'] != 0)
-			$MAX[]				= floor($PLANET['deuterium'] / $pricelist[$Element]['deuterium']);
+		($pricelist[$Element]['deuterium'] != 0) ? 
+			$MAX[]				= floor($PLANET['deuterium'] / $pricelist[$Element]['deuterium']) : '';
 			
-		if ($pricelist[$Element]['darkmatter'] != 0)
-			$MAX[]				= floor($USER['darkmatter'] / $pricelist[$Element]['darkmatter']);
+		($pricelist[$Element]['darkmatter'] != 0) ? 
+			$MAX[]				= floor($USER['darkmatter'] / $pricelist[$Element]['darkmatter']) : '';
 
-		if ($pricelist[$Element]['energy_max'] != 0)
-			$MAX[]				= floor($PLANET['energy_max'] / $pricelist[$Element]['energy_max']);
+		($pricelist[$Element]['energy_max'] != 0) ? 
+			$MAX[]				= floor($PLANET['energy_max'] / $pricelist[$Element]['energy_max']) : '';
 
 		return min($MAX);
 	}
@@ -61,14 +61,14 @@ class ShowShipyardPage
 		$ElementQueue = explode(';', $PLANET['b_hangar_id']);
 		foreach ($CancelArray as $ID => $Auftr)
 		{
-			if($Auftr == 0)
-				$PLANET['b_hangar']	= 0;
+			($Auftr == 0) ? 
+				$PLANET['b_hangar']	= 0 : '';
 				
 			$ElementQ	= explode(',', $ElementQueue[$Auftr]);
 			$Element	= $ElementQ[0];
 			$Count		= $ElementQ[1];
 			
-			if ($Element == 214 && $USER['rpg_destructeur'] == 1) $Count = $Count / 2;
+			($Element == 214 && $USER['rpg_destructeur'] == 1) ? $Count = $Count / 2 : '';
 			
 			$Resses		= $this->GetElementRessources($Element, $Count);
 			$PLANET['metal']		+= $Resses['metal']			* 0.6;
@@ -84,8 +84,8 @@ class ShowShipyardPage
 	{
 		global $USER, $PLANET, $pricelist, $resource, $LNG;
 
-		if ($Factor)
-			$level = isset($PLANET[$resource[$Element]]) ? $PLANET[$resource[$Element]] : $USER[$resource[$Element]];
+		($Factor) ? 
+			$level = isset($PLANET[$resource[$Element]]) ? $PLANET[$resource[$Element]] : $USER[$resource[$Element]] : '';
 
 		$array = array(
 			'metal'      => $LNG['Metal'],
@@ -177,8 +177,8 @@ class ShowShipyardPage
 				$PLANET['deuterium'] -= $Ressource['deuterium'];
 				$USER['darkmatter']  -= $Ressource['darkmatter'];
 
-				if ($Element == 214 && $USER['rpg_destructeur'] == 1)
-					$Count = 2 * $Count;
+				($Element == 214 && $USER['rpg_destructeur'] == 1) ? 
+					$Count = 2 * $Count : '';
 
 				$PLANET['b_hangar_id']    .= $Element.','.floattostring($Count).';';
 			}
@@ -317,8 +317,8 @@ class ShowShipyardPage
 			for ($QElement = 0; $QElement < count($BuildArray); $QElement++)
 			{
 				$ElmentArray = explode(",", $BuildArray[$QElement]);
-				if(isset($Missiles[$ElmentArray[0]]))
-					$Missiles[$ElmentArray[0]] += $ElmentArray[1];
+				(isset($Missiles[$ElmentArray[0]])) ? 
+					$Missiles[$ElmentArray[0]] += $ElmentArray[1] : '';
 			}
 
 			foreach($fmenge as $Element => $Count)
@@ -362,8 +362,8 @@ class ShowShipyardPage
 			}
 		}
 				
-		if ($action == "delete" && is_array($cancel) && $USER['urlaubs_modus'] == 0)
-			$this->CancelAuftr($cancel);
+		($action == "delete" && is_array($cancel) && $USER['urlaubs_modus'] == 0) ? 
+			$this->CancelAuftr($cancel) : '';
 
 		$PlanetRess->SavePlanetToDB();
 		

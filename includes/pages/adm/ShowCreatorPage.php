@@ -51,40 +51,39 @@ function ShowCreatorPage()
 				if ($CONF['capaktiv'] === '1') {
 					require_once('includes/libs/reCAPTCHA/recaptchalib.php');
 					$resp = recaptcha_check_answer($CONF['capprivate'], $_SERVER['REMOTE_ADDR'], request_var('recaptcha_challenge_field', ''), request_var('recaptcha_response_field', ''));
-					if (!$resp->is_valid)
-						$errorlist .= $LNG['wrong_captcha'];
+					(!$resp->is_valid) ? 
+						$errorlist .= $LNG['wrong_captcha'] : '';
 				}
 					
 				$Exist['userv'] = $db->uniquequery("SELECT username, email FROM ".USERS." WHERE username = '".$db->sql_escape($UserName)."' OR email = '".$db->sql_escape($UserEmail)."';");
 				$Exist['vaild'] = $db->uniquequery("SELECT username, email FROM ".USERS_VALID." WHERE username = '".$db->sql_escape($UserName)."' OR email = '".$db->sql_escape($UserEmail)."';");
 								
-				if (!ValidateAddress($UserMail)) 
-					$errors .= $LNG['invalid_mail_adress'];
+				(!ValidateAddress($UserMail))  ? 
+					$errors .= $LNG['invalid_mail_adress'] : '';
 					
-				if (empty($UserName))
-					$errors .= $LNG['empty_user_field'];
+				(empty($UserName)) ? 
+					$errors .= $LNG['empty_user_field'] : '';
 										
-				if (strlen($UserPass) < 6)
-					$errors .= $LNG['password_lenght_error'];
+				(strlen($UserPass) < 6) ? 
+					$errors .= $LNG['password_lenght_error'] : '';
 					
-				if ($UserPass != $UserPass2)
-					$errors .= $LNG['different_passwords'];				
+				($UserPass != $UserPass2) ? 
+					$errors .= $LNG['different_passwords'] : '';				
 					
-				if ($UserMail != $UserMail2)
-					$errors .= $LNG['different_mails'];
+				($UserMail != $UserMail2) ? 
+					$errors .= $LNG['different_mails'] : '';
 					
-				if (!CheckName($UserName))
-					$errors .= (UTF8_SUPPORT) ? $LNG['user_field_no_space'] : $LNG['user_field_no_alphanumeric'];				
+				(!CheckName($UserName)) ? 
+					$errors .= (UTF8_SUPPORT) ? $LNG['user_field_no_space'] : $LNG['user_field_no_alphanumeric'] : '';				
 										
-				if ((isset($Exist['userv']['username']) || isset($Exist['vaild']['username']) && ($UserName == $Exist['userv']['username'] || $UserName == $Exist['vaild']['username'])))
-					$errors .= $LNG['user_already_exists'];
+				((isset($Exist['userv']['username']) || isset($Exist['vaild']['username']) && ($UserName == $Exist['userv']['username'] || $UserName == $Exist['vaild']['username']))) ? 
+					$errors .= $LNG['user_already_exists'] : '';
 
-				if ((isset($Exist['userv']['email']) || isset($Exist['vaild']['email'])) && ($UserEmail == $Exist['userv']['email'] || $UserEmail == $Exist['vaild']['email']))
-					$errors .= $LNG['mail_already_exists'];
+				((isset($Exist['userv']['email']) || isset($Exist['vaild']['email'])) && ($UserEmail == $Exist['userv']['email'] || $UserEmail == $Exist['vaild']['email'])) ? 
+					$errors .= $LNG['mail_already_exists'] : '';
 				
-				if (CheckPlanetIfExist($Galaxy, $System, $Position, $_SESSION['adminuni'])) {
-					$errors .= $LNG['planet_already_exists'];
-				}	
+				(CheckPlanetIfExist($Galaxy, $System, $Position, $_SESSION['adminuni'])) ? 
+					$errors .= $LNG['planet_already_exists'] : '';
 
 				if (!empty($errors)) {
 					$template->message($errors, '?page=create&mode=user', 3, true);
@@ -132,14 +131,14 @@ function ShowCreatorPage()
 			$AUTH		= array();
 			$AUTH[0]	= $LNG['user_level'][0];
 			
-			if($USER['authlevel'] >= AUTH_OPS)
-				$AUTH[AUTH_OPS]	= $LNG['user_level'][AUTH_OPS];
+			($USER['authlevel'] >= AUTH_OPS) ? 
+				$AUTH[AUTH_OPS]	= $LNG['user_level'][AUTH_OPS] : '';
 				
-			if($USER['authlevel'] >= AUTH_MOD)
-				$AUTH[AUTH_MOD]	= $LNG['user_level'][AUTH_MOD];
+			($USER['authlevel'] >= AUTH_MOD) ?
+				$AUTH[AUTH_MOD]	= $LNG['user_level'][AUTH_MOD] : '';
 				
-			if($USER['authlevel'] >= AUTH_ADM)
-				$AUTH[AUTH_ADM]	= $LNG['user_level'][AUTH_ADM];
+			($USER['authlevel'] >= AUTH_ADM) ? 
+				$AUTH[AUTH_ADM]	= $LNG['user_level'][AUTH_ADM] : '';
 				
 			
 			$Query	= $db->query("SELECT `uni`, `game_name` FROM ".CONFIG." ORDER BY `uni` ASC;");
@@ -175,9 +174,9 @@ function ShowCreatorPage()
 				$MoonName  	= request_var('name', '', UTF8_SUPPORT);
 				$Diameter	= request_var('diameter', 0);
 				$FieldMax	= request_var('field_max', 0);
-				if($USER['authlevel'] == AUTH_ADM)
-				$Univer		= request_var('uni','');
-				else
+				($USER['authlevel'] == AUTH_ADM) ? 
+				$Univer		= request_var('uni','')
+				:
 				$Univer		= $_SESSION['adminuni'];
 			
 				$MoonPlanet	= $db->uniquequery("SELECT `temp_max`, `temp_min`, `id_luna`, `galaxy`, `system`, `planet`, `planet_type`, `destruyed`, `id_level`, `id_owner` FROM ".PLANETS." WHERE `id` = '".$PlanetID."' AND `universe` = '".$Univer."' AND `planet_type` = '1' AND `destruyed` = '0';");
@@ -189,9 +188,9 @@ function ShowCreatorPage()
 			
 				require_once(ROOT_PATH.'includes/functions/CreateOneMoonRecord.php');
 				
-				if(CreateOneMoonRecord($MoonPlanet['galaxy'], $MoonPlanet['system'], $MoonPlanet['planet'], $Univer, $MoonPlanet['id_owner'], 0, $MoonName, 20, (($_POST['diameter_check'] == 'on') ? 0: $Diameter)) !== false)
-					$template->message($LNG['mo_moon_added'], '?page=create&mode=moon', 3, true);
-				else
+				(CreateOneMoonRecord($MoonPlanet['galaxy'], $MoonPlanet['system'], $MoonPlanet['planet'], $Univer, $MoonPlanet['id_owner'], 0, $MoonName, 20, (($_POST['diameter_check'] == 'on') ? 0: $Diameter)) !== false) ? 
+					$template->message($LNG['mo_moon_added'], '?page=create&mode=moon', 3, true)
+				:
 					$template->message($LNG['mo_moon_unavaible'], '?page=create&mode=moon', 3, true);
 				
 				exit;
@@ -230,9 +229,9 @@ function ShowCreatorPage()
 				$Planet      = request_var('planet', 0);
 				$name        = request_var('name', '', UTF8_SUPPORT);
 				$field_max   = request_var('field_max', 0);
-				if($USER['authlevel'] == AUTH_ADM)
-				$Univer		 = request_var('uni','');
-				else
+				($USER['authlevel'] == AUTH_ADM) ? 
+				$Univer		 = request_var('uni','')
+				:
 				$Univer		 = $_SESSION['adminuni'];
 				
 				
@@ -247,11 +246,11 @@ function ShowCreatorPage()
 						
 				$SQL  = "UPDATE ".PLANETS." SET ";
 				
-				if ($_POST['diameter_check'] != 'on' || $field_max > 0)
-					$SQL .= "`field_max` = '".$field_max."', ";
+				 ($_POST['diameter_check'] != 'on' || $field_max > 0) ? 
+					$SQL .= "`field_max` = '".$field_max."', " : '';
 			
-				if (!empty($name))
-					$SQL .= "`name` = '".$db->sql_escape($name)."', ";
+				(!empty($name)) ? 
+					$SQL .= "`name` = '".$db->sql_escape($name)."', " : '';
 
 				$SQL .= "`id_level` = '".$ISUser['authlevel']."' ";
 				$SQL .= "WHERE ";

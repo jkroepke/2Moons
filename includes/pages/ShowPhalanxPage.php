@@ -99,8 +99,8 @@ function ShowPhalanxPage()
 	
 	$db->free_result($FleetToTarget);
 	
-	if(!empty($fpage))
-		ksort($fpage);
+	(!empty($fpage)) ? 
+		ksort($fpage) : '';
 
 	$template->assign_vars(array(
 		'phl_pl_galaxy'  	=> $Galaxy,

@@ -28,8 +28,8 @@ function ShowBanPage()
 	
 	$ORDER = $_GET['order'] == 'id' ? "id" : "username";
 
-	if ($_GET['view'] == 'bana')
-		$WHEREBANA	= "AND `bana` = '1'";
+	($_GET['view'] == 'bana') ? 
+		$WHEREBANA	= "AND `bana` = '1'" : '';
 
 	$UserList		= $db->query("SELECT `username`, `id`, `bana` FROM ".USERS." WHERE `id` != 1 AND `authlevel` <= '".$USER['authlevel']."' AND `universe` = '".$_SESSION['adminuni']."' ".$WHEREBANA." ORDER BY ".$ORDER." ASC;");
 
@@ -119,8 +119,8 @@ function ShowBanPage()
 		$mail              = $USER['email'];
 		$BanTime           = $days * 86400 + $hour * 3600 + $mins * 60 + $secs;
 
-		if ($BANUSER['longer'] > TIMESTAMP)
-			$BanTime          += ($BANUSER['longer'] - TIMESTAMP);
+		($BANUSER['longer'] > TIMESTAMP) ? 
+			$BanTime          += ($BANUSER['longer'] - TIMESTAMP) : '';
 		
 		$BannedUntil = ($BanTime + TIMESTAMP) < TIMESTAMP ? TIMESTAMP : TIMESTAMP + $BanTime;
 		
