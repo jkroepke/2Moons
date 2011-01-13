@@ -82,8 +82,10 @@ function ShowResourcesPage()
 		$post_porcent = 100;
 	}
 
-	($post_porcent > 100) ? 
-		$post_porcent = 100 : '';
+	if ($post_porcent > 100)
+	{
+		$post_porcent = 100;
+	}
 	
 	$BuildTemp      = $PLANET['temp_max'];
 	$BuildEnergy	= $USER[$resource[113]];

@@ -78,8 +78,8 @@ function ShowFleetShortcuts()
 			exit(redirectTo("game.php"."?page=shortcuts"));
 		}
 
-		(empty($USER['fleet_shortcut'])) ? 
-			redirectTo("game.php"."?page=shortcuts") : '';
+		if (empty($USER['fleet_shortcut']))
+			redirectTo("game.php"."?page=shortcuts");
 		
 		$template->assign_vars(array(	
 			'fl_back'				=> $LNG['fl_back'],

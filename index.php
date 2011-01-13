@@ -41,8 +41,8 @@ $mode = request_var('mode', '');
 
 switch ($page) {
 	case 'facebook':
-		($CONF['fb_on'] == 0) ? 
-			redirectTo("index.php") : '';
+		if($CONF['fb_on'] == 0)
+			redirectTo("index.php");
 
 		$CONF		= $db->uniquequery("SELECT `fb_apikey`, `fb_skey`, `initial_fields`, `LastSettedGalaxyPos`, `LastSettedSystemPos`, `LastSettedPlanetPos`, `smtp_host`, `smtp_port`, `smtp_user`, `smtp_pass`, `game_name`, `users_amount` FROM ".CONFIG." WHERE `uni` = ".$UNI.";");
 			
@@ -55,18 +55,19 @@ switch ($page) {
 		$session = $facebook->getSession();
 
 		// Session based API call.
-		(!$session) ? 
-			redirectTo("index.php") : '';
+		if (!$session)
+			redirectTo("index.php");
 
 		$uid = $facebook->getUser();
 
-		(!$uid) ? 
-		redirectTo("index.php") : '';
+		if (!$uid)
+		redirectTo("index.php");
 
 		$login = $db->uniquequery("SELECT `id`, `username`, `dpath`, `authlevel`, `id_planet`, `banaday` FROM ".USERS." WHERE `universe` = '".$UNI."' AND `fb_id` = '".$uid."';");
 		if (isset($login)) {
-			($login['banaday'] <= time () && $login['banaday'] != '0') ?
-				$db->query("UPDATE " . USERS . " SET `banaday` = '0', `bana` = '0' WHERE `id` = '".$login['id']."' AND `universe` = '".$UNI."';") : '';
+			if ($login['banaday'] <= time () && $login['banaday'] != '0') {
+				$db->query("UPDATE " . USERS . " SET `banaday` = '0', `bana` = '0' WHERE `id` = '".$login['id']."' AND `universe` = '".$UNI."';");
+			}
 			session_start();
 			$SESSION       	= new Session();
 			$SESSION->CreateSession($login['id'], $login['username'], $login['id_planet'], $UNI, $login['authlevel'], $login['dpath']);
@@ -79,8 +80,9 @@ switch ($page) {
 			$Exist['alruser'] = $db->uniquequery("SELECT `id`, `username`, `dpath`, `authlevel`, `id_planet`, `banaday` FROM ".USERS." WHERE `email` = '".$UserMail."';");
 			if(isset($Exist['alruser']))
 			{
-				($Exist['alruser']['banaday'] <= time () && $Exist['alruser']['banaday'] != '0') ?
-					$db->query("UPDATE ".USERS." SET `banaday` = '0', `bana` = '0' WHERE `username` = '".$Exist['alruser']['id']."' AND `universe` = '".$UNI."';") : '';
+				if ($Exist['alruser']['banaday'] <= time () && $Exist['alruser']['banaday'] != '0') {
+					$db->query("UPDATE ".USERS." SET `banaday` = '0', `bana` = '0' WHERE `username` = '".$Exist['alruser']['id']."' AND `universe` = '".$UNI."';");
+				}
 				$db->query("UPDATE `".USERS."` SET `fb_id` = '".$uid."' WHERE `id` = '".$Exist['alruser']['id']."';");
 				session_start();
 				$SESSION       	= new Session();
@@ -107,9 +109,9 @@ switch ($page) {
 			{
 				$Exist['userv'] = $db->uniquequery("SELECT username FROM ".USERS." WHERE username = '".$UserName."' AND `universe` = '".$UNI."';");
 				$Exist['valid'] = $db->uniquequery("SELECT username FROM ".USERS_VALID." WHERE username = '".$UserName."' AND `universe` = '".$UNI."';");
-				(!isset($Exist['userv']) && !isset($Exist['valid'])) ? 
-					$IfNameExist	= true 
-				:
+				if(!isset($Exist['userv']) && !isset($Exist['valid']))
+					$IfNameExist	= true;
+				else
 					$UserName		= $i.$UserName;
 			}
 			
@@ -262,8 +264,8 @@ switch ($page) {
 				if ($CONF['capaktiv'] === '1') {
 					require_once('includes/libs/reCAPTCHA/recaptchalib.php');
 					$resp = recaptcha_check_answer($CONF['capprivate'], $_SERVER['REMOTE_ADDR'], $_REQUEST['recaptcha_challenge_field'], $_REQUEST['recaptcha_response_field']);
-					(!$resp->is_valid) ? 
-						$errors .= $LNG['wrong_captcha'] : '';
+					if (!$resp->is_valid)
+						$errors .= $LNG['wrong_captcha'];
 				}
 				
 				$Exist['userv'] = $db->uniquequery("SELECT username, email FROM ".USERS." WHERE `universe` = '".$Universe."' AND (username = '".$db->sql_escape($UserName)."' OR email = '".$db->sql_escape($UserEmail)."');");
@@ -280,11 +282,11 @@ switch ($page) {
 				$errors    .= (isset($Exist['userv']['username']) || isset($Exist['valid']['username']) && ($UserName == $Exist['userv']['username'] || $UserName == $Exist['valid']['username'])) ? $LNG['user_already_exists'] : '';
 				$errors    .= (isset($Exist['userv']['email']) || isset($Exist['valid']['email'])) && ($UserEmail == $Exist['userv']['email'] || $UserEmail == $Exist['valid']['email']) ? $LNG['mail_already_exists'] : '';
 				
-				(!CheckName($UserName)) ? 
-					$errors .= (UTF8_SUPPORT) ? $LNG['user_field_no_space'] : $LNG['user_field_no_alphanumeric'] : '';				
+				if (!CheckName($UserName))
+					$errors .= (UTF8_SUPPORT) ? $LNG['user_field_no_space'] : $LNG['user_field_no_alphanumeric'];				
 				
-				(!CheckName($UserPlanet)) ? 
-					$errors .= (UTF8_SUPPORT) ? $LNG['planet_field_no_space'] : $LNG['planet_field_no_alphanumeric'] : '';			
+				if (!CheckName($UserPlanet))
+					$errors .= (UTF8_SUPPORT) ? $LNG['planet_field_no_space'] : $LNG['planet_field_no_alphanumeric'];			
 								
 				if (!empty($errors)) {
 					$template->message($errors, '?page=reg&lang='.$LANG->getUser(), 3, true);
@@ -323,8 +325,8 @@ switch ($page) {
 				$clef 		= request_var('clef', '');
 				$admin 	 	= request_var('admin', 0);
 				$Valider	= $db->uniquequery("SELECT `username`, `password`, `email`, `ip`, `planet`, `lang`, `universe` FROM ".USERS_VALID." WHERE `cle` = '".$db->sql_escape($clef)."';");
-				(!isset($Valider)) ?
-					redirectTo('index.php?page=reg') : '';
+				if(!isset($Valider)) 
+					redirectTo('index.php?page=reg');
 				
 				$UserName 	= $Valider['username'];
 				$UserPass 	= $Valider['password'];
@@ -586,8 +588,9 @@ switch ($page) {
 			$login = $db->uniquequery("SELECT `id`, `username`, `dpath`, `authlevel`,`id_planet`, `banaday` FROM ".USERS." WHERE `username` = '".$db->sql_escape($luser)."' AND `universe` = '".$luniv."' AND `password` = '".md5($lpass)."';");
 			
 			if (isset($login)) {
-				($login['banaday'] <= TIMESTAMP) ?
-					$db->query("UPDATE " . USERS . " SET `banaday` = '0', `bana` = '0' WHERE `id` = '".$login['id']."';") : '';
+				if ($login['banaday'] <= TIMESTAMP) {
+					$db->query("UPDATE " . USERS . " SET `banaday` = '0', `bana` = '0' WHERE `id` = '".$login['id']."';");
+				}
 				session_start();
 				$SESSION       	= new Session();
 				$SESSION->CreateSession($login['id'], $login['username'], $login['id_planet'], $luniv, $login['authlevel'], $login['dpath']);
@@ -604,10 +607,11 @@ switch ($page) {
 			}
 			ksort($AvailableUnis);
 			$Code	= request_var('code', 0);
-			(!empty($Code)) ?
+			if(!empty($Code)) {
 				$template->assign_vars(array(
 					'code'					=> $LNG['login_error_'.$Code],
-				)) : '';
+				));
+			}
 			$template->assign_vars(array(
 				'AvailableUnis'			=> $AvailableUnis,
 				'welcome_to'			=> $LNG['welcome_to'],
