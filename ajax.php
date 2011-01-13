@@ -28,7 +28,8 @@ define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 include_once(ROOT_PATH . 'common.php');
 $SESSION       	= new Session();
 
-(!$SESSION->IsUserLogin() || ($CONF['game_disable'] == 0 && $_SESSION['authlevel'] == 0)) ? exit(json_encode(array())) : '';
+if(!$SESSION->IsUserLogin() || ($CONF['game_disable'] == 0 && $_SESSION['authlevel'] == 0))
+	exit(json_encode(array()));
 $LANG->setUser($_SESSION['USER']['lang']);
 $LANG->includeLang(array('INGAME'));
 $action	= request_var('action', '');
@@ -61,14 +62,14 @@ switch($action)
 			if ($FleetRow['fleet_mission'] == 10 || ($FleetRow['fleet_mission'] == 4 && $FleetRow['fleet_mess'] == 0))
 				continue;
 
-			($FleetRow['fleet_mess'] != 1 && $FleetRow['fleet_end_stay'] > TIMESTAMP) ? 
-				$FleetData[$FleetRow['fleet_end_stay'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable($FleetRow, 2, $IsOwner, 'ft', $Record) : '';
+			if ($FleetRow['fleet_mess'] != 1 && $FleetRow['fleet_end_stay'] > TIMESTAMP)
+				$FleetData[$FleetRow['fleet_end_stay'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable($FleetRow, 2, $IsOwner, 'ft', $Record);
 		
 			if ($IsOwner == false)
 				continue;
 		
-			($FleetRow['fleet_end_time'] > TIMESTAMP) ? 
-				$FleetData[$FleetRow['fleet_end_time'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable($FleetRow, 1, $IsOwner, 'fe', $Record) : '';
+			if ($FleetRow['fleet_end_time'] > TIMESTAMP)
+				$FleetData[$FleetRow['fleet_end_time'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable($FleetRow, 1, $IsOwner, 'fe', $Record);
 		}
 		$db->free_result($OwnFleets);
 		ksort($FleetData);
@@ -81,8 +82,8 @@ switch($action)
 		$TargetPlanet					= request_var('planet', $_SESSION['PLANET']['planet']);
 		$TargetPlanettype 				= request_var('planet_type', $_SESSION['PLANET']['planet_type']);
 	
-		($TargetGalaxy == $_SESSION['PLANET']['galaxy'] && $TargetSystem == $_SESSION['PLANET']['system'] && $TargetPlanet == $_SESSION['PLANET']['planet'] && $TargetPlanettype == $_SESSION['PLANET']['planet_type']) ? 
-			exit($LNG['fl_error_same_planet']) : '';
+		if($TargetGalaxy == $_SESSION['PLANET']['galaxy'] && $TargetSystem == $_SESSION['PLANET']['system'] && $TargetPlanet == $_SESSION['PLANET']['planet'] && $TargetPlanettype == $_SESSION['PLANET']['planet_type'])
+			exit($LNG['fl_error_same_planet']);
 		
 		if ($TargetPlanet != 16) {
 			$Data	= $db->uniquequery("SELECT u.`urlaubs_modus`, p.`id_level`, p.`destruyed`, p.`der_metal`, p.`der_crystal`, p.`destruyed` FROM ".USERS." as u, ".PLANETS." as p WHERE p.universe = '".$UNI."' AND p.`galaxy` = '".$TargetGalaxy."' AND p.`system` = '".$TargetSystem."' AND p.`planet` = '".$TargetPlanet."'  AND p.`planet_type` = '".(($TargetPlanettype == 2) ? 1 : $TargetPlanettype)."' AND `u`.`id` = p.`id_owner`;");
@@ -97,13 +98,13 @@ switch($action)
 			elseif($TargetPlanettype == 2 && $Data['der_metal'] == 0 && $Data['der_crystal'] == 0)
 				exit($LNG['fl_error_empty_derbis']);
 		} else {
-			($_SESSION['USER'][$resource[124]] == 0) ? 
-				exit($LNG['fl_expedition_tech_required']) : '';
+			if ($_SESSION['USER'][$resource[124]] == 0)
+				exit($LNG['fl_expedition_tech_required']);
 			
 			$ActualFleets = $db->countquery("SELECT COUNT(*) FROM ".FLEETS." WHERE `fleet_owner` = '".$_SESSION['id']."' AND `fleet_mission` = '15';");
 
-			($ActualFleets['state'] >= floor(sqrt($_SESSION['USER'][$resource[124]]))) ?
-				exit($LNG['fl_expedition_fleets_limit']) : '';
+			if ($ActualFleets['state'] >= floor(sqrt($_SESSION['USER'][$resource[124]])))
+				exit($LNG['fl_expedition_fleets_limit']);
 		}
 		exit('OK');
 	break;
@@ -111,8 +112,9 @@ switch($action)
 		$newname        = request_var('newname', '', UTF8_SUPPORT);
 		if (!empty($newname))
 		{
-			(!CheckName($newname)) ? 
-				exit((UTF8_SUPPORT) ? $LNG['ov_newname_no_space'] : $LNG['ov_newname_alphanum']) :
+			if (!CheckName($newname))
+				exit((UTF8_SUPPORT) ? $LNG['ov_newname_no_space'] : $LNG['ov_newname_alphanum']);
+			else
 				$db->query("UPDATE ".PLANETS." SET `name` = '".$db->sql_escape($newname)."' WHERE `id` = '".$_SESSION['planet']. "';");
 		}
 	break;
@@ -130,10 +132,11 @@ switch($action)
 				exit(json_encode(array('mess' => $LNG['ov_wrong_pass'])));
 			else
 			{
-				($_SESSION['PLANET']['planet_type'] == 1) ?
-					$db->multi_query("UPDATE ".PLANETS." SET `destruyed` = '".(TIMESTAMP+ 86400)."' WHERE `id` = '".$_SESSION['planet']."';DELETE FROM ".PLANETS." WHERE `id` = '".$_SESSION['PLANET']['id_luna']."';") :
+				if($_SESSION['PLANET']['planet_type'] == 1) {
+					$db->multi_query("UPDATE ".PLANETS." SET `destruyed` = '".(TIMESTAMP+ 86400)."' WHERE `id` = '".$_SESSION['planet']."';DELETE FROM ".PLANETS." WHERE `id` = '".$_SESSION['PLANET']['id_luna']."';");
+				} else {
 					$db->multi_query("UPDATE ".PLANETS." SET `id_luna` = '0' WHERE `id_luna` = '".$_SESSION['planet']."';DELETE FROM ".PLANETS." WHERE `id` = '".$_SESSION['planet']."';");
-
+				}
 				$_SESSION['planet']	= $_SESSION['USER']['id_planet'];
 				exit(json_encode(array('ok' => true, 'mess' => $LNG['ov_planet_abandoned'])));
 			}
@@ -182,8 +185,8 @@ switch($action)
 		$db->free_result($UsrMess);	
 				
 		echo json_encode(array(
-				'MessageList'						=> $MessageList,
-				'LNG'								=> array(
+			'MessageList'						=> $MessageList,
+			'LNG'								=> array(
 				'mg_message_title'					=> $LNG['mg_message_title'],
 				'mg_action'							=> $LNG['mg_action'],
 				'mg_date'							=> $LNG['mg_date'],
@@ -216,8 +219,8 @@ switch($action)
 		$DeleteWhat = request_var('deletemessages','');
 		$MessType	= request_var('mess_type', 0);
 		
-		($MessType == 100 && $DeleteWhat == 'deletetypeall') ? 
-			$DeleteWhat	= 'deleteall' : '';
+		if($MessType == 100 && $DeleteWhat == 'deletetypeall')
+			$DeleteWhat	= 'deleteall';
 		
 		
 		switch($DeleteWhat)

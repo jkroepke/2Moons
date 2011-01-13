@@ -55,7 +55,10 @@ switch($cron)
 			while($pru = $db->fetch_array($prueba)){
 				$compprefix = explode("_",$pru["Name"]);  
 				
-				($compprefix[0].'_' == DB_PREFIX && $compprefix[1] != 'session') ? $table .= "`".$pru["Name"]."`, " : '';
+				if($compprefix[0].'_' == DB_PREFIX && $compprefix[1] != 'session')
+				{
+					$table .= "`".$pru["Name"]."`, ";
+				}
 			}
 			$db->query("OPTIMIZE TABLE ".substr($table, 0, -2).";");
 			ClearCache();

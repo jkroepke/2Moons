@@ -214,8 +214,10 @@ class GalaxyRows
 			$Systemtatus 	= "";
 		}
 
-		(!empty($Systemtatus2)) ? 
-			$Systemtatus2 	= "<span style=\"color:white\">(</span>".$Systemtatus2."<span style=\"color:white\">)</span>" : '';
+		if (!empty($Systemtatus2))
+		{
+			$Systemtatus2 	= "<span style=\"color:white\">(</span>".$Systemtatus2."<span style=\"color:white\">)</span>";
+		}
 
 		$Result	= array(
 			'id'			=> $GalaxyRowPlanet['userid'],

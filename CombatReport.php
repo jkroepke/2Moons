@@ -29,8 +29,8 @@ $LANG->includeLang(array('FLEET', 'TECH'));
 	
 $RID	= request_var('raport', '');
 
-(file_exists(ROOT_PATH.'raports/raport_'.$RID.'.php')) ? 
-	require_once(ROOT_PATH.'raports/raport_'.$RID.'.php') : '';
+if(file_exists(ROOT_PATH.'raports/raport_'.$RID.'.php'))
+	require_once(ROOT_PATH.'raports/raport_'.$RID.'.php');
 
 $template	= new template();
 

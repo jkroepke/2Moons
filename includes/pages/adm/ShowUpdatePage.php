@@ -127,8 +127,8 @@ function ShowUpdatePage()
 				$LastRev = $Rev;
 			}	
 			
-			(!empty($TodoDelete)) ? 
-				$zipfile->addFile($TodoDelete, "!TodoDelete!.txt", $RevInfo['timestamp']) : '';
+			if(!empty($TodoDelete))
+				$zipfile->addFile($TodoDelete, "!TodoDelete!.txt", $RevInfo['timestamp']);
 			
 			update_config(array('VERSION' => $Patchlevel[0].".".$Patchlevel[1].".".$LastRev), true);
 			// Header für Download senden
@@ -146,8 +146,8 @@ function ShowUpdatePage()
 			require_once(ROOT_PATH.'includes/libs/ftp/ftp.class.php');
 			require_once(ROOT_PATH.'includes/libs/ftp/ftpexception.class.php');
 			$UpdateArray 	= unserialize(@file_get_contents("http://update.xnova.de/index.php?action=getupdate",FALSE,$context));
-			(!is_array($UpdateArray['revs'])) ? 
-				exitupdate(array('debug' => array('noupdate' => $LNG['up_kein_update']))) : '';
+			if(!is_array($UpdateArray['revs']))
+				exitupdate(array('debug' => array('noupdate' => $LNG['up_kein_update'])));
 				
 			$SVN_ROOT		= $UpdateArray['info']['svn'];
 			$CONFIG 		= array("host" => $CONF['ftp_server'], "username" => $CONF['ftp_user_name'], "password" => $CONF['ftp_user_pass'], "port"     => 21 ); 
@@ -190,16 +190,18 @@ function ShowUpdatePage()
 						} else {
 							if (strpos($File, '.') !== false) {		
 								$Data = fopen($SVN_ROOT.$File, "r");
-								($ftp->uploadFromFile($Data, str_replace("/trunk/", "", $File))) ?
-									$LOG['update'][$Rev][$File]	= $LNG['up_ok_update']
-									:
+								if ($ftp->uploadFromFile($Data, str_replace("/trunk/", "", $File))) {
+									$LOG['update'][$Rev][$File]	= $LNG['up_ok_update'];
+
+								} else {
 									$LOG['update'][$Rev][$File]	= $LNG['up_error_update'];
+								}
 								fclose($Data);
 							} else {
 								if ($ftp->makeDir(str_replace("/trunk/", "", $File), 1)) {
-									(PHP_SAPI == 'apache2handler') ? 
-										$ftp->chmod(str_replace("/trunk/", "", $File), '0777')
-									:
+									if(PHP_SAPI == 'apache2handler')
+										$ftp->chmod(str_replace("/trunk/", "", $File), '0777');
+									else
 										$ftp->chmod(str_replace("/trunk/", "", $File), '0755');
 										
 									$LOG['update'][$Rev][$File]	= $LNG['up_ok_update'];
@@ -224,10 +226,11 @@ function ShowUpdatePage()
 								continue;
 							} else {
 								$Data = fopen($SVN_ROOT.$File, "r");
-								($ftp->uploadFromFile($Data, str_replace("/trunk/", "", $File))) ?
-									$LOG['update'][$Rev][$File]	= $LNG['up_ok_update']
-								:
+								if ($ftp->uploadFromFile($Data, str_replace("/trunk/", "", $File))) {
+									$LOG['update'][$Rev][$File]	= $LNG['up_ok_update'];
+								} else {
 									$LOG['update'][$Rev][$File]	= $LNG['up_error_update'];
+								}
 								fclose($Data);
 							}
 						}
@@ -242,15 +245,17 @@ function ShowUpdatePage()
 							
 						$Files['del'][] = $File;
 						if (strpos($File, '.') !== false) {
-							($ftp->delete(str_replace("/trunk/", "", $File))) ?
-								$LOG['update'][$Rev][$File]	= $LNG['up_delete_file']
-							:
+							if ($ftp->delete(str_replace("/trunk/", "", $File))) {
+								$LOG['update'][$Rev][$File]	= $LNG['up_delete_file'];
+							} else {
 								$LOG['update'][$Rev][$File]	= $LNG['up_error_delete_file'];
+							}
 						} else {
-							($ftp->removeDir(str_replace("/trunk/", "", $File), 1 )) ?
-								$LOG['update'][$Rev][$File]	= $LNG['up_delete_file']
-							:
-								$LOG['update'][$Rev][$File]	= $LNG['up_error_delete_file'];						
+							if ($ftp->removeDir(str_replace("/trunk/", "", $File), 1 )) {
+								$LOG['update'][$Rev][$File]	= $LNG['up_delete_file'];
+							} else {
+								$LOG['update'][$Rev][$File]	= $LNG['up_error_delete_file'];
+							}						
 						}
 					}
 				}
@@ -269,8 +274,9 @@ function ShowUpdatePage()
 			$Update		= '';
 			$Info		= '';
 			
-			(!function_exists('file_get_contents') || !function_exists('fsockopen') || ini_get('allow_url_fopen') == 0) ?
-				$template->message($LNG['up_error_fsockopen'], false, 0, true) : '';
+			if(!function_exists('file_get_contents') || !function_exists('fsockopen') || ini_get('allow_url_fopen') == 0) {
+				$template->message($LNG['up_error_fsockopen'], false, 0, true);
+			} 
 			ob_start();
 			echo file_get_contents("http://update.xnova.de/index.php?action=update", FALSE, $context);
 			$Data 	= ob_get_clean();

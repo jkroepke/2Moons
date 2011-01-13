@@ -253,8 +253,8 @@ class ShowAlliancePage
 							
 							$allyrow = $db->uniquequery("SELECT `ally_tag`, `ally_request`, `ally_request_notallow` FROM ".ALLIANCE." WHERE id='".$db->sql_escape($allyid)."';");
 
-							(!$allyrow) ? 
-								redirectTo("game.php?page=alliance") : '';
+							if (!$allyrow)
+								redirectTo("game.php?page=alliance");
 									
 							if($allyrow['ally_request_notallow'] == 1)
 							{
@@ -350,7 +350,7 @@ class ShowAlliancePage
 					case 'ainfo':
 						$allyrow = $db->uniquequery("SELECT * FROM ".ALLIANCE." WHERE ally_tag='".$db->sql_escape($tag)."' OR id='".$db->sql_escape($a)."';");
 
-						(!$allyrow) ? redirectTo("game.php?page=alliance") : '';
+						if (!$allyrow) redirectTo("game.php?page=alliance");
 						
 						$this->ainfo($allyrow, $template);	
 					break;
@@ -366,8 +366,8 @@ class ShowAlliancePage
 							$template->message(sprintf($LNG['al_do_you_really_want_to_go_out'], $ally['ally_name'])."<br><a href=\"?page=alliance&amp;mode=exit&amp;action=send\">".$LNG['al_go_out_yes']."</a>");
 					break;
 					case 'memberslist':
-						(!$USER['rights']['memberlist']) ? 
-							redirectTo("game.php?page=alliance") : '';
+						if (!$USER['rights']['memberlist'])
+							redirectTo("game.php?page=alliance");
 						
 						if ($sort1 && $sort2)
 						{
@@ -426,8 +426,8 @@ class ShowAlliancePage
 							);
 						}
 						
-						(count($Memberlist) != $ally['ally_members']) ? 
-							$db->query("UPDATE ".ALLIANCE." SET `ally_members`='".count($Memberlist)."' WHERE `id`='".$ally['id']."';") : '';				
+						if (count($Memberlist) != $ally['ally_members'])
+							$db->query("UPDATE ".ALLIANCE." SET `ally_members`='".count($Memberlist)."' WHERE `id`='".$ally['id']."';");				
 						
 						$template->assign_vars(array(
 							'Memberlist'		=> $Memberlist,
@@ -451,8 +451,8 @@ class ShowAlliancePage
 						$template->show("alliance_memberslist.tpl");						
 					break;
 					case 'circular':
-						(!$USER['rights']['roundmail']) ? 
-							redirectTo("game.php?page=alliance") : '';
+						if (!$USER['rights']['roundmail'])
+							redirectTo("game.php?page=alliance");
 
 						if ($action == "send")
 						{
@@ -967,8 +967,8 @@ class ShowAlliancePage
 									$ally['ally_stats'] 			= request_var('stats', 0);
 									$ally['ally_diplo'] 			= request_var('diplo', 0);
 
-									($ally['ally_request_notallow'] != 0 && $ally['ally_request_notallow'] != 1) ? 
-										exit(redirectTo("game.php"."?page=alliance")) : '';
+									if ($ally['ally_request_notallow'] != 0 && $ally['ally_request_notallow'] != 1)
+										exit(redirectTo("game.php"."?page=alliance"));
 
 									$db->query("UPDATE ".ALLIANCE." SET
 									`ally_owner_range` = '".$db->sql_escape($ally['ally_owner_range'])."',

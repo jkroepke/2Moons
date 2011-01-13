@@ -41,8 +41,9 @@ class DB_mysqli extends mysqli
 	{
 		$this->con = $GLOBALS['database'];
 
-        (!isset($this->con['port'])) ?
-            $this->con['port'] = 3306 : '';
+        if (!isset($this->con['port'])) {
+            $this->con['port'] = 3306;
+        }
 
 		@parent::__construct($this->con['host'], $this->con['user'], $this->con['userpw'], $this->con['databasename'], $this->con['port']);
 
@@ -69,8 +70,8 @@ class DB_mysqli extends mysqli
 	 */
 	public function __destruct()
 	{	
-		(!mysqli_connect_error()) ? 
-			parent::close() : '';
+		if(!mysqli_connect_error())
+			parent::close();
 	}
 
 	/**
@@ -139,8 +140,8 @@ class DB_mysqli extends mysqli
 		$Col	= 0;
 		while($Data	= $result->fetch_array(MYSQLI_ASSOC)) {
 			foreach($Data as $Key => $Store) {
-				(in_array($Key, $encode)) ? 
-					$Data[$Key]	= base64_encode($Store) : '';
+				if(in_array($Key, $encode))
+					$Data[$Key]	= base64_encode($Store);
 			}
 			$Return[]	= $Data;
 		}
@@ -262,8 +263,8 @@ class DB_mysqli extends mysqli
 		if(parent::multi_query($resource))
 		{
 			do {
-			    ($result = parent::store_result()) ? 
-					$result->free() : '';
+			    if ($result = parent::store_result())
+					$result->free();
 				
 				$this->queryCount++;
 					

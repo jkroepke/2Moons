@@ -39,57 +39,66 @@ switch($page)
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'galaxy':
-		(CheckModule(11)) ? message($LNG['sys_module_inactive'],"?page=overview", 3, true, true) : '';
+		if(CheckModule(11))
+			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/class.ShowGalaxyPage.php');
 		$ShowGalaxyPage = new ShowGalaxyPage();
 	break;
 	case 'phalanx':
-		(CheckModule(19)) ? message($LNG['sys_module_inactive'],"?page=overview", 3, true, true) : '';
+		if(CheckModule(19))
+			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/ShowPhalanxPage.php');
 		ShowPhalanxPage();
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'imperium':
-		(CheckModule(15)) ? message($LNG['sys_module_inactive'],"?page=overview", 3, true, true) : '';
+		if(CheckModule(15))
+			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/ShowImperiumPage.php');
 		ShowImperiumPage();
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'fleet':
-		(CheckModule(9)) ? message($LNG['sys_module_inactive'],"?page=overview", 3, true, true) : '';
+		if(CheckModule(9))
+			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/class.ShowFleetPages.php');
 		ShowFleetPages::ShowFleetPage();
 	break;
 	case 'fleet1':
-		(CheckModule(9)) ? message($LNG['sys_module_inactive'],"?page=overview", 3, true, true) : '';
+		if(CheckModule(9))
+			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/class.ShowFleetPages.php');
 		ShowFleetPages::ShowFleet1Page();
 	break;
 	case 'fleet2':
-		(CheckModule(9)) ? message($LNG['sys_module_inactive'],"?page=overview", 3, true, true) : '';
+		if(CheckModule(9))
+			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/class.ShowFleetPages.php');
 		ShowFleetPages::ShowFleet2Page();
 	break;
 	case 'fleet3':
-		(CheckModule(9)) ? message($LNG['sys_module_inactive'],"?page=overview", 3, true, true) : '';
+		if(CheckModule(9))
+			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/class.ShowFleetPages.php');
 		ShowFleetPages::ShowFleet3Page();
 	break;
 	case 'fleetajax':
-		(CheckModule(9) || CheckModule(24)) ? message($LNG['sys_module_inactive'],"?page=overview", 3, true, true) : '';
+		if(CheckModule(9) || CheckModule(24))
+			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/class.ShowFleetPages.php');
 		ShowFleetPages::FleetAjax();
 	break;
 	case 'missiles':
-		(CheckModule(9) || CheckModule(1)) ? message($LNG['sys_module_inactive'],"?page=overview", 3, true, true) : '';
+		if(CheckModule(9) || CheckModule(1))
+			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/class.ShowFleetPages.php');
 		ShowFleetPages::MissilesAjax();
@@ -104,27 +113,31 @@ switch($page)
 		switch ($mode)
 		{
 			case 'research':
-				(CheckModule(3)) ? message($LNG['sys_module_inactive'],"?page=overview", 3, true, true) : '';
+				if(CheckModule(3))
+					message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 				
 				include_once(ROOT_PATH . 'includes/pages/class.ShowResearchPage.php');
 				new ShowResearchPage();
 			break;
 			case 'fleet':
-				(CheckModule(4)) ? message($LNG['sys_module_inactive'],"?page=overview", 3, true, true) : '';
+				if(CheckModule(4))
+					message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 				
 				include_once(ROOT_PATH . 'includes/pages/class.ShowShipyardPage.php');
 				$FleetBuildingPage = new ShowShipyardPage();
 				$FleetBuildingPage->FleetBuildingPage ();
 			break;
 			case 'defense':
-				(CheckModule(5)) ? message($LNG['sys_module_inactive'],"?page=overview", 3, true, true) : '';
+				if(CheckModule(5))
+					message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 				
 				include_once(ROOT_PATH . 'includes/pages/class.ShowShipyardPage.php');
 				$DefensesBuildingPage = new ShowShipyardPage();
 				$DefensesBuildingPage->DefensesBuildingPage ();
 			break;
 			default:
-				(CheckModule(2)) ? message($LNG['sys_module_inactive'],"?page=overview", 3, true, true) : '';
+				if(CheckModule(2))
+					message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 				
 				include_once(ROOT_PATH . 'includes/pages/class.ShowBuildingsPage.php');
 				new ShowBuildingsPage();
@@ -133,84 +146,96 @@ switch($page)
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'resources':
-		(CheckModule(23)) ? message($LNG['sys_module_inactive'],"?page=overview", 3, true, true) : '';
+		if(CheckModule(23))
+			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/ShowResourcesPage.php');
 		ShowResourcesPage();
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'officier':
-		(CheckModule(18) && CheckModule(8)) ? message($LNG['sys_module_inactive'],"?page=overview", 3, true, true) : '';
+		if(CheckModule(18) && CheckModule(8))
+			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/class.ShowOfficierPage.php');
 		new ShowOfficierPage();
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'trader':
-		(CheckModule(13)) ? message($LNG['sys_module_inactive'],"?page=overview", 3, true, true) : '';
+		if(CheckModule(13))
+			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/ShowTraderPage.php');
 		ShowTraderPage();
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'techtree':
-		(CheckModule(28)) ? message($LNG['sys_module_inactive'],"?page=overview", 3, true, true) : '';
+		if(CheckModule(28))
+			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/ShowTechTreePage.php');
 		ShowTechTreePage();
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'infos':
-		(CheckModule(14)) ? message($LNG['sys_module_inactive'],"?page=overview", 3, true, true) : '';
+		if(CheckModule(14))
+			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/class.ShowInfosPage.php');
 		new ShowInfosPage();
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'messages':
-		(CheckModule(16)) ? message($LNG['sys_module_inactive'],"?page=overview", 3, true, true) : '';
+		if(CheckModule(16))
+			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/ShowMessagesPage.php');
 		ShowMessagesPage();
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'alliance':
-		(CheckModule(0)) ? message($LNG['sys_module_inactive'],"?page=overview", 3, true, true) : '';
+		if(CheckModule(0))
+			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
  
 		include_once(ROOT_PATH . 'includes/pages/class.ShowAlliancePage.php');
 		new ShowAlliancePage();
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'buddy':
-		(CheckModule(6)) ? message($LNG['sys_module_inactive'],"?page=overview", 3, true, true) : '';
+		if(CheckModule(6))
+			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 		
 		include_once(ROOT_PATH . 'includes/pages/ShowBuddyPage.php');
 		ShowBuddyPage();
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'notes':
-		(CheckModule(17)) ? message($LNG['sys_module_inactive'],"?page=overview", 3, true, true) : '';
+		if(CheckModule(17))
+			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/class.ShowNotesPage.php');
 		new ShowNotesPage();
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'fleettrader':
-		(CheckModule(38)) ? message($LNG['sys_module_inactive'],"?page=overview", 3, true, true) : '';
+		if(CheckModule(38))
+			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/ShowFleetTraderPage.php');
 		ShowFleetTraderPage();
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'statistics':
-		(CheckModule(25)) ? message($LNG['sys_module_inactive'],"?page=overview", 3, true, true) : '';
+		if(CheckModule(25))
+			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/ShowStatisticsPage.php');
 		ShowStatisticsPage();
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'search':
-		(CheckModule(26)) ? message($LNG['sys_module_inactive'],"?page=overview", 3, true, true) : '';
+		if(CheckModule(26))
+			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/ShowSearchPage.php');
 		ShowSearchPage();
@@ -222,42 +247,48 @@ switch($page)
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'banned':
-		(CheckModule(21)) ? message($LNG['sys_module_inactive'],"?page=overview", 3, true, true) : '';
+		if(CheckModule(21))
+			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/ShowBannedPage.php');
 		ShowBannedPage();
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'topkb':
-		(CheckModule(6)) ? message($LNG['sys_module_inactive'],"?page=overview", 3, true, true) : '';
+		if(CheckModule(6))
+			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/ShowTopKB.php');
 		ShowTopKB();
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'records':
-		(CheckModule(22)) ? message($LNG['sys_module_inactive'],"?page=overview", 3, true, true) : '';
+		if(CheckModule(22))
+			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/ShowRecordsPage.php');
 		ShowRecordsPage();
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'chat':
-		(CheckModule(7)) ? message($LNG['sys_module_inactive'],"?page=overview", 3, true, true) : '';
+		if(CheckModule(7))
+			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/class.ShowChatPage.php');
 		new ShowChatPage();
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
     case 'support':
-		(CheckModule(27)) ? message($LNG['sys_module_inactive'],"?page=overview", 3, true, true) : '';
+		if(CheckModule(27))
+			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/ShowSupportPage.php');
         new ShowSupportPage();
     break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//	
     case 'playercard':
-		(CheckModule(21)) ? message($LNG['sys_module_inactive'],"?page=overview", 3, true, true) : '';
+		if(CheckModule(21))
+			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 					
         include_once(ROOT_PATH . 'includes/pages/ShowPlayerCard.php');
         ShowPlayerCard();

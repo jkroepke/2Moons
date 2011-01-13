@@ -36,8 +36,8 @@ class ShowChatPage
 	private function DelMeassageFromChat($MessageID) {
 		global $USER, $db;
 		
-		($USER['authlevel'] == 0) ?
-			exit : '';
+		if($USER['authlevel'] == 0) 
+			exit;
 			
 		$db->query("DELETE FROM ".CHAT." WHERE `messageid` = '".$MessageID."';");
 		header('HTTP/1.1 204 No Content');

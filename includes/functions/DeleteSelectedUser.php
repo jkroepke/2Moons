@@ -89,9 +89,9 @@ function DeleteSelectedPlanet ($ID)
 
 	$QueryPlanet = $db->uniquequery("SELECT universe,galaxy,planet,system,planet_type FROM ".PLANETS." WHERE id = '".$ID."';");
 
-	($QueryPlanet['planet_type'] == '3') ? 
-		$db->multi_query("DELETE FROM ".PLANETS." WHERE id = '".$ID."';UPDATE ".PLANETS." SET id_luna = '0' WHERE id_luna = '".$ID."';")
-	:
+	if ($QueryPlanet['planet_type'] == '3')
+		$db->multi_query("DELETE FROM ".PLANETS." WHERE id = '".$ID."';UPDATE ".PLANETS." SET id_luna = '0' WHERE id_luna = '".$ID."';");
+	else
 		$db->query("DELETE FROM ".PLANETS." WHERE universe = '".$QueryPlanet['universe']."' AND galaxy = '".$QueryPlanet['galaxy']."' AND system = '".$QueryPlanet['system']."' AND planet = '".$QueryPlanet['planet']."';");
 }
 
