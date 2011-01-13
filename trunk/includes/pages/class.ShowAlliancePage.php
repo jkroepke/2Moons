@@ -243,7 +243,7 @@ class ShowAlliancePage
 							
 							$template->show("alliance_searchform.tpl");
 						} else {
-							redirectTo("game.".PHP_EXT."?page=alliance");
+							redirectTo("game.php"."?page=alliance");
 						}
 					break;
 					case 'apply':
@@ -968,7 +968,7 @@ class ShowAlliancePage
 									$ally['ally_diplo'] 			= request_var('diplo', 0);
 
 									if ($ally['ally_request_notallow'] != 0 && $ally['ally_request_notallow'] != 1)
-										exit(redirectTo("game.".PHP_EXT."?page=alliance"));
+										exit(redirectTo("game.php"."?page=alliance"));
 
 									$db->query("UPDATE ".ALLIANCE." SET
 									`ally_owner_range` = '".$db->sql_escape($ally['ally_owner_range'])."',

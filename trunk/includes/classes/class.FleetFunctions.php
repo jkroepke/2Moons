@@ -291,7 +291,7 @@ abstract class FleetFunctions
 			$temp = debug_backtrace();
 			header("X-FAIL-AT-LINE: ".str_replace($_SERVER["DOCUMENT_ROOT"],'.',$temp[0]['file'])." on ".$temp[0]['line']);
 		}
-		redirectTo("game.".PHP_EXT."?page=fleet");
+		redirectTo("game.php"."?page=fleet");
 	}
 
 	public static function GetAKSPage($CurrentUser, $CurrentPlanet, $fleetid)

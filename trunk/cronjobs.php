@@ -78,7 +78,7 @@ switch($cron)
 					$ts->disconnect();
 				}
 			} elseif($CONF['ts_version'] == 3){
-				require_once(ROOT_PATH . "includes/libs/teamspeak/class.teamspeak3.".PHP_EXT);
+				require_once(ROOT_PATH . "includes/libs/teamspeak/class.teamspeak3.php");
 				$tsAdmin 	= new ts3admin($CONF['ts_server'], $CONF['ts_udpport'], $CONF['ts_timeout']);
 				$Active		= $tsAdmin->connect();
 				if($Active['success']) {
