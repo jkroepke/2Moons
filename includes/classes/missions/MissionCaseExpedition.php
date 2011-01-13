@@ -236,7 +236,7 @@ class MissionCaseExpedition extends MissionFunctions
 				}
 				$defense[0]['user'] = $DefenderTechno;
 
-				require_once('calculateAttack.'.PHP_EXT);
+				require_once('calculateAttack.php');
 
 				$start 		= microtime(true);
 				$result 	= calculateAttack($attackFleets, $defense);
@@ -263,7 +263,7 @@ class MissionCaseExpedition extends MissionFunctions
 					}
 				}
 
-				require_once('GenerateReport.'.PHP_EXT);
+				require_once('GenerateReport.php');
 				$raport		= GenerateReport($result, $INFO);
 				$rid		= md5(microtime(true).mt_rand(1,100));
 			

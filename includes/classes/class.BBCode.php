@@ -31,7 +31,7 @@
  * THE SOFTWARE.
  */
  
-require_once('class.StringParser.'.PHP_EXT);
+require_once('class.StringParser.php');
 
 define ('BBCODE_CLOSETAG_FORBIDDEN', -1);
 define ('BBCODE_CLOSETAG_OPTIONAL', 0);

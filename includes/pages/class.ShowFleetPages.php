@@ -939,7 +939,7 @@ class ShowFleetPages extends FleetFunctions
 		
 		$Distance			= abs($TargetSystem - $PLANET['system']);
 		
-		require_once(ROOT_PATH.'includes/classes/class.GalaxyRows.'.PHP_EXT);
+		require_once(ROOT_PATH.'includes/classes/class.GalaxyRows.php');
 		
 		$GalaxyRows	= new GalaxyRows();
 		

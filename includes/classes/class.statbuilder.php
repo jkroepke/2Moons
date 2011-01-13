@@ -73,7 +73,7 @@ class statbuilder extends records
 		
 		if(isset($ChooseToDelete))
 		{
-			include_once(ROOT_PATH.'includes/functions/DeleteSelectedUser.'.PHP_EXT);
+			include_once(ROOT_PATH.'includes/functions/DeleteSelectedUser.php');
 			while($delete = $db->fetch_array($ChooseToDelete))
 			{
 				DeleteSelectedUser($delete['id']);

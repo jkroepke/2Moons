@@ -71,7 +71,7 @@ switch($cron)
 			update_config(array('ts_cron_last' => TIMESTAMP), true);
 			if($CONF['ts_version'] == 2)
 			{
-				include_once(ROOT_PATH.'includes/libs/teamspeak/class.teamspeak2.'.PHP_EXT);
+				include_once(ROOT_PATH.'includes/libs/teamspeak/class.teamspeak2.php');
 				$ts = new cyts();
 				if($ts->connect($CONF['ts_server'], $CONF['ts_tcpport'], $CONF['ts_udpport'], $CONF['ts_timeout'])) {
 					file_put_contents(ROOT_PATH.'cache/teamspeak_cache.php', serialize(array($ts->info_serverInfo(), $ts->info_globalInfo())));

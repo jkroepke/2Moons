@@ -53,7 +53,7 @@ class MissionCaseMIP extends MissionFunctions
 			
 		$LNG				= Language::GetUserLang($CONF['lang'], array('FLEET', 'TECH'));
 				
-		require_once('calculateMIPAttack.'.PHP_EXT);	
+		require_once('calculateMIPAttack.php');	
 		if ($TargetInfo[$resource[502]] >= $this->_fleet['fleet_amount'])
 		{
 			$message 	= $LNG['sys_irak_no_att'];

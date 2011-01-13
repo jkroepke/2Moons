@@ -146,7 +146,7 @@ function ShowAccountDataPage()
 			}
 			elseif ($alianza != NULL && $AliID != 0)
 			{
-				include_once(ROOT_PATH.'includes/functions/BBCode.'.PHP_EXT);	
+				include_once(ROOT_PATH.'includes/functions/BBCode.php');	
 				
 				$AllianceHave	= "<a href=\"javascript:animatedcollapse.toggle('alianza')\" class=\"link\">
 							<img src=\"./styles/images/Adm/arrowright.png\" width=\"16\" height=\"10\"/> ".$LNG['ac_alliance']."</a>";

@@ -148,7 +148,7 @@ switch ($page) {
 			$LastSettedGalaxyPos = $CONF['LastSettedGalaxyPos'];
 			$LastSettedSystemPos = $CONF['LastSettedSystemPos'];
 			$LastSettedPlanetPos = $CONF['LastSettedPlanetPos'];
-			require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.'.PHP_EXT);
+			require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.php');
 			$PlanetID = false;
 			
 			while ($PlanetID === false) {
@@ -366,7 +366,7 @@ switch ($page) {
 				$LastSettedGalaxyPos = $CONF['LastSettedGalaxyPos'];
 				$LastSettedSystemPos = $CONF['LastSettedSystemPos'];
 				$LastSettedPlanetPos = $CONF['LastSettedPlanetPos'];
-				require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.'.PHP_EXT);	
+				require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.php');	
 				$PlanetID = false;
 				
 				while ($PlanetID === false) {

@@ -44,7 +44,7 @@ class MissionCaseSpy extends MissionFunctions
 		$TargetSpyLvl        = max(($TargetUser['spy_tech'] + ($TargetUser['rpg_espion'] * $OfficerInfo[610]['info'])), 1);
 		$fleet               = explode(";", $this->_fleet['fleet_array']);
 			
-		require_once(ROOT_PATH.'includes/classes/class.PlanetRessUpdate.'.PHP_EXT);	
+		require_once(ROOT_PATH.'includes/classes/class.PlanetRessUpdate.php');	
 		$PlanetRess = new ResourceUpdate();
 		list($TargetUser, $TargetPlanet)	= $PlanetRess->CalcResource($TargetUser, $TargetPlanet, true, $this->_fleet['fleet_start_time']);
 		foreach ($fleet as $a => $b)

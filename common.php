@@ -138,7 +138,7 @@ if (INSTALL != true)
 		
 		if (!defined('IN_ADMIN'))
 		{
-			require_once(ROOT_PATH . 'includes/classes/class.PlanetRessUpdate.'.PHP_EXT);
+			require_once(ROOT_PATH . 'includes/classes/class.PlanetRessUpdate.php');
 			$PLANET = $db->uniquequery("SELECT * FROM `".PLANETS."` WHERE `id` = '".$_SESSION['planet']."';");
 
 			if(empty($PLANET)){

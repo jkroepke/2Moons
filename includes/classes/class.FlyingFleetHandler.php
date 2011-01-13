@@ -41,12 +41,12 @@ class FlyingFleetHandler
 			15	=> 'MissionCaseExpedition',
 		);
 		
-		require_once('class.MissionFunctions.'.PHP_EXT);
+		require_once('class.MissionFunctions.php');
 		while ($CurrentFleet = $db->fetch_array($fleetquery))
 		{
 			if(!$this->IfFleetBusy($CurrentFleet['fleet_id'])) continue;
 			
-			require_once('missions/'.$MissionsPattern[$CurrentFleet['fleet_mission']].'.'.PHP_EXT);
+			require_once('missions/'.$MissionsPattern[$CurrentFleet['fleet_mission']].'.php');
 			$Mission	= new $MissionsPattern[$CurrentFleet['fleet_mission']]($CurrentFleet);
 			
 			if($CurrentFleet['fleet_mess'] == 0 && $CurrentFleet['fleet_start_time'] <= TIMESTAMP)

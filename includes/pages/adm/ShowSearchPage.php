@@ -22,7 +22,7 @@
 
 if ($USER['rights'][str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__)] != 1) exit;
 
-require_once(ROOT_PATH . 'includes/functions/DeleteSelectedUser.'.PHP_EXT);
+require_once(ROOT_PATH . 'includes/functions/DeleteSelectedUser.php');
 
 
 function ShowSearchPage()

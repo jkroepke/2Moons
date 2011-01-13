@@ -76,7 +76,7 @@ function ShowUpdatePage()
 	switch($_REQUEST['action'])
 	{
 		case "download":
-			require_once(ROOT_PATH.'includes/libs/zip/zip.lib.'.PHP_EXT);
+			require_once(ROOT_PATH.'includes/libs/zip/zip.lib.php');
 			$UpdateArray 	= unserialize(@file_get_contents("http://update.xnova.de/index.php?action=getupdate",FALSE,$context));
 			if(!is_array($UpdateArray['revs']))
 				exitupdate(array('debug' => array('noupdate' => $LNG['up_kein_update'])));
@@ -143,8 +143,8 @@ function ShowUpdatePage()
 			exit;			
 		break;
 		case "update":
-			require_once(ROOT_PATH.'includes/libs/ftp/ftp.class.'.PHP_EXT);
-			require_once(ROOT_PATH.'includes/libs/ftp/ftpexception.class.'.PHP_EXT);
+			require_once(ROOT_PATH.'includes/libs/ftp/ftp.class.php');
+			require_once(ROOT_PATH.'includes/libs/ftp/ftpexception.class.php');
 			$UpdateArray 	= unserialize(@file_get_contents("http://update.xnova.de/index.php?action=getupdate",FALSE,$context));
 			if(!is_array($UpdateArray['revs']))
 				exitupdate(array('debug' => array('noupdate' => $LNG['up_kein_update'])));

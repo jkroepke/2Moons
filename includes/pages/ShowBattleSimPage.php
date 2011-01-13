@@ -86,9 +86,9 @@ function ShowBattleSimPage()
 		}
 		
 		$LANG->includeLang(array('FLEET'));
-		require_once(ROOT_PATH.'includes/classes/missions/calculateAttack.'.PHP_EXT);
-		require_once(ROOT_PATH.'includes/classes/missions/calculateSteal.'.PHP_EXT);
-		require_once(ROOT_PATH.'includes/classes/missions/GenerateReport.'.PHP_EXT);
+		require_once(ROOT_PATH.'includes/classes/missions/calculateAttack.php');
+		require_once(ROOT_PATH.'includes/classes/missions/calculateSteal.php');
+		require_once(ROOT_PATH.'includes/classes/missions/GenerateReport.php');
 		$start 				= microtime(true);
 		$result 			= calculateAttack($attack, $defense);
 		$totaltime 			= microtime(true) - $start;
