@@ -71,8 +71,8 @@ function ShowMessageListPage()
 		{
 			foreach($_POST['sele'] as $MessId => $Value)
 			{
-				($Value = "on") ? 
-					$db->query("DELETE FROM ".MESSAGES." WHERE `message_id` = '". $MessId ."';") : '';
+				if ($Value = "on")
+					$db->query("DELETE FROM ".MESSAGES." WHERE `message_id` = '". $MessId ."';");
 			}
 		}
 	}
@@ -83,8 +83,10 @@ function ShowMessageListPage()
 		$SelMonth  = $_POST['selmonth'];
 		$SelYear   = $_POST['selyear'];
 		$LimitDate = mktime (0,0,0, $SelMonth, $SelDay, $SelYear );
-		($LimitDate !== false) ? 
-			$db->multi_query("DELETE FROM ".MESSAGES." WHERE `message_time` <= '".$LimitDate."';DELETE FROM ".RW." WHERE `time` <= '".$LimitDate ."';") : '';
+		if ($LimitDate !== false)
+		{
+			$db->multi_query("DELETE FROM ".MESSAGES." WHERE `message_time` <= '".$LimitDate."';DELETE FROM ".RW." WHERE `time` <= '".$LimitDate ."';");
+		}
 	}
 
 	$data = $MessagesList = array();

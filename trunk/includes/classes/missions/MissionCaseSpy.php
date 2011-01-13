@@ -124,8 +124,8 @@ class MissionCaseSpy extends MissionFunctions
 		$LNG		    = Language::GetUserLang($TargetUser['lang']);
 		$TargetMessage  = $LNG['sys_mess_spy_ennemyfleet'] ." ". $CurrentPlanet['name'];
 
-		($this->_fleet['fleet_start_type'] == 3) ? 
-			$TargetMessage .= $LNG['sys_mess_spy_report_moon'].' ' : '';
+		if($this->_fleet['fleet_start_type'] == 3)
+			$TargetMessage .= $LNG['sys_mess_spy_report_moon'].' ';
 
 		$TargetMessage .= "<a href=\"game.php?page=galaxy&mode=3&galaxy=". $CurrentPlanet["galaxy"] ."&system=". $CurrentPlanet["system"] ."\">";
 		$TargetMessage .= "[". $CurrentPlanet["galaxy"] .":". $CurrentPlanet["system"] .":". $CurrentPlanet["planet"] ."]</a> ";
@@ -228,8 +228,8 @@ class MissionCaseSpy extends MissionFunctions
 
 					if ($Element[0] < 100) continue;
 
-					(!isset($TargetPlanet[$resource[$Element[0]]])) ? 
-						$TargetPlanet[$resource[$Element[0]]] = 0 : '';
+					if (!isset($TargetPlanet[$resource[$Element[0]]]))
+						$TargetPlanet[$resource[$Element[0]]] = 0;
 
 					$TargetPlanet[$resource[$Element[0]]] += $Element[1];
 				}
@@ -249,8 +249,8 @@ class MissionCaseSpy extends MissionFunctions
 					if ($TargetPlanet[$resource[$Item]] <= 0)
 						continue;
 
-					($row == 0) ? 
-						$String  .= "<tr>" : '';
+					if ($row == 0)
+						$String  .= "<tr>";
 
 					$String  .= '<td style="width:25%;" class="left transparent">'.$LNG['tech'][$Item].'</td><td style="width:25%;" class="left transparent">'.$TargetPlanet[$resource[$Item]].'</td>';
 						

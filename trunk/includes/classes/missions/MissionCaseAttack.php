@@ -60,8 +60,8 @@ class MissionCaseAttack extends MissionFunctions
 					$temp2 = explode(',', $temp2);
 					if ($temp2[0] < 100) continue;
 
-					(!isset($attackFleets[$fleet['fleet_id']]['detail'][$temp2[0]])) ? 
-						$attackFleets[$fleet['fleet_id']]['detail'][$temp2[0]] = 0 : '';
+					if (!isset($attackFleets[$fleet['fleet_id']]['detail'][$temp2[0]]))
+						$attackFleets[$fleet['fleet_id']]['detail'][$temp2[0]] = 0;
 
 					$attackFleets[$fleet['fleet_id']]['detail'][$temp2[0]] += $temp2[1];
 				}
@@ -80,8 +80,8 @@ class MissionCaseAttack extends MissionFunctions
 				$temp2 = explode(',', $temp2);
 				if ($temp2[0] < 100) continue;
 
-				(!isset($attackFleets[$this->_fleet['fleet_id']]['detail'][$temp2[0]])) ? 
-					$attackFleets[$this->_fleet['fleet_id']]['detail'][$temp2[0]] = 0 : '';
+				if (!isset($attackFleets[$this->_fleet['fleet_id']]['detail'][$temp2[0]]))
+					$attackFleets[$this->_fleet['fleet_id']]['detail'][$temp2[0]] = 0;
 
 				$attackFleets[$this->_fleet['fleet_id']]['detail'][$temp2[0]] += $temp2[1];
 			}
@@ -102,8 +102,8 @@ class MissionCaseAttack extends MissionFunctions
 
 				if ($Element[0] < 100) continue;
 
-				(!isset($defense[$defRow['fleet_id']]['def'][$Element[0]])) ? 
-					$defense[$defRow['fleet_id']][$Element[0]] = 0 : '';
+				if (!isset($defense[$defRow['fleet_id']]['def'][$Element[0]]))
+					$defense[$defRow['fleet_id']][$Element[0]] = 0;
 
 				$defense[$defRow['fleet_id']]['def'][$Element[0]] += $Element[1];
 			}
@@ -140,8 +140,8 @@ class MissionCaseAttack extends MissionFunctions
 			$totalCount = 0;
 			foreach ($attacker['detail'] as $element => $amount)
 			{				
-				($amount) ? 
-					$fleetArray .= $element.','.floattostring($amount).';' : '';
+				if ($amount)
+					$fleetArray .= $element.','.floattostring($amount).';';
 
 				$totalCount += $amount;
 			}
@@ -164,8 +164,8 @@ class MissionCaseAttack extends MissionFunctions
 
 				foreach ($defender['def'] as $element => $amount)
 				{
-					($amount) ? 
-						$fleetArray .= $element.','.floattostring($amount).';' : '';
+					if ($amount)
+						$fleetArray .= $element.','.floattostring($amount).';';
 						
 					$totalCount += $amount;
 				}
@@ -192,8 +192,8 @@ class MissionCaseAttack extends MissionFunctions
 		
 		$db->multi_query($SQL);
 		
-		($this->_fleet['fleet_end_type'] == 3) ? 
-			$targetPlanet 		= array_merge($targetPlanet, $db->uniquequery("SELECT `der_metal`, `der_crystal` FROM ".PLANETS." WHERE `id_luna` = '".$this->_fleet['fleet_end_id']."';")) : '';
+		if($this->_fleet['fleet_end_type'] == 3)
+			$targetPlanet 		= array_merge($targetPlanet, $db->uniquequery("SELECT `der_metal`, `der_crystal` FROM ".PLANETS." WHERE `id_luna` = '".$this->_fleet['fleet_end_id']."';"));
 		$ShootMetal			= HLadd($result['debree']['att'][0], $result['debree']['def'][0]);
 		$ShootCrystal		= HLadd($result['debree']['att'][1], $result['debree']['def'][1]);
 		$FleetDebris		= HLadd($ShootMetal, $ShootCrystal);

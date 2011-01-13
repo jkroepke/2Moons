@@ -29,8 +29,9 @@ function ShowFlyingFleetPage()
 	global $LNG, $db;
 	
 	$id	= request_var('id', 0);
-	(!empty($id)) ? 
-		$db->query("UPDATE ".FLEETS." SET `fleet_busy` = '".request_var('lock', 0)."' WHERE `fleet_id` = '".$id."' AND `fleet_universe` = '".$_SESSION['adminuni']."';;") : '';
+	if(!empty($id)){
+		$db->query("UPDATE ".FLEETS." SET `fleet_busy` = '".request_var('lock', 0)."' WHERE `fleet_id` = '".$id."' AND `fleet_universe` = '".$_SESSION['adminuni']."';;");
+	} 
 
 	$FlyingFleetsTable 	= new FlyingFleetsTable();
 	$template			= new template();

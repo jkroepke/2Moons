@@ -49,8 +49,8 @@ class MissionCaseDestruction extends MissionFunctions
 			$temp2 = explode(',', $temp2);
 			if ($temp2[0] < 100) continue;
 
-			(!isset($attackFleets[$this->_fleet['fleet_id']]['detail'][$temp2[0]])) ? 
-				$attackFleets[$this->_fleet['fleet_id']]['detail'][$temp2[0]] = 0 : '';
+			if (!isset($attackFleets[$this->_fleet['fleet_id']]['detail'][$temp2[0]]))
+				$attackFleets[$this->_fleet['fleet_id']]['detail'][$temp2[0]] = 0;
 
 			$attackFleets[$this->_fleet['fleet_id']]['detail'][$temp2[0]] += $temp2[1];
 			$AttackerRow['id'][] 	= $attackFleets[$this->_fleet['fleet_id']]['user']['id'];
@@ -68,8 +68,8 @@ class MissionCaseDestruction extends MissionFunctions
 				$Element = explode(',', $Element);
 				if ($Element[0] < 100) continue;
 
-				(!isset($defense[$defRow['fleet_id']]['def'][$Element[0]])) ? 
-					$defense[$defRow['fleet_id']][$Element[0]] = 0 : '';
+				if (!isset($defense[$defRow['fleet_id']]['def'][$Element[0]]))
+					$defense[$defRow['fleet_id']][$Element[0]] = 0;
 
 				$defense[$defRow['fleet_id']]['def'][$Element[0]] += $Element[1];
 				$defense[$defRow['fleet_id']]['user'] = $db->uniquequery("SELECT id,username,military_tech,defence_tech,shield_tech,rpg_amiral,dm_defensive,dm_attack FROM ".USERS." WHERE id = '".$defRow['fleet_owner']."';");
@@ -84,8 +84,10 @@ class MissionCaseDestruction extends MissionFunctions
 		$DefenderRow['name'][]	= $defense[0]['user']['username'];
 		for ($i = 200; $i < 500; $i++)
 		{
-			(isset($resource[$i]) && isset($TargetPlanet[$resource[$i]])) ? 
-				$defense[0]['def'][$i] = $TargetPlanet[$resource[$i]] : '';
+			if (isset($resource[$i]) && isset($TargetPlanet[$resource[$i]]))
+			{
+				$defense[0]['def'][$i] = $TargetPlanet[$resource[$i]];
+			}
 		}
 
 		$Attacker['id']		= array_unique($AttackerRow['id']);
@@ -104,8 +106,8 @@ class MissionCaseDestruction extends MissionFunctions
 			$totalCount = 0;
 			foreach ($attacker['detail'] as $element => $amount)
 			{				
-				($amount) ? 
-					$fleetArray .= $element.','.floattostring($amount).';' : '';
+				if ($amount)
+					$fleetArray .= $element.','.floattostring($amount).';';
 
 				$totalCount += $amount;
 			}
@@ -131,8 +133,8 @@ class MissionCaseDestruction extends MissionFunctions
 
 				foreach ($defender['def'] as $element => $amount)
 				{
-					($amount) ? 
-						$fleetArray .= $element.','.floattostring($amount).';' : '';
+					if ($amount)
+						$fleetArray .= $element.','.floattostring($amount).';';
 						
 					$totalCount += $amount;
 				}

@@ -28,21 +28,20 @@ function ShowOverviewPage()
 
 	if ($USER['authlevel'] >= AUTH_ADM)
 	{
-		(is_writable(ROOT_PATH.'includes/config.php')) ? 
-			$Message[]	= $LNG['ow_config_file_writable'] : '';
+		if(is_writable(ROOT_PATH.'includes/config.php'))
+			$Message[]	= $LNG['ow_config_file_writable'];
 		
-		(!is_writable(ROOT_PATH.'includes')) ? 
-			$Message[]	= sprintf($LNG['ow_dir_not_writable'], 'raports') : '';
+		if(!is_writable(ROOT_PATH.'includes'))
+			$Message[]	= sprintf($LNG['ow_dir_not_writable'], 'raports');
 			
-		(!is_writable(ROOT_PATH.'raports')) ? 
-			$Message[]	= sprintf($LNG['ow_dir_not_writable'], 'raports') : '';
+		if(!is_writable(ROOT_PATH.'raports'))
+			$Message[]	= sprintf($LNG['ow_dir_not_writable'], 'raports');
 		
-		($CONF['user_valid'] == 1 && (empty($CONF['smtp_host']) || empty($CONF['smtp_port']) || empty($CONF['smtp_user']) || empty($CONF['smtp_pass']))) ? 
-			$Message[]	= $LNG['ow_smtp_errors'] : '';
+		if($CONF['user_valid'] == 1 && (empty($CONF['smtp_host']) || empty($CONF['smtp_port']) || empty($CONF['smtp_user']) || empty($CONF['smtp_pass'])))
+			$Message[]	= $LNG['ow_smtp_errors'];
 	}
 	
-	$template	= new template();
-
+	$template	= new template();
 
 	$template->assign_vars(array(	
 		'ow_none'			=> $LNG['ow_none'],

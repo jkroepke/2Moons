@@ -30,14 +30,14 @@ class records
 		if(($CONF['stat'] == 1 && $Data['authlevel'] >= $CONF['stat_level']) || !empty($Data['bana']))
 			return;
 		
-		(!isset($this->maxinfos[$Data['universe']])) ? 
-			$this->maxinfos[$Data['universe']] = array() : '';
+		if(!isset($this->maxinfos[$Data['universe']]))
+			$this->maxinfos[$Data['universe']] = array();
 			
-		(!isset($this->maxinfos[$Data['universe']][$ID])) ? 
-			$this->maxinfos[$Data['universe']][$ID] = array('maxlvl' => 0, 'username' => '') : '';
+		if(!isset($this->maxinfos[$Data['universe']][$ID]))
+			$this->maxinfos[$Data['universe']][$ID] = array('maxlvl' => 0, 'username' => '');
 
-		($this->maxinfos[$Data['universe']][$ID]['maxlvl'] < $Count) ? 
-			$this->maxinfos[$Data['universe']][$ID] = array('maxlvl' => $Count, 'username' => $Data['username']) : '';
+		if($this->maxinfos[$Data['universe']][$ID]['maxlvl'] < $Count)
+			$this->maxinfos[$Data['universe']][$ID] = array('maxlvl' => $Count, 'username' => $Data['username']);
 	}
 
 	function BuildRecordCache() 

@@ -39,8 +39,8 @@ function ShowUniversePage() {
 			DELETE FROM ".USERS." WHERE `universe` = ".$ID.";
 			DELETE FROM ".USERS_VALID." WHERE `universe` = ".$ID.";");
 			
-			($_SESSION['adminuni'] == $ID) ? 
-				$_SESSION['adminuni']	= $UNI : '';
+			if($_SESSION['adminuni'] == $ID)
+				$_SESSION['adminuni']	= $UNI;
 		}
 	} elseif($_REQUEST['action'] == 'create') {
 		$ID	= (int) $_REQUEST['id'];
@@ -150,8 +150,8 @@ function ShowUniversePage() {
 			$SQL	= substr($SQL, 0, -2)."),";
 			$Rows	= 1;
 		}
-		($Rows == 1) ? 
-			$db->query(substr($SQL, 0, -1).';') : '';
+		if($Rows == 1)
+			$db->query(substr($SQL, 0, -1).';');
 		$Rows	= 0;
 		
 		$SQL = "INSERT INTO ".ALLIANCE." (`id`, `ally_name`, `ally_tag`, `ally_owner`, `ally_register_time`, `ally_description`, `ally_web`, `ally_text`, `ally_image`, `ally_request`, `ally_request_waiting`, `ally_request_notallow`, `ally_owner_range`, `ally_ranks`, `ally_members`, `ally_stats`, `ally_diplo`, `ally_universe`) VALUES ";
@@ -170,8 +170,8 @@ function ShowUniversePage() {
 			$SQL	= substr($SQL, 0, -2)."),";
 			$Rows	= 1;
 		}
-		($Rows == 1) ? 
-			$db->query(substr($SQL, 0, -1).';') : '';
+		if($Rows == 1)
+			$db->query(substr($SQL, 0, -1).';');
 		$Rows	= 0;
 		
 		$SQL = "INSERT INTO ".BANNED." (`id`, `who`, `theme`, `who2`, `time`, `longer`, `author`, `email`, `universe`) VALUES ";
@@ -186,8 +186,8 @@ function ShowUniversePage() {
 			$SQL	= substr($SQL, 0, -2)."),";
 			$Rows	= 1;
 		}
-		($Rows == 1) ? 
-			$db->query(substr($SQL, 0, -1).';') : '';
+		if($Rows == 1)
+			$db->query(substr($SQL, 0, -1).';');
 		$Rows	= 0;
 		
 		$SQL = "INSERT INTO ".BUDDY." (`id`, `sender`, `owner`, `active`, `text`, `universe`) VALUES ";
@@ -205,8 +205,8 @@ function ShowUniversePage() {
 			$SQL	= substr($SQL, 0, -2)."),";
 			$Rows	= 1;
 		}
-		($Rows == 1) ? 
-			$db->query(substr($SQL, 0, -1).';') : '';
+		if($Rows == 1)
+			$db->query(substr($SQL, 0, -1).';');
 		$Rows	= 0;
 		
 		$SQL = "INSERT INTO ".CHAT." (`messageid`, `user`, `message`, `timestamp`, `ally_id`, `universe`) VALUES ";
@@ -222,8 +222,8 @@ function ShowUniversePage() {
 			$SQL	= substr($SQL, 0, -2)."),";
 			$Rows	= 1;
 		}
-		($Rows == 1) ? 
-			$db->query(substr($SQL, 0, -1).';') : '';
+		if($Rows == 1)
+			$db->query(substr($SQL, 0, -1).';');
 		$Rows	= 0;
 		
 		$SQL = "INSERT INTO ".CONFIG." (`uni`, `VERSION`, `users_amount`, `game_speed`, `fleet_speed`, `resource_multiplier`, `halt_speed`, `Fleet_Cdr`, `Defs_Cdr`, `initial_fields`, `bgm_active`, `bgm_file`, `game_name`, `game_disable`, `close_reason`, `metal_basic_income`, `crystal_basic_income`, `deuterium_basic_income`, `energy_basic_income`, `LastSettedGalaxyPos`, `LastSettedSystemPos`, `LastSettedPlanetPos`, `noobprotection`, `noobprotectiontime`, `noobprotectionmulti`, `forum_url`, `adm_attack`, `debug`, `lang`, `stat`, `stat_level`, `stat_last_update`, `stat_settings`, `stat_update_time`, `stat_last_db_update`, `stats_fly_lock`, `stat_last_banner_update`, `stat_banner_update_time`, `cron_lock`, `ts_modon`, `ts_server`, `ts_tcpport`, `ts_udpport`, `ts_timeout`, `ts_version`, `ts_cron_last`, `ts_cron_interval`, `ts_login`, `ts_password`, `reg_closed`, `OverviewNewsFrame`, `OverviewNewsText`, `capaktiv`, `cappublic`, `capprivate`, `min_build_time`, `smtp_host`, `smtp_port`, `smtp_user`, `smtp_pass`, `smtp_ssl`, `smtp_sendmail`, `user_valid`, `ftp_server`, `ftp_user_name`, `ftp_user_pass`, `ftp_root_path`, `fb_on`, `fb_apikey`, `fb_skey`, `ga_active`, `ga_key`, `moduls`, `trade_allowed_ships`, `trade_charge`) VALUES ";
@@ -282,8 +282,8 @@ function ShowUniversePage() {
 			$SQL	= substr($SQL, 0, -2)."),";
 			$Rows	= 1;
 		}
-		($Rows == 1) ? 
-			$db->query(substr($SQL, 0, -1).';') : '';
+		if($Rows == 1)
+			$db->query(substr($SQL, 0, -1).';');
 		$Rows	= 0;
 		
 		$SQL = "INSERT INTO ".DIPLO." (`id`, `owner_1`, `owner_2`, `level`, `accept`, `accept_text`) VALUES ";
@@ -299,8 +299,8 @@ function ShowUniversePage() {
 			$SQL	= substr($SQL, 0, -2)."),";
 			$Rows	= 1;
 		}
-		($Rows == 1) ? 
-			$db->query(substr($SQL, 0, -1).';') : '';
+		if($Rows == 1)
+			$db->query(substr($SQL, 0, -1).';');
 		$Rows	= 0;
 		
 		$SQL = "INSERT INTO ".FLEETS." (`fleet_id`, `fleet_owner`, `fleet_mission`, `fleet_amount`, `fleet_array`, `fleet_universe`, `fleet_start_time`, `fleet_start_id`, `fleet_start_galaxy`, `fleet_start_system`, `fleet_start_planet`, `fleet_start_type`, `fleet_end_time`, `fleet_end_stay`, `fleet_end_id`, `fleet_end_galaxy`, `fleet_end_system`, `fleet_end_planet`, `fleet_end_type`, `fleet_target_obj`, `fleet_resource_metal`, `fleet_resource_crystal`, `fleet_resource_deuterium`, `fleet_resource_darkmatter`, `fleet_target_owner`, `fleet_group`, `fleet_mess`, `start_time`, `fleet_busy`) VALUES ";
@@ -319,18 +319,18 @@ function ShowUniversePage() {
 			$SQL	= substr($SQL, 0, -2)."),";
 			$Rows	= 1;
 		}
-		($Rows == 1) ? 
-			$db->query(substr($SQL, 0, -1).';') : '';
+		if($Rows == 1)
+			$db->query(substr($SQL, 0, -1).';');
 		$Rows	= 0;
 		
 		$SQL = "INSERT INTO ".MESSAGES." (`message_id`, `message_owner`, `message_sender`, `message_time`, `message_type`, `message_from`, `message_subject`, `message_text`, `message_unread`, `message_universe`) VALUES ";
 		foreach($Data['MESSAGES'] as $Key => $Row)
 		{
 	 		$Data['MESSAGES'][$Key]['message_id']		= $Row['message_id'] + $TABLEINFO[MESSAGES];
-			($Row['message_owner'] != 0) ? 
-				$Data['MESSAGES'][$Key]['message_owner']	= $Row['message_owner'] + $TABLEINFO[USERS] : '';
-			($Row['message_sender'] != 0) ? 
-				$Data['MESSAGES'][$Key]['message_sender']	= $Row['message_sender'] + $TABLEINFO[USERS] : '';
+			if($Row['message_owner'] != 0)
+				$Data['MESSAGES'][$Key]['message_owner']	= $Row['message_owner'] + $TABLEINFO[USERS];
+			if($Row['message_sender'] != 0)
+				$Data['MESSAGES'][$Key]['message_sender']	= $Row['message_sender'] + $TABLEINFO[USERS];
 			
 			$Data['MESSAGES'][$Key]['message_text']		= base64_decode($Row['message_text']);
 			$Data['MESSAGES'][$Key]['message_universe']	= $TABLEINFO[CONFIG] + 1;
@@ -340,8 +340,8 @@ function ShowUniversePage() {
 			$SQL	= substr($SQL, 0, -2)."),";
 			$Rows	= 1;
 		}
-		($Rows == 1) ? 
-			$db->query(substr($SQL, 0, -1).';') : '';
+		if($Rows == 1)
+			$db->query(substr($SQL, 0, -1).';');
 		$Rows	= 0;
 		
 		$SQL = "INSERT INTO ".NOTES." (`id`, `owner`, `time`, `priority`, `title`, `text`, `universe`) VALUES ";
@@ -357,8 +357,8 @@ function ShowUniversePage() {
 			$SQL	= substr($SQL, 0, -2)."),";
 			$Rows	= 1;
 		}
-		($Rows == 1) ? 
-			$db->query(substr($SQL, 0, -1).';') : '';
+		if($Rows == 1)
+			$db->query(substr($SQL, 0, -1).';');
 		$Rows	= 0;
 		
 		$SQL = "INSERT INTO ".PLANETS." (`id`, `name`, `id_owner`, `id_level`, `universe`, `galaxy`, `system`, `planet`, `last_update`, `planet_type`, `destruyed`, `b_building`, `b_building_id`, `b_hangar`, `b_hangar_id`, `b_hangar_plus`, `image`, `diameter`, `field_current`, `field_max`, `temp_min`, `temp_max`, `metal`, `metal_perhour`, `metal_max`, `crystal`, `crystal_perhour`, `crystal_max`, `deuterium`, `deuterium_used`, `deuterium_perhour`, `deuterium_max`, `energy_used`, `energy_max`, `metal_mine`, `crystal_mine`, `deuterium_sintetizer`, `solar_plant`, `fusion_plant`, `robot_factory`, `nano_factory`, `hangar`, `metal_store`, `crystal_store`, `deuterium_store`, `laboratory`, `terraformer`, `university`, `ally_deposit`, `silo`, `small_ship_cargo`, `big_ship_cargo`, `light_hunter`, `heavy_hunter`, `crusher`, `battle_ship`, `colonizer`, `recycler`, `spy_sonde`, `bomber_ship`, `solar_satelit`, `destructor`, `dearth_star`, `battleship`, `supernova`, `bahamut`, `starcatcher`, `ifrit`, `shiva`, `catoblepas`, `oxion`, `odin`, `orbital_station`, `misil_launcher`, `small_laser`, `big_laser`, `gauss_canyon`, `ionic_canyon`, `buster_canyon`, `small_protection_shield`, `planet_protector`, `big_protection_shield`, `graviton_canyon`, `interceptor_misil`, `interplanetary_misil`, `metal_mine_porcent`, `crystal_mine_porcent`, `deuterium_sintetizer_porcent`, `solar_plant_porcent`, `fusion_plant_porcent`, `solar_satelit_porcent`, `mondbasis`, `phalanx`, `sprungtor`, `last_jump_time`, `lune_noir`, `ev_transporter`, `star_crasher`, `giga_recykler`, `dm_ship`, `der_metal`, `der_crystal`, `thriller`, `id_luna`) VALUES ";
@@ -366,8 +366,8 @@ function ShowUniversePage() {
 		{
 	 		$Data['PLANETS'][$Key]['id']		= $Row['id'] + $TABLEINFO[PLANETS];
 	 		$Data['PLANETS'][$Key]['id_owner']	= $Row['id_owner'] + $TABLEINFO[USERS];
-			($Row['id_luna'] != 0) ? 
-				$Data['PLANETS'][$Key]['id_luna']	= $Row['id_luna'] + $TABLEINFO[PLANETS] : '';
+			if($Row['id_luna'] != 0)
+				$Data['PLANETS'][$Key]['id_luna']	= $Row['id_luna'] + $TABLEINFO[PLANETS];
 			$Data['PLANETS'][$Key]['universe']	= $TABLEINFO[CONFIG] + 1;
 			$SQL	.= "(";
 			foreach($Data['PLANETS'][$Key] as $Value)
@@ -375,8 +375,8 @@ function ShowUniversePage() {
 			$SQL	= substr($SQL, 0, -2)."),";
 			$Rows	= 1;
 		}
-		($Rows == 1) ? 
-			$db->query(substr($SQL, 0, -1).';') : '';
+		if($Rows == 1)
+			$db->query(substr($SQL, 0, -1).';');
 		$Rows	= 0;
 		
 		$SQL = "INSERT INTO ".STATPOINTS." (`id_owner`, `id_ally`, `stat_type`, `universe`, `tech_rank`, `tech_old_rank`, `tech_points`, `tech_count`, `build_rank`, `build_old_rank`, `build_points`, `build_count`, `defs_rank`, `defs_old_rank`, `defs_points`, `defs_count`, `fleet_rank`, `fleet_old_rank`, `fleet_points`, `fleet_count`, `total_rank`, `total_old_rank`, `total_points`, `total_count`) VALUES ";
@@ -391,8 +391,8 @@ function ShowUniversePage() {
 			$SQL	= substr($SQL, 0, -2)."),";
 			$Rows	= 1;
 		}
-		($Rows == 1) ? 
-			$db->query(substr($SQL, 0, -1).';') : '';
+		if($Rows == 1)
+			$db->query(substr($SQL, 0, -1).';');
 		$Rows	= 0;
 			
 		$SQL = "INSERT INTO ".SUPPORT." (`ID`, `player_id`, `time`, `subject`, `text`, `status`, `universe`) VALUES ";
@@ -408,8 +408,8 @@ function ShowUniversePage() {
 			$SQL	= substr($SQL, 0, -2)."),";
 			$Rows	= 1;
 		}
-		($Rows == 1) ? 
-			$db->query(substr($SQL, 0, -1).';') : '';
+		if($Rows == 1)
+			$db->query(substr($SQL, 0, -1).';');
 		$Rows	= 0;
 		
 		$SQL = "INSERT INTO ".TOPKB." (`id_owner1`, `angreifer`, `id_owner2`, `defender`, `gesamtunits`, `rid`, `fleetresult`, `time`, `universe`) VALUES ";
@@ -424,8 +424,8 @@ function ShowUniversePage() {
 			$SQL	= substr($SQL, 0, -2)."),";
 			$Rows	= 1;
 		}
-		($Rows == 1) ? 
-			$db->query(substr($SQL, 0, -1).';') : '';
+		if($Rows == 1)
+			$db->query(substr($SQL, 0, -1).';');
 		$Rows	= 0;
 		
 		$SQL = "INSERT INTO ".USERS." (`id`, `username`, `password`, `email`, `email_2`, `lang`, `authlevel`, `rights`, `id_planet`, `universe`, `galaxy`, `system`, `planet`, `user_lastip`, `ip_at_reg`, `register_time`, `onlinetime`, `dpath`, `design`, `noipcheck`, `planet_sort`, `planet_sort_order`, `spio_anz`, `settings_tooltiptime`, `settings_fleetactions`, `settings_planetmenu`, `settings_esp`, `settings_wri`, `settings_bud`, `settings_mis`, `settings_rep`, `settings_tnstor`, `settings_gview`, `urlaubs_modus`, `urlaubs_until`, `db_deaktjava`, `new_message`, `new_gmessage`, `fleet_shortcut`, `b_tech_planet`, `b_tech`, `b_tech_id`, `spy_tech`, `computer_tech`, `military_tech`, `defence_tech`, `shield_tech`, `energy_tech`, `hyperspace_tech`, `combustion_tech`, `impulse_motor_tech`, `hyperspace_motor_tech`, `laser_tech`, `ionic_tech`, `buster_tech`, `intergalactic_tech`, `expedition_tech`, `metal_proc_tech`, `crystal_proc_tech`, `deuterium_proc_tech`, `graviton_tech`, `ally_id`, `ally_name`, `ally_request`, `ally_request_text`, `ally_register_time`, `ally_rank_id`, `rpg_geologue`, `rpg_amiral`, `rpg_ingenieur`, `rpg_technocrate`, `rpg_espion`, `rpg_constructeur`, `rpg_scientifique`, `rpg_commandant`, `rpg_stockeur`, `darkmatter`, `rpg_defenseur`, `rpg_destructeur`, `rpg_general`, `rpg_bunker`, `rpg_raideur`, `rpg_empereur`, `bana`, `banaday`, `hof`, `wons`, `loos`, `draws`, `kbmetal`, `kbcrystal`, `lostunits`, `desunits`, `uctime`, `setmail`, `dm_attack`, `dm_defensive`, `dm_buildtime`, `dm_researchtime`, `dm_resource`, `dm_energie`, `dm_fleettime`, `fb_id`) VALUES ";
@@ -442,8 +442,8 @@ function ShowUniversePage() {
 			$SQL	= substr($SQL, 0, -2)."),";
 			$Rows	= 1;
 		}
-		($Rows == 1) ? 
-			$db->query(substr($SQL, 0, -1).';') : '';
+		if($Rows == 1)
+			$db->query(substr($SQL, 0, -1).';');
 		$Rows	= 0;
 		
 		$SQL = "INSERT INTO ".USERS_VALID." (`id`, `username`, `cle`, `password`, `email`, `date`, `planet`, `ip`, `lang`, `universe`) VALUES ";
@@ -457,8 +457,8 @@ function ShowUniversePage() {
 			$SQL	= substr($SQL, 0, -2)."),";
 			$Rows	= 1;
 		}
-		($Rows == 1) ? 
-			$db->query(substr($SQL, 0, -1).';') : '';
+		if($Rows == 1)
+			$db->query(substr($SQL, 0, -1).';');
 		$Rows	= 0;
 	}
 	$Unis				= array();

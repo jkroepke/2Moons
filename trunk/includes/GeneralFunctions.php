@@ -142,11 +142,18 @@ function set_var(&$result, $var, $type, $multibyte = false)
 		if (!empty($result))
 		{
 			// Make sure multibyte characters are wellformed
-			($multibyte) ? 
-			(!preg_match('/^./u', $result)) ? 
-				$result = '' : '' :
-			// no multibyte, allow only ASCII (0-127)
-			$result = preg_replace('/[\x80-\xFF]/', '?', $result);
+			if ($multibyte)
+			{
+				if (!preg_match('/^./u', $result))
+				{
+					$result = '';
+				}
+			}
+			else
+			{
+				// no multibyte, allow only ASCII (0-127)
+				$result = preg_replace('/[\x80-\xFF]/', '?', $result);
+			}
 		}
 	}
 }
@@ -206,16 +213,20 @@ function request_var($var_name, $default, $multibyte = false, $cookie = false)
 			{
 				foreach ($v as $_k => $_v)
 				{
-					(is_array($_v)) ? 
-						$_v = null : '';
+					if (is_array($_v))
+					{
+						$_v = null;
+					}
 					set_var($_k, $_k, $sub_key_type);
 					set_var($var[$k][$_k], $_v, $sub_type, $multibyte);
 				}
 			}
 			else
 			{
-				($type == 'array' || is_array($v)) ? 
-					$v = null : '';
+				if ($type == 'array' || is_array($v))
+				{
+					$v = null;
+				}
 				set_var($var[$k], $v, $type, $multibyte);
 			}
 		}
@@ -362,8 +373,8 @@ function exception_handler($exception) {
 function SendSimpleMessage($Owner, $Sender, $Time, $Type, $From, $Subject, $Message, $Unread = 1, $Uni = 0)
 {
 	global $db;
-	(empty($Uni)) ? 
-		$Uni	= $GLOBALS['UNI'] : '';
+	if(empty($Uni))
+		$Uni	= $GLOBALS['UNI'];
 		
 	$SQL	= "UPDATE ".USERS." SET `new_message` = `new_message` + '1' WHERE `id` = '".$Owner."';INSERT INTO ".MESSAGES." SET `message_owner` = '".$Owner."', `message_sender` = '".(int)$Sender."', `message_time` = '".((empty($Time)) ? TIMESTAMP : $Time)."', `message_type` = '".$Type."', `message_from` = '". $db->sql_escape($From) ."', `message_subject` = '". $db->sql_escape($Subject) ."', `message_text` = '".$db->sql_escape($Message)."', `message_unread` = '".$Unread."', `message_universe` = '".$Uni."';";
 
@@ -392,16 +403,16 @@ function floattostring($Numeric, $Pro = 0, $Output = false){
 
 function CheckModule($ID)
 {
-	(!isset($GLOBALS['CONF']['moduls'][$ID])) ?
-		$GLOBALS['CONF']['moduls'][$ID] = 1 : '';
+	if(!isset($GLOBALS['CONF']['moduls'][$ID])) 
+		$GLOBALS['CONF']['moduls'][$ID] = 1;
 	
 	return ((!isset($_SESSION) || $_SESSION['authlevel'] == 0) && $GLOBALS['CONF']['moduls'][$ID] == 0) ? true : false;
 }
 
 function redirectTo($URL)
 {
-	($_SERVER['SERVER_PROTOCOL'] == 'HTTP/1.1') ? 
-		header('HTTP/1.1 303 See Other') : '';
+	if($_SERVER['SERVER_PROTOCOL'] == 'HTTP/1.1')
+		header('HTTP/1.1 303 See Other');
 	
 	header('Location: '.PROTOCOL.$_SERVER['HTTP_HOST'].HTTP_ROOT.$URL);
 	exit;

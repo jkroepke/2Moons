@@ -216,8 +216,8 @@ class MissionCaseExpedition extends MissionFunctions
 				{
 					$temp2 = explode(',', $temp2);
 					if ($temp2[0] < 100) continue;
-					(!isset($attackFleets[$this->_fleet['fleet_id']]['detail'][$temp2[0]])) ? 
-						$attackFleets[$this->_fleet['fleet_id']]['detail'][$temp2[0]] = 0 : '';
+					if (!isset($attackFleets[$this->_fleet['fleet_id']]['detail'][$temp2[0]]))
+						$attackFleets[$this->_fleet['fleet_id']]['detail'][$temp2[0]] = 0;
 
 					$attackFleets[$this->_fleet['fleet_id']]['detail'][$temp2[0]] += $temp2[1];
 				}
@@ -229,8 +229,8 @@ class MissionCaseExpedition extends MissionFunctions
 					$Element = explode(',', $Element);
 
 					if ($Element[0] < 100) continue;
-					(!isset($defense[$defRow['fleet_id']]['def'][$Element[0]])) ? 
-					$defense[0][$Element[0]] = 0 : '';
+					if (!isset($defense[$defRow['fleet_id']]['def'][$Element[0]]))
+					$defense[0][$Element[0]] = 0;
 
 					$defense[0]['def'][$Element[0]] += $Element[1];
 				}
@@ -248,8 +248,8 @@ class MissionCaseExpedition extends MissionFunctions
 					$totalCount = 0;
 					foreach ($attacker['detail'] as $element => $amount)
 					{
-						($amount) ? 
-							$fleetArray .= $element.','.$amount.';' : '';
+						if ($amount)
+							$fleetArray .= $element.','.$amount.';';
 
 						$totalCount += $amount;
 					}

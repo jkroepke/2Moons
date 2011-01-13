@@ -34,7 +34,12 @@ class template
 		$this->phpself				= '';
 		$this->Popup				= false;
 	}
-
+	
+	public function __set($var, $val = null)
+	{
+		$this->vars[$var]	= $val;
+	}
+	
 	public function render()
 	{
 		global $CONF;
@@ -53,8 +58,10 @@ class template
 		$TMP->template_dir 			= $this->template_dir;
 		$TMP->assign($this->vars);
 		$PAGE						= $TMP->fetch($this->file);
-		($this->cache && $CONF['debug'] == 0) ? 
-			file_put_contents($this->cachefile, $PAGE) : '';
+		if($this->cache && $CONF['debug'] == 0)
+		{
+			file_put_contents($this->cachefile, $PAGE);
+		}
 		return $PAGE;
 	}
 	
@@ -74,11 +81,8 @@ class template
 		$this->script[]				= $script;
 	}
 		
-	public function assign_vars($var = array(), $val = null) 
-	{
-		(!is_null($val)) ? 
-			$var = array($var => $val) : '';
-		
+	public function assign_vars($var = array()) 
+	{		
 		$this->vars	= array_merge($this->vars, $var);
 	}
 	
@@ -87,8 +91,8 @@ class template
 		global $PLANET, $LNG, $USER, $CONF;
 		
 		//PlanetMenu
-		(empty($this->UserPlanets)) ? 
-			$this->getplanets() : '';
+		if(empty($this->UserPlanets))
+			$this->getplanets();
 		
 		$this->loadscript("planetmenu.js");
 		$this->loadscript("topnav.js");
@@ -106,8 +110,8 @@ class template
 				{
 					$ListIDArray						= explode(",", $QueueArray[$ID]);
 					
-					($ListIDArray[3] > TIMESTAMP) ? 
-						$Scripttime[$PlanetQuery['id']][]	= $ListIDArray[3] : '';
+					if($ListIDArray[3] > TIMESTAMP)
+						$Scripttime[$PlanetQuery['id']][]	= $ListIDArray[3];
 				}
 			}
 			
@@ -301,8 +305,8 @@ class template
 				$_SESSION['PLANET']	= $PLANET;
 			}
 			$this->main();
-			($this->Popup === false) ? 
-				$this->Menus() : '';
+			if($this->Popup === false)
+				$this->Menus();
 		}
 		
 		$this->assign_vars(array(
@@ -327,9 +331,10 @@ class template
 		if($this->cache && $GLOBALS['CONF']['debug'] == 0)
 		{
 			$this->cachefile	= $this->cachedir.md5(filemtime($this->template_dir.$this->file).r_implode('', $this->vars)).'.tpl.php';
-			echo (file_exists($this->cachefile)) ? 
-				file_get_contents($this->cachefile) :
-				$this->render();
+			if(file_exists($this->cachefile))
+				echo file_get_contents($this->cachefile);
+			else
+				echo $this->render();
 		} else {
 			echo $this->render();
 		}
@@ -338,8 +343,8 @@ class template
 	public function message($mes, $dest = false, $time = 3, $Fatal = false)
 	{
 		global $LNG;
-		($Fatal) ? 
-			$this->isPopup(true) : '';
+		if($Fatal)
+			$this->isPopup(true);
 	
 		$this->assign_vars(array(
 			'mes'		=> $mes,

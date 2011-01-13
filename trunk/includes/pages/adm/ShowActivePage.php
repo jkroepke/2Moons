@@ -26,8 +26,8 @@ function ShowActivePage()
 {
 	global $LNG, $db, $USER;
 	$id = request_var('id', 0);
-	($_GET['action'] == 'delete' && !empty($id)) ? 
-		$db->query("DELETE FROM ".USERS_VALID." WHERE `id` = '".$id."';") : '';
+	if($_GET['action'] == 'delete' && !empty($id))
+		$db->query("DELETE FROM ".USERS_VALID." WHERE `id` = '".$id."';");
 
 	$query = $db->query("SELECT * FROM ".USERS_VALID." ORDER BY id ASC");
 
@@ -44,8 +44,7 @@ function ShowActivePage()
 		);
 	}
 
-	$template	= new template();
-
+	$template	= new template();
 	$template->assign_vars(array(	
 		'Users'				=> $Users,
 		'UserLang'			=> $USER['lang'],
