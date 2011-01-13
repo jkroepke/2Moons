@@ -43,8 +43,8 @@ class MissionCaseRecycling extends MissionFunctions
 		}		
 		
 		$IncomingFleetGoods 	= $this->_fleet['fleet_resource_metal'] + $this->_fleet['fleet_resource_crystal'] + $this->_fleet['fleet_resource_deuterium'];
-		if ($IncomingFleetGoods > $OtherFleetCapacity)
-			$RecyclerCapacity	= HLsub($RecyclerCapacity, HLsub($IncomingFleetGoods, $OtherFleetCapacity));		
+		($IncomingFleetGoods > $OtherFleetCapacity) ? 
+			$RecyclerCapacity	= HLsub($RecyclerCapacity, HLsub($IncomingFleetGoods, $OtherFleetCapacity)) : '';		
 		
 		$RecycledGoods['metal']   	= min($Target['der_metal'], HLdiv($RecyclerCapacity, 2));
 		$RecycledGoods['crystal'] 	= min($Target['der_crystal'], HLdiv($RecyclerCapacity, 2));		

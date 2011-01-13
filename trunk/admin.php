@@ -39,10 +39,10 @@ if(!isset($_SESSION['admin_login']) || $_SESSION['admin_login'] != $USER['passwo
 $page = request_var('page', '');
 $uni = request_var('uni', 0);
 
-if($USER['authlevel'] == AUTH_ADM && !empty($uni))
-	$_SESSION['adminuni'] = $uni;
-if(empty($_SESSION['adminuni']))
-	$_SESSION['adminuni'] = $UNI;
+($USER['authlevel'] == AUTH_ADM && !empty($uni)) ? 
+	$_SESSION['adminuni'] = $uni : '';
+(empty($_SESSION['adminuni'])) ?
+	$_SESSION['adminuni'] = $UNI : '';
 
 switch($page)
 {

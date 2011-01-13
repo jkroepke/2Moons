@@ -147,9 +147,8 @@ class LanguageConv {
     }
 
     function ToCyrillic($aTxt) {
-    if(false) {
-        $aTxt = convert_cyr_string($aTxt,  "w",  "k"); 
-    }
+    (false) ?
+        $aTxt = convert_cyr_string($aTxt,  "w",  "k") : ''; 
     $isostring = convert_cyr_string($aTxt,  "k",  "i");
     $unistring = LanguageConv::iso2uni($isostring);
     return $unistring;

@@ -156,8 +156,8 @@ class statbuilder extends records
 	private function SaveDataIntoDB($Data)
 	{
 		global $db;
-		if(!empty($Data))
-			$db->multi_query($Data);
+		(!empty($Data)) ? 
+			$db->multi_query($Data) : '';
 	}
 
 	private function GetTechnoPoints($CurrentUser) 
@@ -409,8 +409,8 @@ class statbuilder extends records
 		{		
 			if((in_array($CONF['stat'], array(1, 2)) && $PlanetData['authlevel'] >= $CONF['stat_level']) || !empty($PlanetData['bana'])) continue;
 			
- 			if(!isset($UserPoints[$PlanetData['id_owner']]))
-				$UserPoints[$PlanetData['id_owner']]['build']['count'] = $UserPoints[$PlanetData['id_owner']]['build']['points'] = $UserPoints[$PlanetData['id_owner']]['fleet']['count'] = $UserPoints[$PlanetData['id_owner']]['fleet']['points'] = $UserPoints[$PlanetData['id_owner']]['defense']['count'] = $UserPoints[$PlanetData['id_owner']]['defense']['points'] = 0;
+ 			(!isset($UserPoints[$PlanetData['id_owner']])) ? 
+				$UserPoints[$PlanetData['id_owner']]['build']['count'] = $UserPoints[$PlanetData['id_owner']]['build']['points'] = $UserPoints[$PlanetData['id_owner']]['fleet']['count'] = $UserPoints[$PlanetData['id_owner']]['fleet']['points'] = $UserPoints[$PlanetData['id_owner']]['defense']['count'] = $UserPoints[$PlanetData['id_owner']]['defense']['points'] = 0 : '';
 			
 			$BuildPoints		= $this->GetBuildPoints($PlanetData);
 			$FleetPoints		= $this->GetFleetPoints($PlanetData);
@@ -431,8 +431,8 @@ class statbuilder extends records
 		
 		while($UserData	= $db->fetch_array($TotalData['Users']))
 		{
-			if(!isset($UniData[$UserData['universe']]))
-				$UniData[$UserData['universe']] = 0;
+			 (!isset($UniData[$UserData['universe']])) ? 
+				$UniData[$UserData['universe']] = 0 : '';
 			
 			$UniData[$UserData['universe']]++;
 				
@@ -462,8 +462,8 @@ class statbuilder extends records
 
 			if($UserData['ally_id'] != 0)
 			{
-				if(!isset($AllyPoints[$UserData['ally_id']]))
-					$AllyPoints[$UserData['ally_id']]['build']['count']	= $AllyPoints[$UserData['ally_id']]['build']['points'] = $AllyPoints[$UserData['ally_id']]['fleet']['count'] = $AllyPoints[$UserData['ally_id']]['fleet']['points'] = $AllyPoints[$UserData['ally_id']]['defense']['count'] = $AllyPoints[$UserData['ally_id']]['defense']['points'] = $AllyPoints[$UserData['ally_id']]['techno']['count'] = $AllyPoints[$UserData['ally_id']]['techno']['points'] = $AllyPoints[$UserData['ally_id']]['total']['count'] = $AllyPoints[$UserData['ally_id']]['total']['points']	= 0;				
+				(!isset($AllyPoints[$UserData['ally_id']])) ? 
+					$AllyPoints[$UserData['ally_id']]['build']['count']	= $AllyPoints[$UserData['ally_id']]['build']['points'] = $AllyPoints[$UserData['ally_id']]['fleet']['count'] = $AllyPoints[$UserData['ally_id']]['fleet']['points'] = $AllyPoints[$UserData['ally_id']]['defense']['count'] = $AllyPoints[$UserData['ally_id']]['defense']['points'] = $AllyPoints[$UserData['ally_id']]['techno']['count'] = $AllyPoints[$UserData['ally_id']]['techno']['points'] = $AllyPoints[$UserData['ally_id']]['total']['count'] = $AllyPoints[$UserData['ally_id']]['total']['points']	= 0 : '';				
 
 				$AllyPoints[$UserData['ally_id']]['build']['count']		+= $UserPoints[$UserData['id']]['build']['count'];
 				$AllyPoints[$UserData['ally_id']]['build']['points']	+= $UserPoints[$UserData['id']]['build']['points'];

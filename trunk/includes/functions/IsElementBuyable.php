@@ -30,8 +30,8 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 	    if (IsVacationMode($USER))
 	       return false;
 
-		if ($Incremental)
-			$level  = isset($PLANET[$resource[$Element]]) ? $PLANET[$resource[$Element]] : $USER[$resource[$Element]];
+		($Incremental) ? 
+			$level  = isset($PLANET[$resource[$Element]]) ? $PLANET[$resource[$Element]] : $USER[$resource[$Element]] : '';
 
 		$array    = array('metal', 'crystal', 'deuterium', 'energy_max', 'darkmatter');
 
@@ -42,8 +42,8 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 			
 			$cost[$ResType] = $Incremental ? floor($pricelist[$Element][$ResType] * pow($pricelist[$Element]['factor'], $level)) : floor($pricelist[$Element][$ResType]);
 
-			if ($ForDestroy)
-				$cost[$ResType]  = floor($cost[$ResType] / 2);
+			($ForDestroy) ? 
+				$cost[$ResType]  = floor($cost[$ResType] / 2) : '';
 
 			if ((isset($PLANET[$ResType]) && $cost[$ResType] > $PLANET[$ResType]) || (isset($USER[$ResType]) && $cost[$ResType] > $USER[$ResType]))
 				return false;

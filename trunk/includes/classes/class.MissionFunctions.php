@@ -63,8 +63,8 @@ class MissionFunctions
 		}
 
 		$Qry   = "UPDATE ".PLANETS." as p, ".USERS." as u SET ";
-		if (!empty($QryUpdFleet))
-			$Qry  .= $QryUpdFleet;
+		(!empty($QryUpdFleet)) ? 
+			$Qry  .= $QryUpdFleet : '';
 
 		$Qry  .= "p.`metal` = p.`metal` + '".floattostring($this->_fleet['fleet_resource_metal'])."', ";
 		$Qry  .= "p.`crystal` = p.`crystal` + '".floattostring($this->_fleet['fleet_resource_crystal'])."', ";

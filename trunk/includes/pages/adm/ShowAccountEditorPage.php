@@ -217,10 +217,8 @@ function ShowAccountEditorPage()
 			if($_POST)
 			{
 				$PlanetData	= $db->uniquequery("SELECT `planet_type` FROM ".PLANETS." WHERE `id` = '".request_var('id', 0)."' AND `universe` = '".$_SESSION['adminuni']."';");
-				if(!isset($PlanetData))
-				{
-					$template->message($LNG['ad_add_not_exist'], '?page=accounteditor&edit=buildings');
-				}
+				(!isset($PlanetData)) ? 
+					$template->message($LNG['ad_add_not_exist'], '?page=accounteditor&edit=buildings') : '';
 				if ($_POST['add'])
 				{
 					$SQL  = "UPDATE ".PLANETS." SET ";
@@ -343,17 +341,17 @@ function ShowAccountEditorPage()
 				
 				$PersonalQuery    =    "UPDATE ".USERS." SET ";
 
-				if(!empty($username) && $id != 1)
-					$PersonalQuery    .= "`username` = '".$db->sql_escape($username)."', ";
+				(!empty($username) && $id != 1) ? 
+					$PersonalQuery    .= "`username` = '".$db->sql_escape($username)."', " : '';
 				
-				if(!empty($email) && $id != 1)
-					$PersonalQuery    .= "`email` = '".$db->sql_escape($email)."', ";
+				(!empty($email) && $id != 1) ? 
+					$PersonalQuery    .= "`email` = '".$db->sql_escape($email)."', " : '';
 
-				if(!empty($email_2) && $id != 1)
-					$PersonalQuery    .= "`email_2` = '".$db->sql_escape($email_2)."', ";
+				(!empty($email_2) && $id != 1) ? 
+					$PersonalQuery    .= "`email_2` = '".$db->sql_escape($email_2)."', " : '';
 
-				if(!empty($password) && $id != 1)
-					$PersonalQuery    .= "`password` = '".$db->sql_escape(md5($password))."', ";
+				(!empty($password) && $id != 1) ? 
+					$PersonalQuery    .= "`password` = '".$db->sql_escape(md5($password))."', " : '';
 
 					
 				$Answer		= 0;
@@ -468,8 +466,8 @@ function ShowAccountEditorPage()
 				$system			= request_var('s', 0);
 				$planet			= request_var('p', 0);
 
-				if (!empty($name))
-					$db->query("UPDATE ".PLANETS." SET `name` = '".$db->sql_escape($name)."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
+				(!empty($name)) ? 
+					$db->query("UPDATE ".PLANETS." SET `name` = '".$db->sql_escape($name)."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';") : '';
 						
 				if ($buildings == 'on')
 				{
@@ -498,17 +496,17 @@ function ShowAccountEditorPage()
 					$db->query("UPDATE ".PLANETS." SET ".implode(', ',$DEFS)." WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
 				}
 
-				if ($c_hangar == 'on')
-					$db->query("UPDATE ".PLANETS." SET `b_hangar` = '0', `b_hangar_plus` = '0', `b_hangar_id` = '' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
+				($c_hangar == 'on') ? 
+					$db->query("UPDATE ".PLANETS." SET `b_hangar` = '0', `b_hangar_plus` = '0', `b_hangar_id` = '' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';") : '';
 
-				if ($c_buildings == 'on')
-					$db->query("UPDATE ".PLANETS." SET `b_building` = '0', `b_building_id` = '' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
+				($c_buildings == 'on') ? 
+					$db->query("UPDATE ".PLANETS." SET `b_building` = '0', `b_building_id` = '' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';") : '';
 
-				if (!empty($diameter))
-					$db->query("UPDATE ".PLANETS." SET `diameter` = '".$diameter."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
+				(!empty($diameter)) ? 
+					$db->query("UPDATE ".PLANETS." SET `diameter` = '".$diameter."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';") : '';
 
-				if (!empty($fields))
-					$db->query("UPDATE ".PLANETS." SET `field_max` = '".$fields."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
+				(!empty($fields)) ? 
+					$db->query("UPDATE ".PLANETS." SET `field_max` = '".$fields."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';") : '';
 						
 				if ($change_pos == 'on' && $galaxy > 0 && $system > 0 && $planet > 0 && $galaxy <= MAX_GALAXY_IN_WORLD && $system <= MAX_SYSTEM_IN_GALAXY && $planet <= MAX_PLANET_IN_SYSTEM)
 				{
@@ -586,33 +584,29 @@ function ShowAccountEditorPage()
 
 				$QueryF	=	$db->uniquequery("SELECT * FROM ".ALLIANCE." WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
 
-				if (!empty($name))
-					$db->multi_query("UPDATE ".ALLIANCE." SET `ally_name` = '".$name."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';UPDATE ".USERS." SET `ally_name` = '".$name."' WHERE `ally_id` = '".$id."';");
+				(!empty($name)) ? 
+					$db->multi_query("UPDATE ".ALLIANCE." SET `ally_name` = '".$name."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';UPDATE ".USERS." SET `ally_name` = '".$name."' WHERE `ally_id` = '".$id."';") : '';
 
-				if (!empty($tag))
-					$db->query("UPDATE ".ALLIANCE." SET `ally_tag` = '".$tag."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
+				(!empty($tag)) ? 
+					$db->query("UPDATE ".ALLIANCE." SET `ally_tag` = '".$tag."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';") : '';
 
 				$QueryF2	=	$db->uniquequery("SELECT ally_id FROM ".USERS." WHERE `id` = '".$changeleader."';");
 				$db->multi_query("UPDATE ".ALLIANCE." SET `ally_owner` = '".$changeleader."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';UPDATE ".USERS." SET `ally_rank_id` = '0' WHERE `id` = '".$changeleader."';");
 						
-				if (!empty($externo))
-					$db->query("UPDATE ".ALLIANCE." SET `ally_description` = '".$externo."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
+				(!empty($externo)) ? 
+					$db->query("UPDATE ".ALLIANCE." SET `ally_description` = '".$externo."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';") : '';
 				
-				if (!empty($interno))
-					$db->query("UPDATE ".ALLIANCE." SET `ally_text` = '".$interno."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
+				(!empty($interno)) ? 
+					$db->query("UPDATE ".ALLIANCE." SET `ally_text` = '".$interno."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';") : '';
 					
-				if (!empty($solicitud))
-					$db->query("UPDATE ".ALLIANCE." SET `ally_request` = '".$solicitud."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
+				(!empty($solicitud)) ? 
+					$db->query("UPDATE ".ALLIANCE." SET `ally_request` = '".$solicitud."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';") : '';
 				
-				if ($delete == 'on')
-				{
-					$db->multi_query("DELETE FROM ".ALLIANCE." WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';UPDATE ".USERS." SET `ally_id` = '0', `ally_name` = '', `ally_request` = '0', `ally_rank_id` = '0', `ally_register_time` = '0', `ally_request` = '0' WHERE `ally_id` = '".$id."';");
-				}
+				($delete == 'on') ? 
+					$db->multi_query("DELETE FROM ".ALLIANCE." WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';UPDATE ".USERS." SET `ally_id` = '0', `ally_name` = '', `ally_request` = '0', `ally_rank_id` = '0', `ally_register_time` = '0', `ally_request` = '0' WHERE `ally_id` = '".$id."';") : '';
 
-				if (!empty($delete_u))
-				{
-					$db->multi_query("UPDATE ".ALLIANCE." SET `ally_members` = ally_members - 1 WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';UPDATE ".USERS." SET `ally_id` = '0', `ally_name` = '', `ally_request` = '0', `ally_rank_id` = '0', `ally_register_time` = '0', `ally_request` = '0' WHERE `id` = '".$delete_u."' AND `ally_id` = '".$id."';");
-				}
+				(!empty($delete_u)) ? 
+					$db->multi_query("UPDATE ".ALLIANCE." SET `ally_members` = ally_members - 1 WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';UPDATE ".USERS." SET `ally_id` = '0', `ally_name` = '', `ally_request` = '0', `ally_rank_id` = '0', `ally_register_time` = '0', `ally_request` = '0' WHERE `id` = '".$delete_u."' AND `ally_id` = '".$id."';") : '';
 
 
 				$template->message($LNG['ad_ally_succes'], '?page=accounteditor&edit=alliances');

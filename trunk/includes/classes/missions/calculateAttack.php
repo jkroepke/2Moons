@@ -58,8 +58,8 @@ function calculateAttack(&$attackers, &$defenders)
 				$TRES['defender'] 	+= $pricelist[$element]['metal'] * $amount;
 				$TRES['defender'] 	+= $pricelist[$element]['crystal'] * $amount;
 			} else {
-				if (!isset($STARTDEF[$element])) 
-					$STARTDEF[$element] = 0;
+				(!isset($STARTDEF[$element]))  ? 
+					$STARTDEF[$element] = 0 : '';
 				
 				$STARTDEF[$element] += $amount;
 

@@ -54,8 +54,8 @@ class Language
 	
 	function setUser($LANG)
 	{
-		if(!empty($LANG) && in_array($LANG, self::getAllowedLangs()))
-			$this->User	= $LANG;		
+		(!empty($LANG) && in_array($LANG, self::getAllowedLangs())) ? 
+			$this->User	= $LANG : '';		
 	}
 	
 	function getUser()
@@ -121,11 +121,11 @@ class Language
 		global $db, $CONF;	
 		$LANGUAGE = is_numeric($ID) || !in_array($ID, self::getAllowedLangs()) ? $db->countquery("SELECT `lang` FROM ".USERS." WHERE `id` = '".$ID."';") : $ID;
 	
-		if(!in_array($LANGUAGE, self::getAllowedLangs()))
-			$LANGUAGE	= $this->Default;
+		(!in_array($LANGUAGE, self::getAllowedLangs())) ? 
+			$LANGUAGE	= $this->Default : '';
 	
-		if(empty($Files))
-			$Files	= array('FLEET');
+		(empty($Files)) ? 
+			$Files	= array('FLEET') : '';
 	
 		while (list(,$File) = each($Files)){
 			require(ROOT_PATH . "language/".$LANGUAGE."/".$File.'.php');

@@ -54,15 +54,15 @@ class ResourceUpdate
 		{
 			$this->ShipyardQueue();
 			
-			if($this->USER['b_tech'] != 0 && $this->USER['b_tech'] < $this->TIME)
-				$this->ResearchQueue();
-			if($this->PLANET['b_building'] != 0)
-				$this->BuildingQueue();
+			($this->USER['b_tech'] != 0 && $this->USER['b_tech'] < $this->TIME) ? 
+				$this->ResearchQueue() : '';
+			($this->PLANET['b_building'] != 0) ? 
+				$this->BuildingQueue() : '';
 		}	
 
 		$this->UpdateRessource();
-		if($SAVE === true)
-			$this->SavePlanetToDB($this->USER, $this->PLANET);
+		($SAVE === true) ? 
+			$this->SavePlanetToDB($this->USER, $this->PLANET) : '';
 			
 		return $this->ReturnVars();
 	}
@@ -211,8 +211,8 @@ class ResourceUpdate
 				continue;
 			}
 			
-			if(!isset($this->Builded[$Element]))
-				$this->Builded[$Element] = 0;
+			(!isset($this->Builded[$Element])) ? 
+				$this->Builded[$Element] = 0 : '';
 				
 			$this->PLANET['b_hangar']			-= HLmul($GetBuildShips, $BuildTime);
 			$this->Builded[$Element]			= HLadd($GetBuildShips, $this->Builded[$Element]);
@@ -422,7 +422,7 @@ class ResourceUpdate
 		}
 		foreach($GLOBALS['UPDATE'] as $Table => $Info)
 			$Qry	.= $Table." = '".$Info."',";
-		$Qry	.= "`u`.`darkmatter` = '".$USER['darkmatter']."',
+			$Qry	.= "`u`.`darkmatter` = '".$USER['darkmatter']."',
 					`u`.`b_tech` = '".$USER['b_tech']."',
 					`u`.`b_tech_id` = '".$USER['b_tech_id']."',
 					`u`.`b_tech_planet` = '".$USER['b_tech_planet']."'
