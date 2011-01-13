@@ -43,7 +43,7 @@ switch($action)
 		if($db->num_rows($OwnFleets) == 0)
 			exit(json_encode(array()));
 		
-		require_once(ROOT_PATH . 'includes/classes/class.FlyingFleetsTable.' . PHP_EXT);
+		require_once(ROOT_PATH . 'includes/classes/class.FlyingFleetsTable.php');
 		$FlyingFleetsTable = new FlyingFleetsTable();
 		
 		$ACSDone	= array();

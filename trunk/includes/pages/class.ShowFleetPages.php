@@ -21,7 +21,7 @@
 
 
 
-require_once(ROOT_PATH . 'includes/classes/class.FleetFunctions.' . PHP_EXT);
+require_once(ROOT_PATH . 'includes/classes/class.FleetFunctions.php');
 
 class ShowFleetPages extends FleetFunctions
 {
@@ -376,7 +376,7 @@ class ShowFleetPages extends FleetFunctions
 	{
 		global $USER, $PLANET, $resource, $pricelist, $reslist, $CONF, $db, $LNG, $UNI;
 
-		include_once(ROOT_PATH . 'includes/functions/IsVacationMode.' . PHP_EXT);
+		include_once(ROOT_PATH . 'includes/functions/IsVacationMode.php');
 
 		$template	= new template();
 		$template->loadscript('flotten.js');
@@ -925,7 +925,7 @@ class ShowFleetPages extends FleetFunctions
 	{	
 		global $USER, $PLANET, $LNG, $CONF, $db, $reslist, $resource, $UNI;
 	
-		include_once(ROOT_PATH . 'includes/functions/IsVacationMode.' . PHP_EXT);
+		include_once(ROOT_PATH . 'includes/functions/IsVacationMode.php');
 		
 		$iraks 				= $PLANET['interplanetary_misil'];
 		$TargetGalaxy 		= request_var('galaxy',0);

@@ -32,7 +32,7 @@ if ($USER['authlevel'] < AUTH_MOD) exit;
 
 if(!isset($_SESSION['admin_login']) || $_SESSION['admin_login'] != $USER['password'])
 {
-	include_once(ROOT_PATH . 'includes/pages/adm/ShowLoginPage.' . PHP_EXT);
+	include_once(ROOT_PATH . 'includes/pages/adm/ShowLoginPage.php');
 	ShowLoginPage();
 	exit;
 }
