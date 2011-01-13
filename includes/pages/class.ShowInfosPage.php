@@ -251,7 +251,7 @@ class ShowInfosPage
 			$RestString               		= $this->GetNextJumpWaitTime($PLANET);
 			if ($RestString['value'] != 0)
 			{
-				include_once(ROOT_PATH . 'includes/functions/InsertJavaScriptChronoApplet.' . PHP_EXT);
+				include_once(ROOT_PATH . 'includes/functions/InsertJavaScriptChronoApplet.php');
 				$template->assign_vars(array(
 					'gate_time_script'	=> InsertJavaScriptChronoApplet("Gate", "1", $RestString['value'], true),
 					'gate_script_go'	=> InsertJavaScriptChronoApplet("Gate", "1", $RestString['value'], false),

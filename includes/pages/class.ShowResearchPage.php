@@ -89,8 +89,8 @@ class ShowResearchPage
 	{
 		global $PLANET, $USER, $LNG, $resource, $reslist, $CONF, $db, $pricelist, $OfficerInfo;
 
-		include_once(ROOT_PATH . 'includes/functions/IsTechnologieAccessible.' . PHP_EXT);
-		include_once(ROOT_PATH . 'includes/functions/GetElementPrice.' . PHP_EXT);
+		include_once(ROOT_PATH . 'includes/functions/IsTechnologieAccessible.php');
+		include_once(ROOT_PATH . 'includes/functions/GetElementPrice.php');
 		
 		$template	= new template();			
 		

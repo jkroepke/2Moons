@@ -113,8 +113,8 @@ class ShowShipyardPage
 	{
 		global $PLANET, $USER, $LNG, $resource, $dpath, $db, $reslist;
 
-		include_once(ROOT_PATH . 'includes/functions/IsTechnologieAccessible.' . PHP_EXT);
-		include_once(ROOT_PATH . 'includes/functions/GetElementPrice.' . PHP_EXT);
+		include_once(ROOT_PATH . 'includes/functions/IsTechnologieAccessible.php');
+		include_once(ROOT_PATH . 'includes/functions/GetElementPrice.php');
 		
 		$template	= new template();
 		
@@ -264,8 +264,8 @@ class ShowShipyardPage
 	{
 		global $USER, $PLANET, $LNG, $resource, $dpath, $reslist;
 
-		include_once(ROOT_PATH . 'includes/functions/IsTechnologieAccessible.' . PHP_EXT);
-		include_once(ROOT_PATH . 'includes/functions/GetElementPrice.' . PHP_EXT);
+		include_once(ROOT_PATH . 'includes/functions/IsTechnologieAccessible.php');
+		include_once(ROOT_PATH . 'includes/functions/GetElementPrice.php');
 
 		$template	= new template();
 

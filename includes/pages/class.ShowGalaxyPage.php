@@ -19,7 +19,7 @@
 # *                                                                          #
 ##############################################################################
 
-include_once(ROOT_PATH . 'includes/classes/class.GalaxyRows.' . PHP_EXT);
+include_once(ROOT_PATH . 'includes/classes/class.GalaxyRows.php');
 
 class ShowGalaxyPage extends GalaxyRows
 {
