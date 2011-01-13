@@ -66,8 +66,8 @@ class Session
 		}
 		
 		$SelectPlanet  		= request_var('cp',0);
-		if(!empty($SelectPlanet))
-			$IsPlanetMine 	=	$db->uniquequery("SELECT `id` FROM ".PLANETS." WHERE `id` = '".$SelectPlanet."' AND `id_owner` = '".$_SESSION['id']."';");
+		(!empty($SelectPlanet)) ? 
+			$IsPlanetMine 	=	$db->uniquequery("SELECT `id` FROM ".PLANETS." WHERE `id` = '".$SelectPlanet."' AND `id_owner` = '".$_SESSION['id']."';") : '';
 			
 		$_SESSION['path']		= $this->GetPath();
 		$_SESSION['planet']		= !empty($IsPlanetMine['id']) ? $IsPlanetMine['id'] : $_SESSION['planet'];
@@ -107,18 +107,12 @@ class Session
 		}
 
 		$blocks = substr_count($ip, ':') + 1;
-		if ($blocks < 9)
-		{
-			$ip = str_replace('::', ':' . str_repeat('0000:', 9 - $blocks), $ip);
-		}
-		if ($ip[0] == ':')
-		{
-			$ip = '0000' . $ip;
-		}
-		if ($length < 4)
-		{
-			$ip = implode(':', array_slice(explode(':', $ip), 0, 1 + $length));
-		}
+		($blocks < 9) ? 
+			$ip = str_replace('::', ':' . str_repeat('0000:', 9 - $blocks), $ip) : '';
+		($ip[0] == ':') ? 
+			$ip = '0000' . $ip : '';
+		($length < 4) ?
+			$ip = implode(':', array_slice(explode(':', $ip), 0, 1 + $length)) : '';
 
 		return $ip;
 	}

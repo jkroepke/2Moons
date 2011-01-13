@@ -170,11 +170,11 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $Universe, $PlanetOw
 	
 	$SQL  = "INSERT INTO ".PLANETS." SET ";
 
-	if(!empty($PlanetName))
-		$SQL .= "`name` = '".$PlanetName."', ";
+	(!empty($PlanetName)) ? 
+		$SQL .= "`name` = '".$PlanetName."', " : '';
 	
-	if($CONF['adm_attack'] == 0)
-		$AuthLevel = 0;
+	($CONF['adm_attack'] == 0) ? 
+		$AuthLevel = 0 : '';
 	
 	$SQL .= "`universe` = '".$Universe."', ";
 	$SQL .= "`id_owner` = '".$PlanetOwnerID."', ";

@@ -53,10 +53,8 @@ class template
 		$TMP->template_dir 			= $this->template_dir;
 		$TMP->assign($this->vars);
 		$PAGE						= $TMP->fetch($this->file);
-		if($this->cache && $CONF['debug'] == 0)
-		{
-			file_put_contents($this->cachefile, $PAGE);
-		}
+		($this->cache && $CONF['debug'] == 0) ? 
+			file_put_contents($this->cachefile, $PAGE) : '';
 		return $PAGE;
 	}
 	
@@ -78,8 +76,8 @@ class template
 		
 	public function assign_vars($var = array(), $val = null) 
 	{
-		if (!is_null($val))
-			$var = array($var => $val);
+		(!is_null($val)) ? 
+			$var = array($var => $val) : '';
 		
 		$this->vars	= array_merge($this->vars, $var);
 	}
@@ -89,8 +87,8 @@ class template
 		global $PLANET, $LNG, $USER, $CONF;
 		
 		//PlanetMenu
-		if(empty($this->UserPlanets))
-			$this->getplanets();
+		(empty($this->UserPlanets)) ? 
+			$this->getplanets() : '';
 		
 		$this->loadscript("planetmenu.js");
 		$this->loadscript("topnav.js");
@@ -108,8 +106,8 @@ class template
 				{
 					$ListIDArray						= explode(",", $QueueArray[$ID]);
 					
-					if($ListIDArray[3] > TIMESTAMP)
-						$Scripttime[$PlanetQuery['id']][]	= $ListIDArray[3];
+					($ListIDArray[3] > TIMESTAMP) ? 
+						$Scripttime[$PlanetQuery['id']][]	= $ListIDArray[3] : '';
 				}
 			}
 			
@@ -303,8 +301,8 @@ class template
 				$_SESSION['PLANET']	= $PLANET;
 			}
 			$this->main();
-			if($this->Popup === false)
-				$this->Menus();
+			($this->Popup === false) ? 
+				$this->Menus() : '';
 		}
 		
 		$this->assign_vars(array(
@@ -329,10 +327,9 @@ class template
 		if($this->cache && $GLOBALS['CONF']['debug'] == 0)
 		{
 			$this->cachefile	= $this->cachedir.md5(filemtime($this->template_dir.$this->file).r_implode('', $this->vars)).'.tpl.php';
-			if(file_exists($this->cachefile))
-				echo file_get_contents($this->cachefile);
-			else
-				echo $this->render();
+			echo (file_exists($this->cachefile)) ? 
+				file_get_contents($this->cachefile) :
+				$this->render();
 		} else {
 			echo $this->render();
 		}
@@ -341,8 +338,8 @@ class template
 	public function message($mes, $dest = false, $time = 3, $Fatal = false)
 	{
 		global $LNG;
-		if($Fatal)
-			$this->isPopup(true);
+		($Fatal) ? 
+			$this->isPopup(true) : '';
 	
 		$this->assign_vars(array(
 			'mes'		=> $mes,

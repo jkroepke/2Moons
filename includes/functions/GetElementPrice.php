@@ -21,8 +21,8 @@
 
 function GetElementPrice ($USER, $PLANET, $Element, $USERfactor = true) { 
      global $pricelist, $resource, $LNG; 
-		if ($USERfactor)
-			$level = (isset($PLANET[$resource[$Element]])) ? $PLANET[$resource[$Element]] : $USER[$resource[$Element]];
+		($USERfactor) ? 
+			$level = (isset($PLANET[$resource[$Element]])) ? $PLANET[$resource[$Element]] : $USER[$resource[$Element]] : '';
 
 		$array = array(
 			'metal'      => $LNG['Metal'],

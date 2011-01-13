@@ -31,9 +31,9 @@ class FlyingFleetsTable
 			$Bloc['St_Owner'] = "[". $CurrentFleet['fleet_owner'] ."]<br>". $FleetOwner['username'];
 			$Bloc['St_Posit'] = "[".$CurrentFleet['fleet_start_galaxy'] .":". $CurrentFleet['fleet_start_system'] .":". $CurrentFleet['fleet_start_planet'] ."]<br>". ( ($CurrentFleet['fleet_start_type'] == 1) ? "[P]": (($CurrentFleet['fleet_start_type'] == 2) ? "D" : "L"  )) ."";
 			$Bloc['St_Time']  = date('G:i:s d/n/Y', $CurrentFleet['fleet_start_time']);
-			if (is_array($TargetOwner))
-				$Bloc['En_Owner'] = "[". $CurrentFleet['fleet_target_owner'] ."]<br>". $TargetOwner['username'];
-			else
+			(is_array($TargetOwner)) ? 
+				$Bloc['En_Owner'] = "[". $CurrentFleet['fleet_target_owner'] ."]<br>". $TargetOwner['username']
+			:
 				$Bloc['En_Owner'] = "";
 
 			$Bloc['En_Posit'] = "[".$CurrentFleet['fleet_end_galaxy'] .":". $CurrentFleet['fleet_end_system'] .":". $CurrentFleet['fleet_end_planet'] ."]<br>". ( ($CurrentFleet['fleet_end_type'] == 1) ? "[P]": (($CurrentFleet['fleet_end_type'] == 2) ? "D" : "L"  )) ."";
@@ -104,8 +104,8 @@ class FlyingFleetsTable
 			}
 			else
 			{
-				if($FleetRow['fleet_owner'] != $_SESSION['id'])
-					$FleetPopup .= "<tr><td style=\'width:100%\' class=\'transparent\'><span style=\'color:white\'>".$LNG['cff_aproaching'].$FleetRow['fleet_amount'].$LNG['cff_ships'].":</span></td></tr>";
+				($FleetRow['fleet_owner'] != $_SESSION['id']) ?
+					$FleetPopup .= "<tr><td style=\'width:100%\' class=\'transparent\'><span style=\'color:white\'>".$LNG['cff_aproaching'].$FleetRow['fleet_amount'].$LNG['cff_ships'].":</span></td></tr>" : '';
 
 				foreach($FleetRec as $Item => $Group)
 				{
@@ -175,7 +175,7 @@ class FlyingFleetsTable
 			15 => 'transport',
 		);
 	       
-		$Names		  = $this->GetNames($FleetRow);
+		$Names		  	= $this->GetNames($FleetRow);
 		$FleetPrefix    = ($Owner == true) ? 'own' : '';
 		$MissionType    = $FleetRow['fleet_mission'];
 		$FleetContent   = $this->CreateFleetPopupedFleetLink($FleetRow, (($MissionType == 1 || $MissionType == 2) && $FleetRow['fleet_owner'] != $_SESSION['id'] && $Status == 0 && $Owner == true) ? $LNG['cff_acs_fleet'] : $LNG['ov_fleet'], $FleetPrefix.$FleetStyle[$MissionType], $Names);
@@ -266,11 +266,10 @@ class FlyingFleetsTable
 		{
 			if ($Owner == true)
 			{
-				if (($MissionType == 1 || $MissionType == 2) && $Status == 0 && $FleetRow['fleet_owner'] != $_SESSION['id']) {
-					$EventString  = $LNG['cff_a'];
-				} else {
+				(($MissionType == 1 || $MissionType == 2) && $Status == 0 && $FleetRow['fleet_owner'] != $_SESSION['id']) ?
+					$EventString  = $LNG['cff_a']
+				:
 					$EventString  = $LNG['cff_one_of_your'];
-				}
 				$EventString .= $FleetContent;
 			}
 			else

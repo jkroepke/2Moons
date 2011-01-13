@@ -140,8 +140,8 @@ abstract class FleetFunctions
 	public static function GetFleetArray($FleetArray)
 	{
 		$FleetArray	= unserialize(base64_decode(str_rot13($FleetArray)));
-		if(!is_array($FleetArray))
-			self::GotoFleetPage();
+		(!is_array($FleetArray)) ? 
+			self::GotoFleetPage() : '';
 		
 		return $FleetArray;
 	}
@@ -305,13 +305,13 @@ abstract class FleetFunctions
 
 		$query = $db->query("SELECT * FROM ".FLEETS." WHERE fleet_id = '" . $fleetid . "';");
 
-		if ($db->num_rows($query) != 1)
-			self::GotoFleetPage();
+		($db->num_rows($query) != 1) ? 
+			self::GotoFleetPage() : '';
 
 		$daten = $db->fetch_array($query);
 
-		if ($daten['fleet_start_time'] <= TIMESTAMP || $daten['fleet_end_time'] < TIMESTAMP || $daten['fleet_mess'] == 1)
-			self::GotoFleetPage();
+		($daten['fleet_start_time'] <= TIMESTAMP || $daten['fleet_end_time'] < TIMESTAMP || $daten['fleet_mess'] == 1) ?
+			self::GotoFleetPage() : '';
 				
 		if (empty($daten['fleet_group']))
 		{
@@ -345,16 +345,15 @@ abstract class FleetFunctions
 		{
 			$AKSRAW = $db->query("SELECT `id`, `eingeladen`, `name` FROM ".AKS." WHERE `id` = '" . $daten['fleet_group'] . "';");
 
-			if ($db->num_rows($AKSRAW) != 1)
-				self::GotoFleetPage();
+			($db->num_rows($AKSRAW) != 1) ? 
+				self::GotoFleetPage() : '';
 			
 			$aks	= $db->fetch_array($AKSRAW);
 		}
 	
 		if(!empty($name)) {
-			if(UTF8_SUPPORT && !ctype_alnum($name)) {
-				exit($LNG['fl_acs_newname_alphanum']);
-			}
+			(UTF8_SUPPORT && !ctype_alnum($name)) ? 
+				exit($LNG['fl_acs_newname_alphanum']) : '';
 			$db->query("UPDATE ".AKS." SET `name` = '".$db->sql_escape($name)."' WHERE `id` = '".$daten['fleet_group']."';");
 			exit;
 		}	
@@ -366,8 +365,8 @@ abstract class FleetFunctions
 			
 			foreach(explode(",", $aks['eingeladen']) as $a => $b)
 			{
-				if (!empty($b) && $added_user_id_mr == $b)
-					redirectTo("game.php?page=fleet&action=getakspage&fleetid=".$daten['fleet_id']);
+				(!empty($b) && $added_user_id_mr == $b) ? 
+					redirectTo("game.php?page=fleet&action=getakspage&fleetid=".$daten['fleet_id']) : '';
 			}
 
 			if(empty($added_user_id_mr))
@@ -421,36 +420,36 @@ abstract class FleetFunctions
 		if ($MissionInfo['planet'] == (MAX_PLANET_IN_SYSTEM + 1) && !CheckModule(30))
 			$missiontype[15] = $LNG['type_mission'][15];	
 		elseif ($MissionInfo['planettype'] == 2) {
-			if ((isset($MissionInfo['Ship'][209]) || isset($MissionInfo['Ship'][219])) && !CheckModule(32) && !($GetInfoPlanet['der_metal'] == 0 && $GetInfoPlanet['der_crystal'] == 0))
-				$missiontype[8] = $LNG['type_mission'][8];
+			((isset($MissionInfo['Ship'][209]) || isset($MissionInfo['Ship'][219])) && !CheckModule(32) && !($GetInfoPlanet['der_metal'] == 0 && $GetInfoPlanet['der_crystal'] == 0)) ? 
+				$missiontype[8] = $LNG['type_mission'][8] : '';
 		} else {
 			if (!$UsedPlanet) {
-				if (isset($MissionInfo['Ship'][208]) && $MissionInfo['planettype'] == 1 && !CheckModule(35))
-					$missiontype[7] = $LNG['type_mission'][7];
+				(isset($MissionInfo['Ship'][208]) && $MissionInfo['planettype'] == 1 && !CheckModule(35)) ? 
+					$missiontype[7] = $LNG['type_mission'][7] : '';
 			} else {
-				if(!CheckModule(34))
-					$missiontype[3] = $LNG['type_mission'][3];
+				(!CheckModule(34)) ? 
+					$missiontype[3] = $LNG['type_mission'][3] : '';
 					
-				if (!$YourPlanet && self::OnlyShipByID($MissionInfo['Ship'], 210) && !CheckModule(24))
-					$missiontype[6] = $LNG['type_mission'][6];
+				(!$YourPlanet && self::OnlyShipByID($MissionInfo['Ship'], 210) && !CheckModule(24)) ? 
+					$missiontype[6] = $LNG['type_mission'][6] : '';
 
 				if (!$YourPlanet) {
-					if(!CheckModule(1))
-						$missiontype[1] = $LNG['type_mission'][1];
-					if(!CheckModule(33))
-						$missiontype[5] = $LNG['type_mission'][5];}
+					(!CheckModule(1)) ? 
+						$missiontype[1] = $LNG['type_mission'][1] : '';
+					(!CheckModule(33)) ? 
+						$missiontype[5] = $LNG['type_mission'][5] : '';}
 						
 				elseif(!CheckModule(36)) {
 					$missiontype[4] = $LNG['type_mission'][4];}
 					
-				if (!empty($MissionInfo['IsAKS']) && !$YourPlanet && !CheckModule(1))
-					$missiontype[2] = $LNG['type_mission'][2];
+				(!empty($MissionInfo['IsAKS']) && !$YourPlanet && !CheckModule(1)) ? 
+					$missiontype[2] = $LNG['type_mission'][2] : '';
 
-				if (!$YourPlanet && $MissionInfo['planettype'] == 3 && isset($MissionInfo['Ship'][214]) && !CheckModule(29))
-					$missiontype[9] = $LNG['type_mission'][9];
+				(!$YourPlanet && $MissionInfo['planettype'] == 3 && isset($MissionInfo['Ship'][214]) && !CheckModule(29)) ?
+					$missiontype[9] = $LNG['type_mission'][9] : '';
 
-				if ($YourPlanet && $MissionInfo['planettype'] == 3 && self::OnlyShipByID($MissionInfo['Ship'], 220) && !CheckModule(31))
-					$missiontype[11] = $LNG['type_mission'][11];
+				($YourPlanet && $MissionInfo['planettype'] == 3 && self::OnlyShipByID($MissionInfo['Ship'], 220) && !CheckModule(31)) ? 
+					$missiontype[11] = $LNG['type_mission'][11] : '';
 			}
 		}
 		

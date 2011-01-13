@@ -41,8 +41,8 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 				$Level = 0;
 				foreach($PLANET[$resource[31].'_inter'] as $Levels)
 				{
-					if($Levels >= $requeriments[$Element][31])
-						$Level += $Levels;
+					($Levels >= $requeriments[$Element][31]) ? 
+						$Level += $Levels : '';
 				}
 			}
 			else

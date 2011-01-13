@@ -25,16 +25,16 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 	{
 		global $pricelist, $resource;
 		
-		if ($Incremental)
-			$level = (isset($CurrentPlanet[$resource[$Element]])) ? $CurrentPlanet[$resource[$Element]] : $CurrentUser[$resource[$Element]];
+		($Incremental) ? 
+			$level = (isset($CurrentPlanet[$resource[$Element]])) ? $CurrentPlanet[$resource[$Element]] : $CurrentUser[$resource[$Element]] : '';
 
 		$array = array('metal', 'crystal', 'deuterium', 'darkmatter', 'energy_max');
 		foreach ($array as $ResType)
 		{
 			$cost[$ResType] = $Incremental ? floor($pricelist[$Element][$ResType] * pow($pricelist[$Element]['factor'], $level)) : floor($pricelist[$Element][$ResType]);
 
-			if ($ForDestroy == true)
-				$cost[$ResType] /= 2;
+			($ForDestroy == true) ? 
+				$cost[$ResType] /= 2 : '';
 		}
 
 		return $cost;

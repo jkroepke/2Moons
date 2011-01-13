@@ -29,8 +29,7 @@ ini_set('display_errors', 1);
 header('Content-Type: text/html; charset=UTF-8');
 define('TIMESTAMP',	$_SERVER['REQUEST_TIME']);
 
-if(file_exists(ROOT_PATH . 'includes/config.php'))
-	require_once(ROOT_PATH . 'includes/config.php');
+(file_exists(ROOT_PATH . 'includes/config.php')) ? require_once(ROOT_PATH . 'includes/config.php') : '';
 	
 require_once(ROOT_PATH . 'includes/constants.php');
 
@@ -51,13 +50,10 @@ ini_set('session.bug_compat_warn', '0');
 ini_set('session.bug_compat_42', '0');
 ini_set('session.cookie_httponly', true);
 ini_set('magic_quotes_runtime', 0);
-if(defined('CLI') && CLI === true)
-	ini_set('error_log', ROOT_PATH.'/includes/cli_error.log');
-else
-	ini_set('error_log', ROOT_PATH.'/includes/error.log');
+(defined('CLI') && CLI === true) ? ini_set('error_log', ROOT_PATH.'/includes/cli_error.log'): ini_set('error_log', ROOT_PATH.'/includes/error.log');
 
-if(!defined('LOGIN') && INSTALL == false)
-	session_start();
+(!defined('LOGIN') && INSTALL == false) ? 
+	session_start() : '';
 	
 require_once(ROOT_PATH . 'includes/classes/class.MySQLi.php');
 require_once(ROOT_PATH . 'includes/classes/class.Lang.php');
@@ -84,8 +80,8 @@ if (INSTALL != true)
 		if(UNIS_WILDCAST) {
 			$UNI	= explode('.', $_SERVER['HTTP_HOST']);
 			$UNI	= substr($UNI[0], 3);
-			if(!is_numeric($UNI))
-				$UNI	= 1;
+			(!is_numeric($UNI))?
+				$UNI	= 1 : '';
 		} else {
 			$UNI	= 1;
 		}
@@ -102,17 +98,15 @@ if (INSTALL != true)
 	{
 		$SESSION       	= new Session();
 		
-		if(!$SESSION->IsUserLogin()) redirectTo('index.php?code=3');
+		(!$SESSION->IsUserLogin()) ? redirectTo('index.php?code=3') : '';
 		
 		$SESSION->UpdateSession();
 		
-		if($CONF['game_disable'] == 0 && $_SESSION['authlevel'] == 0)
-		{
-			message($CONF['close_reason']);
-		}
+		($CONF['game_disable'] == 0 && $_SESSION['authlevel'] == 0) ? 
+			message($CONF['close_reason']) : '';
 
-		if(!CheckModule(10))
-			require(ROOT_PATH.'includes/FleetHandler.php');
+		(!CheckModule(10)) ? 
+			require(ROOT_PATH.'includes/FleetHandler.php') : '';
 				
 		$USER	= $db->uniquequery("SELECT u.*, s.`total_points`, s.`total_rank` FROM ".USERS." as u LEFT JOIN ".STATPOINTS." as s ON s.`id_owner` = u.`id` AND s.`stat_type` = '1' WHERE u.`id` = '".$_SESSION['id']."';");
 		if(empty($USER)) {
@@ -159,7 +153,7 @@ if (INSTALL != true)
 	}
 }
 
-if (!defined('AJAX') && !defined('CLI'))
-	require_once(ROOT_PATH.'includes/classes/class.template.php');
+(!defined('AJAX') && !defined('CLI')) ? 
+	require_once(ROOT_PATH.'includes/classes/class.template.php') : '';
 
 ?>
