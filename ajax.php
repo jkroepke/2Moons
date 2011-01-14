@@ -172,7 +172,8 @@ switch($action)
 			
 		while ($CurMess = $db->fetch_array($UsrMess))
 		{
-			$MessageList[$CurMess['message_id']]	= array(
+			$MessageList[$CurMess['message_time']]	= array(
+				'id'		=> $CurMess['message_id'],
 				'time'		=> date("d. M Y, H:i:s", $CurMess['message_time']),
 				'from'		=> $CurMess['message_from'],
 				'subject'	=> stripslashes($CurMess['message_subject']),
@@ -183,7 +184,6 @@ switch($action)
 		}
 		
 		$db->free_result($UsrMess);	
-				
 		echo json_encode(array(
 			'MessageList'						=> $MessageList,
 			'LNG'								=> array(
