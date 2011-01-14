@@ -2,6 +2,7 @@ Message	= {
 	MessID : 0,
 	GenerateMessages: function () {
 		var HTML = "";
+		var MESS = "";
 		var data = (Message.MessID == 999) ? Message.MessListOut : Message.MessList;
 
 		HTML += '<form action="" id="del" onsubmit="Message.DelMessages();return false"><table id="messages"><tr><th colspan="4">'+Message.LNG.mg_message_title+'</td></tr><tr style="height: 20px;"><td>'+Message.LNG.mg_action+'</td><td>'+Message.LNG.mg_date+'</td><td>';
@@ -18,11 +19,12 @@ Message	= {
 				TEMP += (mess.type == 1 && Message.MessID != 999) ? '<a href="#" onclick="OpenPopup(\'game.php?page=messages&amp;mode=write&amp;id='+mess.sender+'&amp;subject='+Message.CreateAnswer(mess.subject)+'\', \'\', 720, 300);" title="Nachricht an '+Message.stripTEMP(mess.from)+' schreiben"><img src="'+Skin+'img/m.gif" border="0"></a>' : '';
 				TEMP += '</td></tr><tr class="message_body message_'+id+'"><td colspan="3" class="left">'+mess.text+'</td></tr>';
 				if($.browser.webkit || $.browser.opera)
-					HTML = TEMP + HTML;
+					MESS = TEMP + MESS;
 				else
-					HTML += TEMP;
+					MESS += TEMP;
 			}
 		});
+		HTML += MESS;
 		if(Message.MessID != 999 && Message.MessID != 50) {
 			HTML += '<tr>';
 			HTML += '<td colspan="4">';
