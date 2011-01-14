@@ -65,14 +65,17 @@ require_once(ROOT_PATH . 'includes/classes/class.Session.php');
 require_once(ROOT_PATH . 'includes/GeneralFunctions.php');
 require_once(ROOT_PATH . 'includes/vars.php');
 set_exception_handler('exception_handler');
-
+if(!function_exists('bcadd'))
+	require_once(ROOT_PATH . 'includes/bcmath.php');
+	
 if($database)
 	$db = new DB_MySQLi();
 elseif(INSTALL != true)
 	redirectTo("install/");
 
 $LANG	= new Language();	
-$BCMATH	= function_exists('bcadd');
+
+	
 $UPDATE	= array();
 unset($database);
 

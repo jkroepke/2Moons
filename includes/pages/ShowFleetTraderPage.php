@@ -28,11 +28,11 @@ function ShowFleetTraderPage()
 	$ID								= request_var('id', 0);
 	if(!empty($ID) && in_array($ID, $CONF['trade_allowed_ships'])) {
 		$Count						= max(min(request_var('count', '0'), $PLANET[$resource[$ID]]), 0);
-		$PLANET['metal']			= HLadd($PLANET['metal'], HLmul($Count, HLmul($pricelist[$ID]['metal'], (float) $CONF['trade_charge'])));
-		$PLANET['crystal']			= HLadd($PLANET['crystal'], HLmul($Count, HLmul($pricelist[$ID]['crystal'], (float) $CONF['trade_charge'])));
-		$PLANET['deuterium']		= HLadd($PLANET['deuterium'], HLmul($Count, HLmul($pricelist[$ID]['deuterium'], (float) $CONF['trade_charge'])));
-		$USER['darkmatter']			= HLadd($USER['darkmatter'], HLmul($Count, HLmul($pricelist[$ID]['darkmatter'], (float) $CONF['trade_charge'])));
-		$PlanetRess->Builded[$ID]	= HLadd(HLmul('-1', $Count), $PlanetRess->Builded[$ID]);
+		$PLANET['metal']			= bcadd($PLANET['metal'], bcmul($Count, bcmul($pricelist[$ID]['metal'], (float) $CONF['trade_charge'])));
+		$PLANET['crystal']			= bcadd($PLANET['crystal'], bcmul($Count, bcmul($pricelist[$ID]['crystal'], (float) $CONF['trade_charge'])));
+		$PLANET['deuterium']		= bcadd($PLANET['deuterium'], bcmul($Count, bcmul($pricelist[$ID]['deuterium'], (float) $CONF['trade_charge'])));
+		$USER['darkmatter']			= bcadd($USER['darkmatter'], bcmul($Count, bcmul($pricelist[$ID]['darkmatter'], (float) $CONF['trade_charge'])));
+		$PlanetRess->Builded[$ID]	= bcadd(bcmul('-1', $Count), $PlanetRess->Builded[$ID]);
 	}
 	
 	$PlanetRess->SavePlanetToDB();

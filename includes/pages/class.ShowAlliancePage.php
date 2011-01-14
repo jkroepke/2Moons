@@ -494,6 +494,7 @@ class ShowAlliancePage
 							'al_receiver'					=> $LNG['al_receiver'],
 							'mg_subject'					=> $LNG['mg_subject'],
 							'mg_no_subject'					=> $LNG['mg_no_subject'],
+							'mg_empty_text'					=> $LNG['mg_empty_text'],
 						));	
 						$template->show("alliance_circular.tpl");
 					break;
@@ -781,6 +782,7 @@ class ShowAlliancePage
 											'al_diplo_text' 		=> $LNG['al_diplo_text'],
 											'al_diplo_level_des' 	=> $LNG['al_diplo_level_des'],
 											'al_applyform_send'		=> $LNG['al_applyform_send'],
+											'mg_empty_text'			=> $LNG['mg_empty_text'],
 										));
 										$template->show("alliance_admin_diplo_form.tpl");
 									break;

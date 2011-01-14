@@ -19,8 +19,6 @@
 # *                                                                          #
 ##############################################################################
 
-
-
 class ShowChatPage
 {
 	private $page_limit = 30; // Chat rows Limit
@@ -100,19 +98,22 @@ class ShowChatPage
 
 					
 				$template->assign_vars(array(
-					'ctype'				=> $ctype,
-					'chat_send'			=> $LNG['chat_send'],
-					'chat_disc'			=> $LNG['chat_disc'],
-					'chat_message'		=> $LNG['chat_message'],
-					'chat_bbcode'		=> $LNG['chat_bbcode'],
-					'chat_fontcolor'	=> $LNG['chat_fontcolor'],
-					'chat_color_white'	=> $LNG['chat_color_white'],
-                    'chat_color_blue'	=> $LNG['chat_color_blue'],
-                    'chat_color_yellow'	=> $LNG['chat_color_yellow'],
-                    'chat_color_green'	=> $LNG['chat_color_green'],
-                    'chat_color_pink'	=> $LNG['chat_color_pink'],
-                    'chat_color_red'	=> $LNG['chat_color_red'],
-                    'chat_color_orange'	=> $LNG['chat_color_orange'],
+					'ctype'					=> $ctype,
+					'chat_send'				=> $LNG['chat_send'],
+					'chat_disc'				=> $LNG['chat_disc'],
+					'chat_message'			=> $LNG['chat_message'],
+					'chat_bbcode'			=> $LNG['chat_bbcode'],
+					'chat_fontcolor'		=> $LNG['chat_fontcolor'],
+					'chat_color_white'		=> $LNG['chat_color_white'],
+                    'chat_color_blue'		=> $LNG['chat_color_blue'],
+                    'chat_color_yellow'		=> $LNG['chat_color_yellow'],
+                    'chat_color_green'		=> $LNG['chat_color_green'],
+                    'chat_color_pink'		=> $LNG['chat_color_pink'],
+                    'chat_color_red'		=> $LNG['chat_color_red'],
+                    'chat_color_orange'		=> $LNG['chat_color_orange'],
+                    'chat_notext'			=> $LNG['chat_notext'],
+                    'chat_request_url'		=> $LNG['chat_request_url'],
+                    'chat_request_url_desc'	=> $LNG['chat_request_url_desc'],
 				));
 				
 				$template->show("chat_overview.tpl");

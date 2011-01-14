@@ -485,25 +485,6 @@ function r_implode($glue, $pieces)
 	return implode($glue, $retVal);
 } 
 
-
-//Math Functions
-
-function HLadd($Num1, $Num2) {
-	return ($GLOBALS['BCMATH'] === true) ? bcadd($Num1, $Num2, 0) : ($Num1 + $Num2); // && ($Num1 > PHP_INT_MAX || $Num2 > PHP_INT_MAX)
-}
-
-function HLsub($Num1, $Num2) {
-	return ($GLOBALS['BCMATH'] === true) ? bcsub($Num1, $Num2, 0) : ($Num1 - $Num2); // && ($Num1 > PHP_INT_MAX || $Num2 > PHP_INT_MAX)
-}
-
-function HLmul($Num1, $Num2) {
-	return ($GLOBALS['BCMATH'] === true) ? bcmul($Num1, $Num2, 0) : ($Num1 * $Num2); // && ($Num1 > PHP_INT_MAX || $Num2 > PHP_INT_MAX)
-}
-
-function HLdiv($Num1, $Num2) {
-	return ($GLOBALS['BCMATH'] === true) ? bcdiv($Num1, $Num2, 0) : ($Num1 / $Num2); // && ($Num1 > PHP_INT_MAX || $Num2 > PHP_INT_MAX)
-}
-
 if(!function_exists('ctype_alnum'))
 {
     function ctype_alnum($test){

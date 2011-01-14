@@ -40,7 +40,8 @@ class MissionCaseFoundDM extends MissionFunctions
 	
 	function EndStayEvent()
 	{
-		$LNG			= Language::GetUserLang($this->_fleet['fleet_owner']);
+		global $LANG;
+		$LNG			= $LANG->GetUserLang($this->_fleet['fleet_owner']);
 		$chance 		= mt_rand(0, 100);
 		if($chance <= min(self::MAX_CHANCE, (self::CHANCE + $this->_fleet['fleet_amount'] * self::CHANCE_SHIP))) {
 			$FoundDark 	= mt_rand(self::MIN_FOUND, self::MAX_FOUND);
@@ -56,7 +57,8 @@ class MissionCaseFoundDM extends MissionFunctions
 	
 	function ReturnEvent()
 	{
-		$LNG			= Language::GetUserLang($this->_fleet['fleet_owner']);
+		global $LANG;
+		$LNG			= $LANG->GetUserLang($this->_fleet['fleet_owner']);
 		if($this->_fleet['fleet_resource_darkmatter'] > 0) {
 			SendSimpleMessage($this->_fleet['fleet_owner'], '', $this->_fleet['fleet_end_time'], 15, $LNG['sys_mess_tower'], $LNG['sys_expe_report'], sprintf($LNG['sys_expe_back_home_with_dm'], $LNG['Darkmatter'], pretty_number($this->_fleet['fleet_resource_darkmatter']), $LNG['Darkmatter']));
 			$this->UpdateFleet('fleet_array', '220,0;');
