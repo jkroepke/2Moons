@@ -1,10 +1,9 @@
 {include file="overall_header.tpl"}
-<script type="text/javascript" src="scripts/cntchar.js"></script>
 <script type="text/javascript">
 
 function check(){
 	if(document.buddy.text.value == '') {
-		alert('Gebe einen Text ein!');
+		alert('{$mg_empty_text}');
 		return false;
 	} else {
 		$.post('game.php?page=buddy&mode=1&sm=3&u={$id}&ajax=1', $('#buddy').serialize(), function(data){

@@ -31,7 +31,7 @@ class MissionCaseSpy extends MissionFunctions
 	{
 		global $db, $OfficerInfo, $LANG;		
 		$CurrentUser         = $db->uniquequery("SELECT `lang`, `spy_tech`, `rpg_espion` FROM ".USERS." WHERE `id` = '".$this->_fleet['fleet_owner']."';");
-		$LNG			     = Language::GetUserLang($CurrentUser['lang'], array('FLEET', 'TECH'));
+		$LNG			     = $LANG->GetUserLang($CurrentUser['lang'], array('FLEET', 'TECH'));
 		$CurrentUserID       = $this->_fleet['fleet_owner'];
 		$SQL 				 = "SELECT * FROM ".PLANETS." ";
 		$SQL 				.= "WHERE ";
@@ -121,7 +121,7 @@ class MissionCaseSpy extends MissionFunctions
 		$SpyMessage = "<br>".$GetSB."<br>".$AttackLink.$MessageEnd;
 		SendSimpleMessage($CurrentUserID, '', $this->_fleet['fleet_start_time'], 0, $LNG['sys_mess_qg'], $LNG['sys_mess_spy_report'], $SpyMessage);
 		
-		$LNG		    = Language::GetUserLang($TargetUser['lang']);
+		$LNG		    = $LANG->GetUserLang($TargetUser['lang']);
 		$TargetMessage  = $LNG['sys_mess_spy_ennemyfleet'] ." ". $CurrentPlanet['name'];
 
 		if($this->_fleet['fleet_start_type'] == 3)

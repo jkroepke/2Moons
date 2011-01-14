@@ -3,7 +3,7 @@
 
 function check(){
 	if(document.message.text.value == '') {
-		alert('Gebe einen Text ein!');
+		alert('{$mg_empty_text}');
 		return false;
 	} else {
 		$.post('game.php?page=alliance&mode=admin&edit=diplo&action=new', $('#message').serialize(), function(data){

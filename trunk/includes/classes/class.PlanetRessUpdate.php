@@ -199,12 +199,12 @@ class ResourceUpdate
 			$BuildTime = $Item[2];
 			$Element   = (int)$Element;
 			if($BuildTime == 0) {
-				$this->Builded[$Element]			= HLadd($Count, $this->Builded[$Element]);
-				$this->PLANET[$resource[$Element]]	= HLadd($Count, $this->PLANET[$resource[$Element]]);
+				$this->Builded[$Element]			= bcadd($Count, $this->Builded[$Element]);
+				$this->PLANET[$resource[$Element]]	= bcadd($Count, $this->PLANET[$resource[$Element]]);
 				continue;					
 			}
 			
-			$GetBuildShips						= max(min(round(HLdiv($this->PLANET['b_hangar'], $BuildTime)), $Count), 0);
+			$GetBuildShips						= max(min(round(bcdiv($this->PLANET['b_hangar'], $BuildTime)), $Count), 0);
 			if($GetBuildShips == 0)
 			{
 				$this->PLANET['b_hangar_id'] 	.= $Element.",".$Count.";";
@@ -214,10 +214,10 @@ class ResourceUpdate
 			if(!isset($this->Builded[$Element]))
 				$this->Builded[$Element] = 0;
 				
-			$this->PLANET['b_hangar']			-= HLmul($GetBuildShips, $BuildTime);
-			$this->Builded[$Element]			= HLadd($GetBuildShips, $this->Builded[$Element]);
-			$this->PLANET[$resource[$Element]]	= HLadd($GetBuildShips, $this->PLANET[$resource[$Element]]);
-			$Count								= HLsub($Count, $GetBuildShips);						
+			$this->PLANET['b_hangar']			-= bcmul($GetBuildShips, $BuildTime);
+			$this->Builded[$Element]			= bcadd($GetBuildShips, $this->Builded[$Element]);
+			$this->PLANET[$resource[$Element]]	= bcadd($GetBuildShips, $this->PLANET[$resource[$Element]]);
+			$Count								= bcsub($Count, $GetBuildShips);						
 			
 			if ($Count == 0)
 				continue;

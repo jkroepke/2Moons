@@ -31,36 +31,36 @@ function calculateSteal($attackFleets, $defenderPlanet, $ForSim = false)
 		$SortFleets[$FleetID]		= '0';
 		foreach($Attacker['detail'] as $Element => $amount)	
 		{
-			$SortFleets[$FleetID]		= HLadd($SortFleets[$FleetID], HLmul($pricelist[$Element]['capacity'], floattostring($amount)));
+			$SortFleets[$FleetID]		= bcadd($SortFleets[$FleetID], bcmul($pricelist[$Element]['capacity'], floattostring($amount)));
 		}
 		
-		$SortFleets[$FleetID]	= HLsub($SortFleets[$FleetID], $Attacker['fleet']['fleet_resource_metal']);
-		$SortFleets[$FleetID]	= HLsub($SortFleets[$FleetID], $Attacker['fleet']['fleet_resource_crystal']);
-		$SortFleets[$FleetID]	= HLsub($SortFleets[$FleetID], $Attacker['fleet']['fleet_resource_deuterium']);
-		$Sumcapacity			= HLadd($Sumcapacity, $SortFleets[$FleetID]);
+		$SortFleets[$FleetID]	= bcsub($SortFleets[$FleetID], $Attacker['fleet']['fleet_resource_metal']);
+		$SortFleets[$FleetID]	= bcsub($SortFleets[$FleetID], $Attacker['fleet']['fleet_resource_crystal']);
+		$SortFleets[$FleetID]	= bcsub($SortFleets[$FleetID], $Attacker['fleet']['fleet_resource_deuterium']);
+		$Sumcapacity			= bcadd($Sumcapacity, $SortFleets[$FleetID]);
 	}
 	
 	$AllCapacity		= $Sumcapacity;
 
 	// Step 1
-	$booty['metal'] 	= min(HLdiv($Sumcapacity, 3), HLdiv(floattostring($defenderPlanet['metal']), 2));
-	$Sumcapacity		= HLsub($Sumcapacity, $booty['metal']);
+	$booty['metal'] 	= min(bcdiv($Sumcapacity, 3), bcdiv(floattostring($defenderPlanet['metal']), 2));
+	$Sumcapacity		= bcsub($Sumcapacity, $booty['metal']);
 	 
 	// Step 2
-	$booty['crystal'] 	= min(HLdiv($Sumcapacity, 2), HLdiv(floattostring($defenderPlanet['crystal']), 2));
-	$Sumcapacity		= HLsub($Sumcapacity, $booty['crystal']);
+	$booty['crystal'] 	= min(bcdiv($Sumcapacity, 2), bcdiv(floattostring($defenderPlanet['crystal']), 2));
+	$Sumcapacity		= bcsub($Sumcapacity, $booty['crystal']);
 	 
 	// Step 3
-	$booty['deuterium'] = min($Sumcapacity, HLdiv(floattostring($defenderPlanet['deuterium']), 2));
-	$Sumcapacity		= HLsub($Sumcapacity, $booty['deuterium']);
+	$booty['deuterium'] = min($Sumcapacity, bcdiv(floattostring($defenderPlanet['deuterium']), 2));
+	$Sumcapacity		= bcsub($Sumcapacity, $booty['deuterium']);
 		 
 	// Step 4
 	$oldMetalBooty  	= $booty['metal'];
-	$booty['metal'] 	= HLadd($booty['metal'], min(HLdiv($Sumcapacity, 2), max(HLsub(HLdiv(floattostring($defenderPlanet['metal']), 2), $booty['metal']), 0)));
-	$Sumcapacity		= HLsub($Sumcapacity, HLsub($booty['metal'], $oldMetalBooty));
+	$booty['metal'] 	= bcadd($booty['metal'], min(bcdiv($Sumcapacity, 2), max(bcsub(bcdiv(floattostring($defenderPlanet['metal']), 2), $booty['metal']), 0)));
+	$Sumcapacity		= bcsub($Sumcapacity, bcsub($booty['metal'], $oldMetalBooty));
 		 
 	// Step 5
-	$booty['crystal'] 	= HLadd($booty['crystal'], min($Sumcapacity, max(HLsub(HLdiv(floattostring($defenderPlanet['crystal']), 2), $booty['crystal']), 0)));
+	$booty['crystal'] 	= bcadd($booty['crystal'], min($Sumcapacity, max(bcsub(bcdiv(floattostring($defenderPlanet['crystal']), 2), $booty['crystal']), 0)));
 			
 	if($ForSim) 
 		return $booty;
@@ -70,11 +70,11 @@ function calculateSteal($attackFleets, $defenderPlanet, $ForSim = false)
 	
 	foreach($SortFleets as $FleetID => $Capacity)
 	{
-		$Factor			= HLdiv($Capacity, $AllCapacity, 10);
+		$Factor			= bcdiv($Capacity, $AllCapacity, 10);
 		$Qry .= "UPDATE ".FLEETS." SET ";
-		$Qry .= "`fleet_resource_metal` = `fleet_resource_metal` + '".HLmul($booty['metal'], $Factor, 0)."', ";
-		$Qry .= "`fleet_resource_crystal` = `fleet_resource_crystal` + '".HLmul($booty['crystal'], $Factor, 0)."', ";
-		$Qry .= "`fleet_resource_deuterium` = `fleet_resource_deuterium` + '".HLmul($booty['deuterium'], $Factor, 0)."' ";
+		$Qry .= "`fleet_resource_metal` = `fleet_resource_metal` + '".bcmul($booty['metal'], $Factor, 0)."', ";
+		$Qry .= "`fleet_resource_crystal` = `fleet_resource_crystal` + '".bcmul($booty['crystal'], $Factor, 0)."', ";
+		$Qry .= "`fleet_resource_deuterium` = `fleet_resource_deuterium` + '".bcmul($booty['deuterium'], $Factor, 0)."' ";
 		$Qry .= "WHERE fleet_id = '".$FleetID."';";		
 	}
 	

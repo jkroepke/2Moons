@@ -1036,6 +1036,10 @@ $LNG['chat_color_pink']						= 'Pink';
 $LNG['chat_color_red']						= 'Rot';
 $LNG['chat_color_orange']					= 'Orange';
 
+$LNG['chat_notext']							= 'Gebe einen Text ein!';
+$LNG['chat_request_url']					= 'Bitte geben sie einen Link ein:';
+$LNG['chat_request_url_desc']				= 'Bitte geben sie eine Beschreiben für den Link ein (optional):';
+
 //----------------------------------------------------------------------------//
 // Support
 

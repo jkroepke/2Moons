@@ -75,6 +75,11 @@
 	</tr>
 </table>
 </form>
+<script type="text/javascript">
+var LNG_NoText	= "{$chat_notext}";
+var LNG_URL		= "{$chat_request_url}";
+var LNG_URLDesc	= "{$chat_request_url_desc}";
+</script>
 {if !$ctype}
 </div>
 {include file="planet_menu.tpl"}
