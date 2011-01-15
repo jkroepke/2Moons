@@ -8,16 +8,16 @@ Message	= {
 		HTML += '<form action="" id="del" onsubmit="Message.DelMessages();return false"><table id="messages"><tr><th colspan="4">'+Message.LNG.mg_message_title+'</td></tr><tr style="height: 20px;"><td>'+Message.LNG.mg_action+'</td><td>'+Message.LNG.mg_date+'</td><td>';
 		HTML += (Message.MessID != 999) ? Message.LNG.mg_from : Message.LNG.mg_to;
 		HTML += '</td><td>'+Message.LNG.mg_subject+'</td></tr>';
-		$.each(data, function(id, mess) {
+		$.each(data, function(tmp, mess) {
 			if((mess.type == Message.MessID || Message.MessID == 100 || Message.MessID == 999) && !$.isEmptyObject(mess)) {
 				var TEMP = '';
-				TEMP += '<tr class="message_head message_'+id+'"><td style="width:40px;" rowspan="2">';
-				TEMP += (mess.type != 50 && Message.MessID != 999) ?	'<input name="delmes['+id+']" type="checkbox">' : '';
+				TEMP += '<tr class="message_head message_'+mess.id+'"><td style="width:40px;" rowspan="2">';
+				TEMP += (mess.type != 50 && Message.MessID != 999) ?	'<input name="delmes['+mess.id+']" type="checkbox">' : '';
 				TEMP += '</td><td>'+mess.time+'</td><td>';
 				TEMP += (mess.type == 50 && Message.MessID != 999) ? Message.LNG.mg_game_message : mess.from;
 				TEMP += '</td><td>'+mess.subject;
 				TEMP += (mess.type == 1 && Message.MessID != 999) ? '<a href="#" onclick="OpenPopup(\'game.php?page=messages&amp;mode=write&amp;id='+mess.sender+'&amp;subject='+Message.CreateAnswer(mess.subject)+'\', \'\', 720, 300);" title="Nachricht an '+Message.stripTEMP(mess.from)+' schreiben"><img src="'+Skin+'img/m.gif" border="0"></a>' : '';
-				TEMP += '</td></tr><tr class="message_body message_'+id+'"><td colspan="3" class="left">'+mess.text+'</td></tr>';
+				TEMP += '</td></tr><tr class="message_body message_'+mess.id+'"><td colspan="3" class="left">'+mess.text+'</td></tr>';
 				if($.browser.webkit || $.browser.opera)
 					MESS = TEMP + MESS;
 				else
