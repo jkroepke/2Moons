@@ -6,6 +6,7 @@ function check(){
 		alert('{$mg_empty_text}');
 		return false;
 	} else {
+		$('submit').attr('disabled','disabled');
 		$.post('game.php?page=messages&mode=write&id={$id}&send=1&ajax=1', $('#message').serialize(), function(data) {
 			alert(data);
 			window.close();
@@ -28,7 +29,7 @@ function check(){
         <td>{$mg_message} (<span id="cntChars">0</span> / 5000 {$mg_characters})</th>
         <td><textarea name="text" id="text" cols="40" rows="10" onkeyup="$('#cntChars').text($(this).val().length);"></textarea></td>
     </tr><tr>
-        <td colspan="2"><input type="button" onClick="check();" name="button" value="{$mg_send}"></td>
+        <td colspan="2"><input id="submit" type="button" onClick="check();" name="button" value="{$mg_send}"></td>
 	</tr>
 </table>
 </form>
