@@ -7,7 +7,6 @@
 # * @copyright Copyright (C) 2010 By ShadoX from titanspace.de               #
 # * @copyright Copyright (C) 2008 - 2009 By lucky from Xtreme-gameZ.com.ar   #
 # * @translate by languar                                                    #                                                        #
-# * @translate by languar                                                    #                                                        #
 # * @translate by cheekyvimto                                                #                                                        #
 # * @author ShadoX                                                           #
 # *	                                                                         #
@@ -296,18 +295,6 @@ $LNG['ma_none']						= 'Global Message';
 $LNG['ma_message']					= 'Message';
 //###########################################################//
 
-//---------------	DATABASE	----------------------------//
-$LNG['od_not_opt']					= 'Error!';
-$LNG['od_not_check']					= 'Errors!';
-$LNG['od_opt']						= 'Optimized!';
-$LNG['od_rep']						= 'Fixed!';
-$LNG['od_check_ok']					= 'Everything is OK!';
-$LNG['od_opt_db']					= 'Database';
-$LNG['od_optimize']					= 'Optimize';
-$LNG['od_repair']					= 'Repair';
-$LNG['od_check']					= 'Check';
-$LNG['od_select_action']				= 'Select';
-//###########################################################//
 
 //---------------	OVERVIEW	------------------------//
 $LNG['ow_title']					= 'Welcome to 2Moons';
@@ -324,6 +311,7 @@ $LNG['ow_config_file_writable']				= 'The config.php file can be written to, we 
 $LNG['ow_database_errors']				= 'There are errors present!';
 $LNG['ow_handler_errors']				= 'The Fleet Handler has failed! Last Start: %s - Next Start: %s';
 $LNG['ow_smtp_errors']				= 'Check your SMTP settings! - Currently no mails are sent!';
+$LNG['ow_dir_not_writable']			= './%s dir not writable!';
 $LNG['ow_old_version']					= 'A New Version is Available!';
 $LNG['ow_none']						= 'No Warnings';
 //###########################################################//
@@ -863,23 +851,28 @@ $LNG['sp_admin_open']					= '%s (Admin) hat das Ticket am %s geöffnet!';
 
 
 // QuickEditor
-
 $LNG['qe_send']						= 'Submit';
 $LNG['qe_reset']					= 'Reset';
 $LNG['qe_build']					= 'Building';
+$LNG['qe_tech']							= 'Technology';
 $LNG['qe_fleet']					= 'Fleet';
 $LNG['qe_defensive']					= 'Defense';
 $LNG['qe_resources']					= 'Resources';
 $LNG['qe_id']						= 'ID';
 $LNG['qe_name']						= 'Name';
+$LNG['qe_level']						= 'Level';
 $LNG['qe_count']					= 'Available';
 $LNG['qe_input']					= 'Input';
-$LNG['qe_edit_sucess']					= 'Planet %s [%d:%d:%d] successfully processed!';
+$LNG['qe_edit_planet_sucess']			= 'Planet %s [%d:%d:%d] edited successfully!';
+$LNG['qe_edit_player_sucess']			= 'User %s (ID: %d) edited successfully!';
 $LNG['qe_info']						= 'Information';
 $LNG['qe_owner']					= 'Owner';
 $LNG['qe_fields']					= 'Fields';
+$LNG['qe_password']						= 'Password';
 $LNG['qe_coords']					= 'Coordinates';
+$LNG['qe_hpcoords']						= 'HP-Coords';
 $LNG['qe_temp']						= 'Temperature';
+$LNG['qe_change']						= 'Ändern';
 
 //----------------------------------------------------------------------------//
 //TeamSpeakSettingPage.php
