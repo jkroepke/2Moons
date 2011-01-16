@@ -373,7 +373,7 @@ class ResourceUpdate
 		$this->USER['b_tech_planet']						= 0;
 	}
 	
-	public function SavePlanetToDB($USER = NULL, $PLANET = NULL, $UPDATE = NULL)
+	public function SavePlanetToDB($USER = NULL, $PLANET = NULL)
 	{
 		global $resource, $db, $reslist;
 		
@@ -383,8 +383,6 @@ class ResourceUpdate
 		if(is_null($PLANET))
 			global $PLANET;
 			
-		$UPDATE	= is_null($UPDATE) ? $GLOBALS['UPDATE']	: $UPDATE;
-		
 		$Qry	= "LOCK TABLE ".PLANETS." as p WRITE, ".USERS." as u WRITE, ".SESSION." as s WRITE;
 				   UPDATE ".PLANETS." as p, ".USERS." as u, ".SESSION." as s SET
 				   `p`.`metal` = '".floattostring($PLANET['metal'])."',
@@ -420,8 +418,6 @@ class ResourceUpdate
 					$Qry	.= "`u`.`".$resource[$Element]."` = `u`.`".$resource[$Element]."` + '".$Count."', ";
 			}
 		}
-		foreach($GLOBALS['UPDATE'] as $Table => $Info)
-			$Qry	.= $Table." = '".$Info."',";
 		$Qry	.= "`u`.`darkmatter` = '".$USER['darkmatter']."',
 					`u`.`b_tech` = '".$USER['b_tech']."',
 					`u`.`b_tech_id` = '".$USER['b_tech_id']."',
