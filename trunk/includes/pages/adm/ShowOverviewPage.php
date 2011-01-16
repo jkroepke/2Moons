@@ -32,7 +32,7 @@ function ShowOverviewPage()
 			$Message[]	= $LNG['ow_config_file_writable'];
 		
 		if(!is_writable(ROOT_PATH.'includes'))
-			$Message[]	= sprintf($LNG['ow_dir_not_writable'], 'raports');
+			$Message[]	= sprintf($LNG['ow_dir_not_writable'], 'includes');
 			
 		if(!is_writable(ROOT_PATH.'raports'))
 			$Message[]	= sprintf($LNG['ow_dir_not_writable'], 'raports');
