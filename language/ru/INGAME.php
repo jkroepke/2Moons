@@ -354,6 +354,7 @@ $LNG['bd_actual_production']              = 'Производство:';
 $LNG['bd_completed']                      = 'Завершено';
 $LNG['bd_operating']                      = '(в процессе)';
 $LNG['bd_continue']                       = 'продолжить';
+$LNG['bd_price_for_destroy']              = 'Стоимость сноса';
 $LNG['bd_ready']                          = 'готово';
 $LNG['bd_finished']                       = 'готово';
 $LNG['bd_maxlevel']                       = 'Максимально достижимый уровень';
@@ -994,6 +995,9 @@ $LNG['chat_color_green']                  = 'Зелёный';
 $LNG['chat_color_pink']                   = 'Розовый';
 $LNG['chat_color_red']                    = 'Красный';
 $LNG['chat_color_orange']                 = 'Оранжевый';
+$LNG['chat_notext']                       = 'Вы не написали текст!';
+$LNG['chat_request_url']                  = 'Пожалуйста, напишите ссылку:';
+$LNG['chat_request_url_desc']             = 'Пожалуйста, напишите описание ссылки (не обязательно):';
 
 // Техническая поддержка
 $LNG['supp_header']                       = 'Техническая поддержка';
