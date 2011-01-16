@@ -225,7 +225,7 @@ switch ($Mode) {
 			@chmod("../includes/config.php", 0777);
 			if (!is_writable('../includes/config.php'))
 				exit($template->message($LNG['step2_conf_op_fail'], "?mode=ins&page=1&lang=".$LANG->GetUser(), 3, true));
-
+			touch("../includes/error.log");
 			$connection->multi_query(str_replace("prefix_", $prefix, file_get_contents('install.sql')));
 
 			file_put_contents("../includes/config.php", "<?php\n".
