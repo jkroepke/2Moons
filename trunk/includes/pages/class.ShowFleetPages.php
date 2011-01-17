@@ -915,7 +915,7 @@ class ShowFleetPages extends FleetFunctions
 
 		$CurrentFlyingFleets++;
 
-		$ResultMessage  = "600; ".$LNG['fa_sending']." ".$FleetShipCount." ". $LNG['tech'][$Ship] ." a ". $galaxy .":". $system .":". $planet ."...|";
+		$ResultMessage  = "600; ".$LNG['fa_sending']." ".$FleetShipCount." ". $LNG['tech'][$Ship] ." ".$LNG['gl_to']." ". $galaxy .":". $system .":". $planet ."...|";
 		$ResultMessage .= $CurrentFlyingFleets ." ".($UserSpyProbes - $SpyProbes)." ".($UserRecycles - $Recycles)." ".($UserGRecycles - $GRecycles)." ".$UserMissiles;
 
 		die($ResultMessage);

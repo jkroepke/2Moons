@@ -202,6 +202,7 @@ $LNG['gl_yes'] 								= 'Ja';
 $LNG['gl_no'] 								= 'Nein';
 $LNG['gl_points'] 							= 'Punkte';
 $LNG['gl_player']							= 'Spieler';
+$LNG['gl_to']								= 'nach';
 
 //----------------------------------------------------------------------------//
 //PHALANX
@@ -377,11 +378,11 @@ $LNG['bd_more_engine']						= 'Produziert <span style="color:#00FF00">%s</span> 
 $LNG['bd_jump_gate_action']					= 'Springen';
 $LNG['bd_cancel_warning']					= 'Bei Abbruch werden nur 60% der Ressis wiederhergestellt!';
 $LNG['bd_cancel_send']						= 'Markierte - Löschen';
+$LNG['bd_destroy_time'] 					= 'Dauer';
 $LNG['sys_notenough_money'] 				= 'Sie verfügen auf Planet %s <a href="?page=buildings&amp;cp=%d&amp;re=0">[%d:%d:%d]</a> nicht über genügend Ressourcen, um mit dem Bau von %s zu beginnen. <br>Sie verfügen über %s %s , %s %s und %s %s. <br>Die Baukosten betragen %s %s , %s %s und %s %s.';
 $LNG['sys_nomore_level'] 					= 'Sie versuchen, ein Gebäude zu zerstören, was sie nicht mehr besitzen( %s ).';
 $LNG['sys_buildlist'] 						= 'Bauliste';
 $LNG['sys_buildlist_fail'] 					= 'Bau nicht möglich';
-
 
 //----------------------------------------------------------------------------//
 //RESOURCES

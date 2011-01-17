@@ -328,6 +328,7 @@ class ShowBuildingsPage
 			'bd_remaining'			=> $LNG['bd_remaining'],
 			'bd_jump_gate_action'	=> $LNG['bd_jump_gate_action'],
 			'bd_price_for_destroy'	=> $LNG['bd_price_for_destroy'],
+			'bd_destroy_time'		=> $LNG['bd_destroy_time'],
 		));
 			
 		$template->show("buildings_overview.tpl");
