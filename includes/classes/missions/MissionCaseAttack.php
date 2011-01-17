@@ -261,6 +261,7 @@ class MissionCaseAttack extends MissionFunctions
 		$SQL .= "`der_metal` = '".floattostring($DerbisMetal)."', ";
 		$SQL .= "`der_crystal` = '".floattostring($DerbisCrystal)."' ";
 		$SQL .= "WHERE ";
+		$SQL .= "`universe` = '" . $this->_fleet['fleet_universe'] . "' AND ";
 		$SQL .= "`galaxy` = '" . $this->_fleet['fleet_end_galaxy'] . "' AND ";
         $SQL .= "`system` = '" . $this->_fleet['fleet_end_system'] . "' AND ";
         $SQL .= "`planet` = '" . $this->_fleet['fleet_end_planet'] . "' AND ";
