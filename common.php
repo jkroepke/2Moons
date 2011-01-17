@@ -98,7 +98,7 @@ if (INSTALL != true)
 	
 	$CONF = $db->uniquequery("SELECT HIGH_PRIORITY * FROM `".CONFIG."` WHERE `uni` = '".$UNI."';");
 	$CONF['moduls']		= explode(";", $CONF['moduls']);
-	$CONF['paymentkey']	= 'ed7fc98dc3c8759c8079f05d75c66030';
+	// $CONF['paymentkey']	= 'ed7fc98dc3c8759c8079f05d75c66030';
 	$LANG->setDefault($CONF['lang']);
 		
 	define('VERSION'		, $CONF['VERSION']);
