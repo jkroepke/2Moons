@@ -258,8 +258,8 @@ class MissionCaseAttack extends MissionFunctions
 		}
 							
 		$SQL  = "UPDATE ".PLANETS." SET ";
-		$SQL .= "`der_metal` = '".$DerbisMetal."', ";
-		$SQL .= "`der_crystal` = '".$DerbisCrystal."' ";
+		$SQL .= "`der_metal` = '".floattostring($DerbisMetal)."', ";
+		$SQL .= "`der_crystal` = '".floattostring($DerbisCrystal)."' ";
 		$SQL .= "WHERE ";
 		$SQL .= "`galaxy` = '" . $this->_fleet['fleet_end_galaxy'] . "' AND ";
         $SQL .= "`system` = '" . $this->_fleet['fleet_end_system'] . "' AND ";

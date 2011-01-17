@@ -287,11 +287,8 @@ abstract class FleetFunctions
 	
 	public static function GotoFleetPage()
 	{	
-		if($GLOBALS['CONF']['debug'] == 1) {
-			$temp = debug_backtrace();
-			header("X-FAIL-AT-LINE: ".str_replace($_SERVER["DOCUMENT_ROOT"],'.',$temp[0]['file'])." on ".$temp[0]['line']);
-		}
-		redirectTo("game.php"."?page=fleet");
+		$temp = debug_backtrace();
+		redirectTo("game.php"."?page=fleet".($GLOBALS['CONF']['debug'] == 1 ? "&alert=".urlencode(str_replace($_SERVER["DOCUMENT_ROOT"],'.',$temp[0]['file'])." on ".$temp[0]['line']) : ''));
 	}
 
 	public static function GetAKSPage($CurrentUser, $CurrentPlanet, $fleetid)

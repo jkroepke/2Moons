@@ -228,20 +228,15 @@ class ResourceUpdate
 	
 	private function BuildingQueue() 
 	{
-		while(true)
-		{	
-			if(!$this->CheckPlanetBuildingQueue())
-				break;
-			
+		while($this->CheckPlanetBuildingQueue())
 			$this->SetNextQueueElementOnTop();
-		}
 	}
 	
 	private function CheckPlanetBuildingQueue()
 	{
 		global $resource, $db;
 		
-		if (empty($this->PLANET['b_building_id']))
+		if (empty($this->PLANET['b_building_id']) || $this->PLANET['b_building'] > $this->TIME)
 			return false;
 		
 		$CurrentQueue  	= $this->PLANET['b_building_id'];
@@ -253,10 +248,7 @@ class ResourceUpdate
 		$Level      	= $BuildArray[1];
 		$BuildEndTime 	= $BuildArray[3];
 		$BuildMode    	= $BuildArray[4];
-			
-		if ($BuildEndTime > $this->TIME)
-			return false;
-
+	
 		$ForDestroy = ($BuildMode == 'destroy') ? true : false;
 		
 		if ($ForDestroy == false)
@@ -280,8 +272,6 @@ class ResourceUpdate
 			$this->PLANET['b_building_id'] 	= '';
 			return false;
 		} else {
-			$BuildArray 	  				= explode (",", $QueueArray[0]);
-			$this->PLANET['b_building']    	= $BuildArray[3];
 			$this->PLANET['b_building_id'] 	= implode(";", $QueueArray);
 			return true;
 		}
@@ -295,18 +285,18 @@ class ResourceUpdate
 		{
 			$this->PLANET['b_building']    = 0;
 			$this->PLANET['b_building_id'] = '';
+			return false;
 		}
 
 		$QueueArray 	= explode (";", $this->PLANET['b_building_id']);
 		$Loop       	= true;
-		$BuildEndTime	= $this->TIME;
 		while ($Loop == true)
 		{
 			$ListIDArray         = explode(",", $QueueArray[0]);
 			$Element             = $ListIDArray[0];
 			$Level               = $ListIDArray[1];
 			$BuildTime  	     = GetBuildingTime($this->USER, $this->PLANET, $Element, $ListIDArray[4] == 'destroy');
-			$BuildEndTime        = $this->TIME + $BuildTime;
+			$BuildEndTime        = $this->PLANET['b_building'] + $BuildTime;
 			$BuildMode           = $ListIDArray[4];
 			$QueueArray[0]		 = implode(",", array($Element, $Level, $BuildTime, $BuildEndTime, $BuildMode));
 			$ForDestroy 		 = ($BuildMode == 'destroy') ? true : false;
@@ -320,13 +310,13 @@ class ResourceUpdate
 			}
 
 			if($HaveRessources == true) {
-				$Needed                 = GetBuildingPrice ($this->USER, $this->PLANET, $Element, true, $ForDestroy);
-				$this->PLANET['metal']       -= $Needed['metal'];
-				$this->PLANET['crystal']     -= $Needed['crystal'];
-				$this->PLANET['deuterium']   -= $Needed['deuterium'];
-				$this->USER['darkmatter']    -= $Needed['darkmatter'];					
-				$NewQueue               = implode( ";", $QueueArray);
-				$Loop                   = false;
+				$Needed                 	= GetBuildingPrice ($this->USER, $this->PLANET, $Element, true, $ForDestroy);
+				$this->PLANET['metal']      -= $Needed['metal'];
+				$this->PLANET['crystal']    -= $Needed['crystal'];
+				$this->PLANET['deuterium']  -= $Needed['deuterium'];
+				$this->USER['darkmatter']   -= $Needed['darkmatter'];
+				$NewQueue               	= implode( ";", $QueueArray);
+				$Loop                  		= false;
 			} else {
 				if($this->USER['hof'] == 1){
 					if ($Mode == true)
