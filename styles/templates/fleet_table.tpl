@@ -127,5 +127,10 @@
 		<tr><td>+{$bonus_combustion} %</td><td>+{$bonus_impulse} %</td><td>+{$bonus_hyperspace} %</td></tr>
 		</table>
 </div>
+{if isset($smarty.get.alert)}
+<script type="text/javascript">
+alert(unescape("{$smarty.get.alert}"));
+</script>
+{/if}
 {include file="planet_menu.tpl"}
 {include file="overall_footer.tpl"}
