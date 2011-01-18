@@ -20,9 +20,9 @@
 ##############################################################################
 
 
-function calculateAttack(&$attackers, &$defenders)
+function calculateAttack(&$attackers, &$defenders, $FleetTF, $DefTF)
 {
-	global $pricelist, $CombatCaps, $CONF, $resource, $ExtraDM, $OfficerInfo;
+	global $pricelist, $CombatCaps, $resource, $ExtraDM, $OfficerInfo;
 
 	$TRES 	= array('attacker' => 0, 'defender' => 0);
 	$ARES 	= $DRES = array('metal' => 0, 'crystal' => 0);
@@ -299,10 +299,10 @@ function calculateAttack(&$attackers, &$defenders)
 	}
 	
 	$totalLost = array('att' => $TRES['attacker'], 'def' => $TRES['defender']);
-	$debAttMet = ($ARES['metal'] * ($CONF['Fleet_Cdr'] / 100));
-	$debAttCry = ($ARES['crystal'] * ($CONF['Fleet_Cdr'] / 100));
-	$debDefMet = ($DRES['metal'] * ($CONF['Fleet_Cdr'] / 100)) + ($DRESDefs['metal'] * ($CONF['Defs_Cdr'] / 100));
-	$debDefCry = ($DRES['crystal'] * ($CONF['Fleet_Cdr'] / 100)) + ($DRESDefs['crystal'] * ($CONF['Defs_Cdr'] / 100));
+	$debAttMet = ($ARES['metal'] * ($FleetTF / 100));
+	$debAttCry = ($ARES['crystal'] * ($FleetTF / 100));
+	$debDefMet = ($DRES['metal'] * ($FleetTF / 100)) + ($DRESDefs['metal'] * ($DefTF / 100));
+	$debDefCry = ($DRES['crystal'] * ($FleetTF / 100)) + ($DRESDefs['crystal'] * ($DefTF / 100));
 
 	return array('won' => $won, 'debree' => array('att' => array($debAttMet, $debAttCry), 'def' => array($debDefMet, $debDefCry)), 'rw' => $ROUND, 'lost' => $totalLost);
 }

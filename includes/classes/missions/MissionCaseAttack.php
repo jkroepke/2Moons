@@ -129,9 +129,9 @@ class MissionCaseAttack extends MissionFunctions
 		$Defender['id']		= array_unique($DefenderRow['id']);
 		$Defender['name']	= array_unique($DefenderRow['name']);
 
+		$CONF		= $db->uniquequery("SELECT `Fleet_Cdr`, `Defs_Cdr` FROM `".CONFIG."` WHERE `uni` = '".$this->_fleet['fleet_universe']."';");
 		require_once('calculateAttack.php');
-
-		$result 	= calculateAttack($attackFleets, $defense);
+		$result 	= calculateAttack($attackFleets, $defense, $CONF['Fleet_Cdr'], $CONF['Defs_Cd']);
 		$SQL		= "";
 			
 		foreach ($attackFleets as $fleetID => $attacker)
@@ -227,6 +227,9 @@ class MissionCaseAttack extends MissionFunctions
 	
 		file_put_contents(ROOT_PATH.'raports/raport_'.$rid.'.php', '<?php'."\n".'$raport = '.$raport.';'."\n".'?>');
 		file_put_contents(ROOT_PATH.'raports/topkb_'.$rid.'.php', '<?php'."\n".'$raport = '.preg_replace("/\[\d+\:\d+\:\d+\]/i", "[X:X:X]", $raport).';'."\n".'?>');
+	
+		if(DEBUG_EXTRA)
+			file_put_contents(ROOT_PATH.'includes/attack.log', date('[d-M-Y H:i:s]', $this->_fleet['fleet_start_time']).'(FleetID: '.$this->_fleet['fleet_id'].') Attacker: '.$this->_fleet['fleet_owner'].'/ Defender: '.$this->_fleet['fleet_target_owner'].' | TF: '.floattostring($DerbisMetal).'/'.floattostring($DerbisCrystal));
 		
 		$WhereAtt = "";
 		$WhereDef = "";

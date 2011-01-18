@@ -19,6 +19,26 @@
 # *                                                                          #
 ##############################################################################
 
+function getUniverse()
+{
+	if(defined('IN_ADMIN') && isset($_SESSION['adminuni'])) {
+		$UNI = $_SESSION['adminuni'];
+	} elseif(!isset($_SESSION['uni'])) {
+		if(UNIS_WILDCAST) {
+			$UNI	= explode('.', $_SERVER['HTTP_HOST']);
+			$UNI	= substr($UNI[0], 3);
+			if(!is_numeric($UNI))
+				$UNI	= 1;
+		} else {
+			$UNI	= 1;
+		}
+	} else {
+		$UNI	= $_SESSION['uni'];
+	}
+	
+	return $UNI;
+}
+
 function update_config($Values, $Global = false, $SpecUni = 0)
 {
 	global $CONF, $db;

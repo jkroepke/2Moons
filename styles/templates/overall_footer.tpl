@@ -73,6 +73,20 @@ ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www')
 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 })();
 {/if}
+{if $debug == 1}
+function handleErr(msg, url, line_no) 
+{ 
+ errorMsg = "Error: " + msg + "\n"; 
+ errorMsg += "URL: " + url + "\n"; 
+ errorMsg += "Line: " + line_no + "\n\n"; 
+ 
+ alert(errorMsg); 
+ 
+ return true; 
+} 
+ 
+onerror = handleErr;
+{/if}
 </script>
 </body>
 </html>

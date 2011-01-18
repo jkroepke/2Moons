@@ -51,10 +51,7 @@ ini_set('session.bug_compat_warn', '0');
 ini_set('session.bug_compat_42', '0');
 ini_set('session.cookie_httponly', true);
 ini_set('magic_quotes_runtime', 0);
-if(defined('CLI') && CLI === true)
-	ini_set('error_log', ROOT_PATH.'/includes/cli_error.log');
-else
-	ini_set('error_log', ROOT_PATH.'/includes/error.log');
+ini_set('error_log', ROOT_PATH.'/includes/error.log');
 
 if(!defined('LOGIN') && INSTALL == false)
 	session_start();
@@ -75,27 +72,11 @@ elseif(INSTALL != true)
 
 $LANG	= new Language();	
 
-	
-$UPDATE	= array();
 unset($database);
 
 if (INSTALL != true)
 {
-	if(defined('IN_ADMIN') && isset($_SESSION['adminuni'])) {
-		$UNI = $_SESSION['adminuni'];
-	} elseif(!isset($_SESSION['uni'])) {
-		if(UNIS_WILDCAST) {
-			$UNI	= explode('.', $_SERVER['HTTP_HOST']);
-			$UNI	= substr($UNI[0], 3);
-			if(!is_numeric($UNI))
-				$UNI	= 1;
-		} else {
-			$UNI	= 1;
-		}
-	} else {
-		$UNI	= $_SESSION['uni'];
-	}	
-	
+	$UNI	= getUniverse();
 	$CONF = $db->uniquequery("SELECT HIGH_PRIORITY * FROM `".CONFIG."` WHERE `uni` = '".$UNI."';");
 	$CONF['moduls']		= explode(";", $CONF['moduls']);
 	// $CONF['paymentkey']	= 'ed7fc98dc3c8759c8079f05d75c66030';

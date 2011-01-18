@@ -1,15 +1,27 @@
 <?php
 
 if(php_sapi_name() === 'cli') {
-	define('CLI', true);
-	define('INSIDE', true);
+	error_reporting(E_ALL ^ E_NOTICE);
 	define('ROOT_PATH', str_replace('\\', '/', dirname(dirname(__FILE__))).'/');
-	include_once(ROOT_PATH . 'common.php');
+	define('TIMESTAMP',	time());
 	ini_set('display_errors', 0);
+	ini_set('error_log', ROOT_PATH.'/includes/cli_error.log');
+	if(!function_exists('bcadd'))
+		require_once(ROOT_PATH . 'includes/bcmath.php');
+
+	require_once(ROOT_PATH . 'includes/config.php');	
+	require_once(ROOT_PATH . 'includes/constants.php');
+	require_once(ROOT_PATH . 'includes/classes/class.MySQLi.php');
+	require_once(ROOT_PATH . 'includes/classes/class.Lang.php');
+	require_once(ROOT_PATH . 'includes/GeneralFunctions.php');
+	require_once(ROOT_PATH . 'includes/vars.php');
+	$db 	= new DB_MySQLi();
+	unset($database);
+	$LANG	= new Language();
 }
 function init() {
 	global $db;
-	if(CLI === true && (defined('IN_ADMIN') || request_var('ajax', 0) != 0)) 
+	if(php_sapi_name() === 'cli' && (defined('IN_ADMIN') || request_var('ajax', 0) != 0)) 
 		return false;
 	
 	$db->query("LOCK TABLE ".AKS." WRITE, ".RW." WRITE, ".MESSAGES." WRITE, ".FLEETS." WRITE, ".PLANETS." WRITE, ".PLANETS." as p WRITE, ".TOPKB." WRITE, ".USERS." WRITE, ".USERS." as u WRITE, ".STATPOINTS." WRITE;");	
@@ -25,7 +37,7 @@ function init() {
 	$db->query("UNLOCK TABLES");  
 }
 init();
-if(CLI === true) {
+if(php_sapi_name() === 'cli') {
 	echo 'OK! - '.date("H:i:s")."\r\n";
 }
 ?>
