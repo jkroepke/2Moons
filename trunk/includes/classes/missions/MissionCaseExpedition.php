@@ -34,7 +34,7 @@ class MissionCaseExpedition extends MissionFunctions
 	
 	function EndStayEvent()
 	{
-		global $pricelist, $CONF, $db, $reslist, $LANG;
+		global $pricelist, $db, $reslist, $LANG;
 		$LNG			= $LANG->GetUserLang($this->_fleet['fleet_owner']);
 		foreach($reslist['fleet'] as $ID)
 		{
@@ -70,7 +70,7 @@ class MissionCaseExpedition extends MissionFunctions
 		{
 			case 1:
 				$WitchFound	= mt_rand(1,3);
-				
+				$CONF		= $db->uniquequery("SELECT resource_multiplier FROM `".CONFIG."` WHERE `uni` = '".$this->_fleet['fleet_universe']."';");
 				$FindSize = mt_rand(0, 100);
 				if(10 < $FindSize) {
 					$WitchSize	= 1;

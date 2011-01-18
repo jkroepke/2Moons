@@ -49,8 +49,8 @@ class DB_mysqli extends mysqli
 
 		if(mysqli_connect_error())
 		{
-			if(defined('CLI') && CLI === true) {
-				echo mysqli_connect_error()."\r\n";
+			if(php_sapi_name() === 'cli') {
+				echo "> ".mysqli_connect_error()."\r\n";
 				exit(2);
 			} elseif($test != true) {
 				throw new Exception("Connection to database failed: ".mysqli_connect_error());

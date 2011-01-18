@@ -108,6 +108,9 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	// 1 = (AAA); 2 = (AAA.BBB); 3 = (AAA.BBB.CCC)
 	define('COMPARE_IP_BLOCKS'	  	  , 2);
 	
+	// DEBUG LOG
+	define('DEBUG_EXTRA'	  	 	 , true);
+	
 	// INITIAL RESOURCE OF NEW PLANETS
 	define('BUILD_METAL'              , 500);
 	define('BUILD_CRISTAL'            , 500);
