@@ -146,6 +146,7 @@ class ShowResearchPage
 			}
 		}
 		
+		
 		$PlanetRess->CalcResource();
 		$PlanetRess->SavePlanetToDB();
 		$ScriptInfo	= array();
