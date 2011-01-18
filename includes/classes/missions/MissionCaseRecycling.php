@@ -38,11 +38,11 @@ class MissionCaseRecycling extends MissionFunctions
 		{
 			if (empty($Group)) continue;
 
-			$Class       			= explode (",", $Group);
+			$Class       			= explode(",", $Group);
 			$RecyclerCapacity		= $Class[0] == 209 || $Class[0] == 219 ? bcadd($RecyclerCapacity, bcmul($pricelist[$Class[0]]['capacity'], $Class[1])) : bcadd($OtherFleetCapacity, bcmul($pricelist[$Class[0]]['capacity'], $Class[1]));
 		}		
 		
-		$IncomingFleetGoods 	= $this->_fleet['fleet_resource_metal'] + $this->_fleet['fleet_resource_crystal'] + $this->_fleet['fleet_resource_deuterium'];
+		$IncomingFleetGoods 	= bcadd($this->_fleet['fleet_resource_metal'], bcadd($this->_fleet['fleet_resource_crystal'], $this->_fleet['fleet_resource_deuterium']));
 		if ($IncomingFleetGoods > $OtherFleetCapacity)
 			$RecyclerCapacity	= bcsub($RecyclerCapacity, bcsub($IncomingFleetGoods, $OtherFleetCapacity));		
 		
@@ -52,11 +52,13 @@ class MissionCaseRecycling extends MissionFunctions
 		$Target['der_crystal']		= bcsub($Target['der_crystal'], $RecycledGoods['crystal']);
 		
 		$RecyclerCapacity			= bcsub($RecyclerCapacity, bcadd($RecycledGoods['metal'], $RecycledGoods['crystal']));
-		if($Target['der_metal'] !== '0')
-			$RecycledGoods['metal']   = bcadd($RecycledGoods['metal'], min($Target['der_metal'], $RecyclerCapacity));
-		elseif($Target['der_crystal'] !== '0')
-			$RecycledGoods['crystal'] = bcadd($RecycledGoods['crystal'], min($Target['der_crystal'], $RecyclerCapacity));
-	
+		if($RecyclerCapacity != '0') 
+		{
+			if($Target['der_metal'] != '0')
+				$RecycledGoods['metal']   = bcadd($RecycledGoods['metal'], min($Target['der_metal'], $RecyclerCapacity));
+			elseif($Target['der_crystal'] != '0')
+				$RecycledGoods['crystal'] = bcadd($RecycledGoods['crystal'], min($Target['der_crystal'], $RecyclerCapacity));
+		}
 	
 		$db->query("UPDATE ".PLANETS." SET `der_metal` = `der_metal` - '".$RecycledGoods['metal']."', `der_crystal` = `der_crystal` - '".$RecycledGoods['crystal']."' WHERE `id` = '".$this->_fleet['fleet_end_id']."';");
 
