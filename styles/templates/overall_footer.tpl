@@ -10,7 +10,7 @@ var Skin		= "{$dpath}";
 var Lang		= "{$lang}";
 var auth		= {$authlevel};
 </script>
-{if $debug = 1}
+{if $debug == 1}
 <script type="text/javascript" src="{$cd}scripts/base.js"></script>
 <script type="text/javascript" src="{$cd}scripts/global.js"></script>
 {foreach item=scriptname from=$scripts}
@@ -74,15 +74,18 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 })();
 {/if}
 {if $debug == 1}
-function handleErr(msg, url, line_no) 
+function handleErr(errMessage, url, line) 
 { 
- errorMsg = "Error: " + msg + "\n"; 
- errorMsg += "URL: " + url + "\n"; 
- errorMsg += "Line: " + line_no + "\n\n"; 
+	error="There is an error at this page.\n";
+	error+="Error: " + errMessage+ "\n";
+	error+="URL: " + url + "\n";
+	error+="Line: " + line + "\n\n";
+	error+="Click OK to continue viewing this page,\n";
+	alert(error);
+	if(typeof console == "object")
+		console.log(error);
  
- alert(errorMsg); 
- 
- return true; 
+	return true; 
 } 
  
 onerror = handleErr;

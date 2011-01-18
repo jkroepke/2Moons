@@ -60,7 +60,7 @@ class MissionCaseRecycling extends MissionFunctions
 				$RecycledGoods['crystal'] = bcadd($RecycledGoods['crystal'], min($Target['der_crystal'], $RecyclerCapacity));
 		}
 	
-		$db->query("UPDATE ".PLANETS." SET `der_metal` = `der_metal` - '".$RecycledGoods['metal']."', `der_crystal` = `der_crystal` - '".$RecycledGoods['crystal']."' WHERE `id` = '".$this->_fleet['fleet_end_id']."';");
+		$db->query("UPDATE ".PLANETS." SET `der_metal` = `der_metal` - ".$RecycledGoods['metal'].", `der_crystal` = `der_crystal` - ".$RecycledGoods['crystal']." WHERE `id` = '".$this->_fleet['fleet_end_id']."';");
 
 		$LNG			= $LANG->GetUserLang($this->_fleet['fleet_owner']);
 		$Message 		= sprintf($LNG['sys_recy_gotten'], pretty_number($RecycledGoods['metal']), $LNG['Metal'], pretty_number($RecycledGoods['crystal']), $LNG['Crystal']);
