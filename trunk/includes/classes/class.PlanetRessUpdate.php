@@ -53,7 +53,6 @@ class ResourceUpdate
 		if($this->Build)
 		{
 			$this->ShipyardQueue();
-			
 			if($this->USER['b_tech'] != 0 && $this->USER['b_tech'] < $this->TIME)
 				$this->ResearchQueue();
 			if($this->PLANET['b_building'] != 0)
@@ -355,7 +354,7 @@ class ResourceUpdate
 	
 	private function ResearchQueue()
 	{
-		global $resource;		
+		global $resource;
 		$this->Builded[$this->USER['b_tech_id']]			= 1;
 		$this->USER[$resource[$this->USER['b_tech_id']]]	+= 1;
 		$this->USER['b_tech_id']							= 0;
