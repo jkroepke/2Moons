@@ -89,6 +89,8 @@ switch($action)
 			$Data	= $db->uniquequery("SELECT u.`urlaubs_modus`, p.`id_level`, p.`destruyed`, p.`der_metal`, p.`der_crystal`, p.`destruyed` FROM ".USERS." as u, ".PLANETS." as p WHERE p.universe = '".$UNI."' AND p.`galaxy` = '".$TargetGalaxy."' AND p.`system` = '".$TargetSystem."' AND p.`planet` = '".$TargetPlanet."'  AND p.`planet_type` = '".(($TargetPlanettype == 2) ? 1 : $TargetPlanettype)."' AND `u`.`id` = p.`id_owner`;");
 			if ($TargetPlanettype == 3 && !isset($Data))
 				exit($LNG['fl_error_no_moon']);
+			elseif (!isset($Data))
+				exit($LNG['fl_error_not_avalible']);
 			elseif ($Data['urlaubs_modus'])
 				exit($LNG['fl_in_vacation_player']);
 			elseif ($Data['id_level'] > $_SESSION['authlevel'])
@@ -226,10 +228,10 @@ switch($action)
 		switch($DeleteWhat)
 		{
 			case 'deleteall':
-				$db->query("DELETE FROM ".MESSAGES." WHERE `message_owner` = '".$_SESSION['id']."';");
+				$db->multiquery("DELETE FROM ".MESSAGES." WHERE `message_owner` = '".$_SESSION['id']."';UPDATE ".USERS." SET `new_message` = '0', `new_gmessage` = '0' WHERE `id` = '".$_SESSION['id']."';");
 			break;
 			case 'deletetypeall':
-				$db->query("DELETE FROM ".MESSAGES." WHERE `message_owner` = '".$_SESSION['id']."' AND `message_type` = '".$MessType."';");
+				$db->multiquery("DELETE FROM ".MESSAGES." WHERE `message_owner` = '".$_SESSION['id']."' AND `message_type` = '".$MessType."';UPDATE ".USERS." SET `new_message` = '0', `new_gmessage` = '0' WHERE `id` = '".$_SESSION['id']."';");
 			case 'deletemarked':
 				if(!empty($_REQUEST['delmes']) && is_array($_REQUEST['delmes']))
 				{
