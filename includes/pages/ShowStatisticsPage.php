@@ -74,7 +74,7 @@ function ShowStatisticsPage()
 	switch($who)
 	{
 		case 1:
-			$MaxUsers 	= $db->countquery("SELECT COUNT(*) FROM ".USERS." WHERE `universe` = '".$UNI."' AND `db_deaktjava` = '0';");
+			$MaxUsers 	= $CONF['users_amount'];
 			$range		= min($range, $MaxUsers);			
 			$LastPage 	= ceil($MaxUsers / 100);
 			
