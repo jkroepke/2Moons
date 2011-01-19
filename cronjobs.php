@@ -23,7 +23,7 @@ define('INSIDE'  , true);
 define('INSTALL' , false);
 define('IN_CRON' , true);
 
-define('ROOT_PATH', './');
+define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 include(ROOT_PATH . 'common.php');
 
 if (empty($_SESSION)) exit;
@@ -86,7 +86,6 @@ switch($cron)
 					file_put_contents(ROOT_PATH.'cache/teamspeak_cache.php', serialize($tsAdmin->serverInfo()));
 					$tsAdmin->logout();
 				}
-				var_dump($tsAdmin->getDebugLog());
 			}
 		}
 	break;

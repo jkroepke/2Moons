@@ -151,8 +151,14 @@ class MissionCaseExpedition extends MissionFunctions
 				$Found			= array();
 				foreach($reslist['fleet'] as $ID) 
 				{
-					if(!isset($FleetCount[$ID]) || $ID == 208 || $ID == 209 || $ID == 214) continue;
-					$Count				= mt_rand(1, floor($FoundShips / ($pricelist[$ID]['metal'] + $pricelist[$ID]['crystal'])));
+					if(!isset($FleetCount[$ID]) || $ID == 208 || $ID == 209 || $ID == 214)
+						continue;
+					
+					$MaxFound			= floor($FoundShips / ($pricelist[$ID]['metal'] + $pricelist[$ID]['crystal']));
+					if($MaxFound <= 0) 
+						continue;
+					
+					$Count				= mt_rand(0, $MaxFound);
 					$Found[$ID]			+= $Count;
 					$FoundShips	 		-= $Count * ($pricelist[$ID]['metal'] + $pricelist[$ID]['crystal']);
 					$FoundShipMess   	.= '<br>'.$LNG['tech'][$ID].': '.pretty_number($Count);
