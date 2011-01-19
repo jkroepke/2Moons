@@ -107,8 +107,11 @@ switch ($Mode) {
 			$error++;
 		}
 		
-		$bcmath = function_exists('HLadd') ? "<span class=\"yes\">".$LNG['reg_yes']."</span>" : "<span class=\"ok\">".$LNG['reg_no']."</span>";
-		
+		if(extension_loaded('bcmath'))
+			$bcmath = "<span class=\"yes\">".$LNG['reg_yes']."</span>";
+		else
+			$bcmath	= "<span class=\"ok\">".$LNG['reg_no']."</span>";
+	
 		if(function_exists('ini_set')){
 			$iniset = "<span class=\"yes\">".$LNG['reg_yes']."</span>";
 		} else {

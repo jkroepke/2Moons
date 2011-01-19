@@ -22,7 +22,7 @@
 
 function ShowBattleSimPage()
 {
-	global $USER, $PLANET, $reslist, $pricelist, $LNG, $db, $ExtraDM, $LANG;
+	global $USER, $PLANET, $reslist, $pricelist, $LNG, $db, $ExtraDM, $LANG, $CONF;
 	
 	$action			= request_var('action', '');
 	$Slots			= request_var('slots', 1);
@@ -90,7 +90,7 @@ function ShowBattleSimPage()
 		require_once(ROOT_PATH.'includes/classes/missions/calculateSteal.php');
 		require_once(ROOT_PATH.'includes/classes/missions/GenerateReport.php');
 		$start 				= microtime(true);
-		$result 			= calculateAttack($attack, $defense);
+		$result 			= calculateAttack($attack, $defense, $CONF['Fleet_Cdr'], $CONF['Defs_Cd']);
 		$totaltime 			= microtime(true) - $start;
 		
 		$steal = $result['won'] == "a" ? calculateSteal($attack, array('metal' => $BattleArray[0][1][1], 'crystal' => $BattleArray[0][1][2], 'deuterium' => $BattleArray[0][1][3]), true) : array('metal' => 0, 'crystal' => 0, 'deuterium' => 0);
