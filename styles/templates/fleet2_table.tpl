@@ -73,7 +73,7 @@
 			</td>
 		</tr>
         <tr style="height:20px;">
-        	<td colspan="2"><input value="{$fl_continue}" type="submit" onclick="window.setTimeout(&quot;$(this).attr('disabled','disabled');&quot;, 10)"></input></td>
+        	<td colspan="2"><input value="{$fl_continue}" type="submit"></input></td>
         </tr>
     </table>
 </div>
