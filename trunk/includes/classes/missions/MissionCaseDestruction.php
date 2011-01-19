@@ -97,7 +97,7 @@ class MissionCaseDestruction extends MissionFunctions
 		
 		$CONF		= $db->uniquequery("SELECT `Fleet_Cdr`, `Defs_Cdr` FROM `".CONFIG."` WHERE `uni` = '".$this->_fleet['fleet_universe']."';");
 		require_once('calculateAttack.php');
-		$result 	= calculateAttack($attackFleets, $defense, $CONF['Fleet_Cdr'], $CONF['Defs_Cd']);
+		$result 	= calculateAttack($attackFleets, $defense, $CONF['Fleet_Cdr'], $CONF['Defs_Cdr']);
 
 		$SQL		= "";
 			
