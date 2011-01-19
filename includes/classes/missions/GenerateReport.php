@@ -197,8 +197,8 @@ function GenerateReport($RESULT, $INFO)
 		$html .= '</tr></table>';
 		if (array_sum($des['att']) == count($attackers2) || array_sum($des['def']) == count($defenders2)) break;
 				
-		$html .= '".$LNG["fleet_attack_1"]." '.floattostring($data1['attack']).' ".$LNG["fleet_attack_2"]." '.floattostring($data1['defShield']).' ".$LNG["damage"]."<br>';
-		$html .= '".$LNG["fleet_defs_1"]." '.floattostring($data1['defense']).' ".$LNG["fleet_defs_2"]." '.floattostring($data1['attackShield']).' ".$LNG["damage"]."<br><br>';
+		$html .= '".$LNG["fleet_attack_1"]." '.pretty_number($data1['attack']).' ".$LNG["fleet_attack_2"]." '.pretty_number($data1['defShield']).' ".$LNG["damage"]."<br>';
+		$html .= '".$LNG["fleet_defs_1"]." '.pretty_number($data1['defense']).' ".$LNG["fleet_defs_2"]." '.pretty_number($data1['attackShield']).' ".$LNG["damage"]."<br><br>';
 		$round_no++;			
 	}
 
@@ -216,8 +216,8 @@ function GenerateReport($RESULT, $INFO)
 	}
 
 	$html .= '<br><br>'.$result1.'<br>';
-	$html .= '".$LNG["sys_attacker_lostunits"]." '.floattostring($RESULT['lost']['att']).' ".$LNG["sys_units"]."<br>';
-	$html .= '".$LNG["sys_defender_lostunits"]." '.floattostring($RESULT['lost']['def']).' ".$LNG["sys_units"]."<br>';
+	$html .= '".$LNG["sys_attacker_lostunits"]." '.pretty_number($RESULT['lost']['att']).' ".$LNG["sys_units"]."<br>';
+	$html .= '".$LNG["sys_defender_lostunits"]." '.pretty_number($RESULT['lost']['def']).' ".$LNG["sys_units"]."<br>';
 	$html .= '".$LNG["debree_field_1"]." '.pretty_number($RESULT['debree']['att'][0] + $RESULT['debree']['def'][0]).' ".$LNG["Metal"]." ".$LNG["sys_and"]." '.pretty_number($RESULT['debree']['att'][1] + $RESULT['debree']['def'][1]).' ".$LNG["Crystal"]." ".$LNG["debree_field_2"]."<br><br>';
 		
 	if($INFO['moon']['des'] == 1) {
