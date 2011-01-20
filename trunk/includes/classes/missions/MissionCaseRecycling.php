@@ -29,7 +29,7 @@ class MissionCaseRecycling extends MissionFunctions
 	function TargetEvent()
 	{	
 		global $db, $pricelist, $LANG;
-		$Target				 = $db->uniquequery("SELECT der_metal, der_crystal FROM ".PLANETS." WHERE `id` = '".$this->_fleet['fleet_end_id']."';");
+		$Target				 = $db->uniquequery("SELECT der_metal, der_crystal, (der_metal + der_crystal) as der_total FROM ".PLANETS." WHERE `id` = '".$this->_fleet['fleet_end_id']."';");
 		$FleetRecord         = explode(";", $this->_fleet['fleet_array']);
 		$RecyclerCapacity    = 0;
 		$OtherFleetCapacity  = 0;
@@ -46,19 +46,17 @@ class MissionCaseRecycling extends MissionFunctions
 		if ($IncomingFleetGoods > $OtherFleetCapacity)
 			$RecyclerCapacity	= bcsub($RecyclerCapacity, bcsub($IncomingFleetGoods, $OtherFleetCapacity));		
 		
-		$RecycledGoods['metal']   	= min($Target['der_metal'], bcdiv($RecyclerCapacity, 2));
-		$RecycledGoods['crystal'] 	= min($Target['der_crystal'], bcdiv($RecyclerCapacity, 2));		
-		$Target['der_metal']		= bcsub($Target['der_metal'], $RecycledGoods['metal']);
-		$Target['der_crystal']		= bcsub($Target['der_crystal'], $RecycledGoods['crystal']);
-		
-		$RecyclerCapacity			= bcsub($RecyclerCapacity, bcadd($RecycledGoods['metal'], $RecycledGoods['crystal']));
-		if($RecyclerCapacity != '0') 
-		{
-			if($Target['der_metal'] != '0')
-				$RecycledGoods['metal']   = bcadd($RecycledGoods['metal'], min($Target['der_metal'], $RecyclerCapacity));
-			elseif($Target['der_crystal'] != '0')
-				$RecycledGoods['crystal'] = bcadd($RecycledGoods['crystal'], min($Target['der_crystal'], $RecyclerCapacity));
-		}
+		$RecycledGoods	= array('metal' => 0, 'crystal' => 0);
+
+		if(bccomp($RecyclerCapacity, $Target['der_total'], 0) !== -1){
+			$RecycledGoods['metal'] 	= $Target['der_metal'];
+			$RecycledGoods['crystal'] 	= $Target['der_crystal'];
+		} else {
+			$PC = bcdiv($RecyclerCapacity, $Target['der_total'], 50);
+			
+			$RecycledGoods['metal'] 	= bcmul($Target['der_metal'], $PC , 0);
+			$RecycledGoods['crystal'] 	= bcmul($Target['der_crystal'], $PC, 0);
+		}		
 	
 		$db->query("UPDATE ".PLANETS." SET `der_metal` = `der_metal` - ".$RecycledGoods['metal'].", `der_crystal` = `der_crystal` - ".$RecycledGoods['crystal']." WHERE `id` = '".$this->_fleet['fleet_end_id']."';");
 

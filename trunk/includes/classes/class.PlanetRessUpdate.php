@@ -173,7 +173,9 @@ class ResourceUpdate
 			$this->PLANET['b_hangar'] = 0;
 			return false;
 		}
-		
+		if(!function_exits('GetBuildingTime'))
+			file_put_contents(ROOT_PATH.'include/slaver.log', print_r(debug_backtrace(), true)."\r\n-----------\r\n\r\n", FILE_APPEND);
+			
 		$BuildQueue                 = explode(';', $this->PLANET['b_hangar_id']);
 		$AcumTime					= 0;
 		$this->PLANET['b_hangar'] 	+= ($this->TIME - $this->PLANET['last_update']);
