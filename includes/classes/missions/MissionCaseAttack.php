@@ -181,7 +181,7 @@ class MissionCaseAttack extends MissionFunctions
 				}
 				
 				$SQL .= "UPDATE ".PLANETS." SET ";
-				#$SQL .= $fleetArray;
+				$SQL .= $fleetArray;
 				$SQL .= "`metal` = `metal` - '".$steal['metal']."', ";
 				$SQL .= "`crystal` = `crystal` - '".$steal['crystal']."', ";
 				$SQL .= "`deuterium` = `deuterium` - '".$steal['deuterium']."' ";
