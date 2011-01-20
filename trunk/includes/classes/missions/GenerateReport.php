@@ -229,7 +229,7 @@ function GenerateReport($RESULT, $INFO)
 			$html .= $INFO['moon']['desfail'] == 0 ? '".$LNG["sys_destruc_reussi"]."' : '".$LNG["sys_destruc_null"]."';			
 			$html .= '<br>".sprintf($LNG["sys_destruc_rip"], "'.$INFO['moon']['chance2'].'")."';
 			if($INFO['moon']['fleetfail'] == 1) {
-				$html .= '".$LNG["sys_destruc_echec"]."';
+				$html .= '<br>".$LNG["sys_destruc_echec"]."';
 			}			
 		}
 	} else {

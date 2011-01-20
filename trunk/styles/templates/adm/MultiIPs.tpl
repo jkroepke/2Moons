@@ -1,6 +1,6 @@
 {include file="adm/overall_header.tpl"}
 <table style="width:569px">
-<tr><th>IP</th><th>Username</th>
+<tr><th>{$mip_ip}</th><th>{$mip_user}</th>
 {foreach $IPs as $IP => $Users}
 <tr>
 <td>{$IP}</td>
