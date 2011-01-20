@@ -145,6 +145,7 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	define('AUTH_ADM'                 , 3);
 	define('AUTH_OPS'                 , 2);
 	define('AUTH_MOD'                 , 1);
+	define('AUTH_USR'                 , 0);
 	
 	// Data Tabells
 	define('DB_NAME'				  , $database["databasename"]);

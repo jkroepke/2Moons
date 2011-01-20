@@ -24,10 +24,10 @@ function ShowTopnavPage()
 {
 	global $LNG, $USER, $db, $UNI, $CONF;
 	$template	= new template();
-	$AvailableUnis[$CONF['uni']]	= $CONF['game_name'];
+	$AvailableUnis[$CONF['uni']]	= $CONF['game_name'].' (ID: '.$CONF['uni'].')';
 	$Query	= $db->query("SELECT `uni`, `game_name` FROM ".CONFIG." WHERE `uni` != '".$UNI."' ORDER BY `uni` DESC;");
 	while($Unis	= $db->fetch_array($Query)) {
-		$AvailableUnis[$Unis['uni']]	= $Unis['game_name'];
+		$AvailableUnis[$Unis['uni']]	= $Unis['game_name'].' (ID: '.$Unis['uni'].')';
 	}
 	ksort($AvailableUnis);
 	$template->assign_vars(array(	

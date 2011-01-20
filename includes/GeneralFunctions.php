@@ -505,6 +505,11 @@ function r_implode($glue, $pieces)
 	return implode($glue, $retVal);
 } 
 
+function allowedTo($side)
+{
+	return $GLOBALS['USER']['authlevel'] == AUTH_ADM || $GLOBALS['USER']['rights'][$side] != 1;
+}
+
 if(!function_exists('ctype_alnum'))
 {
     function ctype_alnum($test){

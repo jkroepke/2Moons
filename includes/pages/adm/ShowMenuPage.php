@@ -25,7 +25,6 @@ function ShowMenuPage()
 	global $USER, $LNG, $db;
 	$template	= new template();
 	$template->assign_vars(array(	
-		'rights'					=> $USER['rights'],
 		'mu_game_info'				=> $LNG['mu_game_info'],
 		'mu_settings'				=> $LNG['mu_settings'],
 		'mu_ts_options'				=> $LNG['mu_ts_options'],
