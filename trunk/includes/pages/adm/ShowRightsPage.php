@@ -20,7 +20,7 @@
 # *                                                                          #
 ##############################################################################
 
-if ($USER['rights'][str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__)] != 1 || $_GET['sid'] != session_id()) exit;
+if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__)) || $_GET['sid'] != session_id()) exit;
 function ShowRightsPage()
 {
 	global $LNG, $CONF, $db, $USER;

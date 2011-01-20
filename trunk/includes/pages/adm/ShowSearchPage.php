@@ -20,7 +20,7 @@
 # *                                                                          #
 ##############################################################################
 
-if ($USER['rights'][str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__)] != 1) exit;
+if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__))) exit;
 
 require_once(ROOT_PATH . 'includes/functions/DeleteSelectedUser.php');
 
@@ -332,7 +332,7 @@ function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialS
 	
 		if ($Table == "users") 
 		{
-			if ($USER['rights']['ShowAccountDataPage'] == 1)
+			if (allowedTo('ShowAccountDataPage'))
 				$Search['LIST']	.=	"<th>".$LNG['se_search_info']."</th>";
 
 			if ($USER['authlevel'] == AUTH_ADM)
@@ -341,7 +341,7 @@ function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialS
 		
 		if ($Table == "planets")
 		{				
-			if ($USER['rights']['ShowQuickEditorPage'] == 1)
+			if (allowedTo('ShowQuickEditorPage'))
 				$Search['LIST']	.=	"<th>".$LNG['se_search_edit']."</th>";
 				
 			if ($USER['authlevel'] == AUTH_ADM)
@@ -382,7 +382,7 @@ function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialS
 		
 			if ($Table == "users")
 			{
-				if ($USER['rights']['ShowQuickEditorPage'] == 1)
+				if (allowedTo('ShowQuickEditorPage'))
 					$Search['LIST']	.=	"<td><a href=\"javascript:openEdit('".$WhileResult[0]."', 'player');\" border=\"0\"><img title=\"".$WhileResult[1]."\" src=\"./styles/images/Adm/GO.png\"></a></d>";
 			
 				if ($USER['authlevel']	==	'3')
@@ -395,7 +395,7 @@ function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialS
 		
 			if ($Table == "planets"){
 			
-				if ($USER['rights']['ShowQuickEditorPage'] == 1)
+				if (allowedTo('ShowQuickEditorPage'))
 					$Search['LIST']	.=	"<td><a href=\"javascript:openEdit('".$WhileResult[0]."', 'planet');\" border=\"0\"><img src=\"./styles/images/Adm/GO.png\" title=".$LNG['se_search_edit']."></a></td>";
 					
 				if ($USER['authlevel'] == '3')

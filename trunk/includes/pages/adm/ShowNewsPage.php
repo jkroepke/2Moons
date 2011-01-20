@@ -19,7 +19,7 @@
 # *																			 #
 ##############################################################################
 
-if ($USER['rights'][str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__)] != 1) exit;
+if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__))) exit;
 
 function ShowNewsPage(){
 	global $LNG, $db, $USER;

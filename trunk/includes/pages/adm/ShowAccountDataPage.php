@@ -20,7 +20,7 @@
 # *                                                                          #
 ##############################################################################
 
-if ($USER['rights'][str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__)] != 1) exit;
+if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__))) exit;
 
 function ShowAccountDataPage()
 {
@@ -281,7 +281,7 @@ function ShowAccountDataPage()
 						<th>".pretty_number($PlanetsWhile['diameter'])."</th>
 						<th>".pretty_number($PlanetsWhile['field_current'])."/".pretty_number($PlanetsWhile['field_max'])."</th>
 						<th>".pretty_number($PlanetsWhile['temp_min'])."/".pretty_number($PlanetsWhile['temp_max'])."</th>"
-						.(($USER['rights']['ShowQuickEditorPage'] == 1) ? "<th><a href=\"javascript:openEdit('".$PlanetsWhile['id']."', 'planet');\" border=\"0\"><img src=\"./styles/images/Adm/GO.png\" title=".$LNG['se_search_edit']."></a></th>" : "").
+						.(allowedTo('ShowQuickEditorPage') ? "<th><a href=\"javascript:openEdit('".$PlanetsWhile['id']."', 'planet');\" border=\"0\"><img src=\"./styles/images/Adm/GO.png\" title=".$LNG['se_search_edit']."></a></th>" : "").
 					"</tr>";
 					
 					
@@ -427,7 +427,7 @@ function ShowAccountDataPage()
 				'sus_reason'					=> $sus_reason,
 				'sus_author'					=> $sus_author,
 				'techoffi'						=> $techoffi,
-				'canedit'						=> $USER['rights']['ShowQuickEditorPage'],
+				'canedit'						=> allowedTo('ShowQuickEditorPage'),
 				
 				'buildings_title'				=> $LNG['buildings_title'],
 				'buildings_title'				=> $LNG['buildings_title'],
