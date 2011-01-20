@@ -210,11 +210,9 @@ class ShowShipyardPage
 		
 		if(!empty($PLANET['b_hangar_id']))
 		{
-			$ElementQueue = explode(';', $PLANET['b_hangar_id']);
-			$NbrePerType  = array();
-			$NamePerType  = array();
-			$TimePerType  = array();
-			$QueueTime	= 0;
+			$ElementQueue 	= explode(';', $PLANET['b_hangar_id']);
+			$Shipyard		= array();
+			$QueueTime		= 0;
 			foreach($ElementQueue as $ElementLine => $Element)
 			{
 				if (empty($Element))
@@ -223,9 +221,7 @@ class ShowShipyardPage
 				$Element 		= explode(',', $Element);
 				$ElementTime  	= GetBuildingTime( $USER, $PLANET, $Element[0]);
 				$QueueTime   	+= $ElementTime * $Element[1];
-				$TimePerType[] 	= $ElementTime;
-				$NamePerType[] 	= $LNG['tech'][$Element[0]];
-				$NbrePerType[] 	= $Element[1];
+				$Shipyard[]		= array($LNG['tech'][$Element[0]], $Element[1], $ElementTime);		
 			}
 
 			$template->loadscript('bcmath.js');
@@ -233,9 +229,7 @@ class ShowShipyardPage
 			$template->execscript('ShipyardInit();');
 			
 			$Buildlist	= array(
-				'a' 					=> $NbrePerType,
-				'b' 					=> $NamePerType,
-				'c' 					=> $TimePerType,
+				'Queue' 				=> $Shipyard,
 				'b_hangar_id_plus' 		=> $PLANET['b_hangar'],
 				'pretty_time_b_hangar' 	=> pretty_time(max($QueueTime - $PLANET['b_hangar'],0)),
 			);
@@ -388,22 +382,18 @@ class ShowShipyardPage
 		$Buildlist	= array();
 		if(!empty($PLANET['b_hangar_id']))
 		{
-			$ElementQueue = explode(';', $PLANET['b_hangar_id']);
-			$NbrePerType  = array();
-			$NamePerType  = array();
-			$TimePerType  = array();
-			$QueueTime	  = 0;
+			$ElementQueue 	= explode(';', $PLANET['b_hangar_id']);
+			$Shipyard		= array();
+			$QueueTime		= 0;
 			foreach($ElementQueue as $ElementLine => $Element)
 			{
 				if (empty($Element))
 					continue;
-				
+					
 				$Element 		= explode(',', $Element);
-				$ElementTime  	= GetBuildingTime($USER, $PLANET, $Element[0]);
+				$ElementTime  	= GetBuildingTime( $USER, $PLANET, $Element[0]);
 				$QueueTime   	+= $ElementTime * $Element[1];
-				$TimePerType[] 	= $ElementTime;
-				$NamePerType[] 	= $LNG['tech'][$Element[0]];
-				$NbrePerType[]	= $Element[1];
+				$Shipyard[]		= array($LNG['tech'][$Element[0]], $Element[1], $ElementTime);		
 			}
 
 			$template->loadscript('bcmath.js');
@@ -411,11 +401,9 @@ class ShowShipyardPage
 			$template->execscript('ShipyardInit();');
 			
 			$Buildlist	= array(
-				'a' 					=> $NbrePerType,
-				'b' 					=> $NamePerType,
-				'c' 					=> $TimePerType,
+				'Queue' 				=> $Shipyard,
 				'b_hangar_id_plus' 		=> $PLANET['b_hangar'],
-				'pretty_time_b_hangar' 	=> pretty_time(max($QueueTime - $PLANET['b_hangar'], 0)),				
+				'pretty_time_b_hangar' 	=> pretty_time(max($QueueTime - $PLANET['b_hangar'],0)),
 			);
 		}
 		

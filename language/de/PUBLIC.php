@@ -5,15 +5,15 @@ $LNG['index']				= 'Index';
 $LNG['register']			= 'Registrieren';
 $LNG['forum']				= 'Forum';
 $LNG['send']				= 'Absenden';
-$LNG['menu_index']			= 'IndeX'; 	 
-$LNG['menu_news']			= 'News';	 
-$LNG['menu_rules']			= 'Regeln'; 
-$LNG['menu_agb']			= 'AGB'; 
-$LNG['menu_pranger']		= 'Pranger';	 
-$LNG['menu_top100']			= 'Hall of Fame';	 
-$LNG['menu_disclamer']		= 'Impressum';	 
-$LNG['uni_closed']			= '(offline)';	 
-	 
+$LNG['menu_index']			= 'IndeX';
+$LNG['menu_news']			= 'News';
+$LNG['menu_rules']			= 'Regeln';
+$LNG['menu_agb']			= 'AGB';
+$LNG['menu_pranger']		= 'Pranger';
+$LNG['menu_top100']			= 'Hall of Fame';
+$LNG['menu_disclamer']		= 'Impressum';
+$LNG['uni_closed']			= '(offline)';
+
 /* ------------------------------------------------------------------------------------------ */
 
 $LNG['music_off']			= 'Music: OFF';
@@ -29,7 +29,7 @@ $LNG['mail_sended']				= 'Dein Passwort wurde an deine E-Mail Adresse erfolgreic
 $LNG['mail_sended_fail']		= 'E-Mail konnte nicht gesendet werden.!';
 $LNG['server_infos']			= array(
 	"Ein Weltraum-Strategiespiel in Echtzeit.",
-	"Spiele zusammen mit hunderten Users.",
+	"Spiele zusammen mit hunderten Usern.",
 	"Kein Download, es wird nur ein Standardbrowser benötigt.",
 	"Kostenlose Registrierung",
 );
@@ -55,7 +55,7 @@ $LNG['pass']					= 'Passwort';
 $LNG['remember_pass']			= 'Auto-Login';
 $LNG['lostpassword']			= 'Passwort vergessen?';
 $LNG['welcome_to']				= 'Willkommen bei';
-$LNG['server_description']		= '<strong>%s</strong> ist ein <strong>Weltraum strategie Spiel mit hunderten Spielern</strong> die erd umgreifend <strong>gleichzeitig</strong> versuche der/die Beste zu werden. Alles was ihr zum spielen braucht ist ein standart Webbrowser.';
+$LNG['server_description']		= '<strong>%s</strong> ist ein <strong>Weltraum-Strategiespiel mit hunderten Spielern</strong> die erdumgreifend <strong>gleichzeitig</strong> versuchen der/die Beste zu werden. Alles was ihr zum spielen braucht ist ein Standartwebbrowser.';
 $LNG['server_register']			= 'Registrieren Sie sich Jetzt!';
 $LNG['server_message']			= 'Registriere dich jetzt und erlebe eine neue, spannende Welt ';
 $LNG['login']					= 'Login';
@@ -118,26 +118,26 @@ $LNG['reg_closed']					= 'Die Registrierung ist geschlossen';
 //Rules
 $LNG['rules_overview']				= "Regelwerk";
 $LNG['rules']						= array(
-	"Accounts"					=> "Der Besitzer eines Accounts ist immer der Inhaber der festen E-mail Adresse. Ein Account darf ausschließlich alleine gespielt werden. 
-	Eine Ausnahme bildet nur das Sitten. Sollte es notwendig werden, dass der Account eines Anderen überwacht oder in den Urlaubsmodus gesetzt werden muss, 
-	so ist der zuständige Operator vorher zu informieren und dessen Genehmigung einzuholen. Für kurzfristiges Sitten unter 12 Stunden reicht eine Meldung an den Operator. 
-	Beim Sitten sind sämtliche Flottenbewegungen verboten, lediglich das Saven der Flotte auf Koordinaten des Gesitteten und das Verbauen der Rohstoffe auf dem Planeten, auf dem sie liegen, ist erlaubt. 
+	"Accounts"					=> "Der Besitzer eines Accounts ist immer der Inhaber der festen E-mail Adresse. Ein Account darf ausschließlich alleine gespielt werden.
+	Eine Ausnahme bildet nur das Sitten. Sollte es notwendig werden, dass der Account eines Anderen überwacht oder in den Urlaubsmodus gesetzt werden muss,
+	so ist der zuständige Operator vorher zu informieren und dessen Genehmigung einzuholen. Für kurzfristiges Sitten unter 12 Stunden reicht eine Meldung an den Operator.
+	Beim Sitten sind sämtliche Flottenbewegungen verboten, lediglich das Saven der Flotte auf Koordinaten des Gesitteten und das Verbauen der Rohstoffe auf dem Planeten, auf dem sie liegen, ist erlaubt.
 	Ein Account darf für höchstens 72h gesittet werden. Bei Ausnahmen muss die Erlaubniss eines Operators vorliegen.
-	Die Weitergabe eines Accounts darf max. alle 3 Monate und ausschliesslich unentgeltlich erfolgen. 
+	Die Weitergabe eines Accounts darf max. alle 3 Monate und ausschliesslich unentgeltlich erfolgen.
 	Ausnamhen beim Operator melden.",
 
 	"Multiaccounts"				=> "Es ist jedem Spieler nur erlaubt, einen Account pro Universum zu spielen. Falls zwei oder mehrere Accounts üblicherweise, gelegentlich oder dauerhaft vom selben Internetanschluss aus gespielt werden (z.B. Schulen, Universitäten oder Internetcafés), so müssen sie, dies bereits im Vorfeld einem Admin mitzuteilen. In solchen Fällen ist den betreffenden Accounts jeglicher Flottenkontakt untersagt, während sie den selben Internetanschluss nutzen. Ebenso sind weitere Gemeinsamkeiten untersagt.",
 
-	"Pushen"					=> "Pushen ist grundsätzlich verboten. Als Pushing werden alle Ressourcen-Lieferungen ohne angemessene Gegenleistung von punktschwächeren Accounts an punktstärkere Accounts gesehen. 
+	"Pushen"					=> "Pushen ist grundsätzlich verboten. Als Pushing werden alle Ressourcen-Lieferungen ohne angemessene Gegenleistung von punktschwächeren Accounts an punktstärkere Accounts gesehen.
 	Ausnahmen müssen im Vorfeld vom Operator genehmigt werden. Eine fehlende Genehmigung kann eine Sperre wegen Pushens nach sich ziehen.
 	Ein Handel muss innerhalb 24 Stunden abgeschlossen oder bei einem Operator angemeldet sein.",
 
 	"Bashen"					=> "Mehr als 5 Angriffe innerhalb von 24 Stunden auf den gleichen Planeten zählen als Bashen und sind verboten - der Mond zählt als eigenständiger Planet. Angriffe mit Spiosonden oder Interplanetarraketen werden dabei nicht gezählt.
-	Die Bashregel gilt ausschließlich für aktive Spieler. Befinden sich die Parteien im Krieg, so sind weitere Angriffe erlaubt. Der Krieg muss mindestens 24 Stunden vor weiteren Angriffen im Forum erklärt werden (im Thema der Ankündigung müssen beide Allianzen bzw. der Name des kriegserklärenden Einzelspielers in korrekter Schreibweise genannt werden). Eine Kriegserklärung kann ausschließlich an Allianzen gerichtet werden, wobei die Kriegserklärung durch eine Allianz oder eine Einzelperson erfolgen kann. 
+	Die Bashregel gilt ausschließlich für aktive Spieler. Befinden sich die Parteien im Krieg, so sind weitere Angriffe erlaubt. Der Krieg muss mindestens 24 Stunden vor weiteren Angriffen im Forum erklärt werden (im Thema der Ankündigung müssen beide Allianzen bzw. der Name des kriegserklärenden Einzelspielers in korrekter Schreibweise genannt werden). Eine Kriegserklärung kann ausschließlich an Allianzen gerichtet werden, wobei die Kriegserklärung durch eine Allianz oder eine Einzelperson erfolgen kann.
 	Eine Annahme des Krieges ist nicht erforderlich. Kriege, die offensichtlich nur der massiven Umgehung der Bashregel dienen, sind verboten. Dies zu beurteilen obliegt den zuständigen Moderatoren und Operatoren.",
 
-	"Irak-Angriffe"             => "Es sind nur 3 Irak-Angriffe pro 24 Stunden erlaubt. Die Anzahl der Raketen pro Angriff ist unabhängig.",
-	
+	"Irak-Angriffe"             => "Es sind nur 1000 Irak-Angriffe pro 24 Stunden erlaubt. Die Anzahl der Raketen pro Angriff ist unabhängig.",
+
 	"Bugusing"					=> "Bugs und/oder Fehler in der Programmierung auszunutzen ist verboten. Erkannte Bugs sollten so schnell wie möglich per Post im Bugforum, IRC, Email oder ICQ gemeldet werden. Cheaten ist auch verboten.",
 
 	"Sprache im Spiel"			=> "In allen entsprechenden Universen ist Deutsch/Englisch die offizielle Sprache im Spiel. Verstöße können mit einer Sperrung des Accounts geahndet werden. Fremdsprachliche Ingame- Nachrichten/ Allypages können unter Vorbehalt zu einer Sperrung des Accounts führen.",
@@ -159,10 +159,10 @@ $LNG['rules_info2']				= "Als Ergänzung hierzu sind die <a onclick=\"ajax('?pag
 
 $LNG['agb_overview']				= "Allgemeine Geschäftsbedingungen";
 $LNG['agb']						= array(
-	"Leistungsinhalte"				=> array( 
+	"Leistungsinhalte"				=> array(
 		"Die Anerkennung der AGBS sind nötige Voraussetzung, um am Spiel teilnehmen zu können.
 		Sie gelten für alle Angebote seitens der Betreiber, einschließlich des Forums und anderer spielbezogener Inhalte.",
-		
+
 		"Das Angebot ist kostenlos.
 		Somit bestehen keinerlei Ansprüche auf Verfügbarkeit, Bereitstellung, Funktionalität oder Schadensersatz.
 		Weiterhin hat der Spieler keinerlei Ansprüche auf Wiederherstellung, sollte sein Account nachteilig behandelt worden sein.",
@@ -170,15 +170,15 @@ $LNG['agb']						= array(
 
 	"Mitgliedschaft"				=> array(
 		"Mit erfolgter Anmeldung im Spiel- und/oder im Forum beginnt die Mitgliedschaft im jeweiligen Spiel.",
-		
+
 		"Die mit der Anmeldung beginnende Mitgliedschaft kann jederzeit von Seiten des Mitglieds mit Löschung des Accounts oder durch Anschreiben eines Administrators beendet werden.
 		Eine Löschung der Daten kann aus technischen Gründen nicht sofort erfolgen.",
-		
+
 		"Beendigung durch den Betreiber Kein Nutzer hat einen Anspruch auf die Teilnahme an Angeboten des Betreibers.
 		Der Betreiber behält sich das Recht vor, Accounts zu löschen.
 		Die Entscheidung über die Löschung von Nutzeraccounts obliegt einzig und allein dem Betreiber sowie den Administratoren und Operator.
 		Jedweder Rechtsanspruch auf eine Mitgliedschaft ist ausgeschlossen.",
-		
+
 		"Sämtliche Rechte verbleiben beim Betreiber.",
 	),
 
@@ -190,20 +190,20 @@ $LNG['agb']						= array(
 		"Der Nutzer ist nicht berechtigt, Hardware/Software oder sonstige Materien oder Mechanismen in Verbindung mit der Website zu verwenden, die die Funktion und den Spielablauf stören können.
 		Der Nutzer darf weiterhin keine Maßnahmen ergreifen, die eine unzumutbare oder verstärkte Belastung der technischen Kapazitäten zur Folge haben können.
 		Es ist dem Nutzer nicht gestattet, vom Betreiber generierte Inhalte zu manipulieren oder in sonstiger Weise störend in das Spiel einzugreifen.",
-		
+
 		"Jede Art von Bot, Script oder sonstige Automatisierungsfunktionen sind verboten.
 		Das Spiel darf nur im Browser gespielt werden. Selbst seine Funktionen dürfen nicht genutzt werden um sich einen Spielvorteil zu verschaffen.
 		Somit darf auch keine Werbung geblockt werden. Die Entscheidung, wann eine Software für den Spieler vorteilhaft ist, liegt einzig beim Betreiber/ bei den Administratoren/Operatoren.",
-		
+
 		"Ein automatisiertes öffnen des Accounts, unabhängig davon, ob dabei die Startseite angezeigt wird oder nicht, ist nicht erlaubt.",
 	),
 
 	"Nutzungsbeschränkung"		=> array(
 		"Ein Spieler darf nur jeweils einen Account pro Universum nutzen, so genannte \"Multis\" sind nicht erlaubt und können ohne Warnung gelöscht/gesperrt werden.
 		Die Entscheidung, wann ein \"Multi\" vorliegt, liegt einzig beim Betreiber/Administratoren/Operatoren.",
-		
+
 		"Näheres bestimmt sich nach den Spielregeln.",
-		
+
 		"Sperrungen können nach Ermessen des Betreibers dauerhaft oder temporär sein.
 		Ebenso können sich Sperrungen auf einen oder alle Spielbereiche erstrecken.
 		Die Entscheidung, wann und wie lange ein Spieler gesperrt wird, liegt einzig beim Betreiber/ bei den Administratoren/Operatoren.",
@@ -214,10 +214,10 @@ $LNG['agb']						= array(
 		Gespeichert werden alle benötigten und vom Spieler oder seinem Account abgegebenen Daten.
 		Hierzu gehören (IPs in Verbindung mit Nutzungszeiten und Nutzungsart, die bei der Anmeldung angegebene Email Adresse und weitere Daten.
 		Im Forum werden die dort im Profil gemachten Angaben gespeichert.",
-		
+
 		"Diese Daten werden unter Umständen zur Wahrnehmung gesetzlicher Pflichten an Handlungsgehilfen und sonstige Berechtigte herausgegeben.
 		Weiterhin können Daten (wenn notwendig) unter Umständen an Dritte herausgegeben werden.",
-		
+
 		"Der Nutzer kann der Speicherung seiner personenbezogenen Daten jederzeit widersprechen. Ein Widerspruch kommt einer Kündigung gleich.",
 	),
 
@@ -226,7 +226,7 @@ $LNG['agb']						= array(
 		Der Spieler erwirbt kein Eigentum und auch sonst keinerlei Rechte am Account oder an Teilen.
 		Sämtliche Rechte verbleiben beim Betreiber.
 		Eine übertragung von Verwertungs- oder sonstigen Rechten auf den Nutzer findet zu keinem Zeitpunkt statt.",
-		
+
 		"Unerlaubte Veräußerung, Verwertung, Kopie, Verbreitung, Vervielfältigung oder anderweitige Verletzung der Rechte (z.B. am Account) des Betreibers werden dem geltenden Recht entsprechend verfolgt.
 		Ausdrücklich gestattet ist die unentgeltliche, endgültige Weitergabe des Accounts sowie das Handeln von Ressourcen im eigenen Universum, sofern und soweit es die Regeln zulassen.",
 	),
@@ -253,8 +253,8 @@ $LNG['news_does_not_exist']	= "Keine News vorhanden!";
 //Impressum
 
 $LNG['disclamer']				= "Haftungsausschluss";
-$LNG['disclamer_name']			= "Name";
-$LNG['disclamer_adress']		= "Adresse";
-$LNG['disclamer_tel']			= "Telefon:";
-$LNG['disclamer_email']		= "E-Mail Adresse";
+$LNG['disclamer_name']			= "";
+$LNG['disclamer_adress']		= "";
+$LNG['disclamer_tel']			= "";
+$LNG['disclamer_email']		    = "";
 ?>
