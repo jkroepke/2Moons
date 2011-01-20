@@ -181,7 +181,7 @@ class MissionCaseAttack extends MissionFunctions
 				}
 				
 				$SQL .= "UPDATE ".PLANETS." SET ";
-				$SQL .= $fleetArray;
+				#$SQL .= $fleetArray;
 				$SQL .= "`metal` = `metal` - '".$steal['metal']."', ";
 				$SQL .= "`crystal` = `crystal` - '".$steal['crystal']."', ";
 				$SQL .= "`deuterium` = `deuterium` - '".$steal['deuterium']."' ";
@@ -194,12 +194,12 @@ class MissionCaseAttack extends MissionFunctions
 		
 		if($this->_fleet['fleet_end_type'] == 3)
 			$targetPlanet 		= array_merge($targetPlanet, $db->uniquequery("SELECT `der_metal`, `der_crystal` FROM ".PLANETS." WHERE `id_luna` = '".$this->_fleet['fleet_end_id']."';"));
-		$ShootMetal			= bcadd($result['debree']['att'][0], $result['debree']['def'][0]);
-		$ShootCrystal		= bcadd($result['debree']['att'][1], $result['debree']['def'][1]);
-		$FleetDebris		= bcadd($ShootMetal, $ShootCrystal);
-		$DerbisMetal		= bcadd($targetPlanet['der_metal'], $ShootMetal);
-		$DerbisCrystal		= bcadd($targetPlanet['der_crystal'], $ShootCrystal);	
-		$MoonChance       	= min(round(bcdiv($FleetDebris, "100000") * MOON_CHANCE_FACTOR, 0), MAX_MOON_CHANCE);
+		$ShootMetal			= $result['debree']['att'][0] + $result['debree']['def'][0];
+		$ShootCrystal		= $result['debree']['att'][1] + $result['debree']['def'][1];
+		$FleetDebris		= $ShootMetal + $ShootCrystal;
+		$DerbisMetal		= $targetPlanet['der_metal']+ $ShootMetal;
+		$DerbisCrystal		= $targetPlanet['der_crystal']+ $ShootCrystal;		
+		$MoonChance       	= min(round($FleetDebris / 100000 * MOON_CHANCE_FACTOR, 0), MAX_MOON_CHANCE);
 		$UserChance 		= mt_rand(1, 100);
 		
 		if ($targetPlanet['planet_type'] == 1 && $targetPlanet['id_luna'] == 0 && $MoonChance > 0 && $UserChance <= $MoonChance)

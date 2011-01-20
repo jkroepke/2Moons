@@ -242,10 +242,11 @@ class MissionCaseExpedition extends MissionFunctions
 				}
 				$defense[0]['user'] = $DefenderTechno;
 
+				$CONF		= $db->uniquequery("SELECT `Fleet_Cdr`, `Defs_Cdr` FROM `".CONFIG."` WHERE `uni` = '".$this->_fleet['fleet_universe']."';");
 				require_once('calculateAttack.php');
 
 				$start 		= microtime(true);
-				$result 	= calculateAttack($attackFleets, $defense);
+				$result 	= calculateAttack($attackFleets, $defense, $CONF['Fleet_Cdr'], $CONF['Defs_Cdr']);
 				$totaltime 	= microtime(true) - $start;
 
 				foreach ($attackFleets as $fleetID => $attacker)
