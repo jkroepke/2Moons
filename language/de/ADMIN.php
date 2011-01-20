@@ -304,6 +304,7 @@ $LNG['ma_message']				= 'Nachricht';
 
 //---------------	PÁGINA DE INICIO - OVERVIEW	------------------------//
 $LNG['ow_title']					= 'Willkommen zu 2Moons';
+$LNG['ow_donate']					= 'Spende';
 $LNG['ow_welcome_text']				= 'Herzlich Willkommen zum allseits beliebten 2Moons. (:';
 $LNG['ow_overview']					= 'Kontrollzentrum';
 $LNG['ow_support']					= 'Support';
@@ -1032,5 +1033,11 @@ $LNG['ap_entfernen']					= ' entfernen möchtest?';
 $LNG['ap_insgesamt']					= 'Insgesamt ';
 $LNG['ap_nicht_aktivierte']				= ' nicht aktivierte User vorhanden.';
 $LNG['ap_nicht_aktivierte_user']		= 'Nicht aktivierte User';
+
+
+//MultiIPPage
+
+$LNG['mip_ip']							= 'IP';
+$LNG['mip_user']						= 'User';
 
 ?>

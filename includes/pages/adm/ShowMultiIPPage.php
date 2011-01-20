@@ -35,7 +35,9 @@ function ShowMultiIPPage()
 	}
 	$template	= new template();
 	$template->assign_vars(array(
-		'IPs'	=> $IPs
+		'IPs'		=> $IPs,
+		'mip_ip'	=> $LNG['mip_ip'],
+		'mip_user'	=> $LNG['mip_user'],
 	));
 	$template->show('adm/MultiIPs.tpl');
 }

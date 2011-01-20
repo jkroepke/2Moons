@@ -54,6 +54,7 @@ function ShowOverviewPage()
 		'ow_support'		=> $LNG['ow_support'],
 		'ow_title'			=> $LNG['ow_title'],
 		'ow_forum'			=> $LNG['ow_forum'],
+		'ow_donate'			=> $LNG['ow_donate'],
 		'Messages'			=> $Message,
 		'date'				=> date('m\_Y', TIMESTAMP),
 	));

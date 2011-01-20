@@ -33,8 +33,8 @@ google.load("feeds", "1");
 		<a href="http://2moons.cc/" target="_blank">2moons.cc - {$ow_forum}</a></td>
     </tr> 
 	<tr>
-		<th style="width:50%;">Donate - Paypal</th>
-		<th style="width:50%;">Donate - Moneybookers</th>
+		<th style="width:50%;">{$ow_donate} - Paypal</th>
+		<th style="width:50%;">{$ow_donate} - Moneybookers</th>
 	</tr>
 	<tr>
 		<td colspan="2">
