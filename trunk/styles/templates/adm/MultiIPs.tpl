@@ -4,8 +4,8 @@
 {foreach $IPs as $IP => $Users}
 <tr>
 <td>{$IP}</td>
-<td>{foreach $Users as $User}
-{$User[0]} (ID: {$User[1]})<br>
+<td>{foreach $Users as $ID => $User}
+{$User} (ID: {$ID})<br>
 {/foreach}
 </td>
 </tr>

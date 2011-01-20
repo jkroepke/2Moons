@@ -1,6 +1,6 @@
 var v  			= new Date();
-var z			= new DecimalNumber(data.a[0],0);
-var p			= 0;
+var Shipyard	= data.Queue;
+var Amount		= new DecimalNumber(Shipyard[0][1],0);
 var element		= $("#bx");
 
 function ShipyardInit() {
@@ -12,46 +12,39 @@ function ShipyardInit() {
 
 function BuildlistShipyard() {
 	var n = new Date();
-	var s = data.c[p] - hanger_id - Math.round((n.getTime() - v.getTime()) / 1000);
+	var s = Shipyard[0][2] - hanger_id - Math.round((n.getTime() - v.getTime()) / 1000);
 	var s = Math.round(s);
 	var m = 0;
 	var h = 0;
 	if (s <= 0) {
-		z.sub('1');
-		if (z.toString() == '0') {
-			p++;
-			z = z.reset(data.a[p]);
+		Amount.sub('1');
+		if (Amount.toString() == '0') {
+			Shipyard.shift();
+			if (Shipyard.length == 0) {
+				element.html(Ready);
+				document.getElementById('auftr').options[0] = new Option(Ready);
+				return;
+			}
+			Amount = Amount.reset(Shipyard[0][1]);
 			ShipyardList();
 		} else {
-			document.getElementById('auftr').options[0].innerHTML	= z.toString() + " \"" + data.b[p] + "\" " + bd_operating;
+			document.getElementById('auftr').options[0].innerHTML	= Amount.toString() + " " + Shipyard[0][0] + " " + bd_operating;
 		}
 		hanger_id = 0;
 		v = new Date();
 		s = 0;
 	}
-	
-	if ( p > data.b.length - 1 ) {
-		element.html(Ready);
-		return;
-    } else {
-		element.html(data.b[p]+" "+GetRestTimeFormat(s));
-		window.setTimeout("BuildlistShipyard();", 1000);
-    }
+	element.html(Shipyard[0][0]+" "+GetRestTimeFormat(s));
+	window.setTimeout("BuildlistShipyard();", 1000);
 }
 
 function ShipyardList() {
-	while (document.getElementById('auftr').length > 0) {
-		document.getElementById('auftr').options[document.getElementById('auftr').length-1] = null;
-	}
-	if (p > data.b.length - 1) {
-		document.getElementById('auftr').options[document.getElementById('auftr').length] = new Option(Ready);
-	} else {
-		for ( iv = p; iv <= data.b.length - 1; iv++ ) {
-			if ( iv == p ) {
-				document.getElementById('auftr').options[document.getElementById('auftr').length] = new Option(z.toString() + " \"" + data.b[iv] + "\" " + bd_operating, iv);
-			} else {
-				document.getElementById('auftr').options[document.getElementById('auftr').length] = new Option(data.a[iv] + " \"" + data.b[iv] + "\"", iv); 
-			}
+	document.getElementById('auftr').options = new Array();
+	for (iv = 0; iv <= Shipyard.length - 1; iv++ ) {
+		if (iv == 0) {
+			document.getElementById('auftr').options[document.getElementById('auftr').length - 1] = new Option(Amount.toString() + " " + Shipyard[iv][0] + " " + bd_operating, iv);
+		} else {
+			document.getElementById('auftr').options[document.getElementById('auftr').length - 1] = new Option(Shipyard[iv][1] + " " + Shipyard[iv][0], iv); 
 		}
 	}
 }
