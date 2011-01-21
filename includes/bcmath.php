@@ -48,7 +48,7 @@ function bcadd($Num1, $Num2, $Scale = 0) {
 
 	for($i=0;$i<$MLen;$i++) {
 		$Sum = ((int)$Num1{$i} + (int)$Num2{$i});
-		if(isset($Output[$i])) $Sum + =$Output[$i];
+		if(isset($Output[$i])) $Sum += $Output[$i];
 			$Output[$i] = $Sum % 10;
 		
 		if($Sum > 9)
