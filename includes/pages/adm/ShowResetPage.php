@@ -57,7 +57,7 @@ function ShowResetPage()
 		
 		if ($_POST['players'] == 'on'){
 			$ID	= $db->countquery("SELECT `id_owner` FROM ".PLANETS." WHERE `universe` = '".$_SESSION['adminuni']."' AND `galaxy` = '1' AND `system` = '1' AND `planet` = '1';");
-			$db->query("DELETE FROM ".USERS." WHERE `universe` = '".$_SESSION['adminuni']."' AND `id` != '".$ID."';DELETE FROM ".PLANETS." WHERE `universe` = '".$_SESSION['adminuni']."' AND `galaxy` != '1' AND `system` != '1' AND `planet` != '1';");
+			$db->multi_query("DELETE FROM ".USERS." WHERE `universe` = '".$_SESSION['adminuni']."' AND `id` != '".$ID."';DELETE FROM ".PLANETS." WHERE `universe` = '".$_SESSION['adminuni']."' AND `galaxy` != '1' AND `system` != '1' AND `planet` != '1';");
 		}
 		
 		if ($_POST['planets'] == 'on')
