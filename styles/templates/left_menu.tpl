@@ -37,7 +37,7 @@
 		<li><a href="?page=options">{$lm_options}</a></li>
 		<li><a href="?page=logout">{$lm_logout}</a></li>    
 		{if $authlevel > 0}
-		<li><a href="./admin.php" style="color:lime">{$lm_administration} ({$smarty.const.VERSION})</a></li>
+		<li><a href="./admin.php" style="color:lime">{$lm_administration} ({$VERSION})</a></li>
 		{/if}
 		<li style="background-image: url('{$dpath}img/menu-foot.png');height:30px;"></li>
 	</ul>

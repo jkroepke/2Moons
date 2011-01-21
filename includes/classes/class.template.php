@@ -224,6 +224,8 @@ class template
 			'ga_active'			=> $CONF['ga_active'],
 			'ga_key'			=> $CONF['ga_key'],
 			'debug'				=> $CONF['debug'],
+			'VERSION'			=> $CONF['VERSION'],
+			'REV'				=> substr($CONF['VERSION'], -4),
 		));
 	}
 	

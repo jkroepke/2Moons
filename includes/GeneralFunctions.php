@@ -388,7 +388,7 @@ function exception_handler($exception) {
     echo '<b>Line: </b>'.$exception->getLine().'<br>';
     echo '<b>PHP-Version: </b>'.PHP_VERSION.'<br>';
     echo '<b>PHP-API: </b>'.php_sapi_name().'<br>';
-    echo '<b>2Moons Version: </b>'.VERSION.'<br>';
+    echo '<b>2Moons Version: </b>'.$CONF['VERSION'].'<br>';
 	echo '<b>Debug Backtrace:</b><br>'.makebr(str_replace($_SERVER['DOCUMENT_ROOT'], '.', htmlspecialchars($exception->getTraceAsString()))).'</th>';
 	echo '</tr>';
 	echo '</table>';

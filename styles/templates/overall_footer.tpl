@@ -11,13 +11,13 @@ var Lang		= "{$lang}";
 var auth		= {$authlevel};
 </script>
 {if $debug == 1}
-<script type="text/javascript" src="{$cd}scripts/base.js"></script>
-<script type="text/javascript" src="{$cd}scripts/global.js"></script>
+<script type="text/javascript" src="{$cd}scripts/base.js?v={$REV}"></script>
+<script type="text/javascript" src="{$cd}scripts/global.js?v={$REV}"></script>
 {foreach item=scriptname from=$scripts}
-<script type="text/javascript" src="{$cd}scripts/{$scriptname}.js"></script>
+<script type="text/javascript" src="{$cd}scripts/{$scriptname}.js?v={$REV}"></script>
 {/foreach}
 {else}
-<script type="text/javascript" src="{$cd}script.php?script=base;global{foreach item=scriptname from=$scripts};{$scriptname}{/foreach}"></script>
+<script type="text/javascript" src="{$cd}script.php?v={$REV}&script=base;global{foreach item=scriptname from=$scripts};{$scriptname}{/foreach}"></script>
 {/if}
 <script type="text/javascript">
 var timerHandler = new TimerHandler();
