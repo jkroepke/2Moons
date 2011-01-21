@@ -83,7 +83,7 @@ unset($database);
 
 if (INSTALL != true)
 {
-	// Say Browsers to Allow ThirdParty Cookies
+	// Say Browsers to Allow ThirdParty Cookies (Thanks to morktadela)
 	header('P3P:CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"');
 	$UNI	= getUniverse();
 	$CONF = $db->uniquequery("SELECT HIGH_PRIORITY * FROM `".CONFIG."` WHERE `uni` = '".$UNI."';");
