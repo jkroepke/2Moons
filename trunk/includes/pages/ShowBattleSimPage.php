@@ -32,7 +32,7 @@ function ShowBattleSimPage()
 		$Array		= $_REQUEST['im'];
 		foreach($Array as $ID => $Count)
 		{
-			$BattleArray[0][1][$ID]	= $Count;
+			$BattleArray[0][1][$ID]	= floattostring($Count);
 		}
 	} elseif(isset($_REQUEST['battleinput'])) {
 		$BattleArray	= $_REQUEST['battleinput'];
