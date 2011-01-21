@@ -325,7 +325,7 @@ switch ($Mode) {
 			session_start();
 			$SESSION       	= new Session();
 			$SESSION->CreateSession(1, $adm_user, 1, 1, 3);
-			$_SESSION['admin_login']	= $adm_pass;
+			$_SESSION['admin_login']	= $md5pass;
 			header("Location: ../admin.php");
 		}
 		break;
