@@ -30,14 +30,14 @@ if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FI
 
 function ShowInformationPage()
 {
-	global $db, $LNG;
+	global $db, $LNG, $CONF;
 	$template	= new template();
 	$template->assign_vars(array(	
 		'info_information'	=> $LNG['info_information'],
 		'info'				=> $_SERVER['SERVER_SOFTWARE'],
 		'vPHP'				=> PHP_VERSION,
 		'vAPI'				=> PHP_SAPI,
-		'vGame'				=> VERSION,
+		'vGame'				=> $CONF['VERSION'],
 		'vMySQLc'			=> $db->getVersion(),
 		'vMySQLs'			=> $db->getServerVersion(),
 		'root'				=> $_SERVER['SERVER_NAME'],

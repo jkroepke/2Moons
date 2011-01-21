@@ -31,7 +31,7 @@ $LNG['Description'] = 'Beschreibung';
 
 $LNG['changelog']   = array(
 
-'v1.3' => 'ShadoX 28.12.10
+'v1.3' => 'ShadoX 21.01.11
 - ADD: MultiUniverse Support
 - ADD: IPv6 Support
 - ADD: Limit of max Colony
@@ -45,6 +45,8 @@ $LNG['changelog']   = array(
 - ADD: Cyrillic Char support for UserBanner
 - FIX: Facebook Connector
 - FIX: ACS
+- FIX: XSS on Battlesim
+- FIX: TF Iusses
 - FIX: UpdateSystem
 - FIX: Ressource Cheat
 - FIX: Admin Attack
@@ -60,6 +62,7 @@ $LNG['changelog']   = array(
 - FIX: Moondestruction
 - FIX: Teamspeak API for Teamspeak 3 Servers
 - FIX: UpdateSystem dont donwload same Files now
+- DIV: Change Copyright Header
 - DIV: Max Buttons on Jumpgate
 - DIV: OfficiersVars now on vars.php
 - DIV: Fleet Ressoucres go up tp 18.446.744.073.709.551.616
@@ -67,7 +70,7 @@ $LNG['changelog']   = array(
 - DIV: Get Language via HTTP Header on Index
 - DIV: Use Facebooks new Graph API now.
 - DIV: Set new location for error.log
-- DIV: Update TS³ Lib, Soundmanager, reCAPTCHA Lib, Smarty and jQuery
+- DIV: Update TS³ Lib, Soundmanager, reCAPTCHA Lib, Smarty and jQuery (UI)
 ',
 'v1.2' => 'ShadoX 04.10.10
 - ADD: Set Max Fleets on ACS (Default: 16)
