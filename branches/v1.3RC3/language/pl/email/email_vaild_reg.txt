@@ -1,0 +1,18 @@
+Witaj %1$s,
+Dziekujemy za rejestracje na %2$s
+Zanim rozpoczniesz gre, musisz aktywowac swoje konto.
+Prosze pamietac, ze potwierdzenie aktywacji konta jest konieczne, abys mogl rozpoczac gre. 
+
+Jesli dokonales rejestracji prosimy o klikniecie w ponizszy link:
+
+<a href='%3$s?page=reg&amp;mode=valid&amp;lang=%7$s&amp;clef=%4$s'>%3$s?page=reg&mode=valid&lang=%7$s&clef=%4$s</a>
+
+Twoje dane do logowania:
+
+Login : %1$s
+Haslo : %5$s
+
+Jesli napotkaliscie jakies problemy z funkcjonowaniem, rejestracji, aktywacji konta prosimy o kontakt:: <a href='mailto:%6$s'>%6$s</a>
+
+Pozdrawiamy,
+%2$s - Team
