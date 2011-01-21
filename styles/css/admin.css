@@ -18,6 +18,10 @@ table{
 	color:red;
 }
 
+#menu{
+	padding: 0 !important;
+}
+
 .content{
 	position: static !important;
 	width: 100% !important;

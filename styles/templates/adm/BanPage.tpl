@@ -45,13 +45,13 @@
 {/if}
 <form action="" method="POST" name="users">
 <table width="100%" border="0px">
-<td style="border:0px;width:50%">
+<td style="border:0px;width:50%" class="transparent">
 <table align="center" width="90%">
 <tr>
-	<th colspan="4">{$bo_ban_player}</th>
+	<th>{$bo_ban_player}</th>
 </tr>
 <tr>
-	<td colspan="2">
+	<td>
 	<select name="ban_name" style="width:70%;" size="20">
 	{$UserSelect.List}
 	</select>
@@ -98,27 +98,27 @@
 	<input TYPE="button" onClick="UserList.reset();this.form.regexp.value=''" value="{$button_deselect}">
 </td>
 </tr><tr>
-	<td colspan="2">
+	<td>
 	<input type="submit" value="{$button_submit}" name="panel" style="width:20%;">&nbsp;
 	<input TYPE="button" onClick="UserList.reset();this.form.regexp.value=''" value="{$button_reset}">
 	</td>
 </tr><tr>
-	<td colspan="2" align="left">
+	<td align="left">
 		{$bo_total_users}<span style="color:lime">{$usercount}</span>
 	</td>
 </tr>
 </table>
 </form>
 </td>
-<td style="border:0px;width:50%;">
+<td style="border:0px;width:50%;" class="transparent">
 <br>
 <form action="" method="POST" name="userban">
 <table align="center" width="90%">
 <tr>
-	<th colspan="2">{$bo_unban_player}</th>
+	<th>{$bo_unban_player}</th>
 </tr>
 <tr>
-	<td colspan="2">
+	<td>
 	<select name="unban_name" size="20" style="width:70%;">
 	{$UserSelect.ListBan}
 	</select>
@@ -166,10 +166,10 @@
 </td>
 </tr>
 <tr>
-	<td colspan="2"><input value="{$button_submit}" type="submit" style="width:20%;">&nbsp;
+	<td><input value="{$button_submit}" type="submit" style="width:20%;">&nbsp;
 	<input TYPE="button" onClick="UsersBan.reset();this.form.regexp.value=''" value="{$button_reset}"></td>
 </tr><tr>
-	<td colspan="2" align="left">
+	<td align="left">
 		{$bo_total_banneds}<span style="color:lime">{$bancount}</span>
 	</td>
 </tr>

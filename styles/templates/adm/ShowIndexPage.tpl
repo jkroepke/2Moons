@@ -6,7 +6,7 @@
 <title>{$adm_cp_title} &bull; {$game_name}</title>
 <link rel="icon" href="./favicon.ico">
 </head>
-<frameset cols="216,*" frameborder="0">
+<frameset cols="217,*" frameborder="0">
 <frame src="admin.php?page=menu" name="rightFrame" id="rightFrame" noresize="noresize">
 	<frameset rows="84,*" frameborder="0">
 		<frame src="admin.php?page=topnav" name="topFrame" scrolling="no" noresize="noresize" id="topFrame">

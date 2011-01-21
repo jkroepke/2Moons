@@ -15,9 +15,9 @@ function check(){
 }
 </script>
 <form name="message" id="message" action="">
-    <table width="550">
+    <table class="table569">
 		<tr>
-            <td class="c" colspan="2">{$ma_send_global_message}</td>
+            <th colspan="2">{$ma_send_global_message}</th>
         </tr>
         <tr>
             <td>{$ma_subject}</td>
