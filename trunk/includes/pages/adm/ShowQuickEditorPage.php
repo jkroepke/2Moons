@@ -159,7 +159,7 @@ function ShowQuickEditorPage()
 					$SQL	.= "`password` = '".md5(request_var('password', '', true))."', ";
 				$SQL	.= "`username` = '".$db->sql_escape(request_var('name', '', UTF8_SUPPORT))."' ";
 				$SQL	.= "WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';";
-				$db->sql_escape($SQL);
+				$db->query($SQL);
 				exit(sprintf($LNG['qe_edit_player_sucess'], $UserData['username'], $id));
 			}
 			$PlanetInfo				= $db->uniquequery("SELECT `name` FROM ".PLANETS." WHERE `id` = '".$UserData['id_planet']."' AND `universe` = '".$_SESSION['adminuni']."';");
