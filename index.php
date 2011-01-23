@@ -70,7 +70,7 @@ switch ($page) {
 		if (!$uid)
 		redirectTo("index.php");
 
-		$login = $db->uniquequery("SELECT `id`, `username`, `dpath`, `authlevel`, `id_planet`, FROM ".USERS." WHERE `universe` = '".$UNI."' AND `fb_id` = '".$uid."';");
+		$login = $db->uniquequery("SELECT `id`, `username`, `dpath`, `authlevel`, `id_planet` FROM ".USERS." WHERE `universe` = '".$UNI."' AND `fb_id` = '".$uid."';");
 		if (isset($login)) {
 			session_start();
 			$SESSION       	= new Session();
@@ -586,7 +586,7 @@ switch ($page) {
 			$luser = request_var('username', '', UTF8_SUPPORT);
 			$lpass = request_var('password', '', UTF8_SUPPORT);
 			$luniv = request_var('universe', 1);
-			$login = $db->uniquequery("SELECT `id`, `username`, `dpath`, `authlevel`,`id_planet`, `banaday` FROM ".USERS." WHERE `username` = '".$db->sql_escape($luser)."' AND `universe` = '".$luniv."' AND `password` = '".md5($lpass)."';");
+			$login = $db->uniquequery("SELECT `id`, `username`, `dpath`, `authlevel`, `id_planet` FROM ".USERS." WHERE `username` = '".$db->sql_escape($luser)."' AND `universe` = '".$luniv."' AND `password` = '".md5($lpass)."';");
 			
 			if (isset($login)) {
 				session_start();
