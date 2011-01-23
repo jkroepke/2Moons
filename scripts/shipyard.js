@@ -39,12 +39,13 @@ function BuildlistShipyard() {
 }
 
 function ShipyardList() {
-	document.getElementById('auftr').options = new Array();
+	while (document.getElementById('auftr').length > 0)
+		document.getElementById('auftr').options[document.getElementById('auftr').length - 1] = null;
+
 	for (iv = 0; iv <= Shipyard.length - 1; iv++ ) {
-		if (iv == 0) {
-			document.getElementById('auftr').options[document.getElementById('auftr').length - 1] = new Option(Amount.toString() + " " + Shipyard[iv][0] + " " + bd_operating, iv);
-		} else {
-			document.getElementById('auftr').options[document.getElementById('auftr').length - 1] = new Option(Shipyard[iv][1] + " " + Shipyard[iv][0], iv); 
-		}
+		if(iv == 0)
+			document.getElementById('auftr').options[iv] = new Option(Amount.toString()+ " " + Shipyard[iv][0] + " " + bd_operating, iv);
+		else
+			document.getElementById('auftr').options[iv] = new Option(Shipyard[iv][1]+ " " + Shipyard[iv][0] + " " + bd_operating, iv);
 	}
 }

@@ -47,8 +47,6 @@ if(php_sapi_name() === 'cli') {
 }
 function init() {
 	global $db;
-	if(php_sapi_name() === 'cli' && (defined('IN_ADMIN') || request_var('ajax', 0) != 0)) 
-		return false;
 	
 	$db->query("LOCK TABLE ".AKS." WRITE, ".RW." WRITE, ".MESSAGES." WRITE, ".CONFIG." WRITE, ".FLEETS." WRITE, ".PLANETS." WRITE, ".PLANETS." as p WRITE, ".TOPKB." WRITE, ".USERS." WRITE, ".USERS." as u WRITE, ".STATPOINTS." WRITE;");	
 	

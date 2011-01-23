@@ -152,7 +152,7 @@ CREATE TABLE IF NOT EXISTS `prefix_config`(
   `stat_banner_update_time` int(11) NOT NULL,
   `cron_lock` int(11) NOT NULL,
   `ts_modon` tinyint(1) NOT NULL,
-  `ts_server` varchar(15) NOT NULL,
+  `ts_server` varchar(32) NOT NULL,
   `ts_tcpport` smallint(5) NOT NULL,
   `ts_udpport` smallint(5) NOT NULL,
   `ts_timeout` tinyint(1) NOT NULL,
@@ -185,7 +185,7 @@ CREATE TABLE IF NOT EXISTS `prefix_config`(
   `ga_active` varchar(42) NOT NULL,
   `ga_key` varchar(42) NOT NULL,
   `moduls` varchar(100) NOT NULL,
-  `trade_allowed_ships` varchar(50) NOT NULL,
+  `trade_allowed_ships` varchar(70) NOT NULL,
   `trade_charge` varchar(5) NOT NULL,
   PRIMARY KEY (`uni`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
