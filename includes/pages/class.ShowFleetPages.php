@@ -26,8 +26,6 @@
  * @link http://code.google.com/p/2moons/
  */
 
-
-
 require_once(ROOT_PATH . 'includes/classes/class.FleetFunctions.php');
 
 class ShowFleetPages extends FleetFunctions
@@ -517,7 +515,7 @@ class ShowFleetPages extends FleetFunctions
 		$YourPlanet 	= (isset($TargetPlanet['id_owner']) && $TargetPlanet['id_owner'] == $USER['id']) ? true : false;
 		$UsedPlanet 	= (isset($TargetPlanet['id_owner'])) ? true : false;
 
-		$HeDBRec 		= ($YourPlanet) ? $MyDBRec : GetUserByID($TargetPlanet['id_owner'], array('id','onlinetime','ally_id','urlaubs_modus'));
+		$HeDBRec 		= ($YourPlanet) ? $MyDBRec : GetUserByID($TargetPlanet['id_owner'], array('id','onlinetime','ally_id','urlaubs_modus', 'banaday'));
 
 		if ($HeDBRec['urlaubs_modus'] && $mission != 8)
 		{
@@ -536,7 +534,7 @@ class ShowFleetPages extends FleetFunctions
 			$UserPoints    	= $USER;
 			$User2Points  	= $db->uniquequery("SELECT `total_points` FROM ".STATPOINTS." WHERE `stat_type` = '1' AND `id_owner` = '".$HeDBRec['id']."';");
 		
-			$IsNoobProtec	= CheckNoobProtec($UserPoints, $User2Points, $HeDBRec['onlinetime']);
+			$IsNoobProtec	= CheckNoobProtec($UserPoints, $User2Points, $HeDBRec);
 			
 			if ($IsNoobProtec['NoobPlayer'])
 			{
@@ -816,7 +814,7 @@ class ShowFleetPages extends FleetFunctions
 		if($TargetRow['id_level'] > $USER['authlevel'] && $mission == 6 && $CONF['adm_attack'] == 1)
 			exit("619; ".$LNG['fa_action_not_allowed']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserGRecycles." ".$UserMissiles);
 		
-		$TargetUser	   = GetUserByID($TargetRow['id_owner'], array('id','onlinetime','urlaubs_modus'));
+		$TargetUser	   = GetUserByID($TargetRow['id_owner'], array('id', 'onlinetime', 'urlaubs_modus', 'banaday'));
 
 
 
@@ -839,7 +837,7 @@ class ShowFleetPages extends FleetFunctions
 			$UserPoints   	= $USER;
 			$User2Points  	= $db->uniquequery("SELECT `total_points` FROM ".STATPOINTS." WHERE `stat_type` = '1' AND `id_owner` = '".$TargetRow['id_owner']."';");
 		
-			$IsNoobProtec	= CheckNoobProtec($UserPoints, $User2Points, $TargetUser['onlinetime']);
+			$IsNoobProtec	= CheckNoobProtec($UserPoints, $User2Points, $TargetUser);
 			
 			if ($IsNoobProtec['NoobPlayer'])
 				exit("603; ".$LNG['fa_week_player']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserGRecycles." ".$UserMissiles);
@@ -969,12 +967,12 @@ class ShowFleetPages extends FleetFunctions
 		elseif ($Target['id_level'] > $USER['authlevel'] && $CONF['adm_attack'] == 1)
 			$error = $LNG['fl_admins_cannot_be_attacked'];
 		
-		$TargetUser	   	= GetUserByID($Target['id_owner'], array('onlinetime'));
+		$TargetUser	   	= GetUserByID($Target['id_owner'], array('onlinetime', 'banaday'));
 		
 		$UserPoints   	= $USER;
 		$User2Points  	= $db->uniquequery("SELECT `total_points` FROM ".STATPOINTS." WHERE `stat_type` = '1' AND `id_owner` = '".$Target['id_owner']."';");
 		
-		$IsNoobProtec	= CheckNoobProtec($UserPoints, $User2Points, $TargetUser['onlinetime']);
+		$IsNoobProtec	= CheckNoobProtec($UserPoints, $User2Points, $TargetUser);
 			
 		if ($IsNoobProtec['NoobPlayer'])
 			$error = $LNG['fl_week_player'];
