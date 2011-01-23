@@ -339,12 +339,12 @@ function CheckPlanetIfExist($Galaxy, $System, $Planet, $Universe, $Planettype = 
 function CheckNoobProtec($OwnerPlayer, $TargetPlayer, $Player)
 {	
 	global $CONF;
-	
+
 	$Noobplayer			= false;
 	$StrongPlayer		= false;
 	$IamNoobplayer		= ($OwnerPlayer['total_points'] <= $CONF['noobprotectiontime']) ? true : false;
 	$TargetNoobplayer	= ($TargetPlayer['total_points'] <= $CONF['noobprotectiontime']) ? true : false;
-	if($Player['banaday'] <= TIMESTAMP || $Player['onlinetime'] >= (TIMESTAMP - 60 * 60 * 24 * 7) && $CONF['noobprotection'])
+	if($CONF['noobprotection'] && $Player['banaday'] <= TIMESTAMP && $Player['onlinetime'] >= (TIMESTAMP - 60 * 60 * 24 * 7))
 	{
 		$StrongPlayer	= ($OwnerPlayer['total_points'] * 5 < $TargetPlayer['total_points'] && $IamNoobplayer) ? true : false;
 		$Noobplayer		= ((round($OwnerPlayer['total_points'] * 0.2) > $TargetPlayer['total_points'] && $IamNoobplayer) || ($TargetNoobplayer && !$IamNoobplayer)) ? true : false;
