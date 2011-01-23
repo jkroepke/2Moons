@@ -105,7 +105,7 @@ if (INSTALL != true)
 			message($CONF['close_reason']);
 		}
 
-		if(!CheckModule(10) && !defined('IN_ADMIN') && request_var('ajax', 0) != 0))
+		if(!CheckModule(10) && !defined('IN_ADMIN') && request_var('ajax', 0) != 0)
 			require(ROOT_PATH.'includes/FleetHandler.php');
 				
 		$USER	= $db->uniquequery("SELECT u.*, s.`total_points`, s.`total_rank` FROM ".USERS." as u LEFT JOIN ".STATPOINTS." as s ON s.`id_owner` = u.`id` AND s.`stat_type` = '1' WHERE u.`id` = '".$_SESSION['id']."';");
