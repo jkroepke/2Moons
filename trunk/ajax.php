@@ -228,8 +228,10 @@ switch($action)
 		$DeleteWhat = request_var('deletemessages','');
 		$MessType	= request_var('mess_type', 0);
 		
-		if($MessType == 100 && $DeleteWhat == 'deletetypeall')
+		if($DeleteWhat == 'deletetypeall' && $MessType == 100)
 			$DeleteWhat	= 'deleteall';
+		elseif($DeleteWhat == 'deleteunmarked' && (empty($_REQUEST['delmes']) || !is_array($_REQUEST['delmes'])))
+			$DeleteWhat	= 'deletetypeall';
 		
 		
 		switch($DeleteWhat)

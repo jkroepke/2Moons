@@ -119,9 +119,10 @@ Message	= {
 		var mode	= infos[infos.length-1].value;
 		infos.pop();
 		
+		if(mode == 'deleteunmarked' && Message.getMessagesIDs(infos).length == 0)
+			mode = 'deletetypeall';
 		if(Message.MessID == 100 && mode == 'deletetypeall')
-			mode == 'deleteall'
-		
+			mode = 'deleteall';
 		switch (mode)
 		{
 			case 'deleteall':
