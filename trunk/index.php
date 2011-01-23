@@ -70,11 +70,8 @@ switch ($page) {
 		if (!$uid)
 		redirectTo("index.php");
 
-		$login = $db->uniquequery("SELECT `id`, `username`, `dpath`, `authlevel`, `id_planet`, `banaday` FROM ".USERS." WHERE `universe` = '".$UNI."' AND `fb_id` = '".$uid."';");
+		$login = $db->uniquequery("SELECT `id`, `username`, `dpath`, `authlevel`, `id_planet`, FROM ".USERS." WHERE `universe` = '".$UNI."' AND `fb_id` = '".$uid."';");
 		if (isset($login)) {
-			if ($login['banaday'] <= time () && $login['banaday'] != '0') {
-				$db->query("UPDATE " . USERS . " SET `banaday` = '0', `bana` = '0' WHERE `id` = '".$login['id']."' AND `universe` = '".$UNI."';");
-			}
 			session_start();
 			$SESSION       	= new Session();
 			$SESSION->CreateSession($login['id'], $login['username'], $login['id_planet'], $UNI, $login['authlevel'], $login['dpath']);
@@ -84,12 +81,9 @@ switch ($page) {
 			$me = $facebook->api('/me');
 			$UserMail 	=  $me['email'];
 			
-			$Exist['alruser'] = $db->uniquequery("SELECT `id`, `username`, `dpath`, `authlevel`, `id_planet`, `banaday` FROM ".USERS." WHERE `email` = '".$UserMail."';");
+			$Exist['alruser'] = $db->uniquequery("SELECT `id`, `username`, `dpath`, `authlevel`, `id_planet` FROM ".USERS." WHERE `email` = '".$UserMail."';");
 			if(isset($Exist['alruser']))
 			{
-				if ($Exist['alruser']['banaday'] <= time () && $Exist['alruser']['banaday'] != '0') {
-					$db->query("UPDATE ".USERS." SET `banaday` = '0', `bana` = '0' WHERE `username` = '".$Exist['alruser']['id']."' AND `universe` = '".$UNI."';");
-				}
 				$db->query("UPDATE `".USERS."` SET `fb_id` = '".$uid."' WHERE `id` = '".$Exist['alruser']['id']."';");
 				session_start();
 				$SESSION       	= new Session();
@@ -595,9 +589,6 @@ switch ($page) {
 			$login = $db->uniquequery("SELECT `id`, `username`, `dpath`, `authlevel`,`id_planet`, `banaday` FROM ".USERS." WHERE `username` = '".$db->sql_escape($luser)."' AND `universe` = '".$luniv."' AND `password` = '".md5($lpass)."';");
 			
 			if (isset($login)) {
-				if ($login['banaday'] <= TIMESTAMP) {
-					$db->query("UPDATE " . USERS . " SET `banaday` = '0', `bana` = '0' WHERE `id` = '".$login['id']."';");
-				}
 				session_start();
 				$SESSION       	= new Session();
 				$SESSION->CreateSession($login['id'], $login['username'], $login['id_planet'], $luniv, $login['authlevel'], $login['dpath']);

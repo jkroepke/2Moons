@@ -178,14 +178,14 @@ class GalaxyRows
 		$protectionmulti 	= $CONF['noobprotectionmulti'];
 		$CurrentPoints 		= $USER['total_points'];
 		$RowUserPoints 		= $GalaxyRowPlanet['total_points'];
-		$IsNoobProtec		= CheckNoobProtec($USER, $GalaxyRowPlanet, $GalaxyRowPlanet['onlinetime']);
-				
-		if ($GalaxyRowPlanet['bana'] == 1 && $GalaxyRowPlanet['urlaubs_modus'] == 1)
+		$IsNoobProtec		= CheckNoobProtec($USER, $GalaxyRowPlanet, $GalaxyRowPlanet);
+			var_dump($GalaxyRowPlanet['banaday']);	
+		if ($GalaxyRowPlanet['banaday'] > TIMESTAMP && $GalaxyRowPlanet['urlaubs_modus'] == 1)
 		{
 			$Systemtatus2 	= $LNG['gl_v']." <a href=\"game.php?page=banned\"><span class=\"banned\">".$LNG['gl_b']."</span></a>";
 			$Systemtatus 	= "<span class=\"vacation\">";
 		}
-		elseif ($GalaxyRowPlanet['bana'] == 1)
+		elseif ($GalaxyRowPlanet['banaday'] > TIMESTAMP)
 		{
 			$Systemtatus2 	= "<span class=\"banned\">".$LNG['gl_b']."</span>";
 			$Systemtatus 	= "";

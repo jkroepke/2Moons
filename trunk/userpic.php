@@ -34,7 +34,7 @@ define('IN_CRON' , true);
 define('ROOT_PATH' ,'./');
 
 include(ROOT_PATH . 'common.php');
-
+error_reporting(E_ALL);
 $id = request_var('id', 0);
 
 if(CheckModule(37) || $id == 0) exit();
