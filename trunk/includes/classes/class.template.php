@@ -359,9 +359,6 @@ class template
 		
 		$this->gotoside($dest, $time);
 		if (defined('IN_ADMIN')) {
-			$this->assign_vars(array(
-				'dpath'		=> './styles/skins/darkness/',
-			));
 			$this->show('adm/error_message_body.tpl');
 			exit;
 		}
