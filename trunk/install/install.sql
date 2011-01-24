@@ -320,7 +320,7 @@ CREATE TABLE IF NOT EXISTS `prefix_planets` (
   `deuterium_used` int(11) unsigned NOT NULL DEFAULT '0',
   `deuterium_perhour` decimal(10,0) unsigned NOT NULL DEFAULT '0',
   `deuterium_max` bigint(20) unsigned DEFAULT '100000',
-  `energy_used` int(11) unsigned NOT NULL DEFAULT '0',
+  `energy_used` bigint(11) unsigned NOT NULL DEFAULT '0',
   `energy_max` bigint(20) unsigned NOT NULL DEFAULT '0',
   `metal_mine` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `crystal_mine` tinyint(3) unsigned NOT NULL DEFAULT '0',

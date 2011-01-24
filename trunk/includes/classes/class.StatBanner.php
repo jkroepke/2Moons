@@ -144,22 +144,23 @@ class StatBanner {
 class LanguageConv {
 
 //  Translate iso encoding to unicode
-    function iso2uni ($isoline){
-    for ($i=0; $i < strlen($isoline); $i++){
-        $thischar=substr($isoline, $i, 1);
-        $charcode=ord($thischar);
-        $uniline.=($charcode>175) ? "&#" . (1040+($charcode-176)). ";" : $thischar;
-    }
-    return $uniline;
+    function iso2uni ($isoline) {
+		$uniline	= '';
+		for ($i=0; $i < strlen($isoline); $i++){
+			$thischar=substr($isoline, $i, 1);
+			$charcode=ord($thischar);
+			$uniline.=($charcode>175) ? "&#" . (1040+($charcode-176)). ";" : $thischar;
+		}
+		return $uniline;
     }
 
     function ToCyrillic($aTxt) {
-    if(false) {
-        $aTxt = convert_cyr_string($aTxt,  "w",  "k"); 
-    }
-    $isostring = convert_cyr_string($aTxt,  "k",  "i");
-    $unistring = LanguageConv::iso2uni($isostring);
-    return $unistring;
+		if(false) {
+			$aTxt = convert_cyr_string($aTxt,  "w",  "k"); 
+		}
+		$isostring = convert_cyr_string($aTxt,  "k",  "i");
+		$unistring = LanguageConv::iso2uni($isostring);
+		return $unistring;
     }
 }
 ?>
