@@ -224,6 +224,7 @@ class template
 			'ga_active'			=> $CONF['ga_active'],
 			'ga_key'			=> $CONF['ga_key'],
 			'debug'				=> $CONF['debug'],
+			'js_min'			=> $CONF['js_min'],
 			'VERSION'			=> $CONF['VERSION'],
 			'REV'				=> substr($CONF['VERSION'], -4),
 		));

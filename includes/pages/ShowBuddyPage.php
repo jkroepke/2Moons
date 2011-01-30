@@ -84,6 +84,8 @@ function ShowBuddyPage()
 					'bu_request_message' 	=> $LNG['bu_request_message'],
 					'bu_back'				=> $LNG['bu_back'],
 					'bu_send'				=> $LNG['bu_send'],
+					'bu_characters'  		=> $LNG['bu_characters'],
+					'bu_request_text'   	=> $LNG['bu_request_text'],
 					'mg_empty_text'			=> $LNG['mg_empty_text'],
 					'username'				=> $Player['username'],
 					'id'					=> $uid,

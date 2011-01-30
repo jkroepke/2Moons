@@ -58,6 +58,67 @@ function exitupdate($LOG){
 	exit;
 }
 
+function getDatafromServer($action)
+{
+	global $LNG;
+	if(!function_exists('ftp_connect'))
+		return "Update function not on this Server avalible!";
+	
+	$Patchlevel	= explode(".",$GLOBALS['CONF']['VERSION']);
+	if($_REQUEST['action'] == 'history')
+		$Level		= 0;	
+	elseif(isset($Patchlevel[2]))
+		$Level		= $Patchlevel[2];
+	else
+		$Level		= 1060;
+		
+	if(function_exists('curl_init')) {
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, "http://update.xnova.de/index.php?action=".$action);
+		curl_setopt($ch, CURLOPT_HEADER, false);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array("Patchlevel: ".$Level));
+		curl_setopt($ch, CURLOPT_USERAGENT, "2Moons Update API (r".$Patchlevel[2].")");
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$DATA	=	curl_exec($ch);
+		if($DATA === false) {
+			$info = curl_getinfo($ch);
+			return "UpdateServer not avalible HTTP Code:".$info['http_code'];
+		}
+		curl_close($ch);
+		return unserialize($DATA);
+	} elseif(function_exists('fsockopen')) {
+		$fp = @fsockopen("update.xnova.de", 80, $errno, $errstr, 30);
+		if (!$fp) {
+			return "Can't create fsockopen Session (Error: ".$errstr.")";
+		} else {
+			$DATA	= "";
+			$out 	= "GET /index.php?action=".$action." HTTP/1.1\r\n";
+			$out 	.= "Host: update.xnova.de\r\n";
+			$out 	.= "Patchlevel: ".$Level."\r\n";
+			$out 	.= "User-Agent: 2Moons Update API (r".$Patchlevel[2].")\r\n";
+			$out 	.= "Connection: Close\r\n\r\n";
+			fwrite($fp, $out);
+			while ($line = fgets($fp)) $DATA .= $line; 
+			fclose($fp);
+			$DATA 	= substr($DATA, strpos($DATA, "\r\n\r\n") + 4);	
+			return unserialize($DATA);
+		}
+	} elseif(function_exists('file_get_contents') && ini_get('allow_url_fopen') == 1) {
+		$opts 			= array('http' => array('method'=> "GET", 'header'=> "Patchlevel: ".$Level."\r\nUser-Agent: 2Moons Update API (r".$Patchlevel[2].")\r\n"));
+		$context 		= stream_context_create($opts);
+		ob_start();
+		echo file_get_contents("http://update.xnova.de/index.php?action=".$action, FALSE, $context);
+		$Data 	= ob_get_clean();
+		if(false === ($DATA = unserialize($Data)))
+			return $LNG['up_update_server']."<br>".substr(strip_tags($Data), strpos(strip_tags($Data), 'failed to open stream: ') + 23);
+		else
+			return $DATA;
+	} else {
+		return "Update function not on this Server avalible!";
+	}
+
+}
+
 function ShowUpdatePage()
 {
 	global $LNG, $CONF, $db;
@@ -68,26 +129,20 @@ function ShowUpdatePage()
 		update_config(array('VERSION' => $Temp[0].'.'.$Temp[1].'.'.$Temp[2]), true);
 	}
 	
-	$Patchlevel	= explode(".",$CONF['VERSION']);
+	$Patchlevel	= explode(".",$GLOBALS['CONF']['VERSION']);
 	if($_REQUEST['action'] == 'history')
 		$Level		= 0;	
 	elseif(isset($Patchlevel[2]))
 		$Level		= $Patchlevel[2];
-	else
-		$Level		= 1060;
-		
-	$opts 			= array('http' => array('method'=> "GET", 'header'=> "Patchlevel: ".$Level."\r\n".$LNG['up_agent']."".$Patchlevel[2].")\r\n"));
 			
-	$context 		= stream_context_create($opts);
-	
 	switch($_REQUEST['action'])
 	{
 		case "download":
-			require_once(ROOT_PATH.'includes/libs/zip/zip.lib.php');
-			$UpdateArray 	= unserialize(@file_get_contents("http://update.xnova.de/index.php?action=getupdate",FALSE,$context));
+			$UpdateArray 	= getDatafromServer('getupdate');
 			if(!is_array($UpdateArray['revs']))
 				exitupdate(array('debug' => array('noupdate' => $LNG['up_kein_update'])));
-				
+
+			require_once(ROOT_PATH.'includes/libs/zip/zip.lib.php');				
 			$SVN_ROOT		= $UpdateArray['info']['svn'];
 			
 			$zipfile 	= new zipfile();
@@ -152,7 +207,7 @@ function ShowUpdatePage()
 		case "update":
 			require_once(ROOT_PATH.'includes/libs/ftp/ftp.class.php');
 			require_once(ROOT_PATH.'includes/libs/ftp/ftpexception.class.php');
-			$UpdateArray 	= unserialize(@file_get_contents("http://update.xnova.de/index.php?action=getupdate",FALSE,$context));
+			$UpdateArray 	= getDatafromServer('getupdate');
 			if(!is_array($UpdateArray['revs']))
 				exitupdate(array('debug' => array('noupdate' => $LNG['up_kein_update'])));
 				
@@ -281,22 +336,16 @@ function ShowUpdatePage()
 			$Update		= '';
 			$Info		= '';
 			
-			if(!function_exists('file_get_contents') || !function_exists('fsockopen') || ini_get('allow_url_fopen') == 0) {
-				$template->message($LNG['up_error_fsockopen'], false, 0, true);
-			} 
-			ob_start();
-			echo file_get_contents("http://update.xnova.de/index.php?action=update", FALSE, $context);
-			$Data 	= ob_get_clean();
-			if(false === ($UpdateArray = unserialize($Data))) {
-				$template->message($LNG['up_update_server']."<br>".substr(strip_tags($Data), strpos(strip_tags($Data), 'failed to open stream: ') + 23), false, 0, true);
+			$UpdateArray	= getDatafromServer('update');
+			if(!is_array($UpdateArray)) {
+				$template->message($UpdateArray);
 			} else {
-				if(is_array($UpdateArray['revs']))
-				{
+				if(is_array($UpdateArray['revs'])) {
 					foreach($UpdateArray['revs'] as $Rev => $RevInfo) 
 					{
 						if(!(empty($RevInfo['add']) && empty($RevInfo['edit'])) && $Patchlevel[2] < $Rev){
-							$Update		= "<tr><th><a href=\"?page=update&amp;action=update\">Update</a>".(function_exists('gzcompress') ? " - <a href=\"?page=update&amp;action=download\">".$LNG['up_download_patch_files']."</a>":"")."</th></tr>";
-							$Info		= "<tr><td class=\"c\" colspan=\"5\">".$LNG['up_aktuelle_updates']."</td></tr>";
+							$Update		= "<tr><td><a href=\"?page=update&amp;action=update\">Update</a>".(function_exists('gzcompress') ? " - <a href=\"?page=update&amp;action=download\">".$LNG['up_download_patch_files']."</a>":"")."</td></tr>";
+							$Info		= "<tr><th colspan=\"5\">".$LNG['up_aktuelle_updates']."</th></tr>";
 						}
 						
 						$edit	= "";
@@ -315,8 +364,7 @@ function ShowUpdatePage()
 						".((!empty($RevInfo['del']))?"<tr><td>".$LNG['up_del']."<br>".str_replace("/trunk/", "", implode("<br>\n", $RevInfo['del']))."</b></td></tr>":"")."
 						</tr>";
 					}
-				}
-								
+				}			
 				$template->assign_vars(array(	
 					'version'	=> $CONF['VERSION'],
 					'RevList'	=> $RevList,
