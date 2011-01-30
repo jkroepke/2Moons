@@ -86,7 +86,7 @@ switch($action)
 	case 'fleet1':
 		$TargetGalaxy 					= request_var('galaxy', 0);
 		$TargetSystem 					= request_var('system', 0);
-		$TargetPlanet					= request_var('planet', 0]);
+		$TargetPlanet					= request_var('planet', 0);
 		$TargetPlanettype 				= request_var('planet_type', 1);
 	
 		if($TargetGalaxy == $_SESSION['PLANET']['galaxy'] && $TargetSystem == $_SESSION['PLANET']['system'] && $TargetPlanet == $_SESSION['PLANET']['planet'] && $TargetPlanettype == $_SESSION['PLANET']['planet_type'])
