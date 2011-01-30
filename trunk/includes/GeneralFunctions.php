@@ -514,7 +514,7 @@ function r_implode($glue, $pieces)
 
 function allowedTo($side)
 {
-	return $GLOBALS['USER']['authlevel'] == AUTH_ADM || $GLOBALS['USER']['rights'][$side] != 1;
+	return ($GLOBALS['USER']['authlevel'] == AUTH_ADM || $GLOBALS['USER']['rights'][$side] == 1);
 }
 
 if(!function_exists('ctype_alnum'))

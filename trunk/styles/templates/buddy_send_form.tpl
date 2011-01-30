@@ -22,8 +22,8 @@ function check(){
         <td>{$bu_player}</td>
         <td>{$username}</td>
     </tr><tr>
-        <td>{$mg_message} (<span id="cntChars">0</span> / 5000 {$mg_characters})</td>
-        <td><textarea name="text" id="text" cols="40" rows="10" size="100"></textarea></td>
+        <td>{$bu_request_text}(<span id="cntChars">0</span> / 5000 {$bu_characters})</td>
+        <td><textarea name="text" id="text" cols="40" rows="10" size="100" onkeyup="$('#cntChars').text($(this).val().length);"></textarea></td>
     </tr><tr>
         <td colspan="2"><input type="button" onClick="return check();" name="button" value="{$bu_send}"></td>
 	</tr>

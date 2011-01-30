@@ -30,31 +30,49 @@ ini_set('zlib.output_compression', 'Off');
 header('Content-Type: application/x-javascript');
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 
+function CreateCache($CACHE) {
+	$SCRIPTS	= explode(';', str_replace(array('/', '\\', '-', '.'), '', $_GET['script']));
+	if(!is_array($SCRIPTS))
+		exit(header('HTTP/1.1 204 No Content'));
+
+	$JSSOUCRE	= '';
+	foreach($SCRIPTS as $FILE)
+		$JSSOUCRE	.= file_get_contents(ROOT_PATH.'scripts/'.$FILE.'.js')."\n";
+
+	require_once(ROOT_PATH.'includes/libs/JSMin/jsmin.php');
+	$JSMIN	= JSMin::minify($JSSOUCRE);
+	$PHP	= '<?php'."\r\n";
+	$PHP	.= '$REV	= "'.(int)$_GET['v'].'";'."\r\n";
+	$PHP	.= 'function output() {'."\r\n";
+	$PHP	.= '?>';
+	$PHP	.= $JSMIN;
+	$PHP	.= '<?php }'."\r\n";
+	$PHP	.= '?>';
+	file_put_contents(ROOT_PATH.'cache/'.$CACHE.'.js.php', $PHP);
+	return $JSMIN;
+}
+ 
+
 if(!isset($_GET['script']))
 	exit(header('HTTP/1.1 204 No Content'));
 
-$SCRIPTS	= explode(';', str_replace(array('/', '\\', '-', '.'), '', $_GET['script']));
-if(!is_array($SCRIPTS))
-	exit(header('HTTP/1.1 204 No Content'));
-	
-$JSSOUCRE	= '';
-foreach($SCRIPTS as $FILE)
-	$JSSOUCRE	.= file_get_contents(ROOT_PATH.'scripts/'.$FILE.'.js')."\n";
 
-$ETag	= md5($JSSOUCRE);
+$CACHE	= md5($_GET['script']);
+$ETag	= $CACHE;
 header('ETag: '.$ETag);
-if(isset($_SERVER['HTTP_IF_NONE_MATCH'])) {
-	if($_SERVER['HTTP_IF_NONE_MATCH'] == $ETag) {
-		header('HTTP/1.0 304 Not Modified');
+if(file_exists(ROOT_PATH.'cache/'.$CACHE.'.js.php')) {
+	include(ROOT_PATH.'cache/'.$CACHE.'.js.php');
+	if($REV	== (int)$_GET['v']) {
+		if(isset($_SERVER['HTTP_IF_NONE_MATCH']) && $_SERVER['HTTP_IF_NONE_MATCH'] == $ETag) {
+			header('HTTP/1.0 304 Not Modified');
+		} else {
+			output();
+		}
 		exit;
-	} elseif(file_exists(ROOT_PATH.'cache/'.$_SERVER['HTTP_IF_NONE_MATCH'].'.js.php')) {
-		unlink(ROOT_PATH.'cache/'.$_SERVER['HTTP_IF_NONE_MATCH'].'.js.php');
+	} else {
+		unlink(ROOT_PATH.'cache/'.$CACHE.'.js.php');
 	}
 }
-
-require_once(ROOT_PATH.'includes/libs/JSMin/jsmin.php');
-$JSMIN	= JSMin::minify($JSSOUCRE);
-file_put_contents(ROOT_PATH.'cache/'.$ETag.'.js.php', $JSMIN);
-echo $JSMIN;
+echo CreateCache($CACHE);
 
 ?>

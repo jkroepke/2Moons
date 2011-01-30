@@ -83,6 +83,10 @@
 	<td><input name="debug"{if $debug} checked="checked"{/if} type="checkbox"></td>
 	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_debug_message}", CENTER, OFFSETX, -150, OFFSETY, -10, width, 250);' onMouseOut='return nd();'></td>
 </tr><tr>
+	<td>{$se_min_js}</td>
+	<td><input name="debug"{if $min_js} checked="checked"{/if} type="checkbox"></td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_min_js_info}", CENTER, OFFSETX, -150, OFFSETY, -10, width, 250);' onMouseOut='return nd();'></td>
+</tr><tr>
 	<td>{$se_ships_cdr}</td>
 	<td><input name="Fleet_Cdr" maxlengtd="3" size="3" value="{$shiips}" type="text"> %</td>
 	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_ships_cdr_message}", CENTER, OFFSETX, -150, OFFSETY, -20, width, 250);' onMouseOut='return nd();'></td>

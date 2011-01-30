@@ -84,10 +84,10 @@ switch($action)
 		exit;
 	break;
 	case 'fleet1':
-		$TargetGalaxy 					= request_var('galaxy', $_SESSION['PLANET']['galaxy']);
-		$TargetSystem 					= request_var('system', $_SESSION['PLANET']['system']);
-		$TargetPlanet					= request_var('planet', $_SESSION['PLANET']['planet']);
-		$TargetPlanettype 				= request_var('planet_type', $_SESSION['PLANET']['planet_type']);
+		$TargetGalaxy 					= request_var('galaxy', 0);
+		$TargetSystem 					= request_var('system', 0);
+		$TargetPlanet					= request_var('planet', 0]);
+		$TargetPlanettype 				= request_var('planet_type', 1);
 	
 		if($TargetGalaxy == $_SESSION['PLANET']['galaxy'] && $TargetSystem == $_SESSION['PLANET']['system'] && $TargetPlanet == $_SESSION['PLANET']['planet'] && $TargetPlanettype == $_SESSION['PLANET']['planet_type'])
 			exit($LNG['fl_error_same_planet']);

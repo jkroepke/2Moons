@@ -135,8 +135,8 @@ class ShowOptionsPage
 					$SQLQuery	.= "UPDATE ".USERS." SET 
 									`urlaubs_modus` = '1',
 									`urlaubs_until` = '".(TIMESTAMP + VACATION_MIN_TIME)."'
-									WHERE `id` = '".$USER["id"]."';";
-									"UPDATE ".PLANETS." SET
+									WHERE `id` = '".$USER["id"]."';
+									UPDATE ".PLANETS." SET
 									`energy_used` = '0',
 									`energy_max` = '0',
 									`metal_mine_porcent` = '0',
