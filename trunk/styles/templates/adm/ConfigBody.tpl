@@ -84,7 +84,7 @@
 	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_debug_message}", CENTER, OFFSETX, -150, OFFSETY, -10, width, 250);' onMouseOut='return nd();'></td>
 </tr><tr>
 	<td>{$se_min_js}</td>
-	<td><input name="debug"{if $min_js} checked="checked"{/if} type="checkbox"></td>
+	<td><input name="js_min"{if $min_js} checked="checked"{/if} type="checkbox"></td>
 	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_min_js_info}", CENTER, OFFSETX, -150, OFFSETY, -10, width, 250);' onMouseOut='return nd();'></td>
 </tr><tr>
 	<td>{$se_ships_cdr}</td>
