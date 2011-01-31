@@ -1,30 +1,5 @@
 <?php
 
-/**
- *  2Moons
- *  Copyright (C) 2011  Slaver
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <douglas@crockford.com> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
- * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.3 (2011-01-21)
- * @link http://code.google.com/p/2moons/
- */
 //SHORT NAMES FOR COMBAT REPORTS
 $LNG['tech_rc'] = array (
 202 => 'Kleiner Transporter',
@@ -46,6 +21,14 @@ $LNG['tech_rc'] = array (
 218 => 'Avatar',
 219 => 'Gigarecycler',
 220 => 'Inter. DM-Sammler',
+221 => 'Spaltenreißer',
+222 => 'Bahamut',
+223 => 'Sternenfänger',
+224 => 'Ifrit',
+225 => 'Shiva',
+226 => 'Catoblepas',
+227 => 'Ixion',
+228 => 'Odin',
 
 401 => 'Raketenwerfer',
 402 => 'Leichtes Lasergeschütz',
@@ -128,6 +111,14 @@ $LNG['tech'] = array(
 218 => 'Avatar',
 219 => 'Gigarecycler',
 220 => 'Intergalaktischer D. Materiensammler',
+221 => 'Spaltenreißer',
+222 => 'Bahamut',
+223 => 'Sternenfänger',
+224 => 'Raumtitan Ifrit',
+225 => 'Raumtitan Shiva',
+226 => 'Raumtitan Catoblepas',
+227 => 'Raumtitan Ixion',
+228 => 'Raumtitan Odin',
 
 400 => 'Verteidigungsanlagen',
 401 => 'Raketenwerfer',
@@ -205,7 +196,7 @@ $LNG['res']['descriptions'] = array(
 120 => 'Durch Bündelung des Lichtes entsteht ein Strahl der beim Auftreffen auf ein Objekt Schaden anrichtet.',
 121 => 'Wahrhaft tödlicher Richtstrahl aus beschleunigten Ionen. Diese richten beim Auftreffen auf ein Objekt einen riesigen Schaden an.',
 122 => 'Eine Weiterentwicklung der Ionentechnik, die nicht Ionen beschleunigt, sondern hochenergetisches Plasma. Dieses hat eine verheerende Wirkung beim Auftreffen auf ein Objekt.',
-123 => 'Forscher verschiedener Planeten kommunizieren über dieses Netzwerk miteinander durch das zusammenschalten der Labore wird die Forschungszeit verkürtzt jede stufe schaltet die Labore eines Planeten dazu.',
+123 => 'Forscher verschiedener Planeten kommunizieren über dieses Netzwerk miteinander. Durch das Zusammenschalten der Labore wird die Forschungszeit verkürzt, jede Stufe schaltet die Labore eines Planeten dazu.',
 124 => 'Weitere Erkenntnisse in der Astrophysik ermöglichen den Bau von Laboren, mit denen immer mehr Schiffe ausgestattet werden können. Dadurch werden weite Expeditionsreisen in noch unerforschte Gebiete möglich. Zudem erlauben die Fortschritte die weitere Kolonisation des Weltraumes. Pro zwei Stufen dieser Technologie kann so ein weiterer Planet nutzbar gemacht werden.',
 131 => 'Erhöht die Produktion der Metallmine um 2%',
 132 => 'Erhöht die Produktion der Kristallmine um 2%',
@@ -230,7 +221,15 @@ $LNG['res']['descriptions'] = array(
 217 => 'Ist der eine Weiterentwicklung des gro&szlig;en Transporters. Er hat mehr Ladevermögen und fliegt schneller.',
 218 => 'Der Supergau schlechthin, allerdings sehr langsam.',
 219 => 'Ist eine gigantische Weltraumrecycleanlage und hyperschnell.',
-220 => 'Mit diesem Schiff ist es nach Jahre langen forschen mölich Dunkle Materie an seinem Mond zu sammeln.',
+220 => 'Mit diesem Schiff ist es nach jahrelangem Forschen möglich, Dunkle Materie an seinem Mond zu sammeln.',
+221 => 'Dieses Schiff ist einer der stärksten Schiffe die dieses Universum je betreten hat. Der Spaltenreißer reist mit seiner unglaublich hohen Gravitontechnik einen Riss in die Zeit, der alle Gegner verschlingt. Seine Schilde totzen fast jeden Angriff.',
+222 => 'Dieses Schiff ist das Ergebnis von Jahrelangem Forschen. Alle Kaiser taten sich zusammen um dieses Monstrum eines Zerstörers zu erschaffen. Ausgestattet mit den stärksten Laser- und Projektilgeschützen inklusive Gravitonkanonen ist es möglich Monde innerhalb von Sekunden zu zerstören und ihre Überreste einzusammeln um sie in ihrem gigantischen Lagerraum zu verstauen.',
+223 => 'Dieses Schiff ist in der Lage die Strahlung der Sterne zu Speichern und zu bündeln um einem Mächtigen "Sternenlaser" zu entfesseln. Wenige Waffen aber dafür gerade zu erstklassige Panzerung und Schilde. Er ist der einzige Kreuzer der den Schuss einer Gravitonkanone Überleben könnte.',
+224 => 'Dieses Schiff ist mit den besten Projektilwaffen der Galaxie ausgestattet, jedoch keine Laserwaffen. Eine gewaltige Schusskraft, die fast alles übertrifft, was es bisher gab. ca. 500.000.000.000 Diamantenkugeln werden in einer Minute geschossen, womit sogar die beste Raumschiffpanzerung durchdringbar ist.',
+225 => 'Dieses Schiff ist mit den besten Laser- und Ionenwaffen der Galaxie ausgestattet besitzt jedoch keine Projektilwaffen. Ein gewaltiger Laser der fast alles übertrifft was es bisher gab. Die Kraft von gebündeltem Licht mit verheerender Zerstörungskraft der fast alle Schilde durchbricht. Es ist eines der 5 Raumtitanen.',
+226 => 'Dieses Schiff ist mit einem der größten Frachträume ausgestattet um große Mengen an Rohstoffen transportieren zu können. Zudem ist es mit extrem starken Schilden ausgerüstet weswegen es auch gut zur Verteidigung von Planeten ist. An Angriffskraft mangelt es jedoch. Es ist eines der 5 Raumtitanen.',
+227 => 'Der beste Jäger den es gibt. Durch seine Geschwindigkeit und seine Wendigkeit ist es eine extrem gefährliche Waffe, die wenn sie mit anderen Strahl-Schiffen in den Kampf geschickt wir, selbst einen Lune Noire zerstören kann. Es ist eines der 5 Raumtitanen.',
+228 => 'Dieses Schiff ist trotz seiner größe eines der stärksten schiffe die existieren. Seine größe entspricht dem 4-fachen eines Menschen und kann deswegen leicht in feindliche Forts eindringen um sie von innen zu zerstören. Seine Geschwindigkeit ist unübertroffen. Es ist eines der 5 Raumtitanen.',
 
 401 => 'Der Raketenwerfer ist eine einfache aber kostengünstige Verteidigungsmöglichkeit.',
 402 => 'Durch den konzentrierten Beschuss eines Ziels mit Photonen kann eine wesentlich grössere Schadenswirkung erzielt werden, als mit gewöhnlichen ballistischen Waffen.',
@@ -238,7 +237,7 @@ $LNG['res']['descriptions'] = array(
 404 => 'Die Gaußkanone beschleunigt tonnenschwere Geschosse unter gigantischem elektrischen Aufwand.',
 405 => 'Das Ionengeschütz schleudert eine Welle von Ionen auf das Ziel, welche Schilde destabilisiert und die Elektronik beschädigt.',
 406 => 'Plasmageschütze setzen die Kraft einer Sonneneruption frei und übertreffen in ihrer zerstörerischen Wirkung sogar den Zerstörer.',
-407 => 'Die Kleine Schildkuppel umhüllt den ganzen Planeten mit einem Feld, welches ungeheüre Mengen an Energie absorbieren kann.',
+407 => 'Die kleine Schildkuppel umhüllt den ganzen Planeten mit einem Feld, welches ungeheure Mengen an Energie absorbieren kann.',
 408 => 'Die Weiterentwicklung der Kleinen Schildkuppel kann wesentlich mehr Energie einsetzen um Angriffe abzuhalten.',
 409 => 'Die Weiterentwicklung der Großen Schildkuppel ist die Krönung der Schildtechnik sie kann wesentlich mehr Energie einsetzen um Angriffe abzuhalten als alle anderen Schildkupeln.',
 410 => 'Nach jahrelangen forschen an der Gravitationkraft ist es Forschern gelugen, eine Graviationkanone zu entwickeln, die kleine konzentrierte Gravitionfelder erzeugen kann und sie auf die Gegner schießen lässt.',
@@ -389,6 +388,23 @@ $LNG['info'][219]['name']        = 'Gigarecycler';
 $LNG['info'][219]['description'] = 'Dieses Schiff ist eine wahrhaft gigantische Recykelanlage im Weltraum mit Atemberaubender Geschwindigkeit und riesigem Lageraum! Geschaffen für große Imperien.';
 $LNG['info'][220]['name']        = 'Intergalaktischer D. Materiesammler';
 $LNG['info'][220]['description'] = 'Mit diesem Schiff ist es nach jahrelangem Forschen möglich, Dunkle Materie an seinem Mond zu sammeln.';
+$LNG['info'][221]['name']        = 'Spaltenreißer';
+$LNG['info'][221]['description'] = 'Dieses Schiff ist eines der stärksten Schiffe die dieses Universum je betreten hat. Der Spaltenrei&szlig;er reisst mit seiner unglaublich hohen Gravitontechnik einen Riss in die Zeit, der alle Gegner verschlingt. Seine Schilde trotzen fast jedem Angriff.';
+$LNG['info'][222]['name']        = 'Bahamut';
+$LNG['info'][222]['description'] = 'Dieses Schiff ist das Ergebnis von jahrelangen Forschens. Alle Kaiser taten sich zusammen, um dieses Monstrum eines Zerstörers zu erschaffen. Ausgestattet mit den stärksten Laser- und Projektilgeschützen, inklusive Gravitonkanonen, ist es möglich, Monde innerhalb von Sekunden zu zerstören und ihre überreste einzusammeln, um sie in ihrem gigantischen Lagerraum zu verstauen.';
+$LNG['info'][223]['name']        = 'Sternenfänger';
+$LNG['info'][223]['description'] = 'Dieses Schiff ist in der Lage, die Strahlung der Sterne zu speichern und zu bündeln, um einen mächtigen "Sternenlaser" zu entfesseln. Wenige Waffen, aber dafür gerade zu erstklassige Panzerung und Schilde. Er ist der einzige Kreuzer, der den Schuss einer Gravitonkanone überleben könnte.';
+$LNG['info'][224]['name']        = 'Raumtitan Ifrit';
+$LNG['info'][224]['description'] = 'Dieses Schiff ist trotz seiner Grö&szlig;e eines der stärksten Schiffe die existieren. Seine Grö&szlig;e entspricht dem 4-fachen eines Menschen und kann deswegen leicht in feindliche Forts eindringen um sie von innen zu zerstören. Seine Geschwindigkeit ist unübertroffen. Es ist eines der 5 Raumtitanen.';
+$LNG['info'][225]['name']        = 'Raumtitan Shiva';
+$LNG['info'][225]['description'] = 'Dieses Schiff ist mit den besten Laser- und Ionenwaffen der Galaxie ausgestattet, jedoch keine Projektilwaffen. Ein gewaltiger Laser der fast alles übertrifft was es bisher gab. Die Kraft von gebündeltem Licht, mit verheerender Zerstörungskraft, der fast alle Schilde durchbricht. Es ist eines der 5 Raumtitanen.';
+$LNG['info'][226]['name']        = 'Raumtitan Catoblepas';
+$LNG['info'][226]['description'] = 'Dieses Schiff ist mit einem der grö&szlig;ten Frachträume ausgestattet, um gro&szlig;e Mengen an Rohstoffen transportieren zu können. Zudem ist es mit extrem starken Schilden ausgerüstet, weswegen es auch gut zur Verteidigung von Planeten ist. An Angriffskraft mangelt es jedoch. Es ist eines der 5 Raumtitanen.';
+$LNG['info'][227]['name']        = 'Raumtitan Ixion';
+$LNG['info'][227]['description'] = 'Der beste Jäger den es gibt. Durch seine Geschwindigkeit und seine Wendigkeit ist es eine extrem gefährliche Waffe, die wenn sie mit anderen Strahl-Schiffen in den Kampf geschickt wird, selbst einen Lune Noire zerstören kann. Es ist eines der 5 Raumtitanen.';
+$LNG['info'][228]['name']        = 'Raumtitan Odin';
+$LNG['info'][228]['description'] = 'Dieses Schiff ist trotz seiner Grö&szlig;e eines der stärksten Schiffe die existieren. Seine Grö&szlig;e entspricht dem 4-fachen eines Menschen und kann deswegen leicht in feindliche Forts eindringen, um sie von innen zu zerstören. Seine Geschwindigkeit ist unübertroffen. Es ist eines der 5 Raumtitanen.';
+
 
 // ----------------------------------------------------------------------------------------------------------
 // Verteidigung
