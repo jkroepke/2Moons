@@ -1,31 +1,5 @@
 <?php
 
-/**
- *  2Moons
- *  Copyright (C) 2011  Slaver
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <douglas@crockford.com> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
- * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.3 (2011-01-21)
- * @link http://code.google.com/p/2moons/
- */
-
 //SERVER GENERALS
 $LNG['Metal']								= 'Metall';
 $LNG['Crystal']								= 'Kristall';
@@ -114,7 +88,7 @@ $LNG['ov_newname_no_space']					= 'Der Planetenname darf keine Leerzeichen entha
 $LNG['ov_planet_abandoned']					= 'Planet erfolgreich aufgegeben!';
 $LNG['ov_principal_planet_cant_abanone']	= 'Sie können nicht ihren Hauptplaneten löschen!';
 $LNG['ov_abandon_planet_not_possible']		= 'Kolonie nicht löschbar, wenn Flottenaktivitäten zu oder von ihrer Kolonie stattfinden!';
-$LNG['ov_wrong_pass']						= 'Falsches Passwort. Versuchen sie es nochmal!';
+$LNG['ov_wrong_pass']						= 'Falsches Passwort. Versuchen sie es noch einmal!';
 $LNG['ov_have_new_message']					= 'Du hast eine neue Nachricht';
 $LNG['ov_have_new_messages']				= 'Du hast %d neue Nachrichten';
 $LNG['ov_planetmenu']						= 'Name ändern/Löschen';
@@ -543,7 +517,7 @@ $LNG['mg_empty_text']						= 'Gebe ein Text ein!';
 
 $LNG['al_newname_alphanum']					= 'Der Allianzname und -tag dürfen nur aus alphanumerische Zeichen bestehen.';
 $LNG['al_newname_no_space']					= 'Der Allianzname und -tag dürfen keine Leerzeichen enthalten.';
-$LNG['al_description_message'] 				= 'Der Aliianz wurde keine Beschreibung hinterlegt.';
+$LNG['al_description_message'] 				= 'Für die Allianz wurde keine Beschreibung hinterlegt.';
 $LNG['al_web_text']							= 'Homepage';
 $LNG['al_request'] 							= 'Bewerbung';
 $LNG['al_click_to_send_request'] 			= 'Hier klicken, um sich bei der Allianz zu bewerben';
@@ -908,36 +882,36 @@ $LNG['cdg_fatal_error']						= 'FATAL ERROR';
 //----------------------------------------------------------------------------//
 //class.FlyingFleetsTable.php
 
-$LNG['cff_no_fleet_data']					= 'Keine Schiffsinformationen';
-$LNG['cff_aproaching']						= 'Flotte besteht aus ';
-$LNG['cff_ships']							= ' Einheiten.';
-$LNG['cff_from_the_planet']					= 'Planet ';
-$LNG['cff_from_the_moon']					= 'Mond ';
-$LNG['cff_the_planet']						= 'den Planeten ';
-$LNG['cff_debris_field']					= 'das Trümmerfeld ';
-$LNG['cff_to_the_moon']						= 'den Mond ';
-$LNG['cff_the_position']					= 'Position ';
-$LNG['cff_to_the_planet']					= '';
-$LNG['cff_the_moon']						= ' the moon ';
-$LNG['cff_from_planet']						= 'den Planeten ';
-$LNG['cff_from_debris_field']				= 'vom Trümmerfeld ';
-$LNG['cff_from_the_moon']					= 'vom Mond ';
-$LNG['cff_from_position']					= 'von der Position ';
-$LNG['cff_missile_attack']					= 'Raketenangriff';
-$LNG['cff_from']							= ' von ';
-$LNG['cff_to']								= ' zum ';
-$LNG['cff_one_of_your']						= 'Eine deiner ';
-$LNG['cff_acs_fleet']						= 'Verbandsflotte ';
-$LNG['cff_a']								= 'Eine ';
-$LNG['cff_of']								= ' vom Spieler ';
-$LNG['cff_goes']							= ' vom Planeten ';
-$LNG['cff_toward']							= ' erreicht ';
-$LNG['cff_back_to_the_planet']				= ' zurück zum Planeten ';
-$LNG['cff_with_the_mission_of']				= '. Mission: ';
-$LNG['cff_to_explore']						= ' sind im Orbit von ';
-$LNG['cff_comming_back']					= ' kehrt ';
-$LNG['cff_back']							= 'Comming back';
-$LNG['cff_to_destination']					= 'Heading to destination';
+$LNG['cff_no_fleet_data']                                       = 'Keine Schiffsinformationen';
+$LNG['cff_aproaching']                                          = 'Flotte besteht aus ';
+$LNG['cff_ships']                                               = ' Einheiten.';
+$LNG['cff_from_the_planet']                                     = 'Planet ';
+$LNG['cff_from_the_moon']                                       = 'Mond ';
+$LNG['cff_the_planet']                                          = 'den Planeten ';
+$LNG['cff_debris_field']                                        = 'das Trümmerfeld ';
+$LNG['cff_to_the_moon']                                         = 'den Mond ';
+$LNG['cff_the_position']                                        = 'Position ';
+$LNG['cff_to_the_planet']                                       = '';
+$LNG['cff_the_moon']                                            = ' the moon ';
+$LNG['cff_from_planet']                                         = 'den Planeten ';
+$LNG['cff_from_debris_field']                         		    = 'vom Trümmerfeld ';
+$LNG['cff_from_the_moon']                                       = 'vom Mond ';
+$LNG['cff_from_position']                                       = 'von der Position ';
+$LNG['cff_missile_attack']                                      = 'Raketenangriff';
+$LNG['cff_from']                                                = ' von ';
+$LNG['cff_to']                                                  = ' zum ';
+$LNG['cff_one_of_your']                                         = 'Eine deiner ';
+$LNG['cff_acs_fleet']                                           = 'Verbandsflotte ';
+$LNG['cff_a']                                                   = 'Eine ';
+$LNG['cff_of']                                                  = ' vom Spieler ';
+$LNG['cff_goes']                                                = ' vom Planeten ';
+$LNG['cff_toward']                                              = ' erreicht ';
+$LNG['cff_back_to_the_planet']                          		= ' zurück zum Planeten ';
+$LNG['cff_with_the_mission_of']                         		= '. Mission: ';
+$LNG['cff_to_explore']                                          = ' sind im Orbit von ';
+$LNG['cff_comming_back']                                        = ' kehrt ';
+$LNG['cff_back']                                                = 'Comming back';
+$LNG['cff_to_destination']                                      = 'Heading to destination';
 
 //----------------------------------------------------------------------------//
 // EXTRA LANGUAGE FUNCTIONS
@@ -1144,6 +1118,8 @@ $LNG['lo_logout']							= 'Session wurde beendet';
 $LNG['lo_redirect']							= 'Weiterleitung';
 $LNG['lo_notify']							= 'Sie werden in <span id="seconds">5</span>s weitergeleitet';
 $LNG['lo_continue']							= 'Klicken Sie hier, um nicht zu warten';
+
+//----------------------------------------------------------------------------//
 
 
 // Translated into German by Slaver . All rights reversed (C) 2010
