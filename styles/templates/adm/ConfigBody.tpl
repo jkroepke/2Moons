@@ -145,12 +145,20 @@
 	<th colspan="2">{$se_smtp}</th>
 	<th><center><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_smtp_info}", CENTER, OFFSETX, -150, OFFSETY, -20, width, 250);' onMouseOut='return nd();'></center></th>
 </tr><tr>
+	<td>{$se_mail_use}</td>
+	<td>{html_options name=mail_use options=$Selector.mail selected=$mail_use}</td>
+	<td>&nbsp;</td>
+</tr><tr>
+	<td>{$se_smail_path}</td>
+	<td><input name="smail_path" size="20" value="{$smail_path}" type="text"></td>
+	<td>&nbsp;</td>
+</tr><tr>
 	<td>{$se_smtp_host}</td>
 	<td><input name="smtp_host" size="20" value="{$smtp_host}" type="text" autocomplete="off"></td>
 	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_smtp_host_info}", CENTER, OFFSETX, -150, OFFSETY, -20, width, 250);' onMouseOut='return nd();'></td>
 </tr><tr>
 	<td>{$se_smtp_ssl}</td>
-	<td>{html_options name=smtp_ssl options=$Selector.mail selected=$smtp_ssl}</td>
+	<td>{html_options name=smtp_ssl options=$Selector.encry selected=$smtp_ssl}</td>
 	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_smtp_ssl_info}", CENTER, OFFSETX, -150, OFFSETY, -20, width, 250);' onMouseOut='return nd();'></td>
 </tr><tr>
 	<td>{$se_smtp_port}</td>

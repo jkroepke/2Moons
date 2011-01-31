@@ -294,30 +294,30 @@ function MailSend($MailTarget, $MailTargetName, $MailSubject, $MailContent)
 {
 	global $CONF;
 	require_once('./includes/classes/class.phpmailer.php');
-	$mail             = new PHPMailer(true);
-	$mail->IsSMTP();
-	try{
-		$mail->SMTPDebug  = ($CONF['debug'] == 1) ? 2 : 0;    
-		$mail->SMTPAuth   = true;  
-		$mail->IsHTML(true);		
-		$mail->SMTPSecure = $CONF['smtp_ssl'];  						
-		$mail->Host       = $CONF['smtp_host'];
-		$mail->Port       = $CONF['smtp_port'];
-		$mail->Username   = $CONF['smtp_user'];
-		$mail->Password   = $CONF['smtp_pass'];
-		$mail->SetFrom($CONF['smtp_sendmail'], $CONF['game_name']);
-		$mail->AddAddress($MailTarget, $MailTargetName);
-		$mail->Subject    = $MailSubject;
-		$mail->AltBody    = strip_tags($MailContent);
-		$mail->MsgHTML(makebr($MailContent));
-		$mail->Send();
-		return true;
-	} catch (phpmailerException $e) {
-		return $e->errorMessage();
-	} catch (Exception $e) {
-		return $e->getMessage();
+	$mail             	= new PHPMailer(true);
+	if($CONF['mail_use'] == 2) {
+		$mail->IsSMTP();  
+		$mail->SMTPAuth   	= true; 
+		$mail->SMTPSecure 	= $CONF['smtp_ssl'];  						
+		$mail->Host      	= $CONF['smtp_host'];
+		$mail->Port      	= $CONF['smtp_port'];
+		$mail->Username  	= $CONF['smtp_user'];
+		$mail->Password  	= $CONF['smtp_pass'];
+		$mail->SMTPDebug  	= ($CONF['debug'] == 1) ? 2 : 0;   
+	} elseif($CONF['mail_use'] == 1) {
+		$mail->IsSendmail();
+		$mai->Sendmail		= $CONF['smail_path'];
+	} else {
+		$mail->IsMail();
 	}
-	
+	$mail->CharSet		= 'UTF-8';		
+	$mail->IsHTML(true);		
+	$mail->Subject   	= $MailSubject;
+	$mail->AltBody   	= strip_tags($MailContent);
+	$mail->SetFrom($CONF['smtp_sendmail'], $CONF['game_name']);
+	$mail->AddAddress($MailTarget, $MailTargetName);
+	$mail->MsgHTML(makebr($MailContent));
+	$mail->Send();	
 }
 
 function makebr($text)
@@ -339,17 +339,13 @@ function CheckPlanetIfExist($Galaxy, $System, $Planet, $Universe, $Planettype = 
 function CheckNoobProtec($OwnerPlayer, $TargetPlayer, $Player)
 {	
 	global $CONF;
-
-	$Noobplayer			= false;
-	$StrongPlayer		= false;
-	$IamNoobplayer		= ($OwnerPlayer['total_points'] <= $CONF['noobprotectiontime']) ? true : false;
-	$TargetNoobplayer	= ($TargetPlayer['total_points'] <= $CONF['noobprotectiontime']) ? true : false;
-	if($CONF['noobprotection'] && $Player['banaday'] <= TIMESTAMP && $Player['onlinetime'] >= (TIMESTAMP - 60 * 60 * 24 * 7))
-	{
-		$StrongPlayer	= ($OwnerPlayer['total_points'] * 5 < $TargetPlayer['total_points'] && $IamNoobplayer) ? true : false;
-		$Noobplayer		= ((round($OwnerPlayer['total_points'] * 0.2) > $TargetPlayer['total_points'] && $IamNoobplayer) || ($TargetNoobplayer && !$IamNoobplayer)) ? true : false;
-	}
-	return array("NoobPlayer" => $Noobplayer, "StrongPlayer" => $StrongPlayer);
+	if($CONF['noobprotection'] == 0 || $OwnerPlayer['total_points'] <= $CONF['noobprotectiontime'] || $Player['banaday'] > TIMESTAMP || $Player['onlinetime'] < (TIMESTAMP - 60 * 60 * 24 * 7))
+		return array('NoobPlayer' => false, 'StrongPlayer' => false);
+		
+	return array(
+		'NoobPlayer' => $OwnerPlayer['total_points'] * $CONF['noobprotectionmulti'] < $TargetPlayer['total_points'],
+		'StrongPlayer' => $OwnerPlayer['total_points'] * (1 / $CONF['noobprotectionmulti']) > $TargetPlayer['total_points']
+	);
 }
 
 function CheckName($String)
@@ -357,7 +353,8 @@ function CheckName($String)
 	return(ctype_alnum($String) || (UTF8_SUPPORT && !empty($String))) ? true : false;
 }
 
-function exception_handler($exception) {
+function exception_handler($exception) 
+{
 	global $CONF;
 		
 	echo '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">';
