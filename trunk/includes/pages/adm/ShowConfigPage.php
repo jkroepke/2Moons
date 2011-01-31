@@ -67,6 +67,8 @@ function ShowConfigPage()
 		$CONF['min_build_time']			= request_var('min_build_time', 0);
 		$CONF['ga_key']					= request_var('ga_key', '', true);
 		$CONF['bgm_file']				= request_var('bgm_file', '', true);
+		$CONF['mail_use']				= request_var('mail_use', 0);
+		$CONF['smail_path']				= request_var('smail_path', '');
 		$CONF['smtp_host']				= request_var('smtp_host', '', true);
 		$CONF['smtp_port']				= request_var('smtp_port', 0);
 		$CONF['smtp_user']				= request_var('smtp_user', '', true);
@@ -113,6 +115,8 @@ function ShowConfigPage()
 			'trade_allowed_ships'	=> $CONF['trade_allowed_ships']
 		), false, $_SESSION['adminuni']);
 		update_config(array(	
+			'mail_use'				=> $CONF['mail_use'],
+			'smail_path'			=> $CONF['smail_path'],
 			'smtp_host'				=> $CONF['smtp_host'],
 			'smtp_port'				=> $CONF['smtp_port'],
 			'smtp_user'				=> $CONF['smtp_user'],
@@ -191,6 +195,8 @@ function ShowConfigPage()
 		'se_recaptcha_public'			=> $LNG['se_recaptcha_public'],
 		'se_recaptcha_private'			=> $LNG['se_recaptcha_private'],
 		'se_smtp'						=> $LNG['se_smtp'],
+		'se_mail_use'					=> $LNG['se_mail_use'],
+		'se_smail_path'					=> $LNG['se_smail_path'],
 		'se_smtp_info'					=> $LNG['se_smtp_info'],
 		'se_smtp_host'					=> $LNG['se_smtp_host'],
 		'se_smtp_host_info'				=> $LNG['se_smtp_host_info'],
@@ -242,6 +248,8 @@ function ShowConfigPage()
 		'noobprot'						=> $CONF['noobprotection'],
 		'noobprot2'						=> $CONF['noobprotectiontime'],
 		'noobprot3'						=> $CONF['noobprotectionmulti'],
+		'mail_use'						=> $CONF['mail_use'],
+		'smail_path'					=> $CONF['smail_path'],
 		'smtp_host' 					=> $CONF['smtp_host'],
 		'smtp_port' 					=> $CONF['smtp_port'],
 		'smtp_user' 					=> $CONF['smtp_user'],
@@ -267,7 +275,7 @@ function ShowConfigPage()
 		'bgm_file'           			=> $CONF['bgm_file'],
 		'trade_allowed_ships'        	=> $CONF['trade_allowed_ships'],
 		'trade_charge'		        	=> $CONF['trade_charge'],
-		'Selector'						=> array('langs' => $LANG->getAllowedLangs(false), 'mail' => array('' => $LNG['se_smtp_ssl_1'], 'ssl' => $LNG['se_smtp_ssl_2'], 'tls' => $LNG['se_smtp_ssl_3'])),
+		'Selector'						=> array('langs' => $LANG->getAllowedLangs(false), 'mail' => $LNG['se_mail_sel'], 'encry' => array('' => $LNG['se_smtp_ssl_1'], 'ssl' => $LNG['se_smtp_ssl_2'], 'tls' => $LNG['se_smtp_ssl_3'])),
 		'lang'							=> $CONF['lang'],
 	));
 	
