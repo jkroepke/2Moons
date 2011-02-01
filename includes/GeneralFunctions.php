@@ -343,8 +343,8 @@ function CheckNoobProtec($OwnerPlayer, $TargetPlayer, $Player)
 		return array('NoobPlayer' => false, 'StrongPlayer' => false);
 		
 	return array(
-		'NoobPlayer' => $OwnerPlayer['total_points'] * $CONF['noobprotectionmulti'] < $TargetPlayer['total_points'],
-		'StrongPlayer' => $OwnerPlayer['total_points'] * (1 / $CONF['noobprotectionmulti']) > $TargetPlayer['total_points']
+		'NoobPlayer' => $OwnerPlayer['total_points'] * (1 / $CONF['noobprotectionmulti']) > $TargetPlayer['total_points'],
+		'StrongPlayer' => $OwnerPlayer['total_points'] * $CONF['noobprotectionmulti'] < $TargetPlayer['total_points']
 	);
 }
 
