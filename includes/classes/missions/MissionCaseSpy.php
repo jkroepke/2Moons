@@ -75,7 +75,7 @@ class MissionCaseSpy extends MissionFunctions
 		$SpyBuild	 = ($LS >= $MinAmount + 3) ? true : false;
 		$SpyTechno	 = ($LS >= $MinAmount + 5) ? true : false;
 		
-		$MaterialsInfo    	= $this->SpyTarget($TargetPlanet, 0, $LNG['sys_spy_maretials'], $LNG);
+		$MaterialsInfo    	= $this->SpyTarget($TargetPlanet, 0, $LNG['sys_mess_head'], $LNG);
 		$GetSB	    		= $MaterialsInfo['String'];
 		$Array				= $MaterialsInfo['Array'];
 		$Count				= array();
@@ -178,10 +178,9 @@ class MissionCaseSpy extends MissionFunctions
 		if ($Mode == 0)
 		{
 				$String  = '
-				<table style="width:100%;"><tr><th colspan="5">'.$TitleString.' <i> '.$TargetPlanet['name'].'
+				<table style="width:100%;"><tr><th colspan="5">
 				<a href="game.php?page=galaxy&mode=3&galaxy='. $TargetPlanet['galaxy'] .'&system='. $TargetPlanet['system']. '">
-				['. $TargetPlanet['galaxy'] .':'. $TargetPlanet['system'] .':'. $TargetPlanet['planet'] .']</a></i>
-                vom '. date('d.m Y - H:i:s \U\h\r', $this->_fleet['fleet_end_time']) .'</th>
+				'.sprintf($TitleString, $TargetPlanet['name'], $TargetPlanet['galaxy'], $TargetPlanet['system'], $TargetPlanet['planet'], date(TDFORMAT, $this->_fleet['fleet_end_time'])) .'</th>
                 </tr><tr>
                 <td style="width:25%;" class="left transparent">'. $LNG['Metal'] .'</td><td style="width:25%;" class="left transparent">'. pretty_number($TargetPlanet['metal']) .'</td><td class="transparent">&nbsp;</td>
                 <td style="width:25%;" class="left transparent">'. $LNG['Crystal']   .'</td><td style="width:25%;" class="left transparent">'. pretty_number($TargetPlanet['crystal'])    .'</td>

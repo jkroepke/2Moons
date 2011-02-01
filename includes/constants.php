@@ -133,6 +133,11 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	// Max. User Session in Seconds
 	define('SESSION_LIFETIME'		  , 43200);
 	
+	// Max. User Session in Seconds
+	define('TIMEFORMAT'				  , 'H:i:s');
+	define('DATEFORMAT'				  , 'd. M Y');
+	define('TDFORMAT'				  , 'd. M Y, H:i:s');
+	
 	// DISCLAMER INFOS
 	define('DICLAMER_NAME'            , "Edit constans.php!");
 	define('DICLAMER_ADRESS1'         , "Edit constans.php!");

@@ -131,7 +131,7 @@ class ShowNotesPage
 		{
 			$NoteList[]	= array(
 				'id'		=> $Note['id'],
-				'time'		=> date("d. M y H:i:s", $Note['time']),
+				'time'		=> date(TDFORMAT, $Note['time']),
 				'title'		=> $Note['title'],
 				'size'		=> strlen($Note['text']),
 				'priority'	=> $Note['priority'],

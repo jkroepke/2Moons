@@ -29,7 +29,7 @@
 function GenerateReport($RESULT, $INFO)
 {
 	$html 		= '"<div style=\"width:100%;text-align:center\">';
-	$html	   .= $INFO['moon']['des'] == 1 ? '".$LNG["sys_destruc_title"]." '.date("D M j H:i:s", $INFO['fleet_start_time']).'. <br><br>' : '".$LNG["sys_attack_title"]." '.date("D M j H:i:s", $INFO['fleet_start_time']).'. <br><br>';
+	$html	   .= $INFO['moon']['des'] == 1 ? '".$LNG["sys_destruc_title"]." '.date(TDFORMAT, $INFO['fleet_start_time']).'. <br><br>' : '".$LNG["sys_attack_title"]." '.date(TDFORMAT, $INFO['fleet_start_time']).'. <br><br>';
 		
 	$round_no 	= 1;
 	$des		= array('att' => array(), 'def' => array());

@@ -163,7 +163,7 @@ switch($action)
 				$CurrUsername	= $db->uniquequery("SELECT `username`, `galaxy`, `system`, `planet` FROM ".USERS." WHERE id = '".$CurMess['message_owner']."';");
 				
 				$MessageList[$CurMess['message_id']]	= array(
-					'time'		=> date("d. M Y, H:i:s", $CurMess['message_time']),
+					'time'		=> date(TDFORMAT, $CurMess['message_time']),
 					'from'		=> $CurrUsername['username']." [".$CurrUsername['galaxy'].":".$CurrUsername['system'].":".$CurrUsername['planet']."]",
 					'subject'	=> $CurMess['message_subject'],
 					'type'		=> $CurMess['message_type'],
@@ -183,7 +183,7 @@ switch($action)
 		{
 			$MessageList[$CurMess['message_time']]	= array(
 				'id'		=> $CurMess['message_id'],
-				'time'		=> date("d. M Y, H:i:s", $CurMess['message_time']),
+				'time'		=> date(TDFORMAT, $CurMess['message_time']),
 				'from'		=> $CurMess['message_from'],
 				'subject'	=> stripslashes($CurMess['message_subject']),
 				'sender'	=> $CurMess['message_sender'],

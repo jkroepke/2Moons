@@ -173,7 +173,7 @@ function ShowStatisticsPage()
 		'st_per'				=> $LNG['st_per'],
 		'st_statistics'			=> $LNG['st_statistics'],
 		'st_updated'			=> $LNG['st_updated'],
-		'stat_date'				=> date("d. M Y, H:i:s", $CONF['stat_last_update']),
+		'stat_date'				=> date(TDFORMAT, $CONF['stat_last_update']),
 		'st_show'				=> $LNG['st_show'],
 		'st_in_the_positions'	=> $LNG['st_in_the_positions'],
 	));

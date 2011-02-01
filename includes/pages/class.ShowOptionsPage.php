@@ -234,7 +234,7 @@ class ShowOptionsPage
 				if($USER['urlaubs_modus'] == 1)
 				{
 					$template->assign_vars(array(	
-						'vacation_until'					=> date("d.m.Y H:i:s",$USER['urlaubs_until']),
+						'vacation_until'					=> date(TDFORMAT,$USER['urlaubs_until']),
 						'op_save_changes'					=> $LNG['op_save_changes'],
 						'op_end_vacation_mode'				=> $LNG['op_end_vacation_mode'],
 						'op_vacation_mode_active_message'	=> $LNG['op_vacation_mode_active_message'],

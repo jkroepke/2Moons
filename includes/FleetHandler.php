@@ -62,6 +62,6 @@ function init() {
 }
 init();
 if(php_sapi_name() === 'cli') {
-	echo 'OK! - '.date("H:i:s")."\r\n";
+	echo 'OK! - '.date(TIMEFORMAT)."\r\n";
 }
 ?>

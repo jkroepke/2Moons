@@ -102,7 +102,7 @@ class ShowSupportPage
 			$TicketsList[$ticket['ID']]	= array(
 				'status'	=> $ticket['status'],
 				'subject'	=> $ticket['subject'],
-				'date'		=> date("j. M Y H:i:s",$ticket['time']),
+				'date'		=> date(TDFORMAT,$ticket['time']),
 				'text'		=> html_entity_decode($ticket['text'], ENT_NOQUOTES, "UTF-8"),
 			);
 		}
