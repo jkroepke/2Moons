@@ -357,7 +357,7 @@ function ShowUpdatePage()
 
 						$RevList .= "<tr>
 						".(($Patchlevel[2] == $Rev)?"<th colspan=5>".$LNG['up_momentane_version']."</th></tr><tr>":((($Patchlevel[2] - 1) == $Rev)?"<th colspan=5>".$LNG['up_alte_updates']."</th></tr><tr>":""))."
-						<th>".(($Patchlevel[2] == $Rev)?"<font color=\"red\">":"")."".$LNG['up_revision']."" . $Rev . " ".date("d. M y H:i:s", $RevInfo['timestamp'])." ".$LNG['ml_from']." ".$RevInfo['author'].(($Patchlevel[2] == $Rev)?"</font>":"")."</th></tr>
+						<th>".(($Patchlevel[2] == $Rev)?"<font color=\"red\">":"")."".$LNG['up_revision']."" . $Rev . " ".date(TDFORMAT, $RevInfo['timestamp'])." ".$LNG['ml_from']." ".$RevInfo['author'].(($Patchlevel[2] == $Rev)?"</font>":"")."</th></tr>
 						<tr><td>".makebr($RevInfo['log'])."</th></tr>
 						".((!empty($RevInfo['add']))?"<tr><td>".$LNG['up_add']."<br>".str_replace("/trunk/", "", implode("<br>\n", $RevInfo['add']))."</b></td></tr>":"")."
 						".((!empty($RevInfo['edit']))?"<tr><td>".$LNG['up_edit']."<br>".$edit."</b></td></tr>":"")."

@@ -59,8 +59,8 @@ function ShowAccountDataPage()
 			$UserQuery 	= 	$db->uniquequery("SELECT ".$SpecifyItemsU." FROM ".USERS." as u LEFT JOIN ".SESSION." as s ON s.user_id = u.id WHERE `id` = '".$id_u."';");
 
 			
-			$reg_time		= date("d-m-Y H:i:s", $UserQuery['register_time']);
-			$onlinetime		= date("d-m-Y H:i:s", $UserQuery['onlinetime']);
+			$reg_time		= date(TDFORMAT, $UserQuery['register_time']);
+			$onlinetime		= date(TDFORMAT, $UserQuery['onlinetime']);
 			$id				= $UserQuery['id'];
 			$nombre			= $UserQuery['username'];
 			$email_1		= $UserQuery['email'];
@@ -105,8 +105,8 @@ function ShowAccountDataPage()
 				$BannedQuery	= $db->uniquequery("SELECT theme,time,longer,author FROM ".BANNED." WHERE `who` = '".$UserQuery['username']."';");
 				
 				
-				$sus_longer	= date("d-m-Y H-i-s", $BannedQuery['longer']);
-				$sus_time	= date("d-m-Y H-i-s", $BannedQuery['time']);
+				$sus_longer	= date(TDFORMAT, $BannedQuery['longer']);
+				$sus_time	= date(TDFORMAT, $BannedQuery['time']);
 				$sus_reason	= $BannedQuery['theme'];
 				$sus_author	= $BannedQuery['author'];
 				
@@ -171,7 +171,7 @@ function ShowAccountDataPage()
 				$tag					= $AllianceQuery['ally_tag'];
 				$ali_nom				= $AllianceQuery['ally_name'];
 				$ali_cant				= $AllianceQuery['ally_members'];
-				$ally_register_time	= date("d-m-Y H:i:s", $AllianceQuery['ally_register_time']);
+				$ally_register_time	= date(TDFORMAT, $AllianceQuery['ally_register_time']);
 				$ali_lider						= $AllianceQuery['ally_owner'];
 				$ali_web				= $AllianceQuery['ally_web'] != NULL ? "<a href=".$AllianceQuery['ally_web']." target=_blank>".$AllianceQuery['ally_web']."</a>" : $LNG['ac_no_web'];
 										

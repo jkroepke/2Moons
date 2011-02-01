@@ -89,7 +89,7 @@ function ShowBanPage()
 			$timesus		=	
 				"<tr>
 					<th>".$LNG['bo_bbb_title_5']."</th>
-					<th height=25 colspan=2>".date("d-m-Y H:i:s", $BANUSER['longer'])."</th>
+					<th height=25 colspan=2>".date(TDFORMAT, $BANUSER['longer'])."</th>
 				</tr>";
 		}
 		

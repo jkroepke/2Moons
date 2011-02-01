@@ -46,7 +46,7 @@ function ShowSupportPage()
 			}
 
 			$ticket = $db->uniquequery("SELECT `player_id`, `text` FROM ".SUPP." WHERE `id` = '".$ID."';");
-			$newtext = $ticket['text'].'<br><br><hr>'.sprintf($LNG['sp_admin_answer'], $USER['username'], date("j. M Y H:i:s", TIMESTAMP), $text);
+			$newtext = $ticket['text'].'<br><br><hr>'.sprintf($LNG['sp_admin_answer'], $USER['username'], date(TDFORMAT, TIMESTAMP), $text);
 
 			$SQL  = "UPDATE ".SUPP." SET ";
 			$SQL .= "`text` = '".$db->sql_escape($newtext)."',";
@@ -58,7 +58,7 @@ function ShowSupportPage()
 		break;
 		case 'open':
 			$ticket = $db->uniquequery("SELECT text FROM ".SUPP." WHERE `id` = '".$ID."';");
-			$newtext = $ticket['text'].'<br><br><hr>'.sprintf($LNG['sp_admin_open'], $USER['username'], date("j. M Y H:i:s", TIMESTAMP));
+			$newtext = $ticket['text'].'<br><br><hr>'.sprintf($LNG['sp_admin_open'], $USER['username'], date(TDFORMAT, TIMESTAMP));
 			$SQL  = "UPDATE ".SUPP." SET ";
 			$SQL .= "`text` = '".$db->sql_escape($newtext)."',";
 			$SQL .= "`status` = '2'";
@@ -68,7 +68,7 @@ function ShowSupportPage()
 		break;
 		case 'close':
 			$ticket = $db->uniquequery("SELECT text FROM ".SUPP." WHERE `id` = '".$ID."';");
-			$newtext = $ticket['text'].'<br><br><hr>'.sprintf($LNG['sp_admin_closed'], $USER['username'], date("j. M Y H:i:s", TIMESTAMP));
+			$newtext = $ticket['text'].'<br><br><hr>'.sprintf($LNG['sp_admin_closed'], $USER['username'], date(TDFORMAT, TIMESTAMP));
 			$SQL  = "UPDATE ".SUPP." SET ";
 			$SQL .= "`text` = '".$db->sql_escape($newtext)."',";
 			$SQL .= "`status` = '0'";
@@ -106,7 +106,7 @@ function ShowSupportPage()
 				'username'	=> $ticket['username'],
 				'subject'	=> $ticket['subject'],
 				'status'	=> $status,
-				'date'		=> date("j. M Y H:i:s",$ticket['time'])
+				'date'		=> date(TDFORMAT,$ticket['time'])
 			);	
 		} else {
 			$tickets['open'][]	= array(
@@ -114,7 +114,7 @@ function ShowSupportPage()
 				'username'	=> $ticket['username'],
 				'subject'	=> $ticket['subject'],
 				'status'	=> $status,
-				'date'		=> date("j. M Y H:i:s",$ticket['time'])
+				'date'		=> date(TDFORMAT,$ticket['time'])
 			);
 		}
 		
@@ -147,7 +147,7 @@ function ShowSupportPage()
 			't_status'		=> $TINFO['status'],
 			't_text'		=> $TINFO['text'],
 			't_subject'		=> $TINFO['subject'],
-			't_date'		=> date("j. M Y H:i:s", $TINFO['time']),
+			't_date'		=> date(TDFORMAT, $TINFO['time']),
 			'text'			=> $LNG['text'],
 			'answer_new'	=> $LNG['answer_new'],
 			'button_submit'	=> $LNG['button_submit'],
