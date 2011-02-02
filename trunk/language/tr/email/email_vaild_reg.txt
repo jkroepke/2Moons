@@ -1,0 +1,19 @@
+Merhaba% 1 $ s
+Bizim oyun% 2 $ kayit ederiz s. Hesabinizi ve etkin önce kaydinizi tamamlamis olabilir, bir son adim yapmak zorundayiz.
+
+Bu adim bir kayitli kullanici olmak için mutlaka gerekli oldugunu unutmayin. Yalnizca bir kez Hesabinizi etkinlestirmek için asagidaki linki çagirmalidir.
+
+Kaydinizi tamamlamak için asagidaki linke tiklayin:
+
+<a href='%3$s?page=reg&mode=valid&lang=%7$s&clef=%4$s'>% 3 $ s? page = reg & mode = geçerlidir & lang =% 7 $ s & clef =% 4 $ </ a>
+
+Giris verileri:
+
+Kullanici Adi:% 1 $ s
+Sifre:% 5 $ s
+
+$ </ a> <a href='mailto:%6$s'>% 6: Hala kayit islemleri ile ilgili sorunlar varsa, bu e-posta adresi webmaster lütfen
+
+Saygilarimla,
+
+% 2 $ s - Takim
