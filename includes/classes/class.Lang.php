@@ -35,7 +35,6 @@ class Language
 		'pt' => 'Português',
 		'cn' => '简体中文',
 		'pl' => 'Polski',
-		'tr' => 'Türkisch',
 	);
 	
 	public $Default	= '';
