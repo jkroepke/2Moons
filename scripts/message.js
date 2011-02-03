@@ -16,7 +16,7 @@ Message	= {
 				TEMP += '</td><td>'+mess.time+'</td><td>';
 				TEMP += (mess.type == 50 && Message.MessID != 999) ? Message.LNG.mg_game_message : mess.from;
 				TEMP += '</td><td>'+mess.subject;
-				TEMP += (mess.type == 1 && Message.MessID != 999) ? '<a href="#" onclick="OpenPopup(\'game.php?page=messages&amp;mode=write&amp;id='+mess.sender+'&amp;subject='+Message.CreateAnswer(mess.subject)+'\', \'\', 720, 300);" title="Nachricht an '+Message.stripHTML(mess.from)+' schreiben"><img src="'+Skin+'img/m.gif" border="0"></a>' : '';
+				TEMP += (mess.type == 1 && Message.MessID != 999) ? '<a href="#" onclick="OpenPopup(\'game.php?page=messages&amp;mode=write&amp;id='+mess.sender+'&amp;subject='+Message.CreateAnswer(mess.subject)+'\', \'\', 720, 300);" title="'+Message.LNG.mg_answer_to+' '+Message.stripHTML(mess.from)+'"><img src="'+Skin+'img/m.gif" border="0"></a>' : '';
 				TEMP += '</td></tr><tr class="message_body message_'+mess.id+'"><td colspan="3" class="left">'+mess.text+'</td></tr>';
 				if($.browser.webkit || $.browser.opera)
 					MESS = TEMP + MESS;

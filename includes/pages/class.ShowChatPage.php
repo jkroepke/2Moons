@@ -50,7 +50,11 @@ class ShowChatPage
 	
 	private function SetMeassageInChat($chat_type, $msg) {
 		global $USER, $db, $LNG, $UNI;
-		$db->query("INSERT INTO ".CHAT." (user, ally_id, message, timestamp, universe) VALUES ('".(($USER['authlevel'] == 3) ? sprintf($LNG['chat_admin'], $USER['username']) : $USER['username'])."','".(($chat_type == "ally") ? $USER['ally_id'] : 0)."','".$msg."', '".TIMESTAMP."', '".$UNI."');");
+		if($USER['authlevel'] == 3) 
+			$Name	= '<span style="color:red">'.$USER['username'].'</span>';
+		else
+			$Name	= $USER['username'];
+		$db->query("INSERT INTO ".CHAT." (user, ally_id, message, timestamp, universe) VALUES ('".$Name."','".(($chat_type == "ally") ? $USER['ally_id'] : 0)."','".$msg."', '".TIMESTAMP."', '".$UNI."');");
 		header('HTTP/1.1 204 No Content');
 	}
 
@@ -63,7 +67,7 @@ class ShowChatPage
 		while($Message = $db->fetch_array($Chat)){
 			$msg[$Message['messageid']] = array(
 				'date'	=> date("m/d H:i:s", $Message["timestamp"]),
-				'name'	=> "<a href=\"javascript:addSmiley('->".(strip_tags($Message["user"])).": ')\">".$Message["user"]."</a>",
+				'name'	=> "<a href=\"javascript:addSmiley('->".(strip_tags($Message["user"])).": ')\">".$Message['user']."</a>",
 				'mess'	=> $this->BBCodeMSG($Message["message"]),
 			);
 		}
