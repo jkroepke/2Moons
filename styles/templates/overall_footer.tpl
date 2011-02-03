@@ -10,7 +10,7 @@ var Skin		= "{$dpath}";
 var Lang		= "{$lang}";
 var auth		= {$authlevel};
 </script>
-{if $debug == 1 || $js_min == 0}
+{if $debug == 1 || $min_js == 0}
 <script type="text/javascript" src="{$cd}scripts/base.js?v={$REV}"></script>
 <script type="text/javascript" src="{$cd}scripts/global.js?v={$REV}"></script>
 {foreach item=scriptname from=$scripts}

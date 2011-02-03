@@ -84,7 +84,7 @@
 	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_debug_message}", CENTER, OFFSETX, -150, OFFSETY, -10, width, 250);' onMouseOut='return nd();'></td>
 </tr><tr>
 	<td>{$se_min_js}</td>
-	<td><input name="js_min"{if $min_js} checked="checked"{/if} type="checkbox"></td>
+	<td><input name="min_js"{if $min_js} checked="checked"{/if} type="checkbox"></td>
 	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_min_js_info}", CENTER, OFFSETX, -150, OFFSETY, -10, width, 250);' onMouseOut='return nd();'></td>
 </tr><tr>
 	<td>{$se_ships_cdr}</td>
@@ -149,6 +149,10 @@
 	<td>{html_options name=mail_use options=$Selector.mail selected=$mail_use}</td>
 	<td>&nbsp;</td>
 </tr><tr>
+	<td>{$se_smtp_sendmail}</td>
+	<td><input name="smtp_sendmail" size="20" value="{$smtp_sendmail}" type="text" autocomplete="off"></td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_smtp_sendmail_info}", CENTER, OFFSETX, -150, OFFSETY, -20, width, 250);' onMouseOut='return nd();'></td>
+</tr><tr>
 	<td>{$se_smail_path}</td>
 	<td><input name="smail_path" size="20" value="{$smail_path}" type="text"></td>
 	<td>&nbsp;</td>
@@ -172,10 +176,6 @@
 	<td>{$se_smtp_pass}</td>
 	<td><input name="smtp_pass" size="20" value="{$smtp_pass}" type="password" autocomplete="off"></td>
 	<td>&nbsp;</td>
-</tr><tr>
-	<td>{$se_smtp_sendmail}</td>
-	<td><input name="smtp_sendmail" size="20" value="{$smtp_sendmail}" type="text" autocomplete="off"></td>
-	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_smtp_sendmail_info}", CENTER, OFFSETX, -150, OFFSETY, -20, width, 250);' onMouseOut='return nd();'></td>
 </tr><tr>
 	<th colspan="2">{$se_ftp}</th>
 	<th><center><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_ftp_info}", CENTER, OFFSETX, -150, OFFSETY, -20, width, 250);' onMouseOut='return nd();'></center></th>
