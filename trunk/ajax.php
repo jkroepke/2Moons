@@ -64,8 +64,10 @@ switch($action)
 				$ACSDone[]		= $FleetRow['fleet_group'];
 				
 				$FleetData[$FleetRow['fleet_start_time'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable($FleetRow, 0, $IsOwner, 'fs', $Record, true);
+				if($FleetData[$FleetRow['fleet_start_time'].$FleetRow['fleet_id']]['fleet_descr'] === '')
+					unset($FleetData[$FleetRow['fleet_start_time'].$FleetRow['fleet_id']]);
 			}
-
+				
 			if ($FleetRow['fleet_mission'] == 10 || ($FleetRow['fleet_mission'] == 4 && $FleetRow['fleet_mess'] == 0))
 				continue;
 
@@ -78,6 +80,7 @@ switch($action)
 			if ($FleetRow['fleet_end_time'] > TIMESTAMP)
 				$FleetData[$FleetRow['fleet_end_time'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable($FleetRow, 1, $IsOwner, 'fe', $Record);
 		}
+			//var_dump($FleetData);
 		$db->free_result($OwnFleets);
 		ksort($FleetData);
 		echo json_encode($FleetData);

@@ -47,7 +47,7 @@ class MissionCaseRecycling extends MissionFunctions
 
 			$Class       			= explode(",", $Group);
 			if($Class[0] == 209 || $Class[0] == 219)
-				$RecyclerCapacity		= bcadd($RecyclerCapacity, bcmul($pricelist[$Class[0]]['capacity'], $Class[1]))
+				$RecyclerCapacity		= bcadd($RecyclerCapacity, bcmul($pricelist[$Class[0]]['capacity'], $Class[1]));
 			else
 				$OtherFleetCapacity		= bcadd($OtherFleetCapacity, bcmul($pricelist[$Class[0]]['capacity'], $Class[1]));
 		}		

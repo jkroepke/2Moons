@@ -34,7 +34,7 @@ class FlyingFleetsTable
     {
 		global $LNG, $USER;
 
-		return $Names['own_username'].' <a href="#" onclick="OpenPopup(\'game.php?page=messages&amp;mode=write&amp;id='.$FleetRow['fleet_owner'].'\', \'\', 720, 300);return falase;">(N)</a>';
+		return $Names['own_username'].' <a href="#" onclick="OpenPopup(\'game.php?page=messages&amp;mode=write&amp;id='.$FleetRow['fleet_owner'].'\', \'\', 720, 300);return false;">(N)</a>';
 	}
 
 	// For ShowFlyingFleets.php in admin panel.
@@ -111,7 +111,7 @@ class FlyingFleetsTable
 		return $MissionPopup;
 	}
 
-	private function CreateFleetPopupedFleetLink($FleetRow, $Texte, $FleetType, $Names = array())
+	private function CreateFleetPopupedFleetLink($FleetRow, $Texte, $FleetType)
 	{
 		global $LNG;
 
@@ -120,17 +120,10 @@ class FlyingFleetsTable
 		$FleetPopup  .= "<table width=200>";
 		if(!defined('IN_ADMIN'))
 		{
-			if($Names['spy_tech'] < 2 && $FleetRow['fleet_owner'] != $_SESSION['id'])
-			{
-				$FleetPopup .= "<tr><td style=\'width:100%\' class=\'transparent\'><span style=\'color:white\'>".$LNG['cff_no_fleet_data']."</span></td></tr>";
-			}
-			elseif($Names['spy_tech'] >= 2 && $Names['spy_tech'] < 4 && $FleetRow['fleet_owner'] != $_SESSION['id'])
-			{
+			if($_SESSION['USER']['spy_tech'] < 4 && $FleetRow['fleet_owner'] != $_SESSION['id']) {
 				$FleetPopup .= "<tr><td style=\'width:100%\' class=\'transparent\'><span style=\'color:white\'>".$LNG['cff_aproaching'].$FleetRow['fleet_amount'].$LNG['cff_ships']."</span></td></tr>";
-			}
-			else
-			{
-				if($FleetRow['fleet_owner'] != $_SESSION['id'])
+			} else {
+				if($_SESSION['USER']['spy_tech'] < 8 && $FleetRow['fleet_owner'] != $_SESSION['id'])
 					$FleetPopup .= "<tr><td style=\'width:100%\' class=\'transparent\'><span style=\'color:white\'>".$LNG['cff_aproaching'].$FleetRow['fleet_amount'].$LNG['cff_ships'].":</span></td></tr>";
 
 				foreach($FleetRec as $Item => $Group)
@@ -143,10 +136,11 @@ class FlyingFleetsTable
 						$FleetPopup .= "<tr><td style=\'width:50%\' class=\'transparent\'><span style=\'color:white\'>". $LNG['tech'][$Ship[0]] .":</span></td><td style=\'width:50%\' class=\'transparent\'><span style=\'color:white\'>". pretty_number($Ship[1]) ."</span></td></tr>";
 					elseif($FleetRow['fleet_owner'] != $_SESSION['id'])
 					{
-						if($Names['spy_tech'] >= 4 && $Names['spy_tech'] < 8)
-							$FleetPopup .= "<tr><td style=\'width:100%\' class=\'transparent\'><span style=\'color:white\'>". $LNG['tech'][$Ship[0]] ."</span></td></tr>";
-						elseif($Names['spy_tech'] >= 8)
+						if($_SESSION['USER']['spy_tech'] >= 8)
 							$FleetPopup .= "<tr><td style=\'width:50%\' class=\'transparent\'><span style=\'color:white\'>". $LNG['tech'][$Ship[0]] .":</span></td><td style=\'width:50%\' class=\'transparent\'><span style=\'color:white\'>". pretty_number($Ship[1]) ."</span></td></tr>";
+						else
+							$FleetPopup .= "<tr><td style=\'width:100%\' class=\'transparent\'><span style=\'color:white\'>". $LNG['tech'][$Ship[0]] ."</span></td></tr>";
+						
 					}
 				}
 			}
@@ -172,11 +166,7 @@ class FlyingFleetsTable
 	public function GetNames($FleetRow)
 	{
 		global $db;
-		return $db->uniquequery("SELECT ou.username as own_username,
-		ou.spy_tech as spy_tech,
-		tu.username as target_username,
-		op.name as own_planetname,
-		tp.name as target_planetname
+		return $db->uniquequery("SELECT ou.username as own_username, tu.username as target_username, op.name as own_planetname, tp.name as target_planetname
 		FROM ".USERS." as ou
 		LEFT JOIN ".USERS." tu ON tu.id = '".$FleetRow['fleet_target_owner']."'
 		LEFT JOIN ".PLANETS." op ON op.`id` = '".$FleetRow['fleet_start_id']."'
@@ -200,150 +190,72 @@ class FlyingFleetsTable
 			10 => 'missile',
 			15 => 'transport',
 		);
-	       
-		$Names		  = $this->GetNames($FleetRow);
-		$FleetPrefix    = ($Owner == true) ? 'own' : '';
+	    $GoodMissions	= array(3, 5);
 		$MissionType    = $FleetRow['fleet_mission'];
-		$FleetContent   = $this->CreateFleetPopupedFleetLink($FleetRow, (($MissionType == 1 || $MissionType == 2) && $FleetRow['fleet_owner'] != $_SESSION['id'] && $Status == 0 && $Owner == true) ? $LNG['cff_acs_fleet'] : $LNG['ov_fleet'], $FleetPrefix.$FleetStyle[$MissionType], $Names);
+		if($_SESSION['USER']['spy_tech'] == 0 && $Owner == false && !in_array($MissionType, $GoodMissions))
+			return array(0, '', 0);
+			
+		$Names		  	= $this->GetNames($FleetRow);
+		$FleetPrefix    = ($Owner == true) ? 'own' : '';
+		$FleetType		= $FleetPrefix.$FleetStyle[$MissionType];
+		$FleetContent   = $this->CreateFleetPopupedFleetLink($FleetRow, (($MissionType == 1 || $MissionType == 2) && $FleetRow['fleet_owner'] != $_SESSION['id'] && $Status == 0 && $Owner == true) ? $LNG['cff_acs_fleet'] : $LNG['ov_fleet'], $FleetPrefix.$FleetStyle[$MissionType]);
 		$FleetCapacity  = $this->CreateFleetPopupedMissionLink($FleetRow, $LNG['type_mission'][$MissionType], $FleetPrefix.$FleetStyle[$MissionType]);
-		$StartType      = $FleetRow['fleet_start_type'];
-		$TargetType     = $FleetRow['fleet_end_type'];
-		$FleetGroup     = $FleetRow['fleet_group'];
-		$FleetStatus    = array ( 0 => 'flight', 1 => 'return' , 2 => 'holding');
-
-
-		if (($MissionType == 1 || $MissionType == 2) && $FleetRow['fleet_owner'] != $_SESSION['id'] && $Status == 0 && $Owner == true)
-		{
-			$StartID = $LNG['cff_of'].' '.$Names['own_username'].' ';
-			$StartID  .= $LNG['cff_goes'];
-
-			$StartID .= $Names['own_planetname']." ".GetStartAdressLink($FleetRow, $FleetPrefix.$FleetStyle[$MissionType]);
-
-			if ($TargetType == 1)
-				$TargetID  = $LNG['cff_the_planet'];
-			elseif ($TargetType == 2)
-				$TargetID  = $LNG['cff_debris_field'];
-			elseif ($TargetType == 3)
-				$TargetID  = $LNG['cff_to_the_moon'];
-		       
-			$TargetID .= $Names['target_planetname']." ";
-			$TargetID .= GetTargetAdressLink ( $FleetRow, $FleetPrefix . $FleetStyle[ $MissionType ] );
-		}
-		elseif ($Status != 2)
-		{
-			if ($StartType == 1)
-				$StartID  = $LNG['cff_from_the_planet'];
-			elseif ($StartType == 3)
-				$StartID  = $LNG['cff_from_the_moon'];
-
-			$StartID .= $Names['own_planetname']." ".GetStartAdressLink($FleetRow, $FleetPrefix.$FleetStyle[$MissionType]);
-
-			if ($MissionType != 15)
-			{
-				if ($TargetType == 1)
-					$TargetID  = $LNG['cff_the_planet'];
-				elseif ($TargetType == 2)
-					$TargetID  = $LNG['cff_debris_field'];
-				elseif ($TargetType == 3)
-					$TargetID  = $LNG['cff_to_the_moon'];
-			}
-			else
-				$TargetID  = $LNG['cff_the_position'];
-
-			$TargetID .= $Names['target_planetname']." ";
-			$TargetID .= GetTargetAdressLink($FleetRow, $FleetPrefix . $FleetStyle[ $MissionType ] );
-		}
-		else
-		{
-			if($StartType == 1)
-				$StartID  = $LNG['cff_to_the_planet'];
-			elseif ($StartType == 3)
-				$StartID  = $LNG['cff_the_moon'];
-
-			$StartID .= $Names['own_planetname'].' '.GetStartAdressLink($FleetRow, $FleetPrefix.$FleetStyle[ $MissionType ] );
-
-			if ($MissionType != 15)
-			{
-				if($TargetType == 1)
-					$TargetID  = $LNG['cff_from_planet'];
-				elseif ($TargetType == 2)
-					$TargetID  = $LNG['cff_from_debris_field'];
-				elseif ($TargetType == 3)
-					$TargetID  = $LNG['cff_from_the_moon'];
-			}
-			else
-				$TargetID  = $LNG['cff_from_position'];
-
-			$TargetID .= $Names['target_planetname'].' '.GetTargetAdressLink($FleetRow, $FleetPrefix.$FleetStyle[$MissionType]);
-		}
-	       
-		if ($MissionType == 10)
-		{
-			$EventString  = $LNG['cff_missile_attack']." (".str_replace("503,","",$FleetRow["fleet_array"]).")";
-			$Time	 = $FleetRow['fleet_start_time'];
-			$Rest	 = $Time - TIMESTAMP;
-			$EventString .= $LNG['cff_from'];
-			$EventString .= $StartID;
-			$EventString .= $LNG['cff_to'];
-			$EventString .= $TargetID;
-			$EventString .= ".";
-		}
-		else
-		{
-			if ($Owner == true)
-			{
-				if (($MissionType == 1 || $MissionType == 2) && $Status == 0 && $FleetRow['fleet_owner'] != $_SESSION['id']) {
-					$EventString  = $LNG['cff_a'];
-				} else {
-					$EventString  = $LNG['cff_one_of_your'];
-				}
-				$EventString .= $FleetContent;
-			}
-			else
-			{
-				$EventString  = $LNG['cff_a'];
-				$EventString .= $FleetContent;
-				$EventString .= $LNG['cff_of'];
-				$EventString .= $this->BuildHostileFleetPlayerLink($FleetRow, $Names);
-			}
-
+		$FleetStatus    = array(0 => 'flight', 1 => 'return' , 2 => 'holding');
+		$StartType		= $FleetRow['fleet_start_type'] == 1 ? $LNG['fcm_planet'] : $LNG['fcm_moon'];
+		$TargetType		= $FleetRow['fleet_end_type'] == 1 ? $LNG['fcm_planet'] : $LNG['fcm_moon'];
+		
+		if ($MissionType == 8) {
 			if ($Status == 0)
-			{
-				$Time	 = $FleetRow['fleet_start_time'];
-				$Rest	 = $Time - TIMESTAMP;
-				$EventString .= $LNG['cff_goes'];
-				$EventString .= $StartID;
-				$EventString .= $LNG['cff_toward'];
-				$EventString .= $TargetID;
-				$EventString .= $LNG['cff_with_the_mission_of'];
-			}
-			elseif ($Status == 1)
-			{
-				$Time	 = $FleetRow['fleet_end_time'];
-				$Rest	 = $Time - TIMESTAMP;
-				$EventString .= $LNG['cff_comming_back'];
-				$EventString .= $TargetID;
-				$EventString .= $LNG['cff_back_to_the_planet'];			
-				$EventString .= $StartID;
-				$EventString .= $LNG['cff_with_the_mission_of'];
-			}
+				$EventString = sprintf($LNG['cff_mission_own_recy_0'], $FleetContent, $StartType, $Names['own_planetname'], GetStartAdressLink($FleetRow, $FleetType), GetTargetAdressLink($FleetRow, $FleetType), $FleetCapacity);
+			else
+				$EventString = sprintf($LNG['cff_mission_own_recy_1'], $FleetContent, GetTargetAdressLink($FleetRow, $FleetType), $StartType, $Names['own_planetname'], GetStartAdressLink($FleetRow, $FleetType), $FleetCapacity);
+		} elseif ($MissionType == 10) {
+			if ($Owner)
+				$EventString = sprintf($LNG['cff_mission_own_mip'], $FleetRow['fleet_amount'], $StartType, $Names['own_planetname'], GetStartAdressLink($FleetRow, $FleetType), $TargetType, $Names['target_planetname'], GetTargetAdressLink($FleetRow, $FleetType));
+			else
+				$EventString = sprintf($LNG['cff_mission_own_mip'], $FleetRow['fleet_amount'], $this->BuildHostileFleetPlayerLink($FleetRow, $Names), $StartType, $Names['own_planetname'], GetStartAdressLink($FleetRow, $FleetType), $TargetType, $Names['target_planetname'], GetTargetAdressLink($FleetRow, $FleetType));
+		} elseif ($MissionType == 11 || $MissionType == 15) {		
+			if ($Status == 0)
+				$EventString = sprintf($LNG['cff_mission_own_expo_0'], $FleetContent, $StartType, $Names['own_planetname'], GetStartAdressLink($FleetRow, $FleetType), GetTargetAdressLink($FleetRow, $FleetType), $FleetCapacity);
 			elseif ($Status == 2)
-			{								
-				$Time	 = $FleetRow['fleet_end_stay'];
-				$Rest	 = $Time - TIMESTAMP;
-				$EventString .= $LNG['cff_goes'];
-				$EventString .= $StartID;
-				$EventString .= $LNG['cff_to_explore'];
-				$EventString .= $TargetID;
-				$EventString .= $LNG['cff_with_the_mission_of'];
-			}
-			$EventString .= $FleetCapacity;
-			$EventString = '<span class="'.$FleetStatus[$Status].' '.$FleetPrefix.$FleetStyle[$FleetRow['fleet_mission']].'">'.$EventString.'</span>';
-		       
+				$EventString = sprintf($LNG['cff_mission_own_expo_2'], $FleetContent, $StartType, $Names['own_planetname'], GetStartAdressLink($FleetRow, $FleetType), GetTargetAdressLink($FleetRow, $FleetType), $FleetCapacity);	
+			else
+				$EventString = sprintf($LNG['cff_mission_own_expo_1'], $FleetContent, GetTargetAdressLink($FleetRow, $FleetType), $StartType, $Names['own_planetname'], GetStartAdressLink($FleetRow, $FleetType), $FleetCapacity);	
+		} else {
+			if ($Owner == true) {
+				if ($Status == 0) {
+					if (($MissionType == 1 || $MissionType == 2) && $Status == 0 && $FleetRow['fleet_owner'] != $_SESSION['id'])
+						$Message  = $LNG['cff_mission_acs']	;
+					else
+						$Message  = $LNG['cff_mission_own_0'];
+						
+					$EventString  = sprintf($Message, $FleetContent, $StartType, $Names['own_planetname'], GetStartAdressLink($FleetRow, $FleetType), $TargetType, $Names['target_planetname'], GetTargetAdressLink($FleetRow, $FleetType), $FleetCapacity);
+				} elseif($Status == 1)
+					$EventString  = sprintf($LNG['cff_mission_own_1'], $FleetContent, $TargetType, $Names['target_planetname'], GetTargetAdressLink($FleetRow, $FleetType), $StartType, $Names['own_planetname'], GetStartAdressLink($FleetRow, $FleetType), $FleetCapacity);		
+				else
+					$EventString  = sprintf($LNG['cff_mission_own_2'], $FleetContent, $StartType, $Names['own_planetname'], GetStartAdressLink($FleetRow, $FleetType), $TargetType, $Names['target_planetname'], GetTargetAdressLink($FleetRow, $FleetType), $FleetCapacity);	
+			} else {
+				if ($Status == 2)
+					$Message	= $LNG['cff_mission_target_stay'];
+				elseif(in_array($MissionType, $GoodMissions))
+					$Message	= $LNG['cff_mission_target_good'];
+				else
+					$Message	= $LNG['cff_mission_target_bad'];
+
+				$EventString	= sprintf($Message, $FleetContent, $this->BuildHostileFleetPlayerLink($FleetRow, $Names), $StartType, $Names['own_planetname'], GetStartAdressLink($FleetRow, $FleetType), $TargetType, $Names['target_planetname'], GetTargetAdressLink($FleetRow, $FleetType), $FleetCapacity);
+			}		       
 		}
+		$EventString = '<span class="'.$FleetStatus[$Status].' '.$FleetType.'">'.$EventString.'</span>';
+		if ($Status == 0)
+			$Time	 = $FleetRow['fleet_start_time'];
+		elseif ($Status == 1)
+			$Time	 = $FleetRow['fleet_end_time'];
+		elseif ($Status == 2)
+			$Time	 = $FleetRow['fleet_end_stay'];
+		$Rest	 = $Time - TIMESTAMP;
 		return array($Rest, $EventString, $Time);
 	}
-       
+
 	//For overview and phalanx
 	public function BuildFleetEventTable($FleetRow, $Status, $Owner, $Label, $Record, $isAKS = false)
 	{
@@ -358,6 +270,9 @@ class FlyingFleetsTable
 				while($AKSRow = $db->fetch_array($AKSFleets))
 				{
 					$Return			= $this->GetEventString($AKSRow, $Status, $Owner, $Label, $Record);
+					if(empty($Return[1]))
+						return array('fleet_order' => 0, 'fleet_descr' => '', 'fleet_return'=> 0);
+						
 					$Rest			= $Return[0];
 					$EventString    .= $Return[1].'<br><br>';
 					$Time			= $Return[2];
@@ -376,6 +291,7 @@ class FlyingFleetsTable
 	
 			return $FleetInfo;
 		}
+		return array('fleet_order' => 0, 'fleet_descr' => '', 'fleet_return'=> 0);
 	}
 }
 ?>

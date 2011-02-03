@@ -71,6 +71,7 @@ function ShowPhalanxPage()
 	$FleetToTarget  = $db->query("SELECT * FROM ".FLEETS." WHERE `fleet_start_id` = '".$TargetInfo['id']."' OR `fleet_end_id` = '".$TargetInfo['id']."' ORDER BY `fleet_start_time`;");
 	$fpage		= array();
 	$FleetData	= array();
+	$_SESSION['USER']['spy_tech']	= 8;
 	while ($FleetRow = $db->fetch_array($FleetToTarget))
 	{
 		$Record++;
@@ -102,6 +103,7 @@ function ShowPhalanxPage()
 			$FleetData[$FleetRow['fleet_end_time'].$FleetRow['fleet_id']]	= $fpage[$FleetRow['fleet_end_time'].$FleetRow['fleet_id']]['fleet_return'];	
 		}
 	}
+	$_SESSION['USER']['spy_tech']	= $USER['spy_tech'];
 	
 	$db->free_result($FleetToTarget);
 	
