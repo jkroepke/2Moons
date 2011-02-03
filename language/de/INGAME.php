@@ -882,39 +882,29 @@ $LNG['cdg_fatal_error']						= 'FATAL ERROR';
 //----------------------------------------------------------------------------//
 //class.FlyingFleetsTable.php
 
-$LNG['cff_no_fleet_data']                                       = 'Keine Schiffsinformationen';
-$LNG['cff_aproaching']                                          = 'Flotte besteht aus ';
-$LNG['cff_ships']                                               = ' Einheiten.';
-$LNG['cff_from_the_planet']                                     = 'Planet ';
-$LNG['cff_from_the_moon']                                       = 'Mond ';
-$LNG['cff_the_planet']                                          = 'den Planeten ';
-$LNG['cff_debris_field']                                        = 'das Trümmerfeld ';
-$LNG['cff_to_the_moon']                                         = 'den Mond ';
-$LNG['cff_the_position']                                        = 'Position ';
-$LNG['cff_to_the_planet']                                       = '';
-$LNG['cff_the_moon']                                            = ' the moon ';
-$LNG['cff_from_planet']                                         = 'den Planeten ';
-$LNG['cff_from_debris_field']                         		    = 'vom Trümmerfeld ';
-$LNG['cff_from_the_moon']                                       = 'vom Mond ';
-$LNG['cff_from_position']                                       = 'von der Position ';
-$LNG['cff_missile_attack']                                      = 'Raketenangriff';
-$LNG['cff_from']                                                = ' von ';
-$LNG['cff_to']                                                  = ' zum ';
-$LNG['cff_one_of_your']                                         = 'Eine deiner ';
-$LNG['cff_acs_fleet']                                           = 'Verbandsflotte ';
-$LNG['cff_a']                                                   = 'Eine ';
-$LNG['cff_of']                                                  = ' vom Spieler ';
-$LNG['cff_goes']                                                = ' vom Planeten ';
-$LNG['cff_toward']                                              = ' erreicht ';
-$LNG['cff_back_to_the_planet']                          		= ' zurück zum Planeten ';
-$LNG['cff_with_the_mission_of']                         		= '. Mission: ';
-$LNG['cff_to_explore']                                          = ' sind im Orbit von ';
-$LNG['cff_comming_back']                                        = ' kehrt ';
-$LNG['cff_back']                                                = 'Comming back';
-$LNG['cff_to_destination']                                      = 'Heading to destination';
+
+$LNG['cff_no_fleet_data']					= 'Keine Schiffsinformationen';
+$LNG['cff_acs_fleet']						= 'Verbandsflotte';
+$LNG['cff_fleet_own']						= 'Flotte';
+$LNG['cff_fleet_target']					= 'Flotten';
+$LNG['cff_mission_acs']						= 'Eine %s vom %s %s %s erreicht den %s %s %s. Mission: %s';
+$LNG['cff_mission_own_0']					= 'Eine deiner %s vom %s %s %s erreicht den %s %s %s. Mission: %s';
+$LNG['cff_mission_own_1']					= 'Eine deiner %s kehrt vom %s %s %s zurück zum %s %s %s. Mission: %s';
+$LNG['cff_mission_own_2']					= 'Eine deiner %s vom %s %s %s sind im Orbit von dem %s %s %s. Mission: %s';
+$LNG['cff_mission_own_mip']					= 'Raketenangriff (%d) vom %s %s %s auf den %s %s %s.';
+$LNG['cff_mission_own_expo_0']				= 'Eine deiner %s vom %s %s %s erreicht die Position %s. Mission: %s';
+$LNG['cff_mission_own_expo_1']				= 'Eine deiner %s kehrt von der Position %s zurück zum %s %s %s. Mission: %s';
+$LNG['cff_mission_own_expo_2']				= 'Eine deiner %s vom %s %s %s ist auf einer Expedition bei Position %s. Mission: %s';
+$LNG['cff_mission_own_recy_0']				= 'Eine deiner %s vom %s %s %s erreicht das Trümmerfeld %s. Mission: %s';
+$LNG['cff_mission_own_recy_1']				= 'Eine deiner %s kehrt vom Trümmerfeld %s zurück zum Planeten %s %s %s. Mission: %s';
+$LNG['cff_mission_target_bad']				= 'Eine feindliche %s vom Spieler %s vom %s %s %s erreicht den %s %s %s. Mission: %s';
+$LNG['cff_mission_target_good']				= 'Eine friedliche %s vom Spieler %s vom %s %s %s erreicht den %s %s %s. Mission: %s';
+$LNG['cff_mission_target_stay']				= 'Eine friedliche %s vom Spieler %s vom %s %s %s ist im Orbit von dem %s %s %s. Mission: %s';
+$LNG['cff_mission_target_mip']				= 'Raketenangriff (%d) vom Spieler %s vom %s %s %s auf den %s %s %s.';
 
 //----------------------------------------------------------------------------//
 // EXTRA LANGUAGE FUNCTIONS
+$LNG['fcm_planet']							= 'Planet';
 $LNG['fcm_moon']							= 'Mond';
 $LNG['fcm_info']							= 'Information';
 $LNG['fcp_colony']							= 'Kolonie';
