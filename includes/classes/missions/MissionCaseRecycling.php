@@ -46,7 +46,10 @@ class MissionCaseRecycling extends MissionFunctions
 			if (empty($Group)) continue;
 
 			$Class       			= explode(",", $Group);
-			$RecyclerCapacity		= $Class[0] == 209 || $Class[0] == 219 ? bcadd($RecyclerCapacity, bcmul($pricelist[$Class[0]]['capacity'], $Class[1])) : bcadd($OtherFleetCapacity, bcmul($pricelist[$Class[0]]['capacity'], $Class[1]));
+			if($Class[0] == 209 || $Class[0] == 219)
+				$RecyclerCapacity		= bcadd($RecyclerCapacity, bcmul($pricelist[$Class[0]]['capacity'], $Class[1]))
+			else
+				$OtherFleetCapacity		= bcadd($OtherFleetCapacity, bcmul($pricelist[$Class[0]]['capacity'], $Class[1]));
 		}		
 		
 		$IncomingFleetGoods 	= bcadd($this->_fleet['fleet_resource_metal'], bcadd($this->_fleet['fleet_resource_crystal'], $this->_fleet['fleet_resource_deuterium']));

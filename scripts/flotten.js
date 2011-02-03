@@ -188,7 +188,7 @@ function CheckTarget()
 	kolo	= (typeof data.ships[208] == "object") ? 1 : 0;
 		
 	$.get('ajax.php?action=fleet1&galaxy='+document.getElementsByName("galaxy")[0].value+'&system='+document.getElementsByName("system")[0].value+'&planet='+document.getElementsByName("planet")[0].value+'&planet_type='+document.getElementsByName("planettype")[0].value+'&lang='+Lang+'&kolo='+kolo, function(data) {
-		if(data == "OK") {
+		if($.trim(data) == "OK") {
 			document.getElementById('form').submit();
 		} else {
 			fadeBox(data, true);

@@ -50,6 +50,7 @@ class MissionCaseMIP extends MissionFunctions
 		$TargetInfo			= $db->uniquequery($QryTarget);					   
 		$OwnerInfo			= $db->uniquequery("SELECT `lang`, `military_tech` FROM ".USERS." WHERE `id` = '".$this->_fleet['fleet_owner']."';");					   
 		$Target				= (!in_array($this->_fleet['fleet_target_obj'], $reslist['defense']) || $this->_fleet['fleet_target_obj'] == 502 || $this->_fleet['fleet_target_obj'] == 0) ? 401 : $this->_fleet['fleet_target_obj'];
+		var_dump($Target);exit;
 		foreach($reslist['defense'] as $Element)		
 		{
 			$TargetDefensive[$Element]	= $TargetInfo[$resource[$Element]];
