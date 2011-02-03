@@ -310,7 +310,7 @@ switch ($page) {
 				$SQL .= "`ip` = '".$_SERVER['REMOTE_ADDR']."'; ";
 				$db->query($SQL);
 				
-				if($CONF['user_valid'] == 0 || $CONF['smtp_host'] == '' || $CONF['smtp_port'] == 0 || $CONF['smtp_user'] == '' || $CONF['smtp_pass'] == '') {
+				if($CONF['user_valid'] == 0) {
 					redirectTo("index.php?page=reg&mode=valid&lang=".$UserLang."&clef=".$clef);
 				} else {
 					$MailSubject 	= $LNG['reg_mail_message_pass'];
@@ -336,7 +336,7 @@ switch ($page) {
 				$UserPlanet	= $Valider['planet'];
 				$UserLang 	= $Valider['lang'];
 				$UserUni 	= $Valider['universe'];
-				$CONF		= $db->uniquequery("SELECT `initial_fields`, `LastSettedGalaxyPos`, `LastSettedSystemPos`, `LastSettedPlanetPos`, `smtp_host`, `smtp_port`, `smtp_user`, `smtp_pass`, `game_name`, `users_amount`, `metal_basic_income`, `crystal_basic_income`, `deuterium_basic_income` FROM ".CONFIG." WHERE `uni` = ".$UserUni.";");
+				$CONF		= $db->uniquequery("SELECT `initial_fields`, `LastSettedGalaxyPos`, `LastSettedSystemPos`, `LastSettedPlanetPos`, `smtp_host`, `smtp_port`, `smtp_user`, `smtp_pass`, `smtp_ssl`, `smtp_sendmail`, `game_name`, `users_amount`, `metal_basic_income`, `crystal_basic_income`, `deuterium_basic_income` FROM ".CONFIG." WHERE `uni` = ".$UserUni.";");
 				
 				$SQL = "INSERT INTO " . USERS . " SET ";
 				$SQL .= "`username` = '".$UserName . "', ";
@@ -354,15 +354,11 @@ switch ($page) {
 				$db->query($SQL);
 				$NewUser = $db->GetInsertID();
 				
-				if(!empty($CONF['smtp_host']) && !empty($CONF['smtp_port']) && !empty($CONF['smtp_user']) && !empty($CONF['smtp_pass']))
-				{				
-					$MailSubject	= sprintf($LNG['reg_mail_reg_done'], $CONF['game_name']);	
-					$MailRAW		= file_get_contents("./language/".$UserLang."/email/email_reg_done.txt");
-					$MailContent	= sprintf($MailRAW, $UserName, $CONF['game_name']);	
-					MailSend($UserMail, $UserName, $MailSubject, $MailContent);
-				}
-				
-				
+				$MailSubject	= sprintf($LNG['reg_mail_reg_done'], $CONF['game_name']);	
+				$MailRAW		= file_get_contents("./language/".$UserLang."/email/email_reg_done.txt");
+				$MailContent	= sprintf($MailRAW, $UserName, $CONF['game_name']);	
+				MailSend($UserMail, $UserName, $MailSubject, $MailContent);
+			
 				$LastSettedGalaxyPos = $CONF['LastSettedGalaxyPos'];
 				$LastSettedSystemPos = $CONF['LastSettedSystemPos'];
 				$LastSettedPlanetPos = $CONF['LastSettedPlanetPos'];
