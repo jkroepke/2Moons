@@ -212,6 +212,7 @@ switch($action)
 				'mg_delete_all'						=> $LNG['mg_delete_all'],
 				'mg_confirm_delete'					=> $LNG['mg_confirm_delete'],
 				'mg_game_message'					=> $LNG['mg_game_message'],
+				'mg_answer_to'						=> $LNG['mg_answer_to'],
 			),
 		));
 		exit;

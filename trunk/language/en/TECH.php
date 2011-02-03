@@ -21,14 +21,6 @@ $LNG['tech_rc'] = array (
 218 => 'Avatar',
 219 => 'Mega-Recycler',
 220 => 'Inter. DM-Collector',
-221 => 'Valafor',
-222 => 'Bahamut',
-223 => 'Flagship',
-224 => 'Ifrit',
-225 => 'Shiva',
-226 => 'Catoblepas',
-227 => 'Ixion',
-228 => 'Odin',
 
 401 => 'Missle Launcher',
 402 => 'Light Laser Turret',
@@ -112,15 +104,6 @@ $LNG['tech'] = array(
 218 => 'Avatar',
 219 => 'Mega-Recycler',
 220 => 'Inter. DM-Collector',
-221 => 'Valafor',
-222 => 'Bahamut',
-223 => 'Stars Catcher',
-224 => 'Flagship - Ifrit',
-225 => 'Flagship - Shiva',
-226 => 'Flagship - Catoblepas',
-227 => 'Flagship - Ixion',
-228 => 'Flagship - Odin',
-
 400 => 'Planetary Defense',
 401 => 'Missle Launcher',
 402 => 'Light Laser Turret',
@@ -223,14 +206,6 @@ $LNG['res']['descriptions'] = array(
 218 => 'The absolute worst case scenario, albeit very slowly.',
 219 => 'Is a huge cargo space and new engines, enable it to fly faster and gather more in debris fields .',
 220 => 'After long years of research dark matter is now collectable from the moon.',
-221 => 'This ship is one of the most powerful ships in universe. The Column thriller travels with its incredibly high Graviton Technology to make a rift in the time that devours all opponents. His shields take almost every attack. ',
-222 => 'This ship is the result of years of research. All the Emperors came together to create this monster of a destroyer. Equipped with the most powerful laser and projectile guns, including Graviton cannon is it possible to destroy satellites within seconds and collect their remains to stow in its giant warehouse. ', 
-223 => 'This ship uses radiation from the stars to build a charge for the mighty "Star Laser". With first-class armor and shields this might be the only cruiser to be shot by a Graviton cannon and survive.',
-224 => 'This ship is equipped with the best projectile weapons of the galaxy, but has no laser weapons. Tremendous firepower exceeds that of almost everything there was before. approximately 500 billion diamond projectiles are shot in a minute, even the best spaceship armor is penetrable. It is one of five space titans.',
-225 => 'This ship is equipped with the best laser and ion weapons of the galaxy but has no projectile weapons.A powerful laser surpasses almost everything there was before. The force of focused light with devastating destructive force that breaks almost any shield . It is one of five space Titans.',
-226 => 'This ship has one of the largest cargo spaces fitted so large quantities of raw materials can be transported. It is also equipped with extremely powerful shields, so it also good for the defense of a planet. However attack power is lacking. It is one of five space titans.',
-227 => 'The best fighter there is. With its speed and agility, it is an extremely dangerous weapon. It is one of five space titans.',
-228 => 'This ship size is equivalent to four times a human being and therefore can easily penetrate into enemy forts to destroy it from within. His speed is unmatched. It is one of five space Titans.',
 
 401 => 'The Rocket Launcher is a simple but cost-effective defense.',
 402 => 'Light Lasers are simple ground based weapons that utilize special targeting systems to track the enemy and fire a high intensity laser designed to cut through the hull of the target.',
@@ -389,23 +364,6 @@ $LNG['info'][219]['name']        = 'Mega-Recycler';
 $LNG['info'][219]['description'] = 'This ship is a truly a gigantic Recycler with its astounding speed and huge storage room! created for large empires.';
 $LNG['info'][220]['name']        = 'Intergalactic Darkmatter collector';
 $LNG['info'][220]['description'] = 'With this ship, it is possible after long years of research to collect dark matter from the moon.';
-$LNG['info'][221]['name']        = 'Column thriller';
-$LNG['info'][221]['description'] = 'The Column thriller travels with incredibly high Graviton Technology to make a rift in space-time that devours all opponents. Its shields Take almost every attack.';
-$LNG['info'][222]['name']        = 'Bahamut';
-$LNG['info'][222]['description'] = 'This ship is the result of years of research. All Kaiser teamed up to create this monster of a destroyer. Equipped with the most powerful laser and projectile guns including Graviton cannon it is possible to destroy satellites within seconds and collect their remains in  its huge warehouse.';
-$LNG['info'][223]['name']        = 'Star catcher';
-$LNG['info'][223]['description'] = 'This ship uses radiation from the stars to build a charge for the mighty "Star Laser". With first-class armor and shields this might be the only cruiser to be shot by a Graviton cannon and survive';
-$LNG['info'][224]['name']        = 'Space Titan Ifrit';
-$LNG['info'][224]['description'] = 'This ship is equipped with the best projectile weapons of the galaxy, but has no laser weapons. Tremendous firepower exceeds that of almost everything there was before. approximately 500 billion diamond projectiles are shot in a minute, even the best spaceship armor is penetrable. It is one of five space titans.';
-$LNG['info'][225]['name']        = 'Space Titan Shiva';
-$LNG['info'][225]['description'] = 'This ship is equipped with the best laser and ion weapons of the galaxy but has no projectile weapons.A powerful laser surpasses almost everything there was before. The force of focused light with devastating destructive force that breaks almost any shield . It is one of five space Titans.';
-$LNG['info'][226]['name']        = 'Space Titan Catoblepas';
-$LNG['info'][226]['description'] = 'This ship has one of the largest cargo spaces fitted so large quantities of raw materials can be transported. It is also equipped with extremely powerful shields, so it also good for the defense of a planet. However attack power is lacking. It is one of five space titans.';
-$LNG['info'][227]['name']        = 'Space Titan Ixion';
-$LNG['info'][227]['description'] = 'The best fighter there is. With its speed and agility, it is an extremely dangerous weapon. It is one of five space titans.';
-$LNG['info'][228]['name']        = 'Space Titan Odin';
-$LNG['info'][228]['description'] = 'This ship size is equivalent to four times a human being and therefore can easily penetrate into enemy forts to destroy it from within. His speed is unmatched. It is one of five space Titans.';
-
 
 // ----------------------------------------------------------------------------------------------------------
 // Verteidigung
