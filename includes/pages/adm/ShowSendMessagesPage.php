@@ -51,10 +51,11 @@ function ShowSendMessagesPage() {
 
 		if (!empty($Message) && !empty($Subject))
 		{
+			require_once(ROOT_PATH.'includes/functions/BBCode.php');
 			$Time    	= TIMESTAMP;
 			$From    	= '<span style="color:'.$color.';">'.$LNG['user_level'][$USER['authlevel']].' '.$USER['username'].'</span>';
 			$Subject 	= '<span style="color:'.$color.';">'.$Subject.'</span>';
-			$Message 	= '<span style="color:'.$color.';font-weight:bold;">'.$Message.'</span>';
+			$Message 	= '<span style="color:'.$color.';font-weight:bold;">'.bbcode($Message).'</span>';
 
 			SendSimpleMessage(0, $USER['id'], TIMESTAMP, 50, $From, $Subject, $Message, 0, $_SESSION['adminuni']);
 			$db->query("UPDATE ".USERS." SET `new_gmessage` = `new_gmessage` + '1', `new_message` = `new_message` + '1' WHERE `universe` = '".$_SESSION['adminuni']."';");
