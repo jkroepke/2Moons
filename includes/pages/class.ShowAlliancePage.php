@@ -158,30 +158,18 @@ class ShowAlliancePage
 								$aname	= request_var('aname', '', UTF8_SUPPORT);
 								
 								if (empty($atag))
-								{
 									$template->message($LNG['al_tag_required'], "?page=alliance&mode=make", 3);
-									exit;
-								}
 
 								if (empty($aname))
-								{
 									$template->message($LNG['al_name_required'], "?page=alliance&mode=make", 3);
-									exit;
-								}
 								
 								if (!CheckName($aname) || !CheckName($atag))
-								{
 									$template->message((UTF8_SUPPORT) ? $LNG['al_newname_no_space'] : $LNG['al_newname_alphanum'], "?page=alliance&mode=make", 3);
-									exit;
-								}
 								
-								$tagquery = $db->uniquequery("SELECT `id` FROM `".ALLIANCE."` WHERE ally_tag = '".$db->sql_escape($atag)."' OR ally_name = '".$db->sql_escape($aname)."';");
+								$tagquery = $db->countquery("SELECT COUNT(*) FROM `".ALLIANCE."` WHERE `ally_universe` = '".$UNI."' AND (ally_tag = '".$db->sql_escape($atag)."' OR ally_name = '".$db->sql_escape($aname)."');");
 
-								if (isset($tagquery))
-								{
+								if ($tagquery == 0)
 									$template->message(sprintf($LNG['al_already_exists'], $aname), "?page=alliance&mode=make", 3);
-									exit;
-								}
 								
 								$db->multi_query("INSERT INTO ".ALLIANCE." SET
                                 `ally_name`='".$db->sql_escape($aname)."',
