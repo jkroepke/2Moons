@@ -516,7 +516,7 @@ CREATE TABLE IF NOT EXISTS `prefix_users` (
   `b_tech_planet` int(11) unsigned NOT NULL DEFAULT '0',
   `b_tech` int(11) unsigned NOT NULL DEFAULT '0',
   `b_tech_id` smallint(2) unsigned NOT NULL DEFAULT '0',
-  `b_tech_queue` varchar(500) NOT NULL DEFAULT ''
+  `b_tech_queue` varchar(500) NOT NULL DEFAULT '',
   `spy_tech` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `computer_tech` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `military_tech` tinyint(3) unsigned NOT NULL DEFAULT '0',
