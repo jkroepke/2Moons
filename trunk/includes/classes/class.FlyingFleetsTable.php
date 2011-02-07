@@ -120,7 +120,9 @@ class FlyingFleetsTable
 		$FleetPopup  .= "<table width=200>";
 		if(!defined('IN_ADMIN'))
 		{
-			if($_SESSION['USER']['spy_tech'] < 4 && $FleetRow['fleet_owner'] != $_SESSION['id']) {
+			if($_SESSION['USER']['spy_tech'] < 2 && $FleetRow['fleet_owner'] != $_SESSION['id']) {
+				$FleetPopup .= "<tr><td style=\'width:100%\' class=\'transparent\'><span style=\'color:white\'>".$LNG['cff_no_fleet_data']."</span></td></tr>";
+			} elseif($_SESSION['USER']['spy_tech'] < 4 && $FleetRow['fleet_owner'] != $_SESSION['id']) {
 				$FleetPopup .= "<tr><td style=\'width:100%\' class=\'transparent\'><span style=\'color:white\'>".$LNG['cff_aproaching'].$FleetRow['fleet_amount'].$LNG['cff_ships']."</span></td></tr>";
 			} else {
 				if($_SESSION['USER']['spy_tech'] < 8 && $FleetRow['fleet_owner'] != $_SESSION['id'])
@@ -192,9 +194,7 @@ class FlyingFleetsTable
 		);
 	    $GoodMissions	= array(3, 5);
 		$MissionType    = $FleetRow['fleet_mission'];
-		if($_SESSION['USER']['spy_tech'] == 0 && $Owner == false && !in_array($MissionType, $GoodMissions))
-			return array(0, '', 0);
-			
+
 		$Names		  	= $this->GetNames($FleetRow);
 		$FleetPrefix    = ($Owner == true) ? 'own' : '';
 		$FleetType		= $FleetPrefix.$FleetStyle[$MissionType];
@@ -270,8 +270,6 @@ class FlyingFleetsTable
 				while($AKSRow = $db->fetch_array($AKSFleets))
 				{
 					$Return			= $this->GetEventString($AKSRow, $Status, $Owner, $Label, $Record);
-					if(empty($Return[1]))
-						return array('fleet_order' => 0, 'fleet_descr' => '', 'fleet_return'=> 0);
 						
 					$Rest			= $Return[0];
 					$EventString    .= $Return[1].'<br><br>';

@@ -66,6 +66,9 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	// NUMBER OF BUILDINGS THAT CAN GO IN THE CONSTRUCTION QUEUE
 	define('MAX_BUILDING_QUEUE_SIZE'  , 5);
 
+	// NUMBER OF TECHS THAT CAN GO IN THE RESEARCH QUEUE (1 = off)
+	define('MAX_RESEACH_QUEUE_SIZE'  ,2);
+
 	// NUMBER OF SHIPS THAT CAN BUILD FOR ONCE
 	define('MAX_FLEET_OR_DEFS_PER_ROW', 1000000);
 	
@@ -73,7 +76,7 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	define('MAX_FLEET_OR_DEFS_IN_BUILD', 10);
 	
 	// SUPPORT WILDCAST DOMAINS
-	define('UNIS_WILDCAST', true);
+	define('UNIS_WILDCAST'			  , true);
 
 	// PERCENTAGE OF RESOURCES THAT CAN BE OVER STORED
 	// 1.0 TO 100% - 1.1% FOR 110 AND SO ON

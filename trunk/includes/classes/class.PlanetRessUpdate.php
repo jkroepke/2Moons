@@ -59,6 +59,10 @@ class ResourceUpdate
 			
 		if($this->Build)
 		{
+		
+			if(!function_exists('GetBuildingTime')) #Debug
+				file_put_contents(ROOT_PATH.'includes/slaver.log', print_r(debug_backtrace(), true)."\r\n-----------\r\n\r\n", FILE_APPEND);
+			
 			$this->ShipyardQueue();
 			if($this->USER['b_tech'] != 0 && $this->USER['b_tech'] < $this->TIME)
 				$this->ResearchQueue();
@@ -287,11 +291,7 @@ class ResourceUpdate
 	{
 		global $resource, $db, $LNG;
 
-		if(!function_exists('GetBuildingTime'))
-			file_put_contents(ROOT_PATH.'includes/slaver.log', print_r(debug_backtrace(), true)."\r\n-----------\r\n\r\n", FILE_APPEND);
-			
-		if (empty($this->PLANET['b_building_id']))
-		{
+		if (empty($this->PLANET['b_building_id'])) {
 			$this->PLANET['b_building']    = 0;
 			$this->PLANET['b_building_id'] = '';
 			return false;
@@ -361,15 +361,136 @@ class ResourceUpdate
 		$this->PLANET['b_building']    = $BuildEndTime;
 		$this->PLANET['b_building_id'] = $NewQueue;
 	}
-	
+		
 	private function ResearchQueue()
 	{
-		global $resource;
+		while($this->CheckUserTechQueue())
+			$this->SetNextQueueTechOnTop();
+	}
+	
+	private function CheckUserTechQueue()
+	{
+		global $resource, $db;
+		
+		if (empty($this->USER['b_tech_id']) || $this->USER['b_tech'] > $this->TIME)
+			return false;
+		
 		$this->Builded[$this->USER['b_tech_id']]			= 1;
 		$this->USER[$resource[$this->USER['b_tech_id']]]	+= 1;
-		$this->USER['b_tech_id']							= 0;
-		$this->USER['b_tech']      							= 0;
-		$this->USER['b_tech_planet']						= 0;
+	
+		$QueueArray	= explode(';', $this->USER['b_tech_queue']);
+		array_shift($QueueArray);		
+		$this->UpdateRessource($this->USER['b_tech']);			
+			
+		$this->USER['b_tech_id']		= 0;
+		if (count($QueueArray) == 0) {
+			$this->USER['b_tech'] 			= 0;
+			$this->USER['b_tech_id']		= 0;
+			$this->USER['b_tech_planet']	= 0;
+			$this->USER['b_tech_queue']		= '';
+			return false;
+		} else {
+			$this->USER['b_tech_queue'] 	= implode(";", $QueueArray);
+			return true;
+		}
+	}	
+	
+	public function SetNextQueueTechOnTop()
+	{
+		global $resource, $db, $LNG;
+
+		if (empty($this->USER['b_tech_queue'])) {
+			$this->USER['b_tech'] 			= 0;
+			$this->USER['b_tech_id']		= 0;
+			$this->USER['b_tech_planet']	= 0;
+			$this->USER['b_tech_queue']		= '';
+			return false;
+		}
+
+		$QueueArray 	= explode (";", $this->USER['b_tech_queue']);
+		$Loop       	= true;
+		while ($Loop == true)
+		{
+			$ListIDArray        = explode(",", $QueueArray[0]);
+			if($Planet != $this->PLANET['id'])
+				$PLANET				= $db->uniquequery("SELECT * FROM ".PLANETS." WHERE `id` = '".$ListIDArray[4]."';");
+			else
+				$PLANET				= $this->PLANET;
+			
+			$PLANET[$resource[31].'_inter']	= $this->CheckAndGetLabLevel($this->USER, $PLANET);
+			
+			$Element            = $ListIDArray[0];
+			$Level              = $ListIDArray[1];
+			$BuildTime  	    = GetBuildingTime($this->USER, $PLANET, $Element);
+			$BuildEndTime       = $this->USER['b_tech'] + $BuildTime;
+			$Planet				= $ListIDArray[4];
+			$QueueArray[0]		= implode(",", array($Element, $Level, $BuildTime, $BuildEndTime, $Planet));
+			$ForDestroy 		= $BuildMode == 'destroy' ? true : false;
+			$HaveNoMoreLevel    = false;
+			$HaveRessources 	= IsElementBuyable($this->USER, $this->PLANET, $Element, true, false);
+			
+			if($ListIDArray[4] != $this->PLANET['id']) {
+				$PlanetRess 		= new ResourceUpdate(false);
+				list(, $PLANET)		= $PlanetRess->CalcResource($this->USER, $PLANET, true, $BuildEndTime);
+			}
+			if($HaveRessources == true) {
+				$Needed							= GetBuildingPrice($this->USER, $PLANET, $Element);
+				$this->PLANET['metal']			-= $Needed['metal'];
+				$this->PLANET['crystal']		-= $Needed['crystal'];
+				$this->PLANET['deuterium']		-= $Needed['deuterium'];
+				$this->USER['darkmatter']		-= $Needed['darkmatter'];
+				$this->USER['b_tech_id']		= $Element;
+				$this->USER['b_tech']      		= $BuildEndTime;
+				$this->USER['b_tech_planet']	= $Planet;
+				$NewQueue               		= implode(';', $QueueArray);
+				$Loop                  			= false;
+			} else {
+				if($this->USER['hof'] == 1){
+					$Needed      = GetBuildingPrice($this->USER, $PlanetTechBuilds, $Element, true, $ForDestroy);
+					$Message     = sprintf($LNG['sys_notenough_money'], $this->PLANET['name'], $this->PLANET['id'], $this->PLANET['galaxy'], $this->PLANET['system'], $this->PLANET['planet'], $LNG['tech'][$Element], pretty_number ($this->PLANET['metal']), $LNG['Metal'], pretty_number ($this->PLANET['crystal']), $LNG['Crystal'], pretty_number ($this->PLANET['deuterium']), $LNG['Deuterium'], pretty_number ($Needed['metal']), $LNG['Metal'], pretty_number ($Needed['crystal']), $LNG['Crystal'], pretty_number ($Needed['deuterium']), $LNG['Deuterium']);
+					SendSimpleMessage($this->USER['id'], '', $this->TIME, 99, $LNG['sys_techlist'], $LNG['sys_buildlist_fail'], $Message);				
+				}
+
+				array_shift($QueueArray);
+					
+				if (count($QueueArray) == 0) {
+					$BuildEndTime  = 0;
+					$NewQueue      = '';
+					$Loop          = false;
+				} else {
+					$BaseTime			= $BuildEndTime - $BuildTime;
+					foreach($QueueArray as $ID => $QueueInfo)
+					{
+						$ListIDArray        = explode(",", $QueueInfo);
+						$ListIDArray[2]		= GetBuildingTime($this->USER, $Planet, $ListIDArray[0]);
+						$BaseTime			+= $ListIDArray[2];
+						$ListIDArray[3]		= $BaseTime;
+						$QueueArray[$ID]	= implode(",", $ListIDArray);
+					}
+				}
+			}
+		}
+			
+		$this->USER['b_tech']		= $BuildEndTime;
+		$this->USER['b_tech_queue'] = $NewQueue;
+	}
+	
+	public function CheckAndGetLabLevel()
+	{
+		global $resource, $db, $USER, $PLANET;
+
+		if($USER[$resource[123]] == 0)
+			$lablevel = $PLANET[$resource[31]];
+		else {
+			$LevelRow = $db->query("SELECT ".$resource[31]." FROM ".PLANETS." WHERE `id` != '".$PLANET['id']."' AND `id_owner` = '".$USER['id']."' AND `destruyed` = 0 ORDER BY ".$resource[31]." DESC LIMIT ".($USER[$resource[123]]).";");
+			$lablevel[]	= $PLANET[$resource[31]];
+			while($Levels = $db->fetch_array($LevelRow))
+			{
+				$lablevel[]	= $Levels[$resource[31]];
+			}
+			$db->free_result($LevelRow);
+		}
+		return $lablevel;
 	}
 	
 	public function SavePlanetToDB($USER = NULL, $PLANET = NULL)
@@ -420,7 +541,8 @@ class ResourceUpdate
 		$Qry	.= "`u`.`darkmatter` = '".$USER['darkmatter']."',
 					`u`.`b_tech` = '".$USER['b_tech']."',
 					`u`.`b_tech_id` = '".$USER['b_tech_id']."',
-					`u`.`b_tech_planet` = '".$USER['b_tech_planet']."'
+					`u`.`b_tech_planet` = '".$USER['b_tech_planet']."',
+					`u`.`b_tech_queue` = '".$USER['b_tech_queue']."'
 					WHERE
 					`p`.`id` = '". $PLANET['id'] ."' AND
 					`u`.`id` = '".$USER['id']."' AND 
