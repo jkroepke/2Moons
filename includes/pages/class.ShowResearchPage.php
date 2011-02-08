@@ -74,7 +74,7 @@ class ShowResearchPage
 	
 	private function CancelBuildingFromQueue($PlanetRess)
 	{
-		global $PLANET, $USER, $db;
+		global $PLANET, $USER, $db, $resource;
 		$CurrentQueue  = $USER['b_tech_queue'];
 		if (empty($CurrentQueue) || empty($USER['b_tech']))
 		{
@@ -117,7 +117,7 @@ class ShowResearchPage
 			{
 				$ListIDArray        = explode(',', $Elements);
 				if($ListIDArray[4] != $PLANET['id'])
-					$CPLANET		= $db->uniquequery("SELECT `".$resource[6]."`, `".$resource[31]."` FROM ".PLANETS." WHERE `id` = '".$ListIDArray[4].";");
+					$CPLANET		= $db->uniquequery("SELECT `".$resource[6]."`, `".$resource[31]."` FROM ".PLANETS." WHERE `id` = '".$ListIDArray[4]."';");
 				else
 					$CPLANET		= $PLANET;
 				
