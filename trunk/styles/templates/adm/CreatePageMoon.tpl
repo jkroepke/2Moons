@@ -14,12 +14,12 @@
 </tr>
 <tr>
 	<td>{$mo_diameter}</td>
-	<td colspan="2"><input type="text" name="diameter" size="5" maxlengtd="5">
+	<td colspan="2"><input type="text" name="diameter" size="5" maxlength="5">
 	<input type="checkbox" checked="checked" name="diameter_check"> (Random)</td>
 </tr>
 <tr>
 	<td>{$mo_fields_avaibles}</td>
-	<td colspan="2"><input type="text" name="field_max" size="5" maxlengtd="5" value="1"></td>
+	<td colspan="2"><input type="text" name="field_max" size="5" maxlength="5" value="1"></td>
 </tr>
 {if $admin_auth == 3}
 <tr>

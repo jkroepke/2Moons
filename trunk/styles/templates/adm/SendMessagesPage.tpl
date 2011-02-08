@@ -21,7 +21,7 @@ function check(){
         </tr>
         <tr>
             <td>{$ma_subject}</td>
-            <td><input name="subject" id="subject" size="40" maxlengtd="40" value="{$ma_none}" type="text"></td>
+            <td><input name="subject" id="subject" size="40" maxlength="40" value="{$ma_none}" type="text"></td>
         </tr>
 		<tr>
             <td>{$ma_message} (<span id="cntChars">0</span> / 5000 {$ma_characters})</td>
