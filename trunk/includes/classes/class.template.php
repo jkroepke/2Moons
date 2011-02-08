@@ -47,14 +47,11 @@ class template
 		global $CONF;
 		require(ROOT_PATH.'includes/libs/Smarty/Smarty.class.php');
 		$TMP						= new Smarty();
-		if(is_writable($this->cachedir) || chmod($this->cachedir	, 0777))
-		{
-			$TMP->force_compile 		= false;
-			$TMP->compile_dir 			= $this->cachedir;
-		} else {
-			$TMP->force_compile 		= true;
-		}
-		
+		if(!is_writable($this->cachedir))
+			$this->cachedir = '/tmp';
+			
+		$TMP->force_compile 		= false;
+		$TMP->compile_dir 			= $this->cachedir;
 		$TMP->caching 				= false;
 		$TMP->compile_check			= true; #Set false for production!
 		$TMP->template_dir 			= $this->template_dir;

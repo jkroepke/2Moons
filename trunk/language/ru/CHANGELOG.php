@@ -5,7 +5,7 @@ $LNG['Description'] = 'Описание';
 
 $LNG['changelog']   = array(
 
-'v1.3' => 'ShadoX 28.12.10
+'v1.3' => 'ShadoX 21.01.11
 - ADD: Поддержка нескольких вселенных
 - ADD: Поддержка IPv6
 - ADD: Ограничение максимального количества планет
@@ -19,6 +19,8 @@ $LNG['changelog']   = array(
 - ADD: Поддержка кириллицы для баннера-статистики
 - FIX: Подключение к Facebook
 - FIX: САБ
+- FIX: XSS в симуляторе боя
+- FIX: Поле обломков
 - FIX: Система обновления
 - FIX: Чит на ресурсы
 - FIX: Атака администратора
@@ -34,6 +36,7 @@ $LNG['changelog']   = array(
 - FIX: Уничтожение луны
 - FIX: Teamspeak API для Teamspeak 3 серверов
 - FIX: Система обновления не будет скачивать уже существующие файлы
+- DIV: Изменён копирайт
 - DIV: Кнопка "все" для телепорта
 - DIV: Переменные офицеров теперь в vars.php
 - DIV: Предел перевозимых ресурсов поднят до 18.446.744.073.709.551.616
@@ -41,7 +44,7 @@ $LNG['changelog']   = array(
 - DIV: Определение языка по HTTP заголовку в Index
 - DIV: Использование нового Graph API для Facebook
 - DIV: Новое местоположение для error.log
-- DIV: Обновлены библиотеки TS³ Lib, Soundmanager, reCAPTCHA Lib, Smarty и jQuery
+- DIV: Обновлены библиотеки TS³ Lib, Soundmanager, reCAPTCHA Lib, Smarty и jQuery (UI)
 ',
 
 'v1.2' => 'ShadoX 14.09.10
