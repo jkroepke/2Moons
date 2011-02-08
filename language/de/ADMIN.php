@@ -919,6 +919,7 @@ $LNG['fb_curl_no']						= '<span style="color:red">Auf dem Server ist cURL nicht
 //GameModule.php
 
 $LNG['modul'][0]						= 'Allianz';
+$LNG['modul'][39]						= 'BattleSimulator';
 $LNG['modul'][2]						= 'Bauen - Gebäude';
 $LNG['modul'][3]						= 'Bauen - Forschung';
 $LNG['modul'][4]						= 'Bauen - Flotten';
@@ -928,6 +929,7 @@ $LNG['modul'][7]						= 'Chat';
 $LNG['modul'][8]						= 'DM-Bank';
 $LNG['modul'][9]						= 'Flotte';
 $LNG['modul'][10]						= 'Flotte - Handler';
+$LNG['modul'][40]						= 'Flotten Shourtcuts';
 $LNG['modul'][11]						= 'Galaxie';
 $LNG['modul'][12]						= 'Hall of Fame';
 $LNG['modul'][13]						= 'Händler';

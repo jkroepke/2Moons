@@ -111,6 +111,9 @@ switch($page)
 		ShowFleetPages::MissilesAjax();
 	break;
 	case 'shortcuts':
+		if(CheckModule(40))
+			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
+			
 		include_once(ROOT_PATH . 'includes/pages/ShowFleetShortcuts.php');
 		ShowFleetShortcuts();
 	break;
@@ -307,6 +310,9 @@ switch($page)
     break; 
 // ----------------------------------------------------------------------------------------------------------------------------------------------//	
     case 'battlesim':
+		if(CheckModule(39))
+			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
+			
         include_once(ROOT_PATH . 'includes/pages/ShowBattleSimPage.php');
         ShowBattleSimPage();
     break; 
