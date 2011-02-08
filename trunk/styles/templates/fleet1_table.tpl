@@ -60,6 +60,7 @@
             <tr style="height:20px;">
                 <th colspan="2">{$fl_shortcut} <a href="javascript:OpenPopup('game.php?page=shortcuts', 'short', 720, 300);">{$fl_shortcut_add_edit}</a></th>
             </tr>
+			{if !CheckModule(40)}
             {foreach name=ShoutcutList item=ShoutcutRow from=$Shoutcutlist}
 			{if $smarty.foreach.ShoutcutList.iteration is odd}<tr style="height:20px;">{/if}
             <td><a href="javascript:setTarget({$ShoutcutRow.galaxy},{$ShoutcutRow.system},{$ShoutcutRow.planet},{$ShoutcutRow.planet_type});updateVars();">{$ShoutcutRow.name}{if $ColonyRow.planet_type == 1}{$fl_planet_shortcut}{elseif $ColonyRow.planet_type == 2}{$fl_derbis_shortcut}{elseif $ShoutcutRow.planet_type == 3}{$fl_moon_shortcut}{/if} [{$ShoutcutRow.galaxy}:{$ShoutcutRow.system}:{$ShoutcutRow.planet}]</a></td>
@@ -70,6 +71,7 @@
 				<td colspan="2">{$fl_no_shortcuts}</td>
 			</tr>
             {/foreach}
+			{/if}
 			<tr style="height:20px;">
             	<th colspan="2">{$fl_my_planets}</th>
             </tr>

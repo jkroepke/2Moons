@@ -143,10 +143,9 @@ class ShowResearchPage
 	private function RemoveBuildingFromQueue($QueueID, $PlanetRess)
 	{
 		global $USER, $PLANET;
-		if ($QueueID <= 1 || empty($PLANET['b_tech_queue']))
+		if ($QueueID <= 1 || empty($USER['b_tech_queue']))
 			return;
-		
-		$CurrentQueue  = $PLANET['b_tech_queue'];
+		$CurrentQueue  = $USER['b_tech_queue'];
 
 		$QueueArray    = explode(";", $CurrentQueue);
 		$ActualCount   = count($QueueArray);
@@ -171,7 +170,7 @@ class ShowResearchPage
 		}
 		unset($QueueArray[$ActualCount - 1]);
 		$NewQueue     = implode ( ";", $QueueArray );
-		$PLANET['b_tech_queue'] = $NewQueue;
+		$USER['b_tech_queue'] = $NewQueue;
 	}
 
 	private function AddBuildingToQueue($Element, $AddMode = true)
@@ -277,6 +276,7 @@ class ShowResearchPage
 			
 		$TheCommand		= request_var('cmd','');
 		$Element     	= request_var('tech', 0);
+		$ListID     	= request_var('listid', 0);
 		$PlanetRess 	= new ResourceUpdate();
 		$PLANET[$resource[31].'_inter']	= $PlanetRess->CheckAndGetLabLevel($USER, $PLANET);	
 

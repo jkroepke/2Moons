@@ -40,32 +40,40 @@ class MissionCaseRecycling extends MissionFunctions
 		$FleetRecord         = explode(";", $this->_fleet['fleet_array']);
 		$RecyclerCapacity    = 0;
 		$OtherFleetCapacity  = 0;
-		
 		foreach ($FleetRecord as $Item => $Group)
 		{
-			if (empty($Group)) continue;
-
-			$Class       			= explode(",", $Group);
-			if($Class[0] == 209 || $Class[0] == 219)
-				$RecyclerCapacity		= bcadd($RecyclerCapacity, bcmul($pricelist[$Class[0]]['capacity'], $Class[1]));
+			if (empty($Group))
+				continue;
+				
+			$Class        = explode (",", $Group);
+			if ($Class[0] == 209 || $Class[0] == 219)
+				$RecyclerCapacity   += $pricelist[$Class[0]]['capacity'] * $Class[1];
 			else
-				$OtherFleetCapacity		= bcadd($OtherFleetCapacity, bcmul($pricelist[$Class[0]]['capacity'], $Class[1]));
-		}		
-		
-		$IncomingFleetGoods 	= bcadd($this->_fleet['fleet_resource_metal'], bcadd($this->_fleet['fleet_resource_crystal'], $this->_fleet['fleet_resource_deuterium']));
-		if ($IncomingFleetGoods > $OtherFleetCapacity)
-			$RecyclerCapacity	= bcsub($RecyclerCapacity, bcsub($IncomingFleetGoods, $OtherFleetCapacity));		
-		
+				$OtherFleetCapacity += $pricelist[$Class[0]]['capacity'] * $Class[1];
+		}
 		$RecycledGoods	= array('metal' => 0, 'crystal' => 0);
+		$IncomingFleetGoods = $FleetRow['fleet_resource_metal'] + $FleetRow['fleet_resource_crystal'] + $FleetRow['fleet_resource_deuterium'];
+		if ($IncomingFleetGoods > $OtherFleetCapacity)
+			$RecyclerCapacity -= ($IncomingFleetGoods - $OtherFleetCapacity);
 
-		if(bccomp($RecyclerCapacity, $Target['der_total'], 0) !== -1){
-			$RecycledGoods['metal'] 	= $Target['der_metal'];
-			$RecycledGoods['crystal'] 	= $Target['der_crystal'];
+		if ($Target['der_total'] <= $RecyclerCapacity) {
+			$RecycledGoods['metal']   = $Target['der_metal'];
+			$RecycledGoods['crystal'] = $Target['der_crystal'];
+		} elseif (($Target['der_metal'] > $RecyclerCapacity / 2) && ($Target['der_crystal'] > $RecyclerCapacity / 2)) {
+			$RecycledGoods['metal']   = $RecyclerCapacity / 2;
+			$RecycledGoods['crystal'] = $RecyclerCapacity / 2;
+		} elseif ($Target['der_metal'] > $Target['der_crystal']) {
+			$RecycledGoods['crystal'] = $Target['der_crystal'];
+			if ($Target['der_metal'] > ($RecyclerCapacity - $RecycledGoods['crystal']))
+				$RecycledGoods['metal'] = $RecyclerCapacity - $RecycledGoods['crystal'];
+			else
+				$RecycledGoods['metal'] = $Target['der_metal'];
 		} else {
-			$PC = bcdiv($RecyclerCapacity, $Target['der_total'], 50);
-			
-			$RecycledGoods['metal'] 	= bcmul($Target['der_metal'], $PC , 0);
-			$RecycledGoods['crystal'] 	= bcmul($Target['der_crystal'], $PC, 0);
+			$RecycledGoods['metal'] = $Target['der_metal'];
+			if ($Target['der_crystal'] > ($RecyclerCapacity - $RecycledGoods['metal']))
+				$RecycledGoods['crystal'] = $RecyclerCapacity - $RecycledGoods['metal'];
+			else
+				$RecycledGoods['crystal'] = $Target['der_crystal'];
 		}		
 	
 		$db->query("UPDATE ".PLANETS." SET `der_metal` = `der_metal` - ".$RecycledGoods['metal'].", `der_crystal` = `der_crystal` - ".$RecycledGoods['crystal']." WHERE `id` = '".$this->_fleet['fleet_end_id']."';");

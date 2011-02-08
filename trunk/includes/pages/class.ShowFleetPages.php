@@ -235,7 +235,7 @@ class ShowFleetPages extends FleetFunctions
 		
 		$template->assign_vars(array(
 			'mission'				=> request_var('target_mission', 0),
-			'Shoutcutlist'			=> parent::GetUserShotcut($USER),
+			'Shoutcutlist'			=> !CheckModule(40) ? parent::GetUserShotcut($USER) : array(),
 			'Colonylist' 			=> parent::GetColonyList($template->UserPlanets),
 			'AKSList' 				=> parent::IsAKS($USER['id']),
 			'AvailableSpeeds'		=> parent::GetAvailableSpeeds(),
