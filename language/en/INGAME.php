@@ -874,7 +874,7 @@ $LNG['css_server_maintrace']				= 'Server Maintrace<br><br>Play unanimously at p
 
 //----------------------------------------------------------------------------//
 //class.debug.php
-$LNG['cdg_mysql_not_available']				= 'No connection to the database<br>Please, they try it later still one time.<br><br>We ask for understanding';
+$LNG['cdg_mysql_not_available']				= 'No connection to the database<br>Please, try it later again.<br><br>We ask for understanding';
 $LNG['cdg_error_message']					= 'Please, Error, the administrator contacts you. Fault no: ';
 $LNG['cdg_fatal_error']						= 'FATAL ERROR';
 
@@ -882,38 +882,31 @@ $LNG['cdg_fatal_error']						= 'FATAL ERROR';
 //class.FlyingFleetsTable.php
 
 $LNG['cff_no_fleet_data']					= 'No ship information';
-$LNG['cff_aproaching']						= 'approaching ';
-$LNG['cff_ships']							= ' ships.';
-$LNG['cff_from_the_planet']					= 'Planet ';
-$LNG['cff_from_the_moon']					= 'Moon ';
-$LNG['cff_the_planet']						= 'the planet ';
-$LNG['cff_debris_field']					= 'debris field ';
-$LNG['cff_to_the_moon']						= 'the moon ';
-$LNG['cff_the_position']					= 'Position ';
-$LNG['cff_to_the_planet']					= 'to the planet';
-$LNG['cff_the_moon']						= ' the moon ';
-$LNG['cff_from_planet']						= 'planet ';
-$LNG['cff_from_debris_field']				= 'debris field ';
-$LNG['cff_from_the_moon']					= 'moon ';
-$LNG['cff_from_position']					= 'of the position ';
-$LNG['cff_missile_attack']					= 'Missile attack';
-$LNG['cff_from']							= ' from ';
-$LNG['cff_to']								= ' from ';
-$LNG['cff_one_of_your']						= 'Your ';
-$LNG['cff_acs_fleet']						= 'acs fleet ';
-$LNG['cff_a']								= 'a ';
-$LNG['cff_of']								= ' of ';
-$LNG['cff_goes']							= ' from ';
-$LNG['cff_toward']							= ' is heading for ';
-$LNG['cff_back_to_the_planet']				= ' heading for ';
-$LNG['cff_with_the_mission_of']				= '. Mission: ';
-$LNG['cff_to_explore']						= ' exploring ';
-$LNG['cff_comming_back']					= ' from ';
-$LNG['cff_back']							= 'back';
-$LNG['cff_to_destination']					= 'Heading to destination';
+$LNG['cff_acs_fleet']						= 'acs fleet';
+$LNG['cff_fleet_own']						= 'Fleet';
+$LNG['cff_fleet_target']					= 'Fleets';
+$LNG['cff_mission_acs']						= 'A  %s from %s %s %s approaching %s %s %s. Mission: %s';
+$LNG['cff_mission_own_0']					= 'A  %s from %s %s %s approaching %s %s %s. Mission: %s';
+$LNG['cff_mission_own_1']					= 'Your %s Returning From %s %s %s To %s %s %s. Mission: %s';
+$LNG['cff_mission_own_2']					= 'A  %s From %s %s %s Stands on Orbit  %s %s %s. Mission: %s';
+$LNG['cff_mission_own_mip']					= 'Missile attack (%d) from %s %s %s On Lokation %s %s %s.';
+$LNG['cff_mission_own_expo_0']				= 'A %s From %s %s %s approaching Te Lokation %s. Mission: %s';
+$LNG['cff_mission_own_expo_1']				= 'A %s Come back From Position %s  To Lokation %s %s %s. Mission: %s';
+$LNG['cff_mission_own_expo_2']				= 'A %s From %s %s %s Where On Expedition By Position %s. Mission: %s';
+$LNG['cff_mission_own_recy_0']				= 'A %s From %s %s %s is heading to debris field %s. Mission: %s';
+$LNG['cff_mission_own_recy_1']				= 'A %s returns from debris field %s To Lokation %s %s %s. Mission: %s';
+$LNG['cff_mission_target_bad']				= 'A Hostile %s From Player %s From %s %s %s Spying Lokation %s %s %s. Mission: %s';
+$LNG['cff_mission_target_good']				= 'A Hostile %s From Player %s From %s %s %s Spying Lokation %s %s %s. Mission: %s';
+$LNG['cff_mission_target_stay']				= 'A Peacefully %s From Player %s From %s %s %s where in orbit On %s %s %s. Mission: %s';
+$LNG['cff_mission_target_mip']				= 'Missile attack (%d) From Player %s From %s %s %s On Lokation %s %s %s.';
+
+
+
 
 //----------------------------------------------------------------------------//
 // EXTRA LANGUAGE FUNCTIONS
+
+$LNG['fcm_planet']							= 'Planet';
 $LNG['fcm_moon']							= 'Moon';
 $LNG['fcm_info']							= 'Information';
 $LNG['fcp_colony']							= 'Colony';
