@@ -123,7 +123,7 @@ class MissionCaseSpy extends MissionFunctions
 		$AttackLink .= "&amp;target_mission=1";
 		$AttackLink .= " \">". $LNG['type_mission'][1];
 		$AttackLink .= "</a></center>";
-		$MessageEnd  = "<center>".$DestProba."<br>".((ENABLE_SIMULATOR_LINK == true) ? "<a href=\"game.php?page=battlesim".$string."\">".$LNG['fl_simulate']."</a>":"")."</center>";
+		$MessageEnd  = "<center>".$DestProba."<br>".((ENABLE_SIMULATOR_LINK == true && !CheckModule(39)) ? "<a href=\"game.php?page=battlesim".$string."\">".$LNG['fl_simulate']."</a>":"")."</center>";
 			
 		$SpyMessage = "<br>".$GetSB."<br>".$AttackLink.$MessageEnd;
 		SendSimpleMessage($CurrentUserID, '', $this->_fleet['fleet_start_time'], 0, $LNG['sys_mess_qg'], $LNG['sys_mess_spy_report'], $SpyMessage);
