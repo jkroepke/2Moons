@@ -195,6 +195,7 @@ $LNG['gl_yes']                            = 'Да';
 $LNG['gl_no']                             = 'Нет';
 $LNG['gl_points']                         = 'Очки';
 $LNG['gl_player']                         = 'Игрок';
+$LNG['gl_to']                             = 'на';
 
 // Фаланга
 $LNG['px_no_deuterium']                   = 'Не хватает дейтерия!';
@@ -324,7 +325,7 @@ $LNG['fl_no_empty_derbis']                = 'Поле обломков не су
 $LNG['fl_acs_newname_alphanum']           = 'Название может содержать только алфавитно-цифровые символы.';
 $LNG['fl_acs_change']                     = 'Переименовать';
 $LNG['fl_acs_change_name']                = 'Введите новое название';
-$LNG['fl_error_not_avalible']             = 'Колонизация этой планеты в данный момент невозможна!';
+$LNG['fl_error_not_avalible']             = 'На этих координатах нет планеты!';
 $LNG['fl_error_empty_derbis']             = 'Поял обломков не существует!';
 $LNG['fl_error_no_moon']                  = 'Луны не существует!';
 $LNG['fl_error_same_planet']              = 'Пункт отправления и пункт назначения идентичны!';
@@ -366,9 +367,11 @@ $LNG['bd_more_engine']                    = 'Производит <span style="c
 $LNG['bd_jump_gate_action']               = 'Переместиться';
 $LNG['bd_cancel_warning']                 = 'При удалении из очереди будет восстановленно только 60% ресурсов!';
 $LNG['bd_cancel_send']                    = 'Выбрать - Удалить';
+$LNG['bd_destroy_time']                   = 'Время';
 $LNG['sys_notenough_money']               = 'На планете %s <a href="?page=buildings&amp;cp=%d&amp;re=0">[%d:%d:%d]</a> недостаточно ресурсов для строительства %s. <br>У Вас имеется: %s %s , %s %s и %s %s. <br>Стоимость строительства: %s %s , %s %s и %s %s.';
 $LNG['sys_nomore_level']                  = 'Вы пытаетесь разрушить здание, которое уже разрушено ( %s ).';
 $LNG['sys_buildlist']                     = 'Список строительства';
+$LNG['sys_techlist']                      = 'Список исследований';
 $LNG['sys_buildlist_fail']                = 'Строительство невозможно';
 
 // Ресурсы
@@ -492,6 +495,7 @@ $LNG['mg_send']                           = 'Отправить';
 $LNG['mg_game_message']                   = 'Сообщение игры';
 $LNG['mg_message_send']                   = 'Сообщение отправлено!';
 $LNG['mg_empty_text']                     = 'Введите текст!';
+$LNG['mg_answer_to']                      = 'Ответить:';
 
 // Альянс
 $LNG['al_newname_alphanum']               = 'Имя и аббревиатура альянса могут состоять только из букв и цифр.';
@@ -851,37 +855,26 @@ $LNG['cdg_fatal_error']                   = 'Критическая ошибка
 
 // class.FlyingFleetsTable.php
 $LNG['cff_no_fleet_data']                 = 'Нет данных о флоте';
-$LNG['cff_aproaching']                    = 'достигает координат ';
-$LNG['cff_ships']                         = ' флот';
-$LNG['cff_from_the_planet']               = 'с планеты ';
-$LNG['cff_from_the_moon']                 = 'с луны ';
-$LNG['cff_the_planet']                    = 'планету ';
-$LNG['cff_debris_field']                  = 'поле обломков ';
-$LNG['cff_to_the_moon']                   = 'на луну ';
-$LNG['cff_the_position']                  = 'координаты ';
-$LNG['cff_to_the_planet']                 = ' на планету ';
-$LNG['cff_the_moon']                      = ' луна ';
-$LNG['cff_from_planet']                   = 'планеты ';
-$LNG['cff_from_debris_field']             = 'поле обломков ';
-$LNG['cff_from_the_moon']                 = 'луны ';
-$LNG['cff_from_position']                 = 'координаты ';
-$LNG['cff_missile_attack']                = 'Ракеты';
-$LNG['cff_from']                          = ' запущены ';
-$LNG['cff_to']                            = ' на ';
-$LNG['cff_one_of_your']                   = 'Ваш ';
-$LNG['cff_acs_fleet']                     = 'Объединённые флоты ';
-$LNG['cff_a']                             = 'Мирный ';
-$LNG['cff_of']                            = ' игрока ';
-$LNG['cff_goes']                          = ' ';
-$LNG['cff_toward']                        = ' отправлен на ';
-$LNG['cff_back_to_the_planet']            = ' вернулся на планету ';
-$LNG['cff_with_the_mission_of']           = '. Задание: ';
-$LNG['cff_to_explore']                    = ' исследует координаты ';
-$LNG['cff_comming_back']                  = ' возвращается с ';
-$LNG['cff_back']                          = 'возвращается';
-$LNG['cff_to_destination']                = 'Направляется к месту назначения';
+$LNG['cff_acs_fleet']                     = 'объединённых флотов';
+$LNG['cff_fleet_own']                     = 'флот';
+$LNG['cff_fleet_target']                  = 'флот';
+$LNG['cff_mission_acs']                   = 'Один из %s летит с %s %s %s на %s %s %s. Задание: %s';
+$LNG['cff_mission_own_0']                 = 'Ваш %s летит с %s %s %s на %s %s %s. Задание: %s';
+$LNG['cff_mission_own_1']                 = 'Ваш %s возвращается с %s %s %s на %s %s %s. Задание: %s';
+$LNG['cff_mission_own_2']                 = 'Ваш %s летит с %s %s %s на орбиту %s %s %s. Задание: %s';
+$LNG['cff_mission_own_mip']               = 'Ракеты (%d) запущены из %s %s %s на %s %s %s.';
+$LNG['cff_mission_own_expo_0']            = 'Ваш %s летит с %s %s %s к координатам %s. Задание: %s';
+$LNG['cff_mission_own_expo_1']            = 'Ваш %s возвращается с координат %s на %s %s %s. Задание: %s';
+$LNG['cff_mission_own_expo_2']            = 'Ваш %s с %s %s %s находится на координатах %s. Задание: %s';
+$LNG['cff_mission_own_recy_0']            = 'Ваш %s летит с %s %s %s к полю обломков %s. Задание: %s';
+$LNG['cff_mission_own_recy_1']            = 'Ваш %s возвращается с поля обломков %s на %s %s %s. Задание: %s';
+$LNG['cff_mission_target_bad']            = 'Мирный %s игрока %s летит с %s %s %s на %s %s %s. Задание: %s';
+$LNG['cff_mission_target_good']           = 'Мирный %s игрока %s летит с %s %s %s на %s %s %s. Задание: %s';
+$LNG['cff_mission_target_stay']           = 'Мирный %s игрока %s летит с %s %s %s на орбиту %s %s %s. Задание: %s';
+$LNG['cff_mission_target_mip']            = 'Ракеты (%d) от игрока %s запущены из %s %s %s на %s %s %s.';
 
 // Дополнительные языковые функции
+$LNG['fcm_planet']                        = 'Планета';
 $LNG['fcm_moon']                          = 'Луна';
 $LNG['fcm_info']                          = 'Информация';
 $LNG['fcp_colony']                        = 'Планета';

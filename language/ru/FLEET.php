@@ -37,12 +37,12 @@ $LNG['sys_stealed_ressources']        = 'Атакующий получил';
 $LNG['sys_and']                       = 'и';
 $LNG['sys_mess_tower']                = 'Командование флотом';
 $LNG['sys_mess_attack_report']        = 'Боевой доклад';
-$LNG['sys_spy_maretials']             = 'Ресурсы';
 $LNG['sys_spy_fleet']                 = 'Флот';
 $LNG['sys_spy_defenses']              = 'Оборона';
 $LNG['sys_mess_qg']                   = 'Постройки';
 $LNG['sys_mess_spy_report_moon']      = '(Луна)';
 $LNG['sys_mess_spy_report']           = 'Шпионский доклад';
+$LNG['sys_mess_head']                 = 'Сканирование %s [%d:%d:%d] на %s';
 $LNG['sys_mess_spy_lostproba']        = 'Шанс на защиту от шпионажа: %d %% ';
 $LNG['sys_mess_spy_control']          = 'Наблюдение';
 $LNG['sys_mess_spy_activity']         = 'Шпионаж';
@@ -160,7 +160,7 @@ $LNG['sys_mess_destruc_report']       = 'Доклад сноса луны';
 $LNG['sys_destruc_lune']              = 'Вероятность уничтожения луны составила: %d%% ';
 $LNG['sys_destruc_rip']               = 'Вероятность взрыва звёзд смерти составила: %d %% ';
 $LNG['sys_destruc_stop']              = 'Обороняющийся был не в состоянии остановить уничтожение луны.';
-$LNG['sys_destruc_mess1']             = 'Звезда смерти выпустила гравитон на орбиту луны.';
+$LNG['sys_destruc_mess1']             = 'Звезда смерти выпустила гравитон на орбиту луны. ';
 $LNG['sys_destruc_mess']              = 'Флот с планеты [%d:%d:%d] летит на луну планеты [%d:%d:%d].';
 $LNG['sys_destruc_echec']             = 'На поверхности луны начинают появляться гигантские трещины, но что-то идёт не так, как надо, гравитон в реакторах вызывает реакцию и звёзды смерти разлетаются на куски.';
 $LNG['sys_destruc_reussi']            = 'На поверхности луны появляются гигантские трещины, вскоре луна раскалывается на куски, миссия выполнена. Флот возвращается домой.';
@@ -184,6 +184,6 @@ $LNG['type_mission'][9]               = 'Уничтожить';
 $LNG['type_mission'][11]              = 'Поиск ТМ';
 $LNG['type_mission'][15]              = 'Экспедиция';
 
-// Translated into Russian by InquisitorEA. All rights reserved (C) 2010
+// Translated into Russian by InquisitorEA. All rights reserved (C) 2010-2011
 
 ?>
