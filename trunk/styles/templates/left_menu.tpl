@@ -18,7 +18,7 @@
 		<li style="background-image: url('{$dpath}img/menu_com.png');height:30px;"></li>
 		{if !CheckModule(11)}<li><a href="?page=galaxy">{$lm_galaxy}</a></li>{/if}
 		{if !CheckModule(0)}<li><a href="?page=alliance">{$lm_alliance}</a></li>{/if}
-		{if !empty($forum_url)}<li><a href="{$forum_url}" target="forum">{$lm_forums}</a></li>
+		{if !empty($forum_url)}<li><a href="{$forum_url}" target="forum">{$lm_forums}</a></li>{/if}
 		{if !CheckModule(25)}<li><a href="?page=statistics">{$lm_statistics}</a></li>{/if}
 		{if !CheckModule(22)}<li><a href="?page=records">{$lm_records}</a></li>{/if}
 		{if !CheckModule(6)}<li><a href="?page=topkb">{$lm_topkb}</a></li>{/if}
@@ -36,9 +36,7 @@
 		{if !CheckModule(6)}<li><a href="?page=buddy">{$lm_buddylist}</a></li>{/if}
 		<li><a href="?page=options">{$lm_options}</a></li>
 		<li><a href="?page=logout">{$lm_logout}</a></li>
-		{if $authlevel > 0}
-		<li><a href="./admin.php" style="color:lime">{$lm_administration} ({$VERSION})</a></li>
-		{/if}
+		{if $authlevel > 0}<li><a href="./admin.php" style="color:lime">{$lm_administration} ({$VERSION})</a></li>{/if}
 		<li style="background-image: url('{$dpath}img/menu-foot.png');height:30px;"></li>
 	</ul>
 </div>
