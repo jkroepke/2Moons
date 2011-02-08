@@ -25,13 +25,13 @@
 	<td>{$ad_personal_vacat}</td>
 	<td>{html_options name=vacation options=$Selector}</td>
 </tr><tr>
-	<td>{$time_days}</td><td><input name="d" type="text" size="5" maxlengtd="5"></td>
+	<td>{$time_days}</td><td><input name="d" type="text" size="5" maxlength="5"></td>
 </tr><tr>
-	<td>{$time_hours}</td><td><input name="h" type="text" size="5" maxlengtd="10"></td>
+	<td>{$time_hours}</td><td><input name="h" type="text" size="5" maxlength="10"></td>
 </tr><tr>
-	<td>{$time_minutes}</td><td><input name="m" type="text" size="5" maxlengtd="10"></td>
+	<td>{$time_minutes}</td><td><input name="m" type="text" size="5" maxlength="10"></td>
 </tr><tr>
-	<td>{$time_seconds}</td><td><input name="s" type="text" size="5" maxlengtd="10"></td>
+	<td>{$time_seconds}</td><td><input name="s" type="text" size="5" maxlength="10"></td>
 </tr><tr>
 	<td colspan="3"><input type="submit" value="{$button_submit}"></td>
 </tr>

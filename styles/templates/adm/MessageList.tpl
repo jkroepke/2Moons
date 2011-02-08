@@ -37,9 +37,9 @@ function checkedAll (frm1) {
             </select>
             </td>
 			<td>
-				<input type="text" name="selday" onClick="if(this.value == 'dd') this.value = '';" onBlur="if(this.value == '') this.value= 'dd';" value="dd" size="3" maxlengtd="2"> 
-				<input type="text" name="selmontd" onClick="if(this.value == 'mm') this.value = '';" onBlur="if(this.value == '') this.value= 'mm';" value="mm" size="3"  maxlengtd="2"> 
-				<input type="text" name="selyear" onClick="if(this.value == 'yyyy') this.value = '';" onBlur="if(this.value == '') this.value= 'yyyy';" value="yyyy" size="6"  maxlengtd="4">
+				<input type="text" name="selday" onClick="if(this.value == 'dd') this.value = '';" onBlur="if(this.value == '') this.value= 'dd';" value="dd" size="3" maxlength="2"> 
+				<input type="text" name="selmontd" onClick="if(this.value == 'mm') this.value = '';" onBlur="if(this.value == '') this.value= 'mm';" value="mm" size="3"  maxlength="2"> 
+				<input type="text" name="selyear" onClick="if(this.value == 'yyyy') this.value = '';" onBlur="if(this.value == '') this.value= 'yyyy';" value="yyyy" size="6"  maxlength="4">
 			</td>
         </tr> 
 		<tr>

@@ -26,13 +26,13 @@ function change3(){
     <input type="radio" name="ts_v" value="3" onclick="change3();"> 3</td>
 </tr><tr>
 	<td>{$ts_serverip}:</td>
-	<td><input name="ts_ip" maxlengtd="15" size="10" value="{$ts_ip}" type="text"></td>
+	<td><input name="ts_ip" maxlength="15" size="10" value="{$ts_ip}" type="text"></td>
 </tr><tr>
 	<td>{$ts_tcpport}:</td>
-	<td><input name="ts_tcp" maxlengtd="5" size="10" value="{$ts_tcp}" type="text"></td>
+	<td><input name="ts_tcp" maxlength="5" size="10" value="{$ts_tcp}" type="text"></td>
 </tr><tr>
 	<td id="lang_udp">{$ts_udpport}:</td>
-	<td><input name="ts_udp" maxlengtd="5" size="10" value="{$ts_udp}" type="text"></td>
+	<td><input name="ts_udp" maxlength="5" size="10" value="{$ts_udp}" type="text"></td>
 </tr><tr class="v3only">
 	<td>{$ts_sq_login}:</td>
 	<td><input name="ts_login" size="10" value="{$ts_login}" type="text"></td>
@@ -41,10 +41,10 @@ function change3(){
 	<td><input name="ts_password" size="10" value="{$ts_password}" type="password"></td>
 </tr><tr>
 	<td>{$ts_timeout}:</td>
-	<td><input name="ts_to" maxlengtd="2" size="10" value="{$ts_to}" type="text"></td>
+	<td><input name="ts_to" maxlength="2" size="10" value="{$ts_to}" type="text"></td>
 </tr><tr>
 	<td>{$ts_lng_cron}:</td>
-	<td><input name="ts_cron" maxlengtd="2" size="10" value="{$ts_cron}" type="text"></td>
+	<td><input name="ts_cron" maxlength="2" size="10" value="{$ts_cron}" type="text"></td>
 </tr><tr>
 	<td colspan="3"><input value="{$se_save_parameters}" type="submit"></td>
 </tr>

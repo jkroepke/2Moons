@@ -15,9 +15,9 @@
 </td></tr>
 {/if}
 <tr><td>{$new_coord}</td><td>
-<input type="text" name="galaxy" size="1" maxlengtd="1"> :
-<input type="text" name="system" size="3" maxlengtd="3"> :
-<input type="text" name="planet" size="2" maxlengtd="2"></td></tr>
+<input type="text" name="galaxy" size="1" maxlength="1"> :
+<input type="text" name="system" size="3" maxlength="3"> :
+<input type="text" name="planet" size="2" maxlength="2"></td></tr>
 <tr><td>{$new_range}</td>
 <td>{html_options name=authlevel options=$Selector.auth}</td></tr>
 <tr><td>{$lang}</td>
