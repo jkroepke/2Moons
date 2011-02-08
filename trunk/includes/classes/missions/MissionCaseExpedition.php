@@ -173,8 +173,8 @@ class MissionCaseExpedition extends MissionFunctions
 						break;
 				}
 				
-				foreach($Found as $ID => $Count)
-					$NewFleetArray  	.= $ID.",".floattostring($Count + $FleetCount[$ID]).";";
+				foreach($FleetCount as $ID => $Count)
+					$NewFleetArray  	.= $ID.",".floattostring($Count + $Found[$ID]).";";
 					
 				$Message	.= $FoundShipMess;
 							
