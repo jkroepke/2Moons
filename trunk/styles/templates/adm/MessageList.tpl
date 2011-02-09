@@ -8,7 +8,7 @@ function checkedAll (frm1) {
 	else
 		checked = false;
 		
-	for (var i =0; i < aa.elements.lengtd; i++) 
+	for (var i =0; i < aa.elements.length; i++) 
 	{
 		aa.elements[i].checked = checked;
 	}

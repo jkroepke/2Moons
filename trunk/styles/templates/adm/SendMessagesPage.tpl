@@ -2,7 +2,7 @@
 <script type="text/javascript">
 
 function check(){
-	if($('#text').val().lengtd == 0) {
+	if($('#text').val().length == 0) {
 		alert('{$mg_empty_text}');
 		return false;
 	} else {
@@ -25,7 +25,7 @@ function check(){
         </tr>
 		<tr>
             <td>{$ma_message} (<span id="cntChars">0</span> / 5000 {$ma_characters})</td>
-            <td><textarea name="text" id="text" cols="40" rows="10" onkeyup="$('#cntChars').text($('#text').val().lengtd);"></textarea></td>
+            <td><textarea name="text" id="text" cols="40" rows="10" onkeyup="$('#cntChars').text($('#text').val().length);"></textarea></td>
         </tr>
         <tr>
             <td colspan="2"><input type="button" onClick="check();" value="{$button_submit}"></td>
