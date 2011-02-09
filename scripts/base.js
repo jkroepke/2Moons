@@ -7138,14 +7138,12 @@ jQuery.each([ "Height", "Width" ], function( i, name ) {
 		if ( !elem ) {
 			return size == null ? null : this;
 		}
-		
 		if ( jQuery.isFunction( size ) ) {
 			return this.each(function( i ) {
 				var self = jQuery( this );
 				self[ type ]( size.call( this, i, self[ type ]() ) );
 			});
 		}
-
 		if ( jQuery.isWindow( elem ) ) {
 			// Everyone else use document.documentElement or document.body depending on Quirks vs Standards mode
 			return elem.document.compatMode === "CSS1Compat" && elem.document.documentElement[ "client" + name ] ||

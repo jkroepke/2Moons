@@ -188,10 +188,6 @@
 	<td><input name="ftp_user_name" size="20" value="{$ftp_user_name}" type="text" autocomplete="off"></td>
 	<td>&nbsp;</td>
 </tr><tr>
-	<td>{$se_ftp_pass}</td>
-	<td><input name="ftp_user_pass" size="20" value="{$ftp_user_pass}" type="password" autocomplete="off"></td>
-	<td>&nbsp;</td>
-</tr><tr>
 	<td>{$se_ftp_dir}</td>
 	<td><input name="ftp_root_path" size="20" value="{$ftp_root_path}" type="text" autocomplete="off"></td>
 	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_ftp_dir_info}", CENTER, OFFSETX, -150, OFFSETY, -20, width, 250);' onMouseOut='return nd();'></td>

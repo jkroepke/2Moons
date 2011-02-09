@@ -36,7 +36,7 @@ function ShowModulePage()
 		update_config(array('moduls' => implode(";", $CONF['moduls']), false, $_SESSION['adminuni']));
 		$CONF['moduls']		= explode(";", $CONF['moduls']);
 	}
-	$IDs	= range(0, 38);
+	$IDs	= range(0, 40);
 	foreach($IDs as $ID => $Name) {
 		$Modules[$ID]	= array(
 			'name'	=> $LNG['modul'][$ID], 

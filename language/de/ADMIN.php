@@ -1014,7 +1014,6 @@ $LNG['uvs_error']						= 'Ungültige oder Fehlerhafte Importfile!';
 
 //Update Page
 $LNG['up_weiter']						= 'Weiter';
-$LNG['up_agent']						= 'User-Agent: 2Moons Update API (Rev ';
 $LNG['up_kein_update']					= 'Kein Update vorhanden!';
 $LNG['up_ftp_ok']						= 'FTP-Verbindungsaufbau: OK!';
 $LNG['up_ftp_error']					= 'FTP-Verbindungsaufbau: ERROR! ';
@@ -1036,6 +1035,11 @@ $LNG['up_add']							= 'Hinzu:';
 $LNG['up_edit']							= 'Edit:';
 $LNG['up_del']							= 'Lösch';
 $LNG['up_update_server']				= 'Update Server zurzeit nicht erreichbar!';
+$LNG['up_password_title']				= 'Passwort Abfrage';
+$LNG['up_password_info']				= 'Um das Update durchzuführen wird das FTP Passwort benötigt.';
+$LNG['up_password_label']				= 'Passwort:';
+$LNG['up_submit']						= 'Absenden';
+$LNG['up_version']						= 'Version';
 
 //Active Page
 $LNG['ap_id']							= 'ID';
