@@ -81,9 +81,6 @@ function ShowConfigPage()
 		$CONF['trade_allowed_ships']	= request_var('trade_allowed_ships', '');
 		$CONF['trade_charge']			= request_var('trade_charge', 0.0);
 		$CONF['ftp_root_path']			= request_var('ftp_root_path', '', true);
-		
-		$Temp							= request_var('ftp_user_pass', '', true);
-		$CONF['ftp_user_pass']			= ((str_pad('', strlen($CONF['ftp_user_pass']), 'x') == $Temp) ? $CONF['ftp_user_pass'] : $Temp);
 
 		update_config(array(
 			'noobprotectiontime'	=> $CONF['noobprotectiontime'],
@@ -125,7 +122,6 @@ function ShowConfigPage()
 			'smtp_sendmail'			=> $CONF['smtp_sendmail'],
 			'ftp_server'			=> $CONF['ftp_server'],
 			'ftp_user_name'			=> $CONF['ftp_user_name'],
-			'ftp_user_pass'			=> $CONF['ftp_user_pass'],
 			'ftp_root_path'			=> $CONF['ftp_root_path'],
 			'ga_active'				=> $CONF['ga_active'],
 			'ga_key'				=> $CONF['ga_key'],
@@ -212,7 +208,6 @@ function ShowConfigPage()
 		'se_ftp_info'					=> $LNG['se_ftp_info'],
 		'se_ftp_host'					=> $LNG['se_ftp_host'],
 		'se_ftp_user'					=> $LNG['se_ftp_user'],
-		'se_ftp_pass'					=> $LNG['se_ftp_pass'],
 		'se_ftp_dir'					=> $LNG['se_ftp_dir'],
 		'se_ftp_dir_info'				=> $LNG['se_ftp_dir_info'],
 		'se_google'						=> $LNG['se_google'],

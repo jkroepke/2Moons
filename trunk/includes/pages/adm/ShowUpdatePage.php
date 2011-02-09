@@ -212,7 +212,7 @@ function ShowUpdatePage()
 				exitupdate(array('debug' => array('noupdate' => $LNG['up_kein_update'])));
 				
 			$SVN_ROOT		= $UpdateArray['info']['svn'];
-			$CONFIG 		= array("host" => $CONF['ftp_server'], "username" => $CONF['ftp_user_name'], "password" => $CONF['ftp_user_pass'], "port"     => 21 ); 
+			$CONFIG 		= array("host" => $CONF['ftp_server'], "username" => $CONF['ftp_user_name'], "password" => $_POST['password'], "port" => 21); 
 			try
 			{
 				$ftp = FTP::getInstance(); 
@@ -344,7 +344,7 @@ function ShowUpdatePage()
 					foreach($UpdateArray['revs'] as $Rev => $RevInfo) 
 					{
 						if(!(empty($RevInfo['add']) && empty($RevInfo['edit'])) && $Patchlevel[2] < $Rev){
-							$Update		= "<tr><td><a href=\"?page=update&amp;action=update\">Update</a>".(function_exists('gzcompress') ? " - <a href=\"?page=update&amp;action=download\">".$LNG['up_download_patch_files']."</a>":"")."</td></tr>";
+							$Update		= "<tr><td><a href=\"#\" onclick=\"openPWDialog();return false;\">Update</a>".(function_exists('gzcompress') ? " - <a href=\"?page=update&amp;action=download\">".$LNG['up_download_patch_files']."</a>":"")."</td></tr>";
 							$Info		= "<tr><th colspan=\"5\">".$LNG['up_aktuelle_updates']."</th></tr>";
 						}
 						
@@ -366,10 +366,15 @@ function ShowUpdatePage()
 					}
 				}			
 				$template->assign_vars(array(	
-					'version'	=> $CONF['VERSION'],
-					'RevList'	=> $RevList,
-					'Update'	=> $Update,
-					'Info'		=> $Info,
+					'up_password_title'	=> $LNG['up_password_title'],
+					'up_password_info'	=> $LNG['up_password_info'],
+					'up_password_label'	=> $LNG['up_password_label'],
+					'up_submit'			=> $LNG['up_submit'],
+					'up_version'		=> $LNG['up_version'],
+					'version'			=> $CONF['VERSION'],
+					'RevList'			=> $RevList,
+					'Update'			=> $Update,
+					'Info'				=> $Info,
 				));
 					
 				$template->show('adm/UpdatePage.tpl');

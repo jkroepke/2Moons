@@ -17,7 +17,7 @@
 <script type="text/javascript" src="./scripts/base.js"></script>
 <script type="text/javascript" src="./scripts/filterlist.js"></script>
 {foreach item=scriptname from=$scripts}
-<script type="text/javascript" src="./scripts/{$scriptname}"></script>
+<script type="text/javascript" src="./scripts/{$scriptname}.js"></script>
 {/foreach}
 <script type="text/javascript">
 var xsize 	= screen.width;

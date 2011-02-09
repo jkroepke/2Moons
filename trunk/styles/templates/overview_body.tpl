@@ -96,7 +96,7 @@
 			<td><input type="button" value="{$ov_abandon_planet}" onclick="cancel();"></td>
 		</tr><tr>
 			<td id="label">{$ov_planet_rename}</td>
-			<td><input type="text" name="newname" id="newname" size="25" maxlength="20"><input type="password" name="password" id="password" size="25" maxlength="20" style="display:none;"></td>
+			<td><input type="text" name="newname" id="newname" size="25" maxlength="20" autocomplete="off"><input type="password" name="password" id="password" size="25" maxlength="20" style="display:none;" autocomplete="off"></td>
 			<td><input type="button" onclick="checkrename();" value="{$ov_planet_rename_action}" id="submit-rename"><input type="button" onclick="checkcancel();" value="{$ov_delete_planet}" id="submit-cancel" style="display:none;"></td>
 		</tr>
 		</table>
