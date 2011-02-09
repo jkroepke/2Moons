@@ -9,7 +9,7 @@
 	<td colspan="2"><input name="ban_name" type="text" value="{$name}" readonly="true" class="character"/></td>
 </tr><tr>
 	<td>{$bo_reason} <br><br>{$bo_characters_1}<input id="result2" value="50" size="2" readonly="true" class="character"></td> 
-	<td colspan="2"><textarea name="why" maxlength="50" cols="20" rows="5" onkeyup="$('#result2').val(50 - parseInt($(this).val().lengtd));">{$reas}</textarea></td>
+	<td colspan="2"><textarea name="why" maxlength="50" cols="20" rows="5" onkeyup="$('#result2').val(50 - parseInt($(this).val().length));">{$reas}</textarea></td>
 </tr>
 	{$timesus}
 <tr>
