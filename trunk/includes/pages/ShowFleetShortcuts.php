@@ -45,7 +45,7 @@ function ShowFleetShortcuts()
 			$plan	= request_var('p', 0);
 			$type	= request_var('t', 0);
 			$USER['fleet_shortcut'] .= $name.','.$gala.','.$sys.','.$plan.','.$type."\r\n";
-			$db->query("UPDATE ".USERS." SET `fleet_shortcut` = '".$USER['fleet_shortcut']."' WHERE `id` = '".$USER['id']."';");
+			$db->query("UPDATE ".USERS." SET `fleet_shortcut` = '".$db->sql_escape($USER['fleet_shortcut'])."' WHERE `id` = '".$USER['id']."';");
 			redirectTo("game.php"."?page=shortcuts");
 		}
 	
@@ -81,7 +81,7 @@ function ShowFleetShortcuts()
 				$scarray[$a] = implode(",", $r);
 			}
 			$USER['fleet_shortcut'] = implode("\r\n", $scarray);
-			$db->query("UPDATE ".USERS." SET fleet_shortcut='".$USER['fleet_shortcut']."' WHERE id=".$USER['id'].";");
+			$db->query("UPDATE ".USERS." SET fleet_shortcut = '".$db->sql_escape($USER['fleet_shortcut'])."' WHERE id=".$USER['id'].";");
 			exit(redirectTo("game.php"."?page=shortcuts"));
 		}
 
