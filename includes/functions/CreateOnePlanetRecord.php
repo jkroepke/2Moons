@@ -54,7 +54,7 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $Universe, $PlanetOw
 			$PlanetType         = array('trocken', 'wuesten');
 			$PlanetClass        = array('planet');
 			$PlanetDesign       = array('trocken' => rand(1,10), 'wuesten' => rand(1,4));
-			$TMax				= rand(200, 240);
+			$TMax				= rand(220, 260);
 			$TMin				= $TMax - 40;
 			$Fields				= rand(95,108) * $FieldFactor;					
 		break;
@@ -62,7 +62,7 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $Universe, $PlanetOw
 			$PlanetType         = array('trocken', 'wuesten');
 			$PlanetClass        = array('planet');
 			$PlanetDesign       = array('trocken' => rand(1,10), 'wuesten' => rand(1,4));
-			$TMax				= rand(150, 190);
+			$TMax				= rand(170, 210);
 			$TMin				= $TMax - 40;
 			$Fields				= rand(97,110) * $FieldFactor;					
 		break;
@@ -70,7 +70,7 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $Universe, $PlanetOw
 			$PlanetType         = array('trocken', 'wuesten');
 			$PlanetClass        = array('planet');
 			$PlanetDesign       = array('trocken' => rand(1,10), 'wuesten' => rand(1,4));
-			$TMax				= rand(100, 140);
+			$TMax				= rand(120, 160);
 			$TMin				= $TMax - 40;
 			$Fields				= rand(98, 137) * $FieldFactor;					
 		break;
@@ -78,7 +78,7 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $Universe, $PlanetOw
 			$PlanetType         = array('dschjungel');
 			$PlanetClass        = array('planet');
 			$PlanetDesign       = array('dschjungel' => rand(1,10));
-			$TMax				= rand(50, 90);
+			$TMax				= rand(70, 110);
 			$TMin				= $TMax - 40;
 			$Fields				= rand(123, 203) * $FieldFactor;					
 		break;
@@ -86,7 +86,7 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $Universe, $PlanetOw
 			$PlanetType         = array('dschjungel');
 			$PlanetClass        = array('planet');
 			$PlanetDesign       = array('dschjungel' => rand(1,10));
-			$TMax				= rand(40, 80);
+			$TMax				= rand(60, 100);
 			$TMin				= $TMax - 40;
 			$Fields				= rand(148, 210) * $FieldFactor;				
 		break;
@@ -94,7 +94,7 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $Universe, $PlanetOw
 			$PlanetType         = array('dschjungel');
 			$PlanetClass        = array('planet');
 			$PlanetDesign       = array('dschjungel' => rand(1,10));
-			$TMax				= rand(30, 70);
+			$TMax				= rand(50, 90);
 			$TMin				= $TMax - 40;
 			$Fields				= rand(148, 226) * $FieldFactor;						
 		break;
@@ -102,7 +102,7 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $Universe, $PlanetOw
 			$PlanetType         = array('normaltemp');
 			$PlanetClass        = array('planet');
 			$PlanetDesign       = array('normaltemp' => rand(1,7));
-			$TMax				= rand(20, 60);
+			$TMax				= rand(40, 80);
 			$TMin				= $TMax - 40;
 			$Fields				= rand(141, 273) * $FieldFactor;						
 		break;
@@ -110,7 +110,7 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $Universe, $PlanetOw
 			$PlanetType         = array('normaltemp');
 			$PlanetClass        = array('planet');
 			$PlanetDesign       = array('normaltemp' => rand(1,7));
-			$TMax				= rand(10, 50);
+			$TMax				= rand(30, 70);
 			$TMin				= $TMax - 40;
 			$Fields				= rand(169, 246) * $FieldFactor;						
 		break;
@@ -118,7 +118,7 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $Universe, $PlanetOw
 			$PlanetType         = array('normaltemp', 'wasser');
 			$PlanetClass        = array('planet');
 			$PlanetDesign       = array('normaltemp' => rand(1,7), 'wasser' => rand(1,9));
-			$TMax				= rand(0, 40);
+			$TMax				= rand(20, 60);
 			$TMin				= $TMax - 40;
 			$Fields				= rand(161, 238) * $FieldFactor;						
 		break;
@@ -126,7 +126,7 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $Universe, $PlanetOw
 			$PlanetType         = array('wasser');
 			$PlanetClass        = array('planet');
 			$PlanetDesign       = array('wasser' => rand(1,9));
-			$TMax				= rand(-10, 30);
+			$TMax				= rand(10, 50);
 			$TMin				= $TMax - 40;
 			$Fields				= rand(154, 224) * $FieldFactor;						
 		break;
@@ -134,7 +134,7 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $Universe, $PlanetOw
 			$PlanetType         = array('wasser');
 			$PlanetClass        = array('planet');
 			$PlanetDesign       = array('wasser' => rand(1,9));
-			$TMax				= rand(-20, 20);
+			$TMax				= rand(0, 40);
 			$TMin				= $TMax - 40;
 			$Fields				= rand(148, 204) * $FieldFactor;						
 		break;
@@ -142,15 +142,15 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $Universe, $PlanetOw
 			$PlanetType         = array('wasser');
 			$PlanetClass        = array('planet');
 			$PlanetDesign       = array('wasser' => rand(1,9));
-			$TMax				= rand(-30, 10);
+			$TMax				= rand(-10, 30);
 			$TMin				= $TMax - 40;
 			$Fields				= rand(136, 171) * $FieldFactor;						
 		break;
 		case 13:
-		$PlanetType         = array('eis');
+			$PlanetType         = array('eis');
 			$PlanetClass        = array('planet');
 			$PlanetDesign       = array('eis' => rand(1,10));
-			$TMax				= rand(-70, -30);
+			$TMax				= rand(-50, -10);
 			$TMin				= $TMax - 40;
 			$Fields				= rand(109, 121) * $FieldFactor;						
 		break;
@@ -158,7 +158,7 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $Universe, $PlanetOw
 			$PlanetType         = array('eis', 'gas');
 			$PlanetClass        = array('planet');
 			$PlanetDesign       = array('eis' => rand(1,10), 'gas' => rand(1,8));
-			$TMax				= rand(-110, -70);
+			$TMax				= rand(-90, -50);
 			$TMin				= $TMax - 40;
 			$Fields				= rand(81, 93) * $FieldFactor;						
 		break;
@@ -166,7 +166,7 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $Universe, $PlanetOw
 			$PlanetType         = array('eis', 'gas');
 			$PlanetClass        = array('planet');
 			$PlanetDesign       = array('eis' => rand(1,10), 'gas' => rand(1,8));
-			$TMax				= rand(-150, -110);
+			$TMax				= rand(-130, -90);
 			$TMin				= $TMax - 40;
 			$Fields				= rand(65, 74) * $FieldFactor;				
 		break;

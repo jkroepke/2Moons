@@ -1,10 +1,77 @@
 <?php
 
+/**
+ *  2Moons
+ *  Copyright (C) 2011  Slaver
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @package 2Moons
+ * @author Slaver <slaver7@gmail.com>
+ * @copyright 2009 Lucky <douglas@crockford.com> (XGProyecto)
+ * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
+ * @version 1.3 (2011-01-21)
+ * @link http://code.google.com/p/2moons/
+ */
+ 
 $LNG['Version']     = 'Versão';
 $LNG['Description'] = 'Descrição';
 
 $LNG['changelog']   = array(
 
+'v1.3' => 'ShadoX 21.01.11
+- ADD: MultiUniverse Support
+- ADD: IPv6 Support
+- ADD: Limit of max Colony
+- ADD: Template Cache System
+- ADD: Daily Cronjob for clear Cache
+- ADD: Fleettrader
+- ADD: SessionSystem
+- ADD: AdminHack Protection
+- ADD: FTP Service on Installer to solved the CHMOD Problems
+- ADD: New Chat System
+- ADD: Cyrillic Char support for UserBanner
+- FIX: Facebook Connector
+- FIX: ACS
+- FIX: XSS on Battlesim
+- FIX: TF Iusses
+- FIX: UpdateSystem
+- FIX: Ressource Cheat
+- FIX: Admin Attack
+- FIX: SSL on IIS
+- FIX: Admin on Records
+- FIX: Noobprotection for Holding Mission
+- FIX: BattleReports show correct Techs now
+- FIX: ResetPage
+- FIX: Updated Ressource on TargetPlanet on Attacks
+- FIX: Fleetspeed Hack
+- FIX: BuildTime Hack
+- FIX: Cache System
+- FIX: Moondestruction
+- FIX: Teamspeak API for Teamspeak 3 Servers
+- FIX: UpdateSystem dont donwload same Files now
+- DIV: Change Copyright Header
+- DIV: Max Buttons on Jumpgate
+- DIV: OfficiersVars now on vars.php
+- DIV: Fleet Ressoucres go up tp 18.446.744.073.709.551.616
+- DIV: Allow Change Version on ACP
+- DIV: Get Language via HTTP Header on Index
+- DIV: Use Facebooks new Graph API now.
+- DIV: Set new location for error.log
+- DIV: Update TS³ Lib, Soundmanager, reCAPTCHA Lib, Smarty and jQuery (UI)
+',
 'v1.2' => 'ShadoX 14.09.10
 - ADD: Set Max Fleets on ACS (Default: 16)
 - ADD: New RightsSystem on ACP
@@ -30,117 +97,65 @@ $LNG['changelog']   = array(
 - DIV: Diverse Anpassungen am Game
 ',
 'v1.1' => 'ShadoX 31.08.10
-
 - ADD: GoW Skin
-
 - ADD: Mod Versions Control
-
 - ADD: Cronjoboption für Banner
-
 - ADD: Options for Loginmusic
-
 - FIX: Anzeigefehler in Raports
-
 - FIX: Ressoucre Hack
-
 - FIX: Fleet Bugs
-
 - DEL: Unused Pictures
-
 - DIV: Optimized CSS
-
 - DIV: Changed HTML Tree (Changed td.c to th / th to td)
-
 - DIV: Update to HTML 5
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game
 ',
-
 'v1.0' => 'ShadoX 07.08.10
-
 - FIX: Global Messages
-
 - FIX: Forgotten Password
-
 - FIX: Gamereset
-
 - FIX: Ressouce Glitch
-
 - FIX: Accout Informationen
-
 - FIX: Destroying Fleet after Fights
-
 - FIX: User Activation on ACP
-
 - FIX: Account delection
-
 - FIX: Bonusspeed for small cargo
-
 - FIX: Recycling Derbis
-
 - FIX: Message delection on ACP
-
 - FIX: Modules on English language
-
 - FIX: UpdatePage
-
 - FIX: class.ShowShipyardPage.php on line 43: Division by zero
-
 - DIV: Limited Random on Dm Mission
-
 - DIV: Changed System of Rapidfire
-
 - DIV: Solved Problems with BattleSimulator
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game
 ',
 
 'RC6' => 'ShadoX 28.07.10
-
 - ADD: Russian Language (ssAAss &amp; InquisitorEA)
-
 - ADD: Portuguese Language (morgado)
-
 - ADD: Spanish Language (ZideN) ALPHA (!)
-
 - FIX: UTF-8 Support for Buddy Requests
-
 - FIX: Messages Notify
-
 - FIX: Phalanx
-
 - FIX: Installer
-
 - FIX: Trümmerfeld bei Mondangriffen
-
 - FIX: Trümmerfeldabbau
-
 - FIX: Ressourcenberechnung bei Angriffen
-
 - FIX: Mondzerstörung
-
 - DIV: Neue Loginmusik
-
 - DIV: Removeold Settings
-
 - DIV: Recoding ACP
-
 - DIV: Optimized CSS for Login
-
 - DIV: zlib.output_compression wird statt ob_gzhandler genutzt
-
 - DIV: Change Path for reCAPTCHA AJAX
-
 - DIV: Remove old UGamla Functions
-
 - DIV: Sicherheit im Game erhöht
-
 - DIV: Include New Version of Soundmanager (2.96a.20100624)
-
 - DIV: Update Smarty Engine
-
 - DIV: Diverse Anpassungen am Game
-
 ',
 'RC5.1' => 'ShadoX 23.06.10
 - ADD: Für Halten muss man in der Ally/Buddy sein

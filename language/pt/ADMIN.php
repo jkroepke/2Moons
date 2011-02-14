@@ -1,28 +1,34 @@
 ﻿<?php
 
-##############################################################################
-# *                                                                          #
-# * 2MOONS                                                                   #
-# *                                                                          #
-# * @copyright Copyright (C) 2010 By ShadoX from titanspace.de               #
-# * @copyright Copyright (C) 2008 - 2009 By lucky from Xtreme-gameZ.com.ar   #
-# * @translate by                                                            #
-
-# * @author ShadoX                                                           #
-# *	                                                                         #
-# *  This program is free software: you can redistribute it and/or modify    #
-# *  it under the terms of the GNU General Public License as published by    #
-# *  the Free Software Foundation, either version 3 of the License, or       #
-# *  (at your option) any later version.                                     #
-# *	                                                                         #
-# *  This program is distributed in the hope that it will be useful,         #
-# *  but WITHOUT ANY WARRANTY; without even the implied warranty of          #
-# *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the           #
-# *  GNU General Public License for more details.                            #
-# *                                                                          #
-##############################################################################
-
+/**
+ *  2Moons
+ *  Copyright (C) 2011  Slaver
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @package 2Moons
+ * @author Slaver <slaver7@gmail.com>
+ * @copyright 2009 Lucky <douglas@crockford.com> (XGProyecto)
+ * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
+ * @version 1.3 (2011-01-21)
+ * @link http://code.google.com/p/2moons/
+ */
+ 
 //---------------    GERAL ------------------------//
+$LNG['adm_login']						= 'Login';
+$LNG['adm_absenden']					= 'Submiter'; 
 $LNG['adm_password']					= 'Password';
 $LNG['adm_password_info']	            = 'Introduzir senha de verificação!';
 $LNG['adm_bad_password']	            = 'Password Errada!';
@@ -30,6 +36,7 @@ $LNG['404_page']			            = 'Não tens permissões suficientes';
 $LNG['adm_cp_title']					= 'Painel de Administração';
 $LNG['adm_cp_index']					= 'Home';
 $LNG['mu_moderation_page']				= 'Permissões';
+$LNG['mu_universe']						= 'Universo';
 $LNG['adm_cp_logout']					= 'Sair';
 
 //	DIVERSOS
@@ -114,6 +121,7 @@ $LNG['ad_editor_planets']				= 'Planetas e Luas';
 $LNG['ad_editor_resources']				= 'Recursos';
 $LNG['ad_editor_alliances']				= 'Aliança';
 $LNG['ad_editor_authlevels']			= 'Alterar Permissões';
+$LNG['ad_add_not_exist']				= 'ID não existe!';
 
 // PESQUISAS
 $LNG['ad_add_succes']	        		= 'Pesquisa adicionada com Sucesso!';
@@ -199,7 +207,6 @@ $LNG['ad_pla_error_planets5'] 			= 'As coordenadas seleccionadas devem ter um pl
 $LNG['ad_pla_delete_planet_s']         	= 'Planeta apagado com êxito...';
 //###########################################################//
 
-
 //---------------	PAINEL DE BANS	-------------------------------//
 $LNG['bo_the_player'] 					= 'Jogador ';
 $LNG['bo_the_player2'] 					= 'O jogador ';
@@ -233,14 +240,12 @@ $LNG['bo_total_users']			        = 'Total de usuários: ';
 $LNG['bo_total_banneds']		        = 'Usuários suspensos: ';
 //###########################################################//
 
-
 //---------------   ENCRIPTADOR MD5  --------------------------//
 $LNG['et_md5_encripter']	            = 'Encriptador (MD5)';
 $LNG['et_pass']			                = 'Password';
 $LNG['et_result']			            = 'Resultado';
 $LNG['et_encript']			            = 'Encriptar';
 //###########################################################//
-
 
 //---------------	CONFIGURAÇÂO DE ESTATISTICAS	------------------------//
 $LNG['cs_title']						= 'Configuração dos parâmetros das estatísticas';
@@ -261,7 +266,6 @@ $LNG['cs_banner_time_between_updates']	= 'Intervalo entre atualizações do bann
 $LNG['cs_banner_title']					= 'Definições dos parâmetros do banner de estatisticas';
 //###########################################################//
 
-
 //---------------	LISTA DE ERROS	------------------------//
 $LNG['er_errors']						= ' erros';
 $LNG['er_error_list']					= 'Lista de erros';
@@ -269,7 +273,6 @@ $LNG['er_dlte_all']						= 'Apagar Todos';
 $LNG['er_type']							= 'Tipo';
 $LNG['er_data']							= 'Data';
 //###########################################################//
-
 
 //---------------	LISTA DE MENSAGENS	------------------------//
 $LNG['ml_message_list']					= 'Lista Mensagens';
@@ -286,7 +289,6 @@ $LNG['ml_content']						= 'Conteudo';
 $LNG['ml_see_all_messages']				= 'Ver todas as mensagens';
 //###########################################################//
 
-
 //---------------	MENSAGEM GLOBAL	------------------------//
 $LNG['ma_message_sended']				= 'A sua mensagem foi enviada!';
 $LNG['ma_subject_needed']				= 'Deves adicionar o assunto!';
@@ -298,22 +300,9 @@ $LNG['ma_message']						= 'Mensagem';
 //###########################################################//
 
 
-//---------------   BASES DE DADOS   ------------------------//
-$LNG['od_not_opt'] 						= 'Erro!';
-$LNG['od_not_check'] 					= 'Erros !';
-$LNG['od_opt'] 							= 'Foi Optimizada !';
-$LNG['od_rep'] 							= 'Foi Reparada !';
-$LNG['od_check_ok'] 					= 'Sem erros !';
-$LNG['od_opt_db'] 						= 'Database';
-$LNG['od_optimize'] 					= 'Optimizar';
-$LNG['od_repair'] 						= 'Reparar';
-$LNG['od_check'] 						= 'Analizar';
-$LNG['od_select_action'] 				= 'Verificar';
-//###########################################################//
-
-
 //---------------    OVERVIEW     ------------------------//
 $LNG['ow_title']						= 'Bem Vindo ao 2Moons';
+$LNG['ow_donate']						= 'Doação';
 $LNG['ow_welcome_text']					= 'Bem Vindo ao popular 2Moons. (:';
 $LNG['ow_overview']						= 'Painel De Control';
 $LNG['ow_support']						= 'Suporte';
@@ -325,8 +314,8 @@ $LNG['ow_special_thanks']				= 'Obrigado Especial';
 $LNG['ow_install_file_detected']		= 'install/ directoria foi encontrada. Por razões de segurança, é recomendável remover ou renomear.';
 $LNG['ow_config_file_writable']			= 'O ficheiro config.php pode ser escrito, é recomendado polo em modo 440 (leitura somente).';
 $LNG['ow_database_errors']				= 'Tens erros na tua base de dados. Poder&#225;s velos <a href="ErrorPage.php">Mostrar Erros</a>';
-$LNG['ow_handler_errors']			    = 'O Fleet-Handler encontrou um erro! - Last Start: %s - will Start: %s';
 $LNG['ow_smtp_errors']					= 'Verifique as configurações de SMTP! - Neste momento nenhum email pode ser enviado!';
+$LNG['ow_dir_not_writable']				= './%s dir não escrevível!';
 $LNG['ow_old_version']					= 'Tens uma versão nova desponivel.';
 $LNG['ow_none']						    = 'Sem Avisos';
 //###########################################################//
@@ -355,7 +344,7 @@ $LNG['se_metal_production'] 			= 'Produção de Metal';
 $LNG['se_crystal_production'] 			= 'Produção de Cristal';
 $LNG['se_deuterium_production']			= 'Produção de Deuterium';
 $LNG['se_several_parameters'] 			= 'Vários parâmetros';
-$LNG['se_title_admins_protection'] 		= 'Marque a caixa para ativar a proteção e impedir que os administradores e moderadores recebam ataques ou qualquer outra a&#231;&#227;o das frotas.';
+$LNG['se_title_admins_protection'] 		= 'Marque a caixa para ativar a proteção e impedir que os administradores e moderadores recebam ataques ou qualquer outra ação das frotas.';
 $LNG['se_admin_protection'] 			= 'Proteção';
 $LNG['se_debug_mode'] 					= 'Modo debug';
 $LNG['se_save_parameters'] 				= 'Salvar Configurações';
@@ -381,6 +370,9 @@ $LNG['se_recaptcha_private']            = 'Chave Privada:';
 $LNG['se_recaptcha_active']             = 'Activar RECAPTCHA';
 $LNG['se_reg_closed']					= 'Registo Fechado';
 $LNG['se_min_build_time']               = 'Construção Mínima';
+$LNG['se_trader_head']					= 'Configurações Breaker';
+$LNG['se_trader_ships']					= 'Naves autorizadoa:';
+$LNG['se_trader_charge']				= 'Taxa Mercante:';
 $LNG['se_min_build_time_info']          = 'Aqui poderás por um tempo minimo para construção. Esta pré defenido para 1 segundo.<br>Se alterares para 0, será desactivado<br><font color=orange>Então ai é que os bugs começam!</font>';
 $LNG['se_news_head']                    = 'Configurações das Notícias';
 $LNG['se_news_active']                  = 'Activar Notícias';
@@ -391,6 +383,12 @@ $LNG['se_verfiy_mail']                  = 'Sistema de verificação de E-Mail';
 $LNG['se_verfiy_mail_info']             = 'Se esta opção estiver activa os jogadores teram de activar as suas contas.';
 $LNG['se_smtp']                         = 'Configurações de SMTP';
 $LNG['se_smtp_info']					= 'Introduza os dados do Servidor de SMTP para permitir a comunicação entre o servidor do 2Moons e os seus jogadores pelo Servidor de Email SMTP.';
+$LNG['se_mail_use']						= 'Versão do E-mail:';
+$LNG['se_mail_sel'][0]					= 'PHP mail() Função';
+$LNG['se_mail_sel'][1]					= 'Sendmail / Qmail';
+$LNG['se_mail_sel'][2]					= 'SMTP Auth';
+$LNG['se_smail_path']					= 'Caminho para o Sendmail / Qmail';
+$LNG['se_smtp_host']					= 'Envio de Email:';
 $LNG['se_smtp_host']                    = 'SMTP Host:';
 $LNG['se_smtp_host_info']               = 'Insira aqui o endereço do seu servidor SMTP.';
 $LNG['se_smtp_ssl']                     = 'SMTP SSL/TLS :';
@@ -421,8 +419,11 @@ $LNG['se_bgm_active']					= 'Activado?';
 $LNG['se_bgm_info']						= 'A musica de fundo que toca na pagina principal.';
 $LNG['se_bgm_file']						= 'Caminho:';
 $LNG['se_bgm_file_info']				= 'Caminhos possivel ou absoluto possiveis!';
-$LNG['se_trader_ships']					= 'Naves liberadas';
-$LNG['se_trader_charge']					= 'Taxa da troca';
+$LNG['se_min_js']						= 'Minimize Javascript?';
+$LNG['se_min_js_info']					= 'Se ativado, os arquivos de javascript serão compilados como um arquivo enviado para o cliente. Assim, o servidor web fica aliviado, pois este processo tem menos pedidos.';
+
+
+
 
 //###########################################################//
 
@@ -529,14 +530,19 @@ $LNG['mu_ts_options']                   = 'Opções Teamspeak';
 $LNG['mu_game_info']                    = 'Informação';
 $LNG['mu_vaild_users']				    = 'Actividade de Usuário';
 $LNG['mu_news']					        = 'Noticias';
+$LNG['mu_multiip']						= 'Múltiplos IPs'; 
 $LNG['mu_clear_cache']					= 'Limpar Cache'; 
 
 //###########################################################//
 
 $LNG['cc_cache_clear']					= 'Cache Limpo'; 
 
+
 //---------------    RESET AO UNIVERSO   ------------------------//
 $LNG['re_reset_universe'] 				= 'Reset ao Universo';
+$LNG['re_player_and_planets']			= 'Jogadores e Planetas';
+$LNG['re_reset_player']					= 'Reset Jogador (remover todos)';
+$LNG['re_reset_planets']				= 'Reset Planetas (apagar colônias)';
 $LNG['re_reset_universe_confirmation'] 	= 'Ao clicar em OK, resume o pedido para zero. Esta operação não pode ser revertida, e é da sua responsabilidade fazer backup a base de dados. Se fizer reset ao universo as contas não seram eliminadas. ';
 $LNG['re_defenses_and_ships'] 			= 'Hangar de Defesa';
 $LNG['re_defenses'] 					= 'Reset às Defesas';
@@ -565,7 +571,6 @@ $LNG['re_reset_banned'] 				= 'Reset aos Bans';
 $LNG['re_reset_messages'] 				= 'Reset as Mensagens';
 $LNG['re_reset_statpoints'] 			= 'Reset as Estatisticas';
 $LNG['re_reset_all'] 					= 'Reset a todo o Universo';
-$LNG['re_reset_h1'] 					= 'Reset as Opções';
 $LNG['re_reset_excess'] 				= 'Opções reiniciadas com sucesso!';
 //###########################################################//
 
@@ -653,13 +658,13 @@ $LNG['ac_suspended_time']               = 'Suspendido';
 $LNG['ac_suspended_longer']             = 'Ate';
 $LNG['ac_suspended_reason']             = 'Razão';
 $LNG['ac_suspended_autor']              = 'Suapenso por';
-$LNG['ac_note_k']                       = '<table><tr><th width=10%><font color=lime>T+</font></th><th>Mais que o trilião</th></tr>';
-$LNG['ac_note_k']                       = '<tr><th width=10%><font color=lime>T</font></th><th>Mais ou o mesmo que o trilião</th></tr>';
-$LNG['ac_note_k']                       = '<tr><th width=10%><font color=lime>B</font></th><th>Mais ou o mesmo que o bilião</th></tr>';
-$LNG['ac_note_k']                       = '<tr><th width=10%><font color=lime>M</font></th><th>Mais ou o mesmo que o milhão</th></tr>';
-$LNG['ac_note_k']                       = '<tr><th width=10%><font color=lime>K</font></th><th>Mais ou o mesmo que o milhar</th></tr></table>';
+$LNG['ac_note_k']                       = '<table><tr><th width=10%><font color=lime>T+</font></th><th>Mais que o trilião</th></tr><tr><th width=10%><font color=lime>T</font></th><th>Mais ou o mesmo que o trilião</th></tr><tr><th width=10%><font color=lime>B</font></th><th>Mais ou o mesmo que o bilião</th></tr><tr><th width=10%><font color=lime>M</font></th><th>Mais ou o mesmo que o milhão</th></tr><tr><th width=10%><font color=lime>K</font></th><th>Mais ou o mesmo que o milhar</th></tr></table>';
 $LNG['ac_leyend']                       = '[ Leyend ]';
 $LNG['ac_no_rank_level']                = 'Não tem permisões suficientes para ver informações acerca deste jogador!';
+
+
+
+
 //###########################################################//
 
 
@@ -863,23 +868,28 @@ $LNG['sp_admin_open']                   = 'O %s reabriu o Ticket a %s';
 
 
 // Editor Rapido
-
 $LNG['qe_send']                         = 'Enviar';
 $LNG['qe_reset']                        = 'Limpar';
 $LNG['qe_build']                        = 'Edifícios';
+$LNG['qe_tech']							= 'Tecnologias';
 $LNG['qe_fleet']                        = 'Frotas';
 $LNG['qe_defensive']                    = 'Defesas';
 $LNG['qe_resources']                    = 'Recursos';
 $LNG['qe_id']                           = 'ID';
 $LNG['qe_name']                         = 'Nome';
+$LNG['qe_level']						= 'Level';
 $LNG['qe_count']                        = 'Disponivel';
 $LNG['qe_input']                        = 'Editar';
-$LNG['qe_edit_sucess']                  = 'O Planeta %s [%d:%d:%d] Foi Editado Com Êxito!';
+$LNG['qe_edit_planet_sucess']			= 'Planeta %s [%d:%d:%d] editado com sucesso!';
+$LNG['qe_edit_player_sucess']			= 'Usuário %s (ID: %d) editado com sucesso!';
 $LNG['qe_info']                         = 'Informação';
 $LNG['qe_owner']                        = 'Usuário';
 $LNG['qe_fields']                       = 'Campos';
+$LNG['qe_password']						= 'Senha';
 $LNG['qe_coords']                       = 'Cordenadas';
+$LNG['qe_hpcoords']						= 'HP-Coordenadas';
 $LNG['qe_temp']                         = 'Temperatura';
+$LNG['qe_change']						= 'Alterar';
 
 //----------------------------------------------------------------------------//
 //TeamSpeakSettingPage.php
@@ -891,10 +901,9 @@ $LNG['ts_tcpport']                      = 'Porta UDP';
 $LNG['ts_serverip']                     = 'IP do Servidor';
 $LNG['ts_timeout']                      = 'Timeout'; 
 $LNG['ts_server_query']                 = 'Porta do Servidor de Querys'; 
-$LNG['ts_server_id']					= 'ID do Servidor';
-$LNG['ts_login']					= 'Usuario ServerQuery';
-$LNG['ts_pass']					= 'Senha ServerQuery';
-$LNG['ts_cron']					= 'Atualizar taxa';
+$LNG['ts_login']						= 'Usuario ServerQuery';
+$LNG['ts_pass']							= 'Senha ServerQuery';
+$LNG['ts_cron']							= 'Atualizar taxa';
 
 //----------------------------------------------------------------------------//
 //FacebookSettingPage.php
@@ -903,8 +912,8 @@ $LNG['fb_active']                       = 'FacebookConnect activo?';
 $LNG['fb_api_key']                      = 'Facebook API Key';
 $LNG['fb_secrectkey']                   = 'Facebook Secret Key';
 $LNG['fb_info']                         = 'Com o Facebook Connect os usuários podem que estão conectados ao Facebook, com o meu log in, clique ou registre-se. <br><br>Para usar este sistema, deves ser registrado com Faceebok. Além disso, você deve criar um aplicativo. Registar <a href="http://www.facebook.com/developers/">http://www.facebook.com/developers/</a> Como conectar URL tens de activar o sistema e por as duas chaves.<br><br><font color="red">Para o envio de E-Mails deves ter o sistema de envio activo! (SMTP Settings)</font>';
-$LNG['fb_curl_yes']					= '<span style="color:green">O cURL esta instalado no Servidor!</span>';
-$LNG['fb_curl_no']					= '<span style="color:red">Extenção cURL não esta instalado!, o FaceBook requer que você instale para que ele funcione!</span>';
+$LNG['fb_curl_yes']						= '<span style="color:green">O cURL esta instalado no Servidor!</span>';
+$LNG['fb_curl_no']						= '<span style="color:red">Extenção cURL não esta instalado!, o FaceBook requer que você instale para que ele funcione!</span>';
 
 //----------------------------------------------------------------------------//
 //GameModule.php
@@ -946,6 +955,9 @@ $LNG['modul'][37]                       = 'Banner';
 $LNG['modul'][26]                       = 'Procura';
 $LNG['modul'][27]                       = 'Suport Tickets';
 $LNG['modul'][28]                       = 'Tecnologias';
+$LNG['modul'][38]						= 'Sucateiros';
+$LNG['modul'][39]						= 'Simulador de batalha';
+$LNG['modul'][40]						= 'Atalhos de Frotas';
 $LNG['mod_module']						= 'Modulos';
 $LNG['mod_info']						= 'Modulos no Jogo';
 $LNG['mod_active']						= 'Activo';
@@ -954,7 +966,6 @@ $LNG['mod_change_active']				= 'Activado';
 $LNG['mod_change_deactive']				= 'Desactivado';
 
 //Novidades
-
 $LNG['nws_news']						= 'Novidades';
 $LNG['nws_head_create']					= 'Criar Novidades';
 $LNG['nws_head_edit']					= 'A trabalhar %s nas noticias';
@@ -969,7 +980,6 @@ $LNG['nws_total']						= 'Total %d Novidades Disponiveis';
 $LNG['nws_content']						= 'Conteudo';
 
 //	MOD Controlo de Versão
-
 $LNG['mvc_title']						= 'Titulo';
 $LNG['mvc_author']						= 'Autor';
 $LNG['mvc_version']						= 'Versão';
@@ -983,57 +993,62 @@ $LNG['mvc_download']					= 'Download';
 $LNG['mvc_desc']						= 'Descrição';
 
 //Página do Universo
-$LNG['uvs_id']					= 'ID';
-$LNG['uvs_name']					= 'Nome';
-$LNG['uvs_speeds']					= 'Velocidade';
-$LNG['uvs_players']					= 'Jogadores';
-$LNG['uvs_open']					= 'Abrir';
-$LNG['uvs_export']					= 'Exportar
-';
-$LNG['uvs_delete']					= 'Deletar';
-$LNG['uvs_on']					= 'On';
-$LNG['uvs_off']					= 'Off';
-$LNG['uvs_new']					= 'Adicionar Universo';
-$LNG['uvs_import']					= 'Importar Universo';
-$LNG['uvs_upload']					= 'Upload';
-$LNG['uvs_error']					= 'Falha ao importar o arquivo	';
+$LNG['uvs_id']							= 'ID';
+$LNG['uvs_name']						= 'Nome';
+$LNG['uvs_speeds']						= 'Velocidade';
+$LNG['uvs_players']						= 'Jogadores';
+$LNG['uvs_open']						= 'Abrir';
+$LNG['uvs_export']						= 'Exportar';
+$LNG['uvs_delete']						= 'Deletar';
+$LNG['uvs_on']							= 'On';
+$LNG['uvs_off']							= 'Off';
+$LNG['uvs_new']							= 'Adicionar Universo';
+$LNG['uvs_import']						= 'Importar Universo';
+$LNG['uvs_upload']						= 'Upload';
+$LNG['uvs_error']						= 'Falha ao importar o arquivo	';
 
 //Página Update
-
-$LNG['up_weiter']					= 'Seguinte';
-$LNG['up_agent']					= 'User-Agent: Atualização 2Moons API (Rev ';
+$LNG['up_weiter']						= 'Seguinte';
 $LNG['up_kein_update']					= 'Não há atualização disponivel!';
-$LNG['up_ftp_ok']					= 'Conexão do FTP: OK!';
+$LNG['up_ftp_ok']						= 'Conexão do FTP: OK!';
 $LNG['up_ftp_error']					= 'Conexão do FTP: ERRO!';
 $LNG['up_ftp_change']					= 'Mudar FTP(';
-$LNG['up_ftp_change_error']					= 'OK! Atualizado! Revisão: ';
+$LNG['up_ftp_ok']						= 'OK!';
+$LNG['up_ftp_change_error']				= 'Erro! Caminho não encontrado! ';
+$LNG['up_ok_update']					= 'OK! - Atualizado!';
 $LNG['up_error_update']					= 'ERRO! - Não é possível fazer upload do arquivo';
 $LNG['up_delete_file']					= 'Apagado com sucesso';
-$LNG['up_error_delete_file']					= 'ERRO! - Não foi possível excluir arquivo';
-$LNG['up_update_ok_rev']					= 'UPDATE: OK! Atualizado! Revisão:';
-$LNG['up_error_fsockopen']					= 'Função file_get_contents com defeito ou fsockopen';
-$LNG['up_download_patch_files']					= 'Baixar Arquivo Patch';
-$LNG['up_aktuelle_updates']					= 'Atualizações Recentes';
-$LNG['up_momentane_version']					= 'Versão atual';
+$LNG['up_error_delete_file']			= 'ERRO! - Não foi possível excluir arquivo';
+$LNG['up_update_ok_rev']				= 'UPDATE: OK! Atualizado! Revisão:';
+$LNG['up_error_fsockopen']				= 'Função file_get_contents com defeito ou fsockopen';
+$LNG['up_download_patch_files']			= 'Baixar Arquivo Patch';
+$LNG['up_aktuelle_updates']				= 'Atualizações Recentes';
+$LNG['up_momentane_version']			= 'Versão atual';
 $LNG['up_alte_updates']					= 'Atualização antiga';
-$LNG['up_revision']					= 'Revisão';
-$LNG['up_add']					= 'Adicionado em:';
-$LNG['up_edit']					= 'Editar';
-$LNG['up_del']					= 'Excluir';
-$LNG['up_update_server']					= 'Atualização do servidor não disponível';
+$LNG['up_revision']						= 'Revisão';
+$LNG['up_add']							= 'Adicionado em:';
+$LNG['up_edit']							= 'Editar';
+$LNG['up_del']							= 'Excluir';
+$LNG['up_update_server']				= 'Atualização do servidor não disponível';
+$LNG['up_password_title']				= 'Solicitação de Senha';
+$LNG['up_password_info']				= 'Para realizar a atualização, a senha de FTP é necessária.';
+$LNG['up_password_label']				= 'Senha:';
+$LNG['up_submit']						= 'Enviar';
+$LNG['up_version']						= 'Versão';
+
 
 //Página Ativa
-$LNG['ap_id']					= 'ID';
-$LNG['ap_username']					= 'Nome do Usuário';
-$LNG['ap_datum']					= 'Data';
-$LNG['ap_email']					= 'Email';
-$LNG['ap_ip']					= 'IP';
+$LNG['ap_id']							= 'ID';
+$LNG['ap_username']						= 'Nome do Usuário';
+$LNG['ap_datum']						= 'Data';
+$LNG['ap_email']						= 'Email';
+$LNG['ap_ip']							= 'IP';
 $LNG['ap_aktivieren']					= 'Ativar';
-$LNG['ap_del']					= 'Excluir';
-$LNG['ap_sicher']					= 'Tem cerqueza que você';
+$LNG['ap_del']							= 'Excluir';
+$LNG['ap_sicher']						= 'Tem cerqueza que você';
 $LNG['ap_entfernen']					= 'deseja remover';
 $LNG['ap_insgesamt']					= 'Geral';
-$LNG['ap_nicht_aktivierte']					= 'Não foi ativado pelo usuário';
-$LNG['ap_nicht_aktivierte_user']					= 'Usuário não ativado';
+$LNG['ap_nicht_aktivierte']				= 'Não foi ativado pelo usuário';
+$LNG['ap_nicht_aktivierte_user']		= 'Usuário não ativado';
 
 ?>
