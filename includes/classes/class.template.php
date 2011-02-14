@@ -34,7 +34,7 @@ class template
 		$this->script				= array();
 		$this->vars					= array();
 		$this->cache				= false;
-		$this->cachedir				= ROOT_PATH.'cache/';
+		$this->cachedir				= is_writable(ROOT_PATH.'cache/') ? ROOT_PATH.'cache/' : session_save_path();
 		$this->file					= '';
 		$this->template_dir			= ROOT_PATH.TEMPLATE_DIR;
 		$this->cachefile			= '';
@@ -47,9 +47,6 @@ class template
 		global $CONF;
 		require(ROOT_PATH.'includes/libs/Smarty/Smarty.class.php');
 		$TMP						= new Smarty();
-		if(!is_writable($this->cachedir))
-			$this->cachedir = '/tmp';
-			
 		$TMP->force_compile 		= false;
 		$TMP->compile_dir 			= $this->cachedir;
 		$TMP->caching 				= false;

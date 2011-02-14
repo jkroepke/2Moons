@@ -30,24 +30,11 @@ google.load("feeds", "1");
         <td colspan="2"><a href="http://code.google.com/p/2moons/" target="_blank">Project Homepage</a><br>
         <a href="http://code.google.com/p/2moons/source/list" target="_blank">SVN Revision List</a><br>
 		<a href="http://www.titanspace.org/" target="_blank">Offical Betauni</a><br>
-		<a href="http://2moons.cc/" target="_blank">2moons.cc - {$ow_forum}</a></td>
+		<!--<a href="http://2moons.cc/" target="_blank">2moons.cc - {$ow_forum}</a>--></td>
     </tr> 
 	<tr>
 		<th style="width:50%;">{$ow_donate} - Paypal</th>
 		<th style="width:50%;">{$ow_donate} - Moneybookers</th>
-	</tr>
-	<tr>
-		<td colspan="2">
-			<div id="progressbar"></div>
-			<script type="text/javascript">
-			$(function() {
-				$("#progressbar").progressbar({
-					value: Math.min(donate_{$date},donate_max) / donate_max * 100
-				});
-			});
-			document.write("Goal: "+donate_max+"&euro; &bull; Month Amount: "+donate_{$date}+"&euro; ("+donate_{$date} / donate_max * 100+"%)");
-			</script>
-		</td>
 	</tr>
 	<tr>
 		<td align="center" style="height:110px;">
