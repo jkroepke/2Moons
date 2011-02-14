@@ -29,9 +29,6 @@
 if(!function_exists('spl_autoload_register'))
 	exit("PHP is missing <a href=\"http://php.net/spl\">Standard PHP Library (SPL)</a> support");
 
-if(!class_exists('mysqli'))
-	exit("PHP is missing <a href=\"http://php.net/mysqli\">MySQL Improved Extension</a> support");
-
 define('INSIDE'  			, true);
 define('INSTALL' 			, true);
 
@@ -100,13 +97,13 @@ switch ($Mode) {
 			$error++;
 		}
 		
-		if(@ini_get('safe_mode') == 0){
-			$safemode = "<span class=\"yes\">".$LNG['reg_no']."</span>";
+		if(class_exists('mysqli')){
+			$mysqli = "<span class=\"yes\">".$LNG['reg_no']."</span>";
 		} else {
-			$safemode = "<span class=\"no\">".$LNG['reg_yes']."</span>";
+			$mysqli = "<span class=\"no\">".$LNG['reg_yes']."</span>";
 			$error++;
 		}
-		
+				
 		if(function_exists('json_encode')){
 			$json = "<span class=\"yes\">".$LNG['reg_yes']."</span>";
 		} else {
@@ -178,21 +175,21 @@ switch ($Mode) {
 		}
 
 		$template->assign_vars(array(
-			'safemode'			=> $safemode,
 			'dir'				=> $dirs,
 			'json'				=> $json,
 			'done'				=> $done,
 			'config'			=> $config,
 			'gdlib'				=> $gdlib,
 			'PHP'				=> $PHP,
+			'mysqli'			=> $mysqli,
 			'ftp'				=> $ftp,
 			'bcmath'			=> $bcmath,
 			'iniset'			=> $iniset,
 			'req_php_need'		=> $LNG['req_php_need'],
-			'req_smode_active'	=> $LNG['req_smode_active'],
 			'reg_gd_need'		=> $LNG['reg_gd_need'],
 			'reg_json_need'		=> $LNG['reg_json_need'],
 			'reg_iniset_need'	=> $LNG['reg_iniset_need'],
+			'reg_mysqli_need'	=> $LNG['reg_mysqli_need'],
 			'reg_bcmath_need'	=> $LNG['reg_bcmath_need'],
 			'req_ftp'			=> $LNG['req_ftp'],
 			'req_ftp_info'		=> $LNG['req_ftp_info'],

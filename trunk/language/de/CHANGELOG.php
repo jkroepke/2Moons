@@ -45,6 +45,7 @@ $LNG['changelog']   = array(
 - ADD: Cyrillic Char support for UserBanner
 - FIX: Facebook Connector
 - FIX: ACS
+- FIX: SQL Injections on FleetsShoutcuts
 - FIX: XSS on Battlesim
 - FIX: TF Iusses
 - FIX: UpdateSystem
@@ -62,6 +63,7 @@ $LNG['changelog']   = array(
 - FIX: Moondestruction
 - FIX: Teamspeak API for Teamspeak 3 Servers
 - FIX: UpdateSystem dont donwload same Files now
+- DIV: 2Moons not longer require safe_mode = off
 - DIV: Change Copyright Header
 - DIV: Max Buttons on Jumpgate
 - DIV: OfficiersVars now on vars.php

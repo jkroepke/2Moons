@@ -6,7 +6,7 @@
 				<td class="transparent">{$req_php_need}</td><td class="transparent">{$PHP}</td>
 			</tr>
 			<tr>
-				<td class="transparent">{$req_smode_active}</td><td class="transparent">{$safemode}</th>
+				<td class="transparent">{$req_mysqli_active}</td><td class="transparent">{$mysqli}</th>
 			</tr>
 			<tr>
 				<td class="transparent">{$reg_gd_need}</td><td class="transparent">{$gdlib}</td>

@@ -147,7 +147,6 @@ class ShowOfficierPage
 		$template->assign_vars(array(	
 			'ExtraDMList'			=> $ExtraDMList,
 			'OfficierList'			=> $OfficierList,
-			'Payenabled'			=> !empty($CONF['paymentkey']),
 			'user_darkmatter'		=> floor($USER['darkmatter'] / DM_PRO_OFFICIER_LEVEL),
 			'of_max_lvl'			=> $LNG['of_max_lvl'],
 			'of_recruit'			=> $LNG['of_recruit'],

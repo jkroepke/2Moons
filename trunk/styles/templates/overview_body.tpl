@@ -67,7 +67,7 @@
             <td>{$ov_points}</td>
             <td colspan="3">{$user_rank}</td>
         </tr>
-		{if !CheckModule(37)}
+		{if extension_loaded('gd') || !CheckModule(37)}
 		<tr>
 			<th colspan="4">{$ov_userbanner}</th>
 		</tr>
