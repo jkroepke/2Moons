@@ -1,18 +1,44 @@
 ﻿<?php
 
+/**
+ *  2Moons
+ *  Copyright (C) 2011  Slaver
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @package 2Moons
+ * @author Slaver <slaver7@gmail.com>
+ * @copyright 2009 Lucky <douglas@crockford.com> (XGProyecto)
+ * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
+ * @version 1.3 (2011-01-21)
+ * @link http://code.google.com/p/2moons/
+ */
+
 //general
 $LNG['index']                          	= 'Login';
-$LNG['register']                       	= 'Registo';
-$LNG['forum']                          	= 'Fórum';
+$LNG['register']                       	= 'Registro';
+$LNG['forum']                          	= 'Forum';
 $LNG['send']                           	= 'Enviar';
 $LNG['menu_index']                     	= 'Login';    
 $LNG['menu_news']                      	= 'Noticias';     
-$LNG['menu_rules']                     	= 'Régras';
+$LNG['menu_rules']                     	= 'Regras';
 $LNG['menu_agb']                       	= 'T&C';
 $LNG['menu_pranger']                   	= 'Banidos';   
-$LNG['menu_top100']                    	= 'Top de Fama';     
-$LNG['menu_disclamer']                 	= 'Contactar';
-$LNG['uni_closed']			= '(Offline)';	   
+$LNG['menu_top100']                    	= 'Top da Fama';     
+$LNG['menu_disclamer']                 	= 'Contatar';
+$LNG['uni_closed']						= '(Offline)';	   
       
 /* ------------------------------------------------------------------------------------------ */
 
@@ -28,9 +54,9 @@ $LNG['mail_sended']                    	= 'A nova password foi enviada com êxit
 $LNG['mail_sended_fail']               	= 'O E-Mail não pôde ser enviado.!';
 $LNG['server_infos']                   	= array(
         "Um jogo de estratégia espacial em tempo real.",
-        "Joga juntamente com centenas de outros jogadores.",  
-        "Não precisas de fazer download, apenas necessitas de um browser.",   
-        "Registo Gratuito",
+        "Jogue juntamente com centenas de outros jogadores.",  
+        "Não precisa fazer download, apenas necessita de um navegador.",   
+        "Registro Gratuito",
 
 );
 
@@ -90,7 +116,7 @@ $LNG['welcome_message_sender']         = 'A Equipa';
 $LNG['welcome_message_subject']        = 'Bem-vindo';
 $LNG['welcome_message_content']        = 'Bem-vindo ao mundo %s!<br>A primeira construção deverá ser uma planta de energia solar, porque a energia é necessária para a subsequente produção de matérias-primas. Para construí-la, clique no menu à esquerda, "Edifícios". <br>Em seguida, procure o quarto edifício a partir do topo. Lá tem a planta de energia: agora que já a construiu deve começar as minas de matérias-primas.<br> Volte para o menu dos edifícios e construa uma mina de metal, em seguida, uma mina de cristal. A fim de ser capaz de construir naves, mas para isso precisa de ter construído o hangar. <br>Poderá ver na página das tecnologias o que é necessário para que tenha acesso às varias naves, edifícios, e tecnologias.<br><br> A equipa do Vedra deseja-lhe muito divertimento a explorar o universo!';
 $LNG['newpass_smtp_email_error']       = '<br><br>Ocorreu um erro, a sua password é: ';
-$LNG['reg_completed']                  = 'Obrigado pela sua inscrição! Foi-lhe enviado um E-Mail com o link de activação da sua conta.<br><b>Caso não receba o mail nos proçimos minutos por favor contacte a Equipa Vedra atravez do fórum!</b>';
+$LNG['reg_completed']                  = 'Obrigado pela sua inscrição! Foi-lhe enviado um E-Mail com o link de ativação da sua conta.<br><b>Caso não receba o E-mail nos proximos minutos por favor contacte a Equipa Stellar Wars atravez do forum!</b>';
 $LNG['planet_already_exists']		   = 'Essa posição ja se encontra ocupada! <br>';
 
 //registry_form.tpl
@@ -102,7 +128,7 @@ $LNG['pass_reg']                       = 'Password';
 $LNG['pass2_reg']                      = 'Repetir Password';
 $LNG['email_reg']                      = 'Morada de E-mail';
 $LNG['email2_reg']					   = 'Confirmar o Email';
-$LNG['planet_reg']					   = 'Name of Mainplanet';
+$LNG['planet_reg']					   = 'Nome do Planeta Principal';
 $LNG['lang_reg']                       = 'Língua de Jogo';
 $LNG['register_now']                   = 'Registar!';
 $LNG['captcha_reg']                    = 'Imagem de sugurança';
@@ -195,13 +221,13 @@ $LNG['rules']                          = array(
 
 );
 
-$LNG['rules_info1']                      = "Mais informações podem ser encontradas no <a href=\"%s\" target=\"_blank\">Fórum</a> ou se tiveres dúvidas também as podes expor lá ...";
-$LNG['rules_info2']                      = "Estas são para cumprir obrigatóriamente  <a onclick=\"ajax('?page=agb&getajax=1');\" style=\"cursor:pointer;\">T&C</a> !</font>";
+$LNG['rules_info1']                    = "Mais informações podem ser encontradas no <a href=\"%s\" target=\"_blank\">Fórum</a> ou se tiveres dúvidas também as podes expor lá ...";
+$LNG['rules_info2']                    = "Estas são para cumprir obrigatóriamente  <a onclick=\"ajax('?page=agb&getajax=1');\" style=\"cursor:pointer;\">T&C</a> !</font>";
 
 //AGB
 
-$LNG['agb_overview']                     = "Termos e Condições";
-$LNG['agb']                              = array(
+$LNG['agb_overview']                   = "Termos e Condições";
+$LNG['agb']                            = array(
 
         "Objecto das condições de utilização; área de aplicação"             => array(
                 "As seguintes condições regulam a utilização dos jogos online e outras ofertas de serviços disponibilizadas nas páginas de Internet do jogo caso de registo ou início de sessão do utilizador no site do portal do jogo, o presente contrato de cessão está sempre dependente do jogo para os jogos online com base no cliente, ou seja, jogos para os quais é necessário o download por parte do cliente. Nestes casos, o Vedra Productions é apenas colaboradora da jogo em relação ao registo e início de sessão.",
@@ -381,20 +407,20 @@ $LNG['agb']                              = array(
          
 //Facebook Connect         
          
-$LNG['fb_perm']				= 'Acesso proibido. %s Precisas de todos os direitos para faseres o login com a conta do Facebook.\n Alternadamente poderás faser o login sem a conta do Facebook!';         
+$LNG['fb_perm']						   = 'Acesso proibido. %s Precisas de todos os direitos para faseres o login com a conta do Facebook.\n Alternadamente poderás faser o login sem a conta do Facebook!';         
          
 //NEWS
 
-$LNG['news_overview']                          = "Noticias";
-$LNG['news_from']                              = "De %s a %s";
-$LNG['news_does_not_exist']                    = "Não há notícias desponiveis!";
+$LNG['news_overview']                  = "Noticias";
+$LNG['news_from']                      = "De %s a %s";
+$LNG['news_does_not_exist']            = "Não há notícias desponiveis!";
 
 //Impressum
 
-$LNG['disclamer']                              = "Termos e Condições";
-$LNG['disclamer_name']                         = "Nome";
-$LNG['disclamer_adress']                       = "Morrada";
-$LNG['disclamer_tel']                          = "Telefone:";
-$LNG['disclamer_email']                        = "E-Mail";
+$LNG['disclamer']                      = "Termos e Condições";
+$LNG['disclamer_name']                 = "Nome";
+$LNG['disclamer_adress']               = "Morrada";
+$LNG['disclamer_tel']                  = "Telefone:";
+$LNG['disclamer_email']                = "E-Mail";
 
 ?>

@@ -1,5 +1,31 @@
 <?php
 
+/**
+ *  2Moons
+ *  Copyright (C) 2011  Slaver
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @package 2Moons
+ * @author Slaver <slaver7@gmail.com>
+ * @copyright 2009 Lucky <douglas@crockford.com> (XGProyecto)
+ * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
+ * @version 1.3 (2011-01-21)
+ * @link http://code.google.com/p/2moons/
+ */
+ 
 $LNG['faq']			= array(
 "Como posso ter mais de um planeta?" => "Para teres mais planetas precisa de naves de colonização, para poderes colonizar para as conseguires precisas de as teres desbloquiadas e tanbém da tecnologia de astrofísica que por cada 2 tecnologias pesquisadas poderás colonizar mais um planeta, podes ter até 12 planetas.",
 "O que é um Giga.Reciclador?" => "O Giga.Reciclador é um reciclador reforçado com um poder de carga suprior ao normal, poderás transportar com ele até 250 K em vez dos normais 20 K do reciclador normal.",
@@ -22,7 +48,7 @@ $LNG['faq']			= array(
 "Ao fim de quanto tempo fica a minha conta inactiva?" => "A conta fica inactiva ao fim de 7 dias, na qual se verá este <b>i</b>. Após 28 dias de inactividade já veras o <b>I</b> maior.",
 "Quanto tempo posso tar sem entrar na minha conta sem ela ser apagada ?" => "A conta será apagada automaticamente após 30 dias de inactividade por parte do dono da conta",
 "BB-codes para a pagina de Aliança!" => "<center><strong>Letra gorda</strong> = Codigo: [b] Letra gorda [/b] <br><br><br><strong> <i> Letra Itálica </i></strong> = Codigo: [i] Letra Itálica [/i] <br><br><br><strong><u> Letra Sublinhada </u></strong> = Codigo: [u] Letra Sublinhada [/u] <br><br><br> <strong><font size=6>Tamanho da Fonte</font></strong> = Codigo: [size=20] Tamanho da Fonte [/size] <br><br><br><strong><font size=3 color=#33CC33>Cor da Fonte</font></strong> = Codigo: [color=#33cc33] Cor da Fonte [/color] <br><br><br> <strong><a href=\"http://www.vedra-empires.com\">Colocar Links</a></strong> = Codigo: [url=http://www.vedra-empires.com]Text[/url] <br><br><br> <strong>Colocar Imagens</strong> = Codigo: [img]http://www.vedra-empires.com/ban1.png[/img] <br><br><br> <strong>construir Lista</strong> = Codigo: [list] <br>[*] Lista 1<br>[*] Lista 2<br>[*] Lista 3<br>[/list] <strong><p align=\"center\">Alinhar Texto à Esquerda</p></strong> = Codigo: [align=left]Alinhar Texto à Esquerda[/align] <br><br><br> <strong><p align=\"center\">Alinhar Texto à Direita</p></strong> = Codigo: [align=right]Alinhar Texto à Direita[/align]<br><br><br> <strong>Colocar Fundo</strong><br><br>Codigo:<br><br>div style=\"background: url(&quot;http://www.vedra-empires.com/styles/skins/darkness/planeten/small/snormaltempplanet02.jpg&quot;) repeat scroll 0% 0% transparent;\"<br><br><div style=\"background: url(&quot;http://www.vedra-empires.com/styles/skins/darkness/planeten/small/s_normaltempplanet02.jpg&quot;) repeat scroll 0% 0% transparent;\">Colocar Texto</div><br><br>Codigo:<br><br>[bg=http://www.vedra-empires.com/styles/skins/darkness/planeten/small/s_normaltempplanet02.jpg]Texto[/bg]</center>",
-"Ainda tens duvidas?" => "Então envia um Ticket de support com a tua questão, que será respondido o mais rápido possível e se necessario adicionaremos a tua questão na pagina de ajuda.",
+"Ainda tens duvidas?" => "Clica no menu Forum e dê uma olhada no Guia do Jogo ou então envia um Ticket de support com a tua questão, que será respondido o mais rápido possível e se necessario adicionaremos a tua questão na pagina de ajuda.",
 );
 
 $LNG['faq_overview']	= "FAQ";

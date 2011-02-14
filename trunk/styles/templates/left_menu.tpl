@@ -21,14 +21,14 @@
 		{if !empty($forum_url)}<li><a href="{$forum_url}" target="forum">{$lm_forums}</a></li>{/if}
 		{if !CheckModule(25)}<li><a href="?page=statistics">{$lm_statistics}</a></li>{/if}
 		{if !CheckModule(22)}<li><a href="?page=records">{$lm_records}</a></li>{/if}
-		{if !CheckModule(6)}<li><a href="?page=topkb">{$lm_topkb}</a></li>{/if}
+		{if !CheckModule(12)}<li><a href="?page=topkb">{$lm_topkb}</a></li>{/if}
 		{if !CheckModule(26)}<li><a href="?page=search">{$lm_search}</a></li>{/if}
 		{if !CheckModule(7)}<li><a href="?page=chat">{$lm_chat}</a></li>{/if}
 		{if !CheckModule(27)}<li><a href="?page=support">{$lm_support}</a></li>{/if}
 		<li><a href="?page=faq">{$lm_faq}</a></li>
 		{if !CheckModule(21)}<li><a href="?page=banned">{$lm_banned}</a></li>{/if}
 		<li><a href="./?page=rules" target="forum">{$lm_rules}</a></li>
-		{if !CheckModule(11)}<li><a href="?page=battlesim">{$lm_battlesim}</a></li>{/if}
+		{if !CheckModule(39)}<li><a href="?page=battlesim">{$lm_battlesim}</a></li>{/if}
 
 		<li style="background-image: url('{$dpath}img/menu_acc.png');height:30px;"></li>
 		{if !CheckModule(16)}<li><a href="?page=messages">{$lm_messages}{if $new_message > 0}<span id="newmes"> (<span id="newmesnum">{$new_message}</span>)</span>{/if}</a></li>{/if}

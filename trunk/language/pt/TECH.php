@@ -1,4 +1,30 @@
-﻿<?php
+<?php
+
+/**
+ *  2Moons
+ *  Copyright (C) 2011  Slaver
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @package 2Moons
+ * @author Slaver <slaver7@gmail.com>
+ * @copyright 2009 Lucky <douglas@crockford.com> (XGProyecto)
+ * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
+ * @version 1.3 (2011-01-21)
+ * @link http://code.google.com/p/2moons/
+ */
 
 //SHORT NAMES FOR COMBAT REPORTS
 $LNG['tech_rc'] = array (
@@ -21,14 +47,7 @@ $LNG['tech_rc'] = array (
 218 => 'Avatar',
 219 => 'Giga.Reciclador',
 220 => 'Sondador de MN',
-221 => 'Paradine',
-222 => 'T.Destroyer',
-223 => 'Stars catcher',
-224 => 'Ifrit',
-225 => 'Shiva',
-226 => 'Catoblepas',
-227 => 'Ixion',
-228 => 'Odin',
+
 
 401 => "L.Misseis.",
 402 => "Laser L.",
@@ -64,13 +83,10 @@ $LNG['tech'] = array(
 34 => "Depósito da aliança",
 44 => "Silo de Mísseis",
 
-
 40 => 'Edifícios especiais',
 41 => 'Base lunar',
 42 => 'Sensor Phalanx',
 43 => 'P. de Salto Quântico',
-
-
 
 
 // Tecnologias
@@ -115,14 +131,7 @@ $LNG['tech'] = array(
 218 => 'Avatar',
 219 => 'Giga. Reciclador',
 220 => 'Sondador de MN',
-221 => 'Paradine',
-222 => 'Titan Destroyer',
-223 => 'Stars catcher',
-224 => 'Ifrit',
-225 => 'Shiva',
-226 => 'Catoblepas',
-227 => 'Ixion',
-228 => 'Odin',
+
 
 400 => 'Sistemas de Defesa',
 401 => 'Lançador de Mísseis',
@@ -226,14 +235,6 @@ $LNG['res']['descriptions'] = array(
 218 => 'Esta pode ser chamada a nave de destruição mas nem tudo são vantagens, o seu tamanho faz desta nave um monstro lento.',
 219 => 'O Giga.Reciclador é uma nave muito desejada devido à sua capacidade de carga e velocidade.',
 220 => 'Após longos anos de pesquisas, foi possivel criar a nave que rastreia matéria negra .',
-221 => 'Este navio é um dos navios mais poderosos do universo jamais feito. O Paradine viaja com o seu Motor de Gravitação incrivelmente alto de uma fenda no tempo que devora todos os adversários. Os seus escudos repelem quase qualquer ataque.',
-222 => 'Esta nave é o resultado de anos de pesquisa. Os cientístas juntaram-se para criar esse monstro chamado Titã Destruidor. Equipado com as armas mais potentes, incluindo o Canhão de Gravitação.',
-223 => 'Esta nave utiliza a radiação das estrelas para construir uma carga para o poderoso "Laser das Estrelas". Com armadura de primeira classe e escudos esta é a unica nave que sobrevive quando atingida por um Canhão de Gravitação.',
-224 => 'Esta nave está equipada com as melhores armas projéctil da galáxia, mas não tem armas laser. Tremendo poder de fogo que supera todos os anteriores. Cerca de 500.000 milhões de projecteis em diamante são disparados por minuto, mesmo a melhor armadura é penetrável. É uma das cinco titãs do espaço.',
-225 => 'Esta nave está equipada com as melhores armas a laser e de iões da galáxia, mas não possui armas de projectéis.O poderoso laser supera quase tudo o que havia antes. A força da luz concentrada com uma força devastadora que quebra quase qualquer escudo. É uma das cinco titãs do espaço.',
-226 => 'Esta nave tem um dos maiores espaços de carga instalados que uma grande quantidade de matérias-primas podem ser transportadas. Também está equipada com proteções extremamente poderosas, por isso também é bom para a defesa de um planeta. No entanto o poder do ataque é inexistente. É uma das cinco titãs do espaço.',
-227 => 'A melhor nave atacante que existe. Com a sua velocidade e agilidade, é uma arma extremamente perigosa. É uma das cinco titãs do espaço.',
-228 => 'O tamanho desta nave é equivalente a quatro vezes um ser humano e, portanto, podem facilmente penetrar em fortalezas inimigas para destruí-la por dentro. A sua velocidade é incomparável. É uma das cinco titãs do espaço.',
 
 401 => "O lançador de mísseis é um sistema de defesa simples e barato. Tornam-se muito eficazes em número e podem ser construídos sem pesquisa específica porque é uma arma de balística simples.",
 402 => "Para acompanhar o ritmo com a velocidade sempre crescente do desenvolvimento das tecnologias de naves espaciais, os cientistas tiveram que criar um tipo novo de sistema da defesa capaz de destruír as naves mais fortes.",
@@ -299,6 +300,7 @@ $LNG['info'][33]['description']  = "O Terra-Formador permite aumentar o número 
 $LNG['info'][34]['name']         = "Depósito da Aliança";
 $LNG['info'][34]['description']  = "O depósito da aliança permite ás frotas da aliança a possibilidade de reabastecer. Cada evolução do depósito fornece ás frotas em órbita 10.000 unidades adicionais de deutério por hora.";
 
+
 // ----------------------------------------------------------------------------------------------------------
 // Mond Gebäude
 $LNG['info'][41]['name']         = "Base Lunar";
@@ -351,7 +353,6 @@ $LNG['info'][133]['description'] = 'Aumentar a produção do sintetizador de deu
 $LNG['info'][199]['name']        = 'Tecnologia de Gravitação';
 $LNG['info'][199]['description'] = 'Um gráviton é uma partícula elementar responsável pelos efeitos da gravitação. Com o aceleramento de partículas gravitacionais, um campo gravitacional artificial é criado com uma força atractiva que pode não só destruir naves mas também luas inteiras. De maneira a produzir a quantidade necessária de partículas de gravitação, o planeta tem que poder criar uma quantidade maciça de energia. Requisitos: Laboratório de Pesquisas (Nível 12).';
 
-
 // ----------------------------------------------------------------------------------------------------------
 // Schiff'
 $LNG['info'][202]['name']        = 'Cargueiro Pequeno';
@@ -392,22 +393,6 @@ $LNG['info'][219]['name']        = 'Giga. Reciclador';
 $LNG['info'][219]['description'] = 'O Giga.Reciclador é uma nave muito desejáda devido há sua capacidade de carga e velocídade, mas continua sem sistemas de defesa o que faz dela uma nave impotente a não ser para reciclagem.';
 $LNG['info'][220]['name']        = 'Sondador de MN';
 $LNG['info'][220]['description'] = 'Após longos anos de pesquisas, foi possivel criar a nave que sonda matéria negra, somente apartir da lua.';
-$LNG['info'][221]['name']        = 'Paradine';
-$LNG['info'][221]['description'] = 'Este navio é um dos navios mais poderosos do universo jamais feito. O Paradine viaja com o seu Motor de Gravitação incrivelmente alto de uma fenda no tempo que devora todos os adversários. Os seus escudos repelem quase qualquer ataque, faz desta nave um dos principais alvos a abater de qualquer frota inimíga.';
-$LNG['info'][222]['name']        = 'Titan Destroyer';
-$LNG['info'][222]['description'] = 'Esta nave é o resultado de anos de pesquisa. Os cientístas juntaram-se para criar esse monstro chamado Titan Destroyer. Equipado com as armas mais potentes, incluindo o Canhão de Gravitação é possível destruir todo o tipo de naves em poucos segundos e recolher os seus restos mortais, no seu armazém enorme.';
-$LNG['info'][223]['name']        = 'Caçador de estrelas';
-$LNG['info'][223]['description'] = 'Esta nave utiliza a radiação das estrelas para construir uma carga para o poderoso "Laser das Estrelas". Com armadura de primeira classe e escudos esta é a unica nave que sobrevive quando atingida por um Canhão de Gravitação.';
-$LNG['info'][224]['name']        = 'Titã do Espaço Ifrit';
-$LNG['info'][224]['description'] = 'Esta nave está equipada com as melhores armas projéctil da galáxia, mas não tem armas laser. Tremendo poder de fogo que supera todos os anteriores. Cerca de 500.000 milhões de projecteis em diamante são disparados por minuto, mesmo a melhor armadura é penetrável. É uma das cinco tatans do espaço.';
-$LNG['info'][225]['name']        = 'Titã do Espaço Shiva';
-$LNG['info'][225]['description'] = 'Esta nave está equipada com as melhores armas a laser e de iões da galáxia, mas não possui armas de projectéis.O poderoso laser supera quase tudo o que havia antes. A força da luz concentrada com uma força devastadora que quebra quase qualquer escudo. É uma das cinco titãs do espaço. ';
-$LNG['info'][226]['name']        = 'Titã do Espaço Catoblepas';
-$LNG['info'][226]['description'] = 'Esta nave tem um dos maiores espaços de carga instalados que uma grande quantidade de matérias-primas podem ser transportadas. Também está equipada com proteções extremamente poderosas, por isso também é bom para a defesa de um planeta. No entanto o poder do ataque é inexistente. É uma das cinco titãs do espaço. ';
-$LNG['info'][227]['name']        = 'Titã do Espaço Ixion';
-$LNG['info'][227]['description'] = 'A melhor nave atacante que existe. Com a sua velocidade e agilidade, é uma arma extremamente perigosa. É uma das cinco titãs do espaço. ';
-$LNG['info'][228]['name']        = 'Titã do Espaço Odin';
-$LNG['info'][228]['description'] = 'O tamanho desta nave é equivalente a quatro vezes um ser humano e, portanto, podem facilmente penetrar em fortalezas inimigas para destruí-la por dentro. A sua velocidade é incomparável. É uma das cinco titãs do espaço.';
 
 
 // ----------------------------------------------------------------------------------------------------------

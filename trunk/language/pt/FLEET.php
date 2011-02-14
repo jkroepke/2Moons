@@ -1,5 +1,31 @@
 <?php
 
+/**
+ *  2Moons
+ *  Copyright (C) 2011  Slaver
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @package 2Moons
+ * @author Slaver <slaver7@gmail.com>
+ * @copyright 2009 Lucky <douglas@crockford.com> (XGProyecto)
+ * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
+ * @version 1.3 (2011-01-21)
+ * @link http://code.google.com/p/2moons/
+ */
+ 
 $LNG['Metal']							= 'Metal';
 $LNG['Crystal']							= 'Cristal';
 $LNG['Deuterium']						= 'Deutério';
@@ -38,13 +64,15 @@ $LNG['sys_stealed_ressources'] 			= "Ele roubou";
 $LNG['sys_and']						    = "e";
 $LNG['sys_mess_tower'] 					= "Torre de controle";
 $LNG['sys_mess_attack_report'] 			= "Relatório de Combate";
-$LNG['sys_spy_maretials'] 				= "Recursos";
+
 $LNG['sys_spy_fleet'] 					= "Frota";
 $LNG['sys_spy_defenses'] 				= "Defesas";
 $LNG['sys_mess_qg'] 					= "Central de Operações";
 $LNG['sys_mess_spy_report_moon']		= "(Lua)";
+$LNG['sys_mess_head'] 					= 'Relatório de Espionagem %s [%d:%d:%d] am %s';
 $LNG['sys_mess_spy_report'] 			= "Relatório de espionagem";
 $LNG['sys_mess_spy_lostproba'] 			= "A probabilidade das tuas sondas serem detectadas é de: %d %% ";
+
 $LNG['sys_mess_spy_control'] 			= "Controlador espacial";
 $LNG['sys_mess_spy_activity'] 			= "Actividade de espionagem";
 $LNG['sys_mess_spy_ennemyfleet'] 		= "Uma frota inimiga do planeta";

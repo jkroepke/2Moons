@@ -265,7 +265,7 @@ switch($page)
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'topkb':
-		if(CheckModule(6))
+		if(CheckModule(12))
 			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/ShowTopKB.php');
@@ -297,7 +297,7 @@ switch($page)
     break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//	
     case 'playercard':
-		if(CheckModule(21))
+		if(CheckModule(20))
 			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 					
         include_once(ROOT_PATH . 'includes/pages/ShowPlayerCard.php');
