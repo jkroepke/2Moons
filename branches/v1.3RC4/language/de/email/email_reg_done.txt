@@ -1,0 +1,8 @@
+Hallo %1$s,
+Danke, dass Sie sich bei %2$s als Benutzer registriert haben!
+
+Wir freuen uns, dass Sie sich entschieden haben, ein Teil unserer Community zu werden und hoffen, dass es Ihnen gefallen wird.
+
+Mit freundlichen Grüßen
+
+%2$s - Team
