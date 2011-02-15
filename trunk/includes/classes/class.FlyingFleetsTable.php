@@ -213,7 +213,7 @@ class FlyingFleetsTable
 			if ($Owner)
 				$EventString = sprintf($LNG['cff_mission_own_mip'], $FleetRow['fleet_amount'], $StartType, $Names['own_planetname'], GetStartAdressLink($FleetRow, $FleetType), $TargetType, $Names['target_planetname'], GetTargetAdressLink($FleetRow, $FleetType));
 			else
-				$EventString = sprintf($LNG['cff_mission_own_mip'], $FleetRow['fleet_amount'], $this->BuildHostileFleetPlayerLink($FleetRow, $Names), $StartType, $Names['own_planetname'], GetStartAdressLink($FleetRow, $FleetType), $TargetType, $Names['target_planetname'], GetTargetAdressLink($FleetRow, $FleetType));
+				$EventString = sprintf($LNG['cff_mission_target_mip'], $FleetRow['fleet_amount'], $this->BuildHostileFleetPlayerLink($FleetRow, $Names), $StartType, $Names['own_planetname'], GetStartAdressLink($FleetRow, $FleetType), $TargetType, $Names['target_planetname'], GetTargetAdressLink($FleetRow, $FleetType));
 		} elseif ($MissionType == 11 || $MissionType == 15) {		
 			if ($Status == 0)
 				$EventString = sprintf($LNG['cff_mission_own_expo_0'], $FleetContent, $StartType, $Names['own_planetname'], GetStartAdressLink($FleetRow, $FleetType), GetTargetAdressLink($FleetRow, $FleetType), $FleetCapacity);
