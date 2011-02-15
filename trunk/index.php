@@ -132,7 +132,7 @@ switch ($page) {
 			$SQL .= "`uctime`= '0';";
 			$db->query($SQL);
 		
-			if($CONF['smtp_host'] != '' && $CONF['smtp_port'] != 0 && $CONF['smtp_user'] != '' && $CONF['smtp_pass'] != '')
+			if($CONF['mail_active'] == 1)
 			{				
 				$MailSubject	= sprintf($LNG['reg_mail_reg_done'], $CONF['game_name']);	
 				$MailRAW		= file_get_contents("./language/".$CONF['lang']."/email/email_reg_done.txt");
@@ -193,6 +193,9 @@ switch ($page) {
 		}
 	break;
 	case 'lostpassword': 
+		if($CONF['mail_active'] == 0)
+			redirectTo("index.php");
+			
 		if ($mode == "send") {
 			$USERmail = request_var('email', '');
 			$Universe = request_var('universe', 0);
@@ -310,7 +313,7 @@ switch ($page) {
 				$SQL .= "`ip` = '".$_SERVER['REMOTE_ADDR']."'; ";
 				$db->query($SQL);
 				
-				if($CONF['user_valid'] == 0) {
+				if($CONF['user_valid'] == 0 || $CONF['mail_active'] == 0) {
 					redirectTo("index.php?page=reg&mode=valid&lang=".$UserLang."&clef=".$clef);
 				} else {
 					$MailSubject 	= $LNG['reg_mail_message_pass'];
@@ -336,7 +339,7 @@ switch ($page) {
 				$UserPlanet	= $Valider['planet'];
 				$UserLang 	= $Valider['lang'];
 				$UserUni 	= $Valider['universe'];
-				$CONF		= $db->uniquequery("SELECT `initial_fields`, `LastSettedGalaxyPos`, `LastSettedSystemPos`, `LastSettedPlanetPos`, `smtp_host`, `smtp_port`, `smtp_user`, `smtp_pass`, `smtp_ssl`, `smtp_sendmail`, `game_name`, `users_amount`, `metal_basic_income`, `crystal_basic_income`, `deuterium_basic_income` FROM ".CONFIG." WHERE `uni` = ".$UserUni.";");
+				$CONF		= $db->uniquequery("SELECT `initial_fields`, `LastSettedGalaxyPos`, `LastSettedSystemPos`, `LastSettedPlanetPos`, `mail_active`, `mail_use`, `smail_path`, `smtp_host`, `smtp_port`, `smtp_user`, `smtp_pass`, `smtp_ssl`, `smtp_sendmail`, `game_name`, `users_amount`, `metal_basic_income`, `crystal_basic_income`, `deuterium_basic_income` FROM ".CONFIG." WHERE `uni` = ".$UserUni.";");
 				
 				$SQL = "INSERT INTO " . USERS . " SET ";
 				$SQL .= "`username` = '".$UserName . "', ";
@@ -353,12 +356,12 @@ switch ($page) {
 				$SQL .= "`uctime`= '0';";
 				$db->query($SQL);
 				$NewUser = $db->GetInsertID();
-				
-				$MailSubject	= sprintf($LNG['reg_mail_reg_done'], $CONF['game_name']);	
-				$MailRAW		= file_get_contents("./language/".$UserLang."/email/email_reg_done.txt");
-				$MailContent	= sprintf($MailRAW, $UserName, $CONF['game_name']);	
-				MailSend($UserMail, $UserName, $MailSubject, $MailContent);
-			
+				if($CONF['mail_active'] == 1) {
+					$MailSubject	= sprintf($LNG['reg_mail_reg_done'], $CONF['game_name']);	
+					$MailRAW		= file_get_contents("./language/".$UserLang."/email/email_reg_done.txt");
+					$MailContent	= sprintf($MailRAW, $UserName, $CONF['game_name']);	
+					MailSend($UserMail, $UserName, $MailSubject, $MailContent);
+				}
 				$LastSettedGalaxyPos = $CONF['LastSettedGalaxyPos'];
 				$LastSettedSystemPos = $CONF['LastSettedSystemPos'];
 				$LastSettedPlanetPos = $CONF['LastSettedPlanetPos'];

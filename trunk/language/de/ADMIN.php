@@ -390,6 +390,7 @@ $LNG['se_verfiy_mail']					= 'E-Mail Adresse vaildieren';
 $LNG['se_verfiy_mail_info']				= 'Wenn dies aktiv ist, müssen die User sich selbst per Mail aktivieren. <br>Dazu müssen unten die SMTP Einstellungen ausgefühlt werden';
 $LNG['se_smtp']							= 'Mail-Einstellungen';
 $LNG['se_smtp_info']					= 'Hier können die Einstellungen zum Mail Versand eingestellt werden.';
+$LNG['se_mail_active']					= 'Mail aktivieren';
 $LNG['se_mail_use']						= 'Mail versand:';
 $LNG['se_mail_sel'][0]					= 'PHP mail() Function';
 $LNG['se_mail_sel'][1]					= 'Sendmail / Qmail';
@@ -426,9 +427,7 @@ $LNG['se_bgm_active']					= 'Aktivieren?';
 $LNG['se_bgm_info']						= 'Die Musik, die auf der Startseite im Hintergrund läuft.';
 $LNG['se_bgm_file']						= 'Pfad:';
 $LNG['se_bgm_file_info']				= 'Relative oder absolute Pfadangaben möglich!';
-$LNG['se_min_js']						= 'Minimize Javascript?';
-$LNG['se_min_js_info']					= 'Wenn aktiviert, werden die Javascript Dateien kompiert und als eine Datei zum Client geschickt. Dadurch wird der WebServer entlastet, da dieser weniger Anfragen bearbeiten muss.';
-	
+
 //###########################################################//
 
 

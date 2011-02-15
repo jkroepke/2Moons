@@ -31,8 +31,9 @@ class Language
 	public static $langs   = array(
 		'de' => 'Deutsch', 
 		'en' => 'English', 
-		'ru' => 'Русский', 
+		'es' => 'Español', 
 		'pt' => 'Português',
+		'ru' => 'Русский', 
 	);
 	
 	public $Default	= '';
