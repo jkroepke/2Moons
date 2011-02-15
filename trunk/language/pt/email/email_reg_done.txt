@@ -1,4 +1,4 @@
-Olá %1$s
+﻿Olá %1$s
 
 Obrigado, o registo no %2$s já está completo. 
 
@@ -8,4 +8,4 @@ Nao se esqueça de visitar o nosso fórum, se tiver dúvidas ou questões poder�
 
 Atenciosamente
 
-Equipa - %2$s
+Equipe - %2$s
