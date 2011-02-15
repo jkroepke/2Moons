@@ -263,6 +263,7 @@ class template
 			'ga_key'			=> $CONF['ga_key'],
 			'bgm_active'		=> $CONF['bgm_active'],
 			'bgm_file'			=> $CONF['bgm_file'],
+			'mail_active'		=> $CONF['mail_active'],
 			'getajax'			=> request_var('getajax', 0),
 			'lang'				=> $LANG->getUser(),
 			'UNI'				=> $UNI,
@@ -350,6 +351,7 @@ class template
 			'fcm_info'	=> $LNG['fcm_info'],
 			'Fatal'		=> $Fatal,
 			'cd'		=> (INSTALL == true) ? '../' : './',
+            'dpath'		=> (empty($USER['dpath']) ? DEFAULT_SKINPATH : $USER['dpath']),
 		));
 		
 		$this->gotoside($dest, $time);

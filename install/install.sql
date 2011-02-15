@@ -168,6 +168,7 @@ CREATE TABLE IF NOT EXISTS `prefix_config`(
   `cappublic` varchar(42) NOT NULL,
   `capprivate` varchar(42) NOT NULL,
   `min_build_time` tinyint(2) NOT NULL,
+  `mail_active` tinyint(1) NOT NULL,
   `mail_use` tinyint(1) NOT NULL,
   `smtp_host` varchar(32) NOT NULL,
   `smtp_port` smallint(5) NOT NULL,
@@ -189,7 +190,6 @@ CREATE TABLE IF NOT EXISTS `prefix_config`(
   `moduls` varchar(100) NOT NULL,
   `trade_allowed_ships` varchar(70) NOT NULL,
   `trade_charge` varchar(5) NOT NULL,
-  `min_js` tinyint(1) NOT NULL,
   PRIMARY KEY (`uni`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 

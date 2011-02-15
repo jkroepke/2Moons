@@ -43,7 +43,7 @@ function ShowConfigPage()
 		$CONF['user_valid']				= isset($_POST['user_valid']) && $_POST['user_valid'] == 'on' ? 1 : 0;
 		$CONF['ga_active'] 				= isset($_POST['ga_active']) && $_POST['ga_active'] == 'on' ? 1 : 0;
 		$CONF['bgm_active'] 			= isset($_POST['bgm_active']) && $_POST['bgm_active'] == 'on' ? 1 : 0;
-		$CONF['min_js'] 				= isset($_POST['min_js']) && $_POST['min_js'] == 'on' ? 1 : 0;
+		$CONF['mail_active'] 			= isset($_POST['mail_active']) && $_POST['mail_active'] == 'on' ? 1 : 0;
 		
 		$CONF['OverviewNewsText']		= $_POST['NewsText'];
 		$CONF['close_reason']			= request_var('close_reason', '', true);
@@ -112,6 +112,7 @@ function ShowConfigPage()
 			'trade_allowed_ships'	=> $CONF['trade_allowed_ships']
 		), false, $_SESSION['adminuni']);
 		update_config(array(	
+			'mail_active'			=> $CONF['mail_active'],
 			'mail_use'				=> $CONF['mail_use'],
 			'smail_path'			=> $CONF['smail_path'],
 			'smtp_host'				=> $CONF['smtp_host'],
@@ -191,6 +192,7 @@ function ShowConfigPage()
 		'se_recaptcha_public'			=> $LNG['se_recaptcha_public'],
 		'se_recaptcha_private'			=> $LNG['se_recaptcha_private'],
 		'se_smtp'						=> $LNG['se_smtp'],
+		'se_mail_active'				=> $LNG['se_mail_active'],
 		'se_mail_use'					=> $LNG['se_mail_use'],
 		'se_smail_path'					=> $LNG['se_smail_path'],
 		'se_smtp_info'					=> $LNG['se_smtp_info'],
@@ -222,8 +224,6 @@ function ShowConfigPage()
 		'se_bgm_file_info'				=> $LNG['se_bgm_file_info'],
 		'se_google_key_info'			=> $LNG['se_google_key_info'],
 		'se_save_parameters'			=> $LNG['se_save_parameters'],
-		'se_min_js'						=> $LNG['se_min_js'],
-		'se_min_js_info'				=> $LNG['se_min_js_info'],
 		'game_name'						=> $CONF['game_name'],
 		'game_speed'					=> ($CONF['game_speed'] / 2500),
 		'fleet_speed'					=> ($CONF['fleet_speed'] / 2500),
@@ -243,6 +243,7 @@ function ShowConfigPage()
 		'noobprot'						=> $CONF['noobprotection'],
 		'noobprot2'						=> $CONF['noobprotectiontime'],
 		'noobprot3'						=> $CONF['noobprotectionmulti'],
+		'mail_active'					=> $CONF['mail_active'],
 		'mail_use'						=> $CONF['mail_use'],
 		'smail_path'					=> $CONF['smail_path'],
 		'smtp_host' 					=> $CONF['smtp_host'],
@@ -258,7 +259,6 @@ function ShowConfigPage()
 		'capprivate' 					=> $CONF['capprivate'],
 		'cappublic' 	   				=> $CONF['cappublic'],
 		'capaktiv'      	           	=> $CONF['capaktiv'],
-		'min_js'      	          	 	=> $CONF['min_js'],
 		'min_build_time'    	        => $CONF['min_build_time'],
 		'ftp_server'          			=> $CONF['ftp_server'],
 		'ftp_user_name'           		=> $CONF['ftp_user_name'],
