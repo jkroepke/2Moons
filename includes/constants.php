@@ -123,6 +123,8 @@ if ( !defined('INSIDE') ) die(header("location:../"));
 	define('BUILD_METAL'              , 500);
 	define('BUILD_CRISTAL'            , 500);
 	define('BUILD_DEUTERIUM'          , 0);
+	define('BUILD_DARKMATTER'         , 0);
+	define('BUILD_FB_DARKMATTER'      , 0);
 	
 	// Max Round on Combats
 	define('MAX_ATTACK_ROUNDS'		  , 6);
