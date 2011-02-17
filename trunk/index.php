@@ -128,7 +128,7 @@ switch ($page) {
 			$SQL .= "`password` = '" . $UserPass . "', ";
 			$SQL .= "`lang` = '".$LANG->GetUser()."', ";
 			$SQL .= "`dpath` = '" . DEFAULT_SKINPATH . "', ";
-			$SQL .= "`darkamtter` = '".BUILD_FB_DARKMATTER."', ";
+			$SQL .= "`darkmatter` = '".BUILD_FB_DARKMATTER."', ";
 			$SQL .= "`fb_id` = '" . $uid . "', ";
 			$SQL .= "`uctime`= '0';";
 			$db->query($SQL);
@@ -354,7 +354,7 @@ switch ($page) {
 				$SQL .= "`register_time` = '".TIMESTAMP. "', ";
 				$SQL .= "`password` = '".$UserPass."', ";
 				$SQL .= "`dpath` = '".DEFAULT_SKINPATH."', ";
-				$SQL .= "`darkamtter` = '".BUILD_DARKMATTER."', ";
+				$SQL .= "`darkmatter` = '".BUILD_DARKMATTER."', ";
 				$SQL .= "`uctime`= '0';";
 				$db->query($SQL);
 				$NewUser = $db->GetInsertID();
