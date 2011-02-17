@@ -283,7 +283,7 @@ switch ($page) {
 				$errors	   .= !isset($UserPass{5}) ? $LNG['password_lenght_error'] : '';					
 				$errors	   .= $UserPass != $UserPass2 ? $LNG['different_passwords'] : '';				
 				$errors	   .= $UserEmail != $UserEmail2 ? $LNG['different_mails'] : '';		
-				$errors	   .= $agbrules != 'on' ? $LNG['terms_and_conditions'] : '';
+				$errors	   .= $agbrules != 'on' ? sprintf($LNG['terms_and_conditions'], $LANG->getUser()) : '';
 				$errors    .= (isset($Exist['userv']['username']) || isset($Exist['valid']['username']) && ($UserName == $Exist['userv']['username'] || $UserName == $Exist['valid']['username'])) ? $LNG['user_already_exists'] : '';
 				$errors    .= (isset($Exist['userv']['email']) || isset($Exist['valid']['email'])) && ($UserEmail == $Exist['userv']['email'] || $UserEmail == $Exist['valid']['email']) ? $LNG['mail_already_exists'] : '';
 				

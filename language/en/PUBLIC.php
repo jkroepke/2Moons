@@ -78,7 +78,7 @@ $LNG['user_field_no_alphanumeric']	= 'Please enter the username only alphanumeri
 $LNG['user_field_no_space']			= 'Please do not enter the user name blank!<br>';
 $LNG['planet_field_no_alphanumeric']= 'Please enter the planet name only alphanumeric characters!<br>';
 $LNG['planet_field_no_space']		= 'Please do not enter the planet name blank!<br>';
-$LNG['terms_and_conditions']		= 'You must accept <a href="index.php?page=agb">T&C</a> and <a href="index.php?page=rules>Rules</a> please!<br>';
+$LNG['terms_and_conditions']		= 'You must accept <a onclick="ajax(\'?page=rules&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\');" style="cursor:pointer;">Rules</a> and the <a onclick="ajax(\'?page=agb&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\');" style="cursor:pointer;">T&C</a> please!<br>';
 $LNG['user_already_exists']			= 'The username is already taken!<br>';
 $LNG['mail_already_exists']			= 'The e-mail address is already in use!<br>';
 $LNG['wrong_captcha']				= 'Security Code is incorrect!<br>';

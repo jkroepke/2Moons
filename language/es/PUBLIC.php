@@ -78,7 +78,7 @@ $LNG['user_field_no_alphanumeric']	= 'Por favor introduce en el nombre de usuari
 $LNG['user_field_no_space']		    = 'Por favor, no introduzca el nombre de usuario en blanco!<br>';
 $LNG['planet_field_no_alphanumeric']= 'Por favor, introduce solo caracteres alphanumericos en el nombre del planeta!<br>';
 $LNG['planet_field_no_space']		= 'Por favor, no deje el nombre del planeta vacio!<br>';
-$LNG['terms_and_conditions']		= 'Acepta los <a href="index.php?page=agb">T&C</a> y <a href="index.php?page=rules>Reglas</a> por favor!<br>';
+$LNG['terms_and_conditions']		= 'Acepta los <a onclick="ajax(\'?page=rules&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\');" style="cursor:pointer;">Reglas</a> y los <a onclick="ajax(\'?page=agb&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\');" style="cursor:pointer;">T&C</a> por favor!<br>';
 $LNG['user_already_exists']		    = 'El nombre de usuario ya est&aacute; siendo usado!<br>';
 $LNG['mail_already_exists']		    = 'La direcci&oacute;n de correo electr&oacute;nico ya est&aacute; en uso!<br>';
 $LNG['wrong_captcha']				= 'Codigo de Seguridad incorrecto!<br>';
