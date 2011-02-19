@@ -29,6 +29,9 @@
 if(!function_exists('spl_autoload_register'))
 	exit("PHP is missing <a href=\"http://php.net/spl\">Standard PHP Library (SPL)</a> support");
 
+if(file_exists(ROOT_PATH . 'includes/config.php'))
+	redirectTo('../index.php');
+	
 define('INSIDE'  			, true);
 define('INSTALL' 			, true);
 
