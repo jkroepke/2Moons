@@ -528,7 +528,7 @@ class ResourceUpdate
 			{
 				$Element	= (int)$Element;
 				if(empty($resource[$Element]))
-					throw new Exception('ID '.$Element.' is not on $resource!');
+					continue;
 				
 				if(in_array($Element, $reslist['one']))
 					$Qry	.= "`p`.`".$resource[$Element]."` = '1', ";					

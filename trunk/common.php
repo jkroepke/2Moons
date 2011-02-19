@@ -36,9 +36,6 @@ ini_set('display_errors', 1);
 header('Content-Type: text/html; charset=UTF-8');
 define('TIMESTAMP',	$_SERVER['REQUEST_TIME']);
 
-if(file_exists(ROOT_PATH . 'includes/config.php'))
-	require_once(ROOT_PATH . 'includes/config.php');
-	
 require_once(ROOT_PATH . 'includes/constants.php');
 
 ini_set('session.save_path', ROOT_PATH.'cache/sessions');
@@ -73,17 +70,14 @@ set_exception_handler('exception_handler');
 if(!function_exists('bcadd'))
 	require_once(ROOT_PATH . 'includes/bcmath.php');
 	
-if($database)
-	$db = new DB_MySQLi();
-elseif(INSTALL != true)
-	redirectTo("install/");
-
 $LANG	= new Language();	
-
-unset($database);
 
 if (INSTALL != true)
 {
+	require_once(ROOT_PATH . 'includes/config.php');
+	$db = new DB_MySQLi();
+	unset($database);
+
 	// Say Browsers to Allow ThirdParty Cookies (Thanks to morktadela)
 	header('P3P:CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"');
 	$UNI	= getUniverse();
