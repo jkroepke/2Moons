@@ -36,6 +36,9 @@ ini_set('display_errors', 1);
 header('Content-Type: text/html; charset=UTF-8');
 define('TIMESTAMP',	$_SERVER['REQUEST_TIME']);
 
+if(file_exists(ROOT_PATH . 'includes/config.php'))
+	require_once(ROOT_PATH . 'includes/config.php');
+
 require_once(ROOT_PATH . 'includes/constants.php');
 
 ini_set('session.save_path', ROOT_PATH.'cache/sessions');
@@ -74,7 +77,6 @@ $LANG	= new Language();
 
 if (INSTALL != true)
 {
-	require_once(ROOT_PATH . 'includes/config.php');
 	$db = new DB_MySQLi();
 	unset($database);
 
