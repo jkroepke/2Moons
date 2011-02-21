@@ -28,15 +28,15 @@
 
 if(!function_exists('spl_autoload_register'))
 	exit("PHP is missing <a href=\"http://php.net/spl\">Standard PHP Library (SPL)</a> support");
-
-if(file_exists(ROOT_PATH . 'includes/config.php'))
-	redirectTo('../index.php');
 	
 define('INSIDE'  			, true);
 define('INSTALL' 			, true);
 
 define('ROOT_PATH', str_replace('\\', '/',dirname(dirname(__FILE__))).'/');
+
 include(ROOT_PATH . 'common.php');
+if(file_exists(ROOT_PATH . 'includes/config.php'))
+	redirectTo('../index.php');
 
 $LANG->GetLangFromBrowser();
 $LANG->includeLang(array('INGAME', 'INSTALL'));
@@ -279,7 +279,10 @@ switch ($Mode) {
 
 			if (empty($_POST['adm_user']) && empty($_POST['adm_pas']) && empty($_POST['adm_email']))
 				exit($template->message($LNG['step4_need_fields'],"?mode=ins&page=3&lang=".$LANG->GetUser(), 3, true));
-	
+				
+			require_once(ROOT_PATH . 'includes/config.php');
+			$db = new DB_MySQLi();
+							
 			$SQL  = "INSERT INTO ".USERS." SET ";
 			$SQL .= "`id`                = '1', ";
 			$SQL .= "`username`          = '". $adm_user ."', ";
@@ -334,6 +337,8 @@ switch ($Mode) {
 			exit($template->message($LNG['convert_install'],"?lang=".$LANG->GetUser(), 3, true));
 
 		if($_POST) {
+			require_once(ROOT_PATH . 'includes/config.php');
+			$db = new DB_MySQLi();
 			$GLOBALS['database']['host']			= $_POST['host'];
 			$GLOBALS['database']['port']			= $_POST['port'];
 			$GLOBALS['database']['user']			= $_POST['user'];
