@@ -58,7 +58,6 @@ ini_set('session.bug_compat_warn', '0');
 ini_set('session.bug_compat_42', '0');
 ini_set('session.cookie_httponly', true);
 ini_set('magic_quotes_runtime', 0);
-ini_set('cgi.rfc2616_headers', 1);
 ini_set('error_log', ROOT_PATH.'/includes/error.log');
 
 if(!defined('LOGIN') && INSTALL == false)
