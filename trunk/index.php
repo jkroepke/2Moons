@@ -25,7 +25,7 @@
  * @version 1.3 (2011-01-21)
  * @link http://code.google.com/p/2moons/
  */
-
+ 
 if (isset($_GET['action']) && $_GET['action'] == 'keepalive')
 {
 	header('Content-Type: image/gif');
@@ -37,9 +37,9 @@ define('INSTALL', false );
 define('LOGIN', true );
 
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
-	
-include_once(ROOT_PATH . 'common.php');
 
+include_once(ROOT_PATH . 'common.php');
+	
 $template	= new template();
 $template->cache = true;
 

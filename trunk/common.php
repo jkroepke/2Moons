@@ -77,7 +77,11 @@ $LANG	= new Language();
 
 if (INSTALL != true)
 {
-	$db = new DB_MySQLi();
+	if($database)
+		$db = new DB_MySQLi();
+	else
+		redirectTo('install/');
+		
 	unset($database);
 
 	// Say Browsers to Allow ThirdParty Cookies (Thanks to morktadela)
