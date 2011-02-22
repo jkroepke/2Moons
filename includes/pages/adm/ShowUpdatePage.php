@@ -80,10 +80,10 @@ function getDatafromServer($action)
 		curl_setopt($ch, CURLOPT_USERAGENT, "2Moons Update API (r".$Patchlevel[2].")");
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		$DATA	=	curl_exec($ch);
-		if($DATA === false) {
-			$info = curl_getinfo($ch);
-			return "UpdateServer not avalible HTTP Code:".$info['http_code'];
-		}
+		$info = curl_getinfo($ch);
+		if($info['http_code'] != 200)
+			return "UpdateServer not avalible HTTP Code: ".$info['http_code'];
+
 		curl_close($ch);
 		return unserialize($DATA);
 	} elseif(function_exists('fsockopen')) {
@@ -93,7 +93,7 @@ function getDatafromServer($action)
 		} else {
 			$DATA	= "";
 			$out 	= "GET /update/index.php?action=".$action." HTTP/1.1\r\n";
-			$out 	.= "Host: update.xnova.de\r\n";
+			$out 	.= "Host: 2moons.cc\r\n";
 			$out 	.= "Patchlevel: ".$Level."\r\n";
 			$out 	.= "User-Agent: 2Moons Update API (r".$Patchlevel[2].")\r\n";
 			$out 	.= "Connection: Close\r\n\r\n";
@@ -243,6 +243,15 @@ function ShowUpdatePage()
 			$Check	= 0;
 			foreach($UpdateArray['revs'] as $Rev => $RevInfo) 
 			{
+				if($Check === 0)
+				{
+					$Check = 1;
+					if($Rev - 1 != $Level) {
+						$LOG['debug']['rev']	= "UpdateServer requrie Revision ".($Rev - 1).".";
+						exitupdate($LOG);
+					}
+				}
+				
 				if(!empty($RevInfo['add']))
 				{
 					foreach($RevInfo['add'] as $File)
@@ -325,14 +334,6 @@ function ShowUpdatePage()
 								$LOG['update'][$Rev][$File]	= $LNG['up_error_delete_file'];
 							}						
 						}
-					}
-				}
-				if($Check === 0)
-				{
-					$Check = 1;
-					if(Rev - 1 != $Level) {
-						$LOG['debug']['rev']	= "UpdateServer requrie Revision ".($Rev - 1);
-						exitupdate($LOG);
 					}
 				}
 				$LastRev = $Rev;
