@@ -331,7 +331,7 @@ function ShowUpdatePage()
 				{
 					$Check = 1;
 					if(Rev - 1 != $Level) {
-						$LOG['debug']['rev']	= "UpdateServer requrie Revision ."($Rev - 1)".";
+						$LOG['debug']['rev']	= "UpdateServer requrie Revision ".($Rev - 1);
 						exitupdate($LOG);
 					}
 				}
