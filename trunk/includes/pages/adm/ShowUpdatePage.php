@@ -74,7 +74,7 @@ function getDatafromServer($action)
 		
 	if(function_exists('curl_init')) {
 		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, "http://update.xnova.de/index.php?action=".$action);
+		curl_setopt($ch, CURLOPT_URL, "http://2moons.cc/update/index.php?action=".$action);
 		curl_setopt($ch, CURLOPT_HEADER, false);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array("Patchlevel: ".$Level));
 		curl_setopt($ch, CURLOPT_USERAGENT, "2Moons Update API (r".$Patchlevel[2].")");
@@ -87,12 +87,12 @@ function getDatafromServer($action)
 		curl_close($ch);
 		return unserialize($DATA);
 	} elseif(function_exists('fsockopen')) {
-		$fp = @fsockopen("update.xnova.de", 80, $errno, $errstr, 30);
+		$fp = @fsockopen("2moons.cc", 80, $errno, $errstr, 30);
 		if (!$fp) {
 			return "Can't create fsockopen Session (Error: ".$errstr.")";
 		} else {
 			$DATA	= "";
-			$out 	= "GET /index.php?action=".$action." HTTP/1.1\r\n";
+			$out 	= "GET /update/index.php?action=".$action." HTTP/1.1\r\n";
 			$out 	.= "Host: update.xnova.de\r\n";
 			$out 	.= "Patchlevel: ".$Level."\r\n";
 			$out 	.= "User-Agent: 2Moons Update API (r".$Patchlevel[2].")\r\n";
@@ -107,7 +107,7 @@ function getDatafromServer($action)
 		$opts 			= array('http' => array('method'=> "GET", 'header'=> "Patchlevel: ".$Level."\r\nUser-Agent: 2Moons Update API (r".$Patchlevel[2].")\r\n"));
 		$context 		= stream_context_create($opts);
 		ob_start();
-		echo file_get_contents("http://update.xnova.de/index.php?action=".$action, FALSE, $context);
+		echo file_get_contents("http://2moons.cc/update/index.php?action=".$action, FALSE, $context);
 		$Data 	= ob_get_clean();
 		if(false === ($DATA = unserialize($Data)))
 			return $LNG['up_update_server']."<br>".substr(strip_tags($Data), strpos(strip_tags($Data), 'failed to open stream: ') + 23);
@@ -148,6 +148,8 @@ function ShowUpdatePage()
 			$zipfile 	= new zipfile();
 			$TodoDelete	= "";
 			$Files		= array('add' => array(), 'edit' => array(), 'del' => array());
+			$FirstRev	= 0;
+			$LastRev	= 0;
 			foreach($UpdateArray['revs'] as $Rev => $RevInfo) 
 			{
 				if(!empty($RevInfo['add']))
@@ -186,6 +188,9 @@ function ShowUpdatePage()
 						$TodoDelete	.= str_replace("/trunk/", "", $File)."\r\n";
 					}
 				}
+				if($FirstRev === 0)
+					$FirstRev = $Rev;
+					
 				$LastRev = $Rev;
 			}	
 			
@@ -197,7 +202,7 @@ function ShowUpdatePage()
 			$File	= $zipfile->file(); 		
 			header("Content-length: ".strlen($File));
 			header("Content-Type: application/force-download");
-			header('Content-Disposition: attachment; filename="patch_'.$Level.'_to_'.$LastRev.'.zip"');
+			header('Content-Disposition: attachment; filename="patch_'.$FirstRev.'_to_'.$LastRev.'.zip"');
 			header("Content-Transfer-Encoding: binary");
 
 			// Zip File senden
@@ -235,6 +240,7 @@ function ShowUpdatePage()
 				exitupdate($LOG);
 			}
 			$Files	= array('add' => array(), 'edit' => array(), 'del' => array());
+			$Check	= 0;
 			foreach($UpdateArray['revs'] as $Rev => $RevInfo) 
 			{
 				if(!empty($RevInfo['add']))
@@ -319,6 +325,14 @@ function ShowUpdatePage()
 								$LOG['update'][$Rev][$File]	= $LNG['up_error_delete_file'];
 							}						
 						}
+					}
+				}
+				if($Check === 0)
+				{
+					$Check = 1;
+					if(Rev - 1 != $Level) {
+						$LOG['debug']['rev']	= "UpdateServer requrie Revision ."($Rev - 1)".";
+						exitupdate($LOG);
 					}
 				}
 				$LastRev = $Rev;
