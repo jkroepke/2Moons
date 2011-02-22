@@ -35,7 +35,7 @@ define('INSTALL' 			, true);
 define('ROOT_PATH', str_replace('\\', '/',dirname(dirname(__FILE__))).'/');
 
 include(ROOT_PATH . 'common.php');
-if(file_exists(ROOT_PATH . 'includes/config.php'))
+if(isset($dbsettings))
 	redirectTo('../index.php');
 
 $LANG->GetLangFromBrowser();
@@ -101,9 +101,9 @@ switch ($Mode) {
 		}
 		
 		if(class_exists('mysqli')){
-			$mysqli = "<span class=\"yes\">".$LNG['reg_no']."</span>";
+			$mysqli = "<span class=\"yes\">".$LNG['reg_yes']."</span>";
 		} else {
-			$mysqli = "<span class=\"no\">".$LNG['reg_yes']."</span>";
+			$mysqli = "<span class=\"no\">".$LNG['reg_no']."</span>";
 			$error++;
 		}
 				
@@ -178,30 +178,30 @@ switch ($Mode) {
 		}
 
 		$template->assign_vars(array(
-			'dir'				=> $dirs,
-			'json'				=> $json,
-			'done'				=> $done,
-			'config'			=> $config,
-			'gdlib'				=> $gdlib,
-			'PHP'				=> $PHP,
-			'mysqli'			=> $mysqli,
-			'ftp'				=> $ftp,
-			'bcmath'			=> $bcmath,
-			'iniset'			=> $iniset,
-			'req_php_need'		=> $LNG['req_php_need'],
-			'reg_gd_need'		=> $LNG['reg_gd_need'],
-			'reg_json_need'		=> $LNG['reg_json_need'],
-			'reg_iniset_need'	=> $LNG['reg_iniset_need'],
-			'reg_mysqli_need'	=> $LNG['reg_mysqli_need'],
-			'reg_bcmath_need'	=> $LNG['reg_bcmath_need'],
-			'req_ftp'			=> $LNG['req_ftp'],
-			'req_ftp_info'		=> $LNG['req_ftp_info'],
-			'req_ftp_host'		=> $LNG['req_ftp_host'],
-			'req_ftp_username'	=> $LNG['req_ftp_username'],
-			'req_ftp_password'	=> $LNG['req_ftp_password'],
-			'req_ftp_dir'		=> $LNG['req_ftp_dir'],
-			'req_ftp_send'		=> $LNG['req_ftp_send'],
-			'req_ftp_pass_info'	=> $LNG['req_ftp_pass_info'],
+			'dir'					=> $dirs,
+			'json'					=> $json,
+			'done'					=> $done,
+			'config'				=> $config,
+			'gdlib'					=> $gdlib,
+			'PHP'					=> $PHP,
+			'mysqli'				=> $mysqli,
+			'ftp'					=> $ftp,
+			'bcmath'				=> $bcmath,
+			'iniset'				=> $iniset,
+			'req_php_need'			=> $LNG['req_php_need'],
+			'reg_mysqli_active'		=> $LNG['reg_mysqli_active'],
+			'reg_gd_need'			=> $LNG['reg_gd_need'],
+			'reg_json_need'			=> $LNG['reg_json_need'],
+			'reg_iniset_need'		=> $LNG['reg_iniset_need'],
+			'reg_bcmath_need'		=> $LNG['reg_bcmath_need'],
+			'req_ftp'				=> $LNG['req_ftp'],
+			'req_ftp_info'			=> $LNG['req_ftp_info'],
+			'req_ftp_host'			=> $LNG['req_ftp_host'],
+			'req_ftp_username'		=> $LNG['req_ftp_username'],
+			'req_ftp_password'		=> $LNG['req_ftp_password'],
+			'req_ftp_dir'			=> $LNG['req_ftp_dir'],
+			'req_ftp_send'			=> $LNG['req_ftp_send'],
+			'req_ftp_pass_info'		=> $LNG['req_ftp_pass_info'],
 		));
 		$template->show('install/ins_req.tpl');
 	break;
