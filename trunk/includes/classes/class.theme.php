@@ -40,6 +40,9 @@ class Theme
 	}
 	
 	function setUserTheme($Path) {
+		if(!file_exists(ROOT_PATH.'styles/theme/'.$Theme.'/style.cfg'))
+			return false;
+			
 		$this->skin		= $Path;
 		$this->parseStyleCFG();
 	}
@@ -60,13 +63,13 @@ class Theme
 	
 	static function getAvalibleSkins() {
 		$Skins	= array_diff(scandir(ROOT_PATH.'styles/theme/'), array('..', '.', '.svn', '.htaccess', 'index.htm'));
-		$Theme	= array();
+		$Themen	= array();
 		foreach($Skins as $Theme) {
-			require(ROOT_PATH.'styles/'.$Theme.'/style.cfg');
-			$Theme[$Skin]	= $Skin['name'];
+			require(ROOT_PATH.'styles/theme/'.$Theme.'/style.cfg');
+			$Themen[$Theme]	= $Skin['name'];
 		}
 		
-		return $Theme;
+		return $Themen;
 	}
 }
 
