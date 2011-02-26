@@ -36,7 +36,6 @@ class template
 		$this->cache				= false;
 		$this->cachedir				= is_writable(ROOT_PATH.'cache/') ? ROOT_PATH.'cache/' : sys_get_temp_dir();
 		$this->file					= '';
-		$this->template_dir			= ROOT_PATH.TEMPLATE_DIR;
 		$this->cachefile			= '';
 		$this->phpself				= '';
 		$this->Popup				= false;
@@ -203,10 +202,10 @@ class template
 	
     private function main()
     {
-		global $USER, $CONF, $LANG, $LNG;
+		global $USER, $CONF, $LANG, $LNG, $THEME;
         $this->assign_vars(array(
             'title'				=> $CONF['game_name'],
-            'dpath'				=> (empty($USER['dpath']) ? DEFAULT_SKINPATH : $USER['dpath']),
+            'dpath'				=> $THEME->getTheme(),
             'vmode'				=> $USER['urlaubs_modus'],
             'is_pmenu'			=> $USER['settings_planetmenu'],
 			'authlevel'			=> $USER['authlevel'],
@@ -311,7 +310,9 @@ class template
 	
 	public function display($file)
 	{
+		global $THEME;
 		$this->file			= $file;
+		$this->template_dir	= $THEME->getTemplatePath();
 		if($this->cache && $GLOBALS['CONF']['debug'] == 0)
 		{
 			$this->cachefile	= $this->cachedir.md5(filemtime($this->template_dir.$this->file).r_implode('', $this->vars)).'.tpl.php';
@@ -326,7 +327,7 @@ class template
 	
 	public function message($mes, $dest = false, $time = 3, $Fatal = false)
 	{
-		global $LNG;
+		global $LNG, $THEME;
 		if($Fatal)
 			$this->isPopup(true);
 	
@@ -334,7 +335,7 @@ class template
 			'mes'		=> $mes,
 			'fcm_info'	=> $LNG['fcm_info'],
 			'Fatal'		=> $Fatal,
-            'dpath'		=> (empty($USER['dpath']) ? DEFAULT_SKINPATH : $USER['dpath']),
+            'dpath'		=> $THEME->getTheme(),
 		));
 		
 		$this->gotoside($dest, $time);

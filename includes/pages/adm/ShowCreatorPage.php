@@ -109,7 +109,7 @@ function ShowCreatorPage()
 				$SQL .= "`onlinetime` = '".TIMESTAMP."', ";
 				$SQL .= "`register_time` = '".TIMESTAMP. "', ";
 				$SQL .= "`password` = '".md5($UserPass)."', ";
-				$SQL .= "`dpath` = '".DEFAULT_SKINPATH."', ";
+				$SQL .= "`dpath` = '".DEFAULT_THEME."', ";
 				$SQL .= "`uctime`= '0';";
 				$db->query($SQL);
 				$db->query("UPDATE ".CONFIG." SET `users_amount` = users_amount + '1' WHERE `uni` = '".$Univer."';");

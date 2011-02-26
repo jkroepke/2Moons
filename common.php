@@ -69,9 +69,11 @@ set_exception_handler('exception_handler');
 
 require_once(ROOT_PATH . 'includes/classes/class.MySQLi.php');
 require_once(ROOT_PATH . 'includes/classes/class.Lang.php');
+require_once(ROOT_PATH . 'includes/classes/class.theme.php');
 require_once(ROOT_PATH . 'includes/classes/class.Session.php');
 	
 $LANG	= new Language();	
+$THEME	= new Theme();	
 
 if($database)
 	$db = new DB_MySQLi();
@@ -118,7 +120,7 @@ if (!defined('CLI') && !defined('LOGIN') && !defined('IN_CRON') && !defined('AJA
 	
 	$LANG->setUser($USER['lang']);	
 	$LANG->includeLang(array('INGAME', 'TECH'));
-	
+	$THEME->setUserTheme($USER['dpath']);
 	if($USER['bana'] == 1)
 	{
 		message("<font size=\"6px\">".$LNG['css_account_banned_message']."</font><br><br>".sprintf($LNG['css_account_banned_expire'],date("d. M y H:i", $USER['banaday']))."<br><br>".$LNG['css_goto_homeside']);
