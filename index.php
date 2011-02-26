@@ -33,7 +33,6 @@ if (isset($_GET['action']) && $_GET['action'] == 'keepalive')
 }
 
 define('INSIDE', true );
-define('INSTALL', false );
 define('LOGIN', true );
 
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');

@@ -1,8 +1,5 @@
 {include file="install/ins_header.tpl"}
-<form method="POST" action="?mode=ins&amp;page=2&amp;{$lang}">
-<tr>
-	<td colspan="3"><span style="color:red">{$step1_notice_chmod}</span></td>
-</tr>
+<form method="POST" action="?mode=ins&amp;page=2&amp;{$lang}" id="install" onsubmit="return submitinstall();">
 <tr>
 	<td>{$step1_mysql_server}</td>
 	<td><input type="text" name="host" value="localhost" size="30"></td>

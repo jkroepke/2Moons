@@ -25,10 +25,7 @@
  * @version 1.3 (2011-01-21)
  * @link http://code.google.com/p/2moons/
  */
-
-if(!defined('INSIDE')) die('Hacking attempt!');
-
-
+ 
 class DB_mysqli extends mysqli
 {
 	protected $con;
@@ -44,7 +41,7 @@ class DB_mysqli extends mysqli
 	 *
 	 * @return void
 	 */
-	public function __construct($test = false)
+	public function __construct($exception = true)
 	{
 		$this->con = $GLOBALS['database'];
 
@@ -56,15 +53,10 @@ class DB_mysqli extends mysqli
 
 		if(mysqli_connect_error())
 		{
-			if(php_sapi_name() === 'cli') {
-				echo "> ".mysqli_connect_error()."\r\n";
-				exit(2);
-			} elseif($test != true) {
+			if($exception == true)
 				throw new Exception("Connection to database failed: ".mysqli_connect_error());
-				exit;
-			} else {
+			elseif(defined('INSTALL'))
 				return false;
-			}
 		}		
 		parent::set_charset("utf8");
 		parent::query("SET SESSION sql_mode = '';");
@@ -97,7 +89,11 @@ class DB_mysqli extends mysqli
 		}
 		else
 		{
-			throw new Exception("SQL Error: ".$this->error."<br><br>Query Code: ".$resource);
+			if($exception == true) {
+				throw new Exception("SQL Error: ".$this->error."<br><br>Query Code: ".$resource);
+			} else {
+				return "SQL Error: ".$this->error;
+			}
 		}
         return false;
 	}
@@ -243,16 +239,6 @@ class DB_mysqli extends mysqli
 	}
 
 	/**
-	 * Type of database.
-	 *
-	 * @return string
-	 */
-	public function getDatabaseType()
-	{
-		return "mysqli";
-	}
-
-	/**
 	 * Frees stored result memory for the given statement handle.
 	 *
 	 * @param resource	The statement to free
@@ -280,12 +266,15 @@ class DB_mysqli extends mysqli
 			} while (parent::next_result());		
 		}
 		
-		$this->time	+= (microtime(true) - $Timer);
 		$this->SQL[]	= $resource;
 	
 		if ($this->errno)
 		{
-			throw new Exception("SQL Error: ".$this->error."<br><br>Query Code: ".$resource);
+			if($exception == true) {
+				throw new Exception("SQL Error: ".$this->error."<br><br>Query Code: ".$resource);
+			} else {
+				return "SQL Error: ".$this->error;
+			}
 		}
 	}
 	

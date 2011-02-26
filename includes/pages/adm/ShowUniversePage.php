@@ -470,6 +470,9 @@ function ShowUniversePage() {
 		if($Rows == 1)
 			$db->query(substr($SQL, 0, -1).';');
 		$Rows	= 0;
+		
+		if(UNIS_MULTIVARS)
+			copy(ROOT_PATH.'includes/vars.php', ROOT_PATH.'includes/vars_uni'.($TABLEINFO[CONFIG] + 1).'.php');
 	}
 	$Unis				= array();
 	$Unis[$CONF['uni']]	= $CONF;

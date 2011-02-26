@@ -80,6 +80,9 @@ define('MAX_FLEET_OR_DEFS_IN_BUILD', 10);
 // SUPPORT WILDCAST DOMAINS
 define('UNIS_WILDCAST'			  , true);
 
+// SUPPORT OWN vars.php / UNIVERSE | NOTE: make a COPY of vars.php and rename it to vars_uni1.php,  vars_uni2.php, etc...
+define('UNIS_MULTIVARS'			  , false);
+
 // PERCENTAGE OF RESOURCES THAT CAN BE OVER STORED
 // 1.0 TO 100% - 1.1% FOR 110 AND SO ON
 define('MAX_OVERFLOW'             , 1.0);

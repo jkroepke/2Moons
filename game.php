@@ -27,7 +27,6 @@
  */
 
 define('INSIDE'  , true);
-define('INSTALL' , false);
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 
 require_once(ROOT_PATH.'includes/functions/GetBuildingPrice.php');
