@@ -303,6 +303,7 @@ function ShowUniversePage() {
 			$Data['DIPLO'][$Key]['owner_1']		= $Row['owner_1'] + $TABLEINFO[USERS];
 			$Data['DIPLO'][$Key]['owner_2']		= $Row['owner_2'] + $TABLEINFO[USERS];
 			$Data['DIPLO'][$Key]['accept_text']	= base64_decode($Row['accept_text']);
+			$Data['DIPLO'][$Key]['universe']	= $TABLEINFO[CONFIG] + 1;
 			$SQL	.= "(";
 			foreach($Data['DIPLO'][$Key] as $Value)
 				$SQL	.= "'".$Value."', ";
