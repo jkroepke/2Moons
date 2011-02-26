@@ -1,6 +1,6 @@
 {include file="install/ins_header.tpl"}
 	<tr>
-	<form method="POST" action="?mode=ins&amp;page=4{$lang}">
+	<form method="POST" action="?mode=ins&amp;page=3&amp;lang={$lang}">
 	<td colspan="2">
 		<span style="font-size: 15px; font-weight: 700;">{$step3_create_admin}</span>
 	</td>

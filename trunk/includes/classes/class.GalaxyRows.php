@@ -26,9 +26,7 @@
  * @link http://code.google.com/p/2moons/
  */
 
-if(!defined('INSIDE')) die('Hacking attempt!');
-
-class GalaxyRows
+ class GalaxyRows
 {
 	public function GetMissileRange($Level)
 	{

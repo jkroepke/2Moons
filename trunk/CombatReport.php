@@ -27,7 +27,6 @@
  */
 
 define('INSIDE'  , true);
-define('INSTALL' , false);
 
 define('ROOT_PATH', './');
 include(ROOT_PATH . 'common.php');

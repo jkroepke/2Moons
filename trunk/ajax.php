@@ -27,7 +27,6 @@
  */
 
 define('INSIDE', true );
-define('INSTALL', false );
 define('AJAX', true );
 
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');

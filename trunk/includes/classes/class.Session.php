@@ -66,7 +66,6 @@ class Session
 			return true;
 			
 		$_SESSION['last']	= $this->GetSessionFromDB();
-		
 		if(empty($_SESSION['last']) || !$this->CompareIPs($_SESSION['last']['user_ip'])) {
 			$this->DestroySession();
 			redirectTo('index.php?code=2');

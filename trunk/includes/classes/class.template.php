@@ -34,7 +34,7 @@ class template
 		$this->script				= array();
 		$this->vars					= array();
 		$this->cache				= false;
-		$this->cachedir				= is_writable(ROOT_PATH.'cache/') ? ROOT_PATH.'cache/' : session_save_path();
+		$this->cachedir				= is_writable(ROOT_PATH.'cache/') ? ROOT_PATH.'cache/' : sys_get_temp_dir();
 		$this->file					= '';
 		$this->template_dir			= ROOT_PATH.TEMPLATE_DIR;
 		$this->cachefile			= '';
@@ -213,7 +213,6 @@ class template
             'lang'    			=> $LANG->getUser(),
             'ready'    			=> $LNG['ready'],
 			'date'				=> explode("|", date('Y\|n\|j\|G\|i\|s\|Z', TIMESTAMP)),
-			'cd'				=> './',
 			'cron'				=> GetCrons(),
 			'ga_active'			=> $CONF['ga_active'],
 			'ga_key'			=> $CONF['ga_key'],
@@ -230,7 +229,6 @@ class template
 		$this->assign_vars(array(
 			'scripts'	=> $this->script,
 			'title'		=> $CONF['game_name'].' - '.$LNG['adm_cp_title'],
-			'cd'		=> './',
 			'gotoinsec'	=> false,
 			'goto'		=> false,
 		));
@@ -270,21 +268,6 @@ class template
 			'langs'				=> Language::getAllowedLangs(),
 		));
 	}
-	
-	public function install_main()
-	{
-		global $LNG, $LANG;
-		$this->assign_vars(array(
-			'rawlang'		=> $LANG->GetUser(),
-			'lang'			=> 'lang='.$LANG->GetUser(),
-			'title'			=> 'Installer &bull; 2Moons',
-			'intro_instal'	=> $LNG['intro_instal'],
-			'menu_intro'	=> $LNG['menu_intro'],
-			'menu_install'	=> $LNG['menu_install'],
-			'menu_license'	=> $LNG['menu_license'],
-			'menu_convert'	=> $LNG['menu_convert'],
-		));
-	}
 		
 	public function isPopup()
 	{
@@ -294,22 +277,22 @@ class template
 	public function show($file)
 	{		
 		global $USER, $PLANET, $CONF, $LNG, $db;
-		if(INSTALL === true) {
-			$this->install_main();			
-		} elseif(defined('IN_ADMIN')) {
-			$this->adm_main();			
-		} elseif(defined('LOGIN')) {
-			$this->login_main();	
-		} else {
-			if(!defined('AJAX')) {
-				$_SESSION['USER']	= $USER;
-				$_SESSION['PLANET']	= $PLANET;
-			}
-			$this->main();
-			if($this->Popup === false)
-				$this->Menus();
-		}
 		
+		if(!defined('INSTALL')) {
+			if(defined('IN_ADMIN')) {
+				$this->adm_main();			
+			} elseif(defined('LOGIN')) {
+				$this->login_main();	
+			} else {
+				if(!defined('AJAX')) {
+					$_SESSION['USER']	= $USER;
+					$_SESSION['PLANET']	= $PLANET;
+				}
+				$this->main();
+				if($this->Popup === false)
+					$this->Menus();
+			}
+		}
 		$this->assign_vars(array(
 			'scripts'			=> $this->jsscript,
 			'execscript'		=> implode("\n", $this->script),
@@ -351,7 +334,6 @@ class template
 			'mes'		=> $mes,
 			'fcm_info'	=> $LNG['fcm_info'],
 			'Fatal'		=> $Fatal,
-			'cd'		=> (INSTALL == true) ? '../' : './',
             'dpath'		=> (empty($USER['dpath']) ? DEFAULT_SKINPATH : $USER['dpath']),
 		));
 		
