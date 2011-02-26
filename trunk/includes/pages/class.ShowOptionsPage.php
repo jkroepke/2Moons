@@ -122,6 +122,7 @@ class ShowOptionsPage
 				$settings_planetmenu	= ($settings_planetmenu == 'on') ? 1 : 0;
 				$db_deaktjava 			= ($db_deaktjava == 'on') ? TIMESTAMP : 0;
 				$langs					= in_array($langs, $LANG->getAllowedLangs()) ? $langs : $LANG->getUser();
+				$langs					= in_array($langs, Theme::getAvalibleSkins()) ? $langs : $LANG->getUser();
 				
 				
 				if ($urlaubs_modus == 'on')
@@ -270,7 +271,7 @@ class ShowOptionsPage
 						'langs'								=> $USER['lang'],
 						'adm_pl_prot_data'					=> $PLANET['id_level'],					
 						'user_authlevel'					=> $USER['authlevel'],					
-						'Selectors'							=> array('Sort' => array(0 => $LNG['op_sort_normal'], 1 => $LNG['op_sort_koords'], 2 => $LNG['op_sort_abc']), 'SortUpDown' => array(0 => $LNG['op_sort_up'], 1 => $LNG['op_sort_down']), 'Skins' => array_diff(scandir(ROOT_PATH.'styles/skins/'), array('..', '.', '.svn', '.htaccess', 'index.htm','darkness')), 'lang' => $LANG->getAllowedLangs(false)),
+						'Selectors'							=> array('Sort' => array(0 => $LNG['op_sort_normal'], 1 => $LNG['op_sort_koords'], 2 => $LNG['op_sort_abc']), 'SortUpDown' => array(0 => $LNG['op_sort_up'], 1 => $LNG['op_sort_down']), 'Skins' => Theme::getAvalibleSkins(), 'lang' => $LANG->getAllowedLangs(false)),
 						'planet_sort'						=> $USER['planet_sort'],
 						'planet_sort_order'					=> $USER['planet_sort_order'],
 						'uctime'							=> (TIMESTAMP - $USER['uctime'] >= (60 * 60 * 24 * 7)) ? true : false,

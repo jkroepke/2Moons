@@ -27,11 +27,10 @@
  */
 
 //SET TIMEZONE (if Server Timezone are not correct)
-// date_default_timezone_set('Europe/Berlin');
+//date_default_timezone_set('Europe/Berlin');
  
 //TEMPLATES DEFAULT SETTINGS
-define('DEFAULT_SKINPATH' 		  , 'styles/skins/gow/');
-define('TEMPLATE_DIR'     		  , 'styles/templates/');
+define('DEFAULT_THEME'	 		  , 'gow');
 
 define('PROTOCOL'				  , (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"]  == 'on') ? 'https://' : 'http://');
 define('HTTP_ROOT'				  , str_replace(basename($_SERVER["PHP_SELF"]), '', $_SERVER["PHP_SELF"]));

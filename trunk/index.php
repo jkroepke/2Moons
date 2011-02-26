@@ -41,7 +41,7 @@ include_once(ROOT_PATH . 'common.php');
 	
 $template	= new template();
 $template->cache = true;
-
+$THEME->isHome();
 $page = request_var('page', '');
 $mode = request_var('mode', '');
 
@@ -126,7 +126,7 @@ switch ($page) {
 			$SQL .= "`register_time` = '".TIMESTAMP."', ";
 			$SQL .= "`password` = '" . $UserPass . "', ";
 			$SQL .= "`lang` = '".$LANG->GetUser()."', ";
-			$SQL .= "`dpath` = '" . DEFAULT_SKINPATH . "', ";
+			$SQL .= "`dpath` = '".DEFAULT_THEME."', ";
 			$SQL .= "`darkmatter` = '".BUILD_FB_DARKMATTER."', ";
 			$SQL .= "`fb_id` = '" . $uid . "', ";
 			$SQL .= "`uctime`= '0';";
@@ -241,7 +241,7 @@ switch ($page) {
 				'chose_a_uni'		=> $LNG['chose_a_uni'],
 				'lost_pass_title'	=> $LNG['lost_pass_title'],
 			));
-			$template->show('public/lostpassword.tpl');
+			$template->show('lostpassword.tpl');
 		}
 		break;
 	case 'reg' :
@@ -250,7 +250,7 @@ switch ($page) {
 				'closed'	=> $LNG['reg_closed'],
 				'info'		=> $LNG['info'],
 			));
-			$template->show('public/registry_closed.tpl');
+			$template->show('registry_closed.tpl');
 			exit;
 		}
 		switch ($mode) {
@@ -352,7 +352,7 @@ switch ($page) {
 				$SQL .= "`onlinetime` = '".TIMESTAMP."', ";
 				$SQL .= "`register_time` = '".TIMESTAMP. "', ";
 				$SQL .= "`password` = '".$UserPass."', ";
-				$SQL .= "`dpath` = '".DEFAULT_SKINPATH."', ";
+				$SQL .= "`dpath` = '".DEFAULT_THEME."', ";
 				$SQL .= "`darkmatter` = '".BUILD_DARKMATTER."', ";
 				$SQL .= "`uctime`= '0';";
 				$db->query($SQL);
@@ -448,7 +448,7 @@ switch ($page) {
 					'send'							=> $LNG['send'],
 					'uni_closed'					=> $LNG['uni_closed'],
 				));
-				$template->show('public/registry_form.tpl');
+				$template->show('registry_form.tpl');
 			break;
 		}
 		break;
@@ -457,7 +457,7 @@ switch ($page) {
 			'agb'				=> $LNG['agb'],
 			'agb_overview'		=> $LNG['agb_overview'],
 		));
-		$template->show('public/index_agb.tpl');
+		$template->show('index_agb.tpl');
 		break;
 	case 'rules' :
 		$template->assign_vars(array(
@@ -466,13 +466,13 @@ switch ($page) {
 			'rules_info1'		=> sprintf($LNG['rules_info1'], $CONF['forum_url']),
 			'rules_info2'		=> $LNG['rules_info2'],
 		));
-		$template->show('public/index_rules.tpl');
+		$template->show('index_rules.tpl');
 		break;
 	case 'screens':
 		$template->assign_vars(array(
 			'screenshots'           => $LNG['screenshots'],
 		));
-		$template->show('public/index_screens.tpl');
+		$template->show('index_screens.tpl');
 		break;
 	case 'top100' :
 		$Universe = request_var('universe', 1);
@@ -511,7 +511,7 @@ switch ($page) {
 			'TopKBList'		=> $TopKBList,
 		));
 			
-		$template->show('public/index_top100.tpl');
+		$template->show('index_top100.tpl');
 		break;
 	case 'pranger' :
 		$Universe = request_var('universe', 1);
@@ -552,7 +552,7 @@ switch ($page) {
 			'bn_by'						=> $LNG['bn_by'],
 		));
 		
-		$template->show('public/index_pranger.tpl');
+		$template->show('index_pranger.tpl');
 		break;
 	case 'disclamer':
 		$template->assign_vars(array(
@@ -562,7 +562,7 @@ switch ($page) {
 			'disclamer_tel'		=> $LNG['disclamer_tel'],
 			'disclamer_email'	=> $LNG['disclamer_email'],
 		));
-		$template->show('public/index_disclamer.tpl');
+		$template->show('index_disclamer.tpl');
 		break;
 	case 'news' :
 		$NewsRAW	= $db->query ("SELECT date,title,text,user FROM ".NEWS." ORDER BY id DESC;");
@@ -579,7 +579,7 @@ switch ($page) {
 			'news_does_not_exist'	=> $LNG['news_does_not_exist'],
 		));
 		
-		$template->show('public/index_news.tpl');
+		$template->show('index_news.tpl');
 	break;
 	default :
 		if ($_POST) {
@@ -625,7 +625,7 @@ switch ($page) {
 				'chose_a_uni'			=> $LNG['chose_a_uni'],
 				'universe'				=> $LNG['universe'],
 			));
-			$template->show('public/index_body.tpl');
+			$template->show('index_body.tpl');
 		}
 	break;
 }
