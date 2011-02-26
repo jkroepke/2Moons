@@ -1,0 +1,339 @@
+body {
+background:url(img/bkd_page.jpg) top left fixed #000;
+margin:0;
+padding:0;
+height:100%;
+width:100%
+}
+
+body,input,select,textarea,a,td,th,tr,table,#planet_menu_content  a:hover {
+color:#CCC;
+font-family:Verdana;
+font-size:10px;
+}
+
+input,select,option,textarea {
+background:#393939
+}
+
+a:focus {
+outline:none
+}
+
+a:hover {
+color:red;
+text-decoration:none
+}
+
+table,td,th {
+empty-cells:show;
+font-weight:400
+}
+
+table table,img {
+border:0
+}
+
+table {
+margin:0 auto
+}
+
+td, textarea  {
+border:1px solid #222
+}
+
+td {
+padding-left:3px;
+padding-right:3px;
+text-align:center;
+background:url(img/bkd_bg.png) no-repeat #090909
+}
+
+input {
+border:1px solid #212121;
+margin:2px;
+text-align:center
+}
+
+th input {
+margin:0
+}
+
+th {
+background:url(img/bkd_title.png);
+color:#FFF;
+font-weight:700;
+height:22px;
+line-height:18px;
+padding-left:3px;
+text-align:left
+}
+
+th a:hover {
+text-decoration:underline
+}
+
+textarea {
+background:transparent;
+width:97%
+}
+
+select {
+border:1px solid #212121
+}
+
+.content {
+padding-bottom:26px;
+margin-left:205px;
+margin-top:10px;
+width:80%!important
+}
+
+.left{
+text-align:left
+}
+
+.right{
+text-align:right
+}
+
+.top{
+vertical-align:top
+}
+
+.content > table, form > table {
+max-width:95%;
+min-width:50%;
+width:80%
+}
+
+.res_max,.res_current,.res_current_max {
+min-width:90px
+}
+
+.res_max {
+color:#0F0
+}
+
+.res_name {
+color:red;
+float:none;
+font-weight:700
+}
+
+.strong {
+color:#ffa0a0
+}
+
+.vacation {
+color:#659ec7
+}
+
+.inactive {
+color:#ccc
+}
+
+.longinactive {
+color:#999
+}
+
+.ownattack {
+color:#6c3
+}
+
+.owncolony {
+color:#c1c1c1
+}
+
+.owndeploy {
+color:#666
+}
+
+.owndestroy {
+color:#ff9
+}
+
+.ownfederation {
+color:#c66
+}
+
+.ownharvest {
+color:#ceff68
+}
+
+.ownhold {
+color:#80a0c0
+}
+
+.destroy {
+color:#d4a017
+}
+
+.hold {
+color:#39c
+}
+
+.warning {
+color:#FF8040
+}
+
+.notice {
+color:#FF0
+}
+
+.return {
+color:#444
+}
+
+.transparent,td.header {
+background: transparent;
+border:none
+}
+
+#header_top {
+-moz-border-radius:0 0 15px 15px;
+background:url(img/topnavbg.png) repeat-x;
+border-radius:0 0 15px 15px;
+height:auto;
+margin-left:210px;
+text-align:center;
+width:80%
+}
+
+tr.header,table.header {
+width:80%
+}
+
+.header {
+vertical-align:middle
+}
+
+#footer {
+background:#000;
+border:1px solid #FFF;
+bottom:0;
+margin-left:12.5%;
+margin-right:12.5%;
+position:fixed;
+text-align:center;
+width:75%
+}
+
+#menu {
+list-style:none;
+margin:0;
+padding:0;
+position:absolute;
+top:-29px;
+width:200px;
+padding-bottom:26px;
+}
+
+#menu li {
+font:67.5% "Lucida Sans Unicode", "Bitstream Vera Sans", "Trebuchet Unicode MS", "Lucida Grande", Verdana, Helvetica, sans-serif;
+margin:0;
+padding:0;
+}
+
+#menu a {
+background:url(img/button.png) #333;
+color:#ccc;
+display:block;
+font-weight:400;
+margin:0;
+padding:4px 20px;
+text-decoration:none
+}
+
+#menu a:hover {
+background:url(img/button-.png) #900;
+color:#fff
+}
+
+#planet_menu {
+width:100%;
+position:fixed;
+bottom:0px;
+z-index:2;
+}
+
+#planet_menu_link{
+font-weight:700;
+vertical-align:middle;
+}
+
+#planet_menu_header{
+background:url(img/bkd_title.png);
+height:21px;
+text-align:right;
+padding-right:10px;
+}
+
+#planet_menu_content{
+background:url(img/bkd_bg.png) no-repeat #090909;
+text-align:left;
+padding-bottom:5px;
+overflow: auto;
+}
+
+#overDiv > table {
+background:#212121;
+border:1px solid #666;
+color:#666;
+margin:0;
+padding:0
+}
+#overDiv font {
+color:#FFF
+}
+.allymember,.colony,.deploy,.harvest,.transport,.success {
+color:lime
+}
+
+.noob,.owntransport {
+color:#a0ffa0
+}
+
+.banned,.s_button {
+text-decoration:line-through
+}
+
+.ownespionage,.ownmissile {
+color:#fc6
+}
+
+.espionage,.missile {
+color:#f60
+}
+
+a {
+text-decoration:none
+}
+
+th a,.res_current{
+color:#FFF
+}
+
+.table519{
+min-width:519px !important;
+width:519px !important
+}
+
+.table569{
+min-width:569px !important;
+width:569px !important
+}
+
+.res_current_max,.attack,.federation,.error {
+color:red
+}
+
+.ui-progressbar-value {
+background-image: url(img/processbar.png)
+}
+
+#fleetstatustable td{
+background: transparent;
+background-image: none;
+border: 0 none
+}
