@@ -41,8 +41,11 @@ require_once(ROOT_PATH . 'includes/GeneralFunctions.php');
 set_exception_handler('exception_handler');
 
 require_once(ROOT_PATH . 'includes/classes/class.Lang.php');
+require_once(ROOT_PATH . 'includes/classes/class.theme.php');
 require_once(ROOT_PATH . 'includes/classes/class.template.php');
 	
+$THEME	= new Theme();	
+$THEME->setUserTheme('gow');	
 $LANG	= new Language();	
 $LANG->GetLangFromBrowser();
 $LANG->includeLang(array('INGAME', 'INSTALL'));
