@@ -50,6 +50,9 @@ class Theme
 	function getTheme() {
 		return './styles/theme/'.$this->skin.'/';
 	}
+	function getThemeName() {
+		return $this->skin;
+	}
 		
 	function getTemplatePath() {
 		return $this->template;
