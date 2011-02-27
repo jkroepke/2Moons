@@ -1,0 +1,13 @@
+<?php
+
+// Ïðèìå÷àíèå: ýòîò ôàéë íåîáõîäèìî ñîõðàíÿòü â êîäèðîâêå koi8-r
+
+$LNG['ub_points']                         = 'ïÞËÉ';
+$LNG['ub_fleets']                         = 'æÌÏÔ';
+$LNG['ub_researh']                        = 'éÓÓÌÅÄÏ×ÁÎÉÑ';
+$LNG['ub_buildings']                      = 'ðÏÓÔÒÏÊËÉ';
+$LNG['ub_defenses']                       = 'ïÂÏÒÏÎÁ';
+
+// Translated into Russian by InquisitorEA. All rights reserved (C) 2010-2011
+
+?>
