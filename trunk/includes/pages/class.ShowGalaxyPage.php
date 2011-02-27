@@ -116,13 +116,13 @@ class ShowGalaxyPage extends GalaxyRows
 
 		if (!($galaxy == $PLANET['galaxy'] && $system == $PLANET['system']) && $mode != 0)
 		{
-			if($PLANET['deuterium'] < 10)
+			if($PLANET['deuterium'] < DEUTERIUM_PER_GALAXY_CLICK)
 			{	
 				$template->message($LNG['gl_no_deuterium_to_view_galaxy'], "game.php?page=galaxy&mode=0", 2);
 				exit;
 			}
 			else
-				$PLANET['deuterium']	-= 10;
+				$PLANET['deuterium']	-= DEUTERIUM_PER_GALAXY_CLICK;
 		}
 		
 		$PlanetRess = new ResourceUpdate();
