@@ -61,7 +61,7 @@ class ShowOptionsPage
 	
 	public function __construct()
 	{
-		global $USER, $PLANET, $CONF, $LNG, $LANG, $UNI, $db, $SESSION;
+		global $USER, $PLANET, $CONF, $LNG, $LANG, $UNI, $db, $SESSION, $THEME;
 
 		$mode 			= request_var('mode', '');
 		$exit 			= request_var('exit_modus', '');
@@ -102,13 +102,13 @@ class ShowOptionsPage
 				$urlaubs_modus 			= request_var('urlaubs_modus', '');
 				$SetSort  				= request_var('settings_sort' , 0);
 				$SetOrder 				= request_var('settings_order', 0);
-				$dpath    				= request_var('dpath', '');
 				$db_password			= request_var('db_password', '');
 				$newpass1				= request_var('newpass1', '');
 				$newpass2				= request_var('newpass2', '');		
 				$hof					= request_var('hof', '');	
 				$adm_pl_prot			= request_var('adm_pl_prot', '');	
 				$langs					= request_var('langs', $LANG->getUser());	
+				$dpath					= request_var('dpath', $THEME->getThemeName());	
 
 				$design 				= ($design == 'on') ? 1 : 0;
 				$hof 					= ($hof == 'on') ? 1 : 0;
@@ -122,7 +122,7 @@ class ShowOptionsPage
 				$settings_planetmenu	= ($settings_planetmenu == 'on') ? 1 : 0;
 				$db_deaktjava 			= ($db_deaktjava == 'on') ? TIMESTAMP : 0;
 				$langs					= in_array($langs, $LANG->getAllowedLangs()) ? $langs : $LANG->getUser();
-				$langs					= in_array($langs, Theme::getAvalibleSkins()) ? $langs : $LANG->getUser();
+				$dpath					= in_array($dpath, Theme::getAvalibleSkins()) ? $dpath : $THEME->getThemeName();
 				
 				
 				if ($urlaubs_modus == 'on')
