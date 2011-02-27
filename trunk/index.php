@@ -32,15 +32,15 @@ if (isset($_GET['action']) && $_GET['action'] == 'keepalive')
 	exit("\x47\x49\x46\x38\x39\x61\x01\x00\x01\x00\x80\x00\x00\x00\x00\x00\x00\x00\x00\x21\xF9\x04\x01\x00\x00\x00\x00\x2C\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02\x44\x01\x00\x3B");
 }
 
-if(!file_exists(ROOT_PATH . 'includes/config.php')) {
-	header('Location: install.php');
-	exit;
-}
-
 define('INSIDE', true );
 define('LOGIN', true );
 
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
+
+if(!file_exists(ROOT_PATH.'includes/config.php')) {
+	header('Location: install.php');
+	exit;
+}
 
 include_once(ROOT_PATH . 'common.php');
 	
