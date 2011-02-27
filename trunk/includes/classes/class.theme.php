@@ -39,11 +39,11 @@ class Theme
 		$this->template	= ROOT_PATH.'styles/home/';
 	}
 	
-	function setUserTheme($Path) {
+	function setUserTheme($Theme) {
 		if(!file_exists(ROOT_PATH.'styles/theme/'.$Theme.'/style.cfg'))
 			return false;
 			
-		$this->skin		= $Path;
+		$this->skin		= $Theme;
 		$this->parseStyleCFG();
 	}
 		
