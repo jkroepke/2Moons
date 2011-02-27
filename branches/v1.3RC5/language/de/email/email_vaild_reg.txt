@@ -1,0 +1,19 @@
+Hallo %1$s,
+vielen Dank, dass Sie sich in unserem Game %2$s registriert haben. Bevor Ihr Benutzerkonto aktiviert und Ihre Registrierung abgeschlossen werden kann, müssen Sie noch einen letzten Schritt unternehmen.
+
+Bitte beachten Sie, dass dieser Schritt zwingend notwendig ist, um ein registrierter Benutzer zu werden. Sie müssen den Link unten nur ein einziges Mal aufrufen, um Ihr Benutzerkonto zu aktivieren.
+
+Um Ihre Registrierung abzuschließen, klicken Sie bitte auf folgenden Link:
+
+<a href='%3$s?page=reg&amp;mode=valid&amp;lang=%7$s&amp;clef=%4$s'>%3$s?page=reg&amp;mode=valid&amp;lang=%7$s&amp;clef=%4$s</a>
+
+Ihre Logindaten:
+
+Username : %1$s
+Passwort : %5$s
+
+Sollten Sie immer noch Probleme mit der Registrierung haben, kontaktieren Sie bitte den Webmaster unter dieser E-Mail-Adresse: <a href='mailto:%6$s'>%6$s</a>
+
+Mit freundlichen Grüßen,
+
+%2$s - Team
