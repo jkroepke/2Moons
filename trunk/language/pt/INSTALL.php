@@ -44,7 +44,7 @@ $LNG['reg_not_writable']		= "Não Gravado";
 $LNG['reg_file']				= "Ficheiro";
 $LNG['reg_dir']					= "Pasta";
 $LNG['reg_gd_need']				= "GB-Lib disponivel?";
-$LNG['reg_mysqli_need']			= "MySQLi disponivel?";
+$LNG['reg_mysqli_active']			= " MySQLi Encontrado?";
 $LNG['reg_json_need']			= "JSON disponivel?";
 $LNG['req_php_need']			= "PHP-Version (min. 5.2.5)";
 $LNG['req_smode_active']		= "Safemode activo?";
@@ -76,10 +76,12 @@ $LNG['step3_admin_name']		= "Username do Admin:";
 $LNG['step3_admin_pass']		= "Password do Admin:";
 $LNG['step3_admin_mail']		= "Email do Admin:";
 $LNG['step4_need_fields']		= "Precisa de completar todos os espaços!";
-$LNG['convert_install']			= "Por favor, execute a instalação do 2Moons primeiro";
-$LNG['convert_version']			= "Escolha a sua versão:";
-$LNG['convert_info']			= "Escreva a sua antiga base de dados aqui!";
+$LNG['convert_install']			= "Instalar a Conversão - Execute a instalação primeiro do 2Moons";
+$LNG['convert_version']			= "Versão da Conversão - Escolha a versão da conversão:";
+$LNG['convert_info']			= "Informação da Conversão - Escreva a antiga base de dados aqui";
 $LNG['convert_submit']			= "Converter para 2Moons";
-$LNG['convert_done']			= "Passo feito com sucesso!";
-      
+$LNG['convert_done']			= "Convertido com Sucesso!";
+
+// Traduzido para Português por QwataKayean. Todos os direitos de autor Reservados (C) 2010-2011
+
 ?>
