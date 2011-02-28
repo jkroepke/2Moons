@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 /**
  *  2Moons
@@ -906,6 +906,7 @@ $LNG['cdg_fatal_error']                     = 'ERRO FATAL';
 $LNG['cff_no_fleet_data']					= 'Sem dados de frota';//----------------------------------------------------------------------------//
 $LNG['cff_fleet_own']						= 'Frota';
 $LNG['cff_fleet_target']					= 'Frotas';
+$LNG['cff_acs_fleet']						= 'Fleet em ACS';
 $LNG['cff_mission_acs']						= 'A %s de %s %s %s atingirá o %s %s %s. Missão: %s';
 $LNG['cff_mission_own_0']					= 'Uma de suas %s do %s %s %s atingirá o %s %s %s. Missão: %s';
 $LNG['cff_mission_own_1']					= 'Uma de suas %s retorna do %s %s %s voltando ao %s %s %s. Missão: %s';
@@ -1122,6 +1123,6 @@ $LNG['lo_redirect']							= 'Seguinte';
 $LNG['lo_notify']							= 'Será redireccionado dentro de <span id="seconds">5</ span> segundos';
 $LNG['lo_continue']							= 'Logout Sem Esperar';
 
-
+// Traduzido para Português por QwataKayean. Todos os direitos de autor Reservados (C) 2010-2011
 
 ?>

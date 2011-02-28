@@ -117,7 +117,7 @@ $LNG['ov_planet_rename_action']           = 'Переименовать';
 $LNG['ov_fields']                         = 'Поля';
 $LNG['ov_developed_fields']               = 'застроенная территория';
 $LNG['ov_max_developed_fields']           = 'Макс. количество полей';
-$LNG['ov_fleet']                          = 'Флоты';
+$LNG['ov_fleet']                          = 'флот';
 $LNG['ov_admins_online']                  = 'Админы (онлайн):';
 $LNG['ov_no_admins_online']               = 'Все админы оффлайн!';
 $LNG['ov_userbanner']                     = 'Баннер-статистика';
@@ -389,11 +389,11 @@ $LNG['rs_ress_bonus']                     = 'Бонус(Офицеры/Тёмн�
 // Офицеры
 $LNG['of_recruit']                        = 'Нанять';
 $LNG['of_max_lvl']                        = 'Максимальный уровень';
-$LNG['of_available_points']               = 'Доступно очков:';
-$LNG['of_points_per_thousand_darkmatter'] = '(1 очко офицера равно %d %s)';
+$LNG['of_available_points']               = 'Доступно:';
+$LNG['of_points_per_thousand_darkmatter'] = '(1 уровень офицера равен %d %s)';
 $LNG['of_lvl']                            = 'Уровень';
 $LNG['of_dm_trade']                       = '%s - Банк';
-$LNG['of_still']                          = 'По-прежнему';
+$LNG['of_still']                          = 'Осталось:';
 $LNG['of_active']                         = 'активный';
 $LNG['of_update']                         = 'Обновить';
 

@@ -383,6 +383,7 @@ $LNG['se_verfiy_mail']                  = 'Sistema de verificação de E-Mail';
 $LNG['se_verfiy_mail_info']             = 'Se esta opção estiver activa os jogadores teram de activar as suas contas.';
 $LNG['se_smtp']                         = 'Configurações de SMTP';
 $LNG['se_smtp_info']					= 'Introduza os dados do Servidor de SMTP para permitir a comunicação entre o servidor do 2Moons e os seus jogadores pelo Servidor de Email SMTP.';
+$LNG['se_mail_active']                 = 'Activação de Email?';
 $LNG['se_mail_use']						= 'Versão do E-mail:';
 $LNG['se_mail_sel'][0]					= 'PHP mail() Função';
 $LNG['se_mail_sel'][1]					= 'Sendmail / Qmail';
@@ -1050,5 +1051,11 @@ $LNG['ap_entfernen']					= 'deseja remover';
 $LNG['ap_insgesamt']					= 'Geral';
 $LNG['ap_nicht_aktivierte']				= 'Não foi ativado pelo usuário';
 $LNG['ap_nicht_aktivierte_user']		= 'Usuário não ativado';
+
+// MultiIP
+$LNG['mip_ip']							= 'IP Comum';
+$LNG['mip_user']						= 'Contas com IP Comum';
+
+// Traduzido para Português por QwataKayean. Todos os direitos de autor Reservados (C) 2010-2011
 
 ?>
