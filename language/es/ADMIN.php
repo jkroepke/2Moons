@@ -298,6 +298,7 @@ $LNG['ma_message']                                      = 'Mensaje';
 
 //---------------	PAGINA DE INICIO - OVERVIEW	------------------------//
 $LNG['ow_title']					= 'Bienvenido a 2Moons';
+$LNG['ow_donate']						= 'Donación';
 $LNG['ow_welcome_text']                                 = 'Bienvenido al siempre popular 2Moons. (:';
 $LNG['ow_overview']                                     = 'Panel de Control';
 $LNG['ow_support']					= 'Soporte';
@@ -309,7 +310,6 @@ $LNG['ow_special_thanks']                               = 'Agradecimientos Espec
 $LNG['ow_install_file_detected']                        = 'el directorio install/ se ha encontrado. Por razones de seguridad, se recomienda eliminar o cambiarle el nombre.';
 $LNG['ow_config_file_writable']                         = 'El archivo config.php tiene permisos de escritura, es aconsejable que se cambie los permisos con chmod 444 (s&oacute;lo lectura).';
 $LNG['ow_database_errors']                              = 'Hay errores presentes!';
-$LNG['ow_handler_errors']                               = 'El Controlador de flota ha fallado! - &Uacute;ltimo inicio: %s - Siguiente Inicio: %s';
 $LNG['ow_smtp_errors']                                  = 'Comprueba la configuraci&oacute; SMTP! - Actualmente no se estan mandado emails!';
 $LNG['ow_dir_not_writable']                             = 'No se puede escribir en el directorio ./%s!';
 $LNG['ow_old_version']                                  = 'Hay una nueva version disponible.';
@@ -375,6 +375,11 @@ $LNG['se_news']						= 'Noticias';
 $LNG['se_verfiy_mail']					= 'Verificar Direccion E-Mail';
 $LNG['se_verfiy_mail_info']                             = 'Si esta opci&oacute;n est&aacute; activada, los usuarios tienen que activar por correo. <br> Esto requiere que la configuraci&oacute;n SMTP este rellena.';
 $LNG['se_smtp']						= 'SMTP - Opciones';
+$LNG['se_mail_use']						= 'Versión de E-mail:';
+$LNG['se_mail_sel'][0]					= 'PHP mail() Función';
+$LNG['se_mail_sel'][1]					= 'Sendmail / Qmail';
+$LNG['se_mail_sel'][2]					= 'SMTP Auth';
+$LNG['se_smail_path']					= 'Path para Sendmail / Qmail';
 $LNG['se_smtp_info']					= 'Pon aqu&iacute; las opciones de SMTP. Esto permite a tu 2Moons comunicarse con tus jugadores a trav&eacute; de tu servidor de correo.';
 $LNG['se_smtp_host']					= 'Servidor SMTP:';
 $LNG['se_smtp_host_info']				= 'Inserte aqu&iacute; la direcci&oacute;n de su servidor SMTP.';
@@ -525,6 +530,9 @@ $LNG['cc_cache_clear']                                  = 'Cache clearned';
 
 //---------------	REINICIO DE UNIVERSO - RESET UNIVERSE	------------------------//
 $LNG['re_reset_universe']                               = 'Resetear Universo';
+$LNG['re_player_and_planets']			= 'Jugadores y Planetas';
+$LNG['re_reset_player']					= 'Resetear Jugadores (eliminar todos)';
+$LNG['re_reset_planets']				= 'Reseteat Planetas (eliminar colonias)';
 $LNG['re_reset_universe_confirmation']                  = 'Al pulsar OK, resetearas el universo a sus valores por defecto. ESTA OPERACI&Oacute;N NO ES REVERSIBLE! es tu responsabilidad de hacer una copia de seguridad de la base de datos.<br> Si *reinicias* las cuentas de usuario no se eliminar&aacute;n';
 $LNG['re_defenses_and_ships']                           = 'Hangar y Defensas';
 $LNG['re_defenses']                                     = 'Resetear defensas';
@@ -553,14 +561,13 @@ $LNG['re_reset_banned']                                 = 'Resetear baneados';
 $LNG['re_reset_messages']                               = 'Resetear mensajes';
 $LNG['re_reset_statpoints']                             = 'Resetear estadisticas';
 $LNG['re_reset_all']                                    = 'Resetear TODO el universo';
-$LNG['re_reset_h1']                                     = 'Resetear opciones';
 $LNG['re_reset_excess']                                 = 'Opciones reseteadas correctamente';
 //###########################################################//
 
 
 //---------------	INFORMACIÓN DE CUENTAS - DATA ACCOUNTS	------------------------//
 $LNG['ac_user_id_required']                             = 'Debes seleccionar un usuario!';
-$LNG['ac_select_one_id']                                = 'Por favor, elije s&oacute;lo un usuario!';
+$LNG['ac_select_one_id']                                = 'Por favor, elije sólo un usuario!';
 $LNG['ac_no_character']                                 = 'No aceptamos letras, s&oacute;lo n&uacute;meros!';
 $LNG['ac_select_id_num']                                = 'Escriba el ID (opcional)';
 $LNG['ac_select_username']                              = 'Seleccionar Jugador';
@@ -897,6 +904,7 @@ $LNG['fb_secrectkey']					= 'Facebook Secret Key';
 $LNG['fb_info']						= 'Con Facebook Connect los usuarios que est&aacute;n conectados a Facebook, pueden iniciar sesi&oacute;&oacute;n con un click, o registrarse. <br>  Para utilizar esta caracter&iacute;stica, usted debe estar registrado en Faceebok. Adem&aacute;s, debe crear una aplicaci&oacute;n. Esto se puede hacer en <a href="http://www.facebook.com/developers/"> http://www.facebook.com/developers/ </ a>. Como URL de conexi&oacute;n, debe introducir la direcci&oacute;n URL del juego. A continuaci&oacute;n, de introducir aqu&iacute; las claves y el juego deber&iacute;a estar listo Facebook. <br> <font Color="red"> de FB Connect, la entrega de correo estar&aacute; disponible! (SMTP settings)</font>';
 $LNG['fb_curl_yes']						= '<span style="color:green">cURL Instalado!</span>';
 $LNG['fb_curl_no']						= '<span style="color:red">cURL No Instalado! Facebook necesita las extensiones cURL para funcionar!</span>';
+$LNG['fb_app_url']                                      = 'Facebook URL';
 
 //----------------------------------------------------------------------------//
 //GameModule.php
@@ -938,6 +946,7 @@ $LNG['modul'][37]                                       = 'Estad&iacute;sticas B
 $LNG['modul'][26]                                       = 'Buscar';
 $LNG['modul'][27]                                       = 'Tickets de Soporte';
 $LNG['modul'][28]                                       = 'Tecnolog&iacute;a';
+$LNG['modul'][41]                                       = 'Facebook Application';
 $LNG['mod_module']                                      = 'Modulos';
 $LNG['mod_info']                                        = 'Modulos del juego';
 $LNG['mod_active']                                      = 'Activado';
@@ -991,10 +1000,9 @@ $LNG['uvs_error']					= 'Fichero de Importaci&oacute;n Invalido!';
 
 //Update Page
 $LNG['up_weiter']					= 'Further';
-$LNG['up_agent']					= 'User-Agent: 2Moons Update API (Rev ';
 $LNG['up_kein_update']					= 'No exiten actualizaciones!';
-$LNG['up_ftp_ok']					= 'Establecimiento de Conexi&oacute;n Ftp: OK! ';
-$LNG['up_ftp_error']					= 'Establecimiento de Conexi&oacute;n Ftp: ERROR! ';
+$LNG['up_ftp_ok']					= 'Establecimiento de Conexión Ftp: OK! ';
+$LNG['up_ftp_error']					= 'Establecimiento de Conexión Ftp: ERROR! ';
 $LNG['up_ftp_change']					= 'Ftp CHANGE you(';
 $LNG['up_ftp_ok']					= 'OK!';
 $LNG['up_ftp_change_error']				= 'ERROR! Path no encontrado!';
@@ -1013,6 +1021,12 @@ $LNG['up_add']						= 'A&ntilde;adir:';
 $LNG['up_edit']						= 'Editar:';
 $LNG['up_del']						= 'Eliminar';
 $LNG['up_update_server']				= 'Servidor de actualizaci&oacute;n no disponible';
+$LNG['up_password_title']				= 'Petición de contraseña';
+$LNG['up_password_info']				= 'Para poder actualizar necesitas la contraseña FTP.';
+$LNG['up_password_label']				= 'Contraseña:';
+$LNG['up_submit']						= 'Enviar';
+$LNG['up_version']						= 'Versión';
+
 
 //Active Page
 $LNG['ap_id']						= 'ID';

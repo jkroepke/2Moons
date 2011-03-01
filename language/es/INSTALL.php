@@ -5,7 +5,6 @@ $LNG['continue']			= "Continuar";
 $LNG['menu_intro']			= "Intro";
 $LNG['menu_install']		= "Instalar";
 $LNG['menu_license']		= "Licencia";
-$LNG['menu_convert']		= "Convertir";
 
 $LNG['intro_lang']			= "Idioma";
 $LNG['intro_instal']		= "Instalaci&oacute;n";
@@ -21,12 +20,10 @@ $LNG['reg_not_writable']	= "No escribible";
 $LNG['reg_file']			= "Archivo";
 $LNG['reg_dir']			    = "Carpeta";
 $LNG['reg_gd_need']		    = "GB-Lib disponible?";
-$LNG['reg_mysqli_need']	    = "MySQLi disponible?";
 $LNG['reg_bcmath_need']		= "BCMath disponible?";
 $LNG['reg_iniset_need']		= "ini_set() disponible?";
 $LNG['reg_json_need']		= "JSON disponible?";
 $LNG['req_php_need']		= "PHP-Version (min. 5.2.5)";
-$LNG['req_smode_active']	= "Modo seguro activado?";
 $LNG['req_ftp']				= "FTP";
 $LNG['req_ftp_info']		= "Escrive los detalles de tu FTP.";
 $LNG['req_ftp_host']		= "FTP Host";
@@ -36,7 +33,6 @@ $LNG['req_ftp_dir']			= "2Moons Path";
 $LNG['req_ftp_send']		= "Enviar";
 $LNG['req_ftp_pass_info']	= "Detalles de la contrase&ntilde;a.";
 
-$LNG['step1_notice_chmod']	= "Aseg&uacute;rese de que el config.php esta como \"CHMOD 777\", para que se pueda escribir!";
 $LNG['step1_mysql_server']	= "MySQL-DB-Server: <br>Standard: localhost";
 $LNG['step1_mysql_port']	= "MySQL-DB-Server-Port: <br>Standard: 3306";
 $LNG['step1_mysql_dbname']	= "MySQL-DB-Name: <br> Ex.: Game";
@@ -58,11 +54,5 @@ $LNG['step3_admin_mail']	= "Administrador E-Mail:";
 
 
 $LNG['step4_need_fields']	= "Usted tiene que llenar todos los campos!";
-
-$LNG['convert_install']		= "Por favor, ejecuta la instalaci&oacute;n de 2moons primero!";
-$LNG['convert_version']		= "Escoje tu versi&oacute;n actual:";
-$LNG['convert_info']		= "Inserta aqu&iacute; tus datos antiguos de base de datos!";
-$LNG['convert_submit']		= "Convertir a 2Moons";
-$LNG['convert_done']		= "Tarea ejecutada satisfactoriamente!";
 
 ?>
