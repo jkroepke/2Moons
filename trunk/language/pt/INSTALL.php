@@ -27,20 +27,20 @@
  */
  
 $LNG['continue']				= "Continuar";
-$LNG['menu_intro']				= "IntroduÁ„o";
+$LNG['menu_intro']				= "Introdu√ß√£o";
 $LNG['menu_install']			= "Instalar";
-$LNG['menu_license']			= "LicenÁa";
+$LNG['menu_license']			= "Licen√ßa";
 $LNG['menu_convert']			= "Converter";
 $LNG['intro_lang']				= "Idioma";
-$LNG['intro_instal']			= "InstalaÁ„o";
+$LNG['intro_instal']			= "Instala√ß√£o";
 $LNG['intro_welcome']			= "Bemvindo ao 2Moons!";
-$LNG['intro_text']				= "Bemvindo a um dos melhores clones do OGame , o 2Moons<br>A vers„o mais recente 2Moons porque a taxa fixa foi j· desenvolvido. 2Moons brilha pela estabilidade, flexibilidade, din‚mica, qualidade e facilidade de utilizaÁ„o. Desejamos sempre ser melhor do que suas expectativas.<br><br>Os guias de instalaÁ„o do sistema atravÈs da instalaÁ„o ou atualizaÁ„o de uma vers„o mais antiga para a mais Na d˙vida ou problema n„o hesite em contactar-nos (2moons.cc).<br><br>2Moons È um projeto de cÛdigo aberto licenciado sob a GNU GPL v3. Para obter a licenÁa, clique no item do menu.<br><br>Antes da instalaÁ„o comeÁar, um teste È realizado, se os requisitos do sistema s„o atendidas.";
+$LNG['intro_text']				= "Bemvindo a um dos melhores clones do OGame , o 2Moons<br>A vers√£o mais recente 2Moons porque a taxa fixa foi j√° desenvolvido. 2Moons brilha pela estabilidade, flexibilidade, din√¢mica, qualidade e facilidade de utiliza√ß√£o. Desejamos sempre ser melhor do que suas expectativas.<br><br>Os guias de instala√ß√£o do sistema atrav√©s da instala√ß√£o ou atualiza√ß√£o de uma vers√£o mais antiga para a mais Na d√∫vida ou problema n√£o hesite em contactar-nos (2moons.cc).<br><br>2Moons √© um projeto de c√≥digo aberto licenciado sob a GNU GPL v3. Para obter a licen√ßa, clique no item do menu.<br><br>Antes da instala√ß√£o come√ßar, um teste √© realizado, se os requisitos do sistema s√£o atendidas.";
 $LNG['reg_yes']					= "Sim";
-$LNG['reg_no']					= "N„o";
+$LNG['reg_no']					= "N√£o";
 $LNG['reg_found']				= "Encontrado";
-$LNG['reg_not_found']			= "N„o Encontrado";
+$LNG['reg_not_found']			= "N√£o Encontrado";
 $LNG['reg_writable']			= "Gravado";
-$LNG['reg_not_writable']		= "N„o Gravado";
+$LNG['reg_not_writable']		= "N√£o Gravado";
 $LNG['reg_file']				= "Ficheiro";
 $LNG['reg_dir']					= "Pasta";
 $LNG['reg_gd_need']				= "GB-Lib disponivel?";
@@ -48,16 +48,16 @@ $LNG['reg_mysqli_active']			= " MySQLi Encontrado?";
 $LNG['reg_json_need']			= "JSON disponivel?";
 $LNG['req_php_need']			= "PHP-Version (min. 5.2.5)";
 $LNG['req_smode_active']		= "Safemode activo?";
-$LNG['reg_bcmath_need']			= "BCMath DisponÌvel?";
+$LNG['reg_bcmath_need']			= "BCMath Dispon√≠vel?";
 $LNG['reg_iniset_need']			= "ini_set permitido?";
 $LNG['req_ftp']					= "FTP";
 $LNG['req_ftp_info']			= "Diga os dados do seu FTP para resolver o problema.";
 $LNG['req_ftp_host']			= "Host do FTP";
-$LNG['req_ftp_username']		= "Usu·rio";
+$LNG['req_ftp_username']		= "Usu√°rio";
 $LNG['req_ftp_password']		= "Senha";
 $LNG['req_ftp_dir']				= "Caminho para 2Moons";
 $LNG['req_ftp_send']			= "Enviar";
-$LNG['req_ftp_pass_info']		= "Sua senha n„o ser· Salva!";
+$LNG['req_ftp_pass_info']		= "Sua senha n√£o ser√° Salva!";
 $LNG['step1_notice_chmod']		= "Confirme se config.php esta configurado em \"CHMOD 777\", para poder gravar os dados!";
 $LNG['step1_mysql_server']		= "MySQL-Base de dados do Server: <br>Standard: localhost";
 $LNG['step1_mysql_port']		= "MySQL-Porta da base de dados do Server: <br>Standard: 3306";
@@ -66,22 +66,22 @@ $LNG['step1_mysql_dbuser']		= "MySQL-Utilizador da Base de Dados: <br> Ex.: root
 $LNG['step1_mysql_dbpass']		= "MySQL-Password da Base de Dados: <br> Ex.: 12345";
 $LNG['step1_mysql_prefix']		= "MySQL-Prefixo da Base de Dados: <br> Ex.: uni1_";
 $LNG['step2_db_error']			= "Erro ao criar a tabela(s) da base de dados: %s";
-$LNG['step2_db_con_fail']		= "N„o h· conex„o ‡ base de dados<br> %s";
-$LNG['step2_conf_op_fail']		= "config.php n„o esta configurado em CHMOD 777!";
-$LNG['step2_db_connet_ok']		= "A conex„o com o banco de dados foi com sucesso ...";
+$LNG['step2_db_con_fail']		= "N√£o h√° conex√£o √† base de dados<br> %s";
+$LNG['step2_conf_op_fail']		= "config.php n√£o esta configurado em CHMOD 777!";
+$LNG['step2_db_connet_ok']		= "A conex√£o com o banco de dados foi com sucesso ...";
 $LNG['step2_db_create_ok']		= "Tabelas de banco de dados criado com sucesso ....";
 $LNG['step2_conf_create']		= "config.php criado com sucesso ...";
-$LNG['step3_create_admin']		= "CriaÁ„o da Conta Administrativa";
+$LNG['step3_create_admin']		= "Cria√ß√£o da Conta Administrativa";
 $LNG['step3_admin_name']		= "Username do Admin:";
 $LNG['step3_admin_pass']		= "Password do Admin:";
 $LNG['step3_admin_mail']		= "Email do Admin:";
-$LNG['step4_need_fields']		= "Precisa de completar todos os espaÁos!";
-$LNG['convert_install']			= "Instalar a Convers„o - Execute a instalaÁ„o primeiro do 2Moons";
-$LNG['convert_version']			= "Vers„o da Convers„o - Escolha a vers„o da convers„o:";
-$LNG['convert_info']			= "InformaÁ„o da Convers„o - Escreva a antiga base de dados aqui";
+$LNG['step4_need_fields']		= "Precisa de completar todos os espa√ßos!";
+$LNG['convert_install']			= "Instalar a Convers√£o - Execute a instala√ß√£o primeiro do 2Moons";
+$LNG['convert_version']			= "Vers√£o da Convers√£o - Escolha a vers√£o da convers√£o:";
+$LNG['convert_info']			= "Informa√ß√£o da Convers√£o - Escreva a antiga base de dados aqui";
 $LNG['convert_submit']			= "Converter para 2Moons";
 $LNG['convert_done']			= "Convertido com Sucesso!";
 
-// Traduzido para PortuguÍs por QwataKayean. Todos os direitos de autor Reservados (C) 2010-2011
+// Traduzido para Portugu√™s por QwataKayean. Todos os direitos de autor Reservados (C) 2010-2011
 
 ?>
