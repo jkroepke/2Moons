@@ -1,26 +1,4 @@
-<?php
-
-##############################################################################
-# *                                                                          #
-# * 2MOONS                                                                   #
-# *                                                                          #
-# * @copyright Copyright (C) 2010 By ShadoX from titanspace.de               #
-# * @copyright Copyright (C) 2008 - 2009 By lucky from Xtreme-gameZ.com.ar   #
-# * @translate by languar                                                    #                                                        #
-# * @translate by cheekyvimto                                                #                                                        #
-# * @author ShadoX                                                           #
-# *	                                                                         #
-# *  This program is free software: you can redistribute it and/or modify    #
-# *  it under the terms of the GNU General Public License as published by    #
-# *  the Free Software Foundation, either version 3 of the License, or       #
-# *  (at your option) any later version.                                     #
-# *	                                                                         #
-# *  This program is distributed in the hope that it will be useful,         #
-# *  but WITHOUT ANY WARRANTY; without even the implied warranty of          #
-# *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the           #
-# *  GNU General Public License for more details.                            #
-# *                                                                          #
-##############################################################################
+﻿<?php
 
 //---------------	GENERAL	------------------------//
 $LNG['adm_login']		= 'Login';
@@ -42,7 +20,6 @@ $LNG['only_numbers']					= 'Numbers 0-9 Only!';
 $LNG['select_option']	 				= 'Select...'; 
 $LNG['ad_add_not_exist']		= 'ID does not exist!';
 
-
 // 	RANGO - RANK
 $LNG['rank'][0]						= 'Player';
 $LNG['rank'][1]						= 'Moderator';
@@ -56,7 +33,7 @@ $LNG['time_minutes']					= 'Minutes';
 $LNG['time_seconds']					= 'Seconds';
 //###########################################################//
 
-$LNG['info_information']	= 'Submit bugs at: <a href="http://2moons.cc" target="tracker">2Moons Board</a><br>Or there is no support!';
+$LNG['info_information']	= 'Submit bugs at: <a href="http://2moon.cc" target="tracker">2Moon Board</a><br>Or there is no support!';
 
 //---------------	�SI O NO? - YES OR NO? - JA ODER NEIN?	------------------------// 
 $LNG['one_is_yes'][1]					= 'Yes';
@@ -295,10 +272,10 @@ $LNG['ma_none']						= 'Global Message';
 $LNG['ma_message']					= 'Message';
 //###########################################################//
 
-
 //---------------	OVERVIEW	------------------------//
-$LNG['ow_title']					= 'Welcome to 2Moons';
-$LNG['ow_welcome_text']					= 'Welcome to the ever popular 2Moons. (:';
+$LNG['ow_title']					= 'Welcome to 2Moon';
+$LNG['ow_donate']					= 'Donation';
+$LNG['ow_welcome_text']					= 'Welcome to the ever popular 2Moon. (:';
 $LNG['ow_overview']					= 'Control Panel';
 $LNG['ow_support']					= 'Support';
 $LNG['ow_credits']					= 'Credits';
@@ -306,7 +283,7 @@ $LNG['ow_forum']					= 'Forums';
 $LNG['ow_proyect_leader']				= 'Project Leader';
 $LNG['ow_translator']					= 'Translators';
 $LNG['ow_special_thanks']				= 'Special Thanks';
-$LNG['ow_install_file_detected']			= 'install/ directory was found. For security reasons, we recommend that remove or rename it.';
+$LNG['ow_install_file_detected']			= 'The install.php was found. Please rename or delete it, so that their Game is protected.';
 $LNG['ow_config_file_writable']				= 'The config.php file can be written to, we recommend that you set its file permissions to CHMOD 444 (read only).';
 $LNG['ow_database_errors']				= 'There are errors present!';
 $LNG['ow_handler_errors']				= 'The Fleet Handler has failed! Last Start: %s - Next Start: %s';
@@ -375,7 +352,13 @@ $LNG['se_news']						= 'News';
 $LNG['se_verfiy_mail']					= 'EMail Address Verfication';
 $LNG['se_verfiy_mail_info']				= 'If this setting is enabled, players have to click an activation link sent to their by Email acccount.<br>Note: This requires the SMTP settings for your SMTP server to be filled in below.';
 $LNG['se_smtp']						= 'SMTP Settings';
-$LNG['se_smtp_info']					= 'Enter your SMTP Server settings here. This will allow your 2Moons software to communicate with your Players through your SMTP Email server.';
+$LNG['se_smtp_info']					= 'Enter your SMTP Server settings here. This will allow your 2Moon software to communicate with your Players through your SMTP Email server.';
+$LNG['se_mail_active']					= 'Mail Enable';
+$LNG['se_mail_use']						= 'Mail versand:';
+$LNG['se_mail_sel'][0]					= 'PHP mail() Function';
+$LNG['se_mail_sel'][1]					= 'Sendmail / Qmail';
+$LNG['se_mail_sel'][2]					= 'SMTP Auth';
+$LNG['se_smail_path']					= 'Path to sendmail / Qmail';
 $LNG['se_smtp_host']					= 'SMTP Host:';
 $LNG['se_smtp_host_info']				= 'Type the address of your SMTP server in here.';
 $LNG['se_smtp_ssl']					= 'SMTP Encryption Settings: No Encryption/SSL/TLS :';
@@ -390,7 +373,7 @@ $LNG['se_smtp_pass']					= 'SMTP Password:';
 $LNG['se_smtp_sendmail']               			= 'Sender Adress:';
 $LNG['se_smtp_sendmail_info']          			= 'Here is where your Return Email Address goes. The Return Email address entered here, does not need to be the same as the Sending Email address';                                        
 $LNG['se_ftp']						= 'FTP Settings';
-$LNG['se_ftp_info']					= 'Your 2Moons software comes with the capability of updating directly from the 2Moons Software Support server via FTP. To take advantage of this feature, you will need to setup an FTP account on your server, and then enter the required information below.  This will not create a security problem for you, as the 2Moons software requires this information to do the physical file transfers from your server.';
+$LNG['se_ftp_info']					= 'Your 2Moon software comes with the capability of updating directly from the 2Moon Software Support server via FTP. To take advantage of this feature, you will need to setup an FTP account on your server, and then enter the required information below.  This will not create a security problem for you, as the 2Moon software requires this information to do the physical file transfers from your server.';
 $LNG['se_ftp_host']					= 'FTP Host:';
 $LNG['se_ftp_user']					= 'FTP User:';
 $LNG['se_ftp_pass']					= 'FTP Password:';
@@ -522,10 +505,12 @@ $LNG['mu_clear_cache']				= 'Clear Cache';
 
 $LNG['cc_cache_clear']				= 'Cache clearned'; 
 
-
 //---------------	RESET UNIVERSE	------------------------//
 $LNG['re_reset_universe']		                = 'Reset Universe';
 $LNG['re_reset_universe_confirmation']	        	= 'By clicking OK, you will Reset your Universe to its default state. THIS OPERATION CANNOT BE REVERSED! It is your responsibility to make a backup of your database.<br>However, if you do a *Restart* of your Universe, accounts will NOT not be deleted.';
+$LNG['re_player_and_planets']			= 'Players and the planet';
+$LNG['re_reset_player']					= 'Reset player (remove all)';
+$LNG['re_reset_planets']				= 'Reset Planets (delete colonies)';
 $LNG['re_defenses_and_ships']                		= 'Ships and Defence';
 $LNG['re_defenses']                        		= 'Reset Defences';
 $LNG['re_ships']                            		= 'Reset Ships';
@@ -556,7 +541,6 @@ $LNG['re_reset_all']                        		= 'Reset the Universe';
 $LNG['re_reset_h1']                        		= 'Reset Options';
 $LNG['re_reset_excess']                    		= 'Options restarted Successfully!';
 //###########################################################//
-
 
 //---------------	INFORMACI�N DE CUENTAS - DATA ACCOUNTS	------------------------//
 $LNG['ac_user_id_required']                		= 'You must select a Player!';
@@ -649,7 +633,6 @@ $LNG['ac_note_k']					.= '<tr><th width=10%><font color=lime>K</font></th><th>Ov
 $LNG['ac_leyend']					= '[ Legend ]';
 $LNG['ac_no_rank_level']				= 'You do not have sufficient permission to view information about this player!';
 //###########################################################//
-
 
 //---------------	ADVANCED SEARCH	------------------------//
 $LNG['se_no_data']					=	"There is no data";
@@ -897,10 +880,12 @@ $LNG['fb_secrectkey']					= 'Facebook Secret Key';
 $LNG['fb_info']						= 'With Facebook Connect users who are logged on to Facebook, log in with my click, or register. <br>  to use this feature, you must be registered with Faceebok itself. In addition, you must create an Application. This you can do to <a href="http://www.facebook.com/developers/"> http://www.facebook.com/developers/ </ a>. As Connect URL, you must enter the URL to the game. Then you are carrying here the Keys and your game should be ready Facebook. <br> <font Color="red"> for FB Connect, the mail delivery will be available! (SMTP settings)</font>';
 $LNG['fb_curl_yes']						= '<span style="color:green">cURL Installed!</span>';
 $LNG['fb_curl_no']						= '<span style="color:red">cURL Not Installed! Facebook Requires cURL extension to work!</span>';
+$LNG['fb_app_url']                                      = 'Facebook URL';
 
 //----------------------------------------------------------------------------//
 //GameModule.php
 $LNG['modul'][0]                        		= 'Alliance';
+$LNG['modul'][39]						                = 'Battle Simulator';
 $LNG['modul'][2]                        		= 'Construction - Buildings';
 $LNG['modul'][3]                        		= 'Building - Research';
 $LNG['modul'][4]                        		= 'Construction - Fleets';
@@ -910,6 +895,7 @@ $LNG['modul'][7]                        		= 'Chat';
 $LNG['modul'][8]                        		= 'DM Bank';
 $LNG['modul'][9]                        		= 'Fleet';
 $LNG['modul'][10]                       		= 'Fleet - Handler';
+$LNG['modul'][40]						                = 'Fleets Shourtcuts';
 $LNG['modul'][11]                       		= 'Galaxy';
 $LNG['modul'][12]                       		= 'Hall of Fame';
 $LNG['modul'][13]                       		= 'Trader';
@@ -933,11 +919,13 @@ $LNG['modul'][20]                       		= 'Player Card';
 $LNG['modul'][21]                       		= 'Banned';
 $LNG['modul'][22]                       		= 'Records';
 $LNG['modul'][23]                       		= 'Resources';
+$LNG['modul'][38]						                = 'Fleet - Trader';
 $LNG['modul'][25]                       		= 'Statistics';
 $LNG['modul'][37]                       		= 'Statistics Banner';
 $LNG['modul'][26]                       		= 'Search';
 $LNG['modul'][27]                       		= 'Support Tickets';
 $LNG['modul'][28]                       		= 'Techtree';
+$LNG['modul'][41]                           = 'Facebook Application';
 $LNG['mod_module']					= 'Modules';
 $LNG['mod_info']					= 'Modules in the Game';
 $LNG['mod_active']					= 'Active';
@@ -991,7 +979,6 @@ $LNG['uvs_error']						= 'Invalid Import File!';
 
 //Update Page
 $LNG['up_weiter']						= 'Further';
-$LNG['up_agent']						= 'User-Agent: 2Moons Update API (Rev ';
 $LNG['up_kein_update']					= 'No update available!';
 $LNG['up_ftp_ok']						= 'Ftp connection establishment: OK! ';
 $LNG['up_ftp_error']					= 'Ftp connection establishment: ERROR! ';
@@ -1013,6 +1000,11 @@ $LNG['up_add']							= 'Add:';
 $LNG['up_edit']							= 'Edit:';
 $LNG['up_del']							= 'Dele';
 $LNG['up_update_server']				= 'Update Server currently not available';
+$LNG['up_password_title']				= 'Password Request';
+$LNG['up_password_info']				= 'To perform the update, the FTP password is required.';
+$LNG['up_password_label']				= 'Password:';
+$LNG['up_submit']						= 'Submit';
+$LNG['up_version']						= 'Version';
 
 //Active Page
 $LNG['ap_id']							= 'ID';
@@ -1027,5 +1019,9 @@ $LNG['ap_entfernen']					= ' to remove would like?';
 $LNG['ap_insgesamt']					= 'Altogether ';
 $LNG['ap_nicht_aktivierte']				= ' user did not activate available.';
 $LNG['ap_nicht_aktivierte_user']		= 'User did not activate';
+
+//MultiIPPage
+$LNG['mip_ip']							= 'IP';
+$LNG['mip_user']						= 'User';
 
 ?>
