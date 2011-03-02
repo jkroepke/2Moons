@@ -439,7 +439,7 @@ function redirectTo($URL)
 
 function ClearCache()
 {
-	$DIRS	= array('cache/UserBanner/', 'cache/');
+	$DIRS	= array('cache/');
 	foreach($DIRS as $DIR) {
 		$FILES = array_diff(scandir($DIR), array('..', '.', '.htaccess'));
 		foreach($FILES as $FILE) {

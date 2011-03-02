@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 //SERVER GENERALS
 $LNG['Metal']								= 'Metal';
@@ -103,7 +103,7 @@ $LNG['ov_diameter']							= 'Diameter';
 $LNG['ov_distance_unit']					= 'km';
 $LNG['ov_temperature']						= 'Temperature';
 $LNG['ov_aprox']							= 'Approximately';
-$LNG['ov_temp_unit']						= '°C';
+$LNG['ov_temp_unit']						= '&deg;C';
 $LNG['ov_to']								= 'to';
 $LNG['ov_position']							= 'Position';
 $LNG['ov_points']							= 'Points';
@@ -202,6 +202,7 @@ $LNG['gl_yes'] 								= 'Yes';
 $LNG['gl_no'] 								= 'No';
 $LNG['gl_points'] 							= 'Points';
 $LNG['gl_player']							= 'Player';
+$LNG['gl_to']								= 'to';
 
 //----------------------------------------------------------------------------//
 //PHALANX
@@ -377,11 +378,12 @@ $LNG['bd_more_engine']						= 'Produced <font color="#00FF00">%s</font> %s more'
 $LNG['bd_jump_gate_action']					= 'Jump to';
 $LNG['bd_cancel_warning']					= 'Dismatle gives 60% Original Resources!';
 $LNG['bd_cancel_send']						= 'Delete - Selected';
+$LNG['bd_destroy_time'] 					= 'Time';
 $LNG['sys_notenough_money'] 				= 'On %s <a href="?page=buildings&amp;cp=%d&amp;re=0">[%d:%d:%d]</a> you had insufficent resources to build %s. <br> At the time you had, %s %s , %s %s and %s %s. <br> However you needed %s %s , %s %s and %s %s.';
 $LNG['sys_nomore_level'] 					= 'You try to wreck a building which they do not have any more( %s ).';
 $LNG['sys_buildlist'] 						= 'Build List';
+$LNG['sys_techlist'] 						= 'Research List';
 $LNG['sys_buildlist_fail'] 					= 'Build List Fail';
-
 
 //----------------------------------------------------------------------------//
 //RESOURCES
@@ -510,6 +512,7 @@ $LNG['mg_send']								= 'Send';
 $LNG['mg_game_message']						= 'Game Message';
 $LNG['mg_message_send']						= 'Message sent!';
 $LNG['mg_empty_text']						= 'Enter Text';
+$LNG['mg_answer_to']						= 'Reply to:';
 
 //----------------------------------------------------------------------------//
 //ALLIANCE
@@ -814,7 +817,7 @@ $LNG['op_general_settings']					= 'General Options';
 $LNG['op_sort_planets_by']					= 'Sort planets by:';
 $LNG['op_sort_kind']						= 'Assortment sequence:';
 $LNG['op_lang']								= 'Language';
-$LNG['op_skin_example']						= 'Skin path (z.B. C:/2moons/skins/)';
+$LNG['op_skin_example']						= 'Skin path (z.B. C:/SG/skins/)';
 $LNG['op_show_skin']						= 'Display skin';
 $LNG['op_deactivate_ipcheck']				= 'Disable IP Check';
 $LNG['op_galaxy_settings']					= 'Galaxy View Options';
@@ -899,9 +902,6 @@ $LNG['cff_mission_target_bad']				= 'A Hostile %s From Player %s From %s %s %s S
 $LNG['cff_mission_target_good']				= 'A Hostile %s From Player %s From %s %s %s Spying Lokation %s %s %s. Mission: %s';
 $LNG['cff_mission_target_stay']				= 'A Peacefully %s From Player %s From %s %s %s where in orbit On %s %s %s. Mission: %s';
 $LNG['cff_mission_target_mip']				= 'Missile attack (%d) From Player %s From %s %s %s On Lokation %s %s %s.';
-
-
-
 
 //----------------------------------------------------------------------------//
 // EXTRA LANGUAGE FUNCTIONS
@@ -1082,7 +1082,6 @@ $LNG['rec_last_update_on']   				= 'Last update : %s';
 //----------------------------------------------------------------------------//
 // BattleSimulator
 
-
 $LNG['bs_derbis_raport']					= "Becoming it %s %s or %s %s needed for the expanse of rubble. ";
 $LNG['bs_steal_raport']						= "Becoming for the spoils %s %s or %s %s or %s %s needed.";
 $LNG['bs_names']							= "Shipname";
@@ -1110,7 +1109,5 @@ $LNG['lo_logout']						= 'Session ended';
 $LNG['lo_redirect']						= 'Redirect';
 $LNG['lo_notify']						= 'You will be redirected in <span id="seconds"> 5 </ span> s';
 $LNG['lo_continue']						= 'Click here if you are not redirected.';
-
-
 
 ?>

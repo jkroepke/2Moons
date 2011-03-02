@@ -30,7 +30,7 @@ google.load("feeds", "1");
         <td colspan="2"><a href="http://code.google.com/p/2moons/" target="_blank">Project Homepage</a><br>
         <a href="http://code.google.com/p/2moons/source/list" target="_blank">SVN Revision List</a><br>
 		<a href="http://www.titanspace.org/" target="_blank">Offical Betauni</a><br>
-		<!--<a href="http://2moons.cc/" target="_blank">2moons.cc - {$ow_forum}</a>--></td>
+		<a href="http://2moons.cc/" target="_blank">2moons.cc - {$ow_forum}</a></td>
     </tr> 
 	<tr>
 		<th style="width:50%;">{$ow_donate} - Paypal</th>
@@ -102,20 +102,23 @@ google.load("feeds", "1");
 					<td class="transparent"><h3>Team</h3></td>
                 </tr>
                 <tr>
-					<td class="transparent"><span style="color:orange">stealth - Entwickler/Moderator<br>Robbyn - Entwickler/Moderator<br>Lyon - Moderator<br>Freak1992 - Moderator</span></td>
+					<td class="transparent">
+					<span style="color:orange">Robbyn - Communityleitung<br>
+					Lyon - Forenadministrator<br>
+					Freak1992 - Forenadministrator<br>
+					Buggy666 - Forenmoderrator
+					</span></td>
                 </tr>
 		        <tr>
 					<td class="transparent"><h3>{$ow_translator}</h3></td>
                 </tr>
                 <tr>
-					<td class="transparent">languar (english)<br>
-					cheekyvimto (english)<br>
-					ssAAss (russian)<br>
+					<td class="transparent">
+					Z3roCooL (english)<br>
+					Yoda (frensh)<br>
+					QwataKayean (portuguese)<br>
 					InquisitorEA (russian)<br>
-					MiguelR(english &amp; portuguese)<br>
-					Naykee (portuguese)<br>
-					hanhot (chinese)<br>
-					cyceron (polnisch)</td>
+					</td>
                 </tr> 
                 <tr>
 					<td class="transparent"><h3>{$ow_special_thanks}</h3></td>
