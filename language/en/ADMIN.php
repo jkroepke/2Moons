@@ -33,7 +33,7 @@ $LNG['time_minutes']					= 'Minutes';
 $LNG['time_seconds']					= 'Seconds';
 //###########################################################//
 
-$LNG['info_information']	= 'Submit bugs at: <a href="http://2moon.cc" target="tracker">2Moon Board</a><br>Or there is no support!';
+$LNG['info_information']	= 'Submit bugs at: <a href="http://2moons.cc" target="tracker">2Moon Board</a><br>Or there is no support!';
 
 //---------------	�SI O NO? - YES OR NO? - JA ODER NEIN?	------------------------// 
 $LNG['one_is_yes'][1]					= 'Yes';
