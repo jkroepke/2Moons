@@ -298,7 +298,7 @@ switch ($Mode) {
 				$SQL .= "`email`             = '". $adm_email ."', ";
 				$SQL .= "`email_2`           = '". $adm_email ."', ";
 				$SQL .= "`ip_at_reg`         = '". $_SERVER['REMOTE_ADDR'] . "', ";
-				$SQL .= "`ip_at_reg`         = '". $LANG->GetUser() . "', ";
+				$SQL .= "`lang` 	         = '". $LANG->GetUser() . "', ";
 				$SQL .= "`authlevel`         = '3', ";
 				$SQL .= "`rights` 			 = '', ";
 				$SQL .= "`id_planet`         = '1', ";
