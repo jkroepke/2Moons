@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 //SERVER GENERALS
 $LNG['Metal']								= 'Metal';
