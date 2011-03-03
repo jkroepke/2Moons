@@ -31,7 +31,6 @@ if(!defined('IN_ADMIN') || !defined('IN_CRON'))
 
 ignore_user_abort(true);
 error_reporting(E_ALL ^ E_NOTICE);
-ini_set('zlib.output_compression', 'On');
 ini_set('display_errors', 1);
 header('Content-Type: text/html; charset=UTF-8');
 define('TIMESTAMP',	$_SERVER['REQUEST_TIME']);
@@ -55,7 +54,6 @@ ini_set('session.gc_divisor', '1000');
 ini_set('session.bug_compat_warn', '0');
 ini_set('session.bug_compat_42', '0');
 ini_set('session.cookie_httponly', true);
-ini_set('magic_quotes_runtime', 0);
 ini_set('error_log', ROOT_PATH.'/includes/error.log');
 
 if(!defined('LOGIN'))
