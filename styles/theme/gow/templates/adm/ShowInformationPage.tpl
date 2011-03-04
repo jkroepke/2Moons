@@ -3,9 +3,11 @@
 <table width="60%">
     <tr>
                 <td>{$info_information}
-                        <textarea rows="15">Server Infos: {$info}
+                        <textarea rows="25">Server Infos: {$info}
 PHP-Version: {$vPHP}
 PHP API: {$vAPI}
+SafeMode: {$safemode}
+MemoryLimit: {$memory}
 MySQL-Client-Version: {$vMySQLc}
 MySQL-Server-Version: {$vMySQLs}
 Game Version: 2Moons {$vGame}
@@ -13,6 +15,7 @@ Game Addresse: http://{$root}/
 Game Pfad: http://{$gameroot}/index.php
 JSON Verfügbar: {$json}
 BCMath Verfügbar: {$bcmath}
+cURL Verfügbar: {$curl}
 Browser: {$browser}
 Problem besteht seit Installation:
 Verwendeter Editor:
