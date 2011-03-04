@@ -1,15 +1,24 @@
 <Files "common.php">
-Order Allow,Deny
-Deny from All
+	Order Allow,Deny
+	Deny from All
 </Files>
 
 <Files "install.sql">
-Order Allow,Deny
-Deny from All
+	Order Allow,Deny
+	Deny from All
 </Files>
 
 AddDefaultCharset utf-8
 FileETag MTime Size
+
+<IfModule mod_deflate.c>
+	SetOutputFilter DEFLATE
+	BrowserMatch ^Mozilla/4 gzip-only-text/html
+	BrowserMatch ^Mozilla/4.0[678] no-gzip
+	BrowserMatch bMSI[E] !no-gzip !gzip-only-text/html
+	SetEnvIfNoCase Request_URI .(?:gif|jpe?g|png)$ no-gzip dont-vary
+	Header append Vary User-Agent env=!dont-vary
+</IfModule>
 
 <IfModule mod_gzip.c>
 	mod_gzip_on       Yes
