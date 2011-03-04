@@ -44,7 +44,10 @@ function ShowInformationPage()
 		'gameroot'			=> $_SERVER['SERVER_NAME'].str_replace('/admin.php', '', $_SERVER['PHP_SELF']),
 		'json'				=> function_exists('json_encode') ? 'Ja' : 'Nein',
 		'bcmath'			=> extension_loaded('bcmath') ? 'Ja' : 'Nein',
+		'curl'				=> extension_loaded('curl') ? 'Ja' : 'Nein',
 		'browser'			=> $_SERVER['HTTP_USER_AGENT'],
+		'safemode'			=> ini_get('safe_mode') ? 'Ja' : 'Nein',
+		'memory'			=> ini_get('memory_limit'),
 	));
 	
 	$template->show('adm/ShowInformationPage.tpl');
