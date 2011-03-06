@@ -35,7 +35,10 @@ function ShowOverviewPage()
 	if ($USER['authlevel'] >= AUTH_ADM)
 	{
 		if(file_exists(ROOT_PATH.'install.php'))
-			$Message[]	= $LNG['ow_install_file_detected'];
+			$Message[]	= sprintf($LNG['ow_file_detected'], 'install.php');
+			
+		if(file_exists(ROOT_PATH.'install.sql'))
+			$Message[]	= sprintf($LNG['ow_file_detected'], 'install.sql');
 			
 		if(is_writable(ROOT_PATH.'includes/config.php'))
 			$Message[]	= $LNG['ow_config_file_writable'];

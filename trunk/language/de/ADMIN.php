@@ -318,13 +318,13 @@ $LNG['ow_forum']					= 'Forum';
 $LNG['ow_proyect_leader']			= 'Projektleitung';
 $LNG['ow_translator']				= 'Übersetzter';
 $LNG['ow_special_thanks']			= 'Besonderes Dankeschön';
-$LNG['ow_install_file_detected']	= 'Die install.php wurde gefunden. Bitte dies umbennen oder löschen, damit ihr Game geschützt ist.';
+$LNG['ow_file_detected']			= 'Die %s wurde gefunden. Bitte dies umbennen oder löschen, damit ihr Game geschützt ist.';
 $LNG['ow_config_file_writable']		= 'Die config.php ist beschreibar.';
 $LNG['ow_database_errors']			= 'Es sind Fehler vorhanden!';
 $LNG['ow_smtp_errors']				= 'Überprüfe deine SMTP-Einstellungen! - Momentan können keine Mails gesendet werden!';
 $LNG['ow_dir_not_writable']			= './%s ist nicht beschreibar!';
-$LNG['ow_old_version']				= 'Eine neue Version ist verfügbar.';
 $LNG['ow_none']						= 'Keine Warnungen';
+
 //###########################################################//
 
 
