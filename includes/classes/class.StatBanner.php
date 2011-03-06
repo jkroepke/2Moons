@@ -88,6 +88,9 @@ class StatBanner {
 		imagestring($image, 2, 170, 45, $b_def,  $select);
 		imagestring($image, 2, 15,  60, $b_total,  $select);
 
+		if(!isset($_GET['debug']))
+			header("Content-type: image/png");
+			
 		// Creat and delete banner
 		ImagePNG($image);
 		imagedestroy($image);
@@ -99,6 +102,9 @@ class StatBanner {
 		$date   = date(DATEFORMAT);
 
 		$Font	= ROOT_PATH.'styles/arial.ttf';
+		if(!file_exists($Font))
+			exit('TTF Font missing!');
+			
 		// Variables
 		$b_univ   = iconv("UTF-8", "koi8-r", $Query['game_name']);
 		$b_user   = iconv("UTF-8", "koi8-r", $Query['username']);
@@ -135,7 +141,10 @@ class StatBanner {
         imagettftext($image, 10, 0, 230, 36, $select, $Font, LanguageConv::ToCyrillic($b_search));
         imagettftext($image, 10, 0, 230, 51, $select, $Font, LanguageConv::ToCyrillic($b_def));
         imagettftext($image, 10, 0, 15,  66, $select, $Font, LanguageConv::ToCyrillic($b_total));
-		// Creat and delete banner
+				
+		if(!isset($_GET['debug']))
+			header("Content-type: image/png");
+			
 		ImagePNG($image);
 		imagedestroy($image);
 	}

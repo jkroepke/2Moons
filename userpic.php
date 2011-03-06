@@ -46,8 +46,6 @@ $LANG->includeLang(array('BANNER'));
 
 require_once(ROOT_PATH."includes/classes/class.StatBanner.php");
 
-if(!isset($_GET['debug']))
-	header("Content-type: image/png"); 
 
 $banner = new StatBanner();
 $Data	= $banner->GetData($id);
