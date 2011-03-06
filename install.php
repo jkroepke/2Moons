@@ -247,8 +247,6 @@ switch ($Mode) {
 					exit(sprintf($LNG['step2_db_error'], $MSG));
 
 				file_put_contents(ROOT_PATH."includes/config.php", sprintf(file_get_contents(ROOT_PATH."includes/config.sample.php"), $database['host'], $database['port'], $database['user'], $database['userpw'], $database['databasename'], $prefix, mt_rand(1000, 9999999999)));
-
-				@chmod(ROOT_PATH."includes/config.php", 0444);
 				exit(json_encode(array('msg' => implode("\r\n", array($LNG['step2_db_connet_ok'], $LNG['step2_db_create_ok'], $LNG['step2_conf_create'])), 'error' => false)));
 			break;
 		}
@@ -357,6 +355,8 @@ switch ($Mode) {
 				$SESSION       	= new Session();
 				$SESSION->CreateSession(1, $adm_user, 1, 1, 3);
 				$_SESSION['admin_login']	= $md5pass;
+				unlink(__FILE__);
+				unlink(ROOT_PATH.'/install.sql');
 				redirectTo('admin.php');
 			break;
 		}
