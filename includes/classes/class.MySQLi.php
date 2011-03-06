@@ -29,6 +29,7 @@
 class DB_mysqli extends mysqli
 {
 	protected $con;
+	protected $exception;
 
 	/**
 	 * Constructor: Set database access data.
@@ -43,7 +44,8 @@ class DB_mysqli extends mysqli
 	 */
 	public function __construct($exception = true)
 	{
-		$this->con = $GLOBALS['database'];
+		$this->con			= $GLOBALS['database'];
+		$this->exception	= $exception;
 
         if (!isset($this->con['port'])) {
             $this->con['port'] = 3306;
@@ -53,7 +55,7 @@ class DB_mysqli extends mysqli
 
 		if(mysqli_connect_error())
 		{
-			if($exception == true)
+			if($this->exception == true)
 				throw new Exception("Connection to database failed: ".mysqli_connect_error());
 			elseif(defined('INSTALL'))
 				return false;
@@ -89,7 +91,7 @@ class DB_mysqli extends mysqli
 		}
 		else
 		{
-			if($exception == true) {
+			if($this->exception == true) {
 				throw new Exception("SQL Error: ".$this->error."<br><br>Query Code: ".$resource);
 			} else {
 				return "SQL Error: ".$this->error;
@@ -270,7 +272,7 @@ class DB_mysqli extends mysqli
 	
 		if ($this->errno)
 		{
-			if($exception == true) {
+			if($this->exception == true) {
 				throw new Exception("SQL Error: ".$this->error."<br><br>Query Code: ".$resource);
 			} else {
 				return "SQL Error: ".$this->error;
