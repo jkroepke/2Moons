@@ -1,4 +1,1 @@
-AuthType Basic
-AuthName "Forbidden"
-AuthUserFile /dev/null
-require user nobody
+Deny from all
