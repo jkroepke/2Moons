@@ -344,6 +344,7 @@ class template
 			exit;
 		}
 		$this->show('error_message_body.tpl');
+		exit;
 	}
 }
 

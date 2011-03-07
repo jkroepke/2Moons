@@ -64,6 +64,10 @@ switch($page)
 		include_once(ROOT_PATH . 'includes/pages/adm/ShowConfigPage.php');
 		ShowConfigPage();
 	break;
+	case 'chat':
+		include_once(ROOT_PATH . 'includes/pages/adm/ShowChatConfigPage.php');
+		ShowChatConfigPage();
+	break;
 	case 'teamspeak':
 		include_once(ROOT_PATH . 'includes/pages/adm/ShowTeamspeakPage.php');
 		ShowTeamspeakPage();

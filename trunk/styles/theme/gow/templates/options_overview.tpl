@@ -51,8 +51,8 @@
             {html_options name=settings_order options=$Selectors.SortUpDown selected=$planet_sort_order}
         </td>
     </tr><tr>
-        <td>{$op_skin_example}</td>{$opt_dpath_data}
-        <td><select name="dpath" id="dpath">{html_options options=$Selectors.Skins selected=$opt_dpatd_data_sel}</select></td>
+        <td>{$op_skin_example}</td>
+        <td><select name="dpath" id="dpath">{html_options options=$Selectors.Skins selected=$opt_dpath_data}</select></td>
     </tr><tr>
         <td>{$op_show_skin}</td>
         <td><input name="design" type="checkbox" {if $opt_sskin_data == 1}checked="checked"{/if}></td>

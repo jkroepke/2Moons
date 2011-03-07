@@ -499,6 +499,7 @@ $LNG['ul_sure_you_want_dlte']		= 'Are you sure that you want to remove?';
 $LNG['mu_general']					= 'General';
 $LNG['mu_connected']				= 'Online';
 $LNG['mu_settings']					= 'Konfiguration';
+$LNG['mu_chat']						= 'Chat Konfiguration';
 $LNG['mu_global_message']			= 'Globale Nachrichten';
 $LNG['mu_users_settings']			= 'Menü Bearbeiten';
 $LNG['mu_add_delete_resources']		= 'Account Editor';
@@ -524,7 +525,6 @@ $LNG['mu_info_account_page']		= 'Account Information';
 $LNG['mu_planets_options']			= 'Options Planets';
 $LNG['mu_user_logs']				= 'Log';
 $LNG['mu_support']                 	= 'Support-Tickets';
-$LNG['mu_chat']                   	= 'Chat-Admin';
 $LNG['mu_module']                 	= 'Module';
 $LNG['mu_update']                 	= 'Game-Updates';
 $LNG['mu_mod_update']              	= 'Mod Versions Control';
@@ -1040,6 +1040,27 @@ $LNG['up_password_label']				= 'Passwort:';
 $LNG['up_submit']						= 'Absenden';
 $LNG['up_version']						= 'Version';
 
+//Chat Page
+$LNG['ch_socket_chatid_info']			= 'This ID can be used to distinguish between different chat installations using the same socket server';
+$LNG['ch_socket_port_info']				= 'Defines the port of the socket server';
+$LNG['ch_socket_ip_info']				= 'Defines the IP of the socket server used to connect from server side to broadcast update messages';
+$LNG['ch_socket_host_info']				= 'Defines the hostname of the socket server used to connect from client side (the server hostname is used if set to null)';
+$LNG['ch_socket_chatid']				= 'Socket ChatID';
+$LNG['ch_socket_port']					= 'Socket Port';
+$LNG['ch_socket_ip']					= 'Socket IP';
+$LNG['ch_socket_host']					= 'Socket Hostname';
+$LNG['ch_socket_active']				= 'Socket aktiv?';
+$LNG['ch_socket']						= 'Einstellungen Socket Server';
+$LNG['ch_closed']						= 'Chat geschlossen?';
+$LNG['ch_allowchan']					= 'Erlaube Private Channels';
+$LNG['ch_allowmes']						= 'Erlaube Private Nachrichten';
+$LNG['ch_allowcelmes']					= 'Eigende Nachrichten löschen';
+$LNG['ch_logmessage']					= 'Aktiviere Logmessages';
+$LNG['ch_nickchange']					= 'Erlaube Nickwechsel';
+$LNG['ch_botname']						= 'Botname';
+$LNG['ch_channelname']					= 'Standart Channelname';
+
+
 //Active Page
 $LNG['ap_id']							= 'ID';
 $LNG['ap_username']						= 'Benutzername';
@@ -1056,7 +1077,6 @@ $LNG['ap_nicht_aktivierte_user']		= 'Nicht aktivierte User';
 
 
 //MultiIPPage
-
 $LNG['mip_ip']							= 'IP';
 $LNG['mip_user']						= 'User';
 
