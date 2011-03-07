@@ -168,7 +168,7 @@ class ShowAlliancePage
 								
 								$tagquery = $db->countquery("SELECT COUNT(*) FROM `".ALLIANCE."` WHERE `ally_universe` = '".$UNI."' AND (ally_tag = '".$db->sql_escape($atag)."' OR ally_name = '".$db->sql_escape($aname)."');");
 
-								if ($tagquery == 0)
+								if ($tagquery != 0)
 									$template->message(sprintf($LNG['al_already_exists'], $aname), "?page=alliance&mode=make", 3);
 								
 								$db->multi_query("INSERT INTO ".ALLIANCE." SET

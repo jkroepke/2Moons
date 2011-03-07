@@ -817,7 +817,7 @@ $LNG['op_general_settings']					= 'Generelle Einstellungen';
 $LNG['op_sort_planets_by']					= 'Planeten sortieren nach';
 $LNG['op_sort_kind']						= 'Sortierungsreihenfolge';
 $LNG['op_lang']								= 'Sprache';
-$LNG['op_skin_example']						= 'Grafikpfad (z.B. C:/2moons/skins/)';
+$LNG['op_skin_example']						= 'Theme';
 $LNG['op_show_skin']						= 'Skin anzeigen';
 $LNG['op_deactivate_ipcheck']				= 'IP-Check deaktivieren';
 $LNG['op_galaxy_settings']					= 'Galaxieansicht Einstellungen';
@@ -1008,30 +1008,6 @@ $LNG['pl_unitslose']    					= 'Verlorene Units';
 $LNG['pl_dermetal']    						= 'Gesamt Trümmerfeld Metall';
 $LNG['pl_dercrystal']   					= 'Gesamt Trümmerfeld Kristall';
 $LNG['pl_etc']   							= 'Kontakt';
-
-//----------------------------------------------------------------------------//
-// Chat
-
-$LNG['chat_title']                         	= 'Chat';
-$LNG['chat_ally_title']                    	= 'Allianzchat';  
-$LNG['chat_bbcode']                    		= 'BB-Codes';  
-$LNG['chat_fontcolor']                    	= 'Schriftfarbe';  
-
-$LNG['chat_disc']                          	= 'Chat';
-$LNG['chat_message']                       	= 'Nachricht';
-$LNG['chat_send']                          	= 'Senden';
-$LNG['chat_admin']                       	= '<font color="red">Admin %s</font>';
-$LNG['chat_color_white']					= 'Weiß';
-$LNG['chat_color_blue']						= 'Blau';
-$LNG['chat_color_yellow']					= 'Gelb';
-$LNG['chat_color_green']					= 'Grün';
-$LNG['chat_color_pink']						= 'Pink';
-$LNG['chat_color_red']						= 'Rot';
-$LNG['chat_color_orange']					= 'Orange';
-
-$LNG['chat_notext']							= 'Gebe einen Text ein!';
-$LNG['chat_request_url']					= 'Bitte geben sie einen Link ein:';
-$LNG['chat_request_url_desc']				= 'Bitte geben sie eine Beschreiben für den Link ein (optional):';
 
 //----------------------------------------------------------------------------//
 // Support

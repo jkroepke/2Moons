@@ -283,8 +283,8 @@ switch($page)
 		if(CheckModule(7))
 			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
-		include_once(ROOT_PATH . 'includes/pages/class.ShowChatPage.php');
-		new ShowChatPage();
+		include_once(ROOT_PATH . 'includes/pages/ShowChatPage.php');
+		ShowChatPage();
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
     case 'support':

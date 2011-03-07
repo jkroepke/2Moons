@@ -98,18 +98,39 @@ CREATE TABLE IF NOT EXISTS `prefix_buddy` (
   KEY `universe` (`universe`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `prefix_chat` (
-  `messageid` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `user` varchar(32) NOT NULL DEFAULT '',
-  `message` varchar(255) NOT NULL,
-  `timestamp` int(11) NOT NULL DEFAULT '0',
-  `ally_id` int(11) unsigned NOT NULL DEFAULT '0',
-  `universe` tinyint(3) unsigned NOT NULL,
-  PRIMARY KEY (`messageid`),
-  KEY `timestamp` (`timestamp`),
-  KEY `ally_id` (`ally_id`),
-  KEY `universe` (`universe`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `prefix_chat_online` (
+	userID INT(11) NOT NULL,
+	userName VARCHAR(64) NOT NULL,
+	userRole INT(1) NOT NULL,
+	channel INT(11) NOT NULL,
+	dateTime DATETIME NOT NULL,
+	ip VARBINARY(16) NOT NULL
+) DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+CREATE TABLE IF NOT EXISTS `prefix_chat_messages` (
+	id INT(11) NOT NULL AUTO_INCREMENT,
+	userID INT(11) NOT NULL,
+	userName VARCHAR(64) NOT NULL,
+	userRole INT(1) NOT NULL,
+	channel INT(11) NOT NULL,
+	dateTime DATETIME NOT NULL,
+	ip VARBINARY(16) NOT NULL,
+	text TEXT,
+	PRIMARY KEY (id)
+) DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+CREATE TABLE IF NOT EXISTS `prefix_chat_bans` (
+	userID INT(11) NOT NULL,
+	userName VARCHAR(64) NOT NULL,
+	dateTime DATETIME NOT NULL,
+	ip VARBINARY(16) NOT NULL
+) DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+CREATE TABLE IF NOT EXISTS `prefix_chat_invitations` (
+	userID INT(11) NOT NULL,
+	channel INT(11) NOT NULL,
+	dateTime DATETIME NOT NULL
+) DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 CREATE TABLE IF NOT EXISTS `prefix_config`( 
   `uni` int(11) NOT NULL AUTO_INCREMENT,
