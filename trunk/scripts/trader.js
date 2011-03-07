@@ -12,7 +12,7 @@ function calcul(ress)
 				$("#metal").text("Nur Nummern");
 			}
 			else 
-				$("#metal").text(Metal);
+				$("#metal").text(NumberGetHumanReadable(Metal));
 		break;
 		case 'crystal':
 			var Metal   = $("#metal").val();
@@ -23,7 +23,7 @@ function calcul(ress)
 			if (isNaN(Crystal))
 				$("#crystal").text("Nur Nummern");
 			else 
-				$("#crystal").text(Crystal);
+				$("#crystal").text(NumberGetHumanReadable(Crystal));
 		break;
 		case 'deuterium':
 			var Metal   = $("#metal").val();
@@ -34,7 +34,7 @@ function calcul(ress)
 			if (isNaN(Deuterium))
 				$("#deuterium").text("Nur Nummern");
 			else 
-				$("#deuterium").text(Deuterium);
+				$("#deuterium").text(NumberGetHumanReadable(Deuterium));
 		break;
 	}
 }
