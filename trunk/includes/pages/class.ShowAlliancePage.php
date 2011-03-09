@@ -157,14 +157,20 @@ class ShowAlliancePage
 								$atag	= request_var('atag' , '', UTF8_SUPPORT);
 								$aname	= request_var('aname', '', UTF8_SUPPORT);
 								
-								if (empty($atag))
+								if (empty($atag)) {
 									$template->message($LNG['al_tag_required'], "?page=alliance&mode=make", 3);
-
-								if (empty($aname))
-									$template->message($LNG['al_name_required'], "?page=alliance&mode=make", 3);
+									exit;
+								}
 								
-								if (!CheckName($aname) || !CheckName($atag))
+								if (empty($aname)) {
+									$template->message($LNG['al_name_required'], "?page=alliance&mode=make", 3);
+									exit;
+								}
+								
+								if (!CheckName($aname) || !CheckName($atag)) {
 									$template->message((UTF8_SUPPORT) ? $LNG['al_newname_no_space'] : $LNG['al_newname_alphanum'], "?page=alliance&mode=make", 3);
+									exit;
+								}
 								
 								$tagquery = $db->countquery("SELECT COUNT(*) FROM `".ALLIANCE."` WHERE `ally_universe` = '".$UNI."' AND (ally_tag = '".$db->sql_escape($atag)."' OR ally_name = '".$db->sql_escape($aname)."');");
 

@@ -228,7 +228,7 @@ class ShowOptionsPage
 				}
 				else
 					$template->message($LNG['op_options_changed'], '?page=options', 3);
-				
+					
 				$db->multi_query($SQLQuery);
 			break;
 			default:
