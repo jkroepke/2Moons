@@ -40,17 +40,20 @@ function ShowOverviewPage()
 		if(file_exists(ROOT_PATH.'install.sql'))
 			$Message[]	= sprintf($LNG['ow_file_detected'], 'install.sql');
 			
-		if(is_writable(ROOT_PATH.'includes/config.php'))
-			$Message[]	= $LNG['ow_config_file_writable'];
-		
+		if(file_exists(ROOT_PATH.'update.php'))
+			$Message[]	= sprintf($LNG['ow_file_detected'], 'update.php');
+			
+		if(file_exists(ROOT_PATH.'webinstall.php'))
+			$Message[]	= sprintf($LNG['ow_file_detected'], 'webinstall.php');
+					
+		if(!is_writable(ROOT_PATH.'cache'))
+			$Message[]	= sprintf($LNG['ow_dir_not_writable'], 'cache');
+			
 		if(!is_writable(ROOT_PATH.'includes'))
 			$Message[]	= sprintf($LNG['ow_dir_not_writable'], 'includes');
 			
 		if(!is_writable(ROOT_PATH.'raports'))
 			$Message[]	= sprintf($LNG['ow_dir_not_writable'], 'raports');
-		
-		if($CONF['user_valid'] == 1 && (empty($CONF['smtp_host']) || empty($CONF['smtp_port']) || empty($CONF['smtp_user']) || empty($CONF['smtp_pass'])))
-			$Message[]	= $LNG['ow_smtp_errors'];
 	}
 	
 	$template	= new template();
