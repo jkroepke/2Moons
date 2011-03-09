@@ -10,6 +10,7 @@
 <meta name="robots" content="index, follow">
 <link rel="stylesheet" type="text/css" href="./styles/css/ingame.css">
 <link rel="stylesheet" type="text/css" href="{$dpath}formate.css">
+<link rel="stylesheet" type="text/css" href="./styles/css/jquery.css">
 <link rel="icon" href="favicon.ico">
 </head>
 <body>

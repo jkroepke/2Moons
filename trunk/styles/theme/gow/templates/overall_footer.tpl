@@ -10,8 +10,8 @@ var Skin		= "{$dpath}";
 var Lang		= "{$lang}";
 var auth		= {$authlevel};
 </script>
+<script type="text/javascript" src="{$cd}scripts/jQuery.js?v={$REV}"></script>
 <script type="text/javascript" src="{$cd}scripts/base.js?v={$REV}"></script>
-<script type="text/javascript" src="{$cd}scripts/global.js?v={$REV}"></script>
 {foreach item=scriptname from=$scripts}
 <script type="text/javascript" src="{$cd}scripts/{$scriptname}.js?v={$REV}"></script>
 {/foreach}

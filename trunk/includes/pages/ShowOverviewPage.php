@@ -107,7 +107,6 @@ function ShowOverviewPage()
 
 	$db->free_result($OnlineAdmins);
 	
-	$template->loadscript('mbContainer.js');
 	$template->loadscript('overview.js');
 	$template->execscript('GetFleets(true);');
 	

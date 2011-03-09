@@ -14,6 +14,7 @@
 {if $goto}
 <meta http-equiv="refresh" content="{$gotoinsec};URL={$goto}">
 {/if}
+<script type="text/javascript" src="./scripts/jQuery.js"></script>
 <script type="text/javascript" src="./scripts/base.js"></script>
 <script type="text/javascript" src="./scripts/filterlist.js"></script>
 {foreach item=scriptname from=$scripts}

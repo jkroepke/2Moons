@@ -1,12 +1,4 @@
-$(function(){
-  $(".containerPlus").buildContainers({
-	containment:"document",
-	elementsPath:"styles/css/mbContainer/",
-	effectDuration:500,
-	slideTimer:300,
-	autoscroll:true,
-  });
-});
+$('#dialog').dialog({ autoOpen: false, width: 450, height: 150});
 
 function checkrename()
 {

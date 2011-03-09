@@ -3,7 +3,7 @@
 </td></tr></table>
 </div>
 <div id="fb-root"></div>
-<script type="text/javascript" src="scripts/base.js"></script>
+<script type="text/javascript" src="scripts/jQuery.js"></script>
 <script type="text/javascript" src="scripts/login.js"></script>
 <script type="text/javascript">
 IsCaptchaActive 	= {$game_captcha};
