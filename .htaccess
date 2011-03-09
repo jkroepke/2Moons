@@ -35,10 +35,13 @@ FileETag MTime Size
 	ExpiresDefault A3600
 
 	<FilesMatch \.js$>
-	ExpiresDefault A3600
+	ExpiresDefault A43200
 	</FilesMatch>
-	<FilesMatch \.(?:gif|jpe?g|png)$>
-	ExpiresDefault A86400
+	<FilesMatch \.css$>
+	ExpiresDefault A172800
+	</FilesMatch>
+	<FilesMatch \.(?:gif|jpe?g|png|ico)$>
+	ExpiresDefault A604800
 	</FilesMatch>
 	<FilesMatch \.php$>
 		ExpiresActive Off

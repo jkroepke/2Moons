@@ -94,7 +94,7 @@
     </table></td>
 	<td class='languages_container'>
 	{foreach $langs as $lng}
-	<a href="?lang={$lng}"><img src="./styles/images/login/{$lng}.png" alt="" width="16" height="11"></a>
+	<a href="?lang={$lng}"><span class="flags {$lng}"></span></a>
 	{/foreach}
 	{if $bgm_active}&nbsp;&bull;&nbsp;<a onclick="music()" style="cursor:pointer;" id="music">{$music_off}</a></td>{/if}
   </tr>
