@@ -27,7 +27,6 @@
  */
 
 if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__))) exit;
-@set_time_limit(0);
 
 function ShowUpdatePage()
 {
@@ -39,85 +38,14 @@ function ShowUpdatePage()
 		update_config(array('VERSION' => $Temp[0].'.'.$Temp[1].'.'.$Temp[2]), true);
 	}
 	
-	$Patchlevel	= explode(".",$GLOBALS['CONF']['VERSION']);
-	if($_REQUEST['action'] == 'history')
-		$Level		= 0;	
-	elseif(isset($Patchlevel[2]))
-		$Level		= $Patchlevel[2];
-			
-	switch($_REQUEST['action'])
+	$ACTION	= request_var('action', '');
+	switch($ACTION)
 	{
 		case "download":
-			$UpdateArray 	= getDatafromServer('getupdate');
-			if(!is_array($UpdateArray['revs']))
-				exitupdate(array('debug' => array('noupdate' => $LNG['up_kein_update'])));
-
-			require_once(ROOT_PATH.'includes/libs/zip/zip.lib.php');				
-			$SVN_ROOT		= $UpdateArray['info']['svn'];
-			
-			$zipfile 	= new zipfile();
-			$TodoDelete	= "";
-			$Files		= array('add' => array(), 'edit' => array(), 'del' => array());
-			$FirstRev	= 0;
-			$LastRev	= 0;
-			foreach($UpdateArray['revs'] as $Rev => $RevInfo) 
-			{
-				if(!empty($RevInfo['add']))
-				{
-					foreach($RevInfo['add'] as $File)
-					{	
-						if(in_array($File, $Files['add']) || strpos($File, '.') === false)
-							continue;
-							
-						$Files['add'][] = $File;
-						
-						$zipfile->addFile(@file_get_contents($SVN_ROOT.$File), str_replace("/trunk/", "", $File), $RevInfo['timestamp']);					
-					}
-				}
-				if(!empty($RevInfo['edit']))
-				{
-					foreach($RevInfo['edit'] as $File)
-					{	
-						if(in_array($File, $Files['edit']) || strpos($File, '.') === false) 
-							continue;
-							
-							$Files['edit'][] = $File;
-							
-							$zipfile->addFile(@file_get_contents($SVN_ROOT.$File), str_replace("/trunk/", "", $File), $RevInfo['timestamp']);
-						
-					}
-				}
-				if(!empty($RevInfo['del']))
-				{
-					foreach($RevInfo['del'] as $File)
-					{
-						if(in_array($File, $Files['del']) || strpos($File, '.') === false)
-							continue;
-						$Files['del'][] = $File;
-
-						$TodoDelete	.= str_replace("/trunk/", "", $File)."\r\n";
-					}
-				}
-				if($FirstRev === 0)
-					$FirstRev = $Rev;
-					
-				$LastRev = $Rev;
-			}	
-			
-			if(!empty($TodoDelete))
-				$zipfile->addFile($TodoDelete, "!TodoDelete!.txt", $RevInfo['timestamp']);
-			
-			update_config(array('VERSION' => $Patchlevel[0].".".$Patchlevel[1].".".$LastRev), true);
-			// Header für Download senden
-			$File	= $zipfile->file(); 		
-			header("Content-length: ".strlen($File));
-			header("Content-Type: application/force-download");
-			header('Content-Disposition: attachment; filename="patch_'.$FirstRev.'_to_'.$LastRev.'.zip"');
-			header("Content-Transfer-Encoding: binary");
-
-			// Zip File senden
-			echo $File; 
-			exit;			
+			DownloadUpdates();
+		break;
+		case "check":
+			CheckPermissions();
 		break;
 		case "update":
 			ExecuteUpdates();
@@ -128,153 +56,58 @@ function ShowUpdatePage()
 	}
 }
 
-function ExecuteUpdates($Patchlevel) {
-	global $LNG;
-	$Patchlevel		= getVersion();
-	$UpdateArray 	= GetLogs($Patchlevel[2]);
-	$Files			= array('add' => array(), 'edit' => array(), 'del' => array());
-	foreach($UpdateArray as $RevInfo) 
-	{	
-		if(!empty($RevInfo['add']))
-		{
-			foreach($RevInfo['add'] as $File)
-			{
-				if(in_array($File, $Files['add']))
-					continue;
-					
-				$Files['add'][] = $File;
-				$File	= str_replace('/trunk/', '', $File);
-				if($File == "updates/update_".$Rev.".sql") {
-					$db->multi_query(str_replace("prefix_", DB_PREFIX, DLFile($File, true)));
-					continue;
-				} 
-				if($File == "/trunk/updates/update_".$Rev.".php") {
-					require($SVN_ROOT.$File);
-					continue;
-				} else {
-					if (strpos($File, '.') !== false) {		
-						$Data = fopen($SVN_ROOT.$File, "r");
-						if ($ftp->uploadFromFile($Data, str_replace("/trunk/", "", $File))) {
-							$LOG['update'][$Rev][$File]	= $LNG['up_ok_update'];
+function DownloadUpdates() {
 
-						} else {
-							$LOG['update'][$Rev][$File]	= $LNG['up_error_update'];
-						}
-						fclose($Data);
-					} else {
-						if ($ftp->makeDir(str_replace("/trunk/", "", $File), 1)) {
-							if(PHP_SAPI == 'apache2handler')
-								$ftp->chmod(str_replace("/trunk/", "", $File), '0777');
-							else
-								$ftp->chmod(str_replace("/trunk/", "", $File), '0755');
-								
-							$LOG['update'][$Rev][$File]	= $LNG['up_ok_update'];
-						} else {
-							$LOG['update'][$Rev][$File]	= $LNG['up_error_update'];
-						}				
-					}
-				}
-			}
-		}
-		if(!empty($RevInfo['edit']))
-		{
-			foreach($RevInfo['edit'] as $File)
-			{	
-				if(in_array($File, $Files['edit']))
-					continue;
-				$Files['edit'][] = $File;
-				if (strpos($File, '.') !== false) {
-					if($File == "/trunk/updates/update_".$Rev.".sql")
-					{
-						$db->multi_query(str_replace("prefix_", DB_PREFIX, @file_get_contents($SVN_ROOT.$File)));
-						continue;
-					} else {
-						$Data = fopen($SVN_ROOT.$File, "r");
-						if ($ftp->uploadFromFile($Data, str_replace("/trunk/", "", $File))) {
-							$LOG['update'][$Rev][$File]	= $LNG['up_ok_update'];
-						} else {
-							$LOG['update'][$Rev][$File]	= $LNG['up_error_update'];
-						}
-						fclose($Data);
-					}
-				}
-			}
-		}
-		if(!empty($RevInfo['del']))
-		{
-			foreach($RevInfo['del'] as $File)
-			{
-				if(in_array($File, $Files['del']))
-					continue;
-					
-				$Files['del'][] = $File;
-				if (strpos($File, '.') !== false) {
-					if ($ftp->delete(str_replace("/trunk/", "", $File))) {
-						$LOG['update'][$Rev][$File]	= $LNG['up_delete_file'];
-					} else {
-						$LOG['update'][$Rev][$File]	= $LNG['up_error_delete_file'];
-					}
-				} else {
-					if ($ftp->removeDir(str_replace("/trunk/", "", $File), 1 )) {
-						$LOG['update'][$Rev][$File]	= $LNG['up_delete_file'];
-					} else {
-						$LOG['update'][$Rev][$File]	= $LNG['up_error_delete_file'];
-					}						
-				}
-			}
-		}
-		$LastRev = $Rev;
+	// Header für Download senden
+	$File	= $zipfile->file(); 		
+	header('Content-length: '.strlen($File));
+	header('Content-Type: application/force-download');
+	header('Content-Disposition: attachment; filename="patch_'.$FirstRev.'_to_'.$LastRev.'.zip"');
+	header('Content-Transfer-Encoding: binary');
+
+	// Zip File senden
+	echo $File; 
+	exit;
+}
+
+function CheckPermissions() {
+	$DIRS	= $_REQUEST['dirs'];
+	foreach($DIRS as $DIR) {
+		if(is_writable(ROOT_PATH.$DIR))
+			continue;
+		
+		echo json_encode(array('status' => ROOT_PATH.$DIR, 'error' => true));
+		exit;
 	}
-	$LOG['finish']['atrev'] = $LNG['up_update_ok_rev']." ".$LastRev;
-	// Verbindung schließen
-	ClearCache();
-	update_config(array('VERSION' => $Patchlevel[0].".".$Patchlevel[1].".".$LastRev), true);
-	exitupdate($LOG);
+	echo json_encode(array('status' => 'OK', 'error' => false));
+}
+
+function ExecuteUpdates() {
+	copy(ROOT_PATH.'includes/update.php', ROOT_PATH.'update.php');
 }
 
 function DisplayUpdates() {
 	global $LNG;
+	$Patchlevel	= getVersion();
 	
-	$RevList		= '';
-	$Update			= '';
-	$Info			= '';
-	$Patchlevel		= getVersion();
-	
-	$UpdateArray	= array_reverse(GetLogs($Patchlevel[2]));
-	$template 		= new template();
-	foreach($UpdateArray as $RevInfo) 
-	{
-		if(!(empty($RevInfo['add']) && empty($RevInfo['edit'])) && $Patchlevel[2] < $RevInfo['version']){
-			$Update		= "<tr><td><a href=\"#\" onclick=\"openPWDialog();return false;\">Update</a>".(function_exists('gzcompress') ? " - <a href=\"?page=update&amp;action=download\">".$LNG['up_download_patch_files']."</a>":"")."</td></tr>";
-			$Info		= "<tr><th colspan=\"5\">".$LNG['up_aktuelle_updates']."</th></tr>";
-		}
-		
-		$edit	= "";
-		if(!empty($RevInfo['edit']) || is_array($RevInfo['edit'])){
-			foreach($RevInfo['edit'] as $file) {							
-				$edit	.= '<a href="http://code.google.com/p/2moons/source/diff?spec=svn'.$RevInfo['version'].'&r='.$RevInfo['version'].'&format=side&path='.$file.'" target="diff">'.str_replace("/trunk/", "", $file).'</a><br>';
-			}
-		}
-
-		$RevList .= "<tr>
-		".(($Patchlevel[2] == $RevInfo['version'])?"<th colspan=5>".$LNG['up_momentane_version']."</th></tr><tr>":((($Patchlevel[2] - 1) == $RevInfo['version'])?"<th colspan=5>".$LNG['up_alte_updates']."</th></tr><tr>":""))."
-		<th>".(($Patchlevel[2] == $RevInfo['version'])?"<font color=\"red\">":"")."".$LNG['up_revision']." ".$RevInfo['version']." ".date(TDFORMAT, strtotime($RevInfo['date']))." ".$LNG['ml_from']." ".$RevInfo['author'].(($Patchlevel[2] == $Rev)?"</font>":"")."</th></tr>
-		<tr><td>".makebr($RevInfo['comment'])."</th></tr>
-		".((!empty($RevInfo['add']))?"<tr><td>".$LNG['up_add']."<br>".str_replace("/trunk/", "", implode("<br>\n", $RevInfo['add']))."</b></td></tr>":"")."
-		".((!empty($RevInfo['edit']))?"<tr><td>".$LNG['up_edit']."<br>".$edit."</b></td></tr>":"")."
-		".((!empty($RevInfo['del']))?"<tr><td>".$LNG['up_del']."<br>".str_replace("/trunk/", "", implode("<br>\n", $RevInfo['del']))."</b></td></tr>":"")."
-		</tr>";
-	}		
-	$template->assign_vars(array(	
-		'up_password_title'	=> $LNG['up_password_title'],
-		'up_password_info'	=> $LNG['up_password_info'],
-		'up_password_label'	=> $LNG['up_password_label'],
-		'up_submit'			=> $LNG['up_submit'],
-		'up_version'		=> $LNG['up_version'],
-		'version'			=> implode('.', $Patchlevel),
-		'RevList'			=> $RevList,
-		'Update'			=> $Update,
-		'Info'				=> $Info,
+	$template	= new template();
+	$template->loadscript('update.js');
+	$template->assign_vars(array(
+		'up_submit'					=> $LNG['up_submit'],
+		'up_version'				=> $LNG['up_version'],
+		'up_revision'				=> $LNG['up_revision'],
+		'up_add'					=> $LNG['up_add'],
+		'up_edit'					=> $LNG['up_edit'],
+		'up_del'					=> $LNG['up_del'],
+		'ml_from'					=> $LNG['ml_from'],
+		'up_aktuelle_updates'		=> $LNG['up_aktuelle_updates'],
+		'up_momentane_version'		=> $LNG['up_momentane_version'],
+		'up_alte_updates'			=> $LNG['up_alte_updates'],
+		'up_download'				=> $LNG['up_download_patch_files'],
+		'version'					=> implode('.', $Patchlevel),
+		'RevList'					=> json_encode(GetLogs(isset($_REQUEST['history']) ? 0 : $Patchlevel[2])),
+		'Rev'						=> $Patchlevel[2],
+		'canDownload'				=> function_exists('gzcompress'),
 	));
 		
 	$template->show('adm/UpdatePage.tpl');
@@ -298,14 +131,22 @@ function GetLogs($fromRev) {
 	$arrOutput = $xml2Array->xmlParse($DATA);
 	$fileLogs = array();
 	foreach($arrOutput['children'] as $value) {
-		$array=array();
+		$array	= array();
 		foreach($value['children'] as $entry) {
 			if ($entry['name'] == 'D:VERSION-NAME') $array['version'] = $entry['tagData'];
 			if ($entry['name'] == 'D:CREATOR-DISPLAYNAME') $array['author'] = $entry['tagData'];
-			if ($entry['name'] == 'S:DATE') $array['date'] = $entry['tagData'];
-			if ($entry['name'] == 'D:COMMENT') $array['comment'] = $entry['tagData'];
+			if ($entry['name'] == 'S:DATE') $array['date'] = date(TDFORMAT, strtotime($entry['tagData']));
+			if ($entry['name'] == 'D:COMMENT') $array['comment'] = makebr($entry['tagData']);
 
 			if (($entry['name'] == 'S:ADDED-PATH') || ($entry['name'] == 'S:MODIFIED-PATH') || ($entry['name'] == 'S:DELETED-PATH')) {
+				if(strpos($entry['tagData'], 'trunk/') === false)
+					continue;
+				else
+					$entry['tagData']	= substr($entry['tagData'], 7);
+			
+				$array['add']	= array();
+				$array['edit']	= array();
+				$array['del']	= array();
 				if ($entry['name'] == 'S:ADDED-PATH') $array['add'][] = $entry['tagData'];
 				if ($entry['name'] == 'S:MODIFIED-PATH') $array['edit'][] = $entry['tagData'];
 				if ($entry['name'] == 'S:DELETED-PATH') $array['del'][] = $entry['tagData'];
@@ -320,64 +161,6 @@ function GetLogs($fromRev) {
 function getVersion() {
 	return explode('.', $GLOBALS['CONF']['VERSION']);
 }
-
-function DLFile($FILE, $Return = false) {
-	$ch = curl_init();
-	if($Return === false) {
-		$fp	= fopen(ROOT_PATH.$FILE, 'w');
-		curl_setopt($ch, CURLOPT_FILE, $fp);
-	} else {
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	}
-	curl_setopt($ch, CURLOPT_AUTOREFERER, true);
-	curl_setopt($ch, CURLOPT_URL, 'http://2moons.googlecode.com/svn/trunk/'.$FILE);
-	curl_setopt($ch, CURLOPT_HEADER, false);
-	curl_setopt($ch, CURLOPT_USERAGENT, "2Moons Update API");
-	curl_setopt($ch, CURLOPT_CRLF, true);
-	$DATA	= curl_exec($ch);
-	
-	if(curl_errno($ch))
-		return curl_error($ch);
-		
-	curl_close($ch);
-	
-	if($Return === false) {
-		fclose($fp);
-		return true;
-	} else {
-		return $DATA;
-	}
-}
-
-function exitupdate($LOG){
-	$Page	= "";
-	if(is_array($LOG['debug'])) {
-		foreach($LOG['debug'] as $key => $content) {
-			$Page .= $content."<br>";
-		}
-	}
-	
-	if(is_array($LOG['update'])) {
-		foreach($LOG['update'] as $rev => $content) {
-			foreach($content as $file => $status) {
-				$Page.= "File ".$file." (Rev. ".$rev."): ".$status."<br>";
-			}
-		}
-	}
-		
-	if(is_array($LOG['finish'])) {	
-		foreach($LOG['finish'] as $key => $content) {
-			$Page .= $content."<br>";
-		}
-	}
-	$Page .= "<br><a href='?page=update'>".$LNG['up_weiter']."</a>";
-
-	$template = new template();
-	$template->message($Page, false, 0, true);
-				
-	exit;
-}
-
 
 class xml2Array {
    
