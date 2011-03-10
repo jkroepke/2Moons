@@ -88,8 +88,10 @@ function initRev() {
 		$.each(data.del, function(i, file) {
 			$.getJSON('update.php?r='+data.version+'&mode=del&file='+file);
 		});
-		$.get('update.php?r='+data.version+'&mode=update');
+		$.get('update.php?r='+data.version+'&mode=updatefile=0');
 		CurrentVersion	= data.version;
+		$('#version').val('1.3.'+CurrentVersion);
+		RevList.shift();
 	});
 	$.ajaxSetup({async: true});
 	done();
