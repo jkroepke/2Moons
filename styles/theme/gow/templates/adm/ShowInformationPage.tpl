@@ -6,6 +6,7 @@
                         <textarea rows="25">Server Infos: {$info}
 PHP-Version: {$vPHP}
 PHP API: {$vAPI}
+phpinfo(): http://{$gameroot}/info/index.php
 SafeMode: {$safemode}
 MemoryLimit: {$memory}
 MySQL-Client-Version: {$vMySQLc}

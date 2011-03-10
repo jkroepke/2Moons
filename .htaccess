@@ -1,13 +1,3 @@
-<Files "common.php">
-	Order Allow,Deny
-	Deny from All
-</Files>
-
-<Files "install.sql">
-	Order Allow,Deny
-	Deny from All
-</Files>
-
 AddDefaultCharset utf-8
 FileETag MTime Size
 
