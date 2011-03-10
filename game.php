@@ -33,7 +33,7 @@ require_once(ROOT_PATH.'includes/functions/GetBuildingPrice.php');
 require_once(ROOT_PATH.'includes/functions/GetBuildingTime.php');
 require_once(ROOT_PATH.'includes/functions/IsElementBuyable.php');
 require_once(ROOT_PATH.'includes/functions/SortUserPlanets.php');
-require_once(ROOT_PATH.'common.php');
+require(ROOT_PATH . 'includes/common.php');
 	
 $page = request_var('page','');
 switch($page)

@@ -30,7 +30,7 @@ if(!function_exists('spl_autoload_register'))
 	exit("PHP is missing <a href=\"http://php.net/spl\">Standard PHP Library (SPL)</a> support");
 
 define('INSTALL', true);
-define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
+define('ROOT_PATH', str_replace('\\', '/', dirname(dirname(__FILE__))).'/');
 
 ignore_user_abort(true);
 error_reporting(E_ALL ^ E_NOTICE);
@@ -141,25 +141,18 @@ switch ($Mode) {
 			$error++;
 			$ftp++;
 		}
-		$directories = array('cache/', 'cache/sessions/', 'raports/', 'includes/');
+		$directories = array('cache/', 'cache/sessions/', 'includes/', 'install/', 'raports/');
 		$dirs = "";
 		foreach ($directories as $dir)
 		{
-			if(is_dir(ROOT_PATH . $dir) || @mkdir(ROOT_PATH . $dir, 0777)){
-				if(is_writable(ROOT_PATH . $dir) || @chmod(ROOT_PATH . $dir, 0777)){
-						$chmod = "<span class=\"yes\"> - ".$LNG['reg_writable']."</span>";
-					} else {
-						$chmod = " - <span class=\"no\">".$LNG['reg_not_writable']."</span>";
-						$error++;
-						$ftp++;
-					}
-				$dirs .= "<tr><td class=\"transparent\">".$LNG['reg_dir']." - ".$dir."</th><td class=\"transparent\"><span class=\"yes\">".$LNG['reg_found']."</span>".$chmod."</td></tr>";
-
-			} else {
-				$dirs .= "<tr><td class=\"transparent\">".$LNG['reg_dir']." - ".$dir."</td><td class=\"transparent\"><span class=\"no\">".$LNG['reg_not_found']."</span></td></tr>";
-				$error++;
-				$ftp++;
-			}
+			if(is_writable(ROOT_PATH . $dir)) {
+					$chmod = "<span class=\"yes\"> - ".$LNG['reg_writable']."</span>";
+				} else {
+					$chmod = " - <span class=\"no\">".$LNG['reg_not_writable']."</span>";
+					$error++;
+					$ftp++;
+				}
+			$dirs .= "<tr><td class=\"transparent\">".$LNG['reg_dir']." - ".$dir."</th><td class=\"transparent\"><span class=\"yes\">".$LNG['reg_found']."</span>".$chmod."</td></tr>";
 		}
 
 		if($error == 0){
@@ -215,11 +208,12 @@ switch ($Mode) {
 				if(!$ftp->changeDir($_GET['path']))
 					exit($LNG['up_ftp_change_error']);
 				
-				$CHMOD	= (php_sapi_name() == 'apache2handler') ? 0666 : 0755;		
+				$CHMOD	= (php_sapi_name() == 'apache2handler') ? 0777 : 0755;		
 				$ftp->chmod('cache', $CHMOD);
 				$ftp->chmod('cache/sessions', $CHMOD);
-				$ftp->chmod('raports', $CHMOD);
 				$ftp->chmod('includes', $CHMOD);
+				$ftp->chmod('install', $CHMOD);
+				$ftp->chmod('raports', $CHMOD);
 				exit;
 			break;
 			case 'install':
@@ -356,7 +350,8 @@ switch ($Mode) {
 				$SESSION->CreateSession(1, $adm_user, 1, 1, 3);
 				$_SESSION['admin_login']	= $md5pass;
 				unlink(__FILE__);
-				unlink(ROOT_PATH.'/install.sql');
+				unlink(ROOT_PATH.'/install/install.sql');
+				file_put_contents('.htaccess', 'deny from all');
 				redirectTo('admin.php');
 			break;
 		}

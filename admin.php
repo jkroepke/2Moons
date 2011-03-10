@@ -31,7 +31,7 @@ define('IN_ADMIN', true);
 
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 
-require_once(ROOT_PATH . 'common.php');
+require(ROOT_PATH . 'includes/common.php');
 
 if ($USER['authlevel'] < AUTH_MOD) exit;
 

@@ -33,9 +33,9 @@ define('IN_CRON' , true);
 define('ROOT_PATH' ,'./');
 
 if(!extension_loaded('gd'))
-	redirectTo('index.php');
+	redirectTo('index.php?action=keepalive');
 	
-include(ROOT_PATH . 'common.php');
+require(ROOT_PATH . 'includes/common.php');
 error_reporting(E_ALL);
 $id = request_var('id', 0);
 
