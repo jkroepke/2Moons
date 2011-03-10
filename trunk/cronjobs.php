@@ -30,7 +30,7 @@ define('INSIDE'  , true);
 define('IN_CRON' , true);
 
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
-include(ROOT_PATH . 'common.php');
+require(ROOT_PATH . 'includes/common.php');
 
 if (empty($_SESSION)) exit;
 

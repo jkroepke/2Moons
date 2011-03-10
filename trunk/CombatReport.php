@@ -27,9 +27,10 @@
  */
 
 define('INSIDE'  , true);
+define('AJAX', true );
 
-define('ROOT_PATH', './');
-include(ROOT_PATH . 'common.php');
+define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
+require(ROOT_PATH . 'includes/common.php');
 
 $LANG->includeLang(array('FLEET', 'TECH'));
 	
