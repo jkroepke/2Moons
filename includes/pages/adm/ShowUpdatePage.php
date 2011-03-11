@@ -131,7 +131,10 @@ function GetLogs($fromRev) {
 	$arrOutput = $xml2Array->xmlParse($DATA);
 	$fileLogs = array();
 	foreach($arrOutput['children'] as $value) {
-		$array	= array();
+		$array			= array();
+		$array['add']	= array();
+		$array['edit']	= array();
+		$array['del']	= array();
 		foreach($value['children'] as $entry) {
 			if ($entry['name'] == 'D:VERSION-NAME') $array['version'] = $entry['tagData'];
 			if ($entry['name'] == 'D:CREATOR-DISPLAYNAME') $array['author'] = $entry['tagData'];
@@ -144,9 +147,6 @@ function GetLogs($fromRev) {
 				else
 					$entry['tagData']	= substr($entry['tagData'], 7);
 			
-				$array['add']	= array();
-				$array['edit']	= array();
-				$array['del']	= array();
 				if ($entry['name'] == 'S:ADDED-PATH') $array['add'][] = $entry['tagData'];
 				if ($entry['name'] == 'S:MODIFIED-PATH') $array['edit'][] = $entry['tagData'];
 				if ($entry['name'] == 'S:DELETED-PATH') $array['del'][] = $entry['tagData'];
