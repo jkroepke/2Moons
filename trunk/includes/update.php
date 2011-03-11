@@ -16,6 +16,9 @@ function rrmdir($dir) {
 }
 
 function DLFile($FILE) {
+	if(file_exists(dirname(ROOT_PATH.$FILE)))
+		makedir(dirname(ROOT_PATH.$FILE));
+		
 	$ch = curl_init();
 	$fp	= fopen(ROOT_PATH.$FILE, 'w');
 	curl_setopt($ch, CURLOPT_FILE, $fp);
