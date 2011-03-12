@@ -1,6 +1,6 @@
-function number_format(number, decimals, dec_point, thousands_sep) {
-	dec_point = LocalizationStrings['decimalPoint'];
-	thousands_sep = LocalizationStrings['thousandSeperator'];
+function number_format(number, decimals) {
+	dec_point = ',';
+	thousands_sep = '.';
 	var exponent = "";
 	var numberstr = number.toString();
 	var eindex = numberstr.indexOf("e");
@@ -25,7 +25,7 @@ function number_format(number, decimals, dec_point, thousands_sep) {
 	return sign + integer + fractional + exponent;
 }
 function NumberGetHumanReadable(value) {
-	return number_format(removeE(Math.floor(value)), 0, LocalizationStrings['decimalPoint'], LocalizationStrings['thousandSeperator']);
+	return number_format(removeE(Math.floor(value)), 0);
 }
 function removeE(Number) {
 	Number = String(Number);
@@ -128,31 +128,9 @@ function GetRestTimeFormat(Secs) {
 	return dezInt(h, 2) + ':' + dezInt(m, 2) + ":" + dezInt(s, 2);
 }
 
-LocalizationStrings = new Array();
-LocalizationStrings.timeunits = new Array();
-LocalizationStrings.timeunits.short = new Array();
-LocalizationStrings.timeunits.short.day = 't';
-LocalizationStrings.timeunits.short.hour = 'h';
-LocalizationStrings.timeunits.short.minute = 'm';
-LocalizationStrings.timeunits.short.second = 's';
-LocalizationStrings.status = new Array();
-
-LocalizationStrings.decimalPoint = ",";
-LocalizationStrings.thousandSeperator = ".";
-LocalizationStrings.unitMega = 'M';
-LocalizationStrings.unitKilo = 'K';
-LocalizationStrings.unitMilliard = 'Mrd';
-
 function OpenPopup(target_url, win_name, width, height) {
 	var new_win = window.open(target_url+'&ajax=1', win_name, 'scrollbars=yes,statusbar=no,toolbar=no,location=no,directories=no,resizable=no,menubar=no,width='+width+',height='+height+',screenX='+((screen.width-width) / 2)+",screenY="+((screen.height-height) / 2)+",top="+((screen.height-height) / 2)+",left="+((screen.width-width) / 2));
 	new_win.focus();
-}
-
-function tooltip(dom, content) {
-     $(dom).aToolTip({  
-         clickIt: true,  
-         tipContent: content  
-     }); 
 }
 
 function allydiplo(action, id, level) {
@@ -190,3 +168,69 @@ function maxcount(id){
 	else
 		return removeE(Math.floor(Math.min(metmax, Math.min(crymax, deumax))));
 }
+
+
+function handleErr(errMessage, url, line) 
+{ 
+	error = "There is an error at this page.\n";
+	error += "Error: " + errMessage+ "\n";
+	error += "URL: " + url + "\n";
+	error += "Line: " + line + "\n\n";
+	error += "Click OK to continue viewing this page,\n";
+	alert(error);
+	if(typeof console == "object")
+		console.log(error);
+ 
+	return true; 
+} 
+
+var Dialog	= {
+	div: '#popup',
+	buttons	: {OK: function() { $(Dialog.div).dialog('close') }},
+	create: function(button) {
+		if($(Dialog.div).length === 0) {
+			$('body').append('<div id="'+Dialog.div.substr(1)+'"> </div>');
+			$(Dialog.div).dialog({
+				autoOpen: false,
+				modal: true,
+				width: 650,
+				buttons: button || Dialog.buttons
+			});
+		} else {
+			$(Dialog.div).dialog('close').dialog('option', 'buttons', button || Dialog.buttons);
+		}
+		$(Dialog.div).html('<div style="width:100%;margin:150px 0;text-align:center;vertical-align:middle;font-size:18px;">Loading</div>');
+	},
+	
+	info: function(ID){
+		Dialog.create();
+		$(Dialog.div).dialog('open').load('game.php?page=infos&gid='+ID, function() {
+			$(this).dialog('option', 'title', $('#info_name').text());
+		});
+		return false;
+	},
+	
+	alert: function(msg, callback){
+		Dialog.create({OK:function(){$(Dialog.div).dialog('close');$(Dialog.div).dialog('option', 'width', 650);if(typeof callback==="function")callback();}});
+		$(Dialog.div).html('<div style="text-align:center;">'+msg.replace(/\n/g, '<br>')+'</div>').dialog('option', 'width', 300).dialog('option', 'title', head_info).dialog('open');
+	},
+	
+	PM: function(ID, Subject, Message) {
+		if(typeof Subject !== 'string')
+			Subject	= '';
+			
+		Dialog.create();
+		$(Dialog.div).dialog('open').load('game.php?page=messages&mode=write&id='+ID+'&subject='+encodeURIComponent(Subject), function() {
+			$(this).dialog('option', 'buttons', {Send :function(){if($('#text').val().length == 0){alert($('#empty').text(), function() {Dialog.PM(ID)})} else {$.get('game.php?page=messages&mode=write&id='+ID+'&send=1&'+$('#message').serialize(), function(data){alert(data)})}}})
+			.dialog('option', 'title', $('#head').text())
+			.parent()
+			.find('.ui-dialog-buttonset button span')
+			.text($('#send').text());
+			if(typeof Message === 'string')
+				$('#old_mes').html(decodeURIComponent(Message)+'<hr>');
+		});
+		return false;
+	}
+}
+
+alert = Dialog.alert;

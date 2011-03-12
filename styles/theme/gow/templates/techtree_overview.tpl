@@ -11,7 +11,7 @@
 </tr>
 {else}
 <tr>
-	<td><a href="javascript:OpenPopup('game.php?page=infos&gid={$TechInfo.id}', '', 640, 510);">{$TechInfo.name}</a></td>
+	<td><a href="#" onclick="return Dialog.info({$TechInfo.id})">{$TechInfo.name}</a></td>
 	<td>
 	{if $TechInfo.need}
 		{foreach item=NeedLevel from=$TechInfo.need.{$TechInfo.id}}

@@ -7,8 +7,12 @@
 	<th colspan="2">{$se_server_parameters}</th>
 	<th colspan="1" width="5%">(?)</th>
 </tr><tr>
-	<td>{$se_name}</td>
-	<td><input name="game_name"  value="{$game_name}" type="text" maxlength="60"></td>
+	<td>{$se_game_name}</td>
+	<td><input name="game_name" value="{$game_name}" type="text" maxlength="60"></td>
+	<td>&nbsp;</td>
+</tr><tr>
+	<td>{$se_uni_name}</td>
+	<td><input name="uni_name" value="{$uni_name}" type="text" maxlength="60"></td>
 	<td>&nbsp;</td>
 </tr><tr>
 	<td>{$se_lang}</td>

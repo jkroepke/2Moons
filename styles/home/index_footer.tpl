@@ -1,4 +1,3 @@
-
 </div></div>
 </td></tr></table>
 </div>
@@ -7,8 +6,6 @@
 <script type="text/javascript" src="scripts/login.js"></script>
 <script type="text/javascript">
 IsCaptchaActive 	= {$game_captcha};
-IsRegActive 		= {$reg_close};
-lang_reg_closed		= "{$register_closed}";
 cappublic			= "{$cappublic}";
 fb_permissions		= "{$fb_perm}";
 lang				= "{$lang}";

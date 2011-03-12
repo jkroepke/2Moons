@@ -232,10 +232,10 @@ switch ($page) {
 			
 			}
 		} else {
-			$AvailableUnis[$CONF['uni']]	= $CONF['game_name'].($CONF['game_disable'] == 0 ? $LNG['uni_closed'] : '');
-			$Query	= $db->query("SELECT `uni`, `game_disable`, `game_name` FROM ".CONFIG." WHERE `uni` != '".$UNI."' ORDER BY `uni` ASC;");
+			$AvailableUnis[$CONF['uni']]	= $CONF['uni_name'].($CONF['game_disable'] == 0 ? $LNG['uni_closed'] : '');
+			$Query	= $db->query("SELECT `uni`, `game_disable`, `uni_name` FROM ".CONFIG." WHERE `uni` != '".$UNI."' ORDER BY `uni` ASC;");
 			while($Unis	= $db->fetch_array($Query)) {
-				$AvailableUnis[$Unis['uni']]	= $Unis['game_name'].($Unis['game_disable'] == 0 ? $LNG['uni_closed'] : '');
+				$AvailableUnis[$Unis['uni']]	= $Unis['uni_name'].($Unis['game_disable'] == 0 ? $LNG['uni_closed'] : '');
 			}
 			ksort($AvailableUnis);
 			$template->assign_vars(array(
@@ -250,16 +250,11 @@ switch ($page) {
 		}
 		break;
 	case 'reg' :
-		if ($CONF['reg_closed'] == 1){
-			$template->assign_vars(array(
-				'closed'	=> $LNG['reg_closed'],
-				'info'		=> $LNG['info'],
-			));
-			$template->show('registry_closed.tpl');
-			exit;
-		}
 		switch ($mode) {
 			case 'send' :
+				if($CONF['reg_closed'] == 1)
+					redirectTo('index.php?page=reg');
+
 				$UserPass 	= request_var('password', '');
 				$UserPass2 	= request_var('password2', '');
 				$UserName 	= request_var('character', '', UTF8_SUPPORT);
@@ -329,7 +324,10 @@ switch ($page) {
 					$template->message($LNG['reg_completed'], '?lang='.$UserLang, 10, true);
 				}								
 			break;
-			case 'valid' :		
+			case 'valid' :
+				if($CONF['reg_closed'] == 1)
+					redirectTo('index.php?page=reg');
+
 				$pseudo 	= request_var('id', '');
 				$clef 		= request_var('clef', '');
 				$admin 	 	= request_var('admin', 0);
@@ -421,10 +419,10 @@ switch ($page) {
 				}
 			break;
 			default:
-				$AvailableUnis[$CONF['uni']]	= $CONF['game_name'].($CONF['game_disable'] == 0 ? $LNG['uni_closed'] : '');
-				$Query	= $db->query("SELECT `uni`, `game_disable`, `game_name` FROM ".CONFIG." WHERE `uni` != '".$UNI."' ORDER BY `uni` ASC;");
+				$AvailableUnis[$CONF['uni']]	= $CONF['uni_name'].(($CONF['game_disable'] == 0 || $CONF['reg_closed'] == 1) ? $LNG['uni_closed'] : '');
+				$Query	= $db->query("SELECT `uni`, `game_disable`, `reg_closed`, `uni_name` FROM ".CONFIG." WHERE `uni` != '".$UNI."' ORDER BY `uni` ASC;");
 				while($Unis	= $db->fetch_array($Query)) {
-					$AvailableUnis[$Unis['uni']]	= $Unis['game_name'].($Unis['game_disable'] == 0 ? $LNG['uni_closed'] : '');
+					$AvailableUnis[$Unis['uni']]	= $Unis['uni_name'].(($Unis['game_disable'] == 0 || $Unis['reg_closed'] == 1) ? $LNG['uni_closed'] : '');
 				}
 				ksort($AvailableUnis);
 				$template->assign_vars(array(
@@ -494,10 +492,10 @@ switch ($page) {
 			);
 		}
 		
-		$AvailableUnis[$CONF['uni']]	= $CONF['game_name'].($CONF['game_disable'] == 0 ? $LNG['uni_closed'] : '');
-		$Query	= $db->query("SELECT `uni`, `game_disable`, `game_name` FROM ".CONFIG." WHERE `uni` != '".$UNI."' ORDER BY `uni` ASC;");
+		$AvailableUnis[$CONF['uni']]	= $CONF['uni_name'].($CONF['game_disable'] == 0 ? $LNG['uni_closed'] : '');
+		$Query	= $db->query("SELECT `uni`, `game_disable`, `uni_name` FROM ".CONFIG." WHERE `uni` != '".$UNI."' ORDER BY `uni` ASC;");
 		while($Unis	= $db->fetch_array($Query)) {
-			$AvailableUnis[$Unis['uni']]	= $Unis['game_name'].($Unis['game_disable'] == 0 ? $LNG['uni_closed'] : '');
+			$AvailableUnis[$Unis['uni']]	= $Unis['uni_name'].($Unis['game_disable'] == 0 ? $LNG['uni_closed'] : '');
 		}
 		ksort($AvailableUnis);
 			
@@ -535,10 +533,10 @@ switch ($page) {
 			);
 		}
 		
-		$AvailableUnis[$CONF['uni']]	= $CONF['game_name'].($CONF['game_disable'] == 0 ? $LNG['uni_closed'] : '');
-		$Query	= $db->query("SELECT `uni`, `game_disable`, `game_name` FROM ".CONFIG." WHERE `uni` != '".$UNI."' ORDER BY `uni` ASC;");
+		$AvailableUnis[$CONF['uni']]	= $CONF['uni_name'].($CONF['game_disable'] == 0 ? $LNG['uni_closed'] : '');
+		$Query	= $db->query("SELECT `uni`, `game_disable`, `uni_name` FROM ".CONFIG." WHERE `uni` != '".$UNI."' ORDER BY `uni` ASC;");
 		while($Unis	= $db->fetch_array($Query)) {
-			$AvailableUnis[$Unis['uni']]	= $Unis['game_name'].($Unis['game_disable'] == 0 ? $LNG['uni_closed'] : '');
+			$AvailableUnis[$Unis['uni']]	= $Unis['uni_name'].($Unis['game_disable'] == 0 ? $LNG['uni_closed'] : '');
 		}
 		ksort($AvailableUnis);
 		
@@ -603,10 +601,10 @@ switch ($page) {
 				redirectTo('index.php?code=1');
 			}
 		} else {
-			$AvailableUnis[$CONF['uni']]	= $CONF['game_name'].($CONF['game_disable'] == 0 ? $LNG['uni_closed'] : '');
-			$Query	= $db->query("SELECT `uni`, `game_disable`, `game_name` FROM ".CONFIG." WHERE `uni` != '".$UNI."' ORDER BY `uni` ASC;");
+			$AvailableUnis[$CONF['uni']]	= $CONF['uni_name'].($CONF['game_disable'] == 0 ? $LNG['uni_closed'] : '');
+			$Query	= $db->query("SELECT `uni`, `game_disable`, `uni_name` FROM ".CONFIG." WHERE `uni` != '".$UNI."' ORDER BY `uni` ASC;");
 			while($Unis	= $db->fetch_array($Query)) {
-				$AvailableUnis[$Unis['uni']]	= $Unis['game_name'].($Unis['game_disable'] == 0 ? $LNG['uni_closed'] : '');
+				$AvailableUnis[$Unis['uni']]	= $Unis['uni_name'].($Unis['game_disable'] == 0 ? $LNG['uni_closed'] : '');
 			}
 			ksort($AvailableUnis);
 			$Code	= request_var('code', 0);

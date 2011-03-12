@@ -205,6 +205,7 @@ class template
 		global $USER, $CONF, $LANG, $LNG, $THEME;
         $this->assign_vars(array(
             'title'				=> $CONF['game_name'],
+            'uni_name'			=> $CONF['uni_name'],
             'dpath'				=> $THEME->getTheme(),
             'vmode'				=> $USER['urlaubs_modus'],
             'is_pmenu'			=> $USER['settings_planetmenu'],
@@ -217,6 +218,7 @@ class template
 			'ga_key'			=> $CONF['ga_key'],
 			'debug'				=> $CONF['debug'],
 			'min_js'			=> $CONF['min_js'],
+			'fcm_info'			=> $LNG['fcm_info'],
 			'VERSION'			=> $CONF['VERSION'],
 			'REV'				=> substr($CONF['VERSION'], -4),
 		));
@@ -228,6 +230,7 @@ class template
 		$this->assign_vars(array(
 			'scripts'	=> $this->script,
 			'title'		=> $CONF['game_name'].' - '.$LNG['adm_cp_title'],
+			'fcm_info'	=> $LNG['fcm_info'],
 			'gotoinsec'	=> false,
 			'goto'		=> false,
 		));

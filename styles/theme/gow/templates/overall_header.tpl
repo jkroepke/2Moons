@@ -2,7 +2,7 @@
 
 <html lang="{$lang}">
 <head>
-<title>{$title}</title>
+<title>{$title} - {$uni_name}</title>
 {if $goto}
 <meta http-equiv="refresh" content="{$gotoinsec};URL={$goto}">
 {/if}

@@ -13,7 +13,7 @@
 	{foreach key=ID item=UniInfo from=$Unis}
 	<tr>
 		<td>{$ID}</td>
-		<td>{$UniInfo.game_name}</td>
+		<td>{$UniInfo.uni_name}</td>
 		<td>{$UniInfo.game_speed / 2500}/{$UniInfo.fleet_speed / 2500}/{$UniInfo.resource_multiplier}/{$UniInfo.halt_speed}</td>
 		<td>{$UniInfo.users_amount}</td>
 		<td>{if $UniInfo.game_disable == 1}{$uni_on}{else}{$uni_off}{/if}</td>
