@@ -7,6 +7,12 @@ Array.prototype.copy = function () {
 	return ((new Array()).concat(this));
 };
 
+function dirname(file) {
+	var tmp = file.split('/');
+	tmp.pop()
+	return tmp.join('/')
+}
+
 function DisplayUpdates() {
 	var HTML	= '';
 	var List	= RevList.copy();
@@ -61,7 +67,7 @@ function updateGame() {;
 	$.each(UpdateList, function(i, data) {
 		var Files	= data.add.concat(data.edit.concat(data.del));
 		$.each(Files, function(i, file) {
-			Dirs.push(file.replace(/\/(-?)(\w+\.?)\w+\.\w+$/, ''));
+			Dirs.push(dirname(file));
 		});
 	});
 	Dirs	= $.unique(Dirs);
@@ -88,7 +94,7 @@ function initRev() {
 		$.each(data.del, function(i, file) {
 			$.getJSON('update.php?r='+data.version+'&mode=del&file='+file);
 		});
-		$.get('update.php?r='+data.version+'&mode=updatefile=0');
+		$.get('update.php?r='+data.version+'&mode=update&file=0');
 		CurrentVersion	= data.version;
 		$('#version').val('1.3.'+CurrentVersion);
 		RevList.shift();
@@ -96,33 +102,6 @@ function initRev() {
 	$.ajaxSetup({async: true});
 	done();
 }
-
-/*
-function initRev() {
-	while(typeof UpdateList[RevPoint][Modes[ModePoint]][DataPoint] == "undefined") {
-		if(DataPoint == UpdateList[RevPoint][Modes[ModePoint]].length) {
-			DataPoint	= 0;
-			ModePoint++;
-		}
-		if(ModePoint == Modes.length) {
-			DataPoint	= 0;
-			ModePoint++;
-		}
-		if(RevPoint == UpdateList.length) {
-			done();
-			return;
-		}	
-	}
-	var Files	= RevList[RevPoint].add.concat(RevList[RevPoint].edit.concat(RevList[RevPoint].del));
-	RevPoint++;
-	DLRev(Files);
-	DataPoint++;
-	var File	= UpdateList[RevPoint][Modes[ModePoint]][DataPoint];
-	var Mode	= Modes[ModePoint];
-	var Rev		= UpdateList[RevPoint].version;
-}
-
-*/
 
 function done() {
 	$.get('update.php?mode=unlink', function() {
