@@ -50,7 +50,7 @@
 						<td class="transparent left" style="width:90%;padding:10px;">{$FleetListRow.descriptions}<br><br>{$FleetListRow.price}</td>
 						<td class="transparent" style="vertical-align:middle;width:100px">
 						{if $NotBuilding && $FleetListRow.IsAvailable}<input type="text" name="fmenge[{$FleetListRow.id}]" id="input_{$FleetListRow.id}" size="{$maxlength}" maxlength="{$maxlength}" value="0" tabindex="{$smarty.foreach.FleetList.iteration}">							<br><br>
-						<input type="button" value="Max" onclick="$('#input_{$FleetListRow.id}').val(maxcount({$FleetListRow.id}))">
+						<input type="button" value="Max" onclick="$('#input_{$FleetListRow.id}').val('{$FleetListRow.GetMaxAmount}')">
 						{/if}
 						</td>
 					</tr>

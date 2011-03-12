@@ -198,19 +198,20 @@ class ShowShipyardPage
 				
 		foreach($reslist['fleet'] as $Element)
 		{
-			if (IsTechnologieAccessible($USER, $PLANET, $Element))
-			{
-				$FleetList[]	= array(
-					'id'			=> $Element,
-					'name'			=> $LNG['tech'][$Element],
-					'descriptions'	=> $LNG['res']['descriptions'][$Element],
-					'price'			=> GetElementPrice($USER, $PLANET, $Element, false),
-					'restprice'		=> $this->GetRestPrice($Element, false),
-					'time'			=> pretty_time(GetBuildingTime($USER, $PLANET, $Element)),
-					'IsAvailable'	=> IsElementBuyable($USER, $PLANET, $Element, false),
-					'Available'		=> pretty_number($PLANET[$resource[$Element]]),
-				);
-			}
+			if(!IsTechnologieAccessible($USER, $PLANET, $Element))
+				continue;
+			
+			$FleetList[]	= array(
+				'id'			=> $Element,
+				'name'			=> $LNG['tech'][$Element],
+				'descriptions'	=> $LNG['res']['descriptions'][$Element],
+				'price'			=> GetElementPrice($USER, $PLANET, $Element, false),
+				'restprice'		=> $this->GetRestPrice($Element, false),
+				'time'			=> pretty_time(GetBuildingTime($USER, $PLANET, $Element)),
+				'GetMaxAmount'	=> floattostring($this->GetMaxConstructibleElements($Element)),
+				'IsAvailable'	=> IsElementBuyable($USER, $PLANET, $Element, false),
+				'Available'		=> pretty_number($PLANET[$resource[$Element]]),
+			);
 		}
 		
 		$Buildlist	= array();
@@ -381,6 +382,7 @@ class ShowShipyardPage
 				'restprice'		=> $this->GetRestPrice($Element),
 				'time'			=> pretty_time(GetBuildingTime($USER, $PLANET, $Element)),
 				'IsAvailable'	=> IsElementBuyable($USER, $PLANET, $Element, false),
+				'GetMaxAmount'	=> floattostring($this->GetMaxConstructibleElements($Element)),
 				'Available'		=> pretty_number($PLANET[$resource[$Element]]),
 				'AlreadyBuild'	=> (in_array($Element, $reslist['one']) && (strpos($PLANET['b_hangar_id'], $Element.",") !== false || $PLANET[$resource[$Element]] != 0)) ? true : false,
 			);

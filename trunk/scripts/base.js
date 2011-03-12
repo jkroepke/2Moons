@@ -147,28 +147,6 @@ function allydiplo(action, id, level) {
     OpenPopup("game.php?page=alliance&mode=admin&edit=diplo&action="+action+vid+vlevel+"&ajax=1", "diplo", 720, 300);
 }
 
-function maxcount(id){
-	var metmax = parseInt($('#current_metal').text().replace(/\./g, '')) / parseInt($('#metal_'+id).text().replace(/\./g,""));
-	var crymax = parseInt($('#current_crystal').text().replace(/\./g, '')) / parseInt($('#crystal_'+id).text().replace(/\./g,""));
-	var deumax = parseInt($('#current_deuterium').text().replace(/\./g, '')) / parseInt($('#deuterium_'+id).text().replace(/\./g,""));
-	if(isNaN(metmax) && isNaN(crymax) && isNaN(deumax))
-		return 0;
-	else if(isNaN(metmax) && isNaN(crymax))
-		return removeE(Math.floor(deumax));
-	else if(isNaN(metmax) && isNaN(deumax))
-		return removeE(Math.floor(crymax));
-	else if(isNaN(crymax) && isNaN(deumax))
-		return removeE(Math.floor(metmax));
-	else if(isNaN(metmax))
-		return removeE(Math.floor(Math.min(crymax, deumax)));
-	else if(isNaN(crymax))
-		return removeE(Math.floor(Math.min(metmax, deumax)));
-	else if(isNaN(deumax))
-		return removeE(Math.floor(Math.min(metmax, crymax)));
-	else
-		return removeE(Math.floor(Math.min(metmax, Math.min(crymax, deumax))));
-}
-
 
 function handleErr(errMessage, url, line) 
 { 
@@ -199,7 +177,7 @@ var Dialog	= {
 		} else {
 			$(Dialog.div).dialog('close').dialog('option', 'buttons', button || Dialog.buttons);
 		}
-		$(Dialog.div).html('<div style="width:100%;margin:150px 0;text-align:center;vertical-align:middle;font-size:18px;">Loading</div>');
+		$(Dialog.div).html('<div style="width:100%;margin:140px 0;text-align:center;vertical-align:middle;font-size:18px;">Loading</div>');
 	},
 	
 	info: function(ID){
