@@ -1,40 +1,7 @@
 {include file="adm/overall_header.tpl"}
-<script type="text/javascript" src="./scripts/animatedcollapse.js"></script>
-<script type="text/javascript">
-animatedcollapse.addDiv('pla', 'fade=1,height=auto')
-animatedcollapse.addDiv('inves', 'fade=1,height=auto')
-animatedcollapse.addDiv('info', 'fade=1,height=auto')
-animatedcollapse.addDiv('recursos', 'fade=1,height=auto')
-animatedcollapse.addDiv('edificios', 'fade=1,height=auto')
-animatedcollapse.addDiv('especiales', 'fade=1,height=auto')
-animatedcollapse.addDiv('naves', 'fade=1,height=auto')
-animatedcollapse.addDiv('defensa', 'fade=1,height=auto')
-animatedcollapse.addDiv('datos', 'fade=1,height=auto')
-animatedcollapse.addDiv('destr', 'fade=1,height=auto')
-animatedcollapse.addDiv('alianza', 'fade=1,height=auto')
-animatedcollapse.addDiv('puntaje', 'fade=1,height=auto')
-
-animatedcollapse.addDiv('imagen', 'fade=0,speed=400,group=pets')
-animatedcollapse.addDiv('externo', 'fade=0,speed=400,group=pets')
-animatedcollapse.addDiv('interno', 'fade=0,speed=400,group=pets')
-animatedcollapse.addDiv('solicitud', 'fade=0,speed=400,group=pets')
-animatedcollapse.addDiv('puntaje_ali', 'fade=0,speed=400,group=pets')
-animatedcollapse.addDiv('banned', 'fade=0,speed=400,group=pets')
-
-animatedcollapse.ontoggle=function($, divobj, state){
-}
-
-animatedcollapse.init()
-</script>
 <style type="text/css">
-.image{
-width:100%;height:100%;_height:auto;
-}
 a.link{
 font-size:14px;font-variant:small-caps;margin-left:120px;
-}
-a.link:hover{
-font-size:16px;font-variant:small-caps;margin-left:120px;
 }
 span.no_moon{
 font-size:14px;font-variant:small-caps;margin-left:120px;font-family: Arial, Helvetica, sans-serif;
@@ -71,10 +38,10 @@ border:0px;background:url(./styles/images/Adm/blank.gif);text-align:right;paddin
 		<td class="blank"><a onMouseOver='return overlib("{$ac_note_k}", CENTER, OFFSETX, -150, OFFSETY, 5, width, 250);' onMouseOut='return nd();'>{$ac_leyend}&nbsp; <img src="./styles/images/Adm/i.gif" height="12" width="12"></a></td>
 	</tr>
 	<tr>
-		<td class="unico"><a href="javascript:animatedcollapse.toggle('datos')" class="link">
+		<td class="unico"><a href="#" onclick="$('#datos').toggle('fast');return false" class="link">
 		<img src="./styles/images/Adm/arrowright.png" width="16" height="10"> {$ac_account_data}</a></td>
 	</tr><tr>
-		<td class="unico">
+		<td class="unico transparent">
 			<div id="datos">
 			<table align="center" width="60%">
 			<tr><th colspan="2">&nbsp;</th></tr>
@@ -128,7 +95,7 @@ border:0px;background:url(./styles/images/Adm/blank.gif);text-align:right;paddin
 	</tr><tr>
 		<td class="unico">{$AllianceHave}</td>
 	</tr><tr>
-		<td class="unico">
+		<td class="unico transparent">
 			<div id="alianza" style="display:none">
 			<table align="center" width="60%">
 			<tr><th colspan="2">{$ac_info_ally}</th></tr>
@@ -197,10 +164,10 @@ border:0px;background:url(./styles/images/Adm/blank.gif);text-align:right;paddin
 			</div>
 		</td>
 	</tr><tr>
-		<td class="unico"><a href="javascript:animatedcollapse.toggle('pla')" class="link">
+		<td class="unico"><a href="#" onclick="$('#pla').toggle('fast');return false" class="link">
 		<img src="./styles/images/Adm/arrowright.png" width="16" height="10"> {$ac_id_names_coords}</a></td>
 	</tr><tr>
-		<td class="unico">
+		<td class="unico transparent">
 			<div id="pla" style="display:none">
 			<table width="70%" align="center">
 			<tr>
@@ -217,10 +184,10 @@ border:0px;background:url(./styles/images/Adm/blank.gif);text-align:right;paddin
 			</div>
 		</td>
 	</tr><tr>
-		<td class="unico"><a href="javascript:animatedcollapse.toggle('recursos')" class="link">
+		<td class="unico"><a href="#" onclick="$('#recursos').toggle('fast');return false" class="link">
 		<img src="./styles/images/Adm/arrowright.png" width="16" height="10"> {$resources_title}</a></td>
 	</tr><tr>
-		<td class="unico">
+		<td class="unico transparent">
 			<div id="recursos" style="display:none">
 			<table width="70%" align="center">
 			<tr>
@@ -239,10 +206,10 @@ border:0px;background:url(./styles/images/Adm/blank.gif);text-align:right;paddin
 			</div>	
 		</td>
 	</tr><tr>
-		<td class="unico"><a href="javascript:animatedcollapse.toggle('edificios')" class="link">
+		<td class="unico"><a href="#" onclick="$('#edificios').toggle('fast');return false" class="link">
 		<img src="./styles/images/Adm/arrowright.png" width="16" height="10"> {$buildings_title}</a></td>
 	</tr><tr>
-		<td class="unico">
+		<td class="unico transparent">
 			<div id="edificios" style="display:none">
 			<table width="100%" align="center">
 				{$names}
@@ -252,10 +219,10 @@ border:0px;background:url(./styles/images/Adm/blank.gif);text-align:right;paddin
 			</div>
 		</td>
 	</tr><tr>
-		<td class="unico"><a href="javascript:animatedcollapse.toggle('naves')" class="link">
+		<td class="unico"><a href="#" onclick="$('#naves').toggle('fast');return false" class="link">
 		<img src="./styles/images/Adm/arrowright.png" width="16" height="10"> {$ships_title}</a></td>
 	</tr><tr>
-		<td class="unico">
+		<td class="unico transparent">
 			<div id="naves" style="display:none">
 			<table align="center" width="100%">
 				{$names}
@@ -265,10 +232,10 @@ border:0px;background:url(./styles/images/Adm/blank.gif);text-align:right;paddin
 			</div>
 		</td>
 	</tr><tr>
-		<td class="unico"><a href="javascript:animatedcollapse.toggle('defensa')" class="link">
+		<td class="unico"><a href="#" onclick="$('#defensa').toggle('fast');return false" class="link">
 		<img src="./styles/images/Adm/arrowright.png" width="16" height="10"> {$defenses_title}</a></td>
 	</tr><tr>
-		<td class="unico">
+		<td class="unico transparent">
 			<div id="defensa" style="display:none">
 			<table align="center" width="100%">
 				{$names}
@@ -278,10 +245,10 @@ border:0px;background:url(./styles/images/Adm/blank.gif);text-align:right;paddin
 			</div>
 		</td>
 	</tr><tr>
-		<td class="unico"><a href="javascript:animatedcollapse.toggle('inves')" class="link">
+		<td class="unico"><a href="#" onclick="$('#inves').toggle('fast');return false" class="link">
 		<img src="./styles/images/Adm/arrowright.png" width="16" height="10"> {$ac_officier_research}</a></td>
 	</tr><tr>
-		<td class="unico">
+		<td class="unico transparent">
 			<div id="inves" style="display:none">
 			<table align="center" width="60%">
 			<tr>
@@ -295,13 +262,13 @@ border:0px;background:url(./styles/images/Adm/blank.gif);text-align:right;paddin
 		</td>
 	</tr><tr>
 		<td class="unico">
-			{if $DestruyeD != 0}<a href="javascript:animatedcollapse.toggle('destr')" class="link">
+			{if $DestruyeD != 0}<a href="#" onclick="$('#destr').toggle('fast');return false" class="link">
 			<img src="./styles/images/Adm/arrowright.png" width="16" height="10"> {$ac_recent_destroyed_planets}</a>
 			{else}<span class="no_moon"><img src="./styles/images/Adm/arrowright.png" width="16" height="10"> 
 			{$ac_recent_destroyed_planets}&nbsp;{$ac_isnodestruyed}</span>{/if}
 		</td>
 	</tr><tr>
-		<td class="unico">
+		<td class="unico transparent">
 			<div id="destr" style="display:none">
 			<table align="center" width="60%">
 			<tr>

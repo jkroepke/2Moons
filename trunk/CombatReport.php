@@ -31,7 +31,8 @@ define('AJAX', true );
 
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 require(ROOT_PATH . 'includes/common.php');
-
+require(ROOT_PATH . 'includes/classes/class.template.php');
+	
 $LANG->includeLang(array('FLEET', 'TECH'));
 	
 $RID	= request_var('raport', '');
@@ -42,7 +43,7 @@ if(file_exists(ROOT_PATH.'raports/raport_'.$RID.'.php'))
 $template	= new template();
 
 $template->isPopup(true);
-$template->execscript('</script><script type="text/javascript" src="http://savekb.2moons.cc/js.php">');
+
 
 $template->assign_vars(array('raport' => $raport));
 $template->show('raport.tpl');

@@ -9,7 +9,7 @@
 	<td>{$ch_channelname}</td>
 	<td><input name="chat_channelname" value="{$chat_channelname}" type="text"></td>
 	<td>&nbsp;</td>
-</tr<tr>
+</tr><tr>
 	<td>{$ch_botname}</td>
 	<td><input name="chat_botname" value="{$chat_botname}" type="text"></td>
 	<td>&nbsp;</td>
