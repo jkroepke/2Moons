@@ -51,7 +51,7 @@
 						<td class="transparent" style="vertical-align:middle;width:100px">
 						{if $DefenseListRow.AlreadyBuild}<span style="color:red">{$bd_protection_shield_only_one}</span>{elseif $NotBuilding && $DefenseListRow.IsAvailable}<input type="text" name="fmenge[{$DefenseListRow.id}]" id="input_{$DefenseListRow.id}" size="{$maxlength}" maxlength="{$maxlength}" value="0" tabindex="{$smarty.foreach.DefenseList.iteration}">
 						<br><br>
-						<input type="button" value="Max" onclick="$('#input_{$DefenseListRow.id}').val(maxcount({$DefenseListRow.id}))">
+						<input type="button" value="Max" onclick="$('#input_{$DefenseListRow.id}').val('{$DefenseListRow.GetMaxAmount}')">
 						{/if}
 						</td>
 					</tr>
