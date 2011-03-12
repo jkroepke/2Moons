@@ -13,8 +13,8 @@
 define('INSIDE', true );
 define('AJAX', true );
 
-define('ROOT_PATH', str_replace('\\', '/',dirname(dirname(dirname(__FILE__)))).'/');
-include_once(ROOT_PATH . 'common.php');
+define('ROOT_PATH', str_replace('\\', '/',dirname(AJAX_CHAT_PATH)).'/');
+require(ROOT_PATH . 'includes/common.php');
 $SESSION       	= new Session();
 
 if(!$SESSION->IsUserLogin() || ($CONF['game_disable'] == 0 && $_SESSION['authlevel'] == 0))
