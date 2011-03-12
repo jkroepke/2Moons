@@ -5,6 +5,7 @@
 <link rel="stylesheet" type="text/css" href="./styles/css/ingame.css">
 <link rel="stylesheet" type="text/css" href="./styles/theme/gow/formate.css">
 <link rel="stylesheet" type="text/css" href="./styles/css/admin.css">
+<link rel="stylesheet" type="text/css" href="./styles/css/jquery.css">
 <link rel="icon" href="./favicon.ico">
 <title>{$title}</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -27,7 +28,7 @@ var breite	= 720;
 var hoehe	= 300;
 var xpos	= (xsize-breite) / 2;
 var ypos	= (ysize-hoehe) / 2;
-
+var head_info	= "{$fcm_info}";
 
 function useropen(target_url) {
 	var userlist = window.open("UserListPage.php?action=edit&id="+ target_url, "info", "scrollbars=yes,statusbar=no,toolbar=no,location=no,directories=no,resizable=no,menubar=no,width=850,height=600,screenX="+((xsize-600)/2)+",screenY="+((ysize-850)/2)+",top="+((ysize-600)/2)+",left="+((xsize-850)/2));
