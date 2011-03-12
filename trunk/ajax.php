@@ -77,7 +77,7 @@ switch($action)
 			if ($FleetRow['fleet_end_time'] > TIMESTAMP)
 				$FleetData[$FleetRow['fleet_end_time'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable($FleetRow, 1, $IsOwner, 'fe', $Record);
 		}
-			//var_dump($FleetData);
+		
 		$db->free_result($OwnFleets);
 		ksort($FleetData);
 		echo json_encode($FleetData);

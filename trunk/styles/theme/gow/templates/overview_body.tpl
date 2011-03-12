@@ -22,7 +22,7 @@
 		{/if}
         <tr>
         	<td style="white-space: nowrap;">{$ov_admins_online}</td>
-        	<td colspan="3">{foreach name=OnlineAdmins key=id item=Name from=$AdminsOnline}{if !$smarty.foreach.OnlineAdmins.first}&nbsp;&bull;&nbsp;{/if}<a href="#" onclick="OpenPopup('game.php?page=messages&amp;mode=write&amp;id={$id}','', 720, 300);return false;">{$Name}</a>{foreachelse}{$ov_no_admins_online}{/foreach}</td>
+        	<td colspan="3">{foreach name=OnlineAdmins key=id item=Name from=$AdminsOnline}{if !$smarty.foreach.OnlineAdmins.first}&nbsp;&bull;&nbsp;{/if}<a href="#" onclick="return Dialog.PM({$id})">{$Name}</a>{foreachelse}{$ov_no_admins_online}{/foreach}</td>
         </tr>		
 		{if $Teamspeak}
 		<tr>
@@ -78,30 +78,25 @@
    </table>
 
 </div>
+<form action="" method="POST">
 <div id="dialog" title="{$ov_planetmenu}" style="display:none;">
-		<form action="" method="POST" id="rename">
-		<table>
-		<tr>
-			<th colspan="3">{$ov_your_planet}</th>
-		</tr><tr>
-			<td>{$ov_coords}</td>
-			<td>{$ov_planet_name}</td>
-			<td>{$ov_actions}</td>
-		</tr><tr>
-			<td>{$galaxy}:{$system}:{$planet}</td>
-			<td>{$planetname}</td>
-			<td><input type="button" value="{$ov_abandon_planet}" onclick="cancel();"></td>
-		</tr><tr>
-			<td id="label">{$ov_planet_rename}</td>
-			<td><input type="text" name="newname" id="newname" size="25" maxlength="20" autocomplete="off"><input type="password" name="password" id="password" size="25" maxlength="20" style="display:none;" autocomplete="off"></td>
-			<td><input type="button" onclick="checkrename();" value="{$ov_planet_rename_action}" id="submit-rename"><input type="button" onclick="checkcancel();" value="{$ov_delete_planet}" id="submit-cancel" style="display:none;"></td>
-		</tr>
-		</table>
-		</form>
+	<div id="tabs">
+		<ul>
+			<li><a href="#tabs-1">{$ov_planet_rename}</a></li>
+			<li><a href="#tabs-2">{$ov_delete_planet}</a></li>
+		</ul>
+		<div id="tabs-1">
+			<label for="newname">{$ov_rename_label}: </label><input class="left" type="text" name="newname" id="newname" size="25" maxlength="20" autocomplete="off">
+		</div>
+		<div id="tabs-2"><h3 style="margin:0">{$ov_security_request}</h3>{$ov_security_confirm}<br>
+			<label for="password">{$ov_password}: </label><input class="left" type="password" name="password" id="password" size="25" maxlength="20" autocomplete="off">
+		</div>
+	</div>
 </div>
+
+</form>
 <script type="text/javascript">
 buildtime	= {$buildtime} * 1000;
-ov_password	= "{$ov_password}";
 </script>
 {include file="planet_menu.tpl"}
 {include file="overall_footer.tpl"}

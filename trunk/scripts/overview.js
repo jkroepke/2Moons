@@ -1,19 +1,31 @@
-$('#dialog').dialog({ autoOpen: false, width: 450, height: 150});
+$('#dialog').dialog({ autoOpen: false, width: 450, height: 220, modal: true,
+	buttons: {
+		"OK": function() {
+			var mode	= $('#tabs').tabs('option', 'selected');
+			if(mode	== 0) {
+				checkrename();
+			} else if(mode == 1) {
+				checkcancel();
+			}
+		},
+		Cancel: function() {
+			$(this).dialog('close');
+		}
+	}});
+$('#tabs').tabs();
 
 function checkrename()
 {
 	if($('#newname').val() == '') {
 		return false;
 	} else {
-		$.get('ajax.php?action=renameplanet&lang='+Lang+'&'+$('#rename').serialize(), function(response){
-			if(response == '') {
-				$('.planetname').text($('#newname').val());
-				$('#demoContainer').mb_close();
-			} else {
-				alert(response);
-			}
+		$.get('ajax.php?action=renameplanet&lang='+Lang+'&newname='+$('#newname').val(), function(response){
+			$('#dialog').dialog('close');
+			if(response == '')
+				$('.planetname').text($.trim($('#newname').val()));
+			else
+				alert(response, function(){$('#dialog').dialog('open')});
 		});
-		return false;
 	}
 }
 
@@ -22,15 +34,10 @@ function checkcancel()
 	if($('#password').val() == '') {
 		return false;
 	} else {
-		$.getJSON('ajax.php?action=deleteplanet&lang='+Lang+'&'+$('#rename').serialize(), function(response){
-			if(response.ok) {
-				alert(response.mess);
-				document.location.href = 'game.php?page=overview';
-			} else {
-				alert(response.mess);
-			}
+		$.getJSON('ajax.php?action=deleteplanet&lang='+Lang+'&password='+$('#password').val(), function(response){
+			$('#dialog').dialog('close');
+			alert(response.mess, function(){document.location.href = 'game.php?page=overview'});
 		});
-		return false;
 	}
 }
 

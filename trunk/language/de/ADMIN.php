@@ -330,7 +330,8 @@ $LNG['ow_none']						= 'Keine Warnungen';
 
 //---------------	CONFIGURACIÓN DEL JUEGO - GAME CONFIG	------------------------//
 $LNG['se_server_parameters']			= 'Server Einstellungen';
-$LNG['se_name']							= 'Name';
+$LNG['se_game_name']					= 'Name (Game)';
+$LNG['se_uni_name']						= 'Name (Universum)';
 $LNG['se_lang']							= 'Sprache';
 $LNG['se_general_speed']				= 'Gamespeed';
 $LNG['se_normal_speed']					= 'Normaler Gamespeed: 1 <br> Maximal empfohlene Einstellungen: 20';
@@ -684,7 +685,7 @@ $LNG['se_type_exact']		=	'Exact search';
 $LNG['se_type_last']		=	'Start with any word or letter';
 $LNG['se_type_first']		=	'End with any word or letter';
 $LNG['se_search']		=	'Search';
-$LNG['se_name']		=	'Name';
+$LNG['se_name']			=	'Name';
 $LNG['se_id_owner']		=	'ID owner';
 $LNG['se_galaxy']		=	'Galaxy';
 $LNG['se_system']		=	'System';

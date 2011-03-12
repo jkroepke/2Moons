@@ -97,7 +97,7 @@
 <th colspan="3">{$pl_etc}</th>
 </tr>
 <tr>
-<td><a href="javascript:OpenPopup('game.php?page=buddy&amp;mode=2&amp;u={$id}', '', 720, 300);" title="{$pl_buddy}">{$pl_buddy}</a></td><td colspan="2"><a href="javascript:OpenPopup('game.php?page=messages&amp;mode=write&amp;id={$id}', '', 720, 300);" title="{$pl_message}">{$pl_message}</a></td>
+<td><a href="javascript:OpenPopup('game.php?page=buddy&amp;mode=2&amp;u={$id}', '', 720, 300);" title="{$pl_buddy}">{$pl_buddy}</a></td><td colspan="2"><a href="#" onclick="return Dialog.PM({$id});" title="{$pl_message}">{$pl_message}</a></td>
 </tr>
 {/if}
 </table>

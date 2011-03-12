@@ -8,6 +8,7 @@ var Gamename	= document.title;
 var Ready		= "{$ready}";
 var Skin		= "{$dpath}";
 var Lang		= "{$lang}";
+var head_info	= "{$fcm_info}";
 var auth		= {$authlevel};
 </script>
 <script type="text/javascript" src="{$cd}scripts/jQuery.js?v={$REV}"></script>
@@ -70,20 +71,6 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 })();
 {/if}
 {if $debug == 1}
-function handleErr(errMessage, url, line) 
-{ 
-	error="There is an error at this page.\n";
-	error+="Error: " + errMessage+ "\n";
-	error+="URL: " + url + "\n";
-	error+="Line: " + line + "\n\n";
-	error+="Click OK to continue viewing this page,\n";
-	alert(error);
-	if(typeof console == "object")
-		console.log(error);
- 
-	return true; 
-} 
- 
 onerror = handleErr;
 {/if}
 </script>

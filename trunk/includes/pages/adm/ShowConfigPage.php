@@ -48,6 +48,7 @@ function ShowConfigPage()
 		$CONF['OverviewNewsText']		= $_POST['NewsText'];
 		$CONF['close_reason']			= request_var('close_reason', '', true);
 		$CONF['game_name']				= request_var('game_name', '', true);
+		$CONF['uni_name']				= request_var('uni_name', '', true);
 		$CONF['forum_url'] 				= request_var('forum_url', '', true);
 		$CONF['game_speed'] 			= (2500 * request_var('game_speed', 0.0));
 		$CONF['fleet_speed'] 			= (2500 * request_var('fleet_speed', 0.0));
@@ -93,7 +94,7 @@ function ShowConfigPage()
 			'OverviewNewsFrame'		=> $CONF['OverviewNewsFrame'],
 			'reg_closed'			=> $CONF['reg_closed'],
 			'OverviewNewsText'		=> $CONF['OverviewNewsText'],
-			'game_name'				=> $CONF['game_name'],
+			'uni_name'				=> $CONF['uni_name'],
 			'forum_url'				=> $CONF['forum_url'],
 			'game_speed'			=> $CONF['game_speed'],
 			'fleet_speed'			=> $CONF['fleet_speed'],
@@ -112,6 +113,7 @@ function ShowConfigPage()
 			'trade_allowed_ships'	=> $CONF['trade_allowed_ships']
 		), false, $_SESSION['adminuni']);
 		update_config(array(	
+			'game_name'				=> $CONF['game_name'],
 			'mail_active'			=> $CONF['mail_active'],
 			'mail_use'				=> $CONF['mail_use'],
 			'smail_path'			=> $CONF['smail_path'],
@@ -138,7 +140,8 @@ function ShowConfigPage()
 	$template	= new template();
 	$template->assign_vars(array(
 		'se_server_parameters'			=> $LNG['se_server_parameters'],
-		'se_name'						=> $LNG['se_name'],
+		'se_game_name'					=> $LNG['se_game_name'],
+		'se_uni_name'					=> $LNG['se_uni_name'],
 		'se_cookie_advert'				=> $LNG['se_cookie_advert'],
 		'se_lang'						=> $LNG['se_lang'],
 		'se_general_speed'				=> $LNG['se_general_speed'],
@@ -225,6 +228,7 @@ function ShowConfigPage()
 		'se_google_key_info'			=> $LNG['se_google_key_info'],
 		'se_save_parameters'			=> $LNG['se_save_parameters'],
 		'game_name'						=> $CONF['game_name'],
+		'uni_name'						=> $CONF['uni_name'],
 		'game_speed'					=> ($CONF['game_speed'] / 2500),
 		'fleet_speed'					=> ($CONF['fleet_speed'] / 2500),
 		'resource_multiplier'			=> $CONF['resource_multiplier'],

@@ -34,7 +34,7 @@ class FlyingFleetsTable
     {
 		global $LNG, $USER;
 
-		return $Names['own_username'].' <a href="#" onclick="OpenPopup(\'game.php?page=messages&amp;mode=write&amp;id='.$FleetRow['fleet_owner'].'\', \'\', 720, 300);return false;">(N)</a>';
+		return $Names['own_username'].' <a href="#" onclick="return Dialog.PM('.$FleetRow['fleet_owner'].')">(N)</a>';
 	}
 
 	// For ShowFlyingFleets.php in admin panel.
