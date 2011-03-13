@@ -141,7 +141,7 @@ switch ($Mode) {
 			$error++;
 			$ftp++;
 		}
-		$directories = array('cache/', 'cache/sessions/', 'includes/', 'install/', 'raports/');
+		$directories = array('cache/', 'cache/sessions/', 'includes/', 'install/');
 		$dirs = "";
 		foreach ($directories as $dir)
 		{
@@ -213,7 +213,6 @@ switch ($Mode) {
 				$ftp->chmod('cache/sessions', $CHMOD);
 				$ftp->chmod('includes', $CHMOD);
 				$ftp->chmod('install', $CHMOD);
-				$ftp->chmod('raports', $CHMOD);
 				exit;
 			break;
 			case 'install':
@@ -291,7 +290,7 @@ switch ($Mode) {
 				$SQL .= "`email_2`           = '". $adm_email ."', ";
 				$SQL .= "`ip_at_reg`         = '". $_SERVER['REMOTE_ADDR'] . "', ";
 				$SQL .= "`lang` 	         = '". $LANG->GetUser() . "', ";
-				$SQL .= "`authlevel`         = '3', ";
+				$SQL .= "`authlevel`         = '". AUTH_ADM ."', ";
 				$SQL .= "`rights` 			 = '', ";
 				$SQL .= "`id_planet`         = '1', ";
 				$SQL .= "`universe`          = '1', ";
@@ -352,7 +351,8 @@ switch ($Mode) {
 				unlink(__FILE__);
 				unlink(ROOT_PATH.'/install/install.sql');
 				file_put_contents('.htaccess', 'deny from all');
-				redirectTo('admin.php');
+				header('Location: ../admin.php');
+				exit;
 			break;
 		}
 	break;

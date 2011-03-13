@@ -80,7 +80,7 @@ class CustomAJAXChat extends AJAXChat {
 		
 		if($_SESSION['authlevel'] == AUTH_ADM)
 			$userData['userRole'] = AJAX_CHAT_ADMIN;
-		elseif($_SESSION['authlevel'] > 0)
+		elseif($_SESSION['authlevel'] > AUTH_USR)
 			$userData['userRole'] = AJAX_CHAT_MODERATOR;
 		else
 			$userData['userRole'] = AJAX_CHAT_USER;

@@ -34,7 +34,7 @@ define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 require(ROOT_PATH . 'includes/common.php');
 $SESSION       	= new Session();
 
-if(!$SESSION->IsUserLogin() || ($CONF['game_disable'] == 0 && $_SESSION['authlevel'] == 0))
+if(!$SESSION->IsUserLogin() || ($CONF['game_disable'] == 0 && $_SESSION['authlevel'] == AUTH_USR))
 	exit(json_encode(array()));
 $LANG->setUser($_SESSION['USER']['lang']);
 $LANG->includeLang(array('INGAME'));

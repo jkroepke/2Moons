@@ -72,13 +72,13 @@ function ShowRightsPage()
 			}
 							
 			if ($_GET['get'] == 'adm')
-				$WHEREUSERS	=	"AND `authlevel` = '3'";
+				$WHEREUSERS	=	"AND `authlevel` = '".AUTH_ADM."'";
 			elseif ($_GET['get'] == 'ope')
-				$WHEREUSERS	=	"AND `authlevel` = '2'";
+				$WHEREUSERS	=	"AND `authlevel` = '".AUTH_OPS."'";
 			elseif ($_GET['get'] == 'mod')
-				$WHEREUSERS	=	"AND `authlevel` = '1'";
+				$WHEREUSERS	=	"AND `authlevel` = '".AUTH_MOD."'";
 			elseif ($_GET['get'] == 'pla')
-				$WHEREUSERS	=	"AND `authlevel` = '0'";			
+				$WHEREUSERS	=	"AND `authlevel` = '".AUTH_USR."'";			
 				
 				
 			$QueryUsers	=	$db->query("SELECT `id`, `username`, `authlevel` FROM ".USERS." WHERE `universe` = '".$_SESSION['adminuni']."'".$WHEREUSERS.";");
@@ -131,14 +131,13 @@ function ShowRightsPage()
 			}
 							
 			if ($_GET['get'] == 'adm')
-				$WHEREUSERS	=	"AND `authlevel` = '3'";
+				$WHEREUSERS	=	"AND `authlevel` = '".AUTH_ADM."'";
 			elseif ($_GET['get'] == 'ope')
-				$WHEREUSERS	=	"AND `authlevel` = '2'";
+				$WHEREUSERS	=	"AND `authlevel` = '".AUTH_OPS."'";
 			elseif ($_GET['get'] == 'mod')
-				$WHEREUSERS	=	"AND `authlevel` = '1'";
+				$WHEREUSERS	=	"AND `authlevel` = '".AUTH_MOD."'";
 			elseif ($_GET['get'] == 'pla')
-				$WHEREUSERS	=	"AND `authlevel` = '0'";			
-				
+				$WHEREUSERS	=	"AND `authlevel` = '".AUTH_USR."'";	
 				
 			$QueryUsers	=	$db->query("SELECT `id`, `username`, `authlevel` FROM ".USERS." WHERE `universe` = '".$_SESSION['adminuni']."'".$WHEREUSERS.";");
 				

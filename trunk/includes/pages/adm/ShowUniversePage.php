@@ -27,7 +27,8 @@
  */
 
 if ($USER['authlevel'] != AUTH_ADM || $_GET['sid'] != session_id()) exit;
-set_time_limit(0);
+@set_time_limit(0);
+
 function ShowUniversePage() {
 	global $CONF, $LNG, $db, $UNI, $USER;
 	$template	= new template();
@@ -37,22 +38,25 @@ function ShowUniversePage() {
 		if($UNI != $ID){
 			$db->multi_query("DELETE FROM ".ALLIANCE." WHERE `ally_universe` = ".$ID.";
 			DELETE FROM ".BANNED." WHERE `universe` = ".$ID.";
-			DELETE FROM ".CHAT." WHERE `universe` = ".$ID.";
+			DELETE FROM ".BUDDY." WHERE `universe` = ".$ID.";
 			DELETE FROM ".CONFIG." WHERE `uni` = ".$ID.";
+			DELETE FROM ".DIPLO." WHERE `universe` = ".$ID.";
 			DELETE FROM ".FLEETS." WHERE `fleet_universe` = ".$ID.";
+			DELETE FROM ".MESSAGES." WHERE `message_universe` = ".$ID.";
+			DELETE FROM ".NOTES." WHERE `universe` = ".$ID.";
 			DELETE FROM ".PLANETS." WHERE `universe` = ".$ID.";
 			DELETE FROM ".STATPOINTS." WHERE `universe` = ".$ID.";
+			DELETE FROM ".SUPP." WHERE `universe` = ".$ID.";
 			DELETE FROM ".TOPKB." WHERE `universe` = ".$ID.";
 			DELETE FROM ".USERS." WHERE `universe` = ".$ID.";
-			DELETE FROM ".USERS_VALID." WHERE `universe` = ".$ID.";");
-			
+			DELETE FROM ".USERS_VALID." WHERE `universe` = ".$ID.";");	
 			if($_SESSION['adminuni'] == $ID)
 				$_SESSION['adminuni']	= $UNI;
 		}
 	} elseif($_REQUEST['action'] == 'create') {
 		$ID	= (int) $_REQUEST['id'];
-		$db->query("INSERT INTO ".CONFIG." (`uni`, `VERSION`, `users_amount`, `game_speed`, `fleet_speed`, `resource_multiplier`, `halt_speed`, `Fleet_Cdr`, `Defs_Cdr`, `initial_fields`, `bgm_active`, `bgm_file`, `uni_name`,  `game_name`, `game_disable`, `close_reason`, `metal_basic_income`, `crystal_basic_income`, `deuterium_basic_income`, `energy_basic_income`, `LastSettedGalaxyPos`, `LastSettedSystemPos`, `LastSettedPlanetPos`, `noobprotection`, `noobprotectiontime`, `noobprotectionmulti`, `forum_url`, `adm_attack`, `debug`, `lang`, `stat`, `stat_level`, `stat_last_update`, `stat_settings`, `stat_update_time`, `stat_last_db_update`, `stats_fly_lock`, `stat_last_banner_update`, `stat_banner_update_time`, `cron_lock`, `ts_modon`, `ts_server`, `ts_tcpport`, `ts_udpport`, `ts_timeout`, `ts_version`, `ts_cron_last`, `ts_cron_interval`, `ts_login`, `ts_password`, `reg_closed`, `OverviewNewsFrame`, `OverviewNewsText`, `capaktiv`, `cappublic`, `capprivate`, `min_build_time`, `smtp_host`, `smtp_port`, `smtp_user`, `smtp_pass`, `smtp_ssl`, `smtp_sendmail`, `user_valid`, `ftp_server`, `ftp_user_name`, `ftp_user_pass`, `ftp_root_path`, `fb_on`, `fb_apikey`, `fb_skey`, `ga_active`, `ga_key`, `moduls`, `trade_allowed_ships`, `trade_charge`, `mail_active`, `mail_use`, `smail_path`, `chat_closed`, `chat_allowchan`, `chat_allowmes`, `chat_allowdelmes`, `chat_logmessage`, `chat_nickchange`, `chat_botname`, `chat_channelname`, `chat_socket_chatid`, `chat_socket_port`, `chat_socket_ip`, `chat_socket_host`, `chat_socket_active`) VALUES 
-		(NULL, '".$CONF['VERSION']."', 0, 2500, 2500, 1, 1, 30, 30, 163, ".$CONF['bgm_active'].", '".$CONF['bgm_file']."', '2Moons', '".$CONF['game_name']."', 1, 'Game ist zurzeit geschlossen', 20, 10, 0, 0, 1, 1, 1, 0, 0, 0, '".$CONF['forum_url']."', 1, 0, '".$CONF['lang']."', ".$CONF['stat'].", ".$CONF['stat_level'].", ".$CONF['stat_last_update'].", ".$CONF['stat_settings'].", ".$CONF['stat_update_time'].", ".$CONF['stat_last_db_update'].", ".$CONF['stats_fly_lock'].", ".$CONF['stat_last_banner_update'].", ".$CONF['stat_banner_update_time'].", 0, ".$CONF['ts_modon'].", '".$CONF['ts_server']."', '".$CONF['ts_tcpport']."', '".$CONF['ts_udpport']."', '".$CONF['ts_timeout']."', '".$CONF['ts_version']."', '".$CONF['ts_cron_last']."', '".$CONF['ts_cron_interval']."', '".$CONF['ts_login']."', '".$CONF['ts_password']."', 0, 1, 'Herzlich Willkommen bei 2Moons v1.3!', ".$CONF['capaktiv'].", '".$CONF['cappublic']."', '".$CONF['capprivate']."', 1, '".$CONF['smtp_host']."', ".$CONF['smtp_port'].", '".$CONF['smtp_user']."', '".$CONF['smtp_pass']."', '".$CONF['smtp_ssl']."', '".$CONF['smtp_sendmail']."', ".$CONF['user_valid'].", '".$CONF['ftp_server']."', '".$CONF['ftp_user_name']."', '".$CONF['ftp_user_pass']."', '".$CONF['ftp_root_path']."', ".$CONF['fb_on'].", '".$CONF['fb_apikey']."', '".$CONF['fb_skey']."', '".$CONF['ga_active']."', '".$CONF['ga_key']."', '".$CONF['moduls']."', '".$CONF['trade_allowed_ships']."', '".$CONF['trade_charge']."', '".$CONF['mail_active']."', '".$CONF['mail_use']."', '".$CONF['smail_path']."', '".$CONF['chat_closed']."', '".$CONF['chat_allowchan']."', '".$CONF['chat_allowmes']."', '".$CONF['chat_allowdelmes']."', '".$CONF['chat_logmessage']."', '".$CONF['chat_nickchange']."', '".$CONF['chat_botname']."', '".$CONF['chat_channelname']."', '".$CONF['chat_socket_chatid']."', '".$CONF['chat_socket_port']."', '".$CONF['chat_socket_ip']."', '".$CONF['chat_socket_host']."', '".$CONF['chat_socket_active']."');");
+		$db->query("INSERT INTO ".CONFIG." (`uni`, `VERSION`, `users_amount`, `game_speed`, `fleet_speed`, `resource_multiplier`, `halt_speed`, `Fleet_Cdr`, `Defs_Cdr`, `initial_fields`, `bgm_active`, `bgm_file`, `uni_name`,  `game_name`, `game_disable`, `close_reason`, `metal_basic_income`, `crystal_basic_income`, `deuterium_basic_income`, `energy_basic_income`, `LastSettedGalaxyPos`, `LastSettedSystemPos`, `LastSettedPlanetPos`, `noobprotection`, `noobprotectiontime`, `noobprotectionmulti`, `forum_url`, `adm_attack`, `debug`, `lang`, `stat`, `stat_level`, `stat_last_update`, `stat_settings`, `stat_update_time`, `stat_last_db_update`, `stats_fly_lock`, `stat_last_banner_update`, `stat_banner_update_time`, `cron_lock`, `ts_modon`, `ts_server`, `ts_tcpport`, `ts_udpport`, `ts_timeout`, `ts_version`, `ts_cron_last`, `ts_cron_interval`, `ts_login`, `ts_password`, `reg_closed`, `OverviewNewsFrame`, `OverviewNewsText`, `capaktiv`, `cappublic`, `capprivate`, `min_build_time`, `smtp_host`, `smtp_port`, `smtp_user`, `smtp_pass`, `smtp_ssl`, `smtp_sendmail`, `user_valid`, `fb_on`, `fb_apikey`, `fb_skey`, `ga_active`, `ga_key`, `moduls`, `trade_allowed_ships`, `trade_charge`, `mail_active`, `mail_use`, `smail_path`, `chat_closed`, `chat_allowchan`, `chat_allowmes`, `chat_allowdelmes`, `chat_logmessage`, `chat_nickchange`, `chat_botname`, `chat_channelname`, `chat_socket_chatid`, `chat_socket_port`, `chat_socket_ip`, `chat_socket_host`, `chat_socket_active`) VALUES 
+		(NULL, '".$CONF['VERSION']."', 0, 2500, 2500, 1, 1, 30, 30, 163, ".$CONF['bgm_active'].", '".$CONF['bgm_file']."', '2Moons', '".$CONF['game_name']."', 1, 'Game ist zurzeit geschlossen', 20, 10, 0, 0, 1, 1, 1, 0, 0, 0, '".$CONF['forum_url']."', 1, 0, '".$CONF['lang']."', ".$CONF['stat'].", ".$CONF['stat_level'].", ".$CONF['stat_last_update'].", ".$CONF['stat_settings'].", ".$CONF['stat_update_time'].", ".$CONF['stat_last_db_update'].", ".$CONF['stats_fly_lock'].", ".$CONF['stat_last_banner_update'].", ".$CONF['stat_banner_update_time'].", 0, ".$CONF['ts_modon'].", '".$CONF['ts_server']."', '".$CONF['ts_tcpport']."', '".$CONF['ts_udpport']."', '".$CONF['ts_timeout']."', '".$CONF['ts_version']."', '".$CONF['ts_cron_last']."', '".$CONF['ts_cron_interval']."', '".$CONF['ts_login']."', '".$CONF['ts_password']."', 0, 1, 'Herzlich Willkommen bei 2Moons v1.3!', ".$CONF['capaktiv'].", '".$CONF['cappublic']."', '".$CONF['capprivate']."', 1, '".$CONF['smtp_host']."', ".$CONF['smtp_port'].", '".$CONF['smtp_user']."', '".$CONF['smtp_pass']."', '".$CONF['smtp_ssl']."', '".$CONF['smtp_sendmail']."', ".$CONF['user_valid'].", ".$CONF['fb_on'].", '".$CONF['fb_apikey']."', '".$CONF['fb_skey']."', '".$CONF['ga_active']."', '".$CONF['ga_key']."', '".$CONF['moduls']."', '".$CONF['trade_allowed_ships']."', '".$CONF['trade_charge']."', '".$CONF['mail_active']."', '".$CONF['mail_use']."', '".$CONF['smail_path']."', '".$CONF['chat_closed']."', '".$CONF['chat_allowchan']."', '".$CONF['chat_allowmes']."', '".$CONF['chat_allowdelmes']."', '".$CONF['chat_logmessage']."', '".$CONF['chat_nickchange']."', '".$CONF['chat_botname']."', '".$CONF['chat_channelname']."', '".$CONF['chat_socket_chatid']."', '".$CONF['chat_socket_port']."', '".$CONF['chat_socket_ip']."', '".$CONF['chat_socket_host']."', '".$CONF['chat_socket_active']."');");
 		$UniID	= $db->countquery("SELECT `uni` FROM ".CONFIG." WHERE `users_amount` = 0;");
 		$db->query("INSERT INTO ".USERS." SET
 			`id`                = NULL,
@@ -60,7 +64,7 @@ function ShowUniversePage() {
 			`email`             = '".$USER['email']."',
 			`email_2`           = '".$USER['email']."',
 			`ip_at_reg`         = '".$_SERVER['REMOTE_ADDR']."',
-			`authlevel`         = '3',
+			`authlevel`         = '".AUTH_ADM."',
 			`rights` 			= '".serialize($USER['rights'])."',
 			`universe`          = '".$UniID."',
 			`galaxy`            = '1',
@@ -233,7 +237,7 @@ function ShowUniversePage() {
 			$db->query(substr($SQL, 0, -1).';');
 		$Rows	= 0;
 		
-		$SQL = "INSERT INTO ".CONFIG." (`uni`, `VERSION`, `users_amount`, `game_speed`, `fleet_speed`, `resource_multiplier`, `halt_speed`, `Fleet_Cdr`, `Defs_Cdr`, `initial_fields`, `bgm_active`, `bgm_file`, `uni_name`, `game_name`, `game_disable`, `close_reason`, `metal_basic_income`, `crystal_basic_income`, `deuterium_basic_income`, `energy_basic_income`, `LastSettedGalaxyPos`, `LastSettedSystemPos`, `LastSettedPlanetPos`, `noobprotection`, `noobprotectiontime`, `noobprotectionmulti`, `forum_url`, `adm_attack`, `debug`, `lang`, `stat`, `stat_level`, `stat_last_update`, `stat_settings`, `stat_update_time`, `stat_last_db_update`, `stats_fly_lock`, `stat_last_banner_update`, `stat_banner_update_time`, `cron_lock`, `ts_modon`, `ts_server`, `ts_tcpport`, `ts_udpport`, `ts_timeout`, `ts_version`, `ts_cron_last`, `ts_cron_interval`, `ts_login`, `ts_password`, `reg_closed`, `OverviewNewsFrame`, `OverviewNewsText`, `capaktiv`, `cappublic`, `capprivate`, `min_build_time`, `smtp_host`, `smtp_port`, `smtp_user`, `smtp_pass`, `smtp_ssl`, `smtp_sendmail`, `user_valid`, `ftp_server`, `ftp_user_name`, `ftp_user_pass`, `ftp_root_path`, `fb_on`, `fb_apikey`, `fb_skey`, `ga_active`, `ga_key`, `moduls`, `trade_allowed_ships`, `trade_charge`, `mail_active`, `mail_use`, `smail_path`, `chat_closed`, `chat_allowchan`, `chat_allowmes`, `chat_allowdelmes`, `chat_logmessage`, `chat_nickchange`, `chat_botname`, `chat_channelname`, `chat_socket_chatid`, `chat_socket_port`, `chat_socket_ip`, `chat_socket_host`, `chat_socket_active`) VALUES ";
+		$SQL = "INSERT INTO ".CONFIG." (`uni`, `VERSION`, `users_amount`, `game_speed`, `fleet_speed`, `resource_multiplier`, `halt_speed`, `Fleet_Cdr`, `Defs_Cdr`, `initial_fields`, `bgm_active`, `bgm_file`, `uni_name`, `game_name`, `game_disable`, `close_reason`, `metal_basic_income`, `crystal_basic_income`, `deuterium_basic_income`, `energy_basic_income`, `LastSettedGalaxyPos`, `LastSettedSystemPos`, `LastSettedPlanetPos`, `noobprotection`, `noobprotectiontime`, `noobprotectionmulti`, `forum_url`, `adm_attack`, `debug`, `lang`, `stat`, `stat_level`, `stat_last_update`, `stat_settings`, `stat_update_time`, `stat_last_db_update`, `stats_fly_lock`, `stat_last_banner_update`, `stat_banner_update_time`, `cron_lock`, `ts_modon`, `ts_server`, `ts_tcpport`, `ts_udpport`, `ts_timeout`, `ts_version`, `ts_cron_last`, `ts_cron_interval`, `ts_login`, `ts_password`, `reg_closed`, `OverviewNewsFrame`, `OverviewNewsText`, `capaktiv`, `cappublic`, `capprivate`, `min_build_time`, `smtp_host`, `smtp_port`, `smtp_user`, `smtp_pass`, `smtp_ssl`, `smtp_sendmail`, `user_valid`, `fb_on`, `fb_apikey`, `fb_skey`, `ga_active`, `ga_key`, `moduls`, `trade_allowed_ships`, `trade_charge`, `mail_active`, `mail_use`, `smail_path`, `chat_closed`, `chat_allowchan`, `chat_allowmes`, `chat_allowdelmes`, `chat_logmessage`, `chat_nickchange`, `chat_botname`, `chat_channelname`, `chat_socket_chatid`, `chat_socket_port`, `chat_socket_ip`, `chat_socket_host`, `chat_socket_active`) VALUES ";
 		foreach($Data['CONFIG'] as $Key => $Row)
 		{
 			$Data['CONFIG'][$Key]['uni']						= $TABLEINFO[CONFIG] + 1;
@@ -276,10 +280,6 @@ function ShowUniversePage() {
 			$Data['CONFIG'][$Key]['smtp_ssl']					= $CONF['smtp_ssl'];
 			$Data['CONFIG'][$Key]['smtp_sendmail']				= $CONF['smtp_sendmail'];
 			$Data['CONFIG'][$Key]['user_valid']					= $CONF['user_valid'];
-			$Data['CONFIG'][$Key]['ftp_server']					= $CONF['ftp_server'];
-			$Data['CONFIG'][$Key]['ftp_user_name']				= $CONF['ftp_user_name'];
-			$Data['CONFIG'][$Key]['ftp_user_pass']				= $CONF['ftp_user_pass'];
-			$Data['CONFIG'][$Key]['ftp_root_path']				= $CONF['ftp_root_path'];
 			$Data['CONFIG'][$Key]['fb_on']						= $CONF['fb_on'];
 			$Data['CONFIG'][$Key]['fb_apikey']					= $CONF['fb_apikey'];
 			$Data['CONFIG'][$Key]['fb_skey']					= $CONF['fb_skey'];
@@ -300,6 +300,11 @@ function ShowUniversePage() {
 			$Data['CONFIG'][$Key]['chat_socket_active']			= $CONF['chat_socket_active'];
 			$Data['CONFIG'][$Key]['close_reason']				= base64_decode($Row['close_reason']);
 			$Data['CONFIG'][$Key]['OverviewNewsText']			= base64_decode($Row['OverviewNewsText']);
+			
+			unset($Data['CONFIG'][$Key]['ftp_server']);
+			unset($Data['CONFIG'][$Key]['ftp_user_name']);
+			unset($Data['CONFIG'][$Key]['ftp_user_pass']);
+			unset($Data['CONFIG'][$Key]['ftp_root_path']);
 			
 			$SQL	.= "(";
 			foreach($Data['CONFIG'][$Key] as $Value)

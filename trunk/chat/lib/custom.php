@@ -17,7 +17,7 @@ define('ROOT_PATH', str_replace('\\', '/',dirname(AJAX_CHAT_PATH)).'/');
 require(ROOT_PATH . 'includes/common.php');
 $SESSION       	= new Session();
 
-if(!$SESSION->IsUserLogin() || ($CONF['game_disable'] == 0 && $_SESSION['authlevel'] == 0))
+if(!$SESSION->IsUserLogin() || ($CONF['game_disable'] == 0 && $_SESSION['authlevel'] == AUTH_USR))
 	redirectTo('index.php?code=3');
 	
 if(CheckModule(7))

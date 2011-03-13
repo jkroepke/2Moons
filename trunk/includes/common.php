@@ -97,7 +97,7 @@ if (!defined('CLI') && !defined('LOGIN') && !defined('IN_CRON') && !defined('AJA
 	
 	$SESSION->UpdateSession();
 	
-	if($CONF['game_disable'] == 0 && $_SESSION['authlevel'] == 0) {
+	if($CONF['game_disable'] == 0 && $_SESSION['authlevel'] == AUTH_USR) {
 		message($CONF['close_reason']);
 	}
 

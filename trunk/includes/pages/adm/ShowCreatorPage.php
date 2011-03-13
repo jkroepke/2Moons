@@ -135,8 +135,8 @@ function ShowCreatorPage()
 				exit;
 			}
 
-			$AUTH		= array();
-			$AUTH[0]	= $LNG['user_level'][0];
+			$AUTH			= array();
+			$AUTH[AUTH_USR]	= $LNG['user_level'][AUTH_USR];
 			
 			if($USER['authlevel'] >= AUTH_OPS)
 				$AUTH[AUTH_OPS]	= $LNG['user_level'][AUTH_OPS];

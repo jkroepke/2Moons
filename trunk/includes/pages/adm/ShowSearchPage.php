@@ -391,7 +391,7 @@ function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialS
 				if (allowedTo('ShowQuickEditorPage'))
 					$Search['LIST']	.=	"<td><a href=\"javascript:openEdit('".$WhileResult[0]."', 'player');\" border=\"0\"><img title=\"".$WhileResult[1]."\" src=\"./styles/images/Adm/GO.png\"></a></d>";
 			
-				if ($USER['authlevel']	==	'3')
+				if ($USER['authlevel'] == AUTH_ADM)
 				{
 					$DELETEBUTTON = $WhileResult[0] != $USER['id'] || $WhileResult[0] != 1 ? "<a href=\"?page=search&amp;delete=user&amp;user=".$WhileResult[0]."\" border=\"0\" onclick=\"return confirm('".$LNG['ul_sure_you_want_dlte']." ".$WhileResult[1]."?');\"><img src=\"./styles/images/r1.png\" title=".$WhileResult[1]."></a>" : "-";
 					
@@ -404,7 +404,7 @@ function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialS
 				if (allowedTo('ShowQuickEditorPage'))
 					$Search['LIST']	.=	"<td><a href=\"javascript:openEdit('".$WhileResult[0]."', 'planet');\" border=\"0\"><img src=\"./styles/images/Adm/GO.png\" title=".$LNG['se_search_edit']."></a></td>";
 					
-				if ($USER['authlevel'] == '3')
+				if ($USER['authlevel'] == AUTH_ADM)
 					$Search['LIST']	.=	"<td><a href=\"?page=search&amp;delete=planet&planet=".$WhileResult[0]."\" border=\"0\" onclick=\"return confirm('".$LNG['se_confirm_planet']." ".$WhileResult[1]."');\"><img src=\"./styles/images/r1.png\" title=".$LNG['button_delete']."></a></td>";
 			}
 			
