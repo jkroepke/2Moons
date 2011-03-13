@@ -427,7 +427,6 @@ includes/pages/adm/ShowUniversePage.php
 includes/pages/adm/ShowUpdatePage.php
 includes/pages/class.ShowAlliancePage.php
 includes/pages/class.ShowBuildingsPage.php
-includes/pages/class.ShowChatPage.php
 includes/pages/class.ShowFleetPages.php
 includes/pages/class.ShowGalaxyPage.php
 includes/pages/class.ShowInfosPage.php

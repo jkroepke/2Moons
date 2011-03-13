@@ -186,12 +186,12 @@ class ShowAlliancePage
                                 `ally_register_time`='" . TIMESTAMP."',
 								`ally_universe` ='".$UNI."';
                                 UPDATE ".USERS." SET
-                                `ally_id`= (SELECT `id` FROM ".ALLIANCE." WHERE ally_name = '".$db->sql_escape($aname)."'),
+                                `ally_id`= (SELECT `id` FROM ".ALLIANCE." WHERE `ally_universe` = '".$UNI."' AND  ally_name = '".$db->sql_escape($aname)."'),
                                 `ally_name` = '".$db->sql_escape($aname)."',
                                 `ally_register_time` = '" . TIMESTAMP . "'
                                 WHERE `id` = '".$USER['id']."';
                                 UPDATE ".STATPOINTS." SET
-                                `id_ally` = (SELECT `id` FROM ".ALLIANCE." WHERE ally_name = '".$db->sql_escape($aname)."')
+                                `id_ally` = (SELECT `id` FROM ".ALLIANCE." WHERE `ally_universe` = '".$UNI."' AND ally_name = '".$db->sql_escape($aname)."')
                                 WHERE `id_owner` = '".$USER['id']."';");
 											
 								$template->message(sprintf($LNG['al_created'], $atag),"?page=alliance", 3);
