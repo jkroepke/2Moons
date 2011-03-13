@@ -5,7 +5,7 @@
 	<td colspan="2" class="transparent">
 	<table>
 		<tr>
-			<td class="transparent"><img src="{if $id >=600 && $id <= 699}styles/images/officiers/{$id}.jpg{else}{$dpath}gebaeude/{$id}.gif{/if}" alt="{$name}"></td>
+			<td class="transparent"><img src="{$dpath}gebaeude/{$id}.{if $id >=600 && $id <= 699}jpg{else}gif{/if}" alt="{$name}"></td>
 			<td class="transparent">{$description}
 			{if $RapidFire}
 			<br><br>
