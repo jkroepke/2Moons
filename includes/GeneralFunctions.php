@@ -424,7 +424,7 @@ function CheckModule($ID)
 	if(!isset($GLOBALS['CONF']['moduls'][$ID])) 
 		$GLOBALS['CONF']['moduls'][$ID] = 1;
 	
-	return ((!isset($_SESSION) || $_SESSION['authlevel'] == 0) && $GLOBALS['CONF']['moduls'][$ID] == 0) ? true : false;
+	return ((!isset($_SESSION) || $_SESSION['authlevel'] == AUTH_USR) && $GLOBALS['CONF']['moduls'][$ID] == 0) ? true : false;
 }
 
 function redirectTo($URL)

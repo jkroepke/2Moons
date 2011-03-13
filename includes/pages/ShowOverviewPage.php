@@ -100,7 +100,7 @@ function ShowOverviewPage()
 		$Build 		= $LNG['ov_free'];
 	}
 	
-	$OnlineAdmins 	= $db->query("SELECT `id`,`username` FROM ".USERS." WHERE `universe` = '".$UNI."' AND `onlinetime` >= '".(TIMESTAMP-10*60)."' AND `authlevel` > '0';");
+	$OnlineAdmins 	= $db->query("SELECT `id`,`username` FROM ".USERS." WHERE `universe` = '".$UNI."' AND `onlinetime` >= '".(TIMESTAMP-10*60)."' AND `authlevel` > '".AUTH_USR."';");
 	while ($AdminRow = $db->fetch_array($OnlineAdmins)) {
 		$AdminsOnline[$AdminRow['id']]	= $AdminRow['username'];
 	}

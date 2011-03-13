@@ -92,7 +92,7 @@ function ShowMessagesPage()
 			$OpsList	= array();
 			$TotalMess	= array(0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 15 => 0, 50 => 0, 99 => 0, 100 => 0, 999 => 0);
 			$UnRead		= array(0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 15 => 0, 50 => 0, 99 => 0, 100 => 0, 999 => 0);
-			$GameOps 	= $db->query("SELECT `username`, `email` FROM ".USERS." WHERE `universe` = '".$UNI."' AND`authlevel` != '0' ORDER BY `username` ASC;");		
+			$GameOps 	= $db->query("SELECT `username`, `email` FROM ".USERS." WHERE `universe` = '".$UNI."' AND`authlevel` != '".AUTH_USR."' ORDER BY `username` ASC;");		
 			while($Ops = $db->fetch_array($GameOps))
 			{	
 				$OpsList[]	= array(

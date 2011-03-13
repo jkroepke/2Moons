@@ -33,7 +33,7 @@ define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 
 require(ROOT_PATH . 'includes/common.php');
 
-if ($USER['authlevel'] < AUTH_MOD) exit;
+if ($USER['authlevel'] == AUTH_USR) redirectTo('game.php');
 
 if(!isset($_SESSION['admin_login']) || $_SESSION['admin_login'] != $USER['password'])
 {

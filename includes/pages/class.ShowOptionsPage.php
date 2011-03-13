@@ -173,7 +173,7 @@ class ShowOptionsPage
 								`settings_rep` = '".$settings_rep."' 
 								WHERE `id` = '".$USER["id"]."';";
 				
-				if ($USER['authlevel'] > 0)
+				if ($USER['authlevel'] > AUTH_USR)
 				{
 					$SQLQuery .= $adm_pl_prot == 'on' ? "UPDATE ".PLANETS." SET `id_level` = '".$USER['authlevel']."' WHERE `id_owner` = '".$USER['id']."';" : "UPDATE ".PLANETS." SET `id_level` = '0' WHERE `id_owner` = '".$USER['id']."';";
 				}
