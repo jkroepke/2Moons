@@ -57,9 +57,8 @@ function ShowUpdatePage()
 }
 
 function DownloadUpdates() {
-
+exit;
 	// Header für Download senden
-	$File	= $zipfile->file(); 		
 	header('Content-length: '.strlen($File));
 	header('Content-Type: application/force-download');
 	header('Content-Disposition: attachment; filename="patch_'.$FirstRev.'_to_'.$LastRev.'.zip"');
@@ -83,6 +82,7 @@ function CheckPermissions() {
 }
 
 function ExecuteUpdates() {
+	clearstatcache();
 	copy(ROOT_PATH.'includes/update.php', ROOT_PATH.'update.php');
 }
 
