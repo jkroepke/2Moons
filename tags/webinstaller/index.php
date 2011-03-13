@@ -54,7 +54,10 @@ function ErrorHandler($errno, $errstr, $errfile, $errline) {
             $error = '<b>Unknown:</b> '.$errstr;
         break;
     }
-	header('HTTP/1.1 200 OK');
+
+	if (!headers_sent())
+		header('HTTP/1.1 200 OK');
+
 	echo json_encode(array('status' => $error));
     exit;
 }
@@ -358,7 +361,7 @@ function createAdminAccount() {
 			<div id="step1">
 				<h2 id="step1_head"></h2><select onchange="setLNG($('#selector').val())" id="selector"></select><br>
 				<div class="left" id="step1_desc"></div>
-				<?php if(function_exists('json_encode')) { ?>
+				<?php if(extension_loaded('json')) { ?>
 				<button onclick="step2();" class="continue"></button>
 				<?php } else { ?>
 				<span id="error_no_json" class="no"></span>
