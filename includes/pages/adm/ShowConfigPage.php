@@ -76,13 +76,8 @@ function ShowConfigPage()
 		$CONF['smtp_sendmail']			= request_var('smtp_sendmail', '', true);
 		$CONF['smtp_pass']				= request_var('smtp_pass', '', true);
 		$CONF['smtp_ssl']				= request_var('smtp_ssl', '');
-		$CONF['ftp_server']				= request_var('ftp_server', '', true);
-		$CONF['ftp_user_name']			= request_var('ftp_user_name', '', true);
-		$CONF['ftp_root_path']			= request_var('ftp_root_path', '', true);
 		$CONF['trade_allowed_ships']	= request_var('trade_allowed_ships', '');
 		$CONF['trade_charge']			= request_var('trade_charge', 0.0);
-		$CONF['ftp_root_path']			= request_var('ftp_root_path', '', true);
-
 		update_config(array(
 			'noobprotectiontime'	=> $CONF['noobprotectiontime'],
 			'noobprotectionmulti'	=> $CONF['noobprotectionmulti'],
@@ -123,9 +118,6 @@ function ShowConfigPage()
 			'smtp_pass'				=> $CONF['smtp_pass'],
 			'smtp_ssl'				=> $CONF['smtp_ssl'],
 			'smtp_sendmail'			=> $CONF['smtp_sendmail'],
-			'ftp_server'			=> $CONF['ftp_server'],
-			'ftp_user_name'			=> $CONF['ftp_user_name'],
-			'ftp_root_path'			=> $CONF['ftp_root_path'],
 			'ga_active'				=> $CONF['ga_active'],
 			'ga_key'				=> $CONF['ga_key'],
 			'bgm_active'			=> $CONF['bgm_active'],
@@ -209,12 +201,6 @@ function ShowConfigPage()
 		'se_smtp_pass'					=> $LNG['se_smtp_pass'],
 		'se_smtp_sendmail'				=> $LNG['se_smtp_sendmail'],
 		'se_smtp_sendmail_info'			=> $LNG['se_smtp_sendmail_info'],
-		'se_ftp'						=> $LNG['se_ftp'],
-		'se_ftp_info'					=> $LNG['se_ftp_info'],
-		'se_ftp_host'					=> $LNG['se_ftp_host'],
-		'se_ftp_user'					=> $LNG['se_ftp_user'],
-		'se_ftp_dir'					=> $LNG['se_ftp_dir'],
-		'se_ftp_dir_info'				=> $LNG['se_ftp_dir_info'],
 		'se_google'						=> $LNG['se_google'],
 		'se_google_active'				=> $LNG['se_google_active'],
 		'se_google_info'				=> $LNG['se_google_info'],
@@ -264,10 +250,6 @@ function ShowConfigPage()
 		'cappublic' 	   				=> $CONF['cappublic'],
 		'capaktiv'      	           	=> $CONF['capaktiv'],
 		'min_build_time'    	        => $CONF['min_build_time'],
-		'ftp_server'          			=> $CONF['ftp_server'],
-		'ftp_user_name'           		=> $CONF['ftp_user_name'],
-		'ftp_user_pass'     	      	=> str_pad('', strlen($CONF['ftp_user_pass']), 'x'),
-		'ftp_root_path'         	  	=> $CONF['ftp_root_path'],
         'ga_active'               		=> $CONF['ga_active'],
 		'ga_key'           				=> $CONF['ga_key'],
         'bgm_active'               		=> $CONF['bgm_active'],
