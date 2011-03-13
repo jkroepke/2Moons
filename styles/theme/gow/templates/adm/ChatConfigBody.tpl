@@ -38,7 +38,7 @@
 	<th>&nbsp;</th>
 </tr><tr>
 	<td>{$ch_socket_active}</td>
-	<td><input name="chat_socket_active"{if $ch_socket_active == '1'} checked="checked"{/if} type="checkbox"></td>
+	<td><input name="chat_socket_active"{if $chat_socket_active == '1'} checked="checked"{/if} type="checkbox"></td>
 	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onclick="window.open('http://sourceforge.net/apps/mediawiki/ajax-chat/index.php?title=Socket_Server');"></td>
 </tr><tr>
 	<td>{$ch_socket_host}</td>
