@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 /**
  *  2Moons
@@ -140,7 +140,7 @@ $LNG['ov_abandon_planet']			        = 'Abandonar colónia';
 $LNG['ov_planet_name']						= 'Nome';
 $LNG['ov_actions']						    = 'Funções';
 $LNG['ov_planet_rename']					= 'Novo nome';
-$LNG['ov_planet_rename_action']             = 'Renomear';
+$LNG['ov_rename_label']                   = 'Mudar o nome';
 $LNG['ov_fields']                           = 'Campos';
 $LNG['ov_developed_fields']                 = 'Campos usados';
 $LNG['ov_max_developed_fields']             = 'max. Campos usados';

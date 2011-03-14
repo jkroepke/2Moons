@@ -1,5 +1,5 @@
 {include file="install/ins_header.tpl"}
-<form method="POST" action="?mode=ins&amp;page=2&amp;{$lang}" id="install" onsubmit="return submitinstall();">
+<form method="POST" action="" id="install" onsubmit="return submitinstall();">
 <tr>
 	<td>{$step1_mysql_server}</td>
 	<td><input type="text" name="host" value="localhost" size="30"></td>

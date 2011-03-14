@@ -359,14 +359,10 @@ function exception_handler($exception)
 	echo '<meta http-equiv="content-style-type" content="text/css">';
 	echo '<meta http-equiv="content-language" content="de">';
 	echo '<title>'.$CONF['game_name'].' - FATAL ERROR</title>';
-	echo '<link rel="shortcut icon" href="./favicon.ico">';
-	echo '<link rel="stylesheet" type="text/css" href="./styles/theme/'.DEFAULT_THEME.'/formate.css">';
-	echo '<script type="text/javascript"> ';
-	echo 'function blockError(){return true;} ';
-	echo 'window.onerror = blockError; ';
-	echo '</script>';
+	echo '<link rel="shortcut icon" href="'.(defined('INSTALL') ? '..':'.').'/favicon.ico">';
+	echo '<link rel="stylesheet" type="text/css" href="'.(defined('INSTALL') ? '..':'.').'/styles/theme/'.DEFAULT_THEME.'/formate.css">';
 	echo '</head>';
-	echo '<body>';
+	echo '<body style="margin-top:30px;">';
 	echo '<table width="80%">';
 	echo '<tr>';
 	echo '<th>';
@@ -377,6 +373,7 @@ function exception_handler($exception)
     echo '<td class="left"><b>Message: </b>'.$exception->getMessage().'<br>';
     echo '<b>File: </b>'.$exception->getFile().'<br>';
     echo '<b>Line: </b>'.$exception->getLine().'<br>';
+    echo '<b>URL: </b>'.PROTOCOL.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].(!empty($_SERVER['QUERY_STRING']) ? '?'.$_SERVER['QUERY_STRING']: '').'<br>';
     echo '<b>PHP-Version: </b>'.PHP_VERSION.'<br>';
     echo '<b>PHP-API: </b>'.php_sapi_name().'<br>';
     echo '<b>2Moons Version: </b>'.$CONF['VERSION'].'<br>';

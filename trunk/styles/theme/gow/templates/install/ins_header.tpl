@@ -2,8 +2,8 @@
 
 <html lang="de">
 <head>
-<link rel="stylesheet" type="text/css" href="./styles/theme/gow/formate.css">
-<link rel="stylesheet" type="text/css" href="./styles/css/admin.css">
+<link rel="stylesheet" type="text/css" href="../styles/theme/gow/formate.css">
+<link rel="stylesheet" type="text/css" href="../styles/css/admin.css">
 <style type="text/css">
 body{
 	padding-top: 20px;
@@ -19,11 +19,8 @@ body{
 {if $goto}
 <meta http-equiv="refresh" content="{$gotoinsec};URL={$goto}">
 {/if}
-<script type="text/javascript" src="./scripts/base.js"></script>
-<script type="text/javascript" src="./scripts/install.js"></script>
-{foreach item=scriptname from=$scripts}
-<script type="text/javascript" src="./scripts/{$scriptname}"></script>
-{/foreach}
+<script type="text/javascript" src="../scripts/jQuery.js"></script>
+<script type="text/javascript" src="../scripts/install.js"></script>
 </head>
 <body>
 <div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>

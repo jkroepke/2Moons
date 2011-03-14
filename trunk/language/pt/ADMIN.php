@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 /**
  *  2Moons
@@ -311,6 +311,7 @@ $LNG['ow_forum']						= 'Fórum';
 $LNG['ow_proyect_leader']				= 'Projeto líder';
 $LNG['ow_translator']					= 'Translators';
 $LNG['ow_special_thanks']				= 'Obrigado Especial';
+$LNG['ow_file_detected']               = 'Foi encontrado o arquivo %s. Por motivos de segurança, apagar ou renomear.';
 $LNG['ow_install_file_detected']		= 'install/ directoria foi encontrada. Por razões de segurança, é recomendável remover ou renomear.';
 $LNG['ow_config_file_writable']			= 'O ficheiro config.php pode ser escrito, é recomendado polo em modo 440 (leitura somente).';
 $LNG['ow_database_errors']				= 'Tens erros na tua base de dados. Poder&#225;s velos <a href="ErrorPage.php">Mostrar Erros</a>';
@@ -323,7 +324,8 @@ $LNG['ow_none']						    = 'Sem Avisos';
 
 //---------------    CONFIGURAÇÂO DO JOGO    ------------------------//
 $LNG['se_server_parameters'] 			= 'Configurações do servidor';
-$LNG['se_name'] 						= 'Nome';
+$LNG['se_game_name']                                                                      = 'Nome do Jogo';
+$LNG['se_uni_name']                                                                          = 'Nome do Universo';
 $LNG['se_lang'] 						= 'Idioma';
 $LNG['se_general_speed'] 				= 'Taxa geral';
 $LNG['se_normal_speed'] 				= 'velocidade normal do jogo: 1 <br> Velocidade máxima recomendada: 5';
@@ -1037,6 +1039,25 @@ $LNG['up_password_label']				= 'Senha:';
 $LNG['up_submit']						= 'Enviar';
 $LNG['up_version']						= 'Versão';
 
+// Editor de Chat
+$LNG['ch_socket_chatid_info']          = 'Esse IP pode ser usado para distinguir as definições de chat, use o mesmo socket do servidor.';
+$LNG['ch_socket_port_info']            = 'Porta socket do servidor.';
+$LNG['ch_socket_ip_info']              = 'O endereço IP do servidor socket usado para se conectar ao servidor para enviar mensagens de atualização.';
+$LNG['ch_socket_host_info']            = 'Hostname socket servidor usado para se conectar ao lado do cliente (o nome do servidor é usado, se é definido NULL).';
+$LNG['ch_socket_chatid']               = 'Socket ID Chat';
+$LNG['ch_socket_port']                 = 'Porta Socket';
+$LNG['ch_socket_ip']                   = 'Socket IP';
+$LNG['ch_socket_host']                 = 'Socket Host';
+$LNG['ch_socket_active']               = 'Socket incluído?';
+$LNG['ch_socket']                      = 'Socket do Servidor Presente';
+$LNG['ch_closed']                      = 'Ativar chat';
+$LNG['ch_allowchan']                   = 'Permitir os canais privados';
+$LNG['ch_allowmes']                    = 'Permitir mensagens privadas';
+$LNG['ch_allowcelmes']                 = 'Permitir apagar as suas mensagens';
+$LNG['ch_logmessage']                  = 'Incluir as mensagens de log';
+$LNG['ch_nickchange']                  = 'Permitir alterar apelido';
+$LNG['ch_botname']                     = 'Bot';
+$LNG['ch_channelname']                 = 'Nome do canal padrão';
 
 //Página Ativa
 $LNG['ap_id']							= 'ID';
