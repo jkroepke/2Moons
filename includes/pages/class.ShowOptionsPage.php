@@ -219,6 +219,8 @@ class ShowOptionsPage
 							require(ROOT_PATH.'includes/classes/class.Records.php');
 							$Records		= new records();
 							$RecordsArray	= $Records->RenameRecordOwner($USER['username'], $USERname, $UNI);
+							
+							//$update = $db->query("UPDATE ".USERS." SET geworben = '".$db->sql_escape($USERname)."' WHERE geworben = '".$db->sql_escape($USER['username'])."'");
 
 							$SQLQuery	.= "UPDATE ".USERS." SET `username` = '".$db->sql_escape($USERname)."', `uctime` = '".TIMESTAMP."' WHERE `id`= '".$USER['id']."';";
 							$SESSION->DestroySession();

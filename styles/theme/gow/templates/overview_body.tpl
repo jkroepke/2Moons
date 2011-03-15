@@ -29,6 +29,10 @@
 			<td>{$ov_teamspeak}</td><td colspan="3">{$Teamspeak}</td>
 		</tr>
 		{/if}
+        <!--<tr>
+        	<td>{$ov_reflink}</td>
+            <td colspan="3"><input type="text" size="65" name="reflink" value="{$user_reflink}" /></td>
+        </tr>-->
         <tr>
         	<th colspan="4">{$ov_events}</th>
         </tr>
