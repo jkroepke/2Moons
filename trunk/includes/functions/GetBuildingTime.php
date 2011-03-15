@@ -32,7 +32,12 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 	{
 		global $pricelist, $resource, $reslist, $CONF, $requeriments, $ExtraDM, $OfficerInfo;
 		
-		if($CONF['premium'] == 1 && $USER['premium_aktiv'] > 0){
+/*
+		Der einheitlich keit über würde ich das mit in die einZeiler Berechnung einlfießen lassen, und zwar so:
+		((TIMESTAMP - $USER['premium'] <= 0) ($CONF['bauzeit_fleet'] * 0.01) ? 0)
+		Das für Werte kommen in $CONF['bauzeit_*'] ?
+		
+ 		if($CONF['premium'] == 1 && $USER['premium_aktiv'] > 0){
 			$bauzeit_build = ($CONF['bauzeit_build'] * 0.01);
 			$bauzeit_defense = ($CONF['bauzeit_defense'] * 0.01);
 			$bauzeit_fleet = ($CONF['bauzeit_fleet'] * 0.01);
@@ -40,7 +45,7 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 			$bauzeit_build = 1;
 			$bauzeit_defense = 1;
 			$bauzeit_fleet = 1;
-		}
+		} */
 
 		$level = isset($PLANET[$resource[$Element]]) ? $PLANET[$resource[$Element]] : $USER[$resource[$Element]];
 		if	   (in_array($Element, $reslist['build']))

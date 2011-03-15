@@ -2,7 +2,7 @@
 {include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
 <div id="content" class="content">
-<table style="width:50%" align="center">
+<table style="width:50%">
     <tr>
     	<th colspan="4">{$premium}</th>
     </tr>
@@ -25,19 +25,19 @@
     </tr>
     <tr>
         <td>{$premium_ress}</td>
-        <td colspan="3"><center>{$um} <b>{$mehr_ress}% {$erweitert}</b></center></td>
+        <td colspan="3">{$um} <b>{$mehr_ress}% {$erweitert}</b></td>
     </tr>
     <tr>
     	<td>{$premium_build}</td>
-    	<td colspan="3"><center>{$verringert}<b>{$weniger_build}%</b> {$niedriger}</center></td>
+    	<td colspan="3">{$verringert}<b>{$weniger_build}%</b> {$niedriger}</td>
     </tr>
     <tr>
         <td>{$premium_defense}</td>
-        <td colspan="3"><center>{$verringert}<b>{$weniger_defense}% </b>{$niedriger} </center></td>
+        <td colspan="3">{$verringert}<b>{$weniger_defense}% </b>{$niedriger} </td>
     </tr>
     <tr>
         <td>{$premium_fleet}</td>
-        <td colspan="3"><center>{$verringert}<b>{$weniger_fleet}% </b>{$niedriger} </center></td>
+        <td colspan="3">{$verringert}<b>{$weniger_fleet}% </b>{$niedriger} </td>
     </tr>
 </table>
 </div>
