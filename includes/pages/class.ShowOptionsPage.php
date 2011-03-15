@@ -220,8 +220,10 @@ class ShowOptionsPage
 							$Records		= new records();
 							$RecordsArray	= $Records->RenameRecordOwner($USER['username'], $USERname, $UNI);
 							
-							//$update = $db->query("UPDATE ".USERS." SET geworben = '".$db->sql_escape($USERname)."' WHERE geworben = '".$db->sql_escape($USER['username'])."'");
-
+							/*
+							ID nutzten, da 2Moons meherer Universen untersützt und in jeden Universum jeder Name einmal vorkommen kann. Somit sind Namen nicht unique
+							$update = $db->query("UPDATE ".USERS." SET geworben = '".$db->sql_escape($USERname)."' WHERE geworben = '".$db->sql_escape($USER['username'])."'");
+							*/
 							$SQLQuery	.= "UPDATE ".USERS." SET `username` = '".$db->sql_escape($USERname)."', `uctime` = '".TIMESTAMP."' WHERE `id`= '".$USER['id']."';";
 							$SESSION->DestroySession();
 							$template->message($LNG['op_username_changed'], 'index.php', 3);
