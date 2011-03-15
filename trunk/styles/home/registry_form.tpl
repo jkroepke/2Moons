@@ -48,6 +48,12 @@
 		<td>{$lang_reg}:</td>
 		<td><select name="lang" style="width: 206px;" tabindex="6">{html_options options=$AvailableLangs selected=$lang}</select></td>
 	</tr>
+    <!--{if $ref_link}
+    <tr>
+    	<td>{$geworben_von}:</td>
+        <td><input type="text" name="ref" value="{$ref_link}" readonly="readonly" size="30" maxlength="40" tabindex="7" class="input-text" /></td>
+    </tr>
+    {/if} -->
 	{if $game_captcha}
 	<tr>
 		<td style="vertical-align:top;"><br>{$captcha_reg}:<br><br><div><a href="javascript:Recaptcha.reload()">{$captcha_reload}</a></div>
