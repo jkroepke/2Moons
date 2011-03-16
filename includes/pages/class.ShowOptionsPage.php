@@ -219,11 +219,7 @@ class ShowOptionsPage
 							require(ROOT_PATH.'includes/classes/class.Records.php');
 							$Records		= new records();
 							$RecordsArray	= $Records->RenameRecordOwner($USER['username'], $USERname, $UNI);
-							
-							/*
-							Musste ich so klären, da ich ansonsten beim Reflink das universe mit übergeben hätte müssen, was mehr Coearbeit erfordert hätte.
-							$update = $db->query("UPDATE ".USERS." SET geworben = '".$db->sql_escape($USERname)."' WHERE geworben = '".$USER['username']."' AND universe = '".$USER['universe']."'");
-							*/
+
 							$SQLQuery	.= "UPDATE ".USERS." SET `username` = '".$db->sql_escape($USERname)."', `uctime` = '".TIMESTAMP."' WHERE `id`= '".$USER['id']."';";
 							$SESSION->DestroySession();
 							$template->message($LNG['op_username_changed'], 'index.php', 3);

@@ -144,24 +144,7 @@ class ResourceUpdate
 			if($LEVEL > 100)
 				$LEVEL = 100;
 			elseif ($LEVEL < 0)
-				$LEVEL = 0;
-			
-			/*if($CONF['premium'] == 1 && $USER['premium_aktiv'] > 0){
-			if($this->TIME - $this->USER['premium'] <= 0) 
-				Vorschlag(Slaver): Konstanten oder ACP: SQL Query Sammeln und diesen KOmplex einmalig nach der Schleife absenden
-				Antwort(Robbyn): Keine Schleife vorhanden, $CONF[mehr_ress] bereits ausgelagert in ACP.
-				$metal_perhour = ($Caps['metal_perhour'] / 100 * $CONF['mehr_ress']) + $Caps['metal_perhour'];
-				$crystal_perhour = ($Caps['crystal_perhour'] / 100 * $CONF['mehr_ress']) + $Caps['crystal_perhour'];
-				$deuterium_perhour = ($Caps['deuterium_perhour'] / 100 * $CONF['mehr_ress']) + $Caps['deuterium_perhour'];
-				
-				$this->PLANET['metal_perhour']        = $metal_perhour * (0.01 * $LEVEL);
-				$this->PLANET['crystal_perhour']      = $crystal_perhour * (0.01 * $LEVEL);
-				$this->PLANET['deuterium_perhour']    = $deuterium_perhour * (0.01 * $LEVEL) + $Caps['deuterium_used'];
-			}else{
-				$this->PLANET['metal_perhour']        = $Caps['metal_perhour'] * (0.01 * $LEVEL);
-				$this->PLANET['crystal_perhour']      = $Caps['crystal_perhour'] * (0.01 * $LEVEL);
-				$this->PLANET['deuterium_perhour']    = $Caps['deuterium_perhour'] * (0.01 * $LEVEL) + $Caps['deuterium_used'];
-			}*/		
+				$LEVEL = 0;				
 			
 			$this->PLANET['metal_perhour']        = $Caps['metal_perhour'] * (0.01 * $LEVEL);
 			$this->PLANET['crystal_perhour']      = $Caps['crystal_perhour'] * (0.01 * $LEVEL);

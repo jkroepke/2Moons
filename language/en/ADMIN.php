@@ -1024,16 +1024,4 @@ $LNG['ap_nicht_aktivierte_user']		= 'User did not activate';
 $LNG['mip_ip']							= 'IP';
 $LNG['mip_user']						= 'User';
 
-//--------------- Reflink-Mod ------------------------//
-$LNG['premium']				= "Premium activate";
-$LNG['mehr_ress']			= "More resources";
-$LNG['bauzeit_build']		= "Construction period building";
-$LNG['bauzeit_defense']		= "Construction period defense";
-$LNG['bauzeit_fleet']		= "Construction period fleets";
-
-$LNG['ac_geworben']			= 'Recruited of';
-$LNG['se_search_users'][9]	= 'Recruited of';
-$LNG['darkmatter']			= 'Darkmatter';
-$LNG['se_belohnung']		= 'Rewards';
-
 ?>

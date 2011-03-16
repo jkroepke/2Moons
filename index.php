@@ -263,7 +263,6 @@ switch ($page) {
 				$UserEmail2	= request_var('email2', '');
 				$agbrules 	= request_var('rgt', '');
 				$UserLang 	= request_var('lang', '');
-				//$Reflink	= request_var('ref','', UTF8_SUPPORT);
 				$Universe 	= request_var('universe', 0);
 	
 				if ($CONF['capaktiv'] === '1') {
@@ -310,7 +309,6 @@ switch ($page) {
 				$SQL .= "`date` = '".TIMESTAMP."', ";
 				$SQL .= "`cle` = '".$clef."', ";
 				$SQL .= "`universe` = '".$Universe."', ";
-				//$SQL .= "`geworben` = '".$Reflink."', ";
 				$SQL .= "`password` = '".$md5newpass."', ";
 				$SQL .= "`ip` = '".$_SERVER['REMOTE_ADDR']."'; ";
 				$db->query($SQL);
@@ -334,7 +332,6 @@ switch ($page) {
 				$clef 		= request_var('clef', '');
 				$admin 	 	= request_var('admin', 0);
 				$Valider	= $db->uniquequery("SELECT `username`, `password`, `email`, `ip`, `planet`, `lang`, `universe` FROM ".USERS_VALID." WHERE `cle` = '".$db->sql_escape($clef)."';");
-				//$Valider	= $db->uniquequery("SELECT `username`, `password`, `email`, `ip`, `planet`, `lang`, `universe`, `geworben` FROM ".USERS_VALID." WHERE `cle` = '".$db->sql_escape($clef)."';");
 				if(!isset($Valider)) 
 					redirectTo('index.php?page=reg');
 				
@@ -344,17 +341,8 @@ switch ($page) {
 				$UserIP 	= $Valider['ip'];
 				$UserPlanet	= $Valider['planet'];
 				$UserLang 	= $Valider['lang'];
-				//$UserRef 	= $Valider['geworben'];
 				$UserUni 	= $Valider['universe'];
 				$CONF		= $db->uniquequery("SELECT `initial_fields`, `LastSettedGalaxyPos`, `LastSettedSystemPos`, `LastSettedPlanetPos`, `mail_active`, `mail_use`, `smail_path`, `smtp_host`, `smtp_port`, `smtp_user`, `smtp_pass`, `smtp_ssl`, `smtp_sendmail`, `game_name`, `users_amount`, `metal_basic_income`, `crystal_basic_income`, `deuterium_basic_income` FROM ".CONFIG." WHERE `uni` = ".$UserUni.";");
-				/*$CONF		= $db->uniquequery("SELECT `initial_fields`, `LastSettedGalaxyPos`, `LastSettedSystemPos`, `LastSettedPlanetPos`, `mail_active`, `mail_use`, `smail_path`, `smtp_host`, `smtp_port`, `smtp_user`, `smtp_pass`, `smtp_ssl`, `smtp_sendmail`, `game_name`, `users_amount`, `metal_basic_income`, `crystal_basic_income`, `deuterium_basic_income`, `belohnung`, `premium` FROM ".CONFIG." WHERE `uni` = ".$UserUni.";");
-				
-				if($CONF['premium'] == 1){
-					$belohnung = 1;
-				}else{
-					$belohnung = $CONF['belohnung'];
-				}
-				*/
 				
 				$SQL = "INSERT INTO " . USERS . " SET ";
 				$SQL .= "`username` = '".$UserName . "', ";
@@ -368,8 +356,6 @@ switch ($page) {
 				$SQL .= "`register_time` = '".TIMESTAMP. "', ";
 				$SQL .= "`password` = '".$UserPass."', ";
 				$SQL .= "`dpath` = '".DEFAULT_THEME."', ";
-				//$SQL .= "`geworben` = '".$UserRef."', ";
-				//$SQL .= "`belohnung` = '".$belohnung."', ";
 				$SQL .= "`darkmatter` = '".BUILD_DARKMATTER."', ";
 				$SQL .= "`uctime`= '0';";
 				$db->query($SQL);
@@ -433,11 +419,6 @@ switch ($page) {
 				}
 			break;
 			default:
-				/*
-				$id_ref=request_var("id",'',true);
-
-				$query	=	$db->uniquequery("SELECT username FROM ".USERS." WHERE id = '".$db->sql_escape($id_ref)."' LIMIT 1");
-				*/
 				$AvailableUnis[$CONF['uni']]	= $CONF['uni_name'].(($CONF['game_disable'] == 0 || $CONF['reg_closed'] == 1) ? $LNG['uni_closed'] : '');
 				$Query	= $db->query("SELECT `uni`, `game_disable`, `reg_closed`, `uni_name` FROM ".CONFIG." WHERE `uni` != '".$UNI."' ORDER BY `uni` ASC;");
 				while($Unis	= $db->fetch_array($Query)) {
@@ -469,8 +450,6 @@ switch ($page) {
 					'register'						=> $LNG['register'],
 					'send'							=> $LNG['send'],
 					'uni_closed'					=> $LNG['uni_closed'],
-					//'ref_link'						=> $query['username'],
-                    //'geworben_von'                  => $LNG['geworben_von'],
 				));
 				$template->show('registry_form.tpl');
 			break;
