@@ -1,1 +1,0 @@
-ALTER TABLE `prefix_users` DROP `premium_deaktiv` ;

@@ -201,6 +201,6 @@ define('USERS'				  	  , $database['tableprefix'].'users');
 define('USERS_VALID'		  	  , $database['tableprefix'].'users_valid');
 
 // MOD-TABLES
-define('POINTS_REFLINK'			  , 10000);
+	
 	
 ?>

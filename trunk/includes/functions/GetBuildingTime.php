@@ -31,35 +31,14 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 	function GetBuildingTime ($USER, $PLANET, $Element, $Destroy = false)
 	{
 		global $pricelist, $resource, $reslist, $CONF, $requeriments, $ExtraDM, $OfficerInfo;
-		
-/*
-		Der einheitlich keit über würde ich das mit in die einZeiler Berechnung einlfießen lassen, und zwar so:
-		((TIMESTAMP - $USER['premium'] <= 0) ($CONF['bauzeit_fleet'] * 0.01) ? 0)
-		Das für Werte kommen in $CONF['bauzeit_*'] ?
-		Robbyn(Antwort): Es kommen dort die Prozentwerte hinein also umwieviel Prozent die Bauzeiten der Gebäude/Flotten/Verteidigungen verringert werden.
-		
- 		if($CONF['premium'] == 1 && $USER['premium_aktiv'] > 0){
-			$bauzeit_build = ($CONF['bauzeit_build'] * 0.01);
-			$bauzeit_defense = ($CONF['bauzeit_defense'] * 0.01);
-			$bauzeit_fleet = ($CONF['bauzeit_fleet'] * 0.01);
-		}else{
-			$bauzeit_build = 1;
-			$bauzeit_defense = 1;
-			$bauzeit_fleet = 1;
-		} */
-		
-		//Müssen vorhanden sein da ich diese Werte schon in die Berechnung mit eingebracht habe ansonsten kommt es zu fehlern in der Bauzeit
-			$bauzeit_build = 1;
-			$bauzeit_defense = 1;
-			$bauzeit_fleet = 1;
 
 		$level = isset($PLANET[$resource[$Element]]) ? $PLANET[$resource[$Element]] : $USER[$resource[$Element]];
 		if	   (in_array($Element, $reslist['build']))
-			$time			=  round($pricelist[$Element]['metal'] * pow($pricelist[$Element]['factor'], $level) + $pricelist[$Element]['crystal'] * pow($pricelist[$Element]['factor'], $level)) / ($CONF['game_speed'] / $bauzeit_build * (1 + $PLANET[$resource[14]])) * pow(0.5, $PLANET[$resource[15]]) * 3600 * (1 - ($USER[$resource[605]] * $OfficerInfo[605]['info']) - ((TIMESTAMP - $USER[$resource[702]] <= 0) ? ($ExtraDM[702]['add']) : 0));
+			$time			=  round($pricelist[$Element]['metal'] * pow($pricelist[$Element]['factor'], $level) + $pricelist[$Element]['crystal'] * pow($pricelist[$Element]['factor'], $level)) / ($CONF['game_speed'] * (1 + $PLANET[$resource[14]])) * pow(0.5, $PLANET[$resource[15]]) * 3600 * (1 - ($USER[$resource[605]] * $OfficerInfo[605]['info']) - ((TIMESTAMP - $USER[$resource[702]] <= 0) ? ($ExtraDM[702]['add']) : 0));
 		elseif (in_array($Element, $reslist['defense']))
-			$time			=  round($pricelist[$Element]['metal'] * pow($pricelist[$Element]['factor'], $level) + $pricelist[$Element]['crystal'] * pow($pricelist[$Element]['factor'], $level)) / ($CONF['game_speed'] / $bauzeit_defense * (1 + $PLANET[$resource[21]])) * pow(0.5, $PLANET[$resource[15]]) * 3600 * (1 - ($USER[$resource[613]] * $OfficerInfo[613]['info']) - ($USER[$resource[608]] * $OfficerInfo[608]['info']));
+			$time			=  round($pricelist[$Element]['metal'] * pow($pricelist[$Element]['factor'], $level) + $pricelist[$Element]['crystal'] * pow($pricelist[$Element]['factor'], $level)) / ($CONF['game_speed'] * (1 + $PLANET[$resource[21]])) * pow(0.5, $PLANET[$resource[15]]) * 3600 * (1 - ($USER[$resource[613]] * $OfficerInfo[613]['info']) - ($USER[$resource[608]] * $OfficerInfo[608]['info']));
 		elseif (in_array($Element, $reslist['fleet']))
-			$time			=  round($pricelist[$Element]['metal'] * pow($pricelist[$Element]['factor'], $level) + $pricelist[$Element]['crystal'] * pow($pricelist[$Element]['factor'], $level)) / ($CONF['game_speed'] / $bauzeit_fleet * (1 + $PLANET[$resource[21]])) * pow(0.5, $PLANET[$resource[15]]) * 3600 * (1 - ($USER[$resource[613]] * $OfficerInfo[613]['info']) - ($USER[$resource[604]] * $OfficerInfo[604]['info']));	
+			$time			=  round($pricelist[$Element]['metal'] * pow($pricelist[$Element]['factor'], $level) + $pricelist[$Element]['crystal'] * pow($pricelist[$Element]['factor'], $level)) / ($CONF['game_speed'] * (1 + $PLANET[$resource[21]])) * pow(0.5, $PLANET[$resource[15]]) * 3600 * (1 - ($USER[$resource[613]] * $OfficerInfo[613]['info']) - ($USER[$resource[604]] * $OfficerInfo[604]['info']));	
 		elseif (in_array($Element, $reslist['tech']))
 		{
 			$cost_metal   = floor($pricelist[$Element]['metal']   * pow($pricelist[$Element]['factor'], $level));

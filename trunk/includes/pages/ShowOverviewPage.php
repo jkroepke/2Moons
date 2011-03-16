@@ -110,8 +110,6 @@ function ShowOverviewPage()
 	$template->loadscript('overview.js');
 	$template->execscript('GetFleets(true);');
 	
-	//$reflink="http://www.EURE ADRESSE/index.php?page=reg&id=".$USER['id']."";
-	
 	$template->assign_vars(array(
 		'user_rank'					=> sprintf($LNG['ov_userrank_info'], pretty_number($USER['total_points']), $LNG['ov_place'], $USER['total_rank'], $USER['total_rank'], $LNG['ov_of'], $CONF['users_amount']),
 		'is_news'					=> $CONF['OverviewNewsFrame'],
@@ -169,8 +167,6 @@ function ShowOverviewPage()
 		'ov_delete_planet'			=> $LNG['ov_delete_planet'],
 		'ov_planet_abandoned'		=> $LNG['ov_planet_abandoned'],
 		'path'						=> PROTOCOL.$_SERVER['HTTP_HOST'].HTTP_ROOT,
-		/*'user_reflink'			=> $reflink,
-		'ov_reflink'				=> $LNG['ov_reflink'],*/
 	));
 	
 	$template->show("overview_body.tpl");

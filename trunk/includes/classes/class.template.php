@@ -197,7 +197,6 @@ class template
 			'Deuterium'			=> $LNG['Deuterium'],
 			'Darkmatter'		=> $LNG['Darkmatter'],
 			'Energy'			=> $LNG['Energy'],
-			//'lm_premium'        => $LNG['premium'],
 		));
 	}
 	

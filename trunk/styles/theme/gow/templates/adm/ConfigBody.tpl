@@ -200,31 +200,7 @@
     <td>{$se_bgm_file}</td>
     <td><input name="bgm_file" size="40" value="{$bgm_file}" type="text"></td>
 	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_bgm_file_info}", CENTER, OFFSETX, -150, OFFSETY, -20, width, 250);' onMouseOut='return nd();'></td>
-</tr><!--<tr>
-    <td>{$se_belohnung}</td>
-    <td><input type="text" name="belohnung" value="{$belohnung}" /> {$darkmatter}</td>
-    <td>&nbsp;</td>
-</tr><tr>
-    <td>{$premium_aktivieren}</td>
-    <td><input name="premium"{if $premium} checked="checked" {/if} type="checkbox"></td>
-    <td>&nbsp;</td>
-</tr><tr>
-    <td>{$mehr_ress}</td>
-    <td><input type="text" size="20" name="mehr_ress" value="{$ress}" />%</td>
-    <td>&nbsp;</td>
-</tr><tr>
-    <td>{$bauzeit_build}</td>
-    <td><input type="text" size="20" name="bauzeit_build" value="{$bauzeit_build_2}" />%</td>
-    <td>&nbsp;</td>
-</tr><tr>
-    <td>{$bauzeit_defense}</td>
-    <td><input type="text" size="20" name="bauzeit_defense" value="{$bauzeit_defense_2}" />%</td>
-    <td>&nbsp;</td>
-</tr><tr>
-    <td>{$bauzeit_fleet}</td>
-    <td><input type="text" size="20" name="bauzeit_fleet" value="{$bauzeit_fleet_2}" />%</td>
-    <td>&nbsp;</td>
-</tr>-->
+</tr>
 <tr>
 	<td colspan="3"><input value="{$se_save_parameters}" type="submit"></td>
 </tr>

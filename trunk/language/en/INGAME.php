@@ -1110,23 +1110,4 @@ $LNG['lo_redirect']						= 'Redirect';
 $LNG['lo_notify']						= 'You will be redirected in <span id="seconds"> 5 </ span> s';
 $LNG['lo_continue']						= 'Click here if you are not redirected.';
 
-//Reflink-Mod
-$LNG['um']									= "Over";
-$LNG['erweitert']							= " increased raw material production.";
-$LNG['verringert']							= " construction period became from 100% up ";
-$LNG['premiums']							= "Premium offer";
-$LNG['premium_ress']						= "More resources";
-$LNG['premium_build']						= "Building";
-$LNG['premium_defense']						= "Defense";
-$LNG['premium_fleet']						= "Fleet";
-$LNG['niedriger']							= " reduced";
-$LNG['deaktiv']								= "<font color='#FF0000'>Deactivated</font>";
-$LNG['aktiv']								= "<font color='#006600'>Activated</font>";
-$LNG['premium']								= "Premium";
-$LNG['premium_zeit']						= "Premium period";
-$LNG['premium_deaktiv'] 					= "They do not possess Premium time";
-
-$LNG['ov_reflink']							= 'Your Reflink';
-$LNG['geworben_von']						= 'Recruited of <br>(Reflink)';
-
 ?>

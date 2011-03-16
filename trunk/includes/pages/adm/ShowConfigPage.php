@@ -44,7 +44,6 @@ function ShowConfigPage()
 		$CONF['ga_active'] 				= isset($_POST['ga_active']) && $_POST['ga_active'] == 'on' ? 1 : 0;
 		$CONF['bgm_active'] 			= isset($_POST['bgm_active']) && $_POST['bgm_active'] == 'on' ? 1 : 0;
 		$CONF['mail_active'] 			= isset($_POST['mail_active']) && $_POST['mail_active'] == 'on' ? 1 : 0;
-		//$CONF['premium']				= isset($_POST['premium']) && $_POST['premium'] == 'on' ? 1 : 0;
 		
 		$CONF['OverviewNewsText']		= $_POST['NewsText'];
 		$CONF['close_reason']			= request_var('close_reason', '', true);
@@ -79,11 +78,6 @@ function ShowConfigPage()
 		$CONF['smtp_ssl']				= request_var('smtp_ssl', '');
 		$CONF['trade_allowed_ships']	= request_var('trade_allowed_ships', '');
 		$CONF['trade_charge']			= request_var('trade_charge', 0.0);
-		/*$CONF['belohnung']				= request_var('belohnung', '', true);
-		$CONF['mehr_ress']				= request_var('mehr_ress','',true);
-		$CONF['bauzeit_build']			= request_var('bauzeit_build','',true);
-		$CONF['bauzeit_defense']		= request_var('bauzeit_defense','',true);
-		$CONF['bauzeit_fleet']			= request_var('bauzeit_fleet','',true);*/
 		update_config(array(
 			'noobprotectiontime'	=> $CONF['noobprotectiontime'],
 			'noobprotectionmulti'	=> $CONF['noobprotectionmulti'],
@@ -131,18 +125,11 @@ function ShowConfigPage()
 			'capaktiv'				=> $CONF['capaktiv'],
 			'capprivate'			=> $CONF['capprivate'],
 			'cappublic'				=> $CONF['cappublic'],
-			/*'belohnung'				=> $CONF['belohnung'],
-			'mehr_ress'				=> $CONF['mehr_ress'],
-			'bauzeit_build'			=> $CONF['bauzeit_build'],
-			'bauzeit_defense'		=> $CONF['bauzeit_defense'],
-			'bauzeit_fleet'			=> $CONF['bauzeit_fleet'],
-            'premium'				=> $CONF['premium'],*/
 			'min_js'				=> $CONF['min_js']
 		), true);
 	}
 	
-	$template	= new template();
-
+	$template	= new template();
 	$template->assign_vars(array(
 		'se_server_parameters'			=> $LNG['se_server_parameters'],
 		'se_game_name'					=> $LNG['se_game_name'],
@@ -271,19 +258,6 @@ function ShowConfigPage()
 		'trade_charge'		        	=> $CONF['trade_charge'],
 		'Selector'						=> array('langs' => $LANG->getAllowedLangs(false), 'mail' => $LNG['se_mail_sel'], 'encry' => array('' => $LNG['se_smtp_ssl_1'], 'ssl' => $LNG['se_smtp_ssl_2'], 'tls' => $LNG['se_smtp_ssl_3'])),
 		'lang'							=> $CONF['lang'],
-		/*'belohnung'						=> $CONF['belohnung'],
-		'darkmatter'					=> $LNG['darkmatter'],
-		'se_belohnung'					=> $LNG['se_belohnung'],
-		'premium'						=> $CONF['premium'],
-		'premium_aktivieren'			=> $LNG['premium'],
-		'ress'							=> $CONF['mehr_ress'],
-		'mehr_ress'						=> $LNG['mehr_ress'],
-		'bauzeit_build_2'				=> $CONF['bauzeit_build'],
-		'bauzeit_defense_2'				=> $CONF['bauzeit_defense'],
-		'bauzeit_fleet_2'				=> $CONF['bauzeit_fleet'],
-		'bauzeit_build'					=> $LNG['bauzeit_build'],
-		'bauzeit_defense'				=> $LNG['bauzeit_defense'],
-		'bauzeit_fleet'					=> $LNG['bauzeit_fleet'],*/
 	));
 	
 	$template->show('adm/ConfigBody.tpl');

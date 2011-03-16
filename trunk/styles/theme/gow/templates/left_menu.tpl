@@ -29,7 +29,6 @@
 		{if !CheckModule(21)}<li><a href="?page=banned">{$lm_banned}</a></li>{/if}
 		<li><a href="./?page=rules" target="forum">{$lm_rules}</a></li>
 		{if !CheckModule(39)}<li><a href="?page=battlesim">{$lm_battlesim}</a></li>{/if}
-        {* if !CheckModule(41)}<li><a href="?page=premium">{$lm_premium}</a></li>{/if *}
 
 		<li style="background-image: url('{$dpath}img/menu_acc.png');height:30px;"></li>
 		{if !CheckModule(16)}<li><a href="?page=messages">{$lm_messages}{if $new_message > 0}<span id="newmes"> (<span id="newmesnum">{$new_message}</span>)</span>{/if}</a></li>{/if}
