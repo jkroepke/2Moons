@@ -221,8 +221,8 @@ class ShowOptionsPage
 							$RecordsArray	= $Records->RenameRecordOwner($USER['username'], $USERname, $UNI);
 							
 							/*
-							ID nutzten, da 2Moons meherer Universen untersützt und in jeden Universum jeder Name einmal vorkommen kann. Somit sind Namen nicht unique
-							$update = $db->query("UPDATE ".USERS." SET geworben = '".$db->sql_escape($USERname)."' WHERE geworben = '".$db->sql_escape($USER['username'])."'");
+							Musste ich so klären, da ich ansonsten beim Reflink das universe mit übergeben hätte müssen, was mehr Coearbeit erfordert hätte.
+							$update = $db->query("UPDATE ".USERS." SET geworben = '".$db->sql_escape($USERname)."' WHERE geworben = '".$USER['username']."' AND universe = '".$USER['universe']."'");
 							*/
 							$SQLQuery	.= "UPDATE ".USERS." SET `username` = '".$db->sql_escape($USERname)."', `uctime` = '".TIMESTAMP."' WHERE `id`= '".$USER['id']."';";
 							$SESSION->DestroySession();

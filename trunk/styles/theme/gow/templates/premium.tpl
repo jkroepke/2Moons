@@ -4,20 +4,14 @@
 <div id="content" class="content">
 <table style="width:50%">
     <tr>
-    	<th colspan="4">{$premium}</th>
+    	<th colspan="4">{$premiums}</th>
     </tr>
-    {if $premium_aktiv == 0}
         <tr>
-            <td colspan="4">{$premium} {$deaktiv}</td>
+            <td colspan="4">{$premium}</td>
         </tr>
-    {else}
-        <tr>
-            <td colspan="4">{$premium} {$aktiv}</td>
-        </tr>
-    {/if}
     <tr>
         <td>{$premium_zeit}</td>
-        <td colspan="3">{$premium_zeits}{$premium_deaktiv}</td>
+        <td colspan="3">{$premium_aktiv}</td>
     </tr>
     <tr>
         <td>{$ov_reflink}</td>
@@ -25,19 +19,19 @@
     </tr>
     <tr>
         <td>{$premium_ress}</td>
-        <td colspan="3">{$um} <b>{$mehr_ress}% {$erweitert}</b></td>
+        <td colspan="3">{$mehr_ress}</b></td>
     </tr>
     <tr>
     	<td>{$premium_build}</td>
-    	<td colspan="3">{$verringert}<b>{$weniger_build}%</b> {$niedriger}</td>
+    	<td colspan="3">{$bauzeit_building}</td>
     </tr>
     <tr>
         <td>{$premium_defense}</td>
-        <td colspan="3">{$verringert}<b>{$weniger_defense}% </b>{$niedriger} </td>
+        <td colspan="3">{$bauzeit_defense} </td>
     </tr>
     <tr>
         <td>{$premium_fleet}</td>
-        <td colspan="3">{$verringert}<b>{$weniger_fleet}% </b>{$niedriger} </td>
+        <td colspan="3">{$bauzeit_fleet} </td>
     </tr>
 </table>
 </div>

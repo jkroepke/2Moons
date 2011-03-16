@@ -1081,19 +1081,17 @@ $LNG['lo_redirect']							= 'Weiterleitung';
 $LNG['lo_notify']							= 'Sie werden in <span id="seconds">5</span>s weitergeleitet';
 $LNG['lo_continue']							= 'Klicken Sie hier, um nicht zu warten';
 
-//Reflink-Mod
-$LNG['um']									= "Um";
-$LNG['erweitert']							= " erhöhte Rohstoff Produktion.";
-$LNG['verringert']							= " Bauzeit wurde von 100% auf ";
+//Reflink-Mod by Robbyn
+$LNG['mehr_ress']							= "Um <b>%s erhöhte Rohstoff Produktion.</b>";
+$LNG['bauzeit_verringert']					= "Bauzeit wurde von 100% auf %s verringert";
 $LNG['premiums']							= "Premium Angebot";
 $LNG['premium_ress']						= "Mehr Ressourcen";
 $LNG['premium_build']						= "Gebäude";
 $LNG['premium_defense']						= "Verteidigung";
 $LNG['premium_fleet']						= "Flotten";
-$LNG['niedriger']							= " verringert";
 $LNG['deaktiv']								= "<font color='#FF0000'>Deaktiv</font>";
 $LNG['aktiv']								= "<font color='#006600'>Aktiv</font>";
-$LNG['premium']								= "Premium";
+$LNG['premium']								= "Premium %s ";
 $LNG['premium_zeit']						= "Premium Zeitraum";
 $LNG['premium_deaktiv'] 					= "Sie besitzen keine Premiumzeit";
 
