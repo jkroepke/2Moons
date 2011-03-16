@@ -54,7 +54,7 @@ class statbuilder extends records
 	{
 		/*global $db, $CONF;
 		Vorschlag(Slaver): Konstanten oder ACP
-		$min    = 10000;  //<-- Hier die Mindestpunktzahl angeben
+		$min    = POINTS_REFLINK;  //<-- Hier die Mindestpunktzahl angeben
 		$wert	= 86400; # 24*60*60
 		
 		$kontrolle	=	$db->query("UPDATE ".USERS." SET premium_aktiv = '0', premium_deaktiv = '0' WHERE premium_deaktiv < '".TIMESTAMP."'");
@@ -62,20 +62,21 @@ class statbuilder extends records
 		Vorschlag(Slaver):
 		Nur ein Feld für Premium, wann diese Ablauft. In Script Testen, ob der Abgelaufen ist, nicht mit aktiv/deaktiv Einstellungen arbeiten. Siehe Temp. Offizere (DM Extras) premium_deaktiv in premium abändern!
 		Bei $CONF['premium'] == 0 im ACP alle premium Felder auf 0 setzten lassen.
-		
+		Robbyn(Antwort): Sinnlos premium_deaktiv in premium umzubennen da die kontrolle direkt über das Config statfindet und da ist ein extra feld sinnlos.
 		$benutzer   = $db->query("SELECT s.id_owner,  s.total_points,    u.id, u.username, u.geworben, u.belohnung FROM  ".USERS." as u,    ".STATPOINTS." as s WHERE u.`belohnung` != '0' AND  s.`id_owner` =    u.`id` AND s.`stat_type` = '1' AND s.`total_points`  >= '".$min."';");
 			
 		if(TIMESTAMP - $u['premium'] <= 0) 
 		if($CONF['premium'] == 0){
 			$ID	= array();
 			while($u = $db->fetch_array($benutzer)) {
-				Vorschlag(Slaver): Konstanten oder ACP: SQL Query Sammeln und diesen KOmplex einmalig nach der Schleife absenden
-				$SQL = $db->multi_query("UPDATE ".USERS." SET `darkmatter` =  `darkmatter` +  '".$u['belohnung']."' WHERE username =  '".$u['geworben']."';UPDATE ".USERS." SET belohnung = '0' WHERE id =  '".$u['id']."';");
+				$SQL .= "UPDATE ".USERS." SET `darkmatter` =  `darkmatter` +  '".$u['belohnung']."' WHERE username =  '".$u['geworben']."';UPDATE ".USERS." SET belohnung = '0' WHERE id =  '".$u['id']."';";
 			}
+			$MULTI = $db->multi_query($SQL);
 		}else{
 			while($u = $db->fetch_array($benutzer)) {
 				Vorschlag(Slaver): Keine SQL SELECT Befehle in einer Schleife! joins nutzten!
-				$user = $db->uniquequery("SELECT premium_aktiv,premium_deaktiv FROM ".USERS." WHERE username = '".$u['geworben']."'");
+				Robbyn(Antwort): Wieso? Es ist eine Abfrage immer wieder auf die selbe Tabelle da bringt mir JOINS garnichts.
+				$user = $db->uniquequery("SELECT premium_aktiv FROM ".USERS." WHERE username = '".$u['geworben']."'");
 				
 				if($user['premium_aktiv'] == "" || $user['premium_aktiv'] == "0"){
 					$zeit = TIMESTAMP + ($wert);
@@ -83,9 +84,9 @@ class statbuilder extends records
 					$zeit = $user['premium_deaktiv'] + $wert;
 				}
 				
-				Vorschlag(Slaver): Konstanten oder ACP: SQL Query Sammeln und diesen KOmplex einmalig nach der Schleife absenden
-				$SQL = $db->multi_query("UPDATE ".USERS." SET `premium_aktiv` =  '".TIMESTAMP."', `premium_deaktiv` = '".$zeit."' WHERE username =  '".$u['geworben']."';UPDATE ".USERS." SET    belohnung = '0' WHERE id =  '".$u['id']."';");
+				$SQL .= "UPDATE ".USERS." SET `premium_aktiv` =  '".$zeit."' WHERE username =  '".$u['geworben']."';UPDATE ".USERS." SET  belohnung = '0' WHERE id =  '".$u['id']."';";
 				}
+				$MULTI = $db->multi->query($SQL);
 			}*/
 	}	
 	
