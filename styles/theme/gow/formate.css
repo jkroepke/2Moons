@@ -97,6 +97,10 @@ text-align:left
 text-align:right
 }
 
+.center{
+text-align:center
+}
+
 .top{
 vertical-align:top
 }
@@ -342,4 +346,15 @@ background-image: url(img/processbar.png)
 background: transparent;
 background-image: none;
 border: 0 none
+}
+
+.tip {
+    color: #fff;
+    background:#1d1d1d;
+    display:none; /*--Hides by default--*/
+    padding:10px;
+    position:absolute;    z-index:1000;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
 }
