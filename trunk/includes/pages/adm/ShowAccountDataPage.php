@@ -100,7 +100,7 @@ function ShowAccountDataPage()
 			
 			if ($UserQuery['bana'] != 0)
 			{
-				$mas			= '<a ref="#" onclick="$(\'#banned\').toggle(\'fast\');return false"> '.$LNG['ac_more'].'</a>';
+				$mas			= '<a ref="#" onclick="$(\'#banned\').slideToggle();return false"> '.$LNG['ac_more'].'</a>';
 				
 				$BannedQuery	= $db->uniquequery("SELECT theme,time,longer,author FROM ".BANNED." WHERE `who` = '".$UserQuery['username']."';");
 				
@@ -154,7 +154,7 @@ function ShowAccountDataPage()
 			{
 				include_once(ROOT_PATH.'includes/functions/BBCode.php');	
 				
-				$AllianceHave	= '<a href="#" onclick="$(\'#alianza\').toggle(\'fast\');return false" class="link">
+				$AllianceHave	= '<a href="#" onclick="$(\'#alianza\').slideToggle();return false" class="link">
 							<img src="./styles/images/Adm/arrowright.png" width="16" height="10"> '.$LNG['ac_alliance'].'</a>';
 										
 							
@@ -251,7 +251,7 @@ function ShowAccountDataPage()
 				$SpecifyItemsPQ	.= "`".$resource[$ID]."`,";
 				$RES[$resource[$ID]]	= "<tr><td width=\"150\">".$LNG['tech'][$ID]."</td>";
 			}
-			$names	= "<tr><td width=\"150\">&nbsp;</td>";
+			$names	= "<tr><th class=\"center\" width=\"150\">&nbsp;</th>";
 			
 			// COMIENZA EL SAQUEO DE DATOS DE LOS PLANETAS
 			$SpecifyItemsP	= "planet_type,id,name,galaxy,system,planet,destruyed,diameter,field_current,field_max,temp_min,temp_max,metal,crystal,deuterium,energy_max,".$SpecifyItemsPQ."energy_used";
@@ -309,13 +309,13 @@ function ShowAccountDataPage()
 						<td><a title=\"".pretty_number($PlanetsWhile['deuterium'])."\">".shortly_number($PlanetsWhile['deuterium'])."</a></td>
 						<td><a title=\"".pretty_number($SumOfEnergy)."\">".$Color."</a>/<a title=\"".pretty_number($PlanetsWhile['energy_max'])."\">".shortly_number($PlanetsWhile['energy_max'])."</a></td>
 					</tr>";
-					$names	.= "<td width=\"60\">".$Planettt."</td>";
+					$names	.= "<th class=\"center\" width=\"60\">".$Planettt."</th>";
 					foreach(array_merge($reslist['fleet'], $reslist['build'], $reslist['defense']) as $ID)
 					{
 						$RES[$resource[$ID]]	.= "<td width=\"60\"><a title=\"".pretty_number($PlanetsWhile[$resource[$ID]])."\">".shortly_number($PlanetsWhile[$resource[$ID]])."</a></td>";
 					}
 					
-					$MoonHave = $MoonZ != 0 ? '<a href="#" onclick="$(\'#especiales\').toggle(\'fast\');return false" class="link"><img src="./styles/images/Adm/arrowright.png" width="16" height="10"/> '.$LNG['moon_build']."</a>" : "<span class=\"no_moon\"><img src=\"./styles/images/Adm/arrowright.png\" width=\"16\" height=\"10\"/>".$LNG['moon_build']."&nbsp;".$LNG['ac_moons_no']."</span>";					
+					$MoonHave = $MoonZ != 0 ? '<a href="#" onclick="$(\'#especiales\').slideToggle();return false" class="link"><img src="./styles/images/Adm/arrowright.png" width="16" height="10"/> '.$LNG['moon_build']."</a>" : "<span class=\"no_moon\"><img src=\"./styles/images/Adm/arrowright.png\" width=\"16\" height=\"10\"/>".$LNG['moon_build']."&nbsp;".$LNG['ac_moons_no']."</span>";					
 				}
 				
 				$DestruyeD	= 0;
@@ -352,7 +352,6 @@ function ShowAccountDataPage()
 				$defense	.= $RES[$resource[$ID]];
 			}
 			
-			$template->loadscript('animatedcollapse.js');
 			$template->assign_vars(array(
 				'DestruyeD'						=> $DestruyeD,
 				'destroyed'						=> $destroyed,
