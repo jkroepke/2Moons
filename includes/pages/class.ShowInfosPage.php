@@ -30,61 +30,44 @@
 
 class ShowInfosPage
 {
-	private function GetNextJumpWaitTime($CurMoon)
+	private function GetNextJumpWaitTime($CurMoon, $ReturnString = false)
 	{
 		global $resource;
 
-		$JumpGateLevel  = $CurMoon[$resource[43]];
-		$LastJumpTime   = $CurMoon['last_jump_time'];
-		if ($JumpGateLevel > 0)
-		{
-			$NextJumpTime   = $LastJumpTime + JUMPGATE_WAIT_TIME;
-			if ($NextJumpTime >= TIMESTAMP)
-			{
-				$RestWait   = $NextJumpTime - TIMESTAMP;
-				$RestString = " ". pretty_time($RestWait);
-			}
-			else
-			{
-				$RestWait   = 0;
-				$RestString = "";
-			}
-		}
-		else
-		{
-			$RestWait   = 0;
-			$RestString = "";
-		}
-		$RetValue['string'] = $RestString;
-		$RetValue['value']  = $RestWait;
+		$RestWait   = 0;
+		$RestString = "";
 
-		return $RetValue;
+		$NextJumpTime   = $CurMoon['last_jump_time'] + JUMPGATE_WAIT_TIME;
+		
+		if ($CurMoon[$resource[43]] > 0 && $NextJumpTime >= TIMESTAMP) {
+			$RestWait   = $NextJumpTime - TIMESTAMP;
+			$RestString = pretty_time($RestWait);
+		}
+
+		return $ReturnString ? $RestString : $RestWait;
 	}
 
-	private function DoFleetJump ()
+	private function DoFleetJump()
 	{
 		global $USER, $PLANET, $resource, $LNG, $db, $reslist;
 
-		if (!$_POST)
-			return false;
-		
-		$RestString   = $this->GetNextJumpWaitTime($PLANET);
-		$NextJumpTime = $RestString['value'];
+		$RestString   = $this->GetNextJumpWaitTime($PLANET, true);
+		$NextJumpTime = $RestString;
 		$JumpTime     = TIMESTAMP;
 
-		if ($NextJumpTime != 0)
-			return $LNG['in_jump_gate_already_used'] . $RestString['string'];
+		if (!empty($NextJumpTime))
+			return $LNG['in_jump_gate_already_used']." ".pretty_time($NextJumpTime);
 			
-		$TargetPlanet = request_var('jmpto',0);
+		$TargetPlanet = request_var('jmpto', $PLANET['id']);
 		$TargetGate   = $db->uniquequery("SELECT `id`, `last_jump_time` FROM ".PLANETS." WHERE `id` = '".$TargetPlanet."' AND `sprungtor` > '0';");
 
-		if (!isset($TargetGate))
+		if (!isset($TargetGate) || $TargetPlanet == $PLANET['id'])
 			return $LNG['in_jump_gate_doesnt_have_one'];
 			
-		$RestString   = $this->GetNextJumpWaitTime($TargetGate);
+		$RestString   = $this->GetNextJumpWaitTime($TargetGate, true);
 		
-		if ($RestString['value'] != 0)
-			return $LNG['in_jump_gate_not_ready_target'].$RestString['string'];
+		if (!empty($RestString))
+			return $LNG['in_jump_gate_not_ready_target']." ".$RestString;
 		
 		$ShipArray   = array();
 		$SubQueryOri = "";
@@ -92,10 +75,13 @@ class ShowInfosPage
 
 		foreach($reslist['fleet'] as $Ship)
 		{
-			$ShipArray[$Ship]	=	min(max(request_var('ship'.$Ship, 0.0), 0), $PLANET[$resource[$Ship]]);
-			$SubQueryOri 		.= "`". $resource[ $Ship ] ."` = `". $resource[ $Ship ] ."` - '". floattostring($ShipArray[ $Ship ]) ."', ";
-			$SubQueryDes 		.= "`". $resource[ $Ship ] ."` = `". $resource[ $Ship ] ."` + '". floattostring($ShipArray[ $Ship ]) ."', ";
-			$PLANET[$resource[$Ship]] -= floattostring($ShipArray[$Ship]);
+			$ShipArray[$Ship]	=	min(request_var('ship'.$Ship, 0.0), $PLANET[$resource[$Ship]]);
+			if($ShipArray[$Ship] <= 0)
+				continue;
+				
+			$SubQueryOri 		.= "`".$resource[$Ship]."` = `".$resource[$Ship]."` - '". floattostring($ShipArray[$Ship])."', ";
+			$SubQueryDes 		.= "`".$resource[$Ship]."` = `".$resource[$Ship]."` + '". floattostring($ShipArray[$Ship])."', ";
+			$PLANET[$resource[$Ship]] -= $ShipArray[$Ship];
 		}
 
 		if (empty($SubQueryOri))
@@ -110,12 +96,11 @@ class ShowInfosPage
 		$SQL .= $SubQueryDes;
 		$SQL .= "`last_jump_time` = '". $JumpTime ."' ";
 		$SQL .= "WHERE ";
-		$SQL .= "`id` = '". $TargetGate['id'] ."';";
+		$SQL .= "`id` = '".$TargetPlanet."';";
 		$db->multi_query($SQL);
 
 		$PLANET['last_jump_time'] 	= $JumpTime;
-		$RestString    = $this->GetNextJumpWaitTime($PLANET);
-		return $LNG['in_jump_gate_done'].$RestString['string'];
+		return sprintf($LNG['in_jump_gate_done'], $this->GetNextJumpWaitTime($PLANET, true));
 	}
 
 	private function BuildFleetListRows ($PLANET)
@@ -137,18 +122,16 @@ class ShowInfosPage
 		return $GateFleetList;
 	}
 
-	private function BuildJumpableMoonCombo ( $USER, $PLANET )
+	private function BuildJumpableMoonCombo($USER, $PLANET)
 	{
 		global $resource, $db;
-		$QrySelectMoons  = "SELECT id, galaxy, system, planet FROM ".PLANETS." WHERE `id` != '".$PLANET['id']."' AND `planet_type` = '3' AND `id_owner` = '". $USER['id'] ."' AND `".$resource[43]."` > '0';";
-		$MoonList        = $db->query ( $QrySelectMoons);
-		$Combo           = "";
-		while ( $CurMoon = $db->fetch_array($MoonList) )
-		{
-			$RestString = $this->GetNextJumpWaitTime ( $CurMoon );
-			$Combo 		.= "<option value=\"". $CurMoon['id'] ."\">[". $CurMoon['galaxy'] .":". $CurMoon['system'] .":". $CurMoon['planet'] ."] ". $CurMoon['name'] . $RestString['string'] ."</option>\n";
+		$MoonList        = $db->query("SELECT `id`, `galaxy`, `system`, `planet`, `last_jump_time`, `".$resource[43]."` FROM ".PLANETS." WHERE `id` != '".$PLANET['id']."' AND `planet_type` = '3' AND `id_owner` = '". $USER['id'] ."' AND `".$resource[43]."` > '0';");
+		$Combo           = array();
+		while($CurMoon = $db->fetch_array($MoonList)) {
+			$Time	= $this->GetNextJumpWaitTime($CurMoon, true);
+			$Selector[$CurMoon['id']]	= '['.$CurMoon['galaxy'].':'.$CurMoon['system'].':'.$CurMoon['planet'].'] '.$CurMoon['name'].(!empty($Time) ? ' ('.$Time.')':'');
 		}
-		return $Combo;
+		return $Selector;
 	}
 
 	public function __construct()
@@ -159,6 +142,8 @@ class ShowInfosPage
 		
 		$template	= new template();
 		$template->isPopup(true);
+	
+		$description = $LNG['info'][$BuildID]['description'];
 	
 		if(in_array($BuildID, $reslist['prod']) && $BuildID != 212)
 		{
@@ -220,10 +205,10 @@ class ShowInfosPage
 			$FleetInfo[$LNG['in_struct_pt']]		= pretty_number($pricelist[$BuildID]['metal'] + $pricelist[$BuildID]['crystal']);
 			$FleetInfo[$LNG['in_shield_pt']]		= pretty_number($CombatCaps[$BuildID]['shield']);
 			$FleetInfo[$LNG['in_attack_pt']]		= pretty_number($CombatCaps[$BuildID]['attack']);
-			$FleetInfo[$LNG['in_capacity']]		= pretty_number($pricelist[$BuildID]['capacity']);
-			$FleetInfo[$LNG['in_base_speed']][]	= pretty_number($pricelist[$BuildID]['speed']);
+			$FleetInfo[$LNG['in_capacity']]			= pretty_number($pricelist[$BuildID]['capacity']);
+			$FleetInfo[$LNG['in_base_speed']][]		= pretty_number($pricelist[$BuildID]['speed']);
 			$FleetInfo[$LNG['in_consumption']][]	= pretty_number($pricelist[$BuildID]['consumption']);
-			$FleetInfo[$LNG['in_base_speed']][]	= pretty_number($pricelist[$BuildID]['speed2']);
+			$FleetInfo[$LNG['in_base_speed']][]		= pretty_number($pricelist[$BuildID]['speed2']);
 			$FleetInfo[$LNG['in_consumption']][]	= pretty_number($pricelist[$BuildID]['consumption2']);
 		}
 		elseif (in_array($BuildID, $reslist['defense']))
@@ -243,30 +228,21 @@ class ShowInfosPage
 		}
 		elseif($BuildID == 43 && $PLANET[$resource[43]] > 0)
 		{
-			$template->loadscript('flotten.js');
-			$GateFleetList['jump']			= $this->DoFleetJump();
-			$RestString               		= $this->GetNextJumpWaitTime($PLANET);
-			if ($RestString['value'] != 0)
-			{
-				include_once(ROOT_PATH . 'includes/functions/InsertJavaScriptChronoApplet.php');
-				$template->assign_vars(array(
-					'gate_time_script'	=> InsertJavaScriptChronoApplet("Gate", "1", $RestString['value'], true),
-					'gate_script_go'	=> InsertJavaScriptChronoApplet("Gate", "1", $RestString['value'], false),
-				));
-			}
-			
-			$GateFleetList['start_link']	= BuildPlanetAdressLink($PLANET);
-			$GateFleetList['moons']			= $this->BuildJumpableMoonCombo($USER, $PLANET);
-			$GateFleetList['fleets']		= $this->BuildFleetListRows($PLANET);
+			if($_GET['action'] == 'send')
+				exit($this->DoFleetJump());
+				
+			$template->assign_vars(array(
+				'gate_rest_time'	=> $this->GetNextJumpWaitTime($PLANET),
+				'gate_start_link'	=> BuildPlanetAdressLink($PLANET),
+				'gate_moons'		=> $this->BuildJumpableMoonCombo($USER, $PLANET),
+				'gate_fleets'		=> $this->BuildFleetListRows($PLANET),
+			));
 		}
-		if (in_array($BuildID, $reslist['officier']))
+		elseif(in_array($BuildID, $reslist['officier']))
 		{
 			$description = $OfficerInfo[$BuildID]['info'] ? sprintf($LNG['info'][$BuildID]['description'], ((is_float($OfficerInfo[$BuildID]['info']))? $OfficerInfo[$BuildID]['info'] * 100 : $OfficerInfo[$BuildID]['info']), $pricelist[$BuildID]['max']) : sprintf($LNG['info'][$BuildID]['description'], $pricelist[$BuildID]['max']);
 		}
-		else
-		{
-			$description = $LNG['info'][$BuildID]['description'];
-		}
+
 		$template->assign_vars(array(		
 			'id'							=> $BuildID,
 			'name'							=> $LNG['info'][$BuildID]['name'],
@@ -276,7 +252,6 @@ class ShowInfosPage
 			'RapidFire'						=> $RapidFire,
 			'Level'							=> $CurrentBuildtLvl,
 			'FleetInfo'						=> $FleetInfo,
-			'GateFleetList'					=> $GateFleetList,
 			'in_jump_gate_jump' 			=> $LNG['in_jump_gate_jump'],
 			'gate_ship_dispo' 				=> $LNG['in_jump_gate_available'],
 			'in_level'						=> $LNG['in_level'],

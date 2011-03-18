@@ -50,7 +50,7 @@
 							{$BuildInfoRow.EnergyNeed}
 							{/if}
 							{if $BuildInfoRow.level > 0 && $BuildInfoRow.id != 33}
-							<br>{if $BuildInfoRow.id == 43}<a href="javascript:OpenPopup('game.php?page=infos&gid=43', '', 720, 300);">{$bd_jump_gate_action}</a>{/if}<br>
+							<br>{if $BuildInfoRow.id == 43}<a href="#" onclick="return Dialog.info({$BuildInfoRow.id})">{$bd_jump_gate_action}</a>{/if}<br>
 							<a href="#" onmouseover="return overlib('<table style=\'width:100%;margin:0;padding:0\'><tr><th colspan=\'2\'>{$bd_price_for_destroy} {$BuildInfoRow.name} {$BuildInfoRow.level}</th></tr><tr><td class=\'transparent\'>{$Metal}</td><td class=\'transparent\'>{$BuildInfoRow.destroyress.metal}</td></tr><tr><td class=\'transparent\'>{$Crystal}</td><td class=\'transparent\'>{$BuildInfoRow.destroyress.crystal}</td></tr><tr><td class=\'transparent\'>{$Deuterium}</td><td class=\'transparent\'>{$BuildInfoRow.destroyress.deuterium}</td></tr><tr><td class=\'transparent\'>{$bd_destroy_time}</td><td class=\'transparent\'>{$BuildInfoRow.destroytime}</td></tr><tr><td colspan=\'2\' class=\'transparent\'><a href=game.php?page=buildings&amp;cmd=destroy&amp;building={$BuildInfoRow.id}>{$bd_dismantle}</a></td></tr></table>', STICKY, MOUSEOFF, DELAY, 50, CENTER, OFFSETX, 0, OFFSETY, -40, WIDTH, 265);" onmouseout="return nd();">{$bd_dismantle}</a>
 							{/if}
 							&nbsp;

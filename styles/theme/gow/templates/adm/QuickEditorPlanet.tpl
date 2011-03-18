@@ -2,9 +2,10 @@
 <script type="text/javascript">
 function check(){
 	$.post('?page=qeditor&edit=planet&id={$id}&action=send', $('#userform').serialize(), function(data){
-		alert(data);
-		opener.location.reload();
-		window.close();
+		alert(data, function() {
+			opener.location.reload();
+			window.close();
+		});
 	});
 	return false;
 }

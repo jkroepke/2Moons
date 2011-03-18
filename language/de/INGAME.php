@@ -432,7 +432,7 @@ $LNG['tt_lvl']								= 'Stufe ';
 
 //----------------------------------------------------------------------------//
 //INFOS
-$LNG['in_jump_gate_done']					= 'Flotten erfolgreich verschickt. Sie können dieses Sprungtor wieder in einer Stunde nutzen: ';
+$LNG['in_jump_gate_done']					= 'Flotten erfolgreich verschickt. Sie können dieses Sprungtor wieder in %s nutzen.';
 $LNG['in_jump_gate_error_data']				= 'Fehler, Daten sind inkorrekt!';
 $LNG['in_jump_gate_not_ready_target']		= 'Das Zielsprungtor ist noch nicht bereit: ';
 $LNG['in_jump_gate_doesnt_have_one']		= 'Sie haben kein Sprungtor';
