@@ -47,7 +47,6 @@ $LNG['tech_rc'] = array (
 218 => 'Avatar',
 219 => 'Giga.Reciclador',
 220 => 'Sondador de MN',
-221 => 'Navegante',
 
 
 401 => "L.Misseis.",
@@ -132,7 +131,6 @@ $LNG['tech'] = array(
 218 => 'Avatar',
 219 => 'Giga. Reciclador',
 220 => 'Sondador de MN',
-221 => 'Navegante (Sistema Orbital de Transporte)',
 
 
 400 => 'Sistemas de Defesa',
@@ -238,7 +236,6 @@ $LNG['res']['descriptions'] = array(
 218 => 'Esta pode ser chamada a nave de destruição mas nem tudo são vantagens, o seu tamanho faz desta nave um monstro lento.',
 219 => 'O Giga.Reciclador é uma nave muito desejada devido à sua capacidade de carga e velocidade.',
 220 => 'Após longos anos de pesquisas, foi possivel criar a nave que rastreia matéria negra .',
-221 => 'Após longos anos de pesquisas e de trabalho para criar algo de levar recursos e fazer fleets longos, foi possivel criar a nave-mãe dos recursos .',
 
 401 => "O lançador de mísseis é um sistema de defesa simples e barato. Tornam-se muito eficazes em número e podem ser construídos sem pesquisa específica porque é uma arma de balística simples.",
 402 => "Para acompanhar o ritmo com a velocidade sempre crescente do desenvolvimento das tecnologias de naves espaciais, os cientistas tiveram que criar um tipo novo de sistema da defesa capaz de destruír as naves mais fortes.",
@@ -397,8 +394,6 @@ $LNG['info'][219]['name']        = 'Giga. Reciclador';
 $LNG['info'][219]['description'] = 'O Giga.Reciclador é uma nave muito desejáda devido há sua capacidade de carga e velocídade, mas continua sem sistemas de defesa o que faz dela uma nave impotente a não ser para reciclagem.';
 $LNG['info'][220]['name']        = 'Sondador de MN';
 $LNG['info'][220]['description'] = 'Após longos anos de pesquisas, foi possivel criar a nave que sonda matéria negra, somente apartir da lua.';
-$LNG['info'][221]['name']        = 'Navegante (Sistema Orbital de Transporte)';
-$LNG['info'][221]['description'] = 'Após longos anos de pesquisas e de trabalho para criar algo de levar recursos e fazer fleets longos, foi possivel criar a nave-mãe dos recursos .';
 
 
 // ----------------------------------------------------------------------------------------------------------
