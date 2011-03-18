@@ -254,7 +254,6 @@ includes/functions/DeleteSelectedUser.php
 includes/functions/GetBuildingPrice.php
 includes/functions/GetBuildingTime.php
 includes/functions/GetElementPrice.php
-includes/functions/InsertJavaScriptChronoApplet.php
 includes/functions/IsElementBuyable.php
 includes/functions/IsTechnologieAccessible.php
 includes/functions/IsVacationMode.php
@@ -567,6 +566,7 @@ scripts/filterlist.js
 scripts/fleettrader.js
 scripts/flotten.js
 scripts/galaxy.js
+scripts/gate.js
 scripts/index.htm
 scripts/install.js
 scripts/jQuery.js
@@ -1017,6 +1017,7 @@ styles/theme/gow/templates/fleet_shortcuts_add.tpl
 styles/theme/gow/templates/fleet_shortcuts_edit.tpl
 styles/theme/gow/templates/fleet_table.tpl
 styles/theme/gow/templates/galaxy_overview.tpl
+styles/theme/gow/templates/info_gatelist.tpl
 styles/theme/gow/templates/info_overview.tpl
 styles/theme/gow/templates/install
 styles/theme/gow/templates/install/ins_acc.tpl
