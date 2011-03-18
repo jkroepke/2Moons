@@ -12,7 +12,7 @@ function instant(event){
 			var HTML	= '<table style="width:50%"><tr><th>'+LNG['sh_name']+'</th><th>&nbsp;</th><th>'+LNG['sh_alliance']+'</th><th>'+LNG['sh_planet']+'</th><th>'+LNG['sh_coords']+'</th><th>'+LNG['sh_position']+'</th></tr>'
 			$.each(data, function(i, row){
 				HTML	+= '<tr>';
-				HTML	+= '<td><a href="javascript:OpenPopup(\'game.php?page=playercard&amp;id='+row.userid+'\', \'\', 640, 510);">'+row.username+'</a></td>';
+				HTML	+= '<td><a href="#" onclick="return Dialog.Playercard('+row.userid+', \''+row.username+'\');">'+row.username+'</a></td>';
 				HTML	+= '<td><a href="#" onclick="return Dialog.PM('+row.userid+');" title="'+LNG['sh_write_message']+'"><img src="'+Skin+'img/m.gif"/></a>&nbsp;<a href="javascript:OpenPopup(\'game.php?page=buddy&amp;mode=2&amp;u='+row.userid+'\',\'\', 720, 300);" title="'+LNG['sh_buddy_request']+'"><img src="'+Skin+'img/b.gif" border="0"></a></td>';
 				HTML	+= '<td>';
 				if (row.allyname)

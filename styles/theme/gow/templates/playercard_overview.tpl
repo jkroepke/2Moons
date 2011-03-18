@@ -1,4 +1,3 @@
-{include file="overall_header.tpl"}
 <table style="width:90%">
 <tr>
 <th colspan="3">{$pl_overview}</th>
@@ -101,4 +100,3 @@
 </tr>
 {/if}
 </table>
-{include file="overall_footer.tpl"}

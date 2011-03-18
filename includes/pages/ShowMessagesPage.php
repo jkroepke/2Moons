@@ -45,7 +45,7 @@ function ShowMessagesPage()
 	switch ($MessPageMode)
 	{
 		case 'write':
-			$template->isPopup(true);		
+			$template->isDialog(true);	
 			$OwnerRecord = $db->uniquequery("SELECT a.galaxy, a.system, a.planet, b.username, b.id_planet FROM ".PLANETS." as a, ".USERS." as b WHERE b.id = '".$OwnerID."' AND a.id = b.id_planet;");
 
 			if (!$OwnerRecord)
