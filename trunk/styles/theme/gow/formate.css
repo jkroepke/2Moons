@@ -189,7 +189,7 @@ color:#FF0
 color:#444
 }
 
-.transparent,td.header {
+.transparent,td.header, .tip td {
 background: transparent;
 border:none
 }

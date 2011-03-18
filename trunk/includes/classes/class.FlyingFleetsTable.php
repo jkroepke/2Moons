@@ -95,15 +95,14 @@ class FlyingFleetsTable
 		$FleetTotalC  = $FleetRow['fleet_resource_metal'] + $FleetRow['fleet_resource_crystal'] + $FleetRow['fleet_resource_deuterium'] + $FleetRow['fleet_resource_darkmatter'];
 		if ($FleetTotalC <> 0)
 		{
-			$FRessource   = "<table width=200>";
-			$FRessource  .= "<tr><td style=\'width:50%\' class=\'transparent\'><span style=\'color:white\'>".$LNG['Metal']."</span></td><td style=\'width:50%\' class=\'transparent\'><span style=\'color:white\'>". pretty_number($FleetRow['fleet_resource_metal']) ."</span></td></tr>";
-			$FRessource  .= "<tr><td style=\'width:50%\' class=\'transparent\'><span style=\'color:white\'>".$LNG['Crystal']."</span></td><td style=\'width:50%\' class=\'transparent\'><span style=\'color:white\'>". pretty_number($FleetRow['fleet_resource_crystal']) ."</span></td></tr>";
-			$FRessource  .= "<tr><td style=\'width:50%\' class=\'transparent\'><span style=\'color:white\'>".$LNG['Deuterium']."</span></td><td style=\'width:50%\' class=\'transparent\'><span style=\'color:white\'>". pretty_number($FleetRow['fleet_resource_deuterium']) ."</span></td></tr>";
+			$FRessource   = '<table width=200>';
+			$FRessource  .= '<tr><td style="width:50%" class="transparent"><span style="color:white">'.$LNG['Metal'].'</span></td><td style="width:50%" class="transparent"><span style="color:white">'. pretty_number($FleetRow['fleet_resource_metal']) .'</span></td></tr>';
+			$FRessource  .= '<tr><td style="width:50%" class="transparent"><span style="color:white">'.$LNG['Crystal'].'</span></td><td style="width:50%" class="transparent"><span style="color:white">'. pretty_number($FleetRow['fleet_resource_crystal']) .'</span></td></tr>';
+			$FRessource  .= '<tr><td style="width:50%" class="transparent"><span style="color:white">'.$LNG['Deuterium'].'</span></td><td style="width:50%" class="transparent"><span style="color:white">'. pretty_number($FleetRow['fleet_resource_deuterium']) .'</span></td></tr>';
 			if($FleetRow['fleet_resource_darkmatter'] > 0)
-				$FRessource  .= "<tr><td style=\'width:50%\' class=\'transparent\'><span style=\'color:white\'>".$LNG['Darkmatter']."</span></td><td style=\'width:50%\' class=\'transparent\'><span style=\'color:white\'>". pretty_number($FleetRow['fleet_resource_darkmatter']) ."</span></td></tr>";
-			$FRessource  .= "</table>";
-			$MissionPopup  = "<a href='#' onmouseover=\"return overlib('". $FRessource ."');";
-			$MissionPopup .= "\" onmouseout=\"return nd();\" class=\"".$FleetType ."\">" . $Texte ."</a>";
+				$FRessource  .= '<tr><td style="width:50%" class="transparent"><span style="color:white">'.$LNG['Darkmatter'].'</span></td><td style="width:50%" class="transparent"><span style="color:white">'. pretty_number($FleetRow['fleet_resource_darkmatter']) .'</span></td></tr>';
+			$FRessource  .= '</table>';
+			$MissionPopup  = '<a href="#" name="'.$FRessource.'" class="tooltip '.$FleetType.'">' . $Texte .'</a>';
 		}
 		else
 			$MissionPopup  = $Texte;
@@ -115,33 +114,33 @@ class FlyingFleetsTable
 	{
 		global $LNG;
 
-		$FleetRec     = explode(";", $FleetRow['fleet_array']);
-		$FleetPopup   = "<a href='#' onmouseover=\"return overlib('";
-		$FleetPopup  .= "<table width=200>";
+		$FleetRec     = explode(';', $FleetRow['fleet_array']);
+		$FleetPopup   = '<a href="#" name="';
+		$FleetPopup  .= '<table width=200>';
 		if(!defined('IN_ADMIN'))
 		{
 			if($_SESSION['USER']['spy_tech'] < 2 && $FleetRow['fleet_owner'] != $_SESSION['id']) {
-				$FleetPopup .= "<tr><td style=\'width:100%\' class=\'transparent\'><span style=\'color:white\'>".$LNG['cff_no_fleet_data']."</span></td></tr>";
+				$FleetPopup .= '<tr><td style=\'width:100%;color:white\'>'.$LNG['cff_no_fleet_data'].'</span></td></tr>';
 			} elseif($_SESSION['USER']['spy_tech'] < 4 && $FleetRow['fleet_owner'] != $_SESSION['id']) {
-				$FleetPopup .= "<tr><td style=\'width:100%\' class=\'transparent\'><span style=\'color:white\'>".$LNG['cff_aproaching'].$FleetRow['fleet_amount'].$LNG['cff_ships']."</span></td></tr>";
+				$FleetPopup .= '<tr><td style=\'width:100%;color:white\'>'.$LNG['cff_aproaching'].$FleetRow['fleet_amount'].$LNG['cff_ships'].'</td></tr>';
 			} else {
 				if($_SESSION['USER']['spy_tech'] < 8 && $FleetRow['fleet_owner'] != $_SESSION['id'])
-					$FleetPopup .= "<tr><td style=\'width:100%\' class=\'transparent\'><span style=\'color:white\'>".$LNG['cff_aproaching'].$FleetRow['fleet_amount'].$LNG['cff_ships'].":</span></td></tr>";
+					$FleetPopup .= '<tr><td style=\'width:100%;color:white\'>'.$LNG['cff_aproaching'].$FleetRow['fleet_amount'].$LNG['cff_ships'].':</td></tr>';
 
 				foreach($FleetRec as $Item => $Group)
 				{
 					if (empty($Group))
 						continue;
 						
-					$Ship    = explode(",", $Group);
+					$Ship    = explode(',', $Group);
 					if($FleetRow['fleet_owner'] == $_SESSION['id'])
-						$FleetPopup .= "<tr><td style=\'width:50%\' class=\'transparent\'><span style=\'color:white\'>". $LNG['tech'][$Ship[0]] .":</span></td><td style=\'width:50%\' class=\'transparent\'><span style=\'color:white\'>". pretty_number($Ship[1]) ."</span></td></tr>";
+						$FleetPopup .= '<tr><td style=\'width:50%;color:white\'>'. $LNG['tech'][$Ship[0]] .':</td><td style=\'width:50%;color:white\'>'.pretty_number($Ship[1]).'</td></tr>';
 					elseif($FleetRow['fleet_owner'] != $_SESSION['id'])
 					{
 						if($_SESSION['USER']['spy_tech'] >= 8)
-							$FleetPopup .= "<tr><td style=\'width:50%\' class=\'transparent\'><span style=\'color:white\'>". $LNG['tech'][$Ship[0]] .":</span></td><td style=\'width:50%\' class=\'transparent\'><span style=\'color:white\'>". pretty_number($Ship[1]) ."</span></td></tr>";
+							$FleetPopup .= '<tr><td style=\'width:50%;color:white\'>'. $LNG['tech'][$Ship[0]] .':</td><td style=\'width:50%;color:white\'>'.pretty_number($Ship[1]).'</td></tr>';
 						else
-							$FleetPopup .= "<tr><td style=\'width:100%\' class=\'transparent\'><span style=\'color:white\'>". $LNG['tech'][$Ship[0]] ."</span></td></tr>";
+							$FleetPopup .= '<tr><td style=\'width:100%;color:white\'>'. $LNG['tech'][$Ship[0]] .'</td></tr>';
 						
 					}
 				}
@@ -153,14 +152,13 @@ class FlyingFleetsTable
 			{
 				if ($Group  != '')
 				{
-					$Ship    = explode(",", $Group);
-					$FleetPopup .= "<tr><td style=\'width:50%\' class=\'left\'><span style=\'color:white\'>". $LNG['tech'][$Ship[0]] .":</span></td><td width=50% align=right><span style=\'color:white\'>". pretty_number($Ship[1]) ."</span></td></tr>";
+					$Ship    = explode(',', $Group);
+					$FleetPopup .= '<tr><td style=\"width:50%\" class=\"left\"><span style=\"color:white\">'. $LNG['tech'][$Ship[0]] .':</span></td><td width=50% align=right><span style=\"color:white\">'. pretty_number($Ship[1]) .'</span></td></tr>';
 				}
 			}
 		}
 
-		$FleetPopup  .= "</table>";
-		$FleetPopup  .= "');\" onmouseout=\"return nd();\" class=\"". $FleetType ."\">". $Texte ."</a>";
+		$FleetPopup  .= '</table>" class="tooltip '. $FleetType .'">'. $Texte .'</a>';
 
 		return $FleetPopup;
 	}
