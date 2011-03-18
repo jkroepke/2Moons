@@ -165,19 +165,25 @@ function handleErr(errMessage, url, line)
 var Dialog	= {
 	div: '#popup',
 	buttons	: {OK: function() { $(Dialog.div).dialog('close') }},
-	create: function(button) {
-		if($(Dialog.div).length === 0) {
-			$('body').append('<div id="'+Dialog.div.substr(1)+'"> </div>');
-			$(Dialog.div).dialog({
+		
+	create: function(button, div) {
+		div	= div || Dialog.div;
+		if($(div).length === 0) {
+			$('body').append('<div id="'+div.substr(1)+'"> </div>');
+			$(div).dialog({
 				autoOpen: false,
 				modal: true,
 				width: 650,
 				buttons: button || Dialog.buttons
 			});
 		} else {
-			$(Dialog.div).dialog('close').dialog('option', 'buttons', button || Dialog.buttons);
+			$(div).dialog('close').dialog('option', 'buttons', button || Dialog.buttons);
 		}
-		$(Dialog.div).html('<div style="width:100%;margin:140px 0;text-align:center;vertical-align:middle;font-size:18px;">Loading</div>');
+		$(div).html('<div style="width:100%;margin:140px 0;text-align:center;vertical-align:middle;font-size:18px;">Loading</div>');
+	},
+	
+	close: function() {
+		$(Dialog.div).dialog('close');
 	},
 	
 	info: function(ID){
@@ -189,8 +195,8 @@ var Dialog	= {
 	},
 	
 	alert: function(msg, callback){
-		Dialog.create({OK:function(){$(Dialog.div).dialog('close');$(Dialog.div).dialog('option', 'width', 650);if(typeof callback==="function")callback();}});
-		$(Dialog.div).html('<div style="text-align:center;">'+msg.replace(/\n/g, '<br>')+'</div>').dialog('option', 'width', 300).dialog('option', 'title', head_info).dialog('open');
+		Dialog.create({OK:function(){$('#alert').dialog('close');$('#alert').dialog('option', 'width', 650);if(typeof callback==="function")callback();}}, '#alert');
+		$('#alert').html('<div style="text-align:center;">'+msg.replace(/\n/g, '<br>')+'</div>').dialog('option', 'width', 300).dialog('option', 'title', head_info).dialog('open');
 	},
 	
 	PM: function(ID, Subject, Message) {
@@ -199,13 +205,21 @@ var Dialog	= {
 			
 		Dialog.create();
 		$(Dialog.div).dialog('open').load('game.php?page=messages&mode=write&id='+ID+'&subject='+encodeURIComponent(Subject), function() {
-			$(this).dialog('option', 'buttons', {Send :function(){if($('#text').val().length == 0){alert($('#empty').text(), function() {Dialog.PM(ID)})} else {$.get('game.php?page=messages&mode=write&id='+ID+'&send=1&'+$('#message').serialize(), function(data){alert(data)})}}})
+			$(this).dialog('option', 'buttons', {Send:function(){if($('#text').val().length==0){alert($('#empty').text());}else{$.get('game.php?page=messages&mode=write&id='+ID+'&send=1&'+$('#message').serialize(),function(data){alert(data,Dialog.close)})}}})
 			.dialog('option', 'title', $('#head').text())
 			.parent()
 			.find('.ui-dialog-buttonset button span')
 			.text($('#send').text());
 			if(typeof Message === 'string')
 				$('#old_mes').html(decodeURIComponent(Message)+'<hr>');
+		});
+		return false;
+	},
+	
+	Playercard: function(ID, Name) {
+		Dialog.create();
+		$(Dialog.div).dialog('open').load('game.php?page=playercard&id='+ID, function() {
+			$(this).dialog('option', 'title', Name);
 		});
 		return false;
 	}

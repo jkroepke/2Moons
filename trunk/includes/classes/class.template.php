@@ -39,6 +39,7 @@ class template
 		$this->cachefile			= '';
 		$this->phpself				= '';
 		$this->Popup				= false;
+		$this->Dialog				= false;
 	}
 	
 	public function render()
@@ -279,6 +280,11 @@ class template
 		$this->Popup		= true;
 	}
 		
+	public function isDialog()
+	{
+		$this->Dialog		= true;
+	}
+		
 	public function show($file)
 	{		
 		global $USER, $PLANET, $CONF, $LNG, $db;
@@ -288,7 +294,7 @@ class template
 				$this->adm_main();			
 			} elseif(defined('LOGIN')) {
 				$this->login_main();	
-			} else {
+			} elseif(!$this->Dialog) {
 				if(!defined('AJAX')) {
 					$_SESSION['USER']	= $USER;
 					$_SESSION['PLANET']	= $PLANET;

@@ -141,7 +141,7 @@ class ShowInfosPage
 		$BuildID 	= request_var('gid', 0);
 		
 		$template	= new template();
-		$template->isPopup(true);
+		$template->isDialog(true);
 	
 		$description = $LNG['info'][$BuildID]['description'];
 	
