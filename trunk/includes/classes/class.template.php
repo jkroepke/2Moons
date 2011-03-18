@@ -83,11 +83,14 @@ class template
 	
 	private function Menus()
 	{
-		global $PLANET, $LNG, $USER, $CONF;
+		global $PLANET, $LNG, $USER, $CONF, $resource;
 		
 		//PlanetMenu
 		if(empty($this->UserPlanets))
 			$this->getplanets();
+		
+		if($PLANET[$resource[43]] > 0)
+			$this->loadscript("gate.js");
 		
 		$this->loadscript("planetmenu.js");
 		$this->loadscript("topnav.js");

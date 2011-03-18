@@ -1,4 +1,3 @@
-{if $GateFleetList}<form action="" method="post">{/if}
 <div id="info_name" style="display:none;">{$name}</div>
 <table>
 <tbody><tr>
@@ -15,7 +14,6 @@
 			{foreach item=RapidFireFrom key=RapidFireFromName from=$RapidFire.from}
 			{$in_rf_from} {$RapidFireFromName} <span style="color:#ff0000">{$RapidFireFrom}</span><br>
 			{/foreach}
-			{$GateFleetList}
 			{/if}
 			</td>
 		</tr>
@@ -47,41 +45,8 @@
 {if is_array($content)}{$content.0}{if $content.0 != $content.1} <span style="color:yellow">({$content.1})</span>{/if}{else}{$content}{/if}
 {/foreach}
 </td></tr>
-{elseif $GateFleetList}
-{$gate_time_script}
-<tr>
-	<th colspan="2">{$in_jump_gate_select_ships}</th>
-</tr>
-<tr style="height:20px;">
-<td>{$in_jump_gate_start_moon}</td><td>{$GateFleetList.start_link}</td>
-</tr><tr style="height:20px;">
-<td>{$in_jump_gate_finish_moon}</td>
-<td><select name="jmpto">{$GateFleetList.moons}</select></td></tr>
-{if $GateFleetList.jump}
-<tr>
-	<td colspan="2" class="right">
-		{$GateFleetList.jump}
-	</td>
-</tr>
-{/if}
-{if $gate_time_script}
-<tr>
-	<th colspan="2" class="right">
-		{$in_jump_gate_wait_time} <span id="bxxGate1"></span>
-	</th>
-</tr>
-{/if}
-{foreach name=GateFleetList item=GateFleetRow from=$GateFleetList.fleets}
-<tr>
-	<td>{$GateFleetRow.name} (<span id="ship{$GateFleetRow.id}_value">{$GateFleetRow.max}</span> {$gate_ship_dispo})</td>
-	<td><input tabindex="{$smarty.foreach.GateFleetList.iteration}" name="ship{$GateFleetRow.id}" id="ship{$GateFleetRow.id}_input" size="7" value="0" type="text"><input onclick="javascript:maxShip('ship{$GateFleetRow.id}');" value="max" type="button"></td>
-</tr>
-{/foreach}
-<tr>
-	<td colspan="2"><input value="{$in_jump_gate_jump}" type="submit" {if $gate_time_script}disabled{/if}></td>
-</tr>
-{$gate_script_go}
+{elseif $gate_fleets}
+{include file="info_gatelist.tpl"}
 {/if}
 </tbody>
 </table>
-{if $GateFleetList}</form>{/if}
