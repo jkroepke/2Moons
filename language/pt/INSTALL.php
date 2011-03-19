@@ -19,7 +19,7 @@
  *
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <douglas@crockford.com> (XGProyecto)
+ * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
  * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.3 (2011-01-21)
@@ -30,7 +30,6 @@ $LNG['continue']				= "Continuar";
 $LNG['menu_intro']				= "Introdução";
 $LNG['menu_install']			= "Instalar";
 $LNG['menu_license']			= "Licença";
-$LNG['menu_convert']			= "Converter";
 $LNG['intro_lang']				= "Idioma";
 $LNG['intro_instal']			= "Instalação";
 $LNG['intro_welcome']			= "Bemvindo ao 2Moons!";
@@ -58,7 +57,6 @@ $LNG['req_ftp_password']		= "Senha";
 $LNG['req_ftp_dir']				= "Caminho para 2Moons";
 $LNG['req_ftp_send']			= "Enviar";
 $LNG['req_ftp_pass_info']		= "Sua senha não será Salva!";
-$LNG['step1_notice_chmod']		= "Confirme se config.php esta configurado em \"CHMOD 777\", para poder gravar os dados!";
 $LNG['step1_mysql_server']		= "MySQL-Base de dados do Server: <br>Standard: localhost";
 $LNG['step1_mysql_port']		= "MySQL-Porta da base de dados do Server: <br>Standard: 3306";
 $LNG['step1_mysql_dbname']		= "MySQL-Nome da Base de dados: <br> Ex.: Game";
@@ -76,11 +74,6 @@ $LNG['step3_admin_name']		= "Username do Admin:";
 $LNG['step3_admin_pass']		= "Password do Admin:";
 $LNG['step3_admin_mail']		= "Email do Admin:";
 $LNG['step4_need_fields']		= "Precisa de completar todos os espaços!";
-$LNG['convert_install']			= "Instalar a Conversão - Execute a instalação primeiro do 2Moons";
-$LNG['convert_version']			= "Versão da Conversão - Escolha a versão da conversão:";
-$LNG['convert_info']			= "Informação da Conversão - Escreva a antiga base de dados aqui";
-$LNG['convert_submit']			= "Converter para 2Moons";
-$LNG['convert_done']			= "Convertido com Sucesso!";
 
 // Traduzido para Português por QwataKayean. Todos os direitos de autor Reservados (C) 2010-2011
 

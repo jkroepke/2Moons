@@ -966,26 +966,6 @@ $LNG['pl_dermetal']                       = 'Добыто металла в на
 $LNG['pl_dercrystal']                     = 'Добыто кристалла в нападениях';
 $LNG['pl_etc']                            = 'Разное';
 
-// Чат
-$LNG['chat_title']                        = 'Чат';
-$LNG['chat_ally_title']                   = 'Чат альянса';
-$LNG['chat_bbcode']                       = 'BB-коды';
-$LNG['chat_fontcolor']                    = 'Цвет шрифта';
-$LNG['chat_disc']                         = 'Чат';
-$LNG['chat_message']                      = 'Сообщение';
-$LNG['chat_send']                         = 'Отправить';
-$LNG['chat_admin']                        = '<font color="red">Админ %s</font>';
-$LNG['chat_color_white']                  = 'Белый';
-$LNG['chat_color_blue']                   = 'Синий';
-$LNG['chat_color_yellow']                 = 'Жёлтый';
-$LNG['chat_color_green']                  = 'Зелёный';
-$LNG['chat_color_pink']                   = 'Розовый';
-$LNG['chat_color_red']                    = 'Красный';
-$LNG['chat_color_orange']                 = 'Оранжевый';
-$LNG['chat_notext']                       = 'Вы не написали текст!';
-$LNG['chat_request_url']                  = 'Пожалуйста, напишите ссылку:';
-$LNG['chat_request_url_desc']             = 'Пожалуйста, напишите описание ссылки (не обязательно):';
-
 // Техническая поддержка
 $LNG['supp_header']                       = 'Техническая поддержка';
 $LNG['supp_header_g']                     = 'Закрытые заявки';

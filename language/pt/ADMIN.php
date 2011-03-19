@@ -19,7 +19,7 @@
  *
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <douglas@crockford.com> (XGProyecto)
+ * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
  * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.3 (2011-01-21)
@@ -312,12 +312,10 @@ $LNG['ow_proyect_leader']				= 'Projeto líder';
 $LNG['ow_translator']					= 'Translators';
 $LNG['ow_special_thanks']				= 'Obrigado Especial';
 $LNG['ow_file_detected']               = 'Foi encontrado o arquivo %s. Por motivos de segurança, apagar ou renomear.';
-$LNG['ow_install_file_detected']		= 'install/ directoria foi encontrada. Por razões de segurança, é recomendável remover ou renomear.';
 $LNG['ow_config_file_writable']			= 'O ficheiro config.php pode ser escrito, é recomendado polo em modo 440 (leitura somente).';
 $LNG['ow_database_errors']				= 'Tens erros na tua base de dados. Poder&#225;s velos <a href="ErrorPage.php">Mostrar Erros</a>';
 $LNG['ow_smtp_errors']					= 'Verifique as configurações de SMTP! - Neste momento nenhum email pode ser enviado!';
 $LNG['ow_dir_not_writable']				= './%s dir não escrevível!';
-$LNG['ow_old_version']					= 'Tens uma versão nova desponivel.';
 $LNG['ow_none']						    = 'Sem Avisos';
 //###########################################################//
 
@@ -422,10 +420,6 @@ $LNG['se_bgm_active']					= 'Activado?';
 $LNG['se_bgm_info']						= 'A musica de fundo que toca na pagina principal.';
 $LNG['se_bgm_file']						= 'Caminho:';
 $LNG['se_bgm_file_info']				= 'Caminhos possivel ou absoluto possiveis!';
-$LNG['se_min_js']						= 'Minimize Javascript?';
-$LNG['se_min_js_info']					= 'Se ativado, os arquivos de javascript serão compilados como um arquivo enviado para o cliente. Assim, o servidor web fica aliviado, pois este processo tem menos pedidos.';
-
-
 
 
 //###########################################################//
