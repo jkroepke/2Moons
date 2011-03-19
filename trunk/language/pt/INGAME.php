@@ -19,7 +19,7 @@
  *
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <douglas@crockford.com> (XGProyecto)
+ * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
  * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.3 (2011-01-21)
@@ -131,14 +131,8 @@ $LNG['ov_position']							= 'Posição';
 $LNG['ov_points']							= 'Pontos';
 $LNG['ov_security_request']		            = 'Pergunta de segurança';
 $LNG['ov_security_confirm']	                = 'Por favor confirma se realmente queres apagar o planeta.';
-$LNG['ov_with_pass']			            = 'Introduz a tua password';
 $LNG['ov_password']							= 'Password';
 $LNG['ov_delete_planet']				    = 'Apagar planeta!';
-$LNG['ov_your_planet']				        = 'O teu planeta';
-$LNG['ov_coords']							= 'Posição';
-$LNG['ov_abandon_planet']			        = 'Abandonar colónia';
-$LNG['ov_planet_name']						= 'Nome';
-$LNG['ov_actions']						    = 'Funções';
 $LNG['ov_planet_rename']					= 'Novo nome';
 $LNG['ov_rename_label']                   = 'Mudar o nome';
 $LNG['ov_fields']                           = 'Campos';
@@ -1027,27 +1021,6 @@ $LNG['pl_unitslose']                        = 'Unidades Perdidas';
 $LNG['pl_dermetal']                         = 'Total de Destroços de Metal';
 $LNG['pl_dercrystal']                       = 'Total de Destroços de Cristal';
 $LNG['pl_etc']                              = 'Mensagens';
-
-//----------------------------------------------------------------------------//
-// Chat
-$LNG['chat_title']                          = 'Chat';
-$LNG['chat_ally_title']                     = 'Chat de Aliança';
-$LNG['chat_bbcode']                    		= 'BB-Codes';  
-$LNG['chat_fontcolor']                    	= 'Cor de Letra';
-$LNG['chat_disc']                           = 'Chat';
-$LNG['chat_message']                        = 'Mensagem';
-$LNG['chat_send']                           = 'Enviar';
-$LNG['chat_admin']                          = '<font color="red">Admin %s</font>';
-$LNG['chat_color_white']					= 'Branco';
-$LNG['chat_color_blue']						= 'Azul';
-$LNG['chat_color_yellow']					= 'Amarelo';
-$LNG['chat_color_green']					= 'Verde';
-$LNG['chat_color_pink']						= 'Rosa';
-$LNG['chat_color_red']						= 'Vermelho';
-$LNG['chat_color_orange']					= 'Laranja';
-$LNG['chat_notext']							= 'Enter some text!';
-$LNG['chat_request_url']					= 'Please give us a link:';
-$LNG['chat_request_url_desc']				= 'Enter a description for your link (optional):';
 
 //----------------------------------------------------------------------------//
 // Support
