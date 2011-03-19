@@ -96,13 +96,13 @@ class FlyingFleetsTable
 		if ($FleetTotalC <> 0)
 		{
 			$FRessource   = '<table width=200>';
-			$FRessource  .= '<tr><td style="width:50%" class="transparent"><span style="color:white">'.$LNG['Metal'].'</span></td><td style="width:50%" class="transparent"><span style="color:white">'. pretty_number($FleetRow['fleet_resource_metal']) .'</span></td></tr>';
-			$FRessource  .= '<tr><td style="width:50%" class="transparent"><span style="color:white">'.$LNG['Crystal'].'</span></td><td style="width:50%" class="transparent"><span style="color:white">'. pretty_number($FleetRow['fleet_resource_crystal']) .'</span></td></tr>';
-			$FRessource  .= '<tr><td style="width:50%" class="transparent"><span style="color:white">'.$LNG['Deuterium'].'</span></td><td style="width:50%" class="transparent"><span style="color:white">'. pretty_number($FleetRow['fleet_resource_deuterium']) .'</span></td></tr>';
+			$FRessource  .= '<tr><td style=\'width:50%;color:white\'>'.$LNG['Metal'].'</td><td style=\'width:50%;color:white\'>'. pretty_number($FleetRow['fleet_resource_metal']).'</td></tr>';
+			$FRessource  .= '<tr><td style=\'width:50%;color:white\'>'.$LNG['Crystal'].'</td><td style=\'width:50%;color:white\'>'. pretty_number($FleetRow['fleet_resource_crystal']).'</td></tr>';
+			$FRessource  .= '<tr><td style=\'width:50%;color:white\'>'.$LNG['Deuterium'].'</td><td style=\'width:50%;color:white\'>'. pretty_number($FleetRow['fleet_resource_deuterium']).'</td></tr>';
 			if($FleetRow['fleet_resource_darkmatter'] > 0)
-				$FRessource  .= '<tr><td style="width:50%" class="transparent"><span style="color:white">'.$LNG['Darkmatter'].'</span></td><td style="width:50%" class="transparent"><span style="color:white">'. pretty_number($FleetRow['fleet_resource_darkmatter']) .'</span></td></tr>';
+				$FRessource  .= '<tr><td style=\'width:50%;color:white\'>'.$LNG['Darkmatter'].'</td><td style=\'width:50%;color:white\'>'. pretty_number($FleetRow['fleet_resource_darkmatter']).'</td></tr>';
 			$FRessource  .= '</table>';
-			$MissionPopup  = '<a href="#" name="'.$FRessource.'" class="tooltip '.$FleetType.'">' . $Texte .'</a>';
+			$MissionPopup  = '<a name="'.$FRessource.'" class="tooltip '.$FleetType.'">'.$Texte.'</a>';
 		}
 		else
 			$MissionPopup  = $Texte;
