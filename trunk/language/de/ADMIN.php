@@ -890,6 +890,7 @@ $LNG['qe_coords']						= 'Koordinaten';
 $LNG['qe_hpcoords']						= 'HP-Koordinaten';
 $LNG['qe_temp']							= 'Temperatur';
 $LNG['qe_change']						= 'Ändern';
+$LNG['qe_authattack']					= 'Admin Angriffschutz';
 
 //----------------------------------------------------------------------------//
 //TeamSpeakSettingPage.php

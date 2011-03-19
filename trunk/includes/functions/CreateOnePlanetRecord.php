@@ -185,7 +185,6 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $Universe, $PlanetOw
 	
 	$SQL .= "`universe` = '".$Universe."', ";
 	$SQL .= "`id_owner` = '".$PlanetOwnerID."', ";
-	$SQL .= "`id_level` = '".$AuthLevel."', ";
 	$SQL .= "`galaxy` = '".$Galaxy."', ";
 	$SQL .= "`system` = '".$System."', ";
 	$SQL .= "`planet` = '".$Position."', ";

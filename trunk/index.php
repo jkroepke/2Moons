@@ -55,7 +55,7 @@ switch ($page) {
 		if($CONF['fb_on'] == 0)
 			redirectTo("index.php");
 
-		$CONF		= $db->uniquequery("SELECT `fb_apikey`, `fb_skey`, `initial_fields`, `LastSettedGalaxyPos`, `LastSettedSystemPos`, `LastSettedPlanetPos`, `smtp_host`, `smtp_port`, `smtp_user`, `smtp_pass`, `game_name`, `users_amount` FROM ".CONFIG." WHERE `uni` = ".$UNI.";");
+		$CONF		= $db->uniquequery("SELECT `users_amount`, `fb_apikey`, `fb_skey`, `initial_fields`, `LastSettedGalaxyPos`, `LastSettedSystemPos`, `LastSettedPlanetPos`, `smtp_host`, `smtp_port`, `smtp_user`, `smtp_pass`, `game_name`, `users_amount` FROM ".CONFIG." WHERE `uni` = ".$UNI.";");
 			
 		include_once(ROOT_PATH . 'includes/libs/facebook/facebook.php');
 		$facebook = new Facebook(array(
@@ -342,7 +342,7 @@ switch ($page) {
 				$UserPlanet	= $Valider['planet'];
 				$UserLang 	= $Valider['lang'];
 				$UserUni 	= $Valider['universe'];
-				$CONF		= $db->uniquequery("SELECT `initial_fields`, `LastSettedGalaxyPos`, `LastSettedSystemPos`, `LastSettedPlanetPos`, `mail_active`, `mail_use`, `smail_path`, `smtp_host`, `smtp_port`, `smtp_user`, `smtp_pass`, `smtp_ssl`, `smtp_sendmail`, `game_name`, `users_amount`, `metal_basic_income`, `crystal_basic_income`, `deuterium_basic_income` FROM ".CONFIG." WHERE `uni` = ".$UserUni.";");
+				$CONF		= $db->uniquequery("SELECT `users_amount`, `initial_fields`, `LastSettedGalaxyPos`, `LastSettedSystemPos`, `LastSettedPlanetPos`, `mail_active`, `mail_use`, `smail_path`, `smtp_host`, `smtp_port`, `smtp_user`, `smtp_pass`, `smtp_ssl`, `smtp_sendmail`, `game_name`, `users_amount`, `metal_basic_income`, `crystal_basic_income`, `deuterium_basic_income` FROM ".CONFIG." WHERE `uni` = ".$UserUni.";");
 				
 				$SQL = "INSERT INTO " . USERS . " SET ";
 				$SQL .= "`username` = '".$UserName . "', ";

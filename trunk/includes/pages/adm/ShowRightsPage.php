@@ -125,7 +125,7 @@ function ShowRightsPage()
 					exit;
 				}	
 				
-				$db->multi_query("UPDATE ".USERS." SET `authlevel` = '".$_POST['authlevel']."' WHERE `id` = '".$id."';UPDATE ".PLANETS." SET `id_level` = '".$_POST['authlevel']."' WHERE `id_owner` = '".$id."';");
+				$db->multi_query("UPDATE ".USERS." SET `authlevel` = '".request_var('authlevel', 0)."' WHERE `id` = '".$id."';");
 				$template->message($LNG['ad_authlevel_succes'], '?page=rights&mode=users&sid='.session_id());
 				exit;
 			}

@@ -17,6 +17,9 @@ function check(){
 <tr style="height:26px;"><td width="50%">{$qe_id}:</td><td width="50%">{$id}</td></tr>
 <tr><td width="50%">{$qe_name}:</td><td width="50%"><input name="name" type="text" size="15" value="{$name}" autocomplete="off"></td></tr>
 <tr style="height:26px;"><td width="50%">{$qe_hpcoords}:</td><td width="50%">{$planetname} [{$galaxy}:{$system}:{$planet}] ({$qe_id}: {$planetid})</td></tr>
+{if $authlevl != $smarty.const.AUTH_USER}
+<tr style="height:26px;"><td width="50%">{$qe_authattack}:</td><td width="50%"><input type="checkbox" name="authattack"{if $authattack != 0} checked{/if}></td></tr>
+{/if}
 {if $ChangePW}
 <tr style="height:26px;"><td width="50%">{$qe_password}:</td><td width="50%"><a href="#" onclick="$('#password').css('display', '');$(this).css('display', 'none');return false">{$qe_change}</a><input style="display:none;" id="password" name="password" type="password" size="15" value="" autocomplete="off"></td></tr>
 {/if}

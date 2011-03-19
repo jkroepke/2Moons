@@ -448,7 +448,7 @@ class ShowFleetPages extends FleetFunctions
 				
 		$ActualFleets 		= parent::GetCurrentFleets($USER['id']);
 		
-		$TargetPlanet  		= $db->uniquequery("SELECT `id`, `id_owner`,`id_level`,`destruyed`,`ally_deposit` FROM ".PLANETS." WHERE `universe` = '".$UNI."' AND `galaxy` = '".$galaxy."' AND `system` = '".$system."' AND `planet` = '".$planet."' AND `planet_type` = '".($planettype == 2 ? 1 : $planettype)."';");
+		$TargetPlanet  		= $db->uniquequery("SELECT `id`, `id_owner`,`destruyed`,`ally_deposit` FROM ".PLANETS." WHERE `universe` = '".$UNI."' AND `galaxy` = '".$galaxy."' AND `system` = '".$system."' AND `planet` = '".$planet."' AND `planet_type` = '".($planettype == 2 ? 1 : $planettype)."';");
 
 		if (($mission != 15 && $TargetPlanet["destruyed"] != 0) || ($mission != 15 && $mission != 7 && empty($TargetPlanet['id_owner'])))
 			parent::GotoFleetPage();
@@ -515,7 +515,7 @@ class ShowFleetPages extends FleetFunctions
 		$YourPlanet 	= (isset($TargetPlanet['id_owner']) && $TargetPlanet['id_owner'] == $USER['id']) ? true : false;
 		$UsedPlanet 	= (isset($TargetPlanet['id_owner'])) ? true : false;
 
-		$HeDBRec 		= ($YourPlanet) ? $MyDBRec : GetUserByID($TargetPlanet['id_owner'], array('id','onlinetime','ally_id','urlaubs_modus', 'banaday'));
+		$HeDBRec 		= ($YourPlanet) ? $MyDBRec : GetUserByID($TargetPlanet['id_owner'], array('id','onlinetime','ally_id', 'urlaubs_modus', 'banaday', 'authattack'));
 
 		if ($HeDBRec['urlaubs_modus'] && $mission != 8)
 		{
@@ -525,7 +525,7 @@ class ShowFleetPages extends FleetFunctions
 		
 		if(!$YourPlanet && ($mission == 1 || $mission == 2 || $mission == 5 || $mission == 6 || $mission == 9))
 		{
-			if($TargetPlanet['id_level'] > $USER['authlevel'] && $CONF['adm_attack'] == 1)
+			if($CONF['adm_attack'] == 1 && $UsedPlanet['authattack'] > $USER['authlevel'])
 			{
 				$template->message("<font color=\"red\"><b>".$LNG['fl_admins_cannot_be_attacked']."</b></font>", "game.php?page=fleet", 2);
 				exit;
@@ -802,7 +802,7 @@ class ShowFleetPages extends FleetFunctions
 			die($ResultMessage);
 		}
 
-		$SQL  = "SELECT id, id_level, id_owner FROM ".PLANETS." ";
+		$SQL  = "SELECT id, id_owner FROM ".PLANETS." ";
 		$SQL .= "WHERE ";
 		$SQL .= "`universe` = '".$UNI."' AND ";
 		$SQL .= "`galaxy` = '".$galaxy."' AND ";
@@ -810,12 +810,11 @@ class ShowFleetPages extends FleetFunctions
 		$SQL .= "`planet` = '".$planet."' AND ";
 		$SQL .= "`planet_type` = '".($planettype == 2 ? 1 : $planettype)."';";
 		$TargetRow	   = $db->uniquequery($SQL);
+	
+		$TargetUser	   = GetUserByID($TargetRow['id_owner'], array('id', 'onlinetime', 'urlaubs_modus', 'banaday', 'authattack'));
 
-		if($TargetRow['id_level'] > $USER['authlevel'] && $mission == 6 && $CONF['adm_attack'] == 1)
+		if($CONF['adm_attack'] == 1 && $mission == 6 && $TargetUser['authattack'] > $USER['authlevel'])
 			exit("619; ".$LNG['fa_action_not_allowed']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserGRecycles." ".$UserMissiles);
-		
-		$TargetUser	   = GetUserByID($TargetRow['id_owner'], array('id', 'onlinetime', 'urlaubs_modus', 'banaday'));
-
 
 
 		if($USER['urlaubs_modus'] == 1)
@@ -940,7 +939,7 @@ class ShowFleetPages extends FleetFunctions
 		$pziel 				= request_var('Target',"");
 		
 		$PlanetRess 		= new ResourceUpdate($USER, $PLANET);
-		$Target 			= $db->uniquequery("SELECT `id`, `id_owner`, `id_level` FROM ".PLANETS." WHERE `universe` = '".$UNI."' AND  `galaxy` = '".$TargetGalaxy."' AND `system` = '".$TargetSystem."' AND `planet` = '".$TargetPlanet."' AND `planet_type` = '1';");
+		$Target 			= $db->uniquequery("SELECT `id`, `id_owner` FROM ".PLANETS." WHERE `universe` = '".$UNI."' AND  `galaxy` = '".$TargetGalaxy."' AND `system` = '".$TargetSystem."' AND `planet` = '".$TargetPlanet."' AND `planet_type` = '1';");
 		
 		$Distance			= abs($TargetSystem - $PLANET['system']);
 		
@@ -964,11 +963,11 @@ class ShowFleetPages extends FleetFunctions
 			$error = $LNG['ma_no_missiles'];
 		elseif ($anz == 0)
 			$error = $LNG['ma_add_missile_number'];
-		elseif ($Target['id_level'] > $USER['authlevel'] && $CONF['adm_attack'] == 1)
-			$error = $LNG['fl_admins_cannot_be_attacked'];
-		
+
 		$TargetUser	   	= GetUserByID($Target['id_owner'], array('onlinetime', 'banaday'));
-		
+		if ($CONF['adm_attack'] == 1 && $TargetUser['authattack'] > $USER['authlevel'])
+			$error = $LNG['fl_admins_cannot_be_attacked'];	
+			
 		$UserPoints   	= $USER;
 		$User2Points  	= $db->uniquequery("SELECT `total_points` FROM ".STATPOINTS." WHERE `stat_type` = '1' AND `id_owner` = '".$Target['id_owner']."';");
 		

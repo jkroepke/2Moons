@@ -123,7 +123,7 @@ class ShowOptionsPage
 				$db_deaktjava 			= ($db_deaktjava == 'on') ? TIMESTAMP : 0;
 				$langs					= in_array($langs, $LANG->getAllowedLangs()) ? $langs : $LANG->getUser();
 				$dpath					= in_array($dpath, Theme::getAvalibleSkins()) ? $dpath : $THEME->getThemeName();
-				
+				$authattack				= ($adm_pl_prot == 'on' && $USER['authlevel'] != AUTH_USR) ? $USER['authlevel'] : 0;
 				
 				if ($urlaubs_modus == 'on')
 				{
@@ -167,17 +167,13 @@ class ShowOptionsPage
 								`settings_bud` = '".$settings_bud."',
 								`settings_mis` = '".$settings_mis."',
 								`settings_tnstor` = '".$settings_tnstor."',
+								`authattack` = '".$authattack."',
 								`db_deaktjava` = '".$db_deaktjava."',
 								`lang` = '".$langs."',
 								`hof` = '".$hof."',
 								`settings_rep` = '".$settings_rep."' 
 								WHERE `id` = '".$USER["id"]."';";
-				
-				if ($USER['authlevel'] > AUTH_USR)
-				{
-					$SQLQuery .= $adm_pl_prot == 'on' ? "UPDATE ".PLANETS." SET `id_level` = '".$USER['authlevel']."' WHERE `id_owner` = '".$USER['id']."';" : "UPDATE ".PLANETS." SET `id_level` = '0' WHERE `id_owner` = '".$USER['id']."';";
-				}
-								
+									
 				if (!empty($db_email) && $db_email != $USER['email'] && md5($db_password) == $USER['password'])
 				{
 					if(!ValidateAddress($db_email)) {
@@ -269,7 +265,7 @@ class ShowOptionsPage
 						'user_settings_bud' 				=> $USER['settings_bud'],
 						'opt_hof'							=> $USER['hof'],
 						'langs'								=> $USER['lang'],
-						'adm_pl_prot_data'					=> $PLANET['id_level'],					
+						'adm_pl_prot_data'					=> $USER['authattack'],					
 						'user_authlevel'					=> $USER['authlevel'],					
 						'Selectors'							=> array('Sort' => array(0 => $LNG['op_sort_normal'], 1 => $LNG['op_sort_koords'], 2 => $LNG['op_sort_abc']), 'SortUpDown' => array(0 => $LNG['op_sort_up'], 1 => $LNG['op_sort_down']), 'Skins' => Theme::getAvalibleSkins(), 'lang' => $LANG->getAllowedLangs(false)),
 						'planet_sort'						=> $USER['planet_sort'],
