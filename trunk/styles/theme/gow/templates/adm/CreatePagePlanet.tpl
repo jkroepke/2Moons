@@ -8,9 +8,9 @@
    <td><input name="id" type="text" size="4"></td>
 </tr><tr>
    <td>{$new_creator_coor}</td>
-   <td><input name="galaxy" type="text" size="3" maxlength="1" onMouseOver='return overlib("{$po_galaxy}", CENTER, OFFSETX, 0, OFFSETY, -40);' onMouseOut='return nd();'>&nbsp; :
-   <input name="system" type="text" size="3" maxlength="3" onMouseOver='return overlib("{$po_system}", CENTER, OFFSETX, 0, OFFSETY, -40);' onMouseOut='return nd();'>&nbsp; :
-   <input name="planet" type="text" size="3" maxlength="2" onMouseOver='return overlib("{$po_planet}", CENTER, OFFSETX, 0, OFFSETY, -40);' onMouseOut='return nd();'><br>
+   <td><input name="galaxy" type="text" size="3" maxlength="1" class="tooltip" name="{$po_galaxy}">&nbsp; :
+   <input name="system" type="text" size="3" maxlength="3" class="tooltip" name="{$po_system}">&nbsp; :
+   <input name="planet" type="text" size="3" maxlength="2" class="tooltip" name="{$po_planet}"><br>
    </td>
 </tr><tr>
    <td>{$po_name_planet}</td>

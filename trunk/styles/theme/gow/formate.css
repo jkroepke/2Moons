@@ -97,7 +97,7 @@ text-align:left
 text-align:right
 }
 
-.center{
+.center, .tip th{
 text-align:center
 }
 
@@ -189,7 +189,7 @@ color:#FF0
 color:#444
 }
 
-.transparent,td.header, .tip td {
+.transparent,td.header, .tip td, .tip th {
 background: transparent;
 border:none
 }
@@ -280,22 +280,6 @@ padding-bottom:5px;
 overflow: auto;
 }
 
-#overDiv > table {
-background:#212121;
-border:1px solid #666;
-color:#666;
-margin:0;
-padding:0
-}
-
-#overDiv td{
-margin:0;
-padding:0
-}
-
-#overDiv font {
-color:#FFF
-}
 .allymember,.colony,.deploy,.harvest,.transport,.success {
 color:lime
 }
@@ -347,14 +331,18 @@ background: transparent;
 background-image: none;
 border: 0 none
 }
-
+.tooltip, .tooltip_sticky {
+cursor: pointer;
+}
 .tip {
-    color: #fff;
-    background:#1d1d1d;
-    display:none; /*--Hides by default--*/
-    padding:10px;
-    position:absolute;    z-index:1000;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
+color: #fff;
+background:#1d1d1d;
+display:none;
+padding:3px;
+position:absolute;
+z-index:1000;
+max-width: 500px;
+-webkit-border-radius: 3px;
+-moz-border-radius: 3px;
+border-radius: 3px;
 }

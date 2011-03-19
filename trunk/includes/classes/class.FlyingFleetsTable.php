@@ -116,7 +116,7 @@ class FlyingFleetsTable
 
 		$FleetRec     = explode(';', $FleetRow['fleet_array']);
 		$FleetPopup   = '<a href="#" name="';
-		$FleetPopup  .= '<table width=200>';
+		$FleetPopup  .= '<table style=\'width:200px\'>';
 		if(!defined('IN_ADMIN'))
 		{
 			if($_SESSION['USER']['spy_tech'] < 2 && $FleetRow['fleet_owner'] != $_SESSION['id']) {
@@ -153,7 +153,7 @@ class FlyingFleetsTable
 				if ($Group  != '')
 				{
 					$Ship    = explode(',', $Group);
-					$FleetPopup .= '<tr><td style=\"width:50%\" class=\"left\"><span style=\"color:white\">'. $LNG['tech'][$Ship[0]] .':</span></td><td width=50% align=right><span style=\"color:white\">'. pretty_number($Ship[1]) .'</span></td></tr>';
+					$FleetPopup .= '<tr><td style=\'width:50%\' class=\'left\'><span style=\'color:white\'>'. $LNG['tech'][$Ship[0]] .':</span></td><td width=50% align=right><span style=\'color:white\'>'. pretty_number($Ship[1]) .'</span></td></tr>';
 				}
 			}
 		}

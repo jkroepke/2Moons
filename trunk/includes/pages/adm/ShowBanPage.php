@@ -83,7 +83,7 @@ function ShowBanPage()
 		{
 			$title			= $LNG['bo_bbb_title_3'];
 			$changedate		= $LNG['bo_bbb_title_6'];
-			$changedate_advert	=	'<td class="c" width="18px"><img src="./styles/images/Adm/i.gif" onMouseOver="return overlib(\''.$LNG['bo_bbb_title_4'].'\', CENTER, OFFSETX, -80, OFFSETY, -65, WIDTH, 250);" onMouseOut="return nd();"></td>';
+			$changedate_advert	=	'<td class="c" width="18px"><img src="./styles/images/Adm/i.gif" class="tooltip" name="'.$LNG['bo_bbb_title_4'].'"></td>';
 				
 			$reas			= $BANUSER['theme'];
 			$timesus		=	

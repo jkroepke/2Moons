@@ -305,12 +305,10 @@ function MailSend($MailTarget, $MailTargetName, $MailSubject, $MailContent)
 		$mail->IsMail();
 	}
 	$mail->CharSet		= 'UTF-8';		
-	$mail->IsHTML(true);		
 	$mail->Subject   	= $MailSubject;
-	$mail->AltBody   	= strip_tags($MailContent);
+	$mail->Body   		= $MailContent;
 	$mail->SetFrom($CONF['smtp_sendmail'], $CONF['game_name']);
 	$mail->AddAddress($MailTarget, $MailTargetName);
-	$mail->MsgHTML(makebr($MailContent));
 	$mail->Send();	
 }
 

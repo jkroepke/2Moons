@@ -1,19 +1,28 @@
 Hola %1$s,<br>
+
 gracias por registrarse en %2$s
 
-Antes de que podamos activar su cuenta, se necesita un paso más.
-Tenga en cuenta que este paso es obligatorio para llegar a ser un usuario registrado. Tienes que ir al enlace de abajo sólo una vez para verificar su identidad.
+Antes de que podamos activar su cuenta, se necesita un 
+paso más.
 
-Con el fin de completar su registro, por favor haga clic en el enlace de activación siguientes:
+Tenga en cuenta que este paso es obligatorio para llegar 
+a ser un usuario registrado. Tienes que ir al enlace de 
+abajo sólo una vez para verificar su identidad.
 
-<a href='%3$sindex.php?page=reg&amp;mode=valid&amp;pseudo=%1$s&amp;clef=%4$s'>%3$sindex.php?page=reg&amp;mode=valid&amp;pseudo=%1$s&amp;clef=%4$s</a>
+Con el fin de completar su registro, por favor haga clic 
+en el enlace de activación siguientes:
+
+%3$sindex.php?page=reg&mode=valid&pseudo=%1$s&clef=%4$s
 
 Sus datos:
 
 Usuario : %1$s
 Contraseña : %5$s
 
-En caso de estar frente a cualquier problema con el registro automatizado, por favor póngase en contacto con el webmaster mediante el siguiente e-mail: <a href='mailto:%6$s'>%6$s</a>
+En caso de estar frente a cualquier problema con el registro 
+automatizado, por favor póngase en contacto con el webmaster 
+mediante el siguiente e-mail: 
+mailto:%6$s
 
 Saludos,
 %2$s - Team

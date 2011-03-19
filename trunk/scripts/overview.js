@@ -79,7 +79,6 @@ function GetFleets(init) {
 			return;
 		}
 		
-
 		Fleets		= {};
 		var HTML	= '';
 		$.each(data, function(index, val) {
@@ -92,7 +91,7 @@ function GetFleets(init) {
 			$('.fleet').detach();
 			$('tr#fleets').before(HTML);		
 		}
-		executeToolTip();
+		
 		if(typeof init != "undefined")
 			FleetTime();
 			

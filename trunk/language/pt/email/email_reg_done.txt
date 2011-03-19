@@ -2,9 +2,12 @@
 
 Obrigado, o registo no %2$s já está completo. 
 
-Estamos satisfeitos que tenha decidido tomar parte da nossa comunidade de jogadores, esperamos que goste.
+Estamos satisfeitos que tenha decidido tomar parte da nossa 
+comunidade de jogadores, esperamos que goste.
 
-Nao se esqueça de visitar o nosso fórum, se tiver dúvidas ou questões poderá expô-las lá, ou entao contactar o Administrador através do sistema de tickets do jogo.
+Nao se esqueça de visitar o nosso fórum, se tiver dúvidas 
+ou questões poderá expô-las lá, ou entao contactar o 
+Administrador através do sistema de tickets do jogo.
 
 Atenciosamente
 

@@ -35,7 +35,7 @@ border:0px;background:url(./styles/images/Adm/blank.gif);text-align:right;paddin
 
 <table class="tableunique">
 	<tr>
-		<td class="blank"><a onMouseOver='return overlib("{$ac_note_k}", CENTER, OFFSETX, -150, OFFSETY, 5, width, 250);' onMouseOut='return nd();'>{$ac_leyend}&nbsp; <img src="./styles/images/Adm/i.gif" height="12" width="12"></a></td>
+		<td class="blank"><a class="tooltip" name="{$ac_note_k}">{$ac_leyend}&nbsp; <img src="./styles/images/Adm/i.gif" height="12" width="12"></a></td>
 	</tr>
 	<tr>
 		<td class="unico transparent"><a href="#" onclick="$('#datos').slideToggle();return false" class="link">
