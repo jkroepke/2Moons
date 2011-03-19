@@ -62,9 +62,9 @@ margin:0
 th {
 background:url(img/bkd_title.png);
 color:#FFF;
-height: 20px;
 font-weight:700;
-padding:2px 2px 2px 6px;
+height: 14px;
+padding:4px 2px 4px 6px;
 text-align:left
 }
 
@@ -349,4 +349,8 @@ border-radius: 3px;
 .ui-widget, .ui-widget td{
 font-family:Verdana;
 font-size:1.1em
+}
+
+#planet_menu_link {
+padding-top:1px;
 }
