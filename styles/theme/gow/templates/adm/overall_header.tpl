@@ -42,4 +42,4 @@ function openEdit(id, type) {
 </script> 
 </head>
 <body>
-<div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
+<div id="tooltip" class="tip"></div>

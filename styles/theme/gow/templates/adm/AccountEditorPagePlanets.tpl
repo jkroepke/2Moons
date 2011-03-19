@@ -34,7 +34,7 @@
 	<td>{$ad_pla_delete_cb}</td>
 	<td><input name="0_c_buildings" type="checkbox"></td>
 </tr><tr>
-	<td><a href="#" onMouseOver='return overlib("{$ad_pla_title_l}", CENTER, OFFSETX, 120, OFFSETY, -40, width, 250);' onMouseOut='return nd();'>{$ad_pla_change_p}</a></td>
+	<td><a href="#" class="tooltip" name="{$ad_pla_title_l}">{$ad_pla_change_p}</a></td>
 	<td><input name="change_position" type="checkbox" title="{$ad_pla_change_pp}">
 	<input name="g" type="text" size="1" maxlength="1"> : <input name="s" type="text" size="3" maxlength="3"> : <input name="p" type="text" size="2" maxlength="2"></td>
 </tr><tr>

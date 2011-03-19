@@ -7,7 +7,7 @@
 </tr>
 {foreach name=RangeList item=RangeInfo from=$RangeList}
 <tr>
-	<td><a href="#" onmouseover='return overlib("{if $RangeInfo.ranking == 0}<span style=&#39;color:#87CEEB&#39;>*</span>{elseif $RangeInfo.ranking < 0}<span style=&#39;color:red&#39;>-{$RangeInfo.ranking}</span>{elseif $RangeInfo.ranking > 0}<span style=&#39;color:green&#39;>+{$RangeInfo.ranking}</span>{/if}", WIDTH, 10);' onmouseout='return nd();'>{$RangeInfo.rank}</a></td>
+	<td><a class="tooltip" name="{if $RangeInfo.ranking == 0}<span style='color:#87CEEB'>*</span>{elseif $RangeInfo.ranking < 0}<span style='color:red'>{$RangeInfo.ranking}</span>{elseif $RangeInfo.ranking > 0}<span style='color:green'>+{$RangeInfo.ranking}</span>{/if}">{$RangeInfo.rank}</a></td>
 	<td><a href="game.php?page=alliance&amp;mode=ainfo&amp;a={$RangeInfo.id}" target="ally"{if $RangeInfo.id == $CUser_ally} style="color:lime"{/if}>{$RangeInfo.name}</a></td>
 	<td>{$RangeInfo.members}</td>
 	<td>{$RangeInfo.points}</td>

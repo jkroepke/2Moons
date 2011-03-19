@@ -56,18 +56,18 @@ class ShowInfosPage
 		$JumpTime     = TIMESTAMP;
 
 		if (!empty($NextJumpTime))
-			return $LNG['in_jump_gate_already_used']." ".pretty_time($NextJumpTime);
+			return json_encode(array('message' => $LNG['in_jump_gate_already_used'].' '.pretty_time($NextJumpTime), 'error' => true));
 			
 		$TargetPlanet = request_var('jmpto', $PLANET['id']);
 		$TargetGate   = $db->uniquequery("SELECT `id`, `last_jump_time` FROM ".PLANETS." WHERE `id` = '".$TargetPlanet."' AND `sprungtor` > '0';");
 
 		if (!isset($TargetGate) || $TargetPlanet == $PLANET['id'])
-			return $LNG['in_jump_gate_doesnt_have_one'];
+			return json_encode(array('message' =>  $LNG['in_jump_gate_doesnt_have_one'], 'error' => true));
 			
 		$RestString   = $this->GetNextJumpWaitTime($TargetGate, true);
 		
 		if (!empty($RestString))
-			return $LNG['in_jump_gate_not_ready_target']." ".$RestString;
+			return json_encode(array('message' =>  $LNG['in_jump_gate_not_ready_target'].' '.$RestString, 'error' => true));
 		
 		$ShipArray   = array();
 		$SubQueryOri = "";
@@ -85,7 +85,7 @@ class ShowInfosPage
 		}
 
 		if (empty($SubQueryOri))
-			return $LNG['in_jump_gate_error_data'];
+			return json_encode(array('message' =>  $LNG['in_jump_gate_error_data'], 'error' => true));
 
 		$SQL  = "UPDATE ".PLANETS." SET ";
 		$SQL .= $SubQueryOri;
@@ -100,7 +100,7 @@ class ShowInfosPage
 		$db->multi_query($SQL);
 
 		$PLANET['last_jump_time'] 	= $JumpTime;
-		return sprintf($LNG['in_jump_gate_done'], $this->GetNextJumpWaitTime($PLANET, true));
+		return json_encode(array('message' =>  sprintf($LNG['in_jump_gate_done'], $this->GetNextJumpWaitTime($PLANET, true)), 'error' => false));
 	}
 
 	private function BuildFleetListRows ($PLANET)
@@ -252,6 +252,7 @@ class ShowInfosPage
 			'RapidFire'						=> $RapidFire,
 			'Level'							=> $CurrentBuildtLvl,
 			'FleetInfo'						=> $FleetInfo,
+			'dpath'							=> $USER['dpath'],
 			'in_jump_gate_jump' 			=> $LNG['in_jump_gate_jump'],
 			'gate_ship_dispo' 				=> $LNG['in_jump_gate_available'],
 			'in_level'						=> $LNG['in_level'],

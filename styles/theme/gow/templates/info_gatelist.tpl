@@ -18,7 +18,7 @@
 <tr>
 	<td class="transparent" colspan="2" class="right">{$in_jump_gate_wait_time} <span id="bxxGate1">{$gate_rest_time}</span><script type="text/javascript">Gate.time();</script></td>
 </tr>
-{/if}
+{else}
 {foreach name=GateFleetList item=GateFleetRow from=$gate_fleets}
 <tr>
 	<td class="transparent" style="width:50%;">{$GateFleetRow.name} (<span id="ship{$GateFleetRow.id}_value">{$GateFleetRow.max}</span> {$gate_ship_dispo})</td>
@@ -26,5 +26,6 @@
 </tr>
 {/foreach}
 <tr>
-	<td class="transparent" colspan="2"><input value="{$in_jump_gate_jump}" type="button" onclick="Gate.submit();" {if $gate_rest_time != 0}disabled{/if}></td>
+	<td class="transparent" colspan="2"><input value="{$in_jump_gate_jump}" type="button" onclick="Gate.submit();" ></td>
 </tr>
+{/if}

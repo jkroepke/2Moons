@@ -4,7 +4,7 @@
 <tr>
 <td class="transparent left">
 <input type="checkbox" {$minimize} name="minimize"><input type="submit" value="{$se_contrac}" class="button">
-<img src="./styles/images/Adm/GO.png" onClick="javascript:$('#search').slideToggle()" style="cursor:pointer;padding-right:60px;" onMouseOver='return overlib("{$ac_minimize_maximize}", CENTER, OFFSETX, 120, OFFSETY, 5, width, 200);' onMouseOut='return nd();'>
+<img src="./styles/images/Adm/GO.png" onClick="javascript:$('#search').slideToggle()" style="cursor:pointer;padding-right:60px;" class="tooltip" name="{$ac_minimize_maximize}">
 </td>
 </tr>
 </table>

@@ -21,19 +21,19 @@
 </tr><tr>
 	<td>{$se_general_speed}</td>
 	<td><input name="game_speed" value="{$game_speed}" type="text" maxlength="5"></td>
-	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_normal_speed}", CENTER, OFFSETX, -150, OFFSETY, -10, width, 250);' onMouseOut='return nd();'></td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_normal_speed}"></td>
 </tr><tr>
 	<td>{$se_fleet_speed}</td>
 	<td><input name="fleet_speed" value="{$fleet_speed}" type="text" maxlength="5"></td>
-	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_normal_speed_fleet}", CENTER, OFFSETX, -150, OFFSETY, -10, width, 250);' onMouseOut='return nd();'></td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_normal_speed_fleet}"></td>
 </tr><tr>
 	<td>{$se_resources_producion_speed}</td>
 	<td><input name="resource_multiplier" value="{$resource_multiplier}" type="text"></td>
-	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_normal_speed_resoruces}", CENTER, OFFSETX, -150, OFFSETY, -10, width, 250);' onMouseOut='return nd();'></td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_normal_speed_resoruces}"></td>
 </tr><tr>
 	<td>{$se_halt_speed}</td>
 	<td><input name="halt_speed" value="{$halt_speed}" type="text"></td>
-	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_normal_speed_halt}", CENTER, OFFSETX, -150, OFFSETY, -10, width, 250);' onMouseOut='return nd();'></td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_normal_speed_halt}"></td>
 </tr><tr>
 	<td>{$se_forum_link}</td>
 	<td><input name="forum_url" size="60" maxlength="254" value="{$forum_url}" type="text"></td>
@@ -69,7 +69,7 @@
 </tr><tr>
 	<td>{$se_min_build_time}</td>
 	<td><input name="min_build_time" maxlength="2" size="5" value="{$min_build_time}" type="text"></td>
-	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_min_build_time_info}", CENTER, OFFSETX, -150, OFFSETY, -10, width, 250);' onMouseOut='return nd();'/></td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_min_build_time_info}"/></td>
 </tr><tr>
 	<td>{$se_reg_closed}<br></td>
 	<td><input name="reg_closed"{if $reg_closed} checked="checked"{/if} type="checkbox"></td>
@@ -77,23 +77,23 @@
 </tr><tr>
 	<td>{$se_verfiy_mail}<br></td>
 	<td><input name="user_valid"{if $user_valid} checked="checked"{/if} type="checkbox"></td>
-	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_verfiy_mail_info}", CENTER, OFFSETX, -150, OFFSETY, -10, width, 250);' onMouseOut='return nd();'/></td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_verfiy_mail_info}"/></td>
 </tr><tr>
 	<td>{$se_admin_protection}</td>
     <td><input name="adm_attack"{if $adm_attack} checked="checked"{/if} type="checkbox"></td>
-	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_title_admins_protection}", CENTER, OFFSETX, -150, OFFSETY, -10, width, 250);' onMouseOut='return nd();'/></td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_title_admins_protection}"/></td>
 </tr><tr>
 	<td>{$se_debug_mode}</td>
 	<td><input name="debug"{if $debug} checked="checked"{/if} type="checkbox"></td>
-	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_debug_message}", CENTER, OFFSETX, -150, OFFSETY, -10, width, 250);' onMouseOut='return nd();'></td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_debug_message}"></td>
 </tr><tr>
 	<td>{$se_ships_cdr}</td>
 	<td><input name="Fleet_Cdr" maxlength="3" size="3" value="{$shiips}" type="text"> %</td>
-	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_ships_cdr_message}", CENTER, OFFSETX, -150, OFFSETY, -20, width, 250);' onMouseOut='return nd();'></td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_ships_cdr_message}"></td>
 </tr><tr>
 	<td>{$se_def_cdr}</td>
 	<td><input name="Defs_Cdr" maxlength="3" size="3" value="{$defenses}" type="text"> %</td>
-	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_def_cdr_message}", CENTER,OFFSETX, -150, OFFSETY, -20, width, 250);' onMouseOut='return nd();'></td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_def_cdr_message}"></td>
 </tr><tr>
 	<td>{$se_noob_protect}</td>
 	<td><input name="noobprotection"{if $noobprot} checked="checked"{/if} type="checkbox"></td>
@@ -101,11 +101,11 @@
 </tr><tr>
 	<td>{$se_noob_protect2}</td>
 	<td><input name="noobprotectiontime" value="{$noobprot2}" type="text"></td>
-	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_noob_protect_e2}", CENTER, OFFSETX, -150, OFFSETY, -20, width, 250);' onMouseOut='return nd();'></td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_noob_protect_e2}"></td>
 </tr><tr>
 	<td>{$se_noob_protect3}</td>
 	<td><input name="noobprotectionmulti" value="{$noobprot3}" type="text"></td>
-	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_noob_protect_e3}", CENTER, OFFSETX, -150, OFFSETY, -20, width, 250);' onMouseOut='return nd();'></td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_noob_protect_e3}"></td>
 </tr><tr>
 	<th colspan="2">{$se_trader_head}</th><th>&nbsp;</th>
 </tr><tr>
@@ -121,17 +121,17 @@
 </tr><tr>
     <td>{$se_news_active}</td>
     <td><input name="newsframe"{if $newsframe} checked="checked"{/if} type="checkbox"></td>
-	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_news_info}", CENTER, OFFSETX, -150, OFFSETY, -20, width, 250);' onMouseOut='return nd();'></td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_news_info}"></td>
 </tr><tr>
     <td>{$se_news}</td>
     <td><textarea name="NewsText" cols="80" rows="5">{$NewsTextVal}</textarea></td>
-	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_news_limit}", CENTER, OFFSETX, -150, OFFSETY, -20, width, 250);' onMouseOut='return nd();'></td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_news_limit}"></td>
 </tr><tr>
 	<th colspan="2">{$se_recaptcha_head}</th><th>&nbsp;</th>
 </tr><tr>
 	<td>{$se_recaptcha_active}<br></td>
     <td><input name="capaktiv"{if $capaktiv} checked="checked"{/if}  type="checkbox"></td>
-	<td><a href="http://www.recaptcha.net/whyrecaptcha.html" target="_blank"><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_recaptcha_desc}", CENTER, OFFSETX, -150, OFFSETY, -20, width, 250);' onMouseOut='return nd();'></a></td>
+	<td><a href="http://www.recaptcha.net/whyrecaptcha.html" target="_blank"><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_recaptcha_desc}"></a></td>
 </tr><tr>
 	<td>{$se_recaptcha_public}</td>
 	<td><input name="cappublic" maxlength="40" size="60" value="{$cappublic}" type="text"></td>
@@ -143,7 +143,7 @@
 </tr>
 <tr>
 	<th colspan="2">{$se_smtp}</th>
-	<th><center><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_smtp_info}", CENTER, OFFSETX, -150, OFFSETY, -20, width, 250);' onMouseOut='return nd();'></center></th>
+	<th><center><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_smtp_info}"></center></th>
 </tr><tr>
 	<td>{$se_mail_active}</td>
 	<td><input name="mail_active"{if $mail_active} checked="checked"{/if}  type="checkbox"></td>
@@ -155,7 +155,7 @@
 </tr><tr>
 	<td>{$se_smtp_sendmail}</td>
 	<td><input name="smtp_sendmail" size="20" value="{$smtp_sendmail}" type="text" autocomplete="off"></td>
-	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_smtp_sendmail_info}", CENTER, OFFSETX, -150, OFFSETY, -20, width, 250);' onMouseOut='return nd();'></td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_smtp_sendmail_info}"></td>
 </tr><tr>
 	<td>{$se_smail_path}</td>
 	<td><input name="smail_path" size="20" value="{$smail_path}" type="text"></td>
@@ -163,15 +163,15 @@
 </tr><tr>
 	<td>{$se_smtp_host}</td>
 	<td><input name="smtp_host" size="20" value="{$smtp_host}" type="text" autocomplete="off"></td>
-	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_smtp_host_info}", CENTER, OFFSETX, -150, OFFSETY, -20, width, 250);' onMouseOut='return nd();'></td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_smtp_host_info}"></td>
 </tr><tr>
 	<td>{$se_smtp_ssl}</td>
 	<td>{html_options name=smtp_ssl options=$Selector.encry selected=$smtp_ssl}</td>
-	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_smtp_ssl_info}", CENTER, OFFSETX, -150, OFFSETY, -20, width, 250);' onMouseOut='return nd();'></td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_smtp_ssl_info}"></td>
 </tr><tr>
 	<td>{$se_smtp_port}</td>
 	<td><input name="smtp_port" size="20" value="{$smtp_port}" type="text" autocomplete="off"></td>
-	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_smtp_port_info}", CENTER, OFFSETX, -150, OFFSETY, -20, width, 250);' onMouseOut='return nd();'></td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_smtp_port_info}"></td>
 </tr><tr>
 	<td>{$se_smtp_user}</td>
 	<td><input name="smtp_user" size="20" value="{$smtp_user}" type="text" autocomplete="off"></td>
@@ -185,21 +185,21 @@
 </tr><tr>
     <td>{$se_google_active}</td>
     <td><input name="ga_active"{if $ga_active} checked="checked"{/if}  type="checkbox"></td>
-	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_google_info}", CENTER, OFFSETX, -150, OFFSETY, -120, width, 250);' onMouseOut='return nd();'></td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_google_info}"></td>
 </tr><tr>
     <td>{$se_google_key}</td>
     <td><input name="ga_key" size="20" maxlength="15" value="{$ga_key}" type="text"></td>
-	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_google_key_info}", CENTER, OFFSETX, -150, OFFSETY, -20, width, 250);' onMouseOut='return nd();'></td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_google_key_info}"></td>
 </tr><tr>
 	<th colspan="2">{$se_bgm_login}</th><th>&nbsp;</th>
 </tr><tr>
     <td>{$se_bgm_active}</td>
     <td><input name="bgm_active"{if $bgm_active} checked="checked"{/if} type="checkbox"></td>
-	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_bgm_info}", CENTER, OFFSETX, -150, OFFSETY, -20, width, 250);' onMouseOut='return nd();'></td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_bgm_info}"></td>
 </tr><tr>
     <td>{$se_bgm_file}</td>
     <td><input name="bgm_file" size="40" value="{$bgm_file}" type="text"></td>
-	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onMouseOver='return overlib("{$se_bgm_file_info}", CENTER, OFFSETX, -150, OFFSETY, -20, width, 250);' onMouseOut='return nd();'></td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_bgm_file_info}"></td>
 </tr>
 <tr>
 	<td colspan="3"><input value="{$se_save_parameters}" type="submit"></td>

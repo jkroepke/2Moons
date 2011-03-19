@@ -52,7 +52,7 @@
           <th colspan="3">{$al_diplo_accept}</th>
         </tr>
 		{foreach key=id item=name from=$DiploInfo.5}
-		<tr><td style="width:60%" onmouseout="return nd();" onmouseover="return overlib('{$al_diplo_ground} {$name.3}', CENTER, OFFSETY, -30)";>{$name.0}</td><td>{$al_diplo_level.{$name.2}}</td><td><a href="?page=alliance&amp;mode=admin&amp;edit=diplo&amp;action=accept&amp;id={$id}&amp;level={$name.2}" onclick="javascript:return confirm('{$al_diplo_accept_yes_confirm}');"><img src="{$dpath}pic/key.gif" border="0" alt=""></a><a href="?page=alliance&amp;mode=admin&amp;edit=diplo&amp;action=decline&amp;id={$id}&amp;level={$name.2}" onclick="javascript:return confirm('{$al_diplo_accept_no_confirm}');"><img src="{$dpath}pic/abort.gif" border="0" alt=""></a></td></tr>
+		<tr><td style="width:60%" class="tooltip" name="{$al_diplo_ground} {$name.3}">{$name.0}</td><td>{$al_diplo_level.{$name.2}}</td><td><a href="?page=alliance&amp;mode=admin&amp;edit=diplo&amp;action=accept&amp;id={$id}&amp;level={$name.2}" onclick="javascript:return confirm('{$al_diplo_accept_yes_confirm}');"><img src="{$dpath}pic/key.gif" border="0" alt=""></a><a href="?page=alliance&amp;mode=admin&amp;edit=diplo&amp;action=decline&amp;id={$id}&amp;level={$name.2}" onclick="javascript:return confirm('{$al_diplo_accept_no_confirm}');"><img src="{$dpath}pic/abort.gif" border="0" alt=""></a></td></tr>
 		{foreachelse}
 		<tr><td colspan="3">{$al_diplo_no_accept}</td></tr>
 		{/foreach}
