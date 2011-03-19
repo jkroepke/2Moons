@@ -59,6 +59,7 @@ function ShowMessagesPage()
 				
 				if(connection_aborted())
 					exit;
+					
 				SendSimpleMessage($OwnerID, $USER['id'], '', 1, $From, $Subject, $Message);
 				exit($LNG['mg_message_send']);
 			}

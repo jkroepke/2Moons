@@ -63,9 +63,8 @@ th {
 background:url(img/bkd_title.png);
 color:#FFF;
 font-weight:700;
-height:22px;
 line-height:18px;
-padding-left:3px;
+padding:2px;
 text-align:left
 }
 

@@ -3,14 +3,15 @@
 
 function check(){
 	if($('#text').val().length == 0) {
-		alert('{$mg_empty_text}');
+		Dialog.alert('{$mg_empty_text}');
 		return false;
 	} else {
 		$.post('admin.php?page=globalmessage&mode=send&ajax=1', $('#message').serialize(), function(data) {
-			alert(data);
-			location.reload();
-			return true;
+			Dialog.alert(data, function() {
+				location.reload();
+			});
 		});
+		return true;
 	}
 }
 </script>

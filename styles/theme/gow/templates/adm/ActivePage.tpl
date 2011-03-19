@@ -2,8 +2,9 @@
 <script type="text/javascript">
 	function ajax(url) {
 		$.get(url, function(data){
-			alert(data);
-			parent.frames['Hauptframe'].location.reload()
+			Dialog.alert(data, function(){
+				parent.frames['Hauptframe'].location.reload()			
+			});
 		});
 	}
 </script>

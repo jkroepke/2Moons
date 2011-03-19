@@ -34,7 +34,7 @@ function removeE(Number) {
 	var e = parseInt(Number.replace(/\S+.?e\+/g, ''));
 	if (isNaN(e) || e == 0) 
 		return Number;
-	else if ($.browser.webkit) 
+	else if ($.browser.webkit || $.browser.msie) 
 		return parseFloat(Number).toPrecision(Math.min(e + 1, 21));
 	else 
 		return parseFloat(Number).toPrecision(e + 1);
@@ -205,7 +205,7 @@ var Dialog	= {
 			
 		Dialog.create();
 		$(Dialog.div).dialog('open').load('game.php?page=messages&mode=write&id='+ID+'&subject='+encodeURIComponent(Subject), function() {
-			$(this).dialog('option', 'buttons', {Send:function(){if($('#text').val().length==0){alert($('#empty').text());}else{$.get('game.php?page=messages&mode=write&id='+ID+'&send=1&'+$('#message').serialize(),function(data){alert(data,Dialog.close)})}}})
+			$(this).dialog('option', 'buttons', {Send:function(){if($('#text').val().length==0){Dialog.alert($('#empty').text());}else{$.get('game.php?page=messages&mode=write&id='+ID+'&send=1&'+$('#message').serialize(),function(data){Dialog.alert(data,Dialog.close)})}}})
 			.dialog('option', 'title', $('#head').text())
 			.parent()
 			.find('.ui-dialog-buttonset button span')
@@ -224,5 +224,3 @@ var Dialog	= {
 		return false;
 	}
 }
-
-alert = Dialog.alert;

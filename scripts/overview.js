@@ -24,7 +24,7 @@ function checkrename()
 			if(response == '')
 				$('.planetname').text($.trim($('#newname').val()));
 			else
-				alert(response, function(){$('#dialog').dialog('open')});
+				Dialog.alert(response);
 		});
 	}
 }
@@ -36,7 +36,7 @@ function checkcancel()
 	} else {
 		$.getJSON('ajax.php?action=deleteplanet&lang='+Lang+'&password='+$('#password').val(), function(response){
 			$('#dialog').dialog('close');
-			alert(response.mess, function(){document.location.href = 'game.php?page=overview'});
+			Dialog.alert(response.mess, function(){Dialog.close();document.location.href = 'game.php?page=overview'});
 		});
 	}
 }
