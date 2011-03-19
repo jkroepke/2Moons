@@ -229,10 +229,11 @@ switch($action)
 		$DeleteWhat = request_var('deletemessages','');
 		$MessType	= request_var('mess_type', 0);
 		
+		if($DeleteWhat == 'deleteunmarked' && (empty($_REQUEST['delmes']) || !is_array($_REQUEST['delmes'])))
+			$DeleteWhat	= 'deletetypeall';
+		
 		if($DeleteWhat == 'deletetypeall' && $MessType == 100)
 			$DeleteWhat	= 'deleteall';
-		elseif($DeleteWhat == 'deleteunmarked' && (empty($_REQUEST['delmes']) || !is_array($_REQUEST['delmes'])))
-			$DeleteWhat	= 'deletetypeall';
 		
 		
 		switch($DeleteWhat)
@@ -243,16 +244,13 @@ switch($action)
 			case 'deletetypeall':
 				$db->multi_query("DELETE FROM ".MESSAGES." WHERE `message_owner` = '".$_SESSION['id']."' AND `message_type` = '".$MessType."';UPDATE ".USERS." SET `new_message` = '0', `new_gmessage` = '0' WHERE `id` = '".$_SESSION['id']."';");
 			case 'deletemarked':
-				if(!empty($_REQUEST['delmes']) && is_array($_REQUEST['delmes']))
+				$SQLWhere = array();
+				foreach($_REQUEST['delmes'] as $id => $b)
 				{
-					$SQLWhere = array();
-					foreach($_REQUEST['delmes'] as $id => $b)
-					{
-						$SQLWhere[] = "`message_id` = '".(int) $id."'";
-					}
-					
-					$db->query("DELETE FROM ".MESSAGES." WHERE (".implode(" OR ",$SQLWhere).") AND `message_owner` = '".$_SESSION['id']."'".(($MessType != 100)? " AND `message_type` = '".$MessType."' ":"").";");
+					$SQLWhere[] = "`message_id` = '".(int) $id."'";
 				}
+				
+				$db->query("DELETE FROM ".MESSAGES." WHERE (".implode(" OR ",$SQLWhere).") AND `message_owner` = '".$_SESSION['id']."'".(($MessType != 100)? " AND `message_type` = '".$MessType."' ":"").";");
 			break;
 			case 'deleteunmarked':
 				if(!empty($_REQUEST['delmes']) && is_array($_REQUEST['delmes']))
