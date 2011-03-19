@@ -345,3 +345,8 @@ max-width: 500px;
 -moz-border-radius: 3px;
 border-radius: 3px;
 }
+
+.ui-widget, .ui-widget td{
+font-family:Verdana;
+font-size:1.1em
+}

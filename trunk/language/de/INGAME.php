@@ -1032,6 +1032,7 @@ $LNG['supp_ticket_close']					= 'Ticket geschlossen';
 $LNG['supp_close'] 							= 'Geschlossen';
 $LNG['supp_open'] 							= 'Offen';
 $LNG['supp_admin_answer'] 					= 'Admin-Antwort';
+$LNG['supp_player_write'] 					= '%s schreib am %s';
 $LNG['supp_player_answer'] 					= 'Spieler-Antwort';
 
 //----------------------------------------------------------------------------//
