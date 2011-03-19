@@ -30,7 +30,6 @@ function ShowPhalanxPage()
 {
 	global $USER, $PLANET, $LNG, $db, $UNI;
 
-	include_once(ROOT_PATH.'includes/functions/InsertJavaScriptChronoApplet.php');
 	include_once(ROOT_PATH.'includes/classes/class.FlyingFleetsTable.php');
 	include_once(ROOT_PATH.'includes/classes/class.GalaxyRows.php');
 
