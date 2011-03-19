@@ -186,7 +186,7 @@ function ShowCreatorPage()
 				else
 				$Univer		= $_SESSION['adminuni'];
 			
-				$MoonPlanet	= $db->uniquequery("SELECT `temp_max`, `temp_min`, `id_luna`, `galaxy`, `system`, `planet`, `planet_type`, `destruyed`, `id_level`, `id_owner` FROM ".PLANETS." WHERE `id` = '".$PlanetID."' AND `universe` = '".$Univer."' AND `planet_type` = '1' AND `destruyed` = '0';");
+				$MoonPlanet	= $db->uniquequery("SELECT `temp_max`, `temp_min`, `id_luna`, `galaxy`, `system`, `planet`, `planet_type`, `destruyed`, `id_owner` FROM ".PLANETS." WHERE `id` = '".$PlanetID."' AND `universe` = '".$Univer."' AND `planet_type` = '1' AND `destruyed` = '0';");
 
 				if (!isset($MoonPlanet)) {
 					$template->message($LNG['mo_planet_doesnt_exist'], '?page=create&mode=moon', 3, true);
@@ -254,12 +254,11 @@ function ShowCreatorPage()
 				$SQL  = "UPDATE ".PLANETS." SET ";
 				
 				if ($_POST['diameter_check'] != 'on' || $field_max > 0)
-					$SQL .= "`field_max` = '".$field_max."', ";
+					$SQL .= "`field_max` = '".$field_max."' ";
 			
 				if (!empty($name))
-					$SQL .= "`name` = '".$db->sql_escape($name)."', ";
+					$SQL .= ", `name` = '".$db->sql_escape($name)."' ";
 
-				$SQL .= "`id_level` = '".$ISUser['authlevel']."' ";
 				$SQL .= "WHERE ";
 				$SQL .= "`universe` = '". $Univer ."' AND ";
 				$SQL .= "`galaxy` = '". $Galaxy ."' AND ";

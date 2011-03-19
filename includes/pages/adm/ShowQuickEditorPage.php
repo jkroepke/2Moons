@@ -59,6 +59,7 @@ function ShowQuickEditorPage()
 				$SQL	.= "`field_max` = '".request_var('field_max', 0)."', ";
 				$SQL	.= "`name` = '".$db->sql_escape(request_var('name', '', UTF8_SUPPORT))."' ";
 				$SQL	.= "WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';";
+					
 				$db->query($SQL);
 				exit(sprintf($LNG['qe_edit_planet_sucess'], $PlanetData['name'], $PlanetData['galaxy'], $PlanetData['system'], $PlanetData['planet']));
 			}
@@ -145,7 +146,7 @@ function ShowQuickEditorPage()
 			{
 				$SpecifyItemsPQ	.= "`".$resource[$ID]."`,";
 			}
-			$UserData	= $db->uniquequery("SELECT ".$SpecifyItemsPQ." `username`, `authlevel`, `galaxy`, `system`, `planet`, `id_planet`, `darkmatter` FROM ".USERS." WHERE `id` = '".$id."';");
+			$UserData	= $db->uniquequery("SELECT ".$SpecifyItemsPQ." `username`, `authlevel`, `galaxy`, `system`, `planet`, `id_planet`, `darkmatter`, `authattack`, `authlevel` FROM ".USERS." WHERE `id` = '".$id."';");
 			$ChangePW	= $USER['id'] == 1 || ($id != 1 && $USER['authlevel'] > $UserData['authlevel']);
 		
 			if($action == 'send'){
@@ -157,9 +158,12 @@ function ShowQuickEditorPage()
 				$SQL	.= "`darkmatter` = '".max(request_var('darkmatter', 0), 0)."', ";
 				if(!empty($_POST['password']) && $ChangePW)
 					$SQL	.= "`password` = '".md5(request_var('password', '', true))."', ";
-				$SQL	.= "`username` = '".$db->sql_escape(request_var('name', '', UTF8_SUPPORT))."' ";
+				$SQL	.= "`username` = '".$db->sql_escape(request_var('name', '', UTF8_SUPPORT))."', ";
+				$SQL	.= "`authattack` = '".($UserData['authlevel'] != AUTH_USR && request_var('authattack', '') == 'on' ? $UserData['authlevel'] : 0)."' ";
 				$SQL	.= "WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';";
 				$db->query($SQL);
+				
+					
 				exit(sprintf($LNG['qe_edit_player_sucess'], $UserData['username'], $id));
 			}
 			$PlanetInfo				= $db->uniquequery("SELECT `name` FROM ".PLANETS." WHERE `id` = '".$UserData['id_planet']."' AND `universe` = '".$_SESSION['adminuni']."';");
@@ -192,6 +196,7 @@ function ShowQuickEditorPage()
 				'qe_id'			=> $LNG['qe_id'],
 				'qe_info'		=> $LNG['qe_info'],
 				'qe_change'		=> $LNG['qe_change'],
+				'qe_authattack'	=> $LNG['qe_authattack'],
 				'tech'			=> $tech,
 				'id'			=> $id,
 				'planetid'		=> $UserData['id_planet'],
@@ -200,6 +205,8 @@ function ShowQuickEditorPage()
 				'galaxy'		=> $UserData['galaxy'],
 				'system'		=> $UserData['system'],
 				'planet'		=> $UserData['planet'],
+				'authlevel'		=> $UserData['authlevel'],
+				'authattack'	=> $UserData['authattack'],
 				'ChangePW'		=> $ChangePW,
 				'darkmatter'	=> floattostring($UserData['darkmatter']),
 				'darkmatter_c'	=> pretty_number($UserData['darkmatter']),

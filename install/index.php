@@ -301,7 +301,6 @@ switch ($Mode) {
 				$SQL .= "`password`          = '". $md5pass ."';";
 				$SQL .= "INSERT INTO ".PLANETS." SET ";
 				$SQL .= "`id_owner`          = '1', ";
-				$SQL .= "`id_level`          = '0', ";
 				$SQL .= "`universe`          = '1', ";
 				$SQL .= "`galaxy`            = '1', ";
 				$SQL .= "`system`            = '1', ";

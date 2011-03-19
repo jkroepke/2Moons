@@ -32,7 +32,7 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 	{
 		global $LNG, $USER, $db;
 
-		$SQL  = "SELECT id_luna,id_level,planet_type,id,name,temp_max,temp_min FROM ".PLANETS." ";
+		$SQL  = "SELECT id_luna,planet_type,id,name,temp_max,temp_min FROM ".PLANETS." ";
 		$SQL .= "WHERE ";
 		$SQL .= "`universe` = '".$Universe."' AND ";
 		$SQL .= "`galaxy` = '".$Galaxy."' AND ";
@@ -58,7 +58,6 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 		$SQL  = "INSERT INTO ".PLANETS." SET ";
 		$SQL .= "`name` = '".( ($MoonName == '') ? $LNG['fcm_moon'] : $MoonName )."', ";
 		$SQL .= "`id_owner` = '".$Owner."', ";
-		$SQL .= "`id_level` = '".$MoonPlanet['id_level']."', ";
 		$SQL .= "`universe` = '".$Universe."', ";
 		$SQL .= "`galaxy` = '".$Galaxy."', ";
 		$SQL .= "`system` = '".$System."', ";
