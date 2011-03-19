@@ -348,8 +348,6 @@ switch ($Mode) {
 				$SESSION       	= new Session();
 				$SESSION->CreateSession(1, $adm_user, 1, 1, 3);
 				$_SESSION['admin_login']	= $md5pass;
-				unlink(__FILE__);
-				unlink(ROOT_PATH.'/install/install.sql');
 				file_put_contents('.htaccess', 'deny from all');
 				header('Location: ../admin.php');
 				exit;
