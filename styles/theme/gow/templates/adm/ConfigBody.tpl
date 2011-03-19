@@ -131,7 +131,7 @@
 </tr><tr>
 	<td>{$se_recaptcha_active}<br></td>
     <td><input name="capaktiv"{if $capaktiv} checked="checked"{/if}  type="checkbox"></td>
-	<td><a href="http://www.recaptcha.net/whyrecaptcha.html" target="_blank"><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_recaptcha_desc}"></a></td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_recaptcha_desc}"></td>
 </tr><tr>
 	<td>{$se_recaptcha_public}</td>
 	<td><input name="cappublic" maxlength="40" size="60" value="{$cappublic}" type="text"></td>
