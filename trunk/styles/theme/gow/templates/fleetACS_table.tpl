@@ -32,7 +32,7 @@ function Rename(){
 	var Name = prompt("{$fl_acs_change_name}", "{$aks_code_mr}");
 	$.get('?page=fleet&action=getakspage&fleetid={$fleetid}&name='+Name, function(data) {
 		if(data != "") {
-			alert(data);
+			Dialog.alert(data);
 			return;
 		}
 		$('#aks_name').text(Name);

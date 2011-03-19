@@ -16,7 +16,7 @@ function check(){
 			kb.location.href = 'CombatReport.php?raport='+data;
 		} else {
 			kb.window.close();
-			alert(data);
+			Dialog.alert(data);
 		}
 	});
 	

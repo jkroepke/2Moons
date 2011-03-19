@@ -46,7 +46,7 @@ function ShowSendMessagesPage() {
 			break;
 		}
 		
-		$Subject	= makebr(request_var('subject', '', true));
+		$Subject	= request_var('subject', '', true);
 		$Message 	= makebr(request_var('text', '', true));
 
 		if (!empty($Message) && !empty($Subject))

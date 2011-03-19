@@ -41,7 +41,7 @@
 		</tr>
         {/if}
 		<tr>
-        	<td colspan="2" style="height:100px">{if $ally_description}{$ally_description}{else}{$al_description_message}{/if}</td>
+        	<td colspan="2" style="height:100px" class="bbcode">{if $ally_description}{$ally_description}{else}{$al_description_message}{/if}</td>
         </tr>
 		{if $ally_web}
         <tr>
@@ -53,11 +53,11 @@
         	<th colspan="2">{$al_inside_section}</th>
         </tr>
         <tr>
-        	<td colspan="2" height="100">{$ally_text}</td>
+        	<td colspan="2" height="100" class="bbcode">{$ally_text}</td>
         </tr>
 		{if $DiploInfo}
 		<tr>
-			<td class="c" colspan="2">{$al_diplo}</td>
+			<th colspan="2">{$al_diplo}</th>
 		</tr>
 		<tr>
 			<td colspan="2">{if !empty($DiploInfo.0)}<b><u>{$al_diplo_level.0}</u></b><br><br>{foreach item=PaktInfo from=$DiploInfo.0}<a href="?page=alliance&mode=ainfo&a={$PaktInfo.1}">{$PaktInfo.0}</a><br>{/foreach}<br>{/if}
