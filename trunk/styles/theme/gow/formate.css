@@ -62,9 +62,9 @@ margin:0
 th {
 background:url(img/bkd_title.png);
 color:#FFF;
+height: 20px;
 font-weight:700;
-line-height:18px;
-padding:2px;
+padding:2px 2px 2px 6px;
 text-align:left
 }
 
