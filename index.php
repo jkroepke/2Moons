@@ -628,7 +628,7 @@ switch ($page) {
 				'chose_a_uni'			=> $LNG['chose_a_uni'],
 				'universe'				=> $LNG['universe'],
 			));
-			$template->show('index_body.tpl');
+			$template->show('index_main.tpl');
 		}
 	break;
 }
