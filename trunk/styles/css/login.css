@@ -121,11 +121,6 @@ header {
 	padding-left: 0;
 }
 
-#loginbox {
-	width: 360px;
-	margin: 0 auto;
-}
-
 /** LOGIN BOX **/
 
 .c {
@@ -166,31 +161,40 @@ header {
 	margin-left: 21px
 }
 
-#loginbox {
+#contentbox {
 	margin-top: 40px;
+	width: 360px;
+	height: 205px;
+	margin: 0 auto;
 }
 
-#loginbox label {
+#regbox, #lostbox {
+	display:none;
+}
+
+#contentbox label {
     display: block;
     width: 100px;
 	font-weight: 700;
 	float: left;
+	margin: 2.5px 0;
+	height: 16px;
+	vertical-align: middle;
+}
+
+#contentbox input, #contentbox select {
 	margin-bottom: 5px;
 }
 
-#loginbox input, #loginbox select {
-	margin-bottom: 5px;
-}
-
-#loginbox input {
+#contentbox input {
     width: 179px;
 }
 
-#loginbox input[type=submit] {
+#contentbox input[type=submit] {
     width: auto;
 }
 
-#loginbox select{
+#contentbox select{
     width: 184px;
 }
 

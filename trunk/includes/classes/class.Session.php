@@ -39,6 +39,15 @@ class Session
 		return $db->uniquequery("SELECT * FROM ".SESSION." WHERE `sess_id` = '".session_id()."' AND `user_id` = '".$_SESSION['id']."';");
 	}
 	
+	function ErrorMessage($Code)
+	{
+		if(defined('LOGIN'))
+			echo json_encode(array('message' => $LNG['login_error_'.$Code], 'error' => true));
+		else
+			redirectTo('index.php?code='.$Code);
+		exit;
+	}
+	
 	function CreateSession($ID, $Username, $MainPlanet, $Universe, $Authlevel = 0, $dpath = DEFAULT_THEME)
 	{
 		global $db;
@@ -68,7 +77,7 @@ class Session
 		$_SESSION['last']	= $this->GetSessionFromDB();
 		if(empty($_SESSION['last']) || !$this->CompareIPs($_SESSION['last']['user_ip'])) {
 			$this->DestroySession();
-			redirectTo('index.php?code=2');
+			$this->ErrorMessage(2);
 		}
 		
 		$SelectPlanet  		= request_var('cp',0);

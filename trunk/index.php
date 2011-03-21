@@ -428,6 +428,7 @@ switch ($page) {
 				$template->assign_vars(array(
 					'server_message_reg'			=> $LNG['server_message_reg'],
 					'register_at_reg'				=> $LNG['register_at_reg'],
+					'register'						=> $LNG['register'],
 					'user_reg'						=> $LNG['user_reg'],
 					'pass_reg'						=> $LNG['pass_reg'],
 					'pass2_reg'						=> $LNG['pass2_reg'],
@@ -444,7 +445,6 @@ switch ($page) {
 					'captcha_reload'				=> $LNG['captcha_reload'],
 					'captcha_get_audio'				=> $LNG['captcha_get_audio'],
 					'AvailableUnis'					=> $AvailableUnis,
-					'AvailableLangs'				=> $LANG->getAllowedLangs(false),
 					'uni_reg'						=> $LNG['uni_reg'],
 					'chose_a_uni'					=> $LNG['chose_a_uni'],
 					'register'						=> $LNG['register'],
@@ -595,10 +595,9 @@ switch ($page) {
 				session_start();
 				$SESSION       	= new Session();
 				$SESSION->CreateSession($login['id'], $login['username'], $login['id_planet'], $luniv, $login['authlevel'], $login['dpath']);
-
-				redirectTo("game.php?page=overview");
+				echo json_encode(array('message' => 'OK', 'error' => false));
 			} else {
-				redirectTo('index.php?code=1');
+				echo json_encode(array('message' => $LNG['login_error_1'], 'error' => true));
 			}
 		} else {
 			$AvailableUnis[$CONF['uni']]	= $CONF['uni_name'].($CONF['game_disable'] == 0 ? $LNG['uni_closed'] : '');
@@ -615,6 +614,7 @@ switch ($page) {
 			}
 			$template->assign_vars(array(
 				'AvailableUnis'			=> $AvailableUnis,
+				'AvailableLangs'		=> $LANG->getAllowedLangs(false),
 				'welcome_to'			=> $LNG['welcome_to'],
 				'server_description'	=> sprintf($LNG['server_description'], $CONF['game_name']),
 				'server_infos'			=> $LNG['server_infos'],
@@ -627,6 +627,12 @@ switch ($page) {
 				'screenshots'			=> $LNG['screenshots'],
 				'chose_a_uni'			=> $LNG['chose_a_uni'],
 				'universe'				=> $LNG['universe'],
+				'register'				=> $LNG['register'],
+				'pass_2'				=> $LNG['pass2_reg'],
+				'email'					=> $LNG['email_reg'],
+				'email_2'				=> $LNG['email2_reg'],
+				'planetname'			=> $LNG['planet_reg'],
+				'language'				=> $LNG['lang_reg'],
 			));
 			$template->show('index_main.tpl');
 		}
