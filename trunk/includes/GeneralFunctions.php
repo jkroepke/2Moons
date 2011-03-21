@@ -29,8 +29,10 @@
 function getUniverse()
 {
 	if(defined('IN_ADMIN') && isset($_SESSION['adminuni'])) {
-		$UNI	= $_SESSION['adminuni'];
-	} elseif(isset($_SESSION['uni'])) {
+		$UNI	= (int) $_SESSION['adminuni'];
+	} elseif(defined('LOGIN') && isset($_REQUEST['uni'])) {
+		$UNI	= (int) $_REQUEST['uni'];
+	} else if(isset($_SESSION['uni'])) {
 		$UNI	= $_SESSION['uni'];
 	} else {
 		if(UNIS_WILDCAST === true) {

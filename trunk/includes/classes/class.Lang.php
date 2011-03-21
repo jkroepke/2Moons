@@ -72,6 +72,11 @@ class Language
 	
 	function GetLangFromBrowser($strict_mode = true) 
 	{
+   		if(defined('LOGIN') && isset($_COOKIE['lang']) && in_array($_COOKIE['lang'], self::getAllowedLangs())) {
+			$this->setUser($_COOKIE['lang']);
+			return $this->User;
+		}
+		
    		if(isset($_REQUEST['lang']) && in_array($_REQUEST['lang'], self::getAllowedLangs())) {
 			$this->setUser($_REQUEST['lang']);
 			return $this->User;
