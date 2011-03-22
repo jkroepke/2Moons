@@ -1,14 +1,19 @@
-function showRecaptcha(element) 
+function showRecaptcha() 
 {
-	if(IsCaptchaActive == 0)
+	if(CONF['IsCaptchaActive'] == 0)
 		return;
 		
-	Recaptcha.create(cappublic, 'display_captcha', {
+	Recaptcha.create(CONF['cappublic'], 'display_captcha', {
 		theme: 'custom',
 		lang: $.cookie('lang'),
 		tabindex: '6',
 		custom_theme_widget: 'display_captcha'
 	});
+}
+
+function setLNG(uni) {
+	$.cookie('uni', uni);
+	document.location.reload();
 }
 
 function setLNG(LNG) {
@@ -51,13 +56,14 @@ function Content(action) {
 			$('#contentbox label').css('width', '100px');
 		break;
 		case 'register':
+			showRecaptcha();
 			$('#regbox').show();
-			$('#contentbox').animate({width: '560px', height: '320px'}, 300);		
+			$('#contentbox').animate({width: '560px', height: CONF['IsCaptchaActive'] == 0 ? '320px' : '396px'}, 300);		
 			$('#contentbox label').animate({width: '257px'}, 300);
 		break;
 		case 'lost':
 			$('#lostbox').show();
-			$('#contentbox').animate({width: '360px', height: '205px'}, 300);
+			$('#contentbox').animate({width: '360px', height: '175px'}, 300);
 			$('#contentbox label').css('width', '100px');
 		break;
 	}

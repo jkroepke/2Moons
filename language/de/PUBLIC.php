@@ -14,12 +14,6 @@ $LNG['menu_top100']			= 'Hall of Fame';
 $LNG['menu_disclamer']		= 'Impressum';
 $LNG['uni_closed']			= ' (closed)';
 
-/* ------------------------------------------------------------------------------------------ */
-
-$LNG['music_off']			= 'Music: OFF';
-$LNG['music_on']			= 'Music: ON';
-
-
 //index.php
 //case lostpassword
 $LNG['mail_not_exist'] 			= 'Die angegebende E-Mail Adresse existiert nicht!';
@@ -110,10 +104,6 @@ $LNG['captcha_get_image']			= 'Lade Bild-CAPTCHA';
 $LNG['captcha_reload']				= 'Neues CAPTCHA';
 $LNG['captcha_get_audio']			= 'Lade Sound-CAPTCHA';
 $LNG['user_active']					= 'User %s wurde aktiviert!';
-
-//registry_closed.tpl
-$LNG['info']						= 'Informationen';
-$LNG['reg_closed']					= 'Die Registrierung ist geschlossen';
 
 //Rules
 $LNG['rules_overview']				= "Regelwerk";
@@ -253,8 +243,8 @@ $LNG['news_does_not_exist']	= "Keine News vorhanden!";
 //Impressum
 
 $LNG['disclamer']				= "Haftungsausschluss";
-$LNG['disclamer_name']			= "";
-$LNG['disclamer_adress']		= "";
-$LNG['disclamer_tel']			= "";
-$LNG['disclamer_email']		    = "";
+$LNG['disclamer_name']			= "Name:";
+$LNG['disclamer_adress']		= "Adresse:";
+$LNG['disclamer_tel']			= "Telefon Nr.:";
+$LNG['disclamer_email']		    = "E-Mail Adresse:";
 ?>
