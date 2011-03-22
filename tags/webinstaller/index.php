@@ -112,6 +112,8 @@ if(isset($_GET['action'])) {
 			if(strpos($_GET['file'], '.') === false) {
 				if(!file_exists($ROOT.$_GET['file']))
 					mkdir($ROOT.$_GET['file']);
+               
+          chmod($ROOT.$_GET['file'], 0777);
 				echo json_encode(array('status'	=> 'OK'));
 				exit;
 			}
@@ -142,7 +144,8 @@ if(isset($_GET['action'])) {
 				echo json_encode(array('status'	=> 'OK'));
 				
 			curl_close($ch);
-			fclose($fp);			
+			fclose($fp); 
+      chmod($ROOT.$_GET['file'], 0666);
 		break;
 	}
 	exit;
