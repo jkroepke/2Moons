@@ -1,3 +1,6 @@
+{extends file="index.tpl"}
+{block name="title" prepend}{$menu_agb}{/block}
+{block name="content"}
 {foreach name=MainSector item=Sector key=Name from=$agb}
 &sect;{$smarty.foreach.MainSector.iteration} {$Name}<br><br>
 {if is_array($Sector)}
@@ -9,3 +12,4 @@
 {/if}
 <br>
 {/foreach}
+{/block}

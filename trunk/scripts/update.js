@@ -18,7 +18,7 @@ function DisplayUpdates() {
 	var List	= RevList.copy();
 	List.reverse();
 	if(List[0].version > CurrentVersion && $('#update').length == 0) {
-		$('tr').eq(0).after('<tr id="update"><td><a href="#" onclick="updateGame();return false;">Update</a>'+(canDownload ? ' - <a href="?page=update&action=download">'+up_download+'</a>':'')+'</td></tr>');	
+		$('tr').eq(0).after('<tr id="update"><td><a href="#" onclick="updateGame();return false;">Update</a></td></tr>');	
 	} else {
 		$('#update').remove();
 	}

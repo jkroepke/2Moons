@@ -200,55 +200,37 @@ switch ($page) {
 	case 'lostpassword': 
 		if($CONF['mail_active'] == 0)
 			redirectTo("index.php");
-			
-		if ($mode == "send") {
-			$USERmail = request_var('email', '');
-			$Universe = request_var('universe', 0);
-			$ExistMail = $db->uniquequery("SELECT `username` FROM ".USERS." WHERE `email` = '".$db->sql_escape($USERmail)."' AND `universe` = '".$Universe."';");
-			if (empty($ExistMail['username'])) {
-				$template->message($LNG['mail_not_exist'], "index.php?page=lostpassword&lang=".$LANG->getUser(), 3, true);
-			} else {
-				$Caracters = "aazertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN1234567890";
-				$Count = strlen($Caracters);
-				$Taille = 8;
-				$NewPass = "";
-				for($i = 0; $i < $Taille; $i ++) {
-					$CaracterBoucle = rand ( 0, $Count - 1 );
-					$NewPass .= substr ( $Caracters, $CaracterBoucle, 1 );
-				}
 
-				$MailRAW		= file_get_contents("./language/".$CONF['lang']."/email/email_lost_password.txt");
-				$MailContent	= sprintf($MailRAW, $ExistMail['username'], $CONF['game_name'], $NewPass, "http://".$_SERVER['SERVER_NAME'].$_SERVER["PHP_SELF"]);			
-			
-				$Mail			= MailSend($USERmail, $ExistMail['username'], $LNG['mail_title'], $MailContent);
-				
-				if(true === true)
-				{
-					$db->query("UPDATE ".USERS." SET `password` ='" . md5($NewPass) . "' WHERE `username` = '".$ExistMail['username']."' AND `universe` = '".$Universe."';");
-					$template->message($LNG['mail_sended'], "./?lang=".$LANG->getUser(), 5, true);
-				} else {
-					$template->message($LNG['mail_sended_fail'], "./?lang=".$LANG->getUser(), 5, true);
-				}
-			
-			}
+		$USERmail = request_var('email', '');
+		$Universe = request_var('universe', 0);
+		$ExistMail = $db->uniquequery("SELECT `username` FROM ".USERS." WHERE `email` = '".$db->sql_escape($USERmail)."' AND `universe` = '".$Universe."';");
+		if (empty($ExistMail['username'])) {
+			$template->message($LNG['mail_not_exist'], "index.php?page=lostpassword&lang=".$LANG->getUser(), 3, true);
 		} else {
-			$AvailableUnis[$CONF['uni']]	= $CONF['uni_name'].($CONF['game_disable'] == 0 ? $LNG['uni_closed'] : '');
-			$Query	= $db->query("SELECT `uni`, `game_disable`, `uni_name` FROM ".CONFIG." WHERE `uni` != '".$UNI."' ORDER BY `uni` ASC;");
-			while($Unis	= $db->fetch_array($Query)) {
-				$AvailableUnis[$Unis['uni']]	= $Unis['uni_name'].($Unis['game_disable'] == 0 ? $LNG['uni_closed'] : '');
+			$Caracters = "aazertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN1234567890";
+			$Count = strlen($Caracters);
+			$Taille = 8;
+			$NewPass = "";
+			for($i = 0; $i < $Taille; $i ++) {
+				$CaracterBoucle = rand ( 0, $Count - 1 );
+				$NewPass .= substr ( $Caracters, $CaracterBoucle, 1 );
 			}
-			ksort($AvailableUnis);
-			$template->assign_vars(array(
-				'email'				=> $LNG['email'],
-				'uni_reg'			=> $LNG['uni_reg'],
-				'send'				=> $LNG['send'],
-				'AvailableUnis'		=> $AvailableUnis,
-				'chose_a_uni'		=> $LNG['chose_a_uni'],
-				'lost_pass_title'	=> $LNG['lost_pass_title'],
-			));
-			$template->show('lostpassword.tpl');
+
+			$MailRAW		= file_get_contents("./language/".$CONF['lang']."/email/email_lost_password.txt");
+			$MailContent	= sprintf($MailRAW, $ExistMail['username'], $CONF['game_name'], $NewPass, "http://".$_SERVER['SERVER_NAME'].$_SERVER["PHP_SELF"]);			
+		
+			$Mail			= MailSend($USERmail, $ExistMail['username'], $LNG['mail_title'], $MailContent);
+			
+			if(true === true)
+			{
+				$db->query("UPDATE ".USERS." SET `password` ='" . md5($NewPass) . "' WHERE `username` = '".$ExistMail['username']."' AND `universe` = '".$Universe."';");
+				$template->message($LNG['mail_sended'], "./?lang=".$LANG->getUser(), 5, true);
+			} else {
+				$template->message($LNG['mail_sended_fail'], "./?lang=".$LANG->getUser(), 5, true);
+			}
+		
 		}
-		break;
+	break;
 	case 'reg' :
 		switch ($mode) {
 			case 'send' :
@@ -419,44 +401,13 @@ switch ($page) {
 				}
 			break;
 			default:
-				$AvailableUnis[$CONF['uni']]	= $CONF['uni_name'].(($CONF['game_disable'] == 0 || $CONF['reg_closed'] == 1) ? $LNG['uni_closed'] : '');
-				$Query	= $db->query("SELECT `uni`, `game_disable`, `reg_closed`, `uni_name` FROM ".CONFIG." WHERE `uni` != '".$UNI."' ORDER BY `uni` ASC;");
-				while($Unis	= $db->fetch_array($Query)) {
-					$AvailableUnis[$Unis['uni']]	= $Unis['uni_name'].(($Unis['game_disable'] == 0 || $Unis['reg_closed'] == 1) ? $LNG['uni_closed'] : '');
-				}
-				ksort($AvailableUnis);
-				$template->assign_vars(array(
-					'server_message_reg'			=> $LNG['server_message_reg'],
-					'register_at_reg'				=> $LNG['register_at_reg'],
-					'register'						=> $LNG['register'],
-					'user_reg'						=> $LNG['user_reg'],
-					'pass_reg'						=> $LNG['pass_reg'],
-					'pass2_reg'						=> $LNG['pass2_reg'],
-					'email_reg'						=> $LNG['email_reg'],
-					'email2_reg'					=> $LNG['email2_reg'],
-					'planet_reg'					=> $LNG['planet_reg'],
-					'lang_reg'						=> $LNG['lang_reg'],
-					'captcha_reg'					=> $LNG['captcha_reg'],
-					'register_now'					=> $LNG['register_now'],
-					'accept_terms_and_conditions'	=> sprintf($LNG['accept_terms_and_conditions'], $LANG->getUser()),
-					'captcha_reload'				=> $LNG['captcha_reload'],
-					'captcha_help'					=> $LNG['captcha_help'],
-					'captcha_get_image'				=> $LNG['captcha_get_image'],
-					'captcha_reload'				=> $LNG['captcha_reload'],
-					'captcha_get_audio'				=> $LNG['captcha_get_audio'],
-					'AvailableUnis'					=> $AvailableUnis,
-					'uni_reg'						=> $LNG['uni_reg'],
-					'chose_a_uni'					=> $LNG['chose_a_uni'],
-					'register'						=> $LNG['register'],
-					'send'							=> $LNG['send'],
-					'uni_closed'					=> $LNG['uni_closed'],
-				));
-				$template->show('registry_form.tpl');
+				redirectTo("index.php");
 			break;
 		}
 		break;
 	case 'agb' :
 		$template->assign_vars(array(
+			'contentbox'		=> true,
 			'agb'				=> $LNG['agb'],
 			'agb_overview'		=> $LNG['agb_overview'],
 		));
@@ -464,6 +415,7 @@ switch ($page) {
 		break;
 	case 'rules' :
 		$template->assign_vars(array(
+			'contentbox'		=> true,
 			'rules'				=> $LNG['rules'],
 			'rules_overview'	=> $LNG['rules_overview'],
 			'rules_info1'		=> sprintf($LNG['rules_info1'], $CONF['forum_url']),
@@ -473,6 +425,7 @@ switch ($page) {
 		break;
 	case 'screens':
 		$template->assign_vars(array(
+			'contentbox'			=> true,
 			'screenshots'           => $LNG['screenshots'],
 		));
 		$template->show('index_screens.tpl');
@@ -500,6 +453,7 @@ switch ($page) {
 		ksort($AvailableUnis);
 			
 		$template->assign_vars(array(	
+			'contentbox'	=> true,
 			'AvailableUnis'	=> $AvailableUnis,
 			'ThisUni'		=> $ThisUni,
 			'tkb_units'		=> $LNG['tkb_units'],
@@ -540,7 +494,8 @@ switch ($page) {
 		}
 		ksort($AvailableUnis);
 		
-		$template->assign_vars(array(	
+		$template->assign_vars(array(
+			'contentbox'				=> true,
 			'AvailableUnis'				=> $AvailableUnis,
 			'ThisUni'					=> $ThisUni,
 			'PrangerList'				=> $PrangerList,
@@ -559,6 +514,7 @@ switch ($page) {
 		break;
 	case 'disclamer':
 		$template->assign_vars(array(
+			'contentbox'		=> true,
 			'disclamer'			=> $LNG['disclamer'],
 			'disclamer_name'	=> $LNG['disclamer_name'],
 			'disclamer_adress'	=> $LNG['disclamer_adress'],
@@ -577,6 +533,7 @@ switch ($page) {
 			);
 		}
 		$template->assign_vars(array(
+			'contentbox'			=> true,
 			'NewsList'				=> $NewsList,
 			'news_overview'			=> $LNG['news_overview'],
 			'news_does_not_exist'	=> $LNG['news_does_not_exist'],
@@ -584,7 +541,8 @@ switch ($page) {
 		
 		$template->show('index_news.tpl');
 	break;
-	default :
+	case 'login':
+	case '':
 		if ($_POST) {
 			$luser = request_var('username', '', UTF8_SUPPORT);
 			$lpass = request_var('password', '', UTF8_SUPPORT);
@@ -613,6 +571,7 @@ switch ($page) {
 				));
 			}
 			$template->assign_vars(array(
+				'contentbox'			=> false,
 				'AvailableUnis'			=> $AvailableUnis,
 				'AvailableLangs'		=> $LANG->getAllowedLangs(false),
 				'welcome_to'			=> $LNG['welcome_to'],
@@ -633,9 +592,13 @@ switch ($page) {
 				'email_2'				=> $LNG['email2_reg'],
 				'planetname'			=> $LNG['planet_reg'],
 				'language'				=> $LNG['lang_reg'],
+				'captcha_reg'			=> $LNG['captcha_reg'],
 			));
 			$template->show('index_main.tpl');
 		}
+	break;
+	default:
+		redirectTo("index.php");
 	break;
 }
 ?>

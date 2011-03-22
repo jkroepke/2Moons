@@ -1,3 +1,6 @@
+{extends file="index.tpl"}
+{block name="title" prepend}{$menu_news}{/block}
+{block name="content"}
 {foreach name=News item=NewsRow from=$NewsList}
 {if !$smarty.foreach.News.first}<hr>{/if}
 <h2>{$NewsRow.title}</h2><br>
@@ -6,3 +9,4 @@
 {foreachelse}
 <h1>{$news_does_not_exist}</h1>
 {/foreach}
+{/block}
