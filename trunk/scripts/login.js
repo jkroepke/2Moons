@@ -52,19 +52,19 @@ function Content(action) {
 	switch(action) {
 		case 'login':
 			$('#loginbox').show();
-			$('#contentbox').animate({width: '360px', height: '205px'}, 300);
-			$('#contentbox label').css('width', '100px');
+			$('.contentbox').animate({width: '360px', height: '205px'}, 300);
+			$('.contentbox label').css('width', '100px');
 		break;
 		case 'register':
 			showRecaptcha();
 			$('#regbox').show();
-			$('#contentbox').animate({width: '560px', height: CONF['IsCaptchaActive'] == 0 ? '320px' : '396px'}, 300);		
-			$('#contentbox label').animate({width: '257px'}, 300);
+			$('.contentbox').animate({width: '560px', height: CONF['IsCaptchaActive'] == 0 ? '341px' : '417px'}, 300);		
+			$('.contentbox label').animate({width: '257px'}, 300);
 		break;
 		case 'lost':
 			$('#lostbox').show();
-			$('#contentbox').animate({width: '360px', height: '175px'}, 300);
-			$('#contentbox label').css('width', '100px');
+			$('.contentbox').animate({width: '360px', height: '175px'}, 300);
+			$('.contentbox label').css('width', '100px');
 		break;
 	}
 	return false;
@@ -73,7 +73,8 @@ function Content(action) {
 function Submit(action) {
 	switch(action) {
 		case 'login':
-			$.post('?page=login&action=send', $('#login').serialize(), function(data) {
+			form =	$('#login');
+			$.post(form.attr('action'), form.serialize(), function(data) {
 				data	= $.parseJSON(data);
 				if(data.error === false)
 					document.location.href = 'game.php';
@@ -82,12 +83,29 @@ function Submit(action) {
 			});
 		break;
 		case 'register':
-			$.post('?page=login&action=send', $('#reg').serialize(), function(data) {
-			
+			form =	$('#reg');
+			$('.error').removeClass('error');
+			$.post(form.attr('action'), form.serialize(), function(data) {
+				data	= $.parseJSON(data);
+				if(data.error === false) {
+					if(data.message == 'done') {
+						document.location.href = 'game.php';
+					} else {
+						$('#reg').remove()
+						$('#regbox').append(data.message)
+						$('.contentbox').css({height: '205px'}, 300);
+					}
+				} else {
+					$.each(data.message, function(i, mes) {
+						console.log(mes);
+						$('#reg_'+mes[0]).addClass('error');
+					});
+				}
 			});
 		break;
 		case 'lost':
-			$.post('?page=login&action=send', $('#lost').serialize(), function(data) {
+			form =	$('#lost');
+			$.post(form.attr('action'), form.serialize(), function(data) {
 			
 			});
 		break;
