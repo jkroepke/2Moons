@@ -54,35 +54,36 @@ $LNG['server_register']			= 'Registrieren Sie sich Jetzt!';
 $LNG['server_message']			= 'Registriere dich jetzt und erlebe eine neue, spannende Welt ';
 $LNG['login']					= 'Login';
 $LNG['disclamer']				= 'Impressum';
-$LNG['login_info']				= 'Mit dem Login akzeptiere ich die <a onclick="ajax(\'?page=rules&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\');" style="cursor:pointer;">Regeln</a> und die <a onclick="ajax(\'?page=agb&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\');" style="cursor:pointer;">AGB`s</a>';
+$LNG['login_info']				= 'Mit dem Login akzeptiere ich die <a href="index.php?page=rules">Regeln</a> und die <a href="index.php?page=agb">AGB`s</a>';
 
 /* ------------------------------------------------------------------------------------------ */
 
 //reg.php - Registrierung
-$LNG['register_closed']			= 'Registration geschlossen!';
-$LNG['register_at']				= 'Registriert bei ';
+$LNG['register_closed']				= 'Registration geschlossen!';
+$LNG['register_at']					= 'Registriert bei ';
 $LNG['reg_mail_message_pass']		= 'Noch ein Schritt zur Aktivierung Ihres Usernamen';
 $LNG['reg_mail_reg_done']			= 'Willkommen bei %s!';
-$LNG['invalid_mail_adress']		= 'Ungültige E-mail Adresse!<br>';
-$LNG['empty_user_field']			= 'Bitte alle Felder ausfüllen!<br>';
-$LNG['password_lenght_error']		= 'Das Passwort muss mindestens 6 Zeichen lang sein!<br>';
-$LNG['user_field_no_alphanumeric']	= 'Bitte beim Username nur alphanumerische Zeichen eingeben!<br>';
-$LNG['user_field_no_space']		= 'Bitte beim Username keine Leerzeichen eingeben!<br>';
-$LNG['planet_field_no_alphanumeric']	= 'Bitte beim Planetennamen nur alphanumerische Zeichen eingeben!<br>';
-$LNG['planet_field_no_space']		= 'Bitte beim Planetennamen keine Leerzeichen eingeben!<br>';
-$LNG['terms_and_conditions']		= 'Sie müssen die <a onclick="ajax(\'?page=agb&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\');" style="cursor:pointer;">AGB</a> und <a onclick="ajax(\'?page=rules&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\');" style="cursor:pointer;">Regeln</a> aktzeptieren!<br>';
-$LNG['user_already_exists']		= 'Der Username ist bereits vergeben!<br>';
-$LNG['mail_already_exists']		= 'Die E-mail Adresse ist bereits in Benutzung!<br>';
-$LNG['wrong_captcha']				= 'Sicherheitscode falsch!<br>';
-$LNG['different_passwords']		= 'Sie haben 2 unterschiedliche Passwörter eingegeben!<br>';
-$LNG['different_mails']			= 'Sie haben 2 unterschiedliche E-Mail Adressen!<br>';
+$LNG['invalid_mail_adress']			= 'Ungültige E-mail Adresse!';
+$LNG['empty_user_field']			= 'Sie müssen einen Usernamen eingeben!';
+$LNG['password_lenght_error']		= 'Das Passwort muss mindestens 6 Zeichen lang sein!';
+$LNG['user_field_no_alphanumeric']	= 'Bitte beim Username nur alphanumerische Zeichen eingeben!';
+$LNG['user_field_no_space']			= 'Bitte beim Username keine Leerzeichen eingeben!';
+$LNG['planet_field_no']				= 'Sie müssen einen Planetennamen eingeben!';
+$LNG['planet_field_no_alphanumeric']	= 'Bitte beim Planetennamen nur alphanumerische Zeichen eingeben!';
+$LNG['planet_field_no_space']		= 'Bitte beim Planetennamen keine Leerzeichen eingeben!';
+$LNG['terms_and_conditions']		= 'Sie müssen die <a href="index.php?page=agb">AGB</a> und <a href="index.php?page=rules">Regeln</a> akzeptieren!';
+$LNG['user_already_exists']			= 'Der Username ist bereits vergeben!';
+$LNG['mail_already_exists']			= 'Die E-mail Adresse ist bereits in Benutzung!';
+$LNG['wrong_captcha']				= 'Sicherheitscode falsch!';
+$LNG['different_passwords']			= 'Sie haben 2 unterschiedliche Passwörter eingegeben!';
+$LNG['different_mails']				= 'Sie haben 2 unterschiedliche E-Mail Adressen!';
 $LNG['welcome_message_from']		= 'Administrator';
 $LNG['welcome_message_sender']		= 'Administrator';
-$LNG['welcome_message_subject']	= 'Willkommenen';
-$LNG['welcome_message_content']	= 'Willkommen beim %s!<br>Baue zuerst ein Solarkraftwerk, denn Energie wird für die spätere Rohstoffproduktion benötigt. Um diese zu bauen, klicke links im Menu auf "Gebäude". Danach baue das 4. Gebäude von oben. Da du nun Energie hast, kannst du anfangen Minen zu bauen. Gehe dazu wieder im Menü auf Gebäude und baue eine Metallmine, danach wieder eine Kristallmine. Um Schiffe bauen zu können musst du zuerst eine Raumschiffswerft gebaut haben. Was dafür benötigt wird findest du links im Menüpunkt Technologie. Das Team wünscht dir viel Spaß beim Erkunden des Universums!';
-$LNG['newpass_smtp_email_error']	= '<br><br>Ein Fehler trat auf. Dein Passwort ist: ';
+$LNG['welcome_message_subject']		= 'Willkommenen';
+$LNG['welcome_message_content']		= 'Willkommen beim %s!Baue zuerst ein Solarkraftwerk, denn Energie wird für die spätere Rohstoffproduktion benötigt. Um diese zu bauen, klicke links im Menu auf "Gebäude". Danach baue das 4. Gebäude von oben. Da du nun Energie hast, kannst du anfangen Minen zu bauen. Gehe dazu wieder im Menü auf Gebäude und baue eine Metallmine, danach wieder eine Kristallmine. Um Schiffe bauen zu können musst du zuerst eine Raumschiffswerft gebaut haben. Was dafür benötigt wird findest du links im Menüpunkt Technologie. Das Team wünscht dir viel Spaß beim Erkunden des Universums!';
+$LNG['newpass_smtp_email_error']	= 'Ein Fehler trat auf. Dein Passwort ist: ';
 $LNG['reg_completed']				= 'Danke für ihre Anmeldung! Sie erhalten eine E-Mail mit einem aktivierungs Link.';
-$LNG['planet_already_exists']		= 'Die Planetenposition ist bereits belegt!<br>';
+$LNG['planet_already_exists']		= 'Die Planetenposition ist bereits belegt!';
 
 //registry_form.tpl
 $LNG['server_message_reg']			= 'Registriere dich jetzt und werde ein Teil von';
@@ -97,7 +98,7 @@ $LNG['planet_reg']					= 'Name des Hauptplaneten';
 $LNG['lang_reg']					= 'Sprache';
 $LNG['register_now']				= 'Registrieren!';
 $LNG['captcha_reg']					= 'Sicherheitsfrage';
-$LNG['accept_terms_and_conditions']	= 'Bitte <a onclick="ajax(\'?page=rules&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\');" style="cursor:pointer;">Regeln</a> und <a onclick="ajax(\'?page=agb&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\');" style="cursor:pointer;">AGB`s</a> aktzeptieren';
+$LNG['accept_terms_and_conditions']	= 'Ich bin mit den <a href="index.php?page=rules">Regeln</a> und der <a href="index.php?page=agb">AGB`s</a> einverstanden';
 $LNG['captcha_reload']				= 'Neuladen';
 $LNG['captcha_help']				= 'Hilfe';
 $LNG['captcha_get_image']			= 'Lade Bild-CAPTCHA';

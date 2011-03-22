@@ -89,9 +89,10 @@
 			</table>
 		</section>
 	{/if}</div>
-<footer>
-	<a href="index.php?page=disclamer">{$menu_disclamer}</a><br>{$servername} powered by <a href="http://2moons.cc" title="2Moons" target="copy">2Moons</a>
-</footer>
+	<footer>
+		<a href="index.php?page=disclamer">{$menu_disclamer}</a><br>{$servername} powered by <a href="http://2moons.cc" title="2Moons" target="copy">2Moons</a>
+	</footer>
+</div>
 <script type="text/javascript" src="scripts/jQuery.js"></script>
 <script type="text/javascript" src="scripts/login.js"></script>
 <script type="text/javascript">

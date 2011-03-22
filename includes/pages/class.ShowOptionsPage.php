@@ -146,9 +146,9 @@ class ShowOptionsPage
 									`solar_plant_porcent` = '0',
 									`fusion_plant_porcent` = '0',
 									`solar_satelit_porcent` = '0',
-									`metal_perhour`    =    '0',
-                                    `crystal_perhour`    =    '0',
-                                    `deuterium_perhour`    =    '0'
+									`metal_perhour` = '0',
+                                    `crystal_perhour` = '0',
+                                    `deuterium_perhour` =  '0'
                                     WHERE `id_owner` = '".$USER["id"]."';";
 				}
 
@@ -174,14 +174,19 @@ class ShowOptionsPage
 								`settings_rep` = '".$settings_rep."' 
 								WHERE `id` = '".$USER["id"]."';";
 									
-				if (!empty($db_email) && $db_email != $USER['email'] && md5($db_password) == $USER['password'])
+				if (!empty($db_email) && $db_email != $USER['email'])
 				{
+					if(md5($db_password) != $USER['password']) {
+						$template->message($LNG['op_need_pass_mail'], '?page=options', 3);
+						exit;
+					}
+					
 					if(!ValidateAddress($db_email)) {
 						$template->message($LNG['op_not_vaild_mail'], '?page=options', 3);
 						exit;
 					}
 				
-					$query = $db->uniquequery("SELECT id FROM ".USERS." WHERE email = '".$db->sql_escape($db_email)."' OR email_2 = '".$db->sql_escape($db_email)."';");
+					$query = $db->uniquequery("SELECT id FROM ".USERS." WHERE `id` != '".$USER['id']."' AND `universe` = '".$UNI."' AND (`email` = '".$db->sql_escape($db_email)."' OR `email_2` = '".$db->sql_escape($db_email)."');");
 
 					if (!empty($query)) {
 						$template->message(sprintf($LNG['op_change_mail_exist'], $db_email), '?page=options', 3);
