@@ -36,6 +36,7 @@ $SESSION       	= new Session();
 
 if(!$SESSION->IsUserLogin() || ($CONF['game_disable'] == 0 && $_SESSION['authlevel'] == AUTH_USR))
 	exit(json_encode(array()));
+	
 $LANG->setUser($_SESSION['USER']['lang']);
 $LANG->includeLang(array('INGAME'));
 $action	= request_var('action', '');
@@ -92,7 +93,7 @@ switch($action)
 		if($TargetGalaxy == $_SESSION['PLANET']['galaxy'] && $TargetSystem == $_SESSION['PLANET']['system'] && $TargetPlanet == $_SESSION['PLANET']['planet'] && $TargetPlanettype == $_SESSION['PLANET']['planet_type'])
 			exit($LNG['fl_error_same_planet']);
 		
-		if ($TargetPlanet != 16) {
+		if ($TargetPlanet != MAX_PLANET_IN_SYSTEM + 1) {
 			$Data	= $db->uniquequery("SELECT u.`urlaubs_modus`, u.`authattack`, p.`destruyed`, p.`der_metal`, p.`der_crystal`, p.`destruyed` FROM ".USERS." as u, ".PLANETS." as p WHERE p.universe = '".$UNI."' AND p.`galaxy` = '".$TargetGalaxy."' AND p.`system` = '".$TargetSystem."' AND p.`planet` = '".$TargetPlanet."'  AND p.`planet_type` = '".(($TargetPlanettype == 2) ? 1 : $TargetPlanettype)."' AND `u`.`id` = p.`id_owner`;");
 			if ($TargetPlanettype == 3 && !isset($Data))
 				exit($LNG['fl_error_no_moon']);

@@ -75,10 +75,16 @@ function Submit(action) {
 						$('.contentbox').css({height: '205px'}, 300);
 					}
 				} else {
+					var errormes = '';
 					$.each(data.message, function(i, mes) {
-						console.log(mes);
-						$('#reg_'+mes[0]).addClass('error');
+						showRecaptcha();
+						errormes	+= mes[1]+"\n";
+						if(mes[0] === 'captcha')
+							$('#recaptcha_response_field').addClass('error');
+						else
+							$('#reg_'+mes[0]).addClass('error');
 					});
+					alert(errormes);
 				}
 			});
 		break;
