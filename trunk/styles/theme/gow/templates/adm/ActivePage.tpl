@@ -28,7 +28,7 @@
 	<td><nobr>{$User.date}</nobr></td>
 	<td>{$User.email}</td>
 	<td>{$User.ip}</td>
-	<td><a href="javascript:ajax('./index.php?page=reg&mode=valid&lang={$UserLang}&clef={$User.cle}&admin=1','{$User.username}');">{$aktivieren}</a></td>
+	<td><a href="javascript:ajax('./index.php?&uni={$uni}&page=reg&action=valid&clef={$User.cle}&admin=1');">{$aktivieren}</a></td>
 	<td><a href="?page=active&amp;action=delete&id={$User.id}" onclick="return confirm('{$sicher}{$User.username} {$entfernen}');"><img border="0" src="./styles/images/r1.png"></a></td>
 </tr>
 {/foreach}	
