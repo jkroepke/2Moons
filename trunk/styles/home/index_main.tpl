@@ -25,6 +25,7 @@
 				</div>
 				<div id="regbox"><h1>{$register}</h1>
 					<form id="reg" name="reg" action="index.php?page=reg&amp;action=send" method="post" onsubmit="return Submit('register');">
+						<input type="hidden" name="fb_id" id="fb_id">
 						<label for="reg_universe">{$universe}</label><select name="universe" id="reg_universe">{html_options options=$AvailableUnis selected=$UNI}</select><br>
 						<label for="reg_username">{$user}</label><input name="username" id="reg_username" type="text"><br>
 						<label for="reg_password">{$pass}</label><input name="password" id="reg_password" type="password"><br>
@@ -49,6 +50,9 @@
 						<label for="email_lost">{$email}</label><input name="password" id="email_lost" type="text"><br>
 						<input name="submit" value="{$login}" type="submit">
 					</form>
+				</div>
+				<div id="fbbox"><h1>{$register}</h1>
+
 				</div>
 			</td><td class="contentbox-content-right"></td>
 		</tr>
