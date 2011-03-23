@@ -10,7 +10,7 @@ ein einziges Mal aufrufen, um Ihr Benutzerkonto zu aktivieren.
 Um Ihre Registrierung abzuschließen, klicken Sie bitte auf folgenden 
 Link:
 
-%3$s?page=reg&mode=valid&lang=%7$s&clef=%4$s
+%3$s?page=reg&mode=valid&uni=%7$s&clef=%4$s
 
 Ihre Logindaten:
 

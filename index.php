@@ -56,38 +56,51 @@ switch ($page) {
 		if($CONF['mail_active'] == 0)
 			redirectTo("index.php");
 
-		$USERmail = request_var('email', '');
-		$Universe = request_var('universe', 0);
-		$ExistMail = $db->uniquequery("SELECT `username` FROM ".USERS." WHERE `email` = '".$db->sql_escape($USERmail)."' AND `universe` = '".$Universe."';");
-		if (empty($ExistMail['username'])) {
-			$template->message($LNG['mail_not_exist'], "index.php?page=lostpassword&lang=".$LANG->getUser(), 3, true);
-		} else {
-			$Caracters = "aazertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN1234567890";
-			$Count = strlen($Caracters);
-			$Taille = 8;
-			$NewPass = "";
-			for($i = 0; $i < $Taille; $i ++) {
-				$CaracterBoucle = rand ( 0, $Count - 1 );
-				$NewPass .= substr ( $Caracters, $CaracterBoucle, 1 );
-			}
-
-			$MailRAW		= file_get_contents("./language/".$CONF['lang']."/email/email_lost_password.txt");
-			$MailContent	= sprintf($MailRAW, $ExistMail['username'], $CONF['game_name'], $NewPass, "http://".$_SERVER['SERVER_NAME'].$_SERVER["PHP_SELF"]);			
+		$Username = request_var('username', '');
+		$Usermail = request_var('email', '');
 		
-			$Mail			= MailSend($USERmail, $ExistMail['username'], $LNG['mail_title'], $MailContent);
+		if(empty($Username) || empty($Usermail) || !ValidateAddress($Usermail)) {
+			echo json_encode(array('message' => $LNG['lost_empty'], 'error' => true));
+			exit;
+		}
 			
-			if(true === true)
-			{
-				$db->query("UPDATE ".USERS." SET `password` ='" . md5($NewPass) . "' WHERE `username` = '".$ExistMail['username']."' AND `universe` = '".$Universe."';");
-				$template->message($LNG['mail_sended'], "./?lang=".$LANG->getUser(), 5, true);
-			} else {
-				$template->message($LNG['mail_sended_fail'], "./?lang=".$LANG->getUser(), 5, true);
-			}
+		$UserID 	= $db->countquery("SELECT `id` FROM ".USERS." WHERE `universe` = '".$UNI."' AND `username` = '".$Username."' AND (`email` = '".$db->sql_escape($Usermail)."' OR `email_2` = '".$db->sql_escape($Usermail)."');");
 		
+		if (!isset($UserID)) {
+			echo json_encode(array('message' => $LNG['lost_not_exists'], 'error' => true));
+			exit;
+		} else {
+			$NewPass		= uniqid();
+			$MailRAW		= file_get_contents('./language/'.$LANG->getUser().'/email/email_lost_password.txt');
+			$MailContent	= sprintf($MailRAW, $Usermail, $CONF['game_name'], $NewPass, "http://".$_SERVER['SERVER_NAME'].$_SERVER["PHP_SELF"]);			
+		
+			$Mail			= MailSend($USERmail, $Usermail, $LNG['mail_title'], $MailContent);
+			
+			$db->query("UPDATE ".USERS." SET `password` = '".md5($NewPass)."' WHERE `id` = '".$UserID."';");
+			$template->message($LNG['mail_sended'], "./?lang=".$LANG->getUser(), 5, true);
 		}
 	break;
 	case 'reg' :
-		switch ($action) {				
+		switch ($action) {
+			case 'check' :
+				$value	= request_var('value', '', UTF8_SUPPORT);
+				switch($mode) {
+					case 'username' :
+						$Count 	= $db->countquery("SELECT (SELECT COUNT(*) FROM uni1_users WHERE `universe` = '".$UNI."' AND `username` = '".$db->sql_escape($value)."') + (SELECT COUNT(*) FROM uni1_users_valid WHERE `universe` = '".$Universe."' AND `username` = '".$db->sql_escape($value)."')");
+					break;
+					case 'email' :
+						$Count 	= $db->countquery("SELECT (SELECT COUNT(*) FROM uni1_users WHERE `universe` = '".$UNI."' AND (`email` = '".$db->sql_escape($value)."' OR `email_2` = '".$db->sql_escape($value)."')) + (SELECT COUNT(*) FROM uni1_users_valid WHERE `universe` = '".$Universe."' AND `email` = '".$db->sql_escape($value)."')");
+					break;
+					case 'fbid' :
+						$Count 	= $db->countquery("SELECT COUNT(*) FROM uni1_users WHERE `universe` = '".$UNI."' AND `fb_id` = '".$db->sql_escape($value)."';");
+					break;
+				}
+				
+				if($Count == 0)
+					echo json_encode(array('exists' => false));
+				else
+					echo json_encode(array('exists' => true));
+			break;
 			case 'send' :
 				if($CONF['reg_closed'] == 1)
 					redirectTo('index.php');
@@ -100,20 +113,20 @@ switch ($page) {
 				$agbrules 	= request_var('rgt', '');
 				$UserPlanet	= request_var('planetname', '', UTF8_SUPPORT);
 				$UserLang 	= request_var('lang', '');
-				$Universe 	= request_var('universe', 0);
+				$FACEBOOK 	= request_var('fb_id', 0);
 	
+				$errors 	= array();
+				
 				if ($CONF['capaktiv'] === '1') {
 					require_once('includes/libs/reCAPTCHA/recaptchalib.php');
 					$resp = recaptcha_check_answer($CONF['capprivate'], $_SERVER['REMOTE_ADDR'], $_REQUEST['recaptcha_challenge_field'], $_REQUEST['recaptcha_response_field']);
 					if (!$resp->is_valid)
-						$errors .= $LNG['wrong_captcha'];
+						$errors[]	= $LNG['wrong_captcha'];
 				}
 				
 				$ExistsUser 	= $db->countquery("SELECT (SELECT COUNT(*) FROM uni1_users WHERE `universe` = '".$Universe."' AND `username` = '".$db->sql_escape($UserName)."') + (SELECT COUNT(*) FROM uni1_users_valid WHERE `universe` = '".$Universe."' AND `username` = '".$db->sql_escape($UserName)."')");
-				$ExistsMails	= $db->countquery("SELECT (SELECT COUNT(*) FROM uni1_users WHERE `universe` = '".$Universe."' AND `email` = '".$db->sql_escape($UserEmail)."') + (SELECT COUNT(*) FROM uni1_users_valid WHERE `universe` = '".$Universe."' AND `email` = '".$db->sql_escape($UserEmail)."')");
-
+				$ExistsMails	= $db->countquery("SELECT (SELECT COUNT(*) FROM uni1_users WHERE `universe` = '".$Universe."' AND (`email` = '".$db->sql_escape($value)."' OR `email_2` = '".$db->sql_escape($value)."')) + (SELECT COUNT(*) FROM uni1_users_valid WHERE `universe` = '".$Universe."' AND `email` = '".$db->sql_escape($value)."')");
 				
-				$errors 	= array();
 				if(empty($UserName))
 					$errors[]	= array('username', $LNG['empty_user_field']);
 	
@@ -152,6 +165,20 @@ switch ($page) {
 					exit;
 				}
 				
+				if(!empty($FACEBOOK) && $CONF['fb_on'] == 1) {
+				
+					require(ROOT_PATH.'/includes/libs/facebook/facebook.php');
+					$facebook = new Facebook(array(
+						'appId'  => $CONF['fb_apikey'],
+						'secret' => $CONF['fb_skey'],
+						'cookie' => true,
+					));	
+
+					$FACEBOOK	= $facebook->getUser();
+				} else {
+					$FACEBOOK	= 0;
+				}
+				
 				$clef		= uniqid('2m');
 				$SQL = "INSERT INTO ".USERS_VALID." SET ";
 				$SQL .= "`username` = '".$db->sql_escape($UserName)."', ";
@@ -160,17 +187,18 @@ switch ($page) {
 				$SQL .= "`planet` = '".$db->sql_escape($UserPlanet)."', ";
 				$SQL .= "`date` = '".TIMESTAMP."', ";
 				$SQL .= "`cle` = '".$clef."', ";
-				$SQL .= "`universe` = '".$Universe."', ";
+				$SQL .= "`universe` = '".$UNI."', ";
 				$SQL .= "`password` = '".md5($UserPass)."', ";
-				$SQL .= "`ip` = '".$_SERVER['REMOTE_ADDR']."'; ";
+				$SQL .= "`ip` = '".$_SERVER['REMOTE_ADDR']."', ";
+				$SQL .= "`fb_id` = '".$FACEBOOK."'; ";
 				$db->query($SQL);
 				
-				if($CONF['user_valid'] == 0 || $CONF['mail_active'] == 0) {
-					redirectTo("index.php?page=reg&action=valid&clef=".$clef);
+				if(!empty($FACEBOOK) || $CONF['user_valid'] == 0 || $CONF['mail_active'] == 0) {
+					redirectTo("index.php?uni=".$UNI."&page=reg&action=valid&clef=".$clef);
 				} else {
 					$MailSubject 	= $LNG['reg_mail_message_pass'];
 					$MailRAW		= file_get_contents("./language/".$UserLang."/email/email_vaild_reg.txt");
-					$MailContent	= sprintf($MailRAW, $UserName, $CONF['game_name'], "http://".$_SERVER['SERVER_NAME'].$_SERVER["PHP_SELF"], $clef, $UserPass, $CONF['smtp_sendmail'], $UserLang);
+					$MailContent	= sprintf($MailRAW, $UserName, $CONF['game_name'].' - '.$CONF['uni_name'], "http://".$_SERVER['SERVER_NAME'].$_SERVER["PHP_SELF"], $clef, $UserPass, $CONF['smtp_sendmail'], $UNI);
 			
 					MailSend($UserEmail, $UserName, $MailSubject, $MailContent);
 					
@@ -178,13 +206,14 @@ switch ($page) {
 				}								
 			break;
 			case 'valid' :
-				$pseudo 	= request_var('id', '');
 				$clef 		= request_var('clef', '');
 				$admin 	 	= request_var('admin', 0);
-				$Valider	= $db->uniquequery("SELECT `username`, `password`, `email`, `ip`, `planet`, `lang`, `universe` FROM ".USERS_VALID." WHERE `cle` = '".$db->sql_escape($clef)."';");
+				$Valider	= $db->uniquequery("SELECT * FROM ".USERS_VALID." WHERE `cle` = '".$db->sql_escape($clef)."' AND `universe` = '".$UNI."';");
 				
 				if(!isset($Valider)) 
-					redirectTo('index.php?page=reg');
+					redirectTo('index.php');
+				
+				$LANG->setUser($Valider['lang']);
 				
 				$UserName 	= $Valider['username'];
 				$UserPass 	= $Valider['password'];
@@ -193,7 +222,7 @@ switch ($page) {
 				$UserPlanet	= $Valider['planet'];
 				$UserLang 	= $Valider['lang'];
 				$UserUni 	= $Valider['universe'];
-				$CONF		= $db->uniquequery("SELECT `users_amount`, `initial_fields`, `LastSettedGalaxyPos`, `LastSettedSystemPos`, `LastSettedPlanetPos`, `mail_active`, `mail_use`, `smail_path`, `smtp_host`, `smtp_port`, `smtp_user`, `smtp_pass`, `smtp_ssl`, `smtp_sendmail`, `game_name`, `users_amount`, `metal_basic_income`, `crystal_basic_income`, `deuterium_basic_income` FROM ".CONFIG." WHERE `uni` = ".$UserUni.";");
+				$UserFID 	= $Valider['fb_id'];
 				
 				$SQL = "INSERT INTO " . USERS . " SET ";
 				$SQL .= "`username` = '".$UserName . "', ";
@@ -208,13 +237,16 @@ switch ($page) {
 				$SQL .= "`password` = '".$UserPass."', ";
 				$SQL .= "`dpath` = '".DEFAULT_THEME."', ";
 				$SQL .= "`darkmatter` = '".BUILD_DARKMATTER."', ";
+				$SQL .= "`fb_id` = '".$UserFID."', ";
 				$SQL .= "`uctime`= '0';";
 				$db->query($SQL);
+				
 				$NewUser = $db->GetInsertID();
+				
 				if($CONF['mail_active'] == 1) {
 					$MailSubject	= sprintf($LNG['reg_mail_reg_done'], $CONF['game_name']);	
 					$MailRAW		= file_get_contents("./language/".$UserLang."/email/email_reg_done.txt");
-					$MailContent	= sprintf($MailRAW, $UserName, $CONF['game_name']);	
+					$MailContent	= sprintf($MailRAW, $UserName, $CONF['game_name'].' - '.$CONF['uni_name']);	
 					MailSend($UserMail, $UserName, $MailSubject, $MailContent);
 				}
 				$LastSettedGalaxyPos = $CONF['LastSettedGalaxyPos'];
@@ -250,7 +282,8 @@ switch ($page) {
 				$SQL .= "WHERE ";
 				$SQL .= "`id` = '".$NewUser."' ";
 				$SQL .= "LIMIT 1;";
-				$SQL .= "INSERT INTO ".STATPOINTS." (`id_owner`, `id_ally`, `stat_type`, `universe`, `tech_rank`, `tech_old_rank`, `tech_points`, `tech_count`, `build_rank`, `build_old_rank`, `build_points`, `build_count`, `defs_rank`, `defs_old_rank`, `defs_points`, `defs_count`, `fleet_rank`, `fleet_old_rank`, `fleet_points`, `fleet_count`, `total_rank`, `total_old_rank`, `total_points`, `total_count`) VALUES (".$NewUser.", 0, 1, ".$UserUni.", '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0, '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0, '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0, '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0, '".($CONF ['users_amount'] + 1)."', '".($CONF ['users_amount'] + 1)."', 0, 0);";
+				$SQL .= "INSERT INTO ".STATPOINTS." (`id_owner`, `id_ally`, `stat_type`, `universe`, `tech_rank`, `tech_old_rank`, `tech_points`, `tech_count`, `build_rank`, `build_old_rank`, `build_points`, `build_count`, `defs_rank`, `defs_old_rank`, `defs_points`, `defs_count`, `fleet_rank`, `fleet_old_rank`, `fleet_points`, `fleet_count`, `total_rank`, `total_old_rank`, `total_points`, `total_count`) VALUES ";
+				$SQL .= "(".$NewUser.", 0, 1, ".$UserUni.", '".($CONF['users_amount'] + 1)."', '".($CONF['users_amount'] + 1)."', 0, 0, '".($CONF['users_amount'] + 1)."', '".($CONF['users_amount'] + 1)."', 0, 0, '".($CONF['users_amount'] + 1)."', '".($CONF['users_amount'] + 1)."', 0, 0, '".($CONF['users_amount'] + 1)."', '".($CONF['users_amount'] + 1)."', 0, 0, '".($CONF['users_amount'] + 1)."', '".($CONF['users_amount'] + 1)."', 0, 0);";
 				$db->multi_query($SQL);
 				
 				$from 		= $LNG['welcome_message_from'];
@@ -412,12 +445,43 @@ switch ($page) {
 		
 		$template->show('index_news.tpl');
 	break;
+	case 'fblogin':
+		if($CONF['fb_on'] == 0)
+			redirectTo("index.php");
+		
+		require(ROOT_PATH.'/includes/libs/facebook/facebook.php');
+		$facebook = new Facebook(array(
+			'appId'  => $CONF['fb_apikey'],
+			'secret' => $CONF['fb_skey'],
+			'cookie' => true,
+		));	
+
+		$uid = $facebook->getUser();
+		
+		if(!isset($uid))
+			redirectTo("index.php");			
+			
+		if($mode == 'register') {
+			$me = $facebook->api('/me');
+			
+			$ValidReg	= $db->countquery("SELECT `cle` FROM ".USERS_VALID." WHERE `universe` = '".$UNI."' AND `email` = '".$db->sql_escape($me['email'])."';");
+			if(!empty($ValidReg))
+				redirectTo("index.php?uni=".$UNI."&page=reg&action=valid&clef=".$ValidReg);
+								
+			$db->query("UPDATE ".USERS." SET `fb_id` = '".$uid."' WHERE `email` = '".$db->sql_escape($me['email'])."' OR `email_2` = '".$db->sql_escape($me['email'])."';");
+		}
+		
+		$login = $db->uniquequery("SELECT `id`, `username`, `dpath`, `authlevel`, `id_planet` FROM ".USERS." WHERE `universe` = '".$UNI."' AND `fb_id` = '".$uid."';");
+		session_start();
+		$SESSION       	= new Session();
+		$SESSION->CreateSession($login['id'], $login['username'], $login['id_planet'], $UNI, $login['authlevel'], $login['dpath']);
+		redirectTo("game.php");	
+	break;
 	case 'login':
 	case '':
 		if ($_POST) {
 			$luser = request_var('username', '', UTF8_SUPPORT);
 			$lpass = request_var('password', '', UTF8_SUPPORT);
-			$luniv = request_var('universe', 1);
 			$login = $db->uniquequery("SELECT `id`, `username`, `dpath`, `authlevel`, `id_planet` FROM ".USERS." WHERE `username` = '".$db->sql_escape($luser)."' AND `universe` = '".$luniv."' AND `password` = '".md5($lpass)."';");
 			
 			if (isset($login)) {
@@ -444,7 +508,6 @@ switch ($page) {
 			$template->assign_vars(array(
 				'contentbox'			=> false,
 				'AvailableUnis'			=> $AvailableUnis,
-				'AvailableLangs'		=> $LANG->getAllowedLangs(false),
 				'welcome_to'			=> $LNG['welcome_to'],
 				'server_description'	=> sprintf($LNG['server_description'], $CONF['game_name']),
 				'server_infos'			=> $LNG['server_infos'],
