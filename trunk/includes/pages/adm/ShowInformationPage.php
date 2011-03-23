@@ -33,7 +33,7 @@ function ShowInformationPage()
 	global $db, $LNG, $CONF;
 	$template	= new template();
 	$template->assign_vars(array(	
-		'info_information'	=> $LNG['info_information'],
+		'info_information'	=> sprintf($LNG['info_information'], 'http://2moons.cc/index.php?page=Board&boardID=5'),
 		'info'				=> $_SERVER['SERVER_SOFTWARE'],
 		'vPHP'				=> PHP_VERSION,
 		'vAPI'				=> PHP_SAPI,

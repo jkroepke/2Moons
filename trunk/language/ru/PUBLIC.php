@@ -1,5 +1,7 @@
 <?php
 
+// Translated into Russian by InquisitorEA. All rights reserved © 2010-2011
+
 // Общее
 $LNG['index']                        = 'Главная';
 $LNG['register']                     = 'Регистрация';
@@ -12,16 +14,15 @@ $LNG['menu_agb']                     = 'Положения';
 $LNG['menu_pranger']                 = 'Заблокированные';
 $LNG['menu_top100']                  = 'Зал славы';
 $LNG['menu_disclamer']               = 'Контакты';
-$LNG['music_off']                    = 'Музыка: Выкл.';
-$LNG['music_on']                     = 'Музыка: Вкл.';
 $LNG['uni_closed']                   = '(отключён)';
 
-// index.php - Восстановление пароля
-$LNG['mail_not_exist']               = 'Адрес электронной почты не существует!';
-$LNG['mail_title']                   = 'Новый пароль';
-$LNG['mail_text']                    = 'Это Ваш новый пароль: ';
-$LNG['mail_sended']                  = 'Ваш новый пароль успешно отправлен на Вашу электронную почту!';
-$LNG['mail_sended_fail']             = 'На эту электронную почту не может быть отправлено письмо!';
+// Восстановление пароля
+$LNG['lost_empty']                   = 'Вы должны заполнить все поля!';
+$LNG['lost_not_exist']               = 'Аккаунта с таким адресом электронной почты не существует!';
+$LNG['lost_mail_title']              = 'Новый пароль';
+$LNG['mail_sended']                  = 'Ваш новый пароль успешно отправлен на Вашу электронную почту %s!';
+
+// Стандартное
 $LNG['server_infos']                 = array(
 	"Создайте экономическую и военную инфраструктуру.",
 	"Исследуйте новейшие технологии.",
@@ -30,7 +31,6 @@ $LNG['server_infos']                 = array(
 	"Постройте непобедимый флот или планетарную оборону.",
 );
 
-// Стандартное
 $LNG['login_error_1']                = 'Неправильный логин или пароль!';
 $LNG['login_error_2']                = 'Кто-то вошёл в игру через ваш аккаунт с другого компьютера!';
 $LNG['login_error_3']                = 'Ваша сессия завершена!';
@@ -40,8 +40,6 @@ $LNG['chose_a_uni']                  = 'Выбрать...';
 
 // lostpassword.tpl
 $LNG['lost_pass_title']              = 'Восстановление пароля';
-$LNG['retrieve_pass']                = 'Восстановить утерянный пароль';
-$LNG['email']                        = 'Электронная почта';
 
 // index_body.tpl
 $LNG['user']                         = 'Логин';
@@ -61,26 +59,27 @@ $LNG['register_closed']              = 'Регистрация закрыта!';
 $LNG['register_at']                  = 'Регистрация в ';
 $LNG['reg_mail_message_pass']        = 'Вам осталось активировать аккаунт';
 $LNG['reg_mail_reg_done']            = 'Добро пожаловать в %s!';
-$LNG['invalid_mail_adress']          = 'Недействительный адрес электронной почты!<br>';
-$LNG['empty_user_field']             = 'Поле логина не должно быть пустым!<br>';
-$LNG['password_lenght_error']        = 'Пароль должен состоять из неменее 6 символов!<br>';
-$LNG['user_field_no_alphanumeric']   = 'Логин может содержать только алфавитно-цифровые символы!<br>';
-$LNG['user_field_no_space']          = 'Логин не может содержать пробелы!<br>';
-$LNG['planet_field_no_alphanumeric'] = 'Название планеты может содержать только алфавитно-цифровые символы!<br>';
-$LNG['planet_field_no_space']        = 'Название планеты не может содержать пробелы!<br>';
-$LNG['terms_and_conditions']         = 'Я принимаю <a onclick="ajax(\'?page=agb&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\');" style="cursor:pointer;">Положения</a> и <a onclick="ajax(\'?page=rules&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\');" style="cursor:pointer;">Правила</a>!<br>';
-$LNG['user_already_exists']          = 'Выбранный логин уже существует!<br>';
-$LNG['mail_already_exists']          = 'Введённый адрес электронной почты уже существует!<br>';
-$LNG['wrong_captcha']                = 'Неверный защитный код!<br>';
-$LNG['different_passwords']          = 'Пароль не совпадает!<br>';
-$LNG['different_mails']              = 'Е-мейл не совпадает!<br>';
+$LNG['invalid_mail_adress']          = 'Недействительный адрес электронной почты!';
+$LNG['empty_user_field']             = 'Вы не ввели логин!';
+$LNG['password_lenght_error']        = 'Пароль должен состоять из неменее 6 символов!';
+$LNG['user_field_no_alphanumeric']   = 'Логин может содержать только алфавитно-цифровые символы!';
+$LNG['user_field_no_space']          = 'Логин не может содержать пробелы!';
+$LNG['planet_field_no']              = 'Вы не ввели название планеты!';
+$LNG['planet_field_no_alphanumeric'] = 'Название планеты может содержать только алфавитно-цифровые символы!';
+$LNG['planet_field_no_space']        = 'Название планеты не может содержать пробелы!';
+$LNG['terms_and_conditions']         = 'Я принимаю <a href="index.php?page=rules">Правила</a> и <a href="index.php?page=agb">Положения</a>!';
+$LNG['user_already_exists']          = 'Выбранный логин уже существует!';
+$LNG['mail_already_exists']          = 'Введённый адрес электронной почты уже существует!';
+$LNG['wrong_captcha']                = 'Неверный защитный код!';
+$LNG['different_passwords']          = 'Пароль не совпадает!';
+$LNG['different_mails']              = 'Е-мейл не совпадает!';
 $LNG['welcome_message_from']         = 'Администрация';
 $LNG['welcome_message_sender']       = 'Администрация';
 $LNG['welcome_message_subject']      = 'Добро пожаловать';
-$LNG['welcome_message_content']      = 'Добро пожаловать в %s!<br>Для начала постройте шахту металла. Для этого пройдите в меню Постройки и нажмите Строить справа от изображения шахты металла. Теперь у Вас есть некоторое время, чтобы узнать больше об игре. Помощь новичкам: на нашем <a href=\"http://2moons.cc/" target=\"_blank\">Форуме</a>. Теперь постройка Вашего месторождения должна быть завершена. Так как месторождения ничего не производят без энергии, Вы должны построить солнечную электростанцию, вернитесь в меню Постройки, и выберите строить солнечную электростанцию. Чтобы видеть все виды кораблей, оборонных сооружений, зданий и исследований, которые есть в игре, Вам нужно пройти в меню Технологии. Теперь Вы можете начать завоевание вселенной. Удачи!';
-$LNG['newpass_smtp_email_error']     = '<br><br>Произошла ошибка при отправке пароля на Вашу электронную почту. Ваш пароль: ';
+$LNG['welcome_message_content']      = 'Добро пожаловать в %s! Для начала постройте шахту металла. Для этого пройдите в меню Постройки и нажмите Строить справа от изображения шахты металла. Теперь у Вас есть некоторое время, чтобы узнать больше об игре. Помощь новичкам: на нашем <a href=\"http://2moons.cc/" target=\"_blank\">Форуме</a>. Теперь постройка Вашего месторождения должна быть завершена. Так как месторождения ничего не производят без энергии, Вы должны построить солнечную электростанцию, вернитесь в меню Постройки, и выберите строить солнечную электростанцию. Чтобы видеть все виды кораблей, оборонных сооружений, зданий и исследований, которые есть в игре, Вам нужно пройти в меню Технологии. Теперь Вы можете начать завоевание вселенной. Удачи!';
+$LNG['newpass_smtp_email_error']     = 'Произошла ошибка при отправке пароля на Вашу электронную почту. Ваш пароль: ';
 $LNG['reg_completed']                = 'Спасибо за регистрацию! Вы получите письмо на электронную почту с ссылкой на активацию аккаунта. Иногда письмо попадает в спам!';
-$LNG['planet_already_exists']        = 'Планета уже существует!<br>';
+$LNG['planet_already_exists']        = 'Планета уже существует!';
 
 // registry_form.tpl
 $LNG['server_message_reg']           = 'Присоединяйтесь и станьте частью невероятного мира';
@@ -95,17 +94,13 @@ $LNG['planet_reg']                   = 'Название главной план
 $LNG['lang_reg']                     = 'Язык';
 $LNG['register_now']                 = 'Зарегистрироваться';
 $LNG['captcha_reg']                  = 'Секретный вопрос';
-$LNG['accept_terms_and_conditions']  = 'Я принимаю <a onclick="ajax(\'?page=rules&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\);" style="cursor:pointer;">Правила</a> и <a onclick="ajax(\'?page=agb&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\);" style="cursor:pointer;">Положения</a>';
+$LNG['accept_terms_and_conditions']  = 'Я принимаю <a href="index.php?page=rules">Правила</a> и <a href="index.php?page=agb">Положения</a>';
 $LNG['captcha_reload']               = 'Обновить';
 $LNG['captcha_help']                 = 'Помощь';
 $LNG['captcha_get_image']            = 'Визуальная CAPTCHA';
 $LNG['captcha_reload']               = 'Новая CAPTCHA';
 $LNG['captcha_get_audio']            = 'Звуковая CAPTCHA';
 $LNG['user_active']                  = 'Аккаунт %s активирован!';
-
-// registry_closed.tpl
-$LNG['info']                         = 'Информация';
-$LNG['reg_closed']                   = 'Регистрация закрыта';
 
 // Правила
 $LNG['rules_overview']               = "Правила";
@@ -303,7 +298,5 @@ $LNG['disclamer_name']               = "Имя";
 $LNG['disclamer_adress']             = "Адрес";
 $LNG['disclamer_tel']                = "Телефон";
 $LNG['disclamer_email']              = "Электронная почта";
-
-// Translated into Russian by InquisitorEA. All rights reserved (C) 2010-2011
 
 ?>

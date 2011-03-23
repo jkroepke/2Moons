@@ -114,7 +114,7 @@ $LNG['different_mails']                = 'Os 2 E-Mails que introduziu são difer
 $LNG['welcome_message_from']           = 'Administrador';
 $LNG['welcome_message_sender']         = 'A Equipa';
 $LNG['welcome_message_subject']        = 'Bem-vindo';
-$LNG['welcome_message_content']        = 'Bem-vindo ao mundo %s!<br>A primeira construção deverá ser uma planta de energia solar, porque a energia é necessária para a subsequente produção de matérias-primas. Para construí-la, clique no menu à esquerda, "Edifícios". <br>Em seguida, procure o quarto edifício a partir do topo. Lá tem a planta de energia: agora que já a construiu deve começar as minas de matérias-primas.<br> Volte para o menu dos edifícios e construa uma mina de metal, em seguida, uma mina de cristal. A fim de ser capaz de construir naves, mas para isso precisa de ter construído o hangar. <br>Poderá ver na página das tecnologias o que é necessário para que tenha acesso às varias naves, edifícios, e tecnologias.<br><br> A equipa do Vedra deseja-lhe muito divertimento a explorar o universo!';
+$LNG['welcome_message_content']        = 'Bem-vindo ao mundo %s!<br>A primeira construção deverá ser uma planta de energia solar, porque a energia é necessária para a subsequente produção de matérias-primas. Para construí-la, clique no menu à esquerda, "Edifícios". <br>Em seguida, procure o quarto edifício a partir do topo. Lá tem a planta de energia: agora que já a construiu deve começar as minas de matérias-primas.<br> Volte para o menu dos edifícios e construa uma mina de metal, em seguida, uma mina de cristal. A fim de ser capaz de construir naves, mas para isso precisa de ter construído o hangar. <br>Poderá ver na página das tecnologias o que é necessário para que tenha acesso às varias naves, edifícios, e tecnologias.<br><br> A equipa do %s deseja-lhe muito divertimento a explorar o universo!';
 $LNG['newpass_smtp_email_error']       = '<br><br>Ocorreu um erro, a sua password é: ';
 $LNG['reg_completed']                  = 'Obrigado pela sua inscrição! Foi-lhe enviado um E-Mail com o link de ativação da sua conta.<br><b>Caso não receba o E-mail nos proximos minutos por favor contacte a Equipa Stellar Wars atravez do forum!</b>';
 $LNG['planet_already_exists']		   = 'Essa posição ja se encontra ocupada! <br>';
@@ -194,7 +194,7 @@ $LNG['rules']                          = array(
         "IP`s"                   => "
     * A verificação de IP de uma conta só pode ser desactivada mediante autorização de um operador de jogo através de ticket ou IRC.
     * As únicas razões válidas para esta ficar desligada é unicamente a impossibilidade de conseguir jogar no seu computador. É necessário demonstrar e explicar a razão para qual a verificação de IP deverá manter-se desligada.
-    * A Equipa Vedra-Empires não irá responsabilizar-se por perdas de contas com a Verificação de IP desactivada. ",
+    * A Equipa %s não irá responsabilizar-se por perdas de contas com a Verificação de IP desactivada. ",
        
         "Bugusing"                        => "
     * Não é permitido ser favorecido através do uso de bugs e/ou erros de programação e ainda de scripts.
@@ -203,12 +203,12 @@ $LNG['rules']                          = array(
     * É proibido manter a verificação de IP desligada se esta não tiver sido autorizada por um Operador de Jogo.",
 
         "Línguagem e Atitudes"                => "
-    * A língua oficial dos uníversos Vedra é o português. No entanto, qualquer pessoa, de qualquer nacionalidade, pode jogar no Vedra-Empires, desde que não use outra língua a não ser a oficial no jogo, quer através de mensagens internas com outros jogadores ou informação nas páginas de alianças. 
+    * A língua oficial dos uníversos %s é o português. No entanto, qualquer pessoa, de qualquer nacionalidade, pode jogar no %s, desde que não use outra língua a não ser a oficial no jogo, quer através de mensagens internas com outros jogadores ou informação nas páginas de alianças. 
     * Da mesma maneira, spam, nomes ou mensagens no jogo de conteúdo obsceno, insultuoso, racista, xenófobo ou terrorista conduzem à exclusão do jogo. ",
 
         "Ameaças/Insultos"                => "   
      * Ameaças à vida real ou insinuações sobre medidas de coação a um jogador serão sancionadas com o bloqueamento permanente do infractor.
-     * Desrespeito, insultos, racismo, xenofobia, ameaças à vida real, difamação ou qualquer tipo de perseguição feita a elementos da equipa do Vedra-Empires, leva à exclusão do jogador infractor da comunidade do Vedra, ou seja, ao bloqueamento permanente em todos os universos que joga.",
+     * Desrespeito, insultos, racismo, xenofobia, ameaças à vida real, difamação ou qualquer tipo de perseguição feita a elementos da equipa do %s, leva à exclusão do jogador infractor da comunidade do %s, ou seja, ao bloqueamento permanente em todos os universos que joga.",
 
         "Spam/Racismo/Xenofobia/Nazismo/Terrorismo"          => "
      * Envio contínuo de sondas e mensagens sem informação relevante serão consideradas spam.
@@ -230,7 +230,7 @@ $LNG['agb_overview']                   = "Termos e Condições";
 $LNG['agb']                            = array(
 
         "Objecto das condições de utilização; área de aplicação"             => array(
-                "As seguintes condições regulam a utilização dos jogos online e outras ofertas de serviços disponibilizadas nas páginas de Internet do jogo caso de registo ou início de sessão do utilizador no site do portal do jogo, o presente contrato de cessão está sempre dependente do jogo para os jogos online com base no cliente, ou seja, jogos para os quais é necessário o download por parte do cliente. Nestes casos, o Vedra Productions é apenas colaboradora da jogo em relação ao registo e início de sessão.",
+                "As seguintes condições regulam a utilização dos jogos online e outras ofertas de serviços disponibilizadas nas páginas de Internet do jogo caso de registo ou início de sessão do utilizador no site do portal do jogo, o presente contrato de cessão está sempre dependente do jogo para os jogos online com base no cliente, ou seja, jogos para os quais é necessário o download por parte do cliente. Nestes casos, o %s é apenas colaboradora da jogo em relação ao registo e início de sessão.",
                
                 "Estas condições de utilização substituem por completo as versões mais antigas das condições de utilização do jogo.",
                 
@@ -343,14 +343,14 @@ $LNG['agb']                            = array(
                 
                 "Todos os utilizadores das possibilidades de comunicação disponibilizadas nas páginas de Internet do jogo têm o dever de escolher palavras aceitáveis. Não é permitida a crítica de injúria ou ataques destrutivos a pessoas.",
                 
-                "Sem prejuízo dos outros direitos de acordo com estas condições de utilização, ao Vedra Empiers tem o direito de alterar e apagar total ou parcialmente os conteúdos e os artigos que violam estas regras. Além disso, ao Vedra Empiers tem o direito de excluir, total ou provisoriamente, os utilizadores que infringem estas regras, da utilização dos jogos online, páginas de Internet do jogo e outras ofertas de serviços.",
+                "Sem prejuízo dos outros direitos de acordo com estas condições de utilização, ao %s tem o direito de alterar e apagar total ou parcialmente os conteúdos e os artigos que violam estas regras. Além disso, ao %s tem o direito de excluir, total ou provisoriamente, os utilizadores que infringem estas regras, da utilização dos jogos online, páginas de Internet do jogo e outras ofertas de serviços.",
         ),
 
 
         "Consequência da violação de deveres" => array(
                 "O jogo não assume responsabilidade por danos que resultam de uma violação de deveres por parte do utilizador.",
                 
-                "Sem prejuízo de todos os outros direitos legais ou contratuais, ao Vedra Empiers pode tomar as seguintes medidas, conforme pretendido, se existirem pontos de referência de que um utilizador está a infringir as normas legais, os direitos de terceiros, as presentes condições de utilização ou as condições e regras do jogo complementares aplicáveis:
+                "Sem prejuízo de todos os outros direitos legais ou contratuais, ao %s pode tomar as seguintes medidas, conforme pretendido, se existirem pontos de referência de que um utilizador está a infringir as normas legais, os direitos de terceiros, as presentes condições de utilização ou as condições e regras do jogo complementares aplicáveis:
 	         a) Alterar e apagar conteúdos,
 	         b) Advertir um utilizador,
 	         c) Publicação do comportamento errado no respectivo jogo online, indicando o nome do utilizador,
@@ -359,7 +359,7 @@ $LNG['agb']                            = array(
 	         f) Decisão de proibição virtual provisória ou permanente de utilização do site nos casos de infracção contra o capítulo 6 ou
 	         g) Rescisão imediata do contrato de utilização.",
                 
-                "Se um utilizador tiver sido bloqueado ou excluído, não pode registar-se novamente sem a autorização prévia do Vedra Empiers. Não existe direito ao levantamento de um bloqueio, de uma exclusão, de uma proibição virtual de utilização do site ou de outras medidas.",                
+                "Se um utilizador tiver sido bloqueado ou excluído, não pode registar-se novamente sem a autorização prévia do %s. Não existe direito ao levantamento de um bloqueio, de uma exclusão, de uma proibição virtual de utilização do site ou de outras medidas.",                
         ),
 
 
@@ -374,30 +374,30 @@ $LNG['agb']                            = array(
                 
                 "O utilizador assegura que todas as informações prestadas no âmbito de um processo de pagamento (nomeadamente dados bancários, número de cartão de crédito, etc.) estão completas e correctas.",
                 
-                "As possibilidades de pagamento variam de acordo com o jogo online, o país do participante e as possibilidades de pagamento disponíveis no mercado e tecnicamente realizáveis. Ao Vedra Empiers reserva-se o direito de alterar, a qualquer momento, as possibilidades de pagamento.",
+                "As possibilidades de pagamento variam de acordo com o jogo online, o país do participante e as possibilidades de pagamento disponíveis no mercado e tecnicamente realizáveis. Ao %s reserva-se o direito de alterar, a qualquer momento, as possibilidades de pagamento.",
                 
-                "O Vedra Empiers reserva-se o direito de alterar recompensas para funções internas do jogo (incluindo moedas virtuais). Isto inclui o direito do Vedra Empiers de baixar ou aumentar recompensas para funções individuais internas ao jogo.",
+                "O %s reserva-se o direito de alterar recompensas para funções internas do jogo (incluindo moedas virtuais). Isto inclui o direito do %s de baixar ou aumentar recompensas para funções individuais internas ao jogo.",
                 
-                "Em caso de atraso, aplicam-se os juros legais. Para além disso, o Vedra Empiers está autorizada a bloquear o user account, a exigir a substituição de um dano e a anular os serviços.",
+                "Em caso de atraso, aplicam-se os juros legais. Para além disso, o %s está autorizada a bloquear o user account, a exigir a substituição de um dano e a anular os serviços.",
                 
-                "Se o Vedra Empiers tiver de pagar taxas de agravo ou de anulação devido à culpa do utilizador (também se a conta não tiver saldo suficiente), o utilizador suporta os custos relacionados com isso. O Vedra Empiers pode exigir estes custos e a recompensa, através de novo débito. Se o pagamento se efectuar através de cobrança de cartão de crédito, surgem débitos de até 50 Euros por cada cobrança de cartão de crédito, adicionando-se as taxas bancárias que surgiram à Gameforge. O Vedra Empiers está autorizada a exigir que um dano seja reparado através de substituição.",
+                "Se o %s tiver de pagar taxas de agravo ou de anulação devido à culpa do utilizador (também se a conta não tiver saldo suficiente), o utilizador suporta os custos relacionados com isso. O %s pode exigir estes custos e a recompensa, através de novo débito. Se o pagamento se efectuar através de cobrança de cartão de crédito, surgem débitos de até 50 Euros por cada cobrança de cartão de crédito, adicionando-se as taxas bancárias que surgiram à Gameforge. O %s está autorizada a exigir que um dano seja reparado através de substituição.",
         ),
 
         
         "Limitação de responsabilidade"      => array(
-                "O utilizador responsabiliza-se, quanto à infracção que realizou, pelos direitos de terceiros em relação a eles próprios e directamente. O utilizador tem o dever de substituir todos os danos ao Vedra Empiers que surgem devido à não observância dos deveres resultantes destas condições de utilização. O utilizador liberta o Vedra Empiers de todas as reivindicações que outros utilizadores ou outros terceiros fazem em relação ao Vedra Empiers devido à violação dos seus direitos devido aos conteúdos ajustados pelo utilizador ou devido à violação de outros deveres. O utilizador também assume aqui os custos da defesa legal necessária do Vedra Empiers, incluindo todos os custos de tribunal e advogado. Isto não é válido se a violação dos direitos não for da responsabilidade do utilizador.",
+                "O utilizador responsabiliza-se, quanto à infracção que realizou, pelos direitos de terceiros em relação a eles próprios e directamente. O utilizador tem o dever de substituir todos os danos ao %s que surgem devido à não observância dos deveres resultantes destas condições de utilização. O utilizador liberta o %s de todas as reivindicações que outros utilizadores ou outros terceiros fazem em relação ao %s devido à violação dos seus direitos devido aos conteúdos ajustados pelo utilizador ou devido à violação de outros deveres. O utilizador também assume aqui os custos da defesa legal necessária do %s, incluindo todos os custos de tribunal e advogado. Isto não é válido se a violação dos direitos não for da responsabilidade do utilizador.",
                 
-                "A responsabilidade do Vedra Empiers, qualquer que seja a razão legal, quer seja devido à violação de deveres contratual ou actuação não permitida determina-se de acordo com os seguintes regulamentos:",
+                "A responsabilidade do %s, qualquer que seja a razão legal, quer seja devido à violação de deveres contratual ou actuação não permitida determina-se de acordo com os seguintes regulamentos:",
                 
-                "Caso o Vedra Empiers preste o respectivo serviço que activa a responsabilidade a título oneroso, o Vedra Empiers responsabiliza-se apenas pela intenção dolosa e pela negligência grave.",
+                "Caso o %s preste o respectivo serviço que activa a responsabilidade a título oneroso, o %s responsabiliza-se apenas pela intenção dolosa e pela negligência grave.",
                 
-                "Nos serviços a título oneroso, o Vedra Empiers responsabiliza-se ilimitadamente pela intenção dolosa e pela negligência grave, assim como no caso de danos em pessoas, no entanto quanto à negligência leve apenas se forem violados deveres essenciais ao contrato, em caso de atraso por parte do Vedra Empiers e impossibilidade. A responsabilidade em caso de violação de um destes deveres essenciais ao contrato está limitada ao dano típico contratual com cujo surgimento o Vedra Empiers teve de contar na celebração do contrato devido às circunstâncias conhecidas nessa altura.",
+                "Nos serviços a título oneroso, o %s responsabiliza-se ilimitadamente pela intenção dolosa e pela negligência grave, assim como no caso de danos em pessoas, no entanto quanto à negligência leve apenas se forem violados deveres essenciais ao contrato, em caso de atraso por parte do %s e impossibilidade. A responsabilidade em caso de violação de um destes deveres essenciais ao contrato está limitada ao dano típico contratual com cujo surgimento o %s teve de contar na celebração do contrato devido às circunstâncias conhecidas nessa altura.",
                 
-                "O Vedra Empiers não assume responsabilidade por falhas não cometidas pelo Vedra Empiers dentro das redes.",
+                "O %s não assume responsabilidade por falhas não cometidas pelo %s dentro das redes.",
                 
-                "O Vedra Empiers só se responsabiliza pela perda de dados de acordo com os parágrafos mencionados previamente se não fosse possível evitar esta perda através de medidas adequadas de protecção de dados por parte do utilizador.",
+                "O %s só se responsabiliza pela perda de dados de acordo com os parágrafos mencionados previamente se não fosse possível evitar esta perda através de medidas adequadas de protecção de dados por parte do utilizador.",
                 
-                "As limitações de responsabilidade existentes não são válidas no caso de aceitação de garantias expressas pelo Vedra Empiers, no caso de malícia e no caso de danos resultantes da colocação em perigo de vida, do corpo ou saúde, assim como no caso de regulamentos legais obrigatórios.",
+                "As limitações de responsabilidade existentes não são válidas no caso de aceitação de garantias expressas pelo %s, no caso de malícia e no caso de danos resultantes da colocação em perigo de vida, do corpo ou saúde, assim como no caso de regulamentos legais obrigatórios.",
          ),
 
 
@@ -422,5 +422,7 @@ $LNG['disclamer_name']                 = "Nome";
 $LNG['disclamer_adress']               = "Morrada";
 $LNG['disclamer_tel']                  = "Telefone:";
 $LNG['disclamer_email']                = "E-Mail";
+
+// Traduzido para Português por QwataKayean. Todos os direitos de autor Reservados (C) 2010-2011
 
 ?>
