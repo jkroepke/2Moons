@@ -267,7 +267,9 @@ class template
 			'getajax'			=> request_var('getajax', 0),
 			'lang'				=> $LANG->getUser(),
 			'UNI'				=> $UNI,
-			'langs'				=> array_reverse(Language::getAllowedLangs()),
+			'VERSION'			=> $CONF['VERSION'],
+			'REV'				=> substr($CONF['VERSION'], -4),
+			'langs'				=> json_encode(Language::getAllowedLangs(false)),
 		));
 	}
 		

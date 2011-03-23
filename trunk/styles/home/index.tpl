@@ -6,9 +6,9 @@
 <link rel="stylesheet" type="text/css" href="styles/css/login.css">
 <link rel="icon" href="favicon.ico">
 <title>{block name="title"} - {$servername}{/block}</title>
-<meta name="generator" content="2Moons">
+<meta name="generator" content="2Moons {$VERSION}">
 <!-- 
-	This website is powered by 2Moons
+	This website is powered by 2Moons {$VERSION}
 	2Moons is a free Space Browsergame initially created by Slaver and licensed under GNU/GPL.
 	2Moons is copyright 2009-2011 of Slaver. Extensions are copyright of their respective owners.
 	Information and contribution at http://2moons.cc/
@@ -37,9 +37,6 @@
 		</nav>
 		<nav>
 			<ul id="lang">
-				{foreach $langs as $lng}
-				<li><a href="javascript:setLNG('{$lng}')"><span class="flags {$lng}"></span></a></li>
-				{/foreach}
 			</ul>
 		</nav>
 	</header>
@@ -93,24 +90,37 @@
 		<a href="index.php?page=disclamer">{$menu_disclamer}</a><br>{$servername} powered by <a href="http://2moons.cc" title="2Moons" target="copy">2Moons</a>
 	</footer>
 </div>
-<script type="text/javascript" src="scripts/jQuery.js"></script>
-<script type="text/javascript" src="scripts/login.js"></script>
+<div id="dialog" style="display:none;"></div>
+<script type="text/javascript" src="scripts/jQuery.js?v={$REV}"></script>
+<script type="text/javascript" src="scripts/login.js?v={$REV}"></script>
 <script type="text/javascript">
 var CONF			= {
 	IsCaptchaActive : {$game_captcha},
 	cappublic		: "{$cappublic}",
 	FBKey			: "{$fb_key}",
+	Lang			: {$langs},
+	MultiUniverse	: $('#universe').children().length !== 1 ? true : false,
+	uni				: {$UNI},
+	avaLangs		: new Array(),
+	lang			: "{$lang}",
 };
 var LANG			= {
 	register		: "{$register_now}",
 	login			: "{$login}",
 	fb_perm			: "{$fb_perm}",
 };
-
+$(document).ready(init);
 {if $code}
 alert("{$code}");
 {/if}
 </script>
+{if $fb_key}
+<div id="fb-root"></div>
+<script type="text/javascript" src="http://connect.facebook.net/en_US/all.js"></script>
+<script type="text/javascript">
+FBinit();
+</script>
+{/if}
 {if $game_captcha}
 <script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
 {/if}

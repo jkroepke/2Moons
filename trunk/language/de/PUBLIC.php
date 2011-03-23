@@ -16,11 +16,14 @@ $LNG['uni_closed']			= ' (closed)';
 
 //index.php
 //case lostpassword
-$LNG['mail_not_exist'] 			= 'Die angegebende E-Mail Adresse existiert nicht!';
-$LNG['mail_title']				= 'Neues Passwort';
-$LNG['mail_text']				= 'Dein neues Passwort lautet: ';
-$LNG['mail_sended']				= 'Dein Passwort wurde an deine E-Mail Adresse erfolgreich gesendet!';
-$LNG['mail_sended_fail']		= 'E-Mail konnte nicht gesendet werden.!';
+
+$LNG['lost_empty']			= 'Du musst alle Felder ausfüllen!';
+$LNG['lost_not_exist']		= 'Es konnte kein User in Verbindung mit dieser Mail Adresse gefunden werden!';
+$LNG['lost_mail_title']		= 'Neues Passwort';
+$LNG['mail_sended']			= 'Dein Passwort wurde an %s erfolgreich gesendet!';
+
+//case default
+
 $LNG['server_infos']			= array(
 	"Ein Weltraum-Strategiespiel in Echtzeit.",
 	"Spiele zusammen mit hunderten Usern.",
@@ -28,7 +31,6 @@ $LNG['server_infos']			= array(
 	"Kostenlose Registrierung",
 );
 
-//case default
 $LNG['login_error_1']		= 'Falscher Benutzername/Passwort!';
 $LNG['login_error_2']		= 'Jemand hat sich von einem anderem PC in deinem Account eingeloggt!';
 $LNG['login_error_3']		= 'Deine Session ist abgelaufen!';
@@ -40,8 +42,6 @@ $LNG['chose_a_uni']			= 'Wähle ein Universum';
 
 //lostpassword.tpl
 $LNG['lost_pass_title']			= 'Passwort wiederherstellen';
-$LNG['retrieve_pass']			= 'Wiederherstellen';
-$LNG['email']					= 'E-Mail Adresse';
 
 //index_body.tpl
 $LNG['user']					= 'User';

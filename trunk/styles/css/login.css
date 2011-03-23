@@ -55,17 +55,9 @@ a:hover{
 	border: 1px solid red !important;
 }
 
-.tip {
-	color: #fff;
-	background:#1d1d1d;
-	display:none;
-	padding:3px;
-	position:absolute;
-	z-index:1000;
-	max-width: 500px;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
+.fb_login{
+	margin:14px 0 0 0;
+	display:block;
 }
 
 /** HEADER **/
