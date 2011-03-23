@@ -121,7 +121,7 @@ switch ($page) {
 					require_once('includes/libs/reCAPTCHA/recaptchalib.php');
 					$resp = recaptcha_check_answer($CONF['capprivate'], $_SERVER['REMOTE_ADDR'], $_REQUEST['recaptcha_challenge_field'], $_REQUEST['recaptcha_response_field']);
 					if (!$resp->is_valid)
-						$errors[]	= $LNG['wrong_captcha'];
+						$errors[]	= array('captcha', $LNG['wrong_captcha']);
 				}
 				
 				$ExistsUser 	= $db->countquery("SELECT (SELECT COUNT(*) FROM uni1_users WHERE `universe` = '".$Universe."' AND `username` = '".$db->sql_escape($UserName)."') + (SELECT COUNT(*) FROM uni1_users_valid WHERE `universe` = '".$Universe."' AND `username` = '".$db->sql_escape($UserName)."')");

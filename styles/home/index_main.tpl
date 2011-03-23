@@ -36,7 +36,7 @@
 						<label for="reg_lang">{$language}</label><select name="lang" id="reg_lang" class="lang"></select><br>
 						{if $game_captcha}
 						<div id="recaptcha_image"></div>
-						<label for="reg_captcha">{$captcha_reg}</label><input type="text" id="recaptcha_response_field" name="recaptcha_response_field"><br>
+						<label for="recaptcha_response_field">{$captcha_reg}</label><input type="text" id="recaptcha_response_field" name="recaptcha_response_field"><br>
 						{/if}
 						<label for="reg_rgt">{$accept_terms_cond}</label><input id="reg_rgt" name="rgt" type="checkbox"><br>
 						<input name="submit" value="{$register}" type="submit">
