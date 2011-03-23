@@ -33,9 +33,9 @@ function ShowActivePage()
 	global $LNG, $db, $USER;
 	$id = request_var('id', 0);
 	if($_GET['action'] == 'delete' && !empty($id))
-		$db->query("DELETE FROM ".USERS_VALID." WHERE `id` = '".$id."';");
+		$db->query("DELETE FROM ".USERS_VALID." WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
 
-	$query = $db->query("SELECT * FROM ".USERS_VALID." ORDER BY id ASC");
+	$query = $db->query("SELECT * FROM ".USERS_VALID." WHERE `universe` = '".$_SESSION['adminuni']."' ORDER BY id ASC");
 
 	$Users	= array();
 	while ($User = $db->fetch_array($query)) {
@@ -46,13 +46,14 @@ function ShowActivePage()
 			'email'		=> $User['email'],
 			'ip'		=> $User['ip'],
 			'password'	=> $User['password'],
-			'cle'		=> $User['cle']
+			'cle'		=> $User['cle'],
 		);
 	}
 
 	$template	= new template();
 	$template->assign_vars(array(	
 		'Users'				=> $Users,
+		'uni'				=> $_SESSION['adminuni'],
 		'UserLang'			=> $USER['lang'],
 		'id'				=> $LNG['ap_id'],
 		'username'			=> $LNG['ap_username'],

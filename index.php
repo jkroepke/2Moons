@@ -133,11 +133,11 @@ switch ($page) {
 				if(!CheckName($UserName))
 					$errors[]	= array('username', UTF8_SUPPORT ? $LNG['user_field_no_space'] : $LNG['user_field_no_alphanumeric']);
 
+				if($ExistsUser != 0)
+					$errors[]	= array('username', $LNG['user_already_exists']);
+					
 				if(!isset($UserPass{5}))
 					$errors[]	= array('password', $LNG['password_lenght_error']);
-					
-				if($ExistsUser != 0)
-					$errors[]	= array('password', $LNG['user_already_exists']);
 					
 				if($UserPass != $UserPass2)
 					$errors[]	= array('password_2', $LNG['different_passwords']);
@@ -212,8 +212,6 @@ switch ($page) {
 				
 				if(!isset($Valider)) 
 					redirectTo('index.php');
-				
-				$LANG->setUser($Valider['lang']);
 				
 				$UserName 	= $Valider['username'];
 				$UserPass 	= $Valider['password'];
