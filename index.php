@@ -482,12 +482,12 @@ switch ($page) {
 		if ($_POST) {
 			$luser = request_var('username', '', UTF8_SUPPORT);
 			$lpass = request_var('password', '', UTF8_SUPPORT);
-			$login = $db->uniquequery("SELECT `id`, `username`, `dpath`, `authlevel`, `id_planet` FROM ".USERS." WHERE `username` = '".$db->sql_escape($luser)."' AND `universe` = '".$luniv."' AND `password` = '".md5($lpass)."';");
+			$login = $db->uniquequery("SELECT `id`, `username`, `dpath`, `authlevel`, `id_planet` FROM ".USERS." WHERE `username` = '".$db->sql_escape($luser)."' AND `universe` = '".$UNI."' AND `password` = '".md5($lpass)."';");
 			
 			if (isset($login)) {
 				session_start();
 				$SESSION       	= new Session();
-				$SESSION->CreateSession($login['id'], $login['username'], $login['id_planet'], $luniv, $login['authlevel'], $login['dpath']);
+				$SESSION->CreateSession($login['id'], $login['username'], $login['id_planet'], $UNI, $login['authlevel'], $login['dpath']);
 				echo json_encode(array('message' => 'OK', 'error' => false));
 			} else {
 				echo json_encode(array('message' => $LNG['login_error_1'], 'error' => true));

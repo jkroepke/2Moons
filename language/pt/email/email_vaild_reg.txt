@@ -18,7 +18,7 @@ Senha: %5$s
 
 Se tiver problemas com o registro, entre em contato com 
 o webmaster ( Administração do jogo ) para este endereço 
-de e-mail: mailto:%6$s
+de e-mail: %6$s
 
 
 Atenciosamente,

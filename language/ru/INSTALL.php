@@ -1,5 +1,7 @@
 <?php
 
+// Translated into Russian by InquisitorEA. All rights reserved © 2010-2011
+
 $LNG['continue']           = "Дальше";
 
 $LNG['menu_intro']         = "Описание";
@@ -54,7 +56,5 @@ $LNG['step3_admin_pass']   = "Пароль:";
 $LNG['step3_admin_mail']   = "Электронная почта:";
 
 $LNG['step4_need_fields']  = "Вы должны заполнить все поля!";
-
-// Translated into Russian by InquisitorEA. All rights reserved (C) 2010-2011
 
 ?>

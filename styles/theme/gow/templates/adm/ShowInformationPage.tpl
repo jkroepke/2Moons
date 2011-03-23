@@ -4,7 +4,7 @@
     <tr>
                 <td>{$info_information}
                         <textarea rows="25">Server Infos: {$info}
-PHP-Version: {$vPHP}
+[daten]PHP-Version: {$vPHP}
 PHP API: {$vAPI}
 phpinfo(): http://{$gameroot}/info/index.php
 SafeMode: {$safemode}
@@ -22,7 +22,7 @@ Problem besteht seit Installation:
 Verwendeter Editor:
 Screenshot:
 Problembeschreibung:
-                        </textarea>
+                        [/datwn]</textarea>
                 </td>
     </tr>
 </table>

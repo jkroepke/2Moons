@@ -165,7 +165,6 @@ $LNG['tech'] = array(
 613 => 'General',
 614 => 'Conquistador',
 615 => 'Imperador',
-616 => 'Beta Player',
 
 700 => 'Optimização de Armas',
 701 => 'Optimização de Escudos',
@@ -459,7 +458,8 @@ $LNG['info'][614]['name']    	 = 'Conquistador';
 $LNG['info'][614]['description'] = '<br><br>Esta personagem possui qualidades de conquista inigualáveis. Este sugere que tu te tornes um Raider. O Raider e o nivel mais alto da guarda imperial Raider.<br><br><font color="red">Nivel max: %s</font>';
 $LNG['info'][615]['name']    	 = 'Imperador';
 $LNG['info'][615]['description'] = '<br><br>Quando colocados sob o comando do imperador todos os oficiais do império, combinando suas habilidades para dominar o universo são capazes de se tornar num adversário quase invisívelO imperador colocado sob o seu comando disponíveis para todos os oficiais do império, combinando suas habilidades para dominar o universo e tornar-se um adversário quase invisíveis.<br><br><font color="red">Nivel max: %s</font>';
-$LNG['info'][616]['name']    	 = 'Beta Player';
-$LNG['info'][616]['description'] = '<br><br>Antes de jogares o Anthrax Empires, passaste pelo servidor beta do Anthrax Empires. Esse Oficial é oferecido aos jogadores que participaram no server Beta, e esse oficial é oferecido como uma recompensa por participarem e testarem o nosso jogo! Com esse oficial poderás desbloquear coisas novas que nunca desbloqueaste anteriormente<br><br><font color="red">Esse Oficial é apenas oferecido a jogadores que participa no server Beta</font>';
+
+// Traduzido para Português por QwataKayean. Todos os direitos de autor Reservados (C) 2010-2011
+
 
 ?>
