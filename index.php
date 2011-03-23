@@ -52,31 +52,6 @@ $action = request_var('action', '');
 $mode = request_var('mode', '');
 
 switch ($page) {
-	case 'facebook':
-		if($CONF['fb_on'] == 0)
-			redirectTo("index.php");
-
-		$CONF		= $db->uniquequery("SELECT `users_amount`, `fb_apikey`, `fb_skey`, `initial_fields`, `LastSettedGalaxyPos`, `LastSettedSystemPos`, `LastSettedPlanetPos`, `smtp_host`, `smtp_port`, `smtp_user`, `smtp_pass`, `game_name`, `users_amount` FROM ".CONFIG." WHERE `uni` = ".$UNI.";");
-			
-		include_once(ROOT_PATH . 'includes/libs/facebook/facebook.php');
-		$facebook = new Facebook(array(
-		  'appId'  => $CONF['fb_apikey'],
-		  'secret' => $CONF['fb_skey'],
-		  'cookie' => true,
-		));
-		$session = $facebook->getSession();
-
-		// Session based API call.
-		if (!$session)
-			redirectTo("index.php");
-
-		$uid = $facebook->getUser();
-
-		if (!$uid)
-		redirectTo("index.php");
-
-			$me = $facebook->api('/me');
-	break;
 	case 'lostpassword': 
 		if($CONF['mail_active'] == 0)
 			redirectTo("index.php");

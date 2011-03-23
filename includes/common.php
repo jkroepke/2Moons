@@ -74,12 +74,12 @@ $db 	= new DB_MySQLi();
 $THEME	= new Theme();	
 $LANG	= new Language();	
 	
+$UNI	= getUniverse();
 unset($database);
 
 // Say Browsers to Allow ThirdParty Cookies (Thanks to morktadela)
 header('P3P:CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"');
 
-$UNI	= getUniverse();
 if(UNIS_MULTIVARS)
 	require_once(ROOT_PATH.'includes/vars_uni'.$UNI.'.php');
 else

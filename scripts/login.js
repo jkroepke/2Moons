@@ -25,7 +25,7 @@ function initFB()
 {
 	$.getScript("http://connect.facebook.net/en_US/all.js", function() {
 		$('body').append('<div id="fb-root"></div>');
-		FB.init({appId: APIKey, status: false, cookie: true});
+		FB.init({appId: APIKey, status: true, cookie: true});
 		loginFB();
 	});
 }
@@ -33,14 +33,9 @@ function initFB()
 function loginFB()
 {
 	FB.login(function(response) {
-		if (response.session) {
-			if (response.perms) {
-				window.location.href = 'index.php?page=facebook';
-			} else {
-			// user is logged in, but did not grant any permissions
-			}
-		} else {
-			// user is not logged in
+		if (response.session && response.perms) {
+			Content('register');
+			
 		}
 	}, {perms:'read_stream,publish_stream,offline_access,email'});
 }
