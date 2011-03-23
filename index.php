@@ -21,16 +21,18 @@
  * @author Slaver <slaver7@gmail.com>
  * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.0 (2011-02-03)
+ * @version 1.1 (2011-02-23)
  * @link http://code.google.com/p/2moons/
  */
- 
 
 // Get RootPath
-$ROOT		= dirname(__FILE__).'/';
+$ROOT		= str_replace('\\', '/', dirname(__FILE__)).'/';
 
 // Set Revision
 $REV		= !isset($_GET['revision']) ? 1 : (int) $_GET['revision'];
+
+// Set Filelist Source
+$FILELIST	= 'http://2moons.developer.vc/filelist';
 
 // Set SVN Paths
 $SVN		= 'http://2moons.googlecode.com/';
@@ -77,12 +79,20 @@ if(isset($_GET['action'])) {
 	switch($_GET['action']) {
 		case 'filelist': // Get Filelist from SVN
 			$ch = curl_init();
-			curl_setopt($ch, CURLOPT_URL, $SVNHIS.'includes/filelist');
+			curl_setopt($ch, CURLOPT_URL, $FILELIST);
 			curl_setopt($ch, CURLOPT_HEADER, false);
 			curl_setopt($ch, CURLOPT_CRLF, true);
 			curl_setopt($ch, CURLOPT_USERAGENT, "2Moons WebInstaller");
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-			echo json_encode(explode("\r\n", curl_exec($ch)));
+			$List	= curl_exec($ch);
+			curl_close($ch);
+				
+			$List	= explode("\n", $List);
+			$List	= array_unique(array_merge($List, array_map('dirname', $List)));
+			sort($List);
+			array_shift($List);
+			array_shift($List);
+			echo json_encode($List);
 			rename(__FILE__, $ROOT.'webinstall.php');
 		break;
 		case 'require': // Get Requriments for 2Moons
@@ -105,15 +115,14 @@ if(isset($_GET['action'])) {
 		break;
 		case 'unlink': // Delete Installfiles
 			unlink($ROOT.'webinstall.php');
-			unlink($ROOT.'install.php');
-			unlink($ROOT.'install.sql');
+			file_put_contents($ROOT.'install/.htaccess', 'deny from all');
 		break;
 		case 'download': // Download a File
 			if(strpos($_GET['file'], '.') === false) {
 				if(!file_exists($ROOT.$_GET['file']))
 					mkdir($ROOT.$_GET['file']);
                
-          chmod($ROOT.$_GET['file'], 0777);
+				chmod($ROOT.$_GET['file'], 0777);
 				echo json_encode(array('status'	=> 'OK'));
 				exit;
 			}
@@ -145,7 +154,7 @@ if(isset($_GET['action'])) {
 				
 			curl_close($ch);
 			fclose($fp); 
-      chmod($ROOT.$_GET['file'], 0666);
+			chmod($ROOT.$_GET['file'], 0666);
 		break;
 	}
 	exit;
@@ -210,28 +219,18 @@ function step2() {
 	$('#step1').hide();
 	$('#step2').show();
 	$('#step_info').text(LNG['bar_step2']);
-	$('#step .ui-progressbar-value').animate({width : '20%'}, 400);
-}
-
-function step3() {
-	$.get('?action=revision', function(data) {
-		lastrev = data;
-		$('#step3').show();
-	});
-	$('#step2').hide();
-	$('#step_info').text(LNG['bar_step3']);
-	$('#step .ui-progressbar-value').animate({width : '40%'}, 400);
+	$('#step .ui-progressbar-value').animate({width : '25%'}, 400);
 }
 
 function step4() {
-	revision = $('#rev').val();
-	if(revision == '' || isNaN(Math.round(revision))) 
-		revision = lastrev;
-	$.getJSON('?action=filelist&revision=' + revision, initDL);
-	$('#step3').hide();
-	$('#step4').show();
-	$('#step_info').text(LNG['bar_step4']);
-	$('#step .ui-progressbar-value').animate({width : '60%'}, 400);
+	$.get('?action=revision', function(rev) {
+		revision	= rev;
+		$.getJSON('?action=filelist', initDL);
+		$('#step2').hide();
+		$('#step4').show();
+		$('#step_info').text(LNG['bar_step4']);
+		$('#step .ui-progressbar-value').animate({width : '50%'}, 400);
+	});
 }
 
 function step5() {
@@ -239,7 +238,7 @@ function step5() {
 	$('#step4').hide();
 	$('#step5').show();
 	$('#step_info').text(LNG['bar_step5']);
-	$('#step .ui-progressbar-value').animate({width : '80%'}, 400);
+	$('#step .ui-progressbar-value').animate({width : '75%'}, 400);
 	installGame();
 }
 
@@ -372,12 +371,7 @@ function createAdminAccount() {
 			</div>
 			<div id="step2" style="display:none;">
 				<table style="width:100%" id="requires"></table>
-				<button style="display:none" onclick="step3();" class="continue" id="button"></button>
-			</div>
-			<div id="step3" style="display:none;">
-				<span id="step3_desc"></span><br><br>
-				<span id="step3_revision"></span>: <input id="rev" type="text"> <a href="#" onclick="$('#rev').val(lastrev);return false;" id='step3_lastrev'></a><br><br>
-				<button onclick="step4();" class="continue"></button>
+				<button style="display:none" onclick="step4();" class="continue" id="button"></button>
 			</div>
 			<div id="step4" style="display:none;">
 				<h2 id="step4_head"></h2><br>
