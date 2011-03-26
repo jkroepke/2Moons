@@ -116,6 +116,63 @@ class ShowShipyardPage
 		return $restprice;
 	}
 	
+	public function BuildAuftr($fmenge)
+	{
+		global $USER, $PLANET, $reslist;		
+		
+		foreach($fmenge as $Element => $Count)
+		{
+			if(empty($Count) || !in_array($Element, array_merge($reslist['fleet'], $reslist['defense'])) || !IsTechnologieAccessible($USER, $PLANET, $Element))
+				continue;
+				
+			$Count			= is_numeric($Count) ? round($Count) : 0;
+			$Count 			= max(min($Count, MAX_FLEET_OR_DEFS_PER_ROW), 0);
+			$MaxElements 	= $this->GetMaxConstructibleElements($Element);
+			$Count 			= min($Count, $MaxElements);
+
+			if ($Element == 502 || $Element == 503)
+			{
+				$Missiles	 		= array($Element => $PLANET[$resource[$Element]]);
+				$SiloSize      		= $PLANET[$resource[44]];
+				$MaxMissiles   		= $SiloSize * 10;
+				$BuildArray    		= explode(";", $PLANET['b_hangar_id']);
+
+				for ($QElement = 0; $QElement < count($BuildArray); $QElement++)
+				{
+					$ElmentArray = explode(",", $BuildArray[$QElement]);
+					if(isset($Missiles[$ElmentArray[0]]))
+						$Missiles[$ElmentArray[0]] += $ElmentArray[1];
+				}
+				
+				$ActuMissiles  = $Missiles[502] + (2 * $Missiles[503]);
+				$MissilesSpace = $MaxMissiles - $ActuMissiles;
+				
+				if($Element == 502)
+					$Count = min($Count, $MissilesSpace);
+				else
+					$Count = min($Count, floor($MissilesSpace / 2));
+
+				$Missiles[$Element] += $Count;
+			} elseif(in_array($Element, $reslist['one'])) {
+				$Count 		= ($PLANET[$resource[$Element]] == 0 && strpos($PLANET['b_hangar_id'], $Element.',') === false) ? 1 : 0;
+			}
+
+			if(empty($Count))
+				continue;
+				
+			$Ressource 	 	= $this->GetElementRessources($Element, $Count);
+			$PLANET['metal']	 -= $Ressource['metal'];
+			$PLANET['crystal']   -= $Ressource['crystal'];
+			$PLANET['deuterium'] -= $Ressource['deuterium'];
+			$USER['darkmatter']  -= $Ressource['darkmatter'];
+
+			if ($Element == 214 && $USER['rpg_destructeur'] == 1)
+				$Count = 2 * $Count;
+
+			$PLANET['b_hangar_id']    .= $Element.','.floattostring($Count).';';
+		}
+	}
+	
 	public function FleetBuildingPage()
 	{
 		global $PLANET, $USER, $LNG, $resource, $dpath, $db, $reslist;
@@ -155,42 +212,13 @@ class ShowShipyardPage
 			}
 		}
 		
-		if (!empty($fmenge) && $NotBuilding == true && $USER['urlaubs_modus'] == 0)
-		{
-			$AddedInQueue = false;
-			
-			$ebuild = explode(";",$PLANET['b_hangar_id']);
-			if (count($ebuild) - 1 >= MAX_FLEET_OR_DEFS_IN_BUILD)
-			{
+		if (!empty($fmenge) && $NotBuilding == true && $USER['urlaubs_modus'] == 0) {
+			if (count(explode(";",$PLANET['b_hangar_id'])) - 1 >= MAX_FLEET_OR_DEFS_IN_BUILD) {
 				$template->message(sprintf($LNG['bd_max_builds'], MAX_FLEET_OR_DEFS_IN_BUILD), "?page=buildings&mode=fleet", 3);
 				exit;
 			}
-			foreach($fmenge as $Element => $Count)
-			{
-				if(empty($Count) || !in_array($Element, $reslist['fleet']))
-					continue;
-					
-				$Count			= is_numeric($Count) ? round($Count) : 0;
-				$Count 			= max(min($Count, MAX_FLEET_OR_DEFS_PER_ROW), 0);
-				$MaxElements 	= $this->GetMaxConstructibleElements($Element);
-				$Count		 	= min($MaxElements, $Count);
-				
-				if(empty($Element) || empty($Count) || !IsTechnologieAccessible ($USER, $PLANET, $Element))
-					continue;
-					
-				$Ressource 	 = $this->GetElementRessources($Element, $Count);
-				$PLANET['metal']	 -= $Ressource['metal'];
-				$PLANET['crystal']   -= $Ressource['crystal'];
-				$PLANET['deuterium'] -= $Ressource['deuterium'];
-				$USER['darkmatter']  -= $Ressource['darkmatter'];
-
-				if ($Element == 214 && $USER['rpg_destructeur'] == 1)
-					$Count = 2 * $Count;
-
-				$PLANET['b_hangar_id']    .= $Element.','.floattostring($Count).';';
-			}
+			$this->BuildAuftr($fmenge);
 		}
-				
 		if ($action == "delete" && is_array($cancel) && $USER['urlaubs_modus'] == 0)
 			$this->CancelAuftr($cancel);
 
@@ -308,60 +336,7 @@ class ShowShipyardPage
 				$template->message(sprintf($LNG['bd_max_builds'], MAX_FLEET_OR_DEFS_IN_BUILD), "?page=buildings&mode=fleet", 3);
 				exit;
 			}
-			
-			$Missiles[502] = $PLANET[$resource[502]];
-			$Missiles[503] = $PLANET[$resource[503]];
-			$SiloSize      = $PLANET[$resource[44]];
-			$MaxMissiles   = $SiloSize * 10;
-			$BuildQueue    = $PLANET['b_hangar_id'];
-			$BuildArray    = explode(";", $BuildQueue);
-
-			for ($QElement = 0; $QElement < count($BuildArray); $QElement++)
-			{
-				$ElmentArray = explode(",", $BuildArray[$QElement]);
-				if(isset($Missiles[$ElmentArray[0]]))
-					$Missiles[$ElmentArray[0]] += $ElmentArray[1];
-			}
-
-			foreach($fmenge as $Element => $Count)
-			{
-				if(empty($Count) || !in_array($Element, $reslist['defense']))
-					continue;
-					
-				$Count			= is_numeric($Count) ? $Count : 0;
-				$Count 			= max(min($Count, MAX_FLEET_OR_DEFS_PER_ROW), 0);	
-				$MaxElements	= $this->GetMaxConstructibleElements($Element);
-				
-				if(empty($Element) || empty($Count) || empty($MaxElements) || !IsTechnologieAccessible($USER, $PLANET, $Element))
-					continue;
-				
-				if ($Element == 502 || $Element == 503)
-				{
-					$ActuMissiles  = $Missiles[502] + ( 2 * $Missiles[503] );
-					$MissilesSpace = $MaxMissiles - $ActuMissiles;
-					$Count = $Element == 502 ? min($Count, $MissilesSpace) : min($Count, floor($MissilesSpace / 2));
-						
-					$Count 		= min($Count, $MaxElements);
-
-					$Missiles[$Element] += $Count;
-				} elseif(in_array($Element, $reslist['one'])) {
-					$Count 		= ($PLANET[$resource[$Element]] == 0 && strpos($PLANET['b_hangar_id'], $Element.',') === false) ? 1 : 0;
-				} else {
-					$Count 		= min($Count, $MaxElements);
-				}
-				
-				if ($Count < 1)
-					continue;
-				
-				$Ressource = $this->GetElementRessources($Element, $Count);
-
-				$PLANET['metal']           -= $Ressource['metal'];
-				$PLANET['crystal']         -= $Ressource['crystal'];
-				$PLANET['deuterium']       -= $Ressource['deuterium'];
-				$USER['darkmatter'] 	   -= $Ressource['darkmatter'];
-				
-				$PLANET['b_hangar_id']     .= $Element.','.floattostring($Count).';';
-			}
+			$this->BuildAuftr($fmenge);
 		}
 				
 		if ($action == "delete" && is_array($cancel) && $USER['urlaubs_modus'] == 0)
