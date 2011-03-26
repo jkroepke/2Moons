@@ -10,7 +10,7 @@ verify your identity.
 In order to complete your registration please click the 
 following activation link:
 
-%3$s?page=reg&mode=valid&lang=%7$s&clef=%4$s
+%3$s?page=reg&action=valid&uni=%7$s&clef=%4$s
 
 Your login data:
 
