@@ -30,9 +30,11 @@ function getUniverse()
 {
 	if(defined('IN_ADMIN') && isset($_SESSION['adminuni'])) {
 		$UNI	= (int) $_SESSION['adminuni'];
-	} elseif(defined('LOGIN') && isset($_COOKIE['uni'])) {
+	} elseif(defined('LOGIN') && isset($_REQUEST['uni'])) {
 		$UNI	= (int) $_REQUEST['uni'];
-	} else if(isset($_SESSION['uni'])) {
+	} elseif(defined('LOGIN') && isset($_COOKIE['uni'])) {
+		$UNI	= (int) $_COOKIE['uni'];
+	} elseif(isset($_SESSION['uni'])) {
 		$UNI	= $_SESSION['uni'];
 	} else {
 		if(UNIS_WILDCAST === true) {
