@@ -59,7 +59,6 @@ class ResourceUpdate
 			
 		if($this->Build)
 		{
-		
 			if(!function_exists('GetBuildingTime')) #Debug
 				file_put_contents(ROOT_PATH.'includes/slaver.log', print_r(debug_backtrace(), true)."\r\n-----------\r\n\r\n", FILE_APPEND);
 			
@@ -134,17 +133,17 @@ class ResourceUpdate
 				$this->PLANET['metal_perhour']     = $CONF['metal_basic_income'];
 				$this->PLANET['crystal_perhour']   = $CONF['crystal_basic_income'];
 				$this->PLANET['deuterium_perhour'] = $CONF['deuterium_basic_income'];
-				$LEVEL          			 = 0;
+				$LEVEL	= 0;
 			}
-			elseif ($Caps["energy_max"] >= abs($Caps["energy_used"]))
-				$LEVEL = 100;
+			elseif ($Caps['energy_max'] >= abs($Caps['energy_used']))
+				$LEVEL	= 100;
 			else
-				$LEVEL = floor($Caps['energy_max'] / abs($Caps['energy_used']) * 100);
+				$LEVEL	= floor($Caps['energy_max'] / abs($Caps['energy_used']) * 100);
 				
 			if($LEVEL > 100)
-				$LEVEL = 100;
+				$LEVEL	= 100;
 			elseif ($LEVEL < 0)
-				$LEVEL = 0;				
+				$LEVEL	= 0;				
 			
 			$this->PLANET['metal_perhour']        = $Caps['metal_perhour'] * (0.01 * $LEVEL);
 			$this->PLANET['crystal_perhour']      = $Caps['crystal_perhour'] * (0.01 * $LEVEL);
@@ -199,8 +198,7 @@ class ResourceUpdate
 			$BuildArray[$Node] = array($Item[0], $Item[1], $AcumTime);
 		}
 
-		$this->PLANET['b_hangar_id'] 		= '';
-		$UnFinished 					= false;
+		$this->PLANET['b_hangar_id']	= '';
 		
 		foreach($BuildArray as $Node => $Item)
 		{
@@ -209,25 +207,24 @@ class ResourceUpdate
 			$BuildTime = $Item[2];
 			$Element   = (int)$Element;
 			if($BuildTime == 0) {
-				$this->Builded[$Element]			= bcadd($Count, $this->Builded[$Element]);
-				$this->PLANET[$resource[$Element]]	= bcadd($Count, $this->PLANET[$resource[$Element]]);
+				$this->Builded[$Element]			+= $Count;
+				$this->PLANET[$resource[$Element]]	+= $Count;
 				continue;					
 			}
+			if(!isset($this->Builded[$Element]))
+				$this->Builded[$Element] = 0;
 			
-			$GetBuildShips						= max(min(round(bcdiv($this->PLANET['b_hangar'], $BuildTime)), $Count), 0);
-			if($GetBuildShips == 0)
+			$this->Builded[$Element]	= min(floor($this->PLANET['b_hangar'] / $BuildTime), $Count);
+			if($this->Builded[$Element] == 0)
 			{
 				$this->PLANET['b_hangar_id'] 	.= $Element.",".$Count.";";
 				continue;
 			}
 			
-			if(!isset($this->Builded[$Element]))
-				$this->Builded[$Element] = 0;
 				
-			$this->PLANET['b_hangar']			-= bcmul($GetBuildShips, $BuildTime);
-			$this->Builded[$Element]			= bcadd($GetBuildShips, $this->Builded[$Element]);
-			$this->PLANET[$resource[$Element]]	= bcadd($GetBuildShips, $this->PLANET[$resource[$Element]]);
-			$Count								= bcsub($Count, $GetBuildShips);						
+			$this->PLANET['b_hangar']			-= $this->Builded[$Element] * $BuildTime;
+			$this->PLANET[$resource[$Element]]	+= $this->Builded[$Element];
+			$Count								-= $this->Builded[$Element];						
 			
 			if ($Count == 0)
 				continue;
@@ -527,7 +524,7 @@ class ResourceUpdate
 			foreach($this->Builded as $Element => $Count)
 			{
 				$Element	= (int)$Element;
-				if(empty($resource[$Element]))
+				if(empty($resource[$Element]) || empty($Count))
 					continue;
 				
 				if(in_array($Element, $reslist['one']))
