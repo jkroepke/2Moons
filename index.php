@@ -74,7 +74,7 @@ switch ($page) {
 			$MailRAW		= file_get_contents('./language/'.$LANG->getUser().'/email/email_lost_password.txt');
 			$MailContent	= sprintf($MailRAW, $Usermail, $CONF['game_name'], $NewPass, "http://".$_SERVER['SERVER_NAME'].$_SERVER["PHP_SELF"]);			
 		
-			$Mail			= MailSend($USERmail, $Usermail, $LNG['mail_title'], $MailContent);
+			$Mail			= MailSend($Username, $Usermail, $LNG['mail_title'], $MailContent);
 			
 			$db->query("UPDATE ".USERS." SET `password` = '".md5($NewPass)."' WHERE `id` = '".$UserID."';");
 			$template->message($LNG['mail_sended'], "./?lang=".$LANG->getUser(), 5, true);
@@ -102,8 +102,10 @@ switch ($page) {
 					echo json_encode(array('exists' => true));
 			break;
 			case 'send' :
-				if($CONF['reg_closed'] == 1)
-					redirectTo('index.php');
+				if($CONF['reg_closed'] == 1) {
+					echo json_encode(array('error' => true, 'message' => array(array('universe', $LNG['register_closed']))));
+					exit;
+				}
 					
 				$UserName 	= request_var('username', '', UTF8_SUPPORT);
 				$UserPass 	= request_var('password', '');
@@ -492,9 +494,11 @@ switch ($page) {
 			}
 		} else {
 			$AvailableUnis[$CONF['uni']]	= $CONF['uni_name'].($CONF['game_disable'] == 0 ? $LNG['uni_closed'] : '');
-			$Query	= $db->query("SELECT `uni`, `game_disable`, `uni_name` FROM ".CONFIG." WHERE `uni` != '".$UNI."' ORDER BY `uni` ASC;");
+			$RegClosed	= array($CONF['uni'] => (int)$CONF['reg_closed']);
+			$Query	= $db->query("SELECT `uni`, `game_disable`, `uni_name`, `reg_closed` FROM ".CONFIG." WHERE `uni` != '".$UNI."' ORDER BY `uni` ASC;");
 			while($Unis	= $db->fetch_array($Query)) {
 				$AvailableUnis[$Unis['uni']]	= $Unis['uni_name'].($Unis['game_disable'] == 0 ? $LNG['uni_closed'] : '');
+				$RegClosed[$Unis['uni']]		= (int)$Unis['reg_closed'];
 			}
 			ksort($AvailableUnis);
 			$Code	= request_var('code', 0);
@@ -506,7 +510,9 @@ switch ($page) {
 			$template->assign_vars(array(
 				'contentbox'			=> false,
 				'AvailableUnis'			=> $AvailableUnis,
+				'RegClosedUnis'			=> json_encode($RegClosed),
 				'welcome_to'			=> $LNG['welcome_to'],
+				'uni_closed'			=> $LNG['uni_closed'],
 				'server_description'	=> sprintf($LNG['server_description'], $CONF['game_name']),
 				'server_infos'			=> $LNG['server_infos'],
 				'login'					=> $LNG['login'],

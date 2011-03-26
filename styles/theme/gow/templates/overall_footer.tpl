@@ -46,7 +46,8 @@ if (!vacation) {
 	new resourceTicker(resourceTickerDeuterium);
 } 
 {/if}
-
+</script>
+<script type="text/javascript">
 function UhrzeitAnzeigen()
 {
     var Sekunden = serverTime.getSeconds();
@@ -56,10 +57,12 @@ function UhrzeitAnzeigen()
 }
 UhrzeitAnzeigen();
 setInterval("UhrzeitAnzeigen()", 1000);
-
+</script>
+<script type="text/javascript">
 {$execscript}
-
+</script>
 {if $ga_active}
+<script type="text/javascript">
 var _gaq = _gaq || [];
 _gaq.push(['_setAccount', '{$ga_key}']);
 _gaq.push(['_trackPageview']);
@@ -69,10 +72,12 @@ var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async
 ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 })();
+</script>
 {/if}
 {if $debug == 1}
+<script type="text/javascript">
 onerror = handleErr;
-{/if}
 </script>
+{/if}
 </body>
 </html>
