@@ -1107,7 +1107,7 @@ $LNG['ft_absenden']							= 'Submit';
 $LNG['lo_title']						= 'Logout successful! See you soon :)';
 $LNG['lo_logout']						= 'Session ended';
 $LNG['lo_redirect']						= 'Redirect';
-$LNG['lo_notify']						= 'You will be redirected in <span id="seconds"> 5 </ span> s';
+$LNG['lo_notify']						= 'You will be redirected in <span id="seconds"> 5 </span> s';
 $LNG['lo_continue']						= 'Click here if you are not redirected.';
 
 ?>
