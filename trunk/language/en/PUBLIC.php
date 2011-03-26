@@ -62,7 +62,7 @@ $LNG['server_register']			= 'Please register now!';
 $LNG['server_message']			= 'Sign up now and experience a new and exciting in the world of';
 $LNG['login']					= 'Login';
 $LNG['disclamer']				= 'Contact';
-$LNG['login_info']				= 'By logging in I accept the <a onclick="ajax(\'?page=rules&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\');" style="cursor:pointer;">Rules</a> and the <a onclick="ajax(\'?page=agb&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\');" style="cursor:pointer;">T&C</a>';
+$LNG['login_info']				= 'By logging in I accept the <a href="index.php?page=rules">Rules</a> and the <a href="index.php?page=agb">T&C</a>';
 
 /* ------------------------------------------------------------------------------------------ */
 
@@ -78,7 +78,7 @@ $LNG['user_field_no_alphanumeric']	= 'Please enter the username only alphanumeri
 $LNG['user_field_no_space']			= 'Please do not enter the user name blank!<br>';
 $LNG['planet_field_no_alphanumeric']= 'Please enter the planet name only alphanumeric characters!<br>';
 $LNG['planet_field_no_space']		= 'Please do not enter the planet name blank!<br>';
-$LNG['terms_and_conditions']		= 'You must accept <a onclick="ajax(\'?page=rules&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\');" style="cursor:pointer;">Rules</a> and the <a onclick="ajax(\'?page=agb&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\');" style="cursor:pointer;">T&C</a> please!<br>';
+$LNG['terms_and_conditions']		= 'You must accept <a href="index.php?page=rules">Rules</a> and the <a href="index.php?page=agb">T&C</a> please!<br>';
 $LNG['user_already_exists']			= 'The username is already taken!<br>';
 $LNG['mail_already_exists']			= 'The e-mail address is already in use!<br>';
 $LNG['wrong_captcha']				= 'Security Code is incorrect!<br>';
@@ -105,7 +105,7 @@ $LNG['planet_reg']					= 'Name of Mainplanet';
 $LNG['lang_reg']					= 'Language';
 $LNG['register_now']				= 'Register!';
 $LNG['captcha_reg']					= 'Security question';
-$LNG['accept_terms_and_conditions']	= 'I Accept <a onclick="ajax(\'?page=rules&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\');" style="cursor:pointer;">Rules</a> and <a onclick="ajax(\'?page=agb&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\');" style="cursor:pointer;">T&C</a>';
+$LNG['accept_terms_and_conditions']	= 'I Accept <a href="index.php?page=rules">Rules</a> and <a href="index.php?page=agb">T&C</a>';
 $LNG['captcha_reload']				= 'Reloading';
 $LNG['captcha_help']				= 'Help';
 $LNG['captcha_get_image']			= 'Load Bild-CAPTCHA';
