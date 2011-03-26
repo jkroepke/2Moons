@@ -1016,11 +1016,6 @@ $LNG['uvs_error']						= 'Ungültige oder Fehlerhafte Importfile!';
 //Update Page
 $LNG['up_weiter']						= 'Weiter';
 $LNG['up_kein_update']					= 'Kein Update vorhanden!';
-$LNG['up_ftp_ok']						= 'FTP-Verbindungsaufbau: OK!';
-$LNG['up_ftp_error']					= 'FTP-Verbindungsaufbau: ERROR! ';
-$LNG['up_ftp_change']					= 'FTP-Changedir(';
-$LNG['up_ftp_ok']						= 'OK!';
-$LNG['up_ftp_change_error']				= 'ERROR! Pfad nicht gefunden!';
 $LNG['up_ok_update']					= 'OK! - Updated';
 $LNG['up_error_update']					= 'ERROR! - Konnte Datei nicht hochladen';
 $LNG['up_delete_file']					= 'Erfolgreich gelöscht';
@@ -1032,15 +1027,12 @@ $LNG['up_aktuelle_updates']				= 'Aktuelle Updates';
 $LNG['up_momentane_version']			= 'Momentane Version';
 $LNG['up_alte_updates']					= 'Alte Updates';
 $LNG['up_revision']						= 'Revision ';
-$LNG['up_add']							= 'Hinzu:';
+$LNG['up_add']							= 'Add:';
 $LNG['up_edit']							= 'Edit:';
-$LNG['up_del']							= 'Lösch';
-$LNG['up_update_server']				= 'Update Server zurzeit nicht erreichbar!';
-$LNG['up_password_title']				= 'Passwort Abfrage';
-$LNG['up_password_info']				= 'Um das Update durchzuführen wird das FTP Passwort benötigt.';
-$LNG['up_password_label']				= 'Passwort:';
+$LNG['up_del']							= 'Del:';
 $LNG['up_submit']						= 'Absenden';
 $LNG['up_version']						= 'Version';
+$LNG['up_chmod_error']					= 'Keine Schreibrechte für Ordner<br>%s<br>vorhanden!';
 
 //Chat Page
 $LNG['ch_socket_chatid_info']			= 'This ID can be used to distinguish between different chat installations using the same socket server';

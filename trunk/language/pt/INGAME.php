@@ -1,5 +1,7 @@
 <?php
 
+// Traduzido por QwataKayean. Todos os Direitos Reservados © 2010-2011
+
 /**
  *  2Moons
  *  Copyright (C) 2011  Slaver
@@ -856,6 +858,7 @@ $LNG['op_deactivate_ipcheck_descrip']		= 'Check IP significa que o logout de seg
 $LNG['op_spy_probes_number_descrip']		= 'Numero de sondas que podes mandar directamente da vista da Galaxia.';
 $LNG['op_activate_vacation_mode_descrip']	= 'O modo de férias proteje a tua conta durante o tempo que estiveres ausente do jogo. Mas só poderás activá-lo se nao tiveres nada em construção (frota, edifícios, ou defesa), e nada a ser pesquisado, e tanbém nenhuma das tuas frotas em vôo. Assim que for activado, estás protejido contra ataques. Ataques que já tivessem sido lançados antes continuarão. Durante o modo de férias, a produção é posta a 0% assim que desactivares o modo de férias deves repor a produção a 100%. Assim que activares o modo de férias és obrigado a permanecer assim por um tempo mínimo de 48 horas. Só depois poderá ser desactivado.';
 $LNG['op_dlte_account_descrip']			    = 'Se escolheres esta opcção a tua conta será apagada após 7 dias.';
+$LNG['op_need_pass_mail']                   = 'Para alterar o seu endereço de e-mail é preciso digitar a senha na caixa!';
 $LNG['op_not_vaild_mail']					= 'Não intruduziste um E-Mail válido!';
 $LNG['op_change_mail_exist']				= 'O E-Mail intruduzido %s já esta em uso!';
 $LNG['op_sort_normal']                      = 'Por Colonização';
@@ -1050,6 +1053,7 @@ $LNG['supp_ticket_close']                   = 'Ticket fechado';
 $LNG['supp_close']                          = 'Fechado';
 $LNG['supp_open']                           = 'Aberto';
 $LNG['supp_admin_answer']                   = 'Resposta de Admin';
+$LNG['supp_player_write']                   = '%s respondido %s';
 $LNG['supp_player_answer']                  = 'Resposta de usuário';
 
 //----------------------------------------------------------------------------//
@@ -1096,6 +1100,5 @@ $LNG['lo_redirect']							= 'Seguinte';
 $LNG['lo_notify']							= 'Será redireccionado dentro de <span id="seconds">5</ span> segundos';
 $LNG['lo_continue']							= 'Logout Sem Esperar';
 
-// Traduzido para Português por QwataKayean. Todos os direitos de autor Reservados (C) 2010-2011
 
 ?>

@@ -372,7 +372,10 @@ class ResourceUpdate
 		if (empty($this->USER['b_tech_id']) || $this->USER['b_tech'] > $this->TIME)
 			return false;
 		
-		$this->Builded[$this->USER['b_tech_id']]			= 1;
+		if(!isset($this->Builded[$this->USER['b_tech_id']]))
+			$this->Builded[$this->USER['b_tech_id']]	= 0;
+			
+		$this->Builded[$this->USER['b_tech_id']]			+= 1;
 		$this->USER[$resource[$this->USER['b_tech_id']]]	+= 1;
 	
 		$QueueArray	= explode(';', $this->USER['b_tech_queue']);
@@ -432,15 +435,20 @@ class ResourceUpdate
 			}
 			if($HaveRessources == true) {
 				$Needed							= GetBuildingPrice($this->USER, $PLANET, $Element);
-				$this->PLANET['metal']			-= $Needed['metal'];
-				$this->PLANET['crystal']		-= $Needed['crystal'];
-				$this->PLANET['deuterium']		-= $Needed['deuterium'];
+				$PLANET['metal']				-= $Needed['metal'];
+				$PLANET['crystal']				-= $Needed['crystal'];
+				$PLANET['deuterium']			-= $Needed['deuterium'];
 				$this->USER['darkmatter']		-= $Needed['darkmatter'];
 				$this->USER['b_tech_id']		= $Element;
 				$this->USER['b_tech']      		= $BuildEndTime;
 				$this->USER['b_tech_planet']	= $Planet;
 				$NewQueue               		= implode(';', $QueueArray);
 				$Loop                  			= false;
+				
+				if($ListIDArray[4] != $this->PLANET['id'])
+					$db->query("UPDATE ".PLANETS." SET `metal` = '".floattostring($PLANET['metal'])."', `crystal` = '".floattostring($PLANET['crystal'])."', `deuterium` = '".floattostring($PLANET['deuterium'])."' WHERE `id` = '".$ListIDArray[4]."';");
+				else
+					$this->PLANET		= $PLANET;
 			} else {
 				if($this->USER['hof'] == 1){
 					$Needed      = GetBuildingPrice($this->USER, $PlanetTechBuilds, $Element, true, $ForDestroy);

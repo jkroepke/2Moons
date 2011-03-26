@@ -60,6 +60,8 @@ function update_config($Values, $Global = false, $SpecUni = 0)
 		if(!isset($CONF[$Name]))
 			continue;
 			
+		$GLOBALS['CONFIG'][$UNI][$Name]	= $Value;
+		
 		$CONF[$Name]	= $Value;
 		$SQL	.= "`".$Name."` = '".$db->sql_escape($Value)."', ";
 	}

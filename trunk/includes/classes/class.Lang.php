@@ -131,7 +131,7 @@ class Language
 	function GetUserLang($ID, $Files = array())
 	{
 		global $db, $CONF;	
-		$LANGUAGE = is_numeric($ID) || !in_array($ID, self::getAllowedLangs()) ? $db->countquery("SELECT `lang` FROM ".USERS." WHERE `id` = '".$ID."';") : $ID;
+		$LANGUAGE = is_numeric($ID) && !in_array($ID, self::getAllowedLangs()) ? $db->countquery("SELECT `lang` FROM ".USERS." WHERE `id` = '".$ID."';") : $ID;
 	
 		if(!in_array($LANGUAGE, self::getAllowedLangs()))
 			$LANGUAGE	= $this->Default;

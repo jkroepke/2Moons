@@ -102,9 +102,8 @@ class MissionCaseDestruction extends MissionFunctions
 		$Defender['id']		= array_unique($DefenderRow['id']);
 		$Defender['name']	= array_unique($DefenderRow['name']);
 		
-		$CONF		= $db->uniquequery("SELECT `Fleet_Cdr`, `Defs_Cdr` FROM `".CONFIG."` WHERE `uni` = '".$this->_fleet['fleet_universe']."';");
 		require_once('calculateAttack.php');
-		$result 	= calculateAttack($attackFleets, $defense, $CONF['Fleet_Cdr'], $CONF['Defs_Cdr']);
+		$result 	= calculateAttack($attackFleets, $defense, $CONFIG[$this->_fleet['fleet_universe']]['Fleet_Cdr'], $CONFIG[$this->_fleet['fleet_universe']]['Defs_Cdr']);
 
 		$SQL		= "";
 			

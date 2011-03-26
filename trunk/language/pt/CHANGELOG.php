@@ -1,5 +1,7 @@
 <?php
 
+// Traduzido por QwataKayean. Todos os Direitos Reservados © 2010-2011
+
 /**
  *  2Moons
  *  Copyright (C) 2011  Slaver
@@ -31,70 +33,86 @@ $LNG['Description'] = 'Descrição';
 
 $LNG['changelog']   = array(
 
+'v1.3.5' => 'ShadoX 26.03.11
+- ADD: Novo sistema de Chat
+- ADD: Novo Popup UI
+- FIX: Divisão por Zero
+- FIX: Conta total incorrecto, Se o novo utilizador está no jogo
+- FIX: Erros no hangar, com BCMath não disponivel
+- FIX: reCAPTCHA
+- DIV: LoginPage Reescrita
+- DIV: Codigo Javascript melhorado
+- DIV: Suporte de MultiUniverso
+- DIV: Sistema de Updates Reescrito
+- DIV: Copyright Header Mudado
+- DIV: Conexão com o Facebook reescrita
+- DIV: Actualização de Smarty e jQuery
+- DIV: Apagado Soundmanager e overLIB Liberary
+',
 'v1.3' => 'ShadoX 21.01.11
-- ADD: MultiUniverse Support
-- ADD: IPv6 Support
-- ADD: Limit of max Colony
-- ADD: Template Cache System
+- ADD: Suporte de MultiUniverso
+- ADD: Suporte de IPv6
+- ADD: Limite de Colónias
+- ADD: Apagar Cache
 - ADD: Daily Cronjob for clear Cache
-- ADD: Fleettrader
-- ADD: SessionSystem
-- ADD: AdminHack Protection
-- ADD: FTP Service on Installer to solved the CHMOD Problems
-- ADD: New Chat System
+- ADD: Sucateiros
+- ADD: Sistema de Sessão
+- ADD: Protecção de Hack em Admin
+- ADD: Serviço de Instalação de FTP
+- ADD: Novo Sistema de Chat
 - ADD: Cyrillic Char support for UserBanner
-- FIX: Facebook Connector
+- FIX: Login de Facebook
 - FIX: ACS
-- FIX: SQL Injections on FleetsShoutcuts
-- FIX: XSS on Battlesim
-- FIX: TF Iusses
-- FIX: UpdateSystem
-- FIX: Ressource Cheat
-- FIX: Admin Attack
-- FIX: SSL on IIS
-- FIX: Admin on Records
-- FIX: Noobprotection for Holding Mission
-- FIX: BattleReports show correct Techs now
-- FIX: ResetPage
-- FIX: Updated Ressource on TargetPlanet on Attacks
+- FIX: Injecções de SQL
+- FIX: XSS no Battlesim
+- FIX: Erros TF
+- FIX: Sistema de Actualizações
+- FIX: Cheat de Recursos
+- FIX: Ataques a ADMIN
+- FIX: SSL em IIS
+- FIX: Admin nos Records
+- FIX: Protecção de Novatos na missão de Manter Posições
+- FIX: Relatórios de Batalha
+- FIX: Pagina de RESET
+- FIX: Recursos Actualizados se for ADMIN atacadp
 - FIX: Fleetspeed Hack
 - FIX: BuildTime Hack
-- FIX: Cache System
-- FIX: Moondestruction
-- FIX: Teamspeak API for Teamspeak 3 Servers
-- FIX: UpdateSystem dont donwload same Files now
-- DIV: 2Moons not longer require safe_mode = off
-- DIV: Change Copyright Header
-- DIV: Max Buttons on Jumpgate
-- DIV: OfficiersVars now on vars.php
-- DIV: Fleet Ressoucres go up tp 18.446.744.073.709.551.616
-- DIV: Allow Change Version on ACP
+- FIX: Sistema de Cache
+- FIX: Destruição de Luas
+- FIX: Teamspeak API para Teamspeak 3 Servidores
+- FIX: Sistema de Actualizações não fazer dos downloads dos mesmos ficheiros
+- DIV: 2Moons não requer Safe Mod = off
+- DIV: Troca de Copyright Header
+- DIV: Max de Butões no Portal de Luas
+- DIV: OfficiersVars em vars.php
+- DIV: Fleet Ressoucres aumenta em 18.446.744.073.709.551.616
+- DIV: Permitir Troca de Versão no ACP
 - DIV: Get Language via HTTP Header on Index
-- DIV: Use Facebooks new Graph API now.
-- DIV: Set new location for error.log
-- DIV: Update TS³ Lib, Soundmanager, reCAPTCHA Lib, Smarty and jQuery (UI)
+- DIV: Login de Facebook com Gráficos de API.
+- DIV: Nova localização de error.log
+- DIV: Actualizado TS³ Lib, Soundmanager, reCAPTCHA Lib, Smarty and jQuery (UI)
 ',
 'v1.2' => 'ShadoX 14.09.10
-- ADD: Set Max Fleets on ACS (Default: 16)
-- ADD: New RightsSystem on ACP
-- ADD: .htaccess Protection for some dirs
-- FIX: Expedition
-- FIX: Servertime at Overview
-- FIX: Research Hack while Build ID:6 or 31
-- FIX: Alliance Exit
-- FIX: See not invited ACS
-- FIX: overLIB Problems with Internet Explorer
-- FIX: Multilanguages Iusses
+- ADD: Máximo de Fleets em ACS (Default: 16)
+- ADD: Novo RightsSystem em ACP
+- ADD: .htaccess Protecção para algumas pastas
+- FIX: Expedição
+- FIX: Tempo de Servidor na Vista Geral
+- FIX: Pesquisas de Construcção em ID:6 or 31
+- FIX: Saida de Aliança
+- FIX: Actualizado ACS
+- FIX: overLIB Problemas com Internet Explorer
+- FIX: Erros em MultiLinguas
 - FIX: reCAPTCHA
-- FIX: Admin Protection
-- FIX: Moon Creation Explod
-- FIX: Rights on Alliance
-- FIX: Jumpgate
-- FIX: Build Points
-- FIX: Some HTML Errors
-- FIX: Linebreaks on Alliance Rundmails
+- FIX: Protecção ADMIN
+- FIX: Explosão da Criação de Luas
+- FIX: Direitos nas Alianças
+- FIX: Portal Quantico
+- FIX: Pontos de Edificios
+- FIX: Alguns erros HTML
+- FIX: Fecho de Links em Enviar Mensagem colectiva de Aliança
 - FIX: UMode
-- DIV: Update Langauges
+- DIV: Linguas Actualizadas
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game
 ',

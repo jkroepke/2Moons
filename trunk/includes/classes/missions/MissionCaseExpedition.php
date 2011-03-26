@@ -77,19 +77,18 @@ class MissionCaseExpedition extends MissionFunctions
 		{
 			case 1:
 				$WitchFound	= mt_rand(1,3);
-				$CONF		= $db->uniquequery("SELECT resource_multiplier FROM `".CONFIG."` WHERE `uni` = '".$this->_fleet['fleet_universe']."';");
 				$FindSize = mt_rand(0, 100);
 				if(10 < $FindSize) {
 					$WitchSize	= 1;
-					$Factor 	= (mt_rand(10, 50) / $WitchFound) * $CONF['resource_multiplier'];
+					$Factor 	= (mt_rand(10, 50) / $WitchFound) * $CONFIG[$this->_fleet['fleet_universe']]['resource_multiplier'];
 					$Message	= $LNG['sys_expe_found_ress_1_'.mt_rand(1,4)];
 				} elseif(0 < $FindSize && 10 >= $FindSize) {
 					$WitchSize	= 2;
-					$Factor 	= (mt_rand(52, 100) / $WitchFound) * $CONF['resource_multiplier'];
+					$Factor 	= (mt_rand(52, 100) / $WitchFound) * $CONFIG[$this->_fleet['fleet_universe']]['resource_multiplier'];
 					$Message	= $LNG['sys_expe_found_ress_2_'.mt_rand(1,3)];
 				} elseif(0 == $FindSize) {
 					$WitchSize	= 3;
-					$Factor 	= (mt_rand(102, 200) / $WitchFound) * $CONF['resource_multiplier'];
+					$Factor 	= (mt_rand(102, 200) / $WitchFound) * $CONFIG[$this->_fleet['fleet_universe']]['resource_multiplier'];
 					$Message	= $LNG['sys_expe_found_ress_3_'.mt_rand(1,2)];
 				}	
 		
@@ -249,11 +248,10 @@ class MissionCaseExpedition extends MissionFunctions
 				}
 				$defense[0]['user'] = $DefenderTechno;
 
-				$CONF		= $db->uniquequery("SELECT `Fleet_Cdr`, `Defs_Cdr` FROM `".CONFIG."` WHERE `uni` = '".$this->_fleet['fleet_universe']."';");
 				require_once('calculateAttack.php');
 
 				$start 		= microtime(true);
-				$result 	= calculateAttack($attackFleets, $defense, $CONF['Fleet_Cdr'], $CONF['Defs_Cdr']);
+				$result 	= calculateAttack($attackFleets, $defense, $CONFIG[$this->_fleet['fleet_universe']]['Fleet_Cdr'], $CONFIG[$this->_fleet['fleet_universe']]['Defs_Cdr']);
 				$totaltime 	= microtime(true) - $start;
 
 				foreach ($attackFleets as $fleetID => $attacker)
