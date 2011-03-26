@@ -12,7 +12,7 @@ abajo sólo una vez para verificar su identidad.
 Con el fin de completar su registro, por favor haga clic 
 en el enlace de activación siguientes:
 
-%3$sindex.php?page=reg&mode=valid&pseudo=%1$s&clef=%4$s
+%3$s?page=reg&action=valid&uni=%7$s&clef=%4$s
 
 Sus datos:
 

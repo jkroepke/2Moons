@@ -9,7 +9,7 @@ para se tornares um usuário registrado. Clique no link
 abaixo apenas uma vez para ativar sua conta.
 
 Para completar o teu registro, clique no link: 
-%3$s?page=reg&mode=valid&lang=%7$s&clef=%4$s
+%3$s?page=reg&action=valid&uni=%7$s&clef=%4$s
 
 Os seus detalhes de login:
 

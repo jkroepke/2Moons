@@ -51,7 +51,7 @@ function DeleteSelectedUser($UserID)
 
 	$SQL .= "DELETE FROM ".BUDDY." WHERE `owner` = '".$UserID."' OR `sender` = '".$UserID."';";
 	$SQL .= "DELETE FROM ".FLEETS." WHERE `fleet_owner` = '".$UserID."';";
-	$SQL .= "DELETE FROM ".MESSAGES." WHERE `message_owner` = '".$UserID."' OR `message_sender` = '".$UserID."';";
+	$SQL .= "DELETE FROM ".MESSAGES." WHERE `message_owner` = '".$UserID."';";
 	$SQL .= "DELETE FROM ".NOTES." WHERE `owner` = '".$UserID."';";
 	$SQL .= "DELETE FROM ".PLANETS." WHERE `id_owner` = '".$UserID."';";
 	$SQL .= "DELETE FROM ".USERS." WHERE `id` = '".$UserID."';";
