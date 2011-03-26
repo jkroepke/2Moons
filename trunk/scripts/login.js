@@ -100,6 +100,7 @@ function Submit(action) {
 
 function init(){
 	initLangs();
+	initCloseReg();
 	if(document.location.search == '?fb=reg')
 		FBRegister();
 }
@@ -109,6 +110,12 @@ function initLangs() {
 		$('#lang').prepend('<li><a href="javascript:setLNG(\''+key+'\')"><span class="flags '+key+'" title="'+name+'"></span></a></li>');
 		$('select.lang').append('<option value="'+key+'">'+name+'</option>');
 		CONF['avaLangs'].push(key);
+	});
+}
+
+function initCloseReg() {
+	$('#reg_universe option').text(function(i, name) {
+		return (CONF.RegClosedUnis[$(this).val()] == 1 && name.search(LANG['uni_closed']) == -1) ? name+' '+LANG['uni_closed'] : name;
 	});
 }
 

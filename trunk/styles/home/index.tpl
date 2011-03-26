@@ -2,8 +2,7 @@
 
 <html lang="{$lang}">
 <head>
-<link rel="stylesheet" type="text/css" href="styles/css/jQuery.css">
-<link rel="stylesheet" type="text/css" href="styles/css/login.css">
+<link rel="stylesheet" type="text/css" href="styles/css/login.css?v={$REV}">
 <link rel="icon" href="favicon.ico">
 <title>{block name="title"} - {$servername}{/block}</title>
 <meta name="generator" content="2Moons {$VERSION}">
@@ -95,6 +94,7 @@
 <script type="text/javascript" src="scripts/login.js?v={$REV}"></script>
 <script type="text/javascript">
 var CONF			= {
+	RegClosedUnis	: {$RegClosedUnis},
 	IsCaptchaActive : {$game_captcha},
 	cappublic		: "{$cappublic}",
 	FBKey			: "{$fb_key}",
@@ -107,7 +107,7 @@ var CONF			= {
 var LANG			= {
 	register		: "{$register_now}",
 	login			: "{$login}",
-	fb_perm			: "{$fb_perm}",
+	uni_closed		: "{$uni_closed}",
 };
 $(document).ready(init);
 {if $code}

@@ -31,7 +31,23 @@ $LNG['Description'] = 'Beschreibung';
 
 $LNG['changelog']   = array(
 
-'v1.3' => 'ShadoX 21.01.11
+'v1.3.5' => 'ShadoX 26.03.11
+- ADD: New ChatSystem
+- ADD: New Popup UI
+- FIX: Division by Zero
+- FIX: Wrong TotalUsercount, if a new User join the Game
+- FIX: Shipyard Iusses, with BCMath is not avalible
+- FIX: reCAPTCHA
+- DIV: Rewrite LoginPage
+- DIV: Improved Javascript Code
+- DIV: MultiUniverse Support
+- DIV: Rewrite UpdateSystem
+- DIV: Change Copyright Header
+- DIV: Rewrite Connect wit Facebook
+- DIV: Update Smarty and jQuery
+- DIV: Remove Soundmanager and overLIB Liberary
+',
+'v1.3' => 'ShadoX 05.03.11
 - ADD: MultiUniverse Support
 - ADD: IPv6 Support
 - ADD: Limit of max Colony
