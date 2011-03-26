@@ -75,7 +75,7 @@ function CheckPermissions() {
 		if(is_writable(ROOT_PATH.$DIR))
 			continue;
 		
-		echo json_encode(array('status' => ROOT_PATH.$DIR, 'error' => true));
+		echo json_encode(array('status' => sprintf($LNG['up_chmod_error'], './'.$DIR), 'error' => true));
 		exit;
 	}
 	echo json_encode(array('status' => 'OK', 'error' => false));

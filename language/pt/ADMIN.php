@@ -1,5 +1,7 @@
 <?php
 
+// Traduzido por QwataKayean. Todos os Direitos Reservados © 2010-2011
+
 /**
  *  2Moons
  *  Copyright (C) 2011  Slaver
@@ -25,6 +27,7 @@
  * @version 1.3 (2011-01-21)
  * @link http://code.google.com/p/2moons/
  */
+
  
 //---------------    GERAL ------------------------//
 $LNG['adm_login']						= 'Login';
@@ -224,7 +227,7 @@ $LNG['bo_user_select'] 					= 'Escolher ...';
 $LNG['bo_select_title'] 				= 'Mostrar nomes começados por';
 $LNG['bo_suspended_panel'] 				= 'Painel de suspensão';
 $LNG['bo_bbb_go_back']			        = '[ Voltar ]';
-$LNG['bo_bbb_go_act']			        = '[ Refresh ]';
+$LNG['bo_bbb_go_act']			        = '[ Actualizar ]';
 $LNG['bo_bbb_title_1']			        = 'Sistema de suspensão';
 $LNG['bo_bbb_title_2']			        = 'defenir data do levantamento da suspensão';
 $LNG['bo_bbb_title_3']			        = 'Sistema de suspensão<br><font color=red>Nota: este usuário já esta suspenso';
@@ -255,7 +258,7 @@ $LNG['cs_users_per_block']				= 'Usuários por bloco (min. 10)';
 $LNG['cs_fleets_on_block']				= 'Actualização frotas em block';
 $LNG['cs_time_between_updates']			= 'Tempo entre as actualizações das estatísticas';
 $LNG['cs_minutes']						= 'Minutos';
-$LNG['cs_points_to_zero']				= 'Pontos para "0"';
+$LNG['cs_points_to_zero']				= 'Pontos para "0" (Não aparecer pontos nas estatisticas)';
 $LNG['cs_access_lvl']					= 'Nível de Acesso';
 $LNG['cs_save_changes']					= 'Salvar as alterações';
 $LNG['cs_timeact_1']					= 'A última actualização foi em: ';
@@ -312,7 +315,7 @@ $LNG['ow_proyect_leader']				= 'Projeto líder';
 $LNG['ow_translator']					= 'Translators';
 $LNG['ow_special_thanks']				= 'Obrigado Especial';
 $LNG['ow_file_detected']               = 'Foi encontrado o arquivo %s. Por motivos de segurança, apagar ou renomear.';
-$LNG['ow_config_file_writable']			= 'O ficheiro config.php pode ser escrito, é recomendado polo em modo 440 (leitura somente).';
+$LNG['ow_config_file_writable']			= 'O ficheiro config.php pode ser escrito, editado ou apagado! É recomendado polo em modo 440 (leitura somente).';
 $LNG['ow_database_errors']				= 'Tens erros na tua base de dados. Poder&#225;s velos <a href="ErrorPage.php">Mostrar Erros</a>';
 $LNG['ow_smtp_errors']					= 'Verifique as configurações de SMTP! - Neste momento nenhum email pode ser enviado!';
 $LNG['ow_dir_not_writable']				= './%s dir não escrevível!';
@@ -326,9 +329,9 @@ $LNG['se_game_name']                                                            
 $LNG['se_uni_name']                                                                          = 'Nome do Universo';
 $LNG['se_lang'] 						= 'Idioma';
 $LNG['se_general_speed'] 				= 'Taxa geral';
-$LNG['se_normal_speed'] 				= 'velocidade normal do jogo: 1 <br> Velocidade máxima recomendada: 5';
+$LNG['se_normal_speed'] 				= 'Velocidade normal do jogo: 1 <br> Velocidade máxima recomendada: 5';
 $LNG['se_normal_speed_resoruces'] 		= 'Velocidade normal de produção: 1 <br> Velocidade máxima recomendada: 5';
-$LNG['se_normal_speed_fleet'] 			= 'velocidade Normal da frota: 1 <br> Velocidade máxima recomendada: 5';
+$LNG['se_normal_speed_fleet'] 			= 'Velocidade Normal da frota: 1 <br> Velocidade máxima recomendada: 5';
 $LNG['se_normal_speed_halt']			= 'Velocidade Normal: 1 <br> Recomendação Maxima: 20';
 $LNG['se_fleet_speed'] 					= 'Velocidade da frota';
 $LNG['se_resources_producion_speed'] 	= 'Velocidade de produção';
@@ -405,15 +408,15 @@ $LNG['se_smtp_sendmail']				= 'SMTP Remetente:';
 $LNG['se_smtp_sendmail_info']          	= 'Ponha aqui o endereço de email de retorno. Não necessita de ser o mesmo de envio.';                                  
 $LNG['se_ftp']							= 'Configurações de FTP';
 $LNG['se_ftp_info']                     = 'Sistema de updates automaticos via FTP! Este sistema actuliza os ficheiros consuante o que ouver de novo, mas atenção se tiveres modificações essas iram ser removidas.';
-$LNG['se_ftp_host']                     = 'FTP Host:';
-$LNG['se_ftp_user']                     = 'FTP User:';
-$LNG['se_ftp_pass']                     = 'FTP Password:';
-$LNG['se_ftp_dir']                      = 'FTP Game path:';
+$LNG['se_ftp_host']                     = 'FTP Servidor (Exemplo: ftp://o jogo ou http://o jogo):';
+$LNG['se_ftp_user']                     = 'FTP Utilizador: (Utilizador do Host)';
+$LNG['se_ftp_pass']                     = 'FTP Password: (Password) do Host';
+$LNG['se_ftp_dir']                      = 'FTP Game path: (Onde está guardado o jogo)';
 $LNG['se_ftp_dir_info']                 = 'Aqui inseres o caminho para a tua pasta de jogo deverá começar com uma barra e acabar com uma barra!<br>Exemplo: /httpdocs/';
 $LNG['se_google']                       = 'Google Analítico - Configurações';
 $LNG['se_google_info']                  = 'Google Analitico é a solução para web sites que lhe permite adquirir conhecimentos valiosos sobre o tráfego do seu site e do impacto das suas estratégias de marketing. Graças ao poderoso, flexível e características user-friendly prog agora podes acessar aos teus dados em novas formas de analisar e mostrar. Com o Google Analitico podes projetar a tua publicidade segmentada, fortes campanhas de marketing e desenvolvimento de sites com altas taxas de conversão.';
 $LNG['se_google_active']                = 'Activar/desactivar?';
-$LNG['se_google_key']                   = 'Analítica Key';
+$LNG['se_google_key']                   = 'Chave do Google Analítico';
 $LNG['se_google_key_info']              = 'Identificar a chave analítica para teu site. Isso sempre começa com UA, z.B.: UA-13185300-3';
 $LNG['se_bgm_login']					= 'Musica de Login';
 $LNG['se_bgm_active']					= 'Activado?';
@@ -453,7 +456,7 @@ $LNG['ad_authlevel_tt']                 = '[Ver Todos]';
 
 
 //---------------   FROTAS EM VOO   ------------------------//
-$LNG['ff_flying_fleets']				= 'frotas em voo';
+$LNG['ff_flying_fleets']				= 'Frotas em Voo';
 $LNG['ff_ammount']						= 'Quantidade';
 $LNG['ff_mission']						= 'Missão';
 $LNG['ff_beginning']					= 'Início';
@@ -485,7 +488,7 @@ $LNG['sb_sql_counts']			        = 'SQL Querys: %d';
 
 
 //---------------       LISTA DE USUARIOS   ------------------------//
-$LNG['ul_sure_you_want_dlte']           = 'Tem certeza que deseja remover?';
+$LNG['ul_sure_you_want_dlte']           = 'Tem certeza que deseja apagar?';
 //###########################################################//
 
 
@@ -887,6 +890,7 @@ $LNG['qe_coords']                       = 'Cordenadas';
 $LNG['qe_hpcoords']						= 'HP-Coordenadas';
 $LNG['qe_temp']                         = 'Temperatura';
 $LNG['qe_change']						= 'Alterar';
+$LNG['qe_authattack']                   = 'Segurança de Ataque a Administradores';
 
 //----------------------------------------------------------------------------//
 //TeamSpeakSettingPage.php
@@ -904,7 +908,7 @@ $LNG['ts_cron']							= 'Atualizar taxa';
 
 //----------------------------------------------------------------------------//
 //FacebookSettingPage.php
-$LNG['fb_settings']                     = 'configurações do FacebookConnect';
+$LNG['fb_settings']                     = 'Configurações do FacebookConnect';
 $LNG['fb_active']                       = 'FacebookConnect activo?';
 $LNG['fb_api_key']                      = 'Facebook API Key';
 $LNG['fb_secrectkey']                   = 'Facebook Secret Key';
@@ -921,7 +925,7 @@ $LNG['modul'][4]                        = 'Construção - Frotas';
 $LNG['modul'][5]                        = 'Construção - Defesas';
 $LNG['modul'][6]                        = 'Lista de Amigos';
 $LNG['modul'][7]                        = 'Chat';
-$LNG['modul'][8]                        = 'Pagamentos-DM';
+$LNG['modul'][8]                        = 'Pagamentos de MN';
 $LNG['modul'][9]                        = 'Frota';
 $LNG['modul'][10]                       = 'Controlo - Frota';
 $LNG['modul'][11]                       = 'Galaxia';
@@ -930,10 +934,10 @@ $LNG['modul'][13]                       = 'Controlo';
 $LNG['modul'][14]                       = 'Infos';
 $LNG['modul'][15]                       = 'Imperio';
 $LNG['modul'][32]                       = 'Missão - Reduzir';
-$LNG['modul'][1]                        = 'Missão - Attack';
-$LNG['modul'][31]                       = 'Missão - DM';
+$LNG['modul'][1]                        = 'Missão - Atacar';
+$LNG['modul'][31]                       = 'Missão - Exploração de MN';
 $LNG['modul'][30]                       = 'Missão - Exploração';
-$LNG['modul'][33]                       = 'Missão - Keep';
+$LNG['modul'][33]                       = 'Missão - Manter posições';
 $LNG['modul'][35]                       = 'Missão - Colonização';
 $LNG['modul'][24]                       = 'Missão - Espiar';
 $LNG['modul'][36]                       = 'Missão - Estação';
@@ -950,9 +954,9 @@ $LNG['modul'][23]                       = 'Comodidades';
 $LNG['modul'][25]                       = 'Estatisticas';
 $LNG['modul'][37]                       = 'Banner';
 $LNG['modul'][26]                       = 'Procura';
-$LNG['modul'][27]                       = 'Suport Tickets';
+$LNG['modul'][27]                       = 'Sistema de Suporte';
 $LNG['modul'][28]                       = 'Tecnologias';
-$LNG['modul'][38]						= 'Sucateiros';
+$LNG['modul'][38]						= 'Sucateiros : Comprador de Frota';
 $LNG['modul'][39]						= 'Simulador de batalha';
 $LNG['modul'][40]						= 'Atalhos de Frotas';
 $LNG['mod_module']						= 'Modulos';
@@ -996,7 +1000,7 @@ $LNG['uvs_speeds']						= 'Velocidade';
 $LNG['uvs_players']						= 'Jogadores';
 $LNG['uvs_open']						= 'Abrir';
 $LNG['uvs_export']						= 'Exportar';
-$LNG['uvs_delete']						= 'Deletar';
+$LNG['uvs_delete']						= 'Apagar';
 $LNG['uvs_on']							= 'On';
 $LNG['uvs_off']							= 'Off';
 $LNG['uvs_new']							= 'Adicionar Universo';
@@ -1071,6 +1075,5 @@ $LNG['ap_nicht_aktivierte_user']		= 'Usuário não ativado';
 $LNG['mip_ip']							= 'IP Comum';
 $LNG['mip_user']						= 'Contas com IP Comum';
 
-// Traduzido para Português por QwataKayean. Todos os direitos de autor Reservados (C) 2010-2011
 
 ?>

@@ -1,5 +1,7 @@
 <?php
 
+// Traduzido por QwataKayean. Todos os Direitos Reservados © 2010-2011
+
 /**
  *  2Moons
  *  Copyright (C) 2011  Slaver
@@ -25,6 +27,12 @@
  * @version 1.3 (2011-01-21)
  * @link http://code.google.com/p/2moons/
  */
+ 
+// Recuperação de Senha
+$LNG['lost_empty']                   = 'Deves preencher todos os campos!';
+$LNG['lost_not_exist']               = 'Conta com o endereço de email não existe!';
+$LNG['lost_mail_title']              = 'Nova Senha';
+$LNG['mail_sended']                  = 'Sua nova senha foi enviada com sucesso para o seu e-mail %s!';
 
 //general
 $LNG['index']                          	= 'Login';
@@ -103,6 +111,7 @@ $LNG['empty_user_field']               = 'Por favor, preencha os campos todos!<b
 $LNG['password_lenght_error']          = 'A password tem de conter pelo menos um minimo de 4 caracteres!<br>';
 $LNG['user_field_no_alphanumeric']     = 'Por favor, digite o nome do usuário apenas com caracteres alfanuméricos!<br>';
 $LNG['user_field_no_space']            = 'Por favor, não insira o nome de usuário com espaços ou em branco !<br>';
+$LNG['planet_field_no']                = 'Não digitaste o nome do planeta!';
 $LNG['planet_field_no_alphanumeric']   = 'Por favor insira só caracteres alphanumericos!<br>';
 $LNG['planet_field_no_space']	       = 'Por favor não deixe o nome do planeta em branco!<br>';
 $LNG['terms_and_conditions']           = 'Aceito os <a href="index.php?page=agb">T&C</a> e as <a href="index.php?page=rules>Régras</a> de jogo!<br>';
@@ -423,6 +432,5 @@ $LNG['disclamer_adress']               = "Morrada";
 $LNG['disclamer_tel']                  = "Telefone:";
 $LNG['disclamer_email']                = "E-Mail";
 
-// Traduzido para Português por QwataKayean. Todos os direitos de autor Reservados (C) 2010-2011
 
 ?>

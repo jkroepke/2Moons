@@ -72,8 +72,9 @@ require_once(ROOT_PATH . 'includes/classes/class.Session.php');
 	
 $db 	= new DB_MySQLi();
 $THEME	= new Theme();	
-$LANG	= new Language();	
-	
+$LANG	= new Language();
+$CONFIG	= array();
+
 $UNI	= getUniverse();
 unset($database);
 
@@ -87,6 +88,7 @@ else
 	
 $CONF = $db->uniquequery("SELECT HIGH_PRIORITY * FROM `".CONFIG."` WHERE `uni` = '".$UNI."';");
 $CONF['moduls']		= explode(";", $CONF['moduls']);
+$CONFIG[$UNI]	= $CONF;
 $LANG->setDefault($CONF['lang']);
 	
 if (!defined('CLI') && !defined('LOGIN') && !defined('IN_CRON') && !defined('AJAX'))
@@ -103,7 +105,7 @@ if (!defined('CLI') && !defined('LOGIN') && !defined('IN_CRON') && !defined('AJA
 
 	if(!CheckModule(10) && !defined('IN_ADMIN') && request_var('ajax', 0) == 0)
 		require(ROOT_PATH.'includes/FleetHandler.php');
-			
+		
 	$USER	= $db->uniquequery("SELECT u.*, s.`total_points`, s.`total_rank` FROM ".USERS." as u LEFT JOIN ".STATPOINTS." as s ON s.`id_owner` = u.`id` AND s.`stat_type` = '1' WHERE u.`id` = '".$_SESSION['id']."';");
 	if(empty($USER)) {
 		exit(header('Location: index.php'));

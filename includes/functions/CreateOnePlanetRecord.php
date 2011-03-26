@@ -28,7 +28,7 @@
 
 function CreateOnePlanetRecord($Galaxy, $System, $Position, $Universe, $PlanetOwnerID, $PlanetName = '', $HomeWorld = false, $AuthLevel = 0)
 {
-	global $LNG, $db, $CONF;
+	global $LNG, $db, $CONFIG;
 
 	if (MAX_GALAXY_IN_WORLD < $Galaxy || 1 > $Galaxy) {
 		throw new Exception("Access denied for CreateOnePlanetRecord.php.<br>Try to create a planet at position:".$Galaxy.":".$System.":".$Position);
@@ -46,7 +46,7 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $Universe, $PlanetOw
 		return false;
 	}
 
-	$FieldFactor		= ($CONF['initial_fields'] / 163) * PLANET_SIZE_FACTOR;
+	$FieldFactor		= ($CONFIG[$Universe]['initial_fields'] / 163) * PLANET_SIZE_FACTOR;
 	$Position			= ($Position > 15) ? mt_rand(1,15) : $Position;
 
 	switch($Position) {
@@ -180,7 +180,7 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $Universe, $PlanetOw
 	if(!empty($PlanetName))
 		$SQL .= "`name` = '".$PlanetName."', ";
 	
-	if($CONF['adm_attack'] == 0)
+	if($CONFIG[$Universe]['adm_attack'] == 0)
 		$AuthLevel = AUTH_USR;
 	
 	$SQL .= "`universe` = '".$Universe."', ";
@@ -192,15 +192,15 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $Universe, $PlanetOw
 	$SQL .= "`planet_type` = '1', ";
 	$SQL .= "`image` = '".($Type.$Class.(($PlanetDesign[$Type] <= 9)?'0':'').$PlanetDesign[$Type])."', ";
 	$SQL .= "`diameter` = '".floor(1000 * sqrt($Fields))."', ";
-	$SQL .= "`field_max` = '".(($HomeWorld) ? $CONF['initial_fields'] : floor($Fields))."', ";
+	$SQL .= "`field_max` = '".(($HomeWorld) ? $CONFIG[$Universe]['initial_fields'] : floor($Fields))."', ";
 	$SQL .= "`temp_min` = '".$TMin."', ";
 	$SQL .= "`temp_max` = '".$TMax."', ";
 	$SQL .= "`metal` = '".BUILD_METAL."', ";
-	$SQL .= "`metal_perhour` = '".$CONF['metal_basic_income']."', ";
+	$SQL .= "`metal_perhour` = '".$CONFIG[$Universe]['metal_basic_income']."', ";
 	$SQL .= "`crystal` = '".BUILD_CRISTAL."', ";
-	$SQL .= "`crystal_perhour` = '".$CONF['crystal_basic_income']."', ";
+	$SQL .= "`crystal_perhour` = '".$CONFIG[$Universe]['crystal_basic_income']."', ";
 	$SQL .= "`deuterium` = '".BUILD_DEUTERIUM."', ";
-	$SQL .= "`deuterium_perhour` = '".$CONF['deuterium_basic_income']."';";
+	$SQL .= "`deuterium_perhour` = '".$CONFIG[$Universe]['deuterium_basic_income']."';";
 	
 	$db->query($SQL);
 	return $db->GetInsertID();

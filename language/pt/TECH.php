@@ -1,5 +1,7 @@
 <?php
 
+// Traduzido por QwataKayean. Todos os Direitos Reservados © 2010-2011
+
 /**
  *  2Moons
  *  Copyright (C) 2011  Slaver
@@ -458,8 +460,6 @@ $LNG['info'][614]['name']    	 = 'Conquistador';
 $LNG['info'][614]['description'] = '<br><br>Esta personagem possui qualidades de conquista inigualáveis. Este sugere que tu te tornes um Raider. O Raider e o nivel mais alto da guarda imperial Raider.<br><br><font color="red">Nivel max: %s</font>';
 $LNG['info'][615]['name']    	 = 'Imperador';
 $LNG['info'][615]['description'] = '<br><br>Quando colocados sob o comando do imperador todos os oficiais do império, combinando suas habilidades para dominar o universo são capazes de se tornar num adversário quase invisívelO imperador colocado sob o seu comando disponíveis para todos os oficiais do império, combinando suas habilidades para dominar o universo e tornar-se um adversário quase invisíveis.<br><br><font color="red">Nivel max: %s</font>';
-
-// Traduzido para Português por QwataKayean. Todos os direitos de autor Reservados (C) 2010-2011
 
 
 ?>

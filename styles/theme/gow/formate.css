@@ -351,6 +351,10 @@ font-family:Verdana;
 font-size:1.1em
 }
 
+.ui-progressbar {
+height: 10px;
+}
+
 #planet_menu_link {
 padding-top:1px;
 }

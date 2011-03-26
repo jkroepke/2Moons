@@ -1,5 +1,7 @@
 <?php
 
+// Traduzido por QwataKayean. Todos os Direitos Reservados © 2010-2011
+
 /**
  *  2Moons
  *  Copyright (C) 2011  Slaver
@@ -75,6 +77,5 @@ $LNG['step3_admin_pass']		= "Password do Admin:";
 $LNG['step3_admin_mail']		= "Email do Admin:";
 $LNG['step4_need_fields']		= "Precisa de completar todos os espaços!";
 
-// Traduzido para Português por QwataKayean. Todos os direitos de autor Reservados (C) 2010-2011
 
 ?>
