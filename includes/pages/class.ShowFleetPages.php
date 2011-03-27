@@ -205,7 +205,6 @@ class ShowFleetPages extends FleetFunctions
 		$template	= new template();
 		$template->getplanets();
 		
-		$template->loadscript('notifybox.js');
 		$template->loadscript('flotten.js');
 
 		foreach ($reslist['fleet'] as $id => $ShipID)
