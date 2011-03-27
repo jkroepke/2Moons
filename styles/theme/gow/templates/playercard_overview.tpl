@@ -8,11 +8,11 @@
 </tr>
 <tr>
 <td>{$pl_homeplanet}</td>
-<td colspan="2">{$homeplanet} <a href='javascript:window.opener.focus();' onclick='window.opener.location.href = "game.php?page=galaxy&amp;mode=3&amp;galaxy={$galaxy}&amp;system={$system}";'>[{$galaxy}:{$system}:{$planet}]</a></td>
+<td colspan="2">{$homeplanet} <a href="game.php?page=galaxy&amp;mode=3&amp;galaxy={$galaxy}&amp;system={$system}" onclick="Dialog.close();">[{$galaxy}:{$system}:{$planet}]</a></td>
 </tr>
 <tr>
 <td>{$pl_ally}</td>
-<td colspan="2">{if $allyname}<a href='javascript:window.opener.focus();' onclick='window.opener.location.href = "game.php?page=alliance&amp;mode=ainfo&amp;a={$allyid}";'>{$allyname}</a>{else}-{/if}</td>
+<td colspan="2">{if $allyname}<a href="game.php?page=alliance&amp;mode=ainfo&amp;a={$allyid}" onclick="Dialog.close();">{$allyname}</a>{else}-{/if}</td>
 </tr>
 <tr>
 <td>&nbsp;</td>
