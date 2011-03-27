@@ -165,7 +165,7 @@ function ShowCreatorPage()
 				$PlanetID  	= request_var('add_moon', 0);
 				$MoonName  	= request_var('name', '', UTF8_SUPPORT);
 				$Diameter	= request_var('diameter', 0);
-				$FieldMax	= request_var('field_max', 0)
+				$FieldMax	= request_var('field_max', 0);
 			
 				$MoonPlanet	= $db->uniquequery("SELECT `temp_max`, `temp_min`, `id_luna`, `galaxy`, `system`, `planet`, `planet_type`, `destruyed`, `id_owner` FROM ".PLANETS." WHERE `id` = '".$PlanetID."' AND `universe` = '".$_SESSION['adminuni']."' AND `planet_type` = '1' AND `destruyed` = '0';");
 
