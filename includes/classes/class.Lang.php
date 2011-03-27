@@ -123,8 +123,8 @@ class Language
 	{
 		global $LNG;
 		while (list(,$File) = each($Files)){
-			require_once(ROOT_PATH . "language/de/".$File.'.php');
-			require_once(ROOT_PATH . "language/".$this->User."/".$File.'.php');
+			require(ROOT_PATH . "language/de/".$File.'.php');
+			require(ROOT_PATH . "language/".$this->User."/".$File.'.php');
 		}
 	}
 	
