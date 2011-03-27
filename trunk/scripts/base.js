@@ -224,3 +224,13 @@ var Dialog	= {
 		return false;
 	}
 }
+
+function NotifyBox(text) {
+	tip = $('#tooltip')
+	tip.html(text).css({
+		top : 200,
+		left : $(window).width() / 2 - tip.outerWidth() / 2,
+		padding: '20px'
+	}).show();
+	window.setTimeout(function(){tip.fadeOut(1000)}, 500);
+}
