@@ -14,4 +14,3 @@
 </head>
 <body>
 <div id="tooltip" class="tip"></div>
-<div id="fadeBox" class="fadeBox" style="display:none;"><div><span id="fadeBoxStyle" class="success"></span><p id="fadeBoxContent"></p><br class="clearfloat" /></div></div>

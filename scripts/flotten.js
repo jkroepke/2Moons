@@ -191,7 +191,7 @@ function CheckTarget()
 		if($.trim(data) == "OK") {
 			document.getElementById('form').submit();
 		} else {
-			fadeBox(data, true);
+			NotifyBox(data);
 		}
 	});
 	return false;

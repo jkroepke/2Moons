@@ -33,27 +33,3 @@
 .usize:hover{background-position:-300px -25px}
 .dsize{background-position:-325px 0}
 .dsize:hover{background-position:-325px -25px}
-#TB_window{font:12px Arial, Helvetica, sans-serif;background-color:transparent;position:fixed;z-index:104;color:#000;display:none;text-align:left;top:50%;left:50%}
-#TB_secondLine{font:10px Arial, Helvetica, sans-serif;color:#666}
-#TB_window a:link,#TB_window a:visited,#TB_window a:active,#TB_window a:focus{color:#666}
-#TB_overlay{position:fixed;z-index:100;top:0;left:0;height:100%;width:100%}
-.TB_overlayMacFFBGHack{background:url(../images/fadebox/macFFBgHack.png) repeat}
-.TB_overlayBG{background-color:#000;filter:alpha(opacity=75);-moz-opacity:0.75;opacity:0.75}
-#TB_window img#TB_Image{display:block;border-right:1px solid #ccc;border-bottom:1px solid #ccc;border-top:1px solid #666;border-left:1px solid #666;margin:15px 0 0 15px}
-#TB_caption{height:25px;float:left;padding:7px 30px 10px 25px}
-#TB_closeWindow{height:25px;float:right;padding:11px 25px 10px 0}
-#TB_closeAjaxWindow{margin-bottom:1px;text-align:right;float:right;padding:7px 10px 5px 0}
-#TB_ajaxWindowTitle{float:left;margin-bottom:1px;padding:7px 0 5px 10px}
-#TB_title{background-color:#262D33;height:27px}
-#TB_ajaxContent{clear:both;overflow:auto;text-align:left;line-height:1.4em;margin:0 auto;padding:2px 0 15px}
-#TB_ajaxContent.TB_modal{padding:15px}
-#TB_ajaxContent p{padding:5px 0}
-#TB_load{position:fixed;display:none;height:13px;width:208px;z-index:103;top:50%;left:50%;margin:-6px 0 0 -104px}
-#TB_HideSelect{z-index:99;position:fixed;top:0;left:0;background-color:#fff;border:none;filter:alpha(opacity=0);-moz-opacity:0;opacity:0;height:100%;width:100%}
-#TB_iframeContent{background-color:transparent!important;clear:both;border:0 none;margin-bottom:-1px;margin-top:1px;_margin-bottom:1px}
-.fadeBox{background:transparent url(../images/fadebox/fadeBox.gif) no-repeat;height:85px;left:50%;overflow:hidden;position:fixed;top:35%;width:250px;z-index:19;margin:-42px 0 0 -125px}
-.fadeBox p{color:#6F9FC8;display:inline;float:left;font:100 10px Verdana, Arial, SunSans-Regular, Sans-Serif;line-height:normal;width:164px;overflow:hidden;margin:10px 0 0 10px}
-.fadeBox div{display:table-cell;height:85px;position:relative;vertical-align:middle;padding:0}
-.fadeBox span{border:0;float:left;display:inline;height:43px;width:46px;margin:3px 0 0 15px}
-.fadeBox .success{background:transparent url(../images/fadebox/fadeCheckmark.png) no-repeat}
-.fadeBox .failed{background:transparent url(../images/fadebox/fadeFailed.png) no-repeat}
