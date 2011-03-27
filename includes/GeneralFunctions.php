@@ -354,6 +354,10 @@ function CheckName($String)
 function exception_handler($exception) 
 {
 	global $CONF;
+
+	@session_write_close();
+	if($_SERVER['SERVER_PROTOCOL'] == 'HTTP/1.1' && !headers_sent())
+		header('HTTP/1.1 503 Service Unavailable');
 		
 	echo '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">';
 	echo '<html>';
@@ -432,7 +436,7 @@ function redirectTo($URL)
 {
 	@session_write_close();
 	if($_SERVER['SERVER_PROTOCOL'] == 'HTTP/1.1')
-		header('HTTP/1.1 303 See Other');
+		header('HTTP/1.1 302 Found');
 	
 	header('Location: '.PROTOCOL.$_SERVER['HTTP_HOST'].HTTP_ROOT.$URL);
 	exit;
