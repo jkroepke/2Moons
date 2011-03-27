@@ -48,7 +48,7 @@ class FlyingFleetHandler
 			15	=> 'MissionCaseExpedition',
 		);
 		
-		require_once('class.MissionFunctions.php');
+		require_once(ROOT_PATH.'includes/classes/class.MissionFunctions.php');
 		while ($CurrentFleet = $db->fetch_array($fleetquery))
 		{
 			if(!$this->IfFleetBusy($CurrentFleet['fleet_id'])) continue;
@@ -56,8 +56,7 @@ class FlyingFleetHandler
 			if(!isset($GLOBALS['CONFIG'][$CurrentFleet['fleet_universe']]))
 				$GLOBALS['CONFIG'][$CurrentFleet['fleet_universe']]	= $db->uniquequery("SELECT * FROM `".CONFIG."` WHERE `uni` = '".$CurrentFleet['fleet_universe']."';");
 			
-			
-			require_once(ROOT_PATH.'missions/'.$MissionsPattern[$CurrentFleet['fleet_mission']].'.php');
+			require_once(ROOT_PATH.'includes/classes/missions/'.$MissionsPattern[$CurrentFleet['fleet_mission']].'.php');
 			$Mission	= new $MissionsPattern[$CurrentFleet['fleet_mission']]($CurrentFleet);
 			
 			if($CurrentFleet['fleet_mess'] == 0 && $CurrentFleet['fleet_start_time'] <= TIMESTAMP)

@@ -18,16 +18,7 @@
 </tr><tr>
    <td>{$po_fields_max}</td>
    <td><input name="field_max" type="text" size="6" maxlength="10"></td>
-</tr>{if $admin_auth == 3}
-<tr>
-	<td>{$universum}</td>
-	<td colspan="2">
-    <select name="uni">
-    	{foreach $AvailableUnis as $ID => $Universe}<option value="{$ID}">{$Universe.game_name}</option>{/foreach}
-    </select>
-    </td>
-</tr>
-{/if}<tr>
+</tr><tr>
    <td colspan="2"><input type="Submit" value="{$button_add}"></td>
 </tr><tr>
    <td colspan="2" style="text-align:left;"><a href="?page=create">{$new_creator_go_back}</a>&nbsp;<a href="?page=create&amp;mode=planet">{$new_creator_refresh}</a></td>
