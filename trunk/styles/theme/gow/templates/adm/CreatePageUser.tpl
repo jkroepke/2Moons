@@ -7,13 +7,6 @@
 <tr><td>{$pass2_reg}</td><td><input type="password" name="password2"></td></tr>
 <tr><td>{$email_reg}</td><td><input type="text" name="email"></td></tr>
 <tr><td>{$email2_reg}</td><td><input type="text" name="email2"></td></tr>
-{if $admin_auth == 3}
-<tr><td>{$universe}</td><td>
-<select name="uni">
-{foreach $AvailableUnis as $ID => $Universe}<option value="{$ID}">{$Universe.game_name}</option>{/foreach}
-</select>
-</td></tr>
-{/if}
 <tr><td>{$new_coord}</td><td>
 <input type="text" name="galaxy" size="1" maxlength="1"> :
 <input type="text" name="system" size="3" maxlength="3"> :

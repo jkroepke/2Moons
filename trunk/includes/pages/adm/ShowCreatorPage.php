@@ -52,14 +52,6 @@ function ShowCreatorPage()
 				$Galaxy 	= request_var('galaxy', 0);
 				$System 	= request_var('system', 0);
 				$Planet 	= request_var('planet', 0);
-				$Univer		= $USER['authlevel'] != AUTH_ADM ? $_SESSION['adminuni'] : request_var('uni','');
-								
-				if ($CONF['capaktiv'] === '1') {
-					require_once('includes/libs/reCAPTCHA/recaptchalib.php');
-					$resp = recaptcha_check_answer($CONF['capprivate'], $_SERVER['REMOTE_ADDR'], request_var('recaptcha_challenge_field', ''), request_var('recaptcha_response_field', ''));
-					if (!$resp->is_valid)
-						$errorlist .= $LNG['wrong_captcha'];
-				}
 					
 				$Exist['userv'] = $db->uniquequery("SELECT username, email FROM ".USERS." WHERE username = '".$db->sql_escape($UserName)."' OR email = '".$db->sql_escape($UserEmail)."';");
 				$Exist['vaild'] = $db->uniquequery("SELECT username, email FROM ".USERS_VALID." WHERE username = '".$db->sql_escape($UserName)."' OR email = '".$db->sql_escape($UserEmail)."';");
@@ -105,24 +97,24 @@ function ShowCreatorPage()
 				$SQL .= "`authlevel` = '".$UserAuth."', ";
 				$SQL .= "`ip_at_reg` = '".$_SERVER['REMOTE_ADDR']."', ";
 				$SQL .= "`id_planet` = '0', ";
-				$SQL .= "`universe` = '".$Univer."',";
+				$SQL .= "`universe` = '".$_SESSION['adminuni']."',";
 				$SQL .= "`onlinetime` = '".TIMESTAMP."', ";
 				$SQL .= "`register_time` = '".TIMESTAMP. "', ";
 				$SQL .= "`password` = '".md5($UserPass)."', ";
 				$SQL .= "`dpath` = '".DEFAULT_THEME."', ";
 				$SQL .= "`uctime`= '0';";
 				$db->query($SQL);
-				$db->query("UPDATE ".CONFIG." SET `users_amount` = users_amount + '1' WHERE `uni` = '".$Univer."';");
+				$db->query("UPDATE ".CONFIG." SET `users_amount` = users_amount + '1' WHERE `uni` = '".$_SESSION['adminuni']."';");
 
 				$ID_USER 	= $db->uniquequery("SELECT `id` FROM ".USERS." WHERE `username` = '".$db->sql_escape($UserName)."';");
 				
 				require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.php');
-				CreateOnePlanetRecord($Galaxy, $System, $Planet, $Univer ,$ID_USER['id'], $UserPlanet, true, $UserAuth);
+				CreateOnePlanetRecord($Galaxy, $System, $Planet, $_SESSION['adminuni'] ,$ID_USER['id'], $UserPlanet, true, $UserAuth);
 				$ID_PLANET 	= $db->uniquequery("SELECT `id` FROM ".PLANETS." WHERE `id_owner` = '".$ID_USER['id']."';");
 								
 				$SQL = "UPDATE ".USERS." SET ";
 				$SQL .= "`id_planet` = '".$ID_PLANET['id']."', ";
-				$SQL .= "`universe` = '".$Univer."', ";
+				$SQL .= "`universe` = '".$_SESSION['adminuni']."', ";
 				$SQL .= "`galaxy` = '".$Galaxy."', ";
 				$SQL .= "`system` = '".$System."', ";
 				$SQL .= "`planet` = '".$Planet."' ";
@@ -148,14 +140,7 @@ function ShowCreatorPage()
 				$AUTH[AUTH_ADM]	= $LNG['user_level'][AUTH_ADM];
 				
 			
-			$Query	= $db->query("SELECT `uni`, `game_name` FROM ".CONFIG." ORDER BY `uni` ASC;");
-			while($Unis	= $db->fetch_array($Query)) {
-				$AvailableUnis[$Unis['uni']]	= $Unis;
-			}
-			
-			
 			$template->assign_vars(array(	
-				'AvailableUnis'			=> $AvailableUnis,
 				'admin_auth'			=> $USER['authlevel'],
 				'new_add_user'			=> $LNG['new_add_user'],
 				'new_creator_refresh'	=> $LNG['new_creator_refresh'],
@@ -180,13 +165,9 @@ function ShowCreatorPage()
 				$PlanetID  	= request_var('add_moon', 0);
 				$MoonName  	= request_var('name', '', UTF8_SUPPORT);
 				$Diameter	= request_var('diameter', 0);
-				$FieldMax	= request_var('field_max', 0);
-				if($USER['authlevel'] == AUTH_ADM)
-				$Univer		= request_var('uni','');
-				else
-				$Univer		= $_SESSION['adminuni'];
+				$FieldMax	= request_var('field_max', 0)
 			
-				$MoonPlanet	= $db->uniquequery("SELECT `temp_max`, `temp_min`, `id_luna`, `galaxy`, `system`, `planet`, `planet_type`, `destruyed`, `id_owner` FROM ".PLANETS." WHERE `id` = '".$PlanetID."' AND `universe` = '".$Univer."' AND `planet_type` = '1' AND `destruyed` = '0';");
+				$MoonPlanet	= $db->uniquequery("SELECT `temp_max`, `temp_min`, `id_luna`, `galaxy`, `system`, `planet`, `planet_type`, `destruyed`, `id_owner` FROM ".PLANETS." WHERE `id` = '".$PlanetID."' AND `universe` = '".$_SESSION['adminuni']."' AND `planet_type` = '1' AND `destruyed` = '0';");
 
 				if (!isset($MoonPlanet)) {
 					$template->message($LNG['mo_planet_doesnt_exist'], '?page=create&mode=moon', 3, true);
@@ -195,7 +176,7 @@ function ShowCreatorPage()
 			
 				require_once(ROOT_PATH.'includes/functions/CreateOneMoonRecord.php');
 				
-				if(CreateOneMoonRecord($MoonPlanet['galaxy'], $MoonPlanet['system'], $MoonPlanet['planet'], $Univer, $MoonPlanet['id_owner'], 0, $MoonName, 20, (($_POST['diameter_check'] == 'on') ? 0: $Diameter)) !== false)
+				if(CreateOneMoonRecord($MoonPlanet['galaxy'], $MoonPlanet['system'], $MoonPlanet['planet'], $_SESSION['adminuni'], $MoonPlanet['id_owner'], 0, $MoonName, 20, (($_POST['diameter_check'] == 'on') ? 0: $Diameter)) !== false)
 					$template->message($LNG['mo_moon_added'], '?page=create&mode=moon', 3, true);
 				else
 					$template->message($LNG['mo_moon_unavaible'], '?page=create&mode=moon', 3, true);
@@ -203,13 +184,7 @@ function ShowCreatorPage()
 				exit;
 			}
 			
-			$Query	= $db->query("SELECT `uni`, `game_name` FROM ".CONFIG." ORDER BY `uni` ASC;");
-			while($Unis	= $db->fetch_array($Query)) {
-				$AvailableUnis[$Unis['uni']]	= $Unis;
-			}
-		
 			$template->assign_vars(array(
-				'AvailableUnis'			=> $AvailableUnis,
 				'admin_auth'			=> $USER['authlevel'],	
 				'universum'				=> $LNG['mu_universe'],
 				'po_add_moon'			=> $LNG['po_add_moon'],
@@ -236,20 +211,16 @@ function ShowCreatorPage()
 				$Planet      = request_var('planet', 0);
 				$name        = request_var('name', '', UTF8_SUPPORT);
 				$field_max   = request_var('field_max', 0);
-				if($USER['authlevel'] == AUTH_ADM)
-				$Univer		 = request_var('uni','');
-				else
-				$Univer		 = $_SESSION['adminuni'];
 				
 				
-				$ISUser		= $db->uniquequery("SELECT id, authlevel FROM ".USERS." WHERE `id` = '".$id."' AND `universe` = '".$Univer."';");
-				if(CheckPlanetIfExist($Galaxy, $System, $Planet, $Univer) || !isset($ISUser)) {
+				$ISUser		= $db->uniquequery("SELECT id, authlevel FROM ".USERS." WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
+				if(CheckPlanetIfExist($Galaxy, $System, $Planet, $_SESSION['adminuni']) || !isset($ISUser)) {
 					$template->message($LNG['po_complete_all'], '?page=create&mode=planet', 3, true);
 					exit;
 				}
 				
 				require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.php');
-				CreateOnePlanetRecord($Galaxy, $System, $Planet, $Univer, $id, '', '', false) ; 
+				CreateOnePlanetRecord($Galaxy, $System, $Planet, $_SESSION['adminuni'], $id, '', '', false) ; 
 						
 				$SQL  = "UPDATE ".PLANETS." SET ";
 				
@@ -260,7 +231,7 @@ function ShowCreatorPage()
 					$SQL .= ", `name` = '".$db->sql_escape($name)."' ";
 
 				$SQL .= "WHERE ";
-				$SQL .= "`universe` = '". $Univer ."' AND ";
+				$SQL .= "`universe` = '". $_SESSION['adminuni'] ."' AND ";
 				$SQL .= "`galaxy` = '". $Galaxy ."' AND ";
 				$SQL .= "`system` = '". $System ."' AND ";
 				$SQL .= "`planet` = '". $Planet ."' AND ";
