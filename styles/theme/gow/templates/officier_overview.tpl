@@ -52,7 +52,7 @@
 		<tr>
 			<td rowspan="2" style="width:120px;">
 				<a href="#" onclick="return Dialog.info({$OfficierInfo.id})">
-					<img src="styles/images/officiers/{$OfficierInfo.id}.jpg" alt="{$OfficierInfo.name}" width="120" height="120">
+					<img src="{$dpath}gebaeude/{$OfficierInfo.id}.jpg" alt="{$OfficierInfo.name}" width="120" height="120">
 				</a>
 			</td>
 			<th>
