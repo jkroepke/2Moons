@@ -55,9 +55,61 @@ function ShowUniversePage() {
 		}
 	} elseif($_REQUEST['action'] == 'create') {
 		$ID	= (int) $_REQUEST['id'];
-		$db->query("INSERT INTO ".CONFIG." (`uni`, `VERSION`, `users_amount`, `game_speed`, `fleet_speed`, `resource_multiplier`, `halt_speed`, `Fleet_Cdr`, `Defs_Cdr`, `initial_fields`, `bgm_active`, `bgm_file`, `uni_name`,  `game_name`, `game_disable`, `close_reason`, `metal_basic_income`, `crystal_basic_income`, `deuterium_basic_income`, `energy_basic_income`, `LastSettedGalaxyPos`, `LastSettedSystemPos`, `LastSettedPlanetPos`, `noobprotection`, `noobprotectiontime`, `noobprotectionmulti`, `forum_url`, `adm_attack`, `debug`, `lang`, `stat`, `stat_level`, `stat_last_update`, `stat_settings`, `stat_update_time`, `stat_last_db_update`, `stats_fly_lock`, `stat_last_banner_update`, `stat_banner_update_time`, `cron_lock`, `ts_modon`, `ts_server`, `ts_tcpport`, `ts_udpport`, `ts_timeout`, `ts_version`, `ts_cron_last`, `ts_cron_interval`, `ts_login`, `ts_password`, `reg_closed`, `OverviewNewsFrame`, `OverviewNewsText`, `capaktiv`, `cappublic`, `capprivate`, `min_build_time`, `smtp_host`, `smtp_port`, `smtp_user`, `smtp_pass`, `smtp_ssl`, `smtp_sendmail`, `user_valid`, `fb_on`, `fb_apikey`, `fb_skey`, `ga_active`, `ga_key`, `moduls`, `trade_allowed_ships`, `trade_charge`, `mail_active`, `mail_use`, `smail_path`, `chat_closed`, `chat_allowchan`, `chat_allowmes`, `chat_allowdelmes`, `chat_logmessage`, `chat_nickchange`, `chat_botname`, `chat_channelname`, `chat_socket_chatid`, `chat_socket_port`, `chat_socket_ip`, `chat_socket_host`, `chat_socket_active`) VALUES 
-		(NULL, '".$CONF['VERSION']."', 0, 2500, 2500, 1, 1, 30, 30, 163, ".$CONF['bgm_active'].", '".$CONF['bgm_file']."', '2Moons', '".$CONF['game_name']."', 1, 'Game ist zurzeit geschlossen', 20, 10, 0, 0, 1, 1, 1, 0, 0, 0, '".$CONF['forum_url']."', 1, 0, '".$CONF['lang']."', ".$CONF['stat'].", ".$CONF['stat_level'].", ".$CONF['stat_last_update'].", ".$CONF['stat_settings'].", ".$CONF['stat_update_time'].", ".$CONF['stat_last_db_update'].", ".$CONF['stats_fly_lock'].", ".$CONF['stat_last_banner_update'].", ".$CONF['stat_banner_update_time'].", 0, ".$CONF['ts_modon'].", '".$CONF['ts_server']."', '".$CONF['ts_tcpport']."', '".$CONF['ts_udpport']."', '".$CONF['ts_timeout']."', '".$CONF['ts_version']."', '".$CONF['ts_cron_last']."', '".$CONF['ts_cron_interval']."', '".$CONF['ts_login']."', '".$CONF['ts_password']."', 0, 1, 'Herzlich Willkommen bei 2Moons v1.3!', ".$CONF['capaktiv'].", '".$CONF['cappublic']."', '".$CONF['capprivate']."', 1, '".$CONF['smtp_host']."', ".$CONF['smtp_port'].", '".$CONF['smtp_user']."', '".$CONF['smtp_pass']."', '".$CONF['smtp_ssl']."', '".$CONF['smtp_sendmail']."', ".$CONF['user_valid'].", ".$CONF['fb_on'].", '".$CONF['fb_apikey']."', '".$CONF['fb_skey']."', '".$CONF['ga_active']."', '".$CONF['ga_key']."', '".$CONF['moduls']."', '".$CONF['trade_allowed_ships']."', '".$CONF['trade_charge']."', '".$CONF['mail_active']."', '".$CONF['mail_use']."', '".$CONF['smail_path']."', '".$CONF['chat_closed']."', '".$CONF['chat_allowchan']."', '".$CONF['chat_allowmes']."', '".$CONF['chat_allowdelmes']."', '".$CONF['chat_logmessage']."', '".$CONF['chat_nickchange']."', '".$CONF['chat_botname']."', '".$CONF['chat_channelname']."', '".$CONF['chat_socket_chatid']."', '".$CONF['chat_socket_port']."', '".$CONF['chat_socket_ip']."', '".$CONF['chat_socket_host']."', '".$CONF['chat_socket_active']."');");
-		$UniID	= $db->countquery("SELECT `uni` FROM ".CONFIG." WHERE `users_amount` = 0;");
+		$db->query("INSERT INTO `uni1_config` (`uni`, `VERSION`, `uni_name`, `game_name`, `close_reason`, `OverviewNewsText`) VALUES
+		(NULL, '".$CONF['VERSION']."', 'Universum 2', '".$CONF['game_name']."', '', '');");
+		$UniID	= $db->GetInsertID();;
+		update_config(array('VERSION' => $CONF['VERSION'],
+			'game_name' => $CONF['game_name'],
+			'stat' => $CONF['stat'],
+			'stat_level' => $CONF['stat_level'],
+			'stat_last_update' => $CONF['stat_last_update'],
+			'stat_settings' => $CONF['stat_settings'],
+			'stat_update_time' => $CONF['stat_update_time'],
+			'stat_last_db_update' => $CONF['stat_last_db_update'],
+			'stats_fly_lock' => $CONF['stats_fly_lock'],
+			'cron_lock' => $CONF['cron_lock'],
+			'ts_modon' => $CONF['ts_modon'],
+			'ts_server' => $CONF['ts_server'],
+			'ts_tcpport' => $CONF['ts_tcpport'],
+			'ts_udpport' => $CONF['ts_udpport'],
+			'ts_timeout' => $CONF['ts_timeout'],
+			'ts_version' => $CONF['ts_version'],
+			'ts_cron_last' => $CONF['ts_cron_last'],
+			'ts_cron_interval' => $CONF['ts_cron_interval'],
+			'ts_login' => $CONF['ts_login'],
+			'ts_password' => $CONF['ts_password'],
+			'capaktiv' => $CONF['capaktiv'],
+			'cappublic' => $CONF['cappublic'],
+			'capprivate' => $CONF['capprivate'],
+			'mail_active' => $CONF['mail_active'],
+			'mail_use' => $CONF['mail_use'],
+			'smtp_host' => $CONF['smtp_host'],
+			'smtp_port' => $CONF['smtp_port'],
+			'smtp_user' => $CONF['smtp_user'],
+			'smtp_pass' => $CONF['smtp_pass'],
+			'smtp_ssl' => $CONF['smtp_ssl'],
+			'smtp_sendmail' => $CONF['smtp_sendmail'],
+			'smail_path' => $CONF['smail_path'],
+			'fb_on' => $CONF['fb_on'],
+			'fb_apikey' => $CONF['fb_apikey'],
+			'fb_skey' => $CONF['fb_skey'],
+			'ga_active' => $CONF['ga_active'],
+			'ga_key' => $CONF['ga_key'],
+			'chat_closed' => $CONF['chat_closed'],
+			'chat_allowchan' => $CONF['chat_allowchan'],
+			'chat_allowmes' => $CONF['chat_allowmes'],
+			'chat_allowdelmes' => $CONF['chat_allowdelmes'],
+			'chat_logmessage' => $CONF['chat_logmessage'],
+			'chat_nickchange' => $CONF['chat_nickchange'],
+			'chat_botname' => $CONF['chat_botname'],
+			'chat_channelname' => $CONF['chat_channelname'],
+			'chat_socket_active' => $CONF['chat_socket_active'],
+			'chat_socket_host' => $CONF['chat_socket_host'],
+			'chat_socket_ip' => $CONF['chat_socket_ip'],
+			'chat_socket_port' => $CONF['chat_socket_port'],
+			'chat_socket_chatid' => $CONF['chat_socket_chatid'],
+			'ttf_file' => $CONF['ttf_file']
+		));
 		$db->query("INSERT INTO ".USERS." SET
 			`id`                = NULL,
 			`username`          = '".$USER['username']."',
