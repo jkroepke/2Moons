@@ -111,7 +111,7 @@ class ShowGalaxyPage extends GalaxyRows
 			if (!empty($systemLeft))
 				$system	= max($system - 1, 1);
 			elseif (!empty($systemRight))
-				$system	= min($system + 1, $CONF['max_systems']);
+				$system	= min($system + 1, $CONF['max_system']);
 		}
 
 		if (!($galaxy == $PLANET['galaxy'] && $system == $PLANET['system']) && $mode != 0)
