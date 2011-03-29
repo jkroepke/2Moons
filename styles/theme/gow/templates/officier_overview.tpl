@@ -64,7 +64,7 @@
 				<table style="width:100%">
 					<tbody>
 						<tr>
-							<td class="transparent left" style="width:90%;padding:10px;">{$OfficierInfo.desc}</td>
+							<td class="transparent left" style="width:90%;padding:0px 10px 10px 10px;">{$OfficierInfo.desc}<br><br>{$OfficierInfo.price}</td>
 							<td class="transparent" style="vertical-align:middle;width:100px">
 							{if $OfficierInfo.Result == 1}
 								{if $user_darkmatter >= 1}
