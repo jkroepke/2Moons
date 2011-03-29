@@ -44,7 +44,7 @@ class StatBanner {
 	public function GetData($id)
 	{
 		global $db;
-		return $db->uniquequery("SELECT a.username, b.build_points, b.fleet_points, b.defs_points, b.tech_points, b.total_points, b.total_rank, c.name, c.galaxy, c.system, c.planet, d.game_name, d.users_amount FROM ".USERS." as a, ".STATPOINTS." as b, ".PLANETS." as c ,".CONFIG." as d WHERE a.id = '".$id."' AND b.stat_type = '1' AND b.id_owner = '".$id."' AND c.id = a.id_planet AND d.uni = a.universe;");
+		return $db->uniquequery("SELECT a.username, b.build_points, b.fleet_points, b.defs_points, b.tech_points, b.total_points, b.total_rank, c.name, c.galaxy, c.system, c.planet, d.game_name, d.users_amount, d.ttf_file FROM ".USERS." as a, ".STATPOINTS." as b, ".PLANETS." as c ,".CONFIG." as d WHERE a.id = '".$id."' AND b.stat_type = '1' AND b.id_owner = '".$id."' AND c.id = a.id_planet AND d.uni = a.universe;");
 	}
 
 	public function CreateBanner($Query) {
@@ -101,7 +101,7 @@ class StatBanner {
 		$image  = imagecreatefrompng($this->source);
 		$date   = date(DATEFORMAT);
 
-		$Font	= ROOT_PATH.'styles/arial.ttf';
+		$Font	= $Query['ttf_file'];
 		if(!file_exists($Font))
 			exit('TTF Font missing!');
 			

@@ -246,6 +246,9 @@ switch($action)
 				$db->multi_query("DELETE FROM ".MESSAGES." WHERE `message_owner` = '".$_SESSION['id']."' AND `message_type` = '".$MessType."';UPDATE ".USERS." SET `new_message` = '0', `new_gmessage` = '0' WHERE `id` = '".$_SESSION['id']."';");
 			case 'deletemarked':
 				$SQLWhere = array();
+				if(empty($_REQUEST['delmes']) || !is_array($_REQUEST['delmes']))
+					exit;
+					
 				foreach($_REQUEST['delmes'] as $id => $b)
 				{
 					$SQLWhere[] = "`message_id` = '".(int) $id."'";
