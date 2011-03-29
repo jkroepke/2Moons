@@ -86,6 +86,7 @@ class ShowOfficierPage
 	{
 		global $USER, $CONF, $PLANET, $resource, $reslist, $LNG, $db, $ExtraDM, $OfficerInfo, $pricelist;
 		
+		include_once(ROOT_PATH . 'includes/functions/GetElementPrice.php');
 		$action   = request_var('action', '');
 		$Offi	  = request_var('offi', 0);
 		$Extra	  = request_var('extra', 0);
@@ -140,6 +141,7 @@ class ShowOfficierPage
 					'name'		=> $LNG['tech'][$Element],
 					'desc'  	=> $description,
 					'Result'	=> $Result,
+					'price'		=> GetElementPrice($USER, $PLANET, $Element)
 				);
 			}
 		}
@@ -147,10 +149,8 @@ class ShowOfficierPage
 		$template->assign_vars(array(	
 			'ExtraDMList'			=> $ExtraDMList,
 			'OfficierList'			=> $OfficierList,
-			'user_darkmatter'		=> floor($USER['darkmatter'] / DM_PRO_OFFICIER_LEVEL),
 			'of_max_lvl'			=> $LNG['of_max_lvl'],
 			'of_recruit'			=> $LNG['of_recruit'],
-			'of_darkmatter' 		=> sprintf($LNG['of_points_per_thousand_darkmatter'], DM_PRO_OFFICIER_LEVEL, $LNG['Darkmatter']),
 			'of_available_points'	=> $LNG['of_available_points'],
 			'of_lvl'				=> $LNG['of_lvl'],
 			'in_dest_durati'		=> $LNG['in_dest_durati'],
