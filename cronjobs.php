@@ -76,8 +76,7 @@ switch($cron)
 			if($CONF['ref_active'] == 1) {
 				$Users	= $db->query("SELECT `ref_id`, `id` FROM ".USERS." WHERE `ref_bonus` = '1' AND (SELECT `total_points` FROM ".STATS." as s WHERE s.`id_owner` = `id`) >= '".$CONF['ref_minpoints']."';");
 				while($User	= $db->fetch_array($Users)) {
-					$db->query("UPDATE ".USERS." SET `darkmatter` = `darkmatter` + '".$CONF['ref_bonus']."' WHERE `id` = '".$User['ref_id']."';");
-					$db->query("UPDATE ".USERS." SET `ref_bonus` = `ref_bonus` = '0' WHERE `id` = '".$User['id']."';");
+					$db->multi_query("UPDATE ".USERS." SET `darkmatter` = `darkmatter` + '".$CONF['ref_bonus']."' WHERE `id` = '".$User['ref_id']."';UPDATE ".USERS." SET `ref_bonus` = `ref_bonus` = '0' WHERE `id` = '".$User['id']."';");
 				}
 			}
 			// Send inactive Players Mails

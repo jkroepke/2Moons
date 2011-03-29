@@ -236,6 +236,13 @@ switch ($page) {
 				$UserFID 	= $Valider['fb_id'];
 				$UserRID 	= $Valider['ref_id'];
 				
+				if($CONF['mail_active'] == 1) {
+					$MailSubject	= sprintf($LNG['reg_mail_reg_done'], $CONF['game_name']);	
+					$MailRAW		= file_get_contents("./language/".$UserLang."/email/email_reg_done.txt");
+					$MailContent	= sprintf($MailRAW, $UserName, $CONF['game_name'].' - '.$CONF['uni_name']);	
+					MailSend($UserMail, $UserName, $MailSubject, $MailContent);
+				}
+				
 				$SQL = "INSERT INTO ".USERS." SET ";
 				$SQL .= "`username` = '".$UserName . "', ";
 				$SQL .= "`universe` = '".$UserUni . "', ";
@@ -255,13 +262,7 @@ switch ($page) {
 				$db->query($SQL);
 				
 				$NewUser = $db->GetInsertID();
-				
-				if($CONF['mail_active'] == 1) {
-					$MailSubject	= sprintf($LNG['reg_mail_reg_done'], $CONF['game_name']);	
-					$MailRAW		= file_get_contents("./language/".$UserLang."/email/email_reg_done.txt");
-					$MailContent	= sprintf($MailRAW, $UserName, $CONF['game_name'].' - '.$CONF['uni_name']);	
-					MailSend($UserMail, $UserName, $MailSubject, $MailContent);
-				}
+
 				$LastSettedGalaxyPos = $CONF['LastSettedGalaxyPos'];
 				$LastSettedSystemPos = $CONF['LastSettedSystemPos'];
 				$LastSettedPlanetPos = $CONF['LastSettedPlanetPos'];
