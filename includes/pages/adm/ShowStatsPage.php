@@ -42,8 +42,8 @@ function ShowStatsPage()
 			'stat_settings' =>  $CONF['stat_settings'], 
 			'stat' => $CONF['stat'],
 			'stat_update_time' => $CONF['stat_update_time'],
-			'stat_level' => $CONF['stat_level']), true);
-		
+			'stat_level' => $CONF['stat_level']
+		));
 	}
 	
 	$template	= new template();

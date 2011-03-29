@@ -33,6 +33,7 @@ function ShowMenuPage()
 	$template->assign_vars(array(	
 		'mu_game_info'				=> $LNG['mu_game_info'],
 		'mu_settings'				=> $LNG['mu_settings'],
+		'mu_unisettings'			=> $LNG['mu_unisettings'],
 		'mu_ts_options'				=> $LNG['mu_ts_options'],
 		'mu_fb_options'				=> $LNG['mu_fb_options'],
 		'mu_module'					=> $LNG['mu_module'],

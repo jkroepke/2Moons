@@ -46,7 +46,7 @@ switch($cron)
 	case "stats":
 		if (TIMESTAMP >= ($CONF['stat_last_update'] + (60 * $CONF['stat_update_time'])))
 		{
-			update_config(array('stat_last_update' => TIMESTAMP), true);
+			update_config(array('stat_last_update' => TIMESTAMP));
 			require_once(ROOT_PATH . 'includes/classes/class.statbuilder.php');
 			$stat			= new Statbuilder();
 			$result			= $stat->MakeStats();
@@ -55,7 +55,7 @@ switch($cron)
 	case "daily":
 		if (TIMESTAMP >= ($CONF['stat_last_db_update'] + (60 * 60 * 24)))
 		{
-			update_config(array('stat_last_db_update' => TIMESTAMP), true);
+			update_config(array('stat_last_db_update' => TIMESTAMP));
 			$prueba = $db->query("SHOW TABLE STATUS from ".DB_NAME.";");
 			$table = "";
 			while($pru = $db->fetch_array($prueba)){
@@ -73,7 +73,7 @@ switch($cron)
 	case "teamspeak":
 		if ($CONF['ts_modon'] == 1 && TIMESTAMP >= ($CONF['ts_cron_last'] + 60 * $CONF['ts_cron_interval']))
 		{
-			update_config(array('ts_cron_last' => TIMESTAMP), true);
+			update_config(array('ts_cron_last' => TIMESTAMP));
 			if($CONF['ts_version'] == 2)
 			{
 				include_once(ROOT_PATH.'includes/libs/teamspeak/class.teamspeak2.php');

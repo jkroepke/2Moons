@@ -224,7 +224,7 @@ switch ($page) {
 				$UserUni 	= $Valider['universe'];
 				$UserFID 	= $Valider['fb_id'];
 				
-				$SQL = "INSERT INTO " . USERS . " SET ";
+				$SQL = "INSERT INTO ".USERS." SET ";
 				$SQL .= "`username` = '".$UserName . "', ";
 				$SQL .= "`universe` = '".$UserUni . "', ";
 				$SQL .= "`email` = '".$UserMail."', ";
@@ -236,7 +236,7 @@ switch ($page) {
 				$SQL .= "`register_time` = '".TIMESTAMP. "', ";
 				$SQL .= "`password` = '".$UserPass."', ";
 				$SQL .= "`dpath` = '".DEFAULT_THEME."', ";
-				$SQL .= "`darkmatter` = '".BUILD_DARKMATTER."', ";
+				$SQL .= "`darkmatter` = '".$CONF['darkmatter_start']."', ";
 				$SQL .= "`fb_id` = '".$UserFID."', ";
 				$SQL .= "`uctime`= '0';";
 				$db->query($SQL);
@@ -260,7 +260,7 @@ switch ($page) {
 					if ($LastSettedPlanetPos < 3) {
 						$LastSettedPlanetPos += 1;
 					} else {
-						if ($LastSettedSystemPos == MAX_SYSTEM_IN_GALAXY) {
+						if ($LastSettedSystemPos == $CONF['max_system']) {
 							$LastSettedGalaxyPos += 1;
 							$LastSettedSystemPos = 1;
 							$LastSettedPlanetPos = 1;
@@ -291,7 +291,7 @@ switch ($page) {
 				$message 	= sprintf($LNG['welcome_message_content'], $CONF['game_name']);
 				SendSimpleMessage($NewUser, 1, $Time, 1, $from, $Subject, $message);
 				
-				update_config(array('users_amount' => $CONF['users_amount'] + 1, 'LastSettedGalaxyPos' => $LastSettedGalaxyPos, 'LastSettedSystemPos' => $LastSettedSystemPos, 'LastSettedPlanetPos' => $LastSettedPlanetPos), false, $UserUni);
+				update_config(array('users_amount' => $CONF['users_amount'] + 1, 'LastSettedGalaxyPos' => $LastSettedGalaxyPos, 'LastSettedSystemPos' => $LastSettedSystemPos, 'LastSettedPlanetPos' => $LastSettedPlanetPos));
 				if ($admin == 1) {
 					echo sprintf($LNG['user_active'], $UserName);
 				} else {

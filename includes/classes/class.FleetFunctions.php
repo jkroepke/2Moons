@@ -230,7 +230,7 @@ abstract class FleetFunctions
 	{
 		global $db;
 		
-		$GetAKS 	= $db->query("SELECT a.`id`, a.`name`, a.`galaxy`, a.`system`, a.`planet`, a.`planet_type` FROM ".AKS." as a WHERE '".MAX_FLEETS_PER_ACS."' > (SELECT COUNT(*) FROM ".FLEETS." WHERE `fleet_group` = a.`id`) AND (a.`teilnehmer` = '".$CurrentUserID."' OR a.`eingeladen` LIKE '%,".$CurrentUserID.",%');");
+		$GetAKS 	= $db->query("SELECT a.`id`, a.`name`, a.`galaxy`, a.`system`, a.`planet`, a.`planet_type` FROM ".AKS." as a WHERE '".$CONF['max_fleets_per_acs']."' > (SELECT COUNT(*) FROM ".FLEETS." WHERE `fleet_group` = a.`id`) AND (a.`teilnehmer` = '".$CurrentUserID."' OR a.`eingeladen` LIKE '%,".$CurrentUserID.",%');");
 		$AKSList	= array();
 		
 		while($row = $db->fetch_array($GetAKS))
@@ -417,13 +417,13 @@ abstract class FleetFunctions
 	
 	public static function GetAvailableMissions($MissionInfo)
 	{
-		global $LNG, $db, $UNI;
+		global $LNG, $db, $UNI, $CONF;
 		$GetInfoPlanet 			= $db->uniquequery("SELECT `id_owner`, `der_metal`, `der_crystal` FROM `".PLANETS."` WHERE `universe` = '".$UNI."' AND `galaxy` = ".$MissionInfo['galaxy']." AND `system` = ".$MissionInfo['system']." AND `planet` = ".$MissionInfo['planet']." AND `planet_type` = '1';");
 		$YourPlanet				= (isset($GetInfoPlanet['id_owner']) && $GetInfoPlanet['id_owner'] == $MissionInfo['CurrentUser']['id']) ? true : false;
 		$UsedPlanet				= (isset($GetInfoPlanet['id_owner'])) ? true : false;
 		$missiontype			= array();
 		
-		if ($MissionInfo['planet'] == (MAX_PLANET_IN_SYSTEM + 1) && !CheckModule(30))
+		if ($MissionInfo['planet'] == ($CONF['max_planets'] + 1) && !CheckModule(30))
 			$missiontype[15] = $LNG['type_mission'][15];	
 		elseif ($MissionInfo['planettype'] == 2) {
 			if ((isset($MissionInfo['Ship'][209]) || isset($MissionInfo['Ship'][219])) && !CheckModule(32) && !($GetInfoPlanet['der_metal'] == 0 && $GetInfoPlanet['der_crystal'] == 0))

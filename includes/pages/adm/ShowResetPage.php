@@ -110,7 +110,7 @@ function ShowResetPage()
 			$db->query("UPDATE ".USERS." SET `darkmatter` = '0' WHERE `universe` = '".$_SESSION['adminuni']."';");
 	
 		if ($_POST['resources']	==	'on')
-			$db->query("UPDATE ".PLANETS." SET `metal` = '".BUILD_METAL."', `crystal` = '".BUILD_CRISTAL."', `deuterium` = '".BUILD_DEUTERIUM."' WHERE `universe` = '".$_SESSION['adminuni']."';");
+			$db->query("UPDATE ".PLANETS." SET `metal` = '".$GLOBALS['CONF'][$_SESSION['adminuni']]['metal_start']."', `crystal` = '".$GLOBALS['CONF'][$_SESSION['adminuni']]['crystal_start']."', `deuterium` = '".$GLOBALS['CONF'][$_SESSION['adminuni']]['deuterium_start']."' WHERE `universe` = '".$_SESSION['adminuni']."';");
 	
 		// GENERAL
 		if ($_POST['notes']	==	'on')

@@ -32,7 +32,7 @@ class ShowGalaxyPage extends GalaxyRows
 {
 	private function ShowGalaxyRows($Galaxy, $System)
 	{
-		global $PLANET, $USER, $db, $LNG, $UNI;
+		global $PLANET, $USER, $db, $LNG, $UNI, $CONF;
 		$GalaxyPlanets		= $db->query("SELECT SQL_BIG_RESULT DISTINCT p.`planet`, p.`id`, p.`id_owner`, p.`name`, p.`image`, p.`last_update`, p.`diameter`, p.`temp_min`, p.`destruyed`, p.`der_metal`, p.`der_crystal`, p.`id_luna`, u.`id` as `userid`, u.`ally_id`, u.`username`, u.`onlinetime`, u.`urlaubs_modus`, u.`banaday`, s.`total_points`, s.`total_rank`, a.`id` as `allyid`, a.`ally_tag`, a.`ally_web`, a.`ally_members`, a.`ally_name`, allys.`total_rank` as `ally_rank` FROM ".PLANETS." p	LEFT JOIN ".USERS." u ON p.`id_owner` = u.`id` LEFT JOIN ".STATPOINTS." s ON s.`id_owner` = u.`id` AND s.`stat_type` = '1'	LEFT JOIN ".ALLIANCE." a ON a.`id` = u.`ally_id` LEFT JOIN ".STATPOINTS." allys ON allys.`stat_type` = '2' AND allys.`id_owner` = a.`id` WHERE p.`universe` = '".$UNI."' AND p.`galaxy` = '".$Galaxy."' AND p.`system` = '".$System."' AND p.`planet_type` = '1' ORDER BY p.`planet` ASC;");
 		$COUNT				= $db->num_rows($GalaxyPlanets);
 		while($GalaxyRowPlanets = $db->fetch_array($GalaxyPlanets))
@@ -42,7 +42,7 @@ class ShowGalaxyPage extends GalaxyRows
 
 		$db->free_result($GalaxyPlanets);
 		
-		for ($Planet = 1; $Planet < (1 + MAX_PLANET_IN_SYSTEM); $Planet++)
+		for ($Planet = 1; $Planet < (1 + $CONF['max_planets']); $Planet++)
 		{
 			if (!isset($PlanetsInGalaxy[$Planet])) 
 			{
@@ -96,9 +96,9 @@ class ShowGalaxyPage extends GalaxyRows
 		$galaxyRight	= request_var('galaxyRight', '');
 		$systemLeft		= request_var('systemLeft', '');
 		$systemRight	= request_var('systemRight', '');
-		$galaxy			= min(max(abs(request_var('galaxy', $PLANET['galaxy'])), 1), MAX_GALAXY_IN_WORLD);
-		$system			= min(max(abs(request_var('system', $PLANET['system'])), 1), MAX_SYSTEM_IN_GALAXY);
-		$planet			= min(max(abs(request_var('planet', $PLANET['planet'])), 1), MAX_PLANET_IN_SYSTEM);
+		$galaxy			= min(max(abs(request_var('galaxy', $PLANET['galaxy'])), 1), $CONF['max_galaxy']);
+		$system			= min(max(abs(request_var('system', $PLANET['system'])), 1), $CONF['max_system']);
+		$planet			= min(max(abs(request_var('planet', $PLANET['planet'])), 1), $CONF['max_planets']);
 		$current		= request_var('current', 0);
 			
 		if ($mode == 1)
@@ -106,23 +106,23 @@ class ShowGalaxyPage extends GalaxyRows
 			if (!empty($galaxyLeft))
 				$galaxy	= max($galaxy - 1, 1);
 			elseif (!empty($galaxyRight))
-				$galaxy	= min($galaxy + 1, MAX_GALAXY_IN_WORLD);
+				$galaxy	= min($galaxy + 1, $CONF['max_galaxy']);
 
 			if (!empty($systemLeft))
 				$system	= max($system - 1, 1);
 			elseif (!empty($systemRight))
-				$system	= min($system + 1, MAX_SYSTEM_IN_GALAXY);
+				$system	= min($system + 1, $CONF['max_systems']);
 		}
 
 		if (!($galaxy == $PLANET['galaxy'] && $system == $PLANET['system']) && $mode != 0)
 		{
-			if($PLANET['deuterium'] < DEUTERIUM_PER_GALAXY_CLICK)
+			if($PLANET['deuterium'] < $CONF['deuterium_cost_galaxy'])
 			{	
 				$template->message($LNG['gl_no_deuterium_to_view_galaxy'], "game.php?page=galaxy&mode=0", 2);
 				exit;
 			}
 			else
-				$PLANET['deuterium']	-= DEUTERIUM_PER_GALAXY_CLICK;
+				$PLANET['deuterium']	-= $CONF['deuterium_cost_galaxy'];
 		}
 		
 		$PlanetRess = new ResourceUpdate();

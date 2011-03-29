@@ -516,7 +516,7 @@ function ShowAccountEditorPage()
 				if (!empty($fields))
 					$db->query("UPDATE ".PLANETS." SET `field_max` = '".$fields."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
 						
-				if ($change_pos == 'on' && $galaxy > 0 && $system > 0 && $planet > 0 && $galaxy <= MAX_GALAXY_IN_WORLD && $system <= MAX_SYSTEM_IN_GALAXY && $planet <= MAX_PLANET_IN_SYSTEM)
+				if ($change_pos == 'on' && $galaxy > 0 && $system > 0 && $planet > 0 && $galaxy <= $GLOBALS['CONFIG'][$_SESSION['adminuni']]['max_galaxy'] && $system <= $GLOBALS['CONFIG'][$_SESSION['adminuni']]['max_system'] && $planet <= $GLOBALS['CONFIG'][$_SESSION['adminuni']]['max_planets'])
 				{
 					$P	=	$db->uniquequery("SELECT galaxy,system,planet,planet_type FROM ".PLANETS." WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
 					if ($P['planet_type'] == '1')

@@ -32,12 +32,12 @@ class ShowInfosPage
 {
 	private function GetNextJumpWaitTime($CurMoon, $ReturnString = false)
 	{
-		global $resource;
+		global $resource, $CONF;
 
 		$RestWait   = 0;
 		$RestString = "";
 
-		$NextJumpTime   = $CurMoon['last_jump_time'] + JUMPGATE_WAIT_TIME;
+		$NextJumpTime   = $CurMoon['last_jump_time'] + $CONF['gate_wait_time'];
 		
 		if ($CurMoon[$resource[43]] > 0 && $NextJumpTime >= TIMESTAMP) {
 			$RestWait   = $NextJumpTime - TIMESTAMP;

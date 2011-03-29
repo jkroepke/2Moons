@@ -4,7 +4,8 @@
 		<li style="background-image: url('./styles/theme/gow/img/menu-top.png');height:100px;"></li>
 		<li><a href="javascript:void(0);"><span style="color:lime">{$mu_general}</span></a></li>
 		{if allowedTo('ShowInformationPage')}<li><a href="?page=infos" target="Hauptframe">{$mu_game_info}</a></li>{/if}
-		{if allowedTo('ShowConfigPage')}<li><a href="?page=config" target="Hauptframe">{$mu_settings}</a></li>{/if}
+		{if allowedTo('ShowConfigBasicPage')}<li><a href="?page=config" target="Hauptframe">{$mu_settings}</a></li>{/if}
+		{if allowedTo('ShowConfigUniPage')}<li><a href="?page=configuni" target="Hauptframe">{$mu_unisettings}</a></li>{/if}
 		{if allowedTo('ShowChatConfigPage')}<li><a href="?page=chat" target="Hauptframe">{$mu_chat}</a></li>{/if}
 		{if allowedTo('ShowTeamspeakPage')}<li><a href="?page=teamspeak" target="Hauptframe">{$mu_ts_options}</a></li>{/if}
 		{if allowedTo('ShowFacebookPage')}<li><a href="?page=facebook" target="Hauptframe">{$mu_fb_options}</a></li>{/if}

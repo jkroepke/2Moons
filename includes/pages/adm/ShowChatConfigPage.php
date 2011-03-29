@@ -62,7 +62,7 @@ function ShowChatConfigPage()
 			'chat_socket_ip'		=> $CONF['chat_socket_ip'],
 			'chat_socket_host'		=> $CONF['chat_socket_host'],
 			'chat_socket_active'	=> $CONF['chat_socket_active'],
-		), true);
+		));
 	}
 
 	$template	= new template();

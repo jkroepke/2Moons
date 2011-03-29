@@ -33,7 +33,7 @@ function ShowModulePage()
 	global $CONF, $LNG;
 	if($_GET['mode']) {
 		$CONF['moduls'][request_var('id', 0)]	= ($_GET['mode'] == 'aktiv') ? 1 : 0;
-		update_config(array('moduls' => implode(";", $CONF['moduls']), false, $_SESSION['adminuni']));
+		update_config(array('moduls' => implode(";", $CONF['moduls']), $_SESSION['adminuni']));
 		$CONF['moduls']		= explode(";", $CONF['moduls']);
 	}
 	$IDs	= range(0, 40);

@@ -57,9 +57,8 @@ class statbuilder extends records
 	
 	private function CheckUniverseAccounts($UniData)
 	{
-		foreach($UniData as $Uni => $Amount)
-		{
-			update_config(array('users_amount' => $Amount), false, $Uni);
+		foreach($UniData as $Uni => $Amount) {
+			update_config(array('users_amount' => $Amount), $Uni);
 		}
 	}	
 	

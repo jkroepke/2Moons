@@ -53,7 +53,7 @@ function ShowTeamspeakPage() {
 			'ts_login'			=> $CONF['ts_login'],
 			'ts_password'		=> $CONF['ts_password'],
 			'ts_cron_interval'	=> $CONF['ts_cron_interval']
-		), true);
+		));
 	}
 	$template	= new template();
 	

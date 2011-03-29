@@ -35,7 +35,7 @@ function ShowUpdatePage()
 	{
 		$Temp	= explode('.', $_REQUEST['version']);
 		$Temp	= array_map('intval', $Temp);
-		update_config(array('VERSION' => $Temp[0].'.'.$Temp[1].'.'.$Temp[2]), true);
+		update_config(array('VERSION' => $Temp[0].'.'.$Temp[1].'.'.$Temp[2]));
 	}
 	
 	$ACTION	= request_var('action', '');

@@ -118,7 +118,7 @@ class ShowShipyardPage
 	
 	public function BuildAuftr($fmenge)
 	{
-		global $USER, $PLANET, $reslist;		
+		global $USER, $PLANET, $reslist, $CONF;		
 		
 		foreach($fmenge as $Element => $Count)
 		{
@@ -126,7 +126,7 @@ class ShowShipyardPage
 				continue;
 				
 			$Count			= is_numeric($Count) ? round($Count) : 0;
-			$Count 			= max(min($Count, MAX_FLEET_OR_DEFS_PER_ROW), 0);
+			$Count 			= max(min($Count, $CONF['max_fleet_per_build']), 0);
 			$MaxElements 	= $this->GetMaxConstructibleElements($Element);
 			$Count 			= min($Count, $MaxElements);
 
@@ -175,7 +175,7 @@ class ShowShipyardPage
 	
 	public function FleetBuildingPage()
 	{
-		global $PLANET, $USER, $LNG, $resource, $dpath, $db, $reslist;
+		global $PLANET, $USER, $LNG, $resource, $dpath, $db, $reslist, $CONF;
 
 		include_once(ROOT_PATH . 'includes/functions/IsTechnologieAccessible.php');
 		include_once(ROOT_PATH . 'includes/functions/GetElementPrice.php');
@@ -189,7 +189,7 @@ class ShowShipyardPage
 		}
 		
 		$fmenge	= $_POST['fmenge'];
-		$cancel	= request_var('auftr', range(0, MAX_FLEET_OR_DEFS_IN_BUILD - 1));
+		$cancel	= request_var('auftr', range(0, $CONF['max_elements_ships'] - 1));
 		$action	= request_var('action', '');
 		
 		$PlanetRess = new ResourceUpdate();
@@ -213,8 +213,8 @@ class ShowShipyardPage
 		}
 		
 		if (!empty($fmenge) && $NotBuilding == true && $USER['urlaubs_modus'] == 0) {
-			if (count(explode(";",$PLANET['b_hangar_id'])) - 1 >= MAX_FLEET_OR_DEFS_IN_BUILD) {
-				$template->message(sprintf($LNG['bd_max_builds'], MAX_FLEET_OR_DEFS_IN_BUILD), "?page=buildings&mode=fleet", 3);
+			if (count(explode(";",$PLANET['b_hangar_id'])) - 1 >= $CONF['max_elements_ships']) {
+				$template->message(sprintf($LNG['bd_max_builds'], $CONF['max_elements_ships']), "?page=buildings&mode=fleet", 3);
 				exit;
 			}
 			$this->BuildAuftr($fmenge);
@@ -285,14 +285,14 @@ class ShowShipyardPage
 			'bd_actual_production'	=> $LNG['bd_actual_production'],
 			'bd_operating'			=> $LNG['bd_operating'],
 			'BuildList'				=> json_encode($Buildlist),
-			'maxlength'				=> strlen(MAX_FLEET_OR_DEFS_PER_ROW),
+			'maxlength'				=> strlen($CONF['max_fleet_per_build']),
 		));
 		$template->show("shipyard_fleet.tpl");
 	}
 
 	public function DefensesBuildingPage()
 	{
-		global $USER, $PLANET, $LNG, $resource, $dpath, $reslist;
+		global $USER, $PLANET, $LNG, $resource, $dpath, $reslist, $CONF;
 
 		include_once(ROOT_PATH . 'includes/functions/IsTechnologieAccessible.php');
 		include_once(ROOT_PATH . 'includes/functions/GetElementPrice.php');
@@ -306,7 +306,7 @@ class ShowShipyardPage
 		}
 
 		$fmenge	= $_POST['fmenge'];
-		$cancel	= request_var('auftr', range(0, MAX_FLEET_OR_DEFS_IN_BUILD - 1));
+		$cancel	= request_var('auftr', range(0, $CONF['max_elements_ships'] - 1));
 		$action	= request_var('action', '');
 								
 		$PlanetRess = new ResourceUpdate();
@@ -331,9 +331,9 @@ class ShowShipyardPage
 		if (isset($fmenge) && $NotBuilding == true && $USER['urlaubs_modus'] == 0)
 		{	
 			$ebuild = explode(";",$PLANET['b_hangar_id']);
-			if (count($ebuild) - 1 >= MAX_FLEET_OR_DEFS_IN_BUILD)
+			if (count($ebuild) - 1 >= $CONF['max_elements_ships'])
 			{
-				$template->message(sprintf($LNG['bd_max_builds'], MAX_FLEET_OR_DEFS_IN_BUILD), "?page=buildings&mode=fleet", 3);
+				$template->message(sprintf($LNG['bd_max_builds'], $CONF['max_elements_ships']), "?page=buildings&mode=fleet", 3);
 				exit;
 			}
 			$this->BuildAuftr($fmenge);
@@ -405,7 +405,7 @@ class ShowShipyardPage
 			'bd_operating'					=> $LNG['bd_operating'],
 			'bd_actual_production'			=> $LNG['bd_actual_production'],
 			'BuildList'						=> json_encode($Buildlist),
-			'maxlength'						=> strlen(MAX_FLEET_OR_DEFS_PER_ROW),
+			'maxlength'						=> strlen($CONF['max_fleet_per_build']),
 		));
 		$template->show("shipyard_defense.tpl");
 	}
