@@ -95,6 +95,7 @@ $LNG['pass2_reg']					= 'Passwort wiederhohlen';
 $LNG['email_reg']					= 'E-Mail Adresse';
 $LNG['email2_reg']					= 'E-Mail Adresse wiederhohlen';
 $LNG['planet_reg']					= 'Name des Hauptplaneten';
+$LNG['ref_reg']						= 'Geworben von';
 $LNG['lang_reg']					= 'Sprache';
 $LNG['register_now']				= 'Registrieren!';
 $LNG['captcha_reg']					= 'Sicherheitsfrage';

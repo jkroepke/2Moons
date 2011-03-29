@@ -67,7 +67,7 @@
 							<td class="transparent left" style="width:90%;padding:0px 10px 10px 10px;">{$OfficierInfo.desc}<br><br>{$OfficierInfo.price}</td>
 							<td class="transparent" style="vertical-align:middle;width:100px">
 							{if $OfficierInfo.Result == 1}
-								{if $user_darkmatter >= 1}
+								{if $OfficierInfo.isbuyable}
 									<a href="?page=officier&amp;offi={$OfficierInfo.id}&amp;action=send"><span style="color:#00ff00">{$of_recruit}</span></a>
 								{else}<span style="color:red">{$of_recruit}</span>{/if}
 							{else}<span style="color:red">{$of_max_lvl}</span>{/if}

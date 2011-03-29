@@ -82,7 +82,16 @@ function getConfig($UNI) {
 		return $GLOBALS['CONFIG'][$UNI];
 		
 	$CONF = $db->uniquequery("SELECT HIGH_PRIORITY * FROM `".CONFIG."` WHERE `uni` = '".$UNI."';");
-	$CONF['moduls']		= explode(";", $CONF['moduls']);
+	$CONF['moduls']			= explode(";", $CONF['moduls']);
+	$CONF['ref_active']			= 0;
+	$CONF['ref_bonus']			= 1000;
+	$CONF['ref_minpoints']		= 2000;
+	$CONF['del_oldstuff']		= 259200;
+	$CONF['del_user_manually']	= 604800;
+	$CONF['del_user_automatic']	= 2592000;
+	$CONF['del_user_sendmail']	= 1814400;
+	$CONF['sendmail_inactive']	= 0;
+	
 	$GLOBALS['CONFIG'][$UNI]	= $CONF;
 	return $CONF;
 }

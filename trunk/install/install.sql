@@ -247,7 +247,7 @@ CREATE TABLE IF NOT EXISTS `prefix_config` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO `prefix_config` (`uni`, `VERSION`, `uni_name`, `game_name`, `close_reason`, `OverviewNewsText`) VALUES
-(1, '1.3.1722', 'Universum 1', '2Moons', 'Game ist zurzeit geschlossen', 'Herzlich Willkommen bei 2Moons v1.3.5!');
+(1, '1.3.1729', 'Universum 1', '2Moons', 'Game ist zurzeit geschlossen', 'Herzlich Willkommen bei 2Moons v1.3.5!');
 
 CREATE TABLE IF NOT EXISTS `prefix_diplo` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -630,13 +630,18 @@ CREATE TABLE IF NOT EXISTS `prefix_users` (
   `dm_energie` int(11) NOT NULL DEFAULT '0',
   `dm_fleettime` int(11) NOT NULL DEFAULT '0',
   `fb_id` bigint(15) unsigned NOT NULL DEFAULT '0',
+  `ref_id` int(11) NOT NULL DEFAULT '0',
+  `ref_bonus` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `fb_id` (`fb_id`),
   KEY `authlevel` (`authlevel`),
   KEY `onlinetime` (`onlinetime`),
   KEY `dm_fleettime` (`dm_fleettime`),
   KEY `username` (`username`),
-  KEY `universe` (`universe`)
+  KEY `universe` (`universe`),
+  KEY `register_time` (`register_time`),
+  KEY `ref_bonus` (`ref_bonus`)
+
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `prefix_users_valid` (
@@ -651,6 +656,7 @@ CREATE TABLE IF NOT EXISTS `prefix_users_valid` (
   `lang` varchar(2) NOT NULL,
   `universe` tinyint(3) unsigned NOT NULL,
   `fb_id` bigint(15) unsigned NOT NULL DEFAULT '0',
+  `ref_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `cle` (`cle`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

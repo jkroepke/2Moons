@@ -142,7 +142,8 @@ function ShowQuickEditorPage()
 			$template->show('adm/QuickEditorPlanet.tpl');
 		break;
 		case 'player':
-			foreach($reslist['tech'] as $ID)
+			$DataIDs	= array_merge($reslist['tech'], $reslist['officier']);
+			foreach($DataIDs as $ID)
 			{
 				$SpecifyItemsPQ	.= "`".$resource[$ID]."`,";
 			}
@@ -151,7 +152,7 @@ function ShowQuickEditorPage()
 		
 			if($action == 'send'){
 				$SQL	= "UPDATE ".USERS." SET ";
-				foreach($reslist['tech'] as $ID)
+				foreach($DataIDs as $ID)
 				{
 					$SQL	.= "`".$resource[$ID]."` = '".abs(request_var($resource[$ID], 0))."', ";
 				}
@@ -168,11 +169,21 @@ function ShowQuickEditorPage()
 			}
 			$PlanetInfo				= $db->uniquequery("SELECT `name` FROM ".PLANETS." WHERE `id` = '".$UserData['id_planet']."' AND `universe` = '".$_SESSION['adminuni']."';");
 
-			$tech	= array();
+			$tech		= array();
+			$officier	= array();
 			
 			foreach($reslist['tech'] as $ID)
 			{
 				$tech[]	= array(
+					'type'	=> $resource[$ID],
+					'name'	=> $LNG['tech'][$ID],
+					'count'	=> pretty_number($UserData[$resource[$ID]]),
+					'input'	=> $UserData[$resource[$ID]]
+				);
+			}
+			foreach($reslist['officier'] as $ID)
+			{
+				$officier[]	= array(
 					'type'	=> $resource[$ID],
 					'name'	=> $LNG['tech'][$ID],
 					'count'	=> pretty_number($UserData[$resource[$ID]]),
@@ -184,6 +195,7 @@ function ShowQuickEditorPage()
 			$template->assign_vars(array(	
 				'qe_resources'	=> $LNG['qe_resources'],
 				'Darkmatter'	=> $LNG['Darkmatter'],
+				'qe_officier'	=> $LNG['qe_officier'],
 				'qe_tech'		=> $LNG['qe_tech'],
 				'qe_input'		=> $LNG['qe_input'],
 				'qe_level'		=> $LNG['qe_level'],
@@ -198,6 +210,7 @@ function ShowQuickEditorPage()
 				'qe_change'		=> $LNG['qe_change'],
 				'qe_authattack'	=> $LNG['qe_authattack'],
 				'tech'			=> $tech,
+				'officier'		=> $officier,
 				'id'			=> $id,
 				'planetid'		=> $UserData['id_planet'],
 				'planetname'	=> $PlanetInfo['name'],
