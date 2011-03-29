@@ -84,7 +84,7 @@ class ShowGalaxyPage extends GalaxyRows
 
 	public function __construct()
 	{
-		global $USER, $PLANET, $dpath, $resource, $LNG, $db, $reslist, $OfficerInfo;
+		global $USER, $PLANET, $dpath, $resource, $LNG, $db, $reslist, $OfficerInfo, $CONF;
 		
 		$template		= new template();	
 		$template->loadscript('galaxy.js');	
