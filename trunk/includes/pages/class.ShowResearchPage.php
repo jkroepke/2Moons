@@ -30,13 +30,13 @@ class ShowResearchPage
 {
 	private function CheckLabSettingsInQueue()
 	{
-		global $PLANET;
+		global $PLANET, $CONF;
 		if ($PLANET['b_building_id'] == 0)
 			return true;
 			
 		$QueueArray		= explode (";", $PLANET['b_building_id']);
 
-		for($i = 0; $i < MAX_BUILDING_QUEUE_SIZE; $i++)	{
+		for($i = 0; $i < $CONF['max_elements_build']; $i++)	{
 			$ListIDArray	= explode (",", $QueueArray[$i]);
 			if($ListIDArray[0] == 6 || $ListIDArray[0] == 31)
 				return false;
@@ -175,7 +175,7 @@ class ShowResearchPage
 
 	private function AddBuildingToQueue($Element, $AddMode = true)
 	{
-		global $PLANET, $USER, $resource;
+		global $PLANET, $USER, $resource, $CONF;
 			
 		$CurrentQueue  		= $USER['b_tech_queue'];
 
@@ -187,7 +187,7 @@ class ShowResearchPage
 			$ActualCount   = 0;
 		}
 				
-		if(MAX_RESEACH_QUEUE_SIZE <= $ActualCount)
+		if($CONF['max_elements_tech'] <= $ActualCount)
 			return false;
 			
 		$BuildLevel					= $USER[$resource[$Element]] + 1;
@@ -312,7 +312,7 @@ class ShowResearchPage
 			
 			if(isset($pricelist[$Element]['max']) && $USER[$resource[$Element]] >= $pricelist[$Element]['max']) {
 				$TechnoLink  =	"<font color=\"#FF0000\">".$LNG['bd_maxlevel']."</font>";
-			} elseif(MAX_RESEACH_QUEUE_SIZE > 1) {
+			} elseif($CONF['max_elements_tech'] > 1) {
 				$LevelToDo 	= 1 + $USER[$resource[$Element]];
 				$TechnoLink = $CanBeDone && $bContinue ? "<a href=\"game.php?page=buildings&amp;mode=research&amp;cmd=insert&amp;tech=".$Element."\"><font color=\"#00FF00\">".(($USER['b_tech_id'] != 0) ? $LNG['bd_add_to_list'] : $LNG['bd_research'].(($LevelToDo == 1) ? "" : "<br>".$LNG['bd_lvl']." ".$LevelToDo))."</font></a>" : "<font color=\"#FF0000\">".$LNG['bd_research'].(($LevelToDo == 1) ? "" : "<br>".$LNG['bd_lvl']." ".$LevelToDo)."</font>";
 
@@ -373,7 +373,7 @@ class ShowResearchPage
 				'elvl'		=> ($Element == 106) ? ($USER['rpg_espion'] * $OfficerInfo[610]['info'])." (".$LNG['tech'][610].")" : (($Element == 108) ? ($USER['rpg_commandant'] * $OfficerInfo[611]['info'])." (".$LNG['tech'][611].")" : false),
 				'lvl'		=> $USER[$resource[$Element]],
 				'link'  	=> $TechnoLink,
-				'oldlink'  	=> MAX_RESEACH_QUEUE_SIZE == 1,
+				'oldlink'  	=> $CONF['max_elements_tech'] == 1,
 				'queue'  	=> $TechQueue,
 			);
 		}

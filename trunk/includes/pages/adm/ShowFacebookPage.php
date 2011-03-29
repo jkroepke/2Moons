@@ -40,7 +40,7 @@ function ShowFacebookPage() {
 			'fb_on'		=> $CONF['fb_on'],
 			'fb_apikey'	=> $CONF['fb_apikey'],
 			'fb_skey'	=> $CONF['fb_skey']
-		), true);
+		));
 	}
 	
 	$template	= new template();

@@ -86,9 +86,7 @@ if(UNIS_MULTIVARS)
 else
 	require_once(ROOT_PATH.'includes/vars.php');
 	
-$CONF = $db->uniquequery("SELECT HIGH_PRIORITY * FROM `".CONFIG."` WHERE `uni` = '".$UNI."';");
-$CONF['moduls']		= explode(";", $CONF['moduls']);
-$CONFIG[$UNI]	= $CONF;
+$CONF	= getConfig($UNI);
 $LANG->setDefault($CONF['lang']);
 	
 if (!defined('CLI') && !defined('LOGIN') && !defined('IN_CRON') && !defined('AJAX'))

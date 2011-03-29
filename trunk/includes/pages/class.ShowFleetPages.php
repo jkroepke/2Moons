@@ -412,7 +412,7 @@ class ShowFleetPages extends FleetFunctions
 		if ($PLANET['galaxy'] == $galaxy && $PLANET['system'] == $system && $PLANET['planet'] == $planet && $PLANET['planet_type'] == $planettype)
 			parent::GotoFleetPage();
 
-		if ($galaxy > MAX_GALAXY_IN_WORLD || $galaxy < 1 || $system > MAX_SYSTEM_IN_GALAXY || $system < 1 || $planet > (MAX_PLANET_IN_SYSTEM + 1) || $planet < 1)
+		if ($galaxy > $CONF['max_galaxy'] || $galaxy < 1 || $system > $CONF['max_system'] || $system < 1 || $planet > ($CONF['max_planets'] + 1) || $planet < 1)
 			parent::GotoFleetPage();
 			
 		if (empty($mission))
@@ -485,7 +485,7 @@ class ShowFleetPages extends FleetFunctions
 		{
 			$maxexpde = parent::GetCurrentFleets($USER['id'], 11);
 
-			if ($maxexpde >= MAX_DM_MISSIONS)
+			if ($maxexpde >= $CONF['max_dm_missions'])
 			{
 				$template->message("<font color=\"red\"><b>".$LNG['fl_expedition_fleets_limit']."</b></font>", "game.php?page=fleet", 2);
 				exit;
@@ -638,7 +638,7 @@ class ShowFleetPages extends FleetFunctions
 		
 		if ($fleet_group_mr != 0)
 		{
-			$AksStartTime = $db->uniquequery("SELECT MAX(`fleet_start_time`) AS Start FROM ".FLEETS." WHERE `fleet_group` = '".$fleet_group_mr."' AND '".MAX_FLEETS_PER_ACS."' > (SELECT COUNT(*) FROM ".FLEETS." WHERE `fleet_group` = '".$fleet_group_mr."');");
+			$AksStartTime = $db->uniquequery("SELECT MAX(`fleet_start_time`) AS Start FROM ".FLEETS." WHERE `fleet_group` = '".$fleet_group_mr."' AND '".$CONF['max_fleets_per_acs']."' > (SELECT COUNT(*) FROM ".FLEETS." WHERE `fleet_group` = '".$fleet_group_mr."');");
 			if (isset($AksStartTime)) 
 			{
 				if ($AksStartTime['Start'] >= $fleet['start_time'])
@@ -783,19 +783,19 @@ class ShowFleetPages extends FleetFunctions
 			die ($ResultMessage);
 		}
 		
-		if ($galaxy > MAX_GALAXY_IN_WORLD || $galaxy < 1)
+		if ($galaxy > $CONF['max_galaxy'] || $galaxy < 1)
 		{
 			$ResultMessage = "602; ".$LNG['fa_galaxy_not_exist']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserGRecycles." ".$UserMissiles;
 			die($ResultMessage);
 		}
 
-		if ($system > MAX_SYSTEM_IN_GALAXY || $system < 1)
+		if ($system > $CONF['max_system'] || $system < 1)
 		{
 			$ResultMessage = "602; ".$LNG['fa_system_not_exist']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserGRecycles." ".$UserMissiles;
 			die($ResultMessage);
 		}
 
-		if ($planet > MAX_PLANET_IN_SYSTEM || $planet < 1)
+		if ($planet > $CONF['max_planets'] || $planet < 1)
 		{
 			$ResultMessage = "602; ".$LNG['fa_planet_not_exist']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserGRecycles." ".$UserMissiles;
 			die($ResultMessage);

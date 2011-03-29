@@ -137,7 +137,7 @@ class MissionCaseAttack extends MissionFunctions
 		$Defender['name']	= array_unique($DefenderRow['name']);
 
 		require_once('calculateAttack.php');
-		$result 	= calculateAttack($attackFleets, $defense, $CONFIG[$this->_fleet['fleet_universe']]['Fleet_Cdr'], $CONFIG[$this->_fleet['fleet_universe']]['Fleet_Cdr']);
+		$result 	= calculateAttack($attackFleets, $defense, $GLOBALS['CONFIG'][$this->_fleet['fleet_universe']]['Fleet_Cdr'], $GLOBALS['CONFIG'][$this->_fleet['fleet_universe']]['Defs_Cdr']);
 		$SQL		= "";
 			
 		foreach ($attackFleets as $fleetID => $attacker)
@@ -205,7 +205,7 @@ class MissionCaseAttack extends MissionFunctions
 		$FleetDebris		= $ShootMetal + $ShootCrystal;
 		$DerbisMetal		= $targetPlanet['der_metal']+ $ShootMetal;
 		$DerbisCrystal		= $targetPlanet['der_crystal']+ $ShootCrystal;		
-		$MoonChance       	= min(round($FleetDebris / 100000 * MOON_CHANCE_FACTOR, 0), MAX_MOON_CHANCE);
+		$MoonChance       	= min(round($FleetDebris / 100000 *  $GLOBALS['CONFIG'][$this->_fleet['fleet_universe']]['moon_factor'], 0), $GLOBALS['CONFIG'][$this->_fleet['fleet_universe']]['moon_chance']);
 		$UserChance 		= mt_rand(1, 100);
 		
 		if ($targetPlanet['planet_type'] == 1 && $targetPlanet['id_luna'] == 0 && $MoonChance > 0 && $UserChance <= $MoonChance)
@@ -216,7 +216,7 @@ class MissionCaseAttack extends MissionFunctions
 			$INFO['end_system'] = $this->_fleet['fleet_end_system'];
 			$INFO['end_planet'] = $this->_fleet['fleet_end_planet'];
 			
-			if(DESTROY_DERBIS_MOON_CREATE) {
+			if($GLOBALS['CONFIG'][$this->_fleet['fleet_universe']]['debris_moon'] == 1) {
 				$DerbisMetal	  = 0;
 				$DerbisCrystal	  = 0;
 			}

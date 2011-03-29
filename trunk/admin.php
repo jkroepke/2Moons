@@ -61,8 +61,12 @@ switch($page)
 		ShowRightsPage();
 	break;
 	case 'config':
-		include_once(ROOT_PATH . 'includes/pages/adm/ShowConfigPage.php');
-		ShowConfigPage();
+		include_once(ROOT_PATH . 'includes/pages/adm/ShowConfigBasicPage.php');
+		ShowConfigBasicPage();
+	break;
+	case 'configuni':
+		include_once(ROOT_PATH . 'includes/pages/adm/ShowConfigUniPage.php');
+		ShowConfigUniPage();
 	break;
 	case 'chat':
 		include_once(ROOT_PATH . 'includes/pages/adm/ShowChatConfigPage.php');

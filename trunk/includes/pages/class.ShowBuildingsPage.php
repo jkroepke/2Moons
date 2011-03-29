@@ -136,7 +136,7 @@ class ShowBuildingsPage
 
 	private function AddBuildingToQueue ($Element, $AddMode = true)
 	{
-		global $PLANET, $USER, $resource;
+		global $PLANET, $USER, $resource, $CONF;
 			
 		$CurrentQueue  		= $PLANET['b_building_id'];
 
@@ -153,7 +153,7 @@ class ShowBuildingsPage
 		
 		$CurrentMaxFields  	= CalculateMaxPlanetFields($PLANET);
 		
-		if (($ActualCount == MAX_BUILDING_QUEUE_SIZE) || ($PLANET["field_current"] >= ($CurrentMaxFields - $ActualCount) && $_GET['cmd'] != 'destroy'))
+		if (($ActualCount == $CONF['max_elements_build']) || ($PLANET["field_current"] >= ($CurrentMaxFields - $ActualCount) && $_GET['cmd'] != 'destroy'))
 			return;
 	
 		if ($AddMode == true) {
@@ -262,7 +262,7 @@ class ShowBuildingsPage
 
 		$template	= new template();
 		
-		$CanBuildElement 	= (count($Queue) < MAX_BUILDING_QUEUE_SIZE) ? true : false;
+		$CanBuildElement 	= (count($Queue) < $CONF['max_elements_build']) ? true : false;
 		$BuildingPage       = "";
 		$CurrentMaxFields   = CalculateMaxPlanetFields($PLANET);
 		$RoomIsOk 			= ($PLANET["field_current"] < ($CurrentMaxFields - count($Queue))) ? true : false;

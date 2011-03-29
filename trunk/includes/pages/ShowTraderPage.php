@@ -28,7 +28,7 @@
 
 function ShowTraderPage()
 {
-	global $USER, $PLANET, $LNG, $db;
+	global $USER, $PLANET, $LNG, $CONF, $db;
 	$ress 		= request_var('ress', '');
 	$action 	= request_var('action', '');
 	$metal		= round(request_var('metal', 0.0), 0);
@@ -46,7 +46,7 @@ function ShowTraderPage()
 			case 'metal':
 				if($action == "trade")
 				{
-					if ($USER['darkmatter'] < DARKMATTER_FOR_TRADER)
+					if ($USER['darkmatter'] < $CONF['darkmatter_cost_trader'])
 						$template->message(sprintf($LNG['tr_empty_darkmatter'], $LNG['Darkmatter']), "game.php?page=trader", 1);
 					elseif ($crystal < 0 || $deut < 0)
 						$template->message($LNG['tr_only_positive_numbers'], "game.php?page=trader",1);
@@ -59,7 +59,7 @@ function ShowTraderPage()
 							$PLANET['metal']     -= $trade;
 							$PLANET['crystal']   += $crystal;
 							$PLANET['deuterium'] += $deut;
-							$USER['darkmatter']	-= DARKMATTER_FOR_TRADER;
+							$USER['darkmatter']	-= $CONF['darkmatter_cost_trader'];
 							$template->message($LNG['tr_exchange_done'],"game.php?page=trader",1);
 						}
 						else
@@ -88,7 +88,7 @@ function ShowTraderPage()
 			case 'crystal':
 				if($action == "trade")
 				{
-					if ($USER['darkmatter'] < DARKMATTER_FOR_TRADER)
+					if ($USER['darkmatter'] < $CONF['darkmatter_cost_trader'])
 						$template->message(sprintf($LNG['tr_empty_darkmatter'], $LNG['Darkmatter']), "game.php?page=trader", 1);
 					elseif ($metal < 0 || $deut < 0)
 						$template->message($LNG['tr_only_positive_numbers'], "game.php?page=trader",1);
@@ -101,7 +101,7 @@ function ShowTraderPage()
 							$PLANET['metal']     += $metal;
 							$PLANET['crystal']   -= $trade;
 							$PLANET['deuterium'] += $deut;
-							$USER['darkmatter']	-= DARKMATTER_FOR_TRADER;
+							$USER['darkmatter']	-= $CONF['darkmatter_cost_trader'];
 							$template->message($LNG['tr_exchange_done'],"game.php?page=trader",1);
 						}
 						else
@@ -130,7 +130,7 @@ function ShowTraderPage()
 			case 'deuterium':
 				if($action == "trade")
 				{
-					if ($USER['darkmatter'] < DARKMATTER_FOR_TRADER)
+					if ($USER['darkmatter'] < $CONF['darkmatter_cost_trader'])
 						$template->message(sprintf($LNG['tr_empty_darkmatter'], $LNG['Darkmatter']), "game.php?page=trader", 1);
 					elseif ($metal < 0 || $crystal < 0)
 						message($LNG['tr_only_positive_numbers'], "game.php?page=trader",1);
@@ -143,7 +143,7 @@ function ShowTraderPage()
 							$PLANET['metal']     += $metal;
 							$PLANET['crystal']   += $crystal;
 							$PLANET['deuterium'] -= $trade;
-							$USER['darkmatter']	-= DARKMATTER_FOR_TRADER;
+							$USER['darkmatter']	-= $CONF['darkmatter_cost_trader'];
 							$template->message($LNG['tr_exchange_done'],"game.php?page=trader", 1);
 						}
 						else
@@ -176,7 +176,7 @@ function ShowTraderPage()
 		$PlanetRess->CalcResource();
 		$PlanetRess->SavePlanetToDB();
 		$template->assign_vars(array(
-			'tr_cost_dm_trader'			=> sprintf($LNG['tr_cost_dm_trader'], pretty_number(DARKMATTER_FOR_TRADER), $LNG['Darkmatter']),
+			'tr_cost_dm_trader'			=> sprintf($LNG['tr_cost_dm_trader'], pretty_number($CONF['darkmatter_cost_trader']), $LNG['Darkmatter']),
 			'tr_call_trader_who_buys'	=> $LNG['tr_call_trader_who_buys'],
 			'tr_call_trader'			=> $LNG['tr_call_trader'],
 			'tr_exchange_quota'			=> $LNG['tr_exchange_quota'],

@@ -40,13 +40,11 @@ define('AJAX_CHAT_PATH'			  , ROOT_PATH.'/chat/');
 define('DEFAULT_LANG'             , "de"); // For Fatal Errors!
 define('PHPEXT'                   , "php");
 
-// UNIVERSE DATA, GALAXY, SYSTEMS AND PLANETS || DEFAULT 9-499-15 RESPECTIVELY
-define('MAX_GALAXY_IN_WORLD'      ,   9);
-define('MAX_SYSTEM_IN_GALAXY'     , 499);
-define('MAX_PLANET_IN_SYSTEM'     ,  15);
+// SUPPORT WILDCAST DOMAINS
+define('UNIS_WILDCAST'			  , true);
 
-// FACTOR FOR THE PLANETSIZE
-define('PLANET_SIZE_FACTOR'		  , 1.0);
+// SUPPORT OWN vars.php / UNIVERSE | NOTE: make a COPY of vars.php and rename it to vars_uni1.php,  vars_uni2.php, etc...
+define('UNIS_MULTIVARS'			  , false);
 
 // NUMBER OF COLUMNS FOR SPY REPORTS
 define('SPY_REPORT_ROW'           , 2);
@@ -57,69 +55,14 @@ define('FIELDS_BY_MOONBASIS_LEVEL', 3);
 // FIELDS FOR EACH LEVEL OF THE TERRAFORMER
 define('FIELDS_BY_TERRAFORMER'	  , 5);
 
-// NUMBER OF PLANETS THAT MAY HAVE A PLAYER WITHOUT TECHNO
-define('STANDART_PLAYER_PLANETS'  , 9);
-
-// MAXIMAL PLANETS ( -1 = unlimited )
-define('MAX_PLANETS'              , -1);
-
 // ADDED PLANET PRO 2 TECH LEVELS
 define('PLANETS_PER_TECH' 		  , 1);	
-
-// NUMBER OF BUILDINGS THAT CAN GO IN THE CONSTRUCTION QUEUE
-define('MAX_BUILDING_QUEUE_SIZE'  , 5);
-
-// NUMBER OF TECHS THAT CAN GO IN THE RESEARCH QUEUE (1 = off)
-define('MAX_RESEACH_QUEUE_SIZE'  ,2);
-
-// NUMBER OF SHIPS THAT CAN BUILD FOR ONCE
-define('MAX_FLEET_OR_DEFS_PER_ROW', 1000000);
-
-// NUMBER OF SHIPS THAT CAN BUILD FOR ONCE
-define('MAX_FLEET_OR_DEFS_IN_BUILD', 10);
-
-// PRICE OF ONE CLICK ON GALAXY
-define('DEUTERIUM_PER_GALAXY_CLICK', 10);
-
-// SUPPORT WILDCAST DOMAINS
-define('UNIS_WILDCAST'			  , true);
-
-// SUPPORT OWN vars.php / UNIVERSE | NOTE: make a COPY of vars.php and rename it to vars_uni1.php,  vars_uni2.php, etc...
-define('UNIS_MULTIVARS'			  , false);
-
-// PERCENTAGE OF RESOURCES THAT CAN BE OVER STORED
-// 1.0 TO 100% - 1.1% FOR 110 AND SO ON
-define('MAX_OVERFLOW'             , 1.0);
-
-// The Limit of DM Mission (ID: 11)
-define('MAX_DM_MISSIONS'		  , 1);
-
-// Trader Tax
-define('DARKMATTER_FOR_TRADER'	  , 750);
-
-// The Faction for the Moon Creation
-define('MOON_CHANCE_FACTOR'		  , 1);
-
-// Maximal moon chance
-define('MAX_MOON_CHANCE'		 , 20);
 
 // If ture, the calculation for Researchtime is like OGAME, if false its calculation with standart XNova Formula
 define('NEW_RESEARCH'			  , true);
 
-// University reduction per level - standard 8% (Info: 1 = 100%)
-define('UNIVERISTY_RESEARCH_REDUCTION'	, 0.08);
-
-// IF SET true, the derbis will be delete, when a moon is created.
-define('DESTROY_DERBIS_MOON_CREATE', true);
-
 // Factor for Metal/Crystal and Deuterium Storages
 define('STORAGE_FACTOR'			  , 1.0);
-
-// DARKMATTER PRICE FOR OFFICIER LEVEL
-define('DM_PRO_OFFICIER_LEVEL'	  , 1000);
-
-// Max Amount of Fleets where allow on one ACS
-define('MAX_FLEETS_PER_ACS'	  	  , 16);
 
 // How much IP Block ll be checked
 // 1 = (AAA); 2 = (AAA.BBB); 3 = (AAA.BBB.CCC)
@@ -128,20 +71,8 @@ define('COMPARE_IP_BLOCKS'	  	  , 2);
 // DEBUG LOG
 define('DEBUG_EXTRA'	  	 	 , false);
 
-// INITIAL RESOURCE OF NEW PLANETS
-define('BUILD_METAL'              , 500);
-define('BUILD_CRISTAL'            , 500);
-define('BUILD_DEUTERIUM'          , 0);
-
-// INITIAL RESOURCE OF NEW PLAYER (2nd const. for Facebook Users)
-define('BUILD_DARKMATTER'         , 0);
-define('BUILD_FB_DARKMATTER'      , 0);
-
 // Max Round on Combats
 define('MAX_ATTACK_ROUNDS'		  , 6);
-
-// Min Time for VMod in Seconds!
-define('VACATION_MIN_TIME'		  , 259200);	
 
 // Enable the one-Click SImulation on Spy-Raports
 define('ENABLE_SIMULATOR_LINK'    , true);
@@ -161,11 +92,8 @@ define('DICLAMER_ADRESS2'         , "Edit constans.php!");
 define('DICLAMER_TEL'     		  , "Edit constans.php!");
 define('DICLAMER_EMAIL'    		  , "Edit constans.php!");
 
-// Time betwin Jumps for Jumpgates
-define('JUMPGATE_WAIT_TIME'		  , 3600);
-
 // UTF-8 Support for Names (Requried for non-english Chars!)
-define('UTF8_SUPPORT'          	  , false);	
+define('UTF8_SUPPORT'          	  , true);	
 
 // AdminAuthlevels
 define('AUTH_ADM'                 , 3);
