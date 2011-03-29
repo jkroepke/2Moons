@@ -55,6 +55,7 @@ switch($cron)
 	case "daily":
 		if (TIMESTAMP >= ($CONF['stat_last_db_update'] + (60 * 60 * 24)))
 		{
+			// Optimize Database
 			update_config(array('stat_last_db_update' => TIMESTAMP));
 			$prueba = $db->query("SHOW TABLE STATUS from ".DB_NAME.";");
 			$table = "";
@@ -67,7 +68,29 @@ switch($cron)
 				}
 			}
 			$db->query("OPTIMIZE TABLE ".substr($table, 0, -2).";");
+			
+			// Clear Cache
 			ClearCache();
+			
+			// Set Bonus for RefLink
+			if($CONF['ref_active'] == 1) {
+				$Users	= $db->query("SELECT `ref_id`, `id` FROM ".USERS." WHERE `ref_bonus` = '1' AND (SELECT `total_points` FROM ".STATS." as s WHERE s.`id_owner` = `id`) >= '".$CONF['ref_minpoints']."';");
+				while($User	= $db->fetch_array($Users)) {
+					$db->query("UPDATE ".USERS." SET `darkmatter` = `darkmatter` + '".$CONF['ref_bonus']."' WHERE `id` = '".$User['ref_id']."';");
+					$db->query("UPDATE ".USERS." SET `ref_bonus` = `ref_bonus` = '0' WHERE `id` = '".$User['id']."';");
+				}
+			}
+			// Send inactive Players Mails
+			if($CONF['sendmail_inactive'] == 1 && $CONF['mail_active'] == 1) {
+				$Users	= $db->query("SELECT `id`, `username`, `lang`, `email` FROM ".USERS." WHERE `inactive_mail` = '0' AND `onlinetime` < '".(TIMESTAMP - $CONF['del_user_sendmail'])."';");
+				while($User	= $db->fetch_array($Users)) {
+					$MailSubject	= sprintf($LNG['reg_mail_reg_done'], $CONF['game_name']);
+					$MailRAW		= file_get_contents("./language/".$User['lang']."/email/email_inactive.txt");
+					$MailContent	= sprintf($MailRAW, $User['username'], $CONF['game_name'].' - '.$CONF['uni_name']);	
+					MailSend($User['email'], $User['username'], $MailSubject, $MailContent);
+					$db->query("UPDATE ".USERS." SET `inactive_mail` = '1' WHERE `id` = '".$User['id']."';");
+				}
+			}
 		}
 	break;
 	case "teamspeak":

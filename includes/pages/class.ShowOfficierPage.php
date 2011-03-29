@@ -73,7 +73,7 @@ class ShowOfficierPage
 		if (IsElementBuyable($USER, $PLANET, $Element, true, false) && in_array($Selected, $reslist['officier']) && $this->IsOfficierAccessible($Selected) == 1)
 		{
 			$USER[$resource[$Selected]] += 1;
-			$Resses			= GetBuildingPrice($USER, $PLANET, $Element, true, !$AddMode);
+			$Resses						= GetBuildingPrice($USER, $PLANET, $Selected, true, false);
 			$PLANET['metal']			-= $Resses['metal'];
 			$PLANET['crystal']			-= $Resses['crystal'];
 			$PLANET['deuterium']		-= $Resses['deuterium'];
@@ -140,12 +140,13 @@ class ShowOfficierPage
 				$description = $OfficerInfo[$Element]['info'] ? sprintf($LNG['info'][$Element]['description'], is_float($OfficerInfo[$Element]['info']) ? $OfficerInfo[$Element]['info'] * 100 : $OfficerInfo[$Element]['info'], $pricelist[$Element]['max']) : sprintf($LNG['info'][$Element]['description'], $pricelist[$Element]['max']);
 								
 				$OfficierList[]	= array(
-					'id' 	 	=> $Element,
-					'level'  	=> $USER[$resource[$Element]],
-					'name'		=> $LNG['tech'][$Element],
-					'desc'  	=> $description,
-					'Result'	=> $Result,
-					'price'		=> GetElementPrice($USER, $PLANET, $Element)
+					'id' 		 	=> $Element,
+					'level' 	 	=> $USER[$resource[$Element]],
+					'name'			=> $LNG['tech'][$Element],
+					'desc'  		=> $description,
+					'Result'		=> $Result,
+					'price'			=> GetElementPrice($USER, $PLANET, $Element),
+					'isbuyable'		=> IsElementBuyable($USER, $PLANET, $Element, true, false)
 				);
 			}
 		}

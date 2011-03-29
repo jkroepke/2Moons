@@ -25,7 +25,8 @@
 				</div>
 				<div id="regbox"><h1>{$register}</h1>
 					<form id="reg" name="reg" action="index.php?page=reg&amp;action=send" method="post" onsubmit="return Submit('register');">
-						<input type="hidden" name="fb_id" id="fb_id">
+						{if $fb_active}<input type="hidden" name="fb_id" id="fb_id">{/if}
+						{if $ref_active}<input type="hidden" name="ref_id" id="ref_id" value="{$ref_id}>{/if}
 						<label for="reg_universe">{$universe}</label><select name="uni" id="reg_universe">{html_options options=$AvailableUnis selected=$UNI}</select><br>
 						<label for="reg_username">{$user}</label><input name="username" id="reg_username" type="text"><br>
 						<label for="reg_password">{$pass}</label><input name="password" id="reg_password" type="password"><br>

@@ -116,6 +116,7 @@ switch ($page) {
 				$UserPlanet	= request_var('planetname', '', UTF8_SUPPORT);
 				$UserLang 	= request_var('lang', '');
 				$FACEBOOK 	= request_var('fb_id', 0);
+				$RefID	 	= request_var('ref_id', 0);
 	
 				$errors 	= array();
 				
@@ -167,7 +168,7 @@ switch ($page) {
 					exit;
 				}
 				
-				if(!empty($FACEBOOK) && $CONF['fb_on'] == 1) {
+				if($CONF['fb_on'] == 1 && !empty($FACEBOOK)) {
 				
 					require(ROOT_PATH.'/includes/libs/facebook/facebook.php');
 					$facebook = new Facebook(array(
@@ -181,6 +182,15 @@ switch ($page) {
 					$FACEBOOK	= 0;
 				}
 				
+				if($CONF['fb_on'] == 1 && !empty($RefID)) {
+					$Count	= $db->countquery("SELECT COUNT(*) FROM ".USERS." WHERE `id` = '".$RefID."';");
+					if($Count == 0)
+						$RefID	= 0;
+				} else {
+					$RefID	= 0;
+				}
+				
+				
 				$clef		= uniqid('2m');
 				$SQL = "INSERT INTO ".USERS_VALID." SET ";
 				$SQL .= "`username` = '".$db->sql_escape($UserName)."', ";
@@ -192,6 +202,7 @@ switch ($page) {
 				$SQL .= "`universe` = '".$UNI."', ";
 				$SQL .= "`password` = '".md5($UserPass)."', ";
 				$SQL .= "`ip` = '".$_SERVER['REMOTE_ADDR']."', ";
+				$SQL .= "`ref_id` = '".$RefID."', ";
 				$SQL .= "`fb_id` = '".$FACEBOOK."'; ";
 				$db->query($SQL);
 				
@@ -223,6 +234,7 @@ switch ($page) {
 				$UserLang 	= $Valider['lang'];
 				$UserUni 	= $Valider['universe'];
 				$UserFID 	= $Valider['fb_id'];
+				$UserRID 	= $Valider['ref_id'];
 				
 				$SQL = "INSERT INTO ".USERS." SET ";
 				$SQL .= "`username` = '".$UserName . "', ";
@@ -237,6 +249,7 @@ switch ($page) {
 				$SQL .= "`password` = '".$UserPass."', ";
 				$SQL .= "`dpath` = '".DEFAULT_THEME."', ";
 				$SQL .= "`darkmatter` = '".$CONF['darkmatter_start']."', ";
+				$SQL .= "`ref_id` = '".$UserRID."', ";
 				$SQL .= "`fb_id` = '".$UserFID."', ";
 				$SQL .= "`uctime`= '0';";
 				$db->query($SQL);
@@ -507,9 +520,11 @@ switch ($page) {
 					'code'					=> $LNG['login_error_'.$Code],
 				));
 			}
+
 			$template->assign_vars(array(
 				'contentbox'			=> false,
 				'AvailableUnis'			=> $AvailableUnis,
+				'ref_id'				=> ($CONF['ref_active'] == 1 && isset($_REQUEST['ref'])) ? (int) $_REQUEST['ref'] : 0,
 				'RegClosedUnis'			=> json_encode($RegClosed),
 				'welcome_to'			=> $LNG['welcome_to'],
 				'uni_closed'			=> $LNG['uni_closed'],

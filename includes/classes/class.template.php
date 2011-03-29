@@ -262,6 +262,7 @@ class template
 			'menu_disclamer'	=> $LNG['menu_disclamer'],
 			'game_captcha'		=> $CONF['capaktiv'],
 			'reg_close'			=> $CONF['reg_closed'],
+			'ref_active'		=> $CONF['ref_active'],
 			'ga_active'			=> $CONF['ga_active'],
 			'ga_key'			=> $CONF['ga_key'],
 			'getajax'			=> request_var('getajax', 0),

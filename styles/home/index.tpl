@@ -96,6 +96,7 @@
 var CONF			= {
 	RegClosedUnis	: {$RegClosedUnis},
 	IsCaptchaActive : {$game_captcha},
+	ref_active		: {$ref_active},
 	cappublic		: "{$cappublic}",
 	FBKey			: "{$fb_key}",
 	Lang			: {$langs},

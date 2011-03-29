@@ -916,6 +916,7 @@ $LNG['qe_send']							= 'Absenden';
 $LNG['qe_reset']						= 'Zurücksetzten';
 $LNG['qe_build']						= 'Gebäude';
 $LNG['qe_tech']							= 'Forschung';
+$LNG['qe_officier']						= 'Offiziere';
 $LNG['qe_fleet']						= 'Flotte';
 $LNG['qe_defensive']					= 'Verteigung';
 $LNG['qe_resources']					= 'Rohstoffe';

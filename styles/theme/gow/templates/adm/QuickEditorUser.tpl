@@ -44,6 +44,15 @@ function check(){
 <tr><td width="30%">{$Element.name}:</td><td width="30%">{$Element.count}</td><td width="40%"><input name="{$Element.type}" type="text" value="{$Element.input}"></td>
 {/foreach}
 <tr>
+        <th colspan="3">{$qe_officier}</th>
+</tr>
+<tr>
+        <td>{$qe_name}</td><td>{$qe_level}</td><td>{$qe_input}</td>
+</tr>
+{foreach item=Element from=$officier}
+<tr><td width="30%">{$Element.name}:</td><td width="30%">{$Element.count}</td><td width="40%"><input name="{$Element.type}" type="text" value="{$Element.input}"></td>
+{/foreach}
+<tr>
         <td colspan="3"><input type="submit" value="{$qe_send}"> <input type="reset" value="{$qe_reset}"></td>
 </tr>
 </table>
