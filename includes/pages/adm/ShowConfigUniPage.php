@@ -44,7 +44,6 @@ function ShowConfigUniPage()
 		
 		$CONF['OverviewNewsText']		= $_POST['NewsText'];
 		$CONF['close_reason']			= request_var('close_reason', '', true);
-		$CONF['game_name']				= request_var('game_name', '', true);
 		$CONF['uni_name']				= request_var('uni_name', '', true);
 		$CONF['forum_url'] 				= request_var('forum_url', '', true);
 		$CONF['game_speed'] 			= (2500 * request_var('game_speed', 0.0));
@@ -84,6 +83,7 @@ function ShowConfigUniPage()
 		$CONF['crystal_start']			= request_var('crystal_start', 0);
 		$CONF['deuterium_start']		= request_var('deuterium_start', 0);
 		$CONF['darkmatter_start']		= request_var('darkmatter_start', 0);
+		$CONF['max_fleet_per_build']	= request_outofint('max_fleet_per_build');
 		
 		update_config(array(
 			'noobprotectiontime'	=> $CONF['noobprotectiontime'],
@@ -336,6 +336,7 @@ function ShowConfigUniPage()
 		'max_elements_build'			=> $CONF['max_elements_build'],
 		'max_elements_tech'				=> $CONF['max_elements_tech'],
 		'max_elements_ships'			=> $CONF['max_elements_ships'],
+		'max_fleet_per_build'			=> $CONF['max_fleet_per_build'],
 		'max_overflow'					=> $CONF['max_overflow'],
 		'moon_factor'					=> $CONF['moon_factor'],
 		'moon_chance'					=> $CONF['moon_chance'],
