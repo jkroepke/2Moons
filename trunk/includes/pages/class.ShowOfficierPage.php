@@ -68,12 +68,16 @@ class ShowOfficierPage
 
 	public function UpdateOfficier($Selected)
 	{
-		global $USER, $db, $reslist, $resource;
+		global $USER, $PLANET, $db, $reslist, $resource;
 		
-		if ((floor($USER['darkmatter'] / DM_PRO_OFFICIER_LEVEL)) > 0 && in_array($Selected, $reslist['officier']) && $this->IsOfficierAccessible($Selected) == 1)
+		if (IsElementBuyable($USER, $PLANET, $Element, true, false) && in_array($Selected, $reslist['officier']) && $this->IsOfficierAccessible($Selected) == 1)
 		{
 			$USER[$resource[$Selected]] += 1;
-			$USER['darkmatter']         -= DM_PRO_OFFICIER_LEVEL;
+			$Resses			= GetBuildingPrice($USER, $PLANET, $Element, true, !$AddMode);
+			$PLANET['metal']			-= $Resses['metal'];
+			$PLANET['crystal']			-= $Resses['crystal'];
+			$PLANET['deuterium']		-= $Resses['deuterium'];
+			$USER['darkmatter']			-= $Resses['darkmatter'];
 			$SQL  = "UPDATE ".USERS." SET ";
 			$SQL .= "`".$resource[$Selected]."` = '". $USER[$resource[$Selected]] ."' ";
 			$SQL .= "WHERE ";
