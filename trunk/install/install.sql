@@ -242,12 +242,12 @@ CREATE TABLE IF NOT EXISTS `prefix_config` (
   `crystal_start` int(11) unsigned NOT NULL DEFAULT '500',
   `deuterium_start` int(11) unsigned NOT NULL DEFAULT '0',
   `darkmatter_start` int(11) unsigned NOT NULL DEFAULT '0',
-  `ttf_file` varchar(32) NOT NULL DEFAULT 'styles/arial.tff',
+  `ttf_file` varchar(32) NOT NULL DEFAULT 'styles/arial.ttf',
   PRIMARY KEY (`uni`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO `prefix_config` (`uni`, `VERSION`, `uni_name`, `game_name`, `close_reason`, `OverviewNewsText`) VALUES
-(1, '1.3.1729', 'Universum 1', '2Moons', 'Game ist zurzeit geschlossen', 'Herzlich Willkommen bei 2Moons v1.3.5!');
+(1, '1.3.1732', 'Universum 1', '2Moons', 'Game ist zurzeit geschlossen', 'Herzlich Willkommen bei 2Moons v1.3.5!');
 
 CREATE TABLE IF NOT EXISTS `prefix_diplo` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
