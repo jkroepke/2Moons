@@ -61,7 +61,7 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 				$time         = (($cost_metal + $cost_crystal) / $CONF['game_speed']) / (($Level + 1) * 2);
 				$time         = $time * (1 - $USER[$resource[606]] * $OfficerInfo[606]['info']) * 3600;
 			}
-			$time         = floor($time * ((TIMESTAMP - $USER[$resource[705]] <= 0) ? (1 - $ExtraDM[705]['add']) : 1) * pow((1 - $CONF['factor_university']), $PLANET[$resource[6]]));
+			$time         = floor($time * ((TIMESTAMP - $USER[$resource[705]] <= 0) ? (1 - $ExtraDM[705]['add']) : 1) * pow((1 - ($CONF['factor_university'] / 100)), $PLANET[$resource[6]]));
 		}
 		
 		return max((($Destroy)?floor($time / 2):floor($time)), $CONF['min_build_time']);
