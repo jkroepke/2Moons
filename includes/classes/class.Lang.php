@@ -32,7 +32,6 @@ class Language
 		'de' => 'Deutsch', 
 		'en' => 'English', 
 		'es' => 'Español',
-		'fr' => 'Français',
 		'pt' => 'Português',
 		'ru' => 'Русский', 
 	);

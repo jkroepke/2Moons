@@ -155,7 +155,7 @@ function ShowConfigUniPage()
 		));
 		
 		if($CONF['adm_attack'] == 0)
-			$db->query("UPDATE ".USERS." SET `authattack` = '0' WHERE `uni` = '".$_SESSION['adminuni']."");
+			$db->query("UPDATE ".USERS." SET `authattack` = '0' WHERE `uni` = '".$_SESSION['adminuni']."';");
 	}
 	
 	$template	= new template();
