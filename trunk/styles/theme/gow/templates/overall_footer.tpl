@@ -10,6 +10,8 @@ var Skin		= "{$dpath}";
 var Lang		= "{$lang}";
 var head_info	= "{$fcm_info}";
 var auth		= {$authlevel};
+var days 		= {$js_days};
+var months 		= {$js_month};
 </script>
 <script type="text/javascript" src="{$cd}scripts/jQuery.js?v={$REV}"></script>
 <script type="text/javascript" src="{$cd}scripts/base.js?v={$REV}"></script>

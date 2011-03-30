@@ -103,6 +103,8 @@ function init(){
 	initCloseReg();
 	if(document.location.search == '?fb=reg')
 		FBRegister();
+	else if(document.location.search.search('?ref=') !== -1)
+		RefRegister();
 }
 
 function initLangs() {
@@ -117,6 +119,15 @@ function initCloseReg() {
 	$('#reg_universe option').text(function(i, name) {
 		return (CONF.RegClosedUnis[$(this).val()] == 1 && name.search(LANG['uni_closed']) == -1) ? name+' '+LANG['uni_closed'] : name;
 	});
+}
+
+function changeUni(uni) {
+	$.cookie('uni', uni);
+	document.location.reload();
+}
+
+function RefRegister() {
+
 }
 
 /** FB Functions **/
