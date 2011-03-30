@@ -92,7 +92,7 @@
 	{/foreach}
 	<tr>
 		<td>{$smarty.foreach.galaxy.total + 1}</td>
-		<td colspan="7"><a href="?page=fleet&amp;galaxy={$galaxy}&amp;system={$system}&amp;planet={$smarty.const.MAX_PLANET_IN_SYSTEM + 1}&amp;planettype=1&amp;target_mission=15">{$gl_out_space}</a></td>
+		<td colspan="7"><a href="?page=fleet&amp;galaxy={$galaxy}&amp;system={$system}&amp;planet={$smarty.foreach.galaxy.total + 1}&amp;planettype=1&amp;target_mission=15">{$gl_out_space}</a></td>
 	</tr>
 	<tr>
 		<td colspan="6">({$planetcount})</td>
