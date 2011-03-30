@@ -72,7 +72,7 @@
 		<th style="white-space: nowrap;width:80px">{$gl_alliance}</th>
 		<th style="white-space: nowrap;width:125px">{$gl_actions}</th>
 	</tr>
-    {foreach key=planet item=GalaxyRow from=$GalaxyRows}
+    {foreach name=galaxy key=planet item=GalaxyRow from=$GalaxyRows}
 	<tr>
 	<td><a href="?page=fleet&amp;galaxy={$galaxy}&amp;system={$system}&amp;planet={$planet}&amp;planettype=1">{$planet}</a></td>
 	{if is_array($GalaxyRow)}
@@ -91,7 +91,7 @@
 	</tr>
 	{/foreach}
 	<tr>
-		<td>{$smarty.const.MAX_PLANET_IN_SYSTEM + 1}</td>
+		<td>{$smarty.foreach.galaxy.total + 1}</td>
 		<td colspan="7"><a href="?page=fleet&amp;galaxy={$galaxy}&amp;system={$system}&amp;planet={$smarty.const.MAX_PLANET_IN_SYSTEM + 1}&amp;planettype=1&amp;target_mission=15">{$gl_out_space}</a></td>
 	</tr>
 	<tr>
