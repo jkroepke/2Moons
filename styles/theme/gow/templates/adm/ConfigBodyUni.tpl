@@ -43,7 +43,41 @@
 	<td><textarea name="close_reason" cols="80" rows="5">{$close_reason}</textarea></td>
 	<td>&nbsp;</td>
 </tr><tr>
+	<th colspan="2">{$se_buildlist}</th><th>&nbsp;</th>
+</tr><tr>
+	<td>{$se_max_elements_build}</td>
+	<td><input name="max_elements_build" maxlength="3" size="3" value="{$max_elements_build}" type="text"></td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_max_elements_build_info}"></td>
+</tr><tr>
+	<td>{$se_max_elements_tech}</td>
+	<td><input name="max_elements_tech" maxlength="3" size="3" value="{$max_elements_tech}" type="text"></td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_max_elements_tech_info}"></td>
+</tr><tr>
+	<td>{$se_max_elements_ships}</td>
+	<td><input name="max_elements_ships" maxlength="3" size="3" value="{$max_elements_ships}" type="text"></td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_max_elements_ships_info}"></td>
+</tr><tr>
+	<td>{$se_max_fleet_per_build}</td>
+	<td><input name="max_fleet_per_build" maxlength="20" size="15" value="{$max_fleet_per_build}" type="text"></td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_max_fleet_per_build_info}"></td>
+</tr><tr>
 	<th colspan="2">{$se_server_planet_parameters}</th><th>&nbsp;</th>
+</tr><tr>
+	<td>{$se_metal_start}</td>
+	<td><input name="metal_start" maxlength="11" size="11" value="{$metal_start}" type="text"></td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_metal_start_info}"></td>
+</tr><tr>
+	<td>{$se_crystal_start}</td>
+	<td><input name="crystal_start" maxlength="11" size="11" value="{$crystal_start}" type="text"></td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_crystal_start_info}"></td>
+</tr><tr>
+	<td>{$se_deuterium_start}</td>
+	<td><input name="deuterium_start" maxlength="11" size="11" value="{$deuterium_start}" type="text"></td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_deuterium_start_info}"></td>
+</tr><tr>
+	<td>{$se_darkmatter_start}</td>
+	<td><input name="darkmatter_start" maxlength="11" size="11" value="{$darkmatter_start}" type="text"></td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_darkmatter_start_info}"></td>
 </tr><tr>
 	<td>{$se_initial_fields}</td>
 	<td><input name="initial_fields" maxlength="10" size="10" value="{$initial_fields}" type="text"> {$se_fields} </td>
@@ -115,22 +149,6 @@
 	<td><input name="planet_factor" maxlength="3" size="3" value="{$planet_factor}" type="text"></td>
 	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_planet_factor_info}"></td>
 </tr><tr>
-	<td>{$se_max_elements_build}</td>
-	<td><input name="max_elements_build" maxlength="3" size="3" value="{$max_elements_build}" type="text"></td>
-	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_max_elements_build_info}"></td>
-</tr><tr>
-	<td>{$se_max_elements_tech}</td>
-	<td><input name="max_elements_tech" maxlength="3" size="3" value="{$max_elements_tech}" type="text"></td>
-	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_max_elements_tech_info}"></td>
-</tr><tr>
-	<td>{$se_max_elements_ships}</td>
-	<td><input name="max_elements_ships" maxlength="3" size="3" value="{$max_elements_ships}" type="text"></td>
-	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_max_elements_ships_info}"></td>
-</tr><tr>
-	<td>{$se_max_fleet_per_build}</td>
-	<td><input name="max_fleet_per_build" maxlength="20" size="15" value="{$max_fleet_per_build}" type="text"></td>
-	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_max_fleet_per_build_info}"></td>
-</tr><tr>
 	<td>{$se_max_overflow}</td>
 	<td><input name="max_overflow" maxlength="3" size="3" value="{$max_overflow}" type="text"></td>
 	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_max_overflow_info}"></td>
@@ -143,8 +161,12 @@
 	<td><input name="moon_chance" maxlength="3" size="3" value="{$moon_chance}" type="text"></td>
 	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_moon_chance_info}"></td>
 </tr><tr>
+	<td>{$se_deuterium_cost_galaxy}</td>
+	<td><input name="deuterium_cost_galaxy" maxlength="11" size="11" value="{$deuterium_cost_galaxy}" type="text"> {$Deuterium}</td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_deuterium_cost_galaxy_info}"></td>
+</tr><tr>
 	<td>{$se_darkmatter_cost_trader}</td>
-	<td><input name="darkmatter_cost_trader" maxlength="11" size="11" value="{$darkmatter_cost_trader}" type="text"></td>
+	<td><input name="darkmatter_cost_trader" maxlength="11" size="11" value="{$darkmatter_cost_trader}" type="text"> {$Darkmatter}</td>
 	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_darkmatter_cost_trader_info}"></td>
 </tr><tr>
 	<td>{$se_factor_university}</td>
@@ -162,22 +184,6 @@
 	<td>{$se_gate_wait_time}</td>
 	<td><input name="gate_wait_time" maxlength="11" size="11" value="{$gate_wait_time}" type="text"></td>
 	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_gate_wait_time_info}"></td>
-</tr><tr>
-	<td>{$se_metal_start}</td>
-	<td><input name="metal_start" maxlength="11" size="11" value="{$metal_start}" type="text"></td>
-	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_metal_start_info}"></td>
-</tr><tr>
-	<td>{$se_crystal_start}</td>
-	<td><input name="crystal_start" maxlength="11" size="11" value="{$crystal_start}" type="text"></td>
-	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_crystal_start_info}"></td>
-</tr><tr>
-	<td>{$se_deuterium_start}</td>
-	<td><input name="deuterium_start" maxlength="11" size="11" value="{$deuterium_start}" type="text"></td>
-	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_deuterium_start_info}"></td>
-</tr><tr>
-	<td>{$se_darkmatter_start}</td>
-	<td><input name="darkmatter_start" maxlength="11" size="11" value="{$darkmatter_start}" type="text"></td>
-	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_darkmatter_start_info}"></td>
 </tr><tr>
 	<td>{$se_debris_moon}</td>
 	<td><input name="debris_moon"{if $debris_moon} checked="checked"{/if} type="checkbox"></td>
