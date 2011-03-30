@@ -30,9 +30,9 @@
  
 // Recuperação de Senha
 $LNG['lost_empty']                   = 'Deves preencher todos os campos!';
-$LNG['lost_not_exist']               = 'Conta com o endereço de email não existe!';
 $LNG['lost_mail_title']              = 'Nova Senha';
 $LNG['mail_sended']                  = 'Sua nova senha foi enviada com sucesso para o seu e-mail %s!';
+$LNG['lost_not_exists']              = 'Conta e endereço de Email não existe!';
 
 //general
 $LNG['index']                          	= 'Login';
@@ -50,16 +50,8 @@ $LNG['uni_closed']						= '(Offline)';
       
 /* ------------------------------------------------------------------------------------------ */
 
-$LNG['music_off']						= 'Musica: OFF';
-$LNG['music_on']						= 'Musica: ON';
-
 //index.php
 //case lostpassword
-$LNG['mail_not_exist']                 	= 'Este E-Mail não existe!';
-$LNG['mail_title']                     	= 'Nova Password';
-$LNG['mail_text']                      	= 'A nova password é: ';
-$LNG['mail_sended']                    	= 'A nova password foi enviada com êxito!';
-$LNG['mail_sended_fail']               	= 'O E-Mail não pôde ser enviado.!';
 $LNG['server_infos']                   	= array(
         "Um jogo de estratégia espacial em tempo real.",
         "Jogue juntamente com centenas de outros jogadores.",  
@@ -80,8 +72,6 @@ $LNG['chose_a_uni']                    	= 'Escolha o universo';
 
 //lostpassword.tpl
 $LNG['lost_pass_title']                = 'Recuperar password';
-$LNG['retrieve_pass']                  = 'Recuperar';
-$LNG['email']                          = 'Morada de E-Mail';
 
 //index_body.tpl
 $LNG['user']                           = 'Usuário';
@@ -148,10 +138,6 @@ $LNG['captcha_get_image']              = 'Imagem-CAPTCHA';
 $LNG['captcha_reload']                 = 'Nova-CAPTCHA';
 $LNG['captcha_get_audio']              = 'Som-CAPTCHA';
 $LNG['user_active']		       		   = 'Usuários %s activos!';
-
-//registry_closed.tpl
-$LNG['info']                           = 'Imformações';
-$LNG['reg_closed']                     = 'O sistema de registo encontra-se fechado';
 
 //Rules
 $LNG['rules_overview']                 = "Regras";

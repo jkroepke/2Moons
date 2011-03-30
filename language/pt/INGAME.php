@@ -105,6 +105,11 @@ $LNG['lm_support']                          = 'Suporte';
 $LNG['lm_rules']                            = 'Regras';
 $LNG['lm_battlesim']						= "Simulador de Combate";
 
+//---------------------------------------------------------------------------//
+//LEFT MENU
+$LNG['js_days']                            = 'Dias';
+$LNG['js_month']						   = 'Meses';
+
 //----------------------------------------------------------------------------//
 //OVERVIEW
 $LNG['ov_newname_alphanum']                 = 'Introduziste um caracter ilegal. Só podes introduzir alfanuméricos.';

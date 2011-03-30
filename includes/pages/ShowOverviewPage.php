@@ -166,6 +166,8 @@ function ShowOverviewPage()
 		'ov_security_request'		=> $LNG['ov_security_request'],
 		'ov_delete_planet'			=> $LNG['ov_delete_planet'],
 		'ov_planet_abandoned'		=> $LNG['ov_planet_abandoned'],
+		'ov_reflink'				=> $LNG['ov_reflink'],
+		'ref_active'				=> $CONF['ref_active'],
 		'path'						=> PROTOCOL.$_SERVER['HTTP_HOST'].HTTP_ROOT,
 	));
 	

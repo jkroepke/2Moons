@@ -40,6 +40,12 @@ function Content(action) {
 			$('.contentbox').animate({width: '560px', height: CONF['IsCaptchaActive'] == 0 ? '341px' : '417px'}, 300);		
 			$('.contentbox label').animate({width: '257px'}, 300);
 		break;
+		case 'register_fast':
+			showRecaptcha();
+			$('#regbox').show();
+			$('.contentbox').css({width: '560px', height: CONF['IsCaptchaActive'] == 0 ? '341px' : '417px'});		
+			$('.contentbox label').css('width', '257px');
+		break;
 		case 'lost':
 			$('#lostbox').show();
 			$('.contentbox').animate({width: '360px', height: '175px'}, 300);
@@ -101,9 +107,9 @@ function Submit(action) {
 function init(){
 	initLangs();
 	initCloseReg();
-	if(document.location.search == '?fb=reg')
+	if(CONF['FBActive'] == 1 && document.location.search == '?fb=reg')
 		FBRegister();
-	else if(document.location.search.search('?ref=') !== -1)
+	else if(CONF['ref_active'] == 1 && document.location.search.search('/?ref=') !== -1)
 		RefRegister();
 }
 
@@ -127,7 +133,8 @@ function changeUni(uni) {
 }
 
 function RefRegister() {
-
+	Content('register_fast');
+	$('.fb_login').remove();
 }
 
 /** FB Functions **/
@@ -152,7 +159,16 @@ function FBlogin() {
 	});
 }
 
-function FBCheckRegister(ID){
+function FBCheckRegister(Data){
+	if(typeof ID === "undefined") {
+		FBgetUser(FBCheckRegister);
+		return;
+	} else if (typeof ID === "object") {
+		ID	= Data.id
+	} else {
+		ID	= Data;
+	}
+	
 	$.getJSON('?uni='+FBUniverse+'&page=reg&action=check&mode=fbid&value='+ID, function(data) {
 		if(data.exists === true) {
 			document.location.href = '?uni='+FBUniverse+'&page=fblogin';
@@ -186,7 +202,7 @@ function FBRegister(data) {
 		FBgetUser(FBRegister);
 		return;
 	}
-	Content('register');
+	Content('register_fast');
 	$('.fb_login').remove();
 	$('#fb_id').val(data.id);
 	$('#reg_email').val(data.email);
@@ -195,15 +211,4 @@ function FBRegister(data) {
 
 function FBgetUser(callback) {
 	FB.api('/me', callback);
-}
-
-function FBHandler(data, UNI) {
-	$.getJSON('?uni='+UNI+'page=reg&action=check&mode=fbid&value='+data.id, function(data) {
-		if(data.exists) {
-			return;
-		} else {
-			if($.inArray(data.locale.substr(0, 2), CONF['avaLangs']) !== -1)
-				setLNG(data.locale.substr(0, 2), '?fb=reg');
-		}
-	});
 }

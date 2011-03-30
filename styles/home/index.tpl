@@ -98,6 +98,7 @@ var CONF			= {
 	IsCaptchaActive : {$game_captcha},
 	ref_active		: {$ref_active},
 	cappublic		: "{$cappublic}",
+	FBActive		: {$fb_active},
 	FBKey			: "{$fb_key}",
 	Lang			: {$langs},
 	MultiUniverse	: $('#universe').children().length !== 1 ? true : false,
@@ -115,11 +116,17 @@ $(document).ready(init);
 alert("{$code}");
 {/if}
 </script>
-{if $fb_key}
+{if $fb_active}
 <div id="fb-root"></div>
 <script type="text/javascript" src="http://connect.facebook.net/en_US/all.js"></script>
 <script type="text/javascript">
-FBinit();
+window.fbAsyncInit = FBinit;
+(function() {
+	var e = document.createElement('script'); e.async = true;
+	e.src = document.location.protocol +
+	  '//connect.facebook.net/en_US/all.js';
+	document.getElementById('fb-root').appendChild(e);
+}());
 </script>
 {/if}
 {if $game_captcha}

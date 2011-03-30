@@ -67,12 +67,20 @@
             <td>{$ov_points}</td>
             <td colspan="3">{$user_rank}</td>
         </tr>
+		{if $ref_active}
+		<tr>
+			<th colspan="4">{$ov_reflink}</th>
+		</tr>
+		<tr>
+			<td colspan="4"><input type="text" value="{$path}index.php?ref={$userid}" readonly="readonly" style="width:450px;"></td>
+		</tr>
+		{/if}
 		{if extension_loaded('gd') && !CheckModule(37)}
 		<tr>
 			<th colspan="4">{$ov_userbanner}</th>
 		</tr>
 		<tr>
-			<td colspan="4"><img src="userpic.php?id={$userid}" alt="" height="80" width="450"><br><br><table><tr><td class="transparent">HTML:</td><td class="transparent"><input type="text" value='<a href="{$path}"><img src="{$path}userpic.php?id={$userid}"></a>' readonly="readonly" style="width:450px;"></td></tr><tr><td class="transparent">BBCode:</td><td class="transparent"><input type="text" value="[url={$path}][img]{$path}userpic.php?id={$userid}[/img][/url]" readonly="readonly" style="width:450px;"></td></tr></table></td>
+			<td colspan="4"><img src="userpic.php?id={$userid}" alt="" height="80" width="450"><br><br><table><tr><td class="transparent">HTML:</td><td class="transparent"><input type="text" value='<a href="{$path}{if $ref_active}index.php?ref={$userid}{/if}"><img src="{$path}userpic.php?id={$userid}"></a>' readonly="readonly" style="width:450px;"></td></tr><tr><td class="transparent">BBCode:</td><td class="transparent"><input type="text" value="[url={$path}{if $ref_active}index.php?ref={$userid}{/if}][img]{$path}userpic.php?id={$userid}[/img][/url]" readonly="readonly" style="width:450px;"></td></tr></table></td>
 		</tr>
 		{/if}
    </table>

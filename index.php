@@ -94,12 +94,15 @@ switch ($page) {
 					case 'fbid' :
 						$Count 	= $db->countquery("SELECT COUNT(*) FROM ".USERS." WHERE `universe` = '".$UNI."' AND `fb_id` = '".$db->sql_escape($value)."';");
 					break;
+					case 'ref' :
+						$Count 	= $db->countquery("SELECT `universe` FROM ".USERS." WHERE `id` = '".$db->sql_escape($value)."';");
+					break;
 				}
 				
 				if($Count == 0)
 					echo json_encode(array('exists' => false));
 				else
-					echo json_encode(array('exists' => true));
+					echo json_encode(array('exists' => true, 'Message' => $Count));
 			break;
 			case 'send' :
 				if($CONF['reg_closed'] == 1) {
@@ -522,6 +525,16 @@ switch ($page) {
 				));
 			}
 
+			if($CONF['ref_active'] && isset($_REQUEST['ref']) && is_numeric($_REQUEST['ref'])) {
+				$RefUser	= $db->countquery("SELECT `universe` FROM ".USERS." WHERE `id` = '".(int) $_REQUEST['ref']."';");
+				if(isset($RefUser)) {
+					$template->assign_vars(array(
+						'ref_id'	=> (int) $_REQUEST['ref'],
+						'ref_uni'	=> $RefUser,
+					));
+				}
+			}
+			
 			$template->assign_vars(array(
 				'contentbox'			=> false,
 				'AvailableUnis'			=> $AvailableUnis,
@@ -548,6 +561,7 @@ switch ($page) {
 				'planetname'			=> $LNG['planet_reg'],
 				'language'				=> $LNG['lang_reg'],
 				'captcha_reg'			=> $LNG['captcha_reg'],
+				'captcha_reg'			=> $isref,
 			));
 			$template->show('index_main.tpl');
 		}
