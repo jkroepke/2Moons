@@ -18,7 +18,7 @@ $LNG['uni_closed']			= ' (closed)';
 //case lostpassword
 
 $LNG['lost_empty']			= 'Du musst alle Felder ausfüllen!';
-$LNG['lost_not_exist']		= 'Es konnte kein User in Verbindung mit dieser Mail Adresse gefunden werden!';
+$LNG['lost_not_exists']		= 'Es konnte kein User in Verbindung mit dieser Mail Adresse gefunden werden!';
 $LNG['lost_mail_title']		= 'Neues Passwort';
 $LNG['mail_sended']			= 'Dein Passwort wurde an %s erfolgreich gesendet!';
 
