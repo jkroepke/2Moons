@@ -39,8 +39,7 @@ function removeE(Number) {
 	else 
 		return parseFloat(Number).toPrecision(e + 1);
 }
-var days = new Array('Sun', 'Mon', 'Tus', 'Wed', 'Thu', 'Fri', 'Sat');
-var months = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+
 function getFormatedDate(timestamp, format) {
 	var currTime = new Date();
 	currTime.setTime(timestamp);

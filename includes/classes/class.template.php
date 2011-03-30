@@ -225,6 +225,8 @@ class template
 			'fcm_info'			=> $LNG['fcm_info'],
 			'VERSION'			=> $CONF['VERSION'],
 			'REV'				=> substr($CONF['VERSION'], -4),
+			'js_days'			=> json_encode($LNG['js_days']),
+			'js_month' 			=> json_encode($LNG['js_month']),
 		));
 	}
 	
