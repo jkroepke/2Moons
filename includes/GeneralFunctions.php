@@ -486,7 +486,7 @@ function ClearCache()
 
 function MaxPlanets($Level, $Universe)
 {
-	return min($CONFIG[$Universe]['min_player_planets'] + ceil($Level / 2) * PLANETS_PER_TECH, $CONFIG[$Universe]['max_player_planets']);
+	return min($GLOBALS['CONFIG'][$Universe]['min_player_planets'] + ceil($Level / 2) * PLANETS_PER_TECH, $GLOBALS['CONFIG'][$Universe]['max_player_planets']);
 }
 
 function GetCrons()
