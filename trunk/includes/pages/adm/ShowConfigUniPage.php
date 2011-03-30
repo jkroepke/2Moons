@@ -83,6 +83,7 @@ function ShowConfigUniPage()
 		$CONF['crystal_start']			= request_var('crystal_start', 0);
 		$CONF['deuterium_start']		= request_var('deuterium_start', 0);
 		$CONF['darkmatter_start']		= request_var('darkmatter_start', 0);
+		$CONF['deuterium_cost_galaxy']	= request_var('deuterium_cost_galaxy', 0);
 		$CONF['max_fleet_per_build']	= request_outofint('max_fleet_per_build');
 		
 		update_config(array(
@@ -149,7 +150,8 @@ function ShowConfigUniPage()
 			'crystal_start'			=> $CONF['crystal_start'],
 			'deuterium_start'		=> $CONF['deuterium_start'],
 			'darkmatter_start'		=> $CONF['darkmatter_start'],
-			'debris_moon'			=> $CONF['debris_moon']
+			'debris_moon'			=> $CONF['debris_moon'],
+			'deuterium_cost_galaxy'	=> $CONF['deuterium_cost_galaxy']
 		));
 		
 		if($CONF['adm_attack'] == 0)
@@ -282,6 +284,11 @@ function ShowConfigUniPage()
 		'se_darkmatter_start_info'		=> $LNG['se_darkmatter_start_info'],
 		'se_debris_moon'				=> $LNG['se_debris_moon'],
 		'se_debris_moon_info'			=> $LNG['se_debris_moon_info'],
+		'se_deuterium_cost_galaxy'		=> $LNG['se_deuterium_cost_galaxy'],
+		'se_deuterium_cost_galaxy_info'	=> $LNG['se_deuterium_cost_galaxy_info'],
+		'se_buildlist'					=> $LNG['se_buildlist'],
+		'Deuterium'						=> $LNG['Deuterium'],
+		'Darkmatter'					=> $LNG['Darkmatter'],
 		'game_name'						=> $CONF['game_name'],
 		'uni_name'						=> $CONF['uni_name'],
 		'game_speed'					=> ($CONF['game_speed'] / 2500),
@@ -349,7 +356,8 @@ function ShowConfigUniPage()
 		'crystal_start'					=> $CONF['crystal_start'],
 		'deuterium_start'				=> $CONF['deuterium_start'],
 		'darkmatter_start'				=> $CONF['darkmatter_start'],
-		'debris_moon'					=> $CONF['debris_moon']
+		'debris_moon'					=> $CONF['debris_moon'],
+		'deuterium_cost_galaxy'			=> $CONF['deuterium_cost_galaxy']
 	));
 	
 	$template->show('adm/ConfigBodyUni.tpl');

@@ -471,6 +471,9 @@ $LNG['se_darkmatter_start']				= 'Start Dunkle Materie';
 $LNG['se_darkmatter_start_info']		= 'Gibt an, wieviel Dunkle Materie neue User erhalten.';
 $LNG['se_debris_moon']					= 'Lösche TF nach Mond';
 $LNG['se_debris_moon_info']	 			= 'Löscht das TF, nachdem ein Mond entstanden ist.';
+$LNG['se_deuterium_cost_galaxy']		= 'Galaxiegebühren';
+$LNG['se_deuterium_cost_galaxy_info']	= 'Kosten Deuterium / Klick in der Galaxy';
+$LNG['se_buildlist']					= 'Bauliste Einstellungen';
 
 //###########################################################//
 
