@@ -345,7 +345,7 @@ $LNG['se_fields'] 						= 'Campos';
 $LNG['se_per_hour'] 					= 'h';
 $LNG['se_metal_production'] 			= 'Produção de Metal';
 $LNG['se_crystal_production'] 			= 'Produção de Cristal';
-$LNG['se_deuterium_production']			= 'Produção de Deuterium';
+$LNG['se_deuterium_production']			= 'Produção de Deuterio';
 $LNG['se_several_parameters'] 			= 'Vários parâmetros';
 $LNG['se_title_admins_protection'] 		= 'Marque a caixa para ativar a proteção e impedir que os administradores e moderadores recebam ataques ou qualquer outra ação das frotas.';
 $LNG['se_admin_protection'] 			= 'Proteção';
@@ -418,13 +418,10 @@ $LNG['se_google_info']                  = 'Google Analitico é a solução para 
 $LNG['se_google_active']                = 'Activar/desactivar?';
 $LNG['se_google_key']                   = 'Chave do Google Analítico';
 $LNG['se_google_key_info']              = 'Identificar a chave analítica para teu site. Isso sempre começa com UA, z.B.: UA-13185300-3';
-$LNG['se_bgm_login']					= 'Musica de Login';
-$LNG['se_bgm_active']					= 'Activado?';
-$LNG['se_bgm_info']						= 'A musica de fundo que toca na pagina principal.';
-$LNG['se_bgm_file']						= 'Caminho:';
-$LNG['se_bgm_file_info']				= 'Caminhos possivel ou absoluto possiveis!';
 $LNG['se_ttf_file']                     = 'Pfad do ficheiro TTF';
 $LNG['se_ttf_file_info']                = 'O TTF é necessária para exibir o banner estatísticas cirílico ou chinês';
+$LNG['se_deuterium_cost_galaxy']		= 'Custo de Deutério';
+$LNG['se_deuterium_cost_galaxy_info']	= 'Custo de Deutério por Sistema Solar (Defeito : 10)';
 $LNG['se_max_galaxy']                   = 'Max. Galaxias';
 $LNG['se_max_galaxy_info']              = 'Máximo de Galaxias no Universo';
 $LNG['se_max_system']                   = 'Max. Sistemas Solares';
@@ -471,6 +468,7 @@ $LNG['se_darkmatter_start']             = 'Inicio - Matéria Negra';
 $LNG['se_darkmatter_start_info']        = 'Recursos iniciais de Matéria Negra para novo jogador.';
 $LNG['se_debris_moon']                  = 'Excluir Destroços na Lua';
 $LNG['se_debris_moon_info']             = 'Limpa os destroços depois de Formação de Lua';
+$LNG['se_buildlist']                    = 'Lista de Construcção';
 
 
 
@@ -925,6 +923,7 @@ $LNG['qe_tech']							= 'Tecnologias';
 $LNG['qe_fleet']                        = 'Frotas';
 $LNG['qe_defensive']                    = 'Defesas';
 $LNG['qe_resources']                    = 'Recursos';
+$LNG['qe_officier']                     = 'Oficiais';
 $LNG['qe_id']                           = 'ID';
 $LNG['qe_name']                         = 'Nome';
 $LNG['qe_level']						= 'Level';
@@ -1061,11 +1060,6 @@ $LNG['uvs_error']						= 'Falha ao importar o arquivo	';
 //Página Update
 $LNG['up_weiter']						= 'Seguinte';
 $LNG['up_kein_update']					= 'Não há atualização disponivel!';
-$LNG['up_ftp_ok']						= 'Conexão do FTP: OK!';
-$LNG['up_ftp_error']					= 'Conexão do FTP: ERRO!';
-$LNG['up_ftp_change']					= 'Mudar FTP(';
-$LNG['up_ftp_ok']						= 'OK!';
-$LNG['up_ftp_change_error']				= 'Erro! Caminho não encontrado! ';
 $LNG['up_ok_update']					= 'OK! - Atualizado!';
 $LNG['up_error_update']					= 'ERRO! - Não é possível fazer upload do arquivo';
 $LNG['up_delete_file']					= 'Apagado com sucesso';
@@ -1080,12 +1074,9 @@ $LNG['up_revision']						= 'Revisão';
 $LNG['up_add']							= 'Adicionado em:';
 $LNG['up_edit']							= 'Editar';
 $LNG['up_del']							= 'Excluir';
-$LNG['up_update_server']				= 'Atualização do servidor não disponível';
-$LNG['up_password_title']				= 'Solicitação de Senha';
-$LNG['up_password_info']				= 'Para realizar a atualização, a senha de FTP é necessária.';
-$LNG['up_password_label']				= 'Senha:';
 $LNG['up_submit']						= 'Enviar';
 $LNG['up_version']						= 'Versão';
+$LNG['up_chmod_error']					= 'Erro de CHMOD!';
 
 // Editor de Chat
 $LNG['ch_socket_chatid_info']          = 'Esse IP pode ser usado para distinguir as definições de chat, use o mesmo socket do servidor.';

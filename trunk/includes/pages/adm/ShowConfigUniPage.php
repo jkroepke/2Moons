@@ -30,7 +30,7 @@ if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FI
 
 function ShowConfigUniPage()
 {
-	global $CONF, $LNG, $USER, $LANG;
+	global $CONF, $LNG, $USER, $LANG, $db;
 	if (!empty($_POST))
 	{
 		$CONF['game_disable']			= isset($_POST['closed']) && $_POST['closed'] == 'on' ? 1 : 0;
