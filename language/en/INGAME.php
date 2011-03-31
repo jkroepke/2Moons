@@ -116,16 +116,10 @@ $LNG['ov_position']							= 'Position';
 $LNG['ov_points']							= 'Points';
 $LNG['ov_security_request']					= 'Security Question';
 $LNG['ov_security_confirm']					= 'Please confirm that the planet';
-$LNG['ov_with_pass']						= 'want to give up.';
 $LNG['ov_password']							= 'Password';
 $LNG['ov_delete_planet']					= 'Delete planet';
-$LNG['ov_your_planet']						= 'Your planet';
-$LNG['ov_coords']							= 'Position';
-$LNG['ov_abandon_planet']					= 'Abandon Planet';
-$LNG['ov_planet_name']						= 'Name';
-$LNG['ov_actions']							= 'Actions';
 $LNG['ov_planet_rename']					= 'Rename';
-$LNG['ov_planet_rename_action']				= 'Rename';
+$LNG['ov_rename_label']						= 'New name';
 $LNG['ov_fields']							= 'Fields';
 $LNG['ov_developed_fields']                = 'Developed fields';
 $LNG['ov_max_developed_fields']				= 'max. developed fields';
@@ -139,6 +133,7 @@ $LNG['ov_teamspeak']						= 'Teamspeak';
 $LNG['ov_teamspeak_v2']						= '<a href="teamspeak://%s:%s?nickname=%s" title="Teamspeak Connect">Connect</a> &bull; Online: %d/%d &bull; Channels: %d &bull; Traffic ges.: %s MB';
 $LNG['ov_teamspeak_v3']						= '<a href="ts3server://%s?port=%d&amp;nickname=%s&amp;password=%s" title="Teamspeak Connect">Connect</a>&nbsp;&bull;&nbsp;Online: %d/%d &bull; Channels: %d &bull; Traffic ges.: %s MB';
 $LNG['ov_closed']							= 'Game is deactivated at present! ';
+$LNG['ov_reflink']							= 'Reflink';
 //----------------------------------------------------------------------------//
 //GALAXY
 
@@ -848,6 +843,7 @@ $LNG['op_deactivate_ipcheck_descrip']		= 'IP check means that a security logout 
 $LNG['op_spy_probes_number_descrip']		= 'Number of espionage probes that can be sent directly from each scan in the Galaxy menu.';
 $LNG['op_activate_vacation_mode_descrip']	= 'Vacation mode will protect you during long absences. It can only be activated if nothing is being built (fleet, building, or defense), nothing is being researched, and none of your fleets are underway. Once it is activated, you are protected from new attacks. Attacks that have already started will be carried out. During vacation mode, production is set to zero and must be manually returned to 100 % after vacation mode ends. Vacation mode lasts a minimum of two days and can only be deactivated after this time.';
 $LNG['op_dlte_account_descrip']				= 'If you mark this box, your account will be deleted automatically after 7 days.';
+$LNG['op_need_pass_mail']					= 'To change your e-mail address, you must enter your password!';
 $LNG['op_not_vaild_mail']					= 'You have not entered a valid eMail addy!';
 $LNG['op_change_mail_exist']				= 'The entered eMail %s is already in use!';
 $LNG['op_sort_normal']						= 'Order of creation';
@@ -1017,30 +1013,6 @@ $LNG['pl_dercrystal']   					= 'Recycled Crystal';
 $LNG['pl_etc']   							= 'Etc ';
 
 //----------------------------------------------------------------------------//
-// Chat
-
-$LNG['chat_title']                         	= 'Chat';
-$LNG['chat_ally_title']                    	= 'Alliance chat';  
-$LNG['chat_bbcode']                    		= 'BB-Codes';  
-$LNG['chat_fontcolor']                    	= 'Font Color';  
-
-$LNG['chat_disc']                          	= 'Chat';
-$LNG['chat_message']                       	= 'Message';
-$LNG['chat_send']                          	= 'Sending';
-$LNG['chat_admin']                       	= '<font color="red">Admin %s</font>';
-$LNG['chat_color_white']					= 'White';
-$LNG['chat_color_blue']						= 'Blue';
-$LNG['chat_color_yellow']					= 'Yellow';
-$LNG['chat_color_green']					= 'Green';
-$LNG['chat_color_pink']						= 'Pink';
-$LNG['chat_color_red']						= 'Red';
-$LNG['chat_color_orange']					= 'Orange';
-
-$LNG['chat_notext']							= 'Enter some text!';
-$LNG['chat_request_url']					= 'Please give us a link:';
-$LNG['chat_request_url_desc']				= 'Enter a description for your link (optional):';
-
-//----------------------------------------------------------------------------//
 // Support
 
 $LNG['supp_header'] 						= 'Support system ';
@@ -1070,6 +1042,7 @@ $LNG['supp_close'] 							= 'Closed';
 $LNG['supp_open'] 							= 'Open';
 $LNG['supp_admin_answer'] 					= 'Admin answer';
 $LNG['supp_player_answer'] 					= 'Player answer';
+$LNG['supp_player_write'] 					= '%s wrote on %s';
 
 //----------------------------------------------------------------------------//
 // Rekorde 
@@ -1099,6 +1072,8 @@ $LNG['bs_techno']							= "Techniques";
 $LNG['bs_send']								= "Mailing";
 $LNG['bs_cancel']							= "Moving back";
 $LNG['bs_wait']								= "Wait for the next simulation for 10 seconds";
+$LNG['bs_acs_slot']							= 'AKS-Slot';
+$LNG['bs_add_acs_slot']						= 'Add AKS-Slot';
 
 //----------------------------------------------------------------------------//
 // Fleettrader

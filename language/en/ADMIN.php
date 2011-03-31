@@ -283,19 +283,19 @@ $LNG['ow_forum']					= 'Forums';
 $LNG['ow_proyect_leader']				= 'Project Leader';
 $LNG['ow_translator']					= 'Translators';
 $LNG['ow_special_thanks']				= 'Special Thanks';
-$LNG['ow_install_file_detected']			= 'The install.php was found. Please rename or delete it, so that their Game is protected.';
+$LNG['ow_file_detected']			= 'The %s was found. Please rename or delete it, then your game will be protected.';
 $LNG['ow_config_file_writable']				= 'The config.php file can be written to, we recommend that you set its file permissions to CHMOD 444 (read only).';
 $LNG['ow_database_errors']				= 'There are errors present!';
-$LNG['ow_handler_errors']				= 'The Fleet Handler has failed! Last Start: %s - Next Start: %s';
 $LNG['ow_smtp_errors']				= 'Check your SMTP settings! - Currently no mails are sent!';
 $LNG['ow_dir_not_writable']			= './%s dir not writable!';
-$LNG['ow_old_version']					= 'A New Version is Available!';
 $LNG['ow_none']						= 'No Warnings';
 //###########################################################//
 
 
 //---------------	GAME CONFIG	    ------------------------//
 $LNG['se_server_parameters']               		= 'Server Settings';
+$LNG['se_game_name']					        = 'Name (Game)';
+$LNG['se_uni_name']						        = 'Name (Universe)';
 $LNG['se_name']                            		= 'Name';
 $LNG['se_lang']                            		= 'Language';
 $LNG['se_general_speed']                    		= 'Overall Game Speed';
@@ -384,11 +384,57 @@ $LNG['se_google_info']					= 'Google Analytics is a solution that allows you to 
 $LNG['se_google_active']				= 'Activate Google Analytics?';
 $LNG['se_google_key']					= 'Google Analytics Key';
 $LNG['se_google_key_info']				= 'Once registered, Google with provide you with a key to identify your website, for their Analytics software. E.g. this always starts with UA: UA -13185300-3 ';
-$LNG['se_bgm_login']					= 'Login Music';
-$LNG['se_bgm_active']					= 'Activate?';
-$LNG['se_bgm_info']						= 'The music playing on the home page in the background.';
-$LNG['se_bgm_file']						= 'Path:';
-$LNG['se_bgm_file_info']				= 'Relative or absolute paths possible!';
+$LNG['se_ttf_file']						= 'Path to the TFF file';
+$LNG['se_ttf_file_info']				= 'The TTF is required in order to display the banner statistics Cyrillic or Chinese characters';
+$LNG['se_max_galaxy']					= 'Max Galaxy';
+$LNG['se_max_galaxy_info']				= 'Maximum number of galaxies in the universe';
+$LNG['se_max_system']					= 'Max System';
+$LNG['se_max_system_info']				= 'Maximum number of systems in a galaxy';
+$LNG['se_max_planets']					= 'Max Planets';
+$LNG['se_max_planets_info']				= 'Maximum number of planets in a system';
+$LNG['se_min_player_planets']			= 'Min Planets/Players';
+$LNG['se_max_player_planets_info']		= 'Number of max. colonies without research';
+$LNG['se_max_player_planets']			= 'Max Planets/Players';
+$LNG['se_min_player_planets_info']		= 'Number of max. colonies with research';
+$LNG['se_planet_factor']				= 'Multiplanet';
+$LNG['se_planet_factor_info']			= 'Multiplier Planet size';
+$LNG['se_max_elements_build']			= 'Max contracts (construction)';
+$LNG['se_max_elements_build_info']		= 'Maximum number of jobs in the building queue';
+$LNG['se_max_elements_tech']			= 'Max contracts (research)';
+$LNG['se_max_elements_tech_info']		= 'Maximum number of jobs in the research loop';
+$LNG['se_max_elements_ships']			= 'Max Orders (shipyard)';
+$LNG['se_max_elements_tech_info']		= 'Maximum number of jobs in the shipyard';
+$LNG['se_max_fleet_per_build']			= 'Max Fleets / Mission';
+$LNG['se_max_fleet_per_build_info']		= 'Maximum number of units per order in the shipyard';
+$LNG['se_max_overflow']					= 'Memory Overflow';
+$LNG['se_max_overflow_info']			= 'How many resources can be produced in factor with full bearings';
+$LNG['se_moon_factor']					= 'Factor moon chance';
+$LNG['se_moon_factor_info']				= 'The factor increases the chance of a new moon';
+$LNG['se_moon_chance']					= 'Max moon chance';
+$LNG['se_moon_chance_info']				= 'Maximum chance of a moon origin';
+$LNG['se_darkmatter_cost_trader']	 	= 'Dealer cost';
+$LNG['se_darkmatter_cost_trader_info']	= 'Fees in dark matter for the merchant';
+$LNG['se_factor_university']			= 'University of factor';
+$LNG['se_factor_university_info']		= 'Specifies be reduced by what percentage the research university per level';
+$LNG['se_max_fleets_per_acs']	 		= 'Max fleets / AKS';
+$LNG['se_max_fleets_per_acs_info']		= 'Maximum fleets in a composite (AKS)';
+$LNG['se_vmode_min_time']				= 'Minimum period of vacation mode';
+$LNG['se_vmode_min_time_info']			= 'Specifies how long a user at least one must be in vacation mode. (in seconds)';
+$LNG['se_gate_wait_time']				= 'Jump gate charge';
+$LNG['se_gate_wait_time_info']			= 'Specifies how often the jump gates can use (in seconds)';
+$LNG['se_metal_start']					= 'Start metal';
+$LNG['se_metal_start_info']				= 'Specifies how much metal is present on the new planet.';
+$LNG['se_crystal_start']				= 'Start Crystal';
+$LNG['se_crystal_start_info']			= 'Specifies how much crystal exists on the new planet.';
+$LNG['se_deuterium_start']				= 'Start deuterium';
+$LNG['se_deuterium_start_info']			= 'Specifies how much deuterium is present on the new planet.';
+$LNG['se_darkmatter_start']				= 'Start dark matter';
+$LNG['se_darkmatter_start_info']		= 'Specifies how much dark matter get new users.';
+$LNG['se_debris_moon']					= 'Delete TF by moon';
+$LNG['se_debris_moon_info']	 			= 'Clears the TF, after a moon was originated.';
+$LNG['se_deuterium_cost_galaxy']		= 'Galaxy fees';
+$LNG['se_deuterium_cost_galaxy_info']	= 'Deuterium cost per click in the galaxy';
+$LNG['se_buildlist']					= 'Building list settings';
 $LNG['se_trader_head']					= 'Fleet-trader Settings';
 $LNG['se_trader_ships']				= 'Allowed Ships:';
 $LNG['se_trader_charge']				= 'Trader Fee:';
@@ -464,6 +510,7 @@ $LNG['ul_sure_you_want_dlte']				= 'Are you sure that you want to remove?';
 $LNG['mu_general']                   			= 'General';
 $LNG['mu_connected']                			= 'Online';
 $LNG['mu_settings']                			= 'Configuration';
+$LNG['mu_unisettings']				= 'Uni configuration';
 $LNG['mu_global_message']            			= 'Global Message';
 $LNG['mu_users_settings']            			= 'Edit Menu';
 $LNG['mu_add_delete_resources']    			= 'Account Editor';
@@ -538,7 +585,6 @@ $LNG['re_reset_banned']                    		= 'Reset Bans';
 $LNG['re_reset_messages']                    		= 'Reset Messages';
 $LNG['re_reset_statpoints']                		= 'Reset Statistics';
 $LNG['re_reset_all']                        		= 'Reset the Universe';
-$LNG['re_reset_h1']                        		= 'Reset Options';
 $LNG['re_reset_excess']                    		= 'Options restarted Successfully!';
 //###########################################################//
 
@@ -838,6 +884,7 @@ $LNG['qe_send']						= 'Submit';
 $LNG['qe_reset']					= 'Reset';
 $LNG['qe_build']					= 'Building';
 $LNG['qe_tech']							= 'Technology';
+$LNG['qe_officier']						= 'Officers';
 $LNG['qe_fleet']					= 'Fleet';
 $LNG['qe_defensive']					= 'Defense';
 $LNG['qe_resources']					= 'Resources';
@@ -856,6 +903,7 @@ $LNG['qe_coords']					= 'Coordinates';
 $LNG['qe_hpcoords']						= 'HP-Coords';
 $LNG['qe_temp']						= 'Temperature';
 $LNG['qe_change']						= 'Ändern';
+$LNG['qe_authattack']					= 'Admin attack protection';
 
 //----------------------------------------------------------------------------//
 //TeamSpeakSettingPage.php
@@ -880,7 +928,6 @@ $LNG['fb_secrectkey']					= 'Facebook Secret Key';
 $LNG['fb_info']						= 'With Facebook Connect users who are logged on to Facebook, log in with my click, or register. <br>  to use this feature, you must be registered with Faceebok itself. In addition, you must create an Application. This you can do to <a href="http://www.facebook.com/developers/"> http://www.facebook.com/developers/ </ a>. As Connect URL, you must enter the URL to the game. Then you are carrying here the Keys and your game should be ready Facebook. <br> <font Color="red"> for FB Connect, the mail delivery will be available! (SMTP settings)</font>';
 $LNG['fb_curl_yes']						= '<span style="color:green">cURL Installed!</span>';
 $LNG['fb_curl_no']						= '<span style="color:red">cURL Not Installed! Facebook Requires cURL extension to work!</span>';
-$LNG['fb_app_url']                                      = 'Facebook URL';
 
 //----------------------------------------------------------------------------//
 //GameModule.php
@@ -980,11 +1027,7 @@ $LNG['uvs_error']						= 'Invalid Import File!';
 //Update Page
 $LNG['up_weiter']						= 'Further';
 $LNG['up_kein_update']					= 'No update available!';
-$LNG['up_ftp_ok']						= 'Ftp connection establishment: OK! ';
-$LNG['up_ftp_error']					= 'Ftp connection establishment: ERROR! ';
-$LNG['up_ftp_change']					= 'Ftp CHANGE you(';
 $LNG['up_ftp_ok']						= 'OK!';
-$LNG['up_ftp_change_error']				= 'ERROR! Path not found!';
 $LNG['up_ok_update']					= 'OK! - Updated';
 $LNG['up_error_update']					= 'ERROR! - Could not file high-load';
 $LNG['up_delete_file']					= 'Successfully deleted';
@@ -999,12 +1042,29 @@ $LNG['up_revision']						= 'Revision ';
 $LNG['up_add']							= 'Add:';
 $LNG['up_edit']							= 'Edit:';
 $LNG['up_del']							= 'Dele';
-$LNG['up_update_server']				= 'Update Server currently not available';
-$LNG['up_password_title']				= 'Password Request';
-$LNG['up_password_info']				= 'To perform the update, the FTP password is required.';
-$LNG['up_password_label']				= 'Password:';
 $LNG['up_submit']						= 'Submit';
 $LNG['up_version']						= 'Version';
+$LNG['up_chmod_error']					= 'No write permission for folder<br>%s<br>available!';
+
+//Chat Page
+$LNG['ch_socket_chatid_info']			= 'This ID can be used to distinguish between different chat installations using the same socket server';
+$LNG['ch_socket_port_info']				= 'Defines the port of the socket server';
+$LNG['ch_socket_ip_info']				= 'Defines the IP of the socket server used to connect from server side to broadcast update messages';
+$LNG['ch_socket_host_info']				= 'Defines the hostname of the socket server used to connect from client side (the server hostname is used if set to null)';
+$LNG['ch_socket_chatid']				= 'Socket ChatID';
+$LNG['ch_socket_port']					= 'Socket Port';
+$LNG['ch_socket_ip']					= 'Socket IP';
+$LNG['ch_socket_host']					= 'Socket Hostname';
+$LNG['ch_socket_active']				= 'Socket active?';
+$LNG['ch_socket']						= 'Socket server settings';
+$LNG['ch_closed']						= 'Chat closed?';
+$LNG['ch_allowchan']					= 'Allow Private Channels';
+$LNG['ch_allowmes']						= 'Allow private messages';
+$LNG['ch_allowcelmes']					= 'Delete own messages';
+$LNG['ch_logmessage']					= 'Enable log messages';
+$LNG['ch_nickchange']					= 'Allow Nick Change';
+$LNG['ch_botname']						= 'Botname';
+$LNG['ch_channelname']					= 'Default Channel Name';
 
 //Active Page
 $LNG['ap_id']							= 'ID';

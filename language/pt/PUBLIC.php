@@ -128,6 +128,7 @@ $LNG['pass2_reg']                      = 'Repetir Password';
 $LNG['email_reg']                      = 'Morada de E-mail';
 $LNG['email2_reg']					   = 'Confirmar o Email';
 $LNG['planet_reg']					   = 'Nome do Planeta Principal';
+$LNG['ref_reg']						   = 'Indicado por';
 $LNG['lang_reg']                       = 'Língua de Jogo';
 $LNG['register_now']                   = 'Registar!';
 $LNG['captcha_reg']                    = 'Imagem de sugurança';

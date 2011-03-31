@@ -114,8 +114,7 @@ google.load("feeds", "1");
                 </tr>
                 <tr>
 					<td class="transparent">
-					Z3roCooL (english)<br>
-					Yoda (frensh)<br>
+					BuLLeT (english)<br>
 					QwataKayean (portuguese)<br>
 					InquisitorEA (russian)<br>
 					</td>
