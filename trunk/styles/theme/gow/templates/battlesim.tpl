@@ -7,12 +7,12 @@
 <table style="width:80%">
 <tr><th>{$lm_battlesim}</th></tr>
 <tr><td>{$bs_steal} {$Metal}: <input type="text" size="10" value="{if $battleinput.0.1.1}{$battleinput.0.1.1}{else}0{/if}" name="battleinput[0][1][1]"> {$Crystal}: <input type="text" size="10" value="{if $battleinput.0.1.2}{$battleinput.0.1.2}{else}0{/if}" name="battleinput[0][1][2]"> {$Deuterium}: <input type="text" size="10" value="{if $battleinput.0.1.3}{$battleinput.0.1.3}{else}0{/if}" name="battleinput[0][1][3]"></td></tr>
-<tr><td class="left"><input type="button" onClick="return add();" value="Add AKS-Slot"></td></tr>
+<tr><td class="left"><input type="button" onClick="return add();" value="{$bs_add_acs_slot}"></td></tr>
 <tr>
 <td class="transparent" style="padding:0;">
 <div id="tabs">
 <ul>
-{section name=tab start=0 loop=$Slots}<li><a href="#tabs-{$smarty.section.tab.index}">AKS-Slot {$smarty.section.tab.index + 1}</a></li>{/section}
+{section name=tab start=0 loop=$Slots}<li><a href="#tabs-{$smarty.section.tab.index}">{$bs_acs_slot} {$smarty.section.tab.index + 1}</a></li>{/section}
 </ul>
 {section name=content start=0 loop=$Slots}
 <div id="tabs-{$smarty.section.content.index}">

@@ -150,10 +150,10 @@ function ShowResourcesPage()
 	}
 
 	$template->assign_vars(array(	
-		'bonus_metal'							=> colorNumber(pretty_number(array_sum($metal)		* (($USER['rpg_geologue'] * $OfficerInfo[601]['info']) + ($USER['metal_proc_tech'] * 0.02) + ((TIMESTAMP - $USER[$resource[703]] <= 0) ? ($ExtraDM[703]['add']) : 0)))),
-		'bonus_crystal'							=> colorNumber(pretty_number(array_sum($crystal) 	* (($USER['rpg_geologue'] * $OfficerInfo[601]['info']) + ($USER['crystal_proc_tech'] * 0.02) + ((TIMESTAMP - $USER[$resource[703]] <= 0) ? ($ExtraDM[703]['add']) : 0)))),
-		'bonus_deuterium'						=> colorNumber(pretty_number(array_sum($deuterium) 	* (($USER['rpg_geologue'] * $OfficerInfo[601]['info']) + ($USER['deuterium_proc_tech'] * 0.02) + ((TIMESTAMP - $USER[$resource[703]] <= 0) ? ($ExtraDM[703]['add']) : 0)))),
-		'bonus_energy'							=> colorNumber(pretty_number(array_sum($energy_en) 	* (($USER['rpg_ingenieur'] * $OfficerInfo[603]['info']) + ((TIMESTAMP - $USER[$resource[704]] <= 0) ? ($ExtraDM[704]['add']) : 0)))),
+		'bonus_metal'							=> colorNumber(pretty_number(array_sum($metal)		* (($USER['rpg_geologue']  * $OfficerInfo[601]['info']) + ($USER['metal_proc_tech'] * 0.02) + DMExtra($USER[$resource[703]], TIMESTAMP, $ExtraDM[703]['add'], 0)))),
+		'bonus_crystal'							=> colorNumber(pretty_number(array_sum($crystal) 	* (($USER['rpg_geologue']  * $OfficerInfo[601]['info']) + ($USER['crystal_proc_tech'] * 0.02) + DMExtra($USER[$resource[703]], TIMESTAMP, $ExtraDM[703]['add'], 0)))),
+		'bonus_deuterium'						=> colorNumber(pretty_number(array_sum($deuterium) 	* (($USER['rpg_geologue']  * $OfficerInfo[601]['info']) + ($USER['deuterium_proc_tech'] * 0.02) + DMExtra($USER[$resource[703]], TIMESTAMP, $ExtraDM[703]['add'], 0)))),
+		'bonus_energy'							=> colorNumber(pretty_number(array_sum($energy_en) 	* (($USER['rpg_ingenieur'] * $OfficerInfo[603]['info']) + DMExtra($USER[$resource[704]], TIMESTAMP, $ExtraDM[704]['add'], 0)))),
 		'CurrPlanetList'						=> $CurrPlanetList,	
 		'Production_of_resources_in_the_planet'	=> str_replace('%s', $PLANET['name'], $LNG['rs_production_on_planet']),
 		'metal_basic_income'    				=> $CONF['metal_basic_income']     * $CONF['resource_multiplier'],

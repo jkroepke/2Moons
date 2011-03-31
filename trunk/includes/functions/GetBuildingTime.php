@@ -34,7 +34,7 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 		$CONF	= getConfig($USER['universe']);
 		$level = isset($PLANET[$resource[$Element]]) ? $PLANET[$resource[$Element]] : $USER[$resource[$Element]];
 		if	   (in_array($Element, $reslist['build']))
-			$time			=  round($pricelist[$Element]['metal'] * pow($pricelist[$Element]['factor'], $level) + $pricelist[$Element]['crystal'] * pow($pricelist[$Element]['factor'], $level)) / ($CONF['game_speed'] * (1 + $PLANET[$resource[14]])) * pow(0.5, $PLANET[$resource[15]]) * 3600 * (1 - ($USER[$resource[605]] * $OfficerInfo[605]['info']) - ((TIMESTAMP - $USER[$resource[702]] <= 0) ? ($ExtraDM[702]['add']) : 0));
+			$time			=  round($pricelist[$Element]['metal'] * pow($pricelist[$Element]['factor'], $level) + $pricelist[$Element]['crystal'] * pow($pricelist[$Element]['factor'], $level)) / ($CONF['game_speed'] * (1 + $PLANET[$resource[14]])) * pow(0.5, $PLANET[$resource[15]]) * 3600 * (1 - ($USER[$resource[605]] * $OfficerInfo[605]['info']) - DMExtra($USER[$resource[702]], TIMESTAMP, $ExtraDM[702]['add'], 0));
 		elseif (in_array($Element, $reslist['defense']))
 			$time			=  round($pricelist[$Element]['metal'] * pow($pricelist[$Element]['factor'], $level) + $pricelist[$Element]['crystal'] * pow($pricelist[$Element]['factor'], $level)) / ($CONF['game_speed'] * (1 + $PLANET[$resource[21]])) * pow(0.5, $PLANET[$resource[15]]) * 3600 * (1 - ($USER[$resource[613]] * $OfficerInfo[613]['info']) - ($USER[$resource[608]] * $OfficerInfo[608]['info']));
 		elseif (in_array($Element, $reslist['fleet']))
@@ -61,7 +61,7 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 				$time         = (($cost_metal + $cost_crystal) / $CONF['game_speed']) / (($Level + 1) * 2);
 				$time         = $time * (1 - $USER[$resource[606]] * $OfficerInfo[606]['info']) * 3600;
 			}
-			$time         = floor($time * ((TIMESTAMP - $USER[$resource[705]] <= 0) ? (1 - $ExtraDM[705]['add']) : 1) * pow((1 - ($CONF['factor_university'] / 100)), $PLANET[$resource[6]]));
+			$time         = floor($time * (1 - DMExtra($USER[$resource[705]], TIMESTAMP, $ExtraDM[705]['add'], 0) - pow(1 - $CONF['factor_university'] / 100, $PLANET[$resource[6]])));
 		}
 		
 		return max((($Destroy)?floor($time / 2):floor($time)), $CONF['min_build_time']);

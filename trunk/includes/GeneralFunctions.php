@@ -517,6 +517,13 @@ function allowedTo($side)
 	return ($GLOBALS['USER']['authlevel'] == AUTH_ADM || $GLOBALS['USER']['rights'][$side] == 1);
 }
 
+function isactiveDMExtra($Extra, $Time) {
+	return $Time - $Extra <= 0;
+}
+function DMExtra($Extra, $Time, $true, $false) {
+	return isactiveDMExtra($Extra, $Time) ? $true : $false;
+}
+
 if(!function_exists('ctype_alnum')):
 
 function ctype_alnum($test){
