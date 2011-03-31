@@ -180,12 +180,12 @@ class ShowFleetPages extends FleetFunctions
 			'maxexpeditions'		=> $EnvoiMaxExpedition,
 			'slots_available'		=> ($MaxFlottes <= $MaxFlyingFleets - $MaxFlyingRaks) ? false : true,
 			'AKSPage'				=> $AKSPage,
-			'bonus_attack'			=> $USER[$resource[109]] * 10 + $USER[$resource[602]] * 5 + ((TIMESTAMP - $USER[$resource[700]] <= 0) ? (100 * $ExtraDM[700]['add']) : 0),
-			'bonus_defensive'		=> $USER[$resource[110]] * 10 + $USER[$resource[602]] * 5 + ((TIMESTAMP - $USER[$resource[701]] <= 0) ? (100 * $ExtraDM[701]['add']) : 0),
+			'bonus_attack'			=> $USER[$resource[109]] * 10 + $USER[$resource[602]] * 5 + DMExtra($USER[$resource[700]], TIMESTAMP, 100 * $ExtraDM[700]['add'], 0),
+			'bonus_defensive'		=> $USER[$resource[110]] * 10 + $USER[$resource[602]] * 5 + DMExtra($USER[$resource[701]], TIMESTAMP, 100 * $ExtraDM[701]['add'], 0),
 			'bonus_shield'			=> $USER[$resource[111]] * 10 + $USER[$resource[602]] * 5,
-			'bonus_combustion'		=> $USER[$resource[115]] * 10 + ((TIMESTAMP - $USER[$resource[706]] <= 0) ? (100 * $ExtraDM[706]['add']) : 0),
-			'bonus_impulse'			=> $USER[$resource[117]] * 20 + ((TIMESTAMP - $USER[$resource[706]] <= 0) ? (100 * $ExtraDM[706]['add']) : 0),
-			'bonus_hyperspace'		=> $USER[$resource[118]] * 30 + ((TIMESTAMP - $USER[$resource[706]] <= 0) ? (100 * $ExtraDM[706]['add']) : 0),
+			'bonus_combustion'		=> $USER[$resource[115]] * 10 + DMExtra($USER[$resource[706]], TIMESTAMP, 100 * $ExtraDM[701]['add'], 0),
+			'bonus_impulse'			=> $USER[$resource[117]] * 20 + DMExtra($USER[$resource[706]], TIMESTAMP, 100 * $ExtraDM[701]['add'], 0),
+			'bonus_hyperspace'		=> $USER[$resource[118]] * 30 + DMExtra($USER[$resource[706]], TIMESTAMP, 100 * $ExtraDM[701]['add'], 0),
 		));
 		$template->show('fleet_table.tpl');
 	}
@@ -226,7 +226,7 @@ class ShowFleetPages extends FleetFunctions
 		$FleetData	= array(
 			'fleetroom'			=> floattostring($FleetRoom),
 			'gamespeed'			=> parent::GetGameSpeedFactor(),
-			'fleetspeedfactor'	=> ((TIMESTAMP - $USER[$resource[706]] <= 0) ? (1 - $ExtraDM[706]['add']) : 1) - ($OfficerInfo[613]['info'] * $USER['rpg_general']),
+			'fleetspeedfactor'	=> (1 - DMExtra($USER[$resource[706]], TIMESTAMP,$ExtraDM[706]['add'], 0) - ($OfficerInfo[613]['info'] * $USER['rpg_general'])),
 			'planet'			=> array('galaxy' => $PLANET['galaxy'], 'system' => $PLANET['system'], 'planet' => $PLANET['planet'], 'planet_type' => $PLANET['planet_type']),
 			'maxspeed'			=> parent::GetFleetMaxSpeed($Fleet, $USER),
 			'ships'				=> parent::GetFleetShipInfo($Fleet, $USER),

@@ -1073,7 +1073,8 @@ $LNG['bs_techno']							= 'Techniken';
 $LNG['bs_send']								= 'Absenden';
 $LNG['bs_cancel']							= 'Zurücksetzen';
 $LNG['bs_wait']								= 'Warte 10 Sekunden für nächste Simulation';
-
+$LNG['bs_acs_slot']							= 'AKS-Slot';
+$LNG['bs_add_acs_slot']						= 'Add AKS-Slot';
 //----------------------------------------------------------------------------//
 // Fleettrader
 

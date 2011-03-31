@@ -114,18 +114,18 @@ class ResourceUpdate
 			{
 				$BuildLevelFactor	= $this->PLANET[$resource[$ProdID]."_porcent" ];
 				$BuildLevel 		= $this->PLANET[$resource[$ProdID]];
-				$Caps['metal_perhour']		+= floor(eval($ProdGrid[$ProdID]['formule']['metal'])     * $this->CONF['resource_multiplier'] * (1 + (($this->USER['rpg_geologue'] * 0.05) + ($this->USER['metal_proc_tech'] * 0.02) + (($this->TIME - $this->USER[$resource[703]] <= 0) ? ($ExtraDM[703]['add']) : 0))));
-				$Caps['crystal_perhour']	+= floor(eval($ProdGrid[$ProdID]['formule']['crystal'])   * $this->CONF['resource_multiplier'] * (1 + (($this->USER['rpg_geologue'] * 0.05) + ($this->USER['crystal_proc_tech'] * 0.02) + (($this->TIME - $this->USER[$resource[703]] <= 0) ? ($ExtraDM[703]['add']) : 0))));
+				$Caps['metal_perhour']		+= floor(eval($ProdGrid[$ProdID]['formule']['metal'])     * $this->CONF['resource_multiplier'] * (1 + (($this->USER['rpg_geologue'] * 0.05) + ($this->USER['metal_proc_tech'] * 0.02) + DMExtra($this->USER[$resource[703]], $this->TIME, $ExtraDM[703]['add'], 0))));
+				$Caps['crystal_perhour']	+= floor(eval($ProdGrid[$ProdID]['formule']['crystal'])   * $this->CONF['resource_multiplier'] * (1 + (($this->USER['rpg_geologue'] * 0.05) + ($this->USER['crystal_proc_tech'] * 0.02) + DMExtra($this->USER[$resource[703]], $this->TIME, $ExtraDM[703]['add'], 0))));
 			
 				if ($ProdID < 4) {
-					$Caps['deuterium_perhour'] 	+= floor(eval($ProdGrid[$ProdID]['formule']['deuterium']) * $this->CONF['resource_multiplier'] * (1 + (($this->USER['rpg_geologue'] * 0.05) + ($this->USER['deuterium_proc_tech'] * 0.02) + (($this->TIME - $this->USER[$resource[703]] <= 0) ? ($ExtraDM[703]['add']) : 0))));
+					$Caps['deuterium_perhour'] 	+= floor(eval($ProdGrid[$ProdID]['formule']['deuterium']) * $this->CONF['resource_multiplier'] * (1 + (($this->USER['rpg_geologue'] * 0.05) + ($this->USER['deuterium_proc_tech'] * 0.02) + DMExtra($this->USER[$resource[703]], $this->TIME, $ExtraDM[703]['add'], 0))));
 					$Caps['energy_used']   		+= floor(eval($ProdGrid[$ProdID]['formule']['energy']) * ($this->CONF['resource_multiplier']));
 				} else {
 					if($ProdID == 12 && $this->PLANET['deuterium'] == 0)
 						continue;
 
 					$Caps['deuterium_used'] 	+= floor(eval($ProdGrid[$ProdID]['formule']['deuterium']) * ($this->CONF['resource_multiplier']));
-					$Caps['energy_max']			+= floor(eval($ProdGrid[$ProdID]['formule']['energy']) * ($this->CONF['resource_multiplier']) * (1 + ($this->USER['rpg_ingenieur'] * 0.05)) * (($this->TIME - $this->USER[$resource[704]] <= 0) ? (1 + $ExtraDM[704]['add']) : 1));
+					$Caps['energy_max']			+= floor(eval($ProdGrid[$ProdID]['formule']['energy']) * ($this->CONF['resource_multiplier']) * (1 + ($this->USER['rpg_ingenieur'] * 0.05)) + DMExtra($this->USER[$resource[704]], $this->TIME, $ExtraDM[704]['add'], 0));
 				}
 			}
 			

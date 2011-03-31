@@ -92,8 +92,8 @@ function calculateAttack(&$attackers, &$defenders, $FleetTF, $DefTF)
 			$attackShield[$fleetID] = 0;
 			$attackAmount[$fleetID] = 0;
 
-			$attTech	= (1 + (0.1 * $attacker['user']['military_tech']) + ($OfficerInfo[602]['info'] * $attacker['user']['rpg_amiral']) + ((TIMESTAMP - $attacker['user'][$resource[700]] <= 0) ? $ExtraDM[700]['add'] : 0)); //attaque
-			$defTech	= (1 + (0.1 * $attacker['user']['defence_tech']) + ($OfficerInfo[602]['info'] * $attacker['user']['rpg_amiral']) + ((TIMESTAMP - $attacker['user'][$resource[701]] <= 0) ? $ExtraDM[701]['add'] : 0)); //bouclier
+			$attTech	= (1 + (0.1 * $attacker['user']['military_tech']) + ($OfficerInfo[602]['info'] * $attacker['user']['rpg_amiral']) + DMExtra($attacker['user'][$resource[700]], TIMESTAMP, $ExtraDM[700]['add'], 0)); //attaque
+			$defTech	= (1 + (0.1 * $attacker['user']['defence_tech']) + ($OfficerInfo[602]['info'] * $attacker['user']['rpg_amiral']) + DMExtra($attacker['user'][$resource[701]], TIMESTAMP, $ExtraDM[701]['add'], 0)); //bouclier
 			$shieldTech = (1 + (0.1 * $attacker['user']['shield_tech']) + ($OfficerInfo[602]['info'] * $attacker['user']['rpg_amiral'])); //coque
 			$attackers[$fleetID]['techs'] = array($attTech, $defTech, $shieldTech);
 				
@@ -119,8 +119,8 @@ function calculateAttack(&$attackers, &$defenders, $FleetTF, $DefTF)
 			$defenseShield[$fleetID] = 0;
 			$defenseAmount[$fleetID] = 0;
 
-			$attTech	= (1 + (0.1 * $defender['user']['military_tech']) + ($OfficerInfo[602]['info'] * $defender['user']['rpg_amiral']) + ((TIMESTAMP - $defender['user'][$resource[700]] <= 0) ? $ExtraDM[700]['add'] : 0)); //attaquue
-			$defTech	= (1 + (0.1 * $defender['user']['defence_tech']) + ($OfficerInfo[602]['info'] * $defender['user']['rpg_amiral']) + ((TIMESTAMP - $defender['user'][$resource[701]] <= 0) ? $ExtraDM[701]['add'] : 0)); //bouclier
+			$attTech	= (1 + (0.1 * $defender['user']['military_tech']) + ($OfficerInfo[602]['info'] * $defender['user']['rpg_amiral']) + DMExtra($attacker['user'][$resource[700]], TIMESTAMP, $ExtraDM[700]['add'], 0)); //attaquue
+			$defTech	= (1 + (0.1 * $defender['user']['defence_tech']) + ($OfficerInfo[602]['info'] * $defender['user']['rpg_amiral']) + DMExtra($attacker['user'][$resource[701]], TIMESTAMP, $ExtraDM[701]['add'], 0)); //bouclier
 			$shieldTech = (1 + (0.1 * $defender['user']['shield_tech']) + ($OfficerInfo[602]['info'] * $defender['user']['rpg_amiral'])); //coque
 			$defenders[$fleetID]['techs'] = array($attTech, $defTech, $shieldTech);
 
