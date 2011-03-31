@@ -16,17 +16,12 @@ $LNG['uni_closed']			= '(offline)';
 	 
 /* ------------------------------------------------------------------------------------------ */
 
-$LNG['music_off']			= 'Music: OFF';
-$LNG['music_on']			= 'Music: ON';
-
-
 //index.php
 //case lostpassword
-$LNG['mail_not_exist'] 			= 'The e-mail address does not exist!';
-$LNG['mail_title']				= 'New Password';
-$LNG['mail_text']				= 'Your new password is: ';
+$LNG['lost_empty']			= 'You must fill in all fields!';
+$LNG['lost_not_exists']		= 'It could not be found any user in connection with this email address!';
+$LNG['lost_mail_title']		= 'New Password';
 $LNG['mail_sended']				= 'Your password has been sent successfully!';
-$LNG['mail_sended_fail']		= 'E-mail could not be sent.!';
 $LNG['server_infos']			= array(
 	"A space strategy game in real time.",
 	"Play along with hundreds of Users.",
@@ -48,8 +43,6 @@ $LNG['chose_a_uni']				= 'Choose a universe';
 
 //lostpassword.tpl
 $LNG['lost_pass_title']			= 'Recover password';
-$LNG['retrieve_pass']			= 'Restore';
-$LNG['email']					= 'E-mail Address';
 
 //index_body.tpl
 $LNG['user']					= 'User';
@@ -76,6 +69,7 @@ $LNG['empty_user_field']			= 'Please fill in all fields!<br>';
 $LNG['password_lenght_error']		= 'The password must be at least 4 characters long!<br>';
 $LNG['user_field_no_alphanumeric']	= 'Please enter the username only alphanumeric characters!<br>';
 $LNG['user_field_no_space']			= 'Please do not enter the user name blank!<br>';
+$LNG['planet_field_no']				= 'You must enter a planet name!';
 $LNG['planet_field_no_alphanumeric']= 'Please enter the planet name only alphanumeric characters!<br>';
 $LNG['planet_field_no_space']		= 'Please do not enter the planet name blank!<br>';
 $LNG['terms_and_conditions']		= 'You must accept <a href="index.php?page=rules">Rules</a> and the <a href="index.php?page=agb">T&C</a> please!<br>';
@@ -102,6 +96,7 @@ $LNG['pass2_reg']					= 'Confirm Password';
 $LNG['email_reg']					= 'E-mail Address';
 $LNG['email2_reg']					= 'Confirm E-mail Address';
 $LNG['planet_reg']					= 'Name of Mainplanet';
+$LNG['ref_reg']						= 'Referred by';
 $LNG['lang_reg']					= 'Language';
 $LNG['register_now']				= 'Register!';
 $LNG['captcha_reg']					= 'Security question';
@@ -112,10 +107,6 @@ $LNG['captcha_get_image']			= 'Load Bild-CAPTCHA';
 $LNG['captcha_reload']				= 'New CAPTCHA';
 $LNG['captcha_get_audio']			= 'Load Sound-CAPTCHA';
 $LNG['user_active']                	= 'User %s has been activated!';
-
-//registry_closed.tpl
-$LNG['info']						= 'Information';
-$LNG['reg_closed']					= 'Registration is closed';
 
 //Rules
 $LNG['rules_overview']				= "Rules";
