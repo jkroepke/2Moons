@@ -18,7 +18,7 @@ $LNG['uni_closed']                   = '(отключён)';
 
 // Восстановление пароля
 $LNG['lost_empty']                   = 'Вы должны заполнить все поля!';
-$LNG['lost_not_exists']              = 'Аккаунта с таким адресом электронной почты не существует!';
+$LNG['lost_not_exists']               = 'Аккаунта с таким адресом электронной почты не существует!';
 $LNG['lost_mail_title']              = 'Новый пароль';
 $LNG['mail_sended']                  = 'Ваш новый пароль успешно отправлен на Вашу электронную почту %s!';
 
@@ -91,9 +91,10 @@ $LNG['pass2_reg']                    = 'Подтвердить пароль';
 $LNG['email_reg']                    = 'Электронная почта';
 $LNG['email2_reg']                   = 'Подтвердить электронную почту';
 $LNG['planet_reg']                   = 'Название главной планеты';
+$LNG['ref_reg']                      = 'Привлечён игроком';
 $LNG['lang_reg']                     = 'Язык';
 $LNG['register_now']                 = 'Зарегистрироваться';
-$LNG['captcha_reg']                  = 'Секретный вопрос';
+$LNG['captcha_reg']                  = 'Слова с картинки';
 $LNG['accept_terms_and_conditions']  = 'Я принимаю <a href="index.php?page=rules">Правила</a> и <a href="index.php?page=agb">Положения</a>';
 $LNG['captcha_reload']               = 'Обновить';
 $LNG['captcha_help']                 = 'Помощь';
@@ -289,7 +290,7 @@ $LNG['fb_perm']                      = 'Вам запрещён доступ. %s
 
 // Новости
 $LNG['news_overview']                = "Новости";
-$LNG['news_from']                    = "%s из %s";
+$LNG['news_from']                    = "%s от %s";
 $LNG['news_does_not_exist']          = "Нет новостей!";
 
 // Контакты
