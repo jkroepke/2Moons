@@ -34,7 +34,7 @@ $LNG['time_minutes']                   = 'Минут';
 $LNG['time_seconds']                   = 'Секунд';
 
 // Информация о сервере
-$LNG['info_information']               = 'Информация: сообщение об ошибках можете отправлять в <a href="http://2moons.cc" target="tracker">Центр поддержки</a>.<br>Техническая поддержка осуществляется только по этому адресу!';
+$LNG['info_information']               = 'Информация: сообщение об ошибках можете отправлять в <a href="%s" target="tracker">Центр поддержки</a>.<br>Техническая поддержка осуществляется только по этому адресу!';
 
 // Да или Нет
 $LNG['one_is_yes'][1]                  = 'Да';
@@ -368,11 +368,57 @@ $LNG['se_google_info']                 = 'Google Analytics - бизнес-реш
 $LNG['se_google_active']               = 'Включение';
 $LNG['se_google_key']                  = 'Аналитический ключ';
 $LNG['se_google_key_info']             = 'Определение ключей для вашего сайта. Всегда начинается с UA, например: UA-13185300-3';
-$LNG['se_bgm_login']                   = 'Музыка';
-$LNG['se_bgm_active']                  = 'Включена?';
-$LNG['se_bgm_info']                    = 'Воспроизведение музыки на главной странице в фоновом режиме.';
-$LNG['se_bgm_file']                    = 'Путь к файлу';
-$LNG['se_bgm_file_info']               = 'Поддерживаются относительные и абсолютные указания пути!';
+$LNG['se_ttf_file']                    = 'Путь к TFF файлу шрифта';
+$LNG['se_ttf_file_info']               = 'TTF файл нужен для показа баннера-статистики в случаею использования на нём киррилических символов и или китайских иероглифов.';
+$LNG['se_max_galaxy']                  = 'Макс. галактик';
+$LNG['se_max_galaxy_info']             = 'Максимальное количество галактик во вселенной.';
+$LNG['se_max_system']                  = 'Макс. систем';
+$LNG['se_max_system_info']             = 'Максимальное количество систем в галактике.';
+$LNG['se_max_planets']                 = 'Макс. планет';
+$LNG['se_max_planets_info']            = 'Максимальное количество планет в системе.';
+$LNG['se_min_player_planets']          = 'Мин. планет';
+$LNG['se_max_player_planets_info']     = 'Максимальное количество планет без исследования.';
+$LNG['se_max_player_planets']          = 'Макс. планет';
+$LNG['se_min_player_planets_info']     = 'Максимальное количество планет с исследованием.';
+$LNG['se_planet_factor']               = 'Фактор размера планет';
+$LNG['se_planet_factor_info']          = 'Фактор на который умножается стандартный размер планет.';
+$LNG['se_max_elements_build']          = 'Макс. очередь строительства';
+$LNG['se_max_elements_build_info']     = 'Максимальное количество слотов в очереди строительства.';
+$LNG['se_max_elements_tech']           = 'Макс. очередь исследований';
+$LNG['se_max_elements_tech_info']      = 'Максимальное количество слотов в очереди исследований.';
+$LNG['se_max_elements_ships']          = 'Макс. юнитов в слоте очереди верфи';
+$LNG['se_max_elements_tech_info']      = 'Максимальное количество кораблей или оборонительных сооружений в одном слоте очереди верфи.';
+$LNG['se_max_fleet_per_build']         = 'Макс. очередь верфи';
+$LNG['se_max_fleet_per_build_info']    = 'Максимальное количество слотов в очереди верфи.';
+$LNG['se_max_overflow']                = 'Переполнение хранилищ';
+$LNG['se_max_overflow_info']           = 'Фактор, определяющий сколько ресурсов может быть произведено с полным складом.';
+$LNG['se_moon_factor']                 = 'Фактор образования луны';
+$LNG['se_moon_factor_info']            = 'Фактор, увеличивающий шанс образования луны.';
+$LNG['se_moon_chance']                 = 'Макс. шанс образования луны';
+$LNG['se_moon_chance_info']            = 'Максимальный шанс образования луны.';
+$LNG['se_darkmatter_cost_trader']      = 'Стоимость скупщика';
+$LNG['se_darkmatter_cost_trader_info'] = 'Количество Тёмной материи для вызова скупщика.';
+$LNG['se_factor_university']           = 'Фактор технополиса';
+$LNG['se_factor_university_info']      = 'Процент, на который будет уменьшено время проведения исследований.';
+$LNG['se_max_fleets_per_acs']          = 'Макс. флотов в САБе';
+$LNG['se_max_fleets_per_acs_info']     = 'Максимальное количество флотов в САБе.';
+$LNG['se_vmode_min_time']              = 'Длительность РО';
+$LNG['se_vmode_min_time_info']         = 'Минимальная длительность режима отпуска (в секундах).';
+$LNG['se_gate_wait_time']              = 'Перезарядка телепорта';
+$LNG['se_gate_wait_time_info']         = 'Длительность перезарядки телепорта(в секундах).';
+$LNG['se_metal_start']                 = 'Металла на новых планетах';
+$LNG['se_metal_start_info']            = 'Количество металла на новых планетах.';
+$LNG['se_crystal_start']               = 'Кристалла на новых планетах';
+$LNG['se_crystal_start_info']          = 'Количество кристалла на новых планетах.';
+$LNG['se_deuterium_start']             = 'Дейтерия на новых планетах';
+$LNG['se_deuterium_start_info']        = 'Количество дейтерия на новых планетах.';
+$LNG['se_darkmatter_start']            = 'ТМ на новых планетах';
+$LNG['se_darkmatter_start_info']       = 'Количество Тёмной материи на новых планетах.';
+$LNG['se_debris_moon']                 = 'Очистка ПО после образования луны';
+$LNG['se_debris_moon_info']            = 'Очистка поля обломков после образования луны.';
+$LNG['se_deuterium_cost_galaxy']       = 'Стоимость перехода по галактике.';
+$LNG['se_deuterium_cost_galaxy_info']  = 'Количество дейтерия за один переход по галактике.';
+$LNG['se_buildlist']                   = 'Список строительства';
 
 // Полномочия
 $LNG['mod_title']                      = 'Полномочия администрации';
@@ -432,6 +478,7 @@ $LNG['ul_sure_you_want_dlte']          = 'Вы действительно хот
 $LNG['mu_general']                     = 'Общие';
 $LNG['mu_connected']                   = 'Онлайн';
 $LNG['mu_settings']                    = 'Параметры сервера';
+$LNG['mu_unisettings']                 = 'Параметры вселенной';
 $LNG['mu_global_message']              = 'Глобальное сообщение';
 $LNG['mu_users_settings']              = 'Редактирование';
 $LNG['mu_add_delete_resources']        = 'Редактор аккаунтов';
@@ -791,6 +838,7 @@ $LNG['qe_send']                        = 'Отправить';
 $LNG['qe_reset']                       = 'Обнулить';
 $LNG['qe_build']                       = 'Постройки';
 $LNG['qe_tech']                        = 'Исследования';
+$LNG['qe_officier']                    = 'Офицеры';
 $LNG['qe_fleet']                       = 'Флот';
 $LNG['qe_defensive']                   = 'Оборона';
 $LNG['qe_resources']                   = 'Ресурсы';
@@ -928,11 +976,6 @@ $LNG['uvs_error']                      = 'Неверный или некорре
 // Страница обновления
 $LNG['up_weiter']                      = 'Далее';
 $LNG['up_kein_update']                 = 'Нет доступных обновлений!';
-$LNG['up_ftp_ok']                      = 'FTP-соединение: ОК!';
-$LNG['up_ftp_error']                   = 'FTP-соединение: ОШИБКА! ';
-$LNG['up_ftp_change']                  = 'FTP-изменение папки(';
-$LNG['up_ftp_ok']                      = 'ОК!';
-$LNG['up_ftp_change_error']            = 'ОШИБКА! Путь не найден!';
 $LNG['up_ok_update']                   = 'ОК! - Обновлено';
 $LNG['up_error_update']                = 'ОШИБКА! - Не удалось скачать файлы';
 $LNG['up_delete_file']                 = 'Файлы успешно удалены';
@@ -947,12 +990,9 @@ $LNG['up_revision']                    = 'Версия ';
 $LNG['up_add']                         = 'Добавить:';
 $LNG['up_edit']                        = 'Изменить:';
 $LNG['up_del']                         = 'Удалить';
-$LNG['up_update_server']               = 'Сервер обновлений в данный момент недоступен!';
-$LNG['up_password_title']              = 'Запрос пароля';
-$LNG['up_password_info']               = 'Чтобы выполнить обновление, пароль от FTP не требуется.';
-$LNG['up_password_label']              = 'Пароль:';
 $LNG['up_submit']                      = 'Обновить';
 $LNG['up_version']                     = 'Версия';
+$LNG['up_chmod_error']                 = 'Нет прав на запись для папки<br>%s<br>!';
 
 // Редактор чата
 $LNG['ch_socket_chatid_info']          = 'Этот ID может быть использован для различения настроек чатов, использующих один и тот же сокет сервер.';

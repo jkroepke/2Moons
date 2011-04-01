@@ -2,7 +2,13 @@
 
 // Translated into Russian by InquisitorEA. All rights reserved © 2010-2011
 
+setlocale(LC_ALL, 'ru_RU', 'russian'); // http://msdn.microsoft.com/en-us/library/39cwe7zf%28vs.71%29.aspx
+setlocale(LC_NUMERIC, 'C');
+
 // Основное
+$LNG['js_days']                           = array('Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб');
+$LNG['js_month']                          = array('Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Нов', 'Дек');
+
 $LNG['Metal']                             = 'Металл';
 $LNG['Crystal']                           = 'Кристалл';
 $LNG['Deuterium']                         = 'Дейтерий';
@@ -114,7 +120,7 @@ $LNG['ov_fields']                         = 'Поля';
 $LNG['ov_developed_fields']               = 'застроенная территория';
 $LNG['ov_max_developed_fields']           = 'Макс. количество полей';
 $LNG['ov_fleet']                          = 'флот';
-$LNG['ov_admins_online']                  = 'Админы (онлайн)';
+$LNG['ov_admins_online']                  = 'Админы';
 $LNG['ov_no_admins_online']               = 'Все админы оффлайн!';
 $LNG['ov_userbanner']                     = 'Баннер-статистика';
 $LNG['ov_userrank_info']                  = '%s (%s <a href="game.php?page=statistics&amp;range=%d">%d</a> %s %s)';
@@ -123,6 +129,7 @@ $LNG['ov_teamspeak']                      = 'Teamspeak';
 $LNG['ov_teamspeak_v2']                   = '<a href="teamspeak://%s:%s?nickname=%s" title="Teamspeak Connect">Подключиться</a> &bull; Онлайн: %d/%d &bull; Каналы: %d &bull; Трафик: %s MB';
 $LNG['ov_teamspeak_v3']                   = '<a href="ts3server://%s?port=%d&amp;nickname=%s&amp;password=%s" title="Teamspeak Connect">Подключиться</a>&nbsp;&bull;&nbsp; Онлайн: %d/%d &bull; Каналы: %d &bull; Трафик: %s MB &bull; Версия: %s';
 $LNG['ov_closed']                         = 'Игра на данный момент отключена!';
+$LNG['ov_reflink']                        = 'Реф. ссылка';
 
 // Галактика
 $LNG['gl_no_deuterium_to_view_galaxy']    = 'Не хватает дейтерия!';
@@ -969,26 +976,6 @@ $LNG['pl_dermetal']                       = 'Добыто металла в на
 $LNG['pl_dercrystal']                     = 'Добыто кристалла в нападениях';
 $LNG['pl_etc']                            = 'Разное';
 
-// Чат
-$LNG['chat_title']                        = 'Чат';
-$LNG['chat_ally_title']                   = 'Чат альянса';
-$LNG['chat_bbcode']                       = 'BB-коды';
-$LNG['chat_fontcolor']                    = 'Цвет шрифта';
-$LNG['chat_disc']                         = 'Чат';
-$LNG['chat_message']                      = 'Сообщение';
-$LNG['chat_send']                         = 'Отправить';
-$LNG['chat_admin']                        = '<font color="red">Админ %s</font>';
-$LNG['chat_color_white']                  = 'Белый';
-$LNG['chat_color_blue']                   = 'Синий';
-$LNG['chat_color_yellow']                 = 'Жёлтый';
-$LNG['chat_color_green']                  = 'Зелёный';
-$LNG['chat_color_pink']                   = 'Розовый';
-$LNG['chat_color_red']                    = 'Красный';
-$LNG['chat_color_orange']                 = 'Оранжевый';
-$LNG['chat_notext']                       = 'Вы не написали текст!';
-$LNG['chat_request_url']                  = 'Пожалуйста, напишите ссылку:';
-$LNG['chat_request_url_desc']             = 'Пожалуйста, напишите описание ссылки (не обязательно):';
-
 // Техническая поддержка
 $LNG['supp_header']                       = 'Техническая поддержка';
 $LNG['supp_header_g']                     = 'Закрытые заявки';
@@ -1037,11 +1024,13 @@ $LNG['bs_steal_raport']                   = 'Для вывоза ресурсо�
 $LNG['bs_names']                          = 'Корабль';
 $LNG['bs_atter']                          = 'Атакующий';
 $LNG['bs_deffer']                         = 'Обороняющийся';
-$LNG['bs_steal']                          = 'Ресурсы(у цели):';
+$LNG['bs_steal']                          = 'Ресурсы (у цели):';
 $LNG['bs_techno']                         = 'Технологии';
 $LNG['bs_send']                           = 'Симулировать';
 $LNG['bs_cancel']                         = 'Обнулить';
 $LNG['bs_wait']                           = 'Пожалуйста, подождите 10 секунд перед следующей симуляцией';
+$LNG['bs_acs_slot']                       = 'САБ-слот';
+$LNG['bs_add_acs_slot']                   = 'Добавить САБ-слот';
 
 // Торговля флотом
 $LNG['ft_head']                           = 'Скупщик флота';
