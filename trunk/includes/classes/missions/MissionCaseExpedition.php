@@ -222,6 +222,7 @@ class MissionCaseExpedition extends MissionFunctions
 				
 				$attackFleets[$this->_fleet['fleet_id']]['fleet'] = $this->_fleet;
 				$attackFleets[$this->_fleet['fleet_id']]['user'] = $AttackerTechno;
+				$attackFleets[$this->_fleet['fleet_id']]['user']['factor'] = getFactors($attackFleets[$this->_fleet['fleet_id']]['user'], null, 'attack');
 				$attackFleets[$this->_fleet['fleet_id']]['detail'] = array();
 				$temp = explode(';', $this->_fleet['fleet_array']);
 				foreach ($temp as $temp2)
@@ -247,6 +248,7 @@ class MissionCaseExpedition extends MissionFunctions
 					$defense[0]['def'][$Element[0]] += $Element[1];
 				}
 				$defense[0]['user'] = $DefenderTechno;
+				$defense[0]['user']['factor']	= 0;
 
 				require_once('calculateAttack.php');
 
