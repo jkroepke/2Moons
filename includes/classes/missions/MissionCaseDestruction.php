@@ -43,12 +43,14 @@ class MissionCaseDestruction extends MissionFunctions
 	
 		require_once(ROOT_PATH.'includes/classes/class.PlanetRessUpdate.php');
 		
+		list($TargetUser['factor'], $TargetPlanet['factor'])	= getFactors($targetUser, $targetPlanet);
 		$PlanetRess 						= new ResourceUpdate();
 		list($TargetUser, $TargetPlanet)	= $PlanetRess->CalcResource($TargetUser, $TargetPlanet, true, $this->_fleet['fleet_start_time']);
 
 		
 		$attackFleets[$this->_fleet['fleet_id']]['fleet'] = $this->_fleet;
 		$attackFleets[$this->_fleet['fleet_id']]['user'] = $db->uniquequery("SELECT id,username,military_tech,defence_tech,shield_tech,rpg_amiral,dm_defensive,dm_attack FROM ".USERS." WHERE id = '".$this->_fleet['fleet_owner']."';");
+		$attackFleets[$this->_fleet['fleet_id']]['user']['factor'] 	= getFactors($attackFleets[$this->_fleet['fleet_id']]['user'], null, 'attack');
 		$attackFleets[$this->_fleet['fleet_id']]['detail'] = array();
 		$temp = explode(';', $this->_fleet['fleet_array']);
 		foreach ($temp as $temp2)
@@ -78,8 +80,9 @@ class MissionCaseDestruction extends MissionFunctions
 				if (!isset($defense[$defRow['fleet_id']]['def'][$Element[0]]))
 					$defense[$defRow['fleet_id']][$Element[0]] = 0;
 
-				$defense[$defRow['fleet_id']]['def'][$Element[0]] += $Element[1];
-				$defense[$defRow['fleet_id']]['user'] = $db->uniquequery("SELECT id,username,military_tech,defence_tech,shield_tech,rpg_amiral,dm_defensive,dm_attack FROM ".USERS." WHERE id = '".$defRow['fleet_owner']."';");
+				$defense[$defRow['fleet_id']]['def'][$Element[0]] 	+= $Element[1];
+				$defense[$defRow['fleet_id']]['user']				= $db->uniquequery("SELECT id,username,military_tech,defence_tech,shield_tech,rpg_amiral,dm_defensive,dm_attack FROM ".USERS." WHERE id = '".$defRow['fleet_owner']."';");
+				$defense[$defRow['fleet_id']]['user']['factor'] 	= getFactors($defense[$defRow['fleet_id']]['user'], null, 'attack');
 			}
 			$DefenderRow['id'][] 	= $defense[$defRow['fleet_id']]['user']['id'];
 			$DefenderRow['name'][]	= $defense[$defRow['fleet_id']]['user']['username'];
@@ -87,6 +90,7 @@ class MissionCaseDestruction extends MissionFunctions
 
 		$defense[0]['def'] = array();
 		$defense[0]['user'] = $TargetUser;
+		$defense[0]['user']['factor'] 	= getFactors($defense[0]['user']['factor'], null, 'attack');		
 		$DefenderRow['id'][] 	= $defense[0]['user']['id'];
 		$DefenderRow['name'][]	= $defense[0]['user']['username'];
 		for ($i = 200; $i < 500; $i++)

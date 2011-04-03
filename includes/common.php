@@ -133,6 +133,7 @@ if (!defined('CLI') && !defined('LOGIN') && !defined('IN_CRON') && !defined('AJA
 				throw new Exception("Main Planet does not exist!");
 			}
 		}
+		list($USER['factor'], $PLANET['factor'])	= getFactors($USER, $PLANET);
 	} else {
 		$USER['rights']	= unserialize($USER['rights']);
 		$LANG->includeLang(array('ADMIN'));

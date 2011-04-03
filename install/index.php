@@ -80,27 +80,27 @@ switch ($Mode) {
 		$template->show('install/ins_intro.tpl');
 	break;
 	case 'req':
-		$error = 0;
-		$ftp = 0;
+		$error 	= false;
+		$ftp 	= false;
 		if(version_compare(PHP_VERSION, "5.2.5", ">=")){
-			$PHP = "<span class=\"yes\">".$LNG['reg_yes'].", ".PHP_VERSION."</span>";
+			$PHP = "<span class=\"yes\">".$LNG['reg_yes'].", v".PHP_VERSION."</span>";
 		} else {
-			$PHP = "<span class=\"no\">".$LNG['reg_no'].", ".PHP_VERSION."</span>";
-			$error++;
+			$PHP = "<span class=\"no\">".$LNG['reg_no'].", v".PHP_VERSION."</span>";
+			$error	= true;
 		}
 		
 		if(class_exists('mysqli')){
 			$mysqli = "<span class=\"yes\">".$LNG['reg_yes']."</span>";
 		} else {
 			$mysqli = "<span class=\"no\">".$LNG['reg_no']."</span>";
-			$error++;
+			$error	= true;
 		}
 				
 		if(function_exists('json_encode')){
 			$json = "<span class=\"yes\">".$LNG['reg_yes']."</span>";
 		} else {
 			$json = "<span class=\"no\">".$LNG['reg_no']."</span>";
-			$error++;
+			$error	= true;
 		}
 		
 		if(extension_loaded('bcmath'))
@@ -112,7 +112,7 @@ switch ($Mode) {
 			$iniset = "<span class=\"yes\">".$LNG['reg_yes']."</span>";
 		} else {
 			$iniset = "<span class=\"no\">".$LNG['reg_no']."</span>";
-			$error++;
+			$error	= true;
 		}
 
 		if(!extension_loaded('gd')) {
@@ -121,9 +121,8 @@ switch ($Mode) {
 			$Info	= gd_info();
 			if(!$Info['PNG Support']) {
 				$gdlib = "<span class=\"no\">".$LNG['reg_no']."</span>";
-				$error++;
 			} else {
-				$gdlib = "<span class=\"yes\">".$LNG['reg_yes'].", ".$Info['GD Version']."</span>";
+				$gdlib = "<span class=\"yes\">".$LNG['reg_yes'].", v".preg_replace('/.*(\d.\d.\d+).*/', '$1', $Info['GD Version'])."</span>";
 			}
 		}
 
@@ -132,14 +131,14 @@ switch ($Mode) {
 				$chmod = "<span class=\"yes\"> - ".$LNG['reg_writable']."</span>";
 			} else {
 				$chmod = " - <span class=\"no\">".$LNG['reg_not_writable']."</span>";
-				$error++;
-				$ftp++;
+				$error	= true;
+				$ftp	= true;
 			}
 			$config = "<tr><td class=\"transparent\">".$LNG['reg_file']." - includes/config.php</td><td class=\"transparent\"><span class=\"yes\">".$LNG['reg_found']."</span>".$chmod."</td></tr>";
 		} else {
 			$config = "<tr><td class=\"transparent\">".$LNG['reg_file']." - includes/config.php</td><td class=\"transparent\"><span class=\"no\">".$LNG['reg_not_found']."</span></td></tr>";
-			$error++;
-			$ftp++;
+			$error	= true;
+			$ftp	= true;
 		}
 		$directories = array('cache/', 'cache/sessions/', 'includes/', 'install/');
 		$dirs = "";
@@ -149,13 +148,13 @@ switch ($Mode) {
 					$chmod = "<span class=\"yes\"> - ".$LNG['reg_writable']."</span>";
 				} else {
 					$chmod = " - <span class=\"no\">".$LNG['reg_not_writable']."</span>";
-					$error++;
-					$ftp++;
+					$error	= true;
+					$ftp	= true;
 				}
 			$dirs .= "<tr><td class=\"transparent\">".$LNG['reg_dir']." - ".$dir."</th><td class=\"transparent\"><span class=\"yes\">".$LNG['reg_found']."</span>".$chmod."</td></tr>";
 		}
 
-		if($error == 0){
+		if($error == false){
 			$done = "<tr><td colspan=\"2\" class=\"transparent\"><a href=\"?mode=ins&page=1&amp;lang=".$LANG->GetUser()."\">".$LNG['continue']."</a></td></tr>";
 		}
 		
