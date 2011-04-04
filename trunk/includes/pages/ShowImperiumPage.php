@@ -56,9 +56,7 @@ function ShowImperiumPage()
 	$Order .= ($USER['planet_sort_order'] == 1) ? "DESC" : "ASC" ;
 	
 	$PlanetsRAW = $db->query("
-	SELECT `id`,`name`,`galaxy`,`system`,`planet`,`planet_type`,
-	`image`,`field_current`,`field_max`,`metal`,`crystal`,`deuterium`,
-	`energy_used`,`energy_max` ".$Query." FROM ".PLANETS." WHERE `id_owner` = '" . $USER['id'] . "' AND `destruyed` = '0' ORDER BY ".$Order.";");
+	SELECT `id`,`name`,`galaxy`,`system`,`planet`,`planet_type`, `image`,`field_current`,`field_max`,`metal`,`crystal`,`deuterium`, `energy_used`,`energy_max` ".$Query." FROM ".PLANETS." WHERE `id_owner` = '" . $USER['id'] . "' AND `destruyed` = '0' ORDER BY ".$Order.";");
 
 	while ($Planet = $db->fetch_array($PlanetsRAW))
 	{
