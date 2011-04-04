@@ -118,7 +118,7 @@ class ShowShipyardPage
 	
 	public function BuildAuftr($fmenge)
 	{
-		global $USER, $PLANET, $reslist, $CONF;		
+		global $USER, $PLANET, $reslist, $CONF, $resource;		
 		
 		foreach($fmenge as $Element => $Count)
 		{
@@ -132,9 +132,10 @@ class ShowShipyardPage
 
 			if ($Element == 502 || $Element == 503)
 			{
-				$Missiles	 		= array($Element => $PLANET[$resource[$Element]]);
-				$SiloSize      		= $PLANET[$resource[44]];
-				$MaxMissiles   		= $SiloSize * 10;
+				$Missiles	 		= array();
+				$Missiles[502]		= $PLANET[$resource[502]];
+				$Missiles[503]		= $PLANET[$resource[503]];
+				$MaxMissiles   		= $PLANET[$resource[44]] * 10;
 				$BuildArray    		= explode(";", $PLANET['b_hangar_id']);
 
 				for ($QElement = 0; $QElement < count($BuildArray); $QElement++)
