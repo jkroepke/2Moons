@@ -55,7 +55,7 @@ function ShowUniversePage() {
 		}
 	} elseif($_REQUEST['action'] == 'create') {
 		$ID	= (int) $_REQUEST['id'];
-		$db->query("INSERT INTO `uni1_config` (`uni`, `VERSION`, `uni_name`, `game_name`, `close_reason`, `OverviewNewsText`) VALUES
+		$db->query("INSERT INTO ".CONFIG." (`uni`, `VERSION`, `uni_name`, `game_name`, `close_reason`, `OverviewNewsText`) VALUES
 		(NULL, '".$CONF['VERSION']."', 'Universum 2', '".$CONF['game_name']."', '', '');");
 		$UniID	= $db->GetInsertID();;
 		update_config(array('VERSION' => $CONF['VERSION'],
