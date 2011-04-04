@@ -32,17 +32,18 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 	{
 		global $pricelist, $resource, $reslist, $requeriments, $ExtraDM, $OfficerInfo;
 		$CONF	= getConfig($USER['universe']);
-		$level = isset($PLANET[$resource[$Element]]) ? $PLANET[$resource[$Element]] : $USER[$resource[$Element]];
+		$level	= isset($PLANET[$resource[$Element]]) ? $PLANET[$resource[$Element]] : $USER[$resource[$Element]];
+		
+		$Cost   = floor($pricelist[$Element]['metal'] * pow($pricelist[$Element]['factor'], $level)) + floor($pricelist[$Element]['crystal'] * pow($pricelist[$Element]['factor'], $level));
+	
 		if	   (in_array($Element, $reslist['build']))
-			$time			=  round($pricelist[$Element]['metal'] * pow($pricelist[$Element]['factor'], $level) + $pricelist[$Element]['crystal'] * pow($pricelist[$Element]['factor'], $level)) / ($CONF['game_speed'] * (1 + $PLANET[$resource[14]])) * pow(0.5, $PLANET[$resource[15]]) * 3600 * (1 - ($USER[$resource[605]] * $OfficerInfo[605]['info']) - DMExtra($USER[$resource[702]], TIMESTAMP, $ExtraDM[702]['add'], 0));
-		elseif (in_array($Element, $reslist['defense']))
-			$time			=  round($pricelist[$Element]['metal'] * pow($pricelist[$Element]['factor'], $level) + $pricelist[$Element]['crystal'] * pow($pricelist[$Element]['factor'], $level)) / ($CONF['game_speed'] * (1 + $PLANET[$resource[21]])) * pow(0.5, $PLANET[$resource[15]]) * 3600 * (1 - ($USER[$resource[613]] * $OfficerInfo[613]['info']) - ($USER[$resource[608]] * $OfficerInfo[608]['info']));
+			$time			= $Cost / ($CONF['game_speed'] * (1 + $PLANET[$resource[14]])) * $PLANET['factor']['bulidspeed'];
 		elseif (in_array($Element, $reslist['fleet']))
-			$time			=  round($pricelist[$Element]['metal'] * pow($pricelist[$Element]['factor'], $level) + $pricelist[$Element]['crystal'] * pow($pricelist[$Element]['factor'], $level)) / ($CONF['game_speed'] * (1 + $PLANET[$resource[21]])) * pow(0.5, $PLANET[$resource[15]]) * 3600 * (1 - ($USER[$resource[613]] * $OfficerInfo[613]['info']) - ($USER[$resource[604]] * $OfficerInfo[604]['info']));	
+			$time			= $Cost / ($CONF['game_speed'] * (1 + $PLANET[$resource[21]])) * $PLANET['factor']['fleetspeed'];	
+		elseif (in_array($Element, $reslist['defense']))
+			$time			= $Cost / ($CONF['game_speed'] * (1 + $PLANET[$resource[21]])) * $PLANET['factor']['defspeed'];
 		elseif (in_array($Element, $reslist['tech']))
 		{
-			$cost_metal   = floor($pricelist[$Element]['metal']   * pow($pricelist[$Element]['factor'], $level));
-			$cost_crystal = floor($pricelist[$Element]['crystal'] * pow($pricelist[$Element]['factor'], $level));
 			if(is_array($PLANET[$resource[31].'_inter']))
 			{
 				$Level = 0;
@@ -55,16 +56,15 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 			else
 				$Level	= $PLANET[$resource[31]];
 			
-			if(NEW_RESEARCH)
-				$time		  = ((($cost_metal + $cost_crystal) / (1000 * (1 + $Level)) * (1 - $USER[$resource[606]] * $OfficerInfo[606]['info'])) / ($CONF['game_speed'] / 2500)) * 3600;
-			else {
-				$time         = (($cost_metal + $cost_crystal) / $CONF['game_speed']) / (($Level + 1) * 2);
-				$time         = $time * (1 - $USER[$resource[606]] * $OfficerInfo[606]['info']) * 3600;
-			}
-			$time         = floor($time * (1 - DMExtra($USER[$resource[705]], TIMESTAMP, $ExtraDM[705]['add'], 0) - pow(1 - $CONF['factor_university'] / 100, $PLANET[$resource[6]])));
+			$time	= ($Cost / (1000 * (1 + $Level))) / ($CONF['game_speed'] / 2500) * $PLANET['factor']['techspeed'];
 		}
 		
-		return max((($Destroy)?floor($time / 2):floor($time)), $CONF['min_build_time']);
+		if(!$Destroy)
+			$time	= floor($time * 3600);
+		else
+			$time	= floor($time * 1300);
+		
+		return max($time, $CONF['min_build_time']);
 	}
 
 ?>

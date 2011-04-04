@@ -1084,6 +1084,7 @@ $LNG['ft_max']								= 'max';
 $LNG['ft_total']							= 'TOTAL';
 $LNG['ft_charge']							= 'Händlergebühr';
 $LNG['ft_absenden']							= 'Absenden';
+$LNG['ft_empty']							= 'Der Schrothändel kauft zur Zeit keine Schiffe!';
 
 //----------------------------------------------------------------------------//
 // Logout

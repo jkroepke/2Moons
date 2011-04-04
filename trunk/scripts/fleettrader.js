@@ -26,10 +26,10 @@ function Total()
 		Count = CostInfo[$('#id').val()][0];
 	}
 	var ID 	= $('#id').val();
-	$('#total_metal').text(NumberGetHumanReadable(CostInfo[ID][1] * Count * Charge));
-	$('#total_crystal').text(NumberGetHumanReadable(CostInfo[ID][2] * Count * Charge));
-	$('#total_deuterium').text(NumberGetHumanReadable(CostInfo[ID][3] * Count * Charge));
-	$('#total_darkmatter').text(NumberGetHumanReadable(CostInfo[ID][4] * Count * Charge));
+	$('#total_metal').text(NumberGetHumanReadable(CostInfo[ID][1] * Count * (1 - Charge)));
+	$('#total_crystal').text(NumberGetHumanReadable(CostInfo[ID][2] * Count * (1 - Charge)));
+	$('#total_deuterium').text(NumberGetHumanReadable(CostInfo[ID][3] * Count * (1 - Charge)));
+	$('#total_darkmatter').text(NumberGetHumanReadable(CostInfo[ID][4] * Count * (1 - Charge)));
 }
 
 function Reset()
