@@ -14,7 +14,7 @@
 		<tr class="contentbox-content">
 			<td class="contentbox-content-left"></td><td class="contentbox-content-center">
 				<div id="loginbox"><h1>{$login}</h1>
-					<form id="login" name="login" action="index.php?page=login&amp;action=send" method="post" onsubmit="return Submit('login');">
+					<form id="login" name="login" action="index.php?page=login&amp;action=send" method="post" onsubmit="Submit('login');return false;">
 						<label for="universe">{$universe}</label><select name="uni" id="universe">{html_options options=$AvailableUnis selected=$UNI}</select><br>
 						<label for="username">{$user}</label><input name="username" id="username" type="text"><br>
 						<label for="password">{$pass}</label><input name="password" id="password" type="password"><br>
@@ -24,7 +24,7 @@
 					<br><span class="small">{$login_info}</span>
 				</div>
 				<div id="regbox"><h1>{$register}</h1>
-					<form id="reg" name="reg" action="index.php?page=reg&amp;action=send" method="post" onsubmit="return Submit('register');">
+					<form id="reg" name="reg" action="index.php?page=reg&amp;action=send" method="post" onsubmit="Submit('register');return false;">
 						{if $fb_active}<input type="hidden" name="fb_id" id="fb_id">{/if}
 						{if $ref_id}<input type="hidden" name="ref_id" id="ref_id" value="{$ref_id}"><input type="hidden" name="uni" id="ref_uni" value="{$ref_uni}">{else}
 						<label for="reg_universe">{$universe}</label><select name="uni" id="reg_universe">{html_options options=$AvailableUnis selected=$UNI}</select><br>{/if}
@@ -45,7 +45,7 @@
 					{if $fb_active}<a href="javascript:FBlogin();" class="fb_login"><img src="http://b.static.ak.fbcdn.net/rsrc.php/zB6N8/hash/4li2k73z.gif" alt=""></a>{/if}
 				</div>
 				<div id="lostbox"><h1>{$lostpassword}</h1>
-					<form id="lost" name="lost" action="index.php?page=lostpassword" method="post" onsubmit="return Submit('lost');">
+					<form id="lost" name="lost" action="index.php?page=lostpassword" method="post" onsubmit="Submit('lost');return false;">
 						<label for="universe_lost">{$universe}</label><select name="uni" id="universe_lost">{html_options options=$AvailableUnis selected=$UNI}</select><br>
 						<label for="username_lost">{$user}</label><input name="username" id="username_lost" type="text"><br>
 						<label for="email_lost">{$email}</label><input name="email" id="email_lost" type="text"><br>

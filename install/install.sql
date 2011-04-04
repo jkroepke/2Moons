@@ -345,7 +345,7 @@ CREATE TABLE IF NOT EXISTS `prefix_notes` (
 
 CREATE TABLE IF NOT EXISTS `prefix_planets` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT 'Hauptplanet',
+  `name` varchar(20) DEFAULT 'Hauptplanet',
   `id_owner` int(11) unsigned DEFAULT NULL,
   `universe` tinyint(3) unsigned NOT NULL,
   `galaxy` tinyint(3) NOT NULL DEFAULT '0',
@@ -375,7 +375,7 @@ CREATE TABLE IF NOT EXISTS `prefix_planets` (
   `deuterium_used` int(11) unsigned NOT NULL DEFAULT '0',
   `deuterium_perhour` decimal(10,0) unsigned NOT NULL DEFAULT '0',
   `deuterium_max` bigint(20) unsigned DEFAULT '100000',
-  `energy_used` bigint(11) unsigned NOT NULL DEFAULT '0',
+  `energy_used` bigint(11) NOT NULL DEFAULT '0',
   `energy_max` bigint(20) unsigned NOT NULL DEFAULT '0',
   `metal_mine` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `crystal_mine` tinyint(3) unsigned NOT NULL DEFAULT '0',
