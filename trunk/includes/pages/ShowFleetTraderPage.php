@@ -34,7 +34,7 @@ function ShowFleetTraderPage()
 	$CONF['trade_allowed_ships']	= explode(',', $CONF['trade_allowed_ships']);
 	$ID								= request_var('id', 0);
 	if(!empty($ID) && in_array($ID, $CONF['trade_allowed_ships'])) {
-		$Count						= max(min(request_outofint('count'), $PLANET[$resource[$ID]]), 0);
+		$Count						= min(request_outofint('count'), $PLANET[$resource[$ID]]);
 		$PLANET['metal']			+= $Count * $pricelist[$ID]['metal'] * (1 - $CONF['trade_charge']);
 		$PLANET['crystal']			+= $Count * $pricelist[$ID]['crystal'] * (1 - $CONF['trade_charge']);
 		$PLANET['deuterium']		+= $Count * $pricelist[$ID]['deuterium'] * (1 - $CONF['trade_charge']);
