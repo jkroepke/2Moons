@@ -51,18 +51,15 @@ class ShowOfficierPage
 	{
 		global $USER, $db, $reslist, $resource, $ExtraDM;
 		
-		if ((floor($USER['darkmatter'] / $ExtraDM[$Element]['darkmatter'])) > 0 && in_array($Element, $reslist['dmfunc']))
+		if ((floor($USER['darkmatter'] / $ExtraDM[$Element]['darkmatter'])) > 0 && $USER[$resource[$Element]] == 0 || $USER[$resource[$Element]] < TIMESTAMP)
 		{
-			if($USER[$resource[$Element]] == 0 || $USER[$resource[$Element]] < TIMESTAMP)
-			{
-				$USER[$resource[$Element]] = TIMESTAMP + $ExtraDM[$Element]['time'] * 3600;
-				$USER['darkmatter']         -= $ExtraDM[$Element]['darkmatter'];
-				$SQL  = "UPDATE ".USERS." SET ";
-				$SQL .= "`".$resource[$Element]."` = '". $USER[$resource[$Element]] ."' ";
-				$SQL .= "WHERE ";
-				$SQL .= "`id` = '". $USER['id'] ."';";
-				$db->query($SQL);
-			}
+			$USER[$resource[$Element]] = TIMESTAMP + $ExtraDM[$Element]['time'] * 3600;
+			$USER['darkmatter']         -= $ExtraDM[$Element]['darkmatter'];
+			$SQL  = "UPDATE ".USERS." SET ";
+			$SQL .= "`".$resource[$Element]."` = '". $USER[$resource[$Element]] ."' ";
+			$SQL .= "WHERE ";
+			$SQL .= "`id` = '". $USER['id'] ."';";
+			$db->query($SQL);
 		}
 	}
 
@@ -70,7 +67,7 @@ class ShowOfficierPage
 	{
 		global $USER, $PLANET, $db, $reslist, $resource;
 		
-		if (IsElementBuyable($USER, $PLANET, $Element, true, false) && in_array($Selected, $reslist['officier']) && $this->IsOfficierAccessible($Selected) == 1)
+		if (IsElementBuyable($USER, $PLANET, $Element, true, false) && $this->IsOfficierAccessible($Selected) == 1)
 		{
 			$USER[$resource[$Selected]] += 1;
 			$Resses						= GetBuildingPrice($USER, $PLANET, $Selected, true, false);
@@ -95,17 +92,17 @@ class ShowOfficierPage
 		$Offi	  = request_var('offi', 0);
 		$Extra	  = request_var('extra', 0);
 				
-		$PlanetRess = new ResourceUpdate();
-		$PlanetRess->CalcResource();;
-		
 		if ($action == "send" && $USER['urlaubs_modus'] == 0)
 		{
-			if(!empty($Offi) && !CheckModule(18))
+			if(!empty($Offi) && !CheckModule(18) && in_array($Selected, $reslist['officier']))
 				$this->UpdateOfficier($Offi);
-			elseif(!empty($Extra) && !CheckModule(8))
+			elseif(!empty($Extra) && !CheckModule(8) && in_array($Element, $reslist['dmfunc']))
 				$this->UpdateExtra($Extra);		
 		}
 		
+		list($USER['factor'], $PLANET['factor'])	= getFactors($USER, $PLANET);
+		$PlanetRess = new ResourceUpdate();
+		$PlanetRess->CalcResource();
 		$PlanetRess->SavePlanetToDB();
 		$template	= new template();
 		$template->loadscript('officier.js');		

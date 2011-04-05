@@ -42,7 +42,7 @@ class MissionCaseAttack extends MissionFunctions
 				
 		require_once(ROOT_PATH.'includes/classes/class.PlanetRessUpdate.php');
 		
-		list($targetUser['factor'], $targetPlanet['factor'])	= getFactors($targetUser, $targetPlanet);
+		list($targetUser['factor'], $targetPlanet['factor'])	= getFactors($targetUser, $targetPlanet, 'basic', $this->_fleet['fleet_start_time']);
 		$PlanetRess 						= new ResourceUpdate();
 		list($targetUser, $targetPlanet)	= $PlanetRess->CalcResource($targetUser, $targetPlanet, true, $this->_fleet['fleet_start_time']);
 		$TargetUserID	= $targetUser['id'];
@@ -60,7 +60,7 @@ class MissionCaseAttack extends MissionFunctions
 			{
 				$attackFleets[$fleet['fleet_id']]['fleet'] 				= $fleet;
 				$attackFleets[$fleet['fleet_id']]['user'] 				= $db->uniquequery("SELECT id,username,military_tech,defence_tech,shield_tech,rpg_amiral,dm_defensive,dm_attack FROM ".USERS." WHERE `id` = '".$fleet['fleet_owner']."';");
-				$attackFleets[$fleet['fleet_id']]['user']['factor'] 	= getFactors($attackFleets[$fleet['fleet_id']]['user'], null, 'attack');
+				$attackFleets[$fleet['fleet_id']]['user']['factor'] 	= getFactors($attackFleets[$fleet['fleet_id']]['user'], null, 'attack', $this->_fleet['fleet_start_time']);
 				$attackFleets[$fleet['fleet_id']]['detail'] 			= array();
 				$temp = explode(';', $fleet['fleet_array']);
 				foreach ($temp as $temp2)
@@ -81,7 +81,7 @@ class MissionCaseAttack extends MissionFunctions
 		{
 			$attackFleets[$this->_fleet['fleet_id']]['fleet']			= $this->_fleet;
 			$attackFleets[$this->_fleet['fleet_id']]['user'] 			= $db->uniquequery("SELECT id,username,military_tech,defence_tech,shield_tech,rpg_amiral,dm_defensive,dm_attack FROM ".USERS." WHERE id = '".$this->_fleet['fleet_owner']."';");
-			$attackFleets[$this->_fleet['fleet_id']]['user']['factor'] 	= getFactors($attackFleets[$fleet['fleet_id']]['user'], null, 'attack');
+			$attackFleets[$this->_fleet['fleet_id']]['user']['factor'] 	= getFactors($attackFleets[$fleet['fleet_id']]['user'], null, 'attack', $this->_fleet['fleet_start_time']);
 			$attackFleets[$this->_fleet['fleet_id']]['detail'] 			= array();
 			$temp = explode(';', $this->_fleet['fleet_array']);
 			foreach ($temp as $temp2)
@@ -104,7 +104,7 @@ class MissionCaseAttack extends MissionFunctions
 		while ($defRow = $db->fetch_array($def))
 		{
 			$defense[$defRow['fleet_id']]['user'] = $db->uniquequery("SELECT id,username,military_tech,defence_tech,shield_tech,rpg_amiral,dm_defensive,dm_attack FROM ".USERS." WHERE id = '".$defRow['fleet_owner']."';");
-			$attackFleets[$this->_fleet['fleet_id']]['user']['factor'] 	= getFactors($attackFleets[$fleet['fleet_id']]['user'], null, 'attack');;
+			$attackFleets[$this->_fleet['fleet_id']]['user']['factor'] 	= getFactors($attackFleets[$fleet['fleet_id']]['user'], null, 'attack', $this->_fleet['fleet_start_time']);
 			$defRowDef = explode(';', $defRow['fleet_array']);
 			foreach ($defRowDef as $Element)
 			{
@@ -123,7 +123,7 @@ class MissionCaseAttack extends MissionFunctions
 
 		$defense[0]['def'] 		= array();
 		$defense[0]['user'] 	= $targetUser;
-		$defense[0]['user']['factor'] 	= getFactors($defense[0]['user']['factor'], null, 'attack');		
+		$defense[0]['user']['factor'] 	= getFactors($defense[0]['user']['factor'], null, 'attack', $this->_fleet['fleet_start_time']);		
 		$DefenderRow['id'][] 	= $defense[0]['user']['id'];
 		$DefenderRow['name'][]	= $defense[0]['user']['username'];
 		
