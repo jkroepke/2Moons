@@ -228,7 +228,7 @@ abstract class FleetFunctions
 	
 	public static function IsAKS($CurrentUserID)
 	{
-		global $db;
+		global $db, $CONF;
 		
 		$GetAKS 	= $db->query("SELECT a.`id`, a.`name`, a.`galaxy`, a.`system`, a.`planet`, a.`planet_type` FROM ".AKS." as a WHERE '".$CONF['max_fleets_per_acs']."' > (SELECT COUNT(*) FROM ".FLEETS." WHERE `fleet_group` = a.`id`) AND (a.`teilnehmer` = '".$CurrentUserID."' OR a.`eingeladen` LIKE '%,".$CurrentUserID.",%');");
 		$AKSList	= array();

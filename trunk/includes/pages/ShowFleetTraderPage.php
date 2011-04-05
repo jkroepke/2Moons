@@ -28,20 +28,19 @@
 
 function ShowFleetTraderPage()
 {
-	global $USER, $PLANET, $LNG, $CONF, $pricelist, $resource;
+	global $USER, $PLANET, $LNG, $CONF, $pricelist, $resource, $reslist;
 	$PlanetRess = new ResourceUpdate();
 	$PlanetRess->CalcResource();
 	$CONF['trade_allowed_ships']	= explode(',', $CONF['trade_allowed_ships']);
 	$ID								= request_var('id', 0);
 	if(!empty($ID) && in_array($ID, $CONF['trade_allowed_ships'])) {
-		$Count						= max(min(request_var('count', '0'), $PLANET[$resource[$ID]]), 0);
-		$PLANET['metal']			= bcadd($PLANET['metal'], bcmul($Count, bcmul($pricelist[$ID]['metal'], (float) (1 - $CONF['trade_charge']))));
-		$PLANET['crystal']			= bcadd($PLANET['crystal'], bcmul($Count, bcmul($pricelist[$ID]['crystal'], (float) (1 - $CONF['trade_charge']))));
-		$PLANET['deuterium']		= bcadd($PLANET['deuterium'], bcmul($Count, bcmul($pricelist[$ID]['deuterium'], (float) (1 - $CONF['trade_charge']))));
-		$USER['darkmatter']			= bcadd($USER['darkmatter'], bcmul($Count, bcmul($pricelist[$ID]['darkmatter'], (float) (1 - $CONF['trade_charge']))));
-		$PlanetRess->Builded[$ID]	= bcadd(bcmul('-1', $Count), $PlanetRess->Builded[$ID]);
+		$Count						= max(min(request_outofint('count'), $PLANET[$resource[$ID]]), 0);
+		$PLANET['metal']			+= $Count * $pricelist[$ID]['metal'] * (1 - $CONF['trade_charge']);
+		$PLANET['crystal']			+= $Count * $pricelist[$ID]['crystal'] * (1 - $CONF['trade_charge']);
+		$PLANET['deuterium']		+= $Count * $pricelist[$ID]['deuterium'] * (1 - $CONF['trade_charge']);
+		$USER['darkmatter']			+= $Count * $pricelist[$ID]['darkmatter'] * (1 - $CONF['trade_charge']);
+		$PlanetRess->Builded[$ID]	-= $Count * $PlanetRess->Builded[$ID];
 	}
-	
 	$PlanetRess->SavePlanetToDB();
 
 	$template	= new template();
@@ -50,7 +49,13 @@ function ShowFleetTraderPage()
 	$Cost	= array();
 	foreach($CONF['trade_allowed_ships'] as $ID)
 	{
-		$Cost[$ID]	= array($PLANET[$resource[$ID]], $pricelist[$ID]['metal'], $pricelist[$ID]['crystal'], $pricelist[$ID]['deuterium'], $pricelist[$ID]['darkmatter']);
+		if(in_array($ID, $reslist['fleet']))
+			$Cost[$ID]	= array($PLANET[$resource[$ID]], $pricelist[$ID]['metal'], $pricelist[$ID]['crystal'], $pricelist[$ID]['deuterium'], $pricelist[$ID]['darkmatter']);
+	}
+	
+	if(empty($Cost)) {
+		$template->message($LNG['ft_empty']);
+		exit;
 	}
 	$template->assign_vars(array(	
 		'tech'						=> $LNG['tech'],
