@@ -50,26 +50,33 @@ function getUniverse()
 	return $UNI;
 }
 
-function getFactors($USER, $PLANET, $Type = 'basic') {
+function getFactors($USER, $PLANET, $Type = 'basic', $TIME = 0) {
 	global $CONF, $resource, $OfficerInfo, $ExtraDM;
+	if(empty($TIME))
+		$TIME	= TIMESTAMP;
+		
 	if($Type == 'basic') {
 		return array(
 			array(
-				'shipspeed'		=> 1 + DMExtra($USER[$resource[706]], TIMESTAMP, $ExtraDM[701]['add'], 0)
+				'shipspeed'		=> 1 + DMExtra($USER[$resource[706]], $TIME, $ExtraDM[701]['add'], 0)
 			),
 			array(
-				'bulidspeed'	=> 1 - (1 - pow(0.5, $PLANET[$resource[15]])) - $USER[$resource[605]] * $OfficerInfo[605]['info'] - DMExtra($USER[$resource[702]], TIMESTAMP, $ExtraDM[702]['add'], 0),
-				'techspeed'		=> 1 - $USER[$resource[606]] * $OfficerInfo[606]['info'] - (1 - pow(1 - $CONF['factor_university'] / 100, $PLANET[$resource[6]])) - DMExtra($USER[$resource[705]], TIMESTAMP, $ExtraDM[705]['add'], 0),
+				'bulidspeed'	=> 1 - (1 - pow(0.5, $PLANET[$resource[15]])) - $USER[$resource[605]] * $OfficerInfo[605]['info'] - DMExtra($USER[$resource[702]], $TIME, $ExtraDM[702]['add'], 0),
+				'techspeed'		=> 1 - $USER[$resource[606]] * $OfficerInfo[606]['info'] - (1 - pow(1 - $CONF['factor_university'] / 100, $PLANET[$resource[6]])) - DMExtra($USER[$resource[705]], $TIME, $ExtraDM[705]['add'], 0),
 				'fleetspeed'	=> 1 - (1 - pow(0.5, $PLANET[$resource[15]])) - $USER[$resource[613]] * $OfficerInfo[613]['info'] - $USER[$resource[604]] * $OfficerInfo[604]['info'],
 				'defspeed'		=> 1 - (1 - pow(0.5, $PLANET[$resource[15]])) - $USER[$resource[613]] * $OfficerInfo[613]['info'] - $USER[$resource[608]] * $OfficerInfo[608]['info'],
+				'metal'			=> 1 + ($USER[$resource[601]] * $OfficerInfo[601]['info']) + ($USER[$resource[131]] * 0.02) + DMExtra($USER[$resource[703]], $TIME, $ExtraDM[703]['add'], 0),
+				'crystal'		=> 1 + ($USER[$resource[601]] * $OfficerInfo[601]['info']) + ($USER[$resource[132]] * 0.02) + DMExtra($USER[$resource[703]], $TIME, $ExtraDM[703]['add'], 0),
+				'deuterium'		=> 1 + ($USER[$resource[601]] * $OfficerInfo[601]['info']) + ($USER[$resource[133]] * 0.02) + DMExtra($USER[$resource[703]], $TIME, $ExtraDM[703]['add'], 0),
+				'energy'		=> 1 + ($USER[$resource[603]] * $OfficerInfo[603]['info']) + DMExtra($USER[$resource[704]], $TIME, $ExtraDM[704]['add'], 0),
 			)
 		);
 	}
 
 	if($Type == 'attack') {
 		return array(
-			'attack'		=> $USER[$resource[602]] * $OfficerInfo[602]['info'] + DMExtra($USER[$resource[700]], TIMESTAMP, $ExtraDM[700]['add'], 0),
-			'defensive'		=> $USER[$resource[602]] * $OfficerInfo[602]['info'] + DMExtra($USER[$resource[701]], TIMESTAMP, $ExtraDM[701]['add'], 0),
+			'attack'		=> $USER[$resource[602]] * $OfficerInfo[602]['info'] + DMExtra($USER[$resource[700]], $TIME, $ExtraDM[700]['add'], 0),
+			'defensive'		=> $USER[$resource[602]] * $OfficerInfo[602]['info'] + DMExtra($USER[$resource[701]], $TIME, $ExtraDM[701]['add'], 0),
 			'shield'		=> $USER[$resource[602]] * $OfficerInfo[602]['info'],
 		);
 	}
