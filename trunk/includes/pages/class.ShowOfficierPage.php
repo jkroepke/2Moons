@@ -94,9 +94,9 @@ class ShowOfficierPage
 				
 		if ($action == "send" && $USER['urlaubs_modus'] == 0)
 		{
-			if(!empty($Offi) && !CheckModule(18) && in_array($Selected, $reslist['officier']))
+			if(!empty($Offi) && !CheckModule(18) && in_array($Offi, $reslist['officier']))
 				$this->UpdateOfficier($Offi);
-			elseif(!empty($Extra) && !CheckModule(8) && in_array($Element, $reslist['dmfunc']))
+			elseif(!empty($Extra) && !CheckModule(8) && in_array($Extra, $reslist['dmfunc']))
 				$this->UpdateExtra($Extra);		
 		}
 		
