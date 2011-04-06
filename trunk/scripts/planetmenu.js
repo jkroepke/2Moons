@@ -45,3 +45,6 @@ function ShowPlanetMenu() {
 	}
 	$('#planet_menu_content').slideToggle(500);
 }
+
+
+PlanetMenu();

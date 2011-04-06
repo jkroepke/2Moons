@@ -94,8 +94,6 @@ class template
 			$this->loadscript("gate.js");
 		
 		$this->loadscript("planetmenu.js");
-		$this->loadscript("topnav.js");
-		$this->execscript("PlanetMenu();");
 		$this->phpself	= "?page=".request_var('page', '')."&amp;mode=".request_var('mode', '');
 		$PlanetSelect	= array();
 		$Scripttime		= array();
