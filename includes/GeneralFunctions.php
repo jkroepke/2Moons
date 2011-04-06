@@ -61,10 +61,10 @@ function getFactors($USER, $PLANET, $Type = 'basic', $TIME = 0) {
 				'shipspeed'		=> 1 + DMExtra($USER[$resource[706]], $TIME, $ExtraDM[701]['add'], 0)
 			),
 			array(
-				'bulidspeed'	=> 1 - (1 - pow(0.5, $PLANET[$resource[15]])) - $USER[$resource[605]] * $OfficerInfo[605]['info'] - DMExtra($USER[$resource[702]], $TIME, $ExtraDM[702]['add'], 0),
-				'techspeed'		=> 1 - $USER[$resource[606]] * $OfficerInfo[606]['info'] - (1 - pow(1 - $CONF['factor_university'] / 100, $PLANET[$resource[6]])) - DMExtra($USER[$resource[705]], $TIME, $ExtraDM[705]['add'], 0),
-				'fleetspeed'	=> 1 - (1 - pow(0.5, $PLANET[$resource[15]])) - $USER[$resource[613]] * $OfficerInfo[613]['info'] - $USER[$resource[604]] * $OfficerInfo[604]['info'],
-				'defspeed'		=> 1 - (1 - pow(0.5, $PLANET[$resource[15]])) - $USER[$resource[613]] * $OfficerInfo[613]['info'] - $USER[$resource[608]] * $OfficerInfo[608]['info'],
+				'bulidspeed'	=> 1 - $USER[$resource[605]] * $OfficerInfo[605]['info'] - DMExtra($USER[$resource[702]], $TIME, $ExtraDM[702]['add'], 0),
+				'techspeed'		=> 1 - $USER[$resource[606]] * $OfficerInfo[606]['info'] - DMExtra($USER[$resource[705]], $TIME, $ExtraDM[705]['add'], 0),
+				'fleetspeed'	=> 1 - $USER[$resource[613]] * $OfficerInfo[613]['info'] - $USER[$resource[604]] * $OfficerInfo[604]['info'],
+				'defspeed'		=> 1 - $USER[$resource[613]] * $OfficerInfo[613]['info'] - $USER[$resource[608]] * $OfficerInfo[608]['info'],
 				'metal'			=> 1 + ($USER[$resource[601]] * $OfficerInfo[601]['info']) + ($USER[$resource[131]] * 0.02) + DMExtra($USER[$resource[703]], $TIME, $ExtraDM[703]['add'], 0),
 				'crystal'		=> 1 + ($USER[$resource[601]] * $OfficerInfo[601]['info']) + ($USER[$resource[132]] * 0.02) + DMExtra($USER[$resource[703]], $TIME, $ExtraDM[703]['add'], 0),
 				'deuterium'		=> 1 + ($USER[$resource[601]] * $OfficerInfo[601]['info']) + ($USER[$resource[133]] * 0.02) + DMExtra($USER[$resource[703]], $TIME, $ExtraDM[703]['add'], 0),
@@ -217,11 +217,14 @@ function pretty_number($n, $dec = 0)
 	return number_format(floattostring($n, $dec), 0, ',', '.');
 }
 
-function set_var(&$result, $var, $type, $multibyte = false)
+function request_var($var_name, $default, $multibyte = false, $specialtype = '')
 {
+	if(!isset($_REQUEST[$var_name]))
+		return $default;
+	
+	$var	= $_REQUEST[$var_name];
+	$type	= gettype($default);
 	settype($var, $type);
-	$result = $var;
-
 	if ($type == 'string')
 	{
 		$result = trim(htmlspecialchars(str_replace(array("\r\n", "\r", "\0"), array("\n", "\n", ''), $result), ENT_COMPAT, 'UTF-8'));
@@ -239,90 +242,10 @@ function set_var(&$result, $var, $type, $multibyte = false)
 			else
 			{
 				// no multibyte, allow only ASCII (0-127)
-				$result = preg_replace('/[\x80-\xFF]/', '?', $result);
+				$var = preg_replace('/[\x80-\xFF]/', '?', $$var);
 			}
 		}
 	}
-}
-
-/**
-* request_var
-*
-* Used to get passed variable
-*/
-function request_var($var_name, $default, $multibyte = false, $cookie = false)
-{
-	if (!$cookie && isset($_COOKIE[$var_name]))
-	{
-		if (!isset($_GET[$var_name]) && !isset($_POST[$var_name]))
-		{
-			return (is_array($default)) ? array() : $default;
-		}
-		$_REQUEST[$var_name] = isset($_POST[$var_name]) ? $_POST[$var_name] : $_GET[$var_name];
-	}
-
-	$super_global = ($cookie) ? '_COOKIE' : '_REQUEST';
-	if (!isset($GLOBALS[$super_global][$var_name]) || is_array($GLOBALS[$super_global][$var_name]) != is_array($default))
-	{
-		return (is_array($default)) ? array() : $default;
-	}
-
-	$var = $GLOBALS[$super_global][$var_name];
-	if (!is_array($default))
-	{
-		$type = gettype($default);
-	}
-	else
-	{
-		list($key_type, $type) = each($default);
-		$type = gettype($type);
-		$key_type = gettype($key_type);
-		if ($type == 'array')
-		{
-			reset($default);
-			$default = current($default);
-			list($sub_key_type, $sub_type) = each($default);
-			$sub_type = gettype($sub_type);
-			$sub_type = ($sub_type == 'array') ? 'NULL' : $sub_type;
-			$sub_key_type = gettype($sub_key_type);
-		}
-	}
-
-	if (is_array($var))
-	{
-		$_var = $var;
-		$var = array();
-
-		foreach ($_var as $k => $v)
-		{
-			set_var($k, $k, $key_type);
-			if ($type == 'array' && is_array($v))
-			{
-				foreach ($v as $_k => $_v)
-				{
-					if (is_array($_v))
-					{
-						$_v = null;
-					}
-					set_var($_k, $_k, $sub_key_type);
-					set_var($var[$k][$_k], $_v, $sub_type, $multibyte);
-				}
-			}
-			else
-			{
-				if ($type == 'array' || is_array($v))
-				{
-					$v = null;
-				}
-				set_var($var[$k], $v, $type, $multibyte);
-			}
-		}
-	}
-	else
-	{
-		set_var($var, $var, $type, $multibyte);
-	}
-
 	return $var;
 }
 
