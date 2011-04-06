@@ -56,7 +56,7 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 			else
 				$Level	= $PLANET[$resource[31]];
 			
-			$time	= $Cost / (1000 * (1 + $Level))) / ($CONF['game_speed'] / 2500) * pow(1 - $CONF['factor_university'] / 100, $PLANET[$resource[6]]) * $PLANET['factor']['techspeed'];
+			$time	= $Cost / (1000 * (1 + $Level)) / ($CONF['game_speed'] / 2500) * pow(1 - $CONF['factor_university'] / 100, $PLANET[$resource[6]]) * $PLANET['factor']['techspeed'];
 		}
 		
 		if(!$Destroy)
