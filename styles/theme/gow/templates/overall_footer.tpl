@@ -1,7 +1,8 @@
 {$cron}
 <script type="text/javascript">
-var serverTime = new Date({$date.0}, {$date.1 - 1}, {$date.2}, {$date.3}, {$date.4}, {$date.5});
-var localTime = new Date();
+var serverTime 	= new Date({$date.0}, {$date.1 - 1}, {$date.2}, {$date.3}, {$date.4}, {$date.5});
+var startTime	= serverTime.getTime();
+var localTime 	= new Date();
 localTS = localTime.getTime();
 var ServerTimezoneOffset = {$date.6} + localTime.getTimezoneOffset()*60;
 var Gamename	= document.title;
@@ -13,14 +14,10 @@ var auth		= {$authlevel};
 var days 		= {$js_days};
 var months 		= {$js_month};
 </script>
-<script type="text/javascript" src="{$cd}scripts/jQuery.js?v={$REV}"></script>
-<script type="text/javascript" src="{$cd}scripts/base.js?v={$REV}"></script>
-{foreach item=scriptname from=$scripts}
-<script type="text/javascript" src="{$cd}scripts/{$scriptname}.js?v={$REV}"></script>
-{/foreach}
-<script type="text/javascript">
-var timerHandler = new TimerHandler();
 {if $topnav}
+<script type="text/javascript" src="{$cd}scripts/base.js?v={$REV}"></script>
+<script type="text/javascript" src="{$cd}scripts/topnav.js?v={$REV}"></script>
+<script type="text/javascript">
 var resourceTickerMetal = {
     available: {$metal},
     limit: [0, {$js_metal_max}],
@@ -39,16 +36,19 @@ var resourceTickerDeuterium = {
     production: {$js_deuterium_hr},
     valueElem: "current_deuterium"
 };
-initRessource();
 
 var vacation = {$vmode};
 if (!vacation) {
-	new resourceTicker(resourceTickerMetal);
-	new resourceTicker(resourceTickerCrystal);
-	new resourceTicker(resourceTickerDeuterium);
-} 
-{/if}
+	resourceTicker(resourceTickerMetal);
+	resourceTicker(resourceTickerCrystal);
+	resourceTicker(resourceTickerDeuterium);
+}
 </script>
+{/if}
+<script type="text/javascript" src="{$cd}scripts/jQuery.js?v={$REV}"></script>
+{foreach item=scriptname from=$scripts}
+<script type="text/javascript" src="{$cd}scripts/{$scriptname}.js?v={$REV}"></script>
+{/foreach}
 <script type="text/javascript">
 function UhrzeitAnzeigen()
 {
