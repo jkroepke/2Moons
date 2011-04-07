@@ -1027,7 +1027,6 @@ $LNG['uvs_error']						= 'Invalid Import File!';
 //Update Page
 $LNG['up_weiter']						= 'Further';
 $LNG['up_kein_update']					= 'No update available!';
-$LNG['up_ftp_ok']						= 'OK!';
 $LNG['up_ok_update']					= 'OK! - Updated';
 $LNG['up_error_update']					= 'ERROR! - Could not file high-load';
 $LNG['up_delete_file']					= 'Successfully deleted';

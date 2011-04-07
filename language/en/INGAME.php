@@ -1083,6 +1083,7 @@ $LNG['ft_max']								= 'Max';
 $LNG['ft_total']							= 'Total';
 $LNG['ft_charge']							= 'Trader Fee';
 $LNG['ft_absenden']							= 'Submit';
+$LNG['ft_empty']							= 'You have nothing to deal with trader!';
 
 //----------------------------------------------------------------------------//
 // Logout
