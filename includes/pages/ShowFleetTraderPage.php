@@ -39,7 +39,7 @@ function ShowFleetTraderPage()
 		$PLANET['crystal']			+= $Count * $pricelist[$ID]['crystal'] * (1 - $CONF['trade_charge']);
 		$PLANET['deuterium']		+= $Count * $pricelist[$ID]['deuterium'] * (1 - $CONF['trade_charge']);
 		$USER['darkmatter']			+= $Count * $pricelist[$ID]['darkmatter'] * (1 - $CONF['trade_charge']);
-		$PlanetRess->Builded[$ID]	-= $Count * $PlanetRess->Builded[$ID];
+		$PlanetRess->Builded[$ID]	-= $Count;
 	}
 	$PlanetRess->SavePlanetToDB();
 

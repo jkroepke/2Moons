@@ -381,7 +381,6 @@ class ResourceUpdate
 	
 		$QueueArray	= explode(';', $this->USER['b_tech_queue']);
 		array_shift($QueueArray);		
-		$this->UpdateRessource($this->USER['b_tech']);			
 			
 		$this->USER['b_tech_id']		= 0;
 		if (count($QueueArray) == 0) {
@@ -413,10 +412,12 @@ class ResourceUpdate
 		while ($Loop == true)
 		{
 			$ListIDArray        = explode(",", $QueueArray[0]);
-			if($Planet != $this->PLANET['id'])
+			if($Planet != $this->PLANET['id']) {
 				$PLANET				= $db->uniquequery("SELECT * FROM ".PLANETS." WHERE `id` = '".$ListIDArray[4]."';");
-			else
+				list(, $PLANET['factor'])	= getFactors($this->USER, $PLANET);
+			} else {
 				$PLANET				= $this->PLANET;
+			}
 			
 			$PLANET[$resource[31].'_inter']	= $this->CheckAndGetLabLevel($this->USER, $PLANET);
 			
