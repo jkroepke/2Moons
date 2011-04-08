@@ -67,7 +67,7 @@ class ShowOfficierPage
 	{
 		global $USER, $PLANET, $db, $reslist, $resource;
 		
-		if (IsElementBuyable($USER, $PLANET, $Element, true, false) && $this->IsOfficierAccessible($Selected) == 1)
+		if (IsElementBuyable($USER, $PLANET, $Selected, true, false) && $this->IsOfficierAccessible($Selected) == 1)
 		{
 			$USER[$resource[$Selected]] += 1;
 			$Resses						= GetBuildingPrice($USER, $PLANET, $Selected, true, false);
