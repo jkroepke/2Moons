@@ -115,7 +115,7 @@ function getConfig($UNI) {
 		
 	$CONF = $db->uniquequery("SELECT HIGH_PRIORITY * FROM `".CONFIG."` WHERE `uni` = '".$UNI."';");
 	$CONF['moduls']			= explode(";", $CONF['moduls']);
-	$CONF['ref_active']			= 0;
+	$CONF['ref_active']			= 1;
 	$CONF['ref_bonus']			= 1000;
 	$CONF['ref_minpoints']		= 2000;
 	$CONF['del_oldstuff']		= 259200;

@@ -1099,6 +1099,7 @@ $LNG['ft_max']								= 'max';
 $LNG['ft_total']							= 'TOTAL';
 $LNG['ft_charge']							= 'Taxa do Sucateiro';
 $LNG['ft_absenden']							= 'Enviar';	
+$LNG['ft_empty']							= 'Vazio';	
 
 //----------------------------------------------------------------------------//
 // Logout
