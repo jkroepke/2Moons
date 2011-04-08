@@ -33,9 +33,11 @@ function ShowUpdatePage()
 	global $LNG, $CONF, $db;
 	if(isset($_REQUEST['version']))
 	{
-		$Temp	= explode('.', $_REQUEST['version']);
-		$Temp	= array_map('intval', $Temp);
-		update_config(array('VERSION' => $Temp[0].'.'.$Temp[1].'.'.$Temp[2]));
+		$Temp		= explode('.', $_REQUEST['version']);
+		$Temp		= array_map('intval', $Temp);
+
+		if(count(GetLogs($Temp[2]), COUNT_RECURSIVE) > 8)
+			update_config(array('VERSION' => $Temp[0].'.'.$Temp[1].'.'.$Temp[2]));
 	}
 	
 	$ACTION	= request_var('action', '');
@@ -131,6 +133,9 @@ function GetLogs($fromRev) {
 	$arrOutput = $xml2Array->xmlParse($DATA);
 	$fileLogs = array();
 	foreach($arrOutput['children'] as $value) {
+		if(empty($value['children']))
+			continue;
+			
 		$array			= array();
 		$array['add']	= array();
 		$array['edit']	= array();
