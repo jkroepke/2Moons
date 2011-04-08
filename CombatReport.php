@@ -32,6 +32,11 @@ define('AJAX', true );
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 require(ROOT_PATH . 'includes/common.php');
 require(ROOT_PATH . 'includes/classes/class.template.php');
+
+if(isset($_SESSION['USER']))
+	$LANG->setUser($_SESSION['USER']['lang']);	
+else
+	$LANG->GetLangFromBrowser();
 	
 $LANG->includeLang(array('FLEET', 'TECH'));
 	
