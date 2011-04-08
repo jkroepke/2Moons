@@ -128,7 +128,7 @@ class ShowResearchPage
 			}
 			
 			$BuildArray   				= explode (",", $NewQueueArray[0]);
-			$USER['b_tech']    			= $BuildArray[3];
+			$USER['b_tech']    			= TIMESTAMP;
 			$USER['b_tech_queue'] 		= implode(";", $NewQueueArray);
 			$PlanetRess->USER			= $USER;
 			$PlanetRess->PLANET			= $PLANET;
