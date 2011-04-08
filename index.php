@@ -185,7 +185,7 @@ switch ($page) {
 					$FACEBOOK	= 0;
 				}
 				
-				if($CONF['fb_on'] == 1 && !empty($RefID)) {
+				if($CONF['ref_active'] == 1 && !empty($RefID)) {
 					$Count	= $db->countquery("SELECT COUNT(*) FROM ".USERS." WHERE `id` = '".$RefID."';");
 					if($Count == 0)
 						$RefID	= 0;
