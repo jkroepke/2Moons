@@ -91,17 +91,17 @@ class ShowBuildingsPage
 				$ListIDArray        = explode(',', $Elements);
 				$BuildEndTime       += GetBuildingTime($USER, $PLANET, $ListIDArray[0], $ListIDArray[4] == 'destroy');
 				$ListIDArray[3]		= $BuildEndTime;
-				$NewQueueArray[]	= implode(',', $ListIDArray);				
+				$NewQueueArray[]	= implode(',', $ListIDArray);					
 			}
-			
 			$BuildArray   				= explode (",", $NewQueueArray[0]);
-			$PLANET['b_building']    	= $BuildArray[3];
+			$PLANET['b_building']    	= TIMESTAMP;
 			$PLANET['b_building_id'] 	= implode(";", $NewQueueArray);
 			$PlanetRess->USER			= $USER;
 			$PlanetRess->PLANET			= $PLANET;
 			$PlanetRess->SetNextQueueElementOnTop();
 			$USER						= $PlanetRess->USER;
 			$PLANET						= $PlanetRess->PLANET;
+			var_dump((float)$PLANET['b_building']);
 		}
 		
 		return $ReturnValue;
@@ -171,7 +171,7 @@ class ShowBuildingsPage
 
 			$Resses			= GetBuildingPrice($USER, $PLANET, $Element, true, !$AddMode);
 			$BuildTime   	= GetBuildingTime($USER, $PLANET, $Element, !$AddMode);	
-					
+			
 			$PLANET['metal']			-= $Resses['metal'];
 			$PLANET['crystal']			-= $Resses['crystal'];
 			$PLANET['deuterium']		-= $Resses['deuterium'];
