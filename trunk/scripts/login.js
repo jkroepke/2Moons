@@ -67,7 +67,7 @@ function Submit(action) {
 					alert(data.message);
 			});
 		break;
-		case 'register':
+		case 'reg':
 			form =	$('#reg');
 			$('.error').removeClass('error');
 			$.post(form.attr('action'), form.serialize(), function(data) {
@@ -105,12 +105,25 @@ function Submit(action) {
 }
 
 function init(){
+	initFormHandler();
 	initLangs();
 	initCloseReg();
 	if(CONF['FBActive'] == 1 && document.location.search == '?fb=reg')
 		FBRegister();
 	else if(CONF['ref_active'] == 1 && document.location.search.search('/?ref=') !== -1)
 		RefRegister();
+}
+
+function initFormHandler() {
+	$('input').each(function(i, val){
+		if($(this).attr('type') === "button")
+			return;
+			
+		$(this).keydown(function(event) {
+			if (event.keyCode == '13')
+				Submit($(this).parent().attr('id'));
+		});
+	});
 }
 
 function initLangs() {
