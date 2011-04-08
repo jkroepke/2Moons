@@ -8,8 +8,9 @@ Por favor note que este passo é absolutamente necessário
 para se tornares um usuário registrado. Clique no link 
 abaixo apenas uma vez para ativar sua conta.
 
-Para completar o teu registro, clique no link: 
+Para completar o teu registro, clique no link em baixo
 %3$s?page=reg&action=valid&uni=%7$s&clef=%4$s
+
 
 Os seus detalhes de login:
 
