@@ -183,9 +183,9 @@ class ShowFleetPages extends FleetFunctions
 			'bonus_attack'			=> $USER[$resource[109]] * 10 + ($USER['factor']['attack'] * 100),
 			'bonus_defensive'		=> $USER[$resource[110]] * 10 + ($USER['factor']['defensive'] * 100),
 			'bonus_shield'			=> $USER[$resource[111]] * 10 + ($USER['factor']['shield'] * 100),
-			'bonus_combustion'		=> $USER[$resource[115]] * 10 + ($USER['factor']['shipspeed'] * 100),
-			'bonus_impulse'			=> $USER[$resource[117]] * 20 + ($USER['factor']['shipspeed'] * 100),
-			'bonus_hyperspace'		=> $USER[$resource[118]] * 30 + ($USER['factor']['shipspeed'] * 100),
+			'bonus_combustion'		=> $USER[$resource[115]] * 10 + ($USER['factor']['shipspeed'] * 100) - 100,
+			'bonus_impulse'			=> $USER[$resource[117]] * 20 + ($USER['factor']['shipspeed'] * 100) - 100,
+			'bonus_hyperspace'		=> $USER[$resource[118]] * 30 + ($USER['factor']['shipspeed'] * 100) - 100,
 		));
 		$template->show('fleet_table.tpl');
 	}
