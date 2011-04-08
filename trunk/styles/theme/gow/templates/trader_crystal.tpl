@@ -11,7 +11,7 @@ res_b = {$mod_ma_res_b};
 	<input type="hidden" name="action" value="trade">
     <table class="table569">
     <tr>
-        <th>{$tr_sell_crystal}</th>
+        <th colspan="3">{$tr_sell_crystal}</th>
     </tr><tr>
         <td>{$tr_resource}</td>
         <td>{$tr_amount}</td>

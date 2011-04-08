@@ -39,6 +39,7 @@ function ShowFleetTraderPage()
 		$PLANET['crystal']			+= $Count * $pricelist[$ID]['crystal'] * (1 - $CONF['trade_charge']);
 		$PLANET['deuterium']		+= $Count * $pricelist[$ID]['deuterium'] * (1 - $CONF['trade_charge']);
 		$USER['darkmatter']			+= $Count * $pricelist[$ID]['darkmatter'] * (1 - $CONF['trade_charge']);
+		$PLANET[$resource[$ID]]		-= $Count;
 		$PlanetRess->Builded[$ID]	-= $Count;
 	}
 	$PlanetRess->SavePlanetToDB();
@@ -49,7 +50,7 @@ function ShowFleetTraderPage()
 	$Cost	= array();
 	foreach($CONF['trade_allowed_ships'] as $ID)
 	{
-		if(in_array($ID, $reslist['fleet']))
+		if(in_array($ID, $reslist['fleet']) || in_array($ID, $reslist['defense']))
 			$Cost[$ID]	= array($PLANET[$resource[$ID]], $pricelist[$ID]['metal'], $pricelist[$ID]['crystal'], $pricelist[$ID]['deuterium'], $pricelist[$ID]['darkmatter']);
 	}
 	

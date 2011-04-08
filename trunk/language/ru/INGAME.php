@@ -86,15 +86,15 @@ $LNG['lm_rules']                          = 'Правила';
 $LNG['lm_battlesim']                      = 'Симулятор боя';
 
 // Обзор
-$LNG['ov_newname_alphanum']               = 'Название планеты может содержать только буквы и цифры (латиница).';
+$LNG['ov_newname_alphanum']               = 'Название планеты может содержать только буквы и цифры.';
 $LNG['ov_newname_no_space']               = 'Название планеты не может содержать пробелов.';
 $LNG['ov_planet_abandoned']               = 'Планета успешно удалена!';
 $LNG['ov_principal_planet_cant_abanone']  = 'Главную планету невозможно удалить!';
-$LNG['ov_abandon_planet_not_possible']    = 'При полёте флотов невозможно покинуть планету!';
-$LNG['ov_wrong_pass']                     = 'Неправильный пароль, введите заново!';
+$LNG['ov_abandon_planet_not_possible']    = 'Невозможно удалить планету, когда с неё или на неё летит флот!';
+$LNG['ov_wrong_pass']                     = 'Неправильный пароль, попробуйте ввести заново!';
 $LNG['ov_have_new_message']               = 'Новых сообщений: 1';
 $LNG['ov_have_new_messages']              = 'Новых сообщений: %d';
-$LNG['ov_planetmenu']                     = 'Переименовать/покинуть планету';
+$LNG['ov_planetmenu']                     = 'Переименовать/удалить планету';
 $LNG['ov_free']                           = '';
 $LNG['ov_news']                           = 'Новости';
 $LNG['ov_place']                          = 'место';
@@ -111,7 +111,7 @@ $LNG['ov_to']                             = 'до';
 $LNG['ov_position']                       = 'Координаты';
 $LNG['ov_points']                         = 'Очки';
 $LNG['ov_security_request']               = 'Система безопасности';
-$LNG['ov_security_confirm']               = 'Удаление планеты %s подтвердите паролем.';
+$LNG['ov_security_confirm']               = 'Удаление планеты %s нужно подтвердить паролем.';
 $LNG['ov_password']                       = 'Пароль';
 $LNG['ov_delete_planet']                  = 'Удалить планету!';
 $LNG['ov_planet_rename']                  = 'Новое название';
@@ -120,8 +120,8 @@ $LNG['ov_fields']                         = 'Поля';
 $LNG['ov_developed_fields']               = 'застроенная территория';
 $LNG['ov_max_developed_fields']           = 'Макс. количество полей';
 $LNG['ov_fleet']                          = 'флот';
-$LNG['ov_admins_online']                  = 'Админы';
-$LNG['ov_no_admins_online']               = 'Все админы оффлайн!';
+$LNG['ov_admins_online']                  = 'Администраторы';
+$LNG['ov_no_admins_online']               = 'Все администраторы не в сети!';
 $LNG['ov_userbanner']                     = 'Баннер-статистика';
 $LNG['ov_userrank_info']                  = '%s (%s <a href="game.php?page=statistics&amp;range=%d">%d</a> %s %s)';
 $LNG['ov_teamspeak_not_online']           = 'Сервер Teamspeak в данный момент недоступен.';
@@ -133,7 +133,7 @@ $LNG['ov_reflink']                        = 'Реф. ссылка';
 
 // Галактика
 $LNG['gl_no_deuterium_to_view_galaxy']    = 'Не хватает дейтерия!';
-$LNG['gl_legend']                         = 'Легенда';
+$LNG['gl_legend']                         = 'Справка';
 $LNG['gl_strong_player']                  = 'Сильный игрок';
 $LNG['gl_week_player']                    = 'Новичок';
 $LNG['gl_vacation']                       = 'Режим отпуска';
@@ -382,12 +382,12 @@ $LNG['rs_amount']                         = 'Количество';
 $LNG['rs_lvl']                            = 'Уровень';
 $LNG['rs_production_on_planet']           = 'Производство сырья на планете "%s"';
 $LNG['rs_basic_income']                   = 'Естественное производство';
-$LNG['rs_storage_capacity']               = 'Вместимость';
+$LNG['rs_storage_capacity']               = 'Вместимость хранилищ';
 $LNG['rs_calculate']                      = 'Посчитать';
 $LNG['rs_sum']                            = 'Всего';
 $LNG['rs_daily']                          = 'В день:';
 $LNG['rs_weekly']                         = 'В неделю:';
-$LNG['rs_ress_bonus']                     = 'Бонус(Офицеры/Тёмная материя):';
+$LNG['rs_ress_bonus']                     = 'Офицеры/Инновационные разработки';
 
 // Офицеры
 $LNG['of_recruit']                        = 'Нанять';
@@ -397,7 +397,7 @@ $LNG['of_points_per_thousand_darkmatter'] = '(1 уровень офицера р
 $LNG['of_lvl']                            = 'Уровень';
 $LNG['of_dm_trade']                       = 'Инновационные разработки';
 $LNG['of_still']                          = 'Осталось:';
-$LNG['of_active']                         = 'активный';
+$LNG['of_active']                         = 'Активен';
 $LNG['of_update']                         = 'Обновить';
 
 // Скупщик
@@ -750,8 +750,8 @@ $LNG['st_defenses']                       = 'Оборона';
 $LNG['st_position']                       = 'Место';
 $LNG['st_members']                        = 'Численность';
 $LNG['st_per_member']                     = 'На игрока';
-$LNG['st_statistics']                     = 'Статистика';
-$LNG['st_updated']                        = 'обновлена';
+$LNG['st_statistics']                     = 'Статистика ';
+$LNG['st_updated']                        = 'последнее обновление';
 $LNG['st_show']                           = 'Рейтинг';
 $LNG['st_per']                            = 'сортировка';
 $LNG['st_in_the_positions']               = 'Страница';
@@ -942,7 +942,7 @@ $LNG['tkb_platz']                         = 'Место';
 $LNG['tkb_owners']                        = 'Участники';
 $LNG['tkb_datum']                         = 'Дата';
 $LNG['tkb_units']                         = 'Общие потери';
-$LNG['tkb_legende']                       = '<b>Легенда: </b>';
+$LNG['tkb_legende']                       = '<b>Справка: </b>';
 $LNG['tkb_gewinner']                      = '<b>-Победитель-</b>';
 $LNG['tkb_verlierer']                     = '<b>-Проигравший-</b>';
 $LNG['tkb_unentschieden']                 = '<b>-Ничья- </b>';
@@ -1039,6 +1039,7 @@ $LNG['ft_max']                            = 'все';
 $LNG['ft_total']                          = 'Всего';
 $LNG['ft_charge']                         = 'Процент скупщику';
 $LNG['ft_absenden']                       = 'Продать';
+$LNG['ft_empty']                          = 'Пусто';
 
 // Выход
 $LNG['lo_title']                          = 'Вы вышли. До скорого!';
