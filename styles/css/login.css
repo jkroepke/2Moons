@@ -113,7 +113,7 @@ header {
 
 #content {
     margin: 50px auto 0;
-    width: 1110px;
+    max-width: 1110px;
 }
 
 #desc_list {
@@ -204,16 +204,8 @@ header {
 	margin-bottom: 5px;
 }
 
-.contentbox input {
+.contentbox input[type=text], .contentbox input[type=password] {
     width: 179px;
-}
-
-.contentbox input[type=checkbox] {
-    margin:13px;
-}
-
-.contentbox input[type=button] {
-    width: auto;
 }
 
 .contentbox select{
