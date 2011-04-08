@@ -212,7 +212,7 @@ header {
     margin:13px;
 }
 
-.contentbox input[type=submit] {
+.contentbox input[type=button] {
     width: auto;
 }
 

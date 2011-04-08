@@ -53,8 +53,8 @@ class ShowOfficierPage
 		
 		if ((floor($USER['darkmatter'] / $ExtraDM[$Element]['darkmatter'])) > 0 && $USER[$resource[$Element]] == 0 || $USER[$resource[$Element]] < TIMESTAMP)
 		{
-			$USER[$resource[$Element]] = TIMESTAMP + $ExtraDM[$Element]['time'] * 3600;
-			$USER['darkmatter']         -= $ExtraDM[$Element]['darkmatter'];
+			$USER[$resource[$Element]] 		= max($USER[$resource[$Element]], TIMESTAMP) + $ExtraDM[$Element]['time'] * 3600;
+			$USER['darkmatter']         	-= $ExtraDM[$Element]['darkmatter'];
 			$SQL  = "UPDATE ".USERS." SET ";
 			$SQL .= "`".$resource[$Element]."` = '". $USER[$resource[$Element]] ."' ";
 			$SQL .= "WHERE ";
