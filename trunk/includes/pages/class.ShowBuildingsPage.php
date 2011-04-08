@@ -101,7 +101,6 @@ class ShowBuildingsPage
 			$PlanetRess->SetNextQueueElementOnTop();
 			$USER						= $PlanetRess->USER;
 			$PLANET						= $PlanetRess->PLANET;
-			var_dump((float)$PLANET['b_building']);
 		}
 		
 		return $ReturnValue;
