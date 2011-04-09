@@ -404,9 +404,9 @@ class statbuilder extends records
  			if(!isset($UserPoints[$PlanetData['id_owner']]))
 				$UserPoints[$PlanetData['id_owner']]['build']['count'] = $UserPoints[$PlanetData['id_owner']]['build']['points'] = 0;
 			
+			$BuildPoints		= $this->GetBuildPoints($PlanetData);
 			$UserPoints[$PlanetData['id_owner']]['build']['count'] 		+= $BuildPoints['count'];
 			$UserPoints[$PlanetData['id_owner']]['build']['points'] 	+= $BuildPoints['points'];
-			$BuildPoints		= $this->GetBuildPoints($PlanetData);
 		}
 		
 		$db->free_result($TotalData['Planets']);
