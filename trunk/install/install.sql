@@ -246,6 +246,7 @@ CREATE TABLE IF NOT EXISTS `prefix_config` (
   `ref_active` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
   `ref_bonus` int(11) UNSIGNED NOT NULL DEFAULT '1000',
   `ref_minpoints` int(11) UNSIGNED NOT NULL DEFAULT '2000',
+  `ref_max_referals` tinyint(1) UNSIGNED NOT NULL DEFAULT '5',
   `del_oldstuff` tinyint(3) UNSIGNED NOT NULL DEFAULT '3',
   `del_user_manually` tinyint(3) UNSIGNED NOT NULL DEFAULT '7',
   `del_user_automatic` tinyint(3) UNSIGNED NOT NULL DEFAULT '30',
