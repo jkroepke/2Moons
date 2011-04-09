@@ -71,11 +71,13 @@ switch($cron)
 			
 			// Clear Cache
 			ClearCache();
-			
 			// Set Bonus for RefLink
 			if($CONF['ref_active'] == 1) {
-				$Users	= $db->query("SELECT `username`, `ref_id`, `id` FROM ".USERS." WHERE `ref_bonus` = '1' AND (SELECT `total_points` FROM ".STATPOINTS." as s WHERE s.`id_owner` = `id`) >= '".$CONF['ref_minpoints']."';");
+				$Users	= $db->query("SELECT `username`, `ref_id`, `id` FROM ".USERS." WHERE `ref_bonus` = 1 AND (SELECT `total_points` FROM ".STATPOINTS." as s WHERE s.`id_owner` = `id`) >= ".$CONF['ref_minpoints'].";");
+				$LANG->setDefault($CONF['lang']);
 				while($User	= $db->fetch_array($Users)) {
+					$LANG->setUser($User['lang']);	
+					$LANG->includeLang(array('INGAME', 'TECH'));
 					$db->multi_query("UPDATE ".USERS." SET `darkmatter` = `darkmatter` + '".$CONF['ref_bonus']."' WHERE `id` = '".$User['ref_id']."';UPDATE ".USERS." SET `ref_bonus` = `ref_bonus` = '0' WHERE `id` = '".$User['id']."';");
 					$Message	= sprintf($LNG['sys_refferal_text'], $User['username'], pretty_number($CONF['ref_minpoints']), $CONF['ref_bonus'], pretty_number($LNG['Darkmatter']));
 					SendSimpleMessage($User['ref_id'], '', TIMESTAMP, 4, $LNG['sys_refferal_from'], sprintf($LNG['sys_refferal_title'], $User['username']), $Message);
