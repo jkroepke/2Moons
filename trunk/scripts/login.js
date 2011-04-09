@@ -173,7 +173,7 @@ function FBlogin() {
 }
 
 function FBCheckRegister(Data){
-	if(typeof ID === "undefined") {
+	if(typeof Data === "undefined") {
 		FBgetUser(FBCheckRegister);
 		return;
 	} else if (typeof ID === "object") {
