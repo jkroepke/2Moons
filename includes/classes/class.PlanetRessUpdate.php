@@ -69,7 +69,6 @@ class ResourceUpdate
 			if($this->PLANET['b_building'] != 0)
 				$this->BuildingQueue();
 		}	
-
 		$this->UpdateRessource();
 		if($SAVE === true)
 			$this->SavePlanetToDB($this->USER, $this->PLANET);
@@ -200,36 +199,39 @@ class ResourceUpdate
 		}
 
 		$this->PLANET['b_hangar_id']	= '';
-		
+		$Done	= false;
 		foreach($BuildArray as $Node => $Item)
 		{
-			$Element   = $Item[0];
-			$Count     = $Item[1];
-			$BuildTime = $Item[2];
-			$Element   = (int)$Element;
-			if($BuildTime == 0) {
-				$this->Builded[$Element]			+= $Count;
-				$this->PLANET[$resource[$Element]]	+= $Count;
-				continue;					
-			}
-			if(!isset($this->Builded[$Element]))
-				$this->Builded[$Element] = 0;
-			
-			$this->Builded[$Element]	= min(floor($this->PLANET['b_hangar'] / $BuildTime), $Count);
-			if($this->Builded[$Element] == 0)
-			{
-				$this->PLANET['b_hangar_id'] 	.= $Element.",".$Count.";";
-				continue;
-			}
-			
+			if($Done == false) {
+				$Element   = $Item[0];
+				$Count     = $Item[1];
+				$BuildTime = $Item[2];
+				$Element   = (int)$Element;
+				if($BuildTime == 0) {
+					$this->Builded[$Element]			+= $Count;
+					$this->PLANET[$resource[$Element]]	+= $Count;
+					continue;					
+				}
+				if(!isset($this->Builded[$Element]))
+					$this->Builded[$Element] = 0;
 				
-			$this->PLANET['b_hangar']			-= $this->Builded[$Element] * $BuildTime;
-			$this->PLANET[$resource[$Element]]	+= $this->Builded[$Element];
-			$Count								-= $this->Builded[$Element];						
-			
-			if ($Count == 0)
-				continue;
-			
+				$this->Builded[$Element]	= min(floor($this->PLANET['b_hangar'] / $BuildTime), $Count);
+
+				if($this->Builded[$Element] == 0)
+				{
+					$this->PLANET['b_hangar_id'] 	.= $Element.",".$Count.";";
+					continue;
+				}
+				
+				$this->PLANET['b_hangar']			-= $this->Builded[$Element] * $BuildTime;
+				$this->PLANET[$resource[$Element]]	+= $this->Builded[$Element];
+				$Count								-= $this->Builded[$Element];						
+				
+				if ($Count == 0)
+					continue;
+				else
+					$Done	= true;
+			}	
 			$this->PLANET['b_hangar_id'] .= $Element.",".$Count.";";
 		}
 	}
