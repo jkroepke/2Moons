@@ -7,10 +7,13 @@ FileETag MTime Size
 	BrowserMatch ^Mozilla/4.0[678] no-gzip
 	BrowserMatch bMSI[E] !no-gzip !gzip-only-text/html
 	SetEnvIfNoCase Request_URI .(?:gif|jpe?g|png)$ no-gzip dont-vary
-	Header append Vary User-Agent env=!dont-vary
+	<IfModule mod_headers.c>
+		Header append Vary User-Agent env=!dont-vary
+	</IfModule>
 </IfModule>
 
 <IfModule mod_rewrite.c>
+	RewriteEngine on
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-d
 	RewriteCond %{REQUEST_FILENAME} !-l
