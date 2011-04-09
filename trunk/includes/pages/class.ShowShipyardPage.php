@@ -183,8 +183,12 @@ class ShowShipyardPage
 		
 		$template	= new template();
 		
+		$PlanetRess = new ResourceUpdate();
+		$PlanetRess->CalcResource();
+		
 		if ($PLANET[$resource[21]] == 0)
 		{
+			$PlanetRess->SavePlanetToDB();
 			$template->message($LNG['bd_shipyard_required']);
 			exit;
 		}
@@ -192,9 +196,6 @@ class ShowShipyardPage
 		$fmenge	= $_POST['fmenge'];
 		$cancel	= request_var('auftr', range(0, $CONF['max_elements_ships'] - 1));
 		$action	= request_var('action', '');
-		
-		$PlanetRess = new ResourceUpdate();
-		$PlanetRess->CalcResource();
 		
 		$NotBuilding = true;
 
@@ -300,8 +301,11 @@ class ShowShipyardPage
 
 		$template	= new template();
 
+		$PlanetRess = new ResourceUpdate();
+		$PlanetRess->CalcResource();
 		if ($PLANET[$resource[21]] == 0)
 		{
+			$PlanetRess->SavePlanetToDB();
 			$template->message($LNG['bd_shipyard_required']);
 			exit;
 		}
@@ -310,8 +314,6 @@ class ShowShipyardPage
 		$cancel	= request_var('auftr', range(0, $CONF['max_elements_ships'] - 1));
 		$action	= request_var('action', '');
 								
-		$PlanetRess = new ResourceUpdate();
-		$PlanetRess->CalcResource();
 		$NotBuilding = true;
 
 		if (!empty($PLANET['b_building_id']))
