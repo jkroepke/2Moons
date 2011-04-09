@@ -266,8 +266,11 @@ class ShowResearchPage
 		
 		$template	= new template();			
 		
+		$PlanetRess 	= new ResourceUpdate();
+		$PlanetRess->CalcResource();
 		if ($PLANET[$resource[31]] == 0)
 		{
+			$PlanetRess->SavePlanetToDB();
 			$template->message($LNG['bd_lab_required']);
 			exit;
 		}
@@ -277,7 +280,6 @@ class ShowResearchPage
 		$TheCommand		= request_var('cmd','');
 		$Element     	= request_var('tech', 0);
 		$ListID     	= request_var('listid', 0);
-		$PlanetRess 	= new ResourceUpdate();
 		$PLANET[$resource[31].'_inter']	= $PlanetRess->CheckAndGetLabLevel($USER, $PLANET);	
 
 		$PlanetRess->CalcResource();
