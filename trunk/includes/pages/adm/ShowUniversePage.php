@@ -162,7 +162,6 @@ function ShowUniversePage() {
 			'ALLIANCE'		=> $db->fetchquery("SELECT * FROM ".ALLIANCE." WHERE `ally_universe` = ".$_REQUEST['id'].";", array('ally_description', 'ally_text', 'ally_request', 'ally_request_waiting')),
 			'BANNED'		=> $db->fetchquery("SELECT * FROM ".BANNED." WHERE `universe` = ".$_REQUEST['id'].";", array('theme')),
 			'BUDDY'			=> $db->fetchquery("SELECT * FROM ".BUDDY." WHERE `universe` = ".$_REQUEST['id'].";", array('text')),
-			'CHAT'			=> $db->fetchquery("SELECT * FROM ".CHAT." WHERE `universe` = ".$_REQUEST['id'].";", array('message')),
 			'CONFIG'		=> $db->fetchquery("SELECT * FROM ".CONFIG." WHERE `uni` = ".$_REQUEST['id'].";", array('close_reason', 'OverviewNewsText')),
 			'DIPLO'			=> $db->fetchquery("SELECT * FROM ".DIPLO." WHERE `universe` = ".$_REQUEST['id'].";", array('accept_text')),
 			'FLEETS'		=> $db->fetchquery("SELECT * FROM ".FLEETS." WHERE `fleet_universe` = ".$_REQUEST['id'].";"),
@@ -271,91 +270,17 @@ function ShowUniversePage() {
 			$db->query(substr($SQL, 0, -1).';');
 		$Rows	= 0;
 		
-		$SQL = "INSERT INTO ".CHAT." (`messageid`, `user`, `message`, `timestamp`, `ally_id`, `universe`) VALUES ";
-		foreach($Data['CHAT'] as $Key => $Row)
-		{
-			$Data['CHAT'][$Key]['messageid']	= $Row['messageid'] + $TABLEINFO[CHAT];
-			$Data['CHAT'][$Key]['message']		= base64_decode($Row['message']);
-			$Data['CHAT'][$Key]['ally_id']		= $Row['ally_id'] + $TABLEINFO[ALLIANCE];
-			$Data['CHAT'][$Key]['universe']		= $TABLEINFO[CONFIG] + 1;
-			$SQL	.= "(";
-			foreach($Data['CHAT'][$Key] as $Value)
-				$SQL	.= "'".$Value."', ";
-			$SQL	= substr($SQL, 0, -2)."),";
-			$Rows	= 1;
-		}
-		if($Rows == 1)
-			$db->query(substr($SQL, 0, -1).';');
-		$Rows	= 0;
-		
-		$SQL = "INSERT INTO ".CONFIG." (`uni`, `VERSION`, `users_amount`, `game_speed`, `fleet_speed`, `resource_multiplier`, `halt_speed`, `Fleet_Cdr`, `Defs_Cdr`, `initial_fields`, `bgm_active`, `bgm_file`, `uni_name`, `game_name`, `game_disable`, `close_reason`, `metal_basic_income`, `crystal_basic_income`, `deuterium_basic_income`, `energy_basic_income`, `LastSettedGalaxyPos`, `LastSettedSystemPos`, `LastSettedPlanetPos`, `noobprotection`, `noobprotectiontime`, `noobprotectionmulti`, `forum_url`, `adm_attack`, `debug`, `lang`, `stat`, `stat_level`, `stat_last_update`, `stat_settings`, `stat_update_time`, `stat_last_db_update`, `stats_fly_lock`, `stat_last_banner_update`, `stat_banner_update_time`, `cron_lock`, `ts_modon`, `ts_server`, `ts_tcpport`, `ts_udpport`, `ts_timeout`, `ts_version`, `ts_cron_last`, `ts_cron_interval`, `ts_login`, `ts_password`, `reg_closed`, `OverviewNewsFrame`, `OverviewNewsText`, `capaktiv`, `cappublic`, `capprivate`, `min_build_time`, `smtp_host`, `smtp_port`, `smtp_user`, `smtp_pass`, `smtp_ssl`, `smtp_sendmail`, `user_valid`, `fb_on`, `fb_apikey`, `fb_skey`, `ga_active`, `ga_key`, `moduls`, `trade_allowed_ships`, `trade_charge`, `mail_active`, `mail_use`, `smail_path`, `chat_closed`, `chat_allowchan`, `chat_allowmes`, `chat_allowdelmes`, `chat_logmessage`, `chat_nickchange`, `chat_botname`, `chat_channelname`, `chat_socket_chatid`, `chat_socket_port`, `chat_socket_ip`, `chat_socket_host`, `chat_socket_active`) VALUES ";
+		$SQL = "INSERT INTO ".CONFIG." (`uni`, `VERSION`, `users_amount`, `game_speed`, `fleet_speed`, `resource_multiplier`, `halt_speed`, `Fleet_Cdr`, `Defs_Cdr`, `initial_fields`, `game_name`, `uni_name`, `game_disable`, `close_reason`, `metal_basic_income`, `crystal_basic_income`, `deuterium_basic_income`, `energy_basic_income`, `LastSettedGalaxyPos`, `LastSettedSystemPos`, `LastSettedPlanetPos`, `noobprotection`, `noobprotectiontime`, `noobprotectionmulti`, `forum_url`, `adm_attack`, `debug`, `lang`, `stat`, `stat_level`, `stat_last_update`, `stat_settings`, `stat_update_time`, `stat_last_db_update`, `stats_fly_lock`, `cron_lock`, `ts_modon`, `ts_server`, `ts_tcpport`, `ts_udpport`, `ts_timeout`, `ts_version`, `ts_cron_last`, `ts_cron_interval`, `ts_login`, `ts_password`, `reg_closed`, `OverviewNewsFrame`, `OverviewNewsText`, `capaktiv`, `cappublic`, `capprivate`, `mail_active`, `min_build_time`, `smtp_host`, `smtp_port`, `smtp_user`, `smtp_pass`, `smtp_ssl`, `smtp_sendmail`, `user_valid`, `fb_on`, `fb_apikey`, `fb_skey`, `ga_active`, `ga_key`, `moduls`, `trade_allowed_ships`, `trade_charge`, `mail_use`, `smail_path`, `chat_closed`, `chat_allowchan`, `chat_allowmes`, `chat_allowdelmes`, `chat_logmessage`, `chat_nickchange`, `chat_botname`, `chat_channelname`, `chat_socket_active`, `chat_socket_host`, `chat_socket_ip`, `chat_socket_port`, `chat_socket_chatid`, `max_galaxy`, `max_system`, `max_planets`, `max_elements_build`, `max_elements_tech`, `max_elements_ships`, `max_player_planets`, `min_player_planets`, `planet_factor`, `max_fleet_per_build`, `deuterium_cost_galaxy`, `max_dm_missions`, `max_overflow`, `moon_factor`, `moon_chance`, `darkmatter_cost_trader`, `factor_university`, `max_fleets_per_acs`, `debris_moon`, `vmode_min_time`, `gate_wait_time`, `metal_start`, `crystal_start`, `deuterium_start`, `darkmatter_start`, `ttf_file`) VALUES ";
 		foreach($Data['CONFIG'] as $Key => $Row)
 		{
-			$Data['CONFIG'][$Key]['uni']						= $TABLEINFO[CONFIG] + 1;
-			$Data['CONFIG'][$Key]['VERSION']					= $CONF['VERSION'];
-			$Data['CONFIG'][$Key]['bgm_active']					= $CONF['bgm_active'];
-			$Data['CONFIG'][$Key]['uni_name']					= $Data['CONFIG'][$Key]['game_name'];
-			$Data['CONFIG'][$Key]['game_name']					= $CONF['game_name'];
-			$Data['CONFIG'][$Key]['bgm_file']					= $CONF['bgm_file'];
-			$Data['CONFIG'][$Key]['forum_url']					= $CONF['forum_url'];
-			$Data['CONFIG'][$Key]['lang']						= $CONF['lang'];
-			$Data['CONFIG'][$Key]['stat']						= $CONF['stat'];
-			$Data['CONFIG'][$Key]['stat_level']					= $CONF['stat_level'];
-			$Data['CONFIG'][$Key]['stat_last_update']			= $CONF['stat_last_update'];
-			$Data['CONFIG'][$Key]['stat_settings']				= $CONF['stat_settings'];
-			$Data['CONFIG'][$Key]['stat_update_time']			= $CONF['stat_update_time'];
-			$Data['CONFIG'][$Key]['stat_last_db_update']		= $CONF['stat_last_db_update'];
-			$Data['CONFIG'][$Key]['stats_fly_lock']				= $CONF['stats_fly_lock'];
-			$Data['CONFIG'][$Key]['stat_last_banner_update']	= $CONF['stat_last_banner_update'];
-			$Data['CONFIG'][$Key]['stat_banner_update_time']	= $CONF['stat_banner_update_time'];
-			$Data['CONFIG'][$Key]['ts_modon']					= $CONF['ts_modon'];
-			$Data['CONFIG'][$Key]['ts_server']					= $CONF['ts_server'];
-			$Data['CONFIG'][$Key]['ts_tcpport']					= $CONF['ts_tcpport'];
-			$Data['CONFIG'][$Key]['ts_udpport']					= $CONF['ts_udpport'];
-			$Data['CONFIG'][$Key]['ts_timeout']					= $CONF['ts_timeout'];
-			$Data['CONFIG'][$Key]['ts_version']					= $CONF['ts_version'];
-			$Data['CONFIG'][$Key]['ts_cron_last']				= $CONF['ts_cron_last'];
-			$Data['CONFIG'][$Key]['ts_cron_interval']			= $CONF['ts_cron_interval'];
-			$Data['CONFIG'][$Key]['ts_login']					= $CONF['ts_login'];
-			$Data['CONFIG'][$Key]['ts_password']				= $CONF['ts_password'];
-			$Data['CONFIG'][$Key]['capaktiv']					= $CONF['capaktiv'];
-			$Data['CONFIG'][$Key]['cappublic']					= $CONF['cappublic'];
-			$Data['CONFIG'][$Key]['capprivate']					= $CONF['capprivate'];
-			$Data['CONFIG'][$Key]['mail_active']				= $CONF['mail_active'];
-			$Data['CONFIG'][$Key]['smail_path']					= $CONF['smail_path'];
-			$Data['CONFIG'][$Key]['mail_use']					= $CONF['mail_use'];
-			$Data['CONFIG'][$Key]['smtp_host']					= $CONF['smtp_host'];
-			$Data['CONFIG'][$Key]['smtp_port']					= $CONF['smtp_port'];
-			$Data['CONFIG'][$Key]['smtp_user']					= $CONF['smtp_user'];
-			$Data['CONFIG'][$Key]['smtp_pass']					= $CONF['smtp_pass'];
-			$Data['CONFIG'][$Key]['smtp_ssl']					= $CONF['smtp_ssl'];
-			$Data['CONFIG'][$Key]['smtp_sendmail']				= $CONF['smtp_sendmail'];
-			$Data['CONFIG'][$Key]['user_valid']					= $CONF['user_valid'];
-			$Data['CONFIG'][$Key]['fb_on']						= $CONF['fb_on'];
-			$Data['CONFIG'][$Key]['fb_apikey']					= $CONF['fb_apikey'];
-			$Data['CONFIG'][$Key]['fb_skey']					= $CONF['fb_skey'];
-			$Data['CONFIG'][$Key]['ga_active']					= $CONF['ga_active'];
-			$Data['CONFIG'][$Key]['ga_key']						= $CONF['ga_key'];
-			$Data['CONFIG'][$Key]['chat_closed']				= $CONF['chat_closed'];
-			$Data['CONFIG'][$Key]['chat_allowchan']				= $CONF['chat_allowchan'];
-			$Data['CONFIG'][$Key]['chat_allowmes']				= $CONF['chat_allowmes'];
-			$Data['CONFIG'][$Key]['chat_allowdelmes']			= $CONF['chat_allowdelmes'];
-			$Data['CONFIG'][$Key]['chat_logmessage']			= $CONF['chat_logmessage'];
-			$Data['CONFIG'][$Key]['chat_nickchange']			= $CONF['chat_nickchange'];
-			$Data['CONFIG'][$Key]['chat_botname']				= $CONF['chat_botname'];
-			$Data['CONFIG'][$Key]['chat_channelname']			= $CONF['chat_channelname'];
-			$Data['CONFIG'][$Key]['chat_socket_chatid']			= $CONF['chat_socket_chatid'];
-			$Data['CONFIG'][$Key]['chat_socket_port']			= $CONF['chat_socket_port'];
-			$Data['CONFIG'][$Key]['chat_socket_ip']				= $CONF['chat_socket_ip'];
-			$Data['CONFIG'][$Key]['chat_socket_host']			= $CONF['chat_socket_host'];
-			$Data['CONFIG'][$Key]['chat_socket_active']			= $CONF['chat_socket_active'];
-			$Data['CONFIG'][$Key]['close_reason']				= base64_decode($Row['close_reason']);
-			$Data['CONFIG'][$Key]['OverviewNewsText']			= base64_decode($Row['OverviewNewsText']);
+			$Data['CONFIG'][$Key]['uni']				= $TABLEINFO[CONFIG] + 1;
+			$BasicConf	= array('VERSION', 'game_name', 'stat', 'stat_level', 'stat_last_update', 'stat_settings', 'stat_update_time', 'stat_last_db_update', 'stats_fly_lock', 'cron_lock', 'ts_modon', 'ts_server', 'ts_tcpport', 'ts_udpport', 'ts_timeout', 'ts_version', 'ts_cron_last', 'ts_cron_interval', 'ts_login', 'ts_password', 'capaktiv', 'cappublic', 'capprivate', 'mail_active', 'mail_use', 'smtp_host', 'smtp_port', 'smtp_user', 'smtp_pass', 'smtp_ssl', 'smtp_sendmail', 'smail_path', 'fb_on', 'fb_apikey', 'fb_skey', 'ga_active', 'ga_key', 'chat_closed', 'chat_allowchan', 'chat_allowmes', 'chat_allowdelmes', 'chat_logmessage', 'chat_nickchange', 'chat_botname', 'chat_channelname', 'chat_socket_active', 'chat_socket_host', 'chat_socket_ip', 'chat_socket_port', 'chat_socket_chatid', 'ttf_file');
 			
-			unset($Data['CONFIG'][$Key]['ftp_server']);
-			unset($Data['CONFIG'][$Key]['ftp_user_name']);
-			unset($Data['CONFIG'][$Key]['ftp_user_pass']);
-			unset($Data['CONFIG'][$Key]['ftp_root_path']);
+			foreach($BasicConf as $Val)
+				$Data['CONFIG'][$Key][$Val]				= $CONF[$Val];
+			
+			$Data['CONFIG'][$Key]['close_reason']		= base64_decode($Row['close_reason']);
+			$Data['CONFIG'][$Key]['OverviewNewsText']	= base64_decode($Row['OverviewNewsText']);
 			
 			$SQL	.= "(";
 			foreach($Data['CONFIG'][$Key] as $Value)
@@ -443,7 +368,7 @@ function ShowUniversePage() {
 			$db->query(substr($SQL, 0, -1).';');
 		$Rows	= 0;
 		
-		$SQL = "INSERT INTO ".PLANETS." (`id`, `name`, `id_owner`, `universe`, `galaxy`, `system`, `planet`, `last_update`, `planet_type`, `destruyed`, `b_building`, `b_building_id`, `b_hangar`, `b_hangar_id`, `b_hangar_plus`, `image`, `diameter`, `field_current`, `field_max`, `temp_min`, `temp_max`, `metal`, `metal_perhour`, `metal_max`, `crystal`, `crystal_perhour`, `crystal_max`, `deuterium`, `deuterium_used`, `deuterium_perhour`, `deuterium_max`, `energy_used`, `energy_max`, `metal_mine`, `crystal_mine`, `deuterium_sintetizer`, `solar_plant`, `fusion_plant`, `robot_factory`, `nano_factory`, `hangar`, `metal_store`, `crystal_store`, `deuterium_store`, `laboratory`, `terraformer`, `university`, `ally_deposit`, `silo`, `small_ship_cargo`, `big_ship_cargo`, `light_hunter`, `heavy_hunter`, `crusher`, `battle_ship`, `colonizer`, `recycler`, `spy_sonde`, `bomber_ship`, `solar_satelit`, `destructor`, `dearth_star`, `battleship`, `supernova`, `bahamut`, `starcatcher`, `ifrit`, `shiva`, `catoblepas`, `oxion`, `odin`, `orbital_station`, `misil_launcher`, `small_laser`, `big_laser`, `gauss_canyon`, `ionic_canyon`, `buster_canyon`, `small_protection_shield`, `planet_protector`, `big_protection_shield`, `graviton_canyon`, `interceptor_misil`, `interplanetary_misil`, `metal_mine_porcent`, `crystal_mine_porcent`, `deuterium_sintetizer_porcent`, `solar_plant_porcent`, `fusion_plant_porcent`, `solar_satelit_porcent`, `mondbasis`, `phalanx`, `sprungtor`, `last_jump_time`, `lune_noir`, `ev_transporter`, `star_crasher`, `giga_recykler`, `dm_ship`, `der_metal`, `der_crystal`, `thriller`, `id_luna`) VALUES ";
+		$SQL = "INSERT INTO ".PLANETS." (`id`, `name`, `id_owner`, `universe`, `galaxy`, `system`, `planet`, `last_update`, `planet_type`, `destruyed`, `b_building`, `b_building_id`, `b_hangar`, `b_hangar_id`, `b_hangar_plus`, `image`, `diameter`, `field_current`, `field_max`, `temp_min`, `temp_max`, `metal`, `metal_perhour`, `metal_max`, `crystal`, `crystal_perhour`, `crystal_max`, `deuterium`, `deuterium_used`, `deuterium_perhour`, `deuterium_max`, `energy_used`, `energy_max`, `metal_mine`, `crystal_mine`, `deuterium_sintetizer`, `solar_plant`, `fusion_plant`, `robot_factory`, `nano_factory`, `hangar`, `metal_store`, `crystal_store`, `deuterium_store`, `laboratory`, `terraformer`, `university`, `ally_deposit`, `silo`, `small_ship_cargo`, `big_ship_cargo`, `light_hunter`, `heavy_hunter`, `crusher`, `battle_ship`, `colonizer`, `recycler`, `spy_sonde`, `bomber_ship`, `solar_satelit`, `destructor`, `dearth_star`, `battleship`, `orbital_station`, `misil_launcher`, `small_laser`, `big_laser`, `gauss_canyon`, `ionic_canyon`, `buster_canyon`, `small_protection_shield`, `planet_protector`, `big_protection_shield`, `graviton_canyon`, `interceptor_misil`, `interplanetary_misil`, `metal_mine_porcent`, `crystal_mine_porcent`, `deuterium_sintetizer_porcent`, `solar_plant_porcent`, `fusion_plant_porcent`, `solar_satelit_porcent`, `mondbasis`, `phalanx`, `sprungtor`, `last_jump_time`, `lune_noir`, `ev_transporter`, `star_crasher`, `giga_recykler`, `dm_ship`, `der_metal`, `der_crystal`, `id_luna`) VALUES ";
 		foreach($Data['PLANETS'] as $Key => $Row)
 		{
 	 		$Data['PLANETS'][$Key]['id']		= $Row['id'] + $TABLEINFO[PLANETS];
@@ -477,7 +402,7 @@ function ShowUniversePage() {
 			$db->query(substr($SQL, 0, -1).';');
 		$Rows	= 0;
 			
-		$SQL = "INSERT INTO ".SUPPORT." (`ID`, `player_id`, `time`, `subject`, `text`, `status`, `universe`) VALUES ";
+		$SQL = "INSERT INTO ".SUPP." (`ID`, `player_id`, `time`, `subject`, `text`, `status`, `universe`) VALUES ";
 		foreach($Data['SUPP'] as $Key => $Row)
 		{
 	 		$Data['SUPP'][$Key]['ID']			= $Row['ID'] + $TABLEINFO[SUPP];
@@ -500,6 +425,7 @@ function ShowUniversePage() {
 	 		$Data['TOPKB'][$Key]['id_owner1']	= $Row['id_owner1'] + $TABLEINFO[USERS];
 	 		$Data['TOPKB'][$Key]['id_owner2']	= $Row['id_owner2'] + $TABLEINFO[USERS];
 			$Data['TOPKB'][$Key]['universe']	= $TABLEINFO[CONFIG] + 1;
+			unset($Data['TOPKB'][$Key]['raport']);
 			$SQL	.= "(";
 			foreach($Data['TOPKB'][$Key] as $Value)
 				$SQL	.= "'".$Value."', ";
@@ -510,7 +436,7 @@ function ShowUniversePage() {
 			$db->query(substr($SQL, 0, -1).';');
 		$Rows	= 0;
 		
-		$SQL = "INSERT INTO ".USERS." (`id`, `username`, `password`, `email`, `email_2`, `lang`, `authlevel`, `rights`, `id_planet`, `universe`, `galaxy`, `system`, `planet`, `user_lastip`, `ip_at_reg`, `register_time`, `onlinetime`, `dpath`, `design`, `noipcheck`, `planet_sort`, `planet_sort_order`, `spio_anz`, `settings_tooltiptime`, `settings_fleetactions`, `settings_planetmenu`, `settings_esp`, `settings_wri`, `settings_bud`, `settings_mis`, `settings_rep`, `settings_tnstor`, `settings_gview`, `urlaubs_modus`, `urlaubs_until`, `db_deaktjava`, `new_message`, `new_gmessage`, `fleet_shortcut`, `b_tech_planet`, `b_tech`, `b_tech_id`, `spy_tech`, `computer_tech`, `military_tech`, `defence_tech`, `shield_tech`, `energy_tech`, `hyperspace_tech`, `combustion_tech`, `impulse_motor_tech`, `hyperspace_motor_tech`, `laser_tech`, `ionic_tech`, `buster_tech`, `intergalactic_tech`, `expedition_tech`, `metal_proc_tech`, `crystal_proc_tech`, `deuterium_proc_tech`, `graviton_tech`, `ally_id`, `ally_name`, `ally_request`, `ally_request_text`, `ally_register_time`, `ally_rank_id`, `rpg_geologue`, `rpg_amiral`, `rpg_ingenieur`, `rpg_technocrate`, `rpg_espion`, `rpg_constructeur`, `rpg_scientifique`, `rpg_commandant`, `rpg_stockeur`, `darkmatter`, `rpg_defenseur`, `rpg_destructeur`, `rpg_general`, `rpg_bunker`, `rpg_raideur`, `rpg_empereur`, `bana`, `banaday`, `hof`, `wons`, `loos`, `draws`, `kbmetal`, `kbcrystal`, `lostunits`, `desunits`, `uctime`, `setmail`, `dm_attack`, `dm_defensive`, `dm_buildtime`, `dm_researchtime`, `dm_resource`, `dm_energie`, `dm_fleettime`, `fb_id`) VALUES ";
+		$SQL = "INSERT INTO ".USERS." (`id`, `username`, `password`, `email`, `email_2`, `lang`, `authlevel`, `authattack`, `rights`, `id_planet`, `universe`, `galaxy`, `system`, `planet`, `user_lastip`, `ip_at_reg`, `register_time`, `onlinetime`, `dpath`, `design`, `noipcheck`, `planet_sort`, `planet_sort_order`, `spio_anz`, `settings_tooltiptime`, `settings_fleetactions`, `settings_planetmenu`, `settings_esp`, `settings_wri`, `settings_bud`, `settings_mis`, `settings_rep`, `settings_tnstor`, `settings_gview`, `urlaubs_modus`, `urlaubs_until`, `db_deaktjava`, `new_message`, `new_gmessage`, `fleet_shortcut`, `b_tech_planet`, `b_tech`, `b_tech_id`, `b_tech_queue`, `spy_tech`, `computer_tech`, `military_tech`, `defence_tech`, `shield_tech`, `energy_tech`, `hyperspace_tech`, `combustion_tech`, `impulse_motor_tech`, `hyperspace_motor_tech`, `laser_tech`, `ionic_tech`, `buster_tech`, `intergalactic_tech`, `expedition_tech`, `metal_proc_tech`, `crystal_proc_tech`, `deuterium_proc_tech`, `graviton_tech`, `ally_id`, `ally_name`, `ally_request`, `ally_request_text`, `ally_register_time`, `ally_rank_id`, `rpg_geologue`, `rpg_amiral`, `rpg_ingenieur`, `rpg_technocrate`, `rpg_espion`, `rpg_constructeur`, `rpg_scientifique`, `rpg_commandant`, `rpg_stockeur`, `darkmatter`, `rpg_defenseur`, `rpg_destructeur`, `rpg_general`, `rpg_bunker`, `rpg_raideur`, `rpg_empereur`, `bana`, `banaday`, `hof`, `wons`, `loos`, `draws`, `kbmetal`, `kbcrystal`, `lostunits`, `desunits`, `uctime`, `setmail`, `dm_attack`, `dm_defensive`, `dm_buildtime`, `dm_researchtime`, `dm_resource`, `dm_energie`, `dm_fleettime`, `fb_id`, `ref_id`, `ref_bonus`) VALUES ";
 		foreach($Data['USERS'] as $Key => $Row)
 		{
 	 		$Data['USERS'][$Key]['id']				= $Row['id'] + $TABLEINFO[USERS];
@@ -528,7 +454,7 @@ function ShowUniversePage() {
 			$db->query(substr($SQL, 0, -1).';');
 		$Rows	= 0;
 		
-		$SQL = "INSERT INTO ".USERS_VALID." (`id`, `username`, `cle`, `password`, `email`, `date`, `planet`, `ip`, `lang`, `universe`) VALUES ";
+		$SQL = "INSERT INTO ".USERS_VALID." (`id`, `username`, `cle`, `password`, `email`, `date`, `planet`, `ip`, `lang`, `universe`, `ref_id`, `fb_id`) VALUES ";
 		foreach($Data['USERS_VALID'] as $Key => $Row)
 		{
 	 		$Data['USERS_VALID'][$Key]['id']		= $Row['id'] + $TABLEINFO[USERS_VALID];
