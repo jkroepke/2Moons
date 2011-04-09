@@ -438,6 +438,28 @@ $LNG['se_buildlist']					= 'Building list settings';
 $LNG['se_trader_head']					= 'Fleet-trader Settings';
 $LNG['se_trader_ships']				= 'Allowed Ships:';
 $LNG['se_trader_charge']				= 'Trader Fee:';
+$LNG['se_player_settings']				= 'Player Settings';
+$LNG['se_days']							= 'Days';
+$LNG['se_del_oldstuff']					= 'Delete message after ';
+$LNG['se_del_oldstuff_info']			= 'Delete messages/battle reports after X days.';
+$LNG['se_del_user_manually']			= 'User deletion after';
+$LNG['se_del_user_manually_info']		= 'Deletes users who have their account deleted active after X days.';
+$LNG['se_del_user_automatic']			= 'Delete the inactive';
+$LNG['se_del_user_automatic_info']		= 'Deletes users who have not logged in after X days.';
+$LNG['se_del_user_sendmail']			= 'Send reminder';
+$LNG['se_del_user_sendmail_info']		= 'Have send a reminder to the users after X number of days not logged in.';
+$LNG['se_sendmail_inactive']			= 'Enable email alerts';
+$LNG['se_ref']							= 'Referallink';
+$LNG['se_ref_active']					= 'Activate Referallink';
+$LNG['se_ref_active_info']				= 'Referallink gives players the opportunity to refer more friends. This will give for players bonus';
+$LNG['se_ref_bonus']					= 'Referallink bonus';
+$LNG['se_ref_bonus_info']				= 'Number of dark matter, the user gets the recruiting per user.';
+$LNG['se_ref_minpoints']				= 'Min points for bonus';
+$LNG['se_ref_minpoints_info']			= 'The referred user has to reach these thresholds so that the user gets his promotional bonus.';
+$LNG['se_ref_max_referals']				= 'Maximum Referral';
+$LNG['se_ref_max_referals_info']		= 'Maximum number of recruit players from user';
+$LNG['se_silo_factor']					= 'Missile silo size';
+$LNG['se_silo_factor_info']				= 'Factor in the size of the silo';
 
 //###########################################################//
 
@@ -1043,7 +1065,7 @@ $LNG['up_edit']							= 'Edit:';
 $LNG['up_del']							= 'Dele';
 $LNG['up_submit']						= 'Submit';
 $LNG['up_version']						= 'Version';
-$LNG['up_chmod_error']					= 'No write permission for folder<br>%s<br>available!';
+$LNG['up_chmod_error']					= "No write permission for folder:\n\n%s";
 
 //Chat Page
 $LNG['ch_socket_chatid_info']			= 'This ID can be used to distinguish between different chat installations using the same socket server';
