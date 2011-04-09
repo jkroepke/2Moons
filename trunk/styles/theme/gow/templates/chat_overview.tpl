@@ -4,7 +4,7 @@
 {include file="left_menu.tpl"}
 <div id="content" class="content">
 {/if}
-<iframe src="./chat/?chat_type={$ctype}" style="border: 0px;width:100%;height:800px;"></iframe>
+<iframe src="./chat/?chat_type={$ctype}" style="border: 0px;width:100%;height:800px;" ALLOWTRANSPARENCY="true"></iframe>
 {if !$ctype}
 </div>
 {include file="planet_menu.tpl"}

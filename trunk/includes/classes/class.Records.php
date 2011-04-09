@@ -28,12 +28,12 @@
 
 class records
 {
-	public static $File	= "cache/CacheRecords_Uni%d.php";
+	public static $File	= "cache/CacheRecords.php";
 	public $maxinfos	= array();
 	
-	function SetIfRecord($ID, $Count, $Data)
+	function SetIfRecord($ID, $Data)
 	{
-		global $CONF;
+		global $CONF, $resource;
 		if(($CONF['stat'] == 1 && $Data['authlevel'] >= $CONF['stat_level']) || !empty($Data['bana']))
 			return;
 		
@@ -42,38 +42,43 @@ class records
 			
 		if(!isset($this->maxinfos[$Data['universe']][$ID]))
 			$this->maxinfos[$Data['universe']][$ID] = array('maxlvl' => 0, 'username' => '');
+		
+		if($Data[$resource[$ID]] == 0)
+			return;
+			
+		if($this->maxinfos[$Data['universe']][$ID]['maxlvl'] < $Data[$resource[$ID]])
+			$this->maxinfos[$Data['universe']][$ID] = array('maxlvl' => $Data[$resource[$ID]], 'username' => $this->GetPlayerCardLink($Data));
+		elseif($this->maxinfos[$Data['universe']][$ID]['maxlvl'] == $Data[$resource[$ID]] && strpos($this->maxinfos[$Data['universe']][$ID]['username'], '>'.$Data['username'].'<') === false)
+			$this->maxinfos[$Data['universe']][$ID]['username'] = implode(array($this->maxinfos[$Data['universe']][$ID]['username'], $this->GetPlayerCardLink($Data)), '<br>');
+	}
 
-		if($this->maxinfos[$Data['universe']][$ID]['maxlvl'] < $Count)
-			$this->maxinfos[$Data['universe']][$ID] = array('maxlvl' => $Count, 'username' => $Data['username']);
+	function GetPlayerCardLink($Data) 
+	{
+		return '<a href="#" onclick="return Dialog.Playercard('.(isset($Data['id_owner']) ? $Data['id_owner'] : $Data['id']).', \\\''.$Data['username'].'\\\');">'.$Data['username'].'</a>';
 	}
 
 	function BuildRecordCache() 
 	{
 		$Elements	= array_merge($GLOBALS['reslist']['build'], $GLOBALS['reslist']['tech'], $GLOBALS['reslist']['fleet'], $GLOBALS['reslist']['defense']);
+		$PHP		= "<?php \n//The File is created on ".date(TDFORMAT, TIMESTAMP)."\n$"."RecordsArray = array(\n";
 		foreach($this->maxinfos as $Uni	=> $Records) {
-			$array		= "";
+			$PHP	.= "\t".$Uni." => array(\n";
 			foreach($Elements as $ElementID) {
-				$array	.= $ElementID." => array('username' => '".(isset($Records[$ElementID]['username']) ? $Records[$ElementID]['username'] : '-')."', 'maxlvl' => '".(isset($Records[$ElementID]['maxlvl']) ? $Records[$ElementID]['maxlvl'] : '-')."'),\n";
+				$PHP	.= "\t\t".$ElementID." => array('username' => '".(isset($Records[$ElementID]['username']) ? $Records[$ElementID]['username'] : '')."', 'maxlvl' => '".(isset($Records[$ElementID]['maxlvl']) ? pretty_number($Records[$ElementID]['maxlvl']) : '0')."'),\n";
 			}
-			$file	= "<?php \n//The File is created on ".date("d. M y H:i:s", TIMESTAMP)."\n$"."RecordsArray = array(\n".$array."\n);\n?>";
-			file_put_contents(sprintf(ROOT_PATH.self::$File, $Uni), $file);
+			$PHP		.= "\t),\n";
 		}
-	}
-	
-	function RenameRecordOwner($OldName, $NewName, $Uni)
-	{
-		$Content	= file_get_contents(sprintf(ROOT_PATH.self::$File, $Uni));	
-		$Content	= str_replace("array('username' => '".$OldName."'", "array('username' => '".$NewName."'", $Content);	
-		file_put_contents(sprintf(ROOT_PATH.self::$File, $Uni), $Content);	
+		$PHP		.= "\n);\n?>";
+		file_put_contents(ROOT_PATH.self::$File, $PHP);
 	}
 	
 	function GetRecords($Uni)
 	{
-		if(!file_exists(sprintf(ROOT_PATH.self::$File, $Uni)))
+		if(!file_exists(ROOT_PATH.self::$File))
 			return array();
 		
-		require(sprintf(ROOT_PATH.self::$File, $Uni));
-		return $RecordsArray;
+		require(ROOT_PATH.self::$File);
+		return $RecordsArray[$Uni];
 	}
 }
 

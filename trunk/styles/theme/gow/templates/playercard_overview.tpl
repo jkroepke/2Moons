@@ -15,9 +15,9 @@
 <td colspan="2">{if $allyname}<a href="game.php?page=alliance&amp;mode=ainfo&amp;a={$allyid}" onclick="Dialog.close();">{$allyname}</a>{else}-{/if}</td>
 </tr>
 <tr>
-<td>&nbsp;</td>
-<td>{$pl_points}</td>
-<td>{$pl_range}</td>
+<th>&nbsp;</th>
+<th>{$pl_points}</th>
+<th>{$pl_range}</th>
 </tr>
 <tr>
 <td>{$pl_builds}</td>
