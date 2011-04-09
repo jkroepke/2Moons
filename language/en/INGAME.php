@@ -916,6 +916,9 @@ $LNG['fcp_colony']							= 'Colony';
 $LNG['fgp_require']							= 'Needed: ';
 $LNG['fgf_time']							= 'Construction time: ';
 $LNG['sys_module_inactive']        	 		= 'Module inactive';
+$LNG['sys_refferal_from']        	 		= 'System';
+$LNG['sys_refferal_title']        	 		= 'Bonus for players %s';
+$LNG['sys_refferal_text']        	 		= 'The players recruited by you %s now %s has reached point.<br><br>You have promoted an active player, you get %s %s';
 
 //----------------------------------------------------------------------------//
 // CombatReport.php
