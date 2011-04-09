@@ -36,6 +36,7 @@ function ShowConfigBasicPage()
 
 		$CONF['capaktiv'] 				= isset($_POST['capaktiv']) && $_POST['capaktiv'] == 'on' ? 1 : 0;
 		$CONF['ga_active'] 				= isset($_POST['ga_active']) && $_POST['ga_active'] == 'on' ? 1 : 0;
+		$CONF['sendmail_inactive'] 		= isset($_POST['sendmail_inactive']) && $_POST['sendmail_inactive'] == 'on' ? 1 : 0;
 		$CONF['mail_active'] 			= isset($_POST['mail_active']) && $_POST['mail_active'] == 'on' ? 1 : 0;
 		
 		$CONF['OverviewNewsText']		= $_POST['NewsText'];
@@ -52,6 +53,11 @@ function ShowConfigBasicPage()
 		$CONF['smtp_sendmail']			= request_var('smtp_sendmail', '', true);
 		$CONF['smtp_pass']				= request_var('smtp_pass', '', true);
 		$CONF['smtp_ssl']				= request_var('smtp_ssl', '');
+		$CONF['del_oldstuff']			= request_var('del_oldstuff', 0);
+		$CONF['del_user_manually']		= request_var('del_user_manually', 0);
+		$CONF['del_user_automatic']		= request_var('del_user_automatic', 0);
+		$CONF['del_user_sendmail']		= request_var('del_user_sendmail', 0);
+		
 		update_config(array(
 			'ttf_file'				=> $CONF['ttf_file'],
 			'game_name'				=> $CONF['game_name'],
@@ -68,7 +74,11 @@ function ShowConfigBasicPage()
 			'ga_key'				=> $CONF['ga_key'],
 			'capaktiv'				=> $CONF['capaktiv'],
 			'capprivate'			=> $CONF['capprivate'],
-			'cappublic'				=> $CONF['cappublic']
+			'del_oldstuff'			=> $CONF['del_oldstuff'],
+			'del_user_manually'		=> $CONF['del_user_manually'],
+			'del_user_automatic'	=> $CONF['del_user_automatic'],
+			'del_user_sendmail'		=> $CONF['del_user_sendmail'],
+			'sendmail_inactive'		=> $CONF['sendmail_inactive']
 		));
 	}
 	
@@ -107,6 +117,22 @@ function ShowConfigBasicPage()
 		'se_save_parameters'			=> $LNG['se_save_parameters'],
 		'se_ttf_file'					=> $LNG['se_ttf_file'],
 		'se_ttf_file_info'				=> $LNG['se_ttf_file_info'],
+		'se_player_settings'			=> $LNG['se_player_settings'],
+		'se_del_oldstuff'				=> $LNG['se_del_oldstuff'],
+		'se_del_oldstuff_info'			=> $LNG['se_del_oldstuff_info'],
+		'se_del_user_manually'			=> $LNG['se_del_user_manually'],
+		'se_del_user_manually_info'		=> $LNG['se_del_user_manually_info'],
+		'se_del_user_automatic'			=> $LNG['se_del_user_automatic'],
+		'se_del_user_automatic_info'	=> $LNG['se_del_user_automatic_info'],
+		'se_del_user_sendmail'			=> $LNG['se_del_user_sendmail'],
+		'se_del_user_sendmail_info'		=> $LNG['se_del_user_sendmail_info'],
+		'se_sendmail_inactive'			=> $LNG['se_sendmail_inactive'],
+		'se_days'						=> $LNG['se_days'],
+		'del_oldstuff'					=> $CONF['del_oldstuff'],
+		'del_user_manually'				=> $CONF['del_user_manually'],
+		'del_user_automatic'			=> $CONF['del_user_automatic'],
+		'del_user_sendmail'				=> $CONF['del_user_sendmail'],
+		'sendmail_inactive'				=> $CONF['sendmail_inactive'],
 		'ttf_file'						=> $CONF['ttf_file'],
 		'game_name'						=> $CONF['game_name'],
 		'mail_active'					=> $CONF['mail_active'],

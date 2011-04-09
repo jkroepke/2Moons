@@ -61,6 +61,24 @@
 	<td><input name="max_fleet_per_build" maxlength="20" size="15" value="{$max_fleet_per_build}" type="text"></td>
 	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_max_fleet_per_build_info}"></td>
 </tr><tr>
+	<th colspan="2">{$se_ref}</th><th>&nbsp;</th>
+</tr><tr>
+	<td>{$se_ref_active}</td>
+	<td><input name="ref_active"{if $ref_active} checked="checked"{/if} type="checkbox"></td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_ref_active_info}"></td>
+</tr><tr>
+	<td>{$se_ref_bonus}</td>
+	<td><input name="ref_bonus" maxlength="6" size="8" value="{$ref_bonus}" type="text"></td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_ref_bonus_info}"></td>
+</tr><tr>
+	<td>{$se_ref_minpoints}</td>
+	<td><input name="ref_minpoints" maxlength="6" size="8" value="{$ref_minpoints}" type="text"></td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_ref_minpoints_info}"></td>
+</tr><tr>
+	<td>{$se_ref_max_referals}</td>
+	<td><input name="ref_max_referals" maxlength="6" size="8" value="{$ref_max_referals}" type="text"></td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_ref_max_referals_info}"></td>
+</tr><tr>
 	<th colspan="2">{$se_server_planet_parameters}</th><th>&nbsp;</th>
 </tr><tr>
 	<td>{$se_metal_start}</td>
@@ -176,6 +194,10 @@
 	<td>{$se_max_fleets_per_acs}</td>
 	<td><input name="max_fleets_per_acs" maxlength="3" size="3" value="{$max_fleets_per_acs}" type="text"></td>
 	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_max_fleets_per_acs_info}"></td>
+</tr><tr>
+	<td>{$se_silo_factor}</td>
+	<td><input name="silo_factor" maxlength="2" size="2" value="{$silo_factor}" type="text"></td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_silo_factor_info}"></td>
 </tr><tr>
 	<td>{$se_vmode_min_time}</td>
 	<td><input name="vmode_min_time" maxlength="11" size="11" value="{$vmode_min_time}" type="text"></td>

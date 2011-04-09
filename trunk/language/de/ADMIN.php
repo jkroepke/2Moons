@@ -474,7 +474,28 @@ $LNG['se_debris_moon_info']	 			= 'Löscht das TF, nachdem ein Mond entstanden i
 $LNG['se_deuterium_cost_galaxy']		= 'Galaxiegebühren';
 $LNG['se_deuterium_cost_galaxy_info']	= 'Kosten Deuterium / Klick in der Galaxy';
 $LNG['se_buildlist']					= 'Bauliste Einstellungen';
-
+$LNG['se_player_settings']				= 'Spielereinstellungen';
+$LNG['se_days']							= 'Tagen';
+$LNG['se_del_oldstuff']					= 'Lösche Nachrichten nach ';
+$LNG['se_del_oldstuff_info']			= 'Löscht Nachrichten/Kampfberichte nach X Tagen.';
+$LNG['se_del_user_manually']			= 'Userlöschung nach';
+$LNG['se_del_user_manually_info']		= 'Löscht User, die ihre Accountlöschung aktiv haben nach X Tagen.';
+$LNG['se_del_user_automatic']			= 'Inaktive löschen nach';
+$LNG['se_del_user_automatic_info']		= 'Löscht User, die die sich nach X Tagen nicht eingeloggt haben.';
+$LNG['se_del_user_sendmail']			= 'Sende Erinnerungsmal nach';
+$LNG['se_del_user_sendmail_info']		= 'Sendet eine Erinnerungs Mail an den User nach X Tagen nicht mehr eingeloggt haben';
+$LNG['se_sendmail_inactive']			= 'Aktiviere Erinnerungsmails';
+$LNG['se_ref']							= 'Referallink';
+$LNG['se_ref_active']					= 'Aktiviere Referallink';
+$LNG['se_ref_active_info']				= 'Referallink gibt den Spieler die Möglichkeit, weitere Freunde zu werben. Diese bekommen dann jeweilg einen Bonus.';
+$LNG['se_ref_bonus']					= 'Referallinkbonus';
+$LNG['se_ref_bonus_info']				= 'Anzahl der Dunkle Materie, die der werbende User bekommt pro User.';
+$LNG['se_ref_minpoints']				= 'Min. Punkte für Bonus';
+$LNG['se_ref_minpoints_info']			= 'Der geworbende User muss diese Mindestpunktzahl erreichen, damit der werbende User seinen Bonus bekommt.';
+$LNG['se_ref_max_referals']				= 'Maximale Referal';
+$LNG['se_ref_max_referals_info']		= 'Maximale Anzahl, der der User an Spielern werben kann';
+$LNG['se_silo_factor']					= 'Raketensilogröße';
+$LNG['se_silo_factor_info']				= 'Faktor für die größe des Silos';
 //###########################################################//
 
 

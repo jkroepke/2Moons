@@ -1,6 +1,6 @@
 Hello %1$s,
 
-thank you for registering at %2$s
+Thank you for registering at %2$s
 
 Before we can activate your account, one more step is needed.
 Please note that this step is mandatory in order to become a 

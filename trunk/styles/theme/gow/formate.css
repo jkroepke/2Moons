@@ -337,7 +337,7 @@ cursor: pointer;
 color: #fff;
 background:#1d1d1d;
 display:none;
-padding:3px;
+padding:7px;
 position:absolute;
 z-index:1000;
 max-width: 500px;

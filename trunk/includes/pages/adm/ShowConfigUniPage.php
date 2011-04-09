@@ -41,6 +41,7 @@ function ShowConfigUniPage()
 		$CONF['reg_closed'] 			= isset($_POST['reg_closed']) && $_POST['reg_closed'] == 'on' ? 1 : 0;
 		$CONF['user_valid']				= isset($_POST['user_valid']) && $_POST['user_valid'] == 'on' ? 1 : 0;
 		$CONF['debris_moon']			= isset($_POST['debris_moon']) && $_POST['debris_moon'] == 'on' ? 1 : 0;
+		$CONF['ref_active']				= isset($_POST['ref_active']) && $_POST['ref_active'] == 'on' ? 1 : 0;
 		
 		$CONF['OverviewNewsText']		= $_POST['NewsText'];
 		$CONF['close_reason']			= request_var('close_reason', '', true);
@@ -73,7 +74,7 @@ function ShowConfigUniPage()
 		$CONF['max_elements_ships']		= request_var('max_elements_ships', 0);
 		$CONF['max_overflow']			= request_var('max_overflow', 0);
 		$CONF['moon_factor']			= request_var('moon_factor', 0.0);
-		$CONF['moon_chance']			= request_var('moon_chance', 0.0);
+		$CONF['moon_chance']			= request_var('moon_chance', 0);
 		$CONF['darkmatter_cost_trader']	= request_var('darkmatter_cost_trader', 0);
 		$CONF['factor_university']		= request_var('factor_university', 0);
 		$CONF['max_fleets_per_acs']		= request_var('max_fleets_per_acs', 0);
@@ -85,6 +86,10 @@ function ShowConfigUniPage()
 		$CONF['darkmatter_start']		= request_var('darkmatter_start', 0);
 		$CONF['deuterium_cost_galaxy']	= request_var('deuterium_cost_galaxy', 0);
 		$CONF['max_fleet_per_build']	= request_outofint('max_fleet_per_build');
+		$CONF['ref_bonus']				= request_var('ref_bonus', 0);
+		$CONF['ref_minpoints']			= request_var('ref_minpoints', 0);
+		$CONF['silo_factor']			= request_var('silo_factor', 0);
+		$CONF['ref_max_referals']		= request_var('ref_max_referals', 0);
 		
 		update_config(array(
 			'noobprotectiontime'	=> $CONF['noobprotectiontime'],
@@ -151,7 +156,12 @@ function ShowConfigUniPage()
 			'deuterium_start'		=> $CONF['deuterium_start'],
 			'darkmatter_start'		=> $CONF['darkmatter_start'],
 			'debris_moon'			=> $CONF['debris_moon'],
-			'deuterium_cost_galaxy'	=> $CONF['deuterium_cost_galaxy']
+			'deuterium_cost_galaxy'	=> $CONF['deuterium_cost_galaxy'],
+			'ref_active'			=> $CONF['ref_active'],
+			'ref_bonus'				=> $CONF['ref_bonus'],
+			'ref_minpoints'			=> $CONF['ref_minpoints'],
+			'ref_max_referals'		=> $CONF['ref_max_referals'],
+			'silo_factor'			=> $CONF['silo_factor'],
 		));
 		
 		if($CONF['adm_attack'] == 0)
@@ -289,6 +299,17 @@ function ShowConfigUniPage()
 		'se_buildlist'					=> $LNG['se_buildlist'],
 		'Deuterium'						=> $LNG['Deuterium'],
 		'Darkmatter'					=> $LNG['Darkmatter'],
+		'se_ref'						=> $LNG['se_ref'],
+		'se_ref_active'					=> $LNG['se_ref_active'],
+		'se_ref_active_info'			=> $LNG['se_ref_active_info'],
+		'se_ref_max_referals'			=> $LNG['se_ref_max_referals'],
+		'se_ref_max_referals_info'		=> $LNG['se_ref_max_referals_info'],
+		'se_ref_bonus'					=> $LNG['se_ref_bonus'],
+		'se_ref_bonus_info'				=> $LNG['se_ref_bonus_info'],
+		'se_ref_minpoints'				=> $LNG['se_ref_minpoints'],
+		'se_ref_minpoints_info'			=> $LNG['se_ref_minpoints_info'],
+		'se_silo_factor'				=> $LNG['se_silo_factor'],
+		'se_silo_factor_info'			=> $LNG['se_silo_factor_info'],
 		'game_name'						=> $CONF['game_name'],
 		'uni_name'						=> $CONF['uni_name'],
 		'game_speed'					=> ($CONF['game_speed'] / 2500),
@@ -357,7 +378,12 @@ function ShowConfigUniPage()
 		'deuterium_start'				=> $CONF['deuterium_start'],
 		'darkmatter_start'				=> $CONF['darkmatter_start'],
 		'debris_moon'					=> $CONF['debris_moon'],
-		'deuterium_cost_galaxy'			=> $CONF['deuterium_cost_galaxy']
+		'deuterium_cost_galaxy'			=> $CONF['deuterium_cost_galaxy'],
+		'ref_active'					=> $CONF['ref_active'],
+		'ref_bonus'						=> $CONF['ref_bonus'],
+		'ref_minpoints'					=> $CONF['ref_minpoints'],
+		'ref_max_referals'				=> $CONF['ref_max_referals'],
+		'silo_factor'					=> $CONF['silo_factor'],
 	));
 	
 	$template->show('adm/ConfigBodyUni.tpl');

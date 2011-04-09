@@ -135,7 +135,7 @@ class ShowShipyardPage
 				$Missiles	 		= array();
 				$Missiles[502]		= $PLANET[$resource[502]];
 				$Missiles[503]		= $PLANET[$resource[503]];
-				$MaxMissiles   		= $PLANET[$resource[44]] * 10;
+				$MaxMissiles   		= $PLANET[$resource[44]] * $CONF['silo_factor'];
 				$BuildArray    		= explode(";", $PLANET['b_hangar_id']);
 
 				for ($QElement = 0; $QElement < count($BuildArray); $QElement++)

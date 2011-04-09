@@ -1,0 +1,8 @@
+Hello %1$s,
+
+You have logged in from %2$s days, the last time at %3$s. If you still want to remain a member of our community, please log in with your login information so do not fall back on your account:
+
+If you forgot your password, then go to %4$s and click on  "Forgot password". You will receive an email within few minutes with your new password.
+
+Regards,
+%3$s - Team
