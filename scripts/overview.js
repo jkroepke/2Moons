@@ -84,7 +84,7 @@ function GetFleets(init) {
 		$.each(data, function(index, val) {
 			HTML	+= '<tr class="fleet">';
 			HTML	+= '<td id="fleettime_'+index+'">-</td>';
-			HTML	+= '<td colspan="3">'+val.fleet_descr+'</td></tr>';
+			HTML	+= '<td colspan="2">'+val.fleet_descr+'</td></tr>';
 			Fleets[index]	=  val.fleet_return;
 		});
 		if(HTML != '') {

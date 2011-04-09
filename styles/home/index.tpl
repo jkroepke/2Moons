@@ -14,6 +14,7 @@
 -->
 <meta name="keywords" content="Browsergame, XNova, 2Moons, Slaver, Space, Weltraum, Private, Server, Speed">
 <meta name="medium" content="mult">
+<meta http-equiv="X-UA-Compatible" content="IE=8">
 <meta name="description" content="2Moons Browsergame powerd by Slaver"> <!-- Noob Check ;) -->
 <!--[if lt IE 9]>
 <script src="scripts/html5.js"></script>

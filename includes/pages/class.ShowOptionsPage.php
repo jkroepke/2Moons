@@ -217,10 +217,6 @@ class ShowOptionsPage
 							$template->message(sprintf($LNG['op_change_name_exist'], $USERname), '?page=options', 3);
 						else 
 						{
-							require(ROOT_PATH.'includes/classes/class.Records.php');
-							$Records		= new records();
-							$RecordsArray	= $Records->RenameRecordOwner($USER['username'], $USERname, $UNI);
-
 							$SQLQuery	.= "UPDATE ".USERS." SET `username` = '".$db->sql_escape($USERname)."', `uctime` = '".TIMESTAMP."' WHERE `id`= '".$USER['id']."';";
 							$SESSION->DestroySession();
 							$template->message($LNG['op_username_changed'], 'index.php', 3);

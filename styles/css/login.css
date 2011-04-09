@@ -6,6 +6,7 @@ body {
     text-align: center;
     margin: 0;
     padding: 0;
+	line-height:14px;
 }
 
 input, textarea, select, option {
@@ -62,6 +63,9 @@ a:hover{
 
 /** HEADER **/
 
+nav {
+	display: block;
+}
 header {
 	display: block;
 	height: 20px;
@@ -195,7 +199,7 @@ header {
     width: 100px;
 	font-weight: 700;
 	float: left;
-	margin: 3px 0 6px;
+	margin: 4px 0 2px;
 	height: 16px;
 	vertical-align: middle;
 }
@@ -204,7 +208,7 @@ header {
 	margin-bottom: 5px;
 }
 
-.contentbox input[type=text], .contentbox input[type=password] {
+.contentbox input[type="text"], .contentbox input[type="password"] {
     width: 179px;
 }
 
