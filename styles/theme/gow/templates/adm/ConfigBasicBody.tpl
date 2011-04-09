@@ -15,6 +15,28 @@
     <td><input name="ttf_file" size="40" value="{$ttf_file}" type="text"></td>
 	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_ttf_file_info}"></td>
 </tr><tr>
+	<th colspan="2">{$se_player_settings}</th><th>&nbsp;</th>
+</tr><tr>
+	<td>{$se_del_oldstuff}</td>
+	<td><input name="del_oldstuff" maxlength="3" size="2" value="{$del_oldstuff}" type="text"> {$se_days}</td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_del_oldstuff_info}"></td>
+</tr><tr>
+	<td>{$se_del_user_manually}</td>
+	<td><input name="del_user_manually" maxlength="3" size="2" value="{$del_user_manually}" type="text"> {$se_days}</td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_del_user_manually_info}"></td>
+</tr><tr>
+	<td>{$se_del_user_automatic}</td>
+	<td><input name="del_user_automatic" maxlength="3" size="2" value="{$del_user_automatic}" type="text"> {$se_days}</td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_del_user_automatic_info}"></td>
+</tr><tr>
+	<td>{$se_sendmail_inactive}<br></td>
+    <td><input name="sendmail_inactive"{if $sendmail_inactive} checked="checked"{/if}  type="checkbox"></td>
+	<td>&nbsp;</td>
+</tr><tr>
+	<td>{$se_del_user_sendmail}</td>
+	<td><input name="del_user_sendmail" maxlength="3" size="2" value="{$del_user_sendmail}" type="text"> {$se_days}</td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_del_user_sendmail_info}"></td>
+</tr><tr>
 	<th colspan="2">{$se_recaptcha_head}</th><th>&nbsp;</th>
 </tr><tr>
 	<td>{$se_recaptcha_active}<br></td>

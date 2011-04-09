@@ -1,10 +1,4 @@
 {include file="adm/overall_header.tpl"}
-<script type="text/javascript" src="http://www.google.com/jsapi"></script>
-<script type="text/javascript" src="http://update.xnova.de/donate.js"></script>
-<script type="text/javascript" src="./scripts/buildlist.js"></script>
-<script type="text/javascript">
-google.load("feeds", "1");
-</script>
 <center>
 <h1>{$ow_title}</h1>
 <table width="90%" style="border:2px {if empty($Messages)}lime{else}red{/if} solid;text-align:center;font-weight:bold;">
@@ -21,7 +15,7 @@ google.load("feeds", "1");
     	<th colspan="2">{$ow_overview}</th>
     </tr>
 	<tr>
-    	<td style="height:50px" colspan="2">{$ow_welcome_text}<br><iframe src="http://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2F2Moons%2F129282307106646&amp;width=292&amp;connections=0&amp;stream=false&amp;header=false&amp;height=62" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:292px; height:62px;" allowTransparency="true"></iframe></td>
+    	<td style="height:50px" colspan="2">{$ow_welcome_text}<br><iframe src="https://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2F2Moons%2F129282307106646&amp;width=292&amp;connections=0&amp;stream=false&amp;header=false&amp;height=62" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:292px; height:62px;" allowTransparency="true"></iframe></td>
     </tr>
     <tr>
         <th colspan="2">{$ow_support}</th>
@@ -75,15 +69,6 @@ google.load("feeds", "1");
 	<tr>
 		<td align="center" colspan="2">
 			<div id="feed"></div>
-			<script type="text/javascript">
-			      function initialize() {
-					var feedControl = new google.feeds.FeedControl();
-					feedControl.addFeed("http://code.google.com/feeds/p/2moons/svnchanges/basic", "");
-					feedControl.draw(document.getElementById("feed"));
-				  }
-				  google.setOnLoadCallback(initialize);
-
-			</script>
 		</td>
 	</tr>  
     <tr>
@@ -130,9 +115,14 @@ google.load("feeds", "1");
     </tr>
 </table>
 </center>
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
 <script type="text/javascript">
-$(document).ready(function(){
-	$('.UIStory_Message').css("color","#CCCCCC");
-});
+google.load("feeds", "1");
+google.setOnLoadCallback(initialize);
+function initialize() {
+	var feedControl = new google.feeds.FeedControl();
+	feedControl.addFeed("http://code.google.com/feeds/p/2moons/svnchanges/basic", "");
+	feedControl.draw(document.getElementById("feed"));
+}
 </script>
 {include file="adm/overall_footer.tpl"}

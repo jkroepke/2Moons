@@ -917,6 +917,10 @@ $LNG['fcp_colony']							= 'Kolonie';
 $LNG['fgp_require']							= 'Benötigt: ';
 $LNG['fgf_time']							= 'Bauzeit: ';
 $LNG['sys_module_inactive']        	 		= 'Modul inaktiv';
+$LNG['sys_refferal_from']        	 		= 'System';
+$LNG['sys_refferal_title']        	 		= 'Bonus für Spieler %s';
+$LNG['sys_refferal_text']        	 		= 'Der von dir geworbende Spieler %s hat nun %s Punkt erreicht.<br><br>Als Dankeschön, dass du einen aktivien Spieler gewroben hast, erhälst du %s %s';
+
 
 //----------------------------------------------------------------------------//
 // CombatReport.php
