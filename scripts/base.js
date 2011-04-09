@@ -8,9 +8,9 @@ function number_format(number, decimals) {
 		exponent = numberstr.substring(eindex);
 		number = parseFloat(numberstr.substring(0, eindex));
 	}
-	var sign = number < 0 ? "-" : "";
+	
 	var integer = number;
-	var fractional = number.toString().substring(integer.length + sign.length);
+	var fractional = number.toString().substring(integer.length );
 	dec_point = dec_point != null ? dec_point : ".";
 	fractional = decimals != null && decimals > 0 || fractional.length > 1 ? (dec_point + fractional.substring(1)) : "";
 	if (decimals != null && decimals > 0) {
@@ -22,7 +22,7 @@ function number_format(number, decimals) {
 		for (i = integer.length - 3; i > 0; i -= 3) 
 			integer = integer.substring(0, i) + thousands_sep + integer.substring(i);
 	}
-	return sign + integer + fractional + exponent;
+	return integer + fractional + exponent;
 }
 function NumberGetHumanReadable(value) {
 	return number_format(removeE(Math.floor(value)), 0);
