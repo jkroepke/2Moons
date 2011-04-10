@@ -69,10 +69,10 @@ class statbuilder extends records
 		$db->query("LOCK TABLES ".ALLIANCE." WRITE, ".BUDDY." WRITE, ".CONFIG." WRITE, ".FLEETS." WRITE, ".NOTES." WRITE, ".MESSAGES." WRITE, ".PLANETS." WRITE, ".RW." WRITE, ".SESSION." WRITE,  ".SUPP." WRITE, ".STATPOINTS." WRITE, ".TOPKB." WRITE, ".USERS." WRITE;");
 	
 		//Delete old messages
-		$del_before 	= TIMESTAMP - $CONF['del_oldstuff'] * 86400;
-		$del_inactive 	= TIMESTAMP - $CONF['del_user_automatic'] * 86400;
-		$del_deleted 	= TIMESTAMP - $CONF['del_user_manually'] * 86400;
-		
+		$del_before 	= TIMESTAMP - ($CONF['del_oldstuff'] * 86400);
+		$del_inactive 	= TIMESTAMP - ($CONF['del_user_automatic'] * 86400);
+		$del_deleted 	= TIMESTAMP - ($CONF['del_user_manually'] * 86400);
+
 		$db->multi_query("DELETE FROM `".MESSAGES."` WHERE `message_time` < '". $del_before ."';DELETE FROM ".SUPP." WHERE `time` < '".$del_before."' AND `status` = 0;DELETE FROM ".ALLIANCE." WHERE `ally_members` = '0';DELETE FROM ".PLANETS." WHERE `destruyed` < ".TIMESTAMP." AND `destruyed` != 0;UPDATE ".USERS." SET `email_2` = `email` WHERE `setmail` < '".TIMESTAMP."';DELETE FROM ".SESSION." WHERE `user_lastactivity` < '".(TIMESTAMP - SESSION_LIFETIME)."';UPDATE ".USERS." SET `banaday` = '0', `bana` = '0' WHERE `banaday` <= '".TIMESTAMP."';");
 
 		$ChooseToDelete = $db->query("SELECT `id` FROM `".USERS."` WHERE `authlevel` = '".AUTH_USR."' AND ((`db_deaktjava` != 0 AND `db_deaktjava` < '".$del_deleted."') OR `onlinetime` < '".$del_inactive."');");

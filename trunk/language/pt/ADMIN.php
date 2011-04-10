@@ -2,33 +2,8 @@
 
 // Traduzido por QwataKayean. Todos os Direitos Reservados © 2010-2011
 
-/**
- *  2Moons
- *  Copyright (C) 2011  Slaver
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
- * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.3 (2011-01-21)
- * @link http://code.google.com/p/2moons/
- */
+// 2Moons - Copyright (C) 2011  Slaver
 
- 
 //---------------    GERAL ------------------------//
 $LNG['adm_login']						= 'Login';
 $LNG['adm_absenden']					= 'Submiter'; 
@@ -376,6 +351,28 @@ $LNG['se_min_build_time']               = 'Construção Mínima';
 $LNG['se_trader_head']					= 'Configurações Breaker';
 $LNG['se_trader_ships']					= 'Naves autorizadoa:';
 $LNG['se_trader_charge']				= 'Taxa Mercante:';
+$LNG['se_player_settings']				= 'Player Settings';
+$LNG['se_days']							= 'Dias';
+$LNG['se_del_oldstuff']					= 'Apagar Mensagem depois de ';
+$LNG['se_del_oldstuff_info']			= 'Apagar mensagens/relatórios de batalha depois X dias.';
+$LNG['se_del_user_manually']			= 'Remoção de Usários depois de';
+$LNG['se_del_user_manually_info']		= 'Exclui os usuários que tenham a sua conta excluída ativa após X dias.';
+$LNG['se_del_user_automatic']			= 'Excluir os inactivos';
+$LNG['se_del_user_automatic_info']		= 'Exclui os usuários que não logou na conta por inactividade, após X dias.';
+$LNG['se_del_user_sendmail']			= 'Enviar lembrete';
+$LNG['se_del_user_sendmail_info']		= 'Envia um lembrete para os usuários depois X de dias sem fazer o Login.';
+$LNG['se_sendmail_inactive']			= 'Ativar alertas de e-mai';
+$LNG['se_ref']							= 'Referral Link - Link de Convite.';
+$LNG['se_ref_active']					= 'Activar Referallink';
+$LNG['se_ref_active_info']				= 'Referral Link , ou o link de Convite dá aos jogadores a oportunidade de referir, ou atrair e convidar mais amigos. Isto vai dar bônus para os jogadores.';
+$LNG['se_ref_bonus']					= 'Referral Link bonus';
+$LNG['se_ref_bonus_info']				= 'Número de matéria negra que o usuário recebe o recrutamento por usuário.';
+$LNG['se_ref_minpoints']				= 'MLimite de bonus';
+$LNG['se_ref_minpoints_info']			= 'O usuário chegou a esses limite para que o usuário recebe o seu bonus promocional.';
+$LNG['se_ref_max_referals']				= 'Máximo de Referência';
+$LNG['se_ref_max_referals_info']		= 'O número máximo de recrutar jogadores por usuário.';
+$LNG['se_silo_factor']					= 'Silo de Misseis';
+$LNG['se_silo_factor_info']				= 'Fator do tamanho do silo.';
 $LNG['se_min_build_time_info']          = 'Aqui poderás por um tempo minimo para construção. Esta pré defenido para 1 segundo.<br>Se alterares para 0, será desactivado<br><font color=orange>Então ai é que os bugs começam!</font>';
 $LNG['se_news_head']                    = 'Configurações das Notícias';
 $LNG['se_news_active']                  = 'Activar Notícias';

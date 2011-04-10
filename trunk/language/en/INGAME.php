@@ -472,6 +472,8 @@ $LNG['in_jump_gate_jump']					= 'Jump';
 $LNG['in_destroy']     						= 'Destroy:';
 $LNG['in_needed']      						= 'Requires';
 $LNG['in_dest_durati'] 						= 'Destruction time';
+$LNG['in_missilestype']   					= 'Type of Missiles';
+$LNG['in_missilesamount']    				= 'Amount of Missiles Avaliable';
 
 //----------------------------------------------------------------------------//
 //MESSAGES
@@ -908,7 +910,6 @@ $LNG['cff_mission_target_mip']				= 'Missile attack (%d) From Player %s From %s 
 
 //----------------------------------------------------------------------------//
 // EXTRA LANGUAGE FUNCTIONS
-
 $LNG['fcm_planet']							= 'Planet';
 $LNG['fcm_moon']							= 'Moon';
 $LNG['fcm_info']							= 'Information';
@@ -919,6 +920,7 @@ $LNG['sys_module_inactive']        	 		= 'Module inactive';
 $LNG['sys_refferal_from']        	 		= 'System';
 $LNG['sys_refferal_title']        	 		= 'Bonus for players %s';
 $LNG['sys_refferal_text']					= 'The players %s recruited by you have now reached %s points.<br><br>You have promoted an active player, you get %s %s';
+
 
 //----------------------------------------------------------------------------//
 // CombatReport.php
