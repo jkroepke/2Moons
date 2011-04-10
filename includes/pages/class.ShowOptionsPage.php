@@ -109,7 +109,6 @@ class ShowOptionsPage
 				$adm_pl_prot			= request_var('adm_pl_prot', '');	
 				$langs					= request_var('langs', $LANG->getUser());	
 				$dpath					= request_var('dpath', $THEME->getThemeName());	
-
 				$design 				= ($design == 'on') ? 1 : 0;
 				$hof 					= ($hof == 'on') ? 1 : 0;
 				$noipcheck 				= ($noipcheck == 'on') ? 1 : 0;
@@ -122,9 +121,9 @@ class ShowOptionsPage
 				$settings_planetmenu	= ($settings_planetmenu == 'on') ? 1 : 0;
 				$db_deaktjava 			= ($db_deaktjava == 'on') ? TIMESTAMP : 0;
 				$langs					= in_array($langs, $LANG->getAllowedLangs()) ? $langs : $LANG->getUser();
-				$dpath					= in_array($dpath, Theme::getAvalibleSkins()) ? $dpath : $THEME->getThemeName();
+				$dpath					= array_key_exists($dpath, Theme::getAvalibleSkins()) ? $dpath : $THEME->getThemeName();
 				$authattack				= ($adm_pl_prot == 'on' && $USER['authlevel'] != AUTH_USR) ? $USER['authlevel'] : 0;
-				
+
 				if ($urlaubs_modus == 'on')
 				{
 					if(!$this->CheckVMode())

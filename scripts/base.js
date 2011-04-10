@@ -1,29 +1,24 @@
-function number_format(number, decimals) {
-	dec_point = ',';
-	thousands_sep = '.';
-	var exponent = "";
-	var numberstr = number.toString();
-	var eindex = numberstr.indexOf("e");
-	if (eindex > -1) {
-		exponent = numberstr.substring(eindex);
-		number = parseFloat(numberstr.substring(0, eindex));
-	}
-	
-	var integer = number;
-	var fractional = number.toString().substring(integer.length );
-	dec_point = dec_point != null ? dec_point : ".";
-	fractional = decimals != null && decimals > 0 || fractional.length > 1 ? (dec_point + fractional.substring(1)) : "";
-	if (decimals != null && decimals > 0) {
-		for (i = fractional.length - 1, z = decimals; i < z; ++i) 
-			fractional += "0";
-	}
-	thousands_sep = (thousands_sep != dec_point || fractional.length == 0) ? thousands_sep : null;
-	if (thousands_sep != null && thousands_sep != "") {
-		for (i = integer.length - 3; i > 0; i -= 3) 
-			integer = integer.substring(0, i) + thousands_sep + integer.substring(i);
-	}
-	return integer + fractional + exponent;
+function number_format (number, decimals) {
+    number = (number + '').replace(/[^0-9+\-Ee.]/g, '');
+    var n = !isFinite(+number) ? 0 : +number,
+        prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+        sep = '.',
+        dec = ',',
+        s = '',
+        toFixedFix = function (n, prec) {
+            var k = Math.pow(10, prec);
+            return '' + Math.round(n * k) / k;
+        };
+    // Fix for IE parseFloat(0.55).toFixed(0) = 0;
+    s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
+    if (s[0].length > 3) {        s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+    }
+    if ((s[1] || '').length < prec) {
+        s[1] = s[1] || '';
+        s[1] += new Array(prec - s[1].length + 1).join('0');    }
+    return s.join(dec);
 }
+
 function NumberGetHumanReadable(value) {
 	return number_format(removeE(Math.floor(value)), 0);
 }
