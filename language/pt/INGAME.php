@@ -2,31 +2,8 @@
 
 // Traduzido por QwataKayean. Todos os Direitos Reservados © 2010-2011
 
-/**
- *  2Moons
- *  Copyright (C) 2011  Slaver
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
- * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.3 (2011-01-21)
- * @link http://code.google.com/p/2moons/
- */
+// 2Moons - Copyright (C) 2011  Slaver
+
 
 //SERVER GENERALS
 $LNG['Metal']								= 'Metal';
@@ -494,6 +471,8 @@ $LNG['in_jump_gate_jump']					= 'Saltar';
 $LNG['in_destroy']     						= 'Destruir:';
 $LNG['in_needed']      						= 'Requer';
 $LNG['in_dest_durati'] 			            = 'Tempo para destruição';
+$LNG['in_missilestype']   					= 'Tipo de Misseis';
+$LNG['in_missilesamount']    				= 'Numero de Misseis Disponivéis';
 
 //----------------------------------------------------------------------------//
 //MESSAGES
@@ -925,7 +904,6 @@ $LNG['cff_mission_target_good']				= 'Uma %s amiga do Jogador %s do %s %s %s ati
 $LNG['cff_mission_target_stay']				= 'Uma %s amiga do Jogador %s do %s %s %s está em órbita do %s %s %s. Missão: %s';
 $LNG['cff_mission_target_mip']				= 'Ataque de mísseis (%d) do Jogador %s do %s %s %s ao %s %s %s.';
 
-
 //----------------------------------------------------------------------------//
 // EXTRA LANGUAGE FUNCTIONS
 $LNG['fcm_planet']							= 'Planeta';
@@ -935,6 +913,10 @@ $LNG['fcp_colony']                          = 'Colónia';
 $LNG['fgp_require']                         = 'Requer: ';
 $LNG['fgf_time']                            = 'Tempo de construção: ';
 $LNG['sys_module_inactive']        	 		= 'Modulo Inactivo';
+$LNG['sys_refferal_from']        	 		= 'Sistema';
+$LNG['sys_refferal_title']        	 		= 'Bonus para Jogadores %s';
+$LNG['sys_refferal_text']					= 'Os jogadores %s recrutados por ti atingiu %s pontos.<br><br>Tu convidas um jogador activo, ganharás %s %s';
+
 
 //----------------------------------------------------------------------------//
 // CombatReport.php
