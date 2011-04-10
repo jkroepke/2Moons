@@ -50,8 +50,8 @@
 							{$BuildInfoRow.EnergyNeed}
 							{/if}
 							{if $BuildInfoRow.level > 0 && $BuildInfoRow.id != 33}
-							<br>{if $BuildInfoRow.id == 43}<a href="#" onclick="return Dialog.info({$BuildInfoRow.id})">{$bd_jump_gate_action}</a>{/if}<br>
-							<a class="tooltip_sticky" name="<table style='width:300px'><tr><th colspan='2'>{$bd_price_for_destroy} {$BuildInfoRow.name} {$BuildInfoRow.level}</th></tr><tr><td>{$Metal}</td><td>{$BuildInfoRow.destroyress.metal}</td></tr><tr><td>{$Crystal}</td><td>{$BuildInfoRow.destroyress.crystal}</td></tr><tr><td>{$Deuterium}</td><td>{$BuildInfoRow.destroyress.deuterium}</td></tr><tr><td>{$bd_destroy_time}</td><td>{$BuildInfoRow.destroytime}</td></tr><tr><td colspan='2'><a href='?page=buildings&amp;cmd=destroy&amp;building={$BuildInfoRow.id}'>{$bd_dismantle}</a></td></tr></table>">{$bd_dismantle}</a>
+							<br>{if $BuildInfoRow.id == 43}<a href="#" onclick="return Dialog.info({$BuildInfoRow.id})">{$bd_jump_gate_action}</a>{/if}
+							{if ($BuildInfoRow.id == 44 && !$HaveMissiles) ||  $BuildInfoRow.id != 44}<br><a class="tooltip_sticky" name="<table style='width:300px'><tr><th colspan='2'>{$bd_price_for_destroy} {$BuildInfoRow.name} {$BuildInfoRow.level}</th></tr><tr><td>{$Metal}</td><td>{$BuildInfoRow.destroyress.metal}</td></tr><tr><td>{$Crystal}</td><td>{$BuildInfoRow.destroyress.crystal}</td></tr><tr><td>{$Deuterium}</td><td>{$BuildInfoRow.destroyress.deuterium}</td></tr><tr><td>{$bd_destroy_time}</td><td>{$BuildInfoRow.destroytime}</td></tr><tr><td colspan='2'><a href='?page=buildings&amp;cmd=destroy&amp;building={$BuildInfoRow.id}'>{$bd_dismantle}</a></td></tr></table>">{$bd_dismantle}</a>{/if}
 							{/if}
 							&nbsp;
 						</td>

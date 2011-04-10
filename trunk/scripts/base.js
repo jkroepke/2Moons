@@ -93,6 +93,14 @@ function OpenPopup(target_url, win_name, width, height) {
 	new_win.focus();
 }
 
+function DestroyMissiles() {
+	$.getJSON('?page=infos&gid=44&action=send&'+$('.missile').serialize(), function(data) {
+		$('#missile_502').text(data[0]);
+		$('#missile_503').text(data[1]);
+		$('.missile').val('');
+	});
+}
+
 function allydiplo(action, id, level) {
 	if(id != '0')
 		var vid = "&id="+id;
