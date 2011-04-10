@@ -5,8 +5,7 @@
 
 function resourceTicker(config) {
 	var element	= document.getElementById(config.valueElem);
-	var localTime = new Date().getTime();
-	var nrResource = Math.round(config.available + config.production / 3600 * (localTime - startTime) / 1000);
+	var nrResource = Math.round(config.available + config.production / 3600 * (serverTime.getTime() - startTime) / 1000);
 	if (nrResource < config.limit[1]) 
 	{
 		if (nrResource >= config.limit[1])
