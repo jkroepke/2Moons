@@ -473,6 +473,8 @@ $LNG['in_jump_gate_jump']					= 'Aufladen';
 $LNG['in_destroy']     						= 'Abreißen';
 $LNG['in_needed']      						= 'Benötigt';
 $LNG['in_dest_durati'] 						= 'Dauer';
+$LNG['in_missilestype'] 					= 'Raketentyp';
+$LNG['in_missilesamount'] 					= 'Vorhanden';
 
 //----------------------------------------------------------------------------//
 //MESSAGES

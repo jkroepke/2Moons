@@ -122,6 +122,15 @@ class ShowInfosPage
 		return $GateFleetList;
 	}
 
+	private function CancelMissiles()
+	{
+		global $resource, $PLANET, $db;
+		$PLANET[$resource[502]]	-= min((int)$_REQUEST['missile_502'], $PLANET[$resource[502]]);
+		$PLANET[$resource[503]]	-= min((int)$_REQUEST['missile_503'], $PLANET[$resource[503]]);
+		$db->query("UPDATE ".PLANETS." SET `".$resource[502]."` = '".$PLANET[$resource[502]]."', `".$resource[503]."` = '".$PLANET[$resource[503]]."' WHERE `id` = '".$PLANET['id']."';");
+		echo json_encode(array(pretty_number($PLANET[$resource[502]]), pretty_number($PLANET[$resource[503]])));
+	}
+
 	private function BuildJumpableMoonCombo($USER, $PLANET)
 	{
 		global $resource, $db;
@@ -236,6 +245,20 @@ class ShowInfosPage
 				'gate_start_link'	=> BuildPlanetAdressLink($PLANET),
 				'gate_moons'		=> $this->BuildJumpableMoonCombo($USER, $PLANET),
 				'gate_fleets'		=> $this->BuildFleetListRows($PLANET),
+			));
+		}
+		elseif($BuildID == 44 && $PLANET[$resource[44]] > 0)
+		{
+			if($_GET['action'] == 'send')
+				exit($this->CancelMissiles());
+				
+			$template->assign_vars(array(
+				'missiles'			=> array(pretty_number($PLANET[$resource[502]]), pretty_number($PLANET[$resource[503]])),
+				'tech_502'			=> $LNG['tech'][502],
+				'tech_503'			=> $LNG['tech'][503],
+				'in_missilestype'	=> $LNG['in_missilestype'],
+				'in_missilesamount'	=> $LNG['in_missilesamount'],
+				'in_destroy'		=> $LNG['in_destroy'],
 			));
 		}
 		elseif(in_array($BuildID, $reslist['officier']))

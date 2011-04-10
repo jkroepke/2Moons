@@ -326,6 +326,7 @@ class ShowBuildingsPage
 
 		$template->assign_vars(array(
 			'BuildInfoList'			=> $BuildInfoList,
+			'HaveMissiles'			=> (bool) $PLANET[$resource[503]] + $PLANET[$resource[502]],
 			'bd_lvl'				=> $LNG['bd_lvl'],
 			'bd_next_level'			=> $LNG['bd_next_level'],
 			'Metal'					=> $LNG['Metal'],

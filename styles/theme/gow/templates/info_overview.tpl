@@ -47,6 +47,28 @@
 </td></tr>
 {elseif $gate_fleets}
 {include file="info_gatelist.tpl"}
+{elseif $missiles}
+<tr>
+<td class="transparent" colspan="2"><hr></td>
+</tr>
+<tr>
+<td class="transparent" colspan="2">
+	<table>
+		<tr>
+			<th>{$in_missilesamount}</th><th>{$in_missilestype}</th><th></th>
+		</tr>
+		<tr>
+			<td>{$tech_502}</td><td><span id="missile_502">{$missiles.0}</span></td><td><input class="missile" type="text" name="missile_502"></td>
+		</tr>
+		<tr>
+			<td>{$tech_503}</td><td><span id="missile_503">{$missiles.1}</span></td><td><input class="missile" type="text" name="missile_503"></td>
+		</tr>
+		<tr>
+			<td colspan="3"><input type="button" value="{$in_destroy}" onclick="DestroyMissiles();"></td>
+		</tr>
+	</table>
+</td>
+</tr>
 {/if}
 </tbody>
 </table>
