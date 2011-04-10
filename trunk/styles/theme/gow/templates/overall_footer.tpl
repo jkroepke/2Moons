@@ -14,8 +14,8 @@ var auth		= {$authlevel};
 var days 		= {$js_days};
 var months 		= {$js_month};
 </script>
-{if $topnav}
 <script type="text/javascript" src="{$cd}scripts/base.js?v={$REV}"></script>
+{if $topnav}
 <script type="text/javascript" src="{$cd}scripts/topnav.js?v={$REV}"></script>
 <script type="text/javascript">
 var resourceTickerMetal = {
