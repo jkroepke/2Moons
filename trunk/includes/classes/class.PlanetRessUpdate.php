@@ -28,10 +28,11 @@
 
 class ResourceUpdate
 {
-	function __construct($Build = true)
+	function __construct($Build = true, $Tech = true)
 	{
 		$this->Builded					= array();	
 		$this->Build					= $Build;
+		$this->Tech						= $Tech;
 		$this->USER						= array();
 		$this->PLANET					= array();
 	}
@@ -64,7 +65,7 @@ class ResourceUpdate
 				file_put_contents(ROOT_PATH.'includes/slaver.log', print_r(debug_backtrace(), true)."\r\n-----------\r\n\r\n", FILE_APPEND);
 			
 			$this->ShipyardQueue();
-			if($this->USER['b_tech'] != 0 && $this->USER['b_tech'] < $this->TIME)
+			if($this->Tech == true && $this->USER['b_tech'] != 0 && $this->USER['b_tech'] < $this->TIME)
 				$this->ResearchQueue();
 			if($this->PLANET['b_building'] != 0)
 				$this->BuildingQueue();
@@ -184,23 +185,19 @@ class ResourceUpdate
 			return false;
 		}
 			
-		$BuildQueue                 = explode(';', $this->PLANET['b_hangar_id']);
+		$BuildQueue                 = unserialize($this->PLANET['b_hangar_id']);
 		$AcumTime					= 0;
 		$this->PLANET['b_hangar'] 	+= ($this->TIME - $this->PLANET['last_update']);
-		$BuildArray	= array();
-		foreach($BuildQueue as $Node => $Array)
+		$BuildArray					= array();
+		foreach($BuildQueue as $Item)
 		{
-			if (empty($Array))
-				continue;
-			
-			$Item              = explode(',', $Array);
 			$AcumTime		   += GetBuildingTime($this->USER, $this->PLANET, $Item[0]);
-			$BuildArray[$Node] = array($Item[0], $Item[1], $AcumTime);
+			$BuildArray[] 		= array($Item[0], $Item[1], $AcumTime);
 		}
 
-		$this->PLANET['b_hangar_id']	= '';
+		$NewQueue	= ''; #Stand 17:08
 		$Done	= false;
-		foreach($BuildArray as $Node => $Item)
+		foreach($BuildArray as $Item)
 		{
 			if($Done == false) {
 				$Element   = $Item[0];
@@ -232,8 +229,9 @@ class ResourceUpdate
 				else
 					$Done	= true;
 			}	
-			$this->PLANET['b_hangar_id'] .= $Element.",".$Count.";";
+			 .= $Element.",".$Count.";";
 		}
+		$this->PLANET['b_hangar_id']	= serialize();
 	}
 	
 	private function BuildingQueue() 
