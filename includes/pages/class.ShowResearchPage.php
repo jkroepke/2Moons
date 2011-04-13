@@ -34,8 +34,8 @@ class ShowResearchPage
 		if ($PLANET['b_building'] == 0)
 			return true;
 			
-		$QueueArray		= unserialize($PLANET['b_building_id']);
-		foreach($QueueArray as $ListIDArray) {
+		$CurrentQueue		= unserialize($PLANET['b_building_id']);
+		foreach($CurrentQueue as $ListIDArray) {
 			if($ListIDArray[0] == 6 || $ListIDArray[0] == 31)
 				return false;
 		}
@@ -73,7 +73,7 @@ class ShowResearchPage
 	private function CancelBuildingFromQueue($PlanetRess)
 	{
 		global $PLANET, $USER, $db, $resource;
-		$CurrentQueue  = unserialize($PLANET['b_tech_queue']);
+		$CurrentQueue  = unserialize($USER['b_tech_queue']);
 		if (empty($CurrentQueue) || empty($USER['b_tech']))
 		{
 			$USER['b_tech_queue']	= '';
@@ -98,20 +98,18 @@ class ShowResearchPage
 		$USER['b_tech']      		= 0;
 		$USER['b_tech_planet']		= 0;
 	
-	
-		$ActualCount         = count($CurrentQueue);
-		$CanceledIDArray     = $QueueArray[0];
+		$CanceledIDArray     = $CurrentQueue[0];
 
-		array_shift($QueueArray);
-		if (count($QueueArray) == 0) {
+		array_shift($CurrentQueue);
+		if (count($CurrentQueue) == 0) {
 			$USER['b_tech_queue']	= '';
 			$USER['b_tech_planet']	= 0;
 			$USER['b_tech_id']		= 0;
 			$USER['b_tech']			= 0;
 		} else {
 			$BuildEndTime	= TIMESTAMP;
-			$NewQueueArray	= array();
-			foreach($QueueArray as $ListIDArray)
+			$NewCurrentQueue	= array();
+			foreach($CurrentQueue as $ListIDArray)
 			{
 				if($ListIDArray[4] != $PLANET['id'])
 					$CPLANET		= $db->uniquequery("SELECT `".$resource[6]."`, `".$resource[31]."` FROM ".PLANETS." WHERE `id` = '".$ListIDArray[4]."';");
@@ -121,11 +119,11 @@ class ShowResearchPage
 				$CPLANET[$resource[31].'_inter']	= $PlanetRess->CheckAndGetLabLevel($USER, $CPLANET);
 				$BuildEndTime       += GetBuildingTime($USER, $CPLANET, $ListIDArray[0]);
 				$ListIDArray[3]		= $BuildEndTime;
-				$NewQueueArray[]	= $ListIDArray;				
+				$NewCurrentQueue[]	= $ListIDArray;				
 			}
 			
 			$USER['b_tech']    			= TIMESTAMP;
-			$USER['b_tech_queue'] 		= serialize($NewQueueArray);
+			$USER['b_tech_queue'] 		= serialize($NewCurrentQueue);
 			$PlanetRess->USER			= $USER;
 			$PlanetRess->PLANET			= $PLANET;
 			$PlanetRess->SetNextQueueTechOnTop();
@@ -150,11 +148,11 @@ class ShowResearchPage
 
 		$BuildEndTime  = $CurrentQueue[$QueueID - 2][3];
 		unset($CurrentQueue[$QueueID - 1]);
-		$NewQueueArray	= array();
+		$NewCurrentQueue	= array();
 		foreach($CurrentQueue as $ID => $ListIDArray)
 		{
 			if ($ID < $QueueID - 1) {
-				$NewQueueArray[]	= $ListIDArray;
+				$NewCurrentQueue[]	= $ListIDArray;
 			} else {
 				if($ListIDArray[4] != $PLANET['id'])
 					$CPLANET				= $db->uniquequery("SELECT `".$resource[6]."`, `".$resource[31]."` FROM ".PLANETS." WHERE `id` = '".$ListIDArray[4].";");
@@ -165,11 +163,11 @@ class ShowResearchPage
 				
 				$BuildEndTime       += GetBuildingTime($USER, $CPLANET, $ListIDArray[0]);
 				$ListIDArray[3]		= $BuildEndTime;
-				$NewQueueArray[]	= $ListIDArray;				
+				$NewCurrentQueue[]	= $ListIDArray;				
 			}
 		}
 		
-		$USER['b_tech_queue'] = serialize($NewQueueArray);
+		$USER['b_tech_queue'] = serialize($NewCurrentQueue);
 	}
 
 	private function AddBuildingToQueue($Element, $AddMode = true)
@@ -202,7 +200,7 @@ class ShowResearchPage
 			$PLANET['deuterium']		-= $Resses['deuterium'];
 			$USER['darkmatter']			-= $Resses['darkmatter'];
 			$BuildEndTime				= TIMESTAMP + $BuildTime;
-			$USER['b_tech_queue']		= serialize(array($Element, $BuildLevel, $BuildTime, $BuildEndTime, $PLANET['id']));
+			$USER['b_tech_queue']		= serialize(array(array($Element, $BuildLevel, $BuildTime, $BuildEndTime, $PLANET['id'])));
 			$USER['b_tech']				= $BuildEndTime;
 			$USER['b_tech_id']			= $Element;
 			$USER['b_tech_planet']		= $PLANET['id'];
@@ -212,12 +210,13 @@ class ShowResearchPage
 				if($QueueSubArray[0] == $Element) 
 					$InArray++;
 			}
-			$USER[$resource[$Element]] += $InArray + 1;
+			$USER[$resource[$Element]] += $InArray;
 			$BuildTime  				= GetBuildingTime($USER, $PLANET, $Element);
-			$USER[$resource[$Element]] -= $InArray + 1;
+			$USER[$resource[$Element]] -= $InArray;
 			$BuildEndTime				= $CurrentQueue[$ActualCount - 1][3] + $BuildTime;
 			$BuildLevel					+= $InArray;
-			$USER['b_tech_queue']		= serialize(array_push($CurrentQueue, array($Element, $BuildLevel, $BuildTime, $BuildEndTime, $PLANET['id'])));
+			$CurrentQueue[]				= array($Element, $BuildLevel, $BuildTime, $BuildEndTime, $PLANET['id']);
+			$USER['b_tech_queue']		= serialize($CurrentQueue);
 		}
 	}
 
@@ -306,8 +305,7 @@ class ShowResearchPage
 				$TechnoLink  =	"<font color=\"#FF0000\">".$LNG['bd_maxlevel']."</font>";
 			} elseif($CONF['max_elements_tech'] > 1) {
 				$LevelToDo 	= 1 + $USER[$resource[$Element]];
-				$TechnoLink = $CanBeDone && $bContinue ? "<a href=\"game.php?page=buildings&amp;mode=research&amp;cmd=insert&amp;tech=".$Element."\"><font color=\"#00FF00\">".(($USER['b_tech_id'] != 0) ? $LNG['bd_add_to_list'] : $LNG['bd_research'].(($LevelToDo == 1) ? "" : "<br>".$LNG['bd_lvl']." ".$LevelToDo))."</font></a>" : "<font color=\"#FF0000\">".$LNG['bd_research'].(($LevelToDo == 1) ? "" : "<br>".$LNG['bd_lvl']." ".$LevelToDo)."</font>";
-
+				$TechnoLink = $CanBeDone && $bContinue && $CONF['max_elements_tech'] != count($TechQueue) ? "<a href=\"game.php?page=buildings&amp;mode=research&amp;cmd=insert&amp;tech=".$Element."\"><font color=\"#00FF00\">".(($USER['b_tech_id'] != 0) ? $LNG['bd_add_to_list'] : $LNG['bd_research'].(($LevelToDo == 1) ? "" : "<br>".$LNG['bd_lvl']." ".$LevelToDo))."</font></a>" : "<font color=\"#FF0000\">".$LNG['bd_research'].(($LevelToDo == 1) ? "" : "<br>".$LNG['bd_lvl']." ".$LevelToDo)."</font>";
 				if($USER['b_tech_id'] != 0) {
 					$template->loadscript('researchlist.js');
 					$template->execscript('ReBuildView();Techlist();');

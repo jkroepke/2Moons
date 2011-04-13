@@ -130,7 +130,7 @@ class ShowShipyardPage
 			$Count 			= max(min($Count, $CONF['max_fleet_per_build']), 0);
 			$MaxElements 	= $this->GetMaxConstructibleElements($Element);
 			$Count 			= min($Count, $MaxElements);
-			$BuildArray    	= unserialize($PLANET['b_hangar_id']);
+			$BuildArray    	= !empty($PLANET['b_hangar_id']) ? unserialize($PLANET['b_hangar_id']) : array();
 			
 			if ($Element == 502 || $Element == 503)
 			{
@@ -177,7 +177,7 @@ class ShowShipyardPage
 				$Count = 2 * $Count;
 
 			$BuildArray[]			= array($Element, floattostring($Count));
-			$PLANET['b_hangar_id']	= unserialize($BuildArray);
+			$PLANET['b_hangar_id']	= serialize($BuildArray);
 		}
 	}
 	
@@ -251,6 +251,7 @@ class ShowShipyardPage
 		
 		$Buildlist	= array();
 		
+		$ElementQueue 	= unserialize($PLANET['b_hangar_id']);
 		if(!empty($ElementQueue))
 		{
 			$Shipyard		= array();
@@ -260,9 +261,9 @@ class ShowShipyardPage
 				if (empty($Element))
 					continue;
 					
-				$ElementTime  	= GetBuildingTime( $USER, $PLANET, $Element[0]);
+				$ElementTime  	= GetBuildingTime($USER, $PLANET, $Element[0]);
 				$QueueTime   	+= $ElementTime * $Element[1];
-				$Shipyard[]		= array($LNG['tech'][$Element[0]], $Element[1], $ElementTime);		
+				$Shipyard[]		= array($LNG['tech'][$Element[0]], $Element[1], $ElementTime, $Element[0]);		
 			}
 
 			$template->loadscript('bcmath.js');
@@ -363,7 +364,8 @@ class ShowShipyardPage
 			);
 		}
 		
-		$Buildlist	= array();
+		$ElementQueue 	= unserialize($PLANET['b_hangar_id']);
+		$Buildlist		= array();
 		if(!empty($ElementQueue))
 		{
 			$Shipyard		= array();
@@ -375,7 +377,7 @@ class ShowShipyardPage
 					
 				$ElementTime  	= GetBuildingTime( $USER, $PLANET, $Element[0]);
 				$QueueTime   	+= $ElementTime * $Element[1];
-				$Shipyard[]		= array($LNG['tech'][$Element[0]], $Element[1], $ElementTime);		
+				$Shipyard[]		= array($LNG['tech'][$Element[0]], $Element[1], $ElementTime, $Element[0]);		
 			}
 
 			$template->loadscript('bcmath.js');

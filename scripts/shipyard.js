@@ -18,11 +18,15 @@ function BuildlistShipyard() {
 	var h = 0;
 	if (s <= 0) {
 		Amount.sub('1');
+		$('#val_'+Shipyard[0][3]).text(function(i, old){
+			return ' ('+bd_available+NumberGetHumanReadable(parseInt(old.replace(/.* (.*)\)/, '$1'))+1)+')';
+		})
 		if (Amount.toString() == '0') {
 			Shipyard.shift();
 			if (Shipyard.length == 0) {
 				element.html(Ready);
 				document.getElementById('auftr').options[0] = new Option(Ready);
+				document.location.href	= document.location.href;
 				return;
 			}
 			Amount = Amount.reset(Shipyard[0][1]);
