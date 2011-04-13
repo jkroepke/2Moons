@@ -233,7 +233,7 @@ class ShowResearchPage
 		$ListIDRow		= "";
 		$ScriptData		= array();
 		
-		foreach($CurrentQueue as $BuildArray)
+		foreach($CurrentQueue as $BuildArray) {
 			if ($BuildArray[3] < TIMESTAMP)
 				continue;
 			

@@ -210,7 +210,7 @@ class ShowShipyardPage
 		{
 			$CurrentQueue 	= unserialize($PLANET['b_building_id']);
 			foreach($CurrentQueue as $ElementArray) {
-				if($ElementArray][0] == 21 || $ElementArray[0] == 15) {
+				if($ElementArray[0] == 21 || $ElementArray[0] == 15) {
 					$NotBuilding = false;
 					break;
 				}
@@ -251,7 +251,7 @@ class ShowShipyardPage
 		
 		$Buildlist	= array();
 		
-		if(!empty(ElementQueue))
+		if(!empty($ElementQueue))
 		{
 			$Shipyard		= array();
 			$QueueTime		= 0;
@@ -322,7 +322,7 @@ class ShowShipyardPage
 		{
 			$CurrentQueue 	= unserialize($PLANET['b_building_id']);
 			foreach($CurrentQueue as $ElementArray) {
-				if($ElementArray][0] == 21 || $ElementArray[0] == 15) {
+				if($ElementArray[0] == 21 || $ElementArray[0] == 15) {
 					$NotBuilding = false;
 					break;
 				}
