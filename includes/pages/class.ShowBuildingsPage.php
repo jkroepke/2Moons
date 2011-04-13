@@ -60,7 +60,7 @@ class ShowBuildingsPage
 	private function CancelBuildingFromQueue($PlanetRess)
 	{
 		global $PLANET, $USER;
-		$CurrentQueue  = $PLANET['b_building_id'];
+		$CurrentQueue  = unserialize($PLANET['b_building_id']);
 		if (empty($CurrentQueue))
 		{
 			$PLANET['b_building_id']	= '';
@@ -68,14 +68,10 @@ class ShowBuildingsPage
 			return;
 		}
 	
-		$QueueArray          = explode ( ";", $CurrentQueue );
-		$ActualCount         = count ( $QueueArray );
-		$CanceledIDArray     = explode ( ",", $QueueArray[0] );
-		$Element             = $CanceledIDArray[0];
-		$BuildMode           = $CanceledIDArray[4];
+		$Element             	= $CurrentQueue[0][0];
+		$BuildMode          	= $CurrentQueue[0][4];
 		
-		$ForDestroy 			 = ($BuildMode == 'destroy') ? true : false;
-		$Needed                  = GetBuildingPrice ($USER, $PLANET, $Element, true, $ForDestroy);
+		$Needed                 = GetBuildingPrice ($USER, $PLANET, $Element, true, $BuildMode == 'destroy');
 		$PLANET['metal']		+= $Needed['metal'];
 		$PLANET['crystal']		+= $Needed['crystal'];
 		$PLANET['deuterium']	+= $Needed['deuterium'];
@@ -86,16 +82,13 @@ class ShowBuildingsPage
 			$PLANET['b_building_id'] 	= '';
 		} else {
 			$BuildEndTime	= TIMESTAMP;
-			foreach($QueueArray as $ID => $Elements)
-			{
-				$ListIDArray        = explode(',', $Elements);
+			foreach($QueueArray as $ListIDArray) {
 				$BuildEndTime       += GetBuildingTime($USER, $PLANET, $ListIDArray[0], $ListIDArray[4] == 'destroy');
 				$ListIDArray[3]		= $BuildEndTime;
-				$NewQueueArray[]	= implode(',', $ListIDArray);					
+				$NewQueueArray[]	= $ListIDArray;					
 			}
-			$BuildArray   				= explode (",", $NewQueueArray[0]);
 			$PLANET['b_building']    	= TIMESTAMP;
-			$PLANET['b_building_id'] 	= implode(";", $NewQueueArray);
+			$PLANET['b_building_id'] 	= serialize($NewQueueArray);
 			$PlanetRess->USER			= $USER;
 			$PlanetRess->PLANET			= $PLANET;
 			$PlanetRess->SetNextQueueElementOnTop();
@@ -112,47 +105,43 @@ class ShowBuildingsPage
 		if ($QueueID <= 1 || empty($PLANET['b_building_id']))
 			return;
 		
-		$CurrentQueue  = $PLANET['b_building_id'];
-
-		$QueueArray    = explode ( ";", $CurrentQueue );
-		$ActualCount   = count ( $QueueArray );
+		$CurrentQueue  = unserialize($PLANET['b_building_id']);
+		$ActualCount   = count($CurrentQueue);
 		if($ActualCount <= 1)
 			return $this->CancelBuildingFromQueue($PlanetRess);
 				
-		$ListIDArray   = explode ( ",", $QueueArray[$QueueID - 2] );
-		$BuildEndTime  = $ListIDArray[3];
-		for ($ID = $QueueID; $ID < $ActualCount; $ID++ )
+		$BuildEndTime  = $CurrentQueue[$QueueID - 2][3];
+		unset($CurrentQueue[$QueueID - 1]);
+		$NewQueueArray	= array();
+		foreach($CurrentQueue as $ID => $ListIDArray)
 		{
-			$ListIDArray          = explode ( ",", $QueueArray[$ID] );
-			$BuildEndTime        += GetBuildingTime($USER, $PLANET, $ListIDArray[0], $ListIDArray[4] == 'destroy');
-			$ListIDArray[3]       = $BuildEndTime;
-			$QueueArray[$ID - 1]  = implode ( ",", $ListIDArray );
+			if ($ID < $QueueID - 1) {
+				$NewQueueArray[]	= $ListIDArray;
+			} else {
+				$BuildEndTime       += GetBuildingTime($USER, $CPLANET, $ListIDArray[0]);
+				$ListIDArray[3]		= $BuildEndTime;
+				$NewQueueArray[]	= $ListIDArray;				
+			}
 		}
-		unset ($QueueArray[$ActualCount - 1]);
-		$NewQueue     = implode ( ";", $QueueArray );
-		$PLANET['b_building_id'] = $NewQueue;
+		$PLANET['b_building_id'] = serialize($NewQueueArray);
 	}
 
 	private function AddBuildingToQueue ($Element, $AddMode = true)
 	{
 		global $PLANET, $USER, $resource, $CONF;
 			
-		$CurrentQueue  		= $PLANET['b_building_id'];
+		$CurrentQueue  		= unserialize($PLANET['b_building_id']);
 
-		if (!empty($CurrentQueue))
-		{
-			$QueueArray    = explode( ";", $CurrentQueue);
-			$ActualCount   = count($QueueArray);
-		}
-		else
-		{
-			$QueueArray    = array();
-			$ActualCount   = 0;
+		if (!empty($CurrentQueue)) {
+			$CurrentQueue	= count($QueueArray);
+		} else {
+			$CurrentQueue	= array();
+			$ActualCount	= 0;
 		}
 		
 		$CurrentMaxFields  	= CalculateMaxPlanetFields($PLANET);
 		
-		if (($ActualCount == $CONF['max_elements_build']) || ($PLANET["field_current"] >= ($CurrentMaxFields - $ActualCount) && $_GET['cmd'] != 'destroy'))
+		if (($ActualCount == $CONF['max_elements_build']) || ($PLANET["field_current"] >= ($CurrentMaxFields - $ActualCount) && $AddMode))
 			return;
 	
 		if ($AddMode == true) {
@@ -176,22 +165,25 @@ class ShowBuildingsPage
 			$PLANET['deuterium']		-= $Resses['deuterium'];
 			$USER['darkmatter']			-= $Resses['darkmatter'];
 			$BuildEndTime				= TIMESTAMP + $BuildTime;
-			$PLANET['b_building_id']	= $Element .",". $BuildLevel .",". $BuildTime .",". $BuildEndTime .",". $BuildMode;
+			$PLANET['b_building_id']	= serialize(array($Element, $BuildLevel, $BuildTime, $BuildEndTime, $Mode));
 			$PLANET['b_building']		= $BuildEndTime;
 		} else {
 			$InArray = 0;
-			foreach($QueueArray as $QueueSub)
+			foreach($QueueArray as $QueueSubArray)
 			{
-				$QueueSubArray = explode ( ",",$QueueSub);
-				($QueueSubArray[0] == $Element) ? (($QueueSubArray[4] == 'build') ? $InArray++ : $InArray--): '';
+				if($QueueSubArray[0] == $Element) {
+					if($QueueSubArray[4] == 'build')
+						$InArray++;
+					else
+						$InArray--;
+				}
 			}
-			$PLANET[$resource[$Element]] += $InArray;
-			$BuildTime  	= GetBuildingTime($USER, $PLANET, $Element, !$AddMode);
-			$PLANET[$resource[$Element]] -= $InArray;
-			$LastQueue 		= explode( ",",$QueueArray[$ActualCount - 1]);
-			$BuildEndTime	= $LastQueue[3] + $BuildTime;
-			$BuildLevel		+= $InArray;
-			$PLANET['b_building_id']	 = $CurrentQueue.";".$Element .",". $BuildLevel .",". $BuildTime .",". $BuildEndTime .",". $BuildMode;
+			$PLANET[$resource[$Element]] += $InArray + 1;
+			$BuildTime  				= GetBuildingTime($USER, $PLANET, $Element, !$AddMode);
+			$PLANET[$resource[$Element]] -= $InArray + 1;
+			$BuildEndTime				= $QueueArray[$ActualCount - 1][3] + $BuildTime;
+			$BuildLevel					+= $InArray;
+			$PLANET['b_building_id']	= serialize(array_push($CurrentQueue, array($Element, $BuildLevel, $BuildTime, $BuildEndTime, $BuildMode)));
 		}
 	}
 
@@ -203,15 +195,10 @@ class ShowBuildingsPage
 			return array();
 		
 		$CurrentQueue   = $PLANET['b_building_id'];
-		$QueueArray   	= explode(";", $CurrentQueue);
-		$ActualCount  	= count($QueueArray);
 
 		$ListIDRow		= "";
 		$ScriptData		= array();
-		
-		for ($QueueID = 0; $QueueID < $ActualCount; $QueueID++)
-		{
-			$BuildArray   = explode (",", $QueueArray[$QueueID]);
+		foreach($CurrentQueue as $BuildArray) {
 			if ($BuildArray[3] < TIMESTAMP)
 				continue;
 
@@ -257,12 +244,9 @@ class ShowBuildingsPage
 		}
 		$PlanetRess->SavePlanetToDB();
 
-		$Queue	 = $this->ShowBuildingQueue();
-
-		$template	= new template();
+		$Queue	 			= $this->ShowBuildingQueue();
 		
 		$CanBuildElement 	= (count($Queue) < $CONF['max_elements_build']) ? true : false;
-		$BuildingPage       = "";
 		$CurrentMaxFields   = CalculateMaxPlanetFields($PLANET);
 		$RoomIsOk 			= ($PLANET["field_current"] < ($CurrentMaxFields - count($Queue))) ? true : false;
 				
@@ -315,6 +299,8 @@ class ShowBuildingsPage
 			);
 		}
 
+		$template			= new template();
+		
 		if ($PLANET['b_building'] != 0)
 		{
 			$template->execscript('ReBuildView();Buildlist();');

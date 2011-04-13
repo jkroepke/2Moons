@@ -65,26 +65,27 @@ class ShowShipyardPage
 	private function CancelAuftr($CancelArray) 
 	{
 		global $USER, $PLANET;
-		$ElementQueue = explode(';', $PLANET['b_hangar_id']);
+		$ElementQueue = unserialize($PLANET['b_hangar_id']);
 		foreach ($CancelArray as $ID => $Auftr)
 		{
 			if($Auftr == 0)
 				$PLANET['b_hangar']	= 0;
 				
-			$ElementQ	= explode(',', $ElementQueue[$Auftr]);
+			$ElementQ	= $ElementQueue[$Auftr];
 			$Element	= $ElementQ[0];
 			$Count		= $ElementQ[1];
 			
-			if ($Element == 214 && $USER['rpg_destructeur'] == 1) $Count = $Count / 2;
+			if ($Element == 214 && $USER['rpg_destructeur'] == 1)
+				$Count = $Count / 2;
 			
-			$Resses		= $this->GetElementRessources($Element, $Count);
+			$Resses					= $this->GetElementRessources($Element, $Count);
 			$PLANET['metal']		+= $Resses['metal']			* 0.6;
 			$PLANET['crystal']		+= $Resses['crystal']		* 0.6;
 			$PLANET['deuterium']	+= $Resses['deuterium']		* 0.6;
 			$USER['darkmatter']		+= $Resses['darkmatter']	* 0.6;
 			unset($ElementQueue[$Auftr]);
 		}
-		$PLANET['b_hangar_id']	= implode(';', $ElementQueue);
+		$PLANET['b_hangar_id']	= serialize(array_values($ElementQueue));
 	}
 	
 	private function GetRestPrice($Element, $Factor = true)
@@ -129,20 +130,18 @@ class ShowShipyardPage
 			$Count 			= max(min($Count, $CONF['max_fleet_per_build']), 0);
 			$MaxElements 	= $this->GetMaxConstructibleElements($Element);
 			$Count 			= min($Count, $MaxElements);
-
+			$BuildArray    	= unserialize($PLANET['b_hangar_id']);
+			
 			if ($Element == 502 || $Element == 503)
 			{
 				$Missiles	 		= array();
 				$Missiles[502]		= $PLANET[$resource[502]];
 				$Missiles[503]		= $PLANET[$resource[503]];
 				$MaxMissiles   		= $PLANET[$resource[44]] * $CONF['silo_factor'];
-				$BuildArray    		= explode(";", $PLANET['b_hangar_id']);
 
-				for ($QElement = 0; $QElement < count($BuildArray); $QElement++)
-				{
-					$ElmentArray = explode(",", $BuildArray[$QElement]);
-					if(isset($Missiles[$ElmentArray[0]]))
-						$Missiles[$ElmentArray[0]] += $ElmentArray[1];
+				foreach($BuildArray as $ElementArray) {
+					if(isset($Missiles[$ElementArray[0]]))
+						$Missiles[$ElementArray[0]] += $ElementArray[1];
 				}
 				
 				$ActuMissiles  = $Missiles[502] + (2 * $Missiles[503]);
@@ -155,22 +154,30 @@ class ShowShipyardPage
 
 				$Missiles[$Element] += $Count;
 			} elseif(in_array($Element, $reslist['one'])) {
-				$Count 		= ($PLANET[$resource[$Element]] == 0 && strpos($PLANET['b_hangar_id'], $Element.',') === false) ? 1 : 0;
+				$InBuild	= false;
+				foreach($BuildArray as $ElementArray) {
+					if($ElementArray[1] == $Element) {
+						$InBuild	= true;
+						break;
+					}
+				}
+				$Count 		= ($PLANET[$resource[$Element]] == 0 && $InBuild === false) ? 1 : 0;
 			}
 
 			if(empty($Count))
 				continue;
 				
-			$Ressource 	 	= $this->GetElementRessources($Element, $Count);
-			$PLANET['metal']	 -= $Ressource['metal'];
-			$PLANET['crystal']   -= $Ressource['crystal'];
-			$PLANET['deuterium'] -= $Ressource['deuterium'];
-			$USER['darkmatter']  -= $Ressource['darkmatter'];
+			$Ressource 	 			= $this->GetElementRessources($Element, $Count);
+			$PLANET['metal']	 	-= $Ressource['metal'];
+			$PLANET['crystal']   	-= $Ressource['crystal'];
+			$PLANET['deuterium'] 	-= $Ressource['deuterium'];
+			$USER['darkmatter']  	-= $Ressource['darkmatter'];
 
 			if ($Element == 214 && $USER['rpg_destructeur'] == 1)
 				$Count = 2 * $Count;
 
-			$PLANET['b_hangar_id']    .= $Element.','.floattostring($Count).';';
+			$BuildArray[]			= array($Element, floattostring($Count));
+			$PLANET['b_hangar_id']	= unserialize($BuildArray);
 		}
 	}
 	
@@ -201,29 +208,27 @@ class ShowShipyardPage
 
 		if (!empty($PLANET['b_building_id']))
 		{
-			$CurrentQueue = $PLANET['b_building_id'];
-			$QueueArray		= explode (";", $CurrentQueue);
-
-			for($i = 0; $i < count($QueueArray); $i++)
-			{
-				$ListIDArray	= explode (",", $QueueArray[$i]);
-				if($ListIDArray[0] == 21 || $ListIDArray[0] == 15) {
+			$CurrentQueue 	= unserialize($PLANET['b_building_id']);
+			foreach($CurrentQueue as $ElementArray) {
+				if($ElementArray][0] == 21 || $ElementArray[0] == 15) {
 					$NotBuilding = false;
 					break;
 				}
 			}
 		}
 		
-		if (!empty($fmenge) && $NotBuilding == true && $USER['urlaubs_modus'] == 0) {
-			if (count(explode(";",$PLANET['b_hangar_id'])) - 1 >= $CONF['max_elements_ships']) {
-				$template->message(sprintf($LNG['bd_max_builds'], $CONF['max_elements_ships']), "?page=buildings&mode=fleet", 3);
-				exit;
+		$ElementQueue 	= unserialize($PLANET['b_hangar_id']);
+		if($USER['urlaubs_modus'] == 0) {
+			if (!empty($fmenge) && $NotBuilding == true) {
+				if (count($ElementQueue) >= $CONF['max_elements_ships']) {
+					$template->message(sprintf($LNG['bd_max_builds'], $CONF['max_elements_ships']), "?page=buildings&mode=fleet", 3);
+					exit;
+				}
+				$this->BuildAuftr($fmenge);
 			}
-			$this->BuildAuftr($fmenge);
+			if ($action == "delete" && is_array($cancel))
+				$this->CancelAuftr($cancel);
 		}
-		if ($action == "delete" && is_array($cancel) && $USER['urlaubs_modus'] == 0)
-			$this->CancelAuftr($cancel);
-
 		$PlanetRess->SavePlanetToDB();
 				
 		foreach($reslist['fleet'] as $Element)
@@ -246,17 +251,15 @@ class ShowShipyardPage
 		
 		$Buildlist	= array();
 		
-		if(!empty($PLANET['b_hangar_id']))
+		if(!empty(ElementQueue))
 		{
-			$ElementQueue 	= explode(';', $PLANET['b_hangar_id']);
 			$Shipyard		= array();
 			$QueueTime		= 0;
-			foreach($ElementQueue as $ElementLine => $Element)
+			foreach($ElementQueue as $Element)
 			{
 				if (empty($Element))
 					continue;
 					
-				$Element 		= explode(',', $Element);
 				$ElementTime  	= GetBuildingTime( $USER, $PLANET, $Element[0]);
 				$QueueTime   	+= $ElementTime * $Element[1];
 				$Shipyard[]		= array($LNG['tech'][$Element[0]], $Element[1], $ElementTime);		
@@ -315,36 +318,30 @@ class ShowShipyardPage
 		$action	= request_var('action', '');
 								
 		$NotBuilding = true;
-
 		if (!empty($PLANET['b_building_id']))
 		{
-			$CurrentQueue 	= $PLANET['b_building_id'];
-			$QueueArray		= explode (";", $CurrentQueue);
-
-			for($i = 0; $i < count($QueueArray); $i++)
-			{
-				$ListIDArray	= explode (",", $QueueArray[$i]);
-				if($ListIDArray[0] == 21 || $ListIDArray[0] == 15) {
+			$CurrentQueue 	= unserialize($PLANET['b_building_id']);
+			foreach($CurrentQueue as $ElementArray) {
+				if($ElementArray][0] == 21 || $ElementArray[0] == 15) {
 					$NotBuilding = false;
 					break;
 				}
 			}
 		}
 		
-		if (isset($fmenge) && $NotBuilding == true && $USER['urlaubs_modus'] == 0)
-		{	
-			$ebuild = explode(";",$PLANET['b_hangar_id']);
-			if (count($ebuild) - 1 >= $CONF['max_elements_ships'])
-			{
-				$template->message(sprintf($LNG['bd_max_builds'], $CONF['max_elements_ships']), "?page=buildings&mode=fleet", 3);
-				exit;
+		$ElementQueue 	= unserialize($PLANET['b_hangar_id']);
+		if($USER['urlaubs_modus'] == 0) {
+			if (!empty($fmenge) && $NotBuilding == true) {
+				if (count($ElementQueue) >= $CONF['max_elements_ships']) {
+					$template->message(sprintf($LNG['bd_max_builds'], $CONF['max_elements_ships']), "?page=buildings&mode=defense", 3);
+					exit;
+				}
+				$this->BuildAuftr($fmenge);
 			}
-			$this->BuildAuftr($fmenge);
+					
+			if ($action == "delete" && is_array($cancel) && $USER['urlaubs_modus'] == 0)
+				$this->CancelAuftr($cancel);
 		}
-				
-		if ($action == "delete" && is_array($cancel) && $USER['urlaubs_modus'] == 0)
-			$this->CancelAuftr($cancel);
-
 		$PlanetRess->SavePlanetToDB();
 		
 		foreach($reslist['defense'] as $Element)
@@ -367,17 +364,15 @@ class ShowShipyardPage
 		}
 		
 		$Buildlist	= array();
-		if(!empty($PLANET['b_hangar_id']))
+		if(!empty($ElementQueue))
 		{
-			$ElementQueue 	= explode(';', $PLANET['b_hangar_id']);
 			$Shipyard		= array();
 			$QueueTime		= 0;
-			foreach($ElementQueue as $ElementLine => $Element)
+			foreach($ElementQueue as $Element)
 			{
 				if (empty($Element))
 					continue;
 					
-				$Element 		= explode(',', $Element);
 				$ElementTime  	= GetBuildingTime( $USER, $PLANET, $Element[0]);
 				$QueueTime   	+= $ElementTime * $Element[1];
 				$Shipyard[]		= array($LNG['tech'][$Element[0]], $Element[1], $ElementTime);		

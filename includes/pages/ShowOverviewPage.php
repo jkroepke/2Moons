@@ -68,9 +68,8 @@ function ShowOverviewPage()
 			continue;
 
 		if (!empty($CPLANET['b_building']) && $CPLANET['b_building'] > TIMESTAMP) {
-			$Queue				= explode(';', $CPLANET['b_building_id']);
-			$CurrBuild			= explode(',', $Queue[0]);
-			$BuildPlanet		= $LNG['tech'][$CurrBuild[0]]." (".$CurrBuild[1].")<br><span style=\"color:#7F7F7F;\">(".pretty_time($CurrBuild[3] - TIMESTAMP).")</span>";
+			$Queue				= unserialize($CPLANET['b_building_id']);
+			$BuildPlanet		= $LNG['tech'][$Queue[0][0]]." (".$Queue[0][1].")<br><span style=\"color:#7F7F7F;\">(".pretty_time($Queue[0][3] - TIMESTAMP).")</span>";
 		} else {
 			$BuildPlanet     = $LNG['ov_free'];
 		}
@@ -88,11 +87,9 @@ function ShowOverviewPage()
 		$Moon = $db->uniquequery("SELECT `id`, `name` FROM ".PLANETS." WHERE `id` = '".$PLANET['id_luna']."';");
 	}
 
-	if (!empty($PLANET['b_building']))
-	{
-		$Queue		= explode(';', $PLANET['b_building_id']);
-		$CurrBuild	= explode(',', $Queue[0]);
-		$Build		= $LNG['tech'][$CurrBuild[0]].' ('.$CurrBuild[1].')<br><div id="blc">"'.pretty_time($PLANET['b_building'] - TIMESTAMP).'</div>';
+	if (!empty($PLANET['b_building'])) {
+		$Queue		= unserialize($CPLANET['b_building_id']);
+		$Build		= $LNG['tech'][$Queue[0][0]].' ('.$Queue[0][1].')<br><div id="blc">"'.pretty_time($PLANET['b_building'] - TIMESTAMP).'</div>';
 		$template->execscript('BuildTime();');
 	}
 	else

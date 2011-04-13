@@ -31,13 +31,11 @@ class ShowResearchPage
 	private function CheckLabSettingsInQueue()
 	{
 		global $PLANET, $CONF;
-		if ($PLANET['b_building_id'] == 0)
+		if ($PLANET['b_building'] == 0)
 			return true;
 			
-		$QueueArray		= explode (";", $PLANET['b_building_id']);
-
-		for($i = 0; $i < $CONF['max_elements_build']; $i++)	{
-			$ListIDArray	= explode (",", $QueueArray[$i]);
+		$QueueArray		= unserialize($PLANET['b_building_id']);
+		foreach($QueueArray as $ListIDArray) {
 			if($ListIDArray[0] == 6 || $ListIDArray[0] == 31)
 				return false;
 		}
@@ -75,7 +73,7 @@ class ShowResearchPage
 	private function CancelBuildingFromQueue($PlanetRess)
 	{
 		global $PLANET, $USER, $db, $resource;
-		$CurrentQueue  = $USER['b_tech_queue'];
+		$CurrentQueue  = unserialize($PLANET['b_tech_queue']);
 		if (empty($CurrentQueue) || empty($USER['b_tech']))
 		{
 			$USER['b_tech_queue']	= '';
@@ -101,9 +99,8 @@ class ShowResearchPage
 		$USER['b_tech_planet']		= 0;
 	
 	
-		$QueueArray          = explode ( ";", $CurrentQueue );
-		$ActualCount         = count ( $QueueArray );
-		$CanceledIDArray     = explode ( ",", $QueueArray[0] );
+		$ActualCount         = count($CurrentQueue);
+		$CanceledIDArray     = $QueueArray[0];
 
 		array_shift($QueueArray);
 		if (count($QueueArray) == 0) {
@@ -113,9 +110,9 @@ class ShowResearchPage
 			$USER['b_tech']			= 0;
 		} else {
 			$BuildEndTime	= TIMESTAMP;
-			foreach($QueueArray as $ID => $Elements)
+			$NewQueueArray	= array();
+			foreach($QueueArray as $ListIDArray)
 			{
-				$ListIDArray        = explode(',', $Elements);
 				if($ListIDArray[4] != $PLANET['id'])
 					$CPLANET		= $db->uniquequery("SELECT `".$resource[6]."`, `".$resource[31]."` FROM ".PLANETS." WHERE `id` = '".$ListIDArray[4]."';");
 				else
@@ -124,12 +121,11 @@ class ShowResearchPage
 				$CPLANET[$resource[31].'_inter']	= $PlanetRess->CheckAndGetLabLevel($USER, $CPLANET);
 				$BuildEndTime       += GetBuildingTime($USER, $CPLANET, $ListIDArray[0]);
 				$ListIDArray[3]		= $BuildEndTime;
-				$NewQueueArray[]	= implode(',', $ListIDArray);				
+				$NewQueueArray[]	= $ListIDArray;				
 			}
 			
-			$BuildArray   				= explode (",", $NewQueueArray[0]);
 			$USER['b_tech']    			= TIMESTAMP;
-			$USER['b_tech_queue'] 		= implode(";", $NewQueueArray);
+			$USER['b_tech_queue'] 		= serialize($NewQueueArray);
 			$PlanetRess->USER			= $USER;
 			$PlanetRess->PLANET			= $PLANET;
 			$PlanetRess->SetNextQueueTechOnTop();
@@ -143,48 +139,50 @@ class ShowResearchPage
 	private function RemoveBuildingFromQueue($QueueID, $PlanetRess)
 	{
 		global $USER, $PLANET;
-		if ($QueueID <= 1 || empty($USER['b_tech_queue']))
+		
+		$CurrentQueue  = unserialize($PLANET['b_tech_queue']);
+		if ($QueueID <= 1 || empty($CurrentQueue))
 			return;
-		$CurrentQueue  = $USER['b_tech_queue'];
-
-		$QueueArray    = explode(";", $CurrentQueue);
-		$ActualCount   = count($QueueArray);
-		if($ActualCount <= 1)
+			
+		$ActualCount   = count($CurrentQueue);
+		if ($ActualCount <= 1)
 			return $this->CancelBuildingFromQueue($PlanetRess);
-				
-		$ListIDArray   = explode( ",", $QueueArray[$QueueID - 2]);
-		$BuildEndTime  = $ListIDArray[3];
-		for ($ID = $QueueID; $ID < $ActualCount; $ID++ )
+
+		$BuildEndTime  = $CurrentQueue[$QueueID - 2][3];
+		unset($CurrentQueue[$QueueID - 1]);
+		$NewQueueArray	= array();
+		foreach($CurrentQueue as $ID => $ListIDArray)
 		{
-			$ListIDArray         		= explode ( ",", $QueueArray[$ID] );
-			if($ListIDArray[4] != $PLANET['id'])
-				$CPLANET				= $db->uniquequery("SELECT `".$resource[6]."`, `".$resource[31]."` FROM ".PLANETS." WHERE `id` = '".$ListIDArray[4].";");
-			else
-				$CPLANET				= $PLANET;
-			
-			$CPLANET[$resource[31].'_inter']	= $PlanetRess->CheckAndGetLabLevel($USER, $CPLANET);
-			
-			$BuildEndTime        		+= GetBuildingTime($USER, $CPLANET, $ListIDArray[0]);
-			$ListIDArray[3]       		= $BuildEndTime;
-			$QueueArray[$ID - 1]  		= implode ( ",", $ListIDArray );
+			if ($ID < $QueueID - 1) {
+				$NewQueueArray[]	= $ListIDArray;
+			} else {
+				if($ListIDArray[4] != $PLANET['id'])
+					$CPLANET				= $db->uniquequery("SELECT `".$resource[6]."`, `".$resource[31]."` FROM ".PLANETS." WHERE `id` = '".$ListIDArray[4].";");
+				else
+					$CPLANET				= $PLANET;
+				
+				$CPLANET[$resource[31].'_inter']	= $PlanetRess->CheckAndGetLabLevel($USER, $CPLANET);
+				
+				$BuildEndTime       += GetBuildingTime($USER, $CPLANET, $ListIDArray[0]);
+				$ListIDArray[3]		= $BuildEndTime;
+				$NewQueueArray[]	= $ListIDArray;				
+			}
 		}
-		unset($QueueArray[$ActualCount - 1]);
-		$NewQueue     = implode ( ";", $QueueArray );
-		$USER['b_tech_queue'] = $NewQueue;
+		
+		$USER['b_tech_queue'] = serialize($NewQueueArray);
 	}
 
 	private function AddBuildingToQueue($Element, $AddMode = true)
 	{
 		global $PLANET, $USER, $resource, $CONF;
 			
-		$CurrentQueue  		= $USER['b_tech_queue'];
-
+		$CurrentQueue  		= unserialize($USER['b_tech_queue']);
+		
 		if (!empty($CurrentQueue)) {
-			$QueueArray    = explode( ";", $CurrentQueue);
-			$ActualCount   = count($QueueArray);
+			$ActualCount   	= count($CurrentQueue);
 		} else {
-			$QueueArray    = array();
-			$ActualCount   = 0;
+			$CurrentQueue  	= array();
+			$ActualCount   	= 0;
 		}
 				
 		if($CONF['max_elements_tech'] <= $ActualCount)
@@ -204,25 +202,22 @@ class ShowResearchPage
 			$PLANET['deuterium']		-= $Resses['deuterium'];
 			$USER['darkmatter']			-= $Resses['darkmatter'];
 			$BuildEndTime				= TIMESTAMP + $BuildTime;
-			$USER['b_tech_queue']		= $Element .",". $BuildLevel .",". $BuildTime .",". $BuildEndTime .",".$PLANET['id'];
+			$USER['b_tech_queue']		= serialize(array($Element, $BuildLevel, $BuildTime, $BuildEndTime, $PLANET['id']));
 			$USER['b_tech']				= $BuildEndTime;
 			$USER['b_tech_id']			= $Element;
 			$USER['b_tech_planet']		= $PLANET['id'];
 		} else {
 			$InArray = 0;
-			foreach($QueueArray as $QueueSub)
-			{
-				$QueueSubArray = explode ( ",",$QueueSub);
+			foreach($CurrentQueue as $QueueSubArray) {
 				if($QueueSubArray[0] == $Element) 
 					$InArray++;
 			}
-			$USER[$resource[$Element]] += $InArray;
+			$USER[$resource[$Element]] += $InArray + 1;
 			$BuildTime  				= GetBuildingTime($USER, $PLANET, $Element);
-			$USER[$resource[$Element]] -= $InArray;
-			$LastQueue 					= explode( ",",$QueueArray[$ActualCount - 1]);
-			$BuildEndTime				= $LastQueue[3] + $BuildTime;
+			$USER[$resource[$Element]] -= $InArray + 1;
+			$BuildEndTime				= $CurrentQueue[$ActualCount - 1][3] + $BuildTime;
 			$BuildLevel					+= $InArray;
-			$USER['b_tech_queue']		= $CurrentQueue.";".$Element .",". $BuildLevel .",". $BuildTime .",". $BuildEndTime .",".$PLANET['id'];
+			$USER['b_tech_queue']		= serialize(array_push($CurrentQueue, array($Element, $BuildLevel, $BuildTime, $BuildEndTime, $PLANET['id'])));
 		}
 	}
 
@@ -233,16 +228,12 @@ class ShowResearchPage
 		if ($USER['b_tech'] == 0)
 			return array();
 		
-		$CurrentQueue   = $USER['b_tech_queue'];
-		$QueueArray   	= explode(";", $CurrentQueue);
-		$ActualCount  	= count($QueueArray);
+		$CurrentQueue   = unserialize($USER['b_tech_queue']);
 
 		$ListIDRow		= "";
 		$ScriptData		= array();
 		
-		for ($QueueID = 0; $QueueID < $ActualCount; $QueueID++)
-		{
-			$BuildArray   = explode (",", $QueueArray[$QueueID]);
+		foreach($CurrentQueue as $BuildArray)
 			if ($BuildArray[3] < TIMESTAMP)
 				continue;
 			
