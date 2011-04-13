@@ -201,6 +201,7 @@ class ResourceUpdate
 		{
 			$Element   = $Item[0];
 			$Count     = $Item[1];
+
 			if($Done == false) {
 				$BuildTime = $Item[2];
 				$Element   = (int)$Element;
@@ -209,29 +210,31 @@ class ResourceUpdate
 					$this->PLANET[$resource[$Element]]	+= $Count;
 					continue;					
 				}
-				if(!isset($this->Builded[$Element]))
-					$this->Builded[$Element] = 0;
 				
-				$this->Builded[$Element]	= min(floor($this->PLANET['b_hangar'] / $BuildTime), $Count);
+				$Build			= max(min(floor($this->PLANET['b_hangar'] / $BuildTime), $Count), 0);
 
-				if($this->Builded[$Element] == 0)
-				{
-					$this->PLANET['b_hangar_id'] 	.= $Element.",".$Count.";";
+				if($Build == 0) {
+					$NewQueue[]	= array($Element, $Count);
+					$Done		= true;
 					continue;
 				}
 				
-				$this->PLANET['b_hangar']			-= $this->Builded[$Element] * $BuildTime;
-				$this->PLANET[$resource[$Element]]	+= $this->Builded[$Element];
-				$Count								-= $this->Builded[$Element];						
+				if(!isset($this->Builded[$Element]))
+					$this->Builded[$Element] = 0;
+				
+				$this->Builded[$Element]			+= $Build;
+				$this->PLANET['b_hangar']			-= $Build * $BuildTime;
+				$this->PLANET[$resource[$Element]]	+= $Build;
+				$Count								-= $Build;
 				
 				if ($Count == 0)
 					continue;
 				else
 					$Done	= true;
 			}	
-			$NewQueue	= array($Element, $Count);
+			$NewQueue[]	= array($Element, $Count);
 		}
-		$this->PLANET['b_hangar_id']	= serialize($NewQueue);
+		$this->PLANET['b_hangar_id']	= !empty($NewQueue) ? serialize($NewQueue) : '';
 	}
 	
 	private function BuildingQueue() 
@@ -254,7 +257,7 @@ class ResourceUpdate
 		$BuildEndTime 	= $CurrentQueue[0][3];
 		$BuildMode    	= $CurrentQueue[0][4];
 	
-		if ($BuildMode == 'destroy')
+		if ($BuildMode == 'build')
 		{
 			$this->PLANET['field_current']		+= 1;
 			$this->PLANET[$resource[$Element]]	+= 1;
@@ -266,7 +269,7 @@ class ResourceUpdate
 			$this->PLANET[$resource[$Element]] 	-= 1;
 			$this->Builded[$Element]			-= 1;
 		}
-	
+		
 		array_shift($CurrentQueue);		
 		$this->UpdateRessource($BuildEndTime);			
 			
@@ -275,8 +278,7 @@ class ResourceUpdate
 			$this->PLANET['b_building_id'] 	= '';
 			return false;
 		} else {
-			$this->PLANET['b_building']    	= $CurrentQueue[0][3];
-			$this->PLANET['b_building_id'] 	= serialize($QueueArray);
+			$this->PLANET['b_building_id'] 	= serialize($CurrentQueue);
 			return true;
 		}
 	}	
@@ -291,18 +293,18 @@ class ResourceUpdate
 			return false;
 		}
 
-		$QueueArray 	= unserialize($this->PLANET['b_building_id']);
+		$CurrentQueue 	= unserialize($this->PLANET['b_building_id']);
 		$Loop       	= true;
 		while ($Loop == true)
 		{
-			$ListIDArray         = $QueueArray[0];
+			$ListIDArray         = $CurrentQueue[0];
 			$Element             = $ListIDArray[0];
 			$Level               = $ListIDArray[1];
 			$BuildMode           = $ListIDArray[4];
 			$ForDestroy 		 = ($BuildMode == 'destroy') ? true : false;
 			$BuildTime  	     = GetBuildingTime($this->USER, $this->PLANET, $Element, $ForDestroy);
 			$BuildEndTime        = $this->PLANET['b_building'] + $BuildTime;
-			$QueueArray[0]		 = array($Element, $Level, $BuildTime, $BuildEndTime, $BuildMode);
+			$CurrentQueue[0]	 = array($Element, $Level, $BuildTime, $BuildEndTime, $BuildMode);
 			$HaveNoMoreLevel     = false;
 								
 			$HaveRessources 	 = IsElementBuyable($this->USER, $this->PLANET, $Element, true, $ForDestroy);
@@ -318,7 +320,7 @@ class ResourceUpdate
 				$this->PLANET['crystal']    -= $Needed['crystal'];
 				$this->PLANET['deuterium']  -= $Needed['deuterium'];
 				$this->USER['darkmatter']   -= $Needed['darkmatter'];
-				$NewQueue               	= serialize($QueueArray);
+				$NewQueue               	= serialize($CurrentQueue);
 				$Loop                  		= false;
 			} else {
 				if($this->USER['hof'] == 1){
@@ -332,23 +334,23 @@ class ResourceUpdate
 					SendSimpleMessage($this->USER['id'], '', $this->TIME, 99, $LNG['sys_buildlist'], $LNG['sys_buildlist_fail'], $Message);				
 				}
 
-				array_shift($QueueArray);
+				array_shift($CurrentQueue);
 					
-				if (count($QueueArray) == 0) {
+				if (count($CurrentQueue) == 0) {
 					$BuildEndTime  = 0;
 					$NewQueue      = '';
 					$Loop          = false;
 				} else {
-					$BaseTime			= $this->TIME;
+					$BaseTime			= $BuildEndTime - $BuildTime;
 					$NewQueue			= array();
-					foreach($QueueArray as $ListIDArray)
+					foreach($CurrentQueue as $ListIDArray)
 					{
 						$ListIDArray[2]		= GetBuildingTime($this->USER, $this->PLANET, $ListIDArray[0], $ListIDArray[4] == 'destroy');
 						$BaseTime			+= $ListIDArray[2];
 						$ListIDArray[3]		= $BaseTime;
 						$NewQueue[]			= $ListIDArray;
 					}
-					$QueueArray	= $NewQueue;
+					$CurrentQueue	= $NewQueue;
 				}
 			}
 		}
@@ -376,18 +378,18 @@ class ResourceUpdate
 		$this->Builded[$this->USER['b_tech_id']]			+= 1;
 		$this->USER[$resource[$this->USER['b_tech_id']]]	+= 1;
 	
-		$QueueArray	= explode(';', $this->USER['b_tech_queue']);
-		array_shift($QueueArray);		
+		$CurrentQueue	= unserialize($this->USER['b_tech_queue']);
+		array_shift($CurrentQueue);		
 			
 		$this->USER['b_tech_id']		= 0;
-		if (count($QueueArray) == 0) {
+		if (count($CurrentQueue) == 0) {
 			$this->USER['b_tech'] 			= 0;
 			$this->USER['b_tech_id']		= 0;
 			$this->USER['b_tech_planet']	= 0;
 			$this->USER['b_tech_queue']		= '';
 			return false;
 		} else {
-			$this->USER['b_tech_queue'] 	= serialize(array_values($QueueArray));
+			$this->USER['b_tech_queue'] 	= serialize(array_values($CurrentQueue));
 			return true;
 		}
 	}	
@@ -404,11 +406,11 @@ class ResourceUpdate
 			return false;
 		}
 
-		$QueueArray 	= unserialize($this->USER['b_tech_queue']);
+		$CurrentQueue 	= unserialize($this->USER['b_tech_queue']);
 		$Loop       	= true;
 		while ($Loop == true)
 		{
-			$ListIDArray        = $QueueArray[0];
+			$ListIDArray        = $CurrentQueue[0];
 			if($Planet != $this->PLANET['id']) {
 				$PLANET				= $db->uniquequery("SELECT * FROM ".PLANETS." WHERE `id` = '".$ListIDArray[4]."';");
 				list(, $PLANET['factor'])	= getFactors($this->USER, $PLANET);
@@ -422,7 +424,7 @@ class ResourceUpdate
 			$Level              = $ListIDArray[1];
 			$BuildTime  	    = GetBuildingTime($this->USER, $PLANET, $Element);
 			$BuildEndTime       = $this->USER['b_tech'] + $BuildTime;
-			$QueueArray[0]		= implode(",", array($Element, $Level, $BuildTime, $BuildEndTime, $PLANET['id']));
+			$CurrentQueue[0]	= array($Element, $Level, $BuildTime, $BuildEndTime, $PLANET['id']);
 			$HaveRessources 	= IsElementBuyable($this->USER, $this->PLANET, $Element, true, false);
 			
 			if($PLANET['id'] != $this->PLANET['id']) {
@@ -438,7 +440,7 @@ class ResourceUpdate
 				$this->USER['b_tech_id']		= $Element;
 				$this->USER['b_tech']      		= $BuildEndTime;
 				$this->USER['b_tech_planet']	= $PLANET['id'];
-				$NewQueue               		= serialize($QueueArray);
+				$NewQueue               		= serialize($CurrentQueue);
 				$Loop                  			= false;
 				
 				if($PLANET['id'] != $this->PLANET['id'])
@@ -452,24 +454,23 @@ class ResourceUpdate
 					SendSimpleMessage($this->USER['id'], '', $this->TIME, 99, $LNG['sys_techlist'], $LNG['sys_buildlist_fail'], $Message);				
 				}
 
-				array_shift($QueueArray);
+				array_shift($CurrentQueue);
 					
-				if (count($QueueArray) == 0) {
+				if (count($CurrentQueue) == 0) {
 					$BuildEndTime	= 0;
 					$NewQueue		= '';
 					$Loop			= false;
 				} else {
-					$BaseTime		= $this->TIME;
+					$BaseTime		= $BuildEndTime - $BuildTime;
 					$NewQueue		= array();
-					foreach($QueueArray as $QueueInfo)
+					foreach($CurrentQueue as $ListIDArray)
 					{
-						$ListIDArray        = explode(",", $QueueInfo);
 						$ListIDArray[2]		= GetBuildingTime($this->USER, $Planet, $ListIDArray[0]);
 						$BaseTime			+= $ListIDArray[2];
 						$ListIDArray[3]		= $BaseTime;
 						$NewQueue[]			= $ListIDArray;
 					}
-					$QueueArray	= $NewQueue;
+					$CurrentQueue	= $NewQueue;
 				}
 			}
 		}

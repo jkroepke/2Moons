@@ -76,13 +76,13 @@ class ShowBuildingsPage
 		$PLANET['crystal']		+= $Needed['crystal'];
 		$PLANET['deuterium']	+= $Needed['deuterium'];
 		$USER['darkmatter']		+= $Needed['darkmatter'];
-		array_shift($QueueArray);
-		if (count($QueueArray) == 0) {
+		array_shift($CurrentQueue);
+		if (count($CurrentQueue) == 0) {
 			$PLANET['b_building']    	= 0;
 			$PLANET['b_building_id'] 	= '';
 		} else {
 			$BuildEndTime	= TIMESTAMP;
-			foreach($QueueArray as $ListIDArray) {
+			foreach($CurrentQueue as $ListIDArray) {
 				$BuildEndTime       += GetBuildingTime($USER, $PLANET, $ListIDArray[0], $ListIDArray[4] == 'destroy');
 				$ListIDArray[3]		= $BuildEndTime;
 				$NewQueueArray[]	= $ListIDArray;					
@@ -133,7 +133,7 @@ class ShowBuildingsPage
 		$CurrentQueue  		= unserialize($PLANET['b_building_id']);
 
 		if (!empty($CurrentQueue)) {
-			$CurrentQueue	= count($QueueArray);
+			$ActualCount	= count($CurrentQueue);
 		} else {
 			$CurrentQueue	= array();
 			$ActualCount	= 0;
@@ -150,8 +150,8 @@ class ShowBuildingsPage
 		} else {
 			$BuildMode 		= 'destroy';
 			$BuildLevel		= $PLANET[$resource[$Element]];
-		}		
-
+		}
+		
 		if($ActualCount == 0)
 		{	
 			if(!IsElementBuyable($USER, $PLANET, $Element, true, $ForDestroy))
@@ -165,11 +165,11 @@ class ShowBuildingsPage
 			$PLANET['deuterium']		-= $Resses['deuterium'];
 			$USER['darkmatter']			-= $Resses['darkmatter'];
 			$BuildEndTime				= TIMESTAMP + $BuildTime;
-			$PLANET['b_building_id']	= serialize(array($Element, $BuildLevel, $BuildTime, $BuildEndTime, $Mode));
+			$PLANET['b_building_id']	= serialize(array(array($Element, $BuildLevel, $BuildTime, $BuildEndTime, $BuildMode)));
 			$PLANET['b_building']		= $BuildEndTime;
 		} else {
 			$InArray = 0;
-			foreach($QueueArray as $QueueSubArray)
+			foreach($CurrentQueue as $QueueSubArray)
 			{
 				if($QueueSubArray[0] == $Element) {
 					if($QueueSubArray[4] == 'build')
@@ -178,12 +178,13 @@ class ShowBuildingsPage
 						$InArray--;
 				}
 			}
-			$PLANET[$resource[$Element]] += $InArray + 1;
+			$PLANET[$resource[$Element]] += $InArray;
 			$BuildTime  				= GetBuildingTime($USER, $PLANET, $Element, !$AddMode);
-			$PLANET[$resource[$Element]] -= $InArray + 1;
-			$BuildEndTime				= $QueueArray[$ActualCount - 1][3] + $BuildTime;
+			$PLANET[$resource[$Element]] -= $InArray;
+			$BuildEndTime				= $CurrentQueue[$ActualCount - 1][3] + $BuildTime;
 			$BuildLevel					+= $InArray;
-			$PLANET['b_building_id']	= serialize(array_push($CurrentQueue, array($Element, $BuildLevel, $BuildTime, $BuildEndTime, $BuildMode)));
+			$CurrentQueue[]				= array($Element, $BuildLevel, $BuildTime, $BuildEndTime, $BuildMode);
+			$PLANET['b_building_id']	= serialize($CurrentQueue);		
 		}
 	}
 

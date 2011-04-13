@@ -40,7 +40,7 @@
 				</a>
 			</td>
 			<th>
-				<a href="#" onclick="return Dialog.info({$FleetListRow.id})">{$FleetListRow.name}</a>{if $FleetListRow.Available != 0} ({$bd_available} {$FleetListRow.Available}){/if}
+				<a href="#" onclick="return Dialog.info({$FleetListRow.id})">{$FleetListRow.name}</a><span id="val_{$FleetListRow.id}">{if $FleetListRow.Available != 0} ({$bd_available} {$FleetListRow.Available}){/if}</span>
 			</th>
 		</tr>
 		<tr>
@@ -91,6 +91,7 @@
 <script type="text/javascript">
 data			= {$BuildList};
 bd_operating	= '{$bd_operating}';
+bd_available	= '{$bd_available}';
 </script>
 {include file="planet_menu.tpl"}
 {include file="overall_footer.tpl"}
