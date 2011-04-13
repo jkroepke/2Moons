@@ -194,7 +194,7 @@ class ShowBuildingsPage
 		if ($PLANET['b_building'] == 0)
 			return array();
 		
-		$CurrentQueue   = $PLANET['b_building_id'];
+		$CurrentQueue   = unserialize($PLANET['b_building_id']);
 
 		$ListIDRow		= "";
 		$ScriptData		= array();
