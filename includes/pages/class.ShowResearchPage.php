@@ -245,7 +245,6 @@ class ShowResearchPage
 			$ScriptData[] = array('element' => $BuildArray[0], 'level' => $BuildArray[1], 'time' => $BuildArray[2], 'name' => $LNG['tech'][$BuildArray[0]], 'planet' => $PlanetName, 'endtime' => $BuildArray[3], 'reload' => in_array($BuildArray[0], array(123)));
 		}
 		return $ScriptData;
-		exit;
 	}
 
 	public function __construct()
