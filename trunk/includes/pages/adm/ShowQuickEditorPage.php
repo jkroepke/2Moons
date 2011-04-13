@@ -43,19 +43,22 @@ function ShowQuickEditorPage()
 			{
 				$SpecifyItemsPQ	.= "`".$resource[$ID]."`,";
 			}
-			$PlanetData	= $db->uniquequery("SELECT ".$SpecifyItemsPQ." `name`, `id_owner`, `planet_type`, `galaxy`, `system`, `planet`, `destruyed`, `diameter`, `field_current`, `field_current`, `field_max`, `temp_min`, `temp_max`, `metal`, `crystal`, `deuterium` FROM ".PLANETS." WHERE `id` = '".$id."';");
-			
-			$reslist['build']	= $reslist['allow'][$PlanetData['planet_type']];
-			
+			$PlanetData	= $db->uniquequery("SELECT ".$SpecifyItemsPQ." `name`, `id_owner`, `planet_type`, `galaxy`, `system`, `planet`, `destruyed`, `diameter`, `field_current`, `field_max`, `temp_min`, `temp_max`, `metal`, `crystal`, `deuterium` FROM ".PLANETS." WHERE `id` = '".$id."';");
+						
 			if($action == 'send'){
 				$SQL	= "UPDATE ".PLANETS." SET ";
+				$Fields	= $PlanetData['field_current'];
 				foreach($DataIDs as $ID)
 				{
+					if(in_array($ID, $reslist['allow'][$PlanetData['planet_type']]))
+						$Fields	+= request_outofint($resource[$ID]) - $PlanetData[$resource[$ID]];
+					
 					$SQL	.= "`".$resource[$ID]."` = '".request_outofint($resource[$ID])."', ";
 				}
 				$SQL	.= "`metal` = '".request_outofint('metal')."', ";
 				$SQL	.= "`crystal` = '".request_outofint('crystal')."', ";
 				$SQL	.= "`deuterium` = '".request_outofint('deuterium')."', ";
+				$SQL	.= "`field_current` = '".$Fields."', ";
 				$SQL	.= "`field_max` = '".request_var('field_max', 0)."', ";
 				$SQL	.= "`name` = '".$db->sql_escape(request_var('name', '', UTF8_SUPPORT))."' ";
 				$SQL	.= "WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';";
@@ -67,7 +70,7 @@ function ShowQuickEditorPage()
 
 			$build = $defense = $fleet	= array();
 			
-			foreach($reslist['build'] as $ID)
+			foreach($reslist['allow'][$PlanetData['planet_type']] as $ID)
 			{
 				$build[]	= array(
 					'type'	=> $resource[$ID],
