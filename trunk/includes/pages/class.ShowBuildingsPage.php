@@ -83,6 +83,9 @@ class ShowBuildingsPage
 		} else {
 			$BuildEndTime	= TIMESTAMP;
 			foreach($CurrentQueue as $ListIDArray) {
+				if($Element == $ListIDArray[0])
+					continue;
+					
 				$BuildEndTime       += GetBuildingTime($USER, $PLANET, $ListIDArray[0], $ListIDArray[4] == 'destroy');
 				$ListIDArray[3]		= $BuildEndTime;
 				$NewQueueArray[]	= $ListIDArray;					
@@ -110,14 +113,18 @@ class ShowBuildingsPage
 		if($ActualCount <= 1)
 			return $this->CancelBuildingFromQueue($PlanetRess);
 				
-		$BuildEndTime  = $CurrentQueue[$QueueID - 2][3];
+		$Element		= $CurrentQueue[$QueueID - 2][0];
+		$BuildEndTime	= $CurrentQueue[$QueueID - 2][3];
 		unset($CurrentQueue[$QueueID - 1]);
 		$NewQueueArray	= array();
 		foreach($CurrentQueue as $ID => $ListIDArray)
-		{
+		{				
 			if ($ID < $QueueID - 1) {
 				$NewQueueArray[]	= $ListIDArray;
 			} else {
+				if($Element == $ListIDArray[0])
+					continue;
+
 				$BuildEndTime       += GetBuildingTime($USER, $CPLANET, $ListIDArray[0]);
 				$ListIDArray[3]		= $BuildEndTime;
 				$NewQueueArray[]	= $ListIDArray;				

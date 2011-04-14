@@ -10,7 +10,7 @@
 				<div id="bx" class="z"></div>
 				<br>
 				<form method="POST" action="">
-				<input type="hidden" name="mode" value="fleet">
+				<input type="hidden" name="mode" value="defense">
 				<input type="hidden" name="action" value="delete">
 				<table>
 				<tr>

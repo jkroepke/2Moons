@@ -218,9 +218,13 @@ class ShowShipyardPage
 		}
 		
 		$ElementQueue 	= unserialize($PLANET['b_hangar_id']);
+		if(empty($ElementQueue))
+			$Count	= 0;
+		else
+			$Count	= count($ElementQueue);
 		if($USER['urlaubs_modus'] == 0) {
 			if (!empty($fmenge) && $NotBuilding == true) {
-				if (count($ElementQueue) >= $CONF['max_elements_ships']) {
+				if ($Count >= $CONF['max_elements_ships']) {
 					$template->message(sprintf($LNG['bd_max_builds'], $CONF['max_elements_ships']), "?page=buildings&mode=fleet", 3);
 					exit;
 				}
@@ -331,9 +335,13 @@ class ShowShipyardPage
 		}
 		
 		$ElementQueue 	= unserialize($PLANET['b_hangar_id']);
+		if(empty($ElementQueue))
+			$Count	= 0;
+		else
+			$Count	= count($ElementQueue);
 		if($USER['urlaubs_modus'] == 0) {
 			if (!empty($fmenge) && $NotBuilding == true) {
-				if (count($ElementQueue) >= $CONF['max_elements_ships']) {
+				if ($Count >= $CONF['max_elements_ships']) {
 					$template->message(sprintf($LNG['bd_max_builds'], $CONF['max_elements_ships']), "?page=buildings&mode=defense", 3);
 					exit;
 				}

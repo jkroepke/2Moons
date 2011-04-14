@@ -82,7 +82,7 @@ class ShowResearchPage
 			$USER['b_tech']			= 0;
 			return false;
 		}
-
+		$Element						= $USER['b_tech_id'];
 		$costs							= GetBuildingPrice($USER, $PLANET, $USER['b_tech_id']);
 		if($PLANET['id'] == $USER['b_tech_planet'])
 		{
@@ -111,6 +111,9 @@ class ShowResearchPage
 			$NewCurrentQueue	= array();
 			foreach($CurrentQueue as $ListIDArray)
 			{
+				if($Element == $ListIDArray[0])
+					continue;
+
 				if($ListIDArray[4] != $PLANET['id'])
 					$CPLANET		= $db->uniquequery("SELECT `".$resource[6]."`, `".$resource[31]."` FROM ".PLANETS." WHERE `id` = '".$ListIDArray[4]."';");
 				else
@@ -138,7 +141,7 @@ class ShowResearchPage
 	{
 		global $USER, $PLANET;
 		
-		$CurrentQueue  = unserialize($PLANET['b_tech_queue']);
+		$CurrentQueue  = unserialize($USER['b_tech_queue']);
 		if ($QueueID <= 1 || empty($CurrentQueue))
 			return;
 			
@@ -146,14 +149,18 @@ class ShowResearchPage
 		if ($ActualCount <= 1)
 			return $this->CancelBuildingFromQueue($PlanetRess);
 
-		$BuildEndTime  = $CurrentQueue[$QueueID - 2][3];
+		$Element 		= $CurrentQueue[$QueueID - 2][0];
+		$BuildEndTime	= $CurrentQueue[$QueueID - 2][3];
 		unset($CurrentQueue[$QueueID - 1]);
 		$NewCurrentQueue	= array();
 		foreach($CurrentQueue as $ID => $ListIDArray)
-		{
+		{				
 			if ($ID < $QueueID - 1) {
 				$NewCurrentQueue[]	= $ListIDArray;
 			} else {
+				if($Element == $ListIDArray[0])
+					continue;
+					
 				if($ListIDArray[4] != $PLANET['id'])
 					$CPLANET				= $db->uniquequery("SELECT `".$resource[6]."`, `".$resource[31]."` FROM ".PLANETS." WHERE `id` = '".$ListIDArray[4].";");
 				else
