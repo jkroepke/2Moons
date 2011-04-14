@@ -90,13 +90,18 @@ class ShowBuildingsPage
 				$ListIDArray[3]		= $BuildEndTime;
 				$NewQueueArray[]	= $ListIDArray;					
 			}
-			$PLANET['b_building']    	= TIMESTAMP;
-			$PLANET['b_building_id'] 	= serialize($NewQueueArray);
-			$PlanetRess->USER			= $USER;
-			$PlanetRess->PLANET			= $PLANET;
-			$PlanetRess->SetNextQueueElementOnTop();
-			$USER						= $PlanetRess->USER;
-			$PLANET						= $PlanetRess->PLANET;
+			if(empty($NewQueueArray)) {
+				$PLANET['b_building']    	= TIMESTAMP;
+				$PLANET['b_building_id'] 	= serialize($NewQueueArray);
+				$PlanetRess->USER			= $USER;
+				$PlanetRess->PLANET			= $PLANET;
+				$PlanetRess->SetNextQueueElementOnTop();
+				$USER						= $PlanetRess->USER;
+				$PLANET						= $PlanetRess->PLANET;
+			} else {
+				$PLANET['b_building']    	= 0;
+				$PLANET['b_building_id'] 	= '';
+			}
 		}
 		
 		return $ReturnValue;

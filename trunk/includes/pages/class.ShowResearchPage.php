@@ -113,7 +113,7 @@ class ShowResearchPage
 			{
 				if($Element == $ListIDArray[0])
 					continue;
-
+var_dump($ListIDArray);
 				if($ListIDArray[4] != $PLANET['id'])
 					$CPLANET		= $db->uniquequery("SELECT `".$resource[6]."`, `".$resource[31]."` FROM ".PLANETS." WHERE `id` = '".$ListIDArray[4]."';");
 				else
@@ -124,17 +124,19 @@ class ShowResearchPage
 				$ListIDArray[3]		= $BuildEndTime;
 				$NewCurrentQueue[]	= $ListIDArray;				
 			}
-			
-			$USER['b_tech']    			= TIMESTAMP;
-			$USER['b_tech_queue'] 		= serialize($NewCurrentQueue);
-			$PlanetRess->USER			= $USER;
-			$PlanetRess->PLANET			= $PLANET;
-			$PlanetRess->SetNextQueueTechOnTop();
-			$USER						= $PlanetRess->USER;
-			$PLANET						= $PlanetRess->PLANET;
+			if(!empty($NewCurrentQueue)) {
+				$USER['b_tech']    			= TIMESTAMP;
+				$USER['b_tech_queue'] 		= serialize($NewCurrentQueue);
+				$PlanetRess->USER			= $USER;
+				$PlanetRess->PLANET			= $PLANET;
+				$PlanetRess->SetNextQueueTechOnTop();
+				$USER						= $PlanetRess->USER;
+				$PLANET						= $PlanetRess->PLANET;
+			} else {
+				$USER['b_tech']    			= 0;
+				$USER['b_tech_queue'] 		= '';
+			}
 		}
-		
-		return $ReturnValue;
 	}
 
 	private function RemoveBuildingFromQueue($QueueID, $PlanetRess)

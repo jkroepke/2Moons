@@ -80,7 +80,7 @@ function ShowResetPage()
 			$db->query("UPDATE ".PLANETS." SET ".implode(", ",$dbcol['fleet'])." AND `universe` = '".$_SESSION['adminuni']."';");
 	
 		if ($_POST['h_d']	==	'on')
-			$db->query("UPDATE ".PLANETS." SET `b_hangar` = '0', `b_hangar_plus` = '0', `b_hangar_id` = '' AND `universe` = '".$_SESSION['adminuni']."';");
+			$db->query("UPDATE ".PLANETS." SET `b_hangar` = '0', `b_hangar_id` = '' AND `universe` = '".$_SESSION['adminuni']."';");
 	
 
 		// EDIFICIOS
