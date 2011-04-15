@@ -88,7 +88,7 @@ function ShowOverviewPage()
 	}
 
 	if (!empty($PLANET['b_building'])) {
-		$Queue		= unserialize($CPLANET['b_building_id']);
+		$Queue		= unserialize($PLANET['b_building_id']);
 		$Build		= $LNG['tech'][$Queue[0][0]].' ('.$Queue[0][1].')<br><div id="blc">"'.pretty_time($PLANET['b_building'] - TIMESTAMP).'</div>';
 		$template->execscript('BuildTime();');
 	}
