@@ -73,6 +73,7 @@ function ShowConfigBasicPage()
 			'ga_active'				=> $CONF['ga_active'],
 			'ga_key'				=> $CONF['ga_key'],
 			'capaktiv'				=> $CONF['capaktiv'],
+			'cappublic'				=> $CONF['cappublic'],
 			'capprivate'			=> $CONF['capprivate'],
 			'del_oldstuff'			=> $CONF['del_oldstuff'],
 			'del_user_manually'		=> $CONF['del_user_manually'],
