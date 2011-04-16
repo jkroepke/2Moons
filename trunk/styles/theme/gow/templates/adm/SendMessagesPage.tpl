@@ -6,7 +6,7 @@ function check(){
 		Dialog.alert('{$mg_empty_text}');
 		return false;
 	} else {
-		$.post('admin.php?page=globalmessage&mode=send&ajax=1', $('#message').serialize(), function(data) {
+		$.post('admin.php?page=globalmessage&action=send&ajax=1', $('#message').serialize(), function(data) {
 			Dialog.alert(data, function() {
 				location.reload();
 			});
@@ -19,6 +19,9 @@ function check(){
     <table class="table569">
 		<tr>
             <th colspan="2">{$ma_send_global_message}</th>
+        </tr>
+        <tr>
+            <td colspan="2">{html_options name=mode options=$ma_modes}</td>
         </tr>
         <tr>
             <td>{$ma_subject}</td>
