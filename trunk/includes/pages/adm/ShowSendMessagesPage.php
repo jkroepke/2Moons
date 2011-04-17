@@ -52,8 +52,8 @@ function ShowSendMessagesPage() {
 
 		if (!empty($Message) && !empty($Subject))
 		{
+			require_once(ROOT_PATH.'includes/functions/BBCode.php');
 			if($Mode == 0 || $Mode == 2) {
-				require_once(ROOT_PATH.'includes/functions/BBCode.php');
 				$Time    	= TIMESTAMP;
 				$From    	= '<span style="color:'.$color.';">'.$LNG['user_level'][$USER['authlevel']].' '.$USER['username'].'</span>';
 				$Subject 	= '<span style="color:'.$color.';">'.$Subject.'</span>';
