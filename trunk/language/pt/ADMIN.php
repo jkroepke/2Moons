@@ -275,6 +275,7 @@ $LNG['ma_subject']						= 'Assunto';
 $LNG['ma_characters']					= 'Caracteres';
 $LNG['ma_none']							= 'Noticias Globais';
 $LNG['ma_message']						= 'Mensagem';
+$LNG['ma_modes']                = array('Mensagem INGAME', 'Mensagem pelo EMail', 'INGAME &amp; Mensagem pelo EMail');
 //###########################################################//
 
 

@@ -5,13 +5,18 @@ $LNG['Description'] = 'Description';
 
 $LNG['changelog']   = array(
 
-'v1.3.5' => 'ShadoX 26.03.11
+'v1.3.5' => 'ShadoX 09.04.11
 - ADD: New ChatSystem
 - ADD: New Popup UI
+- ADD: Refferalsystem
 - FIX: Division by Zero
 - FIX: Wrong TotalUsercount, if a new User join the Game
 - FIX: Shipyard Iusses, with BCMath is not avalible
 - FIX: reCAPTCHA
+- FIX: Facebook Login
+- FIX: Universe Import/Export
+- FIX: Disapier Ships
+- DIV: Improved request_vars
 - DIV: Rewrite LoginPage
 - DIV: Improved Javascript Code
 - DIV: MultiUniverse Support
