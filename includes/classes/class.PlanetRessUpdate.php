@@ -97,76 +97,81 @@ class ResourceUpdate
 			$this->CONF['metal_basic_income']     	= 0;
 			$this->CONF['crystal_basic_income']   	= 0;
 			$this->CONF['deuterium_basic_income'] 	= 0;
-			$this->PLANET['metal_perhour']      = 0;
-			$this->PLANET['crystal_perhour']    = 0;
-			$this->PLANET['deuterium_perhour']  = 0;
-			$this->PLANET['energy_used']        = 0;
-			$this->PLANET['energy_max']         = 0;
+			$this->PLANET['metal_perhour']			= 0;
+			$this->PLANET['crystal_perhour']		= 0;
+			$this->PLANET['deuterium_perhour']		= 0;
+			$this->PLANET['energy_used']			= 0;
+			$this->PLANET['energy_max']         	= 0;
 		}
 		else
 		{
-			$Caps           = array();
+			$this->PLANET['metal_proc']				= array();
+			$this->PLANET['crystal_proc']			= array();
+			$this->PLANET['deuterium_proc']			= array();
+			$this->PLANET['deuterium_userd_proc']	= array();
+			$this->PLANET['energy_used_proc']		= array();
+			$this->PLANET['energy_max_proc']		= array();
 			$BuildTemp      = $this->PLANET['temp_max'];
 			$BuildEnergy	= $this->USER[$resource[113]];
-			$Caps['metal_perhour'] = $Caps['crystal_perhour'] = $Caps['deuterium_perhour'] = $Caps['energy_used'] = $Caps['energy_max'] = $Caps['deuterium_used'] = 0;
 
 			foreach($reslist['prod'] as $id => $ProdID)
-			{
-				$BuildLevelFactor	= $this->PLANET[$resource[$ProdID]."_porcent" ];
-				$BuildLevel 		= $this->PLANET[$resource[$ProdID]];
-				$Caps['metal_perhour']		+= floor(eval($ProdGrid[$ProdID]['formule']['metal'])     * $this->CONF['resource_multiplier'] * $this->PLANET['factor']['metal']);
-				$Caps['crystal_perhour']	+= floor(eval($ProdGrid[$ProdID]['formule']['crystal'])   * $this->CONF['resource_multiplier'] * $this->PLANET['factor']['crystal']);
+			{				
+				$BuildLevelFactor						= $this->PLANET[$resource[$ProdID].'_porcent'];
+				$BuildLevel 							= $this->PLANET[$resource[$ProdID]];
+				$this->PLANET['metal_proc'][$ProdID]	= round(eval($ProdGrid[$ProdID]['formule']['metal'])     * $this->CONF['resource_multiplier']);
+				$this->PLANET['crystal_proc'][$ProdID]	= round(eval($ProdGrid[$ProdID]['formule']['crystal'])   * $this->CONF['resource_multiplier']);
 			
 				if ($ProdID < 4) {
-					$Caps['deuterium_perhour'] 	+= floor(eval($ProdGrid[$ProdID]['formule']['deuterium']) * $this->CONF['resource_multiplier'] * $this->PLANET['factor']['deuterium']);
-					$Caps['energy_used']   		+= floor(eval($ProdGrid[$ProdID]['formule']['energy']) * ($this->CONF['resource_multiplier']));
+					$this->PLANET['deuterium_proc'][$ProdID]		= round(eval($ProdGrid[$ProdID]['formule']['deuterium']) * $this->CONF['resource_multiplier']);
+					$this->PLANET['energy_used_proc'][$ProdID]		= round(eval($ProdGrid[$ProdID]['formule']['energy']) * ($this->CONF['resource_multiplier']));
 				} else {
 					if($ProdID == 12 && $this->PLANET['deuterium'] == 0)
 						continue;
 
-					$Caps['deuterium_used'] 	+= floor(eval($ProdGrid[$ProdID]['formule']['deuterium']) * ($this->CONF['resource_multiplier']));
-					$Caps['energy_max']			+= floor(eval($ProdGrid[$ProdID]['formule']['energy']) * ($this->CONF['resource_multiplier']) * $this->PLANET['factor']['energy']);
+					$this->PLANET['deuterium_userd_proc'][$ProdID]	= round(eval($ProdGrid[$ProdID]['formule']['deuterium']) * ($this->CONF['resource_multiplier']));
+					$this->PLANET['energy_max_proc'][$ProdID]		= round(eval($ProdGrid[$ProdID]['formule']['energy']) * ($this->CONF['resource_multiplier']));
 				}
 			}
+
+			$this->PLANET['energy_used']          = array_sum($this->PLANET['energy_used_proc']);
+			$this->PLANET['energy_max']           = round(array_sum($this->PLANET['energy_max_proc']) * $this->PLANET['factor']['energy']);
 			
-			if ($Caps['energy_max'] == 0)
+			if ($this->PLANET['energy_max']  == 0)
 			{
 				$this->PLANET['metal_perhour']     = $this->CONF['metal_basic_income'];
 				$this->PLANET['crystal_perhour']   = $this->CONF['crystal_basic_income'];
 				$this->PLANET['deuterium_perhour'] = $this->CONF['deuterium_basic_income'];
-				$LEVEL	= 0;
+				$this->PLANET['level_proc']	= 0;
 			}
-			elseif ($Caps['energy_max'] >= abs($Caps['energy_used']))
-				$LEVEL	= 100;
+			elseif ($this->PLANET['energy_max']  >= abs($this->PLANET['energy_used'] ))
+				$this->PLANET['level_proc']	= 100;
 			else
-				$LEVEL	= floor($Caps['energy_max'] / abs($Caps['energy_used']) * 100);
+				$this->PLANET['level_proc']	= floor($this->PLANET['energy_max']  / abs($this->PLANET['energy_used']) * 100);
 				
-			if($LEVEL > 100)
-				$LEVEL	= 100;
-			elseif ($LEVEL < 0)
-				$LEVEL	= 0;				
+			if($this->PLANET['level_proc'] > 100)
+				$this->PLANET['level_proc']	= 100;
+			elseif ($this->PLANET['level_proc'] < 0)
+				$this->PLANET['level_proc']	= 0;				
 			
-			$this->PLANET['metal_perhour']        = $Caps['metal_perhour'] * (0.01 * $LEVEL);
-			$this->PLANET['crystal_perhour']      = $Caps['crystal_perhour'] * (0.01 * $LEVEL);
-			$this->PLANET['deuterium_perhour']    = $Caps['deuterium_perhour'] * (0.01 * $LEVEL) + $Caps['deuterium_used'];
-			$this->PLANET['energy_used']          = $Caps['energy_used'];
-			$this->PLANET['energy_max']           = $Caps['energy_max'];
+			$this->PLANET['metal_perhour']        = round(array_sum($this->PLANET['metal_proc']) * $this->PLANET['factor']['metal'] * (0.01 * $this->PLANET['level_proc']));
+			$this->PLANET['crystal_perhour']      = round(array_sum($this->PLANET['crystal_proc']) * $this->PLANET['factor']['crystal'] * (0.01 * $this->PLANET['level_proc']));
+			$this->PLANET['deuterium_perhour']    = round(array_sum($this->PLANET['deuterium_proc']) * $this->PLANET['factor']['deuterium'] * (0.01 * $this->PLANET['level_proc']) + array_sum($this->PLANET['deuterium_userd_proc']));
 
 			if ($this->PLANET['metal'] <= $MaxMetalStorage)
 			{
-				$MetalTheorical 		= $this->PLANET['metal'] + ($this->ProductionTime * (($this->CONF['metal_basic_income'] * $this->CONF['resource_multiplier']) + $this->PLANET['metal_perhour']) / 3600);
-				$this->PLANET['metal']  		= min($MetalTheorical, $MaxMetalStorage);
+				$MetalTheorical 			= $this->PLANET['metal'] + ($this->ProductionTime * (($this->CONF['metal_basic_income'] * $this->CONF['resource_multiplier']) + $this->PLANET['metal_perhour']) / 3600);
+				$this->PLANET['metal']  	= min($MetalTheorical, $MaxMetalStorage);
 			}
 			
 			if ($this->PLANET['crystal'] <= $MaxCristalStorage)
 			{
-				$CristalTheorical  		= $this->PLANET['crystal'] + ($this->ProductionTime * (($this->CONF['crystal_basic_income'] * $this->CONF['resource_multiplier']) + $this->PLANET['crystal_perhour']) / 3600);
+				$CristalTheorical  			= $this->PLANET['crystal'] + ($this->ProductionTime * (($this->CONF['crystal_basic_income'] * $this->CONF['resource_multiplier']) + $this->PLANET['crystal_perhour']) / 3600);
 				$this->PLANET['crystal']  	= min($CristalTheorical, $MaxCristalStorage);
 			}
 			
 			if ($this->PLANET['deuterium'] <= $MaxDeuteriumStorage)
 			{
-				$DeuteriumTheorical		= $this->PLANET['deuterium'] + ($this->ProductionTime * (($this->CONF['deuterium_basic_income'] * $this->CONF['resource_multiplier']) + $this->PLANET['deuterium_perhour']) / 3600);
+				$DeuteriumTheorical			= $this->PLANET['deuterium'] + ($this->ProductionTime * (($this->CONF['deuterium_basic_income'] * $this->CONF['resource_multiplier']) + $this->PLANET['deuterium_perhour']) / 3600);
 				$this->PLANET['deuterium']	= min($DeuteriumTheorical, $MaxDeuteriumStorage);
 			}
 		}

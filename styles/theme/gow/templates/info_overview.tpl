@@ -55,7 +55,7 @@
 <td class="transparent" colspan="2">
 	<table>
 		<tr>
-			<th>{$in_missilesamount}</th><th>{$in_missilestype}</th><th></th>
+			<th>{$in_missilestype}</th><th>{$in_missilesamount}</th><th></th>
 		</tr>
 		<tr>
 			<td>{$tech_502}</td><td><span id="missile_502">{$missiles.0}</span></td><td><input class="missile" type="text" name="missile_502"></td>
