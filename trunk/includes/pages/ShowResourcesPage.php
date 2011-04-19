@@ -68,29 +68,7 @@ function ShowResourcesPage()
 	$PlanetRess->SavePlanetToDB();
 
 	$template	= new template();
-	
-	if ($PLANET['energy_max'] == 0 && $PLANET['energy_used'] > 0)
-	{
-		$post_porcent = 0;
-	}
-	elseif ($PLANET['energy_max']  > 0 && abs($PLANET['energy_used']) > $PLANET['energy_max'])
-	{
-		$post_porcent = floor(($PLANET['energy_max']) / ($PLANET['energy_used']*-1) * 100);
-	}
-	elseif ($PLANET['energy_max'] == 0 && abs($PLANET['energy_used']) > $PLANET['energy_max'])
-	{
-		$post_porcent = 0;
-	}
-	else
-	{
-		$post_porcent = 100;
-	}
-
-	if ($post_porcent > 100)
-	{
-		$post_porcent = 100;
-	}
-	
+		
 	$BuildTemp      = $PLANET['temp_max'];
 	$BuildEnergy	= $USER[$resource[113]];
 	$metal			= array();
@@ -102,40 +80,23 @@ function ShowResourcesPage()
 	
 	foreach($reslist['prod'] as $ProdID)
 	{
-		if ($PLANET[$resource[$ProdID]] > 0 && isset($ProdGrid[$ProdID]))
-		{
-			$BuildLevelFactor       = $PLANET[$resource[$ProdID]."_porcent"];
-			$BuildLevel             = $PLANET[$resource[$ProdID]];
-			$metal[$ProdID]     	= floor(eval($ProdGrid[$ProdID]['formule']['metal'])     * (0.01 * $post_porcent) * $CONF['resource_multiplier']);
-			$crystal[$ProdID] 		= floor(eval($ProdGrid[$ProdID]['formule']['crystal'])   * (0.01 * $post_porcent) * $CONF['resource_multiplier']);
-		
-			if ($ProdID < 4)
-			{
-				$deuterium[$ProdID]	= floor(eval($ProdGrid[$ProdID]['formule']['deuterium']) * (0.01 * $post_porcent) * $CONF['resource_multiplier']);
-				$energy[$ProdID]	= floor(eval($ProdGrid[$ProdID]['formule']['energy'])    * $CONF['resource_multiplier']);
-			} else {
-				if($ProdID == 12 && $PLANET['deuterium'] == 0)
-					continue;
-				
-				$deu_en[$ProdID]	= floor(eval($ProdGrid[$ProdID]['formule']['deuterium']) * $CONF['resource_multiplier']);
-				$energy_en[$ProdID]	= floor(eval($ProdGrid[$ProdID]['formule']['energy']) * $CONF['resource_multiplier']);
-			}
+		if ($PLANET[$resource[$ProdID]] == 0)
+			continue;
+			
+		$thisdeu				= isset($PLANET['deuterium_proc'][$ProdID]) ? $PLANET['deuterium_proc'][$ProdID] : $PLANET['deuterium_userd_proc'][$ProdID];
+		$thisenergy				= isset($PLANET['energy_max_proc'][$ProdID]) ? $PLANET['energy_max_proc'][$ProdID] : $PLANET['energy_used_proc'][$ProdID];
 
-			$thisdeu				= ((isset($deuterium[$ProdID])) ? $deuterium[$ProdID] : $deu_en[$ProdID]);
-			$thisenergy				= ((isset($energy[$ProdID])) ? $energy[$ProdID] : $energy_en[$ProdID]);
-
-			$CurrPlanetList[]	= array(
-				'name'              => $resource[$ProdID],
-				'type'  			=> $LNG['tech'][$ProdID],
-				'level'     	    => ($ProdID > 200) ? $LNG['rs_amount'] : $LNG['rs_lvl'],
-				'level_type'        => $PLANET[$resource[$ProdID]],
-				'metal_type'        => colorNumber(pretty_number($metal[$ProdID])),
-				'crystal_type'      => colorNumber(pretty_number($crystal[$ProdID])),
-				'deuterium_type'    => colorNumber(pretty_number($thisdeu)),
-				'energy_type'       => colorNumber(pretty_number($thisenergy)),
-				'optionsel'			=> $PLANET[$resource[$ProdID]."_porcent"] * 10,
-			);
-		}
+		$CurrPlanetList[]	= array(
+			'name'              => $resource[$ProdID],
+			'type'  			=> $LNG['tech'][$ProdID],
+			'level'     	    => ($ProdID > 200) ? $LNG['rs_amount'] : $LNG['rs_lvl'],
+			'level_type'        => $PLANET[$resource[$ProdID]],
+			'metal_type'        => colorNumber(pretty_number($PLANET['metal_proc'][$ProdID])),
+			'crystal_type'      => colorNumber(pretty_number($PLANET['crystal_proc'][$ProdID])),
+			'deuterium_type'    => colorNumber(pretty_number($thisdeu)),
+			'energy_type'       => colorNumber(pretty_number($thisenergy)),
+			'optionsel'			=> $PLANET[$resource[$ProdID]."_porcent"] * 10,
+		);
 	}
 
 
@@ -149,10 +110,10 @@ function ShowResourcesPage()
 	}
 
 	$template->assign_vars(array(	
-		'bonus_metal'							=> colorNumber(pretty_number($PLANET['metal_perhour'] - array_sum($metal))),
-		'bonus_crystal'							=> colorNumber(pretty_number($PLANET['crystal_perhour'] - array_sum($crystal))),
-		'bonus_deuterium'						=> colorNumber(pretty_number($PLANET['deuterium_perhour'] - array_sum($deuterium))),
-		'bonus_energy'							=> colorNumber(pretty_number($PLANET['energy_max'] - array_sum($energy_en))),
+		'bonus_metal'							=> colorNumber(pretty_number($PLANET['metal_perhour'] - array_sum($PLANET['metal_proc']))),
+		'bonus_crystal'							=> colorNumber(pretty_number($PLANET['crystal_perhour'] - array_sum($PLANET['crystal_proc']))),
+		'bonus_deuterium'						=> colorNumber(pretty_number($PLANET['deuterium_perhour'] - array_sum($PLANET['deuterium_proc']))),
+		'bonus_energy'							=> colorNumber(pretty_number($PLANET['energy_max'] - array_sum($PLANET['energy_max_proc']))),
 		'CurrPlanetList'						=> $CurrPlanetList,	
 		'Production_of_resources_in_the_planet'	=> str_replace('%s', $PLANET['name'], $LNG['rs_production_on_planet']),
 		'metal_basic_income'    				=> $CONF['metal_basic_income']     * $CONF['resource_multiplier'],
