@@ -63,14 +63,14 @@
 		<th colspan="8">{$gl_solar_system} {$galaxy}:{$system}</th>
 	</tr>
 	<tr>
-		<th style="white-space: nowrap;width:30px">{$gl_pos}</th>
-		<th style="white-space: nowrap;width:30px">{$gl_planet}</th>
-		<th style="white-space: nowrap;width:130px">{$gl_name_activity}</th>
-		<th style="white-space: nowrap;width:30px">{$gl_moon}</th>
-		<th style="white-space: nowrap;width:30px">{$gl_debris}</th>
-		<th style="white-space: nowrap;width:150px">{$gl_player_estate}</th>
-		<th style="white-space: nowrap;width:80px">{$gl_alliance}</th>
-		<th style="white-space: nowrap;width:125px">{$gl_actions}</th>
+		<th style="white-space: nowrap">{$gl_pos}</th>
+		<th style="white-space: nowrap">{$gl_planet}</th>
+		<th style="white-space: nowrap">{$gl_name_activity}</th>
+		<th style="white-space: nowrap">{$gl_moon}</th>
+		<th style="white-space: nowrap">{$gl_debris}</th>
+		<th style="white-space: nowrap">{$gl_player_estate}</th>
+		<th style="white-space: nowrap">{$gl_alliance}</th>
+		<th style="white-space: nowrap">{$gl_actions}</th>
 	</tr>
     {foreach name=galaxy key=planet item=GalaxyRow from=$GalaxyRows}
 	<tr>

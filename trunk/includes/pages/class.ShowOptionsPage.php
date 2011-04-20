@@ -41,10 +41,11 @@ class ShowOptionsPage
 					
 		$query = $db->query("SELECT * FROM ".PLANETS." WHERE id_owner = '".$USER['id']."' AND `destruyed` = 0;");
 		
-		$PlanetRess = new ResourceUpdate();
 		
 		while($CPLANET = $db->fetch_array($query))
 		{
+			$PlanetRess = new ResourceUpdate();
+		
 			if($CPLANET['id'] != $_SESSION['planet'])
 				list($USER, $CPLANET)	= $PlanetRess->CalcResource($USER, $CPLANET, true, TIMESTAMP);
 		

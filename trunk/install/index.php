@@ -57,7 +57,7 @@ $nextpage = $Page + 1;
 $template = new template();
 $template->assign_vars(array(
 	'lang'			=> $LANG->GetUser(),
-	'title'			=> 'Installer &bull; 2Moons',
+	'title'			=> $LNG['title_install'].' &bull; 2Moons',
 	'intro_instal'	=> $LNG['intro_instal'],
 	'menu_intro'	=> $LNG['menu_intro'],
 	'menu_install'	=> $LNG['menu_install'],

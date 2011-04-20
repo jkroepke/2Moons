@@ -178,21 +178,21 @@ class ShowAlliancePage
 									$template->message(sprintf($LNG['al_already_exists'], $aname), "?page=alliance&mode=make", 3);
 								
 								$db->multi_query("INSERT INTO ".ALLIANCE." SET
-                                `ally_name`='".$db->sql_escape($aname)."',
-                                `ally_tag`='".$db->sql_escape($atag)."' ,
-                                `ally_owner`='".$USER['id']."',
-                                `ally_owner_range`='Leader',
-                                `ally_members`='1',
-                                `ally_register_time`='" . TIMESTAMP."',
-								`ally_universe` ='".$UNI."';
+                                `ally_name`				= '".$db->sql_escape($aname)."',
+                                `ally_tag`				= '".$db->sql_escape($atag)."' ,
+                                `ally_owner`			= ".$USER['id'].",
+                                `ally_owner_range`		= '".$LNG['al_default_leader_name']."',
+                                `ally_members`			= 1,
+                                `ally_register_time`	= ".TIMESTAMP.",
+								`ally_universe` 		= ".$UNI.";
                                 UPDATE ".USERS." SET
-                                `ally_id`= (SELECT `id` FROM ".ALLIANCE." WHERE `ally_universe` = '".$UNI."' AND  ally_name = '".$db->sql_escape($aname)."'),
-                                `ally_name` = '".$db->sql_escape($aname)."',
-                                `ally_register_time` = '" . TIMESTAMP . "'
-                                WHERE `id` = '".$USER['id']."';
+                                `ally_id`				= (SELECT `id` FROM ".ALLIANCE." WHERE `ally_universe` = ".$UNI." AND ally_name = '".$db->sql_escape($aname)."'),
+                                `ally_name` 			= '".$db->sql_escape($aname)."',
+                                `ally_register_time` 	= ".TIMESTAMP."
+                                WHERE `id` = ".$USER['id'].";
                                 UPDATE ".STATPOINTS." SET
-                                `id_ally` = (SELECT `id` FROM ".ALLIANCE." WHERE `ally_universe` = '".$UNI."' AND ally_name = '".$db->sql_escape($aname)."')
-                                WHERE `id_owner` = '".$USER['id']."';");
+                                `id_ally` 				= (SELECT `id` FROM ".ALLIANCE." WHERE `ally_universe` = ".$UNI." AND ally_name = '".$db->sql_escape($aname)."')
+                                WHERE `id_owner` = ".$USER['id'].";");
 											
 								$template->message(sprintf($LNG['al_created'], $atag),"?page=alliance", 3);
 							} else {

@@ -72,7 +72,7 @@
 	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_ref_bonus_info}"></td>
 </tr><tr>
 	<td>{$se_ref_minpoints}</td>
-	<td><input name="ref_minpoints" maxlength="6" size="8" value="{$ref_minpoints}" type="text"></td>
+	<td><input name="ref_minpoints" maxlength="20" size="25" value="{$ref_minpoints}" type="text"></td>
 	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$se_ref_minpoints_info}"></td>
 </tr><tr>
 	<td>{$se_ref_max_referals}</td>
@@ -226,7 +226,7 @@
 	<th colspan="2">{$se_trader_head}</th><th>&nbsp;</th>
 </tr><tr>
     <td>{$se_trader_ships}</td>
-    <td><input name="trade_allowed_ships" maxlength="50" size="60" value="{$trade_allowed_ships}" type="text"></td>
+    <td><input name="trade_allowed_ships" maxlength="255" size="60" value="{$trade_allowed_ships}" type="text"></td>
 	<td>&nbsp;</td>
 </tr><tr>
     <td>{$se_trader_charge}</td>

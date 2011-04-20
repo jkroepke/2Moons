@@ -430,4 +430,21 @@ $LNG['info'][615]['name']		 = 'Imperator';
 $LNG['info'][615]['description'] = 'Sie haben gezeigt, dass Sie der größte Eroberer des Universums sind. Es ist Ihrer, solange Sie diesen Platz halten, den Sie bekommen haben.<br><br><span style="color:red">Freigabe zur Vernichtung. Maximal Level %s</span>';
 
 
+// ----------------------------------------------------------------------------------------------------------
+// ExtraDM - Dummy vars. Wer Texte für die hat, möge diese ins Forum schreiben.
+$LNG['info'][700]['name']		 = 'Waffenoptimierung';
+$LNG['info'][700]['description'] = 'Waffenoptimierung';
+$LNG['info'][701]['name']		 = 'Schildoptimierung';
+$LNG['info'][701]['description'] = 'Schildoptimierung';
+$LNG['info'][702]['name']		 = 'Baukoordinierung';
+$LNG['info'][702]['description'] = 'Baukoordinierung';
+$LNG['info'][703]['name']		 = 'Rohstoffoptimierung';
+$LNG['info'][703]['description'] = 'Rohstoffoptimierung';
+$LNG['info'][704]['name']		 = 'Energieoptimierung';
+$LNG['info'][704]['description'] = 'Energieoptimierung';
+$LNG['info'][705]['name']		 = 'Forschungsoptimierung';
+$LNG['info'][705]['description'] = 'Forschungsoptimierung';
+$LNG['info'][706]['name']		 = 'Flottenkoordinierung';
+$LNG['info'][706]['description'] = 'Flottenkoordinierung';
+
 ?>

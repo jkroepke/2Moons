@@ -32,33 +32,35 @@ function ShowImperiumPage()
 {
 	global $LNG, $USER, $PLANET, $resource, $reslist, $db;
 
-	$PlanetRess = new ResourceUpdate();
-	$PlanetRess->CalcResource();
-	$PlanetRess->SavePlanetToDB();
-	
-	$template	= new template();
-	$template->loadscript("trader.js");
-	
-	$SQLArray 	= array_merge($reslist['build'], $reslist['fleet'], $reslist['defense']);
-	$Query		= "";
-	
-	foreach($SQLArray as $id => $gid){
-		$Query .= ",`".$resource[$gid]."`";
-	}
-	
 	if($USER['planet_sort'] == 0)
 		$Order	= "`id` ";
 	elseif($USER['planet_sort'] == 1)
 		$Order	= "`galaxy`, `system`, `planet`, `planet_type` ";
 	elseif ($USER['planet_sort'] == 2)
 		$Order	= "`name` ";	
-	
+		
 	$Order .= ($USER['planet_sort_order'] == 1) ? "DESC" : "ASC" ;
 	
-	$PlanetsRAW = $db->query("
-	SELECT `id`,`name`,`galaxy`,`system`,`planet`,`planet_type`, `image`,`field_current`,`field_max`,`metal`,`crystal`,`deuterium`, `energy_used`,`energy_max` ".$Query." FROM ".PLANETS." WHERE `id_owner` = '" . $USER['id'] . "' AND `destruyed` = '0' ORDER BY ".$Order.";");
+	$PlanetsRAW = $db->query("SELECT * FROM ".PLANETS." WHERE `id` != ".$PLANET['id']." AND `id_owner` = '".$USER['id']."' AND `destruyed` = '0' ORDER BY ".$Order.";");
+	$PLANETS	= array($PLANET);
+	
+	$PlanetRess = new ResourceUpdate();
+	$PlanetRess->CalcResource();
+	$PlanetRess->SavePlanetToDB();
+	
+	while($CPLANET = $db->fetch_array($PlanetsRAW))
+	{
+		$PlanetRess = new ResourceUpdate();
+		list($USER, $CPLANET)	= $PlanetRess->CalcResource($USER, $CPLANET, true, TIMESTAMP);
+		
+		$PLANETS[]	= $CPLANET;
+		unset($CPLANET);
+	}
 
-	while ($Planet = $db->fetch_array($PlanetsRAW))
+	$template	= new template();
+	$template->loadscript("trader.js");
+	
+	foreach($PLANETS as $Planet)
 	{
 		$InfoList	= array(
 			'id'			=> $Planet['id'],

@@ -684,7 +684,7 @@ class ShowFleetPages extends FleetFunctions
 							`fleet_resource_metal` = '".floattostring($TransportMetal)."',
 							`fleet_resource_crystal` = '".floattostring($TransportCrystal)."',
 							`fleet_resource_deuterium` = '".floattostring($TransportDeuterium)."',
-							`fleet_target_owner` = '".(int)$TargetPlanet['id_owner']."',
+							`fleet_target_owner` = '".(($planettype == 2) ? 0 : (int)$TargetPlanet['id_owner'])."',
 							`fleet_group` = '".$fleet_group_mr."',
 							`start_time` = '".TIMESTAMP."';
 							UPDATE `".PLANETS."` SET
@@ -963,9 +963,11 @@ class ShowFleetPages extends FleetFunctions
 		elseif ($anz == 0)
 			$error = $LNG['ma_add_missile_number'];
 
-		$TargetUser	   	= GetUserByID($Target['id_owner'], array('onlinetime', 'banaday'));
+		$TargetUser	   	= GetUserByID($Target['id_owner'], array('onlinetime', 'banaday', 'urlaubs_modus'));
 		if ($CONF['adm_attack'] == 1 && $TargetUser['authattack'] > $USER['authlevel'])
 			$error = $LNG['fl_admins_cannot_be_attacked'];	
+		elseif($TargetUser['urlaubs_modus'])
+			$error = $LNG['fl_in_vacation_player'];
 			
 		$UserPoints   	= $USER;
 		$User2Points  	= $db->uniquequery("SELECT `total_points` FROM ".STATPOINTS." WHERE `stat_type` = '1' AND `id_owner` = '".$Target['id_owner']."';");
@@ -1014,7 +1016,7 @@ class ShowFleetPages extends FleetFunctions
 				fleet_resource_metal = '0',
 				fleet_resource_crystal = '0',
 				fleet_resource_deuterium = '0',
-				fleet_target_owner = '".$Target["id_owner"]."',
+				fleet_target_owner = '".$Target['id_owner']."',
 				fleet_group = '0',
 				fleet_mess = '0',
 				start_time = ".TIMESTAMP.";

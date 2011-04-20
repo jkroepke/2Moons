@@ -106,6 +106,12 @@ function ShowPhalanxPage()
 	
 	$db->free_result($FleetToTarget);
 	
+	foreach($FleetData as $key => $Val) {
+		if(empty($FleetData[$key]['fleet_descr'])) {
+			unset($FleetData[$key]);
+			unset($fpage[$key]);		
+		}
+	}
 	if(!empty($fpage))
 		ksort($fpage);
 

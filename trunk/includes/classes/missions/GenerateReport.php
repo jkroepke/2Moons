@@ -76,7 +76,7 @@ function GenerateReport($RESULT, $INFO)
 					if ($ship_count1 <= 0)
 						continue;
 
-					$ships1 .= '<td class=\"transparent\">".$LNG["tech"]['.$ship_id1.']."</td>';
+					$ships1 .= '<td class=\"transparent\">".$LNG["tech_rc"]['.$ship_id1.']."</td>';
 					$count1 .= '<td class=\"transparent\">'.pretty_number($ship_count1).'</td>';
 				}
 
@@ -149,7 +149,7 @@ function GenerateReport($RESULT, $INFO)
 					if ($ship_count1 == 0)
 						continue;
 
-					$ships1 .= '<td class=\"transparent\">".$LNG["tech"]['.$ship_id1.']."</td>';
+					$ships1 .= '<td class=\"transparent\">".$LNG["tech_rc"]['.$ship_id1.']."</td>';
 					$count1 .= '<td class=\"transparent\">'.pretty_number($ship_count1).'</td>';
 				}
 

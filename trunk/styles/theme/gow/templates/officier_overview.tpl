@@ -10,12 +10,12 @@
 		{foreach item=ExtraDMInfo from=$ExtraDMList}
 		<tr>
 			<td rowspan="2" style="width:120px;">
-				<a href="javascript:void(0);">
+				<a href="#" onclick="return Dialog.info({$ExtraDMInfo.id});">
 					<img src="{$dpath}gebaeude/{$ExtraDMInfo.id}.gif" alt="{$ExtraDMInfo.name}" width="120" height="120">
 				</a>
 			</td>
 			<th>
-				<a href="javascript:void(0);">{$ExtraDMInfo.name}</a>
+				<a href="#" onclick="return Dialog.info({$ExtraDMInfo.id});">{$ExtraDMInfo.name}</a>
 			</th>
 		</tr>
 		<tr>
