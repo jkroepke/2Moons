@@ -272,7 +272,7 @@ class ShowFleetPages extends FleetFunctions
 	
 	public static function ShowFleet2Page()
 	{
-		global $USER, $PLANET, $db, $LNG;
+		global $USER, $PLANET, $db, $LNG, $UNI;
 	
 		$PlanetRess = new ResourceUpdate();
 		$PlanetRess->CalcResource();
@@ -294,7 +294,7 @@ class ShowFleetPages extends FleetFunctions
 		
 		if($TargetPlanettype == 2)
 		{
-			$GetInfoPlanet 			= $db->uniquequery("SELECT `id_owner`, `der_metal`, `der_crystal` FROM `".PLANETS."` WHERE `galaxy` = ".$TargetGalaxy ." AND `system` = ".$TargetSystem." AND `planet` = ".$TargetPlanet." AND `planet_type` = '1';");
+			$GetInfoPlanet 			= $db->uniquequery("SELECT `id_owner`, `der_metal`, `der_crystal` FROM `".PLANETS."` WHERE `universe` = '".$UNI."' AND `galaxy` = ".$TargetGalaxy ." AND `system` = ".$TargetSystem." AND `planet` = ".$TargetPlanet." AND `planet_type` = '1';");
 			if($GetInfoPlanet['der_metal'] == 0 && $GetInfoPlanet['der_crystal'] == 0)
 			{
 				$template->message("<font color=\"red\"><b>".$LNG['fl_no_empty_derbis']."</b></font>", "game.php?page=fleet", 2);
