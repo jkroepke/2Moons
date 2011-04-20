@@ -35,7 +35,7 @@ function ShowUniversePage() {
 
 	if($_REQUEST['action'] == 'delete' && !empty($_REQUEST['id']) && $_REQUEST['id'] != 1) {
 		$ID	= (int) $_REQUEST['id'];
-		if($UNI != $ID){
+		if($UNI != $ID) {
 			$db->multi_query("DELETE FROM ".ALLIANCE." WHERE `ally_universe` = ".$ID.";
 			DELETE FROM ".BANNED." WHERE `universe` = ".$ID.";
 			DELETE FROM ".BUDDY." WHERE `universe` = ".$ID.";

@@ -41,7 +41,7 @@ define('DEFAULT_LANG'             , "de"); // For Fatal Errors!
 define('PHPEXT'                   , "php");
 
 // SUPPORT WILDCAST DOMAINS
-define('UNIS_WILDCAST'			  , true);
+define('UNIS_WILDCAST'			  , false);
 
 // SUPPORT OWN vars.php / UNIVERSE | NOTE: make a COPY of vars.php and rename it to vars_uni1.php,  vars_uni2.php, etc...
 define('UNIS_MULTIVARS'			  , false);

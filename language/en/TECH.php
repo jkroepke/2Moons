@@ -429,6 +429,24 @@ $LNG['info'][614]['description'] = '<br><br>The Conqueror is a member of the Imp
 $LNG['info'][615]['name']    	= 'Emperor';
 $LNG['info'][615]['description'] = '<br><br>The Emperor placed under his command available to all officers in the empire, combining their skills to dominate the universe and to become an opponent almost invincible. <br><br><font color="red">Max Level %s</font>';
 
+// ----------------------------------------------------------------------------------------------------------
+// ExtraDM - Dummy vars.
+$LNG['info'][700]['name']		 = 'Weapons Optimization';
+$LNG['info'][700]['description'] = 'Weapons Optimization';
+$LNG['info'][701]['name']		 = 'Shield Optimization';
+$LNG['info'][701]['description'] = 'Shield Optimization';
+$LNG['info'][702]['name']		 = 'Construction Coordination';
+$LNG['info'][702]['description'] = 'Construction Coordination';
+$LNG['info'][703]['name']		 = 'Raw material Optimization';
+$LNG['info'][703]['description'] = 'Raw material Optimization';
+$LNG['info'][704]['name']		 = 'Energy Optimization';
+$LNG['info'][704]['description'] = 'Energy Optimization';
+$LNG['info'][705]['name']		 = 'Research Optimization';
+$LNG['info'][705]['description'] = 'Research Optimization';
+$LNG['info'][706]['name']		 = 'Fleet Coordination';
+$LNG['info'][706]['description'] = 'Fleet Coordination';
+
+
 // Originally Translated into English by Languar . All rights reversed (C) 2010
 // Additional Translation into English by Cheekyvimto . All rights reserved (C) 2011
 ?>
