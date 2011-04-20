@@ -80,11 +80,11 @@ switch($action)
 		}
 		
 		$db->free_result($OwnFleets);
-		ksort($FleetData);
 		foreach($FleetData as $key => $Val) {
 			if(empty($FleetData[$key]['fleet_descr']))
 				unset($FleetData[$key]);
 		}
+		ksort($FleetData);
 		echo json_encode($FleetData);
 		exit;
 	break;

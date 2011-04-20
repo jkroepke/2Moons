@@ -708,6 +708,7 @@ $LNG['al_diplo_ask_mes']					= 'Es besteht eine Paktanfrage (%s) der Allianz %s 
 $LNG['al_diplo_war']						= 'Kriegserklärung';
 $LNG['al_diplo_war_mes']					= 'Die Allianz %s hat der Allianz %s soeben den %s erklärt.<br>Begründung:<br>%s<br><br>Informationen: Der Krieg ist in 24 Stunden gültig. Erst nach den 24 Stunden entfällt die Bashregel. <br>Weitere Informationen findest Du in den <a href="index.php?page=rules" target="_blank">Regeln</a>.';
 $LNG['al_leave_ally']						= 'Möchtest Du wirklich die Allianz verlassen?';
+$LNG['al_default_leader_name']				= 'Leader';
 
 //----------------------------------------------------------------------------//
 //BUDDY
