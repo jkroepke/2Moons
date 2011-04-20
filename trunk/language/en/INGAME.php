@@ -707,6 +707,7 @@ $LNG['al_diplo_ask_mes']                    = 'There is a pact inquiry (%s) the 
 $LNG['al_diplo_war']                        = 'Declaration of war';
 $LNG['al_diplo_war_mes']                    = 'The alliance %s has the alliance %s just this one %s explain. <br>Grounds:<br>%s<br><br>Information: The war is valid in 24 hours. The bash is regulate dropped only after the 24 hours. <br>You find further information into this one <a href="index.php?page=rules" target="_blank">Rules</a>.';
 $LNG['al_leave_ally']						= 'Do you really wish to leave the alliance?';
+$LNG['al_default_leader_name']				= 'Leader';
 
 //----------------------------------------------------------------------------//
 //BUDDY
