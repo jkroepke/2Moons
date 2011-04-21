@@ -137,7 +137,7 @@ class ShowShipyardPage
 				$Missiles	 		= array();
 				$Missiles[502]		= $PLANET[$resource[502]];
 				$Missiles[503]		= $PLANET[$resource[503]];
-				$MaxMissiles   		= $PLANET[$resource[44]] * $CONF['silo_factor'];
+				$MaxMissiles   		= $PLANET[$resource[44]] * 5 * $CONF['silo_factor'];
 
 				foreach($BuildArray as $ElementArray) {
 					if(isset($Missiles[$ElementArray[0]]))
@@ -145,7 +145,7 @@ class ShowShipyardPage
 				}
 				
 				$ActuMissiles  = $Missiles[502] + (2 * $Missiles[503]);
-				$MissilesSpace = $MaxMissiles - $ActuMissiles;
+				$MissilesSpace = max(0, $MaxMissiles - $ActuMissiles);
 				
 				if($Element == 502)
 					$Count = min($Count, $MissilesSpace);
