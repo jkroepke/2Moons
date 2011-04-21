@@ -285,8 +285,8 @@ function ShowAccountDataPage()
 						<td>".$Planettt."</td>
 						<td>".$PlanetsWhile['id']."</td>
 						<td>".pretty_number($PlanetsWhile['diameter'])."</td>
-						<td>".pretty_number($PlanetsWhile['field_current'])."/".pretty_number($PlanetsWhile['field_max'])."</td>
-						<td>".pretty_number($PlanetsWhile['temp_min'])."/".pretty_number($PlanetsWhile['temp_max'])."</td>"
+						<td>".pretty_number($PlanetsWhile['field_current'])." / ".pretty_number(CalculateMaxPlanetFields($PlanetsWhile))." (".pretty_number($PlanetsWhile['field_current'])." / ".pretty_number($PlanetsWhile['field_max']).")</td>
+						<td>".pretty_number($PlanetsWhile['temp_min'])." / ".pretty_number($PlanetsWhile['temp_max'])."</td>"
 						.(allowedTo('ShowQuickEditorPage') ? "<td><a href=\"javascript:openEdit('".$PlanetsWhile['id']."', 'planet');\" border=\"0\"><img src=\"./styles/images/Adm/GO.png\" title=".$LNG['se_search_edit']."></a></td>" : "").
 					"</tr>";
 					
