@@ -23,7 +23,7 @@ define('INSIDE', true );
 define('INSTALL', false );
 define('LOGIN', true );
 define('ROOT_PATH'	,'./');
-include_once(ROOT_PATH . 'common.php');
+include_once(ROOT_PATH . 'includes/common.php');
 $Qry	= $db->query("SELECT id, b_tech_queue  FROM ".USERS.";");
 
 while($CUser = $db->fetch_array($Qry))
@@ -33,10 +33,10 @@ while($CUser = $db->fetch_array($Qry))
 	foreach($Queue as $QueueID) {
 		$NewQueue[]	= explode(',', $QueueID);
 	}
-	$db->query("UPDATE ".USERS." SET `b_tech_queue` = '".(empty($NewQueue)?'':serialze($NewQueue))."' WHERE `id` = ".$CUser['id'].";");
+	$db->query("UPDATE ".USERS." SET `b_tech_queue` = '".(empty($NewQueue)?'':serialize($NewQueue))."' WHERE `id` = ".$CUser['id'].";");
 }
 
-$Qry	= $db->query("SELECT id, b_building_id, b_hangar_id FROM ".USERS.";");
+$Qry	= $db->query("SELECT id, b_building_id, b_hangar_id FROM ".PLANETS.";");
 
 while($CUser = $db->fetch_array($Qry))
 {
@@ -50,7 +50,7 @@ while($CUser = $db->fetch_array($Qry))
 	foreach($BQueue as $QueueID) {
 		$NewBQueue[]	= explode(',', $QueueID);
 	}
-	$db->query("UPDATE ".USERS." SET `b_building_id` = '".(empty($NewBQueue)?'':serialze($NewBQueue))."', `b_hangar_id` = '".(empty($NewHQueue)?'':serialze($NewHQueue))."' WHERE `id` = ".$CUser['id'].";");
+	$db->query("UPDATE ".PLANETS." SET `b_building_id` = '".(empty($NewBQueue)?'':serialize($NewBQueue))."', `b_hangar_id` = '".(empty($NewHQueue)?'':serialize($NewHQueue))."' WHERE `id` = ".$CUser['id'].";");
 }
 
 ?>
