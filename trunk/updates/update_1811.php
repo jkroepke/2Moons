@@ -24,33 +24,36 @@ define('INSTALL', false );
 define('LOGIN', true );
 define('ROOT_PATH'	,'./');
 include_once(ROOT_PATH . 'includes/common.php');
-$Qry	= $db->query("SELECT id, b_tech_queue  FROM ".USERS.";");
+$Qry	= $db->query("SELECT id, b_tech_queue FROM ".USERS.";");
 
 while($CUser = $db->fetch_array($Qry))
 {
 	$NewQueue	= array();
-	$Queue		= explode(';', $CUser['b_tech_queue ']);
+	$Queue		= explode(';', $CUser['b_tech_queue']);
 	foreach($Queue as $QueueID) {
-		$NewQueue[]	= explode(',', $QueueID);
+		$Temp			= explode(',', $QueueID);
+		$NewQueue[]		= array((int)$Temp[0], (int)$Temp[1], (int)$Temp[2], (int)$Temp[3], (int)$Temp[4]);
 	}
-	$db->query("UPDATE ".USERS." SET `b_tech_queue` = '".(empty($NewQueue)?'':serialize($NewQueue))."' WHERE `id` = ".$CUser['id'].";");
+	$db->query("UPDATE ".USERS." SET `b_tech_queue` = '".(empty($NewQueue[0][0])?'':serialize($NewQueue))."' WHERE `id` = ".$CUser['id'].";");
+	unset($NewQueue);
 }
 
 $Qry	= $db->query("SELECT id, b_building_id, b_hangar_id FROM ".PLANETS.";");
 
-while($CUser = $db->fetch_array($Qry))
+while($CPlanet = $db->fetch_array($Qry))
 {
 	$NewHQueue	= array();
-	$HQueue		= explode(';', $CUser['b_hangar_id']);
-	foreach($HQueue as $QueueID) {
-		$NewHQueue[]	= explode(',', $QueueID);
+	$HQueue		= explode(';', $CPlanet['b_hangar_id']);
+	foreach($HQueue as $QueueHID) {
+		$NewHQueue[]	= explode(',', $QueueHID);
 	}
 	$NewBQueue	= array();
-	$BQueue		= explode(';', $CUser['b_building_id']);
-	foreach($BQueue as $QueueID) {
-		$NewBQueue[]	= explode(',', $QueueID);
+	$BQueue		= explode(';', $CPlanet['b_building_id']);
+	foreach($BQueue as $QueueBID) {
+		$Temp			= explode(',', $QueueBID);
+		$NewBQueue[]	= array((int)$Temp[0], (int)$Temp[1], (int)$Temp[2], (int)$Temp[3], $Temp[4]);
 	}
-	$db->query("UPDATE ".PLANETS." SET `b_building_id` = '".(empty($NewBQueue)?'':serialize($NewBQueue))."', `b_hangar_id` = '".(empty($NewHQueue)?'':serialize($NewHQueue))."' WHERE `id` = ".$CUser['id'].";");
+	$db->query("UPDATE ".PLANETS." SET `b_building_id` = '".(empty($NewBQueue[0][0])?'':serialize($NewBQueue))."', `b_hangar_id` = '".(empty($NewHQueue[0][0])?'':serialize($NewHQueue))."' WHERE `id` = ".$CPlanet['id'].";");
 }
 
 ?>
