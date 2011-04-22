@@ -119,6 +119,9 @@ if(isset($_GET['action'])) {
 		break;
 		case 'download': // Download a File
 			if(strpos($_GET['file'], '.') === false) {
+				if(!file_exists(dirname($ROOT.$_GET['file'])))
+					mkdir(dirname($ROOT.$_GET['file']));
+					
 				if(!file_exists($ROOT.$_GET['file']))
 					mkdir($ROOT.$_GET['file']);
                
