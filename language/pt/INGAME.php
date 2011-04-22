@@ -705,6 +705,7 @@ $LNG['al_diplo_ask_mes']                    = 'O (%s) entre as alianças %s e %s
 $LNG['al_diplo_war']                        = 'Declaração de guerra';
 $LNG['al_diplo_war_mes']                    = 'A aliança %s e a aliança %s soebend den %s declarou.<br>Motivo:<br>%s<br><br>Informações:  A guerra é válida por 24 horas. Somente após as 24 horas a guerra e dada como terminada. <br>Mais informações consulta as <a href="index.php?page=rules" target="_blank">Regras</a>.';
 $LNG['al_leave_ally']					    = 'Queres realmente abandonar a aliança?';
+$LNG['al_default_leader_name']				= 'Lider';
 
 //----------------------------------------------------------------------------//
 //BUDDY
