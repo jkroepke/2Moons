@@ -461,5 +461,20 @@ $LNG['info'][614]['description'] = '<br><br>Esta personagem possui qualidades de
 $LNG['info'][615]['name']    	 = 'Imperador';
 $LNG['info'][615]['description'] = '<br><br>Quando colocados sob o comando do imperador todos os oficiais do império, combinando suas habilidades para dominar o universo são capazes de se tornar num adversário quase invisívelO imperador colocado sob o seu comando disponíveis para todos os oficiais do império, combinando suas habilidades para dominar o universo e tornar-se um adversário quase invisíveis.<br><br><font color="red">Nivel max: %s</font>';
 
-
+// ----------------------------------------------------------------------------------------------------------
+// ExtraDM - Dummy vars.
+$LNG['info'][700]['name']		 = 'Optimização de Armas';
+$LNG['info'][700]['description'] = 'Esse oficial aumenta o extra do poder de armas';
+$LNG['info'][701]['name']		 = 'Optimização de Escudo';
+$LNG['info'][701]['description'] = 'Esse oficial aumenta o extra do poder de escudo';
+$LNG['info'][702]['name']		 = 'Optimização de Construcção';
+$LNG['info'][702]['description'] = 'Esse oficial reduz o tempo dos edificios';
+$LNG['info'][703]['name']		 = 'Optimização de Recursos';
+$LNG['info'][703]['description'] = 'Esse oficial aumenta o extra dos recursos';
+$LNG['info'][704]['name']		 = 'Optimização de Energia';
+$LNG['info'][704]['description'] = 'Esse oficial aumenta o extra da energia';
+$LNG['info'][705]['name']		 = 'Optimização de Pesquisas';
+$LNG['info'][705]['description'] = 'Esse oficial reduz o tempo das pesquisas';
+$LNG['info'][706]['name']		 = 'Optimização de Motores';
+$LNG['info'][706]['description'] = 'Esse oficial reduz o tempo dos voos das naves';
 ?>
