@@ -113,7 +113,7 @@ class ShowResearchPage
 			{
 				if($Element == $ListIDArray[0])
 					continue;
-var_dump($ListIDArray);
+					
 				if($ListIDArray[4] != $PLANET['id'])
 					$CPLANET		= $db->uniquequery("SELECT `".$resource[6]."`, `".$resource[31]."` FROM ".PLANETS." WHERE `id` = '".$ListIDArray[4]."';");
 				else
