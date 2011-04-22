@@ -24,7 +24,8 @@
  * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
  * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.3 (2011-01-21)
+ * @version 1.3.5 (2011-04-22)
+ * @info $Id$
  * @link http://code.google.com/p/2moons/
  */
 

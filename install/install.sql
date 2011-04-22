@@ -20,7 +20,8 @@
  * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
  * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.3 (2011-01-21)
+ * @version 1.3.5 (2011-04-22)
+ * @info $Id$
  * @link http://code.google.com/p/2moons/
  */
 
@@ -257,7 +258,7 @@ CREATE TABLE IF NOT EXISTS `prefix_config` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO `prefix_config` (`uni`, `VERSION`, `uni_name`, `game_name`, `close_reason`, `OverviewNewsText`, `moduls`) VALUES
-(1, '1.3.1800', 'Universum 1', '2Moons', 'Game ist zurzeit geschlossen', 'Herzlich Willkommen bei 2Moons v1.3.5!', '1');
+(1, '1.3.1829', 'Universum 1', '2Moons', 'Game ist zurzeit geschlossen', 'Herzlich Willkommen bei 2Moons v1.3.5!', '1');
 
 CREATE TABLE IF NOT EXISTS `prefix_diplo` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
