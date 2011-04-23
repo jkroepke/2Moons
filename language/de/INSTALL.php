@@ -53,6 +53,7 @@ $LNG['reg_mysqli_active']	= 'MySQLi vorhanden?';
 $LNG['reg_json_need']		= 'JSON vorhanden?';
 $LNG['reg_bcmath_need']		= 'BCMath vorhanden?';
 $LNG['reg_iniset_need']		= 'ini_set erlaubt?';
+$LNG['reg_global_need']		= 'register_globals deaktiviert?';
 $LNG['req_php_need']		= 'PHP-Version (min. 5.2.5)';
 $LNG['req_ftp']				= 'FTP';
 $LNG['req_ftp_info']		= 'Gebe deine FTP Daten ein, um die Probleme zu beheben.';

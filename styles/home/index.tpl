@@ -3,7 +3,7 @@
 <html lang="{$lang}">
 <head>
 <link rel="stylesheet" type="text/css" href="styles/css/login.css?v={$REV}">
-<link rel="icon" href="favicon.ico">
+<link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
 <title>{block name="title"} - {$servername}{/block}</title>
 <meta name="generator" content="2Moons {$VERSION}">
 <!-- 
@@ -14,7 +14,6 @@
 -->
 <meta name="keywords" content="Browsergame, XNova, 2Moons, Slaver, Space, Weltraum, Private, Server, Speed">
 <meta name="medium" content="mult">
-<meta http-equiv="X-UA-Compatible" content="IE=8">
 <meta name="description" content="2Moons Browsergame powerd by Slaver"> <!-- Noob Check ;) -->
 <!--[if lt IE 9]>
 <script src="scripts/html5.js"></script>

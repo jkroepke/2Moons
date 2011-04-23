@@ -115,6 +115,13 @@ switch ($Mode) {
 			$iniset = "<span class=\"no\">".$LNG['reg_no']."</span>";
 			$error	= true;
 		}
+	
+		if(!ini_get('register_globals')){
+			$global = "<span class=\"yes\">".$LNG['reg_yes']."</span>";
+		} else {
+			$global = "<span class=\"no\">".$LNG['reg_no']."</span>";
+			$error	= true;
+		}
 
 		if(!extension_loaded('gd')) {
 			$gdlib = "<span class=\"no\">".$LNG['reg_no']."</span>";
@@ -170,11 +177,13 @@ switch ($Mode) {
 			'ftp'					=> $ftp,
 			'bcmath'				=> $bcmath,
 			'iniset'				=> $iniset,
+			'global'				=> $global,
 			'req_php_need'			=> $LNG['req_php_need'],
 			'reg_mysqli_active'		=> $LNG['reg_mysqli_active'],
 			'reg_gd_need'			=> $LNG['reg_gd_need'],
 			'reg_json_need'			=> $LNG['reg_json_need'],
 			'reg_iniset_need'		=> $LNG['reg_iniset_need'],
+			'reg_global_need'		=> $LNG['reg_global_need'],
 			'reg_bcmath_need'		=> $LNG['reg_bcmath_need'],
 			'req_ftp'				=> $LNG['req_ftp'],
 			'req_ftp_info'			=> $LNG['req_ftp_info'],

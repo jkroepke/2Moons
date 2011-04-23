@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css" href="./styles/css/ingame.css">
 <link rel="stylesheet" type="text/css" href="./styles/css/jquery.css">
 <link rel="stylesheet" type="text/css" href="{$dpath}formate.css">
-<link rel="icon" href="favicon.ico">
+<link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
 </head>
 <body>
 <div id="tooltip" class="tip"></div>
