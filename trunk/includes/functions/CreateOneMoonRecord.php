@@ -46,15 +46,13 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 			return false;
 
 		if($Size == 0) {
-			$SizeMin                = round(pow((3 * $Chance) + 10, 0.5) * 1000);
-			$SizeMax                = round(pow((3 * $Chance) + 20, 0.5) * 1000);
-			$size                   = rand($SizeMin, $SizeMax);
+			$size	= floor(pow(mt_rand(10, 20) + 3 * $Chance), 0.5) * 1000); # New Calculation - 23.04.2011
 		} else {
-			$size = $Size;
+			$size	= $Size;
 		}
 		
-		$maxtemp                = $MoonPlanet['temp_max'] - mt_rand(10, 45);
-		$mintemp                = $MoonPlanet['temp_min'] - mt_rand(10, 45);
+		$maxtemp	= $MoonPlanet['temp_max'] - mt_rand(10, 45);
+		$mintemp	= $MoonPlanet['temp_min'] - mt_rand(10, 45);
 
 		$SQL  = "INSERT INTO ".PLANETS." SET ";
 		$SQL .= "`name` = '".( ($MoonName == '') ? $LNG['fcm_moon'] : $MoonName )."', ";

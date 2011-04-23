@@ -99,7 +99,21 @@ class ResourceUpdate
 			$this->PLANET['crystal_perhour']		= 0;
 			$this->PLANET['deuterium_perhour']		= 0;
 			$this->PLANET['energy_used']			= 0;
-			$this->PLANET['energy_max']         	= 0;
+			$this->PLANET['metal_proc']				= array(0);
+			$this->PLANET['crystal_proc']			= array(0);
+			$this->PLANET['deuterium_proc']			= array(0);
+			$this->PLANET['deuterium_userd_proc']	= array(0);
+			$this->PLANET['energy_used_proc']		= array(0);
+			if($this->PLANET[$resource[212]] == 0) {
+				$this->PLANET['energy_max_proc']		= array(0);
+				$this->PLANET['energy_max']         	= 0;
+			} else {
+				$BuildTemp      = $this->PLANET['temp_max'];
+				$BuildLevelFactor						= $this->PLANET[$resource[212].'_porcent'];
+				$BuildLevel 							= $this->PLANET[$resource[212]];
+				$this->PLANET['energy_max_proc'][212]	= round(eval($ProdGrid[212]['formule']['energy']) * ($this->CONF['resource_multiplier']));
+				$this->PLANET['energy_max']         	= $this->PLANET['energy_max_proc'][212];
+			}
 		}
 		else
 		{
@@ -113,8 +127,8 @@ class ResourceUpdate
 			$BuildEnergy	= $this->USER[$resource[113]];
 
 			foreach($reslist['prod'] as $id => $ProdID)
-			{				
-				$BuildLevelFactor						= $this->PLANET[$resource[$ProdID].'_porcent'];
+			{	
+				$BuildLevelFactor						= $this->PLANET[$resource[$ProdID].'_porcent'];			
 				$BuildLevel 							= $this->PLANET[$resource[$ProdID]];
 				$this->PLANET['metal_proc'][$ProdID]	= round(eval($ProdGrid[$ProdID]['formule']['metal'])     * $this->CONF['resource_multiplier']);
 				$this->PLANET['crystal_proc'][$ProdID]	= round(eval($ProdGrid[$ProdID]['formule']['crystal'])   * $this->CONF['resource_multiplier']);
