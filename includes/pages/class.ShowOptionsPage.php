@@ -40,15 +40,15 @@ class ShowOptionsPage
 		if($fleets != 0)
 			return false;
 					
-		$query = $db->query("SELECT * FROM ".PLANETS." WHERE id_owner = '".$USER['id']."' AND `destruyed` = 0;");
+		$query = $db->query("SELECT * FROM ".PLANETS." WHERE id_owner = '".$USER['id']."' AND id != '".$PLANET['id']."' AND `destruyed` = 0;");
 		
 		
 		while($CPLANET = $db->fetch_array($query))
 		{
 			$PlanetRess = new ResourceUpdate();
 		
-			if($CPLANET['id'] != $_SESSION['planet'])
-				list($USER, $CPLANET)	= $PlanetRess->CalcResource($USER, $CPLANET, true, TIMESTAMP);
+			list($USER['factor'], $CPLANET['factor'])    = getFactors($USER, $CPLANET);
+			list($USER, $CPLANET)	= $PlanetRess->CalcResource($USER, $CPLANET, true, TIMESTAMP);
 		
 			if(!empty($CPLANET['b_building']) || !empty($CPLANET['b_hangar']))
 				return false;

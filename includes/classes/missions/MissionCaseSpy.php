@@ -41,10 +41,7 @@ class MissionCaseSpy extends MissionFunctions
 		$CurrentUser         = $db->uniquequery("SELECT `lang`, `spy_tech`, `rpg_espion` FROM ".USERS." WHERE `id` = '".$this->_fleet['fleet_owner']."';");
 		$LNG			     = $LANG->GetUserLang($CurrentUser['lang'], array('FLEET', 'TECH'));
 		$CurrentUserID       = $this->_fleet['fleet_owner'];
-		$SQL 				 = "SELECT * FROM ".PLANETS." ";
-		$SQL 				.= "WHERE ";
-		$SQL 				.= "`id` = '". $this->_fleet['fleet_end_id'] ."';";
-		$TargetPlanet        = $db->uniquequery($SQL);
+		$TargetPlanet        = $db->uniquequery("SELECT * FROM ".PLANETS." WHERE `id` = ".$this->_fleet['fleet_end_id'].";");
 		$TargetUserID        = $TargetPlanet['id_owner'];
 		$CurrentPlanet       = $db->uniquequery("SELECT name,system,galaxy,planet FROM ".PLANETS." WHERE `galaxy` = '".$this->_fleet['fleet_start_galaxy']."' AND `system` = '".$this->_fleet['fleet_start_system']."' AND `planet` = '".$this->_fleet['fleet_start_planet']."';");
 		$CurrentSpyLvl       = max(($CurrentUser['spy_tech'] + ($CurrentUser['rpg_espion'] * $OfficerInfo[610]['info'])), 1);
@@ -54,6 +51,7 @@ class MissionCaseSpy extends MissionFunctions
 			
 		require_once(ROOT_PATH.'includes/classes/class.PlanetRessUpdate.php');	
 		$PlanetRess = new ResourceUpdate();
+		list($TargetUser['factor'], $TargetPlanet['factor'])    = getFactors($USER, $CPLANET);
 		list($TargetUser, $TargetPlanet)	= $PlanetRess->CalcResource($TargetUser, $TargetPlanet, true, $this->_fleet['fleet_start_time']);
 		foreach ($fleet as $a => $b)
 		{
