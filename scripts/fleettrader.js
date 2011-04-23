@@ -2,10 +2,10 @@ function updateVars()
 {	
 	var ID 	= $('#id').val();
 	$('#img').attr('src', $('#img').attr('name')+ID+'.gif');
-	$('#metal').text(NumberGetHumanReadable(CostInfo[ID][1] * (1 - Charge)));
-	$('#crystal').text(NumberGetHumanReadable(CostInfo[ID][2] * (1 - Charge)));
-	$('#deuterium').text(NumberGetHumanReadable(CostInfo[ID][3] * (1 - Charge)));
-	$('#darkmatter').text(NumberGetHumanReadable(CostInfo[ID][4] * (1 - Charge)));
+	$('#metal').text(NumberGetHumanReadable(CostInfo[ID][1] * (1 - Charge / 100)));
+	$('#crystal').text(NumberGetHumanReadable(CostInfo[ID][2] * (1 - Charge / 100)));
+	$('#deuterium').text(NumberGetHumanReadable(CostInfo[ID][3] * (1 - Charge / 100)));
+	$('#darkmatter').text(NumberGetHumanReadable(CostInfo[ID][4] * (1 - Charge / 100)));
 	Reset();
 }
 
@@ -42,4 +42,4 @@ function Reset()
 	$('#total_darkmatter').text(0);
 }
 
-$('#charge').text(Math.round(Charge * 100) + "%");
+$('#charge').text(Charge + "%");
