@@ -62,9 +62,6 @@ class ResourceUpdate
 			
 		if($this->Build)
 		{
-			if(!function_exists('GetBuildingTime')) #Debug
-				file_put_contents(ROOT_PATH.'includes/slaver.log', print_r(debug_backtrace(), true)."\r\n-----------\r\n\r\n", FILE_APPEND);
-			
 			$this->ShipyardQueue();
 			if($this->Tech == true && $this->USER['b_tech'] != 0 && $this->USER['b_tech'] < $this->TIME)
 				$this->ResearchQueue();

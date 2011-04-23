@@ -36,6 +36,13 @@ function ShowResourcesPage()
 		$CONF['metal_basic_income']     = 0;
 		$CONF['crystal_basic_income']   = 0;
 		$CONF['deuterium_basic_income'] = 0;
+
+		$PLANET['metal_proc']			= array(0);
+		$PLANET['crystal_proc']			= array(0);
+		$PLANET['deuterium_proc']		= array(0);
+		$PLANET['deuterium_userd_proc']	= array(0);
+		$PLANET['energy_max_proc']		= array(0);
+		$PLANET['energy_used_proc']		= array(0);
 	}
 
 	$SubQry               = "";
