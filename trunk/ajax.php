@@ -254,9 +254,9 @@ switch($action)
 				if(empty($_REQUEST['delmes']) || !is_array($_REQUEST['delmes']))
 					exit;
 					
-				foreach($_REQUEST['delmes'] as $id => $b)
+				foreach($_REQUEST['delmes'] as $MessID => $b)
 				{
-					$SQLWhere[] = "`message_id` = '".(int) $id."'";
+					$SQLWhere[] = "`message_id` = '".(int) $MessID."'";
 				}
 				
 				$db->query("DELETE FROM ".MESSAGES." WHERE (".implode(" OR ",$SQLWhere).") AND `message_owner` = '".$_SESSION['id']."'".(($MessType != 100)? " AND `message_type` = '".$MessType."' ":"").";");
@@ -265,9 +265,9 @@ switch($action)
 				if(!empty($_REQUEST['delmes']) && is_array($_REQUEST['delmes']))
 				{
 					$SQLWhere = array();
-					foreach($_REQUEST['delmes'] as $id => $b)
+					foreach($_REQUEST['delmes'] as $MessID => $b)
 					{
-						$SQLWhere[] = "`message_id` != '".(int) $id."'";
+						$SQLWhere[] = "`message_id` != '".(int) $MessID."'";
 					}
 					
 					$db->query("DELETE FROM ".MESSAGES." WHERE (".implode(" AND ",$SQLWhere).") AND `message_owner` = '".$_SESSION['id']."'".(($MessType != 100)? " AND `message_type` = '".$MessType."' ":"").";");
