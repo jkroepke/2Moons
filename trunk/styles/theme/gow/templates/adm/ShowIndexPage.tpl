@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>{$adm_cp_title} &bull; {$game_name}</title>
-<link rel="icon" href="./favicon.ico">
+<link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
 </head>
 <frameset cols="217,*" frameborder="0">
 <frame src="admin.php?page=menu" name="rightFrame" id="rightFrame" noresize="noresize">

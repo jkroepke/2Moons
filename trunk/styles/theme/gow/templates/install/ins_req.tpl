@@ -9,6 +9,9 @@
 				<td class="transparent">{$reg_iniset_need}</td><td class="transparent">{$json}</td>
 			</tr>
 			<tr>
+				<td class="transparent">{$reg_global_need}</td><td class="transparent">{$global}</th>
+			</tr>
+			<tr>
 				<td class="transparent">{$reg_mysqli_active}</td><td class="transparent">{$mysqli}</th>
 			</tr>
 			<tr>
