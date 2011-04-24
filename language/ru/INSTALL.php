@@ -28,6 +28,7 @@ $LNG['reg_mysqli_active']  = 'MySQLi доступна?';
 $LNG['reg_json_need']      = 'JSON доступен?';
 $LNG['reg_bcmath_need']    = 'BCMath доступен?';
 $LNG['reg_iniset_need']    = 'ini_set разрешён?';
+$LNG['reg_global_need']    = 'register_globals отключён?';
 $LNG['req_php_need']       = 'PHP-версия (мин. 5.2.5)';
 $LNG['req_ftp']            = 'FTP';
 $LNG['req_ftp_info']       = 'Введите свои FTP данные для решения проблем с CHMOD';
