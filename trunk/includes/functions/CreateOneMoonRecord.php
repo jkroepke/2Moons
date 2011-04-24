@@ -46,7 +46,7 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 			return false;
 
 		if($Size == 0) {
-			$size	= floor(pow(mt_rand(10, 20) + 3 * $Chance), 0.5) * 1000); # New Calculation - 23.04.2011
+			$size	= floor(pow(mt_rand(10, 20) + 3 * $Chance, 0.5) * 1000); # New Calculation - 23.04.2011
 		} else {
 			$size	= $Size;
 		}
