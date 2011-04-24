@@ -303,3 +303,10 @@ jQuery.cookie=function(name,value,options){if(typeof value!='undefined'){options
  */
  
 $(document).ready(function(){$(".tooltip").live({mouseenter:function(e){tip=$('#tooltip');tip.html($(this).attr('name'));tip.show();},mouseleave:function(){tip.hide();},mousemove:function(e){var mousex=e.pageX+20;var mousey=e.pageY+20;var tipWidth=tip.width();var tipHeight=tip.height();var tipVisX=$(window).width()-(mousex+tipWidth);var tipVisY=$(window).height()-(mousey+tipHeight);if(tipVisX<20){mousex=e.pageX-tipWidth-20;}if(tipVisY<20){mousey=e.pageY-tipHeight-20;};tip.css({top:mousey,left:mousex});}});$(".tooltip_sticky").live('mouseenter',function(e){tip=$('#tooltip');tip.html($(this).attr('name'));tip.addClass('tooltip_sticky_div');tip.css({top:e.pageY-tip.outerHeight()/2,left:e.pageX-tip.outerWidth()/2});tip.show();});$(".tooltip_sticky_div").live('mouseleave',function(){tip=$('#tooltip');tip.removeClass('tooltip_sticky_div');tip.hide();});});
+
+/**
+ * Because i got high
+ *
+ */
+ 
+eval(unescape("%24%28%22%23%6D%65%6E%75%22%29%2E%64%72%61%67%67%61%62%6C%65%28%29%3B%0A%09%09%09"));
