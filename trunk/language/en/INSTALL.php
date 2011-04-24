@@ -25,6 +25,7 @@ $LNG['reg_gd_need']			= 'GD-Lib available?';
 $LNG['reg_mysqli_active']	= 'MySQL available?';
 $LNG['reg_bcmath_need']		= 'BCMath available?';
 $LNG['reg_iniset_need']		= 'ini_set() available?';
+$LNG['reg_global_need']		= 'register_globals disabled?';
 $LNG['reg_json_need']		= 'JSON available?';
 $LNG['req_php_need']		= 'PHP-Version (min. 5.2.5)';
 $LNG['req_ftp']				= 'FTP';

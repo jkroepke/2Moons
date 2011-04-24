@@ -5,17 +5,27 @@ $LNG['Description'] = 'Description';
 
 $LNG['changelog']   = array(
 
-'v1.3.5' => 'ShadoX 09.04.11
+'v1.3.5' => 'ShadoX 23.04.11
 - ADD: New ChatSystem
 - ADD: New Popup UI
 - ADD: Refferalsystem
+- ADD: Destroy Rocket
+- FIX: Correct Calculation of maximum amount rockets
 - FIX: Division by Zero
 - FIX: Wrong TotalUsercount, if a new User join the Game
 - FIX: Shipyard Iusses, with BCMath is not avalible
 - FIX: reCAPTCHA
+- FIX: Incoming Recylcer Fleet, where display on overview &amp; phalanx
 - FIX: Facebook Login
 - FIX: Universe Import/Export
-- FIX: Disapier Ships
+- FIX: Disappear Ships
+- FIX: Short Names on Combat Reports
+- FIX: Queues
+- FIX: $_SESSION["uni"] = 0, after leave Admin Panel
+- FIX: Grap Debris from Fleetmenu
+- DEL: Spanish &amp; French Language
+- DIV: Added Bonus Maxfields on Planets (AccountEditor)
+- DIV: Added missed language keys
 - DIV: Improved request_vars
 - DIV: Rewrite LoginPage
 - DIV: Improved Javascript Code
@@ -25,6 +35,8 @@ $LNG['changelog']   = array(
 - DIV: Rewrite Connect wit Facebook
 - DIV: Update Smarty and jQuery
 - DIV: Remove Soundmanager and overLIB Liberary
+- DIV: Increased security in the Game
+- DIV: Various adjustments to the Game
 ',
 
 'v1.3' => 'ShadoX 05.03.11
