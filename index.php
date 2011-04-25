@@ -78,7 +78,7 @@ switch ($page) {
 			$Mail			= MailSend($Username, $Usermail, $LNG['mail_title'], $MailContent);
 			
 			$db->query("UPDATE ".USERS." SET `password` = '".md5($NewPass)."' WHERE `id` = '".$UserID."';");
-			$template->message($LNG['mail_sended'], "./?lang=".$LANG->getUser(), 5, true);
+			echo json_encode(array('message' => $LNG['mail_sended'], 'error' => false));
 		}
 	break;
 	case 'reg' :

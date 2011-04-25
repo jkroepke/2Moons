@@ -105,6 +105,12 @@ class ShowOfficierPage
 		$PlanetRess = new ResourceUpdate();
 		$PlanetRess->CalcResource();
 		$PlanetRess->SavePlanetToDB();
+		
+		if($_SERVER['REQUEST_METHOD'] === 'POST') {
+			header('HTTP/1.0 204 No Content');
+			exit;
+		}
+		
 		$template	= new template();
 		$template->loadscript('officier.js');		
 

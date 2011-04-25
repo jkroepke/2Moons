@@ -257,7 +257,11 @@ class ShowBuildingsPage
 			}
 		}
 		$PlanetRess->SavePlanetToDB();
-
+		if($_SERVER['REQUEST_METHOD'] === 'POST') {
+			header('HTTP/1.0 204 No Content');
+			exit;
+		}
+		
 		$Queue	 			= $this->ShowBuildingQueue();
 		
 		$CanBuildElement 	= (count($Queue) < $CONF['max_elements_build']) ? true : false;
@@ -283,20 +287,20 @@ class ShowBuildingsPage
 			} else
 				unset($EnergyNeed);
 				
-			$parse['click']        	= '';
+			$BulidLink        	= '';
 			$NextBuildLevel        	= $PLANET[$resource[$Element]] + 1;
 
 			if ($RoomIsOk && $CanBuildElement)
-				$parse['click'] = ($HaveRessources == true) ? "<a href=\"game.php?page=buildings&amp;cmd=insert&amp;building=". $Element ."\"><span style=\"color:#00FF00\">".(($PLANET['b_building'] != 0) ? $LNG['bd_add_to_list'] : (($NextBuildLevel == 1) ? $LNG['bd_build'] : $LNG['bd_build_next_level'] . $NextBuildLevel))."</span></a>" : "<span style=\"color:#FF0000\">".(($NextBuildLevel == 1) ? $LNG['bd_build'] : $LNG['bd_build_next_level'] . $NextBuildLevel)."</span>";
+				$BulidLink = ($HaveRessources == true) ? '<a href="game.php?page=buildings&amp;cmd=insert&amp;building='.$Element.'" class="post" style="color:lime">'.(($PLANET['b_building'] != 0) ? $LNG['bd_add_to_list'] : (($NextBuildLevel == 1) ? $LNG['bd_build'] : $LNG['bd_build_next_level'] . $NextBuildLevel)).'</a>' : '<span style="color:red">'.(($NextBuildLevel == 1) ? $LNG['bd_build'] : $LNG['bd_build_next_level'] . $NextBuildLevel).'</span>';
 			elseif ($RoomIsOk && !$CanBuildElement)
-				$parse['click'] = "<span style=\"color:#FF0000\">".(($NextBuildLevel == 1) ? $LNG['bd_build'] : $LNG['bd_build_next_level'] . $NextBuildLevel) ."</span>";
+				$BulidLink = '<span style="color:red">'.(($NextBuildLevel == 1) ? $LNG['bd_build'] : $LNG['bd_build_next_level'] . $NextBuildLevel) .'</span>';
 			else
-				$parse['click'] = "<span style=\"color:#FF0000\">".$LNG['bd_no_more_fields']."</span>";
+				$BulidLink = '<span style="color:red">'.$LNG['bd_no_more_fields'].'</span>';
 
 			if (($Element == 6 || $Element == 31) && $USER['b_tech'] > TIMESTAMP)
-				$parse['click'] = "<span style=\"color:#FF0000\">".$LNG['bd_working']."</span>";
+				$BulidLink = '<span style="color:red">'.$LNG['bd_working'].'</span>';
 			elseif (($Element == 15 || $Element == 21) && !empty($PLANET['b_hangar_id']))
-				$parse['click'] = "<span style=\"color:#FF0000\">".$LNG['bd_working']."</span>";
+				$BulidLink = '<span style="color:red">'.$LNG['bd_working'].'</span>';
 			
 			$BuildInfoList[]	= array(
 				'id'			=> $Element,
@@ -308,7 +312,7 @@ class ShowBuildingsPage
 				'price'			=> GetElementPrice($USER, $PLANET, $Element, true),
 				'time'        	=> pretty_time(GetBuildingTime($USER, $PLANET, $Element)),
 				'EnergyNeed'	=> (isset($EnergyNeed)) ? sprintf(($EnergyNeed < 0) ? $LNG['bd_need_engine'] : $LNG['bd_more_engine'] , pretty_number(abs($EnergyNeed)), $LNG['Energy']) : "",
-				'BuildLink'		=> $parse['click'],
+				'BuildLink'		=> $BulidLink,
 				'restprice'		=> $this->GetRestPrice($Element),
 			);
 		}

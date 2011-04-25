@@ -457,7 +457,8 @@ class ResourceUpdate
 				$this->USER['b_tech_id']		= $Element;
 				$this->USER['b_tech']      		= $BuildEndTime;
 				$this->USER['b_tech_planet']	= $PLANET['id'];
-				$NewQueue               		= serialize($CurrentQueue);
+				$this->USER['b_tech_queue'] 	= serialize($CurrentQueue);
+
 				$Loop                  			= false;
 				
 				if($PLANET['id'] != $this->PLANET['id'])
@@ -474,26 +475,26 @@ class ResourceUpdate
 				array_shift($CurrentQueue);
 					
 				if (count($CurrentQueue) == 0) {
-					$BuildEndTime	= 0;
-					$NewQueue		= '';
-					$Loop			= false;
+					$this->USER['b_tech'] 			= 0;
+					$this->USER['b_tech_id']		= 0;
+					$this->USER['b_tech_planet']	= 0;
+					$this->USER['b_tech_queue']		= '';
+					
+					$Loop                  			= false;
 				} else {
-					$BaseTime		= $BuildEndTime - $BuildTime;
-					$NewQueue		= array();
+					$BaseTime						= $BuildEndTime - $BuildTime;
+					$NewQueue						= array();
 					foreach($CurrentQueue as $ListIDArray)
 					{
-						$ListIDArray[2]		= GetBuildingTime($this->USER, $Planet, $ListIDArray[0]);
-						$BaseTime			+= $ListIDArray[2];
-						$ListIDArray[3]		= $BaseTime;
-						$NewQueue[]			= $ListIDArray;
+						$ListIDArray[2]				= GetBuildingTime($this->USER, $Planet, $ListIDArray[0]);
+						$BaseTime					+= $ListIDArray[2];
+						$ListIDArray[3]				= $BaseTime;
+						$NewQueue[]					= $ListIDArray;
 					}
-					$CurrentQueue	= $NewQueue;
+					$CurrentQueue					= $NewQueue;
 				}
 			}
 		}
-			
-		$this->USER['b_tech']		= $BuildEndTime;
-		$this->USER['b_tech_queue'] = $NewQueue;
 	}
 	
 	public function CheckAndGetLabLevel()
