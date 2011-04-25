@@ -33,42 +33,42 @@ function calculateSteal($attackFleets, $defenderPlanet, $ForSim = false)
 	global $pricelist, $db;
 	
 	$SortFleets = array();
-	$Sumcapacity  = '0';
+	$Sumcapacity  = 0;
 	foreach($attackFleets as $FleetID => $Attacker)
 	{
-		$SortFleets[$FleetID]		= '0';
+		$SortFleets[$FleetID]		= 0;
 		foreach($Attacker['detail'] as $Element => $amount)	
 		{
-			$SortFleets[$FleetID]		= bcadd($SortFleets[$FleetID], bcmul($pricelist[$Element]['capacity'], floattostring($amount)));
+			$SortFleets[$FleetID]		+= $pricelist[$Element]['capacity'] * $amount;
 		}
 		
-		$SortFleets[$FleetID]	= bcsub($SortFleets[$FleetID], $Attacker['fleet']['fleet_resource_metal']);
-		$SortFleets[$FleetID]	= bcsub($SortFleets[$FleetID], $Attacker['fleet']['fleet_resource_crystal']);
-		$SortFleets[$FleetID]	= bcsub($SortFleets[$FleetID], $Attacker['fleet']['fleet_resource_deuterium']);
-		$Sumcapacity			= bcadd($Sumcapacity, $SortFleets[$FleetID]);
+		$SortFleets[$FleetID]	-= $Attacker['fleet']['fleet_resource_metal'];
+		$SortFleets[$FleetID]	-= $Attacker['fleet']['fleet_resource_crystal'];
+		$SortFleets[$FleetID]	-= $Attacker['fleet']['fleet_resource_deuterium'];
+		$Sumcapacity			+= $SortFleets[$FleetID];
 	}
 	
 	$AllCapacity		= $Sumcapacity;
 
 	// Step 1
-	$booty['metal'] 	= min(bcdiv($Sumcapacity, 3), bcdiv(floattostring($defenderPlanet['metal']), 2));
-	$Sumcapacity		= bcsub($Sumcapacity, $booty['metal']);
+	$booty['metal'] 	= min($Sumcapacity / 3, $defenderPlanet['metal'] / 2);
+	$Sumcapacity		-= $booty['metal'];
 	 
 	// Step 2
-	$booty['crystal'] 	= min(bcdiv($Sumcapacity, 2), bcdiv(floattostring($defenderPlanet['crystal']), 2));
-	$Sumcapacity		= bcsub($Sumcapacity, $booty['crystal']);
+	$booty['crystal'] 	= min($Sumcapacity / 2, $defenderPlanet['crystal'] / 2);
+	$Sumcapacity		-= $booty['crystal'];
 	 
 	// Step 3
-	$booty['deuterium'] = min($Sumcapacity, bcdiv(floattostring($defenderPlanet['deuterium']), 2));
-	$Sumcapacity		= bcsub($Sumcapacity, $booty['deuterium']);
+	$booty['deuterium'] = min($Sumcapacity, $defenderPlanet['deuterium'] / 2);
+	$Sumcapacity		-= $booty['deuterium'];
 		 
 	// Step 4
 	$oldMetalBooty  	= $booty['metal'];
-	$booty['metal'] 	= bcadd($booty['metal'], min(bcdiv($Sumcapacity, 2), max(bcsub(bcdiv(floattostring($defenderPlanet['metal']), 2), $booty['metal']), 0)));
-	$Sumcapacity		= bcsub($Sumcapacity, bcsub($booty['metal'], $oldMetalBooty));
+	$booty['metal'] 	+= min($Sumcapacity / 2, $defenderPlanet['metal'] / 2 - $booty['metal']);
+	$Sumcapacity		-= $booty['metal'] - $oldMetalBooty;
 		 
 	// Step 5
-	$booty['crystal'] 	= bcadd($booty['crystal'], min($Sumcapacity, max(bcsub(bcdiv(floattostring($defenderPlanet['crystal']), 2), $booty['crystal']), 0)));
+	$booty['crystal'] 	+= min($Sumcapacity, $defenderPlanet['crystal'] / 2 - $booty['crystal']);
 			
 	if($ForSim) 
 		return $booty;
@@ -78,11 +78,11 @@ function calculateSteal($attackFleets, $defenderPlanet, $ForSim = false)
 	
 	foreach($SortFleets as $FleetID => $Capacity)
 	{
-		$Factor			= bcdiv($Capacity, $AllCapacity, 10);
+		$Factor			= $Capacity / $AllCapacity;
 		$Qry .= "UPDATE ".FLEETS." SET ";
-		$Qry .= "`fleet_resource_metal` = `fleet_resource_metal` + '".bcmul($booty['metal'], $Factor, 0)."', ";
-		$Qry .= "`fleet_resource_crystal` = `fleet_resource_crystal` + '".bcmul($booty['crystal'], $Factor, 0)."', ";
-		$Qry .= "`fleet_resource_deuterium` = `fleet_resource_deuterium` + '".bcmul($booty['deuterium'], $Factor, 0)."' ";
+		$Qry .= "`fleet_resource_metal` = `fleet_resource_metal` + '".$booty['metal'] * $Factor."', ";
+		$Qry .= "`fleet_resource_crystal` = `fleet_resource_crystal` + '".$booty['crystal'] * $Factor."', ";
+		$Qry .= "`fleet_resource_deuterium` = `fleet_resource_deuterium` + '".$booty['deuterium'] * $Factor."' ";
 		$Qry .= "WHERE fleet_id = '".$FleetID."';";		
 	}
 	
