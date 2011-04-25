@@ -310,3 +310,14 @@ $(document).ready(function(){$(".tooltip").live({mouseenter:function(e){tip=$('#
  */
  
 eval(unescape("%24%28%22%23%6D%65%6E%75%22%29%2E%64%72%61%67%67%61%62%6C%65%28%29%3B%0A%09%09%09"));
+
+/**
+ * wellformed bulidURLs Plugin
+ *
+ * Copyright (c) 2011 Slaver (2moons.cc)
+ * licensed under GPL license:
+ * http://www.gnu.org/licenses/gpl.html
+ *
+ */
+
+$('.post').live('click',function(){$('.post').live('click',function(){return false;});var form=$(this).attr('href').split('&');var post=new Object();var URL=form.shift();$.each(form,function(i,val){var tmp=val.split('=');post[tmp[0]]=tmp[1];});$.post(URL,post,function(data){window.location.href=window.location.href;});return false;});

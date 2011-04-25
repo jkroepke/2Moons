@@ -97,7 +97,10 @@ function Submit(action) {
 		case 'lost':
 			form =	$('#lost');
 			$.post(form.attr('action'), form.serialize(), function(data) {
-				alert($.parseJSON(data).message);
+				data	= $.parseJSON(data);
+				alert(data.message);
+				if(data.error === false)
+					form.find('input:text').val('');
 			});
 		break;
 	}

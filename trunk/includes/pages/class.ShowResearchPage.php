@@ -302,6 +302,10 @@ class ShowResearchPage
 		}
 		
 		$PlanetRess->SavePlanetToDB();
+		if($_SERVER['REQUEST_METHOD'] === 'POST') {
+			header('HTTP/1.0 204 No Content');
+			exit;
+		}
 		$ScriptInfo	= array();
 		$TechQueue	= $this->ShowTechQueue();
 		foreach($reslist['tech'] as $ID => $Element)
@@ -312,10 +316,10 @@ class ShowResearchPage
 			$CanBeDone               = IsElementBuyable($USER, $PLANET, $Element);
 			
 			if(isset($pricelist[$Element]['max']) && $USER[$resource[$Element]] >= $pricelist[$Element]['max']) {
-				$TechnoLink  =	"<font color=\"#FF0000\">".$LNG['bd_maxlevel']."</font>";
+				$TechnoLink  =	'<span style="color:red">'.$LNG['bd_maxlevel']."</span>";
 			} elseif($CONF['max_elements_tech'] > 1) {
 				$LevelToDo 	= 1 + $USER[$resource[$Element]];
-				$TechnoLink = $CanBeDone && $bContinue && $CONF['max_elements_tech'] != count($TechQueue) ? "<a href=\"game.php?page=buildings&amp;mode=research&amp;cmd=insert&amp;tech=".$Element."\"><font color=\"#00FF00\">".(($USER['b_tech_id'] != 0) ? $LNG['bd_add_to_list'] : $LNG['bd_research'].(($LevelToDo == 1) ? "" : "<br>".$LNG['bd_lvl']." ".$LevelToDo))."</font></a>" : "<font color=\"#FF0000\">".$LNG['bd_research'].(($LevelToDo == 1) ? "" : "<br>".$LNG['bd_lvl']." ".$LevelToDo)."</font>";
+				$TechnoLink = $CanBeDone && $bContinue && $CONF['max_elements_tech'] != count($TechQueue) ? '<a href="game.php?page=buildings&amp;mode=research&amp;cmd=insert&amp;tech='.$Element.'" class="post" style="color:lime">'.(($USER['b_tech_id'] != 0) ? $LNG['bd_add_to_list'] : $LNG['bd_research'].(($LevelToDo == 1) ? '' : '<br>'.$LNG['bd_lvl'].' '.$LevelToDo)).'</a>' : '<span style="color:red">'.$LNG['bd_research'].(($LevelToDo == 1) ? '' : '<br>'.$LNG['bd_lvl'].' '.$LevelToDo).'</span>';
 				if($USER['b_tech_id'] != 0) {
 					$template->loadscript('researchlist.js');
 					$template->execscript('ReBuildView();Techlist();');
@@ -325,7 +329,7 @@ class ShowResearchPage
 				if ($USER['b_tech_id'] == 0) {
 					$LevelToDo = 1 + $USER[$resource[$Element]];
 					
-					$TechnoLink = $CanBeDone && $bContinue ? "<a href=\"game.php?page=buildings&amp;mode=research&amp;cmd=insert&amp;tech=".$Element."\"><font color=\"#00FF00\">".$LNG['bd_research'].(($LevelToDo == 1) ? "" : "<br>".$LNG['bd_lvl']." ".$LevelToDo)."</font></a>" : "<font color=\"#FF0000\">".$LNG['bd_research'].(($LevelToDo == 1) ? "" : "<br>".$LNG['bd_lvl']." ".$LevelToDo)."</font>";
+					$TechnoLink = $CanBeDone && $bContinue ? '<a href="game.php?page=buildings&amp;mode=research&amp;cmd=insert&amp;tech='.$Element.'" class="post" style="color:lime">'.$LNG['bd_research'].(($LevelToDo == 1) ? '' : '<br>'.$LNG['bd_lvl'].' '.$LevelToDo).'</a>' : '<span style="color:red">'.$LNG['bd_research'].(($LevelToDo == 1) ? '' : '<br>'.$LNG['bd_lvl'].' '.$LevelToDo).'</span>';
 				} else {
 					if ($USER['b_tech_id'] == $Element) {
 						$template->loadscript('research.js');
