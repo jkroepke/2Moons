@@ -129,6 +129,8 @@ define('TOPKB'					  , $database['tableprefix'].'topkb');
 define('USERS'				  	  , $database['tableprefix'].'users');
 define('USERS_VALID'		  	  , $database['tableprefix'].'users_valid');
 
+define('LOG'		  	  , $database['tableprefix'].'log');
+
 // MOD-TABLES
 	
 	

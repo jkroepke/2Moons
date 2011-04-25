@@ -31,10 +31,34 @@ if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FI
 
 function ShowConfigBasicPage()
 {
-	global $CONF, $LNG, $USER, $LANG;
+	global $CONF, $LNG, $USER, $LANG, $db;
 	if (!empty($_POST))
 	{
 
+		$config_before = array(
+			'ttf_file'				=> $CONF['ttf_file'],
+			'game_name'				=> $CONF['game_name'],
+			'mail_active'			=> $CONF['mail_active'],
+			'mail_use'				=> $CONF['mail_use'],
+			'smail_path'			=> $CONF['smail_path'],
+			'smtp_host'				=> $CONF['smtp_host'],
+			'smtp_port'				=> $CONF['smtp_port'],
+			'smtp_user'				=> $CONF['smtp_user'],
+			'smtp_pass'				=> $CONF['smtp_pass'],
+			'smtp_ssl'				=> $CONF['smtp_ssl'],
+			'smtp_sendmail'			=> $CONF['smtp_sendmail'],
+			'ga_active'				=> $CONF['ga_active'],
+			'ga_key'				=> $CONF['ga_key'],
+			'capaktiv'				=> $CONF['capaktiv'],
+			'cappublic'				=> $CONF['cappublic'],
+			'capprivate'			=> $CONF['capprivate'],
+			'del_oldstuff'			=> $CONF['del_oldstuff'],
+			'del_user_manually'		=> $CONF['del_user_manually'],
+			'del_user_automatic'	=> $CONF['del_user_automatic'],
+			'del_user_sendmail'		=> $CONF['del_user_sendmail'],
+			'sendmail_inactive'		=> $CONF['sendmail_inactive']
+		);
+		
 		$CONF['capaktiv'] 				= isset($_POST['capaktiv']) && $_POST['capaktiv'] == 'on' ? 1 : 0;
 		$CONF['ga_active'] 				= isset($_POST['ga_active']) && $_POST['ga_active'] == 'on' ? 1 : 0;
 		$CONF['sendmail_inactive'] 		= isset($_POST['sendmail_inactive']) && $_POST['sendmail_inactive'] == 'on' ? 1 : 0;
@@ -59,7 +83,7 @@ function ShowConfigBasicPage()
 		$CONF['del_user_automatic']		= request_var('del_user_automatic', 0);
 		$CONF['del_user_sendmail']		= request_var('del_user_sendmail', 0);
 		
-		update_config(array(
+		$config_after = array(
 			'ttf_file'				=> $CONF['ttf_file'],
 			'game_name'				=> $CONF['game_name'],
 			'mail_active'			=> $CONF['mail_active'],
@@ -81,7 +105,16 @@ function ShowConfigBasicPage()
 			'del_user_automatic'	=> $CONF['del_user_automatic'],
 			'del_user_sendmail'		=> $CONF['del_user_sendmail'],
 			'sendmail_inactive'		=> $CONF['sendmail_inactive']
-		));
+		);
+		
+		update_config($config_after);
+		
+		$LOG = new Log(3);
+		$LOG->target = 0;
+		$LOG->old = $config_before;
+		$LOG->new = $config_after;
+		$LOG->save();
+
 	}
 	
 	$template	= new template();

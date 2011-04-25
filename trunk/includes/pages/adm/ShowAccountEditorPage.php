@@ -46,6 +46,11 @@ function ShowAccountEditorPage()
 
 			if ($_POST)
 			{
+				$before = $db->uniquequery("SELECT `metal`,`crystal`,`deuterium`,`universe`  FROM ".PLANETS." WHERE `id` = '". $id ."';");
+				if (!empty($id_dark)) {
+					$before_dm = $db->uniquequery("SELECT `darkmatter` FROM ".USERS." WHERE `id` = '". $id_dark ."';");
+				}
+				$before['darkmatter'] = $before_dm['darkmatter'];
 				if ($_POST['add'])
 				{
 					$SQL  = "UPDATE ".PLANETS." SET ";
@@ -63,7 +68,6 @@ function ShowAccountEditorPage()
 						$SQL .= "`id` = '". $id_dark ."' AND `universe` = '".$_SESSION['adminuni']."' ";
 						$db->query($SQL);
 					}
-					$template->message($LNG['ad_add_sucess'], '?page=accounteditor&edit=resources');
 				}
 				elseif ($_POST['delete'])
 				{
@@ -82,6 +86,23 @@ function ShowAccountEditorPage()
 						$SQL .= "`id` = '". $id_dark ."';";
 						$db->query($SQL);
 					}
+				}
+				if ($_POST['add']) {
+					$after = array('metal' => ($before['metal'] + $metal), 'crystal' => ($before['crystal'] + $$cristal), 'deuterium' => ($before['deuterium'] + $deut), 'darkmatter' => ($before['darkmatter'] + $dark));
+				} else if ($_POST['delete']) {
+					$after = array('metal' => ($before['metal'] - $metal), 'crystal' => ($before['crystal'] - $$cristal), 'deuterium' => ($before['deuterium'] - $deut), 'darkmatter' => ($before['darkmatter'] - $dark));
+				}
+				
+				$LOG = new Log(4);
+				$LOG->target = $id;
+				$LOG->universe = $before['universe'];
+				$LOG->old = $before;
+				$LOG->new = $after;
+				$LOG->save();
+
+				if ($_POST['add']) {
+					$template->message($LNG['ad_add_sucess'], '?page=accounteditor&edit=resources');
+				} else if ($_POST['delete']) {
 					$template->message($LNG['ad_delete_sucess'], '?page=accounteditor&edit=resources');
 				}
 				exit;
@@ -107,6 +128,12 @@ function ShowAccountEditorPage()
 		case 'ships':
 			if($_POST)
 			{
+				$before1 = $db->uniquequery("SELECT * FROM ".PLANETS." WHERE `id` = '". request_var('id', 0) ."';");
+				$before = array();
+				foreach($reslist['fleet'] as $ID)
+				{
+					$before[$ID] = $before1[$resource[$ID]];
+				}
 				if ($_POST['add'])
 				{
 					$SQL  = "UPDATE ".PLANETS." SET ";
@@ -118,8 +145,6 @@ function ShowAccountEditorPage()
 					$SQL .= "WHERE ";
 					$SQL .= "`id` = '".request_var('id', 0)."' AND `universe` = '".$_SESSION['adminuni']."';";
 					$db->query($SQL);
-
-					$template->message($LNG['ad_add_sucess_ships'], '?page=accounteditor&edit=ships');
 				}
 				elseif ($_POST['delete'])
 				{
@@ -132,8 +157,31 @@ function ShowAccountEditorPage()
 					$SQL .= "WHERE ";
 					$SQL .= "`id` = '".request_var('id', 0)."' AND `universe` = '".$_SESSION['adminuni']."';";
 					$db->query($SQL);
-					
-					$template->message($LNG['ad_delete_sucess_ships'], '?page=accounteditor&edit=ships');
+				}
+				$after = array();
+				if ($_POST['add']) {
+					foreach($reslist['fleet'] as $ID)
+					{
+						$after[$ID] = $before[$ID] + floattostring(round(abs(request_var($resource[$ID], 0.0)), 0));
+					}
+				} else {
+					foreach($reslist['fleet'] as $ID)
+					{
+						$after[$ID] = max($before[$ID] - floattostring(round(abs(request_var($resource[$ID], 0.0)), 0)),0);
+					}
+				}
+				
+				$LOG = new Log(5);
+				$LOG->target = request_var('id', 0);
+				$LOG->universe = $before1['universe'];
+				$LOG->old = $before;
+				$LOG->new = $after;
+				$LOG->save();
+
+				if ($_POST['add']) {
+					$template->message($LNG['ad_add_sucess'], '?page=accounteditor&edit=resources');
+				} else if ($_POST['delete']) {
+					$template->message($LNG['ad_delete_sucess'], '?page=accounteditor&edit=resources');
 				}
 				exit;
 			}
@@ -165,6 +213,12 @@ function ShowAccountEditorPage()
 		case 'defenses':
 			if($_POST)
 			{
+				$before1 = $db->uniquequery("SELECT * FROM ".PLANETS." WHERE `id` = '". request_var('id', 0) ."';");
+				$before = array();
+				foreach($reslist['defense'] as $ID)
+				{
+					$before[$ID] = $before1[$resource[$ID]];
+				}
 				if ($_POST['add'])
 				{
 					$SQL  = "UPDATE ".PLANETS." SET ";
@@ -176,8 +230,6 @@ function ShowAccountEditorPage()
 					$SQL .= "WHERE ";
 					$SQL .= "`id` = '".request_var('id', 0)."' AND `universe` = '".$_SESSION['adminuni']."';";
 					$db->query($SQL);
-
-					$template->message($LNG['ad_add_defenses_succes'], '?page=accounteditor&edit=defenses');
 				}
 				elseif ($_POST['delete'])
 				{
@@ -191,7 +243,31 @@ function ShowAccountEditorPage()
 					$SQL .= "`id` = '".request_var('id', 0)."' AND `universe` = '".$_SESSION['adminuni']."';";
 					$db->query( $SQL);
 					$Name	=	$LNG['log_nomoree'];
-					$template->message($LNG['ad_delete_defenses_succes'], '?page=accounteditor&edit=defenses');
+				}
+				$after = array();
+				if ($_POST['add']) {
+					foreach($reslist['defense'] as $ID)
+					{
+						$after[$ID] = $before[$ID] + floattostring(round(abs(request_var($resource[$ID], 0.0)), 0));
+					}
+				} else {
+					foreach($reslist['defense'] as $ID)
+					{
+						$after[$ID] = max($before[$ID] - floattostring(round(abs(request_var($resource[$ID], 0.0)), 0)),0);
+					}
+				}
+				
+				$LOG = new Log(5);
+				$LOG->target = request_var('id', 0);
+				$LOG->universe = $before1['universe'];
+				$LOG->old = $before;
+				$LOG->new = $after;
+				$LOG->save();
+
+				if ($_POST['add']) {
+					$template->message($LNG['ad_add_sucess'], '?page=accounteditor&edit=resources');
+				} else if ($_POST['delete']) {
+					$template->message($LNG['ad_delete_sucess'], '?page=accounteditor&edit=resources');
 				}
 				exit;
 			}
@@ -223,10 +299,16 @@ function ShowAccountEditorPage()
 		case 'buildings':
 			if($_POST)
 			{
-				$PlanetData	= $db->uniquequery("SELECT `planet_type` FROM ".PLANETS." WHERE `id` = '".request_var('id', 0)."' AND `universe` = '".$_SESSION['adminuni']."';");
+				$PlanetData	= $db->uniquequery("SELECT `planet_type` FROM ".PLANETS." WHERE `id` = '".request_var('id', 0)."';");
 				if(!isset($PlanetData))
 				{
 					$template->message($LNG['ad_add_not_exist'], '?page=accounteditor&edit=buildings');
+				}
+				$before1 = $db->uniquequery("SELECT * FROM ".PLANETS." WHERE `id` = '". request_var('id', 0) ."';");
+				$before = array();
+				foreach($reslist['allow'][$PlanetData['planet_type']] as $ID)
+				{
+					$before[$ID] = $before1[$resource[$ID]];
 				}
 				if ($_POST['add'])
 				{
@@ -239,8 +321,6 @@ function ShowAccountEditorPage()
 					$SQL .= "WHERE ";
 					$SQL .= "`id` = '".request_var('id', 0)."' AND `universe` = '".$_SESSION['adminuni']."';";
 					$db->query($SQL);
-
-					$template->message($LNG['ad_add_succes'], '?page=accounteditor&edit=buildings');
 				}
 				elseif ($_POST['delete'])
 				{
@@ -253,7 +333,30 @@ function ShowAccountEditorPage()
 					$SQL .= "WHERE ";
 					$SQL .= "`id` = '".request_var('id', 0)."' AND `universe` = '".$_SESSION['adminuni']."';";
 					$db->query($SQL);
-					
+				}
+				$after = array();
+				if ($_POST['add']) {
+					foreach($reslist['allow'][$PlanetData['planet_type']] as $ID)
+					{
+						$after[$ID] = $before[$ID] + floattostring(round(abs(request_var($resource[$ID], 0.0)), 0));
+					}
+				} else {
+					foreach($reslist['allow'][$PlanetData['planet_type']] as $ID)
+					{
+						$after[$ID] = max($before[$ID] - floattostring(round(abs(request_var($resource[$ID], 0.0)), 0)),0);
+					}
+				}
+				
+				$LOG = new Log(5);
+				$LOG->target = request_var('id', 0);
+				$LOG->universe = $before1['universe'];
+				$LOG->old = $before;
+				$LOG->new = $after;
+				$LOG->save();
+
+				if ($_POST['add']) {
+					$template->message($LNG['ad_add_succes'], '?page=accounteditor&edit=buildings');
+				} else if ($_POST['delete']) {
 					$template->message($LNG['ad_delete_succes'], '?page=accounteditor&edit=buildings');
 				}
 				exit;

@@ -31,20 +31,36 @@ if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FI
 
 function ShowStatsPage() 
 {
-	global $LNG, $CONF;
+	global $LNG, $CONF, $db, $USER;
 	if ($_POST)
 	{
+		$config_before = array(
+			'stat_settings' =>  $CONF['stat_settings'], 
+			'stat' => $CONF['stat'],
+			'stat_update_time' => $CONF['stat_update_time'],
+			'stat_level' => $CONF['stat_level']
+		);
+		
 		$CONF['stat_settings']				= request_var('stat_settings', 0);
 		$CONF['stat'] 						= request_var('stat', 0);
 		$CONF['stat_update_time']			= request_var('stat_update_time', 0);
 		$CONF['stat_level']					= request_var('stat_level', 0);
 		
-		update_config(array(
+		$config_after = array(
 			'stat_settings' =>  $CONF['stat_settings'], 
 			'stat' => $CONF['stat'],
 			'stat_update_time' => $CONF['stat_update_time'],
 			'stat_level' => $CONF['stat_level']
-		));
+		);
+		
+		update_config($config_after);
+		
+		$LOG = new Log(3);
+		$LOG->target = 2;
+		$LOG->old = $config_before;
+		$LOG->new = $config_after;
+		$LOG->save();
+		
 	}
 	
 	$template	= new template();

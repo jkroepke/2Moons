@@ -33,21 +33,22 @@ define('IN_ADMIN', true);
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 
 require(ROOT_PATH . 'includes/common.php');
+require_once(ROOT_PATH . 'includes/classes/class.Log.php');
 
 if ($USER['authlevel'] == AUTH_USR) redirectTo('game.php');
 
-if(!isset($_SESSION['admin_login']) || $_SESSION['admin_login'] != $USER['password']) {
+if(!isset($_SESSION['admin_login']) || $_SESSION['admin_login'] != $USER['password'])
+{
 	include_once(ROOT_PATH . 'includes/pages/adm/ShowLoginPage.php');
 	ShowLoginPage();
 	exit;
 }
 
-$page 		= request_var('page', '');
-$AdminUNI	= request_var('uni', 0);
+$page = request_var('page', '');
+$uni = request_var('uni', 0);
 
-if($USER['authlevel'] == AUTH_ADM && !empty($AdminUNI))
-	$_SESSION['adminuni'] = $AdminUNI;
-
+if($USER['authlevel'] == AUTH_ADM && !empty($uni))
+	$_SESSION['adminuni'] = $uni;
 if(empty($_SESSION['adminuni']))
 	$_SESSION['adminuni'] = $UNI;
 
@@ -181,6 +182,10 @@ switch($page)
 		include_once(ROOT_PATH . 'includes/pages/adm/ShowMultiIPPage.php');
 		ShowMultiIPPage();
 	break;
+	case 'log':
+        	include_once(ROOT_PATH . 'includes/pages/adm/ShowLogPage.php');
+        	ShowLog();
+    	break;
 	default:
 		include_once(ROOT_PATH . 'includes/pages/adm/ShowIndexPage.php');
 		ShowIndexPage();
