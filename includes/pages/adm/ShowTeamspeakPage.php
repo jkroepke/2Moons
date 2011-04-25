@@ -30,10 +30,22 @@
 if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__))) exit;
 
 function ShowTeamspeakPage() {
-	global $CONF, $LNG;
+	global $CONF, $LNG, $USER, $db;
 
 	if ($_POST)
 	{
+		$config_before = array(
+			'ts_timeout'		=> $CONF['ts_timeout'],
+			'ts_modon'			=> $CONF['ts_modon'],
+			'ts_server'			=> $CONF['ts_server'],
+			'ts_tcpport'		=> $CONF['ts_tcpport'],
+			'ts_udpport'		=> $CONF['ts_udpport'],
+			'ts_version'		=> $CONF['ts_version'],
+			'ts_login'			=> $CONF['ts_login'],
+			'ts_password'		=> $CONF['ts_password'],
+			'ts_cron_interval'	=> $CONF['ts_cron_interval']
+		);
+		
 		$CONF['ts_modon'] 			= isset($_POST['ts_on']) && $_POST['ts_on'] == 'on' ? 1 : 0;		
 		$CONF['ts_server']			= request_var('ts_ip', '');
 		$CONF['ts_tcpport']			= request_var('ts_tcp', 0);
@@ -44,7 +56,7 @@ function ShowTeamspeakPage() {
 		$CONF['ts_password']		= request_var('ts_password', '', true);
 		$CONF['ts_cron_interval']	= request_var('ts_cron', 0);
 		
-		update_config(array(
+		$config_after = array(
 			'ts_timeout'		=> $CONF['ts_timeout'],
 			'ts_modon'			=> $CONF['ts_modon'],
 			'ts_server'			=> $CONF['ts_server'],
@@ -54,7 +66,16 @@ function ShowTeamspeakPage() {
 			'ts_login'			=> $CONF['ts_login'],
 			'ts_password'		=> $CONF['ts_password'],
 			'ts_cron_interval'	=> $CONF['ts_cron_interval']
-		));
+		);
+		
+		update_config($config_after);
+		
+		$LOG = new Log(3);
+		$LOG->target = 4;
+		$LOG->old = $config_before;
+		$LOG->new = $config_after;
+		$LOG->save();
+		
 	}
 	$template	= new template();
 	

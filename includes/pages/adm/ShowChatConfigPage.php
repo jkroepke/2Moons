@@ -31,9 +31,25 @@ if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FI
 
 function ShowChatConfigPage()
 {
-	global $CONF, $LNG, $USER, $LANG;
+	global $CONF, $LNG, $USER, $LANG, $db;
 	if (!empty($_POST))
 	{
+		$config_before = array(	
+			'chat_closed'			=> $CONF['chat_closed'],
+			'chat_allowchan'		=> $CONF['chat_allowchan'],
+			'chat_allowmes'			=> $CONF['chat_allowmes'],
+			'chat_allowdelmes'		=> $CONF['chat_allowdelmes'],
+			'chat_logmessage'		=> $CONF['chat_logmessage'],
+			'chat_nickchange'		=> $CONF['chat_nickchange'],
+			'chat_botname'			=> $CONF['chat_botname'],
+			'chat_channelname'		=> $CONF['chat_channelname'],
+			'chat_socket_chatid'	=> $CONF['chat_socket_chatid'],
+			'chat_socket_port'		=> $CONF['chat_socket_port'],
+			'chat_socket_ip'		=> $CONF['chat_socket_ip'],
+			'chat_socket_host'		=> $CONF['chat_socket_host'],
+			'chat_socket_active'	=> $CONF['chat_socket_active'],
+		);
+		
 		$CONF['chat_allowchan']			= isset($_POST['chat_allowchan']) && $_POST['chat_allowchan'] == 'on' ? 1 : 0;
 		$CONF['chat_allowmes']			= isset($_POST['chat_allowmes']) && $_POST['chat_allowmes'] == 'on' ? 1 : 0;
 		$CONF['chat_allowdelmes']		= isset($_POST['chat_allowdelmes']) && $_POST['chat_allowdelmes'] == 'on' ? 1 : 0;
@@ -49,7 +65,7 @@ function ShowChatConfigPage()
 		$CONF['chat_channelname']		= request_var('chat_channelname', '', true);
 		$CONF['chat_botname']			= request_var('chat_botname', '', true);
 		
-		update_config(array(	
+		$config_after = array(	
 			'chat_closed'			=> $CONF['chat_closed'],
 			'chat_allowchan'		=> $CONF['chat_allowchan'],
 			'chat_allowmes'			=> $CONF['chat_allowmes'],
@@ -63,7 +79,16 @@ function ShowChatConfigPage()
 			'chat_socket_ip'		=> $CONF['chat_socket_ip'],
 			'chat_socket_host'		=> $CONF['chat_socket_host'],
 			'chat_socket_active'	=> $CONF['chat_socket_active'],
-		));
+		);
+		
+		update_config($conf_after);
+		
+		$LOG = new Log(3);
+		$LOG->target = 3;
+		$LOG->old = $config_before;
+		$LOG->new = $config_after;
+		$LOG->save();
+				
 	}
 
 	$template	= new template();

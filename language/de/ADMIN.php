@@ -444,7 +444,7 @@ $LNG['se_max_elements_build_info']		= 'Maximale Anzahl an Aufträgen in der Baus
 $LNG['se_max_elements_tech']			= 'Max. Aufträge (Forschung)';
 $LNG['se_max_elements_tech_info']		= 'Maximale Anzahl an Aufträgen in der Forschungsschleife';
 $LNG['se_max_elements_ships']			= 'Max. Aufträge(Werft)';
-$LNG['se_max_elements_ships_info']		= 'Maximale Anzahl an Aufträgen in der Schiftswerft';
+$LNG['se_max_elements_tech_info']		= 'Maximale Anzahl an Aufträgen in der Schiftswerft';
 $LNG['se_max_fleet_per_build']			= 'Max. Fleets / Auftrage';
 $LNG['se_max_fleet_per_build_info']		= 'Maximale Anzahl an Einheiten pro Auftrag in der Schiftswerft';
 $LNG['se_max_overflow']					= 'Speicher Overflow';
@@ -1144,5 +1144,31 @@ $LNG['ap_nicht_aktivierte_user']		= 'Nicht aktivierte User';
 //MultiIPPage
 $LNG['mip_ip']							= 'IP';
 $LNG['mip_user']						= 'User';
+
+//Admin Log
+$LNG['log_log']                         = 'Log';
+$LNG['log_admin']                       = 'Administrator';
+$LNG['log_time']                        = 'Zeitpunkt';
+$LNG['log_target_user']                 = 'Ge&auml;nderter Spieler';
+$LNG['log_target_planet']               = 'Ge&auml;nderter Planet';
+$LNG['log_target_universe']             = 'Ge&auml;ndertes Universum';
+$LNG['log_id']                          = 'ID';
+$LNG['log_view']                        = 'Ansehen';
+$LNG['log_info']                        = 'Information';
+$LNG['log_element']                     = 'Element';
+$LNG['log_old']                         = 'Vorher';
+$LNG['log_new']                         = 'Nachher';
+$LNG['log_player']                      = 'Bearbeitete Spieler';
+$LNG['log_planet']                      = 'Bearbeitete Planeten';
+$LNG['log_settings']                    = 'Bearbeitete Einstellungen';
+$LNG['log_cat']                         = 'Bitte w&auml;hle eine Log-Kategorie:';
+$LNG['log_no_data']                     = 'Keine Log-Daten vorhanden!';
+$LNG['log_ssettings']					= 'Server Konfiguration';
+$LNG['log_usettings']					= 'Uni Konfiguration';
+$LNG['log_statsettings']				= 'Statistik-Optionen';
+$LNG['log_chatsettings']				= 'Chat-Optionen';
+$LNG['log_tssettings']					= 'Teamspeak-Konfiguration';
+$LNG['log_uni_short']					= 'Uni';
+$LNG['log_universe']					= 'Universum';
 
 ?>

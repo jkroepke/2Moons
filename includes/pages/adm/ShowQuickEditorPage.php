@@ -65,6 +65,27 @@ function ShowQuickEditorPage()
 				$SQL	.= "WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';";
 					
 				$db->query($SQL);
+				
+				## Logging ##
+				$old = array();
+				$new = array();
+                foreach($DataIDs as $IDs)
+                {
+                    $old[$IDs]    = $PlanetData[$resource[$IDs]];
+                    $new[$IDs]    = request_outofint($resource[$IDs]);
+                }
+				$LOG = new Log(2);
+				$LOG->target = $id;
+				$LOG->old = $old;
+				$LOG->new = $new;
+				$LOG->save();
+		
+		// $data = serialize($data);
+                // $SQL1 = "INSERT INTO ".LOG." (`id`,`mode`,`admin`,`target`,`time`,`data`,`universe`)
+                            // VALUES (NULL , '2', '".$USER['id']."', '".$id."', UNIX_TIMESTAMP( ) , '".$data."', '".$_SESSION['adminuni']."');";
+                // $db->query($SQL1);
+				## Loging Ende ##
+				
 				exit(sprintf($LNG['qe_edit_planet_sucess'], $PlanetData['name'], $PlanetData['galaxy'], $PlanetData['system'], $PlanetData['planet']));
 			}
 			$UserInfo				= $db->uniquequery("SELECT `username` FROM ".USERS." WHERE `id` = '".$PlanetData['id_owner']."' AND `universe` = '".$_SESSION['adminuni']."';");
@@ -168,7 +189,20 @@ function ShowQuickEditorPage()
 				$SQL	.= "WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';";
 				$db->query($SQL);
 				
-					
+				$old = array();
+				$new = array();
+				foreach($DataIDs as $IDs)
+                {
+                    $old[$IDs]    = $UserData[$resource[$IDs]];
+                    $new[$IDs]    = abs(request_var($resource[$IDs], 0));
+                }
+                
+                $LOG = new Log(1);
+				$LOG->target = $id;
+				$LOG->old = $old;
+				$LOG->new = $new;
+				$LOG->save();
+				
 				exit(sprintf($LNG['qe_edit_player_sucess'], $UserData['username'], $id));
 			}
 			$PlanetInfo				= $db->uniquequery("SELECT `name` FROM ".PLANETS." WHERE `id` = '".$UserData['id_planet']."' AND `universe` = '".$_SESSION['adminuni']."';");

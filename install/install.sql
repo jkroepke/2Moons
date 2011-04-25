@@ -258,7 +258,7 @@ CREATE TABLE IF NOT EXISTS `prefix_config` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO `prefix_config` (`uni`, `VERSION`, `uni_name`, `game_name`, `close_reason`, `OverviewNewsText`, `moduls`) VALUES
-(1, '1.3.1829', 'Universum 1', '2Moons', 'Game ist zurzeit geschlossen', 'Herzlich Willkommen bei 2Moons v1.3.5!', '1');
+(1, '1.3.1843', 'Universum 1', '2Moons', 'Game ist zurzeit geschlossen', 'Herzlich Willkommen bei 2Moons v1.3.5!', '1');
 
 CREATE TABLE IF NOT EXISTS `prefix_diplo` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -313,6 +313,18 @@ CREATE TABLE IF NOT EXISTS `prefix_fleets` (
   KEY `fleet_end_id` (`fleet_end_id`),
   KEY `fleet_universe` (`fleet_universe`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `prefix_log` (
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `mode` tinyint(3) unsigned NOT NULL,
+  `admin` int(11) unsigned NOT NULL,
+  `target` int(11) NOT NULL,
+  `time` int(11) unsigned NOT NULL,
+  `data` text NOT NULL,
+  `universe` tinyint(3) NOT NULL,
+  PRIMARY KEY  (`id`),
+  KEY `mode` (`mode`,`admin`,`time`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `prefix_messages` (
   `message_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
