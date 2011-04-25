@@ -32,11 +32,13 @@ $LNG['Description'] = 'Beschreibung';
 
 $LNG['changelog']   = array(
 
-'v1.3.5' => 'ShadoX 23.04.11
+'v1.3.5' => 'ShadoX 25.04.11
 - ADD: New ChatSystem
 - ADD: New Popup UI
 - ADD: Refferalsystem
 - ADD: Destroy Rocket
+- ADD: Wellformed URLs on Bulidsides
+- ADD: Solarsat on Moon give now energy
 - FIX: Correct Calculation of maximum amount rockets
 - FIX: Division by Zero
 - FIX: Wrong TotalUsercount, if a new User join the Game
@@ -48,9 +50,11 @@ $LNG['changelog']   = array(
 - FIX: Disapier Ships
 - FIX: Short Names on Combat Reports
 - FIX: Queues
-- FIX: $_SESSION["uni"] = 0, after leave Admin Panel
+- FIX: $_SESSION[&quot;uni&quot;] = 0, after leave Admin Panel
 - FIX: Grap Debris from Fleetmenu
 - DEL: Spanish &amp; French Language
+- DIV: set correct favicon Metatag
+- DIV: Moonsize Calculation
 - DIV: Added Bonus Maxfields on Planets (AccountEditor)
 - DIV: Added missed language keys
 - DIV: Improved request_vars

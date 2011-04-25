@@ -355,8 +355,7 @@ switch ($page) {
 		$template->show('index_screens.tpl');
 		break;
 	case 'top100' :
-		$Universe = request_var('universe', 1);
-		$top = $db->query("SELECT * FROM ".TOPKB." WHERE `universe` = '".$Universe."' ORDER BY gesamtunits DESC LIMIT 100;");
+		$top = $db->query("SELECT * FROM ".TOPKB." WHERE `universe` = '".$UNI."' ORDER BY gesamtunits DESC LIMIT 100;");
 		while($data = $db->fetch_array($top)) {
 			$TopKBList[]	= array(
 				'result'	=> $data['fleetresult'],
@@ -395,8 +394,7 @@ switch ($page) {
 		$template->show('index_top100.tpl');
 		break;
 	case 'pranger' :
-		$Universe = request_var('universe', 1);
-		$PrangerRAW = $db->query("SELECT * FROM ".BANNED." WHERE `universe` = '".$Universe."' ORDER BY `id`;");
+		$PrangerRAW = $db->query("SELECT * FROM ".BANNED." WHERE `universe` = '".$UNI."' ORDER BY `id`;");
 
 		while($u = $db->fetch_array($PrangerRAW))
 		{
