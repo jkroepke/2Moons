@@ -127,16 +127,16 @@ function ShowLogDetail() {
 	);
 	
 	foreach ($conf_before as $key => $val) {
-		if(isset($LNG['tech'][$i]))
-			$Element = $LNG['tech'][$i];
-		elseif(isset($LNG['se_'.$i]))
-			$Element = $LNG['se_'.$i];
-		elseif(isset($LNG[$i]))
-			$Element = $LNG[$i];
-		elseif(isset($Wrapper[$i]))
-			$Element = $Wrapper[$i];
+		if(isset($LNG['tech'][$key]))
+			$Element = $LNG['tech'][$key];
+		elseif(isset($LNG['se_'.$key]))
+			$Element = $LNG['se_'.$key];
+		elseif(isset($LNG[$key]))
+			$Element = $LNG[$key];
+		elseif(isset($Wrapper[$key]))
+			$Element = $Wrapper[$key];
 		else
-			$Element = $i;
+			$Element = $key;
 		
 		$LogArray[]	= array(
 			'Element'	=> $Element,
