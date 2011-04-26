@@ -2,32 +2,7 @@
 
 // Traduzido por QwataKayean. Todos os Direitos Reservados © 2010-2011
 
-/**
- *  2Moons
- *  Copyright (C) 2011  Slaver
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
- * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.3.5 (2011-04-22)
- * @info $Id$
- * @link http://code.google.com/p/2moons/
- */
+// 2Moons - Copyright (C) 2011  Slaver
  
 // Recuperação de Senha
 $LNG['lost_empty']                   = 'Deves preencher todos os campos!';
@@ -114,7 +89,7 @@ $LNG['different_mails']                = 'Os 2 E-Mails que introduziu são difer
 $LNG['welcome_message_from']           = 'Administrador';
 $LNG['welcome_message_sender']         = 'A Equipa';
 $LNG['welcome_message_subject']        = 'Bem-vindo';
-$LNG['welcome_message_content']        = 'Bem-vindo ao mundo %s!<br>A primeira construção deverá ser uma planta de energia solar, porque a energia é necessária para a subsequente produção de matérias-primas. Para construí-la, clique no menu à esquerda, "Edifícios". <br>Em seguida, procure o quarto edifício a partir do topo. Lá tem a planta de energia: agora que já a construiu deve começar as minas de matérias-primas.<br> Volte para o menu dos edifícios e construa uma mina de metal, em seguida, uma mina de cristal. A fim de ser capaz de construir naves, mas para isso precisa de ter construído o hangar. <br>Poderá ver na página das tecnologias o que é necessário para que tenha acesso às varias naves, edifícios, e tecnologias.<br><br> A equipa do %s deseja-lhe muito divertimento a explorar o universo!';
+$LNG['welcome_message_content']        = 'Bem-vindo ao mundo %1$s!<br>A primeira construção deverá ser uma planta de energia solar, porque a energia é necessária para a subsequente produção de matérias-primas. Para construí-la, clique no menu à esquerda, "Edifícios". <br>Em seguida, procure o quarto edifício a partir do topo. Lá tem a planta de energia: agora que já a construiu deve começar as minas de matérias-primas.<br> Volte para o menu dos edifícios e construa uma mina de metal, em seguida, uma mina de cristal. A fim de ser capaz de construir naves, mas para isso precisa de ter construído o hangar. <br>Poderá ver na página das tecnologias o que é necessário para que tenha acesso às varias naves, edifícios, e tecnologias.<br><br> A equipa do %1$s deseja-lhe muito divertimento a explorar o universo!';
 $LNG['newpass_smtp_email_error']       = '<br><br>Ocorreu um erro, a sua password é: ';
 $LNG['reg_completed']                  = 'Obrigado pela sua inscrição! Foi-lhe enviado um E-Mail com o link de ativação da sua conta.<br><b>Caso não receba o E-mail nos proximos minutos por favor contacte a Equipa Stellar Wars atravez do forum!</b>';
 $LNG['planet_already_exists']		   = 'Essa posição ja se encontra ocupada! <br>';
@@ -133,7 +108,7 @@ $LNG['ref_reg']						   = 'Indicado por';
 $LNG['lang_reg']                       = 'Língua de Jogo';
 $LNG['register_now']                   = 'Registar!';
 $LNG['captcha_reg']                    = 'Imagem de sugurança';
-$LNG['accept_terms_and_conditions']    = 'Por favor aceite as <a onclick="ajax(\'?page=rules&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\);" style="cursor:pointer;">Régras</a> e o <a onclick="ajax(\'?page=agb&amp;\'+\'getajax=1&amp;\'+\'lang=%1$s\);" style="cursor:pointer;">T&C</a>';
+$LNG['accept_terms_and_conditions']    = 'Por favor aceite as <a href="index.php?page=rules">Regras</a> e <a href="index.php?page=agb">Termos & Condições</a> para poder continuar';
 $LNG['captcha_reload']                 = 'Reloading';
 $LNG['captcha_help']                   = 'Ajuda';
 $LNG['captcha_get_image']              = 'Imagem-CAPTCHA';
