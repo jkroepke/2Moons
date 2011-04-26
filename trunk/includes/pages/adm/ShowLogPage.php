@@ -125,25 +125,32 @@ function ShowLogDetail() {
 		'cappublic' 	=> $LNG['se_recaptcha_public'],
 		'capprivate' 	=> $LNG['se_recaptcha_private'],
 		'ga_key' 		=> $LNG['se_google_key'],
+		
+		'metal'			=> $LNG['Metal'],
+		'crystal'		=> $LNG['Crystal'],
+		'deuterium'		=> $LNG['Deuterium'],
+		'darkmatter'	=> $LNG['Darkmatter'],
 	);
 	
 	foreach ($conf_before as $key => $val) {
-		if(isset($LNG['tech'][$key]))
-			$Element = $LNG['tech'][$key];
-		elseif(isset($LNG['se_'.$key]))
-			$Element = $LNG['se_'.$key];
-		elseif(isset($LNG[$key]))
-			$Element = $LNG[$key];
-		elseif(isset($Wrapper[$key]))
-			$Element = $Wrapper[$key];
-		else
-			$Element = $key;
-		
-		$LogArray[]	= array(
-			'Element'	=> $Element,
-			'old'		=> is_numeric($val) ? pretty_number($val) : $val,
-			'new'		=> is_numeric($val) ? pretty_number($conf_after[$key]) : $conf_after[$key],
-		);
+		if ($key != 'universe') {
+			if(isset($LNG['tech'][$key]))
+				$Element = $LNG['tech'][$key];
+			elseif(isset($LNG['se_'.$key]))
+				$Element = $LNG['se_'.$key];
+			elseif(isset($LNG[$key]))
+				$Element = $LNG[$key];
+			elseif(isset($Wrapper[$key]))
+				$Element = $Wrapper[$key];
+			else
+				$Element = $key;
+			
+			$LogArray[]	= array(
+				'Element'	=> $Element,
+				'old'		=> is_numeric($val) ? pretty_number($val) : $val,
+				'new'		=> is_numeric($val) ? pretty_number($conf_after[$key]) : $conf_after[$key],
+			);
+		}
 	}
 		
 	$template	= new template();	
@@ -153,7 +160,7 @@ function ShowLogDetail() {
 		'target'		=> $result['universe'],
 		'id'			=> $result['id'],
 		'time'			=> date(TDFORMAT, $result['time']),
-		'log_info'		=> $LNG['log_log'],
+		'log_info'		=> $LNG['log_info'],
 		'log_admin'		=> $LNG['log_admin'],
 		'log_time'		=> $LNG['log_time'],
 		'log_target'	=> $LNG['log_universe'],

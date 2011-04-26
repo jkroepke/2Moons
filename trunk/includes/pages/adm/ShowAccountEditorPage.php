@@ -88,9 +88,9 @@ function ShowAccountEditorPage()
 					}
 				}
 				if ($_POST['add']) {
-					$after = array('metal' => ($before['metal'] + $metal), 'crystal' => ($before['crystal'] + $$cristal), 'deuterium' => ($before['deuterium'] + $deut), 'darkmatter' => ($before['darkmatter'] + $dark));
+					$after = array('metal' => ($before['metal'] + $metal), 'crystal' => ($before['crystal'] + $cristal), 'deuterium' => ($before['deuterium'] + $deut), 'darkmatter' => ($before['darkmatter'] + $dark));
 				} else if ($_POST['delete']) {
-					$after = array('metal' => ($before['metal'] - $metal), 'crystal' => ($before['crystal'] - $$cristal), 'deuterium' => ($before['deuterium'] - $deut), 'darkmatter' => ($before['darkmatter'] - $dark));
+					$after = array('metal' => ($before['metal'] - $metal), 'crystal' => ($before['crystal'] - $cristal), 'deuterium' => ($before['deuterium'] - $deut), 'darkmatter' => ($before['darkmatter'] - $dark));
 				}
 				
 				$LOG = new Log(4);

@@ -1,7 +1,7 @@
 {include file="adm/overall_header.tpl"}
 <table width=512>
 	<tr>
-		<th colspan=2>Informationen</th>
+		<th colspan=2>{$log_info}</th>
 	</tr>
 	<tr>
 		<td>{$log_admin}:</td>

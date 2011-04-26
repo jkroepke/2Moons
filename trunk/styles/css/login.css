@@ -1,11 +1,15 @@
+html, body {
+	height:100%;
+	width:100%;
+    margin: 0;
+    padding: 0;
+}
 body {
     background: url(../images/login/login_bg.jpg) repeat scroll 0 0 #000000;
     color: #FFFFFF;
     font-family: verdana;
     font-size: 12px;
     text-align: center;
-    margin: 0;
-    padding: 0;
 	line-height:14px;
 }
 

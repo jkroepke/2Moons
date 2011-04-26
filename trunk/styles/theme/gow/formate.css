@@ -359,3 +359,7 @@ height: 10px;
 #planet_menu_link {
 padding-top:1px;
 }
+
+.ui-widget-header{
+background: url("img/bkd_title.png") repeat-x scroll 0 0 #333333;
+}
