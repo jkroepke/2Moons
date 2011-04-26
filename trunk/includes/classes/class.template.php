@@ -102,17 +102,13 @@ class template
 		{
 			if(!empty($PlanetQuery['b_building_id']))
 			{
-				$QueueArray						= explode(";", $PlanetQuery['b_building_id']);
-				$ActualCount					= count($QueueArray);
-				for ($ID = 0; $ID < $ActualCount; $ID++)
+				$QueueArray						= unserialize($PlanetQuery['b_building_id']);
+				foreach($QueueArray as $ListIDArray)
 				{
-					$ListIDArray						= explode(",", $QueueArray[$ID]);
-					
 					if($ListIDArray[3] > TIMESTAMP)
 						$Scripttime[$PlanetQuery['id']][]	= $ListIDArray[3];
 				}
 			}
-			
 			$Planetlist[$PlanetQuery['id']]	= array(
 				'url'		=> $this->phpself."&amp;cp=".$PlanetQuery['id'],
 				'name'		=> $PlanetQuery['name'].(($PlanetQuery['planet_type'] == 3) ? " (".$LNG['fcm_moon'].")":""),
