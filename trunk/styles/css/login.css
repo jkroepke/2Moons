@@ -229,7 +229,7 @@ header {
 	border:none;
 	background:transparent;
 	margin:0 auto;
-	width: 350px
+	width: 351px
 }
 .box-header, .box-footer, .box-footer, .box-content {
 	width: 100%;
@@ -325,7 +325,7 @@ header {
 }
 .multi{
 	display:block;
-	width: 160.75px;
+	width: 161px;
 	float: left;
 }
 

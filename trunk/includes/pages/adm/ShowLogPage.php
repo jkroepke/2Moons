@@ -40,6 +40,7 @@ function ShowLog()
 	# 4 => Ressources with Account Editor
 	# 5 => Ships, Defense with Account Editor
 	
+	# TODO: LOG Search
 	
 	switch ($table) {
 		case 'planet':
@@ -65,11 +66,11 @@ function ShowLogOverview() {
 	$template	= new template();	
 	$template->assign_vars(array(	
 		'log_cat'		=> $LNG['log_cat'],
-		'log_player'		=> $LNG['log_player'],
-		'log_planet'		=> $LNG['log_planet'],
-		'log_settings'		=> $LNG['log_settings'],
+		'log_player'	=> $LNG['log_player'],
+		'log_planet'	=> $LNG['log_planet'],
+		'log_settings'	=> $LNG['log_settings'],
 	));
-	$template->show("adm/log_overview.tpl");
+	$template->show("adm/LogOverview.tpl");
 }
 
 function ShowLogDetail() {
@@ -140,8 +141,8 @@ function ShowLogDetail() {
 		
 		$LogArray[]	= array(
 			'Element'	=> $Element,
-			'old'		=> $result['mode'] == 3 ? $val : pretty_number($val),
-			'new'		=> $result['mode'] == 3 ? $conf_after[$key] : pretty_number($conf_after[$key]),
+			'old'		=> is_numeric($val) ? pretty_number($val) : $val,
+			'new'		=> is_numeric($val) ? pretty_number($conf_after[$key]) : $conf_after[$key],
 		);
 	}
 		
@@ -161,7 +162,7 @@ function ShowLogDetail() {
 		'log_old'		=> $LNG['log_old'],
 		'log_new'		=> $LNG['log_new'],
 	));
-	$template->show("adm/log_detail.tpl");
+	$template->show("adm/LogDetail.tpl");
 }
 
 function ShowLogSettingsList() {
@@ -194,7 +195,7 @@ function ShowLogSettingsList() {
 		'log_id'		=> $LNG['log_id'],
 		'log_view'		=> $LNG['log_view'],
 	));
-	$template->show("adm/log_list.tpl");
+	$template->show("adm/LogList.tpl");
 }
 
 function ShowLogPlanetsList() {
@@ -228,7 +229,7 @@ function ShowLogPlanetsList() {
 		'log_id'		=> $LNG['log_id'],
 		'log_view'		=> $LNG['log_view'],
 	));
-	$template->show("adm/log_list.tpl");
+	$template->show("adm/LogList.tpl");
 }
 
 function ShowLogPlayersList() {
@@ -261,6 +262,6 @@ function ShowLogPlayersList() {
 		'log_id'		=> $LNG['log_id'],
 		'log_view'		=> $LNG['log_view'],
 	));
-	$template->show("adm/log_list.tpl");
+	$template->show("adm/LogList.tpl");
 }
 ?>
