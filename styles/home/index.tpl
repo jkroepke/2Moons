@@ -77,11 +77,6 @@
 					<td class="box-out-footer-center"></td>
 					<td class="box-out-footer-right"></td>
 				</tr>
-				<tr class="box-out-footer">
-					<td class="box-out-footer-left"></td>
-					<td class="box-out-footer-center"></td>
-					<td class="box-out-footer-right"></td>
-				</tr>
 			</table>
 		</section>
 	{/if}</div>
