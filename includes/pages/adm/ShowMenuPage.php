@@ -69,6 +69,7 @@ function ShowMenuPage()
 		'mu_search_page'			=> $LNG['mu_search_page'],
 		'mu_mod_update'				=> $LNG['mu_mod_update'],
 		'mu_clear_cache'			=> $LNG['mu_clear_cache'],
+		'mu_logs'					=> $LNG['log_menu'],
 		'supportticks'				=> $db->countquery("SELECT COUNT(*) FROM ".SUPP." WHERE `universe` = '".$_SESSION['adminuni']."' AND (`status` = '1' OR `status` = '3');"),
 	));
 	$template->show('adm/ShowMenuPage.tpl');

@@ -444,7 +444,7 @@ $LNG['se_max_elements_build_info']		= 'Maximale Anzahl an Aufträgen in der Baus
 $LNG['se_max_elements_tech']			= 'Max. Aufträge (Forschung)';
 $LNG['se_max_elements_tech_info']		= 'Maximale Anzahl an Aufträgen in der Forschungsschleife';
 $LNG['se_max_elements_ships']			= 'Max. Aufträge(Werft)';
-$LNG['se_max_elements_tech_info']		= 'Maximale Anzahl an Aufträgen in der Schiftswerft';
+$LNG['se_max_elements_ships_info']		= 'Maximale Anzahl an Aufträgen in der Schiftswerft';
 $LNG['se_max_fleet_per_build']			= 'Max. Fleets / Auftrage';
 $LNG['se_max_fleet_per_build_info']		= 'Maximale Anzahl an Einheiten pro Auftrag in der Schiftswerft';
 $LNG['se_max_overflow']					= 'Speicher Overflow';
@@ -1147,6 +1147,7 @@ $LNG['mip_user']						= 'User';
 
 //Admin Log
 $LNG['log_log']                         = 'Log';
+$LNG['log_menu']                        = 'Logs anzeigen';
 $LNG['log_admin']                       = 'Administrator';
 $LNG['log_time']                        = 'Zeitpunkt';
 $LNG['log_target_user']                 = 'Ge&auml;nderter Spieler';
