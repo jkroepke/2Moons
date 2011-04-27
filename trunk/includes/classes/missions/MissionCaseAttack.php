@@ -82,7 +82,7 @@ class MissionCaseAttack extends MissionFunctions
 		{
 			$attackFleets[$this->_fleet['fleet_id']]['fleet']			= $this->_fleet;
 			$attackFleets[$this->_fleet['fleet_id']]['user'] 			= $db->uniquequery("SELECT id,username,military_tech,defence_tech,shield_tech,rpg_amiral,dm_defensive,dm_attack FROM ".USERS." WHERE id = '".$this->_fleet['fleet_owner']."';");
-			$attackFleets[$this->_fleet['fleet_id']]['user']['factor'] 	= getFactors($attackFleets[$fleet['fleet_id']]['user'], null, 'attack', $this->_fleet['fleet_start_time']);
+			$attackFleets[$this->_fleet['fleet_id']]['user']['factor'] 	= getFactors($attackFleets[$this->_fleet['fleet_id']]['user'], null, 'attack', $this->_fleet['fleet_start_time']);
 			$attackFleets[$this->_fleet['fleet_id']]['detail'] 			= array();
 			$temp = explode(';', $this->_fleet['fleet_array']);
 			foreach ($temp as $temp2)
@@ -105,7 +105,7 @@ class MissionCaseAttack extends MissionFunctions
 		while ($defRow = $db->fetch_array($def))
 		{
 			$defense[$defRow['fleet_id']]['user'] = $db->uniquequery("SELECT id,username,military_tech,defence_tech,shield_tech,rpg_amiral,dm_defensive,dm_attack FROM ".USERS." WHERE id = '".$defRow['fleet_owner']."';");
-			$attackFleets[$this->_fleet['fleet_id']]['user']['factor'] 	= getFactors($attackFleets[$fleet['fleet_id']]['user'], null, 'attack', $this->_fleet['fleet_start_time']);
+			$attackFleets[$this->_fleet['fleet_id']]['user']['factor'] 	= getFactors($defense[$defRow['fleet_id']]['user'], null, 'attack', $this->_fleet['fleet_start_time']);
 			$defRowDef = explode(';', $defRow['fleet_array']);
 			foreach ($defRowDef as $Element)
 			{
@@ -122,11 +122,11 @@ class MissionCaseAttack extends MissionFunctions
 			$DefenderRow['name'][]	= $defense[$defRow['fleet_id']]['user']['username'];
 		}
 
-		$defense[0]['def'] 		= array();
-		$defense[0]['user'] 	= $targetUser;
+		$defense[0]['def'] 				= array();
+		$defense[0]['user'] 			= $targetUser;
 		$defense[0]['user']['factor'] 	= getFactors($defense[0]['user']['factor'], null, 'attack', $this->_fleet['fleet_start_time']);		
-		$DefenderRow['id'][] 	= $defense[0]['user']['id'];
-		$DefenderRow['name'][]	= $defense[0]['user']['username'];
+		$DefenderRow['id'][] 			= $defense[0]['user']['id'];
+		$DefenderRow['name'][]			= $defense[0]['user']['username'];
 		
 		foreach(array_merge($reslist['fleet'], $reslist['defense']) as $ID)
 		{
