@@ -1,7 +1,7 @@
 {include file="overall_header.tpl"}
-{include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
-<div id="content" class="content">
+{include file="overall_topnav.tpl"}
+<div id="content">
 <table style="min-width:569px;width:569px;">
 <tr><th colspan="6">{$bu_buddy_list}</th></tr>
 <tr><th colspan="6" style="text-align:center">{$bu_requests}</th></tr>

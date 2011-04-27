@@ -1,62 +1,44 @@
-<div id="header_top">
-	<table class="header">
-		<tr class="header">
-			<td class="header" style="width: 150px;">
-				<table class="header">
-					<tr class="header">
-						<td class="header" style="width: 50px;"><img src="{$dpath}planeten/small/s_{$image}.jpg" height="50" width="50" alt="Planetenbild"></td> 
-						<td class="header">	  
-						<select onChange="document.location = $(this).val();">
-						{html_options options=$PlanetSelect selected=$current_planet}
-						</select>
-						</td>
-					</tr>
-				</table>
-			</td>
-			<td class="header">
-				<table class="header" id='resources'>
-					<tr class="header">
-						<td class="header">
-							<img src="{$dpath}images/metall.gif" width="42" height="22" alt="{$Metal}">
-						</td>
-						<td class="header">
-							<img src="{$dpath}images/kristall.gif" width="42" height="22" alt="{$Crystal}">
-						</td>
-						<td class="header">
-							<img src="{$dpath}images/deuterium.gif" width="42" height="22" alt="{$Deuterium}">
-						</td>
-						<td class="header">
-							<img src="{$dpath}images/darkmatter.gif" width="42" height="22" alt="{$Darkmatter}">
-						</td>	     
-						<td class="header">
-							<img src="{$dpath}images/energie.gif" width="42" height="22" alt="{$Energy}">
-						</td>
-					</tr>
-					<tr class="header">
-						<td class="header res_name">{$Metal}</td>
-						<td class="header res_name">{$Crystal}</td>
-						<td class="header res_name">{$Deuterium}</td>
-						<td class="header res_name">{$Darkmatter}</td>    
-						<td class="header res_name">{$Energy}</td>
-					</tr>
-					<tr class="header">
-						<td class="header res_current" id="current_metal">{pretty_number($metal)}</td>
-						<td class="header res_current" id="current_crystal">{pretty_number($crystal)}</td>
-						<td class="header res_current" id="current_deuterium">{pretty_number($deuterium)}</td>
-						<td class="header res_current">{$darkmatter}</td>
-						<td class="header res_current">{$energy}</td>
-					</tr>
-					<tr class="header">
-						<td class="header res_max" id="max_metal"><span title="{$alt_metal_max}">{if $settings_tnstor}{$metal_max}{else}{$alt_metal_max}{/if}</span></td>
-						<td class="header res_max" id="max_crystal"><span title="{$alt_crystal_max}">{if $settings_tnstor}{$crystal_max}{else}{$alt_crystal_max}{/if}</span></td>
-						<td class="header res_max" id="max_deuterium"><span title="{$alt_deuterium_max}">{if $settings_tnstor}{$deuterium_max}{else}{$alt_deuterium_max}{/if}</span></td>
-						<td class="header res_max"></td>
-						<td class="header res_max"></td>
-					</tr>
-				</table>
-			</td>
-		</tr>
-	</table>
+<div id="header">
+	<div id="planetselect">
+		<img src="{$dpath}planeten/small/s_{$image}.jpg" alt=""> 
+		<select onchange="document.location = $(this).val();">
+			{html_options options=$PlanetSelect selected=$current_planet}
+		</select>
+	</div>
+	<div id="resources">
+		<div>
+			<div>
+				<p><img src="{$dpath}images/metall.gif" alt="{$Metal}"></p>
+				<p class="res_name">{$Metal}</p>
+				<p class="res_current tooltip" name="{pretty_number($metal)}" id="current_metal">{shortly_number($metal)}</p>
+				<p class="res_max tooltip" name="{pretty_number($metal_max)}" id="max_metal">{shortly_number($metal_max)}</p>
+			</div>
+			<div>
+				<p><img src="{$dpath}images/kristall.gif" alt="{$Metal}"></p>
+				<p class="res_name">{$Crystal}</p>
+				<p class="res_current tooltip" name="{pretty_number($crystal)}" id="current_crystal">{shortly_number($crystal)}</p>
+				<p class="res_max tooltip" name="{pretty_number($crystal_max)}" id="max_crystal">{shortly_number($crystal_max)}</p>
+			</div>
+			<div>
+				<p><img src="{$dpath}images/deuterium.gif" alt="{$Metal}"></p>
+				<p class="res_name">{$Crystal}</p>
+				<p class="res_current tooltip" name="{pretty_number($deuterium)}" id="current_deuterium">{shortly_number($deuterium)}</p>
+				<p class="res_max tooltip" name="{pretty_number($deuterium_max)}" id="max_deuterium">{shortly_number($deuterium_max)}</p>
+			</div>
+			<div>
+				<p><img src="{$dpath}images/darkmatter.gif" alt="{$Metal}"></p>
+				<p class="res_name">{$Darkmatter}</p>
+				<p class="res_current tooltip" name="{pretty_number($darkmatter)}">{shortly_number($darkmatter)}</p>
+				<p>&nbsp;</p>
+			</div>
+			<div>
+				<p><img src="{$dpath}images/energie.gif" alt="{$Metal}"></p>
+				<p class="res_name">{$Energy}</p>
+				<p class="res_current tooltip" name="{$energy_alt}">{$energy}</p>
+				<p>&nbsp;</p>
+			</div>
+		</div>
+	</div>
 	{if $closed}
 	<table width="70%" id="infobox" style="border: 3px solid red; text-align:center;"><tr><td>{$closed}</td></tr></table>
 	{elseif $delete}
@@ -65,3 +47,30 @@
 	<table width="70%" id="infobox" style="border: 3px solid red; text-align:center;"><tr><td>{$tn_vacation_mode} {$vacation}</td></tr></table>
 	{/if}
 </div>
+<script type="text/javascript">
+var resourceTickerMetal = {
+    available: {$metal},
+    limit: [0, {$js_metal_max}],
+    production: {$js_metal_hr},
+    valueElem: "current_metal"
+};
+var resourceTickerCrystal = {
+    available: {$crystal},
+    limit: [0, {$js_crystal_max}],
+    production: {$js_crystal_hr},
+    valueElem: "current_crystal"
+};
+var resourceTickerDeuterium = {
+    available: {$deuterium},
+    limit: [0, {$js_deuterium_max}],
+    production: {$js_deuterium_hr},
+    valueElem: "current_deuterium"
+};
+
+var vacation = {$vmode};
+if (!vacation) {
+	resourceTicker(resourceTickerMetal, true);
+	resourceTicker(resourceTickerCrystal, true);
+	resourceTicker(resourceTickerDeuterium, true);
+}
+</script>

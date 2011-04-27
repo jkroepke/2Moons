@@ -1,7 +1,7 @@
 {include file="overall_header.tpl"}
-{include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
-<div id="content" class="content">
+{include file="overall_topnav.tpl"}
+<div id="content">
     <table class="table519">
         <tr>
         	<th colspan="3"><a href="#" onclick="$('#dialog').dialog('open');return false;" title="{$ov_planetmenu}">{$ov_planet} "<span class="planetname">{$planetname}</span>"</a> ({$username})</th>

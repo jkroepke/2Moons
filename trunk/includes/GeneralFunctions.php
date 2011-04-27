@@ -208,7 +208,7 @@ function colorGreen($n)
 
 function pretty_number($n, $dec = 0)
 {
-	return number_format(floattostring($n, $dec), 0, ',', '.');
+	return number_format(floattostring($n, $dec), $dec, ',', '.');
 }
 
 function request_var($var_name, $default, $multibyte = false, $specialtype = '')
@@ -383,18 +383,29 @@ function SendSimpleMessage($Owner, $Sender, $Time, $Type, $From, $Subject, $Mess
 	
 function shortly_number($number)
 {
-	if ($number >= 1000000000000000000000000)
-		return pretty_number($number/1000000000000000000000).' T+';
-	elseif ($number >= 1000000000000000000)
-		return pretty_number($number/1000000000000000000).' T';
-	elseif ($number >= 1000000000000)
-		return pretty_number($number/1000000000000).' B';
-	elseif ($number >= 1000000)
-		return pretty_number($number/1000000).' M';
-	elseif ($number >= 1000)
-		return pretty_number($number/1000).' K';
-	else
+	$length	= strlen(floattostring(abs($number)));
+	if($length < 4)
 		return pretty_number($number);
+	elseif($length < 7)
+		return pretty_number($number/1000).' K';
+	elseif($length < 13)
+		return pretty_number($number/1000000).' M';
+	elseif($length < 19)
+		return pretty_number($number/1000000000000).' B';
+	elseif($length < 25)
+		return pretty_number($number/1000000000000000000).' T';
+	elseif($length < 31)
+		return pretty_number($number/1000000000000000000000000).' Q';
+	elseif($length < 37)
+		return pretty_number($number/1000000000000000000000000000000).' Q+';
+	elseif($length < 43)
+		return pretty_number($number/1000000000000000000000000000000000000).' S';
+	elseif($length < 49)
+		return pretty_number($number/1000000000000000000000000000000000000000000).' S+';
+	elseif($length < 55)
+		return pretty_number($number/1000000000000000000000000000000000000000000000000).' O';
+	else
+		return pretty_number($number/1000000000000000000000000000000000000000000000000000000).' N';
 }
 
 function floattostring($Numeric, $Pro = 0, $Output = false){

@@ -1,11 +1,11 @@
 {include file="overall_header.tpl"}
-{include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
+{include file="overall_topnav.tpl"}
 <form action="game.php?page=fleet2" method="post" onsubmit="return CheckTarget()" id="form">
 	<input type="hidden" name="fleet_group" value="0">
 	<input type="hidden" name="mission" value="{$mission}">
 	<input type="hidden" name="usedfleet" value="{$fleetarray}">
-    <div id="content" class="content">
+    <div id="content">
     	<table class="table519">
         	<tr style="height:20px;">
         		<th colspan="2">{$fl_send_fleet}</th>

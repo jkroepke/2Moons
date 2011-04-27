@@ -59,11 +59,11 @@ class StatBanner {
 		$b_planet = $Query['name'];
 		$b_xyz    = "[".$Query['galaxy'].":".$Query['system'].":".$Query['planet']."]";
 		$b_lvl    = $Query['total_rank']  ."/".$Query['users_amount'];
-		$b_build  = $LNG['ub_buildings'].": ".pretty_number($Query['build_points']);
-		$b_fleet  = $LNG['ub_fleets'].": ".pretty_number($Query['fleet_points']);
-		$b_def    = $LNG['ub_defenses'] .": ".pretty_number($Query['defs_points']);
-		$b_search = $LNG['ub_researh'] .": ".pretty_number($Query['tech_points']);
-		$b_total  = $LNG['ub_points'] .": ".pretty_number($Query['total_points']);
+		$b_build  = $LNG['ub_buildings'].": ".shortly_number($Query['build_points']);
+		$b_fleet  = $LNG['ub_fleets'].": ".shortly_number($Query['fleet_points']);
+		$b_def    = $LNG['ub_defenses'] .": ".shortly_number($Query['defs_points']);
+		$b_search = $LNG['ub_researh'] .": ".shortly_number($Query['tech_points']);
+		$b_total  = $LNG['ub_points'] .": ".shortly_number($Query['total_points']);
 
 		// Colors
 		$red    = hexdec(substr($this->textcolor,0,2));
@@ -112,11 +112,11 @@ class StatBanner {
 		$b_planet = iconv("UTF-8", "koi8-r", $Query['name']);
 		$b_xyz    = "[".$Query['galaxy'].":".$Query['system'].":".$Query['planet']."]";
 		$b_lvl    = $Query['total_rank']  ."/".$Query['users_amount'];
-		$b_build  = $LNG['ub_buildings'] .": ".pretty_number($Query['build_points']);
-		$b_fleet  = $LNG['ub_fleets'] .": ".pretty_number($Query['fleet_points']);
-		$b_def    = $LNG['ub_defenses'] .": ".pretty_number($Query['defs_points']);
-		$b_search = $LNG['ub_researh'] .": ".pretty_number($Query['tech_points']);
-		$b_total  = $LNG['ub_points'] .": ".pretty_number($Query['total_points']);
+		$b_build  = $LNG['ub_buildings'] .": ".shortly_number($Query['build_points']);
+		$b_fleet  = $LNG['ub_fleets'] .": ".shortly_number($Query['fleet_points']);
+		$b_def    = $LNG['ub_defenses'] .": ".shortly_number($Query['defs_points']);
+		$b_search = $LNG['ub_researh'] .": ".shortly_number($Query['tech_points']);
+		$b_total  = $LNG['ub_points'] .": ".shortly_number($Query['total_points']);
 
 
 		// Colors

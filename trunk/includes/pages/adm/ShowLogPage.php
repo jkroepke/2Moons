@@ -35,11 +35,16 @@ function ShowLog()
 	
 	# Modes:
 	# 1 => Playerlist Changes
+	#	target => Player-ID
 	# 2 => Planetlist Changes
+	#	target => Planet-ID
 	# 3 => Div. Settings Pages
-	# 4 => Ressources with Account Editor
-	# 5 => Ships, Defense with Account Editor
-	
+	#	target 0 => Server-Settings
+	#	target 1 => Universe-Settings
+	#	target 2 => Stat-Settings
+	#	target 3 => Chat-Settings
+	#	target 4 => TeamSpeak-Settings
+	#
 	# TODO: LOG Search
 	
 	switch ($table) {
@@ -147,8 +152,8 @@ function ShowLogDetail() {
 			
 			$LogArray[]	= array(
 				'Element'	=> $Element,
-				'old'		=> is_numeric($val) ? pretty_number($val) : $val,
-				'new'		=> is_numeric($val) ? pretty_number($conf_after[$key]) : $conf_after[$key],
+				'old'		=> ($Element == 'urlaubs_until' ? date(TDFORMAT, $val) : (is_numeric($val) ? pretty_number($val) : $val)),
+				'new'		=> ($Element == 'urlaubs_until' ? date(TDFORMAT, $conf_after[$key]) : (is_numeric($conf_after[$key]) ? pretty_number($conf_after[$key]) : $conf_after[$key])),
 			);
 		}
 	}

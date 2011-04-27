@@ -1,13 +1,13 @@
 {include file="overall_header.tpl"}
-{include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
+{include file="overall_topnav.tpl"}
 <script type="text/javascript">
 function infodiv(i){
 $('.request:visible').slideUp(500);
 $('#'+i).slideDown(500);
 }
 </script>
-<div id="content" class="content">
+<div id="content">
     <table class="table519">
         <tr>
           <th colspan="2">{$al_request_list}</th>

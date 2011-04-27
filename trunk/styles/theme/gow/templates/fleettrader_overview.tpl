@@ -1,7 +1,7 @@
 {include file="overall_header.tpl"}
-{include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
-<div id="content" class="content">
+{include file="overall_topnav.tpl"}
+<div id="content">
 <form action="" method="POST">
     <table>
         <tr><th>{$ft_head}</th></tr>

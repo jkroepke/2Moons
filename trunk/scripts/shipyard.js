@@ -1,13 +1,13 @@
 var v  			= new Date();
-var Shipyard	= data.Queue;
-var Amount		= new DecimalNumber(Shipyard[0][1],0);
-var element		= $("#bx");
 
 function ShipyardInit() {
+	Shipyard		= data.Queue;
+	Amount			= new DecimalNumber(Shipyard[0][1],0);
 	hanger_id		= data.b_hangar_id_plus;
 	$('#timeleft').text(data.pretty_time_b_hangar);
 	ShipyardList();
 	BuildlistShipyard();
+	ShipyardInterval	= window.setInterval(BuildlistShipyard, 1000);
 }
 
 function BuildlistShipyard() {
@@ -24,9 +24,10 @@ function BuildlistShipyard() {
 		if (Amount.toString() == '0') {
 			Shipyard.shift();
 			if (Shipyard.length == 0) {
-				element.html(Ready);
+				$("#bx").html(Ready);
 				document.getElementById('auftr').options[0] = new Option(Ready);
 				document.location.href	= document.location.href;
+				window.clearInterval(ShipyardInterval);
 				return;
 			}
 			Amount = Amount.reset(Shipyard[0][1]);
@@ -38,8 +39,7 @@ function BuildlistShipyard() {
 		v = new Date();
 		s = 0;
 	}
-	element.html(Shipyard[0][0]+" "+GetRestTimeFormat(s));
-	window.setTimeout("BuildlistShipyard();", 1000);
+	$("#bx").html(Shipyard[0][0]+" "+GetRestTimeFormat(s));
 }
 
 function ShipyardList() {
