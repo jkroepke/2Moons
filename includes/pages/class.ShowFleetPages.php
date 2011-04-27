@@ -128,7 +128,7 @@ class ShowFleetPages extends FleetFunctions
 				);
 			}
 		}
-		
+		$USER['factor']	= array_merge($USER['factor'], getFactors($USER, null, 'attack'));
 		$template->assign_vars(array(
 			'FleetsOnPlanet'		=> $FleetsOnPlanet,
 			'FlyingFleetList'		=> $FlyingFleetList,
