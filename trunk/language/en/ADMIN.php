@@ -1106,4 +1106,30 @@ $LNG['ap_nicht_aktivierte_user']		= 'User did not activate';
 $LNG['mip_ip']							= 'IP';
 $LNG['mip_user']						= 'User';
 
+//Admin Log
+$LNG['log_log']                         = 'Log';
+$LNG['log_menu']                        = 'Log Menu';
+$LNG['log_admin']                       = 'Administrator';
+$LNG['log_time']                        = 'Time';
+$LNG['log_target_user']                 = 'Change Players';
+$LNG['log_target_planet']               = 'Change Planet';
+$LNG['log_target_universe']             = 'Change Universe';
+$LNG['log_id']                          = 'ID';
+$LNG['log_view']                        = 'See';
+$LNG['log_info']                        = 'Info';
+$LNG['log_element']                     = 'Element';
+$LNG['log_old']                         = 'Before';
+$LNG['log_new']                         = 'After';
+$LNG['log_player']                      = 'Player edited';
+$LNG['log_planet']                      = 'Planet edited';
+$LNG['log_settings']                    = 'Options edited';
+$LNG['log_cat']                         = 'Choose one category to register:';
+$LNG['log_no_data']                     = 'Dont exists disponible data from Log!';
+$LNG['log_ssettings']                   = 'Configurations of Game';
+$LNG['log_usettings']                   = 'Configurations of Universe';
+$LNG['log_statsettings']                = 'Statistics Options';
+$LNG['log_chatsettings']                = 'Chat Options';
+$LNG['log_tssettings']                  = 'Teamspeak Options';
+$LNG['log_uni_short']                   = 'Uni';
+$LNG['log_universe']                    = 'Universe';
 ?>
