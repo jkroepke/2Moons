@@ -1,7 +1,7 @@
 {include file="overall_header.tpl"}
-{include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
-<div id="content" class="content">
+{include file="overall_topnav.tpl"}
+<div id="content">
     <form action="?page=options&amp;mode=change" method="post">
     <table style="min-width:519px;width:519px;">
     <tbody>

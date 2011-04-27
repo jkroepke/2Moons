@@ -1,6 +1,6 @@
 {include file="overall_header.tpl"}
-{include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
+{include file="overall_topnav.tpl"}
 <form action="game.php?page=fleet3" method="post">
 <input type="hidden" name="galaxy" value="{$galaxy}">
 <input type="hidden" name="system" value="{$system}">
@@ -9,7 +9,7 @@
 <input type="hidden" name="speed" value="{$speed}">
 <input type="hidden" name="fleet_group" value="{$fleet_group}">
 <input type="hidden" name="usedfleet" value="{$fleetarray}">
-<div id="content" class="content">
+<div id="content">
    	<table class="table519">
         <tr>
         	<th colspan="2">{$thisgalaxy}:{$thissystem}:{$thisplanet} - {if $thisplanet_type == 3}{$fl_moon}{else}{$fl_planet}{/if}</th>

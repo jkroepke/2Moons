@@ -1,7 +1,7 @@
 {include file="overall_header.tpl"}
 {include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
-<div id="content" class="content">
+<div id="content">
 <form id="battlesim" name="battlesim">
 <input type="hidden" name="slots" id="slots" value="{$Slots + 1}">
 <table style="width:80%">

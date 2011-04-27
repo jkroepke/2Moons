@@ -1,6 +1,6 @@
 {include file="overall_header.tpl"}
-{include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
+{include file="overall_topnav.tpl"}
 <div id="content">
     <form action="game.php?page=alliance&amp;mode=apply&amp;allyid={$allyid}&amp;action=send" method="POST">
     <table class="table519">

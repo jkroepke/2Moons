@@ -22,6 +22,33 @@ function number_format (number, decimals) {
 function NumberGetHumanReadable(value) {
 	return number_format(removeE(Math.floor(value)), 0);
 }
+
+function shortly_number(number)
+{
+	if(number.toString().length < 4)
+		return NumberGetHumanReadable(number);
+	else if(number.toString().length < 7)
+		return NumberGetHumanReadable(number/1000)+' K';
+	else if(number.toString().length < 13)
+		return NumberGetHumanReadable(number/1000000)+' M';
+	else if(number.toString().length < 19)
+		return NumberGetHumanReadable(number/1000000000000)+' B';
+	else if(number.toString().length < 25)
+		return NumberGetHumanReadable(number/1000000000000000000)+' T';
+	else if(number.toString().length < 31)
+		return NumberGetHumanReadable(number/1000000000000000000000000)+' Q';
+	else if(number.toString().length < 37)
+		return NumberGetHumanReadable(number/1000000000000000000000000000000)+' Q+';
+	else if(number.toString().length < 43)
+		return NumberGetHumanReadable(number/1000000000000000000000000000000000000)+' S';
+	else if(number.toString().length < 49)
+		return NumberGetHumanReadable(number/1000000000000000000000000000000000000000000)+' S+';
+	else if(number.toString().length < 55)
+		return NumberGetHumanReadable(number/1000000000000000000000000000000000000000000000000)+' O';
+	else
+		return NumberGetHumanReadable(number/1000000000000000000000000000000000000000000000000000000)+' N';
+}
+
 function removeE(Number) {
 	Number = String(Number);
 	if (Number.search(/e\+/) == -1) 

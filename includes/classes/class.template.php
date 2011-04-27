@@ -94,6 +94,7 @@ class template
 		if($PLANET[$resource[43]] > 0)
 			$this->loadscript("gate.js");
 		
+		$this->loadscript("topnav.js");
 		$this->loadscript("planetmenu.js");
 		$this->phpself	= "?page=".request_var('page', '')."&amp;mode=".request_var('mode', '');
 		$PlanetSelect	= array();
@@ -169,17 +170,15 @@ class template
 			'metal'				=> $PLANET['metal'],
 			'crystal'			=> $PLANET['crystal'],
 			'deuterium'			=> $PLANET['deuterium'],
-			'energy'			=> (($PLANET["energy_max"] + $PLANET["energy_used"]) < 0) ? colorRed(pretty_number($PLANET["energy_max"] + $PLANET["energy_used"]) . "/" . pretty_number($PLANET["energy_max"])) : pretty_number($PLANET["energy_max"] + $PLANET["energy_used"]) . "/" . pretty_number($PLANET["energy_max"]),
-			'darkmatter'		=> pretty_number($USER["darkmatter"]),
-			'metal_max'			=> shortly_number($PLANET["metal_max"]),
-			'crystal_max'		=> shortly_number($PLANET["crystal_max"]),
-			'deuterium_max' 	=> shortly_number($PLANET["deuterium_max"]),
-			'alt_metal_max'		=> pretty_number($PLANET["metal_max"]),
-			'alt_crystal_max'	=> pretty_number($PLANET["crystal_max"]),
-			'alt_deuterium_max' => pretty_number($PLANET["deuterium_max"]),
-			'js_metal_max'		=> floattostring($PLANET["metal_max"]),
-			'js_crystal_max'	=> floattostring($PLANET["crystal_max"]),
-			'js_deuterium_max' 	=> floattostring($PLANET["deuterium_max"]),
+			'energy'			=> (($PLANET['energy_max'] + $PLANET['energy_used']) < 0) ? colorRed(shortly_number($PLANET['energy_max'] + $PLANET['energy_used']).'/'.shortly_number($PLANET['energy_max'])) : shortly_number($PLANET['energy_max'] + $PLANET['energy_used']) . '/' . shortly_number($PLANET['energy_max']),
+			'energy_alt'		=> pretty_number($PLANET['energy_max'] + $PLANET['energy_used']).'/'.pretty_number($PLANET['energy_max']),
+			'darkmatter'		=> $USER['darkmatter'],
+			'metal_max'			=> $PLANET['metal_max'],
+			'crystal_max'		=> $PLANET['crystal_max'],
+			'deuterium_max' 	=> $PLANET['deuterium_max'],
+			'js_metal_max'		=> floattostring($PLANET['metal_max']),
+			'js_crystal_max'	=> floattostring($PLANET['crystal_max']),
+			'js_deuterium_max' 	=> floattostring($PLANET['deuterium_max']),
 			'js_metal_hr'		=> $PLANET['planet_type'] == 1 ? floattostring($PLANET['metal_perhour'] + $CONF['metal_basic_income'] * $CONF['resource_multiplier']) : 0,
 			'js_crystal_hr'		=> $PLANET['planet_type'] == 1 ? floattostring($PLANET['crystal_perhour'] + $CONF['crystal_basic_income'] * $CONF['resource_multiplier']) : 0,
 			'js_deuterium_hr'	=> $PLANET['planet_type'] == 1 ? floattostring($PLANET['deuterium_perhour'] + $CONF['deuterium_basic_income'] * $CONF['resource_multiplier']) : 0,

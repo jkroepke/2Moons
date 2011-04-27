@@ -1,7 +1,7 @@
 {include file="overall_header.tpl"}
-{include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
-<div id="content" class="content">
+{include file="overall_topnav.tpl"}
+<div id="content">
 <table style="min-width:590px;width:590px;">
 <tbody>
 <tr><td colspan="3" class="c" style="text-align:center;">{$update}</td></tr>

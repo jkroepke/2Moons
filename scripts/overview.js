@@ -98,3 +98,10 @@ function GetFleets(init) {
 		window.setTimeout('GetFleets()', 60000);
 	});
 }
+
+function UhrzeitAnzeigen() {
+   $("#servertime").text(getFormatedDate(serverTime.getTime(), '[M] [D] [d] [H]:[i]:[s]'));
+}
+
+UhrzeitAnzeigen();
+setInterval(UhrzeitAnzeigen, 1000);

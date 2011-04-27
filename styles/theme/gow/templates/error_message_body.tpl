@@ -1,9 +1,9 @@
 {include file="overall_header.tpl"}
 {if !$Fatal}
-{include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
+{include file="overall_topnav.tpl"}
 {/if}
-<div id="content" class="content">
+<div id="content">
     <table class="table519">
 		<tr>
             <th>{$fcm_info}</th>

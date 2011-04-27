@@ -25,4 +25,5 @@
 </div>
 <script type="text/javascript">
 planetmenu	= {$Scripttime};
+initPlanetMenu();
 </script>

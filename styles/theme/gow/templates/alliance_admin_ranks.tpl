@@ -1,7 +1,7 @@
 {include file="overall_header.tpl"}
-{include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
-<div id="content" class="content">
+{include file="overall_topnav.tpl"}
+<div id="content">
 	<form action="game.php?page=alliance&amp;mode=admin&amp;edit=rights" method="POST">
 	<table style="width:50%"><tr><th colspan="11">{$al_configura_ranks}</th></tr>
 	<tr>

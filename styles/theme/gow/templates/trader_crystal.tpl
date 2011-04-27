@@ -1,11 +1,11 @@
 {include file="overall_header.tpl"}
-{include file="overall_topnav.tpl"}
 {include file="left_menu.tpl"}
+{include file="overall_topnav.tpl"}
 <script type="text/javascript">
 res_a = {$mod_ma_res_a};
 res_b = {$mod_ma_res_b};
 </script>
-<div id="content" class="content">
+<div id="content">
     <form id="trader" action="" method="post">
     <input type="hidden" name="ress" value="crystal">
 	<input type="hidden" name="action" value="trade">
