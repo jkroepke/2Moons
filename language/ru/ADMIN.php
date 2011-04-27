@@ -1052,7 +1052,34 @@ $LNG['ap_nicht_aktivierte']            = ' неактивированных иг
 $LNG['ap_nicht_aktivierte_user']       = 'Нет неактивированных игроков';
 
 // Мультиаккаунты
-$LNG['mip_ip']							= 'IP';
-$LNG['mip_user']						= 'Игрок';
+$LNG['mip_ip']                         = 'IP';
+$LNG['mip_user']                       = 'Игрок';
+
+// Лог
+$LNG['log_log']                        = 'Лог';
+$LNG['log_menu']                       = 'Лог';
+$LNG['log_admin']                      = 'Администратор';
+$LNG['log_time']                       = 'Дата';
+$LNG['log_target_user']                = 'Игрок';
+$LNG['log_target_planet']              = '[планета] -> Игрок';
+$LNG['log_target_universe']            = 'Меню';
+$LNG['log_id']                         = 'ID';
+$LNG['log_view']                       = 'Показать';
+$LNG['log_info']                       = 'Информация';
+$LNG['log_element']                    = 'Элемент';
+$LNG['log_old']                        = 'До';
+$LNG['log_new']                        = 'После';
+$LNG['log_player']                     = 'Игроки';
+$LNG['log_planet']                     = 'Планеты';
+$LNG['log_settings']                   = 'Настройки';
+$LNG['log_cat']                        = 'Выберите категорию:';
+$LNG['log_no_data']                    = 'Нет данных в категории.';
+$LNG['log_ssettings']                  = 'Параметры сервера';
+$LNG['log_usettings']                  = 'Параметры вселенной';
+$LNG['log_statsettings']               = 'Настройки статистики';
+$LNG['log_chatsettings']               = 'Настройки чата';
+$LNG['log_tssettings']                 = 'Настройки Teamspeak';
+$LNG['log_uni_short']                  = 'Вселенная';
+$LNG['log_universe']                   = 'Вселенная';
 
 ?>
