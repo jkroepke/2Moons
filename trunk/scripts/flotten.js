@@ -94,7 +94,7 @@ function setResource(id, val) {
 }
 
 function maxResource(id) {
-	var thisresource = parseInt($('#current_'+id).text().replace(/\./g, ''));
+	var thisresource = parseInt($('#current_'+id).attr('name').replace(/\./g, ''));
 	var thisresourcechosen = parseInt(document.getElementsByName(id)[0].value);
 	if (isNaN(thisresourcechosen)) {
 		thisresourcechosen = 0;
