@@ -8,6 +8,10 @@ function resourceTicker(config, init) {
 		window.setInterval(function(){resourceTicker(config)}, 1000);
 		
 	var element	= document.getElementById(config.valueElem);
+
+	if(element.className.match(/res_current_max/) !== null)
+		return false;
+		
 	var nrResource = Math.round(config.available + config.production / 3600 * (serverTime.getTime() - startTime) / 1000);
 	if (nrResource < config.limit[1]) 
 	{

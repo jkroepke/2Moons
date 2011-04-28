@@ -36,6 +36,9 @@ setInterval(function() {
 	serverTime.setSeconds(serverTime.getSeconds()+1);
 }, 1000);
 </script>
+<!--[if lt IE 9]>
+<script src="scripts/html5.js"></script>
+<![endif]-->
 </head>
 <body>
 <div id="tooltip" class="tip"></div>

@@ -15,6 +15,10 @@ font-family:Verdana;
 font-size:10px;
 }
 
+header, section, footer, aside, nav, article {  
+	display: block;  
+}
+
 input,select,option,textarea {
 background:#393939
 }
@@ -195,16 +199,13 @@ width:569px !important
 
 /** HEADER **/
 
-#header{
+header{
 	background: url(img/topnavbg.png) repeat-x;
 	-moz-border-radius:0 0 15px 15px;
 	border-radius:0 0 15px 15px;
 	padding:5px 10px;
 	margin-left:210px;
 	margin-right:10px;
-}
-
-#header div{
 	height:90px;
 }
 
@@ -252,7 +253,7 @@ width:569px !important
 }
 /** MENU **/
 
-#leftmenu {
+nav {
 float:left;
 margin-top:-21px;
 padding-bottom:21px;
@@ -290,26 +291,42 @@ background:url(img/button-.png) #900;
 width:100%;
 position:fixed;
 bottom:0px;
-z-index:2;
 }
 
 #planet_menu_link{
 font-weight:700;
-vertical-align:middle;
 }
 
 #planet_menu_header{
 background:url(img/bkd_title.png);
-height:21px;
+height:14px;
 text-align:right;
+padding-top:2px;
+padding-bottom:4px;
 padding-right:10px;
 }
 
 #planet_menu_content{
 background:url(img/bkd_bg.png) no-repeat #090909;
-text-align:left;
-padding-bottom:5px;
-overflow: auto;
+height:90px;
+}
+
+#planet_menu_content img {
+	height:35px;
+	width:35px;
+}
+
+#planet_menu_content ul{
+	float:left;
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+#planet_menu_content li {
+	width:80px;
+	float:left;
+	text-align:center;
+	padding:5px;
 }
 
 
@@ -343,21 +360,9 @@ text-align:center
 vertical-align:top
 }
 
-
 .transparent,#header td, .tip td, .tip th {
 background: transparent;
 border:none
-}
-
-#footer {
-background:#000;
-border:1px solid #FFF;
-bottom:0;
-margin-left:12.5%;
-margin-right:12.5%;
-position:fixed;
-text-align:center;
-width:75%
 }
 
 a {
