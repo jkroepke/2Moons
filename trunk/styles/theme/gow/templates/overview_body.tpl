@@ -86,8 +86,8 @@
    </table>
 
 </div>
-<form action="game.php" method="POST" onsubmit="return false">
 <div id="dialog" title="{$ov_planetmenu}" style="display:none;">
+<form action="game.php" method="POST" onsubmit="return false">
 	<div id="tabs">
 		<ul>
 			<li><a href="#tabs-1">{$ov_planet_rename}</a></li>
@@ -100,9 +100,8 @@
 			<label for="password">{$ov_password}: </label><input class="left" type="password" name="password" id="password" size="25" maxlength="20" autocomplete="off">
 		</div>
 	</div>
-</div>
-
 </form>
+</div>
 <script type="text/javascript">
 buildtime	= {$buildtime} * 1000;
 </script>

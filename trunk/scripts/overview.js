@@ -1,19 +1,21 @@
-$('#dialog').dialog({ autoOpen: false, width: 450, height: 220, modal: true,
-	buttons: {
-		"OK": function() {
-			var mode	= $('#tabs').tabs('option', 'selected');
-			if(mode	== 0) {
-				checkrename();
-			} else if(mode == 1) {
-				checkcancel();
+$(document).ready(function(){
+	$('#dialog').dialog({ autoOpen: false, width: 450, height: 220, modal: true,
+		buttons: {
+			"OK": function() {
+				var mode	= $('#tabs').tabs('option', 'selected');
+				if(mode	== 0) {
+					checkrename();
+				} else if(mode == 1) {
+					checkcancel();
+				}
+			},
+			Cancel: function() {
+				$(this).dialog('close');
 			}
-		},
-		Cancel: function() {
-			$(this).dialog('close');
 		}
-	}});
-$('#tabs').tabs();
-
+	});
+	$('#tabs').tabs();
+});
 function checkrename()
 {
 	if($('#newname').val() == '') {

@@ -1,4 +1,4 @@
-<section id="planet_menu">
+<div id="planet_menu">
 	<div id="planet_menu_header"><a href="javascript:ShowPlanetMenu()" id="planet_menu_link">[X] {$show_planetmenu}</a></div>
 	<div id="planet_menu_content"{if $is_pmenu == 0} style="display:none;"{/if}>
 		<ul>
@@ -20,7 +20,7 @@
 			{/foreach}
 		</ul>
 	</div>
-</section>
+</div>
 <script type="text/javascript">
 planetmenu	= {$Scripttime};
 initPlanetMenu();
