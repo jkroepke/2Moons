@@ -201,7 +201,7 @@ class ShowShipyardPage
 			exit;
 		}
 		
-		$fmenge	= $_POST['fmenge'];
+		$fmenge	= isset($_POST['fmenge']) ? $_POST['fmenge'] : array();
 		$cancel	= request_var('auftr', range(0, $CONF['max_elements_ships'] - 1));
 		$action	= request_var('action', '');
 		
@@ -319,7 +319,7 @@ class ShowShipyardPage
 			exit;
 		}
 
-		$fmenge	= $_POST['fmenge'];
+		$fmenge	= isset($_POST['fmenge']) ? $_POST['fmenge'] : array();
 		$cancel	= request_var('auftr', range(0, $CONF['max_elements_ships'] - 1));
 		$action	= request_var('action', '');
 								

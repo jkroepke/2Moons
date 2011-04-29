@@ -30,7 +30,7 @@
 
 function calculateAttack(&$attackers, &$defenders, $FleetTF, $DefTF)
 {
-	global $pricelist, $CombatCaps, $resource, $ExtraDM, $OfficerInfo;
+	global $pricelist, $CombatCaps, $resource;
 
 	$TRES 	= array('attacker' => 0, 'defender' => 0);
 	$ARES 	= $DRES = array('metal' => 0, 'crystal' => 0);

@@ -77,11 +77,11 @@ class ResourceUpdate
 	
 	private function UpdateRessource()
 	{
-		global $ProdGrid, $resource, $reslist, $ExtraDM, $OfficerInfo;
+		global $ProdGrid, $resource, $reslist, $pricelist;
 		
-		$this->PLANET['metal_max']			= floor(2.5 * pow(1.8331954764, $this->PLANET[$resource[22]])) * 5000 * (1 + ($this->USER['rpg_stockeur'] * $OfficerInfo[607]['info'])) * $this->CONF['resource_multiplier'] * STORAGE_FACTOR;
-		$this->PLANET['crystal_max']		= floor(2.5 * pow(1.8331954764, $this->PLANET[$resource[23]])) * 5000 * (1 + ($this->USER['rpg_stockeur'] * $OfficerInfo[607]['info'])) * $this->CONF['resource_multiplier'] * STORAGE_FACTOR;
-		$this->PLANET['deuterium_max']		= floor(2.5 * pow(1.8331954764, $this->PLANET[$resource[24]])) * 5000 * (1 + ($this->USER['rpg_stockeur'] * $OfficerInfo[607]['info'])) * $this->CONF['resource_multiplier'] * STORAGE_FACTOR;
+		$this->PLANET['metal_max']			= floor(2.5 * pow(1.8331954764, $this->PLANET[$resource[22]])) * 5000 * (1 + ($this->USER['rpg_stockeur'] * $pricelist[607]['info'])) * $this->CONF['resource_multiplier'] * STORAGE_FACTOR;
+		$this->PLANET['crystal_max']		= floor(2.5 * pow(1.8331954764, $this->PLANET[$resource[23]])) * 5000 * (1 + ($this->USER['rpg_stockeur'] * $pricelist[607]['info'])) * $this->CONF['resource_multiplier'] * STORAGE_FACTOR;
+		$this->PLANET['deuterium_max']		= floor(2.5 * pow(1.8331954764, $this->PLANET[$resource[24]])) * 5000 * (1 + ($this->USER['rpg_stockeur'] * $pricelist[607]['info'])) * $this->CONF['resource_multiplier'] * STORAGE_FACTOR;
 		
 		$MaxMetalStorage                	= $this->PLANET['metal_max']     * $this->CONF['max_overflow'];
 		$MaxCristalStorage              	= $this->PLANET['crystal_max']   * $this->CONF['max_overflow'];
@@ -111,7 +111,7 @@ class ResourceUpdate
 				$BuildTemp      = $this->PLANET['temp_max'];
 				$BuildLevelFactor						= $this->PLANET[$resource[212].'_porcent'];
 				$BuildLevel 							= $this->PLANET[$resource[212]];
-				$this->PLANET['energy_max_proc'][212]	= round(eval($ProdGrid[212]['formule']['energy']) * ($this->CONF['resource_multiplier']));
+				$this->PLANET['energy_max_proc'][212]	= round(eval($ProdGrid[212]['energy']) * ($this->CONF['resource_multiplier']));
 				$this->PLANET['energy_max']         	= $this->PLANET['energy_max_proc'][212];
 			}
 		}
@@ -130,18 +130,18 @@ class ResourceUpdate
 			{	
 				$BuildLevelFactor						= $this->PLANET[$resource[$ProdID].'_porcent'];			
 				$BuildLevel 							= $this->PLANET[$resource[$ProdID]];
-				$this->PLANET['metal_proc'][$ProdID]	= round(eval($ProdGrid[$ProdID]['formule']['metal'])     * $this->CONF['resource_multiplier']);
-				$this->PLANET['crystal_proc'][$ProdID]	= round(eval($ProdGrid[$ProdID]['formule']['crystal'])   * $this->CONF['resource_multiplier']);
+				$this->PLANET['metal_proc'][$ProdID]	= round(eval($ProdGrid[$ProdID]['metal'])     * $this->CONF['resource_multiplier']);
+				$this->PLANET['crystal_proc'][$ProdID]	= round(eval($ProdGrid[$ProdID]['crystal'])   * $this->CONF['resource_multiplier']);
 			
 				if ($ProdID < 4) {
-					$this->PLANET['deuterium_proc'][$ProdID]		= round(eval($ProdGrid[$ProdID]['formule']['deuterium']) * $this->CONF['resource_multiplier']);
-					$this->PLANET['energy_used_proc'][$ProdID]		= round(eval($ProdGrid[$ProdID]['formule']['energy']) * ($this->CONF['resource_multiplier']));
+					$this->PLANET['deuterium_proc'][$ProdID]		= round(eval($ProdGrid[$ProdID]['deuterium']) * $this->CONF['resource_multiplier']);
+					$this->PLANET['energy_used_proc'][$ProdID]		= round(eval($ProdGrid[$ProdID]['energy']) * ($this->CONF['resource_multiplier']));
 				} else {
 					if($ProdID == 12 && $this->PLANET['deuterium'] == 0)
 						continue;
 
-					$this->PLANET['deuterium_userd_proc'][$ProdID]	= round(eval($ProdGrid[$ProdID]['formule']['deuterium']) * ($this->CONF['resource_multiplier']));
-					$this->PLANET['energy_max_proc'][$ProdID]		= round(eval($ProdGrid[$ProdID]['formule']['energy']) * ($this->CONF['resource_multiplier']));
+					$this->PLANET['deuterium_userd_proc'][$ProdID]	= round(eval($ProdGrid[$ProdID]['deuterium']) * ($this->CONF['resource_multiplier']));
+					$this->PLANET['energy_max_proc'][$ProdID]		= round(eval($ProdGrid[$ProdID]['energy']) * ($this->CONF['resource_multiplier']));
 				}
 			}
 
@@ -222,7 +222,10 @@ class ResourceUpdate
 			if($Done == false) {
 				$BuildTime = $Item[2];
 				$Element   = (int)$Element;
-				if($BuildTime == 0) {
+				if($BuildTime == 0) {			
+					if(!isset($this->Builded[$Element]))
+						$this->Builded[$Element] = 0;
+						
 					$this->Builded[$Element]			+= $Count;
 					$this->PLANET[$resource[$Element]]	+= $Count;
 					continue;					
@@ -273,7 +276,10 @@ class ResourceUpdate
 		$Level      	= $CurrentQueue[0][1];
 		$BuildEndTime 	= $CurrentQueue[0][3];
 		$BuildMode    	= $CurrentQueue[0][4];
-	
+		
+		if(!isset($this->Builded[$Element]))
+			$this->Builded[$Element] = 0;
+		
 		if ($BuildMode == 'build')
 		{
 			$this->PLANET['field_current']		+= 1;

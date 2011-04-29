@@ -373,10 +373,6 @@ color:#FFF
 color:red
 }
 
-.ui-progressbar-value {
-background-image: url(img/processbar.png)
-}
-
 #fleetstatustable td{
 background: transparent;
 background-image: none;
@@ -413,4 +409,8 @@ padding-top:1px;
 
 .ui-widget-header{
 background: url("img/bkd_title.png") repeat-x scroll 0 0 #333333;
+}
+
+.ui-progressbar-value {
+background-image: url(img/processbar.png)
 }
