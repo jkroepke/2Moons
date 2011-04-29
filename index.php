@@ -356,6 +356,7 @@ switch ($page) {
 		break;
 	case 'top100' :
 		$top = $db->query("SELECT * FROM ".TOPKB." WHERE `universe` = '".$UNI."' ORDER BY gesamtunits DESC LIMIT 100;");
+		$TopKBList	= array();
 		while($data = $db->fetch_array($top)) {
 			$TopKBList[]	= array(
 				'result'	=> $data['fleetresult'],
@@ -378,7 +379,7 @@ switch ($page) {
 		$template->assign_vars(array(	
 			'contentbox'	=> true,
 			'AvailableUnis'	=> $AvailableUnis,
-			'ThisUni'		=> $ThisUni,
+			'ThisUni'		=> $UNI,
 			'tkb_units'		=> $LNG['tkb_units'],
 			'tkb_datum'		=> $LNG['tkb_datum'],
 			'tkb_owners'	=> $LNG['tkb_owners'],
@@ -394,8 +395,8 @@ switch ($page) {
 		$template->show('index_top100.tpl');
 		break;
 	case 'pranger' :
-		$PrangerRAW = $db->query("SELECT * FROM ".BANNED." WHERE `universe` = '".$UNI."' ORDER BY `id`;");
-
+		$PrangerRAW 	= $db->query("SELECT * FROM ".BANNED." WHERE `universe` = '".$UNI."' ORDER BY `id`;");
+		$PrangerList	= array();
 		while($u = $db->fetch_array($PrangerRAW))
 		{
 			$PrangerList[]	= array(
@@ -419,7 +420,7 @@ switch ($page) {
 		$template->assign_vars(array(
 			'contentbox'				=> true,
 			'AvailableUnis'				=> $AvailableUnis,
-			'ThisUni'					=> $ThisUni,
+			'ThisUni'					=> $UNI,
 			'PrangerList'				=> $PrangerList,
 			'bn_no_players_banned'		=> $LNG['bn_no_players_banned'],
 			'bn_exists'					=> $LNG['bn_exists'],
@@ -447,6 +448,7 @@ switch ($page) {
 		break;
 	case 'news' :
 		$NewsRAW	= $db->query ("SELECT date,title,text,user FROM ".NEWS." ORDER BY id DESC;");
+		$NewsList	= array();
 		while ($NewsRow = $db->fetch_array($NewsRAW)) {
 			$NewsList[]	= array(
 				'title' => $NewsRow['title'],
@@ -562,7 +564,6 @@ switch ($page) {
 				'planetname'			=> $LNG['planet_reg'],
 				'language'				=> $LNG['lang_reg'],
 				'captcha_reg'			=> $LNG['captcha_reg'],
-				'captcha_reg'			=> $isref,
 			));
 			$template->show('index_main.tpl');
 		}
