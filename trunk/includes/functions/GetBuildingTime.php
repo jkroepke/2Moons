@@ -31,7 +31,7 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 
 	function GetBuildingTime ($USER, $PLANET, $Element, $Destroy = false)
 	{
-		global $pricelist, $resource, $reslist, $requeriments, $ExtraDM, $OfficerInfo;
+		global $pricelist, $resource, $reslist, $requeriments;
 		$CONF	= getConfig($USER['universe']);
 		$level	= isset($PLANET[$resource[$Element]]) ? $PLANET[$resource[$Element]] : $USER[$resource[$Element]];
 		

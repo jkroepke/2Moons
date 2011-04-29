@@ -88,20 +88,19 @@ abstract class FleetFunctions
 
 	public static function GetMissionDuration($SpeedFactor, $MaxFleetSpeed, $Distance, $GameSpeed, $CurrentUser)
 	{
-		global $ExtraDM, $resource, $OfficerInfo;
-		return max(((((3500 / ($SpeedFactor * 0.1)) * pow($Distance * 10 / $MaxFleetSpeed, 0.5) + 10) * (1 - DMExtra($CurrentUser[$resource[706]], TIMESTAMP, $ExtraDM[706]['add'], 0) - ($OfficerInfo[613]['info'] * $CurrentUser['rpg_general']))) / $GameSpeed), 5);
+		global $resource;
+		return max(((((3500 / ($SpeedFactor * 0.1)) * pow($Distance * 10 / $MaxFleetSpeed, 0.5) + 10) * $CurrentUser['factor']['shipspeed']) / $GameSpeed), 5);
 	}
 
 	public static function GetGameSpeedFactor()
 	{
-		global $CONF;
-		return $CONF['fleet_speed'] / 2500;
+		return $GLOBALS['CONF']['fleet_speed'] / 2500;
 	}
 	
 	public static function GetMaxFleetSlots($CurrentUser)
 	{
-		global $resource, $OfficerInfo;
-		return (1 + $CurrentUser[$resource[108]]) + ($CurrentUser['rpg_commandant'] * $OfficerInfo[611]['info']);
+		global $resource, $pricelist;
+		return (1 + $CurrentUser[$resource[108]]) + ($CurrentUser['rpg_commandant'] * $pricelist[611]['info']);
 	}
 
 	public static function GetFleetRoom($Fleet)

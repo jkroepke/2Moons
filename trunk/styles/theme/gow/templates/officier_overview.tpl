@@ -46,7 +46,7 @@
 	{if $OfficierList}
 	<table>	
 		<tr>
-			<th colspan="2">{$of_available_points} {$user_darkmatter} {$of_darkmatter}</th>
+			<th colspan="2">{$of_offi}</th>
 		</tr>
 		{foreach item=OfficierInfo from=$OfficierList}
 		<tr>

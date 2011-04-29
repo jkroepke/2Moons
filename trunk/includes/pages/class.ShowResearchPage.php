@@ -258,7 +258,7 @@ class ShowResearchPage
 
 	public function __construct()
 	{
-		global $PLANET, $USER, $LNG, $resource, $reslist, $CONF, $db, $pricelist, $OfficerInfo;
+		global $PLANET, $USER, $LNG, $resource, $reslist, $CONF, $db, $pricelist;
 
 		include_once(ROOT_PATH . 'includes/functions/IsTechnologieAccessible.php');
 		include_once(ROOT_PATH . 'includes/functions/GetElementPrice.php');
@@ -374,7 +374,7 @@ class ShowResearchPage
 				'price'  	=> GetElementPrice($USER, $PLANET, $Element),					
 				'time' 		=> pretty_time(GetBuildingTime($USER, $PLANET, $Element)),
 				'restprice'	=> $this->GetRestPrice($Element),
-				'elvl'		=> ($Element == 106) ? ($USER['rpg_espion'] * $OfficerInfo[610]['info'])." (".$LNG['tech'][610].")" : (($Element == 108) ? ($USER['rpg_commandant'] * $OfficerInfo[611]['info'])." (".$LNG['tech'][611].")" : false),
+				'elvl'		=> ($Element == 106) ? ($USER['rpg_espion'] * $pricelist[610]['info'])." (".$LNG['tech'][610].")" : (($Element == 108) ? ($USER['rpg_commandant'] * $pricelist[611]['info'])." (".$LNG['tech'][611].")" : false),
 				'lvl'		=> $USER[$resource[$Element]],
 				'link'  	=> $TechnoLink,
 				'oldlink'  	=> $CONF['max_elements_tech'] == 1,

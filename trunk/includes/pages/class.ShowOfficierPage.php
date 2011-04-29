@@ -50,12 +50,12 @@ class ShowOfficierPage
 
 	public function UpdateExtra($Element)
 	{
-		global $USER, $db, $reslist, $resource, $ExtraDM;
+		global $USER, $db, $reslist, $resource, $pricelist;
 		
-		if ((floor($USER['darkmatter'] / $ExtraDM[$Element]['darkmatter'])) > 0 && $USER[$resource[$Element]] == 0 || $USER[$resource[$Element]] < TIMESTAMP)
+		if ((floor($USER['darkmatter'] / $pricelist[$Element]['darkmatter'])) > 0 && $USER[$resource[$Element]] == 0 || $USER[$resource[$Element]] < TIMESTAMP)
 		{
-			$USER[$resource[$Element]] 		= max($USER[$resource[$Element]], TIMESTAMP) + $ExtraDM[$Element]['time'] * 3600;
-			$USER['darkmatter']         	-= $ExtraDM[$Element]['darkmatter'];
+			$USER[$resource[$Element]] 		= max($USER[$resource[$Element]], TIMESTAMP) + $pricelist[$Element]['time'] * 3600;
+			$USER['darkmatter']         	-= $pricelist[$Element]['darkmatter'];
 			$SQL  = "UPDATE ".USERS." SET ";
 			$SQL .= "`".$resource[$Element]."` = '". $USER[$resource[$Element]] ."' ";
 			$SQL .= "WHERE ";
@@ -86,7 +86,7 @@ class ShowOfficierPage
 	
 	public function __construct()
 	{
-		global $USER, $CONF, $PLANET, $resource, $reslist, $LNG, $db, $ExtraDM, $OfficerInfo, $pricelist;
+		global $USER, $CONF, $PLANET, $resource, $reslist, $LNG, $db, $pricelist;
 		
 		include_once(ROOT_PATH . 'includes/functions/GetElementPrice.php');
 		$action   = request_var('action', '');
@@ -122,14 +122,14 @@ class ShowOfficierPage
 				{
 					$template->execscript("GetOfficerTime(".$Element.", ".($USER[$resource[$Element]] - TIMESTAMP).");");
 				}
-				$ExtraDMList[]	= array(
+				$pricelistList[]	= array(
 					'id' 	 	=> $Element,
 					'active'  	=> $USER[$resource[$Element]] - TIMESTAMP,
-					'price'		=> pretty_number($ExtraDM[$Element]['darkmatter']),
-					'isok'		=> (($USER['darkmatter'] - $ExtraDM[$Element]['darkmatter']) >= 0) ? true : false,
-					'time'		=> pretty_time($ExtraDM[$Element]['time'] * 3600),
+					'price'		=> pretty_number($pricelist[$Element]['darkmatter']),
+					'isok'		=> (($USER['darkmatter'] - $pricelist[$Element]['darkmatter']) >= 0) ? true : false,
+					'time'		=> pretty_time($pricelist[$Element]['time'] * 3600),
 					'name'		=> $LNG['tech'][$Element],
-					'desc'  	=> sprintf($LNG['res']['descriptions'][$Element], $ExtraDM[$Element]['add'] * 100),	
+					'desc'  	=> sprintf($LNG['res']['descriptions'][$Element], $pricelist[$Element]['add'] * 100),	
 				);
 			}
 		}
@@ -141,7 +141,7 @@ class ShowOfficierPage
 				if (($Result = $this->IsOfficierAccessible($Element)) === 0)
 					continue;
 				
-				$description = $OfficerInfo[$Element]['info'] ? sprintf($LNG['info'][$Element]['description'], is_float($OfficerInfo[$Element]['info']) ? $OfficerInfo[$Element]['info'] * 100 : $OfficerInfo[$Element]['info'], $pricelist[$Element]['max']) : sprintf($LNG['info'][$Element]['description'], $pricelist[$Element]['max']);
+				$description = $pricelist[$Element]['info'] ? sprintf($LNG['info'][$Element]['description'], is_float($pricelist[$Element]['info']) ? $pricelist[$Element]['info'] * 100 : $pricelist[$Element]['info'], $pricelist[$Element]['max']) : sprintf($LNG['info'][$Element]['description'], $pricelist[$Element]['max']);
 								
 				$OfficierList[]	= array(
 					'id' 		 	=> $Element,
@@ -156,11 +156,11 @@ class ShowOfficierPage
 		}
 		
 		$template->assign_vars(array(	
-			'ExtraDMList'			=> $ExtraDMList,
+			'ExtraDMList'			=> $pricelistList,
 			'OfficierList'			=> $OfficierList,
 			'of_max_lvl'			=> $LNG['of_max_lvl'],
 			'of_recruit'			=> $LNG['of_recruit'],
-			'of_available_points'	=> $LNG['of_available_points'],
+			'of_offi'				=> $LNG['of_offi'],
 			'of_lvl'				=> $LNG['of_lvl'],
 			'in_dest_durati'		=> $LNG['in_dest_durati'],
 			'of_still'				=> $LNG['of_still'],

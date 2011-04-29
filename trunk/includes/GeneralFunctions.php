@@ -52,33 +52,33 @@ function getUniverse()
 }
 
 function getFactors($USER, $PLANET, $Type = 'basic', $TIME = 0) {
-	global $CONF, $resource, $OfficerInfo, $ExtraDM;
+	global $CONF, $resource, $pricelist;
 	if(empty($TIME))
 		$TIME	= TIMESTAMP;
 		
 	if($Type == 'basic') {
 		return array(
 			array(
-				'shipspeed'		=> 1 + DMExtra($USER[$resource[706]], $TIME, $ExtraDM[701]['add'], 0)
+				'shipspeed'		=> 1 + DMExtra($USER[$resource[706]], $TIME, $pricelist[701]['add'], 0)
 			),
 			array(
-				'bulidspeed'	=> 1 - $USER[$resource[605]] * $OfficerInfo[605]['info'] - DMExtra($USER[$resource[702]], $TIME, $ExtraDM[702]['add'], 0),
-				'techspeed'		=> 1 - $USER[$resource[606]] * $OfficerInfo[606]['info'] - DMExtra($USER[$resource[705]], $TIME, $ExtraDM[705]['add'], 0),
-				'fleetspeed'	=> 1 - $USER[$resource[613]] * $OfficerInfo[613]['info'] - $USER[$resource[604]] * $OfficerInfo[604]['info'],
-				'defspeed'		=> 1 - $USER[$resource[613]] * $OfficerInfo[613]['info'] - $USER[$resource[608]] * $OfficerInfo[608]['info'],
-				'metal'			=> 1 + ($USER[$resource[601]] * $OfficerInfo[601]['info']) + ($USER[$resource[131]] * 0.02) + DMExtra($USER[$resource[703]], $TIME, $ExtraDM[703]['add'], 0),
-				'crystal'		=> 1 + ($USER[$resource[601]] * $OfficerInfo[601]['info']) + ($USER[$resource[132]] * 0.02) + DMExtra($USER[$resource[703]], $TIME, $ExtraDM[703]['add'], 0),
-				'deuterium'		=> 1 + ($USER[$resource[601]] * $OfficerInfo[601]['info']) + ($USER[$resource[133]] * 0.02) + DMExtra($USER[$resource[703]], $TIME, $ExtraDM[703]['add'], 0),
-				'energy'		=> 1 + ($USER[$resource[603]] * $OfficerInfo[603]['info']) + DMExtra($USER[$resource[704]], $TIME, $ExtraDM[704]['add'], 0),
+				'bulidspeed'	=> 1 - $USER[$resource[605]] * $pricelist[605]['info'] - DMExtra($USER[$resource[702]], $TIME, $pricelist[702]['add'], 0),
+				'techspeed'		=> 1 - $USER[$resource[606]] * $pricelist[606]['info'] - DMExtra($USER[$resource[705]], $TIME, $pricelist[705]['add'], 0),
+				'fleetspeed'	=> 1 - $USER[$resource[613]] * $pricelist[613]['info'] - $USER[$resource[604]] * $pricelist[604]['info'],
+				'defspeed'		=> 1 - $USER[$resource[613]] * $pricelist[613]['info'] - $USER[$resource[608]] * $pricelist[608]['info'],
+				'metal'			=> 1 + ($USER[$resource[601]] * $pricelist[601]['info']) + ($USER[$resource[131]] * 0.02) + DMExtra($USER[$resource[703]], $TIME, $pricelist[703]['add'], 0),
+				'crystal'		=> 1 + ($USER[$resource[601]] * $pricelist[601]['info']) + ($USER[$resource[132]] * 0.02) + DMExtra($USER[$resource[703]], $TIME, $pricelist[703]['add'], 0),
+				'deuterium'		=> 1 + ($USER[$resource[601]] * $pricelist[601]['info']) + ($USER[$resource[133]] * 0.02) + DMExtra($USER[$resource[703]], $TIME, $pricelist[703]['add'], 0),
+				'energy'		=> 1 + ($USER[$resource[603]] * $pricelist[603]['info']) + DMExtra($USER[$resource[704]], $TIME, $pricelist[704]['add'], 0),
 			)
 		);
 	}
 
 	if($Type == 'attack') {
 		return array(
-			'attack'		=> $USER[$resource[602]] * $OfficerInfo[602]['info'] + DMExtra($USER[$resource[700]], $TIME, $ExtraDM[700]['add'], 0),
-			'defensive'		=> $USER[$resource[602]] * $OfficerInfo[602]['info'] + DMExtra($USER[$resource[701]], $TIME, $ExtraDM[701]['add'], 0),
-			'shield'		=> $USER[$resource[602]] * $OfficerInfo[602]['info'],
+			'attack'		=> $USER[$resource[602]] * $pricelist[602]['info'] + DMExtra($USER[$resource[700]], $TIME, $pricelist[700]['add'], 0),
+			'defensive'		=> $USER[$resource[602]] * $pricelist[602]['info'] + DMExtra($USER[$resource[701]], $TIME, $pricelist[701]['add'], 0),
+			'shield'		=> $USER[$resource[602]] * $pricelist[602]['info'],
 		);
 	}
 }
@@ -221,22 +221,22 @@ function request_var($var_name, $default, $multibyte = false, $specialtype = '')
 	settype($var, $type);
 	if ($type == 'string')
 	{
-		$result = trim(htmlspecialchars(str_replace(array("\r\n", "\r", "\0"), array("\n", "\n", ''), $result), ENT_COMPAT, 'UTF-8'));
+		$var = trim(htmlspecialchars(str_replace(array("\r\n", "\r", "\0"), array("\n", "\n", ''), $var), ENT_COMPAT, 'UTF-8'));
 
-		if (!empty($result))
+		if (!empty($var))
 		{
 			// Make sure multibyte characters are wellformed
 			if ($multibyte)
 			{
-				if (!preg_match('/^./u', $result))
+				if (!preg_match('/^./u', $var))
 				{
-					$result = '';
+					$var = '';
 				}
 			}
 			else
 			{
 				// no multibyte, allow only ASCII (0-127)
-				$var = preg_replace('/[\x80-\xFF]/', '?', $$var);
+				$var = preg_replace('/[\x80-\xFF]/', '?', $var);
 			}
 		}
 	}

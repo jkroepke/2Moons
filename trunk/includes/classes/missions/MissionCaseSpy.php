@@ -37,16 +37,16 @@ class MissionCaseSpy extends MissionFunctions
 	
 	function TargetEvent()
 	{
-		global $db, $OfficerInfo, $LANG;		
+		global $db, $pricelist, $LANG;		
 		$CurrentUser         = $db->uniquequery("SELECT `lang`, `spy_tech`, `rpg_espion` FROM ".USERS." WHERE `id` = '".$this->_fleet['fleet_owner']."';");
 		$LNG			     = $LANG->GetUserLang($CurrentUser['lang'], array('FLEET', 'TECH'));
 		$CurrentUserID       = $this->_fleet['fleet_owner'];
 		$TargetPlanet        = $db->uniquequery("SELECT * FROM ".PLANETS." WHERE `id` = ".$this->_fleet['fleet_end_id'].";");
 		$TargetUserID        = $TargetPlanet['id_owner'];
 		$CurrentPlanet       = $db->uniquequery("SELECT name,system,galaxy,planet FROM ".PLANETS." WHERE `galaxy` = '".$this->_fleet['fleet_start_galaxy']."' AND `system` = '".$this->_fleet['fleet_start_system']."' AND `planet` = '".$this->_fleet['fleet_start_planet']."';");
-		$CurrentSpyLvl       = max(($CurrentUser['spy_tech'] + ($CurrentUser['rpg_espion'] * $OfficerInfo[610]['info'])), 1);
+		$CurrentSpyLvl       = max(($CurrentUser['spy_tech'] + ($CurrentUser['rpg_espion'] * $pricelist[610]['info'])), 1);
 		$TargetUser          = $db->uniquequery("SELECT * FROM ".USERS." WHERE `id` = '".$TargetUserID."';");
-		$TargetSpyLvl        = max(($TargetUser['spy_tech'] + ($TargetUser['rpg_espion'] * $OfficerInfo[610]['info'])), 1);
+		$TargetSpyLvl        = max(($TargetUser['spy_tech'] + ($TargetUser['rpg_espion'] * $pricelist[610]['info'])), 1);
 		$fleet               = explode(";", $this->_fleet['fleet_array']);
 			
 		require_once(ROOT_PATH.'includes/classes/class.PlanetRessUpdate.php');	

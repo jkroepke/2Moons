@@ -29,7 +29,7 @@
 
 function ShowResourcesPage()
 {
-	global $LNG, $ProdGrid, $resource, $reslist, $CONF, $db, $ExtraDM, $USER, $PLANET, $OfficerInfo;
+	global $LNG, $ProdGrid, $resource, $reslist, $CONF, $db, $pricelist, $USER, $PLANET;
 	
 	if ($PLANET['planet_type'] == 3 || $USER['urlaubs_modus'] == 1)
 	{

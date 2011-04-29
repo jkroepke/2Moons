@@ -26,10 +26,10 @@ var auth		= {$authlevel};
 var days 		= {$js_days};
 var months 		= {$js_month};
 </script>
-<script type="text/javascript" src="{$cd}scripts/jQuery.js?v={$REV}"></script>
-<script type="text/javascript" src="{$cd}scripts/base.js?v={$REV}"></script>
+<script type="text/javascript" src="./scripts/jQuery.js?v={$REV}"></script>
+<script type="text/javascript" src="./scripts/base.js?v={$REV}"></script>
 {foreach item=scriptname from=$scripts}
-<script type="text/javascript" src="{$cd}scripts/{$scriptname}.js?v={$REV}"></script>
+<script type="text/javascript" src="./scripts/{$scriptname}.js?v={$REV}"></script>
 {/foreach}
 <script type="text/javascript">
 setInterval(function() {

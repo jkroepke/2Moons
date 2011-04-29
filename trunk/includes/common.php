@@ -31,7 +31,7 @@ if(!defined('IN_ADMIN') || !defined('IN_CRON'))
 	define("STARTTIME",	microtime(true));
 
 ignore_user_abort(true);
-error_reporting(E_ALL ^ E_NOTICE);
+error_reporting(E_ALL);
 ini_set('display_errors', 1);
 header('Content-Type: text/html; charset=UTF-8');
 define('TIMESTAMP',	$_SERVER['REQUEST_TIME']);

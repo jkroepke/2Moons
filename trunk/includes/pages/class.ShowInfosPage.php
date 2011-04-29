@@ -146,7 +146,7 @@ class ShowInfosPage
 
 	public function __construct()
 	{
-		global $USER, $PLANET, $dpath, $LNG, $resource, $pricelist, $reslist, $CombatCaps, $ProdGrid, $CONF, $OfficerInfo;
+		global $USER, $PLANET, $dpath, $LNG, $resource, $pricelist, $reslist, $CombatCaps, $ProdGrid, $CONF;
 
 		$BuildID 	= request_var('gid', 0);
 		
@@ -162,11 +162,11 @@ class ShowInfosPage
 			$CurrentBuildtLvl	= $PLANET[$resource[$BuildID]];
 			$BuildEnergy		= $USER[$resource[113]];
 			$BuildLevel     	= max($CurrentBuildtLvl, 1);
-			$Prod[1]         	= round(eval($ProdGrid[$BuildID]['formule']['metal'])     * $CONF['resource_multiplier']);
-			$Prod[2]         	= round(eval($ProdGrid[$BuildID]['formule']['crystal'])   * $CONF['resource_multiplier']);
-			$Prod[3]          	= round(eval($ProdGrid[$BuildID]['formule']['deuterium']) * $CONF['resource_multiplier']);
-			$Prod[4] 			= round(eval($ProdGrid[$BuildID]['formule']['energy'])    * $CONF['resource_multiplier']);
-			$Prod[12] 			= round(eval($ProdGrid[$BuildID]['formule']['energy'])    * $CONF['resource_multiplier']);
+			$Prod[1]         	= round(eval($ProdGrid[$BuildID]['metal'])     * $CONF['resource_multiplier']);
+			$Prod[2]         	= round(eval($ProdGrid[$BuildID]['crystal'])   * $CONF['resource_multiplier']);
+			$Prod[3]          	= round(eval($ProdGrid[$BuildID]['deuterium']) * $CONF['resource_multiplier']);
+			$Prod[4] 			= round(eval($ProdGrid[$BuildID]['energy'])    * $CONF['resource_multiplier']);
+			$Prod[12] 			= round(eval($ProdGrid[$BuildID]['energy'])    * $CONF['resource_multiplier']);
 			$BuildStartLvl   	= max($CurrentBuildtLvl - 2, 1);
 						
 			$ActualProd			= floor($Prod[$BuildID]);
@@ -176,11 +176,11 @@ class ShowInfosPage
 			
 			for($BuildLevel = $BuildStartLvl; $BuildLevel < $BuildStartLvl + 15; $BuildLevel++ )
 			{
-				$Prod[1]    = round(eval($ProdGrid[$BuildID]['formule']['metal'])     * $CONF['resource_multiplier']);
-				$Prod[2]    = round(eval($ProdGrid[$BuildID]['formule']['crystal'])   * $CONF['resource_multiplier']);
-				$Prod[3]   	= round(eval($ProdGrid[$BuildID]['formule']['deuterium']) * $CONF['resource_multiplier']);
-				$Prod[4] 	= round(eval($ProdGrid[$BuildID]['formule']['energy'])    * $CONF['resource_multiplier']);
-				$Prod[12] 	= round(eval($ProdGrid[$BuildID]['formule']['energy'])    * $CONF['resource_multiplier']);
+				$Prod[1]    = round(eval($ProdGrid[$BuildID]['metal'])     * $CONF['resource_multiplier']);
+				$Prod[2]    = round(eval($ProdGrid[$BuildID]['crystal'])   * $CONF['resource_multiplier']);
+				$Prod[3]   	= round(eval($ProdGrid[$BuildID]['deuterium']) * $CONF['resource_multiplier']);
+				$Prod[4] 	= round(eval($ProdGrid[$BuildID]['energy'])    * $CONF['resource_multiplier']);
+				$Prod[12] 	= round(eval($ProdGrid[$BuildID]['energy'])    * $CONF['resource_multiplier']);
 				
 				$NeesRess	= $BuildID != 12 ? floor($Prod[4]) : floor($Prod[3]);
 				
@@ -264,7 +264,7 @@ class ShowInfosPage
 		}
 		elseif(in_array($BuildID, $reslist['officier']))
 		{
-			$description = $OfficerInfo[$BuildID]['info'] ? sprintf($LNG['info'][$BuildID]['description'], ((is_float($OfficerInfo[$BuildID]['info']))? $OfficerInfo[$BuildID]['info'] * 100 : $OfficerInfo[$BuildID]['info']), $pricelist[$BuildID]['max']) : sprintf($LNG['info'][$BuildID]['description'], $pricelist[$BuildID]['max']);
+			$description = $pricelist[$BuildID]['info'] ? sprintf($LNG['info'][$BuildID]['description'], ((is_float($pricelist[$BuildID]['info']))? $pricelist[$BuildID]['info'] * 100 : $pricelist[$BuildID]['info']), $pricelist[$BuildID]['max']) : sprintf($LNG['info'][$BuildID]['description'], $pricelist[$BuildID]['max']);
 		}
 
 		$template->assign_vars(array(		

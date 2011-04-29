@@ -405,8 +405,7 @@ $LNG['rs_ress_bonus']						= 'Bonus(Offiziere/DM-Bonus):';
 //OFFICIERS
 $LNG['of_recruit']							= 'Erwerben';
 $LNG['of_max_lvl']							= 'Max. Level';
-$LNG['of_available_points']					= 'Verfügbare Punkte:';
-$LNG['of_points_per_thousand_darkmatter']	= '(1 Punkt pro %d %s)';
+$LNG['of_offi']								= 'Offiziere';
 $LNG['of_lvl']								= 'Level';
 $LNG['of_dm_trade']							= '%s - Bank';
 $LNG['of_still']							= 'Noch';
