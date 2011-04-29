@@ -161,12 +161,12 @@ class ShowInfosPage
 			$BuildTemp       	= $PLANET['temp_max'];
 			$CurrentBuildtLvl	= $PLANET[$resource[$BuildID]];
 			$BuildEnergy		= $USER[$resource[113]];
-			$BuildLevel     	= ($CurrentBuildtLvl > 0) ? $CurrentBuildtLvl : 1;
-			$Prod[1]         	= (floor(eval($ProdGrid[$BuildID]['formule']['metal'])     * $CONF['resource_multiplier']) * (1 + ($USER['rpg_geologue']  * $OfficerInfo[601]['info'])));
-			$Prod[2]         	= (floor(eval($ProdGrid[$BuildID]['formule']['crystal'])   * $CONF['resource_multiplier']) * (1 + ($USER['rpg_geologue']  * $OfficerInfo[601]['info'])));
-			$Prod[3]          	= (floor(eval($ProdGrid[$BuildID]['formule']['deuterium']) * $CONF['resource_multiplier']) * (1 + ($USER['rpg_geologue']  * $OfficerInfo[601]['info'])));
-			$Prod[4] 			= (floor(eval($ProdGrid[$BuildID]['formule']['energy'])    * $CONF['resource_multiplier']) * (1 + ($USER['rpg_ingenieur'] * $OfficerInfo[603]['info'])));
-			$Prod[12] 			= (floor(eval($ProdGrid[$BuildID]['formule']['energy'])    * $CONF['resource_multiplier']));
+			$BuildLevel     	= max($CurrentBuildtLvl, 1);
+			$Prod[1]         	= round(eval($ProdGrid[$BuildID]['formule']['metal'])     * $CONF['resource_multiplier']);
+			$Prod[2]         	= round(eval($ProdGrid[$BuildID]['formule']['crystal'])   * $CONF['resource_multiplier']);
+			$Prod[3]          	= round(eval($ProdGrid[$BuildID]['formule']['deuterium']) * $CONF['resource_multiplier']);
+			$Prod[4] 			= round(eval($ProdGrid[$BuildID]['formule']['energy'])    * $CONF['resource_multiplier']);
+			$Prod[12] 			= round(eval($ProdGrid[$BuildID]['formule']['energy'])    * $CONF['resource_multiplier']);
 			$BuildStartLvl   	= max($CurrentBuildtLvl - 2, 1);
 						
 			$ActualProd			= floor($Prod[$BuildID]);
@@ -176,11 +176,11 @@ class ShowInfosPage
 			
 			for($BuildLevel = $BuildStartLvl; $BuildLevel < $BuildStartLvl + 15; $BuildLevel++ )
 			{
-				$Prod[1] 	= floor(eval($ProdGrid[$BuildID]['formule']['metal'])     * $CONF['resource_multiplier']);
-				$Prod[2] 	= floor(eval($ProdGrid[$BuildID]['formule']['crystal'])   * $CONF['resource_multiplier']);
-				$Prod[3] 	= floor(eval($ProdGrid[$BuildID]['formule']['deuterium']) * $CONF['resource_multiplier']);
-				$Prod[4] 	= floor(eval($ProdGrid[$BuildID]['formule']['energy'])    * $CONF['resource_multiplier']);
-				$Prod[12] 	= floor(eval($ProdGrid[$BuildID]['formule']['energy'])    * $CONF['resource_multiplier']);
+				$Prod[1]    = round(eval($ProdGrid[$BuildID]['formule']['metal'])     * $CONF['resource_multiplier']);
+				$Prod[2]    = round(eval($ProdGrid[$BuildID]['formule']['crystal'])   * $CONF['resource_multiplier']);
+				$Prod[3]   	= round(eval($ProdGrid[$BuildID]['formule']['deuterium']) * $CONF['resource_multiplier']);
+				$Prod[4] 	= round(eval($ProdGrid[$BuildID]['formule']['energy'])    * $CONF['resource_multiplier']);
+				$Prod[12] 	= round(eval($ProdGrid[$BuildID]['formule']['energy'])    * $CONF['resource_multiplier']);
 				
 				$NeesRess	= $BuildID != 12 ? floor($Prod[4]) : floor($Prod[3]);
 				
