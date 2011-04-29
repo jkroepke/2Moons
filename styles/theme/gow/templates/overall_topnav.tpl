@@ -1,4 +1,4 @@
-<header>
+<div id="header">
 	<div id="planetselect">
 		<img src="{$dpath}planeten/small/s_{$image}.jpg" alt=""> 
 		<select onchange="document.location = $(this).val();">
@@ -73,4 +73,4 @@
 		resourceTicker(resourceTickerDeuterium, true);
 	}
 	</script>
-</header>
+</div>

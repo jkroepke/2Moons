@@ -1,4 +1,4 @@
-<nav>
+<div id="leftmenu">
 	<ul id="menu">
 		<li style="background-image: url('{$dpath}img/menu-top.png');height:100px;cursor:pointer" onclick="document.location = './game.php?page=changelog';"></li>
 		<li style="background-image: url('{$dpath}img/menu_wirt.png');height:30px;"></li>
@@ -39,4 +39,4 @@
 		{if $authlevel > 0}<li><a href="./admin.php" style="color:lime">{$lm_administration} ({$VERSION})</a></li>{/if}
 		<li style="background-image: url('{$dpath}img/menu-foot.png');height:30px;"></li>
 	</ul>
-</nav>
+</div>

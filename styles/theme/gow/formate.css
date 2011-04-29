@@ -15,10 +15,6 @@ font-family:Verdana;
 font-size:10px;
 }
 
-header, section, footer, aside, nav, article {  
-	display: block;  
-}
-
 input,select,option,textarea {
 background:#393939
 }
@@ -199,7 +195,7 @@ width:569px !important
 
 /** HEADER **/
 
-header{
+#header{
 	background: url(img/topnavbg.png) repeat-x;
 	-moz-border-radius:0 0 15px 15px;
 	border-radius:0 0 15px 15px;
@@ -253,7 +249,7 @@ header{
 }
 /** MENU **/
 
-nav {
+#leftmenu {
 float:left;
 margin-top:-21px;
 padding-bottom:21px;
