@@ -183,9 +183,13 @@ switch($page)
 		ShowMultiIPPage();
 	break;
 	case 'log':
-        	include_once(ROOT_PATH . 'includes/pages/adm/ShowLogPage.php');
-        	ShowLog();
-    	break;
+		include_once(ROOT_PATH . 'includes/pages/adm/ShowLogPage.php');
+		ShowLog();
+	break;
+	case 'vars':
+		include_once(ROOT_PATH . 'includes/pages/adm/ShowVarsEditor.php');
+		ShowVarsEditor();
+	break;
 	default:
 		include_once(ROOT_PATH . 'includes/pages/adm/ShowIndexPage.php');
 		ShowIndexPage();

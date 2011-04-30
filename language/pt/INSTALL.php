@@ -31,6 +31,7 @@ $LNG['reg_json_need']			= "JSON disponivel?";
 $LNG['req_php_need']			= "PHP-Version (min. 5.2.5)";
 $LNG['reg_bcmath_need']			= "BCMath Disponível?";
 $LNG['reg_iniset_need']			= "ini_set permitido?";
+$LNG['reg_global_need']			= "reg_global permitido?";
 $LNG['req_ftp']					= "FTP";
 $LNG['req_ftp_info']			= "Diga os dados do seu FTP para resolver o problema.";
 $LNG['req_ftp_host']			= "Host do FTP";

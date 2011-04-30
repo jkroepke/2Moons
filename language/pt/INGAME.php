@@ -4,8 +4,10 @@
 
 // 2Moons - Copyright (C) 2011  Slaver
 
+setlocale(LC_ALL, 'pt_PT', 'portuguese'); // http://msdn.microsoft.com/en-us/library/39cwe7zf%28vs.71%29.aspx
+setlocale(LC_NUMERIC, 'C');
 
-//SERVER GENERALS
+//Geral
 $LNG['Metal']								= 'Metal';
 $LNG['Crystal']                             = 'Cristal';
 $LNG['Deuterium']                           = 'Deutério';
@@ -39,12 +41,14 @@ $LNG['see_you_soon']						= 'Até logo. Esperamos que volte!';
 $LNG['page_doesnt_exist']					= 'A pagina que seleccionou não existe';
 
 //----------------------------------------------------------------------------//
-//TOPNAV
+//Topnav
 $LNG['tn_vacation_mode']                    = 'Está em modo de férias ';
 $LNG['tn_delete_mode']                      = 'A sua conta %s será apagada automaticamente!';
 
 //---------------------------------------------------------------------------//
-//LEFT MENU
+//Menu da Esquerda
+$LNG['js_days']                             = array('Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab');
+$LNG['js_month']                            = array('Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez');
 $LNG['lm_overview']							= 'Vista Geral';
 $LNG['lm_galaxy']							= 'Galáxia';
 $LNG['lm_empire']							= 'Império';
@@ -82,13 +86,8 @@ $LNG['lm_support']                          = 'Suporte';
 $LNG['lm_rules']                            = 'Regras';
 $LNG['lm_battlesim']						= "Simulador de Combate";
 
-//---------------------------------------------------------------------------//
-//LEFT MENU
-$LNG['js_days']                            = 'Dias';
-$LNG['js_month']						   = 'Meses';
-
 //----------------------------------------------------------------------------//
-//OVERVIEW
+//Vista Geral
 $LNG['ov_newname_alphanum']                 = 'Introduziste um caracter ilegal. Só podes introduzir alfanuméricos.';
 $LNG['ov_newname_no_space']                 = 'O nome do planeta não pode conter espaços.';
 $LNG['ov_planet_abandoned']		            = 'Abandonaste o planeta!';
@@ -135,7 +134,7 @@ $LNG['ov_closed']							= 'O jogo está desactivado neste momento, tente mais ta
 $LNG['ov_reflink']							= 'Reflink';
 
 //----------------------------------------------------------------------------//
-//GALAXY
+//Galáxia
 $LNG['gl_no_deuterium_to_view_galaxy']	    = 'não tem deutério suficiente';
 $LNG['gl_legend']							= 'Legendas';
 $LNG['gl_strong_player']				    = 'Jogador Forte';
@@ -206,7 +205,7 @@ $LNG['gl_player']							= 'Jogador';
 $LNG['gl_to']								= 'depois';
 
 //----------------------------------------------------------------------------//
-//PHALANX
+//Sensor Phalanx
 $LNG['px_no_deuterium']					    = 'Não tens deutério sufeciente!';
 $LNG['px_scan_position']					= 'Phalanxiar Planeta';
 $LNG['px_fleet_movement']					= 'Movimentos de Frota em';
@@ -214,7 +213,7 @@ $LNG['px_no_fleet']                         = 'Nenhum movimento actual de frota.
 $LNG['px_out_of_range']						= 'Não tens alcançe sufeciente!';
 
 //----------------------------------------------------------------------------//
-//IMPERIUM
+//Império
 $LNG['iv_imperium_title']                   = 'Vista de Império';
 $LNG['iv_planet']                           = 'Planeta';
 $LNG['iv_name']                             = 'Nome';
@@ -227,7 +226,7 @@ $LNG['iv_ships']                            = 'Frota';
 $LNG['iv_defenses']                         = 'Defesa';
 
 //----------------------------------------------------------------------------//
-//FLEET - FLEET1 - FLEET2 - FLEET3 - FLEETACS - FLEETSHORTCUTS
+//Funções de Fleet = FLEET1 - FLEET2 - FLEET3 - FLEETACS - FLEETSHORTCUTS
 $LNG['fl_returning']						= 'Regressar';
 $LNG['fl_onway']							= 'A caminho';
 $LNG['fl_r']								= '(R)';
@@ -342,7 +341,7 @@ $LNG['fl_error_no_moon']					= 'Não esta presente nenhuma lua!';
 $LNG['fl_error_same_planet']				= 'O partida e destino no mesmo planeta!';
 
 //----------------------------------------------------------------------------//
-//BUILDINGS - RESEARCH - SHIPYARD - DEFENSES
+//Edificios ; Pesquisas ; Naves ; Defesas
 $LNG['bd_dismantle']					    = 'Demolir Nível';
 $LNG['bd_interrupt']					    = 'Cancelar';
 $LNG['bd_cancel']							= 'Cancelar';
@@ -387,7 +386,7 @@ $LNG['sys_techlist'] 						= 'Lista de Pesquisa';
 $LNG['sys_buildlist_fail'] 				    = "Impossível construir";
 
 //----------------------------------------------------------------------------//
-//RESOURCES
+//Recursos
 $LNG['rs_amount']							= 'Quantidade';
 $LNG['rs_lvl']								= 'Nível';
 $LNG['rs_production_on_planet']			    = 'Recursos produzidos no planeta "%s"';
@@ -400,11 +399,10 @@ $LNG['rs_weekly']							= 'Produção semanal:';
 $LNG['rs_ress_bonus']                       = 'Bonus (Oficiais/Bonus):';
 
 //----------------------------------------------------------------------------//
-//OFFICIERS
+//Oficiais
 $LNG['of_recruit']							= 'Recrutar';
 $LNG['of_max_lvl']							= 'Nivel Max.';
-$LNG['of_available_points']					= 'Pontos Disponiveis:';
-$LNG['of_points_per_thousand_darkmatter']	= '(1 ponto por %d %s)';
+$LNG['of_offi']								= 'Oficiais';
 $LNG['of_lvl']								= 'Nivel';
 $LNG['of_dm_trade']							= '%s - Loja';
 $LNG['of_still']							= 'still';
@@ -412,7 +410,7 @@ $LNG['of_active']							= 'ativo';
 $LNG['of_update']							= 'update';
 
 //----------------------------------------------------------------------------//
-//TRADER
+//Mercador
 $LNG['tr_empty_darkmatter']                 = 'Não tens recursos suficientes %s!';
 $LNG['tr_cost_dm_trader']                   = 'O valor do mercador é de %s %s!';
 $LNG['tr_only_positive_numbers']			= 'Só podes usar números positivos!';
@@ -433,12 +431,12 @@ $LNG['tr_quota_exchange']					= 'Taxa de troca';
 $LNG['tr_exchange']							= 'Troca';
 
 //----------------------------------------------------------------------------//
-//TECHTREE
+//Requesitos
 $LNG['tt_requirements']                     = 'Requisitos';
 $LNG['tt_lvl']                              = 'Nível';
 
 //----------------------------------------------------------------------------//
-//INFOS
+//Informações
 $LNG['in_jump_gate_done']					='O portal de salto foi usado, poderás voltar a usá-lo em:';
 $LNG['in_jump_gate_error_data']			    = 'Erro, coordenadas para salto não estão correctas!';
 $LNG['in_jump_gate_not_ready_target']		= 'O portal não está pronto na lua de destino, Estará pronto em ';
@@ -475,7 +473,7 @@ $LNG['in_missilestype']   					= 'Tipo de Misseis';
 $LNG['in_missilesamount']    				= 'Numero de Misseis Disponivéis';
 
 //----------------------------------------------------------------------------//
-//MESSAGES
+//Mensagens
 $LNG['mg_type'][0]                          = 'Mensagens de Espionagem';
 $LNG['mg_type'][1]                          = 'Mensagens de Jogadores';
 $LNG['mg_type'][2]                          = 'Mensagens de<br> Aliança';
@@ -518,7 +516,7 @@ $LNG['mg_empty_text']				        = 'Intruduzir Texto';
 $LNG['mg_answer_to']						= 'Responder para:';
 
 //----------------------------------------------------------------------------//
-//ALLIANCE
+//Aliança
 $LNG['al_newname_alphanum']                 = 'O nome da aliança só deverá ser conposto por caracteres alfanuméricos.';
 $LNG['al_newname_no_space']                 = 'O TAG da aliança nao deve conter espacos.';
 $LNG['al_description_message']		        = 'Mensagem de descrição da aliança';
@@ -708,7 +706,7 @@ $LNG['al_leave_ally']					    = 'Queres realmente abandonar a aliança?';
 $LNG['al_default_leader_name']				= 'Lider';
 
 //----------------------------------------------------------------------------//
-//BUDDY
+//Amigos
 $LNG['bu_request_exists']					= 'Já existe uma aplicação para este jogador!';
 $LNG['bu_cannot_request_yourself']			= 'Tu não poderás enviar um pedido de amigo a ti próprio';
 $LNG['bu_request_message']					= 'Pedido de mensagem';
@@ -738,7 +736,7 @@ $LNG['bu_no_buddys']                        = 'Sem amigos disponíveis!';
 $LNG['bu_request_send']                     = 'Pedido enviado!';
 
 //----------------------------------------------------------------------------//
-//NOTES
+//Notas
 $LNG['nt_important']						= 'Importante';
 $LNG['nt_normal']							= 'Normal';
 $LNG['nt_unimportant']						= 'Não importante';
@@ -761,7 +759,7 @@ $LNG['nt_no_title']                         = 'Sem título';
 $LNG['nt_no_text']                          = 'Sem Texto';
 
 //----------------------------------------------------------------------------//
-//STATISTICS
+//Estatisticas
 $LNG['st_player']					        = 'Jogadores';
 $LNG['st_alliance']					        = 'Alianças';
 $LNG['st_points']					        = 'Pontos';
@@ -780,12 +778,12 @@ $LNG['st_in_the_positions']				    = 'Em posições';
 $LNG['st_write_message']                    = 'Escrever Mensagem Privada';
 
 //----------------------------------------------------------------------------//
-//SEARCH
+//Pesquisa
 $LNG['sh_tag']						        = 'Tag';
 $LNG['sh_name']					        	= 'Nome';
 $LNG['sh_members']					        = 'Membro';
 $LNG['sh_points']					        = 'Pontos';
-$LNG['sh_search_in_the_universe']		    = 'Procurar no universo %s';
+$LNG['sh_search_in_the_universe']		    = 'Procurar no universo';
 $LNG['sh_player_name']				        = 'Nome de jogador';
 $LNG['sh_planet_name']				        = 'Nome do planeta';
 $LNG['sh_alliance_tag']				        = 'Tag de aliança';
@@ -799,7 +797,7 @@ $LNG['sh_position']					        = 'Posição';
 $LNG['sh_write_message']                    = 'Mensagem Privada';
 
 //----------------------------------------------------------------------------//
-//OPTIONS
+//Opções
 $LNG['op_cant_activate_vacation_mode']		= 'Impossível frota em voo ou edifícios em construção.';
 $LNG['op_password_changed']				    = 'A password foi alterada <br><a href="index.php" target="_top">Voltar</a>';
 $LNG['op_username_changed']				    = 'Username alterado <br><a href="index.php" target="_top">Voltar</a>';
@@ -859,7 +857,7 @@ $LNG['op_active_build_messages']            = 'Activar mensagens de construção
 $LNG['op_small_storage']					= 'Apagar mapa de memória reduzida';
 
 //----------------------------------------------------------------------------//
-//BANNED
+//Banidos
 $LNG['bn_no_players_banned']				= 'Sem jogadores banidos';
 $LNG['bn_exists']							= 'Existe ';
 $LNG['bn_players_banned']					= ' Jogadores banidos';
@@ -906,7 +904,7 @@ $LNG['cff_mission_target_stay']				= 'Uma %s amiga do Jogador %s do %s %s %s est
 $LNG['cff_mission_target_mip']				= 'Ataque de mísseis (%d) do Jogador %s do %s %s %s ao %s %s %s.';
 
 //----------------------------------------------------------------------------//
-// EXTRA LANGUAGE FUNCTIONS
+// Funções Extra
 $LNG['fcm_planet']							= 'Planeta';
 $LNG['fcm_moon']                            = 'Lua';
 $LNG['fcm_info']                            = 'Informação';
@@ -1015,7 +1013,7 @@ $LNG['pl_dercrystal']                       = 'Total de Destroços de Cristal';
 $LNG['pl_etc']                              = 'Mensagens';
 
 //----------------------------------------------------------------------------//
-// Support
+// Suporte
 $LNG['supp_header']                         = 'Support-System';
 $LNG['supp_header_g'] 					    = 'Ticket Fechado';
 $LNG['ticket_id']                           = '#Ticket-ID';
@@ -1046,7 +1044,7 @@ $LNG['supp_player_write']                   = '%s respondido %s';
 $LNG['supp_player_answer']                  = 'Resposta de usuário';
 
 //----------------------------------------------------------------------------//
-// Rekorde
+// Recordes
 $LNG['rec_build']                           = 'Edifícios';
 $LNG['rec_specb']                           = 'Edifícios Especiais';
 $LNG['rec_playe']                           = 'Jogador';
@@ -1060,7 +1058,7 @@ $LNG['rec_last_update_on']                  = 'Ultimo update a: %s';
 
 
 //----------------------------------------------------------------------------//
-// BattleSimulator
+// Simulador de Batalha
 $LNG['bs_derbis_raport']	                = "Precisas de %s %s ou %s %s para recolheres o campo de destroços.";
 $LNG['bs_steal_raport']	                    = "Precisas de %s %s ou %s %s ou %s %s para os recursos que se encontram no planeta.";
 $LNG['bs_names']		                    = "Frota";
@@ -1075,7 +1073,7 @@ $LNG['bs_acs_slot']							= 'Slot ACS';
 $LNG['bs_add_acs_slot']						= 'Adicionar Slot de ACS';
 
 //----------------------------------------------------------------------------//
-// Sucatador
+// Sucateiro
 $LNG['ft_head']								= 'Sucateio';
 $LNG['ft_count']							= 'Número';
 $LNG['ft_max']								= 'max';
@@ -1089,7 +1087,7 @@ $LNG['ft_empty']							= 'Vazio';
 $LNG['lo_title']							= 'Logout feito com Sucesso! Até breve.';
 $LNG['lo_logout']							= 'Sessão encerrada';
 $LNG['lo_redirect']							= 'Seguinte';
-$LNG['lo_notify']							= 'Será redireccionado dentro de <span id="seconds">5</ span> segundos';
+$LNG['lo_notify']							= 'Será redireccionado em <span id="seconds"> 5 </span> s';
 $LNG['lo_continue']							= 'Logout Sem Esperar';
 
 
