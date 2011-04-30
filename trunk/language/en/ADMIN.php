@@ -1132,4 +1132,5 @@ $LNG['log_chatsettings']                = 'Chat Options';
 $LNG['log_tssettings']                  = 'Teamspeak Options';
 $LNG['log_uni_short']                   = 'Uni';
 $LNG['log_universe']                    = 'Universe';
+
 ?>
