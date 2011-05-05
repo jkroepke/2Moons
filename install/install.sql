@@ -254,11 +254,12 @@ CREATE TABLE IF NOT EXISTS `prefix_config` (
   `del_user_sendmail` tinyint(3) UNSIGNED NOT NULL DEFAULT '21',
   `sendmail_inactive` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
   `silo_factor` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `channel` ENUM( 'beta', 'dev' ) NOT NULL DEFAULT 'beta',
   PRIMARY KEY (`uni`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO `prefix_config` (`uni`, `VERSION`, `uni_name`, `game_name`, `close_reason`, `OverviewNewsText`, `moduls`) VALUES
-(1, '1.3.1843', 'Universum 1', '2Moons', 'Game ist zurzeit geschlossen', 'Herzlich Willkommen bei 2Moons v1.3.5!', '1');
+(1, '1.3.1863', 'Universum 1', '2Moons', 'Game ist zurzeit geschlossen', 'Herzlich Willkommen bei 2Moons v1.3.5!', '1');
 
 CREATE TABLE IF NOT EXISTS `prefix_diplo` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
