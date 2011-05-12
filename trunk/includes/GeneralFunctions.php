@@ -59,7 +59,7 @@ function getFactors($USER, $PLANET, $Type = 'basic', $TIME = 0) {
 	if($Type == 'basic') {
 		return array(
 			array(
-				'shipspeed'		=> 1 + DMExtra($USER[$resource[706]], $TIME, $pricelist[701]['add'], 0)
+				'shipspeed'		=> 1 - DMExtra($USER[$resource[706]], $TIME, $pricelist[701]['add'], 0)
 			),
 			array(
 				'bulidspeed'	=> 1 - $USER[$resource[605]] * $pricelist[605]['info'] - DMExtra($USER[$resource[702]], $TIME, $pricelist[702]['add'], 0),
