@@ -74,7 +74,7 @@ switch($cron)
 			ClearCache();
 			// Set Bonus for RefLink
 			if($CONF['ref_active'] == 1) {
-				$Users	= $db->query("SELECT `username`, `ref_id`, `id` FROM ".USERS." WHERE `ref_bonus` = 1 AND (SELECT `total_points` FROM ".STATPOINTS." as s WHERE s.`id_owner` = `id`) >= ".$CONF['ref_minpoints'].";");
+				$Users	= $db->query("SELECT `username`, `ref_id`, `id` FROM ".USERS." WHERE `ref_bonus` = 1 AND (SELECT `total_points` FROM ".STATPOINTS." as s WHERE s.`id_owner` = `id` AND s.`stat_type` = '1') >= ".$CONF['ref_minpoints'].";");
 				$LANG->setDefault($CONF['lang']);
 				while($User	= $db->fetch_array($Users)) {
 					$LANG->setUser($User['lang']);	
