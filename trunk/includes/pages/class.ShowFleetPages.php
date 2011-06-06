@@ -961,7 +961,7 @@ class ShowFleetPages extends FleetFunctions
 			$error = $LNG['ma_wrong_target'];
 		elseif ($iraks == 0)
 			$error = $LNG['ma_no_missiles'];
-		elseif ($anz == 0)
+		elseif ($anz <= 0)
 			$error = $LNG['ma_add_missile_number'];
 
 		$TargetUser	   	= GetUserByID($Target['id_owner'], array('onlinetime', 'banaday', 'urlaubs_modus'));
