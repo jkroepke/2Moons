@@ -260,8 +260,8 @@ class FlyingFleetsTable
 	{
 		global $LNG, $db;
 		
-		if(($FleetRow['fleet_mission'] == 8 && $_SESSION['id'] == $FleetRow['fleet_owner']) || $FleetRow['fleet_mission'] != 8)
-		{
+	  # if(($FleetRow['fleet_mission'] == 8 && $_SESSION['id'] == $FleetRow['fleet_owner']) || $FleetRow['fleet_mission'] != 8)
+	  # {
 			if ($isAKS == true && $Status == 0 && ($FleetRow['fleet_mission'] == 1 || $FleetRow['fleet_mission'] == 2) && $FleetRow['fleet_group'] != 0)
 			{
 				$AKSFleets		= $db->query("SELECT * FROM ".FLEETS." WHERE `fleet_group` = '".$FleetRow['fleet_group']."' ORDER BY `fleet_id` ASC;");
@@ -287,8 +287,8 @@ class FlyingFleetsTable
 			$FleetInfo['fleet_return']	= $Time;
 	
 			return $FleetInfo;
-		}
-		return array('fleet_order' => 0, 'fleet_descr' => '', 'fleet_return'=> 0);
+	  # }
+	  # return array('fleet_order' => 0, 'fleet_descr' => '', 'fleet_return'=> 0);
 	}
 }
 ?>
