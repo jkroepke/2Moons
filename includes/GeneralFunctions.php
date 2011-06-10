@@ -307,8 +307,8 @@ function makebr($text)
 function CheckPlanetIfExist($Galaxy, $System, $Planet, $Universe, $Planettype = 1)
 {
 	global $db;
-	$QrySelectGalaxy = $db->uniquequery("SELECT id FROM ".PLANETS." WHERE `universe` = '".$Universe."' AND `galaxy` = '".$Galaxy."' AND `system` = '".$System."' AND `planet` = '".$Planet."' AND `planet_type` = '".$Planettype."';");
-	return (isset($QrySelectGalaxy)) ? true : false;
+	$QrySelectGalaxy = $db->countquery("SELECT COUNT(*) FROM ".PLANETS." WHERE `universe` = '".$Universe."' AND `galaxy` = '".$Galaxy."' AND `system` = '".$System."' AND `planet` = '".$Planet."' AND `planet_type` = '".$Planettype."';");
+	return $QrySelectGalaxy ? true : false;
 }
 
 function CheckNoobProtec($OwnerPlayer, $TargetPlayer, $Player)
