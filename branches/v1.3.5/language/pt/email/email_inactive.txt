@@ -1,0 +1,10 @@
+Olá %1$s
+
+Queremos o de volta em %$s, a última vez logado em %$s. Se queres ainda continuar a ser um membro da nossa comunidade, faça o login com suas informações de login novamente para não perder sua conta:
+
+Se esqueçeste da senha, clique em %4$s para ir para a pagina "Esqueci da Minha Senha". Você começa em poucos minutos um e-mail com sua nova senha.
+
+Atenciosamente,
+
+A Equipa
+%3$s
