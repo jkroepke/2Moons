@@ -32,6 +32,7 @@ class Language
 	public static $langs   = array(
 		'de' => 'Deutsch', 
 		'en' => 'English', 
+		'fr' => 'Française',
 		'pt' => 'Português',
 		'ru' => 'Русский', 
 	);
