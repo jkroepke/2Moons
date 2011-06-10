@@ -100,6 +100,7 @@
                 <tr>
 					<td class="transparent">
 					BuLLeT (english)<br>
+					HaloRaptor33 (french)<br>
 					QwataKayean (portuguese)<br>
 					InquisitorEA (russian)<br>
 					</td>
