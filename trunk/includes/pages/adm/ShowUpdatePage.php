@@ -75,10 +75,10 @@ exit;
 function CheckPermissions() {
 	$DIRS	= $_REQUEST['dirs'];
 	foreach($DIRS as $DIR) {
-		if(is_writable(ROOT_PATH.$DIR))
+		if(is_writable(ROOT_PATH.$DIR) || !mkdir(ROOT_PATH.$DIR))
 			continue;
 		
-		echo json_encode(array('status' => sprintf($GLOBALS['LNG']['up_chmod_error'], './'.$DIR), 'error' => true));
+		echo json_encode(array('status' => sprintf($GLOBALS['LNG']['up_chmod_error']."\r./".$DIR), 'error' => true));
 		exit;
 	}
 	echo json_encode(array('status' => 'OK', 'error' => false));
