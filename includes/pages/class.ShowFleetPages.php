@@ -677,7 +677,7 @@ class ShowFleetPages extends FleetFunctions
 							`fleet_start_type` = '".$PLANET['planet_type']."',
 							`fleet_end_time` = '".$fleet['end_time']."',
 							`fleet_end_stay` = '".$StayTime."',
-							`fleet_end_id` = '".(($planettype == 2) ? 0 : (int)$TargetPlanet['id'])."',
+							`fleet_end_id` = '".(int)$TargetPlanet['id']."',
 							`fleet_end_galaxy` = '".$galaxy."',
 							`fleet_end_system` = '".$system."',
 							`fleet_end_planet` = '".$planet."',
@@ -1063,7 +1063,6 @@ class ShowFleetPages extends FleetFunctions
 				interplanetary_misil = (interplanetary_misil - ".$anz.") WHERE id = '".$PLANET['id']."';";
 
 		$db->multi_query($sql);
-		
 		$template->message("<b>".$anz."</b>". $LNG['ma_missiles_sended'] .$DefenseLabel, "game.php?page=overview", 3);
 	}
 }

@@ -81,6 +81,7 @@ class ShowResearchPage
 			$USER['b_tech_planet']	= 0;
 			$USER['b_tech_id']		= 0;
 			$USER['b_tech']			= 0;
+			FirePHP::getInstance(true)->log("Queue(Tech): ".$USER['b_tech_queue']);
 			return false;
 		}
 		$Element						= $USER['b_tech_id'];
@@ -136,6 +137,7 @@ class ShowResearchPage
 			} else {
 				$USER['b_tech']    			= 0;
 				$USER['b_tech_queue'] 		= '';
+				FirePHP::getInstance(true)->log("Queue(Tech): ".$USER['b_tech_queue']);
 			}
 		}
 	}
@@ -178,6 +180,7 @@ class ShowResearchPage
 		}
 		
 		$USER['b_tech_queue'] = serialize($NewCurrentQueue);
+		FirePHP::getInstance(true)->log("Queue(Tech): ".$USER['b_tech_queue']);
 	}
 
 	private function AddBuildingToQueue($Element, $AddMode = true)
@@ -228,6 +231,7 @@ class ShowResearchPage
 			$CurrentQueue[]				= array($Element, $BuildLevel, $BuildTime, $BuildEndTime, $PLANET['id']);
 			$USER['b_tech_queue']		= serialize($CurrentQueue);
 		}
+		FirePHP::getInstance(true)->log("Queue(Tech): ".$USER['b_tech_queue']);
 	}
 
 	private function ShowTechQueue()
@@ -281,7 +285,6 @@ class ShowResearchPage
 		$ListID     	= request_var('listid', 0);
 		$PLANET[$resource[31].'_inter']	= $PlanetRess->CheckAndGetLabLevel($USER, $PLANET);	
 
-		$PlanetRess->CalcResource();
 		if(!empty($Element) && $bContinue && $USER['urlaubs_modus'] == 0 && ($USER[$resource[$Element]] < $pricelist[$Element]['max'] && IsTechnologieAccessible($USER, $PLANET, $Element) && in_array($Element, $reslist['tech'])) || $TheCommand == "cancel" || $TheCommand == "remove")
 		{
 			switch($TheCommand)

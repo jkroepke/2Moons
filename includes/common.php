@@ -90,6 +90,15 @@ else
 $CONF	= getConfig($UNI);
 $LANG->setDefault($CONF['lang']);
 	
+require(ROOT_PATH.'includes/libs/FirePHP/FirePHP.class.php');
+require(ROOT_PATH.'includes/libs/FirePHP/fb.php');
+if($GLOBALS['CONF']['debug'])
+	ob_start();
+	
+$FirePHP	= FirePHP::getInstance(true);
+$FirePHP->setEnabled((bool) $GLOBALS['CONF']['debug']);
+$FirePHP->registerErrorHandler(true);
+
 if (!defined('CLI') && !defined('LOGIN') && !defined('IN_CRON') && !defined('AJAX'))
 {
 	$SESSION       	= new Session();
@@ -106,11 +115,13 @@ if (!defined('CLI') && !defined('LOGIN') && !defined('IN_CRON') && !defined('AJA
 		require(ROOT_PATH.'includes/FleetHandler.php');
 		
 	$USER	= $db->uniquequery("SELECT u.*, s.`total_points`, s.`total_rank` FROM ".USERS." as u LEFT JOIN ".STATPOINTS." as s ON s.`id_owner` = u.`id` AND s.`stat_type` = '1' WHERE u.`id` = '".$_SESSION['id']."';");
+	$FirePHP->log("Load User: ".$USER['id']);
 	if(empty($USER)) {
 		exit(header('Location: index.php'));
 	} elseif(empty($USER['lang'])) {
 		$USER['lang']	= $CONF['lang'];
 		$db->query("UPDATE ".USERS." SET `lang` = '".$USER['lang']."' WHERE `id` = '".$USER['id']."';");
+		$FirePHP->log("Load User: ".$USER['id']);
 	}
 	
 	$LANG->setUser($USER['lang']);	
@@ -135,6 +146,7 @@ if (!defined('CLI') && !defined('LOGIN') && !defined('IN_CRON') && !defined('AJA
 			}
 		}
 		list($USER['factor'], $PLANET['factor'])	= getFactors($USER, $PLANET);
+		$FirePHP->log("Load Planet: ".$PLANET['id']);
 	} else {
 		$USER['rights']	= unserialize($USER['rights']);
 		$LANG->includeLang(array('ADMIN'));

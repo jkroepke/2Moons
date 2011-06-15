@@ -102,6 +102,7 @@ class ShowBuildingsPage
 			} else {
 				$PLANET['b_building']    	= 0;
 				$PLANET['b_building_id'] 	= '';
+				FirePHP::getInstance(true)->log("Queue(Build): ".$PLANET['b_building_id']);
 			}
 		}
 		
@@ -137,6 +138,7 @@ class ShowBuildingsPage
 			}
 		}
 		$PLANET['b_building_id'] = serialize($NewQueueArray);
+		FirePHP::getInstance(true)->log("Queue(Build): ".$PLANET['b_building_id']);
 	}
 
 	private function AddBuildingToQueue ($Element, $AddMode = true)
@@ -199,6 +201,7 @@ class ShowBuildingsPage
 			$CurrentQueue[]				= array($Element, $BuildLevel, $BuildTime, $BuildEndTime, $BuildMode);
 			$PLANET['b_building_id']	= serialize($CurrentQueue);		
 		}
+		FirePHP::getInstance(true)->log("Queue(Build): ".$PLANET['b_building_id']);
 	}
 
 	private function ShowBuildingQueue()
