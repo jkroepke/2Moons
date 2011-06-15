@@ -51,7 +51,9 @@ function ShowTopKB()
 				$ship[]  		= "[ship[".$id."]]";
 				$shipname[]  	= $s_name;
 			}
-
+			
+			$raport			= preg_replace("/\[\d+\:\d+\:\d+\]/i", "[X:X:X]", $raport);
+	
 			$template->assign_vars(array(
 				'attacker'	=> $RaportRAW['angreifer'],
 				'defender'	=> $RaportRAW['defender'],

@@ -57,14 +57,15 @@ function ShowMessagesPage()
 				$Owner   = $OwnerID;
 				$Message = makebr(request_var('text', '', true));
 				$From    = $USER['username'].' ['.$USER['galaxy'].':'.$USER['system'].':'.$USER['planet'].']';
+				$IsValid	= $_SESSION['mestoken'] == $OwnerID;
+				unset($_SESSION['mestoken']);
 				
-				if(connection_aborted())
-					exit;
-					
-				SendSimpleMessage($OwnerID, $USER['id'], '', 1, $From, $Subject, $Message);
+				if($IsValid) {
+					SendSimpleMessage($OwnerID, $USER['id'], '', 1, $From, $Subject, $Message);
+				}
 				exit($LNG['mg_message_send']);
 			}
-
+			$_SESSION['mestoken']	= $OwnerID;
 			$template->assign_vars(array(	
 				'mg_send_new'	=> $LNG['mg_send_new'],
 				'mg_send_to'	=> $LNG['mg_send_to'],

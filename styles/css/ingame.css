@@ -1,3 +1,4 @@
+html, body{margin:0;height:100%;width:100%;padding:0}
 .b_button{font-weight:700}
 .u_button{text-decoration:underline}
 .s_button{text-decoration:line-through}

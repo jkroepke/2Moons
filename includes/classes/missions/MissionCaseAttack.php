@@ -124,7 +124,7 @@ class MissionCaseAttack extends MissionFunctions
 
 		$defense[0]['def'] 				= array();
 		$defense[0]['user'] 			= $targetUser;
-		$defense[0]['user']['factor'] 	= getFactors($defense[0]['user']['factor'], null, 'attack', $this->_fleet['fleet_start_time']);		
+		$defense[0]['user']['factor'] 	= getFactors($defense[0]['user'], null, 'attack', $this->_fleet['fleet_start_time']);		
 		$DefenderRow['id'][] 			= $defense[0]['user']['id'];
 		$DefenderRow['name'][]			= $defense[0]['user']['username'];
 		
