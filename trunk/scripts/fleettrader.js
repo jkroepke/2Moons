@@ -41,5 +41,6 @@ function Reset()
 	$('#total_deuterium').text(0);
 	$('#total_darkmatter').text(0);
 }
-
-$('#charge').text(Charge + "%");
+$(document).ready(function() {
+	$('#charge').text(Charge + "%");
+});
