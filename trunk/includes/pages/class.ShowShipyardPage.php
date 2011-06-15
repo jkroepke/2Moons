@@ -87,6 +87,7 @@ class ShowShipyardPage
 			unset($ElementQueue[$Auftr]);
 		}
 		$PLANET['b_hangar_id']	= serialize(array_values($ElementQueue));
+		FirePHP::getInstance(true)->log("Queue(Hanger): ".$PLANET['b_hangar_id']);
 	}
 	
 	private function GetRestPrice($Element, $Factor = true)
@@ -179,6 +180,7 @@ class ShowShipyardPage
 
 			$BuildArray[]			= array($Element, floattostring($Count));
 			$PLANET['b_hangar_id']	= serialize($BuildArray);
+			FirePHP::getInstance(true)->log("Queue(Hanger): ".$PLANET['b_hangar_id']);
 		}
 	}
 	
