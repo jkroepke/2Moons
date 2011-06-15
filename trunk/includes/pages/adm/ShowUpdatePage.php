@@ -32,6 +32,12 @@ if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FI
 function ShowUpdatePage()
 {
 	global $LNG, $CONF, $db;
+	if(!function_exists('curl_init'))
+	{
+		$template	= new template();
+		$template->message($LNG['up_need_curl']);
+	}
+	
 	if(isset($_REQUEST['version']))
 	{
 		$Temp		= explode('.', $_REQUEST['version']);

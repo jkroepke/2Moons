@@ -116,11 +116,6 @@
 		</td>
 	</tr>
 	<tr style="display: none;" id="fleetstatusrow">
-		<td colspan="8">
-			<table style="font-weight: bold;width:100%" id="fleetstatustable">
-				<!-- will be filled witd content later on while processing ajax replys -->
-			</table>
-		</td>
 	</tr>
 	</table>
 	<script type="text/javascript">

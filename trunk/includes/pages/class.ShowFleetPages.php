@@ -736,70 +736,87 @@ class ShowFleetPages extends FleetFunctions
 		$UserRecycles   = $PLANET[$resource[209]];
 		$UserGRecycles  = $PLANET[$resource[219]];
 		$UserDeuterium  = $PLANET['deuterium'];
-		$UserMissiles   = $PLANET['interplanetary_misil'];
-		$PLANET['galaxy']		= $PLANET['galaxy'];
-		$PLANET['system']		= $PLANET['system'];
-		$PLANET['planet']		= $PLANET['planet'];
-		$PLANET['planet_type'] = $PLANET['planet_type'];
 		
 		$galaxy 		= request_var('galaxy', 0);
 		$system 		= request_var('system', 0);
 		$planet 		= request_var('planet', 0);
 		$planettype		= request_var('planettype', 0);
 		$mission		= request_var('mission', 0);
+
+		$CurrentFlyingFleets = parent::GetCurrentFleets($USER['id']);
 		
-		$CurrentFlyingFleets = parent::GetCurrentFleets($USER['id']);	
+		$Message			= array();
+		$Message['slots']	= $CurrentFlyingFleets;
+		$Message['ship210']	= $UserSpyProbes;
+		$Message['ship209']	= $UserRecycles;
+		$Message['ship219']	= $UserGRecycles;
+			
 		switch($mission)
 		{
 			case 6:
 				$SpyProbes	= request_var('ships', 0);
 				$SpyProbes	= min($SpyProbes, $PLANET[$resource[210]]);
-				if(empty($SpyProbes))
-					exit($ResultMessage = "611; ".$LNG['fa_no_spios']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserGRecycles." ".$UserMissiles);
-					
+				if(empty($SpyProbes)) {
+					$Message['code']	= 611;
+					$Message['mess']	= $LNG['fa_no_spios'];
+					exit(json_encode($Message));
+				}
 				$FleetArray = array(210 => $SpyProbes);
 			break;
 			case 8:
 				$SRecycles	= explode("|", request_var('ships', ''));
 				$GRecycles	= min($SRecycles[0], $PLANET[$resource[219]]);
 				$Recycles	= min($SRecycles[1], $PLANET[$resource[209]]);
-				if(empty($Recycles) && empty($GRecycles))
-					exit($ResultMessage = "611; ".$LNG['fa_no_recyclers']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserGRecycles." ".$UserMissiles);
+				if(empty($Recycles) && empty($GRecycles)) {
+					$Message['code']	= 611;
+					$Message['mess']	= $LNG['fa_no_recyclers'];
+					exit(json_encode($Message));
+				}
 					
 				$FleetArray = array(219 => $GRecycles, 209 => $Recycles);
 				break;
 			default:
-				exit("610; ".$LNG['fa_not_enough_probes']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserGRecycles." ".$UserMissiles);
+				$Message['code']	= 610;
+				$Message['mess']	= $LNG['fa_not_enough_probes'];
+				exit(json_encode($Message));
 			break;
 		}
 		
 		parent::CleanFleetArray($FleetArray);
 		
 		if(empty($FleetArray))
-			exit("610; ".$LNG['fa_not_enough_probes']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserGRecycles." ".$UserMissiles);
+		{
+			$Message['code']	= 610;
+			$Message['mess']	= $LNG['fa_not_enough_probes'];
+			exit(json_encode($Message));
+		}
 		
 		if (parent::GetMaxFleetSlots($USER) <= $CurrentFlyingFleets)
 		{
-			$ResultMessage = "612; ".$LNG['fa_no_more_slots']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserGRecycles." ".$UserMissiles;
-			die ($ResultMessage);
+			$Message['code']	= 612;
+			$Message['mess']	= $LNG['fa_no_more_slots'];
+			exit(json_encode($Message));
 		}
 		
 		if ($galaxy > $CONF['max_galaxy'] || $galaxy < 1)
 		{
-			$ResultMessage = "602; ".$LNG['fa_galaxy_not_exist']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserGRecycles." ".$UserMissiles;
-			die($ResultMessage);
+			$Message['code']	= 602;
+			$Message['mess']	= $LNG['fa_galaxy_not_exist'];
+			exit(json_encode($Message));
 		}
 
 		if ($system > $CONF['max_system'] || $system < 1)
 		{
-			$ResultMessage = "602; ".$LNG['fa_system_not_exist']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserGRecycles." ".$UserMissiles;
-			die($ResultMessage);
+			$Message['code']	= 602;
+			$Message['mess']	= $LNG['fa_system_not_exist'];
+			exit(json_encode($Message));
 		}
 
 		if ($planet > $CONF['max_planets'] || $planet < 1)
 		{
-			$ResultMessage = "602; ".$LNG['fa_planet_not_exist']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserGRecycles." ".$UserMissiles;
-			die($ResultMessage);
+			$Message['code']	= 602;
+			$Message['mess']	= $LNG['fa_planet_not_exist'];
+			exit(json_encode($Message));
 		}
 
 		$SQL  = "SELECT id, id_owner FROM ".PLANETS." ";
@@ -810,27 +827,37 @@ class ShowFleetPages extends FleetFunctions
 		$SQL .= "`planet` = '".$planet."' AND ";
 		$SQL .= "`planet_type` = '".($planettype == 2 ? 1 : $planettype)."';";
 		$TargetRow	   = $db->uniquequery($SQL);
-	
+
+		if (empty($TargetRow['id_owner']))
+		{
+			$Message['code']	= 601;
+			$Message['mess']	= $LNG['fa_planet_not_exist'];
+			exit(json_encode($Message));
+		}
+			
 		$TargetUser	   = GetUserByID($TargetRow['id_owner'], array('id', 'onlinetime', 'urlaubs_modus', 'banaday', 'authattack'));
-
-		if($CONF['adm_attack'] == 1 && $mission == 6 && $TargetUser['authattack'] > $USER['authlevel'])
-			exit("619; ".$LNG['fa_action_not_allowed']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserGRecycles." ".$UserMissiles);
-
 
 		if($USER['urlaubs_modus'] == 1)
 		{
-			$ResultMessage = "620; ".$LNG['fa_vacation_mode_current']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserGRecycles." ".$UserMissiles;
-			die ($ResultMessage);
+			$Message['code']	= 620;
+			$Message['mess']	= $LNG['fa_vacation_mode_current'];
+			exit(json_encode($Message));
 		}
 
 		if($mission == 6)
 		{
-			$TargetVacat   = $TargetUser['urlaubs_modus'];
-			
-			if ($TargetVacat)
+			if($CONF['adm_attack'] == 1 && $TargetUser['authattack'] > $USER['authlevel'])
 			{
-				$ResultMessage = "605; ".$LNG['fa_vacation_mode']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserGRecycles." ".$UserMissiles;
-				die ($ResultMessage);
+				$Message['code']	= 619;
+				$Message['mess']	= $LNG['fa_action_not_allowed'];
+				exit(json_encode($Message));
+			}
+			
+			if ($TargetUser['urlaubs_modus'])
+			{
+				$Message['code']	= 605;
+				$Message['mess']	= $LNG['fa_vacation_mode'];
+				exit(json_encode($Message));
 			}
 
 			$UserPoints   	= $USER;
@@ -839,20 +866,23 @@ class ShowFleetPages extends FleetFunctions
 			$IsNoobProtec	= CheckNoobProtec($UserPoints, $User2Points, $TargetUser);
 			
 			if ($IsNoobProtec['NoobPlayer'])
-				exit("603; ".$LNG['fa_week_player']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserGRecycles." ".$UserMissiles);
-			elseif ($IsNoobProtec['StrongPlayer'])
-				exit("604; ".$LNG['fa_strong_player']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserGRecycles." ".$UserMissiles);
-
-			if (empty($TargetRow['id_owner']))
 			{
-				$ResultMessage = "601; ".$LNG['fa_planet_not_exist']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserGRecycles." ".$UserMissiles;
-				die($ResultMessage);
+				$Message['code']	= 603;
+				$Message['mess']	= $LNG['fa_week_player'];
+				exit(json_encode($Message));
+			}
+			elseif ($IsNoobProtec['StrongPlayer'])
+			{
+				$Message['code']	= 604;
+				$Message['mess']	= $LNG['fa_strong_player'];
+				exit(json_encode($Message));
 			}
 
 			if ($TargetRow["id_owner"] == $PLANET["id_owner"])
 			{
-				$ResultMessage = "618; ".$LNG['fa_not_spy_yourself']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserGRecycles." ".$UserMissiles;
-				die($ResultMessage);
+				$Message['code']	= 618;
+				$Message['mess']	= $LNG['fa_not_spy_yourself'];
+				exit(json_encode($Message));
 			}
 		}
 		
@@ -865,10 +895,17 @@ class ShowFleetPages extends FleetFunctions
 		$UserDeuterium   	-= $consumption;
 
 		if($UserDeuterium < 0)
-			exit("613; ".$LNG['fa_not_enough_fuel']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserGRecycles." ".$UserMissiles);
+		{
+			$Message['code']	= 613;
+			$Message['mess']	= $LNG['fa_not_enough_fuel'];
+			exit(json_encode($Message));
+		}
 		elseif($consumption > parent::GetFleetRoom($FleetArray))
-			exit("613; ".$LNG['fa_no_fleetroom']." |".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserGRecycles." ".$UserMissiles);
-			
+		{
+			$Message['code']	= 613;
+			$Message['mess']	= $LNG['fa_no_fleetroom'];
+			exit(json_encode($Message));
+		}
 			
 		$fleet['fly_time']   = $Duration;
 		$fleet['start_time'] = $Duration + TIMESTAMP;
@@ -877,13 +914,17 @@ class ShowFleetPages extends FleetFunctions
 		$FleetShipCount      = 0;
 		$FleetDBArray        = "";
 		$FleetSubQRY         = "";
+	
 		foreach ($FleetArray as $Ship => $Count)
 		{
 			$FleetShipCount  += $Count;
 			$FleetDBArray    .= $Ship .",". $Count .";";
-			$FleetSubQRY     .= "`".$resource[$Ship] . "` = `" . $resource[$Ship] . "` - " . $Count . " , ";
+			$FleetSubQRY     .= "`".$resource[$Ship]."` = `".$resource[$Ship]."` - ".floattostring($Count)." , ";
+			$Message['ship'.$Ship]	= floattostring($Message['ship'.$Ship] - $Count);
 		}
-	
+		
+		$Message['slots']++;
+		
 		$SQL  = "LOCK TABLE ".FLEETS." WRITE, ".PLANETS." WRITE;";
 		$SQL .= "INSERT INTO ".FLEETS." SET ";
 		$SQL .= "`fleet_owner` = '".$USER['id']."', ";
@@ -917,12 +958,9 @@ class ShowFleetPages extends FleetFunctions
 			
 		$db->multi_query($SQL);
 
-		$CurrentFlyingFleets++;
-
-		$ResultMessage  = "600; ".$LNG['fa_sending']." ".$FleetShipCount." ". $LNG['tech'][$Ship] ." ".$LNG['gl_to']." ". $galaxy .":". $system .":". $planet ."...|";
-		$ResultMessage .= $CurrentFlyingFleets ." ".($UserSpyProbes - $SpyProbes)." ".($UserRecycles - $Recycles)." ".($UserGRecycles - $GRecycles)." ".$UserMissiles;
-
-		die($ResultMessage);
+		$Message['code']	= 600;
+		$Message['mess']	= $LNG['fa_sending']." ".$FleetShipCount." ". $LNG['tech'][$Ship] ." ".$LNG['gl_to']." ". $galaxy .":". $system .":". $planet ."...";
+		exit(json_encode($Message));
 	}
 
 	public static function MissilesAjax()
