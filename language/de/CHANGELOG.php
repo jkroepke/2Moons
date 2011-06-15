@@ -36,6 +36,7 @@ $LNG['changelog']   = array(
 - ADD: FirePHP Log System
 - FIX: Ressource Cheat
 - FIX: Multiply Messages
+- FIX: Forgotten password
 - FIX: Defender bonus on combats
 - FIX: Redirect on Messages
 - FIX: Unable to send recylers to vacation players

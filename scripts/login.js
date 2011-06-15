@@ -77,6 +77,7 @@ function Submit(action) {
 						document.location.href = 'game.php';
 					} else {
 						$('#reg').remove()
+						$('#regbox .fb_login').remove()
 						$('#regbox').append(data.message)
 						$('.contentbox').css({height: '205px'}, 300);
 					}

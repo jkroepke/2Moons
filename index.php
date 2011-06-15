@@ -75,8 +75,7 @@ switch ($page) {
 			$MailRAW		= file_get_contents('./language/'.$LANG->getUser().'/email/email_lost_password.txt');
 			$MailContent	= sprintf($MailRAW, $Usermail, $CONF['game_name'], $NewPass, "http://".$_SERVER['SERVER_NAME'].$_SERVER["PHP_SELF"]);			
 		
-			$Mail			= MailSend($Username, $Usermail, $LNG['mail_title'], $MailContent);
-			
+			$Mail			= MailSend($Usermail, $Username, $LNG['mail_title'], $MailContent);
 			$db->query("UPDATE ".USERS." SET `password` = '".md5($NewPass)."' WHERE `id` = '".$UserID."';");
 			echo json_encode(array('message' => $LNG['mail_sended'], 'error' => false));
 		}
