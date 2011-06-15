@@ -220,8 +220,6 @@ class template
 			'REV'				=> substr($CONF['VERSION'], -4),
 			'js_days'			=> json_encode($LNG['js_days']),
 			'js_month' 			=> json_encode($LNG['js_month']),
-			'gotoinsec'			=> false,
-			'goto'				=> false,
 		));
 	}
 	
@@ -232,8 +230,6 @@ class template
 			'scripts'			=> $this->script,
 			'title'				=> $CONF['game_name'].' - '.$LNG['adm_cp_title'],
 			'fcm_info'			=> $LNG['fcm_info'],
-			'gotoinsec'			=> false,
-			'goto'				=> false,
 		));
 	}
 	

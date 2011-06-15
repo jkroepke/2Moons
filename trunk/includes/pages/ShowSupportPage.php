@@ -60,7 +60,7 @@ class ShowSupportPage
 
 		$template	= new template();
 		
-		if(empty($text) || empty($subject)) {
+		if(empty($text) || empty($subject) || $_SESSION['supptoken'] != $USER['id']) {
 			$template->message($LNG['sendit_error_msg'], "game.php?page=support", 3);
 			exit;
 		}
@@ -83,7 +83,7 @@ class ShowSupportPage
 		
 		$text = request_var('text','',true);
 		$template	= new template();	
-		if(empty($text))
+		if(empty($text) || $_SESSION['supptoken'] != $USER['id'])
 			exit($template->message($LNG['sendit_error_msg'],"game.php?page=support", 3));
 		
 		$ticket = $db->uniquequery("SELECT text FROM ".SUPP." WHERE `id` = '".$TicketID."';");
@@ -107,7 +107,7 @@ class ShowSupportPage
 				'text'		=> html_entity_decode($ticket['text'], ENT_NOQUOTES, "UTF-8"),
 			);
 		}
-
+		$_SESSION['supptoken']	= $USER['id'];
 		$db->free_result($query);
 		$template	= new template();
 		$template->loadscript('support.js');

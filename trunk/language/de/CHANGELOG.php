@@ -32,7 +32,16 @@ $LNG['Description'] = 'Beschreibung';
 
 $LNG['changelog']   = array(
 
-'v1.3.5' => 'ShadoX 25.04.11
+'v1.4' => 'ShadoX 30.06.11
+- ADD: FirePHP Log System
+- FIX: Ressource Cheat
+- FIX: Multiply Messages
+- FIX: Defender bonus on combats
+- FIX: Redirect on Messages
+- FIX: Unable to send recylers to vacation players
+- FIX: Cencored coors on hall of frame know correctly
+',
+'v1.3.5' => 'ShadoX 11.06.11
 - ADD: New ChatSystem
 - ADD: New Popup UI
 - ADD: Refferalsystem

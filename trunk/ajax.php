@@ -104,7 +104,7 @@ switch($action)
 				exit($LNG['fl_error_no_moon']);
 			elseif ($_GET['kolo'] == 0 && !isset($Data))
 				exit($LNG['fl_error_not_avalible']);
-			elseif ($Data['urlaubs_modus'])
+			elseif ($TargetPlanettype != 2 && $Data['urlaubs_modus'])
 				exit($LNG['fl_in_vacation_player']);
 			elseif ($CONF['adm_attack'] == 1 && $Data['authattack'] > $_SESSION['authlevel'])
 				exit($LNG['fl_admins_cannot_be_attacked']);
