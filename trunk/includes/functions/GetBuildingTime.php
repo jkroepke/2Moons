@@ -38,11 +38,11 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 		$Cost   = floor($pricelist[$Element]['metal'] * pow($pricelist[$Element]['factor'], $level)) + floor($pricelist[$Element]['crystal'] * pow($pricelist[$Element]['factor'], $level));
 	
 		if	   (in_array($Element, $reslist['build']))
-			$time			= $Cost / ($CONF['game_speed'] * (1 + $PLANET[$resource[14]])) * pow(0.5, $PLANET[$resource[15]]) * $PLANET['factor']['bulidspeed'];
+			$time			= $Cost / ($CONF['game_speed'] * (1 + $PLANET[$resource[14]])) * pow(0.5, $PLANET[$resource[15]]) * $USER['factor']['bulidspeed'];
 		elseif (in_array($Element, $reslist['fleet']))
-			$time			= $Cost / ($CONF['game_speed'] * (1 + $PLANET[$resource[21]])) * pow(0.5, $PLANET[$resource[15]]) * $PLANET['factor']['fleetspeed'];	
+			$time			= $Cost / ($CONF['game_speed'] * (1 + $PLANET[$resource[21]])) * pow(0.5, $PLANET[$resource[15]]) * $USER['factor']['fleetspeed'];	
 		elseif (in_array($Element, $reslist['defense']))
-			$time			= $Cost / ($CONF['game_speed'] * (1 + $PLANET[$resource[21]])) * pow(0.5, $PLANET[$resource[15]]) * $PLANET['factor']['defspeed'];
+			$time			= $Cost / ($CONF['game_speed'] * (1 + $PLANET[$resource[21]])) * pow(0.5, $PLANET[$resource[15]]) * $USER['factor']['defspeed'];
 		elseif (in_array($Element, $reslist['tech']))
 		{
 			if(is_array($PLANET[$resource[31].'_inter']))
@@ -57,7 +57,7 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 			else
 				$Level	= $PLANET[$resource[31]];
 			
-			$time	= $Cost / (1000 * (1 + $Level)) / ($CONF['game_speed'] / 2500) * pow(1 - $CONF['factor_university'] / 100, $PLANET[$resource[6]]) * $PLANET['factor']['techspeed'];
+			$time	= $Cost / (1000 * (1 + $Level)) / ($CONF['game_speed'] / 2500) * pow(1 - $CONF['factor_university'] / 100, $PLANET[$resource[6]]) * $USER['factor']['techspeed'];
 		}
 		
 		if(!$Destroy)

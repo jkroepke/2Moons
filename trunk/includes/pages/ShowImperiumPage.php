@@ -52,8 +52,7 @@ function ShowImperiumPage()
 	while($CPLANET = $db->fetch_array($PlanetsRAW))
 	{
 		$PlanetRess = new ResourceUpdate();
-		list($USER['factor'], $CPLANET['factor'])    = getFactors($USER, $CPLANET);
-		list($USER, $CPLANET)	= $PlanetRess->CalcResource($USER, $CPLANET, true, TIMESTAMP);
+		list($USER, $CPLANET)	= $PlanetRess->CalcResource($USER, $CPLANET, true);
 		
 		$PLANETS[]	= $CPLANET;
 		unset($CPLANET);

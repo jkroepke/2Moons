@@ -62,12 +62,6 @@ class template
 		return $PAGE;
 	}
 	
-	public function getplanets()
-	{
-		global $USER;
-		$this->UserPlanets			= SortUserPlanets($USER);
-	}
-	
 	public function loadscript($script)
 	{
 		$this->jsscript[]			= substr($script, 0, -3);
@@ -88,8 +82,8 @@ class template
 		global $PLANET, $LNG, $USER, $CONF, $resource;
 		
 		//PlanetMenu
-		if(empty($this->UserPlanets))
-			$this->getplanets();
+		if(isset($USER['PLANETS']))
+			$USER['PLANETS']	= getPlanets($USER);
 		
 		if($PLANET[$resource[43]] > 0)
 			$this->loadscript("gate.js");
@@ -99,7 +93,7 @@ class template
 		$this->phpself	= "?page=".request_var('page', '')."&amp;mode=".request_var('mode', '');
 		$PlanetSelect	= array();
 		$Scripttime		= array();
-		foreach($this->UserPlanets as $CurPlanetID => $PlanetQuery)
+		foreach($USER['PLANETS'] as $CurPlanetID => $PlanetQuery)
 		{
 			if(!empty($PlanetQuery['b_building_id']))
 			{
@@ -133,39 +127,8 @@ class template
 			'show_planetmenu' 	=> $LNG['show_planetmenu'],
 			'current_pid'		=> $PLANET['id'],
 			'Scripttime'		=> json_encode($Scripttime),	
-			'lm_overview'		=> $LNG['lm_overview'],
-			'lm_empire'			=> $LNG['lm_empire'],
-			'lm_buildings'		=> $LNG['lm_buildings'],
-			'lm_resources'		=> $LNG['lm_resources'],
-			'lm_trader'			=> $LNG['lm_trader'],
-			'lm_fleettrader'	=> $LNG['lm_fleettrader'],
-			'lm_research'		=> $LNG['lm_research'],
-			'lm_shipshard'		=> $LNG['lm_shipshard'],
-			'lm_fleet'			=> $LNG['lm_fleet'],
-			'lm_technology'		=> $LNG['lm_technology'],
-			'lm_galaxy'			=> $LNG['lm_galaxy'],
-			'lm_defenses'		=> $LNG['lm_defenses'],
-			'lm_alliance'		=> $LNG['lm_alliance'],
-			'lm_forums'			=> $LNG['lm_forums'],
-			'lm_officiers'		=> $LNG['lm_officiers'],
-			'lm_statistics' 	=> $LNG['lm_statistics'],
-			'lm_records'		=> $LNG['lm_records'],
-			'lm_topkb'			=> $LNG['lm_topkb'],
-			'lm_search'			=> $LNG['lm_search'],
-			'lm_battlesim'		=> $LNG['lm_battlesim'],
-			'lm_messages'		=> $LNG['lm_messages'],
-			'lm_notes'			=> $LNG['lm_notes'],
-			'lm_buddylist'		=> $LNG['lm_buddylist'],
-			'lm_chat'			=> $LNG['lm_chat'],
-			'lm_support'		=> $LNG['lm_support'],
-			'lm_faq'			=> $LNG['lm_faq'],
-			'lm_options'		=> $LNG['lm_options'],
-			'lm_banned'			=> $LNG['lm_banned'],
-			'lm_rules'			=> $LNG['lm_rules'],
-			'lm_logout'			=> $LNG['lm_logout'],
 			'new_message' 		=> $USER['new_message'],
 			'forum_url'			=> $CONF['forum_url'],
-			'lm_administration'	=> $LNG['lm_administration'],
 			'topnav'			=> true,
 			'metal'				=> $PLANET['metal'],
 			'crystal'			=> $PLANET['crystal'],

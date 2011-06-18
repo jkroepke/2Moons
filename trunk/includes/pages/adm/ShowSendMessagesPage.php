@@ -29,41 +29,46 @@
 
 if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__))) exit;
 
-function ShowSendMessagesPage() {
-	global $USER, $LNG, $db, $CONF;
 
-	if ($_GET['action'] == 'send')
+function ShowSendMessagesPage() {
+	global $USER, $LNG, $db, $CONF, $LANG;
+
+	
+	$ACTION	= request_var('action', '');
+	if ($ACTION == 'send')
 	{
 		switch($USER['authlevel'])
 		{
 			case AUTH_MOD:
-				$color = 'yellow';
+				$class = 'mod';
 			break;
 			case AUTH_OPS:
-				$color = 'skyblue';
+				$class = 'ops';
 			break;
 			case AUTH_ADM:
-				$color = 'red';
+				$class = 'admin';
 			break;
 		}
-		
+
 		$Subject	= request_var('subject', '', true);
 		$Message 	= makebr(request_var('text', '', true));
 		$Mode	 	= request_var('mode', 0);
+		$Lang	 	= request_var('lang', '');
 
 		if (!empty($Message) && !empty($Subject))
 		{
 			require_once(ROOT_PATH.'includes/functions/BBCode.php');
-			if($Mode == 0 || $Mode == 2) {
+			if($Mode == 1 || $Mode == 3) {
 				$Time    	= TIMESTAMP;
-				$From    	= '<span style="color:'.$color.';">'.$LNG['user_level'][$USER['authlevel']].' '.$USER['username'].'</span>';
-				$Subject 	= '<span style="color:'.$color.';">'.$Subject.'</span>';
-				$Message 	= '<span style="color:'.$color.';font-weight:bold;">'.bbcode($Message).'</span>';
-
-				SendSimpleMessage(0, $USER['id'], TIMESTAMP, 50, $From, $Subject, $Message, 0, $_SESSION['adminuni']);
-				$db->query("UPDATE ".USERS." SET `new_gmessage` = `new_gmessage` + '1', `new_message` = `new_message` + '1' WHERE `universe` = '".$_SESSION['adminuni']."';");
+				$From    	= '<span class="'.$class.'">'.$LNG['user_level'][$USER['authlevel']].' '.$USER['username'].'</span>';
+				$Subject 	= '<span class="'.$class.'">'.$Subject.'</span>';
+				$Message 	= '<span class="'.$class.'" style="font-weight:bold;">'.bbcode($Message).'</span>';
+				$USERS		= $db->query("SELECT `id` FROM ".USERS." WHERE `universe` = '".$_SESSION['adminuni']."'".(!empty($Lang) ? " AND `lang` = '".$db->sql_escape($Lang)."'": "").";");
+				while($UserData = $db->fetch_array($USERS)) {
+					SendSimpleMessage($UserData['id'], $USER['id'], TIMESTAMP, 50, $From, $Subject, $Message);
+				}
 			}
-			if($Mode == 1 || $Mode == 2) {
+			if($Mode == 2 || $Mode == 3) {
 				require_once(ROOT_PATH.'includes/classes/class.phpmailer.php');
 				$mail             	= new PHPMailer(true);
 				$mail->IsHTML(true);
@@ -87,11 +92,11 @@ function ShowSendMessagesPage() {
 				$mail->Body   		= bbcode($Message);
 				$mail->SetFrom($CONF['smtp_sendmail'], $CONF['game_name']);
 				$mail->AddAddress($CONF['smtp_sendmail'], $CONF['game_name']);
-				$USERS	= $db->query("SELECT `username`, `email` FROM ".USERS." WHERE `universe` = '".$_SESSION['adminuni']."';");
+				$USERS	= $db->query("SELECT `username`, `email` FROM ".USERS." WHERE `universe` = '".$_SESSION['adminuni']."'".(!empty($Lang) ? " AND `lang` = '".$db->sql_escape($Lang)."'": "").";");
 				while($UserData = $db->fetch_array($USERS)) {
 					$mail->AddBCC($UserData['email'], $UserData['username']);
 				}
-				$mail->Send();				
+				$mail->Send();
 			}
 			exit($LNG['ma_message_sended']);
 		} else {
@@ -99,19 +104,11 @@ function ShowSendMessagesPage() {
 		}
 	}
 	
-	$template	= new template();
-
-	$template->assign_vars(array(
-		'mg_empty_text' 			=> $LNG['mg_empty_text'],
-		'ma_subject' 				=> $LNG['ma_subject'],
-		'ma_none' 					=> $LNG['ma_none'],
-		'ma_message' 				=> $LNG['ma_message'],
-		'ma_send_global_message' 	=> $LNG['ma_send_global_message'],
-		'ma_characters' 			=> $LNG['ma_characters'],
-		'ma_modes'		 			=> $LNG['ma_modes'],
-		'button_submit' 			=> $LNG['button_submit'],
-	));
+	$template	= new template();
 	
-	$template->show('adm/SendMessagesPage.tpl');
+	$template->assign_vars(array(
+		'lang' => $LANG->getAllowedLangs(false),
+	));
+	$template->show('SendMessagesPage.tpl');
 }
 ?>

@@ -101,7 +101,6 @@ class ShowOfficierPage
 				$this->UpdateExtra($Extra);		
 		}
 		
-		list($USER['factor'], $PLANET['factor'])	= getFactors($USER, $PLANET);
 		$PlanetRess = new ResourceUpdate();
 		$PlanetRess->CalcResource();
 		$PlanetRess->SavePlanetToDB();

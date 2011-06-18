@@ -10,7 +10,7 @@ function doit (order, galaxy, system, planet, planettype, shipcount) {
 		if(messages.length == MaxFleetSetting) {
 			messages.get(MaxFleetSetting - 1).remove();
 		}
-		statustable.removeAttr('style').prepend($('<td />').attr('colspan', 8).attr('class', data.code == 600 ? "success" : "error").text(data.mess));
+		statustable.removeAttr('style').prepend($('<td />').attr('colspan', 8).attr('class', data.code == 600 ? "success" : "error").text(data.mess).wrap('<tr />'));
 		
 	});
 }

@@ -1067,6 +1067,7 @@ $LNG['up_del']							= 'Dele';
 $LNG['up_submit']						= 'Submit';
 $LNG['up_version']						= 'Version';
 $LNG['up_chmod_error']					= "No write permission for folder:\n\n%s";
+$LNG['up_need_curl']					= 'Error: cURL is not available.<br />2Moons system updater requires cURL, to load the actual data downloaded.';
 
 //Chat Page
 $LNG['ch_socket_chatid_info']			= 'This ID can be used to distinguish between different chat installations using the same socket server';

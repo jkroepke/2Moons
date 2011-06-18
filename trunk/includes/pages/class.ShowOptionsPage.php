@@ -47,8 +47,7 @@ class ShowOptionsPage
 		{
 			$PlanetRess = new ResourceUpdate();
 		
-			list($USER['factor'], $CPLANET['factor'])    = getFactors($USER, $CPLANET);
-			list($USER, $CPLANET)	= $PlanetRess->CalcResource($USER, $CPLANET, true, TIMESTAMP);
+			list($USER, $CPLANET)	= $PlanetRess->CalcResource($USER, $CPLANET, true);
 		
 			if(!empty($CPLANET['b_building']) || !empty($CPLANET['b_hangar']))
 				return false;

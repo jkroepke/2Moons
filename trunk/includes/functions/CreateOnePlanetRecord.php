@@ -50,133 +50,14 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $Universe, $PlanetOw
 	}
 
 	$FieldFactor		= $CONF['planet_factor'];
-	$Position			= ($Position > 15) ? mt_rand(1,15) : $Position;
-
-	switch($Position) {
-		case 1:
-			$PlanetType         = array('trocken', 'wuesten');
-			$PlanetClass        = array('planet');
-			$PlanetDesign       = array('trocken' => rand(1,10), 'wuesten' => rand(1,4));
-			$TMax				= rand(220, 260);
-			$TMin				= $TMax - 40;
-			$Fields				= rand(95,108) * $FieldFactor;					
-		break;
-		case 2:
-			$PlanetType         = array('trocken', 'wuesten');
-			$PlanetClass        = array('planet');
-			$PlanetDesign       = array('trocken' => rand(1,10), 'wuesten' => rand(1,4));
-			$TMax				= rand(170, 210);
-			$TMin				= $TMax - 40;
-			$Fields				= rand(97,110) * $FieldFactor;					
-		break;
-		case 3:
-			$PlanetType         = array('trocken', 'wuesten');
-			$PlanetClass        = array('planet');
-			$PlanetDesign       = array('trocken' => rand(1,10), 'wuesten' => rand(1,4));
-			$TMax				= rand(120, 160);
-			$TMin				= $TMax - 40;
-			$Fields				= rand(98, 137) * $FieldFactor;					
-		break;
-		case 4:
-			$PlanetType         = array('dschjungel');
-			$PlanetClass        = array('planet');
-			$PlanetDesign       = array('dschjungel' => rand(1,10));
-			$TMax				= rand(70, 110);
-			$TMin				= $TMax - 40;
-			$Fields				= rand(123, 203) * $FieldFactor;					
-		break;
-		case 5:
-			$PlanetType         = array('dschjungel');
-			$PlanetClass        = array('planet');
-			$PlanetDesign       = array('dschjungel' => rand(1,10));
-			$TMax				= rand(60, 100);
-			$TMin				= $TMax - 40;
-			$Fields				= rand(148, 210) * $FieldFactor;				
-		break;
-		case 6:
-			$PlanetType         = array('dschjungel');
-			$PlanetClass        = array('planet');
-			$PlanetDesign       = array('dschjungel' => rand(1,10));
-			$TMax				= rand(50, 90);
-			$TMin				= $TMax - 40;
-			$Fields				= rand(148, 226) * $FieldFactor;						
-		break;
-		case 7:
-			$PlanetType         = array('normaltemp');
-			$PlanetClass        = array('planet');
-			$PlanetDesign       = array('normaltemp' => rand(1,7));
-			$TMax				= rand(40, 80);
-			$TMin				= $TMax - 40;
-			$Fields				= rand(141, 273) * $FieldFactor;						
-		break;
-		case 8:
-			$PlanetType         = array('normaltemp');
-			$PlanetClass        = array('planet');
-			$PlanetDesign       = array('normaltemp' => rand(1,7));
-			$TMax				= rand(30, 70);
-			$TMin				= $TMax - 40;
-			$Fields				= rand(169, 246) * $FieldFactor;						
-		break;
-		case 9:
-			$PlanetType         = array('normaltemp', 'wasser');
-			$PlanetClass        = array('planet');
-			$PlanetDesign       = array('normaltemp' => rand(1,7), 'wasser' => rand(1,9));
-			$TMax				= rand(20, 60);
-			$TMin				= $TMax - 40;
-			$Fields				= rand(161, 238) * $FieldFactor;						
-		break;
-		case 10:
-			$PlanetType         = array('wasser');
-			$PlanetClass        = array('planet');
-			$PlanetDesign       = array('wasser' => rand(1,9));
-			$TMax				= rand(10, 50);
-			$TMin				= $TMax - 40;
-			$Fields				= rand(154, 224) * $FieldFactor;						
-		break;
-		case 11:
-			$PlanetType         = array('wasser');
-			$PlanetClass        = array('planet');
-			$PlanetDesign       = array('wasser' => rand(1,9));
-			$TMax				= rand(0, 40);
-			$TMin				= $TMax - 40;
-			$Fields				= rand(148, 204) * $FieldFactor;						
-		break;
-		case 12:
-			$PlanetType         = array('wasser');
-			$PlanetClass        = array('planet');
-			$PlanetDesign       = array('wasser' => rand(1,9));
-			$TMax				= rand(-10, 30);
-			$TMin				= $TMax - 40;
-			$Fields				= rand(136, 171) * $FieldFactor;						
-		break;
-		case 13:
-			$PlanetType         = array('eis');
-			$PlanetClass        = array('planet');
-			$PlanetDesign       = array('eis' => rand(1,10));
-			$TMax				= rand(-50, -10);
-			$TMin				= $TMax - 40;
-			$Fields				= rand(109, 121) * $FieldFactor;						
-		break;
-		case 14:
-			$PlanetType         = array('eis', 'gas');
-			$PlanetClass        = array('planet');
-			$PlanetDesign       = array('eis' => rand(1,10), 'gas' => rand(1,8));
-			$TMax				= rand(-90, -50);
-			$TMin				= $TMax - 40;
-			$Fields				= rand(81, 93) * $FieldFactor;						
-		break;
-		case 15:
-			$PlanetType         = array('eis', 'gas');
-			$PlanetClass        = array('planet');
-			$PlanetDesign       = array('eis' => rand(1,10), 'gas' => rand(1,8));
-			$TMax				= rand(-130, -90);
-			$TMin				= $TMax - 40;
-			$Fields				= rand(65, 74) * $FieldFactor;				
-		break;
-	}
-	
-	$Type					= $PlanetType[array_rand($PlanetType)];
-	$Class					= $PlanetClass[array_rand($PlanetClass)];
+	require(ROOT_PATH.'includes/PlanetData.php');
+	$Pos                = ceil($Position / ($CONF['max_planets'] / count($PlanetData))); 
+	$TMax				= $PlanetData[$Pos]['temp'];
+	$TMin				= $TMax - 40;
+	$Fields				= $PlanetData[$Pos]['fields'] * $CONF['planet_factor'];
+	$Types				= array_keys($PlanetData[$Pos]['image']);
+	$Type				= $Types[array_rand($Types)];
+	$Class				= $Type.'planet'.($PlanetData[$Pos]['image'][$Type] < 10 ? '0' : '').$PlanetData[$Pos]['image'][$Type];
 	
 	$SQL  = "INSERT INTO ".PLANETS." SET ";
 

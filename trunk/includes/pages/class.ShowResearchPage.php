@@ -250,12 +250,20 @@ class ShowResearchPage
 			if ($BuildArray[3] < TIMESTAMP)
 				continue;
 			
+			$PlanetName	= '';
+			
 			if($BuildArray[4] != $PLANET['id'])
-				$PlanetName	= $db->countquery("SELECT `name` FROM ".PLANETS." WHERE `id` = '".$BuildArray[4]."';");
-			else
-				$PlanetName	= '';
+				$PlanetName		= $USER['PLANETS'][$BuildArray[4]]['name'];
 				
-			$ScriptData[] = array('element' => $BuildArray[0], 'level' => $BuildArray[1], 'time' => $BuildArray[2], 'name' => $LNG['tech'][$BuildArray[0]], 'planet' => $PlanetName, 'endtime' => $BuildArray[3], 'reload' => in_array($BuildArray[0], array(123)));
+			$ScriptData[] = array(
+				'element'	=> $BuildArray[0], 
+				'level' 	=> $BuildArray[1], 
+				'time' 		=> $BuildArray[2], 
+				'resttime' 	=> ($BuildArray[3] - TIMESTAMP), 
+				'destroy' 	=> ($BuildArray[4] == 'destroy'), 
+				'endtime' 	=> $BuildArray[3],
+				'planet'	=> $PlanetName,
+			);
 		}
 		return $ScriptData;
 	}
@@ -309,89 +317,41 @@ class ShowResearchPage
 			header('HTTP/1.0 204 No Content');
 			exit;
 		}
-		$ScriptInfo	= array();
-		$TechQueue	= $this->ShowTechQueue();
+		
+		$TechQueue		= $this->ShowTechQueue();
+		$ResearchList	= array();
+
 		foreach($reslist['tech'] as $ID => $Element)
 		{
 			if (!IsTechnologieAccessible($USER, $PLANET, $Element))
 				continue;
 				
-			$CanBeDone               = IsElementBuyable($USER, $PLANET, $Element);
-			
-			if(isset($pricelist[$Element]['max']) && $USER[$resource[$Element]] >= $pricelist[$Element]['max']) {
-				$TechnoLink  =	'<span style="color:red">'.$LNG['bd_maxlevel']."</span>";
-			} elseif($CONF['max_elements_tech'] > 1) {
-				$LevelToDo 	= 1 + $USER[$resource[$Element]];
-				$TechnoLink = $CanBeDone && $bContinue && $CONF['max_elements_tech'] != count($TechQueue) ? '<a href="game.php?page=buildings&amp;mode=research&amp;cmd=insert&amp;tech='.$Element.'" class="post" style="color:lime">'.(($USER['b_tech_id'] != 0) ? $LNG['bd_add_to_list'] : $LNG['bd_research'].(($LevelToDo == 1) ? '' : '<br>'.$LNG['bd_lvl'].' '.$LevelToDo)).'</a>' : '<span style="color:red">'.$LNG['bd_research'].(($LevelToDo == 1) ? '' : '<br>'.$LNG['bd_lvl'].' '.$LevelToDo).'</span>';
-				if($USER['b_tech_id'] != 0) {
-					$template->loadscript('researchlist.js');
-					$template->execscript('ReBuildView();Techlist();');
-					$ScriptInfo	= array('bd_cancel' => $LNG['bd_cancel'], 'bd_continue' => $LNG['bd_continue'], 'bd_finished' => $LNG['bd_finished'], 'build' => $TechQueue);
-				}
-			} else {
-				if ($USER['b_tech_id'] == 0) {
-					$LevelToDo = 1 + $USER[$resource[$Element]];
-					
-					$TechnoLink = $CanBeDone && $bContinue ? '<a href="game.php?page=buildings&amp;mode=research&amp;cmd=insert&amp;tech='.$Element.'" class="post" style="color:lime">'.$LNG['bd_research'].(($LevelToDo == 1) ? '' : '<br>'.$LNG['bd_lvl'].' '.$LevelToDo).'</a>' : '<span style="color:red">'.$LNG['bd_research'].(($LevelToDo == 1) ? '' : '<br>'.$LNG['bd_lvl'].' '.$LevelToDo).'</span>';
-				} else {
-					if ($USER['b_tech_id'] == $Element) {
-						$template->loadscript('research.js');
-						if ($USER['b_tech_planet'] == $PLANET['id']) {
-							$ScriptInfo	= array(
-								'tech_time'		=> $USER['b_tech'],
-								'tech_name'		=> '',
-								'game_name'		=> $CONF['game_name'],
-								'tech_lang'		=> $LNG['tech'][$USER['b_tech_id']],
-								'tech_home'		=> $USER['b_tech_planet'],
-								'tech_id'		=> $USER['b_tech_id'],					
-								'bd_cancel'		=> $LNG['bd_cancel'],
-								'bd_ready'		=> $LNG['bd_ready'],
-								'bd_continue'	=> $LNG['bd_continue'],
-							);
-						} else {
-							$ScriptInfo	= array(
-								'tech_time'		=> $USER['b_tech'],
-								'tech_name'		=> $LNG['bd_on'].'<br>'.$TechQueue['planet'],
-								'tech_home'		=> $USER['b_tech_planet'],
-								'tech_id'		=> $USER['b_tech_id'],
-								'game_name'		=> $CONF['game_name'],
-								'tech_lang'		=> $LNG['tech'][$USER['b_tech_id']],
-								'bd_cancel'		=> $LNG['bd_cancel'],
-								'bd_ready'		=> $LNG['bd_ready'],
-								'bd_continue'	=> $LNG['bd_continue'],
-							);
-						}
-
-						$TechnoLink  = '<div id="research"></div>';
-					}
-					else
-						$TechnoLink  = '<center>-</center>';
-				}
-			}
-			
-			$ResearchList[] = array(
-				'id'		=> $Element,
-				'maxinfo'	=> (isset($pricelist[$Element]['max']) && $pricelist[$Element]['max'] != 255) ? sprintf($LNG['bd_max_lvl'], $pricelist[$Element]['max']):'',
-				'name'  	=> $LNG['tech'][$Element],
-				'descr'  	=> $LNG['res']['descriptions'][$Element],
-				'price'  	=> GetElementPrice($USER, $PLANET, $Element),					
-				'time' 		=> pretty_time(GetBuildingTime($USER, $PLANET, $Element)),
-				'restprice'	=> $this->GetRestPrice($Element),
-				'elvl'		=> ($Element == 106) ? ($USER['rpg_espion'] * $pricelist[610]['info'])." (".$LNG['tech'][610].")" : (($Element == 108) ? ($USER['rpg_commandant'] * $pricelist[611]['info'])." (".$LNG['tech'][611].")" : false),
-				'lvl'		=> $USER[$resource[$Element]],
-				'link'  	=> $TechnoLink,
-				'oldlink'  	=> $CONF['max_elements_tech'] == 1,
-				'queue'  	=> $TechQueue,
+			$ResearchList[]	= array(
+				'id'			=> $Element,
+				'level'			=> $USER[$resource[$Element]],
+				'max'			=> $pricelist[$Element]['max'],
+				'price'			=> GetElementPrice($USER, $PLANET, $Element, true),
+				'time'        	=> pretty_time(GetBuildingTime($USER, $PLANET, $Element)),
+				'restprice'		=> $this->GetRestPrice($Element),
+				'buyable'		=> IsElementBuyable($USER, $PLANET, $Element, true, false),
 			);
 		}
+		
+		if($USER['b_tech_id'] != 0)
+			$template->loadscript('research.js');
+
+		$Bonus	= array(
+			106	=> $USER['rpg_espion'] * $pricelist[610]['info'],
+			108	=> $USER['rpg_commandant'] * $pricelist[611]['info'],
+		);
+		
 		$template->assign_vars(array(
-			'ResearchList'			=> $ResearchList,
-			'IsLabinBuild'			=> !$bContinue,
-			'ScriptInfo'			=> json_encode($ScriptInfo),
-			'bd_building_lab'		=> $LNG['bd_building_lab'],
-			'bd_remaining'			=> $LNG['bd_remaining'],			
-			'bd_lvl'				=> $LNG['bd_lvl'],			
-			'fgf_time'				=> $LNG['fgf_time'],
+			'ResearchList'	=> $ResearchList,
+			'IsLabinBuild'	=> !$bContinue,
+			'IsFullQueue'	=> $CONF['max_elements_tech'] == count($TechQueue),
+			'Queue'			=> $TechQueue,
+			'oldLink'  		=> $CONF['max_elements_tech'] == 1,
+			'Bonus'  		=> $Bonus,
 		));
 		
 		$template->show('buildings_research.tpl');

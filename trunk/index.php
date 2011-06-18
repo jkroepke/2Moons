@@ -501,7 +501,7 @@ switch ($page) {
 		if ($_POST) {
 			$luser = request_var('username', '', UTF8_SUPPORT);
 			$lpass = request_var('password', '', UTF8_SUPPORT);
-			$login = $db->uniquequery("SELECT `id`, `username`, `dpath`, `authlevel`, `id_planet` FROM ".USERS." WHERE `username` = '".$db->sql_escape($luser)."' AND `universe` = '".$UNI."' AND `password` = '".md5($lpass)."';");
+			$login = $db->uniquequery("SELECT `id`, `username`, `dpath`, `authlevel`, `id_planet` FROM ".USERS." WHERE `universe` = '".$UNI."' AND `username` = '".$db->sql_escape($luser)."' AND `password` = '".md5($lpass)."';");
 			
 			if (isset($login)) {
 				session_start();

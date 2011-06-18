@@ -295,7 +295,10 @@ abstract class FleetFunctions
 	public static function GotoFleetPage()
 	{	
 		$temp = debug_backtrace();
-		redirectTo("game.php"."?page=fleet".($GLOBALS['CONF']['debug'] == 1 ? "&alert=".urlencode(str_replace($_SERVER["DOCUMENT_ROOT"],'.',$temp[0]['file'])." on ".$temp[0]['line']) : ''));
+		if($GLOBALS['CONF']['debug'] == 1)
+			FirePHP::getInstance(true)->log(str_replace($_SERVER["DOCUMENT_ROOT"],'.',$temp[0]['file'])." on ".$temp[0]['line']);
+			
+		redirectTo("game.php?page=fleet");
 	}
 
 	public static function GetAKSPage($CurrentUser, $CurrentPlanet, $fleetid)

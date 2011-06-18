@@ -51,26 +51,22 @@ function getUniverse()
 	return $UNI;
 }
 
-function getFactors($USER, $PLANET, $Type = 'basic', $TIME = 0) {
+function getFactors($USER, $Type = 'basic', $TIME = 0) {
 	global $CONF, $resource, $pricelist;
 	if(empty($TIME))
 		$TIME	= TIMESTAMP;
 		
 	if($Type == 'basic') {
 		return array(
-			array(
-				'shipspeed'		=> 1 - DMExtra($USER[$resource[706]], $TIME, $pricelist[701]['add'], 0)
-			),
-			array(
-				'bulidspeed'	=> 1 - $USER[$resource[605]] * $pricelist[605]['info'] - DMExtra($USER[$resource[702]], $TIME, $pricelist[702]['add'], 0),
-				'techspeed'		=> 1 - $USER[$resource[606]] * $pricelist[606]['info'] - DMExtra($USER[$resource[705]], $TIME, $pricelist[705]['add'], 0),
-				'fleetspeed'	=> 1 - $USER[$resource[613]] * $pricelist[613]['info'] - $USER[$resource[604]] * $pricelist[604]['info'],
-				'defspeed'		=> 1 - $USER[$resource[613]] * $pricelist[613]['info'] - $USER[$resource[608]] * $pricelist[608]['info'],
-				'metal'			=> 1 + ($USER[$resource[601]] * $pricelist[601]['info']) + ($USER[$resource[131]] * 0.02) + DMExtra($USER[$resource[703]], $TIME, $pricelist[703]['add'], 0),
-				'crystal'		=> 1 + ($USER[$resource[601]] * $pricelist[601]['info']) + ($USER[$resource[132]] * 0.02) + DMExtra($USER[$resource[703]], $TIME, $pricelist[703]['add'], 0),
-				'deuterium'		=> 1 + ($USER[$resource[601]] * $pricelist[601]['info']) + ($USER[$resource[133]] * 0.02) + DMExtra($USER[$resource[703]], $TIME, $pricelist[703]['add'], 0),
-				'energy'		=> 1 + ($USER[$resource[603]] * $pricelist[603]['info']) + DMExtra($USER[$resource[704]], $TIME, $pricelist[704]['add'], 0),
-			)
+			'shipspeed'		=> 1 - DMExtra($USER[$resource[706]], $TIME, $pricelist[701]['add'], 0),
+			'bulidspeed'	=> 1 - $USER[$resource[605]] * $pricelist[605]['info'] - DMExtra($USER[$resource[702]], $TIME, $pricelist[702]['add'], 0),
+			'techspeed'		=> 1 - $USER[$resource[606]] * $pricelist[606]['info'] - DMExtra($USER[$resource[705]], $TIME, $pricelist[705]['add'], 0),
+			'fleetspeed'	=> 1 - $USER[$resource[613]] * $pricelist[613]['info'] - $USER[$resource[604]] * $pricelist[604]['info'],
+			'defspeed'		=> 1 - $USER[$resource[613]] * $pricelist[613]['info'] - $USER[$resource[608]] * $pricelist[608]['info'],
+			'metal'			=> 1 + ($USER[$resource[601]] * $pricelist[601]['info']) + ($USER[$resource[131]] * 0.02) + DMExtra($USER[$resource[703]], $TIME, $pricelist[703]['add'], 0),
+			'crystal'		=> 1 + ($USER[$resource[601]] * $pricelist[601]['info']) + ($USER[$resource[132]] * 0.02) + DMExtra($USER[$resource[703]], $TIME, $pricelist[703]['add'], 0),
+			'deuterium'		=> 1 + ($USER[$resource[601]] * $pricelist[601]['info']) + ($USER[$resource[133]] * 0.02) + DMExtra($USER[$resource[703]], $TIME, $pricelist[703]['add'], 0),
+			'energy'		=> 1 + ($USER[$resource[603]] * $pricelist[603]['info']) + DMExtra($USER[$resource[704]], $TIME, $pricelist[704]['add'], 0),
 		);
 	}
 
@@ -81,6 +77,33 @@ function getFactors($USER, $PLANET, $Type = 'basic', $TIME = 0) {
 			'shield'		=> $USER[$resource[602]] * $pricelist[602]['info'],
 		);
 	}
+}
+
+function getPlanets($USER)
+{
+	global $db;
+	if(isset($USER['PLANETS']))
+		return $USER['PLANETS'];
+		
+	$Order = $USER['planet_sort_order'] == 1 ? "DESC" : "ASC" ;
+	$Sort  = $USER['planet_sort'];
+
+	$QryPlanets  = "SELECT `id`, `name`, `galaxy`, `system`, `planet`, `planet_type`, `image`, `b_building`, `b_building_id` FROM ".PLANETS." WHERE `id_owner` = '".$USER['id']."' AND `destruyed` = '0' ORDER BY ";
+
+	if($Sort == 0)
+		$QryPlanets .= "`id` ". $Order;
+	elseif($Sort == 1)
+		$QryPlanets .= "`galaxy`, `system`, `planet`, `planet_type` ". $Order;
+	elseif ($Sort == 2)
+		$QryPlanets .= "`name` ". $Order;
+
+	$PlanetRAW = $db->query($QryPlanets);
+	
+	while($Planet = $db->fetch_array($PlanetRAW))
+		$Planets[$Planet['id']]	= $Planet;
+
+	$db->free_result($PlanetRAW);
+	return $Planets;
 }
 
 function update_config($Values, $UNI = 0)
@@ -345,6 +368,7 @@ function exception_handler($exception)
 	echo '<meta http-equiv="content-language" content="de">';
 	echo '<title>'.$CONF['game_name'].' - FATAL ERROR</title>';
 	echo '<link rel="shortcut icon" href="'.(defined('INSTALL') ? '..':'.').'/favicon.ico">';
+	echo '<link rel="stylesheet" type="text/css" href="'.(defined('INSTALL') ? '..':'.').'/styles/css/ingame.css">';
 	echo '<link rel="stylesheet" type="text/css" href="'.(defined('INSTALL') ? '..':'.').'/styles/theme/'.DEFAULT_THEME.'/formate.css">';
 	echo '</head>';
 	echo '<body style="margin-top:30px;">';

@@ -60,10 +60,9 @@ function ShowOverviewPage()
 	$PlanetRess->SavePlanetToDB();
 	
 	$template	= new template();	
-	$template->getplanets();
 	$AdminsOnline = $AllPlanets = $Moon = array();
 	
-	foreach($template->UserPlanets as $ID => $CPLANET)
+	foreach($USER['PLANETS'] as $ID => $CPLANET)
 	{		
 		if ($ID == $_SESSION['planet'] || $CPLANET['planet_type'] == 3)
 			continue;
@@ -84,9 +83,7 @@ function ShowOverviewPage()
 	}
 		
 	if ($PLANET['id_luna'] != 0)
-	{
-		$Moon = $db->uniquequery("SELECT `id`, `name` FROM ".PLANETS." WHERE `id` = '".$PLANET['id_luna']."';");
-	}
+		$Moon		= $db->uniquequery("SELECT `id`, `name` FROM ".PLANETS." WHERE `id` = '".$PLANET['id_luna']."';");
 
 	if (!empty($PLANET['b_building'])) {
 		$Queue		= unserialize($PLANET['b_building_id']);
@@ -98,7 +95,7 @@ function ShowOverviewPage()
 		$Build 		= $LNG['ov_free'];
 	}
 	
-	$OnlineAdmins 	= $db->query("SELECT `id`,`username` FROM ".USERS." WHERE `universe` = '".$UNI."' AND `onlinetime` >= '".(TIMESTAMP-10*60)."' AND `authlevel` > '".AUTH_USR."';");
+	$OnlineAdmins 	= $db->query("SELECT `id`,`username` FROM ".USERS." WHERE `universe` = ".$UNI." AND `onlinetime` >= ".(TIMESTAMP-10*60)." AND `authlevel` > '".AUTH_USR."';");
 	while ($AdminRow = $db->fetch_array($OnlineAdmins)) {
 		$AdminsOnline[$AdminRow['id']]	= $AdminRow['username'];
 	}
@@ -107,7 +104,9 @@ function ShowOverviewPage()
 	
 	$template->loadscript('overview.js');
 	$template->execscript('GetFleets(true);');
-	
+
+	$Messages	= $USER['new_message_0'] + $USER['new_message_1'] + $USER['new_message_2'] + $USER['new_message_3'] + $USER['new_message_4'] + $USER['new_message_5'] + $USER['new_message_15'] + $USER['new_message_50'] + $USER['new_message_99'];
+
 	$template->assign_vars(array(
 		'user_rank'					=> sprintf($LNG['ov_userrank_info'], pretty_number($USER['total_points']), $LNG['ov_place'], $USER['total_rank'], $USER['total_rank'], $LNG['ov_of'], $CONF['users_amount']),
 		'is_news'					=> $CONF['OverviewNewsFrame'],
@@ -125,41 +124,13 @@ function ShowOverviewPage()
 		'AllPlanets'				=> $AllPlanets,
 		'AdminsOnline'				=> $AdminsOnline,
 		'Teamspeak'					=> GetTeamspeakData(),
-		'messages'					=> ($USER['new_message'] > 0) ? (($USER['new_message'] == 1) ? $LNG['ov_have_new_message'] : sprintf($LNG['ov_have_new_messages'], pretty_number($USER['new_message']))): false,
+		'messages'					=> ($USER['new_message'] > 0) ? (($Messages == 1) ? $LNG['ov_have_new_message'] : sprintf($LNG['ov_have_new_messages'], pretty_number($Messages))): false,
 		'planet_diameter'			=> pretty_number($PLANET['diameter']),
 		'planet_field_current' 		=> $PLANET['field_current'],
 		'planet_field_max' 			=> CalculateMaxPlanetFields($PLANET),
 		'planet_temp_min' 			=> $PLANET['temp_min'],
 		'planet_temp_max' 			=> $PLANET['temp_max'],
-		'ov_news'					=> $LNG['ov_news'],
-		'fcm_moon'					=> $LNG['fcm_moon'],
-		'ov_server_time'			=> $LNG['ov_server_time'],
-		'ov_planet'					=> $LNG['ov_planet'],
-		'ov_planetmenu'				=> $LNG['ov_planetmenu'],
-		'ov_diameter'				=> $LNG['ov_diameter'],
-		'ov_distance_unit'			=> $LNG['ov_distance_unit'],
-		'ov_developed_fields'		=> $LNG['ov_developed_fields'],
-		'ov_max_developed_fields'	=> $LNG['ov_max_developed_fields'],
-		'ov_fields'					=> $LNG['ov_fields'],
-		'ov_temperature'			=> $LNG['ov_temperature'],
-		'ov_aprox'					=> $LNG['ov_aprox'	], 
-		'ov_temp_unit'				=> $LNG['ov_temp_unit'],
-		'ov_to'						=> $LNG['ov_to'],
-		'ov_position'				=> $LNG['ov_position'],
-		'ov_points'					=> $LNG['ov_points'],
-		'ov_events'					=> $LNG['ov_events'],
-		'ov_admins_online'			=> $LNG['ov_admins_online'],
-		'ov_no_admins_online'		=> $LNG['ov_no_admins_online'],
-		'ov_userbanner'				=> $LNG['ov_userbanner'],
-		'ov_teamspeak'				=> $LNG['ov_teamspeak'],
-		'ov_password'				=> $LNG['ov_password'],
-		'ov_planet_rename'			=> $LNG['ov_planet_rename'],
-		'ov_rename_label'			=> $LNG['ov_rename_label'],
 		'ov_security_confirm'		=> sprintf($LNG['ov_security_confirm'], $PLANET['name']),
-		'ov_security_request'		=> $LNG['ov_security_request'],
-		'ov_delete_planet'			=> $LNG['ov_delete_planet'],
-		'ov_planet_abandoned'		=> $LNG['ov_planet_abandoned'],
-		'ov_reflink'				=> $LNG['ov_reflink'],
 		'ref_active'				=> $CONF['ref_active'],
 		'path'						=> PROTOCOL.$_SERVER['HTTP_HOST'].HTTP_ROOT,
 	));
