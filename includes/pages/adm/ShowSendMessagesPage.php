@@ -1,3 +1,4 @@
+
 <?php
 
 /**
@@ -58,7 +59,7 @@ function ShowSendMessagesPage() {
 		if (!empty($Message) && !empty($Subject))
 		{
 			require_once(ROOT_PATH.'includes/functions/BBCode.php');
-			if($Mode == 1 || $Mode == 3) {
+			if($Mode == 0 || $Mode == 2) {
 				$Time    	= TIMESTAMP;
 				$From    	= '<span class="'.$class.'">'.$LNG['user_level'][$USER['authlevel']].' '.$USER['username'].'</span>';
 				$Subject 	= '<span class="'.$class.'">'.$Subject.'</span>';
@@ -68,7 +69,7 @@ function ShowSendMessagesPage() {
 					SendSimpleMessage($UserData['id'], $USER['id'], TIMESTAMP, 50, $From, $Subject, $Message);
 				}
 			}
-			if($Mode == 2 || $Mode == 3) {
+			if($Mode == 1 || $Mode == 2) {
 				require_once(ROOT_PATH.'includes/classes/class.phpmailer.php');
 				$mail             	= new PHPMailer(true);
 				$mail->IsHTML(true);
@@ -105,10 +106,10 @@ function ShowSendMessagesPage() {
 	}
 	
 	$template	= new template();
-	
 	$template->assign_vars(array(
-		'lang' => $LANG->getAllowedLangs(false),
+		'lang' => array_merge(array('' => $LNG['ma_all']), $LANG->getAllowedLangs(false)),
+		'modes' => $LNG['ma_modes'],
 	));
-	$template->show('SendMessagesPage.tpl');
+	$template->show('adm/SendMessagesPage.tpl');
 }
 ?>
