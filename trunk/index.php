@@ -279,7 +279,7 @@ switch ($page) {
 					if ($LastSettedPlanetPos < 3) {
 						$LastSettedPlanetPos += 1;
 					} else {
-						if ($LastSettedSystemPos == $CONF['max_system']) {
+						if ($LastSettedSystemPos > $CONF['max_system']) {
 							$LastSettedGalaxyPos += 1;
 							$LastSettedSystemPos = 1;
 							$LastSettedPlanetPos = 1;
@@ -287,6 +287,9 @@ switch ($page) {
 							$LastSettedSystemPos += 1;
 							$LastSettedPlanetPos = 1;
 						}
+						
+						if($LastSettedGalaxyPos  > $CONF['max_system'])
+							$LastSettedGalaxyPos	= 1;
 					}
 					
 					$PlanetID = CreateOnePlanetRecord($LastSettedGalaxyPos, $LastSettedSystemPos, $Planet, $UserUni, $NewUser, $UserPlanet, true);
