@@ -1,21 +1,40 @@
-var brp = $('#research');
+var resttime	= 0;
+var time		= 0;
+var endtime		= 0;
+var interval	= 0;
+var IsOldLink	= $('#buildlist').length;
 
-function reseachtime(){
-	var s  = data.tech_time - (serverTime.getTime() / 1000) + ServerTimezoneOffset;
-	var m  = 0;
-	var h  = 0;
-	if ( s < 0 ) {
-		brp.html(data.bd_ready+'<br><a href=game.php?page=buildings&amp;mode=research&amp;cp='+data.tech_home+'>'+data.bd_continue+'</'+'a>');
-		document.title = data.bd_ready+' - '+data.tech_lang+' - '+Gamename;
-		window.location.href = "game.php?page=buildings&mode=research";
-	} else {
-		var time	= GetRestTimeFormat(s);
-		brp.html(time + '<br><a href="game.php?page=buildings&amp;mode=research&amp;cmd=cancel">'+data.bd_cancel+'<br>'+data.tech_name+'</'+'a>');
-		document.title = time + ' - '+data.tech_lang+' - '+Gamename;
+function Buildlist() {
+	var rest	= (endtime - (serverTime.getTime() / 1000) + ServerTimezoneOffset);
+	if (rest <= 0) {
+		window.clearInterval(interval);
+		$('#time').text(Ready);
+		$('#command').remove();
+		document.title	= Ready + ' - ' + Gamename;
+		window.setTimeout(function() {window.location.href = 'game.php?page=building&mode=research'}, 1000);
+		return true;
+	}
+	
+	$('#time').text(GetRestTimeFormat(rest));
+}
+
+function CreateProcessbar() {
+	if(time != 0) {
+		$('#progressbar').progressbar({
+			value: 100 - (resttime / time) * 100
+		});
+		$('.ui-progressbar-value').addClass('ui-corner-right').animate({width: "100%"}, resttime * 1000, "linear");
 	}
 }
 
 $(document).ready(function() {
-	reseachtime();
-	window.setInterval("reseachtime();",1000);
+	time		= $('#time').attr('time');
+	endtime		= $('.timer:first').attr('time');
+	if(!IsOldLink) {
+		resttime	= $('#progressbar').attr('time');
+		window.setTimeout(CreateProcessbar, 5);
+	}
+	interval	= window.setInterval(Buildlist, 1000);
+	Buildlist();
+	return true;
 });

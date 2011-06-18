@@ -4,11 +4,11 @@
 <div id="content">
 <table>
 <tr>
-<th colspan="11">{$mg_overview}</th>
+<th colspan="11">{lang}mg_overview{/lang}</th>
 </tr>
 <tr>
 {foreach name=MessageList key=MessID item=MessInfo from=$MessageList}
-<td style="width:{100 / $smarty.foreach.MessageList.total}%;"><a href="#" onclick="Message.getMessages({$MessID});return false;" style="color:{$MessInfo.color};">{$MessInfo.lang}</a></td>
+<td style="width:{100 / $smarty.foreach.MessageList.total}%;"><a href="#" onclick="Message.getMessages({$MessID});return false;" style="color:{$MessInfo.color};">{lang}mg_type.{$MessID}{/lang}</a></td>
 {/foreach}
 </tr>
 <tr id="messcount">
@@ -19,7 +19,7 @@
 </table>
 <table>
 <tr>
-<th colspan="11">{$mg_game_operators}</th>
+<th colspan="11">{lang}mg_game_operators{/lang}</th>
 </tr>
 {foreach item=OpsInfo from=$OpsList}
 <tr>

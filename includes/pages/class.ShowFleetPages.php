@@ -128,7 +128,7 @@ class ShowFleetPages extends FleetFunctions
 				);
 			}
 		}
-		$USER['factor']	= array_merge($USER['factor'], getFactors($USER, null, 'attack'));
+		$USER['factor']	= array_merge($USER['factor'], getFactors($USER, 'attack'));
 		$template->assign_vars(array(
 			'FleetsOnPlanet'		=> $FleetsOnPlanet,
 			'FlyingFleetList'		=> $FlyingFleetList,
@@ -203,11 +203,6 @@ class ShowFleetPages extends FleetFunctions
 		$PlanetRess->CalcResource();
 		$PlanetRess->SavePlanetToDB();
 		
-		$template	= new template();
-		$template->getplanets();
-		
-		$template->loadscript('flotten.js');
-
 		foreach ($reslist['fleet'] as $id => $ShipID)
 		{
 			$amount		 				= min(request_var('ship'.$ShipID, '0') + 0, $PLANET[$resource[$ShipID]] + 0);
@@ -221,8 +216,6 @@ class ShowFleetPages extends FleetFunctions
 		
 		if (!is_array($Fleet))
 			parent::GotoFleetPage();
-
-		$template->execscript('updateVars();FleetTime();window.setInterval("FleetTime()", 1000);');
 	
 		$FleetData	= array(
 			'fleetroom'			=> floattostring($FleetRoom),
@@ -233,10 +226,14 @@ class ShowFleetPages extends FleetFunctions
 			'ships'				=> parent::GetFleetShipInfo($Fleet, $USER),
 		);
 		
+
+		$template	= new template();
+		$template->loadscript('flotten.js');
+		$template->execscript('updateVars();FleetTime();window.setInterval("FleetTime()", 1000);');
 		$template->assign_vars(array(
 			'mission'				=> request_var('target_mission', 0),
 			'Shoutcutlist'			=> !CheckModule(40) ? parent::GetUserShotcut($USER) : array(),
-			'Colonylist' 			=> parent::GetColonyList($template->UserPlanets),
+			'Colonylist' 			=> parent::GetColonyList($USER['PLANETS']),
 			'AKSList' 				=> parent::IsAKS($USER['id']),
 			'AvailableSpeeds'		=> parent::GetAvailableSpeeds(),
 			'fleetarray'			=> parent::SetFleetArray($Fleet),

@@ -313,4 +313,4 @@ $(document).ready(function(){$(".tooltip").live({mouseenter:function(e){tip=$('#
  *
  */
 
-//$('.post').live('click',function(){$('.post').live('click',function(){return false;});var form=$(this).attr('href').split('&');var post=new Object();var URL=form.shift();$.each(form,function(i,val){var tmp=val.split('=');post[tmp[0]]=tmp[1];});$.post(URL,post,function(data){window.location.href=window.location.href;});return false;});
+$('.post').live('click',function(){$('.post').live('click',function(){return false;});var form=$(this).attr('href').split('&');var post=new Object();var URL=form.shift();$.each(form,function(i,val){var tmp=val.split('=');post[tmp[0]]=tmp[1];});$.post(URL,post,function(data){window.location.href=window.location.href;});return false;});

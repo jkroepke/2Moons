@@ -223,7 +223,7 @@ class MissionCaseExpedition extends MissionFunctions
 				
 				$attackFleets[$this->_fleet['fleet_id']]['fleet'] = $this->_fleet;
 				$attackFleets[$this->_fleet['fleet_id']]['user'] = $AttackerTechno;
-				$attackFleets[$this->_fleet['fleet_id']]['user']['factor'] = getFactors($attackFleets[$this->_fleet['fleet_id']]['user'], null, 'attack', $this->_fleet['fleet_start_time']);
+				$attackFleets[$this->_fleet['fleet_id']]['user']['factor'] = getFactors($attackFleets[$this->_fleet['fleet_id']]['user'], 'attack', $this->_fleet['fleet_start_time']);
 				$attackFleets[$this->_fleet['fleet_id']]['detail'] = array();
 				$temp = explode(';', $this->_fleet['fleet_array']);
 				foreach ($temp as $temp2)

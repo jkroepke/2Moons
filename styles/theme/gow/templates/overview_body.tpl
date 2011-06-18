@@ -4,7 +4,7 @@
 <div id="content">
     <table class="table519">
         <tr>
-        	<th colspan="3"><a href="#" onclick="$('#dialog').dialog('open');return false;" title="{$ov_planetmenu}">{$ov_planet} "<span class="planetname">{$planetname}</span>"</a> ({$username})</th>
+        	<th colspan="3"><a href="#" onclick="$('#dialog').dialog('open');return false;" title="{lang}ov_planetmenu{/lang}">{lang}ov_planet{/lang} "<span class="planetname">{$planetname}</span>"</a> ({$username})</th>
         </tr>
         {if $messages}
 		<tr>
@@ -12,25 +12,25 @@
 		</tr>
 		{/if}
         <tr>
-        	<td>{$ov_server_time}</td>
-        	<td colspan="2" id="servertime"></td>
+        	<td>{lang}ov_server_time{/lang}</td>
+        	<td colspan="2" id="servertime">{date("M D d H:i:s", $smarty.const.TIMESTAMP)}</td>
         </tr>
 		{if $is_news}
 		<tr>
-			<td>{$ov_news}</td><td colspan="2">{$news}</td>
+			<td>{lang}ov_news{/lang}</td><td colspan="2">{$news}</td>
 		</tr>
 		{/if}
         <tr>
-        	<td style="white-space: nowrap;">{$ov_admins_online}</td>
-        	<td colspan="2">{foreach name=OnlineAdmins key=id item=Name from=$AdminsOnline}{if !$smarty.foreach.OnlineAdmins.first}&nbsp;&bull;&nbsp;{/if}<a href="#" onclick="return Dialog.PM({$id})">{$Name}</a>{foreachelse}{$ov_no_admins_online}{/foreach}</td>
+        	<td style="white-space: nowrap;">{lang}ov_admins_online{/lang}</td>
+        	<td colspan="2">{foreach $AdminsOnline as $ID => $Name}{if !$Name@first}&nbsp;&bull;&nbsp;{/if}<a href="#" onclick="return Dialog.PM({$ID})">{$Name}</a>{foreachelse}{lang}ov_no_admins_online{/lang}{/foreach}</td>
         </tr>		
 		{if $Teamspeak}
 		<tr>
-			<td>{$ov_teamspeak}</td><td colspan="3">{$Teamspeak}</td>
+			<td>{lang}ov_teamspeak{/lang}</td><td colspan="3">{$Teamspeak}</td>
 		</tr>
 		{/if}
         <tr>
-        	<th colspan="3">{$ov_events}</th>
+        	<th colspan="3">{lang}ov_events{/lang}</th>
         </tr>
 		<tr id="fleets" style="display:none;">
 			<td colspan="3"></td>
@@ -52,24 +52,24 @@
             </td>
         </tr>
         <tr>
-            <td>{$ov_diameter}</td>
-            <td colspan="2">{$planet_diameter} {$ov_distance_unit} (<a title="{$ov_developed_fields}">{$planet_field_current}</a> / <a title="{$ov_max_developed_fields}">{$planet_field_max}</a> {$ov_fields})</td>
+            <td>{lang}ov_diameter{/lang}</td>
+            <td colspan="2">{$planet_diameter} {$ov_distance_unit} (<a title="{$ov_developed_fields}">{$planet_field_current}</a> / <a title="{$ov_max_developed_fields}">{$planet_field_max}</a> {lang}ov_fields{/lang})</td>
         </tr>
         <tr>
-            <td>{$ov_temperature}</td>
-            <td colspan="2">{$ov_aprox} {$planet_temp_min}{$ov_temp_unit} {$ov_to} {$planet_temp_max}{$ov_temp_unit}</td>
+            <td>{lang}ov_temperature{/lang}</td>
+            <td colspan="2">{lang}ov_aprox{/lang} {$planet_temp_min}{$ov_temp_unit} {lang}ov_to{/lang} {$planet_temp_max}{$ov_temp_unit}</td>
         </tr>
         <tr>
-            <td>{$ov_position}</td>
+            <td>{lang}ov_position{/lang}</td>
             <td colspan="2"><a href="game.php?page=galaxy&amp;mode=0&amp;galaxy={$galaxy}&amp;system={$system}">[{$galaxy}:{$system}:{$planet}]</a></td>
         </tr>
         <tr>
-            <td>{$ov_points}</td>
+            <td>{lang}ov_points{/lang}</td>
             <td colspan="2">{$user_rank}</td>
         </tr>
 		{if $ref_active}
 		<tr>
-			<th colspan="3">{$ov_reflink}</th>
+			<th colspan="3">{lang}ov_reflink{/lang}</th>
 		</tr>
 		<tr>
 			<td colspan="3"><input type="text" value="{$path}index.php?ref={$userid}" readonly="readonly" style="width:450px;"></td>
@@ -77,7 +77,7 @@
 		{/if}
 		{if extension_loaded('gd') && !CheckModule(37)}
 		<tr>
-			<th colspan="3">{$ov_userbanner}</th>
+			<th colspan="3">{lang}ov_userbanner{/lang}</th>
 		</tr>
 		<tr>
 			<td colspan="3"><img src="userpic.php?id={$userid}" alt="" height="80" width="450"><br><br><table><tr><td class="transparent">HTML:</td><td class="transparent"><input type="text" value='<a href="{$path}{if $ref_active}index.php?ref={$userid}{/if}"><img src="{$path}userpic.php?id={$userid}"></a>' readonly="readonly" style="width:450px;"></td></tr><tr><td class="transparent">BBCode:</td><td class="transparent"><input type="text" value="[url={$path}{if $ref_active}index.php?ref={$userid}{/if}][img]{$path}userpic.php?id={$userid}[/img][/url]" readonly="readonly" style="width:450px;"></td></tr></table></td>
@@ -86,7 +86,7 @@
    </table>
 
 </div>
-<div id="dialog" title="{$ov_planetmenu}" style="display:none;">
+<div id="dialog" title="{lang}ov_planetmenu{/lang}" style="display:none;">
 <form action="game.php" method="POST" onsubmit="return false">
 	<div id="tabs">
 		<ul>
@@ -97,7 +97,7 @@
 			<label for="newname">{$ov_rename_label}: </label><input class="left" type="text" name="newname" id="newname" size="25" maxlength="20" autocomplete="off">
 		</div>
 		<div id="tabs-2"><h3 style="margin:0">{$ov_security_request}</h3>{$ov_security_confirm}<br>
-			<label for="password">{$ov_password}: </label><input class="left" type="password" name="password" id="password" size="25" maxlength="20" autocomplete="off">
+			<label for="password">{lang}ov_password{/lang}: </label><input class="left" type="password" name="password" id="password" size="25" maxlength="20" autocomplete="off">
 		</div>
 	</div>
 </form>

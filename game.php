@@ -33,7 +33,6 @@ define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 require_once(ROOT_PATH.'includes/functions/GetBuildingPrice.php');
 require_once(ROOT_PATH.'includes/functions/GetBuildingTime.php');
 require_once(ROOT_PATH.'includes/functions/IsElementBuyable.php');
-require_once(ROOT_PATH.'includes/functions/SortUserPlanets.php');
 require(ROOT_PATH . 'includes/common.php');
 	
 $page = request_var('page','');
@@ -199,8 +198,8 @@ switch($page)
 		if(CheckModule(16))
 			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
-		include_once(ROOT_PATH . 'includes/pages/ShowMessagesPage.php');
-		ShowMessagesPage();
+		include_once(ROOT_PATH . 'includes/pages/class.ShowMessagesPage.php');
+		new ShowMessagesPage();
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'alliance':

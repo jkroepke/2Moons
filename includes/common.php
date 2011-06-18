@@ -92,12 +92,12 @@ $LANG->setDefault($CONF['lang']);
 	
 require(ROOT_PATH.'includes/libs/FirePHP/FirePHP.class.php');
 require(ROOT_PATH.'includes/libs/FirePHP/fb.php');
-if($GLOBALS['CONF']['debug'])
-	ob_start();
-	
 $FirePHP	= FirePHP::getInstance(true);
 $FirePHP->setEnabled((bool) $GLOBALS['CONF']['debug']);
-$FirePHP->registerErrorHandler(true);
+if($GLOBALS['CONF']['debug']) {
+	ob_start();
+	$FirePHP->registerErrorHandler(true);
+}
 
 if (!defined('CLI') && !defined('LOGIN') && !defined('IN_CRON') && !defined('AJAX'))
 {
@@ -145,7 +145,8 @@ if (!defined('CLI') && !defined('LOGIN') && !defined('IN_CRON') && !defined('AJA
 				throw new Exception("Main Planet does not exist!");
 			}
 		}
-		list($USER['factor'], $PLANET['factor'])	= getFactors($USER, $PLANET);
+		$USER['factor']		= getFactors($USER);
+		$USER['PLANETS']	= getPlanets($USER);
 		$FirePHP->log("Load Planet: ".$PLANET['id']);
 	} else {
 		$USER['rights']	= unserialize($USER['rights']);
