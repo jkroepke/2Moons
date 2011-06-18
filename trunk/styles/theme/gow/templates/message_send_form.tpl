@@ -1,4 +1,4 @@
-<span id="head" style="display:none;">{lang}mg_send_new{/lang}</span>
+<span id="dialog_title" style="display:none;">{lang}mg_send_new{/lang}</span>
 <span id="send" style="display:none;">{lang}mg_send{/lang}</span>
 <span id="empty" style="display:none;">{lang}mg_empty_text{/lang}</span>
 <form name="message" id="message" action="">

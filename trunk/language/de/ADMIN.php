@@ -306,6 +306,8 @@ $LNG['ma_subject']		        = 'Betreff';
 $LNG['ma_characters']			= 'Zeichen';
 $LNG['ma_none']					= 'Globale Nachrichten';
 $LNG['ma_message']				= 'Nachricht';
+$LNG['ma_mode']					= 'Versand als';
+$LNG['ma_all']					= 'Alle';
 $LNG['ma_modes']				= array('INGAME Nachricht', 'EMail Nachricht', 'INGAME &amp; EMail Nachricht');
 //###########################################################//
 

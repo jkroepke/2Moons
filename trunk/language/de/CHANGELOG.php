@@ -1,3 +1,4 @@
+
 <?php
 
 /**
@@ -34,13 +35,20 @@ $LNG['changelog']   = array(
 
 'v1.4' => 'ShadoX 30.06.11
 - ADD: FirePHP Log System
+- ADD: Language selectable on Global Messages
+- ADD: New Message System (includes old global message system like another XNova versions)
+- ADD: {lang} Block for tpls. Directly access to langvars with {lang}varname{/lang}
 - FIX: Ressource Cheat
 - FIX: Multiply Messages
 - FIX: Forgotten password
 - FIX: Defender bonus on combats
+- FIX: Fixed Register on large Unis
 - FIX: Redirect on Messages
 - FIX: Unable to send recylers to vacation players
 - FIX: Cencored coors on hall of frame know correctly
+- DIV: Includes Smarty
+- DIV: Sicherheit im Game erhöht
+- DIV: Diverse Anpassungen am Game
 ',
 'v1.3.5' => 'ShadoX 11.06.11
 - ADD: New ChatSystem

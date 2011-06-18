@@ -121,13 +121,16 @@ class template
 			$CONF['metal_basic_income']     = 0;
 			$CONF['crystal_basic_income']   = 0;
 			$CONF['deuterium_basic_income'] = 0;
-		}		
+		}
+		
+		$Messages	= $USER['new_message_0'] + $USER['new_message_1'] + $USER['new_message_2'] + $USER['new_message_3'] + $USER['new_message_4'] + $USER['new_message_5'] + $USER['new_message_15'] + $USER['new_message_50'] + $USER['new_message_99'];
+		
 		$this->assign_vars(array(	
 			'PlanetMenu' 		=> $Planetlist,
 			'show_planetmenu' 	=> $LNG['show_planetmenu'],
 			'current_pid'		=> $PLANET['id'],
 			'Scripttime'		=> json_encode($Scripttime),	
-			'new_message' 		=> $USER['new_message'],
+			'new_message' 		=> $Messages,
 			'forum_url'			=> $CONF['forum_url'],
 			'topnav'			=> true,
 			'metal'				=> $PLANET['metal'],
