@@ -21,11 +21,11 @@ function check(){
             <th colspan="2">{lang}ma_send_global_message{/lang}</th>
         </tr>
         <tr>
-            <td>{lang}se_lang{/lang}</td>
+            <td>{lang}ma_mode{/lang}</td>
             <td>{html_options name=mode options=$modes}</td>
 		</tr>
         <tr>
-            <td>{lang}ma_mode{/lang}</td>
+            <td>{lang}se_lang{/lang}</td>
             <td>{html_options name=lang options=$lang}</td>
         </tr>
         <tr>

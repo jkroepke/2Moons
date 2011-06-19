@@ -8,9 +8,8 @@ function calcul(ress)
 
 			var Metal = Crystal * res_a + Deuterium * res_b;
 
-			if (isNaN(Metal)) {
-				$("#metal").text("Nur Nummern");
-			}
+			if (isNaN(Metal))
+				$("#metal").text(0);
 			else 
 				$("#metal").text(NumberGetHumanReadable(Metal));
 		break;
@@ -21,18 +20,18 @@ function calcul(ress)
 			var Crystal = Metal * res_a + Deuterium * res_b;
 
 			if (isNaN(Crystal))
-				$("#crystal").text("Nur Nummern");
+				$("#crystal").text(0);
 			else 
 				$("#crystal").text(NumberGetHumanReadable(Crystal));
 		break;
 		case 'deuterium':
 			var Metal   = $("#metal").val();
-			var Cristal = $("#crystal").val();
+			var Crystal = $("#crystal").val();
 
-			var Deuterium = Metal * res_a + Cristal * res_b;
+			var Deuterium = Metal * res_a + Crystal * res_b;
 
 			if (isNaN(Deuterium))
-				$("#deuterium").text("Nur Nummern");
+				$("#deuterium").text(0);
 			else 
 				$("#deuterium").text(NumberGetHumanReadable(Deuterium));
 		break;

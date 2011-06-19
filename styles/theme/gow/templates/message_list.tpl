@@ -14,7 +14,7 @@
 		{if $MessID != 999}<input name="delmes[{$Message.id}]" type="checkbox" class="del_mess">{/if}
 		</td>
 		<td>{$Message.time}</td>
-		<td>{if $MessID != 999}{lang}mg_game_message{/lang}{else}{$Message.from}{/if}</td>
+		<td>{$Message.from}</td>
 		<td>{$Message.subject}
 		{if $MessID == 1}
 		<a href="#" onclick="return Dialog.PM({$Message.sender}, Message.CreateAnswer('{$Message.subject}'));" title="{lang}mg_answer_to{/lang} {strip_tags($Message.from)}"><img src="{$dpath}img/m.gif" border="0"></a>
