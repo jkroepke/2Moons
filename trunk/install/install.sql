@@ -259,7 +259,7 @@ CREATE TABLE IF NOT EXISTS `prefix_config` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO `prefix_config` (`uni`, `VERSION`, `uni_name`, `game_name`, `close_reason`, `OverviewNewsText`, `moduls`) VALUES
-(1, '1.4.1879', 'Universum 1', '2Moons', 'Game ist zurzeit geschlossen', 'Herzlich Willkommen bei 2Moons v1.3.5!', '1');
+(1, '1.4.1887', 'Universum 1', '2Moons', 'Game ist zurzeit geschlossen', 'Herzlich Willkommen bei 2Moons v1.3.5!', '1');
 
 CREATE TABLE IF NOT EXISTS `prefix_diplo` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -568,9 +568,18 @@ CREATE TABLE IF NOT EXISTS `prefix_users` (
   `ip_at_reg` varchar(40) NOT NULL DEFAULT '',
   `register_time` int(11) NOT NULL DEFAULT '0',
   `onlinetime` int(11) NOT NULL DEFAULT '0',
+  `new_message_0` tinyint(3) unsigned NOT NULL DEFAULT '0', 
+  `new_message_1` tinyint(3) unsigned NOT NULL DEFAULT '0', 
+  `new_message_2` tinyint(3) unsigned NOT NULL DEFAULT '0', 
+  `new_message_3` tinyint(3) unsigned NOT NULL DEFAULT '0', 
+  `new_message_4` tinyint(3) unsigned NOT NULL DEFAULT '0', 
+  `new_message_5` tinyint(3) unsigned NOT NULL DEFAULT '0', 
+  `new_message_15` tinyint(3) unsigned NOT NULL DEFAULT '0', 
+  `new_message_50` tinyint(3) unsigned NOT NULL DEFAULT '0', 
+  `new_message_99` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `dpath` varchar(255) NOT NULL DEFAULT 'gow',
-  `design` tinyint(4) NOT NULL DEFAULT '1',
-  `noipcheck` tinyint(4) NOT NULL DEFAULT '1',
+  `design` tinyint(1) NOT NULL DEFAULT '1',
+  `noipcheck` tinyint(1) NOT NULL DEFAULT '1',
   `planet_sort` tinyint(1) NOT NULL DEFAULT '0',
   `planet_sort_order` tinyint(1) NOT NULL DEFAULT '0',
   `spio_anz` tinyint(2) NOT NULL DEFAULT '1',
@@ -587,8 +596,6 @@ CREATE TABLE IF NOT EXISTS `prefix_users` (
   `urlaubs_modus` enum('0','1') NOT NULL DEFAULT '0',
   `urlaubs_until` int(11) NOT NULL DEFAULT '0',
   `db_deaktjava` int(11) NOT NULL DEFAULT '0',
-  `new_message` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `new_gmessage` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `fleet_shortcut` text,
   `b_tech_planet` int(11) unsigned NOT NULL DEFAULT '0',
   `b_tech` int(11) unsigned NOT NULL DEFAULT '0',
@@ -659,13 +666,8 @@ CREATE TABLE IF NOT EXISTS `prefix_users` (
   PRIMARY KEY (`id`),
   KEY `fb_id` (`fb_id`),
   KEY `authlevel` (`authlevel`),
-  KEY `onlinetime` (`onlinetime`),
-  KEY `dm_fleettime` (`dm_fleettime`),
-  KEY `username` (`username`),
-  KEY `universe` (`universe`),
-  KEY `register_time` (`register_time`),
-  KEY `ref_bonus` (`ref_bonus`)
-
+  KEY `ref_bonus` (`ref_bonus`),
+  KEY `universe` ( `universe` , `username` , `password` , `onlinetime` , `authlevel` )
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `prefix_users_valid` (
