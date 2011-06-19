@@ -138,7 +138,7 @@ class ShowMessagesPage
 		$Message 	= makebr(request_var('text', '', true));
 		$From    	= $USER['username'].' ['.$USER['galaxy'].':'.$USER['system'].':'.$USER['planet'].']';
 
-		SendSimpleMessage($OwnerID, $USER['id'], '', 1, $From, $Subject, $Message);
+		SendSimpleMessage($OwnerID, $USER['id'], TIMESTAMP, 1, $From, $Subject, $Message);
 		exit($LNG['mg_message_send']);
 	}
 	

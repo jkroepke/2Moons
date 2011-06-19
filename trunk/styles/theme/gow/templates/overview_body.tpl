@@ -36,7 +36,7 @@
 			<td colspan="3"></td>
 		</tr>
         <tr>
-        	<td>{if $Moon}<a href="game.php?page=overview&amp;cp={$Moon.id}&amp;re=0" title="{$Moon.name}"><img src="{$dpath}planeten/mond.jpg" height="50" width="50" alt="{$Moon.name} ({$fcm_moon})"></a><br>{$Moon.name} ({$fcm_moon}){else}&nbsp;{/if}</td>
+        	<td>{if $Moon}<a href="game.php?page=overview&amp;cp={$Moon.id}&amp;re=0" title="{$Moon.name}"><img src="{$dpath}planeten/mond.jpg" height="50" width="50" alt="{$Moon.name} ({lang}fcm_moon{/lang})"></a><br>{$Moon.name} ({$fcm_moon}){else}&nbsp;{/if}</td>
         	<td><img src="{$dpath}planeten/{$planetimage}.jpg" height="200" width="200" alt="{$planetname}"><br>{$build}</td>
         	<td>
             {if $AllPlanets}
@@ -53,11 +53,11 @@
         </tr>
         <tr>
             <td>{lang}ov_diameter{/lang}</td>
-            <td colspan="2">{$planet_diameter} {$ov_distance_unit} (<a title="{$ov_developed_fields}">{$planet_field_current}</a> / <a title="{$ov_max_developed_fields}">{$planet_field_max}</a> {lang}ov_fields{/lang})</td>
+            <td colspan="2">{$planet_diameter} {lang}ov_distance_unit{/lang} (<a title="{lang}ov_developed_fields{/lang}">{$planet_field_current}</a> / <a title="{lang}ov_max_developed_fields{/lang}">{$planet_field_max}</a> {lang}ov_fields{/lang})</td>
         </tr>
         <tr>
             <td>{lang}ov_temperature{/lang}</td>
-            <td colspan="2">{lang}ov_aprox{/lang} {$planet_temp_min}{$ov_temp_unit} {lang}ov_to{/lang} {$planet_temp_max}{$ov_temp_unit}</td>
+            <td colspan="2">{lang}ov_aprox{/lang} {$planet_temp_min}{lang}ov_temp_unit{/lang} {lang}ov_to{/lang} {$planet_temp_max}{lang}ov_temp_unit{/lang}</td>
         </tr>
         <tr>
             <td>{lang}ov_position{/lang}</td>
@@ -90,13 +90,13 @@
 <form action="game.php" method="POST" onsubmit="return false">
 	<div id="tabs">
 		<ul>
-			<li><a href="#tabs-1">{$ov_planet_rename}</a></li>
-			<li><a href="#tabs-2">{$ov_delete_planet}</a></li>
+			<li><a href="#tabs-1">{lang}ov_planet_rename{/lang}</a></li>
+			<li><a href="#tabs-2">{lang}ov_delete_planet{/lang}</a></li>
 		</ul>
 		<div id="tabs-1">
-			<label for="newname">{$ov_rename_label}: </label><input class="left" type="text" name="newname" id="newname" size="25" maxlength="20" autocomplete="off">
+			<label for="newname">{lang}ov_rename_label{/lang}: </label><input class="left" type="text" name="newname" id="newname" size="25" maxlength="20" autocomplete="off">
 		</div>
-		<div id="tabs-2"><h3 style="margin:0">{$ov_security_request}</h3>{$ov_security_confirm}<br>
+		<div id="tabs-2"><h3 style="margin:0">{lang}ov_security_request{/lang}</h3>{lang}ov_security_confirm{/lang}<br>
 			<label for="password">{lang}ov_password{/lang}: </label><input class="left" type="password" name="password" id="password" size="25" maxlength="20" autocomplete="off">
 		</div>
 	</div>

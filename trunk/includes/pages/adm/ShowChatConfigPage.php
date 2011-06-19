@@ -81,7 +81,7 @@ function ShowChatConfigPage()
 			'chat_socket_active'	=> $CONF['chat_socket_active'],
 		);
 		
-		update_config($conf_after);
+		update_config($config_after);
 		
 		$LOG = new Log(3);
 		$LOG->target = 3;
