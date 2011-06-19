@@ -64,9 +64,6 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $Universe, $PlanetOw
 	if(!empty($PlanetName))
 		$SQL .= "`name` = '".$PlanetName."', ";
 	
-	if($CONF['adm_attack'] == 0)
-		$AuthLevel = AUTH_USR;
-	
 	$SQL .= "`universe` = '".$Universe."', ";
 	$SQL .= "`id_owner` = '".$PlanetOwnerID."', ";
 	$SQL .= "`galaxy` = '".$Galaxy."', ";
@@ -74,7 +71,7 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $Universe, $PlanetOw
 	$SQL .= "`planet` = '".$Position."', ";
 	$SQL .= "`last_update` = '".TIMESTAMP."', ";
 	$SQL .= "`planet_type` = '1', ";
-	$SQL .= "`image` = '".($Type.$Class.(($PlanetDesign[$Type] <= 9)?'0':'').$PlanetDesign[$Type])."', ";
+	$SQL .= "`image` = '".$Class."', ";
 	$SQL .= "`diameter` = '".floor(1000 * sqrt($Fields))."', ";
 	$SQL .= "`field_max` = '".(($HomeWorld) ? $CONF['initial_fields'] : floor($Fields))."', ";
 	$SQL .= "`temp_min` = '".$TMin."', ";
