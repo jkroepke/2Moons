@@ -19,11 +19,11 @@
 				</td>
 				<td>
 					<div id="time" time="{$List.time}"><br></div>
-					<a href="game.php?page=buildings&amp;cmd=cancel" class="post">{lang}bd_cancel{/lang}</a>
+					<a href="game.php?page=buildings&amp;mode=research&amp;cmd=cancel" class="post">{lang}bd_cancel{/lang}</a>
 					{else}
 				</td>
 				<td>
-					<a href="game.php?page=buildings&amp;cmd=remove&amp;listid={$List@iteration}" class="post">{lang}bd_cancel{/lang}</a>
+					<a href="game.php?page=buildings&amp;mode=research&amp;cmd=remove&amp;listid={$List@iteration}" class="post">{lang}bd_cancel{/lang}</a>
 					{/if}
 					<br><span style="color:lime" time="{$List.endtime}" class="timer">{date($smarty.const.TDFORMAT, $List.endtime)}</span>
 				</td>

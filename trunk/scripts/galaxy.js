@@ -6,12 +6,13 @@ function doit (order, galaxy, system, planet, planettype, shipcount) {
 		$('#grecyclers').text(number_format(data.ship219));
 
 		var statustable	= $('#fleetstatusrow');
-		var messages	= statustable.children();
+		var messages	= statustable.find("~tr");
 		if(messages.length == MaxFleetSetting) {
-			messages.get(MaxFleetSetting - 1).remove();
+			console.log(messages.get(MaxFleetSetting - 1));
+			messages.filter(':last').remove();
 		}
-		statustable.removeAttr('style').prepend($('<td />').attr('colspan', 8).attr('class', data.code == 600 ? "success" : "error").text(data.mess).wrap('<tr />'));
-		
+		var element		= $('<td />').attr('colspan', 8).attr('class', data.code == 600 ? "success" : "error").text(data.mess).wrap('<tr />').parent();
+		statustable.removeAttr('style').after(element);
 	});
 }
 

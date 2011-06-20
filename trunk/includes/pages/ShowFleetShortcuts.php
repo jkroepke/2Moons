@@ -40,7 +40,7 @@ function ShowFleetShortcuts()
 	{
 		if ($_POST)
 		{
-			$name	= request_var('n', $LNG['fl_anonymous']);
+			$name	= request_var('n', $LNG['fl_anonymous'], UTF8_SUPPORT);
 			$gala	= request_var('g', 0);
 			$sys	= request_var('s', 0);
 			$plan	= request_var('p', 0);
@@ -74,7 +74,7 @@ function ShowFleetShortcuts()
 			}
 			else
 			{
-				$r[0] = request_var('n', '');
+				$r[0] = request_var('n', '', UTF8_SUPPORT);
 				$r[1] = request_var('g', 0);
 				$r[2] = request_var('s', 0);
 				$r[3] = request_var('p', 0);
