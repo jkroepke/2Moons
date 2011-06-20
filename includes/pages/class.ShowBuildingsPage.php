@@ -147,7 +147,12 @@ class ShowBuildingsPage
 	{
 		global $PLANET, $USER, $resource, $CONF, $reslist;
 		
-		if(in_array($Element, $reslist['allow'][$PLANET['planet_type']]) && IsTechnologieAccessible($USER, $PLANET, $Element) && ($Element == 31 && $USER["b_tech_planet"] != 0) || (($Element == 15 || $Element == 21) && !empty($PLANET['b_hangar_id'])) && IsElementBuyable($USER, $PLANET, $Element, true, !$AddMode))
+		if(!in_array($Element, $reslist['allow'][$PLANET['planet_type']])
+			|| !IsTechnologieAccessible($USER, $PLANET, $Element) 
+			|| !IsElementBuyable($USER, $PLANET, $Element, true, !$AddMode)
+			|| ($Element == 31 && $USER["b_tech_planet"] != 0) 
+			|| (($Element == 15 || $Element == 21) && !empty($PLANET['b_hangar_id']))
+			)
 			return;
 		
 		$CurrentQueue  		= unserialize($PLANET['b_building_id']);
@@ -325,7 +330,7 @@ class ShowBuildingsPage
 			'CanBuildElement'	=> $CanBuildElement,
 			'RoomIsOk'			=> $RoomIsOk,
 			'Queue'				=> $Queue,
-			'isBusy'			=> array('research' => !empty($PLANET['b_hangar_id']), 'shipyard' => $USER['b_tech'] > TIMESTAMP),
+			'isBusy'			=> array('shipyard' => !empty($PLANET['b_hangar_id']), 'research' => $USER['b_tech_planet'] == 0),
 			'HaveMissiles'		=> (bool) $PLANET[$resource[503]] + $PLANET[$resource[502]],
 		));
 			
