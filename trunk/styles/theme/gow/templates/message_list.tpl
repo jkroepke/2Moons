@@ -21,7 +21,7 @@
 		{/if}
 		</td>
 	</tr>
-	<tr>
+	<tr class="messages_body">
 		<td colspan="3" class="left">
 		{$Message.text}
 		</td>

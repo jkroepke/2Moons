@@ -70,23 +70,11 @@ textarea {
 }
 
 /** HEADER **/
-#head {
-	position: fixed;
-	top: 0;
-	left:0;
-	width:100%;
-}
-
 #header {
-	margin:0 10px 5px 210px;
-	padding:0px 10px 5px;
-}
-
-#panel {
-    height: 90px;
-    margin:0 auto;
-    padding: 0 10px 5px;
-	width: 980px;
+	padding:5px 10px;
+	margin-left:210px;
+	margin-right:10px;
+	height:90px;
 }
 
 #planetselect {
@@ -138,10 +126,8 @@ textarea {
 #leftmenu {
 	padding-bottom:21px;
 	width:200px;
-	z-index:2;
-	position:absolute;
-	left:0;
-	top:-21px;
+	margin-top:-22px;
+	float:left;
 }
 #menu {
 	list-style:none;
@@ -186,6 +172,7 @@ textarea {
 
 #planet_menu_content{
 	height:90px;
+	overflow:auto;
 }
 
 #planet_menu_content img {
@@ -211,7 +198,7 @@ textarea {
 #content {
 	margin-left:210px;
 	margin-right:10px;
-	padding:110px 10px 26px 10px;
+	padding:10px 10px 26px 10px;
 }
 
 #content > table, form > table {
