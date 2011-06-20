@@ -41,7 +41,7 @@ class ShowMessagesPage
 	
 	function getMessages()
 	{
-		global $db;
+		global $db, $THEME;
 		$MessCategory  	= request_var('messcat', 100);
 		$MessageList	= array();
 		if($MessCategory == 999) 
@@ -77,8 +77,8 @@ class ShowMessagesPage
 		$template->assign_vars(array(	
 			'MessID'		=> $MessCategory,
 			'MessageList'	=> $MessageList,
+            'dpath'			=> $THEME->getTheme(),
 		));
-		
 		$template->show("message_list.tpl");
 	}
 	
@@ -213,8 +213,8 @@ class ShowMessagesPage
 		$template		= new template();
 		$template->loadscript('message.js');
 		$template->assign_vars(array(	
-			'MessageList'		=> $MessageList,
-			'OpsList'			=> $OpsList,
+			'MessageList'	=> $MessageList,
+			'OpsList'		=> $OpsList,
 		));
 		
 		$template->show("message_overview.tpl");
