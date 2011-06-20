@@ -50,7 +50,7 @@
 					<tr>
 						<td class="transparent left" style="width:90%;padding:10px;">{lang}res.descriptions.{$ID}{/lang}<br><br>{$Element.price}</td>
 						<td class="transparent" style="width:100px">
-						{if ($isBusy.research && ($ID == 6 || $ID == 31)) && ($isBusy.shipyard && ($ID == 15 || $ID == 21))}
+						{if ($isBusy.research && ($ID == 6 || $ID == 31)) || ($isBusy.shipyard && ($ID == 15 || $ID == 21))}
 							<span style="color:red">{lang}bd_working{/lang}</span>
 						{else}
 							{if $RoomIsOk}

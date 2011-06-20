@@ -63,7 +63,7 @@ function ShowSendMessagesPage() {
 				$Time    	= TIMESTAMP;
 				$From    	= '<span class="'.$class.'">'.$LNG['user_level'][$USER['authlevel']].' '.$USER['username'].'</span>';
 				$Subject 	= '<span class="'.$class.'">'.$Subject.'</span>';
-				$Message 	= '<span class="'.$class.'" style="font-weight:bold;">'.bbcode($Message).'</span>';
+				$Message 	= '<span class="'.$class.'">'.bbcode($Message).'</span>';
 				$USERS		= $db->query("SELECT `id` FROM ".USERS." WHERE `universe` = '".$_SESSION['adminuni']."'".(!empty($Lang) ? " AND `lang` = '".$db->sql_escape($Lang)."'": "").";");
 				while($UserData = $db->fetch_array($USERS)) {
 					SendSimpleMessage($UserData['id'], $USER['id'], TIMESTAMP, 50, $From, $Subject, $Message);
@@ -89,7 +89,7 @@ function ShowSendMessagesPage() {
 					$mail->IsMail();
 				}
 				$mail->CharSet		= 'UTF-8';		
-				$mail->Subject   	= $Subject;
+				$mail->Subject   	= strip_tags($Subject);
 				$mail->Body   		= bbcode($Message);
 				$mail->SetFrom($CONF['smtp_sendmail'], $CONF['game_name']);
 				$mail->AddAddress($CONF['smtp_sendmail'], $CONF['game_name']);

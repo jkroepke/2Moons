@@ -98,6 +98,19 @@ select {
 	color:skyblue;
 }
 
+.messages_body .admin {
+	font-weight:700;
+	color:red;
+}
+.messages_body .mod {
+	font-weight:700;
+	color:yellow;
+}
+.messages_body .ops {
+	font-weight:700;
+	color:skyblue;
+}
+
 .res_max {
 	color:#0F0
 }
@@ -193,7 +206,7 @@ select {
 
 /** HEADER **/
 
-#panel {
+#header {
 	background: #222222; /* Old browsers */
 	background: -moz-linear-gradient(top, #222222 0%, #030303 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#222222), color-stop(100%,#030303)); /* Chrome,Safari4+ */
