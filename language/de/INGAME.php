@@ -384,6 +384,8 @@ $LNG['bd_jump_gate_action']					= 'Springen';
 $LNG['bd_cancel_warning']					= 'Bei Abbruch werden nur 60% der Ressis wiederhergestellt!';
 $LNG['bd_cancel_send']						= 'Markierte - Löschen';
 $LNG['bd_destroy_time'] 					= 'Dauer';
+$LNG['bd_max_ships'] 						= 'max';
+$LNG['bd_max_ships_long'] 					= 'Maximal baubare Einheiten';
 $LNG['sys_notenough_money'] 				= 'Sie verfügen auf Planet %s <a href="?page=buildings&amp;cp=%d&amp;re=0">[%d:%d:%d]</a> nicht über genügend Ressourcen, um mit dem Bau von %s zu beginnen. <br>Sie verfügen über %s %s , %s %s und %s %s. <br>Die Baukosten betragen %s %s , %s %s und %s %s.';
 $LNG['sys_nomore_level'] 					= 'Sie versuchen, ein Gebäude zu zerstören, was sie nicht mehr besitzen( %s ).';
 $LNG['sys_buildlist'] 						= 'Bauliste';
