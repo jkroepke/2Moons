@@ -253,8 +253,7 @@ CREATE TABLE IF NOT EXISTS `prefix_config` (
   `del_user_automatic` tinyint(3) UNSIGNED NOT NULL DEFAULT '30',
   `del_user_sendmail` tinyint(3) UNSIGNED NOT NULL DEFAULT '21',
   `sendmail_inactive` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
-  `silo_factor` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
-  `channel` ENUM( 'beta', 'dev' ) NOT NULL DEFAULT 'beta',
+  `silo_factor` tinyint(1) UNSIGNED NOT NULL DEFAULT '1',
   PRIMARY KEY (`uni`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 

@@ -37,7 +37,7 @@
 		<tr>
 			<td rowspan="2" style="width:120px;">
 				<a href="#" onclick="return Dialog.info({$ID})">
-					<img src="{$dpath}gebaeude/{$ID}.gif" alt="{$Element.name}" width="120" height="120">
+					<img src="{$dpath}gebaeude/{$ID}.gif" alt="{lang}tech.{$ID}{/lang}" width="120" height="120">
 				</a>
 			</td>
 			<th>
@@ -91,7 +91,7 @@
 								{/if}
 								{if $Element.level > 0 && $ID != 33}
 								<br>{if $ID == 43}<a href="#" onclick="return Dialog.info({$ID})">{$bd_jump_gate_action}</a>{/if}
-								{if ($ID == 44 && !$HaveMissiles) ||  $ID != 44}<br><a class="tooltip_sticky" name="<table style='width:300px'><tr><th colspan='2'>{$bd_price_for_destroy} {$Element.name} {$Element.level}</th></tr><tr><td>{$Metal}</td><td>{$Element.destroyress.metal}</td></tr><tr><td>{$Crystal}</td><td>{$Element.destroyress.crystal}</td></tr><tr><td>{$Deuterium}</td><td>{$Element.destroyress.deuterium}</td></tr><tr><td>{$bd_destroy_time}</td><td>{$Element.destroytime}</td></tr><tr><td colspan='2'><a href='?page=buildings&amp;cmd=destroy&amp;building={$ID}'>{lang}bd_dismantle{/lang}</a></td></tr></table>">{lang}bd_dismantle{/lang}</a>{/if}
+								{if ($ID == 44 && !$HaveMissiles) ||  $ID != 44}<br><a class="tooltip_sticky" name="<table style='width:300px'><tr><th colspan='2'>{$bd_price_for_destroy} {lang}tech.{$ID}{/lang} {$Element.level}</th></tr><tr><td>{$Metal}</td><td>{$Element.destroyress.metal}</td></tr><tr><td>{$Crystal}</td><td>{$Element.destroyress.crystal}</td></tr><tr><td>{$Deuterium}</td><td>{$Element.destroyress.deuterium}</td></tr><tr><td>{$bd_destroy_time}</td><td>{$Element.destroytime}</td></tr><tr><td colspan='2'><a href='?page=buildings&amp;cmd=destroy&amp;building={$ID}'>{lang}bd_dismantle{/lang}</a></td></tr></table>">{lang}bd_dismantle{/lang}</a>{/if}
 							{else}
 								&nbsp;
 							{/if}

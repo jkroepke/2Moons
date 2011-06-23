@@ -50,6 +50,25 @@ class ShowShipyardPage
 
 		return min($MAX);
 	}
+	private function GetMaxConstructibleRockets($Missiles)
+	{
+		global $resource, $PLANET, $USER, $CONF;
+
+		$BuildArray  	  	= !empty($PLANET['b_hangar_id']) ? unserialize($PLANET['b_hangar_id']) : array();
+		$MaxMissiles   		= $PLANET[$resource[44]] * 5 * max($CONF['silo_factor'], 1);
+
+		foreach($BuildArray as $ElementArray) {
+			if(isset($Missiles[$ElementArray[0]]))
+				$Missiles[$ElementArray[0]] += $ElementArray[1];
+		}
+		
+		$ActuMissiles  = $Missiles[502] + (2 * $Missiles[503]);
+		$MissilesSpace = max(0, $MaxMissiles - $ActuMissiles);
+		return array(
+			502	=> $MissilesSpace,
+			503	=> floor($MissilesSpace / 2),
+		);
+	}
 
 	private function GetElementRessources($Element, $Count)
 	{
@@ -121,8 +140,8 @@ class ShowShipyardPage
 	
 	public function BuildAuftr($fmenge)
 	{
-		global $USER, $PLANET, $reslist, $CONF, $resource;		
-		
+		global $USER, $PLANET, $reslist, $CONF, $resource;
+		$Missiles	= array(502 => $PLANET[$resource[502]], 503 => $PLANET[$resource[503]]);
 		foreach($fmenge as $Element => $Count)
 		{
 			if(empty($Count) || !in_array($Element, array_merge($reslist['fleet'], $reslist['defense'])) || !IsTechnologieAccessible($USER, $PLANET, $Element))
@@ -136,23 +155,8 @@ class ShowShipyardPage
 			
 			if ($Element == 502 || $Element == 503)
 			{
-				$Missiles	 		= array();
-				$Missiles[502]		= $PLANET[$resource[502]];
-				$Missiles[503]		= $PLANET[$resource[503]];
-				$MaxMissiles   		= $PLANET[$resource[44]] * 5 * $CONF['silo_factor'];
-
-				foreach($BuildArray as $ElementArray) {
-					if(isset($Missiles[$ElementArray[0]]))
-						$Missiles[$ElementArray[0]] += $ElementArray[1];
-				}
-				
-				$ActuMissiles  = $Missiles[502] + (2 * $Missiles[503]);
-				$MissilesSpace = max(0, $MaxMissiles - $ActuMissiles);
-				
-				if($Element == 502)
-					$Count = min($Count, $MissilesSpace);
-				else
-					$Count = min($Count, floor($MissilesSpace / 2));
+				$MaxMissiles	= $this->GetMaxConstructibleRockets($Missiles);
+				$Count 			= min($Count, $MaxMissiles[$Element]);
 
 				$Missiles[$Element] += $Count;
 			} elseif(in_array($Element, $reslist['one'])) {
@@ -245,8 +249,6 @@ class ShowShipyardPage
 			
 			$FleetList[]	= array(
 				'id'			=> $Element,
-				'name'			=> $LNG['tech'][$Element],
-				'descriptions'	=> $LNG['res']['descriptions'][$Element],
 				'price'			=> GetElementPrice($USER, $PLANET, $Element, false),
 				'restprice'		=> $this->GetRestPrice($Element, false),
 				'time'			=> pretty_time(GetBuildingTime($USER, $PLANET, $Element)),
@@ -287,16 +289,7 @@ class ShowShipyardPage
 		$template->assign_vars(array(
 			'FleetList'				=> $FleetList,
 			'NotBuilding'			=> $NotBuilding,
-			'bd_available'			=> $LNG['bd_available'],
-			'bd_remaining'			=> $LNG['bd_remaining'],
-			'fgf_time'				=> $LNG['fgf_time'],
-			'bd_build_ships'		=> $LNG['bd_build_ships'],
-			'bd_building_shipyard'	=> $LNG['bd_building_shipyard'],
-			'bd_completed'			=> $LNG['bd_completed'],
-			'bd_cancel_warning'		=> $LNG['bd_cancel_warning'],
-			'bd_cancel_send'		=> $LNG['bd_cancel_send'],
-			'bd_actual_production'	=> $LNG['bd_actual_production'],
-			'bd_operating'			=> $LNG['bd_operating'],
+			'MaxMissiles'			=> array(),
 			'BuildList'				=> json_encode($Buildlist),
 			'maxlength'				=> strlen($CONF['max_fleet_per_build']),
 		));
@@ -356,20 +349,25 @@ class ShowShipyardPage
 		}
 		$PlanetRess->SavePlanetToDB();
 		
+		$MaxMissiles	= $this->GetMaxConstructibleRockets(array(502 => $PLANET[$resource[502]], 503 => $PLANET[$resource[503]]));
+		
 		foreach($reslist['defense'] as $Element)
 		{
 			if(!IsTechnologieAccessible($USER, $PLANET, $Element))
 				continue;
-	
+				
+			if(isset($MaxMissiles[$Element]))
+				$GetMaxAmount	= floattostring(min($this->GetMaxConstructibleElements($Element), $MaxMissiles[$Element]));
+			else
+				$GetMaxAmount	= floattostring($this->GetMaxConstructibleElements($Element));
+			
 			$DefenseList[]	= array(
 				'id'			=> $Element,
-				'name'			=> $LNG['tech'][$Element],
-				'descriptions'	=> $LNG['res']['descriptions'][$Element],
 				'price'			=> GetElementPrice($USER, $PLANET, $Element, false),
 				'restprice'		=> $this->GetRestPrice($Element),
 				'time'			=> pretty_time(GetBuildingTime($USER, $PLANET, $Element)),
 				'IsAvailable'	=> IsElementBuyable($USER, $PLANET, $Element, false),
-				'GetMaxAmount'	=> floattostring($this->GetMaxConstructibleElements($Element)),
+				'GetMaxAmount'	=> $GetMaxAmount,
 				'Available'		=> pretty_number($PLANET[$resource[$Element]]),
 				'AlreadyBuild'	=> (in_array($Element, $reslist['one']) && (strpos($PLANET['b_hangar_id'], $Element.",") !== false || $PLANET[$resource[$Element]] != 0)) ? true : false,
 			);
@@ -405,16 +403,7 @@ class ShowShipyardPage
 		$template->assign_vars(array(
 			'DefenseList'					=> $DefenseList,
 			'NotBuilding'					=> $NotBuilding,
-			'bd_available'					=> $LNG['bd_available'],
-			'bd_remaining'					=> $LNG['bd_remaining'],
-			'fgf_time'						=> $LNG['fgf_time'],
-			'bd_build_ships'				=> $LNG['bd_build_ships'],
-			'bd_building_shipyard'			=> $LNG['bd_building_shipyard'],
-			'bd_protection_shield_only_one'	=> $LNG['bd_protection_shield_only_one'],
-			'bd_cancel_warning'				=> $LNG['bd_cancel_warning'],
-			'bd_cancel_send'				=> $LNG['bd_cancel_send'],
-			'bd_operating'					=> $LNG['bd_operating'],
-			'bd_actual_production'			=> $LNG['bd_actual_production'],
+			'MaxMissiles'					=> $MaxMissiles,
 			'BuildList'						=> json_encode($Buildlist),
 			'maxlength'						=> strlen($CONF['max_fleet_per_build']),
 		));

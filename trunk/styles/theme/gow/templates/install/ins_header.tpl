@@ -2,6 +2,7 @@
 
 <html lang="de">
 <head>
+<link rel="stylesheet" type="text/css" href="../styles/css/ingame.css">
 <link rel="stylesheet" type="text/css" href="../styles/theme/gow/formate.css">
 <link rel="stylesheet" type="text/css" href="../styles/css/admin.css">
 <style type="text/css">
