@@ -470,7 +470,7 @@ class ShowAlliancePage
 							
 							while ($u = $db->fetch_array($sq))
 							{
-								SendSimpleMessage($u['id'], $USER['id'], '', 2, $title, $subject, $text);
+								SendSimpleMessage($u['id'], $USER['id'], TIMESTAMP, 2, $title, $subject, $text);
 								$list .= "\n".$u['username'];
 							}
 							exit($LNG['al_circular_sended'].$list);
@@ -741,7 +741,7 @@ class ShowAlliancePage
 											{
 												$AllyUsers 	= $db->query("SELECT `id` FROM ".USERS." as s WHERE s.ally_id = '".$ally['id']."' OR s.ally_id = '".$id."';");
 												while($User = $db->fetch_array($AllyUsers)) {	
-													SendSimpleMessage($User['id'], $USER['id'],'', 2,$LNG['al_circular_alliance'].$ally['ally_tag']." &amp; ".$Alliances['ally_tag'], $LNG['al_diplo_war'], sprintf($LNG['al_diplo_war_mes'], $ally['ally_name'], $Alliances['ally_name'], $LNG['al_diplo_level'][$Level], $text));
+													SendSimpleMessage($User['id'], $USER['id'], TIMESTAMP, 2,$LNG['al_circular_alliance'].$ally['ally_tag']." &amp; ".$Alliances['ally_tag'], $LNG['al_diplo_war'], sprintf($LNG['al_diplo_war_mes'], $ally['ally_name'], $Alliances['ally_name'], $LNG['al_diplo_level'][$Level], $text));
 												}											
 											} else {
 												$RanksRAW = $db->uniquequery("SELECT `ally_ranks`, `ally_owner` FROM ".ALLIANCE." WHERE id = '".$id."';");
@@ -764,7 +764,7 @@ class ShowAlliancePage
 												}
 												$AllyUsers = $db->query("SELECT `id` FROM ".USERS." WHERE (ally_id = '".$ally['id']."' AND (".$SendRank[0]."`id` = '".$ally['ally_owner']."')) OR (ally_id = '".$id."' AND (".$SendRank[1]."`id` = '".$RanksRAW['ally_owner']."'));");
 												while($User = $db->fetch_array($AllyUsers)) {	
-													SendSimpleMessage($User['id'], $USER['id'],'', 2,$LNG['al_circular_alliance'].$ally['ally_tag']." &amp; ".$Alliances['ally_tag'], $LNG['al_diplo_ask'], sprintf($LNG['al_diplo_ask_mes'], $LNG['al_diplo_level'][$Level], $ally['ally_name'], $Alliances['ally_name'], $text));
+													SendSimpleMessage($User['id'], $USER['id'], TIMESTAMP, 2,$LNG['al_circular_alliance'].$ally['ally_tag']." &amp; ".$Alliances['ally_tag'], $LNG['al_diplo_ask'], sprintf($LNG['al_diplo_ask_mes'], $LNG['al_diplo_level'][$Level], $ally['ally_name'], $Alliances['ally_name'], $text));
 												}
 
 											}
@@ -793,7 +793,7 @@ class ShowAlliancePage
 										{
 											$AllyUsers = $db->query("SELECT `id` FROM ".USERS." as s WHERE s.ally_id = '".$ally['id']."' OR s.ally_id = '".$DiploInfo[5][$id][1]."';");
 											while($User = $db->fetch_array($AllyUsers)) {	
-												SendSimpleMessage($User['id'], $USER['id'],'', 2,$LNG['al_circular_alliance'].$ally['ally_tag']." &amp; ".$DiploInfo[5][$id][5], $LNG['al_diplo_accept_yes'], sprintf($LNG['al_diplo_accept_yes_mes'], $LNG['al_diplo_level'][$Level], $ally['ally_name'], $DiploInfo[5][$id][0]));
+												SendSimpleMessage($User['id'], $USER['id'], TIMESTAMP, 2,$LNG['al_circular_alliance'].$ally['ally_tag']." &amp; ".$DiploInfo[5][$id][5], $LNG['al_diplo_accept_yes'], sprintf($LNG['al_diplo_accept_yes_mes'], $LNG['al_diplo_level'][$Level], $ally['ally_name'], $DiploInfo[5][$id][0]));
 											}
 											$db->query("UPDATE ".DIPLO." SET `accept` = '1', `accept_text` = '' WHERE `id`='".$id."' LIMIT 1;");
 										}
@@ -804,7 +804,7 @@ class ShowAlliancePage
 										{
 											$AllyUsers 	= $db->query("SELECT `id` FROM ".USERS." as s WHERE s.ally_id = '".$ally['id']."' OR s.ally_id = '".$DiploInfo[5][$id][1]."';");
 											while($User = $db->fetch_array($AllyUsers)) {	
-												SendSimpleMessage($User['id'], $USER['id'],'', 2,$LNG['al_circular_alliance'].$ally['ally_tag']." &amp; ".$DiploInfo[5][$id][5], $LNG['al_diplo_accept_no'], sprintf($LNG['al_diplo_accept_no_mes'], $LNG['al_diplo_level'][$Level], $ally['ally_name'], $DiploInfo[5][$id][0]));
+												SendSimpleMessage($User['id'], $USER['id'], TIMESTAMP, 2,$LNG['al_circular_alliance'].$ally['ally_tag']." &amp; ".$DiploInfo[5][$id][5], $LNG['al_diplo_accept_no'], sprintf($LNG['al_diplo_accept_no_mes'], $LNG['al_diplo_level'][$Level], $ally['ally_name'], $DiploInfo[5][$id][0]));
 											}
 											$db->query("DELETE FROM ".DIPLO." WHERE `id` ='".$id."' LIMIT 1;");
 										}
@@ -817,7 +817,7 @@ class ShowAlliancePage
 											{
 												$AllyUsers = $db->query("SELECT `id` FROM ".USERS." as s WHERE s.ally_id = '".$ally['id']."' OR s.ally_id = '".$DiploInfo[$Level][$id][1]."';");
 												while($User = $db->fetch_array($AllyUsers)) {	
-													SendSimpleMessage($User['id'], $USER['id'],'', 2,$LNG['al_circular_alliance'].$ally['ally_tag']." &amp; ".$DiploInfo[$Level][$id][3], $LNG['al_diplo_delete'], sprintf($LNG['al_diplo_delete_mes'], $LNG['al_diplo_level'][$Level], $ally['ally_name'], $DiploInfo[$Level][$id][0]));
+													SendSimpleMessage($User['id'], $USER['id'], TIMESTAMP, 2,$LNG['al_circular_alliance'].$ally['ally_tag']." &amp; ".$DiploInfo[$Level][$id][3], $LNG['al_diplo_delete'], sprintf($LNG['al_diplo_delete_mes'], $LNG['al_diplo_level'][$Level], $ally['ally_name'], $DiploInfo[$Level][$id][0]));
 												}
 											}
 											$db->query("DELETE FROM ".DIPLO." WHERE `id` ='".$id."' LIMIT 1;");
@@ -854,7 +854,7 @@ class ShowAlliancePage
                                 {
                                     $db->multi_query("UPDATE ".ALLIANCE." SET `ally_members` = `ally_members` + 1 WHERE id='".$ally['id']."';UPDATE ".USERS." SET ally_name='".$ally['ally_name']."', ally_request_text='', ally_request='0', ally_id='".$ally['id']."' WHERE id='".$db->sql_escape($id)."';UPDATE ".STATPOINTS." SET `id_ally` = '".$ally['id']."' WHERE `id_owner` = '".$id."';");
 
-                                    SendSimpleMessage($id, $USER['id'],'', 2,$ally['ally_tag'],$LNG['al_you_was_acceted'] . $ally['ally_name'], $LNG['al_hi_the_alliance'] . $ally['ally_name'] . $LNG['al_has_accepted'] . $text);
+                                    SendSimpleMessage($id, $USER['id'], TIMESTAMP, 2,$ally['ally_tag'],$LNG['al_you_was_acceted'] . $ally['ally_name'], $LNG['al_hi_the_alliance'] . $ally['ally_name'] . $LNG['al_has_accepted'] . $text);
 
                                     redirectTo('game.php?page=alliance&mode=admin&edit=ally');
                                 }
@@ -862,7 +862,7 @@ class ShowAlliancePage
 								{
 									$db->query("UPDATE ".USERS." SET ally_request_text='',ally_request='0',ally_id='0' WHERE id='".$db->sql_escape($id)."';");
 
-									SendSimpleMessage($id, $USER['id'],'', 2,$ally['ally_tag'],$LNG['al_you_was_declined'] . $ally['ally_name'], $LNG['al_hi_the_alliance'] . $ally['ally_name'] . $LNG['al_has_declined'] . $text);
+									SendSimpleMessage($id, $USER['id'], TIMESTAMP, 2,$ally['ally_tag'],$LNG['al_you_was_declined'] . $ally['ally_name'], $LNG['al_hi_the_alliance'] . $ally['ally_name'] . $LNG['al_has_declined'] . $text);
 
 									redirectTo('game.php?page=alliance&mode=admin&edit=ally');
 								}
