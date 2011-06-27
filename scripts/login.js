@@ -57,16 +57,6 @@ function Content(action) {
 
 function Submit(action) {
 	switch(action) {
-		case 'login':
-			form =	$('#login');
-			$.post(form.attr('action'), form.serialize(), function(data) {
-				data	= $.parseJSON(data);
-				if(data.error === false)
-					document.location.href = 'game.php';
-				else
-					alert(data.message);
-			});
-		break;
 		case 'reg':
 			form =	$('#reg');
 			$('.error').removeClass('error');

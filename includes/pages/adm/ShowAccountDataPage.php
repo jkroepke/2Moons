@@ -53,11 +53,11 @@ function ShowAccountDataPage()
 		
 			// COMIENZA SAQUEO DE DATOS DE LA TABLA DE USUARIOS
 			$SpecifyItemsU	= 
-			"id,u.username,u.email,u.email_2,u.authlevel,u.id_planet,u.galaxy,u.system,u.planet,u.user_lastip,u.ip_at_reg,u.darkmatter,u.register_time,u.onlinetime,u.noipcheck,u.urlaubs_modus,u.
-			 urlaubs_until,u.ally_id,u.ally_name,u.ally_request,".$SpecifyItemsUQ."
-			 ally_request_text,u.ally_register_time,u.ally_rank_id,u.bana,u.banaday, s.user_ua";
+			"u.id,u.username,u.email,u.email_2,u.authlevel,u.id_planet,u.galaxy,u.system,u.planet,u.user_lastip,u.ip_at_reg,u.darkmatter,u.register_time,u.onlinetime,u.noipcheck,u.urlaubs_modus,u.
+			 urlaubs_until,u.ally_id,a.ally_name,".$SpecifyItemsUQ."
+			 u.ally_register_time,u.ally_rank_id,u.bana,u.banaday";
 			
-			$UserQuery 	= 	$db->uniquequery("SELECT ".$SpecifyItemsU." FROM ".USERS." as u LEFT JOIN ".SESSION." as s ON s.user_id = u.id WHERE `id` = '".$id_u."';");
+			$UserQuery 	= 	$db->uniquequery("SELECT ".$SpecifyItemsU." FROM ".USERS." as u LEFT JOIN ".SESSION." as s ON s.user_id = u.id LEFT JOIN ".ALLIANCE." a ON a.id = u.ally_id WHERE u.`id` = '".$id_u."';");
 
 			
 			$reg_time		= date(TDFORMAT, $UserQuery['register_time']);

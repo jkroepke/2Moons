@@ -95,8 +95,9 @@ function ShowStatisticsPage()
 
 			$start = max(floor(($range - 1) / 100) * 100, 0);
 
-			$stats_sql	=	'SELECT DISTINCT s.*, u.id, u.username, u.ally_id, u.ally_name FROM '.STATPOINTS.' as s
+			$stats_sql	=	'SELECT DISTINCT s.*, u.id, u.username, u.ally_id, a.ally_name FROM '.STATPOINTS.' as s
 			INNER JOIN '.USERS.' as u ON u.id = s.id_owner
+			LEFT JOIN '.ALLIANCE.' as a ON a.id = s.id_ally
 			WHERE s.`universe` = '.$UNI.' AND s.`stat_type` = 1 '.(($CONF['stat'] == 2)?'AND u.`authlevel` < '.$CONF['stat_level'].' ':'').'
 			ORDER BY `'. $Order .'` ASC LIMIT '. $start .',100;';
 

@@ -197,17 +197,8 @@ var Dialog	= {
 	PM: function(ID, Subject, Message) {
 		if(typeof Subject !== 'string')
 			Subject	= '';
-			
-		Dialog.create();
-		$(Dialog.div).dialog('open').load('game.php?page=messages&mode=write&id='+ID+'&subject='+encodeURIComponent(Subject), function() {
-			$(this).dialog('option', 'buttons', {Send:function(){if($('#text').val().length==0){Dialog.alert($('#empty').text());}else{$.get('game.php?page=messages&mode=send&id='+ID+'&send=1&'+$('#message').serialize(),function(data){Dialog.alert(data,Dialog.close)})}}})
-			.dialog('option', 'title', $('#dialog_title').text())
-			.parent()
-			.find('.ui-dialog-buttonset button span')
-			.text($('#send').text());
-			if(typeof Message === 'string')
-				$('#old_mes').html(decodeURIComponent(Message)+'<hr>');
-		});
+
+	    OpenPopup('game.php?page=messages&mode=write&id='+ID+'&subject='+encodeURIComponent(Subject)+'&message='+encodeURIComponent(Subject), "", 720, 300);
 		return false;
 	},
 	

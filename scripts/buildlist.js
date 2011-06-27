@@ -20,7 +20,7 @@ function Buildlist() {
 function CreateProcessbar() {
 	if(time != 0) {
 		$('#progressbar').progressbar({
-			value: 100 - (resttime / time) * 100
+			value: Math.max(100 - (resttime / time) * 100, 0.01)
 		});
 		$('.ui-progressbar-value').addClass('ui-corner-right').animate({width: "100%"}, resttime * 1000, "linear");
 	}

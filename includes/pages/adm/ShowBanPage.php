@@ -137,7 +137,6 @@ function ShowBanPage()
 			$SQL      = "UPDATE ".BANNED." SET ";
 			$SQL     .= "`who` = '". $Name ."', ";
 			$SQL     .= "`theme` = '". $reas ."', ";
-			$SQL     .= "`who2` = '". $Name ."', ";
 			$SQL     .= "`time` = '".TIMESTAMP."', ";
 			$SQL     .= "`longer` = '". $BannedUntil ."', ";
 			$SQL     .= "`author` = '". $admin ."', ";
@@ -148,7 +147,6 @@ function ShowBanPage()
 			$SQL      = "INSERT INTO ".BANNED." SET ";
 			$SQL     .= "`who` = '". $Name ."', ";
 			$SQL     .= "`theme` = '". $reas ."', ";
-			$SQL     .= "`who2` = '". $Name ."', ";
 			$SQL     .= "`time` = '".TIMESTAMP."', ";
 			$SQL     .= "`longer` = '". $BannedUntil ."', ";
 			$SQL     .= "`author` = '". $admin ."', ";
@@ -169,7 +167,8 @@ function ShowBanPage()
 		exit;
 	} elseif(isset($_POST['unban_name'])) {
 		$Name	= request_var('unban_name', '', true);
-		$db->multi_query("DELETE FROM ".BANNED." WHERE who = '".$db->sql_escape($Name)."' AND `universe` = '".$_SESSION['adminuni']."';UPDATE ".USERS." SET bana = '0', banaday = '0' WHERE username = '".$db->sql_escape($Name)."' AND `universe` = '".$_SESSION['adminuni']."';");
+		$db->query("UPDATE ".USERS." SET bana = '0', banaday = '0' WHERE username = '".$db->sql_escape($Name)."' AND `universe` = '".$_SESSION['adminuni']."';");
+		#DELETE FROM ".BANNED." WHERE who = '".$db->sql_escape($Name)."' AND `universe` = '".$_SESSION['adminuni']."';
 		$template->message($LNG['bo_the_player2'].$Name.$LNG['bo_unbanned'], '?page=bans');
 		exit;
 	}

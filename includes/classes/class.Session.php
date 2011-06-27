@@ -42,18 +42,14 @@ class Session
 	
 	function ErrorMessage($Code)
 	{
-		if(defined('LOGIN'))
-			echo json_encode(array('message' => $LNG['login_error_'.$Code], 'error' => true));
-		else
-			redirectTo('index.php?code='.$Code);
-		exit;
+		redirectTo('index.php?code='.$Code);
 	}
 	
 	function CreateSession($ID, $Username, $MainPlanet, $Universe, $Authlevel = 0, $dpath = DEFAULT_THEME)
 	{
 		global $db;
 		$Path					= $this->GetPath();
-		$db->query("INSERT INTO ".SESSION." (`sess_id`, `user_id`, `user_ua`, `user_ip`, `user_side`, `user_method`, `user_lastactivity`) VALUES ('".session_id()."', '".$ID."', '".$db->sql_escape($_SERVER['HTTP_USER_AGENT'])."', '".$_SERVER['REMOTE_ADDR']."', '".$db->sql_escape($Path)."', '".$_SERVER["REQUEST_METHOD"]."', '".TIMESTAMP."') ON DUPLICATE KEY UPDATE `sess_id` = '".session_id()."', `user_ua` = '".$db->sql_escape($_SERVER['HTTP_USER_AGENT'])."', `user_ip` = '".$_SERVER['REMOTE_ADDR']."', `user_side` = '".$db->sql_escape($Path)."', `user_method` = '".$_SERVER["REQUEST_METHOD"]."';");
+		$db->query("INSERT INTO ".SESSION." (`sess_id`, `user_id`, `user_ip`, `user_side`, `user_lastactivity`) VALUES ('".session_id()."', '".$ID."', '".$_SERVER['REMOTE_ADDR']."', '".$db->sql_escape($Path)."', '".TIMESTAMP."') ON DUPLICATE KEY UPDATE `sess_id` = '".session_id()."', `user_id` = '".$ID."', `user_ip` = '".$_SERVER['REMOTE_ADDR']."', `user_side` = '".$db->sql_escape($Path)."';");
 		$_SESSION['id']			= $ID;
 		$_SESSION['username']	= $Username;
 		$_SESSION['authlevel']	= $Authlevel;	
@@ -61,6 +57,7 @@ class Session
 		$_SESSION['dpath']		= $dpath;
 		$_SESSION['planet']		= $MainPlanet;
 		$_SESSION['uni']		= $Universe;
+		$_SESSION['agent']		= $_SERVER['HTTP_USER_AGENT'];
 	}
 	
 	function GetPath()
@@ -87,14 +84,12 @@ class Session
 			
 		$_SESSION['path']		= $this->GetPath();
 		$_SESSION['planet']		= !empty($IsPlanetMine['id']) ? $IsPlanetMine['id'] : $_SESSION['planet'];
-		
+
 		$SQL  = "UPDATE ".USERS." as u, ".SESSION." as s SET ";
 		$SQL .= "u.`onlinetime` = '".TIMESTAMP."', ";
 		$SQL .= "u.`user_lastip` = '".$_SERVER['REMOTE_ADDR'] ."', ";
 		$SQL .= "s.`user_ip` = '".$_SERVER['REMOTE_ADDR']."', ";
 		$SQL .= "s.`user_side` = '".$db->sql_escape($_SESSION['path'])."', ";
-		$SQL .= "s.`user_ua` = '".$db->sql_escape($_SERVER['HTTP_USER_AGENT'])."', ";
-		$SQL .= "s.`user_method` = '".$_SERVER["REQUEST_METHOD"]."', ";
 		$SQL .= "s.`user_lastactivity` = '".TIMESTAMP."' ";
 		$SQL .= "WHERE ";
 		$SQL .= "u.`id` = '".$_SESSION['id']."' AND s.`sess_id` = '".session_id()."';";

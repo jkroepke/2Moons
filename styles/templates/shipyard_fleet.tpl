@@ -32,7 +32,7 @@
 	{/if}
 	<form action="" method="POST">
     <table>	
-		{foreach name=FleetList item=FleetListRow from=$FleetList}+
+		{foreach name=FleetList item=FleetListRow from=$FleetList}
 		{$ID = $FleetListRow.id}
 		<tr>
 			<td rowspan="2" style="width:120px;">

@@ -11,7 +11,7 @@ function Buildlist() {
 		$('#time').text(Ready);
 		$('#command').remove();
 		document.title	= Ready + ' - ' + Gamename;
-		window.setTimeout(function() {window.location.href = 'game.php?page=building&mode=research'}, 1000);
+		window.setTimeout(function() {window.location.href = 'game.php?page=buildings&mode=research'}, 1000);
 		return true;
 	}
 	
@@ -21,7 +21,7 @@ function Buildlist() {
 function CreateProcessbar() {
 	if(time != 0) {
 		$('#progressbar').progressbar({
-			value: 100 - (resttime / time) * 100
+			value: Math.max(100 - (resttime / time) * 100, 0.01)
 		});
 		$('.ui-progressbar-value').addClass('ui-corner-right').animate({width: "100%"}, resttime * 1000, "linear");
 	}
