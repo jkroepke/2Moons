@@ -33,11 +33,11 @@ class Theme
 	{	
 		$this->skininfo = array();
 		$this->skin		= isset($_SESSION['dpath']) ? $_SESSION['dpath'] : DEFAULT_THEME;
-		$this->template	= ROOT_PATH.'styles/theme/'.$this->skin.'/templates';
 	}
 	
 	function isHome() {
-		$this->template	= ROOT_PATH.'styles/home/';
+		$this->template		= ROOT_PATH.'styles/home/';
+		$this->customtpls	= array();
 	}
 	
 	function setUserTheme($Theme) {
@@ -51,29 +51,41 @@ class Theme
 	function getTheme() {
 		return './styles/theme/'.$this->skin.'/';
 	}
+	
 	function getThemeName() {
 		return $this->skin;
 	}
-		
+	
 	function getTemplatePath() {
-		return $this->template;
+		return TEMPLATE_PATH.$this->skin.'/';
+	}
+		
+	function isCustomTPL($tpl) {
+		return in_array($tpl, $this->customtpls);
 	}
 	
 	function parseStyleCFG() {
 		require(ROOT_PATH.'styles/theme/'.$this->skin.'/style.cfg');
-		$this->skininfo	= $Skin;
-		$this->template	= ROOT_PATH.'styles/theme/'.$Skin['template'].'/templates/';	
+		$this->skininfo		= $Skin;
+		$this->customtpls	= $Skin['templates'];	
 	}
 	
 	static function getAvalibleSkins() {
+		if(isset($this->Themes))
+			return $this->Themes;
+		
+		if(file_exists(ROOT_PATH.'cache/cache.themes.php'))
+			return unserialize(file_get_contents(ROOT_PATH.'cache/cache.themes.php'));
+			
 		$Skins	= array_diff(scandir(ROOT_PATH.'styles/theme/'), array('..', '.', '.svn', '.htaccess', 'index.htm'));
-		$Themen	= array();
+		$Themes	= array();
 		foreach($Skins as $Theme) {
 			require(ROOT_PATH.'styles/theme/'.$Theme.'/style.cfg');
-			$Themen[$Theme]	= $Skin['name'];
+			$Themes[$Theme]	= $Skin['name'];
 		}
-		
-		return $Themen;
+		$this->Themes	= $Themes;
+		file_put_contents(ROOT_PATH.'cache/cache.themes.php', serialize($Themes));
+		return $Themes;
 	}
 }
 

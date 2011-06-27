@@ -26,40 +26,23 @@
  * @info $Id$
  * @link http://code.google.com/p/2moons/
  */
- 
-class template
+
+require(ROOT_PATH.'includes/libs/Smarty/Smarty.class.php');
+		
+class template extends Smarty
 {
 	function __construct()
 	{	
+		parent::__construct();
+		$this->force_compile 		= false;
+		$this->caching 				= false;
+		$this->compile_check		= true; #Set false for production!
 		$this->jsscript				= array();
 		$this->script				= array();
-		$this->vars					= array();
-		$this->cache				= false;
-		$this->cachedir				= is_writable(ROOT_PATH.'cache/') ? ROOT_PATH.'cache/' : sys_get_temp_dir();
-		$this->file					= '';
-		$this->cachefile			= '';
-		$this->phpself				= '';
+		$this->compile_dir			= is_writable(ROOT_PATH.'cache/') ? ROOT_PATH.'cache/' : sys_get_temp_dir();
+		$this->template_dir			= TEMPLATE_DIR;
 		$this->Popup				= false;
 		$this->Dialog				= false;
-	}
-	
-	public function render()
-	{
-		global $CONF;
-		require(ROOT_PATH.'includes/libs/Smarty/Smarty.class.php');
-		$TMP						= new Smarty();
-		$TMP->force_compile 		= false;
-		$TMP->compile_dir 			= $this->cachedir;
-		$TMP->caching 				= false;
-		$TMP->compile_check			= true; #Set false for production!
-		$TMP->template_dir 			= $this->template_dir;
-		$TMP->assign($this->vars);
-		$PAGE						= $TMP->fetch($this->file);
-		if($this->cache && $CONF['debug'] == 0)
-		{
-			file_put_contents($this->cachefile, $PAGE);
-		}
-		return $PAGE;
 	}
 	
 	public function loadscript($script)
@@ -72,9 +55,9 @@ class template
 		$this->script[]				= $script;
 	}
 		
-	public function assign_vars($var = array()) 
+	public function assign_vars(array $var = array()) 
 	{		
-		$this->vars	= array_merge($this->vars, $var);
+		parent::assign($var);
 	}
 	
 	private function Menus()
@@ -245,13 +228,17 @@ class template
 		
 	public function show($file)
 	{		
-		global $USER, $PLANET, $CONF, $LNG, $db;
+		global $USER, $PLANET, $CONF, $LNG, $db, $THEME;
+
+		if($THEME->isCustomTPL($file))
+			$this->template_dir	= $THEME->getTemplatePath();
 		
 		if(!defined('INSTALL')) {
 			if(defined('IN_ADMIN')) {
-				$this->adm_main();			
+				$this->adm_main();
 			} elseif(defined('LOGIN')) {
-				$this->login_main();	
+				$this->template_dir	.= 'index/';
+				$this->login_main();
 			} elseif(!$this->Dialog) {
 				if(!defined('AJAX')) {
 					$_SESSION['USER']	= $USER;
@@ -262,12 +249,13 @@ class template
 					$this->Menus();
 			}
 		}
+
 		$this->assign_vars(array(
 			'scripts'			=> $this->jsscript,
 			'execscript'		=> implode("\n", $this->script),
 		));
-		
-		$this->display($file);
+			
+		parent::display($file);
 	}
 	
 	public function gotoside($dest, $time = 3)
@@ -276,23 +264,6 @@ class template
 			'gotoinsec'	=> $time,
 			'goto'		=> $dest,
 		));
-	}
-	
-	public function display($file)
-	{
-		global $THEME;
-		$this->file			= $file;
-		$this->template_dir	= $THEME->getTemplatePath();
-		if($this->cache && $GLOBALS['CONF']['debug'] == 0)
-		{
-			$this->cachefile	= $this->cachedir.md5(filemtime($this->template_dir.$this->file).r_implode('', $this->vars)).'.tpl.php';
-			if(file_exists($this->cachefile))
-				echo file_get_contents($this->cachefile);
-			else
-				echo $this->render();
-		} else {
-			echo $this->render();
-		}
 	}
 	
 	public function message($mes, $dest = false, $time = 3, $Fatal = false)

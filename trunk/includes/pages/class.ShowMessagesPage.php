@@ -85,7 +85,7 @@ class ShowMessagesPage
 	function DelMessages()
 	{
 		global $db;
-		$DeleteWhat = request_var('deletemessages','');
+		$DeleteWhat 	= request_var('deletemessages','');
 		$MessCategory  	= request_var('messcat', 100);
 		
 		if($DeleteWhat == 'deleteunmarked' && (empty($_REQUEST['delmes']) || !is_array($_REQUEST['delmes'])))
@@ -127,33 +127,43 @@ class ShowMessagesPage
 				}
 			break;
 		}
-		header('HTTP/1.1 204 No Content');
+		redirectTo('game.php?page=messages');
 	}
 	
 	function send() 
 	{
 		global $USER, $LNG;
 		$OwnerID	= request_var('id', 0);
-		$Subject 	= request_var('subject', '', true);
+		$Subject 	= request_var('subject', $LNG['mg_no_subject'], true);
 		$Message 	= makebr(request_var('text', '', true));
 		$From    	= $USER['username'].' ['.$USER['galaxy'].':'.$USER['system'].':'.$USER['planet'].']';
 
+		if (empty($OwnerID) || empty($Message) || $_SESSION['messtoken'] != md5($USER['id'].'|'.$OwnerID))
+			exit($LNG['mg_error']);
+		
+		unset($_SESSION['messtoken']);
+		
+		if (empty($Subject))
+			$Subject	= $LNG['mg_no_subject'];
+			
 		SendSimpleMessage($OwnerID, $USER['id'], TIMESTAMP, 1, $From, $Subject, $Message);
 		exit($LNG['mg_message_send']);
 	}
 	
 	function write() 
 	{
-		global $db;
+		global $db, $LNG, $USER;
 		$OwnerID       	= request_var('id', 0);
-		$Subject 		= request_var('subject', '', true);
+		$Subject 		= request_var('subject', $LNG['mg_no_subject'], true);
 		$OwnerRecord 	= $db->uniquequery("SELECT a.galaxy, a.system, a.planet, b.username, b.id_planet FROM ".PLANETS." as a, ".USERS." as b WHERE b.id = '".$OwnerID."' AND a.id = b.id_planet;");
 
 		if (!$OwnerRecord)
 			exit($LNG['mg_error']);
-
+			
+		$_SESSION['messtoken'] = md5($USER['id'].'|'.$OwnerID);
+		
 		$template		= new template();
-		$template->isDialog(true);	
+		$template->isPopup(true);	
 		$template->assign_vars(array(	
 			'subject'		=> $Subject,
 			'id'			=> $OwnerID,

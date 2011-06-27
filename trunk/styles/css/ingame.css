@@ -108,7 +108,8 @@ textarea {
 	padding:0;
 	float:left;
 	height:auto;
-	width:130px;
+	max-width:130px;
+	width:100%;
 }
 
 #resources p{
@@ -126,9 +127,9 @@ textarea {
 #leftmenu {
 	padding-bottom:21px;
 	width:200px;
-	margin-top:-22px;
 	float:left;
 }
+
 #menu {
 	list-style:none;
 	margin:0;
@@ -147,7 +148,12 @@ textarea {
 }
 
 .menu-head {
-	cursor:pointer
+	height:78px;
+	cursor:pointer;
+}
+
+.menucat1-head, .menucat2-head, .menucat3-head, .menu-footer{
+	height:30px;
 }
 
 /* PLANETMENU */
@@ -187,6 +193,7 @@ textarea {
 	list-style:none;
 }
 #planet_menu_content li {
+	height:90px;
 	width:80px;
 	float:left;
 	padding:5px;

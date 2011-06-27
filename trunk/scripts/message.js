@@ -53,16 +53,6 @@ Message	= {
 			return 'Re:'+Answer
 		}
 	},
-
-	DelMessages: function () {
-		$.get('game.php?page=messages&mode=delMessages&messcat='+Message.MessID+'&'+$('.del_mess').serialize()+'&deletemessages='+$('#deletemessages').val()+'&ajax=1', function() {
-			$('.del_mess').map(function() {
-				if($(this).attr('checked'))
-				return this;
-			}).parent().parent().hide().next().hide();
-			$('.del_mess').removeAttr('checked');
-		});
-	},
 	
 	getMessagesIDs: function(Infos) {
 		var IDs = [];

@@ -14,11 +14,11 @@
 		<tr class="contentbox-content">
 			<td class="contentbox-content-left"></td><td class="contentbox-content-center">
 				<div id="loginbox"><h1>{$login}</h1>
-					<form id="login" name="login" action="index.php" method="post" onsubmit="return false">
+					<form id="login" name="login" action="index.php?page=login" method="post">
 						<label for="universe">{$universe}</label><select name="uni" id="universe">{html_options options=$AvailableUnis selected=$UNI}</select><br>
 						<label for="username">{$user}</label><input name="username" id="username" type="text"><br>
 						<label for="password">{$pass}</label><input name="password" id="password" type="password"><br>
-						<input name="submit" value="{$login}" type="button" onclick="Submit('login');">
+						<input type="submit" value="{$login}">
 					</form>
 					{if $fb_active}<a href="javascript:FBlogin();" class="fb_login"><img src="http://b.static.ak.fbcdn.net/rsrc.php/zB6N8/hash/4li2k73z.gif" alt=""></a>{/if}
 					<br><span class="small">{$login_info}</span>

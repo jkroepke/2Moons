@@ -500,75 +500,75 @@ switch ($page) {
 		redirectTo("game.php");	
 	break;
 	case 'login':
-	case '':
-		if ($_POST) {
-			$luser = request_var('username', '', UTF8_SUPPORT);
-			$lpass = request_var('password', '', UTF8_SUPPORT);
-			$login = $db->uniquequery("SELECT `id`, `username`, `dpath`, `authlevel`, `id_planet` FROM ".USERS." WHERE `universe` = '".$UNI."' AND `username` = '".$db->sql_escape($luser)."' AND `password` = '".md5($lpass)."';");
+		if (empty($_POST))
+			redirectTo("index.php");	
 			
-			if (isset($login)) {
-				session_start();
-				$SESSION       	= new Session();
-				$SESSION->CreateSession($login['id'], $login['username'], $login['id_planet'], $UNI, $login['authlevel'], $login['dpath']);
-				echo json_encode(array('message' => 'OK', 'error' => false));
-			} else {
-				echo json_encode(array('message' => $LNG['login_error_1'], 'error' => true));
-			}
+		$luser = request_var('username', '', UTF8_SUPPORT);
+		$lpass = request_var('password', '', UTF8_SUPPORT);
+		$login = $db->uniquequery("SELECT `id`, `username`, `dpath`, `authlevel`, `id_planet` FROM ".USERS." WHERE `universe` = '".$UNI."' AND `username` = '".$db->sql_escape($luser)."' AND `password` = '".md5($lpass)."';");
+			
+		if (isset($login)) {
+			session_start();
+			$SESSION       	= new Session();
+			$SESSION->CreateSession($login['id'], $login['username'], $login['id_planet'], $UNI, $login['authlevel'], $login['dpath']);
+			redirectTo('game.php');	
 		} else {
-			$AvailableUnis[$CONF['uni']]	= $CONF['uni_name'].($CONF['game_disable'] == 0 ? $LNG['uni_closed'] : '');
-			$RegClosed	= array($CONF['uni'] => (int)$CONF['reg_closed']);
-			$Query	= $db->query("SELECT `uni`, `game_disable`, `uni_name`, `reg_closed` FROM ".CONFIG." WHERE `uni` != '".$UNI."' ORDER BY `uni` ASC;");
-			while($Unis	= $db->fetch_array($Query)) {
-				$AvailableUnis[$Unis['uni']]	= $Unis['uni_name'].($Unis['game_disable'] == 0 ? $LNG['uni_closed'] : '');
-				$RegClosed[$Unis['uni']]		= (int)$Unis['reg_closed'];
-			}
-			ksort($AvailableUnis);
-			$Code	= request_var('code', 0);
-			if(!empty($Code)) {
+			redirectTo('index.php?code=1');	
+		}
+	case '':
+		$AvailableUnis[$CONF['uni']]	= $CONF['uni_name'].($CONF['game_disable'] == 0 ? $LNG['uni_closed'] : '');
+		$RegClosed	= array($CONF['uni'] => (int)$CONF['reg_closed']);
+		$Query	= $db->query("SELECT `uni`, `game_disable`, `uni_name`, `reg_closed` FROM ".CONFIG." WHERE `uni` != '".$UNI."' ORDER BY `uni` ASC;");
+		while($Unis	= $db->fetch_array($Query)) {
+			$AvailableUnis[$Unis['uni']]	= $Unis['uni_name'].($Unis['game_disable'] == 0 ? $LNG['uni_closed'] : '');
+			$RegClosed[$Unis['uni']]		= (int)$Unis['reg_closed'];
+		}
+		ksort($AvailableUnis);
+		$Code	= request_var('code', 0);
+		if(!empty($Code)) {
+			$template->assign_vars(array(
+				'code'					=> $LNG['login_error_'.$Code],
+			));
+		}
+
+		if($CONF['ref_active'] && isset($_REQUEST['ref']) && is_numeric($_REQUEST['ref'])) {
+			$RefUser	= $db->countquery("SELECT `universe` FROM ".USERS." WHERE `id` = '".(int) $_REQUEST['ref']."';");
+			if(isset($RefUser)) {
 				$template->assign_vars(array(
-					'code'					=> $LNG['login_error_'.$Code],
+					'ref_id'	=> (int) $_REQUEST['ref'],
+					'ref_uni'	=> $RefUser,
 				));
 			}
-
-			if($CONF['ref_active'] && isset($_REQUEST['ref']) && is_numeric($_REQUEST['ref'])) {
-				$RefUser	= $db->countquery("SELECT `universe` FROM ".USERS." WHERE `id` = '".(int) $_REQUEST['ref']."';");
-				if(isset($RefUser)) {
-					$template->assign_vars(array(
-						'ref_id'	=> (int) $_REQUEST['ref'],
-						'ref_uni'	=> $RefUser,
-					));
-				}
-			}
-			
-			$template->assign_vars(array(
-				'contentbox'			=> false,
-				'AvailableUnis'			=> $AvailableUnis,
-				'ref_id'				=> ($CONF['ref_active'] == 1 && isset($_REQUEST['ref'])) ? (int) $_REQUEST['ref'] : 0,
-				'RegClosedUnis'			=> json_encode($RegClosed),
-				'welcome_to'			=> $LNG['welcome_to'],
-				'uni_closed'			=> $LNG['uni_closed'],
-				'server_description'	=> sprintf($LNG['server_description'], $CONF['game_name']),
-				'server_infos'			=> $LNG['server_infos'],
-				'login'					=> $LNG['login'],
-				'login_info'			=> $LNG['login_info'],
-				'accept_terms_cond'		=> $LNG['accept_terms_and_conditions'],
-				'user'					=> $LNG['user'],
-				'pass'					=> $LNG['pass'],
-				'lostpassword'			=> $LNG['lostpassword'],
-				'register_now'			=> $LNG['register_now'],
-				'screenshots'			=> $LNG['screenshots'],
-				'chose_a_uni'			=> $LNG['chose_a_uni'],
-				'universe'				=> $LNG['universe'],
-				'register'				=> $LNG['register'],
-				'pass_2'				=> $LNG['pass2_reg'],
-				'email'					=> $LNG['email_reg'],
-				'email_2'				=> $LNG['email2_reg'],
-				'planetname'			=> $LNG['planet_reg'],
-				'language'				=> $LNG['lang_reg'],
-				'captcha_reg'			=> $LNG['captcha_reg'],
-			));
-			$template->show('index_main.tpl');
 		}
+		
+		$template->assign_vars(array(
+			'contentbox'			=> false,
+			'AvailableUnis'			=> $AvailableUnis,
+			'ref_id'				=> ($CONF['ref_active'] == 1 && isset($_REQUEST['ref'])) ? (int) $_REQUEST['ref'] : 0,
+			'RegClosedUnis'			=> json_encode($RegClosed),
+			'welcome_to'			=> $LNG['welcome_to'],
+			'uni_closed'			=> $LNG['uni_closed'],
+			'server_description'	=> sprintf($LNG['server_description'], $CONF['game_name']),
+			'server_infos'			=> $LNG['server_infos'],
+			'login'					=> $LNG['login'],
+			'login_info'			=> $LNG['login_info'],
+			'accept_terms_cond'		=> $LNG['accept_terms_and_conditions'],
+			'user'					=> $LNG['user'],
+			'pass'					=> $LNG['pass'],
+			'lostpassword'			=> $LNG['lostpassword'],
+			'register_now'			=> $LNG['register_now'],
+			'screenshots'			=> $LNG['screenshots'],
+			'chose_a_uni'			=> $LNG['chose_a_uni'],
+			'universe'				=> $LNG['universe'],
+			'register'				=> $LNG['register'],
+			'pass_2'				=> $LNG['pass2_reg'],
+			'email'					=> $LNG['email_reg'],
+			'email_2'				=> $LNG['email2_reg'],
+			'planetname'			=> $LNG['planet_reg'],
+			'language'				=> $LNG['lang_reg'],
+			'captcha_reg'			=> $LNG['captcha_reg'],
+		));
+		$template->show('index_main.tpl');
 	break;
 	default:
 		redirectTo("index.php");

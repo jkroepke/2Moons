@@ -296,40 +296,47 @@ function ShowAccountEditorPage()
 		case 'buildings':
 			if($_POST)
 			{
-				$PlanetData	= $db->uniquequery("SELECT `planet_type` FROM ".PLANETS." WHERE `id` = '".request_var('id', 0)."';");
+				$PlanetData = $db->uniquequery("SELECT * FROM ".PLANETS." WHERE `id` = '". request_var('id', 0) ."';");
 				if(!isset($PlanetData))
 				{
 					$template->message($LNG['ad_add_not_exist'], '?page=accounteditor&edit=buildings');
 				}
-				$before1 = $db->uniquequery("SELECT * FROM ".PLANETS." WHERE `id` = '". request_var('id', 0) ."';");
 				$before = array();
 				$after = array();
 				foreach($reslist['allow'][$PlanetData['planet_type']] as $ID)
 				{
-					$before[$ID] = $before1[$resource[$ID]];
+					$before[$ID] = $PlanetData[$resource[$ID]];
 				}
 				if ($_POST['add'])
 				{
+					$Fields	= 0;
 					$SQL  = "UPDATE ".PLANETS." SET ";
 					foreach($reslist['allow'][$PlanetData['planet_type']] as $ID)
 					{
-						$QryUpdate[]	= "`".$resource[$ID]."` = `".$resource[$ID]."` + '".floattostring(round(abs(request_var($resource[$ID], 0.0)), 0))."'";
-						$after[$ID] = $before[$ID] + floattostring(round(abs(request_var($resource[$ID], 0.0)), 0));
+						$Count			= floattostring(round(abs(request_var($resource[$ID], 0.0)), 0));
+						$QryUpdate[]	= "`".$resource[$ID]."` = `".$resource[$ID]."` + '".$Count."'";
+						$after[$ID] 	= $before[$ID] + $Count;
+						$Fields			+= $Count;
 					}
 					$SQL .= implode(", ", $QryUpdate);
+					$SQL .= ", `field_current` = `field_current` + '".$Fields."'";
 					$SQL .= "WHERE ";
 					$SQL .= "`id` = '".request_var('id', 0)."' AND `universe` = '".$_SESSION['adminuni']."';";
 					$db->query($SQL);
 				}
 				elseif ($_POST['delete'])
 				{
+					$Fields	= 0;
 					$SQL  = "UPDATE ".PLANETS." SET ";
 					foreach($reslist['allow'][$PlanetData['planet_type']] as $ID)
 					{
-						$QryUpdate[]	= "`".$resource[$ID]."` = `".$resource[$ID]."` - '".floattostring(round(abs(request_var($resource[$ID], 0.0)), 0))."'";
-						$after[$ID] = max($before[$ID] - floattostring(round(abs(request_var($resource[$ID], 0.0)), 0)),0);
+						$Count			= floattostring(round(abs(request_var($resource[$ID], 0.0)), 0));
+						$QryUpdate[]	= "`".$resource[$ID]."` = `".$resource[$ID]."` - '".$Count."'";
+						$after[$ID]		= max($before[$ID] - $Count,0);
+						$Fields			+= $Count;
 					}
 					$SQL .= implode(", ", $QryUpdate);
+					$SQL .= ", `field_current` = `field_current` - '".$Fields."'";
 					$SQL .= "WHERE ";
 					$SQL .= "`id` = '".request_var('id', 0)."' AND `universe` = '".$_SESSION['adminuni']."';";
 					$db->query($SQL);
@@ -739,7 +746,7 @@ function ShowAccountEditorPage()
 				$QueryF	=	$db->uniquequery("SELECT * FROM ".ALLIANCE." WHERE `id` = '".$id."' AND `ally_universe` = '".$_SESSION['adminuni']."';");
 
 				if (!empty($name))
-					$db->multi_query("UPDATE ".ALLIANCE." SET `ally_name` = '".$name."' WHERE `id` = '".$id."' AND `ally_universe` = '".$_SESSION['adminuni']."';UPDATE ".USERS." SET `ally_name` = '".$name."' WHERE `ally_id` = '".$id."';");
+					$db->query("UPDATE ".ALLIANCE." SET `ally_name` = '".$name."' WHERE `id` = '".$id."' AND `ally_universe` = '".$_SESSION['adminuni']."';");
 
 				if (!empty($tag))
 					$db->query("UPDATE ".ALLIANCE." SET `ally_tag` = '".$tag."' WHERE `id` = '".$id."' AND `ally_universe` = '".$_SESSION['adminuni']."';");
@@ -758,12 +765,12 @@ function ShowAccountEditorPage()
 				
 				if ($delete == 'on')
 				{
-					$db->multi_query("DELETE FROM ".ALLIANCE." WHERE `id` = '".$id."' AND `ally_universe` = '".$_SESSION['adminuni']."';UPDATE ".USERS." SET `ally_id` = '0', `ally_name` = '', `ally_request` = '0', `ally_rank_id` = '0', `ally_register_time` = '0', `ally_request` = '0' WHERE `ally_id` = '".$id."';");
+					$db->multi_query("DELETE FROM ".ALLIANCE." WHERE `id` = '".$id."' AND `ally_universe` = '".$_SESSION['adminuni']."';UPDATE ".USERS." SET `ally_id` = '0', `ally_rank_id` = '0', `ally_register_time` = '0' WHERE `ally_id` = '".$id."';");
 				}
 
 				if (!empty($delete_u))
 				{
-					$db->multi_query("UPDATE ".ALLIANCE." SET `ally_members` = ally_members - 1 WHERE `id` = '".$id."' AND `ally_universe` = '".$_SESSION['adminuni']."';UPDATE ".USERS." SET `ally_id` = '0', `ally_name` = '', `ally_request` = '0', `ally_rank_id` = '0', `ally_register_time` = '0', `ally_request` = '0' WHERE `id` = '".$delete_u."' AND `ally_id` = '".$id."';");
+					$db->multi_query("UPDATE ".ALLIANCE." SET `ally_members` = ally_members - 1 WHERE `id` = '".$id."' AND `ally_universe` = '".$_SESSION['adminuni']."';UPDATE ".USERS." SET `ally_id` = '0', `ally_rank_id` = '0', `ally_register_time` = '0' WHERE `id` = '".$delete_u."' AND `ally_id` = '".$id."';");
 				}
 
 

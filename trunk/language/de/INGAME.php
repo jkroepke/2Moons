@@ -525,6 +525,7 @@ $LNG['mg_answer_to']						= 'Antwort an:';
 //----------------------------------------------------------------------------//
 //ALLIANCE
 
+$LNG['al_not_exists']						= 'Die Allianz existiert nicht.';
 $LNG['al_newname_alphanum']					= 'Der Allianzname und -tag dürfen nur aus alphanumerische Zeichen bestehen.';
 $LNG['al_newname_no_space']					= 'Der Allianzname und -tag dürfen keine Leerzeichen enthalten.';
 $LNG['al_description_message'] 				= 'Für die Allianz wurde keine Beschreibung hinterlegt.';

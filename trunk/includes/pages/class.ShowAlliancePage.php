@@ -29,6 +29,28 @@
 
 class ShowAlliancePage
 {
+	private function IsApply()
+	{
+		global $USER, $db;
+		return $db->countquery("SELECT COUNT(*) FROM ".ALLIANCE_REQUEST." WHERE `userid` = ".$USER['id'].";");
+	}
+	
+	private function GetAlliance()
+	{
+		global $db, $UNI;
+		$tag	= request_var('tag', '', UTF8_SUPPORT);
+		$aid	= request_var('a', 0);
+		if(!empty($tag)) {
+			$where	= "`ally_tag` = '".$db->sql_escape($tag)."'";
+		} elseif(!empty($aid)) {
+			$where	= "`id` = ".$aid;
+		} else {
+			$template->message($LNG['al_not_exists']);
+			exit;
+		}
+		return $db->uniquequery("SELECT * FROM ".ALLIANCE." WHERE  `ally_universe` = ".$UNI." AND ".$where.";");
+	}
+	
 	private function GetDiplo($allyid)
 	{
 		global $db;
@@ -125,7 +147,7 @@ class ShowAlliancePage
 		$id 		= request_var('id' 			, '');
 		$action   	= request_var('action' 		, '');
 		$allyid   	= request_var('allyid'  	, '');
-		$tag      	= request_var('tag' 		, '');
+		$tag      	= request_var('tag' 		, '', UTF8_SUPPORT);
 		
 		$PlanetRess = new ResourceUpdate();
 		$PlanetRess->CalcResource();
@@ -133,25 +155,20 @@ class ShowAlliancePage
 			
 	
 		$template	= new template();
-		if ($USER['ally_id'] != 0 && $USER['ally_request'] != 0)
-		{
-			$db->query("UPDATE `".USERS."` SET `ally_id` = 0 WHERE `id` = ".$USER['id'].";");
-			redirectTo("game.php?page=alliance");
-		}
 		
 		switch($USER['ally_id'])
 		{
 			case 0:
 				switch($mode){
 					case 'ainfo':
-						$allyrow = $db->uniquequery("SELECT * FROM ".ALLIANCE." WHERE ally_tag='".$db->sql_escape($tag)."' OR id='".$db->sql_escape($a)."';");
+						$allyrow = $this->GetAlliance();
 
 						if (!$allyrow) die(redirectTo("game.php?page=alliance"));
 						
 						$this->ainfo($allyrow, $template);					
 					break;
 					case 'make':
-						if($USER['ally_request'] == 0)
+						if(!$this->IsApply())
 						{	
 							if ($action == "send")
 							{
@@ -188,7 +205,6 @@ class ShowAlliancePage
 								`ally_universe` 		= ".$UNI.";
                                 UPDATE ".USERS." SET
                                 `ally_id`				= (SELECT `id` FROM ".ALLIANCE." WHERE `ally_universe` = ".$UNI." AND ally_name = '".$db->sql_escape($aname)."'),
-                                `ally_name` 			= '".$db->sql_escape($aname)."',
                                 `ally_register_time` 	= ".TIMESTAMP."
                                 WHERE `id` = ".$USER['id'].";
                                 UPDATE ".STATPOINTS." SET
@@ -211,7 +227,7 @@ class ShowAlliancePage
 						}
 					break;
 					case 'search';
-						if($USER['ally_request'] == 0)
+						if(!$this->IsApply())
 						{
 							$searchtext	= request_var('searchtext', '', UTF8_SUPPORT);
 
@@ -249,7 +265,7 @@ class ShowAlliancePage
 						}
 					break;
 					case 'apply':
-						if($USER['ally_request'] == 0)
+						if(!$this->IsApply())
 						{
 							$text	= request_var('text' , '', true);
 							
@@ -267,7 +283,9 @@ class ShowAlliancePage
 							{
 								if ($action == "send")
 								{
-									$db->query("UPDATE ".USERS." SET `ally_request`='".$db->sql_escape($allyid)."', ally_request_text='" .$db->sql_escape($text). "', ally_register_time='" . TIMESTAMP . "' WHERE `id`='" . $USER['id'] . "';");
+									$db->query("INSERT INTO ".ALLIANCE_REQUEST." SET 
+									`id` = ".$allyid.", `text` = '".$db->sql_escape($text)."', 
+									`time` = ".TIMESTAMP.", `userid` = ".$USER['id'].";");
 
 									$template->message($LNG['al_request_confirmation_message'], "?page=alliance");
 								} else {
@@ -289,14 +307,14 @@ class ShowAlliancePage
 						}
 					break;
 					default:
-						if ($USER['ally_request'] != 0) 
+						if ($this->IsApply())
 						{
-							$allyquery 	= $db->uniquequery("SELECT ally_tag FROM ".ALLIANCE." WHERE id = '".$USER['ally_request']. "' ORDER BY `id`;");
+							$allyquery 	= $db->uniquequery("SELECT a.ally_tag FROM ".ALLIANCE_REQUEST." r, ".ALLIANCE." a WHERE r.userid = ".$USER['id']." AND a.id = r.id;");
 							$bcancel	= request_var('bcancel', '');
 							
 							if ($bcancel)
 							{
-								$db->query("UPDATE ".USERS." SET `ally_request`= 0 WHERE `id`='".$USER['id']."';");
+								$db->query("DELETE FROM ".ALLIANCE_REQUEST." WHERE `userid` = ".$USER['id'].";");
 								$template->assign_vars(array(
 									'al_your_request_title'			=> $LNG['al_your_request_title'],
 									'button_text'					=> $LNG['al_continue'],
@@ -329,7 +347,6 @@ class ShowAlliancePage
 				}
 			break;
 			default:
-
 				$ally = $db->uniquequery("SELECT * FROM ".ALLIANCE." WHERE id='".$USER['ally_id']."';");
 				if (!$ally)
 				{
@@ -337,20 +354,36 @@ class ShowAlliancePage
 					redirectTo("game.php?page=alliance");
 				}
 				$ally_ranks = unserialize($ally['ally_ranks']);
-				
-				$USER['rights']['memberlist_on']	= ($ally_ranks[$USER['ally_rank_id']-1]['onlinestatus'] == 1 || $ally['ally_owner'] == $USER['id']) ? true : false;
-				$USER['rights']['memberlist']		= ($ally_ranks[$USER['ally_rank_id']-1]['memberlist'] == 1 || $ally['ally_owner'] == $USER['id']) ? true : false;
-				$USER['rights']['roundmail']		= ($ally_ranks[$USER['ally_rank_id']-1]['mails'] == 1 || $ally['ally_owner'] == $USER['id']) ? true : false;
-				$USER['rights']['kick']				= ($ally_ranks[$USER['ally_rank_id']-1]['kick'] == 1 || $ally['ally_owner'] == $USER['id']) ? true : false;
-				$USER['rights']['righthand']		= ($ally_ranks[$USER['ally_rank_id']-1]['rechtehand'] == 1 || $ally['ally_owner'] == $USER['id']) ? true : false;
-				$USER['rights']['close']			= ($ally_ranks[$USER['ally_rank_id']-1]['delete'] == 1 || $ally['ally_owner'] == $USER['id']) ? true : false;
-				$USER['rights']['seeapply']			= ($ally_ranks[$USER['ally_rank_id']-1]['bewerbungen'] == 1 || $ally['ally_owner'] == $USER['id']) ? true : false;
-				$USER['rights']['changeapply']		= ($ally_ranks[$USER['ally_rank_id']-1]['bewerbungenbearbeiten'] == 1 || $ally['ally_owner'] == $USER['id']) ? true : false;
-				$USER['rights']['admin']			= ($ally_ranks[$USER['ally_rank_id']-1]['administrieren'] == 1 || $ally['ally_owner'] == $USER['id']) ? true : false;
-
+				if($ally['ally_owner'] == $USER['id']) {
+					$USER['rights']	= array(
+						'memberlist_on'	=> true,
+						'memberlist'	=> true,
+						'roundmail'		=> true,
+						'kick'			=> true,
+						'righthand'		=> true,
+						'close'			=> true,
+						'seeapply'		=> true,
+						'changeapply'	=> true,
+						'admin'			=> true,
+					);
+				} else {
+					$USER['rights']	= array(
+						'memberlist_on'	=> $ally_ranks[$USER['ally_rank_id']-1]['onlinestatus'] == 1,
+						'memberlist'	=> $ally_ranks[$USER['ally_rank_id']-1]['memberlist'] == 1,
+						'roundmail'		=> $ally_ranks[$USER['ally_rank_id']-1]['mails'] == 1,
+						'kick'			=> $ally_ranks[$USER['ally_rank_id']-1]['kick'] == 1,
+						'righthand'		=> $ally_ranks[$USER['ally_rank_id']-1]['rechtehand'] == 1,
+						'close'			=> $ally_ranks[$USER['ally_rank_id']-1]['delete'] == 1,
+						'seeapply'		=> $ally_ranks[$USER['ally_rank_id']-1]['bewerbungen'] == 1,
+						'changeapply'	=> $ally_ranks[$USER['ally_rank_id']-1]['bewerbungenbearbeiten'] == 1,
+						'admin'			=> $ally_ranks[$USER['ally_rank_id']-1]['administrieren'] == 1,
+					);				
+				}
+								
 				switch($mode){
 					case 'ainfo':
-						$allyrow = $db->uniquequery("SELECT * FROM ".ALLIANCE." WHERE ally_tag='".$db->sql_escape($tag)."' OR id='".$db->sql_escape($a)."';");
+						$allyrow = $this->GetAlliance();
+
 
 						if (!$allyrow) redirectTo("game.php?page=alliance");
 						
@@ -361,7 +394,7 @@ class ShowAlliancePage
 							$template->message($LNG['al_founder_cant_leave_alliance'], "?page=alliance", 3);
 						elseif ($action = "send")
 						{
-							$db->multi_query("UPDATE ".USERS." SET `ally_id` = 0, `ally_name` = '', ally_rank_id = 0 WHERE `id`='".$USER['id']."';UPDATE ".ALLIANCE." SET `ally_members` = `ally_members` - 1 WHERE `id`='".$ally['id']."';UPDATE ".STATPOINTS." SET `id_ally` = '0' WHERE `id_ally` = '".$ally['id']."' AND `id_owner` = '".$USER['id']."';");
+							$db->multi_query("UPDATE ".USERS." SET `ally_id` = 0, ally_rank_id = 0, ally_register_time = 0 WHERE `id` = '".$USER['id']."';UPDATE ".ALLIANCE." SET `ally_members` = `ally_members` - 1 WHERE `id` = ".$ally['id'].";UPDATE ".STATPOINTS." SET `id_ally` = '0' WHERE `id_owner` = ".$USER['id']." AND `stat_type` = '1';");
 							$template->message(sprintf($LNG['al_leave_sucess'], $ally['ally_name']), "game.php?page=alliance", 2);
 						}
 						else
@@ -429,7 +462,7 @@ class ShowAlliancePage
 						}
 						
 						if (count($Memberlist) != $ally['ally_members'])
-							$db->query("UPDATE ".ALLIANCE." SET `ally_members`='".count($Memberlist)."' WHERE `id`='".$ally['id']."';");				
+							$db->query("UPDATE ".ALLIANCE." SET `ally_members`='".count($Memberlist)."' WHERE `id`='".$ally['id']."';");			
 						
 						$template->assign_vars(array(
 							'Memberlist'		=> $Memberlist,
@@ -462,7 +495,11 @@ class ShowAlliancePage
 							$subject 	= request_var('subject', '', true);
 							$text 		= makebr(request_var('text', '', true));
 								
-							$sq = $r == 0 ? $db->query("SELECT id, username FROM ".USERS." WHERE `ally_id` = '".$USER['ally_id']."';") : $db->query("SELECT id, username FROM ".USERS." WHERE `ally_id` = '".$USER['ally_id']."' AND `ally_rank_id` = '".$r."';");
+							
+							if($r == 0)
+								$db->query("SELECT id, username FROM ".USERS." WHERE `ally_id` = '".$USER['ally_id']."';");
+							else
+								$db->query("SELECT id, username FROM ".USERS." WHERE `ally_id` = '".$USER['ally_id']."' AND `ally_rank_id` = '".$r."';");
 
 							$list 	= '';
 							$title	= $LNG['al_circular_alliance'].$ally['ally_tag'];
@@ -501,10 +538,13 @@ class ShowAlliancePage
 						$template->show("alliance_circular.tpl");
 					break;
 					case 'admin':
-						if(!$USER['rights']['admin']) exit(redirectTo("game.php?page=alliance"));
+						if(!$USER['rights']['admin']) 
+							exit(redirectTo("game.php?page=alliance"));
+						
 						switch($edit) {
 							case 'rights':
-								if (!$USER['rights']['righthand']) exit(redirectTo("game.php?page=alliance"));
+								if (!$USER['rights']['righthand'])	
+									exit(redirectTo("game.php?page=alliance"));
 								
 								$rankname 	= request_var('newrangname', '', UTF8_SUPPORT);
 								$pid 		= $_POST['id'];			
@@ -628,7 +668,7 @@ class ShowAlliancePage
 								{
 									$u = $db->uniquequery("SELECT id FROM ".USERS." WHERE id = '".$db->sql_escape($id)."' AND `ally_id` = '".$ally['id']."' AND 'id' != '".$ally['ally_owner']."';");
 									
-									!empty($u['id']) ? $db->multi_query("UPDATE ".USERS." SET `ally_id` = '0', `ally_name` = '', `ally_rank_id` = 0 WHERE `id` = '".$u['id']."';UPDATE ".ALLIANCE." SET `ally_members` = ally_members - 1 WHERE `id` = '".$ally['id']."';UPDATE ".STATPOINTS." SET `id_ally` = '0' WHERE `id_ally` = '".$ally['id']."' AND `id_owner` = '".$u['id']."';") : '';
+									!empty($u['id']) ? $db->multi_query("UPDATE ".USERS." SET `ally_id` = '0', `ally_register_time` = '0', `ally_rank_id` = 0 WHERE `id` = '".$u['id']."';UPDATE ".ALLIANCE." SET `ally_members` = ally_members - 1 WHERE `id` = '".$ally['id']."';UPDATE ".STATPOINTS." SET `id_ally` = '0' WHERE `id_ally` = '".$ally['id']."' AND `id_owner` = '".$u['id']."';") : '';
 								}
 
 								if ($sort1 && $sort2)
@@ -724,7 +764,8 @@ class ShowAlliancePage
 								$template->show("alliance_admin_members.tpl");
 							break;
 							case 'diplo':
-								(!$USER['rights']['righthand']) ? redirectTo("game.php?page=alliance") : '';
+								if(!$USER['rights']['righthand'])
+									redirectTo("game.php?page=alliance");
 								
 								$action		= request_var('action', '');
 								$id			= request_var('id', 0);
@@ -845,14 +886,18 @@ class ShowAlliancePage
 								}
 							break;
 							case 'requests':
-								
-								(!$USER['rights']['seeapply'] || !$USER['rights']['changeapply']) ? redirectTo("game.php?page=alliance") : '';
+								if(!$USER['rights']['seeapply'] || !$USER['rights']['changeapply'])
+									redirectTo("game.php?page=alliance");
 
 								$text  	= makebr(request_var('text', '', true));
 
 								if ($action == $LNG['al_acept_request'])
                                 {
-                                    $db->multi_query("UPDATE ".ALLIANCE." SET `ally_members` = `ally_members` + 1 WHERE id='".$ally['id']."';UPDATE ".USERS." SET ally_name='".$ally['ally_name']."', ally_request_text='', ally_request='0', ally_id='".$ally['id']."' WHERE id='".$db->sql_escape($id)."';UPDATE ".STATPOINTS." SET `id_ally` = '".$ally['id']."' WHERE `id_owner` = '".$id."';");
+                                    $db->multi_query("
+										UPDATE ".ALLIANCE." SET `ally_members` = `ally_members` + 1 WHERE id='".$ally['id']."';
+										DELETE FROM ".ALLIANCE_REQUEST." WHERE userid = ".$id.";
+										UPDATE ".USERS." SET ally_id = ".$ally['id'].", `ally_register_time` = ".TIMESTAMP." WHERE id = '".$db->sql_escape($id)."';
+										UPDATE ".STATPOINTS." SET `id_ally` = '".$ally['id']."' WHERE `id_owner` = '".$id."' AND `stat_type` = 1;");
 
                                     SendSimpleMessage($id, $USER['id'], TIMESTAMP, 2,$ally['ally_tag'],$LNG['al_you_was_acceted'] . $ally['ally_name'], $LNG['al_hi_the_alliance'] . $ally['ally_name'] . $LNG['al_has_accepted'] . $text);
 
@@ -860,22 +905,22 @@ class ShowAlliancePage
                                 }
 								elseif($action == $LNG['al_decline_request'])
 								{
-									$db->query("UPDATE ".USERS." SET ally_request_text='',ally_request='0',ally_id='0' WHERE id='".$db->sql_escape($id)."';");
+									$db->query("DELETE FROM ".ALLIANCE_REQUEST." WHERE userid = ".$id.";");
 
 									SendSimpleMessage($id, $USER['id'], TIMESTAMP, 2,$ally['ally_tag'],$LNG['al_you_was_declined'] . $ally['ally_name'], $LNG['al_hi_the_alliance'] . $ally['ally_name'] . $LNG['al_has_declined'] . $text);
 
 									redirectTo('game.php?page=alliance&mode=admin&edit=ally');
 								}
 
-								$query = $db->query("SELECT id,username,ally_request_text,ally_register_time FROM ".USERS." WHERE ally_request='".$ally['id']."';");
+								$query = $db->query("SELECT u.id, u.username, r.text, r.time FROM ".ALLIANCE_REQUEST." r INNER JOIN ".USERS." u ON r.userid = u.id WHERE r.id = '".$ally['id']."';");
 
 								while ($RequestRow = $db->fetch_array($query))
 								{
 									$RequestList[]	= array(
 										'username'	=> $RequestRow['username'],
-										'text'		=> makebr($RequestRow['ally_request_text']),
+										'text'		=> makebr($RequestRow['text']),
 										'id'		=> $RequestRow['id'],
-										'time' 		=> date(TDFORMAT, $RequestRow['ally_register_time']),
+										'time' 		=> date(TDFORMAT, $RequestRow['time']),
 									);
 								}
 								
@@ -899,7 +944,8 @@ class ShowAlliancePage
 							case 'tag':
 								$name = request_var('newname', '', UTF8_SUPPORT);
 								
-								(!empty($name)) ? $db->query("UPDATE ".ALLIANCE." SET `ally_tag` = '". $db->sql_escape($name) ."' WHERE `id` = '". $USER['ally_id'] ."';") : '';
+								if(!empty($name))
+									$db->query("UPDATE ".ALLIANCE." SET `ally_tag` = '". $db->sql_escape($name) ."' WHERE `id` = '". $USER['ally_id'] ."';");
 									
 								$template->assign_vars(array(
 									'caso'					=> $LNG['al_tag'],
@@ -907,12 +953,14 @@ class ShowAlliancePage
 									'al_change_submit'		=> $LNG['al_change_submit'],
 									'al_back'				=> $LNG['al_back'],
 								));	
+
 								$template->show("alliance_admin_rename.tpl");
 							break;
 							case 'name':
 								$name = request_var('newname', '', UTF8_SUPPORT);
 								
-								(!empty($name)) ? $db->multi_query("UPDATE ".ALLIANCE." SET `ally_name` = '". $db->sql_escape($name) ."' WHERE `id` = '". $USER['ally_id'] ."';UPDATE ".USERS." SET `ally_name` = '". $db->sql_escape($name) ."' WHERE `ally_id` = '". $ally['id'] ."';") : '';
+								if(!empty($name)) 
+									$db->query("UPDATE ".ALLIANCE." SET `ally_name` = '". $db->sql_escape($name) ."' WHERE `id` = '".$USER['ally_id']."';");
 					
 								$template->assign_vars(array(
 									'caso'					=> $LNG['al_name'],
@@ -923,13 +971,20 @@ class ShowAlliancePage
 								$template->show("alliance_admin_rename.tpl");
 							break;
 							case 'exit':
-								(!$USER['rights']['close']) ? redirectTo("game.php?page=alliance") : '';
+								if(!$USER['rights']['close'])	
+									redirectTo("game.php?page=alliance");
 
-								$db->multi_query("UPDATE ".USERS." SET `ally_name` = '', `ally_id` = '0' WHERE `ally_id`='".$ally['id']."';UPDATE ".STATPOINTS." SET `id_ally` = '0' WHERE `id_ally` = '".$ally['id']."';DELETE FROM ".ALLIANCE." WHERE id = '".$ally['id']."';DELETE FROM ".DIPLO." WHERE `owner_1` = '".$ally['id']."' OR `owner_2` = '".$ally['id']."';");
+								$db->multi_query("UPDATE ".USERS." SET `ally_id` = '0' WHERE `ally_id`='".$ally['id']."';
+								UPDATE ".STATPOINTS." SET `id_ally` = '0' WHERE `id_ally` = '".$ally['id']."';
+								DELETE FROM ".STATPOINTS." WHERE `id_owner` = '".$ally['id']."' AND stat_type = 2;
+								DELETE FROM ".ALLIANCE." WHERE id = '".$ally['id']."';
+								DELETE FROM ".ALLIANCE_REQUEST." WHERE id = '".$ally['id']."';
+								DELETE FROM ".DIPLO." WHERE `owner_1` = '".$ally['id']."' OR `owner_2` = '".$ally['id']."';");
 								redirectTo("game.php?page=alliance");
 							break;
 							case 'transfer':
-								($ally['ally_owner'] != $USER['id']) ? redirectTo("game.php?page=alliance") : '';
+								if($ally['ally_owner'] != $USER['id'])
+									redirectTo("game.php?page=alliance");
 									
 								$postleader = request_var('newleader', 0);
 								if (!empty($postleader))
@@ -983,7 +1038,8 @@ class ShowAlliancePage
 									`ally_diplo` = '".$ally['ally_diplo']."'
 									WHERE `id`='".$ally['id']."';");
 								}
-								elseif($text !== '0')
+								
+								if($text !== '0')
 								{
 									$QryText = "UPDATE ".ALLIANCE." SET ";
 									if ($t == 3)
@@ -994,21 +1050,21 @@ class ShowAlliancePage
 										$QryText .= "`ally_description`='".$db->sql_escape($text)."' ";
 									$QryText .= "WHERE `id`='".$ally['id']."';";
 									$db->query($QryText);
+								} else {
+									switch($t)
+									{
+										case 2:
+											$text = $ally['ally_text'];		
+										break;
+										case 3:
+											$text = $ally['ally_request'];	
+										break;
+										default:
+											$text = $ally['ally_description'];
+										break;
+									}
 								}
-
-								switch($t)
-								{
-									case 2:
-										$text = ($text !== '0') ? $text : $ally['ally_text'];		
-									break;
-									case 3:
-										$text = ($text !== '0') ? $text : $ally['ally_request'];	
-									break;
-									default:
-										$text = ($text !== '0') ? $text : $ally['ally_description'];
-									break;
-								}
-
+								
 								$template->loadscript('alliance.js');
 								$template->execscript("$('#cntChars').text($('#text').val().length);");
 								$template->assign_vars(array(
@@ -1064,7 +1120,7 @@ class ShowAlliancePage
 							$range = $LNG['al_new_member_rank_text'];
 
 						$StatsData 					= $db->uniquequery("SELECT SUM(wons) as wons, SUM(loos) as loos, SUM(draws) as draws, SUM(kbmetal) as kbmetal, SUM(kbcrystal) as kbcrystal, SUM(lostunits) as lostunits, SUM(desunits) as desunits FROM ".USERS." WHERE ally_id='" . $ally['id'] . "';");
-						$Reuqests					= $db->uniquequery("SELECT COUNT(*) as state FROM ".USERS." WHERE ally_request='".$ally['id']."';");
+						$Reuqests					= $db->countquery("SELECT COUNT(*) FROM ".ALLIANCE_REQUEST." WHERE id = ".$ally['id'].";");
 						$template->assign_vars(array(
 							'DiploInfo'					=> $this->GetDiplo($ally['id']),		
 							'al_diplo_level'			=> $LNG['al_diplo_level'],
@@ -1077,7 +1133,7 @@ class ShowAlliancePage
 							'ally_description'			=> bbcode($ally['ally_description']),
 							'ally_text' 				=> bbcode($ally['ally_text']),
 							'range'						=> $range,
-							'requests'					=> sprintf($LNG['al_new_requests'], $Reuqests['state']),
+							'requests'					=> sprintf($LNG['al_new_requests'], $Reuqests),
 							'req_count'					=> $Reuqests['state'],
 							'al_requests'				=> $LNG['al_requests'],
 							'al_leave_alliance'			=> $LNG['al_leave_alliance'],

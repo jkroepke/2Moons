@@ -32,6 +32,7 @@
  
 //TEMPLATES DEFAULT SETTINGS
 define('DEFAULT_THEME'	 		  , 'gow');
+define('TEMPLATE_DIR'	 		  , ROOT_PATH.'/styles/templates/');
 
 define('PROTOCOL'				  , (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"]  == 'on') ? 'https://' : 'http://');
 define('HTTP_ROOT'				  , str_replace(basename($_SERVER["PHP_SELF"]), '', $_SERVER["PHP_SELF"]));
@@ -108,8 +109,10 @@ define('DB_PREFIX'			  	  , $database['tableprefix']);
 
 define('AKS'				  	  , $database['tableprefix'].'aks');
 define('ALLIANCE'			  	  , $database['tableprefix'].'alliance');
+define('ALLIANCE_REQUEST'	  	  , $database['tableprefix'].'alliance_request');
 define('BANNED'				  	  , $database['tableprefix'].'banned');
 define('BUDDY'				  	  , $database['tableprefix'].'buddy');
+define('BUDDY_REQUEST'		  	  , $database['tableprefix'].'buddy_request');
 define('CHAT_ON'			  	  , $database['tableprefix'].'chat_online');
 define('CHAT_MES'			  	  , $database['tableprefix'].'chat_messages');
 define('CHAT_BAN'			  	  , $database['tableprefix'].'chat_bans');
@@ -117,6 +120,7 @@ define('CHAT_INV'			  	  , $database['tableprefix'].'chat_invitations');
 define('CONFIG'				  	  , $database['tableprefix'].'config');
 define('DIPLO'				  	  , $database['tableprefix'].'diplo');
 define('FLEETS'				  	  , $database['tableprefix'].'fleets');
+define('LOG'				  	  , $database['tableprefix'].'log');
 define('NEWS'				  	  , $database['tableprefix'].'news');
 define('NOTES'				  	  , $database['tableprefix'].'notes');
 define('MESSAGES'			  	  , $database['tableprefix'].'messages');
@@ -129,7 +133,7 @@ define('TOPKB'					  , $database['tableprefix'].'topkb');
 define('USERS'				  	  , $database['tableprefix'].'users');
 define('USERS_VALID'		  	  , $database['tableprefix'].'users_valid');
 
-define('LOG'		  	  , $database['tableprefix'].'log');
+
 
 // MOD-TABLES
 	

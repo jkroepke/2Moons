@@ -42,7 +42,7 @@ class CustomAJAXChat extends AJAXChat {
 		$this->setConfig('allowNickChange', false, (bool) $CONF['chat_nickchange']);
 		$this->setConfig('chatClosed', false, (bool) $CONF['chat_closed']);
 		$this->setConfig('allowPrivateChannels', false, (bool) $CONF['chat_allowchan']);
-		$this->setConfig('allowPrivateMessages', false, (bool) $CONF['chat_nickchange']);
+		$this->setConfig('allowPrivateMessages', false, (bool) $CONF['chat_allowmes']);
 		$this->setConfig('defaultChannelName', false, $CONF['chat_channelname']);
 		$this->setConfig('showChannelMessages', false, (bool) $CONF['chat_logmessage']);
 	}
@@ -52,8 +52,7 @@ class CustomAJAXChat extends AJAXChat {
 		$this->setRequestVar('chat_type', isset($_REQUEST['chat_type']) ? $_REQUEST['chat_type'] : '');
 		
 		if($this->getRequestVar('chat_type') == 'ally' && $_SESSION['USER']['ally_request'] == 0) {
-			$this->setConfig('defaultChannelID', false, $_SESSION['USER']['ally_id']);
-			$this->setConfig('defaultChannelName', false, $_SESSION['USER']['ally_name']);
+			$this->setConfig('defaultChannelID', false, $_SESSION['USER']['ally_id']);^
 		}
 	}
 
@@ -127,7 +126,9 @@ class CustomAJAXChat extends AJAXChat {
 
 			while ($row = $db->fetch_array($result)) {
 				$this->_allChannels[$this->trimChannelName($row['ally_name'])] = $row['id'];
-
+				if($this->getConfig('defaultChannelID') = $row['id'])
+					$this->setConfig('defaultChannelName', false, $this->trimChannelName($row['ally_name']));
+					
 				if(!$defaultChannelFound && $this->getRequestVar('chat_type') == 'ally' && $row['id'] == $_SESSION['USER']['ally_id']) {
 					$defaultChannelFound = true;
 				}

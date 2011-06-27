@@ -42,5 +42,7 @@ function instant(event){
 		$('#result').html(HTML);	
 	});
 }
-$('#searchtext').keyup(instant);
-$('#type').change(instant);
+$(document).ready(function() {
+	$('#searchtext').keyup(instant);
+	$('#type').change(instant);
+});
