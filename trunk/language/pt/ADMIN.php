@@ -275,6 +275,8 @@ $LNG['ma_subject']						= 'Assunto';
 $LNG['ma_characters']					= 'Caracteres';
 $LNG['ma_none']							= 'Noticias Globais';
 $LNG['ma_message']						= 'Mensagem';
+$LNG['ma_mode']                                 = 'como de transporte';
+$LNG['ma_all']                                  = 'Todos';
 $LNG['ma_modes']                = array('Mensagem INGAME', 'Mensagem pelo EMail', 'INGAME &amp; Mensagem pelo EMail');
 //###########################################################//
 
@@ -1075,6 +1077,7 @@ $LNG['up_del']							= 'Excluir';
 $LNG['up_submit']						= 'Enviar';
 $LNG['up_version']						= 'Versão';
 $LNG['up_chmod_error']					= 'Erro de CHMOD!';
+$LNG['up_need_curl']                                    = 'Erro: cURL não está disponível.<br />A atualização do sistema de 2Moons requer cURL para carregar os dados necessários a ser descarregados.';
 
 // Editor de Chat
 $LNG['ch_socket_chatid_info']          = 'Esse IP pode ser usado para distinguir as definições de chat, use o mesmo socket do servidor.';

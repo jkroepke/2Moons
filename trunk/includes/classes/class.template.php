@@ -232,7 +232,7 @@ class template extends Smarty
 
 		if($THEME->isCustomTPL($file))
 			$this->template_dir	= $THEME->getTemplatePath();
-		
+			
 		if(!defined('INSTALL')) {
 			if(defined('IN_ADMIN')) {
 				$this->adm_main();

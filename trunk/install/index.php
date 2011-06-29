@@ -38,6 +38,7 @@ error_reporting(E_ALL ^ E_NOTICE);
 header('Content-Type: text/html; charset=UTF-8');
 define('TIMESTAMP',	$_SERVER['REQUEST_TIME']);
 
+require_once(ROOT_PATH . 'includes/constants.php');	
 require_once(ROOT_PATH . 'includes/GeneralFunctions.php');
 set_exception_handler('exception_handler');
 
@@ -288,11 +289,10 @@ switch ($Mode) {
 					exit($template->message($LNG['step4_need_fields'],"?mode=ins&page=2&lang=".$LANG->GetUser(), 3, true));
 					
 				require_once(ROOT_PATH . 'includes/config.php');
-				require_once(ROOT_PATH . 'includes/constants.php');	
 				require_once(ROOT_PATH . 'includes/classes/class.MySQLi.php');
 				$db = new DB_MySQLi();
 								
-				$SQL  = "INSERT INTO ".USERS." SET ";
+				$SQL  = "INSERT INTO ".$database['tableprefix']."users SET ";
 				$SQL .= "`id`                = '1', ";
 				$SQL .= "`username`          = '". $adm_user ."', ";
 				$SQL .= "`email`             = '". $adm_email ."', ";
@@ -308,7 +308,7 @@ switch ($Mode) {
 				$SQL .= "`planet`            = '1', ";
 				$SQL .= "`register_time`     = '". TIMESTAMP ."', ";
 				$SQL .= "`password`          = '". $md5pass ."';";
-				$SQL .= "INSERT INTO ".PLANETS." SET ";
+				$SQL .= "INSERT INTO ".$database['tableprefix']."planets SET ";
 				$SQL .= "`id_owner`          = '1', ";
 				$SQL .= "`universe`          = '1', ";
 				$SQL .= "`galaxy`            = '1', ";
@@ -331,8 +331,8 @@ switch ($Mode) {
 				$SQL .= "`deuterium`         = '500', ";
 				$SQL .= "`deuterium_perhour` = '0', ";
 				$SQL .= "`deuterium_max`     = '1000000';";
-				$SQL .= "INSERT INTO ".STATPOINTS." (`id_owner`, `id_ally`, `stat_type`, `tech_rank`, `tech_old_rank`, `tech_points`, `tech_count`, `build_rank`, `build_old_rank`, `build_points`, `build_count`, `defs_rank`, `defs_old_rank`, `defs_points`, `defs_count`, `fleet_rank`, `fleet_old_rank`, `fleet_points`, `fleet_count`, `total_rank`, `total_old_rank`, `total_points`, `total_count`) VALUES ('1', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');";
-				$SQL .= "UPDATE ".CONFIG." SET `lang` = '".$LANG->GetUser()."';";
+				$SQL .= "INSERT INTO ".$database['tableprefix']."statpoints (`id_owner`, `id_ally`, `stat_type`, `tech_rank`, `tech_old_rank`, `tech_points`, `tech_count`, `build_rank`, `build_old_rank`, `build_points`, `build_count`, `defs_rank`, `defs_old_rank`, `defs_points`, `defs_count`, `fleet_rank`, `fleet_old_rank`, `fleet_points`, `fleet_count`, `total_rank`, `total_old_rank`, `total_points`, `total_count`) VALUES ('1', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');";
+				$SQL .= "UPDATE ".$database['tableprefix']."config SET `lang` = '".$LANG->GetUser()."';";
 				$db->multi_query($SQL);
 
 				ini_set('session.save_path', ROOT_PATH.'cache/sessions');

@@ -379,11 +379,17 @@ $LNG['bd_jump_gate_action']                 = 'Saltar';
 $LNG['bd_cancel_warning']                   = 'ATENÇÃO! <br> Se cancelares só receberás 60% dos teus recursos investidos.';
 $LNG['bd_cancel_send']                      = 'Cancelar Construção';
 $LNG['bd_destroy_time'] 					= 'Duração';
+$LNG['bd_tech']                                                         = 'Pesquisa';
+$LNG['bd_tech_next_level']                                      = 'Nivel de Pesquisa ';
+$LNG['bd_max_ships']                                            = 'max';
+$LNG['bd_max_ships_long']                                       = 'Máximo de unidades possiveis para construir';
+
 $LNG['sys_notenough_money'] 				= 'Não tens recursos desponíveis no %s <a href="./game.php?page=buildings&amp;cp=%d&amp;re=0">[%d:%d:%d]</a> para a construção que querias efectuar. <br>Recursos disponíveis para a construção da %s %s , %s %s e %s %s. <br>O custo de construção %s %s , %s %s e %s %s.';
 $LNG['sys_nomore_level'] 					= "Estás a tentar destruir um edifício que já não tens ( %s ).";
 $LNG['sys_buildlist'] 						= "Lista de construção";
 $LNG['sys_techlist'] 						= 'Lista de Pesquisa';
 $LNG['sys_buildlist_fail'] 				    = "Impossível construir";
+
 
 //----------------------------------------------------------------------------//
 //Recursos
