@@ -57,7 +57,7 @@ class Theme
 	}
 	
 	function getTemplatePath() {
-		return TEMPLATE_PATH.$this->skin.'/';
+		return ROOT_PATH.'/styles/templates/'.$this->skin.'/';
 	}
 		
 	function isCustomTPL($tpl) {

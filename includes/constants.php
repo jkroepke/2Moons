@@ -32,7 +32,6 @@
  
 //TEMPLATES DEFAULT SETTINGS
 define('DEFAULT_THEME'	 		  , 'gow');
-define('TEMPLATE_DIR'	 		  , ROOT_PATH.'/styles/templates/');
 
 define('PROTOCOL'				  , (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"]  == 'on') ? 'https://' : 'http://');
 define('HTTP_ROOT'				  , str_replace(basename($_SERVER["PHP_SELF"]), '', $_SERVER["PHP_SELF"]));

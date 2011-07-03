@@ -40,7 +40,7 @@ class template extends Smarty
 		$this->jsscript				= array();
 		$this->script				= array();
 		$this->compile_dir			= is_writable(ROOT_PATH.'cache/') ? ROOT_PATH.'cache/' : sys_get_temp_dir();
-		$this->template_dir			= TEMPLATE_DIR;
+		$this->template_dir			= ROOT_PATH.'/styles/templates/';
 		$this->Popup				= false;
 		$this->Dialog				= false;
 	}

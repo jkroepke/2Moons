@@ -230,20 +230,11 @@ abstract class FleetFunctions
 	{
 		global $db, $CONF;
 		
-		$GetAKS 	= $db->query("SELECT a.`id`, a.`name`, a.`galaxy`, a.`system`, a.`planet`, a.`planet_type` FROM ".AKS." as a WHERE '".$CONF['max_fleets_per_acs']."' > (SELECT COUNT(*) FROM ".FLEETS." WHERE `fleet_group` = a.`id`) AND (a.`teilnehmer` = '".$CurrentUserID."' OR a.`eingeladen` LIKE '%,".$CurrentUserID.",%');");
+		$GetAKS 	= $db->query("SELECT a.`id`, a.`name`, p.`galaxy`, p.`system`, p.`planet`, p.`planet_type` FROM ".AKS." a INNER JOIN ".PLANETS." p ON p.id = a.target WHERE a.`eingeladen` LIKE '%,".$CurrentUserID.",%' AND '".$CONF['max_fleets_per_acs']."' > (SELECT COUNT(*) FROM ".FLEETS." WHERE `fleet_group` = a.`id`);");
 		$AKSList	= array();
 		
 		while($row = $db->fetch_array($GetAKS))
-		{
-			$AKSList[]	= array(
-				'id'			=> $row['id'],
-				'name'			=> $row['name'],
-				'galaxy'		=> $row['galaxy'],
-				'system'		=> $row['system'],
-				'planet'		=> $row['planet'],
-				'planet_type'	=> $row['planet_type'],
-			);
-		}
+			$AKSList[]	= $row;
 		
 		$db->free_result($GetAKS);
 		
@@ -329,17 +320,13 @@ abstract class FleetFunctions
 			$db->query(
 			"INSERT INTO ".AKS." SET
 			`name` = '" . $aks_code_mr . "',
-			`teilnehmer` = '" . $CurrentUser['id'] . "',
 			`ankunft` = '" . $daten['fleet_start_time'] . "',
-			`galaxy` = '" . $daten['fleet_end_galaxy'] . "',
-			`system` = '" . $daten['fleet_end_system'] . "',
-			`planet` = '" . $daten['fleet_end_planet'] . "',
-			`planet_type` = '" . $daten['fleet_end_type'] . "',
-			`eingeladen` = '".$aks_invited_mr.",';
+			`target` = '" . $daten['fleet_end_id'] . "',
+			`eingeladen` = ',".$aks_invited_mr.",';
 			");
 
 			$db->query("UPDATE ".FLEETS." SET
-			`fleet_group` = (SELECT `id` FROM ".AKS." aks WHERE aks.name = '".$aks_code_mr."')
+			`fleet_group` = ".$db->GetInsertID()."
 			WHERE
 			`fleet_id` = '" . $fleetid . "';");
 			
