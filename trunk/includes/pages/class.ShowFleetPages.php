@@ -436,7 +436,7 @@ class ShowFleetPages extends FleetFunctions
 		$fleet_group_mr = 0;
 		if(!empty($fleet_group) && $mission == 2)
 		{
-			$aks_count_mr = $db->uniquequery("SELECT COUNT(*) as state FROM ".AKS." WHERE `id` = '".$fleet_group."' AND `eingeladen` LIKE '%".$USER['id']."%';");
+			$aks_count_mr = $db->uniquequery("SELECT COUNT(*) as state FROM ".AKS." WHERE `id` = '".$fleet_group."' AND `eingeladen` LIKE '%,".$USER['id'].",%';");
 			if ($aks_count_mr['state'] > 0)
 				$fleet_group_mr = $fleet_group;
 			else

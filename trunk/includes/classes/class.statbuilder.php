@@ -77,10 +77,7 @@ class statbuilder extends records
 		$db->multi_query("DELETE FROM `".MESSAGES."` WHERE `message_time` < '". $del_before ."';DELETE FROM ".SUPP." WHERE `time` < '".$del_before."' AND `status` = 0;DELETE FROM ".ALLIANCE." WHERE `ally_members` = '0';DELETE FROM ".PLANETS." WHERE `destruyed` < ".TIMESTAMP." AND `destruyed` != 0;UPDATE ".USERS." SET `email_2` = `email` WHERE `setmail` < '".TIMESTAMP."';DELETE FROM ".SESSION." WHERE `user_lastactivity` < '".(TIMESTAMP - SESSION_LIFETIME)."';UPDATE ".USERS." SET `banaday` = '0', `bana` = '0' WHERE `banaday` <= '".TIMESTAMP."';");
 
 		$ChooseToDelete = $db->query("SELECT `id` FROM `".USERS."` WHERE `authlevel` = '".AUTH_USR."' AND ((`db_deaktjava` != 0 AND `db_deaktjava` < '".$del_deleted."') OR `onlinetime` < '".$del_inactive."');");
-		#echo "Debuginfos:<br>";
-		#var_dump("SELECT `id` FROM `".USERS."` WHERE `authlevel` = '".AUTH_USR."' AND ((`db_deaktjava` != 0 AND `db_deaktjava` < '".$del_deleted."') OR `onlinetime` < '".$del_inactive."');", $ChooseToDelete, $del_before, $del_inactive, $del_deleted, $CONF['del_oldstuff'], $CONF['del_user_automatic'], $CONF['del_user_manually'], $UNI);
-		#echo "<br>End";
-		#exit;
+
 		if(isset($ChooseToDelete))
 		{
 			include_once(ROOT_PATH.'includes/functions/DeleteSelectedUser.php');
@@ -105,22 +102,19 @@ class statbuilder extends records
 		}
 		$db->free_result($DelRW);
 		
-		$TopKBLow		= $db->uniquequery("SELECT gesamtunits FROM ".TOPKB." ORDER BY gesamtunits DESC LIMIT 99,1;");
-		if(isset($TopKBLow))
+		$TKBRW			= $db->query("SELECT `rid` FROM ".TOPKB."ORDER BY `gesamtunits` LIMIT 100,1000;");	
+
+		if(isset($TKBRW))
 		{
-			$TKBRW			= $db->query("SELECT `rid` FROM ".TOPKB." WHERE `gesamtunits` < '".((isset($TopKBLow)) ? $TopKBLow['gesamtunits'] : 0)."';");	
-			if(isset($TKBRW))
+			while($RID = $db->fetch_array($TKBRW))
 			{
-				while($RID = $db->fetch_array($TKBRW))
-				{
-					if(file_exists(ROOT_PATH.'raports/topkb_'.$RID['rid'].'.php'))
-						unlink(ROOT_PATH.'raports/topkb_'.$RID['rid'].'.php');
-				}	
-				$db->query("DELETE FROM ".TOPKB." WHERE `gesamtunits` < '".((isset($TopKBLow)) ? $TopKBLow['gesamtunits'] : 0)."';");
-			}
-			
-			$db->free_result($TKBRW);
+				if(file_exists(ROOT_PATH.'raports/topkb_'.$RID['rid'].'.php'))
+					unlink(ROOT_PATH.'raports/topkb_'.$RID['rid'].'.php');
+			}	
+			$db->query("DELETE FROM ".TOPKB." ORDER BY `gesamtunits` LIMIT 100,1000;");
 		}
+		
+		$db->free_result($TKBRW);
 		
 		$db->query("UNLOCK TABLES;");
 	}
