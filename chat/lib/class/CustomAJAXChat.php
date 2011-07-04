@@ -126,7 +126,7 @@ class CustomAJAXChat extends AJAXChat {
 
 			while ($row = $db->fetch_array($result)) {
 				$this->_allChannels[$this->trimChannelName($row['ally_name'])] = $row['id'];
-				if($this->getConfig('defaultChannelID') = $row['id'])
+				if($this->getConfig('defaultChannelID') == $row['id'])
 					$this->setConfig('defaultChannelName', false, $this->trimChannelName($row['ally_name']));
 					
 				if(!$defaultChannelFound && $this->getRequestVar('chat_type') == 'ally' && $row['id'] == $_SESSION['USER']['ally_id']) {
