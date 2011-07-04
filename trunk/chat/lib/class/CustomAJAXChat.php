@@ -52,7 +52,7 @@ class CustomAJAXChat extends AJAXChat {
 		$this->setRequestVar('chat_type', isset($_REQUEST['chat_type']) ? $_REQUEST['chat_type'] : '');
 		
 		if($this->getRequestVar('chat_type') == 'ally' && $_SESSION['USER']['ally_request'] == 0) {
-			$this->setConfig('defaultChannelID', false, $_SESSION['USER']['ally_id']);^
+			$this->setConfig('defaultChannelID', false, $_SESSION['USER']['ally_id']);
 		}
 	}
 

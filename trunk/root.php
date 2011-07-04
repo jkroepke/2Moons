@@ -27,10 +27,10 @@
  * @link http://code.google.com/p/2moons/
  */
 
-define('INSIDE'  , true);
-define('LOGIN', true );
-
-define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
+define('INSIDE' 	, true);
+define('ROOT'		, true);
+define('IN_ADMIN'	, true);
+define('ROOT_PATH'	, str_replace('\\', '/',dirname(__FILE__)).'/');
 
 require(ROOT_PATH . 'includes/common.php');
 $LANG->includeLang(array('ADMIN'));

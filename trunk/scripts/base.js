@@ -25,25 +25,26 @@ function NumberGetHumanReadable(value) {
 
 function shortly_number(number)
 {
-	if(number.toString().length < 4)
+	var count	= number.toString().length;
+	if(count < 4)
 		return NumberGetHumanReadable(number);
-	else if(number.toString().length < 7)
+	else if(count < 7)
 		return NumberGetHumanReadable(number/1000)+' K';
-	else if(number.toString().length < 13)
+	else if(count < 13)
 		return NumberGetHumanReadable(number/1000000)+' M';
-	else if(number.toString().length < 19)
+	else if(count < 19)
 		return NumberGetHumanReadable(number/1000000000000)+' B';
-	else if(number.toString().length < 25)
+	else if(count < 25)
 		return NumberGetHumanReadable(number/1000000000000000000)+' T';
-	else if(number.toString().length < 31)
+	else if(count < 31)
 		return NumberGetHumanReadable(number/1000000000000000000000000)+' Q';
-	else if(number.toString().length < 37)
+	else if(count < 37)
 		return NumberGetHumanReadable(number/1000000000000000000000000000000)+' Q+';
-	else if(number.toString().length < 43)
+	else if(count < 43)
 		return NumberGetHumanReadable(number/1000000000000000000000000000000000000)+' S';
-	else if(number.toString().length < 49)
+	else if(count < 49)
 		return NumberGetHumanReadable(number/1000000000000000000000000000000000000000000)+' S+';
-	else if(number.toString().length < 55)
+	else if(count < 55)
 		return NumberGetHumanReadable(number/1000000000000000000000000000000000000000000000000)+' O';
 	else
 		return NumberGetHumanReadable(number/1000000000000000000000000000000000000000000000000000000)+' N';
@@ -203,10 +204,7 @@ var Dialog	= {
 	},
 	
 	Playercard: function(ID, Name) {
-		Dialog.create();
-		$(Dialog.div).dialog('open').load('game.php?page=playercard&id='+ID, function() {
-			$(this).dialog('option', 'title', Name);
-		});
+	    OpenPopup('game.php?page=playercard&id='+ID, "", 720, 600);
 		return false;
 	}
 }

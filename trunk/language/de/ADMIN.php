@@ -1025,6 +1025,7 @@ $LNG['modul'][18]						= 'Offiziere';
 $LNG['modul'][19]						= 'Phalanx';
 $LNG['modul'][20]						= 'Playercard';
 $LNG['modul'][21]						= 'Pranger';
+$LNG['modul'][40]						= 'Raketenangriff';
 $LNG['modul'][22]						= 'Rekorde';
 $LNG['modul'][23]						= 'Rohstoffe';
 $LNG['modul'][38]						= 'Schrotthändler';

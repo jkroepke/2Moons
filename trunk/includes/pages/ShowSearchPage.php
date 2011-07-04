@@ -43,7 +43,13 @@ function ShowSearchPage()
 		$SearchResult	= array();
 		switch($type) {
 			case 'playername':
-				$search = $db->query("SELECT a.id, a.username, a.ally_id, a.ally_name, a.galaxy, a.system, a.planet, b.name, c.total_rank FROM ".USERS." as a LEFT JOIN ".PLANETS." as b ON b.id = a.id_planet LEFT JOIN ".STATPOINTS." as c ON c.stat_type = 1 AND c.id_owner = a.id WHERE a.`universe` = '".$UNI."' AND a.username LIKE '%".$db->sql_escape($searchtext, true)."%' LIMIT 25;");
+				$search = $db->query("SELECT 
+									a.id, a.username, a.ally_id, a.galaxy, a.system, a.planet, b.name, c.total_rank, d.ally_name
+									FROM ".USERS." as a 
+									INNER JOIN ".PLANETS." as b ON b.id = a.id_planet 
+									LEFT JOIN ".STATPOINTS." as c ON c.id_owner = a.id AND c.stat_type = 1
+									LEFT JOIN ".ALLIANCE." as d ON d.id = a.ally_id
+									WHERE a.`universe` = '".$UNI."' AND a.username LIKE '%".$db->sql_escape($searchtext, true)."%' LIMIT 25;");
 				while($s = $db->fetch_array($search))
 				{
 					$SearchResult[]	= array(
@@ -62,7 +68,16 @@ function ShowSearchPage()
 				$db->free_result($search);
 			break;
 			case 'planetname':
-				$search = $db->query("SELECT a.name, a.galaxy, a.planet, a.system, b.ally_name, b.id, b.ally_id, b.username, c.total_rank FROM ".PLANETS." as a LEFT JOIN ".USERS." as b ON b.id = a.id_owner LEFT JOIN  ".STATPOINTS." as c ON c.stat_type = 1 AND c.id_owner = b.id WHERE a.`universe` = '".$UNI."' AND a.name LIKE '%".$db->sql_escape($searchtext, true)."%' LIMIT 25;");
+				$search = $db->query("SELECT 
+									a.name, a.galaxy, a.planet, a.system,
+									b.id, b.ally_id, b.username, 
+									c.total_rank, 
+									d.ally_name 
+									FROM ".PLANETS." as a 
+									INNER JOIN ".USERS." as b ON b.id = a.id_owner 
+									LEFT JOIN  ".STATPOINTS." as c ON c.id_owner = b.id AND c.stat_type = 1
+									LEFT JOIN ".ALLIANCE." as d ON d.id = b.ally_id
+									WHERE a.`universe` = '".$UNI."' AND a.name LIKE '%".$db->sql_escape($searchtext, true)."%' LIMIT 25;");
 				while($s = $db->fetch_array($search))
 				{
 					$SearchResult[]	= array(

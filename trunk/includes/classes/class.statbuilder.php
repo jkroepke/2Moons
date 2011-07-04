@@ -91,7 +91,7 @@ class statbuilder extends records
 
 		$DelRW	= $db->query("SELECT `rid` FROM ".RW." WHERE `time` < '". $del_before ."';");
 		
-		if(isset($DelRW))
+		if($db->num_rows($DelRW) !== 0)
 		{
 			while($RID = $db->fetch_array($DelRW))
 			{
@@ -102,16 +102,19 @@ class statbuilder extends records
 		}
 		$db->free_result($DelRW);
 		
-		$TKBRW			= $db->query("SELECT `rid` FROM ".TOPKB."ORDER BY `gesamtunits` LIMIT 100,1000;");	
+		$TKBRW			= $db->query("SELECT `rid` FROM ".TOPKB." ORDER BY `gesamtunits` LIMIT 100,1000;");	
 
-		if(isset($TKBRW))
+		if($db->num_rows($TKBRW) !== 0)
 		{
+			$RID	= array();
 			while($RID = $db->fetch_array($TKBRW))
 			{
 				if(file_exists(ROOT_PATH.'raports/topkb_'.$RID['rid'].'.php'))
 					unlink(ROOT_PATH.'raports/topkb_'.$RID['rid'].'.php');
+				
+				$RID[]	= $RID['rid'];
 			}	
-			$db->query("DELETE FROM ".TOPKB." ORDER BY `gesamtunits` LIMIT 100,1000;");
+			$db->query("DELETE FROM ".TOPKB." WHERE `rid` IN (".implode(",", $RID).");");
 		}
 		
 		$db->free_result($TKBRW);

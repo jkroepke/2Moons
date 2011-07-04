@@ -22,9 +22,10 @@ table{
 	padding: 0 !important;
 }
 
-.content{
-	position: static !important;
-	width: 100% !important;
+#content{
+	margin:0 auto;
+	width:80%;
+	padding:0;
 }
 
 a.out {

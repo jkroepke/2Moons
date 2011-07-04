@@ -52,10 +52,10 @@
 		}
 
 		$Result = array(
-			'esp'		=> ($USER["settings_esp"] == 1) ? true : false,
-			'message'	=> ($USER["settings_wri"] == 1) ? true : false,
-			'buddy'		=> ($USER["settings_bud"] == 1) ? true : false,
-			'missle'	=> ($USER["settings_mis"] == 1 && $MissileBtn == true) ? true : false,
+			'esp'		=> (!CheckModule(24) && $USER["settings_esp"] == 1) ? true : false,
+			'message'	=> (!CheckModule(16) && $USER["settings_wri"] == 1) ? true : false,
+			'buddy'		=> (!CheckModule(6) && $USER["settings_bud"] == 1) ? true : false,
+			'missle'	=> (!CheckModule(40) && $USER["settings_mis"] == 1 && $MissileBtn == true) ? true : false,
 		);
 
 		return $Result;
@@ -80,7 +80,7 @@
 
 	public function GalaxyRowDebris($GalaxyRowPlanet)
 	{
-		global $USER, $PLANET, $pricelist, $resource;
+		global $USER, $PLANET, $LNG, $pricelist, $resource;
 
 		$GRecNeeded = min(ceil(($GalaxyRowPlanet['der_metal'] + $GalaxyRowPlanet['der_crystal']) / $pricelist[219]['capacity']), $PLANET[$resource[219]]);
 		$RecNeeded 	= min(ceil(max($GalaxyRowPlanet['der_metal'] + $GalaxyRowPlanet['der_crystal'] - ($GRecNeeded * $pricelist[219]['capacity']), 0) / $pricelist[209]['capacity']), $PLANET[$resource[209]]);
@@ -89,7 +89,8 @@
 			'metal'			=> pretty_number($GalaxyRowPlanet["der_metal"]),
 			'crystal'		=> pretty_number($GalaxyRowPlanet["der_crystal"]),
 			'RecSended'		=> $RecNeeded,			
-			'GRecSended'	=> $GRecNeeded,			
+			'GRecSended'	=> $GRecNeeded,
+			'recycle'		=> (!CheckModule(32)) ? $LNG['type_mission'][8]:false,
 		);
 
 		return $Result;
@@ -103,12 +104,12 @@
 			'name'		=> htmlspecialchars($GalaxyRowMoon['name'], ENT_QUOTES, "UTF-8"),
 			'temp_min'	=> number_format($GalaxyRowMoon['temp_min'], 0, '', '.'), 
 			'diameter'	=> number_format($GalaxyRowMoon['diameter'], 0, '', '.'),
-			'attack'	=> ($GalaxyRowMoon['id_owner'] != $USER['id']) ? $LNG['type_mission'][1]:false,
-			'transport'	=> $LNG['type_mission'][3],
-			'stay'		=> ($GalaxyRowMoon['id_owner'] == $USER['id']) ? $LNG['type_mission'][4]:false,
-			'stayally'	=> ($GalaxyRowMoon['id_owner'] != $USER['id']) ? $LNG['type_mission'][5]:false,
-			'spionage'	=> ($GalaxyRowMoon['id_owner'] != $USER['id']) ? $LNG['type_mission'][6]:false,
-			'destroy'	=> ($GalaxyRowMoon['id_owner'] != $USER['id'] && $PLANET[$resource[214]] > 0) ? $LNG['type_mission'][9]:false,
+			'attack'	=> (!CheckModule(1) && $GalaxyRowMoon['id_owner'] != $USER['id']) ? $LNG['type_mission'][1]:false,
+			'transport'	=> (!CheckModule(34)) ? $LNG['type_mission'][3]:false,
+			'stay'		=> (!CheckModule(36) && $GalaxyRowMoon['id_owner'] == $USER['id']) ? $LNG['type_mission'][4]:false,
+			'stayally'	=> (!CheckModule(33) && $GalaxyRowMoon['id_owner'] != $USER['id']) ? $LNG['type_mission'][5]:false,
+			'spionage'	=> (!CheckModule(24) && $GalaxyRowMoon['id_owner'] != $USER['id']) ? $LNG['type_mission'][6]:false,
+			'destroy'	=> (!CheckModule(29) && $GalaxyRowMoon['id_owner'] != $USER['id'] && $PLANET[$resource[214]] > 0) ? $LNG['type_mission'][9]:false,
 		);
 
 		return $Result;
@@ -143,14 +144,13 @@
 			'name'			=> htmlspecialchars($GalaxyRowPlanet['name'],ENT_QUOTES,"UTF-8"),
 			'image'			=> $GalaxyRowPlanet['image'],
 			'phalax'		=> $PhalanxTypeLink,
-			'transport'		=> $LNG['type_mission'][3],
-			'spionage'		=> ($GalaxyRowPlanet['userid'] != $USER['id']) ? $LNG['type_mission'][6]:false,
-			'attack'		=> ($GalaxyRowPlanet['userid'] != $USER['id']) ? $LNG['type_mission'][1]:false,
-			'missile'		=> ($USER["settings_mis"] == "1" && $MissileBtn === true && $GalaxyRowPlanet['userid'] != $USER['id']) ? $LNG['gl_missile_attack']:false,
-			'stay'			=> ($GalaxyRowPlanet['userid'] == $USER['id']) ? $LNG['type_mission'][4]:false,
-			'stayally'		=> ($GalaxyRowPlanet['userid'] != $USER['id']) ? $LNG['type_mission'][5]:false,
+			'transport'		=> (!CheckModule(34)) ? $LNG['type_mission'][3]:false,
+			'spionage'		=> (!CheckModule(24) && $GalaxyRowPlanet['userid'] != $USER['id']) ? $LNG['type_mission'][6]:false,
+			'attack'		=> (!CheckModule(1) && $GalaxyRowPlanet['userid'] != $USER['id']) ? $LNG['type_mission'][1]:false,
+			'missile'		=> (!CheckModule(40) && $USER["settings_mis"] == "1" && $MissileBtn === true && $GalaxyRowPlanet['userid'] != $USER['id']) ? $LNG['gl_missile_attack']:false,
+			'stay'			=> (!CheckModule(36) && $GalaxyRowPlanet['userid'] == $USER['id']) ? $LNG['type_mission'][4]:false,
+			'stayally'		=> (!CheckModule(33) && $GalaxyRowPlanet['userid'] != $USER['id']) ? $LNG['type_mission'][5]:false,
 		);
-		
 		return $Result;
 	}
 

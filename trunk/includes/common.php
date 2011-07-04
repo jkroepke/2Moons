@@ -99,7 +99,7 @@ if($GLOBALS['CONF']['debug']) {
 	$FirePHP->registerErrorHandler(true);
 }
 
-if (!defined('CLI') && !defined('LOGIN') && !defined('IN_CRON') && !defined('AJAX'))
+if (!defined('CLI') && !defined('LOGIN') && !defined('IN_CRON') && !defined('AJAX') && !defined('ROOT'))
 {
 	$SESSION       	= new Session();
 	
