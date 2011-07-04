@@ -44,7 +44,7 @@ function ShowModulePage()
 			'state'	=> isset($CONF['moduls'][$ID]) ? $CONF['moduls'][$ID] : 1,
 		);
 	}
-	
+	asort($Modules);
 	$template	= new template();
 	$template->assign_vars(array(
 		'Modules'				=> $Modules,

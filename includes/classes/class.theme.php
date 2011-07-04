@@ -29,10 +29,13 @@
  
 class Theme
 {
+	static public $Themes;
+	
 	function __construct()
 	{	
 		$this->skininfo = array();
 		$this->skin		= isset($_SESSION['dpath']) ? $_SESSION['dpath'] : DEFAULT_THEME;
+		$this->setUserTheme($this->skin);
 	}
 	
 	function isHome() {
@@ -71,8 +74,8 @@ class Theme
 	}
 	
 	static function getAvalibleSkins() {
-		if(isset($this->Themes))
-			return $this->Themes;
+		if(isset(self::$Themes))
+			return self::$Themes;
 		
 		if(file_exists(ROOT_PATH.'cache/cache.themes.php'))
 			return unserialize(file_get_contents(ROOT_PATH.'cache/cache.themes.php'));
@@ -83,9 +86,9 @@ class Theme
 			require(ROOT_PATH.'styles/theme/'.$Theme.'/style.cfg');
 			$Themes[$Theme]	= $Skin['name'];
 		}
-		$this->Themes	= $Themes;
+		self::$Themes	= $Themes;
 		file_put_contents(ROOT_PATH.'cache/cache.themes.php', serialize($Themes));
-		return $Themes;
+		return self::$Themes;
 	}
 }
 

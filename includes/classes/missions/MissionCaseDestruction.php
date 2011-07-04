@@ -50,7 +50,7 @@ class MissionCaseDestruction extends MissionFunctions
 
 		
 		$attackFleets[$this->_fleet['fleet_id']]['fleet'] = $this->_fleet;
-		$attackFleets[$this->_fleet['fleet_id']]['user'] = $db->uniquequery("SELECT id,username,military_tech,defence_tech,shield_tech,rpg_amiral,dm_defensive,dm_attack FROM ".USERS." WHERE id = '".$this->_fleet['fleet_owner']."';");
+		$attackFleets[$this->_fleet['fleet_id']]['user'] = $db->uniquequery("SELECT id,username,military_tech,defence_tech,shield_tech FROM ".USERS." WHERE id = '".$this->_fleet['fleet_owner']."';");
 		$attackFleets[$this->_fleet['fleet_id']]['user']['factor'] 	= getFactors($attackFleets[$this->_fleet['fleet_id']]['user'], 'attack', $this->_fleet['fleet_start_time']);
 		$attackFleets[$this->_fleet['fleet_id']]['detail'] = array();
 		$temp = explode(';', $this->_fleet['fleet_array']);
@@ -82,7 +82,7 @@ class MissionCaseDestruction extends MissionFunctions
 					$defense[$defRow['fleet_id']][$Element[0]] = 0;
 
 				$defense[$defRow['fleet_id']]['def'][$Element[0]] 	+= $Element[1];
-				$defense[$defRow['fleet_id']]['user']				= $db->uniquequery("SELECT id,username,military_tech,defence_tech,shield_tech,rpg_amiral,dm_defensive,dm_attack FROM ".USERS." WHERE id = '".$defRow['fleet_owner']."';");
+				$defense[$defRow['fleet_id']]['user']				= $db->uniquequery("SELECT id,username,military_tech,defence_tech,shield_tech FROM ".USERS." WHERE id = '".$defRow['fleet_owner']."';");
 				$defense[$defRow['fleet_id']]['user']['factor'] 	= getFactors($defense[$defRow['fleet_id']]['user'], 'attack', $this->_fleet['fleet_start_time']);
 			}
 			$DefenderRow['id'][] 	= $defense[$defRow['fleet_id']]['user']['id'];
@@ -91,7 +91,7 @@ class MissionCaseDestruction extends MissionFunctions
 
 		$defense[0]['def'] = array();
 		$defense[0]['user'] = $TargetUser;
-		$defense[0]['user']['factor'] 	= getFactors($defense[0]['user']['factor'], 'attack', $this->_fleet['fleet_start_time']);		
+		$defense[0]['user']['factor'] 	= getFactors($defense[0]['user'], 'attack', $this->_fleet['fleet_start_time']);		
 		$DefenderRow['id'][] 	= $defense[0]['user']['id'];
 		$DefenderRow['name'][]	= $defense[0]['user']['username'];
 		for ($i = 200; $i < 500; $i++)
