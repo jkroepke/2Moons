@@ -76,7 +76,7 @@
 					</tr>
 					<tr>		
 						<td class="transparent left" style="width:68%">
-							{lang}bd_max_ships_long{/lang}:<br><span style="font-weight:700">{pretty_number({$DefenseListRow.GetMaxAmount})}</span>
+							{if !$DefenseListRow.AlreadyBuild}{lang}bd_max_ships_long{/lang}:<br><span style="font-weight:700">{pretty_number({$DefenseListRow.GetMaxAmount})}</span>{/if}
 						</td>
 						<td class="transparent right" style="white-space:nowrap;">
 							{$DefenseListRow.time}

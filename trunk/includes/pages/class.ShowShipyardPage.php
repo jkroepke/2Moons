@@ -31,23 +31,27 @@ class ShowShipyardPage
 {
 	private function GetMaxConstructibleElements($Element)
 	{
-		global $pricelist, $PLANET, $USER;
+		global $pricelist, $PLANET, $USER, $reslist;
 
-		if ($pricelist[$Element]['metal'] != 0)
-			$MAX[]				= floor($PLANET['metal'] / $pricelist[$Element]['metal']);
+		$Cost	= $pricelist[$Element];
+		if (!empty($Cost['metal']))
+			$MAX[]	= floor($PLANET['metal'] / $Cost['metal']);
 
-		if ($pricelist[$Element]['crystal'] != 0)
-			$MAX[]				= floor($PLANET['crystal'] / $pricelist[$Element]['crystal']);
+		if (!empty($Cost['crystal']))
+			$MAX[]	= floor($PLANET['crystal'] / $Cost['crystal']);
 
-		if ($pricelist[$Element]['deuterium'] != 0)
-			$MAX[]				= floor($PLANET['deuterium'] / $pricelist[$Element]['deuterium']);
+		if (!empty($Cost['deuterium']))
+			$MAX[]	= floor($PLANET['deuterium'] / $Cost['deuterium']);
 			
-		if ($pricelist[$Element]['darkmatter'] != 0)
-			$MAX[]				= floor($USER['darkmatter'] / $pricelist[$Element]['darkmatter']);
+		if (!empty($Cost['darkmatter']))
+			$MAX[]	= floor($USER['darkmatter'] / $Cost['darkmatter']);
 
-		if ($pricelist[$Element]['energy_max'] != 0)
-			$MAX[]				= floor($PLANET['energy_max'] / $pricelist[$Element]['energy_max']);
-
+		if (!empty($Cost['energy_max']))
+			$MAX[]	= floor($PLANET['energy_max'] / $Cost['energy_max']);
+		
+		if (in_array($Element, $reslist['one']))
+			$MAX[]	= 1;		
+		
 		return min($MAX);
 	}
 	private function GetMaxConstructibleRockets($Missiles)
