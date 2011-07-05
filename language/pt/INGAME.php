@@ -523,6 +523,7 @@ $LNG['mg_answer_to']						= 'Responder para:';
 
 //----------------------------------------------------------------------------//
 //Aliança
+$LNG['al_not_exists']					= 'A Aliança deixou de existir';
 $LNG['al_newname_alphanum']                 = 'O nome da aliança só deverá ser conposto por caracteres alfanuméricos.';
 $LNG['al_newname_no_space']                 = 'O TAG da aliança nao deve conter espacos.';
 $LNG['al_description_message']		        = 'Mensagem de descrição da aliança';
