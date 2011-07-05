@@ -19,9 +19,11 @@ Senha: %5$s
 
 Se tiver problemas com o registro, entre em contato com 
 o webmaster ( Administração do jogo ) para este endereço 
-de e-mail: %6$s
+de e-mail: %6$s 
+Ou tambem pode ser visto os contactos em %2$s na barra superior da página onde diz "Contactos"
 
 
 Atenciosamente,
 
-Equipe - %2$s 
+A Equipa
+%2$s 

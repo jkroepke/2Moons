@@ -33,8 +33,43 @@ $LNG['Version']     = 'Versão';
 $LNG['Description'] = 'Descrição';
 
 $LNG['changelog']   = array(
-
-'v1.3.5' => 'ShadoX 26.03.11
+'v1.4' => 'ShadoX 05.07.11 (Traduzido por QwataKayean)
+- ADD: FirePHP Log System
+- ADD: Selecção de Linguas na Página de Mensagem Geral
+- ADD: Novo Sistema de Mensagens (Inclui antiga versão das versões de XNova)
+- ADD: {lang} Blocos de Templates. Redirecciona aos acessos das variaveis de lingua (langvars) {lang}varname{/lang}
+- ADD: Mais dinâmica para as novas linguas
+- FIX: Hack/Cheat de Recursos
+- FIX: Mensagens Multiplas
+- FIX: Password Pwedida
+- FIX: Bonus de Defensor nas batalhas
+- FIX: Registo fixo em Universos Maiores
+- FIX: Redireccionamento das Mensagens
+- FIX: Impossivel enviar Recicladores para jogadores em modo de férias
+- FIX: Coordenadas Censuradas no Hall of Fame (Censurado = Exibido)
+- FIX: Fixo o Erro de Calculo de Matéria Negra (DM) nas Batalhas de Bonús
+- FIX: Chat
+- FIX: Fixo Tempo de Servidor se não for localizado
+- FIX: Máximo de elementos de Naves (&amp;) para misseis
+- FIX: Acolchoamento errado para Leftmenu
+- FIX: Modulos após uma "fresca" instalação
+- FIX: Pesquisa
+- FIX: Fixo registar em Universos de Lingua
+- FIX: Cancelar Pesquisas
+- FIX: Nomes UTF8 em atalhos de Fleet
+- FIX: Mensagens na Galaxia
+- FIX: Desactivar Modulos se não for visto na Galáxia
+- FIX: Carregamento Multiplo em Ficheiros de Cache
+- FIX: datatype Errado para numeros largos
+- FIX: Queque Display errado, se 2 elementos com o mesmo numero no mesmo sitio
+- FIX: Modulo Bypass confirma em Reciclagem e Espiar
+- DIV: Actualizar Design na Base de Dados
+- DIV: Antigos Popups no PlayerCard (&amp;) Mensagens
+- DIV: Inclui Smarty
+- DIV: Maior segurança no Jogo
+- DIV: Varias modificações para o Jogo
+',
+'v1.3.5' => 'ShadoX 26.03.11 (Traduzido por QwataKayean)
 - ADD: Novo sistema de Chat
 - ADD: Novo Popup UI
 - FIX: Divisão por Zero
@@ -50,7 +85,7 @@ $LNG['changelog']   = array(
 - DIV: Actualização de Smarty e jQuery
 - DIV: Apagado Soundmanager e overLIB Liberary
 ',
-'v1.3' => 'ShadoX 21.01.11
+'v1.3' => 'ShadoX 21.01.11 (Traduzido por QwataKayean)
 - ADD: Suporte de MultiUniverso
 - ADD: Suporte de IPv6
 - ADD: Limite de Colónias
@@ -93,7 +128,7 @@ $LNG['changelog']   = array(
 - DIV: Nova localização de error.log
 - DIV: Actualizado TS³ Lib, Soundmanager, reCAPTCHA Lib, Smarty and jQuery (UI)
 ',
-'v1.2' => 'ShadoX 14.09.10
+'v1.2' => 'ShadoX 14.09.10 (Traduzido por QwataKayean)
 - ADD: Máximo de Fleets em ACS (Default: 16)
 - ADD: Novo RightsSystem em ACP
 - ADD: .htaccess Protecção para algumas pastas

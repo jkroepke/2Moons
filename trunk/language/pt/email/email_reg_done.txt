@@ -11,4 +11,5 @@ Administrador através do sistema de tickets do jogo.
 
 Atenciosamente
 
-Equipe - %2$s
+A Equipa
+%2$s
