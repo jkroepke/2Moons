@@ -29,16 +29,9 @@
 
 class Language
 {
-	public static $langs   = array(
-		'de' => 'Deutsch', 
-		'en' => 'English', 
-		'fr' => 'Française',
-		'pt' => 'Português',
-		'ru' => 'Русский', 
-	);
-	
 	public $Default	= '';
 	public $User	= '';
+	public static $Languages;
 	
 	function __construct()
 	{
@@ -48,7 +41,26 @@ class Language
 	
 	static function getAllowedLangs($OnlyKey = true)
 	{
-		return $OnlyKey ? array_keys(self::$langs) : self::$langs;		
+		if(!isset(self::$Languages))
+		{
+			if(file_exists(ROOT_PATH.'cache/cache.languages.php'))
+			{
+				self::$Languages	= unserialize(file_get_contents(ROOT_PATH.'cache/cache.languages.php'));
+			} else {
+				$Langs	= array_diff(scandir(ROOT_PATH.'language/'), array('..', '.', '.svn', '.htaccess', 'index.htm'));
+				$Languages	= array();
+				foreach($Langs as $Lang) {
+					if(!file_exists(ROOT_PATH.'language/'.$Lang.'/LANG.cfg'))
+						continue;
+						
+					require(ROOT_PATH.'language/'.$Lang.'/LANG.cfg');
+					$Languages[$Lang]	= $Language['name'];
+				}
+				file_put_contents(ROOT_PATH.'cache/cache.languages.php', serialize($Languages));
+				self::$Languages	= $Languages;
+			}
+		}
+		return $OnlyKey ? array_keys(self::$Languages) : self::$Languages;		
 	}
 	
 	function setDefault($LANG)

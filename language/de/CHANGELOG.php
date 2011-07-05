@@ -33,11 +33,12 @@ $LNG['Description'] = 'Beschreibung';
 
 $LNG['changelog']   = array(
 
-'v1.4' => 'ShadoX 30.06.11
+'v1.4' => 'ShadoX 05.07.11
 - ADD: FirePHP Log System
 - ADD: Language selectable on Global Messages
 - ADD: New Message System (includes old global message system like another XNova versions)
 - ADD: {lang} Block for tpls. Directly access to langvars with {lang}varname{/lang}
+- ADD: More dynamic for new languages
 - FIX: Ressource Cheat
 - FIX: Multiply Messages
 - FIX: Forgotten password
@@ -46,6 +47,24 @@ $LNG['changelog']   = array(
 - FIX: Redirect on Messages
 - FIX: Unable to send recylers to vacation players
 - FIX: Cencored coors on hall of frame know correctly
+- FIX: Fixed not correct calculaton of DM extras on destruction
+- FIX: Chat
+- FIX: Fixed Servertime are not localize
+- FIX: MaxElemens for shields &amp; missiles
+- FIX: wrong padding for leftmenu
+- FIX: Moduls after a fresh installation
+- FIX: search
+- FIX: Fixed Register on lange Unis
+- FIX: cancel researches
+- FIX: UTF8 names on fleet shortcuts
+- FIX: galaxy messages
+- FIX: Deactive modules are not visible on galaxy
+- FIX: Multiply load cache files
+- FIX: Wrong datatype for lage numbers
+- FIX: Wrong Queue display, if 2 elements with same level in there
+- FIX: Bypass module check on spy and recyle
+- DIV: Refresh database design
+- DIV: Old Popups for Playercard &amp; Messages
 - DIV: Includes Smarty
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game
