@@ -74,20 +74,25 @@ class Theme
 	}
 	
 	static function getAvalibleSkins() {
-		if(isset(self::$Themes))
-			return self::$Themes;
-		
-		if(file_exists(ROOT_PATH.'cache/cache.themes.php'))
-			return unserialize(file_get_contents(ROOT_PATH.'cache/cache.themes.php'));
-			
-		$Skins	= array_diff(scandir(ROOT_PATH.'styles/theme/'), array('..', '.', '.svn', '.htaccess', 'index.htm'));
-		$Themes	= array();
-		foreach($Skins as $Theme) {
-			require(ROOT_PATH.'styles/theme/'.$Theme.'/style.cfg');
-			$Themes[$Theme]	= $Skin['name'];
+		if(!isset(self::$Themes))
+		{
+			if(file_exists(ROOT_PATH.'cache/cache.themes.php'))
+			{
+				self::$Themes	= unserialize(file_get_contents(ROOT_PATH.'cache/cache.themes.php'));
+			} else {
+				$Skins	= array_diff(scandir(ROOT_PATH.'styles/theme/'), array('..', '.', '.svn', '.htaccess', 'index.htm'));
+				$Themes	= array();
+				foreach($Skins as $Theme) {
+					if(!file_exists(ROOT_PATH.'styles/theme/'.$Theme.'/style.cfg'))
+						continue;
+						
+					require(ROOT_PATH.'styles/theme/'.$Theme.'/style.cfg');
+					$Themes[$Theme]	= $Skin['name'];
+				}
+				file_put_contents(ROOT_PATH.'cache/cache.themes.php', serialize($Themes));
+				self::$Themes	= $Themes;
+			}
 		}
-		self::$Themes	= $Themes;
-		file_put_contents(ROOT_PATH.'cache/cache.themes.php', serialize($Themes));
 		return self::$Themes;
 	}
 }

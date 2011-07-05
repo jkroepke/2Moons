@@ -224,7 +224,7 @@ class ShowBuildingsPage
 			if ($BuildArray[3] < TIMESTAMP)
 				continue;
 
-			$ScriptData[$BuildArray[1]] = array(
+			$ScriptData[] = array(
 				'element'	=> $BuildArray[0], 
 				'level' 	=> $BuildArray[1], 
 				'time' 		=> $BuildArray[2], 

@@ -751,6 +751,12 @@ class ShowFleetPages extends FleetFunctions
 		switch($mission)
 		{
 			case 6:
+				if(CheckModule(24))
+				{
+					$Message['code']	= 699;
+					$Message['mess']	= $LNG['sys_module_inactive'];
+					exit(json_encode($Message));
+				}
 				$SpyProbes	= request_var('ships', 0);
 				$SpyProbes	= min($SpyProbes, $PLANET[$resource[210]]);
 				if(empty($SpyProbes)) {
@@ -761,6 +767,12 @@ class ShowFleetPages extends FleetFunctions
 				$FleetArray = array(210 => $SpyProbes);
 			break;
 			case 8:
+				if(CheckModule(32))
+				{
+					$Message['code']	= 699;
+					$Message['mess']	= $LNG['sys_module_inactive'];
+					exit(json_encode($Message));
+				}
 				$SRecycles	= explode("|", request_var('ships', ''));
 				$GRecycles	= min($SRecycles[0], $PLANET[$resource[219]]);
 				$Recycles	= min($SRecycles[1], $PLANET[$resource[209]]);
