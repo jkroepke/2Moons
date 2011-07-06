@@ -350,6 +350,8 @@ $LNG['bd_cancel']							= 'cancel';
 $LNG['bd_working']							= 'Working';
 $LNG['bd_build']							= 'Build';
 $LNG['bd_build_next_level']					= 'Upgrade to level ';
+$LNG['bd_tech']                             = 'Research';
+$LNG['bd_tech_next_level']                  = 'Research Level ';
 $LNG['bd_add_to_list']						= 'Add to production queue';
 $LNG['bd_no_more_fields']					= 'No more room on the planet!';
 $LNG['bd_remaining']						= 'Remaining:';
@@ -381,6 +383,8 @@ $LNG['bd_jump_gate_action']					= 'Jump to';
 $LNG['bd_cancel_warning']					= 'Dismatle gives 60% Original Resources!';
 $LNG['bd_cancel_send']						= 'Delete - Selected';
 $LNG['bd_destroy_time'] 					= 'Time';
+$LNG['bd_max_ships']                        = 'Max';
+$LNG['bd_max_ships_long']                   = 'Maximum buildable units';
 $LNG['sys_notenough_money'] 				= 'On %s <a href="?page=buildings&amp;cp=%d&amp;re=0">[%d:%d:%d]</a> you had insufficent resources to build %s. <br> At the time you had, %s %s , %s %s and %s %s. <br> However you needed %s %s , %s %s and %s %s.';
 $LNG['sys_nomore_level'] 					= 'You try to wreck a building which they do not have any more( %s ).';
 $LNG['sys_buildlist'] 						= 'Build List';
@@ -520,6 +524,7 @@ $LNG['mg_answer_to']						= 'Reply to:';
 //----------------------------------------------------------------------------//
 //ALLIANCE
 
+$LNG['al_not_exists']                       = 'The alliance does not exist.';
 $LNG['al_newname_alphanum']					= 'The Alliance Name and date shall consist only of alphanumeric characters.';
 $LNG['al_newname_no_space']					= 'The Alliance name and date must not contain spaces.';
 $LNG['al_description_message'] 				= 'Alliance description message';
