@@ -113,8 +113,10 @@ class statbuilder extends records
 					unlink(ROOT_PATH.'raports/topkb_'.$RID['rid'].'.php');
 				
 				$RID[]	= $RID['rid'];
-			}	
-			$db->query("DELETE FROM ".TOPKB." WHERE `rid` IN (".implode(",", $RID).");");
+			}
+			
+			if(!empty($RID))
+				$db->query("DELETE FROM ".TOPKB." WHERE `rid` IN (".implode(",", $RID).");");
 		}
 		
 		$db->free_result($TKBRW);
