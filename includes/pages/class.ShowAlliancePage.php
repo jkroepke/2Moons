@@ -497,15 +497,15 @@ class ShowAlliancePage
 								
 							
 							if($r == 0)
-								$db->query("SELECT id, username FROM ".USERS." WHERE `ally_id` = '".$USER['ally_id']."';");
+								$SQL	= $db->query("SELECT id, username FROM ".USERS." WHERE `ally_id` = '".$USER['ally_id']."';");
 							else
-								$db->query("SELECT id, username FROM ".USERS." WHERE `ally_id` = '".$USER['ally_id']."' AND `ally_rank_id` = '".$r."';");
+								$SQL	= $db->query("SELECT id, username FROM ".USERS." WHERE `ally_id` = '".$USER['ally_id']."' AND `ally_rank_id` = '".$r."';");
 
 							$list 	= '';
 							$title	= $LNG['al_circular_alliance'].$ally['ally_tag'];
 							$text	= sprintf($LNG['al_circular_front_text'], $USER['username'])."<br>".$text;
 							
-							while ($u = $db->fetch_array($sq))
+							while ($u = $db->fetch_array($SQL))
 							{
 								SendSimpleMessage($u['id'], $USER['id'], TIMESTAMP, 2, $title, $subject, $text);
 								$list .= "\n".$u['username'];
