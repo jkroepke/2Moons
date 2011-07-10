@@ -22,7 +22,7 @@
  * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
  * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.3.5 (2011-04-22)
+ * @version 1.4 (2011-07-10)
  * @info $Id$
  * @link http://code.google.com/p/2moons/
  */
@@ -50,7 +50,7 @@ class MissionCaseDestruction extends MissionFunctions
 
 		
 		$attackFleets[$this->_fleet['fleet_id']]['fleet'] = $this->_fleet;
-		$attackFleets[$this->_fleet['fleet_id']]['user'] = $db->uniquequery("SELECT $TargetUser FROM ".USERS." WHERE id = '".$this->_fleet['fleet_owner']."';");
+		$attackFleets[$this->_fleet['fleet_id']]['user'] = $db->uniquequery("SELECT `id`, `username`, `military_tech`, `defence_tech`, `shield_tech`, `rpg_amiral`, `dm_defensive`, `dm_attack` FROM ".USERS." WHERE id = '".$this->_fleet['fleet_owner']."';");
 		$attackFleets[$this->_fleet['fleet_id']]['user']['factor'] 	= getFactors($attackFleets[$this->_fleet['fleet_id']]['user'], 'attack', $this->_fleet['fleet_start_time']);
 		$attackFleets[$this->_fleet['fleet_id']]['detail'] = array();
 		$temp = explode(';', $this->_fleet['fleet_array']);
