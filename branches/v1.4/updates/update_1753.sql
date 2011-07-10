@@ -1,0 +1,1 @@
+ALTER TABLE prefix_planets CHANGE `name` `name` VARCHAR( 20 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT 'Hauptplanet', CHANGE `energy_used` `energy_used` BIGINT( 20 ) NOT NULL DEFAULT '0';
