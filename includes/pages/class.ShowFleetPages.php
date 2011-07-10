@@ -554,9 +554,13 @@ class ShowFleetPages extends FleetFunctions
 				exit;
 			}
 			
-			$buddy	= $db->uniquequery("SELECT COUNT(*) as state FROM ".BUDDY." WHERE `active` = '1' AND (`owner` = '".$HeDBRec['id']."' AND `sender` = '".$MyDBRec['id']."') OR (`owner` = '".$MyDBRec['id']."' AND `sender` = '".$HeDBRec['id']."');");
+			$buddy	= $db->countquery("
+				SELECT COUNT(*) FROM ".BUDDY." 
+				WHERE `id` NOT IN (SELECT `id` FROM ".BUDDY_REQUEST." WHERE ".BUDDY_REQUEST.".`id` = ".BUDDY.".`id`) AND 
+				(`owner` = ".$HeDBRec['id']." AND `sender` = ".$MyDBRec['id'].") OR
+				(`owner` = ".$MyDBRec['id']." AND `sender` = ".$HeDBRec['id'].");");
 						
-			if($HeDBRec['ally_id'] != $MyDBRec['ally_id'] && $buddy['state'] == 0)
+			if($HeDBRec['ally_id'] != $MyDBRec['ally_id'] && $buddy == 0)
 			{
 				$template->message("<font color=\"red\"><b>".$LNG['fl_no_same_alliance']."</b></font>", "game.php?page=fleet", 2);
 				exit;
