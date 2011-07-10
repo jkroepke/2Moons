@@ -166,7 +166,7 @@ class ShowBuildingsPage
 		
 		$CurrentMaxFields  	= CalculateMaxPlanetFields($PLANET);
 		
-		if ($ActualCount == $CONF['max_elements_build'] || ($AddMode && $PLANET["field_current"] >= ($CurrentMaxFields - $ActualCount)))
+		if (($CONF['max_elements_build'] != 0 && $ActualCount == $CONF['max_elements_build']) || ($AddMode && $PLANET["field_current"] >= ($CurrentMaxFields - $ActualCount)))
 			return;
 	
 		$BuildMode 		= $AddMode ? 'build' : 'destroy';;
@@ -278,7 +278,7 @@ class ShowBuildingsPage
 		
 		$Queue	 			= $this->ShowBuildingQueue();
 		$QueueCount			= count($Queue);
-		$CanBuildElement 	= $QueueCount < $CONF['max_elements_build'];
+		$CanBuildElement 	= $CONF['max_elements_build'] == 0 || $QueueCount < $CONF['max_elements_build'];
 		$CurrentMaxFields   = CalculateMaxPlanetFields($PLANET);
 		$RoomIsOk 			= $PLANET['field_current'] < ($CurrentMaxFields - $QueueCount);
 				

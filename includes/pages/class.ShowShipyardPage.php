@@ -235,7 +235,7 @@ class ShowShipyardPage
 			$Count	= count($ElementQueue);
 		if($USER['urlaubs_modus'] == 0) {
 			if (!empty($fmenge) && $NotBuilding == true) {
-				if ($Count >= $CONF['max_elements_ships']) {
+				if ($CONF['max_elements_ships'] != 0 && $Count >= $CONF['max_elements_ships']) {
 					$template->message(sprintf($LNG['bd_max_builds'], $CONF['max_elements_ships']), "?page=buildings&mode=fleet", 3);
 					exit;
 				}
@@ -341,7 +341,7 @@ class ShowShipyardPage
 			$Count	= count($ElementQueue);
 		if($USER['urlaubs_modus'] == 0) {
 			if (!empty($fmenge) && $NotBuilding == true) {
-				if ($Count >= $CONF['max_elements_ships']) {
+				if ($CONF['max_elements_ships'] != 0 && $Count >= $CONF['max_elements_ships']) {
 					$template->message(sprintf($LNG['bd_max_builds'], $CONF['max_elements_ships']), "?page=buildings&mode=defense", 3);
 					exit;
 				}
