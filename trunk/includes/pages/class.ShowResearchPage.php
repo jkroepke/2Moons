@@ -196,7 +196,7 @@ class ShowResearchPage
 			$ActualCount   	= 0;
 		}
 				
-		if($CONF['max_elements_tech'] <= $ActualCount)
+		if($CONF['max_elements_tech'] != 0 && $CONF['max_elements_tech'] <= $ActualCount)
 			return false;
 			
 		$BuildLevel					= $USER[$resource[$Element]] + 1;
@@ -348,7 +348,7 @@ class ShowResearchPage
 		$template->assign_vars(array(
 			'ResearchList'	=> $ResearchList,
 			'IsLabinBuild'	=> !$bContinue,
-			'IsFullQueue'	=> $CONF['max_elements_tech'] == count($TechQueue),
+			'IsFullQueue'	=> $CONF['max_elements_tech'] == 0 || $CONF['max_elements_tech'] == count($TechQueue),
 			'Queue'			=> $TechQueue,
 			'oldLink'  		=> $CONF['max_elements_tech'] == 1,
 			'Bonus'  		=> $Bonus,
