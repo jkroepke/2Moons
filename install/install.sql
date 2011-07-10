@@ -681,7 +681,7 @@ CREATE TABLE `prefix_users_valid` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO `prefix_config` (`uni`, `VERSION`, `uni_name`, `game_name`, `close_reason`, `OverviewNewsText`, `moduls`) VALUES
-(1, '1.4.1906', 'Universum 1', '2Moons', 'Game ist zurzeit geschlossen', 'Herzlich Willkommen bei 2Moons v1.3.5!', '1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1');
+(1, '1.4.1908', 'Universum 1', '2Moons', 'Game ist zurzeit geschlossen', 'Herzlich Willkommen bei 2Moons v1.3.5!', '1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1');
 
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

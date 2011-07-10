@@ -33,7 +33,7 @@ $LNG['Description'] = 'Beschreibung';
 
 $LNG['changelog']   = array(
 
-'v1.4' => 'ShadoX 05.07.11
+'v1.4' => 'ShadoX 10.07.11
 - ADD: FirePHP Log System
 - ADD: Language selectable on Global Messages
 - ADD: New Message System (includes old global message system like another XNova versions)
