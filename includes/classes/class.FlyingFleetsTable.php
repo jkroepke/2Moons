@@ -202,7 +202,7 @@ class FlyingFleetsTable
 		$FleetStatus    = array(0 => 'flight', 1 => 'return' , 2 => 'holding');
 		$StartType		= $FleetRow['fleet_start_type'] == 1 ? $LNG['fcm_planet'] : $LNG['fcm_moon'];
 		$TargetType		= $FleetRow['fleet_end_type'] == 1 ? $LNG['fcm_planet'] : $LNG['fcm_moon'];
-		
+	
 		if ($MissionType == 8) {
 			if ($Status == 0)
 				$EventString = sprintf($LNG['cff_mission_own_recy_0'], $FleetContent, $StartType, $Names['own_planetname'], GetStartAdressLink($FleetRow, $FleetType), GetTargetAdressLink($FleetRow, $FleetType), $FleetCapacity);
@@ -260,8 +260,8 @@ class FlyingFleetsTable
 	{
 		global $LNG, $db;
 		
-	  # if(($FleetRow['fleet_mission'] == 8 && $_SESSION['id'] == $FleetRow['fleet_owner']) || $FleetRow['fleet_mission'] != 8)
-	  # {
+		if(($FleetRow['fleet_mission'] == 8 && $_SESSION['id'] == $FleetRow['fleet_owner']) || $FleetRow['fleet_mission'] != 8)
+		{
 			if ($isAKS == true && $Status == 0 && ($FleetRow['fleet_mission'] == 1 || $FleetRow['fleet_mission'] == 2) && $FleetRow['fleet_group'] != 0)
 			{
 				$AKSFleets		= $db->query("SELECT * FROM ".FLEETS." WHERE `fleet_group` = '".$FleetRow['fleet_group']."' ORDER BY `fleet_id` ASC;");
@@ -287,8 +287,8 @@ class FlyingFleetsTable
 			$FleetInfo['fleet_return']	= $Time;
 	
 			return $FleetInfo;
-	  # }
-	  # return array('fleet_order' => 0, 'fleet_descr' => '', 'fleet_return'=> 0);
+		}
+		return array('fleet_order' => 0, 'fleet_descr' => '', 'fleet_return'=> 0);
 	}
 }
 ?>
