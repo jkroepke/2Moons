@@ -70,7 +70,7 @@ class Theme
 	function parseStyleCFG() {
 		require(ROOT_PATH.'styles/theme/'.$this->skin.'/style.cfg');
 		$this->skininfo		= $Skin;
-		$this->customtpls	= $Skin['templates'];	
+		$this->customtpls	= (array) $Skin['templates'];	
 	}
 	
 	static function getAvalibleSkins() {
