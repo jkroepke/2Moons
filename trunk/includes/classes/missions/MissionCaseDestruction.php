@@ -50,7 +50,7 @@ class MissionCaseDestruction extends MissionFunctions
 
 		
 		$attackFleets[$this->_fleet['fleet_id']]['fleet'] = $this->_fleet;
-		$attackFleets[$this->_fleet['fleet_id']]['user'] = $db->uniquequery("SELECT id,username,military_tech,defence_tech,shield_tech FROM ".USERS." WHERE id = '".$this->_fleet['fleet_owner']."';");
+		$attackFleets[$this->_fleet['fleet_id']]['user'] = $db->uniquequery("SELECT $TargetUser FROM ".USERS." WHERE id = '".$this->_fleet['fleet_owner']."';");
 		$attackFleets[$this->_fleet['fleet_id']]['user']['factor'] 	= getFactors($attackFleets[$this->_fleet['fleet_id']]['user'], 'attack', $this->_fleet['fleet_start_time']);
 		$attackFleets[$this->_fleet['fleet_id']]['detail'] = array();
 		$temp = explode(';', $this->_fleet['fleet_array']);
@@ -82,7 +82,7 @@ class MissionCaseDestruction extends MissionFunctions
 					$defense[$defRow['fleet_id']][$Element[0]] = 0;
 
 				$defense[$defRow['fleet_id']]['def'][$Element[0]] 	+= $Element[1];
-				$defense[$defRow['fleet_id']]['user']				= $db->uniquequery("SELECT id,username,military_tech,defence_tech,shield_tech FROM ".USERS." WHERE id = '".$defRow['fleet_owner']."';");
+				$defense[$defRow['fleet_id']]['user']				= $db->uniquequery("SELECT `id`, `username`, `military_tech`, `defence_tech`, `shield_tech`, `rpg_amiral`, `dm_defensive`, `dm_attack` FROM ".USERS." WHERE id = '".$defRow['fleet_owner']."';");
 				$defense[$defRow['fleet_id']]['user']['factor'] 	= getFactors($defense[$defRow['fleet_id']]['user'], 'attack', $this->_fleet['fleet_start_time']);
 			}
 			$DefenderRow['id'][] 	= $defense[$defRow['fleet_id']]['user']['id'];
@@ -254,8 +254,8 @@ class MissionCaseDestruction extends MissionFunctions
 			break;
 		}
 
-		$ShootMetal			= $result['debree']['att'][0] + $result['debree']['def'][0];
-		$ShootCrystal		= $result['debree']['att'][1] + $result['debree']['def'][1];	
+		$ShootMetal			= floattostring($result['debree']['att'][0] + $result['debree']['def'][0]);
+		$ShootCrystal		= floattostring($result['debree']['att'][1] + $result['debree']['def'][1]);	
 		
 		$SQL  = "UPDATE ".PLANETS." SET ";
 		$SQL .= "`der_metal` = `der_metal` + '".$ShootMetal."', ";
@@ -284,8 +284,8 @@ class MissionCaseDestruction extends MissionFunctions
         $SQL .= "`wons` = wons + ".$Won.", ";
         $SQL .= "`loos` = loos + ".$Lose.", ";
         $SQL .= "`draws` = draws + ".$Draw.", ";
-        $SQL .= "`kbmetal` = kbmetal + ".floattostring($result['debree']['att'][0]+$result['debree']['def'][0]).", ";
-        $SQL .= "`kbcrystal` = kbcrystal + ".floattostring($result['debree']['att'][1]+$result['debree']['def'][1]).", ";
+        $SQL .= "`kbmetal` = kbmetal + ".$ShootMetal.", ";
+        $SQL .= "`kbcrystal` = kbcrystal + ".$ShootCrystal.", ";
         $SQL .= "`lostunits` = lostunits + ".floattostring($result['lost']['att']).", ";
         $SQL .= "`desunits` = desunits + ".floattostring($result['lost']['def'])." ";
         $SQL .= "WHERE ";
@@ -294,8 +294,8 @@ class MissionCaseDestruction extends MissionFunctions
         $SQL .= "`wons` = wons + ". $Lose .", ";
         $SQL .= "`loos` = loos + ". $Won .", ";
         $SQL .= "`draws` = draws + ". $Draw  .", ";
-        $SQL .= "`kbmetal` = kbmetal + ".floattostring($result['debree']['att'][0]+$result['debree']['def'][0]).", ";
-        $SQL .= "`kbcrystal` = kbcrystal + ".floattostring($result['debree']['att'][1]+$result['debree']['def'][1]).", ";
+        $SQL .= "`kbmetal` = kbmetal + ".$ShootMetal.", ";
+        $SQL .= "`kbcrystal` = kbcrystal + ".$ShootCrystal.", ";
         $SQL .= "`lostunits` = lostunits + ".floattostring($result['lost']['def']).", ";
         $SQL .= "`desunits` = desunits + ".floattostring($result['lost']['att'])." ";
         $SQL .= "WHERE ";

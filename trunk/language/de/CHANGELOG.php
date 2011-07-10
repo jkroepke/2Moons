@@ -49,6 +49,7 @@ $LNG['changelog']   = array(
 - FIX: Cencored coors on hall of frame know correctly
 - FIX: Fixed not correct calculaton of DM extras on destruction
 - FIX: Chat
+- FIX: Fixed incorrect display of reycler fleets
 - FIX: Fixed Servertime are not localize
 - FIX: MaxElemens for shields &amp; missiles
 - FIX: wrong padding for leftmenu

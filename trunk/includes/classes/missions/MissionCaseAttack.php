@@ -60,7 +60,7 @@ class MissionCaseAttack extends MissionFunctions
 			while ($fleet = $db->fetch_array($fleets))
 			{
 				$attackFleets[$fleet['fleet_id']]['fleet'] 				= $fleet;
-				$attackFleets[$fleet['fleet_id']]['user'] 				= $db->uniquequery("SELECT id,username,military_tech,defence_tech,shield_tech FROM ".USERS." WHERE `id` = '".$fleet['fleet_owner']."';");
+				$attackFleets[$fleet['fleet_id']]['user'] 				= $db->uniquequery("SELECT `id`, `username`, `military_tech`, `defence_tech`, `shield_tech`, `rpg_amiral`, `dm_defensive`, `dm_attack`  FROM ".USERS." WHERE `id` = '".$fleet['fleet_owner']."';");
 				$attackFleets[$fleet['fleet_id']]['user']['factor'] 	= getFactors($attackFleets[$fleet['fleet_id']]['user'], 'attack', $this->_fleet['fleet_start_time']);
 				$attackFleets[$fleet['fleet_id']]['detail'] 			= array();
 				$temp = explode(';', $fleet['fleet_array']);
@@ -81,7 +81,7 @@ class MissionCaseAttack extends MissionFunctions
 		else
 		{
 			$attackFleets[$this->_fleet['fleet_id']]['fleet']			= $this->_fleet;
-			$attackFleets[$this->_fleet['fleet_id']]['user'] 			= $db->uniquequery("SELECT id,username,military_tech,defence_tech,shield_tech FROM ".USERS." WHERE id = '".$this->_fleet['fleet_owner']."';");
+			$attackFleets[$this->_fleet['fleet_id']]['user'] 			= $db->uniquequery("SELECT `id`, `username`, `military_tech`, `defence_tech`, `shield_tech`, `rpg_amiral`, `dm_defensive`, `dm_attack`  FROM ".USERS." WHERE id = '".$this->_fleet['fleet_owner']."';");
 			$attackFleets[$this->_fleet['fleet_id']]['user']['factor'] 	= getFactors($attackFleets[$this->_fleet['fleet_id']]['user'], 'attack', $this->_fleet['fleet_start_time']);
 			$attackFleets[$this->_fleet['fleet_id']]['detail'] 			= array();
 			$temp = explode(';', $this->_fleet['fleet_array']);
@@ -104,7 +104,7 @@ class MissionCaseAttack extends MissionFunctions
 		$def = $db->query("SELECT * FROM ".FLEETS." WHERE `fleet_mission` = '5' AND `fleet_end_id` = '".$this->_fleet['fleet_end_id']."' AND fleet_start_time <= '".TIMESTAMP."' AND fleet_end_stay >= '".TIMESTAMP."';");
 		while ($defRow = $db->fetch_array($def))
 		{
-			$defense[$defRow['fleet_id']]['user'] = $db->uniquequery("SELECT id,username,military_tech,defence_tech,shield_tech,rpg_amiral FROM ".USERS." WHERE id = '".$defRow['fleet_owner']."';");
+			$defense[$defRow['fleet_id']]['user'] = $db->uniquequery("SELECT `id`, `username`, `military_tech`, `defence_tech`, `shield_tech`, `rpg_amiral`, `dm_defensive`, `dm_attack`  FROM ".USERS." WHERE id = '".$defRow['fleet_owner']."';");
 			$attackFleets[$this->_fleet['fleet_id']]['user']['factor'] 	= getFactors($defense[$defRow['fleet_id']]['user'], 'attack', $this->_fleet['fleet_start_time']);
 			$defRowDef = explode(';', $defRow['fleet_array']);
 			foreach ($defRowDef as $Element)
