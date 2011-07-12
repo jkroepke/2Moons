@@ -10,7 +10,7 @@
 	<td colspan="2">{$input_id_user}</td>
 	<td><input name="id" type="text" value="0" size="3"></td>
 </tr><tr>
-	<th>{$ad_number}</th
+	<th>{$ad_number}</th>
 	<th>{$officiers_title}</th>
 	<th>{$officiers_count}</th>
 </tr>

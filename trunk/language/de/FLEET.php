@@ -166,7 +166,7 @@ $LNG['sys_perte_defenseur'] 				= 'Verluste Verteidiger';
 $LNG['sys_debris'] 						= 'Trümmerfeld';
 $LNG['sys_destruc_title']       		   	= 'Folgende Flotten stehen sich zur Mondzerstörung gegenüber:';
 $LNG['sys_mess_destruc_report']  		  	= 'Bericht: Zerstörung eines Mondes';
-
+$LNG['sys_raport_not_found']				= 'Ungültige Kampfbericht ID';
 $LNG['sys_destruc_lune']          		 	= 'Die Wahrscheinlichkeit einer Mondzerstörung beträgt: %d%% ';
 $LNG['sys_destruc_rip']          			= 'Die Wahrscheinlichkeit der Selbstzerstörung der Flotte beträgt: %d%%';
 $LNG['sys_destruc_stop']      			 	= 'Der Verteidiger hat die Mondzerstörung erfolgreich abgeblockt.';

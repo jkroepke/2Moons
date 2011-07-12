@@ -36,7 +36,6 @@ function ShowTopKB()
 	
 	switch($mode){
 		case "showkb":
-			$template->isPopup(true);
 
 			$LANG->includeLang(array('FLEET'));
 			
@@ -44,6 +43,9 @@ function ShowTopKB()
 			if(file_exists(ROOT_PATH.'raports/topkb_'.$ReportID.'.php')) {
 				require_once(ROOT_PATH.'raports/topkb_'.$ReportID.'.php');
 				$RaportRAW 	= $db->uniquequery("SELECT `angreifer`, `defender` FROM ".TOPKB." WHERE `rid` = '".$db->sql_escape($ReportID)."';");
+			} else {
+				$template->message($LNG['sys_raport_not_found'], 0, false, true);
+				exit;
 			}
 			
 			foreach ($LNG['tech_rc'] as $id => $s_name)
@@ -54,6 +56,7 @@ function ShowTopKB()
 			
 			$raport			= preg_replace("/\[\d+\:\d+\:\d+\]/i", "[X:X:X]", $raport);
 	
+			$template->isPopup(true);
 			$template->assign_vars(array(
 				'attacker'	=> $RaportRAW['angreifer'],
 				'defender'	=> $RaportRAW['defender'],
