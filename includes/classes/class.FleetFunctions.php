@@ -261,9 +261,9 @@ abstract class FleetFunctions
 
 		if($FleetRow['fleet_mission'] == 1 && $FleetRow['fleet_group'] > 0)
 		{
-			$Aks = $db->uniquequery("SELECT teilnehmer FROM ".AKS." WHERE id = '". $FleetRow['fleet_group'] ."';");
+			$Aks = $db->countquery("SELECT FIND_IN_SET('".$FleetRow['fleet_owner']."', `eingeladen`) FROM ".AKS." WHERE id = '". $FleetRow['fleet_group'] ."';");
 
-			if($Aks['teilnehmer'] == $FleetRow['fleet_owner'])
+			if($Aks != 0)
 			{
 				$db->query("DELETE FROM ".AKS." WHERE id ='". $FleetRow['fleet_group'] ."';");
 				$FleetID	= $FleetRow['fleet_group'];

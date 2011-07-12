@@ -5,14 +5,14 @@
 <td colspan="3" align="left"><a href="?page=accounteditor">
 <img src="./styles/images/Adm/arrowright.png" width="16" height="10"> {$ad_back_to_menu}</a></td>
 </tr><tr>
-	<th colspan="7">{$researchs_title}</th>
+	<th colspan="3">{$research_title}</th>
 </tr><tr>
 	<td colspan="2">{$input_id_user}</td>
 	<td><input name="id" type="text" value="0" size="3"></td>
 </tr><tr>
 	<th>{$ad_number}</th>
-	<th>{$researchs_title}</th>
-	<th>{$researchs_count}</th>
+	<th>{$research_title}</th>
+	<th>{$research_count}</th>
 </tr>
 {foreach key=id item=input from=$inputlist}
 <tr><td>{$id}</td><td>{$input.name}</td><td><input name="{$input.type}" type="text" value="0"></td></tr>

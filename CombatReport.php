@@ -43,14 +43,17 @@ $LANG->includeLang(array('FLEET', 'TECH'));
 	
 $RID	= request_var('raport', '');
 
-if(file_exists(ROOT_PATH.'raports/raport_'.$RID.'.php'))
-	require_once(ROOT_PATH.'raports/raport_'.$RID.'.php');
-
 $template	= new template();
 
+if(file_exists(ROOT_PATH.'raports/raport_'.$RID.'.php')) {
+	require_once(ROOT_PATH.'raports/raport_'.$RID.'.php');
+} else {
+	$template->message($LNG['sys_raport_not_found'], 0, false, true);
+	exit;
+}
+
+
 $template->isPopup(true);
-
-
 $template->assign_vars(array('raport' => $raport));
 $template->show('raport.tpl');
 

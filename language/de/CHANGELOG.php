@@ -33,6 +33,14 @@ $LNG['Description'] = 'Beschreibung';
 
 $LNG['changelog']   = array(
 
+'v1.4.5' => 'ShadoX 30.07.11
+- FIX: clear planets after spy
+- FIX: little template iusses
+- FIX: SQL Error on FleetBack, if fleet is on a acs
+- FIX: JS Error on Combat Raports
+- DIV: Sicherheit im Game erhöht
+- DIV: Diverse Anpassungen am Game
+',
 'v1.4' => 'ShadoX 10.07.11
 - ADD: FirePHP Log System
 - ADD: Language selectable on Global Messages

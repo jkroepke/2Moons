@@ -51,8 +51,11 @@ class MissionCaseSpy extends MissionFunctions
 			
 		require_once(ROOT_PATH.'includes/classes/class.PlanetRessUpdate.php');	
 		$PlanetRess = new ResourceUpdate();
-		list($TargetUser['factor'], $TargetPlanet['factor'])    = getFactors($USER, $CPLANET);
+		
+		$TargetUser['factor']				= getFactors($TargetUser, 'basic', $this->_fleet['fleet_start_time']);
+		$PlanetRess 						= new ResourceUpdate();
 		list($TargetUser, $TargetPlanet)	= $PlanetRess->CalcResource($TargetUser, $TargetPlanet, true, $this->_fleet['fleet_start_time']);
+		
 		foreach ($fleet as $a => $b)
 		{
 			if (empty($b))
