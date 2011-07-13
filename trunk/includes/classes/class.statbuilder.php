@@ -102,7 +102,7 @@ class statbuilder extends records
 		}
 		$db->free_result($DelRW);
 		
-		$TKBRW			= $db->query("SELECT `rid` FROM ".TOPKB." ORDER BY `gesamtunits` LIMIT 100,1000;");	
+		$TKBRW			= $db->query("SELECT `rid` FROM ".TOPKB." ORDER BY `gesamtunits` DESC LIMIT 100,1000;");	
 
 		if($db->num_rows($TKBRW) !== 0)
 		{
