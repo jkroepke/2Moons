@@ -96,47 +96,53 @@
 		return $Result;
 	}
 
-	public function GalaxyRowMoon($GalaxyRowMoon)
+	public function GalaxyRowMoon($GalaxyRowPlanet, $IsOwn)
 	{
 		global $USER, $PLANET, $LNG, $resource;
-
+		
 		$Result = array(
-			'name'		=> htmlspecialchars($GalaxyRowMoon['name'], ENT_QUOTES, "UTF-8"),
-			'temp_min'	=> number_format($GalaxyRowMoon['temp_min'], 0, '', '.'), 
-			'diameter'	=> number_format($GalaxyRowMoon['diameter'], 0, '', '.'),
-			'attack'	=> (!CheckModule(1) && $GalaxyRowMoon['id_owner'] != $USER['id']) ? $LNG['type_mission'][1]:false,
+			'name'		=> htmlspecialchars($GalaxyRowPlanet['m_name'], ENT_QUOTES, "UTF-8"),
+			'temp_min'	=> number_format($GalaxyRowPlanet['m_temp_min'], 0, '', '.'), 
+			'diameter'	=> number_format($GalaxyRowPlanet['m_diameter'], 0, '', '.'),
+			'attack'	=> (!CheckModule(1) && !$IsOwn) ? $LNG['type_mission'][1]:false,
 			'transport'	=> (!CheckModule(34)) ? $LNG['type_mission'][3]:false,
-			'stay'		=> (!CheckModule(36) && $GalaxyRowMoon['id_owner'] == $USER['id']) ? $LNG['type_mission'][4]:false,
-			'stayally'	=> (!CheckModule(33) && $GalaxyRowMoon['id_owner'] != $USER['id']) ? $LNG['type_mission'][5]:false,
-			'spionage'	=> (!CheckModule(24) && $GalaxyRowMoon['id_owner'] != $USER['id']) ? $LNG['type_mission'][6]:false,
-			'destroy'	=> (!CheckModule(29) && $GalaxyRowMoon['id_owner'] != $USER['id'] && $PLANET[$resource[214]] > 0) ? $LNG['type_mission'][9]:false,
+			'stay'		=> (!CheckModule(36) && $IsOwn) ? $LNG['type_mission'][4]:false,
+			'stayally'	=> (!CheckModule(33) && !$IsOwn) ? $LNG['type_mission'][5]:false,
+			'spionage'	=> (!CheckModule(24) && !$IsOwn) ? $LNG['type_mission'][6]:false,
+			'destroy'	=> (!CheckModule(29) && !$IsOwn && $PLANET[$resource[214]] > 0) ? $LNG['type_mission'][9]:false,
 		);
 
 		return $Result;
 	}
 
-	public function GalaxyRowPlanet($GalaxyRowPlanet)
+	public function GalaxyRowPlanet($GalaxyRowPlanet, $IsOwn)
 	{
 		global $resource, $USER, $PLANET, $CONF, $LNG;
 		
-		if($PLANET[$resource[42]] > 0 && $GalaxyRowPlanet['userid'] != $USER['id'] && $GalaxyRowPlanet["galaxy"] == $PLANET['galaxy'] && !CheckModule(19))
+		if(!$IsOwn && $GalaxyRowPlanet['galaxy'] == $PLANET['galaxy'])
 		{
-			$PhRange 		 = $this->GetPhalanxRange($PLANET[$resource[42]]);
-			$SystemLimitMin  = max(1, $PLANET['system'] - $PhRange);
-			$SystemLimitMax  = $PLANET['system'] + $PhRange;
-			$PhalanxTypeLink = ($GalaxyRowPlanet['system'] <= $SystemLimitMax && $GalaxyRowPlanet['system'] >= $SystemLimitMin) ? $LNG['gl_phalanx']:false;
-		} else {
-			$PhalanxTypeLink = false;
-		}
+			if(!CheckModule(19) && $PLANET[$resource[42]] > 0)
+			{
+				$PhRange 		 = $this->GetPhalanxRange($PLANET[$resource[42]]);
+				$SystemLimitMin  = max(1, $PLANET['system'] - $PhRange);
+				$SystemLimitMax  = $PLANET['system'] + $PhRange;
+				$PhalanxTypeLink = ($GalaxyRowPlanet['system'] <= $SystemLimitMax && $GalaxyRowPlanet['system'] >= $SystemLimitMin) ? $LNG['gl_phalanx']:false;
+			} else {
+				$PhalanxTypeLink = false;
+			}
 
-		if ($PLANET[$resource[503]] > 0 && $GalaxyRowPlanet['userid'] != $USER['id'] && $GalaxyRowPlanet["galaxy"] == $PLANET['galaxy'])
-		{
-			$MiRange 		= $this->GetMissileRange($USER[$resource[117]]);
-			$SystemLimitMin = max(1, $PLANET['system'] - $MiRange);
-			$SystemLimitMax = $PLANET['system'] + $MiRange;
-			$MissileBtn 	= ($GalaxyRowPlanet['system'] <= $SystemLimitMax && $GalaxyRowPlanet['system'] >= $SystemLimitMin) ? true : false;
+			if (!CheckModule(40) && $PLANET[$resource[503]] > 0)
+			{
+				$MiRange 		= $this->GetMissileRange($USER[$resource[117]]);
+				$SystemLimitMin = max(1, $PLANET['system'] - $MiRange);
+				$SystemLimitMax = $PLANET['system'] + $MiRange;
+				$MissileBtn 	= ($GalaxyRowPlanet['system'] <= $SystemLimitMax && $GalaxyRowPlanet['system'] >= $SystemLimitMin) ? true : false;
+			} else {
+				$MissileBtn 	= false;
+			}
 		} else {
-			$MissileBtn 	= false;
+			$PhalanxTypeLink	= false;
+			$MissileBtn			= false;
 		}
 
 		$Result = array(
@@ -144,12 +150,12 @@
 			'name'			=> htmlspecialchars($GalaxyRowPlanet['name'],ENT_QUOTES,"UTF-8"),
 			'image'			=> $GalaxyRowPlanet['image'],
 			'phalax'		=> $PhalanxTypeLink,
-			'transport'		=> (!CheckModule(34)) ? $LNG['type_mission'][3]:false,
-			'spionage'		=> (!CheckModule(24) && $GalaxyRowPlanet['userid'] != $USER['id']) ? $LNG['type_mission'][6]:false,
-			'attack'		=> (!CheckModule(1) && $GalaxyRowPlanet['userid'] != $USER['id']) ? $LNG['type_mission'][1]:false,
-			'missile'		=> (!CheckModule(40) && $USER["settings_mis"] == "1" && $MissileBtn === true && $GalaxyRowPlanet['userid'] != $USER['id']) ? $LNG['gl_missile_attack']:false,
-			'stay'			=> (!CheckModule(36) && $GalaxyRowPlanet['userid'] == $USER['id']) ? $LNG['type_mission'][4]:false,
-			'stayally'		=> (!CheckModule(33) && $GalaxyRowPlanet['userid'] != $USER['id']) ? $LNG['type_mission'][5]:false,
+			'transport'		=> ($IsOwn || CheckModule(34)) ? false : $LNG['type_mission'][3],
+			'spionage'		=> ($IsOwn || CheckModule(24)) ? false : $LNG['type_mission'][6],
+			'attack'		=> ($IsOwn || CheckModule(1)) ? false : $LNG['type_mission'][1],
+			'missile'		=> ($IsOwn || CheckModule(40) && $MissileBtn && $USER["settings_mis"] == "1") ? false : $LNG['gl_missile_attack'],
+			'stay'			=> (!$IsOwn || CheckModule(36) && $IsOwn) ? false : $LNG['type_mission'][4],
+			'stayally'		=> ($IsOwn || CheckModule(33)) ? false : $LNG['type_mission'][5],
 		);
 		return $Result;
 	}
@@ -160,15 +166,21 @@
 
 		$Onlinetime			= floor((TIMESTAMP - $GalaxyRowPlanet['last_update']) / 60);
 		
+		if ($Onlinetime < 4)
+			$Activity	= $LNG['gl_activity'];
+		elseif($Onlinetime < 15)
+			$Activity	= sprintf($LNG['gl_activity_inactive'], $Onlinetime);
+		else
+			$Activity	= '';
+			
 		$Result = array(
-			'name'			=> htmlspecialchars($GalaxyRowPlanet['name'],ENT_QUOTES,"UTF-8"),
-			'activity'		=> ($Onlinetime < 4) ? $LNG['gl_activity'] : (($Onlinetime < 15) ? sprintf($LNG['gl_activity_inactive'], $Onlinetime) : ''),
+			'name'			=> htmlspecialchars($GalaxyRowPlanet['name'], ENT_QUOTES, "UTF-8"),
+			'activity'		=> $Activity,
 		);
-		
 		return $Result;
 	}
 
-	public function GalaxyRowUser($GalaxyRowPlanet)
+	public function GalaxyRowUser($GalaxyRowPlanet, $IsOwn)
 	{
 		global $CONF, $USER, $LNG, $db;
 

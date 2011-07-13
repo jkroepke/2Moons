@@ -5,37 +5,37 @@
 	<form action="?page=galaxy&amp;mode=1" method="post" id="galaxy_form">
 	<input type="hidden" id="auto" value="dr">
 	<table style="min-width:324px;width:324px;">
-	  <tr>
-		<td class="transparent">
-		  <table>
-			<tr>
-			 <th colspan="3">{lang}gl_galaxy{/lang}</th>
-			</tr>
-			<tr>
-			  <td><input type="button" name="galaxyLeft" value="&lt;-" onClick="galaxy_submit('galaxyLeft')"></td>
-			  <td><input type="text" name="galaxy" value="{$galaxy}" size="5" maxlength="3" tabindex="1"></td>
-			  <td><input type="button" name="galaxyRight" value="-&gt;" onClick="galaxy_submit('galaxyRight')"></td>
-			</tr>
-		   </table>
-		  </td>
-		  <td class="transparent">
-		   <table>
-			<tr>
-			 <th colspan="3">{lang}gl_solar_system{/lang}</th>
-			</tr>
-			 <tr>
-			  <td><input type="button" name="systemLeft" value="&lt;-" onClick="galaxy_submit('systemLeft')"></td>
-			  <td><input type="text" name="system" value="{$system}" size="5" maxlength="3" tabindex="2"></td>
-			  <td><input type="button" name="systemRight" value="-&gt;" onClick="galaxy_submit('systemRight')"></td>
-			 </tr>
-			</table>
-		   </td>
-		  </tr>
-		  <tr>
+		<tr>
+			<td class="transparent">
+				<table>
+					<tr>
+						<th colspan="3">{lang}gl_galaxy{/lang}</th>
+					</tr>
+					<tr>
+						<td><input type="button" name="galaxyLeft" value="&lt;-" onclick="galaxy_submit('galaxyLeft')"></td>
+						<td><input type="text" name="galaxy" value="{$galaxy}" size="5" maxlength="3" tabindex="1"></td>
+						<td><input type="button" name="galaxyRight" value="-&gt;" onclick="galaxy_submit('galaxyRight')"></td>
+					</tr>
+				</table>
+			</td>
+			<td class="transparent">
+				<table>
+					<tr>
+						<th colspan="3">{lang}gl_solar_system{/lang}</th>
+					</tr>
+					<tr>
+						<td><input type="button" name="systemLeft" value="&lt;-" onclick="galaxy_submit('systemLeft')"></td>
+						<td><input type="text" name="system" value="{$system}" size="5" maxlength="3" tabindex="2"></td>
+						<td><input type="button" name="systemRight" value="-&gt;" onclick="galaxy_submit('systemRight')"></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
 			<td style="background-color:transparent;border:0px;" colspan="2"> 
 				<input type="submit" value="{lang}gl_show{/lang}">
 			</td>
-		  </tr>
+		</tr>
 	</table>
 	</form>
 	{if $mode == 2}
@@ -46,7 +46,6 @@
 				<th colspan="2">{lang}gl_missil_launch{/lang} [{$galaxy}:{$system}:{$planet}]</th>
 			</tr>
 			<tr>
-
 				<td>{$missile_count} <input type="text" name="SendMI" size="2" maxlength="7"></td>
 				<td>{lang}gl_objective{/lang}: 
                 	{html_options name=Target options=$MissleSelector}
