@@ -37,12 +37,13 @@ class ShowGalaxyPage extends GalaxyRows
 		$GalaxyPlanets		= $db->query("SELECT SQL_BIG_RESULT DISTINCT 
 		p.`planet`, p.`id`, p.`id_owner`, p.`name`, p.`image`, p.`last_update`, p.`diameter`, p.`temp_min`, p.`destruyed`, p.`der_metal`, p.`der_crystal`, p.`id_luna`, 
 		u.`id` as `userid`, u.`ally_id`, u.`username`, u.`onlinetime`, u.`urlaubs_modus`, u.`banaday`, 
-		m.`id` as `m_id`, m.`diameter` as `m_diameter`, m.`name` as `m_name`, m.`temp_min` as `m_temp_min`, m.`last_update` as `m_last_update`
+		m.`id` as `m_id`, m.`diameter` as `m_diameter`, m.`name` as `m_name`, m.`temp_min` as `m_temp_min`, m.`last_update` as `m_last_update`,
 		s.`total_points`, s.`total_rank`, 
 		a.`id` as `allyid`, a.`ally_tag`, a.`ally_web`, a.`ally_members`, a.`ally_name`, 
 		allys.`total_rank` as `ally_rank` 
 		FROM ".PLANETS." p 
 		LEFT JOIN ".USERS." u ON p.`id_owner` = u.`id` 
+		LEFT JOIN ".PLANETS." m ON m.`id` = p.`id_luna`
 		LEFT JOIN ".STATPOINTS." s ON s.`id_owner` = u.`id` AND s.`stat_type` = '1'	
 		LEFT JOIN ".ALLIANCE." a ON a.`id` = u.`ally_id` 
 		LEFT JOIN ".STATPOINTS." allys ON allys.`stat_type` = '2' AND allys.`id_owner` = a.`id` 
