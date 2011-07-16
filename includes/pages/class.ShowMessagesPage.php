@@ -105,7 +105,7 @@ class ShowMessagesPage
 			case 'deletemarked':
 				$SQLWhere = array();
 				if(empty($_REQUEST['delmes']) || !is_array($_REQUEST['delmes']))
-					exit;
+					redirectTo('game.php?page=messages');
 					
 				foreach($_REQUEST['delmes'] as $MessID => $b)
 				{
