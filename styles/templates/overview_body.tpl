@@ -42,10 +42,10 @@
             {if $AllPlanets}
 			<table>
 				{foreach name=PlanetList item=PlanetRow from=$AllPlanets}
-				{if $smarty.foreach.PlanetList.iteration is odd}<tr style="height:20px;">{/if}			
+				{if ($smarty.foreach.PlanetList.iteration % $smarty.const.PLANET_ROWS_ON_OVERVIEW) === 1}<tr style="height:20px;">{/if}			
 				<td class="transparent">{$PlanetRow.name}<br><a href="game.php?page=overview&amp;cp={$PlanetRow.id}&amp;re=0" title="{$PlanetRow.name}"><img src="{$dpath}planeten/small/s_{$PlanetRow.image}.jpg" alt="{$PlanetRow.name}"></a><br>{$PlanetRow.build}</td>
-				{if $smarty.foreach.PlanetList.last && $smarty.foreach.PlanetList.total is odd && $smarty.foreach.PlanetList.total != 1}<td class="transparent">&nbsp;</td>{/if}
-				{if $smarty.foreach.PlanetList.iteration is even}</tr>{/if}
+				{if $smarty.foreach.PlanetList.last && ($smarty.foreach.PlanetList.iteration % $smarty.const.PLANET_ROWS_ON_OVERVIEW) === 1 && $smarty.foreach.PlanetList.total != 1}<td class="transparent">&nbsp;</td>{/if}
+				{if ($smarty.foreach.PlanetList.iteration % $smarty.const.PLANET_ROWS_ON_OVERVIEW) === 0}</tr>{/if}
 				{/foreach}
 			</table>
 			{else}&nbsp;{/if}
