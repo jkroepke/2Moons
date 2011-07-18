@@ -128,7 +128,7 @@ class MissionCaseSpy extends MissionFunctions
 		$MessageEnd  = "<center>".$DestProba."<br>".((ENABLE_SIMULATOR_LINK == true && !CheckModule(39)) ? "<a href=\"game.php?page=battlesim".$string."\">".$LNG['fl_simulate']."</a>":"")."</center>";
 			
 		$SpyMessage = "<br>".$GetSB."<br>".$AttackLink.$MessageEnd;
-		SendSimpleMessage($CurrentUserID, '', $this->_fleet['fleet_start_time'], 0, $LNG['sys_mess_qg'], $LNG['sys_mess_spy_report'], $SpyMessage);
+		SendSimpleMessage($CurrentUserID, 0, $this->_fleet['fleet_start_time'], 0, $LNG['sys_mess_qg'], $LNG['sys_mess_spy_report'], $SpyMessage);
 		
 		$LNG		    = $LANG->GetUserLang($TargetUser['lang']);
 		$TargetMessage  = $LNG['sys_mess_spy_ennemyfleet'] ." ". $CurrentPlanet['name'];
@@ -141,7 +141,7 @@ class MissionCaseSpy extends MissionFunctions
 		$TargetMessage .= $LNG['sys_mess_spy_seen_at'] ." ". $TargetPlanet['name'];
 		$TargetMessage .= " [". $TargetPlanet["galaxy"] .":". $TargetPlanet["system"] .":". $TargetPlanet["planet"] ."] ". $LNG['sys_mess_spy_seen_at2'] .".";
 
-		SendSimpleMessage($TargetUserID, '', $this->_fleet['fleet_start_time'], 0, $LNG['sys_mess_spy_control'], $LNG['sys_mess_spy_activity'], $TargetMessage);
+		SendSimpleMessage($TargetUserID, 0, $this->_fleet['fleet_start_time'], 0, $LNG['sys_mess_spy_control'], $LNG['sys_mess_spy_activity'], $TargetMessage);
 
 		if ($TargetChances >= $SpyerChances)
 		{

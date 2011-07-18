@@ -302,29 +302,40 @@ class MissionCaseExpedition extends MissionFunctions
 				}
 				$MessageAtt = sprintf('<a href="CombatReport.php?raport=%s" onclick="OpenPopup(\'CombatReport.php?raport=%s\', \'combat\', screen.width, screen.height);return false" target="combat"><center><font color="%s">%s %s</font></a><br><br><font color="%s">%s: %s</font> <font color="%s">%s: %s</font><br>%s %s:<font color="#adaead">%s</font> %s:<font color="#ef51ef">%s</font> %s:<font color="#f77542">%s</font><br>%s %s:<font color="#adaead">%s</font> %s:<font color="#ef51ef">%s</font><br></center>', $rid, $rid, $ColorAtt, $LNG['sys_mess_attack_report'], sprintf($LNG['sys_adress_planet'], $this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet']), $ColorAtt, $LNG['sys_perte_attaquant'], pretty_number($result['lost']['att']), $ColorDef, $LNG['sys_perte_defenseur'], pretty_number($result['lost']['def']), $LNG['sys_gain'], $LNG['Metal'], pretty_number($steal['metal']), $LNG['Crystal'], pretty_number($steal['crystal']), $LNG['Deuterium'], pretty_number($steal['deuterium']), $LNG['sys_debris'], $LNG['Metal'], pretty_number($result['debree']['att'][0]+$result['debree']['def'][0]), $LNG['Crystal'], pretty_number($result['debree']['att'][1]+$result['debree']['def'][1]));
 			
-				SendSimpleMessage($this->_fleet['fleet_owner'], '', $this->_fleet['fleet_start_time'], 3, $LNG['sys_mess_tower'], $LNG['sys_mess_attack_report'], $MessageAtt);
+				SendSimpleMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_start_time'], 3, $LNG['sys_mess_tower'], $LNG['sys_mess_attack_report'], $MessageAtt);
 			break;
 			case 5:
 				$this->KillFleet();
 				$Message	= $LNG['sys_expe_lost_fleet_'.mt_rand(1,4)];
 			break;
-			/* Bugged :/
 			case 6:
+				# http://owiki.de/Expedition#Ver.C3.A4nderte_Flugzeit
 				$MoreTime	= mt_rand(0, 100);
+				$Wrapper	= array();
+				$Wrapper[]	= 2;
+				$Wrapper[]	= 2;
+				$Wrapper[]	= 2;
+				$Wrapper[]	= 2;
+				$Wrapper[]	= 2;
+				$Wrapper[]	= 2;
+				$Wrapper[]	= 2;
+				$Wrapper[]	= 3;
+				$Wrapper[]	= 3;
+				$Wrapper[]	= 5;
 				if($MoreTime < 75) {
-					$this->UpdateFleet('fleet_end_time', $this->_fleet['fleet_end_time'] - TIMESTAMP * mt_rand(1, 5) + TIMESTAMP);
+					$this->UpdateFleet('fleet_end_time', ($this->_fleet['fleet_end_time'] - $this->_fleet['fleet_end_stay']) + ($this->_fleet['fleet_end_stay'] - $this->_fleet['fleet_start_time']) * $Wrapper[mt_rand(0, 9)]);
 					$Message = $LNG['sys_expe_time_slow_'.mt_rand(1,6)];
 				} else {
-					$this->UpdateFleet('fleet_end_time', round($this->_fleet['fleet_end_stay'] + ($this->_fleet['fleet_end_time'] - $this->_fleet['fleet_end_stay']) / 2));
+					$this->UpdateFleet('fleet_end_time', max(1, ($this->_fleet['fleet_end_time'] - $this->_fleet['fleet_end_stay']) - ($this->_fleet['fleet_end_stay'] - $this->_fleet['fleet_start_time']) / 3 * $Wrapper[mt_rand(0, 9)]));
 					$Message = $LNG['sys_expe_time_fast_'.mt_rand(1,3)];
 				}
-			break; */
+			break;
 			default:
 				$Message	= $LNG['sys_expe_nothing_'.mt_rand(1,8)];
 			break;
 		}
 			
-		SendSimpleMessage($this->_fleet['fleet_owner'], '', $this->_fleet['fleet_end_stay'], 15, $LNG['sys_mess_tower'], $LNG['sys_expe_report'], $Message);
+		SendSimpleMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_end_stay'], 15, $LNG['sys_mess_tower'], $LNG['sys_expe_report'], $Message);
 		$this->UpdateFleet('fleet_mess', 1);
 		$this->SaveFleet();
 	}
@@ -334,7 +345,7 @@ class MissionCaseExpedition extends MissionFunctions
 		global $LANG;
 		$LNG			= $LANG->GetUserLang($this->_fleet['fleet_owner']);
 		$Message 		= sprintf($LNG['sys_expe_back_home'], $LNG['Metal'], pretty_number($this->_fleet['fleet_resource_metal']), $LNG['Crystal'], pretty_number($this->_fleet['fleet_resource_crystal']),  $LNG['Deuterium'], pretty_number($this->_fleet['fleet_resource_deuterium']), $LNG['Darkmatter'], pretty_number($this->_fleet['fleet_resource_darkmatter']));
-		SendSimpleMessage($this->_fleet['fleet_owner'], '', $this->_fleet['fleet_end_time'], 15, $LNG['sys_mess_tower'], $LNG['sys_expe_report'], $Message);
+		SendSimpleMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_end_time'], 15, $LNG['sys_mess_tower'], $LNG['sys_expe_report'], $Message);
 		$this->RestoreFleet();
 	}
 }

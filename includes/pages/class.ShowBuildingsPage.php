@@ -78,6 +78,7 @@ class ShowBuildingsPage
 		$PLANET['deuterium']	+= $Needed['deuterium'];
 		$USER['darkmatter']		+= $Needed['darkmatter'];
 		array_shift($CurrentQueue);
+		var_dump($CurrentQueue);
 		if (count($CurrentQueue) == 0) {
 			$PLANET['b_building']    	= 0;
 			$PLANET['b_building_id'] 	= '';
@@ -198,9 +199,8 @@ class ShowBuildingsPage
 						$InArray--;
 				}
 			}
-			$PLANET[$resource[$Element]] += $InArray;
-			$BuildTime  				= GetBuildingTime($USER, $PLANET, $Element, !$AddMode);
-			$PLANET[$resource[$Element]] -= $InArray;
+			$BuildPlanet				= array_merge($PLANET, array($resource[$Element] => $PLANET[$resource[$Element]] + $InArray));
+			$BuildTime  				= GetBuildingTime($USER, $BuildPlanet, $Element, !$AddMode);
 			$BuildEndTime				= $CurrentQueue[$ActualCount - 1][3] + $BuildTime;
 			$BuildLevel					+= $InArray;
 			$CurrentQueue[]				= array($Element, $BuildLevel, $BuildTime, $BuildEndTime, $BuildMode);
@@ -250,7 +250,8 @@ class ShowBuildingsPage
 		$PlanetRess 	= new ResourceUpdate();
 		$PlanetRess->CalcResource();
 		
-		if($USER['urlaubs_modus'] == 0)
+		// wellformed buildURLs
+		if($_SERVER['REQUEST_METHOD'] === 'POST' && $USER['urlaubs_modus'] == 0)
 		{
 			switch($TheCommand)
 			{
@@ -267,14 +268,12 @@ class ShowBuildingsPage
 					$this->AddBuildingToQueue($Element, false);
 				break;
 			}
+			header('HTTP/1.0 204 No Content');
+			$PlanetRess->SavePlanetToDB();
+			exit;
 		}
 		$PlanetRess->SavePlanetToDB();
 		
-		// wellformed buildURLs
-		if($_SERVER['REQUEST_METHOD'] === 'POST') {
-			header('HTTP/1.0 204 No Content');
-			exit;
-		}
 		
 		$Queue	 			= $this->ShowBuildingQueue();
 		$QueueCount			= count($Queue);
