@@ -78,6 +78,12 @@ define('MAX_ATTACK_ROUNDS'		  , 6);
 // Enable the one-Click SImulation on Spy-Raports
 define('ENABLE_SIMULATOR_LINK'    , true);
 
+// Planetrows on overview
+define('PLANET_ROWS_ON_OVERVIEW'  , 2);
+
+// Max. User Session in Seconds
+define('ENABLE_SIMULATOR_LINK'    , true);
+
 // Max. User Session in Seconds
 define('SESSION_LIFETIME'		  , 43200);
 
