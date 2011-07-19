@@ -78,7 +78,6 @@ class ShowBuildingsPage
 		$PLANET['deuterium']	+= $Needed['deuterium'];
 		$USER['darkmatter']		+= $Needed['darkmatter'];
 		array_shift($CurrentQueue);
-		var_dump($CurrentQueue);
 		if (count($CurrentQueue) == 0) {
 			$PLANET['b_building']    	= 0;
 			$PLANET['b_building_id'] 	= '';

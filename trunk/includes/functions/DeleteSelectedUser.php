@@ -50,13 +50,13 @@ function DeleteSelectedUser($UserID)
 		}
 	}
 
-	$SQL .= "DELETE FROM ".BUDDY." WHERE `owner` = '".$UserID."' OR `sender` = '".$UserID."';";
-	$SQL .= "DELETE FROM ".FLEETS." WHERE `fleet_owner` = '".$UserID."';";
-	$SQL .= "DELETE FROM ".MESSAGES." WHERE `message_owner` = '".$UserID."';";
-	$SQL .= "DELETE FROM ".NOTES." WHERE `owner` = '".$UserID."';";
-	$SQL .= "DELETE FROM ".PLANETS." WHERE `id_owner` = '".$UserID."';";
-	$SQL .= "DELETE FROM ".USERS." WHERE `id` = '".$UserID."';";
-	$SQL .= "DELETE FROM ".STATPOINTS." WHERE `stat_type` = '1' AND `id_owner` = '".$UserID."';";
+	$SQL .= "DELETE FROM ".BUDDY." WHERE `owner` = ".$UserID." OR `sender` = ".$UserID.";";
+	$SQL .= "DELETE FROM ".FLEETS." WHERE `fleet_owner` = ".$UserID.";";
+	$SQL .= "DELETE FROM ".MESSAGES." WHERE `message_owner` = ".$UserID.";";
+	$SQL .= "DELETE FROM ".NOTES." WHERE `owner` = ".$UserID.";";
+	$SQL .= "DELETE FROM ".PLANETS." WHERE `id_owner` = ".$UserID.";";
+	$SQL .= "DELETE FROM ".USERS." WHERE `id` = ".$UserID.";";
+	$SQL .= "DELETE FROM ".STATPOINTS." WHERE `stat_type` = '1' AND `id_owner` = ".$UserID.";";
 	$db->multi_query($SQL);
 	
 	$SQL	= $db->query("SELECT fleet_id FROM ".FLEETS." WHERE `fleet_target_owner` = '".$UserID."';");

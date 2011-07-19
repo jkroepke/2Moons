@@ -156,7 +156,6 @@ class ShowShipyardPage
 			$MaxElements 	= $this->GetMaxConstructibleElements($Element);
 			$Count 			= min($Count, $MaxElements);
 			$BuildArray    	= !empty($PLANET['b_hangar_id']) ? unserialize($PLANET['b_hangar_id']) : array();
-			
 			if ($Element == 502 || $Element == 503)
 			{
 				$MaxMissiles	= $this->GetMaxConstructibleRockets($Missiles);
@@ -171,7 +170,9 @@ class ShowShipyardPage
 						break;
 					}
 				}
-				$Count 		= ($PLANET[$resource[$Element]] == 0 && $InBuild === false) ? 1 : 0;
+				
+				if($Count != 0 && $PLANET[$resource[$Element]] == 0 && $InBuild === false)
+					$Count 		=  1;
 			}
 
 			if(empty($Count))
