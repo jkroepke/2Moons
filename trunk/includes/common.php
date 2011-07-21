@@ -148,6 +148,22 @@ if (!defined('CLI') && !defined('LOGIN') && !defined('IN_CRON') && !defined('AJA
 		$USER['factor']		= getFactors($USER);
 		$USER['PLANETS']	= getPlanets($USER);
 		$FirePHP->log("Load Planet: ".$PLANET['id']);
+		
+		
+		if(empty($PLANET['b_hanger_id']) && !empty($PLANET['b_hanger']))
+		{
+			$_SESSION['messtoken'] = md5($USER['id'].'|1');
+			$db->query("UPDATE ".PLANETS." SET `b_hanger` = 0 WHERE `id` = '".$_SESSION['planet']."';");
+			message("<h1>Bug ahead!</h1><p>Please give Informations about your last steps!</p><textarea style=\"width:100%\" cols=\"5\" id=\"message\"></textarea><button onclick=\"$.post('game.php?page=messages&mode=send&id=1&ajax=1&subjectAutomatic bugraport!&text='+$('#message').val(), function(){document.location.href='game.php'});\">Send</button></form>");
+			exit;
+		}
+		if(empty($PLANET['b_building_id']) && !empty($PLANET['b_building']))
+		{
+			$_SESSION['messtoken'] = md5($USER['id'].'|1');
+			$db->query("UPDATE ".PLANETS." SET `b_building` = 0 WHERE `id` = '".$_SESSION['planet']."';");
+			message("<h1>Bug ahead!</h1><p>Please give Informations about your last steps!</p><textarea style=\"width:100%\" cols=\"5\" id=\"message\"></textarea><button onclick=\"$.post('game.php?page=messages&mode=send&id=1&ajax=1&subject=Automatic bugraport!&text='+$('#message').val(), function(){document.location.href='game.php'});\">Send</button></form>");
+			exit;
+		}
 	} else {
 		$USER['rights']	= unserialize($USER['rights']);
 		$LANG->includeLang(array('ADMIN'));
