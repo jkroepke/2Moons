@@ -29,11 +29,74 @@
 
 if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__))) exit;
 
+function printIni($a = array()) {
+    if (count($a)== 0)
+	    return;
+	
+	$r		= "";
+	$ini	= ini_get_all();
+	foreach($a as $key)
+	{
+	
+		$r .= $key.": ".$ini[$key]["local_value"]."\r\n";
+    }
+    return $r;
+}
+
+
 function ShowInformationPage()
 {
 	global $db, $LNG, $CONF;
-	$template	= new template();
-	$template->assign_vars(array(	
+
+	$i = array(
+		'asp_tags',
+		'auto_append_file',
+		'auto_prepend_file',
+		'disable_classes',
+		'disable_functions',
+		'display_errors',
+		'error_log',
+		'include_path',
+		'log_errors',
+		'magic_quotes_gpc',
+		'magic_quotes_runtime',
+		'magic_quotes_sybase',
+		'memory_limit',
+		'open_basedir',
+		'post_max_size',
+		'register_argc_argv',
+		'register_globals',
+		'register_long_arrays',
+		'safe_mode',
+		'short_open_tag',
+		'SMTP',
+		'smtp_port',
+		'upload_max_filesize',
+		'upload_tmp_dir',
+		'user_ini.filename',
+		'date.timezone',
+	);
+	
+	$s = array(
+		'session.bug_compat_42',
+		'session.bug_compat_warn',
+		'session.cookie_path',
+		'session.save_path',
+		'session.use_cookies',
+		'session.use_only_cookies',
+		'session.use_trans_sid',
+	);
+
+	$DATA .= sprintf(
+'Core:
+%s
+Session:
+%s',
+	printIni($i),
+	printIni($s));
+
+	$template	= new template();
+	$template->assign_vars(array(
 		'info_information'	=> sprintf($LNG['info_information'], 'http://2moons.cc/index.php?page=Board&boardID=5'),
 		'info'				=> $_SERVER['SERVER_SOFTWARE'],
 		'vPHP'				=> PHP_VERSION,
@@ -49,8 +112,9 @@ function ShowInformationPage()
 		'browser'			=> $_SERVER['HTTP_USER_AGENT'],
 		'safemode'			=> ini_get('safe_mode') ? 'Ja' : 'Nein',
 		'memory'			=> ini_get('memory_limit'),
+		'DATA'				=> $DATA
 	));
-	
+
 	$template->show('adm/ShowInformationPage.tpl');
 }
 
