@@ -235,6 +235,22 @@ textarea {
 	cursor: pointer;
 }
 
+div#trader {
+	margin:14px auto;
+	height:55px;
+	width:330px;
+}
+
+div#trader + div {
+	clear:both;
+}
+
+.trader_col {
+	margin:0 5px;
+	float:left;
+	width:100px;
+}
+
 .tip {
 	display:none;
 	padding:7px;

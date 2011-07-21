@@ -1,13 +1,12 @@
 {include file="adm/overall_header.tpl"}
-<center>
+
 <table width="60%">
     <tr>
-                <td>{$info_information}
-                        <textarea rows="25">[daten]Server Infos: {$info}
+		<td>{$info_information}
+			<textarea rows="25">[daten]Server Infos: {$info}
 PHP-Version: {$vPHP}
 PHP API: {$vAPI}
-phpinfo(): http://{$gameroot}/info/index.php
-SafeMode: {$safemode}
+[expander=PHP-Config]{$DATA}[/expander]SafeMode: {$safemode}
 MemoryLimit: {$memory}
 MySQL-Client-Version: {$vMySQLc}
 MySQL-Server-Version: {$vMySQLs}
@@ -21,10 +20,11 @@ Browser: {$browser}
 Problem besteht seit Installation:
 Verwendeter Editor:
 Screenshot:
-Problembeschreibung:
-                        [/daten]</textarea>
-                </td>
+Problembeschreibung
+
+
+[/daten]</textarea>
+		</td>
     </tr>
 </table>
-</center>
 {include file="adm/overall_footer.tpl"}
