@@ -72,7 +72,7 @@ class MissionCaseExpedition extends MissionFunctions
 			
 		$FleetCapacity		-= $this->_fleet['fleet_resource_metal'] + $this->_fleet['fleet_resource_crystal'] + $this->_fleet['fleet_resource_deuterium'] + $this->_fleet['fleet_resource_darkmatter'];
 					
-		$GetEvent			= mt_rand(1, 6);
+		$GetEvent			= 3;#mt_rand(1, 6);
 			
 		switch($GetEvent)
 		{
@@ -162,10 +162,10 @@ class MissionCaseExpedition extends MissionFunctions
 						continue;
 					
 					$MaxFound			= floor($FoundShips / ($pricelist[$ID]['metal'] + $pricelist[$ID]['crystal']));
-					if($MaxFound <= 0) 
+					$Count				= mt_rand(0, $MaxFound);
+					if($Count <= 0) 
 						continue;
 					
-					$Count				= mt_rand(0, $MaxFound);
 					$Found[$ID]			+= $Count;
 					$FoundShips	 		-= $Count * ($pricelist[$ID]['metal'] + $pricelist[$ID]['crystal']);
 					$FoundShipMess   	.= '<br>'.$LNG['tech'][$ID].': '.pretty_number($Count);

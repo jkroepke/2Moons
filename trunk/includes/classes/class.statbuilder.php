@@ -102,24 +102,23 @@ class statbuilder extends records
 		}
 		$db->free_result($DelRW);
 		
-		$TKBRW			= $db->query("SELECT `rid` FROM ".TOPKB." ORDER BY `gesamtunits` DESC LIMIT 100,1000;");	
-
-		if($db->num_rows($TKBRW) !== 0)
+		$TopKBLow		= $db->uniquequery("SELECT gesamtunits FROM ".TOPKB." ORDER BY gesamtunits DESC LIMIT 99,1;");
+		
+		if(isset($TopKBLow))
 		{
-			$RID	= array();
-			while($RID = $db->fetch_array($TKBRW))
+			$TKBRW			= $db->query("SELECT `rid` FROM ".TOPKB." WHERE `gesamtunits` < '".((isset($TopKBLow)) ? $TopKBLow['gesamtunits'] : 0)."';");	
+			if(isset($TKBRW))
 			{
-				if(file_exists(ROOT_PATH.'raports/topkb_'.$RID['rid'].'.php'))
-					unlink(ROOT_PATH.'raports/topkb_'.$RID['rid'].'.php');
-				
-				$RID[]	= $RID['rid'];
+				while($RID = $db->fetch_array($TKBRW))
+				{
+					if(file_exists(ROOT_PATH.'raports/topkb_'.$RID['rid'].'.php'))
+						unlink(ROOT_PATH.'raports/topkb_'.$RID['rid'].'.php');
+				}	
+				$db->query("DELETE FROM ".TOPKB." WHERE `gesamtunits` < '".((isset($TopKBLow)) ? $TopKBLow['gesamtunits'] : 0)."';");
 			}
 			
-			if(!empty($RID))
-				$db->query("DELETE FROM ".TOPKB." WHERE `rid` IN (".implode(",", $RID).");");
+			$db->free_result($TKBRW);
 		}
-		
-		$db->free_result($TKBRW);
 		
 		$db->query("UNLOCK TABLES;");
 	}

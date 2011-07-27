@@ -89,9 +89,7 @@ class ResourceUpdate
 		$MaxDeuteriumStorage     		    = $this->PLANET['deuterium_max'] * $this->CONF['max_overflow'];
 		$this->ProductionTime    			= ($this->TIME - $this->PLANET['last_update']);
 		$this->PLANET['last_update']   		= $this->TIME;
-		if($this->ProductionTime == 0)
-			return;
-			
+
 		$this->DEBUG->log("Start UpdateRessource on Planet(ID: ".$this->PLANET['id']."): ".date("H:i:s", $this->PLANET['last_update'])." to ".date("H:i:s", $this->TIME)." (".pretty_number($this->ProductionTime)."s)");
 		$this->DEBUG->log("Storage: Metal: ".pretty_number($this->PLANET['metal_max'])." Crystal: ".pretty_number($this->PLANET['crystal_max'])." Deuterium: ".pretty_number($this->PLANET['deuterium_max']));
 
@@ -465,12 +463,14 @@ class ResourceUpdate
 			$BuildTime  	    = GetBuildingTime($this->USER, $PLANET, $Element);
 			$BuildEndTime       = $this->USER['b_tech'] + $BuildTime;
 			$CurrentQueue[0]	= array($Element, $Level, $BuildTime, $BuildEndTime, $PLANET['id']);
-			$HaveRessources 	= IsElementBuyable($this->USER, $this->PLANET, $Element, true, false);
 			
 			if($PLANET['id'] != $this->PLANET['id']) {
 				$RPLANET 		= new ResourceUpdate(true, false);
 				list(, $PLANET)	= $RPLANET->CalcResource($this->USER, $PLANET, false, $BuildEndTime);
 			}
+			
+			$HaveRessources 	= IsElementBuyable($this->USER, $PLANET, $Element, true, false);
+			
 			if($HaveRessources == true) {
 				$Needed							= GetBuildingPrice($this->USER, $PLANET, $Element);
 				$PLANET['metal']				-= $Needed['metal'];

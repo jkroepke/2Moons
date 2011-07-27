@@ -36,10 +36,7 @@ function GenerateReport($RESULT, $INFO)
 	$des		= array('att' => array(), 'def' => array());
 	
 	foreach($RESULT['rw'] as $round => $data1)
-	{
-		if($round_no > 6)
-			break;
-		
+	{		
 		$html 		.= '".$LNG["sys_attack_round"]." '.$round_no.' :<br><br>';
 		$attackers1 = $data1['attackers'];
 		$attackers2 = $data1['infoA'];
@@ -203,6 +200,10 @@ function GenerateReport($RESULT, $INFO)
 		}
 				
 		$html .= '</tr></table>';
+		
+		if($round >= MAX_ATTACK_ROUNDS)
+			break;
+			
 		if (array_sum($des['att']) == count($attackers2) || array_sum($des['def']) == count($defenders2)) break;
 				
 		$html .= '".$LNG["fleet_attack_1"]." '.pretty_number($data1['attack']).' ".$LNG["fleet_attack_2"]." '.pretty_number($data1['defShield']).' ".$LNG["damage"]."<br>';
