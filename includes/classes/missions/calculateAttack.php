@@ -77,7 +77,7 @@ function calculateAttack(&$attackers, &$defenders, $FleetTF, $DefTF)
 		}
 	}
 	
-	for ($ROUNDC = 0; $ROUNDC < MAX_ATTACK_ROUNDS; $ROUNDC++) 
+	for ($ROUNDC = 0; $ROUNDC <= MAX_ATTACK_ROUNDS; $ROUNDC++) 
 	{
 		$attackDamage  = array('total' => 0);
 		$attackShield  = array('total' => 0);
@@ -146,7 +146,7 @@ function calculateAttack(&$attackers, &$defenders, $FleetTF, $DefTF)
 
 		$ROUND[$ROUNDC] = array('attackers' => $attackers, 'defenders' => $defenders, 'attackA' => $attackAmount, 'defenseA' => $defenseAmount, 'infoA' => $attArray, 'infoD' => $defArray);
 
-		if ($defenseAmount['total'] <= 0 || $attackAmount['total'] <= 0) {
+		if ($ROUNDC >= MAX_ATTACK_ROUNDS || $defenseAmount['total'] <= 0 || $attackAmount['total'] <= 0) {
 			break;
 		}
 
@@ -269,7 +269,6 @@ function calculateAttack(&$attackers, &$defenders, $FleetTF, $DefTF)
 		$won = "a"; // attacker
 	} else {
 		$won = "w"; // draw
-		$ROUND[count($ROUND)] = array('attackers' => $attackers, 'defenders' => $defenders, 'attack' => $attackDamage, 'defense' => $defenseDamage, 'attackA' => $attackAmount, 'defenseA' => $defenseAmount);
 	}
 
 	// CDR
