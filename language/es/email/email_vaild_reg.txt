@@ -1,0 +1,25 @@
+Hola %1$s,
+Gracias por registrarte al juego %2$s . 
+Antes de que su cuenta sea activada y el registro esté completado,
+usted debe realizar un paso más.
+
+Tenga en cuenta que este es un paso absolutamente necesario para ser
+un usuario registrado. Es necesario que se dirija al enlace que aparece a
+continuación, una vez realizado esto usted habrá activado la cuenta..
+
+Para completar el registro haga click en el siguiente enlace:
+
+%3$s?page=reg&action=valid&uni=%7$s&clef=%4$s
+
+Sus datos de acceso son:
+
+Usuario : %1$s
+Contraseña : %5$s
+
+Si aún tiene porblemas con el registro, por favor no dude en comunicarse
+con el administrador a esta dirección: 
+mailto:%6$s
+
+Saluda Atentamente,
+
+El Equipo de %2$s
