@@ -29,7 +29,7 @@
 
 class ShowResearchPage
 {
-	private function CheckLabSettingsInQueue()
+	public function CheckLabSettingsInQueue()
 	{
 		global $PLANET, $CONF;
 		if ($PLANET['b_building'] == 0)
@@ -44,7 +44,7 @@ class ShowResearchPage
 		return true;
 	}
 	
-	private function GetRestPrice($Element)
+	public function GetRestPrice($Element)
 	{
 		global $USER, $PLANET, $pricelist, $resource, $LNG;
 
@@ -71,7 +71,7 @@ class ShowResearchPage
 		return $restprice;
 	}
 	
-	private function CancelBuildingFromQueue($PlanetRess)
+	public function CancelBuildingFromQueue($PlanetRess)
 	{
 		global $PLANET, $USER, $db, $resource;
 		$CurrentQueue  = unserialize($USER['b_tech_queue']);
@@ -142,7 +142,7 @@ class ShowResearchPage
 		}
 	}
 
-	private function RemoveBuildingFromQueue($QueueID, $PlanetRess)
+	public function RemoveBuildingFromQueue($QueueID, $PlanetRess)
 	{
 		global $USER, $PLANET;
 		
@@ -183,7 +183,7 @@ class ShowResearchPage
 		FirePHP::getInstance(true)->log("Queue(Tech): ".$USER['b_tech_queue']);
 	}
 
-	private function AddBuildingToQueue($Element, $AddMode = true)
+	public function AddBuildingToQueue($Element, $AddMode = true)
 	{
 		global $PLANET, $USER, $resource, $CONF;
 			
@@ -234,7 +234,7 @@ class ShowResearchPage
 		FirePHP::getInstance(true)->log("Queue(Tech): ".$USER['b_tech_queue']);
 	}
 
-	private function ShowTechQueue()
+	public function ShowTechQueue()
 	{
 		global $LNG, $CONF, $PLANET, $USER, $db;
 		
@@ -293,7 +293,7 @@ class ShowResearchPage
 		$ListID     	= request_var('listid', 0);
 		$PLANET[$resource[31].'_inter']	= $PlanetRess->CheckAndGetLabLevel($USER, $PLANET);	
 
-		if(!empty($Element) && $bContinue && $USER['urlaubs_modus'] == 0 && ($USER[$resource[$Element]] < $pricelist[$Element]['max'] && IsTechnologieAccessible($USER, $PLANET, $Element) && in_array($Element, $reslist['tech'])) || $TheCommand == "cancel" || $TheCommand == "remove")
+		if($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($Element) && $bContinue && $USER['urlaubs_modus'] == 0 && ($USER[$resource[$Element]] < $pricelist[$Element]['max'] && IsTechnologieAccessible($USER, $PLANET, $Element) && in_array($Element, $reslist['tech'])) || $TheCommand == "cancel" || $TheCommand == "remove")
 		{
 			switch($TheCommand)
 			{
@@ -313,10 +313,6 @@ class ShowResearchPage
 		}
 		
 		$PlanetRess->SavePlanetToDB();
-		if($_SERVER['REQUEST_METHOD'] === 'POST') {
-			header('HTTP/1.0 204 No Content');
-			exit;
-		}
 		
 		$TechQueue		= $this->ShowTechQueue();
 		$ResearchList	= array();

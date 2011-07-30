@@ -11,19 +11,35 @@
 				{$CQueue = $ResearchList[$List.element]}
 				{$CanBuild = $CQueue.max != $CQueue.level && !$IsFullQueue && $CQueue.buyable}
 					{$List@iteration}.: 
-					{if $CanBuild}<a href="game.php?page=buildings&amp;mode=research&amp;cmd=insert&amp;tech={$List.element}" class="post">{/if}
+					{if $CanBuild}
+					<form action="game.php?page=buildings" method="post" class="build_form">
+						<input type="hidden" name="cmd" value="insert">
+						<input type="hidden" name="mode" value="research">
+						<input type="hidden" name="tech" value="{$ID}">
+						<button type="submit" class="build_submit onlist">{lang}tech.{$List.element}{/lang} {$List.level}{if !empty($List.planet)} @ {$List.planet}{/if}</button>
+					</form>
+					{else}
 					{lang}tech.{$List.element}{/lang} {$List.level}{if !empty($List.planet)} @ {$List.planet}{/if}
-					{if $CanBuild}</a>{/if}
+					{/if}
 					{if $List@first}
 					<br><br><div id="progressbar" time="{$List.resttime}"></div>
 				</td>
 				<td>
 					<div id="time" time="{$List.time}"><br></div>
-					<a href="game.php?page=buildings&amp;mode=research&amp;cmd=cancel" class="post">{lang}bd_cancel{/lang}</a>
+					<form action="game.php?page=buildings" method="post" class="build_form">
+						<input type="hidden" name="cmd" value="cancel">
+						<input type="hidden" name="mode" value="research">
+						<button type="submit" class="build_submit onlist">{lang}bd_cancel{/lang}</button>
+					</form>
 					{else}
 				</td>
 				<td>
-					<a href="game.php?page=buildings&amp;mode=research&amp;cmd=remove&amp;listid={$List@iteration}" class="post">{lang}bd_cancel{/lang}</a>
+					<form action="game.php?page=buildings" method="post" class="build_form">
+						<input type="hidden" name="cmd" value="remove">
+						<input type="hidden" name="mode" value="research">
+						<input type="hidden" name="listid" value="{$List@iteration}">
+						<button type="submit" class="build_submit onlist">{lang}bd_cancel{/lang}</button>
+					</form>
 					{/if}
 					<br><span style="color:lime" time="{$List.endtime}" class="timer">{date($smarty.const.TDFORMAT, $List.endtime)}</span>
 				</td>
@@ -59,12 +75,21 @@
 							{if $ID != $CQueue.element}
 								-
 							{else}<div id="time" time="{$CQueue.time}"><br></div>
-								<a href="game.php?page=buildings&amp;cmd=cancel" class="post">{lang}bd_cancel{/lang}{if !empty($CQueue.planet)}{lang}bd_on{/lang}<br>{$CQueue.planet}{/if}</a>
+								<form action="game.php?page=buildings" method="post" class="build_form">
+									<input type="hidden" name="cmd" value="cancel">
+									<input type="hidden" name="mode" value="research">
+									<button type="submit" class="build_submit">{lang}bd_cancel{/lang}{if !empty($CQueue.planet)}{lang}bd_on{/lang}<br>{$CQueue.planet}{/if}</button>
+								</form>
 							{/if}
 						{elseif $IsLabinBuild || $IsFullQueue || !$Element.buyable}
 							<span style="color:red">{if $Element.level == 0}{lang}bd_tech{/lang}{else}{lang}bd_tech_next_level{/lang}{$Element.level + 1}{/if}</span>
 						{else}
-							<a href="game.php?page=buildings&amp;mode=research&amp;cmd=insert&amp;tech={$ID}" class="post" style="color:lime">{if $Element.level == 0}{lang}bd_tech{/lang}{else}{lang}bd_tech_next_level{/lang}{$Element.level + 1}{/if}</a>
+							<form action="game.php?page=buildings" method="post" class="build_form">
+								<input type="hidden" name="cmd" value="insert">
+								<input type="hidden" name="mode" value="research">
+								<input type="hidden" name="tech" value="{$ID}">
+								<button type="submit" class="build_submit">{if $Element.level == 0}{lang}bd_tech{/lang}{else}{lang}bd_tech_next_level{/lang}{$Element.level + 1}{/if}</button>
+							</form>
 						{/if}
 						</td>
 					</tr>

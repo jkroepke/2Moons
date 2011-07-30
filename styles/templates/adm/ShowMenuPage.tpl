@@ -12,7 +12,6 @@
 		{if allowedTo('ShowModulePage')}<li><a href="?page=module" target="Hauptframe">{$mu_module}</a></li>{/if}
 		{if allowedTo('ShowStatsPage')}<li><a href="?page=statsconf" target="Hauptframe">{$mu_stats_options}</a></li>{/if}
 		{if allowedTo('ShowUpdatePage')}<li><a href="?page=update" target="Hauptframe">{$mu_update}</a></li>{/if}
-		{if allowedTo('ShowModVersionPage')}<li><a href="?page=mods" target="Hauptframe">{$mu_mod_update}</a></li>{/if}
 		<li><a href="javascript:void(0);"><span style="color:lime">{$mu_users_settings}</span></a></li>
 		{if allowedTo('ShowCreatorPage')}<li><a href="?page=create" target="Hauptframe">{$new_creator_title}</a></li>{/if}
 		{if allowedTo('ShowAccountEditorPage')}<li><a href="?page=accounteditor" target="Hauptframe">{$mu_add_delete_resources}</a></li>{/if}

@@ -989,7 +989,6 @@ $LNG['fb_secrectkey']					= 'Facebook Secret Key';
 $LNG['fb_info']						= 'Con Facebook Connect los usuarios que están conectados a Facebook, pueden iniciar sesión con un click, o registrarse. <br>  Para utilizar esta característica, debes estar registrado en Faceebok. Además, debes crear una aplicación. Esto se puede hacer en <a href="http://www.facebook.com/developers/"> http://www.facebook.com/developers/ </ a>. Como URL de conexión, debes introducir la dirección URL del juego. A continuación, de introducir aquí las claves y el juego debería estar listo Facebook. <br> <font Color="red"> de FB Connect, la entrega de correo estará disponible (SMTP settings).</font>';
 $LNG['fb_curl_yes']						= '<span style="color:green">cURL Instalado.</span>';
 $LNG['fb_curl_no']						= '<span style="color:red">cURL No Instalado. ¡Facebook necesita las extensiones cURL para funcionar!</span>';
-$LNG['fb_app_url']                                      = 'Facebook URL';
 
 //----------------------------------------------------------------------------//
 //GameModule.php

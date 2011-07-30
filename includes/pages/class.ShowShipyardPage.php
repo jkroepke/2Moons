@@ -29,7 +29,7 @@
  
 class ShowShipyardPage
 {
-	private function GetMaxConstructibleElements($Element)
+	public function GetMaxConstructibleElements($Element)
 	{
 		global $pricelist, $PLANET, $USER, $reslist;
 
@@ -54,7 +54,7 @@ class ShowShipyardPage
 		
 		return min($MAX);
 	}
-	private function GetMaxConstructibleRockets($Missiles)
+	public function GetMaxConstructibleRockets($Missiles)
 	{
 		global $resource, $PLANET, $USER, $CONF;
 
@@ -74,7 +74,7 @@ class ShowShipyardPage
 		);
 	}
 
-	private function GetElementRessources($Element, $Count)
+	public function GetElementRessources($Element, $Count)
 	{
 		global $pricelist;
 
@@ -86,7 +86,7 @@ class ShowShipyardPage
 		return $ResType;
 	}
 	
-	private function CancelAuftr($CancelArray) 
+	public function CancelAuftr($CancelArray) 
 	{
 		global $USER, $PLANET;
 		$ElementQueue = unserialize($PLANET['b_hangar_id']);
@@ -113,7 +113,7 @@ class ShowShipyardPage
 		FirePHP::getInstance(true)->log("Queue(Hanger): ".$PLANET['b_hangar_id']);
 	}
 	
-	private function GetRestPrice($Element, $Factor = true)
+	public function GetRestPrice($Element, $Factor = true)
 	{
 		global $USER, $PLANET, $pricelist, $resource, $LNG;
 
