@@ -33,9 +33,15 @@ class statbuilder extends records
 {
 	function __construct()
 	{
+		global $db;
 		$this->starttime   	= microtime(true);
 		$this->memory		= array(round(memory_get_usage() / 1024,1),round(memory_get_usage(1) / 1024,1));
 		$this->time   		= TIMESTAMP;
+		
+		$this->Unis			= array($CONF['uni']);
+		$Query				= $db->query("SELECT `uni` FROM ".CONFIG." WHERE `uni` != '".$CONF['uni']."' ORDER BY `uni` ASC;");
+		while($Uni	= $db->fetch_array($Query))
+			$this->Unis[]	= $Uni['uni'];
 	}
 
 	private function SomeStatsInfos()
@@ -102,24 +108,25 @@ class statbuilder extends records
 		}
 		$db->free_result($DelRW);
 		
-		$TopKBLow		= $db->uniquequery("SELECT gesamtunits FROM ".TOPKB." ORDER BY gesamtunits DESC LIMIT 99,1;");
-		
-		if(isset($TopKBLow))
+		foreach($this->Unis as $Uni)
 		{
-			$TKBRW			= $db->query("SELECT `rid` FROM ".TOPKB." WHERE `gesamtunits` < '".((isset($TopKBLow)) ? $TopKBLow['gesamtunits'] : 0)."';");	
-			if(isset($TKBRW))
-			{
-				while($RID = $db->fetch_array($TKBRW))
-				{
-					if(file_exists(ROOT_PATH.'raports/topkb_'.$RID['rid'].'.php'))
-						unlink(ROOT_PATH.'raports/topkb_'.$RID['rid'].'.php');
-				}	
-				$db->query("DELETE FROM ".TOPKB." WHERE `gesamtunits` < '".((isset($TopKBLow)) ? $TopKBLow['gesamtunits'] : 0)."';");
-			}
+			$TopKBLow		= $db->uniquequery("SELECT gesamtunits FROM ".TOPKB." WHERE `universe` = ".$Uni." ORDER BY gesamtunits DESC LIMIT 99,1;");
 			
-			$db->free_result($TKBRW);
+			if(isset($TopKBLow))
+			{
+				$TKBRW			= $db->query("SELECT `rid` FROM ".TOPKB." WHERE `universe` = ".$Uni." AND `gesamtunits` < '".((isset($TopKBLow)) ? $TopKBLow['gesamtunits'] : 0)."';");	
+				if(isset($TKBRW))
+				{
+					while($RID = $db->fetch_array($TKBRW))
+					{
+						if(file_exists(ROOT_PATH.'raports/topkb_'.$RID['rid'].'.php'))
+							unlink(ROOT_PATH.'raports/topkb_'.$RID['rid'].'.php');
+					}	
+					$db->query("DELETE FROM ".TOPKB." WHERE `universe` = ".$Uni." AND `gesamtunits` < '".((isset($TopKBLow)) ? $TopKBLow['gesamtunits'] : 0)."';");
+				}
+				$db->free_result($TKBRW);
+			}
 		}
-		
 		$db->query("UNLOCK TABLES;");
 	}
 	
@@ -264,16 +271,10 @@ class statbuilder extends records
 	
 	private function SetNewRanks()
 	{
-		global $db, $CONF;
-		$Unis	= array($CONF['uni']);
-		$Query	= $db->query("SELECT `uni` FROM ".CONFIG." WHERE `uni` != '".$CONF['uni']."' ORDER BY `uni` ASC;");
-		while($Uni	= $db->fetch_array($Query)) {
-			$Unis[]	= $Uni['uni'];
-		}
-		
+		global $db, $CONF;	
 		
 		$QryUpdateStats = "";
-		foreach($Unis as $Uni)
+		foreach($this->Unis as $Uni)
 		{
 			$tech			= array();
 			$Rank           = 1;

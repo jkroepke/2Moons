@@ -31,7 +31,9 @@
 function ShowChatPage() {
 	
 	$template	= new template();
-	$template->cache = true;
+
+	$ctype	= request_var('chat_type', '');
+	
 	if (empty($ctype)) {
 		$PlanetRess = new ResourceUpdate();
 		$PlanetRess->CalcResource();
@@ -39,8 +41,7 @@ function ShowChatPage() {
 	} else {
 		$template->isPopup(true);
 	}
-
-	$ctype	= request_var('chat_type', '');
+	
 	$template->assign_vars(array(
 		'ctype'					=> $ctype,
 	));

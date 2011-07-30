@@ -6,23 +6,35 @@
 	<div id="buildlist" class="buildlist">
 		<table style="width:80%">
 			{foreach $Queue as $List}
+			{$ID = $List.element}
 			<tr>
 				<td style="width:70%;vertical-align:top;" class="left">
-					{$CanBuild = !($isBusy.research && ($ID == 6 || $ID == 31)) && !($isBusy.shipyard && ($ID == 15 || $ID == 21)) && $RoomIsOk && $CanBuildElement && $BuildInfoList[$List.element].buyable}
+					{$CanBuild = !($isBusy.research && ($ID == 6 || $ID == 31)) && !($isBusy.shipyard && ($ID == 15 || $ID == 21)) && $RoomIsOk && $CanBuildElement && $BuildInfoList[$ID].buyable}
 					{$List@iteration}.: 
-					{if $CanBuild}<a href="game.php?page=buildings&amp;cmd=insert&amp;building={$List.element}" class="post">{/if}
-					{lang}tech.{$List.element}{/lang} {$List.level} {if $List.destroy}{lang}bd_dismantle{/lang}{/if}
-					{if $CanBuild}</a>{/if}
+					{if $CanBuild}
+					<form class="build_form" action="game.php?page=buildings" method="post">
+						<input type="hidden" name="cmd" value="insert">
+						<input type="hidden" name="building" value="{$ID}">
+						<button type="submit" class="build_submit onlist">{lang}tech.{$ID}{/lang} {$List.level} {if $List.destroy}{lang}bd_dismantle{/lang}{/if}</button>
+					</form>
+					{else}{lang}tech.{$ID}{/lang} {$List.level} {if $List.destroy}{lang}bd_dismantle{/lang}{/if}{/if}
 					{if $List@first}
 					<br><br><div id="progressbar" time="{$List.resttime}"></div>
 				</td>
 				<td>
 					<div id="time" time="{$List.time}"><br></div>
-					<a href="game.php?page=buildings&amp;cmd=cancel" class="post">{lang}bd_cancel{/lang}</a>
+					<form action="game.php?page=buildings" method="post" class="build_form">
+						<input type="hidden" name="cmd" value="cancel">
+						<button type="submit" class="build_submit onlist">{lang}bd_cancel{/lang}</button>
+					</form>
 					{else}
 				</td>
 				<td>
-					<a href="game.php?page=buildings&amp;cmd=remove&amp;listid={$List@iteration}" class="post">{lang}bd_cancel{/lang}</a>
+					<form action="game.php?page=buildings" method="post" class="build_form">
+						<input type="hidden" name="cmd" value="remove">
+						<input type="hidden" name="listid" value="{$List@iteration}">
+						<button type="submit" class="build_submit onlist">{lang}bd_cancel{/lang}</button>
+					</form>
 					{/if}
 					<br><span style="color:lime" time="{$List.endtime}" class="timer">{date($smarty.const.TDFORMAT, $List.endtime)}</span>
 				</td>
@@ -55,7 +67,11 @@
 						{else}
 							{if $RoomIsOk}
 								{if $CanBuildElement && $Element.buyable}
-								<a href="game.php?page=buildings&amp;cmd=insert&amp;building={$ID}" class="post" style="color:lime">{if $Element.level == 0}{lang}bd_build{/lang}{else}{lang}bd_build_next_level{/lang}{$Element.level + 1}{/if}</a>
+								<form action="game.php?page=buildings" method="post" class="build_form">
+									<input type="hidden" name="cmd" value="insert">
+									<input type="hidden" name="building" value="{$ID}">
+									<button type="submit" class="build_submit">{if $Element.level == 0}{lang}bd_build{/lang}{else}{lang}bd_build_next_level{/lang}{$Element.level + 1}{/if}</button>
+								</form>
 								{else}
 								<span style="color:red">{if $Element.level == 0}{lang}bd_build{/lang}{else}{lang}bd_build_next_level{/lang}{$Element.level + 1}{/if}</span>
 								{/if}

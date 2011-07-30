@@ -1,21 +1,26 @@
 html, body {
-	height:100%;
-	width:100%;
+	min-height:100%;
+	min-width:100%;
     margin: 0;
     padding: 0;
 }
 
 body {
 	line-height:14px;
+	padding-bottom:21px;
 }
 
-body,input,select,textarea,a,td,th,tr,table {
+body,input,select,textarea,a,td,th,tr,table,button {
 	font-family:Verdana;
 	font-size:10px;
 }
 
 a:focus {
 	outline:none
+}
+
+button:hover {
+	cursor:pointer;
 }
 
 table,td,th {
@@ -67,6 +72,20 @@ textarea {
 .table569{
 	min-width:569px !important;
 	width:569px !important
+}
+
+.build_submit {
+    max-width: 100px;
+	padding:0;
+    word-wrap: break-word;
+}
+
+.build_form {
+	display:inline;
+}
+
+.onlist:hover {
+	text-decoration:underline;
 }
 
 /** HEADER **/
@@ -125,9 +144,9 @@ textarea {
 /** MENU **/
 
 #leftmenu {
-	padding-bottom:21px;
 	width:200px;
 	float:left;
+	margin-top: -29px;
 }
 
 #menu {
@@ -205,7 +224,7 @@ textarea {
 #content {
 	margin-left:210px;
 	margin-right:10px;
-	padding:10px 10px 26px 10px;
+	padding:10px 10px 5px 10px;
 }
 
 #content > table, form > table {

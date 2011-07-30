@@ -22,10 +22,6 @@ input,select,option,textarea {
 	background-color:transparent;
 }
 
-a:focus {
-	outline:none
-}
-
 a:hover {
 	color:red;
 	text-decoration:none
@@ -204,6 +200,15 @@ select {
 	color:#f60
 }
 
+.build_submit {
+    background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    color: lime;
+}
+.onlist{
+    color: #CCC;
+}
+
 /** HEADER **/
 
 #header {
@@ -327,5 +332,6 @@ th a,.res_current{
 }
 
 .ui-progressbar-value {
-background-image: url(img/processbar.png)
+	background-image: url(img/processbar.png);
+	background-position:top left;
 }

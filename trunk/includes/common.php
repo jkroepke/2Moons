@@ -55,7 +55,7 @@ ini_set('session.gc_divisor', '1000');
 ini_set('session.bug_compat_warn', '0');
 ini_set('session.bug_compat_42', '0');
 ini_set('session.cookie_httponly', true);
-ini_set('error_log', ROOT_PATH.'/includes/error.log');
+ini_set('error_log', ROOT_PATH.'includes/error.log');
 
 if(!defined('LOGIN'))
 	session_start();

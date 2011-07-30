@@ -31,7 +31,7 @@
 
 class ShowBuildingsPage
 {	
-	private function GetRestPrice($Element)
+	public function GetRestPrice($Element)
 	{
 		global $pricelist, $resource, $LNG, $USER, $PLANET;
 
@@ -58,7 +58,7 @@ class ShowBuildingsPage
 		return $restprice;
 	}
 	
-	private function CancelBuildingFromQueue($PlanetRess)
+	public function CancelBuildingFromQueue($PlanetRess)
 	{
 		global $PLANET, $USER;
 		$CurrentQueue  = unserialize($PLANET['b_building_id']);
@@ -111,7 +111,7 @@ class ShowBuildingsPage
 		return $ReturnValue;
 	}
 
-	private function RemoveBuildingFromQueue($QueueID, $PlanetRess)
+	public function RemoveBuildingFromQueue($QueueID, $PlanetRess)
 	{
 		global $USER, $PLANET;
 		if ($QueueID <= 1 || empty($PLANET['b_building_id']))
@@ -143,7 +143,7 @@ class ShowBuildingsPage
 		FirePHP::getInstance(true)->log("Queue(Build): ".$PLANET['b_building_id']);
 	}
 
-	private function AddBuildingToQueue ($Element, $AddMode = true)
+	public function AddBuildingToQueue ($Element, $AddMode = true)
 	{
 		global $PLANET, $USER, $resource, $CONF, $reslist;
 		
@@ -208,7 +208,7 @@ class ShowBuildingsPage
 		FirePHP::getInstance(true)->log("Queue(Build): ".$PLANET['b_building_id']);
 	}
 
-	private function ShowBuildingQueue()
+	public function ShowBuildingQueue()
 	{
 		global $LNG, $CONF, $PLANET, $USER;
 		
@@ -267,9 +267,6 @@ class ShowBuildingsPage
 					$this->AddBuildingToQueue($Element, false);
 				break;
 			}
-			header('HTTP/1.0 204 No Content');
-			$PlanetRess->SavePlanetToDB();
-			exit;
 		}
 		$PlanetRess->SavePlanetToDB();
 		
