@@ -1,36 +1,13 @@
 <?php
 
-/**
- *  2Moons
- *  Copyright (C) 2011  Slaver
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
- * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.4 (2011-07-10)
- * @info $Id$
- * @link http://code.google.com/p/2moons/
- */
- 
+// Traduzido por QwataKayean. Todos os Direitos Reservados © 2010-2011
+// Está presente o ACORDO ORTOGRÁFICO DE PORTUGAL PARA 2011 . Mais informações em : http://www.priberam.pt/
+
+
 $LNG['faq']			= array(
-"Como posso ter mais de um planeta?" => "Para teres mais planetas precisa de naves de colonização, para poderes colonizar para as conseguires precisas de as teres desbloquiadas e tanbém da tecnologia de astrofísica que por cada 2 tecnologias pesquisadas poderás colonizar mais um planeta, podes ter até 12 planetas.",
+"Como posso ter mais de um planeta?" => "Para teres mais planetas precisa da nave de colonização, para colonizar precisas de ter a nave de colonizaão desbluqueada, para as desbloquear pprocura no Botão Tecnologias quais os itens que precisas de evoluir. A tecnologia de astrofísica que por cada 2 tecnologias pesquisadas poderás colonizar mais um planeta, podes ter até 9 planetas.",
 "O que é um Giga.Reciclador?" => "O Giga.Reciclador é um reciclador reforçado com um poder de carga suprior ao normal, poderás transportar com ele até 250 K em vez dos normais 20 K do reciclador normal.",
-"Estou a ser atacado como posso salvar os meus recursos e a minha frota ?" => "Êxistem várias maneiras de poderes salvar os teus recursos. Para poderes salvar a tua frota e os teus recursos terás de faser fleet-save a frota e aos recursos, esta é a maneira mais facil.",
+"Estou a ser atacado como posso salvar os meus recursos e a minha frota ?" => "Existem várias maneiras de poderes salvar os teus recursos. Para poderes salvar a tua frota e os teus recursos terás de faser fleet-save a frota e aos recursos, esta é a maneira mais facil.",
 "O que é a Rede Intergaláctica de Pesquisas?" => "Com a Rede Intergaláctica de Pesquisas, é possível fazer pesquisas mais rapidamente. Os laboratórios são ligados entre si, se tiveres um laboratório a nível 12 e outro a nível 6 e a Rede Intergaláctica de Pesquisas a nível 2 estarás a fazer as pesquisas como se tivesses o laboratório a nível 18. Isto aplicasse a velocidade de pesquisa, cada nivel da Rede Intergaláctica de Pesquisas ligarás mais um planeta entre si.",
 "O que é Matéria Negra?" => "A Matéria Negra é um recurso muito raro de encontrar, com este recurso poderás contratar oficiais que te ajudarão a evóluir mais rapidamente, poderás ter mais velocídade de construção ou mais produção nas minas. Para saberes mais consulta a página dos ofíciais.",
 "Como obter Matéria Negra?" => "Há tres possibilidades.A primeira é enviar explorações para o slot 16 , a segunda possiblidade é a análize de MN, para isso precisas de uma lua e da nave Inter.MN-Slamer, e por fim a terceira e o método de compra que poderás encontrar as formas de pagamento na pagina dos ofíciais.",
@@ -48,8 +25,6 @@ $LNG['faq']			= array(
 "Se eu quiser apagar a minha conta quanto tempo é preciso para que seja apagada ?" => "A supressão de uma conta tem a duração de 7 dias, no final dos quais será impossivel reaver a conta.",
 "Ao fim de quanto tempo fica a minha conta inactiva?" => "A conta fica inactiva ao fim de 7 dias, na qual se verá este <b>i</b>. Após 28 dias de inactividade já veras o <b>I</b> maior.",
 "Quanto tempo posso tar sem entrar na minha conta sem ela ser apagada ?" => "A conta será apagada automaticamente após 30 dias de inactividade por parte do dono da conta",
-"BB-codes para a pagina de Aliança!" => "<center><strong>Letra gorda</strong> = Codigo: [b] Letra gorda [/b] <br><br><br><strong> <i> Letra Itálica </i></strong> = Codigo: [i] Letra Itálica [/i] <br><br><br><strong><u> Letra Sublinhada </u></strong> = Codigo: [u] Letra Sublinhada [/u] <br><br><br> <strong><font size=6>Tamanho da Fonte</font></strong> = Codigo: [size=20] Tamanho da Fonte [/size] <br><br><br><strong><font size=3 color=#33CC33>Cor da Fonte</font></strong> = Codigo: [color=#33cc33] Cor da Fonte [/color] <br><br><br> <strong><a href=\"http://www.vedra-empires.com\">Colocar Links</a></strong> = Codigo: [url=http://www.vedra-empires.com]Text[/url] <br><br><br> <strong>Colocar Imagens</strong> = Codigo: [img]http://www.vedra-empires.com/ban1.png[/img] <br><br><br> <strong>construir Lista</strong> = Codigo: [list] <br>[*] Lista 1<br>[*] Lista 2<br>[*] Lista 3<br>[/list] <strong><p align=\"center\">Alinhar Texto à Esquerda</p></strong> = Codigo: [align=left]Alinhar Texto à Esquerda[/align] <br><br><br> <strong><p align=\"center\">Alinhar Texto à Direita</p></strong> = Codigo: [align=right]Alinhar Texto à Direita[/align]<br><br><br> <strong>Colocar Fundo</strong><br><br>Codigo:<br><br>div style=\"background: url(&quot;http://www.vedra-empires.com/styles/skins/darkness/planeten/small/snormaltempplanet02.jpg&quot;) repeat scroll 0% 0% transparent;\"<br><br><div style=\"background: url(&quot;http://www.vedra-empires.com/styles/skins/darkness/planeten/small/s_normaltempplanet02.jpg&quot;) repeat scroll 0% 0% transparent;\">Colocar Texto</div><br><br>Codigo:<br><br>[bg=http://www.vedra-empires.com/styles/skins/darkness/planeten/small/s_normaltempplanet02.jpg]Texto[/bg]</center>",
-"Ainda tens duvidas?" => "Clica no menu Forum e dê uma olhada no Guia do Jogo ou então envia um Ticket de support com a tua questão, que será respondido o mais rápido possível e se necessario adicionaremos a tua questão na pagina de ajuda.",
 );
 
 $LNG['faq_overview']	= "FAQ";

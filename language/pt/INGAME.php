@@ -1,6 +1,7 @@
 <?php
 
 // Traduzido por QwataKayean. Todos os Direitos Reservados © 2010-2011
+// Está presente o ACORDO ORTOGRÁFICO DE PORTUGAL PARA 2011 . Mais informações em : http://www.priberam.pt/
 
 // 2Moons - Copyright (C) 2011  Slaver
 
@@ -153,7 +154,7 @@ $LNG['gl_populed_planets']		            = 'Planetas habitados';
 $LNG['gl_out_space']					    = 'Esploração Espacial';
 $LNG['gl_avaible_missiles']		            = 'Mísseis Disponíveis';
 $LNG['gl_fleets']					        = 'Slots De Frota';
-$LNG['gl_avaible_grecyclers']               = 'Giga.Reciclador Disponíveis';
+$LNG['gl_avaible_grecyclers']               = 'Giga Reciclador Disponíveis';
 $LNG['gl_avaible_recyclers']		        = 'Recicladores Disponíveis';
 $LNG['gl_avaible_spyprobes']		        = 'Sondas disponíveis';
 $LNG['gl_missil_launch']				    = 'Lançar mísseis';
@@ -194,7 +195,7 @@ $LNG['gl_player']							= 'Jogador';
 $LNG['gl_in_the_rank']						= 'O jogador %s está no rank %d';
 $LNG['gl_activity']							= 'Online';
 $LNG['gl_activity_inactive']				= '(%d min)';
-$LNG['gl_ajax_status_ok']					= 'Done';
+$LNG['gl_ajax_status_ok']					= 'Feito';
 $LNG['gl_ajax_status_fail']				    = 'Erro';
 $LNG['gl_free_desc'] 					    = 'Um grande, inabitado planeta. Aqui é o sitio ideal para uma nova colónia.';
 $LNG['gl_free'] 							= 'Planeta Inabitado';
@@ -249,7 +250,7 @@ $LNG['fl_departure']						= 'Partida';
 $LNG['fl_destiny']							= 'Destino';
 $LNG['fl_objective']						= 'Objectivo';
 $LNG['fl_arrival']							= 'Chegada';
-$LNG['fl_info_detail']                      = 'Frota-Detalhes';
+$LNG['fl_info_detail']                      = 'Detalhes de Frota';
 $LNG['fl_order']							= 'Ordem';
 $LNG['fl_new_mission_title']			    = 'Por favor escolhe a tua frota para esta missão:';
 $LNG['fl_ship_type']					    = 'Tipo de nave';
@@ -282,7 +283,7 @@ $LNG['fl_flying_time']					    = 'Tempo de vôo';
 $LNG['fl_flying_arrival']					= 'Chegada';
 $LNG['fl_flying_return']					= 'Retorno';
 $LNG['fl_fuel_consumption']			        = 'Consumo de deuterio';
-$LNG['fl_max_speed']						= 'Velocidade.Max';
+$LNG['fl_max_speed']						= 'Velocidade Max.';
 $LNG['fl_cargo_capacity']				    = 'Capacidade de carga';
 $LNG['fl_shortcut']							= 'Atalhos';
 $LNG['fl_shortcut_add_edit']			    = '(Juntar / Alterar)';
@@ -291,7 +292,7 @@ $LNG['fl_acs_title']						= 'Ataque de Aliança';
 $LNG['fl_hold_time']						= 'Em órbita';
 $LNG['fl_resources']						= 'Recursos';
 $LNG['fl_max']								= 'max';
-$LNG['fl_hours']                            = 'Horas(n)';
+$LNG['fl_hours']                            = 'Horas';
 $LNG['fl_resources_left']				    = 'Capacidade Desponível';
 $LNG['fl_all_resources']			        = 'Todos os recursos';
 $LNG['fl_empty_target']						= 'Sem missão disponivel (o planeta existe?)';
@@ -311,7 +312,7 @@ $LNG['fl_not_ally_deposit']				    = 'Não tens Depósito de Alianca';
 $LNG['fl_deploy_only_your_planets']		    = 'Só podes levantar frotas dos teus planetas!';
 $LNG['fl_no_enought_deuterium']             = 'Não tens deutério suficiente, tens %s. Falta-te %s %s!';
 $LNG['fl_no_enought_cargo_capacity']		= 'Não tens capacidade de carga que chegue! Disponivel:';
-$LNG['fl_admins_cannot_be_attacked']		= 'Administradores e Moderadores nao poderao ser atacados.';
+$LNG['fl_admins_cannot_be_attacked']		= 'Administradores e Moderadores nao poderão ser atacados.';
 $LNG['fl_fleet_sended']				        = 'Frota enviada';
 $LNG['fl_from']					            = 'De';
 $LNG['fl_arrival_time']				        = 'Faltam';
@@ -326,12 +327,12 @@ $LNG['fl_sac_of_fleet']			            = 'Frota em ACS';
 $LNG['fl_modify_sac_name']		            = 'Alterar nome do ACS';
 $LNG['fl_members_invited']			        = 'Jogadores convidados';
 $LNG['fl_invite_members']					= 'Convidar Jogadores';
-$LNG['fl_simulate']		                    = '<font color="#ff0000">SIMULAR-COMBATE</font>';
+$LNG['fl_simulate']		                    = '<font color="#ff0000">Simular Combate</font>';
 $LNG['fl_bonus']							= 'Bonus';
 $LNG['fl_bonus_attack']					    = 'Ataque';
 $LNG['fl_bonus_defensive']					= 'Defensivo';
 $LNG['fl_bonus_shield']					    = 'Escudo';
-$LNG['fl_no_empty_derbis']					= 'A extensão de escombros não existe! ';
+$LNG['fl_no_empty_derbis']					= 'Não existe destroços! ';
 $LNG['fl_acs_newname_alphanum']				= 'O nome só pode consistir de sinais alfanuméricos. ';
 $LNG['fl_acs_change']						= 'Alterar';
 $LNG['fl_acs_change_name']					= 'Eles alteraram para um novo nome';
@@ -562,10 +563,10 @@ $LNG['al_new_member_rank_text']			    = 'Novo membro';
 $LNG['al_acept_request']					= 'Aceite';
 $LNG['al_you_was_acceted']					= 'Foste aceite em ';
 $LNG['al_hi_the_alliance']					= 'Olá !<br>A aliança <b>';
-$LNG['al_has_accepted']						= '</b> A tua aplicação foi aceita<br>Fundador Mensagem: <br>';
+$LNG['al_has_accepted']						= '</b> A tua aplicação foi aceite<br>Mensagem: <br>';
 $LNG['al_decline_request']					= 'Rejeitada';
 $LNG['al_you_was_declined']				    = 'Foste rejeitado em ';
-$LNG['al_has_declined']						= '</b> A aliança rejeitou a tua aplicação <br> Fundador Mensagem: <br>';
+$LNG['al_has_declined']						= '</b> A aliança rejeitou a tua aplicação <br>Mensagem: <br>';
 $LNG['al_no_requests']						= 'Sem pedidos';
 $LNG['al_request_from']						= 'Pedido de "%s"';
 $LNG['al_no_request_pending']				= 'Estão %n aplicações pendentes';
@@ -580,7 +581,7 @@ $LNG['al_send_circular_message']			= 'Mandar Mensagem Circular';
 $LNG['al_circular_front_text']				= 'O jogador %s escreveu o seguinte:';
 $LNG['al_new_requests']						= '%d Novos pedidos (en)';
 $LNG['al_goto_chat']						= 'Chat da Aliança';
-$LNG['al_save']								= 'Salvar';
+$LNG['al_save']								= 'Guardar';
 $LNG['al_dlte']								= 'Apagar';
 $LNG['al_rank_name']						= 'Nome no rank';
 $LNG['al_ok']								= 'OK';
@@ -604,7 +605,7 @@ $LNG['al_characters']						= 'caracteres';
 $LNG['al_request_list']						= 'Lista de pedidos';
 $LNG['al_candidate']						= 'Candidato';
 $LNG['al_request_date']						= 'Data da aplicação';
-$LNG['al_transfer_alliance']				= 'abdicar /aceitar aliança?';
+$LNG['al_transfer_alliance']				= 'Abdicar /aceitar aliança?';
 $LNG['al_transfer_to']						= 'Transfere para';
 $LNG['al_transfer_submit']					= 'Transfere';
 $LNG['al_ally_information']				    = 'Informação da aliança';
@@ -891,7 +892,7 @@ $LNG['cdg_fatal_error']                     = 'ERRO FATAL';
 
 //----------------------------------------------------------------------------//
 //class.FlyingFleetsTable.php
-$LNG['cff_no_fleet_data']					= 'Sem dados de frota';//----------------------------------------------------------------------------//
+$LNG['cff_no_fleet_data']					= 'Sem dados de frota';
 $LNG['cff_fleet_own']						= 'Frota';
 $LNG['cff_fleet_target']					= 'Frotas';
 $LNG['cff_acs_fleet']						= 'Fleet em ACS';
@@ -1021,7 +1022,7 @@ $LNG['pl_etc']                              = 'Mensagens';
 
 //----------------------------------------------------------------------------//
 // Suporte
-$LNG['supp_header']                         = 'Support-System';
+$LNG['supp_header']                         = 'Sistema de Suporte';
 $LNG['supp_header_g'] 					    = 'Ticket Fechado';
 $LNG['ticket_id']                           = '#Ticket-ID';
 $LNG['subject']                             = 'Assunto';
@@ -1061,7 +1062,7 @@ $LNG['rec_techn']                           = 'Tecnologias';
 $LNG['rec_level']                           = 'Nível';
 $LNG['rec_nbre']                            = 'Quantidade';
 $LNG['rec_rien']                            = '-';
-$LNG['rec_last_update_on']                  = 'Ultimo update a: %s';
+$LNG['rec_last_update_on']                  = 'Ultima actualização a: %s';
 
 
 //----------------------------------------------------------------------------//
@@ -1080,12 +1081,12 @@ $LNG['bs_acs_slot']							= 'Slot ACS';
 $LNG['bs_add_acs_slot']						= 'Adicionar Slot de ACS';
 
 //----------------------------------------------------------------------------//
-// Sucateiro
-$LNG['ft_head']								= 'Sucateio';
+// Mercador de Frotas
+$LNG['ft_head']								= 'Mercador de Frotas';
 $LNG['ft_count']							= 'Número';
 $LNG['ft_max']								= 'max';
 $LNG['ft_total']							= 'TOTAL';
-$LNG['ft_charge']							= 'Taxa do Sucateiro';
+$LNG['ft_charge']							= 'Taxa do Mercador';
 $LNG['ft_absenden']							= 'Enviar';	
 $LNG['ft_empty']							= 'Vazio';	
 
