@@ -1,6 +1,6 @@
 <?php
 
-// Translated into Russian by InquisitorEA. All rights reserved © 2010-2011
+// Translated into Russian by InquisitorEA (SporeEA@yandex.ry). All rights reserved © 2010-2011
 
 // Общее
 $LNG['adm_login']                      = 'Логин';
@@ -855,8 +855,8 @@ $LNG['po_delete_moon']                 = 'Удалить луну';
 $LNG['sp_admin_answer']                = '%s (Админ) ответил %s<br><br><font color="red">%s</font>';
 $LNG['sp_answer_message_title']        = 'Заявка #%d';
 $LNG['sp_answer_message']              = 'На Вашу заявку #%d был дан ответ. Ответ смотрите в меню Тех. поддержка.';
-$LNG['sp_admin_closed']                = '%s (Админ) открыл заявку %s!';
-$LNG['sp_admin_open']                  = '%s (Админ) закрыл заявку %s!';
+$LNG['sp_admin_closed']                = '%s (Админ) закрыл заявку %s!';
+$LNG['sp_admin_open']                  = '%s (Админ) открыл заявку %s!';
 
 // Быстрый редактор
 $LNG['qe_send']                        = 'Отправить';

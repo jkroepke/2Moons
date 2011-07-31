@@ -28,6 +28,10 @@ table{
 	padding:0;
 }
 
+span > a{
+	color: inherit;
+}
+
 a.out {
 	font-size: 13px;
 	font-stretch:expanded;
