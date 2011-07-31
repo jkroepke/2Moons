@@ -82,9 +82,6 @@ define('ENABLE_SIMULATOR_LINK'    , true);
 define('PLANET_ROWS_ON_OVERVIEW'  , 2);
 
 // Max. User Session in Seconds
-define('ENABLE_SIMULATOR_LINK'    , true);
-
-// Max. User Session in Seconds
 define('SESSION_LIFETIME'		  , 43200);
 
 // Max. User Session in Seconds
