@@ -171,6 +171,7 @@ $LNG['sys_perte_defenseur'] 			= "Parte defensora";
 $LNG['sys_debris'] 						= "Destroços";
 $LNG['sys_destruc_title']    			= "Destruição de lua %s :";
 $LNG['sys_mess_destruc_report'] 		= "Relatório de destruição";
+$LNG['sys_raport_not_found']			= 'ID de Relatório de Batalha inválido';
 
 $LNG['sys_destruc_lune'] 				= "A probabilidade de destruição de lua foi de: %d%% ";
 $LNG['sys_destruc_rip'] 				= "A probabilidade das estrelas serem destruídas no confronto é de: %d%% ";

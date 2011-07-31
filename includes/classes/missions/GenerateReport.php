@@ -36,8 +36,7 @@ function GenerateReport($RESULT, $INFO)
 	$des		= array('att' => array(), 'def' => array());
 	
 	foreach($RESULT['rw'] as $round => $data1)
-	{		
-		$html 		.= '".$LNG["sys_attack_round"]." '.$round_no.' :<br><br>';
+	{	
 		$attackers1 = $data1['attackers'];
 		$attackers2 = $data1['infoA'];
 		$attackers3 = $data1['attackA'];
