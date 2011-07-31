@@ -81,17 +81,17 @@
 					<td class="transparent"><h3>{$ow_proyect_leader}</h3></td>
                 </tr>
                 <tr>
-					<td class="transparent"><h3><span style="color:red">Slaver</span></h3></td>
+					<td class="transparent"><h3><a href="http://2moons.cc/user/5-slaver/" style="color:red">Slaver</a></h3></td>
                 </tr>
                 <tr>
 					<td class="transparent"><h3>Team</h3></td>
                 </tr>
                 <tr>
 					<td class="transparent">
-					<span style="color:orange">Robbyn - Communityleitung<br>
-					Lyon - Forenadministrator<br>
-					Freak1992 - Forenadministrator<br>
-					Buggy666 - Forenmoderrator
+					<span style="color:orange"><a href="http://2moons.cc/user/2-robbyn/">Robbyn</a> - Communityleitung<br>
+					<a href="http://2moons.cc/user/3-lyon/">Lyon</a> - Forenadministrator<br>
+					<a href="http://2moons.cc/user/1-freak1992/">Freak1992</a> - Forenadministrator<br>
+					<a href="http://2moons.cc/user/88-fc92/">FC92</a> - Forenmoderrator
 					</span></td>
                 </tr>
 		        <tr>
@@ -99,17 +99,18 @@
                 </tr>
                 <tr>
 					<td class="transparent">
-					BuLLeT (english)<br>
-					QwataKayean (portuguese)<br>
-					InquisitorEA (russian)<br>
-					angelus_ira (spanish)<br>
+					<a href="http://2moons.cc/user/97-bullet/">BuLLeT</a> (english)<br>
+					<a href="http://2moons.cc/user/100-qwatakayean/">QwataKayean</a> (portuguese)<br>
+					<a href="http://2moons.cc/user/98-inquisitorea/">InquisitorEA</a> (russian)<br>
+					<a href="http://2moons.cc/user/750-angelus-ira/">angelus_ira</a> (spanish)<br>
+					<a href="http://2moons.cc/user/205-idro/">Idro</a> (italia)<br>
 					</td>
                 </tr> 
                 <tr>
 					<td class="transparent"><h3>{$ow_special_thanks}</h3></td>
                 </tr>
                 <tr>
-					<td class="transparent">lucky<br>Metusalem<br>Meikel<br>Phil<br>Schnippi<br>Inforcer<br>Vobi<br>Onko<br>Sycrog<br>Raito<br>Chlorel<br>e-Zobar<br>Flousedid<br>Allen Spielern im <a href="http://www.titanspace.org" target="blank">Betauni</a> ...<br>... sowie der Community auf 2moons.cc</td>
+					<td class="transparent">lucky<br>Metusalem<br>Meikel<br>Phil<br>Schnippi<br>Inforcer<br>Vobi<br>Onko<br>Sycrog<br>Raito<br>Chlorel<br>e-Zobar<br>Flousedid<br>Allen Usern in der Community auf <a href="http://2moons.cc/">2moons.cc</a></td>
                 </tr>    
             </table>
         </td>

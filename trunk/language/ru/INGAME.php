@@ -1,12 +1,12 @@
 <?php
 
-// Translated into Russian by InquisitorEA. All rights reserved © 2010-2011
+// Translated into Russian by InquisitorEA (SporeEA@yandex.ry). All rights reserved © 2010-2011
 
-setlocale(LC_ALL, 'ru_RU.UTF8', 'ru_RU', 'russian'); // http://msdn.microsoft.com/en-us/library/39cwe7zf%28vs.71%29.aspx
+setlocale(LC_ALL, 'ru_RU.UTF8', 'russian'); // http://msdn.microsoft.com/en-us/library/39cwe7zf%28vs.71%29.aspx
 setlocale(LC_NUMERIC, 'C');
 
 // Основное
-$LNG['js_days']                           = array('Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб');
+$LNG['js_days']                           = array('Вск', 'Пнд', 'Втр', 'Срд', 'Чтв', 'Птн', 'Сбт');
 $LNG['js_month']                          = array('Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Нов', 'Дек');
 
 $LNG['Metal']                             = 'Металл';
@@ -656,8 +656,8 @@ $LNG['al_Allyquote']                      = 'Статистика битв ал�
 $LNG['al_Quote']                          = 'Победная цитата';
 $LNG['al_unitsshut']                      = 'Нанесено урона';
 $LNG['al_unitsloos']                      = 'Получено урона';
-$LNG['al_tfmetall']                       = 'Добыто металла в нападениях';
-$LNG['al_tfkristall']                     = 'Добыто кристалла в нападениях';
+$LNG['al_tfmetall']                       = 'Всего обломков металла';
+$LNG['al_tfkristall']                     = 'Всего обломков кристалла';
 $LNG['al_view_stats']                     = 'Статистика битв';
 $LNG['al_view_diplo']                     = 'Дипломатия';
 $LNG['al_memberlist_min']                 = 'мин';

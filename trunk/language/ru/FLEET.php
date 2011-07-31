@@ -1,6 +1,6 @@
 <?php
 
-// Translated into Russian by InquisitorEA. All rights reserved © 2010-2011
+// Translated into Russian by InquisitorEA (SporeEA@yandex.ry). All rights reserved © 2010-2011
 
 $LNG['Metal']                         = 'Металл';
 $LNG['Crystal']                       = 'Кристалл';
@@ -159,6 +159,7 @@ $LNG['sys_perte_defenseur']           = 'Потери обороняющегос
 $LNG['sys_debris']                    = 'Поле обломков';
 $LNG['sys_destruc_title']             = 'Cледующие флоты учавствовали в уничтожении луны:';
 $LNG['sys_mess_destruc_report']       = 'Доклад сноса луны';
+$LNG['sys_raport_not_found']          = 'Неверный ID боевого доклада';
 $LNG['sys_destruc_lune']              = 'Вероятность уничтожения луны составила: %d%% ';
 $LNG['sys_destruc_rip']               = 'Вероятность взрыва звёзд смерти составила: %d %% ';
 $LNG['sys_destruc_stop']              = 'Обороняющийся был в состоянии остановить уничтожение луны.';

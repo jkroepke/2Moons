@@ -1,3 +1,4 @@
+<div class="clear"></div>
 <div id="footer">
 	{$cron}
 	<script type="text/javascript">

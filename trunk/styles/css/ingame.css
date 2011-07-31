@@ -88,6 +88,9 @@ textarea {
 	text-decoration:underline;
 }
 
+.clear {
+	clear:both;
+}
 /** HEADER **/
 #header {
 	padding:5px 10px;

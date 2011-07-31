@@ -1,6 +1,6 @@
 <?php
 
-// Translated into Russian by InquisitorEA. All rights reserved © 2010-2011
+// Translated into Russian by InquisitorEA (SporeEA@yandex.ry). All rights reserved © 2010-2011
 
 $LNG['continue']           = 'Дальше';
 
