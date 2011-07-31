@@ -16,7 +16,7 @@ $LNG['sys_attacker_lostunits'] 			= "O atacante perdeu um total de ";
 $LNG['sys_defender_lostunits'] 			= "O defensor perdeu um total de ";
 $LNG['sys_units']						= " unidades.";
 $LNG['debree_field_1'] 					= "Nestas coordenadas flutuam:";
-$LNG['debree_field_2']					= "A flutuar na órbita do planeta.";
+$LNG['debree_field_2']					= "A flutuar na orbita do planeta.";
 $LNG['sys_moonproba'] 					= "A probabilidade de criação de lua devido aos destroços do combate é de";
 $LNG['sys_moonbuilt'] 					= "Após o combate, a grande quantidade de metal e cristal deixados nos destroços atraem-se, devido ao efeito gravitacional, e formam lentamente um satélite lunar na órbita do planeta.";
 $LNG['sys_attack_title']    			= "As frotas seguintes encontraram-se em";
@@ -172,7 +172,6 @@ $LNG['sys_debris'] 						= "Destroços";
 $LNG['sys_destruc_title']    			= "Destruição de lua %s :";
 $LNG['sys_mess_destruc_report'] 		= "Relatório de destruição";
 $LNG['sys_raport_not_found']			= 'ID de Relatório de Batalha inválido';
-
 $LNG['sys_destruc_lune'] 				= "A probabilidade de destruição de lua foi de: %d%% ";
 $LNG['sys_destruc_rip'] 				= "A probabilidade das estrelas serem destruídas no confronto é de: %d%% ";
 $LNG['sys_destruc_stop'] 				= "O defensor não conseguiu evitar a destruição da sua lua";

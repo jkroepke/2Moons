@@ -1,6 +1,7 @@
 <?php
 
 // Traduzido por QwataKayean. Todos os Direitos Reservados © 2010-2011
+// Está presente o ACORDO ORTOGRÁFICO DE PORTUGAL PARA 2011 . Mais informações em : http://www.priberam.pt/
 
 /**
  *  2Moons

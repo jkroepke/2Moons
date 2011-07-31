@@ -61,7 +61,6 @@ function ShowInformationPage()
 		'magic_quotes_gpc',
 		'magic_quotes_runtime',
 		'magic_quotes_sybase',
-		'memory_limit',
 		'open_basedir',
 		'post_max_size',
 		'register_argc_argv',
