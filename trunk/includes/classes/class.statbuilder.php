@@ -33,7 +33,7 @@ class statbuilder extends records
 {
 	function __construct()
 	{
-		global $db;
+		global $db, $CONF;
 		$this->starttime   	= microtime(true);
 		$this->memory		= array(round(memory_get_usage() / 1024,1),round(memory_get_usage(1) / 1024,1));
 		$this->time   		= TIMESTAMP;
