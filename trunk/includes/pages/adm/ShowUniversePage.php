@@ -34,7 +34,7 @@ function ShowUniversePage() {
 	global $CONF, $LNG, $db, $UNI, $USER;
 	$template	= new template();
 
-	if($_REQUEST['action'] == 'delete' && !empty($_REQUEST['id']) && $_REQUEST['id'] != 1) {
+	if($_REQUEST['action'] == 'delete' && !empty($_REQUEST['id']) && $_REQUEST['id'] != ROOT_UNI) {
 		$ID	= (int) $_REQUEST['id'];
 		if($UNI != $ID) {
 			$db->multi_query("DELETE FROM ".ALLIANCE." WHERE `ally_universe` = ".$ID.";
@@ -57,7 +57,7 @@ function ShowUniversePage() {
 	} elseif($_REQUEST['action'] == 'create') {
 		$ID	= (int) $_REQUEST['id'];
 		$db->query("INSERT INTO ".CONFIG." (`uni`, `VERSION`, `uni_name`, `game_name`, `close_reason`, `OverviewNewsText`) VALUES
-		(NULL, '".$CONF['VERSION']."', 'Universum 2', '".$CONF['game_name']."', '', '');");
+		(NULL, '".$CONF['VERSION']."', 'Uni', '".$CONF['game_name']."', '', '');");
 		$UniID	= $db->GetInsertID();;
 		update_config(array('VERSION' => $CONF['VERSION'],
 			'game_name' => $CONF['game_name'],

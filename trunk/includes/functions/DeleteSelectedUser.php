@@ -31,6 +31,9 @@ function DeleteSelectedUser($UserID)
 {
 	global $db ,$CONF;
 	
+	if(ROOT_USER == $UserId)
+		return false;
+		
 	$TheUser = $db->uniquequery("SELECT universe, ally_id FROM ".USERS." WHERE `id` = '".$UserID."';");
 	$SQL 	 = "";
 	

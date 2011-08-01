@@ -1,7 +1,7 @@
 <div id="leftmenu">
 	<ul id="menu">
-		<li style="background-image: url('{$dpath}img/menu-top.png');height:100px;cursor:pointer" onclick="document.location = './game.php?page=changelog';"></li>
-		<li style="background-image: url('{$dpath}img/menu_wirt.png');height:30px;"></li>
+		<li class="menu-head"><a href="?page=changelog">Changelog</a></li>
+		<li class="menucat1-head"></li>
 		<li><a href="?page=overview">{lang}lm_overview{/lang}</a></li>
 		{if !CheckModule(15)}<li><a href="?page=imperium">{lang}lm_empire{/lang}</a></li>{/if}
 		{if !CheckModule(3)}<li><a href="?page=buildings&amp;mode=research">{lang}lm_research{/lang}</a></li>{/if}
@@ -14,8 +14,7 @@
 		{if !CheckModule(9)}<li><a href="?page=fleet">{lang}lm_fleet{/lang}</a></li>{/if}
 		{if !CheckModule(28)}<li><a href="?page=techtree">{lang}lm_technology{/lang}</a></li>{/if}
 		{if !CheckModule(23)}<li><a href="?page=resources">{lang}lm_resources{/lang}</a></li>{/if}
-
-		<li style="background-image: url('{$dpath}img/menu_com.png');height:30px;"></li>
+		<li class="menucat2-head"></li>
 		{if !CheckModule(11)}<li><a href="?page=galaxy">{lang}lm_galaxy{/lang}</a></li>{/if}
 		{if !CheckModule(0)}<li><a href="?page=alliance">{lang}lm_alliance{/lang}</a></li>{/if}
 		{if !empty($forum_url)}<li><a href="{$forum_url}" target="forum">{lang}lm_forums{/lang}</a></li>{/if}
@@ -30,13 +29,13 @@
 		<li><a href="./?page=rules" target="forum">{lang}lm_rules{/lang}</a></li>
 		{if !CheckModule(39)}<li><a href="?page=battlesim">{lang}lm_battlesim{/lang}</a></li>{/if}
 
-		<li style="background-image: url('{$dpath}img/menu_acc.png');height:30px;"></li>
+		<li class="menucat3-head"></li>
 		{if !CheckModule(16)}<li><a href="?page=messages">{lang}lm_messages{/lang}{if $new_message > 0}<span id="newmes"> (<span id="newmesnum">{$new_message}</span>)</span>{/if}</a></li>{/if}
 		{if !CheckModule(17)}<li><a href="javascript:OpenPopup('?page=notes','{lang}lm_notes{/lang}', 720, 300);">{lang}lm_notes{/lang}</a></li>{/if}
 		{if !CheckModule(6)}<li><a href="?page=buddy">{lang}lm_buddylist{/lang}</a></li>{/if}
 		<li><a href="?page=options">{lang}lm_options{/lang}</a></li>
 		<li><a href="?page=logout">{lang}lm_logout{/lang}</a></li>
 		{if $authlevel > 0}<li><a href="./admin.php" style="color:lime">{lang}lm_administration{/lang} ({$VERSION})</a></li>{/if}
-		<li style="background-image: url('{$dpath}img/menu-foot.png');height:30px;"></li>
+		<li class="menu-footer"></li>
 	</ul>
 </div>

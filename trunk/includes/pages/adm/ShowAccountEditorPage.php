@@ -469,22 +469,22 @@ function ShowAccountEditorPage()
 				
 				$PersonalQuery    =    "UPDATE ".USERS." SET ";
 
-				if(!empty($username) && $id != 1) {
+				if(!empty($username) && $id != ROOT_USER) {
 					$PersonalQuery    .= "`username` = '".$db->sql_escape($username)."', ";
 					$after['username'] = $username;
 				}
 				
-				if(!empty($email) && $id != 1) {
+				if(!empty($email) && $id != ROOT_USER) {
 					$PersonalQuery    .= "`email` = '".$db->sql_escape($email)."', ";
 					$after['email'] = $email;
 				}
 				
-				if(!empty($email_2) && $id != 1) {
+				if(!empty($email_2) && $id != ROOT_USER) {
 					$PersonalQuery    .= "`email_2` = '".$db->sql_escape($email_2)."', ";
 					$after['email_2'] = $email_2;
 				}
 
-				if(!empty($password) && $id != 1) {
+				if(!empty($password) && $id != ROOT_USER) {
 					$PersonalQuery    .= "`password` = '".$db->sql_escape(md5($password))."', ";
 					$after['password'] = (md5($password) != $before['password']) ? 'CHANGED' : '';
 				}
