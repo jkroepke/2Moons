@@ -42,9 +42,9 @@ function getUniverse()
 			$UNI	= explode('.', $_SERVER['HTTP_HOST']);
 			$UNI	= substr($UNI[0], 3);
 			if(!is_numeric($UNI))
-				$UNI	= 1;
+				$UNI	= ROOT_UNI;
 		} else {
-			$UNI	= 1;
+			$UNI	= ROOT_UNI;
 		}
 	}
 	

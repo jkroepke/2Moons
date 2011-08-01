@@ -43,7 +43,7 @@ function ShowRightsPage()
 			{
 				$id			= request_var('id_1', 0);
 				
-				if($USER['id'] != 1 && $id == 1) {
+				if($USER['id'] != ROOT_USER && $id == ROOT_USER) {
 					$template->message($LNG['ad_authlevel_error_3'], '?page=rights&mode=rights&sid='.session_id());
 					exit;
 				}
@@ -121,7 +121,7 @@ function ShowRightsPage()
 				if($id == 0)
 					$id	= request_var('id_2', 0);
 					
-				if($USER['id'] != 1 && $id == 1) {
+				if($USER['id'] != ROOT_USER && $id == ROOT_USER) {
 					$template->message($LNG['ad_authlevel_error_3'], '?page=rights&mode=users&sid='.session_id());
 					exit;
 				}	

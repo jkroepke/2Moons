@@ -27,7 +27,7 @@
  * @link http://code.google.com/p/2moons/
  */
 
-if ($USER['id'] != 1 || $_GET['sid'] != session_id()) exit;
+if ($USER['id'] != ROOT_USER || $_GET['sid'] != session_id()) exit;
 
 function ShowResetPage()
 {

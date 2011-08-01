@@ -254,6 +254,13 @@ select {
 	background: linear-gradient(top, #d20000 0%,#b40000 100%); /* W3C */
 }
 
+.menu-head a{
+	height:78px;
+	background:transparent !important;
+	padding:0 !important;
+	text-indent: -1000em;
+}
+
 .menu-head {
 	background: url('./img/menu-top.png') no-repeat scroll 0 -22px transparent;
 }

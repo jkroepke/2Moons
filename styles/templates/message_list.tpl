@@ -42,3 +42,4 @@
 	</tr>
 	{/if}
 </table>
+</form>

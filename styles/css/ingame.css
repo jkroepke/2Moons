@@ -153,7 +153,6 @@ textarea {
 #leftmenu {
 	width:200px;
 	float:left;
-	margin-top: -29px;
 }
 
 #menu {
@@ -175,7 +174,6 @@ textarea {
 
 .menu-head {
 	height:78px;
-	cursor:pointer;
 }
 
 .menucat1-head, .menucat2-head, .menucat3-head, .menu-footer{

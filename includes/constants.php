@@ -99,6 +99,11 @@ define('DICLAMER_EMAIL'    		  , "Edit constans.php!");
 // UTF-8 Support for Names (Requried for non-english Chars!)
 define('UTF8_SUPPORT'          	  , true);	
 
+// Root IDs
+
+define('ROOT_UNI'        	  	  , 1);	
+define('ROOT_USER'          	  , 1);	
+
 // AdminAuthlevels
 define('AUTH_ADM'                 , 3);
 define('AUTH_OPS'                 , 2);
