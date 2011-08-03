@@ -81,7 +81,7 @@
 		</section>
 	{/if}</div>
 	<footer>
-		<a href="index.php?page=disclamer">{$menu_disclamer}</a><br>{$servername} powered by <a href="http://2moons.cc" title="2Moons" target="copy">2Moons</a>
+		<a href="index.php?page=disclamer">{$menu_disclamer}</a><br>2009-2011 <a href="http://2moons.cc" title="2Moons" target="copy">2Moons</a>
 	</footer>
 </div>
 <div id="dialog" style="display:none;"></div>
