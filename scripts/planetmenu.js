@@ -1,8 +1,10 @@
 function initPlanetMenu(){
-	if($.cookie('pmenu') == "on" || $("#planet_menu_content:visible").length == 1) {
+	if($.cookie('pmenu') == "on" || ($.cookie('pmenu') === null && $("#planet_menu_content:visible").length == 1)) {
+		$.cookie('pmenu', 'on');
 		$('#planet_menu_content').show();
 		$('body').css('padding-bottom', '112px');
 	} else {
+		$.cookie('pmenu', 'off');
 		$('#planet_menu_content').hide();
 		$('body').css('padding-bottom', '21px');
 	}
