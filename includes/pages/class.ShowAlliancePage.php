@@ -891,7 +891,7 @@ class ShowAlliancePage
 
 								$text  	= makebr(request_var('text', '', true));
 
-								if ($action == $LNG['al_acept_request'])
+								if ($action == 'yes')
                                 {
                                     $db->multi_query("
 										UPDATE ".ALLIANCE." SET `ally_members` = `ally_members` + 1 WHERE id='".$ally['id']."';
@@ -903,7 +903,7 @@ class ShowAlliancePage
 
                                     redirectTo('game.php?page=alliance&mode=admin&edit=ally');
                                 }
-								elseif($action == $LNG['al_decline_request'])
+								elseif($action == 'no')
 								{
 									$db->query("DELETE FROM ".ALLIANCE_REQUEST." WHERE userid = ".$id.";");
 

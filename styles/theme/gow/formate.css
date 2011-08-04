@@ -10,11 +10,11 @@ body {
 	background:url("img/bkd_page.jpg") no-repeat fixed right top #0d0d0d;
 }
 
-body,input,select,textarea,a,td,th,tr,table{
+body,input,select,button,textarea,a,td,th,tr,table{
 	color:#CCC;
 }
 
-input,select,option,textarea {
+input,button,select,option,textarea {
 	background:#393939
 }
 
@@ -54,7 +54,7 @@ td {
 	background: linear-gradient(top, #222222 0,#030303 20px); /* W3C */
 }
 
-input {
+input,button {
 	border:1px solid #212121;
 	text-align:center
 }
