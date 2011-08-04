@@ -46,7 +46,7 @@ $('#'+i).slideDown(500);
 		<td><textarea name="text" cols="40" rows="10" onkeyup="$('#cntChars').text($(this).val().length);"></textarea></td>
 	</tr>
 	<tr>
-		<td colspan="2"><input type="submit" name="action" value="{$al_acept_request}"> <input type="submit" name="action" value="{$al_decline_request}"></td>
+		<td colspan="2"><button type="submit" name="action" value="yes">{$al_acept_request}</button> <button type="submit" name="action" value="no">{$al_decline_request}</button></td>
 	</tr>
 	</table>
 	</form>

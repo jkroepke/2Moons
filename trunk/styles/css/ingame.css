@@ -10,7 +10,7 @@ body {
 	padding-bottom:21px;
 }
 
-body,input,select,textarea,a,td,th,tr,table,button {
+body,input,button,select,textarea,a,td,th,tr,table,button {
 	font-family:Verdana;
 	font-size:10px;
 }
@@ -39,7 +39,7 @@ td {
 	padding-right:3px;
 }
 
-input {
+input,button {
 	margin:2px;
 }
 
