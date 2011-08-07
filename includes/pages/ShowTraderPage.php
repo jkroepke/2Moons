@@ -30,164 +30,74 @@
 function ShowTraderPage()
 {
 	global $USER, $PLANET, $LNG, $CONF, $db;
-	$ress 		= request_var('ress', '');
-	$action 	= request_var('action', '');
-	$metal		= round(request_var('metal', 0.0), 0);
-	$crystal 	= round(request_var('crystal', 0.0), 0);
-	$deut		= round(request_var('deuterium', 0.0), 0);
+	$ress	 	= request_var('ress', '');
+	$action		= request_var('action', '');
+	$res1		= round(request_var('ress1', 0.0), 0);
+	$res2		= round(request_var('ress2', 0.0), 0);
 
 	$PlanetRess = new ResourceUpdate();
-	
+	$PlanetRess->CalcResource();
+	$PlanetRess->SavePlanetToDB();
+		
 	$template	= new template();
 	$template->loadscript("trader.js");
-
-	if ($ress != '')
+	
+	$Charge		= array(
+		'metal'		=> array('crystal', 2, 'deuterium', 4),
+		'crystal'	=> array('metal', 0.5, 'deuterium', 2),
+		'deuterium'	=> array('metal', 0.25, 'crystal', 0.5),
+	);
+	
+	if(isset($Charge[$ress]))
 	{
-		switch ($ress) {
-			case 'metal':
-				if($action == "trade")
+		if($action == "trade")
+		{
+			if ($USER['darkmatter'] < $CONF['darkmatter_cost_trader'])
+				$template->message(sprintf($LNG['tr_empty_darkmatter'], $LNG['Darkmatter']), "game.php?page=trader", 1);
+			elseif ($res1 < 0 || $res2 < 0)
+				$template->message($LNG['tr_only_positive_numbers'], "game.php?page=trader", 1);
+			else
+			{
+				$trade	= $res1 * $Charge[$ress][1] + $res2 * $Charge[$ress][3];
+				$PlanetRess->CalcResource();
+				if ($PLANET[$ress] > $trade)
 				{
-					if ($USER['darkmatter'] < $CONF['darkmatter_cost_trader'])
-						$template->message(sprintf($LNG['tr_empty_darkmatter'], $LNG['Darkmatter']), "game.php?page=trader", 1);
-					elseif ($crystal < 0 || $deut < 0)
-						$template->message($LNG['tr_only_positive_numbers'], "game.php?page=trader",1);
-					else
-					{
-						$trade	= ($crystal * 2 + $deut * 4);
-						$PlanetRess->CalcResource();
-						if ($PLANET['metal'] > $trade)
-						{
-							$PLANET['metal']     -= $trade;
-							$PLANET['crystal']   += $crystal;
-							$PLANET['deuterium'] += $deut;
-							$USER['darkmatter']	-= $CONF['darkmatter_cost_trader'];
-							$template->message($LNG['tr_exchange_done'],"game.php?page=trader",1);
-						}
-						else
-							$template->message($LNG['tr_not_enought_metal'], "game.php?page=trader", 1);
-							
-						$PlanetRess->SavePlanetToDB();
-					}
-				} else {
-					$template->assign_vars(array(
-						'tr_resource'		=> $LNG['tr_resource'],
-						'tr_sell_metal'		=> $LNG['tr_sell_metal'],
-						'tr_amount'			=> $LNG['tr_amount'],
-						'tr_exchange'		=> $LNG['tr_exchange'],	
-						'tr_quota_exchange'	=> $LNG['tr_quota_exchange'],
-						'Metal'				=> $LNG['Metal'],
-						'Crystal'			=> $LNG['Crystal'],
-						'Deuterium'			=> $LNG['Deuterium'],
-						'mod_ma_res_a' 		=> "2",
-						'mod_ma_res_b' 		=> "4",
-						'ress' 				=> $ress,
-					));
-
-					$template->show("trader_metal.tpl");	
+					$PLANET[$ress]     			-= $trade;
+					$PLANET[$Charge[$ress][0]]  += $res1;
+					$PLANET[$Charge[$ress][2]] 	+= $res2;
+					$USER['darkmatter']				-= $CONF['darkmatter_cost_trader'];
+					$db->multi_query("UPDATE ".PLANETS." SET 
+					`".$ress."` = `".$ress."` - ".floattostring($trade).", 
+					`".$Charge[$ress][0]."` = `".$Charge[$ress][0]."` + ".floattostring($res1).", 
+					`".$Charge[$ress][2]."` = `".$Charge[$ress][2]."` + ".floattostring($res2)."
+					WHERE `id` = ".$PLANET['id'].";
+					UPDATE ".USERS." SET 
+					`darkmatter` = `darkmatter` - ".$CONF['darkmatter_cost_trader']."
+					WHERE `id` = ".$USER['id'].";");
+					$template->message($LNG['tr_exchange_done'], "game.php?page=trader", 1);
 				}
-			break;
-			case 'crystal':
-				if($action == "trade")
-				{
-					if ($USER['darkmatter'] < $CONF['darkmatter_cost_trader'])
-						$template->message(sprintf($LNG['tr_empty_darkmatter'], $LNG['Darkmatter']), "game.php?page=trader", 1);
-					elseif ($metal < 0 || $deut < 0)
-						$template->message($LNG['tr_only_positive_numbers'], "game.php?page=trader",1);
-					else
-					{
-						$trade	= ($metal * 0.5 + $deut * 2);						
-						$PlanetRess->CalcResource();
-						if ($PLANET['crystal'] > $trade)
-						{
-							$PLANET['metal']     += $metal;
-							$PLANET['crystal']   -= $trade;
-							$PLANET['deuterium'] += $deut;
-							$USER['darkmatter']	-= $CONF['darkmatter_cost_trader'];
-							$template->message($LNG['tr_exchange_done'],"game.php?page=trader",1);
-						}
-						else
-							$template->message($LNG['tr_not_enought_crystal'], "game.php?page=trader", 1);
-						
-						$PlanetRess->SavePlanetToDB();
-					}
-				} else {
-					$template->assign_vars(array(
-						'tr_resource'		=> $LNG['tr_resource'],
-						'tr_sell_crystal'	=> $LNG['tr_sell_crystal'],
-						'tr_amount'			=> $LNG['tr_amount'],
-						'tr_exchange'		=> $LNG['tr_exchange'],	
-						'tr_quota_exchange'	=> $LNG['tr_quota_exchange'],
-						'Metal'				=> $LNG['Metal'],
-						'Crystal'			=> $LNG['Crystal'],
-						'Deuterium'			=> $LNG['Deuterium'],
-						'mod_ma_res_a' 		=> "0.5",
-						'mod_ma_res_b' 		=> "2",
-						'ress' 				=> $ress,
-					));
+				else
+					$template->message($LNG['tr_not_enought_metal'], "game.php?page=trader", 1);
+			}
+		} else {
+			$template->assign_vars(array(
+				'ress'				=> $LNG[ucwords($ress)],
+				'ress1'				=> $LNG[ucwords($Charge[$ress][0])],
+				'ress2'				=> $LNG[ucwords($Charge[$ress][2])],
+				'ress1_charge' 		=> $Charge[$ress][1],
+				'ress2_charge' 		=> $Charge[$ress][3],
+			));
 
-					$template->show("trader_crystal.tpl");	
-				}
-			break;
-			case 'deuterium':
-				if($action == "trade")
-				{
-					if ($USER['darkmatter'] < $CONF['darkmatter_cost_trader'])
-						$template->message(sprintf($LNG['tr_empty_darkmatter'], $LNG['Darkmatter']), "game.php?page=trader", 1);
-					elseif ($metal < 0 || $crystal < 0)
-						message($LNG['tr_only_positive_numbers'], "game.php?page=trader",1);
-					else
-					{
-						$trade	= ($metal * 0.25 + $crystal * 0.5);						
-						$PlanetRess->CalcResource();
-						if ($PLANET['deuterium'] > $trade)
-						{
-							$PLANET['metal']     += $metal;
-							$PLANET['crystal']   += $crystal;
-							$PLANET['deuterium'] -= $trade;
-							$USER['darkmatter']	-= $CONF['darkmatter_cost_trader'];
-							$template->message($LNG['tr_exchange_done'],"game.php?page=trader", 1);
-						}
-						else
-							$template->message($LNG['tr_not_enought_deuterium'], "game.php?page=trader", 1);
-							
-						$PlanetRess->SavePlanetToDB();
-					}
-				} else {
-					$template->assign_vars(array(
-						'tr_resource'		=> $LNG['tr_resource'],
-						'tr_sell_deuterium'	=> $LNG['tr_sell_deuterium'],
-						'tr_amount'			=> $LNG['tr_amount'],
-						'tr_exchange'		=> $LNG['tr_exchange'],	
-						'tr_quota_exchange'	=> $LNG['tr_quota_exchange'],
-						'Metal'				=> $LNG['Metal'],
-						'Crystal'			=> $LNG['Crystal'],
-						'Deuterium'			=> $LNG['Deuterium'],
-						'mod_ma_res_a' 		=> "0.25",
-						'mod_ma_res_b' 		=> "0.5",
-						'ress' 				=> $ress,
-					));
-
-					$template->show("trader_deuterium.tpl");	
-				}
-			break;
+			$template->show("trader_trade.tpl");	
 		}
+		exit;
 	}
-	else
-	{
-		$PlanetRess->CalcResource();
-		$PlanetRess->SavePlanetToDB();
-		$template->assign_vars(array(
-			'tr_cost_dm_trader'			=> sprintf($LNG['tr_cost_dm_trader'], pretty_number($CONF['darkmatter_cost_trader']), $LNG['Darkmatter']),
-			'tr_call_trader_who_buys'	=> $LNG['tr_call_trader_who_buys'],
-			'tr_call_trader'			=> $LNG['tr_call_trader'],
-			'tr_exchange_quota'			=> $LNG['tr_exchange_quota'],
-			'tr_call_trader_submit'		=> $LNG['tr_call_trader_submit'],
-			'Metal'						=> $LNG['Metal'],
-			'Crystal'					=> $LNG['Crystal'],
-			'Deuterium'					=> $LNG['Deuterium'],
-		));
+	
+	$template->assign_vars(array(
+		'tr_cost_dm_trader'	=> sprintf($LNG['tr_cost_dm_trader'], pretty_number($CONF['darkmatter_cost_trader']), $LNG['Darkmatter']),
+		'charge'			=> $Charge['metal'][1].'/1/'.$Charge['deuterium'][3],
+	));
 
-		$template->show("trader_overview.tpl");
-	}
+	$template->show("trader_overview.tpl");
 }
 ?>

@@ -33,7 +33,7 @@ Message	= {
 		Message.MessID	= MessID;			
 		Message.MessageCount(MessID);			
 		$.get('game.php?page=messages&mode=getMessages&messcat='+MessID+'&ajax=1', function(data) {
-			$('#messages').remove();
+			$('#messagestable').remove();
 			$('#content table:eq(0)').after(data);
 		});
 	},

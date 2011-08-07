@@ -8,6 +8,7 @@ html, body {
 body {
 	line-height:14px;
 	padding-bottom:21px;
+	min-width:1155px;
 }
 
 body,input,button,select,textarea,a,td,th,tr,table,button {
@@ -101,6 +102,7 @@ textarea {
 	margin-left:210px;
 	margin-right:10px;
 	height:90px;
+	min-width:915px;
 }
 
 #planetselect {
@@ -123,19 +125,21 @@ textarea {
 }
 
 #resources{
-	margin-left:215px;
-	margin-right:215px;
-    padding: 5px 0;
+	margin: 0 auto;
+    padding: 0;
+	height:90px;
 	width:700px;
 }
 
-#resources > div{
+#resourcestable{
+	width:700px;
+	table-layout:fixed;
+}
+
+.resourceinfo{
 	margin:0 5px;
 	padding:0;
-	float:left;
-	height:auto;
-	max-width:130px;
-	width:100%;
+	width:20%;
 }
 
 #resources p{
