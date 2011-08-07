@@ -1,5 +1,5 @@
 <form action="game.php?page=messages&amp;mode=delMessages&amp;messcat={$MessID}&amp;ajax=1" method="post">
-<table id="messages">
+<table id="messagestable">
 	<tr>
 		<th colspan="4">{lang}mg_message_title{/lang}</th>
 	</tr>

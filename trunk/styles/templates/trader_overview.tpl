@@ -4,10 +4,10 @@
 <div id="content">
     <table style="width:519px;">
     <tr>
-        <th>{$tr_call_trader}</th>
+        <th>{lang}tr_call_trader{/lang}</th>
     </tr><tr>
         <td>
-			<div>{$tr_call_trader_who_buys}</div>
+			<div>{lang}tr_call_trader_who_buys{/lang}</div>
 			<div id="trader">
 				<div class="trader_col">
 					<form action="game.php?page=trader" method="post">
@@ -31,9 +31,8 @@
 					</form>
 				</div>
 			</div>
-			<div>{$tr_cost_dm_trader}<br><br>
-			{$tr_exchange_quota}<br>
-			<input type="submit" value="{$tr_call_trader_submit}">
+			<div>{lang}tr_cost_dm_trader{/lang}<br><br>
+			{lang}tr_exchange_quota{/lang}: {$charge}<br>
 			</div>
 		</td>
     </tr>

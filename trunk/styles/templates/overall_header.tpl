@@ -37,5 +37,5 @@ setInterval(function() {
 }, 1000);
 </script>
 </head>
-<body>
+<body id="{$smarty.get.page|htmlspecialchars}">
 <div id="tooltip" class="tip"></div>

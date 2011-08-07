@@ -45,6 +45,8 @@ class CustomAJAXChat extends AJAXChat {
 		$this->setConfig('allowPrivateMessages', false, (bool) $CONF['chat_allowmes']);
 		$this->setConfig('defaultChannelName', false, $CONF['chat_channelname']);
 		$this->setConfig('showChannelMessages', false, (bool) $CONF['chat_logmessage']);
+		$this->setConfig('langAvailable', false, Language::getAllowedLangs());
+		$this->setConfig('langNames', false, Language::getAllowedLangs(false));
 	}
 
 	function initCustomRequestVars() {
