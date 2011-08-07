@@ -300,7 +300,7 @@ function downloadFile(msg) {
 	$('#progressbar .ui-progressbar-value').css('width', (filepointer / files * 100) + '%');
 	$('.val').text((Math.round(filepointer / files * 10000) / 100) + ' %');
 	document.title = LNG['step4_download'] + ' ' + Math.floor(filepointer / files * 100) + '% • ' + LNG['title'] + ' • 2Moons';
-}nStr, inD, outD, sep)
+}
 
 function AJAXErrorHandler(x,e){
 	if(x.status == 0)
