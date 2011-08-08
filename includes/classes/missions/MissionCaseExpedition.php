@@ -72,7 +72,7 @@ class MissionCaseExpedition extends MissionFunctions
 			
 		$FleetCapacity		-= $this->_fleet['fleet_resource_metal'] + $this->_fleet['fleet_resource_crystal'] + $this->_fleet['fleet_resource_deuterium'] + $this->_fleet['fleet_resource_darkmatter'];
 					
-		$GetEvent			= #mt_rand(1, 6);
+		$GetEvent			= mt_rand(1, 6);
 			
 		switch($GetEvent)
 		{
@@ -131,15 +131,15 @@ class MissionCaseExpedition extends MissionFunctions
 			default:
 				$FindSize = mt_rand(0, 100);
 				if(10 < $FindSize) {
-					$Size		= mt_rand(2, 50);
+					$Size		= mt_rand(10, 50);
 					$Message	= $LNG['sys_expe_found_ships_1_'.mt_rand(1,4)];
 					$MaxFound	= 300000;
 				} elseif(0 < $FindSize && 10 >= $FindSize) {
-					$Size		= mt_rand(51, 100);
+					$Size		= mt_rand(52, 100);
 					$Message	= $LNG['sys_expe_found_ships_2_'.mt_rand(1,2)];
 					$MaxFound	= 600000;
 				} elseif(0 == $FindSize) {
-					$Size	 	= mt_rand(101, 200);
+					$Size	 	= mt_rand(102, 200);
 					$Message	= $LNG['sys_expe_found_ships_3_'.mt_rand(1,2)];
 					$MaxFound	= 1200000;
 				}
@@ -148,9 +148,8 @@ class MissionCaseExpedition extends MissionFunctions
 					
 				$MaxPoints 		= ($StatFactor < 5000000) ? 4500 : 6000;
 					
-				$FoundShips		= max(min(round($Size * $FleetPoints), $MaxPoints), 10000);
-				$MinFound		= mt_rand(7000, 10000);
-			
+				$FoundShips		= max(round($Size * min($FleetPoints, $MaxPoints)), 10000);
+				
 				$FoundShipMess	= "";	
 				$NewFleetArray 	= "";
 
@@ -162,7 +161,7 @@ class MissionCaseExpedition extends MissionFunctions
 						continue;
 					
 					$MaxFound			= floor($FoundShips / ($pricelist[$ID]['metal'] + $pricelist[$ID]['crystal']));
-					$Count				= mt_rand(0, $MaxFound);
+					$Count				= mt_rand(1, $MaxFound);
 					if($Count <= 0) 
 						continue;
 					
