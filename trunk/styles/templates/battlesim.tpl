@@ -2,7 +2,7 @@
 {include file="left_menu.tpl"}
 {include file="overall_topnav.tpl"}
 <div id="content">
-<form id="battlesim" name="battlesim">
+<form id="form" name="battlesim">
 <input type="hidden" name="slots" id="slots" value="{$Slots + 1}">
 <table style="width:80%">
 <tr><th>{$lm_battlesim}</th></tr>
