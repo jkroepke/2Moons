@@ -125,21 +125,24 @@ textarea {
 }
 
 #resources{
-	margin: 0 auto;
-    padding: 0;
+    padding:5px 0 0;
+	margin:0 215px;
 	height:90px;
-	width:700px;
+	text-align:center;
 }
 
 #resourcestable{
 	width:700px;
-	table-layout:fixed;
+	margin:0 auto;
+	padding:0;
+	list-style:none;
 }
 
 .resourceinfo{
 	margin:0 5px;
 	padding:0;
-	width:20%;
+	float:left;
+	width:130px;
 }
 
 #resources p{

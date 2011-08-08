@@ -6,39 +6,38 @@
 		</select>
 	</div>
 	<div id="resources">
-		<table id="resourcestable">
-			<tr>
-				<td class="resourceinfo">
-					<p><img src="{$dpath}images/metall.gif" alt="{$Metal}"></p>
-					<p class="res_name">{$Metal}</p>
-					<p class="res_current tooltip" name="{pretty_number($metal)}" id="current_metal">{shortly_number($metal)}</p>
-					<p class="res_max tooltip" name="{pretty_number($metal_max)}" id="max_metal">{shortly_number($metal_max)}</p>
-				</td>
-				<td class="resourceinfo">
-					<p><img src="{$dpath}images/kristall.gif" alt="{$Crystal}"></p>
-					<p class="res_name">{$Crystal}</p>
-					<p class="res_current tooltip" name="{pretty_number($crystal)}" id="current_crystal">{shortly_number($crystal)}</p>
-					<p class="res_max tooltip" name="{pretty_number($crystal_max)}" id="max_crystal">{shortly_number($crystal_max)}</p>
-				</td>
-				<td class="resourceinfo">
-					<p><img src="{$dpath}images/deuterium.gif" alt="{$Deuterium}"></p>
-					<p class="res_name">{$Deuterium}</p>
-					<p class="res_current tooltip" name="{pretty_number($deuterium)}" id="current_deuterium">{shortly_number($deuterium)}</p>
-					<p class="res_max tooltip" name="{pretty_number($deuterium_max)}" id="max_deuterium">{shortly_number($deuterium_max)}</p>
-				</td>
-				<td class="resourceinfo">
-					<p><img src="{$dpath}images/darkmatter.gif" alt="{$Darkmatter}"></p>
-					<p class="res_name">{$Darkmatter}</p>
-					<p class="res_current tooltip" name="{pretty_number($darkmatter)}">{shortly_number($darkmatter)}</p>
-					<p>&nbsp;</p>
-				</td>
-				<td class="resourceinfo">
-					<p><img src="{$dpath}images/energie.gif" alt="{$Energy}"></p>
-					<p class="res_name">{$Energy}</p>
-					<p class="res_current tooltip" name="{$energy_alt}">{$energy}</p>
-				</td>
-			</tr>
-		</table>
+		<ul id="resourcestable">
+			<li class="resourceinfo">
+				<p><img src="{$dpath}images/metall.gif" alt="{$Metal}"></p>
+				<p class="res_name">{$Metal}</p>
+				<p class="res_current tooltip" name="{pretty_number($metal)}" id="current_metal">{shortly_number($metal)}</p>
+				<p class="res_max tooltip" name="{pretty_number($metal_max)}" id="max_metal">{shortly_number($metal_max)}</p>
+			</li>
+			<li class="resourceinfo">
+				<p><img src="{$dpath}images/kristall.gif" alt="{$Crystal}"></p>
+				<p class="res_name">{$Crystal}</p>
+				<p class="res_current tooltip" name="{pretty_number($crystal)}" id="current_crystal">{shortly_number($crystal)}</p>
+				<p class="res_max tooltip" name="{pretty_number($crystal_max)}" id="max_crystal">{shortly_number($crystal_max)}</p>
+			</li>
+			<li class="resourceinfo">
+				<p><img src="{$dpath}images/deuterium.gif" alt="{$Deuterium}"></p>
+				<p class="res_name">{$Deuterium}</p>
+				<p class="res_current tooltip" name="{pretty_number($deuterium)}" id="current_deuterium">{shortly_number($deuterium)}</p>
+				<p class="res_max tooltip" name="{pretty_number($deuterium_max)}" id="max_deuterium">{shortly_number($deuterium_max)}</p>
+			</li>
+			<li class="resourceinfo">
+				<p><img src="{$dpath}images/darkmatter.gif" alt="{$Darkmatter}"></p>
+				<p class="res_name">{$Darkmatter}</p>
+				<p class="res_current tooltip" name="{pretty_number($darkmatter)}">{shortly_number($darkmatter)}</p>
+				<p>&nbsp;</p>
+			</li>
+			<li class="resourceinfo">
+				<p><img src="{$dpath}images/energie.gif" alt="{$Energy}"></p>
+				<p class="res_name">{$Energy}</p>
+				<p class="res_current tooltip" name="{$energy_alt}">{$energy}</p>
+				<p>&nbsp;</p>
+			</li>
+		</ul>
 	</div>
 	{if $closed}
 	<table width="70%" id="infobox" style="border: 3px solid red; text-align:center;"><tr><td>{$closed}</td></tr></table>
