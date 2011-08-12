@@ -100,7 +100,7 @@ function ShowResourcesPage()
 			'name'              => $resource[$ProdID],
 			'type'  			=> $LNG['tech'][$ProdID],
 			'level'     	    => ($ProdID > 200) ? $LNG['rs_amount'] : $LNG['rs_lvl'],
-			'level_type'        => $PLANET[$resource[$ProdID]],
+			'level_type'        => pretty_number($PLANET[$resource[$ProdID]]),
 			'metal_type'        => colorNumber(pretty_number($PLANET['metal_proc'][$ProdID] * $PLANET['level_proc'])),
 			'crystal_type'      => colorNumber(pretty_number($PLANET['crystal_proc'][$ProdID] * $PLANET['level_proc'])),
 			'deuterium_type'    => colorNumber(pretty_number($thisdeu)),
