@@ -50,8 +50,8 @@ class StatBanner {
 
 	public function CreateBanner($Query) {
 		global $LNG;
-		$image  = imagecreatefrompng($this->source);
-		$date   = date(DATEFORMAT);
+		$image 	= imagecreatefrompng($this->source);
+		$date  	= date($LNG['php_dateformat'], TIMESTAMP);
 
 		// Variables
 		$b_univ   = $Query['game_name'];
@@ -99,10 +99,10 @@ class StatBanner {
 	
 	public function CreateUTF8Banner($Query) {
 		global $LNG, $LANG;
-		$image  = imagecreatefrompng($this->source);
-		$date   = date(DATEFORMAT);
+		$image  	= imagecreatefrompng($this->source);
+		$date  		= date($LNG['php_dateformat'], TIMESTAMP);
 
-		$Font	= $Query['ttf_file'];
+		$Font		= $Query['ttf_file'];
 		if(!file_exists($Font))
 			exit('TTF Font missing!');
 			

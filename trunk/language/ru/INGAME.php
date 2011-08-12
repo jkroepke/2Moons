@@ -2,12 +2,6 @@
 
 // Translated into Russian by InquisitorEA (SporeEA@yandex.ry). All rights reserved © 2010-2011
 
-setlocale(LC_ALL, 'ru_RU.UTF8', 'russian'); // http://msdn.microsoft.com/en-us/library/39cwe7zf%28vs.71%29.aspx
-setlocale(LC_NUMERIC, 'C');
-
-// Основное
-$LNG['js_days']                           = array('Вск', 'Пнд', 'Втр', 'Срд', 'Чтв', 'Птн', 'Сбт');
-$LNG['js_month']                          = array('Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Нов', 'Дек');
 
 $LNG['Metal']                             = 'Металл';
 $LNG['Crystal']                           = 'Кристалл';

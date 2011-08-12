@@ -3,13 +3,6 @@
 //Traduzione eseguita da Malware del sito http://2moons.freedost.com, la community italiana di 2moons.
 //Se hai domande, dubbi o vuoi segnalare scorrettezze, sei pregato di farlo usando il nostro forum. Grazie
 
-setlocale(LC_ALL, 'it_IT', 'italian'); // http://msdn.microsoft.com/en-us/library/39cwe7zf%28vs.71%29.aspx
-setlocale(LC_NUMERIC, 'C');
-
-//SERVER GENERALS
-
-$LNG['js_days']								= array('Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab');
-$LNG['js_month']							= array('Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'giu', 'lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic');
 
 $LNG['Metal']								= 'Metallo';
 $LNG['Crystal']								= 'Cristallo';

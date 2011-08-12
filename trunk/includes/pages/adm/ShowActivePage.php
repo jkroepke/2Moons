@@ -43,7 +43,7 @@ function ShowActivePage()
 		$Users[]	= array(
 			'id'		=> $User['id'],
 			'name'		=> $User['username'],
-			'date'		=> date(TDFORMAT, $User['date']),
+			'date'		=> date($LNG['php_tdformat'], $User['date']),
 			'email'		=> $User['email'],
 			'ip'		=> $User['ip'],
 			'password'	=> $User['password'],

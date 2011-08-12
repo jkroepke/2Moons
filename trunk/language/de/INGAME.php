@@ -1,12 +1,5 @@
 <?php
 
-setlocale(LC_ALL, 'de_DE', 'german'); // http://msdn.microsoft.com/en-us/library/39cwe7zf%28vs.71%29.aspx
-setlocale(LC_NUMERIC, 'C');
-
-//SERVER GENERALS
-
-$LNG['js_days']								= array('So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa');
-$LNG['js_month']							= array('Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez');
 
 $LNG['Metal']								= 'Metall';
 $LNG['Crystal']								= 'Kristall';

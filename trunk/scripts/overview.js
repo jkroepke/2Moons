@@ -102,7 +102,7 @@ function GetFleets(init) {
 }
 
 function UhrzeitAnzeigen() {
-   $("#servertime").text(getFormatedDate(serverTime.getTime(), '[M] [D] [d] [H]:[i]:[s]'));
+   $("#servertime").text(getFormatedDate(serverTime.getTime(), tdformat));
 }
 
 UhrzeitAnzeigen();

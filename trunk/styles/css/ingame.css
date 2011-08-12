@@ -11,6 +11,10 @@ body {
 	min-width:1155px;
 }
 
+body.popup {
+	min-width:0px;
+}
+
 body,input,button,select,textarea,a,td,th,tr,table,button {
 	font-family:Verdana;
 	font-size:10px;

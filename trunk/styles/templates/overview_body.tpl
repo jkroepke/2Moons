@@ -96,7 +96,7 @@
 		<div id="tabs-1">
 			<label for="newname">{lang}ov_rename_label{/lang}: </label><input class="left" type="text" name="newname" id="newname" size="25" maxlength="20" autocomplete="off">
 		</div>
-		<div id="tabs-2"><h3 style="margin:0">{lang}ov_security_request{/lang}</h3>{lang}ov_security_confirm{/lang}<br>
+		<div id="tabs-2"><h3 style="margin:0">{lang}ov_security_request{/lang}</h3>{$ov_security_confirm}<br>
 			<label for="password">{lang}ov_password{/lang}: </label><input class="left" type="password" name="password" id="password" size="25" maxlength="20" autocomplete="off">
 		</div>
 	</div>

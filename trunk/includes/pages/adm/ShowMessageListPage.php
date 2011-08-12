@@ -120,7 +120,7 @@ function ShowMessageListPage()
 			'to'		=> ($Selected != 50) ? $row['username'].' '.$LNG['input_id'].':'.$row['message_owner'] : 'Universe',
 			'subject'	=> $row['message_subject'],
 			'text'		=> $row['message_text'],
-			'time'		=> str_replace(' ', '&nbsp;', date(TDFORMAT, $row['message_time'])),
+			'time'		=> str_replace(' ', '&nbsp;', date($LNG['php_tdformat'], $row['message_time'])),
 		);
 	}	
 

@@ -125,7 +125,7 @@ if (!defined('CLI') && !defined('LOGIN') && !defined('IN_CRON') && !defined('AJA
 	}
 	
 	$LANG->setUser($USER['lang']);	
-	$LANG->includeLang(array('INGAME', 'TECH'));
+	$LANG->includeLang(array('L18N', 'INGAME', 'TECH'));
 	$THEME->setUserTheme($USER['dpath']);
 	if($USER['bana'] == 1)
 	{

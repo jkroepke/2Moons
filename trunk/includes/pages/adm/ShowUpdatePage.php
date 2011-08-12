@@ -123,6 +123,7 @@ function DisplayUpdates() {
 }
 
 function GetLogs($fromRev) {
+	global $LNG;
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_AUTOREFERER, true);
 	curl_setopt($ch, CURLOPT_URL, 'http://2moons.googlecode.com/svn/trunk/');
@@ -150,7 +151,7 @@ function GetLogs($fromRev) {
 		foreach($value['children'] as $entry) {
 			if ($entry['name'] == 'D:VERSION-NAME') $array['version'] = $entry['tagData'];
 			if ($entry['name'] == 'D:CREATOR-DISPLAYNAME') $array['author'] = $entry['tagData'];
-			if ($entry['name'] == 'S:DATE') $array['date'] = date(TDFORMAT, strtotime($entry['tagData']));
+			if ($entry['name'] == 'S:DATE') $array['date'] = date($LNG['php_tdformat'], strtotime($entry['tagData']));
 			if ($entry['name'] == 'D:COMMENT') $array['comment'] = makebr($entry['tagData']);
 
 			if (($entry['name'] == 'S:ADDED-PATH') || ($entry['name'] == 'S:MODIFIED-PATH') || ($entry['name'] == 'S:DELETED-PATH')) {

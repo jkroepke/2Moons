@@ -90,7 +90,7 @@ switch($cron)
 				while($User	= $db->fetch_array($Users)) {
 					$MailSubject	= sprintf($LNG['reg_mail_reg_done'], $CONF['game_name']);
 					$MailRAW		= file_get_contents("./language/".$User['lang']."/email/email_inactive.txt");
-					$MailContent	= sprintf($MailRAW, $User['username'], $CONF['game_name'].' - '.$CONF['uni_name'], date(TDFORMAT, $User['onlinetime']), PROTOCOL.$_SERVER['HTTP_HOST'].HTTP_ROOT);	
+					$MailContent	= sprintf($MailRAW, $User['username'], $CONF['game_name'].' - '.$CONF['uni_name'], date($LNG['php_tdformat'], $User['onlinetime']), PROTOCOL.$_SERVER['HTTP_HOST'].HTTP_ROOT);	
 					MailSend($User['email'], $User['username'], $MailSubject, $MailContent);
 					$db->query("UPDATE ".USERS." SET `inactive_mail` = '1' WHERE `id` = '".$User['id']."';");
 				}

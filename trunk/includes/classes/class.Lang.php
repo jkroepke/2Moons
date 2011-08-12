@@ -149,7 +149,7 @@ class Language
 			$LANGUAGE	= $this->Default;
 	
 		if(empty($Files))
-			$Files	= array('FLEET');
+			$Files	= array('L18N', 'FLEET');
 	
 		while (list(,$File) = each($Files)){
 			require(ROOT_PATH . "language/".$LANGUAGE."/".$File.'.php');

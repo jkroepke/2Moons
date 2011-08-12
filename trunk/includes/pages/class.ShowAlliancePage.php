@@ -454,7 +454,7 @@ class ShowAlliancePage
 								'galaxy'		=> $UserRow['galaxy'],
 								'system'		=> $UserRow['system'],
 								'planet'		=> $UserRow['planet'],
-								'register_time'	=> date(TDFORMAT, $UserRow['ally_register_time']),
+								'register_time'	=> date($LNG['php_tdformat'], $UserRow['ally_register_time']),
 								'points'		=> pretty_number($UserRow['total_points']),
 								'range'			=> $UserRow['ally_range'],
 								'onlinetime'	=> floor((TIMESTAMP - $UserRow['onlinetime']) / 60),
@@ -731,7 +731,7 @@ class ShowAlliancePage
 										'system'		=> $UserRow['system'],
 										'planet'		=> $UserRow['planet'],
 										'rank_id'		=> $UserRow['ally_rank_id']-1,
-										'register_time'	=> date(TDFORMAT, $UserRow['ally_register_time']),
+										'register_time'	=> date($LNG['php_tdformat'], $UserRow['ally_register_time']),
 										'points'		=> pretty_number($UserRow['total_points']),
 										'range'			=> $UserRow['ally_range'],
 										'onlinetime'	=> sprintf("%d d", floor(TIMESTAMP - $UserRow['onlinetime']) / 86400),
@@ -920,7 +920,7 @@ class ShowAlliancePage
 										'username'	=> $RequestRow['username'],
 										'text'		=> makebr($RequestRow['text']),
 										'id'		=> $RequestRow['id'],
-										'time' 		=> date(TDFORMAT, $RequestRow['time']),
+										'time' 		=> date($LNG['php_tdformat'], $RequestRow['time']),
 									);
 								}
 								
