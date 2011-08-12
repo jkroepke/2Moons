@@ -5,7 +5,7 @@
 			{html_options options=$PlanetSelect selected=$current_planet}
 		</select>
 	</div>
-	<div id="resources">
+	<div id="resourcesdiv">
 		<ul id="resourcestable">
 			<li class="resourceinfo">
 				<p><img src="{$dpath}images/metall.gif" alt="{$Metal}"></p>
