@@ -363,8 +363,8 @@ function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialS
 		{
 			$Search['LIST']	 .=	"<tr>";
 			if ($Table == "users"){				
-				$WhileResult[3] = $_GET['search'] == "online" ? pretty_time( TIMESTAMP - $WhileResult[3] ) : date(TDFORMAT, $WhileResult[3] );
-				$WhileResult[4]	=	date(TDFORMAT, $WhileResult[4]);
+				$WhileResult[3] = $_GET['search'] == "online" ? pretty_time( TIMESTAMP - $WhileResult[3] ) : date($LNG['php_tdformat'], $WhileResult[3] );
+				$WhileResult[4]	=	date($LNG['php_tdformat'], $WhileResult[4]);
 				
 				$WhileResult[6]	=	$LNG['rank'][$WhileResult[6]];
 				(($WhileResult[7] == '1')	? $WhileResult[7] = "<font color=lime>".$LNG['one_is_yes'][1]."</font>" : $WhileResult[7] = $LNG['one_is_yes'][0]);
@@ -372,12 +372,12 @@ function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialS
 			}
 			
 			if ($Table == "banned"){
-				$WhileResult[2]	=	date(TDFORMAT, $WhileResult[2]);
-				$WhileResult[3]	=	date(TDFORMAT, $WhileResult[3]);
+				$WhileResult[2]	=	date($LNG['php_tdformat'], $WhileResult[2]);
+				$WhileResult[3]	=	date($LNG['php_tdformat'], $WhileResult[3]);
 			}
 			
 			if ($Table == "alliance")
-				$WhileResult[4]	=	date(TDFORMAT, $WhileResult[4]);
+				$WhileResult[4]	=	date($LNG['php_tdformat'], $WhileResult[4]);
 				
 			if ($Table == "planets") {
 				$WhileResult[3]	=	pretty_time(TIMESTAMP - $WhileResult[3]);

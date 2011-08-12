@@ -44,8 +44,8 @@ function ShowBannedPage()
 		$PrangerList[]	= array(
 			'player'	=> $u['who'],
 			'theme'		=> $u['theme'],
-			'from'		=> date(TDFORMAT,$u['time']),
-			'to'		=> date(TDFORMAT,$u['longer']),
+			'from'		=> date($LNG['php_tdformat'], $u['time']),
+			'to'		=> date($LNG['php_tdformat'], $u['longer']),
 			'admin'		=> $u['author'],
 			'mail'		=> $u['email'],
 			'info'		=> sprintf($LNG['bn_writemail'], $u['author']),

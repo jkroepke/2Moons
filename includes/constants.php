@@ -59,8 +59,8 @@ define('FIELDS_BY_TERRAFORMER'	  , 5);
 // ADDED PLANET PRO 2 TECH LEVELS
 define('PLANETS_PER_TECH' 		  , 1);	
 
-// If ture, the calculation for Researchtime is like OGAME, if false its calculation with standart XNova Formula
-define('NEW_RESEARCH'			  , true);
+// Time of changable nick after changing nick.
+define('USERNAME_CHANGETIME'	  , 604800);
 
 // Factor for Metal/Crystal and Deuterium Storages
 define('STORAGE_FACTOR'			  , 1.0);
@@ -70,7 +70,7 @@ define('STORAGE_FACTOR'			  , 1.0);
 define('COMPARE_IP_BLOCKS'	  	  , 2);
 
 // DEBUG LOG
-define('DEBUG_EXTRA'	  	 	 , false);
+define('DEBUG_EXTRA'	  	 	  , false);
 
 // Max Round on Combats
 define('MAX_ATTACK_ROUNDS'		  , 6);

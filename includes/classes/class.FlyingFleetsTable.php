@@ -57,7 +57,7 @@ class FlyingFleetsTable
 			$Bloc['Fleet']    = $this->CreateFleetPopupedFleetLink ( $CurrentFleet, $LNG['tech'][200], '' );
 			$Bloc['St_Owner'] = "[". $CurrentFleet['fleet_owner'] ."]<br>". $FleetOwner['username'];
 			$Bloc['St_Posit'] = "[".$CurrentFleet['fleet_start_galaxy'] .":". $CurrentFleet['fleet_start_system'] .":". $CurrentFleet['fleet_start_planet'] ."]<br>". ( ($CurrentFleet['fleet_start_type'] == 1) ? "[P]": (($CurrentFleet['fleet_start_type'] == 2) ? "D" : "L"  )) ."";
-			$Bloc['St_Time']  = date(TDFORMAT, $CurrentFleet['fleet_start_time']);
+			$Bloc['St_Time']  = date($LNG['php_tdformat'], $CurrentFleet['fleet_start_time']);
 			if (is_array($TargetOwner))
 				$Bloc['En_Owner'] = "[". $CurrentFleet['fleet_target_owner'] ."]<br>". $TargetOwner['username'];
 			else
@@ -68,7 +68,7 @@ class FlyingFleetsTable
 			if ($CurrentFleet['fleet_mission'] == 5)
 			{
 				if ($CurrentFleet['fleet_mess'] == 2)
-					$Bloc['Wa_Time']  = date(TDFORMAT, $CurrentFleet['fleet_end_stay']);
+					$Bloc['Wa_Time']  = date($LNG['php_tdformat'], $CurrentFleet['fleet_end_stay']);
 				elseif ($CurrentFleet['fleet_mess'] == 1)
 					$Bloc['Wa_Time']  = $LNG['cff_back'];
 				else
@@ -79,7 +79,7 @@ class FlyingFleetsTable
 				$Bloc['Wa_Time']  = "";
 			}
 
-			$Bloc['En_Time']  = date(TDFORMAT, $CurrentFleet['fleet_end_time']);
+			$Bloc['En_Time']  = date($LNG['php_tdformat'], $CurrentFleet['fleet_end_time']);
 			$Bloc['lock'] 	  = $CurrentFleet['fleet_busy'] == 0 ? "<a href='?page=fleets&amp;id=".$CurrentFleet['fleet_id']."&amp;lock=1'><font color='red'>".$LNG['ff_lock']."</font></a>" : "<a href='?page=fleets&amp;id=".$CurrentFleet['fleet_id']."&amp;lock=0'><font color='green'>".$LNG['ff_unlock']."</font></a>";
 			
 			$Table[]	= $Bloc;

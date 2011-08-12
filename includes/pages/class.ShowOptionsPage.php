@@ -207,7 +207,7 @@ class ShowOptionsPage
 				{
 					if (!CheckName($USERname))
 						$template->message($LNG['op_user_name_no_alphanumeric'], '?page=options', 3);
-					elseif($USER['uctime'] >= TIMESTAMP - (60 * 60 * 24 * 7))
+					elseif($USER['uctime'] >= TIMESTAMP - USERNAME_CHANGETIME)
 						$template->message($LNG['op_change_name_pro_week'], '?page=options', 3);
 					else
 					{
@@ -232,7 +232,7 @@ class ShowOptionsPage
 				if($USER['urlaubs_modus'] == 1)
 				{
 					$template->assign_vars(array(	
-						'vacation_until'					=> date(TDFORMAT,$USER['urlaubs_until']),
+						'vacation_until'					=> date($LNG['php_tdformat'],$USER['urlaubs_until']),
 						'op_save_changes'					=> $LNG['op_save_changes'],
 						'op_end_vacation_mode'				=> $LNG['op_end_vacation_mode'],
 						'op_vacation_mode_active_message'	=> $LNG['op_vacation_mode_active_message'],

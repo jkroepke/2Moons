@@ -5,9 +5,6 @@
 
 // 2Moons - Copyright (C) 2011  Slaver
 
-setlocale(LC_ALL, 'pt_PT', 'portuguese'); // http://msdn.microsoft.com/en-us/library/39cwe7zf%28vs.71%29.aspx
-setlocale(LC_NUMERIC, 'C');
-
 //Geral
 $LNG['Metal']								= 'Metal';
 $LNG['Crystal']                             = 'Cristal';
@@ -48,8 +45,6 @@ $LNG['tn_delete_mode']                      = 'A sua conta %s será apagada auto
 
 //---------------------------------------------------------------------------//
 //Menu da Esquerda
-$LNG['js_days']                             = array('Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab');
-$LNG['js_month']                            = array('Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez');
 $LNG['lm_overview']							= 'Vista Geral';
 $LNG['lm_galaxy']							= 'Galáxia';
 $LNG['lm_empire']							= 'Império';

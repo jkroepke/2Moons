@@ -39,7 +39,7 @@ class MissionCaseSpy extends MissionFunctions
 	{
 		global $db, $pricelist, $LANG;		
 		$CurrentUser         = $db->uniquequery("SELECT `lang`, `spy_tech`, `rpg_espion` FROM ".USERS." WHERE `id` = '".$this->_fleet['fleet_owner']."';");
-		$LNG			     = $LANG->GetUserLang($CurrentUser['lang'], array('FLEET', 'TECH'));
+		$LNG			     = $LANG->GetUserLang($CurrentUser['lang'], array('L18N', 'FLEET', 'TECH'));
 		$CurrentUserID       = $this->_fleet['fleet_owner'];
 		$TargetPlanet        = $db->uniquequery("SELECT * FROM ".PLANETS." WHERE `id` = ".$this->_fleet['fleet_end_id'].";");
 		$TargetUserID        = $TargetPlanet['id_owner'];
@@ -182,7 +182,7 @@ class MissionCaseSpy extends MissionFunctions
 				$String  = '
 				<table style="width:100%;"><tr><th colspan="5">
 				<a href="game.php?page=galaxy&mode=3&galaxy='. $TargetPlanet['galaxy'] .'&system='. $TargetPlanet['system']. '">
-				'.sprintf($TitleString, $TargetPlanet['name'], $TargetPlanet['galaxy'], $TargetPlanet['system'], $TargetPlanet['planet'], date(TDFORMAT, $this->_fleet['fleet_end_time'])) .'</th>
+				'.sprintf($TitleString, $TargetPlanet['name'], $TargetPlanet['galaxy'], $TargetPlanet['system'], $TargetPlanet['planet'], date($LNG['php_tdformat'], $this->_fleet['fleet_end_time'])) .'</th>
                 </tr><tr>
                 <td style="width:25%;" class="left transparent">'. $LNG['Metal'] .'</td><td style="width:25%;" class="left transparent">'. pretty_number($TargetPlanet['metal']) .'</td><td class="transparent">&nbsp;</td>
                 <td style="width:25%;" class="left transparent">'. $LNG['Crystal']   .'</td><td style="width:25%;" class="left transparent">'. pretty_number($TargetPlanet['crystal'])    .'</td>

@@ -83,8 +83,8 @@ function FleetTime(){
 	var Sekunden = serverTime.getSeconds();
     var add = duration;
     serverTime.setSeconds(Sekunden+0.5);
-	$("#arrival").html(getFormatedDate(serverTime.getTime()+1000*add, '[d].[m].[y] [G]:[i]:[s]'));
-	$("#return").html(getFormatedDate(serverTime.getTime()+1000*2*add, '[d].[m].[y] [G]:[i]:[s]'));
+	$("#arrival").html(getFormatedDate(serverTime.getTime()+1000*add, tdformat));
+	$("#return").html(getFormatedDate(serverTime.getTime()+1000*2*add, tdformat));
 }
 
 function setResource(id, val) {

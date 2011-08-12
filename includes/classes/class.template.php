@@ -134,8 +134,8 @@ class template extends Smarty
 			'current_planet'	=> $this->phpself."&amp;cp=".$PLANET['id'],
 			'tn_vacation_mode'	=> $LNG['tn_vacation_mode'],
 			'closed'			=> !$CONF['game_disable'] ? $LNG['ov_closed'] : false,
-			'vacation'			=> $USER['urlaubs_modus'] ? date(TDFORMAT,$USER['urlaubs_until']) : false,
-			'delete'			=> $USER['db_deaktjava'] ? sprintf($LNG['tn_delete_mode'], date(TDFORMAT, strtotime("+7 day", $USER['db_deaktjava']))) : false,
+			'vacation'			=> $USER['urlaubs_modus'] ? date($LNG['php_tdformat'],$USER['urlaubs_until']) : false,
+			'delete'			=> $USER['db_deaktjava'] ? sprintf($LNG['tn_delete_mode'], date($LNG['php_tdformat'], strtotime("+7 day", $USER['db_deaktjava']))) : false,
 			'image'				=> $PLANET['image'],
 			'settings_tnstor'	=> $USER['settings_tnstor'],
 			'PlanetSelect'		=> $PlanetSelect,
@@ -144,6 +144,7 @@ class template extends Smarty
 			'Deuterium'			=> $LNG['Deuterium'],
 			'Darkmatter'		=> $LNG['Darkmatter'],
 			'Energy'			=> $LNG['Energy'],
+			'class'				=> 'normal',
 		));
 	}
 	
@@ -167,6 +168,7 @@ class template extends Smarty
 			'fcm_info'			=> $LNG['fcm_info'],
 			'VERSION'			=> $CONF['VERSION'],
 			'REV'				=> substr($CONF['VERSION'], -4),
+			'js_tdformat'		=> $LNG['js_tdformat'],
 			'js_days'			=> json_encode($LNG['js_days']),
 			'js_month' 			=> json_encode($LNG['js_month']),
 		));
@@ -217,7 +219,10 @@ class template extends Smarty
 	}
 		
 	public function isPopup()
-	{
+	{	
+		$this->assign_vars(array(
+			'class'			=> 'popup',
+		));	
 		$this->Popup		= true;
 	}
 		

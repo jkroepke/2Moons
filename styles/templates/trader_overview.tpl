@@ -31,7 +31,7 @@
 					</form>
 				</div>
 			</div>
-			<div>{lang}tr_cost_dm_trader{/lang}<br><br>
+			<div>{$tr_cost_dm_trader}<br><br>
 			{lang}tr_exchange_quota{/lang}: {$charge}<br>
 			</div>
 		</td>

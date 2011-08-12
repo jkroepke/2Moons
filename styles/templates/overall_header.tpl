@@ -25,6 +25,7 @@ var head_info	= "{$fcm_info}";
 var auth		= {if isset($authlevel)}{$authlevel}{else}0{/if};
 var days 		= {if isset($js_days)}{$js_days}{else}[]{/if};
 var months 		= {if isset($js_month)}{$js_month}{else}[]{/if};
+var tdformat	= "{if isset($js_tdformat)}{$js_tdformat}{else}{/if}";
 </script>
 <script type="text/javascript" src="./scripts/jQuery.js?v={$REV}"></script>
 <script type="text/javascript" src="./scripts/base.js?v={$REV}"></script>
@@ -37,5 +38,5 @@ setInterval(function() {
 }, 1000);
 </script>
 </head>
-<body id="{$smarty.get.page|htmlspecialchars}">
+<body id="{$smarty.get.page|htmlspecialchars}" class="{$class}">
 <div id="tooltip" class="tip"></div>

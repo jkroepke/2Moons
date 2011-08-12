@@ -161,10 +161,13 @@ class MissionCaseExpedition extends MissionFunctions
 						continue;
 					
 					$MaxFound			= floor($FoundShips / ($pricelist[$ID]['metal'] + $pricelist[$ID]['crystal']));
-					$Count				= mt_rand(1, $MaxFound);
+					if($MaxFound <= 0) 
+						continue;
+						
+					$Count				= mt_rand(0, $MaxFound);
 					if($Count <= 0) 
 						continue;
-					
+						
 					$Found[$ID]			+= $Count;
 					$FoundShips	 		-= $Count * ($pricelist[$ID]['metal'] + $pricelist[$ID]['crystal']);
 					$FoundShipMess   	.= '<br>'.$LNG['tech'][$ID].': '.pretty_number($Count);
