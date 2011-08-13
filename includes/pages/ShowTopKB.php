@@ -39,10 +39,10 @@ function ShowTopKB()
 
 			$LANG->includeLang(array('FLEET'));
 			$ReportID 	= str_replace(array('.', '\\', '/'), '', request_var('rid', ''));
-			if(file_exists(ROOT_PATH.'raports/topkb_'.$RID.'.php')) {
-				require_once(ROOT_PATH.'raports/topkb_'.$RID.'.php');
-			} elseif(file_exists(ROOT_PATH.'raports/topkb/'.$RID.'.php')) {
-				$raport	= $template->fetch(ROOT_PATH.'raports/topkb/'.$RID.'.php');
+			if(file_exists(ROOT_PATH.'raports/topkb_'.$ReportID.'.php')) {
+				require_once(ROOT_PATH.'raports/topkb_'.$ReportID.'.php');
+			} elseif(file_exists(ROOT_PATH.'raports/topkb/'.$ReportID.'.php')) {
+				$raport	= $template->fetch(ROOT_PATH.'raports/topkb/'.$ReportID.'.php');
 			} else {
 				$template->message($LNG['sys_raport_not_found'], 0, false, true);
 				exit;
