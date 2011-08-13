@@ -43,7 +43,7 @@ $id = request_var('id', 0);
 if(CheckModule(37) || $id == 0) exit();
 
 $LANG->GetLangFromBrowser();
-$LANG->includeLang(array('BANNER'));
+$LANG->includeLang(array('L18N', 'BANNER'));
 
 require_once(ROOT_PATH."includes/classes/class.StatBanner.php");
 

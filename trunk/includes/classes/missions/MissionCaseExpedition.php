@@ -284,7 +284,7 @@ class MissionCaseExpedition extends MissionFunctions
 				$raport		= GenerateReport($result, $INFO);
 				$rid		= md5(microtime(true).mt_rand(1,100));
 			
-				file_put_contents(ROOT_PATH.'raports/raport_'.$rid.'.php', '<?php'."\n".'$raport = '.$raport.';'."\n".'?>');
+				file_put_contents(ROOT_PATH.'raports/raport/'.$rid.'.php', $raport);
 					
 				$SQLQuery  = "INSERT INTO ".RW." SET `time` = '".TIMESTAMP."', `owners` = '".$this->_fleet['fleet_owner'].",0', `rid` = '". $rid ."';";	
 				$db->query($SQLQuery);

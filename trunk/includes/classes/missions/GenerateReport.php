@@ -30,9 +30,9 @@
 function GenerateReport($RESULT, $INFO)
 {
 	$html 		= '{capture tdformat assign=tdformat}{lang}php_tdformat{/lang}{/capture}';
-	$html 		.= '"<div style=\"width:100%;text-align:center\">';
+	$html 		.= '<div style="width:100%;text-align:center">';
 	$html	   	.= $INFO['moon']['des'] == 1 ? '{lang}sys_destruc_title{/lang}' : '{lang}sys_attack_title{/lang}';
-	$html	   	.= '{date($tdformat, '.$INFO['fleet_start_time'].')}:<br><br>';
+	$html	   	.= ' {date($tdformat, '.$INFO['fleet_start_time'].')}:<br><br>';
 		
 	$round_no 	= 1;
 	$des		= array('att' => array(), 'def' => array());
@@ -62,21 +62,21 @@ function GenerateReport($RESULT, $INFO)
 			$shie 	= $data2['techs'][1] * 100;
 			$armr 	= $data2['techs'][2] * 100;
 
-			$fl_info1  	= '<td class=\"transparent\"><table><tr><td>{lang}sys_attack_attacker_pos{/lang} '.$name.' (['.$coord1.':'.$coord2.':'.$coord3.'])<br>{lang}sys_ship_weapon{/lang} '.$weap.'% - {lang}sys_ship_shield{/lang} '.$shie.'% - {lang}sys_ship_armour{/lang} '.$armr.'%';
+			$fl_info1  	= '<td class="transparent"><table><tr><td>{lang}sys_attack_attacker_pos{/lang} '.$name.' (['.$coord1.':'.$coord2.':'.$coord3.'])<br>{lang}sys_ship_weapon{/lang} '.$weap.'% - {lang}sys_ship_shield{/lang} '.$shie.'% - {lang}sys_ship_armour{/lang} '.$armr.'%';
 			$table1  	= '<table width=\'100%\'>';
 
 			if (array_sum($data2['detail']) != 0)
 			{
-				$ships1  = '<tr><td class=\"transparent\">{lang}sys_ship_type{/lang}</td>';
-				$count1  = '<tr><td class=\"transparent\">{lang}sys_ship_count{/lang}</td>';
+				$ships1  = '<tr><td class="transparent">{lang}sys_ship_type{/lang}</td>';
+				$count1  = '<tr><td class="transparent">{lang}sys_ship_count{/lang}</td>';
 
 				foreach($data2['detail'] as $ship_id1 => $ship_count1)
 				{
 					if ($ship_count1 <= 0)
 						continue;
 
-					$ships1 .= '<td class=\"transparent\">{lang}tech_rc.'.$ship_id1.'{/lang}</td>';
-					$count1 .= '<td class=\"transparent\">'.pretty_number($ship_count1).'</td>';
+					$ships1 .= '<td class="transparent">{lang}tech_rc.'.$ship_id1.'{/lang}</td>';
+					$count1 .= '<td class="transparent">'.pretty_number($ship_count1).'</td>';
 				}
 
 				$ships1 .= '</tr>';
@@ -85,7 +85,7 @@ function GenerateReport($RESULT, $INFO)
 			else
 			{
 				$des['att'][] = 1;
-				$ships1 = '<tr><td class=\"transparent\"><br><br>{lang}sys_destroyed{/lang}<br></td></tr>';
+				$ships1 = '<tr><td class="transparent"><br><br>{lang}sys_destroyed{/lang}<br></td></tr>';
 				$count1 = '';
 			}
 
@@ -94,17 +94,17 @@ function GenerateReport($RESULT, $INFO)
 
 		foreach($attackers2 as $fleet_id2 => $data3)
 		{
-			$weap1		= '<tr><td class=\"transparent\">{lang}sys_ship_weapon{/lang}</td>';
-			$shields1	= '<tr><td class=\"transparent\">{lang}sys_ship_shield{/lang}</td>';
-			$armour1	= '<tr><td class=\"transparent\">{lang}sys_ship_armour{/lang}</td>';
+			$weap1		= '<tr><td class="transparent">{lang}sys_ship_weapon{/lang}</td>';
+			$shields1	= '<tr><td class="transparent">{lang}sys_ship_shield{/lang}</td>';
+			$armour1	= '<tr><td class="transparent">{lang}sys_ship_armour{/lang}</td>';
 			foreach($data3 as $ship_id2 => $ship_points1)
 			{
 				if($ship_points1['shield'] <= 0)
 					continue;
 
-				$weap1 		.= '<td class=\"transparent\">'.pretty_number($ship_points1['att']).'</td>';
-				$shields1 	.= '<td class=\"transparent\">'.pretty_number($ship_points1['def']).'</td>';
-				$armour1 	.= '<td class=\"transparent\">'.pretty_number($ship_points1['shield']).'</td>';
+				$weap1 		.= '<td class="transparent">'.pretty_number($ship_points1['att']).'</td>';
+				$shields1 	.= '<td class="transparent">'.pretty_number($ship_points1['def']).'</td>';
+				$armour1 	.= '<td class="transparent">'.pretty_number($ship_points1['shield']).'</td>';
 			}
 
 			$weap1 		.= '</tr>';
@@ -135,21 +135,21 @@ function GenerateReport($RESULT, $INFO)
 			$shie 	= $data2['techs'][1] * 100;
 			$armr 	= $data2['techs'][2] * 100;
 
-			$fl_info1	= '<td class=\"transparent\"><table><tr><td>{lang}sys_attack_defender_pos{/lang} '.$name.' (['.$coord4.':'.$coord5.':'.$coord6.'])<br>{lang}sys_ship_weapon{/lang} '.$weap.'% - {lang}sys_ship_shield{/lang} '.$shie.'% - {lang}sys_ship_armour{/lang} '.$armr.'%';
+			$fl_info1	= '<td class="transparent"><table><tr><td>{lang}sys_attack_defender_pos{/lang} '.$name.' (['.$coord4.':'.$coord5.':'.$coord6.'])<br>{lang}sys_ship_weapon{/lang} '.$weap.'% - {lang}sys_ship_shield{/lang} '.$shie.'% - {lang}sys_ship_armour{/lang} '.$armr.'%';
 			$table1  	= '<table border=\'1\' align=\'center\' width=\'100%\'>';
 
 			if (array_sum($data2['def']) != 0)
 			{
-				$ships1  = '<tr><td class=\"transparent\">{lang}sys_ship_type{/lang}</td>';
-				$count1  = '<tr><td class=\"transparent\">{lang}sys_ship_count{/lang}</td>';
+				$ships1  = '<tr><td class="transparent">{lang}sys_ship_type{/lang}</td>';
+				$count1  = '<tr><td class="transparent">{lang}sys_ship_count{/lang}</td>';
 
 				foreach($data2['def'] as $ship_id1 => $ship_count1)
 				{
 					if ($ship_count1 == 0)
 						continue;
 
-					$ships1 .= '<td class=\"transparent\">{lang}tech_rc.'.$ship_id1.'{/lang}</td>';
-					$count1 .= '<td class=\"transparent\">'.pretty_number($ship_count1).'</td>';
+					$ships1 .= '<td class="transparent">{lang}tech_rc.'.$ship_id1.'{/lang}</td>';
+					$count1 .= '<td class="transparent">'.pretty_number($ship_count1).'</td>';
 				}
 
 				$ships1 .= '</tr>';
@@ -158,7 +158,7 @@ function GenerateReport($RESULT, $INFO)
 			else
 			{
 				$des['def'][] = 1;
-				$ships1 = '<tr><td class=\"transparent\"><br><br>{lang}sys_destroyed{/lang}<br></td></tr>';
+				$ships1 = '<tr><td class="transparent"><br><br>{lang}sys_destroyed{/lang}<br></td></tr>';
 				$count1 = '';
 			}
 
@@ -167,18 +167,18 @@ function GenerateReport($RESULT, $INFO)
 
 		foreach($defenders2 as $fleet_id2 => $data3)
 		{
-			$weap1  	= '<tr><td class=\"transparent\">{lang}sys_ship_weapon{/lang}</td>';
-			$shields1  	= '<tr><td class=\"transparent\">{lang}sys_ship_shield{/lang}</td>';
-			$armour1  	= '<tr><td class=\"transparent\">{lang}sys_ship_armour{/lang}</td>';
+			$weap1  	= '<tr><td class="transparent">{lang}sys_ship_weapon{/lang}</td>';
+			$shields1  	= '<tr><td class="transparent">{lang}sys_ship_shield{/lang}</td>';
+			$armour1  	= '<tr><td class="transparent">{lang}sys_ship_armour{/lang}</td>';
 
 			foreach( $data3 as $ship_id2 => $ship_points1)
 			{
 				if($ship_points1['shield'] <= 0)
 					continue;
 
-				$weap1 		.= '<td class=\"transparent\">'.pretty_number($ship_points1['att']).'</td>';
-				$shields1 	.= '<td class=\"transparent\">'.pretty_number($ship_points1['def']).'</td>';
-				$armour1 	.= '<td class=\"transparent\">'.pretty_number($ship_points1['shield']).'</td>';
+				$weap1 		.= '<td class="transparent">'.pretty_number($ship_points1['att']).'</td>';
+				$shields1 	.= '<td class="transparent">'.pretty_number($ship_points1['def']).'</td>';
+				$armour1 	.= '<td class="transparent">'.pretty_number($ship_points1['shield']).'</td>';
 			}
 
 			$weap1 		.= '</tr>';
@@ -253,7 +253,7 @@ function GenerateReport($RESULT, $INFO)
 	if(isset($INFO['moon']['battlesim'])) {
 		$html .= $INFO['moon']['battlesim'];
 	}
-	$html .= '</div><script type=\"text/javascript\">RaportInfo = '.addcslashes(json_encode(array($RESULT['won'], ($RESULT['lost']['att'] + $RESULT['lost']['def']), $RESULT['debree']['att'][0], $RESULT['debree']['def'][0], $INFO['attvsdef'])), '"').';</script>"';
+	$html .= '</div><script type="text/javascript">RaportInfo = '.json_encode(array($RESULT['won'], ($RESULT['lost']['att'] + $RESULT['lost']['def']), $RESULT['debree']['att'][0], $RESULT['debree']['def'][0], $INFO['attvsdef'])).';</script>';
 	return $html;
 }
 	

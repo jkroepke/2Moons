@@ -972,7 +972,7 @@ class ShowFleetPages extends FleetFunctions
 		$db->multi_query($SQL);
 
 		$Message['code']	= 600;
-		$Message['mess']	= $LNG['fa_sending']." ".$FleetShipCount." ". $LNG['tech'][$Ship] ." ".$LNG['gl_to']." ". $galaxy .":". $system .":". $planet ."...";
+		$Message['mess']	= $LNG['fa_sending']." ".pretty_number($FleetShipCount)." ". $LNG['tech'][$Ship] ." ".$LNG['gl_to']." ". $galaxy .":". $system .":". $planet ."...";
 		exit(json_encode($Message));
 	}
 

@@ -119,7 +119,7 @@ function ShowBattleSimPage()
 
 		$rid   				= md5(microtime(true));
 		
-		file_put_contents(ROOT_PATH.'raports/raport_'.$rid.'.php', '<?php'."\n".'$raport = '.$raport.';'."\n".'?>');
+		file_put_contents(ROOT_PATH.'raports/raport/'.$rid.'.php', $raport);
 			
 		$SQLQuery  = "INSERT INTO ".RW." SET ";
 		$SQLQuery .= "`time` = '".TIMESTAMP."', ";

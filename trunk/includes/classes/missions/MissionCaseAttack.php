@@ -236,8 +236,8 @@ class MissionCaseAttack extends MissionFunctions
 		$raport						= GenerateReport($result, $INFO);
 		$rid						= md5(microtime(true).mt_rand(1,100));
 	
-		file_put_contents(ROOT_PATH.'raports/raport_'.$rid.'.php', '<?php'."\n".'$raport = '.$raport.';'."\n".'?>');
-		file_put_contents(ROOT_PATH.'raports/topkb_'.$rid.'.php', '<?php'."\n".'$raport = '.preg_replace("/\[\d+\:\d+\:\d+\]/i", "[X:X:X]", $raport).';'."\n".'?>');
+		file_put_contents(ROOT_PATH.'raports/raport/'.$rid.'.php', $raport);
+		file_put_contents(ROOT_PATH.'raports/topkb/'.$rid.'.php', preg_replace("/\[\d+\:\d+\:\d+\]/i", "[X:X:X]", $raport));
 	
 		if(DEBUG_EXTRA)
 			file_put_contents(ROOT_PATH.'includes/attack.log', date('[d-M-Y H:i:s]', $this->_fleet['fleet_start_time']).'(FleetID: '.$this->_fleet['fleet_id'].') Attacker: '.$this->_fleet['fleet_owner'].'/ Defender: '.$this->_fleet['fleet_target_owner'].' | TF: '.floattostring($DerbisMetal).'/'.floattostring($DerbisCrystal));
