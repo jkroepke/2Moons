@@ -34,11 +34,9 @@ function printIni($a = array()) {
 	    return;
 	
 	$r		= "";
-	$ini	= ini_get_all();
 	foreach($a as $key)
-	{
-	
-		$r .= $key.": ".$ini[$key]["local_value"]."\r\n";
+	{	
+		$r .= $key.": ".ini_get($key)."\r\n";
     }
     return $r;
 }
@@ -69,6 +67,7 @@ function ShowInformationPage()
 		'safe_mode',
 		'short_open_tag',
 		'SMTP',
+		'suhosin.request.max_value_length',
 		'smtp_port',
 		'upload_max_filesize',
 		'upload_tmp_dir',
