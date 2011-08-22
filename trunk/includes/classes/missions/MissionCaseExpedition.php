@@ -72,7 +72,7 @@ class MissionCaseExpedition extends MissionFunctions
 			
 		$FleetCapacity		-= $this->_fleet['fleet_resource_metal'] + $this->_fleet['fleet_resource_crystal'] + $this->_fleet['fleet_resource_deuterium'] + $this->_fleet['fleet_resource_darkmatter'];
 					
-		$GetEvent			= mt_rand(1, 6);
+		$GetEvent			= mt_rand(1, 9);
 			
 		switch($GetEvent)
 		{
@@ -202,6 +202,7 @@ class MissionCaseExpedition extends MissionFunctions
 					$Rand	= array(4,3,2);
 					$DefenderFleetArray	= "205,5;215,3;213,2;";
 				}
+				$LNG			+= $LANG->GetUserLang($this->_fleet['fleet_owner'], array('L18N'));
 					
 				$FindSize = mt_rand(0, 100);
 				if(10 < $FindSize) {

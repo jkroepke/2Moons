@@ -30,6 +30,10 @@
 function GenerateReport($RESULT, $INFO)
 {
 	$html 		= '{capture tdformat assign=tdformat}{lang}php_tdformat{/lang}{/capture}';
+	$html 		.= '{capture sys_destruc_mess assign=sys_destruc_mess}{lang}sys_destruc_mess{/lang}{/capture}';
+	$html 		.= '{capture sys_moonbuilt assign=sys_moonbuilt}{lang}sys_moonbuilt{/lang}{/capture}';
+	$html 		.= '{capture sys_destruc_lune assign=sys_destruc_lune}{lang}sys_destruc_lune{/lang}{/capture}';
+	$html 		.= '{capture sys_destruc_rip assign=sys_destruc_rip}{lang}sys_destruc_rip{/lang}{/capture}';
 	$html 		.= '<div style="width:100%;text-align:center">';
 	$html	   	.= $INFO['moon']['des'] == 1 ? '{lang}sys_destruc_title{/lang}' : '{lang}sys_attack_title{/lang}';
 	$html	   	.= ' {date($tdformat, '.$INFO['fleet_start_time'].')}:<br><br>';
@@ -231,13 +235,13 @@ function GenerateReport($RESULT, $INFO)
 	$html .= '{lang}debree_field_1{/lang} '.pretty_number($RESULT['debree']['att'][0] + $RESULT['debree']['def'][0]).' {lang}Metal{/lang} {lang}sys_and{/lang} '.pretty_number($RESULT['debree']['att'][1] + $RESULT['debree']['def'][1]).' {lang}Crystal{/lang} {lang}debree_field_2{/lang}<br><br>';
 		
 	if($INFO['moon']['des'] == 1) {
-		$html .= '".sprintf($LNG["sys_destruc_mess"], "'.$INFO['start_galaxy'].'", "'.$INFO['start_system'].'", "'.$INFO['start_planet'].'", "'.$INFO['end_galaxy'].'", "'.$INFO['end_system'].'", "'.$INFO['end_planet'].'")."<br>';	
+		$html .= '{sprintf($sys_destruc_mess, "'.$INFO['start_galaxy'].'", "'.$INFO['start_system'].'", "'.$INFO['start_planet'].'", "'.$INFO['end_galaxy'].'", "'.$INFO['end_system'].'", "'.$INFO['end_planet'].'")}<br>';	
 		if($INFO['moon']['desfail'] == 1) {
 			$html .= '{lang}sys_destruc_stop{/lang}<br>';
 		} else {
-			$html .= '".sprintf($LNG["sys_destruc_lune"], "'.$INFO['moon']['chance'].'")."<br>{lang}sys_destruc_mess1{/lang}';
+			$html .= '{sprintf($sys_destruc_lune, "'.$INFO['moon']['chance'].'"}<br>{lang}sys_destruc_mess1{/lang}';
 			$html .= $INFO['moon']['desfail'] == 0 ? '{lang}sys_destruc_reussi{/lang}' : '{lang}sys_destruc_null{/lang}';			
-			$html .= '<br>".sprintf($LNG["sys_destruc_rip"], "'.$INFO['moon']['chance2'].'")."';
+			$html .= '<br>{sprintf($sys_destruc_rip, "'.$INFO['moon']['chance2'].'")}';
 			if($INFO['moon']['fleetfail'] == 1) {
 				$html .= '<br>{lang}sys_destruc_echec{/lang}';
 			}			
@@ -246,7 +250,7 @@ function GenerateReport($RESULT, $INFO)
 		$html .= '{lang}sys_moonproba{/lang} '.$INFO['moon']['chance'].' %<br>';
 		if(!empty($INFO['moon']['name']))
 		{
-			$html .= '".sprintf($LNG["sys_moonbuilt"], "'.$INFO['moon']['name'].'", "'.$INFO['end_galaxy'].'", "'.$INFO['end_system'].'", "'.$INFO['end_planet'].'")."';
+			$html .= '{sprintf($sys_moonbuilt, "'.$INFO['moon']['name'].'", "'.$INFO['end_galaxy'].'", "'.$INFO['end_system'].'", "'.$INFO['end_planet'].'")}';
 		}
 	}
 	
