@@ -58,11 +58,11 @@ function getFactors($USER, $Type = 'basic', $TIME = 0) {
 		
 	if($Type == 'basic') {
 		return array(
-			'shipspeed'		=> 1 - DMExtra($USER[$resource[706]], $TIME, $pricelist[701]['add'], 0),
+			'shipspeed'		=> 1 - $USER[$resource[613]] * $pricelist[613]['info'] - DMExtra($USER[$resource[706]], $TIME, $pricelist[706]['add'], 0),
 			'bulidspeed'	=> 1 - $USER[$resource[605]] * $pricelist[605]['info'] - DMExtra($USER[$resource[702]], $TIME, $pricelist[702]['add'], 0),
 			'techspeed'		=> 1 - $USER[$resource[606]] * $pricelist[606]['info'] - DMExtra($USER[$resource[705]], $TIME, $pricelist[705]['add'], 0),
-			'fleetspeed'	=> 1 - $USER[$resource[613]] * $pricelist[613]['info'] - $USER[$resource[604]] * $pricelist[604]['info'],
-			'defspeed'		=> 1 - $USER[$resource[613]] * $pricelist[613]['info'] - $USER[$resource[608]] * $pricelist[608]['info'],
+			'fleetspeed'	=> 1 - $USER[$resource[604]] * $pricelist[604]['info'],
+			'defspeed'		=> 1 - $USER[$resource[608]] * $pricelist[608]['info'],
 			'metal'			=> 1 + ($USER[$resource[601]] * $pricelist[601]['info']) + ($USER[$resource[131]] * 0.02) + DMExtra($USER[$resource[703]], $TIME, $pricelist[703]['add'], 0),
 			'crystal'		=> 1 + ($USER[$resource[601]] * $pricelist[601]['info']) + ($USER[$resource[132]] * 0.02) + DMExtra($USER[$resource[703]], $TIME, $pricelist[703]['add'], 0),
 			'deuterium'		=> 1 + ($USER[$resource[601]] * $pricelist[601]['info']) + ($USER[$resource[133]] * 0.02) + DMExtra($USER[$resource[703]], $TIME, $pricelist[703]['add'], 0),
