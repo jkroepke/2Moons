@@ -239,7 +239,7 @@ function GenerateReport($RESULT, $INFO)
 		if($INFO['moon']['desfail'] == 1) {
 			$html .= '{lang}sys_destruc_stop{/lang}<br>';
 		} else {
-			$html .= '{sprintf($sys_destruc_lune, "'.$INFO['moon']['chance'].'"}<br>{lang}sys_destruc_mess1{/lang}';
+			$html .= '{sprintf($sys_destruc_lune, "'.$INFO['moon']['chance'].'")}<br>{lang}sys_destruc_mess1{/lang}';
 			$html .= $INFO['moon']['desfail'] == 0 ? '{lang}sys_destruc_reussi{/lang}' : '{lang}sys_destruc_null{/lang}';			
 			$html .= '<br>{sprintf($sys_destruc_rip, "'.$INFO['moon']['chance2'].'")}';
 			if($INFO['moon']['fleetfail'] == 1) {
