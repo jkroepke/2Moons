@@ -1,0 +1,7 @@
+﻿Pozdravljen uporabnik %1$s,
+Thank you for registering at %2$s
+
+Veseli nas, da ste se odločili, da postane del naše skupnosti in upamo, da boste uživali!
+
+Lep dan vam želi,
+Ekipa %2$s
