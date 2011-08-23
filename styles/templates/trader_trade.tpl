@@ -7,7 +7,7 @@
 		<input type="hidden" name="action" value="trade">
 		<table class="table569">
 		<tr>
-			<th colspan="3">{lang}tr_sell_crystal{/lang}</th>
+			<th colspan="3">{lang}tr_sell{/lang} {$ress}</th>
 		</tr><tr>
 			<td>{lang}tr_resource{/lang}</td>
 			<td>{lang}tr_amount{/lang}</td>

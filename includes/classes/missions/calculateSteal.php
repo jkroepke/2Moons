@@ -29,7 +29,7 @@
 
 function calculateSteal($attackFleets, $defenderPlanet, $ForSim = false)
 {	
-	//Steal-Math by Slaver for 2Moons(http://www.titanspace.org) based on http://www.owiki.de/Beute
+	//Steal-Math by Slaver for 2Moons(http://www.2moons.cc) based on http://www.owiki.de/Beute
 	global $pricelist, $db;
 	
 	$SortFleets = array();

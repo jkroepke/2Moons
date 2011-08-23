@@ -211,6 +211,7 @@ $requeriments = array(
 );
 
 $pricelist = array(
+	// Builds
 	1	=> array('metal' =>      60, 'crystal' =>      15, 'deuterium' =>       0, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' => 3/2),
 	2	=> array('metal' =>      48, 'crystal' =>      24, 'deuterium' =>       0, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' => 1.6),
 	3	=> array('metal' =>     225, 'crystal' =>      75, 'deuterium' =>       0, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' => 3/2),
@@ -231,6 +232,7 @@ $pricelist = array(
 	43 	=> array('metal' => 2000000, 'crystal' => 4000000, 'deuterium' => 2000000, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' =>   2),
 	44 	=> array('metal' =>   20000, 'crystal' =>   20000, 'deuterium' =>    1000, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' =>   2),
 
+	// Tech
 	106 => array('metal' =>     200, 'crystal' =>    1000, 'deuterium' =>     200, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' =>   2, 'max' => 255),
 	108 => array('metal' =>       0, 'crystal' =>     400, 'deuterium' =>     600, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' =>   2, 'max' => 255),
 	109 => array('metal' =>     800, 'crystal' =>     200, 'deuterium' =>       0, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' =>   2, 'max' => 255),
@@ -251,6 +253,7 @@ $pricelist = array(
 	124 => array('metal' =>    4000, 'crystal' =>    8000, 'deuterium' =>    4000, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' =>   2, 'max' => 255),
 	199 => array('metal' =>       0, 'crystal' =>       0, 'deuterium' =>       0, 'energy_max' => 300000, 'darkmatter' =>  0, 'factor' =>   3, 'max' => 255),
 
+	// Fleets
 	202 => array('metal' =>      2000, 'crystal' =>      2000, 'deuterium' =>        0, 'energy_max' => 0, 'darkmatter' =>  0, 'factor' => 1, 'consumption' =>     10, 'consumption2' => 20  , 'speed' =>      5000, 'speed2' =>     10000, 'capacity' =>      5000, 'tech'	=> 4),
 	203 => array('metal' =>      6000, 'crystal' =>      6000, 'deuterium' =>        0, 'energy_max' => 0, 'darkmatter' =>  0, 'factor' => 1, 'consumption' =>     50, 'consumption2' => 50  , 'speed' =>      7500, 'speed2' =>      7500, 'capacity' =>     25000, 'tech'	=> 1),
 	204 => array('metal' =>      3000, 'crystal' =>      1000, 'deuterium' =>        0, 'energy_max' => 0, 'darkmatter' =>  0, 'factor' => 1, 'consumption' =>     20, 'consumption2' => 20  , 'speed' =>     12500, 'speed2' =>     12500, 'capacity' =>        50, 'tech'	=> 1),
@@ -270,7 +273,8 @@ $pricelist = array(
 	218 => array('metal' => 275000000, 'crystal' => 130000000, 'deuterium' => 60000000, 'energy_max' => 0, 'darkmatter' =>  0, 'factor' => 1, 'consumption' =>  10000, 'consumption2' =>  10000, 'speed' =>      10, 'speed2' =>        10, 'capacity' =>  50000000, 'tech'	=> 3),
 	219 => array('metal' =>   1000000, 'crystal' =>    600000, 'deuterium' =>   200000, 'energy_max' => 0, 'darkmatter' =>  0, 'factor' => 1, 'consumption' =>    300, 'consumption2' =>    300, 'speed' =>    7500, 'speed2' =>      7500, 'capacity' => 200000000, 'tech'	=> 3),
 	220 => array('metal' =>   6000000, 'crystal' =>   7000000, 'deuterium' =>  3000000, 'energy_max' => 0, 'darkmatter' =>  0, 'factor' => 1, 'consumption' => 100000, 'consumption2' => 100000, 'speed' =>     100, 'speed2' =>       100, 'capacity' =>   6000000, 'tech'	=> 3),
-  
+
+	// Defensive
 	401 => array('metal' =>       2000, 'crystal' =>          0, 'deuterium' =>         0, 'energy_max' => 0, 'darkmatter' =>  0, 'factor' => 1 ),
 	402 => array('metal' =>       1500, 'crystal' =>        500, 'deuterium' =>         0, 'energy_max' => 0, 'darkmatter' =>  0, 'factor' => 1 ),
 	403 => array('metal' =>       6000, 'crystal' =>       2000, 'deuterium' =>         0, 'energy_max' => 0, 'darkmatter' =>  0, 'factor' => 1 ),
@@ -283,9 +287,11 @@ $pricelist = array(
 	410 => array('metal' =>   15000000, 'crystal' =>   15000000, 'deuterium' =>         0, 'energy_max' => 0, 'darkmatter' =>  0, 'factor' => 1 ),
 	411 => array('metal' => 5000000000, 'crystal' => 2000000000, 'deuterium' => 500000000, 'energy_max' => 1000000, 'darkmatter' =>  10000, 'factor' => 1 ),         
 	
+	// Missils
 	502 => array('metal' =>   8000, 'crystal' =>       0, 'deuterium' =>    2000, 'energy_max' => 0, 'darkmatter' =>  0, 'factor' => 1 ),
 	503 => array('metal' =>  12500, 'crystal' =>    2500, 'deuterium' =>   10000, 'energy_max' => 0, 'darkmatter' =>  0, 'factor' => 1 ),
 
+	// Officier
 	601 => array('metal' =>      0, 'crystal' =>       0, 'deuterium' =>       0, 'energy_max' => 0, 'darkmatter' => 1000, 'factor' => 1, 'max' =>  20, 'info' => 0.05),
 	602 => array('metal' =>      0, 'crystal' =>       0, 'deuterium' =>       0, 'energy_max' => 0, 'darkmatter' => 1000, 'factor' => 1, 'max' =>  20, 'info' => 0.05),
 	603 => array('metal' =>      0, 'crystal' =>       0, 'deuterium' =>       0, 'energy_max' => 0, 'darkmatter' => 1000, 'factor' => 1, 'max' =>  10, 'info' => 0.05),
@@ -302,6 +308,7 @@ $pricelist = array(
 	614 => array('metal' =>      0, 'crystal' =>       0, 'deuterium' =>       0, 'energy_max' => 0, 'darkmatter' => 1000, 'factor' => 1, 'max' =>   1, 'info' => false),
 	615 => array('metal' =>      0, 'crystal' =>       0, 'deuterium' =>       0, 'energy_max' => 0, 'darkmatter' => 1000, 'factor' => 1, 'max' =>   1, 'info' => false),
 
+	// DM Extras
 	700 => array('time' => 24, 'darkmatter' => 1500, 'add' => 0.1),
 	701 => array('time' => 24, 'darkmatter' => 1500, 'add' => 0.1),
 	702 => array('time' => 24, 'darkmatter' =>  750, 'add' => 0.1),
