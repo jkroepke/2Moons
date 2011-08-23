@@ -1,7 +1,7 @@
 function add(){
-	$("#battlesim").attr('action', '?page=battlesim&action=moreslots');
-	$("#battlesim").attr('method', 'POST');
-	$("#battlesim").submit();
+	$("#form").attr('action', '?page=battlesim&action=moreslots');
+	$("#form").attr('method', 'POST');
+	$("#form").submit();
 	return true;
 }
 

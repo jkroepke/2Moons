@@ -1,14 +1,14 @@
 <?PHP
 /**
- *                            ts3admin.class.php							<br />
- *                            ------------------							<br />
- *   begin                : Saturday, Dec 19, 2009							<br />
- *   copyright            : (C) 2009-2010 Par0nid Solutions					<br />
- *   email                : par0noid@gmx.de									<br />
- *   version              : 0.5.9											<br />
- *   last modified        : Tuesday, Nov 02, 2010							<br />
- *   build				  : 5124364											<br />
- * 
+ *                            ts3admin.class.php                    <br />
+ *                            ------------------                    <br />
+ *   begin                : 18. December 2009                       <br />
+ *   copyright            : (C) 2009-2011 Par0nid Solutions         <br />
+ *   email                : par0noid@gmx.de                         <br />
+ *   version              : 0.6.2                                   <br />
+ *   last modified        : 29. June 2011                           <br />
+ *   build                : 5130002                                 <br />
+ *
 
     This file is a powerful library for querying TeamSpeak3 servers.<br />																			
     
@@ -28,11 +28,12 @@
 */
 
 /**
- * @author		Par0noid Solutions <par0noid@gmx.de>
- * @package		ts3admin
- * @version		0.5.9
- * @copyright	Copyright (c) 2009-2010, Stefan Z.
- * @link		http://ts3admin.6x.to
+ * @author      Par0noid Solutions <par0noid@gmx.de>
+ * @package     ts3admin
+ * @version     0.6.2
+ * @copyright   Copyright (c) 2009-2011, Stefan Z.
+ * @link        http://ts3admin.info
+ * @link        http://par0noid.info
  */
 class ts3admin {
 
@@ -1058,6 +1059,39 @@ class ts3admin {
 	}
 
 /**
+  * clientDbInfo displays detailed database information about a client including unique ID, creation date, etc.<br><br><br>
+  *
+  * <b>Output:</b><br>
+  * <code>
+  * Array
+  * {
+  *  [client_unique_identifier] => nUixbsq/XakrrmbqU8O30R/D8Gc=
+  *  [client_nickname] => Par0noid
+  *  [client_database_id] => 2
+  *  [client_created] => 1263833443
+  *  [client_lastconnected] => 1292332922
+  *  [client_totalconnections] => 823
+  *  [client_description] => 
+  *  [client_month_bytes_uploaded] => 351492
+  *  [client_month_bytes_downloaded] => 0
+  *  [client_total_bytes_uploaded] => 15511272
+  *  [client_total_bytes_downloaded] => 1753372
+  *  [client_icon_id] => 0
+  *  [client_base64HashClientUID] => jneilbgomklpfnkjclkoggokfdmdlhnbbpmdpagh
+  * }
+  * </code>
+  *
+  * @author     Par0noid Solutions
+  * @access		public
+  * @param		integer	$cldbid	clientDbID
+  * @return     array	clientInformation
+  */
+	function clientDbInfo($cldbid) {
+		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		return $this->getData('array', 'clientdbinfo cldbid='.$cldbid);
+	}
+
+/**
   * clientDbList: returns all clients from db<br><br><br>
   *
   * <b>Possible params:</b> [start={offset}] [duration={limit}] [-count]<br><br><br>
@@ -1085,12 +1119,8 @@ class ts3admin {
   */
 	function clientDbList($start = '', $duration = '', $count = false) {
 		if(!$this->runtime['selected']) { return $this->checkSelected(); }
-		
-		if(!empty($start) or $start == 0) { $start = ' start='.$start; }
-		if(!empty($duration)) { $duration = ' duration='.$duration; }
-		if($count) { $count = ' -count'; }else{ $count = ''; }
-		
-		return $this->getData('multi', 'clientdblist'.$start.$duration.$count);
+				
+		return $this->getData('multi', 'clientdblist start='.(empty($start) ? '0' : $start).' duration='.(empty($duration) ? '-1' : $duration).($count ? '-count' : ''));
 	}
 
 /**
@@ -2263,7 +2293,7 @@ class ts3admin {
 
 /**
   * serverCreate creates a server on the selected instance<br><br><br>
-  *
+  * 
   * <b>Input-Array like this:</b><br>
   * <br><code>
   * <?PHP
@@ -2286,15 +2316,19 @@ class ts3admin {
   *
   * @author     Par0noid Solutions
   * @access		public
-  * @param		array	$data	serverSettings
+  * @param		array	$data	serverSettings	[optional]
   * @return     array serverInfo
   */
-	function serverCreate($data) {
+	function serverCreate($data = array()) {
 		$settingsString = '';
+		
+		if(count($data) == 0) {	$data['virtualserver_name'] = 'Teamspeak 3 Server'; }
+		
 		
 		foreach($data as $key => $value) {
 			if(!empty($value)) { $settingsString .= ' '.$key.'='.$this->escapeText($value); }
 		}
+		
 		return $this->getData('array', 'servercreate'.$settingsString);
 	}
 
@@ -2914,7 +2948,7 @@ class ts3admin {
 
 /**
   * tokenAdd creates a new token. If tokentype is set to 0, the ID specified with tokenid1 will be a server group ID<br>
-  * Otherwise, tokenid1 is used as a channel group ID and you need to provide a valid channel ID using tokenid2
+  * Otherwise, tokenid1 is used as a channel group ID and you need to provide a valid channel ID using tokenid2<br><br><br>
   *
   * <b>Input-Array like this:</b><br>
   * <br><code>
@@ -3555,4 +3589,5 @@ class ts3admin {
 	}
 	
 }
+
 ?>

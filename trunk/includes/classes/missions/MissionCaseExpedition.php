@@ -282,6 +282,12 @@ class MissionCaseExpedition extends MissionFunctions
 				}
 
 				require_once('GenerateReport.php');
+				
+
+				$INFO['steal']				= array('metal' => 0, 'crystal' => 0, 'deuterium' => 0);
+				$INFO['fleet_start_time']	= $this->_fleet['fleet_start_time'];
+				$INFO['moon']['des']		= 0;
+				$INFO['moon']['chance'] 	= 0;
 				$raport		= GenerateReport($result, $INFO);
 				$rid		= md5(microtime(true).mt_rand(1,100));
 			
