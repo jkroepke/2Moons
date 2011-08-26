@@ -149,7 +149,6 @@ class ShowBuildingsPage
 		
 		if(!in_array($Element, $reslist['allow'][$PLANET['planet_type']])
 			|| !IsTechnologieAccessible($USER, $PLANET, $Element) 
-			|| !IsElementBuyable($USER, $PLANET, $Element, true, !$AddMode)
 			|| ($Element == 31 && $USER["b_tech_planet"] != 0) 
 			|| (($Element == 15 || $Element == 21) && !empty($PLANET['b_hangar_id']))
 			)
@@ -219,6 +218,7 @@ class ShowBuildingsPage
 
 		$ListIDRow		= "";
 		$ScriptData		= array();
+		$Builds			= array();
 		foreach($CurrentQueue as $BuildArray) {
 			if ($BuildArray[3] < TIMESTAMP)
 				continue;
@@ -231,8 +231,9 @@ class ShowBuildingsPage
 				'destroy' 	=> ($BuildArray[4] == 'destroy'), 
 				'endtime' 	=> $BuildArray[3]
 			);
+			$Builds[$BuildArray[0]]	= ($BuildArray[4] == 'destroy') ? $Builds[$BuildArray[0]] - 1 : $Builds[$BuildArray[0]] + 1;
 		}
-		return $ScriptData;
+		return array($ScriptData, $Builds);
 	}
 
 	public function __construct()
@@ -272,7 +273,7 @@ class ShowBuildingsPage
 		
 		
 		$Queue	 			= $this->ShowBuildingQueue();
-		$QueueCount			= count($Queue);
+		$QueueCount			= count($Queue[0]);
 		$CanBuildElement 	= $CONF['max_elements_build'] == 0 || $QueueCount < $CONF['max_elements_build'];
 		$CurrentMaxFields   = CalculateMaxPlanetFields($PLANET);
 		$RoomIsOk 			= $PLANET['field_current'] < ($CurrentMaxFields - $QueueCount);
@@ -294,7 +295,7 @@ class ShowBuildingsPage
 			{
 				$BuildLevel	= $PLANET[$resource[$Element]];
 				$Need		= floor(eval($ProdGrid[$Element]['energy']) * $CONF['resource_multiplier']) * (1 + ($USER['rpg_ingenieur'] * 0.05));
-				$BuildLevel	+= 1;
+				#$BuildLevel	+= $Queue[1][$Element];
 				$Prod		= floor(eval($ProdGrid[$Element]['energy']) * $CONF['resource_multiplier']) * (1 + ($USER['rpg_ingenieur'] * 0.05));
 				$EnergyNeed	= $Prod - $Need;
 				unset($Need, $BuildLevel, $Prod);
@@ -302,14 +303,15 @@ class ShowBuildingsPage
 			
 			$BuildInfoList[]	= array(
 				'id'			=> $Element,
-				'level'			=> $PLANET[$resource[$Element]],
+				'baselevel'		=> $PLANET[$resource[$Element]],
+				'level'			=> $PLANET[$resource[$Element]] + $Queue[1][$Element],
 				'destroyress'	=> array_map('pretty_number', GetBuildingPrice($USER, $PLANET, $Element, true, true)),
 				'destroytime'	=> pretty_time(GetBuildingTime($USER, $PLANET, $Element, true)),
 				'price'			=> GetElementPrice($USER, $PLANET, $Element, true),
 				'time'        	=> pretty_time(GetBuildingTime($USER, $PLANET, $Element)),
 				'EnergyNeed'	=> (!empty($EnergyNeed)) ? sprintf(($EnergyNeed < 0) ? $LNG['bd_need_engine'] : $LNG['bd_more_engine'] , pretty_number(abs($EnergyNeed)), $LNG['Energy']) : "",
 				'restprice'		=> $this->GetRestPrice($Element),
-				'buyable'		=> IsElementBuyable($USER, $PLANET, $Element, true, false),
+				'buyable'		=> $QueueCount != 0 || IsElementBuyable($USER, $PLANET, $Element, true, false),
 			);
 		}
 
@@ -324,7 +326,7 @@ class ShowBuildingsPage
 			'BuildInfoList'		=> $BuildInfoList,
 			'CanBuildElement'	=> $CanBuildElement,
 			'RoomIsOk'			=> $RoomIsOk,
-			'Queue'				=> $Queue,
+			'Queue'				=> $Queue[0],
 			'isBusy'			=> array('shipyard' => !empty($PLANET['b_hangar_id']), 'research' => $USER['b_tech_planet'] != 0),
 			'HaveMissiles'		=> (bool) $PLANET[$resource[503]] + $PLANET[$resource[502]],
 		));

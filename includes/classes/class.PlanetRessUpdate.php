@@ -188,7 +188,7 @@ class ResourceUpdate
 				$this->PLANET['crystal']  	= min($this->PLANET['crystal'] + $CristalTheorical, $MaxCristalStorage);
 			}
 			
-			if ($this->PLANET['deuterium'] <= $MaxDeuteriumStorage)
+			if ($this->PLANET['deuterium'] <= $MaxDeuteriumStorage || $this->PLANET['deuterium_perhour'] < 0)
 			{
 				$DeuteriumTheorical			= ($this->ProductionTime * (($this->CONF['deuterium_basic_income'] * $this->CONF['resource_multiplier']) + $this->PLANET['deuterium_perhour']) / 3600);
 				$this->PLANET['deuterium']	= min($this->PLANET['deuterium'] + $DeuteriumTheorical, $MaxDeuteriumStorage);

@@ -53,7 +53,7 @@
 				</a>
 			</td>
 			<th>
-				<a href="#" onclick="return Dialog.info({$ID})">{lang}tech.{$ID}{/lang}</a>{if $Element.level > 0} ({lang}bd_lvl{/lang} {$Element.level}){/if}
+				<a href="#" onclick="return Dialog.info({$ID})">{lang}tech.{$ID}{/lang}</a>{if $Element.baselevel > 0} ({lang}bd_lvl{/lang} {$Element.baselevel}){/if}
 			</th>
 		</tr>
 		<tr>
