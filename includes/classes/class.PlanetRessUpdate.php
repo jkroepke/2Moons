@@ -176,23 +176,36 @@ class ResourceUpdate
 			$MetalTheorical		= 0;
 			$CristalTheorical	= 0;
 			$DeuteriumTheorical	= 0;
-			if ($this->PLANET['metal'] <= $MaxMetalStorage)
-			{
-				$MetalTheorical 			= ($this->ProductionTime * (($this->CONF['metal_basic_income'] * $this->CONF['resource_multiplier']) + $this->PLANET['metal_perhour']) / 3600);
-				$this->PLANET['metal']  	= min($this->PLANET['metal'] + $MetalTheorical, $MaxMetalStorage);
-			}
 			
-			if ($this->PLANET['crystal'] <= $MaxCristalStorage)
-			{
-				$CristalTheorical  			= ($this->ProductionTime * (($this->CONF['crystal_basic_income'] * $this->CONF['resource_multiplier']) + $this->PLANET['crystal_perhour']) / 3600);
-				$this->PLANET['crystal']  	= min($this->PLANET['crystal'] + $CristalTheorical, $MaxCristalStorage);
-			}
-			
-			if ($this->PLANET['deuterium'] <= $MaxDeuteriumStorage || $this->PLANET['deuterium_perhour'] < 0)
-			{
-				$DeuteriumTheorical			= ($this->ProductionTime * (($this->CONF['deuterium_basic_income'] * $this->CONF['resource_multiplier']) + $this->PLANET['deuterium_perhour']) / 3600);
-				$this->PLANET['deuterium']	= min($this->PLANET['deuterium'] + $DeuteriumTheorical, $MaxDeuteriumStorage);
-			}
+			$MetalTheorical		= ($this->ProductionTime * (($this->CONF['metal_basic_income'] * $this->CONF['resource_multiplier']) + $this->PLANET['metal_perhour']) / 3600);
+            if($MetalTheorical < 0)
+            {
+                $this->PLANET['metal']      = max($this->PLANET['metal'] + $MetalTheorical, 0);
+            } 
+            elseif ($this->PLANET['metal'] <= $MaxMetalStorage)
+            {
+                $this->PLANET['metal']      = min($this->PLANET['metal'] + $MetalTheorical, $MaxMetalStorage);
+            }
+            
+            $CristalTheorical	= ($this->ProductionTime * (($this->CONF['crystal_basic_income'] * $this->CONF['resource_multiplier']) + $this->PLANET['crystal_perhour']) / 3600);
+            if ($CristalTheorical < 0)
+            {
+                $this->PLANET['crystal']      = max($this->PLANET['crystal'] + $CristalTheorical, 0);
+            } 
+            elseif ($this->PLANET['crystal'] <= $MaxCristalStorage ) 
+            {
+                $this->PLANET['crystal']      = min($this->PLANET['crystal'] + $CristalTheorical, $MaxCristalStorage);
+            }
+            
+            $DeuteriumTheorical	= ($this->ProductionTime * (($this->CONF['deuterium_basic_income'] * $this->CONF['resource_multiplier']) + $this->PLANET['deuterium_perhour']) / 3600);
+            if ($DeuteriumTheorical < 0)
+            {
+                $this->PLANET['deuterium']    = max($this->PLANET['deuterium'] + $DeuteriumTheorical, 0);
+            } 
+            elseif($this->PLANET['deuterium'] <= $MaxDeuteriumStorage) 
+            {
+                $this->PLANET['deuterium']    = min($this->PLANET['deuterium'] + $DeuteriumTheorical, $MaxDeuteriumStorage);
+            }
 		}
 		
 		$this->DEBUG->log("Add: Metal: ".pretty_number($MetalTheorical)." Crystal: ".pretty_number($CristalTheorical)." Deuterium: ".pretty_number($DeuteriumTheorical));
