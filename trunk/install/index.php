@@ -233,7 +233,11 @@ switch ($Mode) {
 				$database['user']			= request_var('user', '', true);
 				$database['userpw']			= request_var('passwort', '', true);
 				$database['databasename']	= request_var('db', '', true);
-				$prefix						= request_var('prefix', '', true);
+				$prefix						= request_var('prefix', '');
+				
+				if (preg_match("/[A-Za-z0-9_]+/", $prefix))
+					exit(json_encode(array('msg' => $LNG['step2_prefix_invalid'], 'error' => true)));
+					
 				@touch(ROOT_PATH."includes/config.php");
 				if (!is_writable(ROOT_PATH."includes/config.php"))
 					exit(json_encode(array('msg' => $LNG['step2_conf_op_fail'], 'error' => true)));

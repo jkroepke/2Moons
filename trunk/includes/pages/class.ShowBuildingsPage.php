@@ -168,12 +168,12 @@ class ShowBuildingsPage
 		if (($CONF['max_elements_build'] != 0 && $ActualCount == $CONF['max_elements_build']) || ($AddMode && $PLANET["field_current"] >= ($CurrentMaxFields - $ActualCount)))
 			return;
 	
-		$BuildMode 		= $AddMode ? 'build' : 'destroy';;
+		$BuildMode 		= $AddMode ? 'build' : 'destroy';
 		$BuildLevel		= $PLANET[$resource[$Element]] + (int) $AddMode;
 						  
 		if($ActualCount == 0)
 		{	
-			if(!IsElementBuyable($USER, $PLANET, $Element, true, $ForDestroy))
+			if(!IsElementBuyable($USER, $PLANET, $Element, true, !$AddMode))
 				return;
 
 			$Resses			= GetBuildingPrice($USER, $PLANET, $Element, true, !$AddMode);
@@ -295,7 +295,7 @@ class ShowBuildingsPage
 			{
 				$BuildLevel	= $PLANET[$resource[$Element]];
 				$Need		= floor(eval($ProdGrid[$Element]['energy']) * $CONF['resource_multiplier']) * (1 + ($USER['rpg_ingenieur'] * 0.05));
-				#$BuildLevel	+= $Queue[1][$Element];
+				$BuildLevel	+= $Queue[1][$Element];
 				$Prod		= floor(eval($ProdGrid[$Element]['energy']) * $CONF['resource_multiplier']) * (1 + ($USER['rpg_ingenieur'] * 0.05));
 				$EnergyNeed	= $Prod - $Need;
 				unset($Need, $BuildLevel, $Prod);

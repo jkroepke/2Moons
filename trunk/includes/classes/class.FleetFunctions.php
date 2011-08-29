@@ -49,15 +49,15 @@ abstract class FleetFunctions
 	{
 		global $pricelist;
 		if($pricelist[$Ship]['tech'] == 1) // Combustion
-			return $pricelist[$Ship]['speed'] * (1 + (0.1 * $Player['combustion_tech']) + $Player['factor']['shipspeed']);
+			return $pricelist[$Ship]['speed'] * (1 + (0.1 * $Player['combustion_tech']) + (1 - $Player['factor']['shipspeed']));
 		elseif($pricelist[$Ship]['tech'] == 2) // Impulse
-			return $pricelist[$Ship]['speed'] * (1 + (0.2 * $Player['impulse_motor_tech']) + $Player['factor']['shipspeed']);
+			return $pricelist[$Ship]['speed'] * (1 + (0.2 * $Player['impulse_motor_tech']) + $Player['factor']['shipspeed']));
 		elseif($pricelist[$Ship]['tech'] == 3) // Hyperspace
-			return $pricelist[$Ship]['speed'] * (1 + (0.3 * $Player['hyperspace_motor_tech']) + $Player['factor']['shipspeed']);
+			return $pricelist[$Ship]['speed'] * (1 + (0.3 * $Player['hyperspace_motor_tech']) + $Player['factor']['shipspeed']));
 		elseif($pricelist[$Ship]['tech'] == 4) // Special: Small Transporter
-			return (($Player['impulse_motor_tech'] >= 5) ? $pricelist[$Ship]['speed2'] * (1 + (0.2 * $Player['impulse_motor_tech']) + $Player['factor']['shipspeed']) : $pricelist[$Ship]['speed'] * (1 + (0.1 * $Player['combustion_tech'])) + $Player['factor']['shipspeed']);
+			return (($Player['impulse_motor_tech'] >= 5) ? $pricelist[$Ship]['speed2'] * (1 + (0.2 * $Player['impulse_motor_tech']) + (1 - $Player['factor']['shipspeed'])) : $pricelist[$Ship]['speed'] * (1 + (0.1 * $Player['combustion_tech'])) + (1 - $Player['factor']['shipspeed']));
 		elseif($pricelist[$Ship]['tech'] == 5) // Special: Battleship
-			return (($Player['hyperspace_motor_tech'] >= 8) ? $pricelist[$Ship]['speed2'] * (1 + (0.3 * $Player['hyperspace_motor_tech']) + $Player['factor']['shipspeed']) : $pricelist[$Ship]['speed'] * (1 + (0.2 * $Player['impulse_motor_tech'])) + $Player['factor']['shipspeed']);
+			return (($Player['hyperspace_motor_tech'] >= 8) ? $pricelist[$Ship]['speed2'] * (1 + (0.3 * $Player['hyperspace_motor_tech']) + (1 - $Player['factor']['shipspeed'])) : $pricelist[$Ship]['speed'] * (1 + (0.2 * $Player['impulse_motor_tech'])) + (1 - $Player['factor']['shipspeed']));
 		else
 			return 0;
 	}
