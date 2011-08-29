@@ -71,6 +71,7 @@ $LNG['step1_mysql_dbuser']	= 'MySQL-DB-User: <br> Bspl.: root';
 $LNG['step1_mysql_dbpass']	= 'MySQL-DB-Passwort: <br> Bspl.: 12345';
 $LNG['step1_mysql_prefix']	= 'MySQL-DB-Prefix: <br> Bspl.: uni1_';
 
+$LNG['step2_prefix_invalid']= 'Der DB-Prefix daruf nur alphanumerische Zeichen und Unterstriche enthalten.';
 $LNG['step2_db_connet_ok']	= 'Verbindung zur Datenbank erfolgreich...';
 $LNG['step2_db_create_ok']	= 'Datenbank Tabellen erfolgreich erstellt....';
 $LNG['step2_db_error']		= 'Fehler beim erstellen der Datenbank-Tabellen:\n%s';
