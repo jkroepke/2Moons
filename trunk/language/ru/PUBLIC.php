@@ -1,6 +1,6 @@
 <?php
 
-// Translated into Russian by InquisitorEA (SporeEA@yandex.ry). All rights reserved © 2010-2011
+// Translated into Russian by InquisitorEA (SporeEA@yandex.ru). All rights reserved © 2010-2011
 
 // Общее
 $LNG['index']                        = 'Главная';
@@ -299,5 +299,4 @@ $LNG['disclamer_name']               = "Имя";
 $LNG['disclamer_adress']             = "Адрес";
 $LNG['disclamer_tel']                = "Телефон";
 $LNG['disclamer_email']              = "Электронная почта";
-
 ?>

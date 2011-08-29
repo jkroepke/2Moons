@@ -1,6 +1,6 @@
 <?php
 
-// Translated into Russian by InquisitorEA (SporeEA@yandex.ry). All rights reserved © 2010-2011
+// Translated into Russian by InquisitorEA (SporeEA@yandex.ru). All rights reserved © 2010-2011
 
 $LNG['Version']     = 'Версия';
 $LNG['Description'] = 'Описание';
@@ -606,5 +606,4 @@ $LNG['changelog']   = array(
 За основу взята XG Proyect 2.8 по состоянию на 11.10.09
 ',
 );
-
 ?>

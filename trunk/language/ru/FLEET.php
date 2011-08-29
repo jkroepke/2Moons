@@ -1,6 +1,6 @@
 <?php
 
-// Translated into Russian by InquisitorEA (SporeEA@yandex.ry). All rights reserved © 2010-2011
+// Translated into Russian by InquisitorEA (SporeEA@yandex.ru). All rights reserved © 2010-2011
 
 $LNG['Metal']                         = 'Металл';
 $LNG['Crystal']                       = 'Кристалл';
@@ -186,5 +186,4 @@ $LNG['type_mission'][8]               = 'Переработать';
 $LNG['type_mission'][9]               = 'Уничтожить';
 $LNG['type_mission'][11]              = 'Поиск ТМ';
 $LNG['type_mission'][15]              = 'Экспедиция';
-
 ?>
