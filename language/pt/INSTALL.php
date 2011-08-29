@@ -48,6 +48,7 @@ $LNG['step1_mysql_dbuser']		= "MySQL-Utilizador da Base de Dados: <br> Ex.: root
 $LNG['step1_mysql_dbpass']		= "MySQL-Password da Base de Dados: <br> Ex.: 12345";
 $LNG['step1_mysql_prefix']		= "MySQL-Prefixo da Base de Dados: <br> Ex.: uni1_";
 
+$LNG['step2_prefix_invalid']    = 'O prefixo da base de dados so pode conter caractéres Alfanuméricos';
 $LNG['step2_db_error']			= "Erro ao criar a tabela(s) da base de dados: %s";
 $LNG['step2_db_con_fail']		= "Não há conexão à base de dados<br> %s";
 $LNG['step2_conf_op_fail']		= "config.php não esta configurado em CHMOD 777!";

@@ -1,5 +1,7 @@
 <?php
 
+// Translated into Russian by InquisitorEA (SporeEA@yandex.ru). All rights reserved © 2010-2011
+
 setlocale(LC_ALL, 'ru_RU.UTF8', 'russian'); // http://msdn.microsoft.com/en-us/library/39cwe7zf%28vs.71%29.aspx
 setlocale(LC_NUMERIC, 'C');
 

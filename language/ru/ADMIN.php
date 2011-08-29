@@ -1,6 +1,6 @@
 <?php
 
-// Translated into Russian by InquisitorEA (SporeEA@yandex.ry). All rights reserved © 2010-2011
+// Translated into Russian by InquisitorEA (SporeEA@yandex.ru). All rights reserved © 2010-2011
 
 // Общее
 $LNG['adm_login']                      = 'Логин';
@@ -500,7 +500,7 @@ $LNG['sb_sql_counts']                  = 'SQL-запросов: %d';
 $LNG['ul_sure_you_want_dlte']          = 'Вы действительно хотите удалить?';
 
 // Меню
-$LNG['mu_general']                     = 'Общие';
+$LNG['mu_general']                     = 'Общее';
 $LNG['mu_connected']                   = 'Онлайн';
 $LNG['mu_settings']                    = 'Параметры сервера';
 $LNG['mu_unisettings']                 = 'Параметры вселенной';
@@ -1085,5 +1085,4 @@ $LNG['log_chatsettings']               = 'Настройки чата';
 $LNG['log_tssettings']                 = 'Настройки Teamspeak';
 $LNG['log_uni_short']                  = 'Вселенная';
 $LNG['log_universe']                   = 'Вселенная';
-
 ?>

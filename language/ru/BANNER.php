@@ -1,6 +1,6 @@
 <?php
 
-// Translated into Russian by InquisitorEA (SporeEA@yandex.ry). All rights reserved © 2010-2011
+// Translated into Russian by InquisitorEA (SporeEA@yandex.ru). All rights reserved © 2010-2011
 
 // Примечание: этот файл необходимо сохранять в кодировке koi8-r
 $LNG['ub_points']                         = 'пЮЛЙ';
