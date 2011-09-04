@@ -1,4 +1,4 @@
-﻿Pozdravljen uporabnik %1$s,
+Pozdravljen uporabnik %1$s,
 
 Nazadnje ste se vpisali pred %2$s dnevi in pred %3$s časom. Če še vedno želite ostati član naše skupnosti, se prijavite s vašimi podatki, ki ste jih ustvarili ob registraciji.
 

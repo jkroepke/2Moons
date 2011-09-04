@@ -485,7 +485,7 @@ $LNG['se_del_oldstuff_info']			= 'Löscht Nachrichten/Kampfberichte nach X Tagen
 $LNG['se_del_user_manually']			= 'Userlöschung nach';
 $LNG['se_del_user_manually_info']		= 'Löscht User, die ihre Accountlöschung aktiv haben nach X Tagen.';
 $LNG['se_del_user_automatic']			= 'Inaktive löschen nach';
-$LNG['se_del_user_automatic_info']		= 'Löscht User, die die sich nach X Tagen nicht eingeloggt haben.';
+$LNG['se_del_user_automatic_info']		= 'Löscht User, die die sich nach X Tagen nicht eingeloggt haben. (0 = Deaktiviert)';
 $LNG['se_del_user_sendmail']			= 'Sende Erinnerungsmal nach';
 $LNG['se_del_user_sendmail_info']		= 'Sendet eine Erinnerungs Mail an den User nach X Tagen nicht mehr eingeloggt haben';
 $LNG['se_sendmail_inactive']			= 'Aktiviere Erinnerungsmails';

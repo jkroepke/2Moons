@@ -1,5 +1,13 @@
 <?php
 
+setlocale(LC_ALL, 'si_SL', 'slovenian'); // http://msdn.microsoft.com/en-us/library/39cwe7zf%28vs.71%29.aspx
+setlocale(LC_NUMERIC, 'C');
+
+//SERVER GENERALS
+
+$LNG['js_days']								= array('Ned', 'Pon', 'Tor', 'Sre', 'Čet', 'Pet', 'Sob');
+$LNG['js_month']							= array('Jan', 'Feb', 'Mar', 'Apr', 'Maj', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec');
+
 $LNG['Metal']								= 'Metal';
 $LNG['Crystal']								= 'Kristal';
 $LNG['Deuterium']							= 'Deuterium';
@@ -420,9 +428,7 @@ $LNG['tr_call_trader']						= 'Kontaktiraj trgovca';
 $LNG['tr_call_trader_who_buys']				= 'Kontaktiraj trgovca, ki kupi';
 $LNG['tr_call_trader_submit']				= 'Kontaktiraj trgovca';
 $LNG['tr_exchange_quota']					= 'Menjalno razmerje je 2/1/0.5';
-$LNG['tr_sell_metal']						= 'Prodaj Metal';
-$LNG['tr_sell_crystal']						= 'Prodaj Kristal';
-$LNG['tr_sell_deuterium']					= 'Prodaj Deuterium';
+$LNG['tr_sell']						= 'Prodaj';
 $LNG['tr_resource']							= 'Surovina';
 $LNG['tr_amount']							= 'Količina';
 $LNG['tr_quota_exchange']					= 'Menjalno razmerje';
