@@ -104,6 +104,7 @@
 					<a href="http://2moons.cc/user/98-inquisitorea/">InquisitorEA</a> (russian)<br>
 					<a href="http://2moons.cc/user/750-angelus-ira/">angelus_ira</a> (spanish)<br>
 					<a href="http://2moons.cc/user/205-idro/">Idro</a> (italia)<br>
+					<a href="http://2moons.cc/user/853-pandorax/">_pandorax_ </a> (Slovenian)<br>
 					</td>
                 </tr> 
                 <tr>

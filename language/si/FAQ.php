@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 $LNG['faq']                        = array(
 "<font size=3>Katere surovine obstajajo v tej igri?</font>" => "V 2Moons obstajajo metal, kristal, deuterium in norium. Za vsako surovino obstaja svoj rudnik in skladišče. Več imate surovin, več zgradb in ladjevja lahko zgradite, ter lahko v laboratoriju raziskujete različne tehnologije.<br>",

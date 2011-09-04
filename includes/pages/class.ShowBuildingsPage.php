@@ -295,7 +295,7 @@ class ShowBuildingsPage
 			{
 				$BuildLevel	= $PLANET[$resource[$Element]];
 				$Need		= floor(eval($ProdGrid[$Element]['energy']) * $CONF['resource_multiplier']) * (1 + ($USER['rpg_ingenieur'] * 0.05));
-				$BuildLevel	+= $Queue[1][$Element];
+				$BuildLevel	+= $Queue[1][$Element] + 1;
 				$Prod		= floor(eval($ProdGrid[$Element]['energy']) * $CONF['resource_multiplier']) * (1 + ($USER['rpg_ingenieur'] * 0.05));
 				$EnergyNeed	= $Prod - $Need;
 				unset($Need, $BuildLevel, $Prod);

@@ -1,4 +1,4 @@
-﻿
+
 <?php
 
 $LNG['Version']     = 'Version';

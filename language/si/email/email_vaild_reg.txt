@@ -1,4 +1,4 @@
-﻿Pozdravljen uporabnik %1$s,
+Pozdravljen uporabnik %1$s,
 hvala, da ste se registrirali na %2$s
 
 Preden vam lahko aktiviramo vaš račun, je potreben še en korak.

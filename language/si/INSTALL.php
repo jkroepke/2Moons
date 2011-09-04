@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 $LNG['continue']			= 'Naprej';
 
@@ -50,6 +50,7 @@ $LNG['step2_conf_op_fail']	= 'config.php ni zapisljiv (CHMOD 777)!';
 $LNG['step2_db_connet_ok']	= 'Vzpostavitev povezave z datotečno bazo uspešna...';
 $LNG['step2_db_create_ok']	= 'Podatki v datotečni bazi ustvarjeni uspešno...';
 $LNG['step2_conf_create']	= 'config.php uspešno ustvarjen...';
+$LNG['step2_prefix_invalid']	= 'Nepravilen prefix';
 
 $LNG['step3_create_admin']	= 'Ustvarjanje administratorja';
 $LNG['step3_admin_name']	= 'Administrator Uporabniško ime:';

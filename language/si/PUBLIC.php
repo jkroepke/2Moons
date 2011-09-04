@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 //general
 $LNG['index']				= 'Index';

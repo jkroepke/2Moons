@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 $LNG['Metal']								= 'Metal';
 $LNG['Crystal']								= 'Kristal';
@@ -53,6 +53,7 @@ $LNG['sys_mess_spy_seen_at'] 				= "je bila opažena v bližini tvojega planeta"
 $LNG['sys_mess_spy_seen_at2'] 				= '';
 $LNG['sys_mess_spy_destroyed'] 				= '<font color="red">Tvoje sonde so bile uničene! </font>';
 $LNG['sys_adress_planet'] 					= '[%s:%s:%s]';
+$LNG['sys_raport_not_found'] 					= 'Poročilo ni bilo najdeno';
 
 $LNG['sys_stat_mess_stay']           		= 'Located fleet';
 $LNG['sys_stat_mess'] 		         		= 'Tvoja flota je dosegla planet %s in prinesla %s %s, %s %s, %s %s in %s %s.';

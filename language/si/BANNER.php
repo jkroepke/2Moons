@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 $LNG['ub_points']							= 'Točke';
 $LNG['ub_fleets']							= 'Flota';
