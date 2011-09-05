@@ -294,7 +294,7 @@ abstract class FleetFunctions
 
 	public static function GetAKSPage($CurrentUser, $CurrentPlanet, $fleetid)
 	{
-		global $resource, $pricelist, $reslist, $LNG, $db;
+		global $resource, $pricelist, $reslist, $LNG, $db, $UNI;
 
 		$addname		= request_var('addtogroup', '', UTF8_SUPPORT);
 		$aks_invited_mr	= request_var('aks_invited_mr', 0);
@@ -355,7 +355,7 @@ abstract class FleetFunctions
 
 		if(!empty($addname))
 		{
-			$member_qry_mr 		= $db->uniquequery("SELECT `id` FROM ".USERS." WHERE `username` = '".$db->sql_escape($addname)."';");
+			$member_qry_mr 		= $db->uniquequery("SELECT `id` FROM ".USERS." WHERE `username` = '".$db->sql_escape($addname)."' AND `universe` = ".$UNI.";");
 			$added_user_id_mr 	= $member_qry_mr['id'];
 			
 			foreach(explode(",", $aks['eingeladen']) as $a => $b)
