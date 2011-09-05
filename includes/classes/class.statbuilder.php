@@ -101,8 +101,8 @@ class statbuilder extends records
 		{
 			while($RID = $db->fetch_array($DelRW))
 			{
-				if(file_exists(ROOT_PATH.'raports/raport_'.$RID['rid'].'.php'))
-					unlink(ROOT_PATH.'raports/raport_'.$RID['rid'].'.php');
+				if(file_exists(ROOT_PATH.'raports/raport/'.$RID['rid'].'.php'))
+					unlink(ROOT_PATH.'raports/raport/'.$RID['rid'].'.php');
 			}	
 			$db->query("DELETE FROM ".RW." WHERE `time` < '". $del_before ."';");
 		}
@@ -119,8 +119,8 @@ class statbuilder extends records
 				{
 					while($RID = $db->fetch_array($TKBRW))
 					{
-						if(file_exists(ROOT_PATH.'raports/topkb_'.$RID['rid'].'.php'))
-							unlink(ROOT_PATH.'raports/topkb_'.$RID['rid'].'.php');
+						if(file_exists(ROOT_PATH.'raports/topkb/'.$RID['rid'].'.php'))
+							unlink(ROOT_PATH.'raports/topkb/'.$RID['rid'].'.php');
 					}	
 					$db->query("DELETE FROM ".TOPKB." WHERE `universe` = ".$Uni." AND `gesamtunits` < '".((isset($TopKBLow)) ? $TopKBLow['gesamtunits'] : 0)."';");
 				}
