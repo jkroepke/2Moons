@@ -132,7 +132,7 @@ class ShowNotesPage
 		{
 			$NoteList[]	= array(
 				'id'		=> $Note['id'],
-				'time'		=> date($LNG['php_tdformat'], $Note['time']),
+				'time'		=> tz_date($Note['time']),
 				'title'		=> $Note['title'],
 				'size'		=> strlen($Note['text']),
 				'priority'	=> $Note['priority'],

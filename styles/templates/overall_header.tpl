@@ -23,8 +23,8 @@ var Skin		= "{$dpath}";
 var Lang		= "{$lang}";
 var head_info	= "{$fcm_info}";
 var auth		= {if isset($authlevel)}{$authlevel}{else}0{/if};
-var days 		= {if isset($js_days)}{$js_days}{else}[]{/if};
-var months 		= {if isset($js_month)}{$js_month}{else}[]{/if};
+var days 		= {if isset($week_day)}{$week_day}{else}[]{/if};
+var months 		= {if isset($months)}{$months}{else}[]{/if};
 var tdformat	= "{if isset($js_tdformat)}{$js_tdformat}{else}{/if}";
 </script>
 <script type="text/javascript" src="./scripts/jQuery.js?v={$REV}"></script>

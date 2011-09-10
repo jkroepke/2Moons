@@ -60,7 +60,7 @@ class ShowMessagesPage
 		{
 			$MessageList[]	= array(
 				'id'		=> $CurMess['message_id'],
-				'time'		=> date($LNG['php_tdformat'], $CurMess['message_time']),
+				'time'		=> tz_date($CurMess['message_time']),
 				'from'		=> $CurMess['message_from'],
 				'subject'	=> $CurMess['message_subject'],
 				'sender'	=> $CurMess['message_sender'],

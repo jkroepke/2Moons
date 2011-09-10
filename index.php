@@ -260,6 +260,7 @@ switch ($page) {
 				$SQL .= "`dpath` = '".DEFAULT_THEME."', ";
 				$SQL .= "`darkmatter` = '".$CONF['darkmatter_start']."', ";
 				$SQL .= "`ref_id` = '".$UserRID."', ";
+				$SQL .= "`timezone` = '".$CONF['timezone'];."', ";
 				if($UserRID != 0)
 					$SQL .= "`ref_bonus` = '1', ";
 				$SQL .= "`fb_id` = '".$UserFID."', ";

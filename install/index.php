@@ -235,7 +235,7 @@ switch ($Mode) {
 				$database['databasename']	= request_var('db', '', true);
 				$prefix						= request_var('prefix', '');
 				
-				if (preg_match("/[A-Za-z0-9_]+/", $prefix))
+				if (!preg_match("/^[a-z0-9_]+$/i", $prefix))
 					exit(json_encode(array('msg' => $LNG['step2_prefix_invalid'], 'error' => true)));
 					
 				@touch(ROOT_PATH."includes/config.php");

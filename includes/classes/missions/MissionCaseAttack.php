@@ -238,9 +238,6 @@ class MissionCaseAttack extends MissionFunctions
 	
 		file_put_contents(ROOT_PATH.'raports/raport/'.$rid.'.php', $raport);
 		file_put_contents(ROOT_PATH.'raports/topkb/'.$rid.'.php', preg_replace("/\[\d+\:\d+\:\d+\]/i", "[X:X:X]", $raport));
-	
-		if(DEBUG_EXTRA)
-			file_put_contents(ROOT_PATH.'includes/attack.log', date('[d-M-Y H:i:s]', $this->_fleet['fleet_start_time']).'(FleetID: '.$this->_fleet['fleet_id'].') Attacker: '.$this->_fleet['fleet_owner'].'/ Defender: '.$this->_fleet['fleet_target_owner'].' | TF: '.floattostring($DerbisMetal).'/'.floattostring($DerbisCrystal));
 		
 		$WhereAtt = "";
 		$WhereDef = "";

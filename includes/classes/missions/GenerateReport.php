@@ -29,14 +29,13 @@
 
 function GenerateReport($RESULT, $INFO)
 {
-	$html 		= '{capture tdformat assign=tdformat}{lang}php_tdformat{/lang}{/capture}';
-	$html 		.= '{capture sys_destruc_mess assign=sys_destruc_mess}{lang}sys_destruc_mess{/lang}{/capture}';
+	$html 		= '{capture sys_destruc_mess assign=sys_destruc_mess}{lang}sys_destruc_mess{/lang}{/capture}';
 	$html 		.= '{capture sys_moonbuilt assign=sys_moonbuilt}{lang}sys_moonbuilt{/lang}{/capture}';
 	$html 		.= '{capture sys_destruc_lune assign=sys_destruc_lune}{lang}sys_destruc_lune{/lang}{/capture}';
 	$html 		.= '{capture sys_destruc_rip assign=sys_destruc_rip}{lang}sys_destruc_rip{/lang}{/capture}';
 	$html 		.= '<div style="width:100%;text-align:center">';
 	$html	   	.= $INFO['moon']['des'] == 1 ? '{lang}sys_destruc_title{/lang}' : '{lang}sys_attack_title{/lang}';
-	$html	   	.= ' {date($tdformat, '.$INFO['fleet_start_time'].')}:<br><br>';
+	$html	   	.= ' {tz_date('.$INFO['fleet_start_time'].')}:<br><br>';
 		
 	$round_no 	= 1;
 	$des		= array('att' => array(), 'def' => array());

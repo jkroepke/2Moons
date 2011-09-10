@@ -49,7 +49,7 @@ function ShowNewsPage(){
 		$NewsList[]	= array(
 			'id'		=> $u['id'],
 			'title'		=> $u['title'],
-			'date'		=> date($LNG['php_tdformat'], $u['date']),
+			'date'		=> tz_date($u['date']),
 			'user'		=> $u['user'],
 			'confirm'	=> sprintf($LNG['nws_confirm'], $u['title']),
 		);

@@ -108,6 +108,8 @@ class ShowOptionsPage
 				$newpass2				= request_var('newpass2', '');		
 				$hof					= request_var('hof', '');	
 				$adm_pl_prot			= request_var('adm_pl_prot', '');	
+				$DST					= request_var('dst', 0);	
+				$timezone				= request_var('timezone', 0.0);
 				$langs					= request_var('langs', $LANG->getUser());	
 				$dpath					= request_var('dpath', $THEME->getThemeName());	
 				$design 				= ($design == 'on') ? 1 : 0;
@@ -156,6 +158,8 @@ class ShowOptionsPage
 								`dpath` = '".$db->sql_escape($dpath)."',
 								`design` = '".$design."',
 								`noipcheck` = '".$noipcheck."',
+								`timezone` = '".$timezone."',
+								`dst` = '".$DST."',
 								`planet_sort` = '".$SetSort."',
 								`planet_sort_order` = '".$SetOrder."',
 								`spio_anz` = '".$spio_anz."',
@@ -232,12 +236,7 @@ class ShowOptionsPage
 				if($USER['urlaubs_modus'] == 1)
 				{
 					$template->assign_vars(array(	
-						'vacation_until'					=> date($LNG['php_tdformat'],$USER['urlaubs_until']),
-						'op_save_changes'					=> $LNG['op_save_changes'],
-						'op_end_vacation_mode'				=> $LNG['op_end_vacation_mode'],
-						'op_vacation_mode_active_message'	=> $LNG['op_vacation_mode_active_message'],
-						'op_dlte_account_descrip'			=> $LNG['op_dlte_account_descrip'],
-						'op_dlte_account'					=> $LNG['op_dlte_account'],
+						'vacation_until'					=> tz_date($USER['urlaubs_until']),
 						'opt_delac_data'					=> $USER['db_deaktjava'],
 						'is_deak_vacation'					=> $USER['urlaubs_until'] <= TIMESTAMP ? true : false,
 					));
@@ -258,7 +257,8 @@ class ShowOptionsPage
 						'opt_noipc_data'					=> $USER['noipcheck'],
 						'opt_allyl_data'					=> $USER['settings_planetmenu'],
 						'opt_delac_data'					=> $USER['db_deaktjava'],
-						'opt_stor_data'						=> $USER['settings_tnstor'],
+						'opt_dst_mode'						=> $USER['dst'],
+						'opt_timezone'						=> $USER['timezone'],
 						'user_settings_rep' 				=> $USER['settings_rep'],
 						'user_settings_esp' 				=> $USER['settings_esp'],
 						'user_settings_wri' 				=> $USER['settings_wri'],
@@ -268,50 +268,10 @@ class ShowOptionsPage
 						'langs'								=> $USER['lang'],
 						'adm_pl_prot_data'					=> $USER['authattack'],					
 						'user_authlevel'					=> $USER['authlevel'],					
-						'Selectors'							=> array('Sort' => array(0 => $LNG['op_sort_normal'], 1 => $LNG['op_sort_koords'], 2 => $LNG['op_sort_abc']), 'SortUpDown' => array(0 => $LNG['op_sort_up'], 1 => $LNG['op_sort_down']), 'Skins' => Theme::getAvalibleSkins(), 'lang' => $LANG->getAllowedLangs(false)),
+						'Selectors'							=> array('timezones' => $LNG['timezones'], 'dst' => $LNG['op_dst_mode_sel'], 'Sort' => array(0 => $LNG['op_sort_normal'], 1 => $LNG['op_sort_koords'], 2 => $LNG['op_sort_abc']), 'SortUpDown' => array(0 => $LNG['op_sort_up'], 1 => $LNG['op_sort_down']), 'Skins' => Theme::getAvalibleSkins(), 'lang' => $LANG->getAllowedLangs(false)),
 						'planet_sort'						=> $USER['planet_sort'],
 						'planet_sort_order'					=> $USER['planet_sort_order'],
 						'uctime'							=> (TIMESTAMP - $USER['uctime'] >= (60 * 60 * 24 * 7)) ? true : false,
-						'op_admin_planets_protection'		=> $LNG['op_admin_planets_protection'],
-						'op_admin_title_options'			=> $LNG['op_admin_title_options'],
-						'op_user_data'						=> $LNG['op_user_data'],
-						'op_username'						=> $LNG['op_username'],
-						'op_old_pass'						=> $LNG['op_old_pass'],
-						'op_new_pass'						=> $LNG['op_new_pass'],
-						'op_repeat_new_pass'				=> $LNG['op_repeat_new_pass'],
-						'op_email_adress_descrip'			=> $LNG['op_email_adress_descrip'],
-						'op_email_adress'					=> $LNG['op_email_adress'],
-						'op_permanent_email_adress'			=> $LNG['op_permanent_email_adress'],
-						'op_general_settings'				=> $LNG['op_general_settings'],
-						'op_lang'							=> $LNG['op_lang'],
-						'op_sort_planets_by'				=> $LNG['op_sort_planets_by'],
-						'op_sort_kind'						=> $LNG['op_sort_kind'],
-						'op_skin_example'					=> $LNG['op_skin_example'],
-						'op_show_skin'						=> $LNG['op_show_skin'],
-						'op_active_build_messages'			=> $LNG['op_active_build_messages'],
-						'op_deactivate_ipcheck_descrip'		=> $LNG['op_deactivate_ipcheck_descrip'],
-						'op_deactivate_ipcheck'				=> $LNG['op_deactivate_ipcheck'],
-						'op_galaxy_settings'				=> $LNG['op_galaxy_settings'],
-						'op_spy_probes_number_descrip'		=> $LNG['op_spy_probes_number_descrip'],
-						'op_spy_probes_number'				=> $LNG['op_spy_probes_number'],
-						'op_seconds'						=> $LNG['op_seconds'],
-						'op_toolt_data'						=> $LNG['op_toolt_data'],
-						'op_max_fleets_messages'			=> $LNG['op_max_fleets_messages'],
-						'op_show_planetmenu'				=> $LNG['op_show_planetmenu'],
-						'op_shortcut'						=> $LNG['op_shortcut'],
-						'op_show'							=> $LNG['op_show'],
-						'op_spy'							=> $LNG['op_spy'],
-						'op_write_message'					=> $LNG['op_write_message'],
-						'op_add_to_buddy_list'				=> $LNG['op_add_to_buddy_list'],
-						'op_missile_attack'					=> $LNG['op_missile_attack'],
-						'op_send_report'					=> $LNG['op_send_report'],
-						'op_vacation_delete_mode'			=> $LNG['op_vacation_delete_mode'],
-						'op_activate_vacation_mode_descrip'	=> $LNG['op_activate_vacation_mode_descrip'],
-						'op_activate_vacation_mode'			=> $LNG['op_activate_vacation_mode'],
-						'op_dlte_account_descrip'			=> $LNG['op_dlte_account_descrip'],
-						'op_dlte_account'					=> $LNG['op_dlte_account'],
-						'op_save_changes'					=> $LNG['op_save_changes'],
-						'op_small_storage'					=> $LNG['op_small_storage'],
 					));
 					
 					$template->show("options_overview.tpl");

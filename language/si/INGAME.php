@@ -5,8 +5,8 @@ setlocale(LC_NUMERIC, 'C');
 
 //SERVER GENERALS
 
-$LNG['js_days']								= array('Ned', 'Pon', 'Tor', 'Sre', 'Čet', 'Pet', 'Sob');
-$LNG['js_month']							= array('Jan', 'Feb', 'Mar', 'Apr', 'Maj', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec');
+$LNG['week_day']								= array('Ned', 'Pon', 'Tor', 'Sre', 'Čet', 'Pet', 'Sob');
+$LNG['months']							= array('Jan', 'Feb', 'Mar', 'Apr', 'Maj', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec');
 
 $LNG['Metal']								= 'Metal';
 $LNG['Crystal']								= 'Kristal';
