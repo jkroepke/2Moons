@@ -152,8 +152,8 @@ function ShowLogDetail() {
 			
 			$LogArray[]	= array(
 				'Element'	=> $Element,
-				'old'		=> ($Element == 'urlaubs_until' ? date($LNG['php_tdformat'], $val) : (is_numeric($val) ? pretty_number($val) : $val)),
-				'new'		=> ($Element == 'urlaubs_until' ? date($LNG['php_tdformat'], $conf_after[$key]) : (is_numeric($conf_after[$key]) ? pretty_number($conf_after[$key]) : $conf_after[$key])),
+				'old'		=> ($Element == 'urlaubs_until' ? tz_date($val) : (is_numeric($val) ? pretty_number($val) : $val)),
+				'new'		=> ($Element == 'urlaubs_until' ? tz_date($conf_after[$key]) : (is_numeric($conf_after[$key]) ? pretty_number($conf_after[$key]) : $conf_after[$key])),
 			);
 		}
 	}
@@ -164,7 +164,7 @@ function ShowLogDetail() {
 		'admin'			=> $result['admin_username'],
 		'target'		=> $result['universe'],
 		'id'			=> $result['id'],
-		'time'			=> date($LNG['php_tdformat'], $result['time']),
+		'time'			=> tz_date($result['time']),
 		'log_info'		=> $LNG['log_info'],
 		'log_admin'		=> $LNG['log_admin'],
 		'log_time'		=> $LNG['log_time'],
@@ -193,7 +193,7 @@ function ShowLogSettingsList() {
 			'admin'			=> $LogRow['admin_username'],
 			'target_uni'	=> ($LogRow['target'] == 0 ? '' : $LogRow['universe']),
 			'target'		=> $targetkey[$LogRow['target']],
-			'time'			=> date($LNG['php_tdformat'], $LogRow['time']),
+			'time'			=> tz_date($LogRow['time']),
 		);
 	}
 	$db->free_result($result);
@@ -226,7 +226,7 @@ function ShowLogPlanetsList() {
 			'admin'		=> $LogRow['admin_username'],
 			'target_uni'=> $LogRow['universe'],
 			'target'	=> '['.$LogRow['target_galaxy'].':'.$LogRow['target_system'].':'.$LogRow['target_planet'].'] -> '.$LogRow['target_username'],
-			'time'		=> date($LNG['php_tdformat'], $LogRow['time']),
+			'time'		=> tz_date($LogRow['time']),
 		);
 	}
 	$db->free_result($result);
@@ -260,7 +260,7 @@ function ShowLogPlayersList() {
 			'admin'		=> $LogRow['admin_username'],
 			'target_uni'=> $LogRow['universe'],
 			'target'	=> $LogRow['target_username'],
-			'time'		=> date($LNG['php_tdformat'], $LogRow['time']),
+			'time'		=> tz_date($LogRow['time']),
 		);
 	}
 	$db->free_result($result);

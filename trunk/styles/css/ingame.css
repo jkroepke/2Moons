@@ -234,7 +234,9 @@ textarea {
 	padding:5px;
 }
 
-
+#options select {
+	max-width:170px;
+}
 /* CONTENT */
 
 #content {

@@ -64,6 +64,9 @@ class Theme
 	}
 		
 	function isCustomTPL($tpl) {
+		if(!isset($this->customtpls))
+			return false;
+			
 		return in_array($tpl, $this->customtpls);
 	}
 	

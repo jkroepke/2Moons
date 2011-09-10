@@ -106,6 +106,30 @@ function getPlanets($USER)
 	return $Planets;
 }
 
+function tz_date($time, $Dateformat = '') {
+	$UTCDate 	= strtotime(gmdate("M d Y H:i:s", $time));
+	$DST		= (int) date("I");
+	$UTCDST		= (int) gmdate("I");
+	$timezone	= ($time - $UTCDate) / 3600;
+	
+	if(isset($GLOBALS['USER'])) {
+		$timezone	= (float) $GLOBALS['USER']['timezone'];
+		if($GLOBALS['USER']['dst'] != 2)
+			$DST	= $GLOBALS['USER']['dst'];
+	} elseif(isset($_SESSION['USER'])) {
+		$timezone	= (float) $_SESSION['USER']['timezone'];
+		if($_SESSION['USER']['dst'] != 2)
+			$DST	= $_SESSION['USER']['dst'];
+	}
+	$DST		-= $UTCDST;
+	if(empty($Dateformat))
+		$Dateformat	= $GLOBALS['LNG']['php_tdformat'];
+		
+	$UTCTime	= $UTCDate + $timezone + $DST;
+	$Dateformat	= str_replace(array('D', 'M'), array(addcslashes($GLOBALS['LNG']['week_day'][(date('N', $UTCTime) - 1)], 'A..z'), addcslashes($GLOBALS['LNG']['months'][(date('n', $UTCTime) - 1)], 'A..z')), $Dateformat);
+	return date($Dateformat, $UTCTime);
+}
+
 function update_config($Values, $UNI = 0)
 {
 	global $CONF, $db;

@@ -88,7 +88,7 @@ class ShowSupportPage
 		
 		$ticket = $db->uniquequery("SELECT text FROM ".SUPP." WHERE `id` = '".$TicketID."';");
 
-		$text 	= $ticket['text'].'<br><br><hr>'.sprintf($LNG['supp_player_write'], $USER['username'], date($LNG['php_tdformat'], TIMESTAMP)).'<br><br>'.makebr($text).'';
+		$text 	= $ticket['text'].'<br><br><hr>'.sprintf($LNG['supp_player_write'], $USER['username'], tz_date(TIMESTAMP)).'<br><br>'.makebr($text).'';
 		$db->query("UPDATE ".SUPP." SET `text` = '".$db->sql_escape($text) ."',`status` = '3' WHERE `id` = '". $db->sql_escape($TicketID) ."';");
 		$template->message($LNG['sendit_a'],"game.php?page=support", 3);
 	}
@@ -103,7 +103,7 @@ class ShowSupportPage
 			$TicketsList[$ticket['ID']]	= array(
 				'status'	=> $ticket['status'],
 				'subject'	=> $ticket['subject'],
-				'date'		=> date($LNG['php_tdformat'], $ticket['time']),
+				'date'		=> tz_date($ticket['time']),
 				'text'		=> html_entity_decode($ticket['text'], ENT_NOQUOTES, "UTF-8"),
 			);
 		}

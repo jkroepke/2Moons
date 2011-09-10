@@ -500,6 +500,7 @@ $LNG['se_ref_max_referals']				= 'Maximale Referal';
 $LNG['se_ref_max_referals_info']		= 'Maximale Anzahl, der der User an Spielern werben kann';
 $LNG['se_silo_factor']					= 'Raketensilogröße';
 $LNG['se_silo_factor_info']				= 'Faktor für die größe des Silos';
+$LNG['se_timzone']						= 'Zeitzone des Unis';
 //###########################################################//
 
 

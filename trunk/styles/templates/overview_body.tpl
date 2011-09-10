@@ -13,7 +13,7 @@
 		{/if}
         <tr>
         	<td>{lang}ov_server_time{/lang}</td>
-        	<td colspan="2" id="servertime">{strftime("%b %a %d %H:%M:%S", $smarty.const.TIMESTAMP)}</td>
+        	<td colspan="2" id="servertime">{tz_date($smarty.const.TIMESTAMP)}</td>
         </tr>
 		{if $is_news}
 		<tr>

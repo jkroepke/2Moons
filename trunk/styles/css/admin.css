@@ -75,13 +75,6 @@ a.topn:hover {
 .span{ vertical-align:baseline}
 .gf-snippet, .gfc-resultsHeader{display:none}
 
-#fb_iframe.fbConnectWidgetTopmost {
-border-style:none !important;
-}
-#fb_iframe .lightblue_box {
-background-color:transparent !important;
-border:medium none !important;
-}
-#fb_iframe .UIIntentionalStory_Message{
-color: #CCCCCC;
+select[name="timezone"] {
+	max-width:300px;
 }

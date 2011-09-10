@@ -30,6 +30,8 @@
 if(!defined('IN_ADMIN') || !defined('IN_CRON'))
 	define("STARTTIME",	microtime(true));
 
+	
+$BETA	= file_exists(ROOT_PATH.'BETA_GAME');
 ignore_user_abort(true);
 error_reporting(E_ALL ^ E_NOTICE);
 ini_set('display_errors', 1);
@@ -176,5 +178,5 @@ if (!defined('CLI') && !defined('LOGIN') && !defined('IN_CRON') && !defined('AJA
 
 if (!defined('AJAX') && !defined('CLI'))
 	require_once(ROOT_PATH.'includes/classes/class.template.php');
-
+	
 ?>

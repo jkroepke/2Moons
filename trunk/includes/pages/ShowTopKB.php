@@ -76,7 +76,7 @@ function ShowTopKB()
 			while($data = $db->fetch_array($top)) {
 				$TopKBList[]	= array(
 					'result'	=> $data['fleetresult'],
-					'time'		=> date($LNG['php_tdformat'], $data['time']),
+					'time'		=> tz_date($data['time']),
 					'units'		=> pretty_number($data['gesamtunits']),
 					'rid'		=> $data['rid'],
 					'attacker'	=> $data['angreifer'],

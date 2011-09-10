@@ -261,7 +261,7 @@ CREATE TABLE `prefix_config` (
   `del_user_sendmail` tinyint(3) unsigned NOT NULL DEFAULT '21',
   `sendmail_inactive` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `silo_factor` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `channel` enum('beta','dev') NOT NULL DEFAULT 'beta',
+  `timezone` float(4, 2) NOT NULL DEFAULT '0',
   PRIMARY KEY (`uni`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
@@ -573,6 +573,8 @@ CREATE TABLE `prefix_users` (
   `new_message_50` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `new_message_99` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `dpath` varchar(20) NOT NULL DEFAULT 'gow',
+  `timezone` float(4, 2) NOT NULL DEFAULT '0',
+  `dst` enum('0', '1', '2') NOT NULL DEFAULT '2',
   `design` tinyint(1) NOT NULL DEFAULT '1',
   `noipcheck` tinyint(1) NOT NULL DEFAULT '1',
   `planet_sort` tinyint(1) NOT NULL DEFAULT '0',

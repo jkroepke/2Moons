@@ -6,8 +6,8 @@ setlocale(LC_NUMERIC, 'C');
 //SERVER GENERALS
 
 $LNG['dir']         	= 'ltr';
-$LNG['js_days']			= array('Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab');
-$LNG['js_month']		= array('Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'giu', 'lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic');
+$LNG['week_day']			= array('Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab');
+$LNG['months']		= array('Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'giu', 'lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic');
 $LNG['js_tdformat']	= '[M] [D] [d] [H]:[i]:[s]';
 $LNG['php_timeformat']	= 'H:i:s';
 $LNG['php_dateformat']	= 'd. M Y';

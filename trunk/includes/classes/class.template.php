@@ -134,8 +134,8 @@ class template extends Smarty
 			'current_planet'	=> $this->phpself."&amp;cp=".$PLANET['id'],
 			'tn_vacation_mode'	=> $LNG['tn_vacation_mode'],
 			'closed'			=> !$CONF['game_disable'] ? $LNG['ov_closed'] : false,
-			'vacation'			=> $USER['urlaubs_modus'] ? date($LNG['php_tdformat'],$USER['urlaubs_until']) : false,
-			'delete'			=> $USER['db_deaktjava'] ? sprintf($LNG['tn_delete_mode'], date($LNG['php_tdformat'], strtotime("+7 day", $USER['db_deaktjava']))) : false,
+			'vacation'			=> $USER['urlaubs_modus'] ? tz_date($USER['urlaubs_until']) : false,
+			'delete'			=> $USER['db_deaktjava'] ? sprintf($LNG['tn_delete_mode'], tz_date($USER['db_deaktjava'] + ($CONF['del_user_manually'] * 86400))) : false,
 			'image'				=> $PLANET['image'],
 			'settings_tnstor'	=> $USER['settings_tnstor'],
 			'PlanetSelect'		=> $PlanetSelect,
@@ -160,7 +160,7 @@ class template extends Smarty
 			'authlevel'			=> $USER['authlevel'],
             'lang'    			=> $LANG->getUser(),
             'ready'    			=> $LNG['ready'],
-			'date'				=> explode("|", date('Y\|n\|j\|G\|i\|s\|Z', TIMESTAMP)),
+			'date'				=> explode("|", tz_date(TIMESTAMP, 'Y\|n\|j\|G\|i\|s\|Z')),
 			'cron'				=> GetCrons(),
 			'ga_active'			=> $CONF['ga_active'],
 			'ga_key'			=> $CONF['ga_key'],
@@ -169,8 +169,8 @@ class template extends Smarty
 			'VERSION'			=> $CONF['VERSION'],
 			'REV'				=> substr($CONF['VERSION'], -4),
 			'js_tdformat'		=> $LNG['js_tdformat'],
-			'js_days'			=> json_encode($LNG['js_days']),
-			'js_month' 			=> json_encode($LNG['js_month']),
+			'week_day'			=> json_encode($LNG['week_day']),
+			'months' 			=> "s".json_encode($LNG['months']),
 		));
 	}
 	
