@@ -186,9 +186,9 @@ switch($page)
 		include_once(ROOT_PATH . 'includes/pages/adm/ShowLogPage.php');
 		ShowLog();
 	break;
-	case 'vars':
-		include_once(ROOT_PATH . 'includes/pages/adm/ShowVarsEditor.php');
-		ShowVarsEditor();
+	case 'vertify':
+		include_once(ROOT_PATH . 'includes/pages/adm/ShowVertify.php');
+		ShowVertify();
 	break;
 	default:
 		include_once(ROOT_PATH . 'includes/pages/adm/ShowIndexPage.php');

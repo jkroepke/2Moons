@@ -609,6 +609,12 @@ $LNG['mu_vaild_users']				= 'Aktivire User';
 $LNG['mu_news']						= 'News'; 
 $LNG['mu_multiip']					= 'MultiIP'; 
 $LNG['mu_clear_cache']				= 'Lösche Cache'; 
+$LNG['mu_vertify']					= 'Vertify Game Content'; 
+
+
+$LNG['vt_error']					= 'HashFile ist nicht verfügbar! - Update durchführen!';
+$LNG['vt_fail']						= 'Geänderte Dateien';
+$LNG['vt_info']						= 'Diese Liste enthält die Dateien, die modifziert worden und nicht dem orginal entsprechen.<br>Wenn Sie selbst nichts am Spiel geändert haben, sollte Sie die Dateien mit dem Orginalen ersetzten.';
 
 //###########################################################//
 

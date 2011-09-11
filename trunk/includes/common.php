@@ -31,7 +31,8 @@ if(!defined('IN_ADMIN') || !defined('IN_CRON'))
 	define("STARTTIME",	microtime(true));
 
 	
-$BETA	= file_exists(ROOT_PATH.'BETA_GAME');
+define("BETA", file_exists(ROOT_PATH.'BETA_GAME'));
+
 ignore_user_abort(true);
 error_reporting(E_ALL ^ E_NOTICE);
 ini_set('display_errors', 1);
