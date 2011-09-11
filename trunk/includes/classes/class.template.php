@@ -170,7 +170,7 @@ class template extends Smarty
 			'REV'				=> substr($CONF['VERSION'], -4),
 			'js_tdformat'		=> $LNG['js_tdformat'],
 			'week_day'			=> json_encode($LNG['week_day']),
-			'months' 			=> "s".json_encode($LNG['months']),
+			'months' 			=> json_encode($LNG['months']),
 		));
 	}
 	

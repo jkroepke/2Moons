@@ -52,6 +52,51 @@ function GetTeamspeakData()
 	return $Teamspeak;
 }
 
+function GetFleets() {
+	global $USER, $db;
+	$OwnFleets = $db->query("SELECT DISTINCT * FROM ".FLEETS." WHERE `fleet_owner` = ".$USER['id']." OR `fleet_target_owner` = ".$USER['id'].";");
+	$Record = 0;
+	if($db->num_rows($OwnFleets) == 0)
+		return array();
+	
+	require_once(ROOT_PATH . 'includes/classes/class.FlyingFleetsTable.php');
+	$FlyingFleetsTable = new FlyingFleetsTable();
+	
+	$ACSDone	= array();
+	$FleetData 	= array();
+	while ($FleetRow = $db->fetch_array($OwnFleets))
+	{
+		$Record++;
+		$IsOwner	= ($FleetRow['fleet_owner'] == $_SESSION['id']) ? true : false;
+		
+		if ($FleetRow['fleet_mess'] == 0 && $FleetRow['fleet_start_time'] > TIMESTAMP && ($FleetRow['fleet_group'] == 0 || !in_array($FleetRow['fleet_group'], $ACSDone)))
+		{
+			$ACSDone[]		= $FleetRow['fleet_group'];
+			
+			$FleetData[$FleetRow['fleet_start_time'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable($FleetRow, 0, $IsOwner, 'fs', $Record, true);
+		}
+			
+		if ($FleetRow['fleet_mission'] == 10 || ($FleetRow['fleet_mission'] == 4 && $FleetRow['fleet_mess'] == 0))
+			continue;
+
+		if ($FleetRow['fleet_mess'] != 1 && $FleetRow['fleet_end_stay'] > TIMESTAMP)
+			$FleetData[$FleetRow['fleet_end_stay'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable($FleetRow, 2, $IsOwner, 'ft', $Record);
+	
+		if ($IsOwner == false)
+			continue;
+	
+		if ($FleetRow['fleet_end_time'] > TIMESTAMP)
+			$FleetData[$FleetRow['fleet_end_time'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable($FleetRow, 1, $IsOwner, 'fe', $Record);
+	}
+	
+	$db->free_result($OwnFleets);
+	foreach($FleetData as $key => $Val) {
+		if(empty($FleetData[$key]['fleet_descr']))
+			unset($FleetData[$key]);
+	}
+	ksort($FleetData);
+	return $FleetData;
+}
 function ShowOverviewPage()
 {
 	global $CONF, $LNG, $PLANET, $USER, $db, $resource, $UNI;
@@ -121,6 +166,7 @@ function ShowOverviewPage()
 		'username'					=> $USER['username'],
 		'build'						=> $Build,
 		'Moon'						=> $Moon,
+		'fleets'					=> GetFleets(),
 		'AllPlanets'				=> $AllPlanets,
 		'AdminsOnline'				=> $AdminsOnline,
 		'Teamspeak'					=> GetTeamspeakData(),

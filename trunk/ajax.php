@@ -43,52 +43,6 @@ $LANG->includeLang(array('INGAME'));
 $action	= request_var('action', '');
 switch($action)
 {
-	case 'getfleets':
-		$LANG->includeLang(array('TECH'));
-		$OwnFleets = $db->query("SELECT DISTINCT * FROM ".FLEETS." WHERE `fleet_owner` = '".$_SESSION['id']."' OR `fleet_target_owner` = '".$_SESSION['id']."';");
-		$Record = 0;
-		if($db->num_rows($OwnFleets) == 0)
-			exit(json_encode(array()));
-		
-		require_once(ROOT_PATH . 'includes/classes/class.FlyingFleetsTable.php');
-		$FlyingFleetsTable = new FlyingFleetsTable();
-		
-		$ACSDone	= array();
-		$FleetData 	= array();
-		while ($FleetRow = $db->fetch_array($OwnFleets))
-		{
-			$Record++;
-			$IsOwner	= ($FleetRow['fleet_owner'] == $_SESSION['id']) ? true : false;
-			
-			if ($FleetRow['fleet_mess'] == 0 && $FleetRow['fleet_start_time'] > TIMESTAMP && ($FleetRow['fleet_group'] == 0 || !in_array($FleetRow['fleet_group'], $ACSDone)))
-			{
-				$ACSDone[]		= $FleetRow['fleet_group'];
-				
-				$FleetData[$FleetRow['fleet_start_time'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable($FleetRow, 0, $IsOwner, 'fs', $Record, true);
-			}
-				
-			if ($FleetRow['fleet_mission'] == 10 || ($FleetRow['fleet_mission'] == 4 && $FleetRow['fleet_mess'] == 0))
-				continue;
-
-			if ($FleetRow['fleet_mess'] != 1 && $FleetRow['fleet_end_stay'] > TIMESTAMP)
-				$FleetData[$FleetRow['fleet_end_stay'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable($FleetRow, 2, $IsOwner, 'ft', $Record);
-		
-			if ($IsOwner == false)
-				continue;
-		
-			if ($FleetRow['fleet_end_time'] > TIMESTAMP)
-				$FleetData[$FleetRow['fleet_end_time'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable($FleetRow, 1, $IsOwner, 'fe', $Record);
-		}
-		
-		$db->free_result($OwnFleets);
-		foreach($FleetData as $key => $Val) {
-			if(empty($FleetData[$key]['fleet_descr']))
-				unset($FleetData[$key]);
-		}
-		ksort($FleetData);
-		echo json_encode($FleetData);
-		exit;
-	break;
 	case 'fleet1':
 		$TargetGalaxy 					= request_var('galaxy', 0);
 		$TargetSystem 					= request_var('system', 0);

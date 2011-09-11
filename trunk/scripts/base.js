@@ -68,7 +68,7 @@ function getFormatedDate(timestamp, format) {
 	currTime.setTime(timestamp);
 	str = format;
 	str = str.replace('[d]', dezInt(currTime.getDate(), 2));
-	str = str.replace('[D]', days[currTime.getDay()]);
+	str = str.replace('[D]', days[currTime.getDay() - 1]);
 	str = str.replace('[m]', dezInt(currTime.getMonth() + 1, 2));
 	str = str.replace('[M]', months[currTime.getMonth()]);
 	str = str.replace('[j]', parseInt(currTime.getDate()));
@@ -193,14 +193,6 @@ var Dialog	= {
 	alert: function(msg, callback){
 		Dialog.create({OK:function(){$('#alert').dialog('close');$('#alert').dialog('option', 'width', 650);if(typeof callback==="function")callback();}}, '#alert');
 		$('#alert').html('<div style="text-align:center;">'+msg.replace(/\n/g, '<br>')+'</div>').dialog('option', 'width', 300).dialog('option', 'title', head_info).dialog('open');
-	},
-	
-	PM: function(ID, Subject, Message) {
-		if(typeof Subject !== 'string')
-			Subject	= '';
-
-	    OpenPopup('game.php?page=messages&mode=write&id='+ID+'&subject='+encodeURIComponent(Subject)+'&message='+encodeURIComponent(Subject), "", 720, 300);
-		return false;
 	},
 	
 	Playercard: function(ID, Name) {

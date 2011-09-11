@@ -13,7 +13,7 @@
 		{/if}
         <tr>
         	<td>{lang}ov_server_time{/lang}</td>
-        	<td colspan="2" id="servertime">{tz_date($smarty.const.TIMESTAMP)}</td>
+        	<td colspan="2" id="servertime">{tz_date($smarty.const.TIMESTAMP, "M D d H:i:s")}</td>
         </tr>
 		{if $is_news}
 		<tr>
@@ -32,9 +32,12 @@
         <tr>
         	<th colspan="3">{lang}ov_events{/lang}</th>
         </tr>
-		<tr id="fleets" style="display:none;">
-			<td colspan="3"></td>
+		{foreach $fleets as $index => $fleet}
+		<tr>
+			<td id="fleettime_{$index}" class="fleets" fleet-end-time="{$fleet.fleet_return}">-</td>
+			<td colspan="2">{$fleet.fleet_descr}</td>
 		</tr>
+		{/foreach}
         <tr>
         	<td>{if $Moon}<a href="game.php?page=overview&amp;cp={$Moon.id}&amp;re=0" title="{$Moon.name}"><img src="{$dpath}planeten/mond.jpg" height="50" width="50" alt="{$Moon.name} ({lang}fcm_moon{/lang})"></a><br>{$Moon.name} ({$fcm_moon}){else}&nbsp;{/if}</td>
         	<td><img src="{$dpath}planeten/{$planetimage}.jpg" height="200" width="200" alt="{$planetname}"><br>{$build}</td>
