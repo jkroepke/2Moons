@@ -15,6 +15,7 @@ $(document).ready(function(){
 		}
 	});
 	$('#tabs').tabs();
+	FleetTime();
 });
 function checkrename()
 {
@@ -63,42 +64,15 @@ function BuildTime() {
 }
 
 function FleetTime() {
-	$.each(Fleets, function(id, time) {
-		var s		= (time - (serverTime.getTime() / 1000) + ServerTimezoneOffset);
+	$('.fleets').each(function() {
+		var s		= ($(this).attr('fleet-end-time') - (serverTime.getTime() / 1000) + ServerTimezoneOffset);
 		if(s <= 0) {
-			$('#fleettime_'+id).text('-');
+			$(this).text('-');
 		} else {
-			$('#fleettime_'+id).text(GetRestTimeFormat(s));
+			$(this).text(GetRestTimeFormat(s));
 		}
 	});
 	window.setTimeout('FleetTime()', 1000);
-}
-
-function GetFleets(init) {
-	$.getJSON('ajax.php?action=getfleets&lang='+Lang, function (data) {
-		if(data.length == 0) {
-			window.setTimeout('GetFleets()', 60000);
-			return;
-		}
-		
-		Fleets		= {};
-		var HTML	= '';
-		$.each(data, function(index, val) {
-			HTML	+= '<tr class="fleet">';
-			HTML	+= '<td id="fleettime_'+index+'">-</td>';
-			HTML	+= '<td colspan="2">'+val.fleet_descr+'</td></tr>';
-			Fleets[index]	=  val.fleet_return;
-		});
-		if(HTML != '') {
-			$('.fleet').detach();
-			$('tr#fleets').before(HTML);		
-		}
-		
-		if(typeof init != "undefined")
-			FleetTime();
-			
-		window.setTimeout('GetFleets()', 60000);
-	});
 }
 
 function UhrzeitAnzeigen() {
