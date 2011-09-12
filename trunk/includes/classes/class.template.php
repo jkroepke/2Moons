@@ -171,6 +171,7 @@ class template extends Smarty
 			'js_tdformat'		=> $LNG['js_tdformat'],
 			'week_day'			=> json_encode($LNG['week_day']),
 			'months' 			=> json_encode($LNG['months']),
+			'TimeZone' 			=> ($USER['timezone'] + $USER['dst']) * 3600,
 		));
 	}
 	

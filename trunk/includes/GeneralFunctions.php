@@ -107,6 +107,9 @@ function getPlanets($USER)
 }
 
 function tz_date($time, $Dateformat = '') {
+	if(!BETA)
+		return date($Dateformat, $time);
+		
 	$UTCDate 	= strtotime(gmdate("M d Y H:i:s", $time));
 	$DST		= (int) date("I");
 	$UTCDST		= (int) gmdate("I");

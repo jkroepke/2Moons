@@ -77,7 +77,7 @@ class ShowInfosPage
 		foreach($reslist['fleet'] as $Ship)
 		{
 			$ShipArray[$Ship]	=	min(request_var('ship'.$Ship, 0.0), $PLANET[$resource[$Ship]]);
-			if($ShipArray[$Ship] <= 0)
+			if($Ship == 212 || $ShipArray[$Ship] <= 0)
 				continue;
 				
 			$SubQueryOri 		.= "`".$resource[$Ship]."` = `".$resource[$Ship]."` - '". floattostring($ShipArray[$Ship])."', ";
@@ -110,7 +110,7 @@ class ShowInfosPage
 
 		foreach($reslist['fleet'] as $Ship)
 		{
-			if ($PLANET[$resource[$Ship]] <= 0)
+			if ($Ship == 212 || $PLANET[$resource[$Ship]] <= 0)
 				continue;
 			
 			$GateFleetList[]	= array(

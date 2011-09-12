@@ -35,7 +35,7 @@ class ShowAlliancePage
 		return $db->countquery("SELECT COUNT(*) FROM ".ALLIANCE_REQUEST." WHERE `userid` = ".$USER['id'].";");
 	}
 	
-	private function GetAlliance()
+	private function GetAlliance($template)
 	{
 		global $db, $UNI;
 		$tag	= request_var('tag', '', UTF8_SUPPORT);
@@ -161,7 +161,7 @@ class ShowAlliancePage
 			case 0:
 				switch($mode){
 					case 'ainfo':
-						$allyrow = $this->GetAlliance();
+						$allyrow = $this->GetAlliance($template);
 
 						if (!$allyrow) die(redirectTo("game.php?page=alliance"));
 						
@@ -382,7 +382,7 @@ class ShowAlliancePage
 								
 				switch($mode){
 					case 'ainfo':
-						$allyrow = $this->GetAlliance();
+						$allyrow = $this->GetAlliance($template);
 
 
 						if (!$allyrow) redirectTo("game.php?page=alliance");
