@@ -986,6 +986,7 @@ class ShowFleetPages extends FleetFunctions
 		$TargetGalaxy 		= request_var('galaxy',0);
 		$TargetSystem 		= request_var('system',0);
 		$TargetPlanet 		= request_var('planet',0);
+		$TargetType 		= request_var('type',0);
 		$anz 				= min(request_var('SendMI',0), $iraks);
 		$pziel 				= request_var('Target',"");
 		
@@ -1063,7 +1064,7 @@ class ShowFleetPages extends FleetFunctions
 				fleet_end_galaxy = '".$TargetGalaxy."',
 				fleet_end_system = '".$TargetSystem."',
 				fleet_end_planet = '".$TargetPlanet."',
-				fleet_end_type = '1',
+				fleet_end_type = '".$TargetType."',
 				fleet_target_obj = '".$db->sql_escape($pziel)."',
 				fleet_resource_metal = '0',
 				fleet_resource_crystal = '0',

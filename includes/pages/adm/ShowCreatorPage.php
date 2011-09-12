@@ -103,7 +103,7 @@ function ShowCreatorPage()
 				$SQL .= "`register_time` = '".TIMESTAMP. "', ";
 				$SQL .= "`password` = '".md5($UserPass)."', ";
 				$SQL .= "`dpath` = '".DEFAULT_THEME."', ";
-				$SQL .= "`timezone` = '".$CONF['timezone'];."', ";
+				$SQL .= "`timezone` = '".$CONF['timezone']."', ";
 				$SQL .= "`uctime`= '0';";
 				$db->query($SQL);
 				$db->query("UPDATE ".CONFIG." SET `users_amount` = users_amount + '1' WHERE `uni` = '".$_SESSION['adminuni']."';");

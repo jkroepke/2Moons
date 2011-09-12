@@ -47,8 +47,11 @@ class MissionCaseMIP extends MissionFunctions
 							   FROM ".PLANETS.", ".USERS."
 							   WHERE ".PLANETS.".`id` = '".$this->_fleet['fleet_end_id']."' AND 
 							   ".PLANETS.".id_owner = ".USERS.".id;";
-								   
-		$TargetInfo			= $db->uniquequery($QryTarget);					   
+		$TargetInfo			= $db->uniquequery($QryTarget);		
+		if($this->_fleet['fleet_end_type'] == 3)
+		{
+			$TargetInfo[$resource[502]]	= $db->countquery("SELECT ".$resource[502]." FROM ".PLANETS." WHERE id_luna = ".$this->_fleet['fleet_end_id'].";");
+		}		   
 		$OwnerInfo			= $db->uniquequery("SELECT `lang`, `military_tech` FROM ".USERS." WHERE `id` = '".$this->_fleet['fleet_owner']."';");					   
 		$Target				= (!in_array($this->_fleet['fleet_target_obj'], $reslist['defense']) || $this->_fleet['fleet_target_obj'] == 502 || $this->_fleet['fleet_target_obj'] == 0) ? 401 : $this->_fleet['fleet_target_obj'];
 
@@ -90,8 +93,13 @@ class MissionCaseMIP extends MissionFunctions
 				
 				if ($destroy == 0)
 					continue;
-				
-				$SQL .= in_array($Element, $reslist['one']) ? "UPDATE ".PLANETS." SET `".$resource[$Element]."` = '0' WHERE id = ".$TargetInfo['id'].";" : "UPDATE ".PLANETS." SET `".$resource[$Element]."` = `".$resource[$Element]."` - '".$destroy."' WHERE id = ".$TargetInfo['id'].";";
+					
+				if($this->_fleet['fleet_end_type'] == 3 && $Element == 502)
+					$SQL .= "UPDATE ".PLANETS." SET `".$resource[$Element]."` = `".$resource[$Element]."` - '".$destroy."' WHERE id_luna = ".$TargetInfo['id'].";");
+				elseif(in_array($Element, $reslist['one']))
+					$SQL .= "UPDATE ".PLANETS." SET `".$resource[$Element]."` = '0' WHERE id = ".$TargetInfo['id'].";";
+				else
+					$SQL .= "UPDATE ".PLANETS." SET `".$resource[$Element]."` = `".$resource[$Element]."` - '".$destroy."' WHERE id = ".$TargetInfo['id'].";";
 			}
 		}
 				

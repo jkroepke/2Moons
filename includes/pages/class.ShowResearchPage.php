@@ -144,7 +144,7 @@ class ShowResearchPage
 
 	public function RemoveBuildingFromQueue($QueueID, $PlanetRess)
 	{
-		global $USER, $PLANET;
+		global $USER, $PLANET, $db;
 		
 		$CurrentQueue  = unserialize($USER['b_tech_queue']);
 		if ($QueueID <= 1 || empty($CurrentQueue))

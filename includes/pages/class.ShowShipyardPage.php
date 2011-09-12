@@ -109,7 +109,11 @@ class ShowShipyardPage
 			$USER['darkmatter']		+= $Resses['darkmatter']	* 0.6;
 			unset($ElementQueue[$Auftr]);
 		}
-		$PLANET['b_hangar_id']	= serialize(array_values($ElementQueue));
+		if(empty($ElementQueue))
+			$PLANET['b_hangar_id']	= '';
+		else
+			$PLANET['b_hangar_id']	= serialize(array_values($ElementQueue));
+			
 		FirePHP::getInstance(true)->log("Queue(Hanger): ".$PLANET['b_hangar_id']);
 	}
 	

@@ -219,12 +219,13 @@ class ResourceUpdate
 	{
 		global $resource;
 
-		if (empty($this->PLANET['b_hangar_id'])) {
+		$BuildQueue 	= unserialize($this->PLANET['b_hangar_id']);
+		if (!$BuildQueue) {
 			$this->PLANET['b_hangar'] = 0;
+			$this->PLANET['b_hangar_id'] = '';
 			return false;
 		}
 			
-		$BuildQueue                 = unserialize($this->PLANET['b_hangar_id']);
 		$AcumTime					= 0;
 		$this->PLANET['b_hangar'] 	+= ($this->TIME - $this->PLANET['last_update']);
 		$BuildArray					= array();
