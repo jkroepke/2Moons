@@ -855,7 +855,11 @@ $LNG['op_user_name_no_alphanumeric']        = 'Por favor, digite o nome do usuá
 $LNG['op_change_name_pro_week']             = 'Só podes alterar o nome de usuário uma vez por cada 7 dias!';
 $LNG['op_change_name_exist']                = 'O nome escolhido %s já existe';
 $LNG['op_active_build_messages']            = 'Activar mensagens de construção';
-$LNG['op_small_storage']					= 'Apagar mapa de memória reduzida';
+$LNG['op_dst_mode']							= 'Daylight Saving Time? (';
+$LNG['op_dst_mode_sel'][0]					= 'Sim';
+$LNG['op_dst_mode_sel'][1]					= 'Não';
+$LNG['op_dst_mode_sel'][2]					= 'Automático';
+$LNG['op_timezone']							= 'Fuso horário';
 
 //----------------------------------------------------------------------------//
 //Banidos
