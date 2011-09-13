@@ -199,10 +199,10 @@ class ShowMessagesPage
 		}
 		$db->free_result($GameOps);
 
-		$UsrMess 	= $db->query("SELECT `message_type`, COUNT(`message_unread`) as count FROM ".MESSAGES." WHERE `message_owner` = '".$USER['id']."' GROUP BY `message_type`;");	
+		$UsrMess 	= $db->query("SELECT `message_type`, SUM(`message_unread` - 1) as message_unread, COUNT(*) as count FROM ".MESSAGES." WHERE `message_owner` = '".$USER['id']."' GROUP BY `message_type`;");	
 		while ($CurMess = $db->fetch_array($UsrMess))
 		{
-			$UnRead[$CurMess['message_type']]		= $USER['new_message_'.$CurMess['message_type']];
+			$UnRead[$CurMess['message_type']]		= $CurMess['message_unread'];
 			$TotalMess[$CurMess['message_type']]	= $CurMess['count'];
 		}
 		

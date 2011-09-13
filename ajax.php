@@ -174,17 +174,6 @@ switch($action)
 		));
 		exit;
 	break;
-	case 'updatemessages':
-		$UnRead			= request_var('count', 0);
-		$MessCategory  	= request_var('messcat', 0);
-		if($MessCategory == 50)
-			$db->multi_query("UPDATE ".USERS." SET `new_message` = GREATEST(`new_message` - `new_gmessage`, 0), `new_gmessage` = '0' WHERE `id` = '".$_SESSION['id']."';");			
-		elseif($MessCategory == 100)
-			$db->multi_query("UPDATE ".USERS." SET `new_message` = '0' WHERE `id` = '".$_SESSION['id']."';UPDATE ".MESSAGES." SET `message_unread` = '0' WHERE `message_owner` = '".$_SESSION['id']."';");			
-		else
-			$db->multi_query("UPDATE ".USERS." SET `new_message` = GREATEST(`new_message` - '".$UnRead."', 0) WHERE `id` = '".$_SESSION['id']."';UPDATE ".MESSAGES." SET `message_unread` = '0' WHERE `message_owner` = '".$_SESSION['id']."' AND `message_type` = '".$MessCategory."';");
-		header('HTTP/1.1 204 No Content');
-	break;
 	case 'deletemessages':
 		$DeleteWhat = request_var('deletemessages','');
 		$MessType	= request_var('mess_type', 0);

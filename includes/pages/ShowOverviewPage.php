@@ -148,9 +148,8 @@ function ShowOverviewPage()
 	$db->free_result($OnlineAdmins);
 	
 	$template->loadscript('overview.js');
-	$template->execscript('GetFleets(true);');
 
-	$Messages	= $USER['new_message_0'] + $USER['new_message_1'] + $USER['new_message_2'] + $USER['new_message_3'] + $USER['new_message_4'] + $USER['new_message_5'] + $USER['new_message_15'] + $USER['new_message_50'] + $USER['new_message_99'];
+	$Messages	= $db->countquery("SELECT COUNT(*) FROM ".MESSAGES." WHERE `message_owner` = ".$USER['id']." AND `message_unread` = '1'");
 
 	$template->assign_vars(array(
 		'user_rank'					=> sprintf($LNG['ov_userrank_info'], pretty_number($USER['total_points']), $LNG['ov_place'], $USER['total_rank'], $USER['total_rank'], $LNG['ov_of'], $CONF['users_amount']),
