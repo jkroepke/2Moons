@@ -426,10 +426,18 @@ function SendSimpleMessage($Owner, $Sender, $Time, $Type, $From, $Subject, $Mess
 {
 	global $db;
 		
-	$SQL	= "UPDATE ".USERS." SET `new_message_".$Type."` = `new_message_".$Type."` + '1' WHERE `id` = '".$Owner."';
-	INSERT INTO ".MESSAGES." SET `message_owner` = '".$Owner."', `message_sender` = '".(int)$Sender."', `message_time` = '".$Time."', `message_type` = '".$Type."', `message_from` = '". $db->sql_escape($From) ."', `message_subject` = '". $db->sql_escape($Subject) ."', `message_text` = '".$db->sql_escape($Message)."', `message_unread` = '1', `message_universe` = '".$GLOBALS['UNI']."';";
+	$SQL	= "INSERT INTO ".MESSAGES." SET 
+	`message_owner` = ".(int) $Owner.", 
+	`message_sender` = ".(int) $Sender.", 
+	`message_time` = ".(int) $Time.", 
+	`message_type` = ".(int) $Type.", 
+	`message_from` = '".$db->sql_escape($From) ."', 
+	`message_subject` = '". $db->sql_escape($Subject) ."', 
+	`message_text` = '".$db->sql_escape($Message)."', 
+	`message_unread` = '1', 
+	`message_universe` = ".$GLOBALS['UNI'].";";
 
-	$db->multi_query($SQL);
+	$db->query($SQL);
 }
 
 function shortly_number($number)

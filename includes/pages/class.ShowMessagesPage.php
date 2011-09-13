@@ -51,9 +51,9 @@ class ShowMessagesPage
 			$UsrMess = $db->query("SELECT `message_id`, `message_time`, `message_from`, `message_subject`, `message_sender`, `message_type`, `message_unread`, `message_text` FROM ".MESSAGES." WHERE `message_owner` = '".$_SESSION['id']."'".($MessCategory != 100 ? " AND `message_type` = ".$MessCategory:"")." ORDER BY `message_time` DESC;");
 
 			if($MessCategory == 100)
-				$db->multi_query("UPDATE ".USERS." SET `new_message_0` = 0, `new_message_1` = 0, `new_message_2` = 0, `new_message_3` = 0, `new_message_4` = 0, `new_message_5` = 0, `new_message_15` = 0, `new_message_50` = 0, `new_message_99` = 0 WHERE `id` = '".$_SESSION['id']."';UPDATE ".MESSAGES." SET `message_unread` = '0' WHERE `message_owner` = '".$_SESSION['id']."';");			
+				$db->query("UPDATE ".MESSAGES." SET `message_unread` = '0' WHERE `message_owner` = '".$_SESSION['id']."';");			
 			else
-				$db->multi_query("UPDATE ".USERS." SET `new_message_".$MessCategory."` = 0 WHERE `id` = '".$_SESSION['id']."';UPDATE ".MESSAGES." SET `message_unread` = '0' WHERE `message_owner` = '".$_SESSION['id']."' AND `message_type` = '".$MessCategory."';");
+				$db->query("UPDATE ".MESSAGES." SET `message_unread` = '0' WHERE `message_owner` = '".$_SESSION['id']."' AND `message_type` = '".$MessCategory."';");
 		}
 
 		while ($CurMess = $db->fetch_array($UsrMess))
