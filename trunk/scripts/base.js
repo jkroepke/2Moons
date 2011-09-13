@@ -195,6 +195,14 @@ var Dialog	= {
 		$('#alert').html('<div style="text-align:center;">'+msg.replace(/\n/g, '<br>')+'</div>').dialog('option', 'width', 300).dialog('option', 'title', head_info).dialog('open');
 	},
 	
+	PM: function(ID, Subject, Message) {
+		if(typeof Subject !== 'string')
+			Subject	= '';
+
+	    OpenPopup('game.php?page=messages&mode=write&id='+ID+'&subject='+encodeURIComponent(Subject)+'&message='+encodeURIComponent(Subject), "", 720, 300);
+		return false;
+	},
+	
 	Playercard: function(ID, Name) {
 	    OpenPopup('game.php?page=playercard&id='+ID, "", 720, 600);
 		return false;
