@@ -132,7 +132,7 @@ function ShowOverviewPage()
 
 	if (!empty($PLANET['b_building'])) {
 		$Queue		= unserialize($PLANET['b_building_id']);
-		$Build		= $LNG['tech'][$Queue[0][0]].' ('.$Queue[0][1].')<br><div id="blc">"'.pretty_time($PLANET['b_building'] - TIMESTAMP).'</div>';
+		$Build		= $LNG['tech'][$Queue[0][0]].' ('.$Queue[0][1].')<br><div id="blc">'.pretty_time($PLANET['b_building'] - TIMESTAMP).'</div>';
 		$template->execscript('BuildTime();');
 	}
 	else
@@ -160,7 +160,7 @@ function ShowOverviewPage()
 		'galaxy'					=> $PLANET['galaxy'],
 		'system'					=> $PLANET['system'],
 		'planet'					=> $PLANET['planet'],
-		'buildtime'					=> $PLANET['b_building'],
+		'buildtime'					=> (int) tz_date($PLANET['b_building'], 'U'),
 		'userid'					=> $USER['id'],
 		'username'					=> $USER['username'],
 		'build'						=> $Build,

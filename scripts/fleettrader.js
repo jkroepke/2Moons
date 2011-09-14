@@ -21,12 +21,8 @@ function Total()
 	if(isNaN(Count) || Count < 0) {
 		$('#count').val(0);
 		Count = 0;
-	} else if(Count > CostInfo[$('#id').val()][0]) {
-		$('#count').val(CostInfo[$('#id').val()][0]);
-		Count = CostInfo[$('#id').val()][0];
 	}
 	var ID 	= $('#id').val();
-	console.l
 	$('#total_metal').text(NumberGetHumanReadable(CostInfo[ID][1] * Count * (1 - Charge / 100)));
 	$('#total_crystal').text(NumberGetHumanReadable(CostInfo[ID][2] * Count * (1 - Charge / 100)));
 	$('#total_deuterium').text(NumberGetHumanReadable(CostInfo[ID][3] * Count * (1 - Charge / 100)));

@@ -95,7 +95,7 @@ class MissionCaseMIP extends MissionFunctions
 					continue;
 					
 				if($this->_fleet['fleet_end_type'] == 3 && $Element == 502)
-					$SQL .= "UPDATE ".PLANETS." SET `".$resource[$Element]."` = `".$resource[$Element]."` - '".$destroy."' WHERE id_luna = ".$TargetInfo['id'].";");
+					$SQL .= "UPDATE ".PLANETS." SET `".$resource[$Element]."` = `".$resource[$Element]."` - '".$destroy."' WHERE id_luna = ".$TargetInfo['id'].";";
 				elseif(in_array($Element, $reslist['one']))
 					$SQL .= "UPDATE ".PLANETS." SET `".$resource[$Element]."` = '0' WHERE id = ".$TargetInfo['id'].";";
 				else
