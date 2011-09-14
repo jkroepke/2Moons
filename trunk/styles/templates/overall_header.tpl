@@ -14,9 +14,9 @@
 <script type="text/javascript">
 var serverTime 	= new Date({$date.0}, {$date.1 - 1}, {$date.2}, {$date.3}, {$date.4}, {$date.5});
 var startTime	= serverTime.getTime();
-var localTime 	= new Date();
-localTS = localTime.getTime();
-var ServerTimezoneOffset = {$TimeZone} + localTime.getTimezoneOffset() * 60;
+var localTime 	= serverTime;
+var localTS 	= startTime;
+var ServerTimezoneOffset = 0;
 var Gamename	= document.title;
 var Ready		= "{$ready}";
 var Skin		= "{$dpath}";

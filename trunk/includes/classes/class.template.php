@@ -84,7 +84,7 @@ class template extends Smarty
 				foreach($QueueArray as $ListIDArray)
 				{
 					if($ListIDArray[3] > TIMESTAMP)
-						$Scripttime[$PlanetQuery['id']][]	= $ListIDArray[3];
+						$Scripttime[$PlanetQuery['id']][]	= (int) tz_date($ListIDArray[3], 'U');
 				}
 			}
 			$Planetlist[$PlanetQuery['id']]	= array(
