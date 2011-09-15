@@ -33,15 +33,31 @@ $LNG['Description'] = 'Beschreibung';
 
 $LNG['changelog']   = array(
 
-'v1.4.5' => 'ShadoX 30.07.11
+'v1.5' => 'Slaver 18.09.11
+- FIX: REMOTE FILE INCLUSION VULNERABILITY
+- ADD: Timezone Support
+- FIX: Fleetspeed Bonus
+- FIX: Messafe Notfiy
+- FIX: Hall of Fame Mulituniverse glitch
+- FIX: delete messages in IE
+- FIX: planetmenu cookie
+- FIX: PHP errors in chatsystem
+- FIX: Iusses with Special Char on alliance request 
+- FIX: Fleettime, if acs mission was cancel
 - FIX: clear planets after spy
 - FIX: little template iusses
 - FIX: SQL Error on FleetBack, if fleet is on a acs
 - FIX: JS Error on Combat Raports
+- FIX: Cron on statbuilder, who deletes raports
+- FIX: Cross universe glitch on acs invations (StoNelHa) 
+. FIX: Case 6 on Expedition 
 - DIV: Sicherheit im Game erhöht
+- DIV: rootID now in constants
+- DIV: Added Suhosin detection 
+- DIV: Updated Smarty & TS Libs
 - DIV: Diverse Anpassungen am Game
 ',
-'v1.4' => 'ShadoX 10.07.11
+'v1.4' => 'Slaver 10.07.11
 - ADD: FirePHP Log System
 - ADD: Language selectable on Global Messages
 - ADD: New Message System (includes old global message system like another XNova versions)
@@ -78,7 +94,7 @@ $LNG['changelog']   = array(
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game
 ',
-'v1.3.5' => 'ShadoX 11.06.11
+'v1.3.5' => 'Slaver 11.06.11
 - ADD: New ChatSystem
 - ADD: New Popup UI
 - ADD: Refferalsystem
@@ -115,7 +131,7 @@ $LNG['changelog']   = array(
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game
 ',
-'v1.3' => 'ShadoX 05.03.11
+'v1.3' => 'Slaver 05.03.11
 - ADD: MultiUniverse Support
 - ADD: IPv6 Support
 - ADD: Limit of max Colony
@@ -158,7 +174,7 @@ $LNG['changelog']   = array(
 - DIV: Set new location for error.log
 - DIV: Update TS³ Lib, Soundmanager, reCAPTCHA Lib, Smarty and jQuery (UI)
 ',
-'v1.2' => 'ShadoX 04.10.10
+'v1.2' => 'Slaver 04.10.10
 - ADD: Set Max Fleets on ACS (Default: 16)
 - ADD: New RightsSystem on ACP
 - ADD: .htaccess Protection for some dirs
@@ -182,7 +198,7 @@ $LNG['changelog']   = array(
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game
 ',
-'v1.1' => 'ShadoX 31.08.10
+'v1.1' => 'Slaver 31.08.10
 - ADD: GoW Skin
 - ADD: Mod Versions Control
 - ADD: Cronjoboption für Banner
@@ -197,7 +213,7 @@ $LNG['changelog']   = array(
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game
 ',
-'v1.0' => 'ShadoX 07.08.10
+'v1.0' => 'Slaver 07.08.10
 - FIX: Global Messages
 - FIX: Forgotten Password
 - FIX: Gamereset
@@ -218,7 +234,7 @@ $LNG['changelog']   = array(
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game
 ',
-'RC6' => 'ShadoX 28.07.10
+'RC6' => 'Slaver 28.07.10
 - ADD: Russian Language (ssAAss &amp; InquisitorEA)
 - ADD: Portuguese Language (morgado)
 - ADD: Spanish Language (ZideN) ALPHA (!)
@@ -242,7 +258,7 @@ $LNG['changelog']   = array(
 - DIV: Update Smarty Engine
 - DIV: Diverse Anpassungen am Game
 ',
-'RC5.1' => 'ShadoX 23.06.10
+'RC5.1' => 'Slaver 23.06.10
 - ADD: Für Halten muss man in der Ally/Buddy sein
 - ADD: Name des HP bei der Reg.
 - ADD: Passwort Abfrage bei Authlevel/Reset
@@ -268,7 +284,7 @@ $LNG['changelog']   = array(
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game
 ',
-'RC5.0' => 'ShadoX 30.05.10
+'RC5.0' => 'Slaver 30.05.10
 - ADD: Neue Schiffe
 - ADD: Support Planet in System != 15
 - ADD: Cookie für LoginMusik
@@ -308,7 +324,7 @@ $LNG['changelog']   = array(
 - DIV: Diverse Anpassungen am Game
 ',
 
-'RC5.0b8' => 'ShadoX 20.04.10
+'RC5.0b8' => 'Slaver 20.04.10
 - FIX: Bann
 - FIX: Unmarkierte Nachrichten Löschen
 - FIX: Query log
@@ -326,7 +342,7 @@ $LNG['changelog']   = array(
 - DIV: Diverse Anpassungen am Game
 ',
 
-'RC5.0b7' => 'ShadoX 16.04.10
+'RC5.0b7' => 'Slaver 16.04.10
 - ADD: Google Analytics Mod
 - FIX: max Button, if thousend Sep is not "."
 - FIX: Große Transporte
@@ -335,7 +351,7 @@ $LNG['changelog']   = array(
 - DIV: Diverse Anpassungen am Game
 ',
 
-'RC5.0b6' => 'ShadoX 15.04.10
+'RC5.0b6' => 'Slaver 15.04.10
 - ADD: Updated ACP (XG Proyecto 2.9.4)
 - ADD: Facebook Connector Alpha
 - ADD: Diplomatie-System
@@ -371,12 +387,12 @@ $LNG['changelog']   = array(
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game
 ',
-'RC5.0b5' => 'ShadoX 06.03.10
+'RC5.0b5' => 'Slaver 06.03.10
 - FIX: Attack
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game
 ',
-'RC5.0b4' => 'ShadoX 01.03.10
+'RC5.0b4' => 'Slaver 01.03.10
 - ADD: Plugin-System v0.4 (Green @ XG Proyecto)
 - ADD: Neu StatBuilder
 - FIX: AKS
@@ -384,7 +400,7 @@ $LNG['changelog']   = array(
 - DIV: Diverse Anpassungen am Game
 ',
 
-'RC5.0b3' => 'ShadoX 23.02.10
+'RC5.0b3' => 'Slaver 23.02.10
 - ADD: DM BANK
 - ADD: Koords werden nicht mehr in der HoF angezeigt.
 - ADD: Update System BETA
@@ -406,7 +422,7 @@ $LNG['changelog']   = array(
 - DIV: Diverse Anpassungen am Game
 - DIV: Update jQuery to 1.4.2
 ',
-'RC5.0b2' => 'ShadoX 20.02.10
+'RC5.0b2' => 'Slaver 20.02.10
 - ADD: Accountlöschung w&auml;hrend des U-Modes
 - ADD: UTF-8 Support for Names
 - ADD: Kosten Dunkle Materie
@@ -427,7 +443,7 @@ $LNG['changelog']   = array(
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game
 ',
-'RC5.0b1' => 'ShadoX 02.02.10
+'RC5.0b1' => 'Slaver 02.02.10
 - NEW: Search-Engine
 - NEW: LOGIN
 - NEW: Change Name to 2Moons
@@ -500,7 +516,7 @@ $LNG['changelog']   = array(
 - DIV: Update jQuery to 1.4.1
 ',
 
-'RC4.2' => 'ShadoX 06.12.09
+'RC4.2' => 'Slaver 06.12.09
 - ADD: StatBanner
 - ADD: Sycrogs robots.txt
 - ADD: UserVaild-Funktion einstellbar
@@ -534,7 +550,7 @@ $LNG['changelog']   = array(
 - DIV: Diverse Anpassungen am Game
 ',
 
-'RC4.1' => 'ShadoX 23.11.09
+'RC4.1' => 'Slaver 23.11.09
 - FIX: Moderration-ACP
 - FIX: Userlöschung
 - FIX: cronjob.php
@@ -546,7 +562,7 @@ $LNG['changelog']   = array(
 - DIV: Diverse Anpassungen am Game
 ',
 
-'RC4' => 'ShadoX 13.11.09
+'RC4' => 'Slaver 13.11.09
 - ADD: Fleet/Def ins TF einstellbar
 - ADD: Neue Funktion request_var, set_var und msg_handler
 - ADD: Komplett überarbeitetes ACP (XGP 2.9.1)
@@ -599,7 +615,7 @@ $LNG['changelog']   = array(
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game
 ',
-'RC3' => 'ShadoX 18.10.09
+'RC3' => 'Slaver 18.10.09
 - ADD: AGB
 - ADD: Rules
 - ADD: Vaild E-Mail Funktion
@@ -620,7 +636,7 @@ $LNG['changelog']   = array(
 - DIV: W3C Vaild (Login)
 - DIV: Diverse Anpassungen am Game
 ',
-'RC2' => 'ShadoX 13.10.09
+'RC2' => 'Slaver 13.10.09
 - MOD: Lotterie
 - MOD: TS-Overview Mod
 - MOD: Mindestbauzeit einstellbar

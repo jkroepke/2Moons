@@ -32,32 +32,39 @@ abstract class FleetFunctions
 	private static function GetShipConsumption($Ship, $Player)
 	{
 		global $pricelist;
-
-		return (($Player['impulse_motor_tech'] >= 5 && $Ship == 202) || ($Player['hyperspace_motor_tech'] >= 8 && $Ship == 211)) ? $pricelist[$Ship]['consumption2'] : $pricelist[$Ship]['consumption'];
+		if(($Ship == 202 && $Player['impulse_motor_tech'] >= 5) || ($Ship == 211 && $Player['hyperspace_motor_tech'] >= 8))
+			return $pricelist[$Ship]['consumption2'];
+			
+		return $pricelist[$Ship]['consumption'];
 	}
 
 	private static function OnlyShipByID($Ships, $ShipID)
 	{
-		foreach($Ships as $Ship => $Amount){
+		foreach($Ships as $Ship => $Amount) {
 			if($ShipID != $Ship && $Amount != 0) return false;
 		}
 			
 		return true;
 	}
 
-	private static function GetShipSpeed($Ship, $Player)
+	private static function GetShipSpeed($Ship, $Player, $DMExtra = true)
 	{
 		global $pricelist;
+		if($DMExtra === true)
+			$Bonus	= $Player['factor']['shipspeed'];
+		else
+			$Bonus	= 0;
+
 		if($pricelist[$Ship]['tech'] == 1) // Combustion
-			return $pricelist[$Ship]['speed'] * (1 + (0.1 * $Player['combustion_tech']) + (1 - $Player['factor']['shipspeed']));
+			return $pricelist[$Ship]['speed'] * (1 + (0.1 * $Player['combustion_tech']) + (1 - $Bonus));
 		elseif($pricelist[$Ship]['tech'] == 2) // Impulse
-			return $pricelist[$Ship]['speed'] * (1 + (0.2 * $Player['impulse_motor_tech']) + (1 - $Player['factor']['shipspeed']));
+			return $pricelist[$Ship]['speed'] * (1 + (0.2 * $Player['impulse_motor_tech']) + (1 - $Bonus));
 		elseif($pricelist[$Ship]['tech'] == 3) // Hyperspace
-			return $pricelist[$Ship]['speed'] * (1 + (0.3 * $Player['hyperspace_motor_tech']) + (1 - $Player['factor']['shipspeed']));
+			return $pricelist[$Ship]['speed'] * (1 + (0.3 * $Player['hyperspace_motor_tech']) + (1 - $Bonus));
 		elseif($pricelist[$Ship]['tech'] == 4) // Special: Small Transporter
-			return (($Player['impulse_motor_tech'] >= 5) ? $pricelist[$Ship]['speed2'] * (1 + (0.2 * $Player['impulse_motor_tech']) + (1 - $Player['factor']['shipspeed'])) : $pricelist[$Ship]['speed'] * (1 + (0.1 * $Player['combustion_tech'])) + (1 - $Player['factor']['shipspeed']));
+			return (($Player['impulse_motor_tech'] >= 5) ? $pricelist[$Ship]['speed2'] * (1 + (0.2 * $Player['impulse_motor_tech']) + (1 - $Bonus)) : $pricelist[$Ship]['speed'] * (1 + (0.1 * $Player['combustion_tech'])) + (1 - $Bonus));
 		elseif($pricelist[$Ship]['tech'] == 5) // Special: Battleship
-			return (($Player['hyperspace_motor_tech'] >= 8) ? $pricelist[$Ship]['speed2'] * (1 + (0.3 * $Player['hyperspace_motor_tech']) + (1 - $Player['factor']['shipspeed'])) : $pricelist[$Ship]['speed'] * (1 + (0.2 * $Player['impulse_motor_tech'])) + (1 - $Player['factor']['shipspeed']));
+			return (($Player['hyperspace_motor_tech'] >= 8) ? $pricelist[$Ship]['speed2'] * (1 + (0.3 * $Player['hyperspace_motor_tech']) + (1 - $Bonus)) : $pricelist[$Ship]['speed'] * (1 + (0.2 * $Player['impulse_motor_tech'])) + (1 - $Bonus));
 		else
 			return 0;
 	}
@@ -135,7 +142,7 @@ abstract class FleetFunctions
 
 		foreach ($FleetArray as $Ship => $Count)
 		{
-			$ShipSpeed         = self::GetShipSpeed($Ship, $Player);
+			$ShipSpeed         = self::GetShipSpeed($Ship, $Player, false);
 			$ShipConsumption   = self::GetShipConsumption($Ship, $Player);
 			$spd               = 35000 / (round($MissionDuration, 0) * $GameSpeed - 10) * sqrt($MissionDistance * 10 / $ShipSpeed);
 			$basicConsumption  = $ShipConsumption * $Count;
@@ -212,7 +219,8 @@ abstract class FleetFunctions
 		global $PLANET;
 		foreach($Colony as $CurPlanetID => $CurPlanet)
 		{
-			if ($PLANET['galaxy'] == $CurPlanet['galaxy'] && $PLANET['system'] == $CurPlanet['system'] && $PLANET['planet'] == $CurPlanet['planet'] && $PLANET['planet_type'] == $CurPlanet['planet_type']) continue;
+			if ($PLANET['galaxy'] == $CurPlanet['galaxy'] && $PLANET['system'] == $CurPlanet['system'] && $PLANET['planet'] == $CurPlanet['planet'] && $PLANET['planet_type'] == $CurPlanet['planet_type'])
+				continue;
 			
 			$ColonyList[] = array(
 				'name'			=> $CurPlanet['name'],
@@ -261,24 +269,30 @@ abstract class FleetFunctions
 
 		if($FleetRow['fleet_mission'] == 1 && $FleetRow['fleet_group'] > 0)
 		{
-			$Aks = $db->countquery("SELECT FIND_IN_SET('".$FleetRow['fleet_owner']."', `eingeladen`) FROM ".AKS." WHERE id = '". $FleetRow['fleet_group'] ."';");
+			$Aks = $db->countquery("SELECT FIND_IN_SET('".$FleetRow['fleet_owner']."', `eingeladen`) FROM ".AKS." WHERE `id` = ".$FleetRow['fleet_group'].";");
 
 			if($Aks != 0)
 			{
-				$db->query("DELETE FROM ".AKS." WHERE id ='". $FleetRow['fleet_group'] ."';");
+				$db->query("DELETE FROM ".AKS." WHERE `id` = ".$FleetRow['fleet_group'].";");
 				$FleetID	= $FleetRow['fleet_group'];
 				$where		= 'fleet_group';
 			}
 		}
 		
-		$db->query("UPDATE ".FLEETS." SET `fleet_group` = '0', `start_time` = '".TIMESTAMP."', `fleet_end_stay` = '".TIMESTAMP."', `fleet_end_time` = '".((TIMESTAMP - $FleetRow['start_time']) + TIMESTAMP)."', `fleet_mess` = '1' WHERE `".$where."` = '".$FleetID."';");
+		$db->query("UPDATE ".FLEETS." SET 
+		`fleet_group` = '0', 
+		`fleet_end_stay` = ".TIMESTAMP.", 
+		`fleet_end_time` = ((".TIMESTAMP." - `start_time`) + ".TIMESTAMP."), 
+		`start_time` = ".TIMESTAMP.", 
+		`fleet_mess` = '1' 
+		WHERE `".$where."` = '".$FleetID."';");
 	}
 	
 	public static function GetFleetShipInfo($FleetArray, $Player)
 	{
 		$FleetInfo	= array();
 		foreach ($FleetArray as $ShipID => $Amount) {
-			$FleetInfo[$ShipID]	= array('consumption' => self::GetShipConsumption($ShipID, $Player), 'speed' => self::GetFleetMaxSpeed($ShipID, $Player), 'amount' => floattostring($Amount));
+			$FleetInfo[$ShipID]	= array('consumption' => self::GetShipConsumption($ShipID, $Player), 'speed' => self::GetShipSpeed($ShipID, $Player), 'speed2' => self::GetShipSpeed($ShipID, $Player, false), 'amount' => floattostring($Amount));
 		}
 		return $FleetInfo;
 	}

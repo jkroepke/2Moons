@@ -84,7 +84,9 @@ $LNG['step3_admin_name']	= 'Administrator Username:';
 $LNG['step3_admin_pass']	= 'Administrator Passwort:';
 $LNG['step3_admin_mail']	= 'Administrator E-Mail Adresse:';
 
-
 $LNG['step4_need_fields']	= 'Sie müssen alle Felder ausfüllen!';
-		
+
+$LNG['sql_universe']		= 'Universum';
+$LNG['sql_close_reason']	= 'Game ist zurzeit geschlossen';
+$LNG['sql_welcome']			= 'Herzlich Willkommen zu ';
 ?>
