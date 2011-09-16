@@ -250,12 +250,12 @@ switch ($Mode) {
 				@touch(ROOT_PATH."includes/error.log");
 				ob_start();
 				$db->multi_query(str_replace(array(
-					"prefix_"
+					"prefix_",
 					"[LANG]universum[/LANG]",
 					"[LANG]close_reason[/LANG]",
 					"[LANG]welcome[/LANG]"
 				), array(
-					$prefix	,
+					$prefix,
 					$LNG['sql_universe'],
 					$LNG['sql_close_reason'],
 					$LNG['sql_welcome']
