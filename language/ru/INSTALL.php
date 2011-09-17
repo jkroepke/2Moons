@@ -60,4 +60,8 @@ $LNG['step3_admin_pass']     = 'Пароль:';
 $LNG['step3_admin_mail']     = 'Электронная почта:';
 
 $LNG['step4_need_fields']    = 'Вы должны заполнить все поля!';
+
+$LNG['sql_universe']         = 'Вселенная';
+$LNG['sql_close_reason']     = 'Сервер в данный момент недоступен.';
+$LNG['sql_welcome']          = 'Добро пожаловать в';
 ?>
