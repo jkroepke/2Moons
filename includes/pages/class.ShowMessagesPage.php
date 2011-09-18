@@ -98,10 +98,10 @@ class ShowMessagesPage
 		switch($DeleteWhat)
 		{
 			case 'deleteall':
-				$db->multi_query("DELETE FROM ".MESSAGES." WHERE `message_owner` = '".$_SESSION['id']."';UPDATE ".USERS." SET `new_message_0` = 0, `new_message_1` = 0, `new_message_2` = 0, `new_message_3` = 0, `new_message_4` = 0, `new_message_5` = 0, `new_message_15` = 0, `new_message_50` = 0, `new_message_99` = 0 WHERE `id` = '".$_SESSION['id']."';");
+				$db->query("DELETE FROM ".MESSAGES." WHERE `message_owner` = '".$_SESSION['id']."';");
 			break;
 			case 'deletetypeall':
-				$db->multi_query("DELETE FROM ".MESSAGES." WHERE `message_owner` = '".$_SESSION['id']."' AND `message_type` = '".$MessCategory."';");
+				$db->query("DELETE FROM ".MESSAGES." WHERE `message_owner` = '".$_SESSION['id']."' AND `message_type` = '".$MessCategory."';");
 			case 'deletemarked':
 				$SQLWhere = array();
 				if(empty($_REQUEST['delmes']) || !is_array($_REQUEST['delmes']))
