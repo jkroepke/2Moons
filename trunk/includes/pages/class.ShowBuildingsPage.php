@@ -143,7 +143,7 @@ class ShowBuildingsPage
 		FirePHP::getInstance(true)->log("Queue(Build): ".$PLANET['b_building_id']);
 	}
 
-	public function AddBuildingToQueue ($Element, $AddMode = true)
+	public function AddBuildingToQueue($Element, $AddMode = true)
 	{
 		global $PLANET, $USER, $resource, $CONF, $reslist;
 		
@@ -211,11 +211,11 @@ class ShowBuildingsPage
 	{
 		global $LNG, $CONF, $PLANET, $USER;
 		
-		if ($PLANET['b_building'] == 0)
+		if ($PLANET['b_building'] == 0 || $PLANET['b_building_id'] == "")
 			return array();
 		
 		$CurrentQueue   = unserialize($PLANET['b_building_id']);
-
+		
 		$ListIDRow		= "";
 		$ScriptData		= array();
 		$Builds			= array();
@@ -301,10 +301,11 @@ class ShowBuildingsPage
 				unset($Need, $BuildLevel, $Prod);
 			}
 			
+			$PLANET[$resource[$Element]] += ($Queue[1][$Element] + 1);
 			$BuildInfoList[]	= array(
 				'id'			=> $Element,
-				'baselevel'		=> $PLANET[$resource[$Element]],
-				'level'			=> $PLANET[$resource[$Element]] + $Queue[1][$Element],
+				'baselevel'		=> $PLANET[$resource[$Element]] - ($Queue[1][$Element] + 1),
+				'level'			=> $PLANET[$resource[$Element]],
 				'destroyress'	=> array_map('pretty_number', GetBuildingPrice($USER, $PLANET, $Element, true, true)),
 				'destroytime'	=> pretty_time(GetBuildingTime($USER, $PLANET, $Element, true)),
 				'price'			=> GetElementPrice($USER, $PLANET, $Element, true),
@@ -313,6 +314,7 @@ class ShowBuildingsPage
 				'restprice'		=> $this->GetRestPrice($Element),
 				'buyable'		=> $QueueCount != 0 || IsElementBuyable($USER, $PLANET, $Element, true, false),
 			);
+			$PLANET[$resource[$Element]] -= ($Queue[1][$Element] + 1);
 		}
 
 		$template			= new template();

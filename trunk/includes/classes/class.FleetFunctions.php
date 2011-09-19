@@ -49,15 +49,15 @@ abstract class FleetFunctions
 	{
 		global $pricelist;
 		if($pricelist[$Ship]['tech'] == 1) // Combustion
-			return $pricelist[$Ship]['speed'] * (1 + (0.1 * $Player['combustion_tech']) + (1 - $Player['factor']['shipspeed']));
+			return $pricelist[$Ship]['speed'] * (1 + (0.1 * $Player['combustion_tech']));
 		elseif($pricelist[$Ship]['tech'] == 2) // Impulse
-			return $pricelist[$Ship]['speed'] * (1 + (0.2 * $Player['impulse_motor_tech']) + (1 - $Player['factor']['shipspeed']));
+			return $pricelist[$Ship]['speed'] * (1 + (0.2 * $Player['impulse_motor_tech']));
 		elseif($pricelist[$Ship]['tech'] == 3) // Hyperspace
-			return $pricelist[$Ship]['speed'] * (1 + (0.3 * $Player['hyperspace_motor_tech']) + (1 - $Player['factor']['shipspeed']));
+			return $pricelist[$Ship]['speed'] * (1 + (0.3 * $Player['hyperspace_motor_tech']));
 		elseif($pricelist[$Ship]['tech'] == 4) // Special: Small Transporter
-			return (($Player['impulse_motor_tech'] >= 5) ? $pricelist[$Ship]['speed2'] * (1 + (0.2 * $Player['impulse_motor_tech']) + (1 - $Player['factor']['shipspeed'])) : $pricelist[$Ship]['speed'] * (1 + (0.1 * $Player['combustion_tech'])) + (1 - $Player['factor']['shipspeed']));
+			return (($Player['impulse_motor_tech'] >= 5) ? $pricelist[$Ship]['speed2'] * (1 + (0.2 * $Player['impulse_motor_tech'])) : $pricelist[$Ship]['speed'] * (1 + (0.1 * $Player['combustion_tech'])));
 		elseif($pricelist[$Ship]['tech'] == 5) // Special: Battleship
-			return (($Player['hyperspace_motor_tech'] >= 8) ? $pricelist[$Ship]['speed2'] * (1 + (0.3 * $Player['hyperspace_motor_tech']) + (1 - $Player['factor']['shipspeed'])) : $pricelist[$Ship]['speed'] * (1 + (0.2 * $Player['impulse_motor_tech'])) + (1 - $Player['factor']['shipspeed']));
+			return (($Player['hyperspace_motor_tech'] >= 8) ? $pricelist[$Ship]['speed2'] * (1 + (0.3 * $Player['hyperspace_motor_tech'])) : $pricelist[$Ship]['speed'] * (1 + (0.2 * $Player['impulse_motor_tech'])));
 		else
 			return 0;
 	}
@@ -89,7 +89,7 @@ abstract class FleetFunctions
 	public static function GetMissionDuration($SpeedFactor, $MaxFleetSpeed, $Distance, $GameSpeed, $CurrentUser)
 	{
 		global $resource;
-		return max(((((3500 / ($SpeedFactor * 0.1)) * pow($Distance * 10 / $MaxFleetSpeed, 0.5) + 10) * $CurrentUser['factor']['shipspeed']) / $GameSpeed), 5);
+		return max(((((3500 / ($SpeedFactor * 0.1)) * pow($Distance * 10 / $MaxFleetSpeed, 0.5) + 10)) / $GameSpeed), 5);
 	}
 
 	public static function GetGameSpeedFactor()

@@ -68,7 +68,7 @@ function getFormatedDate(timestamp, format) {
 	currTime.setTime(timestamp);
 	str = format;
 	str = str.replace('[d]', dezInt(currTime.getDate(), 2));
-	str = str.replace('[D]', days[currTime.getDay() - 1]);
+	str = str.replace('[D]', days[currTime.getDay()]);
 	str = str.replace('[m]', dezInt(currTime.getMonth() + 1, 2));
 	str = str.replace('[M]', months[currTime.getMonth()]);
 	str = str.replace('[j]', parseInt(currTime.getDate()));

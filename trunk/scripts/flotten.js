@@ -4,7 +4,7 @@ function updateVars()
 	duration = GetDuration();
 	consumption = GetConsumption();
 	cargoSpace = storage();
-
+	duration = duration * data.fleetspeedfactor
 	refreshFormData();
 }
 
@@ -29,7 +29,7 @@ function GetDistance() {
 
 function GetDuration() {
 	var sp = document.getElementsByName("speed")[0].value;
-	return Math.max(Math.round((3500 / (sp * 0.1) * Math.pow(distance * 10 / data.maxspeed, 0.5) + 10) * data.fleetspeedfactor / data.gamespeed), 5);
+	return Math.max(Math.round((3500 / (sp * 0.1) * Math.pow(distance * 10 / data.maxspeed, 0.5) + 10) / data.gamespeed), 5);
 }
 
 function GetConsumption() {

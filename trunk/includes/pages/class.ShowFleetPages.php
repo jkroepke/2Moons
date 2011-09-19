@@ -220,7 +220,7 @@ class ShowFleetPages extends FleetFunctions
 		$FleetData	= array(
 			'fleetroom'			=> floattostring($FleetRoom),
 			'gamespeed'			=> parent::GetGameSpeedFactor(),
-			'fleetspeedfactor'	=> $USER['factor']['shipspeed'],
+			'fleetspeedfactor'	=> 1 - $USER['factor']['shipspeed'],
 			'planet'			=> array('galaxy' => $PLANET['galaxy'], 'system' => $PLANET['system'], 'planet' => $PLANET['planet'], 'planet_type' => $PLANET['planet_type']),
 			'maxspeed'			=> parent::GetFleetMaxSpeed($Fleet, $USER),
 			'ships'				=> parent::GetFleetShipInfo($Fleet, $USER),
@@ -321,6 +321,7 @@ class ShowFleetPages extends FleetFunctions
 		$distance      				= parent::GetTargetDistance($PLANET['galaxy'], $TargetGalaxy, $PLANET['system'], $TargetSystem, $PLANET['planet'], $TargetPlanet);
 		$duration      				= parent::GetMissionDuration($GenFleetSpeed, $MaxFleetSpeed, $distance, $GameSpeedFactor, $USER);
 		$consumption				= parent::GetFleetConsumption($FleetArray, $duration, $distance, $MaxFleetSpeed, $USER, $GameSpeedFactor);
+		$duration					= $duration * (1 - $USER['factor']['shipspeed']);
  		
 		if($consumption > $PLANET['deuterium'])
 		{
@@ -575,7 +576,8 @@ class ShowFleetPages extends FleetFunctions
 		$distance      	= parent::GetTargetDistance($PLANET['galaxy'], $galaxy, $PLANET['system'], $system, $PLANET['planet'], $planet);
 		$duration      	= parent::GetMissionDuration($GenFleetSpeed, $MaxFleetSpeed, $distance, $SpeedFactor, $USER);
 		$consumption   	= parent::GetFleetConsumption($FleetArray, $duration, $distance, $MaxFleetSpeed, $USER, $SpeedFactor);
-			
+		$duration		= $duration * (1 - $USER['factor']['shipspeed']);
+		
 		$fleet['start_time'] = $duration + TIMESTAMP;
 		
 		if ($mission == 15)
@@ -904,6 +906,7 @@ class ShowFleetPages extends FleetFunctions
 		$SpeedAllMin 		 = parent::GetFleetMaxSpeed($FleetArray, $USER);
 		$Duration    		 = parent::GetMissionDuration(10, $SpeedAllMin, $Distance, $SpeedFactor, $USER);
 		$consumption   		 = parent::GetFleetConsumption($FleetArray, $Duration, $Distance, $SpeedAllMin, $USER, $SpeedFactor);
+		$duration		= $duration * (1 - $USER['factor']['shipspeed']);
 
 		$UserDeuterium   	-= $consumption;
 
