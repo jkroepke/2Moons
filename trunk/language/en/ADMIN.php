@@ -1145,4 +1145,3 @@ $LNG['log_uni_short']                   = 'Uni';
 $LNG['log_universe']                    = 'Universe';
 
 ?>
-

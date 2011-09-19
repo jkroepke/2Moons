@@ -99,7 +99,7 @@
                 </tr>
                 <tr>
 					<td class="transparent">
-					<a href="http://2moons.cc/user/97-bullet/">BuLLeT</a> (english)<br>
+					<a href="http://2moons.cc/user/97-bullet/">BuLLeT</a> &amp; <a href="http://2moons.cc/user/955-royaloss/">RoyalOss</a> (english)<br>
 					<a href="http://2moons.cc/user/100-qwatakayean/">QwataKayean</a> (portuguese)<br>
 					<a href="http://2moons.cc/user/98-inquisitorea/">InquisitorEA</a> (russian)<br>
 					<a href="http://2moons.cc/user/750-angelus-ira/">angelus_ira</a> (spanish)<br>
