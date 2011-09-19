@@ -57,7 +57,8 @@ function ShowConfigBasicPage()
 			'del_user_automatic'	=> $CONF['del_user_automatic'],
 			'del_user_sendmail'		=> $CONF['del_user_sendmail'],
 			'sendmail_inactive'		=> $CONF['sendmail_inactive'],
-			'timezone'				=> $CONF['timezone']
+			'timezone'				=> $CONF['timezone'],
+			'dst'					=> $CONF['dst'],
 		);
 		
 		$CONF['capaktiv'] 				= isset($_POST['capaktiv']) && $_POST['capaktiv'] == 'on' ? 1 : 0;
@@ -84,6 +85,7 @@ function ShowConfigBasicPage()
 		$CONF['del_user_automatic']		= request_var('del_user_automatic', 0);
 		$CONF['del_user_sendmail']		= request_var('del_user_sendmail', 0);
 		$CONF['timezone']				= request_var('timezone', 0.0);
+		$CONF['dst']					= request_var('dst', 0);
 		
 		$config_after = array(
 			'ttf_file'				=> $CONF['ttf_file'],
@@ -107,7 +109,8 @@ function ShowConfigBasicPage()
 			'del_user_automatic'	=> $CONF['del_user_automatic'],
 			'del_user_sendmail'		=> $CONF['del_user_sendmail'],
 			'sendmail_inactive'		=> $CONF['sendmail_inactive'],
-			'timezone'				=> $CONF['timezone']
+			'timezone'				=> $CONF['timezone'],
+			'dst'					=> $CONF['dst'],
 		);
 		
 		update_config($config_after);
@@ -121,7 +124,7 @@ function ShowConfigBasicPage()
 	}
 	
 	$template	= new template();
-
+	
 	$template->assign_vars(array(
 		'del_oldstuff'					=> $CONF['del_oldstuff'],
 		'del_user_manually'				=> $CONF['del_user_manually'],
@@ -145,7 +148,8 @@ function ShowConfigBasicPage()
         'ga_active'               		=> $CONF['ga_active'],
 		'ga_key'           				=> $CONF['ga_key'],
 		'timezone'           			=> $CONF['timezone'],
-		'Selector'						=> array('timezone' => $LNG['timezones'],'mail' => $LNG['se_mail_sel'], 'encry' => array('' => $LNG['se_smtp_ssl_1'], 'ssl' => $LNG['se_smtp_ssl_2'], 'tls' => $LNG['se_smtp_ssl_3'])),
+		'dst'           				=> $CONF['dst'],
+		'Selector'						=> array('timezone' => $LNG['timezones'], 'dst' => $LNG['se_dst_sel'], 'mail' => $LNG['se_mail_sel'], 'encry' => array('' => $LNG['se_smtp_ssl_1'], 'ssl' => $LNG['se_smtp_ssl_2'], 'tls' => $LNG['se_smtp_ssl_3'])),
 	));
 	
 	$template->show('adm/ConfigBasicBody.tpl');

@@ -501,6 +501,10 @@ $LNG['se_ref_max_referals_info']		= 'Maximale Anzahl, der der User an Spielern w
 $LNG['se_silo_factor']					= 'Raketensilogröße';
 $LNG['se_silo_factor_info']				= 'Faktor für die größe des Silos';
 $LNG['se_timzone']						= 'Zeitzone des Unis';
+$LNG['se_dst_mode']							= 'Sommerzeit?';
+$LNG['se_dst_sel'][0]					= 'Nein';
+$LNG['se_dst_sel'][1]					= 'Ja';
+$LNG['se_dst_sel'][2]					= 'Automatisch';
 //###########################################################//
 
 
@@ -607,7 +611,7 @@ $LNG['mu_ts_options'] 				= 'Teamspeak Optionen';
 $LNG['mu_game_info'] 				= 'Informationen';
 $LNG['mu_vaild_users']				= 'Aktivire User'; 
 $LNG['mu_news']						= 'News'; 
-$LNG['mu_multiip']					= 'MultiIP'; 
+$LNG['mu_multiip_page']				= 'MultiIP'; 
 $LNG['mu_clear_cache']				= 'Lösche Cache'; 
 $LNG['mu_vertify']					= 'Vertify Game Content'; 
 

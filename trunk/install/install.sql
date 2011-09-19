@@ -262,6 +262,7 @@ CREATE TABLE `prefix_config` (
   `sendmail_inactive` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `silo_factor` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `timezone` float(4, 2) NOT NULL DEFAULT '0',
+  `dst` enum('0','1','2') NOT NULL DEFAULT '0',
   PRIMARY KEY (`uni`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
@@ -390,6 +391,7 @@ CREATE TABLE `prefix_planets` (
   `field_max` smallint(5) unsigned NOT NULL DEFAULT '163',
   `temp_min` int(3) NOT NULL DEFAULT '-17',
   `temp_max` int(3) NOT NULL DEFAULT '23',
+  `eco_hash` varchar(32) NOT NULL DEFAULT '',
   `metal` double(50,0) unsigned NOT NULL DEFAULT '0',
   `metal_perhour` double(50,0) unsigned NOT NULL DEFAULT '0',
   `metal_max` double(50,0) unsigned DEFAULT '100000',

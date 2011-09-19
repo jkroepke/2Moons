@@ -19,6 +19,11 @@
 	<td>{html_options name=timezone options=$Selector.timezone selected=$timezone}</td>
 	<td>&nbsp;</td>
 </tr><tr>
+	<td>{lang}se_dst_mode{/lang}</td>
+	<td>{html_options name=dst options=$Selector.dst selected=$dst}</td>
+	<td>&nbsp;</td>
+</tr>
+<tr>
 	<th colspan="2">{lang}se_player_settings{/lang}</th><th>&nbsp;</th>
 </tr><tr>
 	<td>{lang}se_del_oldstuff{/lang}</td>

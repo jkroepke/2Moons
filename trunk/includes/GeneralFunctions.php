@@ -108,7 +108,7 @@ function getPlanets($USER)
 
 function tz_date($time, $Dateformat = '') {
 	$UTCDate 	= strtotime(gmdate("M d Y H:i:s", $time));
-	$DST		= (int) date("I");
+	$DST		= $GLOBALS['CONF']['dst'];
 	$UTCDST		= (int) gmdate("I");
 	$timezone	= ($time - $UTCDate) / 3600;
 	
@@ -120,7 +120,7 @@ function tz_date($time, $Dateformat = '') {
 		$timezone	= (float) $_SESSION['USER']['timezone'];
 		if($_SESSION['USER']['dst'] != 2)
 			$DST	= $_SESSION['USER']['dst'];
-	}
+			
 	$DST		-= $UTCDST;
 	if(empty($Dateformat))
 		$Dateformat	= $GLOBALS['LNG']['php_tdformat'];
