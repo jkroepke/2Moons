@@ -126,8 +126,9 @@ function tz_date($time, $Dateformat = '') {
 		$Dateformat	= $GLOBALS['LNG']['php_tdformat'];
 		
 	$UTCTime	= $UTCDate + (($timezone + $DST) * 3600);
-	
-	$Dateformat	= str_replace(array('D', 'M'), array(addcslashes($GLOBALS['LNG']['week_day'][(date('N', $UTCTime) - 1)], 'A..z'), addcslashes($GLOBALS['LNG']['months'][(date('n', $UTCTime) - 1)], 'A..z')), $Dateformat);
+	$Dateformat	= str_replace(array('D', 'M'), array("XXX", "YYY"), $Dateformat);
+	$Dateformat	= str_replace(array("XXX", "YYY"), array(addcslashes($GLOBALS['LNG']['week_day'][(date('N', $UTCTime))], 'A..z'), addcslashes($GLOBALS['LNG']['months'][(date('n', $UTCTime) - 1)], 'A..z')), $Dateformat);
+
 	return date($Dateformat, $UTCTime);
 }
 

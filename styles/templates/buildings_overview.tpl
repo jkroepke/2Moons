@@ -70,10 +70,10 @@
 								<form action="game.php?page=buildings" method="post" class="build_form">
 									<input type="hidden" name="cmd" value="insert">
 									<input type="hidden" name="building" value="{$ID}">
-									<button type="submit" class="build_submit">{if $Element.level == 0}{lang}bd_build{/lang}{else}{lang}bd_build_next_level{/lang}{$Element.level + 1}{/if}</button>
+									<button type="submit" class="build_submit">{if $Element.level == 0}{lang}bd_build{/lang}{else}{lang}bd_build_next_level{/lang}{$Element.level}{/if}</button>
 								</form>
 								{else}
-								<span style="color:red">{if $Element.level == 0}{lang}bd_build{/lang}{else}{lang}bd_build_next_level{/lang}{$Element.level + 1}{/if}</span>
+								<span style="color:red">{if $Element.level == 0}{lang}bd_build{/lang}{else}{lang}bd_build_next_level{/lang}{$Element.level}{/if}</span>
 								{/if}
 							{else}
 							<span style="color:red">{lang}bd_no_more_fields{/lang}</span>
