@@ -75,8 +75,9 @@ function ShowResourcesPage()
 	
 	$PlanetRess = new ResourceUpdate();
 	$PlanetRess->CalcResource();
+	$PlanetRess->ReBuildCache();
+	$PlanetRess->ReturnVars();
 	$PlanetRess->SavePlanetToDB();
-
 	$template	= new template();
 		
 	$BuildTemp      = $PLANET['temp_max'];

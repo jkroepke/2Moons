@@ -1,10 +1,11 @@
 Hello %1$s,
 
+
 Thank you for registering at %2$s
 
 Before we can activate your account, one more step is needed.
 Please note that this step is mandatory in order to become a 
-registered user. You have to call the link below only once to 
+registered user. You have to press the link below only once to 
 verify your identity.
 
 In order to complete your registration please click the 
