@@ -102,6 +102,7 @@ class ResourceUpdate
 	public function UpdateRessource($TIME, $HASH = false)
 	{
 		$this->ProductionTime  			= ($TIME - $this->PLANET['last_update']);
+		$this->DEBUG->log("Start UpdateRessource on Planet(ID: ".$this->PLANET['id']."): ".date("H:i:s", $this->PLANET['last_update'])." to ".date("H:i:s", $this->TIME)." (".pretty_number($this->ProductionTime)."s)");
 		if($this->ProductionTime > 0)
 		{
 			$this->PLANET['last_update']	= $TIME;
@@ -114,8 +115,8 @@ class ResourceUpdate
 					$this->ReBuildCache();
 				}
 			}
+			$this->ExecCalc();
 		}
-		$this->ExecCalc();
 	}
 	
 	private function ExecCalc()
@@ -175,7 +176,6 @@ class ResourceUpdate
 		$this->PLANET['crystal_max']		= floor(2.5 * pow(1.8331954764, $this->PLANET[$resource[23]])) * 5000 * (1 + ($this->USER['rpg_stockeur'] * $pricelist[607]['info'])) * $this->CONF['resource_multiplier'] * STORAGE_FACTOR;
 		$this->PLANET['deuterium_max']		= floor(2.5 * pow(1.8331954764, $this->PLANET[$resource[24]])) * 5000 * (1 + ($this->USER['rpg_stockeur'] * $pricelist[607]['info'])) * $this->CONF['resource_multiplier'] * STORAGE_FACTOR;
 		
-		$this->DEBUG->log("Start UpdateRessource on Planet(ID: ".$this->PLANET['id']."): ".date("H:i:s", $this->PLANET['last_update'])." to ".date("H:i:s", $this->TIME)." (".pretty_number($this->ProductionTime)."s)");
 		$this->DEBUG->log("Storage: Metal: ".pretty_number($this->PLANET['metal_max'])." Crystal: ".pretty_number($this->PLANET['crystal_max'])." Deuterium: ".pretty_number($this->PLANET['deuterium_max']));
 
 		if ($this->PLANET['planet_type'] == 3)
@@ -335,7 +335,7 @@ class ResourceUpdate
 	
 	private function CheckPlanetBuildingQueue()
 	{
-		global $resource, $db;
+		global $resource, $db, $reslist;
 		
 		if (empty($this->PLANET['b_building_id']) || $this->PLANET['b_building'] > $this->TIME)
 			return false;
