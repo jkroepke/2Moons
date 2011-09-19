@@ -120,7 +120,7 @@ function tz_date($time, $Dateformat = '') {
 		$timezone	= (float) $_SESSION['USER']['timezone'];
 		if($_SESSION['USER']['dst'] != 2)
 			$DST	= $_SESSION['USER']['dst'];
-			
+	}		
 	$DST		-= $UTCDST;
 	if(empty($Dateformat))
 		$Dateformat	= $GLOBALS['LNG']['php_tdformat'];
