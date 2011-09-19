@@ -111,67 +111,67 @@ $LNG['user_active']                	= 'User %s has been activated!';
 //Rules
 $LNG['rules_overview']				= "Rules";
 $LNG['rules']						= array(
-	"Accounts"					=> "Each player is allowed to control a single account. Each account is entitled to be played by a single player at a time, account sitting being the only exception.
-Account sitting entitles a given player to have his account watched over under the following regulations:
 
-- Am admin must be informed before the sitting takes place, by opening a ticket.
-- No Fleet movements are allowed while the account is being sat unless an attack that may raid or crash the account is incoming, in which case you may save your fleet(s) by deploying or transporting to a planet or to a moon owned by the account being sat. You may not ninja an incoming attack in cases where you would need to move a fleet for it.
-- An account may only be sat for a maximum period of 48 continuous hours (admin permission needs to be obtained in cases where a time extension is needed).
-The sitter may, on the account being sat and while the sitting period lasts:
+"" => "The rules of the game have been set by the administrators and are overseen by them. Every player has the option and the duty to report violations of the rules which he or she notices. The rules should guarantee a fair and clean game."
 
-- Spend Resources on buildings or researches.
-- Fleetsave any ship that imminently endangered by an incoming attacking fleet, only with a deployment or transport mission to one of the accounts own planets.
-- Place an account into vacation mode.
-
-The sitter may not:
-
-- Transport resources, neither between planets/moons of the account being sat, nor to any other planet/moon.
-- Spend Resources on defensive structures or ships.
-- Sit an account if he sat another one within the previous 7 days.
-- Sit an account that was sat within the previous 7 days.
-- Remove an account from vacation mode.",
+	"Accounts"					=> "The accounts are the property of the operators of the Spaceinvasion website. ",
 
 
-	"Pushing"					=> "It is not allowed for any account to obtain unfair profit out of a lower ranked account in a matter of resources.
-This includes but is not limited to:
+	"Multi-Accounts"					=> "It is prohibited to run more than one account in the same universe. Should multiple accounts use the same IP (Brother, Father, Sister, etc.) - it will need to be registered with support. Later registrations over the same IP are not possible! If multiple accounts use the same internet connection (e.g. at home, internet cafe, other networks), no further similarities must occur. (e.g. Internal shipping, Trading, or Alliance attacks).
+Abusing the IP-Match function or holding more than one account in the same universe will be punished with a permanent ban. ",
 
-- Resources sent from a lower ranked account to a higher ranked one with nothing tangible in return.
-- A player crashing his fleet into a higher ranked one for the higher ranked one to keep the Debris Field, and thus profiting from it.
-- Loans that are not returned within 48 hours.
-- Trades in which the higher ranked player does not return the resources within 48 hours.
-- Players answering to a higher ranked player extortion by paying resources.
-- Trades that mean an unfair profit to the higher ranked player by falling outside the following range of ratios:
-
-3:2:1 Where each unit of deuterium is worth 2 units of crystal or 3 units of metal.
-
-2:1:1 Where each unit of deuterium is worth 1 unit of crystal or 2 units of metal.
-",
-
-	"Bashing"					=> "It is not allowed to attack any given planet or moon owned by a player over 6 times in a single 24 hours period.
-
-Bashing is only allowed when your Alliance is at war with another Alliance. The war must be announced in the forum and both leaders must agree to the terms.",
+	"Account transfer"					=> "The acquisition or exchange of an account must be registered with support prior to the takeover. The ticket-button is to be used and permission is to be awaited.
+A transfer can be requested once in 30 days. ",
 
 	
-	"Bugusing"					=> "Using a bug for anyones profit intentionally or not reporting a bug intentionally is strictly forbidden.",
+	"Buying/Selling Accounts and Resources"					=> "The buying and selling of accounts is not allowed and will be punished with a permanent ban and the deletion of the affected accounts.
+Rule 3 remains in force. The exchange or transfer of accounts are still permitted, as long as this is done free of charge.
+The buying and selling of resources (raw materials, fleets, in-game services, etc.) is prohibited and will be punished with a permanent ban and deletion of the affected accounts. ",
 
 
-	"Real life threats"	=> "Implying that you are going to locate and harm another player, is forbidden.",
+	"Supervising another account"	=> "Account sitting (i.e. monitoring another player´s account) is allowed only if approved by support through the ticketfunction. Sitting is only permitted to the extent that fleets may be saved and raw materials used (No Attacks may be sent during this period). The maximum sitting term is 24 hours. Sitting is also only permitted once per week. The vacation mode is intended for longer absences from the game.
+Supervising without the use of the appropriate tool will be considered as Multiaccounting/Accountsharing and leads to a permanent ban of the accounts.(See rule 2)
+",
 
-	"Spam"			=> "Any situation intended to saturate a players interface through any method is forbidden. This includes but is not limited to:
+	"Sharing"			=> "Account sharing, that is the common use of a single account, is not permitted. This would result in an unfair game advantage and will lead to the ultimate banning of the account.",
 
-- Personal Messages spam
-- Probes spam
-- Overview spam",
+  "Pushing "                    => "Pushing, that is the targeted sending of raw materials without apparent quid pro quo, it is only permitted for lower-point players. A player is considered lower-point if they have a maximum of 75% of the points held by the player who wishes to send the resources. Sending resources to higher-point players is only permitted when there is an apparent return service at an appropriate ratio (See rule 4 and 8).
+Making rubble available and the destruction/loss of ships/defence units on purpose is also considered pushing.
 
-  "Wars"                    => "After the Leaders of the alliances both agree to the war, it is officially on. And will continue until one of the alliances cancels it. To officially cancel the war they need to cancel the war pact from in-game, and announce it in the thread they started initially.
-While the war is on, the bashing rule between the alliances involved does not count. Meaning any members belonging to the alliances in said war can be attack an infinite amount of times with out punishment.
-If either alliance gives up and cancels the war, the bashing rule will take effect again, and any members breaking it after the war has ended with be punished with a 1 day ban, More if the degree of attack is extremely high.
+Pushing can lead to the loss of all involved accounts. .",    
 
-If the opposing alliance has a fleet in flight. And the war is canceled before they arrive. They will NOT be punished for that attack. But any fleet sent after the war cancellation will count toward the bashing rule.
+	"Provide game-relevant information and services"					=> "In general it is permitted to provide/forward game-relevant information to other players. Demanding a return service is prohibited.
+A claim can be raised in the following situations if a GO was contacted and informed prior to it.
+
+    Information about a parked fleet
+    (A 5% fee of the overall result can be claimed)
+
+    Galaxy-Scanner Information
+    (A 15% fee of the overall result can be claimed if the forwarded information resulted in a successful intercept)
+
+    Recycling-Help
+    (If someone makes his/her Recycler available to other users, he/she gains rights to the processed recycled goods by 20%)
+
+    Trapping – playing the bait
+    (A 30% fee of the overall result can be claimed if someone provokes an attack which leads to a successful counter-attack/intercept)
+
+    Joint venture
+    (Applicable for intercepts on a fleet which is on a station flight only. If 2 players are intercepting a fleet (on target and start planet) and the return-flight can be successfully intercepted the overall result can be shared (50% each).)
 
 
-For New Wars one of the leaders need to create a new thread in the war/diplomacy section.
-There they can set any specific rules or terms, they want for the war. Any rules set in place, and are agreed to by the opposing alliance must be fallowed, and must not contradict any rules set here.",                          
+The result of such an action has to be investigated and confirmed by a GO. The GO will also give permission to deliver the appropriate amount of resources. Variances have to be in accordance with the Pushing and/or Trading rule (rule 3 and 4). Arrangements like this between the players must be provable via the ingame message-system. ",
+
+	"Trading"					=> "Resource trading is allowed. For flexible trading rates, however, the current trading rates should be monitored. A trade must be completed within 24h. The general rules of thumb for trading rates are: 3:2:1 (Metal, Crystal, Deuterium). Trades which go through the general trading rates, may differentiate by 20% of the actual rate. If in doubt please consult your Game Operator. ",
+
+	"Flights"					=> "Outbound flights are not to be longer than 24 hours.
+Exceptions:
+
+    Flights to own planets/asteroids
+    Colonization
+    Escapeflights
+    Attacks where the distance plays a role",
+
+	"Accounts"					=> "The accounts are the property of the operators of the Spaceinvasion website. ",	
 
 );
 
