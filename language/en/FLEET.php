@@ -166,6 +166,7 @@ $LNG['sys_perte_defenseur'] 				= 'Losses defender';
 $LNG['sys_debris'] 							= 'Expanse of rubble';
 $LNG['sys_destruc_title']       		   	= 'The following fleets contrast with themselves to the moon destruction:';
 $LNG['sys_mess_destruc_report']  		  	= 'Report: Destruction of the Moon';
+$LNG['sys_raport_not_found']				= 'Battle Report Invalid ID';
 
 $LNG['sys_destruc_lune']          		 	= 'The probability of a moon destruction is: %d%% ';
 $LNG['sys_destruc_rip']          			= 'The probability of the self-destruction of the fleet is: %d%%';
