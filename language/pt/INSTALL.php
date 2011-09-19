@@ -1,7 +1,7 @@
 <?php
 
 // Traduzido por QwataKayean. Todos os Direitos Reservados © 2010-2011
-
+// Está presente o ACORDO ORTOGRÁFICO DE PORTUGAL PARA 2011 . Mais informações em : http://www.priberam.pt/
 // 2Moons - Copyright (C) 2011  Slaver
  
 $LNG['title_install']			= "Instalador";
@@ -63,5 +63,7 @@ $LNG['step3_admin_mail']		= "Email do Admin:";
 
 $LNG['step4_need_fields']		= "Precisa de completar todos os espaços!";
 
-
+$LNG['sql_universe']         = 'Universo';
+$LNG['sql_close_reason']     = 'O Servidor está indisponível no momento';
+$LNG['sql_welcome']          = 'Bem-vindo';
 ?>

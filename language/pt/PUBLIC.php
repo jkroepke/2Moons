@@ -61,7 +61,7 @@ $LNG['server_register']                = 'Por favor, regista-te agora!';
 $LNG['server_message']                 = 'Registea-te agora e experimenta um novo e emocionante Mundo ';
 $LNG['login']                          = 'Entrar';
 $LNG['disclamer']                      = 'Ficha técnica';
-$LNG['login_info']                     = 'Quando Entrar-se estás`a aceitar as <a onclick="ajax(\'?page=rules&amp;\'+\'getajax=1\');" style="cursor:pointer;">Régras</a> e os <a onclick="ajax(\'?page=agb&amp;\'+\'getajax=1\');" style="cursor:pointer;">T&C</a>';
+$LNG['login_info']                     = 'Quando entrares, estás aceitar as <a onclick="ajax(\'?page=rules&amp;\'+\'getajax=1\');" style="cursor:pointer;">Régras</a> e os <a onclick="ajax(\'?page=agb&amp;\'+\'getajax=1\');" style="cursor:pointer;">T&C</a>';
 
 
 
@@ -199,8 +199,6 @@ $LNG['rules_info1']                    = "Mais informações podem ser encontrad
 $LNG['rules_info2']                    = "Estas são para cumprir obrigatóriamente  <a onclick=\"ajax('?page=agb&getajax=1');\" style=\"cursor:pointer;\">T&C</a> !</font>";
 
 //Termos e Condições
-//Se por acaso nesta página (No seu site) for encontrado isso "%1$s"* , faça Ctrl+F e ponha "%1$s" para procurar e muda para o nome do teu jogo!
-//*Esse comando funciona em browsers apropriados como Firefox 5
 
 $LNG['agb_overview']                   = "Termos e Condições";
 $LNG['agb']                            = array(
@@ -305,7 +303,7 @@ $LNG['agb']                            = array(
         "Condições especiais para (nomeadamente fórum de discussãoe e chat)"                         => array(
                 "O utilizador pode publicar através de diversas possibilidades de comunicação (nomeadamente fórums de discussão, chats, blogs, livros de visitas e semelhantes, assim como no âmbito da função de comentário) conteúdos e artigos próprios nas páginas de Internet deste site. O Administrador só disponibiliza as possibilidades técnicas para a troca de informações.",
                 
-                "O utilizador é o único responsável pelos conteúdos e artigos introduzidos por ele e responsabiliza-se por libertar completamente ao Administrador das reivindicações de terceiros. O Administrador não toma como sua propriedade os conteúdos utilizados pelos utilizadores. No entanto, o utilizador concede Ao Administrador o direito permanente, irrevogável e não exclusivo para a utilização dos conteúdos e artigos por ele ajustados. A equipa de %1$s chama a atenção para o facto de não efectuar uma monitorização activa dos conteúdos ajustados. No entanto, fazem-se verificações aleatórias. Para além disso, qualquer utilizador tem a possibilidade de comunicar à equipa de %1$s os conteúdos que supostamente infringem a lei. A Equipa de %1$s reagirá então o mais rapidamente possível e editará ou apagará os conteúdos comunicados, se necessário.",
+                "O utilizador é o único responsável pelos conteúdos e artigos introduzidos por ele e responsabiliza-se por libertar completamente ao Administrador das reivindicações de terceiros. O Administrador não toma como sua propriedade os conteúdos utilizados pelos utilizadores. No entanto, o utilizador concede Ao Administrador o direito permanente, irrevogável e não exclusivo para a utilização dos conteúdos e artigos por ele ajustados. A equipa de jogo chama a atenção para o facto de não efectuar uma monitorização activa dos conteúdos ajustados. No entanto, fazem-se verificações aleatórias. Para além disso, qualquer utilizador tem a possibilidade de comunicar à equipa de jogo os conteúdos que supostamente infringem a lei. A Equipa de jogo reagirá então o mais rapidamente possível e editará ou apagará os conteúdos comunicados, se necessário.",
                 
                 "Ao utilizador não é permitido publicar ou divulgar, nas páginas de Internet deste site e nomeadamente no âmbito das possibilidades de comunicação aqui disponibilizadas, conteúdos que:
 	         a) Violam a lei em vigor, que são ilegais ou imorais;
@@ -321,14 +319,14 @@ $LNG['agb']                            = array(
                 
                 "Todos os utilizadores das possibilidades de comunicação disponibilizadas nas páginas de Internet dete site têm o dever de escolher palavras aceitáveis. Não é permitida a crítica de injúria ou ataques destrutivos a pessoas.",
                 
-                "Sem prejuízo dos outros direitos de acordo com estas condições de utilização, a equipa deste jog tem o direito de alterar e apagar total ou parcialmente os conteúdos e os artigos que violam estas regras. Além disso, a equipa de %1$s tem o direito de excluir, total ou provisoriamente, os utilizadores que infringem estas regras, da utilização dos jogos online, páginas de Internet deste site e outras ofertas de serviços.",
+                "Sem prejuízo dos outros direitos de acordo com estas condições de utilização, a equipa deste jog tem o direito de alterar e apagar total ou parcialmente os conteúdos e os artigos que violam estas regras. Além disso, a equipa de jogo tem o direito de excluir, total ou provisoriamente, os utilizadores que infringem estas regras, da utilização dos jogos online, páginas de Internet deste site e outras ofertas de serviços.",
         ),
 
 
         "Consequência da violação de deveres" => array(
-                "O A equipa de %1$s não assume responsabilidade por danos que resultam de uma violação de deveres por parte do utilizador.",
+                "O A equipa de jogo não assume responsabilidade por danos que resultam de uma violação de deveres por parte do utilizador.",
                 
-                "Sem prejuízo de todos os outros direitos legais ou contratuais, a equipa de %1$s pode tomar as seguintes medidas, conforme pretendido, se existirem pontos de referência de que um utilizador está a infringir as normas legais, os direitos de terceiros, as presentes condições de utilização ou as condições e regras do jogo complementares aplicáveis:
+                "Sem prejuízo de todos os outros direitos legais ou contratuais, a equipa de jogo pode tomar as seguintes medidas, conforme pretendido, se existirem pontos de referência de que um utilizador está a infringir as normas legais, os direitos de terceiros, as presentes condições de utilização ou as condições e regras do jogo complementares aplicáveis:
 	         a) Alterar e apagar conteúdos,
 	         b) Advertir um utilizador,
 	         c) Publicação do comportamento errado no respectivo jogo online, indicando o nome do utilizador,
@@ -337,7 +335,7 @@ $LNG['agb']                            = array(
 	         f) Decisão de proibição virtual provisória ou permanente de utilização do site nos casos de infracção contra o capítulo 6 ou
 	         g) Rescisão imediata do contrato de utilização.",
                 
-                "Se um utilizador tiver sido bloqueado ou excluído, não pode registar-se novamente sem a autorização prévia da equipa de %1$s. Não existe direito ao levantamento de um bloqueio, de uma exclusão, de uma proibição virtual de utilização do site ou de outras medidas.",                
+                "Se um utilizador tiver sido bloqueado ou excluído, não pode registar-se novamente sem a autorização prévia da equipa de jogo. Não existe direito ao levantamento de um bloqueio, de uma exclusão, de uma proibição virtual de utilização do site ou de outras medidas.",                
         ),
 
 
@@ -352,16 +350,16 @@ $LNG['agb']                            = array(
                 
                 "As possibilidades de contribuição variam de acordo com o jogo online, o país do participante e as possibilidades de contribuição disponíveis no mercado e tecnicamente realizáveis. Ao Admin reserva-se o direito de alterar, a qualquer momento, as possibilidades de contribuição.",
                 
-                "A equipa deste site reserva-se o direito de alterar recompensas para funções internas do jogo (incluindo moedas virtuais). Isto inclui o direito do %1$s de baixar ou aumentar recompensas para funções individuais internas ao jogo.",
+                "A equipa deste site reserva-se o direito de alterar recompensas para funções internas do jogo (incluindo moedas virtuais). Isto inclui o direito do jogo de baixar ou aumentar recompensas para funções individuais internas ao jogo.",
                 
                 "Em caso de atraso, aplicam-se os juros legais. Para além disso, o Administrador está autorizada a bloquear a conta do usuário, a exigir a substituição de um dano e a anular os complementos ganhos pelo utilizador.",
                 
-                "Se a equipa tiver de pagar taxas de agravo ou de anulação devido à culpa do utilizador (também se a conta não tiver saldo suficiente), o utilizador suporta os custos relacionados com isso. Se a contribuição se efectuar através de cobrança de cartão de crédito, surgem débitos de até 50 Euros por cada cobrança de cartão de crédito, adicionando-se as taxas bancárias que surgiram ao site de %1$s. O Admin está autorizada a exigir que um dano seja reparado através de substituição.",
+                "Se a equipa tiver de pagar taxas de agravo ou de anulação devido à culpa do utilizador (também se a conta não tiver saldo suficiente), o utilizador suporta os custos relacionados com isso. Se a contribuição se efectuar através de cobrança de cartão de crédito, surgem débitos de até 50 Euros por cada cobrança de cartão de crédito, adicionando-se as taxas bancárias que surgiram ao site de jogo. O Admin está autorizada a exigir que um dano seja reparado através de substituição.",
         ),
 
         
         "Limitação de responsabilidade"      => array(
-                "O utilizador responsabiliza-se, quanto à infracção que realizou, pelos direitos de terceiros em relação a eles próprios e directamente. O utilizador tem o dever de substituir todos os danos ao %1$s que surgem devido à não observância dos deveres resultantes destas condições de utilização. O utilizador liberta o Admin de todas as reivindicações que outros utilizadores ou outros terceiros fazem em relação ao Admin devido à violação dos seus direitos devido aos conteúdos ajustados pelo utilizador ou devido à violação de outros deveres. O utilizador também assume aqui os custos da defesa legal necessária de %1$s, incluindo todos os custos de tribunal e advogado. Isto não é válido se a violação dos direitos não for da responsabilidade do utilizador.",
+                "O utilizador responsabiliza-se, quanto à infracção que realizou, pelos direitos de terceiros em relação a eles próprios e directamente. O utilizador tem o dever de substituir todos os danos ao jogo que surgem devido à não observância dos deveres resultantes destas condições de utilização. O utilizador liberta o Admin de todas as reivindicações que outros utilizadores ou outros terceiros fazem em relação ao Admin devido à violação dos seus direitos devido aos conteúdos ajustados pelo utilizador ou devido à violação de outros deveres. O utilizador também assume aqui os custos da defesa legal necessária de jogo, incluindo todos os custos de tribunal e advogado. Isto não é válido se a violação dos direitos não for da responsabilidade do utilizador.",
                 
                 "A responsabilidade do Admin, qualquer que seja a razão legal, quer seja devido à violação de deveres contratual ou actuação não permitida determina-se de acordo com os seguintes regulamentos:",
                 

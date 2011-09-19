@@ -463,9 +463,13 @@ $LNG['se_ref_max_referals']				= 'Maximum Referral';
 $LNG['se_ref_max_referals_info']		= 'Maximum number of recruit players from user';
 $LNG['se_silo_factor']					= 'Missile silo size';
 $LNG['se_silo_factor_info']				= 'Factor in the size of the silo';
+$LNG['se_timzone']						= 'Timezone';
 
 //###########################################################//
 
+$LNG['vt_error']					= 'HashFile not avalible! - Update your game!';
+$LNG['vt_fail']						= 'Changed files';
+$LNG['vt_info']						= 'This list contains the files that have been modifying, and do not match the original.<br>If you have not changed the game itself, should you replace the files with the originals.';
 
 //---------------	MODERATION	------------------------//
 //	PERMISSIONS
@@ -611,6 +615,7 @@ $LNG['re_reset_messages']                    		= 'Reset Messages';
 $LNG['re_reset_statpoints']                		= 'Reset Statistics';
 $LNG['re_reset_all']                        		= 'Reset the Universe';
 $LNG['re_reset_excess']                    		= 'Options restarted Successfully!';
+$LNG['mu_vertify']					= 'Vertify Game Content'; 
 //###########################################################//
 
 //---------------	INFORMACI�N DE CUENTAS - DATA ACCOUNTS	------------------------//
