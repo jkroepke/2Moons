@@ -421,9 +421,7 @@ $LNG['tr_call_trader']						= 'Contact Trader';
 $LNG['tr_call_trader_who_buys']				= 'Contact Trader who buys';
 $LNG['tr_call_trader_submit']				= 'Contact Trader submit';
 $LNG['tr_exchange_quota']					= 'The exchange rate is 2/1/0.5';
-$LNG['tr_sell_metal']						= 'Sell Metal';
-$LNG['tr_sell_crystal']						= 'Sell Crystal';
-$LNG['tr_sell_deuterium']					= 'Sell Deuterium';
+$LNG['tr_sell']								= 'Trade with';
 $LNG['tr_resource']							= 'Resource';
 $LNG['tr_amount']							= 'Quantity';
 $LNG['tr_quota_exchange']					= 'Exchange rate';
@@ -855,7 +853,11 @@ $LNG['op_user_name_no_alphanumeric']		= 'Please enter the username only alphanum
 $LNG['op_change_name_pro_week']				= 'Can you change your user name only 1x per week';
 $LNG['op_change_name_exist']				= 'The name %s already exists';
 $LNG['op_active_build_messages']			= 'Build queue news';
-$LNG['op_small_storage']                    = 'Shorten storage numbers shown';
+$LNG['op_dst_mode']							= 'Daylight Saving Time?';
+$LNG['op_dst_mode_sel'][0]					= 'No';
+$LNG['op_dst_mode_sel'][1]					= 'Yes';
+$LNG['op_dst_mode_sel'][2]					= 'Auto';
+$LNG['op_timezone']							= 'Timezone';
 
 //----------------------------------------------------------------------------//
 //BANNED

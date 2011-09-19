@@ -50,6 +50,7 @@ $LNG['step2_conf_op_fail']	= 'config.php was not CHMOD 777!';
 $LNG['step2_db_connet_ok']	= 'Database connection successful...';
 $LNG['step2_db_create_ok']	= 'Database tables created successfully...';
 $LNG['step2_conf_create']	= 'config.php created successfully...';
+$LNG['step2_prefix_invalid']	= 'Your database prefix is invaliv. Only alphanueric chars are allowed.';
 
 $LNG['step3_create_admin']	= 'Creation of admin account';
 $LNG['step3_admin_name']	= 'Administrator Username:';
@@ -58,5 +59,8 @@ $LNG['step3_admin_mail']	= 'Administrator E-Mail Adress:';
 
 
 $LNG['step4_need_fields']	= 'You have to fill out all fields!';
-		
+
+$LNG['sql_universe']		= "Universe";
+$LNG['sql_close_reason']	= "Game is currently on maintrace";
+$LNG['sql_welcome']			= "Welcome on ";
 ?>
