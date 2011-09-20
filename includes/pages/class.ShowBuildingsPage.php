@@ -295,17 +295,16 @@ class ShowBuildingsPage
 			{
 				$BuildLevel	= $PLANET[$resource[$Element]];
 				$Need		= floor(eval($ProdGrid[$Element]['energy']) * $CONF['resource_multiplier']) * (1 + ($USER['rpg_ingenieur'] * 0.05));
-				$BuildLevel	+= $Queue[1][$Element] + 1;
+				$BuildLevel	+= 1;
 				$Prod		= floor(eval($ProdGrid[$Element]['energy']) * $CONF['resource_multiplier']) * (1 + ($USER['rpg_ingenieur'] * 0.05));
 				$EnergyNeed	= $Prod - $Need;
 				unset($Need, $BuildLevel, $Prod);
 			}
 			
-			$PLANET[$resource[$Element]] += ($Queue[1][$Element] + 1);
 			$BuildInfoList[]	= array(
 				'id'			=> $Element,
-				'baselevel'		=> $PLANET[$resource[$Element]] - ($Queue[1][$Element] + 1),
-				'level'			=> $PLANET[$resource[$Element]],
+				'baselevel'		=> $PLANET[$resource[$Element]],
+				'level'			=> $PLANET[$resource[$Element]] + 1,
 				'destroyress'	=> array_map('pretty_number', GetBuildingPrice($USER, $PLANET, $Element, true, true)),
 				'destroytime'	=> pretty_time(GetBuildingTime($USER, $PLANET, $Element, true)),
 				'price'			=> GetElementPrice($USER, $PLANET, $Element, true),
@@ -314,7 +313,6 @@ class ShowBuildingsPage
 				'restprice'		=> $this->GetRestPrice($Element),
 				'buyable'		=> $QueueCount != 0 || IsElementBuyable($USER, $PLANET, $Element, true, false),
 			);
-			$PLANET[$resource[$Element]] -= ($Queue[1][$Element] + 1);
 		}
 
 		$template			= new template();

@@ -246,11 +246,11 @@ class FlyingFleetsTable
 		}
 		$EventString = '<span class="'.$FleetStatus[$Status].' '.$FleetType.'">'.$EventString.'</span>';
 		if ($Status == 0)
-			$Time	 = $FleetRow['fleet_start_time'];
+			$Time	 = tz_date($FleetRow['fleet_start_time'], 'U');
 		elseif ($Status == 1)
-			$Time	 = $FleetRow['fleet_end_time'];
+			$Time	 = tz_date($FleetRow['fleet_end_time'], 'U');
 		elseif ($Status == 2)
-			$Time	 = $FleetRow['fleet_end_stay'];
+			$Time	 = tz_date($FleetRow['fleet_end_stay'], 'U');
 		$Rest	 = $Time - TIMESTAMP;
 		return array($Rest, $EventString, $Time);
 	}
