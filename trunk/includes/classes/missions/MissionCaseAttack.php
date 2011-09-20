@@ -208,9 +208,9 @@ class MissionCaseAttack extends MissionFunctions
 		$ShootMetal			= $result['debree']['att'][0] + $result['debree']['def'][0];
 		$ShootCrystal		= $result['debree']['att'][1] + $result['debree']['def'][1];
 		$FleetDebris		= $ShootMetal + $ShootCrystal;
-		$DerbisMetal		= $targetPlanet['der_metal']+ $ShootMetal;
-		$DerbisCrystal		= $targetPlanet['der_crystal']+ $ShootCrystal;		
-		$MoonChance       	= min(round($FleetDebris / 100000 *  $GLOBALS['CONFIG'][$this->_fleet['fleet_universe']]['moon_factor'], 0), $GLOBALS['CONFIG'][$this->_fleet['fleet_universe']]['moon_chance']);
+		$DerbisMetal		= $targetPlanet['der_metal'] + $ShootMetal;
+		$DerbisCrystal		= $targetPlanet['der_crystal'] + $ShootCrystal;		
+		$MoonChance       	= min(round($FleetDebris / 100000 * $GLOBALS['CONFIG'][$this->_fleet['fleet_universe']]['moon_factor'], 0), $GLOBALS['CONFIG'][$this->_fleet['fleet_universe']]['moon_chance']);
 		$UserChance 		= mt_rand(1, 100);
 		
 		if ($targetPlanet['planet_type'] == 1 && $targetPlanet['id_luna'] == 0 && $MoonChance > 0 && $UserChance <= $MoonChance)

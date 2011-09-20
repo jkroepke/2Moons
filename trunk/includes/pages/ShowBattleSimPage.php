@@ -100,7 +100,8 @@ function ShowBattleSimPage()
 		$StrDefenderUnits 	= sprintf($LNG['sys_defender_lostunits'], $result['lost']['def']);
 		$StrRuins         	= sprintf($LNG['sys_gcdrunits'], $result['debree']['def'][0] + $result['debree']['att'][0], $LNG['Metal'], $result['debree']['def'][1] + $result['debree']['att'][1], $LNG['Crystal']);
 		$DebrisField      	= $StrAttackerUnits ."<br>". $StrDefenderUnits ."<br>". $StrRuins;
-		$MoonChance       	= min(round($FleetDebris / 100000, 0), 20);
+		$MoonChance       	= min(round($FleetDebris / 100000 * $CONF['moon_factor'], 0), $CONF['moon_chance']);
+		
 		$AllSteal			= array_sum($steal);
 		
 		$RaportInfo			= sprintf($LNG['bs_derbis_raport'], 
