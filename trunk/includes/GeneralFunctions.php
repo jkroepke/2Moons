@@ -114,13 +114,19 @@ function tz_date($time, $Dateformat = '') {
 	
 	if(isset($GLOBALS['USER'])) {
 		$timezone	= (float) $GLOBALS['USER']['timezone'];
-		if($GLOBALS['USER']['dst'] != 2)
-			$DST	= $GLOBALS['USER']['dst'];
+		$DST	= $GLOBALS['USER']['dst'];
 	} elseif(isset($_SESSION['USER'])) {
 		$timezone	= (float) $_SESSION['USER']['timezone'];
-		if($_SESSION['USER']['dst'] != 2)
-			$DST	= $_SESSION['USER']['dst'];
-	}		
+		$DST	= $_SESSION['USER']['dst'];
+	}
+	
+	if($DST == 2) {
+		$OLD	= date_default_timezone_get();
+		date_default_timezone_set(timezone_name_from_abbr("", $timezone, 0));
+		$DST	= (int) date("I");
+		date_default_timezone_set($OLD);
+	}
+	
 	$DST		-= $UTCDST;
 	if(empty($Dateformat))
 		$Dateformat	= $GLOBALS['LNG']['php_tdformat'];
