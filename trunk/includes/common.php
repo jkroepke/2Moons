@@ -91,8 +91,8 @@ else
 	require_once(ROOT_PATH.'includes/vars.php');
 	
 $CONF	= getConfig($UNI);
+date_default_timezone_set(timezone_name_from_abbr("", $CONF['timezone'], 0));
 $LANG->setDefault($CONF['lang']);
-	
 require(ROOT_PATH.'includes/libs/FirePHP/FirePHP.class.php');
 require(ROOT_PATH.'includes/libs/FirePHP/fb.php');
 $FirePHP	= FirePHP::getInstance(true);
