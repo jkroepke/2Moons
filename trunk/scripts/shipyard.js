@@ -19,7 +19,7 @@ function BuildlistShipyard() {
 	if (s <= 0) {
 		Amount.sub('1');
 		$('#val_'+Shipyard[0][3]).text(function(i, old){
-			return ' ('+bd_available+NumberGetHumanReadable(parseInt(old.replace(/.* (.*)\)/, '$1'))+1)+')';
+			return ' ('+bd_available+NumberGetHumanReadable(parseInt(old.replace(/.* (.*)\)/, '$1').replace(/\./, ''))+1)+')';
 		})
 		if (Amount.toString() == '0') {
 			Shipyard.shift();

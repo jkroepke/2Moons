@@ -51,7 +51,7 @@ class ResourceUpdate
 	}
 	
 	public function CreateHash() {
-		global $reslist;
+		global $reslist, $resource;
 		$Hash	= array();
 		$Hash[]	= $this->CONF['metal_basic_income'];
 		$Hash[]	= $this->CONF['crystal_basic_income'];
@@ -220,16 +220,17 @@ class ResourceUpdate
 				$BuildLevel 							= $this->PLANET[$resource[$ProdID]];
 				$this->PLANET['metal_proc'][$ProdID]	= round(eval($ProdGrid[$ProdID]['metal'])     * $this->CONF['resource_multiplier']);
 				$this->PLANET['crystal_proc'][$ProdID]	= round(eval($ProdGrid[$ProdID]['crystal'])   * $this->CONF['resource_multiplier']);
-			
-				if ($ProdID < 4) {
+				
+				$Energy	= round(eval($ProdGrid[$ProdID]['energy']) * ($this->CONF['resource_multiplier']));
+				if ($Energy < 0) {
 					$this->PLANET['deuterium_proc'][$ProdID]		= round(eval($ProdGrid[$ProdID]['deuterium']) * $this->CONF['resource_multiplier']);
-					$this->PLANET['energy_used_proc'][$ProdID]		= round(eval($ProdGrid[$ProdID]['energy']) * ($this->CONF['resource_multiplier']));
+					$this->PLANET['energy_used_proc'][$ProdID]		= $Energy;
 				} else {
 					if($ProdID == 12 && $this->PLANET['deuterium'] == 0)
 						continue;
 
 					$this->PLANET['deuterium_userd_proc'][$ProdID]	= round(eval($ProdGrid[$ProdID]['deuterium']) * ($this->CONF['resource_multiplier']));
-					$this->PLANET['energy_max_proc'][$ProdID]		= round(eval($ProdGrid[$ProdID]['energy']) * ($this->CONF['resource_multiplier']));
+					$this->PLANET['energy_max_proc'][$ProdID]		= $Energy;
 				}
 			}
 
