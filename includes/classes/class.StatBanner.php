@@ -30,7 +30,7 @@
 class StatBanner {
 
 	private $textcolor = "00FFFF";
-	private $source = "styles/images/banner.png";
+	private $source = "styles/images/banner.jpg";
 	
 	// Function to center text in the created banner
 	private function CenterTextBanner($z,$y,$zone) {
@@ -50,7 +50,7 @@ class StatBanner {
 
 	public function CreateBanner($Query) {
 		global $LNG;
-		$image 	= imagecreatefrompng($this->source);
+		$image 	= imagecreatefromjpeg($this->source);
 		$date  	= date($LNG['php_dateformat'], TIMESTAMP);
 
 		// Variables
@@ -90,10 +90,10 @@ class StatBanner {
 		imagestring($image, 2, 15,  60, $b_total,  $select);
 
 		if(!isset($_GET['debug']))
-			header("Content-type: image/png");
+			header("Content-type: image/jpg");
 			
 		// Creat and delete banner
-		ImagePNG($image);
+		ImageJPEG($image);
 		imagedestroy($image);
 	}
 	
