@@ -23,7 +23,7 @@
 </tr>
 {foreach item=OpsInfo from=$OpsList}
 <tr>
-<td colspan="11">{$OpsInfo.username}<a href="mailto:{$OpsInfo.email}" title="Schreibe eine Mail an {$OpsInfo.username}"><img src="{$dpath}img/m.gif" alt="Schreibe eine Mail an {$OpsInfo.username}"></a></td>
+<td colspan="11">{$OpsInfo.username}<a href="mailto:{$OpsInfo.email}" title="{lang}mg_write_mail_to_ops{/lang} {$OpsInfo.username}"><img src="{$dpath}img/m.gif" alt="{lang}mg_write_mail_to_ops{/lang} {$OpsInfo.username}"></a></td>
 </tr>
 {/foreach}
 </table>

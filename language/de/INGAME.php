@@ -512,6 +512,7 @@ $LNG['mg_game_message']						= 'Game Message';
 $LNG['mg_message_send']						= 'Nachricht gesendet!';
 $LNG['mg_empty_text']						= 'Gebe ein Text ein!';
 $LNG['mg_answer_to']						= 'Antwort an:';
+$LNG['mg_write_mail_to_ops']				= 'Schreibe eine E-Mail an';
 
 //----------------------------------------------------------------------------//
 //ALLIANCE

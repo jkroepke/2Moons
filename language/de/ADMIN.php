@@ -614,7 +614,7 @@ $LNG['mu_news']						= 'News';
 $LNG['mu_multiip_page']				= 'MultiIP'; 
 $LNG['mu_clear_cache']				= 'Lösche Cache'; 
 $LNG['mu_vertify']					= 'Vertify Game Content'; 
-
+$LNG['mu_logs']						= 'Admin-Log';
 
 $LNG['vt_error']					= 'HashFile ist nicht verfügbar! - Update durchführen!';
 $LNG['vt_fail']						= 'Geänderte Dateien';
