@@ -1,1 +1,1 @@
-ALTER TABLE `uni1_config` ADD `dst` ENUM( '0', '1', '2' ) NOT NULL DEFAULT '0';
+ALTER TABLE `prefix_config` ADD `dst` ENUM( '0', '1', '2' ) NOT NULL DEFAULT '0';
