@@ -84,11 +84,6 @@ define('PLANET_ROWS_ON_OVERVIEW'  , 2);
 // Max. User Session in Seconds
 define('SESSION_LIFETIME'		  , 43200);
 
-// Max. User Session in Seconds
-define('TIMEFORMAT'				  , 'H:i:s');
-define('DATEFORMAT'				  , 'd. M Y');
-define('TDFORMAT'				  , 'd. M Y, H:i:s');
-
 // DISCLAMER INFOS
 define('DICLAMER_NAME'            , "Edit constans.php!");
 define('DICLAMER_ADRESS1'         , "Edit constans.php!");
@@ -97,10 +92,17 @@ define('DICLAMER_TEL'     		  , "Edit constans.php!");
 define('DICLAMER_EMAIL'    		  , "Edit constans.php!");
 
 // UTF-8 Support for Names (Requried for non-english Chars!)
-define('UTF8_SUPPORT'          	  , true);	
+define('UTF8_SUPPORT'          	  , true);
+
+// EventHandler Settings. Not in use!
+define('EH_ACTIVE_ECO' 		 	  , BETA);
+define('EH_ACTIVE_FLEETS'   	  , BETA);
 
 // Root IDs
+define('ROOT_UNI'        	  	  , 1);	
+define('ROOT_USER'          	  , 1);	
 
+// Root IDs
 define('ROOT_UNI'        	  	  , 1);	
 define('ROOT_USER'          	  , 1);	
 

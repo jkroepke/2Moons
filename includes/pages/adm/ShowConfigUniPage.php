@@ -165,6 +165,16 @@ function ShowConfigUniPage()
 		$CONF['silo_factor']			= request_var('silo_factor', 0);
 		$CONF['ref_max_referals']		= request_var('ref_max_referals', 0);
 		
+		
+		if($CONF['game_speed'] == 0)
+			$CONF['game_speed'] = 1;
+		if($CONF['fleet_speed'] == 0)
+			$CONF['fleet_speed'] = 1;
+		if($CONF['resource_multiplier'] == 0)
+			$CONF['resource_multiplier'] = 1;
+		if($CONF['halt_speed'] == 0)
+			$CONF['halt_speed'] = 1;
+		
 		$config_after = array(
 			'noobprotectiontime'	=> $CONF['noobprotectiontime'],
 			'noobprotectionmulti'	=> $CONF['noobprotectionmulti'],

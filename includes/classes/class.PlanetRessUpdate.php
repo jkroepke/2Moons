@@ -72,14 +72,14 @@ class ResourceUpdate
 	}
 	
 	public function CalcResource($USER = NULL, $PLANET = NULL, $SAVE = false, $TIME = NULL, $HASH = true)
-	{
+	{			
 		$this->GLOBALS	= !isset($USER, $PLANET) ? true : false;
 		$this->USER		= $this->GLOBALS ? $GLOBALS['USER'] : $USER;
 		$this->PLANET	= $this->GLOBALS ? $GLOBALS['PLANET'] : $PLANET;
 		$this->TIME		= is_null($TIME) ? TIMESTAMP : $TIME;
 		$this->CONF		= getConfig($this->USER['universe']);
 		
-		if($this->USER['urlaubs_modus'] == 1)
+		if(EH_ACTIVE_ECO === true || $this->USER['urlaubs_modus'] == 1)
 			return $this->ReturnVars();
 			
 		if($this->Build)
@@ -90,7 +90,7 @@ class ResourceUpdate
 			if($this->PLANET['b_building'] != 0)
 				$this->BuildingQueue();
 		}
-	
+		
 		$this->UpdateRessource($this->TIME, $HASH);
 			
 		if($SAVE === true)
