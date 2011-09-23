@@ -61,7 +61,7 @@ class records
 	function BuildRecordCache() 
 	{
 		$Elements	= array_merge($GLOBALS['reslist']['build'], $GLOBALS['reslist']['tech'], $GLOBALS['reslist']['fleet'], $GLOBALS['reslist']['defense']);
-		$PHP		= "<?php \n//The File is created on ".date(TDFORMAT, TIMESTAMP)."\n$"."RecordsArray = array(\n";
+		$PHP		= "<?php \n//The File is created on ".date('d. M Y, H:i:s', TIMESTAMP)."\n$"."RecordsArray = array(\n";
 		foreach($this->maxinfos as $Uni	=> $Records) {
 			$PHP	.= "\t".$Uni." => array(\n";
 			foreach($Elements as $ElementID) {

@@ -81,7 +81,7 @@ function ShowRecordsPage()
 	
 	$template->assign_vars(array(	
 		'Records'	 	=> $Records,
-		'update'		=> sprintf($LNG['rec_last_update_on'],date(TDFORMAT,$CONF['stat_last_update'])),
+		'update'		=> sprintf($LNG['rec_last_update_on'], date($LNG['php_tdformat'], $CONF['stat_last_update'])),
 		'level'			=> $LNG['rec_level'],
 		'player'		=> $LNG['rec_playe'],
 	));

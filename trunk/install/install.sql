@@ -392,15 +392,15 @@ CREATE TABLE `prefix_planets` (
   `temp_min` int(3) NOT NULL DEFAULT '-17',
   `temp_max` int(3) NOT NULL DEFAULT '23',
   `eco_hash` varchar(32) NOT NULL DEFAULT '',
-  `metal` double(50,0) unsigned NOT NULL DEFAULT '0',
-  `metal_perhour` double(50,0) unsigned NOT NULL DEFAULT '0',
+  `metal` double(50,6) unsigned NOT NULL DEFAULT '0',
+  `metal_perhour` double(50,6) unsigned NOT NULL DEFAULT '0',
   `metal_max` double(50,0) unsigned DEFAULT '100000',
-  `crystal` double(50,0) unsigned NOT NULL DEFAULT '0',
-  `crystal_perhour` double(50,0) unsigned NOT NULL DEFAULT '0',
+  `crystal` double(50,6) unsigned NOT NULL DEFAULT '0',
+  `crystal_perhour` double(50,6) unsigned NOT NULL DEFAULT '0',
   `crystal_max` double(50,0) unsigned DEFAULT '100000',
-  `deuterium` double(50,0) unsigned NOT NULL DEFAULT '0',
+  `deuterium` double(50,6) unsigned NOT NULL DEFAULT '0',
   `deuterium_used` int(11) unsigned NOT NULL DEFAULT '0',
-  `deuterium_perhour` double(50,0) unsigned NOT NULL DEFAULT '0',
+  `deuterium_perhour` double(50,6) unsigned NOT NULL DEFAULT '0',
   `deuterium_max` double(50,0) unsigned DEFAULT '100000',
   `energy_used` double(50,0) NOT NULL DEFAULT '0',
   `energy_max` double(50,0) unsigned NOT NULL DEFAULT '0',
@@ -676,7 +676,7 @@ CREATE TABLE `prefix_users_valid` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO `prefix_config` (`uni`, `VERSION`, `uni_name`, `game_name`, `close_reason`, `OverviewNewsText`, `moduls`) VALUES
-(1, '1.5.1990', '[LANG]universum[/LANG] 1', '2Moons', '[LANG]close_reason[/LANG]', '[LANG]welcome[/LANG] 2Moons v1.5!', '1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1');
+(1, '1.5.1992', '[LANG]universum[/LANG] 1', '2Moons', '[LANG]close_reason[/LANG]', '[LANG]welcome[/LANG] 2Moons v1.5!', '1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1');
 
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
