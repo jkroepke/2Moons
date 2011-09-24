@@ -182,7 +182,7 @@ class MissionCaseSpy extends MissionFunctions
 				$String  = '
 				<table style="width:100%;"><tr><th colspan="5">
 				<a href="game.php?page=galaxy&mode=3&galaxy='. $TargetPlanet['galaxy'] .'&system='. $TargetPlanet['system']. '">
-				'.sprintf($TitleString, $TargetPlanet['name'], $TargetPlanet['galaxy'], $TargetPlanet['system'], $TargetPlanet['planet'], tz_date($this->_fleet['fleet_end_time'], $LNG['php_tdformat'])) .'</th>
+				'.sprintf($TitleString, $TargetPlanet['name'], $TargetPlanet['galaxy'], $TargetPlanet['system'], $TargetPlanet['planet'], tz_date($this->_fleet['fleet_end_time'], $LNG['php_tdformat'], $LNG)) .'</th>
                 </tr><tr>
                 <td style="width:25%;" class="left transparent">'. $LNG['Metal'] .'</td><td style="width:25%;" class="left transparent">'. pretty_number($TargetPlanet['metal']) .'</td><td class="transparent">&nbsp;</td>
                 <td style="width:25%;" class="left transparent">'. $LNG['Crystal']   .'</td><td style="width:25%;" class="left transparent">'. pretty_number($TargetPlanet['crystal'])    .'</td>
