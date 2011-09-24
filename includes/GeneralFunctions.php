@@ -106,12 +106,14 @@ function getPlanets($USER)
 	return $Planets;
 }
 
-function tz_date($time, $Dateformat = '') {
+function tz_date($time, $Dateformat = '', $LNG = array()) {
 	$UTCDate 	= strtotime(gmdate("M d Y H:i:s", $time));
 	$DST		= $GLOBALS['CONF']['dst'];
 	$UTCDST		= (int) gmdate("I");
 	$timezone	= ($time - $UTCDate) / 3600;
-	
+	if(empty($LNG))
+		$LNG	= $GLOBALS['LNG'];
+		
 	if(isset($GLOBALS['USER'])) {
 		$timezone	= (float) $GLOBALS['USER']['timezone'];
 		$DST	= $GLOBALS['USER']['dst'];
@@ -129,11 +131,11 @@ function tz_date($time, $Dateformat = '') {
 	
 	$DST		-= $UTCDST;
 	if(empty($Dateformat))
-		$Dateformat	= $GLOBALS['LNG']['php_tdformat'];
+		$Dateformat	= $LNG['php_tdformat'];
 		
 	$UTCTime	= $UTCDate + (($timezone + $DST) * 3600);
 	$Dateformat	= str_replace(array('D', 'M'), array("XXX", "YYY"), $Dateformat);
-	$Dateformat	= str_replace(array("XXX", "YYY"), array(addcslashes($GLOBALS['LNG']['week_day'][(date('w', $UTCTime))], 'A..z'), addcslashes($GLOBALS['LNG']['months'][(date('n', $UTCTime) - 1)], 'A..z')), $Dateformat);
+	$Dateformat	= str_replace(array("XXX", "YYY"), array(addcslashes($LNG['week_day'][(date('w', $UTCTime))], 'A..z'), addcslashes($LNG['months'][(date('n', $UTCTime) - 1)], 'A..z')), $Dateformat);
 
 	return date($Dateformat, $UTCTime);
 }
