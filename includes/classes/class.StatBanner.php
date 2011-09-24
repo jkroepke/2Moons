@@ -99,7 +99,7 @@ class StatBanner {
 	
 	public function CreateUTF8Banner($Query) {
 		global $LNG, $LANG;
-		$image  	= imagecreatefrompng($this->source);
+		$image  	= imagecreatefromjpeg($this->source);
 		$date  		= date($LNG['php_dateformat'], TIMESTAMP);
 
 		$Font		= $Query['ttf_file'];
@@ -144,9 +144,9 @@ class StatBanner {
         imagettftext($image, 10, 0, 15,  66, $select, $Font, LanguageConv::ToCyrillic($b_total));
 				
 		if(!isset($_GET['debug']))
-			header("Content-type: image/png");
+			header("Content-type: image/jpg");
 			
-		ImagePNG($image);
+		ImageJPEG($image);
 		imagedestroy($image);
 	}
 }
