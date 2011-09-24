@@ -62,7 +62,7 @@ class template extends Smarty
 	
 	private function Menus()
 	{
-		global $PLANET, $LNG, $USER, $CONF, $resource;
+		global $PLANET, $LNG, $USER, $CONF, $resource, $db;
 		
 		//PlanetMenu
 		if(isset($USER['PLANETS']))
