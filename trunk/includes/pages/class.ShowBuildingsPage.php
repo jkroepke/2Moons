@@ -131,7 +131,7 @@ class ShowBuildingsPage
 			if ($ID < $QueueID - 1) {
 				$NewQueueArray[]	= $ListIDArray;
 			} else {
-				if($Element == $ListIDArray[0])
+				if($Element == $ListIDArray[0] || empty($ListIDArray[0]))
 					continue;
 
 				$BuildEndTime       += GetBuildingTime($USER, $CPLANET, $ListIDArray[0]);
@@ -139,7 +139,11 @@ class ShowBuildingsPage
 				$NewQueueArray[]	= $ListIDArray;				
 			}
 		}
-		$PLANET['b_building_id'] = serialize($NewQueueArray);
+		if(!empty($NewQueueArray))
+			$PLANET['b_building_id'] = serialize($NewQueueArray);
+		else
+			$PLANET['b_building_id'] = "";
+			
 		FirePHP::getInstance(true)->log("Queue(Build): ".$PLANET['b_building_id']);
 	}
 

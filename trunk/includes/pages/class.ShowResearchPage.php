@@ -181,7 +181,11 @@ class ShowResearchPage
 			}
 		}
 		
-		$USER['b_tech_queue'] = serialize($NewCurrentQueue);
+		if(!empty($NewCurrentQueue))
+			$USER['b_tech_queue'] = serialize($NewCurrentQueue);
+		else
+			$USER['b_tech_queue'] = "";
+			
 		FirePHP::getInstance(true)->log("Queue(Tech): ".$USER['b_tech_queue']);
 	}
 
