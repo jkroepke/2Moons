@@ -99,10 +99,9 @@ class ShowResearchPage
 		$USER['b_tech_id']			= 0;
 		$USER['b_tech']      		= 0;
 		$USER['b_tech_planet']		= 0;
-	
-		$CanceledIDArray     = $CurrentQueue[0];
 
 		array_shift($CurrentQueue);
+
 		if (count($CurrentQueue) == 0) {
 			$USER['b_tech_queue']	= '';
 			$USER['b_tech_planet']	= 0;
@@ -113,7 +112,7 @@ class ShowResearchPage
 			$NewCurrentQueue	= array();
 			foreach($CurrentQueue as $ListIDArray)
 			{
-				if($Element == $ListIDArray[0])
+				if($Element == $ListIDArray[0] || empty($ListIDArray[0]))
 					continue;
 					
 				if($ListIDArray[4] != $PLANET['id'])
@@ -154,6 +153,9 @@ class ShowResearchPage
 		if ($ActualCount <= 1)
 			return $this->CancelBuildingFromQueue($PlanetRess);
 
+		if(!isset($CurrentQueue[$QueueID - 2]))
+			return;
+			
 		$Element 		= $CurrentQueue[$QueueID - 2][0];
 		$BuildEndTime	= $CurrentQueue[$QueueID - 2][3];
 		unset($CurrentQueue[$QueueID - 1]);
