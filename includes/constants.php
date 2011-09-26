@@ -102,10 +102,6 @@ define('EH_ACTIVE_FLEETS'   	  , BETA);
 define('ROOT_UNI'        	  	  , 1);	
 define('ROOT_USER'          	  , 1);	
 
-// Root IDs
-define('ROOT_UNI'        	  	  , 1);	
-define('ROOT_USER'          	  , 1);	
-
 // AdminAuthlevels
 define('AUTH_ADM'                 , 3);
 define('AUTH_OPS'                 , 2);
