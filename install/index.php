@@ -148,7 +148,7 @@ switch ($Mode) {
 			$error	= true;
 			$ftp	= true;
 		}
-		$directories = array('cache/', 'cache/sessions/', 'includes/', 'install/', 'raports/', 'raports/raport', 'raports/topkb');
+		$directories = array('cache/', 'cache/sessions/', 'includes/', 'install/');
 		$dirs = "";
 		foreach ($directories as $dir)
 		{
@@ -222,9 +222,6 @@ switch ($Mode) {
 				$ftp->chmod('cache/sessions', $CHMOD);
 				$ftp->chmod('includes', $CHMOD);
 				$ftp->chmod('install', $CHMOD);
-				$ftp->chmod('raports', $CHMOD);
-				$ftp->chmod('raports/raport', $CHMOD);
-				$ftp->chmod('raports/topkb', $CHMOD);
 				exit;
 			break;
 			case 'install':

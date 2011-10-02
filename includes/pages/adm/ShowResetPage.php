@@ -117,17 +117,8 @@ function ShowResetPage()
 		if ($_POST['notes']	==	'on')
 			$db->query("DELETE FROM ".NOTES." WHERE `universe` = '".$_SESSION['adminuni']."';");
 
-		if ($_POST['rw']	==	'on'){
-			$TKBRW			= $db->query("SELECT `rid` FROM ".TOPKB." WHERE `universe` = '".$_SESSION['adminuni']."';");
-		
-			if(isset($TKBRW))
-			{
-				while($RID = $db->fetch_array($TKBRW)) {
-					@unlink(ROOT_PATH.'raports/topkb_'.$RID['rid'].'.php');
-				}
-				$db->query("DELETE FROM ".TOPKB." WHERE `universe` = '".$_SESSION['adminuni']."';");		
-			}
-		}
+		if ($_POST['rw']	==	'on')
+			$db->query("DELETE FROM ".TOPKB." WHERE `universe` = '".$_SESSION['adminuni']."';");
 
 		if ($_POST['friends']	==	'on')
 			$db->query("DELETE FROM ".BUDDY." WHERE `universe` = '".$_SESSION['adminuni']."';");

@@ -94,39 +94,17 @@ class statbuilder extends records
 		}
 		
 		$db->free_result($ChooseToDelete);
-
-		$DelRW	= $db->query("SELECT `rid` FROM ".RW." WHERE `time` < '". $del_before ."';");
-		
-		if($db->num_rows($DelRW) !== 0)
-		{
-			while($RID = $db->fetch_array($DelRW))
-			{
-				if(file_exists(ROOT_PATH.'raports/raport/'.$RID['rid'].'.php'))
-					unlink(ROOT_PATH.'raports/raport/'.$RID['rid'].'.php');
-			}	
-			$db->query("DELETE FROM ".RW." WHERE `time` < '". $del_before ."';");
-		}
-		$db->free_result($DelRW);
 		
 		foreach($this->Unis as $Uni)
 		{
 			$TopKBLow		= $db->uniquequery("SELECT gesamtunits FROM ".TOPKB." WHERE `universe` = ".$Uni." ORDER BY gesamtunits DESC LIMIT 99,1;");
-			
 			if(isset($TopKBLow))
-			{
-				$TKBRW			= $db->query("SELECT `rid` FROM ".TOPKB." WHERE `universe` = ".$Uni." AND `gesamtunits` < '".((isset($TopKBLow)) ? $TopKBLow['gesamtunits'] : 0)."';");	
-				if(isset($TKBRW))
-				{
-					while($RID = $db->fetch_array($TKBRW))
-					{
-						if(file_exists(ROOT_PATH.'raports/topkb/'.$RID['rid'].'.php'))
-							unlink(ROOT_PATH.'raports/topkb/'.$RID['rid'].'.php');
-					}	
-					$db->query("DELETE FROM ".TOPKB." WHERE `universe` = ".$Uni." AND `gesamtunits` < '".((isset($TopKBLow)) ? $TopKBLow['gesamtunits'] : 0)."';");
-				}
-				$db->free_result($TKBRW);
-			}
+				$db->query("DELETE FROM ".TOPKB." WHERE `universe` = ".$Uni." AND `units` < ".$TopKBLow['gesamtunits'].";");
+				
+			$db->free_result($TKBRW);
 		}
+
+		$db->query("DELETE FROM ".RW." WHERE `time` < ". $del_before ." AND NOT IN (SELECT `rid` FROM ".TOPKB.");");
 		$db->query("UNLOCK TABLES;");
 	}
 	

@@ -472,11 +472,12 @@ CREATE TABLE `prefix_planets` (
   KEY `universe` (`universe`,`galaxy`,`system`,`planet`,`planet_type`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
-CREATE TABLE `prefix_rw` (
-  `owners` varchar(255) NOT NULL,
-  `rid` varchar(32) NOT NULL,
-  `time` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`rid`)
+CREATE TABLE `prefix_raports` (
+  `rid` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `raport` text NOT NULL,
+  `time` int(11) NOT NULL,
+  PRIMARY KEY (`rid`),
+  KEY `time` (`time`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `prefix_session` (
@@ -531,18 +532,17 @@ CREATE TABLE `prefix_supp` (
   KEY `universe` (`universe`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+
+
 CREATE TABLE `prefix_topkb` (
-  `id_owner1` int(11) unsigned NOT NULL,
-  `angreifer` varchar(64) NOT NULL DEFAULT '',
-  `id_owner2` int(11) unsigned NOT NULL,
-  `defender` varchar(64) NOT NULL DEFAULT '',
-  `gesamtunits` double(50,0) unsigned NOT NULL,
-  `rid` varchar(32) NOT NULL,
-  `fleetresult` enum('r','a','w') NOT NULL,
-  `time` int(11) unsigned NOT NULL DEFAULT '0',
+  `rid` int(11) unsigned NOT NULL,
+  `attackers` tinytext NOT NULL,
+  `defenders` tinyint(4) NOT NULL,
+  `units` double(50,0) unsigned NOT NULL,
+  `result` varchar(1) NOT NULL,
+  `time` int(11) NOT NULL,
   `universe` tinyint(3) unsigned NOT NULL,
-  PRIMARY KEY (`rid`),
-  KEY `universe` (`universe`,`gesamtunits`)
+  KEY `time` (`universe`, `rid`, `time`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `prefix_users` (

@@ -29,235 +29,104 @@
 
 function GenerateReport($RESULT, $INFO)
 {
-	$html 		= '{capture sys_destruc_mess assign=sys_destruc_mess}{lang}sys_destruc_mess{/lang}{/capture}';
-	$html 		.= '{capture sys_moonbuilt assign=sys_moonbuilt}{lang}sys_moonbuilt{/lang}{/capture}';
-	$html 		.= '{capture sys_destruc_lune assign=sys_destruc_lune}{lang}sys_destruc_lune{/lang}{/capture}';
-	$html 		.= '{capture sys_destruc_rip assign=sys_destruc_rip}{lang}sys_destruc_rip{/lang}{/capture}';
-	$html 		.= '<div style="width:100%;text-align:center">';
-	$html	   	.= $INFO['moon']['des'] == 1 ? '{lang}sys_destruc_title{/lang}' : '{lang}sys_attack_title{/lang}';
-	$html	   	.= ' {tz_date('.$INFO['fleet_start_time'].')}:<br><br>';
-		
-	$round_no 	= 1;
-	$des		= array('att' => array(), 'def' => array());
+	$des		= array('att' => 0, 'def' => 0);
+	$DATA		= array();
+	$DATA['mode']	= (int) $INFO['moon']['des'];
+	$DATA['time']	= $INFO['fleet_start_time'];
+	$DATA['start']	= array($INFO['fleet_start_galaxy'], $INFO['fleet_start_system'], $INFO['fleet_start_planet'], $INFO['fleet_start_type']);
+	$DATA['koords']	= array($INFO['fleet_end_galaxy'], $INFO['fleet_end_system'], $INFO['fleet_end_planet'], $INFO['fleet_end_type']);
+	$DATA['units']	= array($RESULT['lost']['att'], $RESULT['lost']['def']);
+	$DATA['debris']	= array($RESULT['debree']['att'][0] + $RESULT['debree']['def'][0], $RESULT['debree']['att'][1] + $RESULT['debree']['def'][1]);
+	$DATA['steal']	= array($INFO['steal']['metal'], $INFO['steal']['crystal'], $INFO['steal']['deuterium']);
+	$DATA['result']	= $RESULT['won'];
+	$DATA['moon']	= array(
+		$INFO['moon']['chance'],
+		$INFO['moon']['name'],
+		$INFO['moon']['desfail'],
+		$INFO['moon']['chance2'],
+		$INFO['moon']['fleetfail']
+	);
 	
-	foreach($RESULT['rw'] as $round => $data1)
-	{	
-		$attackers1 = $data1['attackers'];
-		$attackers2 = $data1['infoA'];
-		$attackers3 = $data1['attackA'];
-		$defenders1 = $data1['defenders'];
-		$defenders2 = $data1['infoD'];
-		$defenders3 = $data1['defenseA'];
-		$coord4 	= 0;
-		$coord5 	= 0;
-		$coord6 	= 0;
-		$html		.= '<table><tr>';
-		foreach($attackers1 as $fleet_id1 => $data2)
-		{
-			$name 	= $data2['user']['username'];
-			$coord1 = $data2['fleet']['fleet_start_galaxy'];
-			$coord2 = $data2['fleet']['fleet_start_system'];
-			$coord3 = $data2['fleet']['fleet_start_planet'];
-			$coord4 = $data2['fleet']['fleet_end_galaxy'];
-			$coord5 = $data2['fleet']['fleet_end_system'];
-			$coord6 = $data2['fleet']['fleet_end_planet'];
-			$weap 	= $data2['techs'][0] * 100;
-			$shie 	= $data2['techs'][1] * 100;
-			$armr 	= $data2['techs'][2] * 100;
-
-			$fl_info1  	= '<td class="transparent"><table><tr><td>{lang}sys_attack_attacker_pos{/lang} '.$name.' (['.$coord1.':'.$coord2.':'.$coord3.'])<br>{lang}sys_ship_weapon{/lang} '.$weap.'% - {lang}sys_ship_shield{/lang} '.$shie.'% - {lang}sys_ship_armour{/lang} '.$armr.'%';
-			$table1  	= '<table width=\'100%\'>';
-
-			if (array_sum($data2['detail']) != 0)
-			{
-				$ships1  = '<tr><td class="transparent">{lang}sys_ship_type{/lang}</td>';
-				$count1  = '<tr><td class="transparent">{lang}sys_ship_count{/lang}</td>';
-
-				foreach($data2['detail'] as $ship_id1 => $ship_count1)
-				{
-					if ($ship_count1 <= 0)
-						continue;
-
-					$ships1 .= '<td class="transparent">{lang}tech_rc.'.$ship_id1.'{/lang}</td>';
-					$count1 .= '<td class="transparent">'.pretty_number($ship_count1).'</td>';
-				}
-
-				$ships1 .= '</tr>';
-				$count1 .= '</tr>';
-			}
-			else
-			{
-				$des['att'][] = 1;
-				$ships1 = '<tr><td class="transparent"><br><br>{lang}sys_destroyed{/lang}<br></td></tr>';
-				$count1 = '';
-			}
-
-			$info_part1[$fleet_id1] = $fl_info1.$table1.$ships1.$count1;
-		}
-
-		foreach($attackers2 as $fleet_id2 => $data3)
-		{
-			$weap1		= '<tr><td class="transparent">{lang}sys_ship_weapon{/lang}</td>';
-			$shields1	= '<tr><td class="transparent">{lang}sys_ship_shield{/lang}</td>';
-			$armour1	= '<tr><td class="transparent">{lang}sys_ship_armour{/lang}</td>';
-			foreach($data3 as $ship_id2 => $ship_points1)
-			{
-				if($ship_points1['shield'] <= 0)
-					continue;
-
-				$weap1 		.= '<td class="transparent">'.pretty_number($ship_points1['att']).'</td>';
-				$shields1 	.= '<td class="transparent">'.pretty_number($ship_points1['def']).'</td>';
-				$armour1 	.= '<td class="transparent">'.pretty_number($ship_points1['shield']).'</td>';
-			}
-
-			$weap1 		.= '</tr>';
-			$shields1 	.= '</tr>';
-			$armour1 	.= '</tr>';
-			$endtable1 	= '</table></td></tr></table></td>';
-
-			$info_part2[$fleet_id2] = $weap1.$shields1.$armour1.$endtable1;
-
-			if (array_sum($attackers1[$fleet_id2]['detail']) != 0)
-			{
-				$html .= $info_part1[$fleet_id2].$info_part2[$fleet_id2];
-			}
-			else
-			{
-				$html .= $info_part1[$fleet_id2];
-				$html .= '</table></td></tr></table><br><br>';
-			}
-		}
-		
-		$html .= '</tr></table>';
-		$html .= '<br><br>';
-		$html .= '<table><tr>';
-		foreach($defenders1 as $fleet_id1 => $data2)
-		{
-			$name = $data2['user']['username'];
-			$weap 	= $data2['techs'][0] * 100;
-			$shie 	= $data2['techs'][1] * 100;
-			$armr 	= $data2['techs'][2] * 100;
-
-			$fl_info1	= '<td class="transparent"><table><tr><td>{lang}sys_attack_defender_pos{/lang} '.$name.' (['.$coord4.':'.$coord5.':'.$coord6.'])<br>{lang}sys_ship_weapon{/lang} '.$weap.'% - {lang}sys_ship_shield{/lang} '.$shie.'% - {lang}sys_ship_armour{/lang} '.$armr.'%';
-			$table1  	= '<table border=\'1\' align=\'center\' width=\'100%\'>';
-
-			if (array_sum($data2['def']) != 0)
-			{
-				$ships1  = '<tr><td class="transparent">{lang}sys_ship_type{/lang}</td>';
-				$count1  = '<tr><td class="transparent">{lang}sys_ship_count{/lang}</td>';
-
-				foreach($data2['def'] as $ship_id1 => $ship_count1)
-				{
-					if ($ship_count1 == 0)
-						continue;
-
-					$ships1 .= '<td class="transparent">{lang}tech_rc.'.$ship_id1.'{/lang}</td>';
-					$count1 .= '<td class="transparent">'.pretty_number($ship_count1).'</td>';
-				}
-
-				$ships1 .= '</tr>';
-				$count1 .= '</tr>';
-			}
-			else
-			{
-				$des['def'][] = 1;
-				$ships1 = '<tr><td class="transparent"><br><br>{lang}sys_destroyed{/lang}<br></td></tr>';
-				$count1 = '';
-			}
-
-			$info_part1[$fleet_id1] = $fl_info1.$table1.$ships1.$count1;
-		}
-
-		foreach($defenders2 as $fleet_id2 => $data3)
-		{
-			$weap1  	= '<tr><td class="transparent">{lang}sys_ship_weapon{/lang}</td>';
-			$shields1  	= '<tr><td class="transparent">{lang}sys_ship_shield{/lang}</td>';
-			$armour1  	= '<tr><td class="transparent">{lang}sys_ship_armour{/lang}</td>';
-
-			foreach( $data3 as $ship_id2 => $ship_points1)
-			{
-				if($ship_points1['shield'] <= 0)
-					continue;
-
-				$weap1 		.= '<td class="transparent">'.pretty_number($ship_points1['att']).'</td>';
-				$shields1 	.= '<td class="transparent">'.pretty_number($ship_points1['def']).'</td>';
-				$armour1 	.= '<td class="transparent">'.pretty_number($ship_points1['shield']).'</td>';
-			}
-
-			$weap1 		.= '</tr>';
-			$shields1 	.= '</tr>';
-			$armour1 	.= '</tr>';
-			$endtable1 	= '</table></td></tr></table>';
-
-			$info_part2[$fleet_id2] = $weap1.$shields1.$armour1.$endtable1;
-
-			if (array_sum($defenders1[$fleet_id2]['def']) != 0)
-			{
-				$html .= $info_part1[$fleet_id2].$info_part2[$fleet_id2];
-				$html .= '<br><br>';
-			}
-			else
-			{
-				$html .= $info_part1[$fleet_id2];
-				$html .= '</table></td></tr></table><br><br>';
-			}
-		}
-				
-		$html .= '</tr></table>';
-		
-		if($round >= MAX_ATTACK_ROUNDS)
-			break;
-			
-		if (array_sum($des['att']) == count($attackers2) || array_sum($des['def']) == count($defenders2)) break;
-				
-		$html .= '{lang}fleet_attack_1{/lang} '.pretty_number($data1['attack']).' {lang}fleet_attack_2{/lang} '.pretty_number($data1['defShield']).' {lang}damage{/lang}<br>';
-		$html .= '{lang}fleet_defs_1{/lang} '.pretty_number($data1['defense']).' {lang}fleet_defs_2{/lang} '.pretty_number($data1['attackShield']).' {lang}damage{/lang}<br><br>';
-		$round_no++;			
-	}
-
-	switch($RESULT['won'])
+	$DATA['simu']	= isset($INFO['battlesim']) ? $INFO['battlesim'] : "";
+	
+	
+	foreach($RESULT['rw'][0]['attackers'] as $Player)
 	{
-		case 'r':
-			$result1  = '{lang}sys_defender_won{/lang}<br>';
-		break;
-		case 'a':
-			$result1  = '{lang}sys_attacker_won{/lang}<br>{lang}sys_stealed_ressources{/lang} '.pretty_number($INFO['steal']['metal']).' {lang}Metal{/lang}, '.pretty_number($INFO['steal']['crystal']).' {lang}Crystal{/lang} {lang}and{/lang} '.pretty_number($INFO['steal']['deuterium']).' {lang}Deuterium{/lang}<br>';
-		break;
-		default:
-			$result1  = '{lang}sys_both_won{/lang}.<br>';
-		break;
+		$DATA['players'][$Player['user']['id']]	= array(
+			'name'		=> $Player['user']['username'],
+			'koords'	=> array($Player['fleet']['fleet_start_galaxy'], $Player['fleet']['fleet_start_system'], $Player['fleet']['fleet_start_planet']),
+			'tech'		=> array($Player['techs'][0] * 100, $Player['techs'][1] * 100, $Player['techs'][2] * 100),
+		);
 	}
-
-	$html .= '<br><br>'.$result1.'<br>';
-	$html .= '{lang}sys_attacker_lostunits{/lang} '.pretty_number($RESULT['lost']['att']).' {lang}sys_units{/lang}<br>';
-	$html .= '{lang}sys_defender_lostunits{/lang} '.pretty_number($RESULT['lost']['def']).' {lang}sys_units{/lang}<br>';
-	$html .= '{lang}debree_field_1{/lang} '.pretty_number($RESULT['debree']['att'][0] + $RESULT['debree']['def'][0]).' {lang}Metal{/lang} {lang}sys_and{/lang} '.pretty_number($RESULT['debree']['att'][1] + $RESULT['debree']['def'][1]).' {lang}Crystal{/lang} {lang}debree_field_2{/lang}<br><br>';
-		
-	if($INFO['moon']['des'] == 1) {
-		$html .= '{sprintf($sys_destruc_mess, "'.$INFO['start_galaxy'].'", "'.$INFO['start_system'].'", "'.$INFO['start_planet'].'", "'.$INFO['end_galaxy'].'", "'.$INFO['end_system'].'", "'.$INFO['end_planet'].'")}<br>';	
-		if($INFO['moon']['desfail'] == 1) {
-			$html .= '{lang}sys_destruc_stop{/lang}<br>';
+	foreach($RESULT['rw'][0]['defenders'] as $FleetID => $Player)
+	{
+		if($FleetID == 0) {
+			$Koords	= $DATA['koords'];
 		} else {
-			$html .= '{sprintf($sys_destruc_lune, "'.$INFO['moon']['chance'].'")}<br>{lang}sys_destruc_mess1{/lang}';
-			$html .= $INFO['moon']['desfail'] == 0 ? '{lang}sys_destruc_reussi{/lang}' : '{lang}sys_destruc_null{/lang}';			
-			$html .= '<br>{sprintf($sys_destruc_rip, "'.$INFO['moon']['chance2'].'")}';
-			if($INFO['moon']['fleetfail'] == 1) {
-				$html .= '<br>{lang}sys_destruc_echec{/lang}';
-			}			
+			$Koords	= array(
+				$Player['fleet']['fleet_start_galaxy'], 
+				$Player['fleet']['fleet_start_system'], 
+				$Player['fleet']['fleet_start_planet']
+			);
 		}
-	} else {
-		$html .= '{lang}sys_moonproba{/lang} '.$INFO['moon']['chance'].' %<br>';
-		if(!empty($INFO['moon']['name']))
-		{
-			$html .= '{sprintf($sys_moonbuilt, "'.$INFO['moon']['name'].'", "'.$INFO['end_galaxy'].'", "'.$INFO['end_system'].'", "'.$INFO['end_planet'].'")}';
-		}
+		
+		$DATA['players'][$Player['user']['id']]	= array(
+			'name'		=> $Player['user']['username'],
+			'koords'	=> $Koords,
+			'tech'		=> array($Player['techs'][0] * 100, $Player['techs'][1] * 100, $Player['techs'][2] * 100),
+		);
 	}
 	
-	if(isset($INFO['moon']['battlesim'])) {
-		$html .= $INFO['moon']['battlesim'];
+	foreach($RESULT['rw'] as $Round => $RoundInfo)
+	{
+		foreach($RoundInfo['attackers'] as $FleetID => $Player)
+		{	
+			$DATA['rounds'][$Round]['attacker'][$Player['user']['id']] = array();
+			
+			if(array_sum($Player['detail']) == 0) {
+				$Destroy['att']++;
+				continue;
+			}
+			
+			foreach($Player['detail'] as $ShipID => $Amount)
+			{
+				if ($Amount <= 0)
+					continue;
+				$ShipInfo	= $RoundInfo['infoA'][$FleetID][$ShipID];
+				$DATA['rounds'][$Round]['attacker'][$Player['user']['id']][$ShipID]	= array(
+					$Amount, $ShipInfo['att'], $ShipInfo['def'], $ShipInfo['shield']
+				);
+			}
+		}
+		
+		foreach($RoundInfo['defenders'] as $FleetID => $Player)
+		{	
+			$DATA['rounds'][$Round]['defender'][$Player['user']['id']] = array();
+			if(array_sum($Player['def']) == 0) {
+				$Destroy['def']++;
+				continue;
+			}
+				
+			foreach($Player['def'] as $ShipID => $Amount)
+			{
+				if ($Amount <= 0) {
+					$Destroy['def']++;
+					continue;
+				}
+					
+				$ShipInfo	= $RoundInfo['infoD'][$FleetID][$ShipID];
+				$DATA['rounds'][$Round]['defender'][$Player['user']['id']][$ShipID]	= array(
+					$Amount, $ShipInfo['att'], $ShipInfo['def'], $ShipInfo['shield']
+				);
+			}
+		}
+		
+		if ($Round >= MAX_ATTACK_ROUNDS || $des['att'] == count($RoundInfo['attackers']) || $des['def'] == count($RoundInfo['defenders']))
+			break;
+					
+		$DATA['rounds'][$Round]['info']	= array($RoundInfo['attack'], $RoundInfo['attackShield'], $RoundInfo['defense'], $RoundInfo['defShield']);
 	}
-	$html .= '</div><script type="text/javascript">RaportInfo = '.json_encode(array($RESULT['won'], ($RESULT['lost']['att'] + $RESULT['lost']['def']), $RESULT['debree']['att'][0], $RESULT['debree']['def'][0], $INFO['attvsdef'])).';</script>';
-	return $html;
+	return $DATA;
 }
 	
 ?>

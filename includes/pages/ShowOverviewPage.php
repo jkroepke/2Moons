@@ -130,7 +130,7 @@ function ShowOverviewPage()
 	if ($PLANET['id_luna'] != 0)
 		$Moon		= $db->uniquequery("SELECT `id`, `name` FROM ".PLANETS." WHERE `id` = '".$PLANET['id_luna']."';");
 
-	if (!empty($PLANET['b_building'])) {
+	if ($PLANET['b_building'] - TIMESTAMP > 0) {
 		$Queue		= unserialize($PLANET['b_building_id']);
 		$Build		= $LNG['tech'][$Queue[0][0]].' ('.$Queue[0][1].')<br><div id="blc">'.pretty_time($PLANET['b_building'] - TIMESTAMP).'</div>';
 		$template->execscript('BuildTime();');

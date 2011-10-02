@@ -130,7 +130,7 @@ define('NEWS'				  	  , $database['tableprefix'].'news');
 define('NOTES'				  	  , $database['tableprefix'].'notes');
 define('MESSAGES'			  	  , $database['tableprefix'].'messages');
 define('PLANETS'	              , $database['tableprefix'].'planets');
-define('RW'			              , $database['tableprefix'].'rw');
+define('RW'			              , $database['tableprefix'].'raports');
 define('SESSION'				  , $database['tableprefix'].'session');
 define('STATPOINTS'				  , $database['tableprefix'].'statpoints');
 define('SUPP'					  , $database['tableprefix'].'supp');
