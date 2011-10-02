@@ -48,7 +48,7 @@ function ShowBattleSimPage()
 			{
 				$Att	= mt_rand(1, 1000);
 				$attack[$Att]['fleet'] 		= array('fleet_start_galaxy' => 1, 'fleet_start_system' => 33, 'fleet_start_planet' => 7, 'fleet_end_galaxy' => 1, 'fleet_end_system' => 33, 'fleet_end_planet' => 7, 'metal' => 0, 'crystal' => 0, 'deuterium' => 0);
-				$attack[$Att]['user'] 		= array('username'	=> $LNG['bs_atter'].' Nr.'.($BattleSlotID+1), 'military_tech' => $BattleSlot[0][109], 'defence_tech' => $BattleSlot[0][110], 'shield_tech' => $BattleSlot[0][111], 0, 'dm_defensive' => 0, 'dm_attack' => 0);
+				$attack[$Att]['user'] 		= array('id' => (1000+$BattleSlotID+1), 'username'	=> $LNG['bs_atter'].' Nr.'.($BattleSlotID+1), 'military_tech' => $BattleSlot[0][109], 'defence_tech' => $BattleSlot[0][110], 'shield_tech' => $BattleSlot[0][111], 0, 'dm_defensive' => 0, 'dm_attack' => 0);
 
 				foreach($BattleSlot[0] as $ID => $Count)
 				{
@@ -68,7 +68,7 @@ function ShowBattleSimPage()
 				$Def	= mt_rand(1 ,1000);
 				
 				$defense[$Def]['fleet'] 	= array('fleet_start_galaxy' => 1, 'fleet_start_system' => 33, 'fleet_start_planet' => 7, 'fleet_end_galaxy' => 1, 'fleet_end_system' => 33, 'fleet_end_planet' => 7, 'metal' => 0, 'crystal' => 0, 'deuterium' => 0);
-				$defense[$Def]['user'] 		= array('username'	=> $LNG['bs_deffer'].' Nr.'.($BattleSlotID+1), 'military_tech' => $BattleSlot[1][109], 'defence_tech' => $BattleSlot[1][110], 'shield_tech' => $BattleSlot[1][111], 0, 'dm_defensive' => 0, 'dm_attack' => 0);
+				$defense[$Def]['user'] 		= array('id' => (2000+$BattleSlotID+1), 'username'	=> $LNG['bs_deffer'].' Nr.'.($BattleSlotID+1), 'military_tech' => $BattleSlot[1][109], 'defence_tech' => $BattleSlot[1][110], 'shield_tech' => $BattleSlot[1][111], 0, 'dm_defensive' => 0, 'dm_attack' => 0);
 
 				foreach($BattleSlot[1] as $ID => $Count)
 				{
@@ -105,30 +105,40 @@ function ShowBattleSimPage()
 		$AllSteal			= array_sum($steal);
 		
 		$RaportInfo			= sprintf($LNG['bs_derbis_raport'], 
-		ceil($FleetDebris / $pricelist[219]['capacity']), $LNG['tech'][219],
-		ceil($FleetDebris / $pricelist[209]['capacity']), $LNG['tech'][209])."<br>";
+		pretty_number(ceil($FleetDebris / $pricelist[219]['capacity'])), $LNG['tech'][219],
+		pretty_number(ceil($FleetDebris / $pricelist[209]['capacity'])), $LNG['tech'][209])."<br>";
 		$RaportInfo			.= sprintf($LNG['bs_steal_raport'], 
-		ceil($AllSteal / $pricelist[202]['capacity']), $LNG['tech'][202], 
-		ceil($AllSteal / $pricelist[203]['capacity']), $LNG['tech'][203], 
-		ceil($AllSteal / $pricelist[217]['capacity']), $LNG['tech'][217])."<br>";
-		$INFO['moon']['battlesim']	= $RaportInfo;
+		pretty_number(ceil($AllSteal / $pricelist[202]['capacity'])), $LNG['tech'][202], 
+		pretty_number(ceil($AllSteal / $pricelist[203]['capacity'])), $LNG['tech'][203], 
+		pretty_number(ceil($AllSteal / $pricelist[217]['capacity'])), $LNG['tech'][217])."<br>";
+		$INFO						= array();
+		$INFO['battlesim']			= $RaportInfo;
 		$INFO['steal']				= $steal;
+		$INFO['fleet_start_galaxy']	= 1;
+		$INFO['fleet_start_system']	= 33;
+		$INFO['fleet_start_planet']	= 7;
+		$INFO['fleet_end_galaxy']	= 1;
+		$INFO['fleet_end_system']	= 33;
+		$INFO['fleet_end_planet']	= 7;
 		$INFO['fleet_start_time']	= TIMESTAMP;
 		$INFO['moon']['des']		= 0;
 		$INFO['moon']['chance'] 	= $MoonChance;
+		$INFO['moon']['name']		= false;
+		$INFO['moon']['desfail']	= false;
+		$INFO['moon']['chance2']	= false;
+		$INFO['moon']['fleetfail']	= false;
 		$raport 			= GenerateReport($result, $INFO);
-
-		$rid   				= md5(microtime(true));
-		
-		file_put_contents(ROOT_PATH.'raports/raport/'.$rid.'.php', $raport);
 			
-		$SQLQuery  = "INSERT INTO ".RW." SET ";
-		$SQLQuery .= "`time` = '".TIMESTAMP."', ";
-		$SQLQuery .= "`owners` = '".$USER['id'].",0', ";
-		$SQLQuery .= "`rid` = '".$rid."';";
-		$db->query($SQLQuery);
+		$SQL = "INSERT INTO ".RW." SET ";
+		$SQL .= "`raport` = '".serialize($raport)."', ";
+		$SQL .= "`time` = '".TIMESTAMP."', ";
+		$SQL .= "`rid` = '".$rid."';";
+		$db->query($SQL);
+		$rid	= $db->GetInsertID();
+		$db->query($SQL);
 		echo($rid);
 		exit;
+		
 	}
 
 	$PlanetRess = new ResourceUpdate();

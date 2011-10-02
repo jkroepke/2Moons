@@ -11,7 +11,7 @@ function check(){
 	$("#wait:hidden").removeAttr('style').hide().fadeIn();
 	$.post('?page=battlesim&action=send', $('#form').serialize(), function(data){
 		data	= $.trim(data);
-		if(data.length == 32) {
+		if(data == parseInt(data)) {
 			kb.focus();
 			kb.location.href = 'CombatReport.php?raport='+data;
 		} else {

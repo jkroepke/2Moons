@@ -75,7 +75,6 @@ class MissionCaseAttack extends MissionFunctions
 					$attackFleets[$fleet['fleet_id']]['detail'][$temp2[0]] += $temp2[1];
 				}
 				$AttackerRow['id'][] 	= $attackFleets[$fleet['fleet_id']]['user']['id'];
-				$AttackerRow['name'][]	= $attackFleets[$fleet['fleet_id']]['user']['username'];
 			}
 		}
 		else
@@ -96,7 +95,6 @@ class MissionCaseAttack extends MissionFunctions
 				$attackFleets[$this->_fleet['fleet_id']]['detail'][$temp2[0]] += $temp2[1];
 			}
 			$AttackerRow['id'][] 	= $attackFleets[$this->_fleet['fleet_id']]['user']['id'];
-			$AttackerRow['name'][]	= $attackFleets[$this->_fleet['fleet_id']]['user']['username'];
 		}
 
 		$defense = array();
@@ -119,14 +117,12 @@ class MissionCaseAttack extends MissionFunctions
 				$defense[$defRow['fleet_id']]['def'][$Element[0]] += $Element[1];
 			}
 			$DefenderRow['id'][] 	= $defense[$defRow['fleet_id']]['user']['id'];
-			$DefenderRow['name'][]	= $defense[$defRow['fleet_id']]['user']['username'];
 		}
 
 		$defense[0]['def'] 				= array();
 		$defense[0]['user'] 			= $targetUser;
 		$defense[0]['user']['factor'] 	= getFactors($defense[0]['user'], 'attack', $this->_fleet['fleet_start_time']);		
 		$DefenderRow['id'][] 			= $defense[0]['user']['id'];
-		$DefenderRow['name'][]			= $defense[0]['user']['username'];
 		
 		foreach(array_merge($reslist['fleet'], $reslist['defense']) as $ID)
 		{
@@ -137,9 +133,7 @@ class MissionCaseAttack extends MissionFunctions
 		}
 
 		$Attacker['id']		= array_unique($AttackerRow['id']);
-		$Attacker['name']	= array_unique($AttackerRow['name']);
 		$Defender['id']		= array_unique($DefenderRow['id']);
-		$Defender['name']	= array_unique($DefenderRow['name']);
 		
 		require_once('calculateAttack.php');
 		$result 	= calculateAttack($attackFleets, $defense, $GLOBALS['CONFIG'][$this->_fleet['fleet_universe']]['Fleet_Cdr'], $GLOBALS['CONFIG'][$this->_fleet['fleet_universe']]['Defs_Cdr']);
@@ -205,6 +199,7 @@ class MissionCaseAttack extends MissionFunctions
 		
 		if($this->_fleet['fleet_end_type'] == 3)
 			$targetPlanet 		= array_merge($targetPlanet, $db->uniquequery("SELECT `der_metal`, `der_crystal` FROM ".PLANETS." WHERE `id_luna` = '".$this->_fleet['fleet_end_id']."';"));
+			
 		$ShootMetal			= $result['debree']['att'][0] + $result['debree']['def'][0];
 		$ShootCrystal		= $result['debree']['att'][1] + $result['debree']['def'][1];
 		$FleetDebris		= $ShootMetal + $ShootCrystal;
@@ -227,18 +222,15 @@ class MissionCaseAttack extends MissionFunctions
 			}
 		}
 
+		$INFO						= $this->_fleet;
 		$INFO['steal']				= $steal;
-		$INFO['fleet_start_time']	= $this->_fleet['fleet_start_time'];
 		$INFO['moon']['des']		= 0;
 		$INFO['moon']['chance'] 	= $MoonChance;
-		$INFO['attvsdef']			= implode(' & ', $Attacker['name']).' vs '.implode(' & ', $Defender['name']);
+		$INFO['moon']['desfail']	= false;
+		$INFO['moon']['chance2']	= false;
+		$INFO['moon']['fleetfail']	= false;
 		require_once('GenerateReport.php');
-		$raport						= GenerateReport($result, $INFO);
-		$rid						= md5(microtime(true).mt_rand(1,100));
-	
-		file_put_contents(ROOT_PATH.'raports/raport/'.$rid.'.php', $raport);
-		file_put_contents(ROOT_PATH.'raports/topkb/'.$rid.'.php', preg_replace("/\[\d+\:\d+\:\d+\]/i", "[X:X:X]", $raport));
-		
+		$raport						= GenerateReport($result, $INFO);		
 		$WhereAtt = "";
 		$WhereDef = "";
 			
@@ -278,19 +270,17 @@ class MissionCaseAttack extends MissionFunctions
         $SQL .= "`planet` = '" . $this->_fleet['fleet_end_planet'] . "' AND ";
         $SQL .= "`planet_type` = '1';";
 		$SQL .= "INSERT INTO ".RW." SET ";
+		$SQL .= "`raport` = '".serialize($raport)."', ";
 		$SQL .= "`time` = '".$this->_fleet['fleet_start_time']."', ";
-		$SQL .= "`owners` = '".implode(',', array_merge($Attacker['id'], $Defender['id']))."', ";
 		$SQL .= "`rid` = '".$rid."';";
 		$SQL .= "INSERT INTO ".TOPKB." SET ";
+		$SQL .= "`attackers` = '".implode(',', $Attacker['id'])."', ";
+		$SQL .= "`defenders` = '".implode(',', $Defender['id'])."', ";
+		$SQL .= "`units` = '".floattostring($result['lost']['att'] + $result['lost']['def'])."', ";
+		$SQL .= "`rid` = (SELECT MAX(`rid`) FROM ".RW."), ";
 		$SQL .= "`time` = '".$this->_fleet['fleet_start_time']."', ";
-		$SQL .= "`id_owner1` = '".implode(',', $Attacker['id'])."', ";
-		$SQL .= "`angreifer` = '".implode(' & ', $Attacker['name'])."', ";
-		$SQL .= "`id_owner2` = '".implode(',', $Defender['id'])."', ";
-		$SQL .= "`defender` = '".implode(' & ', $Defender['name'])."', ";
-		$SQL .= "`gesamtunits` = '".floattostring($result['lost']['att'] + $result['lost']['def'])."', ";
-		$SQL .= "`rid` = '". $rid ."', ";
 		$SQL .= "`universe` = '".$this->_fleet['fleet_universe']."', ";
-		$SQL .= "`fleetresult` = '". $result['won'] ."';";		
+		$SQL .= "`result` = '". $result['won'] ."';";		
 		$SQL .= "UPDATE ".USERS." SET ";
         $SQL .= "`wons` = wons + ".$Won.", ";
         $SQL .= "`loos` = loos + ".$Lose.", ";
@@ -312,6 +302,7 @@ class MissionCaseAttack extends MissionFunctions
         $SQL .= "WHERE ";
         $SQL .= substr($WhereDef, 0, -4).";";
 		$db->multi_query($SQL);
+		$rid	= $db->GetInsertID();
 		
 		switch($result['won'])
 		{

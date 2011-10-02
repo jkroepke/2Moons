@@ -32,8 +32,9 @@ function calculateSteal($attackFleets, $defenderPlanet, $ForSim = false)
 	//Steal-Math by Slaver for 2Moons(http://www.2moons.cc) based on http://www.owiki.de/Beute
 	global $pricelist, $db;
 	
-	$SortFleets = array();
-	$Sumcapacity  = 0;
+	$SortFleets 	= array();
+	$Sumcapacity  	= 0;
+	$booty			= array('metal' => 0, 'crystal' => 0, 'deuterium' => 0);
 	foreach($attackFleets as $FleetID => $Attacker)
 	{
 		$SortFleets[$FleetID]		= 0;
@@ -49,7 +50,9 @@ function calculateSteal($attackFleets, $defenderPlanet, $ForSim = false)
 	}
 	
 	$AllCapacity		= $Sumcapacity;
-
+	if($AllCapacity <= 0)
+		return $booty;
+		
 	// Step 1
 	$booty['metal'] 	= min($Sumcapacity / 3, $defenderPlanet['metal'] / 2);
 	$Sumcapacity		-= $booty['metal'];

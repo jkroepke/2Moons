@@ -41,21 +41,27 @@ else
 	
 $LANG->includeLang(array('L18N', 'FLEET', 'TECH'));
 	
-$RID	= str_replace(array('.', '\\', '/'), '', request_var('raport', ''));
+$RID		= request_var('raport', 0);
+$Fame		= request_var('fame', 0);
+if($Fame == 1)
+	$Raport		= $db->uniquequery("SELECT r.`raport`,r. `time`, `attacker`, ´defender´ FROM ".RW." as r, ".TOPKB." as t,(
+								SELECT GROUP_CONCAT(username SEPARATOR ' & ') as attacker FROM ".USERS." WHERE `id` IN t.`attackers`
+							), (
+								SELECT GROUP_CONCAT(username SEPARATOR ' & ') as defender FROM ".USERS." WHERE `id` IN t.`defenders`
+							) WHERE r.`rid` = ".$RID." AND r.rid = t.rid;");
+else
+	$Raport		= $db->uniquequery("SELECT `raport` FROM ".RW." WHERE `rid` = ".$RID.";");
 
+	
 $template	= new template();
-
-if(file_exists(ROOT_PATH.'raports/raport_'.$RID.'.php')) {
-	require_once(ROOT_PATH.'raports/raport_'.$RID.'.php');
-} elseif(file_exists(ROOT_PATH.'raports/raport/'.$RID.'.php')) {
-	$raport	= $template->fetch(ROOT_PATH.'raports/raport/'.$RID.'.php');
-} else {
+if(!isset($Raport)) {
 	$template->message($LNG['sys_raport_not_found'], 0, false, true);
 	exit;
 }
-
 $template->isPopup(true);
-$template->assign_vars(array('raport' => $raport));
-$template->show('raport.tpl');
+$template->assign_vars(array(
+	'Raport' => unserialize($Raport["raport"])
+));
+$template->show('CombatRaport.tpl');
 
 ?>

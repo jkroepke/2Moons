@@ -284,17 +284,18 @@ class MissionCaseExpedition extends MissionFunctions
 				require_once('GenerateReport.php');
 				
 
+				$INFO						= $this->_fleet;
 				$INFO['steal']				= array('metal' => 0, 'crystal' => 0, 'deuterium' => 0);
-				$INFO['fleet_start_time']	= $this->_fleet['fleet_start_time'];
 				$INFO['moon']['des']		= 0;
 				$INFO['moon']['chance'] 	= 0;
 				$raport		= GenerateReport($result, $INFO);
-				$rid		= md5(microtime(true).mt_rand(1,100));
-			
-				file_put_contents(ROOT_PATH.'raports/raport/'.$rid.'.php', $raport);
 					
-				$SQLQuery  = "INSERT INTO ".RW." SET `time` = '".TIMESTAMP."', `owners` = '".$this->_fleet['fleet_owner'].",0', `rid` = '". $rid ."';";	
-				$db->query($SQLQuery);
+				$SQL = "INSERT INTO ".RW." SET ";
+				$SQL .= "`raport` = '".serialize($raport)."', ";
+				$SQL .= "`time` = '".$this->_fleet['fleet_start_time']."', ";
+				$SQL .= "`rid` = '".$rid."';"
+				$db->query($SQL);
+				$rid	= $db->GetInsertID();
 				switch($result['won'])
 				{
 					case "r":

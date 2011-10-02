@@ -15,9 +15,29 @@ function rrmdir($dir) {
 	}
 }
 
+function createDir($FILE) {
+	$CreateDirs = array();
+	
+	while(!file_exists(dirname($FILE))) {
+		$FILE			= dirname($FILE);
+		$CreateDirs[]	= $FILE;
+	}
+	
+	if(empty($CreateDirs)
+		return true;
+		
+	$CreateDirs	= array_reverse($CreateDirs);
+	
+	foreach($CreateDirs as $Dirs) {
+		mkdir($Dirs);
+		chmod($Dirs, 0777);
+	}
+	
+	return true;
+}
+
 function DLFile($FILE) {
-	if(!file_exists(dirname(ROOT_PATH.$FILE)))
-		mkdir(dirname(ROOT_PATH.$FILE));
+	createDir($FILE);
 		
 	$ch = curl_init();
 	$fp	= fopen(ROOT_PATH.$FILE, 'w');
@@ -106,11 +126,10 @@ switch($MODE) {
 		echo json_encode(array('status' => 'OK', 'error' => false));	
 	break;
 	case 'update':
-		$db->query("UPDATE ".$database['tableprefix']."config SET `VERSION` = '1.3.".$REV."';");
+		$db->query("UPDATE ".$database['tableprefix']."config SET `VERSION` = '1.5.".$REV."';");
 	break;
 	case 'unlink':
 		unlink(__FILE__);
 	break;
 }
-
 ?>
