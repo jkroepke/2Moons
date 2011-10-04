@@ -59,5 +59,9 @@ $LNG['step3_admin_mail']	= 'Administrator E-Pošta:';
 
 
 $LNG['step4_need_fields']	= 'Izpolniti morate vsa polja!';
-		
+
+$LNG['sql_universe']		= 'Vesolje';
+$LNG['sql_close_reason']	= 'Igra se je zaprla zaradi';
+$LNG['sql_welcome']			= 'Dowbrodošli v ';
+
 ?>

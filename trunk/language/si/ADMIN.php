@@ -463,6 +463,11 @@ $LNG['se_ref_max_referals']				= 'Maksimum povabil';
 $LNG['se_ref_max_referals_info']		= 'Največje število povabil na igralca';
 $LNG['se_silo_factor']					= 'Velikost izstrelišča';
 $LNG['se_silo_factor_info']				= 'Faktor za velikost izstrelišča';
+$LNG['se_timzone']						= 'Časovni pas';
+$LNG['se_dst_mode']					= 'Dst nastavitev';
+$LNG['se_dst_sel'][0]						= 'Dst selekcija 1';
+$LNG['se_dst_sel'][1]						= 'Dst selekcija 2';
+$LNG['se_dst_sel'][2]						= 'Dst selekcija 3';
 
 //###########################################################//
 
@@ -570,8 +575,15 @@ $LNG['mu_ts_options'] 					= 'Možnosti Teamspeak';
 $LNG['mu_game_info'] 					= 'Informacije';
 $LNG['mu_vaild_users']					= 'Aktivnosti uporabnikov'; 
 $LNG['mu_news']						= 'Novice'; 
-$LNG['mu_multiip']					= 'MultiIP'; 
-$LNG['mu_clear_cache']				= 'Počisti Cache'; 
+$LNG['mu_multiip_page']					= 'MultiIP'; 
+$LNG['mu_clear_cache']				= 'Počisti chache'; 
+$LNG['mu_vertify']					= 'Potrdi vsebino igre'; 
+
+
+$LNG['vt_error']					= 'Hsh datoteka ni na voljo! - Prosim posodobite!';
+$LNG['vt_fail']						= 'Datoteke nespremenjene';
+$LNG['vt_info']						= 'Ta seznam vsebuje datoteke, ki se spreminjajo in se ne ujemajo z izvirnimi.<br>Če igre vi niste spremenili uporabite izvirne datoteke.';
+
 
 //###########################################################//
 
