@@ -23,7 +23,7 @@ function createDir($FILE) {
 		$CreateDirs[]	= $FILE;
 	}
 	
-	if(empty($CreateDirs)
+	if(empty($CreateDirs))
 		return true;
 		
 	$CreateDirs	= array_reverse($CreateDirs);
