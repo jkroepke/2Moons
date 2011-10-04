@@ -5,9 +5,6 @@ setlocale(LC_NUMERIC, 'C');
 
 //SERVER GENERALS
 
-$LNG['week_day']								= array('Ned', 'Pon', 'Tor', 'Sre', 'Čet', 'Pet', 'Sob');
-$LNG['months']							= array('Jan', 'Feb', 'Mar', 'Apr', 'Maj', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec');
-
 $LNG['Metal']								= 'Metal';
 $LNG['Crystal']								= 'Kristal';
 $LNG['Deuterium']							= 'Deuterium';
@@ -860,7 +857,11 @@ $LNG['op_user_name_no_alphanumeric']		= 'Uporabniško ime lahko samo vsebuje alf
 $LNG['op_change_name_pro_week']				= 'Uporabniško ime lahko spremenite samo 1x na teden';
 $LNG['op_change_name_exist']				= 'Uporabnik %s že obstaja';
 $LNG['op_active_build_messages']			= 'Omogoči sporočila gradnje';
-$LNG['op_small_storage']                    = 'Skrajšaj prikaz skladišča';
+$LNG['op_dst_mode']							= 'Poletni čas?';
+$LNG['op_dst_mode_sel'][0]					= 'Ne';
+$LNG['op_dst_mode_sel'][1]					= 'Da';
+$LNG['op_dst_mode_sel'][2]					= 'Avtomatsko';
+$LNG['op_timezone']							= 'Časovni pas';
 
 //----------------------------------------------------------------------------//
 //BANNED

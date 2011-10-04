@@ -44,7 +44,7 @@ $LANG->includeLang(array('L18N', 'FLEET', 'TECH'));
 $RID		= request_var('raport', 0);
 $Fame		= request_var('fame', 0);
 if($Fame == 1)
-	$Raport		= $db->uniquequery("SELECT r.`raport`,r. `time`, `attacker`, ´defender´ FROM ".RW." as r, ".TOPKB." as t,(
+	$Raport		= $db->uniquequery("SELECT r.`raport`,r. `time`, `attacker`, `defender` FROM ".RW." as r, ".TOPKB." as t,(
 								SELECT GROUP_CONCAT(username SEPARATOR ' & ') as attacker FROM ".USERS." WHERE `id` IN t.`attackers`
 							), (
 								SELECT GROUP_CONCAT(username SEPARATOR ' & ') as defender FROM ".USERS." WHERE `id` IN t.`defenders`
