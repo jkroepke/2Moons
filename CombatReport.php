@@ -43,16 +43,29 @@ $LANG->includeLang(array('L18N', 'FLEET', 'TECH'));
 	
 $RID		= request_var('raport', 0);
 $Fame		= request_var('fame', 0);
-if($Fame == 1)
-	$Raport		= $db->uniquequery("SELECT r.`raport`,r. `time`, `attacker`, `defender` FROM ".RW." as r, ".TOPKB." as t,(
-								SELECT GROUP_CONCAT(username SEPARATOR ' & ') as attacker FROM ".USERS." WHERE `id` IN t.`attackers`
-							), (
-								SELECT GROUP_CONCAT(username SEPARATOR ' & ') as defender FROM ".USERS." WHERE `id` IN t.`defenders`
-							) WHERE r.`rid` = ".$RID." AND r.rid = t.rid;");
-else
+if($Fame == 1) {
+	$Raport		= $db->uniquequery("SELECT 
+									`raport`, `time`,
+									(
+										SELECT 
+										GROUP_CONCAT(username SEPARATOR ' & ') as attacker
+										FROM ".USERS." 
+										WHERE `id` IN (SELECT `uid` FROM ".TOPKB_USERS." WHERE ".TOPKB_USERS.".`rid` = ".RW.".`rid` AND `role` = 1)
+									) as `attacker`,
+									(
+										SELECT 
+										GROUP_CONCAT(username SEPARATOR ' & ') as defender
+										FROM ".USERS." 
+										WHERE `id` IN (SELECT `uid` FROM ".TOPKB_USERS." WHERE ".TOPKB_USERS.".`rid` = ".RW.".`rid` AND `role` = 2)
+									) as `defender`
+									FROM ".RW."
+									WHERE `rid` = ".$RID.";");
+	$Info		= array($Raport["attacker"], $Raport["defender"]);
+} else {
 	$Raport		= $db->uniquequery("SELECT `raport` FROM ".RW." WHERE `rid` = ".$RID.";");
+	$Info		= array();
+}
 
-	
 $template	= new template();
 if(!isset($Raport)) {
 	$template->message($LNG['sys_raport_not_found'], 0, false, true);
@@ -60,7 +73,9 @@ if(!isset($Raport)) {
 }
 $template->isPopup(true);
 $template->assign_vars(array(
-	'Raport' => unserialize($Raport["raport"])
+	'Raport'	=> unserialize($Raport["raport"]),
+	'Info'		=> $Info,
+	'fame'		=> $Fame
 ));
 $template->show('CombatRaport.tpl');
 

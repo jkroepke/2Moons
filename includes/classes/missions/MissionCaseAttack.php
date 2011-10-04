@@ -230,18 +230,7 @@ class MissionCaseAttack extends MissionFunctions
 		$INFO['moon']['chance2']	= false;
 		$INFO['moon']['fleetfail']	= false;
 		require_once('GenerateReport.php');
-		$raport						= GenerateReport($result, $INFO);		
-		$WhereAtt = "";
-		$WhereDef = "";
-			
-		foreach($Attacker['id'] as $id)
-		{
-			$WhereAtt .= "`id` = '".$id."' OR ";
-		}
-		foreach($Defender['id'] as $id)
-		{
-			$WhereDef .= "`id` = '".$id."' OR ";
-		}
+		$raport						= GenerateReport($result, $INFO);	
 
 		$Won = 0;
 		$Lose = 0; 
@@ -251,82 +240,45 @@ class MissionCaseAttack extends MissionFunctions
 		{
 			case "a":
 				$Won = 1;
-			break;
-			case "w":
-				$Draw = 1;
-			break;
-			case "r":
-				$Lose = 1;
-			break;
-		}
-							
-		$SQL  = "UPDATE ".PLANETS." SET ";
-		$SQL .= "`der_metal` = ".floattostring($DerbisMetal).", ";
-		$SQL .= "`der_crystal` = ".floattostring($DerbisCrystal)." ";
-		$SQL .= "WHERE ";
-		$SQL .= "`universe` = '" . $this->_fleet['fleet_universe'] . "' AND ";
-		$SQL .= "`galaxy` = '" . $this->_fleet['fleet_end_galaxy'] . "' AND ";
-        $SQL .= "`system` = '" . $this->_fleet['fleet_end_system'] . "' AND ";
-        $SQL .= "`planet` = '" . $this->_fleet['fleet_end_planet'] . "' AND ";
-        $SQL .= "`planet_type` = '1';";
-		$SQL .= "INSERT INTO ".RW." SET ";
-		$SQL .= "`raport` = '".serialize($raport)."', ";
-		$SQL .= "`time` = '".$this->_fleet['fleet_start_time']."', ";
-		$SQL .= "`rid` = '".$rid."';";
-		$SQL .= "INSERT INTO ".TOPKB." SET ";
-		$SQL .= "`attackers` = '".implode(',', $Attacker['id'])."', ";
-		$SQL .= "`defenders` = '".implode(',', $Defender['id'])."', ";
-		$SQL .= "`units` = '".floattostring($result['lost']['att'] + $result['lost']['def'])."', ";
-		$SQL .= "`rid` = (SELECT MAX(`rid`) FROM ".RW."), ";
-		$SQL .= "`time` = '".$this->_fleet['fleet_start_time']."', ";
-		$SQL .= "`universe` = '".$this->_fleet['fleet_universe']."', ";
-		$SQL .= "`result` = '". $result['won'] ."';";		
-		$SQL .= "UPDATE ".USERS." SET ";
-        $SQL .= "`wons` = wons + ".$Won.", ";
-        $SQL .= "`loos` = loos + ".$Lose.", ";
-        $SQL .= "`draws` = draws + ".$Draw.", ";
-        $SQL .= "`kbmetal` = kbmetal + ".floattostring($ShootMetal).", ";
-        $SQL .= "`kbcrystal` = kbcrystal + ".floattostring($ShootCrystal).", ";
-        $SQL .= "`lostunits` = lostunits + ".floattostring($result['lost']['att']).", ";
-        $SQL .= "`desunits` = desunits + ".floattostring($result['lost']['def'])." ";
-        $SQL .= "WHERE ";
-        $SQL .= substr($WhereAtt, 0, -4).";";
-		$SQL .= "UPDATE ".USERS." SET ";
-        $SQL .= "`wons` = wons + ". $Lose .", ";
-        $SQL .= "`loos` = loos + ". $Won .", ";
-        $SQL .= "`draws` = draws + ". $Draw  .", ";
-        $SQL .= "`kbmetal` = kbmetal + ".floattostring($ShootMetal).", ";
-        $SQL .= "`kbcrystal` = kbcrystal + ".floattostring($ShootCrystal).", ";
-        $SQL .= "`lostunits` = lostunits + ".floattostring($result['lost']['def']).", ";
-        $SQL .= "`desunits` = desunits + ".floattostring($result['lost']['att'])." ";
-        $SQL .= "WHERE ";
-        $SQL .= substr($WhereDef, 0, -4).";";
-		$db->multi_query($SQL);
-		$rid	= $db->GetInsertID();
-		
-		switch($result['won'])
-		{
-			case "r":
-				$ColorAtt = "red";
-				$ColorDef = "green";
-			break;
-			case "w":
-				$ColorAtt = "orange";
-				$ColorDef = "orange";	
-			case "a":
 				$ColorAtt = "green";
 				$ColorDef = "red";
 			break;
+			case "w":
+				$Draw = 1;
+				$ColorAtt = "orange";
+				$ColorDef = "orange";
+			break;
+			case "r":
+				$Lose = 1;
+				$ColorAtt = "red";
+				$ColorDef = "green";
+			break;
 		}
 		
+		
+		$SQL = "INSERT INTO ".RW." SET ";
+		$SQL .= "`raport` = '".serialize($raport)."', ";
+		$SQL .= "`time` = '".$this->_fleet['fleet_start_time']."';";
+		$db->query($SQL);
+	
+		$WhereAtt = "";
+		$WhereDef = "";
+		
+		$rid	= $db->GetInsertID();
+		$SQL = "";
 		foreach ($Attacker['id'] as $AttackersID)
 		{
 			if(empty($AttackersID))
 				continue;
 
 			$LNG			= $LANG->GetUserLang($AttackersID);
-			$MessageAtt 	= sprintf('<a href="CombatReport.php?raport=%s" onclick="OpenPopup(\'CombatReport.php?raport=%s\', \'combat\', screen.width, screen.height);return false" target="combat"><center><font color="%s">%s %s</font></a><br><br><font color="%s">%s: %s</font> <font color="%s">%s: %s</font><br>%s %s:<font color="#adaead">%s</font> %s:<font color="#ef51ef">%s</font> %s:<font color="#f77542">%s</font><br>%s %s:<font color="#adaead">%s</font> %s:<font color="#ef51ef">%s</font><br></center>', $rid, $rid, $ColorAtt, $LNG['sys_mess_attack_report'], sprintf($LNG['sys_adress_planet'], $this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet']), $ColorAtt, $LNG['sys_perte_attaquant'], pretty_number($result['lost']['att']), $ColorDef, $LNG['sys_perte_defenseur'], pretty_number($result['lost']['def']), $LNG['sys_gain'], $LNG['Metal'], pretty_number($steal['metal']), $LNG['Crystal'], pretty_number($steal['crystal']), $LNG['Deuterium'], pretty_number($steal['deuterium']), $LNG['sys_debris'], $LNG['Metal'], pretty_number($result['debree']['att'][0]+$result['debree']['def'][0]), $LNG['Crystal'], pretty_number($result['debree']['att'][1]+$result['debree']['def'][1]));
+			$MessageAtt 	= sprintf('<a href="CombatReport.php?raport=%s" target="_blank"><center><font color="%s">%s %s</font></a><br><br><font color="%s">%s: %s</font> <font color="%s">%s: %s</font><br>%s %s:<font color="#adaead">%s</font> %s:<font color="#ef51ef">%s</font> %s:<font color="#f77542">%s</font><br>%s %s:<font color="#adaead">%s</font> %s:<font color="#ef51ef">%s</font><br></center>', $rid, $rid, $ColorAtt, $LNG['sys_mess_attack_report'], sprintf($LNG['sys_adress_planet'], $this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet']), $ColorAtt, $LNG['sys_perte_attaquant'], pretty_number($result['lost']['att']), $ColorDef, $LNG['sys_perte_defenseur'], pretty_number($result['lost']['def']), $LNG['sys_gain'], $LNG['Metal'], pretty_number($steal['metal']), $LNG['Crystal'], pretty_number($steal['crystal']), $LNG['Deuterium'], pretty_number($steal['deuterium']), $LNG['sys_debris'], $LNG['Metal'], pretty_number($result['debree']['att'][0]+$result['debree']['def'][0]), $LNG['Crystal'], pretty_number($result['debree']['att'][1]+$result['debree']['def'][1]));
 			SendSimpleMessage($AttackersID, 0, $this->_fleet['fleet_start_time'], 3, $LNG['sys_mess_tower'], $LNG['sys_mess_attack_report'], $MessageAtt);
+			$SQL .= "INSERT INTO ".TOPKB_USERS." SET ";
+			$SQL .= "`rid` = ".$rid.", ";
+			$SQL .= "`role` = 1, ";
+			$SQL .= "`uid` = ".$AttackersID.";";
+			$WhereAtt .= "`id` = '".$id."' OR ";
 		}
 
 		foreach ($Defender['id'] as $DefenderID)
@@ -335,9 +287,51 @@ class MissionCaseAttack extends MissionFunctions
 				continue;
 				
 			$LNG			= $LANG->GetUserLang($DefenderID);
-			$MessageDef 	= sprintf('<a href="CombatReport.php?raport=%s" onclick="OpenPopup(\'CombatReport.php?raport=%s\', \'combat\', screen.width, screen.height);return false" target="combat"><center><font color="%s">%s %s</font></a><br><br><font color="%s">%s: %s</font> <font color="%s">%s: %s</font><br>%s %s:<font color="#adaead">%s</font> %s:<font color="#ef51ef">%s</font> %s:<font color="#f77542">%s</font><br>%s %s:<font color="#adaead">%s</font> %s:<font color="#ef51ef">%s</font><br></center>', $rid, $rid, $ColorDef, $LNG['sys_mess_attack_report'], sprintf($LNG['sys_adress_planet'], $this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet']), $ColorDef, $LNG['sys_perte_attaquant'], pretty_number($result['lost']['att']), $ColorAtt, $LNG['sys_perte_defenseur'], pretty_number($result['lost']['def']), $LNG['sys_gain'], $LNG['Metal'], pretty_number($steal['metal']), $LNG['Crystal'], pretty_number($steal['crystal']), $LNG['Deuterium'], pretty_number($steal['deuterium']), $LNG['sys_debris'], $LNG['Metal'], pretty_number($result['debree']['att'][0]+$result['debree']['def'][0]), $LNG['Crystal'], pretty_number($result['debree']['att'][1]+$result['debree']['def'][1]));
+			$MessageDef 	= sprintf('<a href="CombatReport.php?raport=%s" target="_blank"><center><font color="%s">%s %s</font></a><br><br><font color="%s">%s: %s</font> <font color="%s">%s: %s</font><br>%s %s:<font color="#adaead">%s</font> %s:<font color="#ef51ef">%s</font> %s:<font color="#f77542">%s</font><br>%s %s:<font color="#adaead">%s</font> %s:<font color="#ef51ef">%s</font><br></center>', $rid, $rid, $ColorDef, $LNG['sys_mess_attack_report'], sprintf($LNG['sys_adress_planet'], $this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet']), $ColorDef, $LNG['sys_perte_attaquant'], pretty_number($result['lost']['att']), $ColorAtt, $LNG['sys_perte_defenseur'], pretty_number($result['lost']['def']), $LNG['sys_gain'], $LNG['Metal'], pretty_number($steal['metal']), $LNG['Crystal'], pretty_number($steal['crystal']), $LNG['Deuterium'], pretty_number($steal['deuterium']), $LNG['sys_debris'], $LNG['Metal'], pretty_number($result['debree']['att'][0]+$result['debree']['def'][0]), $LNG['Crystal'], pretty_number($result['debree']['att'][1]+$result['debree']['def'][1]));
 			SendSimpleMessage($DefenderID, 0, $this->_fleet['fleet_start_time'], 3, $LNG['sys_mess_tower'], $LNG['sys_mess_attack_report'], $MessageDef);
+			$SQL .= "INSERT INTO ".TOPKB_USERS." SET ";
+			$SQL .= "`rid` = ".$rid.", ";
+			$SQL .= "`role` = 2, ";
+			$SQL .= "`uid` = ".$DefenderID.";";
+			$WhereDef .= "`id` = '".$id."' OR ";
 		}
+							
+		$SQL .= "UPDATE ".PLANETS." SET ";
+		$SQL .= "`der_metal` = ".$DerbisMetal.", ";
+		$SQL .= "`der_crystal` = ".$DerbisCrystal." ";
+		$SQL .= "WHERE ";
+		$SQL .= "`universe` = ".$this->_fleet['fleet_universe']." AND ";
+		$SQL .= "`galaxy` = ".$this->_fleet['fleet_end_galaxy']." AND ";
+        $SQL .= "`system` = ".$this->_fleet['fleet_end_system']." AND ";
+        $SQL .= "`planet` = ".$this->_fleet['fleet_end_planet']." AND ";
+        $SQL .= "`planet_type` = '1';";
+		$SQL .= "INSERT INTO ".TOPKB." SET ";
+		$SQL .= "`units` = ".$result['lost']['att'] + $result['lost']['def'].", ";
+		$SQL .= "`rid` = ".$rid.", ";
+		$SQL .= "`time` = ".$this->_fleet['fleet_start_time'].", ";
+		$SQL .= "`universe` = ".$this->_fleet['fleet_universe'].", ";
+		$SQL .= "`result` = '".$result['won'] ."';";		
+		$SQL .= "UPDATE ".USERS." SET ";
+        $SQL .= "`wons` = wons + ".$Won.", ";
+        $SQL .= "`loos` = loos + ".$Lose.", ";
+        $SQL .= "`draws` = draws + ".$Draw.", ";
+        $SQL .= "`kbmetal` = kbmetal + ".$ShootMetal.", ";
+        $SQL .= "`kbcrystal` = kbcrystal + ".$ShootCrystal.", ";
+        $SQL .= "`lostunits` = lostunits + ".$result['lost']['att'].", ";
+        $SQL .= "`desunits` = desunits + ".$result['lost']['def']." ";
+        $SQL .= "WHERE ";
+        $SQL .= substr($WhereAtt, 0, -4).";";
+		$SQL .= "UPDATE ".USERS." SET ";
+        $SQL .= "`wons` = wons + ". $Lose .", ";
+        $SQL .= "`loos` = loos + ". $Won .", ";
+        $SQL .= "`draws` = draws + ". $Draw  .", ";
+        $SQL .= "`kbmetal` = kbmetal + ".$ShootMetal.", ";
+        $SQL .= "`kbcrystal` = kbcrystal + ".$ShootCrystal).", ";
+        $SQL .= "`lostunits` = lostunits + ".$result['lost']['def']).", ";
+        $SQL .= "`desunits` = desunits + ".$result['lost']['att'])." ";
+        $SQL .= "WHERE ";
+        $SQL .= substr($WhereDef, 0, -4).";";
+		$db->multi_query($SQL);
 	}
 	
 	function EndStayEvent()

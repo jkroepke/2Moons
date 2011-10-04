@@ -36,16 +36,27 @@ function ShowTopKB()
 	$PlanetRess->CalcResource();
 	$PlanetRess->SavePlanetToDB();
 	
-	$top = $db->query("SELECT * FROM ".TOPKB." WHERE `universe` = '".$UNI."' ORDER BY units DESC LIMIT 100;");
+	$top = $db->query("SELECT *, (
+		SELECT 
+		GROUP_CONCAT(username SEPARATOR ' & ') as attacker
+		FROM ".USERS." 
+		WHERE `id` IN (SELECT `uid` FROM ".TOPKB_USERS." WHERE ".TOPKB_USERS.".`rid` = ".TOPKB.".`rid` AND `role` = 1)
+	) as `attacker`,
+	(
+		SELECT 
+		GROUP_CONCAT(username SEPARATOR ' & ') as defender
+		FROM ".USERS." 
+		WHERE `id` IN (SELECT `uid` FROM ".TOPKB_USERS." WHERE ".TOPKB_USERS.".`rid` = ".TOPKB.".`rid` AND `role` = 2)
+	) as `defender`  
+	FROM ".TOPKB." WHERE `universe` = '".$UNI."' ORDER BY units DESC LIMIT 100;");
 	while($data = $db->fetch_array($top)) {
 		$TopKBList[]	= array(
-			'result'	=> $data['fleetresult'],
+			'result'	=> $data['result'],
 			'time'		=> tz_date($data['time']),
-			'units'		=> pretty_number($data['gesamtunits']),
+			'units'		=> pretty_number($data['units']),
 			'rid'		=> $data['rid'],
-			'attacker'	=> $data['angreifer'],
+			'attacker'	=> $data['attacker'],
 			'defender'	=> $data['defender'],
-			'result'	=> $data['fleetresult'],
 		);
 	}
 	
