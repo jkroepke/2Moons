@@ -225,21 +225,65 @@ class MissionCaseDestruction extends MissionFunctions
 		$Won = 0;
 		$Lose = 0; 
 		$Draw = 0;
+		
 		switch($result['won'])
 		{
 			case "a":
 				$Won = 1;
+				$ColorAtt = "green";
+				$ColorDef = "red";
 			break;
 			case "w":
 				$Draw = 1;
+				$ColorAtt = "orange";
+				$ColorDef = "orange";
 			break;
 			case "r":
 				$Lose = 1;
+				$ColorAtt = "red";
+				$ColorDef = "green";
 			break;
 		}
 
 		$ShootMetal			= floattostring($result['debree']['att'][0] + $result['debree']['def'][0]);
 		$ShootCrystal		= floattostring($result['debree']['att'][1] + $result['debree']['def'][1]);	
+		
+			
+		$SQL = "INSERT INTO ".RW." SET ";
+		$SQL .= "`raport` = '".serialize($raport)."', ";
+		$SQL .= "`time` = '".$this->_fleet['fleet_start_time']."';";
+		$db->query($SQL);
+		
+		$rid	= $db->GetInsertID();
+		$SQL	= "";
+		foreach ($Attacker['id'] as $AttackersID)
+		{
+			if(empty($AttackersID))
+				continue;
+				
+			$LNG			= $LANG->GetUserLang($AttackersID);
+			$MessageAtt 	= sprintf('<a href="CombatReport.php?raport=%s" onclick="OpenPopup(\'CombatReport.php?raport=%s\', \'combat\', screen.width, screen.height);return false" target="combat"><center><font color="%s">%s %s</font></a><br><br><font color="%s">%s: %s</font> <font color="%s">%s: %s</font><br>%s %s:<font color="#adaead">%s</font> %s:<font color="#ef51ef">%s</font> %s:<font color="#f77542">%s</font><br>%s %s:<font color="#adaead">%s</font> %s:<font color="#ef51ef">%s</font><br></center>', $rid, $rid, $ColorAtt, $LNG['sys_mess_attack_report'], sprintf($LNG['sys_adress_planet'], $this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet']), $ColorAtt, $LNG['sys_perte_attaquant'], pretty_number($result['lost']['att']), $ColorDef, $LNG['sys_perte_defenseur'], pretty_number($result['lost']['def']), $LNG['sys_gain'], $LNG['Metal'], pretty_number($steal['metal']), $LNG['Crystal'], pretty_number($steal['crystal']), $LNG['Deuterium'], pretty_number($steal['deuterium']), $LNG['sys_debris'], $LNG['Metal'], pretty_number($result['debree']['att'][0]+$result['debree']['def'][0]), $LNG['Crystal'], pretty_number($result['debree']['att'][1]+$result['debree']['def'][1]));
+			SendSimpleMessage($AttackersID, 0, $this->_fleet['fleet_start_time'], 3, $LNG['sys_mess_tower'], $LNG['sys_mess_attack_report'], $MessageAtt);
+			$SQL .= "INSERT INTO ".TOPKB_USERS." SET ";
+			$SQL .= "`rid` = ".$rid.", ";
+			$SQL .= "`role` = 1, ";
+			$SQL .= "`uid` = ".$AttackersID.";";
+		}
+
+		foreach ($Defender['id'] as $DefenderID)
+		{
+			if(empty($DefenderID))
+				continue;
+				
+			$LNG			= $LANG->GetUserLang($DefenderID);
+			$MessageDef 	= sprintf('<a href="CombatReport.php?raport=%s" onclick="OpenPopup(\'CombatReport.php?raport=%s\', \'combat\', screen.width, screen.height);return false" target="combat"><center><font color="%s">%s %s</font></a><br><br><font color="%s">%s: %s</font> <font color="%s">%s: %s</font><br>%s %s:<font color="#adaead">%s</font> %s:<font color="#ef51ef">%s</font> %s:<font color="#f77542">%s</font><br>%s %s:<font color="#adaead">%s</font> %s:<font color="#ef51ef">%s</font><br></center>', $rid, $rid, $ColorDef, $LNG['sys_mess_attack_report'], sprintf($LNG['sys_adress_planet'], $this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet']), $ColorDef, $LNG['sys_perte_attaquant'], pretty_number($result['lost']['att']), $ColorAtt, $LNG['sys_perte_defenseur'], pretty_number($result['lost']['def']), $LNG['sys_gain'], $LNG['Metal'], pretty_number($steal['metal']), $LNG['Crystal'], pretty_number($steal['crystal']), $LNG['Deuterium'], pretty_number($steal['deuterium']), $LNG['sys_debris'], $LNG['Metal'], pretty_number($result['debree']['att'][0]+$result['debree']['def'][0]), $LNG['Crystal'], pretty_number($result['debree']['att'][1]+$result['debree']['def'][1]));
+			SendSimpleMessage($DefenderID, 0, $this->_fleet['fleet_start_time'], 3, $LNG['sys_mess_tower'], $LNG['sys_mess_attack_report'], $MessageDef);
+			$SQL .= "INSERT INTO ".TOPKB_USERS." SET ";
+			$SQL .= "`rid` = ".$rid.", ";
+			$SQL .= "`role` = 2, ";
+			$SQL .= "`uid` = ".$AttackersID.";";
+		}
+		
 		
 		$SQL  = "UPDATE ".PLANETS." SET ";
 		$SQL .= "`der_metal` = `der_metal` + '".$ShootMetal."', ";
@@ -250,10 +294,6 @@ class MissionCaseDestruction extends MissionFunctions
         $SQL .= "`system` = '" . $this->_fleet['fleet_end_system'] . "' AND ";
         $SQL .= "`planet` = '" . $this->_fleet['fleet_end_planet'] . "' AND ";
         $SQL .= "`planet_type` = '1';";
-		$SQL .= "INSERT INTO ".RW." SET ";
-		$SQL .= "`raport` = '".serialize($raport)."', ";
-		$SQL .= "`time` = '".$this->_fleet['fleet_start_time']."', ";
-		$SQL .= "`rid` = '".$rid."';";
 		$SQL .= "INSERT INTO ".TOPKB." SET ";
 		$SQL .= "`attackers` = '".implode(',', $Attacker['id'])."', ";
 		$SQL .= "`defenders` = '".implode(',', $Defender['id'])."', ";
@@ -283,42 +323,6 @@ class MissionCaseDestruction extends MissionFunctions
         $SQL .= "WHERE ";
         $SQL .= substr($WhereDef, 0, -4).";";
 		$db->multi_query($SQL);
-		$rid	= $db->GetInsertID();
-			
-		switch($result['won'])
-		{
-			case "r":
-				$ColorAtt = "red";
-				$ColorDef = "green";
-			break;
-			case "w":
-				$ColorAtt = "orange";
-				$ColorDef = "orange";	
-			case "a":
-				$ColorAtt = "green";
-				$ColorDef = "red";
-			break;
-		}
-		
-		foreach ($Attacker['id'] as $AttackersID)
-		{
-			if(empty($AttackersID))
-				continue;
-				
-			$LNG			= $LANG->GetUserLang($AttackersID);
-			$MessageAtt 	= sprintf('<a href="CombatReport.php?raport=%s" onclick="OpenPopup(\'CombatReport.php?raport=%s\', \'combat\', screen.width, screen.height);return false" target="combat"><center><font color="%s">%s %s</font></a><br><br><font color="%s">%s: %s</font> <font color="%s">%s: %s</font><br>%s %s:<font color="#adaead">%s</font> %s:<font color="#ef51ef">%s</font> %s:<font color="#f77542">%s</font><br>%s %s:<font color="#adaead">%s</font> %s:<font color="#ef51ef">%s</font><br></center>', $rid, $rid, $ColorAtt, $LNG['sys_mess_attack_report'], sprintf($LNG['sys_adress_planet'], $this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet']), $ColorAtt, $LNG['sys_perte_attaquant'], pretty_number($result['lost']['att']), $ColorDef, $LNG['sys_perte_defenseur'], pretty_number($result['lost']['def']), $LNG['sys_gain'], $LNG['Metal'], pretty_number($steal['metal']), $LNG['Crystal'], pretty_number($steal['crystal']), $LNG['Deuterium'], pretty_number($steal['deuterium']), $LNG['sys_debris'], $LNG['Metal'], pretty_number($result['debree']['att'][0]+$result['debree']['def'][0]), $LNG['Crystal'], pretty_number($result['debree']['att'][1]+$result['debree']['def'][1]));
-			SendSimpleMessage($AttackersID, 0, $this->_fleet['fleet_start_time'], 3, $LNG['sys_mess_tower'], $LNG['sys_mess_attack_report'], $MessageAtt);
-		}
-
-		foreach ($Defender['id'] as $DefenderID)
-		{
-			if(empty($DefenderID))
-				continue;
-				
-			$LNG			= $LANG->GetUserLang($DefenderID);
-			$MessageDef 	= sprintf('<a href="CombatReport.php?raport=%s" onclick="OpenPopup(\'CombatReport.php?raport=%s\', \'combat\', screen.width, screen.height);return false" target="combat"><center><font color="%s">%s %s</font></a><br><br><font color="%s">%s: %s</font> <font color="%s">%s: %s</font><br>%s %s:<font color="#adaead">%s</font> %s:<font color="#ef51ef">%s</font> %s:<font color="#f77542">%s</font><br>%s %s:<font color="#adaead">%s</font> %s:<font color="#ef51ef">%s</font><br></center>', $rid, $rid, $ColorDef, $LNG['sys_mess_attack_report'], sprintf($LNG['sys_adress_planet'], $this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet']), $ColorDef, $LNG['sys_perte_attaquant'], pretty_number($result['lost']['att']), $ColorAtt, $LNG['sys_perte_defenseur'], pretty_number($result['lost']['def']), $LNG['sys_gain'], $LNG['Metal'], pretty_number($steal['metal']), $LNG['Crystal'], pretty_number($steal['crystal']), $LNG['Deuterium'], pretty_number($steal['deuterium']), $LNG['sys_debris'], $LNG['Metal'], pretty_number($result['debree']['att'][0]+$result['debree']['def'][0]), $LNG['Crystal'], pretty_number($result['debree']['att'][1]+$result['debree']['def'][1]));
-			SendSimpleMessage($DefenderID, 0, $this->_fleet['fleet_start_time'], 3, $LNG['sys_mess_tower'], $LNG['sys_mess_attack_report'], $MessageDef);
-		}
 	}
 	
 	function EndStayEvent()

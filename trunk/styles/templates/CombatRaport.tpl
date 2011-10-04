@@ -1,4 +1,13 @@
 {include file="overall_header.tpl"}
+{if $fame == 1}
+<table style="width:100%">
+	<tr>
+		<td class="transparent" style="width:40%;font-size:22px;font-weight:bold;">{$Info.0}</td>
+		<td class="transparent" style="font-size:22px;font-weight:bold;">VS</td>
+		<td class="transparent" style="width:40%;font-size:22px;font-weight:bold;">{$Info.1}</td>
+	</tr>
+</table>
+{/if}
 <div style="width:100%;text-align:center">
 {if $Raport.mode == 1}{lang}sys_destruc_title{/lang}{else}{lang}sys_attack_title{/lang}{/if} 
 {tz_date($Raport.time)}:<br><br>
@@ -11,7 +20,7 @@
 			<table>
 				<tr>
 					<td>
-						{lang}sys_attack_attacker_pos{/lang} {$PlayerInfo.name} ([{$PlayerInfo.koords[0]}:{$PlayerInfo.koords[1]}:{$PlayerInfo.koords[2]}])<br>
+						{lang}sys_attack_attacker_pos{/lang} {$PlayerInfo.name} {if $fame == 1}([XX:XX:XX]){else}([{$PlayerInfo.koords[0]}:{$PlayerInfo.koords[1]}:{$PlayerInfo.koords[2]}]){/if}<br>
 						{lang}sys_ship_weapon{/lang} {$PlayerInfo.tech[0]}% - {lang}sys_ship_shield{/lang} {$PlayerInfo.tech[1]}% - {lang}sys_ship_armour{/lang} {$PlayerInfo.tech[2]}%
 						<table width="100%">
 						{if !empty($PlayerShips)}
@@ -69,7 +78,7 @@
 			<table>
 				<tr>
 					<td>
-						{lang}sys_attack_defender_pos{/lang} {$PlayerInfo.name} ([{$PlayerInfo.koords[0]}:{$PlayerInfo.koords[1]}:{$PlayerInfo.koords[2]}])<br>
+						{lang}sys_attack_defender_pos{/lang} {$PlayerInfo.name} {if $fame == 1}([XX:XX:XX]){else}([{$PlayerInfo.koords[0]}:{$PlayerInfo.koords[1]}:{$PlayerInfo.koords[2]}]){/if}<br>
 						{lang}sys_ship_weapon{/lang} {$PlayerInfo.tech[0]}% - {lang}sys_ship_shield{/lang} {$PlayerInfo.tech[1]}% - {lang}sys_ship_armour{/lang} {$PlayerInfo.tech[2]}%
 						<table width="100%">
 						{if !empty($PlayerShips)}
@@ -143,29 +152,37 @@
 	{capture sys_moonbuilt assign=sys_moonbuilt}{lang}sys_moonbuilt{/lang}{/capture}
 	{capture sys_destruc_lune assign=sys_destruc_lune}{lang}sys_destruc_lune{/lang}{/capture}
 	{capture sys_destruc_rip assign=sys_destruc_rip}{lang}sys_destruc_rip{/lang}{/capture}
-	{sprintf($sys_destruc_mess, "{$Raport.start[0]}", "{$Raport.start[1]}", "{$Raport.start[2]}", "{$Raport.koords[0]}", "{$Raport.koords[1]}", "{$Raport.koords[2]}")}<br>
-		{if $Raport.moon[2] == 1}
-			{lang}sys_destruc_stop{/lang}<br>
-		{else}
-			{sprintf($sys_destruc_lune, "$Raport.moon[0]")}<br>{lang}sys_destruc_mess1{/lang}
-			{if $Raport.moon[2] == 0}
-				{lang}sys_destruc_reussi{/lang}
-			{else}
-				{lang}sys_destruc_null{/lang}			
-			{/if}
-			<br>
-			{sprintf($sys_destruc_rip, "{$Raport.moon[3]}")}
-			{if $Raport.moon[4] == 1}
-				<br>{lang}sys_destruc_echec{/lang}
-			{/if}			
-		{/if}
+	{if $fame == 1}
+		{sprintf($sys_destruc_mess, "XX", "XX", "XX", "XX", "XX", "XX")}<br>
 	{else}
-		{lang}sys_moonproba{/lang} {$Raport.moon[0]} %<br>
-		{if !empty($Raport.moon[1])}
-			{sprintf($sys_moonbuilt, "{$Raport.moon[1]}", "{$Raport.koords[0]}", "{$Raport.koords[1]}", "{$Raport.koords[2]}")}
-		{/if}		
+		{sprintf($sys_destruc_mess, "{$Raport.start[0]}", "{$Raport.start[1]}", "{$Raport.start[2]}", "{$Raport.koords[0]}", "{$Raport.koords[1]}", "{$Raport.koords[2]}")}<br>
 	{/if}
-	
-	{$Raport['simu']}
+	{if $Raport.moon[2] == 1}
+		{lang}sys_destruc_stop{/lang}<br>
+	{else}
+		{sprintf($sys_destruc_lune, "$Raport.moon[0]")}<br>{lang}sys_destruc_mess1{/lang}
+		{if $Raport.moon[2] == 0}
+			{lang}sys_destruc_reussi{/lang}
+		{else}
+			{lang}sys_destruc_null{/lang}			
+		{/if}
+		<br>
+		{sprintf($sys_destruc_rip, "{$Raport.moon[3]}")}
+		{if $Raport.moon[4] == 1}
+			<br>{lang}sys_destruc_echec{/lang}
+		{/if}			
+	{/if}
+{else}
+	{lang}sys_moonproba{/lang} {$Raport.moon[0]} %<br>
+	{if !empty($Raport.moon[1])}
+		{if $fame == 1}
+			{sprintf($sys_moonbuilt, "{$Raport.moon[1]}", "XX", "XX", "XX")}
+		{else}
+			{sprintf($sys_moonbuilt, "{$Raport.moon[1]}", "{$Raport.koords[0]}", "{$Raport.koords[1]}", "{$Raport.koords[2]}")}
+		{/if}
+	{/if}
+{/if}
+
+{$Raport['simu']}
 </div>
 {include file="overall_footer.tpl"}

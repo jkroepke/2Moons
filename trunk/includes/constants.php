@@ -135,6 +135,7 @@ define('SESSION'				  , $database['tableprefix'].'session');
 define('STATPOINTS'				  , $database['tableprefix'].'statpoints');
 define('SUPP'					  , $database['tableprefix'].'supp');
 define('TOPKB'					  , $database['tableprefix'].'topkb');
+define('TOPKB_USERS'			  , $database['tableprefix'].'users_to_topkb');
 define('USERS'				  	  , $database['tableprefix'].'users');
 define('USERS_VALID'		  	  , $database['tableprefix'].'users_valid');
 

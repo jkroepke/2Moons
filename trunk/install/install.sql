@@ -532,18 +532,22 @@ CREATE TABLE `prefix_supp` (
   KEY `universe` (`universe`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-
-
 CREATE TABLE `prefix_topkb` (
   `rid` int(11) unsigned NOT NULL,
-  `attackers` tinytext NOT NULL,
-  `defenders` tinyint(4) NOT NULL,
   `units` double(50,0) unsigned NOT NULL,
   `result` varchar(1) NOT NULL,
   `time` int(11) NOT NULL,
   `universe` tinyint(3) unsigned NOT NULL,
   KEY `time` (`universe`, `rid`, `time`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE `uni1_users_to_topkb` (
+ `rid` int(11) NOT NULL,
+ `uid` int(11) NOT NULL,
+ `role` tinyint(1) NOT NULL,
+ KEY `rid` (`rid`,`role`)
+) ENGINE=MyISAM;
+
 
 CREATE TABLE `prefix_users` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
