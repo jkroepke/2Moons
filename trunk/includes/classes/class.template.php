@@ -160,7 +160,7 @@ class template extends Smarty
 			'authlevel'			=> $USER['authlevel'],
             'lang'    			=> $LANG->getUser(),
             'ready'    			=> $LNG['ready'],
-			'date'				=> (int) tz_date(TIMESTAMP, 'U') * 1000,
+			'date'				=> explode("|", tz_date(TIMESTAMP, 'Y\|n\|j\|G\|i\|s\|Z')),
 			'cron'				=> GetCrons(),
 			'ga_active'			=> $CONF['ga_active'],
 			'ga_key'			=> $CONF['ga_key'],

@@ -120,7 +120,7 @@ function tz_getlist() {
 }
 
 function tz_diff() {
-	$UTC		=  (int) date("Z") + (int) date("I") * 3600;
+	$UTC		=  (int) date("Z");
 
 	if(isset($GLOBALS['USER'])) {
 		$timezone	= (float) $GLOBALS['USER']['timezone'];
@@ -132,28 +132,14 @@ function tz_diff() {
 	if($DST == 2)
 		$DST		= tz_dst($timezone);
 	
-	return TIMESTAMP + $UTC + (($timezone + $DST) * 3600);
+	return $UTC - (($timezone + $DST) * 3600);
 }
 
 function tz_date($time, $Dateformat = '', $LNG = array(), $ToGMT = false) {
-	$timezone	= (int) date("Z");
-	$UTCDate	= $time - $timezone;
-
-	if(isset($GLOBALS['USER'])) {
-		$timezone	= (float) $GLOBALS['USER']['timezone'];
-		$DST		= $GLOBALS['USER']['dst'];
-	} elseif(isset($_SESSION['USER'])) {
-		$timezone	= (float) $_SESSION['USER']['timezone'];
-		$DST		= $_SESSION['USER']['dst'];
-	}
-	
-	if($DST == 2)
-		$DST		= tz_dst($timezone);
-		
-	if($ToGMT)
-		$UTCTime	= $UTCDate;
+	if(!$ToGMT)
+		$time		= $time - tz_diff();
 	else
-		$UTCTime	= $UTCDate + (($timezone + $DST) * 3600);
+		$time		= $time - (int) date("Z") - (int) date("I");
 	
 	if(empty($LNG))
 		$LNG		= $GLOBALS['LNG'];
@@ -162,9 +148,9 @@ function tz_date($time, $Dateformat = '', $LNG = array(), $ToGMT = false) {
 		$Dateformat	= $LNG['php_tdformat'];
 	
 	$Dateformat	= str_replace(array('D', 'M'), array("XXX", "YYY"), $Dateformat);
-	$Dateformat	= str_replace(array("XXX", "YYY"), array(addcslashes($LNG['week_day'][(date('w', $UTCTime))], 'A..z'), addcslashes($LNG['months'][(date('n', $UTCTime) - 1)], 'A..z')), $Dateformat);
+	$Dateformat	= str_replace(array("XXX", "YYY"), array(addcslashes($LNG['week_day'][(date('w', $time))], 'A..z'), addcslashes($LNG['months'][(date('n', $time) - 1)], 'A..z')), $Dateformat);
 
-	return date($Dateformat, $UTCTime);
+	return date($Dateformat, $time);
 }
 
 function update_config($Values, $UNI = 0)
