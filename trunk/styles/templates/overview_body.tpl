@@ -34,7 +34,7 @@
         </tr>
 		{foreach $fleets as $index => $fleet}
 		<tr>
-			<td id="fleettime_{$index}" class="fleets" fleet-end-time="{$fleet.fleet_return}">-</td>
+			<td id="fleettime_{$index}" class="fleets" data-fleet-end-time="{$fleet.fleet_return}" data-fleet-time="{$fleet.fleet_rest}">-</td>
 			<td colspan="2">{$fleet.fleet_descr}</td>
 		</tr>
 		{/foreach}
