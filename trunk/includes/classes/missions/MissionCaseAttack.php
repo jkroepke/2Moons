@@ -306,7 +306,7 @@ class MissionCaseAttack extends MissionFunctions
         $SQL .= "`planet` = ".$this->_fleet['fleet_end_planet']." AND ";
         $SQL .= "`planet_type` = '1';";
 		$SQL .= "INSERT INTO ".TOPKB." SET ";
-		$SQL .= "`units` = ".$result['lost']['att'] + $result['lost']['def'].", ";
+		$SQL .= "`units` = ".($result['lost']['att'] + $result['lost']['def']).", ";
 		$SQL .= "`rid` = ".$rid.", ";
 		$SQL .= "`time` = ".$this->_fleet['fleet_start_time'].", ";
 		$SQL .= "`universe` = ".$this->_fleet['fleet_universe'].", ";
