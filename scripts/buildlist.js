@@ -4,7 +4,7 @@ var endtime		= 0;
 var interval	= 0;
 
 function Buildlist() {
-	var rest	= (endtime - (serverTime.getTime() / 1000) - ServerTimezoneOffset);
+	var rest	= resttime - (serverTime.getTime() - startTime) / 1000;
 	if (rest <= 0) {
 		window.clearInterval(interval);
 		$('#time').text(Ready);

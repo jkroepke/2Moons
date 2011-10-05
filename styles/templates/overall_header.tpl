@@ -13,8 +13,8 @@
 <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
 <script type="text/javascript">
 var ServerTimezoneOffset = 0;
-var serverTime 	= new Date({$date});
-var startTime	= serverTime.getTime() + ServerTimezoneOffset;
+var serverTime 	= new Date({$date.0}, {$date.1 - 1}, {$date.2}, {$date.3}, {$date.4}, {$date.5});
+var startTime	= serverTime.getTime();
 var localTime 	= serverTime;
 var localTS 	= startTime;
 var Gamename	= document.title;
