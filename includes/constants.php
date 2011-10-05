@@ -28,7 +28,7 @@
  */
 
 //SET TIMEZONE (if Server Timezone are not correct)
-date_default_timezone_set('America/Chicago');
+//date_default_timezone_set('Europe/Berlin');
  
 //TEMPLATES DEFAULT SETTINGS
 define('DEFAULT_THEME'	 		  , 'gow');
