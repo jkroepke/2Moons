@@ -235,8 +235,8 @@ class MissionCaseDestruction extends MissionFunctions
 			break;
 		}
 
-		$ShootMetal			= floattostring($result['debree']['att'][0] + $result['debree']['def'][0]);
-		$ShootCrystal		= floattostring($result['debree']['att'][1] + $result['debree']['def'][1]);	
+		$ShootMetal			= $result['debree']['att'][0] + $result['debree']['def'][0];
+		$ShootCrystal		= $result['debree']['att'][1] + $result['debree']['def'][1];	
 		
 			
 		$SQL = "INSERT INTO ".RW." SET ";
@@ -287,10 +287,8 @@ class MissionCaseDestruction extends MissionFunctions
         $SQL .= "`planet` = '" . $this->_fleet['fleet_end_planet'] . "' AND ";
         $SQL .= "`planet_type` = '1';";
 		$SQL .= "INSERT INTO ".TOPKB." SET ";
-		$SQL .= "`attackers` = '".implode(',', $Attacker['id'])."', ";
-		$SQL .= "`defenders` = '".implode(',', $Defender['id'])."', ";
-		$SQL .= "`units` = '".floattostring($result['lost']['att'] + $result['lost']['def'])."', ";
-		$SQL .= "`rid` = (SELECT MAX(`rid`) FROM ".RW."), ";
+		$SQL .= "`units` = '".($result['lost']['att'] + $result['lost']['def'])."', ";
+		$SQL .= "`rid` = ".$rid.", ";
 		$SQL .= "`time` = '".$this->_fleet['fleet_start_time']."', ";
 		$SQL .= "`universe` = '".$this->_fleet['fleet_universe']."', ";
 		$SQL .= "`result` = '". $result['won'] ."';";	
@@ -300,18 +298,18 @@ class MissionCaseDestruction extends MissionFunctions
         $SQL .= "`draws` = draws + ".$Draw.", ";
         $SQL .= "`kbmetal` = kbmetal + ".$ShootMetal.", ";
         $SQL .= "`kbcrystal` = kbcrystal + ".$ShootCrystal.", ";
-        $SQL .= "`lostunits` = lostunits + ".floattostring($result['lost']['att']).", ";
-        $SQL .= "`desunits` = desunits + ".floattostring($result['lost']['def'])." ";
+        $SQL .= "`lostunits` = lostunits + ".$result['lost']['att'].", ";
+        $SQL .= "`desunits` = desunits + ".$result['lost']['def']." ";
         $SQL .= "WHERE ";
         $SQL .= substr($WhereAtt, 0, -4).";";
 		$SQL .= "UPDATE ".USERS." SET ";
-        $SQL .= "`wons` = wons + ". $Lose .", ";
-        $SQL .= "`loos` = loos + ". $Won .", ";
-        $SQL .= "`draws` = draws + ". $Draw  .", ";
+        $SQL .= "`wons` = wons + ".$Lose.", ";
+        $SQL .= "`loos` = loos + ".$Won.", ";
+        $SQL .= "`draws` = draws + ".$Draw .", ";
         $SQL .= "`kbmetal` = kbmetal + ".$ShootMetal.", ";
         $SQL .= "`kbcrystal` = kbcrystal + ".$ShootCrystal.", ";
-        $SQL .= "`lostunits` = lostunits + ".floattostring($result['lost']['def']).", ";
-        $SQL .= "`desunits` = desunits + ".floattostring($result['lost']['att'])." ";
+        $SQL .= "`lostunits` = lostunits + ".$result['lost']['def'].", ";
+        $SQL .= "`desunits` = desunits + ".$result['lost']['att']." ";
         $SQL .= "WHERE ";
         $SQL .= substr($WhereDef, 0, -4).";";
 		$db->multi_query($SQL);
