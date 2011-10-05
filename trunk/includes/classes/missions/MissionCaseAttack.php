@@ -326,7 +326,7 @@ class MissionCaseAttack extends MissionFunctions
         $SQL .= "`loos` = loos + ". $Won .", ";
         $SQL .= "`draws` = draws + ". $Draw  .", ";
         $SQL .= "`kbmetal` = kbmetal + ".$ShootMetal.", ";
-        $SQL .= "`kbcrystal` = kbcrystal + ".$ShootCrystal).", ";
+        $SQL .= "`kbcrystal` = kbcrystal + ".$ShootCrystal.", ";
         $SQL .= "`lostunits` = lostunits + ".$result['lost']['def']).", ";
         $SQL .= "`desunits` = desunits + ".$result['lost']['att'])." ";
         $SQL .= "WHERE ";
