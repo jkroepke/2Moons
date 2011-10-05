@@ -246,12 +246,13 @@ class FlyingFleetsTable
 		}
 		$EventString = '<span class="'.$FleetStatus[$Status].' '.$FleetType.'">'.$EventString.'</span>';
 		if ($Status == 0)
-			$Time	 = tz_date($FleetRow['fleet_start_time'], 'U');
+			$Time	 = $FleetRow['fleet_start_time'];
 		elseif ($Status == 1)
-			$Time	 = tz_date($FleetRow['fleet_end_time'], 'U');
+			$Time	 = $FleetRow['fleet_end_time'];
 		elseif ($Status == 2)
-			$Time	 = tz_date($FleetRow['fleet_end_stay'], 'U');
-		$Rest	 = $Time - TIMESTAMP;
+			$Time	 = $FleetRow['fleet_end_stay'];
+		$Rest	= $Time - TIMESTAMP;
+		$time	= tz_date($time, 'U');
 		return array($Rest, $EventString, $Time);
 	}
 
@@ -281,12 +282,12 @@ class FlyingFleetsTable
 				list($Rest, $EventString, $Time) = $this->GetEventString($FleetRow, $Status, $Owner, $Label, $Record);
 				$EventString    .= '<br><br>';	
 			}
-			
-			$FleetInfo['fleet_order']	= $Label . $Record;
-			$FleetInfo['fleet_descr']	= substr($EventString, 0, -8);
-			$FleetInfo['fleet_return']	= $Time;
-	
-			return $FleetInfo;
+			return array(
+				'fleet_order'	=> $Label . $Record,
+				'fleet_descr'	=> substr($EventString, 0, -8),
+				'fleet_return'	=> $Time,
+				'fleet_rest'	=> $Rest
+			);
 		}
 		return array('fleet_order' => 0, 'fleet_descr' => '', 'fleet_return'=> 0);
 	}

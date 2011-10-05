@@ -65,7 +65,7 @@ function BuildTime() {
 
 function FleetTime() {
 	$('.fleets').each(function() {
-		var s		= ($(this).attr('fleet-end-time') - (serverTime.getTime() / 1000) + ServerTimezoneOffset);
+		var s		= $(this).data('fleet-time') - (serverTime.getTime() - startTime) / 1000;
 		if(s <= 0) {
 			$(this).text('-');
 		} else {
