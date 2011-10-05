@@ -123,6 +123,8 @@ function ShowConfigBasicPage()
 
 	}
 	
+	$TimeZones		= tz_getlist();
+	
 	$template	= new template();
 	
 	$template->assign_vars(array(
@@ -149,7 +151,7 @@ function ShowConfigBasicPage()
 		'ga_key'           				=> $CONF['ga_key'],
 		'timezone'           			=> $CONF['timezone'],
 		'dst'           				=> $CONF['dst'],
-		'Selector'						=> array('timezone' => $LNG['timezones'], 'dst' => $LNG['se_dst_sel'], 'mail' => $LNG['se_mail_sel'], 'encry' => array('' => $LNG['se_smtp_ssl_1'], 'ssl' => $LNG['se_smtp_ssl_2'], 'tls' => $LNG['se_smtp_ssl_3'])),
+		'Selector'						=> array('timezone_val' => $TimeZones, 'timezone_opt' => $LNG['timezones'], 'dst' => $LNG['se_dst_sel'], 'mail' => $LNG['se_mail_sel'], 'encry' => array('' => $LNG['se_smtp_ssl_1'], 'ssl' => $LNG['se_smtp_ssl_2'], 'tls' => $LNG['se_smtp_ssl_3'])),
 	));
 	
 	$template->show('adm/ConfigBasicBody.tpl');

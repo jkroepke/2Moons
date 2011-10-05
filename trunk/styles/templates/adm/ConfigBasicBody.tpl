@@ -16,7 +16,7 @@
 	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{lang}se_ttf_file_info{/lang}"></td>
 </tr><tr>
     <td>{lang}se_timzone{/lang}</td>
-	<td>{html_options name=timezone options=$Selector.timezone selected=$timezone}</td>
+	<td>{html_options name=timezone values=$Selector.timezone_val output=$Selector.timezone_opt selected=$timezone}</td>
 	<td>&nbsp;</td>
 </tr><tr>
 	<td>{lang}se_dst_mode{/lang}</td>

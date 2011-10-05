@@ -5,7 +5,7 @@ var interval	= 0;
 var IsOldLink	= $('#buildlist').length;
 
 function Buildlist() {
-	var rest	= (endtime - (serverTime.getTime() / 1000) + ServerTimezoneOffset);
+	var rest	= (endtime - (serverTime.getTime() / 1000) - ServerTimezoneOffset);
 	if (rest <= 0) {
 		window.clearInterval(interval);
 		$('#time').text(Ready);

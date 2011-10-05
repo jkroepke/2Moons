@@ -541,7 +541,7 @@ CREATE TABLE `prefix_topkb` (
   KEY `time` (`universe`, `rid`, `time`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE `uni1_users_to_topkb` (
+CREATE TABLE `prefix_users_to_topkb` (
  `rid` int(11) NOT NULL,
  `uid` int(11) NOT NULL,
  `role` tinyint(1) NOT NULL,
