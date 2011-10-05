@@ -327,8 +327,8 @@ class MissionCaseAttack extends MissionFunctions
         $SQL .= "`draws` = draws + ". $Draw  .", ";
         $SQL .= "`kbmetal` = kbmetal + ".$ShootMetal.", ";
         $SQL .= "`kbcrystal` = kbcrystal + ".$ShootCrystal.", ";
-        $SQL .= "`lostunits` = lostunits + ".$result['lost']['def']).", ";
-        $SQL .= "`desunits` = desunits + ".$result['lost']['att'])." ";
+        $SQL .= "`lostunits` = lostunits + ".$result['lost']['def'].", ";
+        $SQL .= "`desunits` = desunits + ".$result['lost']['att']." ";
         $SQL .= "WHERE ";
         $SQL .= substr($WhereDef, 0, -4).";";
 		$db->multi_query($SQL);
