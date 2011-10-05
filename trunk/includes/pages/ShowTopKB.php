@@ -37,16 +37,16 @@ function ShowTopKB()
 	$PlanetRess->SavePlanetToDB();
 	
 	$top = $db->query("SELECT *, (
-		SELECT 
+		SELECT DISTINCT
 		GROUP_CONCAT(username SEPARATOR ' & ') as attacker
-		FROM ".USERS." 
-		WHERE `id` IN (SELECT `uid` FROM ".TOPKB_USERS." WHERE ".TOPKB_USERS.".`rid` = ".TOPKB.".`rid` AND `role` = 1)
+		FROM ".TOPKB_USERS." INNER JOIN ".USERS." ON uid = id AND `role` = 1
+		WHERE ".TOPKB_USERS.".`rid` = ".TOPKB.".`rid`
 	) as `attacker`,
 	(
-		SELECT 
-		GROUP_CONCAT(username SEPARATOR ' & ') as defender
-		FROM ".USERS." 
-		WHERE `id` IN (SELECT `uid` FROM ".TOPKB_USERS." WHERE ".TOPKB_USERS.".`rid` = ".TOPKB.".`rid` AND `role` = 2)
+		SELECT DISTINCT
+		GROUP_CONCAT(username SEPARATOR ' & ') as attacker
+		FROM ".TOPKB_USERS." INNER JOIN ".USERS." ON uid = id AND `role` = 2
+		WHERE ".TOPKB_USERS.".`rid` = ".TOPKB.".`rid`
 	) as `defender`  
 	FROM ".TOPKB." WHERE `universe` = '".$UNI."' ORDER BY units DESC LIMIT 100;");
 	while($data = $db->fetch_array($top)) {

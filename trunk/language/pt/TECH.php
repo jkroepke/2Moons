@@ -35,7 +35,7 @@ $LNG['tech_rc'] = array (
 406 => "C.Plasma",
 407 => "P.Escudo",
 408 => "G.Escudo",
-409 => 'Gigantic signpost dome',
+409 => 'E.Atmosférico',
 410 => 'C.Gravitação',
 411 => 'S.Orbital',
 );
@@ -120,7 +120,7 @@ $LNG['tech'] = array(
 406 => 'Canhão de Plasma',
 407 => 'P. Escudo Planetário',
 408 => 'G. Escudo Planetário',
-409 => 'Gigantic signpost dome',
+409 => 'Escudo Atmosférico',
 410 => 'Canhão de Gravitação',
 411 => 'S. Orbital de Defesa',
 
@@ -222,7 +222,7 @@ $LNG['res']['descriptions'] = array(
 406 => "A tecnologia de laser foi melhorada, a tecnologia de iões alcançou a sua fase final. Pensou-se que seria impossível criar sistemas de armas mais eficazes. A possibilidade de combinar os dois sistemas mudou este pensamento.",
 407 => "Muito tempo antes da instalação dos escudos em embarcações, os geradores já existiam na superfície dos planetas. Cobriam os planetas e eram capazes de absorver quantidades enormes de danos antes de serem destruídos.",
 408 => "O grande escudo planetário cobre o planeta para absorver quantidades enormes de tiros.",
-409 => 'A evolução da tecnologia do Grande escudo planetario. Consome muito mais energia mas é capaz de aguentar um numero bem maior de ataques.',
+409 => 'A evolução da tecnologia do Grande Escudo Planetário. Consome muito mais energia mas é capaz de aguentar um numero bem maior de ataques.',
 410 => 'Após anos de pesquisa sobre a força gravitacional os pesquisadores desenvolveram um Canhão de Gravitação que produz pequenos Gravitões concentrados e podem ser disparados contra o inimigo..',
 411 => 'Esta plataforma de proporções gigantescas, as maiores, que foram alguma vez vistas no universo. É uma plataforma imovél defensiva. Não tem accionamento directo e é realizada por Graviton.',
 
@@ -391,8 +391,8 @@ $LNG['info'][407]['name']        = 'Pequeno Escudo Planetário';
 $LNG['info'][407]['description'] = 'Muito tempo antes da instalação dos escudos em embarcações, os geradores já existiam na superfície dos planetas. Cobriam os planetas e eram capazes de absorver quantidades enormes de danos antes de serem destruídos. Os ataques com frotas ligeiras falhavam frequentemente quando se encontravam com estes geradores. Mais tarde, foi imaginado a criação de um enorme escudo planetário. Para cada planeta um escudo planetário.';
 $LNG['info'][408]['name']        = 'Grande Escudo Planetário';
 $LNG['info'][408]['description'] = 'O grande escudo planetário cobre o planeta para absorver quantidades enormes de tiros. A sua resistência é muito maior daquela encontrada no pequeno escudo planetário e francamente resistente contra o RapidFire das naves de combate.';
-$LNG['info'][409]['name']        = 'Giant Shield Dome';
-$LNG['info'][409]['description'] = 'The further development of the Large Shield Dome. It is based on the same technologies can also use considerably more energy to deter enemy attacks.';
+$LNG['info'][409]['name']        = 'Escudo Atmosférico';
+$LNG['info'][409]['description'] = 'A evolução da tecnologia do Grande Escudo Planetário. Consome muito mais energia mas é capaz de aguentar um numero bem maior de ataques.';
 $LNG['info'][410]['name']        = 'Canhão de Gravitação';
 $LNG['info'][410]['description'] = 'Após anos de pesquisa sobre a força gravitacional os pesquisadores desenvolveram um Canhão de Gravitação que produs pequenos Gravitões concentrados e podem ser disparados contra o inimigo. Esta foi uma das descobertas feitas logo de seguida depois das Estrelas da Morte, os cientístas já andavam desesperados devido a não haver sistemas de defesa capazes de destruir EDMs, então criaram este canhão mortal.';
 $LNG['info'][411]['name']        = 'Sistema Orbitál de Defesa';

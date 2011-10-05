@@ -106,32 +106,40 @@ function getPlanets($USER)
 	return $Planets;
 }
 
+function tz_dst($timezone) {
+	if($timezone == $GLOBALS['CONF']['timezone'])
+		return (int) date("I");
+		
+	date_default_timezone_set(timezone_name_from_abbr("", $timezone * 3600, 0));
+	$DST	= (int) date("I");
+	date_default_timezone_set(timezone_name_from_abbr("", $GLOBALS['CONF']['timezone'] * 3600, 0));
+	return $DST;
+}
+
 function tz_date($time, $Dateformat = '', $LNG = array()) {
-	$UTCDate 	= strtotime(gmdate("M d Y H:i:s", $time));
-	$DST		= $GLOBALS['CONF']['dst'];
-	$UTCDST		= (int) gmdate("I");
-	$timezone	= ($time - $UTCDate) / 3600;
+	$UTCDST		= $GLOBALS['CONF']['dst'];
+	$timezone	= $GLOBALS['CONF']['timezone'];
+	if($UTCDST == 2)
+		$UTCDST		= tz_dst($timezone);
+		
+	$UTCDate	= $time - ($timezone + $UTCDST) * 3600;
+	
 	if(empty($LNG))
 		$LNG	= $GLOBALS['LNG'];
-		
-	if(isset($GLOBALS['USER'])) {
-		$timezone	= (float) $GLOBALS['USER']['timezone'];
-		$DST	= $GLOBALS['USER']['dst'];
-	} elseif(isset($_SESSION['USER'])) {
-		$timezone	= (float) $_SESSION['USER']['timezone'];
-		$DST	= $_SESSION['USER']['dst'];
-	}
-	
-	if($DST == 2) {
-		$OLD	= date_default_timezone_get();
-		date_default_timezone_set(timezone_name_from_abbr("", $timezone, 0));
-		$DST	= (int) date("I");
-		date_default_timezone_set($OLD);
-	}
-	
-	$DST		-= $UTCDST;
+			
 	if(empty($Dateformat))
 		$Dateformat	= $LNG['php_tdformat'];
+
+	if(isset($GLOBALS['USER'])) {
+		$timezone	= (float) $GLOBALS['USER']['timezone'];
+		$DST		= $GLOBALS['USER']['dst'];
+	} elseif(isset($_SESSION['USER'])) {
+		$timezone	= (float) $_SESSION['USER']['timezone'];
+		$DST		= $_SESSION['USER']['dst'];
+	}
+	
+	if($DST == 2)
+		$DST		= tz_dst($timezone);
 		
 	$UTCTime	= $UTCDate + (($timezone + $DST) * 3600);
 	$Dateformat	= str_replace(array('D', 'M'), array("XXX", "YYY"), $Dateformat);

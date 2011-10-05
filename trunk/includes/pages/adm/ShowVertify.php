@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 /**
  *  2Moons
@@ -32,43 +32,54 @@ if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FI
 function ShowVertify() 
 {
 	global $CONF, $LNG;
-	$Patchlevel	= explode(".", $CONF['VERSION']);
-	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, 'http://2moons.cc/hash/hash.php?r='.$Patchlevel[2]);
-	curl_setopt($ch, CURLOPT_HEADER, false);
-	curl_setopt($ch, CURLOPT_CRLF, true);
-	curl_setopt($ch, CURLOPT_USERAGENT, "2Moons WebInstaller");
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	$RAWHash	= curl_exec($ch);
-	curl_close($ch);
-	if(empty($RAWHash))
-		message($LNG['vt_error']);
-		
-	$RAWHash	= explode("\r\n", $RAWHash);
-	foreach($RAWHash as $Temp) {
-		$Temp	= explode(":", $Temp);
-		$Hash[$Temp[0]]	= $Temp[1];
-	}
-	$Fail	= array();
-	$List	= dir_tree(substr(ROOT_PATH, 0, -1));
-	foreach($List as $File => $MD5) {
-		if(!isset($Hash[$File]))
-			continue;
-			
-		if($MD5 !== $Hash[$File])
-			$Fail[$File]	= $MD5;
-	}
+	$EXT		= explode("|", request_var("ext", ""));
+	$action 	= request_var("action", "");
+	$file	 	= request_var("file", "");
 	$template	= new template();
-	$template->assign_vars(array(
-		'Fail'			=> $Fail,
-		'Patchlevel'	=> $Patchlevel[2],
-	));
+	
+	switch($action) {
+		case 'check':
+			$REV	= explode(".", $CONF["VERSION"]);
+			$REV	= $REV[2];
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_AUTOREFERER, true);
+			curl_setopt($ch, CURLOPT_URL, 'http://2moons.googlecode.com/svn-history/r'.$REV.'/trunk/'.$file);
+			curl_setopt($ch, CURLOPT_HEADER, false);
+			curl_setopt($ch, CURLOPT_USERAGENT, "2Moons Update API");
+			curl_setopt($ch, CURLOPT_CRLF, true);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			$SVNHASH	= crc32(curl_exec($ch));
+			if(curl_errno($ch)) {
+				if(curl_getinfo($ch, CURLINFO_HTTP_CODE) == 404)
+					echo 4;
+				else 
+					echo 3;
+			}
+			
+			curl_close($ch);
+			
+			$LOCALHASH	= crc32(preg_replace('/\$Id[^\$]+\$/', '$Id$', file_get_contents(ROOT_PATH.$file)));
+			if($SVNHASH == $LOCALHASH) {
+				echo 1;
+			} else {
+				echo 2;
+			}
+			exit;
+		break;
+		case 'vertify':
+			$template->loadscript('vertify.js');
+			$template->show("adm/VertifyPageResult.tpl");
+			exit;
+		break;
+		case 'getFileList':
+			exit(json_encode(dir_tree(ROOT_PATH, $EXT)));
+		break;
+	}
 	
 	$template->show("adm/VertifyPage.tpl");
 }
 
-
-function dir_tree($dir) {
+function dir_tree($dir, $EXT) {
 	$path = '';
 	$stack[] = $dir;
 	while ($stack) {
@@ -77,11 +88,19 @@ function dir_tree($dir) {
 			$i=0;
 			while (isset($dircont[$i])) {
 				if (!in_array($dircont[$i], array('.', '..', '.svn', '.info'))) {
-					$current_file = $thisdir."/".$dircont[$i];
-					if (is_file($current_file)) {
-						$path[str_replace(ROOT_PATH, '', str_replace('\\', '/', $current_file))]	= md5_file($current_file);
+					$current_file = $thisdir.$dircont[$i];
+					if (is_file($current_file))
+					{
+						foreach($EXT as $FILEXT)
+						{
+							if(preg_match("/\.".preg_quote($FILEXT)."$/i", $current_file))
+							{
+								$path[]	= str_replace(ROOT_PATH, '', str_replace('\\', '/', $current_file));
+								break;
+							}
+						}
 					} elseif (is_dir($current_file)) {
-						$stack[] = $current_file;
+						$stack[] = $current_file."/";
 					}
 				}
 				$i++;

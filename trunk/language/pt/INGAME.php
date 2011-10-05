@@ -514,6 +514,7 @@ $LNG['mg_game_message']                     = 'Mensagem de Jogo';
 $LNG['mg_message_send']			            = 'Mensagem Enviada!';
 $LNG['mg_empty_text']				        = 'Intruduzir Texto';
 $LNG['mg_answer_to']						= 'Responder para:';
+$LNG['mg_write_mail_to_ops']                = 'Escrever um e-mail para';
 
 //----------------------------------------------------------------------------//
 //Aliança
