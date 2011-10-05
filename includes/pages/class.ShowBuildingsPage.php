@@ -233,7 +233,7 @@ class ShowBuildingsPage
 				'time' 		=> $BuildArray[2], 
 				'resttime' 	=> ($BuildArray[3] - TIMESTAMP), 
 				'destroy' 	=> ($BuildArray[4] == 'destroy'), 
-				'endtime' 	=> (int) tz_date($BuildArray[3], 'U')
+				'endtime' 	=> $BuildArray[3]
 			);
 			$Builds[$BuildArray[0]]	= ($BuildArray[4] == 'destroy') ? $Builds[$BuildArray[0]] - 1 : $Builds[$BuildArray[0]] + 1;
 		}

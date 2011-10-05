@@ -470,7 +470,11 @@ $LNG['se_darkmatter_start_info']        = 'Recursos iniciais de Matéria Negra p
 $LNG['se_debris_moon']                  = 'Excluir Destroços na Lua';
 $LNG['se_debris_moon_info']             = 'Limpa os destroços depois de Formação de Lua';
 $LNG['se_buildlist']                    = 'Lista de Construcção';
-$LNG['se_timzone']						= 'Fuso horário do Universo';
+$LNG['se_timzone']                      = 'Fuso horário do Universo';
+$LNG['se_dst_mode']                     = 'Daylight Saving Time? Mudança de Horário de Verão';
+$LNG['se_dst_sel'][0]                                   = 'Sim';
+$LNG['se_dst_sel'][1]                                   = 'Não';
+$LNG['se_dst_sel'][2]                                   = 'Automático';
 
 //###########################################################//
 
@@ -578,9 +582,10 @@ $LNG['mu_ts_options']                   = 'Opções Teamspeak';
 $LNG['mu_game_info']                    = 'Informação';
 $LNG['mu_vaild_users']				    = 'Actividade de Usuário';
 $LNG['mu_news']					        = 'Noticias';
-$LNG['mu_multiip']						= 'Múltiplos IPs'; 
+$LNG['mu_multiip_page']					= 'Múltiplos IPs'; 
 $LNG['mu_clear_cache']					= 'Limpar Cache'; 
 $LNG['mu_vertify']				     	= 'Verificar Conteúdo do Jogo'; 
+$LNG['mu_logs']				     		= 'Actividade de Administrador'; 
 
 $LNG['vt_error']					= 'Hashfile não está disponível! - Executar Actualização!';
 $LNG['vt_fail']						= 'Arquivos Alterados';

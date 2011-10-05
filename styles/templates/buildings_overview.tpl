@@ -36,7 +36,7 @@
 						<button type="submit" class="build_submit onlist">{lang}bd_cancel{/lang}</button>
 					</form>
 					{/if}
-					<br><span style="color:lime" time="{$List.endtime}" class="timer">{tz_date($List.endtime)}</span>
+					<br><span style="color:lime" time="{tz_date($List.endtime, 'U')}" class="timer">{tz_date($List.endtime)}</span>
 				</td>
 			</tr>
 		{/foreach}

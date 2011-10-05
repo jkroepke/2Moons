@@ -97,14 +97,12 @@ class statbuilder extends records
 		
 		foreach($this->Unis as $Uni)
 		{
-			$TopKBLow		= $db->uniquequery("SELECT gesamtunits FROM ".TOPKB." WHERE `universe` = ".$Uni." ORDER BY gesamtunits DESC LIMIT 99,1;");
+			$TopKBLow		= $db->countquery("SELECT units FROM ".TOPKB." WHERE `universe` = ".$Uni." ORDER BY units DESC LIMIT 99,1;");
 			if(isset($TopKBLow))
-				$db->query("DELETE FROM ".TOPKB." WHERE `universe` = ".$Uni." AND `units` < ".$TopKBLow['gesamtunits'].";");
-				
-			$db->free_result($TKBRW);
+				$db->query("DELETE FROM ".TOPKB." as t, ".TOPKB_USERS." as u WHERE t.`universe` = ".$Uni." AND t.`units` < ".$TopKBLow." AND t.rid = u.rid;");
 		}
 
-		$db->query("DELETE FROM ".RW." WHERE `time` < ". $del_before ." AND NOT IN (SELECT `rid` FROM ".TOPKB.");");
+		$db->query("DELETE FROM ".RW." WHERE `time` < ". $del_before ." AND `rid` NOT IN (SELECT `rid` FROM ".TOPKB.");");
 		$db->query("UNLOCK TABLES;");
 	}
 	
