@@ -12,11 +12,11 @@
 <link rel="stylesheet" type="text/css" href="{$dpath}formate.css">
 <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
 <script type="text/javascript">
-var serverTime 	= new Date({$date.0}, {$date.1 - 1}, {$date.2}, {$date.3}, {$date.4}, {$date.5});
-var startTime	= serverTime.getTime();
+var ServerTimezoneOffset = 0;
+var serverTime 	= new Date({$date});
+var startTime	= serverTime.getTime() + ServerTimezoneOffset;
 var localTime 	= serverTime;
 var localTS 	= startTime;
-var ServerTimezoneOffset = 0;
 var Gamename	= document.title;
 var Ready		= "{$ready}";
 var Skin		= "{$dpath}";

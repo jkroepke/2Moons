@@ -109,26 +109,35 @@ function getPlanets($USER)
 function tz_dst($timezone) {
 	if($timezone == $GLOBALS['CONF']['timezone'])
 		return (int) date("I");
-		
-	date_default_timezone_set(timezone_name_from_abbr("", $timezone * 3600, 0));
+	
+	$OLD	= date_default_timezone_get();
 	$DST	= (int) date("I");
-	date_default_timezone_set(timezone_name_from_abbr("", $GLOBALS['CONF']['timezone'] * 3600, 0));
 	return $DST;
 }
 
-function tz_date($time, $Dateformat = '', $LNG = array()) {
-	$UTCDST		= $GLOBALS['CONF']['dst'];
-	$timezone	= $GLOBALS['CONF']['timezone'];
-	if($UTCDST == 2)
-		$UTCDST		= tz_dst($timezone);
-		
-	$UTCDate	= $time - ($timezone + $UTCDST) * 3600;
+function tz_getlist() {
+	return array('-12', '-11', '-10', '-9.5', '-9', '-8', '-7', '-6', '-5', '-4.5', '-4', '-3.5', '-3', '-2', '-1', '0', '1', '2', '3', '3.5', '4', '4.5', '5', '5.5', '5.75', '6', '6.5', '7', '8', '8.75', '9', '9.5', '10', '10.5', '11', '11.5', '12', '12.75', '13', '14');
+}
+
+function tz_diff() {
+	$UTC		=  (int) date("Z") + (int) date("I") * 3600;
+
+	if(isset($GLOBALS['USER'])) {
+		$timezone	= (float) $GLOBALS['USER']['timezone'];
+		$DST		= $GLOBALS['USER']['dst'];
+	} elseif(isset($_SESSION['USER'])) {
+		$timezone	= (float) $_SESSION['USER']['timezone'];
+		$DST		= $_SESSION['USER']['dst'];
+	}
+	if($DST == 2)
+		$DST		= tz_dst($timezone);
 	
-	if(empty($LNG))
-		$LNG	= $GLOBALS['LNG'];
-			
-	if(empty($Dateformat))
-		$Dateformat	= $LNG['php_tdformat'];
+	return TIMESTAMP + $UTC + (($timezone + $DST) * 3600);
+}
+
+function tz_date($time, $Dateformat = '', $LNG = array(), $ToGMT = false) {
+	$timezone	= (int) date("Z");
+	$UTCDate	= $time - $timezone;
 
 	if(isset($GLOBALS['USER'])) {
 		$timezone	= (float) $GLOBALS['USER']['timezone'];
@@ -141,7 +150,17 @@ function tz_date($time, $Dateformat = '', $LNG = array()) {
 	if($DST == 2)
 		$DST		= tz_dst($timezone);
 		
-	$UTCTime	= $UTCDate + (($timezone + $DST) * 3600);
+	if($ToGMT)
+		$UTCTime	= $UTCDate;
+	else
+		$UTCTime	= $UTCDate + (($timezone + $DST) * 3600);
+	
+	if(empty($LNG))
+		$LNG		= $GLOBALS['LNG'];
+			
+	if(empty($Dateformat))
+		$Dateformat	= $LNG['php_tdformat'];
+	
 	$Dateformat	= str_replace(array('D', 'M'), array("XXX", "YYY"), $Dateformat);
 	$Dateformat	= str_replace(array("XXX", "YYY"), array(addcslashes($LNG['week_day'][(date('w', $UTCTime))], 'A..z'), addcslashes($LNG['months'][(date('n', $UTCTime) - 1)], 'A..z')), $Dateformat);
 

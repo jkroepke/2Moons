@@ -160,7 +160,7 @@ class template extends Smarty
 			'authlevel'			=> $USER['authlevel'],
             'lang'    			=> $LANG->getUser(),
             'ready'    			=> $LNG['ready'],
-			'date'				=> explode("|", tz_date(TIMESTAMP, 'Y\|n\|j\|G\|i\|s\|Z')),
+			'date'				=> (int) tz_date(TIMESTAMP, 'U') * 1000,
 			'cron'				=> GetCrons(),
 			'ga_active'			=> $CONF['ga_active'],
 			'ga_key'			=> $CONF['ga_key'],
@@ -172,6 +172,7 @@ class template extends Smarty
 			'week_day'			=> json_encode($LNG['week_day']),
 			'months' 			=> json_encode($LNG['months']),
 			'TimeZone' 			=> ($USER['timezone'] + $USER['dst']) * 3600,
+			'Offset'			=> tz_diff(),
 		));
 	}
 	

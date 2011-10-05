@@ -259,6 +259,9 @@ switch ($Mode) {
 				), file_get_contents('install.sql')));
 				$MSG	= ob_get_clean();
 				
+				if (mysqli_error($db))
+					exit(json_encode(array('msg' => sprintf($LNG['step2_db_con_fail'], mysqli_error($db)), 'error' => true)));
+					
 				if (!empty($MSG))
 					exit(sprintf($LNG['step2_db_error'], $MSG));
 
@@ -346,7 +349,7 @@ switch ($Mode) {
 				$SQL .= "`deuterium_perhour` = '0', ";
 				$SQL .= "`deuterium_max`     = '1000000';";
 				$SQL .= "INSERT INTO ".STATPOINTS." (`id_owner`, `id_ally`, `stat_type`, `tech_rank`, `tech_old_rank`, `tech_points`, `tech_count`, `build_rank`, `build_old_rank`, `build_points`, `build_count`, `defs_rank`, `defs_old_rank`, `defs_points`, `defs_count`, `fleet_rank`, `fleet_old_rank`, `fleet_points`, `fleet_count`, `total_rank`, `total_old_rank`, `total_points`, `total_count`) VALUES ('1', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');";
-				$SQL .= "UPDATE ".CONFIG." SET `lang` = '".$LANG->GetUser()."';";
+				$SQL .= "UPDATE ".CONFIG." SET `lang` = '".$LANG->GetUser()."', `timezone` = ".(((int) date("Z") / 3600) - (int) date("I")).";";
 				$db->multi_query($SQL);
 
 				ini_set('session.save_path', ROOT_PATH.'cache/sessions');
