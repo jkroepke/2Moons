@@ -188,7 +188,7 @@ CREATE TABLE `prefix_config` (
   `ts_login` varchar(32) NOT NULL DEFAULT '',
   `ts_password` varchar(32) NOT NULL DEFAULT '',
   `reg_closed` tinyint(1) NOT NULL DEFAULT '0',
-  `OverviewNewsFrame` tinyint(1) NOT NULL DEFAULT '0',
+  `OverviewNewsFrame` tinyint(1) NOT NULL DEFAULT '1',
   `OverviewNewsText` text NOT NULL,
   `capaktiv` tinyint(1) NOT NULL DEFAULT '0',
   `cappublic` varchar(42) NOT NULL DEFAULT '',
@@ -227,7 +227,7 @@ CREATE TABLE `prefix_config` (
   `chat_socket_chatid` tinyint(1) NOT NULL DEFAULT '1',
   `max_galaxy` tinyint(3) unsigned NOT NULL DEFAULT '9',
   `max_system` smallint(5) unsigned NOT NULL DEFAULT '400',
-  `max_planets` tinyint(3) unsigned NOT NULL DEFAULT '15',
+  `max_planets` tinyint(3) unsigned NOT NULL DEFAULT '20',
   `planet_factor` float(2,1) NOT NULL DEFAULT '1.0',
   `max_elements_build` tinyint(3) unsigned NOT NULL DEFAULT '5',
   `max_elements_tech` tinyint(3) unsigned NOT NULL DEFAULT '2',
@@ -260,9 +260,9 @@ CREATE TABLE `prefix_config` (
   `del_user_automatic` tinyint(3) unsigned NOT NULL DEFAULT '30',
   `del_user_sendmail` tinyint(3) unsigned NOT NULL DEFAULT '21',
   `sendmail_inactive` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `silo_factor` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `silo_factor` tinyint(1) unsigned NOT NULL DEFAULT '1',
   `timezone` float(4, 2) NOT NULL DEFAULT '0',
-  `dst` enum('0','1','2') NOT NULL DEFAULT '0',
+  `dst` enum('0','1','2') NOT NULL DEFAULT '2',
   PRIMARY KEY (`uni`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 

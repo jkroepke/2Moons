@@ -8,7 +8,7 @@ function initPlanetMenu(){
 		$('#planet_menu_content').hide();
 		$('body').css('padding-bottom', '21px');
 	}
-	window.setTimeout(PlanetMenu, 1000);
+	window.setInterval(PlanetMenu, 1000);
 	PlanetMenu();
 }
 

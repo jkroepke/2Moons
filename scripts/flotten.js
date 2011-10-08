@@ -196,3 +196,8 @@ function CheckTarget()
 	});
 	return false;
 }
+
+function EditShotCuts() {
+	$(".shoutcut").hide();
+	$(".shoutcut-input").show();
+}
