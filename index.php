@@ -358,17 +358,28 @@ switch ($page) {
 		$template->show('index_screens.tpl');
 		break;
 	case 'top100' :
-		$top = $db->query("SELECT * FROM ".TOPKB." WHERE `universe` = '".$UNI."' ORDER BY units DESC LIMIT 100;");
+		$top = $db->query("SELECT *, (
+			SELECT DISTINCT
+			GROUP_CONCAT(username SEPARATOR ' & ') as attacker
+			FROM ".TOPKB_USERS." INNER JOIN ".USERS." ON uid = id AND `role` = 1
+			WHERE ".TOPKB_USERS.".`rid` = ".TOPKB.".`rid`
+		) as `attacker`,
+		(
+			SELECT DISTINCT
+			GROUP_CONCAT(username SEPARATOR ' & ') as attacker
+			FROM ".TOPKB_USERS." INNER JOIN ".USERS." ON uid = id AND `role` = 2
+			WHERE ".TOPKB_USERS.".`rid` = ".TOPKB.".`rid`
+		) as `defender`  
+		FROM ".TOPKB." WHERE `universe` = '".$UNI."' ORDER BY units DESC LIMIT 100;");
 		$TopKBList	= array();
 		while($data = $db->fetch_array($top)) {
 			$TopKBList[]	= array(
-				'result'	=> $data['fleetresult'],
+				'result'	=> $data['result'],
 				'time'		=> date("D d M H:i:s", $data['time']),
-				'units'		=> pretty_number($data['gesamtunits']),
+				'units'		=> pretty_number($data['units']),
 				'rid'		=> $data['rid'],
-				'attacker'	=> $data['angreifer'],
+				'attacker'	=> $data['attacker'],
 				'defender'	=> $data['defender'],
-				'result'	=> $data['fleetresult'],
 			);
 		}
 		

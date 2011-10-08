@@ -421,13 +421,13 @@ $LNG['info'][610]['description'] = 'Der Spion ist eine rätselhafte Person. Niem
 $LNG['info'][611]['name']		 = 'Commander';
 $LNG['info'][611]['description'] = 'Der Commander der imperialen Armee ist Meister im Umgang mit der Flotte. Seine jahrelangen Erfahrungen mit Flotten, mit vielen strategischen Einsätzen, sind eine Bereicherung für jeden Herrscher.<br><br><span style="color:red">+%s Flottenslots. Maximal Level %s </span>';
 $LNG['info'][612]['name']		 = 'Zerstörer';
-$LNG['info'][612]['description'] = 'Der Zerstörer ist ein Offizier ohne Mitleid. Er hat Planeten nur zum Vergnügen dem Erdboden gleich gemacht. Er entdeckt momentan eine neue Methode um Massenvernichtungswaffen herzustellen.<br><br><span style="color:red">Baut 2 Todessterne zum Preis von einem. Maximal Level %s </span>';
+$LNG['info'][612]['description'] = 'Der Zerstörer ist ein Offizier ohne Mitleid. Er hat Planeten nur zum Vergnügen dem Erdboden gleich gemacht. Er entdeckt momentan eine neue Methode um Massenvernichtungswaffen herzustellen.<br><br><span style="color:red">Maximal Level %s </span>';
 $LNG['info'][613]['name']		 = 'General';
 $LNG['info'][613]['description'] = 'Der General ist eine ehrwürdige Person, der seit vielen Jahren in der Armee dient. Durch unzählige Manöver hat der General Strategien entwickelt, um die Flottengeschwindigkeiten in sämtlichen Konstellationen, verschiedenster Shiffstypen, zu optimieren.<br><br><span style="color:red">+%s%% Geschwindigkeit der Schiffe. Maximal Level %s</span>';
 $LNG['info'][614]['name']		 = 'Eroberer';
-$LNG['info'][614]['description'] = 'Der Imperator bemerkte bei Ihnen die unleugbaren Qualitäten des Eroberns. Er schlägt Ihnen vor Eroberer zu werden. Der Eroberer ist der Grad der höchsten Ausbildung der Eroberer der imperialen Armee.<br><br><span style="color:red">Freigabe für eine Supernova. Maximal Level %s</span>';
+$LNG['info'][614]['description'] = 'Der Imperator bemerkte bei Ihnen die unleugbaren Qualitäten des Eroberns. Er schlägt Ihnen vor Eroberer zu werden. Der Eroberer ist der Grad der höchsten Ausbildung der Eroberer der imperialen Armee.<br><br><span style="color:red">Maximal Level %s</span>';
 $LNG['info'][615]['name']		 = 'Imperator';
-$LNG['info'][615]['description'] = 'Sie haben gezeigt, dass Sie der größte Eroberer des Universums sind. Es ist Ihrer, solange Sie diesen Platz halten, den Sie bekommen haben.<br><br><span style="color:red">Freigabe zur Vernichtung. Maximal Level %s</span>';
+$LNG['info'][615]['description'] = 'Sie haben gezeigt, dass Sie der größte Eroberer des Universums sind. Es ist Ihrer, solange Sie diesen Platz halten, den Sie bekommen haben.<br><br><span style="color:red">Maximal Level %s</span>';
 
 
 // ----------------------------------------------------------------------------------------------------------

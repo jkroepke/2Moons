@@ -98,10 +98,6 @@ class ShowShipyardPage
 			$ElementQ	= $ElementQueue[$Auftr];
 			$Element	= $ElementQ[0];
 			$Count		= $ElementQ[1];
-			
-			if ($Element == 214 && $USER['rpg_destructeur'] == 1)
-				$Count = $Count / 2;
-			
 			$Resses					= $this->GetElementRessources($Element, $Count);
 			$PLANET['metal']		+= $Resses['metal']			* 0.6;
 			$PLANET['crystal']		+= $Resses['crystal']		* 0.6;
@@ -187,10 +183,6 @@ class ShowShipyardPage
 			$PLANET['crystal']   	-= $Ressource['crystal'];
 			$PLANET['deuterium'] 	-= $Ressource['deuterium'];
 			$USER['darkmatter']  	-= $Ressource['darkmatter'];
-
-			if ($Element == 214 && $USER['rpg_destructeur'] == 1)
-				$Count = 2 * $Count;
-
 			$BuildArray[]			= array($Element, floattostring($Count));
 			$PLANET['b_hangar_id']	= serialize($BuildArray);
 			FirePHP::getInstance(true)->log("Queue(Hanger): ".$PLANET['b_hangar_id']);
