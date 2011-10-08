@@ -14,5 +14,5 @@
 </tr><tr>
 	<td><input type="reset" value="{$fl_clean}"> <input type="submit" value="{$fl_register_shorcut}"></td>
 </tr>
-<tr><th><a href="?page=shortcuts();">{$fl_back}</a></th></tr></table></from>
+<tr><th><a href="?page=shortcuts">{$fl_back}</a></th></tr></table></from>
 {include file="overall_footer.tpl"}

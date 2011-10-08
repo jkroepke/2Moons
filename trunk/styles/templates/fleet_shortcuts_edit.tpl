@@ -15,5 +15,5 @@
 </tr><tr>
 	<td><input type="reset" value="{$fl_reset_shortcut}"><input type=submit value="{$fl_register_shorcut}"><input type="submit" name="delete" value="{$fl_dlte_shortcut}"></td>
 </tr>
-<tr><th><a href="?page=shortcuts();">{$fl_back}</a></th></tr></table></form>
+<tr><th><a href="?page=shortcuts">{$fl_back}</a></th></tr></table></form>
 {include file="overall_footer.tpl"}
