@@ -148,7 +148,7 @@ switch ($page) {
 				if($UserPass != $UserPass2)
 					$errors[]	= array('password_2', $LNG['different_passwords']);
 					
-				if($ExistsMail != 0)
+				if($ExistsMails != 0)
 					$errors[]	= array('email', $LNG['mail_already_exists']);
 					
 				if(!ValidateAddress($UserEmail))
@@ -358,7 +358,7 @@ switch ($page) {
 		$template->show('index_screens.tpl');
 		break;
 	case 'top100' :
-		$top = $db->query("SELECT * FROM ".TOPKB." WHERE `universe` = '".$UNI."' ORDER BY gesamtunits DESC LIMIT 100;");
+		$top = $db->query("SELECT * FROM ".TOPKB." WHERE `universe` = '".$UNI."' ORDER BY units DESC LIMIT 100;");
 		$TopKBList	= array();
 		while($data = $db->fetch_array($top)) {
 			$TopKBList[]	= array(

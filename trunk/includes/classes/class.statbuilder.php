@@ -99,7 +99,7 @@ class statbuilder extends records
 		{
 			$TopKBLow		= $db->countquery("SELECT units FROM ".TOPKB." WHERE `universe` = ".$Uni." ORDER BY units DESC LIMIT 99,1;");
 			if(isset($TopKBLow))
-				$db->query("DELETE FROM ".TOPKB." as t, ".TOPKB_USERS." as u WHERE t.`universe` = ".$Uni." AND t.`units` < ".$TopKBLow." AND t.rid = u.rid;");
+				$db->query("DELETE ".TOPKB.", ".TOPKB_USERS." FROM ".TOPKB." INNER JOIN ".TOPKB_USERS." USING (rid) WHERE `universe` = ".$Uni." AND `units` < ".$TopKBLow.";");
 		}
 
 		$db->query("DELETE FROM ".RW." WHERE `time` < ". $del_before ." AND `rid` NOT IN (SELECT `rid` FROM ".TOPKB.");");
