@@ -1117,7 +1117,7 @@ $LNG['up_edit']							= 'Edit:';
 $LNG['up_del']							= 'Del:';
 $LNG['up_submit']						= 'Absenden';
 $LNG['up_version']						= 'Version';
-$LNG['up_chmod_error']					= "Keine Schreibrechte für Ordner:\n\n%s";
+$LNG['up_chmod_error']					= "Keine Schreibrechte für Ordner:\n\n";
 $LNG['up_need_curl']					= 'Fehler: cURL nicht vorhanden.<br />Das UpdateSystem von 2Moons benötigt cURL, um die aktuellen Dateien herunter zu laden.';
 
 //Chat Page
