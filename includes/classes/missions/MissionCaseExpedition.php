@@ -293,7 +293,7 @@ class MissionCaseExpedition extends MissionFunctions
 				$SQL = "INSERT INTO ".RW." SET ";
 				$SQL .= "`raport` = '".serialize($raport)."', ";
 				$SQL .= "`time` = '".$this->_fleet['fleet_start_time']."', ";
-				$SQL .= "`rid` = '".$rid."';"
+				$SQL .= "`rid` = '".$rid."';";
 				$db->query($SQL);
 				$rid	= $db->GetInsertID();
 				switch($result['won'])
