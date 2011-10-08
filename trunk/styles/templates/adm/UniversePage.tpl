@@ -22,8 +22,6 @@
 	</tr>
 	{/foreach}
 	<tr><td colspan="7"><a href="?page=universe&action=create&amp;sid={$SID}&amp;reload=t">{$new_uni}</a></td></tr>
-	<tr><th colspan="7">{$import_uni}</th></tr>
-	<tr><td colspan="7"><input name="file" type="file"><br><input type="submit" value="{$upload}"></td></tr>
 </table>
 </form>
 {include file="adm/overall_footer.tpl"}
