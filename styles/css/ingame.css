@@ -98,6 +98,10 @@ textarea {
 	text-decoration:underline;
 }
 
+.shoutcut-edit {
+	display:none;
+}
+
 .clear {
 	clear:both;
 }

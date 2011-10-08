@@ -1,0 +1,1 @@
+UPDATE prefix_users SET `fleet_shortcut`  = "";
