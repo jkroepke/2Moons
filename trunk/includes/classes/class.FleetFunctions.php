@@ -180,22 +180,17 @@ abstract class FleetFunctions
 		
 		
 		return array('MissionSelector' => $Missions, 'StayBlock' => $StayBlock);
-	}	
-	
+	}
 	public static function GetUserShotcut($CurrentUser)
 	{
-		if (empty($CurrentUser['fleet_shortcut']))
+		$Shoutcut 		= unserialize($CurrentUser['fleet_shortcut']);
+		if (empty($Shoutcut))
 			return array();
-
-		$Shoutcut 		= explode("\r\n", $CurrentUser['fleet_shortcut']);
+			
 		$ShortCutList	= array();
 
-		foreach ($Shoutcut as $a => $b)
-		{
-			if (empty($b)) continue;
-			
-			$ShortCutRow = explode(',', $b);
-			
+		foreach ($Shoutcut as $ShortCutRow)
+		{						
 			$ShortCutList[] = array(
 				'name'			=> $ShortCutRow[0],
 				'galaxy'		=> $ShortCutRow[1],
@@ -212,7 +207,8 @@ abstract class FleetFunctions
 		global $PLANET;
 		foreach($Colony as $CurPlanetID => $CurPlanet)
 		{
-			if ($PLANET['galaxy'] == $CurPlanet['galaxy'] && $PLANET['system'] == $CurPlanet['system'] && $PLANET['planet'] == $CurPlanet['planet'] && $PLANET['planet_type'] == $CurPlanet['planet_type']) continue;
+			if ($PLANET['id'] == $CurPlanet['id'])
+				continue;
 			
 			$ColonyList[] = array(
 				'name'			=> $CurPlanet['name'],

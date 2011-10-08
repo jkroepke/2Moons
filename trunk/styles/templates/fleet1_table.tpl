@@ -13,9 +13,9 @@
             <tr style="height:20px;">
             	<td style="width:50%">{lang}fl_destiny{/lang}</td>
             	<td>
-                    <input name="galaxy" size="3" maxlength="2" onChange="updateVars()" onKeyUp="updateVars()" value="{$galaxy_post}">
-                    <input name="system" size="3" maxlength="3" onChange="updateVars()" onKeyUp="updateVars()" value="{$system_post}">
-                    <input name="planet" size="3" maxlength="2" onChange="updateVars()" onKeyUp="updateVars()" value="{$planet_post}">
+                    <input type="number" name="galaxy" size="3" maxlength="2" onChange="updateVars()" onKeyUp="updateVars()" value="{$galaxy_post}">
+                    <input type="number" name="system" size="3" maxlength="3" onChange="updateVars()" onKeyUp="updateVars()" value="{$system_post}">
+                    <input type="number" name="planet" size="3" maxlength="2" onChange="updateVars()" onKeyUp="updateVars()" value="{$planet_post}">
                     <select name="planettype" onChange="updateVars()" onKeyUp="updateVars()">
                     {html_options options=$options_selector selected=$options}
                     </select>
@@ -58,30 +58,54 @@
                 <td id="storage">-</td>
             </tr>
             <tr style="height:20px;">
-                <th colspan="2">{lang}fl_shortcut{/lang} <a href="#" onclick="EditShotCuts();return false">{lang}fl_shortcut_add_edit{/lang}</a></th>
+                <th colspan="2">
+					{lang}fl_shortcut{/lang} (<a href="#" onclick="EditShortcuts();return false" class="shoutcut-link">{lang}fl_shortcut_edition{/lang}</a><a href="#" onclick="SaveShortcuts();return false" class="shoutcut-edit">{lang}fl_shortcut_save{/lang}</a>)</th>
             </tr>
-			{if !CheckModule(40)}
+			{if !CheckModule(41)}
             {foreach name=ShoutcutList item=ShoutcutRow from=$Shoutcutlist}
-			{if $smarty.foreach.ShoutcutList.iteration is odd}<tr style="height:20px;">{/if}
+			{if $smarty.foreach.ShoutcutList.iteration is odd}<tr style="height:20px;" class="shoutcut">{/if}
             <td>
-				<a class="shoutcut" href="javascript:setTarget({$ShoutcutRow.galaxy},{$ShoutcutRow.system},{$ShoutcutRow.planet},{$ShoutcutRow.planet_type});updateVars();">{$ShoutcutRow.name}{if $ColonyRow.planet_type == 1}{lang}fl_planet_shortcut{/lang}{elseif $ColonyRow.planet_type == 2}{lang}fl_derbis_shortcut{/lang}{elseif $ShoutcutRow.planet_type == 3}{lang}fl_moon_shortcut{/lang}{/if} [{$ShoutcutRow.galaxy}:{$ShoutcutRow.system}:{$ShoutcutRow.planet}]</a>
-				<div>
+				<div class="shoutcut-link">
+					<a href="javascript:setTarget({$ShoutcutRow.galaxy},{$ShoutcutRow.system},{$ShoutcutRow.planet},{$ShoutcutRow.planet_type});updateVars();">{$ShoutcutRow.name}{if $ShoutcutRow.planet_type == 1}{lang}fl_planet_shortcut{/lang}{elseif $ShoutcutRow.planet_type == 2}{lang}fl_debris_shortcut{/lang}{elseif $ShoutcutRow.planet_type == 3}{lang}fl_moon_shortcut{/lang}{/if} [{$ShoutcutRow.galaxy}:{$ShoutcutRow.system}:{$ShoutcutRow.planet}]</a>
+				</div>
+				<div class="shoutcut-edit">
 					<input type="text" class="shoutcut-input" name="shoutcut[{$smarty.foreach.ShoutcutList.index}][name]" value="{$ShoutcutRow.name}">
 				</div>
-				<div>
-					<input type="text" class="shoutcut-input" name="shoutcut[{$smarty.foreach.ShoutcutList.index}][galaxy]" value="{$ShoutcutRow.galaxy}" size="3" maxlength="2">
-					<input type="text" class="shoutcut-input" name="shoutcut[{$smarty.foreach.ShoutcutList.index}][system]" value="{$ShoutcutRow.system}" size="3" maxlength="3">
-					<input type="text" class="shoutcut-input" name="shoutcut[{$smarty.foreach.ShoutcutList.index}][planet]" value="{$ShoutcutRow.planet}" size="3" maxlength="2">
-					<input type="text" class="shoutcut-input" name="shoutcut[{$smarty.foreach.ShoutcutList.index}][type]" value="{$ShoutcutRow.planet_type}" size="1" maxlength="1">
+				<div class="shoutcut-edit">
+					<input type="text" class="shoutcut-input" name="shoutcut[{$smarty.foreach.ShoutcutList.index}][galaxy]" value="{$ShoutcutRow.galaxy}" size="3" maxlength="2">:<input type="text" class="shoutcut-input" name="shoutcut[{$smarty.foreach.ShoutcutList.index}][system]" value="{$ShoutcutRow.system}" size="3" maxlength="3">:<input type="text" class="shoutcut-input" name="shoutcut[{$smarty.foreach.ShoutcutList.index}][planet]" value="{$ShoutcutRow.planet}" size="3" maxlength="2">
+					<select class="shoutcut-input" name="shoutcut[{$smarty.foreach.ShoutcutList.index}][type]">
+						{html_options select=$ShoutcutRow.planet_type options=$options_selector}
+					</select>
 				</div>
 			</td>
 			{if $smarty.foreach.ShoutcutList.last && $smarty.foreach.ShoutcutList.total is odd}<td>&nbsp;</td>{/if}
 			{if $smarty.foreach.ShoutcutList.iteration is even}</tr>{/if}
 			{foreachelse}
-			<tr style="height:20px;">
+			<tr style="height:20px;" class="shoutcut-none">
 				<td colspan="2">{lang}fl_no_shortcuts{/lang}</td>
 			</tr>
             {/foreach}
+			<tr style="height:20px;" class="shoutcut-edit shoutcut-new">
+				<td colspan="2">
+					<div class="shoutcut-link">
+						
+					</div>
+					<div class="shoutcut-edit">
+						<input type="text" class="shoutcut-input" name="shoutcut[][name]" value="" placeholder="Name">
+					</div>
+					<div class="shoutcut-edit">
+						<input type="text" class="shoutcut-input" name="shoutcut[][galaxy]" value="" size="3" maxlength="2" placeholder="G">:<input type="text" class="shoutcut-input" name="shoutcut[][system]" value="" size="3" maxlength="3" placeholder="S">:<input type="text" class="shoutcut-input" name="shoutcut[][planet]" value="" size="3" maxlength="2" placeholder="P">
+						<select class="shoutcut-input" name="shoutcut[][type]">
+							{html_options options=$options_selector}
+						</select>
+					</div>
+				</td>
+			</tr>
+			<tr style="height:20px;" class="shoutcut-edit">
+				<td colspan="2">
+					<a href="#" onclick="AddShortcuts();return false">{lang}fl_shortcut_add{/lang}</a>
+				</td>
+			</tr>
 			{/if}
 			<tr style="height:20px;">
             	<th colspan="2">{lang}fl_my_planets{/lang}</th>

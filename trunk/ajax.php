@@ -87,6 +87,26 @@ switch($action)
 				$db->query("UPDATE ".PLANETS." SET `name` = '".$db->sql_escape($newname)."' WHERE `id` = '".$_SESSION['planet']. "';");
 		}
 	break;
+	case 'saveshotcut':
+		$Shortcut		= array();
+		$ShortcutData	= $_REQUEST['shoutcut'];
+		foreach($ShortcutData as $Key => $Data) {
+			$Name	= $db->sql_escape(request_var('', $_REQUEST['shoutcut'][$Key]['name']));
+			
+			if(empty($Name) || !in_array($Data['type'], array(1, 2, 3)))
+				continue;
+				
+			$Shortcut[] = array(
+				$Name,
+				(int) $Data['galaxy'],
+				(int) $Data['system'],
+				(int) $Data['planet'],
+				(int) $Data['type'],
+			);
+		}
+		$db->query("UPDATE ".USERS." SET `fleet_shortcut` = '".serialize($Shortcut)."' WHERE `id` = ".$_SESSION['id'].";");
+		exit($LNG['fl_shortcut_saved']);
+	break;
 	case 'deleteplanet':
 		$password =	request_var('password', '', true);
 		if (!empty($password))

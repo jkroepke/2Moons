@@ -109,13 +109,6 @@ switch($page)
 		include_once(ROOT_PATH . 'includes/pages/class.ShowFleetPages.php');
 		ShowFleetPages::MissilesAjax();
 	break;
-	case 'shortcuts':
-		if(CheckModule(40))
-			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
-			
-		include_once(ROOT_PATH . 'includes/pages/ShowFleetShortcuts.php');
-		ShowFleetShortcuts();
-	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'buildings':
 		$mode = request_var('mode', '');

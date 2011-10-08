@@ -37,7 +37,7 @@ function ShowModulePage()
 		update_config(array('moduls' => implode(";", $CONF['moduls'])));
 		$CONF['moduls']		= explode(";", $CONF['moduls']);
 	}
-	$IDs	= range(0, 40);
+	$IDs	= range(0, 41);
 	foreach($IDs as $ID => $Name) {
 		$Modules[$ID]	= array(
 			'name'	=> $LNG['modul'][$ID], 
