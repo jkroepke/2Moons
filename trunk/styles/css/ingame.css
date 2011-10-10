@@ -348,3 +348,28 @@ div#trader + div {
 .usize:hover{background-position:-300px -25px}
 .dsize{background-position:-325px 0}
 .dsize:hover{background-position:-325px -25px}
+
+
+@media screen and (max-width: 1155px) {
+	body {
+		min-width: 0;
+	}
+
+	#resourcesdiv{
+		margin: 0;
+		overflow: hidden;
+		float: left;
+	}
+	#resourcestable {
+		width: 550px;
+		float:left;
+	}
+	
+	#header {
+		min-width:765px;
+	}
+	
+	.resourceinfo {
+		width: 100px;
+	}
+}
