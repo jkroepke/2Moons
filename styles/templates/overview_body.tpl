@@ -106,7 +106,7 @@
 </form>
 </div>
 <script type="text/javascript">
-buildtime	= {$buildtime} * 1000;
+buildtime	= {$buildtime};
 </script>
 {include file="planet_menu.tpl"}
 {include file="overall_footer.tpl"}
