@@ -246,6 +246,7 @@ class MissionCaseDestruction extends MissionFunctions
 		
 		$rid	= $db->GetInsertID();
 		$SQL	= "";
+		
 		foreach ($Attacker['id'] as $AttackersID)
 		{
 			if(empty($AttackersID))
@@ -258,7 +259,7 @@ class MissionCaseDestruction extends MissionFunctions
 			$SQL .= "`rid` = ".$rid.", ";
 			$SQL .= "`role` = 1, ";
 			$SQL .= "`uid` = ".$AttackersID.";";
-			$WhereAtt .= "`id` = '".$id."' OR ";
+			$WhereAtt .= "`id` = '".$AttackersID."' OR ";
 		}
 
 		foreach ($Defender['id'] as $DefenderID)
@@ -272,20 +273,16 @@ class MissionCaseDestruction extends MissionFunctions
 			$SQL .= "INSERT INTO ".TOPKB_USERS." SET ";
 			$SQL .= "`rid` = ".$rid.", ";
 			$SQL .= "`role` = 2, ";
-			$SQL .= "`uid` = ".$AttackersID.";";
-			$WhereDef .= "`id` = '".$id."' OR ";
+			$SQL .= "`uid` = ".$DefenderID.";";
+			$WhereDef .= "`id` = '".$DefenderID."' OR ";
 		}
 		
-		
-		$SQL  = "UPDATE ".PLANETS." SET ";
-		$SQL .= "`der_metal` = `der_metal` + '".$ShootMetal."', ";
-		$SQL .= "`der_crystal` = `der_crystal` + '".$ShootCrystal."' ";
+		$WhereCol	= $this->_fleet['fleet_end_type'] == 3 ? "id_luna" : "id";		
+		$SQL .= "UPDATE ".PLANETS." SET ";
+		$SQL .= "`der_metal` = ".$DerbisMetal.", ";
+		$SQL .= "`der_crystal` = ".$DerbisCrystal." ";
 		$SQL .= "WHERE ";
-		$SQL .= "`universe` = '" . $this->_fleet['fleet_universe'] . "' AND ";
-		$SQL .= "`galaxy` = '" . $this->_fleet['fleet_end_galaxy'] . "' AND ";
-        $SQL .= "`system` = '" . $this->_fleet['fleet_end_system'] . "' AND ";
-        $SQL .= "`planet` = '" . $this->_fleet['fleet_end_planet'] . "' AND ";
-        $SQL .= "`planet_type` = '1';";
+		$SQL .= "`".$WhereCol."` = ".$this->_fleet['fleet_end_id'].";";
 		$SQL .= "INSERT INTO ".TOPKB." SET ";
 		$SQL .= "`units` = '".($result['lost']['att'] + $result['lost']['def'])."', ";
 		$SQL .= "`rid` = ".$rid.", ";
