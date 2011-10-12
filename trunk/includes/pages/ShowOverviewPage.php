@@ -106,6 +106,7 @@ function ShowOverviewPage()
 	
 	$template	= new template();	
 	$AdminsOnline = $AllPlanets = $Moon = array();
+	$Buildtime	= 0;
 	
 	foreach($USER['PLANETS'] as $ID => $CPLANET)
 	{		
@@ -126,13 +127,14 @@ function ShowOverviewPage()
 			'build'	=> $BuildPlanet,
 		);
 	}
-		
+	
 	if ($PLANET['id_luna'] != 0)
 		$Moon		= $db->uniquequery("SELECT `id`, `name` FROM ".PLANETS." WHERE `id` = '".$PLANET['id_luna']."';");
 
 	if ($PLANET['b_building'] - TIMESTAMP > 0) {
 		$Queue		= unserialize($PLANET['b_building_id']);
 		$Build		= $LNG['tech'][$Queue[0][0]].' ('.$Queue[0][1].')<br><div id="blc">'.pretty_time($PLANET['b_building'] - TIMESTAMP).'</div>';
+		$Buildtime	= $PLANET['b_building'] - TIMESTAMP;
 		$template->execscript('BuildTime();');
 	}
 	else
@@ -160,7 +162,7 @@ function ShowOverviewPage()
 		'galaxy'					=> $PLANET['galaxy'],
 		'system'					=> $PLANET['system'],
 		'planet'					=> $PLANET['planet'],
-		'buildtime'					=> (int) tz_date($PLANET['b_building'], 'U'),
+		'buildtime'					=> $Buildtime,
 		'userid'					=> $USER['id'],
 		'username'					=> $USER['username'],
 		'build'						=> $Build,
