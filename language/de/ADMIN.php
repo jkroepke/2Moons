@@ -328,6 +328,8 @@ $LNG['ow_database_errors']			= 'Es sind Fehler vorhanden!';
 $LNG['ow_smtp_errors']				= 'Überprüfe deine SMTP-Einstellungen! - Momentan können keine Mails gesendet werden!';
 $LNG['ow_dir_not_writable']			= './%s ist nicht beschreibar!';
 $LNG['ow_none']						= 'Keine Warnungen';
+$LNG['ow_news']						= 'News';
+$LNG['ow_updates']					= 'Letzte Updates';
 
 //###########################################################//
 
