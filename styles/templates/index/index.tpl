@@ -3,6 +3,7 @@
 <html lang="{$lang}">
 <head>
 <link rel="stylesheet" type="text/css" href="styles/css/login.css?v={$REV}">
+<link rel="stylesheet" type="text/css" href="styles/css/jquery.fancybox.css?v={$REV}">
 <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
 <title>{block name="title"} - {$servername}{/block}</title>
 <meta name="generator" content="2Moons {$VERSION}">
@@ -86,10 +87,11 @@
 </div>
 <div id="dialog" style="display:none;"></div>
 <script type="text/javascript" src="scripts/jQuery.js?v={$REV}"></script>
+<script type="text/javascript" src="scripts/jquery.fancybox.js?v={$REV}"></script>
 <script type="text/javascript" src="scripts/login.js?v={$REV}"></script>
 <script type="text/javascript">
 var CONF			= {
-	RegClosedUnis	: {$RegClosedUnis},
+	RegClosedUnis	: {if isset($RegClosedUnis)}{$RegClosedUnis}{else}[]{/if},
 	IsCaptchaActive : {$game_captcha},
 	ref_active		: {$ref_active},
 	cappublic		: "{$cappublic}",
@@ -135,5 +137,6 @@ var pageTracker = _gat._getTracker("{$ga_key}");
 pageTracker._trackPageview();
 } catch(err) {}</script>
 {/if}
+{block name="script"}{/block}
 </body>
 </html>
