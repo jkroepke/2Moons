@@ -201,6 +201,9 @@ class ShowBuildingsPage
 						$InArray--;
 				}
 			}
+			if(!$AddMode && $InArray == 0)
+				return;
+				
 			$BuildPlanet				= array_merge($PLANET, array($resource[$Element] => $PLANET[$resource[$Element]] + $InArray));
 			$BuildTime  				= GetBuildingTime($USER, $BuildPlanet, $Element, !$AddMode);
 			$BuildEndTime				= $CurrentQueue[$ActualCount - 1][3] + $BuildTime;

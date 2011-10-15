@@ -1021,12 +1021,12 @@ class ShowFleetPages extends FleetFunctions
 		$TargetGalaxy 		= request_var('galaxy',0);
 		$TargetSystem 		= request_var('system',0);
 		$TargetPlanet 		= request_var('planet',0);
-		$TargetType 		= request_var('type',0);
+		$TargetType 		= request_var('type', 0);
 		$anz 				= min(request_var('SendMI',0), $iraks);
 		$pziel 				= request_var('Target',"");
 		
 		$PlanetRess 		= new ResourceUpdate($USER, $PLANET);
-		$Target 			= $db->uniquequery("SELECT `id`, `id_owner` FROM ".PLANETS." WHERE `universe` = '".$UNI."' AND  `galaxy` = '".$TargetGalaxy."' AND `system` = '".$TargetSystem."' AND `planet` = '".$TargetPlanet."' AND `planet_type` = '1';");
+		$Target 			= $db->uniquequery("SELECT `id`, `id_owner` FROM ".PLANETS." WHERE `universe` = '".$UNI."' AND  `galaxy` = '".$TargetGalaxy."' AND `system` = '".$TargetSystem."' AND `planet` = '".$TargetPlanet."' AND `planet_type` = ".$TargetType.";");
 		
 		$Distance			= abs($TargetSystem - $PLANET['system']);
 		
@@ -1080,7 +1080,7 @@ class ShowFleetPages extends FleetFunctions
 		
 		if(connection_aborted())
 			exit;
-			
+				
 		$sql = "INSERT INTO ".FLEETS." SET
 				fleet_owner = '".$USER['id']."',
 				fleet_mission = '10',

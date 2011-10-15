@@ -69,14 +69,19 @@ class MissionCaseMIP extends MissionFunctions
 		if ($TargetInfo[$resource[502]] >= $this->_fleet['fleet_amount'])
 		{
 			$message 	= $LNG['sys_irak_no_att'];
-			$x 		 	= $resource[502];
-			$SQL .= "UPDATE ".PLANETS." SET " . $x . " = " . $x . "-" . $this->_fleet['fleet_amount'] . " WHERE id = " . $TargetInfo['id'].";";
+			if($this->_fleet['fleet_end_type'] == 3)
+				$SQL .= "UPDATE ".PLANETS." SET ".$resource[502]." = ".$resource[502]." - ".$this->_fleet['fleet_amount']." WHERE id_luna = ".$TargetInfo['id'].";";
+			else 
+				$SQL .= "UPDATE ".PLANETS." SET ".$resource[502]." = ".$resource[502]." - ".$this->_fleet['fleet_amount']." WHERE id = ".$TargetInfo['id'].";";
 		}
 		else
 		{
 			if ($TargetInfo[$resource[502]] > 0)
 			{
-				$db->query("UPDATE ".PLANETS." SET " . $resource[502] . " = '0'  WHERE id = " . $TargetInfo['id'].";");
+				if($this->_fleet['fleet_end_type'] == 3)
+					$db->query("UPDATE ".PLANETS." SET ".$resource[502]." = 0 WHERE id_luna = " . $TargetInfo['id'].";");
+				else
+					$db->query("UPDATE ".PLANETS." SET ".$resource[502]." = 0 WHERE id = " . $TargetInfo['id'].";");
 				$message .= sprintf($LNG['sys_irak_def'], $TargetInfo[$resource[502]]);
 			}
 			

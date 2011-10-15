@@ -462,10 +462,10 @@ abstract class FleetFunctions
 	public static function CheckBash($Target)
 	{
 		global $db, $USER;
-		if(true || !BASH_ON)
+		if(!BASH_ON)
 			return false;
 			
-		$Count	= $db->countquery("SELECT COUNT(*) FROM ".LOG_FLEETS." 
+		$Count	= $db->countquery("SELECT COUNT(*) FROM `uni1_log_fleets`
 		WHERE `fleet_owner` = ".$USER['id']." 
 		AND `fleet_end_id` = ".$Target." 
 		AND `fleet_state` != 2 
