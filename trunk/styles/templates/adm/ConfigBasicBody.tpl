@@ -109,9 +109,6 @@
     <td><input name="ga_key" size="20" maxlength="15" value="{$ga_key}" type="text"></td>
 	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{lang}se_google_key_info{/lang}"></td>
 </tr><tr>
-	<th colspan="2">{lang}se_bgm_login{/lang}</th><th>&nbsp;</th>
-</tr>
-<tr>
 	<td colspan="3"><input value="{lang}se_save_parameters{/lang}" type="submit"></td>
 </tr>
 </table>

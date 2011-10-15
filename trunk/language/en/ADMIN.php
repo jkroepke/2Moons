@@ -464,6 +464,10 @@ $LNG['se_ref_max_referals_info']                = 'Maximum number of recruit pla
 $LNG['se_silo_factor']                                  = 'Missile silo size';
 $LNG['se_silo_factor_info']                             = 'Factor in the size of the silo';
 $LNG['se_timzone']                                              = 'Timezones of the Unis';
+$LNG['se_dst_mode']                                                     = 'Summertime?';
+$LNG['se_dst_sel'][0]                                   = 'No';
+$LNG['se_dst_sel'][1]                                   = 'Yes';
+$LNG['se_dst_sel'][2]                                   = 'Automatic';
 
 //###########################################################//
 
@@ -571,9 +575,10 @@ $LNG['mu_ts_options']                                   = 'Teamspeak Options';
 $LNG['mu_game_info']                                    = 'Information';
 $LNG['mu_vaild_users']                                  = 'User Activity';
 $LNG['mu_news']                                         = 'News';
-$LNG['mu_multiip']                                      = 'MultiIP';
+$LNG['mu_multiip_page']                         = 'MultiIP';
 $LNG['mu_clear_cache']                          = 'Clear Cache';
 $LNG['mu_vertify']                                      = 'Verify Game Content';
+$LNG['mu_logs']                                         = 'Admin-Log';
 
 
 $LNG['vt_error']                                        = 'HashFile is not available! - Perform an update!';
