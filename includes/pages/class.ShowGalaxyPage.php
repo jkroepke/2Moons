@@ -113,6 +113,7 @@ class ShowGalaxyPage extends GalaxyRows
 		$galaxy			= min(max(abs(request_var('galaxy', $PLANET['galaxy'])), 1), $CONF['max_galaxy']);
 		$system			= min(max(abs(request_var('system', $PLANET['system'])), 1), $CONF['max_system']);
 		$planet			= min(max(abs(request_var('planet', $PLANET['planet'])), 1), $CONF['max_planets']);
+		$type			= request_var('type', 1);
 		$current		= request_var('current', 0);
 			
 		if ($mode == 1)
@@ -159,6 +160,7 @@ class ShowGalaxyPage extends GalaxyRows
 			'galaxy'					=> $galaxy,
 			'system'					=> $system,
 			'planet'					=> $planet,
+			'type'						=> $type,
 			'current'					=> $current,
 			'currentmip'				=> pretty_number($PLANET[$resource[503]]),
 			'maxfleetcount'				=> $maxfleet,

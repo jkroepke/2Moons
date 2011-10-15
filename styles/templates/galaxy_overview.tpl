@@ -39,7 +39,7 @@
 	</table>
 	</form>
 	{if $mode == 2}
-    <form action="?page=missiles&amp;galaxy={$galaxy}&amp;system={$system}&amp;planet={$planet}" method="POST">
+    <form action="?page=missiles&amp;galaxy={$galaxy}&amp;system={$system}&amp;planet={$planet}&amp;type={$type}" method="POST">
 	<tr>
 		<table class="table569">
 			<tr>
