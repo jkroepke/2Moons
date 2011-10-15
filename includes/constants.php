@@ -97,6 +97,11 @@ define('UTF8_SUPPORT'          	  , true);
 define('EH_ACTIVE_ECO' 		 	  , BETA);
 define('EH_ACTIVE_FLEETS'   	  , BETA);
 
+// Bash Settings
+define('BASH_ON'        	  	  , false);	
+define('BASH_COUNT'          	  , 6);	
+define('BASH_TIME'          	  , 86400);	
+
 // Root IDs
 define('ROOT_UNI'        	  	  , 1);	
 define('ROOT_USER'          	  , 1);	
@@ -125,6 +130,7 @@ define('CONFIG'				  	  , $database['tableprefix'].'config');
 define('DIPLO'				  	  , $database['tableprefix'].'diplo');
 define('FLEETS'				  	  , $database['tableprefix'].'fleets');
 define('LOG'				  	  , $database['tableprefix'].'log');
+define('LOG_FLEETS'			  	  , $database['tableprefix'].'log_fleets');
 define('NEWS'				  	  , $database['tableprefix'].'news');
 define('NOTES'				  	  , $database['tableprefix'].'notes');
 define('MESSAGES'			  	  , $database['tableprefix'].'messages');

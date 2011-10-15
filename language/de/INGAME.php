@@ -332,6 +332,7 @@ $LNG['fl_error_not_avalible']				= 'Auf diesen Koordinaten befinden sich kein Pl
 $LNG['fl_error_empty_derbis']				= 'Kein Trümerfeld vorhanden!';
 $LNG['fl_error_no_moon']					= 'Kein Mond vorhanden!';
 $LNG['fl_error_same_planet']				= 'Start- und Zielplanet sind identisch!';
+$LNG['fl_bash_protect']						= 'Bash-Schutz';
 
 //----------------------------------------------------------------------------//
 //BUILDINGS - RESEARCH - SHIPYARD - DEFENSES

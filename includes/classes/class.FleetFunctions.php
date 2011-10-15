@@ -267,7 +267,18 @@ abstract class FleetFunctions
 			}
 		}
 		
-		$db->query("UPDATE ".FLEETS." SET `fleet_group` = '0', `start_time` = '".TIMESTAMP."', `fleet_end_stay` = '".TIMESTAMP."', `fleet_end_time` = '".((TIMESTAMP - $FleetRow['start_time']) + TIMESTAMP)."', `fleet_mess` = '1' WHERE `".$where."` = '".$FleetID."';");
+		$db->query("UPDATE ".FLEETS." SET 
+		`fleet_group` = 0, 
+		`fleet_end_stay` = ".TIMESTAMP.",
+		`fleet_end_time` = ".((TIMESTAMP - $FleetRow['start_time']) + TIMESTAMP).", 
+		`fleet_mess` = 1 
+		WHERE `".$where."` = '".$FleetID."';
+		UPDATE ".LOG_FLEETS." SET
+		`fleet_end_stay` = ".TIMESTAMP.",
+		`fleet_end_time` = ".((TIMESTAMP - $FleetRow['start_time']) + TIMESTAMP).", 
+		`fleet_mess` = 1, 
+		`fleet_state` = 2 
+		WHERE `".$where."` = '".$FleetID."';");
 	}
 	
 	public static function GetFleetShipInfo($FleetArray, $Player)
@@ -446,6 +457,21 @@ abstract class FleetFunctions
 		}
 		
 		return $missiontype;
+	}
+	
+	public static function CheckBash($Target)
+	{
+		global $db, $USER;
+		if(true || !BASH_ON)
+			return false;
+			
+		$Count	= $db->countquery("SELECT COUNT(*) FROM ".LOG_FLEETS." 
+		WHERE `fleet_owner` = ".$USER['id']." 
+		AND `fleet_end_id` = ".$Target." 
+		AND `fleet_state` != 2 
+		AND `fleet_start_time` > ".(TIMESTAMP - BASH_TIME)." 
+		AND `fleet_mission` IN (1,2,9);");
+		return $Count >= BASH_COUNT;
 	}
 }
 ?>
