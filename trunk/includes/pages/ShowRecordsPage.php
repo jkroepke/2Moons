@@ -44,46 +44,44 @@ function ShowRecordsPage()
 	
 	foreach($RecordsArray as $ElementID => $ElementIDArray) {
 		if ($ElementID >=   1 && $ElementID <=  39 || $ElementID == 44) {
-			$Builds[$LNG['tech'][$ElementID]]	= array(
-				'winner'	=> ($ElementIDArray['maxlvl'] != 0) ? $ElementIDArray['username'] : $LNG['rec_rien'],
-				'count'		=> ($ElementIDArray['maxlvl'] != 0) ? $ElementIDArray['maxlvl']   : $LNG['rec_rien'],
+			$Builds[$ElementID]	= array(
+				'winner'	=> ($ElementIDArray['maxlvl'] != 0) ? $ElementIDArray['username'] : $LNG['rec_empty'],
+				'count'		=> ($ElementIDArray['maxlvl'] != 0) ? $ElementIDArray['maxlvl']   : $LNG['rec_empty'],
 			);
 		} elseif ($ElementID >=  41 && $ElementID <= 99 && $ElementID != 44) {
-			$MoonsBuilds[$LNG['tech'][$ElementID]]	= array(
-				'winner'	=> ($ElementIDArray['maxlvl'] != 0) ? $ElementIDArray['username'] : $LNG['rec_rien'],
-				'count'		=> ($ElementIDArray['maxlvl'] != 0) ? $ElementIDArray['maxlvl']   : $LNG['rec_rien'],
+			$MoonsBuilds[$ElementID]	= array(
+				'winner'	=> ($ElementIDArray['maxlvl'] != 0) ? $ElementIDArray['username'] : $LNG['rec_empty'],
+				'count'		=> ($ElementIDArray['maxlvl'] != 0) ? $ElementIDArray['maxlvl']   : $LNG['rec_empty'],
 			);
 		} elseif ($ElementID >= 101 && $ElementID <= 199) {
-			$Techno[$LNG['tech'][$ElementID]]	= array(
-				'winner'	=> ($ElementIDArray['maxlvl'] != 0) ? $ElementIDArray['username'] : $LNG['rec_rien'],
-				'count'		=> ($ElementIDArray['maxlvl'] != 0) ? $ElementIDArray['maxlvl']   : $LNG['rec_rien'],
+			$Techno[$ElementID]	= array(
+				'winner'	=> ($ElementIDArray['maxlvl'] != 0) ? $ElementIDArray['username'] : $LNG['rec_empty'],
+				'count'		=> ($ElementIDArray['maxlvl'] != 0) ? $ElementIDArray['maxlvl']   : $LNG['rec_empty'],
 			);
 		} elseif ($ElementID >= 201 && $ElementID <= 399) {
-			$Fleet[$LNG['tech'][$ElementID]]	= array(
-				'winner'	=> ($ElementIDArray['maxlvl'] != 0) ? $ElementIDArray['username'] : $LNG['rec_rien'],
-				'count'		=> ($ElementIDArray['maxlvl'] != 0) ? $ElementIDArray['maxlvl']   : $LNG['rec_rien'],
+			$Fleet[$ElementID]	= array(
+				'winner'	=> ($ElementIDArray['maxlvl'] != 0) ? $ElementIDArray['username'] : $LNG['rec_empty'],
+				'count'		=> ($ElementIDArray['maxlvl'] != 0) ? $ElementIDArray['maxlvl']   : $LNG['rec_empty'],
 			);
 		} elseif ($ElementID >= 401 && $ElementID <= 599) {
-			$Defense[$LNG['tech'][$ElementID]]	= array(
-				'winner'	=> ($ElementIDArray['maxlvl'] != 0) ? $ElementIDArray['username'] : $LNG['rec_rien'],
-				'count'		=> ($ElementIDArray['maxlvl'] != 0) ? $ElementIDArray['maxlvl']   : $LNG['rec_rien'],
+			$Defense[$ElementID]	= array(
+				'winner'	=> ($ElementIDArray['maxlvl'] != 0) ? $ElementIDArray['username'] : $LNG['rec_empty'],
+				'count'		=> ($ElementIDArray['maxlvl'] != 0) ? $ElementIDArray['maxlvl']   : $LNG['rec_empty'],
 			);
 		}
 	}
 	
 	$Records	= array(
-		$LNG['rec_build']	=> $Builds,
-		$LNG['rec_specb']	=> $MoonsBuilds,
-		$LNG['rec_techn']	=> $Techno,
-		$LNG['rec_fleet']	=> $Fleet,
-		$LNG['rec_defes']	=> $Defense,
+		'build'	=> $Builds,
+		'specb'	=> $MoonsBuilds,
+		'techn'	=> $Techno,
+		'fleet'	=> $Fleet,
+		'defes'	=> $Defense,
 	);
 	
 	$template->assign_vars(array(	
 		'Records'	 	=> $Records,
-		'update'		=> sprintf($LNG['rec_last_update_on'], date($LNG['php_tdformat'], $CONF['stat_last_update'])),
-		'level'			=> $LNG['rec_level'],
-		'player'		=> $LNG['rec_playe'],
+		'update'		=> tz_date($CONF['stat_last_update']),
 	));
 	
 	$template->show("records_overview.tpl");

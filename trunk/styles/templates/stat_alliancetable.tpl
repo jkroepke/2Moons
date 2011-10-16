@@ -1,9 +1,9 @@
 <tr>
-	<th style="width:60px;">{$st_position}</th>
-	<th>{$st_alliance}</th>	
-	<th>{$st_members}</th>
-	<th>{$st_points}</th>
-	<th>{$st_per_member}</th>
+	<th style="width:60px;">{lang}st_position{/lang}</th>
+	<th>{lang}st_alliance{/lang}</th>	
+	<th>{lang}st_members{/lang}</th>
+	<th>{lang}st_points{/lang}</th>
+	<th>{lang}st_per_member{/lang}</th>
 </tr>
 {foreach name=RangeList item=RangeInfo from=$RangeList}
 <tr>

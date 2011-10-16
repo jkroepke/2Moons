@@ -299,6 +299,9 @@ $LNG['ow_database_errors']				= 'Tens erros na tua base de dados. Poder&#225;s v
 $LNG['ow_smtp_errors']					= 'Verifique as configurações de SMTP! - Neste momento nenhum email pode ser enviado!';
 $LNG['ow_dir_not_writable']				= './%s dir não escrevível!';
 $LNG['ow_none']						    = 'Sem Avisos';
+$LNG['ow_news']						= 'Ultimas Noticias';
+$LNG['ow_updates']						= 'Ultimas Actualizações';
+
 //###########################################################//
 
 
