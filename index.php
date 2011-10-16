@@ -57,7 +57,7 @@ switch ($page) {
 		if($CONF['mail_active'] == 0)
 			redirectTo("index.php");
 
-		$Username = request_var('username', '');
+		$Username = request_var('username', '', UTF8_SUPPORT);
 		$Usermail = request_var('email', '');
 		
 		if(empty($Username) || empty($Usermail) || !ValidateAddress($Usermail)) {
@@ -65,7 +65,11 @@ switch ($page) {
 			exit;
 		}
 			
-		$UserID 	= $db->countquery("SELECT `id` FROM ".USERS." WHERE `universe` = '".$UNI."' AND `username` = '".$Username."' AND (`email` = '".$db->sql_escape($Usermail)."' OR `email_2` = '".$db->sql_escape($Usermail)."');");
+		$UserID 	= $db->countquery("SELECT `id` FROM ".USERS." 
+		WHERE `universe` = '".$UNI."' 
+		AND `username` = '".$db->sql_escape($Username)."' 
+		AND (`email` = '".$db->sql_escape($Usermail)."' 
+		OR `email_2` = '".$db->sql_escape($Usermail)."');");
 		
 		if (!isset($UserID)) {
 			echo json_encode(array('message' => $LNG['lost_not_exists'], 'error' => true));

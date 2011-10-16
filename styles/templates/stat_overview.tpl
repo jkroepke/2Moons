@@ -5,10 +5,10 @@
     <form name="stats" id="stats" method="post" action="">
         <table class="table519">
             <tr>
-				<th>{$st_statistics}({$st_updated}: {$stat_date})</th>
+				<th>{lang}st_statistics{/lang}({lang}st_updated{/lang}: {$stat_date})</th>
             </tr>
             <tr>
-                <td>{$st_show} <select name="who" onChange="$('#stats').submit();">{html_options options=$Selectors.who selected=$who}</select> {$st_per} <select name="type" onChange="$('#stats').submit();">{html_options options=$Selectors.type selected=$type}</select> {$st_in_the_positions} <select name="range" onChange="$('#stats').submit();">{html_options options=$Selectors.range selected=$range}</select></td>
+                <td>{lang}st_show{/lang} <select name="who" onChange="$('#stats').submit();">{html_options options=$Selectors.who selected=$who}</select> {lang}st_per{/lang} <select name="type" onChange="$('#stats').submit();">{html_options options=$Selectors.type selected=$type}</select> {lang}st_in_the_positions{/lang} <select name="range" onChange="$('#stats').submit();">{html_options options=$Selectors.range selected=$range}</select></td>
             </tr>
         </table>
     </form>

@@ -4,16 +4,16 @@
 <div id="content">
 <table style="min-width:590px;width:590px;">
 <tbody>
-<tr><td colspan="3" class="c" style="text-align:center;">{$update}</td></tr>
+<tr><th colspan="3" style="text-align:center;">{lang}rec_last_update_on{/lang}: {$update}</th></tr>
 {foreach item=Elementlist key=Section from=$Records}
 <tr>
-<th style="width:199px">{$Section}</th>
-<th style="width:203px">{$player}</th>
-<th style="width:172px">{$level}</th>
+<th style="width:199px">{lang}rec_{$Section}{/lang}</th>
+<th style="width:203px">{lang}rec_players{/lang}</th>
+<th style="width:172px">{lang}rec_level{/lang}</th>
 </tr>
-{foreach item=ElementInfo key=ElementName from=$Elementlist}
+{foreach item=ElementInfo key=ElementID from=$Elementlist}
 <tr>
-<td style="width:199px">{$ElementName}</td>
+<td style="width:199px">{lang}tech.{$ElementID}{/lang}</td>
 <td style="width:203px">{$ElementInfo.winner}</td>
 <td style="width:172px">{$ElementInfo.count}</td>
 </tr>

@@ -1055,14 +1055,14 @@ $LNG['supp_player_answer'] 					= 'Spieler-Antwort';
 
 $LNG['rec_build']  							= 'Gebäude';
 $LNG['rec_specb']							= 'Besondere Gebäude';
-$LNG['rec_playe']  							= 'Spieler';
+$LNG['rec_players']  						= 'Spieler';
 $LNG['rec_defes']  							= 'Verteidigung';
 $LNG['rec_fleet']  							= 'Schiffe';
 $LNG['rec_techn']  							= 'Forschung';
 $LNG['rec_level']  							= 'Level';
-$LNG['rec_nbre']   							= 'Anzahl';
-$LNG['rec_rien']   							= '-';
-$LNG['rec_last_update_on']		   			= 'Letztes Update um : %s';
+$LNG['rec_count']   						= 'Anzahl';
+$LNG['rec_empty']   						= '-';
+$LNG['rec_last_update_on']		   			= 'Letztes Update um';
 
 
 //----------------------------------------------------------------------------//

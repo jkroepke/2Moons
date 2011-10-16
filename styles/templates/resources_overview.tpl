@@ -9,12 +9,12 @@
         <th colspan="5">{$Production_of_resources_in_the_planet}</th>
     </tr><tr style="height:22px">
         <td>&nbsp;</td>
-        <td style="width:10%">{$Metal}</td>
-        <td style="width:10%">{$Crystal}</td>
-        <td style="width:10%">{$Deuterium}</td>
-        <td style="width:10%">{$Energy}</td>
+        <td style="width:10%">{lang}Metal{/lang}</td>
+        <td style="width:10%">{lang}Crystal{/lang}</td>
+        <td style="width:10%">{lang}Deuterium{/lang}</td>
+        <td style="width:10%">{lang}Energy{/lang}</td>
     </tr><tr style="height: 22px">
-        <td>{$rs_basic_income}</td>
+        <td>{lang}rs_basic_income{/lang}</td>
         <td>{$metal_basic_income}</td>
         <td>{$crystal_basic_income}</td>
         <td>{$deuterium_basic_income}</td>
@@ -33,34 +33,34 @@
 	</tr>
     {/foreach}
     <tr style="height:22px">
-        <td>{$rs_ress_bonus}</td>
+        <td>{lang}rs_ress_bonus{/lang}</td>
         <td>{$bonus_metal}</td>
         <td>{$bonus_crystal}</td>
         <td>{$bonus_deuterium}</td>
         <td>{$bonus_energy}</td>
-        <td><input name="action" value="{$rs_calculate}" type="submit"></td>
+        <td><input name="action" value="{lang}rs_calculate{/lang}" type="submit"></td>
     </tr><tr style="height:22px">
-        <td>{$rs_storage_capacity}</td>
+        <td>{lang}rs_storage_capacity{/lang}</td>
         <td>{$metalmax}</td>
         <td>{$crystalmax}</td>
         <td>{$deuteriummax}</td>
         <td>-</td>
     </tr><tr style="height:22px">
-        <td>{$rs_sum}:</td>
+        <td>{lang}rs_sum{/lang}:</td>
         <td>{$metal_total}</td>
         <td>{$crystal_total}</td>
         <td>{$deuterium_total}</td>
         <td>{$energy_total}</td>
     </tr>
     <tr style="height:22px">
-        <td>{$rs_daily}</td>
+        <td>{lang}rs_daily{/lang}</td>
         <td>{$daily_metal}</td>
         <td>{$daily_crystal}</td>
         <td>{$daily_deuterium}</td>
         <td>{$energy_total}</td>
     </tr style="height:22px">
     <tr>
-        <td>{$rs_weekly}</td>
+        <td>{lang}rs_weekly{/lang}</td>
         <td>{$weekly_metal}</td>
         <td>{$weekly_crystal}</td>
         <td>{$weekly_deuterium}</td>

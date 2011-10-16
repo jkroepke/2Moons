@@ -8,7 +8,6 @@ html, body {
 body {
 	line-height:14px;
 	padding-bottom:21px;
-	min-width:1155px;
 }
 
 body.popup {
@@ -108,7 +107,7 @@ textarea {
 /** HEADER **/
 #header {
 	padding:5px 10px;
-	margin-left:210px;
+	margin-left:10px;
 	margin-right:10px;
 	height:90px;
 	min-width:915px;
@@ -134,16 +133,16 @@ textarea {
 }
 
 #resourcesdiv{
-    padding:5px 0 0;
-	margin:0 215px;
 	height:90px;
 	text-align:center;
+	margin:0;
 }
 
 #resourcestable{
+	height:85px;
 	width:700px;
 	margin:0 auto;
-	padding:0;
+    padding:5px 0 0;
 	list-style:none;
 }
 
@@ -244,9 +243,13 @@ textarea {
 }
 /* CONTENT */
 
+#page {
+	margin-left:200px;
+	padding:0;
+}
+
 #content {
-	margin-left:210px;
-	margin-right:10px;
+	margin:10px 10px 0 ;
 	padding:10px 10px 5px 10px;
 }
 
@@ -350,21 +353,20 @@ div#trader + div {
 .dsize:hover{background-position:-325px -25px}
 
 
-@media screen and (max-width: 1155px) {
+@media screen and (max-width: 1380px) {
+	#resourcesdiv {
+		margin:0 215px 0 215px;
+	}
+}
+@media screen and (max-width: 1165px) {
 	body {
 		min-width: 0;
 	}
-
-	#resourcesdiv{
-		margin: 0;
-		overflow: hidden;
-		float: left;
-	}
+	
 	#resourcestable {
 		width: 550px;
-		float:left;
 	}
-	
+		
 	#header {
 		min-width:765px;
 	}
