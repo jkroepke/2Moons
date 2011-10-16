@@ -267,7 +267,7 @@ abstract class FleetFunctions
 			}
 		}
 		
-		$db->query("UPDATE ".FLEETS." SET 
+		$db->multi_query("UPDATE ".FLEETS." SET 
 		`fleet_group` = 0, 
 		`fleet_end_stay` = ".TIMESTAMP.",
 		`fleet_end_time` = ".((TIMESTAMP - $FleetRow['start_time']) + TIMESTAMP).", 
