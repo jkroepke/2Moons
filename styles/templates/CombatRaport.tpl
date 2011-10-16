@@ -138,6 +138,8 @@
 {lang}sys_stealed_ressources{/lang} {pretty_number($Raport.steal[0])} {lang}Metal{/lang}, 
 {pretty_number($Raport.steal[1])} {lang}Crystal{/lang} {lang}and{/lang} 
 {pretty_number($Raport.steal[2])} {lang}Deuterium{/lang}
+{elseif $Raport.result == "r"}
+{lang}sys_defender_won{/lang}
 {else}
 {lang}sys_both_won{/lang}
 {/if}
