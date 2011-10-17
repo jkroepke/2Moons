@@ -365,7 +365,7 @@ CREATE TABLE `uni1_log_fleets` (
  `fleet_state` tinyint(3) unsigned NOT NULL,
  PRIMARY KEY (`fleet_id`),
  KEY `BashRule` (`fleet_owner`,`fleet_end_id`,`fleet_start_time`,`fleet_mission`,`fleet_state`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `prefix_messages` (
   `message_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -715,7 +715,7 @@ CREATE TABLE `prefix_users_valid` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO `prefix_config` (`uni`, `VERSION`, `uni_name`, `game_name`, `close_reason`, `OverviewNewsText`, `moduls`) VALUES
-(1, '1.5.2014', '[LANG]universum[/LANG] 1', '2Moons', '[LANG]close_reason[/LANG]', '[LANG]welcome[/LANG] 2Moons v1.5!', '1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1');
+(1, '1.5.2030', '[LANG]universum[/LANG] 1', '2Moons', '[LANG]close_reason[/LANG]', '[LANG]welcome[/LANG] 2Moons v1.5!', '1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1');
 
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
