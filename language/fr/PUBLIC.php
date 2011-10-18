@@ -1,6 +1,6 @@
 <?php
 
-//general
+//General
 $LNG['index']				= 'Accueil';
 $LNG['register']			= 'S\'enregistrer';
 $LNG['forum']				= 'Forum';
@@ -280,6 +280,6 @@ $LNG['disclamer_adress']		= "Adresse";
 $LNG['disclamer_tel']			= "TÃ©lÃ©phone:";
 $LNG['disclamer_email']			= "Adresse E-mail";
 
-// Traduction français by HaloRaptor . All rights reversed (C) 2011 haloraptor33@gmail.com
+// Traduction Française by Scofield06 - All rights reserved (C) 2011
 
 ?>

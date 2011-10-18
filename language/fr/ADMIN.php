@@ -1,5 +1,31 @@
 <?php
-
+/**
+ *  2Moons
+ *  Copyright (C) 2011  Slaver
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @package 2Moons
+ * @author Slaver <slaver7@gmail.com>
+ * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
+ * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
+ * @version 1.5 (2011-07-31)
+ * @info $Id$
+ * @link http://code.google.com/p/2moons/
+ */
+ 
 //---------------	GENERAL	------------------------//
 $LNG['adm_login']		= 'Connectez-vous';
 $LNG['adm_absenden']		= 'Envoyer'; 
@@ -33,7 +59,8 @@ $LNG['time_minutes']					= 'Minutes';
 $LNG['time_seconds']					= 'Secondes';
 //###########################################################//
 
-$LNG['info_information']	= 'Soumettre les bugs &agrave; : <a href="http://www.xnova.de" target="tracker">2Moons Board</a><br>Or there is no support!';
+$LNG['info_information']	= 'Soumettre les bugs &agrave; : <a href="%s" target="tracker">2Moons Board</a><br>Ou bien Il n\'y a aucun support !';
+
 
 //---------------	�SI O NO? - YES OR NO? - JA ODER NEIN?	------------------------//
 $LNG['one_is_yes'][1]					= 'Oui';
@@ -49,7 +76,7 @@ $LNG['button_submit']        				= 'Envoyer';
 $LNG['button_add']            				= 'Ajouter';
 $LNG['button_delete']        				= 'Supprimer';
 $LNG['button_filter']        				= 'Filtrer';
-$LNG['button_deselect']    				= 'D&eacute;selectionnez';
+$LNG['button_deselect']    			    	= 'D&eacute;selectionnez';
 $LNG['button_reset']        				= 'Red&eacute;marrer';
 $LNG['button_des_se']        				= 'S&eacute;lectionner / D&eacute;s&eacute;lectionner tout';
 //###########################################################//
@@ -58,7 +85,7 @@ $LNG['button_des_se']        				= 'S&eacute;lectionner / D&eacute;s&eacute;lect
 //---------------	ID's	------------------------//
 $LNG['input_id']            				= 'ID';
 $LNG['input_id_user']       				= 'ID JOUEUR';
-$LNG['input_id_planet']    				= 'ID PLANETE';
+$LNG['input_id_planet']    			    	= 'ID PLANETE';
 $LNG['input_id_moon']        				= 'ID LUNE';
 $LNG['input_id_p_m']        				= 'ID PLANETE ou LUNE';
 $LNG['input_id_ally']        				= 'ID ALLIANCE';
@@ -67,13 +94,13 @@ $LNG['input_id_ally']        				= 'ID ALLIANCE';
 
 //---------------	RECURSOS - RESOURCES - ROHSTOFFE	------------------------//
 $LNG['resources_title']    				= 'Ressources';
-$LNG['count_res']            				= 'Ajouter Ressources';
+$LNG['count_res']            	    	= 'Ajouter Ressources';
 //###########################################################//
 
 
 //---------------	OFICIALES - OFFICIERS - OFFIZIERE	------------------------//
 $LNG['buildings_title']					= 'B&acirc;timents';
-$LNG['ships_title']					= 'Vaisseaux';
+$LNG['ships_title']					    = 'Vaisseaux';
 $LNG['defenses_title']					= 'D&eacute;fenses';
 $LNG['researchs_title']					= 'Recherches';
 $LNG['officiers_title']					= 'Officiers';
@@ -278,20 +305,23 @@ $LNG['ma_modes']				= array('INGAME Message', 'E-Mail Message', 'INGAME &amp; E-
 //---------------	OVERVIEW	------------------------//
 $LNG['ow_title']					= 'Bienvenue sur 2Moons';
 $LNG['ow_donate']					= 'Donation';
-$LNG['ow_welcome_text']					= 'Bienvenue sur le server populaire de 2Moons. (:';
+$LNG['ow_welcome_text']			    = 'Bienvenue sur le server populaire de 2Moons. (:';
 $LNG['ow_overview']					= 'Panneau de configuration';
 $LNG['ow_support']					= 'Support';
 $LNG['ow_credits']					= 'Credits';
 $LNG['ow_forum']					= 'Forums';
-$LNG['ow_proyect_leader']				= 'Chef de projet';
-$LNG['ow_translator']					= 'Traducteurs';
-$LNG['ow_special_thanks']				= 'Remerciements sp&eacute;ciaux';
+$LNG['ow_proyect_leader']			= 'Chef de projet';
+$LNG['ow_translator']				= 'Traducteurs';
+$LNG['ow_special_thanks']			= 'Remerciements sp&eacute;ciaux';
 $LNG['ow_file_detected']			= 'Le %s n\'a &eacute;t&eacute; trouv&eacute;e. S\'il vous plaît renommer ou supprimer-le, puis votre jeu sera prot&eacute;g&eacute;.';
-$LNG['ow_config_file_writable']				= 'Le fichier config.php est en mode &eacute;criture, nous vous recommandons de d&eacute;finir les permissions du fichier en CHMOD 444 (lecture seule).';
-$LNG['ow_database_errors']				= 'Il y a des erreurs pr&eacute;sentes !';
+$LNG['ow_config_file_writable']		= 'Le fichier config.php est en mode &eacute;criture, nous vous recommandons de d&eacute;finir les permissions du fichier en CHMOD 444 (lecture seule).';
+$LNG['ow_database_errors']			= 'Il y a des erreurs pr&eacute;sentes !';
 $LNG['ow_smtp_errors']				= 'V&eacute;rifiez vos param&egrave;tres SMTP ! - Actuellement aucun mails ne sont envoy&eacute;s !';
 $LNG['ow_dir_not_writable']			= './%s n\est pas inscriptible!';
 $LNG['ow_none']						= 'Aucun avertissement';
+$LNG['ow_news']						= 'Actualit&eacute;s';
+$LNG['ow_updates']					= 'Dernières mise &agrave; jour';
+
 //###########################################################//
 
 
@@ -463,6 +493,11 @@ $LNG['se_ref_max_referals']				= 'Saisi maximale';
 $LNG['se_ref_max_referals_info']		= 'Nombre maximum de joueurs recrut&eacute; par utilisateur';
 $LNG['se_silo_factor']					= 'Taille silo de missiles';
 $LNG['se_silo_factor_info']				= 'Facteur de la taille du silo';
+$LNG['se_timzone']						= 'Fuseau Horaire';
+$LNG['se_dst_mode']						= 'Heure d\'&eacute;t&eacute; ?';
+$LNG['se_dst_sel'][0]					= 'Non';
+$LNG['se_dst_sel'][1]					= 'Oui';
+$LNG['se_dst_sel'][2]					= 'Automatique';
 
 //###########################################################//
 
@@ -558,20 +593,26 @@ $LNG['mu_manual_points_update']    			= 'Mettre &agrave; jour les Points manuell
 $LNG['mu_mpu_confirmation']        			= 'Les Points sont automatiquement mis &agrave; jour. Pour les mettre &agrave; jour manuellement, Cliquer sur OK';
 $LNG['mu_search_page']                			= 'Recherche avanc&eacute;e';
 $LNG['mu_info_account_page']        			= 'Information sur le compte';
-$LNG['mu_planets_options']            			= 'Options Plan&egrave;tes';
-$LNG['mu_user_logs']                			= 'Log';
-$LNG['mu_support']                 			= 'Support Tickets';
-$LNG['mu_chat']                   			= 'Administration Chat';
-$LNG['mu_module']                 			= 'Module';
-$LNG['mu_update']                 			= 'Mise &agrave; jour jeu';
+$LNG['mu_planets_options']         	= 'Options Plan&egrave;tes';
+$LNG['mu_user_logs']               	= 'Log';
+$LNG['mu_support']                 	= 'Support Tickets';
+$LNG['mu_chat']                   	= 'Administration Chat';
+$LNG['mu_module']                 	= 'Module';
+$LNG['mu_update']                	= 'Mise &agrave; jour du jeu';
 $LNG['mu_mod_update']              	= 'Contr&ocirc;le Mod Version';
-$LNG['mu_fb_options'] 					= 'Connexion Facebook';
-$LNG['mu_ts_options'] 					= 'Options Teamspeak';
-$LNG['mu_game_info'] 					= 'Information';
-$LNG['mu_vaild_users']					= 'Activit&eacute; Utilisateur';
+$LNG['mu_fb_options'] 				= 'Connexion Facebook';
+$LNG['mu_ts_options'] 				= 'Options Teamspeak';
+$LNG['mu_game_info'] 				= 'Information';
+$LNG['mu_vaild_users']				= 'Activit&eacute; Utilisateur';
 $LNG['mu_news']						= 'Actualit&eacute;s';
-$LNG['mu_multiip']					= 'MultiIP'; 
-$LNG['mu_clear_cache']				= 'Vider Cache';
+$LNG['mu_multiip_page']				= 'MultiIP'; 
+$LNG['mu_clear_cache']				= 'Vider le Cache';
+$LNG['mu_vertify']					= 'V&eacute;rifiez le contenu du jeu'; 
+$LNG['mu_logs']						= 'Admin-Log';
+
+$LNG['vt_error']					= 'Le Hash du fichier n\'est pas disponible ! Effectuer une mise &agrave; jour';
+$LNG['vt_fail']						= 'Fichiers modifi&egrave;s';
+$LNG['vt_info']						= 'Cette liste contient les fichiers qui ont &eacute;t&eacute; modifier, et ne pas correspondre &agrave; l\'original.<br>Si vous n\'avez pas chang&eacute; le jeu lui-m&ecirc;me, remplacez les fichiers avec les originaux.';
 
 //###########################################################//
 
@@ -1136,6 +1177,5 @@ $LNG['log_tssettings']                  = 'Options Teamspeak';
 $LNG['log_uni_short']                   = 'Uni';
 $LNG['log_universe']                    = 'Univers';
 
-// Traduction français by HaloRaptor . All rights reversed (C) 2011 haloraptor33@gmail.com
-
+// Traduction Française by Scofield06 - All rights reserved (C) 2011
 ?>

@@ -331,6 +331,7 @@ $LNG['fl_error_not_avalible']				= 'O Planeta não esta actualmente disponivel!'
 $LNG['fl_error_empty_derbis']				= 'Não existem destroços disponiveis!';
 $LNG['fl_error_no_moon']					= 'Não esta presente nenhuma lua!';
 $LNG['fl_error_same_planet']				= 'O partida e destino no mesmo planeta!';
+$LNG['fl_bash_protect']						= 'Protecção de Bash';
 
 //----------------------------------------------------------------------------//
 //Edificios ; Pesquisas ; Naves ; Defesas
@@ -1049,14 +1050,14 @@ $LNG['supp_player_answer']                  = 'Resposta de usuário';
 // Recordes
 $LNG['rec_build']                           = 'Edifícios';
 $LNG['rec_specb']                           = 'Edifícios Especiais';
-$LNG['rec_playe']                           = 'Jogador';
 $LNG['rec_defes']                           = 'Defesas';
 $LNG['rec_fleet']                           = 'Frotas';
 $LNG['rec_techn']                           = 'Tecnologias';
 $LNG['rec_level']                           = 'Nível';
-$LNG['rec_nbre']                            = 'Quantidade';
-$LNG['rec_rien']                            = '-';
 $LNG['rec_last_update_on']                  = 'Ultima actualização a: %s';
+$LNG['rec_players']                           = 'Jogador';
+$LNG['rec_count']                           = 'Quantidade';
+$LNG['rec_empty']                           = '---';
 
 
 //----------------------------------------------------------------------------//

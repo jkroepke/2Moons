@@ -5,7 +5,7 @@ setlocale(LC_NUMERIC, 'C');
 
 //SERVER GENERALS
 $LNG['dir']         	= 'ltr';
-$LNG['week_day']		= array('Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sab');
+$LNG['week_day']		= array('Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam');
 $LNG['months']			= array('Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Aout', 'Sep', 'Oct', 'Nov', 'Dec');
 $LNG['js_tdformat']		= '[M] [D] [d] [H]:[i]:[s]';
 $LNG['php_timeformat']	= 'H:i:s';
@@ -54,3 +54,5 @@ $LNG['timezones']		= array(
 	'13'	=> '[UTC + 13] Tonga Time, Phoenix Islands Time',
 	'14'	=> '[UTC + 14] Line Island Time',
 );
+// Traduction Française by Scofield06 - All rights reserved (C) 2011
+?>

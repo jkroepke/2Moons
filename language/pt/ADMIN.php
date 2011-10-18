@@ -5,7 +5,7 @@
 // Obrigado a King_Dark pela ajuda na tradução
 // 2Moons - Copyright (C) 2011  Slaver// 2Moons - Copyright (C) 2011  Slaver
 
-//---------------    GERAL ------------------------//
+//Global
 $LNG['adm_login']						= 'Login';
 $LNG['adm_absenden']					= 'Submiter'; 
 $LNG['adm_password']					= 'Password';
@@ -18,37 +18,33 @@ $LNG['mu_moderation_page']				= 'Permissões do usário';
 $LNG['mu_universe']						= 'Universo';
 $LNG['adm_cp_logout']					= 'Sair';
 
-//	DIVERSOS
+//Outros
 $LNG['ad_number']			            = 'ID';
 $LNG['ad_max']				            = '(máx. %d)';
 $LNG['only_numbers']		            = 'So poderás introduzir numeros!';
 $LNG['select_option']		            = 'Escolhe...';
+$LNG['info_information']	= 'Submeta informações de bugs em no forum do 2Moons';
 
-//	RANKS
+//Rank de Usário
 $LNG['rank'][0]	                        = 'Usuário';
 $LNG['rank'][1]	                        = 'Moderador';
 $LNG['rank'][2]	                        = 'Operador';
 $LNG['rank'][3]	                        = 'Administrador';
 
-//	TEMPO
+//Horário
 $LNG['time_days']		                = 'Dias';
 $LNG['time_hours']		                = 'Horas';
 $LNG['time_minutes']	                = 'Minutos';
 $LNG['time_seconds']	                = 'Segundos';
-//###########################################################//
 
-$LNG['info_information']	= 'Submeta informações de bugs em no forum do 2Moons';
-
-//---------------	Sim ou Não	------------------------//
+//Sim ou Não
 $LNG['one_is_yes'][1]	               	= 'Sim';
 $LNG['one_is_yes'][0]	               	= 'Não';
 
 $LNG['one_is_no'][1]	               	= 'Não';
 $LNG['one_is_no'][0]	               	= 'Sim';
-//###########################################################//
 
-
-//---------------       Botões     ------------------------//
+//Botões
 $LNG['button_submit']		           	= 'Enviar';
 $LNG['button_add']		               	= 'Adicionar';
 $LNG['button_delete']		           	= 'Apagar';
@@ -56,34 +52,27 @@ $LNG['button_filter']		           	= 'Filtrar';
 $LNG['button_deselect']	               	= 'Desmarcar';
 $LNG['button_reset']		           	= 'Reiniciar';
 $LNG['button_des_se']		           	= 'Marcar/Desmarcar todos';
-//###########################################################//
 
-
-//---------------       ID's    ------------------------//
+//ID's
 $LNG['input_id']		               	= 'ID';
 $LNG['input_id_user']		           	= 'ID USUÁRIO';
 $LNG['input_id_planet']	               	= 'ID PLANETA';
 $LNG['input_id_moon']		           	= 'ID LUA';
 $LNG['input_id_p_m']		           	= 'ID PLANETA ou LUA';
 $LNG['input_id_ally']		           	= 'ID ALIANÇA';
-//###########################################################//
 
-
-//---------------	RECURSOS	------------------------//
+//Recursos
 $LNG['resources_title']	               	= 'Recursos';
 $LNG['count_res']		               	= 'Contar Recursos';
-//###########################################################//
 
-
-//---------------	OFICIAIS	------------------------//
+//Tecnologias
 $LNG['buildings_title']                	= 'Edifícios';
 $LNG['ships_title']                    	= 'Frotas';
 $LNG['defenses_title']                 	= 'Defesas';
 $LNG['researchs_title']                	= 'Pesquisas';
 $LNG['officiers_title']                	= 'Ofíciais';
+
 //###########################################################//
-
-
 
 //---------------       EDITOR  ------------------------//
 // MENU
