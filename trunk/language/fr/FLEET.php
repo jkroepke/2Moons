@@ -193,6 +193,6 @@ $LNG['type_mission'][9]  					= 'Destruire';
 $LNG['type_mission'][11]  					= 'Rechercher de la Matière Noire';
 $LNG['type_mission'][15] 					= 'Expédition';
 
-// Traduction français by HaloRaptor . All rights reversed (C) 2011 haloraptor33@gmail.com
+// Traduction Française by Scofield06 - All rights reserved (C) 2011
 
 ?>

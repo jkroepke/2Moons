@@ -24,6 +24,10 @@ $LNG['type_mission'][9]  					= 'Détruire';
 $LNG['type_mission'][11]  					= 'Recherche de Matière Noire';
 $LNG['type_mission'][15] 					= 'Expédition';
 
+$LNG['type_planet'][1]  					= 'Planète';
+$LNG['type_planet'][2]  					= 'Champ de débris';
+$LNG['type_planet'][3]  					= 'Lune';
+
 $LNG['user_level'] = array (
 	'0' => 'Joueur',
 	'1' => 'Modérateur',
@@ -256,17 +260,11 @@ $LNG['fl_planet_shortcut']					= '(P)';
 $LNG['fl_debris_shortcut']					= '(D)';
 $LNG['fl_moon_shortcut']					= '(M)';
 $LNG['fl_no_shortcuts']						= 'Pas de raccourcis disponibles';
-$LNG['fl_anonymous']						= 'Inconnu';
-$LNG['fl_shortcut_add_title']				= 'Nom [Galaxie/Système/Planète]';
-$LNG['fl_shortcut_name']					= 'Nom';
-$LNG['fl_shortcut_galaxy']					= 'Galaxie';
-$LNG['fl_shortcut_solar_system']			= 'Système';
-$LNG['fl_clean']							= 'Reset';
 $LNG['fl_register_shorcut']					= 'Créer';
+$LNG['fl_shortcut_save']					= 'Raccourcis Sauvegardées';
+$LNG['fl_shortcut_saved']					= 'Sauvegardée !';
 $LNG['fl_shortcuts']						= 'Raccourcis';
-$LNG['fl_reset_shortcut']					= 'Reset';
 $LNG['fl_dlte_shortcut']					= 'Supprimer';
-$LNG['fl_back']								= 'Retour';
 $LNG['fl_shortcut_add']						= 'Ajouter';
 $LNG['fl_shortcut_edition']					= 'Editer : ';
 $LNG['fl_no_colony']						= 'Aucune colonie présente';
@@ -280,7 +278,6 @@ $LNG['fl_fuel_consumption']					= 'Consommation en carburant';
 $LNG['fl_max_speed']						= 'Vitesse maximale';
 $LNG['fl_cargo_capacity']					= 'Capacité de chargement';
 $LNG['fl_shortcut']							= 'Raccourci';
-$LNG['fl_shortcut_add_edit']				= '(Créer/Modifier)';
 $LNG['fl_my_planets']						= 'Ma Planète';
 $LNG['fl_acs_title']						= 'Attaques associées';
 $LNG['fl_hold_time']						= 'Temps de stationnement';
@@ -334,6 +331,7 @@ $LNG['fl_error_not_avalible']				= 'La planète ne peut actuellement pas être i
 $LNG['fl_error_empty_derbis']				= 'Pas de CDR !';
 $LNG['fl_error_no_moon']					= 'Pas de Lune présente !';
 $LNG['fl_error_same_planet']				= 'Les planètes de départ et d\'arrivé sont identiques!';
+$LNG['fl_bash_protect']						= 'Bash-Protection';
 
 //----------------------------------------------------------------------------//
 //BUILDINGS - RESEARCH - SHIPYARD - DEFENSES
@@ -421,9 +419,7 @@ $LNG['tr_call_trader']						= 'Appeler un Marchand';
 $LNG['tr_call_trader_who_buys']				= 'Appeler un Marchand qui achète du ';
 $LNG['tr_call_trader_submit']				= 'Appeler un Marchand';
 $LNG['tr_exchange_quota']					= 'Le taux d\'échange est 2/1/0.5';
-$LNG['tr_sell_metal']						= 'Ventes de Métal';
-$LNG['tr_sell_crystal']						= 'Ventes de cristal';
-$LNG['tr_sell_deuterium']					= 'Ventes of deuterium';
+$LNG['tr_sell']								= 'Echanger contre';
 $LNG['tr_resource']							= 'Ressources';
 $LNG['tr_amount']							= 'Quantité';
 $LNG['tr_quota_exchange']					= 'Taux d\'échange';
@@ -513,6 +509,7 @@ $LNG['mg_game_message']						= 'Message du jeu';
 $LNG['mg_message_send']						= 'Message envoyé !';
 $LNG['mg_empty_text']						= 'Entrer un texte';
 $LNG['mg_answer_to']						= 'Répondre à:';
+$LNG['mg_write_mail_to_ops']				= 'Rédiger un e-mail à';
 
 //----------------------------------------------------------------------------//
 //ALLIANCE
@@ -855,7 +852,11 @@ $LNG['op_user_name_no_alphanumeric']		= 'Merci d\'entrer un nom d\'Utilisateur �
 $LNG['op_change_name_pro_week']				= 'Vous pouvez modifier votre nom d\'Utilisateur une fois par semaine';
 $LNG['op_change_name_exist']				= 'Le nom %s existe déjà';
 $LNG['op_active_build_messages']			= 'Actualités queue de construction';
-$LNG['op_small_storage']                    = 'Afficher des nombres arrondis pour les stocks';
+$LNG['op_dst_mode']							= 'Heure d\été ?';
+$LNG['op_dst_mode_sel'][0]					= 'Non';
+$LNG['op_dst_mode_sel'][1]					= 'Oui';
+$LNG['op_dst_mode_sel'][2]					= 'Automatique';
+$LNG['op_timezone']							= 'Fuseau Horaire';
 
 //----------------------------------------------------------------------------//
 //BANNED
@@ -1052,15 +1053,14 @@ $LNG['supp_player_write'] 					= '%s écrit sur %s';
 
 $LNG['rec_build']  							= 'Bâtiments';
 $LNG['rec_specb']							= 'Bâtiments spéciaux';
-$LNG['rec_playe']  							= 'Joueur';
+$LNG['rec_players']  						= 'Joueur';
 $LNG['rec_defes']  							= 'Défense';
 $LNG['rec_fleet']  							= 'Vaisseaux';
 $LNG['rec_techn']  							= 'Recherche';
 $LNG['rec_level']  							= 'Niveau';
-$LNG['rec_nbre']   							= 'Nombre';
-$LNG['rec_rien']   							= '-';
+$LNG['rec_count']   						= 'Nombre';
+$LNG['rec_empty']   						= '-';
 $LNG['rec_last_update_on']   				= 'Dernière mise à jour : %s';
-
 
 //----------------------------------------------------------------------------//
 // BattleSimulator
@@ -1076,7 +1076,7 @@ $LNG['bs_send']								= "Mailing";
 $LNG['bs_cancel']							= "De retour";
 $LNG['bs_wait']								= "Attendre 10 secondes pour la prochaine simulation";
 $LNG['bs_acs_slot']							= 'ACS-Slot';
-$LNG['bs_add_acs_slot']						= 'Add ACS-Slot';
+$LNG['bs_add_acs_slot']						= 'Ajouter ACS-Slot';
 
 //----------------------------------------------------------------------------//
 // Fleettrader
@@ -1096,5 +1096,5 @@ $LNG['lo_redirect']						= 'avant';
 $LNG['lo_notify']						= 'Vous serez redirigé dans <span id="seconds"> 5 </ span> secondes';
 $LNG['lo_continue']						= 'Cliquez ici pour être redirigé immédiatement.';
 
-// Traduction français by HaloRaptor . All rights reversed (C) 2011 haloraptor33@gmail.com
+// Traduction Française by Scofield06 - All rights reserved (C) 2011
 ?>

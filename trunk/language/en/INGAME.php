@@ -323,14 +323,15 @@ $LNG['fl_bonus']                                                        = 'Bonus
 $LNG['fl_bonus_attack']                                         = 'Attack';
 $LNG['fl_bonus_defensive']                                      = 'Defensive';
 $LNG['fl_bonus_shield']                                         = 'Shield';
-$LNG['fl_no_empty_derbis']                                      = 'Rubblefield does not exist! ';
+$LNG['fl_no_empty_derbis']                              = 'Rubblefield does not exist! ';
 $LNG['fl_acs_newname_alphanum']                         = 'The name only may cosist out of alphanumeric signs. ';
-$LNG['fl_acs_change']                                           = 'Changing';
-$LNG['fl_acs_change_name']                                      = 'They enter a new name';
+$LNG['fl_acs_change']                                   = 'Changing';
+$LNG['fl_acs_change_name']                              = 'They enter a new name';
 $LNG['fl_error_not_avalible']                           = 'There is no planet at these coordinates!';
 $LNG['fl_error_empty_derbis']                           = 'No Debris Available!';
-$LNG['fl_error_no_moon']                                        = 'No moon present!';
+$LNG['fl_error_no_moon']                                = 'No moon present!';
 $LNG['fl_error_same_planet']                            = 'Start and end planet are the same!';
+$LNG['fl_bash_protect']									= 'Bash-Protection';
 
 //----------------------------------------------------------------------------//
 //BUILDINGS - RESEARCH - SHIPYARD - DEFENSES
@@ -1053,14 +1054,14 @@ $LNG['supp_player_write']                                       = '%s wrote on %
 
 $LNG['rec_build']                                                       = 'Buildings';
 $LNG['rec_specb']                                                       = 'Special buildings';
-$LNG['rec_playe']                                                       = 'Player';
+$LNG['rec_players']                                                     = 'Player';
 $LNG['rec_defes']                                                       = 'Defence';
 $LNG['rec_fleet']                                                       = 'Ships';
 $LNG['rec_techn']                                                       = 'Research';
 $LNG['rec_level']                                                       = 'Level';
-$LNG['rec_nbre']                                                        = 'Number';
-$LNG['rec_rien']                                                        = '-';
-$LNG['rec_last_update_on']                              = 'Last update : %s';
+$LNG['rec_count']                                                       = 'Number';
+$LNG['rec_empty']                                                       = '-';
+$LNG['rec_last_update_on']                            				    = 'Last update : %s';
 
 
 //----------------------------------------------------------------------------//

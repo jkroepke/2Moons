@@ -107,12 +107,64 @@
                 </tr>
                 <tr>
 					<td class="transparent">
-					<a href="http://2moons.cc/user/97-bullet/">BuLLeT</a> &amp; <a href="http://2moons.cc/user/955-royaloss/">RoyalOss</a> (english)<br>
-					<a href="http://2moons.cc/user/100-qwatakayean/">QwataKayean</a> (portuguese)<br>
-					<a href="http://2moons.cc/user/98-inquisitorea/">InquisitorEA</a> (russian)<br>
-					<a href="http://2moons.cc/user/750-angelus-ira/">angelus_ira</a> (spanish)<br>
-					<a href="http://2moons.cc/user/205-idro/">Idro</a> (italia)<br>
-					<a href="http://2moons.cc/user/853-pandorax/">_pandorax_ </a> (Slovenian)<br>
+					<table>
+						<tr>
+							<td class="transparent">
+								<a href="http://2moons.cc/user/97-bullet/" target="_blank">BuLLeT</a> / <a href="http://2moons.cc/user/955-royaloss/">RoyalOss</a> / <a href="http://2moons.cc/user/1231-scofield06/">scofield06</a>
+							</td>
+							<td class="transparent">
+								<img src="styles/images/login/flags/us.png" alt="(english)">
+							</td>
+						</tr>
+						<tr>
+							<td class="transparent">
+								<a href="http://2moons.cc/user/529-haloraptor33/" target="_blank">HaloRaptor33</a> / <a href="http://2moons.cc/user/1231-scofield06/">scofield06</a>
+							</td>
+							<td class="transparent">
+								<img src="styles/images/login/flags/fr.png" alt="(french)">
+							</td>
+						</tr>
+						<tr>
+							<td class="transparent">
+								<a href="http://2moons.cc/user/205-idro/" target="_blank">Idro</a>
+							</td>
+							<td class="transparent">
+								<img src="styles/images/login/flags/it.png" alt="(italia)">
+							</td>
+						</tr>
+						<tr>
+							<td class="transparent">
+								<a href="http://2moons.cc/user/100-qwatakayean/" target="_blank">QwataKayean</a>
+							</td>
+							<td class="transparent">
+								<img src="styles/images/login/flags/pt.png" alt="(portuguese)">
+							</td>
+						</tr>
+						<tr>
+							<td class="transparent">
+								<a href="http://2moons.cc/user/98-inquisitorea/" target="_blank">InquisitorEA</a>
+							</td>
+							<td class="transparent">
+								<img src="styles/images/login/flags/ru.png" alt="(russian)">
+							</td>
+						</tr>
+						<tr>
+							<td class="transparent">
+								<a href="http://2moons.cc/user/750-angelus-ira/" target="_blank">angelus_ira</a>
+							</td>
+							<td class="transparent">
+								<img src="styles/images/login/flags/es.png" alt="(spanish)">
+							</td>
+						</tr>
+						<tr>
+							<td class="transparent">
+								<a href="http://2moons.cc/user/853-pandorax/" target="_blank">_pandorax_ </a>
+							</td>
+							<td class="transparent">
+								<img src="styles/images/login/flags/si.png" alt="(slovenian)">
+							</td>
+						</tr>
+						</table>
 					</td>
                 </tr> 
                 <tr>

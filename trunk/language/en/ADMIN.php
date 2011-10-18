@@ -286,12 +286,15 @@ $LNG['ow_forum']                                        = 'Forums';
 $LNG['ow_proyect_leader']                               = 'Project Leader';
 $LNG['ow_translator']                                   = 'Translators';
 $LNG['ow_special_thanks']                               = 'Special Thanks';
-$LNG['ow_file_detected']                        = 'The %s was found. Please rename or delete it, then your game will be protected.';
+$LNG['ow_file_detected']                       			= 'The %s was found. Please rename or delete it, then your game will be protected.';
 $LNG['ow_config_file_writable']                         = 'The config.php file can be written to, we recommend that you set its file permissions to CHMOD 444 (read only).';
 $LNG['ow_database_errors']                              = 'There are errors present!';
-$LNG['ow_smtp_errors']                          = 'Check your SMTP settings! - Currently no mails are sent!';
-$LNG['ow_dir_not_writable']                     = './%s dir not writable!';
+$LNG['ow_smtp_errors']                        		    = 'Check your SMTP settings! - Currently no mails are sent!';
+$LNG['ow_dir_not_writable']                   		    = './%s dir not writable!';
 $LNG['ow_none']                                         = 'No Warnings';
+$LNG['ow_news']											= 'News';
+$LNG['ow_updates']										= 'Last Updates';
+
 //###########################################################//
 
 

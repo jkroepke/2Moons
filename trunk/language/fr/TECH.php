@@ -446,5 +446,5 @@ $LNG['info'][705]['description'] = 'Research Optimization';
 $LNG['info'][706]['name']		 = 'Fleet Coordination';
 $LNG['info'][706]['description'] = 'Fleet Coordination';
 
-// Traduction français by HaloRaptor . All rights reversed (C) 2011 haloraptor33@gmail.com
+// Traduction Française by Scofield06 - All rights reserved (C) 2011
 ?>

@@ -25,6 +25,5 @@ $LNG['faq']                        = array(
 
 $LNG['faq_overview']        = "FAQ";
 
-// Traduction français by HaloRaptor . All rights reversed (C) 2011 haloraptor33@gmail.com
-
+// Traduction Française by Scofield06 - All rights reserved (C) 2011
 ?>
