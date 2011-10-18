@@ -150,7 +150,7 @@
 						</tr>
 						<tr>
 							<td class="transparent">
-								<a href="http://2moons.cc/user/750-angelus-ira/" target="_blank">angelus_ira</a>
+								<a href="http://2moons.cc/user/750-angelus-ira/" target="_blank">angelus_ira</a> / <a href="http://2moons.cc/user/1231-scofield06/">scofield06</a>
 							</td>
 							<td class="transparent">
 								<img src="styles/images/login/flags/es.png" alt="(spanish)">

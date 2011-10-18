@@ -76,6 +76,7 @@ $LNG['step2_conf_op_fail']	= "config.php n'est pas en CHMOD 777!";
 $LNG['step2_db_connet_ok']	= "Connexion au tables réussi...";
 $LNG['step2_db_create_ok']	= "Tables crée avec succès...";
 $LNG['step2_conf_create']	= "config.php à été crée avec succès...";
+$LNG['step2_prefix_invalid']	= 'Le préfixe DB doit contenir que des caractères alphanumériques et caractères de soulignement.';
 
 $LNG['step3_create_admin']	= "Création d'un compte Administrateur";
 $LNG['step3_admin_name']	= "Pseudo de l'Administrateur:";
