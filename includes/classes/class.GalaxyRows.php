@@ -70,7 +70,7 @@
 			'name'		=> htmlspecialchars($GalaxyRowPlanet['ally_name'],ENT_QUOTES,"UTF-8"),
 			'member'	=> sprintf(($GalaxyRowPlanet['ally_members'] == 1)?$LNG['gl_member_add']:$LNG['gl_member'], $GalaxyRowPlanet['ally_members']),
 			'web'		=> $GalaxyRowPlanet['ally_web'],
-			'inally'	=> ($USER['ally_id'] == $GalaxyRowPlanet['ally_id'])?2:(($USER['ally_id'] == $GalaxyRowPlanet['allyid'])?1:0),
+			'inally'	=> $USER['ally_id'] == $GalaxyRowPlanet['ally_id'],
 			'tag'		=> $GalaxyRowPlanet['ally_tag'],
 			'rank'		=> $GalaxyRowPlanet['ally_rank'],
 		);
@@ -182,59 +182,40 @@
 
 	public function GalaxyRowUser($GalaxyRowPlanet, $IsOwn)
 	{
-		global $CONF, $USER, $LNG, $db;
+		global $USER, $LNG, $db;
 
-		$protection      	= $CONF['noobprotection'];
-		$protectiontime  	= $CONF['noobprotectiontime'];
-		$protectionmulti 	= $CONF['noobprotectionmulti'];
 		$CurrentPoints 		= $USER['total_points'];
 		$RowUserPoints 		= $GalaxyRowPlanet['total_points'];
 		$IsNoobProtec		= CheckNoobProtec($USER, $GalaxyRowPlanet, $GalaxyRowPlanet);
-		
+		$Class		 		= array();
+
 		if ($GalaxyRowPlanet['banaday'] > TIMESTAMP && $GalaxyRowPlanet['urlaubs_modus'] == 1)
 		{
-			$Systemtatus2 	= $LNG['gl_v']." <a href=\"game.php?page=banned\"><span class=\"banned\">".$LNG['gl_b']."</span></a>";
-			$Systemtatus 	= "<span class=\"vacation\">";
+			$Class		 	= array('vacation', 'banned');
 		}
 		elseif ($GalaxyRowPlanet['banaday'] > TIMESTAMP)
 		{
-			$Systemtatus2 	= "<span class=\"banned\">".$LNG['gl_b']."</span>";
-			$Systemtatus 	= "";
+			$Class		 	= array('banned');
 		}
 		elseif ($GalaxyRowPlanet['urlaubs_modus'] == 1)
 		{
-			$Systemtatus2 	= "<span class=\"vacation\">".$LNG['gl_v']."</span>";
-			$Systemtatus 	= "<span class=\"vacation\">";
+			$Class		 	= array('vacation');
 		}
 		elseif ($GalaxyRowPlanet['onlinetime'] < (TIMESTAMP-60 * 60 * 24 * 7) && $GalaxyRowPlanet['onlinetime'] > (TIMESTAMP-60 * 60 * 24 * 28))
 		{
-			$Systemtatus2 	= "<span class=\"inactive\">".$LNG['gl_i']."</span>";
-			$Systemtatus 	= "<span class=\"inactive\">";
+			$Class		 	= array('inactive');
 		}
 		elseif ($GalaxyRowPlanet['onlinetime'] < (TIMESTAMP-60 * 60 * 24 * 28))
 		{
-			$Systemtatus2 	= "<span class=\"inactive\">".$LNG['gl_i']."</span><span class=\"longinactive\">".$LNG['gl_I']."</span>";
-			$Systemtatus 	= "<span class=\"longinactive\">";
+			$Class		 	= array('inactive', 'longinactive');
 		}
 		elseif ($IsNoobProtec['NoobPlayer'])
 		{
-			$Systemtatus2 	= "<span class=\"noob\">".$LNG['gl_w']."</span>";
-			$Systemtatus 	= "<span class=\"noob\">";
+			$Class		 	= array('noob');
 		}
 		elseif ($IsNoobProtec['StrongPlayer'])
 		{
-			$Systemtatus2 	= $LNG['gl_s'];
-			$Systemtatus 	= "<span class=\"strong\">";
-		}
-		else
-		{
-			$Systemtatus2 	= "";
-			$Systemtatus 	= "";
-		}
-
-		if (!empty($Systemtatus2))
-		{
-			$Systemtatus2 	= "<span style=\"color:white\">(</span>".$Systemtatus2."<span style=\"color:white\">)</span>";
+			$Class		 	= array('strong');
 		}
 
 		$Result	= array(
@@ -243,10 +224,10 @@
 			'rank'			=> $GalaxyRowPlanet['total_rank'],
 			'points'		=> pretty_number($GalaxyRowPlanet['total_points']),
 			'playerrank'	=> sprintf($LNG['gl_in_the_rank'], htmlspecialchars($GalaxyRowPlanet['username'],ENT_QUOTES,"UTF-8"), $GalaxyRowPlanet['total_rank']),
-			'Systemtatus'	=> $Systemtatus,
-			'Systemtatus2'	=> $Systemtatus2,
+			'class'			=> $Class,
 			'isown'			=> ($GalaxyRowPlanet['userid'] != $USER['id']) ? true : false,
 		);
+		
 		return $Result;
 	}
 }

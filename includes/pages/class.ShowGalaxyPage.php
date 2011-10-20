@@ -176,6 +176,14 @@ class ShowGalaxyPage extends GalaxyRows
 			'current_planet'			=> $PLANET['planet'],
 			'planet_type' 				=> $PLANET['planet_type'],
 			'MissleSelector'			=> $MissleSelector,
+			'ShortStatus'				=> array(
+				'vacation'					=> $LNG['gl_short_vacation'],
+				'banned'					=> $LNG['gl_short_ban'],
+				'inactive'					=> $LNG['gl_short_inactive'],
+				'longinactive'				=> $LNG['gl_short_long_inactive'],
+				'noob'						=> $LNG['gl_short_newbie'],
+				'strong'					=> $LNG['gl_short_strong'],
+			),
 		));
 		
 		$template->show('galaxy_overview.tpl');	
