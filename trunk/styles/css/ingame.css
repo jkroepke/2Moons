@@ -146,6 +146,10 @@ textarea {
 	list-style:none;
 }
 
+.ie8 #resourcesdiv {
+	margin:0 215px 0 215px;
+}
+
 .resourceinfo{
 	margin:0 5px;
 	padding:0;
