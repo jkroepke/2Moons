@@ -76,7 +76,7 @@ switch ($page) {
 			exit;
 		} else {
 			$NewPass		= uniqid();
-			$MailRAW		= file_get_contents('./language/'.$LANG->getUser().'/email/email_lost_password.txt');
+			$MailRAW		= $LANG->getExtra('email_lost_password');
 			$MailContent	= sprintf($MailRAW, $Usermail, $CONF['game_name'], $NewPass, "http://".$_SERVER['SERVER_NAME'].$_SERVER["PHP_SELF"]);			
 		
 			$Mail			= MailSend($Usermail, $Username, $LNG['mail_title'], $MailContent);
@@ -217,7 +217,7 @@ switch ($page) {
 					redirectTo("index.php?uni=".$UNI."&page=reg&action=valid&clef=".$clef);
 				} else {
 					$MailSubject 	= $LNG['reg_mail_message_pass'];
-					$MailRAW		= file_get_contents("./language/".$UserLang."/email/email_vaild_reg.txt");
+					$MailRAW		= $LANG->getExtra('email_vaild_reg');
 					$MailContent	= sprintf($MailRAW, $UserName, $CONF['game_name'].' - '.$CONF['uni_name'], "http://".$_SERVER['SERVER_NAME'].$_SERVER["PHP_SELF"], $clef, $UserPass, $CONF['smtp_sendmail'], $UNI);
 			
 					MailSend($UserEmail, $UserName, $MailSubject, $MailContent);
@@ -245,7 +245,7 @@ switch ($page) {
 				
 				if($CONF['mail_active'] == 1) {
 					$MailSubject	= sprintf($LNG['reg_mail_reg_done'], $CONF['game_name']);	
-					$MailRAW		= file_get_contents("./language/".$UserLang."/email/email_reg_done.txt");
+					$MailRAW		= $LANG->getExtra('email_reg_done');
 					$MailContent	= sprintf($MailRAW, $UserName, $CONF['game_name'].' - '.$CONF['uni_name']);	
 					MailSend($UserMail, $UserName, $MailSubject, $MailContent);
 				}
@@ -336,21 +336,12 @@ switch ($page) {
 			break;
 		}
 		break;
-	case 'agb' :
-		$template->assign_vars(array(
-			'contentbox'		=> true,
-			'agb'				=> $LNG['agb'],
-			'agb_overview'		=> $LNG['agb_overview'],
-		));
-		$template->show('index_agb.tpl');
-		break;
 	case 'rules' :
 		$template->assign_vars(array(
 			'contentbox'		=> true,
-			'rules'				=> $LNG['rules'],
+			'rules'				=> $LANG->getExtra('RULES'),
 			'rules_overview'	=> $LNG['rules_overview'],
 			'rules_info1'		=> sprintf($LNG['rules_info1'], $CONF['forum_url']),
-			'rules_info2'		=> $LNG['rules_info2'],
 		));
 		$template->show('index_rules.tpl');
 		break;
