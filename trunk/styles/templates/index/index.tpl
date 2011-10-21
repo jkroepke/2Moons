@@ -29,7 +29,6 @@
 				<li><a href="{$forum_url}" target="board">{$forum}</a></li>
 				<li><a href="index.php?page=news">{$menu_news}</a></li>
 				<li><a href="index.php?page=rules">{$menu_rules}</a></li>
-				<li><a href="index.php?page=agb">{$menu_agb}</a></li>
 				<li><a href="index.php?page=top100">{$menu_top100}</a></li>
 				<li><a href="index.php?page=pranger">{$menu_pranger}</a></li>
 				<li><a href="index.php?page=disclamer">{$menu_disclamer}</a></li>

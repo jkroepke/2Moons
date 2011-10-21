@@ -140,6 +140,22 @@ class Language
 		}
 	}
 	
+	function getExtra($File)
+	{
+		if(file_exists(ROOT_PATH."language/".$this->User."/extra/".$File.".txt"))
+			return file_get_contents(ROOT_PATH."language/".$this->User."/extra/".$File.".txt");
+		
+		return "";
+	}
+	
+	function getMail($File)
+	{
+		if(file_exists(ROOT_PATH."language/".$this->User."/email/".$File.".txt"))
+			return file_get_contents(ROOT_PATH."language/".$this->User."/email/".$File.".txt");
+		
+		return "";
+	}
+	
 	function GetUserLang($ID, $Files = array())
 	{
 		global $db, $CONF;	
