@@ -177,7 +177,7 @@ class ShowBuildingsPage
 						  
 		if($ActualCount == 0)
 		{	
-			if(!IsElementBuyable($USER, $PLANET, $Element, true, !$AddMode))
+			if((!$AddMode && $PLANET[$resource[$Element]] == 0) || !IsElementBuyable($USER, $PLANET, $Element, true, !$AddMode))
 				return;
 
 			$Resses			= GetBuildingPrice($USER, $PLANET, $Element, true, !$AddMode);
