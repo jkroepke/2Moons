@@ -33,7 +33,11 @@ function ShowInformationPage()
 {
 	global $db, $LNG, $CONF, $USER;
 
-	
+	if(file_exists(ini_get('error_log')))
+		$Lines	= count(file(ini_get('error_log')));
+	else
+		$Lines	= 0;
+		
 	$template	= new template();
 	$template->assign_vars(array(
 		'info_information'	=> sprintf($LNG['info_information'], 'http://dev.2moons.cc/bugtracker'),
@@ -54,7 +58,7 @@ function ShowInformationPage()
 		'suhosin'			=> ini_get('suhosin.request.max_value_length') ? 'Ja' : 'Nein',
 		'log_errors'		=> ini_get('log_errors') ? 'Aktiv' : 'Inaktiv',
 		'errorlog'			=> ini_get('error_log'),
-		'errorloglines'		=> count(file(ini_get('error_log'))),
+		'errorloglines'		=> $Lines,
 		'php_tz'			=> sprintf("%01.2f", date("O") / 100),
 		'conf_tz'			=> $CONF['timezone'],
 		'user_tz'			=> $USER['timezone'],
