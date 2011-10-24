@@ -102,6 +102,10 @@ define('BASH_ON'        	  	  , false);
 define('BASH_COUNT'          	  , 6);	
 define('BASH_TIME'          	  , 86400);	
 
+// Invisible Missions for Phalanx
+// Exsample: '1','4','7','10'
+define('INV_PHALANX_MISSIONS' 	  , '');	
+
 // Root IDs
 define('ROOT_UNI'        	  	  , 1);	
 define('ROOT_USER'          	  , 1);	

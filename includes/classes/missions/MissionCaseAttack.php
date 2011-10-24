@@ -299,8 +299,8 @@ class MissionCaseAttack extends MissionFunctions
 		
 		$WhereCol	= $this->_fleet['fleet_end_type'] == 3 ? "id_luna" : "id";		
 		$SQL .= "UPDATE ".PLANETS." SET ";
-		$SQL .= "`der_metal` = ".$DerbisMetal.", ";
-		$SQL .= "`der_crystal` = ".$DerbisCrystal." ";
+		$SQL .= "`der_metal` = `der_metal` + ".$ShootMetal.", ";
+		$SQL .= "`der_crystal` = `der_crystal` + ".$ShootCrystal." ";
 		$SQL .= "WHERE ";
 		$SQL .= "`".$WhereCol."` = ".$this->_fleet['fleet_end_id'].";";
 		$SQL .= "INSERT INTO ".TOPKB." SET ";
