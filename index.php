@@ -76,7 +76,7 @@ switch ($page) {
 			exit;
 		} else {
 			$NewPass		= uniqid();
-			$MailRAW		= $LANG->getExtra('email_lost_password');
+			$MailRAW		= $LANG->getMail('email_lost_password');
 			$MailContent	= sprintf($MailRAW, $Usermail, $CONF['game_name'], $NewPass, "http://".$_SERVER['SERVER_NAME'].$_SERVER["PHP_SELF"]);			
 		
 			$Mail			= MailSend($Usermail, $Username, $LNG['mail_title'], $MailContent);
@@ -217,7 +217,7 @@ switch ($page) {
 					redirectTo("index.php?uni=".$UNI."&page=reg&action=valid&clef=".$clef);
 				} else {
 					$MailSubject 	= $LNG['reg_mail_message_pass'];
-					$MailRAW		= $LANG->getExtra('email_vaild_reg');
+					$MailRAW		= $LANG->getMail('email_vaild_reg');
 					$MailContent	= sprintf($MailRAW, $UserName, $CONF['game_name'].' - '.$CONF['uni_name'], "http://".$_SERVER['SERVER_NAME'].$_SERVER["PHP_SELF"], $clef, $UserPass, $CONF['smtp_sendmail'], $UNI);
 			
 					MailSend($UserEmail, $UserName, $MailSubject, $MailContent);
@@ -245,7 +245,7 @@ switch ($page) {
 				
 				if($CONF['mail_active'] == 1) {
 					$MailSubject	= sprintf($LNG['reg_mail_reg_done'], $CONF['game_name']);	
-					$MailRAW		= $LANG->getExtra('email_reg_done');
+					$MailRAW		= $LANG->getMail('email_reg_done');
 					$MailContent	= sprintf($MailRAW, $UserName, $CONF['game_name'].' - '.$CONF['uni_name']);	
 					MailSend($UserMail, $UserName, $MailSubject, $MailContent);
 				}
@@ -339,7 +339,7 @@ switch ($page) {
 	case 'rules' :
 		$template->assign_vars(array(
 			'contentbox'		=> true,
-			'rules'				=> $LANG->getExtra('RULES'),
+			'rules'				=> $LANG->getMail('RULES'),
 			'rules_overview'	=> $LNG['rules_overview'],
 			'rules_info1'		=> sprintf($LNG['rules_info1'], $CONF['forum_url']),
 		));
