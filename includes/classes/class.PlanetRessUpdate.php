@@ -276,7 +276,7 @@ class ResourceUpdate
 		$BuildArray					= array();
 		foreach($BuildQueue as $Item)
 		{
-			$AcumTime		   += GetBuildingTime($this->USER, $this->PLANET, $Item[0]);
+			$AcumTime			= GetBuildingTime($this->USER, $this->PLANET, $Item[0]);
 			$BuildArray[] 		= array($Item[0], $Item[1], $AcumTime);
 		}
 
@@ -527,7 +527,7 @@ class ResourceUpdate
 			if($PLANET['id'] != $this->PLANET['id']) {
 				$IsHash			= in_array($Element, array(131, 132, 133));
 				$RPLANET 		= new ResourceUpdate(true, false);
-				list(, $PLANET)	= $RPLANET->CalcResource($this->USER, $PLANET, false, $BuildEndTime, $IsHash);
+				list(, $PLANET)	= $RPLANET->CalcResource($this->USER, $PLANET, false, $this->USER['b_tech'], $IsHash);
 			}
 			
 			$HaveRessources 	= IsElementBuyable($this->USER, $PLANET, $Element, true, false);
