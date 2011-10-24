@@ -67,6 +67,7 @@ function ShowConfigBasicPage()
 		$CONF['mail_active'] 			= isset($_POST['mail_active']) && $_POST['mail_active'] == 'on' ? 1 : 0;
 		
 		$CONF['OverviewNewsText']		= $_POST['NewsText'];
+		$CONF['ttf_file']				= request_var('ttf_file', '');
 		$CONF['close_reason']			= request_var('close_reason', '', true);
 		$CONF['game_name']				= request_var('game_name', '', true);
 		$CONF['capprivate']				= request_var('capprivate', '');

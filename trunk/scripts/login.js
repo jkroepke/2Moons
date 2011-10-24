@@ -83,6 +83,10 @@ function Submit(action) {
 					});
 					alert(errormes);
 				}
+			}).fail(function(data) {
+				alert($(data.responseText).find("td.left").html(function(i, old) {
+					return old.replace(/<br>/g, "\n");
+				}).text());
 			});
 		break;
 		case 'lost':
@@ -109,10 +113,7 @@ function init(){
 }
 
 function initFormHandler() {
-	$('input').each(function(i, val){
-		if($(this).attr('type') === "button")
-			return;
-			
+	$('input:not(:button)').each(function(i, val){
 		$(this).keydown(function(event) {
 			if (event.keyCode == '13')
 				Submit($(this).parent().attr('id'));

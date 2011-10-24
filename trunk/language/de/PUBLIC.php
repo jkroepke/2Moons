@@ -70,7 +70,7 @@ $LNG['user_field_no_space']			= 'Bitte beim Usernamen keine Leerzeichen eingeben
 $LNG['planet_field_no']				= 'Sie müssen einen Planetennamen eingeben!';
 $LNG['planet_field_no_alphanumeric']	= 'Bitte beim Planetennamen nur alphanumerische Zeichen eingeben!';
 $LNG['planet_field_no_space']		= 'Bitte beim Planetennamen keine Leerzeichen eingeben!';
-$LNG['terms_and_conditions']		= 'Sie müssen die <a href="index.php?page=rules">Regeln</a> akzeptieren!';
+$LNG['terms_and_conditions']		= 'Sie müssen die Regeln akzeptieren!';
 $LNG['user_already_exists']			= 'Der Username ist bereits vergeben!';
 $LNG['mail_already_exists']			= 'Die E-mail Adresse ist bereits in Benutzung!';
 $LNG['wrong_captcha']				= 'Sicherheitscode falsch!';

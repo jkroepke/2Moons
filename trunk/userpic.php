@@ -59,9 +59,7 @@ if(isset($_SERVER['HTTP_IF_NONE_MATCH']) && $_SERVER['HTTP_IF_NONE_MATCH'] == $E
 	header('HTTP/1.0 304 Not Modified');
 	exit;
 }
-if(in_array($LANG->getUser(), array('ru'))) //Find a Way to fix Chinese now.
-	$banner->CreateUTF8Banner($Data);
-else
-	$banner->CreateBanner($Data);
+
+$banner->CreateUTF8Banner($Data);
 
 ?>
