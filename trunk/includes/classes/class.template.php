@@ -84,7 +84,7 @@ class template extends Smarty
 				foreach($QueueArray as $ListIDArray)
 				{
 					if($ListIDArray[3] > TIMESTAMP)
-						$Scripttime[$PlanetQuery['id']][]	= (int) tz_date($ListIDArray[3], 'U');
+						$Scripttime[$PlanetQuery['id']][]	= $ListIDArray[3];
 				}
 			}
 			$Planetlist[$PlanetQuery['id']]	= array(
@@ -160,7 +160,7 @@ class template extends Smarty
 			'authlevel'			=> $USER['authlevel'],
             'lang'    			=> $LANG->getUser(),
             'ready'    			=> $LNG['ready'],
-			'date'				=> explode("|", tz_date(TIMESTAMP, 'Y\|n\|j\|G\|i\|s\|Z')),
+			'date'				=> explode("|", date('Y\|n\|j\|G\|i\|s\|Z', TIMESTAMP)),
 			'cron'				=> GetCrons(),
 			'ga_active'			=> $CONF['ga_active'],
 			'ga_key'			=> $CONF['ga_key'],

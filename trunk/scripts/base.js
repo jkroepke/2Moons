@@ -65,7 +65,7 @@ function removeE(Number) {
 
 function getFormatedDate(timestamp, format) {
 	var currTime = new Date();
-	currTime.setTime(timestamp);
+	currTime.setTime(timestamp + (ServerTimezoneOffset * 1000));
 	str = format;
 	str = str.replace('[d]', dezInt(currTime.getDate(), 2));
 	str = str.replace('[D]', days[currTime.getDay()]);
@@ -156,7 +156,7 @@ function handleErr(errMessage, url, line)
 		console.log(error);
  
 	return true; 
-} 
+}
 
 var Dialog	= {
 	div: '#popup',
