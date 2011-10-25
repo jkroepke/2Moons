@@ -2,16 +2,15 @@ var resttime	= 0;
 var time		= 0;
 var endtime		= 0;
 var interval	= 0;
-var IsOldLink	= $('#buildlist').length;
 
 function Buildlist() {
-	var rest	= (endtime - (serverTime.getTime() / 1000));
+	var rest	= resttime - (serverTime.getTime() - startTime) / 1000;
 	if (rest <= 0) {
 		window.clearInterval(interval);
 		$('#time').text(Ready);
 		$('#command').remove();
 		document.title	= Ready + ' - ' + Gamename;
-		window.setTimeout(function() {window.location.href = 'game.php?page=buildings&mode=research'}, 1000);
+		window.setTimeout(function() {window.location.href = 'game.php?page=buildings'}, 1000);
 		return true;
 	}
 	
@@ -29,12 +28,9 @@ function CreateProcessbar() {
 
 $(document).ready(function() {
 	time		= $('#time').attr('time');
+	resttime	= $('#progressbar').attr('time');
 	endtime		= $('.timer:first').attr('time');
-	if(!IsOldLink) {
-		resttime	= $('#progressbar').attr('time');
-		window.setTimeout(CreateProcessbar, 5);
-	}
 	interval	= window.setInterval(Buildlist, 1000);
+	window.setTimeout(CreateProcessbar, 5);
 	Buildlist();
-	return true;
 });
