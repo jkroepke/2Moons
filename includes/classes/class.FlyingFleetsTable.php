@@ -87,8 +87,7 @@ class FlyingFleetsTable
 
 		return $Table;
 	}
-
-       
+  
 	private function CreateFleetPopupedMissionLink($FleetRow, $Texte, $FleetType)
 	{
 		global $LNG;
@@ -252,7 +251,7 @@ class FlyingFleetsTable
 		elseif ($Status == 2)
 			$Time	 = $FleetRow['fleet_end_stay'];
 		$Rest	= $Time - TIMESTAMP;
-		$time	= tz_date($time, 'U');
+		$time	= $time;
 		return array($Rest, $EventString, $Time);
 	}
 

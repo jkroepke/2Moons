@@ -67,21 +67,21 @@ class MissionFunctions
 			if (empty($Group)) continue;
 
 			$Class			= explode(',', $Group);
-			$QryUpdFleet	.= "p.`".$resource[$Class[0]]."` = p.`".$resource[$Class[0]]."` + '".floattostring($Class[1])."', ";
+			$QryUpdFleet	.= "p.`".$resource[$Class[0]]."` = p.`".$resource[$Class[0]]."` + ".$Class[1]."', ";
 		}
 
 		$Qry   = "UPDATE ".PLANETS." as p, ".USERS." as u SET ";
 		if (!empty($QryUpdFleet))
 			$Qry  .= $QryUpdFleet;
 
-		$Qry  .= "p.`metal` = p.`metal` + '".floattostring($this->_fleet['fleet_resource_metal'])."', ";
-		$Qry  .= "p.`crystal` = p.`crystal` + '".floattostring($this->_fleet['fleet_resource_crystal'])."', ";
-		$Qry  .= "p.`deuterium` = p.`deuterium` + '".floattostring($this->_fleet['fleet_resource_deuterium'])."', ";
-		$Qry  .= "u.`darkmatter` = u.`darkmatter` + '".floattostring($this->_fleet['fleet_resource_darkmatter'])."' ";
+		$Qry  .= "p.`metal` = p.`metal` + ".$this->_fleet['fleet_resource_metal']."', ";
+		$Qry  .= "p.`crystal` = p.`crystal` + ".$this->_fleet['fleet_resource_crystal']."', ";
+		$Qry  .= "p.`deuterium` = p.`deuterium` + ".$this->_fleet['fleet_resource_deuterium']."', ";
+		$Qry  .= "u.`darkmatter` = u.`darkmatter` + ".$this->_fleet['fleet_resource_darkmatter']."' ";
 		$Qry  .= "WHERE ";
 		$Qry  .= "p.`id` = '".($Start == true ? $this->_fleet['fleet_start_id'] : $this->_fleet['fleet_end_id'])."' ";
 		$Qry  .= "AND u.id = p.id_owner;";
-		$Qry  .= "DELETE FROM ".FLEETS." WHERE `fleet_id` = '".$this->_fleet['fleet_id']."';";
+		$Qry  .= "DELETE FROM ".FLEETS." WHERE `fleet_id` = ".$this->_fleet['fleet_id'].";";
 		$db->multi_query($Qry);
 	}
 	
@@ -89,11 +89,11 @@ class MissionFunctions
 	{
 		global $db;
 		$Qry   = "UPDATE ".PLANETS." SET ";
-		$Qry  .= "`metal` = `metal` + '".floattostring($this->_fleet['fleet_resource_metal'])."', ";
-		$Qry  .= "`crystal` = `crystal` + '".floattostring($this->_fleet['fleet_resource_crystal'])."', ";
-		$Qry  .= "`deuterium` = `deuterium` + '".floattostring($this->_fleet['fleet_resource_deuterium'])."' ";
+		$Qry  .= "`metal` = `metal` + ".$this->_fleet['fleet_resource_metal']."', ";
+		$Qry  .= "`crystal` = `crystal` + ".$this->_fleet['fleet_resource_crystal']."', ";
+		$Qry  .= "`deuterium` = `deuterium` + ".$this->_fleet['fleet_resource_deuterium']."' ";
 		$Qry  .= "WHERE ";
-		$Qry  .= "`id` = '".($Start == true ? $this->_fleet['fleet_start_id'] : $this->_fleet['fleet_end_id'])."';";
+		$Qry  .= "`id` = ".($Start == true ? $this->_fleet['fleet_start_id'] : $this->_fleet['fleet_end_id']).";";
 		$db->query($Qry);
 		
 		$this->UpdateFleet('fleet_resource_metal', '0');
@@ -105,7 +105,7 @@ class MissionFunctions
 	{
 		global $db;
 		$this->kill	= 1;
-		$db->query("DELETE FROM ".FLEETS." WHERE `fleet_id` = '".$this->_fleet['fleet_id']."';");
+		$db->query("DELETE FROM ".FLEETS." WHERE `fleet_id` = ".$this->_fleet['fleet_id'].";");
 	}	
 }
 ?>

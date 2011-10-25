@@ -17,6 +17,7 @@ $(document).ready(function(){
 	$('#tabs').tabs();
 	FleetTime();
 });
+
 function checkrename()
 {
 	if($('#newname').val() == '') {

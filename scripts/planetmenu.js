@@ -14,13 +14,13 @@ function initPlanetMenu(){
 
 function PlanetMenu() {
 	$.each(planetmenu, function(index, val) {
-		if(val.length != 0 && val[0] < serverTime.getTime() / 1000 + ServerTimezoneOffset)
+		if(val.length != 0 && val[0] < serverTime.getTime() / 1000)
 			val.shift();
 	
 		if(val.length == 0)
 			$('#planet_'+index).text(Ready);
 		else	
-			$('#planet_'+index).text(getFormatedTime(val[0] - serverTime.getTime() / 1000 + ServerTimezoneOffset));
+			$('#planet_'+index).text(getFormatedTime(val[0] - serverTime.getTime() / 1000));
 	});
 }
 

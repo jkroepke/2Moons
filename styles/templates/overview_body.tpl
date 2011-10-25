@@ -77,6 +77,16 @@
 		<tr>
 			<td colspan="3"><input type="text" value="{$path}index.php?ref={$userid}" readonly="readonly" style="width:450px;"></td>
 		</tr>
+		{foreach $RefLinks as $RefID => $RefLink}
+		<tr>
+			<td colspan="2"><a href="#" onclick="return Dialog.Playercard({$RefID}, '{$RefLink.username}');">{$RefLink.username}</a></td>
+			<td>{pretty_number(min($RefLink, $ref_minpoints))} / {pretty_number($ref_minpoints)}</td>
+		</tr>
+		{foreachelse}
+		<tr>
+			<td colspan="3">{lang}ov_noreflink{/lang}</td>
+		</tr>
+		{/foreach}
 		{/if}
 		{if extension_loaded('gd') && !CheckModule(37)}
 		<tr>

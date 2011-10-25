@@ -1,6 +1,6 @@
 function FleetTime() {
 	$.each(Fleets, function(id, time) {
-		var s		= (time - (serverTime.getTime() / 1000) + ServerTimezoneOffset);
+		var s		= (time - (serverTime.getTime() / 1000));
 		if(s <= 0) {
 			$('#fleettime_'+id).text('-');
 		} else {

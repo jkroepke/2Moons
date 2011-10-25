@@ -132,14 +132,14 @@ function tz_diff() {
 	if($DST == 2)
 		$DST		= tz_dst($timezone);
 	
-	return $UTC - (($timezone + $DST) * 3600);
+	return (($timezone + $DST) * 3600) - $UTC;
 }
 
 function tz_date($time, $Dateformat = '', $LNG = array(), $ToGMT = false) {
 	if(!$ToGMT)
-		$time		= $time - tz_diff();
+		$time		= $time + tz_diff();
 	else
-		$time		= $time - (int) date("Z") - (int) date("I");
+		$time		= $time + (int) date("Z") - (int) date("I");
 	
 	if(empty($LNG))
 		$LNG		= $GLOBALS['LNG'];

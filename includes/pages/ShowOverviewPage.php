@@ -104,9 +104,12 @@ function ShowOverviewPage()
 	$PlanetRess->CalcResource();
 	$PlanetRess->SavePlanetToDB();
 	
-	$template	= new template();	
-	$AdminsOnline = $AllPlanets = $Moon = array();
-	$Buildtime	= 0;
+	$template		= new template();	
+	$AdminsOnline 	= array();
+	$AllPlanets		= array();
+	$Moon 			= array();
+	$RefLinks		= array();
+	$Buildtime		= 0;
 	
 	foreach($USER['PLANETS'] as $ID => $CPLANET)
 	{		
@@ -151,8 +154,21 @@ function ShowOverviewPage()
 	
 	$template->loadscript('overview.js');
 
-	$Messages	= $db->countquery("SELECT COUNT(*) FROM ".MESSAGES." WHERE `message_owner` = ".$USER['id']." AND `message_unread` = '1'");
-
+	$Messages		= $db->countquery("SELECT COUNT(*) FROM ".MESSAGES." WHERE `message_owner` = ".$USER['id']." AND `message_unread` = '1'");
+	
+	// Fehler: Wenn Spieler gelöscht werden, werden sie nicht mehr in der Tabelle angezeigt.
+	$RefLinksRAW	= $db->query("SELECT u.`id`, u.`username`, s.`total_points` FROM ".USERS." as u LEFT JOIN ".STATPOINTS." as s ON s.`id_owner` = u.`id` AND s.`stat_type` = '1' WHERE `ref_id` = ".$USER['id'].";");
+	
+	if($CONF['ref_active']) 
+	{
+		while ($RefRow = $db->fetch_array($RefLinksRAW)) {
+			$RefLinks[$RefLinks['id']]	= array(
+				'username'	=> $RefLinks['username'],
+				'points'	=> $RefLinks['total_points']
+			);
+		}
+	}
+	
 	$template->assign_vars(array(
 		'user_rank'					=> sprintf($LNG['ov_userrank_info'], pretty_number($USER['total_points']), $LNG['ov_place'], $USER['total_rank'], $USER['total_rank'], $LNG['ov_of'], $CONF['users_amount']),
 		'is_news'					=> $CONF['OverviewNewsFrame'],
@@ -179,6 +195,8 @@ function ShowOverviewPage()
 		'planet_temp_max' 			=> $PLANET['temp_max'],
 		'ov_security_confirm'		=> sprintf($LNG['ov_security_confirm'], $PLANET['name']),
 		'ref_active'				=> $CONF['ref_active'],
+		'ref_minpoints'				=> $CONF['ref_minpoints'],
+		'RefLinks'					=> $RefLinks,
 		'path'						=> PROTOCOL.$_SERVER['HTTP_HOST'].HTTP_ROOT,
 	));
 	
