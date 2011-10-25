@@ -69,7 +69,7 @@ function ShowPhalanxPage()
 	}
 	
 	$ExcludeMissions	= "";
-	if(!empty(INV_PHALANX_MISSIONS))
+	if(INV_PHALANX_MISSIONS != "")
 		$ExcludeMissions	= " AND fleet_mission NOT IN(".INV_PHALANX_MISSIONS.")";
 		
 	$FleetToTarget  = $db->query("SELECT * FROM ".FLEETS." WHERE (`fleet_start_id` = '".$TargetInfo['id']."' OR `fleet_end_id` = '".$TargetInfo['id']."')".$ExcludeMissions." ORDER BY `fleet_start_time`;");
