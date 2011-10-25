@@ -339,7 +339,7 @@ switch ($page) {
 	case 'rules' :
 		$template->assign_vars(array(
 			'contentbox'		=> true,
-			'rules'				=> $LANG->getMail('RULES'),
+			'rules'				=> $LANG->getExtra('rules'),
 			'rules_overview'	=> $LNG['rules_overview'],
 			'rules_info1'		=> sprintf($LNG['rules_info1'], $CONF['forum_url']),
 		));
