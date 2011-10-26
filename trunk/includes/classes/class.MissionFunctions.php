@@ -74,10 +74,10 @@ class MissionFunctions
 		if (!empty($QryUpdFleet))
 			$Qry  .= $QryUpdFleet;
 
-		$Qry  .= "p.`metal` = p.`metal` + ".$this->_fleet['fleet_resource_metal']."', ";
-		$Qry  .= "p.`crystal` = p.`crystal` + ".$this->_fleet['fleet_resource_crystal']."', ";
-		$Qry  .= "p.`deuterium` = p.`deuterium` + ".$this->_fleet['fleet_resource_deuterium']."', ";
-		$Qry  .= "u.`darkmatter` = u.`darkmatter` + ".$this->_fleet['fleet_resource_darkmatter']."' ";
+		$Qry  .= "p.`metal` = p.`metal` + ".$this->_fleet['fleet_resource_metal'].", ";
+		$Qry  .= "p.`crystal` = p.`crystal` + ".$this->_fleet['fleet_resource_crystal'].", ";
+		$Qry  .= "p.`deuterium` = p.`deuterium` + ".$this->_fleet['fleet_resource_deuterium'].", ";
+		$Qry  .= "u.`darkmatter` = u.`darkmatter` + ".$this->_fleet['fleet_resource_darkmatter']." ";
 		$Qry  .= "WHERE ";
 		$Qry  .= "p.`id` = '".($Start == true ? $this->_fleet['fleet_start_id'] : $this->_fleet['fleet_end_id'])."' ";
 		$Qry  .= "AND u.id = p.id_owner;";
@@ -89,9 +89,9 @@ class MissionFunctions
 	{
 		global $db;
 		$Qry   = "UPDATE ".PLANETS." SET ";
-		$Qry  .= "`metal` = `metal` + ".$this->_fleet['fleet_resource_metal']."', ";
-		$Qry  .= "`crystal` = `crystal` + ".$this->_fleet['fleet_resource_crystal']."', ";
-		$Qry  .= "`deuterium` = `deuterium` + ".$this->_fleet['fleet_resource_deuterium']."' ";
+		$Qry  .= "`metal` = `metal` + ".$this->_fleet['fleet_resource_metal'].", ";
+		$Qry  .= "`crystal` = `crystal` + ".$this->_fleet['fleet_resource_crystal'].", ";
+		$Qry  .= "`deuterium` = `deuterium` + ".$this->_fleet['fleet_resource_deuterium']." ";
 		$Qry  .= "WHERE ";
 		$Qry  .= "`id` = ".($Start == true ? $this->_fleet['fleet_start_id'] : $this->_fleet['fleet_end_id']).";";
 		$db->query($Qry);
