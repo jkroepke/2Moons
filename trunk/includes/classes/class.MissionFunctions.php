@@ -67,7 +67,7 @@ class MissionFunctions
 			if (empty($Group)) continue;
 
 			$Class			= explode(',', $Group);
-			$QryUpdFleet	.= "p.`".$resource[$Class[0]]."` = p.`".$resource[$Class[0]]."` + ".$Class[1]."', ";
+			$QryUpdFleet	.= "p.`".$resource[$Class[0]]."` = p.`".$resource[$Class[0]]."` + ".$Class[1].", ";
 		}
 
 		$Qry   = "UPDATE ".PLANETS." as p, ".USERS." as u SET ";
