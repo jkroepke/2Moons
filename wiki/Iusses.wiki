@@ -1,3 +1,3 @@
 Report Bugs here!
 
-[http://2moons.cc/2moons-support/bugreport/ Bugreport - 2Moons Browsergame Engine]
+[http://dev.2moons.cc/bugtracker/ 2Moons BugTracker]
