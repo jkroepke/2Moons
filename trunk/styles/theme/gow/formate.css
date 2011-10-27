@@ -266,7 +266,8 @@ select {
 
 .menu-head a{
 	height:78px;
-	background:transparent !important;
+	background:none !important;
+	filter:none !important;
 	padding:0 !important;
 	text-indent: -1000em;
 }
