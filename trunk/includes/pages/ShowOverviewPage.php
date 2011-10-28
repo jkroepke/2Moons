@@ -163,8 +163,8 @@ function ShowOverviewPage()
 	{
 		while ($RefRow = $db->fetch_array($RefLinksRAW)) {
 			$RefLinks[$RefLinks['id']]	= array(
-				'username'	=> $RefLinks['username'],
-				'points'	=> $RefLinks['total_points']
+				'username'	=> $RefRow['username'],
+				'points'	=> $RefRow['total_points']
 			);
 		}
 	}
