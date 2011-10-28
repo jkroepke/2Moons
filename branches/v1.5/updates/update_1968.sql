@@ -1,0 +1,1 @@
+ALTER TABLE `prefix_users` DROP `new_message_0`, DROP `new_message_1`, DROP `new_message_2`, DROP `new_message_3`, DROP `new_message_4`, DROP `new_message_5`, DROP `new_message_15`, DROP `new_message_50`, DROP `new_message_99`;
