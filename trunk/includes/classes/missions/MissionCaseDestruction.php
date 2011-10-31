@@ -164,6 +164,7 @@ class MissionCaseDestruction extends MissionFunctions
 		}
 		
 		$db->multi_query($SQL);
+		$INFO						= $this->_fleet;
 		
 		switch ($result['won']) {
 			case "a":
@@ -203,7 +204,6 @@ class MissionCaseDestruction extends MissionFunctions
 			break;
 		}
 		
-		$INFO						= $this->_fleet;
 		$INFO['steal']				= $steal;
 		$INFO['moon']['des']		= 1;
 			

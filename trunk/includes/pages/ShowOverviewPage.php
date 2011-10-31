@@ -162,7 +162,7 @@ function ShowOverviewPage()
 	if($CONF['ref_active']) 
 	{
 		while ($RefRow = $db->fetch_array($RefLinksRAW)) {
-			$RefLinks[$RefLinks['id']]	= array(
+			$RefLinks[$RefRow['id']]	= array(
 				'username'	=> $RefRow['username'],
 				'points'	=> $RefRow['total_points']
 			);
