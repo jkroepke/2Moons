@@ -34,6 +34,7 @@ var tdformat	= "{if isset($js_tdformat)}{$js_tdformat}{else}{/if}";
 <script type="text/javascript" src="./scripts/base/jquery.js?v={$REV}"></script>
 <script type="text/javascript" src="./scripts/base/jquery.ui.js?v={$REV}"></script>
 <script type="text/javascript" src="./scripts/base/jquery.cookie.js?v={$REV}"></script>
+<script type="text/javascript" src="./scripts/base/tooltip.js?v={$REV}"></script>
 <script type="text/javascript" src="./scripts/game/base.js?v={$REV}"></script>
 {foreach item=scriptname from=$scripts}
 <script type="text/javascript" src="./scripts/game/{$scriptname}.js?v={$REV}"></script>

@@ -148,10 +148,8 @@
 {lang}sys_defender_lostunits{/lang} {pretty_number($Raport['units'][1])} {lang}sys_units{/lang}<br>
 {lang}debree_field_1{/lang} {pretty_number($Raport.debris[0])} {lang}Metal{/lang} {lang}sys_and{/lang}
 {pretty_number($Raport.debris[1])} {lang}Crystal{/lang} {lang}debree_field_2{/lang}<br><br>
-		
 {if $Raport.mode == 1}
 	{capture sys_destruc_mess assign=sys_destruc_mess}{lang}sys_destruc_mess{/lang}{/capture}
-	{capture sys_moonbuilt assign=sys_moonbuilt}{lang}sys_moonbuilt{/lang}{/capture}
 	{capture sys_destruc_lune assign=sys_destruc_lune}{lang}sys_destruc_lune{/lang}{/capture}
 	{capture sys_destruc_rip assign=sys_destruc_rip}{lang}sys_destruc_rip{/lang}{/capture}
 	{if $fame == 1}
@@ -175,6 +173,7 @@
 		{/if}			
 	{/if}
 {else}
+	{capture sys_moonbuilt assign=sys_moonbuilt}{lang}sys_moonbuilt{/lang}{/capture}
 	{lang}sys_moonproba{/lang} {$Raport.moon[0]} %<br>
 	{if !empty($Raport.moon[1])}
 		{if $fame == 1}
