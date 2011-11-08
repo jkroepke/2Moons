@@ -1,5 +1,5 @@
 /*==================================================*
- $Id$
+ $Id: filterlist.js 1829 2011-04-22 18:52:43Z slaver7 $
  Copyright 2003 Patrick Fitzgerald
  http://www.barelyfitz.com/webdesign/articles/filterlist/
 

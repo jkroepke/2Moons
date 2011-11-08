@@ -17,7 +17,7 @@
 <meta name="medium" content="mult">
 <meta name="description" content="2Moons Browsergame powerd by Slaver"> <!-- Noob Check ;) -->
 <!--[if lt IE 9]>
-<script src="scripts/html5.js"></script>
+<script src="scripts/base/html5.js"></script>
 <![endif]-->
 </head>	
 <body>
@@ -85,9 +85,10 @@
 	</footer>
 </div>
 <div id="dialog" style="display:none;"></div>
-<script type="text/javascript" src="scripts/jQuery.js?v={$REV}"></script>
-<script type="text/javascript" src="scripts/jquery.fancybox.js?v={$REV}"></script>
-<script type="text/javascript" src="scripts/login.js?v={$REV}"></script>
+<script type="text/javascript" src="scripts/base/jquery.js?v={$REV}"></script>
+<script type="text/javascript" src="scripts/base/jquery.cookie.js?v={$REV}"></script>
+<script type="text/javascript" src="scripts/base/jquery.fancybox.js?v={$REV}"></script>
+<script type="text/javascript" src="scripts/game/login.js?v={$REV}"></script>
 <script type="text/javascript">
 var CONF			= {
 	RegClosedUnis	: {if isset($RegClosedUnis)}{$RegClosedUnis}{else}[]{/if},

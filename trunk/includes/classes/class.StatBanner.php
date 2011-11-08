@@ -55,7 +55,7 @@ class StatBanner {
 
 		$Font		= $Query['ttf_file'];
 		if(!file_exists($Font))
-			exit('TTF Font missing!');
+			$this->BannerError('TTF Font missing!');
 			
 		// Variables
 		$b_univ   = $Query['game_name'];
@@ -99,6 +99,17 @@ class StatBanner {
 			
 		ImageJPEG($image);
 		imagedestroy($image);
+	}
+	
+	function BannerError($Message) {
+		header("Content-type: image/jpg");
+		$im	 = ImageCreate(450, 80);
+		$background_color = ImageColorAllocate ($im, 255, 255, 255);
+		$text_color = ImageColorAllocate($im, 233, 14, 91);
+		ImageString ($im, 3, 5, 5, $Message, $text_color);
+		ImageJPEG($im);
+		imagedestroy($im);
+		exit;
 	}
 }
 ?>

@@ -320,6 +320,9 @@ div#trader + div {
 	height: 10px;
 }
 
+.ui-progressbar-value {
+	margin:0.
+}
 .b_button{font-weight:700}
 .u_button{text-decoration:underline}
 .s_button{text-decoration:line-through}

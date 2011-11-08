@@ -1,9 +1,10 @@
 <?php
 
 // Traduzido por QwataKayean. Todos os Direitos Reservados © 2010-2011
-// Está presente o ACORDO ORTOGRÁFICO DE PORTUGAL PARA 2011 . Mais informações em : http://www.priberam.pt/
-// 2Moons - Copyright (C) 2011  Slaver
- 
+// Texto escrito conforme o Acordo Ortográfico a ser inserido em 2011 pelo Ministério da Educação de Portugal - convertido pelo Lince.         
+
+// 2Moons - Copyright (C) 2011  Slaver/
+
 $LNG['title_install']			= "Instalador";
 
 $LNG['continue']				= "Continuar";
@@ -26,7 +27,7 @@ $LNG['reg_not_writable']		= "Não Gravado";
 $LNG['reg_file']				= "Ficheiro";
 $LNG['reg_dir']					= "Pasta";
 $LNG['reg_gd_need']				= "GB-Lib disponivel?";
-$LNG['reg_mysqli_active']		= " MySQLi Encontrado?";
+$LNG['reg_mysqli_ative']		= " MySQLi Encontrado?";
 $LNG['reg_json_need']			= "JSON disponivel?";
 $LNG['req_php_need']			= "PHP-Version (min. 5.2.5)";
 $LNG['reg_bcmath_need']			= "BCMath Disponível?";
