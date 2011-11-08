@@ -74,7 +74,7 @@
 				<div class="shoutcut-edit">
 					<input type="text" class="shoutcut-input" name="shoutcut[{$smarty.foreach.ShoutcutList.index}][galaxy]" value="{$ShoutcutRow.galaxy}" size="3" maxlength="2">:<input type="text" class="shoutcut-input" name="shoutcut[{$smarty.foreach.ShoutcutList.index}][system]" value="{$ShoutcutRow.system}" size="3" maxlength="3">:<input type="text" class="shoutcut-input" name="shoutcut[{$smarty.foreach.ShoutcutList.index}][planet]" value="{$ShoutcutRow.planet}" size="3" maxlength="2">
 					<select class="shoutcut-input" name="shoutcut[{$smarty.foreach.ShoutcutList.index}][type]">
-						{html_options select=$ShoutcutRow.planet_type options=$options_selector}
+						{html_options selected=$ShoutcutRow.planet_type options=$options_selector}
 					</select>
 				</div>
 			</td>
