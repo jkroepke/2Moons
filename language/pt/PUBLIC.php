@@ -113,7 +113,7 @@ $LNG['captcha_help']                   = 'Ajuda';
 $LNG['captcha_get_image']              = 'Imagem-CAPTCHA';
 $LNG['captcha_reload']                 = 'Nova-CAPTCHA';
 $LNG['captcha_get_audio']              = 'Som-CAPTCHA';
-$LNG['user_ative']		       		   = 'Usuários %s ativos!';
+$LNG['user_active']		       		   = 'Usuários %s ativos!';
 
 //Rules
 $LNG['rules_overview']                 = "Regras";
