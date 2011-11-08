@@ -199,8 +199,8 @@ class FlyingFleetsTable
 		$FleetContent   = $this->CreateFleetPopupedFleetLink($FleetRow, (($MissionType == 1 || $MissionType == 2) && $FleetRow['fleet_owner'] != $_SESSION['id'] && $Status == 0 && $Owner == true) ? $LNG['cff_acs_fleet'] : $LNG['ov_fleet'], $FleetPrefix.$FleetStyle[$MissionType]);
 		$FleetCapacity  = $this->CreateFleetPopupedMissionLink($FleetRow, $LNG['type_mission'][$MissionType], $FleetPrefix.$FleetStyle[$MissionType]);
 		$FleetStatus    = array(0 => 'flight', 1 => 'return' , 2 => 'holding');
-		$StartType		= $FleetRow['fleet_start_type'] == 1 ? $LNG['fcm_planet'] : $LNG['fcm_moon'];
-		$TargetType		= $FleetRow['fleet_end_type'] == 1 ? $LNG['fcm_planet'] : $LNG['fcm_moon'];
+		$StartType		= $LNG['type_planet'][$FleetRow['fleet_start_type']];
+		$TargetType		= $LNG['type_planet'][$FleetRow['fleet_end_type']];
 	
 		if ($MissionType == 8) {
 			if ($Status == 0)

@@ -17,7 +17,9 @@ function DisplayUpdates() {
 	var HTML	= '';
 	var List	= RevList.copy();
 	List.reverse();
-	if(List[0].version > CurrentVersion && $('#update').length == 0) {
+	if(typeof List[0].error !== "undefined") {
+		$('tr').eq(0).after('<tr id="update"><td>'+List[0].error+'</td></tr>');	
+	} else if(List[0].version > CurrentVersion && $('#update').length == 0) {
 		$('tr').eq(0).after('<tr id="update"><td><a href="#" onclick="updateGame();return false;">Update</a></td></tr>');	
 	} else {
 		$('#update').remove();

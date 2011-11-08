@@ -136,38 +136,50 @@ function GetLogs($fromRev) {
 	curl_setopt($ch, CURLOPT_POSTFIELDS, sprintf('<?xml version="1.0" encoding="utf-8"?> <S:log-report xmlns:S="svn:"> <S:start-revision>%d</S:start-revision><S:end-revision>%d</S:end-revision><S:path></S:path><S:discover-changed-paths/></S:log-report>', $fromRev, -1));
 	$DATA	= curl_exec($ch);
 	curl_close($ch);
-
-	$xml2Array = new xml2Array();
-	$arrOutput = $xml2Array->xmlParse($DATA);
-	$fileLogs = array();
-	foreach($arrOutput['children'] as $value) {
-		if(empty($value['children']))
-			continue;
-			
-		$array			= array();
-		$array['add']	= array();
-		$array['edit']	= array();
-		$array['del']	= array();
-		foreach($value['children'] as $entry) {
-			if ($entry['name'] == 'D:VERSION-NAME') $array['version'] = $entry['tagData'];
-			if ($entry['name'] == 'D:CREATOR-DISPLAYNAME') $array['author'] = $entry['tagData'];
-			if ($entry['name'] == 'S:DATE') $array['date'] = tz_date(strtotime($entry['tagData']));
-			if ($entry['name'] == 'D:COMMENT') $array['comment'] = makebr($entry['tagData']);
-
-			if (($entry['name'] == 'S:ADDED-PATH') || ($entry['name'] == 'S:MODIFIED-PATH') || ($entry['name'] == 'S:DELETED-PATH')) {
-				if(strpos($entry['tagData'], 'trunk/') === false)
+	if(function_exists('xml_parser_create'))
+	{
+		$xml2Array	= new xml2Array();
+		$arrOutput	= $xml2Array->xmlParse($DATA);
+		if((array) $arrOutput['children'] === $arrOutput['children'])
+		{
+			$fileLogs	= array();
+			foreach($arrOutput['children'] as $value) {
+				if(empty($value['children']))
 					continue;
-				else
-					$entry['tagData']	= substr($entry['tagData'], 7);
-			
-				if ($entry['name'] == 'S:ADDED-PATH') $array['add'][] = $entry['tagData'];
-				if ($entry['name'] == 'S:MODIFIED-PATH') $array['edit'][] = $entry['tagData'];
-				if ($entry['name'] == 'S:DELETED-PATH') $array['del'][] = $entry['tagData'];
+					
+				$array			= array();
+				$array['add']	= array();
+				$array['edit']	= array();
+				$array['del']	= array();
+				foreach($value['children'] as $entry) {
+					if ($entry['name'] == 'D:VERSION-NAME') $array['version'] = $entry['tagData'];
+					if ($entry['name'] == 'D:CREATOR-DISPLAYNAME') $array['author'] = $entry['tagData'];
+					if ($entry['name'] == 'S:DATE') $array['date'] = tz_date(strtotime($entry['tagData']));
+					if ($entry['name'] == 'D:COMMENT') $array['comment'] = makebr($entry['tagData']);
+
+					if (($entry['name'] == 'S:ADDED-PATH') || ($entry['name'] == 'S:MODIFIED-PATH') || ($entry['name'] == 'S:DELETED-PATH')) {
+						if(strpos($entry['tagData'], 'trunk/') === false)
+							continue;
+						else
+							$entry['tagData']	= substr($entry['tagData'], 7);
+					
+						if ($entry['name'] == 'S:ADDED-PATH') $array['add'][] = $entry['tagData'];
+						if ($entry['name'] == 'S:MODIFIED-PATH') $array['edit'][] = $entry['tagData'];
+						if ($entry['name'] == 'S:DELETED-PATH') $array['del'][] = $entry['tagData'];
+					}
+				}
+				array_push($fileLogs, $array);
 			}
-		}
-		array_push($fileLogs, $array);
+		} else {
+			$fileLogs	= array(array(
+				'error'	=> $LNG['up_offline'],
+			));
 	}
-	
+	} else {
+		$fileLogs	= array(array(
+			'error'	=> $LNG['up_no_xml_ext'],
+		));
+	}
 	return $fileLogs;
 }
 
@@ -182,7 +194,7 @@ class xml2Array {
 	private $strXmlData;
 
 	public function xmlParse($strInputXML) {
-		$this->resParser = xml_parser_create ();
+		$this->resParser = xml_parser_create();
 		xml_set_object($this->resParser,$this);
 		xml_set_element_handler($this->resParser, "tagOpen", "tagClosed");
 		xml_set_character_data_handler($this->resParser, "tagData");

@@ -64,12 +64,12 @@ define('USERNAME_CHANGETIME'	  , 604800);
 // Factor for Metal/Crystal and Deuterium Storages
 define('STORAGE_FACTOR'			  , 1.0);
 
+// Max Results in Searchpage (-1 = disable)
+define('SEARCH_LIMIT'	  	 	  , 25);
+
 // How much IP Block ll be checked
 // 1 = (AAA); 2 = (AAA.BBB); 3 = (AAA.BBB.CCC)
 define('COMPARE_IP_BLOCKS'	  	  , 2);
-
-// DEBUG LOG
-define('DEBUG_EXTRA'	  	 	  , false);
 
 // Max Round on Combats
 define('MAX_ATTACK_ROUNDS'		  , 6);

@@ -27,8 +27,32 @@
  * @link http://code.google.com/p/2moons/
  */
 
- class GalaxyRows
+class GalaxyRows
 {
+	public function allowMissiles($GalaxyRowPlanet)
+	{
+		global $USER, $PLANET, $resource;
+		if ($PLANET[$resource[503]] == 0 || $GalaxyRowPlanet['galaxy'] != $PLANET['galaxy'] || $PLANET['planet_type'] != 1 || CheckModule(40))
+			return false;
+		
+		$Range = $this->GetMissileRange($USER[$resource[117]]);
+		$SystemLimitMin = max($PLANET['system'] - $Range, 1);
+		$SystemLimitMax = $PLANET['system'] + $Range;
+		return $GalaxyRowPlanet['system'] <= $SystemLimitMax && $GalaxyRowPlanet['system'] >= $SystemLimitMin ? true : false;
+	}
+	public function allowPhalanx($GalaxyRowPlanet)
+	{
+		global $USER, $PLANET, $resource;
+		if (CheckModule(19) || $PLANET[$resource[42]] > 0)
+			return false;
+		
+		$PhRange 		 = $this->GetPhalanxRange($PLANET[$resource[42]]);
+		$SystemLimitMin  = max(1, $PLANET['system'] - $PhRange);
+		$SystemLimitMax  = $PLANET['system'] + $PhRange;
+		return $GalaxyRowPlanet['system'] <= $SystemLimitMax && $GalaxyRowPlanet['system'] >= $SystemLimitMin;
+
+	}
+	
 	public function GetMissileRange($Level)
 	{
 		return max(($Level * 5) - 1, 0);
@@ -43,19 +67,13 @@
 	{
 		global $USER, $PLANET, $resource, $LNG;
 
-		if ($PLANET[$resource[503]] > 0 && $GalaxyRowPlanet['galaxy'] == $PLANET['galaxy'])
-		{
-			$Range = $this->GetMissileRange($USER[$resource[117]]);
-			$SystemLimitMin = max($PLANET['system'] - $Range, 1);
-			$SystemLimitMax = $PLANET['system'] + $Range;
-			$MissileBtn = $GalaxyRowPlanet['system'] <= $SystemLimitMax && $GalaxyRowPlanet['system'] >= $SystemLimitMin ? true : false;
-		}
+		$MissileBtn = $this->allowMissiles($GalaxyRowPlanet);
 
 		$Result = array(
 			'esp'		=> (!CheckModule(24) && $USER["settings_esp"] == 1) ? true : false,
 			'message'	=> (!CheckModule(16) && $USER["settings_wri"] == 1) ? true : false,
 			'buddy'		=> (!CheckModule(6) && $USER["settings_bud"] == 1) ? true : false,
-			'missle'	=> (!CheckModule(40) && $USER["settings_mis"] == 1 && $MissileBtn == true) ? true : false,
+			'missle'	=> ($USER["settings_mis"] == 1 && $MissileBtn == true) ? true : false,
 		);
 
 		return $Result;
@@ -120,40 +138,22 @@
 		global $resource, $USER, $PLANET, $CONF, $LNG;
 		
 		if(!$IsOwn && $GalaxyRowPlanet['galaxy'] == $PLANET['galaxy'])
-		{
-			if(!CheckModule(19) && $PLANET[$resource[42]] > 0)
-			{
-				$PhRange 		 = $this->GetPhalanxRange($PLANET[$resource[42]]);
-				$SystemLimitMin  = max(1, $PLANET['system'] - $PhRange);
-				$SystemLimitMax  = $PLANET['system'] + $PhRange;
-				$PhalanxTypeLink = ($GalaxyRowPlanet['system'] <= $SystemLimitMax && $GalaxyRowPlanet['system'] >= $SystemLimitMin) ? $LNG['gl_phalanx']:false;
-			} else {
-				$PhalanxTypeLink = false;
-			}
-
-			if (!CheckModule(40) && $PLANET[$resource[503]] > 0)
-			{
-				$MiRange 		= $this->GetMissileRange($USER[$resource[117]]);
-				$SystemLimitMin = max(1, $PLANET['system'] - $MiRange);
-				$SystemLimitMax = $PLANET['system'] + $MiRange;
-				$MissileBtn 	= ($GalaxyRowPlanet['system'] <= $SystemLimitMax && $GalaxyRowPlanet['system'] >= $SystemLimitMin) ? true : false;
-			} else {
-				$MissileBtn 	= false;
-			}
+		{	
+			$PhalanxTypeLink 	= $this->allowPhalanx($GalaxyRowPlanet);
+			$MissileBtn 		= $this->allowMissiles($GalaxyRowPlanet);
 		} else {
 			$PhalanxTypeLink	= false;
 			$MissileBtn			= false;
 		}
-
 		$Result = array(
 			'id'			=> $GalaxyRowPlanet['id'],
 			'name'			=> htmlspecialchars($GalaxyRowPlanet['name'],ENT_QUOTES,"UTF-8"),
 			'image'			=> $GalaxyRowPlanet['image'],
-			'phalax'		=> $PhalanxTypeLink,
+			'phalax'		=> !$PhalanxTypeLink ? false : $LNG['gl_phalanx'],
+			'missile'		=> !$MissileBtn ? false : $LNG['gl_missile_attack'],
 			'transport'		=> ($IsOwn || CheckModule(34)) ? false : $LNG['type_mission'][3],
 			'spionage'		=> ($IsOwn || CheckModule(24)) ? false : $LNG['type_mission'][6],
 			'attack'		=> ($IsOwn || CheckModule(1)) ? false : $LNG['type_mission'][1],
-			'missile'		=> ($IsOwn || CheckModule(40) && $MissileBtn && $USER["settings_mis"] == "1") ? false : $LNG['gl_missile_attack'],
 			'stay'			=> (!$IsOwn || CheckModule(36) && $IsOwn) ? false : $LNG['type_mission'][4],
 			'stayally'		=> ($IsOwn || CheckModule(33)) ? false : $LNG['type_mission'][5],
 		);
