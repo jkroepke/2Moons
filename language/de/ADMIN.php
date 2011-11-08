@@ -1108,7 +1108,6 @@ $LNG['up_error_update']					= 'ERROR! - Konnte Datei nicht hochladen';
 $LNG['up_delete_file']					= 'Erfolgreich gelöscht';
 $LNG['up_error_delete_file']			= 'ERROR! - Konnte Datei nicht löschen';
 $LNG['up_update_ok_rev']				= 'UPDATE: OK! At Revision: ';
-$LNG['up_error_fsockopen']				= 'Funktion file_get_contents oder fsockopen deaktiviert';
 $LNG['up_download_patch_files']			= 'Download Patch Dateien';
 $LNG['up_aktuelle_updates']				= 'Aktuelle Updates';
 $LNG['up_momentane_version']			= 'Momentane Version';
@@ -1121,6 +1120,8 @@ $LNG['up_submit']						= 'Absenden';
 $LNG['up_version']						= 'Version';
 $LNG['up_chmod_error']					= "Keine Schreibrechte für Ordner:\n\n";
 $LNG['up_need_curl']					= 'Fehler: cURL nicht vorhanden.<br />Das UpdateSystem von 2Moons benötigt cURL, um die aktuellen Dateien herunter zu laden.';
+$LNG['up_no_xml_ext']					= 'Fehler: XML Parser nicht vorhanden.<br />Das UpdateSystem von 2Moons benötigt XML Parser, um die aktuellen Dateien verarbeiten zu können.';
+$LNG['up_offline']						= 'Update Server zur Zeit nicht verfügbar.';
 
 //Chat Page
 $LNG['ch_socket_chatid_info']			= 'This ID can be used to distinguish between different chat installations using the same socket server';

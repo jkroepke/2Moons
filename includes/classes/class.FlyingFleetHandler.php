@@ -52,8 +52,12 @@ class FlyingFleetHandler
 		require_once(ROOT_PATH.'includes/classes/class.MissionFunctions.php');
 		while ($CurrentFleet = $db->fetch_array($fleetquery))
 		{
+			if(!isset($MissionsPattern[$CurrentFleet['fleet_mission']])) {
+				$db->query("DELETE FROM ".FLEETS." WHERE `fleet_id` = '".$CurrentFleet['fleet_id']."';");
+				continue;
+			}
+			
 			if(!$this->IfFleetBusy($CurrentFleet['fleet_id'])) continue;
-				
 			getConfig($CurrentFleet['fleet_universe']);
 			
 			require_once(ROOT_PATH.'includes/classes/missions/'.$MissionsPattern[$CurrentFleet['fleet_mission']].'.php');

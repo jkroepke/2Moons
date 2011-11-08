@@ -48,7 +48,7 @@ ini_set('session.use_cookies', '1');
 ini_set('session.use_only_cookies', '1');
 session_set_cookie_params(SESSION_LIFETIME, '/');
 session_cache_limiter('nocache');
-session_name($dbsettings["secretword"]);
+session_name('2Moons');
 ini_set('session.use_trans_sid', 0);
 ini_set('session.auto_start', '0');
 ini_set('session.serialize_handler', 'php');  

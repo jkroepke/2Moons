@@ -36,7 +36,7 @@ function ShowSearchPage()
 	$PlanetRess->SavePlanetToDB();
 
 	$template	= new template();
-	
+	$Limit		= SEARCH_LIMIT === -1 ? "" : "LIMIT ".SEARCH_LIMIT;
 	$type 		= request_var('type','');
 	$searchtext = request_var('searchtext', '', UTF8_SUPPORT);
 	if(!empty($type)) {
@@ -49,7 +49,7 @@ function ShowSearchPage()
 									INNER JOIN ".PLANETS." as b ON b.id = a.id_planet 
 									LEFT JOIN ".STATPOINTS." as c ON c.id_owner = a.id AND c.stat_type = 1
 									LEFT JOIN ".ALLIANCE." as d ON d.id = a.ally_id
-									WHERE a.`universe` = '".$UNI."' AND a.username LIKE '%".$db->sql_escape($searchtext, true)."%' LIMIT 25;");
+									WHERE a.`universe` = '".$UNI."' AND a.username LIKE '%".$db->sql_escape($searchtext, true)."%' ".$Limit.";");
 				while($s = $db->fetch_array($search))
 				{
 					$SearchResult[]	= array(
@@ -77,7 +77,7 @@ function ShowSearchPage()
 									INNER JOIN ".USERS." as b ON b.id = a.id_owner 
 									LEFT JOIN  ".STATPOINTS." as c ON c.id_owner = b.id AND c.stat_type = 1
 									LEFT JOIN ".ALLIANCE." as d ON d.id = b.ally_id
-									WHERE a.`universe` = '".$UNI."' AND a.name LIKE '%".$db->sql_escape($searchtext, true)."%' LIMIT 25;");
+									WHERE a.`universe` = '".$UNI."' AND a.name LIKE '%".$db->sql_escape($searchtext, true)."%' ".$Limit.";");
 				while($s = $db->fetch_array($search))
 				{
 					$SearchResult[]	= array(
@@ -96,7 +96,7 @@ function ShowSearchPage()
 				$db->free_result($search);
 			break;
 			case "allytag":
-				$search = $db->query("SELECT a.id, a.ally_name, a.ally_tag, a.ally_members, c.total_rank FROM ".ALLIANCE." as a LEFT JOIN ".STATPOINTS." as c ON c.stat_type = 1 AND c.id_owner = a.id WHERE a.`ally_universe` = '".$UNI."' AND a.ally_tag LIKE '%".$db->sql_escape($searchtext, true)."%' LIMIT 25;");
+				$search = $db->query("SELECT a.id, a.ally_name, a.ally_tag, a.ally_members, c.total_rank FROM ".ALLIANCE." as a LEFT JOIN ".STATPOINTS." as c ON c.stat_type = 1 AND c.id_owner = a.id WHERE a.`ally_universe` = '".$UNI."' AND a.ally_tag LIKE '%".$db->sql_escape($searchtext, true)."%' ".$Limit.";");
 				while($s = $db->fetch_array($search))
 				{
 					$SearchResult[]	= array(
@@ -110,7 +110,7 @@ function ShowSearchPage()
 				$db->free_result($search);
 			break;
 			case "allyname":
-				$search = $db->query("SELECT a.ally_name, a.ally_tag, a.ally_members, b.total_points FROM ".ALLIANCE." as a, ".STATPOINTS." as b WHERE a.`ally_universe` = '".$UNI."' AND b.stat_type = 1 AND b.id_owner = a.id AND a.ally_name LIKE '%".$db->sql_escape($searchtext, true)."%' LIMIT 25;");
+				$search = $db->query("SELECT a.ally_name, a.ally_tag, a.ally_members, b.total_points FROM ".ALLIANCE." as a, ".STATPOINTS." as b WHERE a.`ally_universe` = '".$UNI."' AND b.stat_type = 1 AND b.id_owner = a.id AND a.ally_name LIKE '%".$db->sql_escape($searchtext, true)."%' ".$Limit.";");
 				while($s = $db->fetch_array($search))
 				{
 					$SearchResult[]	= array(
