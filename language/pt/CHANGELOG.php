@@ -1,44 +1,19 @@
 <?php
 
 // Traduzido por QwataKayean. Todos os Direitos Reservados © 2010-2011
-// Está presente o ACORDO ORTOGRÁFICO DE PORTUGAL PARA 2011 . Mais informações em : http://www.priberam.pt/
+// Texto escrito conforme o Acordo Ortográfico a ser inserido em 2011 pelo Ministério da Educação de Portugal - convertido pelo Lince.         
 
-/**
- *  2Moons
- *  Copyright (C) 2011  Slaver
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
- * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.5 (2011-07-31)
- * @info $Id$
- * @link http://code.google.com/p/2moons/
- */
- 
+// 2Moons - Copyright (C) 2011  Slaver// 2Moons - Copyright (C) 2011  Slaver
+
 $LNG['Version']     = 'Versão';
 $LNG['Description'] = 'Descrição';
 
 $LNG['changelog']   = array(
 'v1.4' => 'ShadoX 05.07.11 (Traduzido por QwataKayean)
 - ADD: FirePHP Log System
-- ADD: Selecção de Linguas na Página de Mensagem Geral
+- ADD: Seleção de Linguas na Página de Mensagem Geral
 - ADD: Novo Sistema de Mensagens (Inclui antiga versão das versões de XNova)
-- ADD: {lang} Blocos de Templates. Redirecciona aos acessos das variaveis de lingua (langvars) {lang}varname{/lang}
+- ADD: {lang} Blocos de Templates. Redireciona aos acessos das variaveis de lingua (langvars) {lang}varname{/lang}
 - ADD: Mais dinâmica para as novas linguas
 - FIX: Hack/Cheat de Recursos
 - FIX: Mensagens Multiplas
@@ -59,12 +34,12 @@ $LNG['changelog']   = array(
 - FIX: Cancelar Pesquisas
 - FIX: Nomes UTF8 em atalhos de Fleet
 - FIX: Mensagens na Galaxia
-- FIX: Desactivar Modulos se não for visto na Galáxia
+- FIX: Desativar Modulos se não for visto na Galáxia
 - FIX: Carregamento Multiplo em Ficheiros de Cache
 - FIX: datatype Errado para numeros largos
 - FIX: Queque Display errado, se 2 elementos com o mesmo numero no mesmo sitio
 - FIX: Modulo Bypass confirma em Reciclagem e Espiar
-- DIV: Actualizar Design na Base de Dados
+- DIV: Atualizar Design na Base de Dados
 - DIV: Antigos Popups no PlayerCard (&amp;) Mensagens
 - DIV: Inclui Smarty
 - DIV: Maior segurança no Jogo
@@ -74,7 +49,7 @@ $LNG['changelog']   = array(
 - ADD: Novo sistema de Chat
 - ADD: Novo Popup UI
 - FIX: Divisão por Zero
-- FIX: Conta total incorrecto, Se o novo utilizador está no jogo
+- FIX: Conta total incorreto, Se o novo utilizador está no jogo
 - FIX: Erros no hangar, com BCMath não disponivel
 - FIX: reCAPTCHA
 - DIV: LoginPage Reescrita
@@ -83,7 +58,7 @@ $LNG['changelog']   = array(
 - DIV: Sistema de Updates Reescrito
 - DIV: Copyright Header Mudado
 - DIV: Conexão com o Facebook reescrita
-- DIV: Actualização de Smarty e jQuery
+- DIV: Atualização de Smarty e jQuery
 - DIV: Apagado Soundmanager e overLIB Liberary
 ',
 'v1.3' => 'ShadoX 21.01.11 (Traduzido por QwataKayean)
@@ -94,30 +69,30 @@ $LNG['changelog']   = array(
 - ADD: Daily Cronjob for clear Cache
 - ADD: Sucateiros
 - ADD: Sistema de Sessão
-- ADD: Protecção de Hack em Admin
+- ADD: Proteção de Hack em Admin
 - ADD: Serviço de Instalação de FTP
 - ADD: Novo Sistema de Chat
 - ADD: Cyrillic Char support for UserBanner
 - FIX: Login de Facebook
 - FIX: ACS
-- FIX: Injecções de SQL
+- FIX: Injeções de SQL
 - FIX: XSS no Battlesim
 - FIX: Erros TF
-- FIX: Sistema de Actualizações
+- FIX: Sistema de Atualizações
 - FIX: Cheat de Recursos
 - FIX: Ataques a ADMIN
 - FIX: SSL em IIS
 - FIX: Admin nos Records
-- FIX: Protecção de Novatos na missão de Manter Posições
+- FIX: Proteção de Novatos na missão de Manter Posições
 - FIX: Relatórios de Batalha
 - FIX: Pagina de RESET
-- FIX: Recursos Actualizados se for ADMIN atacadp
+- FIX: Recursos Atualizados se for ADMIN atacadp
 - FIX: Fleetspeed Hack
 - FIX: BuildTime Hack
 - FIX: Sistema de Cache
 - FIX: Destruição de Luas
 - FIX: Teamspeak API para Teamspeak 3 Servidores
-- FIX: Sistema de Actualizações não fazer dos downloads dos mesmos ficheiros
+- FIX: Sistema de Atualizações não fazer dos downloads dos mesmos ficheiros
 - DIV: 2Moons não requer Safe Mod = off
 - DIV: Troca de Copyright Header
 - DIV: Max de Butões no Portal de Luas
@@ -127,29 +102,29 @@ $LNG['changelog']   = array(
 - DIV: Get Language via HTTP Header on Index
 - DIV: Login de Facebook com Gráficos de API.
 - DIV: Nova localização de error.log
-- DIV: Actualizado TS³ Lib, Soundmanager, reCAPTCHA Lib, Smarty and jQuery (UI)
+- DIV: Atualizado TS³ Lib, Soundmanager, reCAPTCHA Lib, Smarty and jQuery (UI)
 ',
 'v1.2' => 'ShadoX 14.09.10 (Traduzido por QwataKayean)
 - ADD: Máximo de Fleets em ACS (Default: 16)
 - ADD: Novo RightsSystem em ACP
-- ADD: .htaccess Protecção para algumas pastas
+- ADD: .htaccess Proteção para algumas pastas
 - FIX: Expedição
 - FIX: Tempo de Servidor na Vista Geral
 - FIX: Pesquisas de Construcção em ID:6 or 31
 - FIX: Saida de Aliança
-- FIX: Actualizado ACS
+- FIX: Atualizado ACS
 - FIX: overLIB Problemas com Internet Explorer
 - FIX: Erros em MultiLinguas
 - FIX: reCAPTCHA
-- FIX: Protecção ADMIN
+- FIX: Proteção ADMIN
 - FIX: Explosão da Criação de Luas
 - FIX: Direitos nas Alianças
 - FIX: Portal Quantico
 - FIX: Pontos de Edificios
 - FIX: Alguns erros HTML
-- FIX: Fecho de Links em Enviar Mensagem colectiva de Aliança
+- FIX: Fecho de Links em Enviar Mensagem coletiva de Aliança
 - FIX: UMode
-- DIV: Linguas Actualizadas
+- DIV: Linguas Atualizadas
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game
 ',
@@ -411,7 +386,7 @@ $LNG['changelog']   = array(
 - ADD: Max. Auftr&auml;ge in Fleet/Def einstellbar (Standart: 10)
 - ADD: Cache for Records
 - ADD: Realtime-Ressanzeige
-- ADD: Optimize Hall of Fame DB
+- ADD: Otimize Hall of Fame DB
 - ADD: Postausgang
 - ADD: Abbruch Schiffswert
 - FIX: Wirtschaftssystem
@@ -560,7 +535,7 @@ $LNG['changelog']   = array(
 - DIV: Anpassung an Internet Explorer (IE8) &amp; Opera
 - DIV: Unnötige SQL-Abfragen(SELECT * FROM) ge&auml;ndert
 - DIV: register_globals standartm&auml;ssig aus
-- DIV: Alle Tabellen werden nun 1x pro Tag Aufger&auml;mt (OPTIMIZE TABLE)
+- DIV: Alle Tabellen werden nun 1x pro Tag Aufger&auml;mt (OTIMIZE TABLE)
 - DIV: Seiten werden komprimiert an Client versendet
 - DIV: Allianzpage nun mit switches gesteuert
 - DIV: Performance Ingal. Netzwerk erhöht

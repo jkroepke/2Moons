@@ -16,11 +16,12 @@
 {if $goto}
 <meta http-equiv="refresh" content="{$gotoinsec};URL={$goto}">
 {/if}
-<script type="text/javascript" src="./scripts/jQuery.js"></script>
-<script type="text/javascript" src="./scripts/base.js"></script>
-<script type="text/javascript" src="./scripts/filterlist.js"></script>
+<script type="text/javascript" src="./scripts/game/jquery.js"></script>
+<script type="text/javascript" src="./scripts/game/jquery.ui.js"></script>
+<script type="text/javascript" src="./scripts/game/base.js"></script>
+<script type="text/javascript" src="./scripts/base/filterlist.js"></script>
 {foreach item=scriptname from=$scripts}
-<script type="text/javascript" src="./scripts/{$scriptname}.js"></script>
+<script type="text/javascript" src="./scripts/game{$scriptname}.js"></script>
 {/foreach}
 <script type="text/javascript">
 var xsize 	= screen.width;

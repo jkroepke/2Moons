@@ -56,7 +56,8 @@ class Language
 					require(ROOT_PATH.'language/'.$Lang.'/LANG.cfg');
 					$Languages[$Lang]	= $Language['name'];
 				}
-				file_put_contents(ROOT_PATH.'cache/cache.languages.php', serialize($Languages));
+				if(is_writable(ROOT_PATH.'cache'))
+					file_put_contents(ROOT_PATH.'cache/cache.languages.php', serialize($Languages));
 				self::$Languages	= $Languages;
 			}
 		}

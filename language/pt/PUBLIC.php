@@ -1,10 +1,10 @@
 <?php
 
 // Traduzido por QwataKayean. Todos os Direitos Reservados © 2010-2011
-// Está presente o ACORDO ORTOGRÁFICO DE PORTUGAL PARA 2011 . Mais informações em : http://www.priberam.pt/
-// Obrigado a King_Dark pela ajuda na tradução
-// 2Moons - Copyright (C) 2011  Slaver
- 
+// Texto escrito conforme o Acordo Ortográfico a ser inserido em 2011 pelo Ministério da Educação de Portugal - convertido pelo Lince.         
+
+// 2Moons - Copyright (C) 2011  Slaver// 2Moons - Copyright (C) 2011  Slaver
+
 // Recuperação de Senha
 $LNG['lost_empty']                   = 'Deves preencher todos os campos!';
 $LNG['lost_mail_title']              = 'Nova Senha';
@@ -37,7 +37,7 @@ $LNG['server_infos']                   	= array(
 );
 
 //case default
-$LNG['login_error_1']					= 'Usuário/Password Incorrecto!';
+$LNG['login_error_1']					= 'Usuário/Password Incorreto!';
 $LNG['login_error_2']					= 'A tua sessão expirou ou alguem entror desde outro computador!';
 $LNG['login_error_3']					= 'A tua sessão expirou!';
 $LNG['screenshots']                    	= 'Imagens';
@@ -74,16 +74,16 @@ $LNG['reg_mail_message_pass']          = 'Ainda falta mais um passo para poderes
 $LNG['reg_mail_reg_done']              = 'Bem-vindo ao Mundo %s!';
 $LNG['invalid_mail_adress']            = 'Este E-mail não e válido!<br>';
 $LNG['empty_user_field']               = 'Por favor, preencha os campos todos!<br>';
-$LNG['password_lenght_error']          = 'A password tem de conter pelo menos um minimo de 4 caracteres!<br>';
-$LNG['user_field_no_alphanumeric']     = 'Por favor, insere o nome do usuário apenas com caracteres alfanuméricos!<br>';
+$LNG['password_lenght_error']          = 'A password tem de conter pelo menos um minimo de 4 carateres!<br>';
+$LNG['user_field_no_alphanumeric']     = 'Por favor, insere o nome do usuário apenas com carateres alfanuméricos!<br>';
 $LNG['user_field_no_space']            = 'Por favor, não insira o nome de usuário com espaços ou em branco !<br>';
 $LNG['planet_field_no']                = 'Não inseris-te o nome do planeta!';
-$LNG['planet_field_no_alphanumeric']   = 'Por favor insira só caracteres alphanumericos!<br>';
+$LNG['planet_field_no_alphanumeric']   = 'Por favor insira só carateres alphanumericos!<br>';
 $LNG['planet_field_no_space']	       = 'Por favor não deixes o nome do planeta em branco!<br>';
 $LNG['terms_and_conditions']           = 'Aceito os <a href="index.php?page=agb">T&C</a> e as <a href="index.php?page=rules>Régras</a> de jogo!<br>';
 $LNG['user_already_exists']            = 'O Nome do Usuário que escolheu já existe!<br>';
 $LNG['mail_already_exists']            = 'Este E-mail já existe!<br>';
-$LNG['wrong_captcha']                  = 'Código de Segurança incorrecto!<br>';
+$LNG['wrong_captcha']                  = 'Código de Segurança incorreto!<br>';
 $LNG['different_passwords']            = 'As 2 passwords que introduzis-te são diferentes!<br>';
 $LNG['different_mails']                = 'Os 2 E-Mails que introduzis-te são diferentes!<br>';
 $LNG['welcome_message_from']           = 'Administrador';
@@ -113,7 +113,7 @@ $LNG['captcha_help']                   = 'Ajuda';
 $LNG['captcha_get_image']              = 'Imagem-CAPTCHA';
 $LNG['captcha_reload']                 = 'Nova-CAPTCHA';
 $LNG['captcha_get_audio']              = 'Som-CAPTCHA';
-$LNG['user_active']		       		   = 'Usuários %s activos!';
+$LNG['user_ative']		       		   = 'Usuários %s ativos!';
 
 //Rules
 $LNG['rules_overview']                 = "Regras";
@@ -121,7 +121,7 @@ $LNG['rules_info1']                    = "Mais informações podem ser encontrad
          
 //Facebook Connect         
          
-$LNG['fb_perm']						   = 'Acesso proibido. Precisas de todos os direitos para faseres o login com a conta do Facebook.Logo a seguir, poderás fazer o login sem a conta do Facebook!';         
+$LNG['fb_perm']						   = 'Acesso proibido. Precisas de todos os direitos para fazeres o login com a conta do Facebook.Logo a seguir, poderás fazer o login sem a conta do Facebook!';         
          
 //NEWS
 

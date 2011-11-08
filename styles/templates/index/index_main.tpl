@@ -60,44 +60,46 @@
 	</table>
 </section>
 <section>
-	<table class="box">
-		<tr class="box-header">
-			<td class="box-header-left"></td><td class="box-header-center"></td><td class="box-header-right"></td>
-		</tr>
-		<tr class="box-content"><td class="box-content-left"></td><td class="box-content-center">
-				<a href="#" onclick="return Content('login');" class="multi">
-					<table class="button-important"><tr><td class="button-left"></td><td class="button-center">
-						{$login}
-					</td><td class="button-right"></td></tr></table></a>
-				<a href="#" onclick="return Content('register');" class="multi">
-					<table class="button-important"><tr><td class="button-left"></td><td class="button-center">
-						{$register_now}
-					</td><td class="button-right"></td></tr></table></a>
-				</td>
-			<td class="box-content-right"></td>
-		</tr>
-		<tr class="box-footer">
-			<td class="box-footer-left"></td><td class="box-footer-center"></td><td class="box-footer-right"></td>
-		</tr>
-	</table>
-	<table class="box">
-		<tr class="box-header">
-			<td class="box-header-left"></td><td class="box-header-center"></td><td class="box-header-right"></td>
-		</tr>
-		<tr class="box-content"><td class="box-content-left"></td><td class="box-content-center">
-				{if $mail_active}<a href="#" onclick="return Content('lost');" class="multi"><table class="button button-multi"><tr>
-					<td class="button-left"></td><td class="button-center">
-						{$lostpassword}
-				</td><td class="button-right"></td></tr></table></a>{/if}
-				<a href="index.php?page=screens"{if $mail_active} class="multi"{/if}><table class="button{if $mail_active} button-multi{/if}"><tr>
-					<td class="button-left"></td><td class="button-center">
-						{$screenshots}
-					</td><td class="button-right"></td></tr></table></a>
-				</td><td class="box-content-right"></td>
-		</tr>
-		<tr class="box-footer">
-			<td class="box-footer-left"></td><td class="box-footer-center"></td><td class="box-footer-right"></td>
-		</tr>
-	</table>
+	<div class="button-box">
+		<div class="button-box-inner">
+			<div class="button-important multi">
+				<a href="#" onclick="return Content('login');">
+					<span class="button-left"></span>
+					<span class="button-center">{$login}</span>
+					<span class="button-right"></span>
+				</a>
+			</div>
+			<div class="button-important multi">
+				<a href="#" onclick="return Content('register');">
+					<span class="button-left"></span>
+					<span class="button-center">{$register_now}</span>
+					<span class="button-right"></span>
+				</a>
+			</div>
+		</div>
+	</div>
+	
+	<div class="button-box">
+		<div class="button-box-inner">
+			{if $mail_active} 
+			<div class="button multi">
+				<a href="#" onclick="return Content('lost');">
+					<span class="button-left"></span>
+					<span class="button-center">{$lostpassword}</span>
+					<span class="button-right"></span>
+				</a>
+			</div>
+			<div class="button multi">
+			{else}
+			<div class="button">
+			{/if}
+				<a href="index.php?page=screens">
+					<span class="button-left"></span>
+					<span class="button-center">{$screenshots}</span>
+					<span class="button-right"></span>
+				</a>
+			</div>
+		</div>
+	</div>
 </section>
 {/block}

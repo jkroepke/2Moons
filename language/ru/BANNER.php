@@ -1,12 +1,13 @@
 <?php
 
-// Translated into Russian by InquisitorEA (SporeEA@yandex.ru). All rights reserved © 2010-2011
+// Translated into Russian by InquisitorEA (SporeEA@yandex.ru). All rights reserved  2010-2011
 
-// Ïðèìå÷àíèå: ýòîò ôàéë íåîáõîäèìî ñîõðàíÿòü â êîäèðîâêå koi8-r
-$LNG['ub_points']                         = 'ïÞËÉ';
-$LNG['ub_fleets']                         = 'æÌÏÔ';
-$LNG['ub_researh']                        = 'éÓÓÌÅÄÏ×ÁÎÉÑ';
-$LNG['ub_buildings']                      = 'ðÏÓÔÒÏÊËÉ';
-$LNG['ub_defenses']                       = 'ïÂÏÒÏÎÁ';
+// This File require UTF-8 encoding now!
+
+$LNG['ub_points']                         = 'ÐžÑ‡ÐºÐ¸';
+$LNG['ub_fleets']                         = 'Ð¤Ð»Ð¾Ñ‚';
+$LNG['ub_researh']                        = 'Ð˜ÑÑÐ»ÐµÐ´Ð¾Ð²Ð°Ð½Ð¸Ñ';
+$LNG['ub_buildings']                      = 'ÐŸÐ¾ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸';
+$LNG['ub_defenses']                       = 'ÐžÐ±Ð¾Ñ€Ð¾Ð½Ð°';
 
 ?>

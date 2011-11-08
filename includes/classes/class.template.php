@@ -293,6 +293,43 @@ class template extends Smarty
 		}
 		$this->show('error_message_body.tpl');
 	}
+    /**
+    * Workaround  for new Smarty Method to add custom props...
+    */
+
+    public function __get($name)
+    {
+        $allowed = array(
+        'template_dir' => 'getTemplateDir',
+        'config_dir' => 'getConfigDir',
+        'plugins_dir' => 'getPluginsDir',
+        'compile_dir' => 'getCompileDir',
+        'cache_dir' => 'getCacheDir',
+        );
+
+        if (isset($allowed[$name])) {
+            return $this->{$allowed[$name]}();
+        } else {
+            return $this->{$name};
+        }
+    }
+	
+    public function __set($name, $value)
+    {
+        $allowed = array(
+        'template_dir' => 'setTemplateDir',
+        'config_dir' => 'setConfigDir',
+        'plugins_dir' => 'setPluginsDir',
+        'compile_dir' => 'setCompileDir',
+        'cache_dir' => 'setCacheDir',
+        );
+
+        if (isset($allowed[$name])) {
+            $this->{$allowed[$name]}($value);
+        } else {
+            $this->{$name} = $value;
+        }
+    }
 }
 
 ?>

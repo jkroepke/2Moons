@@ -10,7 +10,9 @@ function Buildlist() {
 		$('#time').text(Ready);
 		$('#command').remove();
 		document.title	= Ready + ' - ' + Gamename;
-		window.setTimeout(function() {window.location.href = 'game.php?page=buildings'}, 1000);
+		window.setTimeout(function() {
+			window.location.href = 'game.php?page=buildings';
+		}, 1000);
 		return true;
 	}
 	
