@@ -25,7 +25,7 @@ $LNG['type_mission'][11]                                        = 'DM Investigat
 $LNG['type_mission'][15]                                        = 'Expedition';
 
 $LNG['type_planet'][1]                                          = 'Planet';
-$LNG['type_planet'][2]                                          = 'Rubblefield';
+$LNG['type_planet'][2]                                          = 'Debrisfield';
 $LNG['type_planet'][3]                                          = 'Moon';
 
 $LNG['user_level'] = array (
@@ -36,7 +36,7 @@ $LNG['user_level'] = array (
 );
 
 // GAME.PHP
-$LNG['see_you_soon']                                            = 'Thanks for playing';
+$LNG['see_you_soon']                                            = 'Thanks for playing.';
 $LNG['page_doesnt_exist']                                       = 'This page does not exist';
 
 
@@ -131,6 +131,8 @@ $LNG['ov_teamspeak_v2']                                         = '<a href="team
 $LNG['ov_teamspeak_v3']                                         = '<a href="ts3server://%s?port=%d&amp;nickname=%s&amp;password=%s" title="Teamspeak Connect">Connect</a>&nbsp;&bull;&nbsp;Online: %d/%d &bull; Channels: %d &bull; Traffic ges.: %s MB';
 $LNG['ov_closed']                                                       = 'Game is deactivated at present! ';
 $LNG['ov_reflink']                                                      = 'Reflink';
+$LNG['ov_noreflink']                                            = 'You have recruited 0 users.';
+
 //----------------------------------------------------------------------------//
 //GALAXY
 
@@ -142,12 +144,12 @@ $LNG['gl_vacation']                                                     = 'Vacat
 $LNG['gl_banned']                                                       = 'Banned';
 $LNG['gl_inactive_seven']                                       = '7 Days inactive';
 $LNG['gl_inactive_twentyeight']                         = '28 Days inactive';
-$LNG['gl_s']                                                            = 'S';
-$LNG['gl_w']                                                            = 'W';
-$LNG['gl_v']                                                            = 'V';
-$LNG['gl_b']                                                            = 'B';
-$LNG['gl_i']                                                            = 'i';
-$LNG['gl_I']                                                            = 'I';
+$LNG['gl_short_strong']                                         = 'S';
+$LNG['gl_short_newbie']                                         = 'W';
+$LNG['gl_short_vacation']                                       = 'V';
+$LNG['gl_short_ban']                                            = 'B';
+$LNG['gl_short_inactive']                                       = 'i';
+$LNG['gl_short_long_inactive']                          = 'I';
 $LNG['gl_populed_planets']                                      = '%d Planet`s inhabited';
 $LNG['gl_out_space']                                            = 'Explore the Edge of this System';
 $LNG['gl_avaible_missiles']                                     = 'Missiles';
@@ -323,15 +325,15 @@ $LNG['fl_bonus']                                                        = 'Bonus
 $LNG['fl_bonus_attack']                                         = 'Attack';
 $LNG['fl_bonus_defensive']                                      = 'Defensive';
 $LNG['fl_bonus_shield']                                         = 'Shield';
-$LNG['fl_no_empty_derbis']                              = 'Rubblefield does not exist! ';
+$LNG['fl_no_empty_derbis']                                      = 'Rubblefield does not exist! ';
 $LNG['fl_acs_newname_alphanum']                         = 'The name only may cosist out of alphanumeric signs. ';
-$LNG['fl_acs_change']                                   = 'Changing';
-$LNG['fl_acs_change_name']                              = 'They enter a new name';
+$LNG['fl_acs_change']                                           = 'Changing';
+$LNG['fl_acs_change_name']                                      = 'They enter a new name';
 $LNG['fl_error_not_avalible']                           = 'There is no planet at these coordinates!';
 $LNG['fl_error_empty_derbis']                           = 'No Debris Available!';
-$LNG['fl_error_no_moon']                                = 'No moon present!';
+$LNG['fl_error_no_moon']                                        = 'No moon present!';
 $LNG['fl_error_same_planet']                            = 'Start and end planet are the same!';
-$LNG['fl_bash_protect']									= 'Bash-Protection';
+$LNG['fl_bash_protect']                                         = 'Bash-Protection';
 
 //----------------------------------------------------------------------------//
 //BUILDINGS - RESEARCH - SHIPYARD - DEFENSES
@@ -1054,14 +1056,14 @@ $LNG['supp_player_write']                                       = '%s wrote on %
 
 $LNG['rec_build']                                                       = 'Buildings';
 $LNG['rec_specb']                                                       = 'Special buildings';
-$LNG['rec_players']                                                     = 'Player';
 $LNG['rec_defes']                                                       = 'Defence';
 $LNG['rec_fleet']                                                       = 'Ships';
 $LNG['rec_techn']                                                       = 'Research';
 $LNG['rec_level']                                                       = 'Level';
-$LNG['rec_count']                                                       = 'Number';
-$LNG['rec_empty']                                                       = '-';
-$LNG['rec_last_update_on']                            				    = 'Last update : %s';
+$LNG['rec_last_update_on']                              = 'Last updated';
+$LNG['rec_players']                                             = 'Player';
+$LNG['rec_count']                                               = 'Amount';
+$LNG['rec_empty']                                               = '-';
 
 
 //----------------------------------------------------------------------------//
