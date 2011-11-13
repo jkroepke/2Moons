@@ -36,7 +36,7 @@ class ShowOptionsPage
 		if(!empty($USER['b_tech']) || !empty($PLANET['b_building']) || !empty($PLANET['b_hangar']))
 			return false;
 
-		$fleets = $db->countquery("SELECT COUNT(*) FROM ".FLEETS." WHERE `fleet_owner` = '".$USER['id']."' OR `fleet_target_owner` = '".$USER['id']."';");
+		$fleets = $db->countquery("SELECT COUNT(*) FROM ".FLEETS." WHERE `fleet_owner` = ".$USER['id'].";");
 		if($fleets != 0)
 			return false;
 					

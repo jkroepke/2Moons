@@ -64,7 +64,7 @@ function ShowResetPage()
 		
 		if ($_POST['players'] == 'on'){
 			$ID	= $db->countquery("SELECT `id_owner` FROM ".PLANETS." WHERE `universe` = '".$_SESSION['adminuni']."' AND `galaxy` = '1' AND `system` = '1' AND `planet` = '1';");
-			$db->multi_query("DELETE FROM ".USERS." WHERE `universe` = '".$_SESSION['adminuni']."' AND `id` != '".$ID."';DELETE FROM ".PLANETS." WHERE `universe` = '".$_SESSION['adminuni']."' AND `galaxy` != '1' AND `system` != '1' AND `planet` != '1';");
+			$db->multi_query("DELETE FROM ".USERS." WHERE `universe` = '".$_SESSION['adminuni']."' AND `id` != '".$ID."';DELETE FROM ".PLANETS." WHERE `universe` = '".$_SESSION['adminuni']."' AND `id_owner` != '".$ID."';");
 		}
 		
 		if ($_POST['planets'] == 'on')
@@ -123,20 +123,20 @@ function ShowResetPage()
 		if ($_POST['friends']	==	'on')
 			$db->query("DELETE FROM ".BUDDY." WHERE `universe` = '".$_SESSION['adminuni']."';");
 
-		if ($_POST['alliances']	==	'on'){
-			$db->multi_query("DELETE FROM ".ALLIANCE." WHERE `ally_universe` = '".$_SESSION['adminuni']."';UPDATE ".USERS." SET `ally_id` = '0', `ally_register_time` = '0', `ally_rank_id` = '0' WHERE `universe` = '".$_SESSION['adminuni']."';");}
+		if ($_POST['alliances']	==	'on')
+			$db->multi_query("DELETE FROM ".ALLIANCE." WHERE `ally_universe` = '".$_SESSION['adminuni']."';UPDATE ".USERS." SET `ally_id` = '0', `ally_register_time` = '0', `ally_rank_id` = '0' WHERE `universe` = '".$_SESSION['adminuni']."';");
 
 		if ($_POST['fleets']	==	'on')
 			$db->query("DELETE FROM ".FLEETS." WHERE `fleet_universe` = '".$_SESSION['adminuni']."';");
 
-		if ($_POST['banneds']	==	'on'){
-			$db->multi_query("DELETE FROM ".BANNED." WHERE `universe` = '".$_SESSION['adminuni']."';UPDATE ".USERS." SET `bana` = '0', `banaday` = '0' WHERE `universe` = '".$_SESSION['adminuni']."';");}
+		if ($_POST['banneds']	==	'on')
+			$db->multi_query("DELETE FROM ".BANNED." WHERE `universe` = '".$_SESSION['adminuni']."';UPDATE ".USERS." SET `bana` = '0', `banaday` = '0' WHERE `universe` = '".$_SESSION['adminuni']."';");
 
-		if ($_POST['messages']	==	'on'){
-			$db->multi_query("DELETE FROM ".MESSAGES." WHERE `message_universe` = '".$_SESSION['adminuni']."';UPDATE ".USERS." SET `new_message_0` = 0, `new_message_1` = 0, `new_message_2` = 0, `new_message_3` = 0, `new_message_4` = 0, `new_message_5` = 0, `new_message_15` = 0, `new_message_50` = 0, `new_message_99` = 0 WHERE `universe` = '".$_SESSION['adminuni']."';");}
+		if ($_POST['messages']	==	'on')
+			$db->multi_query("DELETE FROM ".MESSAGES." WHERE `message_universe` = '".$_SESSION['adminuni']."';");
 
-		if ($_POST['statpoints']	==	'on'){
-			$db->query("DELETE FROM ".STATPOINTS." WHERE `universe` = '".$_SESSION['adminuni']."';");}
+		if ($_POST['statpoints']	==	'on')
+			$db->query("DELETE FROM ".STATPOINTS." WHERE `universe` = '".$_SESSION['adminuni']."';");
 
 		$template->message($LNG['re_reset_excess'], '?page=reset&sid='.session_id(), 3);
 		exit;
