@@ -70,10 +70,10 @@
 								<form action="game.php?page=buildings" method="post" class="build_form">
 									<input type="hidden" name="cmd" value="insert">
 									<input type="hidden" name="building" value="{$ID}">
-									<button type="submit" class="build_submit">{if $Element.level == 0}{lang}bd_build{/lang}{else}{lang}bd_build_next_level{/lang}{$Element.level}{/if}</button>
+									<button type="submit" class="build_submit">{if $Element.baselevel == 0}{lang}bd_build{/lang}{else}{lang}bd_build_next_level{/lang}{$Element.level}{/if}</button>
 								</form>
 								{else}
-								<span style="color:red">{if $Element.level == 0}{lang}bd_build{/lang}{else}{lang}bd_build_next_level{/lang}{$Element.level}{/if}</span>
+								<span style="color:red">{if $Element.baselevel == 0}{lang}bd_build{/lang}{else}{lang}bd_build_next_level{/lang}{$Element.level}{/if}</span>
 								{/if}
 							{else}
 							<span style="color:red">{lang}bd_no_more_fields{/lang}</span>
@@ -104,10 +104,10 @@
 							{if !empty($Element.EnergyNeed)}
 								{lang}bd_next_level{/lang}<br>
 								{$Element.EnergyNeed}
-								{/if}
-								{if $Element.level > 0 && $ID != 33}
+							{/if}
+							{if $Element.baselevel > 0}
 								<br>{if $ID == 43}<a href="#" onclick="return Dialog.info({$ID})">{$bd_jump_gate_action}</a>{/if}
-								{if ($ID == 44 && !$HaveMissiles) ||  $ID != 44}<br><a class="tooltip_sticky" name="<table style='width:300px'><tr><th colspan='2'>{$bd_price_for_destroy} {lang}tech.{$ID}{/lang} {$Element.level}</th></tr><tr><td>{$Metal}</td><td>{$Element.destroyress.metal}</td></tr><tr><td>{$Crystal}</td><td>{$Element.destroyress.crystal}</td></tr><tr><td>{$Deuterium}</td><td>{$Element.destroyress.deuterium}</td></tr><tr><td>{lang}bd_destroy_time{/lang}</td><td>{$Element.destroytime}</td></tr><tr><td colspan='2'><form action='game.php?page=buildings' method='post' class='build_form'><input type='hidden' name='cmd' value='destroy'><input type='hidden' name='building' value='{$ID}'><button type='submit' class='build_submit onlist'>{lang}bd_dismantle{/lang}</button></form></td></tr></table>">{lang}bd_dismantle{/lang}</a>{/if}
+								{if ($ID == 44 && !$HaveMissiles) ||  $ID != 44}<br><a class="tooltip_sticky" name="<table style='width:300px'><tr><th colspan='2'>{$bd_price_for_destroy} {lang}tech.{$ID}{/lang} {$Element.baselevel}</th></tr><tr><td>{$Metal}</td><td>{$Element.destroyress.metal}</td></tr><tr><td>{$Crystal}</td><td>{$Element.destroyress.crystal}</td></tr><tr><td>{$Deuterium}</td><td>{$Element.destroyress.deuterium}</td></tr><tr><td>{lang}bd_destroy_time{/lang}</td><td>{$Element.destroytime}</td></tr><tr><td colspan='2'><form action='game.php?page=buildings' method='post' class='build_form'><input type='hidden' name='cmd' value='destroy'><input type='hidden' name='building' value='{$ID}'><button type='submit' class='build_submit onlist'>{lang}bd_dismantle{/lang}</button></form></td></tr></table>">{lang}bd_dismantle{/lang}</a>{/if}
 							{else}
 								&nbsp;
 							{/if}
