@@ -912,12 +912,12 @@ class ShowFleetPages extends FleetFunctions
 			}
 		}
 		
-		$SpeedFactor    	 = parent::GetGameSpeedFactor();
-		$Distance    		 = parent::GetTargetDistance($PLANET['galaxy'], $galaxy, $PLANET['system'], $system, $PLANET['planet'], $planet);
-		$SpeedAllMin 		 = parent::GetFleetMaxSpeed($FleetArray, $USER);
-		$Duration    		 = parent::GetMissionDuration(10, $SpeedAllMin, $Distance, $SpeedFactor, $USER);
-		$consumption   		 = parent::GetFleetConsumption($FleetArray, $Duration, $Distance, $SpeedAllMin, $USER, $SpeedFactor);
-		$duration		= $duration * (1 - $USER['factor']['shipspeed']);
+		$SpeedFactor    	= parent::GetGameSpeedFactor();
+		$Distance    		= parent::GetTargetDistance($PLANET['galaxy'], $galaxy, $PLANET['system'], $system, $PLANET['planet'], $planet);
+		$SpeedAllMin		= parent::GetFleetMaxSpeed($FleetArray, $USER);
+		$Duration			= parent::GetMissionDuration(10, $SpeedAllMin, $Distance, $SpeedFactor, $USER);
+		$consumption		= parent::GetFleetConsumption($FleetArray, $Duration, $Distance, $SpeedAllMin, $USER, $SpeedFactor);
+		$Duration			= $Duration * (1 - $USER['factor']['shipspeed']);
 
 		$UserDeuterium   	-= $consumption;
 
