@@ -160,7 +160,7 @@
 	{if $Raport.moon[2] == 1}
 		{lang}sys_destruc_stop{/lang}<br>
 	{else}
-		{sprintf($sys_destruc_lune, "$Raport.moon[0]")}<br>{lang}sys_destruc_mess1{/lang}
+		{sprintf($sys_destruc_lune, "{$Raport.moon[0]}")}<br>{lang}sys_destruc_mess1{/lang}
 		{if $Raport.moon[2] == 0}
 			{lang}sys_destruc_reussi{/lang}
 		{else}
