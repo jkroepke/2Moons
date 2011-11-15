@@ -135,7 +135,7 @@ switch ($page) {
 				}
 				
 				$ExistsUser 	= $db->countquery("SELECT (SELECT COUNT(*) FROM ".USERS." WHERE `universe` = '".$UNI."' AND `username` = '".$db->sql_escape($UserName)."') + (SELECT COUNT(*) FROM ".USERS_VALID." WHERE `universe` = '".$UNI."' AND `username` = '".$db->sql_escape($UserName)."')");
-				$ExistsMails	= $db->countquery("SELECT (SELECT COUNT(*) FROM ".USERS." WHERE `universe` = '".$UNI."' AND (`email` = '".$db->sql_escape($value)."' OR `email_2` = '".$db->sql_escape($value)."')) + (SELECT COUNT(*) FROM ".USERS_VALID." WHERE `universe` = '".$UNI."' AND `email` = '".$db->sql_escape($value)."')");
+				$ExistsMails	= $db->countquery("SELECT (SELECT COUNT(*) FROM ".USERS." WHERE `universe` = '".$UNI."' AND (`email` = '".$db->sql_escape($UserEmail)."' OR `email_2` = '".$db->sql_escape($UserEmail)."')) + (SELECT COUNT(*) FROM ".USERS_VALID." WHERE `universe` = '".$UNI."' AND `email` = '".$db->sql_escape($UserEmail)."')");
 				
 				if(empty($UserName))
 					$errors[]	= array('username', $LNG['empty_user_field']);
