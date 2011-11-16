@@ -297,6 +297,10 @@ class template extends Smarty
 			$this->show('adm/error_message_body.tpl');
 			exit;
 		}
+		if (defined('INSTALL')) {
+			$this->show('install/error_message_body.tpl');
+			exit;
+		}
 		$this->show('error_message_body.tpl');
 	}
     /**
