@@ -38,24 +38,23 @@ error_reporting(E_ALL ^ E_NOTICE);
 header('Content-Type: text/html; charset=UTF-8');
 define('TIMESTAMP',	$_SERVER['REQUEST_TIME']);
 
+define('PROTOCOL', (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"]  == 'on') ? 'https://' : 'http://');
+define('HTTP_ROOT', str_replace(basename($_SERVER["PHP_SELF"]), '', $_SERVER["PHP_SELF"]));
+
 require_once(ROOT_PATH . 'includes/GeneralFunctions.php');
 set_exception_handler('exception_handler');
 
 require_once(ROOT_PATH . 'includes/classes/class.Lang.php');
 require_once(ROOT_PATH . 'includes/classes/class.theme.php');
 require_once(ROOT_PATH . 'includes/classes/class.template.php');
-	
+
 $THEME	= new Theme();	
 $THEME->setUserTheme('gow');
 $LANG	= new Language();	
 $LANG->GetLangFromBrowser();
 $LANG->includeLang(array('INGAME', 'INSTALL'));
-
-$Mode     = request_var('mode', 'intro');
-$Page     = request_var('page', 1);
-$phpself  = $_SERVER['PHP_SELF'];
-$nextpage = $Page + 1;
 $template = new template();
+
 $template->assign_vars(array(
 	'lang'			=> $LANG->GetUser(),
 	'title'			=> $LNG['title_install'].' &bull; 2Moons',
@@ -66,8 +65,30 @@ $template->assign_vars(array(
 	'menu_convert'	=> $LNG['menu_convert'],
 ));
 
+if(!file_exists(ROOT_PATH.'includes/ENABLE_INSTALL_TOOL')) {
+	$template->assign_vars(array(
+		'intro_lang'	=> $LNG['intro_lang'],
+		'Selector'		=> $LANG->getAllowedLangs(false)
+	));
+	$template->message($LANG->getExtra('locked_install'), false, 0, true);
+	exit;
+}
+
+$Mode     = request_var('mode', 'intro');
+$Page     = request_var('page', 1);
+$phpself  = $_SERVER['PHP_SELF'];
+$nextpage = $Page + 1;
 switch ($Mode) {
 	case 'license':
+		if(isset($_POST['post'])) {
+			if(isset($_POST['accept'])) {
+				redirectTo('index.php?mode=req&lang=de');
+			} else {
+				$template->assign_vars(array(
+					'accept'	=> false,
+				));
+			}
+		}
 		$template->show('install/ins_license.tpl');
 	break;
 	case 'intro':
@@ -104,11 +125,6 @@ switch ($Mode) {
 			$error	= true;
 		}
 		
-		if(extension_loaded('bcmath'))
-			$bcmath = "<span class=\"yes\">".$LNG['reg_yes']."</span>";
-		else
-			$bcmath	= "<span class=\"ok\">".$LNG['reg_no']."</span>";
-	
 		if(function_exists('ini_set')){
 			$iniset = "<span class=\"yes\">".$LNG['reg_yes']."</span>";
 		} else {
@@ -126,14 +142,20 @@ switch ($Mode) {
 		if(!extension_loaded('gd')) {
 			$gdlib = "<span class=\"no\">".$LNG['reg_no']."</span>";
 		} else {
-			$Info	= gd_info();
-			if(!$Info['PNG Support']) {
-				$gdlib = "<span class=\"no\">".$LNG['reg_no']."</span>";
-			} else {
-				$gdlib = "<span class=\"yes\">".$LNG['reg_yes'].", v".preg_replace('/.*(\d.\d.\d+).*/', '$1', $Info['GD Version'])."</span>";
+			$gdVerion = '0.0.0';
+			if (function_exists('gd_info')) {
+				$temp = gd_info();
+				$match = array();
+				if (preg_match('!([0-9]+\.[0-9]+(?:\.[0-9]+)?)!', $temp['GD Version'], $match)) {
+					if (preg_match('/^[0-9]+\.[0-9]+$/', $match[1])) $match[1] .= '.0';
+						$gdVerion = $match[1];
+				}
 			}
+			$gdlib = "<span class=\"yes\">".$LNG['reg_yes'].", v".$gdVerion."</span>";
 		}
-
+		
+		clearstatcache();
+		
 		if(file_exists(ROOT_PATH."includes/config.php") || @touch(ROOT_PATH."includes/config.php")){
 			if(is_writable(ROOT_PATH."includes/config.php")){
 				$chmod = "<span class=\"yes\"> - ".$LNG['reg_writable']."</span>";
@@ -142,13 +164,13 @@ switch ($Mode) {
 				$error	= true;
 				$ftp	= true;
 			}
-			$config = "<tr><td class=\"transparent\">".$LNG['reg_file']." - includes/config.php</td><td class=\"transparent\"><span class=\"yes\">".$LNG['reg_found']."</span>".$chmod."</td></tr>";
+			$config = "<tr><td class=\"transparent left\"><p>".sprintf($LNG['reg_file'], 'includes/config.php')."</p></td><td class=\"transparent\"><span class=\"yes\">".$LNG['reg_found']."</span>".$chmod."</td></tr>";
 		} else {
-			$config = "<tr><td class=\"transparent\">".$LNG['reg_file']." - includes/config.php</td><td class=\"transparent\"><span class=\"no\">".$LNG['reg_not_found']."</span></td></tr>";
+			$config = "<tr><td class=\"transparent left\"><p>".sprintf($LNG['reg_file'], 'includes/config.php')."</p></td><td class=\"transparent\"><span class=\"no\">".$LNG['reg_not_found']."</span></td></tr>";
 			$error	= true;
 			$ftp	= true;
 		}
-		$directories = array('cache/', 'cache/sessions/', 'includes/', 'install/');
+		$directories = array('cache/', 'cache/sessions/', 'includes/');
 		$dirs = "";
 		foreach ($directories as $dir)
 		{
@@ -159,13 +181,12 @@ switch ($Mode) {
 					$error	= true;
 					$ftp	= true;
 				}
-			$dirs .= "<tr><td class=\"transparent\">".$LNG['reg_dir']." - ".$dir."</th><td class=\"transparent\"><span class=\"yes\">".$LNG['reg_found']."</span>".$chmod."</td></tr>";
+			$dirs .= "<tr><td class=\"transparent left\"><p>".sprintf($LNG['reg_dir'], $dir)."</p></td><td class=\"transparent\"><span class=\"yes\">".$LNG['reg_found']."</span>".$chmod."</td></tr>";
 		}
 
 		if($error == false){
-			$done = "<tr><td colspan=\"2\" class=\"transparent\"><a href=\"?mode=ins&page=1&amp;lang=".$LANG->GetUser()."\">".$LNG['continue']."</a></td></tr>";
+			$done = '<tr class="noborder"><td colspan="2" class="transparent"><a href="?mode=ins&page=1&amp;lang='.$LANG->GetUser().'"><button style="cursor: pointer;">'.$LNG['continue'].'</button<</a></td></tr>';
 		}
-		
 		$template->assign_vars(array(
 			'dir'					=> $dirs,
 			'json'					=> $json,
@@ -175,24 +196,8 @@ switch ($Mode) {
 			'PHP'					=> $PHP,
 			'mysqli'				=> $mysqli,
 			'ftp'					=> $ftp,
-			'bcmath'				=> $bcmath,
 			'iniset'				=> $iniset,
-			'global'				=> $global,
-			'req_php_need'			=> $LNG['req_php_need'],
-			'reg_mysqli_active'		=> $LNG['reg_mysqli_active'],
-			'reg_gd_need'			=> $LNG['reg_gd_need'],
-			'reg_json_need'			=> $LNG['reg_json_need'],
-			'reg_iniset_need'		=> $LNG['reg_iniset_need'],
-			'reg_global_need'		=> $LNG['reg_global_need'],
-			'reg_bcmath_need'		=> $LNG['reg_bcmath_need'],
-			'req_ftp'				=> $LNG['req_ftp'],
-			'req_ftp_info'			=> $LNG['req_ftp_info'],
-			'req_ftp_host'			=> $LNG['req_ftp_host'],
-			'req_ftp_username'		=> $LNG['req_ftp_username'],
-			'req_ftp_password'		=> $LNG['req_ftp_password'],
-			'req_ftp_dir'			=> $LNG['req_ftp_dir'],
-			'req_ftp_send'			=> $LNG['req_ftp_send'],
-			'req_ftp_pass_info'		=> $LNG['req_ftp_pass_info'],
+			'global'				=> $global
 		));
 		$template->show('install/ins_req.tpl');
 	break;
@@ -211,12 +216,12 @@ switch ($Mode) {
 				}
 				catch (FTPException $error)
 				{
-					exit($LNG['up_ftp_error']);
+					exit($LNG['req_ftp_error_data']);
 				}	
 							
 				if(!$ftp->changeDir($_GET['path']))
-					exit($LNG['up_ftp_change_error']);
-				
+					exit($LNG['req_ftp_error_dir']);
+			
 				$CHMOD	= (php_sapi_name() == 'apache2handler') ? 0777 : 0755;		
 				$ftp->chmod('cache', $CHMOD);
 				$ftp->chmod('cache/sessions', $CHMOD);
@@ -224,7 +229,15 @@ switch ($Mode) {
 				$ftp->chmod('install', $CHMOD);
 				exit;
 			break;
-			case 'install':
+		}
+	break;
+	case 'ins':
+		switch($Page) {
+			case 1:
+				$template->show('install/ins_form.tpl');
+			break;
+			case 2:
+				$template->assign_vars(array(
 				$database['host']			= request_var('host', '');
 				$database['port']			= request_var('port', 0);
 				$database['user']			= request_var('user', '', true);
@@ -267,25 +280,11 @@ switch ($Mode) {
 
 				file_put_contents(ROOT_PATH."includes/config.php", sprintf(file_get_contents(ROOT_PATH."includes/config.sample.php"), $database['host'], $database['port'], $database['user'], $database['userpw'], $database['databasename'], $prefix, mt_rand(1000, 9999999999)));
 				exit(json_encode(array('msg' => implode("\r\n", array($LNG['step2_db_connet_ok'], $LNG['step2_db_create_ok'], $LNG['step2_conf_create'])), 'error' => false)));
-			break;
-		}
-	break;
-	case 'ins':
-		switch($Page) {
-			case 1:
-				$template->assign_vars(array(
-					'step1_notice_chmod'	=> $LNG['step1_notice_chmod'],
-					'step1_mysql_server'	=> $LNG['step1_mysql_server'],
-					'step1_mysql_port'		=> $LNG['step1_mysql_port'],
-					'step1_mysql_dbname'	=> $LNG['step1_mysql_dbname'],
-					'step1_mysql_dbuser'	=> $LNG['step1_mysql_dbuser'],
-					'step1_mysql_dbpass'	=> $LNG['step1_mysql_dbpass'],
-					'step1_mysql_prefix'	=> $LNG['step1_mysql_prefix'],
-					'continue'				=> $LNG['continue'],
+			
 				));
-				$template->show('install/ins_form.tpl');
+				$template->show('install/ins_acc.tpl');
 			break;
-			case 2:
+			case 3:
 				$template->assign_vars(array(
 					'step3_create_admin'	=> $LNG['step3_create_admin'],
 					'step3_admin_name'		=> $LNG['step3_admin_name'],
@@ -295,7 +294,7 @@ switch ($Mode) {
 				));
 				$template->show('install/ins_acc.tpl');
 			break;
-			case 3:
+			case 4:
 				$adm_user   = $_POST['adm_user'];
 				$adm_pass   = $_POST['adm_pass'];
 				$adm_email  = $_POST['adm_email'];
@@ -373,7 +372,6 @@ switch ($Mode) {
 				$SESSION       	= new Session();
 				$SESSION->CreateSession(1, $adm_user, 1, 1, 3);
 				$_SESSION['admin_login']	= $md5pass;
-				file_put_contents('.htaccess', 'deny from all');
 				header('Location: ../admin.php');
 				exit;
 			break;

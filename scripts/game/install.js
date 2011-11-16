@@ -4,7 +4,7 @@ function submitftp()
 		if(data == "")
 			document.location.reload();
 		else
-			Dialog.alert(data);
+			alert(data);
 	});
 }
 

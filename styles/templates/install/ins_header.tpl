@@ -25,8 +25,7 @@ body{
 <script type="text/javascript" src="../scripts/game/install.js"></script>
 </head>
 <body>
-<div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
-<table width="700">
+<table width="960" id="install">
 <tr>
 	<th colspan="3">{$menu_install}</th>
 </tr>
