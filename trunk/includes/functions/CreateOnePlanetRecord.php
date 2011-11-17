@@ -62,7 +62,7 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $Universe, $PlanetOw
 	$SQL  = "INSERT INTO ".PLANETS." SET ";
 
 	if(!empty($PlanetName))
-		$SQL .= "`name` = '".$PlanetName."', ";
+		$SQL .= "`name` = '".$db->sql_escape($PlanetName)."', ";
 	
 	$SQL .= "`universe` = '".$Universe."', ";
 	$SQL .= "`id_owner` = '".$PlanetOwnerID."', ";
