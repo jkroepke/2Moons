@@ -22,7 +22,7 @@
  * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
  * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.5 (2011-07-31)
+ * @version 1.6 (2011-11-17)
  * @info $Id$
  * @link http://code.google.com/p/2moons/
  */
@@ -55,7 +55,7 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 		$mintemp	= $MoonPlanet['temp_min'] - mt_rand(10, 45);
 
 		$SQL  = "INSERT INTO ".PLANETS." SET ";
-		$SQL .= "`name` = '".$LNG['fcm_moon']."', ";
+		$SQL .= "`name` = '".( ($MoonName == '') ? $LNG['fcm_moon'] : $MoonName )."', ";
 		$SQL .= "`id_owner` = '".$Owner."', ";
 		$SQL .= "`universe` = '".$Universe."', ";
 		$SQL .= "`galaxy` = '".$Galaxy."', ";
