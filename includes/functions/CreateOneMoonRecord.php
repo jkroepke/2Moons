@@ -55,7 +55,7 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 		$mintemp	= $MoonPlanet['temp_min'] - mt_rand(10, 45);
 
 		$SQL  = "INSERT INTO ".PLANETS." SET ";
-		$SQL .= "`name` = '".( ($MoonName == '') ? $LNG['fcm_moon'] : $MoonName )."', ";
+		$SQL .= "`name` = '".$MoonName."', ";
 		$SQL .= "`id_owner` = '".$Owner."', ";
 		$SQL .= "`universe` = '".$Universe."', ";
 		$SQL .= "`galaxy` = '".$Galaxy."', ";
