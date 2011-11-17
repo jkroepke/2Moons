@@ -1,0 +1,26 @@
+Hello %1$s,
+
+
+Thank you for registering at %2$s
+
+Before we can activate your account, one more step is needed.
+Please note that this step is mandatory in order to become a 
+registered user. You have to press the link below only once to 
+verify your identity.
+
+In order to complete your registration please click the 
+following activation link:
+
+%3$s?page=reg&action=valid&uni=%7$s&clef=%4$s
+
+Your login data:
+
+Username : %1$s
+Password : %5$s
+
+Should you be facing any issues with the automated registration, 
+please contact the webmaster using the following email: 
+mailto:%6$s
+
+Regards,
+%2$s - Team
