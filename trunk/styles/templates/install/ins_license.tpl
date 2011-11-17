@@ -1,11 +1,8 @@
 {include file="install/ins_header.tpl"}
 <tr>
-<td class="left">
-<h2>{lang}licence_head{/lang}</h2>
-<p>{lang}licence_desc{/lang}</p>
-<div id="licence">
-<h3>GNU GENERAL PUBLIC LICENSE</h3>
-<p>Version 3, 29 June 2007</p>
+<td>
+<h3 >GNU GENERAL PUBLIC LICENSE</h3>
+<p >Version 3, 29 June 2007</p>
 
 <p>Copyright &copy; 2007 Free Software Foundation, Inc.
  &lt;<a href="http://fsf.org/">http://fsf.org/</a>&gt;</p><p>
@@ -634,33 +631,6 @@ Program, unless a warranty or assumption of liability accompanies a
 copy of the Program in return for a fee.</p>
 
 <p>END OF TERMS AND CONDITIONS</p>
-</div>
-<form action="{$smarty.server.PHP_SELF}?{$smarty.server.QUERY_STRING}" method="post">
-<input type="hidden" name="post" value="1"> 
-<table style="width: 100%;max-width:100%;margin-top:10px">
-	<tr>
-		<td class="transparent" width="70">
-			<input type="checkbox" name="accept">
-		</td>
-		<td class="transparent left">
-			<label>{lang}licence_accept{/lang}</label>
-		</td>
-	</tr>
-	{if isset($accept)}
-	<tr>
-		<td class="transparent" colspan="2">
-			<span class="no">{lang}licence_need_accept{/lang}</span>
-		</td>
-	</tr>
-	{/if}
-	<tr>
-		<td class="transparent" colspan="2">
-			<input type="submit" value="{lang}continue{/lang}">
-		</td>
-	</tr>
-</table>
-</form>
-</div>
 </th>
 </tr>
 {include file="install/ins_footer.tpl"}

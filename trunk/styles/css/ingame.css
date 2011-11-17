@@ -23,7 +23,7 @@ a:focus {
 	outline:none
 }
 
-button:hover, input[type="submit"] {
+button:hover {
 	cursor:pointer;
 }
 

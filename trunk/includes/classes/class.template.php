@@ -22,7 +22,7 @@
  * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
  * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.5 (2011-07-31)
+ * @version 1.6 (2011-11-17)
  * @info $Id$
  * @link http://code.google.com/p/2moons/
  */
@@ -295,10 +295,6 @@ class template extends Smarty
 		$this->gotoside($dest, $time);
 		if (defined('IN_ADMIN')) {
 			$this->show('adm/error_message_body.tpl');
-			exit;
-		}
-		if (defined('INSTALL')) {
-			$this->show('install/error_message_body.tpl');
 			exit;
 		}
 		$this->show('error_message_body.tpl');
