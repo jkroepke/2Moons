@@ -1,0 +1,8 @@
+Ciao %1$s,
+
+Tu non hai effettuato l'accesso da %2$s giorni, l'ultima volta il %3$s. Se vuoi rimanere un utente della community, per favore effetua il login, altrimenti il tuoa ccount verrà cancellato.
+
+Se hai dimenticato la password, poi vai in %4$s e clicca su "password dimenticata". In pochi minuti riceverai l'email con la nuova password.
+
+Saluti,
+%3$s - Staff

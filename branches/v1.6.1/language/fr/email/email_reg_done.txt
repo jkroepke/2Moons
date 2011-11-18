@@ -1,0 +1,8 @@
+Bonjour %1$s,
+
+Merci de vous êtes inscrire à %2$s
+
+Nous sommes heureux que vous avez choisi de devenir une partie de notre communauté et nous espérons que vous vous amuserez!
+
+Cordialement,
+%2$s - Team
