@@ -22,7 +22,7 @@
  * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
  * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6 (2011-11-17)
+ * @version 1.6.1 (2011-11-19)
  * @info $Id$
  * @link http://code.google.com/p/2moons/
  */
@@ -299,8 +299,8 @@ class MissionCaseAttack extends MissionFunctions
 		
 		$WhereCol	= $this->_fleet['fleet_end_type'] == 3 ? "id_luna" : "id";		
 		$SQL .= "UPDATE ".PLANETS." SET ";
-		$SQL .= "`der_metal` = `der_metal` + ".$ShootMetal.", ";
-		$SQL .= "`der_crystal` = `der_crystal` + ".$ShootCrystal." ";
+		$SQL .= "`der_metal` = ".$DerbisMetal.", ";
+		$SQL .= "`der_crystal` = ".$DerbisCrystal." ";
 		$SQL .= "WHERE ";
 		$SQL .= "`".$WhereCol."` = ".$this->_fleet['fleet_end_id'].";";
 		$SQL .= "INSERT INTO ".TOPKB." SET ";

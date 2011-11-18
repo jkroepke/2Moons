@@ -116,15 +116,15 @@
 				{if $GalaxyRow.action.esp}
 				<a href="javascript:doit(6,{$galaxy},{$system},{$planet},1,{$spio_anz});">
 					<img src="{$dpath}img/e.gif" title="{lang}gl_spy{/lang}" alt="">
-				</a>&nbsp;{/if}
+				</a>{/if}
 				{if $GalaxyRow.action.message}
 				<a href="#" onclick="return Dialog.PM({$GalaxyRow.user.id});">
 					<img src="{$dpath}img/m.gif" title="{lang}write_message{/lang}" alt="">
-				</a>&nbsp;{/if}
+				</a>{/if}
 				{if $GalaxyRow.action.buddy}
 				<a href="javascript:OpenPopup('?page=buddy&amp;mode=2&amp;u={$GalaxyRow.user.id}', '', 720, 300);">
 					<img src="{$dpath}img/b.gif" title="{lang}gl_buddy_request{/lang}" alt="">
-				</a>&nbsp;{/if}
+				</a>{/if}
 				{if $GalaxyRow.action.missle}<a href="?page=galaxy&amp;mode=2&amp;galaxy={$galaxy}&amp;system={$system}&amp;planet={$planet}&amp;type=1">
 					<img src="{$dpath}img/r.gif" title="{lang}gl_missile_attack{/lang}" alt="">
 				</a>{/if}

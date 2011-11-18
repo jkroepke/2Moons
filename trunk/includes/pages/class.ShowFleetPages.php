@@ -22,7 +22,7 @@
  * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
  * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6 (2011-11-17)
+ * @version 1.6.1 (2011-11-19)
  * @info $Id$
  * @link http://code.google.com/p/2moons/
  */
@@ -665,7 +665,7 @@ class ShowFleetPages extends FleetFunctions
 							`fleet_start_type` = '".$PLANET['planet_type']."',
 							`fleet_end_time` = '".$fleet['end_time']."',
 							`fleet_end_stay` = '".$StayTime."',
-							`fleet_end_id` = '".(int) $TargetPlanet['id']."',
+							`fleet_end_id` = '".(($planettype == 2) ? 0 : (int) $TargetPlanet['id'])."',
 							`fleet_end_galaxy` = '".$galaxy."',
 							`fleet_end_system` = '".$system."',
 							`fleet_end_planet` = '".$planet."',

@@ -23,7 +23,7 @@
  * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
  * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6 (2011-11-17)
+ * @version 1.6.1 (2011-11-19)
  * @info $Id$
  * @link http://code.google.com/p/2moons/
  */
@@ -33,6 +33,14 @@ $LNG['Description'] = 'Beschreibung';
 
 $LNG['changelog']   = array(
 
+'v1.7' => 'Slaver 19.11.11
+- 0000027: [Core] Phalanx (Slaver) - resolved.
+- 0000071: [Core] The list of the moon for teleportation (Slaver) - resolved.
+- 0000078: [Fleets (Missions)] Rev. 2074 Mission atack (Slaver) - resolved.
+- 0000077: [Core] Rev. 2074 Phalnax (Slaver) - resolved.
+- 0000079: [Design] Tooltip bei Server-Konfig und Uni-Konfig werden nicht mehr angezeigt (Slaver) - resolved.
+- 0000076: [Fleets (Missions)] neue version 1.6 (Slaver) - resolved.
+',
 'v1.6' => 'Slaver 17.11.11
 - 0000075: [Login] Registrierungserror wenn im Planeten namen ein \' vorkommt (Slaver) - resolved.
 - 0000069: [Core] Chance of destruction of the moon (Slaver) - resolved.

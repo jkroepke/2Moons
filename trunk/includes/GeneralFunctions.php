@@ -22,7 +22,7 @@
  * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
  * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6 (2011-11-17)
+ * @version 1.6.1 (2011-11-19)
  * @info $Id$
  * @link http://code.google.com/p/2moons/
  */
@@ -495,7 +495,7 @@ function CheckModule($ID)
 	if(!isset($GLOBALS['CONF']['moduls'][$ID])) 
 		$GLOBALS['CONF']['moduls'][$ID] = 1;
 	
-	return ((!isset($_SESSION) || $_SESSION['authlevel'] == AUTH_USR) && $GLOBALS['CONF']['moduls'][$ID] == 0) ? true : false;
+	return ((!isset($_SESSION) || $_SESSION['authlevel'] !== AUTH_USR) && $GLOBALS['CONF']['moduls'][$ID] == 0) ? true : false;
 }
 
 function redirectTo($URL)

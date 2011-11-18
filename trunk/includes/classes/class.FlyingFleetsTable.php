@@ -22,7 +22,7 @@
  * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
  * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6 (2011-11-17)
+ * @version 1.6.1 (2011-11-19)
  * @info $Id$
  * @link http://code.google.com/p/2moons/
  */
@@ -260,35 +260,31 @@ class FlyingFleetsTable
 	{
 		global $LNG, $db;
 		
-		if(($FleetRow['fleet_mission'] == 8 && $_SESSION['id'] == $FleetRow['fleet_owner']) || $FleetRow['fleet_mission'] != 8)
+		if ($isAKS == true && $Status == 0 && ($FleetRow['fleet_mission'] == 1 || $FleetRow['fleet_mission'] == 2) && $FleetRow['fleet_group'] != 0)
 		{
-			if ($isAKS == true && $Status == 0 && ($FleetRow['fleet_mission'] == 1 || $FleetRow['fleet_mission'] == 2) && $FleetRow['fleet_group'] != 0)
+			$AKSFleets		= $db->query("SELECT * FROM ".FLEETS." WHERE `fleet_group` = '".$FleetRow['fleet_group']."' ORDER BY `fleet_id` ASC;");
+			$EventString	= '';
+			while($AKSRow = $db->fetch_array($AKSFleets))
 			{
-				$AKSFleets		= $db->query("SELECT * FROM ".FLEETS." WHERE `fleet_group` = '".$FleetRow['fleet_group']."' ORDER BY `fleet_id` ASC;");
-				$EventString	= '';
-				while($AKSRow = $db->fetch_array($AKSFleets))
-				{
-					$Return			= $this->GetEventString($AKSRow, $Status, $Owner, $Label, $Record);
-						
-					$Rest			= $Return[0];
-					$EventString    .= $Return[1].'<br><br>';
-					$Time			= $Return[2];
-				}
-				$db->free_result($AKSFleets);
+				$Return			= $this->GetEventString($AKSRow, $Status, $Owner, $Label, $Record);
+					
+				$Rest			= $Return[0];
+				$EventString    .= $Return[1].'<br><br>';
+				$Time			= $Return[2];
 			}
-			else
-			{
-				list($Rest, $EventString, $Time) = $this->GetEventString($FleetRow, $Status, $Owner, $Label, $Record);
-				$EventString    .= '<br><br>';	
-			}
-			return array(
-				'fleet_order'	=> $Label . $Record,
-				'fleet_descr'	=> substr($EventString, 0, -8),
-				'fleet_return'	=> $Time,
-				'fleet_rest'	=> $Rest
-			);
+			$db->free_result($AKSFleets);
 		}
-		return array('fleet_order' => 0, 'fleet_descr' => '', 'fleet_return'=> 0);
+		else
+		{
+			list($Rest, $EventString, $Time) = $this->GetEventString($FleetRow, $Status, $Owner, $Label, $Record);
+			$EventString    .= '<br><br>';	
+		}
+		return array(
+			'fleet_order'	=> $Label . $Record,
+			'fleet_descr'	=> substr($EventString, 0, -8),
+			'fleet_return'	=> $Time,
+			'fleet_rest'	=> $Rest
+		);
 	}
 }
 ?>
