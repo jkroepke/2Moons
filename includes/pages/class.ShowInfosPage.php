@@ -22,7 +22,7 @@
  * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
  * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6 (2011-11-17)
+ * @version 1.6.1 (2011-11-19)
  * @info $Id$
  * @link http://code.google.com/p/2moons/
  */
@@ -135,7 +135,19 @@ class ShowInfosPage
 	private function BuildJumpableMoonCombo($USER, $PLANET)
 	{
 		global $resource, $db;
-		$MoonList        = $db->query("SELECT `id`, `galaxy`, `system`, `planet`, `last_jump_time`, `".$resource[43]."` FROM ".PLANETS." WHERE `id` != '".$PLANET['id']."' AND `planet_type` = '3' AND `id_owner` = '". $USER['id'] ."' AND `".$resource[43]."` > '0';");
+				
+		$Order = $USER['planet_sort_order'] == 1 ? "DESC" : "ASC" ;
+		$Sort  = $USER['planet_sort'];
+
+		if($Sort == 0)
+			$OrderBy	= "`id` ". $Order;
+		elseif($Sort == 1)
+			$OrderBy	= "`galaxy`, `system`, `planet`, `planet_type` ". $Order;
+		elseif ($Sort == 2)
+			$OrderBy	= "`name` ". $Order;
+		
+		
+		$MoonList        = $db->query("SELECT `id`, `galaxy`, `system`, `planet`, `last_jump_time`, `".$resource[43]."` FROM ".PLANETS." WHERE `id` != '".$PLANET['id']."' AND `planet_type` = '3' AND `id_owner` = '". $USER['id'] ."' AND `".$resource[43]."` > '0' ORDER BY ".$OrderBy.";");
 		$Combo           = array();
 		while($CurMoon = $db->fetch_array($MoonList)) {
 			$Time	= $this->GetNextJumpWaitTime($CurMoon, true);

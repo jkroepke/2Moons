@@ -2,26 +2,26 @@
 
 <html lang="de">
 <head>
-<link rel="stylesheet" type="text/css" href="./styles/css/ingame.css">
-<link rel="stylesheet" type="text/css" href="./styles/theme/gow/formate.css">
-<link rel="stylesheet" type="text/css" href="./styles/css/admin.css">
-<link rel="stylesheet" type="text/css" href="./styles/css/jquery.css">
+<link rel="stylesheet" type="text/css" href="./styles/css/ingame.css?v={$REV}">
+<link rel="stylesheet" type="text/css" href="./styles/theme/gow/formate.css?v={$REV}">
+<link rel="stylesheet" type="text/css" href="./styles/css/admin.css?v={$REV}">
+<link rel="stylesheet" type="text/css" href="./styles/css/jquery.css?v={$REV}">
 <link rel="icon" href="./favicon.ico">
 <title>{$title}</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="content-script-type" content="text/javascript">
 <meta http-equiv="content-style-type" content="text/css">
-<meta http-equiv="X-UA-Compatible" content="IE=100">
 <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
 {if $goto}
 <meta http-equiv="refresh" content="{$gotoinsec};URL={$goto}">
 {/if}
-<script type="text/javascript" src="./scripts/base/jquery.js"></script>
-<script type="text/javascript" src="./scripts/base/jquery.ui.js"></script>
-<script type="text/javascript" src="./scripts/game/base.js"></script>
-<script type="text/javascript" src="./scripts/base/filterlist.js"></script>
+<script type="text/javascript" src="./scripts/base/jquery.js?v={$REV}"></script>
+<script type="text/javascript" src="./scripts/base/jquery.ui.js?v={$REV}"></script>
+<script type="text/javascript" src="./scripts/game/base.js?v={$REV}"></script>
+<script type="text/javascript" src="./scripts/base/tooltip.js?v={$REV}"></script>
+<script type="text/javascript" src="./scripts/base/filterlist.js?v={$REV}"></script>
 {foreach item=scriptname from=$scripts}
-<script type="text/javascript" src="./scripts/game/{$scriptname}.js"></script>
+<script type="text/javascript" src="./scripts/game/{$scriptname}.js?v={$REV}"></script>
 {/foreach}
 <script type="text/javascript">
 var xsize 	= screen.width;

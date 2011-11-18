@@ -22,7 +22,7 @@
  * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
  * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6 (2011-11-17)
+ * @version 1.6.1 (2011-11-19)
  * @info $Id$
  * @link http://code.google.com/p/2moons/
  */
@@ -35,13 +35,8 @@ class ShowOptionsPage
 
 		if(!empty($USER['b_tech']) || !empty($PLANET['b_building']) || !empty($PLANET['b_hangar']))
 			return false;
-
-		$fleets = $db->countquery("SELECT COUNT(*) FROM ".FLEETS." WHERE `fleet_owner` = ".$USER['id'].";");
-		if($fleets != 0)
-			return false;
 					
 		$query = $db->query("SELECT * FROM ".PLANETS." WHERE id_owner = '".$USER['id']."' AND id != '".$PLANET['id']."' AND `destruyed` = 0;");
-		
 		
 		while($CPLANET = $db->fetch_array($query))
 		{

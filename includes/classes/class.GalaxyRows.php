@@ -22,7 +22,7 @@
  * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
  * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6 (2011-11-17)
+ * @version 1.6.1 (2011-11-19)
  * @info $Id$
  * @link http://code.google.com/p/2moons/
  */
@@ -43,7 +43,7 @@ class GalaxyRows
 	public function allowPhalanx($GalaxyRowPlanet)
 	{
 		global $USER, $PLANET, $resource;
-		if (CheckModule(19) || $PLANET[$resource[42]] > 0)
+		if (CheckModule(19) || $PLANET[$resource[42]] == 0)
 			return false;
 		
 		$PhRange 		 = $this->GetPhalanxRange($PLANET[$resource[42]]);
@@ -151,7 +151,7 @@ class GalaxyRows
 			'image'			=> $GalaxyRowPlanet['image'],
 			'phalax'		=> !$PhalanxTypeLink ? false : $LNG['gl_phalanx'],
 			'missile'		=> !$MissileBtn ? false : $LNG['gl_missile_attack'],
-			'transport'		=> ($IsOwn || CheckModule(34)) ? false : $LNG['type_mission'][3],
+			'transport'		=> (CheckModule(34)) ? false : $LNG['type_mission'][3],
 			'spionage'		=> ($IsOwn || CheckModule(24)) ? false : $LNG['type_mission'][6],
 			'attack'		=> ($IsOwn || CheckModule(1)) ? false : $LNG['type_mission'][1],
 			'stay'			=> (!$IsOwn || CheckModule(36) && $IsOwn) ? false : $LNG['type_mission'][4],

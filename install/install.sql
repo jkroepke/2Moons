@@ -332,7 +332,7 @@ CREATE TABLE `prefix_log` (
   KEY `mode` (`mode`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
-CREATE TABLE `uni1_log_fleets` (
+CREATE TABLE `prefix_log_fleets` (
  `fleet_id` bigint(11) unsigned NOT NULL,
  `fleet_owner` int(11) unsigned NOT NULL DEFAULT '0',
  `fleet_mission` tinyint(3) unsigned NOT NULL DEFAULT '3',
@@ -715,7 +715,7 @@ CREATE TABLE `prefix_users_valid` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO `prefix_config` (`uni`, `VERSION`, `uni_name`, `game_name`, `close_reason`, `OverviewNewsText`, `moduls`) VALUES
-(1, '1.5.2073', '[LANG]universum[/LANG] 1', '2Moons', '[LANG]close_reason[/LANG]', '[LANG]welcome[/LANG] 2Moons v1.6!', '1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1');
+(1, '1.5.2076', '[LANG]universum[/LANG] 1', '2Moons', '[LANG]close_reason[/LANG]', '[LANG]welcome[/LANG] 2Moons v1.6!', '1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1');
 
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
