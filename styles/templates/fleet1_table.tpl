@@ -129,7 +129,7 @@
             </tr>
             {foreach item=AKSRow from=$AKSList}
 			<tr style="height:20px;"><td colspan="2">
-				<a href="javascript:setACSTarget({$AKSRow.galaxy},{$AKSRow.system},{$AKSRow.planet},{$AKSRow.planet_type}, {$AKSRow.id});updateVars();">{$AKSRow.name} - [{$AKSRow.galaxy}:{$AKSRow.system}:{$AKSRow.planet}]</a>
+				<a href="javascript:setACSTarget({$AKSRow.galaxy},{$AKSRow.system},{$AKSRow.planet},{$AKSRow.planet_type}, {$AKSRow.id}, {$AKSRow.ankunft});">{$AKSRow.name} - [{$AKSRow.galaxy}:{$AKSRow.system}:{$AKSRow.planet}]</a>
 			</td></tr>
 			{/foreach}
 			{/if}

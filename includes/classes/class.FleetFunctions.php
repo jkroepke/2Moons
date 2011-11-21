@@ -128,7 +128,7 @@ abstract class FleetFunctions
 		return (is_array($Fleets)) ? min($speedalls) : $speedalls[$Ship];
 	}
 
-	public static function GetFleetConsumption($FleetArray, $MissionDuration, $MissionDistance, $FleetMaxSpeed, $Player, $GameSpeed)
+	public static function GetFleetConsumption($FleetArray, $MissionDuration, $MissionDistance, $FleetMaxSpeed, $Player, $GameSpeed, $ACSDuration = 0)
 	{
 		$consumption = 0;
 		$basicConsumption = 0;
@@ -137,11 +137,18 @@ abstract class FleetFunctions
 		{
 			$ShipSpeed         = self::GetShipSpeed($Ship, $Player);
 			$ShipConsumption   = self::GetShipConsumption($Ship, $Player);
-			$spd               = 35000 / (round($MissionDuration, 0) * $GameSpeed - 10) * sqrt($MissionDistance * 10 / $ShipSpeed);
+			
+			// Calc Start -> End with ACS Speed, if avalible.
+			$spd               = 35000 / (round(max($ACSDuration, $MissionDuration), 0) * $GameSpeed - 10) * sqrt($MissionDistance * 10 / $ShipSpeed) / 2;
 			$basicConsumption  = $ShipConsumption * $Count;
 			$consumption      += $basicConsumption * $MissionDistance / 35000 * (($spd / 10) + 1) * (($spd / 10) + 1);
+			
+			// Calc End -> Start without ACS Speed.
+			$spd               = 35000 / (round($MissionDuration, 0) * $GameSpeed - 10) * sqrt($MissionDistance * 10 / $ShipSpeed) / 2;
+			$basicConsumption  = $ShipConsumption * $Count;
+			$consumption2     += $basicConsumption * $MissionDistance / 35000 * (($spd / 10) + 1) * (($spd / 10) + 1);
 		}
-		return (round($consumption) + 1);
+		return (round($consumption + $consumption2) + 1);
 	}
 
 	public static function GetFleetArray($FleetArray)
@@ -165,10 +172,10 @@ abstract class FleetFunctions
 		}
 	}
 	
-	public static function GetFleetMissions($MisInfo)
+	public static function GetFleetMissions($MisInfo, $Planet)
 	{
 		global $LNG, $resource, $CONF;
-		$Missions 			= self::GetAvailableMissions($MisInfo);
+		$Missions 			= self::GetAvailableMissions($MisInfo, $Planet);
 
 		if (!empty($Missions[15])) {
 			for($i = 1;$i <= $MisInfo['CurrentUser'][$resource[124]];$i++) {	
@@ -222,11 +229,22 @@ abstract class FleetFunctions
 		return $ColonyList;
 	}
 	
+	public static function GetACSDuration($FleetGroup)
+	{
+		global $db;
+		if(empty($FleetGroup))
+			return 0;
+			
+		$GetAKS 	= $db->countquery("SELECT `ankunft` FROM ".AKS." WHERE `id` = ".$FleetGroup.";");
+
+		return !empty($GetAKS) ? $GetAKS - TIMESTAMP : 0;
+	}
+	
 	public static function IsAKS($CurrentUserID)
 	{
 		global $db, $CONF;
 		
-		$GetAKS 	= $db->query("SELECT a.`id`, a.`name`, p.`galaxy`, p.`system`, p.`planet`, p.`planet_type` FROM ".AKS." a INNER JOIN ".PLANETS." p ON p.id = a.target WHERE a.`eingeladen` LIKE '%,".$CurrentUserID.",%' AND '".$CONF['max_fleets_per_acs']."' > (SELECT COUNT(*) FROM ".FLEETS." WHERE `fleet_group` = a.`id`);");
+		$GetAKS 	= $db->query("SELECT a.`id`, a.`name`, a.`ankunft`, p.`galaxy`, p.`system`, p.`planet`, p.`planet_type` FROM ".AKS." a INNER JOIN ".PLANETS." p ON p.id = a.target WHERE a.`eingeladen` LIKE '%,".$CurrentUserID.",%' AND ".$CONF['max_fleets_per_acs']." > (SELECT COUNT(*) FROM ".FLEETS." WHERE `fleet_group` = a.`id`);");
 		$AKSList	= array();
 		
 		while($row = $db->fetch_array($GetAKS))
@@ -294,7 +312,7 @@ abstract class FleetFunctions
 	{	
 		$temp = debug_backtrace();
 		if($GLOBALS['CONF']['debug'] == 1)
-			FirePHP::getInstance(true)->log(str_replace($_SERVER["DOCUMENT_ROOT"],'.',$temp[0]['file'])." on ".$temp[0]['line']);
+			exit(str_replace($_SERVER["DOCUMENT_ROOT"],'.',$temp[0]['file'])." on ".$temp[0]['line']);
 			
 		redirectTo("game.php?page=fleet");
 	}
@@ -412,10 +430,9 @@ abstract class FleetFunctions
 		return $AKSArray;
 	}
 	
-	public static function GetAvailableMissions($MissionInfo)
-	{
+	public static function GetAvailableMissions($MissionInfo, $GetInfoPlanet)
+	{	
 		global $LNG, $db, $UNI, $CONF;
-		$GetInfoPlanet 			= $db->uniquequery("SELECT `id_owner`, `der_metal`, `der_crystal` FROM `".PLANETS."` WHERE `universe` = '".$UNI."' AND `galaxy` = ".$MissionInfo['galaxy']." AND `system` = ".$MissionInfo['system']." AND `planet` = ".$MissionInfo['planet']." AND `planet_type` = '1';");
 		$YourPlanet				= (isset($GetInfoPlanet['id_owner']) && $GetInfoPlanet['id_owner'] == $MissionInfo['CurrentUser']['id']) ? true : false;
 		$UsedPlanet				= (isset($GetInfoPlanet['id_owner'])) ? true : false;
 		$missiontype			= array();

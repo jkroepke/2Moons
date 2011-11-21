@@ -1,3 +1,5 @@
+var acstime = 0;
+	
 function updateVars()
 {
 	distance = GetDistance();
@@ -34,14 +36,19 @@ function GetDuration() {
 
 function GetConsumption() {
 	var consumption = 0;
+	var consumption2 = 0;
 	var basicConsumption = 0;
 	var i;
 	$.each(data.ships, function(shipid, ship){
-		spd = 35000 / (duration * data.gamespeed - 10) * Math.sqrt(distance * 10 / ship.speed);
+		spd = 35000 / (Math.max(duration, acstime) * data.gamespeed - 10) * Math.sqrt(distance * 10 / ship.speed) / 2;
 		basicConsumption = ship.consumption * ship.amount;
 		consumption += basicConsumption * distance / 35000 * (spd / 10 + 1) * (spd / 10 + 1);
+		
+		spd = 35000 / (duration * data.gamespeed - 10) * Math.sqrt(distance * 10 / ship.speed) / 2;
+		basicConsumption = ship.consumption * ship.amount;
+		consumption2 += basicConsumption * distance / 35000 * (spd / 10 + 1) * (spd / 10 + 1);
 	});
-	return Math.round(consumption) + 1;
+	return Math.round(consumption + consumption2) + 1;
 }
 
 function storage() {
@@ -49,7 +56,7 @@ function storage() {
 }
 
 function refreshFormData() {
-	var seconds = duration;
+	var seconds = Math.max(duration, acstime);
 	var hours = Math.floor(seconds / 3600);
 	seconds -= hours * 3600;
 	var minutes = Math.floor(seconds / 60);
@@ -66,9 +73,11 @@ function refreshFormData() {
 	}
 }
 
-function setACSTarget(galaxy, solarsystem, planet, planettype, tacs) {
+function setACSTarget(galaxy, solarsystem, planet, planettype, tacs, acsbonus) {
 	document.getElementsByName("fleet_group")[0].value = tacs;
 	setTarget(galaxy, solarsystem, planet, planettype);
+	acstime = (acsbonus - serverTime.getTime() / 1000);
+	updateVars();
 }
 
 
@@ -77,14 +86,15 @@ function setTarget(galaxy, solarsystem, planet, planettype) {
 	document.getElementsByName("system")[0].value = solarsystem;
 	document.getElementsByName("planet")[0].value = planet;
 	document.getElementsByName("planettype")[0].value = planettype;
+	acstime = 0;
 }
 
 function FleetTime(){ 
-	var Sekunden = serverTime.getSeconds();
-    var add = duration;
-    serverTime.setSeconds(Sekunden+0.5);
-	$("#arrival").html(getFormatedDate(serverTime.getTime()+1000*add, tdformat));
-	$("#return").html(getFormatedDate(serverTime.getTime()+1000*2*add, tdformat));
+	var sekunden = serverTime.getSeconds();
+	var starttime = Math.max(duration, acstime);
+	var endtime	= starttime + duration;
+	$("#arrival").html(getFormatedDate(serverTime.getTime()+1000*starttime, tdformat));
+	$("#return").html(getFormatedDate(serverTime.getTime()+1000*endtime, tdformat));
 }
 
 function setResource(id, val) {
@@ -103,10 +113,10 @@ function maxResource(id) {
 		thisresource = 0;
 	}
 	
-	var storCap = data.fleetroom - data.consumption;
+	var storCap = data.fleetroom - $('.consumption:visible').text();
 
 	if (id == 'deuterium') {
-		thisresource -= data.consumption;
+		thisresource -= $('.consumption:visible').text();
 	}
 	var metalToTransport = parseInt(document.getElementsByName("metal")[0].value);
 	var crystalToTransport = parseInt(document.getElementsByName("crystal")[0].value);
@@ -136,7 +146,7 @@ function calculateTransportCapacity() {
 	var metal = Math.abs(document.getElementsByName("metal")[0].value);
 	var crystal = Math.abs(document.getElementsByName("crystal")[0].value);
 	var deuterium = Math.abs(document.getElementsByName("deuterium")[0].value);
-	transportCapacity = data.fleetroom - data.consumption - metal - crystal - deuterium;
+	transportCapacity = data.fleetroom - $('.consumption:visible').text() - metal - crystal - deuterium;
 	if (transportCapacity < 0) {
 		document.getElementById("remainingresources").innerHTML = "<font color=red>" + NumberGetHumanReadable(transportCapacity) + "</font>";
 	} else {
@@ -236,3 +246,24 @@ function SaveShortcuts() {
 		});
 	});
 }
+
+$(function() {
+	$('input:radio[name=mission]').on('click', function() {
+		if($(this).val() == 2) {
+			$('#consumption').hide();
+			$('#consumption2').show();
+		} else {
+			$('#consumption').show();
+			$('#consumption2').hide();
+		}
+		calculateTransportCapacity();
+	});
+
+	if($('input:radio[name=mission]:checked').val() == 2) {
+		$('#consumption').hide();
+		$('#consumption2').show();
+	} else {
+		$('#consumption').show();
+		$('#consumption2').hide();
+	}
+});

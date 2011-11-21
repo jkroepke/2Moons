@@ -126,7 +126,7 @@ class MissionCaseAttack extends MissionFunctions
 		
 		foreach(array_merge($reslist['fleet'], $reslist['defense']) as $ID)
 		{
-			if ($ID >= 500)
+			if ($ID >= 500 || $targetPlanet[$resource[$ID]] == 0)
 				continue;
 
 			$defense[0]['def'][$ID] = $targetPlanet[$resource[$ID]];
@@ -138,7 +138,6 @@ class MissionCaseAttack extends MissionFunctions
 		require_once('calculateAttack.php');
 		$result 	= calculateAttack($attackFleets, $defense, $GLOBALS['CONFIG'][$this->_fleet['fleet_universe']]['Fleet_Cdr'], $GLOBALS['CONFIG'][$this->_fleet['fleet_universe']]['Defs_Cdr']);
 		$SQL		= "";
-			
 		foreach ($attackFleets as $fleetID => $attacker)
 		{
 			$fleetArray = '';
@@ -151,7 +150,13 @@ class MissionCaseAttack extends MissionFunctions
 				$totalCount += $amount;
 			}
 			
-			$SQL .= $totalCount <= 0 ? "DELETE FROM ".FLEETS." WHERE `fleet_id`= '".$fleetID."';UPDATE ".LOG_FLEETS." SET `fleet_state` = 1 WHERE `fleet_id`= '".$fleetID."';" : "UPDATE ".FLEETS." SET `fleet_mess` = '1', `fleet_array` = '".substr($fleetArray, 0, -1)."', `fleet_amount` = '".$totalCount."' WHERE `fleet_id` = '".$fleetID."';UPDATE ".LOG_FLEETS." SET `fleet_mess` = '1', `fleet_array` = '".substr($fleetArray, 0, -1)."', `fleet_amount` = '".$totalCount."', `fleet_state` = 1 WHERE `fleet_id` = '".$fleetID."';";
+			if($totalCount <= 0) {
+				$SQL .= "DELETE FROM ".FLEETS." WHERE `fleet_id`= '".$fleetID."';";
+				$SQL .= "UPDATE ".LOG_FLEETS." SET `fleet_state` = 1 WHERE `fleet_id`= '".$fleetID."';";
+			} else {
+				$SQL .= "UPDATE ".FLEETS." SET `fleet_mess` = '1', `fleet_array` = '".substr($fleetArray, 0, -1)."', `fleet_amount` = '".$totalCount."' WHERE `fleet_id` = '".$fleetID."';";
+				$SQL .= "UPDATE ".LOG_FLEETS." SET `fleet_mess` = '1', `fleet_array` = '".substr($fleetArray, 0, -1)."', `fleet_amount` = '".$totalCount."', `fleet_state` = 1 WHERE `fleet_id` = '".$fleetID."';";
+			}	
 		}	
 		
 		if ($result['won'] == "a")
@@ -175,7 +180,13 @@ class MissionCaseAttack extends MissionFunctions
 					$totalCount += $amount;
 				}
 				
-				$SQL .= $totalCount <= 0 ? "DELETE FROM ".FLEETS." WHERE `fleet_id`= '".$fleetID."';UPDATE ".LOG_FLEETS." SET `fleet_state` = 1 WHERE `fleet_id`= '".$fleetID."';" : "UPDATE ".FLEETS." SET `fleet_array` = '".substr($fleetArray, 0, -1)."', `fleet_amount` = '".$totalCount."' WHERE `fleet_id` = '".$fleetID."';UPDATE ".LOG_FLEETS." SET `fleet_array` = '".substr($fleetArray, 0, -1)."', `fleet_amount` = '".$totalCount."' , `fleet_state` = 1 WHERE `fleet_id` = '".$fleetID."';";
+				if($totalCount <= 0) {
+					$SQL .= "DELETE FROM ".FLEETS." WHERE `fleet_id`= '".$fleetID."';";
+					$SQL .= "UPDATE ".LOG_FLEETS." SET `fleet_state` = 1 WHERE `fleet_id`= '".$fleetID."';";
+				} else {
+					$SQL .= "UPDATE ".FLEETS." SET `fleet_array` = '".substr($fleetArray, 0, -1)."', `fleet_amount` = '".$totalCount."' WHERE `fleet_id` = '".$fleetID."';";
+					$SQL .= "UPDATE ".LOG_FLEETS." SET `fleet_array` = '".substr($fleetArray, 0, -1)."', `fleet_amount` = '".$totalCount."' , `fleet_state` = 1 WHERE `fleet_id` = '".$fleetID."';";
+				}
 			}
 			else
 			{
@@ -187,9 +198,9 @@ class MissionCaseAttack extends MissionFunctions
 				
 				$SQL .= "UPDATE ".PLANETS." SET ";
 				$SQL .= $fleetArray;
-				$SQL .= "`metal` = `metal` - '".$steal['metal']."', ";
-				$SQL .= "`crystal` = `crystal` - '".$steal['crystal']."', ";
-				$SQL .= "`deuterium` = `deuterium` - '".$steal['deuterium']."' ";
+				$SQL .= "`metal` = `metal` - ".$steal['metal'].", ";
+				$SQL .= "`crystal` = `crystal` - ".$steal['crystal'].", ";
+				$SQL .= "`deuterium` = `deuterium` - ".$steal['deuterium']." ";
 				$SQL .= "WHERE ";
 				$SQL .= "`id` = '".$this->_fleet['fleet_end_id']."';";
 			}
@@ -230,8 +241,7 @@ class MissionCaseAttack extends MissionFunctions
 		$INFO['moon']['chance2']	= false;
 		$INFO['moon']['fleetfail']	= false;
 		require_once('GenerateReport.php');
-		$raport						= GenerateReport($result, $INFO);	
-
+		$raport						= GenerateReport($result, $INFO);
 		$Won = 0;
 		$Lose = 0; 
 		$Draw = 0;
@@ -330,6 +340,7 @@ class MissionCaseAttack extends MissionFunctions
         $SQL .= "WHERE ";
         $SQL .= substr($WhereDef, 0, -4).";";
 		$db->multi_query($SQL);
+		
 	}
 	
 	function EndStayEvent()
