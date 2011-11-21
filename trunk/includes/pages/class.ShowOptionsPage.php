@@ -253,7 +253,7 @@ class ShowOptionsPage
 						'opt_allyl_data'					=> $USER['settings_planetmenu'],
 						'opt_delac_data'					=> $USER['db_deaktjava'],
 						'opt_dst_mode'						=> $USER['dst'],
-						'opt_timezone'						=> $USER['timezone'],
+						'opt_timezone'						=> (float) $USER['timezone'],
 						'user_settings_rep' 				=> $USER['settings_rep'],
 						'user_settings_esp' 				=> $USER['settings_esp'],
 						'user_settings_wri' 				=> $USER['settings_wri'],

@@ -72,8 +72,8 @@ class StatBanner {
 
 		// Colors
 		$red    = hexdec(substr($this->textcolor,0,2));
-		$green  = hexdec(substr($this->textcolor,2,4));
-		$blue   = hexdec(substr($this->textcolor,4,6));
+		$green  = hexdec(substr($this->textcolor,2,2));
+		$blue   = hexdec(substr($this->textcolor,4,2));
 		$select = imagecolorallocate($image,$red,$green,$blue);
 
 		// Display

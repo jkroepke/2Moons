@@ -57,7 +57,7 @@
         				<td class="transparent" colspan="3"><a href="javascript:maxResources()">{$fl_all_resources}</a></td>
         			</tr>
                     <tr style="height:20px;">
-        				<td class="transparent" colspan="3">{$fl_fuel_consumption}: {$consumption}</td>
+        				<td class="transparent" colspan="3">{$fl_fuel_consumption}: <span id="consumption" class="consumption">{$consumption}</span><span id="consumption2" class="consumption" style="display:none;">{$consumption2}</span></td>
         			</tr>
 					{if $StaySelector}
 					<tr style="height:20px;">

@@ -49,7 +49,6 @@ function GenerateReport($RESULT, $INFO)
 	
 	$DATA['simu']	= isset($INFO['battlesim']) ? $INFO['battlesim'] : "";
 	
-	
 	foreach($RESULT['rw'][0]['attackers'] as $Player)
 	{
 		$DATA['players'][$Player['user']['id']]	= array(
@@ -81,9 +80,10 @@ function GenerateReport($RESULT, $INFO)
 	{
 		foreach($RoundInfo['attackers'] as $FleetID => $Player)
 		{	
-			$DATA['rounds'][$Round]['attacker'][$Player['user']['id']] = array();
+			$PlayerData	= array('userID' => $Player['user']['id'], 'ships' => array());
 			
 			if(array_sum($Player['detail']) == 0) {
+				$DATA['rounds'][$Round]['attacker'][] = $PlayerData;
 				$Destroy['att']++;
 				continue;
 			}
@@ -92,17 +92,21 @@ function GenerateReport($RESULT, $INFO)
 			{
 				if ($Amount <= 0)
 					continue;
+					
 				$ShipInfo	= $RoundInfo['infoA'][$FleetID][$ShipID];
-				$DATA['rounds'][$Round]['attacker'][$Player['user']['id']][$ShipID]	= array(
+				$PlayerData['ships'][$ShipID]	= array(
 					$Amount, $ShipInfo['att'], $ShipInfo['def'], $ShipInfo['shield']
 				);
 			}
+			
+			$DATA['rounds'][$Round]['attacker'][] = $PlayerData;
 		}
 		
 		foreach($RoundInfo['defenders'] as $FleetID => $Player)
 		{	
-			$DATA['rounds'][$Round]['defender'][$Player['user']['id']] = array();
+			$PlayerData	= array('userID' => $Player['user']['id'], 'ships' => array());
 			if(array_sum($Player['def']) == 0) {
+				$DATA['rounds'][$Round]['defender'][] = $PlayerData;
 				$Destroy['def']++;
 				continue;
 			}
@@ -115,16 +119,20 @@ function GenerateReport($RESULT, $INFO)
 				}
 					
 				$ShipInfo	= $RoundInfo['infoD'][$FleetID][$ShipID];
-				$DATA['rounds'][$Round]['defender'][$Player['user']['id']][$ShipID]	= array(
+				$PlayerData['ships'][$ShipID]	= array(
 					$Amount, $ShipInfo['att'], $ShipInfo['def'], $ShipInfo['shield']
 				);
 			}
+			$DATA['rounds'][$Round]['defender'][] = $PlayerData;
 		}
 		
 		if ($Round >= MAX_ATTACK_ROUNDS || $des['att'] == count($RoundInfo['attackers']) || $des['def'] == count($RoundInfo['defenders']))
 			break;
-					
-		$DATA['rounds'][$Round]['info']	= array($RoundInfo['attack'], $RoundInfo['attackShield'], $RoundInfo['defense'], $RoundInfo['defShield']);
+		
+		if(isset($RoundInfo['attack'], $RoundInfo['attackShield'], $RoundInfo['defense'], $RoundInfo['defShield']))
+			$DATA['rounds'][$Round]['info']	= array($RoundInfo['attack'], $RoundInfo['attackShield'], $RoundInfo['defense'], $RoundInfo['defShield']);
+		else
+			$DATA['rounds'][$Round]['info']	= array(NULL, NULL, NULL, NULL);
 	}
 	return $DATA;
 }

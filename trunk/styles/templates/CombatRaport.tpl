@@ -14,8 +14,8 @@
 {foreach $Raport.rounds as $Round => $RoundInfo}
 <table>
 	<tr>
-		{foreach $RoundInfo.attacker as $PlayerID => $PlayerShips}
-		{$PlayerInfo = $Raport.players[$PlayerID]}
+		{foreach $RoundInfo.attacker as $Player}
+		{$PlayerInfo = $Raport.players[$Player.userID]}
 		<td class="transparent">
 			<table>
 				<tr>
@@ -23,34 +23,34 @@
 						{lang}sys_attack_attacker_pos{/lang} {$PlayerInfo.name} {if $fame == 1}([XX:XX:XX]){else}([{$PlayerInfo.koords[0]}:{$PlayerInfo.koords[1]}:{$PlayerInfo.koords[2]}]){/if}<br>
 						{lang}sys_ship_weapon{/lang} {$PlayerInfo.tech[0]}% - {lang}sys_ship_shield{/lang} {$PlayerInfo.tech[1]}% - {lang}sys_ship_armour{/lang} {$PlayerInfo.tech[2]}%
 						<table width="100%">
-						{if !empty($PlayerShips)}
+						{if !empty($Player.ships)}
 							<tr>
 								<td class="transparent">{lang}sys_ship_type{/lang}</td>
-								{foreach $PlayerShips as $ShipID => $ShipData}
+								{foreach $Player.ships as $ShipID => $ShipData}
 								<td class="transparent">{lang}tech_rc.{$ShipID}{/lang}</td>
 								{/foreach}
 							</tr>
 							<tr>
 								<td class="transparent">{lang}sys_ship_count{/lang}</td>
-								{foreach $PlayerShips as $ShipID => $ShipData}
+								{foreach $Player.ships as $ShipID => $ShipData}
 								<td class="transparent">{pretty_number($ShipData[0])}</td>
 								{/foreach}
 							</tr>
 							<tr>
 								<td class="transparent">{lang}sys_ship_weapon{/lang}</td>
-								{foreach $PlayerShips as $ShipID => $ShipData}
+								{foreach $Player.ships as $ShipID => $ShipData}
 								<td class="transparent">{pretty_number($ShipData[1])}</td>
 								{/foreach}
 							</tr>
 							<tr>
 								<td class="transparent">{lang}sys_ship_shield{/lang}</td>
-								{foreach $PlayerShips as $ShipID => $ShipData}
+								{foreach $Player.ships as $ShipID => $ShipData}
 								<td class="transparent">{pretty_number($ShipData[2])}</td>
 								{/foreach}
 							</tr>
 							<tr>
 								<td class="transparent">{lang}sys_ship_armour{/lang}</td>
-								{foreach $PlayerShips as $ShipID => $ShipData}
+								{foreach $Player.ships as $ShipID => $ShipData}
 								<td class="transparent">{pretty_number($ShipData[3])}</td>
 								{/foreach}
 							</tr>
@@ -72,8 +72,8 @@
 <br><br>
 <table>
 	<tr>
-		{foreach $RoundInfo.defender as $PlayerID => $PlayerShips}
-		{$PlayerInfo = $Raport.players[$PlayerID]}
+		{foreach $RoundInfo.defender as $Player}
+		{$PlayerInfo = $Raport.players[$Player.userID]}
 		<td class="transparent">
 			<table>
 				<tr>
@@ -81,34 +81,34 @@
 						{lang}sys_attack_defender_pos{/lang} {$PlayerInfo.name} {if $fame == 1}([XX:XX:XX]){else}([{$PlayerInfo.koords[0]}:{$PlayerInfo.koords[1]}:{$PlayerInfo.koords[2]}]){/if}<br>
 						{lang}sys_ship_weapon{/lang} {$PlayerInfo.tech[0]}% - {lang}sys_ship_shield{/lang} {$PlayerInfo.tech[1]}% - {lang}sys_ship_armour{/lang} {$PlayerInfo.tech[2]}%
 						<table width="100%">
-						{if !empty($PlayerShips)}
+						{if !empty($Player.ships)}
 							<tr>
 								<td class="transparent">{lang}sys_ship_type{/lang}</td>
-								{foreach $PlayerShips as $ShipID => $ShipData}
+								{foreach $Player.ships as $ShipID => $ShipData}
 								<td class="transparent">{lang}tech_rc.{$ShipID}{/lang}</td>
 								{/foreach}
 							</tr>
 							<tr>
 								<td class="transparent">{lang}sys_ship_count{/lang}</td>
-								{foreach $PlayerShips as $ShipID => $ShipData}
+								{foreach $Player.ships as $ShipID => $ShipData}
 								<td class="transparent">{pretty_number($ShipData[0])}</td>
 								{/foreach}
 							</tr>
 							<tr>
 								<td class="transparent">{lang}sys_ship_weapon{/lang}</td>
-								{foreach $PlayerShips as $ShipID => $ShipData}
+								{foreach $Player.ships as $ShipID => $ShipData}
 								<td class="transparent">{pretty_number($ShipData[1])}</td>
 								{/foreach}
 							</tr>
 							<tr>
 								<td class="transparent">{lang}sys_ship_shield{/lang}</td>
-								{foreach $PlayerShips as $ShipID => $ShipData}
+								{foreach $Player.ships as $ShipID => $ShipData}
 								<td class="transparent">{pretty_number($ShipData[2])}</td>
 								{/foreach}
 							</tr>
 							<tr>
 								<td class="transparent">{lang}sys_ship_armour{/lang}</td>
-								{foreach $PlayerShips as $ShipID => $ShipData}
+								{foreach $Player.ships as $ShipID => $ShipData}
 								<td class="transparent">{pretty_number($ShipData[3])}</td>
 								{/foreach}
 							</tr>

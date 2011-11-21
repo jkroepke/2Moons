@@ -150,7 +150,7 @@ function ShowConfigBasicPage()
 		'capaktiv'      	           	=> $CONF['capaktiv'],
         'ga_active'               		=> $CONF['ga_active'],
 		'ga_key'           				=> $CONF['ga_key'],
-		'timezone'           			=> $CONF['timezone'],
+		'timezone'           			=> (float) $CONF['timezone'],
 		'dst'           				=> $CONF['dst'],
 		'Selector'						=> array('timezone_val' => $TimeZones, 'timezone_opt' => $LNG['timezones'], 'dst' => $LNG['se_dst_sel'], 'mail' => $LNG['se_mail_sel'], 'encry' => array('' => $LNG['se_smtp_ssl_1'], 'ssl' => $LNG['se_smtp_ssl_2'], 'tls' => $LNG['se_smtp_ssl_3'])),
 	));
