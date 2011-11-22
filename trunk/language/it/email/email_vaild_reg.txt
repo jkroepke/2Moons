@@ -1,21 +1,19 @@
-Salve %1$s,
+Benvenuto %1$s,
 
-Grazie per esserti registrato a %2$s
+Grazie per esserti registrato su %2$s
 
-Prima di completare la registrazione, è necessario un'ultimo passo.
-Se vuoi continuare la registrazione, clicca sul link sottostante. Questo ci permette di verificare che sei un utente attivo.
-
-Per completare la registrazione, per favore apri questo link:
+Prima di completare la registrazione, dobbiamo chiederti un ulteriore passo.
+Se vuoi continuare la registrazione, clicca sul link sottostante, questo ci permette di verificare che sei un utente attivo.
 
 %3$s?page=reg&action=valid&uni=%7$s&clef=%4$s
 
-I tuoi dati di gioco sono:
+I dati di gioco sono i seguenti:
 
-Username : %1$s
-Password : %5$s
+Username: %1$s
+Password: %5$s
 
-Se hai riscontrato problemi nella registrazione, non esitare a contattare il nostro staff: 
+In caso di problemi nella registrazione, non esitare a contattare il nostro staff: 
 mailto:%6$s
 
-Saluti,
-%2$s - Staff
+Distinti Saluti,
+%2$s - Team Manager
