@@ -11,7 +11,7 @@ $LNG['title_install']		= 'Installatore';
 $LNG['intro_lang']			= 'Lingua';
 $LNG['intro_instal']		= 'Installazione';
 $LNG['intro_welcome']		= 'Benvenuto in 2moons!';
-$LNG['intro_text']			= 'Uno dei migliori cloni di Ogame &egrave 2moons.<br>L\'ultima versione di 2Moons &egrave stabile, flessibile e dinamica.<br><br>Il sistema di installazione ti aiuta nell\'installare 2moons e nell\'aggiornarlo all\'ultima versione. Per questioni o dubbi non esitare a contattarci!.<br><br>2Moons &egrave un progetto open source sotto licenza GNU GPL v3. Per informazioni rigaurdo la licenza, cliccare la voce "licenza" nel menu in alto di questa pagina.<br><br>Prima dell\'installazione sar&agrave eseguito un test per verificare che tutti i requisiti di 2Moons siano soddisfatti.<br><br><br><br>2Moons, versione italiana tradotta da Malware (bozzato@live.it) per la community italiana di 2Moons http://www.2moons.freedost.com.<br>Se si notato errori nella traduzione, non esitare a segnalarceli nel forum che trovi nel nostro sito. <br>Grazie.';
+$LNG['intro_text']			= 'Uno dei migliori cloni di Ogame &egrave 2moons.<br>L\'ultima versione di 2Moons &egrave stabile, flessibile e dinamica.<br><br>Il sistema di installazione ti aiuta nell\'installare 2moons e nell\'aggiornarlo all\'ultima versione. Per domande o dubbi non esitare a contattarci!.<br><br>2Moons &egrave un progetto open source sotto licenza GNU GPL v3. Per informazioni rigaurdo la licenza, cliccare sulla voce "licenza" nel menu in alto di questa pagina.<br><br>Prima dell\'installazione sar&agrave eseguito un test per verificare che tutti i requisiti di 2Moons siano soddisfatti.<br><br><br><br>2Moons, versione italiana tradotta da Malware (bozzato@live.it) per la community italiana di 2Moons http://www.2moons.freedost.com.<br>Se si notato errori nella traduzione, non esitare a segnalarceli nel forum che trovi nel nostro sito. <br>Grazie.';
 
 $LNG['reg_yes']				= 'Si';
 $LNG['reg_no']				= 'No';
@@ -39,24 +39,29 @@ $LNG['req_ftp_pass_info']	= 'Inserisci i dettagli per la password.';
 
 $LNG['step1_mysql_server']	= 'MySQL-DB-Server: <br>Standard: localhost';
 $LNG['step1_mysql_port']	= 'MySQL-DB-Server-Porta: <br>Standard: 3306';
-$LNG['step1_mysql_dbname']	= 'MySQL-DB-Name: <br> Ex.: Game (per altervista: my_nomegioco)';
-$LNG['step1_mysql_dbuser']	= 'MySQL-DB-User: <br> Ex.: root';
-$LNG['step1_mysql_dbpass']	= 'MySQL-DB-Password: <br> Ex.: 12345';
-$LNG['step1_mysql_prefix']	= 'MySQL-DB-Prefisso delle tabelle: <br> Ex.: uni1_';
+$LNG['step1_mysql_dbname']	= 'Name Database: <br> Es.:(per altervista: my_nomegioco)';
+$LNG['step1_mysql_dbuser']	= 'Username ftp: <br> Es.: root';
+$LNG['step1_mysql_dbpass']	= 'Password ftp: <br> Es.: 12345';
+$LNG['step1_mysql_prefix']	= 'Prefisso sql: <br> Es.: uni1_';
 
 $LNG['step2_db_error']		= 'Errore nella creazione delle tabelle: %s';
 $LNG['step2_db_con_fail']	= 'Connessione al database fallita.<br> %s';
 $LNG['step2_conf_op_fail']	= 'config.php non &egrave in CHMOD 777!';
 $LNG['step2_db_connet_ok']	= 'Connessione al database eseguita con successo...';
-$LNG['step2_db_create_ok']	= 'tabelle del db create correttamente...';
-$LNG['step2_conf_create']	= 'config.php creato correttamente...';
+$LNG['step2_db_create_ok']	= 'Tabelle del db create correttamente...';
+$LNG['step2_conf_create']	= 'Config.php creato correttamente...';
+$LNG['step2_prefix_invalid']= 'Il prefisso del database deve contenere caratteri alfanumerici seguito dall underscores ( "_" ).';
 
 $LNG['step3_create_admin']	= 'Creazione dell\'account admin';
-$LNG['step3_admin_name']	= 'Usarname dell\'amministratore:';
-$LNG['step3_admin_pass']	= 'Password dell\'amministratore:';
-$LNG['step3_admin_mail']	= 'E-mail dell\'amministratore:';
+$LNG['step3_admin_name']	= 'Usarname account:';
+$LNG['step3_admin_pass']	= 'Password account:';
+$LNG['step3_admin_mail']	= 'E-mail account:';
 
 
 $LNG['step4_need_fields']	= 'Non hai compilato tutti i campi!';
+
+$LNG['sql_universe']            = 'Universo';
+$LNG['sql_close_reason']        = 'Gioco attualmente chiuso.';
+$LNG['sql_welcome']                     = 'Benvenuto su ';
 		
 ?>

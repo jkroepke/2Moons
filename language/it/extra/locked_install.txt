@@ -1,0 +1,7 @@
+<h1>Installazione dei tool attualmente bloccata!</h1>
+<p>Per poter installare i tool, deve essere creato il file ENABLE_INSTALL_TOOL.</p>
+<ul>
+    <li>Nella cartella includes/ , create un file chiamato ENABLE_INSTALL_TOOL e lasciatelo libero senza scriverci nulla dentro.</li>
+</ul>
+<p>Per motivi di sicurezza, consigliamo vivamente di modificare il nome o cancellare direttamente il file una volta effettuata l installazione in questione.</p>
+<p>Per misure di sicurezza, se il file rimane e vi dimenticate di toglierlo, il server di 2Moons lo cancella automaticamente al posto vostro.</p>

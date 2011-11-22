@@ -219,10 +219,12 @@ switch ($page) {
 					$MailSubject 	= $LNG['reg_mail_message_pass'];
 					$MailRAW		= $LANG->getMail('email_vaild_reg');
 					$MailContent	= sprintf($MailRAW, $UserName, $CONF['game_name'].' - '.$CONF['uni_name'], "http://".$_SERVER['SERVER_NAME'].$_SERVER["PHP_SELF"], $clef, $UserPass, $CONF['smtp_sendmail'], $UNI);
-			
+					ob_start();
 					MailSend($UserEmail, $UserName, $MailSubject, $MailContent);
-					
-					echo json_encode(array('error' => false, 'message' => $LNG['reg_completed']));
+					$Debug	= ob_get_clean();
+					if(!empty($Debug))
+						$Debug	.="<br />"
+					echo json_encode(array('error' => false, 'message' => $Debug.$LNG['reg_completed']));
 				}								
 			break;
 			case 'valid' :

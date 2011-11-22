@@ -1,11 +1,113 @@
 
 <?php
 
+/**
+ *  2Moons
+ *  Copyright (C) 2011  Slaver
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @package 2Moons
+ * @author Slaver <slaver7@gmail.com>
+ * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
+ * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
+ * @version 1.6 (2011-11-17)
+ * @info $Id$
+ * @link http://code.google.com/p/2moons/
+ */
+ 
 $LNG['Version']     = 'Version';
-$LNG['Description'] = 'Description';
+$LNG['Description'] = 'Beschreibung';
 
 $LNG['changelog']   = array(
 
+'v1.6' => 'Slaver 17.11.11
+- 0000075: [Login] Registrierungserror wenn im Planeten namen ein \' vorkommt (Slaver) - resolved.
+- 0000069: [Core] Chance of destruction of the moon (Slaver) - resolved.
+- 0000066: [Core] Registration (Slaver) - resolved.
+- 0000054: [Core] Missions Rocket attack and to Destroy (Slaver) - resolved.
+- 0000070: [Core] Ticket system (Slaver) - resolved.
+- 0000068: [Core] Rev 2065 Error afeter update in class.template (Slaver) - resolved.
+- 0000018: [Core] Speed of recyclers and spies (Slaver) - resolved.
+- 0000062: [Login] Install fehler (Slaver) - resolved.
+- 0000065: [Core] Attacks and a holiday mode (Slaver) - resolved.
+- 0000067: [Core] Rev. 2062 Reset universum (Slaver) - resolved.
+- 0000061: [Time (offset errors)] progresbar moves only 100 pixels (1% - 1 pixel) in the construction and research (Slaver) - resolved.
+- 0000058: [Design] Fortschrittsbalken bei Forschung und Gebäude wird nur noch zu ca. 40% aufgebaut. (Slaver) - resolved.
+- 0000064: [Login] Install doesn\'t work in 2060 SVN Version: FIX (Slaver) - resolved.
+- 0000057: [Fleets (Missions)] Nobody can send one ship (Slaver) - resolved.
+- 0000031: [Core] Search limit (Slaver) - resolved.
+- 0000038: [Core] Resource bug (Slaver) - resolved.
+- 0000044: [Core] Invalid argument supplied error in Game Updates Pages (Slaver) - resolved.
+- 0000047: [Login] someone has logget in from another PC on your account every 2 minutes (Slaver) - resolved.
+- 0000051: [Fleets (Missions)] Fatal error: class.FlyingFleetHandler.php on line 59 (Slaver) - resolved.
+- 0000052: [Core] Shortcuts (Slaver) - resolved.
+- 0000055: [Fleets (Missions)] Combat Report does not show moon building message (Slaver) - resolved.
+- 0000045: [Design] Screenshots not shown by IE8/IE9 by FF it works (Slaver) - resolved.
+- 0000050: [Core] Wrong redirect (Slaver) - resolved.
+- 0000049: [Core] Encoding banner (Slaver) - resolved.
+',
+'v1.5' => 'Slaver 18.09.11
+- FIX: REMOTE FILE INCLUSION VULNERABILITY
+- ADD: Timezone Support
+- FIX: Fleetspeed Bonus
+- FIX: Messafe Notfiy
+- FIX: Hall of Fame Mulituniverse glitch
+- FIX: delete messages in IE
+- FIX: planetmenu cookie
+- FIX: PHP errors in chatsystem
+- FIX: Iusses with Special Char on alliance request 
+- FIX: Fleettime, if acs mission was cancel
+- FIX: clear planets after spy
+- FIX: little template iusses
+- FIX: SQL Error on FleetBack, if fleet is on a acs
+- FIX: JS Error on Combat Raports
+- FIX: Cron on statbuilder, who deletes raports
+- FIX: Cross universe glitch on acs invations (StoNelHa) 
+. FIX: Case 6 on Expedition 
+- DIV: Sicherheit im Game erhöht
+- DIV: rootID now in constants
+- DIV: Added Suhosin detection 
+- DIV: Updated Smarty & TS Libs
+- DIV: Diverse Anpassungen am Game
+- 0000024: [Login] On email activation users cann´t register (Slaver) - resolved.
+- 0000046: [Core] referals in overview (Slaver) - resolved.
+- 0000042: [Core] referrals name (Slaver) - resolved.
+- 0000034: [Design] IE8 / IE9 changelog and menu-top.png not shown (Slaver) - resolved.
+- 0000030: [Core] Phalanx not work after update, says error (Slaver) - resolved.
+- 0000025: [Time (offset errors)] Timezone [not resolved 2030] (Slaver) - resolved.
+- 0000035: [Core] after last update to 2043 (Slaver) - resolved.
+- 0000037: [Fleets (Missions)] Flotten Hängen sich auf!! (Slaver) - resolved.
+- 0000003: [EcoSystem] Time of building of the ships (Slaver) - resolved.
+- 0000033: [Design] Rules werden auch in Deutsch nicht angezeigt (Slaver) - resolved.
+- 0000013: [EcoSystem] Rev. 2033 (Slaver) - resolved.
+- 0000029: [Core] After rev 2039 crash error on email (Slaver) - resolved.
+- 0000001: [Core] Display error message, if register fails (Slaver) - resolved.
+- 0000006: [Core] Error.log (Slaver) - resolved.
+- 0000023: [Fleets (Missions)] Rev. 2037 Mission destruction (Slaver) - resolved.
+- 0000021: [Core] Timezone (Slaver) - resolved.
+- 0000019: [Core] Information ACP Page (Slaver) - resolved.
+- 0000008: [Core] Research Always Refresh (Slaver) - resolved.
+- 0000005: [Core] Rockets (Slaver) - resolved.
+- 0000004: [Core] Free fields (Slaver) - resolved.
+- 0000007: [Core] Free fields again (Slaver) - resolved.
+- 0000015: [Core] Rev. 2033 Silo (Slaver) - resolved.
+- 0000014: [Design] Anzeige von Energie bei IE8 defekt (Slaver) - resolved.
+- 0000011: [Chat] Portuguese chat don´t work (Slaver) - resolved.
+- 0000010: [EcoSystem] Demolish a level (Slaver) - closed.
+',
 'v1.4' => 'ShadoX 05.07.11
 - ADD: FirePHP Log System
 - ADD: Language selectable on Global Messages

@@ -1,8 +1,8 @@
-Ciao %1$s,
+Buongiorno %1$s,
 
-Tu non hai effettuato l'accesso da %2$s giorni, l'ultima volta il %3$s. Se vuoi rimanere un utente della community, per favore effetua il login, altrimenti il tuoa ccount verrà cancellato.
+Ricevi la prsente email in quanto non hai effettuato il login in gioco da %2$s giorni, l'ultima volta risale al %3$s. Se desideri rimanere un utente della community, per favore effetua il login, altrimenti il conto viene automaticamente rimosso dal database.
 
-Se hai dimenticato la password, poi vai in %4$s e clicca su "password dimenticata". In pochi minuti riceverai l'email con la nuova password.
+In caso hai dimenticato la password, vai su %4$s e clicca su "Password dimenticata". In pochi minuti riceverai una email con la nuova password.
 
-Saluti,
-%3$s - Staff
+Distinti Saluti,
+%3$s - Team Manager

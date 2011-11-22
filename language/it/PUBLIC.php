@@ -21,12 +21,12 @@ $LNG['uni_closed']			= '(offline)';
 $LNG['lost_empty']			= 'E\' necessario compilare tutti i campi!';
 $LNG['lost_not_exists']		= 'Nessun utente trovato corrispondente a questo indirirzzo e-mail!';
 $LNG['lost_mail_title']		= 'Nuova Password';
-$LNG['mail_sended']				= 'la tua password ti &egrave inviata con successo!';
+$LNG['mail_sended']				= 'Nuova password inviata con successo, controlla la tua casella e-mail!';
 $LNG['server_infos']			= array(
 	"Un gioco di strategia spaziale, in tempo reale!",
 	"Gioca insieme a centinaia di utenti.",
-	"Non &egrave richiesto nessun donwload. Basta un browser come Mozzilla Firefox.",
-	"Registrazioni gratis!",
+	"Non &egrave richiesto nessun donwload, basta un qualunque browser per poter giocare.",
+	"Registrati e gioca gratis!",
 );
 
 //case default
@@ -45,34 +45,34 @@ $LNG['chose_a_uni']				= 'Scegli l\'universo';
 $LNG['lost_pass_title']			= 'Recupera password';
 
 //index_body.tpl
-$LNG['user']					= 'Usarname';
+$LNG['user']					= 'Username';
 $LNG['pass']					= 'Password';
 $LNG['remember_pass']			= 'Ricorda password';
 $LNG['lostpassword']			= 'Password dimenticata?';
-$LNG['welcome_to']				= 'Benvenuto in';
-$LNG['server_description']		= '<strong>%s</strong> &egrave un gioco spaziale online, con il quale potraio divertirti e giocare con amici o persone di tutto il mondo. Tutto quello di cui hai bisogno per giocare &egrave un browser (ad esempio Mozzilla Firefox, che raccomandiamo).';
+$LNG['welcome_to']				= 'Benvenuto su';
+$LNG['server_description']		= '<strong>%s</strong> &egrave un gioco spaziale giocato online, con il quale potrai divertirti e giocare con amici e giocatori di tutto il mondo. Tutto quello di cui hai bisogno per giocare &egrave un browser qualunque, raccomandiamo FireFox.';
 $LNG['server_register']			= 'Registrati ora!!';
 $LNG['server_message']			= 'Iscriviti ora per sperimentare un nuovo ed emozionante gioco!';
 $LNG['login']					= 'Login';
 $LNG['disclamer']				= 'Contatti';
-$LNG['login_info']				= 'Effettuando il login accetti il <a href="index.php?page=rules">regolamento</a> e i <a href="index.php?page=agb">T&C</a>';
+$LNG['login_info']				= 'Effettuando il login accetti il <a href="index.php?page=rules">Regolamento</a> e i <a href="index.php?page=agb">T&C</a>';
 
 /* ------------------------------------------------------------------------------------------ */
 
 //reg.php - Registrierung
 $LNG['register_closed']				= 'Registrazioni chiuse!';
-$LNG['register_at']					= 'Registrato a ';
+$LNG['register_at']					= 'Registrati su ';
 $LNG['reg_mail_message_pass']		= 'Un\'ultimo passo per attivare il tuo account';
-$LNG['reg_mail_reg_done']			= 'Benvenuto in %s!';
+$LNG['reg_mail_reg_done']			= 'Benvenuto su %s!';
 $LNG['invalid_mail_adress']			= 'E-mail non valida!';
 $LNG['empty_user_field']			= 'Per favore compila tutti i campi!';
 $LNG['password_lenght_error']		= 'La password deve avere minimo 4 caratteri!';
 $LNG['user_field_no_alphanumeric']	= 'L\'usarname pu&ograve avere solo caratteri alfanumerici!';
-$LNG['user_field_no_space']			= 'Devi inserire un usarname!';
-$LNG['planet_field_no']				= 'Devi inserire il nome del pianeta!';
+$LNG['user_field_no_space']			= 'Devi inserire un username!';
+$LNG['planet_field_no']				= 'Devi inserire il nome del pianeta madre che desideri avere!';
 $LNG['planet_field_no_alphanumeric']= 'Il nome del pianeta pu&ograve contenere solo caratteri alfanumerici!';
-$LNG['planet_field_no_space']		= 'Devi inserire il nome del pianeta!';
-$LNG['terms_and_conditions']		= 'Devi accettare le regole e le T&C grazie!';
+$LNG['planet_field_no_space']		= 'Devi inserire il nome del pianeta madre che desideri avere !';
+$LNG['terms_and_conditions']		= 'Devi accettare le regole e i T&C !';
 $LNG['user_already_exists']			= 'Usraname gi&agrave usato!';
 $LNG['mail_already_exists']			= 'E-mail gi&agrave in uso!';
 $LNG['wrong_captcha']				= 'Codice di sicurezza incorretto!';
@@ -81,32 +81,32 @@ $LNG['different_mails']				= 'Hai inserito due e-mail diverse!';
 $LNG['welcome_message_from']		= 'Amministratore';
 $LNG['welcome_message_sender']		= 'Amministratore';
 $LNG['welcome_message_subject']		= 'Benvenuto!';
-$LNG['welcome_message_content']		= 'Benvenuto in %s!<br>Se sei ancora inesperto, segui questi consigli. Costruisci una miniera di metallo, una di cristallo e una raffineria di deuterio. Appena fatto, noterai che l\'energia &egrave negativa. Per questo, costruisci una centarele solare.<br>Hai fatto le tue prime costruzioni!<br>Il resto, lo imparerai giocando;)<br>Buona fortuna!';
+$LNG['welcome_message_content']		= 'Benvenuto su %s!<br>Se sei ancora inesperto, segui questi consigli: Costruisci una miniera di metallo, una di cristallo e una di deuterio. Appena fatto, noterai che l\'energia &egrave negativa, per questo, costruisci una centarele solare.<br>Hai fatto le tue prime costruzioni!<br>Il resto, lo imparerai giocando ;)<br>Buona fortuna e ricorda per qualsiasi problema o dubbio di contattare lo staff del tuo universo!';
 $LNG['newpass_smtp_email_error']	= '<br><br>Errore imprevisto. La tua password /egrave: ';
 $LNG['reg_completed']				= 'Grazie per esserti registrato! Riceverai un\'e-mail con il link di attivazione.';
 $LNG['planet_already_exists']		= 'La posizione del pianeta &egrave gi&agrave occupata! <br>';
 
 //registry_form.tpl
-$LNG['server_message_reg']			= 'Registrati ora per entrare nella community di';
-$LNG['register_at_reg']				= 'Registrato a';
+$LNG['server_message_reg']			= 'Registrati ora per entrare nel famosissimo gioco di';
+$LNG['register_at_reg']				= 'Registrati su';
 $LNG['uni_reg']						= 'Universo';
-$LNG['user_reg']					= 'User';
+$LNG['user_reg']					= 'Username';
 $LNG['pass_reg']					= 'Password';
 $LNG['pass2_reg']					= 'Conferma Password';
 $LNG['email_reg']					= 'Indirizzo e-mail';
 $LNG['email2_reg']					= 'Conferma e-mail';
 $LNG['planet_reg']					= 'Nome del pianeta madre';
-$LNG['ref_reg']						= 'Riferimento da';
+$LNG['ref_reg']						= 'Game suggerito da';
 $LNG['lang_reg']					= 'Lingua';
 $LNG['register_now']				= 'Registrati!';
 $LNG['captcha_reg']					= 'Domanda di sicurezza';
 $LNG['accept_terms_and_conditions']	= 'Accetto il <a href="index.php?page=rules">Regolamento</a> e i <a href="index.php?page=agb">T&C</a>';
 $LNG['captcha_reload']				= 'Ricarica';
-$LNG['captcha_help']				= 'Help';
-$LNG['captcha_get_image']			= 'Carica immagine-CAPTCHA';
-$LNG['captcha_reload']				= 'Nuovo CAPTCHA';
-$LNG['captcha_get_audio']			= 'Carica suono-CAPTCHA';
-$LNG['user_active']                	= 'L\'utente %s è stato attivato!';
+$LNG['captcha_help']				= 'Aiuto';
+$LNG['captcha_get_image']			= 'Carica immagine captcha';
+$LNG['captcha_reload']				= 'Nuovo captcha';
+$LNG['captcha_get_audio']			= 'Carica suono captcha';
+$LNG['user_active']                	= 'L\'utente %s puo ora giocare in quanto ha attivato il suo account!';
 
 //Rules
 $LNG['rules_overview']				= "Regolamento";
@@ -187,12 +187,12 @@ $LNG['fb_perm']                	= 'Accesso non consentito. %s hai bisogno di tut
 //NEWS
 
 $LNG['news_overview']			= "News";
-$LNG['news_from']				= "In %s da %s";
+$LNG['news_from']				= "Il %s da %s";
 $LNG['news_does_not_exist']		= "Nessuna news disponibile!";
 
 //Impressum
 
-$LNG['disclamer']				= "Disclaimer:";
+$LNG['disclamer']				= "Annuncio allo staff!";
 $LNG['disclamer_name']			= "Indirizzo:";
 $LNG['disclamer_adress']		= "E-mail:";
 $LNG['disclamer_tel']			= "Telefono:";
