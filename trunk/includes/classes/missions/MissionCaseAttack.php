@@ -157,7 +157,13 @@ class MissionCaseAttack extends MissionFunctions
 				$SQL .= "UPDATE ".FLEETS." SET `fleet_mess` = '1', `fleet_array` = '".substr($fleetArray, 0, -1)."', `fleet_amount` = '".$totalCount."' WHERE `fleet_id` = '".$fleetID."';";
 				$SQL .= "UPDATE ".LOG_FLEETS." SET `fleet_mess` = '1', `fleet_array` = '".substr($fleetArray, 0, -1)."', `fleet_amount` = '".$totalCount."', `fleet_state` = 1 WHERE `fleet_id` = '".$fleetID."';";
 			}	
-		}	
+		}
+		
+		$steal	= array(
+			'metal'		=> 0,
+			'crystal'	=> 0,
+			'deuterium'	=> 0,
+		);
 		
 		if ($result['won'] == "a")
 		{
