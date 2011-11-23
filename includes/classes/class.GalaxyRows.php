@@ -201,13 +201,13 @@ class GalaxyRows
 		{
 			$Class		 	= array('vacation');
 		}
-		elseif ($GalaxyRowPlanet['onlinetime'] < (TIMESTAMP-60 * 60 * 24 * 7) && $GalaxyRowPlanet['onlinetime'] > (TIMESTAMP-60 * 60 * 24 * 28))
-		{
-			$Class		 	= array('inactive');
-		}
-		elseif ($GalaxyRowPlanet['onlinetime'] < (TIMESTAMP-60 * 60 * 24 * 28))
+		elseif ($GalaxyRowPlanet['onlinetime'] < TIMESTAMP - INACTIVE_LONG)
 		{
 			$Class		 	= array('inactive', 'longinactive');
+		}
+		elseif ($GalaxyRowPlanet['onlinetime'] < TIMESTAMP - INACTIVE)
+		{
+			$Class		 	= array('inactive');
 		}
 		elseif ($IsNoobProtec['NoobPlayer'])
 		{

@@ -384,12 +384,25 @@ function CheckPlanetIfExist($Galaxy, $System, $Planet, $Universe, $Planettype = 
 function CheckNoobProtec($OwnerPlayer, $TargetPlayer, $Player)
 {	
 	global $CONF;
-	if($CONF['noobprotection'] == 0 || $CONF['noobprotectionmulti'] == 0 || $OwnerPlayer['total_points'] <= $CONF['noobprotectiontime'] || $Player['banaday'] > TIMESTAMP || $Player['onlinetime'] < (TIMESTAMP - 60 * 60 * 24 * 7))
+	if(
+		$CONF['noobprotection'] == 0 
+		|| $CONF['noobprotectiontime'] == 0 
+		|| $CONF['noobprotectionmulti'] == 0 
+		|| $Player['banaday'] > TIMESTAMP
+		|| $Player['onlinetime'] < TIMESTAMP - INACTIVE
+	) {
 		return array('NoobPlayer' => false, 'StrongPlayer' => false);
-		
+	}
+	
 	return array(
-		'NoobPlayer' => $OwnerPlayer['total_points'] > $TargetPlayer['total_points'] * $CONF['noobprotectionmulti'],
-		'StrongPlayer' => $OwnerPlayer['total_points'] * $CONF['noobprotectionmulti'] < $TargetPlayer['total_points']
+		'NoobPlayer' => (
+			($OwnerPlayer['total_points'] <= $CONF['noobprotectiontime'] * $CONF['noobprotectionmulti']) && // Default: 25.000
+			($OwnerPlayer['total_points'] * (1 - 1 / $CONF['noobprotectiontime']) < $TargetPlayer['total_points'])
+		), 
+		'StrongPlayer' => (
+			($OwnerPlayer['total_points'] < $CONF['noobprotectiontime']) && // Default: 5.000
+			($OwnerPlayer['total_points'] * $CONF['noobprotectiontime'] > $TargetPlayer['total_points'])
+		),
 	);
 }
 
