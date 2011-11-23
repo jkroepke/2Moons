@@ -223,7 +223,8 @@ switch ($page) {
 					MailSend($UserEmail, $UserName, $MailSubject, $MailContent);
 					$Debug	= ob_get_clean();
 					if(!empty($Debug))
-						$Debug	.="<br />"
+						$Debug	.= "<br />";
+						
 					echo json_encode(array('error' => false, 'message' => $Debug.$LNG['reg_completed']));
 				}								
 			break;
