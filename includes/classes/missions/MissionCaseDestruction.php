@@ -125,6 +125,13 @@ class MissionCaseDestruction extends MissionFunctions
 		$db->multi_query($SQL);
 		$SQL	= "";
 		
+		
+		$steal	= array(
+			'metal'		=> 0,
+			'crystal'	=> 0,
+			'deuterium'	=> 0,
+		);
+		
 		if ($result['won'] == "a")
 		{
 			require_once('calculateSteal.php');
@@ -159,7 +166,7 @@ class MissionCaseDestruction extends MissionFunctions
 
 				$SQL .= "UPDATE ".PLANETS." SET ";
 				$SQL .= $fleetArray;
-				$SQL .= "`metal` = `metal` - '".floattostring($steal['metal'])."', `crystal` = `crystal` - '".floattostring($steal['crystal'])."', `deuterium` = `deuterium` - '".floattostring($steal['deuterium'])."' WHERE `id` = '".$this->_fleet['fleet_end_id']."';";
+				$SQL .= "`metal` = `metal` - ".$steal['metal'].", `crystal` = `crystal` - ".$steal['crystal'].", `deuterium` = `deuterium` - ".$steal['deuterium']." WHERE `id` = ".$this->_fleet['fleet_end_id'].";";
 			}
 		}
 		
