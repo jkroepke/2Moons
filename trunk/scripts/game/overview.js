@@ -78,7 +78,7 @@ function FleetTime() {
 }
 
 function UhrzeitAnzeigen() {
-   $("#servertime").text(getFormatedDate(serverTime.getTime(), tdformat));
+   $(".servertime").text(getFormatedDate(serverTime.getTime(), tdformat));
 }
 
 UhrzeitAnzeigen();
