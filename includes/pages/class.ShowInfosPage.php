@@ -126,9 +126,11 @@ class ShowInfosPage
 	private function CancelMissiles()
 	{
 		global $resource, $PLANET, $db;
-		$PLANET[$resource[502]]	-= min((int)$_REQUEST['missile_502'], $PLANET[$resource[502]]);
-		$PLANET[$resource[503]]	-= min((int)$_REQUEST['missile_503'], $PLANET[$resource[503]]);
-		$db->query("UPDATE ".PLANETS." SET `".$resource[502]."` = '".$PLANET[$resource[502]]."', `".$resource[503]."` = '".$PLANET[$resource[503]]."' WHERE `id` = '".$PLANET['id']."';");
+		$Missle502	= request_outofint('missile_502');
+		$Missle503	= request_outofint('missile_503');
+		$PLANET[$resource[502]]	-= min($Missle502, $PLANET[$resource[502]]);
+		$PLANET[$resource[503]]	-= min($Missle503, $PLANET[$resource[503]]);
+		$db->query("UPDATE ".PLANETS." SET `".$resource[502]."` = '".$PLANET[$resource[502]]."', `".$resource[503]."` = '".$PLANET[$resource[503]]."' WHERE `id` = ".$PLANET['id'].";");
 		echo json_encode(array(pretty_number($PLANET[$resource[502]]), pretty_number($PLANET[$resource[503]])));
 	}
 
