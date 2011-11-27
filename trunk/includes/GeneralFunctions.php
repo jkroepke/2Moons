@@ -402,12 +402,8 @@ function CheckNoobProtec($OwnerPlayer, $TargetPlayer, $Player)
 				ODER weniger als 5.000 hat.
 			*/
 			// Addional Comment: Letzteres ist eigentlich sinnfrei, bitte testen.a
-			(
-				($OwnerPlayer['total_points'] <= $CONF['noobprotectiontime'] * $CONF['noobprotectionmulti']) && // Default: 25.000
-				($OwnerPlayer['total_points'] * (1 - 1 / $CONF['noobprotectionmulti']) > $TargetPlayer['total_points'])
-			) || (
-				$TargetPlayer['total_points'] < $CONF['noobprotectiontime']
-			)
+			($OwnerPlayer['total_points'] <= $CONF['noobprotectiontime'] * $CONF['noobprotectionmulti']) && // Default: 25.000
+			($OwnerPlayer['total_points'] > $TargetPlayer['total_points'] * $CONF['noobprotectionmulti'])
 		), 
 		'StrongPlayer' => (
 			/* WAHR: 
@@ -415,7 +411,7 @@ function CheckNoobProtec($OwnerPlayer, $TargetPlayer, $Player)
 				Mehr als das funfache der eigende Punkte hat
 			*/
 			($OwnerPlayer['total_points'] < $CONF['noobprotectiontime']) && // Default: 5.000
-			($OwnerPlayer['total_points'] * $CONF['noobprotectionmulti'] > $TargetPlayer['total_points'])
+			($OwnerPlayer['total_points'] * $CONF['noobprotectionmulti'] < $TargetPlayer['total_points'])
 		),
 	);
 }
