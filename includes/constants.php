@@ -110,7 +110,7 @@ define('BASH_TIME'          	  , 86400);
 
 // Invisible Missions for Phalanx
 // Exsample: '1','4','7','10'
-define('INV_PHALANX_MISSIONS' 	  , '');	
+define('INV_PHALANX_MISSIONS' 	  , "'8'");	
 
 // Root IDs
 define('ROOT_UNI'        	  	  , 1);	
@@ -154,9 +154,7 @@ define('TOPKB_USERS'			  , $database['tableprefix'].'users_to_topkb');
 define('USERS'				  	  , $database['tableprefix'].'users');
 define('USERS_VALID'		  	  , $database['tableprefix'].'users_valid');
 
-
-
 // MOD-TABLES
-	
-	
+
+
 ?>
