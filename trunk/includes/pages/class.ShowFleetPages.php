@@ -671,7 +671,7 @@ class ShowFleetPages extends FleetFunctions
 							`fleet_start_type` = '".$PLANET['planet_type']."',
 							`fleet_end_time` = '".$fleet['end_time']."',
 							`fleet_end_stay` = '".$StayTime."',
-							`fleet_end_id` = '".(($planettype == 2) ? 0 : (int) $TargetPlanet['id'])."',
+							`fleet_end_id` = '".(int) $TargetPlanet['id']."',
 							`fleet_end_galaxy` = '".$galaxy."',
 							`fleet_end_system` = '".$system."',
 							`fleet_end_planet` = '".$planet."',
