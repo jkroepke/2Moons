@@ -421,6 +421,7 @@ function CheckName($String)
 	return(ctype_alnum($String) || (UTF8_SUPPORT && !empty($String))) ? true : false;
 }
 
+
 function exception_handler($exception) 
 {
 	global $CONF;
@@ -428,7 +429,7 @@ function exception_handler($exception)
 	@session_write_close();
 	if($_SERVER['SERVER_PROTOCOL'] == 'HTTP/1.1' && !headers_sent())
 		header('HTTP/1.1 503 Service Unavailable');
-		
+	
 	echo '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">';
 	echo '<html>';
 	echo '<head>';
@@ -461,6 +462,8 @@ function exception_handler($exception)
 	echo '</table>';
 	echo '</body>';			
 	echo '</html>';
+	ini_set('display_errors', 0);
+	trigger_error("Exception: ".str_replace("<br>", "\r\n", $exception->getMessage())."\r\n\r\n".$exception->getTraceAsString(), E_USER_ERROR);
 	exit;
 }
 

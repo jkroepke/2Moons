@@ -565,7 +565,7 @@ class ShowFleetPages extends FleetFunctions
 		$SpeedFactor    = parent::GetGameSpeedFactor();
 		$distance      	= parent::GetTargetDistance($PLANET['galaxy'], $galaxy, $PLANET['system'], $system, $PLANET['planet'], $planet);
 		$duration      	= parent::GetMissionDuration($GenFleetSpeed, $MaxFleetSpeed, $distance, $SpeedFactor, $USER);
-		$acsduration	= $ACSTime - TIMESTAMP;
+		$acsduration	= max($ACSTime - TIMESTAMP);
 		$consumption   	= parent::GetFleetConsumption($FleetArray, $duration, $distance, $MaxFleetSpeed, $USER, $SpeedFactor, $acsduration);
 		$duration		= $duration * (1 - $USER['factor']['shipspeed']);
 		
@@ -591,8 +591,6 @@ class ShowFleetPages extends FleetFunctions
 			$StayDuration    = 0;
 			$StayTime        = 0;
 		}
-
-		$fleet['end_time']   = $StayDuration + (2 * $duration) + TIMESTAMP;
 
 
 		$FleetStorage       -= $consumption;
@@ -631,30 +629,13 @@ class ShowFleetPages extends FleetFunctions
 		if(connection_aborted())
 			exit;
 		
+		
 		if ($FleetGroup != 0)
-		{
-			$AksStartTime = $db->uniquequery("SELECT MAX(`fleet_start_time`) AS Start FROM ".FLEETS." WHERE `fleet_group` = ".$FleetGroup.";");
-			if (isset($AksStartTime)) 
-			{
-				if ($AksStartTime['Start'] >= $fleet['start_time'])
-				{
-					$fleet['end_time'] 	   += $AksStartTime['Start'] - $fleet['start_time'];
-					$fleet['start_time'] 	= $AksStartTime['Start'];
-				}
-				else
-				{
-					$SQLFleets = "UPDATE ".FLEETS." SET ";
-					$SQLFleets .= "`fleet_start_time` = '".$fleet['start_time']."', ";
-					$SQLFleets .= "`fleet_end_time` = fleet_end_time + '".($fleet['start_time'] - $AksStartTime['Start'])."' ";
-					$SQLFleets .= "WHERE ";
-					$SQLFleets .= "`fleet_group` = '".$fleet_group_mr."';";
-					$db->query($SQLFleets);
-					$fleet['end_time'] 	    += $fleet['start_time'] - $AksStartTime['Start'];
-				}
-			} else {
-				$mission	= 1;
-			}
-		}
+			$FlyTime = $duration + $acsduration;
+		else
+			$FlyTime = $duration * 2;
+
+		$fleet['end_time']   = $StayDuration + $FlyTime + TIMESTAMP;
 		
 		$QryInsertFleet  = "LOCK TABLE ".LOG_FLEETS." WRITE, ".FLEETS." WRITE, ".PLANETS." WRITE;
 							INSERT INTO ".FLEETS." SET 
