@@ -565,7 +565,7 @@ class ShowFleetPages extends FleetFunctions
 		$SpeedFactor    = parent::GetGameSpeedFactor();
 		$distance      	= parent::GetTargetDistance($PLANET['galaxy'], $galaxy, $PLANET['system'], $system, $PLANET['planet'], $planet);
 		$duration      	= parent::GetMissionDuration($GenFleetSpeed, $MaxFleetSpeed, $distance, $SpeedFactor, $USER);
-		$acsduration	= max($ACSTime - TIMESTAMP);
+		$acsduration	= max($duration, $acsduration);
 		$consumption   	= parent::GetFleetConsumption($FleetArray, $duration, $distance, $MaxFleetSpeed, $USER, $SpeedFactor, $acsduration);
 		$duration		= $duration * (1 - $USER['factor']['shipspeed']);
 		
