@@ -36,7 +36,7 @@ function ShowBannedPage()
 	$PlanetRess->SavePlanetToDB();
 
 	$template	= new template();
-	$query			= $db->query("SELECT * FROM ".BANNED." ORDER BY `id`;");
+	$query			= $db->query("SELECT * FROM ".BANNED." ORDER BY `id` DESC;");
 	$PrangerList	= array();
 	
 	while($u = $db->fetch_array($query))

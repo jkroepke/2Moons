@@ -172,6 +172,14 @@ class MissionCaseDestruction extends MissionFunctions
 		
 		$db->multi_query($SQL);
 		$INFO						= $this->_fleet;
+		$INFO['steal']				= $steal;
+		$INFO['moon']				= array(
+			'desfail'	=> 1,
+			'chance'	=> 0,
+			'chance2'	=> 0,
+			'fleetfail'	=> 0,
+			'des'		=> 1
+		);
 		
 		switch ($result['won']) {
 			case "a":
@@ -200,19 +208,14 @@ class MissionCaseDestruction extends MissionFunctions
 				}
 			break;
 			case "r":
-				$INFO['moon']['desfail'] = 1;
 				$destext 		  .= sprintf ($LNG['sys_destruc_mess'], $this->_fleet['fleet_start_galaxy'], $this->_fleet['fleet_start_system'], $this->_fleet['fleet_start_planet'], $this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet'])."<br>";
 				$destext 		  .= $LNG['sys_destruc_stop'] ."<br>";
 			break;
 			case "w":
-				$INFO['moon']['desfail'] = 1;
 				$destext 		  .= sprintf ($LNG['sys_destruc_mess'], $this->_fleet['fleet_start_galaxy'], $this->_fleet['fleet_start_system'], $this->_fleet['fleet_start_planet'], $this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet'])."<br>";
 				$destext 		  .= $LNG['sys_destruc_stop'] ."<br>";
 			break;
 		}
-		
-		$INFO['steal']				= $steal;
-		$INFO['moon']['des']		= 1;
 			
 		require_once('GenerateReport.php');
 		$raport		= GenerateReport($result, $INFO);
@@ -283,12 +286,11 @@ class MissionCaseDestruction extends MissionFunctions
 			$WhereDef .= "`id` = '".$DefenderID."' OR ";
 		}
 		
-		$WhereCol	= $this->_fleet['fleet_end_type'] == 3 ? "id_luna" : "id";		
 		$SQL .= "UPDATE ".PLANETS." SET ";
 		$SQL .= "`der_metal` = `der_metal` + ".$ShootMetal.", ";
 		$SQL .= "`der_crystal` = `der_crystal` + ".$ShootCrystal." ";
 		$SQL .= "WHERE ";
-		$SQL .= "`".$WhereCol."` = ".$this->_fleet['fleet_end_id'].";";
+		$SQL .= "`id_luna` = ".$this->_fleet['fleet_end_id'].";";
 		$SQL .= "INSERT INTO ".TOPKB." SET ";
 		$SQL .= "`units` = '".($result['lost']['att'] + $result['lost']['def'])."', ";
 		$SQL .= "`rid` = ".$rid.", ";

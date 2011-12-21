@@ -40,11 +40,11 @@ function GenerateReport($RESULT, $INFO)
 	$DATA['steal']	= array($INFO['steal']['metal'], $INFO['steal']['crystal'], $INFO['steal']['deuterium']);
 	$DATA['result']	= $RESULT['won'];
 	$DATA['moon']	= array(
-		$INFO['moon']['chance'],
-		$INFO['moon']['name'],
-		$INFO['moon']['desfail'],
-		$INFO['moon']['chance2'],
-		$INFO['moon']['fleetfail']
+		(int) $INFO['moon']['chance'],
+		(int) $INFO['moon']['name'],
+		(int) $INFO['moon']['desfail'],
+		(int) $INFO['moon']['chance2'],
+		(int) $INFO['moon']['fleetfail']
 	);
 	
 	$DATA['simu']	= isset($INFO['battlesim']) ? $INFO['battlesim'] : "";

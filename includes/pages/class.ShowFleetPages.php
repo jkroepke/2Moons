@@ -109,7 +109,7 @@ class ShowFleetPages extends FleetFunctions
 				'end_planet'	=> $CurrentFleetsRow['fleet_end_planet'],
 				'end_time'		=> tz_date($CurrentFleetsRow['fleet_end_time']),
 				'amount'		=> pretty_number($CurrentFleetsRow['fleet_amount']),
-				'backin'		=> pretty_time(floor($CurrentFleetsRow['fleet_end_time'] - TIMESTAMP)),
+				'backin'		=> pretty_time(floor(($CurrentFleetsRow['fleet_mission'] == 4 ? $CurrentFleetsRow['fleet_start_time'] : $CurrentFleetsRow['fleet_end_time']) - TIMESTAMP)),
 				'FleetList'		=> $FleetList[$CurrentFleetsRow['fleet_id']],
 			);
 		}
