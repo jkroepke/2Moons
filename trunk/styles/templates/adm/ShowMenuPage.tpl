@@ -12,7 +12,7 @@
 		{if allowedTo('ShowModulePage')}<li><a href="?page=module" target="Hauptframe">{lang}mu_module{/lang}</a></li>{/if}
 		{if allowedTo('ShowStatsPage')}<li><a href="?page=statsconf" target="Hauptframe">{lang}mu_stats_options{/lang}</a></li>{/if}
 		{if allowedTo('ShowUpdatePage')}<li><a href="?page=update" target="Hauptframe">{lang}mu_update{/lang}</a></li>{/if}
-		{if allowedTo('ShowVertifyPage') && $smarty.const.BETA}<li><a href="?page=vertify" target="Hauptframe">{lang}mu_vertify{/lang}</a></li>{/if}
+		{if allowedTo('ShowVertifyPage')}<li><a href="?page=vertify" target="Hauptframe">{lang}mu_vertify{/lang}</a></li>{/if}
 		<li><a href="javascript:void(0);"><span style="color:lime">{lang}mu_users_settings{/lang}</span></a></li>
 		{if allowedTo('ShowCreatorPage')}<li><a href="?page=create" target="Hauptframe">{lang}new_creator_title{/lang}</a></li>{/if}
 		{if allowedTo('ShowAccountEditorPage')}<li><a href="?page=accounteditor" target="Hauptframe">{lang}mu_add_delete_resources{/lang}</a></li>{/if}
