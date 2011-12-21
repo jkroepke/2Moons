@@ -29,6 +29,7 @@
 
 //---------------	GENERAL	------------------------// 
 $LNG['adm_login']			= 'Login';
+$LNG['adm_username']		= 'Username';
 $LNG['adm_password']		= 'Passwort';
 $LNG['adm_absenden']		= 'Absenden';
 $LNG['adm_password_info']	= 'Gebe dein Passwort ein, um dich zu vertifizeren!';
@@ -618,9 +619,24 @@ $LNG['mu_clear_cache']				= 'Lösche Cache';
 $LNG['mu_vertify']					= 'Vertify Game Content'; 
 $LNG['mu_logs']						= 'Admin-Log';
 
+
+
 $LNG['vt_error']					= 'HashFile ist nicht verfügbar! - Update durchführen!';
 $LNG['vt_fail']						= 'Geänderte Dateien';
 $LNG['vt_info']						= 'Diese Liste enthält die Dateien, die modifziert worden und nicht dem orginal entsprechen.<br>Wenn Sie selbst nichts am Spiel geändert haben, sollte Sie die Dateien mit dem Orginalen ersetzten.';
+$LNG['vt_head']						= 'Überprüfe Spieldateien';
+$LNG['vt_filephp']					= 'PHP-Dateien';
+$LNG['vt_filetpl']					= 'Template-Dateien';
+$LNG['vt_filecss']					= 'Style-Dateien';
+$LNG['vt_filejs']					= 'Javascript-Dateien';
+$LNG['vt_fileimg']					= 'Bild-Dateien';
+$LNG['vt_filehtaccess']				= 'htaccess-Dateien';
+$LNG['vt_all']						= 'Überprüfe Alle Dateien';
+$LNG['vt_fileok']					= 'Dateien OK';
+$LNG['vt_filefail']					= 'geänderte Dateien ';
+$LNG['vt_filenew']					= 'neue Dateien';
+$LNG['vt_fileerror']				= 'Fehler';
+$LNG['vt_loadfile']					= 'Lade Dateiliste';
 
 //###########################################################//
 

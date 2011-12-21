@@ -3,10 +3,14 @@
 	<form action="" method="POST">
     <table style="width:569px;margin-top:30px;">
 		<tr>
-            <th>{$adm_login}</th>
+            <th>{lang}adm_login{/lang}</th>
         </tr>
 		<tr>
-            <td>{$adm_password}: <input type="password" name="admin_pw"><br><input type="submit" value="{$adm_absenden}"></td></td>
+            <td>
+				<div><label style="display:inline-block;width:100px;">{lang}adm_username{/lang}:</label><input type="text" readonly value="{$username}"></div>
+				<div><label style="display:inline-block;width:100px;">{lang}adm_password{/lang}:</label><input type="password" name="admin_pw"></div>
+				<div><input type="submit" value="{lang}adm_absenden{/lang}"></div>
+			</td>
         </tr>
     </table>
 	</form>

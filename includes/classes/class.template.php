@@ -41,6 +41,7 @@ class template extends Smarty
 		$this->script				= array();
 		$this->compile_dir			= is_writable(ROOT_PATH.'cache/') ? ROOT_PATH.'cache/' : $this->getTempPath();
 		$this->template_dir			= ROOT_PATH.'/styles/templates/';
+		$this->php_handling			= Smarty::PHP_QUOTE;#Smarty::PHP_REMOVE;
 		$this->Popup				= false;
 		$this->Dialog				= false;
 	}
