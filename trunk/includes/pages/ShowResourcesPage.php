@@ -123,7 +123,7 @@ function ShowResourcesPage()
 	$template->assign_vars(array(	
 		'bonus_metal'							=> colorNumber(pretty_number($PLANET['metal_perhour'] - array_sum($PLANET['metal_proc']) * $PLANET['level_proc'])),
 		'bonus_crystal'							=> colorNumber(pretty_number($PLANET['crystal_perhour'] - array_sum($PLANET['crystal_proc']) * $PLANET['level_proc'])),
-		'bonus_deuterium'						=> colorNumber(pretty_number($PLANET['deuterium_perhour'] - array_sum($PLANET['deuterium_proc']) * $PLANET['level_proc'])),
+		'bonus_deuterium'						=> colorNumber(pretty_number($PLANET['deuterium_perhour'] - array_sum($PLANET['deuterium_proc']) * $PLANET['level_proc'] + array_sum($this->PLANET['deuterium_userd_proc']))),
 		'bonus_energy'							=> colorNumber(pretty_number($PLANET['energy_max'] - array_sum($PLANET['energy_max_proc']))),
 		'CurrPlanetList'						=> $CurrPlanetList,	
 		'Production_of_resources_in_the_planet'	=> str_replace('%s', $PLANET['name'], $LNG['rs_production_on_planet']),

@@ -1,38 +1,33 @@
 AddDefaultCharset utf-8
-FileETag MTime Size
+#
+# Remove the # for better performence
+#
+#FileETag MTime Size
+#
+#<IfModule mod_deflate.c>
+#	SetOutputFilter DEFLATE
+#	BrowserMatch ^Mozilla/4 gzip-only-text/html
+#	BrowserMatch ^Mozilla/4.0[678] no-gzip
+#	BrowserMatch bMSI[E] !no-gzip !gzip-only-text/html
+#	SetEnvIfNoCase Request_URI .(?:gif|jpe?g|png)$ no-gzip dont-vary
+#	<IfModule mod_headers.c>
+#		Header append Vary User-Agent env=!dont-vary
+#	</IfModule>
+#</IfModule>
 
-<IfModule mod_deflate.c>
-	SetOutputFilter DEFLATE
-	BrowserMatch ^Mozilla/4 gzip-only-text/html
-	BrowserMatch ^Mozilla/4.0[678] no-gzip
-	BrowserMatch bMSI[E] !no-gzip !gzip-only-text/html
-	SetEnvIfNoCase Request_URI .(?:gif|jpe?g|png)$ no-gzip dont-vary
-	<IfModule mod_headers.c>
-		Header append Vary User-Agent env=!dont-vary
-	</IfModule>
-</IfModule>
-
-<IfModule mod_rewrite.c>
-	RewriteEngine on
-	RewriteCond %{REQUEST_FILENAME} !-f
-	RewriteCond %{REQUEST_FILENAME} !-d
-	RewriteCond %{REQUEST_FILENAME} !-l
-	RewriteRule .* index.php [L]
-</IfModule>
-
-<IfModule mod_expires.c>
-	ExpiresActive On
-	ExpiresDefault A3600
-	<FilesMatch \.js$>
-		ExpiresDefault A43200
-	</FilesMatch>
-	<FilesMatch \.css$>
-		ExpiresDefault A172800
-	</FilesMatch>
-	<FilesMatch \.(?:gif|jpe?g|png|ico)$>
-		ExpiresDefault A604800
-	</FilesMatch>
-	<FilesMatch \.php$>
-		ExpiresActive Off
-	</FilesMatch>
-</IfModule>
+#<IfModule mod_expires.c>
+#	ExpiresActive On
+#	ExpiresDefault A3600
+#	<FilesMatch \.js$>
+#		ExpiresDefault A43200
+#	</FilesMatch>
+#	<FilesMatch \.css$>
+#		ExpiresDefault A172800
+#	</FilesMatch>
+#	<FilesMatch \.(?:gif|jpe?g|png|ico)$>
+#		ExpiresDefault A604800
+#	</FilesMatch>
+#	<FilesMatch \.php$>
+#		ExpiresActive Off
+#	</FilesMatch>
+#</IfModule>

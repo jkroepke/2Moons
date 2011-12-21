@@ -111,7 +111,18 @@ switch($action)
 		$password =	request_var('password', '', true);
 		if (!empty($password))
 		{
-			$IfFleets	= $db->countquery("SELECT COUNT(*) FROM ".FLEETS." WHERE (`fleet_owner` = '".$_SESSION['id']."' AND (`fleet_start_id` = ".$_SESSION['PLANET']['id']." OR `fleet_start_id` = ".$_SESSION['PLANET']['id_luna'].")) OR (`fleet_target_owner` = '".$_SESSION['id']."' AND (`fleet_end_id` = '".$_SESSION['PLANET']['id']."' OR `fleet_end_id` = ".$_SESSION['PLANET']['id_luna']."));");
+			$IfFleets	= $db->countquery("SELECT COUNT(*) FROM ".FLEETS." WHERE 
+			(
+				`fleet_owner` = '".$_SESSION['id']."'
+				AND (
+					`fleet_start_id` = ".$_SESSION['PLANET']['id']." OR `fleet_start_id` = ".$_SESSION['PLANET']['id_luna']."
+				)
+			) OR (
+				`fleet_target_owner` = '".$_SESSION['id']."' 
+				AND (
+					`fleet_end_id` = '".$_SESSION['PLANET']['id']."' OR `fleet_end_id` = ".$_SESSION['PLANET']['id_luna']."
+				)
+			);");
 			
 			if ($IfFleets > 0)
 				exit(json_encode(array('mess' => $LNG['ov_abandon_planet_not_possible'])));

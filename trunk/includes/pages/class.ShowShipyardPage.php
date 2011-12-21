@@ -59,7 +59,7 @@ class ShowShipyardPage
 		global $resource, $PLANET, $USER, $CONF;
 
 		$BuildArray  	  	= !empty($PLANET['b_hangar_id']) ? unserialize($PLANET['b_hangar_id']) : array();
-		$MaxMissiles   		= $PLANET[$resource[44]] * 5 * max($CONF['silo_factor'], 1);
+		$MaxMissiles   		= $PLANET[$resource[44]] * 10 * max($CONF['silo_factor'], 1);
 
 		foreach($BuildArray as $ElementArray) {
 			if(isset($Missiles[$ElementArray[0]]))

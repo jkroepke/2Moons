@@ -61,7 +61,8 @@ function ShowQuickEditorPage()
 				$SQL	.= "`deuterium` = '".request_outofint('deuterium')."', ";
 				$SQL	.= "`field_current` = '".$Fields."', ";
 				$SQL	.= "`field_max` = '".request_var('field_max', 0)."', ";
-				$SQL	.= "`name` = '".$db->sql_escape(request_var('name', '', UTF8_SUPPORT))."' ";
+				$SQL	.= "`name` = '".$db->sql_escape(request_var('name', '', UTF8_SUPPORT))."', ";
+				$SQL	.= "`eco_hash` = '' ";
 				$SQL	.= "WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';";
 					
 				$db->query($SQL);

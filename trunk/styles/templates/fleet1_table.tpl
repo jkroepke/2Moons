@@ -13,9 +13,9 @@
             <tr style="height:20px;">
             	<td style="width:50%">{lang}fl_destiny{/lang}</td>
             	<td>
-                    <input type="number" name="galaxy" size="3" maxlength="2" onChange="updateVars()" onKeyUp="updateVars()" value="{$galaxy_post}">
-                    <input type="number" name="system" size="3" maxlength="3" onChange="updateVars()" onKeyUp="updateVars()" value="{$system_post}">
-                    <input type="number" name="planet" size="3" maxlength="2" onChange="updateVars()" onKeyUp="updateVars()" value="{$planet_post}">
+                    <input type="text" name="galaxy" size="3" maxlength="2" onKeyUp="updateVars()" value="{$galaxy_post}">
+                    <input type="text" name="system" size="3" maxlength="3" onKeyUp="updateVars()" value="{$system_post}">
+                    <input type="text" name="planet" size="3" maxlength="2" onKeyUp="updateVars()" value="{$planet_post}">
                     <select name="planettype" onChange="updateVars()" onKeyUp="updateVars()">
                     {html_options options=$options_selector selected=$options}
                     </select>

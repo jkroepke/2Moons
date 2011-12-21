@@ -153,6 +153,7 @@ function ShowAccountEditorPage()
 				if ($_POST['add'])
 				{
 					$SQL  = "UPDATE ".PLANETS." SET ";
+					$SQL .= "`eco_hash` = '', ";
 					foreach($reslist['fleet'] as $ID)
 					{
 						$QryUpdate[]	= "`".$resource[$ID]."` = `".$resource[$ID]."` + '".request_outofint($resource[$ID])."'";
@@ -166,6 +167,7 @@ function ShowAccountEditorPage()
 				elseif ($_POST['delete'])
 				{
 					$SQL  = "UPDATE ".PLANETS." SET ";
+					$SQL .= "`eco_hash` = '', ";
 					foreach($reslist['fleet'] as $ID)
 					{
 						$QryUpdate[]	= "`".$resource[$ID]."` = `".$resource[$ID]."` - '".request_outofint($resource[$ID])."'";
@@ -311,6 +313,7 @@ function ShowAccountEditorPage()
 				{
 					$Fields	= 0;
 					$SQL  = "UPDATE ".PLANETS." SET ";
+					$SQL .= "`eco_hash` = '', ";
 					foreach($reslist['allow'][$PlanetData['planet_type']] as $ID)
 					{
 						$Count			= request_outofint($resource[$ID]);
@@ -328,6 +331,7 @@ function ShowAccountEditorPage()
 				{
 					$Fields	= 0;
 					$SQL  = "UPDATE ".PLANETS." SET ";
+					$SQL .= "`eco_hash` = '', ";
 					foreach($reslist['allow'][$PlanetData['planet_type']] as $ID)
 					{
 						$Count			= request_outofint($resource[$ID]);

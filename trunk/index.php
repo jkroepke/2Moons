@@ -90,10 +90,10 @@ switch ($page) {
 				$value	= request_var('value', '', UTF8_SUPPORT);
 				switch($mode) {
 					case 'username' :
-						$Count 	= $db->countquery("SELECT (SELECT COUNT(*) FROM ".USERS." WHERE `universe` = '".$UNI."' AND `username` = '".$db->sql_escape($value)."') + (SELECT COUNT(*) FROM ".USERS_VALID." WHERE `universe` = '".$Universe."' AND `username` = '".$db->sql_escape($value)."')");
+						$Count 	= $db->countquery("SELECT (SELECT COUNT(*) FROM ".USERS." WHERE `universe` = '".$UNI."' AND `username` = '".$db->sql_escape($value)."') + (SELECT COUNT(*) FROM ".USERS_VALID." WHERE `universe` = ".$UNI." AND `username` = '".$db->sql_escape($value)."')");
 					break;
 					case 'email' :
-						$Count 	= $db->countquery("SELECT (SELECT COUNT(*) FROM ".USERS." WHERE `universe` = '".$UNI."' AND (`email` = '".$db->sql_escape($value)."' OR `email_2` = '".$db->sql_escape($value)."')) + (SELECT COUNT(*) FROM ".USERS_VALID." WHERE `universe` = '".$Universe."' AND `email` = '".$db->sql_escape($value)."')");
+						$Count 	= $db->countquery("SELECT (SELECT COUNT(*) FROM ".USERS." WHERE `universe` = '".$UNI."' AND (`email` = '".$db->sql_escape($value)."' OR `email_2` = '".$db->sql_escape($value)."')) + (SELECT COUNT(*) FROM ".USERS_VALID." WHERE `universe` = ".$UNI." AND `email` = '".$db->sql_escape($value)."')");
 					break;
 					case 'fbid' :
 						$Count 	= $db->countquery("SELECT COUNT(*) FROM ".USERS." WHERE `universe` = '".$UNI."' AND `fb_id` = '".$db->sql_escape($value)."';");
@@ -290,10 +290,8 @@ switch ($page) {
 						if ($LastSettedSystemPos > $CONF['max_system']) {
 							$LastSettedGalaxyPos += 1;
 							$LastSettedSystemPos = 1;
-							$LastSettedPlanetPos = 1;
 						} else {
 							$LastSettedSystemPos += 1;
-							$LastSettedPlanetPos = 1;
 						}
 						
 						if($LastSettedGalaxyPos  > $CONF['max_system'])
@@ -319,7 +317,7 @@ switch ($page) {
 				$from 		= $LNG['welcome_message_from'];
 				$Subject 	= $LNG['welcome_message_subject'];
 				$message 	= sprintf($LNG['welcome_message_content'], $CONF['game_name']);
-				SendSimpleMessage($NewUser, 1, $Time, 1, $from, $Subject, $message);
+				SendSimpleMessage($NewUser, 1, TIMESTAMP, 1, $from, $Subject, $message);
 				
 				update_config(array('users_amount' => $CONF['users_amount'] + 1, 'LastSettedGalaxyPos' => $LastSettedGalaxyPos, 'LastSettedSystemPos' => $LastSettedSystemPos, 'LastSettedPlanetPos' => $LastSettedPlanetPos));
 				if ($admin == 1) {
@@ -407,7 +405,7 @@ switch ($page) {
 		$template->show('index_top100.tpl');
 		break;
 	case 'pranger' :
-		$PrangerRAW 	= $db->query("SELECT * FROM ".BANNED." WHERE `universe` = '".$UNI."' ORDER BY `id`;");
+		$PrangerRAW 	= $db->query("SELECT * FROM ".BANNED." WHERE `universe` = '".$UNI."' ORDER BY `id` DESC;");
 		$PrangerList	= array();
 		while($u = $db->fetch_array($PrangerRAW))
 		{
