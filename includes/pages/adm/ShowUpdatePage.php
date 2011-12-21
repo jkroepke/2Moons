@@ -79,14 +79,23 @@ exit;
 }
 
 function CheckPermissions() {
-	$DIRS	= $_REQUEST['dirs'];
+	global $LNG;
+	$DIRS	= array_unique($_REQUEST['dirs']);
 	foreach($DIRS as $DIR) {
-		if(is_writable(ROOT_PATH.$DIR) || !mkdir(ROOT_PATH.$DIR))
-			continue;
-		
-		echo json_encode(array('status' => $GLOBALS['LNG']['up_chmod_error']."./".$DIR, 'error' => true));
-		exit;
+		if(!file_exists(ROOT_PATH.$DIR))
+			mkdir(ROOT_PATH.$DIR);
+
+		if(!is_writable(ROOT_PATH.$DIR))
+		{
+			@chmod(ROOT_PATH.$DIR, 0777);
+			if(!is_writable(ROOT_PATH.$DIR))
+			{
+				echo json_encode(array('status' => $LNG['up_chmod_error']."./".$DIR, 'error' => true));
+				exit;
+			}
+		}
 	}
+	
 	echo json_encode(array('status' => 'OK', 'error' => false));
 }
 
