@@ -40,7 +40,7 @@ class template extends Smarty
 		$this->jsscript				= array();
 		$this->script				= array();
 		$this->compile_dir			= is_writable(ROOT_PATH.'cache/') ? ROOT_PATH.'cache/' : $this->getTempPath();
-		$this->template_dir			= ROOT_PATH.'/styles/templates/';
+		$this->setTemplateDir(ROOT_PATH.'styles/templates/');
 		$this->php_handling			= Smarty::PHP_QUOTE;#Smarty::PHP_REMOVE;
 		$this->Popup				= false;
 		$this->Dialog				= false;
@@ -252,7 +252,8 @@ class template extends Smarty
 			if(defined('IN_ADMIN')) {
 				$this->adm_main();
 			} elseif(defined('LOGIN')) {
-				$this->template_dir	.= 'index/';
+				$tplDir	= $this->getTemplateDir();
+				$this->setTemplateDir($tplDir[0].'index/');
 				$this->login_main();
 			} elseif(!$this->Dialog) {
 				if(!defined('AJAX')) {
@@ -269,7 +270,7 @@ class template extends Smarty
 			'scripts'			=> $this->jsscript,
 			'execscript'		=> implode("\n", $this->script),
 		));
-			
+		
 		parent::display($file);
 	}
 	
@@ -325,7 +326,7 @@ class template extends Smarty
     public function __set($name, $value)
     {
         $allowed = array(
-        'template_dir' => 'setTemplateDir',
+        'template_dir' => 'setTemplateDirgetTemplateDir',
         'config_dir' => 'setConfigDir',
         'plugins_dir' => 'setPluginsDir',
         'compile_dir' => 'setCompileDir',
