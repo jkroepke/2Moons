@@ -3,7 +3,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2011 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,409 +19,417 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2009 Lucky
+ * @copyright 2011 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.6 (2011-11-17)
  * @info $Id$
  * @link http://code.google.com/p/2moons/
  */
  
-$LNG['Version']     = 'Version';
-$LNG['Description'] = 'Beschreibung';
+$LNG['Version']     = 'Versione';
+$LNG['Description'] = 'Descrizione';
 
 $LNG['changelog']   = array(
 
+'v1.7' => 'Slaver 19.11.11
+- 0000027: [Core] Falange (Slaver) - Risolto.
+- 0000071: [Core] Lista delle lune (Slaver) - Risolto.
+- 0000078: [Navi (Missioni)] Rev. 2074 Missione attacco (Slaver) - Risolto.
+- 0000077: [Core] Rev. 2074 Falange (Slaver) - Risolto.
+- 0000079: [Design] Configurazione gioco (Slaver) - Risolto.
+- 0000076: [Navi (Missioni)] Nuova versione 1.6 (Slaver) - Risolto.
+',
 'v1.6' => 'Slaver 17.11.11
-- 0000075: [Login] Registrierungserror wenn im Planeten namen ein \' vorkommt (Slaver) - resolved.
-- 0000069: [Core] Chance of destruction of the moon (Slaver) - resolved.
-- 0000066: [Core] Registration (Slaver) - resolved.
-- 0000054: [Core] Missions Rocket attack and to Destroy (Slaver) - resolved.
-- 0000070: [Core] Ticket system (Slaver) - resolved.
-- 0000068: [Core] Rev 2065 Error afeter update in class.template (Slaver) - resolved.
-- 0000018: [Core] Speed of recyclers and spies (Slaver) - resolved.
-- 0000062: [Login] Install fehler (Slaver) - resolved.
-- 0000065: [Core] Attacks and a holiday mode (Slaver) - resolved.
-- 0000067: [Core] Rev. 2062 Reset universum (Slaver) - resolved.
-- 0000061: [Time (offset errors)] progresbar moves only 100 pixels (1% - 1 pixel) in the construction and research (Slaver) - resolved.
-- 0000058: [Design] Fortschrittsbalken bei Forschung und Gebäude wird nur noch zu ca. 40% aufgebaut. (Slaver) - resolved.
-- 0000064: [Login] Install doesn\'t work in 2060 SVN Version: FIX (Slaver) - resolved.
-- 0000057: [Fleets (Missions)] Nobody can send one ship (Slaver) - resolved.
-- 0000031: [Core] Search limit (Slaver) - resolved.
-- 0000038: [Core] Resource bug (Slaver) - resolved.
-- 0000044: [Core] Invalid argument supplied error in Game Updates Pages (Slaver) - resolved.
-- 0000047: [Login] someone has logget in from another PC on your account every 2 minutes (Slaver) - resolved.
-- 0000051: [Fleets (Missions)] Fatal error: class.FlyingFleetHandler.php on line 59 (Slaver) - resolved.
-- 0000052: [Core] Shortcuts (Slaver) - resolved.
-- 0000055: [Fleets (Missions)] Combat Report does not show moon building message (Slaver) - resolved.
-- 0000045: [Design] Screenshots not shown by IE8/IE9 by FF it works (Slaver) - resolved.
-- 0000050: [Core] Wrong redirect (Slaver) - resolved.
-- 0000049: [Core] Encoding banner (Slaver) - resolved.
+- 0000075: [Login] Registrazione con nome del pianeta (Slaver) - Risolto.
+- 0000069: [Core] Chance di distruzione della luna (Slaver) - Risolto.
+- 0000066: [Core] Registrazione (Slaver) - Risolto.
+- 0000054: [Core] Missione attacco missilistico e relativa distruzione (Slaver) - Risolto.
+- 0000070: [Core] Sistema dei tickets (Slaver) - Risolto.
+- 0000068: [Core] Rev. errore 2065 dopo aggiornamento in class.template (Slaver) - Risolto.
+- 0000018: [Core] Velocita riciclatrici e sonde spia (Slaver) - Risolto.
+- 0000062: [Login] Errori in pag. login (Slaver) - Risolto.
+- 0000065: [Core] Attacco e Mod. vacanza (Slaver) - Risolto.
+- 0000067: [Core] Rev. 2062 Reset universo (Slaver) - Risolto.
+- 0000061: [Tempo (dopo errore)] con soli 100 pixels (1% - 1 pixel) in costruzioni e ricerche (Slaver) - Risolto.
+- 0000058: [Design] Errori ricerche e costruzioni (Slaver) - Risolto.
+- 0000064: [Login] Installazione risolta in rev. 2060 (Slaver) - Risolto.
+- 0000057: [Navi (Missioni)] Errori invio flotta (Slaver) - Risolto.
+- 0000031: [Core] Limite tasto cerca (Slaver) - Risolto.
+- 0000038: [Core] Bug in risorse (Slaver) - Risolto.
+- 0000044: [Core] Argomento invalido ed errore in pag. Game Updates (Slaver) - Risolto.
+- 0000047: [Login] Qualcuno ha effettuato l accesso nel tuo acount ogni 2 minuti (Slaver) - Risolto.
+- 0000051: [Navi (Missioni)] Errore fatale: class.FlyingFleetHandler.php on line 59 (Slaver) - Risolto.
+- 0000052: [Core] Scorciatoie (Slaver) - Risolto.
+- 0000055: [Navi (Missioni)] Rapporto di combattimento (Slaver) - Risolto.
+- 0000045: [Design] Screenshots non visualizzabili con IE8/IE9 (Slaver) - Risolto.
+- 0000050: [Core] Logout e disconnessione link incorretto (Slaver) - Risolto.
+- 0000049: [Core] Banner in codice (Slaver) - Risolto.
 ',
 'v1.5' => 'Slaver 18.09.11
-- FIX: REMOTE FILE INCLUSION VULNERABILITY
-- ADD: Timezone Support
-- FIX: Fleetspeed Bonus
-- FIX: Messafe Notfiy
-- FIX: Hall of Fame Mulituniverse glitch
-- FIX: delete messages in IE
-- FIX: planetmenu cookie
-- FIX: PHP errors in chatsystem
-- FIX: Iusses with Special Char on alliance request 
-- FIX: Fleettime, if acs mission was cancel
-- FIX: clear planets after spy
-- FIX: little template iusses
-- FIX: SQL Error on FleetBack, if fleet is on a acs
-- FIX: JS Error on Combat Raports
-- FIX: Cron on statbuilder, who deletes raports
-- FIX: Cross universe glitch on acs invations (StoNelHa) 
-. FIX: Case 6 on Expedition 
-- DIV: Sicherheit im Game erhöht
-- DIV: rootID now in constants
-- DIV: Added Suhosin detection 
-- DIV: Updated Smarty & TS Libs
-- DIV: Diverse Anpassungen am Game
-- 0000024: [Login] On email activation users cann´t register (Slaver) - resolved.
-- 0000046: [Core] referals in overview (Slaver) - resolved.
-- 0000042: [Core] referrals name (Slaver) - resolved.
-- 0000034: [Design] IE8 / IE9 changelog and menu-top.png not shown (Slaver) - resolved.
-- 0000030: [Core] Phalanx not work after update, says error (Slaver) - resolved.
-- 0000025: [Time (offset errors)] Timezone [not resolved 2030] (Slaver) - resolved.
-- 0000035: [Core] after last update to 2043 (Slaver) - resolved.
-- 0000037: [Fleets (Missions)] Flotten Hängen sich auf!! (Slaver) - resolved.
-- 0000003: [EcoSystem] Time of building of the ships (Slaver) - resolved.
-- 0000033: [Design] Rules werden auch in Deutsch nicht angezeigt (Slaver) - resolved.
-- 0000013: [EcoSystem] Rev. 2033 (Slaver) - resolved.
-- 0000029: [Core] After rev 2039 crash error on email (Slaver) - resolved.
-- 0000001: [Core] Display error message, if register fails (Slaver) - resolved.
-- 0000006: [Core] Error.log (Slaver) - resolved.
-- 0000023: [Fleets (Missions)] Rev. 2037 Mission destruction (Slaver) - resolved.
-- 0000021: [Core] Timezone (Slaver) - resolved.
-- 0000019: [Core] Information ACP Page (Slaver) - resolved.
-- 0000008: [Core] Research Always Refresh (Slaver) - resolved.
-- 0000005: [Core] Rockets (Slaver) - resolved.
-- 0000004: [Core] Free fields (Slaver) - resolved.
-- 0000007: [Core] Free fields again (Slaver) - resolved.
-- 0000015: [Core] Rev. 2033 Silo (Slaver) - resolved.
-- 0000014: [Design] Anzeige von Energie bei IE8 defekt (Slaver) - resolved.
-- 0000011: [Chat] Portuguese chat don´t work (Slaver) - resolved.
-- 0000010: [EcoSystem] Demolish a level (Slaver) - closed.
+- FIX: File vulnerabili
+- ADD: Supporto Timezone
+- FIX: Velocita flotta per bonus
+- FIX: Notifica risposta ricevuta tramite ticket
+- FIX: Hall of Fame compatibili con altri universi
+- FIX: Cancellazione messaggi con IE
+- FIX: Nome cookie di un pianeta
+- FIX: Errori nella sintassi del PHP
+- FIX: Richiesta per alleanza 
+- FIX: Tempo e orario di volo
+- FIX: Cancella pianeta dopo spiata
+- FIX: Piccolo problema con i templates
+- FIX: Errore di sql al ritorno della flotta
+- FIX: Errore di JS sui rapporti di combattimento
+- FIX: Aggiornamenti classifica
+- FIX: Invito per acs (StoNelHa) 
+. FIX: Missione n. 6 per spedizioni 
+- DIV: Migliorato codice in game.php
+- DIV: Id giocatore finalmente costante
+- DIV: Aggiunta protezione sql 
+- DIV: ntroduzione SQLite
+- DIV: Diversi miglioramenti in gioco
+- 0000024: [Login] Attivazione per email (Slaver) - Risolto.
+- 0000046: [Core] Reflink in overview (Slaver) - Risolto.
+- 0000042: [Core] Nomi dei reflink (Slaver) - Risolto.
+- 0000034: [Design] IE8 / IE9 changelog e menu-top.png non visualizzabile (Slaver) - Risolto.
+- 0000030: [Core] Falange errore dopo aggiornamento (Slaver) - Risolto.
+- 0000025: [Orario (offset errori)] Timezone [non risolto su rev. 2030] (Slaver) - Risolto.
+- 0000035: [Core] Dopo ultimo aggiornamento per 2043 (Slaver) - Risolto.
+- 0000037: [Navi (Missioni)] Flotta non funzionante!! (Slaver) - Risolto.
+- 0000003: [EcoSystem] Tempi di costruzione delle navi (Slaver) - Risolto.
+- 0000033: [Design] Errori regole per lingua de (Slaver) - Risolto.
+- 0000013: [EcoSystem] Rev. 2033 (Slaver) - Risolto.
+- 0000029: [Core] Dopo la rev. 2039 errore di crash per emails (Slaver) - Risolto.
+- 0000001: [Core] Display messaggio di errore (Slaver) - Risolto.
+- 0000006: [Core] Error.log (Slaver) - Risolto.
+- 0000023: [Navi (Missioni)] Rev. 2037 Missione distruzione (Slaver) - Risolto.
+- 0000021: [Core] Timezone (Slaver) - Risolto.
+- 0000019: [Core] Informazioni pagina ACP (Slaver) - Risolto.
+- 0000008: [Core] Code di ricerca (Slaver) - Risolto.
+- 0000005: [Core] Missili (Slaver) - Risolto.
+- 0000004: [Core] Spazi vuoti sul pianeta (Slaver) - Risolto.
+- 0000007: [Core] Spazi pianeta errati (Slaver) - Risolto.
+- 0000015: [Core] Rev. 2033 per Lanciamissili (Slaver) - Risolto.
+- 0000014: [Design] Skin compatibile con IE8 (Slaver) - Risolto.
+- 0000011: [Chat] Chat portoghese non funziona (Slaver) - Risolto.
+- 0000010: [EcoSystem] Smantella costruzione (Slaver) - Chiuso.
 ',
 'v1.4' => 'ShadoX 05.07.11
-- ADD: FirePHP Log System
-- ADD: Language selectable on Global Messages
-- ADD: New Message System (includes old global message system like another XNova versions)
-- ADD: {lang} Block for tpls. Directly access to langvars with {lang}varname{/lang}
-- ADD: More dynamic for new languages
-- FIX: Ressource Cheat
-- FIX: Multiply Messages
-- FIX: Forgotten password
-- FIX: Defender bonus on combats
-- FIX: Fixed Register on large Unis
-- FIX: Redirect on Messages
-- FIX: Unable to send recylers to vacation players
-- FIX: Cencored coors on hall of frame know correctly
-- FIX: Fixed not correct calculaton of DM extras on destruction
+- ADD: Sistema dei logs
+- ADD: Lingua in messaggi globali
+- ADD: Nuovo sistema di messaggeria (incluso sistema vecchio di xnova)
+- ADD: Blocchi per templates
+- ADD: Dinamismo per nuove lingue
+- FIX: Cheat risorse
+- FIX: Messaggi multipli
+- FIX: Password dimenticata
+- FIX: Bonus in difesa nei c.r.
+- FIX: Problema iscrizione multiuni
+- FIX: Reinderizzamento per messaggi
+- FIX: Inviare riciclatrici verso giocatori in vacanza
+- FIX: Hall of fame ora funzionanti
+- FIX: Problema calcolo di M.O. 
 - FIX: Chat
-- FIX: Fixed Servertime are not localize
-- FIX: MaxElemens for shields &amp; missiles
-- FIX: Wrong padding for leftmenu
-- FIX: Moduls after a fresh installation
-- FIX: Search
-- FIX: Fixed Register on lange Unis
-- FIX: Cancel researches
-- FIX: UTF8 names on fleet shortcuts
-- FIX: Galaxy messages
-- FIX: Deactive modules are not visible on galaxy
-- FIX: Multiply load cache files
-- FIX: Wrong datatype for lage numbers
-- FIX: Wrong Queue display, if 2 elements with same level in there
-- FIX: Bypass module check on spy and recyle
-- DIV: Refresh database design
-- DIV: Old Popups for Playercard &amp; Messages
-- DIV: Includes Smarty
-- DIV: Security increased in the Game
-- DIV: Other adjustments to the game
+- FIX: Ora del server
+- FIX: Missili massimi da poter costruire
+- FIX: Problema leftmenu
+- FIX: Moduli dopo un installazione del gioco
+- FIX: Cerca
+- FIX: Iscrizione con scelta di lingua
+- FIX: Cancella ricerca
+- FIX: UTF8 nomi in scorciatoie
+- FIX: Messaggi galassia
+- FIX: Alcuni moduli non appaiono in galassia
+- FIX: Caricamento files in cache
+- FIX: Lag dovuto al gran numero di utenti connessi
+- FIX: Coda di costruzione
+- FIX: Missione spionaggio e riciclaggio
+- DIV: Aggiornamento del database per il design
+- DIV: Messaggi popups per la scheda del giocatore
+- DIV: Includes/Smarty
+- DIV: Aumentata sicurezza in gioco
+- DIV: Altri miglioramenti per il gioco
 ',
 
 'v1.3.5' => 'ShadoX 11.06.11
-- ADD: New ChatSystem
-- ADD: New Popup UI
+- ADD: Nuova chat
+- ADD: Nuovo popup UI
 - ADD: Refferalsystem
-- ADD: Destroy Rocket
-- ADD: Wellformed URLs on Bulidsides
-- ADD: Solarsat on Moon give now energy
-- FIX: Correct Calculation of maximum amount rockets
-- FIX: Division by Zero
-- FIX: Wrong TotalUsercount, if a new User join the Game
-- FIX: Shipyard Iusses, with BCMath is not avalible
-- FIX: reCAPTCHA
-- FIX: Incoming Recylcer Fleet, where display on overview &amp; phalanx
-- FIX: Facebook Login
-- FIX: Universe Import/Export
-- FIX: Disappear Ships
-- FIX: Short Names on Combat Reports
-- FIX: Queues
-- FIX: $_SESSION[&quot;uni&quot;] = 0, after leave Admin Panel
-- FIX: Grap Debris from Fleetmenu
-- DEL: Spanish &amp; French Language
-- DIV: Set correct favicon Metatag
-- DIV: Moonsize Calculation
-- DIV: Added Bonus Maxfields on Planets (AccountEditor)
-- DIV: Added missed language keys
-- DIV: Improved request_vars
-- DIV: Rewrite LoginPage
-- DIV: Improved Javascript Code
-- DIV: MultiUniverse Support
-- DIV: Rewrite UpdateSystem
-- DIV: Change Copyright Header
-- DIV: Rewrite Connect wit Facebook
-- DIV: Update Smarty and jQuery
-- DIV: Remove Soundmanager and overLIB Liberary
-- DIV: Increased security in the Game
-- DIV: Various adjustments to the Game
+- ADD: Distruzione dei missili
+- ADD: Forma urls
+- ADD: Centrale solare ora da energia sulla luna
+- FIX: Corretto il calcolo di n. max di missili
+- FIX: Divisione in zero
+- FIX: Totale giocatori
+- FIX: Cantiere spaziale
+- FIX: Recaptcha
+- FIX: Riciclaggio
+- FIX: Login facebook
+- FIX: Importa/Esporta universo
+- FIX: Visualizzazione navi
+- FIX: Nomi brevi in rapporti di combattimento
+- FIX: Code
+- FIX: $_SESSION[&quot;uni&quot;] = 0, Pannello Admin
+- FIX: Detriti
+- DEL: Lingua spagnola e francese
+- DIV: Corretta favicon in metatag
+- DIV: Calcolo spazi lunari
+- DIV: Aggiunto bonus spazi per pianeti (Modifica account)
+- DIV: Aggiunti terminichiave in lingua
+- DIV: Nuovo request_vars
+- DIV: Riscritta la pagina di login
+- DIV: Migliorato codice javascript
+- DIV: Supporto multi universo per i ticets
+- DIV: Riscritto sistema di aggiornamento
+- DIV: Cambio dei copyright per cantiere
+- DIV: Riscritta pag. connettiti con facebook
+- DIV: Aggiornati i file Smarty e jQuery
+- DIV: Rimossi i file Soundmanager e overLIB Liberary
+- DIV: Aumentata sicurezza per il gioco
+- DIV: Vari aggiustamenti per il gioco
 ',
 
 'v1.3' => 'ShadoX 05.03.11
-- ADD: MultiUniverse Support
-- ADD: IPv6 Support
-- ADD: Limit of max Colony
-- ADD: Template Cache System
-- ADD: Daily Cronjob for clear Cache
-- ADD: Fleettrader
-- ADD: SessionSystem
-- ADD: AdminHack Protection
-- ADD: FTP Service on Installer to solved the CHMOD Problems
-- ADD: New Chat System
-- ADD: Cyrillic Char support for UserBanner
-- FIX: Facebook Connector
-- FIX: ACS
-- FIX: SQL Injections on FleetsShoutcuts
-- FIX: XSS on Battlesim
+- ADD: Supporto multi universi
+- ADD: Supporto IPv6
+- ADD: Limite di colonie massime
+- ADD: Template con sistema Cache
+- ADD: Aggiunto Cronjob per cancellare la cache
+- ADD: Mercante di flotta
+- ADD: Sessione di sistemi 
+- ADD: Protezione pannello admin dagli hacker
+- ADD: Installazione FTP per risolvere bugs 
+- ADD: Nuova chat
+- ADD: Supporto per il banner user
+- FIX: Connessione verso facebook
+- FIX: Acs
+- FIX: SQL Injections in FleetsShoutcuts
+- FIX: XSS in Battlesim
 - FIX: TF Iusses
-- FIX: UpdateSystem
-- FIX: Ressource Cheat
-- FIX: Admin Attack
-- FIX: SSL on IIS
-- FIX: Admin on Records
-- FIX: Noobprotection for Holding Mission
-- FIX: BattleReports show correct Techs now
-- FIX: ResetPage
-- FIX: Updated Ressource on TargetPlanet on Attacks
-- FIX: Fleetspeed Hack
-- FIX: BuildTime Hack
-- FIX: Cache System
-- FIX: Moondestruction
-- FIX: Teamspeak API for Teamspeak 3 Servers
-- FIX: UpdateSystem dont donwload same Files now
-- DIV: 2Moons not longer require safe_mode = off
-- DIV: Change Copyright Header
-- DIV: Max Buttons on Jumpgate
-- DIV: OfficiersVars now on vars.php
-- DIV: Fleet Ressoucres go up tp 18.446.744.073.709.551.616
-- DIV: Allow Change Version on ACP
-- DIV: Get Language via HTTP Header on Index
-- DIV: Use Facebooks new Graph API now.
-- DIV: Set new location for error.log
-- DIV: Update TS³ Lib, Soundmanager, reCAPTCHA Lib, Smarty and jQuery (UI)
+- FIX: Aggiornamento sistema
+- FIX: Cheat con risorse
+- FIX: Attacco pannello admin
+- FIX: SSL in IIS
+- FIX: Admin nei records
+- FIX: Protezione niubbo
+- FIX: Rapporti di battaglia
+- FIX: Resetta universo
+- FIX: Aggiornamento risorse su TargetPlanet e Attacks
+- FIX: Cheat velocita universo
+- FIX: Cheat tempo di costruzioni
+- FIX: Sistema di cache
+- FIX: Distruzione luna
+- FIX: Teamspeak con API per il server di teamspeak 3
+- FIX: Sistema che non scarica nuovi file
+- DIV: 2Moons bug con safe_mode = off
+- DIV: Cambiati i copyright per il cantiere
+- DIV: Tasto max. per il salto quantico
+- DIV: OfficiersVars ora messi su vars.php
+- DIV: Risorse bloccate a 18.446.744.073.709.551.616
+- DIV: Cambio aspetto in pannello admin
+- DIV: Linguaggio automatico della pag. index
+- DIV: Nuove api per facebook
+- DIV: Errore per: error.log
+- DIV: Aggiornamento TS³ Lib, Soundmanager, Recaptcha Lib, Smarty e jQuery (UI)
 ',
 
 'v1.2' => 'ShadoX 14.09.10
-- ADD: Set Max Fleets on ACS (Default: 16)
-- ADD: New RightsSystem on ACP
-- ADD: .htaccess Protection for some dirs
-- FIX: Expedition
-- FIX: Servertime at Overview
-- FIX: Research Hack while Build ID:6 or 31
-- FIX: Alliance Exit
-- FIX: See not invited ACS
-- FIX: OverLIB Problems with Internet Explorer
-- FIX: Multilanguages Iusses
-- FIX: reCAPTCHA
-- FIX: Admin Protection
-- FIX: Moon Creation Explod
-- FIX: Rights on Alliance
-- FIX: Jumpgate
-- FIX: Build Points
-- FIX: Some HTML Errors
-- FIX: Linebreaks on Alliance Rundmails
-- FIX: UMode
-- DIV: Update Langauges
-- DIV: Security increased in the Game
-- DIV: Various adjustments to the Game
+- ADD: Massimo flotta per ACS (Default: 16)
+- ADD: Nuovi gradi in pannello admin per lo staff
+- ADD: .htaccess Protetto per alcuni reindirizzamenti
+- FIX: Spedizione
+- FIX: Ora server in overview
+- FIX: Risorse Hack con la costruzione ID:6 o 31
+- FIX: Uscita dall alleanza
+- FIX: Lista partecipanti ad un acs
+- FIX: OverLIB Problemi con internet explorer
+- FIX: Uni multi lingua
+- FIX: Recaptcha
+- FIX: Protezione admin
+- FIX: Creazione luna
+- FIX: Gradi per le alleanze
+- FIX: Salto quantico
+- FIX: Punti per infrastrutture
+- FIX: Errori html
+- FIX: Messaggio circolare alleanza
+- FIX: Mod. vacanza
+- DIV: Aggiornamento lingue disponibili
+- DIV: Aumentata sicurezza in gioco
+- DIV: Vari implementazione per il gioco
 ',
 
 'v1.1' => 'ShadoX 31.08.10
-- ADD: GoW skin
-- ADD: Mod Version Control
-- ADD: Cronjob option Banner
-- ADD: Options for Login Music
-- FIX: Error in raport
-- FIX: Ressoucre Hack
-- FIX: Fleet Bugs
-- DEL: Unused Pictures
-- DIV: Optimized CSS
-- DIV: Changed HTML Tree (Changed td.c to th / th to td)
-- DIV: Update to HTML 5
-- DIV: Security increased in the Game
-- DIV: Other adjustments to the Game
+- ADD: Skin gow
+- ADD: Controlla n. versione
+- ADD: Opzioni banner con cronjob
+- ADD: Opzione per il login con musica
+- FIX: Errori in rapporti combattimento
+- FIX: Hack risorse
+- FIX: Bugs flotta
+- DEL: Immagini pianeti
+- DIV: Css ottimizzato
+- DIV: Cambiato html con modifiche 
+- DIV: Aggiornamento ad html 5
+- DIV: Sicurezza implementata in gioco
+- DIV: Varie modifiche per il gioco
 ',
 
 'v1.0' => 'ShadoX 07.08.10
-- FIX: Global Messages
-- FIX: Forgotten Password
-- FIX: Game Reset
-- FIX: Ressouce Glitch
-- FIX: Accout information
-- FIX: Destroying Fleet after Fights
-- FIX: User Activation on ACP
-- FIX: Delection Account
-- FIX: Speed bonus for small cargo
-- FIX: Recycling Derbi
-- FIX: Message delection on ACP
-- FIX: Modules on English language
-- FIX: Update page
-- FIX: class.ShowShipyardPage.php on line 43: Division by zero
-- DIV: Limited Random on Dm Mission
-- DIV: Changed System of Rapid Fire
-- DIV: Solved problem with battle simulator
+- FIX: Messaggi globali
+- FIX: Password dimenticata
+- FIX: Resetta universo
+- FIX: Stabilita risorse/energia
+- FIX: Informazioni account
+- FIX: Distruzione flotta
+- FIX: Crea giocatore dall acp
+- FIX: Cancellazione account
+- FIX: Bonus velocita per cargo leggero
+- FIX: Ricicla detriti
+- FIX: Messaggio globale dall acp
+- FIX: Moduli in lingua inglese
+- FIX: Pagina di aggiornamento versione
+- FIX: class.ShowShipyardPage.php on line 43: Divisione per zero
+- DIV: Sistema random per missioni di dm
+- DIV: Cambiato sistema di fuoco rapido
+- DIV: Risolti problemi con simulatore di battaglia
 ',
 
 'RC6' => 'ShadoX 28.07.10
-- ADD: Russian Language (ssAAss & InquisitorEA)
-- ADD: Portuguese Language (morgado)
-- ADD: Spanish Language (cides) ALPHA (!)
-- FIX: UTF-8 support for Buddy Requests
-- FIX: Message Notify
-- FIX: Phalanx
-- FIX: Installer
-- FIX: Ruins by moon attack
-- FIX: Debris field decay
-- FIX: Resource Calculation in attacks
-- FIX: Moon Destruction
-- DIV: New Login Music
-- DIV: Remove old Settings
-- DIV: Recoding ACP
-- DIV: CSS Optimized for Login
-- DIV: Is used instead ob_gzhandler zlib.output_compression
-- DIV: Change Path for reCAPTCHA AJAX
-- DIV: Remove old UGamla Functions
-- DIV: Security increased in the Game
-- DIV: Include New Version of Sound Manager (2.96a.20100624)
-- DIV: Update Smarty Engine
-- DIV: Other adjustments to the Game
+- ADD: Lingua russa
+- ADD: Lingua portoghese
+- ADD: Lingua spagnola
+- FIX: UTF-8 supporto per richieste di amicizia
+- FIX: Notifica per nuovo messaggio
+- FIX: Falange
+- FIX: Installatore di gioco
+- FIX: Attacco contro luna
+- FIX: Capienza detriti in galassia
+- FIX: Calcolo di risorse in attacco
+- FIX: Distruzione luna
+- DIV: Nuovo login con musica
+- DIV: Rimosse impostazioni vecchie
+- DIV: Nuovo pannello admin
+- DIV: Css ottimizzato per pagina di login
+- DIV: Riconoscimento giocatore con il prefisso ob_gzhandler zlib.output_compression
+- DIV: Nuovo recaptcha con ajax
+- DIV: Rimosse le vecchie funioni di ugamela utilizzate
+- DIV: Maggiore sicurezza in gioco
+- DIV: Nuova musica per il login
+- DIV: Aggiunta funzione Smarty Engine
+- DIV: Vari settaggi per il gioco
 ',
 
 'RC5.1' => 'ShadoX 23.06.10
-- ADD: For holding one must be in the Ally / Buddy
-- ADD: Name of HP in the Reg
-- ADD: Forgot your query at Authlevel / Reset
-- FIX: Fleet losses
-- FIX: Nuclear power, if no deuterium is present
-- FIX: reCAPTCHA is the direct link does not load
-- FIX: Mail validation
-- FIX: Iraq
-- FIX: Langauge Select the Regis animals
-- FIX: Colony Name
-- FIX: VMod
-- FIX: Admin Hack via Facebook
-- FIX: Fleet Return
-- FIX: Message Transport
-- FIX: Research
-- FIX: Phalax
-- FIX: Steal
-- FIX: Build queue
-- FIX: Install
-- FIX: Research
-- DIV: Mines on 100% after VMod
-- DIV: Full multi langauge support
-- DIV: Security increased in the Game
-- DIV: Other adjustments to the Game
+- ADD: Modifiche per Alleanza/Lista amici
+- ADD: Nome pianeta madre in iscrizione
+- ADD: Queri per reset universo
+- FIX: Navi perse
+- FIX: Deuterio e flotta
+- FIX: Recaptcha
+- FIX: Attivazione account per email
+- FIX: FAQ
+- FIX: Scelta lingua all iscrizione
+- FIX: Nome della colonia
+- FIX: Mod. vacanza
+- FIX: Connessione a facebook
+- FIX: Ritorno flotta
+- FIX: Messaggio per trasporti
+- FIX: Ricerca
+- FIX: Falange
+- FIX: Morte nera
+- FIX: Coda di costruzione
+- FIX: Installazione
+- FIX: Ricerca
+- DIV: Produzione miniere 100% dopo Mod. V.
+- DIV: Supporto multilingua
+- DIV: Maggiore sicurezza in gioco
+- DIV: Miglioramento del gioco
 ',
 
 'RC5.0' => 'ShadoX 30.05.10
-- ADD: New Boats
-- ADD: Support planet in system = 15!
-- ADD: Login cookie for music
-- ADD: Check for availability of mission in Fleet3
-- ADD: Multi-Lang Installer
-- ADD: Combat Simulator
-- ADD: Bcmath for JS
-- DEL: Plugin system
-- FIX: Database View Log Data, if connections to database problems.
-- FIX: Bug Dublicate Ressis
-- FIX: Application text
-- FIX: Support
-- FIX: Moon Destruction
-- FIX: Fleet
-- FIX: Building Cheat
-- FIX: Bug Resource
-- FIX: Now supports Shipyard trillion
-- FIX: Darmatter costs of defense
-- FIX: Mood deletion
-- FIX: Integral. Network
-- FIX: class.FlyingFleetMissions.php on 1183: SQL Error
-- FIX: Build times, when building was unbuildable
-- FIX: Building construction, with 0 seconds
-- FIX: Allianz Statistics
-- FIX: SQL Injection in notes, messages, un Fleet Shoutcuts
-- FIX: Large TF
-- FIX: Evo Trans & GigaRec.
-- FIX: Large HoF KBs
-- FIX: Building cheat
-- FIX: Error statistics for new players
-- DIV: Use IE7-js for IE CSS Fix
-- DIV: Use Google host for jQuery JS
-- DIV: Lib Updatet TS 3
-- DIV: Query simplified fleet
-- DIV: Security increased in the Game
+- ADD: Nuovi bots
+- ADD: Pianeti per galassia = 15!
+- ADD: Login cookie per la musica
+- ADD: Cerca flotta disponibile
+- ADD: Installazione Multi-Lang
+- ADD: Simulatore combattimento
+- ADD: Bcmath per JS
+- DEL: Sistema di plugin
+- FIX: Database con logs e dati
+- FIX: Bug risorse duplicate
+- FIX: Test nelle applicazioni
+- FIX: Supporto
+- FIX: Distruzione luna
+- FIX: Navi
+- FIX: Cheat costruzioni
+- FIX: Bug risorse
+- FIX: Ticket supporto
+- FIX: Materia oscura per difese pure ora
+- FIX: Mod cancellazione account
+- FIX: Network
+- FIX: class.FlyingFleetMissions.php on 1183: Errore sql
+- FIX: Tempi di costruzioni
+- FIX: Costruzioni per 0 secondi
+- FIX: Statistiche alleanze
+- FIX: Sql Injection in note, messaggi
+- FIX: Detriti
+- FIX: Trasportatori
+- FIX: HoF
+- FIX: Cheat costruzioni
+- FIX: Errore statistiche per nuovo giocatore
+- DIV: Usa IE7-js per IE CSS Fix
+- DIV: Usa Google host per jQuery JS
+- DIV: Lib aggiornate per TS 3
+- DIV: Query semplificate per navi
+- DIV: Maggior sicurezza in gioco
 - DIV: LeftMenu
-- DIV: Other adjustments to the Game
+- DIV: Ulteriori miglioramenti in gioco
 ',
 
 'RC5.0b8' => 'ShadoX 20.04.10
 - FIX: Ban
-- FIX: Deleting messages Unlabeled
-- FIX: Query log
-- FIX: Steal
-- FIX: Activity Star
-- FIX: Planetary creation in ACP
-- FIX: Jumpgate
-- FIX: Ress up to 9e132
-- FIX: BBCodes
-- FIX: Lost Ressis
-- FIX: Install
-- DIV: AddBuildingToQueue revised
-- DIV: Security increased in the Game
-- DIV: min. Requiere PHP 5.2.6
-- DIV: Other adjustments to the Game
+- FIX: Cancellazione messaggi
+- FIX: Query logs
+- FIX: Morte nera
+- FIX: Attivita giocatori
+- FIX: Creazione pianeta in ACP
+- FIX: Salto quantico
+- FIX: Risorse
+- FIX: BBCode
+- FIX: Risorse perse
+- FIX: Installazione
+- DIV: AddBuildingToQueue rivista
+- DIV: Maggior sicurezza in gioco
+- DIV: min. Richiesto PHP 5.2.6
+- DIV: Ulteriori implementazioni in game
 ',
 
 'RC5.0b7' => 'ShadoX 16.04.10
 - ADD: Google Analytics Mod
-- FIX: Max button if thousend September is not "."
-- FIX: Large transport
-- FIX: Global news
-- DIV: Security increased in the Game
-- DIV: Other adjustments to the Game
+- FIX: Tasto max in cantiere
+- FIX: Trasporti
+- FIX: News globale
+- DIV: Maggior sicurezza in gioco
+- DIV: Ulteriori aggiustamenti in gioo
 ',
 
 'RC5.0b6' => 'ShadoX 15.04.10
-- ADD: Updated ACP (XG Proyecto 2.9.4)
-- ADD: Facebook Connector Alpha
-- ADD: Diplomacy System
-- ADD: Gigarecyler on Galaxy
-- ADD: Ori. Platform sensational column, bahamut
-- ADD: Dealer fees
-- ADD: University
-- ADD: Constants for moon formation
-- ADD: Download patch files for ACP
-- ADD: Locale settings in Language File
-- FIX: Trader
-- FIX: Ressourses loss at high speeds.
-- FIX: Galaxy
-- FIX: Spy report
+- ADD: Aggiornato ACP (XG Proyect 2.9.4)
+- ADD: Connessione facebook
+- ADD: Sistema displomazia
+- ADD: Riciclatrice grande
+- ADD: Piattaforma facebook
+- ADD: Teamspeak
+- ADD: Universita
+- ADD: Constants per formazioni lune
+- ADD: Download patch files per ACP
+- ADD: Impostazioni locali in file di lingua
+- FIX: Mercante
+- FIX: Risorse
+- FIX: Galassia
+- FIX: Rapporto di spiata 
 - FIX: Aliiance Pass
 - FIX: Negative values for NPCs in struggle Expeditions
 - FIX: Alliance Hack
@@ -431,297 +439,297 @@ $LNG['changelog']   = array(
 - FIX: Activity Star
 - FIX: Player Card
 - FIX: General
-- FIX: AKS-Steal calculation
-- FIX: Negative return flight time at ACS units
-- FIX: Resource Calculation
-- FIX: Time of spy reports
-- FIX: Alliance Statistics
-- FIX: Font-FIX in overLIB
-- DIV: Updated ACP
-- DIV: Update Smarty to 3.0b8
-- DIV: Change build system for buildings / fleets
-- DIV: Security increased in the Game
-- DIV: Other adjustments to the Game
+- FIX: Calcolo acs
+- FIX: Risors negative
+- FIX: Calcolo risorse
+- FIX: Orario di spiata
+- FIX: Statistiche alleanza
+- FIX: Fix in overLIB
+- DIV: Aggiornamento ACP
+- DIV: Aggiornamento smarty per 3.0b8
+- DIV: Nuovo sistema per costruzioni/navi
+- DIV: Maggior sicurezza in gioco
+- DIV: Altri miglioramenti in gioco
 ',
 
 'RC5.0b5' => 'ShadoX 06.03.10
-- FIX: Attack
-- DIV: Security increased in the Game
-- DIV: Other adjustments to the Game
+- FIX: Attacco
+- DIV: Maggior sicurezza in gioco
+- DIV: Altri aggiustamenti in gioco
 ',
 
 'RC5.0b4' => 'ShadoX 01.03.10
-- ADD: Plugin System v0.4 (Green @ XG Proyecto)
-- ADD: New StatBuilder
-- FIX: AKS
-- DIV: Security increased in the Game
-- DIV: Other adjustments to the Game
+- ADD: Sistema di plugin v0.4 (Green @ XG Proyecto)
+- ADD: Nuovo sistema statistiche
+- FIX: Acs
+- DIV: Maggior sicurezza in gioco
+- DIV: Miglioramenti per il gioco
 ',
 
 'RC5.0b3' => 'ShadoX 23.02.10
-- ADD: DM bank
-- ADD: Coords are no longer displayed in the HoF.
-- ADD: Update system BETA
-- ADD: Admin faded out in statistics
+- ADD: Banca M.O.
+- ADD: Coordinate
+- ADD: Nuovo sistema
+- ADD: Admin in statistica
 - ADD: jQuery UI 1.8rc2
-- ADD: New Expedition
-- FIX: Phalax Interplanetary & Ranges
-- FIX: Vacation mode fixed
-- FIX: Stop the end of fleets to be counted in spy report.
-- FIX: Display of the Moon Destruction Canche
-- FIX: Admins in records
-- FIX: Planet search
-- FIX: New campaign script for Interplanetary impacts
-- DIV: Set DB Connection to UTF-8
-- DIV: User banner is updated once a day.
-- DIV: Website Optimization (YSlow Grande: A / Score: 91)
-- DIV: Add header for browser caching
-- DIV: Security increased in the Game
-- DIV: Other adjustments to the Game
-- DIV: Update to jQuery 1.4.2
+- ADD: Nuova spedizione
+- FIX: Falange interplanetaria
+- FIX: Mod. vacanza
+- FIX: Flotta
+- FIX: Distruzione luna
+- FIX: Admin nei records
+- FIX: Cerca pianeta
+- FIX: Nuovo rapporto di combattimento
+- DIV: DB Connection per UTF-8
+- DIV: Banner giocatore
+- DIV: Website ottimizzato
+- DIV: Nuovo cantiere spaziale
+- DIV: Maggior sicurezza in gioco
+- DIV: Altri miglioramenti in gioco
+- DIV: Aggiornamento per jQuery 1.4.2
 ',
 
 'RC5.0b2' => 'ShadoX 20.02.10
-- ADD: Account deletion during the U-mode
-- ADD: UTF-8 support for Names
-- ADD: Cost dark matter
-- ADD: Some long (not complete)
-- FIX: Transverse
-- FIX: Building demolition
-- FIX: Alliance Creation
-- FIX: AKS in the Overview
-- FIX: AKS-Hack
-- FIX: AKS-Distributed Ressis
-- FIX: Deuterium calculate, planet temperature
-- FIX: Fusion Reactor: bonus from Power Engineering
-- FIX: Fixed line wrapping in Global News
-- DIV: Update Smarty to 3.0b7
-- DIV: Mod user stat adapted to AKS.
-- DIV: Optimized Game Messages
-- DIV: Typos corrected
-- DIV: Security increased in the Game
-- DIV: Other adjustments to the Game
+- ADD: Mod. vacanza
+- ADD: UTF-8 supporto per i nomi
+- ADD: Costi materia oscura
+- ADD: Logs (non completo)
+- FIX: Trasporti
+- FIX: Smantella costruzione
+- FIX: Creazione alleanza
+- FIX: Acs in overview
+- FIX: Acs hack
+- FIX: Acs e flotta
+- FIX: Calcolo deuterio/temperatura
+- FIX: Energia con c. fusione
+- FIX: News
+- DIV: Aggiornamento smarty per 3.0b7
+- DIV: Aggiornamento acs per giocatori
+- DIV: Ottimizti messaggi di gioco
+- DIV: Correzioni
+- DIV: Maggior sicurezza in gioco
+- DIV: Miglioramenti in gioco
 ',
 
 'RC5.0b1' => 'ShadoX 02.02.10
-- NEW: Search-Engine
-- NEW: LOGIN
-- NEW: Change Name to 2Moons
+- NEW: Cerca
+- NEW: Login
+- NEW: Cambio nome
 - ADD: Smarty Template Engine
-- ADD: Research in vars.php maximum adjust table
+- ADD: Ricerca in vars.php ora stabile
 - ADD: FB-share
-- ADD: Planet list
-- ADD: Teampseak addon: Support Team Speak 3
-- ADD: Max jobs in Fleet / Def set (default: 10)
-- ADD: Cache for Records
-- ADD: Real-Time Ressanzeige
-- ADD: Optimize DB Hall of Fame
+- ADD: Lista pianeti
+- ADD: Teampseak
+- ADD: Max jobs in Flotta/Difesa
+- ADD: Records
+- ADD: Orario
+- ADD: Ottimizza DB Hall of Fame
 - ADD: Outbox
-- ADD: Demolition Shipyard
-- FIX: Economic system
+- ADD: Cantiere spaziale
+- FIX: Sistema economico
 - FIX: Ress - Page
-- FIX: DM-study
-- FIX: Player Card
-- FIX: Memory display in commodities
+- FIX: Materia oscura
+- FIX: Scheda giocatore
+- FIX: Memoria giocatore
 - FIX: Design
-- FIX: Pranger
-- FIX: Teamspeak Overview
-- FIX: Useramount
-- FIX: Spy report, display and response
-- FIX: Alliance Chat
-- FIX: Bug in TF-genesis moon formation
-- FIX: Check planet used fields
+- FIX: Bannati
+- FIX: Teamspeak in overview
+- FIX: Username giocatore
+- FIX: Rapporti spionaggio
+- FIX: Chat alleanza
+- FIX: Bug in TF-genesis formazione luna
+- FIX: Spazi pianeta usati
 - FIX: DeleteSelectedUser
-- FIX: Moon TF
-- FIX: Integral. Research Network
-- FIX: Values for consumption
-- FIX: Error Handler
-- FIX: U-Mode & Admin protection - Iraq
-- FIX: AKS-BUG in the fleet sent back function
-- FIX: Fleet flight time
-- FIX: CAPTCHA
-- FIX: Bug in moon and planetary destruction
-- FIX: Recycler return
-- FIX: Colonization: Brought Ressis will credit now
-- FIX: Liquor consumption
-- FIX: SQL gap in FleetAjax.php
-- FIX: Planet Distance
-- FIX: Various cheats fleet away
-- FIX: Magic`s TF
-- FIX: ACP-fopen error
+- FIX: Detriti luna
+- FIX: Ricerche
+- FIX: Consumi deuterio
+- FIX: Errore cantiere spaziale
+- FIX: Mod. vacanza
+- FIX: Acs
+- FIX: Orario flotta
+- FIX: Captcha
+- FIX: Bug in lune
+- FIX: Ricicla
+- FIX: Colonizzazione
+- FIX: Consumo di deuterio
+- FIX: Errore sql in FleetAjax.php
+- FIX: Distanza pianeta
+- FIX: Vari cheats per flotta
+- FIX: Detriti
+- FIX: Errore in acp
 - FIX: Opera Style Fix
-- FIX: Moon Destruction
-- FIX: Add-on modules
-- FIX: Support Ticket
-- FIX: DM-finding mission
-- FIX: Problems with the creation of Home Planet Mauell after the creation of users
-- FIX: Alliance members number in AINFO
+- FIX: Distruzione luna
+- FIX: Aggiunti moduli
+- FIX: Ticket du supporto
+- FIX: Missione materia oscura
+- FIX: Problema con pianeti
+- FIX: Membri in alleanza
 - FIX: Noob
-- FIX: Moon Building
-- FIX: Admin Protection
-- FIX: Building ships without Shipyard
-- FIX: Errors in the preparation KB
-- FIX: Forgot your password
-- FIX: Change password Nick Name
-- FIX: Umlauts in the description
-- DIV: New method to call Fleet Handler
-- DIV: New Plant Images
-- DIV: Increased flexibility to add new building
-- DIV: New formula for memory calculation
-- DIV: Take the ACP, when flying fleet had an error handler
-- DIV: User ACP activation by
-- DIV: New formula for Solarsats, deuterium, and number of fields Planettemp
-- DIV: Security increased in the Game
-- DIV: Other adjustments to the Game
-- DIV: Update to jQuery 1.4.1
+- FIX: Costruzioni in luna
+- FIX: Protezione admin
+- FIX: Costruzione navi
+- FIX: Errori
+- FIX: Password smarrita
+- FIX: Cambio password
+- FIX: Descrizione flotta
+- DIV: Flotta
+- DIV: Nuove immagini pianeta
+- DIV: Nuove costruzioni
+- DIV: Nuova formula di calcolo
+- DIV: Nuovo acp
+- DIV: Password in acp
+- DIV: Nuovo calcolo risorse deuterio
+- DIV: Sicurezza in gioco
+- DIV: Miglioramenti in gioco
+- DIV: Aggiornamento per jQuery 1.4.1
 ',
 
 'RC4.2' => 'ShadoX 06.12.09
-- ADD: StatBanner
-- ADD: Sycrogs robots.txt
-- ADD: UserVaild feature set
+- ADD: Statistica banner
+- ADD: Sincronizzazione a robots.txt
+- ADD: Campo User
+- FIX: Novita
+- FIX: Ufficiali
+- FIX: Email
+- FIX: Messaggi
+- FIX: Messaggi admin
+- FIX: Sql in note
 - FIX: News
-- FIX: Officers
-- FIX: Vaild-mail Link
-- FIX: Messages in return-Subject
-- FIX: Global Admin Message
-- FIX: SQL gaps in Notes
-- FIX: NEWS
-- FIX: Fleet speed
-- FIX: BeuteMath (by WOT Game)
-- FIX: GalaxyMoonRow
+- FIX: Velocita flotta
+- FIX: Deuterio
+- FIX: Galassia
 - FIX: Mail
-- FIX: Alliance Info
-- FIX: Lost password
-- FIX: Alliance ranks
-- FIX: max. Expeditions / max. Holding time
-- FIX: User name check at the registration
-- FIX: Registration close & Game Close
-- FIX: Admin chat page
-- FIX: Memory display corrected in commodities
-- FIX: Crash Galaxy Allyname
+- FIX: Info alleanza
+- FIX: Password persa
+- FIX: Gradi alleanza
+- FIX: Spedizioni
+- FIX: Username all iscrzione
+- FIX: Registrazioni chiuse
+- FIX: Admin chat
+- FIX: Memoria 
+- FIX: Galassia
 - FIX: Statfunctions.php
-- DIV: Mail via SMTP Auth
+- DIV: Mail via SMTP
 - DIV: Chat-Class
-- DIV: Revision Installer
-- DIV: Class Notes
-- DIV: Chat Interval set to 10 seconds
-- DIV: Security increased in the Game
-- DIV: Other adjustments to the Game
+- DIV: Revisione installazione
+- DIV: Class Note
+- DIV: Chat intervallo per 10 secondi
+- DIV: Maggior sicurezza in gioco
+- DIV: Migliorameni di gioco
 ',
 
 'RC4.1' => 'ShadoX 23.11.09
-- FIX: Moderation-ACP
-- FIX: User deletion
+- FIX: Moderazione
+- FIX: Username
 - FIX: cronjob.php
-- FIX: Mail function
-- FIX: ACP-topnav - Error
-- FIX: UTF-8 in the ACP
-- FIX: Minor SQL vulnerabilities
-- DIV: Security increased in the Game
-- DIV: Other adjustments to the Game
+- FIX: Funzione mail
+- FIX: ACP-topnav - Errore
+- FIX: UTF-8 in ACP
+- FIX: Minore vulnerabilita in sql
+- DIV: Maggior sicurezza in gioco
+- DIV: Miglioramento in gioco
 ',
 
 'RC4' => 'ShadoX 13.11.09
-- ADD: Fleet / Def to set TF
-- ADD: New function request_var, set_var and msg_handler
-- ADD: Completely revised ACP (XGP 2.9.1)
-- ADD: Flying fleet handler is not called in the login
-- ADD: Flying fleet handler is now no longer called 2x
-- ADD: New cron job - "Engine"
-- ADD: Using PHPMailer v5.1 Lite
-- MOD: Database connection now with mysqli
-- MOD: AKS-Overview
-- MOD: New instant engine based on jQuery
-- MOD: Bausch Leif messages a user can be switched off
-- MOD: Nutztung of mysqli:: multi_query (5%)
-- MOD: $_GET and $_POST replaced by request_var (70%)
-- MOD: Uservaris with $ db-> sql_escape (mysqli_real_escape_string) verstzt (80%)
-- MOD: New Email Class
-- MOD: Construction of the current research / the current building in the title bar
-- MOD: Autoload - Function
-- FIX: Line breaks in texts Alliance
-- FIX: Buddy List
-- FIX: Statistics: Number of points up to 18,446,744,073,709,551,616 (Yes, white, useless)
-- FIX: Reset universe
-- FIX: Espionage attack
-- FIX: SQL gap in MissilesAjax.php
-- FIX: Anonymous users can not come into play
-- FIX: Planetary extinction
-- FIX: Resources for Research demolition
-- FIX: No 10 Eng for his own gala more
-- FIX: Planiliste in ACP
-- FIX: (ID: 01)-Building
-- FIX: Building with conditions can not be built without assume some
-- FIX: Main Planet is now the main planet by default
-- FIX: Attack Link to moon espionage reports
-- FIX: DM-research mission
-- DIV: Moons, galaxy and tables removed
-- DIV: Fully converted UTF-8
-- DIV: Coords-Linking in the Galaxy Fleets
-- DIV: Skin optimization
-- DIV: DB-storage type of building and research of int (11) on TINYINT (3) amended unsigned
-- DIV: Adapting to Internet Explorer (IE8) & Opera
-- DIV: Unnecessary SQL queries (SELECT * FROM) amended
+- ADD: Flotta/Difesa in detriti
+- ADD: Nuovo funzione request_var, set_var e msg_handler
+- ADD: Completamente rivisto ACP (XGP 2.9.1)
+- ADD: Volo flotta
+- ADD: Missioni flotta
+- ADD: Nuovo cron job - "Engine"
+- ADD: Uso di PHPMailer v5.1 Lite
+- MOD: Connessione al database ora con mysqli
+- MOD: Acs-Overview
+- MOD: Nuovo instant engine basato su jQuery
+- MOD: Menu user
+- MOD: Nuovi codici sql
+- MOD: $_GET e $_POST rimpiazzato da request_var (70%)
+- MOD: Modifica $ db-> sql_escape (mysqli_real_escape_string) verstzt (80%)
+- MOD: Nuova email
+- MOD: Costruzioni ricerche
+- MOD: Funzioni
+- FIX: Testi alleanza
+- FIX: Richieste amicizia
+- FIX: Statistiche
+- FIX: Resetta universo
+- FIX: Missione spioaggio
+- FIX: Sql in MissilesAjax.php
+- FIX: Giocatori user
+- FIX: Pianeti
+- FIX: Risorse per ricerche
+- FIX: Galassia
+- FIX: Lista pianeti in ACP
+- FIX: (ID: 01)-Costruzione
+- FIX: Costruzioni
+- FIX: Nome pianeta di default
+- FIX: Attacco e i rapporti
+- FIX: Missione cerca m.o.
+- DIV: Lune, galassia e tavole rimosse
+- DIV: Conversione UTF-8
+- DIV: Coordinate
+- DIV: Skin ottimizzata
+- DIV: Capienza depositi
+- DIV: Adattazione per Internet Explorer & Opera
+- DIV: Sql migliorate
 - DIV: register_globals defaults from
-- DIV: All tables are now cleaned up 1x per day (OPTIMIZE TABLE)
-- DIV: Be compressed or sent to client
-- DIV: Alliance Page now controlled by switches
-- DIV: Performance Ingal. Network increases
-- DIV: Integrated formatCR calculateAttack and flying in the fleet handler now
-- DIV: New Registration (XNova Reloaded-0.1)
-- DIV: New message management (XNova Reloaded-0.1)
-- DIV: New build queue (XNova Reloaded-0.1)
-- DIV: Security increased in the Game
-- DIV: Various adjustments to the Game
+- DIV: Ottimizza tavola
+- DIV: Iscrizione
+- DIV: Pagina alleanza
+- DIV: Network aggiornato
+- DIV: Integrati formatCR
+- DIV: Nuova iscrizione (XNova Reloaded-0.1)
+- DIV: Nuova gestione messaggi (XNova Reloaded-0.1)
+- DIV: Nuova lista costruzioni (XNova Reloaded-0.1)
+- DIV: Sicurezza migliorata in gioco
+- DIV: Vari miglioramenti in gioco
 ',
 
 'RC3' => 'ShadoX 18.10.09
 - ADD: AGB
-- ADD: Rules
-- ADD: E-mail function validation
+- ADD: Regole
+- ADD: Funzione E-mail
 - ADD: Database backup
-- ADD: Database port selectable
-- MOD: Database optimizations
-- FIX: Alliance ranks
-- FIX: Alliance name change
-- FIX: Alliance tag change
-- FIX: More than 2,147,483,647 units transported
+- ADD: Database porta selezionabile
+- MOD: Database ottimizzazione
+- FIX: Gradi alleanza
+- FIX: Nome alleanza
+- FIX: Tag alleanza
+- FIX: Risorse bloccate a 2,147,483,647 unita
 - FIX: statbuilder.php
-- FIX: User deletion
-- FIX: Prey during the attack
-- FIX: DM Fund for Expedition
-- DIV: Steal and old economies reinserted
-- DIV: New email text for forgotten password
-- DIV: Security increased in the Game
-- DIV: W3C Valid (Login)
-- DIV: Various adjustments to the Game
+- FIX: Users
+- FIX: Durata attacco
+- FIX: M.O. in spedizione
+- DIV: Gestione risorse
+- DIV: Nuovo testo email per password dimenticata
+- DIV: Maggior sicurezza in gioco
+- DIV: W3C Valido (Login)
+- DIV: Vari miglioramenti in gioco
 ',
 
 'RC2' => 'ShadoX 13.10.09
-- MOD: Lottery
-- MOD: TS-Overview Mod
-- MOD: Minimum set of construction
-- MOD: Captcha-Mod powered by reCAPTCHA.net
-- MOD: News in the Overview / on the home page
-- MOD: Hall of Fame + Stats + Player Card Alliance
-- MOD: New planets, moon and players lists in the ACP
-- MOD: 4 New Vessels (Evolution transporter Gigarecyler, Integral. matter collectors, star destroyer)
-- MOD: New Defence (Gravity gun)
-- MOD: New mission to rescue DM
-- MOD: New economic system
-- MOD: Module
-- MOD: Supportsystem
+- MOD: Lotteria
+- MOD: TS-Overview Mod.
+- MOD: Costruzioni minime
+- MOD: Recaptcha
+- MOD: News in Overview / pagina principale
+- MOD: Hall of Fame + Statistiche + Carta giocatore
+- MOD: Nuovi pianeti, lune e lista giocatori in ACP
+- MOD: 4 nuove navi
+- MOD: Nuova difesa 
+- MOD: Nuova missione M.O.
+- MOD: Nuovo sistema economico
+- MOD: Moduli
+- MOD: Sistema di supporto
 - MOD: Records
-- FIX: Moon size is calculated correctly
-- FIX: Correct Stealberechnung in attack
-- FIX: Vulnerability in the Alliance side
-- FIX: Fleets are destroyed at the moon on the planet again
-- DIV: New default Skin: Darkness&sup2;
-- DIV: Game 100% translated in German (thanks to the translated Sycrog ACP)
-- DIV: Security increased in the Game
-- DIV: Various adjustments to the Game
-- DIV: Show the admins who are currently online
+- FIX: Spazi lunari corretti
+- FIX: Stealberechnung in attacco
+- FIX: Vulnerabilita in alleanza
+- FIX: Navi distrutte
+- DIV: Nuova skin: Darkness&sup2;
+- DIV: Gioco al 100% tradotto in tedesco 
+- DIV: Maggior sicurezza in gioco
+- DIV: Vari fix in gioco
+- DIV: Staff connesso
 
 
 Based on XG Proyect 2.8 on 11.10.09

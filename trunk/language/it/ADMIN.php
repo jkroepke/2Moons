@@ -7,7 +7,14 @@
 
 
 //---------------	GENERAL	------------------------//
+$LNG['ge_bool'][1]						= 'Si';
+$LNG['ge_bool'][0]						= 'No';
+$LNG['ge_send']							= 'Esegui';
+$LNG['ge_saved']						= 'Impostazioni salvate!';
+$LNG['ge_reset']						= 'Resetta/Reimposta';
+$LNG['ge_info']							= 'Informazioni';
 $LNG['adm_login']		= 'Login';
+$LNG['adm_username']		= 'Username';
 $LNG['adm_absenden']		= 'Esegui'; 
 $LNG['adm_password']					= 'Password';
 $LNG['adm_password_info']				= 'Per favore inserisci la tua password per autenticarti!';
@@ -24,7 +31,7 @@ $LNG['ad_number'] 					= 'ID';
 $LNG['ad_max']  					= '(max. % d)'; 
 $LNG['only_numbers']					= 'Solo numeri 0-9!'; 
 $LNG['select_option']	 				= 'Seleziona...'; 
-$LNG['ad_add_not_exist']		= 'Questo ID non esiste!';
+
 
 // 	RANGO - RANK
 $LNG['rank'][0]						= 'Giocatore';
@@ -101,9 +108,10 @@ $LNG['ad_editor_planets']				= 'Pianeti e lune';
 $LNG['ad_editor_resources']				= 'Risorse';
 $LNG['ad_editor_alliances']				= 'Alleanza';
 $LNG['ad_editor_authlevels']			= 'Gestisci diritti';
+$LNG['ad_add_not_exist']		= 'Id inesistente!';
 
 // RESEARCH
-$LNG['ad_research_title']				= 'Modifica ricerche';
+$LNG['ad_researse_chat_title']		= 'Modifica ricerche';
 $LNG['ad_add_succes']	        		= 'Ricerca aggiunta con successo!';
 $LNG['ad_delete_succes']  				= 'Ricerca eliminata con successo!';
 
@@ -219,40 +227,6 @@ $LNG['bo_total_users']					= 'Giocatori totali: ';
 $LNG['bo_total_banneds']				= 'Totale giocatori bannati: ';
 //###########################################################//
 
-//---------------	ENCRYPTOR MD5  --------------------------//
-$LNG['et_md5_encripter']				= 'Generatore MD5';
-$LNG['et_pass']						= 'Password';
-$LNG['et_result']					= 'Risultato';
-$LNG['et_encript']					= 'Cripta';
-//###########################################################//
-
-//---------------	STATS CONFIG 	------------------------//
-$LNG['cs_title']					= 'Impostazioni parametri delle statistiche';
-$LNG['cs_point_per_resources_used']			= '1 punto di gioco &egrave uguale a un numero x di risorse: ';
-$LNG['cs_resources']					= 'Risorse';
-$LNG['cs_users_per_block']				= 'Giocatori per blocchi in classifica (minimo 10)';
-$LNG['cs_fleets_on_block']				= 'Aggiornare le flotte in blocco?';
-$LNG['cs_time_between_updates']         		= 'Tempo tra gli aggiornamenti della classifica:';
-$LNG['cs_minutes']					= 'Minuti';
-$LNG['cs_points_to_zero']				= 'Pu&ograve l\'amministratore comparire nella classifica?';
-$LNG['cs_access_lvl']					= 'I giocatori pi&egrave alti in classifica possono apparire nella classifica?';
-$LNG['cs_save_changes']					= 'Salva cambiamenti';
-$LNG['cs_timeact_1']					= 'L\'ultimo aggiornamento &egrave avvenuto il: ';
-$LNG['cs_yes']						= 'Si';
-$LNG['cs_no']						= 'No';
-$LNG['cs_no_view']					= 'Nascondi amministratori';
-$LNG['cs_banner_time_between_updates']	= 'Tempo di intervallo tra gli aggiornamenti del Banner Classifcia';
-$LNG['cs_banner_title']					= 'Impostazioni Banner Classifica';
-//###########################################################//
-
-//---------------	ERROR LIST  ----------------------------//
-$LNG['er_errors']					= 'errori';
-$LNG['er_error_list']					= 'Lista errori';
-$LNG['er_dlte_all']					= 'Elimina tutti';
-$LNG['er_type']						= 'Tipo';
-$LNG['er_data']						= 'Data';
-//###########################################################//
-
 //---------------	MESSAGES LIST	------------------------//
 $LNG['ml_message_list']					= 'Lista messaggi';
 $LNG['ml_page']						= 'Pagina';
@@ -306,20 +280,21 @@ $LNG['ow_updates']										= 'Ultimo aggiornamento';
 //---------------	GAME CONFIG	    ------------------------//
 $LNG['se_server_parameters']               		= 'Impostazioni del server';
 $LNG['se_game_name']					        = 'Nome (Gioco)';
+$LNG['se_game_name_info']				= 'Nome gioco';
 $LNG['se_uni_name']						        = 'Nome (Universo)';
-$LNG['se_name']                            		= 'Nome';
+$LNG['se_uni_name_info']				= 'Name universo';
 $LNG['se_lang']                            		= 'Lingua base di gioco';
-$LNG['se_general_speed']                    		= 'Velocit&agrave di gioco generale';
+$LNG['se_game_speed']					= 'Velocita gioco';
 $LNG['se_normal_speed']                    		= 'Velocit&agrave di gioco normale: 1 <br> Massimo raccomandato: 20';
 $LNG['se_normal_speed_resoruces']           		= 'Velocit&agrave di produzione normale: 1 <br> Massimo raccomandato: 20';
 $LNG['se_normal_speed_fleet']              		= 'Velocit&agrave delle flotte normale: 1 <br> Massimo raccomandato: 20';
 $LNG['se_normal_speed_halt']					= 'Velocit&agrave normale spedizioni: 1 <br> Massimo raccomandato: 20';
 $LNG['se_fleet_speed']                      		= 'Velocit&agrave flotta';
-$LNG['se_resources_producion_speed']        		= 'Velocit&agrave di produzione risorse';
+$LNG['se_resource_multiplier']			= 'Velocita produzione';
 $LNG['se_halt_speed']							= 'Velocit&agrave spedizioni';
-$LNG['se_forum_link']                       		= 'Link al tuo forum';
-$LNG['se_server_op_close']                  		= 'Gioco online? - Seleziona questo box per aprire il tuo server ai giocatori';
-$LNG['se_server_status_message']			= 'Messaggio del server - Inserisci il tuo messaggio per manutenzione del server qui';
+$LNG['se_forum_url']					= 'Link del forum';
+$LNG['se_game_disable']					= 'Gioco online?';
+$LNG['se_close_reason']					= 'Gioco chiuso per manutenzione';
 $LNG['se_server_planet_parameters']        		= 'Parametri pianeta madre';
 $LNG['se_initial_fields']                   		= 'Spazi del pianeta';
 $LNG['se_fields']                           		= 'Spazi';
@@ -328,54 +303,55 @@ $LNG['se_metal_production']                		= 'Produzione di metallo base';
 $LNG['se_crystal_production']               		= 'Produzione di cristallo base';
 $LNG['se_deuterium_production']            		= 'Produzione di deuterio base';
 $LNG['se_several_parameters']				= 'Impostazioni varie del server';
-$LNG['se_title_admins_protection']			= 'Seleziona questo box per proteggere gli amministratori dagli attacchi';
-$LNG['se_admin_protection']				= 'Protezione admin';
-$LNG['se_debug_mode']					= 'Modalit&agrave debug';
+$LNG['se_adm_attack']					= 'Ptotezione staff';
+$LNG['se_adm_attack_info']				= 'Seleziona questo box per non far ricevere attacchi allo staff di gioco.';
+$LNG['se_debug']						= 'Mod. Debug';
 $LNG['se_save_parameters']				= 'Salva';
 $LNG['se_configuration_title']				= 'Configurazione';
 $LNG['se_server_naame']					= 'Nome gioco';
 $LNG['se_cookie_name']					= 'Nome cookies';
 $LNG['se_cookie_advert']				= 'Se cambi il nome dei cookies, tutti i giocatori dovranno rieffettuare il login.<br>I cookies sono usati soltanto nei giochi con pi&ugrave universi.<br>Il nome dei cookies non pu&ograve contenere spazi!';
 $LNG['se_debug_message']				= 'Debug Mode consente la registrazione di tutti i comandi SQL. Gli amministratori avranno una barra di stato con il numero di query SQL e script runtime.';
-$LNG['se_def_cdr']					= 'Percentuale di difesa trasformata in detriti dopo un attacco';
-$LNG['se_ships_cdr']					= 'Percentuale di flotta trasformata in detriti dopo un attacco';
-$LNG['se_def_cdr_message']				= 'Percentuale di difesa trasformata in detriti dopo un attacco';
-$LNG['se_ships_cdr_message']				= 'Percentuale di flotta trasformata in detriti dopo un attacco';
-$LNG['se_noob_protect']					= 'Protezione niubbo';
-$LNG['se_noob_protect2']				= 'Protezione niubbo per punti';
-$LNG['se_noob_protect3']				= 'Protezione niubbo per fattore';
-$LNG['se_noob_protect_e2']				= 'La protezione niubbo &egrave attiva fino ai punti:';
-$LNG['se_noob_protect_e3']				= 'Clicca qui per vedere maggiori informazioni';
-$LNG['se_recaptcha_whats']				= 'Cos\'&egrave reCAPTCHA?';
-$LNG['se_recaptcha_head']				= 'Impostazioni Recaptcha';
-$LNG['se_recaptcha_desc']				= 'Recaptcha: Un servizio gratis CAPTCHA aiuta a bloccare i bot-spammers. <br /> Per usare questo servizio, /egrave necessaria una registrazione a Google o reCAPTCHA.net.';
-$LNG['se_recaptcha_public']				= 'Chiave pubblica:';
-$LNG['se_recaptcha_private']				= 'Chiave privata:';
-$LNG['se_recaptcha_active']				= 'Attiva reCAPTCHA';
+$LNG['se_Defs_Cdr']						= 'Flotta e difesa in detriti';
+$LNG['se_Fleet_Cdr']			        = 'Percentuale flotta in detriti';
+$LNG['se_Defs_Cdr_info']				= 'Percentuale difesa in detriti';
+$LNG['se_Fleet_Cdr_info']				= 'Seleziona percentuale flotta in detriti';
+$LNG['se_noobprotection']				= 'Protezione niubbo';
+$LNG['se_noobprotectiontime']			= 'Protezione niubbo a x Punti';
+$LNG['se_noobprotectionmulti']			= 'Protezione niubbo';
+$LNG['se_noobprotectiontime_info']		= 'Inserisci il valore fino al quale i giocatori rientrano in prot. niubbo';
+$LNG['se_noobprotectionmulti_info']		= 'Clicca qui per maggiori informazioni';
+$LNG['se_cappublic']					= 'Chiave pubblica:';
+$LNG['se_capprivate']					= 'Chiave privata:';
+$LNG['se_recaptcha']					= 'Recaptcha';
+$LNG['se_capaktiv']						= 'Attiva Recaptcha';
+$LNG['se_capaktiv_info']				= 'Su informazioni riguardanti recaptcha andate sul seguente sito <a href="http://de.wikipedia.org/wiki/CAPTCHA" target="_blank">Captcha</a> Service, serve per evitare qualunque forma di bot o spam.</a>';
 $LNG['se_reg_closed']					= 'Chiudi registrazioni';
 $LNG['se_min_build_time']				= 'Costruzioni minime';
 $LNG['se_min_build_time_info']				= 'Qui si regola il tempo minimo di costruzione di edifici, ricerche, così come flotte e difesa. Questo valore predefinito &egrave impostato su 1.<br>Se &egrave impostato a 0, sar&agrave disattivato.<br><font color=orange>Attenzione - In alcuni casi, quando l\'impostazione &egrave settata su 0, si hanno dei bug! </font>';
-$LNG['se_news_head']					= 'Impostaioni News';
-$LNG['se_news_active']					= 'Attiva News';
-$LNG['se_news_limit']					= 'Max. 255 Caratteri!';
+$LNG['se_trader_head']					= 'Venditore flotta';
+$LNG['se_trade_allowed_ships']			= 'Navi possibili:';
+$LNG['se_trade_allowed_ships_info']		= 'Inserisci un id della nave cui i giocatori hanno la possibilita di vendere per ottenere risorse, separa gli id da virgole.';
+$LNG['se_trade_charge']					= 'Tassa di scambio:';
+$LNG['se_trade_charge_info']			= 'Percentuale della trattenuta per tale operazione:';
+$LNG['se_news']							= 'News';
 $LNG['se_news_info']					= 'Se &egrave deselezionato, le news verranno rimosse dal menu riepilogo.';
-$LNG['se_news']						= 'News';
-$LNG['se_verfiy_mail']					= 'Verifica indirizzo e-mail';
-$LNG['se_verfiy_mail_info']				= 'Se abilitato, i giocatori dovranno cliccare sul link di verifica ivniato per email.<br>Nota: Questo richiede le impostazioni SMTP per il tuo SMTP server da compilare sotto.';
+$LNG['se_user_valid']					= 'Verifica indirizzo email';
+$LNG['se_user_valid_info']				= 'Se attivato, i giocatori dovranno attivare il loro account per email prima di poter entrare in gioco.';
 $LNG['se_smtp']						= 'Impostazioni SMTP';
 $LNG['se_smtp_info']					= 'Inserisci il server SMTP qui. Questo permetter&agrave al suddetto gioco di comunicare con gli utenti attraverso le e-mails.';
 $LNG['se_mail_active']					= 'E-mail attivata';
 $LNG['se_mail_use']						= 'E-mail usata:';
-$LNG['se_mail_sel'][0]					= 'Funzione PHP mail()';
-$LNG['se_mail_sel'][1]					= 'Invia mail / Qmail';
-$LNG['se_mail_sel'][2]					= 'SMTP Auth';
+$LNG['se_mail_use_label'][0]			= 'PHP mail() Function';
+$LNG['se_mail_use_label'][1]			= 'Invio mail / Qmail';
+$LNG['se_mail_use_label'][2]			= 'SMTP Auth';
 $LNG['se_smail_path']					= 'Path per inviare un\'email / Qmail';
 $LNG['se_smtp_host']					= 'SMTP Host:';
 $LNG['se_smtp_host_info']				= 'Inserisci qui l\'indirizzo del server SMTP.';
 $LNG['se_smtp_ssl']					= 'Impostazioni criptografia SMTP: No criptografia/SSL/TLS :';
-$LNG['se_smtp_ssl_1']					= 'No criptografia';
-$LNG['se_smtp_ssl_2']					= 'SSL';
-$LNG['se_smtp_ssl_3']					= 'TLS';
+$LNG['se_smtp_ssl_label']['']			= 'Non criptata';
+$LNG['se_smtp_ssl_label']['ssl']		= 'Ssl';
+$LNG['se_smtp_ssl_label']['tls']		= 'Tls';
 $LNG['se_smtp_ssl_info']				= 'Qui potrete scegliere una connessione sicura tra il server SMTP e il server web che deve essere impostato. Questo passaggio risulta necessario in casi rari';
 $LNG['se_smtp_port']					= 'SMTP Porta:';
 $LNG['se_smtp_port_info']				= 'Inserisci qui la porta del tuo server SMTP <br> La porta standard &egrace: 25';
@@ -383,18 +359,11 @@ $LNG['se_smtp_user']					= 'SMTP Username:';
 $LNG['se_smtp_pass']					= 'SMTP Password:';
 $LNG['se_smtp_sendmail']               			= 'Invia indirizzo:';
 $LNG['se_smtp_sendmail_info']          			= 'Qui si inserisce l\'indirizzo e-mail di ritorno. Non &egrave necessario che sia uguale a quello per inviare le e-mail.';                                        
-$LNG['se_ftp']						= 'Impostazioni FTP:';
-$LNG['se_ftp_info']					= 'La community di 2Moons ti aiuta ad aggiornare il gioco direttamente dal server di supporto via FTP. Per usufruire di questa funzione, dovete configurare un account FTP sul server, quindi immettere le informazioni richieste. Queste informazioni servono per fare il trasferimento dei file dal server in modo automatico.';
-$LNG['se_ftp_host']					= 'FTP Host:';
-$LNG['se_ftp_user']					= 'FTP User:';
-$LNG['se_ftp_pass']					= 'FTP Password:';
-$LNG['se_ftp_dir']					= 'FTP Game pfad:';
-$LNG['se_ftp_dir_info']					= 'Immettere il percorso della directory principale del gioco qui. Il percorso deve iniziare con una barra! <br> Esempio: /public_html o /public_html/game';
 $LNG['se_google']					= 'Impostazioni Google Analytics';
-$LNG['se_google_info']					= 'Google Analytics permette di ottenere preziose informazioni sul traffico del vostro server web, e l\'impatto delle vostre strategie di marketing. Grazie al potente, flessibile e user-friendly, ora potrete accedere ai vostri dati in nuovi modi di analizzare e visualizzare informazioni sul vostro sito web. Grazie a Google Analytics, ora potrete progettare la vostra pubblicita mirata direttamente sulla vostra campagna di marketing e sviluppare siti web con tassi di conversione.';
-$LNG['se_google_active']				= 'Attiva Google Analytics?';
-$LNG['se_google_key']					= 'Chiave per Google Analytics';
-$LNG['se_google_key_info']				= 'Una volta registrato, Google ti fornir&agrave una chiave per identificare il tuo sito web, per l\'analisi con i loro software. N.B.: questa inizia sempre con UA: UA -13185300-3 ';
+$LNG['se_ga_active_info']				= 'Google Analytics Website. Vai qui per maggiori informazioni <a target="_blank" href="http://www.google.com/analytics/product.html">hier</a>.';
+$LNG['se_ga_active']					= 'Attivare servizio?';
+$LNG['se_ga_key']						= 'Chiave';
+$LNG['se_ga_key_info']					= 'Google analystics permette di pubblicizzare gratuitamente il tuo sito e farlo comparire nelle statistiche generali, devi inserire una chiave per fare tutto cio che sara simile a: UA, z.B.: UA-13185300-3';
 $LNG['se_ttf_file']						= 'Percorso dei file TFF';
 $LNG['se_ttf_file_info']				= 'Il TTF serve per visualizzare le statistiche Cyrillic o caratteri Cinesi';
 $LNG['se_max_galaxy']					= 'Galassie massime';
@@ -412,7 +381,8 @@ $LNG['se_planet_factor_info']			= 'Moltiplicatore dimensione pianeti';
 $LNG['se_max_elements_build']			= 'Massime costruzioni (infrastrutture)';
 $LNG['se_max_elements_build_info']		= 'Numero massimo di costruzioni nella coda di costruzioni';
 $LNG['se_max_elements_tech']			= 'Numero max di ricerche';
-$LNG['se_max_elements_tech_info']		= 'Numero massimo di ricerche nella coda di ricerche';
+$LNG['se_max_elements_tese_chat_info']	= 'Numero massimo code di ricerca';
+$LNG['se_max_elements_tese_chat_info']	= 'Numero massimo di code per effettuare ricerche';
 $LNG['se_max_elements_ships']			= 'Massime navi (cantiere spaziale)';
 $LNG['se_max_elements_ships_info']		= 'Numero massimo di navi nella coda nel caniere navale';
 $LNG['se_max_fleet_per_build']			= 'Massime flotte / Missioni';
@@ -446,9 +416,6 @@ $LNG['se_debris_moon_info']	 			= 'Cancella i detriti dopo che una luna &egrave 
 $LNG['se_deuterium_cost_galaxy']		= 'Tasso galassia';
 $LNG['se_deuterium_cost_galaxy_info']	= 'Costo di deuterio per ogni click in galassia';
 $LNG['se_buildlist']					= 'Impostazioni lista costruzioni';
-$LNG['se_trader_head']					= 'Impostazioni commerciante';
-$LNG['se_trader_ships']				= 'Navi ammesse:';
-$LNG['se_trader_charge']				= 'Commerciante gratis:';
 $LNG['se_player_settings']				= 'Impostazioni utente';
 $LNG['se_days']							= 'Giorni';
 $LNG['se_del_oldstuff']					= 'Cancella messaggi dopo ';
@@ -460,6 +427,7 @@ $LNG['se_del_user_automatic_info']		= 'Cancella chi non ha eseguito il login per
 $LNG['se_del_user_sendmail']			= 'Invia e-mail ricordo gioco ';
 $LNG['se_del_user_sendmail_info']		= 'Invia un e-mail per ricordare il gioco a chi non si &egrave loggato per x giorni.';
 $LNG['se_sendmail_inactive']			= 'Attiva avvertimenti e-mail';
+$LNG['se_sendmail_inactive_info']		= 'Attivando questa opzione i giocatori che non effettuano il login dopo X giorni riceveranno una email per ricordargli la loro inattivita in gioco.';
 $LNG['se_ref']							= 'Link riferimento';
 $LNG['se_ref_active']					= 'Attiva link riferimenti';
 $LNG['se_ref_active_info']				= 'Link riferimenti da ai giocatori la possibilita di invitare gli amici. Questo dara un bonus per i giocatori';
@@ -472,10 +440,57 @@ $LNG['se_ref_max_referals_info']		= 'Massimo numero di giocatori che possono ess
 $LNG['se_silo_factor']					= 'Ampliezza base missilistica';
 $LNG['se_silo_factor_info']				= 'Indica quanta capienza ha ogni livello aggiuntivo della base missilistica';
 $LNG['se_timzone']                                              = 'Stato orario universo';
-$LNG['se_dst_mode']                                                     = 'Attivare ora legale?';
-$LNG['se_dst_sel'][0]                                   = 'No';
-$LNG['se_dst_sel'][1]                                   = 'Si';
-$LNG['se_dst_sel'][2]                                   = 'Automatico';
+$LNG['se_timezone_info']				= 'Orario standard da usare per il server';
+$LNG['se_dst']							= 'Ora legale';
+$LNG['se_dst_info']						= 'Questa opzione serve per attivare o meno l ora legale';
+$LNG['se_dst_label'][0]					= 'No';
+$LNG['se_dst_label'][1]					= 'Si';
+$LNG['se_dst_label'][2]					= 'Automatica';
+
+$LNG['se_facebook']						= 'Connettiti con facebook';
+$LNG['se_fb_on']						= 'Attivare connessione facebook?';
+$LNG['se_fb_apikey']					= 'Id gruppo facebook';
+$LNG['se_fb_skey']						= 'Chiave segreta';
+
+$LNG['se_chat']							= 'Opzioni della chat';
+$LNG['se_chat_socket_chatid_info']		= 'Questo id serve per differenziare le diverse installazioni delle chat in gioco';
+$LNG['se_chat_socket_port_info']		= 'Porta del server';
+$LNG['se_chat_socket_ip_info']			= 'Definisci un IP del server che viene usato per mostrare i messaggi delle diverse chat';
+$LNG['se_chat_socket_host_info']		= 'Definisci un host del server che viene usato come client';
+$LNG['se_chat_socket_chatid']			= 'Id chat';
+$LNG['se_chat_socket_port']				= 'Porta';
+$LNG['se_chat_socket_ip']				= 'IP';
+$LNG['se_chat_socket_host']				= 'Nome host';
+$LNG['se_chat_socket_active']			= 'Attivo?';
+$LNG['se_chat_socket']					= 'Opzioni server';
+$LNG['se_chat_closed']					= 'Disabilitare la chat?';
+$LNG['se_chat_allowchan']				= 'Canali privati';
+$LNG['se_chat_allowmes']				= 'Messaggi privati';
+$LNG['se_chat_allowdelmes']				= 'Eliminare messaggi';
+$LNG['se_chat_logmessage']				= 'Logs dei messaggi';
+$LNG['se_chat_nickchange']				= 'Consenti cambio nick';
+$LNG['se_chat_botname']					= 'Nome bot';
+$LNG['se_chat_channelname']				= 'Canali standard';
+
+
+$LNG['se_teamspeak']					= 'Opzioni Teamspeak';
+$LNG['se_ts_modon']						= 'Attivare Teamspeak?';
+$LNG['se_ts_version']					= 'Versione del server:';
+$LNG['se_ts_udpport']					= 'Porta TCP';
+$LNG['se_ts_tcpport']					= 'Porta UPD';
+$LNG['se_ts_server']					= 'Ip del server';
+$LNG['se_ts_timeout']					= 'Timeout'; 
+$LNG['se_ts_server_query']				= 'Porta query del server'; 
+$LNG['se_ts_login']						= 'Login della query per il server'; 
+$LNG['se_ts_password']					= 'Password della query per il server'; 
+$LNG['se_ts_version_label'][2]			= '2';
+$LNG['se_ts_version_label'][3]			= '3'; 
+
+$LNG['se_staistic']						= 'Opzioni statistiche';
+$LNG['se_stat_settings']				= '1 punto equivale a X risorse spese';
+$LNG['se_stat']							= 'Non mostrare punti dello staff...';
+$LNG['se_stat_level']					= 'Nascondi giocatori con grado X in su';
+
 //###########################################################//
 
 
@@ -548,6 +563,7 @@ $LNG['mu_general']                   			= 'Generale';
 $LNG['mu_connected']                			= 'Connessi';
 $LNG['mu_settings']                			= 'Configurazione';
 $LNG['mu_unisettings']				= 'Configurazione Universo';
+$LNG['mu_chat']						= 'Configurazione chat';
 $LNG['mu_global_message']            			= 'Messaggio globale';
 $LNG['mu_users_settings']            			= 'Menu modifica';
 $LNG['mu_add_delete_resources']    			= 'Modifica account';
@@ -573,7 +589,6 @@ $LNG['mu_info_account_page']        			= 'Informazioni account';
 $LNG['mu_planets_options']            			= 'Opzioni pianeta';
 $LNG['mu_user_logs']                			= 'Logs';
 $LNG['mu_support']                 			= 'Tickets di supporto';
-$LNG['mu_chat']                   			= 'Amministrazione chat';
 $LNG['mu_module']                 			= 'Moduli';
 $LNG['mu_update']                 			= 'Aggiornamenti gioco';
 $LNG['mu_mod_update']              	= 'Controlla versione';
@@ -586,6 +601,24 @@ $LNG['mu_multiip']					= 'Multi IP';
 $LNG['mu_clear_cache']				= 'Cancella cache'; 
 $LNG['mu_vertify']                                      = 'Verifica contenuto gioco';
 $LNG['mu_logs']                                         = 'Logs admin';
+
+$LNG['vt_error']					= 'HashFile non disponibile! - Effettua aggiornamento!';
+$LNG['vt_fail']						= 'File modificati';
+$LNG['vt_info']						= 'Questa lista di file indica quelli aggiornati e che quindi non rientrano nella versione di base originale.<br>Se non li hai ancora aggiornati ti consigliamo di farlo manualmente.';
+$LNG['vt_head']						= 'Controlla i file di gioco';
+$LNG['vt_filephp']					= 'Dati Php';
+$LNG['vt_filetpl']					= 'Templates';
+$LNG['vt_filecss']					= 'Style';
+$LNG['vt_filejs']					= 'Javascript';
+$LNG['vt_fileimg']					= 'Immagini';
+$LNG['vt_filehtaccess']				= 'Htaccess';
+$LNG['vt_all']						= 'Controlla tutti i file';
+$LNG['vt_fileok']					= 'Dati in perfetto stato!';
+$LNG['vt_filefail']					= 'File cambiati ';
+$LNG['vt_filenew']					= 'Nuovi file';
+$LNG['vt_fileerror']				= 'Errore';
+$LNG['vt_loadfile']					= 'Carica lista file';
+
 //###########################################################//
 
 $LNG['cc_cache_clear']				= 'Cache cancellate'; 
@@ -596,6 +629,7 @@ $LNG['re_reset_universe_confirmation']	        	= 'Cliccando ok, resetterai l\'u
 $LNG['re_player_and_planets']			= 'Giocatori e pianeti';
 $LNG['re_reset_player']					= 'Reset giocatori (eliminali tutti)';
 $LNG['re_reset_planets']				= 'Reset pianeti (elimina colonie)';
+$LNG['re_reset_moons']					= 'Resetta lune';
 $LNG['re_defenses_and_ships']                		= 'Navi e difese';
 $LNG['re_defenses']                        		= 'Resetta Difese';
 $LNG['re_ships']                            		= 'Resetta navi';
@@ -709,10 +743,6 @@ $LNG['ac_suspended_time']				= 'Bannato';
 $LNG['ac_suspended_longer']				= 'Fino al';
 $LNG['ac_suspended_reason']				= 'Motivo';
 $LNG['ac_suspended_autor']				= 'Bannato per';
-$LNG['ac_note_k']					.= '<table><tr><th width=10%><font color=lime>T+</font></th><th>Supera i trolioni</th></tr>';
-$LNG['ac_note_k']					.= '<tr><th width=10%><font color=lime>T</font></th><th>Supera il trilione</th></tr>';
-$LNG['ac_note_k']					.= '<tr><th width=10%><font color=lime>B</font></th><th>Supera un miliardo</th></tr>';
-$LNG['ac_note_k']					.= '<tr><th width=10%><font color=lime>M</font></th><th>Supera un milione</th></tr>';
 $LNG['ac_note_k']					.= '<tr><th width=10%><font color=lime>K</font></th><th>Supera i mille</th></tr></table>';
 $LNG['ac_leyend']					= '[ Legenda ]';
 $LNG['ac_no_rank_level']				= 'Non hai i diritti sufficienti per vedere le informazioni di questo giocatore!';
@@ -751,7 +781,7 @@ $LNG['se_ban_reason']					=	'Motivo';
 $LNG['se_ban_time']					=	'Bannato';
 $LNG['se_ban_limit']					=	'Fino al';
 $LNG['se_ban_author']					=	'Bannato per';
-$LNG['se_search_title']					=	'Ricerca avanzata';
+$LNG['se_searse_chat_title']		=	'Ricerca avanzata';
 $LNG['se_order_list_now']				=	'Ordine di ricerca';
 $LNG['se_input_name']					=	'Nome';
 $LNG['se_input_g']					=	'Galassia';
@@ -787,7 +817,7 @@ $LNG['se_input_vacatii']				=	' Utenti in vacanza';
 $LNG['se_input_connect']				=	' Utenti connessi';
 $LNG['se_input_act_pla']				=	' Pianeti attivi';
 $LNG['se_filter_title']					=	'Filtri';
-$LNG['se_search_in']					=	'Per';
+$LNG['se_searse_chat_in']		=	'Per';
 $LNG['online_users']					=	'Connessi';
 $LNG['se_limit']					=	'Limite';
 $LNG['se_pagees']					=	'Pagine';
@@ -796,14 +826,14 @@ $LNG['se_expand']					=	'Espandi';
 $LNG['se_contrac']					=	'Crolla';
 $LNG['se__next']					=	'Prossimo';
 $LNG['se__before']					=	'Indietro';
-$LNG['se_search_info']					=	'Cerca';
+$LNG['se_searse_chat_info']		=	'Cerca';
 $LNG['se_asc_desc']					=	'Crescente/Decrescente';
-$LNG['se_search_order']					=	'Ordina';
-$LNG['se_search_edit']					=	'Modifica';
+$LNG['se_searse_chat_order']		=	'Ordina';
+$LNG['se_searse_chat_edit']		=	'Modifica';
 $LNG['se_delete_succes_p']				=	'Eliminato con successo';
 $LNG['se_confirm_planet']				=	'Il pianeta selezionato verr6agrave cancellato con successo. Nome del pianeta:';
 
-$SE_ID		=	"ID";
+$SE_ID		=	"Id";
 $SE_NAME	=	"Nome";
 
 // B�SQUEDA EN TABLA DE USUARIOS
@@ -944,30 +974,6 @@ $LNG['qe_change']						= 'Cambia';
 $LNG['qe_authattack']					= 'Proteggi staff da attacchi';
 
 //----------------------------------------------------------------------------//
-//TeamSpeakSettingPage.php
-$LNG['ts_settings']					= 'Impostazioni Teamspeak';
-$LNG['ts_active']					= 'Attiva modulo Teamspeak?';
-$LNG['ts_version']					= 'Versione server:';
-$LNG['ts_udpport']					= 'Porta TCP';
-$LNG['ts_tcpport']					= 'Porta UDP';
-$LNG['ts_serverip']					= 'IP server';
-$LNG['ts_timeout']					= 'Timeout'; 
-$LNG['ts_server_query']					= 'Porta query server';
-$LNG['ts_login']						= 'Login server query'; 
-$LNG['ts_pass']							= 'Password server query'; 
-$LNG['ts_cron']							= 'Velocit&agrave di aggiornamento'; 
-
-//----------------------------------------------------------------------------//
-//FacebookSettingPage.php
-$LNG['fb_settings']					= 'Impostazione connessione facebook';
-$LNG['fb_active']					= 'Attiva connessione facebook?';
-$LNG['fb_api_key']					= 'Facebook API Key';
-$LNG['fb_secrectkey']					= 'Facebook Secret Key';
-$LNG['fb_info']						= 'Con la connessione facebook, in caso si possiede un account, puoi loggarti e registrarti con il tuo account. <br>  Per poterlo fare, devi essere registrato su facebook. Inoltre, &egrave necessario creare un\'applicazione. Questo si pu&ograve fare con <a href="http://www.facebook.com/developers/"> http://www.facebook.com/developers/ </ a>. Con Connect URL, devi inserire l\'URL del gioco. Poi tu porti qui le chiavi e il gioco dovrebbe essere pronto. <br> <font Color="red"> Per connetterti tramite facebook, l\'uso delle email sar&agrave attivato! (Impostazioni SMTP)</font>';
-$LNG['fb_curl_yes']						= '<span style="color:green">cURL installato!</span>';
-$LNG['fb_curl_no']						= '<span style="color:red">cURL non installato! Facebook richiede l\'estensione cURL per lavorare!</span>';
-
-//----------------------------------------------------------------------------//
 //GameModule.php
 $LNG['modul'][0]                        		= 'Alleanza';
 $LNG['modul'][39]						                = 'Simulatore di battaglie';
@@ -980,7 +986,7 @@ $LNG['modul'][7]                        		= 'Chat';
 $LNG['modul'][8]                        		= 'Banca materia oscura';
 $LNG['modul'][9]                        		= 'Flotta';
 $LNG['modul'][10]                       		= 'Flotta - Gestore';
-$LNG['modul'][40]						                = 'Scorciatoie flotta';
+$LNG['modul'][41]						= 'Scorciatoie flotta';
 $LNG['modul'][11]                       		= 'Galassia';
 $LNG['modul'][12]                       		= 'Hall of Fame';
 $LNG['modul'][13]                       		= 'Commerciante';
@@ -1002,6 +1008,7 @@ $LNG['modul'][18]                       		= 'Ufficiali';
 $LNG['modul'][19]                       		= 'Falangia';
 $LNG['modul'][20]                       		= 'Carta del giocatore';
 $LNG['modul'][21]                       		= 'Bannato';
+$LNG['modul'][40]						= 'Attacco missilistico';
 $LNG['modul'][22]                       		= 'Record';
 $LNG['modul'][23]                       		= 'Risorse';
 $LNG['modul'][38]						                = 'Flotte - Commerciante';
@@ -1010,7 +1017,7 @@ $LNG['modul'][37]                       		= 'Banner classifica';
 $LNG['modul'][26]                       		= 'Cerca';
 $LNG['modul'][27]                       		= 'Tickets di supporto';
 $LNG['modul'][28]                       		= 'Albero Tecnologico';
-$LNG['modul'][41]                           = 'Applicazione facebook';
+
 $LNG['mod_module']					= 'Moduli';
 $LNG['mod_info']					= 'Moduli nel gioco';
 $LNG['mod_active']					= 'Attiva';
@@ -1032,20 +1039,6 @@ $LNG['nws_confirm']					= 'Sei sicuro di cancellare il messaggio %s ?';
 $LNG['nws_create']					= 'Crea nuova News';
 $LNG['nws_total']					= 'Totale: %d news disponibili';
 $LNG['nws_content']					= 'Contenuto';
-
-//Mod Versions Control
-
-$LNG['mvc_title']						= 'Titolo';
-$LNG['mvc_author']						= 'Autore';
-$LNG['mvc_version']						= 'Versione';
-$LNG['mvc_link']						= 'Link';
-$LNG['mvc_update_yes']					= 'Aggiornamento disponibile!';
-$LNG['mvc_update_no']					= 'Ultima versione installata!';
-$LNG['mvc_update_version']				= 'Ultima versione';
-$LNG['mvc_update_date']					= 'Rilasciata';
-$LNG['mvc_announcement']				= 'Annunci';
-$LNG['mvc_download']					= 'Download';
-$LNG['mvc_desc']						= 'Descrizione';
 
 //Universe Page
 $LNG['uvs_id']							= 'ID';
@@ -1070,39 +1063,20 @@ $LNG['up_error_update']					= 'ERROR! - Could not file high-load';
 $LNG['up_delete_file']					= 'Cancellato con successo';
 $LNG['up_error_delete_file']			= 'ERROR! - Could not file delete';
 $LNG['up_update_ok_rev']				= 'UPDATE: OK! Alla revisione: ';
-$LNG['up_error_fsockopen']				= 'Funzione file_get_contents o disattivare fsockopen';
-$LNG['up_download_patch_files']			= 'Download files patch';
-$LNG['up_aktuelle_updates']				= 'Aggiornamenti correnti';
-$LNG['up_momentane_version']			= 'Versione attuale';
-$LNG['up_alte_updates']					= 'Vecchi aggiornamenti';
+$LNG['up_download_patse_chat_files']			= 'Download aggiornamenti';
+$LNG['up_aktuelle_updates']				= 'File attuali';
+$LNG['up_momentane_version']			= 'Versione al momento';
+$LNG['up_alte_updates']					= 'Vecchi dati';
 $LNG['up_revision']						= 'Revisione ';
-$LNG['up_add']							= 'Aggiungi:';
-$LNG['up_edit']							= 'Modifica:';
-$LNG['up_del']							= 'Elimina';
-$LNG['up_submit']						= 'Esegui';
+$LNG['up_add']							= 'Aggiunto:';
+$LNG['up_edit']							= 'Modificato:';
+$LNG['up_del']							= 'Del:';
+$LNG['up_submit']						= 'Conferma';
 $LNG['up_version']						= 'Versione';
-$LNG['up_chmod_error']					= "No permesso di scrittura per la cartella:\n\n%s";
-$LNG['up_need_curl']					= 'Errore: cURL non &egrave disponibile.<br />Il sistema di aggiornamento 2moons richiede cURL, per caricare i dati attuali di download.';
-
-//Chat Page
-$LNG['ch_socket_chatid_info']			= 'Questo Id &egrave utilizzato per distinguere tra le installazioni di chat diversi utilizzano lo stesso socket server';
-$LNG['ch_socket_port_info']				= 'Definisci la porta del socket server';
-$LNG['ch_socket_ip_info']				= 'Definisci l\'IP del server socket usato per la connessione del lato server per trasemttere messaggi di aggiornamento';
-$LNG['ch_socket_host_info']				= 'Definisce il nome host del server socket utilizzato per il collegamento dal lato client (il server host viene utilizzato se impostato a null)';
-$LNG['ch_socket_chatid']				= 'Socket ChatID';
-$LNG['ch_socket_port']					= 'Socket Porta';
-$LNG['ch_socket_ip']					= 'Socket IP';
-$LNG['ch_socket_host']					= 'Socket Hostname';
-$LNG['ch_socket_active']				= 'Socket attiva?';
-$LNG['ch_socket']						= 'Socket impostazioni server';
-$LNG['ch_closed']						= 'Chiudi chat?';
-$LNG['ch_allowchan']					= 'Permetti canali privati';
-$LNG['ch_allowmes']						= 'Permetti messaggi privati';
-$LNG['ch_allowcelmes']					= 'Cancella propri messaggi';
-$LNG['ch_logmessage']					= 'Attiva log dei messaggi';
-$LNG['ch_nickchange']					= 'Permetti cambio nickname';
-$LNG['ch_botname']						= 'Nome bot';
-$LNG['ch_channelname']					= 'Nome canale predefinito';
+$LNG['up_chmod_error']					= "Nessun accesso di scrittora alle cartella: ";
+$LNG['up_need_curl']					= 'Errore: File non disponibili.<br />Questo nuovo sistema di 2moons richiede CURL per poter aggiornare i file in questo modo.';
+$LNG['up_no_xml_ext']					= 'Errore: File XML errato.<br />La nuova versione di 2moons richiede XML per poter proseguire tale aggiornamento.';
+$LNG['up_offline']						= 'Aggiornamento del server momentaneamente indisponibile!';
 
 //Active Page
 $LNG['ap_id']							= 'ID';
