@@ -3,7 +3,7 @@
 // Traduzido por QwataKayean. Todos os Direitos Reservados © 2010-2011
 // Texto escrito conforme o Acordo Ortográfico a ser inserido em 2011 pelo Ministério da Educação de Portugal - convertido pelo Lince.         
 
-// 2Moons - Copyright (C) 2011  Slaver// 2Moons - Copyright (C) 2011  Slaver
+// 2Moons - Copyright (C) 2011  Slaver
 
 //Global
 $LNG['adm_login']						= 'Login';
@@ -582,6 +582,19 @@ $LNG['mu_logs']				     		= 'Atividade de Administrador';
 $LNG['vt_error']					= 'Hashfile não está disponível! - Executar Atualização!';
 $LNG['vt_fail']						= 'Arquivos Alterados';
 $LNG['vt_info']						= 'Esta lista contém os arquivos que foram modificados e não corresponde ao original.<br>Se não mudaste mesmo o jogo, deves substituir os arquivos com os originais.';
+$LNG['vt_head']                                         = 'Verificar ficheiros de jogo';
+$LNG['vt_filephp']                                      = 'Ficheiros de PHP';
+$LNG['vt_filetpl']                                      = 'Ficheiros de Template';
+$LNG['vt_filecss']                                      = 'Ficheiros de Estilo (CSS)';
+$LNG['vt_filejs']                                       = 'Ficheiros de Javascript';
+$LNG['vt_fileimg']                                      = 'Imagens do jogo';
+$LNG['vt_filehtaccess']                         		= 'Ficheiro .htacess';
+$LNG['vt_all']                                          = 'Verificar todos os ficheiros';
+$LNG['vt_fileok']                                       = 'Ficheiros sem alterações';
+$LNG['vt_filefail']                                     = 'Ficheiros modificados';
+$LNG['vt_filenew']                                      = 'Novos ficheiros';
+$LNG['vt_fileerror']                          			= 'Erro';
+$LNG['vt_loadfile']                                     = 'A carregar os ficheiros';
 
 //###########################################################//
 
@@ -1067,7 +1080,6 @@ $LNG['up_error_update']					= 'ERRO! - Não é possível fazer upload do arquivo
 $LNG['up_delete_file']					= 'Apagado com sucesso';
 $LNG['up_error_delete_file']			= 'ERRO! - Não foi possível excluir arquivo';
 $LNG['up_update_ok_rev']				= 'UPDATE: OK! Atualizado! Revisão:';
-$LNG['up_error_fsockopen']				= 'Função file_get_contents com defeito ou fsockopen';
 $LNG['up_download_patch_files']			= 'Baixar Arquivo Patch';
 $LNG['up_aktuelle_updates']				= 'Atualizações Recentes';
 $LNG['up_momentane_version']			= 'Versão atual';
@@ -1079,7 +1091,7 @@ $LNG['up_del']							= 'Excluir';
 $LNG['up_submit']						= 'Enviar';
 $LNG['up_version']						= 'Versão';
 $LNG['up_chmod_error']					= 'Erro de CHMOD!';
-$LNG['up_need_curl']                                    = 'Erro: cURL não está disponível.<br />A atualização do sistema de 2Moons requer cURL para carregar os dados necessários a ser descarregados.';
+$LNG['up_need_curl']					= 'Erro: cURL não está disponível.<br />A atualização do sistema de 2Moons requer cURL para carregar os dados necessários a ser descarregados.';
 
 // Editor de Chat
 $LNG['ch_socket_chatid_info']          = 'Esse IP pode ser usado para distinguir as definições de chat, use o mesmo socket do servidor.';

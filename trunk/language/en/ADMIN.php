@@ -2,6 +2,7 @@
 
 //---------------       GENERAL ------------------------//
 $LNG['adm_login']               = 'Login';
+$LNG['adm_username']            = 'Username';
 $LNG['adm_absenden']            = 'Submit';
 $LNG['adm_password']                                    = 'Password';
 $LNG['adm_password_info']                               = 'Please enter you password for account verification!';
@@ -286,14 +287,14 @@ $LNG['ow_forum']                                        = 'Forums';
 $LNG['ow_proyect_leader']                               = 'Project Leader';
 $LNG['ow_translator']                                   = 'Translators';
 $LNG['ow_special_thanks']                               = 'Special Thanks';
-$LNG['ow_file_detected']                       			= 'The %s was found. Please rename or delete it, then your game will be protected.';
+$LNG['ow_file_detected']                        = 'The %s was found. Please rename or delete it, then your game will be protected.';
 $LNG['ow_config_file_writable']                         = 'The config.php file can be written to, we recommend that you set its file permissions to CHMOD 444 (read only).';
 $LNG['ow_database_errors']                              = 'There are errors present!';
-$LNG['ow_smtp_errors']                        		    = 'Check your SMTP settings! - Currently no mails are sent!';
-$LNG['ow_dir_not_writable']                   		    = './%s dir not writable!';
+$LNG['ow_smtp_errors']                          = 'Check your SMTP settings! - Currently no mails are sent!';
+$LNG['ow_dir_not_writable']                     = './%s dir not writable!';
 $LNG['ow_none']                                         = 'No Warnings';
-$LNG['ow_news']											= 'News';
-$LNG['ow_updates']										= 'Last Updates';
+$LNG['ow_news']                                         = 'News';
+$LNG['ow_updates']                                      = 'Last Updates';
 
 //###########################################################//
 
@@ -587,6 +588,19 @@ $LNG['mu_logs']                                         = 'Admin-Log';
 $LNG['vt_error']                                        = 'HashFile is not available! - Perform an update!';
 $LNG['vt_fail']                                         = 'Changed files';
 $LNG['vt_info']                                         = 'This list contains the files that have been modified and do not match the original. <br> If you have not changed the game itself you should replace the files with the originals.';
+$LNG['vt_head']                                         = 'Check gamefiles';
+$LNG['vt_filephp']                                      = 'PHP-files';
+$LNG['vt_filetpl']                                      = 'Template-files';
+$LNG['vt_filecss']                                      = 'Style-files';
+$LNG['vt_filejs']                                       = 'Javascript-files';
+$LNG['vt_fileimg']                                      = 'Image files';
+$LNG['vt_filehtaccess']                         = 'htaccess-files';
+$LNG['vt_all']                                          = 'Check all files';
+$LNG['vt_fileok']                                       = 'Files OK';
+$LNG['vt_filefail']                                     = 'changed files ';
+$LNG['vt_filenew']                                      = 'new files';
+$LNG['vt_fileerror']                            = 'Error';
+$LNG['vt_loadfile']                                     = 'Loading files';
 
 
 //###########################################################//
@@ -1073,7 +1087,6 @@ $LNG['up_error_update']                                 = 'ERROR! - Could not fi
 $LNG['up_delete_file']                                  = 'Successfully deleted';
 $LNG['up_error_delete_file']                    = 'ERROR! - Could not file delete';
 $LNG['up_update_ok_rev']                                = 'UPDATE: OK! At Revision: ';
-$LNG['up_error_fsockopen']                              = 'Function file_get_contents or fsockopen deactivate';
 $LNG['up_download_patch_files']                 = 'Download Patch Files';
 $LNG['up_aktuelle_updates']                             = 'Current updates';
 $LNG['up_momentane_version']                    = 'Momentary version';
@@ -1086,6 +1099,8 @@ $LNG['up_submit']                                               = 'Submit';
 $LNG['up_version']                                              = 'Version';
 $LNG['up_chmod_error']                                  = "No write permission for folder:\n\n%s";
 $LNG['up_need_curl']                                    = 'Error: cURL is not available.<br />2Moons system updater requires cURL, to load the actual data downloaded.';
+$LNG['up_no_xml_ext']                                   = 'Error: XML Parser not available.<br />The updatesystem of 2Moons requires a XML Parser to proces the files.';
+$LNG['up_offline']                                              = 'Update server currently not available.';
 
 //Chat Page
 $LNG['ch_socket_chatid_info']                   = 'This ID can be used to distinguish between different chat installations using the same socket server';

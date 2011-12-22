@@ -6,6 +6,7 @@ $LNG['Deuterium']							= 'Deuterium';
 $LNG['Darkmatter']							= 'Dark matter';
 $LNG['Energy']								= 'Energy';
 
+$LNG['and']                                 = 'and';
 
 //----------------------------------------------------------------------------//
 //SYSTEM
@@ -158,9 +159,9 @@ $LNG['sys_irak_subject'] 				  	= 'Rocket impact';
 $LNG['sys_irak_no_def'] 				  	= 'The planet does not have defences';
 $LNG['sys_irak_no_att'] 				  	= 'All your rockets were intercepted.';
 $LNG['sys_irak_def'] 					  	= '%d Rockets of yours were intercepted.';
-$LNG['sys_irak_mess']						= 'Interplanetary rockets (%d) from %s are on the planet %s <br><br>';
+$LNG['sys_irak_mess']						= 'Interplanetary rockets (%d) from %s reached the planet %s <br><br>';
 $LNG['sys_gain'] 				  			= 'Profit';
-$LNG['sys_fleet_won'] 						= 'One of your fleets returns from a attack at the planet %s %s. You have captured %s %s, %s %s and %s %s ';
+$LNG['sys_fleet_won'] 						= 'One of your fleets returns from an attack at the planet %s %s. You have captured %s %s, %s %s and %s %s ';
 $LNG['sys_perte_attaquant'] 				= 'Losses attacker';
 $LNG['sys_perte_defenseur'] 				= 'Losses defender';
 $LNG['sys_debris'] 							= 'Rubblefield';
