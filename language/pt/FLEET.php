@@ -3,13 +3,17 @@
 // Traduzido por QwataKayean. Todos os Direitos Reservados © 2010-2011
 // Texto escrito conforme o Acordo Ortográfico a ser inserido em 2011 pelo Ministério da Educação de Portugal - convertido pelo Lince.         
 
-// 2Moons - Copyright (C) 2011  Slaver// 2Moons - Copyright (C) 2011  Slaver
+// 2Moons - Copyright (C) 2011  Slaver
  
 $LNG['Metal']							= 'Metal';
 $LNG['Crystal']							= 'Cristal';
 $LNG['Deuterium']						= 'Deutério';
 $LNG['Darkmatter']						= 'Matéria Negra';
 $LNG['Energy']							= 'Energia';
+
+//----------------------------------------------------------------------------//
+//Outros
+$LNG['and']							= 'e';
 
 //----------------------------------------------------------------------------//
 //Sistema
