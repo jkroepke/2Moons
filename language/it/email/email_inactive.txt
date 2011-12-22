@@ -1,6 +1,6 @@
 Buongiorno %1$s,
 
-Ricevi la prsente email in quanto non hai effettuato il login in gioco da %2$s giorni, l'ultima volta risale al %3$s. Se desideri rimanere un utente della community, per favore effetua il login, altrimenti il conto viene automaticamente rimosso dal database.
+Ricevi la presente email in quanto non hai effettuato il login in gioco da %2$s giorni, l'ultima volta risale al %3$s. Se desideri rimanere un utente della community, per favore effettua il login, altrimenti il tuo account viene automaticamente rimosso dal database.
 
 In caso hai dimenticato la password, vai su %4$s e clicca su "Password dimenticata". In pochi minuti riceverai una email con la nuova password.
 

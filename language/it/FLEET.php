@@ -167,7 +167,6 @@ $LNG['sys_debris'] 							= 'Campo detriti';
 $LNG['sys_destruc_title']       		   	= 'Le flotte seguenti si scontrano per la distruzione della luna:';
 $LNG['sys_mess_destruc_report']  		  	= 'Rapporto: Distruzione luna';
 $LNG['sys_raport_not_found']				= 'Id rapporto invalido';
-
 $LNG['sys_destruc_lune']          		 	= 'La probabilit&agrave di distruzione della luna &egrave pari al: %d%% ';
 $LNG['sys_destruc_rip']          			= 'La probabilit&agrave di autodistruzione della flotta 6egrave pari al: %d%%';
 $LNG['sys_destruc_stop']      			 	= 'Il difensore ha bloccato la distruzione della luna con successo, complimenti!';

@@ -1,5 +1,5 @@
-<h1>Installazione dei tool attualmente bloccata!</h1>
-<p>Per poter installare i tool, deve essere creato il file ENABLE_INSTALL_TOOL.</p>
+<h1>Installazione dei tools attualmente bloccata!</h1>
+<p>Per poter installare i tools, deve essere creato il file ENABLE_INSTALL_TOOL.</p>
 <ul>
     <li>Nella cartella includes/ , create un file chiamato ENABLE_INSTALL_TOOL e lasciatelo libero senza scriverci nulla dentro.</li>
 </ul>
