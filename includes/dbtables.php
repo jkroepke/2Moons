@@ -28,35 +28,36 @@
  */
 
 // Data Tabells
-define('DB_NAME'				  , $database['databasename']);
-define('DB_PREFIX'			  	  , $database['tableprefix']);
+define('DB_NAME'			, $database['databasename']);
+define('DB_PREFIX'			, $database['tableprefix']);
 
-define('AKS'				  	  , DB_PREFIX.'aks');
-define('ALLIANCE'			  	  , DB_PREFIX.'alliance');
-define('ALLIANCE_REQUEST'	  	  , DB_PREFIX.'alliance_request');
-define('BANNED'				  	  , DB_PREFIX.'banned');
-define('BUDDY'				  	  , DB_PREFIX.'buddy');
-define('BUDDY_REQUEST'		  	  , DB_PREFIX.'buddy_request');
-define('CHAT_ON'			  	  , DB_PREFIX.'chat_online');
-define('CHAT_MES'			  	  , DB_PREFIX.'chat_messages');
-define('CHAT_BAN'			  	  , DB_PREFIX.'chat_bans');
-define('CHAT_INV'			  	  , DB_PREFIX.'chat_invitations');
-define('CONFIG'				  	  , DB_PREFIX.'config');
-define('DIPLO'				  	  , DB_PREFIX.'diplo');
-define('FLEETS'				  	  , DB_PREFIX.'fleets');
-define('LOG'				  	  , DB_PREFIX.'log');
-define('LOG_FLEETS'			  	  , DB_PREFIX.'log_fleets');
-define('NEWS'				  	  , DB_PREFIX.'news');
-define('NOTES'				  	  , DB_PREFIX.'notes');
-define('MESSAGES'			  	  , DB_PREFIX.'messages');
-define('PLANETS'	              , DB_PREFIX.'planets');
-define('RW'			              , DB_PREFIX.'raports');
-define('SESSION'				  , DB_PREFIX.'session');
-define('STATPOINTS'				  , DB_PREFIX.'statpoints');
-define('SUPP'					  , DB_PREFIX.'supp');
-define('TOPKB'					  , DB_PREFIX.'topkb');
-define('TOPKB_USERS'			  , DB_PREFIX.'users_to_topkb');
-define('USERS'				  	  , DB_PREFIX.'users');
-define('USERS_VALID'		  	  , DB_PREFIX.'users_valid');
+define('AKS'				, DB_PREFIX.'aks');
+define('ALLIANCE'			, DB_PREFIX.'alliance');
+define('ALLIANCE_REQUEST'	, DB_PREFIX.'alliance_request');
+define('BANNED'				, DB_PREFIX.'banned');
+define('BUDDY'				, DB_PREFIX.'buddy');
+define('BUDDY_REQUEST'		, DB_PREFIX.'buddy_request');
+define('CHAT_BAN'			, DB_PREFIX.'chat_bans');
+define('CHAT_INV'			, DB_PREFIX.'chat_invitations');
+define('CHAT_MES'			, DB_PREFIX.'chat_messages');
+define('CHAT_ON'			, DB_PREFIX.'chat_online');
+define('CONFIG'				, DB_PREFIX.'config');
+define('DIPLO'				, DB_PREFIX.'diplo');
+define('FLEETS'				, DB_PREFIX.'fleets');
+define('LOG'				, DB_PREFIX.'log');
+define('LOG_FLEETS'			, DB_PREFIX.'log_fleets');
+define('NEWS'				, DB_PREFIX.'news');
+define('NOTES'				, DB_PREFIX.'notes');
+define('MESSAGES'			, DB_PREFIX.'messages');
+define('PLANETS'            , DB_PREFIX.'planets');
+define('RW'		            , DB_PREFIX.'raports');
+define('SESSION'			, DB_PREFIX.'session');
+define('STATPOINTS'			, DB_PREFIX.'statpoints');
+define('SUPP'				, DB_PREFIX.'supp');
+define('TOPKB'				, DB_PREFIX.'topkb');
+define('TOPKB_USERS'		, DB_PREFIX.'users_to_topkb');
+define('USERS'				, DB_PREFIX.'users');
+define('USERS_AUTH'			, DB_PREFIX.'users_to_extauth');
+define('USERS_VALID'	 	, DB_PREFIX.'users_valid');
 
 // MOD-TABLES

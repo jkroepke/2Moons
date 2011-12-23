@@ -323,7 +323,6 @@ switch ($page) {
 				if ($admin == 1) {
 					echo sprintf($LNG['user_active'], $UserName);
 				} else {
-					session_start();
 					$SESSION       	= new Session();
 					$SESSION->CreateSession($NewUser, $UserName, $PlanetID, $UserUni);
 					if($CONF['user_valid'] == 0 || $CONF['mail_active'] == 0)
@@ -498,11 +497,18 @@ switch ($page) {
 			if(!empty($ValidReg))
 				redirectTo("index.php?uni=".$UNI."&page=reg&action=valid&clef=".$ValidReg);
 								
-			$db->query("UPDATE ".USERS." SET `fb_id` = '".$uid."' WHERE `email` = '".$db->sql_escape($me['email'])."' OR `email_2` = '".$db->sql_escape($me['email'])."';");
+			$db->query("INSERT INTO ".USERS_AUTH." SET
+				id = (SELECT id FROM ".USER." WHERE `email` = '".$db->sql_escape($me['email'])."' OR `email_2` = '".$db->sql_escape($me['email'])."')
+				account = '".$uid."',
+				mode = 'facebook';");
 		}
 		
-		$login = $db->uniquequery("SELECT `id`, `username`, `dpath`, `authlevel`, `id_planet` FROM ".USERS." WHERE `universe` = '".$UNI."' AND `fb_id` = '".$uid."';");
-		session_start();
+		$login = $db->uniquequery("SELECT 
+			user.`id`, user.`username`, user.`dpath`, user.`authlevel`, user.`id_planet` 
+			FROM ".USERS_AUTH." auth 
+			INNER JOIN ".USERS." user ON auth.id = user.id AND user.`universe` = ".$UNI." user 
+			WHERE auth.`account` = '".$uid."' AND mode = 'facebook';");
+			
 		$SESSION       	= new Session();
 		$SESSION->CreateSession($login['id'], $login['username'], $login['id_planet'], $UNI, $login['authlevel'], $login['dpath']);
 		redirectTo("game.php");	

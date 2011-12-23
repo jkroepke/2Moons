@@ -111,13 +111,13 @@ CREATE TABLE `prefix_chat_bans` (
   `userName` varchar(64) COLLATE utf8_bin NOT NULL,
   `dateTime` datetime NOT NULL,
   `ip` varbinary(16) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `prefix_chat_invitations` (
   `userID` int(11) NOT NULL,
   `channel` int(11) NOT NULL,
   `dateTime` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `prefix_chat_messages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -129,7 +129,7 @@ CREATE TABLE `prefix_chat_messages` (
   `ip` varbinary(16) NOT NULL,
   `text` text COLLATE utf8_bin,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `prefix_chat_online` (
   `userID` int(11) NOT NULL,
@@ -137,8 +137,9 @@ CREATE TABLE `prefix_chat_online` (
   `userRole` int(1) NOT NULL,
   `channel` int(11) NOT NULL,
   `dateTime` datetime NOT NULL,
-  `ip` varbinary(16) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  `ip` varbinary(16) NOT NULL,
+  KEY `dateTime` (`dateTime`,`channel`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `prefix_config` (
   `uni` int(11) NOT NULL AUTO_INCREMENT,
@@ -686,7 +687,6 @@ CREATE TABLE `prefix_users` (
   `dm_resource` int(11) NOT NULL DEFAULT '0',
   `dm_energie` int(11) NOT NULL DEFAULT '0',
   `dm_fleettime` int(11) NOT NULL DEFAULT '0',
-  `fb_id` bigint(15) unsigned NOT NULL DEFAULT '0',
   `ref_id` int(11) NOT NULL DEFAULT '0',
   `ref_bonus` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
@@ -696,6 +696,15 @@ CREATE TABLE `prefix_users` (
   KEY `universe` (`universe`,`username`,`password`,`onlinetime`,`authlevel`),
   KEY `ally_id` (`ally_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+CREATE TABLE `prefix_users_to_extauth` (
+ `id` int(11) NOT NULL,
+ `account` varchar(64) NOT NULL,
+ `mode` varchar(32) NOT NULL,
+ PRIMARY KEY (`id`),
+ KEY `id` (`id`),
+ KEY `account` (`account`,`mode`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8
 
 CREATE TABLE `prefix_users_valid` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -708,7 +717,6 @@ CREATE TABLE `prefix_users_valid` (
   `ip` varchar(40) NOT NULL,
   `lang` varchar(2) NOT NULL,
   `universe` tinyint(3) unsigned NOT NULL,
-  `fb_id` bigint(15) unsigned NOT NULL DEFAULT '0',
   `ref_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `cle` (`cle`)
