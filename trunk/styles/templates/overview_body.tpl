@@ -23,7 +23,13 @@
         <tr>
         	<td style="white-space: nowrap;">{lang}ov_admins_online{/lang}</td>
         	<td colspan="2">{foreach $AdminsOnline as $ID => $Name}{if !$Name@first}&nbsp;&bull;&nbsp;{/if}<a href="#" onclick="return Dialog.PM({$ID})">{$Name}</a>{foreachelse}{lang}ov_no_admins_online{/lang}{/foreach}</td>
-        </tr>		
+        </tr>
+		{if !empty($chatOnline)}
+        <tr>
+        	<td style="white-space: nowrap;">{lang}ov_chat_online{/lang}</td>
+        	<td colspan="2">{foreach $chatOnline as $Name}{if !$Name@first},&nbsp;{/if}<a href="?page=chat">{$Name}</a>{/foreach}</td>
+        </tr>
+		{/if}
 		{if $Teamspeak}
 		<tr>
 			<td>{lang}ov_teamspeak{/lang}</td><td colspan="3">{$Teamspeak}</td>

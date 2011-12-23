@@ -106,6 +106,7 @@ function ShowOverviewPage()
 	
 	$template		= new template();	
 	$AdminsOnline 	= array();
+	$chatOnline 	= array();
 	$AllPlanets		= array();
 	$Moon 			= array();
 	$RefLinks		= array();
@@ -149,8 +150,15 @@ function ShowOverviewPage()
 	while ($AdminRow = $db->fetch_array($OnlineAdmins)) {
 		$AdminsOnline[$AdminRow['id']]	= $AdminRow['username'];
 	}
-
 	$db->free_result($OnlineAdmins);
+
+	
+	$chatUsers 	= $db->query("SELECT userName FROM ".CHAT_ON." WHERE dateTime > DATE_SUB(NOW(), interval 2 MINUTE) AND channel = 0");
+	while ($chatRow = $db->fetch_array($chatUsers)) {
+		$chatOnline[]	= $chatRow['userName'];
+	}
+
+	$db->free_result($chatUsers);
 	
 	$template->loadscript('overview.js');
 
@@ -197,6 +205,7 @@ function ShowOverviewPage()
 		'ref_active'				=> $CONF['ref_active'],
 		'ref_minpoints'				=> $CONF['ref_minpoints'],
 		'RefLinks'					=> $RefLinks,
+		'chatOnline'				=> $chatOnline,
 		'path'						=> PROTOCOL.$_SERVER['HTTP_HOST'].HTTP_ROOT,
 	));
 	

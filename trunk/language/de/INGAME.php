@@ -132,6 +132,7 @@ $LNG['ov_teamspeak_v3']						= '<a href="ts3server://%s?port=%d&amp;nickname=%s&
 $LNG['ov_closed']							= 'Spiel ist zurzeit deaktiviert!';
 $LNG['ov_reflink']							= 'Reflink';
 $LNG['ov_noreflink']						= 'Du hast keine User angeworben.';
+$LNG['ov_chat_online']						= 'User im Chat:';
 
 //----------------------------------------------------------------------------//
 //GALAXY
