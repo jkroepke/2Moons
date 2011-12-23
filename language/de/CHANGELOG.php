@@ -33,7 +33,29 @@ $LNG['Description'] = 'Beschreibung';
 
 $LNG['changelog']   = array(
 
-'v1.7' => 'Slaver 19.11.11
+'v1.7' => 'Slaver 23.12.11
+- 0000121: [Fleets (Missions)] Fleet Send Error (Fatal error: Call to undefined method FleetFunctions::GetACSDuration()...) (Slaver) - resolved.
+- 0000117: [Core] Undefined variables in index.php (Slaver) - resolved.
+- 0000115: [Core] Missile Silo (Slaver) - resolved.
+- 0000114: [Time (offset errors)] Die Serverzeit lässt sich nicht korrekt einstellen (Slaver) - resolved.
+- 0000112: [Fleets (Missions)] Fehlermedlung beim versenden der Flotte (Slaver) - resolved.
+- 0000104: [Core] User Activity Bug (Slaver) - resolved.
+- 0000099: [Fleets (Missions)] Recycle Problem (Slaver) - resolved.
+- 0000020: [Time (offset errors)] Remained time of flying (Slaver) - resolved.
+- 0000095: [Core] error in your SQL syntax (Slaver) - resolved.
+- 0000093: [Core] Nobschutz greift nicht bei neuen Spielern mit 0 Punkten (Slaver) - resolved.
+- 0000100: [Login] Installation von Version 1.6.1 (Slaver) - resolved.
+- 0000097: [Core] Missile Silo (Slaver) - resolved.
+- 0000085: [Design] Language key error (Slaver) - resolved.
+- 0000094: [Fleets (Missions)] Fehler beim Angriff, SQL-Error (Slaver) - resolved.
+- 0000091: [Core] After update to rev 2078 all updates in server until today (Slaver) - resolved.
+- 0000089: [Design] Daten in Kampfberichte und Hall of Fame unvollständig. (Slaver) - resolved.
+- 0000084: [Fleets (Missions)] Invisible fleet in battle (Slaver) - resolved.
+- 0000060: [Core] Settings of timezone are correct in database, but are not in admin panel and in players settings. (Slaver) - resolved.
+- 0000082: [Core] The textcolor on userpic is not correct (Slaver) - resolved.
+- 0000110: [Fleets (Missions)] SAC wrong time (Slaver) - closed.
+',
+'v1.6.1' => 'Slaver 19.11.11
 - 0000027: [Core] Phalanx (Slaver) - resolved.
 - 0000071: [Core] The list of the moon for teleportation (Slaver) - resolved.
 - 0000078: [Fleets (Missions)] Rev. 2074 Mission atack (Slaver) - resolved.
