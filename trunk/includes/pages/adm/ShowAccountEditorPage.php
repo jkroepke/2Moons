@@ -138,7 +138,7 @@ function ShowAccountEditorPage()
 				'input_id_p_m'		=> $LNG['input_id_p_m'],
 			));
 						
-			$template->show('adm/AccountEditorPageResources.tpl');
+			$template->show('AccountEditorPageResources.tpl');
 		break;
 		case 'ships':
 			if($_POST)
@@ -215,7 +215,7 @@ function ShowAccountEditorPage()
 				'ships_count'		=> $LNG['ad_count'],
 			));
 						
-			$template->show('adm/AccountEditorPageShips.tpl');
+			$template->show('AccountEditorPageShips.tpl');
 		break;
 
 		case 'defenses':
@@ -291,7 +291,7 @@ function ShowAccountEditorPage()
 				'defenses_count'	=> $LNG['ad_count'],
 			));
 						
-			$template->show('adm/AccountEditorPageDefenses.tpl');
+			$template->show('AccountEditorPageDefenses.tpl');
 		break;
 		break;
 
@@ -381,7 +381,7 @@ function ShowAccountEditorPage()
 				'ad_levels'			=> $LNG['ad_levels'],
 			));
 						
-			$template->show('adm/AccountEditorPageBuilds.tpl');
+			$template->show('AccountEditorPageBuilds.tpl');
 		break;
 
 		case 'researchs':
@@ -456,7 +456,7 @@ function ShowAccountEditorPage()
 				'research_count'	=> $LNG['ad_count'],
 			));
 						
-			$template->show('adm/AccountEditorPageResearch.tpl');
+			$template->show('AccountEditorPageResearch.tpl');
 		break;
 		case 'personal':
 			if ($_POST)
@@ -536,7 +536,7 @@ function ShowAccountEditorPage()
 				'Selector'				=> array(''	=> $LNG['select_option'], 'yes' => $LNG['one_is_yes'][1], 'no' => $LNG['one_is_yes'][0]),
 			));
 						
-			$template->show('adm/AccountEditorPagePersonal.tpl');
+			$template->show('AccountEditorPagePersonal.tpl');
 		break;
 
 		case 'officiers':
@@ -611,7 +611,7 @@ function ShowAccountEditorPage()
 				'officiers_count'	=> $LNG['ad_count'],
 			));
 						
-			$template->show('adm/AccountEditorPageOfficiers.tpl');
+			$template->show('AccountEditorPageOfficiers.tpl');
 		break;
 
 		case 'planets':
@@ -731,7 +731,7 @@ function ShowAccountEditorPage()
 				'ad_pla_change_pp'		=> $LNG['ad_pla_change_pp'],
 			));
 						
-			$template->show('adm/AccountEditorPagePlanets.tpl');
+			$template->show('AccountEditorPagePlanets.tpl');
 		break;
 
 		case 'alliances':
@@ -799,7 +799,7 @@ function ShowAccountEditorPage()
 				'ad_ally_text3'		=> $LNG['ad_ally_text3'],
 			));
 						
-			$template->show('adm/AccountEditorPageAlliance.tpl');
+			$template->show('AccountEditorPageAlliance.tpl');
 		break;
 
 		default:
@@ -816,7 +816,7 @@ function ShowAccountEditorPage()
 				'ad_editor_title'		=> $LNG['ad_editor_title'],
 			));
 							
-			$template->show('adm/AccountEditorPageMenu.tpl');
+			$template->show('AccountEditorPageMenu.tpl');
 		break;
 	}
 }

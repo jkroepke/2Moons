@@ -41,31 +41,10 @@ define('TIMESTAMP',	$_SERVER['REQUEST_TIME']);
 
 require_once(ROOT_PATH . 'includes/config.php');	
 require_once(ROOT_PATH . 'includes/constants.php');
+require_once(ROOT_PATH . 'includes/dbtables.php');
 
-ini_set('session.save_path', ROOT_PATH.'cache/sessions');
-ini_set('upload_tmp_dir', ROOT_PATH.'cache/sessions');
-ini_set('session.use_cookies', '1');
-ini_set('session.use_only_cookies', '1');
-session_set_cookie_params(SESSION_LIFETIME, '/');
-session_cache_limiter('nocache');
-session_name('2Moons');
-ini_set('session.use_trans_sid', 0);
-ini_set('session.auto_start', '0');
-ini_set('session.serialize_handler', 'php');  
-ini_set('session.gc_maxlifetime', SESSION_LIFETIME);
-ini_set('session.gc_probability', '1');
-ini_set('session.gc_divisor', '1000');
-ini_set('session.bug_compat_warn', '0');
-ini_set('session.bug_compat_42', '0');
-ini_set('session.cookie_httponly', true);
+ini_set('upload_tmp_dir', ROOT_PATH.'cache/');
 ini_set('error_log', ROOT_PATH.'includes/error.log');
-
-if(!defined('LOGIN'))
-	session_start();
-	
-if(!function_exists('bcadd'))
-	require_once(ROOT_PATH . 'includes/bcmath.php');
-	
 require_once(ROOT_PATH . 'includes/GeneralFunctions.php');
 set_exception_handler('exception_handler');
 
@@ -101,7 +80,7 @@ if($GLOBALS['CONF']['debug']) {
 	$FirePHP->registerErrorHandler(true);
 }
 
-if (!defined('CLI') && !defined('LOGIN') && !defined('IN_CRON') && !defined('AJAX') && !defined('ROOT'))
+if (!defined('LOGIN') && !defined('IN_CRON') && !defined('ROOT'))
 {
 	$SESSION       	= new Session();
 	
@@ -113,7 +92,7 @@ if (!defined('CLI') && !defined('LOGIN') && !defined('IN_CRON') && !defined('AJA
 		message($CONF['close_reason']);
 	}
 
-	if(!CheckModule(10) && !defined('IN_ADMIN') && request_var('ajax', 0) == 0)
+	if(!CheckModule(10) && !defined('AJAX') && !defined('IN_ADMIN') && request_var('ajax', 0) == 0)
 		require(ROOT_PATH.'includes/FleetHandler.php');
 		
 	$USER	= $db->uniquequery("SELECT u.*, s.`total_points`, s.`total_rank` FROM ".USERS." as u LEFT JOIN ".STATPOINTS." as s ON s.`id_owner` = u.`id` AND s.`stat_type` = '1' WHERE u.`id` = '".$_SESSION['id']."';");
@@ -127,7 +106,7 @@ if (!defined('CLI') && !defined('LOGIN') && !defined('IN_CRON') && !defined('AJA
 	}
 	
 	$LANG->setUser($USER['lang']);	
-	$LANG->includeLang(array('L18N', 'INGAME', 'TECH'));
+	$LANG->includeLang(array('L18N', 'INGAME', 'TECH', 'CUSTOM'));
 	$THEME->setUserTheme($USER['dpath']);
 	if($USER['bana'] == 1)
 	{
@@ -150,22 +129,6 @@ if (!defined('CLI') && !defined('LOGIN') && !defined('IN_CRON') && !defined('AJA
 		$USER['factor']		= getFactors($USER);
 		$USER['PLANETS']	= getPlanets($USER);
 		$FirePHP->log("Load Planet: ".$PLANET['id']);
-		
-		
-		if(empty($PLANET['b_hanger_id']) && !empty($PLANET['b_hanger']))
-		{
-			$_SESSION['messtoken'] = md5($USER['id'].'|1');
-			$db->query("UPDATE ".PLANETS." SET `b_hanger` = 0 WHERE `id` = '".$_SESSION['planet']."';");
-			message("<h1>Bug ahead!</h1><p>Please give Informations about your last steps!</p><textarea style=\"width:100%\" cols=\"5\" id=\"message\"></textarea><button onclick=\"$.post('game.php?page=messages&mode=send&id=1&ajax=1&subjectAutomatic bugraport!&text='+$('#message').val(), function(){document.location.href='game.php'});\">Send</button></form>");
-			exit;
-		}
-		if(empty($PLANET['b_building_id']) && !empty($PLANET['b_building']))
-		{
-			$_SESSION['messtoken'] = md5($USER['id'].'|1');
-			$db->query("UPDATE ".PLANETS." SET `b_building` = 0 WHERE `id` = '".$_SESSION['planet']."';");
-			message("<h1>Bug ahead!</h1><p>Please give Informations about your last steps!</p><textarea style=\"width:100%\" cols=\"5\" id=\"message\"></textarea><button onclick=\"$.post('game.php?page=messages&mode=send&id=1&ajax=1&subject=Automatic bugraport!&text='+$('#message').val(), function(){document.location.href='game.php'});\">Send</button></form>");
-			exit;
-		}
 	} else {
 		$USER['rights']	= unserialize($USER['rights']);
 		$LANG->includeLang(array('ADMIN'));

@@ -52,7 +52,7 @@ class Log
 		$uni = ($this->data['universe'] == NULL ? $this->data['uni'] : $this->data['universe']);
 		//var_dump($this->data['target']);
 		$db->query("INSERT INTO ".LOG." (`id`,`mode`,`admin`,`target`,`time`,`data`,`universe`) VALUES 
-		(NULL , ".$this->data['mode'].", ".$this->data['admin'].", '".$this->data['target']."', ".TIMESTAMP." , '".$data."', '".$uni."');");
+		(NULL , ".$db->sql_escape($this->data['mode']).", ".$db->sql_escape($this->data['admin']).", '".$db->sql_escape($this->data['target'])."', ".TIMESTAMP." , '".$db->sql_escape($data)."', '".$uni."');");
 	}
 }
 

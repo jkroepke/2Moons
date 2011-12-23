@@ -207,7 +207,7 @@ function ShowUniversePage() {
 		'upload'				=> $LNG['uvs_upload'],
 	));
 	
-	$template->show('adm/UniversePage.tpl');
+	$template->show('UniversePage.tpl');
 }
 
 ?>

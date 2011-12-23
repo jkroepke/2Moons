@@ -1,4 +1,4 @@
-{include file="adm/overall_header.tpl"}
+{include file="overall_header.tpl"}
 {foreach item=Mod from=$MVC}
 <table width="60%">
     <tr>
@@ -39,4 +39,4 @@
 </table>
 <br><br>
 {/foreach}
-{include file="adm/overall_footer.tpl"}
+{include file="overall_footer.tpl"}

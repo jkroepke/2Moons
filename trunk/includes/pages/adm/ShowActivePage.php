@@ -70,6 +70,6 @@ function ShowActivePage()
 		'nicht_aktivierte_u'=> $LNG['ap_nicht_aktivierte_user'],
 	));
 	
-	$template->show('adm/ActivePage.tpl');
+	$template->show('ActivePage.tpl');
 }
 ?>

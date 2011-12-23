@@ -78,3 +78,78 @@ a.topn:hover {
 select[name="timezone"] {
 	max-width:300px;
 }
+#install > tbody > tr > td{
+	padding:5px 10px;
+}
+
+.desc{
+	font-style:italic;
+	margin-top: -10px;
+    max-width: 400px;
+}
+.desc > a{
+	text-decoration:underline;
+}
+.desc > a:hover{
+	text-decoration:none;
+}
+
+#lang {
+	float:right;
+}
+
+.req{
+	width:100%;
+	border-collapse: collapse;
+	max-width:100%;
+}
+
+.req > tbody > tr > td{
+	width:50%;
+}
+
+.req > tbody > tr > td{
+	padding:0px;
+}
+
+.border > tbody > tr > td{
+	padding:3px 0px;
+}
+
+.border > tbody > tr{
+	border-bottom:1px solid #CCC;
+	height:24px;
+}
+
+#licence {
+    background-color: #FFFFFF;
+    color: #000000;
+    height: 400px;
+    overflow: auto;
+    padding: 0 10px;
+}
+
+#licence a{
+    color: #000000;
+	text-decoration:underline;
+}
+#licence a:hover{
+	text-decoration:none;
+}
+
+.noborder {
+	border:0 none !important;
+}
+
+.fatalerror {
+	background-color:#FFEEEE;
+	border: 1px solid #CC0000;
+    color: #CC0000;
+	padding:7px 10px 7px 45px
+}
+.noerror { 
+	background-color: #EEFFEE;
+	border: 1px solid #009900;
+	color: #009900;
+	padding:7px 10px 7px 45px
+}

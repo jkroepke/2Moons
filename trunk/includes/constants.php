@@ -32,8 +32,11 @@
 //TEMPLATES DEFAULT SETTINGS
 define('DEFAULT_THEME'	 		  , 'gow');
 
-define('PROTOCOL'				  , (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"]  == 'on') ? 'https://' : 'http://');
-define('HTTP_ROOT'				  , str_replace(basename($_SERVER["PHP_SELF"]), '', $_SERVER["PHP_SELF"]));
+define('HTTPS'						, isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"]  == 'on');
+define('PROTOCOL'					, HTTPS ? 'https://' : 'http://');
+define('HTTP_ROOT'					, str_replace('\\', '/', substr(dirname(dirname(__FILE__)), strlen($_SERVER['DOCUMENT_ROOT'])).'/'));
+define('HTTP_HOST'					, $_SERVER['HTTP_HOST']);
+define('HTTP_PATH'					, PROTOCOL.HTTP_HOST.HTTP_ROOT);
 
 define('AJAX_CHAT_PATH'			  , ROOT_PATH.'/chat/');
 
@@ -121,40 +124,6 @@ define('AUTH_ADM'                 , 3);
 define('AUTH_OPS'                 , 2);
 define('AUTH_MOD'                 , 1);
 define('AUTH_USR'                 , 0);
-
-// Data Tabells
-define('DB_NAME'				  , $database['databasename']);
-define('DB_PREFIX'			  	  , $database['tableprefix']);
-
-define('AKS'				  	  , $database['tableprefix'].'aks');
-define('ALLIANCE'			  	  , $database['tableprefix'].'alliance');
-define('ALLIANCE_REQUEST'	  	  , $database['tableprefix'].'alliance_request');
-define('BANNED'				  	  , $database['tableprefix'].'banned');
-define('BUDDY'				  	  , $database['tableprefix'].'buddy');
-define('BUDDY_REQUEST'		  	  , $database['tableprefix'].'buddy_request');
-define('CHAT_ON'			  	  , $database['tableprefix'].'chat_online');
-define('CHAT_MES'			  	  , $database['tableprefix'].'chat_messages');
-define('CHAT_BAN'			  	  , $database['tableprefix'].'chat_bans');
-define('CHAT_INV'			  	  , $database['tableprefix'].'chat_invitations');
-define('CONFIG'				  	  , $database['tableprefix'].'config');
-define('DIPLO'				  	  , $database['tableprefix'].'diplo');
-define('FLEETS'				  	  , $database['tableprefix'].'fleets');
-define('LOG'				  	  , $database['tableprefix'].'log');
-define('LOG_FLEETS'			  	  , $database['tableprefix'].'log_fleets');
-define('NEWS'				  	  , $database['tableprefix'].'news');
-define('NOTES'				  	  , $database['tableprefix'].'notes');
-define('MESSAGES'			  	  , $database['tableprefix'].'messages');
-define('PLANETS'	              , $database['tableprefix'].'planets');
-define('RW'			              , $database['tableprefix'].'raports');
-define('SESSION'				  , $database['tableprefix'].'session');
-define('STATPOINTS'				  , $database['tableprefix'].'statpoints');
-define('SUPP'					  , $database['tableprefix'].'supp');
-define('TOPKB'					  , $database['tableprefix'].'topkb');
-define('TOPKB_USERS'			  , $database['tableprefix'].'users_to_topkb');
-define('USERS'				  	  , $database['tableprefix'].'users');
-define('USERS_VALID'		  	  , $database['tableprefix'].'users_valid');
-
-// MOD-TABLES
 
 
 ?>

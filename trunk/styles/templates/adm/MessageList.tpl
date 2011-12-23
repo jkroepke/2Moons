@@ -1,4 +1,4 @@
-{include file="adm/overall_header.tpl"}
+{include file="overall_header.tpl"}
 <script type="text/javascript">
 var checked = false;
 function checkedAll (frm1) {
@@ -71,4 +71,4 @@ function checkedAll (frm1) {
 		{/foreach}
     </table>
 </form>
-{include file="adm/overall_footer.tpl"}
+{include file="overall_footer.tpl"}

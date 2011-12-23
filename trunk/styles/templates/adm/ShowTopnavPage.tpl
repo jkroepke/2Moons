@@ -1,4 +1,4 @@
-{include file="adm/overall_header.tpl"}
+{include file="overall_header.tpl"}
 <div style="font-size:22px;font-weight:bolder;font-variant:small-caps;text-align:center;width:100%;">{$adm_cp_title}</div><br><br>
 <div align="right">
 {if $authlevel == $smarty.const.AUTH_ADM}
@@ -17,4 +17,4 @@
 {/if}
 <a href="javascript:top.location.href='game.php';" target="_top" class="out">&nbsp;{$adm_cp_logout}&nbsp;</a>
 </div>
-{include file="adm/overall_footer.tpl"}
+{include file="overall_footer.tpl"}

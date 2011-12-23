@@ -1,4 +1,4 @@
-{include file="adm/overall_header.tpl"}
+{include file="overall_header.tpl"}
 <form action="" method="POST" name="users">
 <table width="50%">
 <th colspan="3">{$ac_enter_user_id}</th>
@@ -53,4 +53,4 @@
 <tr><td colspan="3"><input type="Submit" value="{$button_submit}"></td></tr>
 </table>
 </form>
-{include file="adm/overall_footer.tpl"}
+{include file="overall_footer.tpl"}

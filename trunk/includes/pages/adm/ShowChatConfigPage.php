@@ -127,7 +127,7 @@ function ShowChatConfigPage()
 		'ch_channelname'		=> $LNG['ch_channelname'],
 	));
 	
-	$template->show('adm/ChatConfigBody.tpl');
+	$template->show('ChatConfigBody.tpl');
 }
 
 ?>

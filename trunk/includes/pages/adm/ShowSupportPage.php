@@ -170,7 +170,7 @@ function ShowSupportPage()
 		'ticket_posted'		=> $LNG['ticket_posted'],
 	));
 
-	$template->show('adm/SupportPage.tpl');
+	$template->show('SupportPage.tpl');
 
 }	
 ?>

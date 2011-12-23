@@ -1,6 +1,6 @@
 
 <form action="" method="post" name="users">
-{include file="adm/overall_header.tpl"}
+{include file="overall_header.tpl"}
 <table width="55%">
 <tr>
 	<th colspan="7">{$ad_authlevel_title}</th>
@@ -65,4 +65,4 @@
 	<td colspan="3"><input type="submit" value="{$button_submit}"></td>
 </tr>
 </table>
-{include file="adm/overall_footer.tpl"}
+{include file="overall_footer.tpl"}

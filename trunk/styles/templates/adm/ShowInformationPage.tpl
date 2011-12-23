@@ -1,4 +1,4 @@
-{include file="adm/overall_header.tpl"}
+{include file="overall_header.tpl"}
 
 <table width="60%">
     <tr>
@@ -29,4 +29,4 @@ Browser: {$browser}</pre>
 		</td>
     </tr>
 </table>
-{include file="adm/overall_footer.tpl"}
+{include file="overall_footer.tpl"}

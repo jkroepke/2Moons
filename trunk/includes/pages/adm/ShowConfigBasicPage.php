@@ -155,7 +155,7 @@ function ShowConfigBasicPage()
 		'Selector'						=> array('timezone_val' => $TimeZones, 'timezone_opt' => $LNG['timezones'], 'dst' => $LNG['se_dst_sel'], 'mail' => $LNG['se_mail_sel'], 'encry' => array('' => $LNG['se_smtp_ssl_1'], 'ssl' => $LNG['se_smtp_ssl_2'], 'tls' => $LNG['se_smtp_ssl_3'])),
 	));
 	
-	$template->show('adm/ConfigBasicBody.tpl');
+	$template->show('ConfigBasicBody.tpl');
 }
 
 ?>

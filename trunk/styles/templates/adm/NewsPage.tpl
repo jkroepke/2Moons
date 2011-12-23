@@ -1,4 +1,4 @@
-{include file="adm/overall_header.tpl"}
+{include file="overall_header.tpl"}
 {if isset($mode)}
 <form method="POST" action="?page=news&amp;action=send&amp;mode={$mode}">
 {if $news_id}<input name="id" type="hidden" value="{$news_id}">{/if}
@@ -41,4 +41,4 @@
 <tr><td colspan="5"><a href="?page=news&amp;action=create">{$nws_create}</a></td></tr>
 <tr><td colspan="5">{$nws_total}</td></tr>
 </table>
-{include file="adm/overall_footer.tpl"}
+{include file="overall_footer.tpl"}

@@ -87,6 +87,6 @@ function ShowNewsPage(){
 		'nws_content'	=> $LNG['nws_content'],
 	));
 	
-	$template->show('adm/NewsPage.tpl');
+	$template->show('NewsPage.tpl');
 }
 ?>

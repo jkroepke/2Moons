@@ -1,4 +1,4 @@
-{include file="adm/overall_header.tpl"}
+{include file="overall_header.tpl"}
 <table width="842px">
 	<tr>
 		<th colspan="5" width="500">{$supp_header}</th>
@@ -79,4 +79,4 @@
 </table>
 
 {/if}
-{include file="adm/overall_footer.tpl"}
+{include file="overall_footer.tpl"}

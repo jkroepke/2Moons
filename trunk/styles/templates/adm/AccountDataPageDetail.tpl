@@ -1,4 +1,4 @@
-{include file="adm/overall_header.tpl"}
+{include file="overall_header.tpl"}
 <style type="text/css">
 a.link{
 font-size:14px;font-variant:small-caps;margin-left:120px;
@@ -284,4 +284,4 @@ border:0px;background:url(./styles/images/Adm/blank.gif);text-align:right;paddin
 		</td>
 	</tr>
 </table>
-{include file="adm/overall_footer.tpl"}
+{include file="overall_footer.tpl"}

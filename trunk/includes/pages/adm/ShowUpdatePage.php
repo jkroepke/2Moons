@@ -81,22 +81,19 @@ exit;
 function CheckPermissions() {
 	global $LNG;
 	$DIRS	= array_unique($_REQUEST['dirs']);
+	$errors	= array();
 	foreach($DIRS as $DIR) {
 		if(!file_exists(ROOT_PATH.$DIR))
-			mkdir(ROOT_PATH.$DIR);
+			@mkdir(ROOT_PATH.$DIR);
 
 		if(!is_writable(ROOT_PATH.$DIR))
-		{
-			@chmod(ROOT_PATH.$DIR, 0777);
-			if(!is_writable(ROOT_PATH.$DIR))
-			{
-				echo json_encode(array('status' => $LNG['up_chmod_error']."./".$DIR, 'error' => true));
-				exit;
-			}
-		}
+			$errors[]	= "./".$DIR;
 	}
 	
-	echo json_encode(array('status' => 'OK', 'error' => false));
+	if(!empty($errors))
+		echo json_encode(array('status' => $LNG['up_chmod_error']."\r\n".implode("\r\n", $errors), 'error' => true));
+	else
+		echo json_encode(array('status' => 'OK', 'error' => false));
 }
 
 function ExecuteUpdates() {
@@ -128,7 +125,7 @@ function DisplayUpdates() {
 		'canDownload'				=> function_exists('gzcompress'),
 	));
 		
-	$template->show('adm/UpdatePage.tpl');
+	$template->show('UpdatePage.tpl');
 }
 
 function GetLogs($fromRev) {

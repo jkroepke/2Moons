@@ -40,6 +40,6 @@ function ShowLoginPage()
 	$template->assign_vars(array(	
 		'username'	=> $USER['username']
 	));
-	$template->show('adm/LoginPage.tpl');
+	$template->show('LoginPage.tpl');
 }
 ?>

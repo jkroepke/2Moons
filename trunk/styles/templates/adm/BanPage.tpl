@@ -1,4 +1,4 @@
-{include file="adm/overall_header.tpl"}
+{include file="overall_header.tpl"}
 {if $name}
 <form action="" method="post" name="countt">
 <table width="50%">
@@ -177,4 +177,4 @@
 </form>
 </td>
 </table>
-{include file="adm/overall_footer.tpl"}
+{include file="overall_footer.tpl"}

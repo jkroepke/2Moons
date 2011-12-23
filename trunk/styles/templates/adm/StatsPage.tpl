@@ -1,4 +1,4 @@
-{include file="adm/overall_header.tpl"}
+{include file="overall_header.tpl"}
 <form method="post" action="">
 	<table width="80%" border="0" cellpadding="1">
     <tr>
@@ -28,4 +28,4 @@
     </tr>
   </table>
 </form>
-{include file="adm/overall_footer.tpl"}
+{include file="overall_footer.tpl"}

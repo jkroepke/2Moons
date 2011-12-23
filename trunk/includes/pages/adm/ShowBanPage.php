@@ -191,6 +191,6 @@ function ShowBanPage()
 		'bancount'			=> $Banneds,
 	));
 	
-	$template->show('adm/BanPage.tpl');
+	$template->show('BanPage.tpl');
 }
 ?>

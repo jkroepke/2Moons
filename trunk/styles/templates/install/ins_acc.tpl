@@ -1,21 +1,28 @@
-{include file="install/ins_header.tpl"}
-	<tr>
-	<form method="POST" action="?mode=ins&amp;page=3&amp;lang={$lang}">
-	<td colspan="2">
-		<span style="font-size: 15px; font-weight: 700;">{$step3_create_admin}</span>
+{include file="ins_header.tpl"}
+<tr>
+	<td class="left">
+		<h2>{lang}step4_head{/lang}</h2>
+		<p>{lang}step4_desc{/lang}</p>
+		<form action="index.php?step=8" method="post"> 
+		<input type="hidden" name="post" value="1">
+		<table class="req">
+			<tr>
+				<td class="transparent left"><p>{lang}step4_admin_name{/lang}</p><p class="desc">{lang}step4_admin_name_desc{/lang}</p></td>
+				<td class="transparent"><input type="text" name="username" value="" size="30"></td>
+			</tr>
+			<tr>
+				<td class="transparent left"><p>{lang}step4_admin_pass{/lang}</p><p class="desc">{lang}step4_admin_pass_desc{/lang}</p></td>
+				<td class="transparent"><input type="password" name="password" value="" size="30"></td>
+			</tr>
+			<tr>
+				<td class="transparent left"><p>{lang}step4_admin_mail{/lang}</p></td>
+				<td class="transparent"><input type="text" name="email" value="" size="30"></td>
+			</tr>
+			<tr class="noborder">
+				<td colspan="2" class="transparent"><input type="submit" name="next" value="{lang}continue{/lang}"></td>
+			</tr>
+		</table>
+		</form>
 	</td>
-	</tr>
-    <tr>
-      	<td style="width:50%">{$step3_admin_name}</td><td style="width:50%"><input name="adm_user" size="20" maxlength="20" type="text"></td>
-    </tr>
-    <tr>
-      	<td>{$step3_admin_pass}</td><td width="50%"><input name="adm_pass" size="20" maxlength="20" type="password"></td>
-    </tr>
-    <tr>
-		<td>{$step3_admin_mail}</td><td width="50%"><input name="adm_email" size="20" maxlength="40" type="text"></td>
-	</tr>
-	<tr>
-		<td colspan="2"><input type="submit" value="{$continue}"></td>
-	</tr>
-</form>
-{include file="install/ins_footer.tpl"}
+</tr>
+{include file="ins_footer.tpl"}

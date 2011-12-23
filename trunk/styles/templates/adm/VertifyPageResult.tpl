@@ -1,4 +1,4 @@
-{include file="adm/overall_header.tpl"}
+{include file="overall_header.tpl"}
 <table>
 	<tr>
 		<th colspan="4">{lang}vt_fail{/lang}</th>
@@ -16,4 +16,4 @@
 		<td colspan="4"><div style="display: block; overflow-y: scroll; height: 280px;">{lang}vt_loadfile{/lang}</div></td>
 	</tr>
 </table>
-{include file="adm/overall_footer.tpl"}
+{include file="overall_footer.tpl"}

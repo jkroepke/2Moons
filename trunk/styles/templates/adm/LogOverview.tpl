@@ -1,4 +1,4 @@
-{include file="adm/overall_header.tpl"}
+{include file="overall_header.tpl"}
 <table class="table569">
 <tr>
 	<th colspan="3">{$log_cat}</th>
@@ -10,4 +10,4 @@
 </tr>
 </table>
 </body>
-{include file="adm/overall_footer.tpl"}
+{include file="overall_footer.tpl"}

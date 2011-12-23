@@ -1,4 +1,4 @@
-{include file="adm/overall_header.tpl"}
+{include file="overall_header.tpl"}
 <table width=512>
 <tr>
 	<th>{$log_id}</th>
@@ -20,4 +20,4 @@
 {/foreach}
 </table>
 </body>
-{include file="adm/overall_footer.tpl"}
+{include file="overall_footer.tpl"}
