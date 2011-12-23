@@ -248,22 +248,24 @@ class template extends Smarty
 		if($THEME->isCustomTPL($file))
 			$this->template_dir	= $THEME->getTemplatePath();
 			
-		if(!defined('INSTALL')) {
-			if(defined('IN_ADMIN')) {
-				$this->adm_main();
-			} elseif(defined('LOGIN')) {
-				$tplDir	= $this->getTemplateDir();
-				$this->setTemplateDir($tplDir[0].'index/');
-				$this->login_main();
-			} elseif(!$this->Dialog) {
-				if(!defined('AJAX')) {
-					$_SESSION['USER']	= $USER;
-					$_SESSION['PLANET']	= $PLANET;
-				}
-				$this->main();
-				if($this->Popup === false)
-					$this->Menus();
+		$tplDir	= $this->getTemplateDir();
+			
+		if(defined('INSTALL')) {
+			$this->setTemplateDir($tplDir[0].'install/');
+		} elseif(defined('IN_ADMIN')) {
+			$this->setTemplateDir($tplDir[0].'adm/');
+			$this->adm_main();
+		} elseif(defined('LOGIN')) {
+			$this->setTemplateDir($tplDir[0].'index/');
+			$this->login_main();
+		} elseif(!$this->Dialog) {
+			if(!defined('AJAX')) {
+				$_SESSION['USER']	= $USER;
+				$_SESSION['PLANET']	= $PLANET;
 			}
+			$this->main();
+			if($this->Popup === false)
+				$this->Menus();
 		}
 
 		$this->assign_vars(array(
@@ -296,10 +298,6 @@ class template extends Smarty
 		));
 		
 		$this->gotoside($dest, $time);
-		if (defined('IN_ADMIN')) {
-			$this->show('adm/error_message_body.tpl');
-			exit;
-		}
 		$this->show('error_message_body.tpl');
 	}
     /**

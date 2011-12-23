@@ -478,7 +478,7 @@ function ShowConfigUniPage()
 		'silo_factor'					=> $CONF['silo_factor'],
 	));
 	
-	$template->show('adm/ConfigBodyUni.tpl');
+	$template->show('ConfigBodyUni.tpl');
 }
 
 ?>

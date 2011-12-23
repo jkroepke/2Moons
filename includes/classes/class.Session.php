@@ -29,6 +29,26 @@
 
 class Session
 {
+	function __construct()
+	{
+		ini_set('session.save_path', ROOT_PATH.'cache/sessions');
+		ini_set('session.use_cookies', '1');
+		ini_set('session.use_only_cookies', '1');
+		ini_set('session.use_trans_sid', 0);
+		ini_set('session.auto_start', '0');
+		ini_set('session.serialize_handler', 'php');  
+		ini_set('session.gc_maxlifetime', SESSION_LIFETIME);
+		ini_set('session.gc_probability', '1');
+		ini_set('session.gc_divisor', '1000');
+		ini_set('session.bug_compat_warn', '0');
+		ini_set('session.bug_compat_42', '0');
+		ini_set('session.cookie_httponly', true);
+		session_set_cookie_params(SESSION_LIFETIME, '/');
+		session_cache_limiter('nocache');
+		session_name('2Moons');
+		session_start();
+	}
+	
 	function IsUserLogin()
 	{
 		return !empty($_SESSION['id']);

@@ -516,7 +516,6 @@ switch ($page) {
 		$login = $db->uniquequery("SELECT `id`, `username`, `dpath`, `authlevel`, `id_planet` FROM ".USERS." WHERE `universe` = '".$UNI."' AND `username` = '".$db->sql_escape($luser)."' AND `password` = '".md5($lpass)."';");
 			
 		if (isset($login)) {
-			session_start();
 			$SESSION       	= new Session();
 			$SESSION->CreateSession($login['id'], $login['username'], $login['id_planet'], $UNI, $login['authlevel'], $login['dpath']);
 			redirectTo('game.php');	

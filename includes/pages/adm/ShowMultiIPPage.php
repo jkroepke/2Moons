@@ -46,7 +46,7 @@ function ShowMultiIPPage()
 		'mip_ip'	=> $LNG['mip_ip'],
 		'mip_user'	=> $LNG['mip_user'],
 	));
-	$template->show('adm/MultiIPs.tpl');
+	$template->show('MultiIPs.tpl');
 }
 
 

@@ -178,7 +178,7 @@ function ShowResetPage()
 		're_general'						=> $LNG['re_general'],
 	));
 	
-	$template->show('adm/ResetPage.tpl');
+	$template->show('ResetPage.tpl');
 }
 
 ?>

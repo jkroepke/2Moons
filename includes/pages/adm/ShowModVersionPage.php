@@ -65,7 +65,7 @@ function ShowModVersionPage()
 		'mvc_download'			=> $LNG['mvc_download'],
 		'mvc_desc'				=> $LNG['mvc_desc'],
 	));
-	$template->show('adm/ModVersionPage.tpl');
+	$template->show('ModVersionPage.tpl');
 }
 
 ?>

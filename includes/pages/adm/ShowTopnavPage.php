@@ -52,6 +52,6 @@ function ShowTopnavPage()
 		'UNI'					=> $_SESSION['adminuni'],
 	));
 	
-	$template->show('adm/ShowTopnavPage.tpl');
+	$template->show('ShowTopnavPage.tpl');
 }
 ?>

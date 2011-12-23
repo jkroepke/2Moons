@@ -1,4 +1,4 @@
-{include file="adm/overall_header.tpl"}
+{include file="overall_header.tpl"}
 <form action="" method="post" onsubmit="return confirm('{$re_reset_universe_confirmation}');">
 <table width="40%">
 <tr><th colspan="2">{$re_player_and_planets}</th></tr>
@@ -41,4 +41,4 @@
 
 <tr><td colspan="2" height="60"><input type="submit" value="{$button_submit}"></td></tr>
 </table>
-{include file="adm/overall_footer.tpl"}
+{include file="overall_footer.tpl"}

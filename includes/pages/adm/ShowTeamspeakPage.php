@@ -103,7 +103,7 @@ function ShowTeamspeakPage() {
 		'ts_password'			=> $CONF['ts_password'],
 		'ts_cron'				=> $CONF['ts_cron_interval']
 	));
-	$template->show('adm/TeamspeakPage.tpl');
+	$template->show('TeamspeakPage.tpl');
 
 }
 ?>

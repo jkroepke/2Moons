@@ -110,6 +110,6 @@ function ShowSendMessagesPage() {
 		'lang' => array_merge(array('' => $LNG['ma_all']), $LANG->getAllowedLangs(false)),
 		'modes' => $LNG['ma_modes'],
 	));
-	$template->show('adm/SendMessagesPage.tpl');
+	$template->show('SendMessagesPage.tpl');
 }
 ?>

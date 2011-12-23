@@ -1,4 +1,4 @@
-{include file="adm/overall_header.tpl"}
+{include file="overall_header.tpl"}
 <table style="width:569px">
 <tr><th>{$mip_ip}</th><th>{$mip_user}</th>
 {foreach $IPs as $IP => $Users}
@@ -11,4 +11,4 @@
 </tr>
 {/foreach}
 </table>
-{include file="adm/overall_footer.tpl"}
+{include file="overall_footer.tpl"}

@@ -1,4 +1,4 @@
-{include file="adm/overall_header.tpl"}
+{include file="overall_header.tpl"}
 <table>
 	<tr>
 		<th colspan="6">{lang}vt_head{/lang}</th>
@@ -18,4 +18,4 @@
 		<td colspan="6"><a href="admin.php?page=vertify&amp;action=vertify&amp;ext=php|tpl|js|css|png|jpg|gif|htaccess">{lang}vt_all{/lang}</a></td>
 	</tr>
 </table>
-{include file="adm/overall_footer.tpl"}
+{include file="overall_footer.tpl"}

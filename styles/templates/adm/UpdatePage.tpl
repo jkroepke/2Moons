@@ -1,4 +1,4 @@
-{include file="adm/overall_header.tpl"}
+{include file="overall_header.tpl"}
 <form action="" method="POST">
 <table width="800">
 <tr>
@@ -28,4 +28,4 @@ var up_old			= '{$up_alte_updates}';
 var canDownload		= {$canDownload};
 DisplayUpdates();
 </script>
-{include file="adm/overall_footer.tpl"}
+{include file="overall_footer.tpl"}

@@ -149,6 +149,6 @@ function ShowMessageListPage()
 		'ml_content'				=> $LNG['ml_content'],
 	));
 				
-	$template->show('adm/MessageList.tpl');
+	$template->show('MessageList.tpl');
 }
 ?>

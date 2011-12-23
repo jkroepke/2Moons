@@ -64,7 +64,7 @@ function ShowInformationPage()
 		'user_tz'			=> $USER['timezone'],
 	));
 
-	$template->show('adm/ShowInformationPage.tpl');
+	$template->show('ShowInformationPage.tpl');
 }
 
 ?>

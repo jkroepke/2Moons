@@ -1,4 +1,4 @@
-{include file="install/ins_header.tpl"}
+{include file="ins_header.tpl"}
 <tr>
 	<td colspan="2">{$convert_info}</td>
 </tr>
@@ -53,4 +53,4 @@
 <tr>
 	<td colspan="2"><input type="submit" value="{$convert_submit}"></td>
 </tr>
-{include file="install/ins_footer.tpl"}
+{include file="ins_footer.tpl"}

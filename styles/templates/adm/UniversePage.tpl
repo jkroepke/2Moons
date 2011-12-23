@@ -1,4 +1,4 @@
-{include file="adm/overall_header.tpl"}
+{include file="overall_header.tpl"}
 <form enctype="multipart/form-data" action="?page=universe&amp;action=import&amp;sid={$SID}&amp;reload=t" method="POST">
 <table>
 	<tr>
@@ -24,4 +24,4 @@
 	<tr><td colspan="7"><a href="?page=universe&action=create&amp;sid={$SID}&amp;reload=t">{$new_uni}</a></td></tr>
 </table>
 </form>
-{include file="adm/overall_footer.tpl"}
+{include file="overall_footer.tpl"}

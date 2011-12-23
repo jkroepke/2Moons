@@ -1,4 +1,4 @@
-{include file="adm/overall_header.tpl"}
+{include file="overall_header.tpl"}
 <center>
 <table width="500">
 <tr>
@@ -21,4 +21,4 @@
 {/foreach}
 </table>
 </center>
-{include file="adm/overall_footer.tpl"}
+{include file="overall_footer.tpl"}

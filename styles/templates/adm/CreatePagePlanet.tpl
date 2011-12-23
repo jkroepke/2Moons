@@ -1,4 +1,4 @@
-{include file="adm/overall_header.tpl"}
+{include file="overall_header.tpl"}
 <form action="" method="post">
 <input type="hidden" name="mode" value="agregar">
 <table width="40%">
@@ -27,4 +27,4 @@
 </tr>
 </table>
 </form>
-{include file="adm/overall_footer.tpl"}
+{include file="overall_footer.tpl"}

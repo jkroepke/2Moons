@@ -1,4 +1,4 @@
-{include file="adm/overall_header.tpl"}
+{include file="overall_header.tpl"}
 <div id="content">
     <table style="width:519px;">
 		<tr>
@@ -9,4 +9,4 @@
         </tr>
     </table>
 </div>
-{include file="adm/overall_footer.tpl"}
+{include file="overall_footer.tpl"}

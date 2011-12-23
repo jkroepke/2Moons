@@ -1,4 +1,4 @@
-{include file="adm/overall_header.tpl"}
+{include file="overall_header.tpl"}
 <div id="content">
 	<form action="" method="POST">
     <table style="width:569px;margin-top:30px;">
@@ -15,4 +15,4 @@
     </table>
 	</form>
 </div>
-{include file="adm/overall_footer.tpl"}
+{include file="overall_footer.tpl"}

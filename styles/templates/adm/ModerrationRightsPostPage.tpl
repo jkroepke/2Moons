@@ -1,7 +1,7 @@
 <form action="" method="post">
 <input name="action" type="hidden" value="send">
 <input name="id_1" type="hidden" value="{$id}">
-{include file="adm/overall_header.tpl"}
+{include file="overall_header.tpl"}
 <table width="55%">
 <tr>
 	<th colspan="2">{$ad_authlevel_title}</th>
@@ -25,4 +25,4 @@
 {/foreach}
 <tr><td colspan="3"><input type="submit" value="{$button_submit}"></td></tr>
 </table>
-{include file="adm/overall_footer.tpl"}
+{include file="overall_footer.tpl"}

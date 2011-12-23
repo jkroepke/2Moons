@@ -1,4 +1,4 @@
-{include file="adm/overall_header.tpl"}
+{include file="overall_header.tpl"}
 <center>
 <form action="" method="post">
 <input type="hidden" name="opt_save" value="1">
@@ -249,4 +249,4 @@
 </table>
 </form>
 </center>
-{include file="adm/overall_footer.tpl"}
+{include file="overall_footer.tpl"}

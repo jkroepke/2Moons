@@ -34,7 +34,7 @@ function ShowMenuPage()
 	$template->assign_vars(array(	
 		'supportticks'				=> $db->countquery("SELECT COUNT(*) FROM ".SUPP." WHERE `universe` = '".$_SESSION['adminuni']."' AND (`status` = '1' OR `status` = '3');"),
 	));
-	$template->show('adm/ShowMenuPage.tpl');
+	$template->show('ShowMenuPage.tpl');
 }
 
 ?>

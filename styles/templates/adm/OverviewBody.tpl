@@ -1,4 +1,4 @@
-{include file="adm/overall_header.tpl"}
+{include file="overall_header.tpl"}
 <center>
 <h1>{lang}ow_title{/lang}</h1>
 <table width="90%" style="border:2px {if empty($Messages)}lime{else}red{/if} solid;text-align:center;font-weight:bold;">
@@ -191,4 +191,4 @@ function initialize() {
 	feedControl.draw(document.getElementById("news"));
 }
 </script>
-{include file="adm/overall_footer.tpl"}
+{include file="overall_footer.tpl"}

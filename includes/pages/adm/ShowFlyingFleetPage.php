@@ -59,6 +59,6 @@ function ShowFlyingFleetPage()
 		'ff_lock'			=> $LNG['ff_lock'],
 		'ff_no_fleets'		=> $LNG['ff_no_fleets'],
 	));
-	$template->show('adm/FlyingFleetPage.tpl');
+	$template->show('FlyingFleetPage.tpl');
 }
 ?>

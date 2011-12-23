@@ -260,7 +260,7 @@ function ShowSearchPage()
 		'PAGES'					=> $RESULT['PAGES'],
 	));
 	
-	$template->show('adm/SearchPage.tpl');
+	$template->show('SearchPage.tpl');
 }
 
 function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialSpecify, $Order, $OrderBY, $Limit, $Table, $Page, $NameLang, $ArrayOSec, $Minimize, $SName, $SearchFile)
