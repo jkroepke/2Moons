@@ -704,7 +704,7 @@ CREATE TABLE `prefix_users_to_extauth` (
  PRIMARY KEY (`id`),
  KEY `id` (`id`),
  KEY `account` (`account`,`mode`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `prefix_users_valid` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
