@@ -690,7 +690,6 @@ CREATE TABLE `prefix_users` (
   `ref_id` int(11) NOT NULL DEFAULT '0',
   `ref_bonus` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  KEY `fb_id` (`fb_id`),
   KEY `authlevel` (`authlevel`),
   KEY `ref_bonus` (`ref_bonus`),
   KEY `universe` (`universe`,`username`,`password`,`onlinetime`,`authlevel`),
