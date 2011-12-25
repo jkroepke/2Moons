@@ -75,7 +75,7 @@ function ShowLogOverview() {
 		'log_planet'	=> $LNG['log_planet'],
 		'log_settings'	=> $LNG['log_settings'],
 	));
-	$template->show("adm/LogOverview.tpl");
+	$template->show("LogOverview.tpl");
 }
 
 function ShowLogDetail() {
@@ -174,7 +174,7 @@ function ShowLogDetail() {
 		'log_old'		=> $LNG['log_old'],
 		'log_new'		=> $LNG['log_new'],
 	));
-	$template->show("adm/LogDetail.tpl");
+	$template->show("LogDetail.tpl");
 }
 
 function ShowLogSettingsList() {
@@ -207,7 +207,7 @@ function ShowLogSettingsList() {
 		'log_id'		=> $LNG['log_id'],
 		'log_view'		=> $LNG['log_view'],
 	));
-	$template->show("adm/LogList.tpl");
+	$template->show("LogList.tpl");
 }
 
 function ShowLogPlanetsList() {
@@ -241,7 +241,7 @@ function ShowLogPlanetsList() {
 		'log_id'		=> $LNG['log_id'],
 		'log_view'		=> $LNG['log_view'],
 	));
-	$template->show("adm/LogList.tpl");
+	$template->show("LogList.tpl");
 }
 
 function ShowLogPlayersList() {
@@ -274,6 +274,6 @@ function ShowLogPlayersList() {
 		'log_id'		=> $LNG['log_id'],
 		'log_view'		=> $LNG['log_view'],
 	));
-	$template->show("adm/LogList.tpl");
+	$template->show("LogList.tpl");
 }
 ?>
