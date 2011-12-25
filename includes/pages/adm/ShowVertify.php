@@ -75,18 +75,27 @@ function ShowVertify()
 		break;
 		case 'vertify':
 			$template->loadscript('vertify.js');
-			$template->show("adm/VertifyPageResult.tpl");
+			$template->show("VertifyPageResult.tpl");
 			exit;
 		break;
 		case 'getFileList':
-			exit(json_encode(dir_tree(ROOT_PATH, $EXT)));
+			echo json_encode(array_merge(
+				dir_tree(ROOT_PATH, $EXT, false), 
+				dir_tree(ROOT_PATH.'chat/', $EXT),
+				dir_tree(ROOT_PATH.'includes/', $EXT),
+				dir_tree(ROOT_PATH.'includes/', $EXT),
+				dir_tree(ROOT_PATH.'language/', $EXT),
+				dir_tree(ROOT_PATH.'scripts/', $EXT),
+				dir_tree(ROOT_PATH.'styles/', $EXT)
+			));
+			exit;
 		break;
 	}
 	
-	$template->show("adm/VertifyPage.tpl");
+	$template->show("VertifyPage.tpl");
 }
 
-function dir_tree($dir, $EXT) {
+function dir_tree($dir, $EXT, $subDir = true) {
 	$path = '';
 	$stack[] = $dir;
 	while ($stack) {
@@ -106,7 +115,7 @@ function dir_tree($dir, $EXT) {
 								break;
 							}
 						}
-					} elseif (is_dir($current_file)) {
+					} elseif ($subDir && is_dir($current_file)) {
 						$stack[] = $current_file."/";
 					}
 				}
