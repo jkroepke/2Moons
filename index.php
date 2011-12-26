@@ -96,7 +96,7 @@ switch ($page) {
 						$Count 	= $db->countquery("SELECT (SELECT COUNT(*) FROM ".USERS." WHERE `universe` = '".$UNI."' AND (`email` = '".$db->sql_escape($value)."' OR `email_2` = '".$db->sql_escape($value)."')) + (SELECT COUNT(*) FROM ".USERS_VALID." WHERE `universe` = ".$UNI." AND `email` = '".$db->sql_escape($value)."')");
 					break;
 					case 'fbid' :
-						$Count 	= $db->countquery("SELECT COUNT(*) FROM ".USERS." WHERE `universe` = '".$UNI."' AND `fb_id` = '".$db->sql_escape($value)."';");
+						$Count 	= $db->countquery("SELECT COUNT(*) FROM ".USERS_AUTH." WHERE `account` = '".$db->sql_escape($value)."' AND `mode` = 'facebook';");
 					break;
 					case 'ref' :
 						$Count 	= $db->countquery("SELECT `universe` FROM ".USERS." WHERE `id` = '".$db->sql_escape($value)."';");
@@ -209,8 +209,7 @@ switch ($page) {
 				$SQL .= "`universe` = '".$UNI."', ";
 				$SQL .= "`password` = '".md5($UserPass)."', ";
 				$SQL .= "`ip` = '".$_SERVER['REMOTE_ADDR']."', ";
-				$SQL .= "`ref_id` = '".$RefID."', ";
-				$SQL .= "`fb_id` = '".$FACEBOOK."'; ";
+				$SQL .= "`ref_id` = ".$RefID."; ";
 				$db->query($SQL);
 				
 				if(!empty($FACEBOOK) || $CONF['user_valid'] == 0 || $CONF['mail_active'] == 0) {
@@ -270,7 +269,6 @@ switch ($page) {
 				$SQL .= "`timezone` = '".$CONF['timezone']."', ";
 				if($UserRID != 0)
 					$SQL .= "`ref_bonus` = '1', ";
-				$SQL .= "`fb_id` = '".$UserFID."', ";
 				$SQL .= "`uctime`= '0';";
 				$db->query($SQL);
 				
