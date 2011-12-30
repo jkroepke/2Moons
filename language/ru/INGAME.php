@@ -2,6 +2,11 @@
 
 // Translated into Russian by InquisitorEA (SporeEA@yandex.ru). All rights reserved © 2010-2012
 
+$LNG['Metal']                             = 'Металл';
+$LNG['Crystal']                           = 'Кристалл';
+$LNG['Deuterium']                         = 'Дейтерий';
+$LNG['Darkmatter']                        = 'Тёмная материя';
+$LNG['Energy']                            = 'Энергия';
 $LNG['Messages']                          = 'Сообщения';
 $LNG['write_message']                     = 'Написать сообщение';
 

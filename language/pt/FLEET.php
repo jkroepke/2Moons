@@ -4,12 +4,7 @@
 // Texto escrito conforme o Acordo Ortográfico a ser inserido em 2011 pelo Ministério da Educação de Portugal - convertido pelo Lince.         
 
 // 2Moons - Copyright (C) 2011  Slaver
- 
-$LNG['tech'][901]							= 'Metal';
-$LNG['tech'][902]							= 'Cristal';
-$LNG['tech'][903]						= 'Deutério';
-$LNG['tech'][921]						= 'Matéria Negra';
-$LNG['tech'][911]							= 'Energia';
+
 
 //----------------------------------------------------------------------------//
 //Outros

@@ -8,7 +8,7 @@
 //Global
 $LNG['adm_login']						= 'Login';
 $LNG['adm_username']					= 'Username';
-$LNG['adm_absenden']					= 'Submiter'; 
+$LNG['adm_absenden']					= 'Submeter'; 
 $LNG['adm_password']					= 'Password';
 $LNG['adm_password_info']	            = 'Introduzir senha de verificação!';
 $LNG['adm_bad_password']	            = 'Password Errada!';
@@ -500,23 +500,21 @@ $LNG['ad_authlevel_tt']                 = '[Ver Todos]';
 
 
 //---------------   FROTAS EM VOO   ------------------------//
-$LNG['ff_flying_fleets']				= 'Frotas em Vôo';
-$LNG['ff_ammount']						= 'Quantidade';
-$LNG['ff_mission']						= 'Missão';
-$LNG['ff_beginning']					= 'Início';
-$LNG['ff_id']							= 'ID';
-$LNG['ff_departure']					= 'De';
-$LNG['ff_departure_hour']				= 'Hora de partida';
-$LNG['ff_objective']					= 'Destino';
-$LNG['ff_arrival']						= 'Objetivo';
-$LNG['ff_hold_position']				= 'Manter a posição';
-$LNG['ff_arrival_hour']					= 'Hora de chegada';
-$LNG['ff_go_back_now']			        = 'Regressar frota';
-$LNG['ff_delete_succes']		        = 'Vôo da frota apagado com êxito';
-$LNG['ff_goback_succes']		        = "A frota está a voltar ao seu planeta de origem";
-$LNG['ff_lock']					        = "Bloquear";
-$LNG['ff_unlock']				        = "Desbloquear";
-$LNG['ff_no_fleets']					= "Neste momento não existem frotas em movimento";
+$LNG['ff_fleetid']				= "ID";
+$LNG['ff_mission']				= "Missão";
+$LNG['ff_starttime']			= "Tempo de partida";
+$LNG['ff_ships']				= "Naves";
+$LNG['ff_startuser']			= "De";
+$LNG['ff_startplanet']			= "Planeta";
+$LNG['ff_arrivaltime']			= "Tempo de chegada";
+$LNG['ff_targetuser']			= "Para";
+$LNG['ff_targetplanet']			= "Planeta";
+$LNG['ff_endtime']				= "Retorno";
+$LNG['ff_holdtime']				= "Tempo em Posição";
+$LNG['ff_lock']					= "Bloquear";
+$LNG['ff_unlock']				= "Desbloquear";
+
+$LNG['ff_no_fleets']			= "Atualmente, não existe frotas em vôo";
 
 //###########################################################//
 
