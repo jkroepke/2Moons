@@ -58,30 +58,32 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $Universe, $PlanetOw
 	$Types				= array_keys($PlanetData[$Pos]['image']);
 	$Type				= $Types[array_rand($Types)];
 	$Class				= $Type.'planet'.($PlanetData[$Pos]['image'][$Type] < 10 ? '0' : '').$PlanetData[$Pos]['image'][$Type];
+	$Name				= !empty($PlanetName) ? $db->sql_escape($PlanetName) : $LNG['type_planet'][1]);
 	
-	$SQL  = "INSERT INTO ".PLANETS." SET ";
+	$db->query("INSERT INTO ".PLANETS." SET
+				name = '".$Name."',
+				universe = ".$Universe.",
+				id_owner = ".$PlanetOwnerID.",
+				galaxy = ".$Galaxy.",
+				system = ".$System.",
+				planet = ".$Position.",
+				last_update = ".TIMESTAMP.",
+				planet_type = '1',
+				image = '".$Class."',
+				diameter = ".floor(1000 * sqrt($Fields)).",
+				field_max = ".(($HomeWorld) ? $CONF['initial_fields'] : floor($Fields)).",
+				temp_min = ".$TMin.",
+				temp_max = ".$TMax.",
+				metal = ".$CONF['metal_start']."',
+				metal_perhour = ".$CONF['metal_basic_income'].",
+				metal_max = ".BASE_STORAGE_SIZE.",
+				crystal = ".$CONF['crystal_start'].",
+				crystal_perhour = ".$CONF['crystal_basic_income'].",
+				crystal_max = ".BASE_STORAGE_SIZE.",
+				deuterium = ".$CONF['deuterium_start'].",
+				deuterium_perhour = '".$CONF['deuterium_basic_income'].",
+				deuterium_max = ".BASE_STORAGE_SIZE.";");
 
-	$SQL .= "`name` = '".(!empty($PlanetName) ? $db->sql_escape($PlanetName) : $LNG['type_planet'][1])."', ";
-	$SQL .= "`universe` = '".$Universe."', ";
-	$SQL .= "`id_owner` = '".$PlanetOwnerID."', ";
-	$SQL .= "`galaxy` = '".$Galaxy."', ";
-	$SQL .= "`system` = '".$System."', ";
-	$SQL .= "`planet` = '".$Position."', ";
-	$SQL .= "`last_update` = '".TIMESTAMP."', ";
-	$SQL .= "`planet_type` = '1', ";
-	$SQL .= "`image` = '".$Class."', ";
-	$SQL .= "`diameter` = '".floor(1000 * sqrt($Fields))."', ";
-	$SQL .= "`field_max` = '".(($HomeWorld) ? $CONF['initial_fields'] : floor($Fields))."', ";
-	$SQL .= "`temp_min` = '".$TMin."', ";
-	$SQL .= "`temp_max` = '".$TMax."', ";
-	$SQL .= "`metal` = '".$CONF['metal_start']."', ";
-	$SQL .= "`metal_perhour` = '".$CONF['metal_basic_income']."', ";
-	$SQL .= "`crystal` = '".$CONF['crystal_start']."', ";
-	$SQL .= "`crystal_perhour` = '".$CONF['crystal_basic_income']."', ";
-	$SQL .= "`deuterium` = '".$CONF['deuterium_start']."', ";
-	$SQL .= "`deuterium_perhour` = '".$CONF['deuterium_basic_income']."';";
-	
-	$db->query($SQL);
 	return $db->GetInsertID();
 }
 ?>

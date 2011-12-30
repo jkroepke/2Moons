@@ -37,6 +37,8 @@ class MissionCaseACS extends MissionFunctions
 	
 	function TargetEvent()
 	{
+		$this->setState(FLEET_RETURN);
+		$this->SaveFleet();
 		return;
 	}
 	
@@ -47,10 +49,11 @@ class MissionCaseACS extends MissionFunctions
 	
 	function ReturnEvent()
 	{
-		global $LANG;
+		global $LANG, $db;
 		$LNG		= $LANG->GetUserLang($this->_fleet['fleet_owner']);
-	
-		$Message 	= sprintf($LNG['sys_fleet_won'], $TargetName, GetTargetAdressLink($this->_fleet, ''), pretty_number($this->_fleet['fleet_resource_metal']), $LNG['Metal'], pretty_number($this->_fleet['fleet_resource_crystal']), $LNG['Crystal'], pretty_number($this->_fleet['fleet_resource_deuterium']), $LNG['Deuterium'] );
+		
+		$TargetName	= $db->countquery("SELECT name FROM ".PLANETS." WHERE id = ".$this->_fleet['fleet_end_id'].";");
+		$Message 	= sprintf($LNG['sys_fleet_won'], $TargetName, GetTargetAdressLink($this->_fleet, ''), pretty_number($this->_fleet['fleet_resource_metal']), $LNG['tech'][901], pretty_number($this->_fleet['fleet_resource_crystal']), $LNG['tech'][902], pretty_number($this->_fleet['fleet_resource_deuterium']), $LNG['tech'][903] );
 		SendSimpleMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_end_time'], 3, $LNG['sys_mess_tower'], $LNG['sys_mess_fleetback'], $Message);
 
 		$this->RestoreFleet();

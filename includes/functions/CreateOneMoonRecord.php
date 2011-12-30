@@ -35,11 +35,11 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 
 		$SQL  = "SELECT id_luna,planet_type,id,name,temp_max,temp_min FROM ".PLANETS." ";
 		$SQL .= "WHERE ";
-		$SQL .= "`universe` = '".$Universe."' AND ";
-		$SQL .= "`galaxy` = '".$Galaxy."' AND ";
-		$SQL .= "`system` = '".$System."' AND ";
-		$SQL .= "`planet` = '".$Planet."' AND ";
-		$SQL .= "`planet_type` = '1';";
+		$SQL .= "universe = '".$Universe."' AND ";
+		$SQL .= "galaxy = '".$Galaxy."' AND ";
+		$SQL .= "system = '".$System."' AND ";
+		$SQL .= "planet = '".$Planet."' AND ";
+		$SQL .= "planet_type = '1';";
 		$MoonPlanet = $db->uniquequery($SQL);
 
 		if ($MoonPlanet['id_luna'] != 0)
@@ -54,40 +54,34 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 		$maxtemp	= $MoonPlanet['temp_max'] - mt_rand(10, 45);
 		$mintemp	= $MoonPlanet['temp_min'] - mt_rand(10, 45);
 
-		$SQL  = "INSERT INTO ".PLANETS." SET ";
-		$SQL .= "`name` = '".$MoonName."', ";
-		$SQL .= "`id_owner` = '".$Owner."', ";
-		$SQL .= "`universe` = '".$Universe."', ";
-		$SQL .= "`galaxy` = '".$Galaxy."', ";
-		$SQL .= "`system` = '".$System."', ";
-		$SQL .= "`planet` = '".$Planet."', ";
-		$SQL .= "`last_update` = '".TIMESTAMP."', ";
-		$SQL .= "`planet_type` = '3', ";
-		$SQL .= "`image` = 'mond', ";
-		$SQL .= "`diameter` = '".$size."', ";
-		$SQL .= "`field_max` = '1', ";
-		$SQL .= "`temp_min` = '".$mintemp."', ";
-		$SQL .= "`temp_max` = '".$maxtemp."', ";
-		$SQL .= "`metal` = '0', ";
-		$SQL .= "`metal_perhour` = '0', ";
-		$SQL .= "`metal_max` = '".BASE_STORAGE_SIZE."', ";
-		$SQL .= "`crystal` = '0', ";
-		$SQL .= "`crystal_perhour` = '0', ";
-		$SQL .= "`crystal_max` = '".BASE_STORAGE_SIZE."', ";
-		$SQL .= "`deuterium` = '0', ";
-		$SQL .= "`deuterium_perhour` = '0', ";
-		$SQL .= "`deuterium_max` = '".BASE_STORAGE_SIZE."';";
-		$db->query($SQL);
-				
-		$SQL  = "UPDATE ".PLANETS." SET ";
-		$SQL .= "`id_luna` = '".$db->GetInsertID()."' ";
-		$SQL .= "WHERE ";
-		$SQL .= "`universe` = '".$Universe."' AND ";
-		$SQL .= "`galaxy` = '".$Galaxy."' AND ";
-		$SQL .= "`system` = '".$System."' AND ";
-		$SQL .= "`planet` = '".$Planet."' AND ";
-		$SQL .= "`planet_type` = '1';";				
-		$db->query($SQL);
+		$db->multi_query("INSERT INTO ".PLANETS." SET
+						  name = '".$MoonName."',
+						  id_owner = ".$Owner.",
+						  universe = ".$Universe.",
+						  galaxy = ".$Galaxy.",
+						  system = ".$System.",
+						  planet = ".$Planet.",
+						  last_update = ".TIMESTAMP.",
+						  planet_type = '3',
+						  image = 'mond',
+						  diameter = ".$size.",
+						  field_max = '1',
+						  temp_min = ".$mintemp.",
+						  temp_max = ".$maxtemp.",
+						  metal = 0,
+						  metal_perhour = 0,
+						  metal_max = ".BASE_STORAGE_SIZE.",
+						  crystal = 0,
+						  crystal_perhour = 0,
+						  crystal_max = ".BASE_STORAGE_SIZE.",
+						  deuterium = 0,
+						  deuterium_perhour = 0,
+						  deuterium_max = ".BASE_STORAGE_SIZE.";
+						  SET @moonID = LAST_INSERT_ID();
+						  UPDATE ".PLANETS." SET
+						  id_luna = @moonID
+						  WHERE
+						  id = ".$MoonPlanet['id'].";");
 
 		return $MoonPlanet['name'];
 	}

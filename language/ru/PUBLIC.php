@@ -1,6 +1,6 @@
 <?php
 
-// Translated into Russian by InquisitorEA (SporeEA@yandex.ru). All rights reserved © 2010-2011
+// Translated into Russian by InquisitorEA (SporeEA@yandex.ru). All rights reserved © 2010-2012
 
 // Общее
 $LNG['index']                        = 'Главная';

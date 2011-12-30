@@ -45,5 +45,5 @@ setInterval(function() {
 }, 1000);
 </script>
 </head>
-<body id="{$smarty.get.page|htmlspecialchars}" class="{$class}">
+<body id="{$smarty.get.page|htmlspecialchars|default:'overview'}" class="{$class}">
 <div id="tooltip" class="tip"></div>

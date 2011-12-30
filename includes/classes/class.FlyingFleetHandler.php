@@ -31,50 +31,69 @@ if (!defined('INSIDE')) die(header("location:../../"));
 
 class FlyingFleetHandler
 {	
-	function __construct($fleetquery)
+	protected $token;
+	
+	public static $MissionsPattern	= array(
+		1	=> 'MissionCaseAttack',
+		2	=> 'MissionCaseACS',
+		3	=> 'MissionCaseTransport',
+		4	=> 'MissionCaseStay',
+		5	=> 'MissionCaseStayAlly',
+		6	=> 'MissionCaseSpy',
+		7	=> 'MissionCaseColonisation',
+		8	=> 'MissionCaseRecycling',
+		9	=> 'MissionCaseDestruction',
+		10	=> 'MissionCaseMIP',
+		11	=> 'MissionCaseFoundDM',
+		15	=> 'MissionCaseExpedition',
+	);
+		
+	function setToken($token)
+	{
+		$this->token	= $token;
+	}
+	
+	
+	function run()
 	{
 		global $db;
-		$MissionsPattern	= array(
-			1	=> 'MissionCaseAttack',
-			2	=> 'MissionCaseACS',
-			3	=> 'MissionCaseTransport',
-			4	=> 'MissionCaseStay',
-			5	=> 'MissionCaseStayAlly',
-			6	=> 'MissionCaseSpy',
-			7	=> 'MissionCaseColonisation',
-			8	=> 'MissionCaseRecycling',
-			9	=> 'MissionCaseDestruction',
-			10	=> 'MissionCaseMIP',
-			11	=> 'MissionCaseFoundDM',
-			15	=> 'MissionCaseExpedition',
-		);
 		
 		require_once(ROOT_PATH.'includes/classes/class.MissionFunctions.php');
-		while ($CurrentFleet = $db->fetch_array($fleetquery))
+		
+		$fleetResult = $db->query("SELECT ".FLEETS.".* 
+		FROM ".FLEETS_EVENT." 
+		INNER JOIN ".FLEETS." ON fleetID = fleet_id
+		WHERE `lock` = '".$this->token."';");
+		while ($fleetRow = $db->fetch_array($fleetResult))
 		{
-			if(!isset($MissionsPattern[$CurrentFleet['fleet_mission']])) {
-				$db->query("DELETE FROM ".FLEETS." WHERE `fleet_id` = '".$CurrentFleet['fleet_id']."';");
+			if(!isset(self::$MissionsPattern[$fleetRow['fleet_mission']])) {
+				$db->query("DELETE FROM ".FLEETS." WHERE `fleet_id` = '".$fleetRow['fleet_id']."';");
 				continue;
 			}
 			
-			if(!$this->IfFleetBusy($CurrentFleet['fleet_id'])) continue;
-			getConfig($CurrentFleet['fleet_universe']);
+			#if(!$this->IfFleetBusy($fleetRow['fleet_id'])) continue;
 			
-			require_once(ROOT_PATH.'includes/classes/missions/'.$MissionsPattern[$CurrentFleet['fleet_mission']].'.php');
-			$Mission	= new $MissionsPattern[$CurrentFleet['fleet_mission']]($CurrentFleet);
+			$missionName	= self::$MissionsPattern[$fleetRow['fleet_mission']];
 			
-			if($CurrentFleet['fleet_mess'] == 0 && $CurrentFleet['fleet_start_time'] <= TIMESTAMP)
-				$Mission->TargetEvent();
-			elseif($CurrentFleet['fleet_mess'] == 2 && $CurrentFleet['fleet_end_stay'] <= TIMESTAMP)	
-				$Mission->EndStayEvent();
-			elseif($CurrentFleet['fleet_mess'] == 1 && $CurrentFleet['fleet_end_time'] <= TIMESTAMP)
-				$Mission->ReturnEvent();
-				
-			$Mission = NULL;
-			unset($Mission);
+			require_once(ROOT_PATH.'includes/classes/missions/'.$missionName.'.php');
+			$Mission	= new $missionName($fleetRow);
+			
+			switch($fleetRow['fleet_mess'])
+			{
+				case 0:
+					$Mission->TargetEvent();
+				break;
+				case 1:
+					$Mission->ReturnEvent();
+				break;
+				case 2:
+					$Mission->EndStayEvent();
+				break;
+			}
 
-			$db->query("UPDATE ".FLEETS." SET `fleet_busy` = '0' WHERE `fleet_id` = '".$CurrentFleet['fleet_id']."';");
+			#$db->query("UPDATE ".FLEETS." SET `fleet_busy` = '0' WHERE `fleet_id` = '".$fleetRow['fleet_id']."';");
 		}
+		$db->free_result($fleetResult);
 	}
 	
 	function IfFleetBusy($FleetID)

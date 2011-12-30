@@ -73,7 +73,7 @@ class ShowOptionsPage
 		{
 			case "exit":
 				if ($exit == 'on' and $USER['urlaubs_until'] <= TIMESTAMP)
-					$SQLQuery	.= "UPDATE ".USERS." SET `urlaubs_modus` = '0', `urlaubs_until` = '0' WHERE `id` = '".$USER['id']."' LIMIT 1;UPDATE ".PLANETS." SET `last_update` = '".TIMESTAMP."', `energy_used` = '10', `energy_max` = '10', `metal_mine_porcent` = '10', `crystal_mine_porcent` = '10', `deuterium_sintetizer_porcent` = '10', `solar_plant_porcent` = '10', `fusion_plant_porcent` = '10', `solar_satelit_porcent` = '10' WHERE `id_owner` = '".$USER["id"]."';";
+					$SQLQuery	.= "UPDATE ".USERS." SET `urlaubs_modus` = '0', `urlaubs_until` = '0' WHERE `id` = '".$USER['id']."' LIMIT 1;UPDATE ".PLANETS." SET `last_update` = '".TIMESTAMP."', `energy_used` = '10', `energy` = '10', `metal_mine_porcent` = '10', `crystal_mine_porcent` = '10', `deuterium_sintetizer_porcent` = '10', `solar_plant_porcent` = '10', `fusion_plant_porcent` = '10', `solar_satelit_porcent` = '10' WHERE `id_owner` = '".$USER["id"]."';";
 
 				$SQLQuery .= $db_deaktjava == 'on' ? "UPDATE ".USERS." SET `db_deaktjava` = '".TIMESTAMP."' WHERE `id` = '".$USER['id']."' LIMIT 1;" : "UPDATE ".USERS." SET `db_deaktjava` = '0' WHERE `id` = '".$USER['id']."' LIMIT 1;";
 				
@@ -136,7 +136,7 @@ class ShowOptionsPage
 									WHERE `id` = '".$USER["id"]."';
 									UPDATE ".PLANETS." SET
 									`energy_used` = '0',
-									`energy_max` = '0',
+									`energy` = '0',
 									`metal_mine_porcent` = '0',
 									`crystal_mine_porcent` = '0',
 									`deuterium_sintetizer_porcent` = '0',

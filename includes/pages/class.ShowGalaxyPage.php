@@ -27,7 +27,8 @@
  * @link http://code.google.com/p/2moons/
  */
 
-include_once(ROOT_PATH . 'includes/classes/class.GalaxyRows.php');
+require_once(ROOT_PATH . 'includes/classes/class.GalaxyRows.php');
+require_once(ROOT_PATH . 'includes/classes/class.FleetFunctions.php');
 
 class ShowGalaxyPage extends GalaxyRows
 {
@@ -48,7 +49,7 @@ class ShowGalaxyPage extends GalaxyRows
 		LEFT JOIN ".ALLIANCE." a ON a.`id` = u.`ally_id` 
 		LEFT JOIN ".STATPOINTS." allys ON allys.`stat_type` = '2' AND allys.`id_owner` = a.`id` 
 		WHERE p.`universe` = '".$UNI."' AND p.`galaxy` = ".$Galaxy." AND p.`system` = ".$System." AND p.`planet_type` = '1' ORDER BY p.`planet` ASC;");
-		$COUNT				= $db->num_rows($GalaxyPlanets);
+		$COUNT				= $db->numRows($GalaxyPlanets);
 		while($GalaxyRowPlanets = $db->fetch_array($GalaxyPlanets))
 		{
 			$PlanetsInGalaxy[$GalaxyRowPlanets['planet']]	= $GalaxyRowPlanets;
@@ -102,9 +103,7 @@ class ShowGalaxyPage extends GalaxyRows
 		
 		$template		= new template();	
 		$template->loadscript('galaxy.js');	
-		
-		$maxfleet       = $db->num_rows($db->query("SELECT fleet_id FROM ".FLEETS." WHERE `fleet_owner` = '". $USER['id'] ."' AND `fleet_mission` != 10;"));
-		
+			
 		$mode			= request_var('mode', 0);
 		$galaxyLeft		= request_var('galaxyLeft', '');
 		$galaxyRight	= request_var('galaxyRight', '');
@@ -162,14 +161,14 @@ class ShowGalaxyPage extends GalaxyRows
 			'planet'					=> $planet,
 			'type'						=> $type,
 			'current'					=> $current,
-			'currentmip'				=> pretty_number($PLANET[$resource[503]]),
-			'maxfleetcount'				=> $maxfleet,
-			'fleetmax'					=> ($USER['computer_tech'] + 1) + ($USER['rpg_commandant'] * $pricelist[611]['info']),
-			'grecyclers'   				=> pretty_number($PLANET[$resource[219]]),
-			'recyclers'   				=> pretty_number($PLANET[$resource[209]]),
-			'spyprobes'   				=> pretty_number($PLANET[$resource[210]]),
+			'maxfleetcount'				=> FleetFunctions::GetCurrentFleets($USER['id']),
+			'fleetmax'					=> FleetFunctions::GetMaxFleetSlots($USER),
+			'currentmip'				=> $PLANET[$resource[503]],
+			'grecyclers'   				=> $PLANET[$resource[219]],
+			'recyclers'   				=> $PLANET[$resource[209]],
+			'spyprobes'   				=> $PLANET[$resource[210]],
 			'missile_count'				=> sprintf($LNG['gl_missil_to_launch'], $PLANET[$resource[503]]),
-			'spio_anz'					=> $USER['spio_anz'],
+			'spyShips'					=> array(210 => $USER['spio_anz']),
 			'settings_fleetactions'		=> $USER['settings_fleetactions'],
 			'current_galaxy'			=> $PLANET['galaxy'],
 			'current_system'			=> $PLANET['system'],

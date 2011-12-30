@@ -27,146 +27,140 @@
  * @link http://code.google.com/p/2moons/
  */
 
-
-
 class ShowOfficierPage
 {
-	private function IsOfficierAccessible ($Officier)
-	{
-		global $USER, $requeriments, $resource, $pricelist;
-
-		if (isset($requeriments[$Officier]))
-		{
-			$enabled = true;
-			foreach($requeriments[$Officier] as $ReqOfficier => $OfficierLevel)
-			{
-				if ($USER[$resource[$ReqOfficier]] < $OfficierLevel)
-					return 0;
-			}
-		}
-		
-		return ($USER[$resource[$Officier]] < $pricelist[$Officier]['max']) ? 1 : -1;
-	}
-
 	public function UpdateExtra($Element)
 	{
-		global $USER, $db, $reslist, $resource, $pricelist;
+		global $PLANET, $USER, $resource, $pricelist, $db;
 		
-		if ((floor($USER['darkmatter'] / $pricelist[$Element]['darkmatter'])) > 0 && $USER[$resource[$Element]] == 0 || $USER[$resource[$Element]] < TIMESTAMP)
-		{
-			$USER[$resource[$Element]] 		= max($USER[$resource[$Element]], TIMESTAMP) + $pricelist[$Element]['time'] * 3600;
-			$USER['darkmatter']         	-= $pricelist[$Element]['darkmatter'];
-			$SQL  = "UPDATE ".USERS." SET ";
-			$SQL .= "`".$resource[$Element]."` = '". $USER[$resource[$Element]] ."' ";
-			$SQL .= "WHERE ";
-			$SQL .= "`id` = '". $USER['id'] ."';";
-			$db->query($SQL);
+		$costRessources		= BuildFunctions::getElementPrice($USER, $PLANET, $Element);
+			
+		if (!BuildFunctions::isElementBuyable($USER, $PLANET, $Element, $costRessources)) {
+			return;
 		}
+			
+		$USER[$resource[$Element]]	= max($USER[$resource[$Element]], TIMESTAMP) + $pricelist[$Element]['time'];
+			
+		if(isset($costRessources[901])) { $PLANET[$resource[901]]	-= $costRessources[901]; }
+		if(isset($costRessources[902])) { $PLANET[$resource[902]]	-= $costRessources[902]; }
+		if(isset($costRessources[903])) { $PLANET[$resource[903]]	-= $costRessources[903]; }
+		if(isset($costRessources[921])) { $USER[$resource[921]]		-= $costRessources[921]; }
+		
+		$db->query("UPDATE ".USERS." SET
+				   ".$resource[$Element]." = ".$USER[$resource[$Element]]."
+				   WHERE
+				   id = ".$USER['id'].";");
 	}
 
-	public function UpdateOfficier($Selected)
+	public function UpdateOfficier($Element)
 	{
-		global $USER, $PLANET, $db, $reslist, $resource;
+		global $USER, $PLANET, $reslist, $resource, $db, $pricelist;
 		
-		if (IsElementBuyable($USER, $PLANET, $Selected, true, false) && $this->IsOfficierAccessible($Selected) == 1)
-		{
-			$USER[$resource[$Selected]] += 1;
-			$Resses						= GetBuildingPrice($USER, $PLANET, $Selected, true, false);
-			$PLANET['metal']			-= $Resses['metal'];
-			$PLANET['crystal']			-= $Resses['crystal'];
-			$PLANET['deuterium']		-= $Resses['deuterium'];
-			$USER['darkmatter']			-= $Resses['darkmatter'];
-			$SQL  = "UPDATE ".USERS." SET ";
-			$SQL .= "`".$resource[$Selected]."` = '". $USER[$resource[$Selected]] ."' ";
-			$SQL .= "WHERE ";
-			$SQL .= "`id` = '". $USER['id'] ."';";
-			$db->query($SQL);
+		$costRessources		= BuildFunctions::getElementPrice($USER, $PLANET, $Element);
+			
+		if (!BuildFunctions::isTechnologieAccessible($USER, $PLANET, $Element) 
+			|| !BuildFunctions::isElementBuyable($USER, $PLANET, $Element, $costRessources) 
+			|| $pricelist[$Element]['max'] <= $USER[$resource[$Element]]) {
+			return;
 		}
+		
+		$USER[$resource[$Element]]	+= 1;
+		
+		if(isset($costRessources[901])) { $PLANET[$resource[901]]	-= $costRessources[901]; }
+		if(isset($costRessources[902])) { $PLANET[$resource[902]]	-= $costRessources[902]; }
+		if(isset($costRessources[903])) { $PLANET[$resource[903]]	-= $costRessources[903]; }
+		if(isset($costRessources[921])) { $USER[$resource[921]]		-= $costRessources[921]; }
+		
+		$db->query("UPDATE ".USERS." SET
+				   ".$resource[$Element]." = ".$USER[$resource[$Element]]."
+				   WHERE
+				   id = ".$USER['id'].";");
 	}
 	
-	public function __construct()
+	public function show()
 	{
 		global $USER, $CONF, $PLANET, $resource, $reslist, $LNG, $db, $pricelist;
 		
-		include_once(ROOT_PATH . 'includes/functions/GetElementPrice.php');
-		$action   = request_var('action', '');
 		$Offi	  = request_var('offi', 0);
 		$Extra	  = request_var('extra', 0);
-				
-		if ($action == "send" && $USER['urlaubs_modus'] == 0)
-		{
-			if(!empty($Offi) && !CheckModule(18) && in_array($Offi, $reslist['officier']))
-				$this->UpdateOfficier($Offi);
-			elseif(!empty($Extra) && !CheckModule(8) && in_array($Extra, $reslist['dmfunc']))
-				$this->UpdateExtra($Extra);		
-		}
 		
 		$PlanetRess = new ResourceUpdate();
 		$PlanetRess->CalcResource();
-		$PlanetRess->SavePlanetToDB();
 		
-		if($_SERVER['REQUEST_METHOD'] === 'POST') {
-			header('HTTP/1.0 204 No Content');
-			exit;
+		if ($_SERVER['REQUEST_METHOD'] === 'POST' && $USER['urlaubs_modus'] == 0)
+		{
+			if(!empty($Offi) && isModulAvalible(MODUL_OFFICIER) && in_array($Offi, $reslist['officier'])) {
+				$this->UpdateOfficier($Offi);
+			} elseif(!empty($Extra) && isModulAvalible(MODUL_DMEXTRAS) && in_array($Extra, $reslist['dmfunc'])){
+				$this->UpdateExtra($Extra);
+			}
 		}
+		
+		$PlanetRess->SavePlanetToDB();
 		
 		$template	= new template();
 		$template->loadscript('officier.js');		
-
-		if(!CheckModule(8)) 
+		
+		$darkmatterList	= array();
+		$officierList	= array();
+		
+		if(isModulAvalible(MODUL_DMEXTRAS)) 
 		{
 			foreach($reslist['dmfunc'] as $Element)
 			{
-				if($USER[$resource[$Element]] > TIMESTAMP)
-				{
+				if($USER[$resource[$Element]] > TIMESTAMP) {
 					$template->execscript("GetOfficerTime(".$Element.", ".($USER[$resource[$Element]] - TIMESTAMP).");");
 				}
-				$pricelistList[]	= array(
-					'id' 	 	=> $Element,
-					'active'  	=> $USER[$resource[$Element]] - TIMESTAMP,
-					'price'		=> pretty_number($pricelist[$Element]['darkmatter']),
-					'isok'		=> (($USER['darkmatter'] - $pricelist[$Element]['darkmatter']) >= 0) ? true : false,
-					'time'		=> pretty_time($pricelist[$Element]['time'] * 3600),
-					'name'		=> $LNG['tech'][$Element],
-					'desc'  	=> sprintf($LNG['res']['descriptions'][$Element], $pricelist[$Element]['add'] * 100),	
+			
+				$costRessources		= BuildFunctions::getElementPrice($USER, $PLANET, $Element);
+				$buyable			= BuildFunctions::isElementBuyable($USER, $PLANET, $Element, $costRessources);
+				$costOverflow		= BuildFunctions::getRestPrice($USER, $PLANET, $Element, $costRessources);
+
+				$darkmatterList[$Element]	= array(
+					'timeLeft'			=> max($USER[$resource[$Element]] - TIMESTAMP, 0),
+					'costRessources'	=> $costRessources,
+					'buyable'			=> $buyable,
+					'bonus'				=> $pricelist[$Element]['add'] * 100,
+					'time'				=> $pricelist[$Element]['time'],
+					'costOverflow'		=> $costOverflow,
+					'description'		=> sprintf($LNG['res']['descriptions'][$Element], $pricelist[$Element]['add'] * 100)
 				);
 			}
 		}
 		
-		if(!CheckModule(18))
+		if(isModulAvalible(MODUL_OFFICIER))
 		{
 			foreach($reslist['officier'] as $Element)
 			{
-				if (($Result = $this->IsOfficierAccessible($Element)) === 0)
+				if (!BuildFunctions::isTechnologieAccessible($USER, $PLANET, $Element))
 					continue;
+					
+				$costRessources		= BuildFunctions::getElementPrice($USER, $PLANET, $Element);
+				$buyable			= BuildFunctions::isElementBuyable($USER, $PLANET, $Element, $costRessources);
+				$costOverflow		= BuildFunctions::getRestPrice($USER, $PLANET, $Element, $costRessources);
+
+				if($pricelist[$Element]['info']) {
+					$description = sprintf($LNG['info'][$Element]['description'], is_int($pricelist[$Element]['info']) ? $pricelist[$Element]['info'] : $pricelist[$Element]['info'] * 100);
+				} else {
+					$description = sprintf($LNG['info'][$Element]['description']);
+				}
 				
-				$description = $pricelist[$Element]['info'] ? sprintf($LNG['info'][$Element]['description'], is_float($pricelist[$Element]['info']) ? $pricelist[$Element]['info'] * 100 : $pricelist[$Element]['info'], $pricelist[$Element]['max']) : sprintf($LNG['info'][$Element]['description'], $pricelist[$Element]['max']);
-								
-				$OfficierList[]	= array(
-					'id' 		 	=> $Element,
-					'level' 	 	=> $USER[$resource[$Element]],
-					'name'			=> $LNG['tech'][$Element],
-					'desc'  		=> $description,
-					'Result'		=> $Result,
-					'price'			=> GetElementPrice($USER, $PLANET, $Element),
-					'isbuyable'		=> IsElementBuyable($USER, $PLANET, $Element, true, false)
+				$officierList[$Element]	= array(
+					'level'				=> $USER[$resource[$Element]],
+					'maxLevel'			=> $pricelist[$Element]['max'],
+					'costRessources'	=> $costRessources,
+					'buyable'			=> $buyable,
+					'bonus'				=> $pricelist[$Element]['info'] * 100,
+					'costOverflow'		=> $costOverflow,
+					'description'		=> $description,
 				);
 			}
 		}
 		
 		$template->assign_vars(array(	
-			'ExtraDMList'			=> $pricelistList,
-			'OfficierList'			=> $OfficierList,
-			'of_max_lvl'			=> $LNG['of_max_lvl'],
-			'of_recruit'			=> $LNG['of_recruit'],
-			'of_offi'				=> $LNG['of_offi'],
-			'of_lvl'				=> $LNG['of_lvl'],
-			'in_dest_durati'		=> $LNG['in_dest_durati'],
-			'of_still'				=> $LNG['of_still'],
-			'of_active'				=> $LNG['of_active'],
-			'of_update'				=> $LNG['of_update'],
-			'in_dest_durati'		=> $LNG['in_dest_durati'],
-			'of_dm_trade'			=> sprintf($LNG['of_dm_trade'],$LNG['Darkmatter']),
+			'officierList'		=> $officierList,
+			'darkmatterList'	=> $darkmatterList,
+			'of_dm_trade'		=> sprintf($LNG['of_dm_trade'], $LNG['tech'][921]),
 		));
 		
 		$template->show("officier_overview.tpl");

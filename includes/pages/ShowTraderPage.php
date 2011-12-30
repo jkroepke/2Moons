@@ -53,7 +53,7 @@ function ShowTraderPage()
 		if($action == "trade")
 		{
 			if ($USER['darkmatter'] < $CONF['darkmatter_cost_trader'])
-				$template->message(sprintf($LNG['tr_empty_darkmatter'], $LNG['Darkmatter']), "game.php?page=trader", 1);
+				$template->message(sprintf($LNG['tr_empty_darkmatter'], $LNG['tech'][921]), "game.php?page=trader", 1);
 			elseif ($res1 < 0 || $res2 < 0)
 				$template->message($LNG['tr_only_positive_numbers'], "game.php?page=trader", 1);
 			else
@@ -94,7 +94,7 @@ function ShowTraderPage()
 	}
 	
 	$template->assign_vars(array(
-		'tr_cost_dm_trader'	=> sprintf($LNG['tr_cost_dm_trader'], pretty_number($CONF['darkmatter_cost_trader']), $LNG['Darkmatter']),
+		'tr_cost_dm_trader'	=> sprintf($LNG['tr_cost_dm_trader'], pretty_number($CONF['darkmatter_cost_trader']), $LNG['tech'][921]),
 		'charge'			=> $Charge['metal'][1].'/1/'.$Charge['deuterium'][3],
 	));
 

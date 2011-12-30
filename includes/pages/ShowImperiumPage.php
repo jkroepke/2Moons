@@ -75,8 +75,8 @@ function ShowImperiumPage()
 			'metal'			=> pretty_number($Planet['metal']),
 			'crystal'		=> pretty_number($Planet['crystal']),
 			'deuterium'		=> pretty_number($Planet['deuterium']),
-			'energy_used'	=> pretty_number($Planet['energy_max'] + $Planet['energy_used']),
-			'energy_max'	=> pretty_number($Planet['energy_max']),
+			'energy_used'	=> pretty_number($Planet['energy'] + $Planet['energy_used']),
+			'energy'	=> pretty_number($Planet['energy']),
 		);
 		
 		foreach($reslist['build'] as $gid){
@@ -113,10 +113,10 @@ function ShowImperiumPage()
 		'iv_coords'			=> $LNG['iv_coords'],
 		'iv_fields'			=> $LNG['iv_fields'],
 		'iv_resources'		=> $LNG['iv_resources'],
-		'Metal'				=> $LNG['Metal'],
-		'Crystal'			=> $LNG['Crystal'],
-		'Deuterium'			=> $LNG['Deuterium'],
-		'Energy'			=> $LNG['Energy'],
+		'Metal'				=> $LNG['tech'][901],
+		'Crystal'			=> $LNG['tech'][902],
+		'Deuterium'			=> $LNG['tech'][903],
+		'Energy'			=> $LNG['tech'][911],
 		'iv_buildings'		=> $LNG['iv_buildings'],
 		'iv_technology'		=> $LNG['iv_technology'],
 		'iv_ships'			=> $LNG['iv_ships'],

@@ -19,6 +19,6 @@ require(ROOT_PATH . 'includes/common.php');
 if(!$SESSION->IsUserLogin() || ($CONF['game_disable'] == 0 && $_SESSION['authlevel'] == AUTH_USR))
 	redirectTo('index.php?code=3');
 	
-if(CheckModule(7))
+if(!isModulAvalible(MODUL_CHAT))
 	message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 ?>

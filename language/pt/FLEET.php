@@ -5,11 +5,11 @@
 
 // 2Moons - Copyright (C) 2011  Slaver
  
-$LNG['Metal']							= 'Metal';
-$LNG['Crystal']							= 'Cristal';
-$LNG['Deuterium']						= 'Deutério';
-$LNG['Darkmatter']						= 'Matéria Negra';
-$LNG['Energy']							= 'Energia';
+$LNG['tech'][901]							= 'Metal';
+$LNG['tech'][902]							= 'Cristal';
+$LNG['tech'][903]						= 'Deutério';
+$LNG['tech'][921]						= 'Matéria Negra';
+$LNG['tech'][911]							= 'Energia';
 
 //----------------------------------------------------------------------------//
 //Outros

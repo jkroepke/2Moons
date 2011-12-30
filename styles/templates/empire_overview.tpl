@@ -55,7 +55,7 @@
             <tr>
 				<td>{$Energy}</td>
 				{foreach item=PlanetsInfoRow from=$PlanetsList}
-					<td>{$PlanetsInfoRow.InfoList.energy_used}/{$PlanetsInfoRow.InfoList.energy_max}</td>
+					<td>{$PlanetsInfoRow.InfoList.energy_used}/{$PlanetsInfoRow.InfoList.energy}</td>
 				{/foreach}
             </tr>
 			<tr>

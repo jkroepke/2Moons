@@ -4,47 +4,47 @@
 <div id="content">
 <table class="table519">
 	<tr style="height:20px">
-		<th colspan="2" class="success">{$fl_fleet_sended}</span></th>
+		<th colspan="2" class="success">{lang}fl_fleet_sended{/lang}</span></th>
 	</tr>
     <tr style="height:20px">
-        <td>{$fl_mission}</td>
-        <td>{$mission}</td>
+        <td>{lang}fl_mission{/lang}</td>
+        <td>{lang}type_mission.{$targetMission}{/lang}</td>
 	</tr>
     <tr style="height:20px">
-        <td>{$fl_distance}</td>
-        <td>{$distance}</td>
+        <td>{lang}fl_distance{/lang}</td>
+        <td>{$distance|number}</td>
     </tr>
     <tr style="height:20px">
-        <td>{$fl_fleet_speed}</td>
-        <td>{$speedallsmin}</td>
+        <td>{lang}fl_fleet_speed{/lang}</td>
+        <td>{$MaxFleetSpeed|number}</td>
     </tr>
     <tr style="height:20px">
-        <td>{$fl_fuel_consumption}</td>
-        <td>{$consumption}</td>
+        <td>{lang}fl_fuel_consumption{/lang}</td>
+        <td>{$consumption|number}</td>
     </tr>
     <tr style="height:20px">
-        <td>{$fl_from}</td>
+        <td>{lang}fl_from{/lang}</td>
         <td>{$from}</td>
     </tr>
     <tr style="height:20px">
-        <td>{$fl_destiny}</td>
+        <td>{lang}fl_destiny{/lang}</td>
         <td>{$destination}</td>
     </tr>
     <tr style="height:20px">
-        <td>{$fl_arrival_time}</td>
-        <td>{$start_time}</td>
+        <td>{lang}fl_arrival_time{/lang}</td>
+        <td>{$fleetStartTime}</td>
     </tr>
     <tr style="height:20px">
-        <td>{$fl_return_time}</td>
-        <td>{$end_time}</td>
+        <td>{lang}fl_return_time{/lang}</td>
+        <td>{$fleetEndTime}</td>
     </tr>
     <tr style="height:20px">
-        <th colspan="2">{$fl_fleet}</th>
+        <th colspan="2">{lang}fl_fleet{/lang}</th>
     </tr>
-	{foreach key=Shipname item=Shipcount from=$FleetList}
+	{foreach $FleetList as $ShipID => $ShipCount}
 	<tr>
-	<td>{$Shipname}</td>
-	<td>{$Shipcount}</td>
+		<td>{lang}tech.{$ShipID}{/lang}</td>
+		<td>{$ShipCount|number}</td>
 	</tr>
 	{/foreach}
 </table>

@@ -177,7 +177,7 @@ class statbuilder extends records
 
 			$this->SetIfRecord($Techno, $CurrentUser);
 			
-			$Units	= $pricelist[$Techno]['metal'] + $pricelist[$Techno]['crystal'] + $pricelist[$Techno]['deuterium'];
+			$Units	= $pricelist[$Techno]['cost'][901] + $pricelist[$Techno]['cost'][902] + $pricelist[$Techno]['cost'][903];
 			for($Level = 1; $Level <= $CurrentUser[$resource[$Techno]]; $Level++)
 			{
 				$TechPoints	+= $Units * pow($pricelist[$Techno]['factor'], $Level);
@@ -200,7 +200,7 @@ class statbuilder extends records
 
 			$this->SetIfRecord($Build, $CurrentPlanet);
 			
-			$Units			 = $pricelist[$Build]['metal'] + $pricelist[$Build]['crystal'] + $pricelist[$Build]['deuterium'];
+			$Units			 = $pricelist[$Build]['cost'][901] + $pricelist[$Build]['cost'][902] + $pricelist[$Build]['cost'][903];
 			for($Level = 1; $Level <= $CurrentPlanet[$resource[$Build]]; $Level++)
 			{
 				$BuildPoints	+= $Units * pow($pricelist[$Build]['factor'], $Level);
@@ -219,7 +219,7 @@ class statbuilder extends records
 		foreach($reslist['defense'] as $Defense) {
 			$this->SetIfRecord($Defense, $CurrentPlanet);
 			
-			$Units			= $pricelist[$Defense]['metal'] + $pricelist[$Defense]['crystal'] + $pricelist[$Defense]['deuterium'];
+			$Units			= $pricelist[$Defense]['cost'][901] + $pricelist[$Defense]['cost'][902] + $pricelist[$Defense]['cost'][903];
 			$DefensePoints += $Units * $CurrentPlanet[$resource[$Defense]];
 			$DefenseCounts += $CurrentPlanet[$resource[$Defense]];
 		}
@@ -237,7 +237,7 @@ class statbuilder extends records
 		
 			$this->SetIfRecord($Fleet, $CurrentPlanet);
 			
-			$Units			= $pricelist[$Fleet]['metal'] + $pricelist[$Fleet]['crystal'] + $pricelist[$Fleet]['deuterium'];
+			$Units			= $pricelist[$Fleet]['cost'][901] + $pricelist[$Fleet]['cost'][902] + $pricelist[$Fleet]['cost'][903];
 			$FleetPoints   += $Units * $CurrentPlanet[$resource[$Fleet]];
 			$FleetCounts   += $CurrentPlanet[$resource[$Fleet]];
 		}

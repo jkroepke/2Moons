@@ -12,7 +12,7 @@
 <meta http-equiv="content-script-type" content="text/javascript">
 <meta http-equiv="content-style-type" content="text/css">
 <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
-{if $goto}
+{if !empty($goto)}
 <meta http-equiv="refresh" content="{$gotoinsec};URL={$goto}">
 {/if}
 <script type="text/javascript" src="./scripts/base/jquery.js?v={$REV}"></script>

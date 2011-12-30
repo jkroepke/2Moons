@@ -27,7 +27,7 @@
  * @link http://code.google.com/p/2moons/
  */
  
-class DB_mysqli extends mysqli
+class Database extends mysqli
 {
 	protected $con;
 	protected $exception;
@@ -43,10 +43,9 @@ class DB_mysqli extends mysqli
 	 *
 	 * @return void
 	 */
-	public function __construct($exception = true)
+	public function __construct()
 	{
 		$this->con			= $GLOBALS['database'];
-		$this->exception	= $exception;
 
         if (!isset($this->con['port'])) {
             $this->con['port'] = 3306;
@@ -56,24 +55,10 @@ class DB_mysqli extends mysqli
 
 		if(mysqli_connect_error())
 		{
-			if($this->exception == true)
-				throw new Exception("Connection to database failed: ".mysqli_connect_error());
-			elseif(defined('INSTALL'))
-				return false;
+			throw new Exception("Connection to database failed: ".mysqli_connect_error());
 		}		
 		parent::set_charset("utf8");
 		parent::query("SET SESSION sql_mode = '';");
-	}
-	
-	/**
-	 * Close current database connection.
-	 *
-	 * @return void
-	 */
-	public function __destruct()
-	{	
-		if(!mysqli_connect_error())
-			parent::close();
 	}
 
 	/**
@@ -92,11 +77,7 @@ class DB_mysqli extends mysqli
 		}
 		else
 		{
-			if($this->exception == true) {
-				throw new Exception("SQL Error: ".$this->error."<br><br>Query Code: ".$resource);
-			} else {
-				return "SQL Error: ".$this->error;
-			}
+			throw new Exception("SQL Error: ".$this->error."<br><br>Query Code: ".$resource);
 		}
         return false;
 	}
@@ -186,9 +167,14 @@ class DB_mysqli extends mysqli
 	 *
 	 * @return integer	The total row number
 	 */
-	public function num_rows($query)
+	public function numRows($query)
 	{
 		return $query->num_rows;
+	}
+	
+	public function affectedRows()
+	{
+		return $this->affected_rows;
 	}
 
 	/**
@@ -273,11 +259,7 @@ class DB_mysqli extends mysqli
 	
 		if ($this->errno)
 		{
-			if($this->exception == true) {
-				throw new Exception("SQL Error: ".$this->error."<br><br>Query Code: ".$resource);
-			} else {
-				return "SQL Error: ".$this->error;
-			}
+			throw new Exception("SQL Error: ".$this->error."<br><br>Query Code: ".$resource);
 		}
 	}
 	

@@ -226,7 +226,7 @@ class ShowInfosPage
 					$RapidFire['from'][$LNG['tech'][$Type]] = $CombatCaps[$Type]['sd'][$BuildID];
 			}
 
-			$FleetInfo[$LNG['in_struct_pt']]		= pretty_number($pricelist[$BuildID]['metal'] + $pricelist[$BuildID]['crystal']);
+			$FleetInfo[$LNG['in_struct_pt']]		= pretty_number($pricelist[$BuildID]['cost'][901] + $pricelist[$BuildID]['cost'][902]);
 			$FleetInfo[$LNG['in_shield_pt']]		= pretty_number($CombatCaps[$BuildID]['shield']);
 			$FleetInfo[$LNG['in_attack_pt']]		= pretty_number($CombatCaps[$BuildID]['attack']);
 			$FleetInfo[$LNG['in_capacity']]			= pretty_number($pricelist[$BuildID]['capacity']);
@@ -246,7 +246,7 @@ class ShowInfosPage
 					$RapidFire['from'][$LNG['tech'][$Type]] = $CombatCaps[$Type]['sd'][$BuildID];
 			}
 
-			$FleetInfo[$LNG['in_struct_pt']]		= pretty_number($pricelist[$BuildID]['metal'] + $pricelist[$BuildID]['crystal']);
+			$FleetInfo[$LNG['in_struct_pt']]		= pretty_number($pricelist[$BuildID]['cost'][901] + $pricelist[$BuildID]['cost'][902]);
 			$FleetInfo[$LNG['in_shield_pt']]		= pretty_number($CombatCaps[$BuildID]['shield']);
 			$FleetInfo[$LNG['in_attack_pt']]		= pretty_number($CombatCaps[$BuildID]['attack']);
 		}

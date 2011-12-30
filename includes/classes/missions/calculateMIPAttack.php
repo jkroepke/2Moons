@@ -53,7 +53,7 @@ function calculateMIPAttack($TargetDefTech, $OwnerAttTech, $ipm, $TargetDefensiv
 			$target = $Element;
 		
 		
-		$Dam = $max_dam - ($pricelist[$target]['metal'] + $pricelist[$target]['crystal']) / 10 * $TargetDefensive[$target] * $life_fac;
+		$Dam = $max_dam - ($pricelist[$target]['cost'][901] + $pricelist[$target]['cost'][902]) / 10 * $TargetDefensive[$target] * $life_fac;
 			
 		if($Dam > 0)
 		{
@@ -63,10 +63,10 @@ function calculateMIPAttack($TargetDefTech, $OwnerAttTech, $ipm, $TargetDefensiv
 		else
 		{
 			// not enough damage for all items
-			$dest = floor($max_dam / (($pricelist[$target]['metal'] + $pricelist[$target]['crystal']) / 10 * $life_fac));
+			$dest = floor($max_dam / (($pricelist[$target]['cost'][901] + $pricelist[$target]['cost'][902]) / 10 * $life_fac));
 			$ship_res[$target] = $dest;
 		}
-		$max_dam -= $dest * round(($pricelist[$target]['metal'] + $pricelist[$target]['crystal']) / 10 * $life_fac);
+		$max_dam -= $dest * round(($pricelist[$target]['cost'][901] + $pricelist[$target]['cost'][902]) / 10 * $life_fac);
 		$i++;
 	}
 		

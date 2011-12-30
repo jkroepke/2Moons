@@ -1,10 +1,10 @@
 <?php
 
-$LNG['Metal'] = 'Metal';
-$LNG['Crystal'] = 'Cristal';
-$LNG['Deuterium'] = 'Deuterio';
-$LNG['Darkmatter'] = 'Materia Oscura';
-$LNG['Energy'] = 'Energía';
+$LNG['tech'][901] = 'Metal';
+$LNG['tech'][902] = 'Cristal';
+$LNG['tech'][903] = 'Deuterio';
+$LNG['tech'][921] = 'Materia Oscura';
+$LNG['tech'][911] = 'Energía';
 
 //----------------------------------------------------------------------------//
 //SYSTEM

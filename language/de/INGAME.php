@@ -1,11 +1,5 @@
 <?php
 
-
-$LNG['Metal']								= 'Metall';
-$LNG['Crystal']								= 'Kristall';
-$LNG['Deuterium']							= 'Deuterium';
-$LNG['Darkmatter']							= 'Dunkle Materie';
-$LNG['Energy']								= 'Energie';
 $LNG['Messages']							= 'Nachrichten';
 $LNG['write_message']						= 'Schreibe eine Nachricht';
 
@@ -256,9 +250,6 @@ $LNG['fl_order']							= 'Befehl';
 $LNG['fl_new_mission_title']				= 'Neuer Auftrag: Flotte wählen';
 $LNG['fl_ship_type']						= 'Schiffstyp';
 $LNG['fl_ship_available']					= 'Verfügbar';
-$LNG['fl_planet']							= 'Planet';
-$LNG['fl_debris']							= 'Trümmerfeld';
-$LNG['fl_moon']								= 'Mond';
 $LNG['fl_planet_shortcut']					= '(P)';
 $LNG['fl_debris_shortcut']					= '(T)';
 $LNG['fl_moon_shortcut']					= '(M)';
@@ -293,20 +284,15 @@ $LNG['fl_empty_target']						= 'Keine Missionen vorhanden (Planet vorhanden?)';
 $LNG['fl_expedition_alert_message']			= 'Achtung die Expedition bringt gefahren mit sich, sie können bei der Expedition ihre gesammte Flotte verlieren!';
 $LNG['fl_dm_alert_message']					= 'Achtung, wenn bei der %s %s gefunden wurde, wird die Flotten zerstört!';
 $LNG['fl_vacation_mode_active']				= 'Sie befinden sich im Urlaubsmodus';
-$LNG['fl_expedition_tech_required']			= 'Sie haben nicht die nötige Expeditions Technologie!';
 $LNG['fl_expedition_fleets_limit']			= 'Sie können nicht mehr Expeditionen starten!';
 $LNG['fl_week_player']						= 'Spieler ist zu schwach für sie!';
 $LNG['fl_strong_player']					= 'Spieler ist zu stark für sie!';
 $LNG['fl_in_vacation_player']				= 'Spieler befindet sich im Urlaubsmodus';
 $LNG['fl_no_slots']							= 'Keine Slots mehr verfügbar!';
-$LNG['fl_empty_transport']					= 'Keine Rohstoffe geladen!';
 $LNG['fl_planet_populed']					= 'Planet besiedelt!';
 $LNG['fl_no_same_alliance']					= 'Der Spieler vom Zielplanet muss in deiner Allianz oder Buddyliste sein!';
 $LNG['fl_not_ally_deposit']					= 'Am Ziel befindet sich kein Allianzdepo';
 $LNG['fl_deploy_only_your_planets']			= 'Sie können nur Flotten auf Ihren eigenen Planeten stationieren!';
-$LNG['fl_no_enought_deuterium']				= 'Sie haben nicht genügend %s vorhanden. Ihnen fehlen %s %s!';
-$LNG['fl_no_enought_cargo_capacity']		= 'Sie haben nicht genügend Laderaum vorhanden:';
-$LNG['fl_admins_cannot_be_attacked']		= 'Du kannst keine Administratoren angreifen';
 $LNG['fl_fleet_sended']						= 'Flotte verschickt';
 $LNG['fl_from']								= 'Von';
 $LNG['fl_arrival_time']						= 'Ankunftzeit';
@@ -314,6 +300,7 @@ $LNG['fl_return_time']						= 'Rückkehrzeit';
 $LNG['fl_fleet']							= 'Flotte';
 $LNG['fl_player']							= 'Der Spieler ';
 $LNG['fl_add_to_attack']					= ' wurde eingeladen.';
+$LNG['fl_already_invited']					= ' wurde bereits eingeladen.';
 $LNG['fl_dont_exist']						= ' existiert nicht.';
 $LNG['fl_acs_invitation_message']			= ' lädt Sie zu einem AKS ein.';
 $LNG['fl_acs_invitation_title']				= 'AKS Einladung';
@@ -334,7 +321,23 @@ $LNG['fl_error_not_avalible']				= 'Auf diesen Koordinaten befinden sich kein Pl
 $LNG['fl_error_empty_derbis']				= 'Kein Trümerfeld vorhanden!';
 $LNG['fl_error_no_moon']					= 'Kein Mond vorhanden!';
 $LNG['fl_error_same_planet']				= 'Start- und Zielplanet sind identisch!';
-$LNG['fl_bash_protect']						= 'Bash-Schutz';
+$LNG['fl_send_error'][3]					= 'Start- und Zielplanet sind identisch.';
+$LNG['fl_send_error'][4]					= 'Kein gültiges Ziel';
+$LNG['fl_send_error'][5]					= 'Keine Rohstoffe geladen!';
+$LNG['fl_send_error'][6]					= 'Keine Slots mehr verfügbar!';
+$LNG['fl_send_error'][7]					= 'Kein Zielplanet vorhanden';
+$LNG['fl_send_error'][8]					= 'Nicht alle Schiffe vorhanden.';
+$LNG['fl_send_error'][9]					= 'Sie können nicht mehr Expeditionen starten!';
+$LNG['fl_send_error'][10]					= 'Sie haben nicht die nötige Expeditions Technologie!';
+$LNG['fl_send_error'][12]					= 'Spieler befindet sich im Urlaubsmodus!';
+$LNG['fl_send_error'][13]					= 'Bash-Schutz';
+$LNG['fl_send_error'][14]					= 'Du kannst keine Administratoren angreifen';
+$LNG['fl_send_error'][15]					= 'Spieler befindest sich im Noobschutz';
+$LNG['fl_send_error'][16]					= 'Spieler ist zu stark!';
+$LNG['fl_send_error'][17]					= 'Am Ziel befindet sich kein Allianzdepot.';
+$LNG['fl_send_error'][18]					= 'Der Spieler vom Zielplanet muss in deiner Allianz oder Buddyliste sein!';
+$LNG['fl_send_error'][19]					= 'Nicht genügend Deuterium vorhanden.';
+$LNG['fl_send_error'][20]					= 'Sie haben nicht genügend Laderaum vorhanden.';
 
 //----------------------------------------------------------------------------//
 //BUILDINGS - RESEARCH - SHIPYARD - DEFENSES

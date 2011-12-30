@@ -80,12 +80,12 @@ class MissionCaseRecycling extends MissionFunctions
 		$db->query("UPDATE ".PLANETS." SET `der_metal` = `der_metal` - ".$RecycledGoods['metal'].", `der_crystal` = `der_crystal` - ".$RecycledGoods['crystal']." WHERE `id` = '".$this->_fleet['fleet_end_id']."';");
 
 		$LNG			= $LANG->GetUserLang($this->_fleet['fleet_owner']);
-		$Message 		= sprintf($LNG['sys_recy_gotten'], pretty_number($RecycledGoods['metal']), $LNG['Metal'], pretty_number($RecycledGoods['crystal']), $LNG['Crystal']);
+		$Message 		= sprintf($LNG['sys_recy_gotten'], pretty_number($RecycledGoods['metal']), $LNG['tech'][901], pretty_number($RecycledGoods['crystal']), $LNG['tech'][902]);
 		SendSimpleMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_start_time'], 5, $LNG['sys_mess_tower'], $LNG['sys_recy_report'], $Message);
 		
 		$this->UpdateFleet('fleet_resource_metal', $this->_fleet['fleet_resource_metal'] + $RecycledGoods['metal']);
 		$this->UpdateFleet('fleet_resource_crystal', $this->_fleet['fleet_resource_crystal'] + $RecycledGoods['crystal']);
-		$this->UpdateFleet('fleet_mess', 1);
+		$this->setState(FLEET_RETURN);
 		$this->SaveFleet();
 	}
 	
@@ -99,7 +99,7 @@ class MissionCaseRecycling extends MissionFunctions
 		global $LANG;
 		$LNG				= $LANG->GetUserLang($this->_fleet['fleet_owner']);
 	
-		$Message         = sprintf( $LNG['sys_tran_mess_owner'], $TargetName, GetStartAdressLink($this->_fleet, ''), pretty_number($this->_fleet['fleet_resource_metal']), $LNG['Metal'], pretty_number($this->_fleet['fleet_resource_crystal']), $LNG['Crystal'], pretty_number($this->_fleet['fleet_resource_deuterium']), $LNG['Deuterium'] );
+		$Message         = sprintf( $LNG['sys_tran_mess_owner'], $TargetName, GetStartAdressLink($this->_fleet, ''), pretty_number($this->_fleet['fleet_resource_metal']), $LNG['tech'][901], pretty_number($this->_fleet['fleet_resource_crystal']), $LNG['tech'][902], pretty_number($this->_fleet['fleet_resource_deuterium']), $LNG['tech'][903] );
 		SendSimpleMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_end_time'], 5, $LNG['sys_mess_tower'], $LNG['sys_mess_fleetback'], $Message);
 
 		$this->RestoreFleet();

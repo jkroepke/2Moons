@@ -40,8 +40,8 @@
         </tr>
 		{foreach $fleets as $index => $fleet}
 		<tr>
-			<td id="fleettime_{$index}" class="fleets" data-fleet-end-time="{$fleet.fleet_return}" data-fleet-time="{$fleet.fleet_rest}">-</td>
-			<td colspan="2">{$fleet.fleet_descr}</td>
+			<td id="fleettime_{$index}" class="fleets" data-fleet-end-time="{$fleet.returntime}" data-fleet-time="{$fleet.resttime}">-</td>
+			<td colspan="2">{$fleet.text}</td>
 		</tr>
 		{/foreach}
         <tr>
@@ -74,7 +74,7 @@
         </tr>
         <tr>
             <td>{lang}ov_points{/lang}</td>
-            <td colspan="2">{$user_rank}</td>
+            <td colspan="2">{$rankInfo}</td>
         </tr>
 		{if $ref_active}
 		<tr>
@@ -94,7 +94,7 @@
 		</tr>
 		{/foreach}
 		{/if}
-		{if extension_loaded('gd') && !CheckModule(37)}
+		{if extension_loaded('gd') && isModulAvalible($smarty.const.MODUL_BANNER)}
 		<tr>
 			<th colspan="3">{lang}ov_userbanner{/lang}</th>
 		</tr>

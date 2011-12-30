@@ -1,10 +1,5 @@
 <?php
 
-$LNG['Metal'] = 'Metal';
-$LNG['Crystal'] = 'Cristal';
-$LNG['Deuterium'] = 'Deuterio';
-$LNG['Darkmatter'] = 'Materia Oscura';
-$LNG['Energy'] = 'Energía';
 $LNG['Messages'] = 'Mensajes';
 $LNG['write_message'] = 'Escribir mensaje';
 

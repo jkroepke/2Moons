@@ -119,12 +119,17 @@ class MissionCaseDestruction extends MissionFunctions
 				$totalCount += $amount;
 			}
 			
-			$SQL .= $totalCount <= 0 ? "DELETE FROM ".FLEETS." WHERE `fleet_id`= '".$fleetID."';UPDATE ".LOG_FLEETS." SET `fleet_state` = 1 WHERE `fleet_id`= '".$fleetID."';" : "UPDATE ".FLEETS." SET `fleet_mess` = '1', `fleet_array` = '".substr($fleetArray, 0, -1)."', `fleet_amount` = '".$totalCount."' WHERE `fleet_id` = '".$fleetID."';UPDATE ".LOG_FLEETS." SET `fleet_mess` = '1', `fleet_array` = '".substr($fleetArray, 0, -1)."', `fleet_amount` = '".$totalCount."', `fleet_state` = 1 WHERE `fleet_id` = '".$fleetID."';";
+			if($totalCount <= 0) {
+				$SQL .= "DELETE FROM ".FLEETS." WHERE `fleet_id`= '".$fleetID."';";
+				$SQL .= "UPDATE ".LOG_FLEETS." SET `fleet_state` = 1 WHERE `fleet_id`= '".$fleetID."';";
+			} else {
+				$SQL .= "UPDATE ".FLEETS." SET `fleet_array` = '".substr($fleetArray, 0, -1)."', `fleet_amount` = '".$totalCount."' WHERE `fleet_id` = '".$fleetID."';";
+				$SQL .= "UPDATE ".LOG_FLEETS." SET `fleet_array` = '".substr($fleetArray, 0, -1)."', `fleet_amount` = '".$totalCount."', `fleet_state` = 1 WHERE `fleet_id` = '".$fleetID."';";
+			}
 		}	
 	
 		$db->multi_query($SQL);
 		$SQL	= "";
-		
 		
 		$steal	= array(
 			'metal'		=> 0,
@@ -152,7 +157,14 @@ class MissionCaseDestruction extends MissionFunctions
 						
 					$totalCount += $amount;
 				}
-				$SQL .= $totalCount <= 0 ? "DELETE FROM ".FLEETS." WHERE `fleet_id`= '".$fleetID."';UPDATE ".LOG_FLEETS." SET `fleet_state` = 1 WHERE `fleet_id`= '".$fleetID."';" : "UPDATE ".FLEETS." SET `fleet_array` = '".substr($fleetArray, 0, -1)."', `fleet_amount` = '".$totalCount."' WHERE `fleet_id` = '".$fleetID."';UPDATE ".LOG_FLEETS." SET `fleet_array` = '".substr($fleetArray, 0, -1)."', `fleet_amount` = '".$totalCount."' , `fleet_state` = 1 WHERE `fleet_id` = '".$fleetID."';";
+				
+				if($totalCount <= 0) {
+					$SQL .= "DELETE FROM ".FLEETS." WHERE `fleet_id`= '".$fleetID."';";
+					$SQL .= "UPDATE ".LOG_FLEETS." SET `fleet_state` = 1 WHERE `fleet_id`= '".$fleetID."';";
+				} else {
+					$SQL .= "UPDATE ".FLEETS." SET `fleet_array` = '".substr($fleetArray, 0, -1)."', `fleet_amount` = '".$totalCount."' WHERE `fleet_id` = '".$fleetID."';";
+					$SQL .= "UPDATE ".LOG_FLEETS." SET `fleet_array` = '".substr($fleetArray, 0, -1)."', `fleet_amount` = '".$totalCount."' , `fleet_state` = 1 WHERE `fleet_id` = '".$fleetID."';";
+				}
 			}
 			else
 			{
@@ -181,6 +193,8 @@ class MissionCaseDestruction extends MissionFunctions
 			'des'		=> 1
 		);
 		
+		$EndPlanet		= $db->uniquequery("SELECT `id` FROM ".PLANETS." WHERE `id_luna` = '".$this->_fleet['fleet_end_id']."';");
+		
 		switch ($result['won']) {
 			case "a":
 				$chance		 	= max(min(round((100 - sqrt($TargetPlanet['diameter'])) * sqrt($attackFleets[$this->_fleet['fleet_id']]['detail'][214]), 1), 100), 0);
@@ -193,8 +207,21 @@ class MissionCaseDestruction extends MissionFunctions
 				$INFO['moon']['chance2']	= $chance2;
 				
 				if($tirage <= $chance) {
-					$EndPlanet		= $db->uniquequery("SELECT `id` FROM ".PLANETS." WHERE `id_luna` = '".$this->_fleet['fleet_end_id']."';");
-					$db->multi_query("DELETE FROM ".PLANETS." WHERE `id` = '".$TargetPlanet['id']."';UPDATE ".PLANETS." SET `id_luna` = '0' WHERE `id_luna` = '".$TargetPlanet['id']."';UPDATE ".FLEETS." SET `fleet_start_type` = '1', `fleet_start_id` = '".$EndPlanet['id']."' WHERE `fleet_start_id` = '".$this->_fleet['fleet_end_id']."';UPDATE ".FLEETS." SET `fleet_end_type` = '1', `fleet_end_id` = '".$EndPlanet['id']."', `fleet_mission` = IF(`fleet_mission` = 9, 1, `fleet_mission`) WHERE `fleet_end_id` = '".$this->_fleet['fleet_end_id']."' AND `fleet_id` != '".$this->_fleet['fleet_id']."';");
+					$db->multi_query("DELETE FROM ".PLANETS." 
+					WHERE `id` = '".$TargetPlanet['id']."';
+					UPDATE ".PLANETS." 
+					SET `id_luna` = '0' 
+					WHERE `id_luna` = '".$TargetPlanet['id']."';
+					UPDATE ".FLEETS." SET 
+					`fleet_start_type` = '1', 
+					`fleet_start_id` = '".$EndPlanet['id']."' 
+					WHERE `fleet_start_id` = '".$this->_fleet['fleet_end_id']."';
+					UPDATE ".FLEETS." SET 
+					`fleet_end_type` = '1', 
+					`fleet_end_id` = '".$EndPlanet['id']."', 
+					`fleet_mission` = IF(`fleet_mission` = 9, 1, `fleet_mission`) 
+					WHERE `fleet_end_id` = '".$this->_fleet['fleet_end_id']."' 
+					AND `fleet_id` != '".$this->_fleet['fleet_id']."';");
 					$INFO['moon']['desfail'] = 0;
 				} else {
 					$INFO['moon']['desfail'] = 2;
@@ -262,7 +289,7 @@ class MissionCaseDestruction extends MissionFunctions
 				continue;
 				
 			$LNG			= $LANG->GetUserLang($AttackersID);
-			$MessageAtt 	= sprintf('<a href="CombatReport.php?raport=%s" target="_blank"><center><font color="%s">%s %s</font></a><br><br><font color="%s">%s: %s</font> <font color="%s">%s: %s</font><br>%s %s:<font color="#adaead">%s</font> %s:<font color="#ef51ef">%s</font> %s:<font color="#f77542">%s</font><br>%s %s:<font color="#adaead">%s</font> %s:<font color="#ef51ef">%s</font><br></center>', $rid, $ColorAtt, $LNG['sys_mess_attack_report'], sprintf($LNG['sys_adress_planet'], $this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet']), $ColorAtt, $LNG['sys_perte_attaquant'], pretty_number($result['lost']['att']), $ColorDef, $LNG['sys_perte_defenseur'], pretty_number($result['lost']['def']), $LNG['sys_gain'], $LNG['Metal'], pretty_number($steal['metal']), $LNG['Crystal'], pretty_number($steal['crystal']), $LNG['Deuterium'], pretty_number($steal['deuterium']), $LNG['sys_debris'], $LNG['Metal'], pretty_number($result['debree']['att'][0]+$result['debree']['def'][0]), $LNG['Crystal'], pretty_number($result['debree']['att'][1]+$result['debree']['def'][1]));
+			$MessageAtt 	= sprintf('<a href="CombatReport.php?raport=%s" target="_blank"><center><font color="%s">%s %s</font></a><br><br><font color="%s">%s: %s</font> <font color="%s">%s: %s</font><br>%s %s:<font color="#adaead">%s</font> %s:<font color="#ef51ef">%s</font> %s:<font color="#f77542">%s</font><br>%s %s:<font color="#adaead">%s</font> %s:<font color="#ef51ef">%s</font><br></center>', $rid, $ColorAtt, $LNG['sys_mess_attack_report'], sprintf($LNG['sys_adress_planet'], $this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet']), $ColorAtt, $LNG['sys_perte_attaquant'], pretty_number($result['lost']['att']), $ColorDef, $LNG['sys_perte_defenseur'], pretty_number($result['lost']['def']), $LNG['sys_gain'], $LNG['tech'][901], pretty_number($steal['metal']), $LNG['tech'][902], pretty_number($steal['crystal']), $LNG['tech'][903], pretty_number($steal['deuterium']), $LNG['sys_debris'], $LNG['tech'][901], pretty_number($result['debree']['att'][0]+$result['debree']['def'][0]), $LNG['tech'][902], pretty_number($result['debree']['att'][1]+$result['debree']['def'][1]));
 			SendSimpleMessage($AttackersID, 0, $this->_fleet['fleet_start_time'], 3, $LNG['sys_mess_tower'], $LNG['sys_mess_attack_report'], $MessageAtt);
 			$SQL .= "INSERT INTO ".TOPKB_USERS." SET ";
 			$SQL .= "`rid` = ".$rid.", ";
@@ -277,7 +304,7 @@ class MissionCaseDestruction extends MissionFunctions
 				continue;
 				
 			$LNG			= $LANG->GetUserLang($DefenderID);
-			$MessageDef 	= sprintf('<a href="CombatReport.php?raport=%s" target="_blank"><center><font color="%s">%s %s</font></a><br><br><font color="%s">%s: %s</font> <font color="%s">%s: %s</font><br>%s %s:<font color="#adaead">%s</font> %s:<font color="#ef51ef">%s</font> %s:<font color="#f77542">%s</font><br>%s %s:<font color="#adaead">%s</font> %s:<font color="#ef51ef">%s</font><br></center>', $rid, $ColorDef, $LNG['sys_mess_attack_report'], sprintf($LNG['sys_adress_planet'], $this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet']), $ColorDef, $LNG['sys_perte_attaquant'], pretty_number($result['lost']['att']), $ColorAtt, $LNG['sys_perte_defenseur'], pretty_number($result['lost']['def']), $LNG['sys_gain'], $LNG['Metal'], pretty_number($steal['metal']), $LNG['Crystal'], pretty_number($steal['crystal']), $LNG['Deuterium'], pretty_number($steal['deuterium']), $LNG['sys_debris'], $LNG['Metal'], pretty_number($result['debree']['att'][0]+$result['debree']['def'][0]), $LNG['Crystal'], pretty_number($result['debree']['att'][1]+$result['debree']['def'][1]));
+			$MessageDef 	= sprintf('<a href="CombatReport.php?raport=%s" target="_blank"><center><font color="%s">%s %s</font></a><br><br><font color="%s">%s: %s</font> <font color="%s">%s: %s</font><br>%s %s:<font color="#adaead">%s</font> %s:<font color="#ef51ef">%s</font> %s:<font color="#f77542">%s</font><br>%s %s:<font color="#adaead">%s</font> %s:<font color="#ef51ef">%s</font><br></center>', $rid, $ColorDef, $LNG['sys_mess_attack_report'], sprintf($LNG['sys_adress_planet'], $this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet']), $ColorDef, $LNG['sys_perte_attaquant'], pretty_number($result['lost']['att']), $ColorAtt, $LNG['sys_perte_defenseur'], pretty_number($result['lost']['def']), $LNG['sys_gain'], $LNG['tech'][901], pretty_number($steal['metal']), $LNG['tech'][902], pretty_number($steal['crystal']), $LNG['tech'][903], pretty_number($steal['deuterium']), $LNG['sys_debris'], $LNG['tech'][901], pretty_number($result['debree']['att'][0]+$result['debree']['def'][0]), $LNG['tech'][902], pretty_number($result['debree']['att'][1]+$result['debree']['def'][1]));
 			SendSimpleMessage($DefenderID, 0, $this->_fleet['fleet_start_time'], 3, $LNG['sys_mess_tower'], $LNG['sys_mess_attack_report'], $MessageDef);
 			$SQL .= "INSERT INTO ".TOPKB_USERS." SET ";
 			$SQL .= "`rid` = ".$rid.", ";
@@ -290,7 +317,7 @@ class MissionCaseDestruction extends MissionFunctions
 		$SQL .= "`der_metal` = `der_metal` + ".$ShootMetal.", ";
 		$SQL .= "`der_crystal` = `der_crystal` + ".$ShootCrystal." ";
 		$SQL .= "WHERE ";
-		$SQL .= "`id_luna` = ".$this->_fleet['fleet_end_id'].";";
+		$SQL .= "`id_luna` = ".$EndPlanet.";";
 		$SQL .= "INSERT INTO ".TOPKB." SET ";
 		$SQL .= "`units` = '".($result['lost']['att'] + $result['lost']['def'])."', ";
 		$SQL .= "`rid` = ".$rid.", ";
@@ -318,6 +345,10 @@ class MissionCaseDestruction extends MissionFunctions
         $SQL .= "WHERE ";
         $SQL .= substr($WhereDef, 0, -4).";";
 		$db->multi_query($SQL);
+		
+		
+		$this->setState(FLEET_RETURN);
+		$this->SaveFleet();
 	}
 	
 	function EndStayEvent()
@@ -329,7 +360,7 @@ class MissionCaseDestruction extends MissionFunctions
 	{
 		global $LANG;
 		$LNG			= $LANG->GetUserLang($this->_fleet['fleet_owner']);
-		$Message		= sprintf($LNG['sys_fleet_won'], $TargetName, GetTargetAdressLink($this->_fleet, ''),pretty_number($this->_fleet['fleet_resource_metal']), $LNG['Metal'],pretty_number($this->_fleet['fleet_resource_crystal']), $LNG['Crystal'],pretty_number($this->_fleet['fleet_resource_deuterium']), $LNG['Deuterium'] );
+		$Message		= sprintf($LNG['sys_fleet_won'], $TargetName, GetTargetAdressLink($this->_fleet, ''),pretty_number($this->_fleet['fleet_resource_metal']), $LNG['tech'][901],pretty_number($this->_fleet['fleet_resource_crystal']), $LNG['tech'][902],pretty_number($this->_fleet['fleet_resource_deuterium']), $LNG['tech'][903] );
 		SendSimpleMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_end_time'], 3, $LNG['sys_mess_tower'], $LNG['sys_mess_fleetback'], $Message);
 			
 		$this->RestoreFleet();

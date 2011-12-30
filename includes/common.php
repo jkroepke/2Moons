@@ -26,15 +26,14 @@
  * @info $Id$
  * @link http://code.google.com/p/2moons/
  */
-
+ 
 if(!defined('IN_ADMIN') || !defined('IN_CRON'))
 	define("STARTTIME",	microtime(true));
 
-	
-define("BETA", file_exists(ROOT_PATH.'BETA_GAME'));
+define("BETA", 0);
 
 ignore_user_abort(true);
-error_reporting(E_ALL ^ E_NOTICE);
+error_reporting(E_ALL);
 ini_set('display_errors', 1);
 header('Content-Type: text/html; charset=UTF-8');
 define('TIMESTAMP',	$_SERVER['REQUEST_TIME']);
@@ -53,10 +52,11 @@ require_once(ROOT_PATH . 'includes/classes/class.Lang.php');
 require_once(ROOT_PATH . 'includes/classes/class.theme.php');
 require_once(ROOT_PATH . 'includes/classes/class.Session.php');
 	
-$db 	= new DB_MySQLi();
-$THEME	= new Theme();	
-$LANG	= new Language();
-$CONFIG	= array();
+$db 		= new Database();
+$THEME		= new Theme();	
+$LANG		= new Language();
+$SESSION	= new Session();
+$CONFIG		= array();
 
 $UNI	= getUniverse();
 unset($database);
@@ -81,9 +81,7 @@ if($GLOBALS['CONF']['debug']) {
 }
 
 if (!defined('LOGIN') && !defined('IN_CRON') && !defined('ROOT'))
-{
-	$SESSION       	= new Session();
-	
+{	
 	if(!$SESSION->IsUserLogin()) redirectTo('index.php?code=3');
 	
 	$SESSION->UpdateSession();
@@ -92,10 +90,20 @@ if (!defined('LOGIN') && !defined('IN_CRON') && !defined('ROOT'))
 		message($CONF['close_reason']);
 	}
 
-	if(!CheckModule(10) && !defined('AJAX') && !defined('IN_ADMIN') && request_var('ajax', 0) == 0)
+	if(isModulAvalible(MODUL_FLEET_EVENTS) && !defined('AJAX') && !defined('IN_ADMIN') && request_var('ajax', 0) == 0) {
 		require(ROOT_PATH.'includes/FleetHandler.php');
+	}
 		
-	$USER	= $db->uniquequery("SELECT u.*, s.`total_points`, s.`total_rank` FROM ".USERS." as u LEFT JOIN ".STATPOINTS." as s ON s.`id_owner` = u.`id` AND s.`stat_type` = '1' WHERE u.`id` = '".$_SESSION['id']."';");
+	$USER	= $db->uniquequery("SELECT 
+	user.*, 
+	stat.`total_points`, 
+	stat.`total_rank`,
+	COUNT(message.message_id) as messages
+	FROM ".USERS." as user 
+	LEFT JOIN ".STATPOINTS." as stat ON stat.id_owner = user.id AND stat.stat_type = '1' 
+	LEFT JOIN ".MESSAGES." as message ON message.message_owner = user.id AND message.message_unread = '1'
+	WHERE user.`id` = ".$_SESSION['id'].";");
+	
 	$FirePHP->log("Load User: ".$USER['id']);
 	if(empty($USER)) {
 		exit(header('Location: index.php'));
@@ -132,6 +140,7 @@ if (!defined('LOGIN') && !defined('IN_CRON') && !defined('ROOT'))
 	} else {
 		$USER['rights']	= unserialize($USER['rights']);
 		$LANG->includeLang(array('ADMIN'));
+		error_reporting(E_ALL ^ E_NOTICE);
 	}
 } elseif(defined('LOGIN')) {
 	//Login

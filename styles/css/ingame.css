@@ -85,6 +85,10 @@ textarea {
 	white-space: normal;
 }
 
+.build_submit:hover {
+	text-decoration:underline;
+}
+
 .build_form {
 	display:inline;
 }
@@ -259,8 +263,7 @@ textarea {
 
 #content > table, form > table {
 	max-width:95%;
-	min-width:50%;
-	width:80%
+	width:80%;
 }
 
 .left{

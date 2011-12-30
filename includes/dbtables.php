@@ -44,6 +44,7 @@ define('CHAT_ON'			, DB_PREFIX.'chat_online');
 define('CONFIG'				, DB_PREFIX.'config');
 define('DIPLO'				, DB_PREFIX.'diplo');
 define('FLEETS'				, DB_PREFIX.'fleets');
+define('FLEETS_EVENT'		, DB_PREFIX.'fleet_event');
 define('LOG'				, DB_PREFIX.'log');
 define('LOG_FLEETS'			, DB_PREFIX.'log_fleets');
 define('NEWS'				, DB_PREFIX.'news');
@@ -57,6 +58,7 @@ define('SUPP'				, DB_PREFIX.'supp');
 define('TOPKB'				, DB_PREFIX.'topkb');
 define('TOPKB_USERS'		, DB_PREFIX.'users_to_topkb');
 define('USERS'				, DB_PREFIX.'users');
+define('USERS_ACS'			, DB_PREFIX.'users_to_acs');
 define('USERS_AUTH'			, DB_PREFIX.'users_to_extauth');
 define('USERS_VALID'	 	, DB_PREFIX.'users_valid');
 

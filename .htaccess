@@ -31,3 +31,11 @@ AddDefaultCharset utf-8
 #		ExpiresActive Off
 #	</FilesMatch>
 #</IfModule>
+
+#
+# Multiply Session-Support
+#
+#<IfModule mod_rewrite.c>
+#	RewriteEngine on
+#	RewriteRule ^uni([0-9]+)/?(.*)?$ $2 [L,QSA,E=UNI:$1]
+#</IfModule>

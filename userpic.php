@@ -40,7 +40,7 @@ require(ROOT_PATH . 'includes/common.php');
 error_reporting(E_ALL);
 $id = request_var('id', 0);
 
-if(CheckModule(37) || $id == 0) exit();
+if(!isModulAvalible(MODUL_BANNER) || $id == 0) exit();
 
 $LANG->GetLangFromBrowser();
 $LANG->includeLang(array('L18N', 'BANNER'));

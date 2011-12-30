@@ -78,29 +78,29 @@
 		</td>
 		{if is_array($GalaxyRow)}
 		<td>
-			<a class="tooltip_sticky" name="<table style='width:220px'><tr><th colspan='2'>{lang}gl_planet{/lang} {$GalaxyRow.planet.name} [{$galaxy}:{$system}:{$planet}]</th></tr><tr><td style='width:80'><img src='{$dpath}planeten/small/s_{$GalaxyRow.planet.image}.jpg' height='75' width=75></td><td>{if $GalaxyRow.planet.spionage}<a href='javascript:doit(6,{$galaxy},{$system},{$planet},1,{$spio_anz});'>{$GalaxyRow.planet.spionage}</a><br><br>{/if}{if $GalaxyRow.planet.phalax}<a href='javascript:OpenPopup(&quot;?page=phalanx&amp;galaxy={$galaxy}&amp;system={$system}&amp;planet={$planet}&amp;planettype=1&quot;, &quot;&quot;, 640, 510);'>{$GalaxyRow.planet.phalax}</a><br>{/if}{if $GalaxyRow.planet.attack}<a href='?page=fleet&amp;galaxy={$galaxy}&amp;system={$system}&amp;planet={$planet}&amp;planettype=1&amp;target_mission=1'>{$GalaxyRow.planet.attack}</a><br>{/if}{if $GalaxyRow.planet.stayally}<a href='?page=fleet&amp;galaxy={$galaxy}&amp;system={$system}&amp;planet={$planet}&amp;planettype=1&amp;target_mission=5'>{$GalaxyRow.planet.stayally}</a><br>{/if}{if $GalaxyRow.planet.stay}<a href='?page=fleet&amp;galaxy={$galaxy}&amp;system={$system}&amp;planet={$planet}&amp;planettype=1&amp;target_mission=4'>{$GalaxyRow.planet.stay}</a><br>{/if}{if $GalaxyRow.planet.transport}<a href='?page=fleet&amp;galaxy={$galaxy}&amp;system={$system}&amp;planet={$planet}&amp;planettype=1&amp;target_mission=3'>{$GalaxyRow.planet.transport}</a><br>{/if}{if $GalaxyRow.planet.missile}<a href='?page=galaxy&amp;mode=2&amp;galaxy={$galaxy}&amp;system={$system}&amp;planet={$planet}'>{$GalaxyRow.planet.missile}</a><br>{/if}</td></tr></table>">
+			<a class="tooltip_sticky" name="<table style='width:220px'><tr><th colspan='2'>{lang}gl_planet{/lang} {$GalaxyRow.planet.name} [{$galaxy}:{$system}:{$planet}]</th></tr><tr><td style='width:80'><img src='{$dpath}planeten/small/s_{$GalaxyRow.planet.image}.jpg' height='75' width=75></td><td>{if $GalaxyRow.planet.spionage}<a href='javascript:doit(6,{$GalaxyRow.planet.id},{$spyShips|json|escape:'html'});'>{$GalaxyRow.planet.spionage}</a><br><br>{/if}{if $GalaxyRow.planet.phalax}<a href='javascript:OpenPopup(&quot;?page=phalanx&amp;galaxy={$galaxy}&amp;system={$system}&amp;planet={$planet}&amp;planettype=1&quot;, &quot;&quot;, 640, 510);'>{$GalaxyRow.planet.phalax}</a><br>{/if}{if $GalaxyRow.planet.attack}<a href='?page=fleet&amp;galaxy={$galaxy}&amp;system={$system}&amp;planet={$planet}&amp;planettype=1&amp;target_mission=1'>{$GalaxyRow.planet.attack}</a><br>{/if}{if $GalaxyRow.planet.stayally}<a href='?page=fleet&amp;galaxy={$galaxy}&amp;system={$system}&amp;planet={$planet}&amp;planettype=1&amp;target_mission=5'>{$GalaxyRow.planet.stayally}</a><br>{/if}{if $GalaxyRow.planet.stay}<a href='?page=fleet&amp;galaxy={$galaxy}&amp;system={$system}&amp;planet={$planet}&amp;planettype=1&amp;target_mission=4'>{$GalaxyRow.planet.stay}</a><br>{/if}{if $GalaxyRow.planet.transport}<a href='?page=fleet&amp;galaxy={$galaxy}&amp;system={$system}&amp;planet={$planet}&amp;planettype=1&amp;target_mission=3'>{$GalaxyRow.planet.transport}</a><br>{/if}{if $GalaxyRow.planet.missile}<a href='?page=galaxy&amp;mode=2&amp;galaxy={$galaxy}&amp;system={$system}&amp;planet={$planet}'>{$GalaxyRow.planet.missile}</a><br>{/if}</td></tr></table>">
 				<img src="{$dpath}planeten/small/s_{$GalaxyRow.planet.image}.jpg" height="30" width="30" alt="">
 			</a>
 		</td>
 		<td style="white-space: nowrap;">{$GalaxyRow.planetname.name} {$GalaxyRow.planetname.activity}</td>
 		<td style="white-space: nowrap;">
 			{if $GalaxyRow.moon}
-			<a class="tooltip_sticky" name="<table style='width:240px'><tr><th colspan='2'>{lang}gl_moon{/lang} {$GalaxyRow.moon.name} [{$galaxy}:{$system}:{$planet}]</th></tr><tr><td style='width:80'><img src='{$dpath}planeten/mond.jpg' height='75' style='width:75'></td><td><table style='width:100%'><tr><th colspan='2'>{lang}gl_features{/lang}</th></tr><tr><td>{lang}gl_diameter{/lang}</td><td>{$GalaxyRow.moon.diameter}</td></tr><tr><td>{lang}gl_temperature{/lang}</td><td>{$GalaxyRow.moon.temp_min}</td></tr><tr><th colspan=2>{lang}gl_actions{/lang}</th></tr><tr><td colspan='2'>{if $GalaxyRow.moon.attack}<a href='?page=fleet&amp;galaxy={$galaxy}&amp;system={$system}&amp;planet={$planet}&amp;planettype=3&amp;target_mission=1'>{$GalaxyRow.moon.attack}</a><br>{/if}<a href='?page=fleet&amp;galaxy={$galaxy}&amp;system={$system}&amp;planet={$planet}&amp;planettype=3&amp;target_mission=3'>{$GalaxyRow.moon.transport}</a>{if $GalaxyRow.moon.stay}<br><a href='?page=fleet&amp;galaxy={$galaxy}&amp;system={$system}&amp;planet={$planet}&amp;planettype=3&amp;target_mission=4'>{$GalaxyRow.moon.stay}</a>{/if}{if $GalaxyRow.moon.stayally}<br><a href='?page=fleet&amp;galaxy={$galaxy}&amp;system={$system}&amp;planet={$planet}&amp;planettype=3&amp;target_mission=5'>{$GalaxyRow.moon.stayally}</a>{/if}{if $GalaxyRow.moon.spionage}<br><a href='javascript:doit(6,{$galaxy},{$system},{$planet},3,{$spio_anz});'>{$GalaxyRow.moon.spionage}</a>{/if}{if $GalaxyRow.moon.destroy}<br><br><a href='?page=fleet&amp;galaxy={$galaxy}&amp;system={$system}&amp;planet={$planet}&amp;planettype=3&amp;target_mission=9'>{$GalaxyRow.moon.destroy}</a><br>{/if}{if $GalaxyRow.action.missle}<a href='?page=galaxy&amp;mode=2&amp;galaxy={$galaxy}&amp;system={$system}&amp;planet={$planet}&amp;type=3'>{lang}gl_missile_attack{/lang}</a><br>{/if}</td></tr></table></td></tr></table>">
+			<a class="tooltip_sticky" name="<table style='width:240px'><tr><th colspan='2'>{lang}gl_moon{/lang} {$GalaxyRow.moon.name} [{$galaxy}:{$system}:{$planet}]</th></tr><tr><td style='width:80'><img src='{$dpath}planeten/mond.jpg' height='75' style='width:75'></td><td><table style='width:100%'><tr><th colspan='2'>{lang}gl_features{/lang}</th></tr><tr><td>{lang}gl_diameter{/lang}</td><td>{$GalaxyRow.moon.diameter|number}</td></tr><tr><td>{lang}gl_temperature{/lang}</td><td>{$GalaxyRow.moon.temp_min}</td></tr><tr><th colspan=2>{lang}gl_actions{/lang}</th></tr><tr><td colspan='2'>{if $GalaxyRow.moon.attack}<a href='?page=fleet&amp;galaxy={$galaxy}&amp;system={$system}&amp;planet={$planet}&amp;planettype=3&amp;target_mission=1'>{$GalaxyRow.moon.attack}</a><br>{/if}<a href='?page=fleet&amp;galaxy={$galaxy}&amp;system={$system}&amp;planet={$planet}&amp;planettype=3&amp;target_mission=3'>{$GalaxyRow.moon.transport}</a>{if $GalaxyRow.moon.stay}<br><a href='?page=fleet&amp;galaxy={$galaxy}&amp;system={$system}&amp;planet={$planet}&amp;planettype=3&amp;target_mission=4'>{$GalaxyRow.moon.stay}</a>{/if}{if $GalaxyRow.moon.stayally}<br><a href='?page=fleet&amp;galaxy={$galaxy}&amp;system={$system}&amp;planet={$planet}&amp;planettype=3&amp;target_mission=5'>{$GalaxyRow.moon.stayally}</a>{/if}{if $GalaxyRow.moon.spionage}<br><a href='javascript:doit(6,{$GalaxyRow.moon.id},{$shipsNeed|json|escape:'quotes'};'>{$GalaxyRow.moon.spionage}</a>{/if}{if $GalaxyRow.moon.destroy}<br><br><a href='?page=fleet&amp;galaxy={$galaxy}&amp;system={$system}&amp;planet={$planet}&amp;planettype=3&amp;target_mission=9'>{$GalaxyRow.moon.destroy}</a><br>{/if}{if $GalaxyRow.action.missle}<a href='?page=galaxy&amp;mode=2&amp;galaxy={$galaxy}&amp;system={$system}&amp;planet={$planet}&amp;type=3'>{lang}gl_missile_attack{/lang}</a><br>{/if}</td></tr></table></td></tr></table>">
 				<img src="{$dpath}planeten/small/s_mond.jpg" height="22" width="22" alt="{$GalaxyRow.moon.name}">
 			</a>
 			{/if}
 		</td>
 		<td style="white-space: nowrap;">
 			{if $GalaxyRow.derbis}
-			<a class="tooltip_sticky" name="<table style='width:240px'><tr><th colspan='2'>{lang}gl_debris_field{/lang} [{$galaxy}:{$system}:{$planet}]</th></tr><tr><td style='width:80'><img src='{$dpath}planeten/debris.jpg' height='75' style='width:75'></td><td><table style='width:100%'><tr><th colspan='2'>{lang}gl_resources{/lang}:</th></tr><tr><td>{$Metal}: </td><td>{$GalaxyRow.derbis.metal}</td></tr><tr><td>{$Crystal}: </td><td>{$GalaxyRow.derbis.crystal}</td></tr>{if $GalaxyRow.derbis.recycle}<tr><th colspan='2'>{lang}gl_actions{/lang}</th></tr><tr><td colspan='2'><a href='javascript:doit(8,{$galaxy},{$system},{$planet}, 2, &quot;{$GalaxyRow.derbis.GRecSended}|{$GalaxyRow.derbis.RecSended}&quot;);'>{$GalaxyRow.derbis.recycle}</a></td></tr>{/if}</table></td></tr></table>">
+			<a class="tooltip_sticky" name="<table style='width:240px'><tr><th colspan='2'>{lang}gl_debris_field{/lang} [{$galaxy}:{$system}:{$planet}]</th></tr><tr><td style='width:80'><img src='{$dpath}planeten/debris.jpg' height='75' style='width:75'></td><td><table style='width:100%'><tr><th colspan='2'>{lang}gl_resources{/lang}:</th></tr><tr><td>{$Metal}: </td><td>{$GalaxyRow.derbis.metal}</td></tr><tr><td>{$Crystal}: </td><td>{$GalaxyRow.derbis.crystal}</td></tr>{if $GalaxyRow.derbis.recycle}<tr><th colspan='2'>{lang}gl_actions{/lang}</th></tr><tr><td colspan='2'><a href='javascript:doit(8, {$GalaxyRow.planet.id}, &quot;{$GalaxyRow.derbis.GRecSended}|{$GalaxyRow.derbis.RecSended}&quot;);'>{$GalaxyRow.derbis.recycle}</a></td></tr>{/if}</table></td></tr></table>">
 			<img src="{$dpath}planeten/debris.jpg" height="22" width="22" alt="">
 			</a>{/if}
 		</td>
 		<td>
 			<a class="tooltip_sticky" name="<table style='width:240px'><tr><th colspan='2'>{$GalaxyRow.user.playerrank}</th></tr><tr>{if $GalaxyRow.user.isown}<tr><td><a href='javascript:OpenPopup(&quot;?page=buddy&amp;mode=2&amp;u={$GalaxyRow.user.id}&quot;, &quot;&quot;, 720, 300);'>{lang}gl_buddy_request{/lang}</a></td></tr><td><a href='#' onclick='return Dialog.Playercard({$GalaxyRow.user.id}, &quot;{$GalaxyRow.user.username}&quot;);'>{lang}gl_playercard{/lang}</a></td></tr>{/if}<tr><td><a href='?page=statistics&amp;who=1&amp;start={$GalaxyRow.user.rank}'>{lang}gl_see_on_stats{/lang}</a></td></tr></table>">
-				<span class="{foreach $GalaxyRow.user.class as $class}galaxy-username-{$class}{/foreach} galaxy-username">{$GalaxyRow.user.username}</span>
+				<span class="{foreach $GalaxyRow.user.class as $class}{if !$class@first} {/if}galaxy-username-{$class}{/foreach} galaxy-username">{$GalaxyRow.user.username}</span>
 				{if !empty($GalaxyRow.user.class)}
-				<span>(</span>{foreach $GalaxyRow.user.class as $class}<span class="galaxy-short-{$class} galaxy-short">{$ShortStatus.$class}</span>{/foreach}<span>)</span>
+				<span>(</span>{foreach $GalaxyRow.user.class as $class}{if !$class@first}&nbsp;{/if}<span class="galaxy-short-{$class} galaxy-short">{$ShortStatus.$class}</span>{/foreach}<span>)</span>
 				{/if}
 			</a>
 		</td>
@@ -114,7 +114,7 @@
 		<td style="white-space: nowrap;">
 			{if $GalaxyRow.action}
 				{if $GalaxyRow.action.esp}
-				<a href="javascript:doit(6,{$galaxy},{$system},{$planet},1,{$spio_anz});">
+				<a href="javascript:doit(6,{$GalaxyRow.planet.id},{$spyShips|json|escape:'html'});">
 					<img src="{$dpath}img/e.gif" title="{lang}gl_spy{/lang}" alt="">
 				</a>{/if}
 				{if $GalaxyRow.action.message}
@@ -160,18 +160,18 @@
 		</td>
 	</tr>
 	<tr>
-		<td colspan="3"><span id="missiles">{$currentmip}</span> {lang}gl_avaible_missiles{/lang}</td>
+		<td colspan="3"><span id="missiles">{$currentmip|number}</span> {lang}gl_avaible_missiles{/lang}</td>
 		<td colspan="5"><span id="slots">{$maxfleetcount}</span>/{$fleetmax} {lang}gl_fleets{/lang}</td>
 	</tr>
 	<tr>
 		<td colspan="3">
-			<span id="probes">{$spyprobes}</span> {lang}gl_avaible_spyprobes{/lang}
+			<span id="probes">{$spyprobes|number}</span> {lang}gl_avaible_spyprobes{/lang}
 		</td>
 		<td colspan="3">
-			<span id="recyclers">{$recyclers}</span> {lang}gl_avaible_recyclers{/lang}
+			<span id="recyclers">{$recyclers|number}</span> {lang}gl_avaible_recyclers{/lang}
 		</td>
 		<td colspan="2">
-			<span id="grecyclers">{$grecyclers}</span> {lang}gl_avaible_grecyclers{/lang}
+			<span id="grecyclers">{$grecyclers|number}</span> {lang}gl_avaible_grecyclers{/lang}
 		</td>
 	</tr>
 	<tr style="display: none;" id="fleetstatusrow">

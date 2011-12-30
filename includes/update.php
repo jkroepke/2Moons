@@ -60,7 +60,7 @@ function DLFile($FILE) {
 define('ROOT_PATH', str_replace('\\', '/', dirname(__FILE__)).'/');
 require_once(ROOT_PATH . 'includes/config.php');	
 require_once(ROOT_PATH . 'includes/classes/class.MySQLi.php');
-$db		= new DB_MySQLi();
+$db		= new Database();
 $FILE	= $_REQUEST['file'];
 $MODE	= $_REQUEST['mode'];
 $REV	= $_REQUEST['r'];

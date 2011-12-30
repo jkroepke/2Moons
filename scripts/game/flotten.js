@@ -2,6 +2,7 @@ var acstime = 0;
 	
 function updateVars()
 {
+	document.getElementsByName("fleet_group")[0].value = 0;
 	distance = GetDistance();
 	duration = GetDuration();
 	consumption = GetConsumption();
@@ -40,11 +41,7 @@ function GetConsumption() {
 	var basicConsumption = 0;
 	var i;
 	$.each(data.ships, function(shipid, ship){
-		spd = 35000 / (Math.max(duration, acstime) * data.gamespeed - 10) * Math.sqrt(distance * 10 / ship.speed) / 2;
-		basicConsumption = ship.consumption * ship.amount;
-		consumption += basicConsumption * distance / 35000 * (spd / 10 + 1) * (spd / 10 + 1);
-		
-		spd = 35000 / (duration * data.gamespeed - 10) * Math.sqrt(distance * 10 / ship.speed) / 2;
+		spd = 35000 / (duration * data.gamespeed - 10) * Math.sqrt(distance * 10 / ship.speed);
 		basicConsumption = ship.consumption * ship.amount;
 		consumption2 += basicConsumption * distance / 35000 * (spd / 10 + 1) * (spd / 10 + 1);
 	});
@@ -56,7 +53,7 @@ function storage() {
 }
 
 function refreshFormData() {
-	var seconds = Math.max(duration, acstime);
+	var seconds = duration;
 	var hours = Math.floor(seconds / 3600);
 	seconds -= hours * 3600;
 	var minutes = Math.floor(seconds / 60);
@@ -73,25 +70,23 @@ function refreshFormData() {
 	}
 }
 
-function setACSTarget(galaxy, solarsystem, planet, planettype, tacs, acsbonus) {
-	document.getElementsByName("fleet_group")[0].value = tacs;
-	setTarget(galaxy, solarsystem, planet, planettype);
-	acstime = (acsbonus - serverTime.getTime() / 1000);
+function setACSTarget(galaxy, solarsystem, planet, type, tacs) {
+	setTarget(galaxy, solarsystem, planet, type);
 	updateVars();
+	document.getElementsByName("fleet_group")[0].value = tacs;
 }
 
 
-function setTarget(galaxy, solarsystem, planet, planettype) {
+function setTarget(galaxy, solarsystem, planet, type) {
 	document.getElementsByName("galaxy")[0].value = galaxy;
 	document.getElementsByName("system")[0].value = solarsystem;
 	document.getElementsByName("planet")[0].value = planet;
-	document.getElementsByName("planettype")[0].value = planettype;
-	acstime = 0;
+	document.getElementsByName("type")[0].value = type;
 }
 
 function FleetTime(){ 
 	var sekunden = serverTime.getSeconds();
-	var starttime = Math.max(duration, acstime);
+	var starttime = duration;
 	var endtime	= starttime + duration;
 	$("#arrival").html(getFormatedDate(serverTime.getTime()+1000*starttime, tdformat));
 	$("#return").html(getFormatedDate(serverTime.getTime()+1000*endtime, tdformat));
@@ -197,7 +192,7 @@ function CheckTarget()
 {
 	kolo	= (typeof data.ships[208] == "object") ? 1 : 0;
 		
-	$.get('ajax.php?action=fleet1&galaxy='+document.getElementsByName("galaxy")[0].value+'&system='+document.getElementsByName("system")[0].value+'&planet='+document.getElementsByName("planet")[0].value+'&planet_type='+document.getElementsByName("planettype")[0].value+'&lang='+Lang+'&kolo='+kolo, function(data) {
+	$.get('ajax.php?action=fleet1&galaxy='+document.getElementsByName("galaxy")[0].value+'&system='+document.getElementsByName("system")[0].value+'&planet='+document.getElementsByName("planet")[0].value+'&planet_type='+document.getElementsByName("type")[0].value+'&lang='+Lang+'&kolo='+kolo, function(data) {
 		if($.trim(data) == "OK") {
 			document.getElementById('form').submit();
 		} else {
@@ -246,24 +241,3 @@ function SaveShortcuts() {
 		});
 	});
 }
-
-$(function() {
-	$('input:radio[name=mission]').on('click', function() {
-		if($(this).val() == 2) {
-			$('#consumption').hide();
-			$('#consumption2').show();
-		} else {
-			$('#consumption').show();
-			$('#consumption2').hide();
-		}
-		calculateTransportCapacity();
-	});
-
-	if($('input:radio[name=mission]:checked').val() == 2) {
-		$('#consumption').hide();
-		$('#consumption2').show();
-	} else {
-		$('#consumption').show();
-		$('#consumption2').hide();
-	}
-});

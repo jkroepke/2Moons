@@ -34,7 +34,7 @@ define('ROOT_PATH', './');
 require_once(ROOT_PATH . 'includes/config.php');
 require_once(ROOT_PATH . 'includes/constants.php');
 require_once(ROOT_PATH . 'includes/classes/class.MySQLi.php');
-$db = new DB_MySQLi();
+$db = new Database();
 $CONF = $db->uniquequery("SELECT HIGH_PRIORITY * FROM `".CONFIG."`;");
 $db->query("DROP TABLE ".CONFIG.";");
 $db->query("CREATE TABLE `".CONFIG."` (

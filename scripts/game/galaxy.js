@@ -1,9 +1,12 @@
-function doit (order, galaxy, system, planet, planettype, shipcount) {
-	$.getJSON("game.php?page=fleetajax&ajax=1&mission="+order+"&galaxy="+galaxy+"&system="+system+"&planet="+planet+"&planettype="+planettype+"&ships="+shipcount, function(data){
+function doit(missionID, planetID, shipData) {
+
+	var shipDetail	= decodeURIComponent($.param({"ship": shipData}));
+	
+	$.getJSON("game.php?page=fleetajax&ajax=1&mission="+missionID+"&planetID="+planetID+"&"+shipDetail, function(data){
 		$('#slots').text(data.slots);
-		$('#probes').text(number_format(data.ship210));
-		$('#recyclers').text(number_format(data.ship209));
-		$('#grecyclers').text(number_format(data.ship219));
+		$('#probes').text(number_format(data.ship[210]));
+		$('#recyclers').text(number_format(data.ship[209]));
+		$('#grecyclers').text(number_format(data.ship[219]));
 
 		var statustable	= $('#fleetstatusrow');
 		var messages	= statustable.find("~tr");

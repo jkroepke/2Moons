@@ -1,12 +1,7 @@
 <?php
 
-// Translated into Russian by InquisitorEA (SporeEA@yandex.ru). All rights reserved © 2010-2011
+// Translated into Russian by InquisitorEA (SporeEA@yandex.ru). All rights reserved © 2010-2012
 
-$LNG['Metal']                             = 'Металл';
-$LNG['Crystal']                           = 'Кристалл';
-$LNG['Deuterium']                         = 'Дейтерий';
-$LNG['Darkmatter']                        = 'Тёмная материя';
-$LNG['Energy']                            = 'Энергия';
 $LNG['Messages']                          = 'Сообщения';
 $LNG['write_message']                     = 'Написать сообщение';
 
@@ -128,6 +123,7 @@ $LNG['ov_teamspeak_v3']                   = '<a href="ts3server://%s?port=%d&amp
 $LNG['ov_closed']                         = 'Игра на данный момент отключена!';
 $LNG['ov_reflink']                        = 'Реф. ссылка';
 $LNG['ov_noreflink']                      = 'У вас нет рефералов';
+$LNG['ov_chat_online']                    = 'Игроки в чате:';
 
 // Галактика
 $LNG['gl_no_deuterium_to_view_galaxy']    = 'Не хватает дейтерия!';
@@ -258,7 +254,7 @@ $LNG['fl_dlte_shortcut']                  = 'Удалить';
 $LNG['fl_shortcut_add']                   = 'Добавить слот';
 $LNG['fl_shortcut_edition']               = 'редактировать';
 $LNG['fl_shortcut_save']                  = 'сохранить маршруты';
-$LNG['fl_shortcut_saved']                 = 'Цель сохранена';
+$LNG['fl_shortcut_saved']                 = 'Маршруты сохранены';
 $LNG['fl_no_colony']                      = 'Нет планет';
 $LNG['fl_send_fleet']                     = 'Отправить флот';
 $LNG['fl_fleet_speed']                    = 'Скорость';

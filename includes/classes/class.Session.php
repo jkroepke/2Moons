@@ -43,10 +43,11 @@ class Session
 		ini_set('session.bug_compat_warn', '0');
 		ini_set('session.bug_compat_42', '0');
 		ini_set('session.cookie_httponly', true);
-		session_set_cookie_params(SESSION_LIFETIME, '/');
+		session_set_cookie_params(SESSION_LIFETIME, './');
 		session_cache_limiter('nocache');
 		session_name('2Moons');
-		session_start();
+		if (!defined('LOGIN') && !defined('IN_CRON') && !defined('ROOT'))
+			session_start();
 	}
 	
 	function IsUserLogin()
@@ -68,6 +69,10 @@ class Session
 	function CreateSession($ID, $Username, $MainPlanet, $Universe, $Authlevel = 0, $dpath = DEFAULT_THEME)
 	{
 		global $db;
+		#if(session_status() === PHP_SESSION_NONE) # 5.4.0
+		if(!isset($_SESSION))
+			session_start();
+			
 		$Path					= $this->GetPath();
 		$db->query("INSERT INTO ".SESSION." (`sess_id`, `user_id`, `user_ip`, `user_side`, `user_lastactivity`) VALUES ('".session_id()."', '".$ID."', '".$_SERVER['REMOTE_ADDR']."', '".$db->sql_escape($Path)."', '".TIMESTAMP."') ON DUPLICATE KEY UPDATE `sess_id` = '".session_id()."', `user_id` = '".$ID."', `user_ip` = '".$_SERVER['REMOTE_ADDR']."', `user_side` = '".$db->sql_escape($Path)."';");
 		$_SESSION['id']			= $ID;
