@@ -17,7 +17,7 @@
 		<td>{$Message.time}</td>
 		<td>{$Message.from}</td>
 		<td>{$Message.subject}
-		{if $MessID == 1}
+		{if $Message.type == 1}
 		<a href="#" onclick="return Dialog.PM({$Message.sender}, Message.CreateAnswer('{$Message.subject}'));" title="{lang}mg_answer_to{/lang} {strip_tags($Message.from)}"><img src="{$dpath}img/m.gif" border="0"></a>
 		{/if}
 		</td>
