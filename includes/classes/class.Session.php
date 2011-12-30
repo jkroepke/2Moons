@@ -46,12 +46,13 @@ class Session
 		session_set_cookie_params(SESSION_LIFETIME, './');
 		session_cache_limiter('nocache');
 		session_name('2Moons');
-		if (!defined('LOGIN') && !defined('IN_CRON') && !defined('ROOT'))
-			session_start();
 	}
 	
 	function IsUserLogin()
 	{
+		#if(session_status() === PHP_SESSION_NONE) # 5.4.0
+		if(!isset($_SESSION))
+			session_start();
 		return !empty($_SESSION['id']);
 	}
 	
