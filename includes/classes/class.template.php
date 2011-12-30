@@ -224,7 +224,7 @@ class template extends Smarty
 			'VERSION'			=> $CONF['VERSION'],
 			'REV'				=> substr($CONF['VERSION'], -4),
 			'langs'				=> json_encode(Language::getAllowedLangs(false)),
-			'htaccess'			=> UNIS_HTACCESS,
+			'htaccess'			=> (int) UNIS_HTACCESS,
 		));
 	}
 		

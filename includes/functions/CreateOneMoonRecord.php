@@ -70,13 +70,10 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 						  temp_max = ".$maxtemp.",
 						  metal = 0,
 						  metal_perhour = 0,
-						  metal_max = ".BASE_STORAGE_SIZE.",
 						  crystal = 0,
 						  crystal_perhour = 0,
-						  crystal_max = ".BASE_STORAGE_SIZE.",
 						  deuterium = 0,
-						  deuterium_perhour = 0,
-						  deuterium_max = ".BASE_STORAGE_SIZE.";
+						  deuterium_perhour = 0;
 						  SET @moonID = LAST_INSERT_ID();
 						  UPDATE ".PLANETS." SET
 						  id_luna = @moonID
