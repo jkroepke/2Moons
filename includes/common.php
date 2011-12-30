@@ -102,7 +102,8 @@ if (!defined('LOGIN') && !defined('IN_CRON') && !defined('ROOT'))
 	FROM ".USERS." as user 
 	LEFT JOIN ".STATPOINTS." as stat ON stat.id_owner = user.id AND stat.stat_type = '1' 
 	LEFT JOIN ".MESSAGES." as message ON message.message_owner = user.id AND message.message_unread = '1'
-	WHERE user.`id` = ".$_SESSION['id'].";");
+	WHERE user.`id` = ".$_SESSION['id']."
+	GROUP BY message.message_id;");
 	
 	$FirePHP->log("Load User: ".$USER['id']);
 	if(empty($USER)) {
