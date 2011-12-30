@@ -31,15 +31,33 @@ if (!defined('INSIDE')) exit;
 
 class MissionFunctions
 {	
-	function __construct()
-	{
-		$this->kill	= 0;
-	}
-
+	public $kill	= 0;
+	public $_fleet	= array();
+	public $_upd	= array();
+	
 	function UpdateFleet($Option, $Value)
 	{
 		$this->_fleet[$Option] = $Value;
 		$this->_upd[$Option] = $Value;
+	}
+
+	function setState($Value)
+	{
+		$this->_fleet['fleet_mess'] = $Value;
+		$this->_upd['fleet_mess']	= $Value;
+		
+		switch($Value)
+		{
+			case FLEET_OUTWARD:
+				$this->eventTime = $this->_fleet['fleet_start_time'];
+			break;
+			case FLEET_RETURN:
+				$this->eventTime = $this->_fleet['fleet_end_time'];
+			break;
+			case FLEET_HOLD:
+				$this->eventTime = $this->_fleet['fleet_end_stay'];
+			break;
+		}
 	}
 	
 	function SaveFleet()
@@ -53,7 +71,7 @@ class MissionFunctions
 			$Qry[]	= "`".$Opt."` = '".$Val."'";
 		}
 		
-		$db->query("UPDATE ".FLEETS." SET ".implode(', ',$Qry)." WHERE `fleet_id` = '".$this->_fleet['fleet_id']."';");
+		$db->multi_query("UPDATE ".FLEETS." SET ".implode(', ',$Qry)." WHERE `fleet_id` = ".$this->_fleet['fleet_id'].";UPDATE ".FLEETS_EVENT." SET time = ".$this->eventTime." WHERE `fleetID` = ".$this->_fleet['fleet_id'].";");
 	}
 		
 	function RestoreFleet($Start = true)
@@ -81,8 +99,8 @@ class MissionFunctions
 		$Qry  .= "WHERE ";
 		$Qry  .= "p.`id` = '".($Start == true ? $this->_fleet['fleet_start_id'] : $this->_fleet['fleet_end_id'])."' ";
 		$Qry  .= "AND u.id = p.id_owner;";
-		$Qry  .= "DELETE FROM ".FLEETS." WHERE `fleet_id` = ".$this->_fleet['fleet_id'].";";
 		$db->multi_query($Qry);
+		$this->KillFleet();
 	}
 	
 	function StoreGoodsToPlanet($Start = false)
@@ -105,7 +123,8 @@ class MissionFunctions
 	{
 		global $db;
 		$this->kill	= 1;
-		$db->query("DELETE FROM ".FLEETS." WHERE `fleet_id` = ".$this->_fleet['fleet_id'].";");
+		$db->multi_query("DELETE FROM ".FLEETS." WHERE `fleet_id` = ".$this->_fleet['fleet_id'].";
+		DELETE FROM ".FLEETS_EVENT." WHERE `fleetID` = ".$this->_fleet['fleet_id'].";");
 	}	
 }
 ?>

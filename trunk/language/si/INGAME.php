@@ -5,11 +5,6 @@ setlocale(LC_NUMERIC, 'C');
 
 //SERVER GENERALS
 
-$LNG['Metal']								= 'Metal';
-$LNG['Crystal']								= 'Kristal';
-$LNG['Deuterium']							= 'Deuterium';
-$LNG['Darkmatter']							= 'Črna materija';
-$LNG['Energy']								= 'Energija';
 $LNG['Messages']							= 'Sporočila';
 $LNG['write_message']						= 'Ustvari novo sporočilo';
 

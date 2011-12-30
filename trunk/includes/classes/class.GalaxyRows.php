@@ -32,7 +32,7 @@ class GalaxyRows
 	public function allowMissiles($GalaxyRowPlanet)
 	{
 		global $USER, $PLANET, $resource;
-		if ($PLANET[$resource[503]] == 0 || $GalaxyRowPlanet['galaxy'] != $PLANET['galaxy'] || $PLANET['planet_type'] != 1 || CheckModule(40))
+		if ($PLANET[$resource[503]] == 0 || $GalaxyRowPlanet['galaxy'] != $PLANET['galaxy'] || $PLANET['planet_type'] != 1 || !isModulAvalible(MODUL_MISSILEATTACK))
 			return false;
 		
 		$Range = $this->GetMissileRange($USER[$resource[117]]);
@@ -43,7 +43,7 @@ class GalaxyRows
 	public function allowPhalanx($GalaxyRowPlanet)
 	{
 		global $USER, $PLANET, $resource;
-		if (CheckModule(19) || $PLANET[$resource[42]] == 0)
+		if (!isModulAvalible(MODUL_PHALANX) || $PLANET[$resource[42]] == 0 || $PLANET[$resource[903]] == PHALANX_DEUTERIUM)
 			return false;
 		
 		$PhRange 		 = $this->GetPhalanxRange($PLANET[$resource[42]]);
@@ -70,10 +70,10 @@ class GalaxyRows
 		$MissileBtn = $this->allowMissiles($GalaxyRowPlanet);
 
 		$Result = array(
-			'esp'		=> (!CheckModule(24) && $USER["settings_esp"] == 1) ? true : false,
-			'message'	=> (!CheckModule(16) && $USER["settings_wri"] == 1) ? true : false,
-			'buddy'		=> (!CheckModule(6) && $USER["settings_bud"] == 1) ? true : false,
-			'missle'	=> ($USER["settings_mis"] == 1 && $MissileBtn == true) ? true : false,
+			'esp'		=> (isModulAvalible(MODUL_MISSION_SPY) && $USER["settings_esp"] == 1) ? true : false,
+			'message'	=> (isModulAvalible(MODUL_MESSAGES) && $USER["settings_wri"] == 1) ? true : false,
+			'buddy'		=> (isModulAvalible(MODUL_BUDDYLIST) && $USER["settings_bud"] == 1) ? true : false,
+			'missle'	=> (isModulAvalible(MODUL_MISSILEATTACK) && $USER["settings_mis"] == 1 && $MissileBtn == true) ? true : false,
 		);
 
 		return $Result;
@@ -106,9 +106,8 @@ class GalaxyRows
 		$Result = array(
 			'metal'			=> pretty_number($GalaxyRowPlanet["der_metal"]),
 			'crystal'		=> pretty_number($GalaxyRowPlanet["der_crystal"]),
-			'RecSended'		=> $RecNeeded,			
-			'GRecSended'	=> $GRecNeeded,
-			'recycle'		=> (!CheckModule(32)) ? $LNG['type_mission'][8]:false,
+			'shipsNeed'		=> array(209 => $RecNeeded, 219 => $GRecNeeded),
+			'recycle'		=> (isModulAvalible(MODUL_MISSION_RECYCLE)) ? $LNG['type_mission'][8]:false,
 		);
 
 		return $Result;
@@ -119,15 +118,16 @@ class GalaxyRows
 		global $USER, $PLANET, $LNG, $resource;
 		
 		$Result = array(
+			'id'		=> $GalaxyRowPlanet['m_id'],
 			'name'		=> htmlspecialchars($GalaxyRowPlanet['m_name'], ENT_QUOTES, "UTF-8"),
-			'temp_min'	=> number_format($GalaxyRowPlanet['m_temp_min'], 0, '', '.'), 
-			'diameter'	=> number_format($GalaxyRowPlanet['m_diameter'], 0, '', '.'),
-			'attack'	=> (!CheckModule(1) && !$IsOwn) ? $LNG['type_mission'][1]:false,
-			'transport'	=> (!CheckModule(34)) ? $LNG['type_mission'][3]:false,
-			'stay'		=> (!CheckModule(36) && $IsOwn) ? $LNG['type_mission'][4]:false,
-			'stayally'	=> (!CheckModule(33) && !$IsOwn) ? $LNG['type_mission'][5]:false,
-			'spionage'	=> (!CheckModule(24) && !$IsOwn) ? $LNG['type_mission'][6]:false,
-			'destroy'	=> (!CheckModule(29) && !$IsOwn && $PLANET[$resource[214]] > 0) ? $LNG['type_mission'][9]:false,
+			'temp_min'	=> $GalaxyRowPlanet['m_temp_min'], 
+			'diameter'	=> $GalaxyRowPlanet['m_diameter'],
+			'attack'	=> (isModulAvalible(MODUL_MISSION_ATTACK) && !$IsOwn) ? $LNG['type_mission'][1]:false,
+			'transport'	=> (isModulAvalible(MODUL_MISSION_TRANSPORT)) ? $LNG['type_mission'][3]:false,
+			'stay'		=> (isModulAvalible(MODUL_MISSION_STATION) && $IsOwn) ? $LNG['type_mission'][4]:false,
+			'stayally'	=> (isModulAvalible(MODUL_MISSION_HOLD) && !$IsOwn) ? $LNG['type_mission'][5]:false,
+			'spionage'	=> (isModulAvalible(MODUL_MISSION_SPY) && !$IsOwn) ? $LNG['type_mission'][6]:false,
+			'destroy'	=> (isModulAvalible(MODUL_MISSION_DESTROY) && !$IsOwn && $PLANET[$resource[214]] > 0) ? $LNG['type_mission'][9]:false,
 		);
 
 		return $Result;
@@ -150,12 +150,12 @@ class GalaxyRows
 			'name'			=> htmlspecialchars($GalaxyRowPlanet['name'],ENT_QUOTES,"UTF-8"),
 			'image'			=> $GalaxyRowPlanet['image'],
 			'phalax'		=> !$PhalanxTypeLink ? false : $LNG['gl_phalanx'],
-			'missile'		=> !$MissileBtn ? false : $LNG['gl_missile_attack'],
-			'transport'		=> (CheckModule(34)) ? false : $LNG['type_mission'][3],
-			'spionage'		=> ($IsOwn || CheckModule(24)) ? false : $LNG['type_mission'][6],
-			'attack'		=> ($IsOwn || CheckModule(1)) ? false : $LNG['type_mission'][1],
-			'stay'			=> (!$IsOwn || CheckModule(36) && $IsOwn) ? false : $LNG['type_mission'][4],
-			'stayally'		=> ($IsOwn || CheckModule(33)) ? false : $LNG['type_mission'][5],
+			'missile'		=> (isModulAvalible(MODUL_MISSILEATTACK) && $MissileBtn === true) ? $LNG['gl_missile_attack'] : false,
+			'transport'		=> (isModulAvalible(MODUL_MISSION_TRANSPORT)) ? $LNG['type_mission'][3] : false,
+			'spionage'		=> (!$IsOwn && isModulAvalible(MODUL_MISSION_SPY)) ? $LNG['type_mission'][6] : false,
+			'attack'		=> (!$IsOwn && isModulAvalible(MODUL_MISSION_ATTACK)) ? $LNG['type_mission'][1] : false,
+			'stay'			=> ($IsOwn && isModulAvalible(MODUL_MISSION_STATION)) ? $LNG['type_mission'][4] : false,
+			'stayally'		=> (!$IsOwn && isModulAvalible(MODUL_MISSION_HOLD)) ? $LNG['type_mission'][5] : false,
 		);
 		return $Result;
 	}

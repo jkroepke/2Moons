@@ -44,33 +44,6 @@ class ShowResearchPage
 		return true;
 	}
 	
-	public function GetRestPrice($Element)
-	{
-		global $USER, $PLANET, $pricelist, $resource, $LNG;
-
-		$array = array(
-			'metal'      => $LNG['Metal'],
-			'crystal'    => $LNG['Crystal'],
-			'deuterium'  => $LNG['Deuterium'],
-			'energy_max' => $LNG['Energy'],
-			'darkmatter' => $LNG['Darkmatter'],
-		);
-		
-		$restprice	= array();
-		
-		foreach ($array as $ResType => $ResTitle)
-		{
-			if (empty($pricelist[$Element][$ResType]))
-				continue;
-
-			$cost = floor($pricelist[$Element][$ResType] * pow($pricelist[$Element]['factor'], $USER[$resource[$Element]]));
-
-			$restprice[$ResTitle] = pretty_number(max($cost - (($PLANET[$ResType]) ? $PLANET[$ResType] : $USER[$ResType]), 0));
-		}
-
-		return $restprice;
-	}
-	
 	public function CancelBuildingFromQueue($PlanetRess)
 	{
 		global $PLANET, $USER, $db, $resource;
@@ -84,18 +57,29 @@ class ShowResearchPage
 			FirePHP::getInstance(true)->log("Queue(Tech): ".$USER['b_tech_queue']);
 			return false;
 		}
-		$Element						= $USER['b_tech_id'];
-		$costs							= GetBuildingPrice($USER, $PLANET, $USER['b_tech_id']);
+		
+		$Element		= $USER['b_tech_id'];
+		$costRessources	= BuildFunctions::getElementPrice($USER, $PLANET, $Element);
+		
 		if($PLANET['id'] == $USER['b_tech_planet'])
 		{
-			$PLANET['metal']      		+= $costs['metal'];
-			$PLANET['crystal']    		+= $costs['crystal'];
-			$PLANET['deuterium'] 		+= $costs['deuterium'];	
+			if(isset($costRessources[901])) { $PLANET[$resource[901]]	+= $costRessources[901]; }
+			if(isset($costRessources[902])) { $PLANET[$resource[902]]	+= $costRessources[902]; }
+			if(isset($costRessources[903])) { $PLANET[$resource[903]]	+= $costRessources[903]; }
 		} else {
-			$db->query("UPDATE ".PLANETS." SET `metal` = `metal` + '".$costs['metal']."', `crystal` = `crystal` + '".$costs['crystal']."', `deuterium` = `deuterium` + '".$costs['deuterium']."' WHERE `id` = '".$USER['b_tech_planet']."';");
+			$SQL	= "UPDATE ".PLANETS." SET ";
+			
+			if(isset($costRessources[901])) { $SQL	.= $resource[901]." = ".$resource[901]." + ".$costRessources[901]." "; }
+			if(isset($costRessources[902])) { $SQL	.= $resource[902]." = ".$resource[902]." + ".$costRessources[902]." "; }
+			if(isset($costRessources[903])) { $SQL	.= $resource[903]." = ".$resource[903]." + ".$costRessources[903]." "; }
+			
+			$SQL	.= " WHERE `id` = ".$USER['b_tech_planet'].";";
+			
+			$db->query($SQL);
 		}
 		
-		$USER['darkmatter']			+= $costs['darkmatter'];
+		if(isset($costRessources[921])) { $USER[$resource[921]]		+= $costRessources[921]; }
+		
 		$USER['b_tech_id']			= 0;
 		$USER['b_tech']      		= 0;
 		$USER['b_tech_planet']		= 0;
@@ -108,7 +92,7 @@ class ShowResearchPage
 			$USER['b_tech_id']		= 0;
 			$USER['b_tech']			= 0;
 		} else {
-			$BuildEndTime	= TIMESTAMP;
+			$BuildEndTime		= TIMESTAMP;
 			$NewCurrentQueue	= array();
 			foreach($CurrentQueue as $ListIDArray)
 			{
@@ -116,15 +100,16 @@ class ShowResearchPage
 					continue;
 					
 				if($ListIDArray[4] != $PLANET['id'])
-					$CPLANET		= $db->uniquequery("SELECT `".$resource[6]."`, `".$resource[31]."` FROM ".PLANETS." WHERE `id` = '".$ListIDArray[4]."';");
+					$CPLANET		= $db->uniquequery("SELECT ".$resource[6].", ".$resource[31]." FROM ".PLANETS." WHERE `id` = ".$ListIDArray[4].";");
 				else
 					$CPLANET		= $PLANET;
 				
 				$CPLANET[$resource[31].'_inter']	= $PlanetRess->CheckAndGetLabLevel($USER, $CPLANET);
-				$BuildEndTime       += GetBuildingTime($USER, $CPLANET, $ListIDArray[0]);
-				$ListIDArray[3]		= $BuildEndTime;
-				$NewCurrentQueue[]	= $ListIDArray;				
+				$BuildEndTime       				+= BuildFunctions::getBuildingTime($USER, $CPLANET, NULL, $ListIDArray[0]);
+				$ListIDArray[3]						= $BuildEndTime;
+				$NewCurrentQueue[]					= $ListIDArray;				
 			}
+			
 			if(!empty($NewCurrentQueue)) {
 				$USER['b_tech']    			= TIMESTAMP;
 				$USER['b_tech_queue'] 		= serialize($NewCurrentQueue);
@@ -169,13 +154,13 @@ class ShowResearchPage
 					continue;
 					
 				if($ListIDArray[4] != $PLANET['id'])
-					$CPLANET				= $db->uniquequery("SELECT `".$resource[6]."`, `".$resource[31]."` FROM ".PLANETS." WHERE `id` = '".$ListIDArray[4].";");
+					$CPLANET				= $db->uniquequery("SELECT `".$resource[6]."`, `".$resource[31]."` FROM ".PLANETS." WHERE `id` = ".$ListIDArray[4].";");
 				else
 					$CPLANET				= $PLANET;
 				
 				$CPLANET[$resource[31].'_inter']	= $PlanetRess->CheckAndGetLabLevel($USER, $CPLANET);
 				
-				$BuildEndTime       += GetBuildingTime($USER, $CPLANET, $ListIDArray[0]);
+				$BuildEndTime       += BuildFunctions::getBuildingTime($USER, $CPLANET, NULL, $ListIDArray[0]);
 				$ListIDArray[3]		= $BuildEndTime;
 				$NewCurrentQueue[]	= $ListIDArray;				
 			}
@@ -191,7 +176,13 @@ class ShowResearchPage
 
 	public function AddBuildingToQueue($Element, $AddMode = true)
 	{
-		global $PLANET, $USER, $resource, $CONF;
+		global $PLANET, $USER, $resource, $CONF, $reslist, $pricelist;
+
+		if(!in_array($Element, $reslist['tech'])
+			|| !BuildFunctions::isTechnologieAccessible($USER, $PLANET, $Element)
+			|| !$this->CheckLabSettingsInQueue($PLANET)
+		)
+			return;
 			
 		$CurrentQueue  		= unserialize($USER['b_tech_queue']);
 		
@@ -207,34 +198,46 @@ class ShowResearchPage
 			
 		$BuildLevel					= $USER[$resource[$Element]] + 1;
 		if($ActualCount == 0)
-		{	
-			if(!IsElementBuyable($USER, $PLANET, $Element))
+		{
+			if($pricelist[$Element]['max'] < $BuildLevel)
 				return;
-
-			$Resses						= GetBuildingPrice($USER, $PLANET, $Element);
-			$BuildTime   				= GetBuildingTime($USER, $PLANET, $Element);	
-					
-			$PLANET['metal']			-= $Resses['metal'];
-			$PLANET['crystal']			-= $Resses['crystal'];
-			$PLANET['deuterium']		-= $Resses['deuterium'];
-			$USER['darkmatter']			-= $Resses['darkmatter'];
-			$BuildEndTime				= TIMESTAMP + $BuildTime;
-			$USER['b_tech_queue']		= serialize(array(array($Element, $BuildLevel, $BuildTime, $BuildEndTime, $PLANET['id'])));
+				
+			$costRessources		= BuildFunctions::getElementPrice($USER, $PLANET, $Element, !$AddMode);
+			
+			if(!BuildFunctions::isElementBuyable($USER, $PLANET, $Element, $costRessources))
+				return;
+			
+			if(isset($costRessources[901])) { $PLANET[$resource[901]]	-= $costRessources[901]; }
+			if(isset($costRessources[902])) { $PLANET[$resource[902]]	-= $costRessources[902]; }
+			if(isset($costRessources[903])) { $PLANET[$resource[903]]	-= $costRessources[903]; }
+			if(isset($costRessources[921])) { $USER[$resource[921]]		-= $costRessources[921]; }
+			
+			$elementTime    			= BuildFunctions::getBuildingTime($USER, $PLANET, $Element, $costRessources);
+			$BuildEndTime				= TIMESTAMP + $elementTime;
+			
+			$USER['b_tech_queue']		= serialize(array(array($Element, $BuildLevel, $elementTime, $BuildEndTime, $PLANET['id'])));
 			$USER['b_tech']				= $BuildEndTime;
 			$USER['b_tech_id']			= $Element;
 			$USER['b_tech_planet']		= $PLANET['id'];
 		} else {
-			$InArray = 0;
-			foreach($CurrentQueue as $QueueSubArray) {
-				if($QueueSubArray[0] == $Element) 
-					$InArray++;
+			$addLevel = 0;
+			foreach($CurrentQueue as $QueueSubArray)
+			{
+				if($QueueSubArray[0] != $Element)
+					continue;
+					
+				$addLevel++;
 			}
-			$USER[$resource[$Element]] += $InArray;
-			$BuildTime  				= GetBuildingTime($USER, $PLANET, $Element);
-			$USER[$resource[$Element]] -= $InArray;
-			$BuildEndTime				= $CurrentQueue[$ActualCount - 1][3] + $BuildTime;
-			$BuildLevel					+= $InArray;
-			$CurrentQueue[]				= array($Element, $BuildLevel, $BuildTime, $BuildEndTime, $PLANET['id']);
+				
+			$BuildLevel					+= $addLevel;
+				
+			if($pricelist[$Element]['max'] < $BuildLevel)
+				return;
+				
+			$elementTime    			= BuildFunctions::getBuildingTime($USER, $PLANET, $Element, NULL, !$AddMode, $BuildLevel);
+			
+			$BuildEndTime				= $CurrentQueue[$ActualCount - 1][3] + $elementTime;
+			$CurrentQueue[]				= array($Element, $BuildLevel, $elementTime, $BuildEndTime, $PLANET['id']);
 			$USER['b_tech_queue']		= serialize($CurrentQueue);
 		}
 		FirePHP::getInstance(true)->log("Queue(Tech): ".$USER['b_tech_queue']);
@@ -249,7 +252,6 @@ class ShowResearchPage
 		
 		$CurrentQueue   = unserialize($USER['b_tech_queue']);
 
-		$ListIDRow		= "";
 		$ScriptData		= array();
 		
 		foreach($CurrentQueue as $BuildArray) {
@@ -271,17 +273,14 @@ class ShowResearchPage
 				'planet'	=> $PlanetName,
 			);
 		}
+		
 		return $ScriptData;
 	}
 
-	public function __construct()
+	public function show()
 	{
 		global $PLANET, $USER, $LNG, $resource, $reslist, $CONF, $db, $pricelist;
-
-		include_once(ROOT_PATH . 'includes/functions/IsTechnologieAccessible.php');
-		include_once(ROOT_PATH . 'includes/functions/GetElementPrice.php');
-		
-		$template	= new template();			
+		$template		= new template();			
 		
 		$PlanetRess 	= new ResourceUpdate();
 		$PlanetRess->CalcResource();
@@ -291,15 +290,14 @@ class ShowResearchPage
 			$template->message($LNG['bd_lab_required']);
 			exit;
 		}
-		
-		$bContinue		= $this->CheckLabSettingsInQueue($PLANET) ? true : false;
 			
 		$TheCommand		= request_var('cmd','');
 		$Element     	= request_var('tech', 0);
 		$ListID     	= request_var('listid', 0);
+		
 		$PLANET[$resource[31].'_inter']	= $PlanetRess->CheckAndGetLabLevel($USER, $PLANET);	
 
-		if($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($Element) && $bContinue && $USER['urlaubs_modus'] == 0 && ($USER[$resource[$Element]] < $pricelist[$Element]['max'] && IsTechnologieAccessible($USER, $PLANET, $Element) && in_array($Element, $reslist['tech'])) || $TheCommand == "cancel" || $TheCommand == "remove")
+		if(!empty($TheCommand) && $_SERVER['REQUEST_METHOD'] === 'POST' && $USER['urlaubs_modus'] == 0)
 		{
 			switch($TheCommand)
 			{
@@ -320,22 +318,30 @@ class ShowResearchPage
 		
 		$PlanetRess->SavePlanetToDB();
 		
+		$bContinue		= $this->CheckLabSettingsInQueue($PLANET);
+		
 		$TechQueue		= $this->ShowTechQueue();
+		$QueueCount		= count($TechQueue);
 		$ResearchList	= array();
 
 		foreach($reslist['tech'] as $ID => $Element)
 		{
-			if (!IsTechnologieAccessible($USER, $PLANET, $Element))
+			if (!BuildFunctions::isTechnologieAccessible($USER, $PLANET, $Element))
 				continue;
-				
-			$ResearchList[]	= array(
-				'id'			=> $Element,
-				'level'			=> $USER[$resource[$Element]],
-				'max'			=> $pricelist[$Element]['max'],
-				'price'			=> GetElementPrice($USER, $PLANET, $Element, true),
-				'time'        	=> pretty_time(GetBuildingTime($USER, $PLANET, $Element)),
-				'restprice'		=> $this->GetRestPrice($Element),
-				'buyable'		=> IsElementBuyable($USER, $PLANET, $Element, true, false),
+			
+			$costRessources		= BuildFunctions::getElementPrice($USER, $PLANET, $Element);
+			$costOverflow		= BuildFunctions::getRestPrice($USER, $PLANET, $Element, $costRessources);
+			$elementTime    	= BuildFunctions::getBuildingTime($USER, $PLANET, $Element, $costRessources);
+			$buyable			= $QueueCount != 0 || BuildFunctions::isElementBuyable($USER, $PLANET, $Element, $costRessources);
+
+			$ResearchList[$Element]	= array(
+				'id'				=> $Element,
+				'level'				=> $USER[$resource[$Element]],
+				'maxLevel'			=> $pricelist[$Element]['max'],
+				'costRessources'	=> $costRessources,
+				'costOverflow'		=> $costOverflow,
+				'elementTime'    	=> $elementTime,
+				'buyable'			=> $buyable,
 			);
 		}
 		
@@ -352,7 +358,6 @@ class ShowResearchPage
 			'IsLabinBuild'	=> !$bContinue,
 			'IsFullQueue'	=> $CONF['max_elements_tech'] == 0 || $CONF['max_elements_tech'] == count($TechQueue),
 			'Queue'			=> $TechQueue,
-			'oldLink'  		=> $CONF['max_elements_tech'] == 1,
 			'Bonus'  		=> $Bonus,
 		));
 		

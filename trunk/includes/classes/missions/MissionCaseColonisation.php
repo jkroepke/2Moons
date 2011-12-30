@@ -45,12 +45,12 @@ class MissionCaseColonisation extends MissionFunctions
 		if ($iGalaxyPlace != 0)
 		{
 			$TheMessage = sprintf($LNG['sys_colo_notfree'], GetTargetAdressLink($this->_fleet, ''));
-			$this->UpdateFleet('fleet_mess', 1);
+			$this->setState(FLEET_RETURN);
 		}
 		elseif($iPlanetCount >= $MaxPlanets)
 		{
 			$TheMessage = sprintf($LNG['sys_colo_maxcolo'] , GetTargetAdressLink($this->_fleet, ''), $MaxPlanets);
-			$this->UpdateFleet('fleet_mess', 1);
+			$this->setState(FLEET_RETURN);
 		}
 		else
 		{
@@ -59,7 +59,7 @@ class MissionCaseColonisation extends MissionFunctions
 			if($NewOwnerPlanet === false)
 			{
 				$TheMessage = sprintf($LNG['sys_colo_badpos'], GetTargetAdressLink($this->_fleet, ''));
-				$this->UpdateFleet('fleet_mess', 1);
+					$this->setState(FLEET_RETURN);
 			}
 			else
 			{
@@ -86,7 +86,7 @@ class MissionCaseColonisation extends MissionFunctions
 					$this->UpdateFleet('fleet_resource_metal', 0);
 					$this->UpdateFleet('fleet_resource_crystal', 0);
 					$this->UpdateFleet('fleet_resource_deuterium', 0);
-					$this->UpdateFleet('fleet_mess', 1);
+					$this->setState(FLEET_RETURN);
 				}
 			}
 		}

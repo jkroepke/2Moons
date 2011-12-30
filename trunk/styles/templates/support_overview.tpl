@@ -61,9 +61,6 @@
 					<td><input type="text" name="subject"></td>
 				</tr>
 				<tr>
-					<td colspan="2">{$input_text}</td>
-				</tr>
-				<tr>
 					<td colspan="2">
 						<textarea name="text" cols="50" rows="10"></textarea>
 						<input type="submit" value="{$supp_send}">

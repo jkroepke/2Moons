@@ -29,7 +29,7 @@
 
 function GenerateReport($RESULT, $INFO)
 {
-	$des		= array('att' => 0, 'def' => 0);
+	$Destroy	= array('att' => 0, 'def' => 0);
 	$DATA		= array();
 	$DATA['mode']	= (int) $INFO['moon']['des'];
 	$DATA['time']	= $INFO['fleet_start_time'];
@@ -41,7 +41,7 @@ function GenerateReport($RESULT, $INFO)
 	$DATA['result']	= $RESULT['won'];
 	$DATA['moon']	= array(
 		(int) $INFO['moon']['chance'],
-		(int) $INFO['moon']['name'],
+		$INFO['moon']['name'],
 		(int) $INFO['moon']['desfail'],
 		(int) $INFO['moon']['chance2'],
 		(int) $INFO['moon']['fleetfail']
@@ -126,7 +126,7 @@ function GenerateReport($RESULT, $INFO)
 			$DATA['rounds'][$Round]['defender'][] = $PlayerData;
 		}
 		
-		if ($Round >= MAX_ATTACK_ROUNDS || $des['att'] == count($RoundInfo['attackers']) || $des['def'] == count($RoundInfo['defenders']))
+		if ($Round >= MAX_ATTACK_ROUNDS || $Destroy['att'] == count($RoundInfo['attackers']) || $Destroy['def'] == count($RoundInfo['defenders']))
 			break;
 		
 		if(isset($RoundInfo['attack'], $RoundInfo['attackShield'], $RoundInfo['defense'], $RoundInfo['defShield']))

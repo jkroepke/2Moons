@@ -102,14 +102,17 @@ var CONF			= {
 	uni				: {$UNI},
 	avaLangs		: new Array(),
 	lang			: "{$lang}",
+	htaccess		: {$htaccess}
 };
 var LANG			= {
 	register		: "{$register_now}",
 	login			: "{$login}",
-	uni_closed		: "{$uni_closed}",
+	uni_closed		: "{$uni_closed}"
 };
+
 $(document).ready(init);
-{if $code}
+
+{if isset($code)}
 alert("{$code}");
 {/if}
 </script>

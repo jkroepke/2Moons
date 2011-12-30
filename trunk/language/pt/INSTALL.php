@@ -5,66 +5,91 @@
 
 // 2Moons - Copyright (C) 2011  Slaver
 
-$LNG['title_install']			= "Instalador";
+$LNG['back']					= 'Voltar';
+$LNG['continue']				= 'Continyar';
+$LNG['login']					= 'Login';
 
-$LNG['continue']				= "Continuar";
+$LNG['menu_intro']				= 'Introdução';
+$LNG['menu_install']			= 'Instalação';
+$LNG['menu_license']			= 'Licença';
 
-$LNG['menu_intro']				= "Introdução";
-$LNG['menu_install']			= "Instalar";
-$LNG['menu_license']			= "Licença";
+$LNG['title_install']			= 'Instalação';
 
-$LNG['intro_lang']				= "Idioma";
-$LNG['intro_instal']			= "Instalação";
-$LNG['intro_welcome']			= "Bemvindo ao 2Moons!";
-$LNG['intro_text']				= "Bemvindo a um dos melhores clones do OGame , o 2Moons<br>A versão mais recente 2Moons porque a taxa fixa foi já desenvolvido. 2Moons brilha pela estabilidade, flexibilidade, dinâmica, qualidade e facilidade de utilização. Desejamos sempre ser melhor do que suas expectativas.<br><br>Os guias de instalação do sistema através da instalação ou atualização de uma versão mais antiga para a mais Na dúvida ou problema não hesite em contactar-nos (2moons.cc).<br><br>2Moons é um projeto de código aberto licenciado sob a GNU GPL v3. Para obter a licença, clique no item do menu.<br><br>Antes da instalação começar, um teste é realizado, se os requisitos do sistema são atendidas.";
+$LNG['intro_lang']				= 'Idioma';
+$LNG['intro_instal']			= 'Para Instalação';
+$LNG['intro_welcome']			= 'Olá utilizador de 2Moons!';
+$LNG['intro_text']				= 'O 2Moons é um dos melhores projectos de OGame.<br>O 2Moons é a versão mais recente e mais estável do XNova actualmente desenvolvido. 2Moons é notável por sua facilidade de estabilidade, flexibilidade, dinamismo, qualidade e utilização. Nós sempre esperamos ser melhor do que as tuas expectativas.<br><br>O sistema de instalação irá guiar-te através da instalação ou atualizar de uma versão anterior para a mais recente. Cada questão, um problema, por favor não hesites em pedir ao nosso desenvolvimento e suporte em caso de duvidas!<br><br>O 2Moons é um projeto em Open Source, lincenciado sob GNU GPL v3. Para que esta seja verificado, por favor clica no link acima onde se refera a "Lincença"<br><br>Antes da instalação pode ser iniciado um pequeno teste para verificar se o teu Plano/Dominio tem todos os requesitos para suportar o 2Moons';
 
-$LNG['reg_yes']					= "Sim";
-$LNG['reg_no']					= "Não";
-$LNG['reg_found']				= "Encontrado";
-$LNG['reg_not_found']			= "Não Encontrado";
-$LNG['reg_writable']			= "Gravado";
-$LNG['reg_not_writable']		= "Não Gravado";
-$LNG['reg_file']				= "Ficheiro";
-$LNG['reg_dir']					= "Pasta";
-$LNG['reg_gd_need']				= "GB-Lib disponivel?";
-$LNG['reg_mysqli_active']		= " MySQLi Encontrado?";
-$LNG['reg_json_need']			= "JSON disponivel?";
-$LNG['req_php_need']			= "PHP-Version (min. 5.2.5)";
-$LNG['reg_bcmath_need']			= "BCMath Disponível?";
-$LNG['reg_iniset_need']			= "ini_set permitido?";
-$LNG['reg_global_need']			= "reg_global permitido?";
-$LNG['req_ftp']					= "FTP";
-$LNG['req_ftp_info']			= "Diga os dados do seu FTP para resolver o problema.";
-$LNG['req_ftp_host']			= "Host do FTP";
-$LNG['req_ftp_username']		= "Usuário";
-$LNG['req_ftp_password']		= "Senha";
-$LNG['req_ftp_dir']				= "Caminho para 2Moons";
-$LNG['req_ftp_send']			= "Enviar";
-$LNG['req_ftp_pass_info']		= "Sua senha não será Salva!";
+$LNG['licence_head']			= 'Termos de Licença';
+$LNG['licence_desc']			= 'Por favor, leia os termos de licença a seguir. Usa a barra de scroll para poderes ver todo o conteudo do documento';
+$LNG['licence_accept']			= 'Para prosseguires a instalação de 2Moons, precisas de concordar com os Termos e Condições da Lincença do 2Moons';
+$LNG['licence_need_accept']		= 'Se quiseres continuar com a instalação, terás que aceitar os termos da licença';
 
-$LNG['step1_mysql_server']		= "MySQL-Base de dados do Server: <br>Standard: localhost";
-$LNG['step1_mysql_port']		= "MySQL-Porta da base de dados do Server: <br>Standard: 3306";
-$LNG['step1_mysql_dbname']		= "MySQL-Nome da Base de dados: <br> Ex.: Game";
-$LNG['step1_mysql_dbuser']		= "MySQL-Utilizador da Base de Dados: <br> Ex.: root";
-$LNG['step1_mysql_dbpass']		= "MySQL-Password da Base de Dados: <br> Ex.: 12345";
-$LNG['step1_mysql_prefix']		= "MySQL-Prefixo da Base de Dados: <br> Ex.: uni1_";
+$LNG['req_head']				= 'Requesitos de Sistema';
+$LNG['req_desc']				= 'Antes da instalação prosseguir, o 2Moons realizará alguns testes para verificar se o teu Servidor suporta o 2Moons, de modo garantir que o 2Moons possa ser instalado. É surgerido que leia cuidadosamente os resultados, e não prossiga até todos estes serem verificados.';
+$LNG['reg_yes']					= 'Sim';
+$LNG['reg_no']					= 'Não';
+$LNG['reg_found']				= 'Encontrado';
+$LNG['reg_not_found']			= 'Não encontrado';
+$LNG['reg_writable']			= 'Gravavel';
+$LNG['reg_not_writable']		= 'Não gravavel  ';
+$LNG['reg_file']				= 'O ficheiro &raquo;%s&laquo; é gravavel?';
+$LNG['reg_dir']					= 'A pasta &raquo;%s&laquo; é gravavel?';
+$LNG['req_php_need']			= 'Versão instalada da linguagem de script &raquo;PHP&laquo;';
+$LNG['req_php_need_desc']		= '<strong>Requerido</strong> — O PHP é a linguagem base de código do 2Moons. Este é requerido a versão PHP 5.2.5 ou superior para que todos os modulos funcionam correctamente';
+$LNG['reg_gd_need']				= 'Versão instalada do PHP GD Script &raquo;gdlib&laquo;';
+$LNG['reg_gd_desc']				= '<strong>Opcional</strong> — Biblioteca de processamento gráfico &raquo;gdlib&laquo; é responsável pela geração dinâmica de imagens. Eles trabalham sem algumas das funcionalidades do software.';
+$LNG['reg_mysqli_active']		= 'Suporte de extensão &raquo;MySQLi&laquo;';
+$LNG['reg_mysqli_desc']			= '<strong>Requerido</strong> — Precisas de ter suporte para MySQLi em PHP. Se nenhum módulo de banco de dados são mostrados como sendo disponíveis, deves contactar o teu provedor de hospedagem (Hoster do Dominio) ou rever a documentação do PHP.';
+$LNG['reg_json_need']			= 'Extensão &raquo;JSON&laquo; disponivél?';
+$LNG['reg_iniset_need']			= 'Função PHP &raquo;ini_set&laquo; disponivél?';
+$LNG['reg_global_need']			= 'register_globals desactivado?';
+$LNG['reg_global_desc']			= '2Moons também irá funcionar, se essa configuração está instalada no teu servidor. No entanto, é recomendado por razões de segurança, desactivar o "register_globals" na instalação PHP, se isso é possível.';
+$LNG['req_ftp_head']			= 'Inserir informações de FTP';
+$LNG['req_ftp_desc']			= 'Escreve as tuas informações de FTP de modo 2Moons poder corrigir automaticamente os problemas. Alternativamente, podes também atribuir manualmente permissões de gravação.';
+$LNG['req_ftp_host']			= 'Hostname';
+$LNG['req_ftp_username']		= 'Nome de Utilizador';
+$LNG['req_ftp_password']		= 'Password';
+$LNG['req_ftp_dir']				= 'Directória do 2Moons';
+$LNG['req_ftp_send']			= 'Enviar';
+$LNG['req_ftp_error_data']		= 'As informações fornecidas, não permitem conectar ao servidor FTP, desse modo, esta ligação falhou';
+$LNG['req_ftp_error_dir']		= 'A directória que inseriste é invalida ou não existente';
 
-$LNG['step2_prefix_invalid']    = 'O prefixo da base de dados so pode conter caractéres Alfanuméricos';
-$LNG['step2_db_error']			= "Erro ao criar a tabela(s) da base de dados: %s";
-$LNG['step2_db_con_fail']		= "Não há conexão à base de dados<br> %s";
-$LNG['step2_conf_op_fail']		= "config.php não esta configurado em CHMOD 777!";
-$LNG['step2_db_connet_ok']		= "A conexão com o banco de dados foi com sucesso ...";
-$LNG['step2_db_create_ok']		= "Tabelas de banco de dados criado com sucesso ....";
-$LNG['step2_conf_create']		= "config.php criado com sucesso ...";
+$LNG['step1_head']				= 'Configurar Instalação de base de dados';
+$LNG['step1_desc']				= 'Agora que foi determinado que 2Moons pode ser instalado no teu servidor, deverás fornecer algumas informações. Se tu não sabes como executar uma ligação de base de dados, entra em contato com teu provedor de hospedagem primeiro ou com o fórum de 2Moons para ajuda e suporte. Quando tu inserires os dados, verifica se foram introduzidos correctamente';
+$LNG['step1_mysql_server']		= 'Servidor da Base de Dados ou DSN';
+$LNG['step1_mysql_port']		= 'Porta da Base de Dados';
+$LNG['step1_mysql_dbuser']		= 'Utilizador da Base de Dados';
+$LNG['step1_mysql_dbpass']		= 'Password da Base de Dados';
+$LNG['step1_mysql_dbname']		= 'Nome da Base de Dados';
+$LNG['step1_mysql_prefix']		= 'Prefixo de tabelas:';
 
-$LNG['step3_create_admin']		= "Criação da Conta Administrativa";
-$LNG['step3_admin_name']		= "Username do Admin:";
-$LNG['step3_admin_pass']		= "Password do Admin:";
-$LNG['step3_admin_mail']		= "Email do Admin:";
+$LNG['step2_prefix_invalid']	= 'O prefixo de Base de Dados deve conter caracteres alfanuméricos e sublinhado como ultimo caracter';
+$LNG['step2_db_error']			= 'Falha ao criar tabelas na Base de Dados:';
+$LNG['step2_db_no_dbname']		= 'Não especificaste o nome para a base de dados';
+$LNG['step2_db_too_long']		= 'O prefixo de tabela é muito longo. Deve conter no máximo 36 caracteres';
+$LNG['step2_db_con_fail']		= 'Existe um erro na ligação à Base de Dados. Os detalhes serão exibidos abaixo';
+$LNG['step2_conf_op_fail']		= 'config.php não pode ser gravado!';
+$LNG['step2_conf_create']		= 'config.php criado com sucesso!';
+$LNG['step2_db_done']			= 'A conexão à Base de Dados foi bem-sucedida!';
 
-$LNG['step4_need_fields']		= "Precisa de completar todos os espaços!";
+$LNG['step3_head']				= 'Criar tabelas de Base de Dados';
+$LNG['step3_desc']				= 'As tabelas necessárias para a base de dados do 2Moons já foram criadas e preenchidas com os valores por defeito. Ao ires para o próximo passo, concluirás a instalação do 2Moons';
 
-$LNG['sql_universe']         = 'Universo';
-$LNG['sql_close_reason']     = 'O Servidor está indisponível no momento';
-$LNG['sql_welcome']          = 'Bem-vindo';
+$LNG['step4_head']				= 'Conta do Administrador';
+$LNG['step4_desc']				= 'O assistente de instalação vai agora criar uma conta de administrador para ti. Escreve o nome de usário, a tua password e o teu email';
+$LNG['step4_admin_name']		= 'Nome de Usário de Administrador:';
+$LNG['step4_admin_name_desc']	= 'Escreva o nome de usário com o comprimento de 3 a 20 caracteres';
+$LNG['step4_admin_pass']		= 'Password de Administrador:';
+$LNG['step4_admin_pass_desc']	= 'Escreva uma password com o comprimento de 6 a 30 caracteres';
+$LNG['step4_admin_mail']		= 'E-mail de contato:';
+
+$LNG['step6_head']				= 'Instalação concluida!';
+$LNG['step6_desc']				= 'Instalaste com sucesso o sistema 2Moons';
+$LNG['step6_info_head']			= 'Começe a utilizar o 2Moons agora!';
+$LNG['step6_info_additional']	= 'Se clicares no botão abaixo, serás redireccionado para a página de Administração. Ai será um bom partido para começares a explorar as ferramentas de Administrador de 2Moons.<br/><br/><strong>Por favor apaga o &raquo;includes/ENABLE_INSTALL_TOOL&laquo; ou modifica o nome do ficheiro. Com a existência deste ficheiro, pode causar o teu jogo em risco, ao permitir que alguem reescreva a instalação!</strong>';
+
+$LNG['sql_universe']			= 'Universo';
+$LNG['sql_close_reason']		= 'O jogo encontra-se fechado';
+$LNG['sql_welcome']				= 'Bem vindo ao 2Moons v';
 ?>

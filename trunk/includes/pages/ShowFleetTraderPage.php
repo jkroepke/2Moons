@@ -36,10 +36,10 @@ function ShowFleetTraderPage()
 	$ID								= request_var('id', 0);
 	if(!empty($ID) && in_array($ID, $CONF['trade_allowed_ships'])) {
 		$Count						= min(request_outofint('count'), $PLANET[$resource[$ID]]);
-		$PLANET['metal']			+= $Count * $pricelist[$ID]['metal'] * (1 - ($CONF['trade_charge'] / 100));
-		$PLANET['crystal']			+= $Count * $pricelist[$ID]['crystal'] * (1 - ($CONF['trade_charge'] / 100));
-		$PLANET['deuterium']		+= $Count * $pricelist[$ID]['deuterium'] * (1 - ($CONF['trade_charge'] / 100));
-		$USER['darkmatter']			+= $Count * $pricelist[$ID]['darkmatter'] * (1 - ($CONF['trade_charge'] / 100));
+		$PLANET['metal']			+= $Count * $pricelist[$ID]['cost'][901] * (1 - ($CONF['trade_charge'] / 100));
+		$PLANET['crystal']			+= $Count * $pricelist[$ID]['cost'][902] * (1 - ($CONF['trade_charge'] / 100));
+		$PLANET['deuterium']		+= $Count * $pricelist[$ID]['cost'][903] * (1 - ($CONF['trade_charge'] / 100));
+		$USER['darkmatter']			+= $Count * $pricelist[$ID]['cost'][921] * (1 - ($CONF['trade_charge'] / 100));
 		$PLANET[$resource[$ID]]		-= $Count;
 		$PlanetRess->Builded[$ID]	-= $Count;
 	}
@@ -52,7 +52,7 @@ function ShowFleetTraderPage()
 	foreach($CONF['trade_allowed_ships'] as $ID)
 	{
 		if(in_array($ID, $reslist['fleet']) || in_array($ID, $reslist['defense']))
-			$Cost[$ID]	= array($PLANET[$resource[$ID]], $pricelist[$ID]['metal'], $pricelist[$ID]['crystal'], $pricelist[$ID]['deuterium'], $pricelist[$ID]['darkmatter']);
+			$Cost[$ID]	= array($PLANET[$resource[$ID]], $pricelist[$ID]['cost'][901], $pricelist[$ID]['cost'][902], $pricelist[$ID]['cost'][903], $pricelist[$ID]['cost'][921]);
 	}
 	
 	if(empty($Cost)) {

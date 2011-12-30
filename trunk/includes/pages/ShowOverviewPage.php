@@ -53,49 +53,12 @@ function GetTeamspeakData()
 }
 
 function GetFleets() {
-	global $USER, $db;
-	$OwnFleets = $db->query("SELECT DISTINCT * FROM ".FLEETS." WHERE `fleet_owner` = ".$USER['id']." OR `fleet_target_owner` = ".$USER['id'].";");
-	$Record = 0;
-	if($db->num_rows($OwnFleets) == 0)
-		return array();
-	
+	global $USER, $PLANET;
 	require_once(ROOT_PATH . 'includes/classes/class.FlyingFleetsTable.php');
-	$FlyingFleetsTable = new FlyingFleetsTable();
-	
-	$ACSDone	= array();
-	$FleetData 	= array();
-	while ($FleetRow = $db->fetch_array($OwnFleets))
-	{
-		$Record++;
-		$IsOwner	= ($FleetRow['fleet_owner'] == $_SESSION['id']) ? true : false;
-		
-		if ($FleetRow['fleet_mess'] == 0 && $FleetRow['fleet_start_time'] > TIMESTAMP && ($FleetRow['fleet_group'] == 0 || !in_array($FleetRow['fleet_group'], $ACSDone)))
-		{
-			$ACSDone[]		= $FleetRow['fleet_group'];
-			
-			$FleetData[$FleetRow['fleet_start_time'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable($FleetRow, 0, $IsOwner, 'fs', $Record, true);
-		}
-			
-		if ($FleetRow['fleet_mission'] == 10 || ($FleetRow['fleet_mission'] == 4 && $FleetRow['fleet_mess'] == 0))
-			continue;
-
-		if ($FleetRow['fleet_mess'] != 1 && $FleetRow['fleet_end_stay'] > TIMESTAMP)
-			$FleetData[$FleetRow['fleet_end_stay'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable($FleetRow, 2, $IsOwner, 'ft', $Record);
-	
-		if ($IsOwner == false)
-			continue;
-	
-		if ($FleetRow['fleet_end_time'] > TIMESTAMP)
-			$FleetData[$FleetRow['fleet_end_time'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable($FleetRow, 1, $IsOwner, 'fe', $Record);
-	}
-	
-	$db->free_result($OwnFleets);
-	foreach($FleetData as $key => $Val) {
-		if(empty($FleetData[$key]['fleet_descr']))
-			unset($FleetData[$key]);
-	}
-	ksort($FleetData);
-	return $FleetData;
+	$fleetTableObj = new FlyingFleetsTable;
+	$fleetTableObj->setUser($USER['id']);
+	$fleetTableObj->setPlanet($PLANET['id']);
+	return $fleetTableObj->renderTable();
 }
 function ShowOverviewPage()
 {
@@ -162,7 +125,7 @@ function ShowOverviewPage()
 	
 	$template->loadscript('overview.js');
 
-	$Messages		= $db->countquery("SELECT COUNT(*) FROM ".MESSAGES." WHERE `message_owner` = ".$USER['id']." AND `message_unread` = '1'");
+	$Messages		= $USER['messages'];
 	
 	// Fehler: Wenn Spieler gelöscht werden, werden sie nicht mehr in der Tabelle angezeigt.
 	$RefLinksRAW	= $db->query("SELECT u.`id`, u.`username`, s.`total_points` FROM ".USERS." as u LEFT JOIN ".STATPOINTS." as s ON s.`id_owner` = u.`id` AND s.`stat_type` = '1' WHERE `ref_id` = ".$USER['id'].";");
@@ -177,8 +140,13 @@ function ShowOverviewPage()
 		}
 	}
 	
+	if($USER['total_rank'] == 0)
+		$rankInfo	= "-";
+	else
+		$rankInfo	= sprintf($LNG['ov_userrank_info'], pretty_number($USER['total_points']), $LNG['ov_place'], $USER['total_rank'], $USER['total_rank'], $LNG['ov_of'], $CONF['users_amount']);
+	
 	$template->assign_vars(array(
-		'user_rank'					=> sprintf($LNG['ov_userrank_info'], pretty_number($USER['total_points']), $LNG['ov_place'], $USER['total_rank'], $USER['total_rank'], $LNG['ov_of'], $CONF['users_amount']),
+		'rankInfo'					=> $rankInfo,
 		'is_news'					=> $CONF['OverviewNewsFrame'],
 		'news'						=> makebr($CONF['OverviewNewsText']),
 		'planetname'				=> $PLANET['name'],

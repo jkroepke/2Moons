@@ -255,7 +255,7 @@ function ShowAccountDataPage()
 			$names	= "<tr><th class=\"center\" width=\"150\">&nbsp;</th>";
 			
 			// COMIENZA EL SAQUEO DE DATOS DE LOS PLANETAS
-			$SpecifyItemsP	= "planet_type,id,name,galaxy,system,planet,destruyed,diameter,field_current,field_max,temp_min,temp_max,metal,crystal,deuterium,energy_max,".$SpecifyItemsPQ."energy_used";
+			$SpecifyItemsP	= "planet_type,id,name,galaxy,system,planet,destruyed,diameter,field_current,field_max,temp_min,temp_max,metal,crystal,deuterium,energy,".$SpecifyItemsPQ."energy_used";
 				
 			$PlanetsQuery	= $db->query("SELECT ".$SpecifyItemsP." FROM ".PLANETS." WHERE `id_owner` = '".$id_u."';");
 			
@@ -292,7 +292,7 @@ function ShowAccountDataPage()
 					"</tr>";
 					
 					
-					$SumOfEnergy	= ($PlanetsWhile['energy_max'] + $PlanetsWhile['energy_used']);
+					$SumOfEnergy	= ($PlanetsWhile['energy'] + $PlanetsWhile['energy_used']);
 					
 					if ($SumOfEnergy < 0) 
 						$Color	= "<font color=#FF6600>".shortly_number($SumOfEnergy)."</font>";
@@ -308,7 +308,7 @@ function ShowAccountDataPage()
 						<td><a title=\"".pretty_number($PlanetsWhile['metal'])."\">".shortly_number($PlanetsWhile['metal'])."</a></td>
 						<td><a title=\"".pretty_number($PlanetsWhile['crystal'])."\">".shortly_number($PlanetsWhile['crystal'])."</a></td>
 						<td><a title=\"".pretty_number($PlanetsWhile['deuterium'])."\">".shortly_number($PlanetsWhile['deuterium'])."</a></td>
-						<td><a title=\"".pretty_number($SumOfEnergy)."\">".$Color."</a>/<a title=\"".pretty_number($PlanetsWhile['energy_max'])."\">".shortly_number($PlanetsWhile['energy_max'])."</a></td>
+						<td><a title=\"".pretty_number($SumOfEnergy)."\">".$Color."</a>/<a title=\"".pretty_number($PlanetsWhile['energy'])."\">".shortly_number($PlanetsWhile['energy'])."</a></td>
 					</tr>";
 					$names	.= "<th class=\"center\" width=\"60\">".$Planettt."</th>";
 					foreach(array_merge($reslist['fleet'], $reslist['build'], $reslist['defense']) as $ID)
@@ -497,11 +497,11 @@ function ShowAccountDataPage()
 				'se_search_edit'				=> $LNG['se_search_edit'],
 				'resources_title'				=> $LNG['resources_title'],
 				'ac_name'						=> $LNG['ac_name'],
-				'Metal'							=> $LNG['Metal'],
-				'Crystal'						=> $LNG['Crystal'],
-				'Deuterium'						=> $LNG['Deuterium'],
-				'Energy'						=> $LNG['Energy'],
-				'Darkmatter'					=> $LNG['Darkmatter'],
+				'Metal'							=> $LNG['tech'][901],
+				'Crystal'						=> $LNG['tech'][902],
+				'Deuterium'						=> $LNG['tech'][903],
+				'Energy'						=> $LNG['tech'][911],
+				'Darkmatter'					=> $LNG['tech'][921],
 				'buildings_title'				=> $LNG['buildings_title'],
 				'ships_title'					=> $LNG['ships_title'],
 				'defenses_title'				=> $LNG['defenses_title'],

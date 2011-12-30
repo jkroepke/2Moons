@@ -289,7 +289,7 @@ switch ($step) {
 		require_once(ROOT_PATH . 'includes/classes/class.MySQLi.php');
 		
 		try {
-			$db = new DB_MySQLi();
+			$db = new Database();
 		} catch (Exception $e) {
 			$template->assign(array(
 				'class'		=> 'fatalerror',
@@ -315,7 +315,7 @@ switch ($step) {
 		require_once(ROOT_PATH . 'includes/config.php');
 		require_once(ROOT_PATH . 'includes/dbtables.php');	
 		require_once(ROOT_PATH . 'includes/classes/class.MySQLi.php');
-		$db = new DB_MySQLi();
+		$db = new Database();
 		try {
 			$db->multi_query(str_replace("prefix_", $database['tableprefix'], file_get_contents('install.sql')));
 			$GLOBALS['CONF']	= array(
@@ -368,7 +368,7 @@ switch ($step) {
 		require_once(ROOT_PATH . 'includes/config.php');
 		require_once(ROOT_PATH . 'includes/dbtables.php');	
 		require_once(ROOT_PATH . 'includes/classes/class.MySQLi.php');
-		$db = new DB_MySQLi();
+		$db = new Database();
 						
 		$SQL  = "INSERT INTO ".USERS." SET ";
 		$SQL .= "`id`                = '1', ";

@@ -126,6 +126,12 @@ $resource = array(
 	704 => "dm_energie",
 	705 => "dm_researchtime",
 	706 => "dm_fleettime",
+
+	901 => 'metal',
+	902 => 'crystal',
+	903 => 'deuterium',
+	911 => 'energy',
+	921 => 'darkmatter',
 );
 
 $requeriments = array(
@@ -212,110 +218,110 @@ $requeriments = array(
 
 $pricelist = array(
 	// Builds
-	1	=> array('metal' =>      60, 'crystal' =>      15, 'deuterium' =>       0, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' => 3/2),
-	2	=> array('metal' =>      48, 'crystal' =>      24, 'deuterium' =>       0, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' => 1.6),
-	3	=> array('metal' =>     225, 'crystal' =>      75, 'deuterium' =>       0, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' => 3/2),
-	4	=> array('metal' =>      75, 'crystal' =>      30, 'deuterium' =>       0, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' => 3/2),
-	6	=> array('metal' =>100000000,'crystal' =>50000000, 'deuterium' =>25000000, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' => 2.2),
-	12 	=> array('metal' =>     900, 'crystal' =>     360, 'deuterium' =>     180, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' => 1.8),
-	14 	=> array('metal' =>     400, 'crystal' =>     120, 'deuterium' =>     200, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' =>   2),
-	15 	=> array('metal' => 1000000, 'crystal' =>  500000, 'deuterium' =>  100000, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' =>   2),
-	21 	=> array('metal' =>     400, 'crystal' =>     200, 'deuterium' =>     100, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' =>   2),
-	22 	=> array('metal' =>    2000, 'crystal' =>       0, 'deuterium' =>       0, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' =>   2),
-	23 	=> array('metal' =>    2000, 'crystal' =>    1000, 'deuterium' =>       0, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' =>   2),
-	24 	=> array('metal' =>    2000, 'crystal' =>    2000, 'deuterium' =>       0, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' =>   2),
-	31 	=> array('metal' =>     200, 'crystal' =>     400, 'deuterium' =>     200, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' =>   2),
-	33 	=> array('metal' =>       0, 'crystal' =>   50000, 'deuterium' =>  100000, 'energy_max' =>   1000, 'darkmatter' =>  0, 'factor' =>   2),
-	34 	=> array('metal' =>   20000, 'crystal' =>   40000, 'deuterium' =>       0, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' =>   2),
-	41 	=> array('metal' =>   20000, 'crystal' =>   40000, 'deuterium' =>   20000, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' =>   2),
-	42 	=> array('metal' =>   20000, 'crystal' =>   40000, 'deuterium' =>   20000, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' =>   2),
-	43 	=> array('metal' => 2000000, 'crystal' => 4000000, 'deuterium' => 2000000, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' =>   2),
-	44 	=> array('metal' =>   20000, 'crystal' =>   20000, 'deuterium' =>    1000, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' =>   2),
+	1	=> array('cost' => array(901 => 60, 902 => 15, 903 => 0, 911 => 0, 921 => 0), 'factor' => 1.5, 'max' => 254),
+	2	=> array('cost' => array(901 => 48, 902 => 24, 903 => 0, 911 => 0, 921 => 0), 'factor' => 1.6, 'max' => 255),
+	3	=> array('cost' => array(901 => 225, 902 => 75, 903 => 0, 911 => 0, 921 => 0), 'factor' => 1.5, 'max' => 255),
+	4	=> array('cost' => array(901 => 75, 902 => 30, 903 => 0, 911 => 0, 921 => 0), 'factor' => 1.5, 'max' => 255),
+	6	=> array('cost' => array(901 => 100000000, 902 => 50000000, 903 => 25000000, 911 => 0, 921 => 0), 'factor' => 2.2, 'max' => 255),
+	12 	=> array('cost' => array(901 => 900, 902 => 360, 903 => 180, 911 => 0, 921 => 0), 'factor' => 1.8, 'max' => 255),
+	14 	=> array('cost' => array(901 => 400, 902 => 120, 903 => 200, 911 => 0, 921 => 0), 'factor' =>   2, 'max' => 255),
+	15 	=> array('cost' => array(901 => 1000000, 902 => 500000, 903 => 100000, 911 => 0, 921 => 0), 'factor' =>   2, 'max' => 255),
+	21 	=> array('cost' => array(901 => 400, 902 => 200, 903 => 100, 911 => 0, 921 => 0), 'factor' =>   2, 'max' => 255),
+	22 	=> array('cost' => array(901 => 2000, 902 => 0, 903 => 0, 911 => 0, 921 => 0), 'factor' =>   2, 'max' => 255),
+	23 	=> array('cost' => array(901 => 2000, 902 => 1000, 903 => 0, 911 => 0, 921 => 0), 'factor' =>   2, 'max' => 255),
+	24 	=> array('cost' => array(901 => 2000, 902 => 2000, 903 => 0, 911 => 0, 921 => 0), 'factor' =>   2, 'max' => 255),
+	31 	=> array('cost' => array(901 => 200, 902 => 400, 903 => 200, 911 => 0, 921 => 0), 'factor' =>   2, 'max' => 255),
+	33 	=> array('cost' => array(901 => 0, 902 => 50000, 903 => 100000, 911 => 1000, 921 => 0), 'factor' =>   2, 'max' => 255),
+	34 	=> array('cost' => array(901 => 20000, 902 => 40000, 903 => 0, 911 => 0, 921 => 0), 'factor' =>   2, 'max' => 255),
+	41 	=> array('cost' => array(901 => 20000, 902 => 40000, 903 => 20000, 911 => 0, 921 => 0), 'factor' =>   2, 'max' => 255),
+	42 	=> array('cost' => array(901 => 20000, 902 => 40000, 903 => 20000, 911 => 0, 921 => 0), 'factor' =>   2, 'max' => 255),
+	43 	=> array('cost' => array(901 => 2000000, 902 => 4000000, 903 => 2000000, 911 => 0, 921 => 0), 'factor' =>   2, 'max' => 255),
+	44 	=> array('cost' => array(901 => 20000, 902 => 20000, 903 => 1000, 911 => 0, 921 => 0), 'factor' =>   2, 'max' => 255),
 
 	// Tech
-	106 => array('metal' =>     200, 'crystal' =>    1000, 'deuterium' =>     200, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' =>   2, 'max' => 255),
-	108 => array('metal' =>       0, 'crystal' =>     400, 'deuterium' =>     600, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' =>   2, 'max' => 255),
-	109 => array('metal' =>     800, 'crystal' =>     200, 'deuterium' =>       0, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' =>   2, 'max' => 255),
-	110 => array('metal' =>     200, 'crystal' =>     600, 'deuterium' =>       0, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' =>   2, 'max' => 255),
-	111 => array('metal' =>    1000, 'crystal' =>       0, 'deuterium' =>       0, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' =>   2, 'max' => 255),
-	113 => array('metal' =>       0, 'crystal' =>     800, 'deuterium' =>     400, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' =>   2, 'max' => 255),
-	114 => array('metal' =>       0, 'crystal' =>    4000, 'deuterium' =>    2000, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' =>   2, 'max' => 255),
-	115 => array('metal' =>     400, 'crystal' =>       0, 'deuterium' =>     600, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' =>   2, 'max' => 255),
-	117 => array('metal' =>    2000, 'crystal' =>    4000, 'deuterium' =>    600,  'energy_max' =>      0, 'darkmatter' =>  0, 'factor' =>   2, 'max' => 255),
-	118 => array('metal' =>   10000, 'crystal' =>   20000, 'deuterium' =>    6000, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' =>   2, 'max' => 255),
-	120 => array('metal' =>     200, 'crystal' =>     100, 'deuterium' =>       0, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' =>   2, 'max' => 255),
-	121 => array('metal' =>    1000, 'crystal' =>     300, 'deuterium' =>     100, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' =>   2, 'max' => 255),
-	122 => array('metal' =>    2000, 'crystal' =>    4000, 'deuterium' =>    1000, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' =>   2, 'max' => 255),
-	123 => array('metal' =>  240000, 'crystal' =>  400000, 'deuterium' =>  160000, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' =>   2, 'max' => 255),
-	131 => array('metal' =>     750, 'crystal' =>     500, 'deuterium' =>     250, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' =>   2, 'max' => 255),
-	132 => array('metal' =>    1000, 'crystal' =>     750, 'deuterium' =>     500, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' =>   2, 'max' => 255),
-	133 => array('metal' =>    1250, 'crystal' =>    1000, 'deuterium' =>     750, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' =>   2, 'max' => 255),
-	124 => array('metal' =>    4000, 'crystal' =>    8000, 'deuterium' =>    4000, 'energy_max' =>      0, 'darkmatter' =>  0, 'factor' =>   2, 'max' => 255),
-	199 => array('metal' =>       0, 'crystal' =>       0, 'deuterium' =>       0, 'energy_max' => 300000, 'darkmatter' =>  0, 'factor' =>   3, 'max' => 255),
+	106 => array('cost' => array(901 => 200, 902 => 1000, 903 => 200, 911 => 0, 921 => 0), 'factor' =>   2, 'max' => 255),
+	108 => array('cost' => array(901 => 0, 902 => 400, 903 => 600, 911 => 0, 921 => 0), 'factor' =>   2, 'max' => 255),
+	109 => array('cost' => array(901 => 800, 902 => 200, 903 => 0, 911 => 0, 921 => 0), 'factor' =>   2, 'max' => 255),
+	110 => array('cost' => array(901 => 200, 902 => 600, 903 => 0, 911 => 0, 921 => 0), 'factor' =>   2, 'max' => 255),
+	111 => array('cost' => array(901 => 1000, 902 => 0, 903 => 0, 911 => 0, 921 => 0), 'factor' =>   2, 'max' => 255),
+	113 => array('cost' => array(901 => 0, 902 => 800, 903 => 400, 911 => 0, 921 => 0), 'factor' =>   2, 'max' => 255),
+	114 => array('cost' => array(901 => 0, 902 => 4000, 903 => 2000, 911 => 0, 921 => 0), 'factor' =>   2, 'max' => 255),
+	115 => array('cost' => array(901 => 400, 902 => 0, 903 => 600, 911 => 0, 921 => 0), 'factor' =>   2, 'max' => 255),
+	117 => array('cost' => array(901 => 2000, 902 => 4000, 903 => 600, 911 => 0, 921 => 0), 'factor' =>   2, 'max' => 255),
+	118 => array('cost' => array(901 => 10000, 902 => 20000, 903 => 6000, 911 => 0, 921 => 0), 'factor' =>   2, 'max' => 255),
+	120 => array('cost' => array(901 => 200, 902 => 100, 903 => 0, 911 => 0, 921 => 0), 'factor' =>   2, 'max' => 255),
+	121 => array('cost' => array(901 => 1000, 902 => 300, 903 => 100, 911 => 0, 921 => 0), 'factor' =>   2, 'max' => 255),
+	122 => array('cost' => array(901 => 2000, 902 => 4000, 903 => 1000, 911 => 0, 921 => 0), 'factor' =>   2, 'max' => 255),
+	123 => array('cost' => array(901 => 240000, 902 => 400000, 903 => 160000, 911 => 0, 921 => 0), 'factor' =>   2, 'max' => 255),
+	131 => array('cost' => array(901 => 750, 902 => 500, 903 => 250, 911 => 0, 921 => 0), 'factor' =>   2, 'max' => 255),
+	132 => array('cost' => array(901 => 1000, 902 => 750, 903 => 500, 911 => 0, 921 => 0), 'factor' =>   2, 'max' => 255),
+	133 => array('cost' => array(901 => 1250, 902 => 1000, 903 => 750, 911 => 0, 921 => 0), 'factor' =>   2, 'max' => 255),
+	124 => array('cost' => array(901 => 4000, 902 => 8000, 903 => 4000, 911 => 0, 921 => 0), 'factor' =>   2, 'max' => 255),
+	199 => array('cost' => array(901 => 0, 902 => 0, 903 => 0, 911 => 300000, 921 => 0), 'factor' =>   3, 'max' => 255),
 
 	// Fleets
-	202 => array('metal' =>      2000, 'crystal' =>      2000, 'deuterium' =>        0, 'energy_max' => 0, 'darkmatter' =>  0, 'factor' => 1, 'consumption' =>     10, 'consumption2' => 20  , 'speed' =>      5000, 'speed2' =>     10000, 'capacity' =>      5000, 'tech'	=> 4),
-	203 => array('metal' =>      6000, 'crystal' =>      6000, 'deuterium' =>        0, 'energy_max' => 0, 'darkmatter' =>  0, 'factor' => 1, 'consumption' =>     50, 'consumption2' => 50  , 'speed' =>      7500, 'speed2' =>      7500, 'capacity' =>     25000, 'tech'	=> 1),
-	204 => array('metal' =>      3000, 'crystal' =>      1000, 'deuterium' =>        0, 'energy_max' => 0, 'darkmatter' =>  0, 'factor' => 1, 'consumption' =>     20, 'consumption2' => 20  , 'speed' =>     12500, 'speed2' =>     12500, 'capacity' =>        50, 'tech'	=> 1),
-	205 => array('metal' =>      6000, 'crystal' =>      4000, 'deuterium' =>        0, 'energy_max' => 0, 'darkmatter' =>  0, 'factor' => 1, 'consumption' =>     75, 'consumption2' => 75  , 'speed' =>     10000, 'speed2' =>     15000, 'capacity' =>       100, 'tech'	=> 2),
-	206 => array('metal' =>     20000, 'crystal' =>      7000, 'deuterium' =>     2000, 'energy_max' => 0, 'darkmatter' =>  0, 'factor' => 1, 'consumption' =>    300, 'consumption2' => 300 , 'speed' =>     15000, 'speed2' =>     15000, 'capacity' =>       800, 'tech'	=> 2),
-	207 => array('metal' =>     45000, 'crystal' =>     15000, 'deuterium' =>        0, 'energy_max' => 0, 'darkmatter' =>  0, 'factor' => 1, 'consumption' =>    250, 'consumption2' => 250 , 'speed' =>     10000, 'speed2' =>     10000, 'capacity' =>      1500, 'tech'	=> 3),
-	208 => array('metal' =>     10000, 'crystal' =>     20000, 'deuterium' =>    10000, 'energy_max' => 0, 'darkmatter' =>  0, 'factor' => 1, 'consumption' =>   1000, 'consumption2' => 1000, 'speed' =>      2500, 'speed2' =>      2500, 'capacity' =>      7500, 'tech'	=> 2),
-	209 => array('metal' =>     10000, 'crystal' =>      6000, 'deuterium' =>     2000, 'energy_max' => 0, 'darkmatter' =>  0, 'factor' => 1, 'consumption' =>    300, 'consumption2' => 300 , 'speed' =>      2000, 'speed2' =>      2000, 'capacity' =>     20000, 'tech'	=> 1),
-	210 => array('metal' =>         0, 'crystal' =>      1000, 'deuterium' =>        0, 'energy_max' => 0, 'darkmatter' =>  0, 'factor' => 1, 'consumption' =>      1, 'consumption2' => 1   , 'speed' => 100000000, 'speed2' => 100000000, 'capacity' =>         5, 'tech'	=> 1),
-	211 => array('metal' =>     50000, 'crystal' =>     25000, 'deuterium' =>    15000, 'energy_max' => 0, 'darkmatter' =>  0, 'factor' => 1, 'consumption' =>   1000, 'consumption2' => 1000, 'speed' =>      4000, 'speed2' =>      5000, 'capacity' =>       500, 'tech'	=> 5),
-	212 => array('metal' =>         0, 'crystal' =>      2000, 'deuterium' =>      500, 'energy_max' => 0, 'darkmatter' =>  0, 'factor' => 1, 'consumption' =>      0, 'consumption2' => 0   , 'speed' =>         0, 'speed2' =>         0, 'capacity' =>         0, 'tech'	=> 0),
-	213 => array('metal' =>     60000, 'crystal' =>     50000, 'deuterium' =>    15000, 'energy_max' => 0, 'darkmatter' =>  0, 'factor' => 1, 'consumption' =>   1000, 'consumption2' => 1000, 'speed' =>      5000, 'speed2' =>      5000, 'capacity' =>      2000, 'tech'	=> 3),
-	214 => array('metal' =>   5000000, 'crystal' =>   4000000, 'deuterium' =>  1000000, 'energy_max' => 0, 'darkmatter' =>  0, 'factor' => 1, 'consumption' =>      1, 'consumption2' => 1   , 'speed' =>       200, 'speed2' =>       200, 'capacity' =>   1000000, 'tech'	=> 3),
-	215 => array('metal' =>     30000, 'crystal' =>     40000, 'deuterium' =>    15000, 'energy_max' => 0, 'darkmatter' =>  0, 'factor' => 1, 'consumption' =>    250, 'consumption2' => 250 , 'speed' =>     10000, 'speed2' =>     10000, 'capacity' =>       750, 'tech'	=> 3),
-	216 => array('metal' =>   8000000, 'crystal' =>   2000000, 'deuterium' =>  1500000, 'energy_max' => 0, 'darkmatter' =>  0, 'factor' => 1, 'consumption' =>    250, 'consumption2' => 250 , 'speed' =>       900, 'speed2' =>       900, 'capacity' =>  15000000, 'tech'	=> 3),
-	217 => array('metal' =>     35000, 'crystal' =>     20000, 'deuterium' =>     1500, 'energy_max' => 0, 'darkmatter' =>  0, 'factor' => 1, 'consumption' =>     90, 'consumption2' =>     90, 'speed' =>    6000, 'speed2' =>      6000, 'capacity' => 400000000, 'tech'	=> 3),
-	218 => array('metal' => 275000000, 'crystal' => 130000000, 'deuterium' => 60000000, 'energy_max' => 0, 'darkmatter' =>  0, 'factor' => 1, 'consumption' =>  10000, 'consumption2' =>  10000, 'speed' =>      10, 'speed2' =>        10, 'capacity' =>  50000000, 'tech'	=> 3),
-	219 => array('metal' =>   1000000, 'crystal' =>    600000, 'deuterium' =>   200000, 'energy_max' => 0, 'darkmatter' =>  0, 'factor' => 1, 'consumption' =>    300, 'consumption2' =>    300, 'speed' =>    7500, 'speed2' =>      7500, 'capacity' => 200000000, 'tech'	=> 3),
-	220 => array('metal' =>   6000000, 'crystal' =>   7000000, 'deuterium' =>  3000000, 'energy_max' => 0, 'darkmatter' =>  0, 'factor' => 1, 'consumption' => 100000, 'consumption2' => 100000, 'speed' =>     100, 'speed2' =>       100, 'capacity' =>   6000000, 'tech'	=> 3),
+	202 => array('cost' => array(901 => 2000, 902 => 2000, 903 => 0, 911 => 0, 921 => 0), 'factor' => 1, 'consumption' =>     10, 'consumption2' => 20  , 'speed' =>      5000, 'speed2' =>     10000, 'capacity' =>      5000, 'tech'	=> 4),
+	203 => array('cost' => array(901 => 6000, 902 => 6000, 903 => 0, 911 => 0, 921 => 0), 'factor' => 1, 'consumption' =>     50, 'consumption2' => 50  , 'speed' =>      7500, 'speed2' =>      7500, 'capacity' =>     25000, 'tech'	=> 1),
+	204 => array('cost' => array(901 => 3000, 902 => 1000, 903 => 0, 911 => 0, 921 => 0), 'factor' => 1, 'consumption' =>     20, 'consumption2' => 20  , 'speed' =>     12500, 'speed2' =>     12500, 'capacity' =>        50, 'tech'	=> 1),
+	205 => array('cost' => array(901 => 6000, 902 => 4000, 903 => 0, 911 => 0, 921 => 0), 'factor' => 1, 'consumption' =>     75, 'consumption2' => 75  , 'speed' =>     10000, 'speed2' =>     15000, 'capacity' =>       100, 'tech'	=> 2),
+	206 => array('cost' => array(901 => 20000, 902 => 7000, 903 => 2000, 911 => 0, 921 => 0), 'factor' => 1, 'consumption' =>    300, 'consumption2' => 300 , 'speed' =>     15000, 'speed2' =>     15000, 'capacity' =>       800, 'tech'	=> 2),
+	207 => array('cost' => array(901 => 45000, 902 => 15000, 903 => 0, 911 => 0, 921 => 0), 'factor' => 1, 'consumption' =>    250, 'consumption2' => 250 , 'speed' =>     10000, 'speed2' =>     10000, 'capacity' =>      1500, 'tech'	=> 3),
+	208 => array('cost' => array(901 => 10000, 902 => 20000, 903 => 10000, 911 => 0, 921 => 0), 'factor' => 1, 'consumption' =>   1000, 'consumption2' => 1000, 'speed' =>      2500, 'speed2' =>      2500, 'capacity' =>      7500, 'tech'	=> 2),
+	209 => array('cost' => array(901 => 10000, 902 => 6000, 903 => 2000, 911 => 0, 921 => 0), 'factor' => 1, 'consumption' =>    300, 'consumption2' => 300 , 'speed' =>      2000, 'speed2' =>      2000, 'capacity' =>     20000, 'tech'	=> 1),
+	210 => array('cost' => array(901 => 0, 902 => 1000, 903 => 0, 911 => 0, 921 => 0), 'factor' => 1, 'consumption' =>      1, 'consumption2' => 1   , 'speed' => 100000000, 'speed2' => 100000000, 'capacity' =>         5, 'tech'	=> 1),
+	211 => array('cost' => array(901 => 50000, 902 => 25000, 903 => 15000, 911 => 0, 921 => 0), 'factor' => 1, 'consumption' =>   1000, 'consumption2' => 1000, 'speed' =>      4000, 'speed2' =>      5000, 'capacity' =>       500, 'tech'	=> 5),
+	212 => array('cost' => array(901 => 0, 902 => 2000, 903 => 500, 911 => 0, 921 => 0), 'factor' => 1, 'consumption' =>      0, 'consumption2' => 0   , 'speed' =>         0, 'speed2' =>         0, 'capacity' =>         0, 'tech'	=> 0),
+	213 => array('cost' => array(901 => 60000, 902 => 50000, 903 => 15000, 911 => 0, 921 => 0), 'factor' => 1, 'consumption' =>   1000, 'consumption2' => 1000, 'speed' =>      5000, 'speed2' =>      5000, 'capacity' =>      2000, 'tech'	=> 3),
+	214 => array('cost' => array(901 => 5000000, 902 => 4000000, 903 => 1000000, 911 => 0, 921 => 0), 'factor' => 1, 'consumption' =>      1, 'consumption2' => 1   , 'speed' =>       200, 'speed2' =>       200, 'capacity' =>   1000000, 'tech'	=> 3),
+	215 => array('cost' => array(901 => 30000, 902 => 40000, 903 => 15000, 911 => 0, 921 => 0), 'factor' => 1, 'consumption' =>    250, 'consumption2' => 250 , 'speed' =>     10000, 'speed2' =>     10000, 'capacity' =>       750, 'tech'	=> 3),
+	216 => array('cost' => array(901 => 8000000, 902 => 2000000, 903 => 1500000, 911 => 0, 921 => 0), 'factor' => 1, 'consumption' =>    250, 'consumption2' => 250 , 'speed' =>       900, 'speed2' =>       900, 'capacity' =>  15000000, 'tech'	=> 3),
+	217 => array('cost' => array(901 => 35000, 902 => 20000, 903 => 1500, 911 => 0, 921 => 0), 'factor' => 1, 'consumption' =>     90, 'consumption2' =>     90, 'speed' =>    6000, 'speed2' =>      6000, 'capacity' => 400000000, 'tech'	=> 3),
+	218 => array('cost' => array(901 => 275000000, 902 => 130000000, 903 => 60000000, 911 => 0, 921 => 0), 'factor' => 1, 'consumption' =>  10000, 'consumption2' =>  10000, 'speed' =>      10, 'speed2' =>        10, 'capacity' =>  50000000, 'tech'	=> 3),
+	219 => array('cost' => array(901 => 1000000, 902 => 600000, 903 => 200000, 911 => 0, 921 => 0), 'factor' => 1, 'consumption' =>    300, 'consumption2' =>    300, 'speed' =>    7500, 'speed2' =>      7500, 'capacity' => 200000000, 'tech'	=> 3),
+	220 => array('cost' => array(901 => 6000000, 902 => 7000000, 903 => 3000000, 911 => 0, 921 => 0), 'factor' => 1, 'consumption' => 100000, 'consumption2' => 100000, 'speed' =>     100, 'speed2' =>       100, 'capacity' =>   6000000, 'tech'	=> 3),
 
 	// Defensive
-	401 => array('metal' =>       2000, 'crystal' =>          0, 'deuterium' =>         0, 'energy_max' => 0, 'darkmatter' =>  0, 'factor' => 1 ),
-	402 => array('metal' =>       1500, 'crystal' =>        500, 'deuterium' =>         0, 'energy_max' => 0, 'darkmatter' =>  0, 'factor' => 1 ),
-	403 => array('metal' =>       6000, 'crystal' =>       2000, 'deuterium' =>         0, 'energy_max' => 0, 'darkmatter' =>  0, 'factor' => 1 ),
-	404 => array('metal' =>      20000, 'crystal' =>      15000, 'deuterium' =>      2000, 'energy_max' => 0, 'darkmatter' =>  0, 'factor' => 1 ),
-	405 => array('metal' =>       2000, 'crystal' =>       6000, 'deuterium' =>         0, 'energy_max' => 0, 'darkmatter' =>  0, 'factor' => 1 ),
-	406 => array('metal' =>      50000, 'crystal' =>      50000, 'deuterium' =>     30000, 'energy_max' => 0, 'darkmatter' =>  0, 'factor' => 1 ),
-	407 => array('metal' =>      10000, 'crystal' =>      10000, 'deuterium' =>         0, 'energy_max' => 0, 'darkmatter' =>  0, 'factor' => 1 ),
-	408 => array('metal' =>      50000, 'crystal' =>      50000, 'deuterium' =>         0, 'energy_max' => 0, 'darkmatter' =>  0, 'factor' => 1 ),
-	409 => array('metal' =>   10000000, 'crystal' =>    5000000, 'deuterium' =>   2500000, 'energy_max' => 0, 'darkmatter' =>  0, 'factor' => 1 ),
-	410 => array('metal' =>   15000000, 'crystal' =>   15000000, 'deuterium' =>         0, 'energy_max' => 0, 'darkmatter' =>  0, 'factor' => 1 ),
-	411 => array('metal' => 5000000000, 'crystal' => 2000000000, 'deuterium' => 500000000, 'energy_max' => 1000000, 'darkmatter' =>  10000, 'factor' => 1 ),         
+	401 => array('cost' => array(901 => 2000, 902 => 0, 903 => 0, 911 => 0, 921 => 0), 'factor' => 1 ),
+	402 => array('cost' => array(901 => 1500, 902 => 500, 903 => 0, 911 => 0, 921 => 0), 'factor' => 1 ),
+	403 => array('cost' => array(901 => 6000, 902 => 2000, 903 => 0, 911 => 0, 921 => 0), 'factor' => 1 ),
+	404 => array('cost' => array(901 => 20000, 902 => 15000, 903 => 2000, 911 => 0, 921 => 0), 'factor' => 1 ),
+	405 => array('cost' => array(901 => 2000, 902 => 6000, 903 => 0, 911 => 0, 921 => 0), 'factor' => 1 ),
+	406 => array('cost' => array(901 => 50000, 902 => 50000, 903 => 30000, 911 => 0, 921 => 0), 'factor' => 1 ),
+	407 => array('cost' => array(901 => 10000, 902 => 10000, 903 => 0, 911 => 0, 921 => 0), 'factor' => 1 ),
+	408 => array('cost' => array(901 => 50000, 902 => 50000, 903 => 0, 911 => 0, 921 => 0), 'factor' => 1 ),
+	409 => array('cost' => array(901 => 10000000, 902 => 5000000, 903 => 2500000, 911 => 0, 921 => 0), 'factor' => 1 ),
+	410 => array('cost' => array(901 => 15000000, 902 => 15000000, 903 => 0, 911 => 0, 921 => 0), 'factor' => 1 ),
+	411 => array('cost' => array(901 => 5000000000, 902 => 2000000000, 903 => 500000000, 911 => 1000000, 921 => 10000), 'factor' => 1 ),         
 	
 	// Missils
-	502 => array('metal' =>   8000, 'crystal' =>       0, 'deuterium' =>    2000, 'energy_max' => 0, 'darkmatter' =>  0, 'factor' => 1 ),
-	503 => array('metal' =>  12500, 'crystal' =>    2500, 'deuterium' =>   10000, 'energy_max' => 0, 'darkmatter' =>  0, 'factor' => 1 ),
+	502 => array('cost' => array(901 => 8000, 902 => 0, 903 => 2000, 911 => 0, 921 => 0), 'factor' => 1 ),
+	503 => array('cost' => array(901 => 12500, 902 => 2500, 903 => 10000, 911 => 0, 921 => 0), 'factor' => 1 ),
 
 	// Officier
-	601 => array('metal' =>      0, 'crystal' =>       0, 'deuterium' =>       0, 'energy_max' => 0, 'darkmatter' => 1000, 'factor' => 1, 'max' =>  20, 'info' => 0.05),
-	602 => array('metal' =>      0, 'crystal' =>       0, 'deuterium' =>       0, 'energy_max' => 0, 'darkmatter' => 1000, 'factor' => 1, 'max' =>  20, 'info' => 0.05),
-	603 => array('metal' =>      0, 'crystal' =>       0, 'deuterium' =>       0, 'energy_max' => 0, 'darkmatter' => 1000, 'factor' => 1, 'max' =>  10, 'info' => 0.05),
-	604 => array('metal' =>      0, 'crystal' =>       0, 'deuterium' =>       0, 'energy_max' => 0, 'darkmatter' => 1000, 'factor' => 1, 'max' =>  10, 'info' => 0.05),
-	605 => array('metal' =>      0, 'crystal' =>       0, 'deuterium' =>       0, 'energy_max' => 0, 'darkmatter' => 1000, 'factor' => 1, 'max' =>   3, 'info' => 0.1),
-	606 => array('metal' =>      0, 'crystal' =>       0, 'deuterium' =>       0, 'energy_max' => 0, 'darkmatter' => 1000, 'factor' => 1, 'max' =>   3, 'info' => 0.1),
-	607 => array('metal' =>      0, 'crystal' =>       0, 'deuterium' =>       0, 'energy_max' => 0, 'darkmatter' => 1000, 'factor' => 1, 'max' =>   2, 'info' => 0.5),
-	608 => array('metal' =>      0, 'crystal' =>       0, 'deuterium' =>       0, 'energy_max' => 0, 'darkmatter' => 1000, 'factor' => 1, 'max' =>   2, 'info' => 0.25),
-	609 => array('metal' =>      0, 'crystal' =>       0, 'deuterium' =>       0, 'energy_max' => 0, 'darkmatter' => 1000, 'factor' => 1, 'max' =>   1, 'info' => false),
-	610 => array('metal' =>      0, 'crystal' =>       0, 'deuterium' =>       0, 'energy_max' => 0, 'darkmatter' => 1000, 'factor' => 1, 'max' =>   2, 'info' => 5),
-	611 => array('metal' =>      0, 'crystal' =>       0, 'deuterium' =>       0, 'energy_max' => 0, 'darkmatter' => 1000, 'factor' => 1, 'max' =>   3, 'info' => 3),
-	612 => array('metal' =>      0, 'crystal' =>       0, 'deuterium' =>       0, 'energy_max' => 0, 'darkmatter' => 1000, 'factor' => 1, 'max' =>   1, 'info' => false),
-	613 => array('metal' =>      0, 'crystal' =>       0, 'deuterium' =>       0, 'energy_max' => 0, 'darkmatter' => 1000, 'factor' => 1, 'max' =>   3, 'info' => 0.10),
-	614 => array('metal' =>      0, 'crystal' =>       0, 'deuterium' =>       0, 'energy_max' => 0, 'darkmatter' => 1000, 'factor' => 1, 'max' =>   1, 'info' => false),
-	615 => array('metal' =>      0, 'crystal' =>       0, 'deuterium' =>       0, 'energy_max' => 0, 'darkmatter' => 1000, 'factor' => 1, 'max' =>   1, 'info' => false),
+	601 => array('cost' => array(901 => 0, 902 => 0, 903 => 0, 911 => 0, 921 => 1000), 'factor' => 1, 'max' =>  20, 'info' => 0.05),
+	602 => array('cost' => array(901 => 0, 902 => 0, 903 => 0, 911 => 0, 921 => 1000), 'factor' => 1, 'max' =>  20, 'info' => 0.05),
+	603 => array('cost' => array(901 => 0, 902 => 0, 903 => 0, 911 => 0, 921 => 1000), 'factor' => 1, 'max' =>  10, 'info' => 0.05),
+	604 => array('cost' => array(901 => 0, 902 => 0, 903 => 0, 911 => 0, 921 => 1000), 'factor' => 1, 'max' =>  10, 'info' => 0.05),
+	605 => array('cost' => array(901 => 0, 902 => 0, 903 => 0, 911 => 0, 921 => 1000), 'factor' => 1, 'max' =>   3, 'info' => 0.1),
+	606 => array('cost' => array(901 => 0, 902 => 0, 903 => 0, 911 => 0, 921 => 1000), 'factor' => 1, 'max' =>   3, 'info' => 0.1),
+	607 => array('cost' => array(901 => 0, 902 => 0, 903 => 0, 911 => 0, 921 => 1000), 'factor' => 1, 'max' =>   2, 'info' => 0.5),
+	608 => array('cost' => array(901 => 0, 902 => 0, 903 => 0, 911 => 0, 921 => 1000), 'factor' => 1, 'max' =>   2, 'info' => 0.25),
+	609 => array('cost' => array(901 => 0, 902 => 0, 903 => 0, 911 => 0, 921 => 1000), 'factor' => 1, 'max' =>   1, 'info' => false),
+	610 => array('cost' => array(901 => 0, 902 => 0, 903 => 0, 911 => 0, 921 => 1000), 'factor' => 1, 'max' =>   2, 'info' => 5),
+	611 => array('cost' => array(901 => 0, 902 => 0, 903 => 0, 911 => 0, 921 => 1000), 'factor' => 1, 'max' =>   3, 'info' => 3),
+	612 => array('cost' => array(901 => 0, 902 => 0, 903 => 0, 911 => 0, 921 => 1000), 'factor' => 1, 'max' =>   1, 'info' => false),
+	613 => array('cost' => array(901 => 0, 902 => 0, 903 => 0, 911 => 0, 921 => 1000), 'factor' => 1, 'max' =>   3, 'info' => 0.10),
+	614 => array('cost' => array(901 => 0, 902 => 0, 903 => 0, 911 => 0, 921 => 1000), 'factor' => 1, 'max' =>   1, 'info' => false),
+	615 => array('cost' => array(901 => 0, 902 => 0, 903 => 0, 911 => 0, 921 => 1000), 'factor' => 1, 'max' =>   1, 'info' => false),
 
 	// DM Extras
-	700 => array('time' => 24, 'darkmatter' => 1500, 'add' => 0.1),
-	701 => array('time' => 24, 'darkmatter' => 1500, 'add' => 0.1),
-	702 => array('time' => 24, 'darkmatter' =>  750, 'add' => 0.1),
-	703 => array('time' => 24, 'darkmatter' => 2500, 'add' => 0.1),
-	704 => array('time' => 24, 'darkmatter' => 2000, 'add' => 0.1),
-	705 => array('time' => 24, 'darkmatter' => 1250, 'add' => 0.1),
-	706 => array('time' => 24, 'darkmatter' => 3000, 'add' => 0.1),
+	700 => array('cost' => array(901 => 0, 902 => 0, 903 => 0, 911 => 0, 921 => 1500), 'time' => 86400, 'add' => 0.1),
+	701 => array('cost' => array(901 => 0, 902 => 0, 903 => 0, 911 => 0, 921 => 1500), 'time' => 86400, 'add' => 0.1),
+	702 => array('cost' => array(901 => 0, 902 => 0, 903 => 0, 911 => 0, 921 => 750), 'time' => 86400, 'add' => 0.1),
+	703 => array('cost' => array(901 => 0, 902 => 0, 903 => 0, 911 => 0, 921 => 2500), 'time' => 86400, 'add' => 0.1),
+	704 => array('cost' => array(901 => 0, 902 => 0, 903 => 0, 911 => 0, 921 => 2000), 'time' => 86400, 'add' => 0.1),
+	705 => array('cost' => array(901 => 0, 902 => 0, 903 => 0, 911 => 0, 921 => 1250), 'time' => 86400, 'add' => 0.1),
+	706 => array('cost' => array(901 => 0, 902 => 0, 903 => 0, 911 => 0, 921 => 3000), 'time' => 86400, 'add' => 0.1),
 );
 $CombatCaps = array(
 	202 => array('shield' =>      10, 'attack' =>        5, 'sd' => array (210 =>    5, 212 =>    5)),
@@ -356,57 +362,61 @@ $CombatCaps = array(
 
 $ProdGrid = array(
 	1   => array(
-		'metal'     => 'return (30 * $BuildLevel * pow((1.1), $BuildLevel)) * (0.1 * $BuildLevelFactor);',
-		'crystal'   => 'return 0;',
-		'deuterium' => 'return 0;',
-		'energy'    => 'return - (10 * $BuildLevel * pow((1.1), $BuildLevel)) * (0.1 * $BuildLevelFactor);'
+		901	=> 'return (30 * $BuildLevel * pow((1.1), $BuildLevel)) * (0.1 * $BuildLevelFactor);',
+		902	=> 'return 0;',
+		903	=> 'return 0;',
+		911	=> 'return - (10 * $BuildLevel * pow((1.1), $BuildLevel)) * (0.1 * $BuildLevelFactor);'
 	),
 
 	2   => array(
-		'metal'     => 'return 0;',
-		'crystal'   => 'return (20 * $BuildLevel * pow((1.1), $BuildLevel)) * (0.1 * $BuildLevelFactor);',
-		'deuterium' => 'return 0;',
-		'energy'    => 'return - (10 * $BuildLevel * pow((1.1), $BuildLevel)) * (0.1 * $BuildLevelFactor);'
+		901	=> 'return 0;',
+		902	=> 'return (20 * $BuildLevel * pow((1.1), $BuildLevel)) * (0.1 * $BuildLevelFactor);',
+		903	=> 'return 0;',
+		911	=> 'return - (10 * $BuildLevel * pow((1.1), $BuildLevel)) * (0.1 * $BuildLevelFactor);'
 	),
 
 	3   => array(
-		'metal'     => 'return 0;',
-		'crystal'   => 'return 0;',
-		'deuterium' => 'return (10 * $BuildLevel * pow((1.1), $BuildLevel) * (-0.002 * $BuildTemp + 1.28) * (0.1 * $BuildLevelFactor));',
-		'energy'    => 'return - (30 * $BuildLevel * pow((1.1), $BuildLevel)) * (0.1 * $BuildLevelFactor);'
+		901	=> 'return 0;',
+		902	=> 'return 0;',
+		903	=> 'return (10 * $BuildLevel * pow((1.1), $BuildLevel) * (-0.002 * $BuildTemp + 1.28) * (0.1 * $BuildLevelFactor));',
+		911	=> 'return - (30 * $BuildLevel * pow((1.1), $BuildLevel)) * (0.1 * $BuildLevelFactor);'
 	),
 
 	4   => array(
-		'metal'     => 'return 0;',
-		'crystal'   => 'return 0;',
-		'deuterium' => 'return 0;',
-		'energy'    => 'return (20 * $BuildLevel * pow((1.1), $BuildLevel)) * (0.1 * $BuildLevelFactor);'
+		901	=> 'return 0;',
+		902	=> 'return 0;',
+		903	=> 'return 0;',
+		911	=> 'return (20 * $BuildLevel * pow((1.1), $BuildLevel)) * (0.1 * $BuildLevelFactor);'
 	),
 
 	12  => array(
-		'metal'     => 'return 0;',
-		'crystal'   => 'return 0;',
-		'deuterium' => 'return - (10 * $BuildLevel * pow(1.1,$BuildLevel) * (0.1 * $BuildLevelFactor));',
-		'energy'    => 'return (30 * $BuildLevel * pow((1.05 + $BuildEnergy * 0.01), $BuildLevel)) * (0.1 * $BuildLevelFactor);'
+		901	=> 'return 0;',
+		902	=> 'return 0;',
+		903	=> 'return - (10 * $BuildLevel * pow(1.1,$BuildLevel) * (0.1 * $BuildLevelFactor));',
+		911	=> 'return (30 * $BuildLevel * pow((1.05 + $BuildEnergy * 0.01), $BuildLevel)) * (0.1 * $BuildLevelFactor);'
 	),
 
 	212 => array(
-		'metal'     => 'return 0;',
-		'crystal'   => 'return 0;',
-		'deuterium' => 'return 0;',
-		'energy'    => 'return ((($BuildTemp + 160) / 6) * (0.1 * $BuildLevelFactor) * $BuildLevel);'
+		901	=> 'return 0;',
+		902	=> 'return 0;',
+		903	=> 'return 0;',
+		911	=> 'return ((($BuildTemp + 160) / 6) * (0.1 * $BuildLevelFactor) * $BuildLevel);'
 	)
 );
 
-$reslist['allow']    = array(1 => array(1,  2,  3,  4,  6, 12, 14, 15, 21, 22, 23, 24, 31, 33, 34, 44), 3 => array(12, 14, 21, 22, 23, 24, 34, 41, 42, 43));
-$reslist['build']    = array(  1,   2,   3,   4,   6,  12,  14,  15,  21,  22,  23,  24,  31,  33,  34,  44,  41,  42,  43);
-$reslist['tech']     = array(106, 108, 109, 110, 111, 113, 114, 115, 117, 118, 120, 121, 122, 123, 124, 131, 132, 133, 199);
-$reslist['fleet']    = array(202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220);
-$reslist['defense']  = array(401, 402, 403, 404, 405, 406, 407, 408, 409, 410, 411, 502, 503 );
-$reslist['officier'] = array(601, 602, 603, 604, 605, 606, 607, 608, 609, 610, 611, 612, 613, 614, 615);
-$reslist['dmfunc'] 	 = array(700, 701, 702, 703, 704, 705, 706);
-$reslist['prod']     = array(  1,   2,   3,   4,  12, 212 );
-$reslist['procent']  = array(100,  90,  80,  70,  60,  50,  40,  30,  20,  10,   0);
-$reslist['one']  	 = array(407, 408, 409, 411);
+$reslist['allow']		= array(1 => array(1,  2,  3,  4,  6, 12, 14, 15, 21, 22, 23, 24, 31, 33, 34, 44), 3 => array(12, 14, 21, 22, 23, 24, 34, 41, 42, 43));
+$reslist['build']		= array(  1,   2,   3,   4,   6,  12,  14,  15,  21,  22,  23,  24,  31,  33,  34,  44,  41,  42,  43);
+$reslist['tech']		= array(106, 108, 109, 110, 111, 113, 114, 115, 117, 118, 120, 121, 122, 123, 124, 131, 132, 133, 199);
+$reslist['fleet']		= array(202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220);
+$reslist['defense']		= array(401, 402, 403, 404, 405, 406, 407, 408, 409, 410, 411, 502, 503 );
+$reslist['officier']	= array(601, 602, 603, 604, 605, 606, 607, 608, 609, 610, 611, 612, 613, 614, 615);
+$reslist['dmfunc']		= array(700, 701, 702, 703, 704, 705, 706);
+$reslist['ressources']	= array(901, 902, 903, 911, 921);	# Do not edit this line.
+$reslist['resstype'][1]	= array(901, 902, 903);				# Do not edit this line.
+$reslist['resstype'][2]	= array(911);						# Do not edit this line.
+$reslist['resstype'][3]	= array(921); 						# Do not edit this line.
+$reslist['prod']		= array(  1,   2,   3,   4,  12, 212 );
+$reslist['procent']		= array(100,  90,  80,  70,  60,  50,  40,  30,  20,  10,   0);
+$reslist['one']			= array(407, 408, 409, 411);
 
 ?>

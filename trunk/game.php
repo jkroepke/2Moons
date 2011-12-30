@@ -30,10 +30,8 @@
 define('INSIDE'  , true);
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 
-require_once(ROOT_PATH.'includes/functions/GetBuildingPrice.php');
-require_once(ROOT_PATH.'includes/functions/GetBuildingTime.php');
-require_once(ROOT_PATH.'includes/functions/IsElementBuyable.php');
-require(ROOT_PATH . 'includes/common.php');
+require(ROOT_PATH.'includes/classes/class.BuildFunctions.php');
+require(ROOT_PATH.'includes/common.php');
 	
 $page = request_var('page','');
 switch($page)
@@ -45,14 +43,14 @@ switch($page)
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'galaxy':
-		if(CheckModule(11))
+		if(!isModulAvalible(MODUL_GALAXY))
 			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/class.ShowGalaxyPage.php');
 		$ShowGalaxyPage = new ShowGalaxyPage();
 	break;
 	case 'phalanx':
-		if(CheckModule(19))
+		if(!isModulAvalible(MODUL_PHALANX))
 			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/ShowPhalanxPage.php');
@@ -60,7 +58,7 @@ switch($page)
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'imperium':
-		if(CheckModule(15))
+		if(!isModulAvalible(MODUL_IMPERIUM))
 			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/ShowImperiumPage.php');
@@ -68,42 +66,44 @@ switch($page)
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'fleet':
-		if(CheckModule(9))
+		if(!isModulAvalible(MODUL_FLEET_TABLE))
 			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
-		include_once(ROOT_PATH . 'includes/pages/class.ShowFleetPages.php');
-		ShowFleetPages::ShowFleetPage();
+		include_once(ROOT_PATH . 'includes/pages/class.ShowFleetTablePage.php');
+		$pageObj	= new ShowFleetTablePage;
+		$pageObj->show();
 	break;
 	case 'fleet1':
-		if(CheckModule(9))
+		if(!isModulAvalible(MODUL_FLEET_TABLE))
 			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
-		include_once(ROOT_PATH . 'includes/pages/class.ShowFleetPages.php');
-		ShowFleetPages::ShowFleet1Page();
+		include_once(ROOT_PATH . 'includes/pages/class.ShowFleetStep1Page.php');
+		$pageObj	= new ShowFleetStep1Page;
+		$pageObj->show();
 	break;
 	case 'fleet2':
-		if(CheckModule(9))
+		if(!isModulAvalible(MODUL_FLEET_TABLE))
 			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
-		include_once(ROOT_PATH . 'includes/pages/class.ShowFleetPages.php');
-		ShowFleetPages::ShowFleet2Page();
+		include_once(ROOT_PATH . 'includes/pages/class.ShowFleetStep2Page.php');
+		$pageObj	= new ShowFleetStep2Page;
+		$pageObj->show();
 	break;
 	case 'fleet3':
-		if(CheckModule(9))
+		if(!isModulAvalible(MODUL_FLEET_TABLE))
 			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
-		include_once(ROOT_PATH . 'includes/pages/class.ShowFleetPages.php');
-		ShowFleetPages::ShowFleet3Page();
+		include_once(ROOT_PATH . 'includes/pages/class.ShowFleetStep3Page.php');
+		$pageObj	= new ShowFleetStep3Page;
+		$pageObj->show();
 	break;
 	case 'fleetajax':
-		if(CheckModule(9) || CheckModule(24))
-			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
-			
-		include_once(ROOT_PATH . 'includes/pages/class.ShowFleetPages.php');
-		ShowFleetPages::FleetAjax();
+		include_once(ROOT_PATH . 'includes/pages/class.ShowFleetAjaxPage.php');
+		$pageObj	= new ShowFleetAjaxPage;
+		$pageObj->show();
 	break;
 	case 'missiles':
-		if(CheckModule(9) || CheckModule(1))
+		if(!isModulAvalible(MODUL_FLEET_TABLE) || !isModulAvalible(MODUL_MISSION_ATTACK))
 			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/class.ShowFleetPages.php');
@@ -115,40 +115,42 @@ switch($page)
 		switch ($mode)
 		{
 			case 'research':
-				if(CheckModule(3))
+				if(!isModulAvalible(MODUL_RESEARCH))
 					message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 				
 				include_once(ROOT_PATH . 'includes/pages/class.ShowResearchPage.php');
-				new ShowResearchPage();
+				$pageObj	= new ShowResearchPage;
+				$pageObj->show();
 			break;
 			case 'fleet':
-				if(CheckModule(4))
+				if(!isModulAvalible(MODUL_SHIPYARD_FLEET))
 					message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 				
 				include_once(ROOT_PATH . 'includes/pages/class.ShowShipyardPage.php');
-				$FleetBuildingPage = new ShowShipyardPage();
-				$FleetBuildingPage->FleetBuildingPage ();
+				$pageObj	= new ShowShipyardPage;
+				$pageObj->FleetBuildingPage();
 			break;
 			case 'defense':
-				if(CheckModule(5))
+				if(!isModulAvalible(MODUL_SHIPYARD_DEFENSIVE))
 					message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 				
 				include_once(ROOT_PATH . 'includes/pages/class.ShowShipyardPage.php');
-				$DefensesBuildingPage = new ShowShipyardPage();
-				$DefensesBuildingPage->DefensesBuildingPage ();
+				$pageObj	= new ShowShipyardPage;
+				$pageObj->DefensesBuildingPage();
 			break;
 			default:
-				if(CheckModule(2))
+				if(!isModulAvalible(MODUL_BUILDING))
 					message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 				
 				include_once(ROOT_PATH . 'includes/pages/class.ShowBuildingsPage.php');
-				new ShowBuildingsPage();
+				$pageObj	= new ShowBuildingsPage;
+				$pageObj->show();
 			break;
 		}
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'resources':
-		if(CheckModule(23))
+		if(!isModulAvalible(MODUL_RESSOURCE_LIST))
 			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/ShowResourcesPage.php');
@@ -156,15 +158,16 @@ switch($page)
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'officier':
-		if(CheckModule(18) && CheckModule(8))
+		if(!isModulAvalible(MODUL_OFFICIER) && !isModulAvalible(MODUL_DMEXTRAS))
 			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/class.ShowOfficierPage.php');
-		new ShowOfficierPage();
+		$pageObj	= new ShowOfficierPage;
+		$pageObj->show();
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'trader':
-		if(CheckModule(13))
+		if(!isModulAvalible(MODUL_TRADER))
 			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/ShowTraderPage.php');
@@ -172,7 +175,7 @@ switch($page)
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'techtree':
-		if(CheckModule(28))
+		if(!isModulAvalible(MODUL_TECHTREE))
 			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/ShowTechTreePage.php');
@@ -180,7 +183,7 @@ switch($page)
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'infos':
-		if(CheckModule(14))
+		if(!isModulAvalible(MODUL_INFORMATION))
 			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/class.ShowInfosPage.php');
@@ -188,7 +191,7 @@ switch($page)
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'messages':
-		if(CheckModule(16))
+		if(!isModulAvalible(MODUL_MESSAGES))
 			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/class.ShowMessagesPage.php');
@@ -196,15 +199,16 @@ switch($page)
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'alliance':
-		if(CheckModule(0))
+		if(!isModulAvalible(MODUL_ALLIANCE))
 			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
- 
+				
 		include_once(ROOT_PATH . 'includes/pages/class.ShowAlliancePage.php');
-		new ShowAlliancePage();
+		$pageObj	= new ShowAlliancePage;
+		$pageObj->show();
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'buddy':
-		if(CheckModule(6))
+		if(!isModulAvalible(MODUL_BUDDYLIST))
 			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 		
 		include_once(ROOT_PATH . 'includes/pages/ShowBuddyPage.php');
@@ -212,7 +216,7 @@ switch($page)
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'notes':
-		if(CheckModule(17))
+		if(!isModulAvalible(MODUL_NOTICE))
 			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/class.ShowNotesPage.php');
@@ -220,7 +224,7 @@ switch($page)
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'fleettrader':
-		if(CheckModule(38))
+		if(!isModulAvalible(MODUL_FLEET_TRADER))
 			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/ShowFleetTraderPage.php');
@@ -228,7 +232,7 @@ switch($page)
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'statistics':
-		if(CheckModule(25))
+		if(!isModulAvalible(MODUL_STATISTICS))
 			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/ShowStatisticsPage.php');
@@ -236,7 +240,7 @@ switch($page)
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'search':
-		if(CheckModule(26))
+		if(!isModulAvalible(MODUL_SEARCH))
 			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/ShowSearchPage.php');
@@ -249,7 +253,7 @@ switch($page)
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'banned':
-		if(CheckModule(21))
+		if(!isModulAvalible(MODUL_BANLIST))
 			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/ShowBannedPage.php');
@@ -257,7 +261,7 @@ switch($page)
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'topkb':
-		if(CheckModule(12))
+		if(!isModulAvalible(MODUL_BATTLEHALL))
 			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/ShowTopKB.php');
@@ -265,7 +269,7 @@ switch($page)
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'records':
-		if(CheckModule(22))
+		if(!isModulAvalible(MODUL_RECORDS))
 			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/ShowRecordsPage.php');
@@ -273,7 +277,7 @@ switch($page)
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
 	case 'chat':
-		if(CheckModule(7))
+		if(!isModulAvalible(MODUL_CHAT))
 			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/ShowChatPage.php');
@@ -281,7 +285,7 @@ switch($page)
 	break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//
     case 'support':
-		if(CheckModule(27))
+		if(!isModulAvalible(MODUL_SUPPORT))
 			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
 		include_once(ROOT_PATH . 'includes/pages/ShowSupportPage.php');
@@ -289,7 +293,7 @@ switch($page)
     break;
 // ----------------------------------------------------------------------------------------------------------------------------------------------//	
     case 'playercard':
-		if(CheckModule(20))
+		if(!isModulAvalible(MODUL_PLAYERCARD))
 			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 					
         include_once(ROOT_PATH . 'includes/pages/ShowPlayerCard.php');
@@ -302,7 +306,7 @@ switch($page)
     break; 
 // ----------------------------------------------------------------------------------------------------------------------------------------------//	
     case 'battlesim':
-		if(CheckModule(39))
+		if(!isModulAvalible(MODUL_SIMULATOR))
 			message($LNG['sys_module_inactive'],"?page=overview", 3, true, true);
 			
         include_once(ROOT_PATH . 'includes/pages/ShowBattleSimPage.php');

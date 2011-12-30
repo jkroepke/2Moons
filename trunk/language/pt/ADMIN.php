@@ -7,6 +7,7 @@
 
 //Global
 $LNG['adm_login']						= 'Login';
+$LNG['adm_username']					= 'Username';
 $LNG['adm_absenden']					= 'Submiter'; 
 $LNG['adm_password']					= 'Password';
 $LNG['adm_password_info']	            = 'Introduzir senha de verificação!';
@@ -1092,6 +1093,9 @@ $LNG['up_submit']						= 'Enviar';
 $LNG['up_version']						= 'Versão';
 $LNG['up_chmod_error']					= 'Erro de CHMOD!';
 $LNG['up_need_curl']					= 'Erro: cURL não está disponível.<br />A atualização do sistema de 2Moons requer cURL para carregar os dados necessários a ser descarregados.';
+$LNG['up_no_xml_ext']					= 'Erro: Parser de XML não existe<br />O sistema de actualização do 2Moons requer um parser XML para processar todos os ficheiros atuais';
+$LNG['up_offline']						= 'Atualização de servidor actualmente inexistente ou não disponível';
+
 
 // Editor de Chat
 $LNG['ch_socket_chatid_info']          = 'Esse IP pode ser usado para distinguir as definições de chat, use o mesmo socket do servidor.';

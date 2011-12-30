@@ -1,35 +1,37 @@
 {include file="overall_header.tpl"}
 <table width="90%">
 <tr>
-	<th>{$ff_id}</th>
-	<th>{$ff_ammount}</th>
-	<th>{$ff_mission}</th>
-	<th>{$ff_beginning}</th>
-	<th>{$ff_departure}</th>
-	<th>{$ff_departure_hour}</th>
-	<th>{$ff_objective}</th>
-	<th>{$ff_arrival}</th>
-	<th>{$ff_arrival_hour}</th>
-    <th>{$ff_hold_position}</th>
-    <th>{$ff_lock}</th>
+	<th>{lang}ff_fleetid{/lang}</th>
+	<th>{lang}ff_mission{/lang}</th>
+	<th>{lang}ff_starttime{/lang}</th>
+	<th>{lang}ff_ships{/lang}</th>
+	<th>{lang}ff_startuser{/lang}</th>
+	<th>{lang}ff_startplanet{/lang}</th>
+	<th>{lang}ff_arrivaltime{/lang}</th>
+	<th>{lang}ff_targetuser{/lang}</th>
+	<th>{lang}ff_targetplanet{/lang}</th>
+    <th>{lang}ff_endtime{/lang}</th>
+    <th>{lang}ff_holdtime{/lang}</th>
+    <th>{lang}ff_lock{/lang}</th>
 </tr>
-{foreach item=FleetItem from=$FleetList}
+{foreach $FleetList as $FleetRow}
 <tr>
-	<td>{$FleetItem.Id}</td>
-	<td>{$FleetItem.Fleet}</td>
-	<td>{$FleetItem.Mission}</td>
-	<td>{$FleetItem.St_Owner}</td>
-	<td>{$FleetItem.St_Posit}</td>
-	<td>{$FleetItem.St_Time}</td>
-	<td>{$FleetItem.En_Owner}</td>
-	<td>{$FleetItem.En_Posit}</td>
-	<td>{$FleetItem.En_Time}</td>
-    <td>{$FleetItem.Wa_Time}</td>
-    <td>{$FleetItem.lock}</td>
+	<td>{$FleetRow.fleetID}</td>
+	<td><a href="#" name="<table style='width:200px'>{foreach $FleetRow.resource as $resourceID => $resourceCount}<tr><td style='width:50%'>{lang}tech.{$resourceID}{/lang}</td><td style='width:50%'>{$resourceCount|number}</td></tr>{/foreach}</table>" class="tooltip">{lang}type_mission.{$FleetRow.missionID}{/lang}{if $FleetRow.acsID != 0}<br>{$FleetRow.acsID}<br>{$FleetRow.acsName}{/if}&nbsp;(R)</a></td>
+	<td>{$FleetRow.starttime}</td>
+	<td><a href="#" name="<table style='width:200px'>{foreach $FleetRow.ships as $shipID => $shipCount}<tr><td style='width:50%'>{lang}tech.{$shipID}{/lang}</td><td style='width:50%'>{$shipCount|number}</td></tr>{/foreach}</table>" class="tooltip">{$FleetRow.count|number}&nbsp;(D)</a></td>
+	<td>{$FleetRow.startUserName} (ID:&nbsp;{$FleetRow.startUserID})</td>
+	<td>{$FleetRow.startPlanetName}&nbsp;[{$FleetRow.startPlanetGalaxy}:{$FleetRow.startPlanetSystem}:{$FleetRow.startPlanetPlanet}] (ID:&nbsp;{$FleetRow.startPlanetID})</td>
+	<td>{if $FleetRow.state == 0}<span style="color:lime;">{/if}{$FleetRow.arrivaltime}{if $FleetRow.state == 0}</span>{/if}</td>
+	<td>{if $FleetRow.targetUserID != 0}{$FleetRow.targetUserName} (ID:&nbsp;{$FleetRow.targetUserID}){/if}</td>
+	<td>{$FleetRow.targetPlanetName}&nbsp;[{$FleetRow.targetPlanetGalaxy}:{$FleetRow.targetPlanetSystem}:{$FleetRow.targetPlanetPlanet}]{if $FleetRow.targetPlanetID != 0} (ID:&nbsp;{$FleetRow.targetPlanetID}){/if}</td>
+	<td>{if $FleetRow.state == 1}<span style="color:lime;">{/if}{$FleetRow.endtime}{if $FleetRow.state == 0}</span>{/if}</td>
+	<td>{if $FleetRow.stayhour !== 0}{if $FleetRow.state == 2}<span style="color:lime;">{/if}{$FleetRow.staytime} ({$FleetRow.stayhour}&nbsp;h){if $FleetRow.state == 0}</span>{/if}{else}-{/if}</td>
+    <td><a href="admin.php?page=fleets&amp;id={$FleetRow.fleetID}&amp;lock={if $FleetRow.lock}0" style="color:lime">{lang}ff_unlock{/lang}{else}1" style="color:red">{lang}ff_lock{/lang}{/if}</a></td>
 </tr>
 {foreachelse}
 <tr>
-	<td colspan="11">{$ff_no_fleets}</td>
+	<td colspan="11">{lang}ff_no_fleets{/lang}</td>
 </tr>
 {/foreach}
 </table>

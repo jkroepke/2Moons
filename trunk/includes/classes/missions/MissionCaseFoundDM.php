@@ -42,7 +42,7 @@ class MissionCaseFoundDM extends MissionFunctions
 	
 	function TargetEvent()
 	{
-		$this->UpdateFleet('fleet_mess', 2);
+		$this->setState(FLEET_STAY);
 		$this->SaveFleet();
 	}
 	
@@ -58,7 +58,7 @@ class MissionCaseFoundDM extends MissionFunctions
 		} else {
 			$Message 	= $LNG['sys_expe_nothing_'.mt_rand(1, 9)];
 		}
-		$this->UpdateFleet('fleet_mess', 1);
+		$this->setState(FLEET_RETURN);
 		$this->SaveFleet();
 		SendSimpleMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_end_stay'], 15, $LNG['sys_mess_tower'], $LNG['sys_expe_report'], $Message);
 	}
@@ -68,7 +68,7 @@ class MissionCaseFoundDM extends MissionFunctions
 		global $LANG;
 		$LNG			= $LANG->GetUserLang($this->_fleet['fleet_owner']);
 		if($this->_fleet['fleet_resource_darkmatter'] > 0) {
-			SendSimpleMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_end_time'], 15, $LNG['sys_mess_tower'], $LNG['sys_expe_report'], sprintf($LNG['sys_expe_back_home_with_dm'], $LNG['Darkmatter'], pretty_number($this->_fleet['fleet_resource_darkmatter']), $LNG['Darkmatter']));
+			SendSimpleMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_end_time'], 15, $LNG['sys_mess_tower'], $LNG['sys_expe_report'], sprintf($LNG['sys_expe_back_home_with_dm'], $LNG['tech'][921], pretty_number($this->_fleet['fleet_resource_darkmatter']), $LNG['tech'][921]));
 			$this->UpdateFleet('fleet_array', '220,0;');
 		} else {
 			SendSimpleMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_end_time'], 15, $LNG['sys_mess_tower'], $LNG['sys_expe_report'], $LNG['sys_expe_back_home_without_dm']);

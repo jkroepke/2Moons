@@ -3,12 +3,6 @@
 //Traduzione eseguita da Malware del sito http://2moons.freedost.com, la community italiana di 2moons.
 //Se hai domande, dubbi o vuoi segnalare scorrettezze, sei pregato di farlo usando il nostro forum. Grazie
 
-
-$LNG['Metal']								= 'Metallo';
-$LNG['Crystal']								= 'Cristallo';
-$LNG['Deuterium']							= 'Deuterio';
-$LNG['Darkmatter']							= 'Materia oscura';
-$LNG['Energy']								= 'Energia';
 $LNG['Messages']							= 'Messagi';
 $LNG['write_message']						= 'Scrivi un messaggio';
 

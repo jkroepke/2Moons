@@ -98,7 +98,7 @@ function ShowBattleSimPage()
 		$FleetDebris      	= $result['debree']['att'][0] + $result['debree']['def'][0] + $result['debree']['att'][1] + $result['debree']['def'][1];
 		$StrAttackerUnits 	= sprintf($LNG['sys_attacker_lostunits'], $result['lost']['att']);
 		$StrDefenderUnits 	= sprintf($LNG['sys_defender_lostunits'], $result['lost']['def']);
-		$StrRuins         	= sprintf($LNG['sys_gcdrunits'], $result['debree']['def'][0] + $result['debree']['att'][0], $LNG['Metal'], $result['debree']['def'][1] + $result['debree']['att'][1], $LNG['Crystal']);
+		$StrRuins         	= sprintf($LNG['sys_gcdrunits'], $result['debree']['def'][0] + $result['debree']['att'][0], $LNG['tech'][901], $result['debree']['def'][1] + $result['debree']['att'][1], $LNG['tech'][902]);
 		$DebrisField      	= $StrAttackerUnits ."<br>". $StrDefenderUnits ."<br>". $StrRuins;
 		$MoonChance       	= min(round($FleetDebris / 100000 * $CONF['moon_factor'], 0), $CONF['moon_chance']);
 		
@@ -172,9 +172,9 @@ function ShowBattleSimPage()
 		'bs_wait'			=> $LNG['bs_wait'],
 		'bs_acs_slot'		=> $LNG['bs_acs_slot'],
 		'bs_add_acs_slot'	=> $LNG['bs_add_acs_slot'],
-		'Metal'				=> $LNG['Metal'],
-		'Crystal'			=> $LNG['Crystal'],
-		'Deuterium'			=> $LNG['Deuterium'],
+		'Metal'				=> $LNG['tech'][901],
+		'Crystal'			=> $LNG['tech'][902],
+		'Deuterium'			=> $LNG['tech'][903],
 		'attack_tech'		=> $LNG['tech'][109],
 		'shield_tech'		=> $LNG['tech'][110],
 		'tank_tech'			=> $LNG['tech'][111],

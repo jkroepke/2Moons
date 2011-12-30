@@ -135,9 +135,9 @@
 <br><br>
 {if $Raport.result == "a"}
 {lang}sys_attacker_won{/lang}<br>
-{lang}sys_stealed_ressources{/lang} {pretty_number($Raport.steal[0])} {lang}Metal{/lang}, 
-{pretty_number($Raport.steal[1])} {lang}Crystal{/lang} {lang}and{/lang} 
-{pretty_number($Raport.steal[2])} {lang}Deuterium{/lang}
+{lang}sys_stealed_ressources{/lang} {pretty_number($Raport.steal[0])} {lang}tech.901{/lang}, 
+{pretty_number($Raport.steal[1])} {lang}tech.902{/lang} {lang}and{/lang} 
+{pretty_number($Raport.steal[2])} {lang}tech.903{/lang}
 {elseif $Raport.result == "r"}
 {lang}sys_defender_won{/lang}
 {else}
@@ -146,8 +146,8 @@
 <br><br>
 {lang}sys_attacker_lostunits{/lang} {pretty_number($Raport['units'][0])} {lang}sys_units{/lang}<br>
 {lang}sys_defender_lostunits{/lang} {pretty_number($Raport['units'][1])} {lang}sys_units{/lang}<br>
-{lang}debree_field_1{/lang} {pretty_number($Raport.debris[0])} {lang}Metal{/lang} {lang}sys_and{/lang}
-{pretty_number($Raport.debris[1])} {lang}Crystal{/lang} {lang}debree_field_2{/lang}<br><br>
+{lang}debree_field_1{/lang} {pretty_number($Raport.debris[0])} {lang}tech.901{/lang} {lang}sys_and{/lang}
+{pretty_number($Raport.debris[1])} {lang}tech.902{/lang} {lang}debree_field_2{/lang}<br><br>
 {if $Raport.mode == 1}
 	{capture sys_destruc_mess assign=sys_destruc_mess}{lang}sys_destruc_mess{/lang}{/capture}
 	{capture sys_destruc_lune assign=sys_destruc_lune}{lang}sys_destruc_lune{/lang}{/capture}

@@ -104,6 +104,8 @@ class MissionCaseSpy extends MissionFunctions
 			$Array			  = $Array + $TargetTechnInfo['Array'];
 		}
 		
+		$string	= "";
+		
 		foreach($Array as $ID => $Amount)
 		{
 			$string .= "&amp;im[".$ID."]=".$Amount;
@@ -125,7 +127,7 @@ class MissionCaseSpy extends MissionFunctions
 		$AttackLink .= "&amp;target_mission=1";
 		$AttackLink .= " \">". $LNG['type_mission'][1];
 		$AttackLink .= "</a></center>";
-		$MessageEnd  = "<center>".$DestProba."<br>".((ENABLE_SIMULATOR_LINK == true && !CheckModule(39)) ? "<a href=\"game.php?page=battlesim".$string."\">".$LNG['fl_simulate']."</a>":"")."</center>";
+		$MessageEnd  = "<center>".$DestProba."<br>".((ENABLE_SIMULATOR_LINK == true && isModulAvalible(MODUL_SIMULATOR)) ? "<a href=\"game.php?page=battlesim".$string."\">".$LNG['fl_simulate']."</a>":"")."</center>";
 			
 		$SpyMessage = "<br>".$GetSB."<br>".$AttackLink.$MessageEnd;
 		SendSimpleMessage($CurrentUserID, 0, $this->_fleet['fleet_start_time'], 0, $LNG['sys_mess_qg'], $LNG['sys_mess_spy_report'], $SpyMessage);
@@ -157,7 +159,7 @@ class MissionCaseSpy extends MissionFunctions
 		}
 		else
 		{
-			$this->UpdateFleet('fleet_mess', 1);
+			$this->setState(FLEET_RETURN);
 			$this->SaveFleet();
 		}
 	}
@@ -176,6 +178,7 @@ class MissionCaseSpy extends MissionFunctions
 	{
 		global $resource, $db;
 
+		$Count		= 0;
 		$LookAtLoop = true;
 		if ($Mode == 0)
 		{
@@ -184,11 +187,11 @@ class MissionCaseSpy extends MissionFunctions
 				<a href="game.php?page=galaxy&mode=3&galaxy='. $TargetPlanet['galaxy'] .'&system='. $TargetPlanet['system']. '">
 				'.sprintf($TitleString, $TargetPlanet['name'], $TargetPlanet['galaxy'], $TargetPlanet['system'], $TargetPlanet['planet'], tz_date($this->_fleet['fleet_end_time'], $LNG['php_tdformat'], $LNG)) .'</th>
                 </tr><tr>
-                <td style="width:25%;" class="left transparent">'. $LNG['Metal'] .'</td><td style="width:25%;" class="left transparent">'. pretty_number($TargetPlanet['metal']) .'</td><td class="transparent">&nbsp;</td>
-                <td style="width:25%;" class="left transparent">'. $LNG['Crystal']   .'</td><td style="width:25%;" class="left transparent">'. pretty_number($TargetPlanet['crystal'])    .'</td>
+                <td style="width:25%;" class="left transparent">'. $LNG['tech'][901] .'</td><td style="width:25%;" class="left transparent">'. pretty_number($TargetPlanet['metal']) .'</td><td class="transparent">&nbsp;</td>
+                <td style="width:25%;" class="left transparent">'. $LNG['tech'][902]   .'</td><td style="width:25%;" class="left transparent">'. pretty_number($TargetPlanet['crystal'])    .'</td>
                 </tr><tr>
-                <td style="width:25%;" class="left transparent">'. $LNG['Deuterium'] .'</td><td style="width:25%;" class="left transparent">'. pretty_number($TargetPlanet['deuterium'])  .'</td><td class="transparent">&nbsp;</td>
-                <td style="width:25%;" class="left transparent">'. $LNG['Energy']    .'</td><td style="width:25%;" class="left transparent">'. pretty_number($TargetPlanet['energy_max']) .'</td>
+                <td style="width:25%;" class="left transparent">'. $LNG['tech'][903] .'</td><td style="width:25%;" class="left transparent">'. pretty_number($TargetPlanet['deuterium'])  .'</td><td class="transparent">&nbsp;</td>
+                <td style="width:25%;" class="left transparent">'. $LNG['tech'][911]    .'</td><td style="width:25%;" class="left transparent">'. pretty_number($TargetPlanet['energy']) .'</td>
                 </tr><tr>';
 						
                 $Array[1]       = $TargetPlanet['metal'];
@@ -247,7 +250,6 @@ class MissionCaseSpy extends MissionFunctions
 		if ($LookAtLoop == true)
 		{
 			$String  	 = '<table style="width:100%;"><tr><th colspan="'. ((2 * SPY_REPORT_ROW) + (SPY_REPORT_ROW - 1)).'">'. $TitleString .'</th></tr>';
-			$Count       = 0;
 			$CurrentLook = 0;
 			while ($CurrentLook < $Loops)
 			{

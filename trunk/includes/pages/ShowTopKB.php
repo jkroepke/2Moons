@@ -49,6 +49,9 @@ function ShowTopKB()
 		WHERE ".TOPKB_USERS.".`rid` = ".TOPKB.".`rid`
 	) as `defender`  
 	FROM ".TOPKB." WHERE `universe` = '".$UNI."' ORDER BY units DESC LIMIT 100;");
+	
+	$TopKBList	= array();
+	
 	while($data = $db->fetch_array($top)) {
 		$TopKBList[]	= array(
 			'result'	=> $data['result'],

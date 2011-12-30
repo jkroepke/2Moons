@@ -131,10 +131,10 @@ function ShowLogDetail() {
 		'capprivate' 	=> $LNG['se_recaptcha_private'],
 		'ga_key' 		=> $LNG['se_google_key'],
 		
-		'metal'			=> $LNG['Metal'],
-		'crystal'		=> $LNG['Crystal'],
-		'deuterium'		=> $LNG['Deuterium'],
-		'darkmatter'	=> $LNG['Darkmatter'],
+		'metal'			=> $LNG['tech'][901],
+		'crystal'		=> $LNG['tech'][902],
+		'deuterium'		=> $LNG['tech'][903],
+		'darkmatter'	=> $LNG['tech'][921],
 	);
 	
 	foreach ($conf_before as $key => $val) {

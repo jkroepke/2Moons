@@ -1,6 +1,6 @@
 <?php
 
-// Translated into Russian by InquisitorEA (SporeEA@yandex.ru). All rights reserved © 2010-2011
+// Translated into Russian by InquisitorEA (SporeEA@yandex.ru). All rights reserved © 2010-2012
 
 $LNG['faq']			= array(
 "Какие ресурсы есть в игре?" => "Основные ресурсы: металл, кристалл, дейтерий. Они необходимы для возведения построек, проведения исследований, постройки флота и оборонных сооружений. Энергия должна быть на 100%. Если этот показатель меньше 100%, то добыча ресурсов будет снижена на соотвествующее количество процентов.<br>",

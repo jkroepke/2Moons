@@ -539,22 +539,21 @@ $LNG['ad_authlevel_tt']				= '[Zeige Alle]';
 
 
 //---------------	FLOTAS EN VUELO - FLYING FLEETS	------------------------//
-$LNG['ff_flying_fleets']		= 'Fleets in flight';
-$LNG['ff_ammount']				= 'Quantity';
-$LNG['ff_mission']				= 'Mission';
-$LNG['ff_beginning']			= 'Start';
-$LNG['ff_id']					= 'ID';
-$LNG['ff_departure']			= 'Von';
-$LNG['ff_departure_hour']		= 'Departure time';
-$LNG['ff_objective']			= 'Ziel';
-$LNG['ff_arrival']				= 'Objetive';
-$LNG['ff_hold_position']		= 'Haltenposition';
-$LNG['ff_arrival_hour']			= 'Arribal time';
-$LNG['ff_go_back_now']			= 'Back';
-$LNG['ff_delete_succes']		= 'Flight deleted successfully';
-$LNG['ff_goback_succes']		= "The flight is now returning to it's original planet";
+
+$LNG['ff_fleetid']				= "ID";
+$LNG['ff_mission']				= "Mission";
+$LNG['ff_starttime']			= "Startzeit";
+$LNG['ff_ships']				= "Schiffe";
+$LNG['ff_startuser']			= "Start User";
+$LNG['ff_startplanet']			= "Start Planet";
+$LNG['ff_arrivaltime']			= "Ankunftszeit";
+$LNG['ff_targetuser']			= "Ziel User";
+$LNG['ff_targetplanet']			= "Ziel Planet";
+$LNG['ff_endtime']				= "Rückkehrzeit";
+$LNG['ff_holdtime']				= "Stationszeit";
 $LNG['ff_lock']					= "Lock";
 $LNG['ff_unlock']				= "Unlock";
+
 $LNG['ff_no_fleets']			= "Zurzeit sind keine Flotten unterwegs";
 
 //###########################################################//
@@ -1039,6 +1038,7 @@ $LNG['modul'][13]						= 'Händler';
 $LNG['modul'][14]						= 'Infos';
 $LNG['modul'][15]						= 'Imperium';
 $LNG['modul'][32]						= 'Mission - Abbauen';
+$LNG['modul'][42]						= 'Mission - AKS';
 $LNG['modul'][1]						= 'Mission - Angreifen';
 $LNG['modul'][31]						= 'Mission - DM-Mission';
 $LNG['modul'][30]						= 'Mission - Expedition';

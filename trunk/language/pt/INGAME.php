@@ -7,11 +7,6 @@
 
 //----------------------------------------------------------------------------//
 //Básico
-$LNG['Metal']								= 'Metal';
-$LNG['Crystal']                             = 'Cristal';
-$LNG['Deuterium']                           = 'Deutério';
-$LNG['Darkmatter']                          = 'Matéria Negra';
-$LNG['Energy']                              = 'Energia';
 $LNG['Messages']                            = 'Mensagens';
 $LNG['write_message']                       = 'Escrever Mensagem';
 $LNG['ready']								= 'Pronto';
@@ -141,6 +136,7 @@ $LNG['ov_teamspeak_v3']                     = '<a href="ts3server://%s?port=%d&a
 $LNG['ov_closed']							= 'O jogo está desativado neste momento, tente mais tarde novamente! ';
 $LNG['ov_reflink']							= 'Reflink';
 $LNG['ov_noreflink']						= 'Atualmente, não recrutaste ainda nenhum jogador';
+$LNG['ov_chat_online']						= 'Usários online no chat:';
 
 //----------------------------------------------------------------------------//
 //Galáxia

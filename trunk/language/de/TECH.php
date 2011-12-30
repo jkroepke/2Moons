@@ -38,112 +38,119 @@ $LNG['tech_rc'] = array (
 
 
 $LNG['tech'] = array(
-  0 => 'Konstruktionen',
-  1 => 'Metallmine',
-  2 => 'Kristallmine',
-  3 => 'Deuteriumsynthetisierer',
-  4 => 'Solarkraftwerk',
-  6 => 'TechnoDome',
- 12 => 'Atomkraftwerk',
- 14 => 'Roboterfabrik',
- 15 => 'Nanitenfabrik',
- 21 => 'Raumschiffwerft',
- 22 => 'Metallspeicher',
- 23 => 'Kristallspeicher',
- 24 => 'Deuteriumtank',
- 31 => 'Forschungslabor',
- 33 => 'Terraformer',
- 34 => 'Allianzdepot',
- 44 => 'Raketensilo',
+	  0 => 'Konstruktionen',
+	  1 => 'Metallmine',
+	  2 => 'Kristallmine',
+	  3 => 'Deuteriumsynthetisierer',
+	  4 => 'Solarkraftwerk',
+	  6 => 'TechnoDome',
+	 12 => 'Atomkraftwerk',
+	 14 => 'Roboterfabrik',
+	 15 => 'Nanitenfabrik',
+	 21 => 'Raumschiffwerft',
+	 22 => 'Metallspeicher',
+	 23 => 'Kristallspeicher',
+	 24 => 'Deuteriumtank',
+	 31 => 'Forschungslabor',
+	 33 => 'Terraformer',
+	 34 => 'Allianzdepot',
+	 44 => 'Raketensilo',
 
 
- 40 => 'Mondgebäude',
- 41 => 'Basisstützpunkt',
- 42 => 'Sensorenphalax',
- 43 => 'Sprungtor',
-// Technologies
-100 => 'Forschungen',
-106 => 'Spionagetechnik',
-108 => 'Computertechnik',
-109 => 'Waffentechnik',
-110 => 'Schildtechnik',
-111 => 'Raumschiffpanzerung',
-113 => 'Energietechnik',
-114 => 'Hyperraumtechnik',
-115 => 'Verbrennungstriebwerk',
-117 => 'Impulstriebwerk',
-118 => 'Hyperraumantrieb',
-120 => 'Lasertechnik',
-121 => 'Ionentechnik',
-122 => 'Plasmatechnik',
-123 => 'Intergalaktisches Forschungsnetzwerk',
-124 => 'Astrophysik',
-131 => 'Produktionsmaximierung Metall',
-132 => 'Produktionsmaximierung Kristall',
-133 => 'Produktionsmaximierung Deuterium',
-199 => 'Gravitonforschung',
+	 40 => 'Mondgebäude',
+	 41 => 'Basisstützpunkt',
+	 42 => 'Sensorenphalax',
+	 43 => 'Sprungtor',
+	 
+	100 => 'Forschungen',
+	106 => 'Spionagetechnik',
+	108 => 'Computertechnik',
+	109 => 'Waffentechnik',
+	110 => 'Schildtechnik',
+	111 => 'Raumschiffpanzerung',
+	113 => 'Energietechnik',
+	114 => 'Hyperraumtechnik',
+	115 => 'Verbrennungstriebwerk',
+	117 => 'Impulstriebwerk',
+	118 => 'Hyperraumantrieb',
+	120 => 'Lasertechnik',
+	121 => 'Ionentechnik',
+	122 => 'Plasmatechnik',
+	123 => 'Intergalaktisches Forschungsnetzwerk',
+	124 => 'Astrophysik',
+	131 => 'Produktionsmaximierung Metall',
+	132 => 'Produktionsmaximierung Kristall',
+	133 => 'Produktionsmaximierung Deuterium',
+	199 => 'Gravitonforschung',
 
-200 => 'Schiffe',
-202 => 'Kleiner Transporter',
-203 => 'Großer Transporter',
-204 => 'Leichter Jäger',
-205 => 'Schwerer Jäger',
-206 => 'Kreuzer',
-207 => 'Schlachtschiff',
-208 => 'Kolonieschiff',
-209 => 'Recycler',
-210 => 'Spionagesonde',
-211 => 'Bomber',
-212 => 'Solarsatellit',
-213 => 'Zerstörer',
-214 => 'Todesstern',
-215 => 'Schlachtkreuzer',
-216 => 'Lune Noire',
-217 => 'Evolution Transporter',
-218 => 'Avatar',
-219 => 'Gigarecycler',
-220 => 'Intergalaktischer D. Materiensammler',
+	200 => 'Schiffe',
+	202 => 'Kleiner Transporter',
+	203 => 'Großer Transporter',
+	204 => 'Leichter Jäger',
+	205 => 'Schwerer Jäger',
+	206 => 'Kreuzer',
+	207 => 'Schlachtschiff',
+	208 => 'Kolonieschiff',
+	209 => 'Recycler',
+	210 => 'Spionagesonde',
+	211 => 'Bomber',
+	212 => 'Solarsatellit',
+	213 => 'Zerstörer',
+	214 => 'Todesstern',
+	215 => 'Schlachtkreuzer',
+	216 => 'Lune Noire',
+	217 => 'Evolution Transporter',
+	218 => 'Avatar',
+	219 => 'Gigarecycler',
+	220 => 'Intergalaktischer D. Materiensammler',
 
-400 => 'Verteidigungsanlagen',
-401 => 'Raketenwerfer',
-402 => 'Leichtes Lasergeschütz',
-403 => 'Schweres Lasergeschütz',
-404 => 'Gaußkanone',
-405 => 'Ionengeschütz',
-406 => 'Plasmawerfer',
-407 => 'Kleine Schildkuppel',
-408 => 'Große Schildkuppel',
-409 => 'Gigantische Schildkuppel',
-410 => 'Gravitonkanone',
-411 => 'Orbitale Verteidigungsplattform',
+	400 => 'Verteidigungsanlagen',
+	401 => 'Raketenwerfer',
+	402 => 'Leichtes Lasergeschütz',
+	403 => 'Schweres Lasergeschütz',
+	404 => 'Gaußkanone',
+	405 => 'Ionengeschütz',
+	406 => 'Plasmawerfer',
+	407 => 'Kleine Schildkuppel',
+	408 => 'Große Schildkuppel',
+	409 => 'Gigantische Schildkuppel',
+	410 => 'Gravitonkanone',
+	411 => 'Orbitale Verteidigungsplattform',
 
-502 => 'Abfangrakete',
-503 => 'Interplanetarrakete',
+	502 => 'Abfangrakete',
+	503 => 'Interplanetarrakete',
 
-600 => 'Offiziere',
-601 => 'Geologe',
-602 => 'Admiral',
-603 => 'Ingenieur',
-604 => 'Technokrat',
-605 => 'Konstrukteur',
-606 => 'Wissenschaftler',
-607 => 'Lagermeister',
-608 => 'Verteidigungsminister',
-609 => 'Bunker',
-610 => 'Spion',
-611 => 'Commander',
-612 => 'Zerstörer',
-613 => 'General',
-614 => 'Eroberer',
-615 => 'Imperator',
+	600 => 'Offiziere',
+	601 => 'Geologe',
+	602 => 'Admiral',
+	603 => 'Ingenieur',
+	604 => 'Technokrat',
+	605 => 'Konstrukteur',
+	606 => 'Wissenschaftler',
+	607 => 'Lagermeister',
+	608 => 'Verteidigungsminister',
+	609 => 'Bunker',
+	610 => 'Spion',
+	611 => 'Commander',
+	612 => 'Zerstörer',
+	613 => 'General',
+	614 => 'Eroberer',
+	615 => 'Imperator',
 
-700 => 'Waffenoptimierung',
-701 => 'Schildoptimierung',
-702 => 'Baukoordinierung',
-703 => 'Rohstoffoptimierung',
-704 => 'Energieoptimierung',
-705 => 'Forschungsoptimierung',
-706 => 'Flottenkoordinierung',
+	700 => 'Waffenoptimierung',
+	701 => 'Schildoptimierung',
+	702 => 'Baukoordinierung',
+	703 => 'Rohstoffoptimierung',
+	704 => 'Energieoptimierung',
+	705 => 'Forschungsoptimierung',
+	706 => 'Flottenkoordinierung',
+
+	900 => 'Ressourcen',
+	901 => 'Metall',
+	902 => 'Kristall',
+	903 => 'Deuterium',
+	911 => 'Energie',
+	921 => 'Dunkle Materie',
 );
 
 $LNG['res']['descriptions'] = array(
@@ -399,35 +406,35 @@ $LNG['info'][503]['description'] = 'Intercontinentalraketen zerstören die gegne
 // ----------------------------------------------------------------------------------------------------------
 // Offiziere
 $LNG['info'][601]['name']		 = 'Geologe';
-$LNG['info'][601]['description'] = 'Der Geologe ist ein Experte bekannt in der Gesteinsphysiologie und der Kristallographie. Mit seinem Expertenteam bestehend aus Metall-Ingenieuren und Chemikern, assistiert er den interplanetaren Regierungen in der Recherche nach neuen Quellen und diese sicher gewinnen zu können.<br><br><span style="color:red"> +%s%% Rohstoff Produktion. Maximal Level %s</span>';
+$LNG['info'][601]['description'] = 'Der Geologe ist ein Experte bekannt in der Gesteinsphysiologie und der Kristallographie. Mit seinem Expertenteam bestehend aus Metall-Ingenieuren und Chemikern, assistiert er den interplanetaren Regierungen in der Recherche nach neuen Quellen und diese sicher gewinnen zu können.<br><br><span style="color:red"> +%s%% Rohstoff Produktion.</span>';
 $LNG['info'][602]['name']		 = 'Admiral';
-$LNG['info'][602]['description'] = 'Der Flottenadmiral ist ein Kriegsveteran und ein gefürchteter Stratege. Sogar wenn die Schlacht aussichtslos scheint, bewahrt er einen kühlen Kopf, um Herr der Lage zu bleiben und den Kontakt zu seinen unterstellten Flottenkommandeuren aufrecht zu erhalten. Ein Imperator sollte sich den Flottenadmiral leisten um seine Angriffe zu koordinieren und um mehr Flotten in den Kampf ziehen zu lassen.<br><br><span style="color:red">+%s%% Schilde, Panzerung und Waffenstärke. Maximal Level %s </span>';
+$LNG['info'][602]['description'] = 'Der Flottenadmiral ist ein Kriegsveteran und ein gefürchteter Stratege. Sogar wenn die Schlacht aussichtslos scheint, bewahrt er einen kühlen Kopf, um Herr der Lage zu bleiben und den Kontakt zu seinen unterstellten Flottenkommandeuren aufrecht zu erhalten. Ein Imperator sollte sich den Flottenadmiral leisten um seine Angriffe zu koordinieren und um mehr Flotten in den Kampf ziehen zu lassen.<br><br><span style="color:red">+%s%% Schilde, Panzerung und Waffenstärke. </span>';
 $LNG['info'][603]['name']		 = 'Ingenieur';
-$LNG['info'][603]['description'] = 'Der Ingenieur ist ein Spezialist der energietechnischen Betriebsführung. Er optimiert die Effektivität der Energiereserven der Kolonie und steigert somit die tatsächliche Energieproduktion.<br><br><span style="color:red">+%s%% Energie. Maximal Level %s</span>';
+$LNG['info'][603]['description'] = 'Der Ingenieur ist ein Spezialist der energietechnischen Betriebsführung. Er optimiert die Effektivität der Energiereserven der Kolonie und steigert somit die tatsächliche Energieproduktion.<br><br><span style="color:red">+%s%% Energie.</span>';
 $LNG['info'][604]['name']		 = 'Technokrat';
-$LNG['info'][604]['description'] = 'Die Gilde der Technokraten sind die Wissenschaftler der bekannten Genies. Man findet sie dort wo die Technik ihre Grenzen erreicht. Niemand versteht die Dechiffrierung der Kryptographie eines Technokraten, seine alleinige Präsenz inspiriert die Kontrukteure des ganzen Imperiums.<br><br><span style="color:red">-%s%% Produktionszeit von Raumschiffen. Maximal Level %s</span>';
+$LNG['info'][604]['description'] = 'Die Gilde der Technokraten sind die Wissenschaftler der bekannten Genies. Man findet sie dort wo die Technik ihre Grenzen erreicht. Niemand versteht die Dechiffrierung der Kryptographie eines Technokraten, seine alleinige Präsenz inspiriert die Kontrukteure des ganzen Imperiums.<br><br><span style="color:red">-%s%% Produktionszeit von Raumschiffen.</span>';
 $LNG['info'][605]['name']		 = 'Konstrukteur';
-$LNG['info'][605]['description'] = 'Der Konstrukteur ist ein Meister in der Planung von Gebäuden.<br><br><span style="color:red">-%s%% Bauzeit von Gebäuden. Maximal Level %s</span>';
+$LNG['info'][605]['description'] = 'Der Konstrukteur ist ein Meister in der Planung von Gebäuden.<br><br><span style="color:red">-%s%% Bauzeit von Gebäuden.</span>';
 $LNG['info'][606]['name']		 = 'Wissenschaftler';
-$LNG['info'][606]['description'] = 'Die Gilde der Wissenschaftler ist ein Zusammenschluss der erfolgreichsten Wissenschaftler des Imperiums. Sie sind die Spezialisten in der Verbesserung der Technologie.<br><br><span style="color:red">-%s%% Forschungszeit. Maximal Level %s</span>';
+$LNG['info'][606]['description'] = 'Die Gilde der Wissenschaftler ist ein Zusammenschluss der erfolgreichsten Wissenschaftler des Imperiums. Sie sind die Spezialisten in der Verbesserung der Technologie.<br><br><span style="color:red">-%s%% Forschungszeit.</span>';
 $LNG['info'][607]['name']		 = 'Lagermeister';
-$LNG['info'][607]['description'] = 'Der Lagerist beherrscht wertvolle Lagerungs- und Sortierkenntnisse. Durch hochentwickelte Lagertechniken und strukturelle Anpassungen, kann er das nutzbare Volumen eines Lagerraumes deutlich erhöhen.<br><br><span style="color:red">+%s%% Lagerraum. Maximal Level. : %s</span>';
+$LNG['info'][607]['description'] = 'Der Lagerist beherrscht wertvolle Lagerungs- und Sortierkenntnisse. Durch hochentwickelte Lagertechniken und strukturelle Anpassungen, kann er das nutzbare Volumen eines Lagerraumes deutlich erhöhen.<br><br><span style="color:red">+%s%% Lagerraum.</span>';
 $LNG['info'][608]['name']		 = 'Verteidiger';
-$LNG['info'][608]['description'] = 'Der Verteidigungsminister ist Mitglied der imperialen Armee. Sein Elan und Ehrgeiz ermöglichen es jede Kolonie in Rekordzeit zu einen stark befestigtem Stützpunkt auszubauen.<br><br><span style="color:red">Bauzeit von Verteidigungsanlagen reduziert um -%s%%. Maximal Level %s</span>';
+$LNG['info'][608]['description'] = 'Der Verteidigungsminister ist Mitglied der imperialen Armee. Sein Elan und Ehrgeiz ermöglichen es jede Kolonie in Rekordzeit zu einen stark befestigtem Stützpunkt auszubauen.<br><br><span style="color:red">Bauzeit von Verteidigungsanlagen reduziert um -%s%%.</span>';
 $LNG['info'][609]['name']		 = 'Bunker';
-$LNG['info'][609]['description'] = 'Der Bunker sah die beeindruckende Arbeit, die Sie in seinem Königreich gefertigt haben. Um Ihnen zu danken, eröffnet er Ihnen die Chance Bunker zu werden. Der Bunker ist die höchste Auszeichnung der Lagerstättenbranche der Imperialen Armee.<br><br><span style="color:red">Freigabe für den Bau einer Großen Schildkuppel. Maximal Level %s</span>';
+$LNG['info'][609]['description'] = 'Der Bunker sah die beeindruckende Arbeit, die Sie in seinem Königreich gefertigt haben. Um Ihnen zu danken, eröffnet er Ihnen die Chance Bunker zu werden. Der Bunker ist die höchste Auszeichnung der Lagerstättenbranche der Imperialen Armee.<br><br><span style="color:red">Freigabe für den Bau einer Großen Schildkuppel.</span>';
 $LNG['info'][610]['name']		 = 'Spion';
-$LNG['info'][610]['description'] = 'Der Spion ist eine rätselhafte Person. Niemand kennt jemals sein wirkliches Gesicht, und noch weniger ob er schon tot ist. <br><br><span style="color:red">+%s Level Spionagetechnik. Maximal Level %s</span>';
+$LNG['info'][610]['description'] = 'Der Spion ist eine rätselhafte Person. Niemand kennt jemals sein wirkliches Gesicht, und noch weniger ob er schon tot ist. <br><br><span style="color:red">+%s Level Spionagetechnik.</span>';
 $LNG['info'][611]['name']		 = 'Commander';
-$LNG['info'][611]['description'] = 'Der Commander der imperialen Armee ist Meister im Umgang mit der Flotte. Seine jahrelangen Erfahrungen mit Flotten, mit vielen strategischen Einsätzen, sind eine Bereicherung für jeden Herrscher.<br><br><span style="color:red">+%s Flottenslots. Maximal Level %s </span>';
+$LNG['info'][611]['description'] = 'Der Commander der imperialen Armee ist Meister im Umgang mit der Flotte. Seine jahrelangen Erfahrungen mit Flotten, mit vielen strategischen Einsätzen, sind eine Bereicherung für jeden Herrscher.<br><br><span style="color:red">+%s Flottenslots. </span>';
 $LNG['info'][612]['name']		 = 'Zerstörer';
 $LNG['info'][612]['description'] = 'Der Zerstörer ist ein Offizier ohne Mitleid. Er hat Planeten nur zum Vergnügen dem Erdboden gleich gemacht. Er entdeckt momentan eine neue Methode um Massenvernichtungswaffen herzustellen.<br><br><span style="color:red">Maximal Level %s </span>';
 $LNG['info'][613]['name']		 = 'General';
-$LNG['info'][613]['description'] = 'Der General ist eine ehrwürdige Person, der seit vielen Jahren in der Armee dient. Durch unzählige Manöver hat der General Strategien entwickelt, um die Flottengeschwindigkeiten in sämtlichen Konstellationen, verschiedenster Shiffstypen, zu optimieren.<br><br><span style="color:red">+%s%% Geschwindigkeit der Schiffe. Maximal Level %s</span>';
+$LNG['info'][613]['description'] = 'Der General ist eine ehrwürdige Person, der seit vielen Jahren in der Armee dient. Durch unzählige Manöver hat der General Strategien entwickelt, um die Flottengeschwindigkeiten in sämtlichen Konstellationen, verschiedenster Shiffstypen, zu optimieren.<br><br><span style="color:red">+%s%% Geschwindigkeit der Schiffe.</span>';
 $LNG['info'][614]['name']		 = 'Eroberer';
-$LNG['info'][614]['description'] = 'Der Imperator bemerkte bei Ihnen die unleugbaren Qualitäten des Eroberns. Er schlägt Ihnen vor Eroberer zu werden. Der Eroberer ist der Grad der höchsten Ausbildung der Eroberer der imperialen Armee.<br><br><span style="color:red">Maximal Level %s</span>';
+$LNG['info'][614]['description'] = 'Der Imperator bemerkte bei Ihnen die unleugbaren Qualitäten des Eroberns. Er schlägt Ihnen vor Eroberer zu werden. Der Eroberer ist der Grad der höchsten Ausbildung der Eroberer der imperialen Armee.';
 $LNG['info'][615]['name']		 = 'Imperator';
-$LNG['info'][615]['description'] = 'Sie haben gezeigt, dass Sie der größte Eroberer des Universums sind. Es ist Ihrer, solange Sie diesen Platz halten, den Sie bekommen haben.<br><br><span style="color:red">Maximal Level %s</span>';
+$LNG['info'][615]['description'] = 'Sie haben gezeigt, dass Sie der größte Eroberer des Universums sind. Es ist Ihrer, solange Sie diesen Platz halten, den Sie bekommen haben.';
 
 
 // ----------------------------------------------------------------------------------------------------------

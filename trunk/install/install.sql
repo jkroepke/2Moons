@@ -25,23 +25,21 @@
  * @link http://code.google.com/p/2moons/
  */
 
-
-
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
+
+
 CREATE TABLE `prefix_aks` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT NULL,
   `target` int(11) unsigned NOT NULL,
   `ankunft` int(11) DEFAULT NULL,
-  `eingeladen` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE `prefix_alliance` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -65,7 +63,7 @@ CREATE TABLE `prefix_alliance` (
   KEY `ally_tag` (`ally_tag`),
   KEY `ally_name` (`ally_name`),
   KEY `ally_universe` (`ally_universe`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `prefix_alliance_request` (
   `id` int(11) unsigned NOT NULL,
@@ -98,7 +96,7 @@ CREATE TABLE `prefix_buddy` (
   KEY `universe` (`universe`),
   KEY `sender` (`sender`),
   KEY `owner` (`owner`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `prefix_buddy_request` (
   `id` int(11) unsigned NOT NULL,
@@ -108,7 +106,7 @@ CREATE TABLE `prefix_buddy_request` (
 
 CREATE TABLE `prefix_chat_bans` (
   `userID` int(11) NOT NULL,
-  `userName` varchar(64) COLLATE utf8_bin NOT NULL,
+  `userName` varchar(64) NOT NULL,
   `dateTime` datetime NOT NULL,
   `ip` varbinary(16) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -122,18 +120,18 @@ CREATE TABLE `prefix_chat_invitations` (
 CREATE TABLE `prefix_chat_messages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userID` int(11) NOT NULL,
-  `userName` varchar(64) COLLATE utf8_bin NOT NULL,
+  `userName` varchar(64) NOT NULL,
   `userRole` int(1) NOT NULL,
   `channel` int(11) NOT NULL,
   `dateTime` datetime NOT NULL,
   `ip` varbinary(16) NOT NULL,
-  `text` text COLLATE utf8_bin,
+  `text` text CHARACTER SET utf8 COLLATE utf8_bin,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE `prefix_chat_online` (
   `userID` int(11) NOT NULL,
-  `userName` varchar(64) COLLATE utf8_bin NOT NULL,
+  `userName` varchar(64) NOT NULL,
   `userRole` int(1) NOT NULL,
   `channel` int(11) NOT NULL,
   `dateTime` datetime NOT NULL,
@@ -262,7 +260,7 @@ CREATE TABLE `prefix_config` (
   `del_user_sendmail` tinyint(3) unsigned NOT NULL DEFAULT '21',
   `sendmail_inactive` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `silo_factor` tinyint(1) unsigned NOT NULL DEFAULT '1',
-  `timezone` float(4, 2) NOT NULL DEFAULT '0',
+  `timezone` float(4,2) NOT NULL DEFAULT '0.00',
   `dst` enum('0','1','2') NOT NULL DEFAULT '2',
   PRIMARY KEY (`uni`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
@@ -306,20 +304,23 @@ CREATE TABLE `prefix_fleets` (
   `fleet_resource_deuterium` double(50,0) unsigned NOT NULL DEFAULT '0',
   `fleet_resource_darkmatter` double(50,0) unsigned NOT NULL DEFAULT '0',
   `fleet_target_owner` int(11) unsigned NOT NULL DEFAULT '0',
-  `fleet_group` varchar(15) NOT NULL DEFAULT '0',
+  `fleet_group` int(10) unsigned NOT NULL DEFAULT '0',
   `fleet_mess` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `start_time` int(11) DEFAULT NULL,
   `fleet_busy` tinyint(3) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`fleet_id`),
-  KEY `fleet_mess` (`fleet_mess`),
-  KEY `fleet_target_owner` (`fleet_target_owner`),
-  KEY `fleet_end_stay` (`fleet_end_stay`),
-  KEY `fleet_end_time` (`fleet_end_time`),
-  KEY `fleet_start_time` (`fleet_start_time`),
-  KEY `fleet_start_id` (`fleet_start_id`),
-  KEY `fleet_end_id` (`fleet_end_id`),
-  KEY `fleet_universe` (`fleet_universe`)
+  KEY `fleet_target_owner` (`fleet_target_owner`,`fleet_mission`),
+  KEY `fleet_owner` (`fleet_owner`,`fleet_mission`),
+  KEY `fleet_group` (`fleet_group`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+CREATE TABLE `prefix_fleet_event` (
+  `fleetID` int(11) NOT NULL,
+  `time` int(11) NOT NULL,
+  `lock` varchar(32) DEFAULT NULL,
+  PRIMARY KEY (`fleetID`),
+  KEY `lock` (`lock`,`time`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `prefix_log` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -334,38 +335,38 @@ CREATE TABLE `prefix_log` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE `prefix_log_fleets` (
- `fleet_id` bigint(11) unsigned NOT NULL,
- `fleet_owner` int(11) unsigned NOT NULL DEFAULT '0',
- `fleet_mission` tinyint(3) unsigned NOT NULL DEFAULT '3',
- `fleet_amount` bigint(20) unsigned NOT NULL DEFAULT '0',
- `fleet_array` text,
- `fleet_universe` tinyint(3) unsigned NOT NULL,
- `fleet_start_time` int(11) NOT NULL DEFAULT '0',
- `fleet_start_id` int(11) unsigned NOT NULL,
- `fleet_start_galaxy` tinyint(3) unsigned NOT NULL DEFAULT '0',
- `fleet_start_system` smallint(5) unsigned NOT NULL DEFAULT '0',
- `fleet_start_planet` tinyint(3) unsigned NOT NULL DEFAULT '0',
- `fleet_start_type` tinyint(3) unsigned NOT NULL DEFAULT '1',
- `fleet_end_time` int(11) NOT NULL DEFAULT '0',
- `fleet_end_stay` int(11) NOT NULL DEFAULT '0',
- `fleet_end_id` int(11) unsigned NOT NULL,
- `fleet_end_galaxy` tinyint(3) unsigned NOT NULL DEFAULT '0',
- `fleet_end_system` smallint(5) unsigned NOT NULL DEFAULT '0',
- `fleet_end_planet` tinyint(3) unsigned NOT NULL DEFAULT '0',
- `fleet_end_type` tinyint(3) unsigned NOT NULL DEFAULT '1',
- `fleet_target_obj` smallint(3) unsigned NOT NULL DEFAULT '0',
- `fleet_resource_metal` double(50,0) unsigned NOT NULL DEFAULT '0',
- `fleet_resource_crystal` double(50,0) unsigned NOT NULL DEFAULT '0',
- `fleet_resource_deuterium` double(50,0) unsigned NOT NULL DEFAULT '0',
- `fleet_resource_darkmatter` double(50,0) unsigned NOT NULL DEFAULT '0',
- `fleet_target_owner` int(11) unsigned NOT NULL DEFAULT '0',
- `fleet_group` varchar(15) NOT NULL DEFAULT '0',
- `fleet_mess` tinyint(3) unsigned NOT NULL DEFAULT '0',
- `start_time` int(11) DEFAULT NULL,
- `fleet_busy` tinyint(3) unsigned NOT NULL DEFAULT '0',
- `fleet_state` tinyint(3) unsigned NOT NULL,
- PRIMARY KEY (`fleet_id`),
- KEY `BashRule` (`fleet_owner`,`fleet_end_id`,`fleet_start_time`,`fleet_mission`,`fleet_state`)
+  `fleet_id` bigint(11) unsigned NOT NULL,
+  `fleet_owner` int(11) unsigned NOT NULL DEFAULT '0',
+  `fleet_mission` tinyint(3) unsigned NOT NULL DEFAULT '3',
+  `fleet_amount` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `fleet_array` text,
+  `fleet_universe` tinyint(3) unsigned NOT NULL,
+  `fleet_start_time` int(11) NOT NULL DEFAULT '0',
+  `fleet_start_id` int(11) unsigned NOT NULL,
+  `fleet_start_galaxy` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `fleet_start_system` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `fleet_start_planet` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `fleet_start_type` tinyint(3) unsigned NOT NULL DEFAULT '1',
+  `fleet_end_time` int(11) NOT NULL DEFAULT '0',
+  `fleet_end_stay` int(11) NOT NULL DEFAULT '0',
+  `fleet_end_id` int(11) unsigned NOT NULL,
+  `fleet_end_galaxy` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `fleet_end_system` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `fleet_end_planet` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `fleet_end_type` tinyint(3) unsigned NOT NULL DEFAULT '1',
+  `fleet_target_obj` smallint(3) unsigned NOT NULL DEFAULT '0',
+  `fleet_resource_metal` double(50,0) unsigned NOT NULL DEFAULT '0',
+  `fleet_resource_crystal` double(50,0) unsigned NOT NULL DEFAULT '0',
+  `fleet_resource_deuterium` double(50,0) unsigned NOT NULL DEFAULT '0',
+  `fleet_resource_darkmatter` double(50,0) unsigned NOT NULL DEFAULT '0',
+  `fleet_target_owner` int(11) unsigned NOT NULL DEFAULT '0',
+  `fleet_group` varchar(15) NOT NULL DEFAULT '0',
+  `fleet_mess` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `start_time` int(11) DEFAULT NULL,
+  `fleet_busy` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `fleet_state` tinyint(3) unsigned NOT NULL,
+  PRIMARY KEY (`fleet_id`),
+  KEY `BashRule` (`fleet_owner`,`fleet_end_id`,`fleet_start_time`,`fleet_mission`,`fleet_state`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `prefix_messages` (
@@ -428,18 +429,18 @@ CREATE TABLE `prefix_planets` (
   `temp_min` int(3) NOT NULL DEFAULT '-17',
   `temp_max` int(3) NOT NULL DEFAULT '23',
   `eco_hash` varchar(32) NOT NULL DEFAULT '',
-  `metal` double(50,6) unsigned NOT NULL DEFAULT '0',
-  `metal_perhour` double(50,6) unsigned NOT NULL DEFAULT '0',
+  `metal` double(50,6) unsigned NOT NULL DEFAULT '0.000000',
+  `metal_perhour` double(50,6) unsigned NOT NULL DEFAULT '0.000000',
   `metal_max` double(50,0) unsigned DEFAULT '100000',
-  `crystal` double(50,6) unsigned NOT NULL DEFAULT '0',
-  `crystal_perhour` double(50,6) unsigned NOT NULL DEFAULT '0',
+  `crystal` double(50,6) unsigned NOT NULL DEFAULT '0.000000',
+  `crystal_perhour` double(50,6) unsigned NOT NULL DEFAULT '0.000000',
   `crystal_max` double(50,0) unsigned DEFAULT '100000',
-  `deuterium` double(50,6) unsigned NOT NULL DEFAULT '0',
+  `deuterium` double(50,6) unsigned NOT NULL DEFAULT '0.000000',
   `deuterium_used` int(11) unsigned NOT NULL DEFAULT '0',
-  `deuterium_perhour` double(50,6) unsigned NOT NULL DEFAULT '0',
+  `deuterium_perhour` double(50,6) unsigned NOT NULL DEFAULT '0.000000',
   `deuterium_max` double(50,0) unsigned DEFAULT '100000',
   `energy_used` double(50,0) NOT NULL DEFAULT '0',
-  `energy_max` double(50,0) unsigned NOT NULL DEFAULT '0',
+  `energy` double(50,0) unsigned NOT NULL DEFAULT '0',
   `metal_mine` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `crystal_mine` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `deuterium_sintetizer` tinyint(3) unsigned NOT NULL DEFAULT '0',
@@ -514,7 +515,7 @@ CREATE TABLE `prefix_raports` (
   `time` int(11) NOT NULL,
   PRIMARY KEY (`rid`),
   KEY `time` (`time`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE `prefix_session` (
   `sess_id` varchar(32) NOT NULL,
@@ -574,16 +575,8 @@ CREATE TABLE `prefix_topkb` (
   `result` varchar(1) NOT NULL,
   `time` int(11) NOT NULL,
   `universe` tinyint(3) unsigned NOT NULL,
-  KEY `time` (`universe`, `rid`, `time`)
+  KEY `time` (`universe`,`rid`,`time`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-CREATE TABLE `prefix_users_to_topkb` (
- `rid` int(11) NOT NULL,
- `uid` int(11) NOT NULL,
- `role` tinyint(1) NOT NULL,
- KEY `rid` (`rid`,`role`)
-) ENGINE=MyISAM;
-
 
 CREATE TABLE `prefix_users` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -606,8 +599,8 @@ CREATE TABLE `prefix_users` (
   `register_time` int(11) NOT NULL DEFAULT '0',
   `onlinetime` int(11) NOT NULL DEFAULT '0',
   `dpath` varchar(20) NOT NULL DEFAULT 'gow',
-  `timezone` float(4, 2) NOT NULL DEFAULT '0',
-  `dst` enum('0', '1', '2') NOT NULL DEFAULT '2',
+  `timezone` float(4,2) NOT NULL DEFAULT '0.00',
+  `dst` enum('0','1','2') NOT NULL DEFAULT '2',
   `design` tinyint(1) NOT NULL DEFAULT '1',
   `noipcheck` tinyint(1) NOT NULL DEFAULT '1',
   `planet_sort` tinyint(1) NOT NULL DEFAULT '0',
@@ -696,13 +689,27 @@ CREATE TABLE `prefix_users` (
   KEY `ally_id` (`ally_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
+CREATE TABLE `prefix_users_to_acs` (
+  `userID` int(10) unsigned NOT NULL,
+  `acsID` int(10) unsigned NOT NULL,
+  KEY `userID` (`userID`),
+  KEY `acsID` (`acsID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
 CREATE TABLE `prefix_users_to_extauth` (
- `id` int(11) NOT NULL,
- `account` varchar(64) NOT NULL,
- `mode` varchar(32) NOT NULL,
- PRIMARY KEY (`id`),
- KEY `id` (`id`),
- KEY `account` (`account`,`mode`)
+  `id` int(11) NOT NULL,
+  `account` varchar(64) NOT NULL,
+  `mode` varchar(32) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id` (`id`),
+  KEY `account` (`account`,`mode`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE `prefix_users_to_topkb` (
+  `rid` int(11) NOT NULL,
+  `uid` int(11) NOT NULL,
+  `role` tinyint(1) NOT NULL,
+  KEY `rid` (`rid`,`role`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `prefix_users_valid` (
@@ -723,7 +730,6 @@ CREATE TABLE `prefix_users_valid` (
 
 INSERT INTO `prefix_config` (`uni`, `VERSION`, `uni_name`, `game_name`, `close_reason`, `OverviewNewsText`) VALUES
 (1, '1.5.2076', '', '2Moons', '', '');
-
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

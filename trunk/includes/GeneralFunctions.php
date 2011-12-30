@@ -35,8 +35,13 @@ function getUniverse()
 		$UNI	= (int) $_REQUEST['uni'];
 	} elseif(defined('LOGIN') && isset($_COOKIE['uni'])) {
 		$UNI	= (int) $_COOKIE['uni'];
-	} elseif(isset($_SESSION['uni'])) {
-		$UNI	= $_SESSION['uni'];
+	} elseif(UNIS_HTACCESS === true) {
+		// Enable htaccess
+		if(isset($_SERVER["REDIRECT_UNI"])) {
+			$UNI	= $_SERVER["REDIRECT_UNI"];
+		} else {
+			redirectTo("uni".ROOT_UNI."/".basename($_SERVER['SCRIPT_FILENAME']).(!empty($_SERVER["QUERY_STRING"]) ? "?".$_SERVER["QUERY_STRING"]: ""));
+		}
 	} else {
 		if(UNIS_WILDCAST === true) {
 			$UNI	= explode('.', $_SERVER['HTTP_HOST']);
@@ -63,10 +68,12 @@ function getFactors($USER, $Type = 'basic', $TIME = 0) {
 			'techspeed'		=> 1 - $USER[$resource[606]] * $pricelist[606]['info'] - DMExtra($USER[$resource[705]], $TIME, $pricelist[705]['add'], 0),
 			'fleetspeed'	=> 1 - $USER[$resource[604]] * $pricelist[604]['info'],
 			'defspeed'		=> 1 - $USER[$resource[608]] * $pricelist[608]['info'],
-			'metal'			=> 1 + ($USER[$resource[601]] * $pricelist[601]['info']) + ($USER[$resource[131]] * 0.02) + DMExtra($USER[$resource[703]], $TIME, $pricelist[703]['add'], 0),
-			'crystal'		=> 1 + ($USER[$resource[601]] * $pricelist[601]['info']) + ($USER[$resource[132]] * 0.02) + DMExtra($USER[$resource[703]], $TIME, $pricelist[703]['add'], 0),
-			'deuterium'		=> 1 + ($USER[$resource[601]] * $pricelist[601]['info']) + ($USER[$resource[133]] * 0.02) + DMExtra($USER[$resource[703]], $TIME, $pricelist[703]['add'], 0),
-			'energy'		=> 1 + ($USER[$resource[603]] * $pricelist[603]['info']) + DMExtra($USER[$resource[704]], $TIME, $pricelist[704]['add'], 0),
+			'ressource'	=> array(
+				901	=> 1 + ($USER[$resource[601]] * $pricelist[601]['info']) + ($USER[$resource[131]] * 0.02) + DMExtra($USER[$resource[703]], $TIME, $pricelist[703]['add'], 0),
+				902	=> 1 + ($USER[$resource[601]] * $pricelist[601]['info']) + ($USER[$resource[132]] * 0.02) + DMExtra($USER[$resource[703]], $TIME, $pricelist[703]['add'], 0),
+				903	=> 1 + ($USER[$resource[601]] * $pricelist[601]['info']) + ($USER[$resource[133]] * 0.02) + DMExtra($USER[$resource[703]], $TIME, $pricelist[703]['add'], 0),
+				911	=> 1 + ($USER[$resource[603]] * $pricelist[603]['info']) + DMExtra($USER[$resource[704]], $TIME, $pricelist[704]['add'], 0),
+			)
 		);
 	}
 
@@ -187,6 +194,9 @@ function getConfig($UNI) {
 		return $GLOBALS['CONFIG'][$UNI];
 		
 	$CONF = $db->uniquequery("SELECT HIGH_PRIORITY * FROM `".CONFIG."` WHERE `uni` = '".$UNI."';");
+	if(!isset($CONF))
+		redirectTo('index.php');
+		
 	$CONF['moduls']			= explode(";", $CONF['moduls']);
 
 	
@@ -518,21 +528,17 @@ function floattostring($Numeric, $Pro = 0, $Output = false){
 	return ($Output) ? str_replace(",",".", sprintf("%.".$Pro."f", $Numeric)) : sprintf("%.".$Pro."f", $Numeric);
 }
 
-function CheckModule($ID)
+function isModulAvalible($ID)
 {
 	if(!isset($GLOBALS['CONF']['moduls'][$ID])) 
 		$GLOBALS['CONF']['moduls'][$ID] = 1;
 	
-	return ((!isset($_SESSION) || $_SESSION['authlevel'] !== AUTH_USR) && $GLOBALS['CONF']['moduls'][$ID] == 0) ? true : false;
+	return $GLOBALS['CONF']['moduls'][$ID] == 1 || (isset($_SESSION) && $_SESSION['authlevel'] > AUTH_USR);
 }
 
 function redirectTo($URL)
 {
-	@session_write_close();
-	if($_SERVER['SERVER_PROTOCOL'] == 'HTTP/1.1')
-		header('HTTP/1.1 302 Found');
-	
-	header('Location: '.PROTOCOL.$_SERVER['HTTP_HOST'].HTTP_ROOT.$URL);
+	header('Location: '.HTTP_PATH.$URL);
 	exit;
 }
 
@@ -589,6 +595,16 @@ function isactiveDMExtra($Extra, $Time) {
 
 function DMExtra($Extra, $Time, $true, $false) {
 	return isactiveDMExtra($Extra, $Time) ? $true : $false;
+}
+
+
+function getRandomString() {
+	return md5(uniqid());
+}
+
+function isVacationMode($USER)
+{
+	return ($USER['urlaubs_modus'] == 1) ? true : false;
 }
 
 if(!function_exists('ctype_alnum')):

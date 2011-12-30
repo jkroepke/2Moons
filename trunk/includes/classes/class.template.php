@@ -44,6 +44,7 @@ class template extends Smarty
 		$this->php_handling			= Smarty::PHP_QUOTE;#Smarty::PHP_REMOVE;
 		$this->Popup				= false;
 		$this->Dialog				= false;
+		#$this->loadFilter('output', 'trimwhitespace');
 	}
 	
 	public function loadscript($script)
@@ -114,21 +115,19 @@ class template extends Smarty
 			$CONF['deuterium_basic_income'] = 0;
 		}
 		
-		$Messages	= $db->countquery("SELECT COUNT(*) FROM ".MESSAGES." WHERE `message_owner` = ".$USER['id']." AND `message_unread` = '1'");
-		
 		$this->assign_vars(array(	
 			'PlanetMenu' 		=> $Planetlist,
 			'show_planetmenu' 	=> $LNG['show_planetmenu'],
 			'current_pid'		=> $PLANET['id'],
 			'Scripttime'		=> json_encode($Scripttime),	
-			'new_message' 		=> $Messages,
+			'new_message' 		=> $USER['messages'],
 			'forum_url'			=> $CONF['forum_url'],
 			'topnav'			=> true,
 			'metal'				=> $PLANET['metal'],
 			'crystal'			=> $PLANET['crystal'],
 			'deuterium'			=> $PLANET['deuterium'],
-			'energy'			=> (($PLANET['energy_max'] + $PLANET['energy_used']) < 0) ? colorRed(shortly_number($PLANET['energy_max'] + $PLANET['energy_used']).'/'.shortly_number($PLANET['energy_max'])) : shortly_number($PLANET['energy_max'] + $PLANET['energy_used']) . '/' . shortly_number($PLANET['energy_max']),
-			'energy_alt'		=> pretty_number($PLANET['energy_max'] + $PLANET['energy_used']).'/'.pretty_number($PLANET['energy_max']),
+			'energy'			=> (($PLANET['energy'] + $PLANET['energy_used']) < 0) ? colorRed(shortly_number($PLANET['energy'] + $PLANET['energy_used']).'/'.shortly_number($PLANET['energy'])) : shortly_number($PLANET['energy'] + $PLANET['energy_used']) . '/' . shortly_number($PLANET['energy']),
+			'energy_alt'		=> pretty_number($PLANET['energy'] + $PLANET['energy_used']).'/'.pretty_number($PLANET['energy']),
 			'darkmatter'		=> $USER['darkmatter'],
 			'metal_max'			=> $PLANET['metal_max'],
 			'crystal_max'		=> $PLANET['crystal_max'],
@@ -147,11 +146,11 @@ class template extends Smarty
 			'image'				=> $PLANET['image'],
 			'settings_tnstor'	=> $USER['settings_tnstor'],
 			'PlanetSelect'		=> $PlanetSelect,
-			'Metal'				=> $LNG['Metal'],
-			'Crystal'			=> $LNG['Crystal'],
-			'Deuterium'			=> $LNG['Deuterium'],
-			'Darkmatter'		=> $LNG['Darkmatter'],
-			'Energy'			=> $LNG['Energy'],
+			'Metal'				=> $LNG['tech'][901],
+			'Crystal'			=> $LNG['tech'][902],
+			'Deuterium'			=> $LNG['tech'][903],
+			'Darkmatter'		=> $LNG['tech'][921],
+			'Energy'			=> $LNG['tech'][911],
 			'class'				=> 'normal',
 		));
 	}
@@ -191,6 +190,7 @@ class template extends Smarty
 			'scripts'			=> $this->script,
 			'title'				=> $CONF['game_name'].' - '.$LNG['adm_cp_title'],
 			'fcm_info'			=> $LNG['fcm_info'],
+			'REV'				=> substr($CONF['VERSION'], -4),
 		));
 	}
 	
@@ -210,7 +210,6 @@ class template extends Smarty
 			'menu_index'		=> $LNG['menu_index'],
 			'menu_news'			=> $LNG['menu_news'],
 			'menu_rules'		=> $LNG['menu_rules'],
-			'menu_agb'			=> $LNG['menu_agb'],
 			'menu_pranger'		=> $LNG['menu_pranger'],
 			'menu_top100'		=> $LNG['menu_top100'],
 			'menu_disclamer'	=> $LNG['menu_disclamer'],
@@ -225,6 +224,7 @@ class template extends Smarty
 			'VERSION'			=> $CONF['VERSION'],
 			'REV'				=> substr($CONF['VERSION'], -4),
 			'langs'				=> json_encode(Language::getAllowedLangs(false)),
+			'htaccess'			=> UNIS_HTACCESS,
 		));
 	}
 		

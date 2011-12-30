@@ -1,9 +1,10 @@
 <?php
 
-// Translated into Russian by InquisitorEA (SporeEA@yandex.ru). All rights reserved © 2010-2011
+// Translated into Russian by InquisitorEA (SporeEA@yandex.ru). All rights reserved © 2010-2012
 
 // Общее
 $LNG['adm_login']                      = 'Логин';
+$LNG['adm_username']                   = 'Логин';
 $LNG['adm_password']                   = 'Пароль';
 $LNG['adm_absenden']                   = 'Войти';
 $LNG['adm_password_info']              = 'Введите пароль для авторизации!';
@@ -553,6 +554,19 @@ $LNG['mu_logs']                        = 'Логи';
 $LNG['vt_error']                       = 'Хэш файл не доступен. Выполните обновление.';
 $LNG['vt_fail']                        = 'Измененные файлы';
 $LNG['vt_info']                        = 'Этот список содержит файлы, которые были изменения, и не соответствуют оригиналу.<br>Если вы не меняли содержимое файлов, рекомендуется заменить файлы оригинальными.';
+$LNG['vt_head']                        = 'Проверка файлов игры';
+$LNG['vt_filephp']                     = 'Файлы PHP';
+$LNG['vt_filetpl']                     = 'Файлы шаблона';
+$LNG['vt_filecss']                     = 'Файлы CSS';
+$LNG['vt_filejs']                      = 'Файлы Javascript';
+$LNG['vt_fileimg']                     = 'Файлы изображений';
+$LNG['vt_filehtaccess']                = 'Файлы htaccess';
+$LNG['vt_all']                         = 'Проверить все файлы';
+$LNG['vt_fileok']                      = 'Файлы без изменений';
+$LNG['vt_filefail']                    = 'Файлы с изменениями';
+$LNG['vt_filenew']                     = 'Новые файлы';
+$LNG['vt_fileerror']                   = 'Ошибка';
+$LNG['vt_loadfile']                    = 'Загрузить список файлов';
 
 // Кэш
 $LNG['cc_cache_clear']				   = 'Кэш очищен';
@@ -1020,7 +1034,6 @@ $LNG['up_error_update']                = 'ОШИБКА! - Не удалось с
 $LNG['up_delete_file']                 = 'Файлы успешно удалены';
 $LNG['up_error_delete_file']           = 'ОШИБКА! - Невозможно удалить файлы';
 $LNG['up_update_ok_rev']               = 'Обновлено до версии: ';
-$LNG['up_error_fsockopen']             = 'Функция file_get_contents или fsockopen отключена';
 $LNG['up_download_patch_files']        = 'Скачать файлы обновлений';
 $LNG['up_aktuelle_updates']            = 'Последнее обновление';
 $LNG['up_momentane_version']           = 'Текущая версия';
@@ -1033,8 +1046,10 @@ $LNG['up_submit']                      = 'Обновить';
 $LNG['up_version']                     = 'Версия';
 $LNG['up_chmod_error']                 = "Нет прав на запись (CHMOD 777) для папок:\n\n";
 $LNG['up_need_curl']                   = 'Ошибка: cURL не доступен.<br />Система обновления 2Moons требует cURL для загрузки файлов обновления.';
+$LNG['up_no_xml_ext']                  = 'Ошибка: XML-парсер не доступен.<br />Система обновления 2Moons требует XML-парсер для обработки файлов.';
+$LNG['up_offline']                     = 'Обновление сервера недоступно.';
 
-// Редактор чата
+// Настройки чата
 $LNG['ch_socket_chatid_info']          = 'Этот ID может быть использован для различения настроек чатов, использующих один и тот же сокет сервер.';
 $LNG['ch_socket_port_info']            = 'Порт сокет сервера.';
 $LNG['ch_socket_ip_info']              = 'IP адрес сокет сервера, используемого, чтобы соединиться с серверной стороной для передачи обновления сообщений.';

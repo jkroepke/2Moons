@@ -103,6 +103,8 @@ function ShowStatisticsPage()
 
 			$query = $db->query($stats_sql);
 
+			$RangeList	= array();
+			
 			while ($StatRow = $db->fetch_array($query))
 			{			
 				$RangeList[]	= array(

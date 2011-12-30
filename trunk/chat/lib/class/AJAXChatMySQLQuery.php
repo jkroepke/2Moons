@@ -67,7 +67,7 @@ class AJAXChatMySQLQuery {
 		if($this->error()) {
 			return null;
 		} else {
-			return mysql_num_rows($this->_result);
+			return mysql_numRows($this->_result);
 		}
 	}
 

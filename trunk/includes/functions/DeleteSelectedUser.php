@@ -27,6 +27,8 @@
  * @link http://code.google.com/p/2moons/
  */
 
+require_once(ROOT_PATH.'includes/classes/class.FleetFunctions.php');
+ 
 function DeleteSelectedUser($UserID)
 {
 	global $db ,$CONF;
@@ -52,7 +54,7 @@ function DeleteSelectedUser($UserID)
 			$SQL .= "DELETE FROM ".STATPOINTS." WHERE `stat_type` = '2' AND `id_owner` = '".$TheUser['ally_id']."';";
 		}
 	}
-
+	
 	$SQL .= "DELETE FROM ".BUDDY." WHERE `owner` = ".$UserID." OR `sender` = ".$UserID.";";
 	$SQL .= "DELETE FROM ".FLEETS." WHERE `fleet_owner` = ".$UserID.";";
 	$SQL .= "DELETE FROM ".MESSAGES." WHERE `message_owner` = ".$UserID.";";
@@ -64,46 +66,27 @@ function DeleteSelectedUser($UserID)
 	
 	$SQL	= $db->query("SELECT fleet_id FROM ".FLEETS." WHERE `fleet_target_owner` = '".$UserID."';");
 	while($FleetID = $db->fetch_array($SQL)) {
-		SendFleetBack($UserID, $FleetID);
+		FleetFunctions::SendFleetBack($UserID, $FleetID);
 	}
 	update_config(array('users_amount' => $CONF['users_amount'] - 1), $TheUser['universe']);
 }
 
-function SendFleetBack($CurrentUser, $FleetID)
-{
-	global $db;	
-
-	$FleetRow = $db->uniquequery("SELECT `start_time`, `fleet_mission`, `fleet_group`, `fleet_owner`, `fleet_mess` FROM ".FLEETS." WHERE `fleet_id` = '". $FleetID ."';");
-	if ($FleetRow['fleet_owner'] != $CurrentUser || $FleetRow['fleet_mess'] == 1)
-		return;
-		
-	$where		= 'fleet_id';
-
-	if($FleetRow['fleet_mission'] == 1 && $FleetRow['fleet_group'] > 0)
-	{
-		$Aks = $db->uniquequery("SELECT teilnehmer FROM ".AKS." WHERE id = '". $FleetRow['fleet_group'] ."';");
-
-		if($Aks['teilnehmer'] == $FleetRow['fleet_owner'])
-		{
-			$db->query("DELETE FROM ".AKS." WHERE id ='". $FleetRow['fleet_group'] ."';");
-			$FleetID	= $FleetRow['fleet_group'];
-			$where		= 'fleet_group';
-		}
-	}
-	
-	$db->query("UPDATE ".FLEETS." SET `fleet_group` = '0', `start_time` = '".TIMESTAMP."', `fleet_end_stay` = '".TIMESTAMP."', `fleet_end_time` = '".((TIMESTAMP - $FleetRow['start_time']) + TIMESTAMP)."', `fleet_mess` = '1' WHERE `".$where."` = '".$FleetID."';");
-}
-
-function DeleteSelectedPlanet ($ID)
+function DeleteSelectedPlanet($planetID)
 {
 	global $db;
 
-	$QueryPlanet = $db->uniquequery("SELECT universe,galaxy,planet,system,planet_type FROM ".PLANETS." WHERE id = '".$ID."';");
+	$QueryPlanet = $db->uniquequery("SELECT universe, galaxy, system, planet, planet_type FROM ".PLANETS." WHERE id = ".$planetID.";");
 
+	$SQL	= $db->query("SELECT fleet_id FROM ".FLEETS." WHERE `fleet_target_id` = '".$planetID."';");
+	
+	while($FleetID = $db->fetch_array($SQL)) {
+		FleetFunctions::SendFleetBack($planetID, $FleetID);
+	}
+	
 	if ($QueryPlanet['planet_type'] == '3')
-		$db->multi_query("DELETE FROM ".PLANETS." WHERE id = '".$ID."';UPDATE ".PLANETS." SET id_luna = '0' WHERE id_luna = '".$ID."';");
+		$db->multi_query("DELETE FROM ".PLANETS." WHERE id = '".$planetID."';UPDATE ".PLANETS." SET id_luna = '0' WHERE id_luna = ".$planetID.";");
 	else
-		$db->query("DELETE FROM ".PLANETS." WHERE universe = '".$QueryPlanet['universe']."' AND galaxy = '".$QueryPlanet['galaxy']."' AND system = '".$QueryPlanet['system']."' AND planet = '".$QueryPlanet['planet']."';");
+		$db->query("DELETE FROM ".PLANETS." WHERE universe = ".$QueryPlanet['universe']." AND galaxy = ".$QueryPlanet['galaxy']." AND system = ".$QueryPlanet['system']." AND planet = ".$QueryPlanet['planet'].";");
 }
 
 ?>

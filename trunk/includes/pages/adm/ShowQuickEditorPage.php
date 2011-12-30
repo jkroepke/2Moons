@@ -119,9 +119,9 @@ function ShowQuickEditorPage()
 			$template	= new template();
 			$template->assign_vars(array(	
 				'qe_resources'	=> $LNG['qe_resources'],
-				'Metal'			=> $LNG['Metal'],
-				'Crystal'		=> $LNG['Crystal'],
-				'Deuterium'		=> $LNG['Deuterium'],
+				'Metal'			=> $LNG['tech'][901],
+				'Crystal'		=> $LNG['tech'][902],
+				'Deuterium'		=> $LNG['tech'][903],
 				'qe_defensive'	=> $LNG['qe_defensive'],
 				'qe_fleet'		=> $LNG['qe_fleet'],
 				'qe_build'		=> $LNG['qe_build'],
@@ -225,7 +225,7 @@ function ShowQuickEditorPage()
 			$template	= new template();
 			$template->assign_vars(array(	
 				'qe_resources'	=> $LNG['qe_resources'],
-				'Darkmatter'	=> $LNG['Darkmatter'],
+				'Darkmatter'	=> $LNG['tech'][921],
 				'qe_officier'	=> $LNG['qe_officier'],
 				'qe_tech'		=> $LNG['qe_tech'],
 				'qe_input'		=> $LNG['qe_input'],

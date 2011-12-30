@@ -32,6 +32,10 @@ if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FI
 function ShowUpdatePage()
 {
 	global $LNG, $CONF, $db;
+	$template	= new template();
+	$template->message('<p>This Site is currently under construction, because the update system brings somtimes inconsistent game installations.</p><p>Alternate update process: <a href="http://2moons.cc/b4-support/b7-installation-update-und-konvertierung/t1721-howto-update-your-2moons-game-with-private-modifications-without-edit-files-one-by-one/" target="blank"><u>2moons.cc Board</u></a></p><p>We apologize for any inconvenience.</p>');
+	exit;
+	
 	if(!function_exists('curl_init'))
 	{
 		$template	= new template();
