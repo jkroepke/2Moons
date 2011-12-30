@@ -76,13 +76,10 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $Universe, $PlanetOw
 				temp_max = ".$TMax.",
 				metal = ".$CONF['metal_start']."',
 				metal_perhour = ".$CONF['metal_basic_income'].",
-				metal_max = ".BASE_STORAGE_SIZE.",
-				crystal = ".$CONF['crystal_start'].",
+				crystal = 0,
 				crystal_perhour = ".$CONF['crystal_basic_income'].",
-				crystal_max = ".BASE_STORAGE_SIZE.",
 				deuterium = ".$CONF['deuterium_start'].",
-				deuterium_perhour = '".$CONF['deuterium_basic_income'].",
-				deuterium_max = ".BASE_STORAGE_SIZE.";");
+				deuterium_perhour = '".$CONF['deuterium_basic_income'].";");
 
 	return $db->GetInsertID();
 }
