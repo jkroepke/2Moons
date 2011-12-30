@@ -58,7 +58,7 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $Universe, $PlanetOw
 	$Types				= array_keys($PlanetData[$Pos]['image']);
 	$Type				= $Types[array_rand($Types)];
 	$Class				= $Type.'planet'.($PlanetData[$Pos]['image'][$Type] < 10 ? '0' : '').$PlanetData[$Pos]['image'][$Type];
-	$Name				= !empty($PlanetName) ? $db->sql_escape($PlanetName) : $LNG['type_planet'][1]);
+	$Name				= !empty($PlanetName) ? $db->sql_escape($PlanetName) : $LNG['type_planet'][1];
 	
 	$db->query("INSERT INTO ".PLANETS." SET
 				name = '".$Name."',
