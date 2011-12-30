@@ -33,25 +33,43 @@ define('IN_CRON' , true);
 
 define('ROOT_PATH' ,'./');
 
-if(!extension_loaded('gd'))
-	redirectTo('index.php?action=keepalive');
-	
+if(!extension_loaded('gd')) {
+	header('Cache-Control: no-cache');
+	header('Content-type: image/gif');
+	header('Content-length: 43');
+	header('Expires: 0');
+	echo("\x47\x49\x46\x38\x39\x61\x01\x00\x01\x00\x80\x00\x00\x00\x00\x00\x00\x00\x00\x21\xF9\x04\x01\x00\x00\x00\x00\x2C\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02\x44\x01\x00\x3B");
+	exit;
+}
+
 require(ROOT_PATH . 'includes/common.php');
 error_reporting(E_ALL);
 $id = request_var('id', 0);
 
-if(!isModulAvalible(MODUL_BANNER) || $id == 0) exit();
+if(!isModulAvalible(MODUL_BANNER) || $id == 0) {
+	header('Cache-Control: no-cache');
+	header('Content-type: image/gif');
+	header('Content-length: 43');
+	header('Expires: 0');
+	echo("\x47\x49\x46\x38\x39\x61\x01\x00\x01\x00\x80\x00\x00\x00\x00\x00\x00\x00\x00\x21\xF9\x04\x01\x00\x00\x00\x00\x2C\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02\x44\x01\x00\x3B");
+	exit;
+}s
 
 $LANG->GetLangFromBrowser();
 $LANG->includeLang(array('L18N', 'BANNER'));
 
 require_once(ROOT_PATH."includes/classes/class.StatBanner.php");
 
-
 $banner = new StatBanner();
 $Data	= $banner->GetData($id);
-if(!isset($Data) || !is_array($Data))
+if(!isset($Data) || !is_array($Data)) {
+	header('Cache-Control: no-cache');
+	header('Content-type: image/gif');
+	header('Content-length: 43');
+	header('Expires: 0');
+	echo("\x47\x49\x46\x38\x39\x61\x01\x00\x01\x00\x80\x00\x00\x00\x00\x00\x00\x00\x00\x21\xF9\x04\x01\x00\x00\x00\x00\x2C\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02\x44\x01\x00\x3B");
 	exit;
+}
 	
 $ETag	= md5(implode('', $Data));
 header('ETag: '.$ETag);

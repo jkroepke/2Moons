@@ -33,15 +33,17 @@ define('IN_CRON' , true);
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 require(ROOT_PATH . 'includes/common.php');
 
-if (empty($_SESSION)) exit;
-
 // Output transparent gif
 header('Cache-Control: no-cache');
 header('Content-type: image/gif');
 header('Content-length: 43');
 header('Expires: 0');
 echo("\x47\x49\x46\x38\x39\x61\x01\x00\x01\x00\x80\x00\x00\x00\x00\x00\x00\x00\x00\x21\xF9\x04\x01\x00\x00\x00\x00\x2C\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02\x44\x01\x00\x3B");
+
+if(!$SESSION->IsUserLogin()) exit;
+
 $cron = request_var('cron','');
+
 switch($cron) 
 {
 	case "stats":
