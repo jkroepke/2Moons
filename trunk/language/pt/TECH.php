@@ -152,6 +152,13 @@ $LNG['tech'] = array(
 704 => 'Otimização de Energia',
 705 => 'Otimização de Pesquisas',
 706 => 'Coordenação de Frotas',
+
+900 => 'Recursos',
+901 => 'Metal',
+902 => 'Cristal',
+903 => 'Deutério',
+911 => 'Energia',
+921 => 'Matéria Negra',
 );
 
 $LNG['res']['descriptions'] = array(

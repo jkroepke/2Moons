@@ -2,11 +2,11 @@
 
 // Translated into Russian by InquisitorEA (SporeEA@yandex.ru). All rights reserved © 2010-2012
 
-$LNG['tech'][901]                         = 'Металл';
-$LNG['tech'][902]                       = 'Кристалл';
-$LNG['tech'][903]                     = 'Дейтерий';
-$LNG['tech'][921]                    = 'Тёмная материя';
-$LNG['tech'][911]                        = 'Энергия';
+$LNG['Metal']                         = 'Металл';
+$LNG['Crystal']                       = 'Кристалл';
+$LNG['Deuterium']                     = 'Дейтерий';
+$LNG['Darkmatter']                    = 'Тёмная материя';
+$LNG['Energy']                        = 'Энергия';
 
 // Система
 $LNG['sys_attacker_lostunits']        = 'Атакующий потерял';
