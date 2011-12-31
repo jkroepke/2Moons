@@ -74,7 +74,7 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $Universe, $PlanetOw
 				field_max = ".(($HomeWorld) ? $CONF['initial_fields'] : floor($Fields)).",
 				temp_min = ".$TMin.",
 				temp_max = ".$TMax.",
-				metal = ".$CONF['metal_start']."',
+				metal = ".$CONF['metal_start'].",
 				metal_perhour = ".$CONF['metal_basic_income'].",
 				crystal = 0,
 				crystal_perhour = ".$CONF['crystal_basic_income'].",
