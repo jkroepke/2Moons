@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 
-<html lang="{$lang}">
+<!--[if lt IE 7 ]> <html lang="{$lang}" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="{$lang}" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="{$lang}" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="{$lang}" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="{$lang}" class="no-js"> <!--<![endif]-->
 <head>
 <link rel="stylesheet" type="text/css" href="styles/css/login.css?v={$REV}">
 <link rel="stylesheet" type="text/css" href="styles/css/jquery.fancybox.css?v={$REV}">

@@ -135,7 +135,7 @@ function ShowOverviewPage()
 		while ($RefRow = $db->fetch_array($RefLinksRAW)) {
 			$RefLinks[$RefRow['id']]	= array(
 				'username'	=> $RefRow['username'],
-				'points'	=> $RefRow['total_points']
+				'points'	=> min($RefRow['total_points'], $CONF['ref_minpoints'])
 			);
 		}
 	}

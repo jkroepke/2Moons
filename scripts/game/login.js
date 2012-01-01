@@ -220,20 +220,19 @@ function FBRegister(data) {
 function FBgetUser(callback) {
 	FB.api('/me', callback);
 }
-$(function() {
-	if(CONF.htaccess) {
-		$('select[name=uni]').on('change', function() {
+
+if(CONF.htaccess) {
+	$(function() {
+		$('select[name=uni]').each(function() {
 			var $this	= $(this);
 			$this.parents('form').attr('action', function(i, old) {
-				console.log(old);
+				return old.replace(/.*index\.php/, '../uni'+$this.val()+'/index.php');
+			});
+		}).on('change', function() {
+			var $this	= $(this);
+			$this.parents('form').attr('action', function(i, old) {
 				return old.replace(/.*index\.php/, '../uni'+$this.val()+'/index.php');
 			});
 		});
-	}
-	$('select[name=uni]').each(function() {
-		var $this	= $(this);
-		$this.parents('form').attr('action', function(i, old) {
-			return old.replace(/.*index\.php/, '../uni'+$this.val()+'/index.php');
-		});
 	});
-});
+}
