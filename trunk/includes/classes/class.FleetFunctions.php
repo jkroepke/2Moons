@@ -377,7 +377,7 @@ class FleetFunctions
 				   fleet_resource_crystal   = ".$fleetRessource[902].",
 				   fleet_resource_deuterium = ".$fleetRessource[903].",
 				   fleet_group              = ".$fleetGroup.",
-				   fleet_target_owner       = ".$missleTarget.",
+				   fleet_target_obj         = ".$missleTarget.",
 				   start_time               = ".TIMESTAMP.";
 				   SET @fleetID = LAST_INSERT_ID();
                    INSERT INTO ".FLEETS_EVENT." SET 
@@ -408,7 +408,7 @@ class FleetFunctions
 				   fleet_resource_crystal   = ".$fleetRessource[902].",
 				   fleet_resource_deuterium = ".$fleetRessource[903].",
 				   fleet_group              = ".$fleetGroup.",
-				   fleet_target_owner       = ".$missleTarget.",
+				   fleet_target_obj         = ".$missleTarget.",
 				   start_time               = ".TIMESTAMP.";
 				   UPDATE ".PLANETS." SET ".implode(", ", $planetQuery)." WHERE id = ".$fleetStartPlanetID.";
 				   UNLOCK TABLES;";
