@@ -324,7 +324,7 @@ class template extends Smarty
     public function __set($name, $value)
     {
         $allowed = array(
-        'template_dir' => 'setTemplateDirgetTemplateDir',
+        'template_dir' => 'setTemplateDir',
         'config_dir' => 'setConfigDir',
         'plugins_dir' => 'setPluginsDir',
         'compile_dir' => 'setCompileDir',
