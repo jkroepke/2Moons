@@ -223,8 +223,8 @@ class template extends Smarty
 			'UNI'				=> $UNI,
 			'VERSION'			=> $CONF['VERSION'],
 			'REV'				=> substr($CONF['VERSION'], -4),
-			'langs'				=> json_encode(Language::getAllowedLangs(false)),
-			'htaccess'			=> (int) UNIS_HTACCESS === true,
+			'langs'				=> json_encode(Language::getAllowedLangs(false)),			
+			'htaccess'			=> (int) (UNIS_HTACCESS === true),
 		));
 	}
 		
