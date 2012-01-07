@@ -221,8 +221,8 @@ function FBgetUser(callback) {
 	FB.api('/me', callback);
 }
 
-if(CONF.htaccess) {
-	$(function() {
+$(function() {
+	if(CONF.htaccess) {
 		$('select[name=uni]').each(function() {
 			var $this	= $(this);
 			$this.parents('form').attr('action', function(i, old) {
@@ -234,5 +234,5 @@ if(CONF.htaccess) {
 				return old.replace(/.*index\.php/, '../uni'+$this.val()+'/index.php');
 			});
 		});
-	});
-}
+	}
+});
