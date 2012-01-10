@@ -113,6 +113,8 @@ class ShowFleetStep3Page
 				
 			if ($targetMission != 7 && !isset($targetPlanetData)) {
 				FleetFunctions::GotoFleetPage(7);
+			} else {
+				$targetPlanetData	= array('id' => 0, 'id_owner' => 0, 'planettype' => 1);
 			}
 		}
 		
@@ -152,13 +154,24 @@ class ShowFleetStep3Page
 
 		if($myPlanet) {
 			$targetPlayerData	= $USER;
-		} else {
+		} elseif(!empty($targetPlanetData['id_owner'])) {
 			$targetPlayerData	= $db->uniquequery("SELECT 
 			user.id, user.onlinetime, user.ally_id, user.urlaubs_modus, user.banaday, user.authattack, 
 			stat.total_points
 			FROM ".USERS." as user 
 			LEFT JOIN ".STATPOINTS." as stat ON stat.id_owner = user.id AND stat.stat_type = '1' 
 			WHERE user.id = ".$targetPlanetData['id_owner'].";");
+		} elseif($targetMission == 7) {
+			$targetPlayerData	= array(
+				'id'				=> 0,
+				'onlinetime'		=> TIMESTAMP,
+				'ally_id'			=> 0,
+				'urlaubs_modus'		=> 0,
+				'authattack'		=> 0,
+				'total_points'		=> 0,
+			);
+		} else {
+			FleetFunctions::GotoFleetPage(23);
 		}
 		
 		
