@@ -60,7 +60,7 @@ class ShowInfosPage
 			return json_encode(array('message' => $LNG['in_jump_gate_already_used'].' '.pretty_time($NextJumpTime), 'error' => true));
 			
 		$TargetPlanet = request_var('jmpto', $PLANET['id']);
-		$TargetGate   = $db->uniquequery("SELECT `id`, `last_jump_time` FROM ".PLANETS." WHERE `id` = '".$TargetPlanet."' AND `sprungtor` > '0';");
+		$TargetGate   = $db->uniquequery("SELECT `id`, `last_jump_time` FROM ".PLANETS." WHERE `id` = ".$TargetPlanet." AND id_owner = ".$USER['id']." AND `sprungtor` > 0;");
 
 		if (!isset($TargetGate) || $TargetPlanet == $PLANET['id'])
 			return json_encode(array('message' =>  $LNG['in_jump_gate_doesnt_have_one'], 'error' => true));
