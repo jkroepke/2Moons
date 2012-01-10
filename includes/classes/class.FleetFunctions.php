@@ -283,8 +283,8 @@ class FleetFunctions
 	public static function GetAvailableMissions($USER, $MissionInfo, $GetInfoPlanet)
 	{	
 		global $db, $UNI, $CONF;
-		$YourPlanet				= (isset($GetInfoPlanet['id_owner']) && $GetInfoPlanet['id_owner'] == $USER['id']) ? true : false;
-		$UsedPlanet				= (isset($GetInfoPlanet['id_owner'])) ? true : false;
+		$YourPlanet				= (!empty($GetInfoPlanet['id_owner']) && $GetInfoPlanet['id_owner'] == $USER['id']) ? true : false;
+		$UsedPlanet				= (!empty($GetInfoPlanet['id_owner'])) ? true : false;
 		$avalibleMissions			= array();
 		
 		if ($MissionInfo['planet'] == ($CONF['max_planets'] + 1) && isModulAvalible(MODUL_MISSION_EXPEDITION))
