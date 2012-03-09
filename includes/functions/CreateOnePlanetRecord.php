@@ -76,7 +76,7 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $Universe, $PlanetOw
 				temp_max = ".$TMax.",
 				metal = ".$CONF['metal_start'].",
 				metal_perhour = ".$CONF['metal_basic_income'].",
-				crystal = 0,
+				crystal = ".$CONF['crystal_start'].",
 				crystal_perhour = ".$CONF['crystal_basic_income'].",
 				deuterium = ".$CONF['deuterium_start'].",
 				deuterium_perhour = ".$CONF['deuterium_basic_income'].";");

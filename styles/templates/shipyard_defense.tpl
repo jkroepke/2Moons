@@ -10,7 +10,7 @@
 				<div id="bx" class="z"></div>
 				<br>
 				<form method="POST" action="">
-				<input type="hidden" name="mode" value="fleet">
+				<input type="hidden" name="mode" value="defense">
 				<input type="hidden" name="action" value="delete">
 				<table>
 				<tr>
@@ -30,7 +30,7 @@
     </table>
 	<br>
 	{/if}
-	<form action="game.php?page=buildings&amp;mode=fleet" method="POST">
+	<form action="game.php?page=buildings&amp;mode=defense" method="POST">
     <table style="width:760px">
 		{foreach $DefenseList as $ID => $Element}
 		<tr>

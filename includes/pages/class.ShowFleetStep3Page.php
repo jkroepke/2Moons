@@ -63,7 +63,7 @@ class ShowFleetStep3Page
 		$fleetArray  	= $_SESSION['fleet'][$token]['fleet'];
 		$fleetStorage	= $_SESSION['fleet'][$token]['fleetRoom'];
 		$fleetSpeed		= $_SESSION['fleet'][$token]['fleetSpeed'];
-		unset($_SESSION['fleet'][$token]);
+		#unset($_SESSION['fleet'][$token]);
 			
 		if ($PLANET['galaxy'] == $targetGalaxy && $PLANET['system'] == $targetSystem && $PLANET['planet'] == $targetPlanet && $PLANET['planet_type'] == $targetType) {
 			FleetFunctions::GotoFleetPage(3);
@@ -106,15 +106,15 @@ class ShowFleetStep3Page
 		
 		$targetPlanetData  	= $db->uniquequery("SELECT id, id_owner, der_metal, der_crystal, destruyed, ally_deposit FROM ".PLANETS." WHERE universe = ".$UNI." AND galaxy = ".$targetGalaxy." AND system = ".$targetSystem." AND planet = ".$targetPlanet." AND planet_type = ".($targetType == 2 ? 1 : $targetType).";");
 
-		if ($targetMission != 15) {
+		if ($targetMission == 15 || $targetMission == 7) {
+			$targetPlanetData	= array('id' => 0, 'id_owner' => 0, 'planettype' => 1);
+		} else {
 			if ($targetPlanetData["destruyed"] != 0) {
 				FleetFunctions::GotoFleetPage(7);
 			}
 				
-			if ($targetMission != 7 && !isset($targetPlanetData)) {
+			if (!isset($targetPlanetData)) {
 				FleetFunctions::GotoFleetPage(7);
-			} else {
-				$targetPlanetData	= array('id' => 0, 'id_owner' => 0, 'planettype' => 1);
 			}
 		}
 		
@@ -149,19 +149,10 @@ class ShowFleetStep3Page
 			}
 		}
 
-		$usedPlanet	= isset($targetPlanetData['id_owner']);
+		$usedPlanet	= !empty($targetPlanetData['id_owner']);
 		$myPlanet	= $usedPlanet && $targetPlanetData['id_owner'] == $USER['id'];
-
-		if($myPlanet) {
-			$targetPlayerData	= $USER;
-		} elseif(!empty($targetPlanetData['id_owner'])) {
-			$targetPlayerData	= $db->uniquequery("SELECT 
-			user.id, user.onlinetime, user.ally_id, user.urlaubs_modus, user.banaday, user.authattack, 
-			stat.total_points
-			FROM ".USERS." as user 
-			LEFT JOIN ".STATPOINTS." as stat ON stat.id_owner = user.id AND stat.stat_type = '1' 
-			WHERE user.id = ".$targetPlanetData['id_owner'].";");
-		} elseif($targetMission == 7) {
+		
+		if($targetMission == 7 || $targetMission == 15) {
 			$targetPlayerData	= array(
 				'id'				=> 0,
 				'onlinetime'		=> TIMESTAMP,
@@ -170,6 +161,15 @@ class ShowFleetStep3Page
 				'authattack'		=> 0,
 				'total_points'		=> 0,
 			);
+		} elseif($myPlanet) {
+			$targetPlayerData	= $USER;
+		} elseif(!empty($targetPlanetData['id_owner'])) {
+			$targetPlayerData	= $db->uniquequery("SELECT 
+			user.id, user.onlinetime, user.ally_id, user.urlaubs_modus, user.banaday, user.authattack, 
+			stat.total_points
+			FROM ".USERS." as user 
+			LEFT JOIN ".STATPOINTS." as stat ON stat.id_owner = user.id AND stat.stat_type = '1' 
+			WHERE user.id = ".$targetPlanetData['id_owner'].";");
 		} else {
 			FleetFunctions::GotoFleetPage(23);
 		}
@@ -291,9 +291,10 @@ class ShowFleetStep3Page
 			FleetFunctions::GotoFleetPage(20);
 		}
 				
-		$PLANET['metal']		-= $TransportMetal;
-		$PLANET['crystal']		-= $TransportCrystal;
-		$PLANET['deuterium']	-= ($TransportDeuterium + $consumption);
+		$PLANET[$resource[901]]	-= $fleetRessource[901];
+		$PLANET[$resource[902]]	-= $fleetRessource[902];
+		$PLANET[$resource[903]]	-= $fleetRessource[903] + $consumption;
+		
 		$PlanetRess->SavePlanetToDB();
 		
 		if(connection_aborted())
@@ -308,7 +309,7 @@ class ShowFleetStep3Page
 			FleetFunctions::setACSTime($timeDifference, $fleetGroup);
 		}
 		
-		FleetFunctions::sendFleet($fleetArray, $targetMission, $USER['id'], $PLANET['id'], $PLANET['galaxy'], $PLANET['system'], $PLANET['planet'], $PLANET['planet_type'], $targetPlanetData['id_owner'],  $targetPlanetData['id'], $targetGalaxy, $targetSystem, $targetPlanet, $targetType, $fleetRessource, $fleetStartTime, $fleetStayTime, $fleetEndTime, $fleetGroup);
+		FleetFunctions::sendFleet($fleetArray, $targetMission, $USER['id'], $PLANET['id'], $PLANET['galaxy'], $PLANET['system'], $PLANET['planet'], $PLANET['planet_type'], $targetPlanetData['id_owner'], $targetPlanetData['id'], $targetGalaxy, $targetSystem, $targetPlanet, $targetType, $fleetRessource, $fleetStartTime, $fleetStayTime, $fleetEndTime, $fleetGroup);
 		
 		foreach ($fleetArray as $Ship => $Count)
 		{

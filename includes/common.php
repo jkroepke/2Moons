@@ -33,7 +33,7 @@ if(!defined('IN_ADMIN') || !defined('IN_CRON'))
 define("BETA", 0);
 
 ignore_user_abort(true);
-error_reporting(E_ALL);
+error_reporting(E_ALL ^ E_NOTICE);
 ini_set('display_errors', 1);
 header('Content-Type: text/html; charset=UTF-8');
 define('TIMESTAMP',	$_SERVER['REQUEST_TIME']);

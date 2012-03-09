@@ -428,11 +428,14 @@ function CheckNoobProtec($OwnerPlayer, $TargetPlayer, $Player)
 	);
 }
 
-function CheckName($String)
+function CheckName($name)
 {
-	return(ctype_alnum($String) || (UTF8_SUPPORT && !empty($String))) ? true : false;
+	if(UTF8_SUPPORT) {
+		return preg_match("/^[A-z0-9_\-. ]*$/", $name);
+	} else {
+		return preg_match("/^[\p{L}_\-. ]*$/u", $name);
+	}
 }
-
 
 function exception_handler($exception) 
 {
