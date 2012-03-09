@@ -1,8 +1,0 @@
-Buongiorno %1$s,
-
-Grazie per esserti registrato su %2$s !
-
-Siamo felici che sia parte integrante della nostra community e ci auguriamo che ti possa divertire con noi.
-
-Saluti,
-%2$s - Team Manager

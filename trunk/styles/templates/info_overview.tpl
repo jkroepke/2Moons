@@ -22,14 +22,33 @@
 </tr>
 {if $ProductionTable}
 <tr>
-<td class="transparent" colspan="2"><hr></td>
-</tr>
-<tr>
-	<td colspan="2" class="transparent">
+	<td colspan="2">
 		<table>
-		<tr><th>{$in_level}</th>{if $id != 4}<th>{if $id == 12}{$in_prod_energy}{else}{$in_prod_p_hour}{/if}</th><th>{$in_difference}</th>{/if}<th>{if $id == 12}{$in_used_deuter}{elseif $id == 4}{$in_prod_energy}{else}{$in_used_energy}{/if}</th><th>{$in_difference}</th></tr>
-		{foreach item=LevelRow from=$ProductionTable}
-		<tr><td>{if $Level == $LevelRow.BuildLevel}<span style="color:#ff0000">{$LevelRow.BuildLevel}</span>{else}{$LevelRow.BuildLevel}{/if}</td>{if $id != 4}<td>{$LevelRow.prod}</td><td>{$LevelRow.prod_diff}</td>{/if}<td>{$LevelRow.need}</td><td>{$LevelRow.need_diff}</td></tr>
+		<tr>
+			<th>{lang}in_level{/lang}</th>
+			{if $id != 4}
+			<th>{if $id == 12}{lang}in_prod_energy{/lang}{else}{lang}in_prod_p_hour{/lang}{/if}</th>
+			<th>{lang}in_difference{/lang}</th>
+			{/if}
+			<th>{if $id == 12}{lang}in_used_deuter{/lang}{elseif $id == 4}{lang}in_prod_energy{/lang}{else}{lang}in_used_energy{/lang}{/if}</th>
+			<th>{lang}in_difference{/lang}</th>
+		</tr>
+		{foreach $ProductionTable as $elementLevel => $productionRow}
+		{if $elementLevel != 0}
+		{$production = $productionRow.production}
+		{$productionDiff = $production - $ProductionTable[$Level].production}
+		{$required = $productionRow.required}
+		{$requiredDiff = $required - $ProductionTable[$Level].required}
+		<tr>
+			<td><span{if $Level == $elementLevel} style="color:#ff0000"{/if}>{$elementLevel}</span></td>
+			{if $elementID != 4}
+			<td><span style="color:{if $production > 0}lime{elseif $production < 0}red{else}white{/if}">{$production|number}</span></td>
+			<td><span style="color:{if $productionDiff > 0}lime{elseif $productionDiff < 0}red{else}white{/if}">{$productionDiff|number}</span></td>
+			{/if}
+			<td><span style="color:{if $required > 0}lime{elseif $required < 0}red{else}white{/if}">{$required|number}</span></td>
+			<td><span style="color:{if $requiredDiff > 0}lime{elseif $requiredDiff < 0}red{else}white{/if}">{$requiredDiff|number}</span></td>
+		</tr>
+		{/if}
 		{/foreach}
 		</table>
 	</td>

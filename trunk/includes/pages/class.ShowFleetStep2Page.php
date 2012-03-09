@@ -80,7 +80,7 @@ class ShowFleetStep2Page
 		
 		$GameSpeedFactor   		 	= FleetFunctions::GetGameSpeedFactor();		
 		$MaxFleetSpeed 				= FleetFunctions::GetFleetMaxSpeed($fleetArray, $USER);
-		$distance      				= FleetFunctions::GetTargetDistance($PLANET['galaxy'], $targetGalaxy, $PLANET['system'], $targetSystem, $PLANET['planet'], $targetPlanet);
+		$distance    				= FleetFunctions::GetTargetDistance(array($PLANET['galaxy'], $PLANET['system'], $PLANET['planet']), array($targetGalaxy, $targetSystem, $targetPlanet));
 		$duration      				= FleetFunctions::GetMissionDuration($fleetSpeed, $MaxFleetSpeed, $distance, $GameSpeedFactor, $USER);
 		$consumption				= FleetFunctions::GetFleetConsumption($fleetArray, $duration, $distance, $MaxFleetSpeed, $USER, $GameSpeedFactor);
 		$duration					= $duration * (1 - $USER['factor']['shipspeed']);

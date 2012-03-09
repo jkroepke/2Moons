@@ -31,7 +31,7 @@
 		<td><span style="color:{if $productionRow.production.903 > 0}lime{elseif $productionRow.production.903 < 0}red{else}white{/if}">{$productionRow.production.903|number}</span></td>
 		<td><span style="color:{if $productionRow.production.911 > 0}lime{elseif $productionRow.production.911 < 0}red{else}white{/if}">{$productionRow.production.911|number}</span></td>
 		<td style="width:10%">
-			{html_options name='prod[$ressourceID]' options=$prodSelector selected=$productionRow.prodLevel}
+			{html_options name="prod[{$productionID}]" options=$prodSelector selected=$productionRow.prodLevel}
 		</td>
 	</tr>
     {/foreach}

@@ -1,8 +1,0 @@
-Pozdravljen uporabnik %1$s,
-
-Nazadnje ste se vpisali pred %2$s dnevi in pred %3$s časom. Če še vedno želite ostati član naše skupnosti, se prijavite s vašimi podatki, ki ste jih ustvarili ob registraciji.
-
-Če se pozagili svoje geslo, potem pojdite na %4$s in kliknite na  "Pozabljeno geslo". Dobili boste e-pošto v nekaj minutah za ponastavitev gesla.
-
-Regards,
-%3$s - Team

@@ -281,19 +281,20 @@ switch ($page) {
 				$PlanetID = false;
 				
 				while ($PlanetID === false) {
-					$Planet = mt_rand(4, 12);
+					$Planet = mt_rand(round($CONF['max_planets'] * 0.2), round($CONF['max_planets'] * 0.8));
 					if ($LastSettedPlanetPos < 3) {
 						$LastSettedPlanetPos += 1;
 					} else {
-						if ($LastSettedSystemPos > $CONF['max_system']) {
+						if ($LastSettedSystemPos >= $CONF['max_system']) {
 							$LastSettedGalaxyPos += 1;
 							$LastSettedSystemPos = 1;
 						} else {
 							$LastSettedSystemPos += 1;
 						}
 						
-						if($LastSettedGalaxyPos  > $CONF['max_system'])
+						if($LastSettedGalaxyPos  >= $CONF['max_galaxy']) {
 							$LastSettedGalaxyPos	= 1;
+						}
 					}
 					
 					$PlanetID = CreateOnePlanetRecord($LastSettedGalaxyPos, $LastSettedSystemPos, $Planet, $UserUni, $NewUser, $UserPlanet, true);

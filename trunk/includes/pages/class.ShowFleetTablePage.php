@@ -178,7 +178,7 @@ class ShowFleetTablePage
 		if ($techExpedition >= 1)
 		{
 			$activeExpedition   = FleetFunctions::GetCurrentFleets($USER['id'], 15);
-			$maxExpedition 		= floor(sqrt($MaxExpedition));
+			$maxExpedition 		= floor(sqrt($techExpedition));
 		}
 		else
 		{

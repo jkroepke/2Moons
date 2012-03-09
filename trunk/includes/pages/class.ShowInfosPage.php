@@ -169,49 +169,51 @@ class ShowInfosPage
 	
 		$description = $LNG['info'][$BuildID]['description'];
 	
-		if(in_array($BuildID, $reslist['prod']) && $BuildID != 212)
+		$CurrentBuildtLvl		= $PLANET[$resource[$BuildID]];
+			
+		if(in_array($BuildID, $reslist['prod']) && in_array($BuildID, $reslist['build']))
 		{
 			$BuildLevelFactor	= 10;
 			$BuildTemp       	= $PLANET['temp_max'];
-			$CurrentBuildtLvl	= $PLANET[$resource[$BuildID]];
 			$BuildEnergy		= $USER[$resource[113]];
-			$BuildLevel     	= max($CurrentBuildtLvl, 1);
-			$Prod[1]         	= round(eval($ProdGrid[$BuildID]['metal'])     * $CONF['resource_multiplier']);
-			$Prod[2]         	= round(eval($ProdGrid[$BuildID]['crystal'])   * $CONF['resource_multiplier']);
-			$Prod[3]          	= round(eval($ProdGrid[$BuildID]['deuterium']) * $CONF['resource_multiplier']);
-			$Prod[4] 			= round(eval($ProdGrid[$BuildID]['energy'])    * $CONF['resource_multiplier']);
-			$Prod[12] 			= round(eval($ProdGrid[$BuildID]['energy'])    * $CONF['resource_multiplier']);
-			$BuildStartLvl   	= max($CurrentBuildtLvl - 2, 1);
+			$BuildLevel     	= max($CurrentBuildtLvl, 0);
+			$BuildStartLvl   	= max($CurrentBuildtLvl - 2, 0);
 						
-			$ActualProd			= floor($Prod[$BuildID]);
-			$ActualNeed			= $BuildID != 12 ? floor($Prod[4]) : floor($Prod[3]);
-
-			$ProdFirst = 0;
-			
-			for($BuildLevel = $BuildStartLvl; $BuildLevel < $BuildStartLvl + 15; $BuildLevel++ )
+			for($BuildLevel = $BuildStartLvl; $BuildLevel < $BuildStartLvl + 15; $BuildLevel++)
 			{
-				$Prod[1]    = round(eval($ProdGrid[$BuildID]['metal'])     * $CONF['resource_multiplier']);
-				$Prod[2]    = round(eval($ProdGrid[$BuildID]['crystal'])   * $CONF['resource_multiplier']);
-				$Prod[3]   	= round(eval($ProdGrid[$BuildID]['deuterium']) * $CONF['resource_multiplier']);
-				$Prod[4] 	= round(eval($ProdGrid[$BuildID]['energy'])    * $CONF['resource_multiplier']);
-				$Prod[12] 	= round(eval($ProdGrid[$BuildID]['energy'])    * $CONF['resource_multiplier']);
+				if(isset($ProdGrid[$BuildID][901]))
+				{
+					$Prod[1]	= round(eval($ProdGrid[$BuildID][901]) * $CONF['resource_multiplier']);
+				} else {
+					$Prod[1]	= 0;
+				}
 				
-				$NeesRess	= $BuildID != 12 ? floor($Prod[4]) : floor($Prod[3]);
+				if(isset($ProdGrid[$BuildID][902]))
+				{
+					$Prod[2]	= round(eval($ProdGrid[$BuildID][902]) * $CONF['resource_multiplier']);
+				} else {
+					$Prod[2]	= 0;
+				}
 				
-				$prod		= pretty_number(floor($Prod[$BuildID]));
-				$prod_diff	= colorNumber(pretty_number(floor($Prod[$BuildID] - $ActualProd)));
-				$need		= colorNumber(pretty_number(floor($NeesRess)));
-				$need_diff	= colorNumber(pretty_number(floor($NeesRess - $ActualNeed)));
-
-				if ($ProdFirst == 0)
-					$ProdFirst = floor($Prod[$BuildID]);
+				if(isset($ProdGrid[$BuildID][903]))
+				{
+					$Prod[3]	= round(eval($ProdGrid[$BuildID][903]) * $CONF['resource_multiplier']);
+				} else {
+					$Prod[3]	= 0;
+				}
 				
-				$ProductionTable[] = array(
-					'BuildLevel'		=> $BuildLevel,
-					'prod'	     		=> $prod,
-					'prod_diff'			=> $prod_diff,
-					'need'				=> $need,
-					'need_diff'			=> $need_diff,
+				if(isset($ProdGrid[$BuildID][911]))
+				{
+					$Prod[4]	= round(eval($ProdGrid[$BuildID][911]));
+					$Prod[12]	= round(eval($ProdGrid[$BuildID][911]));
+				} else {
+					$Prod[4]	= 0;
+					$Prod[12]	= 0;
+				}
+				
+				$ProductionTable[$BuildLevel] = array(
+					'production'	=> $Prod[$BuildID],
+					'required'		=> $BuildID != 12 ? floor($Prod[4]) : floor($Prod[3]),
 				);
 			}
 		}

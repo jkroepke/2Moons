@@ -31,7 +31,6 @@ class Session
 {
 	function __construct()
 	{
-		ini_set('session.save_path', ROOT_PATH.'cache/sessions');
 		ini_set('session.use_cookies', '1');
 		ini_set('session.use_only_cookies', '1');
 		ini_set('session.use_trans_sid', 0);
@@ -43,7 +42,8 @@ class Session
 		ini_set('session.bug_compat_warn', '0');
 		ini_set('session.bug_compat_42', '0');
 		ini_set('session.cookie_httponly', true);
-		session_set_cookie_params(SESSION_LIFETIME, HTTP_ROOT, HTTP_HOST, HTTPS, true);
+		
+		session_set_cookie_params(SESSION_LIFETIME, HTTP_ROOT, NULL, HTTPS, true);
 		session_cache_limiter('nocache');
 		session_name('2Moons');
 	}
