@@ -1,1 +1,0 @@
-ALTER TABLE `prefix_planets` ADD `eco_hash` VARCHAR( 32 ) NOT NULL DEFAULT '' AFTER `temp_max` 
