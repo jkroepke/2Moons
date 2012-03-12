@@ -34,7 +34,7 @@ require(ROOT_PATH.'includes/pages/game/class.AbstractPage.php');
 require(ROOT_PATH.'includes/pages/game/class.ShowErrorPage.php');
 require(ROOT_PATH.'includes/classes/class.BuildFunctions.php');
 require(ROOT_PATH.'includes/common.php');
-	
+
 $page 		= HTTP::_GP('page', 'overview');
 $mode 		= HTTP::_GP('mode', 'show');
 $mode		= str_replace(array('_', '\\', '/', '.', "\0"), '', $mode);

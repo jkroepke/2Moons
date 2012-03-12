@@ -59,11 +59,12 @@ require_once(ROOT_PATH . 'includes/config.php');
 require_once(ROOT_PATH . 'includes/constants.php');
 require_once(ROOT_PATH . 'includes/dbtables.php');
 
-ini_set('upload_tmp_dir', ROOT_PATH.'cache/');
 ini_set('log_errors', 'On');
 ini_set('error_log', ROOT_PATH.'includes/error.log');
+
 require_once(ROOT_PATH . 'includes/GeneralFunctions.php');
-set_exception_handler('exception_handler');
+set_exception_handler('exceptionHandler');
+set_error_handler('errorHandler');
 
 require_once(ROOT_PATH . 'includes/classes/class.Cache.php');
 require_once(ROOT_PATH . 'includes/classes/class.Database.php');
@@ -106,13 +107,13 @@ if (MODE === 'INGAME' || MODE === 'ADMIN' || MODE === 'CHAT')
 		
 	$USER	= $GLOBALS['DATABASE']->uniquequery("SELECT 
 	user.*, 
-	stat.`total_points`, 
-	stat.`total_rank`,
+	stat.total_points, 
+	stat.total_rank,
 	COUNT(message.message_id) as messages
 	FROM ".USERS." as user 
 	LEFT JOIN ".STATPOINTS." as stat ON stat.id_owner = user.id AND stat.stat_type = '1' 
 	LEFT JOIN ".MESSAGES." as message ON message.message_owner = user.id AND message.message_unread = '1'
-	WHERE user.`id` = ".$_SESSION['id']."
+	WHERE user.id = ".$_SESSION['id']."
 	GROUP BY message.message_owner;");
 	
 	if(empty($USER)) {
@@ -127,8 +128,7 @@ if (MODE === 'INGAME' || MODE === 'ADMIN' || MODE === 'CHAT')
 		ShowErrorPage::printError($LNG['sys_closed_game'].'<br><br>'.$CONF['close_reason'], false);
 	}
 
-	if($USER['bana'] == 1)
-	{
+	if($USER['bana'] == 1) {
 		ShowErrorPage::printError("<font size=\"6px\">".$LNG['css_account_banned_message']."</font><br><br>".sprintf($LNG['css_account_banned_expire'], _date($LNG['php_tdformat'], $USER['banaday'], $USER['timezone']))."<br><br>".$LNG['css_goto_homeside'], false);
 	}
 	
@@ -150,7 +150,7 @@ if (MODE === 'INGAME' || MODE === 'ADMIN' || MODE === 'CHAT')
 		$USER['factor']		= getFactors($USER);
 		$USER['PLANETS']	= getPlanets($USER);
 	} else {
-		error_reporting(E_ALL ^ E_NOTICE);
+		error_reporting(E_ALL & ~E_NOTICE);
 		
 		$USER['rights']		= unserialize($USER['rights']);
 		$LANG->includeLang(array('ADMIN'));

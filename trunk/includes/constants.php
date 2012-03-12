@@ -147,7 +147,7 @@ define('AUTH_MOD'					, 1);
 define('AUTH_USR'					, 0);
 
 // Modules
-define('MODULE_AMOUNT'				, 42);
+define('MODULE_AMOUNT'				, 43);
 define('MODULE_ALLIANCE'			, 0);
 define('MODULE_BANLIST'				, 21);
 define('MODULE_BANNER'				, 37);
