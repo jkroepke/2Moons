@@ -464,51 +464,6 @@ function CheckName($name)
 	}
 }
 
-function exception_handler($exception) 
-{
-	global $CONF;
-
-	@session_write_close();
-	if($_SERVER['SERVER_PROTOCOL'] == 'HTTP/1.1' && !headers_sent())
-		header('HTTP/1.1 503 Service Unavailable');
-	
-	echo '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">';
-	echo '<html>';
-	echo '<head>';
-	echo '<meta http-equiv="content-type" content="text/html; charset=UTF-8">';
-	echo '<meta http-equiv="content-script-type" content="text/javascript">';
-	echo '<meta http-equiv="content-style-type" content="text/css">';
-	echo '<meta http-equiv="content-language" content="de">';
-	echo '<title>'.$CONF['game_name'].' - FATAL ERROR</title>';
-	echo '<link rel="shortcut icon" href="'.(defined('INSTALL') ? '..':'.').'/favicon.ico">';
-	echo '<link rel="stylesheet" type="text/css" href="'.(defined('INSTALL') ? '..':'.').'/styles/css/ingame.css">';
-	echo '<link rel="stylesheet" type="text/css" href="'.(defined('INSTALL') ? '..':'.').'/styles/theme/'.DEFAULT_THEME.'/formate.css">';
-	echo '</head>';
-	echo '<body style="margin-top:30px;">';
-	echo '<table width="80%">';
-	echo '<tr>';
-	echo '<th>';
-	echo 'Error:';
-	echo '</th>';
-	echo '</tr>';
-	echo '<tr>';
-    echo '<td class="left"><b>Message: </b>'.$exception->getMessage().'<br>';
-    echo '<b>File: </b>'.$exception->getFile().'<br>';
-    echo '<b>Line: </b>'.$exception->getLine().'<br>';
-    echo '<b>URL: </b>'.PROTOCOL.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].(!empty($_SERVER['QUERY_STRING']) ? '?'.$_SERVER['QUERY_STRING']: '').'<br>';
-    echo '<b>PHP-Version: </b>'.PHP_VERSION.'<br>';
-    echo '<b>PHP-API: </b>'.php_sapi_name().'<br>';
-    echo '<b>2Moons Version: </b>'.$CONF['VERSION'].'<br>';
-	echo '<b>Debug Backtrace:</b><br>'.makebr(str_replace($_SERVER['DOCUMENT_ROOT'], '.', htmlspecialchars($exception->getTraceAsString()))).'</th>';
-	echo '</tr>';
-	echo '</table>';
-	echo '</body>';			
-	echo '</html>';
-	ini_set('display_errors', 0);
-	trigger_error("Exception: ".str_replace("<br>", "\r\n", $exception->getMessage())."\r\n\r\n".$exception->getTraceAsString(), E_USER_ERROR);
-	exit;
-}
-
 function SendSimpleMessage($Owner, $Sender, $Time, $Type, $From, $Subject, $Message)
 {
 			
@@ -675,4 +630,124 @@ function clearGIF() {
 	exit;
 }
 
+function exceptionHandler($exception) 
+{
+	global $CONF;
+	if(!headers_sent()) {
+		if (!class_exists('HTTP', false)) {
+			require_once(ROOT_PATH . 'includes/classes/HTTP.class.php');
+		}
+		
+		HTTP::sendHeader('HTTP/1.1 503 Service Unavailable');
+	}
+	
+	if(method_exists($exception, 'getSeverity')) {
+		$errno	= $exception->getSeverity();
+	} else {
+		$errno	= E_USER_ERROR;
+	}
+	
+	$errorType = array(
+		E_ERROR				=> 'ERROR',
+		E_WARNING			=> 'WARNING',
+		E_PARSE				=> 'PARSING ERROR',
+		E_NOTICE			=> 'NOTICE',
+		E_CORE_ERROR		=> 'CORE ERROR',
+		E_CORE_WARNING   	=> 'CORE WARNING',
+		E_COMPILE_ERROR		=> 'COMPILE ERROR',
+		E_COMPILE_WARNING	=> 'COMPILE WARNING',
+		E_USER_ERROR		=> 'USER ERROR',
+		E_USER_WARNING		=> 'USER WARNING',
+		E_USER_NOTICE		=> 'USER NOTICE',
+		E_STRICT			=> 'STRICT NOTICE',
+		E_RECOVERABLE_ERROR	=> 'RECOVERABLE ERROR'
+	);
+	
+	$VERSION	= isset($CONF['VERSION']) ? $CONF['VERSION'] : 'UNKNOWN';
+	$DIR		= MODE == 'INSTALL' ? '..' : '.';
+	echo '<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html lang="de" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="de" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="de" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="de" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="de" class="no-js"> <!--<![endif]-->
+<head>
+	<title>'.(isset($CONF['game_name']) ? $CONF['game_name'].' - ' : '').$errorType[$errno].'</title>
+	<meta name="generator" content="2Moons '.$VERSION.'">
+	<!-- 
+		This website is powered by 2Moons '.$VERSION.'
+		2Moons is a free Space Browsergame initially created by Jan Kröpke and licensed under GNU/GPL.
+		2Moons is copyright 2009-2012 of Jan Kröpke. Extensions are copyright of their respective owners.
+		Information and contribution at http://2moons.cc/
+	-->
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" type="text/css" href="'.$DIR.'/styles/css/boilerplate.css?v='.$VERSION.'">
+	<link rel="stylesheet" type="text/css" href="'.$DIR.'/styles/css/ingame.css?v='.$VERSION.'">
+	<link rel="stylesheet" type="text/css" href="'.$DIR.'/styles/theme/gow/formate.css?v='.$VERSION.'">
+	<link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+	<script type="text/javascript">
+	var ServerTimezoneOffset = -3600;
+	var serverTime 	= new Date(2012, 2, 12, 14, 43, 36);
+	var startTime	= serverTime.getTime();
+	var localTime 	= serverTime;
+	var localTS 	= startTime;
+	var Gamename	= document.title;
+	var Ready		= "Fertig";
+	var Skin		= "'.$DIR.'/styles/theme/gow/";
+	var Lang		= "de";
+	var head_info	= "Information";
+	var auth		= 3;
+	var days 		= ["So","Mo","Di","Mi","Do","Fr","Sa"] 
+	var months 		= ["Jan","Feb","Mar","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez"] ;
+	var tdformat	= "[M] [D] [d] [H]:[i]:[s]";
+	var queryString	= "";
+
+	setInterval(function() {
+		serverTime.setSeconds(serverTime.getSeconds()+1);
+	}, 1000);
+	</script>
+	<script type="text/javascript" src="'.$DIR.'/scripts/base/jquery.js?v=2123"></script>
+	<script type="text/javascript" src="'.$DIR.'/scripts/base/jquery.ui.js?v=2123"></script>
+	<script type="text/javascript" src="'.$DIR.'/scripts/base/jquery.cookie.js?v=2123"></script>
+	<script type="text/javascript" src="'.$DIR.'/scripts/base/jquery.fancybox.js?v=2123"></script>
+	<script type="text/javascript" src="'.$DIR.'/scripts/base/jquery.validationEngine.js?v=2123"></script>
+	<script type="text/javascript" src="'.$DIR.'/scripts/base/tooltip.js?v=2123"></script>
+	<script type="text/javascript" src="'.$DIR.'/scripts/game/base.js?v=2123"></script>
+</head>
+<body id="overview" class="full">
+<table width="960">
+	<tr>
+		<th>'.$errorType[$errno].'</th>
+	</tr>
+	<tr>
+		<td class="left">
+			<b>Message: </b>'.$exception->getMessage().'<br>
+			<b>File: </b>'.$exception->getFile().'<br>
+			<b>Line: </b>'.$exception->getLine().'<br>
+			<b>URL: </b>'.PROTOCOL.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].(!empty($_SERVER['QUERY_STRING']) ? '?'.$_SERVER['QUERY_STRING']: '').'<br>
+			<b>PHP-Version: </b>'.PHP_VERSION.'<br>
+			<b>PHP-API: </b>'.php_sapi_name().'<br>
+			<b>MySQL-Cleint-Version: </b>'.mysqli_get_client_info().'<br>
+			<b>2Moons Version: </b>'.$CONF['VERSION'].'<br>
+			<b>Debug Backtrace:</b><br>'.makebr(str_replace($_SERVER['DOCUMENT_ROOT'], '.', htmlspecialchars($exception->getTraceAsString()))).'
+		</td>
+	</tr>
+</table>
+</body>
+</html>';
+	if($errno === 0) {
+		ini_set('display_errors', 0);
+		trigger_error("Exception: ".str_replace("<br>", "\r\n", $errstr)."\r\n\r\n".str_replace($_SERVER['DOCUMENT_ROOT'], '.', $exception->getTraceAsString()), E_USER_ERROR);
+	}
+	exit;
+}
+
+function errorHandler($errno, $errstr, $errfile, $errline)
+{
+    if (error_reporting() == 0) {
+        return;
+    }
+	
+	throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
+}
 ?>
