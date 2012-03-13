@@ -1,8 +1,8 @@
 {include file="overall_header.tpl"}
-<div style="font-size:22px;font-weight:bolder;font-variant:small-caps;text-align:center;width:100%;">{$adm_cp_title}</div><br><br>
+<br><div style="font-size:22px;font-weight:bolder;font-variant:small-caps;text-align:center;width:100%;">{$adm_cp_title}</div><br>
 <div align="right">
 {if $authlevel == $smarty.const.AUTH_ADM}
-<select name="Uni" id="Uni" onchange="top.location = 'admin.php?uni='+$(this).val();">
+<select id="universe" onchange="top.location = 'admin.php?uni='+$(this).val();">
 {html_options options=$AvailableUnis selected=$UNI}
 </select>
 {/if}

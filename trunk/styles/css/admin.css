@@ -1,8 +1,13 @@
-html, body{
-	padding: 0px;
-	margin: 0px;
-	height: 100%;
-	min-width:0;
+body {
+	background-position:-217px -84px !important;
+}
+
+body#topnav {
+	background-position:-217px 0 !important;
+}
+
+body#menu {
+	background-position:0 0 !important;
 }
 
 table{
@@ -29,45 +34,44 @@ table{
 	padding:0;
 }
 
-span > a{
-	color: inherit;
+#universe {
+	border: 1px #FFF solid;
+	padding:1px 2px;
+	color: #FFF;
+	position:relative;
+	top:-1px;
+}
+
+pre {
+	font-size:13px;
+}
+
+a.out, a.topn {
+	cursor: pointer;
+	background: #000;
+	font-size: 13px;
+	font-stretch:expanded;
+	cursor: pointer;
+	text-align:center;
+	border: 1px #FFF solid;
+	color: #FFF;
+}
+
+a.topn:hover {
+	background: #FFF;
+	color: #000;
 }
 
 a.out {
-	font-size: 13px;
-	font-stretch:expanded;
 	border: 1px #FF0000 solid;
 	color: #FF0000;
-	cursor: pointer;
-	text-align:center;
-}
-a.out:hover {
-	font-size: 13px;
-	text-decoration: none;
-	border: 1px #FF0000 solid;
-	cursor: pointer;
-	color: #FFFFFF;
-	background-color: #CC0000;
-	text-align:center;
 }
 
-a.topn {
-	font-size: 13px;
-	font-stretch:expanded;
-	border: 1px #FFFFFF solid;
-	color: #FFFFFF;
-	cursor: pointer;
-	text-align:center;
+a.out:hover {
+	background: #FF0000;
+	color: #FFF;
 }
-a.topn:hover {
-	font-size: 13px;
-	text-decoration: none;
-	border: 1px #FFFFFF solid;
-	cursor: pointer;
-	color: #000000;
-	background-color: #66CCFF;
-	text-align:center;
-}
+
 #progressbar{border: 1px solid}
 .ui-progressbar-value { background-image: url(../images/jquery/pbar-ani.gif)};
 .button{background:url(../images/Adm/blank.gif);border:1px lime solid;color:#FFFFFF;}
