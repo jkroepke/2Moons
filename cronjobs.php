@@ -53,9 +53,6 @@ switch($cron)
 			require_once(ROOT_PATH . 'includes/classes/class.statbuilder.php');
 			$stat			= new Statbuilder();
 			$result			= $stat->MakeStats();
-			
-			if(file_exists(ROOT_PATH.'includes/ENABLE_INSTALL_TOOL') && )
-			ENABLE_INSTALL_TOOL
 		}
 	break;
 	case "daily":
