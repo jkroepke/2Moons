@@ -44,6 +44,7 @@ function ShowLoginPage()
 	$template	= new template();
 
 	$template->assign_vars(array(	
+		'bodyclass'	=> 'standalone',
 		'username'	=> $USER['username']
 	));
 	$template->show('LoginPage.tpl');
