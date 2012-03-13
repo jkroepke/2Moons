@@ -28,7 +28,6 @@
  */
 
 define('MODE', 'INDEX');
-
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 
 if(!file_exists(ROOT_PATH.'includes/config.php')) {

@@ -16,7 +16,7 @@
 			</tr>
 			<tr>
 				<td class="transparent left"><p>{$LNG.step1_mysql_dbuser}</p></td>
-				<td class="transparent"><input type="text" name="user" value="{$smarty.get.user|escape:'htmlall'}" size="30"></td>
+				<td class="transparent"><input type="text" name="user" value="{$smarty.get.user|escape:'htmlall'|default:''}" size="30"></td>
 			</tr>
 			<tr>
 				<td class="transparent left"><p>{$LNG.step1_mysql_dbpass}</p></td>
@@ -24,7 +24,7 @@
 			</tr>
 			<tr>
 				<td class="transparent left"><p>{$LNG.step1_mysql_dbname}</p></td>
-				<td class="transparent"><input type="text" name="dbname" value="{$smarty.get.dbname|escape:'htmlall'}" size="30"></td>
+				<td class="transparent"><input type="text" name="dbname" value="{$smarty.get.dbname|escape:'htmlall'|default:''}" size="30"></td>
 			</tr>
 			<tr>
 				<td class="transparent left"><p>{$LNG.step1_mysql_prefix}</p></td>

@@ -38,7 +38,7 @@ $LNG['menu_license']			= 'Lizenz';
 $LNG['title_install']			= 'Installer';
 
 $LNG['intro_lang']				= 'Sprache';
-$LNG['intro_instal']			= 'Zur Installation';
+$LNG['intro_install']			= 'Zur Installation';
 $LNG['intro_welcome']			= 'Herzlich Willkommen beim 2Moons!';
 $LNG['intro_text']				= '2Moons ist eines der besten Klone von OGame.<br>2Moons ist die neueste und stabilste XNova Version je entwickelt wurde. 2Moons glänzt durch Stabilität, Flexibilität, Dynamik, Qualität und Benutzerfreundlichkeit. Wir hoffen immer besser zu sein als ihre Erwartungen.<br><br>Das Installations-System führt Sie durch die Installation, oder Upgrade auf einer vorherigen Version auf die neueste ein. Jede Frage, ein Problem zögern Sie bitte nicht, unsere Entwicklung und Unterstützung zu ersuchen.<br><br>2Moons ist ein OpenSource-Projekt und ist under GNU GPL v3 lizenziert. Zur Lizenz klicken Sie bitte im Menu auf die entsprechenden Menüpunkt.<br><br>Bevor die Installation gestartet werden kann, wird vorher ein kleiner Test durchgeführt, ob sie die Mindestanforderungen unterstützen.';
 
@@ -91,6 +91,7 @@ $LNG['step2_db_error']			= 'Fehler beim Erstellen der Datenbank-Tabellen:';
 $LNG['step2_db_no_dbname']		= 'Kein Datenbank-Name angegeben.';
 $LNG['step2_db_too_long']		= 'Das angegebene Tabellen-Präfix ist zu lang. Die maximale Länge beträgt 36 Zeichen.';
 $LNG['step2_db_con_fail']		= 'Es kann keine Verbindung zur Datenbank aufgebaut werden. Details stehen in unten angezeigter Fehlermeldung.';
+$LNG['step2_config_exists']		= 'config.php bereits vorhanden!';
 $LNG['step2_conf_op_fail']		= 'config.php ist nicht beschreibbar!';
 $LNG['step2_conf_create']		= 'config.php erfolgreich erstellt...';
 $LNG['step2_db_done']			= 'Verbindung zur Datenbank war erfolgreich!';

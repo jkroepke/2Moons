@@ -27,53 +27,54 @@
  * @link http://code.google.com/p/2moons/
  */
 
-if(!function_exists('spl_autoload_register'))
+if(!function_exists('spl_autoload_register')) {
 	exit("PHP is missing <a href=\"http://php.net/spl\">Standard PHP Library (SPL)</a> support");
+}
 
 define('MODE', 'INSTALL');
-
 define('ROOT_PATH', str_replace('\\', '/', dirname(dirname(__FILE__))).'/');
 
-ignore_user_abort(true);
-error_reporting(E_ALL ^ E_NOTICE);
-define('TIMESTAMP',	$_SERVER['REQUEST_TIME']);
+require(ROOT_PATH . 'includes/common.php');
 
-define('PROTOCOL', (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"]  == 'on') ? 'https://' : 'http://');
-define('HTTP_ROOT', str_replace(basename($_SERVER["PHP_SELF"]), '', $_SERVER["PHP_SELF"]));
-
-require_once(ROOT_PATH . 'includes/constants.php');
-require_once(ROOT_PATH . 'includes/GeneralFunctions.php');
-set_exception_handler('exception_handler');
-
-require_once(ROOT_PATH . 'includes/classes/class.Lang.php');
-require_once(ROOT_PATH . 'includes/classes/class.theme.php');
-require_once(ROOT_PATH . 'includes/classes/class.template.php');
-require_once(ROOT_PATH . 'includes/classes/HTTP.class.php');
-HTTP::sendHeader('Content-Type', 'text/html; charset=UTF-8');
-
-$THEME	= new Theme();	
 $THEME->setUserTheme('gow');
-$LANG	= new Language();	
+
 $LANG->GetLangFromBrowser();
 $LANG->includeLang(array('INGAME', 'INSTALL'));
 
 $UNI	= 1;
 
-$template = new Template();
+$template = new template();
 
 $template->assign(array(
 	'lang'			=> $LANG->GetUser(),
 	'Selector'		=> $LANG->getAllowedLangs(false),
 	'intro_lang'	=> $LNG['intro_lang'],
 	'title'			=> $LNG['title_install'].' &bull; 2Moons',
-	'intro_instal'	=> $LNG['intro_instal'],
 	'menu_intro'	=> $LNG['menu_intro'],
 	'menu_install'	=> $LNG['menu_install'],
 	'menu_license'	=> $LNG['menu_license'],
-	'menu_convert'	=> $LNG['menu_convert'],
 ));
 
-if(!file_exists(ROOT_PATH.'includes/ENABLE_INSTALL_TOOL')) {
+$enableInstallToolFile	= ROOT_PATH.'includes/ENABLE_INSTALL_TOOL';
+$quickstartFile			= ROOT_PATH.'includes/FIRST_INSTALL';
+
+// If include/FIRST_INSTALL is present and can be deleted, automatically create include/ENABLE_INSTALL_TOOL
+if (is_file($quickstartFile) && is_writeable($quickstartFile) && unlink($quickstartFile)) {
+	@touch($enableInstallToolFile);
+}
+
+// Only allow Install Tool access if the file "include/ENABLE_INSTALL_TOOL" is found
+if (is_file($enableInstallToolFile) && (time() - filemtime($enableInstallToolFile) > 3600)) {
+	$content = file_get_contents($enableInstallToolFile);
+	$verifyString = 'KEEP_FILE';
+
+	if (trim($content) !== $verifyString) {
+		// Delete the file if it is older than 3600s (1 hour)
+		unlink($enableInstallToolFile);
+	}
+}
+
+if (!is_file($enableInstallToolFile)) {
 	$template->message($LANG->getExtra('locked_install'), false, 0, true);
 	exit;
 }
@@ -84,8 +85,9 @@ if(!empty($Language) && in_array($Language, $LANG->getAllowedLangs())) {
 }
 
 $step	  = HTTP::_GP('step', 0);
+$mode	  = HTTP::_GP('mode', '');
 
-if($Mode == 'ajax') {
+if($mode == 'ajax') {
 	require_once(ROOT_PATH.'includes/libs/ftp/ftp.class.php');
 	require_once(ROOT_PATH.'includes/libs/ftp/ftpexception.class.php');
 	$LANG->includeLang(array('ADMIN'));
@@ -193,7 +195,8 @@ switch ($step) {
 			$error	= true;
 			$ftp	= true;
 		}
-		$directories = array('cache/', 'cache/sessions/', 'includes/');
+		
+		$directories = array('cache/', 'includes/');
 		$dirs = "";
 		foreach ($directories as $dir)
 		{
@@ -210,6 +213,7 @@ switch ($step) {
 		if($error == false){
 			$done = '<tr class="noborder"><td colspan="2" class="transparent"><a href="index.php?step=3"><button style="cursor: pointer;">'.$LNG['continue'].'</button<</a></td></tr>';
 		}
+		
 		$template->assign(array(
 			'dir'					=> $dirs,
 			'json'					=> $json,
@@ -261,10 +265,19 @@ switch ($step) {
 			exit;
 		}
 		
-		if (strspn($table_prefix, '-./\\') !== 0) {
+		if (strspn($prefix, '-./\\') !== 0) {
 			$template->assign(array(
 				'class'		=> 'fatalerror',
 				'message'	=> $LNG['step2_prefix_invalid'],
+			));
+			$template->show('ins_step4.tpl');
+			exit;
+		}
+		
+		if (is_file(ROOT_PATH."includes/config.php") && filesize(ROOT_PATH."includes/config.php") != 0) {
+			$template->assign(array(
+				'class'		=> 'fatalerror',
+				'message'	=> $LNG['step2_config_exists'],
 			));
 			$template->show('ins_step4.tpl');
 			exit;
@@ -353,8 +366,8 @@ switch ($step) {
 		$template->show('ins_acc.tpl');
 	break;
 	case 8:
-		$AdminUsername	= HTTP::_GP('username', '', true);
-		$AdminPassword	= HTTP::_GP('password', '', true);
+		$AdminUsername	= HTTP::_GP('username', '', UTF8_SUPPORT);
+		$AdminPassword	= HTTP::_GP('password', '', UTF8_SUPPORT);
 		$AdminMail		= HTTP::_GP('email', '');
 		$MD5Password	= cryptPassword($AdminPassword);
 		
@@ -372,33 +385,36 @@ switch ($step) {
 		}
 			
 		require_once(ROOT_PATH . 'includes/config.php');
-		require_once(ROOT_PATH . 'includes/dbtables.php');	
-		require_once(ROOT_PATH . 'includes/classes/class.Database.php');
-		$GLOBALS['DATABASE'] = new Database();
+		require_once(ROOT_PATH . 'includes/dbtables.php');
+		$DATABASE	= new Database();
 						
 		$SQL  = "INSERT INTO ".USERS." SET ";
-		$SQL .= "`id`                = '1', ";
-		$SQL .= "`username`          = '".$AdminUsername."', ";
-		$SQL .= "`password`          = '".$MD5Password."', ";
-		$SQL .= "`email`             = '".$AdminMail."', ";
-		$SQL .= "`email_2`           = '".$AdminMail."', ";
-		$SQL .= "`ip_at_reg`         = '".$_SERVER['REMOTE_ADDR']. "', ";
-		$SQL .= "`lang` 	         = '".$LANG->GetUser(). "', ";
-		$SQL .= "`authlevel`         = ".AUTH_ADM.", ";
-		$SQL .= "`rights` 			 = '', ";
-		$SQL .= "`id_planet`         = 1, ";
-		$SQL .= "`universe`          = 1, ";
-		$SQL .= "`galaxy`            = 1, ";
-		$SQL .= "`system`            = 1, ";
-		$SQL .= "`planet`            = 1, ";
-		$SQL .= "`register_time`     = ". TIMESTAMP .";";
-		$GLOBALS['DATABASE']->query($SQL);
+		$SQL .= "username		= '".$DATABASE->sql_escape($AdminUsername)."', ";
+		$SQL .= "password		= '".$DATABASE->sql_escape($MD5Password)."', ";
+		$SQL .= "email			= '".$DATABASE->sql_escape($AdminMail)."', ";
+		$SQL .= "email_2		= '".$DATABASE->sql_escape($AdminMail)."', ";
+		$SQL .= "ip_at_reg		= '".$_SERVER['REMOTE_ADDR']."', ";
+		$SQL .= "lang			= '".$LANG->GetUser(). "', ";
+		$SQL .= "authlevel		= ".AUTH_ADM.", ";
+		$SQL .= "dpath 			= '".DEFAULT_THEME."', ";
+		$SQL .= "rights			= '', ";
+		$SQL .= "id_planet		= 1, ";
+		$SQL .= "universe		= 1, ";
+		$SQL .= "galaxy			= 1, ";
+		$SQL .= "system			= 1, ";
+		$SQL .= "planet			= 2, ";
+		$SQL .= "register_time	= ".TIMESTAMP.";";
+		$DATABASE->query($SQL);
 				
 		require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.php');
-		require_once(ROOT_PATH.'includes/classes/class.Session.php');
-		CreateOnePlanetRecord(1, 1, 1, 1, 1, '', true, AUTH_ADM);
+		
+		$PlanetID		= CreateOnePlanetRecord(1, 1, 1, 1, 1, '', true, AUTH_ADM);
 		$SESSION       	= new Session();
-		$SESSION->CreateSession(1, $AdminUsername, 1, 1, 3);
+		$SESSION->CreateSession(1, $login['username'], $PlanetID, $UNI, 3, DEFAULT_THEME);
+		
+		$_SESSION['admin_login']	= cryptPassword($MD5Password);
+		
+		@unlink($enableInstallToolFile);
 		$template->show('ins_step8.tpl');
 	break;
 	default:

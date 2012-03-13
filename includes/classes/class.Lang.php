@@ -144,6 +144,7 @@ class Language
 		// Fixed BOM problems.
 		ob_start();
         foreach($Files as $File) {
+			require(ROOT_PATH . "language/de/".$File.'.php'); // Fixed Notice errors, if language is incomplete
 			require(ROOT_PATH . "language/".$this->User."/".$File.'.php');
 		}
 		ob_end_clean();
@@ -179,6 +180,7 @@ class Language
 		foreach($Files as $File) {
 			// Fixed BOM problems.
 			ob_start();
+			require(ROOT_PATH . "language/de/".$File.'.php'); // Fixed Notice errors, if language is incomplete
 			require(ROOT_PATH . "language/".$LANGUAGE."/".$File.'.php');
 			ob_end_clean();
 		}

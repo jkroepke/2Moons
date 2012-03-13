@@ -54,105 +54,108 @@ error_reporting(E_ALL & ~E_STRICT);
 ini_set('display_errors', 1);
 header('Content-Type: text/html; charset=UTF-8');
 define('TIMESTAMP',	time());
-
-require_once(ROOT_PATH . 'includes/config.php');	
-require_once(ROOT_PATH . 'includes/constants.php');
-require_once(ROOT_PATH . 'includes/dbtables.php');
+	
+require(ROOT_PATH . 'includes/constants.php');
 
 ini_set('log_errors', 'On');
 ini_set('error_log', ROOT_PATH.'includes/error.log');
 
-require_once(ROOT_PATH . 'includes/GeneralFunctions.php');
+require(ROOT_PATH . 'includes/GeneralFunctions.php');
 set_exception_handler('exceptionHandler');
 set_error_handler('errorHandler');
 
-require_once(ROOT_PATH . 'includes/classes/class.Cache.php');
-require_once(ROOT_PATH . 'includes/classes/class.Database.php');
-require_once(ROOT_PATH . 'includes/classes/class.Lang.php');
-require_once(ROOT_PATH . 'includes/classes/class.theme.php');
-require_once(ROOT_PATH . 'includes/classes/class.Session.php');
-require_once(ROOT_PATH . 'includes/classes/class.template.php');
-require_once(ROOT_PATH . 'includes/classes/HTTP.class.php');
-
-define('AJAX_REQUEST', HTTP::_GP('ajax', 0));
-
-$SESSION	= new Session();
-$DATABASE	= new Database();
-$THEME		= new Theme();	
-$LANG		= new Language();
-$CACHE		= new Cache();
-$CONFIG		= array();
-
-$UNI		= getUniverse();
-unset($database);
+require(ROOT_PATH . 'includes/classes/class.Cache.php');
+require(ROOT_PATH . 'includes/classes/class.Database.php');
+require(ROOT_PATH . 'includes/classes/class.Lang.php');
+require(ROOT_PATH . 'includes/classes/class.theme.php');
+require(ROOT_PATH . 'includes/classes/class.Session.php');
+require(ROOT_PATH . 'includes/classes/class.template.php');
+require(ROOT_PATH . 'includes/classes/HTTP.class.php');
 
 // Say Browsers to Allow ThirdParty Cookies (Thanks to morktadela)
 HTTP::sendHeader('P3P', 'CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"');
+define('AJAX_REQUEST', HTTP::_GP('ajax', 0));
 
-$CONF	= getConfig($UNI);
-
-$LANG->setDefault($CONF['lang']);
-
-require_once(ROOT_PATH.'includes/vars.php');
-
-if (MODE === 'INGAME' || MODE === 'ADMIN' || MODE === 'CHAT')
-{	
-	if(!$SESSION->IsUserLogin()) HTTP::redirectTo('index.php?code=3');
+$THEME		= new Theme();	
+$LANG		= new Language();
+$CACHE		= new Cache();
+if (MODE !== 'INSTALL')
+{
+	require(ROOT_PATH . 'includes/config.php');
+	require(ROOT_PATH . 'includes/dbtables.php');
 	
-	$SESSION->UpdateSession();
-	
-	if(!AJAX_REQUEST && MODE === 'INGAME' && isModulAvalible(MODULE_FLEET_EVENTS)) {
-		require(ROOT_PATH.'includes/FleetHandler.php');
-	}
+	$SESSION	= new Session();
+	$DATABASE	= new Database();
+	$CONFIG		= array();
+
+	$UNI		= getUniverse();
+	unset($database);
+
+	$CONF	= getConfig($UNI);
+
+	$LANG->setDefault($CONF['lang']);
+
+	require(ROOT_PATH.'includes/vars.php');
+
+	if (MODE === 'INGAME' || MODE === 'ADMIN' || MODE === 'CHAT')
+	{	
+		if(!$SESSION->IsUserLogin()) HTTP::redirectTo('index.php?code=3');
 		
-	$USER	= $GLOBALS['DATABASE']->uniquequery("SELECT 
-	user.*, 
-	stat.total_points, 
-	stat.total_rank,
-	COUNT(message.message_id) as messages
-	FROM ".USERS." as user 
-	LEFT JOIN ".STATPOINTS." as stat ON stat.id_owner = user.id AND stat.stat_type = '1' 
-	LEFT JOIN ".MESSAGES." as message ON message.message_owner = user.id AND message.message_unread = '1'
-	WHERE user.id = ".$_SESSION['id']."
-	GROUP BY message.message_owner;");
-	
-	if(empty($USER)) {
-		exit(header('Location: index.php'));
-	}
-	
-	$LANG->setUser($USER['lang']);	
-	$LANG->includeLang(array('L18N', 'INGAME', 'TECH', 'CUSTOM'));
-	$THEME->setUserTheme($USER['dpath']);
-	
-	if($CONF['game_disable'] == 0 && $USER['authlevel'] == AUTH_USR) {
-		ShowErrorPage::printError($LNG['sys_closed_game'].'<br><br>'.$CONF['close_reason'], false);
-	}
-
-	if($USER['bana'] == 1) {
-		ShowErrorPage::printError("<font size=\"6px\">".$LNG['css_account_banned_message']."</font><br><br>".sprintf($LNG['css_account_banned_expire'], _date($LNG['php_tdformat'], $USER['banaday'], $USER['timezone']))."<br><br>".$LNG['css_goto_homeside'], false);
-	}
-	if (MODE === 'INGAME')
-	{
-		require_once(ROOT_PATH . 'includes/classes/class.PlanetRessUpdate.php');
-		$PLANET = $GLOBALS['DATABASE']->uniquequery("SELECT * FROM ".PLANETS." WHERE id = ".$_SESSION['planet'].";");
-
-		if(empty($PLANET))
-		{
-			$PLANET = $GLOBALS['DATABASE']->uniquequery("SELECT * FROM ".PLANETS." WHERE id = ".$USER['id_planet'].";");
+		$SESSION->UpdateSession();
+		
+		if(!AJAX_REQUEST && MODE === 'INGAME' && isModulAvalible(MODULE_FLEET_EVENTS)) {
+			require(ROOT_PATH.'includes/FleetHandler.php');
+		}
 			
-			if(empty($PLANET))
-			{
-				throw new Exception("Main Planet does not exist!");
-			}
+		$USER	= $GLOBALS['DATABASE']->uniquequery("SELECT 
+		user.*, 
+		stat.total_points, 
+		stat.total_rank,
+		COUNT(message.message_id) as messages
+		FROM ".USERS." as user 
+		LEFT JOIN ".STATPOINTS." as stat ON stat.id_owner = user.id AND stat.stat_type = '1' 
+		LEFT JOIN ".MESSAGES." as message ON message.message_owner = user.id AND message.message_unread = '1'
+		WHERE user.id = ".$_SESSION['id']."
+		GROUP BY message.message_owner;");
+		
+		if(empty($USER)) {
+			exit(header('Location: index.php'));
 		}
 		
-		$USER['factor']		= getFactors($USER);
-		$USER['PLANETS']	= getPlanets($USER);
-	} else {
-		error_reporting(E_ERROR | E_WARNING);
+		$LANG->setUser($USER['lang']);	
+		$LANG->includeLang(array('L18N', 'INGAME', 'TECH', 'CUSTOM'));
+		$THEME->setUserTheme($USER['dpath']);
 		
-		$USER['rights']		= unserialize($USER['rights']);
-		$LANG->includeLang(array('ADMIN'));
+		if($CONF['game_disable'] == 0 && $USER['authlevel'] == AUTH_USR) {
+			ShowErrorPage::printError($LNG['sys_closed_game'].'<br><br>'.$CONF['close_reason'], false);
+		}
+
+		if($USER['bana'] == 1) {
+			ShowErrorPage::printError("<font size=\"6px\">".$LNG['css_account_banned_message']."</font><br><br>".sprintf($LNG['css_account_banned_expire'], _date($LNG['php_tdformat'], $USER['banaday'], $USER['timezone']))."<br><br>".$LNG['css_goto_homeside'], false);
+		}
+		if (MODE === 'INGAME')
+		{
+			require(ROOT_PATH . 'includes/classes/class.PlanetRessUpdate.php');
+			$PLANET = $GLOBALS['DATABASE']->uniquequery("SELECT * FROM ".PLANETS." WHERE id = ".$_SESSION['planet'].";");
+
+			if(empty($PLANET))
+			{
+				$PLANET = $GLOBALS['DATABASE']->uniquequery("SELECT * FROM ".PLANETS." WHERE id = ".$USER['id_planet'].";");
+				
+				if(empty($PLANET))
+				{
+					throw new Exception("Main Planet does not exist!");
+				}
+			}
+			
+			$USER['factor']		= getFactors($USER);
+			$USER['PLANETS']	= getPlanets($USER);
+		} else {
+			error_reporting(E_ERROR | E_WARNING);
+			
+			$USER['rights']		= unserialize($USER['rights']);
+			$LANG->includeLang(array('ADMIN'));
+		}
 	}
 }
 	
