@@ -53,7 +53,7 @@ class ShowFleetStep1Page extends AbstractPage
 		$FleetRoom	= 0;
 		foreach ($reslist['fleet'] as $id => $ShipID)
 		{
-			$amount		 				= request_outofint('ship'.$ShipID, 0.0);
+			$amount		 				= max(0, round(HTTP::_GP('ship'.$ShipID, 0.0, 0.0)));
 			
 			if ($amount < 1 || $ShipID == 212) continue;
 

@@ -52,13 +52,13 @@ function ShowQuickEditorPage()
 				foreach($DataIDs as $ID)
 				{
 					if(in_array($ID, $reslist['allow'][$PlanetData['planet_type']]))
-						$Fields	+= request_outofint($resource[$ID]) - $PlanetData[$resource[$ID]];
+						$Fields	+= max(0, round(HTTP::_GP($resource[$ID], 0.0))) - $PlanetData[$resource[$ID]];
 					
-					$SQL	.= "`".$resource[$ID]."` = '".request_outofint($resource[$ID])."', ";
+					$SQL	.= "`".$resource[$ID]."` = '".max(0, round(HTTP::_GP($resource[$ID], 0.0)))."', ";
 				}
-				$SQL	.= "`metal` = '".request_outofint('metal')."', ";
-				$SQL	.= "`crystal` = '".request_outofint('crystal')."', ";
-				$SQL	.= "`deuterium` = '".request_outofint('deuterium')."', ";
+				$SQL	.= "`metal` = ".max(0, round(HTTP::_GP('metal', 0.0))).", ";
+				$SQL	.= "`crystal` = ".max(0, round(HTTP::_GP('crystal', 0.0))).", ";
+				$SQL	.= "`deuterium` = ".max(0, round(HTTP::_GP('deuterium', 0.0))).", ";
 				$SQL	.= "`field_current` = '".$Fields."', ";
 				$SQL	.= "`field_max` = '".HTTP::_GP('field_max', 0)."', ";
 				$SQL	.= "`name` = '".$GLOBALS['DATABASE']->sql_escape(HTTP::_GP('name', '', UTF8_SUPPORT))."', ";
@@ -72,7 +72,7 @@ function ShowQuickEditorPage()
                 foreach(array_merge($DataIDs,$reslist['resstype'][1]) as $IDs)
                 {
                     $old[$IDs]    = $PlanetData[$resource[$IDs]];
-					$new[$IDs]    = request_outofint($resource[$IDs]);
+					$new[$IDs]    = max(0, round(HTTP::_GP($resource[$IDs], 0.0)));
                 }
 				$old['field_max'] = $PlanetData['field_max'];
 				$new['field_max'] = HTTP::_GP('field_max', 0);

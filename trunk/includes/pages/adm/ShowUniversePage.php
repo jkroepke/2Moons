@@ -58,7 +58,7 @@ function ShowUniversePage() {
 		$ID	= (int) $_REQUEST['id'];
 		$GLOBALS['DATABASE']->query("INSERT INTO ".CONFIG." (`uni`, `VERSION`, `uni_name`, `game_name`, `close_reason`, `OverviewNewsText`) VALUES
 		(NULL, '".$CONF['VERSION']."', 'Uni', '".$CONF['game_name']."', '', '');");
-		$UniID	= $GLOBALS['DATABASE']->GetInsertID();;
+		$UniID	= $GLOBALS['DATABASE']->GetInsertID();
 		update_config(array('VERSION' => $CONF['VERSION'],
 			'game_name' => $CONF['game_name'],
 			'stat' => $CONF['stat'],

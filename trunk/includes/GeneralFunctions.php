@@ -744,7 +744,7 @@ function exceptionHandler($exception)
 
 function errorHandler($errno, $errstr, $errfile, $errline)
 {
-    if (error_reporting() == 0) {
+    if (!($errno & error_reporting())) {
         return;
     }
 	

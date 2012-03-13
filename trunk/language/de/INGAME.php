@@ -193,7 +193,6 @@ $LNG['gl_temperature']						= 'Temperatur';
 $LNG['gl_phalanx']							= 'Phalanx';
 $LNG['gl_planet_destroyed']					= 'Zerstörter Planet';
 $LNG['gl_playercard']						= 'Playercard';
-$LNG['gl_player']							= 'Spieler';
 $LNG['gl_in_the_rank']						= 'Spieler %s auf Platz %d';
 $LNG['gl_activity']							= '(*)';
 $LNG['gl_activity_inactive']				= '(%d min)';

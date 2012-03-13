@@ -159,7 +159,7 @@ function ShowConfigUniPage()
 		$CONF['deuterium_start']		= HTTP::_GP('deuterium_start', 0);
 		$CONF['darkmatter_start']		= HTTP::_GP('darkmatter_start', 0);
 		$CONF['deuterium_cost_galaxy']	= HTTP::_GP('deuterium_cost_galaxy', 0);
-		$CONF['max_fleet_per_build']	= request_outofint('max_fleet_per_build');
+		$CONF['max_fleet_per_build']	= max(0, round(HTTP::_GP('max_fleet_per_build', 0.0)));
 		$CONF['ref_bonus']				= HTTP::_GP('ref_bonus', 0);
 		$CONF['ref_minpoints']			= HTTP::_GP('ref_minpoints', 0);
 		$CONF['silo_factor']			= HTTP::_GP('silo_factor', 0);

@@ -42,7 +42,7 @@ class ShowFleetDealerPage extends AbstractPage
 		global $USER, $PLANET, $LNG, $CONF, $pricelist, $resource, $reslist;
 		
 		$shipID			= HTTP::_GP('shipID', 0);
-		$Count			= request_outofint('count');
+		$Count			= max(0, round(HTTP::_GP('count', 0.0)));
 		$allowedShipIDs	= explode(',', $CONF['trade_allowed_ships']);
 		
 		if(!empty($shipID) && in_array($shipID, $allowedShipIDs) && $PLANET[$resource[$shipID]] >= $Count)

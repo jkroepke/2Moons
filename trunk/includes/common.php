@@ -131,7 +131,6 @@ if (MODE === 'INGAME' || MODE === 'ADMIN' || MODE === 'CHAT')
 	if($USER['bana'] == 1) {
 		ShowErrorPage::printError("<font size=\"6px\">".$LNG['css_account_banned_message']."</font><br><br>".sprintf($LNG['css_account_banned_expire'], _date($LNG['php_tdformat'], $USER['banaday'], $USER['timezone']))."<br><br>".$LNG['css_goto_homeside'], false);
 	}
-	
 	if (MODE === 'INGAME')
 	{
 		require_once(ROOT_PATH . 'includes/classes/class.PlanetRessUpdate.php');
@@ -150,7 +149,7 @@ if (MODE === 'INGAME' || MODE === 'ADMIN' || MODE === 'CHAT')
 		$USER['factor']		= getFactors($USER);
 		$USER['PLANETS']	= getPlanets($USER);
 	} else {
-		error_reporting(E_ALL & ~E_NOTICE);
+		error_reporting(E_ERROR | E_WARNING);
 		
 		$USER['rights']		= unserialize($USER['rights']);
 		$LANG->includeLang(array('ADMIN'));
