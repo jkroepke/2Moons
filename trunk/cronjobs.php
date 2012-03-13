@@ -104,7 +104,13 @@ switch($cron)
 			
 			$GLOBALS['DATABASE']->free_result($ChooseToDelete);
 			
-			foreach($this->Unis as $Uni)
+			$Universe	= array($CONF['uni']);
+			$Query		= $GLOBALS['DATABASE']->query("SELECT uni FROM ".CONFIG." WHERE uni != '".$CONF['uni']."' ORDER BY uni ASC;");
+			while($Uni = $GLOBALS['DATABASE']->fetch_array($Universe)) {
+				$Universe[]	= $Uni['uni'];
+			}
+			
+			foreach($Universe as $Uni)
 			{
 				$TopKBLow		= $GLOBALS['DATABASE']->countquery("SELECT units FROM ".TOPKB." WHERE universe = ".$Uni." ORDER BY units DESC LIMIT 99,1;");
 				if(isset($TopKBLow)) {

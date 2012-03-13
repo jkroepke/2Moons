@@ -164,7 +164,7 @@ var Dialog	= {
 	},
 	
 	PlanetAction: function() {
-		return Dialog.open('game.php?page=alliance&mode=circular', 450, 200);
+		return Dialog.open('game.php?page=overview&mode=actions', 400, 180);
 	},
 	
 	AllianceChat: function() {
