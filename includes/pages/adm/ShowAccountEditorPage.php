@@ -41,9 +41,9 @@ function ShowAccountEditorPage()
 		case 'resources':
 			$id         = HTTP::_GP('id', 0);
 			$id_dark    = HTTP::_GP('id_dark', 0);
-			$metal      = request_outofint('metal');
-			$cristal    = request_outofint('cristal');
-			$deut       = request_outofint('deut');
+			$metal      = max(0, round(HTTP::_GP('metal', 0.0)));
+			$cristal    = max(0, round(HTTP::_GP('cristal', 0.0)));
+			$deut       = max(0, round(HTTP::_GP('deut', 0.0)));
 			$dark		= HTTP::_GP('dark', 0);
 
 			if ($_POST)
@@ -156,8 +156,8 @@ function ShowAccountEditorPage()
 					$SQL .= "`eco_hash` = '', ";
 					foreach($reslist['fleet'] as $ID)
 					{
-						$QryUpdate[]	= "`".$resource[$ID]."` = `".$resource[$ID]."` + '".request_outofint($resource[$ID])."'";
-						$after[$ID] = $before[$ID] + request_outofint($resource[$ID]);
+						$QryUpdate[]	= "`".$resource[$ID]."` = `".$resource[$ID]."` + '".max(0, round(HTTP::_GP($resource[$ID], 0.0)))."'";
+						$after[$ID] = $before[$ID] + max(0, round(HTTP::_GP($resource[$ID], 0.0)));
 					}
 					$SQL .= implode(", ", $QryUpdate);
 					$SQL .= "WHERE ";
@@ -170,8 +170,8 @@ function ShowAccountEditorPage()
 					$SQL .= "`eco_hash` = '', ";
 					foreach($reslist['fleet'] as $ID)
 					{
-						$QryUpdate[]	= "`".$resource[$ID]."` = `".$resource[$ID]."` - '".request_outofint($resource[$ID])."'";
-						$after[$ID] = max($before[$ID] - request_outofint($resource[$ID]),0);
+						$QryUpdate[]	= "`".$resource[$ID]."` = `".$resource[$ID]."` - '".max(0, round(HTTP::_GP($resource[$ID], 0.0)))."'";
+						$after[$ID] = max($before[$ID] - max(0, round(HTTP::_GP($resource[$ID], 0.0))),0);
 					}
 					$SQL .= implode(", ", $QryUpdate);
 					$SQL .= "WHERE ";
@@ -233,8 +233,8 @@ function ShowAccountEditorPage()
 					$SQL  = "UPDATE ".PLANETS." SET ";
 					foreach($reslist['defense'] as $ID)
 					{
-						$QryUpdate[]	= "`".$resource[$ID]."` = `".$resource[$ID]."` + '".request_outofint($resource[$ID])."'";
-						$after[$ID] = $before[$ID] + request_outofint($resource[$ID]);
+						$QryUpdate[]	= "`".$resource[$ID]."` = `".$resource[$ID]."` + '".max(0, round(HTTP::_GP($resource[$ID], 0.0)))."'";
+						$after[$ID] = $before[$ID] + max(0, round(HTTP::_GP($resource[$ID], 0.0)));
 					}
 					$SQL .= implode(", ", $QryUpdate);
 					$SQL .= "WHERE ";
@@ -246,8 +246,8 @@ function ShowAccountEditorPage()
 					$SQL  = "UPDATE ".PLANETS." SET ";
 					foreach($reslist['defense'] as $ID)
 					{
-						$QryUpdate[]	= "`".$resource[$ID]."` = `".$resource[$ID]."` - '".request_outofint($resource[$ID])."'";
-						$after[$ID] = max($before[$ID] - request_outofint($resource[$ID]),0);
+						$QryUpdate[]	= "`".$resource[$ID]."` = `".$resource[$ID]."` - '".max(0, round(HTTP::_GP($resource[$ID], 0.0)))."'";
+						$after[$ID] = max($before[$ID] - max(0, round(HTTP::_GP($resource[$ID], 0.0))),0);
 					}
 					$SQL .= implode(", ", $QryUpdate);
 					$SQL .= "WHERE ";
@@ -316,7 +316,7 @@ function ShowAccountEditorPage()
 					$SQL .= "`eco_hash` = '', ";
 					foreach($reslist['allow'][$PlanetData['planet_type']] as $ID)
 					{
-						$Count			= request_outofint($resource[$ID]);
+						$Count			= max(0, round(HTTP::_GP($resource[$ID], 0.0)));
 						$QryUpdate[]	= "`".$resource[$ID]."` = `".$resource[$ID]."` + '".$Count."'";
 						$after[$ID] 	= $before[$ID] + $Count;
 						$Fields			+= $Count;
@@ -334,7 +334,7 @@ function ShowAccountEditorPage()
 					$SQL .= "`eco_hash` = '', ";
 					foreach($reslist['allow'][$PlanetData['planet_type']] as $ID)
 					{
-						$Count			= request_outofint($resource[$ID]);
+						$Count			= max(0, round(HTTP::_GP($resource[$ID], 0.0)));
 						$QryUpdate[]	= "`".$resource[$ID]."` = `".$resource[$ID]."` - '".$Count."'";
 						$after[$ID]		= max($before[$ID] - $Count,0);
 						$Fields			+= $Count;
@@ -399,8 +399,8 @@ function ShowAccountEditorPage()
 					$SQL  = "UPDATE ".USERS." SET ";
 					foreach($reslist['tech'] as $ID)
 					{
-						$QryUpdate[]	= "`".$resource[$ID]."` = `".$resource[$ID]."` + '".request_outofint($resource[$ID])."'";
-						$after[$ID] = $before[$ID] + request_outofint($resource[$ID]);
+						$QryUpdate[]	= "`".$resource[$ID]."` = `".$resource[$ID]."` + '".max(0, round(HTTP::_GP($resource[$ID], 0.0)))."'";
+						$after[$ID] = $before[$ID] + max(0, round(HTTP::_GP($resource[$ID], 0.0)));
 					}
 					$SQL .= implode(", ", $QryUpdate);
 					$SQL .= "WHERE ";
@@ -412,8 +412,8 @@ function ShowAccountEditorPage()
 					$SQL  = "UPDATE ".USERS." SET ";
 					foreach($reslist['tech'] as $ID)
 					{
-						$QryUpdate[]	= "`".$resource[$ID]."` = `".$resource[$ID]."` - '".request_outofint($resource[$ID])."'";
-						$after[$ID] = max($before[$ID] - request_outofint($resource[$ID]),0);
+						$QryUpdate[]	= "`".$resource[$ID]."` = `".$resource[$ID]."` - '".max(0, round(HTTP::_GP($resource[$ID], 0.0)))."'";
+						$after[$ID] = max($before[$ID] - max(0, round(HTTP::_GP($resource[$ID], 0.0))),0);
 					}
 					$SQL .= implode(", ", $QryUpdate);
 					$SQL .= "WHERE ";
@@ -554,8 +554,8 @@ function ShowAccountEditorPage()
 					$SQL  = "UPDATE ".USERS." SET ";
 					foreach($reslist['officier'] as $ID)
 					{
-						$QryUpdate[]	= "`".$resource[$ID]."` = `".$resource[$ID]."` + '".request_outofint($resource[$ID])."'";
-						$after[$ID] = $before[$ID] + request_outofint($resource[$ID]);
+						$QryUpdate[]	= "`".$resource[$ID]."` = `".$resource[$ID]."` + '".max(0, round(HTTP::_GP($resource[$ID], 0.0)))."'";
+						$after[$ID] = $before[$ID] + max(0, round(HTTP::_GP($resource[$ID], 0.0)));
 					}
 					$SQL .= implode(", ", $QryUpdate);
 					$SQL .= "WHERE ";
@@ -567,8 +567,8 @@ function ShowAccountEditorPage()
 					$SQL  = "UPDATE ".USERS." SET ";
 					foreach($reslist['officier'] as $ID)
 					{
-						$QryUpdate[]	= "`".$resource[$ID]."` = `".$resource[$ID]."` - '".request_outofint($resource[$ID])."'";
-						$after[$ID] = max($before[$ID] - request_outofint($resource[$ID]),0);
+						$QryUpdate[]	= "`".$resource[$ID]."` = `".$resource[$ID]."` - '".max(0, round(HTTP::_GP($resource[$ID], 0.0)))."'";
+						$after[$ID] = max($before[$ID] - max(0, round(HTTP::_GP($resource[$ID], 0.0))),0);
 					}
 					$SQL .= implode(", ", $QryUpdate);
 					$SQL .= "WHERE ";

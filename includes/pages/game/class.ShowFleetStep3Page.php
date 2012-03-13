@@ -47,9 +47,9 @@ class ShowFleetStep3Page extends AbstractPage
 		}
 		
 		$targetMission 			= HTTP::_GP('mission', 3);
-		$TransportMetal			= request_outofint('metal');
-		$TransportCrystal		= request_outofint('crystal');
-		$TransportDeuterium		= request_outofint('deuterium');
+		$TransportMetal			= max(0, round(HTTP::_GP('metal', 0.0)));
+		$TransportCrystal		= max(0, round(HTTP::_GP('crystal', 0.0)));
+		$TransportDeuterium		= max(0, round(HTTP::_GP('deuterium', 0.0)));
 		$stayTime 				= HTTP::_GP('staytime', 0);
 		$token					= HTTP::_GP('token', '');
 		
