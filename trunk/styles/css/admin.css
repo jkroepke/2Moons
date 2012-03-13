@@ -9,6 +9,9 @@ body#topnav {
 body#menu {
 	background-position:0 0 !important;
 }
+body.standalone {
+	background-position:center center !important;
+}
 
 table{
 	margin: auto;
