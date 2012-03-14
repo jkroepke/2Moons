@@ -43,19 +43,19 @@
 </tr><tr>
 	<td>{$ch_socket_host}</td>
 	<td><input name="chat_socket_host" value="{$chat_socket_host}" type="text"></td>
-	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$ch_socket_host_info}"></td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" data-tooltip-content="{$ch_socket_host_info}"></td>
 </tr><tr>
 	<td>{$ch_socket_ip}</td>
 	<td><input name="chat_socket_ip" value="{$chat_socket_ip}" type="text"></td>
-	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$ch_socket_ip_info}"></td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" data-tooltip-content="{$ch_socket_ip_info}"></td>
 </tr><tr>
 	<td>{$ch_socket_port}</td>
 	<td><input name="chat_socket_port" value="{$chat_socket_port}" type="text"></td>
-	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$ch_socket_port_info}"></td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" data-tooltip-content="{$ch_socket_port_info}"></td>
 </tr><tr>
 	<td>{$ch_socket_chatid}</td>
 	<td><input name="chat_socket_port" value="{$chat_socket_chatid}" type="text"></td>
-	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" name="{$ch_socket_chatid_info}"></td>
+	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" data-tooltip-content="{$ch_socket_chatid_info}"></td>
 </tr>
 <tr>
 	<td colspan="3"><input value="{$se_save_parameters}" type="submit"></td>
