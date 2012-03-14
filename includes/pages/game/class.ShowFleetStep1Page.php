@@ -118,11 +118,19 @@ class ShowFleetStep1Page extends AbstractPage
 	{
 		global $USER, $LNG;
 		
+		if(!isset($_REQUEST['shortcut'])) {
+			$this->sendJSON($LNG['fl_shortcut_saved']);
+		}
+		
 		$Shortcut		= array();
 		$ShortcutData	= $_REQUEST['shortcut'];
 		$ShortcutUser	= $this->GetUserShotcut();
 		foreach($ShortcutData as $ID => $Data) {
 			if(!isset($ShortcutUser[$ID])) {
+				if(empty($Data['name']) || empty($Data['galaxy']) || empty($Data['system']) || empty($Data['planet'])) {
+					continue;
+				}
+				
 				$GLOBALS['DATABASE']->query("INSERT INTO ".SHORTCUTS." 
 				SET ownerID = ".$USER['id'].",
 				name = '".$GLOBALS['DATABASE']->sql_escape($Data['name'])."', 

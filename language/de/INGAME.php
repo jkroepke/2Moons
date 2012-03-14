@@ -279,6 +279,7 @@ $LNG['fl_fuel_consumption']					= 'Treibstoffverbrauch';
 $LNG['fl_max_speed']						= 'Maximale Geschwindigkeit';
 $LNG['fl_cargo_capacity']					= 'Laderaumkapazität';
 $LNG['fl_shortcut']							= 'Shortcut';
+$LNG['fl_shortcut_name']					= 'Name';
 $LNG['fl_my_planets']						= 'Meine Planeten';
 $LNG['fl_acs_title']						= 'Verbandsangriffe';
 $LNG['fl_hold_time']						= 'Haltezeit';

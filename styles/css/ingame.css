@@ -23,6 +23,11 @@ body,input,button,select,textarea,td,th,tr,table,button {
 	outline:none
 }
 
+input:invalid {
+	background-color:red;
+	border:1px solid #FFF;
+}
+
 input[type="submit"],input[type="button"],button {
 	cursor:pointer;
 }
@@ -318,6 +323,26 @@ div#trader + div {
     border: 2px solid red;
     padding: 2px 5px;
     text-align: center;
+}
+
+.shortcut-colum{
+	position:relative;
+}
+
+.shortcut-delete {
+	position:absolute;
+	z-index:1;
+	top:3px;
+	display:none;
+	right:3px;
+	width:16px;
+	height:16px;
+	cursor:pointer;
+	background:url(../images/false.png) scroll no-repeat 0 0 transparent;
+}
+
+.shortcut-colum:hover .shortcut-delete{
+	display:block;
 }
 
 .spyRaportFooter,
