@@ -211,7 +211,9 @@ switch ($step) {
 		}
 
 		if($error == false){
-			$done = '<tr class="noborder"><td colspan="2" class="transparent"><a href="index.php?step=3"><button style="cursor: pointer;">'.$LNG['continue'].'</button<</a></td></tr>';
+			$done = '<tr class="noborder"><td colspan="2" class="transparent"><a href="index.php?step=3"><button style="cursor: pointer;">'.$LNG['continue'].'</button></a></td></tr>';
+		} else {
+			$done = '';
 		}
 		
 		$template->assign(array(
@@ -350,7 +352,7 @@ switch ($step) {
 				'OverviewNewsText'	=> $LNG['sql_welcome'].'1.7',
 				'uni_name'			=> $LNG['sql_universe'].' 1',
 				'close_reason'		=> $LNG['sql_close_reason'],
-				'moduls'			=> implode(',', array_fill(0, MODULE_AMOUNT, 1))
+				'moduls'			=> implode(',', array_fill(0, MODULE_AMOUNT, 1))1.7.2139
 			), 1);
 			HTTP::redirectTo('index.php?step=7');
 		} catch (Exception $e) {
