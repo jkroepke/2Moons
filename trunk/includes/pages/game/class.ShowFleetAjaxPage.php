@@ -132,7 +132,10 @@ class ShowFleetAjaxPage extends AbstractPage
 										INNER JOIN ".USERS." user ON planet.id_owner = user.id
 										INNER JOIN ".STATPOINTS." as stat ON stat.id_owner = user.id AND stat.stat_type = '1' 
 										WHERE planet.id = ".$planetID.";");
-
+		if (empty($targetData)) {
+			$this->sendData(601, $LNG['fa_planet_not_exist']);
+		}
+		
 		if($targetMission == 6)
 		{
 			if($CONF['adm_attack'] == 1 && $targetData['authattack'] > $USER['authlevel']) {
