@@ -522,7 +522,7 @@ function ShowAccountEditorPage()
 			$template->assign_vars(array(
 				'button_submit'			=> $LNG['button_submit'],
 				'ad_back_to_menu'		=> $LNG['ad_back_to_menu'],
-				'input_id'				=> $LNG['input_id'],
+				'input_id'				=> $LNG['input_id_user'],
 				'ad_personal_vacat'		=> $LNG['ad_personal_vacat'],
 				'ad_personal_email2'	=> $LNG['ad_personal_email2'],
 				'ad_personal_email'		=> $LNG['ad_personal_email'],
