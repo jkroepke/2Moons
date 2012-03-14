@@ -352,7 +352,7 @@ switch ($step) {
 				'OverviewNewsText'	=> $LNG['sql_welcome'].'1.7',
 				'uni_name'			=> $LNG['sql_universe'].' 1',
 				'close_reason'		=> $LNG['sql_close_reason'],
-				'moduls'			=> implode(',', array_fill(0, MODULE_AMOUNT, 1))1.7.2139
+				'moduls'			=> implode(',', array_fill(0, MODULE_AMOUNT, 1))
 			), 1);
 			HTTP::redirectTo('index.php?step=7');
 		} catch (Exception $e) {
