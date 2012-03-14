@@ -81,7 +81,7 @@ function ShowCreatorPage()
 				if ($ExistsMails != 0)
 					$errors .= $LNG['mail_already_exists'];
 				
-				if (CheckPlanetIfExist($Galaxy, $System, $Position, $_SESSION['adminuni'])) {
+				if (CheckPlanetIfExist($Galaxy, $System, $Planet, $_SESSION['adminuni'])) {
 					$errors .= $LNG['planet_already_exists'];
 				}	
 				
