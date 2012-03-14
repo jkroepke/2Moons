@@ -260,7 +260,6 @@ $LNG['cs_title']						= 'Einstellungen der Parameter der Statistik';
 $LNG['cs_point_per_resources_used']		= '1 Punkt als Wert';
 $LNG['cs_resources']					= 'Rohstoffe';
 $LNG['cs_users_per_block']				= 'Benutzer pro Block (min. 10)';
-$LNG['cs_fleets_on_block']				= 'Update Flotten im Block';
 $LNG['cs_time_between_updates']			= 'Zeitinterval der Aktualisierungen der Statistiken';
 $LNG['cs_minutes']						= 'Minuten';
 $LNG['cs_points_to_zero']				= 'Administratoren 0 Punkte zuweisen...';
@@ -270,8 +269,6 @@ $LNG['cs_timeact_1']					= 'Letzte Update war am: ';
 $LNG['cs_yes']							= 'Ja';
 $LNG['cs_no']							= 'Nein';
 $LNG['cs_no_view']						= 'Admins ausblenden';
-$LNG['cs_banner_time_between_updates']	= 'Zeitinterval der Aktualisierungen der Statistikenbanner';
-$LNG['cs_banner_title']					= 'Einstellungen der Parameter der Statistikbanner';
 //###########################################################//
 
 

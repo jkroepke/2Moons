@@ -78,8 +78,6 @@ function ShowStatsPage()
 		'cs_time_between_updates'			=> $LNG['cs_time_between_updates'],
 		'cs_point_per_resources_used'		=> $LNG['cs_point_per_resources_used'],
 		'cs_title'							=> $LNG['cs_title'],
-		'cs_banner_time_between_updates'	=> $LNG['cs_banner_time_between_updates'],
-		'cs_banner_title'					=> $LNG['cs_banner_title'],
 		'cs_resources'						=> $LNG['cs_resources'],
 		'cs_minutes'						=> $LNG['cs_minutes'],
 		'cs_save_changes'					=> $LNG['cs_save_changes'],
