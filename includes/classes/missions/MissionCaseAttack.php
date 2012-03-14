@@ -40,8 +40,6 @@ class MissionCaseAttack extends MissionFunctions
 		
 		$targetPlanet 	= $GLOBALS['DATABASE']->uniquequery("SELECT * FROM ".PLANETS." WHERE `id` = '". $this->_fleet['fleet_end_id'] ."';");
 		$targetUser   	= $GLOBALS['DATABASE']->uniquequery("SELECT * FROM ".USERS." WHERE id = '".$targetPlanet['id_owner']."';");
-				
-		require_once(ROOT_PATH.'includes/classes/class.PlanetRessUpdate.php');
 		
 		$targetUser['factor']				= getFactors($targetUser, 'basic', $this->_fleet['fleet_start_time']);
 		$PlanetRess 						= new ResourceUpdate();

@@ -48,8 +48,6 @@ class MissionCaseSpy extends MissionFunctions
 		$targetPlanet	= $GLOBALS['DATABASE']->uniquequery("SELECT * FROM ".PLANETS." WHERE id = ".$this->_fleet['fleet_end_id'].";");
 		
 		$targetSpyLvl	= max($targetUser['spy_tech'], 1);
-					
-		require_once(ROOT_PATH.'includes/classes/class.PlanetRessUpdate.php');	
 		
 		$targetUser['factor']				= getFactors($targetUser, 'basic', $this->_fleet['fleet_start_time']);
 		$PlanetRess 						= new ResourceUpdate();

@@ -102,6 +102,8 @@ if (MODE !== 'INSTALL')
 		if(!$SESSION->IsUserLogin()) HTTP::redirectTo('index.php?code=3');
 		
 		$SESSION->UpdateSession();
+	
+		require(ROOT_PATH.'includes/classes/class.PlanetRessUpdate.php');
 		
 		if(!AJAX_REQUEST && MODE === 'INGAME' && isModulAvalible(MODULE_FLEET_EVENTS)) {
 			require(ROOT_PATH.'includes/FleetHandler.php');
@@ -135,7 +137,6 @@ if (MODE !== 'INSTALL')
 		}
 		if (MODE === 'INGAME')
 		{
-			require(ROOT_PATH . 'includes/classes/class.PlanetRessUpdate.php');
 			$PLANET = $GLOBALS['DATABASE']->uniquequery("SELECT * FROM ".PLANETS." WHERE id = ".$_SESSION['planet'].";");
 
 			if(empty($PLANET))

@@ -234,19 +234,21 @@ switch ($page) {
 			case 'valid' :
 				$clef 		= HTTP::_GP('clef', '');
 				$admin 	 	= HTTP::_GP('admin', 0);
-				$Valider	= $GLOBALS['DATABASE']->uniquequery("SELECT * FROM ".USERS_VALID." WHERE cle = '".$GLOBALS['DATABASE']->sql_escape($clef)."' AND universe = '".$UNI."';");
+				$userData	= $GLOBALS['DATABASE']->uniquequery("SELECT * FROM ".USERS_VALID." WHERE cle = '".$GLOBALS['DATABASE']->sql_escape($clef)."' AND universe = ".$UNI.";");
+				$GLOBALS['DATABASE']->query("DELETE FROM ".USERS_VALID." WHERE cle = '".$GLOBALS['DATABASE']->sql_escape($clef)."' AND universe = ".$UNI.";");
 				
-				if(!isset($Valider)) 
+				if(!isset($userData)) {
 					HTTP::redirectTo('index.php');
+				}
 				
-				$UserName 	= $Valider['username'];
-				$UserPass 	= $Valider['password'];
-				$UserMail 	= $Valider['email'];
-				$UserIP 	= $Valider['ip'];
-				$UserPlanet	= $Valider['planet'];
-				$UserLang 	= $Valider['lang'];
-				$UserUni 	= $Valider['universe'];
-				$UserRID 	= $Valider['ref_id'];
+				$UserName 	= $userData['username'];
+				$UserPass 	= $userData['password'];
+				$UserMail 	= $userData['email'];
+				$UserIP 	= $userData['ip'];
+				$UserPlanet	= $userData['planet'];
+				$UserLang 	= $userData['lang'];
+				$UserUni 	= $userData['universe'];
+				$UserRID 	= $userData['ref_id'];
 				
 				if($CONF['mail_active'] == 1) {
 					$MailSubject	= sprintf($LNG['reg_mail_reg_done'], $CONF['game_name']);	
@@ -255,27 +257,27 @@ switch ($page) {
 					MailSend($UserMail, $UserName, $MailSubject, $MailContent);
 				}
 				
-				$SQL = "INSERT INTO ".USERS." SET ";
-				$SQL .= "username = '".$UserName . "', ";
-				$SQL .= "universe = '".$UserUni . "', ";
-				$SQL .= "email = '".$UserMail."', ";
-				$SQL .= "email_2 = '".$UserMail."', ";
-				$SQL .= "lang = '".$UserLang."', ";
-				$SQL .= "ip_at_reg = '".$UserIP."', ";
-				$SQL .= "id_planet = '0', ";
-				$SQL .= "onlinetime = '".TIMESTAMP."', ";
-				$SQL .= "register_time = '".TIMESTAMP. "', ";
-				$SQL .= "password = '".$UserPass."', ";
-				$SQL .= "dpath = '".DEFAULT_THEME."', ";
-				$SQL .= "darkmatter = '".$CONF['darkmatter_start']."', ";
-				$SQL .= "ref_id = '".$UserRID."', ";
-				$SQL .= "timezone = '".$CONF['timezone']."', ";
-				if($UserRID != 0)
-					$SQL .= "ref_bonus = '1', ";
-				$SQL .= "uctime= '0';";
+				$SQL = "INSERT INTO ".USERS." SET
+				username		= '".$GLOBALS['DATABASE']->sql_escape($UserName)."',
+				email			= '".$GLOBALS['DATABASE']->sql_escape($UserMail)."',
+				email_2			= '".$GLOBALS['DATABASE']->sql_escape($UserMail)."',
+				universe		= ".$UserUni.",
+				lang			= '".$UserLang."',
+				ip_at_reg		= '".$UserIP."'
+				id_planet		= 0,
+				onlinetime		= ".TIMESTAMP.",
+				register_time	= ".TIMESTAMP.",
+				password		= '".$UserPass."',
+				dpath			= '".DEFAULT_THEME."',
+				darkmatter		= ".$CONF['darkmatter_start'].",
+				ref_id			= ".$UserRID.",
+				timezone		= '".$CONF['timezone']."',
+				ref_bonus		= ".($UserRID != 0 ? 1 : 0).",
+				uctime			= 0;";
+				
 				$GLOBALS['DATABASE']->query($SQL);
 				
-				$NewUser = $GLOBALS['DATABASE']->GetInsertID();
+				$userID = $GLOBALS['DATABASE']->GetInsertID();
 
 				$LastSettedGalaxyPos = $CONF['LastSettedGalaxyPos'];
 				$LastSettedSystemPos = $CONF['LastSettedSystemPos'];
@@ -300,37 +302,43 @@ switch ($page) {
 						}
 					}
 					
-					$PlanetID = CreateOnePlanetRecord($LastSettedGalaxyPos, $LastSettedSystemPos, $Planet, $UserUni, $NewUser, $UserPlanet, true);
+					$PlanetID = CreateOnePlanetRecord($LastSettedGalaxyPos, $LastSettedSystemPos, $Planet, $UserUni, $userID, $UserPlanet, true);
 				}
 			
-				$SQL = "DELETE FROM ".USERS_VALID." WHERE cle = '".$GLOBALS['DATABASE']->sql_escape($clef)."';";
-				$SQL .= "UPDATE ".USERS." SET ";
-				$SQL .= "id_planet = '".$PlanetID."', ";
-				$SQL .= "galaxy = '".$LastSettedGalaxyPos."', ";
-				$SQL .= "system = '".$LastSettedSystemPos."', ";
-				$SQL .= "planet = '".$Planet."' ";
-				$SQL .= "WHERE ";
-				$SQL .= "id = '".$NewUser."' ";
-				$SQL .= "LIMIT 1;";
-				$SQL .= "INSERT INTO ".STATPOINTS." (id_owner, id_ally, stat_type, universe, tech_rank, tech_old_rank, tech_points, tech_count, build_rank, build_old_rank, build_points, build_count, defs_rank, defs_old_rank, defs_points, defs_count, fleet_rank, fleet_old_rank, fleet_points, fleet_count, total_rank, total_old_rank, total_points, total_count) VALUES ";
-				$SQL .= "(".$NewUser.", 0, 1, ".$UserUni.", '".($CONF['users_amount'] + 1)."', '".($CONF['users_amount'] + 1)."', 0, 0, '".($CONF['users_amount'] + 1)."', '".($CONF['users_amount'] + 1)."', 0, 0, '".($CONF['users_amount'] + 1)."', '".($CONF['users_amount'] + 1)."', 0, 0, '".($CONF['users_amount'] + 1)."', '".($CONF['users_amount'] + 1)."', 0, 0, '".($CONF['users_amount'] + 1)."', '".($CONF['users_amount'] + 1)."', 0, 0);";
+				$SQL = "UPDATE ".USERS." SET 
+				id_planet	= ".$PlanerID.",
+				galaxy		= ".$LastSettedGalaxyPos.",
+				system		= ".$LastSettedSystemPos.",
+				planet		= ".$Planet."
+				WHERE
+				id			= ".$UserID.";
+				INSERT INTO ".STATPOINTS." SET 
+				id_owner	= ".$UserID.",
+				stat_type	= 1,
+				tech_rank	= ".($CONF['users_amount'] + 1).",
+				build_rank	= ".($CONF['users_amount'] + 1).",
+				defs_rank	= ".($CONF['users_amount'] + 1).",
+				fleet_rank	= ".($CONF['users_amount'] + 1).",
+				total_rank	= ".($CONF['users_amount'] + 1).";";
 				$GLOBALS['DATABASE']->multi_query($SQL);
 				
 				$from 		= $LNG['welcome_message_from'];
 				$Subject 	= $LNG['welcome_message_subject'];
 				$message 	= sprintf($LNG['welcome_message_content'], $CONF['game_name']);
-				SendSimpleMessage($NewUser, 1, TIMESTAMP, 1, $from, $Subject, $message);
+				SendSimpleMessage($userID, 1, TIMESTAMP, 1, $from, $Subject, $message);
 				
 				update_config(array('users_amount' => $CONF['users_amount'] + 1, 'LastSettedGalaxyPos' => $LastSettedGalaxyPos, 'LastSettedSystemPos' => $LastSettedSystemPos, 'LastSettedPlanetPos' => $LastSettedPlanetPos));
+				
 				if ($admin == 1) {
 					echo sprintf($LNG['user_active'], $UserName);
 				} else {
 					$SESSION       	= new Session();
-					$SESSION->CreateSession($NewUser, $UserName, $PlanetID, $UserUni);
-					if($CONF['user_valid'] == 0 || $CONF['mail_active'] == 0)
+					$SESSION->CreateSession($userID, $UserName, $PlanetID, $UserUni);
+					if($CONF['user_valid'] == 0 || $CONF['mail_active'] == 0) {
 						echo json_encode(array('error' => false, 'message' => 'done'));
-					else
+					} else {
 						HTTP::redirectTo("game.php?page=overview");
+					}
 				}
 			break;
 			default:
