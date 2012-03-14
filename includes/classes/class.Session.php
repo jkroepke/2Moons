@@ -167,7 +167,7 @@ class Session
 	function DestroySession()
 	{
 		$GLOBALS['DATABASE']->query("DELETE FROM ".SESSION." WHERE sessionID = '".session_id()."';"); 
-		session_destroy();
+		@session_destroy();
 	}
 }
 ?>
