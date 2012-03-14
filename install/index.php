@@ -410,7 +410,7 @@ switch ($step) {
 		
 		$PlanetID		= CreateOnePlanetRecord(1, 1, 1, 1, 1, '', true, AUTH_ADM);
 		$SESSION       	= new Session();
-		$SESSION->CreateSession(1, $login['username'], $PlanetID, $UNI, 3, DEFAULT_THEME);
+		$SESSION->CreateSession(1, $AdminUsername, $PlanetID, $UNI, 3, DEFAULT_THEME);
 		
 		$_SESSION['admin_login']	= cryptPassword($MD5Password);
 		
