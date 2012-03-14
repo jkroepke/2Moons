@@ -29,6 +29,8 @@
 
 if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__))) exit;
 
+
+
 function ShowVertify() 
 {
 	global $CONF, $LNG;
@@ -49,7 +51,7 @@ function ShowVertify()
 			curl_setopt($ch, CURLOPT_CRLF, true);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 			$FILE		= curl_exec($ch);
-			$SVNHASH	= crc32(preg_replace(array("/(\r\n)|(\r)/", '/(\\/\\*[\\d\\D]*?\\*\\/)/', '/\$Id$FILE));
+			$SVNHASH	= crc32(preg_replace(array("/(\r\n)|(\r)/", '/(\\/\\*[\\d\\D]*?\\*\\/)/', '/\$I'.'d[^\$]+\$/'), array("\n", '', ''), $FILE));
 			
 			if(curl_getinfo($ch, CURLINFO_HTTP_CODE) == 404) {
 				echo 4;
@@ -63,7 +65,7 @@ function ShowVertify()
 			
 			curl_close($ch);
 			$FILE2	= file_get_contents(ROOT_PATH.$file);
-			$LOCALHASH	= crc32(preg_replace(array("/(\r\n)|(\r)/", '/(\\/\\*[\\d\\D]*?\\*\\/)/', '/\$Id$FILE2));
+			$LOCALHASH	= crc32(preg_replace(array("/(\r\n)|(\r)/", '/(\\/\\*[\\d\\D]*?\\*\\/)/', '/\$I'.'d[^\$]+\$/'), array("\n", '', ''), $FILE2));
 			if($SVNHASH == $LOCALHASH) {
 				echo 1;
 				exit;

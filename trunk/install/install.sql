@@ -858,7 +858,7 @@ CREATE TABLE IF NOT EXISTS `prefix_vars_requriements` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO `prefix_config` (`uni`, `VERSION`, `uni_name`, `game_name`, `close_reason`, `OverviewNewsText`) VALUES
-(1, '1.7.2123', '', '2Moons', '', '');
+(1, '1.7.2139', '', '2Moons', '', '');
 
 INSERT INTO `prefix_ticket_category` (`categoryID`, `name`) VALUES
 (1, 'Support');
