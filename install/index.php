@@ -196,7 +196,7 @@ switch ($step) {
 			$ftp	= true;
 		}
 		
-		$directories = array('cache/', 'includes/');
+		$directories = array('cache/', 'cache/templates/', 'includes/');
 		$dirs = "";
 		foreach ($directories as $dir)
 		{
