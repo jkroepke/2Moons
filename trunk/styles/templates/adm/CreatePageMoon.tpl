@@ -15,7 +15,7 @@
 <tr>
 	<td>{$mo_diameter}</td>
 	<td colspan="2"><input type="text" name="diameter" size="5" maxlength="5">
-	<input type="checkbox" checked="checked" name="diameter_check"> (Random)</td>
+	<input type="checkbox" checked="checked" name="diameter_check"> ({$LNG.mo_moon_random})</td>
 </tr>
 <tr>
 	<td>{$mo_fields_avaibles}</td>

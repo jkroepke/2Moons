@@ -930,6 +930,7 @@ $LNG['po_complete_succes']			= 'Planet erfolgreich erstellt!';
 //	CREADOR DE LUNAS - MOON MAKER
 $LNG['mo_moon_added']				= 'Mond erfolgreich hinzugefügt.';
 $LNG['mo_moon_unavaible']			= 'Der Planet hat schon einen Mond!';
+$LNG['mo_moon_random']				= 'Zufall';
 $LNG['mo_planet_doesnt_exist']		= 'Der Spieler existiert nicht!';
 $LNG['mo_moon_name']				= 'Mondname';
 $LNG['mo_moon']						= 'Mond';
