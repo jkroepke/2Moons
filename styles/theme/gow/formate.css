@@ -326,13 +326,14 @@ th a,.res_current{
 .ui-progressbar-value {
 	background-image: url(img/processbar.gif);
 	background-position:top left;
+	border-color:#000;
 }
 
 .spyRaportContainerRow {
 	border-bottom:1px solid #DDD;
 }
 
-.ui-autocomplete, .ui-state-hover, .ui-state-default, .ui-tabs-nav, .ui-tabs {
+.ui-autocomplete, .ui-state-hover, .ui-state-default, .ui-tabs-nav, .ui-tabs, .ui-progressbar, .ui-progressbar-value {
 	-webkit-border-radius:0;
 	-khtml-border-radius:0;
 	border-radius:0;
@@ -346,7 +347,7 @@ th a,.res_current{
 	cursor:pointer !important;
 }
 
-.ui-state-hover{
+.ui-state-hover, .ui-progressbar{
 	border:1px solid #000 !important;
 	background: #212428 !important;
 }
