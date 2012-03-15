@@ -314,6 +314,7 @@ switch ($page) {
 				id			= ".$UserID.";
 				INSERT INTO ".STATPOINTS." SET 
 				id_owner	= ".$UserID.",
+				universe	= ".$UserUni.",
 				stat_type	= 1,
 				tech_rank	= ".($CONF['users_amount'] + 1).",
 				build_rank	= ".($CONF['users_amount'] + 1).",

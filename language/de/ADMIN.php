@@ -1084,17 +1084,18 @@ $LNG['mvc_download']					= 'Download';
 $LNG['mvc_desc']						= 'Beschreibung';
 
 //Universe Page
-$LNG['uvs_id']							= 'ID';
+$LNG['uvs_id']							= 'Universum ID';
 $LNG['uvs_name']						= 'Name';
-$LNG['uvs_speeds']						= 'Speed';
+$LNG['uvs_speeds']						= 'Spiel Faktoren (G/F/R/E)'; // (Game/Fleet/Resource/Expedition)
 $LNG['uvs_players']						= 'Spieler';
-$LNG['uvs_open']						= 'Öffnen';
+$LNG['uvs_inactive']					= 'Inaktive';
+$LNG['uvs_open']						= 'Status';
 $LNG['uvs_export']						= 'Exportieren';
 $LNG['uvs_delete']						= 'Löschen';
-$LNG['uvs_on']							= 'On';
-$LNG['uvs_off']							= 'Off';
+$LNG['uvs_on']							= 'offen';
+$LNG['uvs_off']							= 'geschlossen';
 $LNG['uvs_new']							= 'Universum hinzufügen';
-$LNG['uvs_import']						= 'Universum Importieren';
+$LNG['uvs_planets']						= 'Planeten &amp; Monde';
 $LNG['uvs_upload']						= 'Hochladen';
 $LNG['uvs_error']						= 'Ungültige oder Fehlerhafte Importfile!';
 

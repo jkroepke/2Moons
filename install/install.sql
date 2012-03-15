@@ -255,7 +255,7 @@ CREATE TABLE IF NOT EXISTS `prefix_config` (
   `chat_socket_chatid` tinyint(1) NOT NULL DEFAULT '1',
   `max_galaxy` tinyint(3) unsigned NOT NULL DEFAULT '9',
   `max_system` smallint(5) unsigned NOT NULL DEFAULT '400',
-  `max_planets` tinyint(3) unsigned NOT NULL DEFAULT '20',
+  `max_planets` tinyint(3) unsigned NOT NULL DEFAULT '15',
   `planet_factor` float(2,1) NOT NULL DEFAULT '1.0',
   `max_elements_build` tinyint(3) unsigned NOT NULL DEFAULT '5',
   `max_elements_tech` tinyint(3) unsigned NOT NULL DEFAULT '2',

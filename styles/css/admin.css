@@ -37,7 +37,7 @@ table{
 	padding:0;
 }
 
-#universe {
+select#universe {
 	border: 1px #FFF solid;
 	padding:1px 2px;
 	color: #FFF;

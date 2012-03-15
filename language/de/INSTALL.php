@@ -112,7 +112,6 @@ $LNG['step6_desc']				= 'Du hast 2Moons erfolgreich installiert.';
 $LNG['step6_info_head']			= 'Starte mit 2Moons durch!';
 $LNG['step6_info_additional']	= 'Wenn du unten auf die Schaltfläche klickst, wirst du zu einem Formular im Administrations-Bereich weitergeleitet. Anschließend solltest du dir etwas Zeit nehmen, um die verfügbaren Optionen kennen zu lernen.<br/><br/><strong>Bitte lösche die Datei &raquo;includes/ENABLE_INSTALL_TOOL&laquo; oder nenne es um, bevor du dein Spiel benutzt. Solange diese Datei existiert, ist dein Spiel potenziell gefährdet!</strong>';
 
-$LNG['sql_universe']			= 'Universum';
 $LNG['sql_close_reason']		= 'Game ist zurzeit geschlossen';
 $LNG['sql_welcome']				= 'Herzlich Willkommen zu 2Moons v';
 

@@ -137,14 +137,14 @@ function getPlanets($USER)
 	$Order = $USER['planet_sort_order'] == 1 ? "DESC" : "ASC" ;
 	$Sort  = $USER['planet_sort'];
 
-	$QryPlanets  = "SELECT `id`, `name`, `galaxy`, `system`, `planet`, `planet_type`, `image`, `b_building`, `b_building_id` FROM ".PLANETS." WHERE `id_owner` = '".$USER['id']."' AND `destruyed` = '0' ORDER BY ";
+	$QryPlanets  = "SELECT id, name, galaxy, system, planet, planet_type, image, b_building, b_building_id FROM ".PLANETS." WHERE id_owner = '".$USER['id']."' AND destruyed = '0' ORDER BY ";
 
 	if($Sort == 0)
-		$QryPlanets .= "`id` ". $Order;
+		$QryPlanets .= "id ". $Order;
 	elseif($Sort == 1)
-		$QryPlanets .= "`galaxy`, `system`, `planet`, `planet_type` ". $Order;
+		$QryPlanets .= "galaxy, system, planet, planet_type ". $Order;
 	elseif ($Sort == 2)
-		$QryPlanets .= "`name` ". $Order;
+		$QryPlanets .= "name ". $Order;
 
 	$PlanetRAW = $GLOBALS['DATABASE']->query($QryPlanets);
 	
@@ -227,39 +227,41 @@ function _date($format, $time = null, $toTimeZone = null, $LNG = NULL) {
 	return date($format, $time);
 }
 
-function update_config($Values, $UNI = 0)
+function update_config($Values, $UNI = NULL)
 {
 	global $CONF;
 	$SQLBASE	= "";
 	$SQLUNI		= "";
 	$UNI		= (empty($UNI)) ? $GLOBALS['UNI'] : $UNI;
-	$BasicConf	= array('VERSION', 'game_name', 'stat', 'stat_level', 'stat_last_update', 'stat_settings', 'stat_update_time', 'stat_last_db_update', 'stats_fly_lock', 'cron_lock', 'ts_modon', 'ts_server', 'ts_tcpport', 'ts_udpport', 'ts_timeout', 'ts_version', 'ts_cron_last', 'ts_cron_interval', 'ts_login', 'ts_password', 'capaktiv', 'cappublic', 'capprivate', 'mail_active', 'mail_use', 'smtp_host', 'smtp_port', 'smtp_user', 'smtp_pass', 'smtp_ssl', 'smtp_sendmail', 'smail_path', 'fb_on', 'fb_apikey', 'fb_skey', 'ga_active', 'ga_key', 'chat_closed', 'chat_allowchan', 'chat_allowmes', 'chat_allowdelmes', 'chat_logmessage', 'chat_nickchange', 'chat_botname', 'chat_channelname', 'chat_socket_active', 'chat_socket_host', 'chat_socket_ip', 'chat_socket_port', 'chat_socket_chatid', 'ttf_file', 'sendmail_inactive', 'del_user_sendmail', 'del_user_automatic', 'del_oldstuff', 'del_user_manually', 'ref_max_referals');
 	
 	foreach($Values as $Name => $Value) {
 		if(!isset($CONF[$Name]))
 			continue;
 			
 		$GLOBALS['CONFIG'][$UNI][$Name]	= $Value;
+		$GLOBALS['CONF'][$Name]			= $Value;
 		
-		$CONF[$Name]	= $Value;
-		if(in_array($Name, $BasicConf))
-			$SQLBASE	.= "`".$Name."` = '".$GLOBALS['DATABASE']->sql_escape($Value)."', ";
-		else
-			$SQLUNI		.= "`".$Name."` = '".$GLOBALS['DATABASE']->sql_escape($Value)."', ";
+		if(in_array($Name, $GLOBALS['BASICCONFIG'])) {
+			$SQLBASE	.= $Name." = '".$GLOBALS['DATABASE']->sql_escape($Value)."', ";
+		} else {
+			$SQLUNI		.= $Name." = '".$GLOBALS['DATABASE']->sql_escape($Value)."', ";
+		}
 	}
+
 	if(!empty($SQLBASE))
 		$GLOBALS['DATABASE']->query("UPDATE ".CONFIG." SET ".substr($SQLBASE, 0, -2).";");
 	
 	if(!empty($SQLUNI))
-		$GLOBALS['DATABASE']->query("UPDATE ".CONFIG." SET ".substr($SQLUNI, 0, -2)." WHERE `uni` = '".$UNI."';");
+		$GLOBALS['DATABASE']->query("UPDATE ".CONFIG." SET ".substr($SQLUNI, 0, -2)." WHERE uni = '".$UNI."';");
 	
 }
 
 function getConfig($UNI) {
-		if(isset($GLOBALS['CONFIG'][$UNI]))
+	if(isset($GLOBALS['CONFIG'][$UNI])) {
 		return $GLOBALS['CONFIG'][$UNI];
-		
-	$CONF = $GLOBALS['DATABASE']->uniquequery("SELECT HIGH_PRIORITY * FROM `".CONFIG."` WHERE `uni` = '".$UNI."';");
+	}
+	
+	$CONF = $GLOBALS['DATABASE']->uniquequery("SELECT HIGH_PRIORITY * FROM ".CONFIG." WHERE uni = '".$UNI."';");
 	if(!isset($CONF))
 		HTTP::redirectTo('index.php');
 		
@@ -272,9 +274,15 @@ function getConfig($UNI) {
 
 function ValidateAddress($address) {
 	
-	$ValideAdress = function_exists('filter_var') ? filter_var($address, FILTER_VALIDATE_EMAIL) !== FALSE : preg_match('/^(?:[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+\.)*[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+@(?:(?:(?:[a-zA-Z0-9_](?:[a-zA-Z0-9_\-](?!\.)){0,61}[a-zA-Z0-9_-]?\.)+[a-zA-Z0-9_](?:[a-zA-Z0-9_\-](?!$)){0,61}[a-zA-Z0-9_]?)|(?:\[(?:(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\]))$/', $address);
-	
-	return $ValideAdress;
+	if(function_exists('filter_var')) {
+		return filter_var($address, FILTER_VALIDATE_EMAIL) !== FALSE;
+	} else {
+		/*
+			Regex expression from swift mailer (http://swiftmailer.org)
+			RFC 2822
+		*/
+		return preg_match('/^(?:(?:(?:(?:(?:(?:(?:[ \t]*(?:\r\n))?[ \t])?(\((?:(?:(?:[ \t]*(?:\r\n))?[ \t])|(?:(?:[\x01-\x08\x0B\x0C\x0E-\x19\x7F]|[\x21-\x27\x2A-\x5B\x5D-\x7E])|(?:\\[\x00-\x08\x0B\x0C\x0E-\x7F])|(?1)))*(?:(?:[ \t]*(?:\r\n))?[ \t])?\)))*(?:(?:(?:(?:[ \t]*(?:\r\n))?[ \t])?(\((?:(?:(?:[ \t]*(?:\r\n))?[ \t])|(?:(?:[\x01-\x08\x0B\x0C\x0E-\x19\x7F]|[\x21-\x27\x2A-\x5B\x5D-\x7E])|(?:\\[\x00-\x08\x0B\x0C\x0E-\x7F])|(?1)))*(?:(?:[ \t]*(?:\r\n))?[ \t])?\)))|(?:(?:[ \t]*(?:\r\n))?[ \t])))?(?:[a-zA-Z0-9!#\$%&\'\*\+\-\/=\?\^_\{\}\|~]+(\.[a-zA-Z0-9!#\$%&\'\*\+\-\/=\?\^_\{\}\|~]+)*)+(?:(?:(?:(?:[ \t]*(?:\r\n))?[ \t])?(\((?:(?:(?:[ \t]*(?:\r\n))?[ \t])|(?:(?:[\x01-\x08\x0B\x0C\x0E-\x19\x7F]|[\x21-\x27\x2A-\x5B\x5D-\x7E])|(?:\\[\x00-\x08\x0B\x0C\x0E-\x7F])|(?1)))*(?:(?:[ \t]*(?:\r\n))?[ \t])?\)))*(?:(?:(?:(?:[ \t]*(?:\r\n))?[ \t])?(\((?:(?:(?:[ \t]*(?:\r\n))?[ \t])|(?:(?:[\x01-\x08\x0B\x0C\x0E-\x19\x7F]|[\x21-\x27\x2A-\x5B\x5D-\x7E])|(?:\\[\x00-\x08\x0B\x0C\x0E-\x7F])|(?1)))*(?:(?:[ \t]*(?:\r\n))?[ \t])?\)))|(?:(?:[ \t]*(?:\r\n))?[ \t])))?)|(?:(?:(?:(?:(?:[ \t]*(?:\r\n))?[ \t])?(\((?:(?:(?:[ \t]*(?:\r\n))?[ \t])|(?:(?:[\x01-\x08\x0B\x0C\x0E-\x19\x7F]|[\x21-\x27\x2A-\x5B\x5D-\x7E])|(?:\\[\x00-\x08\x0B\x0C\x0E-\x7F])|(?1)))*(?:(?:[ \t]*(?:\r\n))?[ \t])?\)))*(?:(?:(?:(?:[ \t]*(?:\r\n))?[ \t])?(\((?:(?:(?:[ \t]*(?:\r\n))?[ \t])|(?:(?:[\x01-\x08\x0B\x0C\x0E-\x19\x7F]|[\x21-\x27\x2A-\x5B\x5D-\x7E])|(?:\\[\x00-\x08\x0B\x0C\x0E-\x7F])|(?1)))*(?:(?:[ \t]*(?:\r\n))?[ \t])?\)))|(?:(?:[ \t]*(?:\r\n))?[ \t])))?"((?:(?:[ \t]*(?:\r\n))?[ \t])?(?:(?:[\x01-\x08\x0B\x0C\x0E-\x19\x7F]|[\x21\x23-\x5B\x5D-\x7E])|(?:\\[\x00-\x08\x0B\x0C\x0E-\x7F])))*(?:(?:[ \t]*(?:\r\n))?[ \t])?"(?:(?:(?:(?:[ \t]*(?:\r\n))?[ \t])?(\((?:(?:(?:[ \t]*(?:\r\n))?[ \t])|(?:(?:[\x01-\x08\x0B\x0C\x0E-\x19\x7F]|[\x21-\x27\x2A-\x5B\x5D-\x7E])|(?:\\[\x00-\x08\x0B\x0C\x0E-\x7F])|(?1)))*(?:(?:[ \t]*(?:\r\n))?[ \t])?\)))*(?:(?:(?:(?:[ \t]*(?:\r\n))?[ \t])?(\((?:(?:(?:[ \t]*(?:\r\n))?[ \t])|(?:(?:[\x01-\x08\x0B\x0C\x0E-\x19\x7F]|[\x21-\x27\x2A-\x5B\x5D-\x7E])|(?:\\[\x00-\x08\x0B\x0C\x0E-\x7F])|(?1)))*(?:(?:[ \t]*(?:\r\n))?[ \t])?\)))|(?:(?:[ \t]*(?:\r\n))?[ \t])))?))@(?:(?:(?:(?:(?:(?:[ \t]*(?:\r\n))?[ \t])?(\((?:(?:(?:[ \t]*(?:\r\n))?[ \t])|(?:(?:[\x01-\x08\x0B\x0C\x0E-\x19\x7F]|[\x21-\x27\x2A-\x5B\x5D-\x7E])|(?:\\[\x00-\x08\x0B\x0C\x0E-\x7F])|(?1)))*(?:(?:[ \t]*(?:\r\n))?[ \t])?\)))*(?:(?:(?:(?:[ \t]*(?:\r\n))?[ \t])?(\((?:(?:(?:[ \t]*(?:\r\n))?[ \t])|(?:(?:[\x01-\x08\x0B\x0C\x0E-\x19\x7F]|[\x21-\x27\x2A-\x5B\x5D-\x7E])|(?:\\[\x00-\x08\x0B\x0C\x0E-\x7F])|(?1)))*(?:(?:[ \t]*(?:\r\n))?[ \t])?\)))|(?:(?:[ \t]*(?:\r\n))?[ \t])))?(?:[a-zA-Z0-9!#\$%&\'\*\+\-\/=\?\^_\{\}\|~]+(\.[a-zA-Z0-9!#\$%&\'\*\+\-\/=\?\^_\{\}\|~]+)*)+(?:(?:(?:(?:[ \t]*(?:\r\n))?[ \t])?(\((?:(?:(?:[ \t]*(?:\r\n))?[ \t])|(?:(?:[\x01-\x08\x0B\x0C\x0E-\x19\x7F]|[\x21-\x27\x2A-\x5B\x5D-\x7E])|(?:\\[\x00-\x08\x0B\x0C\x0E-\x7F])|(?1)))*(?:(?:[ \t]*(?:\r\n))?[ \t])?\)))*(?:(?:(?:(?:[ \t]*(?:\r\n))?[ \t])?(\((?:(?:(?:[ \t]*(?:\r\n))?[ \t])|(?:(?:[\x01-\x08\x0B\x0C\x0E-\x19\x7F]|[\x21-\x27\x2A-\x5B\x5D-\x7E])|(?:\\[\x00-\x08\x0B\x0C\x0E-\x7F])|(?1)))*(?:(?:[ \t]*(?:\r\n))?[ \t])?\)))|(?:(?:[ \t]*(?:\r\n))?[ \t])))?)|(?:(?:(?:(?:(?:[ \t]*(?:\r\n))?[ \t])?(\((?:(?:(?:[ \t]*(?:\r\n))?[ \t])|(?:(?:[\x01-\x08\x0B\x0C\x0E-\x19\x7F]|[\x21-\x27\x2A-\x5B\x5D-\x7E])|(?:\\[\x00-\x08\x0B\x0C\x0E-\x7F])|(?1)))*(?:(?:[ \t]*(?:\r\n))?[ \t])?\)))*(?:(?:(?:(?:[ \t]*(?:\r\n))?[ \t])?(\((?:(?:(?:[ \t]*(?:\r\n))?[ \t])|(?:(?:[\x01-\x08\x0B\x0C\x0E-\x19\x7F]|[\x21-\x27\x2A-\x5B\x5D-\x7E])|(?:\\[\x00-\x08\x0B\x0C\x0E-\x7F])|(?1)))*(?:(?:[ \t]*(?:\r\n))?[ \t])?\)))|(?:(?:[ \t]*(?:\r\n))?[ \t])))?\[((?:(?:[ \t]*(?:\r\n))?[ \t])?(?:(?:[\x01-\x08\x0B\x0C\x0E-\x19\x7F]|[\x21-\x5A\x5E-\x7E])|(?:\\[\x00-\x08\x0B\x0C\x0E-\x7F])))*?(?:(?:[ \t]*(?:\r\n))?[ \t])?\](?:(?:(?:(?:[ \t]*(?:\r\n))?[ \t])?(\((?:(?:(?:[ \t]*(?:\r\n))?[ \t])|(?:(?:[\x01-\x08\x0B\x0C\x0E-\x19\x7F]|[\x21-\x27\x2A-\x5B\x5D-\x7E])|(?:\\[\x00-\x08\x0B\x0C\x0E-\x7F])|(?1)))*(?:(?:[ \t]*(?:\r\n))?[ \t])?\)))*(?:(?:(?:(?:[ \t]*(?:\r\n))?[ \t])?(\((?:(?:(?:[ \t]*(?:\r\n))?[ \t])|(?:(?:[\x01-\x08\x0B\x0C\x0E-\x19\x7F]|[\x21-\x27\x2A-\x5B\x5D-\x7E])|(?:\\[\x00-\x08\x0B\x0C\x0E-\x7F])|(?1)))*(?:(?:[ \t]*(?:\r\n))?[ \t])?\)))|(?:(?:[ \t]*(?:\r\n))?[ \t])))?)))$/D', $address);
+	}
 }
 
 function message($mes, $dest = "", $time = "3", $topnav = false, $menu = true)
@@ -291,31 +299,41 @@ function CalculateMaxPlanetFields($planet)
 	return $planet['field_max'] + ($planet[$resource[33]] * FIELDS_BY_TERRAFORMER) + ($planet[$resource[41]] * FIELDS_BY_MOONBASIS_LEVEL);
 }
 
-function pretty_time ($seconds)
+function pretty_time($seconds)
 {
-	$day = floor($seconds / (24 * 3600));
-	$hs = floor($seconds / 3600 % 24);
-	$ms = floor($seconds / 60 % 60);
-	$sr = floor($seconds / 1 % 60);
-
-	$hh = $hs < 10 ? "0" . $hs : $hs;
-	$mm = $ms < 10 ? "0" . $ms : $ms;
-	$ss = $sr < 10 ? "0" . $sr : $sr;
-
+	global $LNG;
+	
+	$day	= floor($seconds / 86400);
+	$hour	= floor($seconds / 3600 % 24);
+	$minute	= floor($seconds / 60 % 60);
+	$second	= floor($seconds % 60);
+	
 	$time  = '';
-	$time .= $day != 0 ? $day . 'd ' : '';
-	$time .= $hs  != 0 ? $hh . 'h ' : '00h ';
-	$time .= $ms  != 0 ? $mm . 'm ' : '00m ';
-	$time .= $ss . 's';
+	
+	if($day > 10) {
+		$time .= $day.$LNG['short_day'].' ';
+	} elseif($day > 0) {
+		$time .= '0'.$day.$LNG['short_day'].' ';
+	}
+	
+	if($hour > 10) {
+		$time .= $hour.$LNG['short_hour'].' ';
+	} else {
+		$time .= '0'.$hour.$LNG['short_hour'].' ';
+	}
+	
+	if($minute > 10) {
+		$time .= $minute.$LNG['short_minute'].' ';
+	} else {
+		$time .= '0'.$minute.$LNG['short_minute'].' ';
+	}
+	
+	if($second > 10) {
+		$time .= $second.$LNG['short_second'].' ';
+	} else {
+		$time .= '0'.$second.$LNG['short_second'].' ';
+	}
 
-	return $time;
-}
-
-function pretty_time_hour ($seconds)
-{
-	$min = floor($seconds / 60 % 60);
-	$time  = '';
-	$time .= $min != 0 ? $min . 'min ' : '';
 	return $time;
 }
 
@@ -334,26 +352,6 @@ function BuildPlanetAdressLink($CurrentPlanet)
 	return '<a href="game.php?page=galaxy&amp;galaxy='.$CurrentPlanet['galaxy'].'&amp;system='.$CurrentPlanet['system'].'">['.$CurrentPlanet['galaxy'].':'.$CurrentPlanet['system'].':'.$CurrentPlanet['planet'].']</a>';
 }
 
-function colorNumber($n, $s = '')
-{
-	if ($n > 0)
-		return (empty($s)) ? colorGreen($n) : colorGreen($s);
-	elseif ($n < 0)
-		return (empty($s)) ? colorRed($n) : colorRed($s);
-	else
-		return (empty($s)) ? $n : $s;
-}
-
-function colorRed($n)
-{
-	return '<span style="color:#ff0000">' . $n . '</span>';
-}
-
-function colorGreen($n)
-{
-	return '<span style="color:#00ff00">' . $n . '</span>';
-}
-
 function pretty_number($n, $dec = 0)
 {
 	return number_format(floattostring($n, $dec), $dec, ',', '.');
@@ -361,19 +359,18 @@ function pretty_number($n, $dec = 0)
 
 function GetUserByID($UserID, $GetInfo = "*")
 {
-		
 	if(is_array($GetInfo)) {
 		$GetOnSelect = "";
 		foreach($GetInfo as $id => $col)
 		{
-			$GetOnSelect .= "`".$col."`,";
+			$GetOnSelect .= "".$col.",";
 		}
 		$GetOnSelect = substr($GetOnSelect, 0, -1);
 	}
 	else
 		$GetOnSelect = $GetInfo;
 	
-	$User = $GLOBALS['DATABASE']->uniquequery("SELECT ".$GetOnSelect." FROM ".USERS." WHERE `id` = '". $UserID ."';");
+	$User = $GLOBALS['DATABASE']->uniquequery("SELECT ".$GetOnSelect." FROM ".USERS." WHERE id = '". $UserID ."';");
 	return $User;
 }
 
@@ -416,7 +413,7 @@ function makebr($text)
 
 function CheckPlanetIfExist($Galaxy, $System, $Planet, $Universe, $Planettype = 1)
 {
-		$QrySelectGalaxy = $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".PLANETS." WHERE `universe` = '".$Universe."' AND `galaxy` = '".$Galaxy."' AND `system` = '".$System."' AND `planet` = '".$Planet."' AND `planet_type` = '".$Planettype."';");
+	$QrySelectGalaxy = $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".PLANETS." WHERE universe = '".$Universe."' AND galaxy = '".$Galaxy."' AND system = '".$System."' AND planet = '".$Planet."' AND planet_type = '".$Planettype."';");
 	return $QrySelectGalaxy ? true : false;
 }
 
@@ -468,15 +465,15 @@ function SendSimpleMessage($Owner, $Sender, $Time, $Type, $From, $Subject, $Mess
 {
 			
 	$SQL	= "INSERT INTO ".MESSAGES." SET 
-	`message_owner` = ".(int) $Owner.", 
-	`message_sender` = ".(int) $Sender.", 
-	`message_time` = ".(int) $Time.", 
-	`message_type` = ".(int) $Type.", 
-	`message_from` = '".$GLOBALS['DATABASE']->sql_escape($From) ."', 
-	`message_subject` = '". $GLOBALS['DATABASE']->sql_escape($Subject) ."', 
-	`message_text` = '".$GLOBALS['DATABASE']->sql_escape($Message)."', 
-	`message_unread` = '1', 
-	`message_universe` = ".$GLOBALS['UNI'].";";
+	message_owner = ".(int) $Owner.", 
+	message_sender = ".(int) $Sender.", 
+	message_time = ".(int) $Time.", 
+	message_type = ".(int) $Type.", 
+	message_from = '".$GLOBALS['DATABASE']->sql_escape($From) ."', 
+	message_subject = '". $GLOBALS['DATABASE']->sql_escape($Subject) ."', 
+	message_text = '".$GLOBALS['DATABASE']->sql_escape($Message)."', 
+	message_unread = '1', 
+	message_universe = ".$GLOBALS['UNI'].";";
 
 	$GLOBALS['DATABASE']->query($SQL);
 }

@@ -91,7 +91,7 @@ if (MODE !== 'INSTALL')
 	$UNI		= getUniverse();
 	unset($database);
 
-	$CONF	= getConfig($UNI);
+	$CONF		= getConfig($UNI);
 
 	$LANG->setDefault($CONF['lang']);
 
