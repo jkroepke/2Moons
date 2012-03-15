@@ -9,14 +9,14 @@
         <tr>
 			<td>
 				<div class="transparent" style="text-align:left;float:left;"><img id="img" alt="" data-src="{$dpath}gebaeude/"></div>
-				<div class="transparent" style="text-align:right;float:right;">
+				<div class="transparent" style="text-align:right;float:right;padding:5px">
 					<select name="shipID" id="shipID" onchange="updateVars()">
 						{foreach $shipIDs as $shipID}
 						<option value="{$shipID}">{$LNG.tech.$shipID}</option>
 						{/foreach}
 					</select>
 				</div>
-				<div style="margin-top:20px;margin-left:125px;">
+				<div style="clear:right;margin-top:20px;margin-left:125px;">
 					<h2 id="traderHead"></h2>
 					<p>{$LNG.ft_count}: <input type="text" id="count" name="count" onkeyup="Total();"><button onclick="MaxShips();return false;">{$LNG.ft_max}</button></p>
 					<p>{$LNG.tech.901}: <span id="metal" style="font-weight:800;"></span> &bull; {$LNG.tech.902}: <span id="crystal" style="font-weight:800;"></span> &bull; {$LNG.tech.903}: <span id="deuterium" style="font-weight:800;"></span> &bull; {$LNG.tech.921}: <span id="darkmatter" style="font-weight:800;"></span></p>
