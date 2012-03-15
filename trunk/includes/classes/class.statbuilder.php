@@ -64,6 +64,7 @@ class statbuilder
 	
 	private function CheckUniverseAccounts($UniData)
 	{
+		$UniData	= $UniData + array_combine($this->Unis, array_fill(1, count($this->Unis), 0));
 		foreach($UniData as $Uni => $Amount) {
 			update_config(array('users_amount' => $Amount), $Uni);
 		}

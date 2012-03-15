@@ -350,7 +350,7 @@ switch ($step) {
 				'timezone'			=> date_default_timezone_get(),
 				'lang'				=> $LANG->GetUser(),
 				'OverviewNewsText'	=> $LNG['sql_welcome'].'1.7',
-				'uni_name'			=> $LNG['sql_universe'].' 1',
+				'uni_name'			=> $LNG['fcm_universe'].' 1',
 				'close_reason'		=> $LNG['sql_close_reason'],
 				'moduls'			=> implode(',', array_fill(0, MODULE_AMOUNT, 1))
 			), 1);

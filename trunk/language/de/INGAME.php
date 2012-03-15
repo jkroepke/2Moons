@@ -933,6 +933,7 @@ $LNG['cff_mission_target_mip']				= 'Raketenangriff (%d) vom Spieler %s vom %s %
 
 //----------------------------------------------------------------------------//
 // EXTRA LANGUAGE FUNCTIONS
+$LNG['fcm_universe']						= 'Universum';
 $LNG['fcm_planet']							= 'Planet';
 $LNG['fcm_moon']							= 'Mond';
 $LNG['fcm_info']							= 'Information';
