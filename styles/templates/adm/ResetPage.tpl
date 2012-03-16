@@ -36,7 +36,7 @@
 <tr><td style="text-align:left">{$re_reset_messages}</td><td style="text-align:right"><input type="checkbox" name="messages"></td></tr>
 <tr><td style="text-align:left">{$re_reset_statpoints}</td><td style="text-align:right"><input type="checkbox" name="statpoints"></td></tr>
 
-<tr><th style="text-align:left;">{$re_reset_all}</th><th style="text-align:right;margin-right:2px;padding-right:5px;width:10px;"><input type="checkbox" name="resetall" onclick="$('input').attr('checked', 'checked');"></th></tr>
+<tr><th style="text-align:left;">{$re_reset_all}</th><th style="text-align:right;margin-right:2px;padding-right:5px;width:10px;"><input type="checkbox" name="resetall" onclick="$('input').attr('checked', this.checked ? 'checked' : false)"></th></tr>
 
 
 <tr><td colspan="2" height="60"><input type="submit" value="{$button_submit}"></td></tr>
