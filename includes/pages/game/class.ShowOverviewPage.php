@@ -246,10 +246,12 @@ class ShowOverviewPage extends AbstractPage
 		$newname        = HTTP::_GP('name', '', UTF8_SUPPORT);
 		if (!empty($newname))
 		{
-			if (!CheckName($newname))
-				$this->sendJSON((UTF8_SUPPORT) ? $LNG['ov_newname_no_space'] : $LNG['ov_newname_alphanum']);
-			else
+			if (!CheckName($newname)) {
+				$this->sendJSON(array('message' => $LNG['ov_newname_specialchar'], 'error' => true));
+			} else {
 				$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET name = '".$GLOBALS['DATABASE']->sql_escape($newname)."' WHERE id = ".$PLANET['id'].";");
+				$this->sendJSON(array('message' => $LNG['ov_newname_done'], 'error' => false));
+			}
 		}
 	}
 	

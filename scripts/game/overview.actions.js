@@ -7,11 +7,9 @@ function checkrename()
 	if($.trim($('#name').val()) == '') {
 		return false;
 	} else {
-		$.get('game.php?page=overview&mode=rename&name='+$('#name').val(), function(response){
-			if(response != '') {
-				alert(response);
-			} else {
-				parent.$.fancybox.close();
+		$.getJSON('game.php?page=overview&mode=rename&name='+$('#name').val(), function(response){
+			alert(response.message);
+			if(!response.error) {
 				parent.location.reload();
 			}
 		});
@@ -26,7 +24,6 @@ function checkcancel()
 		$.getJSON('game.php?page=overview&mode=delete&password='+$('#password').val(), function(response){
 			alert(response.message);
 			if(response.ok){
-				parent.$.fancybox.close();
 				parent.location.reload();
 			}
 		});

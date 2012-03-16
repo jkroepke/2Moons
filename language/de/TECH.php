@@ -54,7 +54,7 @@ $LNG['bonus'] = array(
 );
 					
 $LNG['tech'] = array(
-	0 => 'Konstruktionen',
+	0 => 'Gebäude',
 	1 => 'Metallmine',
 	2 => 'Kristallmine',
 	3 => 'Deuteriumsynthetisierer',
@@ -151,7 +151,7 @@ $LNG['tech'] = array(
 	614 => 'Eroberer',
 	615 => 'Imperator',
 
-	700 => 'Temporäre Bonus',
+	700 => 'Premium Feature',
 	701 => 'Waffenoptimierung',
 	702 => 'Schildoptimierung',
 	703 => 'Baukoordinierung',
@@ -160,7 +160,7 @@ $LNG['tech'] = array(
 	706 => 'Forschungsoptimierung',
 	707 => 'Flottenkoordinierung',
 
-	900 => 'Ressourcen',
+	900 => 'Rohstoffe',
 	901 => 'Metall',
 	902 => 'Kristall',
 	903 => 'Deuterium',

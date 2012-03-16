@@ -88,8 +88,8 @@ $LNG['lm_disclamer']						= 'Impressum';
 //----------------------------------------------------------------------------//
 //OVERVIEW
 
-$LNG['ov_newname_alphanum']					= 'Der Planetenname darf nur aus alphanumerische Zeichen bestehen.';
-$LNG['ov_newname_no_space']					= 'Der Planetenname darf keine Leerzeichen enthalten.';
+$LNG['ov_newname_specialchar']				= 'Im Planetennamen sind nur Zahlen, Buchstaben, Leerzeichen, _, -, . erlaubt!';
+$LNG['ov_newname_done']						= 'Planet erfolgreich umbenannt!';
 $LNG['ov_planet_abandoned']					= 'Planet erfolgreich aufgegeben!';
 $LNG['ov_principal_planet_cant_abanone']	= 'Sie können nicht ihren Hauptplaneten löschen!';
 $LNG['ov_abandon_planet_not_possible']		= 'Kolonie nicht löschbar, wenn Flottenaktivitäten zu oder von ihrer Kolonie stattfinden!';

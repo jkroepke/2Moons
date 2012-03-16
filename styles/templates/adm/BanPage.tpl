@@ -36,7 +36,7 @@
 	<td><input name="secs" type="text" value="0" size="5"></td>
 	{if $changedate_advert}<td>&nbsp;</td>{/if}
 </tr><tr>
-	<th colspan="3">{$bo_vacaations}</th>
+	<th colspan="3">{$LNG.bo_vacaations}</th>
 </tr><tr>
 	<td>{$LNG.bo_vacation_mode}</td>
 	<td colspan="2"><input name="vacat" type="checkbox"{if $vacation} checked = "checked"{/if}></td>
