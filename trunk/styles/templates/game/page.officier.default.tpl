@@ -82,7 +82,7 @@
 							<p>{foreach $Element.costRessources as $RessID => $RessAmount}{$LNG.tech.{$RessID}}: <b><span style="color:{if $Element.costOverflow[$RessID] == 0}lime{else}red{/if}">{$RessAmount|number}</span></b>{/foreach}</p>
 						</td>
 						<td class="transparent" style="vertical-align:middle;width:100px">
-						{if $Element.maxLevel == $Element.level}
+						{if $Element.maxLevel <= $Element.level}
 							<span style="color:red">{$LNG.bd_maxlevel}</span>
 						{elseif $Element.buyable}
 							<form action="game.php?page=officier" method="post" class="build_form">
