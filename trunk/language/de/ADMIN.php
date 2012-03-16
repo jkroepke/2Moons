@@ -617,7 +617,7 @@ $LNG['mu_multiip_page']				= 'MultiIP';
 $LNG['mu_clear_cache']				= 'Lösche Cache'; 
 $LNG['mu_vertify']					= 'Vertify Game Content'; 
 $LNG['mu_logs']						= 'Admin-Log';
-
+$LNG['mu_giveaway']					= 'Geschenke';
 
 
 $LNG['vt_error']					= 'HashFile ist nicht verfügbar! - Update durchführen!';
@@ -1180,6 +1180,7 @@ $LNG['log_new']                         = 'Nachher';
 $LNG['log_player']                      = 'Bearbeitete Spieler';
 $LNG['log_planet']                      = 'Bearbeitete Planeten';
 $LNG['log_settings']                    = 'Bearbeitete Einstellungen';
+$LNG['log_present']      	            = 'Verteilte Geschenke';
 $LNG['log_cat']                         = 'Bitte w&auml;hle eine Log-Kategorie:';
 $LNG['log_no_data']                     = 'Keine Log-Daten vorhanden!';
 $LNG['log_ssettings']					= 'Server Konfiguration';
@@ -1189,6 +1190,14 @@ $LNG['log_chatsettings']				= 'Chat-Optionen';
 $LNG['log_tssettings']					= 'Teamspeak-Konfiguration';
 $LNG['log_uni_short']					= 'Uni';
 $LNG['log_universe']					= 'Universum';
+
+// Giveaway
+$LNG['ga_success']						= 'Erfolgreich!';
+$LNG['ga_selectplanettype']				= 'Bitte mindestens einen Planetentyp wählen!';
+$LNG['ga_definetarget']					= 'Ziele definieren';
+$LNG['ga_planettypes']					= 'Planetentypen';
+$LNG['ga_homecoordinates']				= 'Nur Heimatkoordinaten';
+$LNG['ga_no_inactives']					= 'Inaktive Spieler ausschließen';
 
 // Old SupportTicket Keys
 

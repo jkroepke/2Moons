@@ -455,9 +455,9 @@ function CheckNoobProtec($OwnerPlayer, $TargetPlayer, $Player)
 function CheckName($name)
 {
 	if(UTF8_SUPPORT) {
-		return preg_match("/^[A-z0-9_\-. ]*$/", $name);
-	} else {
 		return preg_match("/^[\p{L}_\-. ]*$/u", $name);
+	} else {
+		return preg_match("/^[A-z0-9_\-. ]*$/", $name);
 	}
 }
 

@@ -67,7 +67,7 @@
 				<td class="transparent"><input type="text" name="path"></td>
 			</tr>
 			<tr class="noborder">
-				<td class="transparent right" colspan="2"><input type="button" value="{$LNG.req_ftp_send}" onclick="submitftp();">{$req_ftp_pass_info}</td>
+				<td class="transparent right" colspan="2"><input type="button" value="{$LNG.req_ftp_send}" onclick="submitftp();">{$req_ftp_send}</td>
 			</tr>
 			</table>
 		</form>

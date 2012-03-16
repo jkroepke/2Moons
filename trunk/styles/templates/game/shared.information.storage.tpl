@@ -1,3 +1,5 @@
+{$count = $productionTable.usedResource}
+
 <table style="width:100%;">
 	<tbody>
 		<tr>
@@ -5,12 +7,14 @@
 				<table>
 				<tr>
 					<th>{$LNG.in_level}</th>
+				{if $count > 1}
 					{foreach $productionTable.usedResource as $resourceID}
 					<th colspan="2">{$LNG.tech.$resourceID}</th>
 					{/foreach}
 				</tr>
 				<tr>
 					<th>&nbsp;</th>
+				{/if}
 					{foreach $productionTable.usedResource as $resourceID}
 					<th>{$LNG.in_storage}</th>
 					<th>{$LNG.in_difference}</th>

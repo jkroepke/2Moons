@@ -193,6 +193,10 @@ switch($page)
 		include_once(ROOT_PATH . 'includes/pages/adm/ShowVertify.php');
 		ShowVertify();
 	break;
+	case 'giveaway':
+		include_once(ROOT_PATH . 'includes/pages/adm/ShowGiveawayPage.php');
+		ShowGiveaway();
+	break;
 	default:
 		include_once(ROOT_PATH . 'includes/pages/adm/ShowIndexPage.php');
 		ShowIndexPage();

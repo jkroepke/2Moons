@@ -1,3 +1,5 @@
+{$count = count($productionTable.usedResource)}
+
 <table style="width:100%;">
 	<tbody>
 		<tr>

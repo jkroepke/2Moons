@@ -152,7 +152,7 @@ if (MODE !== 'INSTALL')
 			$USER['factor']		= getFactors($USER);
 			$USER['PLANETS']	= getPlanets($USER);
 		} else {
-			error_reporting(E_ERROR | E_WARNING);
+			error_reporting(E_ERROR | E_WARNING | E_PARSE);
 			
 			$USER['rights']		= unserialize($USER['rights']);
 			$LANG->includeLang(array('ADMIN'));
