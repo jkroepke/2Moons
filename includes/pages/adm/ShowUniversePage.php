@@ -34,7 +34,11 @@ function ShowUniversePage() {
 	global $CONF, $LNG, $UNI, $USER;
 	$template	= new template();
 
-	if($_REQUEST['action'] == 'delete' && !empty($_REQUEST['id']) && $_REQUEST['id'] != ROOT_UNI) {
+	if($_REQUEST['action'] == 'open' && !empty($_REQUEST['id'])) {
+		update_config(array('game_disable' => 1), (int) $_REQUEST['id']);
+	} elseif($_REQUEST['action'] == 'closed' && !empty($_REQUEST['id'])) {
+		update_config(array('game_disable' => 0), (int) $_REQUEST['id']);
+	} elseif($_REQUEST['action'] == 'delete' && !empty($_REQUEST['id']) && $_REQUEST['id'] != ROOT_UNI) {
 		$ID	= (int) $_REQUEST['id'];
 		if($UNI != $ID) {
 			$GLOBALS['DATABASE']->query("DELETE FROM ".ALLIANCE.", ".ALLIANCE_RANK.", ".ALLIANCE_REQUEST." 
@@ -111,6 +115,7 @@ function ShowUniversePage() {
 		update_config($config, $UniID);
 		
 		unset($GLOBALS['CONFIG'][$UniID]);
+		
 		$Galaxy	= 1;
 		$System	= 1;
 		$Planet	= 2;
@@ -156,33 +161,22 @@ function ShowUniversePage() {
 		$GLOBALS['DATABASE']->multi_query($SQL);
 	}
 	
-	$Unis				= array();
+	$uniList	= array();
 	
-	// Don't know, if works on MySQL < 5.5
-	$Query	= $GLOBALS['DATABASE']->query("SELECT uni, users_amount, game_disable, halt_speed, resource_multiplier, fleet_speed, game_speed, uni_name, COUNT(inac.id) as inactive, COUNT(planet.id) as planet
+	$uniResult	= $GLOBALS['DATABASE']->query("SELECT uni, users_amount, game_disable, halt_speed, resource_multiplier, fleet_speed, game_speed, uni_name, COUNT(inac.id) as inactive, COUNT(planet.id) as planet
 	FROM ".CONFIG." conf
 	LEFT JOIN ".USERS." as inac ON uni = inac.universe AND inac.onlinetime < ".(TIMESTAMP - INACTIVE)."
 	LEFT JOIN ".PLANETS." as planet ON uni = planet.universe
 	GROUP BY conf.uni, inac.universe, planet.universe
 	ORDER BY uni ASC;");
 	
-	while($Uni	= $GLOBALS['DATABASE']->fetch_array($Query)) {
-		$Unis[$Uni['uni']]	= $Uni;
+	while($uniRow = $GLOBALS['DATABASE']->fetch_array($uniResult)) {
+		$uniList[$uniRow['uni']]	= $uniRow;
 	}
 	
-	ksort($Unis);
 	$template->assign_vars(array(
-		'Unis'					=> $Unis,
-		'SID'					=> session_id(),
-		'id'					=> $LNG['uvs_id'],
-		'name'					=> $LNG['uvs_name'],
-		'speeds'				=> $LNG['uvs_speeds'],
-		'players'				=> $LNG['uvs_players'],
-		'open'					=> $LNG['uvs_open'],
-		'delete'				=> $LNG['uvs_delete'],
-		'uni_on'				=> $LNG['uvs_on'],
-		'uni_off'				=> $LNG['uvs_off'],
-		'new_uni'				=> $LNG['uvs_new'],
+		'uniList'	=> $uniList,
+		'SID'		=> session_id(),
 	));
 	
 	$template->show('UniversePage.tpl');
