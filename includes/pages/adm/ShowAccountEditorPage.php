@@ -124,20 +124,6 @@ function ShowAccountEditorPage()
 			}
 			
 			
-			$template->assign_vars(array(
-				'button_reset'		=> $LNG['button_reset'],
-				'button_delete'		=> $LNG['button_delete'],
-				'button_add'		=> $LNG['button_add'],
-				'Metal'				=> $LNG['tech'][901],
-				'Crystal'			=> $LNG['tech'][902],
-				'Deuterium'			=> $LNG['tech'][903],
-				'Darkmatter'		=> $LNG['tech'][921],
-				'ad_back_to_menu'	=> $LNG['ad_back_to_menu'],
-				'input_id_user'		=> $LNG['input_id_user'],
-				'resources_title'	=> $LNG['resources_title'],
-				'input_id_p_m'		=> $LNG['input_id_p_m'],
-			));
-						
 			$template->show('AccountEditorPageResources.tpl');
 		break;
 		case 'ships':
@@ -198,21 +184,12 @@ function ShowAccountEditorPage()
 			foreach($reslist['fleet'] as $ID)
 			{
 				$INPUT[$ID]	= array(
-					'name'	=> $LNG['tech'][$ID],
 					'type'	=> $resource[$ID],
 				);
 			}
 
 			$template->assign_vars(array(
 				'inputlist'			=> $INPUT,
-				'button_reset'		=> $LNG['button_reset'],
-				'button_delete'		=> $LNG['button_delete'],
-				'button_add'		=> $LNG['button_add'],
-				'ad_back_to_menu'	=> $LNG['ad_back_to_menu'],
-				'input_id_p_m'		=> $LNG['input_id_p_m'],
-				'ships_title'		=> $LNG['ad_ships_title'],
-				'ad_number'			=> $LNG['ad_number'],
-				'ships_count'		=> $LNG['ad_count'],
 			));
 						
 			$template->show('AccountEditorPageShips.tpl');
@@ -274,21 +251,12 @@ function ShowAccountEditorPage()
 			foreach($reslist['defense'] as $ID)
 			{
 				$INPUT[$ID]	= array(
-					'name'	=> $LNG['tech'][$ID],
 					'type'	=> $resource[$ID],
 				);
 			}
 
 			$template->assign_vars(array(
 				'inputlist'			=> $INPUT,
-				'button_reset'		=> $LNG['button_reset'],
-				'button_delete'		=> $LNG['button_delete'],
-				'button_add'		=> $LNG['button_add'],
-				'ad_back_to_menu'	=> $LNG['ad_back_to_menu'],
-				'input_id_p_m'		=> $LNG['input_id_p_m'],
-				'defenses_title'	=> $LNG['ad_defenses_title'],
-				'ad_number'			=> $LNG['ad_number'],
-				'defenses_count'	=> $LNG['ad_count'],
 			));
 						
 			$template->show('AccountEditorPageDefenses.tpl');
@@ -364,21 +332,12 @@ function ShowAccountEditorPage()
 			foreach($reslist['build'] as $ID)
 			{
 				$INPUT[$ID]	= array(
-					'name'	=> $LNG['tech'][$ID],
 					'type'	=> $resource[$ID],
 				);
 			}
 
 			$template->assign_vars(array(
 				'inputlist'			=> $INPUT,
-				'button_reset'		=> $LNG['button_reset'],
-				'button_delete'		=> $LNG['button_delete'],
-				'button_add'		=> $LNG['button_add'],
-				'ad_back_to_menu'	=> $LNG['ad_back_to_menu'],
-				'input_id_p_m'		=> $LNG['input_id_p_m'],
-				'buildings_title'	=> $LNG['ad_buildings_title'],
-				'ad_number'			=> $LNG['ad_number'],
-				'ad_levels'			=> $LNG['ad_levels'],
 			));
 						
 			$template->show('AccountEditorPageBuilds.tpl');
@@ -439,21 +398,12 @@ function ShowAccountEditorPage()
 			foreach($reslist['tech'] as $ID)
 			{
 				$INPUT[$ID]	= array(
-					'name'	=> $LNG['tech'][$ID],
 					'type'	=> $resource[$ID],
 				);
 			}
 
 			$template->assign_vars(array(
 				'inputlist'			=> $INPUT,
-				'button_reset'		=> $LNG['button_reset'],
-				'button_delete'		=> $LNG['button_delete'],
-				'button_add'		=> $LNG['button_add'],
-				'ad_back_to_menu'	=> $LNG['ad_back_to_menu'],
-				'input_id_user'		=> $LNG['input_id_user'],
-				'research_title'	=> $LNG['ad_research_title'],
-				'ad_number'			=> $LNG['ad_number'],
-				'research_count'	=> $LNG['ad_count'],
 			));
 						
 			$template->show('AccountEditorPageResearch.tpl');
@@ -520,19 +470,6 @@ function ShowAccountEditorPage()
 			}
 			
 			$template->assign_vars(array(
-				'button_submit'			=> $LNG['button_submit'],
-				'ad_back_to_menu'		=> $LNG['ad_back_to_menu'],
-				'input_id'				=> $LNG['input_id_user'],
-				'ad_personal_vacat'		=> $LNG['ad_personal_vacat'],
-				'ad_personal_email2'	=> $LNG['ad_personal_email2'],
-				'ad_personal_email'		=> $LNG['ad_personal_email'],
-				'ad_personal_pass'		=> $LNG['ad_personal_pass'],
-				'ad_personal_name'		=> $LNG['ad_personal_name'],
-				'ad_personal_title'		=> $LNG['ad_personal_title'],
-				'time_seconds'			=> $LNG['time_seconds'],
-				'time_minutes'			=> $LNG['time_minutes'],
-				'time_hours'			=> $LNG['time_hours'],
-				'time_days'				=> $LNG['time_days'],
 				'Selector'				=> array(''	=> $LNG['select_option'], 'yes' => $LNG['one_is_yes'][1], 'no' => $LNG['one_is_yes'][0]),
 			));
 						
@@ -594,21 +531,12 @@ function ShowAccountEditorPage()
 			foreach($reslist['officier'] as $ID)
 			{
 				$INPUT[$ID]	= array(
-					'name'	=> $LNG['tech'][$ID],
 					'type'	=> $resource[$ID],
 				);
 			}
 
 			$template->assign_vars(array(
 				'inputlist'			=> $INPUT,
-				'button_reset'		=> $LNG['button_reset'],
-				'button_delete'		=> $LNG['button_delete'],
-				'button_add'		=> $LNG['button_add'],
-				'ad_back_to_menu'	=> $LNG['ad_back_to_menu'],
-				'input_id_user'		=> $LNG['input_id_user'],
-				'officiers_title'	=> $LNG['ad_offi_title'],
-				'ad_number'			=> $LNG['ad_number'],
-				'officiers_count'	=> $LNG['ad_count'],
 			));
 						
 			$template->show('AccountEditorPageOfficiers.tpl');
@@ -712,25 +640,6 @@ function ShowAccountEditorPage()
 				exit;
 			}
 			
-			$template->assign_vars(array(
-				'button_submit'			=> $LNG['button_submit'],
-				'button_reset'			=> $LNG['button_reset'],
-				'ad_back_to_menu'		=> $LNG['ad_back_to_menu'],
-				'ad_pla_title'			=> $LNG['ad_pla_title'],
-				'input_id_p_m'			=> $LNG['input_id_p_m'],
-				'ad_pla_edit_name'		=> $LNG['ad_pla_edit_name'],
-				'ad_pla_edit_diameter'	=> $LNG['ad_pla_edit_diameter'],
-				'ad_pla_edit_fields'	=> $LNG['ad_pla_edit_fields'],
-				'ad_pla_delete_b'		=> $LNG['ad_pla_delete_b'],
-				'ad_pla_delete_s'		=> $LNG['ad_pla_delete_s'],
-				'ad_pla_delete_d'		=> $LNG['ad_pla_delete_d'],
-				'ad_pla_delete_hd'		=> $LNG['ad_pla_delete_hd'],
-				'ad_pla_delete_cb'		=> $LNG['ad_pla_delete_cb'],
-				'ad_pla_title_l'		=> $LNG['ad_pla_title_l'],
-				'ad_pla_change_p'		=> $LNG['ad_pla_change_p'],
-				'ad_pla_change_pp'		=> $LNG['ad_pla_change_pp'],
-			));
-						
 			$template->show('AccountEditorPagePlanets.tpl');
 		break;
 
@@ -782,40 +691,10 @@ function ShowAccountEditorPage()
 				exit;
 			}
 			
-			$template->assign_vars(array(
-				'button_submit'		=> $LNG['button_submit'],
-				'ad_back_to_menu'	=> $LNG['ad_back_to_menu'],
-				'ad_pla_title'		=> $LNG['ad_pla_title'],
-				'ad_ally_title'		=> $LNG['ad_ally_title'],
-				'input_id_ally'		=> $LNG['input_id_ally'],
-				'ad_ally_change_id'	=> $LNG['ad_ally_change_id'],
-				'ad_ally_name'		=> $LNG['ad_ally_name'],
-				'ad_ally_tag'		=> $LNG['ad_ally_tag'],
-				'ad_ally_delete_u'	=> $LNG['ad_ally_delete_u'],
-				'ad_ally_user_id'	=> $LNG['ad_ally_user_id'],
-				'ad_ally_delete'	=> $LNG['ad_ally_delete'],
-				'ad_ally_text1'		=> $LNG['ad_ally_text1'],
-				'ad_ally_text2'		=> $LNG['ad_ally_text2'],
-				'ad_ally_text3'		=> $LNG['ad_ally_text3'],
-			));
-						
 			$template->show('AccountEditorPageAlliance.tpl');
 		break;
 
 		default:
-			$template->assign_vars(array(
-				'ad_editor_personal'	=> $LNG['ad_editor_personal'],
-				'ad_editor_alliances'	=> $LNG['ad_editor_alliances'],
-				'ad_editor_planets'		=> $LNG['ad_editor_planets'],
-				'ad_editor_resources'	=> $LNG['ad_editor_resources'],
-				'ad_editor_officiers'	=> $LNG['ad_editor_officiers'],
-				'ad_editor_researchs'	=> $LNG['ad_editor_researchs'],
-				'ad_editor_defenses'	=> $LNG['ad_editor_defenses'],
-				'ad_editor_ships'		=> $LNG['ad_editor_ships'],
-				'ad_editor_buildings'	=> $LNG['ad_editor_buildings'],
-				'ad_editor_title'		=> $LNG['ad_editor_title'],
-			));
-							
 			$template->show('AccountEditorPageMenu.tpl');
 		break;
 	}

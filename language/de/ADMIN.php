@@ -131,9 +131,11 @@ $LNG['ad_add_not_exist']		= 'ID existiert nicht!';
 $LNG['ad_add_succes']			= 'Hinzufügen der Forschungen war erfolgreich!';
 $LNG['ad_delete_succes']		= 'Löschen der Forschungen war erfolgreich!';
 $LNG['ad_research_title']		= 'Forschungen bearbeiten';
+$LNG['ad_research']		= 'Forschung';
 
 //	OFICIALES - OFFICIERS - OFFIZIERE
 $LNG['ad_offi_title']			= 'Offiziere bearbeiten';
+$LNG['ad_offi']					= 'Offiziere';
 $LNG['ad_offi_succes_add']		= 'Hinzufügen der Offiziere war erfolgreich!';
 $LNG['ad_offi_succes_delete']	= 'Löschen der Offiziere war erfolgreich!';
 
@@ -144,16 +146,19 @@ $LNG['ad_main_title']		= 'Verwalten der Rohstoffe & Technologie';
 
 //	NAVES - SHIPS - SCHIFFE
 $LNG['ad_ships_title']			= 'Schiffe bearbeiten';
+$LNG['ad_ships']			= 'Schiffe';
 $LNG['ad_add_sucess_ships']		= 'Hinzufügen der Schiffe war erfolgreich!';
 $LNG['ad_delete_sucess_ships']	= 'Löschen der Schiffe war erfolgreich!';
 
 //	DEFENSAS - DEFENSES - VERTEIDIGUNG
 $LNG['ad_defenses_title']			= 'Verteidigungen bearbeiten';
+$LNG['ad_defenses']			= 'Verteidigung';
 $LNG['ad_add_defenses_succes']		= 'Hinzufügen der Verteidigungen war erfolgreich!';
 $LNG['ad_delete_defenses_succes']	= 'Löschen der Verteidigungen war erfolgreich!';
 
 //	EDIFICIOS - BUILDINGS - GEBÄUDE
 $LNG['ad_buildings_title']	= 'Gebäude bearbeiten';
+$LNG['ad_buildings']	= 'Gebäude';
 $LNG['ad_planet_id']		= 'ID Planet oder Mond';
 $LNG['ad_levels']			= 'Anzahl der Stufe';
 $LNG['ad_count']			= 'Anzahl';
@@ -244,6 +249,8 @@ $LNG['bo_order_id']				= '[nach ID sortieren]';
 $LNG['bo_order_banned']			= '[nach Sperre sortieren]';
 $LNG['bo_total_users']			= 'Spieler insgesamt: ';
 $LNG['bo_total_banneds']		= 'gesperrte Spieler: ';
+$LNG['bo_ban']					= 'Sperren';
+$LNG['bo_unban']				= 'Entsperren';
 //###########################################################//
 
 
@@ -960,7 +967,8 @@ $LNG['qe_fleet']						= 'Flotte';
 $LNG['qe_defensive']					= 'Verteigung';
 $LNG['qe_resources']					= 'Rohstoffe';
 $LNG['qe_id']							= 'ID';
-$LNG['qe_name']							= 'Name';
+$LNG['qe_username']						= 'Spielername';
+$LNG['qe_planetname']					= 'Planetenname';
 $LNG['qe_level']						= 'Stufe';
 $LNG['qe_count']						= 'Vorhanden';
 $LNG['qe_input']						= 'Eingabe';
@@ -1153,6 +1161,7 @@ $LNG['ap_datum']						= 'Datum';
 $LNG['ap_email']						= 'E-Mail';
 $LNG['ap_ip']							= 'IP';
 $LNG['ap_aktivieren']					= 'Aktivieren';
+$LNG['ap_status']						= 'Status';
 $LNG['ap_del']							= 'Löschen';
 $LNG['ap_sicher']						= 'Bist du dir sicher das du ';
 $LNG['ap_entfernen']					= ' entfernen möchtest?';
