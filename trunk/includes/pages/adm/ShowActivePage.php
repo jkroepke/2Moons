@@ -56,19 +56,6 @@ function ShowActivePage()
 	$template->assign_vars(array(	
 		'Users'				=> $Users,
 		'uni'				=> $_SESSION['adminuni'],
-		'UserLang'			=> $USER['lang'],
-		'id'				=> $LNG['ap_id'],
-		'username'			=> $LNG['ap_username'],
-		'datum'				=> $LNG['ap_datum'],
-		'email'				=> $LNG['ap_email'],
-		'ip'				=> $LNG['ap_ip'],
-		'aktivieren'		=> $LNG['ap_aktivieren'],
-		'del'				=> $LNG['ap_del'],
-		'sicher'			=> $LNG['ap_sicher'],
-		'entfernen'			=> $LNG['ap_entfernen'],
-		'insgesamt'			=> $LNG['ap_insgesamt'],
-		'nicht_aktivierte'	=> $LNG['ap_nicht_aktivierte'],
-		'nicht_aktivierte_u'=> $LNG['ap_nicht_aktivierte_user'],
 	));
 	
 	$template->show('ActivePage.tpl');

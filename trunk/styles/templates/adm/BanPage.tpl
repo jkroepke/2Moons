@@ -103,7 +103,7 @@
 </td>
 </tr><tr>
 	<td>
-	<input type="submit" value="{$LNG.button_submit}" name="panel" style="width:20%;">&nbsp;
+	<input type="submit" value="{$LNG.bo_ban}" name="panel" style="width:20%;">&nbsp;
 	<input TYPE="button" onClick="UserList.reset();this.form.regexp.value=''" value="{$LNG.button_reset}">
 	</td>
 </tr><tr>
@@ -170,7 +170,7 @@
 </td>
 </tr>
 <tr>
-	<td><input value="{$LNG.button_submit}" type="submit" style="width:20%;">&nbsp;
+	<td><input value="{$LNG.bo_unban}" type="submit" style="width:20%;">&nbsp;
 	<input TYPE="button" onClick="UsersBan.reset();this.form.regexp.value=''" value="{$LNG.button_reset}"></td>
 </tr><tr>
 	<td align="left">
