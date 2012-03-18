@@ -306,14 +306,14 @@ switch ($page) {
 				}
 			
 				$SQL = "UPDATE ".USERS." SET 
-				id_planet	= ".$PlanerID.",
+				id_planet	= ".$PlanetID.",
 				galaxy		= ".$LastSettedGalaxyPos.",
 				system		= ".$LastSettedSystemPos.",
 				planet		= ".$Planet."
 				WHERE
-				id			= ".$UserID.";
+				id			= ".$userID.";
 				INSERT INTO ".STATPOINTS." SET 
-				id_owner	= ".$UserID.",
+				id_owner	= ".$userID.",
 				universe	= ".$UserUni.",
 				stat_type	= 1,
 				tech_rank	= ".($CONF['users_amount'] + 1).",
