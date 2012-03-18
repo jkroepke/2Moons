@@ -350,7 +350,7 @@ function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialS
 				$Search['LIST']	.= "<th>".$LNG['button_delete']."</th>";
 		}
 		
-		if ($Table == "planets")
+		if ($Table == "planets p")
 		{				
 			if (allowedTo('ShowQuickEditorPage'))
 				$Search['LIST']	.= "<th>".$LNG['se_search_edit']."</th>";
@@ -405,7 +405,7 @@ function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialS
 				}
 			}
 		
-			if ($Table == "planets"){
+			if ($Table == "planets p"){
 			
 				if (allowedTo('ShowQuickEditorPage'))
 					$Search['LIST']	.= "<td><a href=\"javascript:openEdit('".$WhileResult[0]."', 'planet');\" border=\"0\"><img src=\"./styles/images/Adm/GO.png\" title=".$LNG['se_search_edit']."></a></td>";
