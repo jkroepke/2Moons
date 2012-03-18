@@ -263,7 +263,7 @@ switch ($page) {
 				email_2			= '".$GLOBALS['DATABASE']->sql_escape($UserMail)."',
 				universe		= ".$UserUni.",
 				lang			= '".$UserLang."',
-				ip_at_reg		= '".$UserIP."'
+				ip_at_reg		= '".$UserIP."',
 				id_planet		= 0,
 				onlinetime		= ".TIMESTAMP.",
 				register_time	= ".TIMESTAMP.",
