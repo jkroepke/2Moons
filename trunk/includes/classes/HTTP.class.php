@@ -48,7 +48,7 @@ class HTTP {
 		if(is_array($default)) {
 			$varArray		= array();
 			$requestData	= $_REQUEST[$name];
-			foreach($default as $key => $subdefault)
+			foreach($requestData as $key => $subdefault)
 			{
 				if(!isset($requestData[$key])) {
 					continue;
