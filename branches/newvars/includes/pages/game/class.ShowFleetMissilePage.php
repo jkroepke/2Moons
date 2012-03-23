@@ -52,7 +52,7 @@ class ShowFleetMissilePage extends AbstractPage
 		
 		$target 			= $GLOBALS['DATABASE']->uniquequery("SELECT `id`, `id_owner` FROM ".PLANETS." WHERE `universe` = '".$UNI."' AND  `galaxy` = '".$targetGalaxy."' AND `system` = '".$targetSystem."' AND `planet` = '".$targetPlanet."' AND `planet_type` = ".$targetType.";");
 		
-		$Range				= FleetFunctions::GetMissileRange($USER[$resource[117]]);
+		$Range				= FleetFunctions::GetMissileRange($USER[$GLOBALS['ELEMENT'][117]['name']]);
 		$systemMin			= $PLANET['system'] - $Range;
 		$systemMax			= $PLANET['system'] + $Range;
 		

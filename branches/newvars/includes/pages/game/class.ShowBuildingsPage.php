@@ -52,10 +52,10 @@ class ShowBuildingsPage extends AbstractPage
 		
 		$costRessources			= BuildFunctions::getElementPrice($USER, $PLANET, $Element, $BuildMode == 'destroy');
 		
-		if(isset($costRessources[901])) { $PLANET[$resource[901]]	+= $costRessources[901]; }
-		if(isset($costRessources[902])) { $PLANET[$resource[902]]	+= $costRessources[902]; }
-		if(isset($costRessources[903])) { $PLANET[$resource[903]]	+= $costRessources[903]; }
-		if(isset($costRessources[921])) { $USER[$resource[921]]		+= $costRessources[921]; }
+		if(isset($costRessources[901])) { $PLANET[$GLOBALS['ELEMENT'][901]['name']]	+= $costRessources[901]; }
+		if(isset($costRessources[902])) { $PLANET[$GLOBALS['ELEMENT'][902]['name']]	+= $costRessources[902]; }
+		if(isset($costRessources[903])) { $PLANET[$GLOBALS['ELEMENT'][903]['name']]	+= $costRessources[903]; }
+		if(isset($costRessources[921])) { $USER[$GLOBALS['ELEMENT'][921]['name']]		+= $costRessources[921]; }
 		array_shift($CurrentQueue);
 		if (count($CurrentQueue) == 0) {
 			$PLANET['b_building']    	= 0;
@@ -135,7 +135,7 @@ class ShowBuildingsPage extends AbstractPage
 			|| !BuildFunctions::isTechnologieAccessible($USER, $PLANET, $Element) 
 			|| ($Element == 31 && $USER["b_tech_planet"] != 0) 
 			|| (($Element == 15 || $Element == 21) && !empty($PLANET['b_hangar_id']))
-			|| (!$AddMode && $PLANET[$resource[$Element]] == 0)
+			|| (!$AddMode && $PLANET[$GLOBALS['ELEMENT'][$Element]['name']] == 0)
 		)
 			return;
 		
@@ -155,7 +155,7 @@ class ShowBuildingsPage extends AbstractPage
 			return;
 	
 		$BuildMode 			= $AddMode ? 'build' : 'destroy';
-		$BuildLevel			= $PLANET[$resource[$Element]] + (int) $AddMode;
+		$BuildLevel			= $PLANET[$GLOBALS['ELEMENT'][$Element]['name']] + (int) $AddMode;
 		
 		if($ActualCount == 0)
 		{
@@ -167,10 +167,10 @@ class ShowBuildingsPage extends AbstractPage
 			if(!BuildFunctions::isElementBuyable($USER, $PLANET, $Element, $costRessources))
 				return;
 			
-			if(isset($costRessources[901])) { $PLANET[$resource[901]]	-= $costRessources[901]; }
-			if(isset($costRessources[902])) { $PLANET[$resource[902]]	-= $costRessources[902]; }
-			if(isset($costRessources[903])) { $PLANET[$resource[903]]	-= $costRessources[903]; }
-			if(isset($costRessources[921])) { $USER[$resource[921]]		-= $costRessources[921]; }
+			if(isset($costRessources[901])) { $PLANET[$GLOBALS['ELEMENT'][901]['name']]	-= $costRessources[901]; }
+			if(isset($costRessources[902])) { $PLANET[$GLOBALS['ELEMENT'][902]['name']]	-= $costRessources[902]; }
+			if(isset($costRessources[903])) { $PLANET[$GLOBALS['ELEMENT'][903]['name']]	-= $costRessources[903]; }
+			if(isset($costRessources[921])) { $USER[$GLOBALS['ELEMENT'][921]['name']]		-= $costRessources[921]; }
 			
 			$elementTime    			= BuildFunctions::getBuildingTime($USER, $PLANET, $Element, $costRessources);
 			$BuildEndTime				= TIMESTAMP + $elementTime;
@@ -274,7 +274,7 @@ class ShowBuildingsPage extends AbstractPage
 		
 		$RoomIsOk 			= $PLANET['field_current'] < ($CurrentMaxFields - $QueueCount);
 				
-		$BuildEnergy		= $USER[$resource[113]];
+		$BuildEnergy		= $USER[$GLOBALS['ELEMENT'][113]['name']];
 		$BuildLevelFactor   = 10;
 		$BuildTemp          = $PLANET['temp_max'];
 
@@ -291,7 +291,7 @@ class ShowBuildingsPage extends AbstractPage
 			
 			if(in_array($Element, $reslist['prod']))
 			{
-				$BuildLevel	= $PLANET[$resource[$Element]];
+				$BuildLevel	= $PLANET[$GLOBALS['ELEMENT'][$Element]['name']];
 				$Need		= round(eval(ResourceUpdate::getProd($ProdGrid[$Element]['production'][911])));
 				
 				if($Need > 0)
@@ -319,7 +319,7 @@ class ShowBuildingsPage extends AbstractPage
 			$buyable			= $QueueCount != 0 || BuildFunctions::isElementBuyable($USER, $PLANET, $Element, $costRessources);
 
 			$BuildInfoList[$Element]	= array(
-				'level'				=> $PLANET[$resource[$Element]],
+				'level'				=> $PLANET[$GLOBALS['ELEMENT'][$Element]['name']],
 				'maxLevel'			=> $pricelist[$Element]['max'],
 				'infoEnergy'		=> $infoEnergy,
 				'costRessources'	=> $costRessources,
@@ -342,7 +342,7 @@ class ShowBuildingsPage extends AbstractPage
 			'RoomIsOk'			=> $RoomIsOk,
 			'Queue'				=> $Queue,
 			'isBusy'			=> array('shipyard' => !empty($PLANET['b_hangar_id']), 'research' => $USER['b_tech_planet'] != 0),
-			'HaveMissiles'		=> (bool) $PLANET[$resource[503]] + $PLANET[$resource[502]],
+			'HaveMissiles'		=> (bool) $PLANET[$GLOBALS['ELEMENT'][503]['name']] + $PLANET[$GLOBALS['ELEMENT'][502]['name']],
 		));
 			
 		$this->display('page.buildings.default.tpl');

@@ -150,13 +150,13 @@ class ShowBattleSimulatorPage extends AbstractPage
 		$Slots			= HTTP::_GP('slots', 1);
 		
 		$BattleArray	= array();
-		$BattleArray[0][0][109]	= $USER[$resource[109]];
-		$BattleArray[0][0][110]	= $USER[$resource[110]];
-		$BattleArray[0][0][111]	= $USER[$resource[111]];
+		$BattleArray[0][0][109]	= $USER[$GLOBALS['ELEMENT'][109]['name']];
+		$BattleArray[0][0][110]	= $USER[$GLOBALS['ELEMENT'][110]['name']];
+		$BattleArray[0][0][111]	= $USER[$GLOBALS['ELEMENT'][111]['name']];
 
 		foreach($reslist['fleet'] as $ID)
 		{
-			$BattleArray[0][0][$ID]	= $PLANET[$resource[$ID]];
+			$BattleArray[0][0][$ID]	= $PLANET[$GLOBALS['ELEMENT'][$ID]['name']];
 		}
 		
 		if(isset($_REQUEST['im']))

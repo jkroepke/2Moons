@@ -61,10 +61,10 @@ class ShowShipyardPage extends AbstractPage
 			
 			$costRessources	= BuildFunctions::getElementPrice($USER, $PLANET, $Element, false, $Count);
 		
-			if(isset($costRessources[901])) { $PLANET[$resource[901]]	+= $costRessources[901] * FACTOR_CANCEL_SHIPYARD; }
-			if(isset($costRessources[902])) { $PLANET[$resource[902]]	+= $costRessources[902] * FACTOR_CANCEL_SHIPYARD; }
-			if(isset($costRessources[903])) { $PLANET[$resource[903]]	+= $costRessources[903] * FACTOR_CANCEL_SHIPYARD; }
-			if(isset($costRessources[921])) { $USER[$resource[921]]		+= $costRessources[921] * FACTOR_CANCEL_SHIPYARD; }
+			if(isset($costRessources[901])) { $PLANET[$GLOBALS['ELEMENT'][901]['name']]	+= $costRessources[901] * FACTOR_CANCEL_SHIPYARD; }
+			if(isset($costRessources[902])) { $PLANET[$GLOBALS['ELEMENT'][902]['name']]	+= $costRessources[902] * FACTOR_CANCEL_SHIPYARD; }
+			if(isset($costRessources[903])) { $PLANET[$GLOBALS['ELEMENT'][903]['name']]	+= $costRessources[903] * FACTOR_CANCEL_SHIPYARD; }
+			if(isset($costRessources[921])) { $USER[$GLOBALS['ELEMENT'][921]['name']]		+= $costRessources[921] * FACTOR_CANCEL_SHIPYARD; }
 			
 			unset($ElementQueue[$Auftr]);
 		}
@@ -82,8 +82,8 @@ class ShowShipyardPage extends AbstractPage
 		global $USER, $PLANET, $reslist, $CONF, $resource;	
 		
 		$Missiles	= array(
-			502	=> $PLANET[$resource[502]],
-			503	=> $PLANET[$resource[503]],
+			502	=> $PLANET[$GLOBALS['ELEMENT'][502]['name']],
+			503	=> $PLANET[$GLOBALS['ELEMENT'][503]['name']],
 		);
 
 		foreach($fmenge as $Element => $Count)
@@ -116,7 +116,7 @@ class ShowShipyardPage extends AbstractPage
 					}
 				}
 				
-				if($Count != 0 && $PLANET[$resource[$Element]] == 0 && $InBuild === false)
+				if($Count != 0 && $PLANET[$GLOBALS['ELEMENT'][$Element]['name']] == 0 && $InBuild === false)
 					$Count =  1;
 			}
 
@@ -125,10 +125,10 @@ class ShowShipyardPage extends AbstractPage
 				
 			$costRessources	= BuildFunctions::getElementPrice($USER, $PLANET, $Element, false, $Count);
 		
-			if(isset($costRessources[901])) { $PLANET[$resource[901]]	-= $costRessources[901]; }
-			if(isset($costRessources[902])) { $PLANET[$resource[902]]	-= $costRessources[902]; }
-			if(isset($costRessources[903])) { $PLANET[$resource[903]]	-= $costRessources[903]; }
-			if(isset($costRessources[921])) { $USER[$resource[921]]		-= $costRessources[921]; }
+			if(isset($costRessources[901])) { $PLANET[$GLOBALS['ELEMENT'][901]['name']]	-= $costRessources[901]; }
+			if(isset($costRessources[902])) { $PLANET[$GLOBALS['ELEMENT'][902]['name']]	-= $costRessources[902]; }
+			if(isset($costRessources[903])) { $PLANET[$GLOBALS['ELEMENT'][903]['name']]	-= $costRessources[903]; }
+			if(isset($costRessources[921])) { $USER[$GLOBALS['ELEMENT'][921]['name']]		-= $costRessources[921]; }
 			
 			$BuildArray[]			= array($Element, $Count);
 			$PLANET['b_hangar_id']	= serialize($BuildArray);
@@ -140,7 +140,7 @@ class ShowShipyardPage extends AbstractPage
 	{
 		global $USER, $PLANET, $LNG, $resource, $dpath, $reslist, $CONF;
 		
-		if ($PLANET[$resource[21]] == 0)
+		if ($PLANET[$GLOBALS['ELEMENT'][21]['name']] == 0)
 		{
 			$this->printMessage($LNG['bd_shipyard_required']);
 		}
@@ -189,8 +189,8 @@ class ShowShipyardPage extends AbstractPage
 		}
 		
 		$Missiles	= array(
-			502	=> $PLANET[$resource[502]],
-			503	=> $PLANET[$resource[503]],
+			502	=> $PLANET[$GLOBALS['ELEMENT'][502]['name']],
+			503	=> $PLANET[$GLOBALS['ELEMENT'][503]['name']],
 		);
 		
 		$MaxMissiles	= BuildFunctions::getMaxConstructibleRockets($USER, $PLANET, $Missiles);
@@ -210,11 +210,11 @@ class ShowShipyardPage extends AbstractPage
 				$maxBuildable	= min($maxBuildable, $MaxMissiles[$Element]);
 			}
 			
-			$AlreadyBuild		= in_array($Element, $reslist['one']) && (strpos($PLANET['b_hangar_id'], $Element.",") !== false || $PLANET[$resource[$Element]] != 0);
+			$AlreadyBuild		= in_array($Element, $reslist['one']) && (strpos($PLANET['b_hangar_id'], $Element.",") !== false || $PLANET[$GLOBALS['ELEMENT'][$Element]['name']] != 0);
 			
 			$elementList[$Element]	= array(
 				'id'				=> $Element,
-				'available'			=> $PLANET[$resource[$Element]],
+				'available'			=> $PLANET[$GLOBALS['ELEMENT'][$Element]['name']],
 				'costRessources'	=> $costRessources,
 				'costOverflow'		=> $costOverflow,
 				'elementTime'    	=> $elementTime,

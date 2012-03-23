@@ -40,7 +40,7 @@ class MissionCaseMIP extends MissionFunctions
 		$SQL = "";
 		foreach($reslist['defense'] as $Element)
 		{
-			$SQL	.= PLANETS.".".$resource[$Element].", ";
+			$SQL	.= PLANETS.".".$GLOBALS['ELEMENT'][$Element]['name'].", ";
 		}
 			
 		$QryTarget		 	= "SELECT ".USERS.".lang, ".USERS.".defence_tech, ".PLANETS.".id, ".PLANETS.".name, ".PLANETS.".id_owner, ".substr($SQL, 0, -2)."
@@ -51,7 +51,7 @@ class MissionCaseMIP extends MissionFunctions
 
 		if($this->_fleet['fleet_end_type'] == 3)
 		{
-			$TargetInfo[$resource[502]]	= $GLOBALS['DATABASE']->countquery("SELECT ".$resource[502]." FROM ".PLANETS." WHERE id_luna = ".$this->_fleet['fleet_end_id'].";");
+			$TargetInfo[$GLOBALS['ELEMENT'][502]['name']]	= $GLOBALS['DATABASE']->countquery("SELECT ".$GLOBALS['ELEMENT'][502]['name']." FROM ".PLANETS." WHERE id_luna = ".$this->_fleet['fleet_end_id'].";");
 		}
 
 		$OwnerInfo			= $GLOBALS['DATABASE']->uniquequery("SELECT lang, military_tech FROM ".USERS." WHERE id = '".$this->_fleet['fleet_owner']."';");					   
@@ -61,7 +61,7 @@ class MissionCaseMIP extends MissionFunctions
 
 		foreach($reslist['defense'] as $Element)		
 		{
-			$TargetDefensive[$Element]	= $TargetInfo[$resource[$Element]];
+			$TargetDefensive[$Element]	= $TargetInfo[$GLOBALS['ELEMENT'][$Element]['name']];
 		}
 		
 		unset($TargetDefensive[502]);
@@ -72,25 +72,25 @@ class MissionCaseMIP extends MissionFunctions
 		$LNG				= $LANG->GetUserLang($GLOBALS['CONFIG'][$this->_fleet['fleet_universe']]['lang'], array('L18N', 'FLEET', 'TECH'));
 				
 		require_once('calculateMIPAttack.php');	
-		if ($TargetInfo[$resource[502]] >= $this->_fleet['fleet_amount'])
+		if ($TargetInfo[$GLOBALS['ELEMENT'][502]['name']] >= $this->_fleet['fleet_amount'])
 		{
 			$message 	= $LNG['sys_irak_no_att'];
 			if($this->_fleet['fleet_end_type'] == 3)
-				$SQL .= "UPDATE ".PLANETS." SET ".$resource[502]." = ".$resource[502]." - ".$this->_fleet['fleet_amount']." WHERE id_luna = ".$TargetInfo['id'].";";
+				$SQL .= "UPDATE ".PLANETS." SET ".$GLOBALS['ELEMENT'][502]['name']." = ".$GLOBALS['ELEMENT'][502]['name']." - ".$this->_fleet['fleet_amount']." WHERE id_luna = ".$TargetInfo['id'].";";
 			else 
-				$SQL .= "UPDATE ".PLANETS." SET ".$resource[502]." = ".$resource[502]." - ".$this->_fleet['fleet_amount']." WHERE id = ".$TargetInfo['id'].";";
+				$SQL .= "UPDATE ".PLANETS." SET ".$GLOBALS['ELEMENT'][502]['name']." = ".$GLOBALS['ELEMENT'][502]['name']." - ".$this->_fleet['fleet_amount']." WHERE id = ".$TargetInfo['id'].";";
 		}
 		else
 		{
-			if ($TargetInfo[$resource[502]] > 0)
+			if ($TargetInfo[$GLOBALS['ELEMENT'][502]['name']] > 0)
 			{
 				if($this->_fleet['fleet_end_type'] == 3)
-					$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET ".$resource[502]." = 0 WHERE id_luna = " . $TargetInfo['id'].";");
+					$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET ".$GLOBALS['ELEMENT'][502]['name']." = 0 WHERE id_luna = " . $TargetInfo['id'].";");
 				else
-					$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET ".$resource[502]." = 0 WHERE id = " . $TargetInfo['id'].";");
+					$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET ".$GLOBALS['ELEMENT'][502]['name']." = 0 WHERE id = " . $TargetInfo['id'].";");
 			}
 			
-			$irak 	= calculateMIPAttack($TargetInfo["defence_tech"], $OwnerInfo["military_tech"], $this->_fleet['fleet_amount'], $TargetDefensive, $Target, $TargetInfo[$resource[502]]);
+			$irak 	= calculateMIPAttack($TargetInfo["defence_tech"], $OwnerInfo["military_tech"], $this->_fleet['fleet_amount'], $TargetDefensive, $Target, $TargetInfo[$GLOBALS['ELEMENT'][502]['name']]);
 			ksort($irak, SORT_NUMERIC);
 
             foreach ($irak as $Element => $destroy)
@@ -104,9 +104,9 @@ class MissionCaseMIP extends MissionFunctions
 					continue;
 					
 				if(in_array($Element, $reslist['one']))
-					$SQL .= "UPDATE ".PLANETS." SET ".$resource[$Element]." = '0' WHERE id = ".$TargetInfo['id'].";";
+					$SQL .= "UPDATE ".PLANETS." SET ".$GLOBALS['ELEMENT'][$Element]['name']." = '0' WHERE id = ".$TargetInfo['id'].";";
 				else
-					$SQL .= "UPDATE ".PLANETS." SET ".$resource[$Element]." = ".$resource[$Element]." - ".$destroy." WHERE id = ".$TargetInfo['id'].";";
+					$SQL .= "UPDATE ".PLANETS." SET ".$GLOBALS['ELEMENT'][$Element]['name']." = ".$GLOBALS['ELEMENT'][$Element]['name']." - ".$destroy." WHERE id = ".$TargetInfo['id'].";";
 			}
 		}
 				

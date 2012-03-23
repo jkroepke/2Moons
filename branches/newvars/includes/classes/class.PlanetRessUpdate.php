@@ -50,23 +50,30 @@ class ResourceUpdate
 	}
 	
 	public function CreateHash() {
-		global $reslist, $resource;
 		$Hash	= array();
-		foreach($reslist['prod'] as $ID) {
-			$Hash[]	= $this->PLANET[$resource[$ID]];
-			$Hash[]	= $this->PLANET[$resource[$ID].'_porcent'];
-		}
 		
-		$ressource	= array_merge(array(), $reslist['resstype'][1], $reslist['resstype'][2]);
-		foreach($ressource as $ID) {
-			$Hash[]	= $this->CONF[$resource[$ID].'_basic_income'];
+		foreach(array_keys($GLOBALS['ELEMENT']) as $elementID)
+		{
+			if(hasElementFlag($elementID, ELEMENT_PLANET_RESOURCE) || hasElementFlag($elementID, ELEMENT_ENERGY))
+			{
+				$Hash[]	= $this->CONF[$GLOBALS['ELEMENT'][$elementID]['name'].'_basic_income'];
+			}
+			
+			if(hasElementFlag($elementID, ELEMENT_PRODUCTION))
+			{
+				$Hash[]	= $this->PLANET[$GLOBALS['ELEMENT'][$elementID]['name']];
+				$Hash[]	= $this->PLANET[$GLOBALS['ELEMENT'][$elementID]['name'].'_porcent'];
+			}
+			
+			if(hasElementFlag($elementID, ELEMENT_STORAGE))
+			{
+				$Hash[]	= $this->PLANET[$GLOBALS['ELEMENT'][$elementID]['name']];
+			}
 		}
 		
 		$Hash[]	= $this->CONF['resource_multiplier'];
 		$Hash[]	= $this->USER['factor']['Resource'];
-		$Hash[]	= $this->PLANET[$resource[22]];
-		$Hash[]	= $this->PLANET[$resource[23]];
-		$Hash[]	= $this->PLANET[$resource[24]];
+		
 		return md5(implode("::", $Hash));
 	}
 	
@@ -174,14 +181,14 @@ class ResourceUpdate
 		global $resource;
 
 		$lablevel	= array();
-		if($USER[$resource[123]] == 0) {
-			$lablevel[] = $PLANET[$resource[31]];
+		if($USER[$GLOBALS['ELEMENT'][123]['name']] == 0) {
+			$lablevel[] = $PLANET[$GLOBALS['ELEMENT'][31]['name']];
 		} else {
-			$LevelRow = $GLOBALS['DATABASE']->query("SELECT ".$resource[31]." FROM ".PLANETS." WHERE id != '".$PLANET['id']."' AND id_owner = '".$USER['id']."' AND destruyed = 0 ORDER BY ".$resource[31]." DESC LIMIT ".($USER[$resource[123]]).";");
-			$lablevel[]	= $PLANET[$resource[31]];
+			$LevelRow = $GLOBALS['DATABASE']->query("SELECT ".$GLOBALS['ELEMENT'][31]['name']." FROM ".PLANETS." WHERE id != '".$PLANET['id']."' AND id_owner = '".$USER['id']."' AND destruyed = 0 ORDER BY ".$GLOBALS['ELEMENT'][31]['name']." DESC LIMIT ".($USER[$GLOBALS['ELEMENT'][123]['name']]).";");
+			$lablevel[]	= $PLANET[$GLOBALS['ELEMENT'][31]['name']];
 			while($Levels = $GLOBALS['DATABASE']->fetch_array($LevelRow))
 			{
-				$lablevel[]	= $Levels[$resource[31]];
+				$lablevel[]	= $Levels[$GLOBALS['ELEMENT'][31]['name']];
 			}
 			$GLOBALS['DATABASE']->free_result($LevelRow);
 		}
@@ -223,7 +230,7 @@ class ResourceUpdate
 		);
 		
 		$BuildTemp		= $this->PLANET['temp_max'];
-		$BuildEnergy	= $this->USER[$resource[113]];
+		$BuildEnergy	= $this->USER[$GLOBALS['ELEMENT'][113]['name']];
 		
 		foreach($reslist['storage'] as $ProdID)
 		{
@@ -232,7 +239,7 @@ class ResourceUpdate
 				if(!isset($ProdGrid[$ProdID]['storage'][$ID]))
 					continue;
 					
-				$BuildLevel 		= $this->PLANET[$resource[$ProdID]];
+				$BuildLevel 		= $this->PLANET[$GLOBALS['ELEMENT'][$ProdID]['name']];
 				$temp[$ID]['max']	+= round(eval(self::getProd($ProdGrid[$ProdID]['storage'][$ID])));
 			}
 		}
@@ -241,8 +248,8 @@ class ResourceUpdate
 		
 		foreach($reslist['prod'] as $ProdID)
 		{	
-			$BuildLevelFactor	= $this->PLANET[$resource[$ProdID].'_porcent'];
-			$BuildLevel 		= $this->PLANET[$resource[$ProdID]];
+			$BuildLevelFactor	= $this->PLANET[$GLOBALS['ELEMENT'][$ProdID]['name'].'_porcent'];
+			$BuildLevel 		= $this->PLANET[$GLOBALS['ELEMENT'][$ProdID]['name']];
 			
 			foreach($ressIDs as $ID) 
 			{
@@ -254,7 +261,7 @@ class ResourceUpdate
 				if($Production > 0) {					
 					$temp[$ID]['plus']	+= $Production;
 				} else {
-					if(in_array($ID, $reslist['resstype'][1]) && $this->PLANET[$resource[$ID]] == 0) {
+					if(in_array($ID, $reslist['resstype'][1]) && $this->PLANET[$GLOBALS['ELEMENT'][$ID]['name']] == 0) {
 						 continue;
 					}
 					
@@ -317,7 +324,7 @@ class ResourceUpdate
 						$this->Builded[$Element] = 0;
 						
 					$this->Builded[$Element]			+= $Count;
-					$this->PLANET[$resource[$Element]]	+= $Count;
+					$this->PLANET[$GLOBALS['ELEMENT'][$Element]['name']]	+= $Count;
 					continue;					
 				}
 				
@@ -334,7 +341,7 @@ class ResourceUpdate
 				
 				$this->Builded[$Element]			+= $Build;
 				$this->PLANET['b_hangar']			-= $Build * $BuildTime;
-				$this->PLANET[$resource[$Element]]	+= $Build;
+				$this->PLANET[$GLOBALS['ELEMENT'][$Element]['name']]	+= $Build;
 				$Count								-= $Build;
 				
 				if ($Count == 0)
@@ -374,13 +381,13 @@ class ResourceUpdate
 		if ($BuildMode == 'build')
 		{
 			$this->PLANET['field_current']		+= 1;
-			$this->PLANET[$resource[$Element]]	+= 1;
+			$this->PLANET[$GLOBALS['ELEMENT'][$Element]['name']]	+= 1;
 			$this->Builded[$Element]			+= 1;
 		}
 		else
 		{
 			$this->PLANET['field_current'] 		-= 1;
-			$this->PLANET[$resource[$Element]] 	-= 1;
+			$this->PLANET[$GLOBALS['ELEMENT'][$Element]['name']] 	-= 1;
 			$this->Builded[$Element]			-= 1;
 		}
 	
@@ -426,16 +433,16 @@ class ResourceUpdate
 			$CurrentQueue[0]	= array($Element, $Level, $BuildTime, $BuildEndTime, $BuildMode);
 			$HaveNoMoreLevel	= false;
 				
-			if($ForDestroy && $this->PLANET[$resource[$Element]] == 0) {
+			if($ForDestroy && $this->PLANET[$GLOBALS['ELEMENT'][$Element]['name']] == 0) {
 				$HaveRessources  = false;
 				$HaveNoMoreLevel = true;
 			}
 
 			if($HaveRessources === true) {
-				if(isset($costRessources[901])) { $this->PLANET[$resource[901]]	-= $costRessources[901]; }
-				if(isset($costRessources[902])) { $this->PLANET[$resource[902]]	-= $costRessources[902]; }
-				if(isset($costRessources[903])) { $this->PLANET[$resource[903]]	-= $costRessources[903]; }
-				if(isset($costRessources[921])) { $this->USER[$resource[921]]	-= $costRessources[921]; }
+				if(isset($costRessources[901])) { $this->PLANET[$GLOBALS['ELEMENT'][901]['name']]	-= $costRessources[901]; }
+				if(isset($costRessources[902])) { $this->PLANET[$GLOBALS['ELEMENT'][902]['name']]	-= $costRessources[902]; }
+				if(isset($costRessources[903])) { $this->PLANET[$GLOBALS['ELEMENT'][903]['name']]	-= $costRessources[903]; }
+				if(isset($costRessources[921])) { $this->USER[$GLOBALS['ELEMENT'][921]['name']]	-= $costRessources[921]; }
 				$NewQueue               	= serialize($CurrentQueue);
 				$Loop                  		= false;
 			} else {
@@ -495,7 +502,7 @@ class ResourceUpdate
 			$this->Builded[$this->USER['b_tech_id']]	= 0;
 			
 		$this->Builded[$this->USER['b_tech_id']]			+= 1;
-		$this->USER[$resource[$this->USER['b_tech_id']]]	+= 1;
+		$this->USER[$GLOBALS['ELEMENT'][$this->USER['b_tech_id']['name']]]	+= 1;
 	
 
 		$CurrentQueue	= unserialize($this->USER['b_tech_queue']);
@@ -537,7 +544,7 @@ class ResourceUpdate
 			else
 				$PLANET				= $this->PLANET;
 			
-			$PLANET[$resource[31].'_inter']	= self::getNetworkLevel($this->USER, $PLANET);
+			$PLANET[$GLOBALS['ELEMENT'][31]['name'].'_inter']	= self::getNetworkLevel($this->USER, $PLANET);
 			
 			$Element            = $ListIDArray[0];
 			$Level              = $ListIDArray[1];
@@ -554,10 +561,10 @@ class ResourceUpdate
 			}
 			
 			if($HaveRessources == true) {
-				if(isset($costRessources[901])) { $PLANET[$resource[901]]		-= $costRessources[901]; }
-				if(isset($costRessources[902])) { $PLANET[$resource[902]]		-= $costRessources[902]; }
-				if(isset($costRessources[903])) { $PLANET[$resource[903]]		-= $costRessources[903]; }
-				if(isset($costRessources[921])) { $this->USER[$resource[921]]	-= $costRessources[921]; }
+				if(isset($costRessources[901])) { $PLANET[$GLOBALS['ELEMENT'][901]['name']]		-= $costRessources[901]; }
+				if(isset($costRessources[902])) { $PLANET[$GLOBALS['ELEMENT'][902]['name']]		-= $costRessources[902]; }
+				if(isset($costRessources[903])) { $PLANET[$GLOBALS['ELEMENT'][903]['name']]		-= $costRessources[903]; }
+				if(isset($costRessources[921])) { $this->USER[$GLOBALS['ELEMENT'][921]['name']]	-= $costRessources[921]; }
 				$this->USER['b_tech_id']		= $Element;
 				$this->USER['b_tech']      		= $BuildEndTime;
 				$this->USER['b_tech_planet']	= $PLANET['id'];
@@ -641,16 +648,16 @@ class ResourceUpdate
 			{
 				$Element	= (int) $Element;
 				
-				if(empty($resource[$Element]) || empty($Count)) {
+				if(empty($GLOBALS['ELEMENT'][$Element]['name']) || empty($Count)) {
 					continue;
 				}
 				
 				if(in_array($Element, $reslist['one'])) {
-					$Qry	.= "p.".$resource[$Element]." = '1', ";					
-				} elseif(isset($PLANET[$resource[$Element]])) {
-					$Qry	.= "p.".$resource[$Element]." = p.".$resource[$Element]." + ".$Count.", ";
-				} elseif(isset($USER[$resource[$Element]])) {
-					$Qry	.= "u.".$resource[$Element]." = u.".$resource[$Element]." + ".$Count.", ";
+					$Qry	.= "p.".$GLOBALS['ELEMENT'][$Element]['name']." = '1', ";					
+				} elseif(isset($PLANET[$GLOBALS['ELEMENT'][$Element]['name']])) {
+					$Qry	.= "p.".$GLOBALS['ELEMENT'][$Element]['name']." = p.".$GLOBALS['ELEMENT'][$Element]['name']." + ".$Count.", ";
+				} elseif(isset($USER[$GLOBALS['ELEMENT'][$Element]['name']])) {
+					$Qry	.= "u.".$GLOBALS['ELEMENT'][$Element]['name']." = u.".$GLOBALS['ELEMENT'][$Element]['name']." + ".$Count.", ";
 				}
 			}
 		}

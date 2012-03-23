@@ -42,7 +42,7 @@ function ShowQuickEditorPage()
 			$DataIDs	= array_merge($reslist['fleet'], $reslist['build'], $reslist['defense']);
 			foreach($DataIDs as $ID)
 			{
-				$SpecifyItemsPQ	.= "`".$resource[$ID]."`,";
+				$SpecifyItemsPQ	.= "`".$GLOBALS['ELEMENT'][$ID]['name']."`,";
 			}
 			$PlanetData	= $GLOBALS['DATABASE']->uniquequery("SELECT ".$SpecifyItemsPQ." `name`, `id_owner`, `planet_type`, `galaxy`, `system`, `planet`, `destruyed`, `diameter`, `field_current`, `field_max`, `temp_min`, `temp_max`, `metal`, `crystal`, `deuterium` FROM ".PLANETS." WHERE `id` = '".$id."';");
 						
@@ -52,9 +52,9 @@ function ShowQuickEditorPage()
 				foreach($DataIDs as $ID)
 				{
 					if(in_array($ID, $reslist['allow'][$PlanetData['planet_type']]))
-						$Fields	+= max(0, round(HTTP::_GP($resource[$ID], 0.0))) - $PlanetData[$resource[$ID]];
+						$Fields	+= max(0, round(HTTP::_GP($GLOBALS['ELEMENT'][$ID]['name'], 0.0))) - $PlanetData[$GLOBALS['ELEMENT'][$ID]['name']];
 					
-					$SQL	.= "`".$resource[$ID]."` = '".max(0, round(HTTP::_GP($resource[$ID], 0.0)))."', ";
+					$SQL	.= "`".$GLOBALS['ELEMENT'][$ID]['name']."` = '".max(0, round(HTTP::_GP($GLOBALS['ELEMENT'][$ID]['name'], 0.0)))."', ";
 				}
 				$SQL	.= "`metal` = ".max(0, round(HTTP::_GP('metal', 0.0))).", ";
 				$SQL	.= "`crystal` = ".max(0, round(HTTP::_GP('crystal', 0.0))).", ";
@@ -71,8 +71,8 @@ function ShowQuickEditorPage()
 				$new = array();
                 foreach(array_merge($DataIDs,$reslist['resstype'][1]) as $IDs)
                 {
-                    $old[$IDs]    = $PlanetData[$resource[$IDs]];
-					$new[$IDs]    = max(0, round(HTTP::_GP($resource[$IDs], 0.0)));
+                    $old[$IDs]    = $PlanetData[$GLOBALS['ELEMENT'][$IDs]['name']];
+					$new[$IDs]    = max(0, round(HTTP::_GP($GLOBALS['ELEMENT'][$IDs]['name'], 0.0)));
                 }
 				$old['field_max'] = $PlanetData['field_max'];
 				$new['field_max'] = HTTP::_GP('field_max', 0);
@@ -91,30 +91,30 @@ function ShowQuickEditorPage()
 			foreach($reslist['allow'][$PlanetData['planet_type']] as $ID)
 			{
 				$build[]	= array(
-					'type'	=> $resource[$ID],
+					'type'	=> $GLOBALS['ELEMENT'][$ID]['name'],
 					'name'	=> $LNG['tech'][$ID],
-					'count'	=> pretty_number($PlanetData[$resource[$ID]]),
-					'input'	=> $PlanetData[$resource[$ID]]
+					'count'	=> pretty_number($PlanetData[$GLOBALS['ELEMENT'][$ID]['name']]),
+					'input'	=> $PlanetData[$GLOBALS['ELEMENT'][$ID]['name']]
 				);
 			}
 			
 			foreach($reslist['fleet'] as $ID)
 			{
 				$fleet[]	= array(
-					'type'	=> $resource[$ID],
+					'type'	=> $GLOBALS['ELEMENT'][$ID]['name'],
 					'name'	=> $LNG['tech'][$ID],
-					'count'	=> pretty_number($PlanetData[$resource[$ID]]),
-					'input'	=> $PlanetData[$resource[$ID]]
+					'count'	=> pretty_number($PlanetData[$GLOBALS['ELEMENT'][$ID]['name']]),
+					'input'	=> $PlanetData[$GLOBALS['ELEMENT'][$ID]['name']]
 				);
 			}
 			
 			foreach($reslist['defense'] as $ID)
 			{
 				$defense[]	= array(
-					'type'	=> $resource[$ID],
+					'type'	=> $GLOBALS['ELEMENT'][$ID]['name'],
 					'name'	=> $LNG['tech'][$ID],
-					'count'	=> pretty_number($PlanetData[$resource[$ID]]),
-					'input'	=> $PlanetData[$resource[$ID]]
+					'count'	=> pretty_number($PlanetData[$GLOBALS['ELEMENT'][$ID]['name']]),
+					'input'	=> $PlanetData[$GLOBALS['ELEMENT'][$ID]['name']]
 				);
 			}
 
@@ -147,7 +147,7 @@ function ShowQuickEditorPage()
 			$DataIDs	= array_merge($reslist['tech'], $reslist['officier']);
 			foreach($DataIDs as $ID)
 			{
-				$SpecifyItemsPQ	.= "`".$resource[$ID]."`,";
+				$SpecifyItemsPQ	.= "`".$GLOBALS['ELEMENT'][$ID]['name']."`,";
 			}
 			$UserData	= $GLOBALS['DATABASE']->uniquequery("SELECT ".$SpecifyItemsPQ." `username`, `authlevel`, `galaxy`, `system`, `planet`, `id_planet`, `darkmatter`, `authattack`, `authlevel` FROM ".USERS." WHERE `id` = '".$id."';");
 			$ChangePW	= $USER['id'] == ROOT_USER || ($id != ROOT_USER && $USER['authlevel'] > $UserData['authlevel']);
@@ -156,7 +156,7 @@ function ShowQuickEditorPage()
 				$SQL	= "UPDATE ".USERS." SET ";
 				foreach($DataIDs as $ID)
 				{
-					$SQL	.= "`".$resource[$ID]."` = '".abs(HTTP::_GP($resource[$ID], 0))."', ";
+					$SQL	.= "`".$GLOBALS['ELEMENT'][$ID]['name']."` = '".abs(HTTP::_GP($GLOBALS['ELEMENT'][$ID]['name'], 0))."', ";
 				}
 				$SQL	.= "`darkmatter` = '".max(HTTP::_GP('darkmatter', 0), 0)."', ";
 				if(!empty($_POST['password']) && $ChangePW)
@@ -170,11 +170,11 @@ function ShowQuickEditorPage()
 				$new = array();
 				foreach($DataIDs as $IDs)
                 {
-                    $old[$IDs]    = $UserData[$resource[$IDs]];
-                    $new[$IDs]    = abs(HTTP::_GP($resource[$IDs], 0));
+                    $old[$IDs]    = $UserData[$GLOBALS['ELEMENT'][$IDs]['name']];
+                    $new[$IDs]    = abs(HTTP::_GP($GLOBALS['ELEMENT'][$IDs]['name'], 0));
                 }
-				$old[921]			= $UserData[$resource[921]];
-				$new[921]			= abs(HTTP::_GP($resource[921], 0));
+				$old[921]			= $UserData[$GLOBALS['ELEMENT'][921]['name']];
+				$new[921]			= abs(HTTP::_GP($GLOBALS['ELEMENT'][921]['name'], 0));
 				$old['username']	= $UserData['username'];
 				$new['username']	= $GLOBALS['DATABASE']->sql_escape(HTTP::_GP('name', '', UTF8_SUPPORT));
 				$old['authattack']	= $UserData['authattack'];
@@ -196,19 +196,19 @@ function ShowQuickEditorPage()
 			foreach($reslist['tech'] as $ID)
 			{
 				$tech[]	= array(
-					'type'	=> $resource[$ID],
+					'type'	=> $GLOBALS['ELEMENT'][$ID]['name'],
 					'name'	=> $LNG['tech'][$ID],
-					'count'	=> pretty_number($UserData[$resource[$ID]]),
-					'input'	=> $UserData[$resource[$ID]]
+					'count'	=> pretty_number($UserData[$GLOBALS['ELEMENT'][$ID]['name']]),
+					'input'	=> $UserData[$GLOBALS['ELEMENT'][$ID]['name']]
 				);
 			}
 			foreach($reslist['officier'] as $ID)
 			{
 				$officier[]	= array(
-					'type'	=> $resource[$ID],
+					'type'	=> $GLOBALS['ELEMENT'][$ID]['name'],
 					'name'	=> $LNG['tech'][$ID],
-					'count'	=> pretty_number($UserData[$resource[$ID]]),
-					'input'	=> $UserData[$resource[$ID]]
+					'count'	=> pretty_number($UserData[$GLOBALS['ELEMENT'][$ID]['name']]),
+					'input'	=> $UserData[$GLOBALS['ELEMENT'][$ID]['name']]
 				);
 			}
 

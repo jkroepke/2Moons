@@ -88,14 +88,15 @@ if (MODE !== 'INSTALL')
 	$DATABASE	= new Database();
 	$CONFIG		= array();
 
+	$CACHE->add('vars', 'VarsBuildCache');
+	$ELEMENT	= $CACHE->get('vars');
+	
 	$UNI		= getUniverse();
 	unset($database);
 
 	$CONF		= getConfig($UNI);
 
 	$LANG->setDefault($CONF['lang']);
-
-	require(ROOT_PATH.'includes/vars.php');
 
 	if (MODE === 'INGAME' || MODE === 'ADMIN' || MODE === 'CHAT')
 	{	

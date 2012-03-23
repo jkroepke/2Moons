@@ -137,8 +137,8 @@ class GalaxyRows
 			5	=> !$this->galaxyData[$this->galaxyRow['planet']]['ownPlanet'] && isModulAvalible(MODULE_MISSION_HOLD),
 			6	=> !$this->galaxyData[$this->galaxyRow['planet']]['ownPlanet'] && isModulAvalible(MODULE_MISSION_SPY),
 			8	=> isModulAvalible(MODULE_MISSION_RECYCLE),
-			9	=> !$this->galaxyData[$this->galaxyRow['planet']]['ownPlanet'] && $PLANET[$resource[214]] > 0 && isModulAvalible(MODULE_MISSION_DESTROY),
-			10	=> !$this->galaxyData[$this->galaxyRow['planet']]['ownPlanet'] && $PLANET[$resource[503]] > 0 && isModulAvalible(MODULE_MISSION_ATTACK) && isModulAvalible(MODULE_MISSILEATTACK) && $this->inMissileRange(),
+			9	=> !$this->galaxyData[$this->galaxyRow['planet']]['ownPlanet'] && $PLANET[$GLOBALS['ELEMENT'][214]['name']] > 0 && isModulAvalible(MODULE_MISSION_DESTROY),
+			10	=> !$this->galaxyData[$this->galaxyRow['planet']]['ownPlanet'] && $PLANET[$GLOBALS['ELEMENT'][503]['name']] > 0 && isModulAvalible(MODULE_MISSION_ATTACK) && isModulAvalible(MODULE_MISSILEATTACK) && $this->inMissileRange(),
 		);
 	}
 
@@ -149,7 +149,7 @@ class GalaxyRows
 		if ($this->galaxyRow['galaxy'] != $PLANET['galaxy'])
 			return false;
 		
-		$Range		= FleetFunctions::GetMissileRange($USER[$resource[117]]);
+		$Range		= FleetFunctions::GetMissileRange($USER[$GLOBALS['ELEMENT'][117]['name']]);
 		$systemMin	= $PLANET['system'] - $Range;
 		$systemMax	= $PLANET['system'] + $Range;
 		
@@ -243,8 +243,8 @@ class GalaxyRows
 		if($total == 0) {
 			$this->galaxyData[$this->galaxyRow['planet']]['debris']	= false;
 		} else {
-			$GRecNeeded = min(ceil($total / $pricelist[219]['capacity']), $PLANET[$resource[219]]);
-			$RecNeeded 	= min(ceil(max($total - ($GRecNeeded * $pricelist[219]['capacity']), 0) / $pricelist[209]['capacity']), $PLANET[$resource[209]]);
+			$GRecNeeded = min(ceil($total / $pricelist[219]['capacity']), $PLANET[$GLOBALS['ELEMENT'][219]['name']]);
+			$RecNeeded 	= min(ceil(max($total - ($GRecNeeded * $pricelist[219]['capacity']), 0) / $pricelist[209]['capacity']), $PLANET[$GLOBALS['ELEMENT'][209]['name']]);
 
 			$this->galaxyData[$this->galaxyRow['planet']]['debris']	= array(
 				'metal'			=> $this->galaxyRow['der_metal'],

@@ -48,7 +48,7 @@ function ShowAccountDataPage()
 		{
 			foreach(array_merge($reslist['officier'], $reslist['tech']) as $ID)
 			{
-				$SpecifyItemsUQ	.= "u.`".$resource[$ID]."`,";
+				$SpecifyItemsUQ	.= "u.`".$GLOBALS['ELEMENT'][$ID]['name']."`,";
 			}
 		
 			// COMIENZA SAQUEO DE DATOS DE LA TABLA DE USUARIOS
@@ -93,9 +93,9 @@ function ShowAccountDataPage()
 			$techoffi	= "";
 			for($i = 0; $i < max(count($reslist['officier']), count($reslist['tech'])); $i++)
 			{
-				$techoffi .= isset($techno[$i]) ? "<tr><td>".$LNG['tech'][$techno[$i]].": <font color=aqua>".$UserQuery[$resource[$techno[$i]]]."</font></td>" : "<tr><td>&nbsp;</td>";
+				$techoffi .= isset($techno[$i]) ? "<tr><td>".$LNG['tech'][$techno[$i]].": <font color=aqua>".$UserQuery[$GLOBALS['ELEMENT'][$techno[$i]['name']]]."</font></td>" : "<tr><td>&nbsp;</td>";
 				
-				$techoffi .= isset($officier[$i]) ? "<td>".$LNG['tech'][$officier[$i]].": <font color=aqua>".$UserQuery[$resource[$officier[$i]]]."</font></td></tr>" : "<td>&nbsp;</td></tr>";				
+				$techoffi .= isset($officier[$i]) ? "<td>".$LNG['tech'][$officier[$i]].": <font color=aqua>".$UserQuery[$GLOBALS['ELEMENT'][$officier[$i]['name']]]."</font></td></tr>" : "<td>&nbsp;</td></tr>";				
 			}
 			
 			if ($UserQuery['bana'] != 0)
@@ -248,8 +248,8 @@ function ShowAccountDataPage()
 			
 			foreach(array_merge($reslist['fleet'], $reslist['build'], $reslist['defense']) as $ID)
 			{
-				$SpecifyItemsPQ	.= "`".$resource[$ID]."`,";
-				$RES[$resource[$ID]]	= "<tr><td width=\"150\">".$LNG['tech'][$ID]."</td>";
+				$SpecifyItemsPQ	.= "`".$GLOBALS['ELEMENT'][$ID]['name']."`,";
+				$RES[$GLOBALS['ELEMENT'][$ID]['name']]	= "<tr><td width=\"150\">".$LNG['tech'][$ID]."</td>";
 			}
 			$names	= "<tr><th class=\"center\" width=\"150\">&nbsp;</th>";
 			
@@ -312,7 +312,7 @@ function ShowAccountDataPage()
 					$names	.= "<th class=\"center\" width=\"60\">".$Planettt."</th>";
 					foreach(array_merge($reslist['fleet'], $reslist['build'], $reslist['defense']) as $ID)
 					{
-						$RES[$resource[$ID]]	.= "<td width=\"60\"><a title=\"".pretty_number($PlanetsWhile[$resource[$ID]])."\">".shortly_number($PlanetsWhile[$resource[$ID]])."</a></td>";
+						$RES[$GLOBALS['ELEMENT'][$ID]['name']]	.= "<td width=\"60\"><a title=\"".pretty_number($PlanetsWhile[$GLOBALS['ELEMENT'][$ID]['name']])."\">".shortly_number($PlanetsWhile[$GLOBALS['ELEMENT'][$ID]['name']])."</a></td>";
 					}
 					
 					$MoonHave = $MoonZ != 0 ? '<a href="#" onclick="$(\'#especiales\').slideToggle();return false" class="link"><img src="./styles/images/Adm/arrowright.png" width="16" height="10"/> '.$LNG['moon_build']."</a>" : "<span class=\"no_moon\"><img src=\"./styles/images/Adm/arrowright.png\" width=\"16\" height=\"10\"/>".$LNG['moon_build']."&nbsp;".$LNG['ac_moons_no']."</span>";					
@@ -334,22 +334,22 @@ function ShowAccountDataPage()
 			$names	.= "</tr>";
 			foreach(array_merge($reslist['fleet'], $reslist['build'], $reslist['defense']) as $ID)
 			{
-				$RES[$resource[$ID]]	.= "</tr>";
+				$RES[$GLOBALS['ELEMENT'][$ID]['name']]	.= "</tr>";
 			}
 			
 			foreach($reslist['build'] as $ID)
 			{
-				$build	.= $RES[$resource[$ID]];
+				$build	.= $RES[$GLOBALS['ELEMENT'][$ID]['name']];
 			}
 			
 			foreach($reslist['fleet'] as $ID)
 			{
-				$fleet	.= $RES[$resource[$ID]];
+				$fleet	.= $RES[$GLOBALS['ELEMENT'][$ID]['name']];
 			}
 			
 			foreach($reslist['defense'] as $ID)
 			{
-				$defense	.= $RES[$resource[$ID]];
+				$defense	.= $RES[$GLOBALS['ELEMENT'][$ID]['name']];
 			}
 			
 			$template->assign_vars(array(

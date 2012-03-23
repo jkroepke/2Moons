@@ -95,9 +95,9 @@ class MissionCaseDestruction extends MissionFunctions
 		$DefenderRow['id'][] 	= $defense[0]['user']['id'];
 		for ($i = 200; $i < 500; $i++)
 		{
-			if (isset($resource[$i]) && isset($targetPlanet[$resource[$i]]))
+			if (isset($GLOBALS['ELEMENT'][$i]['name']) && isset($targetPlanet[$GLOBALS['ELEMENT'][$i]['name']]))
 			{
-				$defense[0]['def'][$i] = $targetPlanet[$resource[$i]];
+				$defense[0]['def'][$i] = $targetPlanet[$GLOBALS['ELEMENT'][$i]['name']];
 			}
 		}
 
@@ -174,7 +174,7 @@ class MissionCaseDestruction extends MissionFunctions
 
 				foreach ($defender['def'] as $element => $amount)
 				{
-					$fleetArray .= "`".$resource[$element]."` = '".floattostring($amount)."', ";
+					$fleetArray .= "`".$GLOBALS['ELEMENT'][$element]['name']."` = '".floattostring($amount)."', ";
 				}
 
 				$SQL .= "UPDATE ".PLANETS." SET ";

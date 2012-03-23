@@ -129,7 +129,7 @@ class ShowFleetStep3Page extends AbstractPage
 		
 		foreach ($fleetArray as $Ship => $Count)
 		{
-			if ($Count > $PLANET[$resource[$Ship]]) {
+			if ($Count > $PLANET[$GLOBALS['ELEMENT'][$Ship]['name']]) {
 				FleetFunctions::GotoFleetPage(8);
 			}
 		}
@@ -144,7 +144,7 @@ class ShowFleetStep3Page extends AbstractPage
 		}
 		elseif ($targetMission == 15)
 		{
-			$expeditionTech = $USER[$resource[124]];
+			$expeditionTech = $USER[$GLOBALS['ELEMENT'][124]['name']];
 
 			if ($expeditionTech == 0) {
 				FleetFunctions::GotoFleetPage(10);
@@ -277,14 +277,14 @@ class ShowFleetStep3Page extends AbstractPage
 		$fleetStorage		-= $consumption;
 		
 		$fleetRessource	= array(
-			901	=> min($TransportMetal, floor($PLANET[$resource[901]])),
-			902	=> min($TransportCrystal, floor($PLANET[$resource[902]])),
-			903	=> min($TransportDeuterium, floor($PLANET[$resource[903]] - $consumption)),
+			901	=> min($TransportMetal, floor($PLANET[$GLOBALS['ELEMENT'][901]['name']])),
+			902	=> min($TransportCrystal, floor($PLANET[$GLOBALS['ELEMENT'][902]['name']])),
+			903	=> min($TransportDeuterium, floor($PLANET[$GLOBALS['ELEMENT'][903]['name']] - $consumption)),
 		);
 		
 		$StorageNeeded		= array_sum($fleetRessource);
 	
-		if ($PLANET[$resource[903]] < $consumption) {
+		if ($PLANET[$GLOBALS['ELEMENT'][903]['name']] < $consumption) {
 			FleetFunctions::GotoFleetPage(19);
 		}
 		
@@ -292,9 +292,9 @@ class ShowFleetStep3Page extends AbstractPage
 			FleetFunctions::GotoFleetPage(20);
 		}
 				
-		$PLANET[$resource[901]]	-= $fleetRessource[901];
-		$PLANET[$resource[902]]	-= $fleetRessource[902];
-		$PLANET[$resource[903]]	-= $fleetRessource[903] + $consumption;
+		$PLANET[$GLOBALS['ELEMENT'][901]['name']]	-= $fleetRessource[901];
+		$PLANET[$GLOBALS['ELEMENT'][902]['name']]	-= $fleetRessource[902];
+		$PLANET[$GLOBALS['ELEMENT'][903]['name']]	-= $fleetRessource[903] + $consumption;
 
 		if(connection_aborted())
 			exit;
