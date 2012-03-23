@@ -47,15 +47,15 @@ class ShowOfficierPage extends AbstractPage
 			return;
 		}
 			
-		$USER[$resource[$Element]]	= max($USER[$resource[$Element]], TIMESTAMP) + $pricelist[$Element]['time'];
+		$USER[$GLOBALS['ELEMENT'][$Element]['name']]	= max($USER[$GLOBALS['ELEMENT'][$Element]['name']], TIMESTAMP) + $pricelist[$Element]['time'];
 			
-		if(isset($costRessources[901])) { $PLANET[$resource[901]]	-= $costRessources[901]; }
-		if(isset($costRessources[902])) { $PLANET[$resource[902]]	-= $costRessources[902]; }
-		if(isset($costRessources[903])) { $PLANET[$resource[903]]	-= $costRessources[903]; }
-		if(isset($costRessources[921])) { $USER[$resource[921]]		-= $costRessources[921]; }
+		if(isset($costRessources[901])) { $PLANET[$GLOBALS['ELEMENT'][901]['name']]	-= $costRessources[901]; }
+		if(isset($costRessources[902])) { $PLANET[$GLOBALS['ELEMENT'][902]['name']]	-= $costRessources[902]; }
+		if(isset($costRessources[903])) { $PLANET[$GLOBALS['ELEMENT'][903]['name']]	-= $costRessources[903]; }
+		if(isset($costRessources[921])) { $USER[$GLOBALS['ELEMENT'][921]['name']]		-= $costRessources[921]; }
 		
 		$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET
-				   ".$resource[$Element]." = ".$USER[$resource[$Element]]."
+				   ".$GLOBALS['ELEMENT'][$Element]['name']." = ".$USER[$GLOBALS['ELEMENT'][$Element]['name']]."
 				   WHERE
 				   id = ".$USER['id'].";");
 	}
@@ -68,19 +68,19 @@ class ShowOfficierPage extends AbstractPage
 			
 		if (!BuildFunctions::isTechnologieAccessible($USER, $PLANET, $Element) 
 			|| !BuildFunctions::isElementBuyable($USER, $PLANET, $Element, $costRessources) 
-			|| $pricelist[$Element]['max'] <= $USER[$resource[$Element]]) {
+			|| $pricelist[$Element]['max'] <= $USER[$GLOBALS['ELEMENT'][$Element]['name']]) {
 			return;
 		}
 		
-		$USER[$resource[$Element]]	+= 1;
+		$USER[$GLOBALS['ELEMENT'][$Element]['name']]	+= 1;
 		
-		if(isset($costRessources[901])) { $PLANET[$resource[901]]	-= $costRessources[901]; }
-		if(isset($costRessources[902])) { $PLANET[$resource[902]]	-= $costRessources[902]; }
-		if(isset($costRessources[903])) { $PLANET[$resource[903]]	-= $costRessources[903]; }
-		if(isset($costRessources[921])) { $USER[$resource[921]]		-= $costRessources[921]; }
+		if(isset($costRessources[901])) { $PLANET[$GLOBALS['ELEMENT'][901]['name']]	-= $costRessources[901]; }
+		if(isset($costRessources[902])) { $PLANET[$GLOBALS['ELEMENT'][902]['name']]	-= $costRessources[902]; }
+		if(isset($costRessources[903])) { $PLANET[$GLOBALS['ELEMENT'][903]['name']]	-= $costRessources[903]; }
+		if(isset($costRessources[921])) { $USER[$GLOBALS['ELEMENT'][921]['name']]		-= $costRessources[921]; }
 		
 		$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET
-				   ".$resource[$Element]." = ".$USER[$resource[$Element]]."
+				   ".$GLOBALS['ELEMENT'][$Element]['name']." = ".$USER[$GLOBALS['ELEMENT'][$Element]['name']]."
 				   WHERE
 				   id = ".$USER['id'].";");
 	}
@@ -109,8 +109,8 @@ class ShowOfficierPage extends AbstractPage
 		{
 			foreach($reslist['dmfunc'] as $Element)
 			{
-				if($USER[$resource[$Element]] > TIMESTAMP) {
-					$this->tplObj->execscript("GetOfficerTime(".$Element.", ".($USER[$resource[$Element]] - TIMESTAMP).");");
+				if($USER[$GLOBALS['ELEMENT'][$Element]['name']] > TIMESTAMP) {
+					$this->tplObj->execscript("GetOfficerTime(".$Element.", ".($USER[$GLOBALS['ELEMENT'][$Element]['name']] - TIMESTAMP).");");
 				}
 			
 				$costRessources		= BuildFunctions::getElementPrice($USER, $PLANET, $Element);
@@ -119,7 +119,7 @@ class ShowOfficierPage extends AbstractPage
 				$elementBonus		= BuildFunctions::getAvalibleBonus($Element);
 
 				$darkmatterList[$Element]	= array(
-					'timeLeft'			=> max($USER[$resource[$Element]] - TIMESTAMP, 0),
+					'timeLeft'			=> max($USER[$GLOBALS['ELEMENT'][$Element]['name']] - TIMESTAMP, 0),
 					'costRessources'	=> $costRessources,
 					'buyable'			=> $buyable,
 					'time'				=> $pricelist[$Element]['time'],
@@ -142,7 +142,7 @@ class ShowOfficierPage extends AbstractPage
 				$elementBonus		= BuildFunctions::getAvalibleBonus($Element);
 				
 				$officierList[$Element]	= array(
-					'level'				=> $USER[$resource[$Element]],
+					'level'				=> $USER[$GLOBALS['ELEMENT'][$Element]['name']],
 					'maxLevel'			=> $pricelist[$Element]['max'],
 					'costRessources'	=> $costRessources,
 					'buyable'			=> $buyable,

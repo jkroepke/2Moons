@@ -63,7 +63,7 @@ function ShowGiveaway()
 		foreach($DataIDs as $ID)
 		{
 			$amount	= max(0, round(HTTP::_GP('element_'.$ID, 0.0)));
-			$data[]	= $resource[$ID]." = ".$resource[$ID]." + ".$amount;
+			$data[]	= $GLOBALS['ELEMENT'][$ID]['name']." = ".$GLOBALS['ELEMENT'][$ID]['name']." + ".$amount;
 			
 			$logOld[$ID]	= 0;
 			$logNew[$ID]	= $amount;

@@ -39,9 +39,9 @@ class MissionCaseColonisation extends MissionFunctions
 		global $resource, $LANG;
 		$iPlanetCount 	= $GLOBALS['DATABASE']->countquery("SELECT count(*) FROM ".PLANETS." WHERE `id_owner` = '". $this->_fleet['fleet_owner'] ."' AND `planet_type` = '1' AND `destruyed` = '0';");
 		$iGalaxyPlace 	= $GLOBALS['DATABASE']->countquery("SELECT count(*) AS plani FROM ".PLANETS." WHERE `id` = '".$this->_fleet['fleet_end_id']."';");
-		$Player			= $GLOBALS['DATABASE']->uniquequery("SELECT `lang`, `authlevel`, `".$resource[124]."` FROM ".USERS." WHERE `id` = '".$this->_fleet['fleet_owner']."';");
+		$Player			= $GLOBALS['DATABASE']->uniquequery("SELECT `lang`, `authlevel`, `".$GLOBALS['ELEMENT'][124]['name']."` FROM ".USERS." WHERE `id` = '".$this->_fleet['fleet_owner']."';");
 		$LNG			= $LANG->GetUserLang($Player['lang']);
-		$MaxPlanets		= MaxPlanets($Player[$resource[124]], $this->_fleet['fleet_universe']);
+		$MaxPlanets		= MaxPlanets($Player[$GLOBALS['ELEMENT'][124]['name']], $this->_fleet['fleet_universe']);
 		if ($iGalaxyPlace != 0)
 		{
 			$TheMessage = sprintf($LNG['sys_colo_notfree'], GetTargetAdressLink($this->_fleet, ''));

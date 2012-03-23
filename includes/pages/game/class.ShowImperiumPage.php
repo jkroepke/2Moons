@@ -90,20 +90,20 @@ class ShowImperiumPage extends AbstractPage
 			$planetList['resource'][911][$Planet['id']]			= $Planet['energy'];
 			
 			foreach($reslist['build'] as $elementID) {
-				$planetList['build'][$elementID][$Planet['id']]	= $Planet[$resource[$elementID]];
+				$planetList['build'][$elementID][$Planet['id']]	= $Planet[$GLOBALS['ELEMENT'][$elementID]['name']];
 			}
 			
 			foreach($reslist['fleet'] as $elementID) {
-				$planetList['fleet'][$elementID][$Planet['id']]	= $Planet[$resource[$elementID]];
+				$planetList['fleet'][$elementID][$Planet['id']]	= $Planet[$GLOBALS['ELEMENT'][$elementID]['name']];
 			}
 			
 			foreach($reslist['defense'] as $elementID) {
-				$planetList['defense'][$elementID][$Planet['id']]	= $Planet[$resource[$elementID]];
+				$planetList['defense'][$elementID][$Planet['id']]	= $Planet[$GLOBALS['ELEMENT'][$elementID]['name']];
 			}
 		}
 
 		foreach($reslist['tech'] as $elementID){
-			$planetList['tech'][$elementID]	= $USER[$resource[$elementID]];
+			$planetList['tech'][$elementID]	= $USER[$GLOBALS['ELEMENT'][$elementID]['name']];
 		}
 		
 		$this->tplObj->assign_vars(array(

@@ -79,19 +79,19 @@ class statbuilder
 		$select_fleets		=	'';
 				
 		foreach($reslist['build'] as $Building){
-			$select_buildings	.= " p.".$resource[$Building].",";
+			$select_buildings	.= " p.".$GLOBALS['ELEMENT'][$Building]['name'].",";
 		}
 		
 		foreach($reslist['tech'] as $Techno){
-			$selected_tech		.= " u.".$resource[$Techno].",";
+			$selected_tech		.= " u.".$GLOBALS['ELEMENT'][$Techno]['name'].",";
 		}	
 		
 		foreach($reslist['fleet'] as $Fleet){
-			$select_fleets		.= " SUM(p.".$resource[$Fleet].") as ".$resource[$Fleet].",";
+			$select_fleets		.= " SUM(p.".$GLOBALS['ELEMENT'][$Fleet]['name'].") as ".$GLOBALS['ELEMENT'][$Fleet]['name'].",";
 		}	
 		
 		foreach($reslist['defense'] as $Defense){
-			$select_defenses	.= " SUM(p.".$resource[$Defense].") as ".$resource[$Defense].",";
+			$select_defenses	.= " SUM(p.".$GLOBALS['ELEMENT'][$Defense]['name'].") as ".$GLOBALS['ELEMENT'][$Defense]['name'].",";
 		}
 		
 		$FlyingFleets	= array();
@@ -161,17 +161,17 @@ class statbuilder
 
 		foreach($reslist['tech'] as $Techno) 
 		{
-			if($USER[$resource[$Techno]] == 0) continue;
+			if($USER[$GLOBALS['ELEMENT'][$Techno]['name']] == 0) continue;
 
 			$Units	= $pricelist[$Techno]['cost'][901] + $pricelist[$Techno]['cost'][902] + $pricelist[$Techno]['cost'][903];
-			for($Level = 1; $Level <= $USER[$resource[$Techno]]; $Level++)
+			for($Level = 1; $Level <= $USER[$GLOBALS['ELEMENT'][$Techno]['name']]; $Level++)
 			{
 				$TechPoints	+= $Units * pow($pricelist[$Techno]['factor'], $Level);
 			}
 			
-			$TechCounts		+= $USER[$resource[$Techno]];
+			$TechCounts		+= $USER[$GLOBALS['ELEMENT'][$Techno]['name']];
 			
-			$this->setRecords($USER['id'], $Techno, $USER[$resource[$Techno]]);
+			$this->setRecords($USER['id'], $Techno, $USER[$GLOBALS['ELEMENT'][$Techno]['name']]);
 		}
 		
 		return array('count' => $TechCounts, 'points' => ($TechPoints / $CONF['stat_settings']));
@@ -185,17 +185,17 @@ class statbuilder
 		
 		foreach($reslist['build'] as $Build)
 		{
-			if($PLANET[$resource[$Build]] == 0) continue;
+			if($PLANET[$GLOBALS['ELEMENT'][$Build]['name']] == 0) continue;
 			
 			$Units			 = $pricelist[$Build]['cost'][901] + $pricelist[$Build]['cost'][902] + $pricelist[$Build]['cost'][903];
-			for($Level = 1; $Level <= $PLANET[$resource[$Build]]; $Level++)
+			for($Level = 1; $Level <= $PLANET[$GLOBALS['ELEMENT'][$Build]['name']]; $Level++)
 			{
 				$BuildPoints	+= $Units * pow($pricelist[$Build]['factor'], $Level);
 			}
 			
-			$BuildCounts	+= $PLANET[$resource[$Build]];
+			$BuildCounts	+= $PLANET[$GLOBALS['ELEMENT'][$Build]['name']];
 			
-			$this->setRecords($PLANET['id_owner'], $Build, $PLANET[$resource[$Build]]);
+			$this->setRecords($PLANET['id_owner'], $Build, $PLANET[$GLOBALS['ELEMENT'][$Build]['name']]);
 		}
 		return array('count' => $BuildCounts, 'points' => ($BuildPoints / $CONF['stat_settings']));
 	}
@@ -207,13 +207,13 @@ class statbuilder
 		$DefensePoints = 0;
 				
 		foreach($reslist['defense'] as $Defense) {
-			if($USER[$resource[$Defense]] == 0) continue;
+			if($USER[$GLOBALS['ELEMENT'][$Defense]['name']] == 0) continue;
 			
 			$Units			= $pricelist[$Defense]['cost'][901] + $pricelist[$Defense]['cost'][902] + $pricelist[$Defense]['cost'][903];
-			$DefensePoints += $Units * $USER[$resource[$Defense]];
-			$DefenseCounts += $USER[$resource[$Defense]];
+			$DefensePoints += $Units * $USER[$GLOBALS['ELEMENT'][$Defense]['name']];
+			$DefenseCounts += $USER[$GLOBALS['ELEMENT'][$Defense]['name']];
 		
-			$this->setRecords($USER['id'], $Defense, $USER[$resource[$Defense]]);
+			$this->setRecords($USER['id'], $Defense, $USER[$GLOBALS['ELEMENT'][$Defense]['name']]);
 		}
 		
 		return array('count' => $DefenseCounts, 'points' => ($DefensePoints / $CONF['stat_settings']));
@@ -226,13 +226,13 @@ class statbuilder
 		$FleetPoints = 0;
 	
 		foreach($reslist['fleet'] as $Fleet) {	
-			if($USER[$resource[$Fleet]] == 0) continue;
+			if($USER[$GLOBALS['ELEMENT'][$Fleet]['name']] == 0) continue;
 			
 			$Units			= $pricelist[$Fleet]['cost'][901] + $pricelist[$Fleet]['cost'][902] + $pricelist[$Fleet]['cost'][903];
-			$FleetPoints   += $Units * $USER[$resource[$Fleet]];
-			$FleetCounts   += $USER[$resource[$Fleet]];
+			$FleetPoints   += $Units * $USER[$GLOBALS['ELEMENT'][$Fleet]['name']];
+			$FleetCounts   += $USER[$GLOBALS['ELEMENT'][$Fleet]['name']];
 			
-			$this->setRecords($USER['id'], $Fleet, $USER[$resource[$Fleet]]);
+			$this->setRecords($USER['id'], $Fleet, $USER[$GLOBALS['ELEMENT'][$Fleet]['name']]);
 		}
 		
 		return array('count' => $FleetCounts, 'points' => ($FleetPoints / $CONF['stat_settings']));
@@ -400,7 +400,7 @@ class statbuilder
 
 			if(isset($TotalData['Fleets'][$UserData['id']])) {
 				foreach($TotalData['Fleets'][$UserData['id']] as $ID => $Amount)
-					$UserData[$resource[$ID]]	+= $Amount;
+					$UserData[$GLOBALS['ELEMENT'][$ID]['name']]	+= $Amount;
 			}
 			
 			$TechnoPoints		= $this->GetTechnoPoints($UserData);
@@ -450,19 +450,19 @@ class statbuilder
 			$UserData['ally_id'].", 1, ".
 			$UserData['universe'].", ".
 			(isset($UserData['old_tech_rank']) ? $UserData['old_tech_rank'] : 0).", ".
-			(isset($UserPoints[$UserData['id']]['techno']['points']) ? $UserPoints[$UserData['id']]['techno']['points'] : 0).", ".
+			(isset($UserPoints[$UserData['id']]['techno']['points']) ? min(1e50, $UserPoints[$UserData['id']]['techno']['points']) : 0).", ".
 			(isset($UserPoints[$UserData['id']]['techno']['count']) ? $UserPoints[$UserData['id']]['techno']['count'] : 0).", ".
 			(isset($UserData['old_build_rank']) ? $UserData['old_build_rank'] : 0).", ".
-			(isset($UserPoints[$UserData['id']]['build']['points']) ? $UserPoints[$UserData['id']]['build']['points'] : 0).", ".
+			(isset($UserPoints[$UserData['id']]['build']['points']) ? min(1e50, $UserPoints[$UserData['id']]['build']['points']) : 0).", ".
 			(isset($UserPoints[$UserData['id']]['build']['count']) ? $UserPoints[$UserData['id']]['build']['count'] : 0).", ".
 			(isset($UserData['old_defs_rank']) ? $UserData['old_defs_rank'] : 0).", ".
-			(isset($UserPoints[$UserData['id']]['defense']['points']) ? $UserPoints[$UserData['id']]['defense']['points'] : 0).", ".
+			(isset($UserPoints[$UserData['id']]['defense']['points']) ? min(1e50, $UserPoints[$UserData['id']]['defense']['points']) : 0).", ".
 			(isset($UserPoints[$UserData['id']]['defense']['count']) ? $UserPoints[$UserData['id']]['defense']['count'] : 0).", ".
 			(isset($UserData['old_fleet_rank']) ? $UserData['old_fleet_rank'] : 0).", ".
-			(isset($UserPoints[$UserData['id']]['fleet']['points']) ? $UserPoints[$UserData['id']]['fleet']['points'] : 0).", ".
+			(isset($UserPoints[$UserData['id']]['fleet']['points']) ? min(1e50, $UserPoints[$UserData['id']]['fleet']['points']) : 0).", ".
 			(isset($UserPoints[$UserData['id']]['fleet']['count']) ? $UserPoints[$UserData['id']]['fleet']['count'] : 0).", ".
 			(isset($UserData['old_total_rank']) ? $UserData['old_total_rank'] : 0).", ".
-			(isset($UserPoints[$UserData['id']]['total']['points']) ? $UserPoints[$UserData['id']]['total']['points'] : 0).", ".
+			(isset($UserPoints[$UserData['id']]['total']['points']) ? min(1e50, $UserPoints[$UserData['id']]['total']['points']) : 0).", ".
 			(isset($UserPoints[$UserData['id']]['total']['count']) ? $UserPoints[$UserData['id']]['total']['count'] : 0)."), ";
 		}
 		
@@ -482,19 +482,19 @@ class statbuilder
 				$AllianceData['id'].", 0, 2, ".
 				$AllianceData['ally_universe'].", ".
 				(isset($AllyPoints['old_tech_rank']) ? $AllyPoints['old_tech_rank'] : 0).", ".
-				(isset($AllyPoints[$AllianceData['id']]['techno']['points']) ? $AllyPoints[$AllianceData['id']]['techno']['points'] : 0).", ".
+				(isset($AllyPoints[$AllianceData['id']]['techno']['points']) ? min(1e50, $AllyPoints[$AllianceData['id']]['techno']['points']) : 0).", ".
 				(isset($AllyPoints[$AllianceData['id']]['techno']['count']) ? $AllyPoints[$AllianceData['id']]['techno']['count'] : 0).", ".
 				(isset($AllianceData['old_build_rank']) ? $AllianceData['old_build_rank'] : 0).", ".
-				(isset($AllyPoints[$AllianceData['id']]['build']['points']) ? $AllyPoints[$AllianceData['id']]['build']['points'] : 0).", ".
+				(isset($AllyPoints[$AllianceData['id']]['build']['points']) ? min(1e50, $AllyPoints[$AllianceData['id']]['build']['points']) : 0).", ".
 				(isset($AllyPoints[$AllianceData['id']]['build']['count']) ? $AllyPoints[$AllianceData['id']]['build']['count'] : 0).", ".
 				(isset($AllianceData['old_defs_rank']) ? $AllianceData['old_defs_rank'] : 0).", ".
-				(isset($AllyPoints[$AllianceData['id']]['defense']['points']) ? $AllyPoints[$AllianceData['id']]['defense']['points'] : 0).", ".
+				(isset($AllyPoints[$AllianceData['id']]['defense']['points']) ? min(1e50, $AllyPoints[$AllianceData['id']]['defense']['points']) : 0).", ".
 				(isset($AllyPoints[$AllianceData['id']]['defense']['count']) ? $AllyPoints[$AllianceData['id']]['defense']['count'] : 0).", ".
 				(isset($AllianceData['old_fleet_rank']) ? $AllianceData['old_fleet_rank'] : 0).", ".
-				(isset($AllyPoints[$AllianceData['id']]['fleet']['points']) ? $AllyPoints[$AllianceData['id']]['fleet']['points'] : 0).", ".
+				(isset($AllyPoints[$AllianceData['id']]['fleet']['points']) ? min(1e50, $AllyPoints[$AllianceData['id']]['fleet']['points']) : 0).", ".
 				(isset($AllyPoints[$AllianceData['id']]['fleet']['count']) ? $AllyPoints[$AllianceData['id']]['fleet']['count'] : 0).", ".
 				(isset($AllianceData['old_total_rank']) ? $AllianceData['old_total_rank'] : 0).", ".
-				(isset($AllyPoints[$AllianceData['id']]['total']['points']) ? $AllyPoints[$AllianceData['id']]['total']['points'] : 0).", ".
+				(isset($AllyPoints[$AllianceData['id']]['total']['points']) ? min(1e50, $AllyPoints[$AllianceData['id']]['total']['points']) : 0).", ".
 				(isset($AllyPoints[$AllianceData['id']]['total']['count']) ? $AllyPoints[$AllianceData['id']]['total']['count'] : 0)."), ";
 			}
 			unset($AllyPoints);

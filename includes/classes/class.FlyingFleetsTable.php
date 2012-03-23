@@ -60,7 +60,7 @@ class FlyingFleetsTable
 		} else {
 			$SQLWhere	= "`fleet_owner` = ".$this->UserID;
 			
-			if($USER[$resource[106]] >= 2) {
+			if($USER[$GLOBALS['ELEMENT'][106]['name']] >= 2) {
 				$SQLWhere	.= " OR (`fleet_target_owner` = ".$this->UserID." AND fleet_mission != 8)";
 			}
 		}
@@ -248,7 +248,7 @@ class FlyingFleetsTable
 	private function CreateFleetPopupedFleetLink($fleetRow, $Text, $FleetType)
 	{
 		global $LNG, $USER, $resource;
-		$SpyTech		= $USER[$resource[106]];
+		$SpyTech		= $USER[$GLOBALS['ELEMENT'][106]['name']];
 		$Owner			= $fleetRow['fleet_owner'] == $this->UserID;
 		$FleetRec		= explode(';', $fleetRow['fleet_array']);
 		$FleetPopup		= '<a href="#" name="<table style=\'width:200px\'>';

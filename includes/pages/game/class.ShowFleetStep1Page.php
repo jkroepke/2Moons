@@ -249,12 +249,12 @@ class ShowFleetStep1Page extends AbstractPage
 			elseif($USER['id'] != $Data['id'] && $USER['user_lastip'] == $Data['user_lastip'])
 				exit($LNG['fl_multi_alarm']);
 		} else {
-			if ($USER[$resource[124]] == 0)
+			if ($USER[$GLOBALS['ELEMENT'][124]['name']] == 0)
 				exit($LNG['fl_send_error'][10]);
 			
 			$ActualFleets = $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".FLEETS." WHERE fleet_owner = ".$USER['id']." AND fleet_mission = '15';");
 
-			if ($ActualFleets['state'] >= floor(sqrt($USER[$resource[124]])))
+			if ($ActualFleets['state'] >= floor(sqrt($USER[$GLOBALS['ELEMENT'][124]['name']])))
 				exit($LNG['fl_send_error'][9]);
 		}
 		exit('OK');	

@@ -124,10 +124,10 @@ class MissionCaseAttack extends MissionFunctions
 		
 		foreach(array_merge($reslist['fleet'], $reslist['defense']) as $ID)
 		{
-			if ($ID >= 500 || $targetPlanet[$resource[$ID]] == 0)
+			if ($ID >= 500 || $targetPlanet[$GLOBALS['ELEMENT'][$ID]['name']] == 0)
 				continue;
 
-			$defense[0]['def'][$ID] = $targetPlanet[$resource[$ID]];
+			$defense[0]['def'][$ID] = $targetPlanet[$GLOBALS['ELEMENT'][$ID]['name']];
 		}
 
 		$Attacker['id']		= array_unique($AttackerRow['id']);
@@ -197,7 +197,7 @@ class MissionCaseAttack extends MissionFunctions
 				$fleetArray = '';
 				foreach ($defender['def'] as $element => $amount)
 				{
-					$fleetArray .= "`".$resource[$element]."` = '".floattostring($amount)."', ";
+					$fleetArray .= "`".$GLOBALS['ELEMENT'][$element]['name']."` = '".floattostring($amount)."', ";
 				}
 				
 				$SQL .= "UPDATE ".PLANETS." SET ";

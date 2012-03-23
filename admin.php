@@ -161,10 +161,6 @@ switch($page)
 		include_once(ROOT_PATH . 'includes/pages/adm/ShowTopnavPage.php');
 		ShowTopnavPage();
 	break;
-	case 'mods':
-		include_once(ROOT_PATH . 'includes/pages/adm/ShowModVersionPage.php');
-		ShowModVersionPage();
-	break;
 	case 'overview':
 		include_once(ROOT_PATH . 'includes/pages/adm/ShowOverviewPage.php');
 		ShowOverviewPage();
@@ -190,12 +186,16 @@ switch($page)
 		ShowLog();
 	break;
 	case 'vertify':
-		include_once(ROOT_PATH . 'includes/pages/adm/ShowVertify.php');
+		include_once(ROOT_PATH . 'includes/pages/adm/ShowVertifyPage.php');
 		ShowVertify();
 	break;
 	case 'giveaway':
 		include_once(ROOT_PATH . 'includes/pages/adm/ShowGiveawayPage.php');
 		ShowGiveaway();
+	break;
+	case 'vars':
+		include_once(ROOT_PATH . 'includes/pages/adm/ShowVarsEditorPage.php');
+		ShowVarsEditorPage();
 	break;
 	default:
 		include_once(ROOT_PATH . 'includes/pages/adm/ShowIndexPage.php');

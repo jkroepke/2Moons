@@ -118,7 +118,7 @@ class FleetFunctions
 	public static function GetMaxFleetSlots($USER)
 	{
 		global $resource;
-		return 1 + $USER[$resource[108]] + $USER['factor']['FleetSlots'];
+		return 1 + $USER[$GLOBALS['ELEMENT'][108]['name']] + $USER['factor']['FleetSlots'];
 	}
 
 	public static function GetFleetRoom($Fleet)
@@ -166,7 +166,7 @@ class FleetFunctions
 		$Missions	= self::GetAvailableMissions($USER, $MisInfo, $Planet);
 		$stayBlock	= array();;
 		if (in_array(15, $Missions)) {
-			for($i = 1;$i <= $USER[$resource[124]];$i++) {	
+			for($i = 1;$i <= $USER[$GLOBALS['ELEMENT'][124]['name']];$i++) {	
 				$stayBlock[$i]	= $i / $CONF['halt_speed'];
 			}
 		}
@@ -340,7 +340,7 @@ class FleetFunctions
 		$planetQuery	= "";
 		foreach($fleetArray as $ShipID => $ShipCount) {
 			$fleetData[]	= $ShipID.','.$ShipCount;
-			$planetQuery[]	= $resource[$ShipID]." = ".$resource[$ShipID]." - ".$ShipCount;
+			$planetQuery[]	= $GLOBALS['ELEMENT'][$ShipID]['name']." = ".$GLOBALS['ELEMENT'][$ShipID]['name']." - ".$ShipCount;
 		}
 		
 		$SQL	= "LOCK TABLE ".LOG_FLEETS." WRITE, ".FLEETS_EVENT." WRITE, ".FLEETS." WRITE, ".PLANETS." WRITE;

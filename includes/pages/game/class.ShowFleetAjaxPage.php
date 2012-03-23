@@ -52,9 +52,9 @@ class ShowFleetAjaxPage extends AbstractPage
 	{
 		global $USER, $PLANET, $resource, $LNG, $CONF;
 		
-		$UserRecycles   = $PLANET[$resource[209]];
-		$UserSpyProbes  = $PLANET[$resource[210]];
-		$UserGRecycles  = $PLANET[$resource[219]];
+		$UserRecycles   = $PLANET[$GLOBALS['ELEMENT'][209]['name']];
+		$UserSpyProbes  = $PLANET[$GLOBALS['ELEMENT'][210]['name']];
+		$UserGRecycles  = $PLANET[$GLOBALS['ELEMENT'][219]['name']];
 		$UserDeuterium  = $PLANET['deuterium'];
 		
 		$planetID 		= HTTP::_GP('planetID', 0);

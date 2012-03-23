@@ -38,26 +38,26 @@ function ShowResetPage()
 	{		
 		foreach($reslist['build'] as $ID)
 		{
-			$dbcol['build'][$ID]	= "`".$resource[$ID]."` = '0'";
+			$dbcol['build'][$ID]	= "`".$GLOBALS['ELEMENT'][$ID]['name']."` = '0'";
 		}
 		
 		foreach($reslist['tech'] as $ID)
 		{
-			$dbcol['tech'][$ID]		= "`".$resource[$ID]."` = '0'";
+			$dbcol['tech'][$ID]		= "`".$GLOBALS['ELEMENT'][$ID]['name']."` = '0'";
 		}
 		
 		foreach($reslist['fleet'] as $ID)
 		{
-			$dbcol['fleet'][$ID]	= "`".$resource[$ID]."` = '0'";
+			$dbcol['fleet'][$ID]	= "`".$GLOBALS['ELEMENT'][$ID]['name']."` = '0'";
 		}
 		
 		foreach($reslist['defense'] as $ID)
 		{
-			$dbcol['defense'][$ID]	= "`".$resource[$ID]."` = '0'";
+			$dbcol['defense'][$ID]	= "`".$GLOBALS['ELEMENT'][$ID]['name']."` = '0'";
 		}
 		foreach($reslist['officier'] as $ID)
 		{
-			$dbcol['officier'][$ID]	= "`".$resource[$ID]."` = '0'";
+			$dbcol['officier'][$ID]	= "`".$GLOBALS['ELEMENT'][$ID]['name']."` = '0'";
 		}
 		
 		// Players and Planets

@@ -207,6 +207,7 @@ define('ELEMENT_BONUS'				, 32); # ID 701 - 799
 define('ELEMENT_RACE'				, 64); # ID 801 - 899
 define('ELEMENT_PLANET_RESOURCE'   , 128); # ID 901 - 949
 define('ELEMENT_USER_RESOURCE'     , 256); # ID 951 - 999
+define('ELEMENT_ENERGY'  		   , 512); # ID 911
 
 // .. 512, 1024, 2048, 4096, 8192, 16384, 32768
 
