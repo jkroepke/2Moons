@@ -35,143 +35,141 @@ function ShowQuickEditorPage()
 	$action	= HTTP::_GP('action', '');
 	$edit	= HTTP::_GP('edit', '');
 	$id 	= HTTP::_GP('id', 0);
-
+	
 	switch($edit)
 	{
 		case 'planet':
-			$DataIDs	= array_merge($reslist['fleet'], $reslist['build'], $reslist['defense']);
-			foreach($DataIDs as $ID)
+			$elementIDs		= array_merge($GLOBALS['VARS']['LIST'][ELEMENT_PLANET_RESOURCE], $GLOBALS['VARS']['LIST'][ELEMENT_BUILD], $GLOBALS['VARS']['LIST'][ELEMENT_FLEET], $GLOBALS['VARS']['LIST'][ELEMENT_DEFENSIVE]);
+			
+			$querySelect	= '';
+			
+			foreach($elementIDs as $elementID)
 			{
-				$SpecifyItemsPQ	.= "`".$GLOBALS['VARS']['ELEMENT'][$ID]['name']."`,";
+				$querySelect	.= 'p.'.$GLOBALS['VARS']['ELEMENT'][$elementID]['name'].',';
 			}
-			$PlanetData	= $GLOBALS['DATABASE']->uniquequery("SELECT ".$SpecifyItemsPQ." `name`, `id_owner`, `planet_type`, `galaxy`, `system`, `planet`, `destruyed`, `diameter`, `field_current`, `field_max`, `temp_min`, `temp_max`, `metal`, `crystal`, `deuterium` FROM ".PLANETS." WHERE `id` = '".$id."';");
-						
-			if($action == 'send'){
+			
+			$planetData	= $GLOBALS['DATABASE']->uniquequery("SELECT u.username, u.id as userid, ".$querySelect." p.name, p.id_owner, p.planet_type, p.galaxy, p.system, p.planet, p.destruyed, p.diameter, p.field_current, p.field_max, p.temp_min, p.temp_max FROM ".PLANETS." p INNER JOIN ".USERS." u ON u.id = p.id_owner WHERE p.id = ".$id.";");
+			
+			$planetFlag	= $planetData['planet_type'] == 3 ? ELEMENT_BUILD_ON_MOON : ELEMENT_BUILD_ON_PLANET;
+			
+			if($action == 'send')
+			{
+				$currentFields	= $planetData['field_current'];
+				$maxFields		= HTTP::_GP('field_max', 0);
+				$minTempature	= HTTP::_GP('temp_min', 0);
+				$maxTempature	= HTTP::_GP('temp_max', 0);
+				
+				$oldValue	= array();
+				$newValue	= array();
+				
 				$SQL	= "UPDATE ".PLANETS." SET ";
-				$Fields	= $PlanetData['field_current'];
-				foreach($DataIDs as $ID)
+								
+				foreach($elementIDs as $elementID)
 				{
-					if(in_array($ID, $reslist['allow'][$PlanetData['planet_type']]))
-						$Fields	+= max(0, round(HTTP::_GP($GLOBALS['VARS']['ELEMENT'][$ID]['name'], 0.0))) - $PlanetData[$GLOBALS['VARS']['ELEMENT'][$ID]['name']];
+					if(!elementHasFlag($elementID, $planetFlag) && !elementHasFlag($elementID, ELEMENT_PLANET_RESOURCE)) {
+						continue;
+					}
 					
-					$SQL	.= "`".$GLOBALS['VARS']['ELEMENT'][$ID]['name']."` = '".max(0, round(HTTP::_GP($GLOBALS['VARS']['ELEMENT'][$ID]['name'], 0.0)))."', ";
+					$oldLevel	= $planetData[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']];
+					$newLevel	= max(0, round(HTTP::_GP($GLOBALS['VARS']['ELEMENT'][$elementID]['name'], 0.0)));
+					
+					$oldValue[$elementID]	= $oldLevel;
+					$newValue[$elementID]	= $newLevel;
+					
+					if(elementHasFlag($elementID, $planetFlag)) {
+						$currentFields	+= $newLevel - $oldLevel;
+					}
+					
+					$SQL	.= $GLOBALS['VARS']['ELEMENT'][$elementID]['name']." = ".$newLevel.", ";
 				}
-				$SQL	.= "`metal` = ".max(0, round(HTTP::_GP('metal', 0.0))).", ";
-				$SQL	.= "`crystal` = ".max(0, round(HTTP::_GP('crystal', 0.0))).", ";
-				$SQL	.= "`deuterium` = ".max(0, round(HTTP::_GP('deuterium', 0.0))).", ";
-				$SQL	.= "`field_current` = '".$Fields."', ";
-				$SQL	.= "`field_max` = '".HTTP::_GP('field_max', 0)."', ";
-				$SQL	.= "`name` = '".$GLOBALS['DATABASE']->sql_escape(HTTP::_GP('name', '', UTF8_SUPPORT))."', ";
-				$SQL	.= "`eco_hash` = '' ";
-				$SQL	.= "WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';";
+				
+				$SQL	.= "field_current = ".$currentFields.", ";
+				$SQL	.= "field_max = ".$maxFields.", ";
+				$SQL	.= "temp_min = ".$minTempature.", ";
+				$SQL	.= "temp_max = ".$maxTempature.", ";
+				$SQL	.= "name = '".$GLOBALS['DATABASE']->sql_escape(HTTP::_GP('name', '', UTF8_SUPPORT))."', ";
+				$SQL	.= "eco_hash = '' ";
+				$SQL	.= "WHERE id = ".$id." AND universe = '".$_SESSION['adminuni']."';";
 					
 				$GLOBALS['DATABASE']->query($SQL);
 				
-				$old = array();
-				$new = array();
-                foreach(array_merge($DataIDs,$reslist['resstype'][1]) as $IDs)
-                {
-                    $old[$IDs]    = $PlanetData[$GLOBALS['VARS']['ELEMENT'][$IDs]['name']];
-					$new[$IDs]    = max(0, round(HTTP::_GP($GLOBALS['VARS']['ELEMENT'][$IDs]['name'], 0.0)));
-                }
-				$old['field_max'] = $PlanetData['field_max'];
-				$new['field_max'] = HTTP::_GP('field_max', 0);
-				$LOG = new Log(2);
-				$LOG->target = $id;
-				$LOG->old = $old;
-				$LOG->new = $new;
-				$LOG->save();
+				$oldValue['field_max'] = $planetData['field_max'];
+				$newValue['field_max'] = $maxFields;
+				$oldValue['temp_min'] = $planetData['temp_min'];
+				$newValue['temp_min'] = $minTempature;
+				$oldValue['temp_max'] = $planetData['temp_max'];
+				$newValue['temp_max'] = $maxTempature;
+				
+				$LOG = new Log();
+				$LOG->setMode(Log::PLANET)
+					->setTarget($id)
+					->setOldData($old)
+					->setNewData($new)
+					->save();
 		
-				exit(sprintf($LNG['qe_edit_planet_sucess'], $PlanetData['name'], $PlanetData['galaxy'], $PlanetData['system'], $PlanetData['planet']));
-			}
-			$UserInfo				= $GLOBALS['DATABASE']->uniquequery("SELECT `username` FROM ".USERS." WHERE `id` = '".$PlanetData['id_owner']."' AND `universe` = '".$_SESSION['adminuni']."';");
-
-			$build = $defense = $fleet	= array();
-			
-			foreach($reslist['allow'][$PlanetData['planet_type']] as $ID)
-			{
-				$build[]	= array(
-					'type'	=> $GLOBALS['VARS']['ELEMENT'][$ID]['name'],
-					'name'	=> $LNG['tech'][$ID],
-					'count'	=> pretty_number($PlanetData[$GLOBALS['VARS']['ELEMENT'][$ID]['name']]),
-					'input'	=> $PlanetData[$GLOBALS['VARS']['ELEMENT'][$ID]['name']]
-				);
+				exit(sprintf($LNG['qe_edit_planet_sucess'], $planetData['name'], $planetData['galaxy'], $planetData['system'], $planetData['planet']));
 			}
 			
-			foreach($reslist['fleet'] as $ID)
+			$elementData	= array();
+			
+			foreach($GLOBALS['VARS']['LIST'][ELEMENT_PLANET_RESOURCE] as $elementID)
 			{
-				$fleet[]	= array(
-					'type'	=> $GLOBALS['VARS']['ELEMENT'][$ID]['name'],
-					'name'	=> $LNG['tech'][$ID],
-					'count'	=> pretty_number($PlanetData[$GLOBALS['VARS']['ELEMENT'][$ID]['name']]),
-					'input'	=> $PlanetData[$GLOBALS['VARS']['ELEMENT'][$ID]['name']]
-				);
+				$elementData[900][$elementID] = $GLOBALS['VARS']['ELEMENT'][$elementID]['name'];
 			}
 			
-			foreach($reslist['defense'] as $ID)
+			foreach($GLOBALS['VARS']['LIST'][$planetFlag] as $elementID)
 			{
-				$defense[]	= array(
-					'type'	=> $GLOBALS['VARS']['ELEMENT'][$ID]['name'],
-					'name'	=> $LNG['tech'][$ID],
-					'count'	=> pretty_number($PlanetData[$GLOBALS['VARS']['ELEMENT'][$ID]['name']]),
-					'input'	=> $PlanetData[$GLOBALS['VARS']['ELEMENT'][$ID]['name']]
-				);
+				if(elementHasFlag($elementID, ELEMENT_BUILD)) {
+					$list	= 0;
+				} elseif(elementHasFlag($elementID, ELEMENT_FLEET)) {
+					$list	= 200;
+				} elseif(elementHasFlag($elementID, ELEMENT_DEFENSIVE)) {
+					$list	= 400;
+				} else {
+					continue;
+				}
+				
+				$elementData[$list][$elementID]	= $GLOBALS['VARS']['ELEMENT'][$elementID]['name'];
 			}
-
+			
 			$template	= new template();
 			$template->assign_vars(array(	
-				'build'			=> $build,
-				'fleet'			=> $fleet,
-				'defense'		=> $defense,
 				'id'			=> $id,
-				'ownerid'		=> $PlanetData['id_owner'],
-				'ownername'		=> $UserInfo['username'],
-				'name'			=> $PlanetData['name'],
-				'galaxy'		=> $PlanetData['galaxy'],
-				'system'		=> $PlanetData['system'],
-				'planet'		=> $PlanetData['planet'],
-				'field_min'		=> $PlanetData['field_current'],
-				'field_max'		=> $PlanetData['field_max'],
-				'temp_min'		=> $PlanetData['temp_min'],
-				'temp_max'		=> $PlanetData['temp_max'],
-				'metal'			=> floattostring($PlanetData['metal']),
-				'crystal'		=> floattostring($PlanetData['crystal']),
-				'deuterium'		=> floattostring($PlanetData['deuterium']),
-				'metal_c'		=> pretty_number($PlanetData['metal']),
-				'crystal_c'		=> pretty_number($PlanetData['crystal']),
-				'deuterium_c'	=> pretty_number($PlanetData['deuterium']),
+				'elementData'	=> $elementData,
+				'planetData'	=> $planetData
 			));
+			
 			$template->show('QuickEditorPlanet.tpl');
 		break;
 		case 'player':
-			$DataIDs	= array_merge($reslist['tech'], $reslist['officier']);
-			foreach($DataIDs as $ID)
+			$elementIDs	= array_merge($reslist['tech'], $reslist['officier']);
+			foreach($elementIDs as $elementID)
 			{
-				$SpecifyItemsPQ	.= "`".$GLOBALS['VARS']['ELEMENT'][$ID]['name']."`,";
+				$querySelect	.= "".$GLOBALS['VARS']['ELEMENT'][$elementID]['name'].",";
 			}
-			$UserData	= $GLOBALS['DATABASE']->uniquequery("SELECT ".$SpecifyItemsPQ." `username`, `authlevel`, `galaxy`, `system`, `planet`, `id_planet`, `darkmatter`, `authattack`, `authlevel` FROM ".USERS." WHERE `id` = '".$id."';");
+			$UserData	= $GLOBALS['DATABASE']->uniquequery("SELECT ".$querySelect." username, authlevel, galaxy, system, planet, id_planet, darkmatter, authattack, authlevel FROM ".USERS." WHERE id = '".$id."';");
 			$ChangePW	= $USER['id'] == ROOT_USER || ($id != ROOT_USER && $USER['authlevel'] > $UserData['authlevel']);
 		
 			if($action == 'send'){
 				$SQL	= "UPDATE ".USERS." SET ";
-				foreach($DataIDs as $ID)
+				foreach($elementIDs as $elementID)
 				{
-					$SQL	.= "`".$GLOBALS['VARS']['ELEMENT'][$ID]['name']."` = '".abs(HTTP::_GP($GLOBALS['VARS']['ELEMENT'][$ID]['name'], 0))."', ";
+					$SQL	.= "".$GLOBALS['VARS']['ELEMENT'][$elementID]['name']." = '".abs(HTTP::_GP($GLOBALS['VARS']['ELEMENT'][$elementID]['name'], 0))."', ";
 				}
-				$SQL	.= "`darkmatter` = '".max(HTTP::_GP('darkmatter', 0), 0)."', ";
+				$SQL	.= "darkmatter = '".max(HTTP::_GP('darkmatter', 0), 0)."', ";
 				if(!empty($_POST['password']) && $ChangePW)
-					$SQL	.= "`password` = '".cryptPassword(HTTP::_GP('password', '', true))."', ";
-				$SQL	.= "`username` = '".$GLOBALS['DATABASE']->sql_escape(HTTP::_GP('name', '', UTF8_SUPPORT))."', ";
-				$SQL	.= "`authattack` = '".($UserData['authlevel'] != AUTH_USR && HTTP::_GP('authattack', '') == 'on' ? $UserData['authlevel'] : 0)."' ";
-				$SQL	.= "WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';";
+					$SQL	.= "password = '".cryptPassword(HTTP::_GP('password', '', true))."', ";
+				$SQL	.= "username = '".$GLOBALS['DATABASE']->sql_escape(HTTP::_GP('name', '', UTF8_SUPPORT))."', ";
+				$SQL	.= "authattack = '".($UserData['authlevel'] != AUTH_USR && HTTP::_GP('authattack', '') == 'on' ? $UserData['authlevel'] : 0)."' ";
+				$SQL	.= "WHERE id = '".$id."' AND universe = '".$_SESSION['adminuni']."';";
 				$GLOBALS['DATABASE']->query($SQL);
 				
 				$old = array();
 				$new = array();
-				foreach($DataIDs as $IDs)
+				foreach($elementIDs as $elementIDs)
                 {
-                    $old[$IDs]    = $UserData[$GLOBALS['VARS']['ELEMENT'][$IDs]['name']];
-                    $new[$IDs]    = abs(HTTP::_GP($GLOBALS['VARS']['ELEMENT'][$IDs]['name'], 0));
+                    $old[$elementIDs]    = $UserData[$GLOBALS['VARS']['ELEMENT'][$elementIDs]['name']];
+                    $new[$elementIDs]    = abs(HTTP::_GP($GLOBALS['VARS']['ELEMENT'][$elementIDs]['name'], 0));
                 }
 				$old[921]			= $UserData[$GLOBALS['VARS']['ELEMENT'][921]['name']];
 				$new[921]			= abs(HTTP::_GP($GLOBALS['VARS']['ELEMENT'][921]['name'], 0));
@@ -188,27 +186,27 @@ function ShowQuickEditorPage()
 				
 				exit(sprintf($LNG['qe_edit_player_sucess'], $UserData['username'], $id));
 			}
-			$PlanetInfo				= $GLOBALS['DATABASE']->uniquequery("SELECT `name` FROM ".PLANETS." WHERE `id` = '".$UserData['id_planet']."' AND `universe` = '".$_SESSION['adminuni']."';");
+			$PlanetInfo				= $GLOBALS['DATABASE']->uniquequery("SELECT name FROM ".PLANETS." WHERE id = '".$UserData['id_planet']."' AND universe = '".$_SESSION['adminuni']."';");
 
 			$tech		= array();
 			$officier	= array();
 			
-			foreach($reslist['tech'] as $ID)
+			foreach($reslist['tech'] as $elementID)
 			{
 				$tech[]	= array(
-					'type'	=> $GLOBALS['VARS']['ELEMENT'][$ID]['name'],
-					'name'	=> $LNG['tech'][$ID],
-					'count'	=> pretty_number($UserData[$GLOBALS['VARS']['ELEMENT'][$ID]['name']]),
-					'input'	=> $UserData[$GLOBALS['VARS']['ELEMENT'][$ID]['name']]
+					'type'	=> $GLOBALS['VARS']['ELEMENT'][$elementID]['name'],
+					'name'	=> $LNG['tech'][$elementID],
+					'count'	=> pretty_number($UserData[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']]),
+					'input'	=> $UserData[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']]
 				);
 			}
-			foreach($reslist['officier'] as $ID)
+			foreach($reslist['officier'] as $elementID)
 			{
 				$officier[]	= array(
-					'type'	=> $GLOBALS['VARS']['ELEMENT'][$ID]['name'],
-					'name'	=> $LNG['tech'][$ID],
-					'count'	=> pretty_number($UserData[$GLOBALS['VARS']['ELEMENT'][$ID]['name']]),
-					'input'	=> $UserData[$GLOBALS['VARS']['ELEMENT'][$ID]['name']]
+					'type'	=> $GLOBALS['VARS']['ELEMENT'][$elementID]['name'],
+					'name'	=> $LNG['tech'][$elementID],
+					'count'	=> pretty_number($UserData[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']]),
+					'input'	=> $UserData[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']]
 				);
 			}
 

@@ -31,21 +31,41 @@ class Log
 	private $mode;
 	private $data	= array();
 	private static $db = null;
+	
+	const PLAYER	= 1;
+	const PLANET	= 2;
+	const SETTINGS	= 3;
+	const PRESENTS	= 4;
 
-	function __construct($mode) {
-		$this->data['mode']		= $mode;
+	function __construct() {
 		$this->data['admin']	= $_SESSION['id'];
 		$this->data['uni']		= $_SESSION['adminuni'];
 	}
-	public function __set($key, $value){
-		$this->data[$key] = $value;
+	
+	function setMode($mode) {
+		$this->data['mode']		= $mode;
+		
+		return $this;
 	}
-	public function __get($key){
-        return $this->__isset($key) ? $this->data[$key] : null;
-    }
-	public function __isset($key){
-        return isset($this->data[$key]);
-    }
+	
+	function setTarget($id) {
+		$this->data['target'] = $id;
+		
+		return $this;
+	}
+	
+	function setOldData(array $data) {
+		$this->data['old'] = $data;
+		
+		return $this;
+	}
+	
+	function setNewData(array $data) {
+		$this->data['new'] = $data;
+		
+		return $this;
+	}
+	
 	function save() {
 		$data = serialize(array($this->data['old'], $this->data['new']));
 		$uni = ($this->data['universe'] == NULL ? $this->data['uni'] : $this->data['universe']);

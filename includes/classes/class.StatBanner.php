@@ -45,7 +45,16 @@ class StatBanner {
 
 	public function GetData($id)
 	{
-		return $GLOBALS['DATABASE']->uniquequery("SELECT a.username, a.wons, a.loos, a.draws, b.total_points, b.total_rank, c.name, c.galaxy, c.system, c.planet, d.game_name, d.users_amount, d.ttf_file FROM ".USERS." as a, ".STATPOINTS." as b, ".PLANETS." as c ,".CONFIG." as d WHERE a.id = '".$id."' AND b.stat_type = '1' AND b.id_owner = '".$id."' AND c.id = a.id_planet AND d.uni = a.universe;");
+		return $GLOBALS['DATABASE']->uniquequery("SELECT 
+			u.username, u.wons, u.loos,u.draws, 
+			s.total_points, s.total_rank, 
+			p.name, p.galaxy, p.system, p.planet, 
+			c.game_name, c.users_amount, c.ttf_file 
+			FROM ".USERS." as u  
+			INNER JOIN ".PLANETS." as p ON p.id = u.id_planet
+			INNER JOIN ".CONFIG." as c ON c.uni = u.universe
+			LEFT JOIN ".STATPOINTS." as s ON s.id_owner = u.id AND s.stat_type = '1'
+			WHERE u.id = ".$id.";");
 	}
 	
 	public function CreateUTF8Banner($data) {
@@ -54,9 +63,22 @@ class StatBanner {
 		$date  		= _date($LNG['php_dateformat'], TIMESTAMP);
 
 		$Font		= $data['ttf_file'];
-		if(!file_exists($Font))
+		if(!file_exists($Font)) {
 			$this->BannerError('TTF Font missing!');
-			
+		}
+		
+		if(empty($data['total_rank'])) {
+			$userRank	= 0;
+		} else {
+			$userRank	= $data['total_rank'];
+		}
+		
+		if(empty($data['total_points'])) {
+			$userPoints	= 0;
+		} else {
+			$userPoints	= $data['total_points'];
+		}
+		
 		// Colors		
 		$color	= imagecolorallocate($image, 255, 255, 225);
 		$shadow = imagecolorallocate($image, 33, 33, 33);
@@ -72,11 +94,11 @@ class StatBanner {
 		imagettftext($image, 16, 0, 250, 31, $shadow, $Font, $data['game_name']);
 		imagettftext($image, 16, 0, 250, 30, $color, $Font, $data['game_name']);
 		
-		imagettftext($image, 11, 0, 20, 60, $shadow, $Font, $LNG['ub_rank'].': '.$data['total_rank']);
-		imagettftext($image, 11, 0, 20, 59, $color, $Font, $LNG['ub_rank'].': '.$data['total_rank']);
+		imagettftext($image, 11, 0, 20, 60, $shadow, $Font, $LNG['ub_rank'].': '.$userRank);
+		imagettftext($image, 11, 0, 20, 59, $color, $Font, $LNG['ub_rank'].': '.$userRank);
 		
-		imagettftext($image, 11, 0, 20, 81, $shadow, $Font, $LNG['ub_points'].': '.html_entity_decode(shortly_number($data['total_points'])));
-		imagettftext($image, 11, 0, 20, 80, $color, $Font, $LNG['ub_points'].': '.html_entity_decode(shortly_number($data['total_points'])));
+		imagettftext($image, 11, 0, 20, 81, $shadow, $Font, $LNG['ub_points'].': '.html_entity_decode(shortly_number($userPoints)));
+		imagettftext($image, 11, 0, 20, 80, $color, $Font, $LNG['ub_points'].': '.html_entity_decode(shortly_number($userPoints)));
 		
 		imagettftext($image, 11, 0, 250, 60, $shadow, $Font, $LNG['ub_fights'].': '.html_entity_decode(shortly_number($total, 0)));
 		imagettftext($image, 11, 0, 250, 59, $color, $Font, $LNG['ub_fights'].': '.html_entity_decode(shortly_number($total, 0)));

@@ -55,7 +55,7 @@
 			</a>
 		</td>
 		<th>
-			<a href="#" onclick="return Dialog.info({$ID})">{$LNG.tech.{$ID}}</a>{if $Element.level != 0} ({$LNG.bd_lvl} {$Element.level}{if $Element.maxLevel != 255}/{$Element.maxLevel}{/if}){/if}
+			<a href="#" onclick="return Dialog.info({$ID})">{$LNG.tech.{$ID}}</a>{if $Element.level != 0} ({$LNG.bd_lvl} {$Element.level}{if $Element.maxLevel != $smarty.const.MAX_LEVEL_BUILD_TECH}/{$Element.maxLevel}{/if}){/if}
 		</th>
 	</tr>
 	<tr>
@@ -90,7 +90,9 @@
 					<td class="transparent left">
 						{$LNG.bd_remaining}<br>
 						{foreach $Element.costOverflow as $ResType => $ResCount}
+						{if isset($Element.costRessources[$ResType])}
 						{$LNG.tech.{$ResType}}: <span style="font-weight:700">{$ResCount|number}</span><br>
+						{/if}
 						{/foreach}
 						<br>
 					</td>

@@ -137,19 +137,19 @@ class ShowSettingsPage extends AbstractPage
 		
 		if($vacation == 1 && $USER['urlaubs_until'] <= TIMESTAMP) {
 			$SQL	.= "UPDATE ".USERS." SET 
-						urlaubs_modus = '0', 
-						urlaubs_until = '0' 
-						WHERE id = ".$USER['id'].";
+						urlaubs_modus = 0, 
+						urlaubs_until = 0 
+						WHERE id = ".$USER[id].";
 						UPDATE ".PLANETS." SET 
 						last_update = ".TIMESTAMP.", 
-						energy_used = '10', 
-						energy = '10', 
-						metal_mine_porcent = '10', 
-						crystal_mine_porcent = '10', 
-						deuterium_sintetizer_porcent = '10', 
-						solar_plant_porcent = '10', 
-						fusion_plant_porcent = '10', 
-						solar_satelit_porcent = '10' 
+						energy_used = 10, 
+						energy = 10, 
+						metal_mine_porcent = 100, 
+						crystal_mine_porcent = 100, 
+						deuterium_sintetizer_porcent = 100, 
+						solar_plant_porcent = 100, 
+						fusion_plant_porcent = 100, 
+						solar_satelit_porcent = 100 
 						WHERE id_owner = ".$USER["id"].";";
 		}
 		
@@ -263,21 +263,21 @@ class ShowSettingsPage extends AbstractPage
 				$errors[]	= $LNG['op_cant_activate_vacation_mode'];
 			} else {
 				$SQL	.= "UPDATE ".USERS." SET 
-							urlaubs_modus = '1',
+							urlaubs_modus = 1,
 							urlaubs_until = ".(TIMESTAMP + $CONF['vmode_min_time'])."
 							WHERE id = ".$USER["id"].";							
 							UPDATE ".PLANETS." SET
-							energy_used = '0',
-							energy = '0',
-							metal_mine_porcent = '0',
-							crystal_mine_porcent = '0',
-							deuterium_sintetizer_porcent = '0',
-							solar_plant_porcent = '0',
-							fusion_plant_porcent = '0',
-							solar_satelit_porcent = '0',
-							metal_perhour = '0',
-							crystal_perhour = '0',
-							deuterium_perhour = '0'
+							energy_used = 0,
+							energy = 0,
+							metal_mine_porcent = 0,
+							crystal_mine_porcent = 0,
+							deuterium_sintetizer_porcent = 0,
+							solar_plant_porcent = 0,
+							fusion_plant_porcent = 0,
+							solar_satelit_porcent = 0,
+							metal_perhour = 0,
+							crystal_perhour = 0,
+							deuterium_perhour = 0
 							WHERE id_owner = ".$USER["id"].";";
 			}
 		}

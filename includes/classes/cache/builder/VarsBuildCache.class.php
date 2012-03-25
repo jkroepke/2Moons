@@ -13,11 +13,6 @@ class VarsBuildCache
 			$ELEMENT['LIST'][$flag][]	= array();
 		}
 		$ELEMENT		= array();
-		
-		$reqResult		= $GLOBALS['DATABASE']->query("SELECT * FROM ".VARS_REQUIRE.";");
-		while($reqRow = $GLOBALS['DATABASE']->fetch_array($reqResult)) {
-			$ELEMENT['ELEMENT'][$reqRow['elementID']]['require'][$reqRow['requireID']]	= $reqRow['requireLevel'];
-		}
 
 		$varsResult		= $GLOBALS['DATABASE']->query("SELECT * FROM ".VARS.";");
 		while($varsRow = $GLOBALS['DATABASE']->fetch_array($varsResult)) {
@@ -82,6 +77,12 @@ class VarsBuildCache
 					$ELEMENT['LIST'][$flag][$varsRow['elementID']]	= $varsRow['elementID'];
 				}
 			}
+		}
+		
+		
+		$reqResult		= $GLOBALS['DATABASE']->query("SELECT * FROM ".VARS_REQUIRE.";");
+		while($reqRow = $GLOBALS['DATABASE']->fetch_array($reqResult)) {
+			$ELEMENT['ELEMENT'][$reqRow['elementID']]['require'][$reqRow['requireID']]	= $reqRow['requireLevel'];
 		}
 		
 		$rapidResult		= $GLOBALS['DATABASE']->query("SELECT * FROM ".VARS_RAPIDFIRE.";");

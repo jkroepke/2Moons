@@ -26,7 +26,7 @@ class VarsBuildCache
 		
 		$reqResult		= $GLOBALS['DATABASE']->query("SELECT * FROM ".VARS_REQUIRE.";");
 		while($reqRow = $GLOBALS['DATABASE']->fetch_array($reqResult)) {
-			$requeriments[$reqRow['elementID']][$reqRow['requireID']]	= $reqRow['requireLevel'];
+			$GLOBALS['VARS']['ELEMENT'][$reqRow['elementID']['require']][$reqRow['requireID']]	= $reqRow['requireLevel'];
 		}
 
 		$varsResult		= $GLOBALS['DATABASE']->query("SELECT * FROM ".VARS.";");

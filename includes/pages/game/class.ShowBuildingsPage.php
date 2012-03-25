@@ -135,8 +135,7 @@ class ShowBuildingsPage extends AbstractPage
 	{
 		global $PLANET, $USER, $resource, $CONF, $reslist, $pricelist;
 		
-		if(!elementHasFlag($elementID, ELEMENT_BUILD_ON_PLANET)
-			|| !BuildFunctions::isTechnologieAccessible($USER, $PLANET, $elementID) 
+		if(!BuildFunctions::isTechnologieAccessible($USER, $PLANET, $elementID) 
 			|| ($elementID == 31 && $USER['b_tech_planet'] != 0) 
 			|| (($elementID == 15 || $elementID == 21) && !empty($PLANET['b_hangar_id']))
 			|| (!$AddMode && $PLANET[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']] == 0)
@@ -250,8 +249,10 @@ class ShowBuildingsPage extends AbstractPage
 		
 		$TheCommand		= HTTP::_GP('cmd', '');
 
+		$planetFlag		= $PLANET['planet_type'] == 3 ? ELEMENT_BUILD_ON_MOON : ELEMENT_BUILD_ON_PLANET;
+		
 		// wellformed buildURLs
-		if(!empty($TheCommand) && $_SERVER['REQUEST_METHOD'] === 'POST' && $USER['urlaubs_modus'] == 0)
+		if(!empty($TheCommand) && $_SERVER['REQUEST_METHOD'] === 'POST' && $USER['urlaubs_modus'] == 0 && elementHasFlag($elementID, $planetFlag))
 		{
 			$elementID     	= HTTP::_GP('building', 0);
 			$ListID      	= HTTP::_GP('listid', 0);
@@ -282,16 +283,16 @@ class ShowBuildingsPage extends AbstractPage
 		$RoomIsOk 			= $PLANET['field_current'] < ($CurrentMaxFields - $QueueCount);
 				
 		$BuildEnergy		= $USER[$GLOBALS['VARS']['ELEMENT'][113]['name']];
-		$BuildLevelFactor   = 10;
 		$BuildTemp          = $PLANET['temp_max'];
 
         $BuildInfoList      = array();
 
 		foreach($GLOBALS['VARS']['LIST'][ELEMENT_BUILD] as $elementID)
 		{
-			if (!BuildFunctions::isTechnologieAccessible($USER, $PLANET, $elementID) || !elementHasFlag($elementID, ELEMENT_BUILD_ON_PLANET))
+			if (!BuildFunctions::isTechnologieAccessible($USER, $PLANET, $elementID) || !elementHasFlag($elementID, $planetFlag)) {
 				continue;
-
+			}
+			
 			$infoEnergy	= "";
 			
 			if(elementHasFlag($elementID, ELEMENT_PRODUCTION))

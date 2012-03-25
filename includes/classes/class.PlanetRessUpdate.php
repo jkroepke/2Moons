@@ -53,7 +53,7 @@ class ResourceUpdate
 		$Hash	= array();
 		
 		$elementIDs	= array_keys($GLOBALS['VARS']['ELEMENT']);
-		foreach($elementIDs as $x => $elementID)
+		foreach($elementIDs as $elementID)
 		{
 			if(elementHasFlag($elementID, ELEMENT_PLANET_RESOURCE) || elementHasFlag($elementID, ELEMENT_ENERGY))
 			{
@@ -63,7 +63,7 @@ class ResourceUpdate
 			if(elementHasFlag($elementID, ELEMENT_PRODUCTION))
 			{
 				$Hash[]	= $this->PLANET[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']];
-				$Hash[]	= $this->PLANET[$GLOBALS['VARS']['ELEMENT'][$elementID]['name'].'_porcent'];
+				$Hash[]	= $this->PLANET[$GLOBALS['VARS']['ELEMENT'][$elementID]['name'].'_percent'];
 			}
 			
 			if(elementHasFlag($elementID, ELEMENT_STORAGE))
@@ -132,44 +132,21 @@ class ResourceUpdate
 		if($this->PLANET['planet_type'] == 3)
 			return;
 			
-		$MaxMetalStorage		= $this->PLANET['metal_max']     * $this->CONF['max_overflow'];
-		$MaxCristalStorage		= $this->PLANET['crystal_max']   * $this->CONF['max_overflow'];
-		$MaxDeuteriumStorage	= $this->PLANET['deuterium_max'] * $this->CONF['max_overflow'];
 		
-		$MetalTheorical		= $this->ProductionTime * (($this->CONF['metal_basic_income'] * $this->CONF['resource_multiplier']) + $this->PLANET['metal_perhour']) / 3600;
-		
-		if($MetalTheorical < 0)
+		foreach($GLOBALS['VARS']['LIST'][ELEMENT_PLANET_RESOURCE] as $elementID)
 		{
-			$this->PLANET['metal']      = max($this->PLANET['metal'] + $MetalTheorical, 0);
-		} 
-		elseif ($this->PLANET['metal'] <= $MaxMetalStorage)
-		{
-			$this->PLANET['metal']      = min($this->PLANET['metal'] + $MetalTheorical, $MaxMetalStorage);
+			$maxStorage			= $this->PLANET[$GLOBALS['VARS']['ELEMENT'][$elementID]['name'].'_max'] * $this->CONF['max_overflow'];
+			$theoricalIncome	= $this->ProductionTime * (($this->CONF['metal_basic_income'] * $this->CONF['resource_multiplier']) + $this->PLANET['metal_perhour']) / 3600;
+			
+			if($theoricalIncome < 0)
+			{
+				$this->PLANET[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']]	= max($this->PLANET[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']] + $theoricalIncome, 0);
+			} 
+			elseif ($this->PLANET[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']] <= $maxStorage)
+			{
+				$this->PLANET[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']]	= min($this->PLANET[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']] + $theoricalIncome, $maxStorage);
+			}
 		}
-		
-		$CristalTheorical	= $this->ProductionTime * (($this->CONF['crystal_basic_income'] * $this->CONF['resource_multiplier']) + $this->PLANET['crystal_perhour']) / 3600;
-		if ($CristalTheorical < 0)
-		{
-			$this->PLANET['crystal']      = max($this->PLANET['crystal'] + $CristalTheorical, 0);
-		} 
-		elseif ($this->PLANET['crystal'] <= $MaxCristalStorage ) 
-		{
-			$this->PLANET['crystal']      = min($this->PLANET['crystal'] + $CristalTheorical, $MaxCristalStorage);
-		}
-		
-		$DeuteriumTheorical	= $this->ProductionTime * (($this->CONF['deuterium_basic_income'] * $this->CONF['resource_multiplier']) + $this->PLANET['deuterium_perhour']) / 3600;
-		if ($DeuteriumTheorical < 0)
-		{
-			$this->PLANET['deuterium']    = max($this->PLANET['deuterium'] + $DeuteriumTheorical, 0);
-		} 
-		elseif($this->PLANET['deuterium'] <= $MaxDeuteriumStorage) 
-		{
-			$this->PLANET['deuterium']    = min($this->PLANET['deuterium'] + $DeuteriumTheorical, $MaxDeuteriumStorage);
-		}
-		
-		$this->PLANET['metal']		= max($this->PLANET['metal'], 0);
-		$this->PLANET['crystal']	= max($this->PLANET['crystal'], 0);
-		$this->PLANET['deuterium']	= max($this->PLANET['deuterium'], 0);
 	}
 	
 	public static function getProd($Calculation)
@@ -209,11 +186,11 @@ class ResourceUpdate
 		}
 		
 		$ressIDs	= array_merge($GLOBALS['VARS']['LIST'][ELEMENT_PLANET_RESOURCE], $GLOBALS['VARS']['LIST'][ELEMENT_ENERGY]);
-		$temp		= array_combine($ressIDs, array_fill(0, count($ressIDs), array(
+		$temp		= combineArrayWithSingleElement($ressIDs, array(
 			'max'	=> 0,
 			'plus'	=> 0,
 			'minus'	=> 0,
-		)));
+		));
 		
 		$BuildTemp		= $this->PLANET['temp_max'];
 		$BuildEnergy	= $this->USER[$GLOBALS['VARS']['ELEMENT'][113]['name']];
@@ -228,9 +205,9 @@ class ResourceUpdate
 				$temp[$resourceID]['max']	+= round(eval(self::getProd($GLOBALS['VARS']['ELEMENT'][$storageID]['storage'][$resourceID])));
 			}
 		}
+		
 		foreach($GLOBALS['VARS']['LIST'][ELEMENT_PRODUCTION] as $prodID)
 		{	
-			$BuildLevelFactor	= $this->PLANET[$GLOBALS['VARS']['ELEMENT'][$prodID]['name'].'_porcent'];
 			$BuildLevel 		= $this->PLANET[$GLOBALS['VARS']['ELEMENT'][$prodID]['name']];
 			
 			foreach($ressIDs as $resourceID)
@@ -239,6 +216,7 @@ class ResourceUpdate
 					continue;
 				
 				$Production	= eval(self::getProd($GLOBALS['VARS']['ELEMENT'][$prodID]['production'][$resourceID]));
+				$Production	*= $this->PLANET[$GLOBALS['VARS']['ELEMENT'][$prodID]['name'].'_percent'] / 100;
 				
 				if($Production > 0) {					
 					$temp[$resourceID]['plus']	+= $Production;
@@ -353,7 +331,7 @@ class ResourceUpdate
 		
 		$CurrentQueue	= unserialize($this->PLANET['b_building_id']);
 
-		$elementID      	= $CurrentQueue[0][0];
+		$elementID      = $CurrentQueue[0][0];
 		$Level      	= $CurrentQueue[0][1];
 		$BuildEndTime 	= $CurrentQueue[0][3];
 		$BuildMode    	= $CurrentQueue[0][4];
@@ -497,7 +475,7 @@ class ResourceUpdate
 			$this->Builded[$this->USER['b_tech_id']]	= 0;
 			
 		$this->Builded[$this->USER['b_tech_id']]			+= 1;
-		$this->USER[$GLOBALS['VARS']['ELEMENT'][$this->USER['b_tech_id']['name']]]	+= 1;
+		$this->USER[$GLOBALS['VARS']['ELEMENT'][$this->USER['b_tech_id']]['name']]	+= 1;
 	
 
 		$CurrentQueue	= unserialize($this->USER['b_tech_queue']);

@@ -40,27 +40,35 @@ class ShowTechtreePage extends AbstractPage
 	function show()
 	{
 		global $resource, $requeriments, $LNG, $reslist, $USER, $PLANET;
-		
-		$RequeriList	= array();
 
-		$elementID		= array_merge(array(0), $reslist['build'], array(100), $reslist['tech'], array(200), $reslist['fleet'], array(400), $reslist['defense'], array(600), $reslist['officier']);
-			
-		foreach($elementID as $Element)
-		{			
-			if(!isset($GLOBALS['VARS']['ELEMENT'][$Element]['name'])) {
-				$TechTreeList[$Element]	= $Element;
-			
+		$TechTreeList	= array();
+		
+		$elementIDs	= array_keys($GLOBALS['VARS']['ELEMENT']);
+		
+		foreach($elementIDs as $elementID)
+		{
+			if(elementHasFlag($elementID, ELEMENT_BUILD)) {
+				$class	= 0;
+			} elseif(elementHasFlag($elementID, ELEMENT_TECH)) {
+				$class	= 100;
+			} elseif(elementHasFlag($elementID, ELEMENT_FLEET)) {
+				$class	= 200;
+			} elseif(elementHasFlag($elementID, ELEMENT_DEFENSIVE)) {
+				$class	= 400;
+			} elseif(elementHasFlag($elementID, ELEMENT_OFFICIER)) {
+				$class	= 600;
 			} else {
-				$RequeriList	= array();
-				if(isset($requeriments[$Element]))
+				continue;
+			}
+			
+			$TechTreeList[$class][$elementID]	= array();
+			
+			if(isset($GLOBALS['VARS']['ELEMENT'][$elementID]['require']))
+			{
+				foreach($GLOBALS['VARS']['ELEMENT'][$elementID]['require'] as $requireID => $RedCount)
 				{
-					foreach($requeriments[$Element] as $requireID => $RedCount)
-					{
-						$RequeriList[$requireID]	= array('count' => $RedCount, 'own' => (isset($PLANET[$GLOBALS['VARS']['ELEMENT'][$requireID]['name']])) ? $PLANET[$GLOBALS['VARS']['ELEMENT'][$requireID]['name']] : $USER[$GLOBALS['VARS']['ELEMENT'][$requireID]['name']]);
-					}
+					$TechTreeList[$class][$elementID][$requireID]	= array('count' => $RedCount, 'own' => (isset($PLANET[$GLOBALS['VARS']['ELEMENT'][$requireID]['name']])) ? $PLANET[$GLOBALS['VARS']['ELEMENT'][$requireID]['name']] : $USER[$GLOBALS['VARS']['ELEMENT'][$requireID]['name']]);
 				}
-				
-				$TechTreeList[$Element]	= $RequeriList;
 			}
 		}
 		
