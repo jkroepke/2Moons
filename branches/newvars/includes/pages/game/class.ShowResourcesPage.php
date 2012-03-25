@@ -44,7 +44,7 @@ class ShowResourcesPage extends AbstractPage
 			$updateSQL	= array();
 			foreach($_POST['prod'] as $ressourceID => $Value)
 			{
-				$FieldName = $GLOBALS['ELEMENT'][$ressourceID]['name'].'_porcent';
+				$FieldName = $GLOBALS['VARS']['ELEMENT'][$ressourceID]['name'].'_porcent';
 				if (!isset($PLANET[$FieldName]) || !in_array($Value, range(0, 10)))
 					continue;
 				
@@ -93,7 +93,7 @@ class ShowResourcesPage extends AbstractPage
 		);
 		
 		$BuildTemp		= $PLANET['temp_max'];
-		$BuildEnergy	= $USER[$GLOBALS['ELEMENT'][113]['name']];
+		$BuildEnergy	= $USER[$GLOBALS['VARS']['ELEMENT'][113]['name']];
 		
 		$ressIDs		= array_merge(array(), $reslist['resstype'][1], $reslist['resstype'][2]);
 		
@@ -105,13 +105,13 @@ class ShowResourcesPage extends AbstractPage
 		
 		foreach($reslist['prod'] as $ProdID)
 		{	
-			$BuildLevelFactor	= $PLANET[$GLOBALS['ELEMENT'][$ProdID]['name'].'_porcent'];
-			$BuildLevel 		= $PLANET[$GLOBALS['ELEMENT'][$ProdID]['name']];
+			$BuildLevelFactor	= $PLANET[$GLOBALS['VARS']['ELEMENT'][$ProdID]['name'].'_porcent'];
+			$BuildLevel 		= $PLANET[$GLOBALS['VARS']['ELEMENT'][$ProdID]['name']];
 		
 			$productionList[$ProdID]	= array(
 				'production'	=> array(901 => 0, 902 => 0, 903 => 0, 911 => 0),
-				'elementLevel'	=> $PLANET[$GLOBALS['ELEMENT'][$ProdID]['name']],
-				'prodLevel'		=> $PLANET[$GLOBALS['ELEMENT'][$ProdID]['name'].'_porcent'],
+				'elementLevel'	=> $PLANET[$GLOBALS['VARS']['ELEMENT'][$ProdID]['name']],
+				'prodLevel'		=> $PLANET[$GLOBALS['VARS']['ELEMENT'][$ProdID]['name'].'_porcent'],
 			);
 			
 			foreach($ressIDs as $ID) 
@@ -128,7 +128,7 @@ class ShowResourcesPage extends AbstractPage
 				$productionList[$ProdID]['production'][$ID]	= $Production;
 				
 				if($Production > 0) {
-					if($PLANET[$GLOBALS['ELEMENT'][$ID]['name']] == 0) continue;
+					if($PLANET[$GLOBALS['VARS']['ELEMENT'][$ID]['name']] == 0) continue;
 					
 					$temp[$ID]['plus']	+= $Production;
 				} else {
@@ -138,23 +138,23 @@ class ShowResourcesPage extends AbstractPage
 		}
 				
 		$storage	= array(
-			901 => shortly_number($PLANET[$GLOBALS['ELEMENT'][901]['name'].'_max']),
-			902 => shortly_number($PLANET[$GLOBALS['ELEMENT'][902]['name'].'_max']),
-			903 => shortly_number($PLANET[$GLOBALS['ELEMENT'][903]['name'].'_max']),
+			901 => shortly_number($PLANET[$GLOBALS['VARS']['ELEMENT'][901]['name'].'_max']),
+			902 => shortly_number($PLANET[$GLOBALS['VARS']['ELEMENT'][902]['name'].'_max']),
+			903 => shortly_number($PLANET[$GLOBALS['VARS']['ELEMENT'][903]['name'].'_max']),
 		);
 		
 		$basicProduction	= array(
-			901 => $CONF[$GLOBALS['ELEMENT'][901]['name'].'_basic_income'] * $CONF['resource_multiplier'],
-			902 => $CONF[$GLOBALS['ELEMENT'][902]['name'].'_basic_income'] * $CONF['resource_multiplier'],
-			903	=> $CONF[$GLOBALS['ELEMENT'][903]['name'].'_basic_income'] * $CONF['resource_multiplier'],
-			911	=> $CONF[$GLOBALS['ELEMENT'][911]['name'].'_basic_income'] * $CONF['resource_multiplier'],
+			901 => $CONF[$GLOBALS['VARS']['ELEMENT'][901]['name'].'_basic_income'] * $CONF['resource_multiplier'],
+			902 => $CONF[$GLOBALS['VARS']['ELEMENT'][902]['name'].'_basic_income'] * $CONF['resource_multiplier'],
+			903	=> $CONF[$GLOBALS['VARS']['ELEMENT'][903]['name'].'_basic_income'] * $CONF['resource_multiplier'],
+			911	=> $CONF[$GLOBALS['VARS']['ELEMENT'][911]['name'].'_basic_income'] * $CONF['resource_multiplier'],
 		);
 		
 		$totalProduction	= array(
-			901 => $PLANET[$GLOBALS['ELEMENT'][901]['name'].'_perhour'] + $basicProduction[901],
-			902 => $PLANET[$GLOBALS['ELEMENT'][902]['name'].'_perhour'] + $basicProduction[902],
-			903	=> $PLANET[$GLOBALS['ELEMENT'][903]['name'].'_perhour'] + $basicProduction[903],
-			911	=> $PLANET[$GLOBALS['ELEMENT'][911]['name']] + $basicProduction[911] + $PLANET[$GLOBALS['ELEMENT'][911]['name'].'_used'],
+			901 => $PLANET[$GLOBALS['VARS']['ELEMENT'][901]['name'].'_perhour'] + $basicProduction[901],
+			902 => $PLANET[$GLOBALS['VARS']['ELEMENT'][902]['name'].'_perhour'] + $basicProduction[902],
+			903	=> $PLANET[$GLOBALS['VARS']['ELEMENT'][903]['name'].'_perhour'] + $basicProduction[903],
+			911	=> $PLANET[$GLOBALS['VARS']['ELEMENT'][911]['name']] + $basicProduction[911] + $PLANET[$GLOBALS['VARS']['ELEMENT'][911]['name'].'_used'],
 		);
 		
 		$bonusProduction	= array(

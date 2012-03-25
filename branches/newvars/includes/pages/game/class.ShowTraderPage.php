@@ -102,18 +102,18 @@ class ShowTraderPage extends AbstractPage
 		$tradeSum 			= 0;
 		
 		foreach($tradeResources as $tradeRessID) {
-			$tradeAmount	= min(max(0, round((float) $getTradeResources[$tradeRessID])), $PLANET[$GLOBALS['ELEMENT'][$tradeRessID]['name']]);
+			$tradeAmount	= min(max(0, round((float) $getTradeResources[$tradeRessID])), $PLANET[$GLOBALS['VARS']['ELEMENT'][$tradeRessID]['name']]);
 			$tradeSum	   += $tradeAmount;
 			if(empty($tradeAmount)) {
 				continue;  
 			}
 			
-			$PLANET[$GLOBALS['ELEMENT'][$resourceID]['name']]		-= $tradeAmount * self::$Charge[$resourceID][$tradeRessID];			
-			$PLANET[$GLOBALS['ELEMENT'][$tradeRessID]['name']]	+= $tradeAmount;
+			$PLANET[$GLOBALS['VARS']['ELEMENT'][$resourceID]['name']]		-= $tradeAmount * self::$Charge[$resourceID][$tradeRessID];			
+			$PLANET[$GLOBALS['VARS']['ELEMENT'][$tradeRessID]['name']]	+= $tradeAmount;
 		}
 		
 		if ($tradeSum > 0)
-			$USER[$GLOBALS['ELEMENT'][921]['name']]	-= $CONF['darkmatter_cost_trader'];
+			$USER[$GLOBALS['VARS']['ELEMENT'][921]['name']]	-= $CONF['darkmatter_cost_trader'];
 
 		$this->printMessage($LNG['tr_exchange_done'], array("game.php?page=trader", 3));
 	}

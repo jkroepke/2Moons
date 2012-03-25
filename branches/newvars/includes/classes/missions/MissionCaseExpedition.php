@@ -49,7 +49,7 @@ class MissionCaseExpedition extends MissionFunctions
 
 		foreach($reslist['fleet'] as $ID)
 		{
-			$expeditionPoints[$ID]	= ($pricelist[$ID]['cost'][901] + $pricelist[$ID]['cost'][902]) / 1000;
+			$expeditionPoints[$ID]	= ($GLOBALS['VARS']['ELEMENT'][$ID]['cost'][901] + $GLOBALS['VARS']['ELEMENT'][$ID]['cost'][902]) / 1000;
 		}
 		
 		$expeditionPoints[202] = 12;
@@ -167,7 +167,7 @@ class MissionCaseExpedition extends MissionFunctions
 					if(!isset($fleetArray[$ID]) || $ID == 208 || $ID == 209 || $ID == 214)
 						continue;
 					
-					$MaxFound			= floor($FoundShips / ($pricelist[$ID]['cost'][901] + $pricelist[$ID]['cost'][902]));
+					$MaxFound			= floor($FoundShips / ($GLOBALS['VARS']['ELEMENT'][$ID]['cost'][901] + $GLOBALS['VARS']['ELEMENT'][$ID]['cost'][902]));
 					if($MaxFound <= 0) 
 						continue;
 						
@@ -176,7 +176,7 @@ class MissionCaseExpedition extends MissionFunctions
 						continue;
 						
 					$Found[$ID]			= $Count;
-					$FoundShips	 		-= $Count * ($pricelist[$ID]['cost'][901] + $pricelist[$ID]['cost'][902]);
+					$FoundShips	 		-= $Count * ($GLOBALS['VARS']['ELEMENT'][$ID]['cost'][901] + $GLOBALS['VARS']['ELEMENT'][$ID]['cost'][902]);
 					$FoundShipMess   	.= '<br>'.$LNG['tech'][$ID].': '.pretty_number($Count);
 					if($FoundShips <= 0)
 						break;

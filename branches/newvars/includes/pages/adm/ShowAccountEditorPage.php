@@ -134,7 +134,7 @@ function ShowAccountEditorPage()
 				$after = array();
 				foreach($reslist['fleet'] as $ID)
 				{
-					$before[$ID] = $before1[$GLOBALS['ELEMENT'][$ID]['name']];
+					$before[$ID] = $before1[$GLOBALS['VARS']['ELEMENT'][$ID]['name']];
 				}
 				if ($_POST['add'])
 				{
@@ -142,8 +142,8 @@ function ShowAccountEditorPage()
 					$SQL .= "`eco_hash` = '', ";
 					foreach($reslist['fleet'] as $ID)
 					{
-						$QryUpdate[]	= "`".$GLOBALS['ELEMENT'][$ID]['name']."` = `".$GLOBALS['ELEMENT'][$ID]['name']."` + '".max(0, round(HTTP::_GP($GLOBALS['ELEMENT'][$ID]['name'], 0.0)))."'";
-						$after[$ID] = $before[$ID] + max(0, round(HTTP::_GP($GLOBALS['ELEMENT'][$ID]['name'], 0.0)));
+						$QryUpdate[]	= "`".$GLOBALS['VARS']['ELEMENT'][$ID]['name']."` = `".$GLOBALS['VARS']['ELEMENT'][$ID]['name']."` + '".max(0, round(HTTP::_GP($GLOBALS['VARS']['ELEMENT'][$ID]['name'], 0.0)))."'";
+						$after[$ID] = $before[$ID] + max(0, round(HTTP::_GP($GLOBALS['VARS']['ELEMENT'][$ID]['name'], 0.0)));
 					}
 					$SQL .= implode(", ", $QryUpdate);
 					$SQL .= "WHERE ";
@@ -156,8 +156,8 @@ function ShowAccountEditorPage()
 					$SQL .= "`eco_hash` = '', ";
 					foreach($reslist['fleet'] as $ID)
 					{
-						$QryUpdate[]	= "`".$GLOBALS['ELEMENT'][$ID]['name']."` = `".$GLOBALS['ELEMENT'][$ID]['name']."` - '".max(0, round(HTTP::_GP($GLOBALS['ELEMENT'][$ID]['name'], 0.0)))."'";
-						$after[$ID] = max($before[$ID] - max(0, round(HTTP::_GP($GLOBALS['ELEMENT'][$ID]['name'], 0.0))),0);
+						$QryUpdate[]	= "`".$GLOBALS['VARS']['ELEMENT'][$ID]['name']."` = `".$GLOBALS['VARS']['ELEMENT'][$ID]['name']."` - '".max(0, round(HTTP::_GP($GLOBALS['VARS']['ELEMENT'][$ID]['name'], 0.0)))."'";
+						$after[$ID] = max($before[$ID] - max(0, round(HTTP::_GP($GLOBALS['VARS']['ELEMENT'][$ID]['name'], 0.0))),0);
 					}
 					$SQL .= implode(", ", $QryUpdate);
 					$SQL .= "WHERE ";
@@ -184,7 +184,7 @@ function ShowAccountEditorPage()
 			foreach($reslist['fleet'] as $ID)
 			{
 				$INPUT[$ID]	= array(
-					'type'	=> $GLOBALS['ELEMENT'][$ID]['name'],
+					'type'	=> $GLOBALS['VARS']['ELEMENT'][$ID]['name'],
 				);
 			}
 
@@ -203,15 +203,15 @@ function ShowAccountEditorPage()
 				$after = array();
 				foreach($reslist['defense'] as $ID)
 				{
-					$before[$ID] = $before1[$GLOBALS['ELEMENT'][$ID]['name']];
+					$before[$ID] = $before1[$GLOBALS['VARS']['ELEMENT'][$ID]['name']];
 				}
 				if ($_POST['add'])
 				{
 					$SQL  = "UPDATE ".PLANETS." SET ";
 					foreach($reslist['defense'] as $ID)
 					{
-						$QryUpdate[]	= "`".$GLOBALS['ELEMENT'][$ID]['name']."` = `".$GLOBALS['ELEMENT'][$ID]['name']."` + '".max(0, round(HTTP::_GP($GLOBALS['ELEMENT'][$ID]['name'], 0.0)))."'";
-						$after[$ID] = $before[$ID] + max(0, round(HTTP::_GP($GLOBALS['ELEMENT'][$ID]['name'], 0.0)));
+						$QryUpdate[]	= "`".$GLOBALS['VARS']['ELEMENT'][$ID]['name']."` = `".$GLOBALS['VARS']['ELEMENT'][$ID]['name']."` + '".max(0, round(HTTP::_GP($GLOBALS['VARS']['ELEMENT'][$ID]['name'], 0.0)))."'";
+						$after[$ID] = $before[$ID] + max(0, round(HTTP::_GP($GLOBALS['VARS']['ELEMENT'][$ID]['name'], 0.0)));
 					}
 					$SQL .= implode(", ", $QryUpdate);
 					$SQL .= "WHERE ";
@@ -223,8 +223,8 @@ function ShowAccountEditorPage()
 					$SQL  = "UPDATE ".PLANETS." SET ";
 					foreach($reslist['defense'] as $ID)
 					{
-						$QryUpdate[]	= "`".$GLOBALS['ELEMENT'][$ID]['name']."` = `".$GLOBALS['ELEMENT'][$ID]['name']."` - '".max(0, round(HTTP::_GP($GLOBALS['ELEMENT'][$ID]['name'], 0.0)))."'";
-						$after[$ID] = max($before[$ID] - max(0, round(HTTP::_GP($GLOBALS['ELEMENT'][$ID]['name'], 0.0))),0);
+						$QryUpdate[]	= "`".$GLOBALS['VARS']['ELEMENT'][$ID]['name']."` = `".$GLOBALS['VARS']['ELEMENT'][$ID]['name']."` - '".max(0, round(HTTP::_GP($GLOBALS['VARS']['ELEMENT'][$ID]['name'], 0.0)))."'";
+						$after[$ID] = max($before[$ID] - max(0, round(HTTP::_GP($GLOBALS['VARS']['ELEMENT'][$ID]['name'], 0.0))),0);
 					}
 					$SQL .= implode(", ", $QryUpdate);
 					$SQL .= "WHERE ";
@@ -251,7 +251,7 @@ function ShowAccountEditorPage()
 			foreach($reslist['defense'] as $ID)
 			{
 				$INPUT[$ID]	= array(
-					'type'	=> $GLOBALS['ELEMENT'][$ID]['name'],
+					'type'	=> $GLOBALS['VARS']['ELEMENT'][$ID]['name'],
 				);
 			}
 
@@ -275,7 +275,7 @@ function ShowAccountEditorPage()
 				$after = array();
 				foreach($reslist['allow'][$PlanetData['planet_type']] as $ID)
 				{
-					$before[$ID] = $PlanetData[$GLOBALS['ELEMENT'][$ID]['name']];
+					$before[$ID] = $PlanetData[$GLOBALS['VARS']['ELEMENT'][$ID]['name']];
 				}
 				if ($_POST['add'])
 				{
@@ -284,8 +284,8 @@ function ShowAccountEditorPage()
 					$SQL .= "`eco_hash` = '', ";
 					foreach($reslist['allow'][$PlanetData['planet_type']] as $ID)
 					{
-						$Count			= max(0, round(HTTP::_GP($GLOBALS['ELEMENT'][$ID]['name'], 0.0)));
-						$QryUpdate[]	= "`".$GLOBALS['ELEMENT'][$ID]['name']."` = `".$GLOBALS['ELEMENT'][$ID]['name']."` + '".$Count."'";
+						$Count			= max(0, round(HTTP::_GP($GLOBALS['VARS']['ELEMENT'][$ID]['name'], 0.0)));
+						$QryUpdate[]	= "`".$GLOBALS['VARS']['ELEMENT'][$ID]['name']."` = `".$GLOBALS['VARS']['ELEMENT'][$ID]['name']."` + '".$Count."'";
 						$after[$ID] 	= $before[$ID] + $Count;
 						$Fields			+= $Count;
 					}
@@ -302,8 +302,8 @@ function ShowAccountEditorPage()
 					$SQL .= "`eco_hash` = '', ";
 					foreach($reslist['allow'][$PlanetData['planet_type']] as $ID)
 					{
-						$Count			= max(0, round(HTTP::_GP($GLOBALS['ELEMENT'][$ID]['name'], 0.0)));
-						$QryUpdate[]	= "`".$GLOBALS['ELEMENT'][$ID]['name']."` = `".$GLOBALS['ELEMENT'][$ID]['name']."` - '".$Count."'";
+						$Count			= max(0, round(HTTP::_GP($GLOBALS['VARS']['ELEMENT'][$ID]['name'], 0.0)));
+						$QryUpdate[]	= "`".$GLOBALS['VARS']['ELEMENT'][$ID]['name']."` = `".$GLOBALS['VARS']['ELEMENT'][$ID]['name']."` - '".$Count."'";
 						$after[$ID]		= max($before[$ID] - $Count,0);
 						$Fields			+= $Count;
 					}
@@ -332,7 +332,7 @@ function ShowAccountEditorPage()
 			foreach($reslist['build'] as $ID)
 			{
 				$INPUT[$ID]	= array(
-					'type'	=> $GLOBALS['ELEMENT'][$ID]['name'],
+					'type'	=> $GLOBALS['VARS']['ELEMENT'][$ID]['name'],
 				);
 			}
 
@@ -351,15 +351,15 @@ function ShowAccountEditorPage()
 				$after = array();
 				foreach($reslist['tech'] as $ID)
 				{
-					$before[$ID] = $before1[$GLOBALS['ELEMENT'][$ID]['name']];
+					$before[$ID] = $before1[$GLOBALS['VARS']['ELEMENT'][$ID]['name']];
 				}
 				if ($_POST['add'])
 				{
 					$SQL  = "UPDATE ".USERS." SET ";
 					foreach($reslist['tech'] as $ID)
 					{
-						$QryUpdate[]	= "`".$GLOBALS['ELEMENT'][$ID]['name']."` = `".$GLOBALS['ELEMENT'][$ID]['name']."` + '".max(0, round(HTTP::_GP($GLOBALS['ELEMENT'][$ID]['name'], 0.0)))."'";
-						$after[$ID] = $before[$ID] + max(0, round(HTTP::_GP($GLOBALS['ELEMENT'][$ID]['name'], 0.0)));
+						$QryUpdate[]	= "`".$GLOBALS['VARS']['ELEMENT'][$ID]['name']."` = `".$GLOBALS['VARS']['ELEMENT'][$ID]['name']."` + '".max(0, round(HTTP::_GP($GLOBALS['VARS']['ELEMENT'][$ID]['name'], 0.0)))."'";
+						$after[$ID] = $before[$ID] + max(0, round(HTTP::_GP($GLOBALS['VARS']['ELEMENT'][$ID]['name'], 0.0)));
 					}
 					$SQL .= implode(", ", $QryUpdate);
 					$SQL .= "WHERE ";
@@ -371,8 +371,8 @@ function ShowAccountEditorPage()
 					$SQL  = "UPDATE ".USERS." SET ";
 					foreach($reslist['tech'] as $ID)
 					{
-						$QryUpdate[]	= "`".$GLOBALS['ELEMENT'][$ID]['name']."` = `".$GLOBALS['ELEMENT'][$ID]['name']."` - '".max(0, round(HTTP::_GP($GLOBALS['ELEMENT'][$ID]['name'], 0.0)))."'";
-						$after[$ID] = max($before[$ID] - max(0, round(HTTP::_GP($GLOBALS['ELEMENT'][$ID]['name'], 0.0))),0);
+						$QryUpdate[]	= "`".$GLOBALS['VARS']['ELEMENT'][$ID]['name']."` = `".$GLOBALS['VARS']['ELEMENT'][$ID]['name']."` - '".max(0, round(HTTP::_GP($GLOBALS['VARS']['ELEMENT'][$ID]['name'], 0.0)))."'";
+						$after[$ID] = max($before[$ID] - max(0, round(HTTP::_GP($GLOBALS['VARS']['ELEMENT'][$ID]['name'], 0.0))),0);
 					}
 					$SQL .= implode(", ", $QryUpdate);
 					$SQL .= "WHERE ";
@@ -398,7 +398,7 @@ function ShowAccountEditorPage()
 			foreach($reslist['tech'] as $ID)
 			{
 				$INPUT[$ID]	= array(
-					'type'	=> $GLOBALS['ELEMENT'][$ID]['name'],
+					'type'	=> $GLOBALS['VARS']['ELEMENT'][$ID]['name'],
 				);
 			}
 
@@ -484,15 +484,15 @@ function ShowAccountEditorPage()
 				$after = array();
 				foreach($reslist['officier'] as $ID)
 				{
-					$before[$ID] = $before1[$GLOBALS['ELEMENT'][$ID]['name']];
+					$before[$ID] = $before1[$GLOBALS['VARS']['ELEMENT'][$ID]['name']];
 				}
 				if ($_POST['add'])
 				{
 					$SQL  = "UPDATE ".USERS." SET ";
 					foreach($reslist['officier'] as $ID)
 					{
-						$QryUpdate[]	= "`".$GLOBALS['ELEMENT'][$ID]['name']."` = `".$GLOBALS['ELEMENT'][$ID]['name']."` + '".max(0, round(HTTP::_GP($GLOBALS['ELEMENT'][$ID]['name'], 0.0)))."'";
-						$after[$ID] = $before[$ID] + max(0, round(HTTP::_GP($GLOBALS['ELEMENT'][$ID]['name'], 0.0)));
+						$QryUpdate[]	= "`".$GLOBALS['VARS']['ELEMENT'][$ID]['name']."` = `".$GLOBALS['VARS']['ELEMENT'][$ID]['name']."` + '".max(0, round(HTTP::_GP($GLOBALS['VARS']['ELEMENT'][$ID]['name'], 0.0)))."'";
+						$after[$ID] = $before[$ID] + max(0, round(HTTP::_GP($GLOBALS['VARS']['ELEMENT'][$ID]['name'], 0.0)));
 					}
 					$SQL .= implode(", ", $QryUpdate);
 					$SQL .= "WHERE ";
@@ -504,8 +504,8 @@ function ShowAccountEditorPage()
 					$SQL  = "UPDATE ".USERS." SET ";
 					foreach($reslist['officier'] as $ID)
 					{
-						$QryUpdate[]	= "`".$GLOBALS['ELEMENT'][$ID]['name']."` = `".$GLOBALS['ELEMENT'][$ID]['name']."` - '".max(0, round(HTTP::_GP($GLOBALS['ELEMENT'][$ID]['name'], 0.0)))."'";
-						$after[$ID] = max($before[$ID] - max(0, round(HTTP::_GP($GLOBALS['ELEMENT'][$ID]['name'], 0.0))),0);
+						$QryUpdate[]	= "`".$GLOBALS['VARS']['ELEMENT'][$ID]['name']."` = `".$GLOBALS['VARS']['ELEMENT'][$ID]['name']."` - '".max(0, round(HTTP::_GP($GLOBALS['VARS']['ELEMENT'][$ID]['name'], 0.0)))."'";
+						$after[$ID] = max($before[$ID] - max(0, round(HTTP::_GP($GLOBALS['VARS']['ELEMENT'][$ID]['name'], 0.0))),0);
 					}
 					$SQL .= implode(", ", $QryUpdate);
 					$SQL .= "WHERE ";
@@ -531,7 +531,7 @@ function ShowAccountEditorPage()
 			foreach($reslist['officier'] as $ID)
 			{
 				$INPUT[$ID]	= array(
-					'type'	=> $GLOBALS['ELEMENT'][$ID]['name'],
+					'type'	=> $GLOBALS['VARS']['ELEMENT'][$ID]['name'],
 				);
 			}
 
@@ -565,7 +565,7 @@ function ShowAccountEditorPage()
 				if ($buildings == 'on')
 				{
 					foreach($reslist['build'] as $ID) {
-						$BUILD[]	= "`".$GLOBALS['ELEMENT'][$ID]['name']."` = '0'";
+						$BUILD[]	= "`".$GLOBALS['VARS']['ELEMENT'][$ID]['name']."` = '0'";
 					}
 						
 					$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET ".implode(', ',$BUILD)." WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
@@ -574,7 +574,7 @@ function ShowAccountEditorPage()
 				if ($ships == 'on')
 				{
 					foreach($reslist['fleet'] as $ID) {
-						$SHIPS[]	= "`".$GLOBALS['ELEMENT'][$ID]['name']."` = '0'";
+						$SHIPS[]	= "`".$GLOBALS['VARS']['ELEMENT'][$ID]['name']."` = '0'";
 					}
 					
 					$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET ".implode(', ',$SHIPS)." WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
@@ -583,7 +583,7 @@ function ShowAccountEditorPage()
 				if ($defenses == 'on')
 				{
 					foreach($reslist['defense'] as $ID) {
-						$DEFS[]	= "`".$GLOBALS['ELEMENT'][$ID]['name']."` = '0'";
+						$DEFS[]	= "`".$GLOBALS['VARS']['ELEMENT'][$ID]['name']."` = '0'";
 					}
 				
 					$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET ".implode(', ',$DEFS)." WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");

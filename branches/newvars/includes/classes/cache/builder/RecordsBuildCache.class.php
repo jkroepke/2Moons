@@ -31,7 +31,7 @@ class VarsBuildCache
 
 		$varsResult		= $GLOBALS['DATABASE']->query("SELECT * FROM ".VARS.";");
 		while($varsRow = $GLOBALS['DATABASE']->fetch_array($varsResult)) {
-			$GLOBALS['ELEMENT'][$varsRow['elementID']['name']]	= $varsRow['name'];
+			$GLOBALS['VARS']['ELEMENT'][$varsRow['elementID']['name']]	= $varsRow['name'];
 			$CombatCaps[$varsRow['elementID']]	= array(
 				'attack'	=> $varsRow['attack'],
 				'shield'	=> $varsRow['defend'],
