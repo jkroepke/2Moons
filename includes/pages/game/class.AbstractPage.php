@@ -88,7 +88,7 @@ abstract class AbstractPage
     {
 		global $PLANET, $LNG, $USER, $CONF, $resource;
 		
-		if($PLANET[$GLOBALS['ELEMENT'][43]['name']] > 0) {
+		if($PLANET[$GLOBALS['VARS']['ELEMENT'][43]['name']] > 0) {
 			$this->tplObj->loadscript("gate.js");
 		}
 		
@@ -119,14 +119,14 @@ abstract class AbstractPage
 			'darkmatter'		=> $USER['darkmatter'],
 			'current_pid'		=> $PLANET['id'],
 			'image'				=> $PLANET['image'],
-			'metal'				=> $PLANET[$GLOBALS['ELEMENT'][901]['name']],
-			'crystal'			=> $PLANET[$GLOBALS['ELEMENT'][902]['name']],
-			'deuterium'			=> $PLANET[$GLOBALS['ELEMENT'][903]['name']],
-			'energy'			=> $PLANET[$GLOBALS['ELEMENT'][911]['name']],
+			'metal'				=> $PLANET[$GLOBALS['VARS']['ELEMENT'][901]['name']],
+			'crystal'			=> $PLANET[$GLOBALS['VARS']['ELEMENT'][902]['name']],
+			'deuterium'			=> $PLANET[$GLOBALS['VARS']['ELEMENT'][903]['name']],
+			'energy'			=> $PLANET[$GLOBALS['VARS']['ELEMENT'][911]['name']],
 			'energy_used'		=> $PLANET['energy_used'],
-			'metal_max'			=> $PLANET[$GLOBALS['ELEMENT'][901]['name'].'_max'],
-			'crystal_max'		=> $PLANET[$GLOBALS['ELEMENT'][902]['name'].'_max'],
-			'deuterium_max' 	=> $PLANET[$GLOBALS['ELEMENT'][903]['name'].'_max'],
+			'metal_max'			=> $PLANET[$GLOBALS['VARS']['ELEMENT'][901]['name'].'_max'],
+			'crystal_max'		=> $PLANET[$GLOBALS['VARS']['ELEMENT'][902]['name'].'_max'],
+			'deuterium_max' 	=> $PLANET[$GLOBALS['VARS']['ELEMENT'][903]['name'].'_max'],
 			'js_metal_max'		=> $PLANET['metal_max'],
 			'js_crystal_max'	=> $PLANET['crystal_max'],
 			'js_deuterium_max' 	=> $PLANET['deuterium_max'],

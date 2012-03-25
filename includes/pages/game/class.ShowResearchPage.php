@@ -72,22 +72,22 @@ class ShowResearchPage extends AbstractPage
 		
 		if($PLANET['id'] == $USER['b_tech_planet'])
 		{
-			if(isset($costRessources[901])) { $PLANET[$GLOBALS['ELEMENT'][901]['name']]	+= $costRessources[901]; }
-			if(isset($costRessources[902])) { $PLANET[$GLOBALS['ELEMENT'][902]['name']]	+= $costRessources[902]; }
-			if(isset($costRessources[903])) { $PLANET[$GLOBALS['ELEMENT'][903]['name']]	+= $costRessources[903]; }
+			if(isset($costRessources[901])) { $PLANET[$GLOBALS['VARS']['ELEMENT'][901]['name']]	+= $costRessources[901]; }
+			if(isset($costRessources[902])) { $PLANET[$GLOBALS['VARS']['ELEMENT'][902]['name']]	+= $costRessources[902]; }
+			if(isset($costRessources[903])) { $PLANET[$GLOBALS['VARS']['ELEMENT'][903]['name']]	+= $costRessources[903]; }
 		} else {
 			$SQL	= "UPDATE ".PLANETS." SET ";
 			
-			if(isset($costRessources[901])) { $SQL	.= $GLOBALS['ELEMENT'][901]['name']." = ".$GLOBALS['ELEMENT'][901]['name']." + ".$costRessources[901]." "; }
-			if(isset($costRessources[902])) { $SQL	.= $GLOBALS['ELEMENT'][902]['name']." = ".$GLOBALS['ELEMENT'][902]['name']." + ".$costRessources[902]." "; }
-			if(isset($costRessources[903])) { $SQL	.= $GLOBALS['ELEMENT'][903]['name']." = ".$GLOBALS['ELEMENT'][903]['name']." + ".$costRessources[903]." "; }
+			if(isset($costRessources[901])) { $SQL	.= $GLOBALS['VARS']['ELEMENT'][901]['name']." = ".$GLOBALS['VARS']['ELEMENT'][901]['name']." + ".$costRessources[901]." "; }
+			if(isset($costRessources[902])) { $SQL	.= $GLOBALS['VARS']['ELEMENT'][902]['name']." = ".$GLOBALS['VARS']['ELEMENT'][902]['name']." + ".$costRessources[902]." "; }
+			if(isset($costRessources[903])) { $SQL	.= $GLOBALS['VARS']['ELEMENT'][903]['name']." = ".$GLOBALS['VARS']['ELEMENT'][903]['name']." + ".$costRessources[903]." "; }
 			
 			$SQL	.= " WHERE `id` = ".$USER['b_tech_planet'].";";
 			
 			$GLOBALS['DATABASE']->query($SQL);
 		}
 		
-		if(isset($costRessources[921])) { $USER[$GLOBALS['ELEMENT'][921]['name']]		+= $costRessources[921]; }
+		if(isset($costRessources[921])) { $USER[$GLOBALS['VARS']['ELEMENT'][921]['name']]		+= $costRessources[921]; }
 		
 		$USER['b_tech_id']			= 0;
 		$USER['b_tech']      		= 0;
@@ -109,11 +109,11 @@ class ShowResearchPage extends AbstractPage
 					continue;
 					
 				if($ListIDArray[4] != $PLANET['id'])
-					$CPLANET		= $GLOBALS['DATABASE']->uniquequery("SELECT ".$GLOBALS['ELEMENT'][6]['name'].", ".$GLOBALS['ELEMENT'][31]['name']." FROM ".PLANETS." WHERE `id` = ".$ListIDArray[4].";");
+					$CPLANET		= $GLOBALS['DATABASE']->uniquequery("SELECT ".$GLOBALS['VARS']['ELEMENT'][6]['name'].", ".$GLOBALS['VARS']['ELEMENT'][31]['name']." FROM ".PLANETS." WHERE `id` = ".$ListIDArray[4].";");
 				else
 					$CPLANET		= $PLANET;
 				
-				$CPLANET[$GLOBALS['ELEMENT'][31]['name'].'_inter']	= $this->ecoObj->getNetworkLevel($USER, $CPLANET);
+				$CPLANET[$GLOBALS['VARS']['ELEMENT'][31]['name'].'_inter']	= $this->ecoObj->getNetworkLevel($USER, $CPLANET);
 				$BuildEndTime       				+= BuildFunctions::getBuildingTime($USER, $CPLANET, NULL, $ListIDArray[0]);
 				$ListIDArray[3]						= $BuildEndTime;
 				$NewCurrentQueue[]					= $ListIDArray;				
@@ -163,11 +163,11 @@ class ShowResearchPage extends AbstractPage
 					continue;
 					
 				if($ListIDArray[4] != $PLANET['id'])
-					$CPLANET				= $GLOBALS['DATABASE']->uniquequery("SELECT `".$GLOBALS['ELEMENT'][6]['name']."`, `".$GLOBALS['ELEMENT'][31]['name']."` FROM ".PLANETS." WHERE `id` = ".$ListIDArray[4].";");
+					$CPLANET				= $GLOBALS['DATABASE']->uniquequery("SELECT `".$GLOBALS['VARS']['ELEMENT'][6]['name']."`, `".$GLOBALS['VARS']['ELEMENT'][31]['name']."` FROM ".PLANETS." WHERE `id` = ".$ListIDArray[4].";");
 				else
 					$CPLANET				= $PLANET;
 				
-				$CPLANET[$GLOBALS['ELEMENT'][31]['name'].'_inter']	= $this->ecoObj->getNetworkLevel($USER, $CPLANET);
+				$CPLANET[$GLOBALS['VARS']['ELEMENT'][31]['name'].'_inter']	= $this->ecoObj->getNetworkLevel($USER, $CPLANET);
 				
 				$BuildEndTime       += BuildFunctions::getBuildingTime($USER, $CPLANET, NULL, $ListIDArray[0]);
 				$ListIDArray[3]		= $BuildEndTime;
@@ -205,7 +205,7 @@ class ShowResearchPage extends AbstractPage
 		if($CONF['max_elements_tech'] != 0 && $CONF['max_elements_tech'] <= $ActualCount)
 			return false;
 			
-		$BuildLevel					= $USER[$GLOBALS['ELEMENT'][$Element]['name']] + 1;
+		$BuildLevel					= $USER[$GLOBALS['VARS']['ELEMENT'][$Element]['name']] + 1;
 		if($ActualCount == 0)
 		{
 			if($pricelist[$Element]['max'] < $BuildLevel)
@@ -216,10 +216,10 @@ class ShowResearchPage extends AbstractPage
 			if(!BuildFunctions::isElementBuyable($USER, $PLANET, $Element, $costRessources))
 				return;
 			
-			if(isset($costRessources[901])) { $PLANET[$GLOBALS['ELEMENT'][901]['name']]	-= $costRessources[901]; }
-			if(isset($costRessources[902])) { $PLANET[$GLOBALS['ELEMENT'][902]['name']]	-= $costRessources[902]; }
-			if(isset($costRessources[903])) { $PLANET[$GLOBALS['ELEMENT'][903]['name']]	-= $costRessources[903]; }
-			if(isset($costRessources[921])) { $USER[$GLOBALS['ELEMENT'][921]['name']]		-= $costRessources[921]; }
+			if(isset($costRessources[901])) { $PLANET[$GLOBALS['VARS']['ELEMENT'][901]['name']]	-= $costRessources[901]; }
+			if(isset($costRessources[902])) { $PLANET[$GLOBALS['VARS']['ELEMENT'][902]['name']]	-= $costRessources[902]; }
+			if(isset($costRessources[903])) { $PLANET[$GLOBALS['VARS']['ELEMENT'][903]['name']]	-= $costRessources[903]; }
+			if(isset($costRessources[921])) { $USER[$GLOBALS['VARS']['ELEMENT'][921]['name']]		-= $costRessources[921]; }
 			
 			$elementTime    			= BuildFunctions::getBuildingTime($USER, $PLANET, $Element, $costRessources);
 			$BuildEndTime				= TIMESTAMP + $elementTime;
@@ -291,7 +291,7 @@ class ShowResearchPage extends AbstractPage
 	{
 		global $PLANET, $USER, $LNG, $resource, $reslist, $CONF, $pricelist;
 		
-		if ($PLANET[$GLOBALS['ELEMENT'][31]['name']] == 0)
+		if ($PLANET[$GLOBALS['VARS']['ELEMENT'][31]['name']] == 0)
 		{
 			$this->printMessage($LNG['bd_lab_required']);
 		}
@@ -300,7 +300,7 @@ class ShowResearchPage extends AbstractPage
 		$Element     	= HTTP::_GP('tech', 0);
 		$ListID     	= HTTP::_GP('listid', 0);
 		
-		$PLANET[$GLOBALS['ELEMENT'][31]['name'].'_inter']	= ResourceUpdate::getNetworkLevel($USER, $PLANET);	
+		$PLANET[$GLOBALS['VARS']['ELEMENT'][31]['name'].'_inter']	= ResourceUpdate::getNetworkLevel($USER, $PLANET);	
 
 		if(!empty($TheCommand) && $_SERVER['REQUEST_METHOD'] === 'POST' && $USER['urlaubs_modus'] == 0)
 		{
@@ -341,7 +341,7 @@ class ShowResearchPage extends AbstractPage
 
 			$ResearchList[$Element]	= array(
 				'id'				=> $Element,
-				'level'				=> $USER[$GLOBALS['ELEMENT'][$Element]['name']],
+				'level'				=> $USER[$GLOBALS['VARS']['ELEMENT'][$Element]['name']],
 				'maxLevel'			=> $pricelist[$Element]['max'],
 				'costRessources'	=> $costRessources,
 				'costOverflow'		=> $costOverflow,

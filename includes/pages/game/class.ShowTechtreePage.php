@@ -47,7 +47,7 @@ class ShowTechtreePage extends AbstractPage
 			
 		foreach($elementID as $Element)
 		{			
-			if(!isset($GLOBALS['ELEMENT'][$Element]['name'])) {
+			if(!isset($GLOBALS['VARS']['ELEMENT'][$Element]['name'])) {
 				$TechTreeList[$Element]	= $Element;
 			
 			} else {
@@ -56,7 +56,7 @@ class ShowTechtreePage extends AbstractPage
 				{
 					foreach($requeriments[$Element] as $requireID => $RedCount)
 					{
-						$RequeriList[$requireID]	= array('count' => $RedCount, 'own' => (isset($PLANET[$GLOBALS['ELEMENT'][$requireID]['name']])) ? $PLANET[$GLOBALS['ELEMENT'][$requireID]['name']] : $USER[$GLOBALS['ELEMENT'][$requireID]['name']]);
+						$RequeriList[$requireID]	= array('count' => $RedCount, 'own' => (isset($PLANET[$GLOBALS['VARS']['ELEMENT'][$requireID]['name']])) ? $PLANET[$GLOBALS['VARS']['ELEMENT'][$requireID]['name']] : $USER[$GLOBALS['VARS']['ELEMENT'][$requireID]['name']]);
 					}
 				}
 				

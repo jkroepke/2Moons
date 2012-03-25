@@ -45,16 +45,16 @@ class ShowFleetDealerPage extends AbstractPage
 		$Count			= max(0, round(HTTP::_GP('count', 0.0)));
 		$allowedShipIDs	= explode(',', $CONF['trade_allowed_ships']);
 		
-		if(!empty($shipID) && in_array($shipID, $allowedShipIDs) && $PLANET[$GLOBALS['ELEMENT'][$shipID]['name']] >= $Count)
+		if(!empty($shipID) && in_array($shipID, $allowedShipIDs) && $PLANET[$GLOBALS['VARS']['ELEMENT'][$shipID]['name']] >= $Count)
 		{
-			$PLANET[$GLOBALS['ELEMENT'][901]['name']]			+= $Count * $pricelist[$shipID]['cost'][901] * (1 - ($CONF['trade_charge'] / 100));
-			$PLANET[$GLOBALS['ELEMENT'][902]['name']]			+= $Count * $pricelist[$shipID]['cost'][902] * (1 - ($CONF['trade_charge'] / 100));
-			$PLANET[$GLOBALS['ELEMENT'][903]['name']]			+= $Count * $pricelist[$shipID]['cost'][903] * (1 - ($CONF['trade_charge'] / 100));
-			$USER[$GLOBALS['ELEMENT'][921]['name']]			+= $Count * $pricelist[$shipID]['cost'][921] * (1 - ($CONF['trade_charge'] / 100));
+			$PLANET[$GLOBALS['VARS']['ELEMENT'][901]['name']]			+= $Count * $GLOBALS['VARS']['ELEMENT'][$shipID]['cost'][901] * (1 - ($CONF['trade_charge'] / 100));
+			$PLANET[$GLOBALS['VARS']['ELEMENT'][902]['name']]			+= $Count * $GLOBALS['VARS']['ELEMENT'][$shipID]['cost'][902] * (1 - ($CONF['trade_charge'] / 100));
+			$PLANET[$GLOBALS['VARS']['ELEMENT'][903]['name']]			+= $Count * $GLOBALS['VARS']['ELEMENT'][$shipID]['cost'][903] * (1 - ($CONF['trade_charge'] / 100));
+			$USER[$GLOBALS['VARS']['ELEMENT'][921]['name']]			+= $Count * $GLOBALS['VARS']['ELEMENT'][$shipID]['cost'][921] * (1 - ($CONF['trade_charge'] / 100));
 			
-			$PLANET[$GLOBALS['ELEMENT'][$shipID]['name']]		-= $Count;
+			$PLANET[$GLOBALS['VARS']['ELEMENT'][$shipID]['name']]		-= $Count;
 			
-			$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET ".$GLOBALS['ELEMENT'][$shipID]['name']." = ".$GLOBALS['ELEMENT'][$shipID]['name']." - ".$Count." WHERE id = ".$PLANET['id'].";");
+			$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET ".$GLOBALS['VARS']['ELEMENT'][$shipID]['name']." = ".$GLOBALS['VARS']['ELEMENT'][$shipID]['name']." - ".$Count." WHERE id = ".$PLANET['id'].";");
 			$this->printMessage($LNG['tr_exchange_done'], array("game.php?page=fleettrader", 3));
 		}
 		else
@@ -75,7 +75,7 @@ class ShowFleetDealerPage extends AbstractPage
 		foreach($allowedShipIDs as $shipID)
 		{
 			if(in_array($shipID, $reslist['fleet']) || in_array($shipID, $reslist['defense'])) {
-				$Cost[$shipID]	= array($PLANET[$GLOBALS['ELEMENT'][$shipID]['name']], $LNG['tech'][$shipID], $pricelist[$shipID]['cost']);
+				$Cost[$shipID]	= array($PLANET[$GLOBALS['VARS']['ELEMENT'][$shipID]['name']], $LNG['tech'][$shipID], $GLOBALS['VARS']['ELEMENT'][$shipID]['cost']);
 			}
 		}
 		

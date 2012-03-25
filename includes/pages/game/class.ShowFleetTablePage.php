@@ -178,7 +178,7 @@ class ShowFleetTablePage extends AbstractPage
 			}
 		}
 		
-		$techExpedition      = $USER[$GLOBALS['ELEMENT'][124]['name']];
+		$techExpedition      = $USER[$GLOBALS['VARS']['ELEMENT'][124]['name']];
 
 		if ($techExpedition >= 1)
 		{
@@ -244,13 +244,13 @@ class ShowFleetTablePage extends AbstractPage
 		
 		foreach($reslist['fleet'] as $FleetID)
 		{
-			if ($PLANET[$GLOBALS['ELEMENT'][$FleetID]['name']] == 0)
+			if ($PLANET[$GLOBALS['VARS']['ELEMENT'][$FleetID]['name']] == 0)
 				continue;
 				
 			$FleetsOnPlanet[]	= array(
 				'id'	=> $FleetID,
 				'speed'	=> FleetFunctions::GetFleetMaxSpeed($FleetID, $USER),
-				'count'	=> $PLANET[$GLOBALS['ELEMENT'][$FleetID]['name']],
+				'count'	=> $PLANET[$GLOBALS['VARS']['ELEMENT'][$FleetID]['name']],
 			);
 		}
 		
@@ -267,12 +267,12 @@ class ShowFleetTablePage extends AbstractPage
 			'targetType'			=> $targetType,
 			'targetMission'			=> $targetMission,
 			'isVacation'			=> IsVacationMode($USER),
-			'bonusAttack'			=> $USER[$GLOBALS['ELEMENT'][109]['name']] * 10 + (1 + $USER['factor']['Attack']) * 100,
-			'bonusDefensive'		=> $USER[$GLOBALS['ELEMENT'][110]['name']] * 10 + (1 + $USER['factor']['Defensive']) * 100,
-			'bonusShield'			=> $USER[$GLOBALS['ELEMENT'][111]['name']] * 10 + (1 + $USER['factor']['Shield']) * 100,
-			'bonusCombustion'		=> $USER[$GLOBALS['ELEMENT'][115]['name']] * 10 + (1 + $USER['factor']['FlyTime']) * 100 - 100,
-			'bonusImpulse'			=> $USER[$GLOBALS['ELEMENT'][117]['name']] * 20 + (1 + $USER['factor']['FlyTime']) * 100 - 100,
-			'bonusHyperspace'		=> $USER[$GLOBALS['ELEMENT'][118]['name']] * 30 + (1 + $USER['factor']['FlyTime']) * 100 - 100,
+			'bonusAttack'			=> $USER[$GLOBALS['VARS']['ELEMENT'][109]['name']] * 10 + (1 + $USER['factor']['Attack']) * 100,
+			'bonusDefensive'		=> $USER[$GLOBALS['VARS']['ELEMENT'][110]['name']] * 10 + (1 + $USER['factor']['Defensive']) * 100,
+			'bonusShield'			=> $USER[$GLOBALS['VARS']['ELEMENT'][111]['name']] * 10 + (1 + $USER['factor']['Shield']) * 100,
+			'bonusCombustion'		=> $USER[$GLOBALS['VARS']['ELEMENT'][115]['name']] * 10 + (1 + $USER['factor']['FlyTime']) * 100 - 100,
+			'bonusImpulse'			=> $USER[$GLOBALS['VARS']['ELEMENT'][117]['name']] * 20 + (1 + $USER['factor']['FlyTime']) * 100 - 100,
+			'bonusHyperspace'		=> $USER[$GLOBALS['VARS']['ELEMENT'][118]['name']] * 30 + (1 + $USER['factor']['FlyTime']) * 100 - 100,
 		));
 		
 		$this->display('page.fleetTable.default.tpl');

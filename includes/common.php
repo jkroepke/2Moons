@@ -89,7 +89,7 @@ if (MODE !== 'INSTALL')
 	$CONFIG		= array();
 
 	$CACHE->add('vars', 'VarsBuildCache');
-	$ELEMENT	= $CACHE->get('vars');
+	$VARS		= $CACHE->get('vars');
 	
 	$UNI		= getUniverse();
 	unset($database);

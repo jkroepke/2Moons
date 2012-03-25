@@ -54,10 +54,10 @@ function calculateMIPAttack($TargetDefTech, $OwnerAttTech, $missiles, $targetDef
 	
 	foreach($targetDefensive as $element => $count)
 	{
-		$destroyCount	= floor($totalAttack / ($pricelist[$element]['cost'][901] + $pricelist[$element]['cost'][902]));
+		$destroyCount	= floor($totalAttack / ($GLOBALS['VARS']['ELEMENT'][$element]['cost'][901] + $GLOBALS['VARS']['ELEMENT'][$element]['cost'][902]));
 		$destroyCount	= min($destroyCount, $count);
 		
-		$costAttack		= $destroyCount * ($pricelist[$element]['cost'][901] + $pricelist[$element]['cost'][902]);
+		$costAttack		= $destroyCount * ($GLOBALS['VARS']['ELEMENT'][$element]['cost'][901] + $GLOBALS['VARS']['ELEMENT'][$element]['cost'][902]);
 		
 		$totalAttack	-= $costAttack;
 		

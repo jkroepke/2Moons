@@ -4,16 +4,24 @@ class VarsBuildCache
 {
 	function buildCache()
 	{
+		$flags	= array(ELEMENT_BUILD, ELEMENT_TECH, ELEMENT_FLEET, ELEMENT_DEFENSIVE, ELEMENT_OFFICIER, ELEMENT_BONUS, ELEMENT_RACE, ELEMENT_PLANET_RESOURCE, 
+						ELEMENT_USER_RESOURCE, ELEMENT_ENERGY, ELEMENT_PRODUCTION, ELEMENT_STORAGE, ELEMENT_ONEPERPLANET, ELEMENT_BUILD_ON_PLANET, ELEMENT_BUILD_ON_MOONS, 
+						ELEMENT_RESOURCE_ON_TF, ELEMENT_RESOURCE_ON_FLEET, ELEMENT_RESOURCE_ON_STEAL);
+
+		foreach($flags as $flag)
+		{
+			$ELEMENT['LIST'][$flag][]	= array();
+		}
 		$ELEMENT		= array();
 		
 		$reqResult		= $GLOBALS['DATABASE']->query("SELECT * FROM ".VARS_REQUIRE.";");
 		while($reqRow = $GLOBALS['DATABASE']->fetch_array($reqResult)) {
-			$ELEMENT[$reqRow['elementID']]['require'][$reqRow['requireID']]	= $reqRow['requireLevel'];
+			$ELEMENT['ELEMENT'][$reqRow['elementID']]['require'][$reqRow['requireID']]	= $reqRow['requireLevel'];
 		}
 
 		$varsResult		= $GLOBALS['DATABASE']->query("SELECT * FROM ".VARS.";");
 		while($varsRow = $GLOBALS['DATABASE']->fetch_array($varsResult)) {
-			$ELEMENT[$varsRow['elementID']]	= array(
+			$ELEMENT['ELEMENT'][$varsRow['elementID']]	= array(
 				'name'		=> $varsRow['name'],
 				'flag'		=> $varsRow['class'],
 				'combat'	=> array_filter(array(
@@ -66,11 +74,19 @@ class VarsBuildCache
 					903	=> $varsRow['storage903'],
 				), 'is_string')
 			);
+			
+			foreach($flags as $flag)
+			{
+				if(($varsRow['class'] & $flag) === $flag)
+				{
+					$ELEMENT['LIST'][$flag][$varsRow['elementID']]	= $varsRow['elementID'];
+				}
+			}
 		}
 		
 		$rapidResult		= $GLOBALS['DATABASE']->query("SELECT * FROM ".VARS_RAPIDFIRE.";");
 		while($rapidRow = $GLOBALS['DATABASE']->fetch_array($rapidResult)) {
-			$ELEMENT[$rapidRow['elementID']]['combat']['rapidfire'][$rapidRow['rapidfireID']]	= $rapidRow['shoots'];
+			$ELEMENT['ELEMENT'][$rapidRow['elementID']]['combat']['rapidfire'][$rapidRow['rapidfireID']]	= $rapidRow['shoots'];
 		}
 		
 		return $ELEMENT;

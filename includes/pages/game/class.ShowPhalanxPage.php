@@ -36,11 +36,11 @@ class ShowPhalanxPage extends AbstractPage
 	{
 		global $PLANET, $resource;
 
-		if ($PLANET['galaxy'] != $toGalaxy || $PLANET[$GLOBALS['ELEMENT'][42]['name']] == 0 || !isModulAvalible(MODULE_PHALANX) || $PLANET[$GLOBALS['ELEMENT'][903]['name']] < PHALANX_DEUTERIUM) {
+		if ($PLANET['galaxy'] != $toGalaxy || $PLANET[$GLOBALS['VARS']['ELEMENT'][42]['name']] == 0 || !isModulAvalible(MODULE_PHALANX) || $PLANET[$GLOBALS['VARS']['ELEMENT'][903]['name']] < PHALANX_DEUTERIUM) {
 			return false;
 		}
 		
-		$PhRange	= self::GetPhalanxRange($PLANET[$GLOBALS['ELEMENT'][42]['name']]);
+		$PhRange	= self::GetPhalanxRange($PLANET[$GLOBALS['VARS']['ELEMENT'][42]['name']]);
 		$systemMin  = max(1, $PLANET['system'] - $PhRange);
 		$systemMax  = $PLANET['system'] + $PhRange;
 		
@@ -66,7 +66,7 @@ class ShowPhalanxPage extends AbstractPage
 
 		$this->tplObj->loadscript('phalanx.js');
 		
-		$PhRange 		 	= self::GetPhalanxRange($PLANET[$GLOBALS['ELEMENT'][43]['name']]);
+		$PhRange 		 	= self::GetPhalanxRange($PLANET[$GLOBALS['VARS']['ELEMENT'][43]['name']]);
 		$Galaxy 			= HTTP::_GP('id', 0);
 		
 		if($Galaxy != $PLANET['galaxy'] || $System > ($PLANET['system'] + $PhRange) || $System < max(1, $PLANET['system'] - $PhRange))
@@ -74,7 +74,7 @@ class ShowPhalanxPage extends AbstractPage
 			$this->printMessage($LNG['px_out_of_range']);
 		}
 		
-		if ($PLANET[$GLOBALS['ELEMENT'][903]['name']] == PHALANX_DEUTERIUM)
+		if ($PLANET[$GLOBALS['VARS']['ELEMENT'][903]['name']] == PHALANX_DEUTERIUM)
 		{
 			$this->printMessage($LNG['px_no_deuterium']);
 		}

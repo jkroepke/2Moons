@@ -29,81 +29,85 @@
 
 class BuildFunctions
 {
-	public static function getRestPrice($USER, $PLANET, $Element, $elementPrice = NULL)
+	public static function getRestPrice($USER, $PLANET, $elementID, $elementPrice = NULL)
 	{
 		global $resource;
 		
 		if(!isset($elementPrice)) {
-			$elementPrice	= self::getElementPrice($USER, $PLANET, $Element);
+			$elementPrice	= self::getElementPrice($USER, $PLANET, $elementID);
 		}
 		
 		$overflow	= array();
 		
-		foreach ($elementPrice as $resType => $resPrice) {
-			$avalible			= isset($PLANET[$GLOBALS['ELEMENT'][$resType]['name']]) ? $PLANET[$GLOBALS['ELEMENT'][$resType]['name']] : $USER[$GLOBALS['ELEMENT'][$resType]['name']];
-			$overflow[$resType] = max($resPrice - $avalible, 0);
+		foreach ($elementPrice as $resourceID => $resPrice) {
+			$avalible			= isset($PLANET[$GLOBALS['VARS']['ELEMENT'][$resourceID]['name']]) ? $PLANET[$GLOBALS['VARS']['ELEMENT'][$resourceID]['name']] : $USER[$GLOBALS['VARS']['ELEMENT'][$resourceID]['name']];
+			$overflow[$resourceID] = max($resPrice - $avalible, 0);
 		}
 
 		return $overflow;
 	}
 	
-	public static function getElementPrice($USER, $PLANET, $Element, $forDestroy = false, $forLevel = NULL) { 
+	public static function getElementPrice($USER, $PLANET, $elementID, $forDestroy = false, $forLevel = NULL) { 
 		global $pricelist, $resource, $reslist;
 
-       	if (in_array($Element, $reslist['fleet']) || in_array($Element, $reslist['defense'])) {
+       	if (elementHasFlag($elementID, ELEMENT_FLEET) || elementHasFlag($elementID, ELEMENT_DEFENSIVE)) {
 			$elementLevel = $forLevel;
 		} elseif (isset($forLevel)) {
 			$elementLevel = $forLevel - 1;
-		} elseif (isset($PLANET[$GLOBALS['ELEMENT'][$Element]['name']])) {
-			$elementLevel = $PLANET[$GLOBALS['ELEMENT'][$Element]['name']];
-		} elseif (isset($USER[$GLOBALS['ELEMENT'][$Element]['name']])) {
-			$elementLevel = $USER[$GLOBALS['ELEMENT'][$Element]['name']];
+		} elseif (isset($PLANET[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']])) {
+			$elementLevel = $PLANET[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']];
+		} elseif (isset($USER[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']])) {
+			$elementLevel = $USER[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']];
 		} else {
 			return array();
 		}
 		
 		$price	= array();
-		foreach ($reslist['ressources'] as $resType)
+		
+		foreach (array_merge($GLOBALS['VARS']['LIST'][ELEMENT_PLANET_RESOURCE], $GLOBALS['VARS']['LIST'][ELEMENT_USER_RESOURCE],  $GLOBALS['VARS']['LIST'][ELEMENT_ENERGY]) as $resourceID) 
 		{
-			if (!isset($pricelist[$Element]['cost'][$resType])) {
+			$price[$resourceID] = 0;
+			
+			if (!isset($GLOBALS['VARS']['ELEMENT'][$elementID]['cost'][$resourceID])) {
 				continue;
 			}
-			$ressourceAmount	= $pricelist[$Element]['cost'][$resType];
+			
+			$ressourceAmount	= $GLOBALS['VARS']['ELEMENT'][$elementID]['cost'][$resourceID];
 			
 			if ($ressourceAmount == 0) {
 				continue;
 			}
 			
-			$price[$resType]	= $ressourceAmount;
+			$price[$resourceID]	= $ressourceAmount;
 			
-			if(isset($pricelist[$Element]['factor']) && $pricelist[$Element]['factor'] != 0 && $pricelist[$Element]['factor'] != 1) {
-				$price[$resType]	*= pow($pricelist[$Element]['factor'], $elementLevel);
+			if(isset($pricelist[$elementID]['factor']) && $pricelist[$elementID]['factor'] != 0 && $pricelist[$elementID]['factor'] != 1) {
+				$price[$resourceID]	*= pow($pricelist[$elementID]['factor'], $elementLevel);
 			}
 			
-			if($forLevel && (in_array($Element, $reslist['fleet']) || in_array($Element, $reslist['defense']))) {
-				$price[$resType]	*= $elementLevel;
+			if($forLevel && (in_array($elementID, $reslist['fleet']) || in_array($elementID, $reslist['defense']))) {
+				$price[$resourceID]	*= $elementLevel;
 			}
 			
 			if($forDestroy === true) {
-				$price[$resType]	/= 2;
+				$price[$resourceID]	/= 2;
 			}
 		}
 		
 		return $price; 
 	}
 	
-	public static function isTechnologieAccessible($USER, $PLANET, $Element)
+	public static function isTechnologieAccessible($USER, $PLANET, $elementID)
 	{
 		global $requeriments, $resource;
 		
-		if(!isset($requeriments[$Element]))
+		if(!isset($requeriments[$elementID]))
 			return true;		
 
-		foreach($requeriments[$Element] as $ReqElement => $EleLevel)
+		foreach($requeriments[$elementID] as $ReqElement => $EleLevel)
 		{
 			if (
-				(isset($USER[$GLOBALS['ELEMENT'][$ReqElement]['name']]) && $USER[$GLOBALS['ELEMENT'][$ReqElement]['name']] < $EleLevel) || 
-				(isset($PLANET[$GLOBALS['ELEMENT'][$ReqElement]['name']]) && $PLANET[$GLOBALS['ELEMENT'][$ReqElement]['name']] < $EleLevel)
+				(isset($USER[$GLOBALS['VARS']['ELEMENT'][$ReqElement]['name']]) && $USER[$GLOBALS['VARS']['ELEMENT'][$ReqElement]['name']] < $EleLevel) || 
+				(isset($PLANET[$GLOBALS['VARS']['ELEMENT'][$ReqElement]['name']]) && $PLANET[$GLOBALS['VARS']['ELEMENT'][$ReqElement]['name']] < $EleLevel)
 			) {
 				return false;
 			}
@@ -111,7 +115,7 @@ class BuildFunctions
 		return true;
 	}
 	
-	public static function getBuildingTime($USER, $PLANET, $Element, $elementPrice = NULL, $forDestroy = false, $forLevel = NULL)
+	public static function getBuildingTime($USER, $PLANET, $elementID, $elementPrice = NULL, $forDestroy = false, $forLevel = NULL)
 	{
 		global $resource, $reslist, $requeriments;
 		
@@ -120,7 +124,7 @@ class BuildFunctions
         $time   = 0;
 
         if(!isset($elementPrice)) {
-			$elementPrice	= self::getElementPrice($USER, $PLANET, $Element, $forDestroy, $forLevel);
+			$elementPrice	= self::getElementPrice($USER, $PLANET, $elementID, $forDestroy, $forLevel);
 		}
 		
 		$elementCost	= 0;
@@ -133,26 +137,26 @@ class BuildFunctions
 			$elementCost	+= $elementPrice[902];
 		}
 		
-		if	   (in_array($Element, $reslist['build'])) {
-			$time	= $elementCost / ($CONF['game_speed'] * (1 + $PLANET[$GLOBALS['ELEMENT'][14]['name']])) * pow(0.5, $PLANET[$GLOBALS['ELEMENT'][15]['name']]) * (1 + $USER['factor']['BuildTime']);
-		} elseif (in_array($Element, $reslist['fleet'])) {
-			$time	= $elementCost / ($CONF['game_speed'] * (1 + $PLANET[$GLOBALS['ELEMENT'][21]['name']])) * pow(0.5, $PLANET[$GLOBALS['ELEMENT'][15]['name']]) * (1 + $USER['factor']['ShipTime']);	
-		} elseif (in_array($Element, $reslist['defense'])) {
-			$time	= $elementCost / ($CONF['game_speed'] * (1 + $PLANET[$GLOBALS['ELEMENT'][21]['name']])) * pow(0.5, $PLANET[$GLOBALS['ELEMENT'][15]['name']]) * (1 + $USER['factor']['DefensiveTime']);
-		} elseif (in_array($Element, $reslist['tech'])) {
-			if(is_numeric($PLANET[$GLOBALS['ELEMENT'][31]['name'].'_inter']))
+		if	   	 (elementHasFlag($elementID, ELEMENT_BUILD)) {
+			$time	= $elementCost / ($CONF['game_speed'] * (1 + $PLANET[$GLOBALS['VARS']['ELEMENT'][14]['name']])) * pow(0.5, $PLANET[$GLOBALS['VARS']['ELEMENT'][15]['name']]) * (1 + $USER['factor']['BuildTime']);
+		} elseif (elementHasFlag($elementID, ELEMENT_FLEET)) {
+			$time	= $elementCost / ($CONF['game_speed'] * (1 + $PLANET[$GLOBALS['VARS']['ELEMENT'][21]['name']])) * pow(0.5, $PLANET[$GLOBALS['VARS']['ELEMENT'][15]['name']]) * (1 + $USER['factor']['ShipTime']);	
+		} elseif (elementHasFlag($elementID, ELEMENT_DEFENSIVE)) {
+			$time	= $elementCost / ($CONF['game_speed'] * (1 + $PLANET[$GLOBALS['VARS']['ELEMENT'][21]['name']])) * pow(0.5, $PLANET[$GLOBALS['VARS']['ELEMENT'][15]['name']]) * (1 + $USER['factor']['DefensiveTime']);
+		} elseif (elementHasFlag($elementID, ELEMENT_TECH)) {
+			if(is_numeric($PLANET[$GLOBALS['VARS']['ELEMENT'][31]['name'].'_inter']))
 			{
-				$Level	= $PLANET[$GLOBALS['ELEMENT'][31]['name']];
+				$Level	= $PLANET[$GLOBALS['VARS']['ELEMENT'][31]['name']];
 			} else {
 				$Level = 0;
-				foreach($PLANET[$GLOBALS['ELEMENT'][31]['name'].'_inter'] as $Levels)
+				foreach($PLANET[$GLOBALS['VARS']['ELEMENT'][31]['name'].'_inter'] as $Levels)
 				{
-					if($Levels >= $requeriments[$Element][31])
+					if($Levels >= $requeriments[$elementID][31])
 						$Level += $Levels;
 				}
 			}
 			
-			$time	= $elementCost / (1000 * (1 + $Level)) / ($CONF['game_speed'] / 2500) * pow(1 - $CONF['factor_university'] / 100, $PLANET[$GLOBALS['ELEMENT'][6]['name']]) * (1 + $USER['factor']['ResearchTime']);
+			$time	= $elementCost / (1000 * (1 + $Level)) / ($CONF['game_speed'] / 2500) * pow(1 - $CONF['factor_university'] / 100, $PLANET[$GLOBALS['VARS']['ELEMENT'][6]['name']]) * (1 + $USER['factor']['ResearchTime']);
 		}
 		
 		if($forDestroy) {
@@ -164,28 +168,28 @@ class BuildFunctions
 		return max($time, $CONF['min_build_time']);
 	}
 	
-	public static function isElementBuyable($USER, $PLANET, $Element, $elementPrice = NULL, $forDestroy = false, $forLevel = NULL)
+	public static function isElementBuyable($USER, $PLANET, $elementID, $elementPrice = NULL, $forDestroy = false, $forLevel = NULL)
 	{
-		$rest	= self::getRestPrice($USER, $PLANET, $Element, $elementPrice, $forDestroy, $forLevel);
+		$rest	= self::getRestPrice($USER, $PLANET, $elementID, $elementPrice, $forDestroy, $forLevel);
 		return count(array_filter($rest)) === 0;
 	}
 	
-	public static function getMaxConstructibleElements($USER, $PLANET, $Element, $elementPrice = NULL)
+	public static function getMaxConstructibleElements($USER, $PLANET, $elementID, $elementPrice = NULL)
 	{
 		global $resource, $reslist;
 		
 		if(!isset($elementPrice)) {
-			$elementPrice	= self::getElementPrice($USER, $PLANET, $Element);
+			$elementPrice	= self::getElementPrice($USER, $PLANET, $elementID);
 		}
 
 		$maxElement	= array();
 		
 		foreach($elementPrice as $resourceID => $price)
 		{
-			$maxElement[]	= floor($PLANET[$GLOBALS['ELEMENT'][$resourceID]['name']] / $price);
+			$maxElement[]	= floor($PLANET[$GLOBALS['VARS']['ELEMENT'][$resourceID]['name']] / $price);
 		}
 		
-		if(in_array($Element, $reslist['one'])) {
+		if(in_array($elementID, $reslist['one'])) {
 			$maxElement[]	= 1;
 		}
 		
@@ -198,16 +202,16 @@ class BuildFunctions
 
 		if(!isset($Missiles)) {
 			$Missiles			= array(
-				502	=> $PLANET[$GLOBALS['ELEMENT'][502]['name']],
-				503	=> $PLANET[$GLOBALS['ELEMENT'][503]['name']],
+				502	=> $PLANET[$GLOBALS['VARS']['ELEMENT'][502]['name']],
+				503	=> $PLANET[$GLOBALS['VARS']['ELEMENT'][503]['name']],
 			);
 		}
 		$BuildArray  	  	= !empty($PLANET['b_hangar_id']) ? unserialize($PLANET['b_hangar_id']) : array();
-		$MaxMissiles   		= $PLANET[$GLOBALS['ELEMENT'][44]['name']] * 10 * max($CONF['silo_factor'], 1);
+		$MaxMissiles   		= $PLANET[$GLOBALS['VARS']['ELEMENT'][44]['name']] * 10 * max($CONF['silo_factor'], 1);
 
-		foreach($BuildArray as $ElementArray) {
-			if(isset($Missiles[$ElementArray[0]]))
-				$Missiles[$ElementArray[0]] += $ElementArray[1];
+		foreach($BuildArray as $elementIDArray) {
+			if(isset($Missiles[$elementIDArray[0]]))
+				$Missiles[$elementIDArray[0]] += $elementIDArray[1];
 		}
 		
 		$ActuMissiles  = $Missiles[502] + (2 * $Missiles[503]);
@@ -219,7 +223,7 @@ class BuildFunctions
 		);
 	}
 	
-	public static function getAvalibleBonus($Element)
+	public static function getAvalibleBonus($elementID)
 	{
 		global $pricelist;
 			
@@ -227,10 +231,10 @@ class BuildFunctions
 		$elementBonus	= array();
 		
 		foreach($avalibleBonus as $bonus) {
-			if(empty($pricelist[$Element]['bonus'][$bonus]))
+			if(empty($pricelist[$elementID]['bonus'][$bonus]))
 				continue;
 				
-			$tmp	= (float) $pricelist[$Element]['bonus'][$bonus];
+			$tmp	= (float) $pricelist[$elementID]['bonus'][$bonus];
 			if(!empty($tmp)) {
 				$elementBonus[$bonus]	= $tmp;
 			}

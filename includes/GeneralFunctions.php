@@ -56,8 +56,9 @@ function getUniverse()
 	return $UNI;
 }
 
-function hasElementFlag($elementID, $flag) {
-	return ($GLOBALS['ELEMENT'][$elementID]['flag'] & $flag) === $flag;
+function elementHasFlag($elementID, $flag) {
+	#return ($GLOBALS['VARS']['ELEMENT'][$elementID]['flag'] & $flag) === $flag;
+	return isset($GLOBALS['VARS']['LIST'][$flag][$elementID]);
 }
 
 function getFactors($USER, $Type = 'basic', $TIME = NULL) {
@@ -84,55 +85,52 @@ function getFactors($USER, $Type = 'basic', $TIME = NULL) {
 		'Planets'			=> 0,
 	);
 	
-	foreach(array_keys($GLOBALS['ELEMENT']) as $elementID)
+	foreach(array_merge($GLOBALS['VARS']['LIST'][ELEMENT_BONUS], $GLOBALS['VARS']['LIST'][ELEMENT_OFFICIER]) as $elementID)
 	{
-		if(hasElementFlag($elementID, ELEMENT_OFFICIER) || hasElementFlag($elementID, ELEMENT_BONUS))
-		{
-			$bonus = $GLOBALS['ELEMENT'][$elementID]['bonus'];
+		$bonus = $GLOBALS['VARS']['ELEMENT'][$elementID]['bonus'];
 			
-			if (isset($PLANET[$GLOBALS['ELEMENT'][$elementID]['name']])) {
-				$elementLevel = $PLANET[$GLOBALS['ELEMENT'][$elementID]['name']];
-			} elseif (isset($USER[$GLOBALS['ELEMENT'][$elementID]['name']])) {
-				$elementLevel = $USER[$GLOBALS['ELEMENT'][$elementID]['name']];
-			} else {
+		if (isset($PLANET[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']])) {
+			$elementLevel = $PLANET[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']];
+		} elseif (isset($USER[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']])) {
+			$elementLevel = $USER[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']];
+		} else {
+			continue;
+		}
+		
+		if(elementHasFlag($elementID, ELEMENT_BONUS)) {
+			if(DMExtra($elementLevel, $TIME, false, true)) {
 				continue;
 			}
 			
-			if(hasElementFlag($elementID, ELEMENT_BONUS)) {
-				if(DMExtra($elementLevel, $TIME, false, true)) {
-					continue;
-				}
-				
-				$factor['Attack']			+= $bonus['Attack'];
-				$factor['Defensive']		+= $bonus['Defensive'];
-				$factor['Shield']			+= $bonus['Shield'];
-				$factor['BuildTime']		+= $bonus['BuildTime'];
-				$factor['ResearchTime']		+= $bonus['ResearchTime'];
-				$factor['ShipTime']			+= $bonus['ShipTime'];
-				$factor['DefensiveTime']	+= $bonus['DefensiveTime'];
-				$factor['Resource']			+= $bonus['Resource'];
-				$factor['Energy']			+= $bonus['Energy'];
-				$factor['ResourceStorage']	+= $bonus['ResourceStorage'];
-				$factor['ShipStorage']		+= $bonus['ShipStorage'];
-				$factor['FlyTime']			+= $bonus['FlyTime'];
-				$factor['FleetSlots']		+= $bonus['FleetSlots'];
-				$factor['Planets']			+= $bonus['Planets'];
-			} else {
-				$factor['Attack']			+= $elementLevel * $bonus['Attack'];
-				$factor['Defensive']		+= $elementLevel * $bonus['Defensive'];
-				$factor['Shield']			+= $elementLevel * $bonus['Shield'];
-				$factor['BuildTime']		+= $elementLevel * $bonus['BuildTime'];
-				$factor['ResearchTime']		+= $elementLevel * $bonus['ResearchTime'];
-				$factor['ShipTime']			+= $elementLevel * $bonus['ShipTime'];
-				$factor['DefensiveTime']	+= $elementLevel * $bonus['DefensiveTime'];
-				$factor['Resource']			+= $elementLevel * $bonus['Resource'];
-				$factor['Energy']			+= $elementLevel * $bonus['Energy'];
-				$factor['ResourceStorage']	+= $elementLevel * $bonus['ResourceStorage'];
-				$factor['ShipStorage']		+= $elementLevel * $bonus['ShipStorage'];
-				$factor['FlyTime']			+= $elementLevel * $bonus['FlyTime'];
-				$factor['FleetSlots']		+= $elementLevel * $bonus['FleetSlots'];
-				$factor['Planets']			+= $elementLevel * $bonus['Planets'];
-			}
+			$factor['Attack']			+= $bonus['Attack'];
+			$factor['Defensive']		+= $bonus['Defensive'];
+			$factor['Shield']			+= $bonus['Shield'];
+			$factor['BuildTime']		+= $bonus['BuildTime'];
+			$factor['ResearchTime']		+= $bonus['ResearchTime'];
+			$factor['ShipTime']			+= $bonus['ShipTime'];
+			$factor['DefensiveTime']	+= $bonus['DefensiveTime'];
+			$factor['Resource']			+= $bonus['Resource'];
+			$factor['Energy']			+= $bonus['Energy'];
+			$factor['ResourceStorage']	+= $bonus['ResourceStorage'];
+			$factor['ShipStorage']		+= $bonus['ShipStorage'];
+			$factor['FlyTime']			+= $bonus['FlyTime'];
+			$factor['FleetSlots']		+= $bonus['FleetSlots'];
+			$factor['Planets']			+= $bonus['Planets'];
+		} else {
+			$factor['Attack']			+= $elementLevel * $bonus['Attack'];
+			$factor['Defensive']		+= $elementLevel * $bonus['Defensive'];
+			$factor['Shield']			+= $elementLevel * $bonus['Shield'];
+			$factor['BuildTime']		+= $elementLevel * $bonus['BuildTime'];
+			$factor['ResearchTime']		+= $elementLevel * $bonus['ResearchTime'];
+			$factor['ShipTime']			+= $elementLevel * $bonus['ShipTime'];
+			$factor['DefensiveTime']	+= $elementLevel * $bonus['DefensiveTime'];
+			$factor['Resource']			+= $elementLevel * $bonus['Resource'];
+			$factor['Energy']			+= $elementLevel * $bonus['Energy'];
+			$factor['ResourceStorage']	+= $elementLevel * $bonus['ResourceStorage'];
+			$factor['ShipStorage']		+= $elementLevel * $bonus['ShipStorage'];
+			$factor['FlyTime']			+= $elementLevel * $bonus['FlyTime'];
+			$factor['FleetSlots']		+= $elementLevel * $bonus['FleetSlots'];
+			$factor['Planets']			+= $elementLevel * $bonus['Planets'];
 		}
 	}
 	
@@ -306,7 +304,7 @@ function message($mes, $dest = "", $time = "3", $topnav = false, $menu = true)
 function CalculateMaxPlanetFields($planet)
 {
 	global $resource;
-	return $planet['field_max'] + ($planet[$GLOBALS['ELEMENT'][33]['name']] * FIELDS_BY_TERRAFORMER) + ($planet[$GLOBALS['ELEMENT'][41]['name']] * FIELDS_BY_MOONBASIS_LEVEL);
+	return $planet['field_max'] + ($planet[$GLOBALS['VARS']['ELEMENT'][33]['name']] * FIELDS_BY_TERRAFORMER) + ($planet[$GLOBALS['VARS']['ELEMENT'][41]['name']] * FIELDS_BY_MOONBASIS_LEVEL);
 }
 
 function pretty_time($seconds)

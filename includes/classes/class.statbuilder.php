@@ -79,19 +79,19 @@ class statbuilder
 		$select_fleets		=	'';
 				
 		foreach($reslist['build'] as $Building){
-			$select_buildings	.= " p.".$GLOBALS['ELEMENT'][$Building]['name'].",";
+			$select_buildings	.= " p.".$GLOBALS['VARS']['ELEMENT'][$Building]['name'].",";
 		}
 		
 		foreach($reslist['tech'] as $Techno){
-			$selected_tech		.= " u.".$GLOBALS['ELEMENT'][$Techno]['name'].",";
+			$selected_tech		.= " u.".$GLOBALS['VARS']['ELEMENT'][$Techno]['name'].",";
 		}	
 		
 		foreach($reslist['fleet'] as $Fleet){
-			$select_fleets		.= " SUM(p.".$GLOBALS['ELEMENT'][$Fleet]['name'].") as ".$GLOBALS['ELEMENT'][$Fleet]['name'].",";
+			$select_fleets		.= " SUM(p.".$GLOBALS['VARS']['ELEMENT'][$Fleet]['name'].") as ".$GLOBALS['VARS']['ELEMENT'][$Fleet]['name'].",";
 		}	
 		
 		foreach($reslist['defense'] as $Defense){
-			$select_defenses	.= " SUM(p.".$GLOBALS['ELEMENT'][$Defense]['name'].") as ".$GLOBALS['ELEMENT'][$Defense]['name'].",";
+			$select_defenses	.= " SUM(p.".$GLOBALS['VARS']['ELEMENT'][$Defense]['name'].") as ".$GLOBALS['VARS']['ELEMENT'][$Defense]['name'].",";
 		}
 		
 		$FlyingFleets	= array();
@@ -161,17 +161,17 @@ class statbuilder
 
 		foreach($reslist['tech'] as $Techno) 
 		{
-			if($USER[$GLOBALS['ELEMENT'][$Techno]['name']] == 0) continue;
+			if($USER[$GLOBALS['VARS']['ELEMENT'][$Techno]['name']] == 0) continue;
 
-			$Units	= $pricelist[$Techno]['cost'][901] + $pricelist[$Techno]['cost'][902] + $pricelist[$Techno]['cost'][903];
-			for($Level = 1; $Level <= $USER[$GLOBALS['ELEMENT'][$Techno]['name']]; $Level++)
+			$Units	= $GLOBALS['VARS']['ELEMENT'][$Techno]['cost'][901] + $GLOBALS['VARS']['ELEMENT'][$Techno]['cost'][902] + $GLOBALS['VARS']['ELEMENT'][$Techno]['cost'][903];
+			for($Level = 1; $Level <= $USER[$GLOBALS['VARS']['ELEMENT'][$Techno]['name']]; $Level++)
 			{
 				$TechPoints	+= $Units * pow($pricelist[$Techno]['factor'], $Level);
 			}
 			
-			$TechCounts		+= $USER[$GLOBALS['ELEMENT'][$Techno]['name']];
+			$TechCounts		+= $USER[$GLOBALS['VARS']['ELEMENT'][$Techno]['name']];
 			
-			$this->setRecords($USER['id'], $Techno, $USER[$GLOBALS['ELEMENT'][$Techno]['name']]);
+			$this->setRecords($USER['id'], $Techno, $USER[$GLOBALS['VARS']['ELEMENT'][$Techno]['name']]);
 		}
 		
 		return array('count' => $TechCounts, 'points' => ($TechPoints / $CONF['stat_settings']));
@@ -185,17 +185,17 @@ class statbuilder
 		
 		foreach($reslist['build'] as $Build)
 		{
-			if($PLANET[$GLOBALS['ELEMENT'][$Build]['name']] == 0) continue;
+			if($PLANET[$GLOBALS['VARS']['ELEMENT'][$Build]['name']] == 0) continue;
 			
-			$Units			 = $pricelist[$Build]['cost'][901] + $pricelist[$Build]['cost'][902] + $pricelist[$Build]['cost'][903];
-			for($Level = 1; $Level <= $PLANET[$GLOBALS['ELEMENT'][$Build]['name']]; $Level++)
+			$Units			 = $GLOBALS['VARS']['ELEMENT'][$Build]['cost'][901] + $GLOBALS['VARS']['ELEMENT'][$Build]['cost'][902] + $GLOBALS['VARS']['ELEMENT'][$Build]['cost'][903];
+			for($Level = 1; $Level <= $PLANET[$GLOBALS['VARS']['ELEMENT'][$Build]['name']]; $Level++)
 			{
 				$BuildPoints	+= $Units * pow($pricelist[$Build]['factor'], $Level);
 			}
 			
-			$BuildCounts	+= $PLANET[$GLOBALS['ELEMENT'][$Build]['name']];
+			$BuildCounts	+= $PLANET[$GLOBALS['VARS']['ELEMENT'][$Build]['name']];
 			
-			$this->setRecords($PLANET['id_owner'], $Build, $PLANET[$GLOBALS['ELEMENT'][$Build]['name']]);
+			$this->setRecords($PLANET['id_owner'], $Build, $PLANET[$GLOBALS['VARS']['ELEMENT'][$Build]['name']]);
 		}
 		return array('count' => $BuildCounts, 'points' => ($BuildPoints / $CONF['stat_settings']));
 	}
@@ -207,13 +207,13 @@ class statbuilder
 		$DefensePoints = 0;
 				
 		foreach($reslist['defense'] as $Defense) {
-			if($USER[$GLOBALS['ELEMENT'][$Defense]['name']] == 0) continue;
+			if($USER[$GLOBALS['VARS']['ELEMENT'][$Defense]['name']] == 0) continue;
 			
-			$Units			= $pricelist[$Defense]['cost'][901] + $pricelist[$Defense]['cost'][902] + $pricelist[$Defense]['cost'][903];
-			$DefensePoints += $Units * $USER[$GLOBALS['ELEMENT'][$Defense]['name']];
-			$DefenseCounts += $USER[$GLOBALS['ELEMENT'][$Defense]['name']];
+			$Units			= $GLOBALS['VARS']['ELEMENT'][$Defense]['cost'][901] + $GLOBALS['VARS']['ELEMENT'][$Defense]['cost'][902] + $GLOBALS['VARS']['ELEMENT'][$Defense]['cost'][903];
+			$DefensePoints += $Units * $USER[$GLOBALS['VARS']['ELEMENT'][$Defense]['name']];
+			$DefenseCounts += $USER[$GLOBALS['VARS']['ELEMENT'][$Defense]['name']];
 		
-			$this->setRecords($USER['id'], $Defense, $USER[$GLOBALS['ELEMENT'][$Defense]['name']]);
+			$this->setRecords($USER['id'], $Defense, $USER[$GLOBALS['VARS']['ELEMENT'][$Defense]['name']]);
 		}
 		
 		return array('count' => $DefenseCounts, 'points' => ($DefensePoints / $CONF['stat_settings']));
@@ -226,13 +226,13 @@ class statbuilder
 		$FleetPoints = 0;
 	
 		foreach($reslist['fleet'] as $Fleet) {	
-			if($USER[$GLOBALS['ELEMENT'][$Fleet]['name']] == 0) continue;
+			if($USER[$GLOBALS['VARS']['ELEMENT'][$Fleet]['name']] == 0) continue;
 			
-			$Units			= $pricelist[$Fleet]['cost'][901] + $pricelist[$Fleet]['cost'][902] + $pricelist[$Fleet]['cost'][903];
-			$FleetPoints   += $Units * $USER[$GLOBALS['ELEMENT'][$Fleet]['name']];
-			$FleetCounts   += $USER[$GLOBALS['ELEMENT'][$Fleet]['name']];
+			$Units			= $GLOBALS['VARS']['ELEMENT'][$Fleet]['cost'][901] + $GLOBALS['VARS']['ELEMENT'][$Fleet]['cost'][902] + $GLOBALS['VARS']['ELEMENT'][$Fleet]['cost'][903];
+			$FleetPoints   += $Units * $USER[$GLOBALS['VARS']['ELEMENT'][$Fleet]['name']];
+			$FleetCounts   += $USER[$GLOBALS['VARS']['ELEMENT'][$Fleet]['name']];
 			
-			$this->setRecords($USER['id'], $Fleet, $USER[$GLOBALS['ELEMENT'][$Fleet]['name']]);
+			$this->setRecords($USER['id'], $Fleet, $USER[$GLOBALS['VARS']['ELEMENT'][$Fleet]['name']]);
 		}
 		
 		return array('count' => $FleetCounts, 'points' => ($FleetPoints / $CONF['stat_settings']));
@@ -400,7 +400,7 @@ class statbuilder
 
 			if(isset($TotalData['Fleets'][$UserData['id']])) {
 				foreach($TotalData['Fleets'][$UserData['id']] as $ID => $Amount)
-					$UserData[$GLOBALS['ELEMENT'][$ID]['name']]	+= $Amount;
+					$UserData[$GLOBALS['VARS']['ELEMENT'][$ID]['name']]	+= $Amount;
 			}
 			
 			$TechnoPoints		= $this->GetTechnoPoints($UserData);
