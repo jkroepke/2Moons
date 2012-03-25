@@ -68,41 +68,44 @@ class ShowImperiumPage extends AbstractPage
 		$this->tplObj->loadscript("trader.js");
 
         $planetList	= array();
+			
+		$elementIDs	= array_keys($GLOBALS['VARS']['ELEMENT']);
 
 		foreach($PLANETS as $Planet)
 		{
-			$planetList['name'][$Planet['id']]					= $Planet['name'];
-			$planetList['image'][$Planet['id']]					= $Planet['image'];
+			$planetID									= $Planet['id'];
+			$planetList['name'][$planetID]				= $Planet['name'];
+			$planetList['image'][$planetID]				= $Planet['image'];
 			
-			$planetList['coords'][$Planet['id']]['galaxy']		= $Planet['galaxy'];
-			$planetList['coords'][$Planet['id']]['system']		= $Planet['system'];
-			$planetList['coords'][$Planet['id']]['planet']		= $Planet['planet'];
+			$planetList['coords'][$planetID]['galaxy']	= $Planet['galaxy'];
+			$planetList['coords'][$planetID]['system']	= $Planet['system'];
+			$planetList['coords'][$planetID]['planet']	= $Planet['planet'];
 			
-			$planetList['field'][$Planet['id']]['current']		= $Planet['field_current'];
-			$planetList['field'][$Planet['id']]['max']			= CalculateMaxPlanetFields($Planet);
+			$planetList['field'][$planetID]['current']	= $Planet['field_current'];
+			$planetList['field'][$planetID]['max']		= CalculateMaxPlanetFields($Planet);
 			
-			$planetList['energy_used'][$Planet['id']]			= $Planet['energy'] + $Planet['energy_used'];
-
-           
-			$planetList['resource'][901][$Planet['id']]			= $Planet['metal'];
-			$planetList['resource'][902][$Planet['id']]			= $Planet['crystal'];
-			$planetList['resource'][903][$Planet['id']]			= $Planet['deuterium'];
-			$planetList['resource'][911][$Planet['id']]			= $Planet['energy'];
+			$planetList['energy_used'][$planetID]		= $Planet['energy'] + $Planet['energy_used'];
 			
-			foreach($reslist['build'] as $elementID) {
-				$planetList['build'][$elementID][$Planet['id']]	= $Planet[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']];
-			}
-			
-			foreach($reslist['fleet'] as $elementID) {
-				$planetList['fleet'][$elementID][$Planet['id']]	= $Planet[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']];
-			}
-			
-			foreach($reslist['defense'] as $elementID) {
-				$planetList['defense'][$elementID][$Planet['id']]	= $Planet[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']];
+			foreach($elementIDs as $elementID)
+			{
+				if(elementHasFlag($elementID, ELEMENT_PLANET_RESOURCE) || elementHasFlag($elementID, ELEMENT_ENERGY))
+				{
+					$list	= 'resource';
+				} elseif(elementHasFlag($elementID, ELEMENT_BUILD)) {
+					$list	= 'build';
+				} elseif(elementHasFlag($elementID, ELEMENT_FLEET)) {
+					$list	= 'fleet';
+				} elseif(elementHasFlag($elementID, ELEMENT_DEFENSIVE)) {
+					$list	= 'defense';
+				} else {
+					continue;
+				}
+				
+				$planetList[$list][$elementID][$planetID]	= $Planet[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']];
 			}
 		}
-
-		foreach($reslist['tech'] as $elementID){
+		
+		foreach($GLOBALS['VARS']['LIST'][ELEMENT_TECH] as $elementID) {
 			$planetList['tech'][$elementID]	= $USER[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']];
 		}
 		

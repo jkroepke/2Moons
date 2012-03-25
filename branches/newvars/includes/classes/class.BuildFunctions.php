@@ -100,10 +100,10 @@ class BuildFunctions
 	{
 		global $requeriments, $resource;
 		
-		if(!isset($requeriments[$elementID]))
+		if(!isset($GLOBALS['VARS']['ELEMENT'][$elementID]['require']))
 			return true;		
 
-		foreach($requeriments[$elementID] as $ReqElement => $EleLevel)
+		foreach($GLOBALS['VARS']['ELEMENT'][$elementID]['require'] as $ReqElement => $EleLevel)
 		{
 			if (
 				(isset($USER[$GLOBALS['VARS']['ELEMENT'][$ReqElement]['name']]) && $USER[$GLOBALS['VARS']['ELEMENT'][$ReqElement]['name']] < $EleLevel) || 
@@ -151,7 +151,7 @@ class BuildFunctions
 				$Level = 0;
 				foreach($PLANET[$GLOBALS['VARS']['ELEMENT'][31]['name'].'_inter'] as $Levels)
 				{
-					if($Levels >= $requeriments[$elementID][31])
+					if($Levels >= $GLOBALS['VARS']['ELEMENT'][$elementID]['require'][31])
 						$Level += $Levels;
 				}
 			}
