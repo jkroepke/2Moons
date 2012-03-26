@@ -32,8 +32,13 @@
 	<td><a href="game.php?page=galaxy&amp;galaxy={$FlyingFleetRow.startGalaxy}&amp;system={$FlyingFleetRow.startSystem}">[{$FlyingFleetRow.startGalaxy}:{$FlyingFleetRow.startSystem}:{$FlyingFleetRow.startPlanet}]</a></td>
 	<td>{$FlyingFleetRow.startTime}</td>
 	<td><a href="game.php?page=galaxy&amp;galaxy={$FlyingFleetRow.endGalaxy}&amp;system={$FlyingFleetRow.endSystem}">[{$FlyingFleetRow.endGalaxy}:{$FlyingFleetRow.endSystem}:{$FlyingFleetRow.endPlanet}]</a></td>
+	{if $FlyingFleetRow.mission == 4}
+	<td>-</td>
+	<td style="color:lime">-</td>
+	{else}
 	<td>{$FlyingFleetRow.endTime}</td>
 	<td style="color:lime">{$FlyingFleetRow.backin}</td>
+	{/if}
 	<td>
 	{if !$isVacation && $FlyingFleetRow.state != 1}
 		<form action="game.php?page=fleetTable&amp;action=sendfleetback" method="post">
