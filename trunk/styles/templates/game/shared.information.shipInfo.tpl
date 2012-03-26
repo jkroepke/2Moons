@@ -1,5 +1,11 @@
 <table style="width:100%;">
 	<tbody>
+		{if !empty($FleetInfo.tech)}
+		<tr>
+			<td style="width:50%">{$LNG.in_engine}</td>
+			<td style="width:50%">{if $FleetInfo.tech == 1}{$LNG.tech.115}{elseif $FleetInfo.tech == 2}{$LNG.tech.117}{elseif $FleetInfo.tech == 3}{$LNG.tech.118}{elseif $FleetInfo.tech == 4}{$LNG.tech.115} <span style="color:yellow">({$LNG.tech.117})</span>{elseif $FleetInfo.tech == 3}{$LNG.tech.117} <span style="color:yellow">({$LNG.tech.118})</span>{else}-{/if}</td>
+		</tr>
+		{/if}
 		<tr>
 			<td style="width:50%">{$LNG.in_struct_pt}</td>
 			<td style="width:50%">{$FleetInfo.structure|number}</td>
@@ -30,3 +36,5 @@
 			<td style="width:50%">{$FleetInfo.consumption1|number}{if $FleetInfo.consumption1 != $FleetInfo.consumption2} <span style="color:yellow">({$FleetInfo.consumption2|number})</span>{/if}</td>
 		</tr>
 		{/if}
+	</tbody>
+</table>

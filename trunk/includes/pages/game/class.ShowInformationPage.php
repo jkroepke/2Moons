@@ -240,6 +240,7 @@ class ShowInformationPage extends AbstractPage
 		{
 			$FleetInfo	= array(
 				'structure'		=> $pricelist[$elementID]['cost'][901] + $pricelist[$elementID]['cost'][902],
+				'tech'			=> $pricelist[$elementID]['tech'],
 				'attack'		=> $CombatCaps[$elementID]['attack'],
 				'shield'		=> $CombatCaps[$elementID]['shield'],
 				'capacity'		=> $pricelist[$elementID]['capacity'],

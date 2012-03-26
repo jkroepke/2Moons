@@ -37,12 +37,16 @@ if (isset($_POST['GLOBALS']) || isset($_GET['GLOBALS'])) {
 }
 
 // Magic Quotes work around.
+// http://www.php.net/manual/de/security.magicquotes.disabling.php#91585
 if (function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc() == 1) {
-	foreach($_GET as $k => $v) $_GET[$k] = stripslashes($v);
-	foreach($_POST as $k => $v) $_POST[$k] = stripslashes($v);
-	foreach($_COOKIE as $k => $v) $_COOKIE[$k] = stripslashes($v);
-	
-    $_REQUEST	= array_merge($_GET, $_POST);
+    function stripslashes_gpc(&$value)
+    {
+        $value = stripslashes($value);
+    }
+    array_walk_recursive($_GET, 'stripslashes_gpc');
+    array_walk_recursive($_POST, 'stripslashes_gpc');
+    array_walk_recursive($_COOKIE, 'stripslashes_gpc');
+    array_walk_recursive($_REQUEST, 'stripslashes_gpc');
 }
 
 if (function_exists('mb_internal_encoding')) {

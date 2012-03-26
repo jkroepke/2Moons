@@ -48,13 +48,18 @@ function ShowRightsPage()
 					exit;
 				}
 				
+				if(!isset($_POST['rights'])) {
+					$_POST['rights']	= array();
+				}
+				
 				if($_POST['action'] == 'send') {
 					$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET `rights` = '".serialize(array_map('intval', $_POST['rights']))."' WHERE `id` = '".$id."';");
 				}
 				
 				$Rights	= $GLOBALS['DATABASE']->uniquequery("SELECT rights FROM ".USERS." WHERE `id` = '".$id."';");
-				if(($Rights['rights'] = unserialize($Rights['rights'])) === false)
+				if(($Rights['rights'] = unserialize($Rights['rights'])) === false) {
 					$Rights['rights']	= array();
+				}
 				
 				$Files	= array_map('prepare', array_diff(scandir(ROOT_PATH.'includes/pages/adm/'), array('.', '..', '.svn', 'index.html', '.htaccess', 'ShowIndexPage.php', 'ShowOverviewPage.php', 'ShowMenuPage.php', 'ShowTopnavPage.php')));
 				
