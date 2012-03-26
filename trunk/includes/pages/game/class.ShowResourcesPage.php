@@ -42,6 +42,10 @@ class ShowResourcesPage extends AbstractPage
 		if ($USER['urlaubs_modus'] == 0)
 		{
 			$updateSQL	= array();
+			if(!isset($_POST['prod']))
+				$_POST['prod'] = array();
+				
+				
 			foreach($_POST['prod'] as $ressourceID => $Value)
 			{
 				$FieldName = $resource[$ressourceID].'_porcent';
