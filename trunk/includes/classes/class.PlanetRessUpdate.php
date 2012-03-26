@@ -67,6 +67,9 @@ class ResourceUpdate
 		$Hash[]	= $this->PLANET[$resource[22]];
 		$Hash[]	= $this->PLANET[$resource[23]];
 		$Hash[]	= $this->PLANET[$resource[24]];
+		$Hash[]	= $this->USER[$resource[131]];
+		$Hash[]	= $this->USER[$resource[132]];
+		$Hash[]	= $this->USER[$resource[133]];
 		return md5(implode("::", $Hash));
 	}
 	
@@ -276,9 +279,9 @@ class ResourceUpdate
 		} else {
 			$prodLevel	= min(1, $this->PLANET['energy'] / abs($this->PLANET['energy_used']));
 			
-			$this->PLANET['metal_perhour']		= ($temp[901]['plus'] * (1 + $this->USER['factor']['Resource']) * $prodLevel + $temp[901]['minus']) * $this->CONF['resource_multiplier'];
-			$this->PLANET['crystal_perhour']	= ($temp[902]['plus'] * (1 + $this->USER['factor']['Resource']) * $prodLevel + $temp[902]['minus']) * $this->CONF['resource_multiplier'];
-			$this->PLANET['deuterium_perhour']	= ($temp[903]['plus'] * (1 + $this->USER['factor']['Resource']) * $prodLevel + $temp[903]['minus']) * $this->CONF['resource_multiplier'];
+			$this->PLANET['metal_perhour']		= ($temp[901]['plus'] * (1 + $this->USER['factor']['Resource'] + 0.02 * $this->USER[$resource[131]]) * $prodLevel + $temp[901]['minus']) * $this->CONF['resource_multiplier'];
+			$this->PLANET['crystal_perhour']	= ($temp[902]['plus'] * (1 + $this->USER['factor']['Resource'] + 0.02 * $this->USER[$resource[132]]) * $prodLevel + $temp[902]['minus']) * $this->CONF['resource_multiplier'];
+			$this->PLANET['deuterium_perhour']	= ($temp[903]['plus'] * (1 + $this->USER['factor']['Resource'] + 0.02 * $this->USER[$resource[133]]) * $prodLevel + $temp[903]['minus']) * $this->CONF['resource_multiplier'];
 		}
 	}
 	
