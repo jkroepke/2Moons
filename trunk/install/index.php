@@ -347,7 +347,7 @@ switch ($step) {
 			);
 			
 			update_config(array(
-				'timezone'			=> date_default_timezone_get(),
+				'timezone'			=> @date_default_timezone_get(),
 				'lang'				=> $LANG->GetUser(),
 				'OverviewNewsText'	=> $LNG['sql_welcome'].'1.7',
 				'uni_name'			=> $LNG['fcm_universe'].' 1',

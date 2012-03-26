@@ -96,7 +96,8 @@ if (MODE !== 'INSTALL')
 	unset($database);
 
 	$CONF		= getConfig($UNI);
-
+	date_default_timezone_set($CONF['timezone']);
+	
 	$LANG->setDefault($CONF['lang']);
 
 	require(ROOT_PATH.'includes/vars.php');
