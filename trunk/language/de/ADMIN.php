@@ -859,12 +859,9 @@ $LNG['se_search_edit']		= 'Bearbeiten';
 $LNG['se_delete_succes_p']	= 'Erfolgreich gelöscht';
 $LNG['se_confirm_planet']	= 'Der gew&auml;hlte Planet wird komplett zurückgesetzt. Möchtest du fortfahren? Planetenname: ';
 
-$SE_ID		=	"ID";
-$SE_NAME	=	"Name";
-
 // BÚSQUEDA EN TABLA DE USUARIOS
-$LNG['se_search_users'][0]	=	$SE_ID;
-$LNG['se_search_users'][1]	=	$SE_NAME;
+$LNG['se_search_users'][0]	= 'ID';
+$LNG['se_search_users'][1]	= 'Name';
 $LNG['se_search_users'][2]	= 'E-Mail';
 $LNG['se_search_users'][3]	= 'Letzte Aktivit&auml;t';
 $LNG['se_search_users'][4]	= 'Registrierungsdatum';
@@ -874,8 +871,8 @@ $LNG['se_search_users'][7]	= 'Gesperrt';
 $LNG['se_search_users'][8]	= 'Urlaubsmodus';
 
 // BÚSQUEDA EN TABLA DE PLANETAS
-$LNG['se_search_planets'][0]	=	$SE_ID;
-$LNG['se_search_planets'][1]	=	$SE_NAME;
+$LNG['se_search_planets'][0]	=	'ID';
+$LNG['se_search_planets'][1]	=	'Name';
 $LNG['se_search_planets'][2]	=	"Besitzer";
 $LNG['se_search_planets'][3]	=	"Letzte Aktivit&auml;t";
 $LNG['se_search_planets'][4]	=	"Galaxie";
@@ -884,16 +881,16 @@ $LNG['se_search_planets'][6]	=	"Planet";
 $LNG['se_search_planets'][7]	=	"Mond";
 
 // BÚSQUEDA EN TABLA DE SUSPENDIDOS
-$LNG['se_search_banned'][0]	=	$SE_ID;
-$LNG['se_search_banned'][1]	=	$SE_NAME;
+$LNG['se_search_banned'][0]	=	'ID';
+$LNG['se_search_banned'][1]	=	'Name';
 $LNG['se_search_banned'][2]	=	"Geperrt von";
 $LNG['se_search_banned'][3]	=	"Gespert bis";
 $LNG['se_search_banned'][4]	=	"Grund";
 $LNG['se_search_banned'][5]	=	"Autor";
 
 // BÚSQUEDA EN TABLA DE LA ALIANZA
-$LNG['se_search_alliance'][0]	=	$SE_ID;
-$LNG['se_search_alliance'][1]	=	$SE_NAME;
+$LNG['se_search_alliance'][0]	=	'ID';
+$LNG['se_search_alliance'][1]	=	'Name';
 $LNG['se_search_alliance'][2]	=	"TAG";
 $LNG['se_search_alliance'][3]	=	"Führer";
 $LNG['se_search_alliance'][4]	=	"Gründungsdatum";
