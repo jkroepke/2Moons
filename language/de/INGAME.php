@@ -483,7 +483,7 @@ $LNG['in_needed']      						= 'Benötigt';
 $LNG['in_dest_durati'] 						= 'Dauer';
 $LNG['in_missilestype'] 					= 'Raketentyp';
 $LNG['in_missilesamount'] 					= 'Vorhanden';
-$LNG['in_destroyamount'] 					= 'Abreißen';
+$LNG['in_engine'] 							= 'Antrieb';
 
 //----------------------------------------------------------------------------//
 //MESSAGES

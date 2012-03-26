@@ -31,8 +31,9 @@ define('MODE', 'INDEX');
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 
 if(!file_exists(ROOT_PATH.'includes/config.php')) {
-	header('Location: install/index.php');
-	exit;
+	require(ROOT_PATH . 'includes/constants.php');
+	require(ROOT_PATH . 'includes/classes/HTTP.class.php');
+	HTTP::redirectTo("install/index.php");
 }
 
 require(ROOT_PATH . 'includes/common.php');
