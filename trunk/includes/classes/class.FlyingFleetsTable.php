@@ -237,7 +237,7 @@ class FlyingFleetsTable
 				$FRessource  .= '<tr><td style=\'width:50%;color:white\'>'.$LNG['tech'][921].'</td><td style=\'width:50%;color:white\'>'. pretty_number($fleetRow['fleet_resource_darkmatter']).'</td></tr>';
 			$FRessource  .= '</table>';
 			
-			$MissionPopup  = '<a name="'.$FRessource.'" class="tooltip '.$FleetType.'">'.$Texte.'</a>';
+			$MissionPopup  = '<a data-tooltip-content="'.$FRessource.'" class="tooltip '.$FleetType.'">'.$Texte.'</a>';
 		}
 		else
 			$MissionPopup  = $Texte;
@@ -251,7 +251,7 @@ class FlyingFleetsTable
 		$SpyTech		= $USER[$resource[106]];
 		$Owner			= $fleetRow['fleet_owner'] == $this->UserID;
 		$FleetRec		= explode(';', $fleetRow['fleet_array']);
-		$FleetPopup		= '<a href="#" name="<table style=\'width:200px\'>';
+		$FleetPopup		= '<a href="#" data-tooltip-content="<table style=\'width:200px\'>';
 		if ($this->IsPhalanx || $SpyTech >= 4 || $Owner)
 		{
 			if($SpyTech < 8 && !$Owner)
