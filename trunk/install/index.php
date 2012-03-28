@@ -337,7 +337,14 @@ switch ($step) {
 		require_once(ROOT_PATH . 'includes/classes/class.Database.php');
 		$GLOBALS['DATABASE']	= new Database();
 		try {
-			$GLOBALS['DATABASE']->multi_query(str_replace("prefix_", $database['tableprefix'], file_get_contents('install.sql')));
+			$GLOBALS['DATABASE']->multi_query(str_replace(
+			array(
+				'%PREFIX%',
+				'%VERSION%',
+			), array(
+				$database['tableprefix'],
+				file_get_contents('VERSION'),
+			), file_get_contents('install.sql')));
 			$GLOBALS['CONF']	= array(
 				'timezone'			=> 0,
 				'lang'				=> '',

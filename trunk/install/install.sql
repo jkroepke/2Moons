@@ -34,7 +34,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 
-CREATE TABLE IF NOT EXISTS `prefix_alliance_request` (
+CREATE TABLE IF NOT EXISTS `%PREFIX%alliance_request` (
   `applyID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `text` text NOT NULL,
   `userID` int(10) unsigned NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `prefix_alliance_request` (
   KEY `allianceID` (`allianceID`,`userID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
-CREATE TABLE IF NOT EXISTS `prefix_aks` (
+CREATE TABLE IF NOT EXISTS `%PREFIX%aks` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT NULL,
   `target` int(11) unsigned NOT NULL,
@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `prefix_aks` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
-CREATE TABLE IF NOT EXISTS `prefix_alliance` (
+CREATE TABLE IF NOT EXISTS `%PREFIX%alliance` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `ally_name` varchar(50) DEFAULT '',
   `ally_tag` varchar(20) DEFAULT '',
@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `prefix_alliance` (
   KEY `ally_universe` (`ally_universe`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
-CREATE TABLE IF NOT EXISTS `prefix_alliance_ranks` (
+CREATE TABLE IF NOT EXISTS `%PREFIX%alliance_ranks` (
   `rankID` int(11) NOT NULL AUTO_INCREMENT,
   `rankName` varchar(32) NOT NULL,
   `allianceID` int(10) unsigned NOT NULL,
@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS `prefix_alliance_ranks` (
   KEY `allianceID` (`allianceID`,`rankID`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
-CREATE TABLE IF NOT EXISTS `prefix_alliance_request` (
+CREATE TABLE IF NOT EXISTS `%PREFIX%alliance_request` (
   `applyID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `text` text NOT NULL,
   `userID` int(10) unsigned NOT NULL,
@@ -104,7 +104,7 @@ CREATE TABLE IF NOT EXISTS `prefix_alliance_request` (
   KEY `allianceID` (`allianceID`,`userID`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
-CREATE TABLE IF NOT EXISTS `prefix_banned` (
+CREATE TABLE IF NOT EXISTS `%PREFIX%banned` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `who` varchar(64) NOT NULL DEFAULT '',
   `theme` varchar(500) NOT NULL,
@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS `prefix_banned` (
   KEY `universe` (`universe`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
-CREATE TABLE IF NOT EXISTS `prefix_buddy` (
+CREATE TABLE IF NOT EXISTS `%PREFIX%buddy` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `sender` int(11) unsigned NOT NULL DEFAULT '0',
   `owner` int(11) unsigned NOT NULL DEFAULT '0',
@@ -127,26 +127,26 @@ CREATE TABLE IF NOT EXISTS `prefix_buddy` (
   KEY `sender` (`sender`,`owner`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
-CREATE TABLE IF NOT EXISTS `prefix_buddy_request` (
+CREATE TABLE IF NOT EXISTS `%PREFIX%buddy_request` (
   `id` int(11) unsigned NOT NULL,
   `text` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `prefix_chat_bans` (
+CREATE TABLE IF NOT EXISTS `%PREFIX%chat_bans` (
   `userID` int(11) NOT NULL,
   `userName` varchar(64) NOT NULL,
   `dateTime` datetime NOT NULL,
   `ip` varbinary(16) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `prefix_chat_invitations` (
+CREATE TABLE IF NOT EXISTS `%PREFIX%chat_invitations` (
   `userID` int(11) NOT NULL,
   `channel` int(11) NOT NULL,
   `dateTime` datetime NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `prefix_chat_messages` (
+CREATE TABLE IF NOT EXISTS `%PREFIX%chat_messages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userID` int(11) NOT NULL,
   `userName` varchar(64) NOT NULL,
@@ -158,7 +158,7 @@ CREATE TABLE IF NOT EXISTS `prefix_chat_messages` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
-CREATE TABLE IF NOT EXISTS `prefix_chat_online` (
+CREATE TABLE IF NOT EXISTS `%PREFIX%chat_online` (
   `userID` int(11) NOT NULL,
   `userName` varchar(64) NOT NULL,
   `userRole` int(1) NOT NULL,
@@ -168,7 +168,7 @@ CREATE TABLE IF NOT EXISTS `prefix_chat_online` (
   KEY `dateTime` (`dateTime`,`channel`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `prefix_config` (
+CREATE TABLE IF NOT EXISTS `%PREFIX%config` (
   `uni` int(11) NOT NULL AUTO_INCREMENT,
   `VERSION` varchar(8) NOT NULL,
   `users_amount` int(11) unsigned NOT NULL DEFAULT '1',
@@ -294,7 +294,7 @@ CREATE TABLE IF NOT EXISTS `prefix_config` (
   PRIMARY KEY (`uni`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
-CREATE TABLE IF NOT EXISTS `prefix_diplo` (
+CREATE TABLE IF NOT EXISTS `%PREFIX%diplo` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `owner_1` int(11) unsigned NOT NULL,
   `owner_2` int(11) unsigned NOT NULL,
@@ -307,7 +307,7 @@ CREATE TABLE IF NOT EXISTS `prefix_diplo` (
   KEY `universe` (`universe`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
-CREATE TABLE IF NOT EXISTS `prefix_fleets` (
+CREATE TABLE IF NOT EXISTS `%PREFIX%fleets` (
   `fleet_id` bigint(11) unsigned NOT NULL AUTO_INCREMENT,
   `fleet_owner` int(11) unsigned NOT NULL DEFAULT '0',
   `fleet_mission` tinyint(3) unsigned NOT NULL DEFAULT '3',
@@ -343,7 +343,7 @@ CREATE TABLE IF NOT EXISTS `prefix_fleets` (
   KEY `fleet_group` (`fleet_group`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
-CREATE TABLE IF NOT EXISTS `prefix_fleet_event` (
+CREATE TABLE IF NOT EXISTS `%PREFIX%fleet_event` (
   `fleetID` int(11) NOT NULL,
   `time` int(11) NOT NULL,
   `lock` varchar(32) DEFAULT NULL,
@@ -351,7 +351,7 @@ CREATE TABLE IF NOT EXISTS `prefix_fleet_event` (
   KEY `lock` (`lock`,`time`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `prefix_log` (
+CREATE TABLE IF NOT EXISTS `%PREFIX%log` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `mode` tinyint(3) unsigned NOT NULL,
   `admin` int(11) unsigned NOT NULL,
@@ -363,7 +363,7 @@ CREATE TABLE IF NOT EXISTS `prefix_log` (
   KEY `mode` (`mode`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
-CREATE TABLE IF NOT EXISTS `prefix_log_fleets` (
+CREATE TABLE IF NOT EXISTS `%PREFIX%log_fleets` (
   `fleet_id` bigint(11) unsigned NOT NULL,
   `fleet_owner` int(11) unsigned NOT NULL DEFAULT '0',
   `fleet_mission` tinyint(3) unsigned NOT NULL DEFAULT '3',
@@ -398,7 +398,7 @@ CREATE TABLE IF NOT EXISTS `prefix_log_fleets` (
   KEY `BashRule` (`fleet_owner`,`fleet_end_id`,`fleet_start_time`,`fleet_mission`,`fleet_state`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `prefix_messages` (
+CREATE TABLE IF NOT EXISTS `%PREFIX%messages` (
   `message_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `message_owner` int(11) unsigned NOT NULL DEFAULT '0',
   `message_sender` int(11) unsigned NOT NULL DEFAULT '0',
@@ -414,7 +414,7 @@ CREATE TABLE IF NOT EXISTS `prefix_messages` (
   KEY `message_owner` (`message_owner`,`message_type`,`message_unread`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
-CREATE TABLE IF NOT EXISTS `prefix_news` (
+CREATE TABLE IF NOT EXISTS `%PREFIX%news` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `user` varchar(64) NOT NULL,
   `date` int(11) NOT NULL,
@@ -423,7 +423,7 @@ CREATE TABLE IF NOT EXISTS `prefix_news` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
-CREATE TABLE IF NOT EXISTS `prefix_notes` (
+CREATE TABLE IF NOT EXISTS `%PREFIX%notes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `owner` int(11) unsigned DEFAULT NULL,
   `time` int(11) DEFAULT NULL,
@@ -436,7 +436,7 @@ CREATE TABLE IF NOT EXISTS `prefix_notes` (
   KEY `owner` (`owner`,`time`,`priority`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
-CREATE TABLE IF NOT EXISTS `prefix_pay` (
+CREATE TABLE IF NOT EXISTS `%PREFIX%pay` (
   `key` varchar(32) NOT NULL,
   `userID` int(11) NOT NULL,
   `amount` int(11) NOT NULL,
@@ -447,7 +447,7 @@ CREATE TABLE IF NOT EXISTS `prefix_pay` (
   KEY `key` (`key`,`method`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `prefix_planets` (
+CREATE TABLE IF NOT EXISTS `%PREFIX%planets` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(20) DEFAULT 'Hauptplanet',
   `id_owner` int(11) unsigned DEFAULT NULL,
@@ -549,7 +549,7 @@ CREATE TABLE IF NOT EXISTS `prefix_planets` (
   KEY `universe` (`universe`,`galaxy`,`system`,`planet`,`planet_type`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
-CREATE TABLE IF NOT EXISTS `prefix_raports` (
+CREATE TABLE IF NOT EXISTS `%PREFIX%raports` (
   `rid` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `raport` text NOT NULL,
   `time` int(11) NOT NULL,
@@ -557,13 +557,13 @@ CREATE TABLE IF NOT EXISTS `prefix_raports` (
   KEY `time` (`time`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
-CREATE TABLE IF NOT EXISTS `prefix_records` (
+CREATE TABLE IF NOT EXISTS `%PREFIX%records` (
   `userID` int(10) unsigned NOT NULL,
   `elementID` smallint(5) unsigned NOT NULL,
   `level` bigint(20) unsigned NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `prefix_session` (
+CREATE TABLE IF NOT EXISTS `%PREFIX%session` (
   `sessionID` varchar(32) NOT NULL,
   `userID` int(10) unsigned NOT NULL,
   `userIP` varchar(40) NOT NULL,
@@ -571,7 +571,7 @@ CREATE TABLE IF NOT EXISTS `prefix_session` (
   PRIMARY KEY (`sessionID`,`userID`)
 ) ENGINE=MEMORY DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `prefix_shortcuts` (
+CREATE TABLE IF NOT EXISTS `%PREFIX%shortcuts` (
   `shortcutID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `ownerID` int(10) unsigned NOT NULL,
   `name` varchar(32) NOT NULL,
@@ -583,7 +583,7 @@ CREATE TABLE IF NOT EXISTS `prefix_shortcuts` (
   KEY `ownerID` (`ownerID`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
-CREATE TABLE IF NOT EXISTS `prefix_statpoints` (
+CREATE TABLE IF NOT EXISTS `%PREFIX%statpoints` (
   `id_owner` int(11) unsigned NOT NULL DEFAULT '0',
   `id_ally` int(11) unsigned NOT NULL DEFAULT '0',
   `stat_type` tinyint(1) unsigned NOT NULL DEFAULT '0',
@@ -613,7 +613,7 @@ CREATE TABLE IF NOT EXISTS `prefix_statpoints` (
   KEY `stat_type` (`stat_type`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `prefix_ticket` (
+CREATE TABLE IF NOT EXISTS `%PREFIX%ticket` (
   `ticketID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `universe` tinyint(3) unsigned NOT NULL,
   `ownerID` int(10) unsigned NOT NULL,
@@ -626,7 +626,7 @@ CREATE TABLE IF NOT EXISTS `prefix_ticket` (
   KEY `universe` (`universe`,`status`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
-CREATE TABLE IF NOT EXISTS `prefix_ticket_answer` (
+CREATE TABLE IF NOT EXISTS `%PREFIX%ticket_answer` (
   `answerID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `ownerID` int(10) unsigned NOT NULL,
   `ownerName` varchar(32) NOT NULL,
@@ -637,13 +637,13 @@ CREATE TABLE IF NOT EXISTS `prefix_ticket_answer` (
   PRIMARY KEY (`answerID`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
-CREATE TABLE IF NOT EXISTS `prefix_ticket_category` (
+CREATE TABLE IF NOT EXISTS `%PREFIX%ticket_category` (
   `categoryID` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
   PRIMARY KEY (`categoryID`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
-CREATE TABLE IF NOT EXISTS `prefix_topkb` (
+CREATE TABLE IF NOT EXISTS `%PREFIX%topkb` (
   `rid` int(11) unsigned NOT NULL,
   `units` double(50,0) unsigned NOT NULL,
   `result` varchar(1) NOT NULL,
@@ -652,7 +652,7 @@ CREATE TABLE IF NOT EXISTS `prefix_topkb` (
   KEY `time` (`universe`,`rid`,`time`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `prefix_users` (
+CREATE TABLE IF NOT EXISTS `%PREFIX%users` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(32) NOT NULL DEFAULT '',
   `password` varchar(60) NOT NULL DEFAULT '',
@@ -754,14 +754,14 @@ CREATE TABLE IF NOT EXISTS `prefix_users` (
   KEY `ally_id` (`ally_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
-CREATE TABLE IF NOT EXISTS `prefix_users_to_acs` (
+CREATE TABLE IF NOT EXISTS `%PREFIX%users_to_acs` (
   `userID` int(10) unsigned NOT NULL,
   `acsID` int(10) unsigned NOT NULL,
   KEY `userID` (`userID`),
   KEY `acsID` (`acsID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `prefix_users_to_extauth` (
+CREATE TABLE IF NOT EXISTS `%PREFIX%users_to_extauth` (
   `id` int(11) NOT NULL,
   `account` varchar(64) NOT NULL,
   `mode` varchar(32) NOT NULL,
@@ -770,14 +770,14 @@ CREATE TABLE IF NOT EXISTS `prefix_users_to_extauth` (
   KEY `account` (`account`,`mode`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `prefix_users_to_topkb` (
+CREATE TABLE IF NOT EXISTS `%PREFIX%users_to_topkb` (
   `rid` int(11) NOT NULL,
   `uid` int(11) NOT NULL,
   `role` tinyint(1) NOT NULL,
   KEY `rid` (`rid`,`role`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `prefix_users_valid` (
+CREATE TABLE IF NOT EXISTS `%PREFIX%users_valid` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(64) NOT NULL DEFAULT '',
   `cle` varchar(30) NOT NULL,
@@ -793,7 +793,7 @@ CREATE TABLE IF NOT EXISTS `prefix_users_valid` (
   UNIQUE KEY `cle` (`cle`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
-CREATE TABLE IF NOT EXISTS `prefix_vars` (
+CREATE TABLE IF NOT EXISTS `%PREFIX%vars` (
   `elementID` smallint(5) unsigned NOT NULL,
   `name` varchar(32) NOT NULL,
   `class` int(11) NOT NULL,
@@ -841,7 +841,7 @@ CREATE TABLE IF NOT EXISTS `prefix_vars` (
   KEY `class` (`class`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `prefix_vars_rapidfire` (
+CREATE TABLE IF NOT EXISTS `%PREFIX%vars_rapidfire` (
   `elementID` int(11) NOT NULL,
   `rapidfireID` int(11) NOT NULL,
   `shoots` int(11) NOT NULL,
@@ -849,7 +849,7 @@ CREATE TABLE IF NOT EXISTS `prefix_vars_rapidfire` (
   KEY `rapidfireID` (`rapidfireID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `prefix_vars_requriements` (
+CREATE TABLE IF NOT EXISTS `%PREFIX%vars_requriements` (
   `elementID` int(11) NOT NULL,
   `requireID` int(11) NOT NULL,
   `requireLevel` int(11) NOT NULL,
@@ -857,13 +857,13 @@ CREATE TABLE IF NOT EXISTS `prefix_vars_requriements` (
   KEY `requireID` (`requireID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-INSERT INTO `prefix_config` (`uni`, `VERSION`, `uni_name`, `game_name`, `close_reason`, `OverviewNewsText`) VALUES
-(1, '1.7.2139', '', '2Moons', '', '');
+INSERT INTO `%PREFIX%config` (`uni`, `VERSION`, `uni_name`, `game_name`, `close_reason`, `OverviewNewsText`) VALUES
+(1, '%VERSION%', '', '2Moons', '', '');
 
-INSERT INTO `prefix_ticket_category` (`categoryID`, `name`) VALUES
+INSERT INTO `%PREFIX%ticket_category` (`categoryID`, `name`) VALUES
 (1, 'Support');
 
-INSERT INTO prefix_vars (elementID, `name`, class, onPlanetType, onePerPlanet, factor, maxLevel, cost901, cost902, cost903, cost911, cost921, consumption1, consumption2, speedTech, speed1, speed2, capacity, attack, defend, timeBonus, bonusAttack, bonusDefensive, bonusShield, bonusBuildTime, bonusResearchTime, bonusShipTime, bonusDefensiveTime, bonusResource, bonusEnergy, bonusResourceStorage, bonusShipStorage, bonusFlyTime, bonusFleetSlots, bonusPlanets, production901, production902, production903, production911, production921, storage901, storage902, storage903) VALUES
+INSERT INTO %PREFIX%vars (elementID, `name`, class, onPlanetType, onePerPlanet, factor, maxLevel, cost901, cost902, cost903, cost911, cost921, consumption1, consumption2, speedTech, speed1, speed2, capacity, attack, defend, timeBonus, bonusAttack, bonusDefensive, bonusShield, bonusBuildTime, bonusResearchTime, bonusShipTime, bonusDefensiveTime, bonusResource, bonusEnergy, bonusResourceStorage, bonusShipStorage, bonusFlyTime, bonusFleetSlots, bonusPlanets, production901, production902, production903, production911, production921, storage901, storage902, storage903) VALUES
 (1, 'metal_mine', 0, '1', 0, 1.50, 255, 60, 15, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, '(30 * $BuildLevel * pow((1.1), $BuildLevel)) * (0.1 * $BuildLevelFactor)', NULL, NULL, '-(10 * $BuildLevel * pow((1.1), $BuildLevel)) * (0.1 * $BuildLevelFactor)', NULL, NULL, NULL, NULL),
 (2, 'crystal_mine', 0, '1', 0, 1.50, 255, 48, 24, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, NULL, '(20 * $BuildLevel * pow((1.1), $BuildLevel)) * (0.1 * $BuildLevelFactor)', NULL, '-(10 * $BuildLevel * pow((1.1), $BuildLevel)) * (0.1 * $BuildLevelFactor);', NULL, NULL, NULL, NULL),
 (3, 'deuterium_sintetizer', 0, '1', 0, 1.50, 255, 225, 75, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, NULL, NULL, '(10 * $BuildLevel * pow((1.1), $BuildLevel) * (-0.002 * $BuildTemp + 1.28) * (0.1 * $BuildLevelFactor))', '- (30 * $BuildLevel * pow((1.1), $BuildLevel)) * (0.1 * $BuildLevelFactor)', NULL, NULL, NULL, NULL),
@@ -958,7 +958,7 @@ INSERT INTO prefix_vars (elementID, `name`, class, onPlanetType, onePerPlanet, f
 (707, 'dm_fleettime', 700, '1,3', 0, 1.00, NULL, 0, 0, 0, 0, 3000, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 86400, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, -0.10, 0.00, 0.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 
-INSERT INTO `prefix_vars_rapidfire` (`elementID`, `rapidfireID`, `shoots`) VALUES
+INSERT INTO `%PREFIX%vars_rapidfire` (`elementID`, `rapidfireID`, `shoots`) VALUES
 (202, 210, 5),
 (202, 212, 5),
 (203, 210, 5),
@@ -1057,7 +1057,7 @@ INSERT INTO `prefix_vars_rapidfire` (`elementID`, `rapidfireID`, `shoots`) VALUE
 (220, 210, 5),
 (220, 212, 5);
 
-INSERT INTO `prefix_vars_requriements` (`elementID`, `requireID`, `requireLevel`) VALUES
+INSERT INTO `%PREFIX%vars_requriements` (`elementID`, `requireID`, `requireLevel`) VALUES
 (6, 14, 20),
 (6, 31, 22),
 (6, 15, 4),
