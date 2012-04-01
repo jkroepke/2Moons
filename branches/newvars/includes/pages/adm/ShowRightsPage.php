@@ -18,11 +18,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan <info@2moons.cc>
+ * @copyright 2006 Perberos <ugamela@perberos.com.ar> (UGamela)
+ * @copyright 2008 Chlorel (XNova)
+ * @copyright 2009 Lucky (XGProyecto)
+ * @copyright 2012 Jan <info@2moons.cc> (2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-05-31)
  * @info $Id$
  * @link http://code.google.com/p/2moons/
  */
@@ -52,7 +54,7 @@ function ShowRightsPage()
 					$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET `rights` = '".serialize(array_map('intval', $_POST['rights']))."' WHERE `id` = '".$id."';");
 				}
 				
-				$Rights	= $GLOBALS['DATABASE']->uniquequery("SELECT rights FROM ".USERS." WHERE `id` = '".$id."';");
+				$Rights	= $GLOBALS['DATABASE']->getFirstRow("SELECT rights FROM ".USERS." WHERE `id` = '".$id."';");
 				if(($Rights['rights'] = unserialize($Rights['rights'])) === false)
 					$Rights['rights']	= array();
 				
@@ -85,7 +87,7 @@ function ShowRightsPage()
 			$QueryUsers	=	$GLOBALS['DATABASE']->query("SELECT `id`, `username`, `authlevel` FROM ".USERS." WHERE `universe` = '".$_SESSION['adminuni']."'".$WHEREUSERS.";");
 				
 			$UserList	= "";
-			while ($List = $GLOBALS['DATABASE']->fetch_array($QueryUsers)) {
+			while ($List = $GLOBALS['DATABASE']->fetchArray($QueryUsers)) {
 				$UserList	.=	'<option value="'.$List['id'].'">'.$List['username'].'&nbsp;&nbsp;('.$LNG['rank'][$List['authlevel']].')</option>';
 			}	
 
@@ -143,7 +145,7 @@ function ShowRightsPage()
 			$QueryUsers	=	$GLOBALS['DATABASE']->query("SELECT `id`, `username`, `authlevel` FROM ".USERS." WHERE `universe` = '".$_SESSION['adminuni']."'".$WHEREUSERS.";");
 				
 			$UserList	= "";
-			while ($List = $GLOBALS['DATABASE']->fetch_array($QueryUsers)) {
+			while ($List = $GLOBALS['DATABASE']->fetchArray($QueryUsers)) {
 				$UserList	.=	'<option value="'.$List['id'].'">'.$List['username'].'&nbsp;&nbsp;('.$LNG['rank'][$List['authlevel']].')</option>';
 			}	
 

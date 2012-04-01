@@ -18,9 +18,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan <info@2moons.cc>
+ * @copyright 2006 Perberos <ugamela@perberos.com.ar> (UGamela)
+ * @copyright 2008 Chlorel (XNova)
+ * @copyright 2009 Lucky (XGProyecto)
+ * @copyright 2012 Jan <info@2moons.cc> (2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.5 (2011-07-31)
  * @info $Id$
@@ -78,7 +80,7 @@ class FlyingFleetsTable
 		$ACSDone		= array();
 		$FleetData		= array();
 		
-		while($fleetRow = $GLOBALS['DATABASE']->fetch_array($fleetResult)) 
+		while($fleetRow = $GLOBALS['DATABASE']->fetchArray($fleetResult)) 
 		{
 			if ($fleetRow['fleet_mess'] == 0 && $fleetRow['fleet_start_time'] > TIMESTAMP && ($fleetRow['fleet_group'] == 0 || !isset($ACSDone[$fleetRow['fleet_group']])))
 			{
@@ -112,7 +114,7 @@ class FlyingFleetsTable
 		{
 			$acsResult		= $this->getFleets($fleetRow['fleet_group']);
 			$EventString	= '';
-			while($acsRow = $GLOBALS['DATABASE']->fetch_array($acsResult))
+			while($acsRow = $GLOBALS['DATABASE']->fetchArray($acsResult))
 			{
 				$Return			= $this->getEventData($acsRow, $FleetState);
 					

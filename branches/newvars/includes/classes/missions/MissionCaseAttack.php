@@ -18,11 +18,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan <info@2moons.cc>
+ * @copyright 2006 Perberos <ugamela@perberos.com.ar> (UGamela)
+ * @copyright 2008 Chlorel (XNova)
+ * @copyright 2009 Lucky (XGProyecto)
+ * @copyright 2012 Jan <info@2moons.cc> (2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-05-31)
  * @info $Id$
  * @link http://code.google.com/p/2moons/
  */
@@ -38,8 +40,8 @@ class MissionCaseAttack extends MissionFunctions
 	{	
 		global $resource, $reslist, $LANG;
 		
-		$targetPlanet 	= $GLOBALS['DATABASE']->uniquequery("SELECT * FROM ".PLANETS." WHERE `id` = '". $this->_fleet['fleet_end_id'] ."';");
-		$targetUser   	= $GLOBALS['DATABASE']->uniquequery("SELECT * FROM ".USERS." WHERE id = '".$targetPlanet['id_owner']."';");
+		$targetPlanet 	= $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".PLANETS." WHERE `id` = '". $this->_fleet['fleet_end_id'] ."';");
+		$targetUser   	= $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".USERS." WHERE id = '".$targetPlanet['id_owner']."';");
 		
 		$targetUser['factor']				= getFactors($targetUser, 'basic', $this->_fleet['fleet_start_time']);
 		$PlanetRess 						= new ResourceUpdate();
@@ -55,10 +57,10 @@ class MissionCaseAttack extends MissionFunctions
 		{
 			$GLOBALS['DATABASE']->query("DELETE FROM ".AKS." WHERE `id` = '".$this->_fleet['fleet_group']."';");
 			$fleets = $GLOBALS['DATABASE']->query("SELECT * FROM ".FLEETS." WHERE fleet_group = '".$this->_fleet['fleet_group']."';");
-			while ($fleet = $GLOBALS['DATABASE']->fetch_array($fleets))
+			while ($fleet = $GLOBALS['DATABASE']->fetchArray($fleets))
 			{
 				$attackFleets[$fleet['fleet_id']]['fleet'] 				= $fleet;
-				$attackFleets[$fleet['fleet_id']]['user'] 				= $GLOBALS['DATABASE']->uniquequery("SELECT `id`, `username`, `military_tech`, `defence_tech`, `shield_tech`, `rpg_amiral`, `dm_defensive`, `dm_attack`  FROM ".USERS." WHERE `id` = '".$fleet['fleet_owner']."';");
+				$attackFleets[$fleet['fleet_id']]['user'] 				= $GLOBALS['DATABASE']->getFirstRow("SELECT `id`, `username`, `military_tech`, `defence_tech`, `shield_tech`, `rpg_amiral`, `dm_defensive`, `dm_attack`  FROM ".USERS." WHERE `id` = '".$fleet['fleet_owner']."';");
 				$attackFleets[$fleet['fleet_id']]['user']['factor'] 	= getFactors($attackFleets[$fleet['fleet_id']]['user'], 'attack', $this->_fleet['fleet_start_time']);
 				$attackFleets[$fleet['fleet_id']]['detail'] 			= array();
 				$temp = explode(';', $fleet['fleet_array']);
@@ -78,7 +80,7 @@ class MissionCaseAttack extends MissionFunctions
 		else
 		{
 			$attackFleets[$this->_fleet['fleet_id']]['fleet']			= $this->_fleet;
-			$attackFleets[$this->_fleet['fleet_id']]['user'] 			= $GLOBALS['DATABASE']->uniquequery("SELECT `id`, `username`, `military_tech`, `defence_tech`, `shield_tech`, `rpg_amiral`, `dm_defensive`, `dm_attack`  FROM ".USERS." WHERE id = '".$this->_fleet['fleet_owner']."';");
+			$attackFleets[$this->_fleet['fleet_id']]['user'] 			= $GLOBALS['DATABASE']->getFirstRow("SELECT `id`, `username`, `military_tech`, `defence_tech`, `shield_tech`, `rpg_amiral`, `dm_defensive`, `dm_attack`  FROM ".USERS." WHERE id = '".$this->_fleet['fleet_owner']."';");
 			$attackFleets[$this->_fleet['fleet_id']]['user']['factor'] 	= getFactors($attackFleets[$this->_fleet['fleet_id']]['user'], 'attack', $this->_fleet['fleet_start_time']);
 			$attackFleets[$this->_fleet['fleet_id']]['detail'] 			= array();
 			$temp = explode(';', $this->_fleet['fleet_array']);
@@ -98,9 +100,9 @@ class MissionCaseAttack extends MissionFunctions
 		$defense = array();
 
 		$def = $GLOBALS['DATABASE']->query("SELECT * FROM ".FLEETS." WHERE `fleet_mission` = '5' AND `fleet_end_id` = '".$this->_fleet['fleet_end_id']."' AND fleet_start_time <= '".TIMESTAMP."' AND fleet_end_stay >= '".TIMESTAMP."';");
-		while ($defRow = $GLOBALS['DATABASE']->fetch_array($def))
+		while ($defRow = $GLOBALS['DATABASE']->fetchArray($def))
 		{
-			$defense[$defRow['fleet_id']]['user'] = $GLOBALS['DATABASE']->uniquequery("SELECT `id`, `username`, `military_tech`, `defence_tech`, `shield_tech`, `rpg_amiral`, `dm_defensive`, `dm_attack`  FROM ".USERS." WHERE id = '".$defRow['fleet_owner']."';");
+			$defense[$defRow['fleet_id']]['user'] = $GLOBALS['DATABASE']->getFirstRow("SELECT `id`, `username`, `military_tech`, `defence_tech`, `shield_tech`, `rpg_amiral`, `dm_defensive`, `dm_attack`  FROM ".USERS." WHERE id = '".$defRow['fleet_owner']."';");
 			$attackFleets[$this->_fleet['fleet_id']]['user']['factor'] 	= getFactors($defense[$defRow['fleet_id']]['user'], 'attack', $this->_fleet['fleet_start_time']);
 			$defRowDef = explode(';', $defRow['fleet_array']);
 			foreach ($defRowDef as $Element)
@@ -213,7 +215,7 @@ class MissionCaseAttack extends MissionFunctions
 		$GLOBALS['DATABASE']->multi_query($SQL);
 		
 		if($this->_fleet['fleet_end_type'] == 3)
-			$targetPlanet 		= array_merge($targetPlanet, $GLOBALS['DATABASE']->uniquequery("SELECT `der_metal`, `der_crystal` FROM ".PLANETS." WHERE `id_luna` = '".$this->_fleet['fleet_end_id']."';"));
+			$targetPlanet 		= array_merge($targetPlanet, $GLOBALS['DATABASE']->getFirstRow("SELECT `der_metal`, `der_crystal` FROM ".PLANETS." WHERE `id_luna` = '".$this->_fleet['fleet_end_id']."';"));
 			
 		$ShootMetal			= $result['debree']['att'][0] + $result['debree']['def'][0];
 		$ShootCrystal		= $result['debree']['att'][1] + $result['debree']['def'][1];

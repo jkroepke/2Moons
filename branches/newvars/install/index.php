@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011 Jan Kröpke
+ *  Copyright (C) 2011 Jan
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,9 +18,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Jan Kröpke <info@2moons.cc>
+ * @author Jan <info@2moons.cc>
  * @copyright 2009 Lucky
- * @copyright 2011 Jan Kröpke <info@2moons.cc>
+ * @copyright 2011 Jan <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.5 (2011-07-31)
  * @info $Id$
@@ -337,30 +337,50 @@ switch ($step) {
 		require_once(ROOT_PATH . 'includes/classes/class.Database.php');
 		$GLOBALS['DATABASE']	= new Database();
 		try {
-			$GLOBALS['DATABASE']->multi_query(str_replace("prefix_", $database['tableprefix'], file_get_contents('install.sql')));
-			$GLOBALS['CONF']	= array(
-				'timezone'			=> 0,
-				'lang'				=> '',
-				'OverviewNewsText'	=> '',
-				'uni_name'			=> '',
-				'close_reason'		=> '',
+			$SQL	= file_get_contents('install.sql');
+			$SQL	= str_replace('$PREFIX$', $database['tableprefix'], $SQL);
+			
+			$GLOBALS['DATABASE']->multi_query($SQL);
+			
+			$gameConfig	= array(
+				'version'		=> '',
+				'language'		=> '',
+				'timezone'		=> '',
 			);
 			
-			update_config(array(
-				'timezone'			=> date_default_timezone_get(),
-				'lang'				=> $LANG->GetUser(),
-				'OverviewNewsText'	=> $LNG['sql_welcome'].'1.7',
-				'uni_name'			=> $LNG['fcm_universe'].' 1',
-				'close_reason'		=> $LNG['sql_close_reason'],
-				'moduls'			=> implode(',', array_fill(0, MODULE_AMOUNT, 1))
+			$uniConfig	= array(
+				'newsEnable	'	=> '',
+				'newsText'		=> '',
+				'uniName'		=> '',
+				'enableReason'	=> '',
+			);
+			
+			setConfig(array(
+				'version'		=> file_get_contents('VERSION'),
+				'language'		=> @date_default_timezone_get(),
+				'timezone'		=> $LANG->GetUser(),
+				'newsEnable	'	=> 1,
+				'newsText'		=> $LNG['sql_welcome'].'1.7',
+				'uniName'		=> $LNG['fcm_universe'].' 1',
+				'enableReason'	=> $LNG['sql_close_reason'],
 			), 1);
+			
 			HTTP::redirectTo('index.php?step=7');
 		} catch (Exception $e) {
-				$template->assign(array(
+			$error	= !empty($GLOBALS['DATABASE']->error) ? $GLOBALS['DATABASE']->error : $e->getMessage();
+			
+			$template->assign(array(
 				'class'		=> 'fatalerror',
-				'message'	=> $LNG['step3_db_error'].'</p><p>'.$GLOBALS['DATABASE']->error,
+				'message'	=> $LNG['step3_db_error'].'</p><p>'.$error,
+				'host'		=> $database['host'],
+				'port'		=> $database['port'],
+				'user'		=> $database['user'],
+				'dbname'	=> $database['databasename'],
+				'prefix'	=> $database['tableprefix'],
 			));
 			$template->show('ins_step4.tpl');
+
+			unlink(ROOT_PATH."includes/config.php");
 			exit;
 		}
 	break;
@@ -368,10 +388,26 @@ switch ($step) {
 		$template->show('ins_acc.tpl');
 	break;
 	case 8:
-		$AdminUsername	= HTTP::_GP('username', '', UTF8_SUPPORT);
-		$AdminPassword	= HTTP::_GP('password', '', UTF8_SUPPORT);
-		$AdminMail		= HTTP::_GP('email', '');
-		$MD5Password	= cryptPassword($AdminPassword);
+		$AdminUsername		= HTTP::_GP('username', '', UTF8_SUPPORT);
+		$AdminPassword		= HTTP::_GP('password', '', UTF8_SUPPORT);
+		$AdminMail			= HTTP::_GP('email', '');
+
+		require_once(ROOT_PATH . 'includes/config.php');
+		require_once(ROOT_PATH . 'includes/dbtables.php');
+		$DATABASE	= new Database();
+			
+		$CACHE->add('config', 'ConfigBuildCache');
+		$CACHE->add('configuni', 'ConfigUniverseBuildCache');
+		$CACHE->add('universe', 'UniverseBuildCache');
+		$CACHE->add('vars', 'VarsBuildCache');
+		$CACHE->flushAll();
+		
+		$VARS				= $CACHE->get('vars');
+		$gameConfig			= $CACHE->get('config');
+		$uniAllConfig		= $CACHE->get('configuni');
+		require_once(ROOT_PATH.'includes/classes/PlayerUntl.class.php');	
+		
+		$encryptPassword	= PlayerUntl::cryptPassword($AdminPassword);
 		
 		$template->assign(array(
 			'username'	=> $AdminUsername,
@@ -385,36 +421,13 @@ switch ($step) {
 			$template->show('ins_step8error.tpl');
 			exit;
 		}
-			
-		require_once(ROOT_PATH . 'includes/config.php');
-		require_once(ROOT_PATH . 'includes/dbtables.php');
-		$DATABASE	= new Database();
+		
+		list($userID, $planetID) = PlayerUntl::createPlayer(1, $AdminUsername, $encryptPassword, $AdminMail, 1, 1, 2, NULL, AUTH_ADM, $LANG->GetUser());
 						
-		$SQL  = "INSERT INTO ".USERS." SET ";
-		$SQL .= "username		= '".$DATABASE->sql_escape($AdminUsername)."', ";
-		$SQL .= "password		= '".$DATABASE->sql_escape($MD5Password)."', ";
-		$SQL .= "email			= '".$DATABASE->sql_escape($AdminMail)."', ";
-		$SQL .= "email_2		= '".$DATABASE->sql_escape($AdminMail)."', ";
-		$SQL .= "ip_at_reg		= '".$_SERVER['REMOTE_ADDR']."', ";
-		$SQL .= "lang			= '".$LANG->GetUser(). "', ";
-		$SQL .= "authlevel		= ".AUTH_ADM.", ";
-		$SQL .= "dpath 			= '".DEFAULT_THEME."', ";
-		$SQL .= "rights			= '', ";
-		$SQL .= "id_planet		= 1, ";
-		$SQL .= "universe		= 1, ";
-		$SQL .= "galaxy			= 1, ";
-		$SQL .= "system			= 1, ";
-		$SQL .= "planet			= 2, ";
-		$SQL .= "register_time	= ".TIMESTAMP.";";
-		$DATABASE->query($SQL);
-				
-		require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.php');
-		
-		$PlanetID		= CreateOnePlanetRecord(1, 1, 1, 1, 1, '', true, AUTH_ADM);
 		$SESSION       	= new Session();
-		$SESSION->CreateSession(1, $AdminUsername, $PlanetID, $UNI, 3, DEFAULT_THEME);
+		$SESSION->CreateSession(1, $AdminUsername, $planetID, 1, 3, DEFAULT_THEME);
 		
-		$_SESSION['admin_login']	= cryptPassword($MD5Password);
+		$_SESSION['admin_login']	= $encryptPassword;
 		
 		@unlink($enableInstallToolFile);
 		$template->show('ins_step8.tpl');

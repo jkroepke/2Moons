@@ -15,7 +15,7 @@ class VarsBuildCache
 		$ELEMENT		= array();
 
 		$varsResult		= $GLOBALS['DATABASE']->query("SELECT * FROM ".VARS.";");
-		while($varsRow = $GLOBALS['DATABASE']->fetch_array($varsResult)) {
+		while($varsRow = $GLOBALS['DATABASE']->fetchArray($varsResult)) {
 			$ELEMENT['ELEMENT'][$varsRow['elementID']]	= array(
 				'name'		=> $varsRow['name'],
 				'flag'		=> $varsRow['class'],
@@ -32,6 +32,7 @@ class VarsBuildCache
 				),
 				'maxLevel'	=> $varsRow['maxLevel'],
 				'factor'	=> $varsRow['factor'],
+				'timeBonus'	=> $varsRow['timeBonus'],
 				'fleetData'	=> array_filter(array(
 					'consumption'	=> $varsRow['consumption1'],
 					'consumption2'	=> $varsRow['consumption2'],
@@ -39,7 +40,6 @@ class VarsBuildCache
 					'speed2'		=> $varsRow['speed2'],
 					'capacity'		=> $varsRow['capacity'],
 					'tech'			=> $varsRow['speedTech'],
-					'time'			=> $varsRow['timeBonus'],
 				), 'is_null'),			
 				'bonus'			=> array(
 					'Attack'			=> $varsRow['bonusAttack'],
@@ -81,12 +81,12 @@ class VarsBuildCache
 		
 		
 		$reqResult		= $GLOBALS['DATABASE']->query("SELECT * FROM ".VARS_REQUIRE.";");
-		while($reqRow = $GLOBALS['DATABASE']->fetch_array($reqResult)) {
+		while($reqRow = $GLOBALS['DATABASE']->fetchArray($reqResult)) {
 			$ELEMENT['ELEMENT'][$reqRow['elementID']]['require'][$reqRow['requireID']]	= $reqRow['requireLevel'];
 		}
 		
 		$rapidResult		= $GLOBALS['DATABASE']->query("SELECT * FROM ".VARS_RAPIDFIRE.";");
-		while($rapidRow = $GLOBALS['DATABASE']->fetch_array($rapidResult)) {
+		while($rapidRow = $GLOBALS['DATABASE']->fetchArray($rapidResult)) {
 			$ELEMENT['ELEMENT'][$rapidRow['elementID']]['combat']['rapidfire'][$rapidRow['rapidfireID']]	= $rapidRow['shoots'];
 		}
 		

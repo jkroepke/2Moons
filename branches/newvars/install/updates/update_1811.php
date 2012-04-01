@@ -26,7 +26,7 @@ define('ROOT_PATH'	,'./');
 include_once(ROOT_PATH . 'includes/common.php');
 $Qry	= $db->query("SELECT id, b_tech_queue FROM ".USERS.";");
 
-while($CUser = $db->fetch_array($Qry))
+while($CUser = $db->fetchArray($Qry))
 {
 	$NewQueue	= array();
 	$Queue		= explode(';', $CUser['b_tech_queue']);
@@ -40,7 +40,7 @@ while($CUser = $db->fetch_array($Qry))
 
 $Qry	= $db->query("SELECT id, b_building_id, b_hangar_id FROM ".PLANETS.";");
 
-while($CPlanet = $db->fetch_array($Qry))
+while($CPlanet = $db->fetchArray($Qry))
 {
 	$NewHQueue	= array();
 	$HQueue		= explode(';', $CPlanet['b_hangar_id']);

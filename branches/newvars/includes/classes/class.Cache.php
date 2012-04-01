@@ -15,6 +15,16 @@ class Cache {
 		$this->cacheBuilder[$Key]	= $ClassName;
 	}
 	
+	function flushAll() {
+		foreach($this->cacheObj as $key) {
+			$this->flush($Key);
+		}
+	}
+	
+	function flush($Key) {
+		$this->cacheRessource->delete($Key);
+	}
+	
 	function get($Key) {
 		if(!isset($this->cacheObj[$Key]) && !$this->load($Key))
 			$this->buildCache($Key);

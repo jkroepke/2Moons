@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011 Jan Kröpke
+ *  Copyright (C) 2011 Jan
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,9 +18,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Jan Kröpke <info@2moons.cc>
+ * @author Jan <info@2moons.cc>
  * @copyright 2009 Lucky
- * @copyright 2011 Jan Kröpke <info@2moons.cc>
+ * @copyright 2011 Jan <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.5 (2011-07-31)
  * @info $Id$
@@ -54,6 +54,7 @@ define('LOG_FLEETS'			, DB_PREFIX.'log_fleets');
 define('NEWS'				, DB_PREFIX.'news');
 define('NOTES'				, DB_PREFIX.'notes');
 define('MESSAGES'			, DB_PREFIX.'messages');
+define('MODULE'				, DB_PREFIX.'module');
 define('PLANETS'            , DB_PREFIX.'planets');
 define('RW'		            , DB_PREFIX.'raports');
 define('RECORDS'		    , DB_PREFIX.'records');
@@ -65,6 +66,8 @@ define('TICKETS_ANSWER'		, DB_PREFIX.'ticket_answer');
 define('TICKETS_CATEGORY'	, DB_PREFIX.'ticket_category');
 define('TOPKB'				, DB_PREFIX.'topkb');
 define('TOPKB_USERS'		, DB_PREFIX.'users_to_topkb');
+define('UNIVERSE'			, DB_PREFIX.'universe');
+define('UNIVERSE_CONFIG'	, DB_PREFIX.'universe_config');
 define('USERS'				, DB_PREFIX.'users');
 define('USERS_ACS'			, DB_PREFIX.'users_to_acs');
 define('USERS_AUTH'			, DB_PREFIX.'users_to_extauth');

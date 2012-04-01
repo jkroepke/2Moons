@@ -25,12 +25,12 @@ class VarsBuildCache
 		$reslist['dmfunc']		= array();
 		
 		$reqResult		= $GLOBALS['DATABASE']->query("SELECT * FROM ".VARS_REQUIRE.";");
-		while($reqRow = $GLOBALS['DATABASE']->fetch_array($reqResult)) {
+		while($reqRow = $GLOBALS['DATABASE']->fetchArray($reqResult)) {
 			$GLOBALS['VARS']['ELEMENT'][$reqRow['elementID']['require']][$reqRow['requireID']]	= $reqRow['requireLevel'];
 		}
 
 		$varsResult		= $GLOBALS['DATABASE']->query("SELECT * FROM ".VARS.";");
-		while($varsRow = $GLOBALS['DATABASE']->fetch_array($varsResult)) {
+		while($varsRow = $GLOBALS['DATABASE']->fetchArray($varsResult)) {
 			$GLOBALS['VARS']['ELEMENT'][$varsRow['elementID']['name']]	= $varsRow['name'];
 			$CombatCaps[$varsRow['elementID']]	= array(
 				'attack'	=> $varsRow['attack'],
@@ -123,7 +123,7 @@ class VarsBuildCache
 		}
 
 		$rapidResult		= $GLOBALS['DATABASE']->query("SELECT * FROM ".VARS_RAPIDFIRE.";");
-		while($rapidRow = $GLOBALS['DATABASE']->fetch_array($rapidResult)) {
+		while($rapidRow = $GLOBALS['DATABASE']->fetchArray($rapidResult)) {
 			$CombatCaps[$rapidRow['elementID']]['sd'][$rapidRow['rapidfireID']]	= $rapidRow['shoots'];
 		}
 		

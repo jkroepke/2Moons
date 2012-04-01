@@ -18,11 +18,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan <info@2moons.cc>
+ * @copyright 2006 Perberos <ugamela@perberos.com.ar> (UGamela)
+ * @copyright 2008 Chlorel (XNova)
+ * @copyright 2009 Lucky (XGProyecto)
+ * @copyright 2012 Jan <info@2moons.cc> (2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-05-31)
  * @info $Id$
  * @link http://code.google.com/p/2moons/
  */
@@ -192,7 +194,7 @@ class ShowFleetStep1Page extends AbstractPage
 			
 		$ShortcutList	= array();
 
-		while($ShortcutRow = $GLOBALS['DATABASE']->fetch_array($ShortcutResult)) {						
+		while($ShortcutRow = $GLOBALS['DATABASE']->fetchArray($ShortcutResult)) {						
 			$ShortcutList[$ShortcutRow['shortcutID']] = $ShortcutRow;
 		}
 		
@@ -213,7 +215,7 @@ class ShowFleetStep1Page extends AbstractPage
 		
 		$ACSList	= array();
 		
-		while($ACSRow = $GLOBALS['DATABASE']->fetch_array($ACSResult)) {
+		while($ACSRow = $GLOBALS['DATABASE']->fetchArray($ACSResult)) {
 			$ACSList[]	= $ACSRow;
 		}
 		
@@ -234,7 +236,7 @@ class ShowFleetStep1Page extends AbstractPage
 			exit($LNG['fl_error_same_planet']);
 		
 		if ($TargetPlanet != $CONF['max_planets'] + 1) {
-			$Data	= $GLOBALS['DATABASE']->uniquequery("SELECT u.id, u.urlaubs_modus, u.user_lastip, u.authattack, p.destruyed, p.der_metal, p.der_crystal, p.destruyed FROM ".USERS." as u, ".PLANETS." as p WHERE p.universe = ".$UNI." AND p.galaxy = ".$TargetGalaxy." AND p.system = ".$TargetSystem." AND p.planet = ".$TargetPlanet."  AND p.planet_type = '".(($TargetPlanettype == 2) ? 1 : $TargetPlanettype)."' AND u.id = p.id_owner;");
+			$Data	= $GLOBALS['DATABASE']->getFirstRow("SELECT u.id, u.urlaubs_modus, u.user_lastip, u.authattack, p.destruyed, p.der_metal, p.der_crystal, p.destruyed FROM ".USERS." as u, ".PLANETS." as p WHERE p.universe = ".$UNI." AND p.galaxy = ".$TargetGalaxy." AND p.system = ".$TargetSystem." AND p.planet = ".$TargetPlanet."  AND p.planet_type = '".(($TargetPlanettype == 2) ? 1 : $TargetPlanettype)."' AND u.id = p.id_owner;");
 
 			if ($TargetPlanettype == 3 && !isset($Data))
 				exit($LNG['fl_error_no_moon']);

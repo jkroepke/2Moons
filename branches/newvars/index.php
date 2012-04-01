@@ -18,11 +18,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan <info@2moons.cc>
+ * @copyright 2006 Perberos <ugamela@perberos.com.ar> (UGamela)
+ * @copyright 2008 Chlorel (XNova)
+ * @copyright 2009 Lucky (XGProyecto)
+ * @copyright 2012 Jan <info@2moons.cc> (2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-05-31)
  * @info $Id$
  * @link http://code.google.com/p/2moons/
  */
@@ -31,8 +33,9 @@ define('MODE', 'INDEX');
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 
 if(!file_exists(ROOT_PATH.'includes/config.php')) {
-	header('Location: install/index.php');
-	exit;
+	require(ROOT_PATH . 'includes/constants.php');
+	require(ROOT_PATH . 'includes/classes/HTTP.class.php');
+	HTTP::redirectTo("install/index.php");
 }
 
 require(ROOT_PATH . 'includes/common.php');
@@ -74,7 +77,7 @@ switch ($page) {
 			$MailContent	= sprintf($MailRAW, $Usermail, $CONF['game_name'], $NewPass, "http://".$_SERVER['SERVER_NAME'].$_SERVER["PHP_SELF"]);			
 		
 			$Mail			= MailSend($Usermail, $Username, $LNG['lost_mail_title'], $MailContent);
-			$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET password = '".cryptPassword($NewPass)."' WHERE id = '".$UserID."';");
+			$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET password = '".PlayerUntl::cryptPassword($NewPass)."' WHERE id = '".$UserID."';");
 			echo json_encode(array('message' => sprintf($LNG['mail_sended'],$Usermail), 'error' => false));
 		}
 	break;
@@ -194,7 +197,7 @@ switch ($page) {
 					$FACEBOOK	= 0;
 				}
 				
-				if($CONF['ref_active'] == 1 && !empty($RefID)) {
+				if($gameConfig['referralEnable'] == 1 && !empty($RefID)) {
 					$Count	= $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".USERS." WHERE id = '".$RefID."';");
 					if($Count == 0)
 						$RefID	= 0;
@@ -211,7 +214,7 @@ switch ($page) {
 				$SQL .= "date = '".TIMESTAMP."', ";
 				$SQL .= "cle = '".$clef."', ";
 				$SQL .= "universe = '".$UNI."', ";
-				$SQL .= "password = '".cryptPassword($UserPass)."', ";
+				$SQL .= "password = '".PlayerUntl::cryptPassword($UserPass)."', ";
 				$SQL .= "ip = '".$_SERVER['REMOTE_ADDR']."', ";
 				$SQL .= "ref_id = ".$RefID."; ";
 				$GLOBALS['DATABASE']->query($SQL);
@@ -234,7 +237,9 @@ switch ($page) {
 			case 'valid' :
 				$clef 		= HTTP::_GP('clef', '');
 				$admin 	 	= HTTP::_GP('admin', 0);
-				$userData	= $GLOBALS['DATABASE']->uniquequery("SELECT * FROM ".USERS_VALID." WHERE cle = '".$GLOBALS['DATABASE']->sql_escape($clef)."' AND universe = ".$UNI.";");
+			
+				$userData	= $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".USERS_VALID." WHERE cle = '".$GLOBALS['DATABASE']->sql_escape($clef)."' AND universe = ".$UNI.";");
+			
 				$GLOBALS['DATABASE']->query("DELETE FROM ".USERS_VALID." WHERE cle = '".$GLOBALS['DATABASE']->sql_escape($clef)."' AND universe = ".$UNI.";");
 				
 				if(!isset($userData)) {
@@ -257,75 +262,18 @@ switch ($page) {
 					MailSend($UserMail, $UserName, $MailSubject, $MailContent);
 				}
 				
-				$SQL = "INSERT INTO ".USERS." SET
-				username		= '".$GLOBALS['DATABASE']->sql_escape($UserName)."',
-				email			= '".$GLOBALS['DATABASE']->sql_escape($UserMail)."',
-				email_2			= '".$GLOBALS['DATABASE']->sql_escape($UserMail)."',
-				universe		= ".$UserUni.",
-				lang			= '".$UserLang."',
-				ip_at_reg		= '".$UserIP."',
-				id_planet		= 0,
-				onlinetime		= ".TIMESTAMP.",
-				register_time	= ".TIMESTAMP.",
-				password		= '".$UserPass."',
-				dpath			= '".DEFAULT_THEME."',
-				darkmatter		= ".$CONF['darkmatter_start'].",
-				ref_id			= ".$UserRID.",
-				timezone		= '".$CONF['timezone']."',
-				ref_bonus		= ".($UserRID != 0 ? 1 : 0).",
-				uctime			= 0;";
+				require_once(ROOT_PATH.'includes/classes/PlayerUntl.class.php');	
 				
-				$GLOBALS['DATABASE']->query($SQL);
+				list($userID, $planetID) = PlayerUntl::createPlayer($UNI, $UserName, $UserPass, $UserMail, NULL, NULL, NULL, $UserPlanet, 0, $UserLang, $UserIP);
 				
-				$userID = $GLOBALS['DATABASE']->GetInsertID();
-
-				$LastSettedGalaxyPos = $CONF['LastSettedGalaxyPos'];
-				$LastSettedSystemPos = $CONF['LastSettedSystemPos'];
-				$LastSettedPlanetPos = $CONF['LastSettedPlanetPos'];
-				require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.php');	
-				$PlanetID = false;
-				
-				while ($PlanetID === false) {
-					$Planet = mt_rand(round($CONF['max_planets'] * 0.2), round($CONF['max_planets'] * 0.8));
-					if ($LastSettedPlanetPos < 3) {
-						$LastSettedPlanetPos += 1;
-					} else {
-						if ($LastSettedSystemPos >= $CONF['max_system']) {
-							$LastSettedGalaxyPos += 1;
-							$LastSettedSystemPos = 1;
-						} else {
-							$LastSettedSystemPos += 1;
-						}
-						
-						if($LastSettedGalaxyPos  >= $CONF['max_galaxy']) {
-							$LastSettedGalaxyPos	= 1;
-						}
-					}
-					
-					$PlanetID = CreateOnePlanetRecord($LastSettedGalaxyPos, $LastSettedSystemPos, $Planet, $UserUni, $userID, $UserPlanet, true);
+				if(!empty($UserRID)) {
+					$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET ref_id = ".$UserRID." WHERE id = ".$userID.";");
 				}
-			
-				$SQL = "UPDATE ".USERS." SET 
-				id_planet	= ".$PlanetID.",
-				galaxy		= ".$LastSettedGalaxyPos.",
-				system		= ".$LastSettedSystemPos.",
-				planet		= ".$Planet."
-				WHERE
-				id			= ".$userID.";
-				INSERT INTO ".STATPOINTS." SET 
-				id_owner	= ".$userID.",
-				universe	= ".$UserUni.",
-				stat_type	= 1,
-				tech_rank	= ".($CONF['users_amount'] + 1).",
-				build_rank	= ".($CONF['users_amount'] + 1).",
-				defs_rank	= ".($CONF['users_amount'] + 1).",
-				fleet_rank	= ".($CONF['users_amount'] + 1).",
-				total_rank	= ".($CONF['users_amount'] + 1).";";
-				$GLOBALS['DATABASE']->multi_query($SQL);
 				
 				$from 		= $LNG['welcome_message_from'];
 				$Subject 	= $LNG['welcome_message_subject'];
 				$message 	= sprintf($LNG['welcome_message_content'], $CONF['game_name']);
+				
 				SendSimpleMessage($userID, 1, TIMESTAMP, 1, $from, $Subject, $message);
 				
 				update_config(array('users_amount' => $CONF['users_amount'] + 1, 'LastSettedGalaxyPos' => $LastSettedGalaxyPos, 'LastSettedSystemPos' => $LastSettedSystemPos, 'LastSettedPlanetPos' => $LastSettedPlanetPos));
@@ -378,7 +326,7 @@ switch ($page) {
 		) as defender  
 		FROM ".TOPKB." WHERE universe = '".$UNI."' ORDER BY units DESC LIMIT 100;");
 		$TopKBList	= array();
-		while($data = $GLOBALS['DATABASE']->fetch_array($top)) {
+		while($data = $GLOBALS['DATABASE']->fetchArray($top)) {
 			$TopKBList[]	= array(
 				'result'	=> $data['result'],
 				'time'		=> _date($LNG['php_tdformat'], $data['time']),
@@ -391,7 +339,7 @@ switch ($page) {
 		
 		$AvailableUnis[$CONF['uni']]	= $CONF['uni_name'].($CONF['game_disable'] == 0 ? $LNG['uni_closed'] : '');
 		$Query	= $GLOBALS['DATABASE']->query("SELECT uni, game_disable, uni_name FROM ".CONFIG." WHERE uni != '".$UNI."' ORDER BY uni ASC;");
-		while($Unis	= $GLOBALS['DATABASE']->fetch_array($Query)) {
+		while($Unis	= $GLOBALS['DATABASE']->fetchArray($Query)) {
 			$AvailableUnis[$Unis['uni']]	= $Unis['uni_name'].($Unis['game_disable'] == 0 ? $LNG['uni_closed'] : '');
 		}
 		ksort($AvailableUnis);
@@ -417,7 +365,7 @@ switch ($page) {
 	case 'pranger' :
 		$PrangerRAW 	= $GLOBALS['DATABASE']->query("SELECT * FROM ".BANNED." WHERE universe = '".$UNI."' ORDER BY id DESC;");
 		$PrangerList	= array();
-		while($u = $GLOBALS['DATABASE']->fetch_array($PrangerRAW))
+		while($u = $GLOBALS['DATABASE']->fetchArray($PrangerRAW))
 		{
 			$PrangerList[]	= array(
 				'player'	=> $u['who'],
@@ -432,7 +380,7 @@ switch ($page) {
 		
 		$AvailableUnis[$CONF['uni']]	= $CONF['uni_name'].($CONF['game_disable'] == 0 ? $LNG['uni_closed'] : '');
 		$Query	= $GLOBALS['DATABASE']->query("SELECT uni, game_disable, uni_name FROM ".CONFIG." WHERE uni != '".$UNI."' ORDER BY uni ASC;");
-		while($Unis	= $GLOBALS['DATABASE']->fetch_array($Query)) {
+		while($Unis	= $GLOBALS['DATABASE']->fetchArray($Query)) {
 			$AvailableUnis[$Unis['uni']]	= $Unis['uni_name'].($Unis['game_disable'] == 0 ? $LNG['uni_closed'] : '');
 		}
 		ksort($AvailableUnis);
@@ -469,7 +417,7 @@ switch ($page) {
 	case 'news' :
 		$NewsRAW	= $GLOBALS['DATABASE']->query ("SELECT date,title,text,user FROM ".NEWS." ORDER BY id DESC;");
 		$NewsList	= array();
-		while ($NewsRow = $GLOBALS['DATABASE']->fetch_array($NewsRAW)) {
+		while ($NewsRow = $GLOBALS['DATABASE']->fetchArray($NewsRAW)) {
 			$NewsList[]	= array(
 				'title' => $NewsRow['title'],
 				'from' 	=> sprintf($LNG['news_from'], _date($LNG['php_tdformat'], $NewsRow['date']), $NewsRow['user']),
@@ -522,13 +470,13 @@ switch ($page) {
 			
 		$luser = HTTP::_GP('username', '', UTF8_SUPPORT);
 		$lpass = HTTP::_GP('password', '', true);
-		$login = $GLOBALS['DATABASE']->uniquequery("SELECT id, username, password, dpath, authlevel, id_planet FROM ".USERS." WHERE universe = ".$UNI." AND username = '".$GLOBALS['DATABASE']->sql_escape($luser)."';");
+		$login = $GLOBALS['DATABASE']->getFirstRow("SELECT id, username, password, dpath, authlevel, id_planet FROM ".USERS." WHERE universe = ".$UNI." AND username = '".$GLOBALS['DATABASE']->sql_escape($luser)."';");
 			
 		if (isset($login)) {
-			if($login['password'] != cryptPassword($lpass)) {
+			if($login['password'] != PlayerUntl::cryptPassword($lpass)) {
 				// Fallback pre 1.7
 				if($login['password'] == md5($lpass)) {
-					$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET password = '".cryptPassword($lpass)."' WHERE id = ".$login['id'].";");
+					$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET password = '".PlayerUntl::cryptPassword($lpass)."' WHERE id = ".$login['id'].";");
 				} else {
 					HTTP::redirectTo('index.php?code=1');	
 				}
@@ -539,39 +487,46 @@ switch ($page) {
 			HTTP::redirectTo('game.php');	
 		}
 	case '':
-		$AvailableUnis[$CONF['uni']]	= $CONF['uni_name'].($CONF['game_disable'] == 0 ? $LNG['uni_closed'] : '');
-		$RegClosed	= array($CONF['uni'] => (int)$CONF['reg_closed']);
-		$Query	= $GLOBALS['DATABASE']->query("SELECT uni, game_disable, uni_name, reg_closed FROM ".CONFIG." WHERE uni != '".$UNI."' ORDER BY uni ASC;");
-		while($Unis	= $GLOBALS['DATABASE']->fetch_array($Query)) {
-			$AvailableUnis[$Unis['uni']]	= $Unis['uni_name'].($Unis['game_disable'] == 0 ? $LNG['uni_closed'] : '');
-			$RegClosed[$Unis['uni']]		= (int)$Unis['reg_closed'];
+		foreach($uniAllConfig as $uniID => $config)
+		{
+			$AvailableUnis[$uniID]	= $config['uniName'].($config['enable'] == 0 ? $LNG['uni_closed'] : '');
+			$RegClosed[$uniID]		= (int) $config['enableRegistration'];
 		}
 		ksort($AvailableUnis);
+		
 		$Code	= HTTP::_GP('code', 0);
-		if(!empty($Code)) {
+		if(!empty($Code))
+		{
 			$template->assign_vars(array(
 				'code'					=> $LNG['login_error_'.$Code],
 			));
 		}
 
-		if($CONF['ref_active'] && isset($_REQUEST['ref']) && is_numeric($_REQUEST['ref'])) {
-			$RefUser	= $GLOBALS['DATABASE']->countquery("SELECT universe FROM ".USERS." WHERE id = '".(int) $_REQUEST['ref']."';");
-			if(isset($RefUser)) {
-				$template->assign_vars(array(
-					'ref_id'	=> (int) $_REQUEST['ref'],
-					'ref_uni'	=> $RefUser,
-				));
+		$RefID		= 0;
+		$RefUser	= 0;
+					
+		if($gameConfig['referralEnable'])
+		{
+			$RefID		= HTTP::_GP('ref', 0);
+			if(!empty($RefID))
+			{
+				$RefUser	= $GLOBALS['DATABASE']->countquery("SELECT universe FROM ".USERS." WHERE id = ".$RefID.";");
+				if(!isset($RefUser))
+				{
+					$RefUser	= 0;
+				}
 			}
 		}
 		
 		$template->assign_vars(array(
+			'ref_id'				=> $RefID,
+			'ref_uni'				=> $RefUser,
 			'contentbox'			=> false,
 			'AvailableUnis'			=> $AvailableUnis,
-			'ref_id'				=> ($CONF['ref_active'] == 1 && isset($_REQUEST['ref'])) ? (int) $_REQUEST['ref'] : 0,
 			'RegClosedUnis'			=> json_encode($RegClosed),
 			'welcome_to'			=> $LNG['welcome_to'],
 			'uni_closed'			=> $LNG['uni_closed'],
-			'server_description'	=> sprintf($LNG['server_description'], $CONF['game_name']),
+			'server_description'	=> sprintf($LNG['server_description'], $gameConfig['gameName']),
 			'server_infos'			=> $LNG['server_infos'],
 			'login'					=> $LNG['login'],
 			'login_info'			=> $LNG['login_info'],

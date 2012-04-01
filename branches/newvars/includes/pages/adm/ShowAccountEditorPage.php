@@ -18,11 +18,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan <info@2moons.cc>
+ * @copyright 2006 Perberos <ugamela@perberos.com.ar> (UGamela)
+ * @copyright 2008 Chlorel (XNova)
+ * @copyright 2009 Lucky (XGProyecto)
+ * @copyright 2012 Jan <info@2moons.cc> (2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-05-31)
  * @info $Id$
  * @link http://code.google.com/p/2moons/
  */
@@ -49,9 +51,9 @@ function ShowAccountEditorPage()
 			if ($_POST)
 			{
 				if (!empty($id))
-					$before = $GLOBALS['DATABASE']->uniquequery("SELECT `metal`,`crystal`,`deuterium`,`universe`  FROM ".PLANETS." WHERE `id` = '". $id ."';");
+					$before = $GLOBALS['DATABASE']->getFirstRow("SELECT `metal`,`crystal`,`deuterium`,`universe`  FROM ".PLANETS." WHERE `id` = '". $id ."';");
 				if (!empty($id_dark))
-					$before_dm = $GLOBALS['DATABASE']->uniquequery("SELECT `darkmatter` FROM ".USERS." WHERE `id` = '". $id_dark ."';");
+					$before_dm = $GLOBALS['DATABASE']->getFirstRow("SELECT `darkmatter` FROM ".USERS." WHERE `id` = '". $id_dark ."';");
 				if ($_POST['add'])
 				{
 					if (!empty($id)) {
@@ -129,7 +131,7 @@ function ShowAccountEditorPage()
 		case 'ships':
 			if($_POST)
 			{
-				$before1 = $GLOBALS['DATABASE']->uniquequery("SELECT * FROM ".PLANETS." WHERE `id` = '". HTTP::_GP('id', 0) ."';");
+				$before1 = $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".PLANETS." WHERE `id` = '". HTTP::_GP('id', 0) ."';");
 				$before = array();
 				$after = array();
 				foreach($reslist['fleet'] as $ID)
@@ -198,7 +200,7 @@ function ShowAccountEditorPage()
 		case 'defenses':
 			if($_POST)
 			{
-				$before1 = $GLOBALS['DATABASE']->uniquequery("SELECT * FROM ".PLANETS." WHERE `id` = '". HTTP::_GP('id', 0) ."';");
+				$before1 = $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".PLANETS." WHERE `id` = '". HTTP::_GP('id', 0) ."';");
 				$before = array();
 				$after = array();
 				foreach($reslist['defense'] as $ID)
@@ -266,7 +268,7 @@ function ShowAccountEditorPage()
 		case 'buildings':
 			if($_POST)
 			{
-				$PlanetData = $GLOBALS['DATABASE']->uniquequery("SELECT * FROM ".PLANETS." WHERE `id` = '". HTTP::_GP('id', 0) ."';");
+				$PlanetData = $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".PLANETS." WHERE `id` = '". HTTP::_GP('id', 0) ."';");
 				if(!isset($PlanetData))
 				{
 					$template->message($LNG['ad_add_not_exist'], '?page=accounteditor&edit=buildings');
@@ -346,7 +348,7 @@ function ShowAccountEditorPage()
 		case 'researchs':
 			if($_POST)
 			{
-				$before1 = $GLOBALS['DATABASE']->uniquequery("SELECT * FROM ".USERS." WHERE `id` = '". HTTP::_GP('id', 0) ."';");
+				$before1 = $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".USERS." WHERE `id` = '". HTTP::_GP('id', 0) ."';");
 				$before = array();
 				$after = array();
 				foreach($reslist['tech'] as $ID)
@@ -418,7 +420,7 @@ function ShowAccountEditorPage()
 				$email_2	= HTTP::_GP('email_2', '');				
 				$vacation	= HTTP::_GP('vacation', '');				
 				
-				$before = $GLOBALS['DATABASE']->uniquequery("SELECT `username`,`email`,`email_2`,`password`,`urlaubs_modus`,`urlaubs_until` FROM ".USERS." WHERE `id` = '". HTTP::_GP('id', 0) ."';");
+				$before = $GLOBALS['DATABASE']->getFirstRow("SELECT `username`,`email`,`email_2`,`password`,`urlaubs_modus`,`urlaubs_until` FROM ".USERS." WHERE `id` = '". HTTP::_GP('id', 0) ."';");
 				$after = array();
 				
 				$PersonalQuery    =    "UPDATE ".USERS." SET ";
@@ -439,8 +441,8 @@ function ShowAccountEditorPage()
 				}
 
 				if(!empty($password) && $id != ROOT_USER) {
-					$PersonalQuery    .= "`password` = '".$GLOBALS['DATABASE']->sql_escape(cryptPassword($password))."', ";
-					$after['password'] = (cryptPassword($password) != $before['password']) ? 'CHANGED' : '';
+					$PersonalQuery    .= "`password` = '".$GLOBALS['DATABASE']->sql_escape(PlayerUntl::cryptPassword($password))."', ";
+					$after['password'] = (PlayerUntl::cryptPassword($password) != $before['password']) ? 'CHANGED' : '';
 				}
 				$before['password'] = '';
 
@@ -479,7 +481,7 @@ function ShowAccountEditorPage()
 		case 'officiers':
 			if($_POST)
 			{
-				$before1 = $GLOBALS['DATABASE']->uniquequery("SELECT * FROM ".USERS." WHERE `id` = '". HTTP::_GP('id', 0) ."';");
+				$before1 = $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".USERS." WHERE `id` = '". HTTP::_GP('id', 0) ."';");
 				$before = array();
 				$after = array();
 				foreach($reslist['officier'] as $ID)
@@ -603,7 +605,7 @@ function ShowAccountEditorPage()
 						
 				if ($change_pos == 'on' && $galaxy > 0 && $system > 0 && $planet > 0 && $galaxy <= $GLOBALS['CONFIG'][$_SESSION['adminuni']]['max_galaxy'] && $system <= $GLOBALS['CONFIG'][$_SESSION['adminuni']]['max_system'] && $planet <= $GLOBALS['CONFIG'][$_SESSION['adminuni']]['max_planets'])
 				{
-					$P	=	$GLOBALS['DATABASE']->uniquequery("SELECT galaxy,system,planet,planet_type FROM ".PLANETS." WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
+					$P	=	$GLOBALS['DATABASE']->getFirstRow("SELECT galaxy,system,planet,planet_type FROM ".PLANETS." WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
 					if ($P['planet_type'] == '1')
 					{
 						if (CheckPlanetIfExist($galaxy, $system, $planet, $UNI, $P['planet_type']))
@@ -621,7 +623,7 @@ function ShowAccountEditorPage()
 							exit;
 						}
 						
-						$Target	= $GLOBALS['DATABASE']->uniquequery("SELECT id_luna FROM ".PLANETS." WHERE `galaxy` = '".$galaxy."' AND `system` = '".$system."' AND `planet` = '".$planet."' AND `planet_type` = '1';");
+						$Target	= $GLOBALS['DATABASE']->getFirstRow("SELECT id_luna FROM ".PLANETS." WHERE `galaxy` = '".$galaxy."' AND `system` = '".$system."' AND `planet` = '".$planet."' AND `planet_type` = '1';");
 								
 						if ($Target['id_luna'] != '0')
 						{
@@ -631,7 +633,7 @@ function ShowAccountEditorPage()
 							
 						$GLOBALS['DATABASE']->multi_query("UPDATE ".PLANETS." SET `id_luna` = '0' WHERE `galaxy` = '".$P['galaxy']."' AND `system` = '".$P['system']."' AND `planet` = '".$P['planet']."' AND `planet_type` = '1';UPDATE ".PLANETS." SET `id_luna` = '".$id."'  WHERE `galaxy` = '".$galaxy."' AND `system` = '".$system."' AND `planet` = '".$planet."' AND planet_type = '1';UPDATE ".PLANETS." SET `galaxy` = '".$galaxy."', `system` = '".$system."', `planet` = '".$planet."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
 						
-						$QMOON2	=	$GLOBALS['DATABASE']->uniquequery("SELECT id_owner FROM ".PLANETS." WHERE `galaxy` = '".$galaxy."' AND `system` = '".$system."' AND `planet` = '".$planet."';");
+						$QMOON2	=	$GLOBALS['DATABASE']->getFirstRow("SELECT id_owner FROM ".PLANETS." WHERE `galaxy` = '".$galaxy."' AND `system` = '".$system."' AND `planet` = '".$planet."';");
 						$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET `galaxy` = '".$galaxy."', `system` = '".$system."', `planet` = '".$planet."', `id_owner` = '".$QMOON2['id_owner']."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."' AND `planet_type` = '3';");
 					}
 				}
@@ -656,7 +658,7 @@ function ShowAccountEditorPage()
 				$delete			=	HTTP::_GP('delete', '');
 				$delete_u		=	HTTP::_GP('delete_u', '');
 
-				$QueryF	=	$GLOBALS['DATABASE']->uniquequery("SELECT * FROM ".ALLIANCE." WHERE `id` = '".$id."' AND `ally_universe` = '".$_SESSION['adminuni']."';");
+				$QueryF	=	$GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".ALLIANCE." WHERE `id` = '".$id."' AND `ally_universe` = '".$_SESSION['adminuni']."';");
 
 				if (!empty($name))
 					$GLOBALS['DATABASE']->query("UPDATE ".ALLIANCE." SET `ally_name` = '".$name."' WHERE `id` = '".$id."' AND `ally_universe` = '".$_SESSION['adminuni']."';");
@@ -664,7 +666,7 @@ function ShowAccountEditorPage()
 				if (!empty($tag))
 					$GLOBALS['DATABASE']->query("UPDATE ".ALLIANCE." SET `ally_tag` = '".$tag."' WHERE `id` = '".$id."' AND `ally_universe` = '".$_SESSION['adminuni']."';");
 
-				$QueryF2	=	$GLOBALS['DATABASE']->uniquequery("SELECT ally_id FROM ".USERS." WHERE `id` = '".$changeleader."';");
+				$QueryF2	=	$GLOBALS['DATABASE']->getFirstRow("SELECT ally_id FROM ".USERS." WHERE `id` = '".$changeleader."';");
 				$GLOBALS['DATABASE']->multi_query("UPDATE ".ALLIANCE." SET `ally_owner` = '".$changeleader."' WHERE `id` = '".$id."' AND `ally_universe` = '".$_SESSION['adminuni']."';UPDATE ".USERS." SET `ally_rank_id` = '0' WHERE `id` = '".$changeleader."';");
 						
 				if (!empty($externo))

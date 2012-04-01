@@ -18,9 +18,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
+ * @author Jan <info@2moons.cc>
  * @copyright 2009 Lucky <douglas@crockford.com> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @copyright 2012 Jan <info@2moons.cc> (2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.3 (2011-01-21)
  * @link http://code.google.com/p/2moons/
@@ -79,7 +79,7 @@ function ShowLogOverview() {
 function ShowLogDetail() {
 	global $LNG;
 	$logid = HTTP::_GP('id', 0);
-	$result   	= $GLOBALS['DATABASE']->uniquequery("SELECT l.*, u_a.username as admin_username FROM ".LOG." as l LEFT JOIN ".USERS." as u_a ON  u_a.id = l.admin  WHERE l.id = ".$logid."");
+	$result   	= $GLOBALS['DATABASE']->getFirstRow("SELECT l.*, u_a.username as admin_username FROM ".LOG." as l LEFT JOIN ".USERS." as u_a ON  u_a.id = l.admin  WHERE l.id = ".$logid."");
 	
 	$data = unserialize($result['data']);
 	$conf_before	= array();
@@ -189,7 +189,7 @@ function ShowLogSettingsList() {
 		$template->message($LNG['log_no_data']);
 	
 	$targetkey = array(0 => $LNG['log_ssettings'], 1 => $LNG['log_usettings'], 2 => $LNG['log_statsettings'], 3 => $LNG['log_chatsettings'], 4 => $LNG['log_tssettings']);
-	while ($LogRow = $GLOBALS['DATABASE']->fetch_array($result))
+	while ($LogRow = $GLOBALS['DATABASE']->fetchArray($result))
 	{			
 		$LogArray[]	= array(
 			'id'			=> $LogRow['id'],
@@ -222,7 +222,7 @@ function ShowLogPlanetsList() {
 	if(!$result)
 		$template->message($LNG['log_no_data']);
 		
-	while ($LogRow = $GLOBALS['DATABASE']->fetch_array($result))
+	while ($LogRow = $GLOBALS['DATABASE']->fetchArray($result))
 	{			
 		$LogArray[]	= array(
 			'id'		=> $LogRow['id'],
@@ -256,7 +256,7 @@ function ShowLogPlayersList() {
 	if(!$result)
 		$template->message($LNG['log_no_data']);
 		
-	while ($LogRow = $GLOBALS['DATABASE']->fetch_array($result))
+	while ($LogRow = $GLOBALS['DATABASE']->fetchArray($result))
 	{			
 		$LogArray[]	= array(
 			'id'		=> $LogRow['id'],
@@ -289,7 +289,7 @@ function ShowLogPresent() {
 	if(!$result)
 		$template->message($LNG['log_no_data']);
 		
-	while ($LogRow = $GLOBALS['DATABASE']->fetch_array($result))
+	while ($LogRow = $GLOBALS['DATABASE']->fetchArray($result))
 	{			
 		$LogArray[]	= array(
 			'id'		=> $LogRow['id'],

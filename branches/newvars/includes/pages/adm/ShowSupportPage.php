@@ -18,11 +18,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan <info@2moons.cc>
+ * @copyright 2006 Perberos <ugamela@perberos.com.ar> (UGamela)
+ * @copyright 2008 Chlorel (XNova)
+ * @copyright 2009 Lucky (XGProyecto)
+ * @copyright 2012 Jan <info@2moons.cc> (2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-05-31)
  * @info $Id$
  * @link http://code.google.com/p/2moons/
  */
@@ -54,7 +56,7 @@ class ShowSupportPage
 		$ticketResult	= $GLOBALS['DATABASE']->query("SELECT t.*, u.username, COUNT(a.ticketID) as answer FROM ".TICKETS." t INNER JOIN ".TICKETS_ANSWER." a USING (ticketID) INNER JOIN ".USERS." u ON u.id = t.ownerID WHERE t.universe = ".$_SESSION['adminuni']." GROUP BY a.ticketID ORDER BY t.ticketID DESC;");
 		$ticketList		= array();
 		
-		while($ticketRow = $GLOBALS['DATABASE']->fetch_array($ticketResult)) {
+		while($ticketRow = $GLOBALS['DATABASE']->fetchArray($ticketResult)) {
 			$ticketRow['time']	= _date($LNG['php_tdformat'], $ticketRow['time'], $USER['timezone']);
 
 			$ticketList[$ticketRow['ticketID']]	= $ticketRow;
@@ -78,7 +80,7 @@ class ShowSupportPage
 		$message	= HTTP::_GP('message', '', true);
 		$change		= HTTP::_GP('change_status', '', true);
 		
-		$ticketDetail	= $GLOBALS['DATABASE']->uniquequery("SELECT ownerID, subject, status FROM ".TICKETS." WHERE ticketID = ".$ticketID.";");
+		$ticketDetail	= $GLOBALS['DATABASE']->getFirstRow("SELECT ownerID, subject, status FROM ".TICKETS." WHERE ticketID = ".$ticketID.";");
 		$status = ($change ? ($ticketDetail['status'] <= 1 ? 2 : 1) : $ticketDetail['status']);
 		if(empty($message)) {
 			if ($status == 2 && $change) {
@@ -105,7 +107,7 @@ class ShowSupportPage
 		$answerResult		= $GLOBALS['DATABASE']->query("SELECT a.*, t.categoryID, t.status FROM ".TICKETS_ANSWER." a INNER JOIN ".TICKETS." t USING(ticketID) WHERE a.ticketID = ".$ticketID." ORDER BY a.answerID;");
 		$answerList			= array();
 		
-		while($answerRow = $GLOBALS['DATABASE']->fetch_array($answerResult)) {
+		while($answerRow = $GLOBALS['DATABASE']->fetchArray($answerResult)) {
 			if (empty($ticket_status))
 				$ticket_status = $answerRow['status'];
 			$answerRow['time']	= _date($LNG['php_tdformat'], $answerRow['time'], $USER['timezone']);

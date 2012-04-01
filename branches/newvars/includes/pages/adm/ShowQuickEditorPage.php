@@ -18,11 +18,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan <info@2moons.cc>
+ * @copyright 2006 Perberos <ugamela@perberos.com.ar> (UGamela)
+ * @copyright 2008 Chlorel (XNova)
+ * @copyright 2009 Lucky (XGProyecto)
+ * @copyright 2012 Jan <info@2moons.cc> (2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-05-31)
  * @info $Id$
  * @link http://code.google.com/p/2moons/
  */
@@ -48,7 +50,7 @@ function ShowQuickEditorPage()
 				$querySelect	.= 'p.'.$GLOBALS['VARS']['ELEMENT'][$elementID]['name'].',';
 			}
 			
-			$planetData	= $GLOBALS['DATABASE']->uniquequery("SELECT u.username, u.id as userid, ".$querySelect." p.name, p.id_owner, p.planet_type, p.galaxy, p.system, p.planet, p.destruyed, p.diameter, p.field_current, p.field_max, p.temp_min, p.temp_max FROM ".PLANETS." p INNER JOIN ".USERS." u ON u.id = p.id_owner WHERE p.id = ".$id.";");
+			$planetData	= $GLOBALS['DATABASE']->getFirstRow("SELECT u.username, u.id as userid, ".$querySelect." p.name, p.id_owner, p.planet_type, p.galaxy, p.system, p.planet, p.destruyed, p.diameter, p.field_current, p.field_max, p.temp_min, p.temp_max FROM ".PLANETS." p INNER JOIN ".USERS." u ON u.id = p.id_owner WHERE p.id = ".$id.";");
 			
 			$planetFlag	= $planetData['planet_type'] == 3 ? ELEMENT_BUILD_ON_MOON : ELEMENT_BUILD_ON_PLANET;
 			
@@ -147,7 +149,7 @@ function ShowQuickEditorPage()
 			{
 				$querySelect	.= "".$GLOBALS['VARS']['ELEMENT'][$elementID]['name'].",";
 			}
-			$UserData	= $GLOBALS['DATABASE']->uniquequery("SELECT ".$querySelect." username, authlevel, galaxy, system, planet, id_planet, darkmatter, authattack, authlevel FROM ".USERS." WHERE id = '".$id."';");
+			$UserData	= $GLOBALS['DATABASE']->getFirstRow("SELECT ".$querySelect." username, authlevel, galaxy, system, planet, id_planet, darkmatter, authattack, authlevel FROM ".USERS." WHERE id = '".$id."';");
 			$ChangePW	= $USER['id'] == ROOT_USER || ($id != ROOT_USER && $USER['authlevel'] > $UserData['authlevel']);
 		
 			if($action == 'send'){
@@ -158,7 +160,7 @@ function ShowQuickEditorPage()
 				}
 				$SQL	.= "darkmatter = '".max(HTTP::_GP('darkmatter', 0), 0)."', ";
 				if(!empty($_POST['password']) && $ChangePW)
-					$SQL	.= "password = '".cryptPassword(HTTP::_GP('password', '', true))."', ";
+					$SQL	.= "password = '".PlayerUntl::cryptPassword(HTTP::_GP('password', '', true))."', ";
 				$SQL	.= "username = '".$GLOBALS['DATABASE']->sql_escape(HTTP::_GP('name', '', UTF8_SUPPORT))."', ";
 				$SQL	.= "authattack = '".($UserData['authlevel'] != AUTH_USR && HTTP::_GP('authattack', '') == 'on' ? $UserData['authlevel'] : 0)."' ";
 				$SQL	.= "WHERE id = '".$id."' AND universe = '".$_SESSION['adminuni']."';";
@@ -186,7 +188,7 @@ function ShowQuickEditorPage()
 				
 				exit(sprintf($LNG['qe_edit_player_sucess'], $UserData['username'], $id));
 			}
-			$PlanetInfo				= $GLOBALS['DATABASE']->uniquequery("SELECT name FROM ".PLANETS." WHERE id = '".$UserData['id_planet']."' AND universe = '".$_SESSION['adminuni']."';");
+			$PlanetInfo				= $GLOBALS['DATABASE']->getFirstRow("SELECT name FROM ".PLANETS." WHERE id = '".$UserData['id_planet']."' AND universe = '".$_SESSION['adminuni']."';");
 
 			$tech		= array();
 			$officier	= array();

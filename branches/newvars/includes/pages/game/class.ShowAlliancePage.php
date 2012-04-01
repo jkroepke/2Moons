@@ -18,11 +18,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan <info@2moons.cc>
+ * @copyright 2006 Perberos <ugamela@perberos.com.ar> (UGamela)
+ * @copyright 2008 Chlorel (XNova)
+ * @copyright 2009 Lucky (XGProyecto)
+ * @copyright 2012 Jan <info@2moons.cc> (2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-05-31)
  * @info $Id$
  * @link http://code.google.com/p/2moons/
  */
@@ -64,14 +66,14 @@ class ShowAlliancePage extends AbstractPage
 	private function setAllianceData($allianceID)
 	{
 		global $USER;
-		$this->allianceData	= $GLOBALS['DATABASE']->uniquequery("SELECT * FROM ".ALLIANCE." WHERE id = ".$allianceID.";");
+		$this->allianceData	= $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".ALLIANCE." WHERE id = ".$allianceID.";");
 		
 		if($USER['ally_id'] == $allianceID)
 		{
 			if ($this->allianceData['ally_owner'] == $USER['id']) {
 				$this->rights	= array_combine($this->avalibleRanks, array_fill(0, count($this->avalibleRanks), true));
 			} elseif($USER['ally_rank_id'] != 0) {
-				$this->rights	= $GLOBALS['DATABASE']->uniquequery("SELECT ".implode(", ", $this->avalibleRanks)." FROM ".ALLIANCE_RANK." WHERE allianceID = ".$allianceID." AND rankID = ".$USER['ally_rank_id'].";");
+				$this->rights	= $GLOBALS['DATABASE']->getFirstRow("SELECT ".implode(", ", $this->avalibleRanks)." FROM ".ALLIANCE_RANK." WHERE allianceID = ".$allianceID." AND rankID = ".$USER['ally_rank_id'].";");
 			}
 			
 			if(!isset($this->rights)) {
@@ -118,7 +120,7 @@ class ShowAlliancePage extends AbstractPage
 		
 		if ($this->allianceData['ally_stats'] == 1)
 		{
-			$StatsData 					= $GLOBALS['DATABASE']->uniquequery("SELECT SUM(wons) as wons, SUM(loos) as loos, SUM(draws) as draws, SUM(kbmetal) as kbmetal, SUM(kbcrystal) as kbcrystal, SUM(lostunits) as lostunits, SUM(desunits) as desunits FROM ".USERS." WHERE ally_id='" . $this->allianceData['id'] . "';");
+			$StatsData 					= $GLOBALS['DATABASE']->getFirstRow("SELECT SUM(wons) as wons, SUM(loos) as loos, SUM(draws) as draws, SUM(kbmetal) as kbmetal, SUM(kbcrystal) as kbcrystal, SUM(lostunits) as lostunits, SUM(desunits) as desunits FROM ".USERS." WHERE ally_id='" . $this->allianceData['id'] . "';");
 
 			$this->tplObj->assign_vars(array(
 				'totalfight'	=> $StatsData['wons'] + $StatsData['loos'] + $StatsData['draws'],
@@ -172,7 +174,7 @@ class ShowAlliancePage extends AbstractPage
 	{
 		global $USER, $LNG;
 		
-		$allianceResult = $GLOBALS['DATABASE']->uniquequery("SELECT a.ally_tag FROM ".ALLIANCE_REQUEST." r INNER JOIN ".ALLIANCE." a ON a.id = r.allianceID WHERE r.userID = ".$USER['id'].";");
+		$allianceResult = $GLOBALS['DATABASE']->getFirstRow("SELECT a.ally_tag FROM ".ALLIANCE_REQUEST." r INNER JOIN ".ALLIANCE." a ON a.id = r.allianceID WHERE r.userID = ".$USER['id'].";");
 		$this->tplObj->assign_vars(array(
 			'request_text'	=> sprintf($LNG['al_request_wait_message'], $allianceResult['ally_tag']),
 		));     
@@ -206,7 +208,7 @@ class ShowAlliancePage extends AbstractPage
 			  + IF(ally_name LIKE '".$GLOBALS['DATABASE']->sql_escape($searchText, true)."%', 1, 0)
 			) DESC,ally_name ASC LIMIT 25;");
 			
-			while($searchRow = $GLOBALS['DATABASE']->fetch_array($searchResult))
+			while($searchRow = $GLOBALS['DATABASE']->fetchArray($searchResult))
 			{
 				$searchList[]	= array(
 					'id'		=> $searchRow['id'],
@@ -238,7 +240,7 @@ class ShowAlliancePage extends AbstractPage
 		$text		= HTTP::_GP('text' , '', true);
 		$allianceID	= HTTP::_GP('id', 0);
 			
-		$allianceResult = $GLOBALS['DATABASE']->uniquequery("SELECT ally_tag, ally_request, ally_request_notallow FROM ".ALLIANCE." WHERE id = ".$allianceID." AND ally_universe = ".$UNI.";");
+		$allianceResult = $GLOBALS['DATABASE']->getFirstRow("SELECT ally_tag, ally_request, ally_request_notallow FROM ".ALLIANCE." WHERE id = ".$allianceID." AND ally_universe = ".$UNI.";");
 
 		if (!isset($allianceResult)) {
 			$this->redirectToHome();
@@ -277,7 +279,7 @@ class ShowAlliancePage extends AbstractPage
 			$this->redirectToHome();
 		}
 		
-		$allyquery 	= $GLOBALS['DATABASE']->uniquequery("SELECT a.ally_tag FROM ".ALLIANCE_REQUEST." r INNER JOIN ".ALLIANCE." a ON a.id = r.allianceID WHERE r.userID = ".$USER['id'].";");
+		$allyquery 	= $GLOBALS['DATABASE']->getFirstRow("SELECT a.ally_tag FROM ".ALLIANCE_REQUEST." r INNER JOIN ".ALLIANCE." a ON a.id = r.allianceID WHERE r.userID = ".$USER['id'].";");
 		$GLOBALS['DATABASE']->query("DELETE FROM ".ALLIANCE_REQUEST." WHERE userID = ".$USER['id'].";");
 		
 		$this->printMessage(sprintf($LNG['al_request_deleted'], $allyquery['ally_tag']));
@@ -355,7 +357,7 @@ class ShowAlliancePage extends AbstractPage
 	{
 		$Return	= array();
 		$Diplos	= $GLOBALS['DATABASE']->query("SELECT d.level, d.accept, d.accept_text, d.id, a.id as ally_id, a.ally_name, a.ally_tag, d.owner_1, d.owner_2 FROM ".DIPLO." as d INNER JOIN ".ALLIANCE." as a ON IF(".$this->allianceData['id']." = d.owner_1, a.id = d.owner_2, a.id = d.owner_1) WHERE ".$this->allianceData['id']." = d.owner_1 OR ".$this->allianceData['id']." = d.owner_2");
-		while($CurDiplo = $GLOBALS['DATABASE']->fetch_array($Diplos))
+		while($CurDiplo = $GLOBALS['DATABASE']->fetchArray($Diplos))
 		{
 			if($CurDiplo['accept'] == 0 && $CurDiplo['owner_2'] == $this->allianceData['id'])
 				$Return[5][$CurDiplo['id']] = array($CurDiplo['ally_name'], $CurDiplo['ally_id'], $CurDiplo['level'], $CurDiplo['accept_text'], $CurDiplo['ally_tag']);
@@ -382,7 +384,7 @@ class ShowAlliancePage extends AbstractPage
 			$rankName	= $LNG['al_new_member_rank_text'];
 		}
 		
-		$StatsData 					= $GLOBALS['DATABASE']->uniquequery("SELECT SUM(wons) as wons, SUM(loos) as loos, SUM(draws) as draws, 
+		$StatsData 					= $GLOBALS['DATABASE']->getFirstRow("SELECT SUM(wons) as wons, SUM(loos) as loos, SUM(draws) as draws, 
 														SUM(kbmetal) as kbmetal, SUM(kbcrystal) as kbcrystal, 
 														SUM(lostunits) as lostunits, SUM(desunits) as desunits 
 														FROM ".USERS." WHERE ally_id = ".$this->allianceData['id'].";");
@@ -425,7 +427,7 @@ class ShowAlliancePage extends AbstractPage
 		$rankResult	= $GLOBALS['DATABASE']->query("SELECT rankID, rankName FROM ".ALLIANCE_RANK." WHERE allianceID = ".$this->allianceData['id'].";");
 		$rankList	= array();
 		
-		while($rankRow = $GLOBALS['DATABASE']->fetch_array($rankResult))
+		while($rankRow = $GLOBALS['DATABASE']->fetchArray($rankResult))
 			$rankList[$rankRow['rankID']]	= $rankRow['rankName'];
 		
 		$GLOBALS['DATABASE']->free_result($rankResult);
@@ -437,7 +439,7 @@ class ShowAlliancePage extends AbstractPage
 
 		$memberList	= array();
 										
-		while ($memberListRow = $GLOBALS['DATABASE']->fetch_array($memberListResult))
+		while ($memberListRow = $GLOBALS['DATABASE']->fetchArray($memberListResult))
 		{
 			if ($this->allianceData['ally_owner'] == $memberListRow['id'])
 				$memberListRow['ally_rankName'] = empty($this->allianceData['ally_owner_range']) ? $LNG['al_founder_rank_text'] : $this->allianceData['ally_owner_range'];
@@ -509,7 +511,7 @@ class ShowAlliancePage extends AbstractPage
 			$title		= $LNG['al_circular_alliance'].$this->allianceData['ally_tag'];
 			$text		= sprintf($LNG['al_circular_front_text'], $USER['username'])."\r\n".$text;
 			
-			while ($sendUsersRow = $GLOBALS['DATABASE']->fetch_array($sendUsersResult))
+			while ($sendUsersRow = $GLOBALS['DATABASE']->fetchArray($sendUsersResult))
 			{
 				SendSimpleMessage($sendUsersRow['id'], $USER['id'], TIMESTAMP, 2, $title, $subject, makebr($text));
 				$sendList	.= "\n".$sendUsersRow['username'];
@@ -688,7 +690,7 @@ class ShowAlliancePage extends AbstractPage
 		$postleader = HTTP::_GP('newleader', 0);
 		if (!empty($postleader))
 		{
-			$Rank = $GLOBALS['DATABASE']->uniquequery("SELECT ally_rank_id FROM ".USERS." WHERE id = ".$postleader.";");
+			$Rank = $GLOBALS['DATABASE']->getFirstRow("SELECT ally_rank_id FROM ".USERS." WHERE id = ".$postleader.";");
 			$GLOBALS['DATABASE']->multi_query("UPDATE ".USERS." SET ally_rank_id = '".$Rank['ally_rank_id']."' WHERE id = '".$USER['id']."';
 			UPDATE ".USERS." SET ally_rank_id = 0 WHERE id = ".$postleader.";UPDATE ".ALLIANCE." SET ally_owner = ".$postleader." WHERE id = ".$this->allianceData['id'].";");
 			$this->redirectToHome();
@@ -702,7 +704,7 @@ class ShowAlliancePage extends AbstractPage
 											  AND id != ".$this->allianceData['ally_owner'].";");
 			$transferUserList	= array();
 
-			while ($trasferUserRow = $GLOBALS['DATABASE']->fetch_array($transferUserResult))
+			while ($trasferUserRow = $GLOBALS['DATABASE']->fetchArray($transferUserResult))
 			{
 				$transferUserList[$trasferUserRow['id']]	= $trasferUserRow['username']." [".$trasferUserRow['rankName']."]";
 			}
@@ -727,7 +729,7 @@ class ShowAlliancePage extends AbstractPage
 		$applyResult	= $GLOBALS['DATABASE']->query("SELECT applyID, u.username, r.time FROM ".ALLIANCE_REQUEST." r INNER JOIN ".USERS." u ON r.userID = u.id WHERE r.allianceID = ".$this->allianceData['id'].";");
 		$applyList		= array();
 		
-		while ($applyRow = $GLOBALS['DATABASE']->fetch_array($applyResult))
+		while ($applyRow = $GLOBALS['DATABASE']->fetchArray($applyResult))
 		{
 			$applyList[]	= array(
 				'username'	=> $applyRow['username'],
@@ -754,7 +756,7 @@ class ShowAlliancePage extends AbstractPage
 
 		$id	= HTTP::_GP('id', 0);
 
-		$applyDetail = $GLOBALS['DATABASE']->uniquequery("SELECT applyID, u.username, r.time, r.text FROM ".ALLIANCE_REQUEST." r LEFT JOIN ".USERS." u ON r.userID = u.id WHERE applyID = ".$id.";");
+		$applyDetail = $GLOBALS['DATABASE']->getFirstRow("SELECT applyID, u.username, r.time, r.text FROM ".ALLIANCE_REQUEST." r LEFT JOIN ".USERS." u ON r.userID = u.id WHERE applyID = ".$id.";");
 
 		if(empty($applyDetail)) {
 			$this->printMessage($LNG['al_apply_not_exists']);
@@ -808,7 +810,7 @@ class ShowAlliancePage extends AbstractPage
 		$rankResult	= $GLOBALS['DATABASE']->query("SELECT * FROM ".ALLIANCE_RANK." WHERE allianceID = ".$this->allianceData['id'].";");
 		$rankList	= array();
 		
-		while($rankRow = $GLOBALS['DATABASE']->fetch_array($rankResult))
+		while($rankRow = $GLOBALS['DATABASE']->fetchArray($rankResult))
 			$rankList[$rankRow['rankID']]	= $rankRow;
 		
 		$GLOBALS['DATABASE']->free_result($rankResult);
@@ -868,7 +870,7 @@ class ShowAlliancePage extends AbstractPage
 		$rankList		= array();
 		$rankList[0]	= $LNG['al_new_member_rank_text'];
 		
-		while($rankRow = $GLOBALS['DATABASE']->fetch_array($rankResult))
+		while($rankRow = $GLOBALS['DATABASE']->fetchArray($rankResult))
 			$rankList[$rankRow['rankID']]	= $rankRow['rankName'];
 		
 		$GLOBALS['DATABASE']->free_result($rankResult);
@@ -880,7 +882,7 @@ class ShowAlliancePage extends AbstractPage
 
 		$memberList	= array();
 										
-		while ($memberListRow = $GLOBALS['DATABASE']->fetch_array($memberListResult))
+		while ($memberListRow = $GLOBALS['DATABASE']->fetchArray($memberListResult))
 		{
 			if ($this->allianceData['ally_owner'] == $memberListRow['id'])
 				$memberListRow['ally_rank_id'] = -1;
@@ -926,7 +928,7 @@ class ShowAlliancePage extends AbstractPage
 		$rankList		= array();
 		$rankList[0]	= array_combine($this->avalibleRanks, array_fill(0, count($this->avalibleRanks), true));
 		
-		while($rankRow = $GLOBALS['DATABASE']->fetch_array($rankResult))
+		while($rankRow = $GLOBALS['DATABASE']->fetchArray($rankResult))
 			$rankList[$rankRow['rankID']]	= $rankRow;
 			
 		$userRanks	= HTTP::_GP('rank', array());
@@ -1003,7 +1005,7 @@ class ShowAlliancePage extends AbstractPage
 		INNER JOIN ".ALLIANCE." a ON IF(".$this->allianceData['id']." = d.owner_1, a.id = d.owner_2, a.id = d.owner_1)
 		WHERE owner_1 = ".$this->allianceData['id']." OR owner_2 = ".$this->allianceData['id'].";");
 		
-		while($diploRow = $GLOBALS['DATABASE']->fetch_array($diploResult)) {
+		while($diploRow = $GLOBALS['DATABASE']->fetchArray($diploResult)) {
 			$own	= $diploRow['owner_1'] == $this->allianceData['id'];
 			if($diploRow['accept'] == 1) {
 				$diploList[0][$diploRow['level']][$diploRow['id']] = $diploRow['ally_name'];
@@ -1072,7 +1074,7 @@ class ShowAlliancePage extends AbstractPage
 		
 		$name	= HTTP::_GP('name', '', UTF8_SUPPORT);
 		
-		$targetAlliance	= $GLOBALS['DATABASE']->uniquequery("SELECT id FROM ".ALLIANCE." WHERE ally_universe = ".$UNI." AND ally_name = '".$GLOBALS['DATABASE']->sql_escape($name)."';");
+		$targetAlliance	= $GLOBALS['DATABASE']->getFirstRow("SELECT id FROM ".ALLIANCE." WHERE ally_universe = ".$UNI." AND ally_name = '".$GLOBALS['DATABASE']->sql_escape($name)."';");
 		
 		if(empty($targetAlliance)) {
 			$this->sendJSON(array(

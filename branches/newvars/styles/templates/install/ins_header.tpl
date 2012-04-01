@@ -10,8 +10,8 @@
 	<meta name="generator" content="2Moons">
 	<!-- 
 		This website is powered by 2Moons
-		2Moons is a free Space Browsergame initially created by Jan Kröpke and licensed under GNU/GPL.
-		2Moons is copyright 2009-2012 of Jan Kröpke. Extensions are copyright of their respective owners.
+		2Moons is a free Space Browsergame initially created by Jan and licensed under GNU/GPL.
+		2Moons is copyright 2009-2012 of Jan. Extensions are copyright of their respective owners.
 		Information and contribution at http://2moons.cc/
 	-->
 	{if !empty($goto)}

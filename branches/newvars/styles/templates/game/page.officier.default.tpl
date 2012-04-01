@@ -24,7 +24,9 @@
 						<td class="transparent left" style="width:90%;padding:10px;">
 							<p>{$LNG.shortDescription.{$ID}}</p>
 							{foreach $Element.elementBonus as $BonusName => $Bonus}{if $Bonus@iteration % 3 === 1}<p>{/if}{$LNG.bonus.$BonusName|replace:'%f%':{abs($Bonus * 100)}}{if $Bonus@iteration % 3 === 0 || $Bonus@last}</p>{else}&nbsp;{/if}{/foreach}
-							<p>{foreach $Element.costRessources as $RessID => $RessAmount}{$LNG.tech.{$RessID}}: <b><span style="color:{if $Element.costOverflow[$RessID] == 0}lime{else}red{/if}">{$RessAmount|number}</span></b>{/foreach} | {$LNG.in_dest_durati}: <span style="color:lime">{$Element.time|time}</span></p>
+							<p>{foreach $Element.costRessources as $RessID => $RessAmount}{$LNG.tech.{$RessID}}: <b><span style="color:{if $Element.costOverflow[$RessID] == 0}lime{else}red{/if}">{$RessAmount|number}</span></b> {/foreach}
+							<br>{$LNG.in_dest_durati}: <span style="color:lime">{$Element.time|time}</span>
+							</p>
 						</td>
 						<td class="transparent" style="vertical-align:middle;width:100px">
 						{if $Element.timeLeft > 0}
@@ -79,7 +81,7 @@
 						<td class="transparent left" style="width:90%;padding:0px 10px 10px 10px;">
 							<p>{$LNG.shortDescription.{$ID}}</p>
 							{foreach $Element.elementBonus as $BonusName => $Bonus}{if $Bonus@iteration % 3 === 1}<p>{/if}{$LNG.bonus.$BonusName|replace:'%f%':{abs($Bonus * 100)}}{if $Bonus@iteration % 3 === 0 || $Bonus@last}</p>{else}&nbsp;{/if}{/foreach}
-							<p>{foreach $Element.costRessources as $RessID => $RessAmount}{$LNG.tech.{$RessID}}: <b><span style="color:{if $Element.costOverflow[$RessID] == 0}lime{else}red{/if}">{$RessAmount|number}</span></b>{/foreach}</p>
+							<p>{foreach $Element.costRessources as $RessID => $RessAmount}{$LNG.tech.{$RessID}}: <b><span style="color:{if $Element.costOverflow[$RessID] == 0}lime{else}red{/if}">{$RessAmount|number}</span></b> {/foreach}</p>
 						</td>
 						<td class="transparent" style="vertical-align:middle;width:100px">
 						{if $Element.maxLevel <= $Element.level}

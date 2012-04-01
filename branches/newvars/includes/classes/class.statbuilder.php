@@ -18,11 +18,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan <info@2moons.cc>
+ * @copyright 2006 Perberos <ugamela@perberos.com.ar> (UGamela)
+ * @copyright 2008 Chlorel (XNova)
+ * @copyright 2009 Lucky (XGProyecto)
+ * @copyright 2012 Jan <info@2moons.cc> (2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-05-31)
  * @info $Id$
  * @link http://code.google.com/p/2moons/
  */
@@ -40,7 +42,7 @@ class statbuilder
 		
 		$this->Unis			= array($CONF['uni']);
 		$Query				= $GLOBALS['DATABASE']->query("SELECT uni FROM ".CONFIG." WHERE uni != '".$CONF['uni']."' ORDER BY uni ASC;");
-		while($Uni	= $GLOBALS['DATABASE']->fetch_array($Query)) {
+		while($Uni	= $GLOBALS['DATABASE']->fetchArray($Query)) {
 			$this->Unis[]	= $Uni['uni'];
 		}
 	}
@@ -96,7 +98,7 @@ class statbuilder
 		
 		$FlyingFleets	= array();
 		$SQLFleets		= $GLOBALS['DATABASE']->query('SELECT fleet_array, fleet_owner FROM '.FLEETS.';');
-		while ($CurFleets = $GLOBALS['DATABASE']->fetch_array($SQLFleets))
+		while ($CurFleets = $GLOBALS['DATABASE']->fetchArray($SQLFleets))
 		{
 			$FleetRec   	= explode(";", $CurFleets['fleet_array']);
 			
@@ -248,7 +250,7 @@ class statbuilder
 			$tech			= array();
 			$Rank           = 1;
 			$RankQry        = $GLOBALS['DATABASE']->query("SELECT s.id_owner FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.universe = '".$Uni."' AND s.stat_type = '1' AND s.id_owner = u.id ".(($CONF['stat'] == 2)?'AND u.authlevel < '.$CONF['stat_level'].' ':'')." ORDER BY tech_points DESC;");
-			while ($CurUser = $GLOBALS['DATABASE']->fetch_array($RankQry))
+			while ($CurUser = $GLOBALS['DATABASE']->fetchArray($RankQry))
 			{
 				$tech[$CurUser['id_owner']]	= $Rank;
 				$Rank++;
@@ -259,7 +261,7 @@ class statbuilder
 			$build			= array();
 			$Rank           = 1;
 			$RankQry        = $GLOBALS['DATABASE']->query("SELECT s.id_owner FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.universe = '".$Uni."' AND  s.stat_type = '1' AND s.id_owner = u.id ".(($CONF['stat'] == 2)?'AND u.authlevel < '.$CONF['stat_level'].' ':'')." ORDER BY build_points DESC;");
-			while ($CurUser = $GLOBALS['DATABASE']->fetch_array($RankQry))
+			while ($CurUser = $GLOBALS['DATABASE']->fetchArray($RankQry))
 			{
 				$build[$CurUser['id_owner']] = $Rank;
 				$Rank++;
@@ -270,7 +272,7 @@ class statbuilder
 			$defs			= array();
 			$Rank           = 1;
 			$RankQry        = $GLOBALS['DATABASE']->query("SELECT s.id_owner FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.universe = '".$Uni."' AND  s.stat_type = '1' AND s.id_owner = u.id ".(($CONF['stat'] == 2)?'AND u.authlevel < '.$CONF['stat_level'].' ':'')." ORDER BY defs_points DESC;");
-			while ($CurUser = $GLOBALS['DATABASE']->fetch_array($RankQry))
+			while ($CurUser = $GLOBALS['DATABASE']->fetchArray($RankQry))
 			{
 				$defs[$CurUser['id_owner']]	= $Rank;
 				$Rank++;
@@ -281,7 +283,7 @@ class statbuilder
 			$fleet			= array();
 			$Rank           = 1;
 			$RankQry        = $GLOBALS['DATABASE']->query("SELECT s.id_owner FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.universe = '".$Uni."' AND  s.stat_type = '1' AND s.id_owner = u.id ".(($CONF['stat'] == 2)?'AND u.authlevel < '.$CONF['stat_level'].' ':'')." ORDER BY fleet_points DESC;");
-			while ($CurUser = $GLOBALS['DATABASE']->fetch_array($RankQry))
+			while ($CurUser = $GLOBALS['DATABASE']->fetchArray($RankQry))
 			{
 				$fleet[$CurUser['id_owner']] = $Rank;
 				$Rank++;
@@ -292,7 +294,7 @@ class statbuilder
 			$Rank           = 1;
 			$RankQry        = $GLOBALS['DATABASE']->query("SELECT s.id_owner FROM ".STATPOINTS." as s, ".USERS." as u WHERE s.universe = '".$Uni."' AND  s.stat_type = '1' AND s.id_owner = u.id ".(($CONF['stat'] == 2)?'AND u.authlevel < '.$CONF['stat_level'].' ':'')." ORDER BY total_points DESC;");
 
-			while($CurUser = $GLOBALS['DATABASE']->fetch_array($RankQry))
+			while($CurUser = $GLOBALS['DATABASE']->fetchArray($RankQry))
 			{
 				$QryUpdateStats .= "UPDATE ".STATPOINTS." SET tech_rank = '". $tech[$CurUser['id_owner']] ."', build_rank = '". $build[$CurUser['id_owner']] ."', defs_rank = '". $defs[$CurUser['id_owner']] ."', fleet_rank = '". $fleet[$CurUser['id_owner']] ."', total_rank = '". $Rank ."' WHERE stat_type = '1' AND id_owner = '". $CurUser['id_owner'] ."';";
 				$Rank++;
@@ -304,7 +306,7 @@ class statbuilder
 			$tech			= array();
 			$Rank           = 1;
 			$RankQry        = $GLOBALS['DATABASE']->query("SELECT s.id_owner FROM ".STATPOINTS." as s WHERE s.universe = '".$Uni."' AND  s.stat_type = '2' ORDER BY tech_points DESC;");
-			while ($CurUser = $GLOBALS['DATABASE']->fetch_array($RankQry))
+			while ($CurUser = $GLOBALS['DATABASE']->fetchArray($RankQry))
 			{
 				$tech[$CurUser['id_owner']]	= $Rank;
 				$Rank++;
@@ -315,7 +317,7 @@ class statbuilder
 			$build			= array();
 			$Rank           = 1;
 			$RankQry        = $GLOBALS['DATABASE']->query("SELECT s.id_owner FROM ".STATPOINTS." as s WHERE s.universe = '".$Uni."' AND  s.stat_type = '2' ORDER BY build_points DESC;");
-			while ($CurUser = $GLOBALS['DATABASE']->fetch_array($RankQry))
+			while ($CurUser = $GLOBALS['DATABASE']->fetchArray($RankQry))
 			{
 				$build[$CurUser['id_owner']] = $Rank;
 				$Rank++;
@@ -326,7 +328,7 @@ class statbuilder
 			$defs			= array();
 			$Rank           = 1;
 			$RankQry        = $GLOBALS['DATABASE']->query("SELECT s.id_owner FROM ".STATPOINTS." as s WHERE s.universe = '".$Uni."' AND  s.stat_type = '2' ORDER BY defs_points DESC;");
-			while ($CurUser = $GLOBALS['DATABASE']->fetch_array($RankQry))
+			while ($CurUser = $GLOBALS['DATABASE']->fetchArray($RankQry))
 			{
 				$defs[$CurUser['id_owner']]	= $Rank;
 				$Rank++;
@@ -337,7 +339,7 @@ class statbuilder
 			$fleet			= array();
 			$Rank           = 1;
 			$RankQry        = $GLOBALS['DATABASE']->query("SELECT s.id_owner FROM ".STATPOINTS." as s WHERE s.universe = '".$Uni."' AND  s.stat_type = '2' ORDER BY fleet_points DESC;");
-			while ($CurUser = $GLOBALS['DATABASE']->fetch_array($RankQry))
+			while ($CurUser = $GLOBALS['DATABASE']->fetchArray($RankQry))
 			{
 				$fleet[$CurUser['id_owner']] = $Rank;
 				$Rank++;
@@ -348,7 +350,7 @@ class statbuilder
 			$Rank           = 1;
 			$RankQry        = $GLOBALS['DATABASE']->query("SELECT s.id_owner FROM ".STATPOINTS." as s WHERE s.universe = '".$Uni."' AND s.stat_type = '2' ORDER BY total_points DESC;");
 
-			while($CurUser = $GLOBALS['DATABASE']->fetch_array($RankQry))
+			while($CurUser = $GLOBALS['DATABASE']->fetchArray($RankQry))
 			{
 				$QryUpdateStats .= "UPDATE ".STATPOINTS." SET tech_rank = '". $tech[$CurUser['id_owner']] ."', build_rank = '". $build[$CurUser['id_owner']] ."', defs_rank = '". $defs[$CurUser['id_owner']] ."', fleet_rank = '". $fleet[$CurUser['id_owner']] ."', total_rank = '". $Rank ."' WHERE stat_type = '2' AND id_owner = '". $CurUser['id_owner'] ."';";
 				$Rank++;
@@ -368,7 +370,7 @@ class statbuilder
 		$FinalSQL	= 'TRUNCATE TABLE '.STATPOINTS.';';
 		$FinalSQL	.= "INSERT INTO ".STATPOINTS." (id_owner, id_ally, stat_type, universe, tech_old_rank, tech_points, tech_count, build_old_rank, build_points, build_count, defs_old_rank, defs_points, defs_count, fleet_old_rank, fleet_points, fleet_count, total_old_rank, total_points, total_count) VALUES ";
 		
-		while($PlanetData = $GLOBALS['DATABASE']->fetch_array($TotalData['Planets']))
+		while($PlanetData = $GLOBALS['DATABASE']->fetchArray($TotalData['Planets']))
 		{		
 			if((in_array($CONF['stat'], array(1, 2)) && $PlanetData['authlevel'] >= $CONF['stat_level']) || !empty($PlanetData['bana'])) continue;
 			
@@ -385,7 +387,7 @@ class statbuilder
 		
 		$UniData	= array();
 		
-		while($UserData	= $GLOBALS['DATABASE']->fetch_array($TotalData['Users']))
+		while($UserData	= $GLOBALS['DATABASE']->fetchArray($TotalData['Users']))
 		{
 			if(!isset($UniData[$UserData['universe']]))
 				$UniData[$UserData['universe']] = 0;
@@ -476,7 +478,7 @@ class statbuilder
 		if(count($AllyPoints) != 0)
 		{
 			$AllySQL = "INSERT INTO ".STATPOINTS." (id_owner, id_ally, stat_type, universe, tech_old_rank, tech_points, tech_count, build_old_rank, build_points, build_count, defs_old_rank, defs_points, defs_count, fleet_old_rank, fleet_points, fleet_count, total_old_rank, total_points, total_count) VALUES ";
-			while($AllianceData	= $GLOBALS['DATABASE']->fetch_array($TotalData['Alliance']))
+			while($AllianceData	= $GLOBALS['DATABASE']->fetchArray($TotalData['Alliance']))
 			{
 				$AllySQL  .= "(".
 				$AllianceData['id'].", 0, 2, ".
