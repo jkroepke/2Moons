@@ -129,7 +129,7 @@ switch ($step) {
 	case 2:
 		$error 	= false;
 		$ftp 	= false;
-		if(version_compare(PHP_VERSION, "5.2.5", ">=")){
+		if(version_compare(PHP_VERSION, '5.3.2', ">=")){
 			$PHP = "<span class=\"yes\">".$LNG['reg_yes'].", v".PHP_VERSION."</span>";
 		} else {
 			$PHP = "<span class=\"no\">".$LNG['reg_no'].", v".PHP_VERSION."</span>";
