@@ -18,11 +18,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan <info@2moons.cc>
+ * @copyright 2006 Perberos <ugamela@perberos.com.ar> (UGamela)
+ * @copyright 2008 Chlorel (XNova)
+ * @copyright 2009 Lucky (XGProyecto)
+ * @copyright 2012 Jan <info@2moons.cc> (2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-05-31)
  * @info $Id$
  * @link http://code.google.com/p/2moons/
  */
@@ -85,7 +87,10 @@ function getFactors($USER, $Type = 'basic', $TIME = NULL) {
 		'Planets'			=> 0,
 	);
 	
-	foreach(array_merge($GLOBALS['VARS']['LIST'][ELEMENT_BONUS], $GLOBALS['VARS']['LIST'][ELEMENT_OFFICIER]) as $elementID)
+	$resourceIDs	= array_merge($GLOBALS['VARS']['LIST'][ELEMENT_PLANET_RESOURCE], $GLOBALS['VARS']['LIST'][ELEMENT_USER_RESOURCE], $GLOBALS['VARS']['LIST'][ELEMENT_ENERGY]);
+	
+	$elementIDs	= array_keys($GLOBALS['VARS']['ELEMENT']);
+	foreach($elementIDs as $elementID)
 	{
 		$bonus = $GLOBALS['VARS']['ELEMENT'][$elementID]['bonus'];
 			
@@ -116,6 +121,10 @@ function getFactors($USER, $Type = 'basic', $TIME = NULL) {
 			$factor['FlyTime']			+= $bonus['FlyTime'];
 			$factor['FleetSlots']		+= $bonus['FleetSlots'];
 			$factor['Planets']			+= $bonus['Planets'];
+			
+			foreach ($resourceIDs as $resourceID) {
+				$factor['ResourceSpecific']	+= $bonus['ResourceID'.$resourceID];
+			}
 		} else {
 			$factor['Attack']			+= $elementLevel * $bonus['Attack'];
 			$factor['Defensive']		+= $elementLevel * $bonus['Defensive'];
@@ -131,6 +140,10 @@ function getFactors($USER, $Type = 'basic', $TIME = NULL) {
 			$factor['FlyTime']			+= $elementLevel * $bonus['FlyTime'];
 			$factor['FleetSlots']		+= $elementLevel * $bonus['FleetSlots'];
 			$factor['Planets']			+= $elementLevel * $bonus['Planets'];
+			
+			foreach ($resourceIDs as $resourceID) {
+				$factor['ResourceSpecific']	+= $elementLevel * $bonus['ResourceID'.$resourceID];
+			}
 		}
 	}
 	
@@ -156,7 +169,7 @@ function getPlanets($USER)
 
 	$PlanetRAW = $GLOBALS['DATABASE']->query($QryPlanets);
 	
-	while($Planet = $GLOBALS['DATABASE']->fetch_array($PlanetRAW))
+	while($Planet = $GLOBALS['DATABASE']->fetchArray($PlanetRAW))
 		$Planets[$Planet['id']]	= $Planet;
 
 	$GLOBALS['DATABASE']->free_result($PlanetRAW);
@@ -174,9 +187,9 @@ function get_timezone_selector() {
 
 	foreach( $timezone_identifiers as $value )
 	{
-		if ( preg_match( '/^(America|Antartica|Arctic|Asia|Atlantic|Europe|Indian|Pacific)\//', $value ) )
+		if (preg_match('/^(America|Antartica|Arctic|Asia|Atlantic|Europe|Indian|Pacific)\//', $value ) )
 		{
-			$ex=explode('/',$value); //obtain continent,city
+			$ex = explode('/',$value); //obtain continent,city
 			$city = isset($ex[2])? $ex[1].' - '.$ex[2]:$ex[1]; //in case a timezone has more than one
 			$timezones[$ex[0]][$value] = str_replace('_', ' ', $city);
 		}
@@ -235,49 +248,29 @@ function _date($format, $time = null, $toTimeZone = null, $LNG = NULL) {
 	return date($format, $time);
 }
 
-function update_config($Values, $UNI = NULL)
+function setConfig($configArray, $UNI = NULL, $flushCache = true)
 {
-	global $CONF;
-	$SQLBASE	= "";
-	$SQLUNI		= "";
-	$UNI		= (empty($UNI)) ? $GLOBALS['UNI'] : $UNI;
-	
-	foreach($Values as $Name => $Value) {
-		if(!isset($CONF[$Name]))
-			continue;
-			
-		$GLOBALS['CONFIG'][$UNI][$Name]	= $Value;
-		$GLOBALS['CONF'][$Name]			= $Value;
+	global $gameConfig, $uniConfig, $uniAllConfig;
+	$UNI	= (empty($UNI)) ? $GLOBALS['UNI'] : $UNI;
+	$sql	= array();
 		
-		if(in_array($Name, $GLOBALS['BASICCONFIG'])) {
-			$SQLBASE	.= $Name." = '".$GLOBALS['DATABASE']->sql_escape($Value)."', ";
+	foreach($configArray as $Name => $Value) {
+		if(isset($uniConfig[$Name])) {
+			$uniConfig[$Name]			= $Value; 
+			$uniAllConfig[$UNI][$Name]	= $Value;
+			$GLOBALS['DATABASE']->query("UPDATE ".UNIVERSE_CONFIG." SET value = '".$GLOBALS['DATABASE']->sql_escape($Value)."' WHERE universe = ".$UNI." AND name = '".$Name."';");
+		} elseif(isset($gameConfig[$Name])) {
+			$gameConfig[$Name]			= $Value; 
+			$GLOBALS['DATABASE']->query("UPDATE ".CONFIG." SET value = '".$GLOBALS['DATABASE']->sql_escape($Value)."' WHERE name = '".$Name."';");
 		} else {
-			$SQLUNI		.= $Name." = '".$GLOBALS['DATABASE']->sql_escape($Value)."', ";
+			exit('Unknown config value: '.$Name);
 		}
 	}
-
-	if(!empty($SQLBASE))
-		$GLOBALS['DATABASE']->query("UPDATE ".CONFIG." SET ".substr($SQLBASE, 0, -2).";");
 	
-	if(!empty($SQLUNI))
-		$GLOBALS['DATABASE']->query("UPDATE ".CONFIG." SET ".substr($SQLUNI, 0, -2)." WHERE uni = '".$UNI."';");
-	
-}
-
-function getConfig($UNI) {
-	if(isset($GLOBALS['CONFIG'][$UNI])) {
-		return $GLOBALS['CONFIG'][$UNI];
+	if($flushCache) {
+		$GLOBALS['CACHE']->flush('config');
+		$GLOBALS['CACHE']->flush('universe');
 	}
-	
-	$CONF = $GLOBALS['DATABASE']->uniquequery("SELECT HIGH_PRIORITY * FROM ".CONFIG." WHERE uni = '".$UNI."';");
-	if(!isset($CONF))
-		HTTP::redirectTo('index.php');
-		
-	$CONF['moduls']			= explode(";", $CONF['moduls']);
-
-	
-	$GLOBALS['CONFIG'][$UNI]	= $CONF;
-	return $CONF;
 }
 
 function ValidateAddress($address) {
@@ -378,7 +371,7 @@ function GetUserByID($UserID, $GetInfo = "*")
 	else
 		$GetOnSelect = $GetInfo;
 	
-	$User = $GLOBALS['DATABASE']->uniquequery("SELECT ".$GetOnSelect." FROM ".USERS." WHERE id = '". $UserID ."';");
+	$User = $GLOBALS['DATABASE']->getFirstRow("SELECT ".$GetOnSelect." FROM ".USERS." WHERE id = '". $UserID ."';");
 	return $User;
 }
 
@@ -398,7 +391,7 @@ function MailSend($MailTarget, $MailTargetName, $MailSubject, $MailContent)
 		$mail->SMTPDebug  	= ($CONF['debug'] == 1) ? 2 : 0;   
 	} elseif($CONF['mail_use'] == 1) {
 		$mail->IsSendmail();
-		$mai->Sendmail		= $CONF['smail_path'];
+		$mail->Sendmail		= $CONF['smail_path'];
 	} else {
 		$mail->IsMail();
 	}
@@ -417,12 +410,6 @@ function makebr($text)
 	
     $BR = "<br>\n";
     return (version_compare(PHP_VERSION, "5.3.0", ">=")) ? nl2br($text, false) : strtr($text, array("\r\n" => $BR, "\r" => $BR, "\n" => $BR)); 
-}
-
-function CheckPlanetIfExist($Galaxy, $System, $Planet, $Universe, $Planettype = 1)
-{
-	$QrySelectGalaxy = $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".PLANETS." WHERE universe = '".$Universe."' AND galaxy = '".$Galaxy."' AND system = '".$System."' AND planet = '".$Planet."' AND planet_type = '".$Planettype."';");
-	return $QrySelectGalaxy ? true : false;
 }
 
 function CheckNoobProtec($OwnerPlayer, $TargetPlayer, $Player)
@@ -458,15 +445,6 @@ function CheckNoobProtec($OwnerPlayer, $TargetPlayer, $Player)
 			($OwnerPlayer['total_points'] * $CONF['noobprotectionmulti'] < $TargetPlayer['total_points'])
 		),
 	);
-}
-
-function CheckName($name)
-{
-	if(UTF8_SUPPORT) {
-		return preg_match("/^[\p{L}_\-. ]*$/u", $name);
-	} else {
-		return preg_match("/^[A-z0-9_\-. ]*$/", $name);
-	}
 }
 
 function SendSimpleMessage($Owner, $Sender, $Time, $Type, $From, $Subject, $Message)
@@ -520,20 +498,6 @@ function isModulAvalible($ID)
 		$GLOBALS['CONF']['moduls'][$ID] = 1;
 	
 	return $GLOBALS['CONF']['moduls'][$ID] == 1 || (isset($_SESSION) && $_SESSION['authlevel'] > AUTH_USR);
-}
-
-function ClearCache()
-{
-	$DIRS	= array('cache/');
-	foreach($DIRS as $DIR) {
-		$FILES = array_diff(scandir($DIR), array('..', '.', '.htaccess'));
-		foreach($FILES as $FILE) {
-			if(is_dir(ROOT_PATH.$DIR.$FILE))
-				continue;
-				
-			unlink(ROOT_PATH.$DIR.$FILE);
-		}
-	}
 }
 
 function MaxPlanets($Level, $Universe)
@@ -614,18 +578,6 @@ function isVacationMode($USER)
 	return ($USER['urlaubs_modus'] == 1) ? true : false;
 }
 
-function cryptPassword($password)
-{
-	// http://www.phpgangsta.de/schoener-hashen-mit-bcrypt
-	global $resource, $salt;
-	if(!CRYPT_BLOWFISH || !isset($salt))
-	{
-		return md5($password);
-	} else {
-		return crypt($password, '$2a$09$'.$salt.'$');
-	}
-}
-
 function combineArrayWithSingleElement($keys, $var) {
 	return array_combine($keys, array_fill(0, count($keys), $var));
 }
@@ -653,7 +605,7 @@ function exceptionHandler($exception)
 	if(method_exists($exception, 'getSeverity')) {
 		$errno	= $exception->getSeverity();
 	} else {
-		$errno	= E_USER_ERROR;
+		$errno	= E_ERROR;
 	}
 	
 	$errorType = array(
@@ -685,8 +637,8 @@ function exceptionHandler($exception)
 	<meta name="generator" content="2Moons '.$VERSION.'">
 	<!-- 
 		This website is powered by 2Moons '.$VERSION.'
-		2Moons is a free Space Browsergame initially created by Jan Kröpke and licensed under GNU/GPL.
-		2Moons is copyright 2009-2012 of Jan Kröpke. Extensions are copyright of their respective owners.
+		2Moons is a free Space Browsergame initially created by Jan and licensed under GNU/GPL.
+		2Moons is copyright 2009-2012 of Jan. Extensions are copyright of their respective owners.
 		Information and contribution at http://2moons.cc/
 	-->
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">

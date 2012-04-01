@@ -18,11 +18,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan <info@2moons.cc>
+ * @copyright 2006 Perberos <ugamela@perberos.com.ar> (UGamela)
+ * @copyright 2008 Chlorel (XNova)
+ * @copyright 2009 Lucky (XGProyecto)
+ * @copyright 2012 Jan <info@2moons.cc> (2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-05-31)
  * @info $Id$
  * @link http://code.google.com/p/2moons/
  */
@@ -37,52 +39,52 @@ class ShowOfficierPage extends AbstractPage
 		parent::__construct();
 	}
 	
-	public function UpdateExtra($Element)
+	public function UpdateExtra($elementID)
 	{
 		global $PLANET, $USER, $resource, $pricelist;
 		
-		$costRessources		= BuildFunctions::getElementPrice($USER, $PLANET, $Element);
+		$costRessources		= BuildFunctions::getElementPrice($USER, $PLANET, $elementID);
 			
-		if (!BuildFunctions::isElementBuyable($USER, $PLANET, $Element, $costRessources)) {
+		if (!BuildFunctions::isElementBuyable($USER, $PLANET, $elementID, $costRessources)) {
 			return;
 		}
 			
-		$USER[$GLOBALS['VARS']['ELEMENT'][$Element]['name']]	= max($USER[$GLOBALS['VARS']['ELEMENT'][$Element]['name']], TIMESTAMP) + $pricelist[$Element]['time'];
+		$USER[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']]	= max($USER[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']], TIMESTAMP) + $GLOBALS['VARS']['ELEMENT'][$elementID]['timeBonus'];
 			
-		if(isset($costRessources[901])) { $PLANET[$GLOBALS['VARS']['ELEMENT'][901]['name']]	-= $costRessources[901]; }
-		if(isset($costRessources[902])) { $PLANET[$GLOBALS['VARS']['ELEMENT'][902]['name']]	-= $costRessources[902]; }
-		if(isset($costRessources[903])) { $PLANET[$GLOBALS['VARS']['ELEMENT'][903]['name']]	-= $costRessources[903]; }
-		if(isset($costRessources[921])) { $USER[$GLOBALS['VARS']['ELEMENT'][921]['name']]		-= $costRessources[921]; }
+		foreach ($GLOBALS['VARS']['LIST'][ELEMENT_PLANET_RESOURCE] as $resourceID) {
+			$PLANET[$GLOBALS['VARS']['ELEMENT'][$resourceID]['name']]	-= $costRessources[$resourceID];
+		}
 		
-		$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET
-				   ".$GLOBALS['VARS']['ELEMENT'][$Element]['name']." = ".$USER[$GLOBALS['VARS']['ELEMENT'][$Element]['name']]."
-				   WHERE
-				   id = ".$USER['id'].";");
+		foreach ($GLOBALS['VARS']['LIST'][ELEMENT_USER_RESOURCE] as $resourceID)  {
+			$USER[$GLOBALS['VARS']['ELEMENT'][$resourceID]['name']]		-= $costRessources[$resourceID];
+		}
+		
+		$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET ".$GLOBALS['VARS']['ELEMENT'][$elementID]['name']." = ".$USER[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']]." WHERE id = ".$USER['id'].";");
 	}
 
-	public function UpdateOfficier($Element)
+	public function UpdateOfficier($elementID)
 	{
 		global $USER, $PLANET, $reslist, $resource, $pricelist;
 		
-		$costRessources		= BuildFunctions::getElementPrice($USER, $PLANET, $Element);
+		$costRessources		= BuildFunctions::getElementPrice($USER, $PLANET, $elementID);
 			
-		if (!BuildFunctions::isTechnologieAccessible($USER, $PLANET, $Element) 
-			|| !BuildFunctions::isElementBuyable($USER, $PLANET, $Element, $costRessources) 
-			|| $pricelist[$Element]['max'] <= $USER[$GLOBALS['VARS']['ELEMENT'][$Element]['name']]) {
+		if (!BuildFunctions::isTechnologieAccessible($USER, $PLANET, $elementID) 
+			|| !BuildFunctions::isElementBuyable($USER, $PLANET, $elementID, $costRessources) 
+			|| $pricelist[$elementID]['max'] <= $USER[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']]) {
 			return;
 		}
 		
-		$USER[$GLOBALS['VARS']['ELEMENT'][$Element]['name']]	+= 1;
+		$USER[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']]	+= 1;
 		
-		if(isset($costRessources[901])) { $PLANET[$GLOBALS['VARS']['ELEMENT'][901]['name']]	-= $costRessources[901]; }
-		if(isset($costRessources[902])) { $PLANET[$GLOBALS['VARS']['ELEMENT'][902]['name']]	-= $costRessources[902]; }
-		if(isset($costRessources[903])) { $PLANET[$GLOBALS['VARS']['ELEMENT'][903]['name']]	-= $costRessources[903]; }
-		if(isset($costRessources[921])) { $USER[$GLOBALS['VARS']['ELEMENT'][921]['name']]		-= $costRessources[921]; }
+		foreach ($GLOBALS['VARS']['LIST'][ELEMENT_PLANET_RESOURCE] as $resourceID) {
+			$PLANET[$GLOBALS['VARS']['ELEMENT'][$resourceID]['name']]	-= $costRessources[$resourceID];
+		}
 		
-		$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET
-				   ".$GLOBALS['VARS']['ELEMENT'][$Element]['name']." = ".$USER[$GLOBALS['VARS']['ELEMENT'][$Element]['name']]."
-				   WHERE
-				   id = ".$USER['id'].";");
+		foreach ($GLOBALS['VARS']['LIST'][ELEMENT_USER_RESOURCE] as $resourceID)  {
+			$USER[$GLOBALS['VARS']['ELEMENT'][$resourceID]['name']]		-= $costRessources[$resourceID];
+		}
+		
+		$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET ".$GLOBALS['VARS']['ELEMENT'][$elementID]['name']." = ".$USER[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']]." WHERE id = ".$USER['id'].";");
 	}
 	
 	public function show()
@@ -93,9 +95,9 @@ class ShowOfficierPage extends AbstractPage
 				
 		if (!empty($updateID) && $_SERVER['REQUEST_METHOD'] === 'POST' && $USER['urlaubs_modus'] == 0)
 		{
-			if(isModulAvalible(MODULE_OFFICIER) && in_array($updateID, $reslist['officier'])) {
+			if(isModulAvalible(MODULE_OFFICIER) && ielementHasFlag($elementID, ELEMENT_OFFICIER)) {
 				$this->UpdateOfficier($updateID);
-			} elseif(isModulAvalible(MODULE_DMEXTRAS) && in_array($updateID, $reslist['dmfunc'])) {
+			} elseif(isModulAvalible(MODULE_DMEXTRAS) && elementHasFlag($elementID, ELEMENT_BONUS)) {
 				$this->UpdateExtra($updateID);
 			}
 		}
@@ -107,22 +109,22 @@ class ShowOfficierPage extends AbstractPage
 		
 		if(isModulAvalible(MODULE_DMEXTRAS)) 
 		{
-			foreach($reslist['dmfunc'] as $Element)
+			foreach($GLOBALS['VARS']['LIST'][ELEMENT_BONUS] as $elementID)
 			{
-				if($USER[$GLOBALS['VARS']['ELEMENT'][$Element]['name']] > TIMESTAMP) {
-					$this->tplObj->execscript("GetOfficerTime(".$Element.", ".($USER[$GLOBALS['VARS']['ELEMENT'][$Element]['name']] - TIMESTAMP).");");
+				if($USER[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']] > TIMESTAMP) {
+					$this->tplObj->execscript("GetOfficerTime(".$elementID.", ".($USER[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']] - TIMESTAMP).");");
 				}
 			
-				$costRessources		= BuildFunctions::getElementPrice($USER, $PLANET, $Element);
-				$buyable			= BuildFunctions::isElementBuyable($USER, $PLANET, $Element, $costRessources);
-				$costOverflow		= BuildFunctions::getRestPrice($USER, $PLANET, $Element, $costRessources);
-				$elementBonus		= BuildFunctions::getAvalibleBonus($Element);
+				$costRessources		= BuildFunctions::getElementPrice($USER, $PLANET, $elementID);
+				$buyable			= BuildFunctions::isElementBuyable($USER, $PLANET, $elementID, $costRessources);
+				$costOverflow		= BuildFunctions::getRestPrice($USER, $PLANET, $elementID, $costRessources);
+				$elementBonus		= BuildFunctions::getAvalibleBonus($elementID);
 
-				$darkmatterList[$Element]	= array(
-					'timeLeft'			=> max($USER[$GLOBALS['VARS']['ELEMENT'][$Element]['name']] - TIMESTAMP, 0),
-					'costRessources'	=> $costRessources,
+				$darkmatterList[$elementID]	= array(
+					'timeLeft'			=> max($USER[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']] - TIMESTAMP, 0),
+					'costRessources'	=> array_filter($costRessources),
 					'buyable'			=> $buyable,
-					'time'				=> $pricelist[$Element]['time'],
+					'time'				=> $GLOBALS['VARS']['ELEMENT'][$elementID]['timeBonus'],
 					'costOverflow'		=> $costOverflow,
 					'elementBonus'		=> $elementBonus,
 				);
@@ -131,20 +133,20 @@ class ShowOfficierPage extends AbstractPage
 		
 		if(isModulAvalible(MODULE_OFFICIER))
 		{
-			foreach($reslist['officier'] as $Element)
+			foreach($GLOBALS['VARS']['LIST'][ELEMENT_OFFICIER] as $elementID)
 			{
-				if (!BuildFunctions::isTechnologieAccessible($USER, $PLANET, $Element))
+				if (!BuildFunctions::isTechnologieAccessible($USER, $PLANET, $elementID))
 					continue;
 					
-				$costRessources		= BuildFunctions::getElementPrice($USER, $PLANET, $Element);
-				$buyable			= BuildFunctions::isElementBuyable($USER, $PLANET, $Element, $costRessources);
-				$costOverflow		= BuildFunctions::getRestPrice($USER, $PLANET, $Element, $costRessources);
-				$elementBonus		= BuildFunctions::getAvalibleBonus($Element);
+				$costRessources		= BuildFunctions::getElementPrice($USER, $PLANET, $elementID);
+				$buyable			= BuildFunctions::isElementBuyable($USER, $PLANET, $elementID, $costRessources);
+				$costOverflow		= BuildFunctions::getRestPrice($USER, $PLANET, $elementID, $costRessources);
+				$elementBonus		= BuildFunctions::getAvalibleBonus($elementID);
 				
-				$officierList[$Element]	= array(
-					'level'				=> $USER[$GLOBALS['VARS']['ELEMENT'][$Element]['name']],
-					'maxLevel'			=> $pricelist[$Element]['max'],
-					'costRessources'	=> $costRessources,
+				$officierList[$elementID]	= array(
+					'level'				=> $USER[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']],
+					'maxLevel'			=> $pricelist[$elementID]['max'],
+					'costRessources'	=> array_filter($costRessources),
 					'buyable'			=> $buyable,
 					'costOverflow'		=> $costOverflow,
 					'elementBonus'		=> $elementBonus,

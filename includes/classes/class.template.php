@@ -18,11 +18,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan <info@2moons.cc>
+ * @copyright 2006 Perberos <ugamela@perberos.com.ar> (UGamela)
+ * @copyright 2008 Chlorel (XNova)
+ * @copyright 2009 Lucky (XGProyecto)
+ * @copyright 2012 Jan <info@2moons.cc> (2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-05-31)
  * @info $Id$
  * @link http://code.google.com/p/2moons/
  */
@@ -90,24 +92,23 @@ class template extends Smarty
 	
 	public function login_main()
 	{
-		global $USER, $CONF, $LNG, $LANG, $UNI;
+		global $USER, $gameConfig, $LNG, $LANG, $UNI;
 		$this->assign_vars(array(
-			'cappublic'			=> $CONF['cappublic'],
-			'servername' 		=> $CONF['game_name'],
-			'forum_url' 		=> $CONF['forum_url'],
-			'fb_active'			=> $CONF['fb_on'],
-			'fb_key' 			=> $CONF['fb_apikey'],
-			'mail_active'		=> $CONF['mail_active'],
-			'game_captcha'		=> $CONF['capaktiv'],
-			'reg_close'			=> $CONF['reg_closed'],
-			'ref_active'		=> $CONF['ref_active'],
-			'ga_active'			=> $CONF['ga_active'],
-			'ga_key'			=> $CONF['ga_key'],
+			'game_captcha'		=> $gameConfig['recaptchaEnable'],
+			'cappublic'			=> $gameConfig['recaptchaPublicKey'],
+			'servername' 		=> $gameConfig['gameName'],
+			'forum_url' 		=> $gameConfig['boardAdress'],
+			'fb_active'			=> $gameConfig['facebookEnable'],
+			'fb_key' 			=> $gameConfig['facebookAPIKey'],
+			'mail_active'		=> $gameConfig['mailEnable'],
+			'ref_active'		=> $gameConfig['referralEnable'],
+			'ga_active'			=> $gameConfig['analyticsEnbale'],
+			'ga_key'			=> $gameConfig['analyticsUID'],
 			'getajax'			=> HTTP::_GP('getajax', 0),
 			'lang'				=> $LANG->getUser(),
 			'UNI'				=> $UNI,
-			'VERSION'			=> $CONF['VERSION'],
-			'REV'				=> substr($CONF['VERSION'], -4),
+			'VERSION'			=> $gameConfig['version'],
+			'REV'				=> substr($gameConfig['version'], -4),
 			'langs'				=> json_encode(Language::getAllowedLangs(false)),
 			'htaccess'			=> (int) (UNIS_HTACCESS === true),
 		));
@@ -115,7 +116,7 @@ class template extends Smarty
 	
 	public function show($file)
 	{		
-		global $USER, $PLANET, $CONF, $LNG, $THEME, $LANG;
+		global $USER, $PLANET, $LNG, $THEME, $LANG;
 
 		if($THEME->isCustomTPL($file))
 			$this->setTemplateDir($THEME->getTemplatePath());

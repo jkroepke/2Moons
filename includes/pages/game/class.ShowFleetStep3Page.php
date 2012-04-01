@@ -18,11 +18,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan <info@2moons.cc>
+ * @copyright 2006 Perberos <ugamela@perberos.com.ar> (UGamela)
+ * @copyright 2008 Chlorel (XNova)
+ * @copyright 2009 Lucky (XGProyecto)
+ * @copyright 2012 Jan <info@2moons.cc> (2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-05-31)
  * @info $Id$
  * @link http://code.google.com/p/2moons/
  */
@@ -113,7 +115,7 @@ class ShowFleetStep3Page extends AbstractPage
 				
 		$ActualFleets 		= FleetFunctions::GetCurrentFleets($USER['id']);
 		
-		$targetPlanetData  	= $GLOBALS['DATABASE']->uniquequery("SELECT id, id_owner, der_metal, der_crystal, destruyed, ally_deposit FROM ".PLANETS." WHERE universe = ".$UNI." AND galaxy = ".$targetGalaxy." AND system = ".$targetSystem." AND planet = ".$targetPlanet." AND planet_type = '".($targetType == 2 ? 1 : $targetType)."';");
+		$targetPlanetData  	= $GLOBALS['DATABASE']->getFirstRow("SELECT id, id_owner, der_metal, der_crystal, destruyed, ally_deposit FROM ".PLANETS." WHERE universe = ".$UNI." AND galaxy = ".$targetGalaxy." AND system = ".$targetSystem." AND planet = ".$targetPlanet." AND planet_type = '".($targetType == 2 ? 1 : $targetType)."';");
 
 		if ($targetMission == 15 || $targetMission == 7) {
 			$targetPlanetData	= array('id' => 0, 'id_owner' => 0, 'planettype' => 1);
@@ -173,7 +175,7 @@ class ShowFleetStep3Page extends AbstractPage
 		} elseif($myPlanet) {
 			$targetPlayerData	= $USER;
 		} elseif(!empty($targetPlanetData['id_owner'])) {
-			$targetPlayerData	= $GLOBALS['DATABASE']->uniquequery("SELECT 
+			$targetPlayerData	= $GLOBALS['DATABASE']->getFirstRow("SELECT 
 			user.id, user.onlinetime, user.ally_id, user.urlaubs_modus, user.banaday, user.authattack, 
 			stat.total_points
 			FROM ".USERS." as user 

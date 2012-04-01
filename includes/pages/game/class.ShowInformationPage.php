@@ -18,11 +18,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan <info@2moons.cc>
+ * @copyright 2006 Perberos <ugamela@perberos.com.ar> (UGamela)
+ * @copyright 2008 Chlorel (XNova)
+ * @copyright 2009 Lucky (XGProyecto)
+ * @copyright 2012 Jan <info@2moons.cc> (2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-05-31)
  * @info $Id$
  * @link http://code.google.com/p/2moons/
  */
@@ -57,7 +59,7 @@ class ShowInformationPage extends AbstractPage
 		}
 		
 		$TargetPlanet = HTTP::_GP('jmpto', $PLANET['id']);
-		$TargetGate   = $GLOBALS['DATABASE']->uniquequery("SELECT id, last_jump_time FROM ".PLANETS." WHERE id = ".$TargetPlanet." AND id_owner = ".$USER['id']." AND sprungtor > 0;");
+		$TargetGate   = $GLOBALS['DATABASE']->getFirstRow("SELECT id, last_jump_time FROM ".PLANETS." WHERE id = ".$TargetPlanet." AND id_owner = ".$USER['id']." AND sprungtor > 0;");
 
 		if (!isset($TargetGate) || $TargetPlanet == $PLANET['id']) {
 			$this->sendJSON(array('message' => $LNG['in_jump_gate_doesnt_have_one'], 'error' => true));
@@ -159,7 +161,7 @@ class ShowInformationPage extends AbstractPage
         $moonResult	= $GLOBALS['DATABASE']->query("SELECT id, galaxy, system, planet, last_jump_time, ".$GLOBALS['VARS']['ELEMENT'][43]['name']." FROM ".PLANETS." WHERE id != ".$PLANET['id']." AND id_owner = ". $USER['id'] ." AND planet_type = '3' AND ".$GLOBALS['VARS']['ELEMENT'][43]['name']." > 0 ORDER BY ".$OrderBy.";");
         $moonList	= array();
 
-        while($moonRow = $GLOBALS['DATABASE']->fetch_array($moonResult)) {
+        while($moonRow = $GLOBALS['DATABASE']->fetchArray($moonResult)) {
 			$NextJumpTime				= self::getNextJumpWaitTime($moonRow['last_jump_time']);
 			$moonList[$PLANET['id']]	= '['.$moonRow['galaxy'].':'.$moonRow['system'].':'.$moonRow['planet'].'] '.$moonRow['name'].(TIMESTAMP < $NextJumpTime ? ' ('.pretty_time($NextJumpTime - TIMESTAMP).')':'');
 		}

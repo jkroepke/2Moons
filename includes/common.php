@@ -18,11 +18,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan <info@2moons.cc>
+ * @copyright 2006 Perberos <ugamela@perberos.com.ar> (UGamela)
+ * @copyright 2008 Chlorel (XNova)
+ * @copyright 2009 Lucky (XGProyecto)
+ * @copyright 2012 Jan <info@2moons.cc> (2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-05-31)
  * @info $Id$
  * @link http://code.google.com/p/2moons/
  */
@@ -74,6 +76,7 @@ require(ROOT_PATH . 'includes/classes/HTTP.class.php');
 
 // Say Browsers to Allow ThirdParty Cookies (Thanks to morktadela)
 HTTP::sendHeader('P3P', 'CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"');
+
 define('AJAX_REQUEST', HTTP::_GP('ajax', 0));
 
 $THEME		= new Theme();	
@@ -86,21 +89,37 @@ if (MODE !== 'INSTALL')
 	
 	$SESSION	= new Session();
 	$DATABASE	= new Database();
-	$CONFIG		= array();
 
-	$CACHE->add('vars', 'VarsBuildCache');
-	$VARS		= $CACHE->get('vars');
-	
-	$UNI		= getUniverse();
 	unset($database);
-
-	$CONF		= getConfig($UNI);
-
-	$LANG->setDefault($CONF['lang']);
+	
+	$CACHE->add('vars', 'VarsBuildCache');
+	$CACHE->add('config', 'ConfigBuildCache');
+	$CACHE->add('configuni', 'ConfigUniverseBuildCache');
+	$CACHE->add('module', 'ModuleBuildCache');
+	$CACHE->add('universe', 'UniverseBuildCache');
+	
+	$VARS				= $CACHE->get('vars');
+	$gameConfig			= $CACHE->get('config');
+	$module				= $CACHE->get('module');
+	$uniAllConfig		= $CACHE->get('configuni');
+	
+	$UNI				= getUniverse();
+	
+	if(!isset($uniAllConfig[$UNI])) {
+		throw new Exception('Invalid Universe!');
+	} else {
+		$uniConfig	= $uniAllConfig[$UNI];
+	}
+	
+	HTTP::sendHeader('X-2MOONS-VERSION', $gameConfig['version']);
+	
+	$LANG->setDefault($gameConfig['language']);
 
 	if (MODE === 'INGAME' || MODE === 'ADMIN' || MODE === 'CHAT')
-	{	
-		if(!$SESSION->IsUserLogin()) HTTP::redirectTo('index.php?code=3');
+	{		
+		if(!$SESSION->IsUserLogin()) {
+			HTTP::redirectTo('index.php?code=3');
+		}
 		
 		$SESSION->UpdateSession();
 	
@@ -110,7 +129,7 @@ if (MODE !== 'INSTALL')
 			require(ROOT_PATH.'includes/FleetHandler.php');
 		}
 			
-		$USER	= $GLOBALS['DATABASE']->uniquequery("SELECT 
+		$USER	= $GLOBALS['DATABASE']->getFirstRow("SELECT 
 		user.*, 
 		stat.total_points, 
 		stat.total_rank,
@@ -138,11 +157,11 @@ if (MODE !== 'INSTALL')
 		}
 		if (MODE === 'INGAME')
 		{
-			$PLANET = $GLOBALS['DATABASE']->uniquequery("SELECT * FROM ".PLANETS." WHERE id = ".$_SESSION['planet'].";");
+			$PLANET = $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".PLANETS." WHERE id = ".$_SESSION['planet'].";");
 
 			if(empty($PLANET))
 			{
-				$PLANET = $GLOBALS['DATABASE']->uniquequery("SELECT * FROM ".PLANETS." WHERE id = ".$USER['id_planet'].";");
+				$PLANET = $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".PLANETS." WHERE id = ".$USER['id_planet'].";");
 				
 				if(empty($PLANET))
 				{

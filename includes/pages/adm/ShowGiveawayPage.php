@@ -18,9 +18,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
+ * @author Jan <info@2moons.cc>
  * @copyright 2009 Lucky <douglas@crockford.com> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @copyright 2012 Jan <info@2moons.cc> (2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.3 (2011-01-21)
  * @link http://code.google.com/p/2moons/

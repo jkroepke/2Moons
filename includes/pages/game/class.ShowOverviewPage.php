@@ -18,11 +18,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan <info@2moons.cc>
+ * @copyright 2006 Perberos <ugamela@perberos.com.ar> (UGamela)
+ * @copyright 2008 Chlorel (XNova)
+ * @copyright 2009 Lucky (XGProyecto)
+ * @copyright 2012 Jan <info@2moons.cc> (2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-05-31)
  * @info $Id$
  * @link http://code.google.com/p/2moons/
  */
@@ -92,7 +94,7 @@ class ShowOverviewPage extends AbstractPage
 				exit(json_encode(array('message' => $LNG['ov_abandon_planet_not_possible'])));
 			elseif ($USER['id_planet'] == $PLANET['id'])
 				exit(json_encode(array('message' => $LNG['ov_principal_planet_cant_abanone'])));
-			elseif (cryptPassword($password) != $USER['password'])
+			elseif (PlayerUntl::cryptPassword($password) != $USER['password'])
 				exit(json_encode(array('message' => $LNG['ov_wrong_pass'])));
 			else
 			{
@@ -140,7 +142,7 @@ class ShowOverviewPage extends AbstractPage
 		}
 		
 		if ($PLANET['id_luna'] != 0)
-			$Moon		= $GLOBALS['DATABASE']->uniquequery("SELECT id, name FROM ".PLANETS." WHERE id = '".$PLANET['id_luna']."';");
+			$Moon		= $GLOBALS['DATABASE']->getFirstRow("SELECT id, name FROM ".PLANETS." WHERE id = '".$PLANET['id_luna']."';");
 
 		if ($PLANET['b_building'] - TIMESTAMP > 0) {
 			$Queue		= unserialize($PLANET['b_building_id']);
@@ -154,14 +156,14 @@ class ShowOverviewPage extends AbstractPage
 		}
 		
 		$OnlineAdmins 	= $GLOBALS['DATABASE']->query("SELECT id,username FROM ".USERS." WHERE universe = ".$UNI." AND onlinetime >= ".(TIMESTAMP-10*60)." AND authlevel > '".AUTH_USR."';");
-		while ($AdminRow = $GLOBALS['DATABASE']->fetch_array($OnlineAdmins)) {
+		while ($AdminRow = $GLOBALS['DATABASE']->fetchArray($OnlineAdmins)) {
 			$AdminsOnline[$AdminRow['id']]	= $AdminRow['username'];
 		}
 		$GLOBALS['DATABASE']->free_result($OnlineAdmins);
 
 		
 		$chatUsers 	= $GLOBALS['DATABASE']->query("SELECT userName FROM ".CHAT_ON." WHERE dateTime > DATE_SUB(NOW(), interval 2 MINUTE) AND channel = 0");
-		while ($chatRow = $GLOBALS['DATABASE']->fetch_array($chatUsers)) {
+		while ($chatRow = $GLOBALS['DATABASE']->fetchArray($chatUsers)) {
 			$chatOnline[]	= $chatRow['userName'];
 		}
 
@@ -176,7 +178,7 @@ class ShowOverviewPage extends AbstractPage
 		
 		if($CONF['ref_active']) 
 		{
-			while ($RefRow = $GLOBALS['DATABASE']->fetch_array($RefLinksRAW)) {
+			while ($RefRow = $GLOBALS['DATABASE']->fetchArray($RefLinksRAW)) {
 				$RefLinks[$RefRow['id']]	= array(
 					'username'	=> $RefRow['username'],
 					'points'	=> min($RefRow['total_points'], $CONF['ref_minpoints'])
@@ -279,7 +281,7 @@ class ShowOverviewPage extends AbstractPage
 				$this->sendJSON(array('message' => $LNG['ov_abandon_planet_not_possible']));
 			} elseif ($USER['id_planet'] == $PLANET['id']) {
 				$this->sendJSON(array('message' => $LNG['ov_principal_planet_cant_abanone']));
-			} elseif (cryptPassword($password) != $USER['password']) {
+			} elseif (PlayerUntl::cryptPassword($password) != $USER['password']) {
 				$this->sendJSON(array('message' => $LNG['ov_wrong_pass']));
 			} else {
 				if($PLANET['planet_type'] == 1) {

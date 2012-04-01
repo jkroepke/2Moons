@@ -18,11 +18,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan <info@2moons.cc>
+ * @copyright 2006 Perberos <ugamela@perberos.com.ar> (UGamela)
+ * @copyright 2008 Chlorel (XNova)
+ * @copyright 2009 Lucky (XGProyecto)
+ * @copyright 2012 Jan <info@2moons.cc> (2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-05-31)
  * @info $Id$
  * @link http://code.google.com/p/2moons/
  */
@@ -42,13 +44,13 @@ class ShowShipyardPage extends AbstractPage
 	private function CancelAuftr() 
 	{
 		global $USER, $PLANET, $resource;
-		$ElementQueue = unserialize($PLANET['b_hangar_id']);
+		$elementIDQueue = unserialize($PLANET['b_hangar_id']);
 		
 		$CancelArray	= HTTP::_GP('auftr', array());
 		
 		foreach ($CancelArray as $Auftr)
 		{
-			if(!isset($ElementQueue[$Auftr])) {
+			if(!isset($elementIDQueue[$Auftr])) {
 				continue;
 			}
 			
@@ -56,28 +58,31 @@ class ShowShipyardPage extends AbstractPage
 				$PLANET['b_hangar']	= 0;
 			}
 			
-			$Element		= $ElementQueue[$Auftr][0];
-			$Count			= $ElementQueue[$Auftr][1];
+			$elementID		= $elementIDQueue[$Auftr][0];
+			$Count			= $elementIDQueue[$Auftr][1];
 			
-			$costRessources	= BuildFunctions::getElementPrice($USER, $PLANET, $Element, false, $Count);
-		
-			if(isset($costRessources[901])) { $PLANET[$GLOBALS['VARS']['ELEMENT'][901]['name']]	+= $costRessources[901] * FACTOR_CANCEL_SHIPYARD; }
-			if(isset($costRessources[902])) { $PLANET[$GLOBALS['VARS']['ELEMENT'][902]['name']]	+= $costRessources[902] * FACTOR_CANCEL_SHIPYARD; }
-			if(isset($costRessources[903])) { $PLANET[$GLOBALS['VARS']['ELEMENT'][903]['name']]	+= $costRessources[903] * FACTOR_CANCEL_SHIPYARD; }
-			if(isset($costRessources[921])) { $USER[$GLOBALS['VARS']['ELEMENT'][921]['name']]		+= $costRessources[921] * FACTOR_CANCEL_SHIPYARD; }
+			$costRessources	= BuildFunctions::getElementPrice($USER, $PLANET, $elementID, false, $Count);
 			
-			unset($ElementQueue[$Auftr]);
+			foreach ($GLOBALS['VARS']['LIST'][ELEMENT_PLANET_RESOURCE] as $resourceID) {
+				$PLANET[$GLOBALS['VARS']['ELEMENT'][$resourceID]['name']]	+= $costRessources[$resourceID] * FACTOR_CANCEL_SHIPYARD;;
+			}
+			
+			foreach ($GLOBALS['VARS']['LIST'][ELEMENT_USER_RESOURCE] as $resourceID)  {
+				$USER[$GLOBALS['VARS']['ELEMENT'][$resourceID]['name']]		+= $costRessources[$resourceID] * FACTOR_CANCEL_SHIPYARD;;
+			}
+			
+			unset($elementIDQueue[$Auftr]);
 		}
 		
-		if(empty($ElementQueue)) {
+		if(empty($elementIDQueue)) {
 			$PLANET['b_hangar_id']	= '';
 		} else {
-			$PLANET['b_hangar_id']	= serialize(array_values($ElementQueue));
+			$PLANET['b_hangar_id']	= serialize(array_values($elementIDQueue));
 		}
 
 	}
 	
-	private function BuildAuftr($fmenge)
+	private function BuildAuftr($fmenge, $mode)
 	{
 		global $USER, $PLANET, $reslist, $CONF, $resource;	
 		
@@ -86,51 +91,58 @@ class ShowShipyardPage extends AbstractPage
 			503	=> $PLANET[$GLOBALS['VARS']['ELEMENT'][503]['name']],
 		);
 
-		foreach($fmenge as $Element => $Count)
+		if($mode == 'defense') {
+			$elementFlag	= ELEMENT_DEFENSIVE;
+		} else {
+			$elementFlag	= ELEMENT_FLEET;
+		}
+		
+		foreach($fmenge as $elementID => $Count)
 		{
-			if(empty($Count)
-				|| !in_array($Element, array_merge($reslist['fleet'], $reslist['defense']))
-				|| !BuildFunctions::isTechnologieAccessible($USER, $PLANET, $Element)
-			) {
+			if(empty($Count) || !elementHasFlag($elementID, $elementFlag) || !BuildFunctions::isTechnologieAccessible($USER, $PLANET, $elementID)) {
 				continue;
 			}
 			
-			$MaxElements 	= BuildFunctions::getMaxConstructibleElements($USER, $PLANET, $Element);
+			$MaxElements 	= BuildFunctions::getMaxConstructibleElements($USER, $PLANET, $elementID);
 			$Count			= is_numeric($Count) ? round($Count) : 0;
 			$Count 			= max(min($Count, $CONF['max_fleet_per_build']), 0);
 			$Count 			= min($Count, $MaxElements);
 			
 			$BuildArray    	= !empty($PLANET['b_hangar_id']) ? unserialize($PLANET['b_hangar_id']) : array();
-			if ($Element == 502 || $Element == 503)
+			if ($elementID == 502 || $elementID == 503)
 			{
 				$MaxMissiles		= BuildFunctions::getMaxConstructibleRockets($USER, $PLANET, $Missiles);
-				$Count 				= min($Count, $MaxMissiles[$Element]);
+				$Count 				= min($Count, $MaxMissiles[$elementID]);
 
-				$Missiles[$Element] += $Count;
-			} elseif(in_array($Element, $reslist['one'])) {
+				$Missiles[$elementID] += $Count;
+			} elseif(elementHasFlag($elementID, ELEMENT_ONEPERPLANET)) {
 				$InBuild	= false;
-				foreach($BuildArray as $ElementArray) {
-					if($ElementArray[1] == $Element) {
+				foreach($BuildArray as $elementIDArray) {
+					if($elementIDArray[1] == $elementID) {
 						$InBuild	= true;
 						break;
 					}
 				}
 				
-				if($Count != 0 && $PLANET[$GLOBALS['VARS']['ELEMENT'][$Element]['name']] == 0 && $InBuild === false)
+				if($Count != 0 && $PLANET[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']] == 0 && $InBuild === false)
 					$Count =  1;
 			}
 
 			if(empty($Count))
 				continue;
 				
-			$costRessources	= BuildFunctions::getElementPrice($USER, $PLANET, $Element, false, $Count);
+			$costRessources	= BuildFunctions::getElementPrice($USER, $PLANET, $elementID, false, $Count);
 		
-			if(isset($costRessources[901])) { $PLANET[$GLOBALS['VARS']['ELEMENT'][901]['name']]	-= $costRessources[901]; }
-			if(isset($costRessources[902])) { $PLANET[$GLOBALS['VARS']['ELEMENT'][902]['name']]	-= $costRessources[902]; }
-			if(isset($costRessources[903])) { $PLANET[$GLOBALS['VARS']['ELEMENT'][903]['name']]	-= $costRessources[903]; }
-			if(isset($costRessources[921])) { $USER[$GLOBALS['VARS']['ELEMENT'][921]['name']]		-= $costRessources[921]; }
 			
-			$BuildArray[]			= array($Element, $Count);
+			foreach ($GLOBALS['VARS']['LIST'][ELEMENT_PLANET_RESOURCE] as $resourceID) {
+				$PLANET[$GLOBALS['VARS']['ELEMENT'][$resourceID]['name']]	-= $costRessources[$resourceID];
+			}
+			
+			foreach ($GLOBALS['VARS']['LIST'][ELEMENT_USER_RESOURCE] as $resourceID)  {
+				$USER[$GLOBALS['VARS']['ELEMENT'][$resourceID]['name']]		-= $costRessources[$resourceID];
+			}
+			
+			$BuildArray[]			= array($elementID, $Count);
 			$PLANET['b_hangar_id']	= serialize($BuildArray);
 
 		}
@@ -152,40 +164,44 @@ class ShowShipyardPage extends AbstractPage
 		if (!empty($PLANET['b_building_id']))
 		{
 			$CurrentQueue 	= unserialize($PLANET['b_building_id']);
-			foreach($CurrentQueue as $ElementArray) {
-				if($ElementArray[0] == 21 || $ElementArray[0] == 15) {
+			foreach($CurrentQueue as $elementIDArray) {
+				if($elementIDArray[0] == 21 || $elementIDArray[0] == 15) {
 					$NotBuilding = false;
 					break;
 				}
 			}
 		}
 		
-		$ElementQueue 	= unserialize($PLANET['b_hangar_id']);
-		if(empty($ElementQueue))
+		$elementIDQueue 	= unserialize($PLANET['b_hangar_id']);
+	
+		if(empty($elementIDQueue)) {
 			$Count	= 0;
-		else
-			$Count	= count($ElementQueue);
-			
+		} else {
+			$Count	= count($elementIDQueue);
+		}
+				
+		$mode		= HTTP::_GP('mode', 'fleet');
+		
 		if($USER['urlaubs_modus'] == 0) {
 			if (!empty($fmenge) && $NotBuilding == true) {
 				if ($CONF['max_elements_ships'] != 0 && $Count >= $CONF['max_elements_ships']) {
 					$this->printMessage(sprintf($LNG['bd_max_builds'], $CONF['max_elements_ships']));
 					exit;
 				}
-				$this->BuildAuftr($fmenge);
+				$this->BuildAuftr($fmenge, $mode);
+				$this->redirectTo('game.php?page=shipyard&mode='.$mode);
 			}
 					
 			if ($action == "delete") {
 				$this->CancelAuftr();
+				$this->redirectTo('game.php?page=shipyard&mode='.$mode);
 			}
 		}
 		
-		$mode		= HTTP::_GP('mode', 'fleet');
-		
 		if($mode == 'defense') {
-			$elementIDs	= $reslist['defense'];
+			$elementIDs	= $GLOBALS['VARS']['LIST'][ELEMENT_DEFENSIVE];
 		} else {
-			$elementIDs	= $reslist['fleet'];
+			$elementIDs	= $GLOBALS['VARS']['LIST'][ELEMENT_FLEET];
 		}
 		
 		$Missiles	= array(
@@ -195,27 +211,27 @@ class ShowShipyardPage extends AbstractPage
 		
 		$MaxMissiles	= BuildFunctions::getMaxConstructibleRockets($USER, $PLANET, $Missiles);
 		
-		foreach($elementIDs as $Element)
+		foreach($elementIDs as $elementID)
 		{
-			if(!BuildFunctions::isTechnologieAccessible($USER, $PLANET, $Element))
+			if(!BuildFunctions::isTechnologieAccessible($USER, $PLANET, $elementID))
 				continue;
 			
-			$costRessources		= BuildFunctions::getElementPrice($USER, $PLANET, $Element);
-			$costOverflow		= BuildFunctions::getRestPrice($USER, $PLANET, $Element, $costRessources);
-			$elementTime    	= BuildFunctions::getBuildingTime($USER, $PLANET, $Element, $costRessources);
-			$buyable			= BuildFunctions::isElementBuyable($USER, $PLANET, $Element, $costRessources);
-			$maxBuildable		= BuildFunctions::getMaxConstructibleElements($USER, $PLANET, $Element, $costRessources);
+			$costRessources		= BuildFunctions::getElementPrice($USER, $PLANET, $elementID);
+			$costOverflow		= BuildFunctions::getRestPrice($USER, $PLANET, $elementID, $costRessources);
+			$elementTime    	= BuildFunctions::getBuildingTime($USER, $PLANET, $elementID, $costRessources);
+			$buyable			= BuildFunctions::isElementBuyable($USER, $PLANET, $elementID, $costRessources);
+			$maxBuildable		= BuildFunctions::getMaxConstructibleElements($USER, $PLANET, $elementID, $costRessources);
 
-			if(isset($MaxMissiles[$Element])) {
-				$maxBuildable	= min($maxBuildable, $MaxMissiles[$Element]);
+			if(isset($MaxMissiles[$elementID])) {
+				$maxBuildable	= min($maxBuildable, $MaxMissiles[$elementID]);
 			}
 			
-			$AlreadyBuild		= in_array($Element, $reslist['one']) && (strpos($PLANET['b_hangar_id'], $Element.",") !== false || $PLANET[$GLOBALS['VARS']['ELEMENT'][$Element]['name']] != 0);
+			$AlreadyBuild		= elementHasFlag($elementID, ELEMENT_ONEPERPLANET) && (strpos($PLANET['b_hangar_id'], $elementID.",") !== false || $PLANET[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']] != 0);
 			
-			$elementList[$Element]	= array(
-				'id'				=> $Element,
-				'available'			=> $PLANET[$GLOBALS['VARS']['ELEMENT'][$Element]['name']],
-				'costRessources'	=> $costRessources,
+			$elementList[$elementID]	= array(
+				'id'				=> $elementID,
+				'available'			=> $PLANET[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']],
+				'costRessources'	=> array_filter($costRessources),
 				'costOverflow'		=> $costOverflow,
 				'elementTime'    	=> $elementTime,
 				'buyable'			=> $buyable,
@@ -225,20 +241,20 @@ class ShowShipyardPage extends AbstractPage
 		}
 		
 		
-		$ElementQueue 	= unserialize($PLANET['b_hangar_id']);
+		$elementIDQueue 	= unserialize($PLANET['b_hangar_id']);
 		$Buildlist		= array();
-		if(!empty($ElementQueue))
+		if(!empty($elementIDQueue))
 		{
 			$Shipyard		= array();
 			$QueueTime		= 0;
-			foreach($ElementQueue as $Element)
+			foreach($elementIDQueue as $elementID)
 			{
-				if (empty($Element))
+				if (empty($elementID))
 					continue;
 					
-				$ElementTime  	= BuildFunctions::getBuildingTime( $USER, $PLANET, $Element[0]);
-				$QueueTime   	+= $ElementTime * $Element[1];
-				$Shipyard[]		= array($LNG['tech'][$Element[0]], $Element[1], $ElementTime, $Element[0]);		
+				$elementIDTime  	= BuildFunctions::getBuildingTime( $USER, $PLANET, $elementID[0]);
+				$QueueTime   	+= $elementIDTime * $elementID[1];
+				$Shipyard[]		= array($LNG['tech'][$elementID[0]], $elementID[1], $elementIDTime, $elementID[0]);		
 			}
 
 			$this->tplObj->loadscript('bcmath.js');

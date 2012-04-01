@@ -18,11 +18,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan <info@2moons.cc>
+ * @copyright 2006 Perberos <ugamela@perberos.com.ar> (UGamela)
+ * @copyright 2008 Chlorel (XNova)
+ * @copyright 2009 Lucky (XGProyecto)
+ * @copyright 2012 Jan <info@2moons.cc> (2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-05-31)
  * @info $Id$
  * @link http://code.google.com/p/2moons/
  */
@@ -96,7 +98,7 @@ function ShowCreatorPage()
 				
 				$SQL = "INSERT INTO ".USERS." SET
 				username		= '".$GLOBALS['DATABASE']->sql_escape($UserName). "',
-				password		= '".cryptPassword($UserPass)."',
+				password		= '".PlayerUntl::cryptPassword($UserPass)."',
 				email			= '".$GLOBALS['DATABASE']->sql_escape($UserMail)."',
 				email_2			= '".$GLOBALS['DATABASE']->sql_escape($UserMail)."',
 				lang			= '".$GLOBALS['DATABASE']->sql_escape($UserLang)."',
@@ -180,7 +182,7 @@ function ShowCreatorPage()
 				$Diameter	= HTTP::_GP('diameter', 0);
 				$FieldMax	= HTTP::_GP('field_max', 0);
 			
-				$MoonPlanet	= $GLOBALS['DATABASE']->uniquequery("SELECT temp_max, temp_min, id_luna, galaxy, system, planet, planet_type, destruyed, id_owner FROM ".PLANETS." WHERE id = '".$PlanetID."' AND universe = '".$_SESSION['adminuni']."' AND planet_type = '1' AND destruyed = '0';");
+				$MoonPlanet	= $GLOBALS['DATABASE']->getFirstRow("SELECT temp_max, temp_min, id_luna, galaxy, system, planet, planet_type, destruyed, id_owner FROM ".PLANETS." WHERE id = '".$PlanetID."' AND universe = '".$_SESSION['adminuni']."' AND planet_type = '1' AND destruyed = '0';");
 
 				if (!isset($MoonPlanet)) {
 					$template->message($LNG['mo_planet_doesnt_exist'], '?page=create&mode=moon', 3, true);
@@ -230,7 +232,7 @@ function ShowCreatorPage()
 					exit;					
 				}
 				
-				$ISUser		= $GLOBALS['DATABASE']->uniquequery("SELECT id, authlevel FROM ".USERS." WHERE id = '".$id."' AND universe = '".$_SESSION['adminuni']."';");
+				$ISUser		= $GLOBALS['DATABASE']->getFirstRow("SELECT id, authlevel FROM ".USERS." WHERE id = '".$id."' AND universe = '".$_SESSION['adminuni']."';");
 				if(CheckPlanetIfExist($Galaxy, $System, $Planet, $_SESSION['adminuni']) || !isset($ISUser)) {
 					$template->message($LNG['po_complete_all'], '?page=create&mode=planet', 3, true);
 					exit;
@@ -260,7 +262,7 @@ function ShowCreatorPage()
 			}
 			
 			$Query	= $GLOBALS['DATABASE']->query("SELECT uni, game_name FROM ".CONFIG." ORDER BY uni ASC;");
-			while($Unis	= $GLOBALS['DATABASE']->fetch_array($Query)) {
+			while($Unis	= $GLOBALS['DATABASE']->fetchArray($Query)) {
 				$AvailableUnis[$Unis['uni']]	= $Unis;
 			}
 

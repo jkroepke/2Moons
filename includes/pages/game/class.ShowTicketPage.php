@@ -18,11 +18,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan <info@2moons.cc>
+ * @copyright 2006 Perberos <ugamela@perberos.com.ar> (UGamela)
+ * @copyright 2008 Chlorel (XNova)
+ * @copyright 2009 Lucky (XGProyecto)
+ * @copyright 2012 Jan <info@2moons.cc> (2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-05-31)
  * @info $Id$
  * @link http://code.google.com/p/2moons/
  */
@@ -47,7 +49,7 @@ class ShowTicketPage extends AbstractPage
 		$ticketResult	= $GLOBALS['DATABASE']->query("SELECT t.*, COUNT(a.ticketID) as answer FROM ".TICKETS." t INNER JOIN ".TICKETS_ANSWER." a USING (ticketID) WHERE t.ownerID = ".$USER['id']." GROUP BY a.ticketID ORDER BY t.ticketID DESC;");
 		$ticketList		= array();
 		
-		while($ticketRow = $GLOBALS['DATABASE']->fetch_array($ticketResult)) {
+		while($ticketRow = $GLOBALS['DATABASE']->fetchArray($ticketResult)) {
 			$ticketRow['time']	= _date($LNG['php_tdformat'], $ticketRow['time'], $USER['timezone']);
 
 			$ticketList[$ticketRow['ticketID']]	= $ticketRow;
@@ -115,7 +117,7 @@ class ShowTicketPage extends AbstractPage
 			$this->printMessage(sprintf($LNG['ti_not_exist'], $ticketID));
 		}
 		
-		while($answerRow = $GLOBALS['DATABASE']->fetch_array($answerResult)) {
+		while($answerRow = $GLOBALS['DATABASE']->fetchArray($answerResult)) {
 			$answerRow['time']	= _date($LNG['php_tdformat'], $answerRow['time'], $USER['timezone']);
 			$answerList[$answerRow['answerID']]	= $answerRow;
 			if (empty($ticket_status))

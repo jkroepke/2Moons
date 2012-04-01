@@ -18,11 +18,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan <info@2moons.cc>
+ * @copyright 2006 Perberos <ugamela@perberos.com.ar> (UGamela)
+ * @copyright 2008 Chlorel (XNova)
+ * @copyright 2009 Lucky (XGProyecto)
+ * @copyright 2012 Jan <info@2moons.cc> (2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-05-31)
  * @info $Id$
  * @link http://code.google.com/p/2moons/
  */
@@ -62,7 +64,7 @@ switch($cron)
 			update_config(array('stat_last_db_update' => TIMESTAMP));
 			$prueba = $GLOBALS['DATABASE']->query("SHOW TABLE STATUS from ".DB_NAME.";");
 			$table = "";
-			while($pru = $GLOBALS['DATABASE']->fetch_array($prueba)){
+			while($pru = $GLOBALS['DATABASE']->fetchArray($prueba)){
 				$compprefix = explode("_",$pru["Name"]);  
 				
 				if($compprefix[0].'_' == DB_PREFIX && $compprefix[1] != 'session')
@@ -96,7 +98,7 @@ switch($cron)
 			if(isset($ChooseToDelete))
 			{
 				include_once(ROOT_PATH.'includes/functions/DeleteSelectedUser.php');
-				while($delete = $GLOBALS['DATABASE']->fetch_array($ChooseToDelete))
+				while($delete = $GLOBALS['DATABASE']->fetchArray($ChooseToDelete))
 				{
 					DeleteSelectedUser($delete['id']);
 				}	
@@ -106,7 +108,7 @@ switch($cron)
 			
 			$Universe	= array($CONF['uni']);
 			$Query		= $GLOBALS['DATABASE']->query("SELECT uni FROM ".CONFIG." WHERE uni != '".$CONF['uni']."' ORDER BY uni ASC;");
-			while($Uni = $GLOBALS['DATABASE']->fetch_array($Universe)) {
+			while($Uni = $GLOBALS['DATABASE']->fetchArray($Universe)) {
 				$Universe[]	= $Uni['uni'];
 			}
 			
@@ -124,7 +126,7 @@ switch($cron)
 			if($CONF['ref_active'] == 1) {
 				$Users	= $GLOBALS['DATABASE']->query("SELECT `username`, `ref_id`, `id` FROM ".USERS." WHERE `ref_bonus` = 1 AND (SELECT `total_points` FROM ".STATPOINTS." as s WHERE s.`id_owner` = `id` AND s.`stat_type` = '1') >= ".$CONF['ref_minpoints'].";");
 				$LANG->setDefault($CONF['lang']);
-				while($User	= $GLOBALS['DATABASE']->fetch_array($Users)) {
+				while($User	= $GLOBALS['DATABASE']->fetchArray($Users)) {
 					$LANG->setUser($User['lang']);	
 					$LANG->includeLang(array('INGAME', 'TECH'));
 					$GLOBALS['DATABASE']->multi_query("UPDATE ".USERS." SET `darkmatter` = `darkmatter` + '".$CONF['ref_bonus']."' WHERE `id` = '".$User['ref_id']."';UPDATE ".USERS." SET `ref_bonus` = `ref_bonus` = '0' WHERE `id` = '".$User['id']."';");
@@ -135,7 +137,7 @@ switch($cron)
 			// Send inactive Players Mails
 			if($CONF['sendmail_inactive'] == 1 && $CONF['mail_active'] == 1) {
 				$Users	= $GLOBALS['DATABASE']->query("SELECT `id`, `username`, `lang`, `email`, `onlinetime` FROM ".USERS." WHERE `inactive_mail` = '0' AND `onlinetime` < '".(TIMESTAMP - $CONF['del_user_sendmail'])."';");
-				while($User	= $GLOBALS['DATABASE']->fetch_array($Users)) {
+				while($User	= $GLOBALS['DATABASE']->fetchArray($Users)) {
 					$MailSubject	= sprintf($LNG['reg_mail_reg_done'], $CONF['game_name']);
 					$MailRAW		= file_get_contents("./language/".$User['lang']."/email/email_inactive.txt");
 					$MailContent	= sprintf($MailRAW, $User['username'], $CONF['game_name'].' - '.$CONF['uni_name'], date($LNG['php_tdformat'], $User['onlinetime']), PROTOCOL.$_SERVER['HTTP_HOST'].HTTP_ROOT);	

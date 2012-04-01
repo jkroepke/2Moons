@@ -18,11 +18,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan <info@2moons.cc>
+ * @copyright 2006 Perberos <ugamela@perberos.com.ar> (UGamela)
+ * @copyright 2008 Chlorel (XNova)
+ * @copyright 2009 Lucky (XGProyecto)
+ * @copyright 2012 Jan <info@2moons.cc> (2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-05-31)
  * @info $Id$
  * @link http://code.google.com/p/2moons/
  */
@@ -65,7 +67,7 @@ class ShowMessagesPage extends AbstractPage
 			$MessageResult	= $GLOBALS['DATABASE']->query("SELECT message_id, message_time, message_from, message_subject, message_sender, message_type, message_unread, message_text FROM ".MESSAGES." WHERE message_owner = ".$USER['id'].($MessCategory != 100 ? " AND message_type = ".$MessCategory:"")." ORDER BY message_time DESC LIMIT ".(($page - 1) * MESSAGES_PER_PAGE).", ".MESSAGES_PER_PAGE.";");
 		}
 
-		while ($MessageRow = $GLOBALS['DATABASE']->fetch_array($MessageResult))
+		while ($MessageRow = $GLOBALS['DATABASE']->fetchArray($MessageResult))
 		{
 			$MesagesID[]	= $MessageRow['message_id'];
 			
@@ -174,7 +176,7 @@ class ShowMessagesPage extends AbstractPage
 		$this->initTemplate();
 		$OwnerID       	= HTTP::_GP('id', 0);
 		$Subject 		= HTTP::_GP('subject', $LNG['mg_no_subject'], true);
-		$OwnerRecord 	= $GLOBALS['DATABASE']->uniquequery("SELECT a.galaxy, a.system, a.planet, b.username, b.id_planet FROM ".PLANETS." as a, ".USERS." as b WHERE b.id = '".$OwnerID."' AND a.id = b.id_planet;");
+		$OwnerRecord 	= $GLOBALS['DATABASE']->getFirstRow("SELECT a.galaxy, a.system, a.planet, b.username, b.id_planet FROM ".PLANETS." as a, ".USERS." as b WHERE b.id = '".$OwnerID."' AND a.id = b.id_planet;");
 
 		if (!$OwnerRecord)
 			exit($LNG['mg_error']);
@@ -204,7 +206,7 @@ class ShowMessagesPage extends AbstractPage
 		$UnRead			= array(0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 15 => 0, 50 => 0, 99 => 0, 100 => 0, 999 => 0);
 		
 		$OperatorResult 	= $GLOBALS['DATABASE']->query("SELECT username, email FROM ".USERS." WHERE universe = ".$UNI." AND authlevel != ".AUTH_USR." ORDER BY username ASC;");		
-		while($OperatorRow = $GLOBALS['DATABASE']->fetch_array($OperatorResult))
+		while($OperatorRow = $GLOBALS['DATABASE']->fetchArray($OperatorResult))
 		{	
 			$OperatorList[$OperatorRow['username']]	= $OperatorRow['email'];
 		}
@@ -212,7 +214,7 @@ class ShowMessagesPage extends AbstractPage
 		$GLOBALS['DATABASE']->free_result($OperatorResult);
 
 		$CategoryResult 	= $GLOBALS['DATABASE']->query("SELECT message_type, SUM(message_unread) as message_unread, COUNT(*) as count FROM ".MESSAGES." WHERE message_owner = ".$USER['id']." GROUP BY message_type;");	
-		while ($CategoryRow = $GLOBALS['DATABASE']->fetch_array($CategoryResult))
+		while ($CategoryRow = $GLOBALS['DATABASE']->fetchArray($CategoryResult))
 		{
 			$UnRead[$CategoryRow['message_type']]	= $CategoryRow['message_unread'];
 			$Total[$CategoryRow['message_type']]	= $CategoryRow['count'];

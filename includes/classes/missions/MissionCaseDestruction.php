@@ -18,11 +18,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan <info@2moons.cc>
+ * @copyright 2006 Perberos <ugamela@perberos.com.ar> (UGamela)
+ * @copyright 2008 Chlorel (XNova)
+ * @copyright 2009 Lucky (XGProyecto)
+ * @copyright 2012 Jan <info@2moons.cc> (2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-05-31)
  * @info $Id$
  * @link http://code.google.com/p/2moons/
  */
@@ -38,8 +40,8 @@ class MissionCaseDestruction extends MissionFunctions
 	{
 		global $resource, $LANG;
 
-		$targetPlanet = $GLOBALS['DATABASE']->uniquequery("SELECT * FROM ".PLANETS." WHERE `id` = '".$this->_fleet['fleet_end_id']."' ;");
-		$targetUser   = $GLOBALS['DATABASE']->uniquequery("SELECT * FROM ".USERS." WHERE `id` = '".$targetPlanet['id_owner']."';");
+		$targetPlanet = $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".PLANETS." WHERE `id` = '".$this->_fleet['fleet_end_id']."' ;");
+		$targetUser   = $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".USERS." WHERE `id` = '".$targetPlanet['id_owner']."';");
         
 		$attackFleets = array();
 		
@@ -49,7 +51,7 @@ class MissionCaseDestruction extends MissionFunctions
 
 		
 		$attackFleets[$this->_fleet['fleet_id']]['fleet'] = $this->_fleet;
-		$attackFleets[$this->_fleet['fleet_id']]['user'] = $GLOBALS['DATABASE']->uniquequery("SELECT `id`, `username`, `military_tech`, `defence_tech`, `shield_tech`, `rpg_amiral`, `dm_defensive`, `dm_attack` FROM ".USERS." WHERE id = '".$this->_fleet['fleet_owner']."';");
+		$attackFleets[$this->_fleet['fleet_id']]['user'] = $GLOBALS['DATABASE']->getFirstRow("SELECT `id`, `username`, `military_tech`, `defence_tech`, `shield_tech`, `rpg_amiral`, `dm_defensive`, `dm_attack` FROM ".USERS." WHERE id = '".$this->_fleet['fleet_owner']."';");
 		$attackFleets[$this->_fleet['fleet_id']]['user']['factor'] 	= getFactors($attackFleets[$this->_fleet['fleet_id']]['user'], 'attack', $this->_fleet['fleet_start_time']);
 		$attackFleets[$this->_fleet['fleet_id']]['detail'] = array();
 		$temp = explode(';', $this->_fleet['fleet_array']);
@@ -71,7 +73,7 @@ class MissionCaseDestruction extends MissionFunctions
 		$defense = array();
 
 		$def = $GLOBALS['DATABASE']->query('SELECT * FROM '.FLEETS.' WHERE `fleet_end_galaxy` = '. $this->_fleet['fleet_end_galaxy'] .' AND `fleet_end_system` = '. $this->_fleet['fleet_end_system'] .' AND `fleet_end_type` = '. $this->_fleet['fleet_end_type'] .' AND `fleet_end_planet` = '. $this->_fleet['fleet_end_planet'] .' AND fleet_start_time<'.TIMESTAMP.' AND fleet_end_stay>='.TIMESTAMP.';');
-		while ($defRow = $GLOBALS['DATABASE']->fetch_array($def))
+		while ($defRow = $GLOBALS['DATABASE']->fetchArray($def))
 		{
 			$defRowDef = explode(';', $defRow['fleet_array']);
 			foreach ($defRowDef as $Element)
@@ -83,7 +85,7 @@ class MissionCaseDestruction extends MissionFunctions
 					$defense[$defRow['fleet_id']][$Element[0]] = 0;
 
 				$defense[$defRow['fleet_id']]['def'][$Element[0]] 	+= $Element[1];
-				$defense[$defRow['fleet_id']]['user']				= $GLOBALS['DATABASE']->uniquequery("SELECT `id`, `username`, `military_tech`, `defence_tech`, `shield_tech`, `rpg_amiral`, `dm_defensive`, `dm_attack` FROM ".USERS." WHERE id = '".$defRow['fleet_owner']."';");
+				$defense[$defRow['fleet_id']]['user']				= $GLOBALS['DATABASE']->getFirstRow("SELECT `id`, `username`, `military_tech`, `defence_tech`, `shield_tech`, `rpg_amiral`, `dm_defensive`, `dm_attack` FROM ".USERS." WHERE id = '".$defRow['fleet_owner']."';");
 				$defense[$defRow['fleet_id']]['user']['factor'] 	= getFactors($defense[$defRow['fleet_id']]['user'], 'attack', $this->_fleet['fleet_start_time']);
 			}
 			$DefenderRow['id'][] 	= $defense[$defRow['fleet_id']]['user']['id'];
@@ -197,7 +199,7 @@ class MissionCaseDestruction extends MissionFunctions
 			'des'		=> 1
 		);
 		
-		$EndPlanet		= $GLOBALS['DATABASE']->uniquequery("SELECT `id` FROM ".PLANETS." WHERE `id_luna` = '".$this->_fleet['fleet_end_id']."';");
+		$EndPlanet		= $GLOBALS['DATABASE']->getFirstRow("SELECT `id` FROM ".PLANETS." WHERE `id_luna` = '".$this->_fleet['fleet_end_id']."';");
 
         $destext        = "";
 

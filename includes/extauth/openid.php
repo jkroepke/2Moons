@@ -79,7 +79,7 @@ class OpenIDAuth extends LightOpenID {
 			HTTP::redirectTo('index.php?code=4');
 		}
 		
-		return $GLOBALS['DATABASE']->uniquequery("SELECT 
+		return $GLOBALS['DATABASE']->getFirstRow("SELECT 
 		user.id, user.username, user.dpath, user.authlevel, user.id_planet 
 		FROM ".USERS_AUTH." auth 
 		INNER JOIN ".USERS." user ON auth.id = user.id AND user.universe = ".$UNI."

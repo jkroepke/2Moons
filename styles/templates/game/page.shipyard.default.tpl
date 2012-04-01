@@ -63,7 +63,9 @@
 					<td class="transparent left">
 						{$LNG.bd_remaining}<br>
 						{foreach $Element.costOverflow as $ResType => $ResCount}
+						{if isset($Element.costRessources[$ResType])}
 						{$LNG.tech.{$ResType}}: <span style="font-weight:700">{$ResCount|number}</span><br>
+						{/if}
 						{/foreach}
 						<br>
 					</td>

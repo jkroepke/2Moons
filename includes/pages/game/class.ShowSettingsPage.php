@@ -18,11 +18,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan <info@2moons.cc>
+ * @copyright 2006 Perberos <ugamela@perberos.com.ar> (UGamela)
+ * @copyright 2008 Chlorel (XNova)
+ * @copyright 2009 Lucky (XGProyecto)
+ * @copyright 2012 Jan <info@2moons.cc> (2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-05-31)
  * @info $Id$
  * @link http://code.google.com/p/2moons/
  */
@@ -101,7 +103,7 @@ class ShowSettingsPage extends AbstractPage
 					
 		$query = $GLOBALS['DATABASE']->query("SELECT * FROM ".PLANETS." WHERE id_owner = ".$USER['id']." AND id != ".$PLANET['id']." AND destruyed = 0;");
 		
-		while($CPLANET = $GLOBALS['DATABASE']->fetch_array($query))
+		while($CPLANET = $GLOBALS['DATABASE']->fetchArray($query))
 		{
 			list($USER, $CPLANET)	= $this->ecoObj->CalcResource($USER, $CPLANET, true);
 		
@@ -231,9 +233,9 @@ class ShowSettingsPage extends AbstractPage
 			}
 		}
 		
-		if (!empty($newpassword) && cryptPassword($password) == $USER["password"] && $newpassword == $newpassword2)
+		if (!empty($newpassword) && PlayerUntl::cryptPassword($password) == $USER["password"] && $newpassword == $newpassword2)
 		{
-			$newpass 	 = cryptPassword($newpassword);
+			$newpass 	 = PlayerUntl::cryptPassword($newpassword);
 			$SQL		.= "UPDATE ".USERS." SET password = '".$newpass."' WHERE id = ".$USER['id'].";";
 			$redirectTo	= 'index.php';
 			$SESSION->DestroySession();
@@ -241,7 +243,7 @@ class ShowSettingsPage extends AbstractPage
 
 		if (!empty($email) && $email != $USER['email'])
 		{
-			if(cryptPassword($newpassword) != $USER['password']) {
+			if(PlayerUntl::cryptPassword($newpassword) != $USER['password']) {
 				$errors[]	= $LNG['op_need_pass_mail'];
 			} elseif(!ValidateAddress($email)) {
 				$errors[]	= $LNG['op_not_vaild_mail'];

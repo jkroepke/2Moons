@@ -18,11 +18,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan <info@2moons.cc>
+ * @copyright 2006 Perberos <ugamela@perberos.com.ar> (UGamela)
+ * @copyright 2008 Chlorel (XNova)
+ * @copyright 2009 Lucky (XGProyecto)
+ * @copyright 2012 Jan <info@2moons.cc> (2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-05-31)
  * @info $Id$
  * @link http://code.google.com/p/2moons/
  */
@@ -43,7 +45,7 @@ function ShowBanPage()
 	$UserSelect	= array('List' => '', 'ListBan' => '');
 	
 	$Users	=	0;
-	while ($a = $GLOBALS['DATABASE']->fetch_array($UserList))
+	while ($a = $GLOBALS['DATABASE']->fetchArray($UserList))
 	{
 		$UserSelect['List']	.=	'<option value="'.$a['username'].'">'.$a['username'].'&nbsp;&nbsp;(ID:&nbsp;'.$a['id'].')'.(($a['bana']	==	'1') ? $LNG['bo_characters_suus'] : '').'</option>';
 		$Users++;
@@ -55,7 +57,7 @@ function ShowBanPage()
 		
 	$Banneds		=0;
 	$UserListBan	= $GLOBALS['DATABASE']->query("SELECT `username`, `id` FROM ".USERS." WHERE `bana` = '1' AND `universe` = '".$_SESSION['adminuni']."' ORDER BY ".$ORDER2." ASC;");
-	while ($b = $GLOBALS['DATABASE']->fetch_array($UserListBan))
+	while ($b = $GLOBALS['DATABASE']->fetchArray($UserListBan))
 	{
 		$UserSelect['ListBan']	.=	'<option value="'.$b['username'].'">'.$b['username'].'&nbsp;&nbsp;(ID:&nbsp;'.$b['id'].')</option>';
 		$Banneds++;
@@ -70,7 +72,7 @@ function ShowBanPage()
 	if(isset($_POST['panel']))
 	{
 		$Name					= HTTP::_GP('ban_name', '', true);
-		$BANUSER				= $GLOBALS['DATABASE']->uniquequery("SELECT b.theme, b.longer, u.id, u.urlaubs_modus, u.banaday FROM ".USERS." as u LEFT JOIN ".BANNED." as b ON u.`username` = b.`who` WHERE u.`username` = '".$GLOBALS['DATABASE']->sql_escape($Name)."' AND u.`universe` = '".$_SESSION['adminuni']."';");
+		$BANUSER				= $GLOBALS['DATABASE']->getFirstRow("SELECT b.theme, b.longer, u.id, u.urlaubs_modus, u.banaday FROM ".USERS." as u LEFT JOIN ".BANNED." as b ON u.`username` = b.`who` WHERE u.`username` = '".$GLOBALS['DATABASE']->sql_escape($Name)."' AND u.`universe` = '".$_SESSION['adminuni']."';");
 			
 		if ($BANUSER['banaday'] <= TIMESTAMP)
 		{
