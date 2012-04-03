@@ -49,5 +49,3 @@ class FTPException extends Exception
 		parent::__construct( $meldung, $code );
 	}
 }
-
-?>

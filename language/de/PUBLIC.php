@@ -8,8 +8,8 @@ $LNG['send']				= 'Absenden';
 $LNG['menu_index']			= 'IndeX';
 $LNG['menu_news']			= 'News';
 $LNG['menu_rules']			= 'Regeln';
-$LNG['menu_pranger']		= 'Pranger';
-$LNG['menu_top100']			= 'Hall of Fame';
+$LNG['menu_banlist']		= 'Pranger';
+$LNG['menu_battlehall']		= 'Battle Hall';
 $LNG['menu_disclamer']		= 'Impressum';
 $LNG['uni_closed']			= ' (closed)';
 
@@ -24,10 +24,10 @@ $LNG['mail_sended']			= 'Dein Passwort wurde an %s erfolgreich gesendet!';
 //case default
 
 $LNG['server_infos']			= array(
-	"Ein Weltraum-Strategiespiel in Echtzeit.",
-	"Spiele zusammen mit hunderten Usern.",
-	"Kein Download, es wird nur ein Standardbrowser benötigt.",
-	"Kostenlose Registrierung",
+	'Ein Weltraum-Strategiespiel in Echtzeit.',
+	'Spiele zusammen mit hunderten Usern.',
+	'Kein Download, es wird nur ein Standardbrowser benötigt.',
+	'Kostenlose Registrierung',
 );
 
 $LNG['login_error_1']		= 'Falscher Benutzername/Passwort!';
@@ -42,6 +42,7 @@ $LNG['chose_a_uni']			= 'Wähle ein Universum';
 
 //lostpassword.tpl
 $LNG['lost_pass_title']			= 'Passwort wiederherstellen';
+$LNG['lost_pass_send']			= 'Absenden';
 
 //index_body.tpl
 $LNG['user']					= 'User';
@@ -104,21 +105,20 @@ $LNG['captcha_get_audio']			= 'Lade Sound-CAPTCHA';
 $LNG['user_active']					= 'User %s wurde aktiviert!';
 
 //Rules
-$LNG['rules_overview']				= "Regelwerk";
-$LNG['rules_info1']					= "Es wird aber im <a href=\"%s\" target=\"_blank\">Forum</a> und über die Startseite im Game darüber Informiert ...";
+$LNG['rules_overview']				= 'Regelwerk';
+$LNG['rules_info1']					= 'Es wird aber im <a href=\'%s\' target=\'_blank\'>Forum</a> und über die Startseite im Game darüber Informiert ...';
 
 
 //NEWS
 
-$LNG['news_overview']				= "News";
-$LNG['news_from']					= "Am %s von %s";
-$LNG['news_does_not_exist']			= "Keine News vorhanden!";
+$LNG['news_overview']				= 'News';
+$LNG['news_from']					= 'Am %s von %s';
+$LNG['news_does_not_exist']			= 'Keine News vorhanden!';
 
 //Impressum
 
-$LNG['disclamer']					= "Haftungsausschluss";
-$LNG['disclamer_name']				= "Name:";
-$LNG['disclamer_adress']			= "Adresse:";
-$LNG['disclamer_tel']				= "Telefon Nr.:";
-$LNG['disclamer_email']				= "E-Mail Adresse:";
-?>
+$LNG['disclamer']					= 'Impressum';
+$LNG['disclamer_info']				= 'Angaben gemäß § 5 TMG:';
+$LNG['disclamer_address']			= 'Adresse';
+$LNG['disclamer_tel']				= 'Telefon Nr.';
+$LNG['disclamer_email']				= 'E-Mail Adresse';

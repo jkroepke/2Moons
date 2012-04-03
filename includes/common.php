@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -177,7 +177,8 @@ if (MODE !== 'INSTALL')
 			$USER['rights']		= unserialize($USER['rights']);
 			$LANG->includeLang(array('ADMIN'));
 		}
+	} else {
+		$LANG->GetLangFromBrowser();
+		$LANG->includeLang(array('L18N', 'INGAME', 'PUBLIC', 'CUSTOM'));
 	}
 }
-	
-?>

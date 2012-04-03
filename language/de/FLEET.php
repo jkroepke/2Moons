@@ -187,4 +187,3 @@ $LNG['type_mission'][8]  					= 'Abbauen';
 $LNG['type_mission'][9]  					= 'Zerstören';
 $LNG['type_mission'][11]  					= 'DM Untersuchung';
 $LNG['type_mission'][15] 					= 'Expedition';
-?>

@@ -32,4 +32,3 @@ while($CUser = $db->fetchArray($Qry))
 }
 
 $db->query("ALTER TABLE ".PLANETS." DROP `b_tech`, DROP `b_tech_id`;");
-?>

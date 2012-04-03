@@ -127,5 +127,3 @@ function dir_tree($dir, $EXT, $subDir = true) {
 	}
 	return $path;
 }
-
-?>

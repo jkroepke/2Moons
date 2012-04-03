@@ -1144,4 +1144,3 @@ $LNG['supp_open']                      = 'Открыт';
 $LNG['supp_admin_answer']              = 'Админ ответил';
 $LNG['supp_player_write']              = '%s ответил %s';
 $LNG['supp_player_answer']             = 'Игрок ответил';
-?>

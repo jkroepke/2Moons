@@ -122,4 +122,3 @@ $lang['logsTime'] = 'Ora';
 $lang['logsSearch'] = 'Cerca';
 $lang['logsPrivateChannels'] = 'Canali Privati';
 $lang['logsPrivateMessages'] = 'Messaggi privati';
-?>

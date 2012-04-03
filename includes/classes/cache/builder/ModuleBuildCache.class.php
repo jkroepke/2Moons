@@ -14,5 +14,3 @@ class ModuleBuildCache
 		return $module;
 	}
 }
-
-?>

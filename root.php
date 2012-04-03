@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -54,4 +54,3 @@ $template->assign_vars(array(
 	'adm_absenden'			=> $LNG['adm_absenden'],
 ));
 $template->show('adm/LoginPage.tpl');
-?>

@@ -120,4 +120,3 @@ $lang['logsTime'] = 'Idő';
 $lang['logsSearch'] = 'Keresés';
 $lang['logsPrivateChannels'] = 'Privát szobák';
 $lang['logsPrivateMessages'] = 'Privát üzenetek';
-?>

@@ -121,4 +121,3 @@ $lang['logsTime'] = 'Amser';
 $lang['logsSearch'] = 'Chwilio';
 $lang['logsPrivateChannels'] = 'Sianeli Preifat';
 $lang['logsPrivateMessages'] = 'Negeseuon Preifat';
-?>

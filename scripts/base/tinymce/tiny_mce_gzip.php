@@ -326,4 +326,3 @@ class TinyMCE_Compressor {
 		return $content;
 	}
 }
-?>

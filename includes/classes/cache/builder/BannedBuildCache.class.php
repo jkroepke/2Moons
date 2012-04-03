@@ -14,5 +14,3 @@ class BannedBuildCache
 		return $Bans;
 	}
 }
-
-?>
