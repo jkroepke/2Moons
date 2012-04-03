@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -90,30 +90,6 @@ class template extends Smarty
 		));
 	}
 	
-	public function login_main()
-	{
-		global $USER, $gameConfig, $LNG, $LANG, $UNI;
-		$this->assign_vars(array(
-			'game_captcha'		=> $gameConfig['recaptchaEnable'],
-			'cappublic'			=> $gameConfig['recaptchaPublicKey'],
-			'servername' 		=> $gameConfig['gameName'],
-			'forum_url' 		=> $gameConfig['boardAdress'],
-			'fb_active'			=> $gameConfig['facebookEnable'],
-			'fb_key' 			=> $gameConfig['facebookAPIKey'],
-			'mail_active'		=> $gameConfig['mailEnable'],
-			'ref_active'		=> $gameConfig['referralEnable'],
-			'ga_active'			=> $gameConfig['analyticsEnbale'],
-			'ga_key'			=> $gameConfig['analyticsUID'],
-			'getajax'			=> HTTP::_GP('getajax', 0),
-			'lang'				=> $LANG->getUser(),
-			'UNI'				=> $UNI,
-			'VERSION'			=> $gameConfig['version'],
-			'REV'				=> substr($gameConfig['version'], -4),
-			'langs'				=> json_encode(Language::getAllowedLangs(false)),
-			'htaccess'			=> (int) (UNIS_HTACCESS === true),
-		));
-	}
-	
 	public function show($file)
 	{		
 		global $USER, $PLANET, $LNG, $THEME, $LANG;
@@ -142,8 +118,14 @@ class template extends Smarty
 			'LNG'			=> $LNG,
 		), false);
 		
-		$this->compile_id	= $LANG->getUser();
+		$this->display($file);
+	}
+	
+	public function display($file)
+	{		
+		global $LANG;
 		
+		$this->compile_id	= $LANG->getUser();
 		parent::display($file);
 	}
 	
@@ -218,5 +200,3 @@ class template extends Smarty
         }
     }
 }
-
-?>

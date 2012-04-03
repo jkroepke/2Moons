@@ -14,5 +14,3 @@ class UniverseBuildCache
 		return $universe;
 	}
 }
-
-?>

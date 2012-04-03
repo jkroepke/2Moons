@@ -55,5 +55,3 @@ while($CPlanet = $db->fetchArray($Qry))
 	}
 	$db->query("UPDATE ".PLANETS." SET `b_building_id` = '".(empty($NewBQueue[0][0])?'':serialize($NewBQueue))."', `b_hangar_id` = '".(empty($NewHQueue[0][0])?'':serialize($NewHQueue))."' WHERE `id` = ".$CPlanet['id'].";");
 }
-
-?>

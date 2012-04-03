@@ -121,4 +121,3 @@ $lang['logsTime'] = 'Ώρα';
 $lang['logsSearch'] = 'Αναζήτηση';
 $lang['logsPrivateChannels'] = 'Πριβέ κανάλια';
 $lang['logsPrivateMessages'] = 'προσωπικά μηνύματα';
-?>

@@ -10,4 +10,3 @@ $LNG['ub_defenses']  = 'Оборона';
 $LNG['ub_fights']    = 'Битвы';
 $LNG['ub_quote']     = 'Девиз';
 $LNG['ub_rank']      = 'Позиция';
-?>

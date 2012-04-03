@@ -198,4 +198,3 @@ $config['socketServerIP'] = '127.0.0.1';
 $config['socketServerPort'] = 1935;
 // This ID can be used to distinguish between different chat installations using the same socket server:
 $config['socketServerChatID'] = 0;
-?>

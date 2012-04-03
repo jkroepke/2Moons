@@ -14,5 +14,3 @@ class ConfigUniverseBuildCache
 		return $config;
 	}
 }
-
-?>

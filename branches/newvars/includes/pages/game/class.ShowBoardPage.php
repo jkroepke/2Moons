@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,13 +41,11 @@ class ShowBoardPage extends AbstractPage
 	
 	function show() 
 	{
-		global $CONF;
+		global $CONF, $LNG;
 		if(filter_var($CONF['forum_url'], FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED)) {
-			HTTP::sendHeader('Location', $CONF['forum_url']);
+			HTTP::sendHeader('Location', $gameConfig['boardAddress']);
 		} else {
 			$this->printMessage($LNG['bad_forum_url']);
 		}
 	}
 }
-
-?>

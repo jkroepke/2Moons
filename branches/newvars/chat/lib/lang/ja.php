@@ -120,4 +120,3 @@ $lang['logsTime'] = '時間';
 $lang['logsSearch'] = '検索';
 $lang['logsPrivateChannels'] = '二人きりモード';
 $lang['logsPrivateMessages'] = 'プライベートメッセージ';
-?>

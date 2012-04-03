@@ -368,5 +368,3 @@ $LNG['longDescription'] = array(
 	706 => 'Der Bonus ist nur temporär.',
 	707 => 'Der Bonus ist nur temporär.',	
 );
-
-?>

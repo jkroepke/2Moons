@@ -23,5 +23,3 @@ if(!$SESSION->IsUserLogin() || ($CONF['game_disable'] == 0 && $USER['authlevel']
 if(!isModulAvalible(MODULE_CHAT)) {
 	ShowErrorPage::printError($LNG['sys_module_inactive']);
 }
-
-?>

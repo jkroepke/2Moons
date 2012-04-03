@@ -132,4 +132,3 @@ switch($MODE) {
 		unlink(__FILE__);
 	break;
 }
-?>

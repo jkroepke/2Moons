@@ -76,6 +76,10 @@ header {
 	background: url(../images/login/bg1.png) repeat-x center bottom #47494b
 }
 
+#page {
+	padding-bottom:10px;
+}
+
 #lang, #menu {
 	margin:0;
     padding: 0;

@@ -121,4 +121,3 @@ $lang['logsTime']			= 'Tid';
 $lang['logsSearch']			= 'Sök';
 $lang['logsPrivateChannels']		= 'Privata Kanaler';
 $lang['logsPrivateMessages']		= 'Privata Meddelanden';
-?>

@@ -111,4 +111,3 @@ $LNG['disclamer_name']               = "Имя";
 $LNG['disclamer_adress']             = "Адрес";
 $LNG['disclamer_tel']                = "Телефон";
 $LNG['disclamer_email']              = "Электронная почта";
-?>
