@@ -29,9 +29,6 @@
  * @link http://code.google.com/p/2moons/
  */
 
-require_once(ROOT_PATH . 'includes/classes/class.FleetFunctions.php');
-require_once(ROOT_PATH . 'includes/classes/class.GalaxyRows.php');
-
 class ShowGalaxyPage extends AbstractPage
 {
     public static $requireModule = MODULE_RESEARCH;
@@ -43,43 +40,43 @@ class ShowGalaxyPage extends AbstractPage
 	
 	public function show()
 	{
-		global $USER, $PLANET, $resource, $LNG, $reslist, $CONF;
+		global $USER, $PLANET, $LNG, $uniConfig;
 
 		$action 		= HTTP::_GP('action', '');
 		$galaxyLeft		= HTTP::_GP('galaxyLeft', '');
 		$galaxyRight	= HTTP::_GP('galaxyRight', '');
 		$systemLeft		= HTTP::_GP('systemLeft', '');
 		$systemRight	= HTTP::_GP('systemRight', '');
-		$galaxy			= min(max(HTTP::_GP('galaxy', $PLANET['galaxy']), 1), $CONF['max_galaxy']);
-		$system			= min(max(HTTP::_GP('system', $PLANET['system']), 1), $CONF['max_system']);
-		$planet			= min(max(HTTP::_GP('planet', $PLANET['planet']), 1), $CONF['max_planets']);
+		$galaxy			= min(max(HTTP::_GP('galaxy', $PLANET['galaxy']), 1), $uniConfig['planetMaxGalaxy']);
+		$system			= min(max(HTTP::_GP('system', $PLANET['system']), 1), $uniConfig['planetMaxSystem']);
+		$planet			= min(max(HTTP::_GP('planet', $PLANET['planet']), 1), $uniConfig['planetMaxPosition']);
 		$type			= HTTP::_GP('type', 1);
 		$current		= HTTP::_GP('current', 0);
 			
         if (!empty($galaxyLeft))
             $galaxy	= max($galaxy - 1, 1);
         elseif (!empty($galaxyRight))
-            $galaxy	= min($galaxy + 1, $CONF['max_galaxy']);
+            $galaxy	= min($galaxy + 1, $uniConfig['planetMaxGalaxy']);
 
         if (!empty($systemLeft))
             $system	= max($system - 1, 1);
         elseif (!empty($systemRight))
-            $system	= min($system + 1, $CONF['max_system']);
+            $system	= min($system + 1, $uniConfig['planetMaxSystem']);
 
 		if ($galaxy != $PLANET['galaxy'] || $system != $PLANET['system'])
 		{
-			if($PLANET['deuterium'] < $CONF['deuterium_cost_galaxy'])
+			if($PLANET['deuterium'] < $uniConfig['galaxyNavigationDeuterium'])
 			{	
 				$this->printMessage($LNG['gl_no_deuterium_to_view_galaxy'], array("game.php?page=galaxy", 3));
 				exit;
 			} else {
-				$PLANET['deuterium']	-= $CONF['deuterium_cost_galaxy'];
+				$PLANET['deuterium']	-= $uniConfig['galaxyNavigationDeuterium'];
             }
 		}
 
-        $targetDefensive    = array_diff($reslist['defense'], array(502));
+        $targetDefensive    = array_diff($GLOBALS['VARS']['LIST'][ELEMENT_DEFENSIVE], array(502, 503));
 		$MissleSelector[0]	= $LNG['gl_all_defenses'];
-		foreach($targetDefensive  as $Element)
+		foreach($targetDefensive as $Element)
 		{	
 			$MissleSelector[$Element] = $LNG['tech'][$Element];
 		}
@@ -112,7 +109,7 @@ class ShowGalaxyPage extends AbstractPage
 			'current_system'			=> $PLANET['system'],
 			'current_planet'			=> $PLANET['planet'],
 			'planet_type' 				=> $PLANET['planet_type'],
-            'max_planets'               => $CONF['max_planets'],
+            'max_planets'               => $uniConfig['planetMaxPosition'],
 			'MissleSelector'			=> $MissleSelector,
 			'ShortStatus'				=> array(
 				'vacation'					=> $LNG['gl_short_vacation'],

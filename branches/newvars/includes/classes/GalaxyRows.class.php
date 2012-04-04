@@ -29,9 +29,6 @@
  * @link http://code.google.com/p/2moons/
  */
 
-require_once(ROOT_PATH . 'includes/classes/class.FleetFunctions.php');
-require_once(ROOT_PATH . 'includes/pages/game/class.ShowPhalanxPage.php');
-
 class GalaxyRows
 {
 	private $Galaxy;
@@ -175,7 +172,7 @@ class GalaxyRows
 
 	protected function getPlayerData()
 	{
-		global $USER, $LNG;
+		global $USER, $LNG, $gameConfig;
 
 		$IsNoobProtec		= CheckNoobProtec($USER, $this->galaxyRow, $this->galaxyRow);
 		$Class		 		= array();
@@ -192,11 +189,11 @@ class GalaxyRows
 		{
 			$Class		 	= array('vacation');
 		}
-		elseif ($this->galaxyRow['onlinetime'] < TIMESTAMP - INACTIVE_LONG)
+		elseif ($this->galaxyRow['onlinetime'] < TIMESTAMP - $gameConfig['userInactiveLongSinceDays'])
 		{
 			$Class		 	= array('inactive', 'longinactive');
 		}
-		elseif ($this->galaxyRow['onlinetime'] < TIMESTAMP - INACTIVE)
+		elseif ($this->galaxyRow['onlinetime'] < TIMESTAMP - $gameConfig['userInactiveSinceDays'])
 		{
 			$Class		 	= array('inactive');
 		}
@@ -240,13 +237,13 @@ class GalaxyRows
 
 	protected function getDebrisData()
 	{
-		global $PLANET, $pricelist, $resource;
+		global $PLANE;
 		$total		= $this->galaxyRow['der_metal'] + $this->galaxyRow['der_crystal'];
 		if($total == 0) {
 			$this->galaxyData[$this->galaxyRow['planet']]['debris']	= false;
 		} else {
-			$GRecNeeded = min(ceil($total / $pricelist[219]['capacity']), $PLANET[$GLOBALS['VARS']['ELEMENT'][219]['name']]);
-			$RecNeeded 	= min(ceil(max($total - ($GRecNeeded * $pricelist[219]['capacity']), 0) / $pricelist[209]['capacity']), $PLANET[$GLOBALS['VARS']['ELEMENT'][209]['name']]);
+			$GRecNeeded = min(ceil($total / $GLOBALS['VARS']['ELEMENT'][219]['capacity']), $PLANET[$GLOBALS['VARS']['ELEMENT'][219]['name']]);
+			$RecNeeded 	= min(ceil(max($total - $GRecNeeded * $GLOBALS['VARS']['ELEMENT'][219]['capacity'], 0) / $GLOBALS['VARS']['ELEMENT'][209]['capacity']), $PLANET[$GLOBALS['VARS']['ELEMENT'][209]['name']]);
 
 			$this->galaxyData[$this->galaxyRow['planet']]['debris']	= array(
 				'metal'			=> $this->galaxyRow['der_metal'],

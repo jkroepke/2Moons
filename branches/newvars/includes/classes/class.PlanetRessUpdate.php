@@ -158,8 +158,6 @@ class ResourceUpdate
 	
 	public static function getNetworkLevel($USER, $PLANET)
 	{
-		global $resource;
-
 		$lablevel	= array();
 		if($USER[$GLOBALS['VARS']['ELEMENT'][123]['name']] == 0) {
 			$lablevel[] = $PLANET[$GLOBALS['VARS']['ELEMENT'][31]['name']];
@@ -178,8 +176,6 @@ class ResourceUpdate
 	
 	public function ReBuildCache()
 	{
-		global $ProdGrid, $resource, $reslist, $pricelist;
-		
 		$ressIDs	= array_merge($GLOBALS['VARS']['LIST'][ELEMENT_PLANET_RESOURCE], $GLOBALS['VARS']['LIST'][ELEMENT_ENERGY]);
 		
 		$temp		= combineArrayWithSingleElement($ressIDs, array(

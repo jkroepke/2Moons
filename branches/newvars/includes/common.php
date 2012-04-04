@@ -73,15 +73,9 @@ ini_set('error_log', ROOT_PATH . 'includes/error.log');
 require(ROOT_PATH . 'includes/GeneralFunctions.php');
 set_exception_handler('exceptionHandler');
 set_error_handler('errorHandler');
+spl_autoload_register('autoloadClasses');
 
-require(ROOT_PATH . 'includes/classes/Cache.class.php');
-require(ROOT_PATH . 'includes/classes/Database.class.php');
-require(ROOT_PATH . 'includes/classes/Language.class.php');
 require(ROOT_PATH . 'includes/classes/class.theme.php');
-require(ROOT_PATH . 'includes/classes/Session.class.php');
-require(ROOT_PATH . 'includes/classes/Template.class.php');
-require(ROOT_PATH . 'includes/classes/HTTP.class.php');
-require(ROOT_PATH . 'includes/classes/PlayerUntl.class.php');	
 
 // Say Browsers to Allow ThirdParty Cookies (Thanks to morktadela)
 HTTP::sendHeader('P3P', 'CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"');
@@ -129,7 +123,7 @@ if (MODE !== 'INSTALL')
 	
 	$LANG->setDefault($gameConfig['language']);
 	
-	if (MODE === 'INGAME' || MODE === 'ADMIN' || MODE === 'CHAT')
+	if (MODE === 'GAME' || MODE === 'ADMIN' || MODE === 'CHAT')
 	{
 		if (!$SESSION->IsUserLogin())
 		{
@@ -140,7 +134,7 @@ if (MODE !== 'INSTALL')
 		
 		require(ROOT_PATH . 'includes/classes/class.PlanetRessUpdate.php');
 		
-		if (!AJAX_REQUEST && MODE === 'INGAME' && isModulAvalible(MODULE_FLEET_EVENTS))
+		if (!AJAX_REQUEST && MODE === 'GAME' && isModulAvalible(MODULE_FLEET_EVENTS))
 		{
 			require(ROOT_PATH . 'includes/FleetHandler.php');
 		}
@@ -181,7 +175,7 @@ if (MODE !== 'INSTALL')
 			ShowErrorPage::printError("<font size=\"6px\">" . $LNG['css_account_banned_message'] . "</font><br><br>" . sprintf($LNG['css_account_banned_expire'], _date($LNG['php_tdformat'], $USER['banaday'], $USER['timezone'])) . "<br><br>" . $LNG['css_goto_homeside'], false);
 		}
 		
-		if (MODE === 'INGAME')
+		if (MODE === 'GAME')
 		{
 			$PLANET = $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM " . PLANETS . " WHERE id = " . $_SESSION['planet'] . ";");
 			

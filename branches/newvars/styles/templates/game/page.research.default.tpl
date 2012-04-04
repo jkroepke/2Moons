@@ -14,7 +14,7 @@
 				{if isset($CQueue) && $CQueue.maxLevel != $CQueue.level && !$IsFullQueue && $CQueue.buyable}
 				<form action="game.php?page=research" method="post" class="build_form">
 					<input type="hidden" name="cmd" value="insert">
-					<input type="hidden" name="tech" value="{$ID}">
+					<input type="hidden" name="elementID" value="{$ID}">
 					<button type="submit" class="build_submit onlist">{$LNG.tech.{$ID}} {$List.level}{if !empty($List.planet)} @ {$List.planet}{/if}</button>
 				</form>
 				{else}
@@ -74,7 +74,7 @@
 					{else}
 						<form action="game.php?page=research" method="post" class="build_form">
 							<input type="hidden" name="cmd" value="insert">
-							<input type="hidden" name="tech" value="{$ID}">
+							<input type="hidden" name="elementID" value="{$ID}">
 							<button type="submit" class="build_submit">{if $Element.level == 0}{$LNG.bd_tech}{else}{$LNG.bd_tech_next_level}{$Element.level + 1}{/if}</button>
 						</form>
 					{/if}

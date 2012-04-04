@@ -72,23 +72,23 @@ class VarsBuildCache
 				),
 			);
 			
-			$ProdGrid[$varsRow['elementID']]['production']	= array(
+			$GLOBALS['VARS']['ELEMENT'][$varsRow['elementID']]['production']	= array(
 				901	=> $varsRow['production901'],
 				902	=> $varsRow['production902'],
 				903	=> $varsRow['production903'],
 				911	=> $varsRow['production911'],
 			);
 			
-			$ProdGrid[$varsRow['elementID']]['storage']	= array(
+			$GLOBALS['VARS']['ELEMENT'][$varsRow['elementID']]['storage']	= array(
 				901	=> $varsRow['storage901'],
 				902	=> $varsRow['storage902'],
 				903	=> $varsRow['storage903'],
 			);
 			
-			if(array_filter($ProdGrid[$varsRow['elementID']]['production']))
+			if(array_filter($GLOBALS['VARS']['ELEMENT'][$varsRow['elementID']]['production']))
 				$reslist['prod'][]		= $varsRow['elementID'];
 				
-			if(array_filter($ProdGrid[$varsRow['elementID']]['storage']))
+			if(array_filter($GLOBALS['VARS']['ELEMENT'][$varsRow['elementID']]['storage']))
 				$reslist['storage'][]	= $varsRow['elementID'];
 				
 			if(array_filter($pricelist[$varsRow['elementID']]['bonus'], 'floatval'))
@@ -129,7 +129,7 @@ class VarsBuildCache
 		
 		return array(
 			'reslist'		=> $reslist,
-			'ProdGrid'		=> $ProdGrid,
+			'ProdGrid'		=> $GLOBALS['VARS']['ELEMENT'],
 			'CombatCaps'	=> $CombatCaps,
 			'resource'		=> $resource,
 			'pricelist'		=> $pricelist,

@@ -29,9 +29,6 @@
  * @link http://code.google.com/p/2moons/
  */
 
-require_once(ROOT_PATH . 'includes/classes/class.FleetFunctions.php');
-
-
 class ShowFleetTablePage extends AbstractPage
 {
 	public static $requireModule = MODULE_FLEET_TABLE;

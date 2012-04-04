@@ -38,8 +38,6 @@ if(!file_exists(ROOT_PATH.'includes/config.php')) {
 	HTTP::redirectTo("install/index.php");
 }
 
-require(ROOT_PATH.'includes/pages/index/class.AbstractPage.php');
-require(ROOT_PATH.'includes/pages/index/class.ShowErrorPage.php');
 require(ROOT_PATH.'includes/common.php');
 
 $page 		= HTTP::_GP('page', 'index');
@@ -47,12 +45,9 @@ $mode 		= HTTP::_GP('mode', 'show');
 $mode		= str_replace(array('_', '\\', '/', '.', "\0"), '', $mode);
 $pageClass	= 'Show'.ucwords($page).'Page';
 
-if(!file_exists(ROOT_PATH . 'includes/pages/index/class.'.$pageClass.'.php')) {
+if(!class_exists($pageClass)) {
 	ShowErrorPage::printError($LNG['page_doesnt_exist']);
 }
-
-// Added Autoload in feature Versions
-require(ROOT_PATH . 'includes/pages/index/class.'.$pageClass.'.php');
 
 $pageObj	= new $pageClass;
 // PHP 5.2 FIX

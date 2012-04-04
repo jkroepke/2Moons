@@ -173,7 +173,7 @@ class ShowInformationPage extends AbstractPage
 
 	public function show()
 	{
-		global $USER, $PLANET, $dpath, $LNG, $resource, $pricelist, $reslist, $CombatCaps, $ProdGrid, $CONF;
+		global $USER, $PLANET, $LNG, $uniConfig;
 
 		$elementID 	= HTTP::_GP('id', 0);
 		
@@ -186,9 +186,9 @@ class ShowInformationPage extends AbstractPage
 
 		$CurrentLevel		= 0;
 		
-		$ressIDs			= array_merge(array(), $reslist['resstype'][1], $reslist['resstype'][2]);
+		$ressIDs			= array_merge($GLOBALS['VARS']['LIST'][ELEMENT_PLANET_RESOURCE], $GLOBALS['VARS']['LIST'][ELEMENT_ENERGY]);
 		
-		if(in_array($elementID, $reslist['prod']) && in_array($elementID, $reslist['build']))
+		if(elementHasFlag($elementID, ELEMENT_PRODUCTION) && elementHasFlag($elementID, ELEMENT_BUILD))
 		{
 			$BuildLevelFactor	= 10;
 			$BuildTemp       	= $PLANET['temp_max'];
@@ -201,10 +201,10 @@ class ShowInformationPage extends AbstractPage
 			{
 				foreach($ressIDs as $ID) 
 				{
-					if(!isset($ProdGrid[$elementID]['production'][$ID]))
+					if(!isset($GLOBALS['VARS']['ELEMENT'][$elementID]['production'][$ID]))
 						continue;
 						
-					$Production	= eval(ResourceUpdate::getProd($ProdGrid[$elementID]['production'][$ID]));
+					$Production	= eval(ResourceUpdate::getProd($GLOBALS['VARS']['ELEMENT'][$elementID]['production'][$ID]));
 					
 					if($ID != 911) {
 						$Production	*= $uniConfig['ecoSpeed'];
@@ -214,9 +214,12 @@ class ShowInformationPage extends AbstractPage
 				}
 			}
 			
-			$productionTable['usedResource']	= array_keys($productionTable['production'][$BuildStartLvl]);
+			if(!empty($productionTable['production']))
+			{
+				$productionTable['usedResource']	= array_keys($productionTable['production'][$BuildStartLvl]);
+			}
 		}
-		elseif(in_array($elementID, $reslist['storage']))
+		elseif(elementHasFlag($elementID, ELEMENT_STORAGE))
 		{
 			$BuildLevelFactor	= 10;
 			$BuildTemp       	= $PLANET['temp_max'];
@@ -229,16 +232,19 @@ class ShowInformationPage extends AbstractPage
 			{
 				foreach($ressIDs as $ID) 
 				{
-					if(!isset($ProdGrid[$elementID]['storage'][$ID]))
+					if(!isset($GLOBALS['VARS']['ELEMENT'][$elementID]['storage'][$ID]))
 						continue;
 						
-					$productionTable['storage'][$BuildLevel][$ID]	= round(eval(ResourceUpdate::getProd($ProdGrid[$elementID]['storage'][$ID]))) * $uniConfig['ecoSpeed'] * STORAGE_FACTOR;
+					$productionTable['storage'][$BuildLevel][$ID]	= round(eval(ResourceUpdate::getProd($GLOBALS['VARS']['ELEMENT'][$elementID]['storage'][$ID]))) * $uniConfig['ecoSpeed'] * STORAGE_FACTOR;
 				}
 			}
 			
-			$productionTable['usedResource']	= array_keys($productionTable['storage'][$BuildStartLvl]);
+			if(!empty($productionTable['storage']))
+			{
+				$productionTable['usedResource']	= array_keys($productionTable['storage'][$BuildStartLvl]);
+			}
 		}
-		elseif(in_array($elementID, $reslist['fleet']))
+		elseif(elementHasFlag($elementID, ELEMENT_FLEET))
 		{
 			$FleetInfo	= array(
 				'structure'		=> $GLOBALS['VARS']['ELEMENT'][$elementID]['cost'][901] + $GLOBALS['VARS']['ELEMENT'][$elementID]['cost'][902],
@@ -255,7 +261,7 @@ class ShowInformationPage extends AbstractPage
 				),
 			);
 				
-			$fleetIDs	= array_merge($reslist['fleet'], $reslist['defense']);
+			$fleetIDs	= array_merge($GLOBALS['VARS']['LIST'][ELEMENT_FLEET], $GLOBALS['VARS']['LIST'][ELEMENT_DEFENSIVE]);
 			
 			foreach($fleetIDs as $fleetID)
 			{
@@ -268,7 +274,7 @@ class ShowInformationPage extends AbstractPage
 				}
 			}
 		}
-		elseif (in_array($elementID, $reslist['defense']))
+		elseif (elementHasFlag($elementID, ELEMENT_DEFENSIVE))
 		{
 			$FleetInfo	= array(
 				'structure'		=> $GLOBALS['VARS']['ELEMENT'][$elementID]['cost'][901] + $GLOBALS['VARS']['ELEMENT'][$elementID]['cost'][902],
@@ -280,8 +286,8 @@ class ShowInformationPage extends AbstractPage
 				),
 			);
 				
-			$fleetIDs	= array_merge($reslist['fleet'], $reslist['defense']);
-			
+			$fleetIDs	= array_merge($GLOBALS['VARS']['LIST'][ELEMENT_FLEET], $GLOBALS['VARS']['LIST'][ELEMENT_DEFENSIVE]);
+		
 			foreach($fleetIDs as $fleetID)
 			{
 				if (isset($CombatCaps[$elementID]['sd']) && !empty($CombatCaps[$elementID]['sd'][$fleetID])) {

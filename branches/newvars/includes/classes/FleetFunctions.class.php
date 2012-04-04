@@ -324,7 +324,7 @@ class FleetFunctions
 					
 					if (isModulAvalible(MODULE_MISSION_HOLD))
 					{
-						$avalibleMissions[MISSION_HOLD]		= MISSION_HOLD;}
+						$avalibleMissions[MISSION_HOLD]		= MISSION_HOLD;
 					}
 						
 					if (!empty($MissionInfo['IsAKS']) && isModulAvalible(MODULE_MISSION_ATTACK) && isModulAvalible(MODULE_MISSION_ACS))

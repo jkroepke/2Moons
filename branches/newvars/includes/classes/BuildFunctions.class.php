@@ -66,7 +66,9 @@ class BuildFunctions
 		
 		$price	= array();
 		
-		foreach (array_merge($GLOBALS['VARS']['LIST'][ELEMENT_PLANET_RESOURCE], $GLOBALS['VARS']['LIST'][ELEMENT_USER_RESOURCE],  $GLOBALS['VARS']['LIST'][ELEMENT_ENERGY]) as $resourceID) 
+		$resourceIDs	= array_merge($GLOBALS['VARS']['LIST'][ELEMENT_PLANET_RESOURCE], $GLOBALS['VARS']['LIST'][ELEMENT_USER_RESOURCE], $GLOBALS['VARS']['LIST'][ELEMENT_ENERGY]);
+		
+		foreach ($resourceIDs as $resourceID) 
 		{
 			$price[$resourceID] = 0;
 			
@@ -77,9 +79,8 @@ class BuildFunctions
 			}
 			
 			$price[$resourceID]	= $ressourceAmount;
-			
-			if($pricelist[$elementID]['factor'] > 1) {
-				$price[$resourceID]	*= pow($pricelist[$elementID]['factor'], $elementLevel);
+			if($GLOBALS['VARS']['ELEMENT'][$elementID]['factor'] > 1) {
+				$price[$resourceID]	*= pow($GLOBALS['VARS']['ELEMENT'][$elementID]['factor'], $elementLevel);
 			}
 			
 			if($forLevel && (elementHasFlag($elementID, ELEMENT_FLEET) || elementHasFlag($elementID, ELEMENT_BONUS))) {
@@ -115,7 +116,7 @@ class BuildFunctions
 	
 	public static function getBuildingTime($USER, $PLANET, $elementID, $elementPrice = NULL, $forDestroy = false, $forLevel = NULL)
 	{
-		global $resource, $reslist, $requeriments, $uniAllConfig;
+		global $uniAllConfig;
 		
 		$uniConfig	= $uniAllConfig[$USER['universe']];
 
@@ -135,17 +136,27 @@ class BuildFunctions
 			$elementCost	+= $elementPrice[902];
 		}
 		
-		if	   	 (elementHasFlag($elementID, ELEMENT_BUILD)) {
+		
+		if	   	 (elementHasFlag($elementID, ELEMENT_BUILD))
+		{
 			$time	= $elementCost / ($uniConfig['gameSpeed'] * (1 + $PLANET[$GLOBALS['VARS']['ELEMENT'][14]['name']])) * pow(0.5, $PLANET[$GLOBALS['VARS']['ELEMENT'][15]['name']]) * (1 + $USER['factor']['BuildTime']);
-		} elseif (elementHasFlag($elementID, ELEMENT_FLEET)) {
+		}
+		elseif (elementHasFlag($elementID, ELEMENT_FLEET))
+		{
 			$time	= $elementCost / ($uniConfig['gameSpeed'] * (1 + $PLANET[$GLOBALS['VARS']['ELEMENT'][21]['name']])) * pow(0.5, $PLANET[$GLOBALS['VARS']['ELEMENT'][15]['name']]) * (1 + $USER['factor']['ShipTime']);	
-		} elseif (elementHasFlag($elementID, ELEMENT_DEFENSIVE)) {
+		}
+		elseif (elementHasFlag($elementID, ELEMENT_DEFENSIVE))
+		{
 			$time	= $elementCost / ($uniConfig['gameSpeed'] * (1 + $PLANET[$GLOBALS['VARS']['ELEMENT'][21]['name']])) * pow(0.5, $PLANET[$GLOBALS['VARS']['ELEMENT'][15]['name']]) * (1 + $USER['factor']['DefensiveTime']);
-		} elseif (elementHasFlag($elementID, ELEMENT_TECH)) {
+		}
+		elseif (elementHasFlag($elementID, ELEMENT_TECH))
+		{
 			if(is_numeric($PLANET[$GLOBALS['VARS']['ELEMENT'][31]['name'].'_inter']))
 			{
 				$Level	= $PLANET[$GLOBALS['VARS']['ELEMENT'][31]['name']];
-			} else {
+			}
+			else
+			{
 				$Level = 0;
 				foreach($PLANET[$GLOBALS['VARS']['ELEMENT'][31]['name'].'_inter'] as $Levels)
 				{
@@ -173,9 +184,7 @@ class BuildFunctions
 	}
 	
 	public static function getMaxConstructibleElements($USER, $PLANET, $elementID, $elementPrice = NULL)
-	{
-		global $resource, $reslist;
-		
+	{		
 		if(!isset($elementPrice)) {
 			$elementPrice	= self::getElementPrice($USER, $PLANET, $elementID);
 		}
@@ -197,7 +206,7 @@ class BuildFunctions
 	
 	public static function getMaxConstructibleRockets($USER, $PLANET, $Missiles = NULL)
 	{
-		global $resource;
+		global $uniAllConfig;
 
 		$uniConfig	= $uniAllConfig[$USER['universe']];
 		

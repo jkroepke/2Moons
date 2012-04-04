@@ -29,8 +29,6 @@
  * @link http://code.google.com/p/2moons/
  */
 
-require_once('class.AbstractPage.php');
-
 class ShowResearchPage extends AbstractPage
 {
 	public static $requireModule = MODULE_RESEARCH;
@@ -42,7 +40,7 @@ class ShowResearchPage extends AbstractPage
 	
 	private function CheckLabSettingsInQueue()
 	{
-		global $PLANET, $CONF;
+		global $PLANET;
 		if ($PLANET['b_building'] == 0)
 			return true;
 			
@@ -57,7 +55,7 @@ class ShowResearchPage extends AbstractPage
 	
 	private function CancelBuildingFromQueue()
 	{
-		global $PLANET, $USER, $resource;
+		global $PLANET, $USER;
 		$CurrentQueue  = unserialize($USER['b_tech_queue']);
 		if (empty($CurrentQueue) || empty($USER['b_tech']))
 		{
@@ -141,7 +139,7 @@ class ShowResearchPage extends AbstractPage
 
 	private function RemoveBuildingFromQueue($QueueID)
 	{
-		global $USER, $PLANET, $resource;
+		global $USER, $PLANET;
 		
 		$CurrentQueue  = unserialize($USER['b_tech_queue']);
 		if ($QueueID <= 1 || empty($CurrentQueue))
@@ -189,10 +187,11 @@ class ShowResearchPage extends AbstractPage
 
 	private function AddBuildingToQueue($elementID, $AddMode = true)
 	{
-		global $PLANET, $USER, $resource, $CONF, $reslist, $pricelist;
+		global $PLANET, $USER, $uniConfig;
 
 		if(!BuildFunctions::isTechnologieAccessible($USER, $PLANET, $elementID)
 			|| !$this->CheckLabSettingsInQueue($PLANET)
+			|| !elementHasFlag($elementID, ELEMENT_TECH)
 		)
 			return;
 			
@@ -205,9 +204,10 @@ class ShowResearchPage extends AbstractPage
 			$ActualCount   	= 0;
 		}
 				
-		if($CONF['max_elements_tech'] != 0 && $CONF['max_elements_tech'] <= $ActualCount)
+		if($uniConfig['listMaxResearch'] != 0 && $uniConfig['listMaxResearch'] <= $ActualCount) {
 			return false;
-			
+		}
+		
 		$BuildLevel					= $USER[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']] + 1;
 		if($ActualCount == 0)
 		{
@@ -260,7 +260,7 @@ class ShowResearchPage extends AbstractPage
 
 	private function ShowTechQueue()
 	{
-		global $LNG, $CONF, $PLANET, $USER;
+		global $LNG, $PLANET, $USER;
 		
 		if ($USER['b_tech'] == 0)
 			return array();
@@ -295,7 +295,7 @@ class ShowResearchPage extends AbstractPage
 
 	public function show()
 	{
-		global $PLANET, $USER, $LNG, $resource, $reslist, $CONF, $pricelist;
+		global $PLANET, $USER, $LNG, $uniConfig;
 		
 		if ($PLANET[$GLOBALS['VARS']['ELEMENT'][31]['name']] == 0)
 		{
@@ -303,12 +303,11 @@ class ShowResearchPage extends AbstractPage
 		}
 			
 		$TheCommand		= HTTP::_GP('cmd','');
-		$elementID     	= HTTP::_GP('tech', 0);
+		$elementID     	= HTTP::_GP('elementID', 0);
 		$ListID     	= HTTP::_GP('listid', 0);
-		
 		$PLANET[$GLOBALS['VARS']['ELEMENT'][31]['name'].'_inter']	= ResourceUpdate::getNetworkLevel($USER, $PLANET);	
 
-		if(!empty($TheCommand) && $_SERVER['REQUEST_METHOD'] === 'POST' && $USER['urlaubs_modus'] == 0 && elementHasFlag($elementID, ELEMENT_TECH))
+		if(!empty($TheCommand) && $_SERVER['REQUEST_METHOD'] === 'POST' && $USER['urlaubs_modus'] == 0)
 		{
 			switch($TheCommand)
 			{
@@ -364,7 +363,7 @@ class ShowResearchPage extends AbstractPage
 		$this->tplObj->assign_vars(array(
 			'ResearchList'	=> $ResearchList,
 			'IsLabinBuild'	=> !$bContinue,
-			'IsFullQueue'	=> $CONF['max_elements_tech'] == 0 || $CONF['max_elements_tech'] == count($TechQueue),
+			'IsFullQueue'	=> $uniConfig['listMaxResearch'] == count($TechQueue),
 			'Queue'			=> $TechQueue,
 		));
 		

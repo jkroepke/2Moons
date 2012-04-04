@@ -48,7 +48,7 @@ class ShowLoginPage extends AbstractPage
 		
 		$username = HTTP::_GP('username', '', UTF8_SUPPORT);
 		$password = HTTP::_GP('password', '', true);
-		$loginData = $GLOBALS['DATABASE']->getFirstRow("SELECT id, username, password, dpath, authlevel, id_planet FROM ".USERS." WHERE universe = ".$UNI." AND username = '".$GLOBALS['DATABASE']->sql_escape($username)."';");
+		$loginData = $GLOBALS['DATABASE']->getFirstRow("SELECT id, password FROM ".USERS." WHERE universe = ".$UNI." AND username = '".$GLOBALS['DATABASE']->sql_escape($username)."';");
 			
 		if (isset($loginData)) {
 			if($loginData['password'] != PlayerUntl::cryptPassword($password)) {
@@ -60,8 +60,8 @@ class ShowLoginPage extends AbstractPage
 				}
 			}
 			
-			$SESSION       	= new Session();
-			$SESSION->CreateSession($loginData['id'], $loginData['username'], $loginData['id_planet'], $UNI, $loginData['authlevel'], $loginData['dpath']);
+			Session::create($loginData['id']);
+			
 			HTTP::redirectTo('game.php');	
 		}
 	}

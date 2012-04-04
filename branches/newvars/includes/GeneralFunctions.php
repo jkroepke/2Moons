@@ -31,7 +31,18 @@
 
 function autoloadClasses($className)
 {
-
+	// Get a Cache of this ...
+	
+	if((substr($className, 0, 4) === "Show" || $className == "AbstractPage") && file_exists(ROOT_PATH.'includes/pages/'.strtolower(MODE).'/'.$className.'.class.php')) {
+		require(ROOT_PATH.'includes/pages/'.strtolower(MODE).'/'.$className.'.class.php');
+	}
+	if(substr($className, 0, 6) === "smarty" && function_exists('smartyAutoload')) {
+		smartyAutoload($class);
+	}
+	
+	if(file_exists(ROOT_PATH.'includes/classes/'.$className.'.class.php')) {
+		require(ROOT_PATH.'includes/classes/'.$className.'.class.php');
+	}
 }
 
 function getUniverse()
@@ -318,25 +329,25 @@ function pretty_time($seconds)
 	
 	$time  = '';
 	
-	if($day > 10) {
+	if($day > 9) {
 		$time .= $day.$LNG['short_day'].' ';
 	} elseif($day > 0) {
 		$time .= '0'.$day.$LNG['short_day'].' ';
 	}
 	
-	if($hour > 10) {
+	if($hour > 9) {
 		$time .= $hour.$LNG['short_hour'].' ';
 	} else {
 		$time .= '0'.$hour.$LNG['short_hour'].' ';
 	}
 	
-	if($minute > 10) {
+	if($minute > 9) {
 		$time .= $minute.$LNG['short_minute'].' ';
 	} else {
 		$time .= '0'.$minute.$LNG['short_minute'].' ';
 	}
 	
-	if($second > 10) {
+	if($second > 9) {
 		$time .= $second.$LNG['short_second'].' ';
 	} else {
 		$time .= '0'.$second.$LNG['short_second'].' ';
@@ -421,13 +432,13 @@ function makebr($text)
 
 function CheckNoobProtec($OwnerPlayer, $TargetPlayer, $Player)
 {	
-	global $CONF;
+	global $uniConfig, $gameConfig;
 	if(
-		$CONF['noobprotection'] == 0 
-		|| $CONF['noobprotectiontime'] == 0 
-		|| $CONF['noobprotectionmulti'] == 0 
+		$uniConfig['noobProtectionEnable'] == 0 
+		|| $uniConfig['noobProtectionToPoints'] == 0 
+		|| $uniConfig['noobProtectionRange'] == 0 
 		|| $Player['banaday'] > TIMESTAMP
-		|| $Player['onlinetime'] < TIMESTAMP - INACTIVE
+		|| $Player['onlinetime'] < TIMESTAMP - $gameConfig['userInactiveSinceDays']
 	) {
 		return array('NoobPlayer' => false, 'StrongPlayer' => false);
 	}
@@ -440,16 +451,17 @@ function CheckNoobProtec($OwnerPlayer, $TargetPlayer, $Player)
 				ODER weniger als 5.000 hat.
 			*/
 			// Addional Comment: Letzteres ist eigentlich sinnfrei, bitte testen.a
-			($TargetPlayer['total_points'] <= $CONF['noobprotectiontime']) && // Default: 25.000
-			($OwnerPlayer['total_points'] > $TargetPlayer['total_points'] * $CONF['noobprotectionmulti'])
+			($TargetPlayer['total_points'] <= $uniConfig['noobprotectiontime']) && // Default: 25.000
+			($OwnerPlayer['total_points'] > $TargetPlayer['total_points'] * $uniConfig['noobprotectionmulti'])
 		), 
 		'StrongPlayer' => (
 			/* WAHR: 
 				Wenn Spieler weniger als 5000 Punkte hat UND
 				Mehr als das funfache der eigende Punkte hat
 			*/
-			($OwnerPlayer['total_points'] < $CONF['noobprotectiontime']) && // Default: 5.000
-			($OwnerPlayer['total_points'] * $CONF['noobprotectionmulti'] < $TargetPlayer['total_points'])
+			(!$uniConfig['noobProtectionAllowStrong']) && // Default: 5.000
+			($OwnerPlayer['total_points'] < $uniConfig['noobprotectiontime']) && // Default: 5.000
+			($OwnerPlayer['total_points'] * $uniConfig['noobprotectionmulti'] < $TargetPlayer['total_points'])
 		),
 	);
 }
