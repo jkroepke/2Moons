@@ -100,8 +100,8 @@ function ShowUniversePage() {
 		}
 	} elseif($_REQUEST['action'] == 'create') {
 		$ID	= (int) $_REQUEST['id'];
-		$GLOBALS['DATABASE']->query("INSERT INTO ".CONFIG." (uni, VERSION, uni_name, game_name, close_reason, OverviewNewsText, lang) VALUES
-		(NULL, '".$CONF['VERSION']."', '".$LNG['fcm_universe']."', '".$CONF['game_name']."', '".$CONF['close_reason']."', '', '".$CONF['lang']."');");
+		$GLOBALS['DATABASE']->query("INSERT INTO ".CONFIG." (uni, VERSION, uni_name, gameName, close_reason, OverviewNewsText, lang) VALUES
+		(NULL, '".$CONF['VERSION']."', '".$LNG['fcm_universe']."', '".$CONF['gameName']."', '".$CONF['close_reason']."', '', '".$CONF['lang']."');");
 		
 		$UniID	= $GLOBALS['DATABASE']->GetInsertID();
 		

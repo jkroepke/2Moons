@@ -93,8 +93,8 @@ function ShowSendMessagesPage() {
 				$mail->CharSet		= 'UTF-8';		
 				$mail->Subject   	= strip_tags($Subject);
 				$mail->Body   		= bbcode($Message);
-				$mail->SetFrom($CONF['smtp_sendmail'], $CONF['game_name']);
-				$mail->AddAddress($CONF['smtp_sendmail'], $CONF['game_name']);
+				$mail->SetFrom($CONF['smtp_sendmail'], $CONF['gameName']);
+				$mail->AddAddress($CONF['smtp_sendmail'], $CONF['gameName']);
 				$USERS	= $GLOBALS['DATABASE']->query("SELECT `username`, `email` FROM ".USERS." WHERE `universe` = '".$_SESSION['adminuni']."'".(!empty($Lang) ? " AND `lang` = '".$GLOBALS['DATABASE']->sql_escape($Lang)."'": "").";");
 				while($UserData = $GLOBALS['DATABASE']->fetchArray($USERS)) {
 					$mail->AddBCC($UserData['email'], $UserData['username']);

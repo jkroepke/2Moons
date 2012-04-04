@@ -284,7 +284,7 @@ $LNG['ow_developers']                  = 'Разработчики';
 
 // Параметры сервера
 $LNG['se_server_parameters']           = 'Параметры сервера';
-$LNG['se_game_name']                   = 'Название игры';
+$LNG['se_gameName']                   = 'Название игры';
 $LNG['se_uni_name']                    = 'Название вселенной';
 $LNG['se_lang']                        = 'Язык';
 $LNG['se_general_speed']               = 'Скорость игры';

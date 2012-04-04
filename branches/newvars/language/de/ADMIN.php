@@ -345,7 +345,7 @@ $LNG['ow_developers']				= 'Entwickler';
 
 //---------------	CONFIGURACIÓN DEL JUEGO - GAME CONFIG	------------------------//
 $LNG['se_server_parameters']			= 'Server Einstellungen';
-$LNG['se_game_name']					= 'Name (Game)';
+$LNG['se_gameName']					= 'Name (Game)';
 $LNG['se_uni_name']						= 'Name (Universum)';
 $LNG['se_lang']							= 'Sprache';
 $LNG['se_general_speed']				= 'Gamespeed';

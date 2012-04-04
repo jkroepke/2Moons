@@ -405,7 +405,6 @@ switch ($step) {
 		$VARS				= $CACHE->get('vars');
 		$gameConfig			= $CACHE->get('config');
 		$uniAllConfig		= $CACHE->get('configuni');
-		require_once(ROOT_PATH.'includes/classes/PlayerUntl.class.php');	
 		
 		$encryptPassword	= PlayerUntl::cryptPassword($AdminPassword);
 		

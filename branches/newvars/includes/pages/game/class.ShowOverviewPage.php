@@ -40,8 +40,8 @@ class ShowOverviewPage extends AbstractPage
 	
 	private function GetTeamspeakData()
 	{
-		global $CONF, $USER, $LNG;
-		if ($CONF['ts_modon'] == 0)
+		global $gameConfig, $USER, $LNG;
+		if ($gameConfig['teamspeakEnable'] == 0)
 			return false;
 		elseif(!file_exists(ROOT_PATH.'cache/teamspeak_cache.php'))
 			return $LNG['ov_teamspeak_not_online'];
@@ -49,16 +49,10 @@ class ShowOverviewPage extends AbstractPage
 		$Data		= unserialize(file_get_contents(ROOT_PATH.'cache/teamspeak_cache.php'));
 		if(!is_array($Data))
 			return $LNG['ov_teamspeak_not_online'];
-			
-		$Teamspeak 	= '';			
 
-		if($CONF['ts_version'] == 2) {
-			$trafges 	= pretty_number($Data[1]['total_bytessend'] / 1048576 + $Data[1]['total_bytesreceived'] / 1048576);
-			$Teamspeak	= sprintf($LNG['ov_teamspeak_v2'], $CONF['ts_server'], $CONF['ts_udpport'], $USER['username'], $Data[0]["server_currentusers"], $Data[0]["server_maxusers"], $Data[0]["server_currentchannels"], $trafges);
-		} elseif($CONF['ts_version'] == 3){
-			$trafges 	= pretty_number($Data['data']['connection_bytes_received_total'] / 1048576 + $Data['data']['connection_bytes_sent_total'] / 1048576);
-			$Teamspeak	= sprintf($LNG['ov_teamspeak_v3'], $CONF['ts_server'], $CONF['ts_tcpport'], $USER['username'], $Data['data']['virtualserver_password'], ($Data['data']['virtualserver_clientsonline'] - 1), $Data['data']['virtualserver_maxclients'], $Data['data']['virtualserver_channelsonline'], $trafges);
-		}
+		$trafges 	= pretty_number($Data['data']['connection_bytes_received_total'] / 1048576 + $Data['data']['connection_bytes_sent_total'] / 1048576);
+		$Teamspeak	= sprintf($LNG['ov_teamspeak_v3'], $gameConfig['teamspeakServerAdress'], $gameConfig['teamspeakUDPPort'], $USER['username'], $Data['data']['virtualserver_password'], ($Data['data']['virtualserver_clientsonline'] - 1), $Data['data']['virtualserver_maxclients'], $Data['data']['virtualserver_channelsonline'], $trafges);
+
 		return $Teamspeak;
 	}
 
@@ -112,7 +106,7 @@ class ShowOverviewPage extends AbstractPage
 		
 	function show()
 	{
-		global $CONF, $LNG, $PLANET, $USER, $resource, $UNI;
+		global $gameConfig, $uniConfig, $LNG, $PLANET, $USER, $resource, $UNI, $CACHE;
 		
 		$AdminsOnline 	= array();
 		$chatOnline 	= array();
@@ -176,26 +170,28 @@ class ShowOverviewPage extends AbstractPage
 		// Fehler: Wenn Spieler gelöscht werden, werden sie nicht mehr in der Tabelle angezeigt.
 		$RefLinksRAW	= $GLOBALS['DATABASE']->query("SELECT u.id, u.username, s.total_points FROM ".USERS." as u LEFT JOIN ".STATPOINTS." as s ON s.id_owner = u.id AND s.stat_type = '1' WHERE ref_id = ".$USER['id'].";");
 		
-		if($CONF['ref_active']) 
+		if($gameConfig['referralEnable']) 
 		{
 			while ($RefRow = $GLOBALS['DATABASE']->fetchArray($RefLinksRAW)) {
 				$RefLinks[$RefRow['id']]	= array(
 					'username'	=> $RefRow['username'],
-					'points'	=> min($RefRow['total_points'], $CONF['ref_minpoints'])
+					'points'	=> min($RefRow['total_points'], $gameConfig['referralMinimumPoints'])
 				);
 			}
 		}
-		
+			
+		$universeData	= $CACHE->get('universe');
+	
 		if($USER['total_rank'] == 0) {
 			$rankInfo	= "-";
 		} else {
-			$rankInfo	= sprintf($LNG['ov_userrank_info'], pretty_number($USER['total_points']), $LNG['ov_place'], $USER['total_rank'], $USER['total_rank'], $LNG['ov_of'], $CONF['users_amount']);
+			$rankInfo	= sprintf($LNG['ov_userrank_info'], pretty_number($USER['total_points']), $LNG['ov_place'], $USER['total_rank'], $USER['total_rank'], $LNG['ov_of'], $universeData[$UNI]['userAmount']);
 		}
-		
+	
 		$this->tplObj->assign_vars(array(
 			'rankInfo'					=> $rankInfo,
-			'is_news'					=> $CONF['OverviewNewsFrame'],
-			'news'						=> makebr($CONF['OverviewNewsText']),
+			'is_news'					=> $uniConfig['newsEnable'],
+			'news'						=> makebr($uniConfig['newsText']),
 			'planetname'				=> $PLANET['name'],
 			'planetimage'				=> $PLANET['image'],
 			'galaxy'					=> $PLANET['galaxy'],
@@ -216,8 +212,8 @@ class ShowOverviewPage extends AbstractPage
 			'planet_field_max' 			=> CalculateMaxPlanetFields($PLANET),
 			'planet_temp_min' 			=> $PLANET['temp_min'],
 			'planet_temp_max' 			=> $PLANET['temp_max'],
-			'ref_active'				=> $CONF['ref_active'],
-			'ref_minpoints'				=> $CONF['ref_minpoints'],
+			'ref_active'				=> $gameConfig['referralEnable'],
+			'ref_minpoints'				=> $gameConfig['referralMinimumPoints'],
 			'RefLinks'					=> $RefLinks,
 			'chatOnline'				=> $chatOnline,
 			'servertime'				=> _date("M D d H:i:s", TIMESTAMP, $USER['timezone']),

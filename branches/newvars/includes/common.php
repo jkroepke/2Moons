@@ -81,6 +81,7 @@ require(ROOT_PATH . 'includes/classes/class.theme.php');
 require(ROOT_PATH . 'includes/classes/Session.class.php');
 require(ROOT_PATH . 'includes/classes/Template.class.php');
 require(ROOT_PATH . 'includes/classes/HTTP.class.php');
+require(ROOT_PATH . 'includes/classes/PlayerUntl.class.php');	
 
 // Say Browsers to Allow ThirdParty Cookies (Thanks to morktadela)
 HTTP::sendHeader('P3P', 'CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"');

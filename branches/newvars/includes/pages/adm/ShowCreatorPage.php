@@ -261,7 +261,7 @@ function ShowCreatorPage()
 				exit;
 			}
 			
-			$Query	= $GLOBALS['DATABASE']->query("SELECT uni, game_name FROM ".CONFIG." ORDER BY uni ASC;");
+			$Query	= $GLOBALS['DATABASE']->query("SELECT uni, gameName FROM ".CONFIG." ORDER BY uni ASC;");
 			while($Unis	= $GLOBALS['DATABASE']->fetchArray($Query)) {
 				$AvailableUnis[$Unis['uni']]	= $Unis;
 			}

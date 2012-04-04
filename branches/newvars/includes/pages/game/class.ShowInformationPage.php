@@ -207,7 +207,7 @@ class ShowInformationPage extends AbstractPage
 					$Production	= eval(ResourceUpdate::getProd($ProdGrid[$elementID]['production'][$ID]));
 					
 					if($ID != 911) {
-						$Production	*= $CONF['resource_multiplier'];
+						$Production	*= $uniConfig['ecoSpeed'];
 					}
 					
 					$productionTable['production'][$BuildLevel][$ID]	= $Production;
@@ -232,7 +232,7 @@ class ShowInformationPage extends AbstractPage
 					if(!isset($ProdGrid[$elementID]['storage'][$ID]))
 						continue;
 						
-					$productionTable['storage'][$BuildLevel][$ID]	= round(eval(ResourceUpdate::getProd($ProdGrid[$elementID]['storage'][$ID]))) * $CONF['resource_multiplier'] * STORAGE_FACTOR;
+					$productionTable['storage'][$BuildLevel][$ID]	= round(eval(ResourceUpdate::getProd($ProdGrid[$elementID]['storage'][$ID]))) * $uniConfig['ecoSpeed'] * STORAGE_FACTOR;
 				}
 			}
 			
