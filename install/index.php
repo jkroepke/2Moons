@@ -424,8 +424,7 @@ switch ($step) {
 		
 		list($userID, $planetID) = PlayerUntl::createPlayer(1, $AdminUsername, $encryptPassword, $AdminMail, 1, 1, 2, NULL, AUTH_ADM, $LANG->GetUser());
 						
-		$SESSION       	= new Session();
-		$SESSION->CreateSession(1, $AdminUsername, $planetID, 1, 3, DEFAULT_THEME);
+		Session::Create($userID, $planetID);
 		
 		$_SESSION['admin_login']	= $encryptPassword;
 		

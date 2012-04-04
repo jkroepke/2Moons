@@ -31,7 +31,7 @@
 
 require(ROOT_PATH.'includes/libs/Smarty/Smarty.class.php');
 		
-class template extends Smarty
+class Template extends Smarty
 {
 	protected $window	= 'full';
 	protected $jsscript	= array();
@@ -81,12 +81,12 @@ class template extends Smarty
 	
 	private function adm_main()
 	{
-		global $LNG, $CONF;
+		global $LNG, $gameConfig;
 		$this->assign_vars(array(
 			'scripts'			=> $this->script,
-			'title'				=> $CONF['game_name'].' - '.$LNG['adm_cp_title'],
+			'title'				=> $gameConfig['gameName'].' - '.$LNG['adm_cp_title'],
 			'fcm_info'			=> $LNG['fcm_info'],
-			'REV'				=> substr($CONF['VERSION'], -4),
+			'REV'				=> substr($gameConfig['version'], -4),
 		));
 	}
 	
@@ -104,9 +104,6 @@ class template extends Smarty
 		} elseif(MODE === 'ADMIN') {
 			$this->setTemplateDir($tplDir[0].'adm/');
 			$this->adm_main();
-		} elseif(MODE === 'INDEX') {
-			$this->setTemplateDir($tplDir[0].'index/');
-			$this->login_main();
 		}
 
 		$this->assign_vars(array(
@@ -186,7 +183,7 @@ class template extends Smarty
     public function __set($name, $value)
     {
         $allowed = array(
-        'template_dir' => 'setTemplateDirgetTemplateDir',
+        'template_dir' => 'setTemplateDir',
         'config_dir' => 'setConfigDir',
         'plugins_dir' => 'setPluginsDir',
         'compile_dir' => 'setCompileDir',

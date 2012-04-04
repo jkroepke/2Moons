@@ -288,7 +288,7 @@ class PlayerUntl {
  
 	static function deletePlayer($userID)
 	{
-		global $db ,$CONF;
+		global $db;
 	
 		require_once(ROOT_PATH.'includes/classes/class.FleetFunctions.php');
 		
@@ -299,7 +299,7 @@ class PlayerUntl {
 		$userData = $GLOBALS['DATABASE']->getFirstRow("SELECT universe, ally_id FROM ".USERS." WHERE id = '".$userID."';");
 		$SQL 	 = "";
 		
-		if ($userData['ally_id'] != 0)
+		if (!empty($userData['ally_id']))
 		{
 			$memberCount =  $GLOBALS['DATABASE']->countquery("SELECT ally_members FROM ".ALLIANCE." WHERE id = ".$userData['ally_id'].";");
 			
@@ -332,8 +332,10 @@ class PlayerUntl {
 		}
 		
 		$GLOBALS['DATABASE']->free_result($fleetData);
+
+		$GLOBALS['DATABASE']->query("UPDATE ".UNIVERSE." SET userAmount = userAmount - 1 WHERE universe = ".$userData['universe'].";");
 		
-		update_config(array('users_amount' => $CONF['users_amount'] - 1), $userData['universe']);
+		$GLOBALS['CACHE']->flush('universe');
 	}
 
 	function deletePlanet($planetID)

@@ -114,7 +114,7 @@ class FleetFunctions
 
 	public static function GetGameSpeedFactor()
 	{
-		return $GLOBALS['CONF']['fleet_speed'] / 2500;
+		return $GLOBALS['CONF']['fleet_speed'];
 	}
 	
 	public static function GetMaxFleetSlots($USER)
@@ -164,12 +164,15 @@ class FleetFunctions
 
 	public static function GetFleetMissions($USER, $MisInfo, $Planet)
 	{
-		global $resource, $CONF;
+		global $resource, $uniAllConfig;
+
+		$uniConfig	= $uniAllConfig[$USER['universe']];
+		
 		$Missions	= self::GetAvailableMissions($USER, $MisInfo, $Planet);
 		$stayBlock	= array();;
 		if (in_array(15, $Missions)) {
-			for($i = 1;$i <= $USER[$GLOBALS['VARS']['ELEMENT'][124]['name']];$i++) {	
-				$stayBlock[$i]	= $i / $CONF['halt_speed'];
+			for($i = 1; $i <= $USER[$GLOBALS['VARS']['ELEMENT'][124]['name']];$i++) {	
+				$stayBlock[$i]	= $i / $uniConfig['expeditionSpeed'];
 			}
 		}
 		elseif(in_array(5, $Missions)) {
@@ -275,44 +278,77 @@ class FleetFunctions
 	
 	public static function GetAvailableMissions($USER, $MissionInfo, $GetInfoPlanet)
 	{	
-		global $CONF;
+		global $uniConfig;
 		$YourPlanet				= (!empty($GetInfoPlanet['id_owner']) && $GetInfoPlanet['id_owner'] == $USER['id']) ? true : false;
 		$UsedPlanet				= (!empty($GetInfoPlanet['id_owner'])) ? true : false;
 		$avalibleMissions		= array();
 		
-		if ($MissionInfo['planet'] == ($CONF['max_planets'] + 1) && isModulAvalible(MODULE_MISSION_EXPEDITION))
-			$avalibleMissions[]	= 15;	
-		elseif ($MissionInfo['planettype'] == 2) {
-			if ((isset($MissionInfo['Ship'][209]) || isset($MissionInfo['Ship'][219])) && isModulAvalible(MODULE_MISSION_RECYCLE) && !($GetInfoPlanet['der_metal'] == 0 && $GetInfoPlanet['der_crystal'] == 0))
-				$avalibleMissions[]	= 8;
-		} else {
-			if (!$UsedPlanet) {
+		if ($MissionInfo['planet'] == ($uniConfig['planetMaxPosition'] + 1) && isModulAvalible(MODULE_MISSION_EXPEDITION))
+		{
+			$avalibleMissions[MISSION_EXPEDITION]			= MISSION_EXPEDITION;	
+		} 
+		elseif ($MissionInfo['planettype'] == 2)
+		{
+			if ((isset($MissionInfo['Ship'][209]) || isset($MissionInfo['Ship'][219])) && isModulAvalible(MODULE_MISSION_RECYCLE) && ($GetInfoPlanet['der_metal'] > 0 || $GetInfoPlanet['der_crystal'] > 0))
+			{
+				$avalibleMissions[MISSION_RECYCLE]			= MISSION_RECYCLE;
+			}
+		}
+		else
+		{
+			if (!$UsedPlanet)
+			{
 				if (isset($MissionInfo['Ship'][208]) && $MissionInfo['planettype'] == 1 && isModulAvalible(MODULE_MISSION_COLONY))
-					$avalibleMissions[]	= 7;
-			} else {
-				if(isModulAvalible(MODULE_MISSION_TRANSPORT))
-					$avalibleMissions[]	= 3;
-					
-				if (!$YourPlanet && self::OnlyShipByID($MissionInfo['Ship'], 210) && isModulAvalible(MODULE_MISSION_SPY))
-					$avalibleMissions[]	= 6;
+				{
+					$avalibleMissions[MISSION_COLONY]		= MISSION_COLONY;
+				}
+			}
+			else
+			{
+				if (isModulAvalible(MODULE_MISSION_TRANSPORT))
+				{
+					$avalibleMissions[MISSION_TRANSPORT]	= MISSION_TRANSPORT;
+				}
 
-				if (!$YourPlanet) {
-					if(isModulAvalible(MODULE_MISSION_ATTACK))
-						$avalibleMissions[]	= 1;
-					if(isModulAvalible(MODULE_MISSION_HOLD))
-						$avalibleMissions[]	= 5;}
+				if (!$YourPlanet)
+				{
+					if (isModulAvalible(MODULE_MISSION_SPY) && self::OnlyShipByID($MissionInfo['Ship'], 210))
+					{
+						$avalibleMissions[MISSION_SPY]		= MISSION_SPY;
+					}
+				
+					if (isModulAvalible(MODULE_MISSION_ATTACK))
+					{
+						$avalibleMissions[MISSION_ATTACK]	= MISSION_ATTACK;
+					}
+					
+					if (isModulAvalible(MODULE_MISSION_HOLD))
+					{
+						$avalibleMissions[MISSION_HOLD]		= MISSION_HOLD;}
+					}
 						
-				elseif(isModulAvalible(MODULE_MISSION_STATION)) {
-					$avalibleMissions[]	= 4;}
+					if (!empty($MissionInfo['IsAKS']) && isModulAvalible(MODULE_MISSION_ATTACK) && isModulAvalible(MODULE_MISSION_ACS))
+					{
+						$avalibleMissions[MISSION_ACS]		= MISSION_ACS;
+					}
+
+					if ($MissionInfo['planettype'] == 3 && isset($MissionInfo['Ship'][214]) && isModulAvalible(MODULE_MISSION_DESTROY))
+					{
+						$avalibleMissions[MISSION_DESTROY]	= MISSION_DESTROY;
+					}
+				}
+				else
+				{
+					if (isModulAvalible(MODULE_MISSION_STATION))
+					{
+						$avalibleMissions[MISSION_STATION]		= MISSION_STATION;
+					}
 					
-				if (!empty($MissionInfo['IsAKS']) && !$YourPlanet && isModulAvalible(MODULE_MISSION_ATTACK) && isModulAvalible(MODULE_MISSION_ACS))
-					$avalibleMissions[]	= 2;
-
-				if (!$YourPlanet && $MissionInfo['planettype'] == 3 && isset($MissionInfo['Ship'][214]) && isModulAvalible(MODULE_MISSION_DESTROY))
-					$avalibleMissions[]	= 9;
-
-				if ($YourPlanet && $MissionInfo['planettype'] == 3 && self::OnlyShipByID($MissionInfo['Ship'], 220) && isModulAvalible(MODULE_MISSION_DARKMATTER))
-					$avalibleMissions[]	= 11;
+					if ($MissionInfo['planettype'] == 3 && isModulAvalible(MODULE_MISSION_DARKMATTER) && self::OnlyShipByID($MissionInfo['Ship'], 220))
+					{
+						$avalibleMissions[MISSION_DMMISSION]	= MISSION_DMMISSION;
+					}
+				}
 			}
 		}
 		
@@ -322,9 +358,11 @@ class FleetFunctions
 	public static function CheckBash($Target)
 	{
 		global $USER;
-		if(!BASH_ON)
+		if (!BASH_ON)
+		{
 			return false;
-			
+		}
+		
 		$Count	= $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM uni1_log_fleets
 		WHERE fleet_owner = ".$USER['id']." 
 		AND fleet_end_id = ".$Target." 
@@ -340,9 +378,15 @@ class FleetFunctions
 		$fleetShipCount	= array_sum($fleetArray);
 		$fleetData		= array();
 		$planetQuery	= "";
-		foreach($fleetArray as $ShipID => $ShipCount) {
+		$resourceSQL	= "";
+		foreach($fleetArray as $ShipID => $ShipCount)
+		{
 			$fleetData[]	= $ShipID.','.$ShipCount;
 			$planetQuery[]	= $GLOBALS['VARS']['ELEMENT'][$ShipID]['name']." = ".$GLOBALS['VARS']['ELEMENT'][$ShipID]['name']." - ".$ShipCount;
+		}
+		
+		foreach($GLOBALS['VARS']['LIST'][ELEMENT_RESOURCE_ON_FLEET] as $resourceID) {
+			$resourceSQL	.= ",fleet_resource_".$GLOBALS['VARS']['ELEMENT'][$resourceID]['name']." = ".$fleetRessource[$resourceID];
 		}
 		
 		$SQL	= "LOCK TABLE ".LOG_FLEETS." WRITE, ".FLEETS_EVENT." WRITE, ".FLEETS." WRITE, ".PLANETS." WRITE;
@@ -366,9 +410,7 @@ class FleetFunctions
 				   fleet_end_system         = ".$fleetTargetPlanetSystem.",
 				   fleet_end_planet         = ".$fleetTargetPlanetPlanet.",
 				   fleet_end_type           = ".$fleetTargetPlanetType.",
-				   fleet_resource_metal     = ".$fleetRessource[901].",
-				   fleet_resource_crystal   = ".$fleetRessource[902].",
-				   fleet_resource_deuterium = ".$fleetRessource[903].",
+				   ".$resourceSQL.",
 				   fleet_group              = ".$fleetGroup.",
 				   fleet_target_obj         = ".$missleTarget.",
 				   start_time               = ".TIMESTAMP.";
@@ -397,9 +439,7 @@ class FleetFunctions
 				   fleet_end_system         = ".$fleetTargetPlanetSystem.",
 				   fleet_end_planet         = ".$fleetTargetPlanetPlanet.",
 				   fleet_end_type           = ".$fleetTargetPlanetType.",
-				   fleet_resource_metal     = ".$fleetRessource[901].",
-				   fleet_resource_crystal   = ".$fleetRessource[902].",
-				   fleet_resource_deuterium = ".$fleetRessource[903].",
+				   ".$resourceSQL.",
 				   fleet_group              = ".$fleetGroup.",
 				   fleet_target_obj         = ".$missleTarget.",
 				   start_time               = ".TIMESTAMP.";

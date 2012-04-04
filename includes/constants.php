@@ -155,6 +155,20 @@ define('FLEET_OUTWARD'				, 0);
 define('FLEET_RETURN'				, 1);
 define('FLEET_HOLD'					, 2);
 
+// FLEET MISSION
+define('MISSION_ATTACK'				, 1);
+define('MISSION_ACS'				, 2);
+define('MISSION_TRANSPORT'			, 3);
+define('MISSION_STATION'			, 4);
+define('MISSION_HOLD'				, 5);
+define('MISSION_SPY'				, 6);
+define('MISSION_COLONY'				, 7);
+define('MISSION_RECYCLE'			, 8);
+define('MISSION_DESTROY'			, 9);
+define('MISSION_MISSLE'				, 10);
+define('MISSION_DMMISSION'			, 11);
+define('MISSION_EXPEDITION'			, 15);
+
 // ELEMENT FLAGS
 define('ELEMENT_BUILD'				, 1); # ID 0 - 99
 define('ELEMENT_TECH'				, 2); # ID 101 - 199
