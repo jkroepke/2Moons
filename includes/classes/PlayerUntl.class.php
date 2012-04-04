@@ -289,8 +289,6 @@ class PlayerUntl {
 	static function deletePlayer($userID)
 	{
 		global $db;
-	
-		require_once(ROOT_PATH.'includes/classes/class.FleetFunctions.php');
 		
 		if(ROOT_USER == $userID) {
 			return false;

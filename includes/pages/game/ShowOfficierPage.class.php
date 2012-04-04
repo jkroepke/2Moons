@@ -145,7 +145,7 @@ class ShowOfficierPage extends AbstractPage
 				
 				$officierList[$elementID]	= array(
 					'level'				=> $USER[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']],
-					'maxLevel'			=> $pricelist[$elementID]['max'],
+					'maxLevel'			=> $GLOBALS['VARS']['ELEMENT'][$elementID]['maxLevel'],
 					'costRessources'	=> array_filter($costRessources),
 					'buyable'			=> $buyable,
 					'costOverflow'		=> $costOverflow,

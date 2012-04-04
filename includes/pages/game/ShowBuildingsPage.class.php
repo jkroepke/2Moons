@@ -40,7 +40,7 @@ class ShowBuildingsPage extends AbstractPage
 	
 	private function CancelBuildingFromQueue()
 	{
-		global $PLANET, $USER, $resource;
+		global $PLANET, $USER;
 		$CurrentQueue  = unserialize($PLANET['b_building_id']);
 		if (empty($CurrentQueue))
 		{
@@ -107,16 +107,17 @@ class ShowBuildingsPage extends AbstractPage
 			return $this->CancelBuildingFromQueue();
         }
 
-		$elementID		= $CurrentQueue[$QueueID - 2][0];
-		$BuildEndTime	= $CurrentQueue[$QueueID - 2][3];
+		$buildElementID	= $CurrentQueue[$QueueID - 1][0];
+		$BuildEndTime	= $CurrentQueue[$QueueID - 1][3];
 		unset($CurrentQueue[$QueueID - 1]);
 		$NewQueueArray	= array();
+		
 		foreach($CurrentQueue as $elementID => $ListIDArray)
 		{				
 			if ($elementID < $QueueID - 1) {
 				$NewQueueArray[]	= $ListIDArray;
 			} else {
-				if($elementID == $ListIDArray[0] || empty($ListIDArray[0]))
+				if($buildElementID == $ListIDArray[0] || empty($ListIDArray[0]))
 					continue;
 
 				$BuildEndTime       += BuildFunctions::getBuildingTime($USER, $PLANET, $ListIDArray[0]);
@@ -135,9 +136,12 @@ class ShowBuildingsPage extends AbstractPage
 
 	private function AddBuildingToQueue($elementID, $AddMode = true)
 	{
-		global $PLANET, $USER, $resource, $CONF, $reslist, $pricelist;
+		global $PLANET, $USER, $uniConfig;
 		
+		$planetFlag		= $PLANET['planet_type'] == 3 ? ELEMENT_BUILD_ON_MOON : ELEMENT_BUILD_ON_PLANET;
+				
 		if(!BuildFunctions::isTechnologieAccessible($USER, $PLANET, $elementID) 
+			|| !elementHasFlag($elementID, $planetFlag)
 			|| ($elementID == 31 && $USER['b_tech_planet'] != 0) 
 			|| (($elementID == 15 || $elementID == 21) && !empty($PLANET['b_hangar_id']))
 			|| (!$AddMode && $PLANET[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']] == 0)
@@ -156,7 +160,7 @@ class ShowBuildingsPage extends AbstractPage
 		
 		$CurrentMaxFields  	= CalculateMaxPlanetFields($PLANET);
 		
-		if (($CONF['max_elements_build'] != 0 && $ActualCount == $CONF['max_elements_build']) || ($AddMode && $PLANET["field_current"] >= ($CurrentMaxFields - $ActualCount)))
+		if (($uniConfig['listMaxBuilds'] != 0 && $ActualCount == $uniConfig['listMaxBuilds']) || ($AddMode && $PLANET["field_current"] >= ($CurrentMaxFields - $ActualCount)))
 			return;
 	
 		$BuildMode 			= $AddMode ? 'build' : 'destroy';
@@ -247,16 +251,16 @@ class ShowBuildingsPage extends AbstractPage
 
 	public function show()
 	{
-		global $ProdGrid, $LNG, $resource, $reslist, $CONF, $PLANET, $USER, $pricelist;
-		
+		global $LNG, $uniConfig, $PLANET, $USER;
+				
+		$elementID     	= HTTP::_GP('elementID', 0);
 		$TheCommand		= HTTP::_GP('cmd', '');
 
 		$planetFlag		= $PLANET['planet_type'] == 3 ? ELEMENT_BUILD_ON_MOON : ELEMENT_BUILD_ON_PLANET;
 		
 		// wellformed buildURLs
-		if(!empty($TheCommand) && $_SERVER['REQUEST_METHOD'] === 'POST' && $USER['urlaubs_modus'] == 0 && elementHasFlag($elementID, $planetFlag))
+		if(!empty($TheCommand) && $_SERVER['REQUEST_METHOD'] === 'POST' && $USER['urlaubs_modus'] == 0)
 		{
-			$elementID     	= HTTP::_GP('building', 0);
 			$ListID      	= HTTP::_GP('listid', 0);
 			switch($TheCommand)
 			{
@@ -279,7 +283,7 @@ class ShowBuildingsPage extends AbstractPage
 		
 		$Queue	 			= $this->getQueueData();
 		$QueueCount			= count($Queue);
-		$CanBuildElement 	= isVacationMode($USER) || $CONF['max_elements_build'] == 0 || $QueueCount < $CONF['max_elements_build'];
+		$CanBuildElement 	= !isVacationMode($USER) && $QueueCount < $uniConfig['listMaxBuilds'];
 		$CurrentMaxFields   = CalculateMaxPlanetFields($PLANET);
 		
 		$RoomIsOk 			= $PLANET['field_current'] < ($CurrentMaxFields - $QueueCount);

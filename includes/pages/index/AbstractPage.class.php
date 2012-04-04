@@ -93,7 +93,7 @@ abstract class AbstractPage
 			'fb_key' 			=> $gameConfig['facebookAPIKey'],
 			'mail_active'		=> $gameConfig['mailEnable'],
 			'ref_active'		=> $gameConfig['referralEnable'],
-			'ga_active'			=> $gameConfig['analyticsEnbale'],
+			'ga_active'			=> $gameConfig['analyticsEnable'],
 			'ga_key'			=> $gameConfig['analyticsUID'],
 			'getajax'			=> HTTP::_GP('getajax', 0),
 			'lang'				=> $LANG->getUser(),

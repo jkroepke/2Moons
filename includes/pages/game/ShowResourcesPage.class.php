@@ -74,7 +74,7 @@ class ShowResourcesPage extends AbstractPage
 	}
 	function show()
 	{
-		global $LNG, $ProdGrid, $resource, $reslist, $CONF, $pricelist, $USER, $PLANET;
+		global $LNG, $GLOBALS['VARS']['ELEMENT'], $resource, $reslist, $CONF, $pricelist, $USER, $PLANET;
 		
 		if ($PLANET['planet_type'] == 3)
 		{
@@ -110,10 +110,10 @@ class ShowResourcesPage extends AbstractPage
 			
 			foreach($ressIDs as $ID) 
 			{
-				if(!isset($ProdGrid[$elementID]['production'][$ID]))
+				if(!isset($GLOBALS['VARS']['ELEMENT'][$elementID]['production'][$ID]))
 					continue;
 					
-				$Production	= eval(ResourceUpdate::getProd($ProdGrid[$elementID]['production'][$ID]));
+				$Production	= eval(ResourceUpdate::getProd($GLOBALS['VARS']['ELEMENT'][$elementID]['production'][$ID]));
 				$Production	*= $this->PLANET[$GLOBALS['VARS']['ELEMENT'][$prodID]['name'].'_percent'] / 100;
 				
 				if($ID != 911) {

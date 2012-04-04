@@ -29,12 +29,9 @@
  * @link http://code.google.com/p/2moons/
  */
 
-define('MODE', 'INGAME');
+define('MODE', 'GAME');
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 
-require(ROOT_PATH.'includes/pages/game/class.AbstractPage.php');
-require(ROOT_PATH.'includes/pages/game/class.ShowErrorPage.php');
-require(ROOT_PATH.'includes/classes/class.BuildFunctions.php');
 require(ROOT_PATH.'includes/common.php');
 
 $page 		= HTTP::_GP('page', 'overview');
@@ -42,12 +39,10 @@ $mode 		= HTTP::_GP('mode', 'show');
 $mode		= str_replace(array('_', '\\', '/', '.', "\0"), '', $mode);
 $pageClass	= 'Show'.ucwords($page).'Page';
 
-if(!file_exists(ROOT_PATH . 'includes/pages/game/class.'.$pageClass.'.php')) {
+if(!class_exists($pageClass)) {
 	ShowErrorPage::printError($LNG['page_doesnt_exist']);
 }
 
-// Added Autoload in feature Versions
-require(ROOT_PATH . 'includes/pages/game/class.'.$pageClass.'.php');
 
 $pageObj	= new $pageClass;
 // PHP 5.2 FIX

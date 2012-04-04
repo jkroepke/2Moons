@@ -11,7 +11,7 @@
 				{if !($isBusy.research && ($ID == 6 || $ID == 31)) && !($isBusy.shipyard && ($ID == 15 || $ID == 21)) && $RoomIsOk && $CanBuildElement && $BuildInfoList[$ID].buyable}
 				<form class="build_form" action="game.php?page=buildings" method="post">
 					<input type="hidden" name="cmd" value="insert">
-					<input type="hidden" name="building" value="{$ID}">
+					<input type="hidden" name="elementID" value="{$ID}">
 					<button type="submit" class="build_submit onlist">{$LNG.tech.{$ID}} {$List.level}{if $List.destroy} {$LNG.bd_dismantle}{/if}</button>
 				</form>
 				{else}{$LNG.tech.{$ID}} {$List.level} {if $List.destroy}{$LNG.bd_dismantle}{/if}{/if}
@@ -70,7 +70,7 @@
 							{if $CanBuildElement && $Element.buyable}
 							<form action="game.php?page=buildings" method="post" class="build_form">
 								<input type="hidden" name="cmd" value="insert">
-								<input type="hidden" name="building" value="{$ID}">
+								<input type="hidden" name="elementID" value="{$ID}">
 								<button type="submit" class="build_submit">{if $Element.level == 0}{$LNG.bd_build}{else}{$LNG.bd_build_next_level}{$Element.level + 1}{/if}</button>
 							</form>
 							{else}
@@ -110,7 +110,7 @@
 						{/if}
 						{if $Element.level > 0}
 							{if $ID == 43}<a href="#" onclick="return Dialog.info({$ID})">{$bd_jump_gate_action}</a>{/if}
-							{if ($ID == 44 && !$HaveMissiles) ||  $ID != 44}<br><a class="tooltip_sticky" data-tooltip-content="<table style='width:300px'><tr><th colspan='2'>{$LNG.bd_price_for_destroy} {$LNG.tech.{$ID}} {$Element.level}</th></tr>{foreach $Element.destroyRessources as $ResType => $ResCount}<tr><td>{$LNG.tech.{$ResType}}</td><td>{$ResCount|number}</td></tr>{/foreach}<tr><td>{$LNG.bd_destroy_time}</td><td>{$Element.destroyTime|time}</td></tr><tr><td colspan='2'><form action='game.php?page=buildings' method='post' class='build_form'><input type='hidden' name='cmd' value='destroy'><input type='hidden' name='building' value='{$ID}'><button type='submit' class='build_submit onlist'>{$LNG.bd_dismantle}</button></form></td></tr></table>">{$LNG.bd_dismantle}</a>{/if}
+							{if ($ID == 44 && !$HaveMissiles) ||  $ID != 44}<br><a class="tooltip_sticky" data-tooltip-content="<table style='width:300px'><tr><th colspan='2'>{$LNG.bd_price_for_destroy} {$LNG.tech.{$ID}} {$Element.level}</th></tr>{foreach $Element.destroyRessources as $ResType => $ResCount}<tr><td>{$LNG.tech.{$ResType}}</td><td>{$ResCount|number}</td></tr>{/foreach}<tr><td>{$LNG.bd_destroy_time}</td><td>{$Element.destroyTime|time}</td></tr><tr><td colspan='2'><form action='game.php?page=buildings' method='post' class='build_form'><input type='hidden' name='cmd' value='destroy'><input type='hidden' name='elementID' value='{$ID}'><button type='submit' class='build_submit onlist'>{$LNG.bd_dismantle}</button></form></td></tr></table>">{$LNG.bd_dismantle}</a>{/if}
 						{else}
 							&nbsp;
 						{/if}

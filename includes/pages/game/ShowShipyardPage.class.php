@@ -84,7 +84,7 @@ class ShowShipyardPage extends AbstractPage
 	
 	private function BuildAuftr($fmenge, $mode)
 	{
-		global $USER, $PLANET, $reslist, $CONF, $resource;	
+		global $USER, $PLANET, $uniConfig;	
 		
 		$Missiles	= array(
 			502	=> $PLANET[$GLOBALS['VARS']['ELEMENT'][502]['name']],
@@ -105,7 +105,7 @@ class ShowShipyardPage extends AbstractPage
 			
 			$MaxElements 	= BuildFunctions::getMaxConstructibleElements($USER, $PLANET, $elementID);
 			$Count			= is_numeric($Count) ? round($Count) : 0;
-			$Count 			= max(min($Count, $CONF['max_fleet_per_build']), 0);
+			$Count 			= max(min($Count, $uniConfig['listMaxUnits']), 0);
 			$Count 			= min($Count, $MaxElements);
 			
 			$BuildArray    	= !empty($PLANET['b_hangar_id']) ? unserialize($PLANET['b_hangar_id']) : array();
@@ -150,7 +150,7 @@ class ShowShipyardPage extends AbstractPage
 	
 	public function show()
 	{
-		global $USER, $PLANET, $LNG, $resource, $dpath, $reslist, $CONF;
+		global $USER, $PLANET, $LNG, $uniConfig;
 		
 		if ($PLANET[$GLOBALS['VARS']['ELEMENT'][21]['name']] == 0)
 		{
@@ -184,8 +184,8 @@ class ShowShipyardPage extends AbstractPage
 		
 		if($USER['urlaubs_modus'] == 0) {
 			if (!empty($fmenge) && $NotBuilding == true) {
-				if ($CONF['max_elements_ships'] != 0 && $Count >= $CONF['max_elements_ships']) {
-					$this->printMessage(sprintf($LNG['bd_max_builds'], $CONF['max_elements_ships']));
+				if ($uniConfig['listMaxShipyard'] != 0 && $Count >= $uniConfig['listMaxShipyard']) {
+					$this->printMessage(sprintf($LNG['bd_max_builds'], $uniConfig['listMaxShipyard']));
 					exit;
 				}
 				$this->BuildAuftr($fmenge, $mode);
@@ -272,7 +272,7 @@ class ShowShipyardPage extends AbstractPage
 			'elementList'	=> $elementList,
 			'NotBuilding'	=> $NotBuilding,
 			'BuildList'		=> $Buildlist,
-			'maxlength'		=> strlen($CONF['max_fleet_per_build']),
+			'maxlength'		=> strlen($uniConfig['listMaxUnits']),
 			'mode'			=> $mode,
 		));
 

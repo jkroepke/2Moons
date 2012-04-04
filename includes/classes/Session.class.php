@@ -31,6 +31,8 @@
 
 class Session
 {
+	private static $obj;
+	
 	function __construct()
 	{
 		ini_set('session.use_cookies', '1');
@@ -51,7 +53,7 @@ class Session
 		session_name('2Moons');
 	}
 	
-	static function create($userID)
+	static function create($userID, $planetID = 0)
 	{
 		self::$obj	= new self;
 		
@@ -67,6 +69,7 @@ class Session
 		
 		$_SESSION['id']			= $userID;
 		$_SESSION['agent']		= $_SERVER['HTTP_USER_AGENT'];
+		$_SESSION['planet']		= $planetID;
 		
 		return self::$obj;
 	}

@@ -29,7 +29,7 @@
  * @link http://code.google.com/p/2moons/
  */
 
-abstract class AbstractPage 
+abstract class AbstractPage
 {
 	protected $tplObj;
 	protected $ecoObj;

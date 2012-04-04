@@ -95,7 +95,7 @@ class Database extends mysqli
 	public function getFirstRow($resource)
 	{		
 		$result = $this->query($resource);
-		$Return = $result->fetchArray(MYSQLI_ASSOC);
+		$Return = $this->fetchArray($result);
 		$result->close();
 		return $Return;
 		

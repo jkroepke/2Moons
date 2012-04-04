@@ -29,7 +29,6 @@
  * @link http://code.google.com/p/2moons/
  */
 
-
 class ShowTraderPage extends AbstractPage
 {
 	public static $requireModule = MODULE_TRADER;
@@ -47,12 +46,12 @@ class ShowTraderPage extends AbstractPage
 	
 	public function show() 
 	{
-		global $LNG, $CONF, $USER;
+		global $LNG, $uniConfig, $USER;
 		
 		$this->tplObj->assign_vars(array(
-			'tr_cost_dm_trader'		=> sprintf($LNG['tr_cost_dm_trader'], pretty_number($CONF['darkmatter_cost_trader']), $LNG['tech'][921]),
+			'tr_cost_dm_trader'		=> sprintf($LNG['tr_cost_dm_trader'], pretty_number($uniConfig['traderResourceCost']), $LNG['tech'][921]),
 			'charge'				=> self::$Charge,
-			'requiredDarkMatter'	=> $USER['darkmatter'] < $CONF['darkmatter_cost_trader'] ? sprintf($LNG['tr_empty_darkmatter'], $LNG['tech'][921]) : false,
+			'requiredDarkMatter'	=> $USER['darkmatter'] < $uniConfig['traderResourceCost'] ? sprintf($LNG['tr_empty_darkmatter'], $LNG['tech'][921]) : false,
 		));
 
 		$this->display("page.trader.default.tpl");
@@ -60,9 +59,9 @@ class ShowTraderPage extends AbstractPage
 		
 	function trade()
 	{
-		global $USER, $LNG, $CONF, $reslist;
+		global $LNG, $uniConfig, $USER;
 		
-		if ($USER['darkmatter'] < $CONF['darkmatter_cost_trader']) {
+		if ($USER['darkmatter'] < $uniConfig['traderResourceCost']) {
 			$this->redirectTo('game.php?page=trader');
 		}
 		
@@ -86,9 +85,9 @@ class ShowTraderPage extends AbstractPage
 	
 	function send()
 	{
-		global $USER, $PLANET, $LNG, $CONF, $reslist, $resource;
+		global $USER, $PLANET, $LNG, $uniConfig;
 		
-		if ($USER['darkmatter'] < $CONF['darkmatter_cost_trader']) {
+		if ($USER['darkmatter'] < $uniConfig['traderResourceCost']) {
 			$this->redirectTo('game.php?page=trader');
 		}
 		
@@ -110,12 +109,13 @@ class ShowTraderPage extends AbstractPage
 				continue;  
 			}
 			
-			$PLANET[$GLOBALS['VARS']['ELEMENT'][$resourceID]['name']]		-= $tradeAmount * self::$Charge[$resourceID][$tradeRessID];			
-			$PLANET[$GLOBALS['VARS']['ELEMENT'][$tradeRessID]['name']]	+= $tradeAmount;
+			$PLANET[$GLOBALS['VARS']['ELEMENT'][$resourceID]['name']]	-= $tradeAmount * self::$Charge[$resourceID][$tradeRessID];			
+			$PLANET[$GLOBALS['VARS']['ELEMENT'][$tradeRessID]['name']]	+= $tradeAmount * (1 - $uniConfig['traderResourceCharge']);
 		}
 		
-		if ($tradeSum > 0)
-			$USER[$GLOBALS['VARS']['ELEMENT'][921]['name']]	-= $CONF['darkmatter_cost_trader'];
+		if ($tradeSum > 0) {
+			$USER[$GLOBALS['VARS']['ELEMENT'][921]['name']]	-= $uniConfig['traderResourceCost'];
+		}
 
 		$this->printMessage($LNG['tr_exchange_done'], array("game.php?page=trader", 3));
 	}
