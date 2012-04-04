@@ -49,7 +49,7 @@ function ShowConfigUniPage()
 			'OverviewNewsText'		=> $CONF['OverviewNewsText'],
 			'uni_name'				=> $CONF['uni_name'],
 			'forum_url'				=> $CONF['forum_url'],
-			'game_speed'			=> $CONF['game_speed'],
+			'game_speed'			=> $uniConfig['gameSpeed'],
 			'fleet_speed'			=> $CONF['fleet_speed'],
 			'resource_multiplier'	=> $CONF['resource_multiplier'],
 			'halt_speed'			=> $CONF['halt_speed'],
@@ -123,7 +123,7 @@ function ShowConfigUniPage()
 		$CONF['close_reason']			= HTTP::_GP('close_reason', '', true);
 		$CONF['uni_name']				= HTTP::_GP('uni_name', '', true);
 		$CONF['forum_url'] 				= HTTP::_GP('forum_url', '', true);
-		$CONF['game_speed'] 			= (2500 * HTTP::_GP('game_speed', 0.0));
+		$uniConfig['gameSpeed'] 			= (2500 * HTTP::_GP('game_speed', 0.0));
 		$CONF['fleet_speed'] 			= (2500 * HTTP::_GP('fleet_speed', 0.0));
 		$CONF['resource_multiplier']	= HTTP::_GP('resource_multiplier', 0.0);
 		$CONF['halt_speed']				= HTTP::_GP('halt_speed', 0.0);
@@ -168,8 +168,8 @@ function ShowConfigUniPage()
 		$CONF['ref_max_referals']		= HTTP::_GP('ref_max_referals', 0);
 		
 		
-		if($CONF['game_speed'] == 0)
-			$CONF['game_speed'] = 1;
+		if($uniConfig['gameSpeed'] == 0)
+			$uniConfig['gameSpeed'] = 1;
 		if($CONF['fleet_speed'] == 0)
 			$CONF['fleet_speed'] = 1;
 		if($CONF['resource_multiplier'] == 0)
@@ -190,7 +190,7 @@ function ShowConfigUniPage()
 			'OverviewNewsText'		=> $CONF['OverviewNewsText'],
 			'uni_name'				=> $CONF['uni_name'],
 			'forum_url'				=> $CONF['forum_url'],
-			'game_speed'			=> $CONF['game_speed'],
+			'game_speed'			=> $uniConfig['gameSpeed'],
 			'fleet_speed'			=> $CONF['fleet_speed'],
 			'resource_multiplier'	=> $CONF['resource_multiplier'],
 			'halt_speed'			=> $CONF['halt_speed'],
@@ -406,8 +406,8 @@ function ShowConfigUniPage()
 		'se_silo_factor_info'			=> $LNG['se_silo_factor_info'],
 		'game_name'						=> $CONF['game_name'],
 		'uni_name'						=> $CONF['uni_name'],
-		'game_speed'					=> ($CONF['game_speed'] / 2500),
-		'fleet_speed'					=> ($CONF['fleet_speed'] / 2500),
+		'game_speed'					=> $uniConfig['gameSpeed'],
+		'fleet_speed'					=> $CONF['fleet_speed'],
 		'resource_multiplier'			=> $CONF['resource_multiplier'],
 		'halt_speed'					=> $CONF['halt_speed'],
 		'forum_url'						=> $CONF['forum_url'],

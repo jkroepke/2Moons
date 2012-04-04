@@ -32,21 +32,16 @@
 class CustomAJAXChat extends AJAXChat {
 
 	function initCustomConfig() {
-		global $CONF;
+		global $gameConfig;
 		$this->setConfig('dbConnection', 'link', $GLOBALS['DATABASE']);
-		$this->setConfig('socketServerEnabled', false, (bool)$CONF['chat_socket_active']);
-		$this->setConfig('socketServerHost', false, empty($CONF['chat_socket_host']) ? NULL : $CONF['chat_socket_host']);
-		$this->setConfig('socketServerIP', false, $CONF['chat_socket_ip']);
-		$this->setConfig('socketServerPort', false, $CONF['chat_socket_port']);
-		$this->setConfig('socketServerChatID', false, $CONF['chat_socket_chatid']);
-		$this->setConfig('chatBotName', false, $CONF['chat_botname']);
-		$this->setConfig('allowUserMessageDelete', false, (bool) $CONF['chat_allowdelmes']);
-		$this->setConfig('allowNickChange', false, (bool) $CONF['chat_nickchange']);
-		$this->setConfig('chatClosed', false, (bool) $CONF['chat_closed']);
-		$this->setConfig('allowPrivateChannels', false, (bool) $CONF['chat_allowchan']);
-		$this->setConfig('allowPrivateMessages', false, (bool) $CONF['chat_allowmes']);
-		$this->setConfig('defaultChannelName', false, $CONF['chat_channelname']);
-		$this->setConfig('showChannelMessages', false, (bool) $CONF['chat_logmessage']);
+		$this->setConfig('chatBotName', false, $gameConfig['chatBotName']);
+		$this->setConfig('allowUserMessageDelete', false, (bool) $gameConfig['chat_allowdelmes']);
+		$this->setConfig('allowNickChange', false, (bool) $gameConfig['chatAllowNameChange']);
+		$this->setConfig('chatClosed', false, !$gameConfig['chatEnable']);
+		$this->setConfig('allowPrivateChannels', false, (bool) $gameConfig['chatAllowDeleteOwnMessage']);
+		$this->setConfig('allowPrivateMessages', false, (bool) $gameConfig['chatAllowPrivateMessage']);
+		$this->setConfig('defaultChannelName', false, $gameConfig['chatChannelName']);
+		$this->setConfig('showChannelMessages', false, (bool) $gameConfig['chatEnableLog']);
 		$this->setConfig('langAvailable', false, Language::getAllowedLangs());
 		$this->setConfig('langNames', false, Language::getAllowedLangs(false));
 	}

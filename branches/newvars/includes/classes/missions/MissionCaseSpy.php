@@ -39,7 +39,7 @@ class MissionCaseSpy extends MissionFunctions
 	
 	function TargetEvent()
 	{
-		global $pricelist, $reslist, $resource, $LANG;		
+		global $pricelist, $reslist, $resource, $LANG, $uniAllConfig;		
 		$ownUser		= $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".USERS." WHERE id = ".$this->_fleet['fleet_owner'].";");
 		$ownPlanet		= $GLOBALS['DATABASE']->getFirstRow("SELECT name, galaxy, system, planet FROM ".PLANETS." WHERE id = ".$this->_fleet['fleet_start_id'].";");
 		$ownSpyLvl		= max($ownUser['spy_tech'], 1);
@@ -135,11 +135,11 @@ class MissionCaseSpy extends MissionFunctions
 
 		if ($targetChance >= $spyChance)
 		{
-			$CONF		= getConfig($this->_fleet['fleet_universe']);
+			$uniConfig	= $uniAllConfig[$this->_fleet['fleet_universe']];
 			$WhereCol	= $this->_fleet['fleet_end_type'] == 3 ? "id_luna" : "id";		
 			$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET
-			der_metal = der_metal + ".($fleetAmount * $GLOBALS['VARS']['ELEMENT'][210]['cost'][901] * $CONF['Fleet_Cdr']).", 
-			der_crystal = der_crystal + ".($fleetAmount * $GLOBALS['VARS']['ELEMENT'][210]['cost'][902] * $CONF['Fleet_Cdr'])." 
+			der_metal = der_metal + ".($fleetAmount * $GLOBALS['VARS']['ELEMENT'][210]['cost'][901] * $uniConfig['fleetToDebris']).", 
+			der_crystal = der_crystal + ".($fleetAmount * $GLOBALS['VARS']['ELEMENT'][210]['cost'][902] * $uniConfig['fleetToDebris'])." 
 			WHERE ".$WhereCol." = ".$this->_fleet['fleet_end_id'].";");
 			$this->KillFleet();
 		}

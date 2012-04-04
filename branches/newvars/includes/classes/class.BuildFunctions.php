@@ -115,11 +115,11 @@ class BuildFunctions
 	
 	public static function getBuildingTime($USER, $PLANET, $elementID, $elementPrice = NULL, $forDestroy = false, $forLevel = NULL)
 	{
-		global $resource, $reslist, $requeriments;
+		global $resource, $reslist, $requeriments, $uniAllConfig;
 		
-		$CONF	= getConfig($USER['universe']);
+		$uniConfig	= $uniAllConfig[$USER['universe']];
 
-        $time   = 0;
+        $time		= 0;
 
         if(!isset($elementPrice)) {
 			$elementPrice	= self::getElementPrice($USER, $PLANET, $elementID, $forDestroy, $forLevel);
@@ -136,11 +136,11 @@ class BuildFunctions
 		}
 		
 		if	   	 (elementHasFlag($elementID, ELEMENT_BUILD)) {
-			$time	= $elementCost / ($CONF['game_speed'] * (1 + $PLANET[$GLOBALS['VARS']['ELEMENT'][14]['name']])) * pow(0.5, $PLANET[$GLOBALS['VARS']['ELEMENT'][15]['name']]) * (1 + $USER['factor']['BuildTime']);
+			$time	= $elementCost / ($uniConfig['gameSpeed'] * (1 + $PLANET[$GLOBALS['VARS']['ELEMENT'][14]['name']])) * pow(0.5, $PLANET[$GLOBALS['VARS']['ELEMENT'][15]['name']]) * (1 + $USER['factor']['BuildTime']);
 		} elseif (elementHasFlag($elementID, ELEMENT_FLEET)) {
-			$time	= $elementCost / ($CONF['game_speed'] * (1 + $PLANET[$GLOBALS['VARS']['ELEMENT'][21]['name']])) * pow(0.5, $PLANET[$GLOBALS['VARS']['ELEMENT'][15]['name']]) * (1 + $USER['factor']['ShipTime']);	
+			$time	= $elementCost / ($uniConfig['gameSpeed'] * (1 + $PLANET[$GLOBALS['VARS']['ELEMENT'][21]['name']])) * pow(0.5, $PLANET[$GLOBALS['VARS']['ELEMENT'][15]['name']]) * (1 + $USER['factor']['ShipTime']);	
 		} elseif (elementHasFlag($elementID, ELEMENT_DEFENSIVE)) {
-			$time	= $elementCost / ($CONF['game_speed'] * (1 + $PLANET[$GLOBALS['VARS']['ELEMENT'][21]['name']])) * pow(0.5, $PLANET[$GLOBALS['VARS']['ELEMENT'][15]['name']]) * (1 + $USER['factor']['DefensiveTime']);
+			$time	= $elementCost / ($uniConfig['gameSpeed'] * (1 + $PLANET[$GLOBALS['VARS']['ELEMENT'][21]['name']])) * pow(0.5, $PLANET[$GLOBALS['VARS']['ELEMENT'][15]['name']]) * (1 + $USER['factor']['DefensiveTime']);
 		} elseif (elementHasFlag($elementID, ELEMENT_TECH)) {
 			if(is_numeric($PLANET[$GLOBALS['VARS']['ELEMENT'][31]['name'].'_inter']))
 			{
@@ -154,7 +154,7 @@ class BuildFunctions
 				}
 			}
 			
-			$time	= $elementCost / (1000 * (1 + $Level)) / ($CONF['game_speed'] / 2500) * pow(1 - $CONF['factor_university'] / 100, $PLANET[$GLOBALS['VARS']['ELEMENT'][6]['name']]) * (1 + $USER['factor']['ResearchTime']);
+			$time	= ($elementCost / (1000 * (1 + $Level)) / $uniConfig['gameSpeed']) * (1 + $USER['factor']['ResearchTime']);
 		}
 		
 		if($forDestroy) {
@@ -163,7 +163,7 @@ class BuildFunctions
 			$time	= floor($time * 3600);
 		}
 		
-		return max($time, $CONF['min_build_time']);
+		return max($time, $uniConfig['buildMinBuildTime']);
 	}
 	
 	public static function isElementBuyable($USER, $PLANET, $elementID, $elementPrice = NULL, $forDestroy = false, $forLevel = NULL)
@@ -197,8 +197,10 @@ class BuildFunctions
 	
 	public static function getMaxConstructibleRockets($USER, $PLANET, $Missiles = NULL)
 	{
-		global $resource, $CONF;
+		global $resource;
 
+		$uniConfig	= $uniAllConfig[$USER['universe']];
+		
 		if(!isset($Missiles)) {
 			$Missiles			= array(
 				502	=> $PLANET[$GLOBALS['VARS']['ELEMENT'][502]['name']],
@@ -206,7 +208,7 @@ class BuildFunctions
 			);
 		}
 		$BuildArray  	  	= !empty($PLANET['b_hangar_id']) ? unserialize($PLANET['b_hangar_id']) : array();
-		$MaxMissiles   		= $PLANET[$GLOBALS['VARS']['ELEMENT'][44]['name']] * 10 * max($CONF['silo_factor'], 1);
+		$MaxMissiles   		= $PLANET[$GLOBALS['VARS']['ELEMENT'][44]['name']] * 10 * max($uniConfig['rocketStorageFactor'], 1);
 
 		foreach($BuildArray as $elementIDArray) {
 			if(isset($Missiles[$elementIDArray[0]]))

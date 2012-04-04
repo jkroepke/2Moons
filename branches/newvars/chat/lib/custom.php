@@ -17,9 +17,10 @@ require(ROOT_PATH.'includes/common.php');
 
 require(ROOT_PATH.'includes/pages/game/class.AbstractPage.php');
 require(ROOT_PATH.'includes/pages/game/class.ShowErrorPage.php');
-if(!$SESSION->IsUserLogin() || ($CONF['game_disable'] == 0 && $USER['authlevel'] == AUTH_USR))
+if(!$SESSION->IsUserLogin() || ($uniConfig['enable'] == 0 && $USER['authlevel'] != AUTH_ADM)) {
 	HTTP::redirectTo('index.php?code=3');
-	
+}
+
 if(!isModulAvalible(MODULE_CHAT)) {
 	ShowErrorPage::printError($LNG['sys_module_inactive']);
 }

@@ -40,13 +40,9 @@ require(ROOT_PATH.'includes/pages/game/class.ShowErrorPage.php');
 if($SESSION->IsUserLogin()) {
 	$USER	= $GLOBALS['DATABASE']->getFirstRow("SELECT id, authlevel, timezone, lang, urlaubs_modus FROM ".USERS." WHERE id = ".$_SESSION['id'].";");
 } else {
-
-	// Simluate User
-	// It isn't clean, but i haven't others solutions at this time.
-	
 	$USER	= array(
 		'lang'	=> $LANG->GetLangFromBrowser(),
-		'timezone'	=> $CONF['timezone'],
+		'timezone'	=> $gameConfig['timezone'],
 		'urlaubs_modus'	=> 0,
 		'authlevel'	=> 0
 	);

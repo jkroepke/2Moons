@@ -29,6 +29,11 @@
  * @link http://code.google.com/p/2moons/
  */
 
+function autoloadClasses($className)
+{
+
+}
+
 function getUniverse()
 {
 	if(defined('IN_ADMIN') && isset($_SESSION['adminuni'])) {

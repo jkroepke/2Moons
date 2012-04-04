@@ -29,7 +29,7 @@
  * @link http://code.google.com/p/2moons/
  */
 
-abstract class AbstractPage 
+abstract class AbstractPage
 {
 	protected $tplObj;
 	protected $ecoObj;
@@ -83,7 +83,7 @@ abstract class AbstractPage
 	
 	protected function getPageData() 
     {
-		global$gameConfig, $LANG, $UNI;
+		global $gameConfig, $LANG, $UNI;
 		$this->tplObj->assign_vars(array(
 			'game_captcha'		=> $gameConfig['recaptchaEnable'],
 			'cappublic'			=> $gameConfig['recaptchaPublicKey'],

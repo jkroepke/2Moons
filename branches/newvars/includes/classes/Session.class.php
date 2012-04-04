@@ -51,6 +51,26 @@ class Session
 		session_name('2Moons');
 	}
 	
+	static function create($userID)
+	{
+		self::$obj	= new self;
+		
+		if(!isset($_SESSION)) {
+			session_start();
+		}
+		
+		$GLOBALS['DATABASE']->query("REPLACE INTO ".SESSION." SET
+		sessionID = '".session_id()."',
+		userID = ".$userID.",
+		lastonline = ".TIMESTAMP.",
+		userIP = '".$_SERVER['REMOTE_ADDR']."';");
+		
+		$_SESSION['id']			= $userID;
+		$_SESSION['agent']		= $_SERVER['HTTP_USER_AGENT'];
+		
+		return self::$obj;
+	}
+	
 	function IsUserLogin()
 	{
 		if(!isset($_SESSION)) {
@@ -69,37 +89,13 @@ class Session
 		HTTP::redirectTo('index.php?code='.$Code);
 	}
 	
-	function CreateSession($ID, $Username, $MainPlanet, $Universe, $Authlevel = 0, $dpath = DEFAULT_THEME)
-	{
-		if(!isset($_SESSION)) {
-			session_start();
-		}
-		
-		$Path					= $this->GetPath();
-		$GLOBALS['DATABASE']->query("REPLACE INTO ".SESSION." SET
-		sessionID = '".session_id()."',
-		userID = ".$ID.",
-		lastonline = ".TIMESTAMP.",
-		userIP = '".$_SERVER['REMOTE_ADDR']."';");
-		$_SESSION['id']			= $ID;
-		$_SESSION['username']	= $Username;
-		$_SESSION['authlevel']	= $Authlevel;	
-		$_SESSION['path']		= $Path;
-		$_SESSION['dpath']		= $dpath;
-		$_SESSION['planet']		= $MainPlanet;
-		$_SESSION['uni']		= $Universe;
-		$_SESSION['agent']		= $_SERVER['HTTP_USER_AGENT'];
-	}
-	
 	function GetPath()
 	{
 		return basename($_SERVER['SCRIPT_NAME']).(!empty($_SERVER['QUERY_STRING']) ? '?'.$_SERVER['QUERY_STRING'] : '');
 	}
 	
 	function UpdateSession()
-	{
-		global $CONF;
-		
+	{		
 		if(HTTP::_GP('ajax', 0) == 1)
 			return true;
 			
