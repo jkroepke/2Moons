@@ -39,7 +39,7 @@ function ShowConfigBasicPage()
 
 		$config_before = array(
 			'ttf_file'				=> $CONF['ttf_file'],
-			'game_name'				=> $CONF['game_name'],
+			'gameName'				=> $CONF['gameName'],
 			'mail_active'			=> $CONF['mail_active'],
 			'mail_use'				=> $CONF['mail_use'],
 			'smail_path'			=> $CONF['smail_path'],
@@ -71,7 +71,7 @@ function ShowConfigBasicPage()
 		$CONF['OverviewNewsText']		= $_POST['NewsText'];
 		$CONF['ttf_file']				= HTTP::_GP('ttf_file', '');
 		$CONF['close_reason']			= HTTP::_GP('close_reason', '', true);
-		$CONF['game_name']				= HTTP::_GP('game_name', '', true);
+		$CONF['gameName']				= HTTP::_GP('gameName', '', true);
 		$CONF['capprivate']				= HTTP::_GP('capprivate', '');
 		$CONF['cappublic']				= HTTP::_GP('cappublic', '');
 		$CONF['ga_key']					= HTTP::_GP('ga_key', '', true);
@@ -92,7 +92,7 @@ function ShowConfigBasicPage()
 		
 		$config_after = array(
 			'ttf_file'				=> $CONF['ttf_file'],
-			'game_name'				=> $CONF['game_name'],
+			'gameName'				=> $CONF['gameName'],
 			'mail_active'			=> $CONF['mail_active'],
 			'mail_use'				=> $CONF['mail_use'],
 			'smail_path'			=> $CONF['smail_path'],
@@ -137,7 +137,7 @@ function ShowConfigBasicPage()
 		'del_user_sendmail'				=> $CONF['del_user_sendmail'],
 		'sendmail_inactive'				=> $CONF['sendmail_inactive'],
 		'ttf_file'						=> $CONF['ttf_file'],
-		'game_name'						=> $CONF['game_name'],
+		'gameName'						=> $CONF['gameName'],
 		'mail_active'					=> $CONF['mail_active'],
 		'mail_use'						=> $CONF['mail_use'],
 		'smail_path'					=> $CONF['smail_path'],

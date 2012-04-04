@@ -145,9 +145,9 @@ INSERT INTO `prefix_vars` (`elementID`, `name`, `class`, `factor`, `maxLevel`, `
 (921, 'darkmatter', 256, 1.00, NULL, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 
-ALTER TABLE `prefix_planets` CHANGE `metal_mine_porcent` `metal_mine_percent` TINYINT( 1 ) NOT NULL DEFAULT '100',
-CHANGE `crystal_mine_porcent` `crystal_mine_percent` TINYINT( 1 ) NOT NULL DEFAULT '100',
-CHANGE `deuterium_sintetizer_porcent` `deuterium_sintetizer_percent` TINYINT( 1 ) NOT NULL DEFAULT '100',
-CHANGE `solar_plant_porcent` `solar_plant_percent` TINYINT( 1 ) NOT NULL DEFAULT '100',
-CHANGE `fusion_plant_porcent` `fusion_plant_percent` TINYINT( 1 ) NOT NULL DEFAULT '100',
-CHANGE `solar_satelit_porcent` `solar_satelit_percent` TINYINT( 1 ) NOT NULL DEFAULT '100'
+ALTER TABLE  `prefix_planets` CHANGE  `metal_mine_percent`  `metal_mine_percent` TINYINT( 3 ) UNSIGNED NOT NULL DEFAULT  '100',
+CHANGE  `crystal_mine_percent`  `crystal_mine_percent` TINYINT( 3 ) UNSIGNED NOT NULL DEFAULT  '100',
+CHANGE  `deuterium_sintetizer_percent`  `deuterium_sintetizer_percent` TINYINT( 3 ) UNSIGNED NOT NULL DEFAULT  '100',
+CHANGE  `solar_plant_percent`  `solar_plant_percent` TINYINT( 3 ) UNSIGNED NOT NULL DEFAULT  '100',
+CHANGE  `fusion_plant_percent`  `fusion_plant_percent` TINYINT( 3 ) UNSIGNED NOT NULL DEFAULT  '100',
+CHANGE  `solar_satelit_percent`  `solar_satelit_percent` TINYINT( 3 ) UNSIGNED NOT NULL DEFAULT  '100'

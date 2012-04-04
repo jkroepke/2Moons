@@ -74,6 +74,7 @@ function getFactors($USER, $Type = 'basic', $TIME = NULL) {
 	if(empty($TIME)) {
 		$TIME	= TIMESTAMP;
 	}
+	$resourceIDs	= array_merge($GLOBALS['VARS']['LIST'][ELEMENT_PLANET_RESOURCE], $GLOBALS['VARS']['LIST'][ELEMENT_USER_RESOURCE], $GLOBALS['VARS']['LIST'][ELEMENT_ENERGY]);
 	
 	$factor	= array(
 		'Attack'			=> 0,
@@ -92,7 +93,9 @@ function getFactors($USER, $Type = 'basic', $TIME = NULL) {
 		'Planets'			=> 0,
 	);
 	
-	$resourceIDs	= array_merge($GLOBALS['VARS']['LIST'][ELEMENT_PLANET_RESOURCE], $GLOBALS['VARS']['LIST'][ELEMENT_USER_RESOURCE], $GLOBALS['VARS']['LIST'][ELEMENT_ENERGY]);
+	foreach ($resourceIDs as $resourceID) {
+		$factor['ResourceSpecific'][$resourceID]	= 0;
+	}
 	
 	$elementIDs	= array_keys($GLOBALS['VARS']['ELEMENT']);
 	foreach($elementIDs as $elementID)
@@ -128,7 +131,7 @@ function getFactors($USER, $Type = 'basic', $TIME = NULL) {
 			$factor['Planets']			+= $bonus['Planets'];
 			
 			foreach ($resourceIDs as $resourceID) {
-				$factor['ResourceSpecific']	+= $bonus['ResourceID'.$resourceID];
+				$factor['ResourceSpecific'][$resourceID]	+= $bonus['ResourceID'.$resourceID];
 			}
 		} else {
 			$factor['Attack']			+= $elementLevel * $bonus['Attack'];
@@ -145,9 +148,8 @@ function getFactors($USER, $Type = 'basic', $TIME = NULL) {
 			$factor['FlyTime']			+= $elementLevel * $bonus['FlyTime'];
 			$factor['FleetSlots']		+= $elementLevel * $bonus['FleetSlots'];
 			$factor['Planets']			+= $elementLevel * $bonus['Planets'];
-			
 			foreach ($resourceIDs as $resourceID) {
-				$factor['ResourceSpecific']	+= $elementLevel * $bonus['ResourceID'.$resourceID];
+				$factor['ResourceSpecific'][$resourceID]	+= $elementLevel * $bonus['ResourceID'.$resourceID];
 			}
 		}
 	}
@@ -301,8 +303,8 @@ function message($mes, $dest = "", $time = "3", $topnav = false, $menu = true)
 
 function CalculateMaxPlanetFields($planet)
 {
-	global $resource;
-	return $planet['field_max'] + ($planet[$GLOBALS['VARS']['ELEMENT'][33]['name']] * FIELDS_BY_TERRAFORMER) + ($planet[$GLOBALS['VARS']['ELEMENT'][41]['name']] * FIELDS_BY_MOONBASIS_LEVEL);
+	global $resource, $uniAllConfig, $UNI;
+	return $planet['field_max'] + ($planet[$GLOBALS['VARS']['ELEMENT'][33]['name']] * $uniAllConfig[$UNI]['planetAddFieldsByTerraFormer']) + ($planet[$GLOBALS['VARS']['ELEMENT'][41]['name']] * $uniAllConfig[$UNI]['planetAddFieldsByMoonBase']);
 }
 
 function pretty_time($seconds)
@@ -403,7 +405,7 @@ function MailSend($MailTarget, $MailTargetName, $MailSubject, $MailContent)
 	$mail->CharSet		= 'UTF-8';		
 	$mail->Subject   	= $MailSubject;
 	$mail->Body   		= $MailContent;
-	$mail->SetFrom($CONF['smtp_sendmail'], $CONF['game_name']);
+	$mail->SetFrom($CONF['smtp_sendmail'], $CONF['gameName']);
 	$mail->AddAddress($MailTarget, $MailTargetName);
 	$mail->Send();	
 }
@@ -539,6 +541,9 @@ function allowPlanetPosition($Pos, $techLevel)
 
 function GetCrons()
 {
+	//Needs rewrited ...
+	return '';
+	
 	global $CONF;
 	$Crons	= '';
 	$Crons .= TIMESTAMP >= ($CONF['stat_last_update'] + (60 * $CONF['stat_update_time'])) ? '<img src="./cronjobs.php?cron=stats" alt="" height="1" width="1">' : '';
@@ -598,7 +603,7 @@ function clearGIF() {
 
 function exceptionHandler($exception) 
 {
-	global $CONF;
+	global $gameConfig;
 	if(!headers_sent()) {
 		if (!class_exists('HTTP', false)) {
 			require_once(ROOT_PATH . 'includes/classes/HTTP.class.php');
@@ -638,7 +643,7 @@ function exceptionHandler($exception)
 <!--[if IE 9 ]>    <html lang="de" class="no-js ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html lang="de" class="no-js"> <!--<![endif]-->
 <head>
-	<title>'.(isset($CONF['game_name']) ? $CONF['game_name'].' - ' : '').$errorType[$errno].'</title>
+	<title>'.(isset($gameConfig['gameName']) ? $gameConfig['gameName'].' - ' : '').$errorType[$errno].'</title>
 	<meta name="generator" content="2Moons '.$VERSION.'">
 	<!-- 
 		This website is powered by 2Moons '.$VERSION.'
@@ -694,7 +699,7 @@ function exceptionHandler($exception)
 			<b>PHP-Version: </b>'.PHP_VERSION.'<br>
 			<b>PHP-API: </b>'.php_sapi_name().'<br>
 			<b>MySQL-Cleint-Version: </b>'.mysqli_get_client_info().'<br>
-			<b>2Moons Version: </b>'.$CONF['VERSION'].'<br>
+			<b>2Moons Version: </b>'.(isset($gameConfig['version']) ? $gameConfig['version'] : file_get_contents(ROOT_PATH.'install/VERSION').' (INSTALL-VERSION)').'<br>
 			<b>Debug Backtrace:</b><br>'.makebr(str_replace($_SERVER['DOCUMENT_ROOT'], '.', htmlspecialchars($exception->getTraceAsString()))).'
 		</td>
 	</tr>

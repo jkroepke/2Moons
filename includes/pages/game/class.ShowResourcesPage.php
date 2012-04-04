@@ -117,7 +117,7 @@ class ShowResourcesPage extends AbstractPage
 				$Production	*= $this->PLANET[$GLOBALS['VARS']['ELEMENT'][$prodID]['name'].'_percent'] / 100;
 				
 				if($ID != 911) {
-					$Production	*= $prodLevel * $CONF['resource_multiplier'];
+					$Production	*= $prodLevel * $uniConfig['ecoSpeed'];
 				}
 				
 				$productionList[$elementID]['production'][$ID]	= $Production;
@@ -142,7 +142,7 @@ class ShowResourcesPage extends AbstractPage
 		foreach($GLOBALS['VARS']['LIST'][ELEMENT_PLANET_RESOURCE] as $elementID) 
 		{	
 			$storage[$elementID]			= shortly_number($PLANET[$GLOBALS['VARS']['ELEMENT'][$elementID]['name'].'_max']);
-			$basicProduction[$elementID]	= $CONF[$GLOBALS['VARS']['ELEMENT'][$elementID]['name'].'_basic_income'] * $CONF['resource_multiplier'];
+			$basicProduction[$elementID]	= $CONF[$GLOBALS['VARS']['ELEMENT'][$elementID]['name'].'_basic_income'] * $uniConfig['ecoSpeed'];
 			$totalProduction[$elementID]	= $PLANET[$GLOBALS['VARS']['ELEMENT'][$elementID]['name'].'_perhour'] + $basicProduction[$elementID];
 			$bonusProduction[$elementID]	= $temp[$elementID]['plus'] * $USER['factor']['Resource'];
 			$dailyProduction[$elementID]	= $totalProduction[$elementID] * 24;
@@ -151,7 +151,7 @@ class ShowResourcesPage extends AbstractPage
 		
 		foreach($GLOBALS['VARS']['LIST'][ELEMENT_ENERGY] as $elementID) 
 		{	
-			$basicProduction[$elementID]	= $CONF[$GLOBALS['VARS']['ELEMENT'][$elementID]['name'].'_basic_income'] * $CONF['resource_multiplier'];
+			$basicProduction[$elementID]	= $CONF[$GLOBALS['VARS']['ELEMENT'][$elementID]['name'].'_basic_income'] * $uniConfig['ecoSpeed'];
 			$totalProduction[$elementID]	= $PLANET[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']] + $basicProduction[$elementID] + $PLANET[$GLOBALS['VARS']['ELEMENT'][$elementID]['name'].'_used'];
 			$bonusProduction[$elementID]	= $temp[$elementID]['plus'] * $USER['factor']['Energy'];
 			$dailyProduction[$elementID]	= $totalProduction[$elementID];

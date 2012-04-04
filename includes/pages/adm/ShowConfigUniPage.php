@@ -51,7 +51,7 @@ function ShowConfigUniPage()
 			'forum_url'				=> $CONF['forum_url'],
 			'game_speed'			=> $uniConfig['gameSpeed'],
 			'fleet_speed'			=> $CONF['fleet_speed'],
-			'resource_multiplier'	=> $CONF['resource_multiplier'],
+			'resource_multiplier'	=> $uniConfig['ecoSpeed'],
 			'halt_speed'			=> $CONF['halt_speed'],
 			'initial_fields'		=> $CONF['initial_fields'],
 			'metal_basic_income'	=> $CONF['metal_basic_income'],
@@ -64,7 +64,7 @@ function ShowConfigUniPage()
 			'user_valid'			=> $CONF['user_valid'],
 			'trade_charge'			=> $CONF['trade_charge'],
 			'trade_allowed_ships'	=> $CONF['trade_allowed_ships'],
-			'game_name'				=> $CONF['game_name'],
+			'gameName'				=> $CONF['gameName'],
 			'mail_active'			=> $CONF['mail_active'],
 			'mail_use'				=> $CONF['mail_use'],
 			'smail_path'			=> $CONF['smail_path'],
@@ -125,7 +125,7 @@ function ShowConfigUniPage()
 		$CONF['forum_url'] 				= HTTP::_GP('forum_url', '', true);
 		$uniConfig['gameSpeed'] 			= (2500 * HTTP::_GP('game_speed', 0.0));
 		$CONF['fleet_speed'] 			= (2500 * HTTP::_GP('fleet_speed', 0.0));
-		$CONF['resource_multiplier']	= HTTP::_GP('resource_multiplier', 0.0);
+		$uniConfig['ecoSpeed']	= HTTP::_GP('resource_multiplier', 0.0);
 		$CONF['halt_speed']				= HTTP::_GP('halt_speed', 0.0);
 		$CONF['initial_fields']			= HTTP::_GP('initial_fields', 0);
 		$CONF['metal_basic_income']		= HTTP::_GP('metal_basic_income', 0);
@@ -172,8 +172,8 @@ function ShowConfigUniPage()
 			$uniConfig['gameSpeed'] = 1;
 		if($CONF['fleet_speed'] == 0)
 			$CONF['fleet_speed'] = 1;
-		if($CONF['resource_multiplier'] == 0)
-			$CONF['resource_multiplier'] = 1;
+		if($uniConfig['ecoSpeed'] == 0)
+			$uniConfig['ecoSpeed'] = 1;
 		if($CONF['halt_speed'] == 0)
 			$CONF['halt_speed'] = 1;
 		
@@ -192,7 +192,7 @@ function ShowConfigUniPage()
 			'forum_url'				=> $CONF['forum_url'],
 			'game_speed'			=> $uniConfig['gameSpeed'],
 			'fleet_speed'			=> $CONF['fleet_speed'],
-			'resource_multiplier'	=> $CONF['resource_multiplier'],
+			'resource_multiplier'	=> $uniConfig['ecoSpeed'],
 			'halt_speed'			=> $CONF['halt_speed'],
 			'initial_fields'		=> $CONF['initial_fields'],
 			'metal_basic_income'	=> $CONF['metal_basic_income'],
@@ -205,7 +205,7 @@ function ShowConfigUniPage()
 			'user_valid'			=> $CONF['user_valid'],
 			'trade_charge'			=> $CONF['trade_charge'],
 			'trade_allowed_ships'	=> $CONF['trade_allowed_ships'],
-			'game_name'				=> $CONF['game_name'],
+			'gameName'				=> $CONF['gameName'],
 			'mail_active'			=> $CONF['mail_active'],
 			'mail_use'				=> $CONF['mail_use'],
 			'smail_path'			=> $CONF['smail_path'],
@@ -266,7 +266,7 @@ function ShowConfigUniPage()
 
 	$template->assign_vars(array(
 		'se_server_parameters'			=> $LNG['se_server_parameters'],
-		'se_game_name'					=> $LNG['se_game_name'],
+		'se_gameName'					=> $LNG['se_gameName'],
 		'se_uni_name'					=> $LNG['se_uni_name'],
 		'se_cookie_advert'				=> $LNG['se_cookie_advert'],
 		'se_lang'						=> $LNG['se_lang'],
@@ -404,11 +404,11 @@ function ShowConfigUniPage()
 		'se_ref_minpoints_info'			=> $LNG['se_ref_minpoints_info'],
 		'se_silo_factor'				=> $LNG['se_silo_factor'],
 		'se_silo_factor_info'			=> $LNG['se_silo_factor_info'],
-		'game_name'						=> $CONF['game_name'],
+		'gameName'						=> $CONF['gameName'],
 		'uni_name'						=> $CONF['uni_name'],
 		'game_speed'					=> $uniConfig['gameSpeed'],
 		'fleet_speed'					=> $CONF['fleet_speed'],
-		'resource_multiplier'			=> $CONF['resource_multiplier'],
+		'resource_multiplier'			=> $uniConfig['ecoSpeed'],
 		'halt_speed'					=> $CONF['halt_speed'],
 		'forum_url'						=> $CONF['forum_url'],
 		'initial_fields'				=> $CONF['initial_fields'],

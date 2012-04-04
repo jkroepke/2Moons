@@ -51,7 +51,7 @@ class StatBanner {
 			u.username, u.wons, u.loos,u.draws, 
 			s.total_points, s.total_rank, 
 			p.name, p.galaxy, p.system, p.planet, 
-			c.game_name, c.users_amount, c.ttf_file 
+			c.gameName, c.users_amount, c.ttf_file 
 			FROM ".USERS." as u  
 			INNER JOIN ".PLANETS." as p ON p.id = u.id_planet
 			INNER JOIN ".CONFIG." as c ON c.uni = u.universe
@@ -93,8 +93,8 @@ class StatBanner {
 		imagettftext($image, 20, 0, 20, 31, $shadow, $Font, $data['username']);
 		imagettftext($image, 20, 0, 20, 30, $color, $Font, $data['username']);
 		
-		imagettftext($image, 16, 0, 250, 31, $shadow, $Font, $data['game_name']);
-		imagettftext($image, 16, 0, 250, 30, $color, $Font, $data['game_name']);
+		imagettftext($image, 16, 0, 250, 31, $shadow, $Font, $data['gameName']);
+		imagettftext($image, 16, 0, 250, 30, $color, $Font, $data['gameName']);
 		
 		imagettftext($image, 11, 0, 20, 60, $shadow, $Font, $LNG['ub_rank'].': '.$userRank);
 		imagettftext($image, 11, 0, 20, 59, $color, $Font, $LNG['ub_rank'].': '.$userRank);

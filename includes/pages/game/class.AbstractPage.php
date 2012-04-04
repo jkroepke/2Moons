@@ -88,7 +88,7 @@ abstract class AbstractPage
 	
 	protected function getNavigationData() 
     {
-		global $PLANET, $LNG, $USER, $CONF, $resource;
+		global $PLANET, $LNG, $USER, $uniConfig, $gameConfig, $resource;
 		
 		if($PLANET[$GLOBALS['VARS']['ELEMENT'][43]['name']] > 0) {
 			$this->tplObj->loadscript("gate.js");
@@ -108,9 +108,9 @@ abstract class AbstractPage
 		}
 		
 		if($USER['urlaubs_modus'] == 1) {
-			$CONF['metal_basic_income']     = 0;
-			$CONF['crystal_basic_income']   = 0;
-			$CONF['deuterium_basic_income'] = 0;
+			$uniConfig['planetResource901BasicIncome']	= 0;
+			$uniConfig['planetResource902BasicIncome']	= 0;
+			$uniConfig['planetResource903BasicIncome']	= 0;
 		}
 		
 		$this->tplObj->assign_vars(array(	
@@ -132,19 +132,19 @@ abstract class AbstractPage
 			'js_metal_max'		=> $PLANET['metal_max'],
 			'js_crystal_max'	=> $PLANET['crystal_max'],
 			'js_deuterium_max' 	=> $PLANET['deuterium_max'],
-			'js_metal_hr'		=> $PLANET['metal_perhour'] + $CONF['metal_basic_income'] * $CONF['resource_multiplier'],
-			'js_crystal_hr'		=> $PLANET['crystal_perhour'] + $CONF['crystal_basic_income'] * $CONF['resource_multiplier'],
-			'js_deuterium_hr'	=> $PLANET['deuterium_perhour'] + $CONF['deuterium_basic_income'] * $CONF['resource_multiplier'],
+			'js_metal_hr'		=> $PLANET['metal_perhour'] + $uniConfig['planetResource901BasicIncome'] * $uniConfig['ecoSpeed'],
+			'js_crystal_hr'		=> $PLANET['crystal_perhour'] + $uniConfig['planetResource902BasicIncome'] * $uniConfig['ecoSpeed'],
+			'js_deuterium_hr'	=> $PLANET['deuterium_perhour'] + $uniConfig['planetResource903BasicIncome'] * $uniConfig['ecoSpeed'],
 			'shortlyNumber'		=> false,
-			'closed'			=> !$CONF['game_disable'] ? $LNG['ov_closed'] : false,
-			'forum_url'			=> $CONF['forum_url'],
+			'closed'			=> !$uniConfig['enable'] ? $LNG['ov_closed'] : false,
+			'forum_url'			=> $gameConfig['boardAddress'],
 			'hasAdminAccess'	=> isset($_SESSION['admin_login']),
 		));
 	}
 	
 	protected function getPageData() 
     {
-		global $USER, $CONF, $LANG, $LNG, $THEME;
+		global $USER, $uniConfig, $gameConfig, $LANG, $LNG, $THEME;
 		
 		if($this->getWindow() === 'full') {
 			$this->getNavigationData();
@@ -164,15 +164,15 @@ abstract class AbstractPage
             'vmode'				=> $USER['urlaubs_modus'],
 			'authlevel'			=> $USER['authlevel'],
 			'userID'			=> $USER['id'],
-            'game_name'			=> $CONF['game_name'],
-            'uni_name'			=> $CONF['uni_name'],
-			'ga_active'			=> $CONF['ga_active'],
-			'ga_key'			=> $CONF['ga_key'],
-			'debug'				=> $CONF['debug'],
-			'VERSION'			=> $CONF['VERSION'],
+            'game_name'			=> $gameConfig['gameName'],
+            'uni_name'			=> $uniConfig['uniName'],
+			'ga_active'			=> $gameConfig['analyticsEnable'],
+			'ga_key'			=> $gameConfig['analyticsUID'],
+			'debug'				=> 0,
+			'VERSION'			=> $gameConfig['version'],
 			'date'				=> explode("|", date('Y\|n\|j\|G\|i\|s\|Z', TIMESTAMP)),
 			'cron'				=> GetCrons(),
-			'REV'				=> substr($CONF['VERSION'], -4),
+			'REV'				=> substr($gameConfig['version'], -4),
 			'Offset'			=> $dateTimeUser->getOffset() - $dateTimeServer->getOffset(),
 			'queryString'		=> $this->getQueryString(),
 			'themeSettings'		=> $THEME->getStyleSettings(),
