@@ -36,7 +36,7 @@ if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FI
 function ShowAccountEditorPage() 
 {
 	global $USER, $LNG, $reslist, $resource, $UNI;
-	$template 	= new template();
+	$template 	= new Template();
 
 	switch($_GET['edit'])
 	{

@@ -122,7 +122,7 @@ function ShowFlyingFleetPage()
 	
 	$GLOBALS['DATABASE']->free_result($fleetResult);
 	
-	$template			= new template();
+	$template			= new Template();
 	$template->assign_vars(array(
 		'FleetList'			=> $FleetList,
 	));

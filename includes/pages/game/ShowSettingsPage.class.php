@@ -216,7 +216,7 @@ class ShowSettingsPage extends AbstractPage
 		
 		if (!empty($username) && $USER['username'] != $username)
 		{
-			if (!CheckName($username)) {
+			if (!PlayerUntl::isNameValid($username)) {
 				$errors[]	= $LNG['op_user_name_no_alphanumeric'];
 			} elseif($USER['uctime'] >= TIMESTAMP - USERNAME_CHANGETIME) {
 				$errors[]	= $LNG['op_change_name_pro_week'];

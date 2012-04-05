@@ -35,7 +35,7 @@ class CustomAJAXChat extends AJAXChat {
 		global $gameConfig;
 		$this->setConfig('dbConnection', 'link', $GLOBALS['DATABASE']);
 		$this->setConfig('chatBotName', false, $gameConfig['chatBotName']);
-		$this->setConfig('allowUserMessageDelete', false, (bool) $gameConfig['chat_allowdelmes']);
+		$this->setConfig('allowUserMessageDelete', false, (bool) $gameConfig['chatAllowDeleteOwnMessage']);
 		$this->setConfig('allowNickChange', false, (bool) $gameConfig['chatAllowNameChange']);
 		$this->setConfig('chatClosed', false, !$gameConfig['chatEnable']);
 		$this->setConfig('allowPrivateChannels', false, (bool) $gameConfig['chatAllowDeleteOwnMessage']);
@@ -68,17 +68,17 @@ class CustomAJAXChat extends AJAXChat {
 			return false;
 		}
 		
-		$allyData = $this->db->sqlQuery("SELECT ally_id FROM ".USERS." WHERE id = ".$_SESSION['id']." AND id NOT IN (SELECT userid FROM ".ALLIANCE_REQUEST.");")->fetch();
+		$userResult = $this->db->sqlQuery("SELECT authlevel, username, ally_id FROM ".USERS." WHERE id = ".$_SESSION['id'].";")->fetch();
 		
 		$userData = array();
 		$userData['userID'] = $_SESSION['id'];
 
-		$userData['userName'] = $this->trimUserName($_SESSION['username']);
-		$userData['userAlly'] = $allyData['ally_id'];
+		$userData['userName'] = $this->trimUserName($userResult['username']);
+		$userData['userAlly'] = $userResult['ally_id'];
 		
-		if($_SESSION['authlevel'] == AUTH_ADM)
+		if($userResult['authlevel'] == AUTH_ADM)
 			$userData['userRole'] = AJAX_CHAT_ADMIN;
-		elseif($_SESSION['authlevel'] > AUTH_USR)
+		elseif($userResult['authlevel'] > AUTH_USR)
 			$userData['userRole'] = AJAX_CHAT_MODERATOR;
 		else
 			$userData['userRole'] = AJAX_CHAT_USER;

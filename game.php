@@ -30,6 +30,7 @@
  */
 
 define('MODE', 'GAME');
+
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 
 require(ROOT_PATH.'includes/common.php');

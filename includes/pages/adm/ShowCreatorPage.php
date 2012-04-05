@@ -36,7 +36,7 @@ function ShowCreatorPage()
 {
 	global $LNG, $USER, $UNI, $LANG, $CONF;
 
-	$template	= new template();
+	$template	= new Template();
 
 	
 	switch ($_GET['mode'])
@@ -74,7 +74,7 @@ function ShowCreatorPage()
 				if ($UserMail != $UserMail2)
 					$errors .= $LNG['different_mails'];
 					
-				if (!CheckName($UserName))
+				if (!PlayerUntl::isNameValid($UserName))
 					$errors .= $LNG['user_field_specialchar'];				
 										
 				if ($ExistsUser != 0)

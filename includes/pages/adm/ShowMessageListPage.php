@@ -139,7 +139,7 @@ function ShowMessageListPage()
 		);
 	}	
 
-	$template 	= new template();
+	$template 	= new Template();
 
 	$template->loadscript('global.js');
 

@@ -36,9 +36,13 @@ class ShowPhalanxPage extends AbstractPage
 	
 	static function allowPhalanx($toGalaxy, $toSystem)
 	{
-		global $PLANET, $resource;
+		global $PLANET, $uniConfig;
 
-		if ($PLANET['galaxy'] != $toGalaxy || $PLANET[$GLOBALS['VARS']['ELEMENT'][42]['name']] == 0 || !isModulAvalible(MODULE_PHALANX) || $PLANET[$GLOBALS['VARS']['ELEMENT'][903]['name']] < PHALANX_DEUTERIUM) {
+		if ($PLANET['galaxy'] != $toGalaxy 
+			|| $PLANET[$GLOBALS['VARS']['ELEMENT'][42]['name']] == 0
+			|| !isModulAvalible(MODULE_PHALANX)
+			|| $PLANET[$GLOBALS['VARS']['ELEMENT'][903]['name']] < $uniConfig['phalanxCost']
+		) {
 			return false;
 		}
 		
@@ -90,7 +94,6 @@ class ShowPhalanxPage extends AbstractPage
 			$this->printMessage($LNG['px_out_of_range']);
 		}
 		
-		require_once(ROOT_PATH . 'includes/classes/class.FlyingFleetsTable.php');
 		$fleetTableObj = new FlyingFleetsTable;
 		$fleetTableObj->setPhalanxMode();
 		$fleetTableObj->setUser($TargetInfo['id_owner']);

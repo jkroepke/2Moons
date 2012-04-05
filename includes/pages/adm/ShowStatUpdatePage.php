@@ -44,6 +44,6 @@ function ShowStatUpdatePage() {
 
 	update_config(array('stat_last_update' => $result['stats_time']));
 
-	$template = new template();
+	$template = new Template();
 	$template->message($LNG['sb_stats_updated'].$stats_end_time.$memory_i.$memory_e.$memory_p.$stats_sql, false, 0, true);
 }

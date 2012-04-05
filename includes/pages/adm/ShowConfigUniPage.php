@@ -262,7 +262,7 @@ function ShowConfigUniPage()
 			$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET `authattack` = '0' WHERE `universe` = '".$_SESSION['adminuni']."';");
 	}
 	
-	$template	= new template();
+	$template	= new Template();
 
 	$template->assign_vars(array(
 		'se_server_parameters'			=> $LNG['se_server_parameters'],

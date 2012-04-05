@@ -84,7 +84,7 @@ function ShowVarsEditorPage()
 				}
 			}
 			
-			$template	= new template();
+			$template	= new Template();
 			$template->assign_vars(array(
 				'VARS'			=> $VARS,
 				'RESS'			=> $CLASSES[900],
@@ -207,7 +207,7 @@ function AddElement($ElementID) {
 		'tech' => 0,
 	);
 	
-	$template	= new template();
+	$template	= new Template();
 	$template->assign_vars(array(
 		'ID'				=> $ElementID,
 		'ELEMENT'			=> $ELEMENT,
@@ -276,7 +276,7 @@ function EditElement($ElementID) {
 	if(in_array($ElementID, $PROP['build'][3]))
 		$ELEMENT[$ElementID]['allow']	+= 2;
 		
-	$template	= new template();
+	$template	= new Template();
 	$template->assign_vars(array(
 		'ID'				=> $ElementID,
 		'ELEMENT'			=> $ELEMENT,

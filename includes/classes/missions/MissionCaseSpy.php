@@ -94,7 +94,7 @@ class MissionCaseSpy extends MissionFunctions
 		
 		require_once(ROOT_PATH.'includes/classes/class.template.php');
 		
-		$template	= new template;
+		$template	= new Template;
 		
 		$template->caching		= true;
 		$template->compile_id	= $ownUser['lang'];

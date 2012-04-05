@@ -79,7 +79,7 @@ function ShowTeamspeakPage() {
 		$LOG->save();
 		
 	}
-	$template	= new template();
+	$template	= new Template();
 	
 
 	$template->assign_vars(array(

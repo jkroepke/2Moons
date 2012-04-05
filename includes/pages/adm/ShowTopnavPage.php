@@ -32,7 +32,7 @@
 function ShowTopnavPage()
 {
 	global $LNG, $USER, $UNI, $CONF;
-	$template	= new template();
+	$template	= new Template();
 
 	$AvailableUnis[$CONF['uni']]	= $CONF['uni_name'].' (ID: '.$CONF['uni'].')';
 	$Query	= $GLOBALS['DATABASE']->query("SELECT `uni`, `uni_name` FROM ".CONFIG." WHERE `uni` != '".$UNI."' ORDER BY `uni` DESC;");

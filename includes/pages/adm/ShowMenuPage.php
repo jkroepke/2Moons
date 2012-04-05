@@ -32,7 +32,7 @@
 function ShowMenuPage()
 {
 	global $USER, $LNG;
-	$template	= new template();
+	$template	= new Template();
 	
 	$template->assign_vars(array(	
 		'supportticks'				=> $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".TICKETS." WHERE universe = ".$_SESSION['adminuni']." AND status = 0;"),

@@ -93,7 +93,7 @@ function ShowChatConfigPage()
 				
 	}
 
-	$template	= new template();
+	$template	= new Template();
 
 	$template->assign_vars(array(
 		'chat_socket_chatid'	=> $CONF['chat_socket_chatid'],

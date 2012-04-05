@@ -37,7 +37,7 @@ function ShowVertify()
 	$EXT		= explode("|", HTTP::_GP("ext", ""));
 	$action 	= HTTP::_GP("action", "");
 	$file	 	= HTTP::_GP("file", "");
-	$template	= new template();
+	$template	= new Template();
 	
 	switch($action) {
 		case 'check':

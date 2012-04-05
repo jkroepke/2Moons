@@ -42,9 +42,6 @@ class ShowChangelogPage extends AbstractPage
 	function show() 
 	{
 		global $USER, $PLANET, $LNG, $LANG;
-
-
-
 		$LANG->includeLang(array('CHANGELOG'));	
 		$this->tplObj->assign_vars(array(	
 			'ChangelogList'	=> array_map('makebr', $LNG['changelog']),

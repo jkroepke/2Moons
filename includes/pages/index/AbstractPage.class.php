@@ -51,7 +51,7 @@ abstract class AbstractPage
 		if(isset($this->tplObj))
 			return true;
 			
-		$this->tplObj	= new template;
+		$this->tplObj	= new Template;
 		list($tplDir)	= $this->tplObj->getTemplateDir();
 		$this->tplObj->setTemplateDir($tplDir.'index/');
 		return true;

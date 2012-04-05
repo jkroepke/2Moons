@@ -34,7 +34,7 @@ if ($USER['authlevel'] != AUTH_ADM || $_GET['sid'] != session_id()) exit;
 
 function ShowUniversePage() {
 	global $CONF, $LNG, $UNI, $USER;
-	$template	= new template();
+	$template	= new Template();
 
 	if($_REQUEST['action'] == 'open' && !empty($_REQUEST['id'])) {
 		update_config(array('game_disable' => 1), (int) $_REQUEST['id']);

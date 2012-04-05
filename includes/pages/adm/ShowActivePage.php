@@ -53,7 +53,7 @@ function ShowActivePage()
 		);
 	}
 
-	$template	= new template();
+	$template	= new Template();
 
 	$template->assign_vars(array(	
 		'Users'				=> $Users,

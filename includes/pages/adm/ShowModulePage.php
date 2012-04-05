@@ -48,7 +48,7 @@ function ShowModulePage()
 		);
 	}
 	asort($Modules);
-	$template	= new template();
+	$template	= new Template();
 
 	$template->assign_vars(array(
 		'Modules'				=> $Modules,

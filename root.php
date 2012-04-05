@@ -46,7 +46,7 @@ if(isset($_REQUEST['admin_pw']))
 		HTTP::redirectTo('admin.php');
 	}
 }
-$template	= new template();
+$template	= new Template();
 
 $template->assign_vars(array(	
 	'adm_login'			=> $LNG['adm_login'],

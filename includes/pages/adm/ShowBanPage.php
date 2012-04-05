@@ -65,7 +65,7 @@ function ShowBanPage()
 
 	$GLOBALS['DATABASE']->free_result($UserListBan);
 
-	$template	= new template();
+	$template	= new Template();
 	$template->loadscript('filterlist.js');
 
 
