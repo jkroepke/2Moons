@@ -35,7 +35,7 @@ function ShowClearCachePage()
 {
 	global $LNG;
 	ClearCache();
-	$template = new template();
+	$template = new Template();
 	$template->cache = true;
 	$template->message($LNG['cc_cache_clear']);
 }

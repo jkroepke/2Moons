@@ -41,8 +41,10 @@ class ShowOverviewPage extends AbstractPage
 	private function GetTeamspeakData()
 	{
 		global $gameConfig, $USER, $LNG;
+		
 		if ($gameConfig['teamspeakEnable'] == 0)
 			return false;
+			
 		elseif(!file_exists(ROOT_PATH.'cache/teamspeak_cache.php'))
 			return $LNG['ov_teamspeak_not_online'];
 		
@@ -58,11 +60,12 @@ class ShowOverviewPage extends AbstractPage
 
 	private function GetFleets() {
 		global $USER, $PLANET;
-		require_once(ROOT_PATH . 'includes/classes/class.FlyingFleetsTable.php');
+		
 		$fleetTableObj = new FlyingFleetsTable;
-		$fleetTableObj->setUser($USER['id']);
-		$fleetTableObj->setPlanet($PLANET['id']);
-		return $fleetTableObj->renderTable();
+		
+		return $fleetTableObj->setUser($USER['id'])
+							 ->setPlanet($PLANET['id'])
+							 ->renderTable();
 	}
 	
 	function savePlanetAction()
@@ -244,7 +247,7 @@ class ShowOverviewPage extends AbstractPage
 		$newname        = HTTP::_GP('name', '', UTF8_SUPPORT);
 		if (!empty($newname))
 		{
-			if (!CheckName($newname)) {
+			if (!PlayerUntl::isNameValid($newname)) {
 				$this->sendJSON(array('message' => $LNG['ov_newname_specialchar'], 'error' => true));
 			} else {
 				$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET name = '".$GLOBALS['DATABASE']->sql_escape($newname)."' WHERE id = ".$PLANET['id'].";");

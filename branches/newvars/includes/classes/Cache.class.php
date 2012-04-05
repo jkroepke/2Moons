@@ -16,7 +16,7 @@ class Cache {
 	}
 	
 	function flushAll() {
-		foreach($this->cacheObj as $key) {
+		foreach($this->cacheObj as $Key) {
 			$this->flush($Key);
 		}
 	}

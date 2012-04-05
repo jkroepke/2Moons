@@ -48,6 +48,31 @@ class ShowErrorPage extends AbstractPage
 		$pageObj->printMessage($Message, $fullSide, $redirect);
 	}
 	
+	static function printBanMessage()
+	{
+		global $USER, $LNG;
+		
+		$pageObj	= new self;
+		$pageObj->tplObj->assign_vars(array(	
+			'banMessage'	=> sprintf($LNG['css_account_banned_expire'], _date($LNG['php_tdformat'], $USER['banaday'], $USER['timezone'])),
+
+		));
+		
+		$pageObj->display('error.banned.tpl');
+	}
+	
+	static function printGameClosedMessage()
+	{
+		global $USER, $uniConfig;
+		
+		$pageObj	= new self;
+		$pageObj->tplObj->assign_vars(array(	
+			'closeReason'	=> $uniConfig['enableReason'],
+		));
+		
+		$pageObj->display('error.closed.tpl');
+	}
+	
 	function show() 
 	{
 		

@@ -36,9 +36,6 @@ function autoloadClasses($className)
 	if((substr($className, 0, 4) === "Show" || $className == "AbstractPage") && file_exists(ROOT_PATH.'includes/pages/'.strtolower(MODE).'/'.$className.'.class.php')) {
 		require(ROOT_PATH.'includes/pages/'.strtolower(MODE).'/'.$className.'.class.php');
 	}
-	if(substr($className, 0, 6) === "smarty" && function_exists('smartyAutoload')) {
-		smartyAutoload($class);
-	}
 	
 	if(file_exists(ROOT_PATH.'includes/classes/'.$className.'.class.php')) {
 		require(ROOT_PATH.'includes/classes/'.$className.'.class.php');
@@ -307,7 +304,7 @@ function ValidateAddress($address) {
 function message($mes, $dest = "", $time = "3", $topnav = false, $menu = true)
 {
 	require_once(ROOT_PATH . 'includes/classes/class.template.php');
-	$template = new template();
+	$template = new Template();
 	$template->message($mes, $dest, $time, !$topnav);
 	exit;
 }

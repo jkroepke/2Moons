@@ -134,7 +134,7 @@ function ShowQuickEditorPage()
 				$elementData[$list][$elementID]	= $GLOBALS['VARS']['ELEMENT'][$elementID]['name'];
 			}
 			
-			$template	= new template();
+			$template	= new Template();
 			$template->assign_vars(array(	
 				'id'			=> $id,
 				'elementData'	=> $elementData,
@@ -212,7 +212,7 @@ function ShowQuickEditorPage()
 				);
 			}
 
-			$template	= new template();
+			$template	= new Template();
 			$template->assign_vars(array(	
 				'tech'			=> $tech,
 				'officier'		=> $officier,

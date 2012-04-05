@@ -73,9 +73,13 @@ ini_set('error_log', ROOT_PATH . 'includes/error.log');
 require(ROOT_PATH . 'includes/GeneralFunctions.php');
 set_exception_handler('exceptionHandler');
 set_error_handler('errorHandler');
-spl_autoload_register('autoloadClasses');
 
-require(ROOT_PATH . 'includes/classes/class.theme.php');
+
+require(ROOT_PATH . 'includes/classes/Cache.class.php');
+$CACHE = new Cache();
+
+require(ROOT_PATH . 'includes/classes/Autoload.class.php');
+spl_autoload_register(array('Autoload', 'load'));
 
 // Say Browsers to Allow ThirdParty Cookies (Thanks to morktadela)
 HTTP::sendHeader('P3P', 'CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"');
@@ -85,7 +89,6 @@ define('AJAX_REQUEST', HTTP::_GP('ajax', 0));
 
 $THEME = new Theme();
 $LANG  = new Language();
-$CACHE = new Cache();
 
 if (MODE !== 'INSTALL')
 {
@@ -132,8 +135,6 @@ if (MODE !== 'INSTALL')
 		
 		$SESSION->UpdateSession();
 		
-		require(ROOT_PATH . 'includes/classes/class.PlanetRessUpdate.php');
-		
 		if (!AJAX_REQUEST && MODE === 'GAME' && isModulAvalible(MODULE_FLEET_EVENTS))
 		{
 			require(ROOT_PATH . 'includes/FleetHandler.php');
@@ -152,7 +153,7 @@ if (MODE !== 'INSTALL')
 		
 		if (empty($USER))
 		{
-			exit(header('Location: index.php'));
+			HTTP::redirectTo('index.php?code=3');
 		}
 		
 		$LANG->setUser($USER['lang']);
@@ -167,12 +168,12 @@ if (MODE !== 'INSTALL')
 		
 		if ($uniConfig['enable'] == 0 && $USER['authlevel'] != AUTH_ADM)
 		{
-			ShowErrorPage::printError($LNG['sys_closed_game'] . '<br><br>' . $CONF['close_reason'], false);
+			ShowErrorPage::printGameClosedMessage();
 		}
 		
 		if ($USER['bana'] == 1)
 		{
-			ShowErrorPage::printError("<font size=\"6px\">" . $LNG['css_account_banned_message'] . "</font><br><br>" . sprintf($LNG['css_account_banned_expire'], _date($LNG['php_tdformat'], $USER['banaday'], $USER['timezone'])) . "<br><br>" . $LNG['css_goto_homeside'], false);
+			ShowErrorPage::printBanMessage();
 		}
 		
 		if (MODE === 'GAME')

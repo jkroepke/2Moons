@@ -72,7 +72,7 @@ function ShowLog()
 
 function ShowLogOverview() {
 	global $LNG;
-	$template	= new template();	
+	$template	= new Template();	
 	$template->show("LogOverview.tpl");
 }
 
@@ -160,7 +160,7 @@ function ShowLogDetail() {
 		}
 	}
 		
-	$template	= new template();	
+	$template	= new Template();	
 	$template->assign_vars(array(	
 		'LogArray'		=> $LogArray,
 		'admin'			=> $result['admin_username'],
@@ -184,7 +184,7 @@ function ShowLogSettingsList() {
 	global $LNG;
 	$result    = $GLOBALS['DATABASE']->query("SELECT l.id, l.admin, l.time, l.universe, l.target,u_a.username as admin_username FROM ".LOG." as l LEFT JOIN ".USERS." as u_a ON  u_a.id = l.admin WHERE mode = 3 ORDER BY id DESC");
 
-	$template	= new template();	
+	$template	= new Template();	
 	if(!$result)
 		$template->message($LNG['log_no_data']);
 	
@@ -218,7 +218,7 @@ function ShowLogPlanetsList() {
 
 	$result    = $GLOBALS['DATABASE']->query("SELECT DISTINCT l.id, l.admin, l.target, l.time, l.universe,u_t.username as target_username, p.galaxy as target_galaxy, p.system as target_system, p.planet as target_planet,u_a.username as admin_username FROM ".LOG." as l LEFT JOIN ".USERS." as u_a ON  u_a.id = l.admin LEFT JOIN ".PLANETS." as p ON p.id = l.target LEFT JOIN ".USERS." as u_t ON u_t.id = p.id_owner WHERE mode = 2 OR mode = 4 OR mode = 5 ORDER BY id DESC");
 
-	$template	= new template();	
+	$template	= new Template();	
 	if(!$result)
 		$template->message($LNG['log_no_data']);
 		
@@ -233,7 +233,7 @@ function ShowLogPlanetsList() {
 		);
 	}
 	$GLOBALS['DATABASE']->free_result($result);
-	$template	= new template();	
+	$template	= new Template();	
 	$template->assign_vars(array(	
 		'LogArray'		=> $LogArray,
 		'log_log'		=> $LNG['log_log'],
@@ -252,7 +252,7 @@ function ShowLogPlayersList() {
 
 	$result    = $GLOBALS['DATABASE']->query("SELECT DISTINCT l.id, l.admin, l.target, l.time, l.universe,u_t.username as target_username,u_a.username as admin_username FROM ".LOG." as l LEFT JOIN ".USERS." as u_a ON  u_a.id = l.admin LEFT JOIN ".USERS." as u_t ON u_t.id = l.target WHERE mode = 1 ORDER BY l.id DESC");
 
-	$template	= new template();	
+	$template	= new Template();	
 	if(!$result)
 		$template->message($LNG['log_no_data']);
 		
@@ -285,7 +285,7 @@ function ShowLogPresent() {
 
 	$result    = $GLOBALS['DATABASE']->query("SELECT DISTINCT l.id, l.admin, l.target, l.time, l.universe, u_a.username as admin_username FROM ".LOG." as l LEFT JOIN ".USERS." as u_a ON u_a.id = l.admin WHERE mode = 4 ORDER BY l.id DESC;");
 
-	$template	= new template();	
+	$template	= new Template();	
 	if(!$result)
 		$template->message($LNG['log_no_data']);
 		

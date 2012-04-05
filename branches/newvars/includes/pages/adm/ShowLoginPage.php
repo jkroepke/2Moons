@@ -43,7 +43,7 @@ function ShowLoginPage()
 		}
 	}
 
-	$template	= new template();
+	$template	= new Template();
 
 	$template->assign_vars(array(	
 		'bodyclass'	=> 'standalone',

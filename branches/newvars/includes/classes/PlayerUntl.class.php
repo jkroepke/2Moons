@@ -71,7 +71,7 @@ class PlayerUntl {
 		$uniCurrentConfig	= $uniAllConfig[$Universe];
 		
 		$availableUniverse	= $GLOBALS['CACHE']->get('universe');
-		if (isset($Galaxy, $System, $Planet))
+		if (isset($Galaxy, $System, $Position))
 		{
 			if ($uniCurrentConfig['planetMaxGalaxy'] < $Galaxy || 1 > $Galaxy) {
 				throw new Exception("Try to create a planet at position:".$Galaxy.":".$System.":".$Position);
@@ -89,14 +89,14 @@ class PlayerUntl {
 				return self::POSITION_NOT_AVALIBLE;
 			}
 		} else {
-			$Galaxy		= $availableUniverse[$Universe]['lastCreatePlanetGalaxy'];
-			$System 	= $availableUniverse[$Universe]['lastCreatePlanetSystem'];
-			$Position	= $availableUniverse[$Universe]['lastCreatePlanetPosition'];
+			$Galaxy	= $availableUniverse[$Universe]['lastCreatePlanetGalaxy'];
+			$System = $availableUniverse[$Universe]['lastCreatePlanetSystem'];
+			$Planet	= $availableUniverse[$Universe]['lastCreatePlanetPosition'];
 			
 			do {
-				$Planet = mt_rand(round($uniCurrentConfig['planetMaxPosition'] * 0.2), round($uniCurrentConfig['planetMaxPosition'] * 0.8));
-				if ($Position < 3) {
-					$Position += 1;
+				$Position = mt_rand(round($uniCurrentConfig['planetMaxPosition'] * 0.2), round($uniCurrentConfig['planetMaxPosition'] * 0.8));
+				if ($Planet < 3) {
+					$Planet += 1;
 				} else {
 					if ($System >= $uniCurrentConfig['planetMaxSystem']) {
 						$Galaxy += 1;
@@ -114,7 +114,7 @@ class PlayerUntl {
 
 			$availableUniverse[$Universe]['lastCreatePlanetGalaxy']		= $Galaxy;
 			$availableUniverse[$Universe]['lastCreatePlanetSystem']		= $System;
-			$availableUniverse[$Universe]['lastCreatePlanetPosition']	= $Position;
+			$availableUniverse[$Universe]['lastCreatePlanetPosition']	= $Planet;
 		}
 		
 		$SQL = "INSERT INTO ".USERS." SET

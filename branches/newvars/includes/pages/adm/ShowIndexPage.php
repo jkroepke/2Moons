@@ -32,7 +32,7 @@
 function ShowIndexPage()
 {
 	global $CONF, $LNG;
-	$template	= new template();
+	$template	= new Template();
 
 	$template->assign_vars(array(	
 		'gameName'		=> $CONF['gameName'],

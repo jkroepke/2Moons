@@ -43,7 +43,7 @@ $LANG->includeLang(array('INGAME', 'INSTALL'));
 
 $UNI	= 1;
 
-$template = new template();
+$template = new Template();
 
 $template->assign(array(
 	'lang'			=> $LANG->GetUser(),
@@ -303,8 +303,6 @@ switch ($step) {
 		$database['databasename']	= $dbname;
 		$database['tableprefix']	= $prefix;
 		
-		require_once(ROOT_PATH . 'includes/classes/class.Database.php');
-		
 		try {
 			$DATABASE = new Database();
 		} catch (Exception $e) {
@@ -334,7 +332,7 @@ switch ($step) {
 	case 6:
 		require_once(ROOT_PATH . 'includes/config.php');
 		require_once(ROOT_PATH . 'includes/dbtables.php');	
-		require_once(ROOT_PATH . 'includes/classes/class.Database.php');
+		
 		$GLOBALS['DATABASE']	= new Database();
 		try {
 			$SQL	= file_get_contents('install.sql');

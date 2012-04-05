@@ -128,7 +128,7 @@ function ShowConfigBasicPage()
 	
 	$TimeZones		= get_timezone_selector();
 	
-	$template	= new template();
+	$template	= new Template();
 	
 	$template->assign_vars(array(
 		'del_oldstuff'					=> $CONF['del_oldstuff'],

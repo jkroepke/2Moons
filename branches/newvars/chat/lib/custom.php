@@ -10,13 +10,11 @@
 // Include custom libraries and initialization code here
 
 
-define('MODE', 'CHAT');
+define('MODE', 'INGAME');
+define('ROOT_PATH', str_replace('\\', '/', dirname(AJAX_CHAT_PATH)).'/');
 
-define('ROOT_PATH', str_replace('\\', '/',dirname(AJAX_CHAT_PATH)).'/');
 require(ROOT_PATH.'includes/common.php');
 
-require(ROOT_PATH.'includes/pages/game/class.AbstractPage.php');
-require(ROOT_PATH.'includes/pages/game/class.ShowErrorPage.php');
 if(!$SESSION->IsUserLogin() || ($uniConfig['enable'] == 0 && $USER['authlevel'] != AUTH_ADM)) {
 	HTTP::redirectTo('index.php?code=3');
 }
