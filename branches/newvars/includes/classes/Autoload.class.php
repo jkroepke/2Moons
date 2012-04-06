@@ -43,7 +43,7 @@ class Autoload
 		foreach($Regex as $file) {
 			preg_match('/^.+[\\\\|\/](.+)[\\\\|\/]([^\.]+)\.class\.php$/', $file[0], $className);
 			$className				= (in_array($className[1], array('index', 'game', 'admin')) ? $className[1].'/' : '').$className[2];
-			$classFiles[$className]	= $file[0];
+			$classFiles[$className]	= str_replace('\\', '/', $file[0]);
 		}
 		
 		return $classFiles;

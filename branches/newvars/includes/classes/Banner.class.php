@@ -29,7 +29,7 @@
  * @link http://code.google.com/p/2moons/
  */
 
-class StatBanner {
+class Banner {
 
 	private $source = "styles/images/banner.jpg";
 	
@@ -48,23 +48,25 @@ class StatBanner {
 	public function GetData($id)
 	{
 		return $GLOBALS['DATABASE']->getFirstRow("SELECT 
-			u.username, u.wons, u.loos,u.draws, 
+			u.username, u.wons, u.loos, u.draws, u.universe, 
 			s.total_points, s.total_rank, 
-			p.name, p.galaxy, p.system, p.planet, 
-			c.gameName, c.users_amount, c.ttf_file 
+			p.name, p.galaxy, p.system, p.planet
 			FROM ".USERS." as u  
 			INNER JOIN ".PLANETS." as p ON p.id = u.id_planet
-			INNER JOIN ".CONFIG." as c ON c.uni = u.universe
 			LEFT JOIN ".STATPOINTS." as s ON s.id_owner = u.id AND s.stat_type = '1'
 			WHERE u.id = ".$id.";");
 	}
 	
 	public function CreateUTF8Banner($data) {
 		global $LNG, $LANG;
-		$image  	= imagecreatefromjpeg($this->source);
-		$date  		= _date($LNG['php_dateformat'], TIMESTAMP);
-
-		$Font		= $data['ttf_file'];
+		
+		$image  		= imagecreatefromjpeg($this->source);
+		$date  			= _date($LNG['php_dateformat'], TIMESTAMP);
+		
+		$gameConfig		= $GLOBALS['CACHE']->get('config');
+		
+		$Font			= ROOT_PATH.$gameConfig['bannerFontFile'];
+		
 		if(!file_exists($Font)) {
 			$this->BannerError('TTF Font missing!');
 		}
@@ -93,8 +95,8 @@ class StatBanner {
 		imagettftext($image, 20, 0, 20, 31, $shadow, $Font, $data['username']);
 		imagettftext($image, 20, 0, 20, 30, $color, $Font, $data['username']);
 		
-		imagettftext($image, 16, 0, 250, 31, $shadow, $Font, $data['gameName']);
-		imagettftext($image, 16, 0, 250, 30, $color, $Font, $data['gameName']);
+		imagettftext($image, 16, 0, 250, 31, $shadow, $Font, $gameConfig['gameName']);
+		imagettftext($image, 16, 0, 250, 30, $color, $Font, $gameConfig['gameName']);
 		
 		imagettftext($image, 11, 0, 20, 60, $shadow, $Font, $LNG['ub_rank'].': '.$userRank);
 		imagettftext($image, 11, 0, 20, 59, $color, $Font, $LNG['ub_rank'].': '.$userRank);

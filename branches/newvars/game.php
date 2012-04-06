@@ -44,7 +44,6 @@ if(!class_exists($pageClass)) {
 	ShowErrorPage::printError($LNG['page_doesnt_exist']);
 }
 
-
 $pageObj	= new $pageClass;
 // PHP 5.2 FIX
 // can't use $pageObj::$requireModule
@@ -54,7 +53,7 @@ if(isset($pageProps['requireModule']) && $pageProps['requireModule'] !== 0 && !i
 	ShowErrorPage::printError($LNG['sys_module_inactive']);
 }
 
-if(!is_callable(array($pageObj, $mode))) {	
+if(!method_exists($pageObj, $mode) || !is_callable(array($pageObj, $mode))) {	
 	if(!isset($pageProps['defaultController']) || !is_callable(array($pageObj, $pageProps['defaultController']))) {
 		ShowErrorPage::printError($LNG['page_doesnt_exist']);
 	}

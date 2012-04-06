@@ -60,11 +60,11 @@ class ShowNotesPage extends AbstractPage
 		
 		$GLOBALS['DATABASE']->free_result($notesResult);
 		
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
 			'notesList'	=> $notesList,
 		));
 		
-		$this->display('page.notes.default.tpl');
+		$this->render('page.notes.default.tpl');
 	}
 	
 	function detail()
@@ -84,18 +84,18 @@ class ShowNotesPage extends AbstractPage
 			);
 		}
 		
-		$this->tplObj->execscript("$('#cntChars').text($('#text').val().length);");
-		$this->tplObj->assign_vars(array(
+		$this->execscript("$('#cntChars').text($('#text').val().length);");
+		$this->assign_vars(array(
 			'PriorityList'	=> array(2 => $LNG['nt_important'], 1 => $LNG['nt_normal'], 0 => $LNG['nt_unimportant']),
 			'noteDetail'	=> $noteDetail,
 		));
 		
-		$this->display('page.notes.detail.tpl');
+		$this->render('page.notes.detail.tpl');
 	}
 	
 	public function insert()
 	{
-		global $LNG, $USER;
+		global $LNG, $USER, $UNI;
 		$priority 	= HTTP::_GP('priority', 1);
 		$title 		= HTTP::_GP('title', '', true);
 		$text 		= HTTP::_GP('text', '', true);
@@ -104,7 +104,7 @@ class ShowNotesPage extends AbstractPage
 		$text 		= !empty($text) ? $text : $LNG['nt_no_text'];
 		
 		if($id == 0) {
-			$SQL	= "INSERT INTO ".NOTES." SET owner = ".$USER['id'].", time = ".TIMESTAMP.", priority = ".$priority.", title = '".$GLOBALS['DATABASE']->sql_escape($title)."', text = '".$GLOBALS['DATABASE']->sql_escape($text)."';";		
+			$SQL	= "INSERT INTO ".NOTES." SET owner = ".$USER['id'].", time = ".TIMESTAMP.", priority = ".$priority.", title = '".$GLOBALS['DATABASE']->sql_escape($title)."', text = '".$GLOBALS['DATABASE']->sql_escape($text)."', universe = ".$UNI.";";		
 		} else {
 			$SQL	= "UPDATE ".NOTES." SET time = ".TIMESTAMP.", priority = ".$priority.", title = '".$GLOBALS['DATABASE']->sql_escape($title)."', text = '".$GLOBALS['DATABASE']->sql_escape($text)."' WHERE id = ".$id.";";
 		}

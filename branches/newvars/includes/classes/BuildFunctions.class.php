@@ -136,18 +136,17 @@ class BuildFunctions
 			$elementCost	+= $elementPrice[902];
 		}
 		
-		
 		if	   	 (elementHasFlag($elementID, ELEMENT_BUILD))
 		{
-			$time	= $elementCost / ($uniConfig['gameSpeed'] * (1 + $PLANET[$GLOBALS['VARS']['ELEMENT'][14]['name']])) * pow(0.5, $PLANET[$GLOBALS['VARS']['ELEMENT'][15]['name']]) * (1 + $USER['factor']['BuildTime']);
+			$time	= $elementCost / ($uniConfig['gameSpeed'] * 2500 * (1 + $PLANET[$GLOBALS['VARS']['ELEMENT'][14]['name']])) * pow(0.5, $PLANET[$GLOBALS['VARS']['ELEMENT'][15]['name']]) * (1 + $USER['factor']['BuildTime']);
 		}
 		elseif (elementHasFlag($elementID, ELEMENT_FLEET))
 		{
-			$time	= $elementCost / ($uniConfig['gameSpeed'] * (1 + $PLANET[$GLOBALS['VARS']['ELEMENT'][21]['name']])) * pow(0.5, $PLANET[$GLOBALS['VARS']['ELEMENT'][15]['name']]) * (1 + $USER['factor']['ShipTime']);	
+			$time	= $elementCost / ($uniConfig['gameSpeed'] * 2500 * (1 + $PLANET[$GLOBALS['VARS']['ELEMENT'][21]['name']])) * pow(0.5, $PLANET[$GLOBALS['VARS']['ELEMENT'][15]['name']]) * (1 + $USER['factor']['ShipTime']);	
 		}
 		elseif (elementHasFlag($elementID, ELEMENT_DEFENSIVE))
 		{
-			$time	= $elementCost / ($uniConfig['gameSpeed'] * (1 + $PLANET[$GLOBALS['VARS']['ELEMENT'][21]['name']])) * pow(0.5, $PLANET[$GLOBALS['VARS']['ELEMENT'][15]['name']]) * (1 + $USER['factor']['DefensiveTime']);
+			$time	= $elementCost / ($uniConfig['gameSpeed'] * 2500 * (1 + $PLANET[$GLOBALS['VARS']['ELEMENT'][21]['name']])) * pow(0.5, $PLANET[$GLOBALS['VARS']['ELEMENT'][15]['name']]) * (1 + $USER['factor']['DefensiveTime']);
 		}
 		elseif (elementHasFlag($elementID, ELEMENT_TECH))
 		{

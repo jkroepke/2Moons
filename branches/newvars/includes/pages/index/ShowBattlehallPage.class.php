@@ -67,10 +67,10 @@ class ShowBanListPage extends AbstractPage
 		
 		ksort($AvailableUnis);
 		
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
 			'AvailableUnis'	=> $AvailableUnis,
 			'banList'		=> $banList,
 		));
-		$this->display('page.banlist.default.tpl');
+		$this->render('page.banlist.default.tpl');
 	}
 }

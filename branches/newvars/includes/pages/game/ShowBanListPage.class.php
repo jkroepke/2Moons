@@ -67,13 +67,13 @@ class ShowBanListPage extends AbstractPage
 		
 		$GLOBALS['DATABASE']->free_result($banResult);
 		
-		$this->tplObj->assign_vars(array(	
+		$this->assign_vars(array(	
 			'banList'	=> $banList,
 			'banCount'	=> $banCount,
 			'page'		=> $page,
 			'maxPage'	=> $maxPage,
 		));
 		
-		$this->display('page.banList.default.tpl');
+		$this->render('page.banList.default.tpl');
 	}
 }

@@ -53,7 +53,13 @@ class Database extends mysqli
             $this->con['port'] = 3306;
         }
 
-		@parent::__construct($this->con['host'], $this->con['user'], $this->con['userpw'], $this->con['databasename'], $this->con['port']);
+		if(strpos(':', $this->con['host']) !== false) {
+			$host	= explode(':', $this->con['host']);
+		} else {
+			$host	= array($this->con['host'], NULL);
+		}
+		
+		@parent::__construct($host[0], $this->con['user'], $this->con['userpw'], $this->con['databasename'], $this->con['port'], $host[1]);
 
 		if(mysqli_connect_error())
 		{

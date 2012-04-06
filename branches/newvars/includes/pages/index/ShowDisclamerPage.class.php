@@ -43,11 +43,11 @@ class ShowDisclamerPage extends AbstractPage
 	{
 		global $gameConfig;
 		
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
 			'disclamerAddress' => $gameConfig['disclamerAddress'],
 			'disclamerPhone' => $gameConfig['disclamerPhone'],
 			'disclamerMail' => $gameConfig['disclamerMail'],
 		));
-		$this->display('page.disclamer.default.tpl');
+		$this->render('page.disclamer.default.tpl');
 	}
 }

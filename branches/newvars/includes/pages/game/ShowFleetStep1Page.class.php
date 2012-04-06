@@ -29,8 +29,6 @@
  * @link http://code.google.com/p/2moons/
  */
 
-require_once(ROOT_PATH . 'includes/classes/class.FleetFunctions.php');
-
 class ShowFleetStep1Page extends AbstractPage
 {
 	public static $requireModule = MODULE_FLEET_TABLE;
@@ -42,7 +40,7 @@ class ShowFleetStep1Page extends AbstractPage
 	
 	public function show()
 	{
-		global $USER, $PLANET, $resource, $pricelist, $reslist, $LNG;
+		global $USER, $PLANET, $LNG;
 		
 		$targetGalaxy 			= HTTP::_GP('galaxy', $PLANET['galaxy']);
 		$targetSystem 			= HTTP::_GP('system', $PLANET['system']);
@@ -51,53 +49,68 @@ class ShowFleetStep1Page extends AbstractPage
 		
 		$mission				= HTTP::_GP('target_mission', 0);
 				
-		$Fleet		= array();
-		$FleetRoom	= 0;
-		foreach ($reslist['fleet'] as $id => $ShipID)
+		$fleet		= array();
+		$fleetRoom	= 0;
+		
+		foreach($GLOBALS['VARS']['LIST'][ELEMENT_FLEET] as $elementID)
 		{
-			$amount		 				= max(0, round(HTTP::_GP('ship'.$ShipID, 0.0, 0.0)));
+			$amount	= max(0, round(HTTP::_GP('ship'.$elementID, 0.0, 0.0)));
 			
-			if ($amount < 1 || $ShipID == 212) continue;
-
-			$Fleet[$ShipID]				= $amount;
-			$FleetRoom			   	   += $pricelist[$ShipID]['capacity'] * $amount;
+			if ($amount < 1) {
+				continue;
+			}
+			
+			$fleet[$elementID]	= $amount;
 		}
 		
-		$FleetRoom	*= 1 + $USER['factor']['ShipStorage'];
-		
-		if (empty($Fleet))
+		if (empty($fleet))
+		{
 			FleetFunctions::GotoFleetPage();
-	
-		$FleetData	= array(
-			'fleetroom'			=> floattostring($FleetRoom),
+		}
+		
+		$fleetSpeed	= FleetFunctions::GetFleetMaxSpeed($fleet, $USER);
+				
+		if (empty($fleetSpeed))
+		{
+			FleetFunctions::GotoFleetPage();
+		}		
+		
+		$fleetRoom	= FleetFunctions::GetFleetRoom($fleet);		
+		$fleetRoom	*= 1 + $USER['factor']['ShipStorage'];
+		
+		$fleetData	= array(
+			'fleetroom'			=> floattostring($fleetRoom),
 			'gamespeed'			=> FleetFunctions::GetGameSpeedFactor(),
 			'fleetspeedfactor'	=> 1 - $USER['factor']['FlyTime'],
 			'planet'			=> array('galaxy' => $PLANET['galaxy'], 'system' => $PLANET['system'], 'planet' => $PLANET['planet'], 'planet_type' => $PLANET['planet_type']),
-			'maxspeed'			=> FleetFunctions::GetFleetMaxSpeed($Fleet, $USER),
-			'ships'				=> FleetFunctions::GetFleetShipInfo($Fleet, $USER),
+			'maxspeed'			=> $fleetSpeed,
+			'ships'				=> FleetFunctions::GetFleetShipInfo($fleet, $USER),
 		);
 		
 		$token		= getRandomString();
 		
 		$_SESSION['fleet'][$token]	= array(
 			'time'		=> TIMESTAMP,
-			'fleet'		=> $Fleet,
-			'fleetRoom'	=> $FleetRoom,
+			'fleet'		=> $fleet,
+			'fleetRoom'	=> $fleetRoom,
 		);
 
 		$shortcutList	= $this->GetUserShotcut();
 		$colonyList 	= $this->GetColonyList();
 		$ACSList 		= $this->GetAvalibleACS();
 		
-		if(!empty($shortcutList)) {
+		if(!empty($shortcutList)) 
+		{
 			$shortcutAmount	= max(array_keys($shortcutList));
-		} else {
+		}
+		else
+		{
 			$shortcutAmount	= 0;
 		}
 		
-		$this->tplObj->loadscript('flotten.js');
-		$this->tplObj->execscript('updateVars();FleetTime();window.setInterval("FleetTime()", 1000);');
-		$this->tplObj->assign_vars(array(
+		$this->loadscript('flotten.js');
+		$this->execscript('updateVars();FleetTime();window.setInterval("FleetTime()", 1000);');
+		$this->assign_vars(array(
 			'token'			=> $token,
 			'mission'		=> $mission,
 			'shortcutList'	=> $shortcutList,
@@ -110,10 +123,10 @@ class ShowFleetStep1Page extends AbstractPage
 			'type'			=> $targetType,
 			'speedSelect'	=> FleetFunctions::$allowedSpeed,
 			'typeSelect'   	=> array(1 => $LNG['type_planet'][1], 2 => $LNG['type_planet'][2], 3 => $LNG['type_planet'][3]),
-			'fleetdata'		=> $FleetData,
+			'fleetdata'		=> $fleetData,
 		));
 		
-		$this->display('page.fleetStep1.default.tpl');
+		$this->render('page.fleetStep1.default.tpl');
 	}
 	
 	public function saveShortcuts()
@@ -205,13 +218,13 @@ class ShowFleetStep1Page extends AbstractPage
 	
 	private function GetAvalibleACS()
 	{
-		global $USER, $CONF;
+		global $USER, $uniConfig;
 		
 		$ACSResult 	= $GLOBALS['DATABASE']->query("SELECT acs.id, acs.name, planet.galaxy, planet.system, planet.planet, planet.planet_type 
 		FROM ".USERS_ACS."
 		INNER JOIN ".AKS." acs ON acsID = acs.id
 		INNER JOIN ".PLANETS." planet ON planet.id = acs.target 
-		WHERE userID = ".$USER['id']." AND ".$CONF['max_fleets_per_acs']." > (SELECT COUNT(*) FROM ".FLEETS." WHERE fleet_group = acsID);");
+		WHERE userID = ".$USER['id']." AND ".$uniConfig['fleetMaxUsersPerACS']." > (SELECT COUNT(*) FROM ".FLEETS." WHERE fleet_group = acsID);");
 		
 		$ACSList	= array();
 		
@@ -226,39 +239,65 @@ class ShowFleetStep1Page extends AbstractPage
 	
 	function checkTarget()
 	{
-		global $PLANET, $LNG, $UNI, $CONF, $USER, $resource;
+		global $PLANET, $LNG, $UNI, $USER, $uniConfig, $gameConfig;
 		$TargetGalaxy 					= HTTP::_GP('galaxy', 0);
 		$TargetSystem 					= HTTP::_GP('system', 0);
 		$TargetPlanet					= HTTP::_GP('planet', 0);
 		$TargetPlanettype 				= HTTP::_GP('planet_type', 1);
 	
 		if($TargetGalaxy == $PLANET['galaxy'] && $TargetSystem == $PLANET['system'] && $TargetPlanet == $PLANET['planet'] && $TargetPlanettype == $PLANET['planet_type'])
-			exit($LNG['fl_error_same_planet']);
+		{
+			$this->sendJSON($LNG['fl_error_same_planet']);
+		}
 		
-		if ($TargetPlanet != $CONF['max_planets'] + 1) {
-			$Data	= $GLOBALS['DATABASE']->getFirstRow("SELECT u.id, u.urlaubs_modus, u.user_lastip, u.authattack, p.destruyed, p.der_metal, p.der_crystal, p.destruyed FROM ".USERS." as u, ".PLANETS." as p WHERE p.universe = ".$UNI." AND p.galaxy = ".$TargetGalaxy." AND p.system = ".$TargetSystem." AND p.planet = ".$TargetPlanet."  AND p.planet_type = '".(($TargetPlanettype == 2) ? 1 : $TargetPlanettype)."' AND u.id = p.id_owner;");
+		if ($TargetPlanet != $uniConfig['planetMaxPosition'] + 1) {
+			$Data	= $GLOBALS['DATABASE']->getFirstRow("SELECT u.id, u.urlaubs_modus, u.user_lastip, u.authattack, p.destruyed, p.der_metal, p.der_crystal, p.destruyed 
+														 FROM ".PLANETS." as p
+														 INNER JOIN ".USERS." as u ON u.id = p.id_owner
+														 WHERE p.universe = ".$UNI."
+														 AND p.galaxy = ".$TargetGalaxy."
+														 AND p.system = ".$TargetSystem."
+														 AND p.planet = ".$TargetPlanet."
+														 AND p.planet_type = '".(($TargetPlanettype == 2) ? 1 : $TargetPlanettype)."';");
 
 			if ($TargetPlanettype == 3 && !isset($Data))
-				exit($LNG['fl_error_no_moon']);
+			{
+				$this->sendJSON($LNG['fl_error_no_moon']);
+			}
 			elseif ($TargetPlanettype != 2 && $Data['urlaubs_modus'])
-				exit($LNG['fl_in_vacation_player']);
-			elseif ($CONF['adm_attack'] == 1 && $Data['authattack'] > $USER['authlevel'])
-				exit($LNG['fl_admins_cannot_be_attacked']);
+			{
+				$this->sendJSON($LNG['fl_in_vacation_player']);
+			}
+			elseif ($gameConfig['adminProtection'] == 1 && $Data['authattack'] > $USER['authlevel'])
+			{
+				$this->sendJSON($LNG['fl_admins_cannot_be_attacked']);
+			}
 			elseif ($Data['destruyed'] != 0)
-				exit($LNG['fl_error_not_avalible']);
-			elseif($TargetPlanettype == 2 && $Data['der_metal'] == 0 && $Data['der_crystal'] == 0)
-				exit($LNG['fl_error_empty_derbis']);
-			elseif($USER['id'] != $Data['id'] && $USER['user_lastip'] == $Data['user_lastip'])
-				exit($LNG['fl_multi_alarm']);
+			{
+				$this->sendJSON($LNG['fl_error_not_avalible']);
+			}
+			elseif ($TargetPlanettype == 2 && $Data['der_metal'] == 0 && $Data['der_crystal'] == 0)
+			{
+				$this->sendJSON($LNG['fl_error_empty_derbis']);
+			}
+			elseif ($USER['id'] != $Data['id'] && $USER['user_lastip'] == $Data['user_lastip'])
+			{
+				$this->sendJSON($LNG['fl_multi_alarm']);
+			}
 		} else {
 			if ($USER[$GLOBALS['VARS']['ELEMENT'][124]['name']] == 0)
-				exit($LNG['fl_send_error'][10]);
+			{
+				$this->sendJSON($LNG['fl_send_error'][10]);
+			}
 			
 			$ActualFleets = $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".FLEETS." WHERE fleet_owner = ".$USER['id']." AND fleet_mission = '15';");
 
 			if ($ActualFleets['state'] >= floor(sqrt($USER[$GLOBALS['VARS']['ELEMENT'][124]['name']])))
-				exit($LNG['fl_send_error'][9]);
+			{
+				$this->sendJSON($LNG['fl_send_error'][9]);
+			}
 		}
-		exit('OK');	
+		
+		$this->sendJSON(true);	
 	}
 }

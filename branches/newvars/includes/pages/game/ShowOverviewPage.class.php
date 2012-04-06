@@ -145,7 +145,7 @@ class ShowOverviewPage extends AbstractPage
 			$Queue		= unserialize($PLANET['b_building_id']);
 			$Build		= $LNG['tech'][$Queue[0][0]].' ('.$Queue[0][1].')<br><div id="blc">'.pretty_time($PLANET['b_building'] - TIMESTAMP).'</div>';
 			$Buildtime	= $PLANET['b_building'] - TIMESTAMP;
-			$this->tplObj->execscript('buildTimeTicker();');
+			$this->execscript('buildTimeTicker();');
 		}
 		else
 		{
@@ -166,7 +166,7 @@ class ShowOverviewPage extends AbstractPage
 
 		$GLOBALS['DATABASE']->free_result($chatUsers);
 		
-		$this->tplObj->loadscript('overview.js');
+		$this->loadscript('overview.js');
 
 		$Messages		= $USER['messages'];
 		
@@ -191,7 +191,7 @@ class ShowOverviewPage extends AbstractPage
 			$rankInfo	= sprintf($LNG['ov_userrank_info'], pretty_number($USER['total_points']), $LNG['ov_place'], $USER['total_rank'], $USER['total_rank'], $LNG['ov_of'], $universeData[$UNI]['userAmount']);
 		}
 	
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
 			'rankInfo'					=> $rankInfo,
 			'is_news'					=> $uniConfig['newsEnable'],
 			'news'						=> makebr($uniConfig['newsText']),
@@ -223,7 +223,7 @@ class ShowOverviewPage extends AbstractPage
 			'path'						=> HTTP_PATH,
 		));
 		
-		$this->display('page.overview.default.tpl');
+		$this->render('page.overview.default.tpl');
 	}
 	
 	function actions() 
@@ -233,11 +233,11 @@ class ShowOverviewPage extends AbstractPage
 		$this->initTemplate();
 		$this->setWindow('popup');
 		
-		$this->tplObj->loadscript('overview.actions.js');
-		$this->tplObj->assign_vars(array(
+		$this->loadscript('overview.actions.js');
+		$this->assign_vars(array(
 			'ov_security_confirm'		=> sprintf($LNG['ov_security_confirm'], $PLANET['name'].' ['.$PLANET['galaxy'].':'.$PLANET['system'].':'.$PLANET['planet'].']'),
 		));
-		$this->display('page.overview.actions.tpl');
+		$this->render('page.overview.actions.tpl');
 	}
 	
 	function rename() 

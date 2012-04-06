@@ -74,12 +74,12 @@ class ShowRaportPage extends AbstractPage
 		$CombatRaport			= unserialize($Raport['raport']);
 		$CombatRaport['time']	= _date($LNG['php_tdformat'], $CombatRaport['time'], $USER['timezone']);
 
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
 			'Raport'	=> $CombatRaport,
 			'Info'		=> $Info,
 		));
 		
-		$this->display('shared.mission.raport.tpl');
+		$this->render('shared.mission.raport.tpl');
 	}
 	
 	function show() 
@@ -101,10 +101,10 @@ class ShowRaportPage extends AbstractPage
 		$CombatRaport	= unserialize($Raport);
 		$CombatRaport['time']	= _date($LNG['php_tdformat'], $CombatRaport['time'], (isset($USER['timezone']) ? $USER['timezone'] : $CONF['timezone']));
 
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
 			'Raport'	=> $CombatRaport,
 		));
 		
-		$this->display('shared.mission.raport.tpl');
+		$this->render('shared.mission.raport.tpl');
 	}
 }

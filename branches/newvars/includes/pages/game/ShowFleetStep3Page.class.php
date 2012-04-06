@@ -40,7 +40,7 @@ class ShowFleetStep3Page extends AbstractPage
 	
 	public function show()
 	{
-		global $USER, $PLANET, $resource, $pricelist, $reslist, $CONF, $LNG, $UNI;
+		global $USER, $PLANET, $resource, $uniConfig, $gameConfig, $LNG, $UNI;
 			
 		if (IsVacationMode($USER)) {
 			FleetFunctions::GotoFleetPage(0);
@@ -78,9 +78,9 @@ class ShowFleetStep3Page extends AbstractPage
 			FleetFunctions::GotoFleetPage(3);
 		}
 
-		if ($targetGalaxy < 1 || $targetGalaxy > $CONF['max_galaxy'] || 
-			$targetSystem < 1 || $targetSystem > $CONF['max_system'] || 
-			$targetPlanet < 1 || $targetPlanet > ($CONF['max_planets'] + 1) ||
+		if ($targetGalaxy < 1 || $targetGalaxy > $uniConfig['planetMaxGalaxy'] || 
+			$targetSystem < 1 || $targetSystem > $uniConfig['planetMaxSystem'] || 
+			$targetPlanet < 1 || $targetPlanet > $uniConfig['planetMaxPosition'] + 1 ||
 			($targetType !== 1 && $targetType !== 2 && $targetType !== 3)) {
 			FleetFunctions::GotoFleetPage(4);
 		}
@@ -315,9 +315,9 @@ class ShowFleetStep3Page extends AbstractPage
 			$fleetList[$LNG['tech'][$Ship]]	= $Count;
 		}
 	
-		$this->tplObj->loadscript('flotten.js');
-		$this->tplObj->gotoside('game.php?page=fleetTable');
-		$this->tplObj->assign_vars(array(
+		$this->loadscript('flotten.js');
+		$this->gotoside('game.php?page=fleetTable');
+		$this->assign_vars(array(
 			'targetMission'		=> $targetMission,
 			'distance'			=> $distance,
 			'consumption'		=> $consumption,
@@ -329,6 +329,6 @@ class ShowFleetStep3Page extends AbstractPage
 			'FleetList'			=> $fleetArray,
 		));
 		
-		$this->display('page.fleetStep3.default.tpl');
+		$this->render('page.fleetStep3.default.tpl');
 	}
 }

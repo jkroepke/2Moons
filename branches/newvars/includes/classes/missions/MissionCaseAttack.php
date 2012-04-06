@@ -38,10 +38,12 @@ class MissionCaseAttack extends MissionFunctions
 	
 	function TargetEvent()
 	{	
-		global $resource, $reslist, $LANG;
+		global $uniAllConfig, $LANG;
 		
 		$targetPlanet 	= $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".PLANETS." WHERE `id` = '". $this->_fleet['fleet_end_id'] ."';");
 		$targetUser   	= $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".USERS." WHERE id = '".$targetPlanet['id_owner']."';");
+		
+		$uniConfig		= $uniAllConfig[$this->_fleet['fleet_universe']];
 		
 		$targetUser['factor']				= getFactors($targetUser, 'basic', $this->_fleet['fleet_start_time']);
 		$PlanetRess 						= new ResourceUpdate();
@@ -136,7 +138,7 @@ class MissionCaseAttack extends MissionFunctions
 		$Defender['id']		= array_unique($DefenderRow['id']);
 		
 		require_once('calculateAttack.php');
-		$result 	= calculateAttack($attackFleets, $defense, $GLOBALS['CONFIG'][$this->_fleet['fleet_universe']]['Fleet_Cdr'], $GLOBALS['CONFIG'][$this->_fleet['fleet_universe']]['Defs_Cdr']);
+		$result 	= calculateAttack($attackFleets, $defense, $this->_fleet['fleet_universe']);
 		$SQL		= "";
 		foreach ($attackFleets as $fleetID => $attacker)
 		{
@@ -215,14 +217,16 @@ class MissionCaseAttack extends MissionFunctions
 		$GLOBALS['DATABASE']->multi_query($SQL);
 		
 		if($this->_fleet['fleet_end_type'] == 3)
+		{
 			$targetPlanet 		= array_merge($targetPlanet, $GLOBALS['DATABASE']->getFirstRow("SELECT `der_metal`, `der_crystal` FROM ".PLANETS." WHERE `id_luna` = '".$this->_fleet['fleet_end_id']."';"));
-			
+		}
+		
 		$ShootMetal			= $result['debree']['att'][0] + $result['debree']['def'][0];
 		$ShootCrystal		= $result['debree']['att'][1] + $result['debree']['def'][1];
 		$FleetDebris		= $ShootMetal + $ShootCrystal;
 		$DerbisMetal		= $targetPlanet['der_metal'] + $ShootMetal;
 		$DerbisCrystal		= $targetPlanet['der_crystal'] + $ShootCrystal;		
-		$MoonChance       	= min(round($FleetDebris / 100000 * $GLOBALS['CONFIG'][$this->_fleet['fleet_universe']]['moon_factor'], 0), $GLOBALS['CONFIG'][$this->_fleet['fleet_universe']]['moon_chance']);
+		$MoonChance       	= PlayerUntl::calculateMoonChance($FleetDebris, $this->_fleet['fleet_universe']);
 		$UserChance 		= mt_rand(1, 100);
 		
 		$INFO						= $this->_fleet;
@@ -234,17 +238,20 @@ class MissionCaseAttack extends MissionFunctions
 		
 		$INFO['moon']['chance'] 	= $MoonChance;
 		$INFO['moon']['name']		= "";
+		
 		if ($targetPlanet['planet_type'] == 1 && $targetPlanet['id_luna'] == 0 && $MoonChance > 0 && $UserChance <= $MoonChance)
 		{		
-			require_once(ROOT_PATH.'includes/functions/CreateOneMoonRecord.php');
-			$INFO['moon']['name'] 	= CreateOneMoonRecord($this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet'], $this->_fleet['fleet_universe'], $TargetUserID, $this->_fleet['fleet_start_time'], '', $MoonChance);
-			$INFO['end_galaxy'] = $this->_fleet['fleet_end_galaxy'];
-			$INFO['end_system'] = $this->_fleet['fleet_end_system'];
-			$INFO['end_planet'] = $this->_fleet['fleet_end_planet'];
-			
-			if($GLOBALS['CONFIG'][$this->_fleet['fleet_universe']]['debris_moon'] == 1) {
-				$DerbisMetal	  = 0;
-				$DerbisCrystal	  = 0;
+			if(PlayerUntl::createMoon($this->_fleet['fleet_universe'], $this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet'], $TargetUserID, $MoonChance))
+			{
+				$INFO['moon']['name'] 	= $targetPlanet['name'];
+				$INFO['end_galaxy']		= $this->_fleet['fleet_end_galaxy'];
+				$INFO['end_system']		= $this->_fleet['fleet_end_system'];
+				$INFO['end_planet']		= $this->_fleet['fleet_end_planet'];
+				
+				if($uniConfig['planetHoldDebrisOnMoonCreate'] == 0) {
+					$DerbisMetal	  = 0;
+					$DerbisCrystal	  = 0;
+				}
 			}
 		}
 		

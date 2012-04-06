@@ -40,20 +40,20 @@ class ShowSettingsPage extends AbstractPage
 	
 	public function show()
 	{
-		global $USER, $LNG, $LANG, $CONF;
+		global $USER, $LNG, $LANG, $gameConfig;
 		if($USER['urlaubs_modus'] == 1)
 		{
-			$this->tplObj->assign_vars(array(	
+			$this->assign_vars(array(	
 				'vacationUntil'			=> _date($LNG['php_tdformat'], $USER['urlaubs_until'], $USER['timezone']),
 				'delete'				=> $USER['db_deaktjava'],
 				'canVacationDisbaled'	=> $USER['urlaubs_until'] < TIMESTAMP,
 			));
 			
-			$this->display('page.settings.vacation.tpl');
+			$this->render('page.settings.vacation.tpl');
 		}
 		else
 		{
-			$this->tplObj->assign_vars(array(				
+			$this->assign_vars(array(				
 				'Selectors'			=> array(
 					'timezones' => get_timezone_selector(), 
 					'Sort' => array(
@@ -69,7 +69,7 @@ class ShowSettingsPage extends AbstractPage
 					),
 				'adminProtection'	=> $USER['authattack'],	
 				'userAuthlevel'		=> $USER['authlevel'],
-				'changeNickTime'	=> ($USER['uctime'] + USERNAME_CHANGETIME) - TIMESTAMP,
+				'changeNickTime'	=> ($USER['uctime'] + $gameConfig['userAllowOneNameChangeInHour'] * 3600) - TIMESTAMP,
 				'username'			=> $USER['username'],
 				'email'				=> $USER['email'],
 				'permaEmail'		=> $USER['email_2'],
@@ -87,10 +87,10 @@ class ShowSettingsPage extends AbstractPage
 				'galaxyMissle' 		=> $USER['settings_mis'],
 				'galaxyMessage' 	=> $USER['settings_wri'],
 				'userid'		 	=> $USER['id'],
-				'ref_active'		=> $CONF['ref_active'],
+				'ref_active'		=> $gameConfig['referralEnable'],
 			));
 			
-			$this->display('page.settings.default.tpl');
+			$this->render('page.settings.default.tpl');
 		}
 	}
 	

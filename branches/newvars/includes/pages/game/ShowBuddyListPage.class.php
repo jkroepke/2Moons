@@ -61,7 +61,7 @@ class ShowBuddyListPage extends AbstractPage
 		
 		$userData	= $GLOBALS['DATABASE']->getFirstRow("SELECT username, galaxy, system, planet FROM ".USERS." WHERE id = ".$id.";");
 
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
 			'username'	=> $userData['username'],
 			'galaxy'	=> $userData['galaxy'],
 			'system'	=> $userData['system'],
@@ -69,7 +69,7 @@ class ShowBuddyListPage extends AbstractPage
 			'id'		=> $id,
 		));
 		
-		$this->display('page.buddyList.request.tpl');
+		$this->render('page.buddyList.request.tpl');
 	}
 	
 	function send()
@@ -78,7 +78,7 @@ class ShowBuddyListPage extends AbstractPage
 		
 		$this->initTemplate();
 		$this->setWindow('popup');
-		$this->tplObj->execscript('window.setTimeout(parent.$.fancybox.close, 2000);');
+		$this->execscript('window.setTimeout(parent.$.fancybox.close, 2000);');
 		
 		$id		= HTTP::_GP('id', 0);
 		$text	= HTTP::_GP('text', '', UTF8_SUPPORT);
@@ -170,12 +170,12 @@ class ShowBuddyListPage extends AbstractPage
 		
 		$GLOBALS['DATABASE']->free_result($BuddyListResult);
 	
-		$this->tplObj->assign_vars(array(	
+		$this->assign_vars(array(	
 			'myBuddyList'		=> $myBuddyList,
 			'myRequestList'			=> $myRequestList,
 			'otherRequestList'	=> $otherRequestList,
 		));
 		
-		$this->display('page.buddyList.default.tpl');
+		$this->render('page.buddyList.default.tpl');
 	}
 }

@@ -217,14 +217,14 @@ class ShowSearchPage extends AbstractPage
 			$searchList	= self::_getSearchList($seachMode, $searchText, SEARCH_LIMIT);
 		}
 		
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
 			'searchList'	=> $searchList,
             'dpath'			=> $THEME->getTheme(),
 		));
 		
 		$templateSuffix	= ($seachMode === "allyname" || $seachMode === "allytag") ? "ally" : "default";
 		
-		$this->display('page.search.result.'.$templateSuffix.'.tpl');
+		$this->render('page.search.result.'.$templateSuffix.'.tpl');
 	}
 	
 	function show()
@@ -234,12 +234,12 @@ class ShowSearchPage extends AbstractPage
 		$seachMode 		= HTTP::_GP('type', 'playername');
 		
 		$modeSelector	= array('playername' => $LNG['sh_player_name'], 'planetname' => $LNG['sh_planet_name'], 'allytag' => $LNG['sh_alliance_tag'], 'allyname' => $LNG['sh_alliance_name']);
-		$this->tplObj->loadscript('search.js');
-		$this->tplObj->assign_vars(array(
+		$this->loadscript('search.js');
+		$this->assign_vars(array(
 			'modeSelector'	=> $modeSelector,
 			'seachMode'		=> $seachMode,
 		));
 		
-		$this->display('page.search.default.tpl');
+		$this->render('page.search.default.tpl');
 	}
 }

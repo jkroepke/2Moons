@@ -73,7 +73,7 @@ class ShowPlayerCardPage extends AbstractPage
 			$drawsprozent               = 100 / $totalfights * $query['draws'];
 		}
 
-		$this->tplObj->assign_vars(array(	
+		$this->assign_vars(array(	
 			'id'			=> $PlayerID,
 			'yourid'		=> $USER['id'],
 			'name'			=> $query['username'],
@@ -107,6 +107,6 @@ class ShowPlayerCardPage extends AbstractPage
 			'drawsprozent'  => round($drawsprozent, 2),
 		));
 		
-		$this->display('page.playerCard.default.tpl');
+		$this->render('page.playerCard.default.tpl');
 	}
 }

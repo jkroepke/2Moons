@@ -42,7 +42,7 @@ class ShowFleetStep2Page extends AbstractPage
 	{
 		global $USER, $PLANET, $LNG, $UNI;
 	
-		$this->tplObj->loadscript('flotten.js');
+		$this->loadscript('flotten.js');
 		
 		$targetGalaxy  				= HTTP::_GP('galaxy', 0);
 		$targetSystem   			= HTTP::_GP('system', 0);
@@ -102,15 +102,16 @@ class ShowFleetStep2Page extends AbstractPage
 		$_SESSION['fleet'][$token]['fleetSpeed']	= $fleetSpeed;
 		
 		if(!empty($fleet_group))
+		{
 			$targetMission	= 2;
-
+		}
 		$fleetData	= array(
 			'fleetroom'			=> floattostring($_SESSION['fleet'][$token]['fleetRoom']),
 			'consumption'		=> floattostring($consumption),
 		);
 			
-		$this->tplObj->execscript('calculateTransportCapacity();');
-		$this->tplObj->assign_vars(array(
+		$this->execscript('calculateTransportCapacity();');
+		$this->assign_vars(array(
 			'fleetdata'						=> $fleetData,
 			'consumption'					=> floattostring($consumption),
 			'mission'						=> $targetMission,
@@ -125,6 +126,6 @@ class ShowFleetStep2Page extends AbstractPage
 			'token' 						=> $token,
 		));
 		
-		$this->display('page.fleetStep2.default.tpl');
+		$this->render('page.fleetStep2.default.tpl');
 	}
 }

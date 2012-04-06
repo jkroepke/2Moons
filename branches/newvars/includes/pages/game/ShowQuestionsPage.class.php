@@ -44,7 +44,7 @@ class ShowQuestionsPage extends AbstractPage
 		
 		$LANG->includeLang(array('FAQ'));
 		
-		$this->display('page.questions.default.tpl');
+		$this->render('page.questions.default.tpl');
 	}
 	
 	function single()
@@ -60,9 +60,9 @@ class ShowQuestionsPage extends AbstractPage
 			HTTP::redirectTo('game.php?page=questions');
 		}
 		
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
 			'questionRow'	=> $LNG['questions'][$categoryID][$questionID],
 		));
-		$this->display('page.questions.single.tpl');
+		$this->render('page.questions.single.tpl');
 	}
 }

@@ -102,7 +102,7 @@ class ShowOfficierPage extends AbstractPage
 			}
 		}
 		
-		$this->tplObj->loadscript('officier.js');		
+		$this->loadscript('officier.js');		
 		
 		$darkmatterList	= array();
 		$officierList	= array();
@@ -112,7 +112,7 @@ class ShowOfficierPage extends AbstractPage
 			foreach($GLOBALS['VARS']['LIST'][ELEMENT_BONUS] as $elementID)
 			{
 				if($USER[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']] > TIMESTAMP) {
-					$this->tplObj->execscript("GetOfficerTime(".$elementID.", ".($USER[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']] - TIMESTAMP).");");
+					$this->execscript("GetOfficerTime(".$elementID.", ".($USER[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']] - TIMESTAMP).");");
 				}
 			
 				$costRessources		= BuildFunctions::getElementPrice($USER, $PLANET, $elementID);
@@ -154,12 +154,12 @@ class ShowOfficierPage extends AbstractPage
 			}
 		}
 		
-		$this->tplObj->assign_vars(array(	
+		$this->assign_vars(array(	
 			'officierList'		=> $officierList,
 			'darkmatterList'	=> $darkmatterList,
 			'of_dm_trade'		=> sprintf($LNG['of_dm_trade'], $LNG['tech'][921]),
 		));
 		
-		$this->display('page.officier.default.tpl');
+		$this->render('page.officier.default.tpl');
 	}
 }

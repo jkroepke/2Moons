@@ -357,16 +357,16 @@ class ShowResearchPage extends AbstractPage
 		}
 		
 		if($USER['b_tech_id'] != 0) {
-			$this->tplObj->loadscript('research.js');
+			$this->loadscript('research.js');
 		}
 		
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
 			'ResearchList'	=> $ResearchList,
 			'IsLabinBuild'	=> !$bContinue,
 			'IsFullQueue'	=> $uniConfig['listMaxResearch'] == count($TechQueue),
 			'Queue'			=> $TechQueue,
 		));
 		
-		$this->display('page.research.default.tpl');
+		$this->render('page.research.default.tpl');
 	}
 }

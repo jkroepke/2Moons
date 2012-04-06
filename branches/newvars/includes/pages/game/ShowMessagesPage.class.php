@@ -89,7 +89,7 @@ class ShowMessagesPage extends AbstractPage
 		
 		$GLOBALS['DATABASE']->free_result($MessageResult);		
 
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
 			'MessID'		=> $MessCategory,
 			'MessageCount'	=> $MessageCount,
 			'MessageList'	=> $MessageList,
@@ -97,7 +97,7 @@ class ShowMessagesPage extends AbstractPage
 			'maxPage'		=> $maxPage,
 		));
 		
-		$this->display('page.messages.view.tpl');
+		$this->render('page.messages.view.tpl');
 	}
 	
 	
@@ -183,13 +183,13 @@ class ShowMessagesPage extends AbstractPage
 			
 		$_SESSION['messtoken'] = md5($USER['id'].'|'.$OwnerID);
 		
-		$this->tplObj->assign_vars(array(	
+		$this->assign_vars(array(	
 			'subject'		=> $Subject,
 			'id'			=> $OwnerID,
 			'OwnerRecord'	=> $OwnerRecord,
 		));
 		
-		$this->display('page.messages.write.tpl');
+		$this->render('page.messages.write.tpl');
 	}
 	
 	function show()
@@ -236,12 +236,12 @@ class ShowMessagesPage extends AbstractPage
 			);
 		}
 		
-		$this->tplObj->loadscript('message.js');
-		$this->tplObj->assign_vars(array(	
+		$this->loadscript('message.js');
+		$this->assign_vars(array(	
 			'CategoryList'	=> $CategoryList,
 			'OperatorList'	=> $OperatorList,
 		));
 		
-		$this->display('page.messages.default.tpl');
+		$this->render('page.messages.default.tpl');
 	}
 }

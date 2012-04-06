@@ -42,10 +42,10 @@ class ShowRulesPage extends AbstractPage
 	function show() 
 	{
 		global $LANG, $LNG, $gameConfig;
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
 			'rules'				=> $LANG->getExtra('rules'),
 			'rules_info1'		=> sprintf($LNG['rules_info1'], $gameConfig['boardAddress']),
 		));
-		$this->display('page.rules.default.tpl');
+		$this->render('page.rules.default.tpl');
 	}
 }

@@ -31,6 +31,10 @@
 
 function GenerateReport($RESULT, $INFO)
 {
+	global $uniAllConfig;
+	
+	$uniConfig	= $uniAllConfig[$INFO['fleet_universe']];
+	
 	$Destroy	= array('att' => 0, 'def' => 0);
 	$DATA		= array();
 	$DATA['mode']	= (int) $INFO['moon']['des'];
@@ -59,6 +63,7 @@ function GenerateReport($RESULT, $INFO)
 			'tech'		=> array($Player['techs'][0] * 100, $Player['techs'][1] * 100, $Player['techs'][2] * 100),
 		);
 	}
+	
 	foreach($RESULT['rw'][0]['defenders'] as $FleetID => $Player)
 	{
 		if($FleetID == 0) {
@@ -128,13 +133,17 @@ function GenerateReport($RESULT, $INFO)
 			$DATA['rounds'][$Round]['defender'][] = $PlayerData;
 		}
 		
-		if ($Round >= MAX_ATTACK_ROUNDS || $Destroy['att'] == count($RoundInfo['attackers']) || $Destroy['def'] == count($RoundInfo['defenders']))
+		if ($Round >= $uniConfig['attackMaxRounds'] || $Destroy['att'] == count($RoundInfo['attackers']) || $Destroy['def'] == count($RoundInfo['defenders']))
 			break;
 		
 		if(isset($RoundInfo['attack'], $RoundInfo['attackShield'], $RoundInfo['defense'], $RoundInfo['defShield']))
+		{
 			$DATA['rounds'][$Round]['info']	= array($RoundInfo['attack'], $RoundInfo['attackShield'], $RoundInfo['defense'], $RoundInfo['defShield']);
+		}
 		else
+		{
 			$DATA['rounds'][$Round]['info']	= array(NULL, NULL, NULL, NULL);
+		}
 	}
 	return $DATA;
 }

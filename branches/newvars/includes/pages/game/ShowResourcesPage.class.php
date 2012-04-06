@@ -175,7 +175,7 @@ class ShowResourcesPage extends AbstractPage
 			$prodSelector[$procent]	= $procent.'%';
 		}
 		
-		$this->tplObj->assign_vars(array(	
+		$this->assign_vars(array(	
 			'header'			=> sprintf($LNG['rs_production_on_planet'], $PLANET['name']),
 			'prodSelector'		=> $prodSelector,
 			'productionList'	=> $productionList,
@@ -188,6 +188,6 @@ class ShowResourcesPage extends AbstractPage
 			'ressIDs'			=> $ressIDs,
 		));
 		
-		$this->display('page.resources.default.tpl');
+		$this->render('page.resources.default.tpl');
 	}
 }

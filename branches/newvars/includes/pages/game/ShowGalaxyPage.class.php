@@ -86,8 +86,8 @@ class ShowGalaxyPage extends AbstractPage
 		$galaxyRows->setSystem($system);
 		$Result	= $galaxyRows->getGalaxyData();
 
-        $this->tplObj->loadscript('galaxy.js');
-        $this->tplObj->assign_vars(array(
+        $this->loadscript('galaxy.js');
+        $this->assign_vars(array(
 			'GalaxyRows'				=> $Result,
 			'planetcount'				=> sprintf($LNG['gl_populed_planets'], count($Result)),
 			'action'					=> $action,
@@ -121,6 +121,6 @@ class ShowGalaxyPage extends AbstractPage
 			),
 		));
 		
-		$this->display('page.galaxy.default.tpl');
+		$this->render('page.galaxy.default.tpl');
 	}
 }

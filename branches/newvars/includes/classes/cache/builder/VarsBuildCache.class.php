@@ -22,6 +22,7 @@ class VarsBuildCache
 				'combat'	=> array_filter(array(
 					'attack'	=> $varsRow['attack'],
 					'shield'	=> $varsRow['defend'],
+					'structure'	=> $varsRow['cost901'] + $varsRow['cost902'],
 				), 'is_numeric'),
 				'cost'		=> array(
 					901	=> $varsRow['cost901'],
@@ -40,7 +41,7 @@ class VarsBuildCache
 					'speed2'		=> $varsRow['speed2'],
 					'capacity'		=> $varsRow['capacity'],
 					'tech'			=> $varsRow['speedTech'],
-				), 'is_null'),			
+				), 'is_numeric'),			
 				'bonus'			=> array(
 					'Attack'			=> $varsRow['bonusAttack'],
 					'Defensive'			=> $varsRow['bonusDefensive'],
@@ -83,7 +84,6 @@ class VarsBuildCache
 				}
 			}
 		}
-		
 		
 		$reqResult		= $GLOBALS['DATABASE']->query("SELECT * FROM ".VARS_REQUIRE.";");
 		while($reqRow = $GLOBALS['DATABASE']->fetchArray($reqResult)) {

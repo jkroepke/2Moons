@@ -57,11 +57,11 @@ class ShowTicketPage extends AbstractPage
 		
 		$GLOBALS['DATABASE']->free_result($ticketResult);
 		
-		$this->tplObj->assign_vars(array(	
+		$this->assign_vars(array(	
 			'ticketList'	=> $ticketList
 		));
 			
-		$this->display('page.ticket.default.tpl');
+		$this->render('page.ticket.default.tpl');
 	}
 	
 	function create() 
@@ -70,11 +70,11 @@ class ShowTicketPage extends AbstractPage
 		
 		$categoryList	= $this->ticketObj->getCategoryList();
 		
-		$this->tplObj->assign_vars(array(	
+		$this->assign_vars(array(	
 			'categoryList'	=> $categoryList,
 		));
 			
-		$this->display('page.ticket.create.tpl');		
+		$this->render('page.ticket.create.tpl');		
 	}
 	
 	function send() 
@@ -127,13 +127,13 @@ class ShowTicketPage extends AbstractPage
 			
 		$categoryList	= $this->ticketObj->getCategoryList();
 		
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
 			'ticketID'		=> $ticketID,
 			'categoryList'	=> $categoryList,
 			'answerList'	=> $answerList,
 			'status'		=> $ticket_status,
 		));
 			
-		$this->display('page.ticket.view.tpl');		
+		$this->render('page.ticket.view.tpl');		
 	}
 }

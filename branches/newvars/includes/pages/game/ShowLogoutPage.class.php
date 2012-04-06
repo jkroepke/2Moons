@@ -44,6 +44,6 @@ class ShowLogoutPage extends AbstractPage
 		global $LNG, $SESSION;
 		
 		$SESSION->DestroySession();
-		$this->display('page.logout.default.tpl');
+		$this->render('page.logout.default.tpl');
 	}
 }

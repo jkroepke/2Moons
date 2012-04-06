@@ -72,10 +72,10 @@ class ShowBattleHallPage extends AbstractPage
 		
 		$GLOBALS['DATABASE']->free_result($top);
 
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
 			'TopKBList'		=> $TopKBList,
 		));
 		
-		$this->display('page.battlehall.default.tpl');
+		$this->render('page.battlehall.default.tpl');
 	}
 }

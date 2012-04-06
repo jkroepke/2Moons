@@ -165,7 +165,7 @@ class ShowStatisticsPage extends AbstractPage
         $Selector['who'] 	= array(1 => $LNG['st_player'], 2 => $LNG['st_alliance']);
         $Selector['type']	= array(1 => $LNG['st_points'], 2 => $LNG['st_fleets'], 3 => $LNG['st_researh'], 4 => $LNG['st_buildings'], 5 => $LNG['st_defenses']);
 
-        $this->tplObj->assign_vars(array(
+        $this->assign_vars(array(
             'Selectors'				=> $Selector,
             'who'					=> $who,
             'type'					=> $type,
@@ -176,6 +176,6 @@ class ShowStatisticsPage extends AbstractPage
             'stat_date'				=> _date($LNG['php_tdformat'], $CONF['stat_last_update'], $USER['timezone']),
         ));
 
-        $this->display('page.statistics.default.tpl');
+        $this->render('page.statistics.default.tpl');
     }
 }

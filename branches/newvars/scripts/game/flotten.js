@@ -62,12 +62,13 @@ function refreshFormData() {
 	$("#distance").text(NumberGetHumanReadable(dataFlyDistance));
 	$("#maxspeed").text(NumberGetHumanReadable(data.maxspeed));
 	if (dataFlyCargoSpace >= 0) {
-		$("#consumption").html("<font color=\"lime\">" + NumberGetHumanReadable(dataFlyConsumption) + "</font>");
-		$("#storage").html("<font color=\"lime\">" + NumberGetHumanReadable(dataFlyCargoSpace) + "</font>");
+		var color	= "lime";
 	} else {
-		$("#consumption").html("<font color=\"red\">" + NumberGetHumanReadable(dataFlyConsumption) + "</font>");
-		$("#storage").html("<font color=\"red\">" + NumberGetHumanReadable(dataFlyCargoSpace) + "</font>");
+		var color	= "red";
 	}
+	
+	$("#consumption").html('<font color="'+color+'">' + NumberGetHumanReadable(dataFlyConsumption) + '</font>');
+	$("#storage").html('<font color="'+color+'">' + NumberGetHumanReadable(dataFlyCargoSpace) + '</font>');
 }
 
 function setACSTarget(galaxy, solarsystem, planet, type, tacs) {
@@ -190,8 +191,8 @@ function CheckTarget()
 {
 	kolo	= (typeof data.ships[208] == "object") ? 1 : 0;
 		
-	$.get('game.php?page=fleetStep1&mode=checkTarget&galaxy='+document.getElementsByName("galaxy")[0].value+'&system='+document.getElementsByName("system")[0].value+'&planet='+document.getElementsByName("planet")[0].value+'&planet_type='+document.getElementsByName("type")[0].value+'&lang='+Lang+'&kolo='+kolo, function(data) {
-		if($.trim(data) == "OK") {
+	$.getJSON('game.php?page=fleetStep1&mode=checkTarget&galaxy='+document.getElementsByName("galaxy")[0].value+'&system='+document.getElementsByName("system")[0].value+'&planet='+document.getElementsByName("planet")[0].value+'&planet_type='+document.getElementsByName("type")[0].value+'&lang='+Lang+'&kolo='+kolo, function(data) {	
+		if(data === true) {
 			document.getElementById('form').submit();
 		} else {
 			NotifyBox(data);
@@ -204,7 +205,9 @@ function EditShortcuts(autoadd) {
 	$(".shortcut-link").hide();
 	$(".shortcut-edit:not(.shortcut-new)").show();
 	if($('.shortcut-isset').length === 0)
+	{
 		AddShortcuts();
+	}
 }
 
 function AddShortcuts() {
