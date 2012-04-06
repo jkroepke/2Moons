@@ -77,8 +77,6 @@ function elementHasFlag($elementID, $flag) {
 }
 
 function getFactors($USER, $Type = 'basic', $TIME = NULL) {
-	global $CONF;
-	
 	if(empty($TIME)) {
 		$TIME	= TIMESTAMP;
 	}
@@ -230,9 +228,8 @@ function locale_date_format($format, $time, $LNG = NULL) {
 	return $format;
 }
 
-function _date($format, $time = null, $toTimeZone = null, $LNG = NULL) {
-	global $CONF;
-	
+function _date($format, $time = null, $toTimeZone = null, $LNG = NULL)
+{
 	if(!isset($time)) {
 		$time	= TIMESTAMP;
 	}
@@ -345,20 +342,20 @@ function pretty_time($seconds)
 	}
 	
 	if($second > 9) {
-		$time .= $second.$LNG['short_second'].' ';
+		$time .= $second.$LNG['short_second'];
 	} else {
-		$time .= '0'.$second.$LNG['short_second'].' ';
+		$time .= '0'.$second.$LNG['short_second'];
 	}
 
 	return $time;
 }
 
-function GetStartAdressLink($FleetRow, $FleetType)
+function GetStartAdressLink($FleetRow, $FleetType = '')
 {
 	return '<a href="game.php?page=galaxy&amp;galaxy='.$FleetRow['fleet_start_galaxy'].'&amp;system='.$FleetRow['fleet_start_system'].'" class="'. $FleetType .'">['.$FleetRow['fleet_start_galaxy'].':'.$FleetRow['fleet_start_system'].':'.$FleetRow['fleet_start_planet'].']</a>';
 }
 
-function GetTargetAdressLink($FleetRow, $FleetType)
+function GetTargetAdressLink($FleetRow, $FleetType = '')
 {
 	return '<a href="game.php?page=galaxy&amp;galaxy='.$FleetRow['fleet_end_galaxy'].'&amp;system='.$FleetRow['fleet_end_system'].'" class="'. $FleetType .'">['.$FleetRow['fleet_end_galaxy'].':'.$FleetRow['fleet_end_system'].':'.$FleetRow['fleet_end_planet'].']</a>';
 }
@@ -518,8 +515,17 @@ function isModulAvalible($ID)
 
 function MaxPlanets($Level, $Universe)
 {
+	global $uniAllConfig;
+	
+	$uniConfig	= $uniAllConfig[$Universe];
 	// http://owiki.de/index.php/Astrophysik#.C3.9Cbersicht
-	return min($GLOBALS['CONFIG'][$Universe]['min_player_planets'] + ceil($Level / 2) * PLANETS_PER_TECH, $GLOBALS['CONFIG'][$Universe]['max_player_planets']);
+	
+	if(empty($uniConfig['userMaxPlanets']))
+	{
+		return 0;
+	}
+
+	return min($uniConfig['userMinPlanets'] + ceil($Level / 2) * PLANETS_PER_TECH, $uniConfig['userMaxPlanets']);
 }
 
 function allowPlanetPosition($Pos, $techLevel)

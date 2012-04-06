@@ -275,7 +275,7 @@ class ShowFleetStep3Page extends AbstractPage
 		}
 		
 		$fleetStorage		-= $consumption;
-		
+				
 		$fleetRessource	= array(
 			901	=> min($TransportMetal, floor($PLANET[$GLOBALS['VARS']['ELEMENT'][901]['name']])),
 			902	=> min($TransportCrystal, floor($PLANET[$GLOBALS['VARS']['ELEMENT'][902]['name']])),
@@ -291,7 +291,7 @@ class ShowFleetStep3Page extends AbstractPage
 		if ($StorageNeeded > $fleetStorage) {
 			FleetFunctions::GotoFleetPage(20);
 		}
-				
+		
 		$PLANET[$GLOBALS['VARS']['ELEMENT'][901]['name']]	-= $fleetRessource[901];
 		$PLANET[$GLOBALS['VARS']['ELEMENT'][902]['name']]	-= $fleetRessource[902];
 		$PLANET[$GLOBALS['VARS']['ELEMENT'][903]['name']]	-= $fleetRessource[903] + $consumption;

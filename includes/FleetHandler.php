@@ -33,9 +33,7 @@ $token			= getRandomString();
 
 $fleetResult	= $GLOBALS['DATABASE']->query("UPDATE ".FLEETS_EVENT." SET `lock` = '".$token."' WHERE `lock` IS NULL AND `time` <= ". TIMESTAMP .";");
 
-if($GLOBALS['DATABASE']->affectedRows() !== 0) {
-	require_once(ROOT_PATH . 'includes/classes/class.FlyingFleetHandler.php');
-	
+if($GLOBALS['DATABASE']->affectedRows() !== 0) {	
 	$fleetObj	= new FlyingFleetHandler();
 	$fleetObj->setToken($token);
 	$fleetObj->run();

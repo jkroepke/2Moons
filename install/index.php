@@ -36,6 +36,8 @@ define('ROOT_PATH', str_replace('\\', '/', dirname(dirname(__FILE__))).'/');
 
 require(ROOT_PATH . 'includes/common.php');
 
+date_default_timezone_set(@date_default_timezone_get());
+
 $THEME->setUserTheme('gow');
 
 $LANG->GetLangFromBrowser();
@@ -355,8 +357,8 @@ switch ($step) {
 			
 			setConfig(array(
 				'version'		=> file_get_contents('VERSION'),
-				'language'		=> @date_default_timezone_get(),
-				'timezone'		=> $LANG->GetUser(),
+				'timezone'		=> @date_default_timezone_get(),
+				'language'		=> $LANG->GetUser(),
 				'newsEnable	'	=> 1,
 				'newsText'		=> $LNG['sql_welcome'].'1.7',
 				'uniName'		=> $LNG['fcm_universe'].' 1',

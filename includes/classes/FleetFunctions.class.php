@@ -216,15 +216,12 @@ class FleetFunctions
 
 	public static function GetCurrentFleets($USERID, $Mission = 0)
 	{
-		
 		$ActualFleets = $GLOBALS['DATABASE']->getFirstRow("SELECT COUNT(*) as state FROM ".FLEETS." WHERE fleet_owner = '".$USERID."' AND ".(($Mission != 0)?"fleet_mission = '".$Mission."'":"fleet_mission != 10").";");
 		return $ActualFleets['state'];
 	}	
 	
 	public static function SendFleetBack($USER, $FleetID)
 	{
-			
-
 		$FleetRow = $GLOBALS['DATABASE']->getFirstRow("SELECT start_time, fleet_mission, fleet_group, fleet_owner, fleet_mess FROM ".FLEETS." WHERE fleet_id = '". $FleetID ."';");
 		if ($FleetRow['fleet_owner'] != $USER['id'] || $FleetRow['fleet_mess'] == 1)
 			return;
@@ -389,7 +386,7 @@ class FleetFunctions
 			$planetQuery[]	= $GLOBALS['VARS']['ELEMENT'][$elementIDID]['name']." = ".$GLOBALS['VARS']['ELEMENT'][$elementIDID]['name']." - ".$elementIDCount;
 		}
 		
-		foreach($GLOBALS['VARS']['LIST'][ELEMENT_RESOURCE_ON_FLEET] as $resourceID) {
+		foreach($fleetRessource as $resourceID => $amount) {
 			$resourceSQL	.= ",fleet_resource_".$GLOBALS['VARS']['ELEMENT'][$resourceID]['name']." = ".$fleetRessource[$resourceID];
 		}
 		
