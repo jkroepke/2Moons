@@ -123,7 +123,7 @@ class MissionFunctions
 	
 	function KillFleet()
 	{
-				$this->kill	= 1;
+		$this->kill	= 1;
 		$GLOBALS['DATABASE']->multi_query("DELETE FROM ".FLEETS." WHERE `fleet_id` = ".$this->_fleet['fleet_id'].";
 		DELETE FROM ".FLEETS_EVENT." WHERE `fleetID` = ".$this->_fleet['fleet_id'].";");
 	}	

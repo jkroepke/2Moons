@@ -48,13 +48,13 @@ class ShowTraderPage extends AbstractPage
 	{
 		global $LNG, $uniConfig, $USER;
 		
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
 			'tr_cost_dm_trader'		=> sprintf($LNG['tr_cost_dm_trader'], pretty_number($uniConfig['traderResourceCost']), $LNG['tech'][921]),
 			'charge'				=> self::$Charge,
 			'requiredDarkMatter'	=> $USER['darkmatter'] < $uniConfig['traderResourceCost'] ? sprintf($LNG['tr_empty_darkmatter'], $LNG['tech'][921]) : false,
 		));
 
-		$this->display("page.trader.default.tpl");
+		$this->render("page.trader.default.tpl");
 	}
 		
 	function trade()
@@ -73,14 +73,14 @@ class ShowTraderPage extends AbstractPage
 		
 		$tradeResources	= array_values(array_diff($reslist['resstype'][1], array($resourceID)));
 		
-		$this->tplObj->loadscript("trader.js");
-		$this->tplObj->assign_vars(array(
+		$this->loadscript("trader.js");
+		$this->assign_vars(array(
 			'resourceID'		=> $resourceID,
 			'tradeRessources'	=> $tradeResources,
 			'charge' 			=> self::$Charge[$resourceID],
 		));
 
-		$this->display('page.trader.trade.tpl');
+		$this->render('page.trader.trade.tpl');
 	}
 	
 	function send()

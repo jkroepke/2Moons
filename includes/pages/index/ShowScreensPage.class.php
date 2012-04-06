@@ -41,6 +41,6 @@ class ShowScreensPage extends AbstractPage
 	
 	function show() 
 	{
-		$this->display('page.screens.default.tpl');
+		$this->render('page.screens.default.tpl');
 	}
 }

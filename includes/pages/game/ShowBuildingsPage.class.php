@@ -345,10 +345,10 @@ class ShowBuildingsPage extends AbstractPage
 
 		
 		if ($QueueCount != 0) {
-			$this->tplObj->loadscript('buildlist.js');
+			$this->loadscript('buildlist.js');
 		}
 		
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
 			'BuildInfoList'		=> $BuildInfoList,
 			'CanBuildElement'	=> $CanBuildElement,
 			'RoomIsOk'			=> $RoomIsOk,
@@ -357,6 +357,6 @@ class ShowBuildingsPage extends AbstractPage
 			'HaveMissiles'		=> (bool) $PLANET[$GLOBALS['VARS']['ELEMENT'][503]['name']] + $PLANET[$GLOBALS['VARS']['ELEMENT'][502]['name']],
 		));
 			
-		$this->display('page.buildings.default.tpl');
+		$this->render('page.buildings.default.tpl');
 	}
 }

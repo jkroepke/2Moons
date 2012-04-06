@@ -34,8 +34,8 @@ define('MODE', 'INDEX');
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 
 require(ROOT_PATH.'includes/common.php');
-require(ROOT_PATH.'includes/pages/game/class.AbstractPage.php');
-require(ROOT_PATH.'includes/pages/game/class.ShowErrorPage.php');
+require(ROOT_PATH.'includes/pages/game/AbstractPage.class.php');
+require(ROOT_PATH.'includes/pages/game/ShowErrorPage.class.php');
 
 if($SESSION->IsUserLogin()) {
 	$USER	= $GLOBALS['DATABASE']->getFirstRow("SELECT id, authlevel, timezone, lang, urlaubs_modus FROM ".USERS." WHERE id = ".$_SESSION['id'].";");
@@ -51,7 +51,7 @@ if($SESSION->IsUserLogin()) {
 $LANG->setUser($USER['lang']);
 $LANG->includeLang(array('L18N', 'INGAME', 'TECH', 'FLEET', 'CUSTOM'));
 
-require(ROOT_PATH.'includes/pages/game/class.ShowRaportPage.php');
+require(ROOT_PATH.'includes/pages/game/ShowRaportPage.class.php');
 
 $pageObj	= new ShowRaportPage;
 $mode		= HTTP::_GP('mode', 'show');

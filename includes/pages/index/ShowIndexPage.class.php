@@ -51,7 +51,7 @@ class ShowIndexPage extends AbstractPage
 		$Code	= HTTP::_GP('code', 0);
 		if(!empty($Code))
 		{
-			$this->tplObj->assign_vars(array(
+			$this->assign_vars(array(
 				'code'					=> $LNG['login_error_'.$Code],
 			));
 		}
@@ -72,7 +72,7 @@ class ShowIndexPage extends AbstractPage
 			}
 		}
 		
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
 			'ref_id'				=> $RefID,
 			'ref_uni'				=> $RefUser,
 			'contentbox'			=> false,
@@ -81,6 +81,6 @@ class ShowIndexPage extends AbstractPage
 			'server_description'	=> sprintf($LNG['server_description'], $gameConfig['gameName']),
 		));
 		
-		$this->display('page.index.default.tpl');
+		$this->render('page.index.default.tpl');
 	}
 }

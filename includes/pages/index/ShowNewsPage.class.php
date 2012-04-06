@@ -53,9 +53,9 @@ class ShowNewsPage extends AbstractPage
 			);
 		}
 		
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
 			'newsList'	=> $newsList,
 		));
-		$this->display('page.news.default.tpl');
+		$this->render('page.news.default.tpl');
 	}
 }

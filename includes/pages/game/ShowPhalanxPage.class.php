@@ -70,7 +70,7 @@ class ShowPhalanxPage extends AbstractPage
 
 		$this->setWindow('popup');
 
-		$this->tplObj->loadscript('phalanx.js');
+		$this->loadscript('phalanx.js');
 		
 		$PhRange 		 	= self::GetPhalanxRange($PLANET[$GLOBALS['VARS']['ELEMENT'][43]['name']]);
 		$Galaxy 			= HTTP::_GP('id', 0);
@@ -100,7 +100,7 @@ class ShowPhalanxPage extends AbstractPage
 		$fleetTableObj->setPlanet($TargetInfo['id']);
 		$fleetTable	=  $fleetTableObj->renderTable();
 		
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
 			'galaxy'  		=> $Galaxy,
 			'system'  		=> $System,
 			'planet'   		=> $Planet,
@@ -108,6 +108,6 @@ class ShowPhalanxPage extends AbstractPage
 			'fleetTables'	=> $fleetTable,
 		));
 		
-		$this->display('page.phalanx.default.tpl');			
+		$this->render('page.phalanx.default.tpl');			
 	}
 }

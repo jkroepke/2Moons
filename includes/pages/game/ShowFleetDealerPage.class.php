@@ -85,14 +85,14 @@ class ShowFleetDealerPage extends AbstractPage
 			$this->printMessage($LNG['ft_empty']);
 		}
 
-		$this->tplObj->loadscript('fleettrader.js');
-		$this->tplObj->execscript('updateVars();');
-		$this->tplObj->assign_vars(array(
+		$this->loadscript('fleettrader.js');
+		$this->execscript('updateVars();');
+		$this->assign_vars(array(
 			'shipIDs'	=> $allowedShipIDs,
 			'CostInfos'	=> $Cost,
 			'Charge'	=> $CONF['trade_charge'],
 		));
 		
-		$this->display('page.fleetDealer.default.tpl');
+		$this->render('page.fleetDealer.default.tpl');
 	}
 }

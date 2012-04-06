@@ -82,7 +82,7 @@ class ShowAlliancePage extends AbstractPage
 		
 			if(isset($this->tplObj))
 			{
-				$this->tplObj->assign_vars(array(
+				$this->assign_vars(array(
 					'rights'		=> $this->rights,
 					'AllianceOwner'	=> $USER['ally_rank_id'] == 0,
 				));
@@ -113,7 +113,7 @@ class ShowAlliancePage extends AbstractPage
 		
 		if ($this->allianceData['ally_diplo'] == 1)
 		{
-			$this->tplObj->assign_vars(array(
+			$this->assign_vars(array(
 				'DiploInfo'			=> $this->getDiplomatic(),
 			));
 		}
@@ -122,7 +122,7 @@ class ShowAlliancePage extends AbstractPage
 		{
 			$StatsData 					= $GLOBALS['DATABASE']->getFirstRow("SELECT SUM(wons) as wons, SUM(loos) as loos, SUM(draws) as draws, SUM(kbmetal) as kbmetal, SUM(kbcrystal) as kbcrystal, SUM(lostunits) as lostunits, SUM(desunits) as desunits FROM ".USERS." WHERE ally_id='" . $this->allianceData['id'] . "';");
 
-			$this->tplObj->assign_vars(array(
+			$this->assign_vars(array(
 				'totalfight'	=> $StatsData['wons'] + $StatsData['loos'] + $StatsData['draws'],
 				'fightwon'		=> $StatsData['wons'],
 				'fightlose'		=> $StatsData['loos'],
@@ -133,7 +133,7 @@ class ShowAlliancePage extends AbstractPage
 				'dercrystal'	=> pretty_number($StatsData['kbcrystal']),
 			));
 		}
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
 			'ally_description' 			=> bbcode($this->allianceData['ally_description']),
 			'ally_id'	 				=> $this->allianceData['id'],
 			'ally_image' 				=> $this->allianceData['ally_image'],
@@ -146,7 +146,7 @@ class ShowAlliancePage extends AbstractPage
 			'ally_request'          	=> !$this->hasAlliance && !$this->hasApply && $this->allianceData['ally_request_notallow'] == 0,
 		));
 		
-		$this->display('page.alliance.info.tpl');
+		$this->render('page.alliance.info.tpl');
 	}
 	
 	function show() 
@@ -175,16 +175,16 @@ class ShowAlliancePage extends AbstractPage
 		global $USER, $LNG;
 		
 		$allianceResult = $GLOBALS['DATABASE']->getFirstRow("SELECT a.ally_tag FROM ".ALLIANCE_REQUEST." r INNER JOIN ".ALLIANCE." a ON a.id = r.allianceID WHERE r.userID = ".$USER['id'].";");
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
 			'request_text'	=> sprintf($LNG['al_request_wait_message'], $allianceResult['ally_tag']),
 		));     
 
-		$this->display('page.alliance.applyWait.tpl');		
+		$this->render('page.alliance.applyWait.tpl');		
 	}
 	
 	private function createSelection()
 	{
-		$this->display('page.alliance.createSelection.tpl');		
+		$this->render('page.alliance.createSelection.tpl');		
 	}
 
 	function search() 
@@ -221,12 +221,12 @@ class ShowAlliancePage extends AbstractPage
 			$GLOBALS['DATABASE']->free_result($searchResult);
 		}
 		
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
 			'searchText'	=> $searchText,
 			'searchList'	=> $searchList,
 		));	
 		
-		$this->display('page.alliance.search.tpl');	
+		$this->render('page.alliance.search.tpl');	
 	}
 	
 	function apply()
@@ -262,13 +262,13 @@ class ShowAlliancePage extends AbstractPage
 			$this->printMessage($LNG['al_request_confirmation_message']);
 		}
 		
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
 			'allyid'			=> $allianceID,
 			'applytext'			=> $allianceResult['ally_request'],
 			'al_write_request'	=> sprintf($LNG['al_write_request'], $allianceResult['ally_tag']),
 		));	
 		
-		$this->display('page.alliance.apply.tpl');
+		$this->render('page.alliance.apply.tpl');
 	}
 	
 	function cancelApply()
@@ -295,7 +295,7 @@ class ShowAlliancePage extends AbstractPage
 		if($action == "send") {
 			$this->createAlliance();
 		} else {
-			$this->display('page.alliance.create.tpl');
+			$this->render('page.alliance.create.tpl');
 		}
 	}
 	
@@ -305,7 +305,7 @@ class ShowAlliancePage extends AbstractPage
 		if($action == "send") {
 			$this->createAllianceProcessor();
 		} else {
-			$this->display('page.alliance.create.tpl');
+			$this->render('page.alliance.create.tpl');
 		}
 	}
 		
@@ -391,7 +391,7 @@ class ShowAlliancePage extends AbstractPage
 														
 		$ApplyCount					= $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".ALLIANCE_REQUEST." WHERE allianceID = ".$this->allianceData['id'].";");
 		
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
 			'DiploInfo'					=> $this->getDiplomatic(),
 			'ally_web'					=> $this->allianceData['ally_web'],
 			'ally_tag'	 				=> $this->allianceData['ally_tag'],
@@ -414,7 +414,7 @@ class ShowAlliancePage extends AbstractPage
 			'isOwner'					=> $this->allianceData['ally_owner'] == $USER['id'],
 		));
 		
-		$this->display('page.alliance.home.tpl');
+		$this->render('page.alliance.home.tpl');
 	}
 	
 	function memberList()
@@ -462,12 +462,12 @@ class ShowAlliancePage extends AbstractPage
 		
 		$GLOBALS['DATABASE']->free_result($memberListResult);
 		
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
 			'memberList'		=> $memberList,
 			'al_users_list'		=> sprintf($LNG['al_users_list'], count($memberList)),
 		));
 		
-		$this->display('page.alliance.memberList.tpl');
+		$this->render('page.alliance.memberList.tpl');
 	}
 	
 	function close()
@@ -532,11 +532,11 @@ class ShowAlliancePage extends AbstractPage
 			}
 		}
 		
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
 			'RangeList'						=> $RangeList,
 		));
 		
-		$this->display('page.alliance.circular.tpl');
+		$this->render('page.alliance.circular.tpl');
 	}
 	
 	function admin() 
@@ -614,7 +614,7 @@ class ShowAlliancePage extends AbstractPage
 			}
 		}
 		
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
 			'RequestSelector'			=> array(0 => $LNG['al_requests_allowed'], 1 => $LNG['al_requests_not_allowed']),
 			'YesNoSelector'				=> array(1 => $LNG['al_go_out_yes'], 0 => $LNG['al_go_out_no']),
 			'textMode' 					=> $textMode,
@@ -627,7 +627,7 @@ class ShowAlliancePage extends AbstractPage
 			'ally_diplo_data'			=> $this->allianceData['ally_diplo'],
 		));
 		
-		$this->display('page.alliance.admin.overview.tpl');
+		$this->render('page.alliance.admin.overview.tpl');
 	}
 	
 	private function adminClose() {
@@ -659,7 +659,7 @@ class ShowAlliancePage extends AbstractPage
 			$GLOBALS['DATABASE']->query("UPDATE ".ALLIANCE." SET ally_tag = '".$GLOBALS['DATABASE']->sql_escape($name)."' WHERE id = ".$this->allianceData['id'].";");
 		}
 
-		$this->display('page.alliance.admin.rename.tag.tpl');
+		$this->render('page.alliance.admin.rename.tag.tpl');
 	}
 	
 	private function adminChangeName() {
@@ -677,7 +677,7 @@ class ShowAlliancePage extends AbstractPage
 			$GLOBALS['DATABASE']->query("UPDATE ".ALLIANCE." SET ally_name = '".$GLOBALS['DATABASE']->sql_escape($name)."' WHERE id = ".$this->allianceData['id'].";");
 		}
 
-		$this->display('page.alliance.admin.rename.name.tpl');
+		$this->render('page.alliance.admin.rename.name.tpl');
 	}
 	
 	private function adminTransfer()
@@ -711,11 +711,11 @@ class ShowAlliancePage extends AbstractPage
 			
 			$GLOBALS['DATABASE']->free_result($transferUserResult);
 
-			$this->tplObj->assign_vars(array(
+			$this->assign_vars(array(
 				'transferUserList'	=> $transferUserList,
 			));	
 			
-			$this->display('page.alliance.admin.transfer.tpl');
+			$this->render('page.alliance.admin.transfer.tpl');
 		}
 	}
 	
@@ -740,11 +740,11 @@ class ShowAlliancePage extends AbstractPage
 		
 		$GLOBALS['DATABASE']->free_result($applyResult);
 		
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
 			'applyList'		=> $applyList,
 		));
 		
-		$this->display('page.alliance.admin.mangeApply.tpl');
+		$this->render('page.alliance.admin.mangeApply.tpl');
 	}
 	
 	private function adminDetailApply()
@@ -762,11 +762,11 @@ class ShowAlliancePage extends AbstractPage
 			$this->printMessage($LNG['al_apply_not_exists']);
 		}
 		
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
 			'applyDetail'		=> $applyDetail,
 		));
 		
-		$this->display('page.alliance.admin.detailApply.tpl');
+		$this->render('page.alliance.admin.detailApply.tpl');
 	}
 	
 	private function adminSendAnswerToApply()
@@ -815,13 +815,13 @@ class ShowAlliancePage extends AbstractPage
 		
 		$GLOBALS['DATABASE']->free_result($rankResult);
 
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
 			'rankList'		=> $rankList,
 			'ownRights'		=> $this->rights,
 			'avalibleRanks'	=> $this->avalibleRanks,
 		));	
 
-		$this->display('page.alliance.admin.permissions.tpl');
+		$this->render('page.alliance.admin.permissions.tpl');
 	}
 	
 	private function adminPermissionsSend()
@@ -906,7 +906,7 @@ class ShowAlliancePage extends AbstractPage
 		
 		$GLOBALS['DATABASE']->free_result($memberListResult);
 			
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
 			'memberList'	=> $memberList,
 			'rankList'		=> $rankList,
 			'founder'		=> empty($this->allianceData['ally_owner_range']) ? $LNG['al_founder_rank_text'] : $this->allianceData['ally_owner_range'],
@@ -914,7 +914,7 @@ class ShowAlliancePage extends AbstractPage
 			'canKick'		=> $this->rights['KICK'],
 		));
 		
-		$this->display('page.alliance.admin.members.tpl');
+		$this->render('page.alliance.admin.members.tpl');
 	}
 	
 	private function adminMembersSave()
@@ -1017,11 +1017,11 @@ class ShowAlliancePage extends AbstractPage
 		}
 		
 		
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
 			'diploList'	=> $diploList,
 		));
 		
-		$this->display('page.alliance.admin.diplomacy.default.tpl');
+		$this->render('page.alliance.admin.diplomacy.default.tpl');
 	}
 	
 	private function adminDiplomacyAccept()
@@ -1058,11 +1058,11 @@ class ShowAlliancePage extends AbstractPage
 		$diploMode	= HTTP::_GP('diploMode', 0);
 				
 		
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
 			'diploMode'	=> $diploMode,
 		));
 		
-		$this->display('page.alliance.admin.diplomacy.create.tpl');
+		$this->render('page.alliance.admin.diplomacy.create.tpl');
 	}
 	
 	private function adminDiplomacyCreateProcessor()

@@ -81,7 +81,7 @@ class ResourceUpdate
 	}
 	
 	public function CalcResource($USER = NULL, $PLANET = NULL, $SAVE = false, $TIME = NULL, $HASH = true)
-	{			
+	{	
 		$this->GLOBALS		= !isset($USER, $PLANET) ? true : false;
 		$this->USER			= $this->GLOBALS ? $GLOBALS['USER'] : $USER;
 		$this->PLANET		= $this->GLOBALS ? $GLOBALS['PLANET'] : $PLANET;
@@ -95,9 +95,14 @@ class ResourceUpdate
 		{
 			$this->ShipyardQueue();
 			if($this->Tech == true && $this->USER['b_tech'] != 0 && $this->USER['b_tech'] < $this->TIME)
+			{
 				$this->ResearchQueue();
+			}
+			
 			if($this->PLANET['b_building'] != 0)
+			{
 				$this->BuildingQueue();
+			}
 		}
 		
 		$this->UpdateRessource($this->TIME, $HASH);
@@ -120,7 +125,7 @@ class ResourceUpdate
 			} else {
 				$this->HASH		= $this->CreateHash();
 				
-				if(true || $this->PLANET['eco_hash'] !== $this->HASH) {
+				if($this->PLANET['eco_hash'] !== $this->HASH) {
 					$this->PLANET['eco_hash'] = $this->HASH;
 					$this->ReBuildCache();
 				}
@@ -221,14 +226,14 @@ class ResourceUpdate
 				}
 			}
 		}
-
+var_dump($temp[911]);
 		$this->PLANET['energy']				= round($temp[911]['plus'] * (1 + $this->USER['factor']['Energy']));
 		$this->PLANET['energy_used']		= $temp[911]['minus'];
 		
 		if($this->PLANET['energy_used'] == 0) {
 			foreach($GLOBALS['VARS']['LIST'][ELEMENT_PLANET_RESOURCE] as $resourceID) 
 			{
-				$this->PLANET[$GLOBALS['VARS']['ELEMENT'][$resourceID]['name'].'_max']		= $temp[903]['max'] * $this->uniConfig['storageFactor'] * (1 + $this->USER['factor']['ResourceStorage']);
+				$this->PLANET[$GLOBALS['VARS']['ELEMENT'][$resourceID]['name'].'_max']		= $temp[$resourceID]['max'] * $this->uniConfig['storageFactor'] * (1 + $this->USER['factor']['ResourceStorage']);
 				$this->PLANET[$GLOBALS['VARS']['ELEMENT'][$resourceID]['name'].'_perhour']	= 0;
 			}
 		} else {
@@ -236,8 +241,8 @@ class ResourceUpdate
 			
 			foreach($GLOBALS['VARS']['LIST'][ELEMENT_PLANET_RESOURCE] as $resourceID) 
 			{
-				$this->PLANET[$GLOBALS['VARS']['ELEMENT'][$resourceID]['name'].'_max']		= $temp[903]['max'] * $this->uniConfig['storageFactor'] * (1 + $this->USER['factor']['ResourceStorage']);
-				$this->PLANET[$GLOBALS['VARS']['ELEMENT'][$resourceID]['name'].'_perhour']	= ($temp[903]['plus'] * (1 + $this->USER['factor']['Resource']) * $prodLevel + $temp[903]['minus']) * $this->uniConfig['ecoSpeed'];
+				$this->PLANET[$GLOBALS['VARS']['ELEMENT'][$resourceID]['name'].'_max']		= $temp[$resourceID]['max'] * $this->uniConfig['storageFactor'] * (1 + $this->USER['factor']['ResourceStorage']);
+				$this->PLANET[$GLOBALS['VARS']['ELEMENT'][$resourceID]['name'].'_perhour']	= ($temp[$resourceID]['plus'] * (1 + $this->USER['factor']['Resource']) * $prodLevel + $temp[$resourceID]['minus']) * $this->uniConfig['ecoSpeed'];
 			}
 		}
 	}

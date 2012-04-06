@@ -43,14 +43,14 @@ class ShowInformationPage extends AbstractPage
 		
 	static function getNextJumpWaitTime($lastTime)
 	{
-		global $CONF;
+		global $uniConfig;
 		
-		return $lastTime + $CONF['gate_wait_time'];
+		return $lastTime + $uniConfig['planetJumpWaitTime'] * 60;
 	}
 
 	public function sendFleet()
 	{
-		global $PLANET, $resource, $LNG, $reslist;
+		global $PLANET, $LNG;
 
 		$NextJumpTime = self::getNextJumpWaitTime($PLANET['last_jump_time']);
 		
@@ -110,16 +110,18 @@ class ShowInformationPage extends AbstractPage
 
 	private function getAvalibleFleets()
 	{
-		global $reslist, $resource, $PLANET;
+		global $PLANET;
 
         $fleetList  = array();
 
-		foreach($reslist['fleet'] as $Ship)
+		foreach($reslist['fleet'] as $elementID)
 		{
-			if ($Ship == 212 || $PLANET[$GLOBALS['VARS']['ELEMENT'][$Ship]['name']] <= 0)
+			if ($PLANET[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']] <= 0 || FleetFunctions::GetFleetMaxSpeed($elementID, $USER) == 0)
+			{
 				continue;
-						
-			$fleetList[$Ship]	= $PLANET[$GLOBALS['VARS']['ELEMENT'][$Ship]['name']];
+			}
+			
+			$fleetList[$elementID]	= $PLANET[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']];
 		}
 				
 		return $fleetList;
@@ -127,9 +129,9 @@ class ShowInformationPage extends AbstractPage
 
 	public function destroyMissiles()
 	{
-		global $resource, $PLANET;
+		global$PLANET;
 		
-		$Missle	= HTTP::_GP('missile', array());
+		$Missle												= HTTP::_GP('missile', array());
 		$PLANET[$GLOBALS['VARS']['ELEMENT'][502]['name']]	-= max(0, min($Missle[502], $PLANET[$GLOBALS['VARS']['ELEMENT'][502]['name']]));
 		$PLANET[$GLOBALS['VARS']['ELEMENT'][503]['name']]	-= max(0, min($Missle[503], $PLANET[$GLOBALS['VARS']['ELEMENT'][503]['name']]));
 		
@@ -140,7 +142,7 @@ class ShowInformationPage extends AbstractPage
 
 	private function getTargetGates()
 	{
-		global $resource, $USER, $PLANET;
+		global $USER, $PLANET;
 								
 		$Order = $USER['planet_sort_order'] == 1 ? "DESC" : "ASC" ;
 		$Sort  = $USER['planet_sort'];
@@ -235,7 +237,7 @@ class ShowInformationPage extends AbstractPage
 					if(!isset($GLOBALS['VARS']['ELEMENT'][$elementID]['storage'][$ID]))
 						continue;
 						
-					$productionTable['storage'][$BuildLevel][$ID]	= round(eval(ResourceUpdate::getProd($GLOBALS['VARS']['ELEMENT'][$elementID]['storage'][$ID]))) * $uniConfig['ecoSpeed'] * STORAGE_FACTOR;
+					$productionTable['storage'][$BuildLevel][$ID]	= round(eval(ResourceUpdate::getProd($GLOBALS['VARS']['ELEMENT'][$elementID]['storage'][$ID]))) * $uniConfig['storageFactor'];
 				}
 			}
 			
@@ -247,14 +249,14 @@ class ShowInformationPage extends AbstractPage
 		elseif(elementHasFlag($elementID, ELEMENT_FLEET))
 		{
 			$FleetInfo	= array(
-				'structure'		=> $GLOBALS['VARS']['ELEMENT'][$elementID]['cost'][901] + $GLOBALS['VARS']['ELEMENT'][$elementID]['cost'][902],
-				'attack'		=> $CombatCaps[$elementID]['attack'],
-				'shield'		=> $CombatCaps[$elementID]['shield'],
-				'capacity'		=> $pricelist[$elementID]['capacity'],
-				'speed1'		=> $pricelist[$elementID]['speed'],
-				'speed2'		=> $pricelist[$elementID]['speed2'],
-				'consumption1'	=> $pricelist[$elementID]['consumption'],
-				'consumption2'	=> $pricelist[$elementID]['consumption2'],
+				'attack'		=> $GLOBALS['VARS']['ELEMENT'][$elementID]['combat']['attack'],
+				'shield'		=> $GLOBALS['VARS']['ELEMENT'][$elementID]['combat']['shield'],
+				'structure'		=> $GLOBALS['VARS']['ELEMENT'][$elementID]['combat']['structure'],
+				'capacity'		=> $GLOBALS['VARS']['ELEMENT'][$elementID]['fleetData']['capacity'],
+				'speed1'		=> $GLOBALS['VARS']['ELEMENT'][$elementID]['fleetData']['speed'],
+				'speed2'		=> $GLOBALS['VARS']['ELEMENT'][$elementID]['fleetData']['speed2'],
+				'consumption1'	=> $GLOBALS['VARS']['ELEMENT'][$elementID]['fleetData']['consumption'],
+				'consumption2'	=> $GLOBALS['VARS']['ELEMENT'][$elementID]['fleetData']['consumption2'],
 				'rapidfire'		=> array(
 					'from'	=> array(),
 					'to'	=> array(),
@@ -265,21 +267,23 @@ class ShowInformationPage extends AbstractPage
 			
 			foreach($fleetIDs as $fleetID)
 			{
-				if (isset($CombatCaps[$elementID]['sd']) && !empty($CombatCaps[$elementID]['sd'][$fleetID])) {
-					$FleetInfo['rapidfire']['to'][$fleetID] = $CombatCaps[$elementID]['sd'][$fleetID];
+				if (!empty($GLOBALS['VARS']['ELEMENT'][$elementID]['combat']['rapidfire'][$fleetID]))
+				{
+					$FleetInfo['rapidfire']['to'][$fleetID] = $GLOBALS['VARS']['ELEMENT'][$elementID]['combat']['rapidfire'][$fleetID];
 				}
 				
-				if (isset($CombatCaps[$fleetID]['sd']) && !empty($CombatCaps[$fleetID]['sd'][$elementID])) {
-					$FleetInfo['rapidfire']['from'][$fleetID] = $CombatCaps[$fleetID]['sd'][$elementID];
+				if (!empty($GLOBALS['VARS']['ELEMENT'][$fleetID]['combat']['rapidfire'][$elementID]))
+				{
+					$FleetInfo['rapidfire']['from'][$fleetID] = $GLOBALS['VARS']['ELEMENT'][$fleetID]['combat']['rapidfire'][$elementID];
 				}
 			}
 		}
 		elseif (elementHasFlag($elementID, ELEMENT_DEFENSIVE))
 		{
 			$FleetInfo	= array(
-				'structure'		=> $GLOBALS['VARS']['ELEMENT'][$elementID]['cost'][901] + $GLOBALS['VARS']['ELEMENT'][$elementID]['cost'][902],
-				'attack'		=> $CombatCaps[$elementID]['attack'],
-				'shield'		=> $CombatCaps[$elementID]['shield'],
+				'structure'		=> $GLOBALS['VARS']['ELEMENT'][$elementID]['combat']['structure'],
+				'attack'		=> $GLOBALS['VARS']['ELEMENT'][$elementID]['combat']['attack'],
+				'shield'		=> $GLOBALS['VARS']['ELEMENT'][$elementID]['combat']['shield'],
 				'rapidfire'		=> array(
 					'from'	=> array(),
 					'to'	=> array(),
@@ -287,23 +291,25 @@ class ShowInformationPage extends AbstractPage
 			);
 				
 			$fleetIDs	= array_merge($GLOBALS['VARS']['LIST'][ELEMENT_FLEET], $GLOBALS['VARS']['LIST'][ELEMENT_DEFENSIVE]);
-		
+			
 			foreach($fleetIDs as $fleetID)
 			{
-				if (isset($CombatCaps[$elementID]['sd']) && !empty($CombatCaps[$elementID]['sd'][$fleetID])) {
-					$FleetInfo['rapidfire']['to'][$fleetID] = $CombatCaps[$elementID]['sd'][$fleetID];
+				if (!empty($GLOBALS['VARS']['ELEMENT'][$elementID]['combat']['rapidfire'][$fleetID]))
+				{
+					$FleetInfo['rapidfire']['to'][$fleetID] = $GLOBALS['VARS']['ELEMENT'][$elementID]['combat']['rapidfire'][$fleetID];
 				}
 				
-				if (isset($CombatCaps[$fleetID]['sd']) && !empty($CombatCaps[$fleetID]['sd'][$elementID])) {
-					$FleetInfo['rapidfire']['from'][$fleetID] = $CombatCaps[$fleetID]['sd'][$elementID];
+				if (!empty($GLOBALS['VARS']['ELEMENT'][$fleetID]['combat']['rapidfire'][$elementID]))
+				{
+					$FleetInfo['rapidfire']['from'][$fleetID] = $GLOBALS['VARS']['ELEMENT'][$fleetID]['combat']['rapidfire'][$elementID];
 				}
 			}
 		}
 		elseif($elementID == 43 && $PLANET[$GLOBALS['VARS']['ELEMENT'][43]['name']] > 0)
 		{
-			$this->tplObj->loadscript('gate.js');
+			$this->loadscript('gate.js');
 			$nextTime	= self::getNextJumpWaitTime($PLANET['last_jump_time']);
-			$this->tplObj->assign_vars(array(
+			$this->assign_vars(array(
 				'nextTime'	=> _date($LNG['php_tdformat'], $nextTime, $USER['timezone']),
 				'restTime'	=> max(0, $nextTime - TIMESTAMP),
 				'startLink'	=> BuildPlanetAdressLink($PLANET),
@@ -319,7 +325,7 @@ class ShowInformationPage extends AbstractPage
 			);
 		}
 
-		$this->tplObj->assign_vars(array(		
+		$this->assign_vars(array(		
 			'elementID'			=> $elementID,
 			'productionTable'	=> $productionTable,
 			'CurrentLevel'		=> $CurrentLevel,
@@ -328,6 +334,6 @@ class ShowInformationPage extends AbstractPage
 			'FleetInfo'			=> $FleetInfo,
 		));
 		
-		$this->display('page.infomation.default.tpl');
+		$this->render('page.infomation.default.tpl');
 	}
 }

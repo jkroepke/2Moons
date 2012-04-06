@@ -257,9 +257,9 @@ class ShowShipyardPage extends AbstractPage
 				$Shipyard[]		= array($LNG['tech'][$elementID[0]], $elementID[1], $elementIDTime, $elementID[0]);		
 			}
 
-			$this->tplObj->loadscript('bcmath.js');
-			$this->tplObj->loadscript('shipyard.js');
-			$this->tplObj->execscript('ShipyardInit();');
+			$this->loadscript('bcmath.js');
+			$this->loadscript('shipyard.js');
+			$this->execscript('ShipyardInit();');
 			
 			$Buildlist	= array(
 				'Queue' 				=> $Shipyard,
@@ -268,7 +268,7 @@ class ShowShipyardPage extends AbstractPage
 			);
 		}
 		
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
 			'elementList'	=> $elementList,
 			'NotBuilding'	=> $NotBuilding,
 			'BuildList'		=> $Buildlist,
@@ -276,6 +276,6 @@ class ShowShipyardPage extends AbstractPage
 			'mode'			=> $mode,
 		));
 
-		$this->display('page.shipyard.default.tpl');
+		$this->render('page.shipyard.default.tpl');
 	}
 }

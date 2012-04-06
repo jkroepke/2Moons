@@ -64,11 +64,11 @@ class ShowSupportPage
 		
 		$GLOBALS['DATABASE']->free_result($ticketResult);
 		
-		$this->tplObj->assign_vars(array(	
+		$this->assign_vars(array(	
 			'ticketList'	=> $ticketList
 		));
 			
-		$this->tplObj->show('page.ticket.default.tpl');
+		$this->show('page.ticket.default.tpl');
 	}
 	
 	function send() 
@@ -119,13 +119,13 @@ class ShowSupportPage
 			
 		$categoryList	= $this->ticketObj->getCategoryList();
 		
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
 			'ticketID'		=> $ticketID,
 			'ticket_status' => $ticket_status,
 			'categoryList'	=> $categoryList,
 			'answerList'	=> $answerList,
 		));
 			
-		$this->tplObj->show('page.ticket.view.tpl');		
+		$this->show('page.ticket.view.tpl');		
 	}
 }

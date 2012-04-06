@@ -28,8 +28,6 @@
  * @info $Id$
  * @link http://code.google.com/p/2moons/
  */
-
-require(ROOT_PATH.'includes/libs/Smarty/Smarty.class.php');
 		
 class Template extends Smarty
 {
@@ -147,16 +145,6 @@ class Template extends Smarty
 		
 		$this->gotoside($dest, $time);
 		$this->show('error_message_body.tpl');
-	}
-	
-	public static function printMessage($Message, $fullSide = true, $redirect = NULL) {
-		$template	= new self;
-		if(!isset($redirect)) {
-			$redirect	= array(false, 0);
-		}
-		
-		$template->message($Message, $redirect[0], $redirect[1], !$fullSide);
-		exit;
 	}
 	
     /**

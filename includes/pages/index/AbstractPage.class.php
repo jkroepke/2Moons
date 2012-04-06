@@ -29,14 +29,14 @@
  * @link http://code.google.com/p/2moons/
  */
 
-abstract class AbstractPage
+abstract class AbstractPage extends Template
 {
 	protected $tplObj;
 	protected $ecoObj;
 	protected $window;
 	protected $disableEcoSystem = false;
 	
-	protected function __construct()
+	public function __construct()
 	{
 		if(!AJAX_REQUEST)
 		{
@@ -50,10 +50,11 @@ abstract class AbstractPage
 	protected function initTemplate() {
 		if(isset($this->tplObj))
 			return true;
-			
-		$this->tplObj	= new Template;
-		list($tplDir)	= $this->tplObj->getTemplateDir();
-		$this->tplObj->setTemplateDir($tplDir.'index/');
+		
+		parent::__construct();
+		
+		list($tplDir)	= $this->getTemplateDir();
+		$this->setTemplateDir($tplDir.'index/');
 		return true;
 	}
 	
@@ -84,7 +85,7 @@ abstract class AbstractPage
 	protected function getPageData() 
     {
 		global $gameConfig, $LANG, $UNI;
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
 			'game_captcha'		=> $gameConfig['recaptchaEnable'],
 			'cappublic'			=> $gameConfig['recaptchaPublicKey'],
 			'servername' 		=> $gameConfig['gameName'],
@@ -106,21 +107,20 @@ abstract class AbstractPage
 	}
 	
 	protected function printMessage($Message, $fullSide = true, $redirect = NULL) {
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
 			'mes'		=> $Message,
 		));
 		
 		if(isset($redirect)) {
-			$this->tplObj->gotoside($redirect[0], $redirect[1]);
+			$this->gotoside($redirect[0], $redirect[1]);
 		}
 		
-		$this->display('error.default.tpl');
+		$this->render('error.default.tpl');
 	}
 	
-	protected function save() {	
-	}
+	protected function save() {}
 	
-	protected function display($file) {
+	protected function render($file) {
 		global $LNG, $LANG, $THEME;
 		
 		$this->save();
@@ -129,18 +129,18 @@ abstract class AbstractPage
 			$this->getPageData();
 		}
 		
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
             'lang'    		=> $LANG->getUser(),
             'dpath'			=> $THEME->getTheme(),
-			'scripts'		=> $this->tplObj->jsscript,
-			'execscript'	=> implode("\n", $this->tplObj->script),
+			'scripts'		=> $this->jsscript,
+			'execscript'	=> implode("\n", $this->script),
 		));
 
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
 			'LNG'			=> $LNG,
 		), false);
 		
-		$this->tplObj->display('extends:layout.'.$this->getWindow().'.tpl|'.$file);
+		$this->display('extends:layout.'.$this->getWindow().'.tpl|'.$file);
 		exit;
 	}
 	

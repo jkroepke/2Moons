@@ -29,36 +29,37 @@
  * @link http://code.google.com/p/2moons/
  */
 
-define('MODE', 'CRON');
+class ShowOverPage {
+		
+	function ShowOverviewPage()
+	{
+		global $LNG, $USER, $CONF;
+		
+		$Message	= array();
 
-define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
-
-if(!extension_loaded('gd')) {
-	clearGIF();
+		if ($USER['authlevel'] >= AUTH_ADM)
+		{
+			if(file_exists(ROOT_PATH.'update.php'))
+				$Message[]	= sprintf($LNG['ow_file_detected'], 'update.php');
+				
+			if(file_exists(ROOT_PATH.'webinstall.php'))
+				$Message[]	= sprintf($LNG['ow_file_detected'], 'webinstall.php');
+				
+			if(file_exists(ROOT_PATH.'includes/ENABLE_INSTALL_TOOL'))
+				$Message[]	= sprintf($LNG['ow_file_detected'], 'includes/ENABLE_INSTALL_TOOL');
+						
+			if(!is_writable(ROOT_PATH.'cache'))
+				$Message[]	= sprintf($LNG['ow_dir_not_writable'], 'cache');
+				
+			if(!is_writable(ROOT_PATH.'includes'))
+				$Message[]	= sprintf($LNG['ow_dir_not_writable'], 'includes');
+		}
+		
+		$template->assign_vars(array(
+			'Messages'			=> $Message,
+			'date'				=> date('m\_Y', TIMESTAMP),
+		));
+		
+		$template->show('OverviewBody.tpl');
+	}
 }
-
-require(ROOT_PATH . 'includes/common.php');
-$id = HTTP::_GP('id', 0);
-
-if(!isModulAvalible(MODULE_BANNER) || $id == 0) {
-	clearGIF();
-}
-
-$LANG->GetLangFromBrowser();
-$LANG->includeLang(array('L18N', 'BANNER', 'CUSTOM'));
-
-$banner = new Banner;
-$Data	= $banner->GetData($id);
-if(!isset($Data) || !is_array($Data)) {
-	clearGIF();
-}
-	
-$ETag	= md5(implode('', $Data));
-header('ETag: '.$ETag);
-
-if(isset($_SERVER['HTTP_IF_NONE_MATCH']) && $_SERVER['HTTP_IF_NONE_MATCH'] == $ETag) {
-	HTTP::sendHeader('HTTP/1.0 304 Not Modified');
-	exit;
-}
-
-$banner->CreateUTF8Banner($Data);

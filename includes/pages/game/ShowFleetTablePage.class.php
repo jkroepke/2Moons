@@ -156,23 +156,23 @@ class ShowFleetTablePage extends AbstractPage
 	
 	public function show()
 	{
-		global $USER, $PLANET, $reslist, $resource, $LNG;
+		global $USER, $PLANET, $LNG;
 		
 		$parse				= $LNG;
-		$FleetID			= HTTP::_GP('fleetID', 0);
+		$elementID			= HTTP::_GP('fleetID', 0);
 		$GetAction			= HTTP::_GP('action', "");
 	
-		$this->tplObj->loadscript('flotten.js');
+		$this->loadscript('flotten.js');
 		
-		if(!empty($FleetID) && !IsVacationMode($USER))
+		if(!empty($elementID) && !IsVacationMode($USER))
 		{
 			switch($GetAction){
 				case "sendfleetback":
-					FleetFunctions::SendFleetBack($USER, $FleetID);
+					FleetFunctions::SendFleetBack($USER, $elementID);
 				break;
 				case "acs":
-					$data	= $this->showACSPage($FleetID);
-					$this->tplObj->assign_vars($data);
+					$data	= $this->showACSPage($elementID);
+					$this->assign_vars($data);
 				break;
 			}
 		}
@@ -241,19 +241,19 @@ class ShowFleetTablePage extends AbstractPage
 		
 		$FleetsOnPlanet	= array();
 		
-		foreach($reslist['fleet'] as $FleetID)
+		foreach($GLOBALS['VARS']['LIST'][ELEMENT_FLEET] as $elementID)
 		{
-			if ($PLANET[$GLOBALS['VARS']['ELEMENT'][$FleetID]['name']] == 0)
+			if ($PLANET[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']] == 0)
 				continue;
 				
 			$FleetsOnPlanet[]	= array(
-				'id'	=> $FleetID,
-				'speed'	=> FleetFunctions::GetFleetMaxSpeed($FleetID, $USER),
-				'count'	=> $PLANET[$GLOBALS['VARS']['ELEMENT'][$FleetID]['name']],
+				'id'	=> $elementID,
+				'speed'	=> FleetFunctions::GetFleetMaxSpeed($elementID, $USER),
+				'count'	=> $PLANET[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']],
 			);
 		}
 		
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
 			'FleetsOnPlanet'		=> $FleetsOnPlanet,
 			'FlyingFleetList'		=> $FlyingFleetList,
 			'activeExpedition'		=> $activeExpedition,
@@ -274,6 +274,6 @@ class ShowFleetTablePage extends AbstractPage
 			'bonusHyperspace'		=> $USER[$GLOBALS['VARS']['ELEMENT'][118]['name']] * 30 + (1 + $USER['factor']['FlyTime']) * 100 - 100,
 		));
 		
-		$this->display('page.fleetTable.default.tpl');
+		$this->render('page.fleetTable.default.tpl');
 	}
 }

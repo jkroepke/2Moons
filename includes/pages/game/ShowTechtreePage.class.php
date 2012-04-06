@@ -74,10 +74,10 @@ class ShowTechtreePage extends AbstractPage
 			}
 		}
 		
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
 			'TechTreeList'		=> $TechTreeList,
 		));
 
-		$this->display('page.techtree.default.tpl');
+		$this->render('page.techtree.default.tpl');
 	}
 }

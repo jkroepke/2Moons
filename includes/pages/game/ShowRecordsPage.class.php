@@ -62,7 +62,7 @@ class ShowRecordsPage extends AbstractPage
 			}
 		}
 		
-		$this->tplObj->assign_vars(array(	
+		$this->assign_vars(array(	
 			'defenseList'	=> $defenseList,
 			'fleetList'		=> $fleetList,
 			'researchList'	=> $researchList,
@@ -70,6 +70,6 @@ class ShowRecordsPage extends AbstractPage
 			'update'		=> _date($LNG['php_tdformat'], $CONF['stat_last_update'], $USER['timezone']),
 		));
 		
-		$this->display('page.records.default.tpl');
+		$this->render('page.records.default.tpl');
 	}
 }

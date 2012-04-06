@@ -55,6 +55,15 @@ class PlayerUntl {
 												 AND planet_type = ".$Type.";");
 	}
 
+	static function calculateMoonChance($FleetDebris, $universe)
+	{
+		global $uniAllConfig;
+		
+		$uniConfig	= $uniAllConfig[$universe];
+		
+		return min(round($FleetDebris / 100000 * $uniConfig['planetMoonCreateChanceFactor'], 0), $uniConfig['planetMoonCreateMaxChance']);
+	}
+
 	static function isNameValid($name)
 	{
 		if(UTF8_SUPPORT) {
@@ -146,7 +155,7 @@ class PlayerUntl {
 		$SQL = "UPDATE ".USERS." SET 
 				galaxy = ".$Galaxy.", 
 				system = ".$System.", 
-				planet = ".$Planet.",
+				planet = ".$Position.",
 				id_planet = ".$planetID."
 				WHERE id = ".$userID.";";
 				
@@ -216,6 +225,7 @@ class PlayerUntl {
 				   id_owner = ".$PlanetOwnerID.",
 				   galaxy = ".$Galaxy.",
 				   system = ".$System.",
+				   planet = ".$Position.",
 				   last_update = ".TIMESTAMP.",
 				   planet_type = '1',
 				   image = '".$Class."',
@@ -232,17 +242,17 @@ class PlayerUntl {
 		return $GLOBALS['DATABASE']->GetInsertID();
 	}
 	
-	static function createMoon($Galaxy, $System, $Planet, $Universe, $Owner, $MoonID, $MoonName, $Chance, $Size = 0)
+	static function createMoon($Universe, $Galaxy, $System, $Position, $userID, $Chance, $Size = NULL)
 	{
 		global $LNG, $USER;
 
-		$SQL  = "SELECT id_luna,planet_type,id,name,temp_max,temp_min FROM ".PLANETS." ";
-		$SQL .= "WHERE ";
-		$SQL .= "universe = '".$Universe."' AND ";
-		$SQL .= "galaxy = '".$Galaxy."' AND ";
-		$SQL .= "system = '".$System."' AND ";
-		$SQL .= "planet = '".$Planet."' AND ";
-		$SQL .= "planet_type = '1';";
+		$SQL  = "SELECT id_luna, planet_type, id, name, temp_max, temp_min FROM ".PLANETS."
+				 WHERE universe = ".$Universe."
+				 AND galaxy = ".$Galaxy."
+				 AND system = ".$System."
+				 AND planet = ".$Position."
+				 AND planet_type = '1';";
+				 
 		$MoonPlanet = $GLOBALS['DATABASE']->getFirstRow($SQL);
 
 		if ($MoonPlanet['id_luna'] != 0)
@@ -283,7 +293,7 @@ class PlayerUntl {
 						  WHERE
 						  id = ".$MoonPlanet['id'].";");
 
-		return $MoonPlanet['name'];
+		return true;
 	}
  
 	static function deletePlayer($userID)

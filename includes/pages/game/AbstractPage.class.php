@@ -29,14 +29,14 @@
  * @link http://code.google.com/p/2moons/
  */
 
-abstract class AbstractPage
+abstract class AbstractPage extends Template
 {
 	protected $tplObj;
 	protected $ecoObj;
 	protected $window;
 	protected $disableEcoSystem = false;
 	
-	protected function __construct() {
+	public function __construct() {
 		
 		if(!AJAX_REQUEST)
 		{
@@ -56,9 +56,10 @@ abstract class AbstractPage
 		if(isset($this->tplObj))
 			return true;
 			
-		$this->tplObj	= new Template;
-		list($tplDir)	= $this->tplObj->getTemplateDir();
-		$this->tplObj->setTemplateDir($tplDir.'game/');
+		parent::__construct();
+		
+		list($tplDir)	= $this->getTemplateDir();
+		$this->setTemplateDir($tplDir.'game/');
 		return true;
 	}
 	
@@ -91,10 +92,10 @@ abstract class AbstractPage
 		global $PLANET, $LNG, $USER, $uniConfig, $gameConfig, $resource;
 		
 		if($PLANET[$GLOBALS['VARS']['ELEMENT'][43]['name']] > 0) {
-			$this->tplObj->loadscript("gate.js");
+			$this->loadscript("gate.js");
 		}
 		
-		$this->tplObj->loadscript("topnav.js");
+		$this->loadscript("topnav.js");
 			
 		$PlanetSelect	= array();
 		
@@ -113,7 +114,7 @@ abstract class AbstractPage
 			$uniConfig['planetResource903BasicIncome']	= 0;
 		}
 		
-		$this->tplObj->assign_vars(array(	
+		$this->assign_vars(array(	
 			'PlanetSelect'		=> $PlanetSelect,
 			'new_message' 		=> $USER['messages'],
 			'vacation'			=> $USER['urlaubs_modus'] ? _date($LNG['php_tdformat'], $USER['urlaubs_until'], $USER['timezone']) : false,
@@ -160,7 +161,7 @@ abstract class AbstractPage
 		} else {
 			$dateTimeUser	= $dateTimeServer;
 		}
-        $this->tplObj->assign_vars(array(
+        $this->assign_vars(array(
             'vmode'				=> $USER['urlaubs_modus'],
 			'authlevel'			=> $USER['authlevel'],
 			'userID'			=> $USER['id'],
@@ -180,19 +181,19 @@ abstract class AbstractPage
 	}
 	
 	protected function printMessage($Message, $fullSide = true, $redirect = NULL) {
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
 			'mes'		=> $Message,
 		));
 		
 		if(isset($redirect)) {
-			$this->tplObj->gotoside($redirect[0], $redirect[1]);
+			$this->gotoside($redirect[0], $redirect[1]);
 		}
 		
 		if(!$fullSide) {
 			$this->setWindow('popup');
 		}
 		
-		$this->display('error.default.tpl');
+		$this->render('error.default.tpl');
 	}
 	
 	protected function save() {		
@@ -201,7 +202,7 @@ abstract class AbstractPage
 		}
 	}
 	
-	protected function display($file) {
+	protected function render($file) {
 		global $LNG, $LANG, $THEME;
 		
 		$this->save();
@@ -210,18 +211,18 @@ abstract class AbstractPage
 			$this->getPageData();
 		}
 		
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
             'lang'    		=> $LANG->getUser(),
             'dpath'			=> $THEME->getTheme(),
-			'scripts'		=> $this->tplObj->jsscript,
-			'execscript'	=> implode("\n", $this->tplObj->script),
+			'scripts'		=> $this->jsscript,
+			'execscript'	=> implode("\n", $this->script),
 		));
 
-		$this->tplObj->assign_vars(array(
+		$this->assign_vars(array(
 			'LNG'			=> $LNG,
 		), false);
 		
-		$this->tplObj->display('extends:layout.'.$this->getWindow().'.tpl|'.$file);
+		$this->display('extends:layout.'.$this->getWindow().'.tpl|'.$file);
 		exit;
 	}
 	
