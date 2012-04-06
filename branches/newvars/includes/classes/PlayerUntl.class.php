@@ -180,7 +180,7 @@ class PlayerUntl {
 		return array($userID, $planetID);
 	}
 	
-	static function createPlanet($Galaxy, $System, $Position, $Universe, $PlanetOwnerID, $PlanetName = '', $HomeWorld = false, $authlevel = 0)
+	static function createPlanet($Galaxy, $System, $Position, $Universe, $PlanetOwnerID, $PlanetName = NULL, $HomeWorld = false, $authlevel = 0)
 	{
 		global $uniAllConfig, $gameConfig, $LNG;
 
@@ -217,10 +217,18 @@ class PlayerUntl {
 		$Types				= array_keys($PlanetData[$Pos]['image']);
 		$Type				= $Types[array_rand($Types)];
 		$Class				= $Type.'planet'.($PlanetData[$Pos]['image'][$Type] < 10 ? '0' : '').$PlanetData[$Pos]['image'][$Type];
-		$Name				= !empty($PlanetName) ? $GLOBALS['DATABASE']->sql_escape($PlanetName) : $LNG['type_planet'][1];
+		
+		if(empty($PlanetName))
+		{
+			if($HomeWorld) {
+				$PlanetName	= $LNG['type_planet'][1];
+			} else {
+				$PlanetName	= $LNG['fcp_colony'];
+			}
+		}
 	
 		$SQL	= "INSERT INTO ".PLANETS." SET
-				   name = '".$Name."',
+				   name = '".$GLOBALS['DATABASE']->sql_escape($PlanetName)."',
 				   universe = ".$Universe.",
 				   id_owner = ".$PlanetOwnerID.",
 				   galaxy = ".$Galaxy.",

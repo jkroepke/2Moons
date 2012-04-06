@@ -56,9 +56,6 @@ class FlyingFleetHandler
 	
 	function run()
 	{
-				
-		require_once(ROOT_PATH.'includes/classes/class.MissionFunctions.php');
-		
 		$fleetResult = $GLOBALS['DATABASE']->query("SELECT ".FLEETS.".* 
 		FROM ".FLEETS_EVENT." 
 		INNER JOIN ".FLEETS." ON fleetID = fleet_id
@@ -69,8 +66,6 @@ class FlyingFleetHandler
 				$GLOBALS['DATABASE']->query("DELETE FROM ".FLEETS." WHERE `fleet_id` = '".$fleetRow['fleet_id']."';");
 				continue;
 			}
-			
-			#if(!$this->IfFleetBusy($fleetRow['fleet_id'])) continue;
 			
 			$missionName	= self::$MissionsPattern[$fleetRow['fleet_mission']];
 			
@@ -89,15 +84,13 @@ class FlyingFleetHandler
 					$Mission->EndStayEvent();
 				break;
 			}
-
-			#$GLOBALS['DATABASE']->query("UPDATE ".FLEETS." SET `fleet_busy` = '0' WHERE `fleet_id` = '".$fleetRow['fleet_id']."';");
 		}
 		$GLOBALS['DATABASE']->free_result($fleetResult);
 	}
 	
 	function IfFleetBusy($FleetID)
 	{
-				$FleetInfo	= $GLOBALS['DATABASE']->getFirstRow("SELECT fleet_busy FROM ".FLEETS." WHERE `fleet_id` = '".$FleetID."';");
+		$FleetInfo	= $GLOBALS['DATABASE']->getFirstRow("SELECT fleet_busy FROM ".FLEETS." WHERE `fleet_id` = '".$FleetID."';");
 		if($FleetInfo['fleet_busy'] == 1) {
 			return false;
 		} else {

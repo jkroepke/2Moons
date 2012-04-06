@@ -59,6 +59,14 @@ class MissionFunctions
 			break;
 		}
 	}
+
+	function clearResource()
+	{
+		foreach(array_merge($GLOBALS['VARS']['LIST'][ELEMENT_PLANET_RESOURCE], $GLOBALS['VARS']['LIST'][ELEMENT_USER_RESOURCE]) as $resourceID)
+		{
+			$this->UpdateFleet('fleet_resource_'.$GLOBALS['VARS']['ELEMENT'][$resourceID]['name'], 0);
+		}
+	}
 	
 	function SaveFleet()
 	{
@@ -69,11 +77,12 @@ class MissionFunctions
 		
 		foreach($this->_upd as $Opt => $Val)
 		{
-			$Qry[]	= "`".$Opt."` = '".$Val."'";
+			$Qry[]	= $Opt." = '".$Val."'";
 		}
 		
 		if(!empty($Qry)) {
-			$GLOBALS['DATABASE']->multi_query("UPDATE ".FLEETS." SET ".implode(', ',$Qry)." WHERE `fleet_id` = ".$this->_fleet['fleet_id'].";UPDATE ".FLEETS_EVENT." SET time = ".$this->eventTime." WHERE `fleetID` = ".$this->_fleet['fleet_id'].";");
+			$GLOBALS['DATABASE']->multi_query("UPDATE ".FLEETS." SET ".implode(', ',$Qry)." WHERE fleet_id = ".$this->_fleet['fleet_id'].";
+											   UPDATE ".FLEETS_EVENT." SET time = ".$this->eventTime." WHERE `fleetID` = ".$this->_fleet['fleet_id'].";");
 		}
 	}
 		
@@ -81,28 +90,32 @@ class MissionFunctions
 	{
 		global $resource;
 
-		$FleetRecord         = explode(';', $this->_fleet['fleet_array']);
-		$QryUpdFleet         = '';
+		$FleetRecord	= explode(';', $this->_fleet['fleet_array']);
+		$updateSQL		= array();
+		
 		foreach ($FleetRecord as $Item => $Group)
 		{
 			if (empty($Group)) continue;
 
 			$Class			= explode(',', $Group);
-			$QryUpdFleet	.= "p.`".$GLOBALS['VARS']['ELEMENT'][$Class[0]['name']]."` = p.`".$GLOBALS['VARS']['ELEMENT'][$Class[0]['name']]."` + ".$Class[1].", ";
+			$updateSQL[]	= $GLOBALS['VARS']['ELEMENT'][$Class[0]['name']]." = ".$GLOBALS['VARS']['ELEMENT'][$Class[0]['name']]." + ".$Class[1];
 		}
-
-		$Qry   = "UPDATE ".PLANETS." as p, ".USERS." as u SET ";
-		if (!empty($QryUpdFleet))
-			$Qry  .= $QryUpdFleet;
-
-		$Qry  .= "p.`metal` = p.`metal` + ".$this->_fleet['fleet_resource_metal'].", ";
-		$Qry  .= "p.`crystal` = p.`crystal` + ".$this->_fleet['fleet_resource_crystal'].", ";
-		$Qry  .= "p.`deuterium` = p.`deuterium` + ".$this->_fleet['fleet_resource_deuterium'].", ";
-		$Qry  .= "u.`darkmatter` = u.`darkmatter` + ".$this->_fleet['fleet_resource_darkmatter']." ";
-		$Qry  .= "WHERE ";
-		$Qry  .= "p.`id` = '".($Start == true ? $this->_fleet['fleet_start_id'] : $this->_fleet['fleet_end_id'])."' ";
-		$Qry  .= "AND u.id = p.id_owner;";
-		$GLOBALS['DATABASE']->multi_query($Qry);
+	
+		foreach(array_merge($GLOBALS['VARS']['LIST'][ELEMENT_PLANET_RESOURCE], $GLOBALS['VARS']['LIST'][ELEMENT_USER_RESOURCE]) as $resourceID)
+		{
+			$updateSQL[]	= $GLOBALS['VARS']['ELEMENT'][$resourceID]['name'].' = '.$GLOBALS['VARS']['ELEMENT'][$resourceID]['name'].' + '.$this->_fleet['fleet_resource_metal'].", ";
+		}
+		
+		if(!empty($updateSQL))
+		{
+			$Qry   = "UPDATE ".PLANETS." as p, ".USERS." as u SET
+					 ".implode(', ', $updateSQL)."
+					 WHERE p.`id` = ".($Start == true ? $this->_fleet['fleet_start_id'] : $this->_fleet['fleet_end_id'])."
+					 AND u.id = p.id_owner;";
+					 
+			$GLOBALS['DATABASE']->query($Qry);
+		}
+		
 		$this->KillFleet();
 	}
 	

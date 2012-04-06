@@ -38,7 +38,7 @@ class MissionCaseRecycling extends MissionFunctions
 	
 	function TargetEvent()
 	{	
-		global $pricelist, $LANG;
+		global $LANG;
 		$RecycledGoods		= array('metal' => 0, 'crystal' => 0);
 		
 		$Target				= $GLOBALS['DATABASE']->getFirstRow("SELECT der_metal, der_crystal, (der_metal + der_crystal) as der_total FROM ".PLANETS." WHERE `id` = ".$this->_fleet['fleet_end_id'].";");
@@ -54,9 +54,9 @@ class MissionCaseRecycling extends MissionFunctions
 					
 				$Class        = explode (",", $Group);
 				if ($Class[0] == 209 || $Class[0] == 219)
-					$RecyclerCapacity   += $pricelist[$Class[0]]['capacity'] * $Class[1];
+					$RecyclerCapacity   += $GLOBALS['VARS']['ELEMENT'][$Class[0]]['fleetData']['capacity'] * $Class[1];
 				else
-					$OtherFleetCapacity += $pricelist[$Class[0]]['capacity'] * $Class[1];
+					$OtherFleetCapacity += $GLOBALS['VARS']['ELEMENT'][$Class[0]]['fleetData']['capacity'] * $Class[1];
 			}
 
 			$IncomingFleetGoods = $this->_fleet['fleet_resource_metal'] + $this->_fleet['fleet_resource_crystal'] + $this->_fleet['fleet_resource_deuterium'];

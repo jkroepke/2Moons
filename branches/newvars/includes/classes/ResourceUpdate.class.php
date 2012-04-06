@@ -226,7 +226,7 @@ class ResourceUpdate
 				}
 			}
 		}
-var_dump($temp[911]);
+		
 		$this->PLANET['energy']				= round($temp[911]['plus'] * (1 + $this->USER['factor']['Energy']));
 		$this->PLANET['energy_used']		= $temp[911]['minus'];
 		

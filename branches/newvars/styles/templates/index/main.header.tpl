@@ -32,7 +32,7 @@
 				<li><a href="index.php?page=board" target="board">{$LNG.forum}</a></li>
 				<li><a href="index.php?page=news">{$LNG.menu_news}</a></li>
 				<li><a href="index.php?page=rules">{$LNG.menu_rules}</a></li>
-				<li><a href="index.php?page=battlehall">{$LNG.menu_battlehall}</a></li>
+				<li><a href="index.php?page=battleHall">{$LNG.menu_battlehall}</a></li>
 				<li><a href="index.php?page=banList">{$LNG.menu_banlist}</a></li>
 				<li><a href="index.php?page=disclamer">{$LNG.menu_disclamer}</a></li>
 			</ul>

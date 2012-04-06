@@ -30,7 +30,7 @@
  */
 
 
-class ShowBanListPage extends AbstractPage
+class ShowBattleHallPage extends AbstractPage
 {
 	public static $requireModule = 0;
 

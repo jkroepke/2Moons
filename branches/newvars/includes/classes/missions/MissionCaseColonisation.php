@@ -38,56 +38,72 @@ class MissionCaseColonisation extends MissionFunctions
 	
 	function TargetEvent()
 	{	
-		global $resource, $LANG;
-		$iPlanetCount 	= $GLOBALS['DATABASE']->countquery("SELECT count(*) FROM ".PLANETS." WHERE `id_owner` = '". $this->_fleet['fleet_owner'] ."' AND `planet_type` = '1' AND `destruyed` = '0';");
-		$iGalaxyPlace 	= $GLOBALS['DATABASE']->countquery("SELECT count(*) AS plani FROM ".PLANETS." WHERE `id` = '".$this->_fleet['fleet_end_id']."';");
-		$Player			= $GLOBALS['DATABASE']->getFirstRow("SELECT `lang`, `authlevel`, `".$GLOBALS['VARS']['ELEMENT'][124]['name']."` FROM ".USERS." WHERE `id` = '".$this->_fleet['fleet_owner']."';");
-		$LNG			= $LANG->GetUserLang($Player['lang']);
-		$MaxPlanets		= MaxPlanets($Player[$GLOBALS['VARS']['ELEMENT'][124]['name']], $this->_fleet['fleet_universe']);
-		if ($iGalaxyPlace != 0)
+		global $LANG;
+		
+		$userData		= $GLOBALS['DATABASE']->getFirstRow("SELECT lang, authlevel, ".$GLOBALS['VARS']['ELEMENT'][124]['name'].", COUNT(p.id) as planetCount
+															 FROM ".USERS." u
+															 INNER JOIN ".PLANETS." p ON p.id_owner = u.id
+															 WHERE u.id = '".$this->_fleet['fleet_owner']."'
+															 GROUP BY p.id_owner;");
+		
+		$MaxPlanets		= MaxPlanets($userData[$GLOBALS['VARS']['ELEMENT'][124]['name']], $this->_fleet['fleet_universe']);
+		
+		$LNG			= $LANG->GetUserLang($userData['lang']);
+		
+		if (PlayerUntl::isPositionFree($this->_fleet['fleet_universe'], $this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet']))
 		{
-			$TheMessage = sprintf($LNG['sys_colo_notfree'], GetTargetAdressLink($this->_fleet, ''));
+			$TheMessage = sprintf($LNG['sys_colo_notfree'], GetTargetAdressLink($this->_fleet));
 			$this->setState(FLEET_RETURN);
 		}
-		elseif($iPlanetCount >= $MaxPlanets)
+		elseif(!empty($MaxPlanets) && $userData['planetCount'] >= $MaxPlanets)
 		{
-			$TheMessage = sprintf($LNG['sys_colo_maxcolo'] , GetTargetAdressLink($this->_fleet, ''), $MaxPlanets);
+			$TheMessage = sprintf($LNG['sys_colo_maxcolo'] , GetTargetAdressLink($this->_fleet), $MaxPlanets);
 			$this->setState(FLEET_RETURN);
 		}
 		else
 		{
-			require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.php');
-			$NewOwnerPlanet = CreateOnePlanetRecord($this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet'], $this->_fleet['fleet_universe'], $this->_fleet['fleet_owner'], $LNG['fcp_colony'], false, $Player['authlevel']);
+			$NewOwnerPlanet = PlayerUntl::createPlanet($this->_fleet['fleet_universe'], $this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet'], $this->_fleet['fleet_owner'], NULL, false, $userData['authlevel']);
+			
 			if($NewOwnerPlanet === false)
 			{
-				$TheMessage = sprintf($LNG['sys_colo_badpos'], GetTargetAdressLink($this->_fleet, ''));
-					$this->setState(FLEET_RETURN);
+				$TheMessage = sprintf($LNG['sys_colo_badpos'], GetTargetAdressLink($this->_fleet));
+				$this->setState(FLEET_RETURN);
 			}
 			else
 			{
 				$this->_fleet['fleet_end_id']	= $NewOwnerPlanet;
-				$TheMessage = sprintf($LNG['sys_colo_allisok'], GetTargetAdressLink($this->_fleet, ''));
+				$TheMessage = sprintf($LNG['sys_colo_allisok'], GetTargetAdressLink($this->_fleet));
 				$this->StoreGoodsToPlanet();
-				if ($this->_fleet['fleet_amount'] == 1) {
+				if ($this->_fleet['fleet_amount'] == 1) 
+				{
 					$this->KillFleet();
-				} else {
+				}
+				else
+				{
 					$CurrentFleet = explode(";", $this->_fleet['fleet_array']);
 					$NewFleet     = '';
+					
 					foreach ($CurrentFleet as $Item => $Group)
 					{
-						if (empty($Group)) continue;
-
+						if (empty($Group))
+						{
+							continue;
+						}
+						
 						$Class = explode (",", $Group);
 						if ($Class[0] == 208 && $Class[1] > 1)
+						{
 							$NewFleet  .= $Class[0].",".($Class[1] - 1).";";
+						}
 						elseif ($Class[0] != 208 && $Class[1] > 0)
+						{
 							$NewFleet  .= $Class[0].",".$Class[1].";";
+						}
 					}
+					
 					$this->UpdateFleet('fleet_array', $NewFleet);
 					$this->UpdateFleet('fleet_amount', ($this->_fleet['fleet_amount'] - 1));
-					$this->UpdateFleet('fleet_resource_metal', 0);
-					$this->UpdateFleet('fleet_resource_crystal', 0);
-					$this->UpdateFleet('fleet_resource_deuterium', 0);
+					$this->clearResource();
 					$this->setState(FLEET_RETURN);
 				}
 			}

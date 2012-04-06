@@ -60,7 +60,7 @@ if (function_exists('mb_internal_encoding'))
 	mb_internal_encoding("UTF-8");
 }
 
-require(ROOT_PATH . 'includes/constants.php');
+require(ROOT_PATH.'includes/constants.php');
 
 ignore_user_abort(true);
 error_reporting(E_ALL & ~E_STRICT);
@@ -68,17 +68,17 @@ define('TIMESTAMP', time());
 
 ini_set('display_errors', 1);
 ini_set('log_errors', 'On');
-ini_set('error_log', ROOT_PATH . 'includes/error.log');
+ini_set('error_log', ROOT_PATH.'includes/error.log');
 
-require(ROOT_PATH . 'includes/GeneralFunctions.php');
+require(ROOT_PATH.'includes/GeneralFunctions.php');
 set_exception_handler('exceptionHandler');
 set_error_handler('errorHandler');
 
 
-require(ROOT_PATH . 'includes/classes/Cache.class.php');
+require(ROOT_PATH.'includes/classes/Cache.class.php');
 $CACHE = new Cache();
 
-require(ROOT_PATH . 'includes/classes/Autoload.class.php');
+require(ROOT_PATH.'includes/classes/Autoload.class.php');
 spl_autoload_register(array('Autoload', 'load'));
 
 // Say Browsers to Allow ThirdParty Cookies (Thanks to morktadela)
@@ -92,8 +92,8 @@ $LANG  = new Language();
 
 if (MODE !== 'INSTALL')
 {
-	require(ROOT_PATH . 'includes/config.php');
-	require(ROOT_PATH . 'includes/dbtables.php');
+	require(ROOT_PATH.'includes/config.php');
+	require(ROOT_PATH.'includes/dbtables.php');
 	
 	$SESSION  = new Session();
 	$DATABASE = new Database();
@@ -110,6 +110,7 @@ if (MODE !== 'INSTALL')
 	$gameConfig   = $CACHE->get('config');
 	$module       = $CACHE->get('module');
 	$uniAllConfig = $CACHE->get('configuni');
+	date_default_timezone_set($gameConfig['timezone']);
 	
 	$UNI = getUniverse();
 	
@@ -137,7 +138,7 @@ if (MODE !== 'INSTALL')
 		
 		if (!AJAX_REQUEST && MODE === 'GAME' && isModulAvalible(MODULE_FLEET_EVENTS))
 		{
-			require(ROOT_PATH . 'includes/FleetHandler.php');
+			require(ROOT_PATH.'includes/FleetHandler.php');
 		}
 		
 		$USER = $GLOBALS['DATABASE']->getFirstRow("SELECT 
@@ -145,10 +146,10 @@ if (MODE !== 'INSTALL')
 		stat.total_points, 
 		stat.total_rank,
 		COUNT(message.message_id) as messages
-		FROM " . USERS . " as user 
-		LEFT JOIN " . STATPOINTS . " as stat ON stat.id_owner = user.id AND stat.stat_type = '1' 
-		LEFT JOIN " . MESSAGES . " as message ON message.message_owner = user.id AND message.message_unread = '1'
-		WHERE user.id = " . $_SESSION['id'] . "
+		FROM ".USERS." as user 
+		LEFT JOIN ".STATPOINTS." as stat ON stat.id_owner = user.id AND stat.stat_type = '1' 
+		LEFT JOIN ".MESSAGES." as message ON message.message_owner = user.id AND message.message_unread = '1'
+		WHERE user.id = ".$_SESSION['id']."
 		GROUP BY message.message_owner;");
 		
 		if (empty($USER))
@@ -178,11 +179,11 @@ if (MODE !== 'INSTALL')
 		
 		if (MODE === 'GAME')
 		{
-			$PLANET = $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM " . PLANETS . " WHERE id = " . $_SESSION['planet'] . ";");
+			$PLANET = $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".PLANETS." WHERE id = ".$_SESSION['planet'].";");
 			
 			if (empty($PLANET))
 			{
-				$PLANET = $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM " . PLANETS . " WHERE id = " . $USER['id_planet'] . ";");
+				$PLANET = $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".PLANETS." WHERE id = ".$USER['id_planet'].";");
 				
 				if (empty($PLANET))
 				{
