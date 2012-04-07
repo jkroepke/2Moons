@@ -98,12 +98,12 @@ class MissionFunctions
 			if (empty($Group)) continue;
 
 			$Class			= explode(',', $Group);
-			$updateSQL[]	= $GLOBALS['VARS']['ELEMENT'][$Class[0]['name']]." = ".$GLOBALS['VARS']['ELEMENT'][$Class[0]['name']]." + ".$Class[1];
+			$updateSQL[]	= $GLOBALS['VARS']['ELEMENT'][$Class[0]]['name']." = ".$GLOBALS['VARS']['ELEMENT'][$Class[0]]['name']." + ".$Class[1];
 		}
 	
 		foreach(array_merge($GLOBALS['VARS']['LIST'][ELEMENT_PLANET_RESOURCE], $GLOBALS['VARS']['LIST'][ELEMENT_USER_RESOURCE]) as $resourceID)
 		{
-			$updateSQL[]	= $GLOBALS['VARS']['ELEMENT'][$resourceID]['name'].' = '.$GLOBALS['VARS']['ELEMENT'][$resourceID]['name'].' + '.$this->_fleet['fleet_resource_metal'].", ";
+			$updateSQL[]	= $GLOBALS['VARS']['ELEMENT'][$resourceID]['name'].' = '.$GLOBALS['VARS']['ELEMENT'][$resourceID]['name'].' + '.$this->_fleet['fleet_resource_metal'];
 		}
 		
 		if(!empty($updateSQL))
