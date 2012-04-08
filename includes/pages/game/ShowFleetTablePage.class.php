@@ -172,7 +172,7 @@ class ShowFleetTablePage extends AbstractPage
 				break;
 				case "acs":
 					$data	= $this->showACSPage($elementID);
-					$this->assign_vars($data);
+					$this->assign($data);
 				break;
 			}
 		}
@@ -253,7 +253,7 @@ class ShowFleetTablePage extends AbstractPage
 			);
 		}
 		
-		$this->assign_vars(array(
+		$this->assign(array(
 			'FleetsOnPlanet'		=> $FleetsOnPlanet,
 			'FlyingFleetList'		=> $FlyingFleetList,
 			'activeExpedition'		=> $activeExpedition,

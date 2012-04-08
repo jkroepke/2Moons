@@ -49,7 +49,7 @@ function ShowFacebookPage() {
 	$template	= new Template();
 	
 
-	$template->assign_vars(array(
+	$template->assign(array(
 		'se_save_parameters'	=> $LNG['se_save_parameters'],
 		'fb_info'				=> $LNG['fb_info'],
 		'fb_secrectkey'			=> $LNG['fb_secrectkey'],

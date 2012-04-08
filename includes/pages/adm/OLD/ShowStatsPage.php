@@ -68,7 +68,7 @@ function ShowStatsPage()
 	$template	= new Template();
 
 
-	$template->assign_vars(array(	
+	$template->assign(array(	
 		'stat_level'						=> $CONF['stat_level'],
 		'stat_update_time'					=> $CONF['stat_update_time'],
 		'stat'								=> $CONF['stat'],

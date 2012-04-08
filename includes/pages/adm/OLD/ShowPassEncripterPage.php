@@ -38,7 +38,7 @@ function ShowPassEncripterPage()
 	
 	$template	= new Template();
 
-	$template->assign_vars(array(
+	$template->assign(array(
 		'md5_md5' 			=> $Password,
 		'md5_enc' 			=> PlayerUntl::cryptPassword($Password),
 		'et_md5_encripter' 	=> $LNG['et_md5_encripter'],

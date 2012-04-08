@@ -360,7 +360,7 @@ class ShowResearchPage extends AbstractPage
 			$this->loadscript('research.js');
 		}
 		
-		$this->assign_vars(array(
+		$this->assign(array(
 			'ResearchList'	=> $ResearchList,
 			'IsLabinBuild'	=> !$bContinue,
 			'IsFullQueue'	=> $uniConfig['listMaxResearch'] == count($TechQueue),

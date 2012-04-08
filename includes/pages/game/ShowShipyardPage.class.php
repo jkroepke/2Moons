@@ -268,7 +268,7 @@ class ShowShipyardPage extends AbstractPage
 			);
 		}
 		
-		$this->assign_vars(array(
+		$this->assign(array(
 			'elementList'	=> $elementList,
 			'NotBuilding'	=> $NotBuilding,
 			'BuildList'		=> $Buildlist,

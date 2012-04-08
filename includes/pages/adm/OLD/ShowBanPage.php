@@ -99,7 +99,7 @@ function ShowBanPage()
 		
 		$vacation	= ($BANUSER['urlaubs_modus'] == 1) ? true : false;
 		
-		$template->assign_vars(array(	
+		$template->assign(array(	
 			'name'				=> $Name,
 			'bantitle'			=> $title,
 			'changedate'		=> $changedate,
@@ -169,7 +169,7 @@ function ShowBanPage()
 		exit;
 	}
 
-	$template->assign_vars(array(	
+	$template->assign(array(	
 		'UserSelect'		=> $UserSelect,
 		'usercount'			=> $Users,
 		'bancount'			=> $Banneds,

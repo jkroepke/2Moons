@@ -130,7 +130,7 @@ function ShowConfigBasicPage()
 	
 	$template	= new Template();
 	
-	$template->assign_vars(array(
+	$template->assign(array(
 		'del_oldstuff'					=> $CONF['del_oldstuff'],
 		'del_user_manually'				=> $CONF['del_user_manually'],
 		'del_user_automatic'			=> $CONF['del_user_automatic'],

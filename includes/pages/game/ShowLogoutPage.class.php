@@ -37,12 +37,13 @@ class ShowLogoutPage extends AbstractPage
 	function __construct() 
 	{
 		parent::__construct();
+		$this->setWindow('popup');
 	}
 	
 	function show() 
 	{
 		global $LNG, $SESSION;
-		
+
 		$SESSION->DestroySession();
 		$this->render('page.logout.default.tpl');
 	}

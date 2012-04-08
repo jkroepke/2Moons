@@ -348,7 +348,7 @@ class ShowBuildingsPage extends AbstractPage
 			$this->loadscript('buildlist.js');
 		}
 		
-		$this->assign_vars(array(
+		$this->assign(array(
 			'BuildInfoList'		=> $BuildInfoList,
 			'CanBuildElement'	=> $CanBuildElement,
 			'RoomIsOk'			=> $RoomIsOk,

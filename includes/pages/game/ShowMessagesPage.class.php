@@ -89,7 +89,7 @@ class ShowMessagesPage extends AbstractPage
 		
 		$GLOBALS['DATABASE']->free_result($MessageResult);		
 
-		$this->assign_vars(array(
+		$this->assign(array(
 			'MessID'		=> $MessCategory,
 			'MessageCount'	=> $MessageCount,
 			'MessageList'	=> $MessageList,
@@ -183,7 +183,7 @@ class ShowMessagesPage extends AbstractPage
 			
 		$_SESSION['messtoken'] = md5($USER['id'].'|'.$OwnerID);
 		
-		$this->assign_vars(array(	
+		$this->assign(array(	
 			'subject'		=> $Subject,
 			'id'			=> $OwnerID,
 			'OwnerRecord'	=> $OwnerRecord,
@@ -237,7 +237,7 @@ class ShowMessagesPage extends AbstractPage
 		}
 		
 		$this->loadscript('message.js');
-		$this->assign_vars(array(	
+		$this->assign(array(	
 			'CategoryList'	=> $CategoryList,
 			'OperatorList'	=> $OperatorList,
 		));

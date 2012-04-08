@@ -29,7 +29,7 @@
  * @link http://code.google.com/p/2moons/
  */
 
-abstract class AbstractPage extends Template
+abstract class AbstractPage
 {
 	protected $tplObj;
 	protected $ecoObj;
@@ -56,10 +56,10 @@ abstract class AbstractPage extends Template
 		if(isset($this->tplObj))
 			return true;
 			
-		parent::__construct();
+		$this->tplObj	= new Template;
 		
-		list($tplDir)	= $this->getTemplateDir();
-		$this->setTemplateDir($tplDir.'game/');
+		list($tplDir)	= $this->tplObj->getTemplateDir();
+		$this->tplObj->setTemplateDir($tplDir.'game/');
 		return true;
 	}
 	
@@ -114,7 +114,7 @@ abstract class AbstractPage extends Template
 			$uniConfig['planetResource903BasicIncome']	= 0;
 		}
 		
-		$this->assign_vars(array(	
+		$this->assign(array(	
 			'PlanetSelect'		=> $PlanetSelect,
 			'new_message' 		=> $USER['messages'],
 			'vacation'			=> $USER['urlaubs_modus'] ? _date($LNG['php_tdformat'], $USER['urlaubs_until'], $USER['timezone']) : false,
@@ -161,7 +161,7 @@ abstract class AbstractPage extends Template
 		} else {
 			$dateTimeUser	= $dateTimeServer;
 		}
-        $this->assign_vars(array(
+        $this->assign(array(
             'vmode'				=> $USER['urlaubs_modus'],
 			'authlevel'			=> $USER['authlevel'],
 			'userID'			=> $USER['id'],
@@ -181,7 +181,7 @@ abstract class AbstractPage extends Template
 	}
 	
 	protected function printMessage($Message, $fullSide = true, $redirect = NULL) {
-		$this->assign_vars(array(
+		$this->assign(array(
 			'mes'		=> $Message,
 		));
 		
@@ -202,6 +202,18 @@ abstract class AbstractPage extends Template
 		}
 	}
 	
+	protected function assign($var) {
+		$this->tplObj->assign($var);
+	}
+	
+	protected function loadscript($file) {
+		$this->tplObj->loadscript($file);
+	}
+	
+	protected function execscript($file) {
+		$this->tplObj->execscript($file);
+	}
+	
 	protected function render($file) {
 		global $LNG, $LANG, $THEME;
 		
@@ -211,18 +223,18 @@ abstract class AbstractPage extends Template
 			$this->getPageData();
 		}
 		
-		$this->assign_vars(array(
+		$this->assign(array(
             'lang'    		=> $LANG->getUser(),
             'dpath'			=> $THEME->getTheme(),
-			'scripts'		=> $this->jsscript,
-			'execscript'	=> implode("\n", $this->script),
+			'scripts'		=> $this->tplObj->jsscript,
+			'execscript'	=> implode("\n", $this->tplObj->script),
 		));
 
-		$this->assign_vars(array(
+		$this->assign(array(
 			'LNG'			=> $LNG,
 		), false);
 		
-		$this->display('extends:layout.'.$this->getWindow().'.tpl|'.$file);
+		$this->tplObj->display('extends:layout.'.$this->getWindow().'.tpl|'.$file);
 		exit;
 	}
 	

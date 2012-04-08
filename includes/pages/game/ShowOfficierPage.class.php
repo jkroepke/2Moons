@@ -154,7 +154,7 @@ class ShowOfficierPage extends AbstractPage
 			}
 		}
 		
-		$this->assign_vars(array(	
+		$this->assign(array(	
 			'officierList'		=> $officierList,
 			'darkmatterList'	=> $darkmatterList,
 			'of_dm_trade'		=> sprintf($LNG['of_dm_trade'], $LNG['tech'][921]),

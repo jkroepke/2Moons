@@ -34,7 +34,7 @@ function ShowMenuPage()
 	global $USER, $LNG;
 	$template	= new Template();
 	
-	$template->assign_vars(array(	
+	$template->assign(array(	
 		'supportticks'				=> $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".TICKETS." WHERE universe = ".$_SESSION['adminuni']." AND status = 0;"),
 	));
 	$template->show('ShowMenuPage.tpl');

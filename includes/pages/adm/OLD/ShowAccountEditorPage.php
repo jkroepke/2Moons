@@ -190,7 +190,7 @@ function ShowAccountEditorPage()
 				);
 			}
 
-			$template->assign_vars(array(
+			$template->assign(array(
 				'inputlist'			=> $INPUT,
 			));
 						
@@ -257,7 +257,7 @@ function ShowAccountEditorPage()
 				);
 			}
 
-			$template->assign_vars(array(
+			$template->assign(array(
 				'inputlist'			=> $INPUT,
 			));
 						
@@ -338,7 +338,7 @@ function ShowAccountEditorPage()
 				);
 			}
 
-			$template->assign_vars(array(
+			$template->assign(array(
 				'inputlist'			=> $INPUT,
 			));
 						
@@ -404,7 +404,7 @@ function ShowAccountEditorPage()
 				);
 			}
 
-			$template->assign_vars(array(
+			$template->assign(array(
 				'inputlist'			=> $INPUT,
 			));
 						
@@ -471,7 +471,7 @@ function ShowAccountEditorPage()
 				exit;
 			}
 			
-			$template->assign_vars(array(
+			$template->assign(array(
 				'Selector'				=> array(''	=> $LNG['select_option'], 'yes' => $LNG['one_is_yes'][1], 'no' => $LNG['one_is_yes'][0]),
 			));
 						
@@ -537,7 +537,7 @@ function ShowAccountEditorPage()
 				);
 			}
 
-			$template->assign_vars(array(
+			$template->assign(array(
 				'inputlist'			=> $INPUT,
 			));
 						

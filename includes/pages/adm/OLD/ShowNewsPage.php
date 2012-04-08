@@ -62,7 +62,7 @@ function ShowNewsPage(){
 
 	if($_GET['action'] == 'edit' && isset($_GET['id'])) {
 		$News = $GLOBALS['DATABASE']->getFirstRow("SELECT id, title, text FROM ".NEWS." WHERE id = '".$GLOBALS['DATABASE']->sql_escape($_GET['id'])."';");
-		$template->assign_vars(array(	
+		$template->assign(array(	
 			'mode'			=> 1,
 			'nws_head'		=> sprintf($LNG['nws_head_edit'], $News['title']),
 			'news_id'		=> $News['id'],
@@ -70,13 +70,13 @@ function ShowNewsPage(){
 			'news_text'		=> $News['text'],
 		));
 	} elseif($_GET['action'] == 'create') {
-		$template->assign_vars(array(	
+		$template->assign(array(	
 			'mode'			=> 2,
 			'nws_head'		=> $LNG['nws_head_create'],
 		));
 	}
 	
-	$template->assign_vars(array(	
+	$template->assign(array(	
 		'NewsList'		=> $NewsList,
 		'button_submit'	=> $LNG['button_submit'],
 		'nws_total'		=> sprintf($LNG['nws_total'], count($NewsList)),

@@ -111,7 +111,7 @@ class ShowImperiumPage extends AbstractPage
 			$planetList['tech'][$elementID]	= $USER[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']];
 		}
 		
-		$this->assign_vars(array(
+		$this->assign(array(
 			'colspan'		=> count($planetList) + 3,
 			'planetList'	=> $planetList,
 		));

@@ -24,7 +24,7 @@
 					<br><span class="small">{$LNG.login_info}</span>
 				</div>
 				<div id="regbox"><h1>{$LNG.register}</h1>
-					<form id="reg" name="reg" action="index.php?page=reg&amp;action=send" method="post" onsubmit="return false;">
+					<form id="reg" name="reg" action="index.php?page=register&amp;mode=send" method="post" onsubmit="return false;">
 						{if $fb_active}<input type="hidden" name="fb_id" id="fb_id">{/if}
 						{if $ref_id}<input type="hidden" name="ref_id" id="ref_id" value="{$ref_id}"><input type="hidden" name="uni" id="ref_uni" value="{$ref_uni}">{else}
 						<label for="reg_universe">{$LNG.universe}</label><select name="uni" id="reg_universe">{html_options options=$AvailableUnis selected=$UNI}</select><br>{/if}
@@ -45,7 +45,7 @@
 					{if $fb_active}<a href="javascript:FBlogin();" class="fb_login"><img src="http://b.static.ak.fbcdn.net/rsrc.php/zB6N8/hash/4li2k73z.gif" alt=""></a>{/if}
 				</div>
 				<div id="lostbox"><h1>{$LNG.lostpassword}</h1>
-					<form id="lost" name="lost" action="index.php?page=lostpassword" method="post" onsubmit="return false;">
+					<form id="lost" name="lost" action="index.php?page=lostPassword" method="post" onsubmit="return false;">
 						<label for="universe_lost">{$LNG.universe}</label><select name="uni" id="universe_lost">{html_options options=$AvailableUnis selected=$UNI}</select><br>
 						<label for="username_lost">{$LNG.user}</label><input name="username" id="username_lost" type="text"><br>
 						<label for="email_lost">{$LNG.email_reg}</label><input name="email" id="email_lost" type="text"><br>

@@ -55,7 +55,7 @@ class ShowOverPage {
 				$Message[]	= sprintf($LNG['ow_dir_not_writable'], 'includes');
 		}
 		
-		$template->assign_vars(array(
+		$template->assign(array(
 			'Messages'			=> $Message,
 			'date'				=> date('m\_Y', TIMESTAMP),
 		));

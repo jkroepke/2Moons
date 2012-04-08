@@ -64,7 +64,7 @@ class ShowSupportPage
 		
 		$GLOBALS['DATABASE']->free_result($ticketResult);
 		
-		$this->assign_vars(array(	
+		$this->assign(array(	
 			'ticketList'	=> $ticketList
 		));
 			
@@ -119,7 +119,7 @@ class ShowSupportPage
 			
 		$categoryList	= $this->ticketObj->getCategoryList();
 		
-		$this->assign_vars(array(
+		$this->assign(array(
 			'ticketID'		=> $ticketID,
 			'ticket_status' => $ticket_status,
 			'categoryList'	=> $categoryList,

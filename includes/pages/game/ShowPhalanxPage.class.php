@@ -100,7 +100,7 @@ class ShowPhalanxPage extends AbstractPage
 		$fleetTableObj->setPlanet($TargetInfo['id']);
 		$fleetTable	=  $fleetTableObj->renderTable();
 		
-		$this->assign_vars(array(
+		$this->assign(array(
 			'galaxy'  		=> $Galaxy,
 			'system'  		=> $System,
 			'planet'   		=> $Planet,

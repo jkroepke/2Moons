@@ -180,7 +180,7 @@ class ShowBattleSimulatorPage extends AbstractPage
 		
 		$this->loadscript('battlesim.js');
 		
-		$this->assign_vars(array(
+		$this->assign(array(
 			'Slots'			=> $Slots,
 			'battleinput'	=> $BattleArray,
 			'fleetList'		=> $GLOBALS['VARS']['LIST'][ELEMENT_FLEET],

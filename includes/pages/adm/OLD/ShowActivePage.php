@@ -55,7 +55,7 @@ function ShowActivePage()
 
 	$template	= new Template();
 
-	$template->assign_vars(array(	
+	$template->assign(array(	
 		'Users'				=> $Users,
 		'uni'				=> $_SESSION['adminuni'],
 	));

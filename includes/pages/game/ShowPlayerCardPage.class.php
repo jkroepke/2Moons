@@ -73,7 +73,7 @@ class ShowPlayerCardPage extends AbstractPage
 			$drawsprozent               = 100 / $totalfights * $query['draws'];
 		}
 
-		$this->assign_vars(array(	
+		$this->assign(array(	
 			'id'			=> $PlayerID,
 			'yourid'		=> $USER['id'],
 			'name'			=> $query['username'],

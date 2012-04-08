@@ -57,7 +57,7 @@ class ShowTicketPage extends AbstractPage
 		
 		$GLOBALS['DATABASE']->free_result($ticketResult);
 		
-		$this->assign_vars(array(	
+		$this->assign(array(	
 			'ticketList'	=> $ticketList
 		));
 			
@@ -70,7 +70,7 @@ class ShowTicketPage extends AbstractPage
 		
 		$categoryList	= $this->ticketObj->getCategoryList();
 		
-		$this->assign_vars(array(	
+		$this->assign(array(	
 			'categoryList'	=> $categoryList,
 		));
 			
@@ -127,7 +127,7 @@ class ShowTicketPage extends AbstractPage
 			
 		$categoryList	= $this->ticketObj->getCategoryList();
 		
-		$this->assign_vars(array(
+		$this->assign(array(
 			'ticketID'		=> $ticketID,
 			'categoryList'	=> $categoryList,
 			'answerList'	=> $answerList,

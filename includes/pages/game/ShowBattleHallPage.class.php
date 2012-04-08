@@ -72,7 +72,7 @@ class ShowBattleHallPage extends AbstractPage
 		
 		$GLOBALS['DATABASE']->free_result($top);
 
-		$this->assign_vars(array(
+		$this->assign(array(
 			'TopKBList'		=> $TopKBList,
 		));
 		

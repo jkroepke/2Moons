@@ -53,7 +53,7 @@ function ShowInformationPage()
 	$dateTimePHP		= new DateTime("now");
 	
 	$template	= new Template();
-	$template->assign_vars(array(
+	$template->assign(array(
 		'info_information'	=> sprintf($LNG['info_information'], 'http://dev.2moons.cc/bugtracker'),
 		'info'				=> $_SERVER['SERVER_SOFTWARE'],
 		'vPHP'				=> PHP_VERSION,

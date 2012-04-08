@@ -6,6 +6,7 @@
 <!--[if IE 9 ]>    <html lang="{$lang}" class="no-js ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html lang="{$lang}" class="no-js"> <!--<![endif]-->
 <head>
+<base href="{$smarty.const.HTTP_ROOT}">
 <link rel="stylesheet" type="text/css" href="styles/css/login.css?v={$REV}">
 <link rel="stylesheet" type="text/css" href="styles/css/jquery.fancybox.css?v={$REV}">
 <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">

@@ -135,7 +135,7 @@ function ShowQuickEditorPage()
 			}
 			
 			$template	= new Template();
-			$template->assign_vars(array(	
+			$template->assign(array(	
 				'id'			=> $id,
 				'elementData'	=> $elementData,
 				'planetData'	=> $planetData
@@ -213,7 +213,7 @@ function ShowQuickEditorPage()
 			}
 
 			$template	= new Template();
-			$template->assign_vars(array(	
+			$template->assign(array(	
 				'tech'			=> $tech,
 				'officier'		=> $officier,
 				'id'			=> $id,

@@ -47,7 +47,7 @@ function ShowMultiIPPage()
 	}
 	
 	$template	= new Template();
-	$template->assign_vars(array(
+	$template->assign(array(
 		'IPs'		=> $IPs,
 		'mip_ip'	=> $LNG['mip_ip'],
 	));

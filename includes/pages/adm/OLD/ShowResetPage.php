@@ -144,7 +144,7 @@ function ShowResetPage()
 		exit;
 	}
 
-	$template->assign_vars(array(	
+	$template->assign(array(	
 		'button_submit'						=> $LNG['button_submit'],
 		're_reset_universe_confirmation'	=> $LNG['re_reset_universe_confirmation'],
 		're_reset_all'						=> $LNG['re_reset_all'],

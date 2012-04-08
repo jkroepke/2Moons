@@ -143,7 +143,7 @@ function ShowMessageListPage()
 
 	$template->loadscript('global.js');
 
-	$template->assign_vars(array(	
+	$template->assign(array(	
 		'Selector'					=> $Selector,
 		'ViewPage'					=> $ViewPage,
 		'Selected'					=> $Selected,
