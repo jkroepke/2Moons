@@ -60,7 +60,7 @@ class ShowQuestionsPage extends AbstractPage
 			HTTP::redirectTo('game.php?page=questions');
 		}
 		
-		$this->assign_vars(array(
+		$this->assign(array(
 			'questionRow'	=> $LNG['questions'][$categoryID][$questionID],
 		));
 		$this->render('page.questions.single.tpl');

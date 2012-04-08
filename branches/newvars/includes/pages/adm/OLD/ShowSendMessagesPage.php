@@ -108,7 +108,7 @@ function ShowSendMessagesPage() {
 	}
 	
 	$template	= new Template();
-	$template->assign_vars(array(
+	$template->assign(array(
 		'lang' => array_merge(array('' => $LNG['ma_all']), $LANG->getAllowedLangs(false)),
 		'modes' => $LNG['ma_modes'],
 	));

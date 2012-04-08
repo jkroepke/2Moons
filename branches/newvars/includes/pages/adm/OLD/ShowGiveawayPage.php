@@ -93,7 +93,7 @@ function ShowGiveaway()
 		exit;
 	}	
 	
-	$template->assign_vars(array(	
+	$template->assign(array(	
 		'reslist'		=> $reslist
 	));
 	$template->show("giveaway.tpl");

@@ -67,7 +67,7 @@ class ShowBattleHallPage extends AbstractPage
 		
 		ksort($AvailableUnis);
 		
-		$this->assign_vars(array(
+		$this->assign(array(
 			'AvailableUnis'	=> $AvailableUnis,
 			'banList'		=> $banList,
 		));

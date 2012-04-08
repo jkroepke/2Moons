@@ -60,7 +60,7 @@ function ShowRightsPage()
 				
 				$Files	= array_map('prepare', array_diff(scandir(ROOT_PATH.'includes/pages/adm/'), array('.', '..', '.svn', 'index.html', '.htaccess', 'ShowIndexPage.php', 'ShowOverviewPage.php', 'ShowMenuPage.php', 'ShowTopnavPage.php')));
 				
-				$template->assign_vars(array(	
+				$template->assign(array(	
 					'Files'						=> $Files, 
 					'Rights'					=> $Rights['rights'], 
 					'id'						=> $id, 
@@ -91,7 +91,7 @@ function ShowRightsPage()
 				$UserList	.=	'<option value="'.$List['id'].'">'.$List['username'].'&nbsp;&nbsp;('.$LNG['rank'][$List['authlevel']].')</option>';
 			}	
 
-			$template->assign_vars(array(	
+			$template->assign(array(	
 				'Selector'					=> array(0 => $LNG['rank'][0], 1 => $LNG['rank'][1], 2 => $LNG['rank'][2], 3 => $LNG['rank'][3]), 
 				'UserList'					=> $UserList, 
 				'ad_authlevel_title'		=> $LNG['ad_authlevel_title'], 
@@ -149,7 +149,7 @@ function ShowRightsPage()
 				$UserList	.=	'<option value="'.$List['id'].'">'.$List['username'].'&nbsp;&nbsp;('.$LNG['rank'][$List['authlevel']].')</option>';
 			}	
 
-			$template->assign_vars(array(	
+			$template->assign(array(	
 				'Selector'					=> array(0 => $LNG['rank'][0], 1 => $LNG['rank'][1], 2 => $LNG['rank'][2], 3 => $LNG['rank'][3]), 
 				'UserList'					=> $UserList, 
 				'ad_authlevel_title'		=> $LNG['ad_authlevel_title'], 

@@ -60,7 +60,7 @@ class ShowNotesPage extends AbstractPage
 		
 		$GLOBALS['DATABASE']->free_result($notesResult);
 		
-		$this->assign_vars(array(
+		$this->assign(array(
 			'notesList'	=> $notesList,
 		));
 		
@@ -85,7 +85,7 @@ class ShowNotesPage extends AbstractPage
 		}
 		
 		$this->execscript("$('#cntChars').text($('#text').val().length);");
-		$this->assign_vars(array(
+		$this->assign(array(
 			'PriorityList'	=> array(2 => $LNG['nt_important'], 1 => $LNG['nt_normal'], 0 => $LNG['nt_unimportant']),
 			'noteDetail'	=> $noteDetail,
 		));

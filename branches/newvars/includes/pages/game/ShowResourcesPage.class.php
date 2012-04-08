@@ -175,7 +175,7 @@ class ShowResourcesPage extends AbstractPage
 			$prodSelector[$procent]	= $procent.'%';
 		}
 		
-		$this->assign_vars(array(	
+		$this->assign(array(	
 			'header'			=> sprintf($LNG['rs_production_on_planet'], $PLANET['name']),
 			'prodSelector'		=> $prodSelector,
 			'productionList'	=> $productionList,

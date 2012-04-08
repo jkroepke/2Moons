@@ -53,7 +53,7 @@ class ShowErrorPage extends AbstractPage
 		global $USER, $LNG;
 		
 		$pageObj	= new self;
-		$pageObj->tplObj->assign_vars(array(	
+		$pageObj->tplObj->assign(array(	
 			'banMessage'	=> sprintf($LNG['css_account_banned_expire'], _date($LNG['php_tdformat'], $USER['banaday'], $USER['timezone'])),
 
 		));
@@ -66,7 +66,7 @@ class ShowErrorPage extends AbstractPage
 		global $USER, $uniConfig;
 		
 		$pageObj	= new self;
-		$pageObj->tplObj->assign_vars(array(	
+		$pageObj->tplObj->assign(array(	
 			'closeReason'	=> $uniConfig['enableReason'],
 		));
 		

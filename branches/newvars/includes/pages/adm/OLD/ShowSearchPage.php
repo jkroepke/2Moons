@@ -103,7 +103,7 @@ function ShowSearchPage()
 	if (HTTP::_GP('minimize', '') == 'on')
 	{
 		$Minimize			= "&amp;minimize=on";
-		$template->assign_vars(array(	
+		$template->assign(array(	
 			'minimize'	=> 'checked = "checked"',
 			'diisplaay'	=> 'style="display:none;"',
 		));
@@ -241,7 +241,7 @@ function ShowSearchPage()
 		$RESULT	= MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialSpecify, $Order, $OrderBY, $limit, $Table, $Page, $NameLang, $ArrayOSec, $Minimize, $SName, $SearchFile);
 	}
 	
-	$template->assign_vars(array(	
+	$template->assign(array(	
 		'Selector'				=> $Selector,
 		'limit'					=> $limit,
 		'search'				=> $SearchKey,

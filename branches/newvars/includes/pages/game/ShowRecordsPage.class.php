@@ -62,7 +62,7 @@ class ShowRecordsPage extends AbstractPage
 			}
 		}
 		
-		$this->assign_vars(array(	
+		$this->assign(array(	
 			'defenseList'	=> $defenseList,
 			'fleetList'		=> $fleetList,
 			'researchList'	=> $researchList,

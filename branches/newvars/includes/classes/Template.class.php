@@ -52,6 +52,7 @@ class Template extends Smarty
 		$this->setCompileDir(is_writable(ROOT_PATH.'cache/') ? ROOT_PATH.'cache/' : $this->getTempPath());
 		$this->setCacheDir(ROOT_PATH.'cache/templates');
 		$this->setTemplateDir(ROOT_PATH.'styles/templates/');
+		#$this->loadFilter('output', 'rewritelink');
 		#$this->loadFilter('output', 'trimwhitespace');
 	}
 	

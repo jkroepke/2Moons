@@ -354,7 +354,7 @@ function ShowAccountDataPage()
 				$defense	.= $RES[$GLOBALS['VARS']['ELEMENT'][$ID]['name']];
 			}
 			
-			$template->assign_vars(array(
+			$template->assign(array(
 				'DestruyeD'						=> $DestruyeD,
 				'destroyed'						=> $destroyed,
 				'resources'						=> $resources,
@@ -526,7 +526,7 @@ function ShowAccountDataPage()
 	}
 
 	$template->loadscript('filterlist.js');
-	$template->assign_vars(array(
+	$template->assign(array(
 		'Userlist'			=> $Userlist,
 		'ac_enter_user_id'	=> $LNG['ac_enter_user_id'],
 		'bo_select_title'	=> $LNG['bo_select_title'],

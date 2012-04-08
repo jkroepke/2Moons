@@ -43,7 +43,7 @@ class ShowSettingsPage extends AbstractPage
 		global $USER, $LNG, $LANG, $gameConfig;
 		if($USER['urlaubs_modus'] == 1)
 		{
-			$this->assign_vars(array(	
+			$this->assign(array(	
 				'vacationUntil'			=> _date($LNG['php_tdformat'], $USER['urlaubs_until'], $USER['timezone']),
 				'delete'				=> $USER['db_deaktjava'],
 				'canVacationDisbaled'	=> $USER['urlaubs_until'] < TIMESTAMP,
@@ -53,7 +53,7 @@ class ShowSettingsPage extends AbstractPage
 		}
 		else
 		{
-			$this->assign_vars(array(				
+			$this->assign(array(				
 				'Selectors'			=> array(
 					'timezones' => get_timezone_selector(), 
 					'Sort' => array(

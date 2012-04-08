@@ -155,7 +155,7 @@ function ShowCreatorPage()
 				$AUTH[AUTH_ADM]	= $LNG['user_level'][AUTH_ADM];
 				
 			
-			$template->assign_vars(array(	
+			$template->assign(array(	
 				'admin_auth'			=> $USER['authlevel'],
 				'new_add_user'			=> $LNG['new_add_user'],
 				'new_creator_refresh'	=> $LNG['new_creator_refresh'],
@@ -199,7 +199,7 @@ function ShowCreatorPage()
 				exit;
 			}
 			
-			$template->assign_vars(array(
+			$template->assign(array(
 				'admin_auth'			=> $USER['authlevel'],	
 				'universum'				=> $LNG['mu_universe'],
 				'po_add_moon'			=> $LNG['po_add_moon'],
@@ -266,7 +266,7 @@ function ShowCreatorPage()
 				$AvailableUnis[$Unis['uni']]	= $Unis;
 			}
 
-			$template->assign_vars(array(	
+			$template->assign(array(	
 				'AvailableUnis'			=> $AvailableUnis,
 				'admin_auth'			=> $USER['authlevel'],	
 				'universum'				=> $LNG['mu_universe'],
@@ -287,7 +287,7 @@ function ShowCreatorPage()
 			$template->show('CreatePagePlanet.tpl');
 		break;
 		default:
-			$template->assign_vars(array(	
+			$template->assign(array(	
 				'new_creator_title_u'	=> $LNG['new_creator_title_u'],
 				'new_creator_title_p'	=> $LNG['new_creator_title_p'],
 				'new_creator_title_l'	=> $LNG['new_creator_title_l'],

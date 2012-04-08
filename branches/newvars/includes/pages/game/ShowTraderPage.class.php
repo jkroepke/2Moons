@@ -48,7 +48,7 @@ class ShowTraderPage extends AbstractPage
 	{
 		global $LNG, $uniConfig, $USER;
 		
-		$this->assign_vars(array(
+		$this->assign(array(
 			'tr_cost_dm_trader'		=> sprintf($LNG['tr_cost_dm_trader'], pretty_number($uniConfig['traderResourceCost']), $LNG['tech'][921]),
 			'charge'				=> self::$Charge,
 			'requiredDarkMatter'	=> $USER['darkmatter'] < $uniConfig['traderResourceCost'] ? sprintf($LNG['tr_empty_darkmatter'], $LNG['tech'][921]) : false,
@@ -74,7 +74,7 @@ class ShowTraderPage extends AbstractPage
 		$tradeResources	= array_values(array_diff($reslist['resstype'][1], array($resourceID)));
 		
 		$this->loadscript("trader.js");
-		$this->assign_vars(array(
+		$this->assign(array(
 			'resourceID'		=> $resourceID,
 			'tradeRessources'	=> $tradeResources,
 			'charge' 			=> self::$Charge[$resourceID],

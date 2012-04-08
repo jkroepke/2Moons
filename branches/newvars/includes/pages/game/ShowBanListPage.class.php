@@ -67,7 +67,7 @@ class ShowBanListPage extends AbstractPage
 		
 		$GLOBALS['DATABASE']->free_result($banResult);
 		
-		$this->assign_vars(array(	
+		$this->assign(array(	
 			'banList'	=> $banList,
 			'banCount'	=> $banCount,
 			'page'		=> $page,

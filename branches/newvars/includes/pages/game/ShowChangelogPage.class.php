@@ -43,7 +43,7 @@ class ShowChangelogPage extends AbstractPage
 	{
 		global $USER, $PLANET, $LNG, $LANG;
 		$LANG->includeLang(array('CHANGELOG'));	
-		$this->assign_vars(array(	
+		$this->assign(array(	
 			'ChangelogList'	=> array_map('makebr', $LNG['changelog']),
 		));
 		

@@ -166,7 +166,7 @@ function FBlogin() {
 }
 
 function FBCheckIfKnownUser() {
-	$.getJSON('?uni='+FBUniverse+'&page=reg&action=check&mode=fbid&value='+response.authResponse.userID, function(data) {
+	$.getJSON('?uni='+FBUniverse+'&page=reg&action=check&check=fbid&value='+response.authResponse.userID, function(data) {
 		if(data.exists === true) {
 			FBRediectToGame();
 		} else {
@@ -176,13 +176,13 @@ function FBCheckIfKnownUser() {
 }
 
 function FBRediectToGame() {
-	document.location.href = '?uni='+FBUniverse+'&page=extauth&method=facebook';
+	document.location.href = '?uni='+FBUniverse+'&page=externalAuth&method=facebook';
 }
 
 function FBRegUser() {
 	FB.api('/me', function(response) {
 		FBUniverse	= $('#universe').val();
-		$.getJSON('?uni='+FBUniverse+'&page=reg&action=check&mode=email&value='+response.email, function(data) {
+		$.getJSON('?uni='+FBUniverse+'&page=reg&action=check&check=email&value='+response.email, function(data) {
 			if(data.exists) {
 				document.location.href = '?uni='+FBUniverse+'&page=fblogin&mode=register';
 			} else {

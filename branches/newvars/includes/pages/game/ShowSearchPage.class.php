@@ -217,7 +217,7 @@ class ShowSearchPage extends AbstractPage
 			$searchList	= self::_getSearchList($seachMode, $searchText, SEARCH_LIMIT);
 		}
 		
-		$this->assign_vars(array(
+		$this->assign(array(
 			'searchList'	=> $searchList,
             'dpath'			=> $THEME->getTheme(),
 		));
@@ -235,7 +235,7 @@ class ShowSearchPage extends AbstractPage
 		
 		$modeSelector	= array('playername' => $LNG['sh_player_name'], 'planetname' => $LNG['sh_planet_name'], 'allytag' => $LNG['sh_alliance_tag'], 'allyname' => $LNG['sh_alliance_name']);
 		$this->loadscript('search.js');
-		$this->assign_vars(array(
+		$this->assign(array(
 			'modeSelector'	=> $modeSelector,
 			'seachMode'		=> $seachMode,
 		));

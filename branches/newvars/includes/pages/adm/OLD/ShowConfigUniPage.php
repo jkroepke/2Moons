@@ -264,7 +264,7 @@ function ShowConfigUniPage()
 	
 	$template	= new Template();
 
-	$template->assign_vars(array(
+	$template->assign(array(
 		'se_server_parameters'			=> $LNG['se_server_parameters'],
 		'se_gameName'					=> $LNG['se_gameName'],
 		'se_uni_name'					=> $LNG['se_uni_name'],

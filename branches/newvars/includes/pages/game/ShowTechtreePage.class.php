@@ -74,7 +74,7 @@ class ShowTechtreePage extends AbstractPage
 			}
 		}
 		
-		$this->assign_vars(array(
+		$this->assign(array(
 			'TechTreeList'		=> $TechTreeList,
 		));
 

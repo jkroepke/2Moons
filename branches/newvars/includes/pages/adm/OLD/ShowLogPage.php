@@ -161,7 +161,7 @@ function ShowLogDetail() {
 	}
 		
 	$template	= new Template();	
-	$template->assign_vars(array(	
+	$template->assign(array(	
 		'LogArray'		=> $LogArray,
 		'admin'			=> $result['admin_username'],
 		'target'		=> $result['universe'],
@@ -200,7 +200,7 @@ function ShowLogSettingsList() {
 		);
 	}
 	$GLOBALS['DATABASE']->free_result($result);
-	$template->assign_vars(array(	
+	$template->assign(array(	
 		'LogArray'				=> $LogArray,
 		'log_log'		=> $LNG['log_log'],
 		'log_admin'		=> $LNG['log_admin'],
@@ -234,7 +234,7 @@ function ShowLogPlanetsList() {
 	}
 	$GLOBALS['DATABASE']->free_result($result);
 	$template	= new Template();	
-	$template->assign_vars(array(	
+	$template->assign(array(	
 		'LogArray'		=> $LogArray,
 		'log_log'		=> $LNG['log_log'],
 		'log_admin'		=> $LNG['log_admin'],
@@ -267,7 +267,7 @@ function ShowLogPlayersList() {
 		);
 	}
 	$GLOBALS['DATABASE']->free_result($result);
-	$template->assign_vars(array(	
+	$template->assign(array(	
 		'LogArray'		=> $LogArray,
 		'log_log'		=> $LNG['log_log'],
 		'log_admin'		=> $LNG['log_admin'],
@@ -300,7 +300,7 @@ function ShowLogPresent() {
 		);
 	}
 	$GLOBALS['DATABASE']->free_result($result);
-	$template->assign_vars(array(	
+	$template->assign(array(	
 		'LogArray'		=> $LogArray,
 		'log_log'		=> $LNG['log_log'],
 		'log_admin'		=> $LNG['log_admin'],

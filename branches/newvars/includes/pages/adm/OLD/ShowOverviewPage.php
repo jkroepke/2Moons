@@ -56,7 +56,7 @@ function ShowOverviewPage()
 	$template	= new Template();
 
 
-	$template->assign_vars(array(	
+	$template->assign(array(	
 		'ow_none'			=> $LNG['ow_none'],
 		'ow_overview'		=> $LNG['ow_overview'],
 		'ow_welcome_text'	=> $LNG['ow_welcome_text'],

@@ -110,7 +110,7 @@ class ShowFleetStep1Page extends AbstractPage
 		
 		$this->loadscript('flotten.js');
 		$this->execscript('updateVars();FleetTime();window.setInterval("FleetTime()", 1000);');
-		$this->assign_vars(array(
+		$this->assign(array(
 			'token'			=> $token,
 			'mission'		=> $mission,
 			'shortcutList'	=> $shortcutList,

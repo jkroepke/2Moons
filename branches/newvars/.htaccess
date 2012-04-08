@@ -298,3 +298,12 @@ AddCharset utf-8 .css .js .xml .json .rss .atom
 #	RewriteEngine on
 #	RewriteRule ^uni([0-9]+)/?(.*)?$ $2 [L,QSA,E=UNI:$1]
 #</IfModule>
+
+
+#
+# SEO URL-Support
+#
+#<IfModule mod_rewrite.c>
+#	RewriteEngine on
+#	RewriteRule ^(game|index)/(.*)/?(.*)?$ $1.php?page=$2&mode=$3 [L,QSA]
+#</IfModule>

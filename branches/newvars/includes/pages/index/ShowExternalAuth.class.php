@@ -29,31 +29,45 @@
  * @link http://code.google.com/p/2moons/
  */
 
-function ShowTopnavPage()
+class ShowExternalAuth extends AbstractPage
 {
-	global $LNG, $USER, $UNI, $CONF;
-	$template	= new Template();
+	public static $requireModule = 0;
 
-	$AvailableUnis[$CONF['uni']]	= $CONF['uni_name'].' (ID: '.$CONF['uni'].')';
-	$Query	= $GLOBALS['DATABASE']->query("SELECT `uni`, `uni_name` FROM ".CONFIG." WHERE `uni` != '".$UNI."' ORDER BY `uni` DESC;");
-	while($Unis	= $GLOBALS['DATABASE']->fetchArray($Query)) {
-		$AvailableUnis[$Unis['uni']]	= $Unis['uni_name'].' (ID: '.$Unis['uni'].')';
+	function __construct() 
+	{
+		parent::__construct();
 	}
-	ksort($AvailableUnis);
-	$template->assign(array(	
-		'ad_authlevel_title'	=> $LNG['ad_authlevel_title'],
-		're_reset_universe'		=> $LNG['re_reset_universe'],
-		'mu_universe'			=> $LNG['mu_universe'],
-		'mu_moderation_page'	=> $LNG['mu_moderation_page'],
-		'adm_cp_title'			=> $LNG['adm_cp_title'],
-		'adm_cp_index'			=> $LNG['adm_cp_index'],
-		'adm_cp_logout'			=> $LNG['adm_cp_logout'],
-		'sid'					=> session_id(),
-		'id'					=> $USER['id'],
-		'authlevel'				=> $USER['authlevel'],
-		'AvailableUnis'			=> $AvailableUnis,
-		'UNI'					=> $_SESSION['adminuni'],
-	));
 	
-	$template->show('ShowTopnavPage.tpl');
+	function show() 
+	{
+		$method			= HTTP::_GP('method', '');
+		$method			= str_replace(array('_', '\\', '/', '.', "\0"), '', $method);
+		
+		if(!file_exists(ROOT_PATH.'includes/extauth/'.$method.'.class.php')) {
+			HTTP::redirectTo('index.php');			
+		}
+		
+		require(ROOT_PATH.'includes/extauth/'.$method.'.class.php');
+		
+		$methodClass	= ucwords($method).'Auth';
+		$authObj		= new $methodClass;
+		
+		if(!$authObj->isVaild()) {
+			HTTP::redirectTo('index.php?code=4');
+		}
+		
+		if($mode == 'register') {
+			$authObj->register();
+		}
+		
+		$loginData	= $authObj->getLoginData();
+		
+		if(empty($loginData)) {
+			HTTP::redirectTo('index.php?code=5');
+		}
+		
+		$SESSION       	= new Session();
+		$SESSION->CreateSession($loginData['id'], $loginData['username'], $loginData['id_planet'], $UNI, $loginData['authlevel'], $loginData['dpath']);
+		HTTP::redirectTo("game.php");	
+	}
 }

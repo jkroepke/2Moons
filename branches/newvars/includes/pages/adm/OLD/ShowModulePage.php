@@ -50,7 +50,7 @@ function ShowModulePage()
 	asort($Modules);
 	$template	= new Template();
 
-	$template->assign_vars(array(
+	$template->assign(array(
 		'Modules'				=> $Modules,
 		'mod_module'			=> $LNG['mod_module'],
 		'mod_info'				=> $LNG['mod_info'],

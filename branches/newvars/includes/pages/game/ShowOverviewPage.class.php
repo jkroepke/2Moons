@@ -191,7 +191,7 @@ class ShowOverviewPage extends AbstractPage
 			$rankInfo	= sprintf($LNG['ov_userrank_info'], pretty_number($USER['total_points']), $LNG['ov_place'], $USER['total_rank'], $USER['total_rank'], $LNG['ov_of'], $universeData[$UNI]['userAmount']);
 		}
 	
-		$this->assign_vars(array(
+		$this->assign(array(
 			'rankInfo'					=> $rankInfo,
 			'is_news'					=> $uniConfig['newsEnable'],
 			'news'						=> makebr($uniConfig['newsText']),
@@ -234,7 +234,7 @@ class ShowOverviewPage extends AbstractPage
 		$this->setWindow('popup');
 		
 		$this->loadscript('overview.actions.js');
-		$this->assign_vars(array(
+		$this->assign(array(
 			'ov_security_confirm'		=> sprintf($LNG['ov_security_confirm'], $PLANET['name'].' ['.$PLANET['galaxy'].':'.$PLANET['system'].':'.$PLANET['planet'].']'),
 		));
 		$this->render('page.overview.actions.tpl');

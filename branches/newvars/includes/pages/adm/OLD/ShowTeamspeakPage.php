@@ -82,7 +82,7 @@ function ShowTeamspeakPage() {
 	$template	= new Template();
 	
 
-	$template->assign_vars(array(
+	$template->assign(array(
 		'se_save_parameters'	=> $LNG['se_save_parameters'],
 		'ts_tcpport'			=> $LNG['ts_tcpport'],
 		'ts_serverip'			=> $LNG['ts_serverip'],

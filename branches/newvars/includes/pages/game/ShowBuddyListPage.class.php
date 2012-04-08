@@ -61,7 +61,7 @@ class ShowBuddyListPage extends AbstractPage
 		
 		$userData	= $GLOBALS['DATABASE']->getFirstRow("SELECT username, galaxy, system, planet FROM ".USERS." WHERE id = ".$id.";");
 
-		$this->assign_vars(array(
+		$this->assign(array(
 			'username'	=> $userData['username'],
 			'galaxy'	=> $userData['galaxy'],
 			'system'	=> $userData['system'],
@@ -170,7 +170,7 @@ class ShowBuddyListPage extends AbstractPage
 		
 		$GLOBALS['DATABASE']->free_result($BuddyListResult);
 	
-		$this->assign_vars(array(	
+		$this->assign(array(	
 			'myBuddyList'		=> $myBuddyList,
 			'myRequestList'			=> $myRequestList,
 			'otherRequestList'	=> $otherRequestList,

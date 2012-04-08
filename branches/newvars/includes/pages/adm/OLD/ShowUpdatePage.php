@@ -113,7 +113,7 @@ function DisplayUpdates() {
 	
 	$template	= new Template();
 	$template->loadscript('update.js');
-	$template->assign_vars(array(
+	$template->assign(array(
 		'up_submit'					=> $LNG['up_submit'],
 		'up_version'				=> $LNG['up_version'],
 		'up_revision'				=> $LNG['up_revision'],

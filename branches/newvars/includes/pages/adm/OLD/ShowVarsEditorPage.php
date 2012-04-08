@@ -85,7 +85,7 @@ function ShowVarsEditorPage()
 			}
 			
 			$template	= new Template();
-			$template->assign_vars(array(
+			$template->assign(array(
 				'VARS'			=> $VARS,
 				'RESS'			=> $CLASSES[900],
 			));
@@ -208,7 +208,7 @@ function AddElement($ElementID) {
 	);
 	
 	$template	= new Template();
-	$template->assign_vars(array(
+	$template->assign(array(
 		'ID'				=> $ElementID,
 		'ELEMENT'			=> $ELEMENT,
 		'ALLOW'				=> $PROP,
@@ -277,7 +277,7 @@ function EditElement($ElementID) {
 		$ELEMENT[$ElementID]['allow']	+= 2;
 		
 	$template	= new Template();
-	$template->assign_vars(array(
+	$template->assign(array(
 		'ID'				=> $ElementID,
 		'ELEMENT'			=> $ELEMENT,
 		'ALLOW'				=> $PROP,

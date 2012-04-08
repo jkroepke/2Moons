@@ -4,12 +4,16 @@ require(ROOT_PATH.'/includes/libs/facebook/facebook.php');
 class FacebookAuth extends Facebook {
 	function __construct()
 	{
-		if($GLOBALS['CONF']['fb_on'] == 0)
+		global $gameConfig;
+		
+		if($gameConfig['facebookEnable'] == 0)
+		{
 			HTTP::redirectTo("index.php");
+		}
 		
 		parent::__construct(array(
-			'appId'  => $GLOBALS['CONF']['fb_apikey'],
-			'secret' => $GLOBALS['CONF']['fb_skey'],
+			'appId'  => $gameConfig['facebookAPIKey'],
+			'secret' => $gameConfig['facebookSecureKey'],
 		));	
 	}
 	
@@ -24,7 +28,6 @@ class FacebookAuth extends Facebook {
 	
 	function register() 
 	{
-				
 		$uid	= $this->getAccount();
 		
 		try {

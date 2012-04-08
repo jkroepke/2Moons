@@ -82,7 +82,7 @@ class ShowAlliancePage extends AbstractPage
 		
 			if(isset($this->tplObj))
 			{
-				$this->assign_vars(array(
+				$this->assign(array(
 					'rights'		=> $this->rights,
 					'AllianceOwner'	=> $USER['ally_rank_id'] == 0,
 				));
@@ -113,7 +113,7 @@ class ShowAlliancePage extends AbstractPage
 		
 		if ($this->allianceData['ally_diplo'] == 1)
 		{
-			$this->assign_vars(array(
+			$this->assign(array(
 				'DiploInfo'			=> $this->getDiplomatic(),
 			));
 		}
@@ -122,7 +122,7 @@ class ShowAlliancePage extends AbstractPage
 		{
 			$StatsData 					= $GLOBALS['DATABASE']->getFirstRow("SELECT SUM(wons) as wons, SUM(loos) as loos, SUM(draws) as draws, SUM(kbmetal) as kbmetal, SUM(kbcrystal) as kbcrystal, SUM(lostunits) as lostunits, SUM(desunits) as desunits FROM ".USERS." WHERE ally_id='" . $this->allianceData['id'] . "';");
 
-			$this->assign_vars(array(
+			$this->assign(array(
 				'totalfight'	=> $StatsData['wons'] + $StatsData['loos'] + $StatsData['draws'],
 				'fightwon'		=> $StatsData['wons'],
 				'fightlose'		=> $StatsData['loos'],
@@ -133,7 +133,7 @@ class ShowAlliancePage extends AbstractPage
 				'dercrystal'	=> pretty_number($StatsData['kbcrystal']),
 			));
 		}
-		$this->assign_vars(array(
+		$this->assign(array(
 			'ally_description' 			=> bbcode($this->allianceData['ally_description']),
 			'ally_id'	 				=> $this->allianceData['id'],
 			'ally_image' 				=> $this->allianceData['ally_image'],
@@ -175,7 +175,7 @@ class ShowAlliancePage extends AbstractPage
 		global $USER, $LNG;
 		
 		$allianceResult = $GLOBALS['DATABASE']->getFirstRow("SELECT a.ally_tag FROM ".ALLIANCE_REQUEST." r INNER JOIN ".ALLIANCE." a ON a.id = r.allianceID WHERE r.userID = ".$USER['id'].";");
-		$this->assign_vars(array(
+		$this->assign(array(
 			'request_text'	=> sprintf($LNG['al_request_wait_message'], $allianceResult['ally_tag']),
 		));     
 
@@ -221,7 +221,7 @@ class ShowAlliancePage extends AbstractPage
 			$GLOBALS['DATABASE']->free_result($searchResult);
 		}
 		
-		$this->assign_vars(array(
+		$this->assign(array(
 			'searchText'	=> $searchText,
 			'searchList'	=> $searchList,
 		));	
@@ -262,7 +262,7 @@ class ShowAlliancePage extends AbstractPage
 			$this->printMessage($LNG['al_request_confirmation_message']);
 		}
 		
-		$this->assign_vars(array(
+		$this->assign(array(
 			'allyid'			=> $allianceID,
 			'applytext'			=> $allianceResult['ally_request'],
 			'al_write_request'	=> sprintf($LNG['al_write_request'], $allianceResult['ally_tag']),
@@ -391,7 +391,7 @@ class ShowAlliancePage extends AbstractPage
 														
 		$ApplyCount					= $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".ALLIANCE_REQUEST." WHERE allianceID = ".$this->allianceData['id'].";");
 		
-		$this->assign_vars(array(
+		$this->assign(array(
 			'DiploInfo'					=> $this->getDiplomatic(),
 			'ally_web'					=> $this->allianceData['ally_web'],
 			'ally_tag'	 				=> $this->allianceData['ally_tag'],
@@ -462,7 +462,7 @@ class ShowAlliancePage extends AbstractPage
 		
 		$GLOBALS['DATABASE']->free_result($memberListResult);
 		
-		$this->assign_vars(array(
+		$this->assign(array(
 			'memberList'		=> $memberList,
 			'al_users_list'		=> sprintf($LNG['al_users_list'], count($memberList)),
 		));
@@ -532,7 +532,7 @@ class ShowAlliancePage extends AbstractPage
 			}
 		}
 		
-		$this->assign_vars(array(
+		$this->assign(array(
 			'RangeList'						=> $RangeList,
 		));
 		
@@ -614,7 +614,7 @@ class ShowAlliancePage extends AbstractPage
 			}
 		}
 		
-		$this->assign_vars(array(
+		$this->assign(array(
 			'RequestSelector'			=> array(0 => $LNG['al_requests_allowed'], 1 => $LNG['al_requests_not_allowed']),
 			'YesNoSelector'				=> array(1 => $LNG['al_go_out_yes'], 0 => $LNG['al_go_out_no']),
 			'textMode' 					=> $textMode,
@@ -711,7 +711,7 @@ class ShowAlliancePage extends AbstractPage
 			
 			$GLOBALS['DATABASE']->free_result($transferUserResult);
 
-			$this->assign_vars(array(
+			$this->assign(array(
 				'transferUserList'	=> $transferUserList,
 			));	
 			
@@ -740,7 +740,7 @@ class ShowAlliancePage extends AbstractPage
 		
 		$GLOBALS['DATABASE']->free_result($applyResult);
 		
-		$this->assign_vars(array(
+		$this->assign(array(
 			'applyList'		=> $applyList,
 		));
 		
@@ -762,7 +762,7 @@ class ShowAlliancePage extends AbstractPage
 			$this->printMessage($LNG['al_apply_not_exists']);
 		}
 		
-		$this->assign_vars(array(
+		$this->assign(array(
 			'applyDetail'		=> $applyDetail,
 		));
 		
@@ -815,7 +815,7 @@ class ShowAlliancePage extends AbstractPage
 		
 		$GLOBALS['DATABASE']->free_result($rankResult);
 
-		$this->assign_vars(array(
+		$this->assign(array(
 			'rankList'		=> $rankList,
 			'ownRights'		=> $this->rights,
 			'avalibleRanks'	=> $this->avalibleRanks,
@@ -906,7 +906,7 @@ class ShowAlliancePage extends AbstractPage
 		
 		$GLOBALS['DATABASE']->free_result($memberListResult);
 			
-		$this->assign_vars(array(
+		$this->assign(array(
 			'memberList'	=> $memberList,
 			'rankList'		=> $rankList,
 			'founder'		=> empty($this->allianceData['ally_owner_range']) ? $LNG['al_founder_rank_text'] : $this->allianceData['ally_owner_range'],
@@ -1017,7 +1017,7 @@ class ShowAlliancePage extends AbstractPage
 		}
 		
 		
-		$this->assign_vars(array(
+		$this->assign(array(
 			'diploList'	=> $diploList,
 		));
 		
@@ -1058,7 +1058,7 @@ class ShowAlliancePage extends AbstractPage
 		$diploMode	= HTTP::_GP('diploMode', 0);
 				
 		
-		$this->assign_vars(array(
+		$this->assign(array(
 			'diploMode'	=> $diploMode,
 		));
 		

@@ -87,7 +87,7 @@ class ShowFleetDealerPage extends AbstractPage
 
 		$this->loadscript('fleettrader.js');
 		$this->execscript('updateVars();');
-		$this->assign_vars(array(
+		$this->assign(array(
 			'shipIDs'	=> $allowedShipIDs,
 			'CostInfos'	=> $Cost,
 			'Charge'	=> $CONF['trade_charge'],

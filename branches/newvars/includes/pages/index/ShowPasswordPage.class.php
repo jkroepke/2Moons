@@ -30,7 +30,7 @@
  */
 
 
-class ShowDisclamerPage extends AbstractPage
+class ShowLostPasswordPage extends AbstractPage
 {
 	public static $requireModule = 0;
 
@@ -43,11 +43,37 @@ class ShowDisclamerPage extends AbstractPage
 	{
 		global $gameConfig;
 		
-		$this->assign(array(
-			'disclamerAddress' => $gameConfig['disclamerAddress'],
-			'disclamerPhone' => $gameConfig['disclamerPhone'],
-			'disclamerMail' => $gameConfig['disclamerMail'],
-		));
-		$this->render('page.disclamer.default.tpl');
+		if($gameConfig['mailEnable'] == 0)
+		{
+			HTTP::redirectTo("index.php");
+		}
+		
+		$username	= HTTP::_GP('username', '', UTF8_SUPPORT);
+		$eMail		= HTTP::_GP('email', '');
+		
+		if(empty($username) || empty($eMail) || !PlayerUntl::isMailValid($eMail)) {
+			echo json_encode(array('message' => $LNG['lost_empty'], 'error' => true));
+			exit;
+		}
+			
+		$UserID 	= $GLOBALS['DATABASE']->countquery("SELECT id FROM ".USERS." 
+		WHERE universe = ".$UNI." 
+		AND username = '".$GLOBALS['DATABASE']->sql_escape($username)."'
+		AND email_2 = '".$GLOBALS['DATABASE']->sql_escape($eMail)."';");
+		
+		if (!isset($UserID))
+		{
+			$this->sendJSON(array('message' => $LNG['lost_not_exists'], 'error' => true));
+		}
+		else
+		{
+			$NewPass		= uniqid();
+			$MailRAW		= $LANG->getMail('email_lost_password');
+			$MailContent	= sprintf($MailRAW, $eMail, $gameConfig['gameName'], $NewPass, HTTP_ROOT);	
+			$Mail			= MailSend($eMail, $username, $LNG['lost_mail_title'], $MailContent);
+			
+			$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET password = '".cryptPassword($NewPass)."' WHERE id = ".$UserID.";");
+			$this->sendJSON(array('message' => sprintf($LNG['mail_sended'],$eMail), 'error' => false));
+		}
 	}
 }
