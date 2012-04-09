@@ -30,7 +30,7 @@
 
 class ShowLogoutPage extends AbstractPage
 {
-	public static $requireModule = MODULE_CHAT;
+	public static $requireModule = 0;
 
 	function __construct() 
 	{
