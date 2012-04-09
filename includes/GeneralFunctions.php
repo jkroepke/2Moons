@@ -29,19 +29,6 @@
  * @link http://code.google.com/p/2moons/
  */
 
-function autoloadClasses($className)
-{
-	// Get a Cache of this ...
-	
-	if((substr($className, 0, 4) === "Show" || $className == "AbstractPage") && file_exists(ROOT_PATH.'includes/pages/'.strtolower(MODE).'/'.$className.'.class.php')) {
-		require(ROOT_PATH.'includes/pages/'.strtolower(MODE).'/'.$className.'.class.php');
-	}
-	
-	if(file_exists(ROOT_PATH.'includes/classes/'.$className.'.class.php')) {
-		require(ROOT_PATH.'includes/classes/'.$className.'.class.php');
-	}
-}
-
 function getUniverse()
 {
 	if(defined('IN_ADMIN') && isset($_SESSION['adminuni'])) {
@@ -165,7 +152,7 @@ function getFactors($USER, $Type = 'basic', $TIME = NULL) {
 
 function getPlanets($USER)
 {
-		if(isset($USER['PLANETS']))
+	if(isset($USER['PLANETS']))
 		return $USER['PLANETS'];
 		
 	$Order = $USER['planet_sort_order'] == 1 ? "DESC" : "ASC" ;
@@ -198,7 +185,7 @@ function get_timezone_selector() {
 	$timezones = array();
 	$timezone_identifiers = DateTimeZone::listIdentifiers();
 
-	foreach( $timezone_identifiers as $value )
+	foreach($timezone_identifiers as $value)
 	{
 		if (preg_match('/^(America|Antartica|Arctic|Asia|Atlantic|Europe|Indian|Pacific)\//', $value ) )
 		{
@@ -275,7 +262,7 @@ function setConfig($configArray, $UNI = NULL, $flushCache = true)
 			$gameConfig[$Name]			= $Value; 
 			$GLOBALS['DATABASE']->query("UPDATE ".CONFIG." SET value = '".$GLOBALS['DATABASE']->sql_escape($Value)."' WHERE name = '".$Name."';");
 		} else {
-			exit('Unknown config value: '.$Name);
+			throw new Exception('Unknown config value: '.$Name);
 		}
 	}
 	
@@ -504,51 +491,12 @@ function floattostring($Numeric, $Pro = 0, $Output = false){
 
 function isModulAvalible($ID)
 {
-	if(!isset($GLOBALS['CONF']['moduls'][$ID])) 
-		$GLOBALS['CONF']['moduls'][$ID] = 1;
-	
-	return $GLOBALS['CONF']['moduls'][$ID] == 1 || (isset($_SESSION) && $_SESSION['authlevel'] > AUTH_USR);
-}
-
-function MaxPlanets($Level, $Universe)
-{
-	global $uniAllConfig;
-	
-	$uniConfig	= $uniAllConfig[$Universe];
-	// http://owiki.de/index.php/Astrophysik#.C3.9Cbersicht
-	
-	if(empty($uniConfig['userMaxPlanets']))
-	{
-		return 0;
-	}
-
-	return min($uniConfig['userMinPlanets'] + ceil($Level / 2) * PLANETS_PER_TECH, $uniConfig['userMaxPlanets']);
-}
-
-function allowPlanetPosition($Pos, $techLevel)
-{
-	// http://owiki.de/index.php/Astrophysik#.C3.9Cbersicht
-	
-	switch($Pos) {
-		case 1:
-		case 15:
-			return $techLevel >= 8;
-		break;
-		case 2:
-		case 14:
-			return $techLevel >= 6;
-		break;
-		case 3:
-		case 13:
-			return $techLevel >= 4;
-		break;
-		default:
-			return $techLevel >= 1;
-		break;
+	global $module;
+	if(!isset($module[$ID])) {
+		throw new Exception('Unknown module id '.$ID);
 	}
 	
-	
-	return min($GLOBALS['CONFIG'][$Universe]['min_player_planets'] + ceil($Level / 2) * PLANETS_PER_TECH, $GLOBALS['CONFIG'][$Universe]['max_player_planets']);
+	return $module[$ID] == 1 || (isset($USER) && $USER['authlevel'] == AUTH_ADM);
 }
 
 function GetCrons()

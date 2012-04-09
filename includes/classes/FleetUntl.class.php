@@ -29,7 +29,7 @@
  * @link http://code.google.com/p/2moons/
  */
 
-class FleetFunctions 
+class FleetUntl 
 {
 	static $allowedSpeed	= array(10 => 100, 9 => 90, 8 => 80, 7 => 70, 6 => 60, 5 => 50, 4 => 40, 3 => 30, 2 => 20, 1 => 10);
 	
@@ -63,7 +63,6 @@ class FleetFunctions
 		{
 			$techSpeed = $Player['hyperspace_motor_tech'] >= 8 ? 3 : 2;
 		}
-			
 		
 		switch($techSpeed)
 		{
@@ -82,6 +81,17 @@ class FleetFunctions
 		}
 
 		return $speed;
+	}
+	
+	public static function getExpeditionLimit($USER)
+	{
+		return floor(sqrt($USER[$GLOBALS['VARS']['ELEMENT'][124]['name']]));
+	}
+	
+	public static function getDMMissionLimit($USER)
+	{
+		global $uniConfig;
+		return $uniConfig['fleetLimitDMMissions'];
 	}
 	
 	public static function getMissileRange($Level)

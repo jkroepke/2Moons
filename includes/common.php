@@ -108,7 +108,6 @@ if (MODE !== 'INSTALL')
 	
 	$VARS         = $CACHE->get('vars');
 	$gameConfig   = $CACHE->get('config');
-	$module       = $CACHE->get('module');
 	$uniAllConfig = $CACHE->get('configuni');
 	date_default_timezone_set($gameConfig['timezone']);
 	
@@ -136,6 +135,8 @@ if (MODE !== 'INSTALL')
 		
 		$SESSION->UpdateSession();
 		
+		$module       = $CACHE->get('module');
+			
 		if (!AJAX_REQUEST && MODE === 'GAME' && isModulAvalible(MODULE_FLEET_EVENTS))
 		{
 			require(ROOT_PATH.'includes/FleetHandler.php');
@@ -178,7 +179,7 @@ if (MODE !== 'INSTALL')
 		}
 		
 		if (MODE === 'GAME')
-		{
+		{			
 			$PLANET = $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".PLANETS." WHERE id = ".$_SESSION['planet'].";");
 			
 			if (empty($PLANET))

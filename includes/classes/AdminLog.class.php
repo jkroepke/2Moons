@@ -28,7 +28,7 @@
  * @link http://code.google.com/p/2moons/
  */
  
-class Log
+class AdminLog
 {
 	private $mode;
 	private $data	= array();

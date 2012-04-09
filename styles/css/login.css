@@ -229,16 +229,23 @@ header {
 	margin-bottom: 5px;
 }
 
-.contentbox input[type="text"], .contentbox input[type="password"] {
+.contentbox input {
     width: 179px;
+}
+.contentbox input[type="checkbox"], 
+.contentbox input[type="button"], 
+.contentbox input[type="submit"] {
+    width: auto;
+	cursor:pointer;
+	padding:1px 3px;
 }
 
 .contentbox select{
     width: 184px;
 }
 
-#regbox div{
-	margin: 10px auto;
+.contentbox .row{
+    clear:both;
 }
 
 /** BUTTONS **/

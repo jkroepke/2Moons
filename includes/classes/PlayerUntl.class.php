@@ -231,7 +231,7 @@ class PlayerUntl {
 		if(empty($PlanetName))
 		{
 			if($HomeWorld) {
-				$PlanetName	= $LNG['type_planet'][1];
+				$PlanetName	= $LNG['fcp_mainplanet'];
 			} else {
 				$PlanetName	= $LNG['fcp_colony'];
 			}
@@ -354,7 +354,7 @@ class PlayerUntl {
 		$fleetData	= $GLOBALS['DATABASE']->query("SELECT fleet_id FROM ".FLEETS." WHERE fleet_target_owner = ".$userID.";");
 		
 		while($FleetID = $GLOBALS['DATABASE']->fetchArray($fleetData)) {
-			FleetFunctions::SendFleetBack($userID, $FleetID['fleet_id']);
+			FleetUntl::SendFleetBack($userID, $FleetID['fleet_id']);
 		}
 		
 		$GLOBALS['DATABASE']->free_result($fleetData);
@@ -364,7 +364,7 @@ class PlayerUntl {
 		$GLOBALS['CACHE']->flush('universe');
 	}
 
-	function deletePlanet($planetID)
+	static function deletePlanet($planetID)
 	{
 		$planetData = $GLOBALS['DATABASE']->getFirstRow("SELECT planet_type FROM ".PLANETS." WHERE id = ".$planetID." AND id NOT IN (SELECT id_planet FROM ".USERS.");");
 		
@@ -375,7 +375,7 @@ class PlayerUntl {
 		$fleetData	= $GLOBALS['DATABASE']->query("SELECT fleet_id FROM ".FLEETS." WHERE fleet_end_id = ".$planetID.";");
 		
 		while($FleetID = $GLOBALS['DATABASE']->fetchArray($fleetData)) {
-			FleetFunctions::SendFleetBack($$planetID, $FleetID['fleet_id']);
+			FleetUntl::SendFleetBack($$planetID, $FleetID['fleet_id']);
 		}
 		
 		$GLOBALS['DATABASE']->free_result($fleetData);
@@ -384,6 +384,46 @@ class PlayerUntl {
 			$GLOBALS['DATABASE']->multi_query("DELETE FROM ".PLANETS." WHERE id = ".$planetID.";UPDATE ".PLANETS." SET id_luna = 0 WHERE id_luna = ".$planetID.";");
 		} else {
 			$GLOBALS['DATABASE']->query("DELETE FROM ".PLANETS." WHERE id = ".$planetID." OR id_luna = ".$planetID.";");
+		}
+	}
+	
+	static function maxPlanetCount($USER, $Universe)
+	{
+		global $uniAllConfig;
+		
+		$uniConfig	= $uniAllConfig[$Universe];
+		
+		if(empty($uniConfig['userMaxPlanets']))
+		{
+			return 0;
+		}
+
+		// http://owiki.de/index.php/Astrophysik#.C3.9Cbersicht
+		return min($uniConfig['userMinPlanets'] + ceil($Level / 2) * PLANETS_PER_TECH, $uniConfig['userMaxPlanets']);
+	}
+
+	static function allowPlanetPosition($USER, $planetPosition)
+	{
+		// http://owiki.de/index.php/Astrophysik#.C3.9Cbersicht
+		
+		$techLevel	= $USER[$GLOBALS['VARS']['ELEMENT'][124]['name']];
+		
+		switch($planetPosition) {
+			case 1:
+			case 15:
+				return 8;
+			break;
+			case 2:
+			case 14:
+				return 6;
+			break;
+			case 3:
+			case 13:
+				return 4;
+			break;
+			default:
+				return 1;
+			break;
 		}
 	}
 }

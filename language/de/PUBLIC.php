@@ -103,6 +103,7 @@ $LNG['captcha_get_image']			= 'Lade Bild-CAPTCHA';
 $LNG['captcha_reload']				= 'Neues CAPTCHA';
 $LNG['captcha_get_audio']			= 'Lade Sound-CAPTCHA';
 $LNG['user_active']					= 'User %s wurde aktiviert!';
+$LNG['invalid_vertify']				= 'Ungültige Vertifikation';
 
 //Rules
 $LNG['rules_overview']				= 'Regelwerk';

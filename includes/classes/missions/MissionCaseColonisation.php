@@ -46,7 +46,7 @@ class MissionCaseColonisation extends MissionFunctions
 															 WHERE u.id = '".$this->_fleet['fleet_owner']."'
 															 GROUP BY p.id_owner;");
 		
-		$MaxPlanets		= MaxPlanets($userData[$GLOBALS['VARS']['ELEMENT'][124]['name']], $this->_fleet['fleet_universe']);
+		$MaxPlanets		= PlayerUntl::maxPlanetCount($userData, $this->_fleet['fleet_universe']);
 		
 		$LNG			= $LANG->GetUserLang($userData['lang']);
 		

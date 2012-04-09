@@ -29,7 +29,6 @@
  * @link http://code.google.com/p/2moons/
  */
 
-
 class ShowBattleHallPage extends AbstractPage
 {
 	public static $requireModule = 0;

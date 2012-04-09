@@ -11,7 +11,7 @@ function showRecaptcha()
 	});
 }
 
-function setLNG(uni) {
+function setUNI(uni) {
 	$.cookie('uni', uni);
 	document.location.reload();
 }
@@ -63,8 +63,8 @@ function Submit(action) {
 			$.post(form.attr('action'), form.serialize(), function(data) {
 				data	= $.parseJSON(data);
 				if(data.error === false) {
-					if(data.message == 'done') {
-						document.location.href = 'game.php';
+					if(typeof data.location !== 'undefined') {
+						document.location.href = data.location;
 					} else {
 						$('#reg').remove()
 						$('#regbox .fb_login').remove()
@@ -121,7 +121,7 @@ function initLangs() {
 
 function initCloseReg() {
 	$('#reg_universe option').text(function(i, name) {
-		return (CONF.RegClosedUnis[$(this).val()] == 1 && name.search(LANG['uni_closed']) == -1) ? name+' '+LANG['uni_closed'] : name;
+		return (CONF.RegClosedUnis[$(this).val()] == 0 && name.search(LANG['uni_closed']) == -1) ? name+' '+LANG['uni_closed'] : name;
 	});
 }
 
@@ -196,7 +196,6 @@ function FBRegUser() {
 }
 
 function FBRegister(data) {
-	console.log(data);
 	Content('register_fast');
 	$('.fb_login').remove();
 	$('#fb_id').val(data.id);
