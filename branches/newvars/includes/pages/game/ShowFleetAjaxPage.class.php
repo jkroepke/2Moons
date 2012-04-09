@@ -59,8 +59,8 @@ class ShowFleetAjaxPage extends AbstractPage
 		$planetID 		= HTTP::_GP('planetID', 0);
 		$targetMission	= HTTP::_GP('mission', 0);
 		
-		$activeSlots	= FleetFunctions::GetCurrentFleets($USER['id']);
-		$maxSlots		= FleetFunctions::GetMaxFleetSlots($USER);
+		$activeSlots	= FleetUntl::GetCurrentFleets($USER['id']);
+		$maxSlots		= FleetUntl::GetMaxFleetSlots($USER);
 		
 		$this->returnData['slots']		= $activeSlots;
 		$this->returnData['ship'][209]	= $UserRecycles;
@@ -160,11 +160,11 @@ class ShowFleetAjaxPage extends AbstractPage
 			}
 		}
 		
-		$SpeedFactor    	= FleetFunctions::GetGameSpeedFactor();
-		$Distance    		= FleetFunctions::GetTargetDistance(array($PLANET['galaxy'], $PLANET['system'], $PLANET['planet']), array($targetData['galaxy'], $targetData['system'], $targetData['planet']));
-		$SpeedAllMin		= FleetFunctions::GetFleetMaxSpeed($fleetArray, $USER);
-		$Duration			= FleetFunctions::GetMissionDuration(10, $SpeedAllMin, $Distance, $SpeedFactor, $USER);
-		$consumption		= FleetFunctions::GetFleetConsumption($fleetArray, $Duration, $Distance, $SpeedAllMin, $USER, $SpeedFactor);
+		$SpeedFactor    	= FleetUntl::GetGameSpeedFactor();
+		$Distance    		= FleetUntl::GetTargetDistance(array($PLANET['galaxy'], $PLANET['system'], $PLANET['planet']), array($targetData['galaxy'], $targetData['system'], $targetData['planet']));
+		$SpeedAllMin		= FleetUntl::GetFleetMaxSpeed($fleetArray, $USER);
+		$Duration			= FleetUntl::GetMissionDuration(10, $SpeedAllMin, $Distance, $SpeedFactor, $USER);
+		$consumption		= FleetUntl::GetFleetConsumption($fleetArray, $Duration, $Distance, $SpeedAllMin, $USER, $SpeedFactor);
 		$Duration			= $Duration * (1 - $USER['factor']['FlyTime']);
 
 		$UserDeuterium   	-= $consumption;
@@ -173,7 +173,7 @@ class ShowFleetAjaxPage extends AbstractPage
 			$this->sendData(613, $LNG['fa_not_enough_fuel']);
 		}
 		
-		if($consumption > FleetFunctions::GetFleetRoom($fleetArray)) {
+		if($consumption > FleetUntl::GetFleetRoom($fleetArray)) {
 			$this->sendData(613, $LNG['fa_no_fleetroom']);
 		}
 		
@@ -194,7 +194,7 @@ class ShowFleetAjaxPage extends AbstractPage
 		
 		$shipID				= array_keys($fleetArray);
 		
-		FleetFunctions::sendFleet($fleetArray, $targetMission, $USER['id'], $PLANET['id'], $PLANET['galaxy'], $PLANET['system'], $PLANET['planet'], $PLANET['planet_type'],
+		FleetUntl::sendFleet($fleetArray, $targetMission, $USER['id'], $PLANET['id'], $PLANET['galaxy'], $PLANET['system'], $PLANET['planet'], $PLANET['planet_type'],
 		$targetData['id_owner'], $planetID, $targetData['galaxy'], $targetData['system'], $targetData['planet'], $targetData['planet_type'], $fleetRessource, $fleetStartTime, $fleetStayTime, $fleetEndTime);
 		$this->sendData(600, $LNG['fa_sending']." ".array_sum($fleetArray)." ". $LNG['tech'][$shipID[0]] ." ".$LNG['gl_to']." ".$targetData['galaxy'].":".$targetData['system'].":".$targetData['planet']." ...");
 	}

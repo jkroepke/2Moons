@@ -36,9 +36,9 @@ class ShowRegisterPage extends AbstractPage
 		parent::__construct();
 	}
 	
-	function show() 
+	function send() 
 	{
-		global $uniConfig, $gameConfig, $LNG;
+		global $uniConfig, $gameConfig, $LNG, $UNI;
 		if($uniConfig['enableRegistration'] == 0) {
 			$this->sendJSON(array('error' => true, 'message' => array(array('universe', $LNG['register_closed']))));
 		}
@@ -48,7 +48,7 @@ class ShowRegisterPage extends AbstractPage
 		$password2 		= HTTP::_GP('password_2', '', UTF8_SUPPORT);
 		$mailAddress 	= HTTP::_GP('email', '');
 		$mailAddress2	= HTTP::_GP('email_2', '');
-		$rulesChecked	= HTTP::_GP('rgt', 1);
+		$rulesChecked	= HTTP::_GP('rgt', 0);
 		$language 		= HTTP::_GP('lang', '');
 		$refferalID		= HTTP::_GP('ref_id', 0);
 		$facebookID 	= HTTP::_GP('fb_id', 0);
@@ -172,9 +172,9 @@ class ShowRegisterPage extends AbstractPage
 				date = '".TIMESTAMP."',
 				cle = '".$clef."',
 				universe = ".$UNI.",
-				password = '".cryptPassword($password)."',
+				password = '".PlayerUntl::cryptPassword($password)."',
 				ip = '".$_SERVER['REMOTE_ADDR']."',
-				ref_id = ".$RefID.";";
+				ref_id = ".$refferalID.";";
 				
 		$GLOBALS['DATABASE']->query($SQL);
 		

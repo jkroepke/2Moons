@@ -29,11 +29,11 @@
  * @link http://code.google.com/p/2moons/
  */
 
-function bbcode($text) {
-	require_once(ROOT_PATH.'includes/classes/class.BBCode.php');
+function bbcode($text)
+{
 	$bbcode = new BBCode();
 
-	$bbcode->addParser ('list', 'bbcode_stripcontents');
+	$bbcode->addParser('list', 'bbcode_stripcontents');
 
 	//Block-Elements
 	$bbcode->addCode("quote", "callback_replace", "bbcode_quote", array(), "block", array("block"), array('inline','link','list'));

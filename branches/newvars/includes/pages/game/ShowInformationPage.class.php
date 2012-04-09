@@ -116,7 +116,7 @@ class ShowInformationPage extends AbstractPage
 
 		foreach($reslist['fleet'] as $elementID)
 		{
-			if ($PLANET[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']] <= 0 || FleetFunctions::GetFleetMaxSpeed($elementID, $USER) == 0)
+			if ($PLANET[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']] <= 0 || FleetUntl::GetFleetMaxSpeed($elementID, $USER) == 0)
 			{
 				continue;
 			}

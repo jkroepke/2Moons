@@ -95,60 +95,62 @@ define('ENABLE_DATABASE_BACKUP'		, false);
 define('STORAGE_BACKUP_TO_DIR'		, '/tmp/');
 
 // Root IDs
+
 define('ROOT_UNI'					, 1);	
 define('ROOT_USER'					, 1);	
 
 // AUTHLEVEL
+
 define('AUTH_ADM'					, 3);
 define('AUTH_OPS'					, 2);
 define('AUTH_MOD'					, 1);
 define('AUTH_USR'					, 0);
 
 // Modules
-define('MODULE_AMOUNT'				, 43);
-define('MODULE_ALLIANCE'			, 0);
-define('MODULE_BANLIST'				, 21);
-define('MODULE_BANNER'				, 37);
-define('MODULE_BATTLEHALL'			, 12);
-define('MODULE_BUDDYLIST'			, 6);
-define('MODULE_BUILDING'			, 2);
-define('MODULE_CHAT'				, 7);
-define('MODULE_DMEXTRAS'			, 8);
-define('MODULE_FLEET_EVENTS'		, 10);
-define('MODULE_FLEET_TABLE'			, 9);
-define('MODULE_FLEET_TRADER'		, 38);
-define('MODULE_GALAXY'				, 11);
-define('MODULE_IMPERIUM'			, 15);
-define('MODULE_INFORMATION'			, 14);
-define('MODULE_MESSAGES'			, 16);
-define('MODULE_MISSILEATTACK'		, 40);
-define('MODULE_MISSION_ATTACK'		, 1);
-define('MODULE_MISSION_ACS'			, 42);
-define('MODULE_MISSION_COLONY'		, 35);
-define('MODULE_MISSION_DARKMATTER'	, 31);
-define('MODULE_MISSION_DESTROY'		, 29);
-define('MODULE_MISSION_EXPEDITION'	, 30);
-define('MODULE_MISSION_HOLD'		, 33);
-define('MODULE_MISSION_RECYCLE'		, 32);
-define('MODULE_MISSION_SPY'			, 24);
-define('MODULE_MISSION_STATION'		, 36);
-define('MODULE_MISSION_TRANSPORT'	, 34);
-define('MODULE_NOTICE'				, 17);
-define('MODULE_OFFICIER'			, 18);
-define('MODULE_PHALANX'				, 19);
-define('MODULE_PLAYERCARD'			, 20);
-define('MODULE_RECORDS'				, 22);
-define('MODULE_RESEARCH'			, 3);
-define('MODULE_RESSOURCE_LIST'		, 23);
-define('MODULE_SEARCH'				, 26);
-define('MODULE_SHIPYARD_FLEET'		, 4);
-define('MODULE_SHIPYARD_DEFENSIVE'	, 5);
-define('MODULE_SHORTCUTS'			, 41);
-define('MODULE_SIMULATOR'			, 39);
-define('MODULE_STATISTICS'			, 25);
-define('MODULE_SUPPORT'				, 27);
-define('MODULE_TECHTREE'			, 28);
-define('MODULE_TRADER'				, 13);
+
+define('MODULE_ALLIANCE'			, 1);
+define('MODULE_BANLIST'				, 22);
+define('MODULE_BANNER'				, 38);
+define('MODULE_BATTLEHALL'			, 13);
+define('MODULE_BUDDYLIST'			, 7);
+define('MODULE_BUILDING'			, 3);
+define('MODULE_CHAT'				, 8);
+define('MODULE_DMEXTRAS'			, 9);
+define('MODULE_FLEET_EVENTS'		, 11);
+define('MODULE_FLEET_TABLE'			, 10);
+define('MODULE_FLEET_TRADER'		, 39);
+define('MODULE_GALAXY'				, 12);
+define('MODULE_IMPERIUM'			, 16);
+define('MODULE_INFORMATION'			, 15);
+define('MODULE_MESSAGES'			, 17);
+define('MODULE_MISSILEATTACK'		, 41);
+define('MODULE_MISSION_ATTACK'		, 2);
+define('MODULE_MISSION_ACS'			, 43);
+define('MODULE_MISSION_COLONY'		, 36);
+define('MODULE_MISSION_DARKMATTER'	, 32);
+define('MODULE_MISSION_DESTROY'		, 30);
+define('MODULE_MISSION_EXPEDITION'	, 31);
+define('MODULE_MISSION_HOLD'		, 34);
+define('MODULE_MISSION_RECYCLE'		, 33);
+define('MODULE_MISSION_SPY'			, 25);
+define('MODULE_MISSION_STATION'		, 37);
+define('MODULE_MISSION_TRANSPORT'	, 35);
+define('MODULE_NOTICE'				, 18);
+define('MODULE_OFFICIER'			, 19);
+define('MODULE_PHALANX'				, 20);
+define('MODULE_PLAYERCARD'			, 21);
+define('MODULE_RECORDS'				, 23);
+define('MODULE_RESEARCH'			, 4);
+define('MODULE_RESSOURCE_LIST'		, 24);
+define('MODULE_SEARCH'				, 27);
+define('MODULE_SHIPYARD_FLEET'		, 5);
+define('MODULE_SHIPYARD_DEFENSIVE'	, 6);
+define('MODULE_SHORTCUTS'			, 42);
+define('MODULE_SIMULATOR'			, 40);
+define('MODULE_STATISTICS'			, 26);
+define('MODULE_SUPPORT'				, 28);
+define('MODULE_TECHTREE'			, 29);
+define('MODULE_TRADER'				, 14);
 
 // FLEET STATE
 define('FLEET_OUTWARD'				, 0);

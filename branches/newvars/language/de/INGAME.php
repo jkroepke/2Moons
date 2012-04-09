@@ -26,12 +26,10 @@ $LNG['type_planet'][1]  					= 'Planet';
 $LNG['type_planet'][2]  					= 'Trümmerfeld';
 $LNG['type_planet'][3]  					= 'Mond';
 
-$LNG['user_level'] = array (
-	'0' => 'Spieler',
-	'1' => 'Moderator',
-	'2' => 'Operator',
-	'3' => 'Administrator',
-);
+$LNG['user_level'][0]						= 'Spieler';
+$LNG['user_level'][1]						= 'Moderator';
+$LNG['user_level'][2]						= 'Operator';
+$LNG['user_level'][3]						= 'Administrator';
 
 // GAME.PHP
 $LNG['page_doesnt_exist']					= 'Die Aufgerufene Seite existiert nicht';
@@ -330,25 +328,22 @@ $LNG['fl_error_not_avalible']				= 'Auf diesen Koordinaten befinden sich kein Pl
 $LNG['fl_error_empty_derbis']				= 'Kein Trümmerfeld vorhanden!';
 $LNG['fl_error_no_moon']					= 'Kein Mond vorhanden!';
 $LNG['fl_error_same_planet']				= 'Start- und Zielplanet sind identisch!';
-$LNG['fl_send_error'][3]					= 'Start- und Zielplanet sind identisch.';
-$LNG['fl_send_error'][4]					= 'Kein gültiges Ziel';
-$LNG['fl_send_error'][5]					= 'Keine Rohstoffe geladen!';
-$LNG['fl_send_error'][6]					= 'Keine Slots mehr verfügbar!';
-$LNG['fl_send_error'][7]					= 'Kein Zielplanet vorhanden';
-$LNG['fl_send_error'][8]					= 'Nicht alle Schiffe vorhanden.';
-$LNG['fl_send_error'][9]					= 'Sie können nicht mehr Expeditionen starten!';
-$LNG['fl_send_error'][10]					= 'Sie haben nicht die nötige Expeditions Technologie!';
-$LNG['fl_send_error'][12]					= 'Spieler befindet sich im Urlaubsmodus!';
-$LNG['fl_send_error'][13]					= 'Bash-Schutz';
-$LNG['fl_send_error'][14]					= 'Du kannst keine Administratoren angreifen';
-$LNG['fl_send_error'][15]					= 'Spieler befindest sich im Noobschutz';
-$LNG['fl_send_error'][16]					= 'Spieler ist zu stark!';
-$LNG['fl_send_error'][17]					= 'Am Ziel befindet sich kein Allianzdepot.';
-$LNG['fl_send_error'][18]					= 'Der Spieler vom Zielplanet muss in deiner Allianz oder Buddyliste sein!';
-$LNG['fl_send_error'][19]					= 'Nicht genügend Deuterium vorhanden.';
-$LNG['fl_send_error'][20]					= 'Sie haben nicht genügend Laderaum vorhanden.';
-$LNG['fl_send_error'][21]					= 'Trümmerfeld existiert nicht!';
-$LNG['fl_send_error'][22]					= 'Keine Missionen vorhanden (Planet vorhanden?)';
+$LNG['fl_invalid_target']					= 'Kein gültiges Ziel';
+$LNG['fl_no_noresource']					= 'Keine Rohstoffe geladen!';
+$LNG['fl_no_target']						= 'Kein Zielplanet vorhanden';
+$LNG['fl_not_all_ship_avalible']			= 'Nicht alle Schiffe vorhanden.';
+$LNG['fl_no_expedition_slot']				= 'Sie können nicht mehr Expeditionen starten!';
+$LNG['fl_invalid_mission']					= 'Ungültige Mission';
+$LNG['fl_bash_protection']					= 'Bash-Schutz';
+$LNG['fl_admin_attack']						= 'Du kannst keine Administratoren angreifen';
+$LNG['fl_target_exists']					= 'Zielplanet existiert';
+$LNG['fl_only_planets_colonizable']			= 'Nur Planeten können kolonisiert werden!';
+$LNG['fl_player_is_noob']					= 'Spieler befindest sich im Noobschutz!';
+$LNG['fl_player_is_strong']					= 'Spieler ist zu stark!';
+$LNG['fl_tech_for_position_required']		= 'Du brauchst %s Stufe %d, um diese Position zu besiedeln zu können!';
+$LNG['fl_no_hold_depot']					= 'Am Ziel befindet sich kein Allianzdepot.';
+$LNG['fl_not_enough_deuterium']				= 'Nicht genügend Deuterium vorhanden.';
+$LNG['fl_not_enough_space']					= 'Sie haben nicht genügend Laderaum vorhanden.';
 
 //----------------------------------------------------------------------------//
 //BUILDINGS - RESEARCH - SHIPYARD - DEFENSES
@@ -937,9 +932,11 @@ $LNG['fcm_universe']						= 'Universum';
 $LNG['fcm_planet']							= 'Planet';
 $LNG['fcm_moon']							= 'Mond';
 $LNG['fcm_info']							= 'Information';
+$LNG['fcp_mainplanet']						= 'Hauptplanet';
 $LNG['fcp_colony']							= 'Kolonie';
 $LNG['fgp_require']							= 'Benötigt: ';
 $LNG['fgf_time']							= 'Bauzeit: ';
+
 $LNG['sys_module_inactive']        	 		= 'Modul inaktiv';
 $LNG['sys_refferal_from']        	 		= 'System';
 $LNG['sys_refferal_title']        	 		= 'Bonus für Spieler %s';

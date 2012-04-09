@@ -52,7 +52,7 @@ class ShowFleetMissilePage extends AbstractPage
 		
 		$target 			= $GLOBALS['DATABASE']->getFirstRow("SELECT `id`, `id_owner` FROM ".PLANETS." WHERE `universe` = '".$UNI."' AND  `galaxy` = '".$targetGalaxy."' AND `system` = '".$targetSystem."' AND `planet` = '".$targetPlanet."' AND `planet_type` = ".$targetType.";");
 		
-		$Range				= FleetFunctions::GetMissileRange($USER[$GLOBALS['VARS']['ELEMENT'][117]['name']]);
+		$Range				= FleetUntl::GetMissileRange($USER[$GLOBALS['VARS']['ELEMENT'][117]['name']]);
 		$systemMin			= $PLANET['system'] - $Range;
 		$systemMax			= $PLANET['system'] + $Range;
 		
@@ -97,8 +97,8 @@ class ShowFleetMissilePage extends AbstractPage
 			exit;
 		}
 		
-		$SpeedFactor	= FleetFunctions::GetGameSpeedFactor();
-		$Distance		= FleetFunctions::GetTargetDistance(array($PLANET['galaxy'], $PLANET['system'], $PLANET['planet']), array($targetGalaxy, $targetSystem, $targetPlanet));
+		$SpeedFactor	= FleetUntl::GetGameSpeedFactor();
+		$Distance		= FleetUntl::GetTargetDistance(array($PLANET['galaxy'], $PLANET['system'], $PLANET['planet']), array($targetGalaxy, $targetSystem, $targetPlanet));
 		$Duration		= max(round((30 + (60 * $Distance) / $SpeedFactor)),30);
 
 		$DefenseLabel 		 = ($pziel == 0) ? $LNG['ma_all'] : $LNG['tech'][$pziel];
@@ -118,7 +118,7 @@ class ShowFleetMissilePage extends AbstractPage
 			903	=> 0,
 		);
 		
-		FleetFunctions::sendFleet($fleetArray, 10, $USER['id'], $PLANET['id'], $PLANET['galaxy'], $PLANET['system'], $PLANET['planet'], $PLANET['planet_type'], $target['id_owner'], $target['id'], $targetGalaxy, $targetSystem, $targetPlanet, $targetType, $fleetRessource, $fleetStartTime, $fleetStayTime, $fleetEndTime, 0, $pziel);
+		FleetUntl::sendFleet($fleetArray, 10, $USER['id'], $PLANET['id'], $PLANET['galaxy'], $PLANET['system'], $PLANET['planet'], $PLANET['planet_type'], $target['id_owner'], $target['id'], $targetGalaxy, $targetSystem, $targetPlanet, $targetType, $fleetRessource, $fleetStartTime, $fleetStayTime, $fleetEndTime, 0, $pziel);
 
 		$this->printMessage("<b>".$anz."</b>". $LNG['ma_missiles_sended'] .$DefenseLabel, "game.php?page=overview", 3);
 	}

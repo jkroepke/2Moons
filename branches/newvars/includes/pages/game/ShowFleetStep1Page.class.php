@@ -65,26 +65,26 @@ class ShowFleetStep1Page extends AbstractPage
 		
 		if (empty($fleet))
 		{
-			FleetFunctions::GotoFleetPage();
+			FleetUntl::GotoFleetPage();
 		}
 		
-		$fleetSpeed	= FleetFunctions::GetFleetMaxSpeed($fleet, $USER);
+		$fleetSpeed	= FleetUntl::GetFleetMaxSpeed($fleet, $USER);
 				
 		if (empty($fleetSpeed))
 		{
-			FleetFunctions::GotoFleetPage();
+			FleetUntl::GotoFleetPage();
 		}		
 		
-		$fleetRoom	= FleetFunctions::GetFleetRoom($fleet);		
+		$fleetRoom	= FleetUntl::GetFleetRoom($fleet);		
 		$fleetRoom	*= 1 + $USER['factor']['ShipStorage'];
 		
 		$fleetData	= array(
 			'fleetroom'			=> floattostring($fleetRoom),
-			'gamespeed'			=> FleetFunctions::GetGameSpeedFactor(),
+			'gamespeed'			=> FleetUntl::GetGameSpeedFactor(),
 			'fleetspeedfactor'	=> 1 - $USER['factor']['FlyTime'],
 			'planet'			=> array('galaxy' => $PLANET['galaxy'], 'system' => $PLANET['system'], 'planet' => $PLANET['planet'], 'planet_type' => $PLANET['planet_type']),
 			'maxspeed'			=> $fleetSpeed,
-			'ships'				=> FleetFunctions::GetFleetShipInfo($fleet, $USER),
+			'ships'				=> FleetUntl::GetFleetShipInfo($fleet, $USER),
 		);
 		
 		$token		= getRandomString();
@@ -121,7 +121,7 @@ class ShowFleetStep1Page extends AbstractPage
 			'system' 		=> $targetSystem,
 			'planet' 		=> $targetPlanet,
 			'type'			=> $targetType,
-			'speedSelect'	=> FleetFunctions::$allowedSpeed,
+			'speedSelect'	=> FleetUntl::$allowedSpeed,
 			'typeSelect'   	=> array(1 => $LNG['type_planet'][1], 2 => $LNG['type_planet'][2], 3 => $LNG['type_planet'][3]),
 			'fleetdata'		=> $fleetData,
 		));
@@ -285,16 +285,11 @@ class ShowFleetStep1Page extends AbstractPage
 				$this->sendJSON($LNG['fl_multi_alarm']);
 			}
 		} else {
-			if ($USER[$GLOBALS['VARS']['ELEMENT'][124]['name']] == 0)
-			{
-				$this->sendJSON($LNG['fl_send_error'][10]);
-			}
-			
-			$ActualFleets = $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".FLEETS." WHERE fleet_owner = ".$USER['id']." AND fleet_mission = '15';");
+			$activeExpedition	= FleetUntl::GetCurrentFleets($USER['id'], 15);
 
-			if ($ActualFleets['state'] >= floor(sqrt($USER[$GLOBALS['VARS']['ELEMENT'][124]['name']])))
+			if ($activeExpedition >= FleetUntl::getExpeditionLimit($USER))
 			{
-				$this->sendJSON($LNG['fl_send_error'][9]);
+				$this->sendJSON($LNG['fl_no_expedition_slot']);
 			}
 		}
 		
