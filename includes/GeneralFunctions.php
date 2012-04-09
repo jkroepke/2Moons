@@ -39,6 +39,9 @@ function getUniverse()
 		// Enable htaccess
 		if(isset($_SERVER["REDIRECT_UNI"])) {
 			$UNI	= $_SERVER["REDIRECT_UNI"];
+		} elseif(isset($_SERVER["REDIRECT_REDIRECT_UNI"])) {
+			// Patch for www.top-hoster.de - Hoster
+			$UNI	= $_SERVER["REDIRECT_REDIRECT_UNI"];
 		} else {
 			HTTP::redirectTo("uni".ROOT_UNI."/".basename($_SERVER['SCRIPT_FILENAME']).(!empty($_SERVER["QUERY_STRING"]) ? "?".$_SERVER["QUERY_STRING"]: ""));
 		}
