@@ -45,6 +45,10 @@ class ShowShipyardPage extends AbstractPage
 		$ElementQueue = unserialize($PLANET['b_hangar_id']);
 		
 		$CancelArray	= HTTP::_GP('auftr', array());
+		if(!is_array($CancelArray))
+		{
+			return false;
+		}	
 		
 		foreach ($CancelArray as $Auftr)
 		{
@@ -74,7 +78,6 @@ class ShowShipyardPage extends AbstractPage
 		} else {
 			$PLANET['b_hangar_id']	= serialize(array_values($ElementQueue));
 		}
-
 	}
 	
 	private function BuildAuftr($fmenge)
