@@ -41,10 +41,11 @@ class ShowShipyardPage extends AbstractPage
 	
 	private function CancelAuftr() 
 	{
-		global $USER, $PLANET, $resource;
+		global $USER, $PLANET, $resource, $CONF;
 		$ElementQueue = unserialize($PLANET['b_hangar_id']);
 		
 		$CancelArray	= HTTP::_GP('auftr', array());
+		
 		if(!is_array($CancelArray))
 		{
 			return false;

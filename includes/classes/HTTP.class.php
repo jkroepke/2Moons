@@ -15,19 +15,23 @@ class HTTP {
 	
 	static public function _GP($name, $default, $multibyte = false, $highnum = false)
 	{
-		if(!isset($_REQUEST[$name])) {
+		if(!isset($_REQUEST[$name]))
+		{
 			return $default;
 		}
 		
-		if(is_int($default)) {
+		if(is_int($default))
+		{
 			return (int) $_REQUEST[$name];			
 		}
 		
-		if(is_float($default)) {
+		if(is_float($default))
+		{
 			return (float) $_REQUEST[$name];			
 		}
 		
-		if(is_string($default)) {
+		if(is_string($default))
+		{
 			$var = trim(htmlspecialchars(str_replace(array("\r\n", "\r", "\0"), array("\n", "\n", ''), $_REQUEST[$name]), ENT_QUOTES, 'UTF-8'));
 			
 			if (empty($var)) {
@@ -45,21 +49,26 @@ class HTTP {
 			return $var;
 		}
 		
-		if(is_array($default)) {
-			$varArray		= array();
+		if(is_array($default))
+		{
+			return (array) $_REQUEST[$name];
+			
+			/* $varArray		= array();
 			$requestData	= $_REQUEST[$name];
-			foreach($requestData as $key => $subdefault)
+			foreach($default as $key => $subdefault)
 			{
 				if(!isset($requestData[$key])) {
 					continue;
 				}
 				
 				if(is_int($subdefault)) {
-					$varArray[$key]	= (int) $requestData[$key];			
+					$varArray[$key]	= (int) $requestData[$key];
+					continue;
 				}
 				
 				if(is_float($subdefault)) {
-					$varArray[$key]	= (float) $requestData[$key];			
+					$varArray[$key]	= (float) $requestData[$key];	
+					continue;		
 				}
 				
 				if(is_string($subdefault)) {
@@ -81,7 +90,7 @@ class HTTP {
 				}
 			}
 			
-			return $varArray;
+			return $varArray; */
 		}
 		
 		return $default;

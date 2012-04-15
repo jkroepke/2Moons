@@ -58,7 +58,10 @@ class Language
 					if(!file_exists(ROOT_PATH.'language/'.$Lang.'/LANG.cfg'))
 						continue;
 						
+					// Fixed BOM problems.
+					ob_start();
 					require(ROOT_PATH.'language/'.$Lang.'/LANG.cfg');
+					ob_end_clean();
 					$Languages[$Lang]	= $Language['name'];
 				}
 				if(is_writable(ROOT_PATH.'cache'))
