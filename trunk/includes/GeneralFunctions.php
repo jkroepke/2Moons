@@ -621,6 +621,10 @@ function cryptPassword($password)
 	}
 }
 
+function combineArrayWithSingleElement($keys, $var) {
+	return array_combine($keys, array_fill(0, count($keys), $var));
+}
+
 function clearGIF() {
 	header('Cache-Control: no-cache');
 	header('Content-type: image/gif');
