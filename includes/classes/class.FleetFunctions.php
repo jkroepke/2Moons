@@ -266,8 +266,10 @@ class FleetFunctions
 		global $LNG;
 		$temp = debug_backtrace();
 		if($GLOBALS['CONF']['debug'] == 1)
-			exit(str_replace($_SERVER["DOCUMENT_ROOT"],'.',$temp[0]['file'])." on ".$temp[0]['line']. " | Code: ".$Code." | Error: ".isset($LNG['fl_send_error'][$Code]) ? $LNG['fl_send_error'][$Code] : '');
-			
+		{
+			exit(str_replace($_SERVER["DOCUMENT_ROOT"],'.',$temp[0]['file'])." on ".$temp[0]['line']. " | Code: ".$Code." | Error: ".(isset($LNG['fl_send_error'][$Code]) ? $LNG['fl_send_error'][$Code] : ''));
+		}
+		
 		HTTP::redirectTo('game.php?page=fleetTable&code='.$Code);
 	}
 	
