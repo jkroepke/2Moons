@@ -510,10 +510,12 @@ $LNG['se_ref_max_referals_info']		= 'Maximale Anzahl, der der User an Spielern w
 $LNG['se_silo_factor']					= 'Raketensilogröße';
 $LNG['se_silo_factor_info']				= 'Faktor für die größe des Silos';
 $LNG['se_timzone']						= 'Zeitzone des Unis';
-$LNG['se_dst_mode']							= 'Sommerzeit?';
+$LNG['se_dst_mode']						= 'Sommerzeit?';
 $LNG['se_dst_sel'][0]					= 'Nein';
 $LNG['se_dst_sel'][1]					= 'Ja';
 $LNG['se_dst_sel'][2]					= 'Automatisch';
+$LNG['se_max_dm_missions']				= 'Max. Anzahl an parralell laufenden DM-Such Missionen';
+
 //###########################################################//
 
 
@@ -980,7 +982,9 @@ $LNG['qe_hpcoords']						= 'HP-Koordinaten';
 $LNG['qe_temp']							= 'Temperatur';
 $LNG['qe_change']						= 'Ändern';
 $LNG['qe_authattack']					= 'Admin Angriffschutz';
-
+$LNG['qe_submit']						= 'Absenden';
+$LNG['qe_resetr']						= 'Zurücksetzten';
+	
 //----------------------------------------------------------------------------//
 //TeamSpeakSettingPage.php
 $LNG['ts_settings']						= 'Teamspeak Einstellungen';

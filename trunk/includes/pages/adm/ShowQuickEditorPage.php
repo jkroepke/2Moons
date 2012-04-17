@@ -31,7 +31,7 @@ if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FI
 
 function ShowQuickEditorPage()
 {
-	global $USER, $LNG, $reslist, $resource;
+	global $USER, $LNG, $reslist, $resource, $pricelist;
 	$action	= HTTP::_GP('action', '');
 	$edit	= HTTP::_GP('edit', '');
 	$id 	= HTTP::_GP('id', 0);
@@ -51,11 +51,16 @@ function ShowQuickEditorPage()
 				$Fields	= $PlanetData['field_current'];
 				foreach($DataIDs as $ID)
 				{
+					$level	= min(max(0, round(HTTP::_GP($resource[$ID], 0.0))), (in_array($ID, $reslist['build']) ? 255: 18446744073709551615));
+				
 					if(in_array($ID, $reslist['allow'][$PlanetData['planet_type']]))
-						$Fields	+= max(0, round(HTTP::_GP($resource[$ID], 0.0))) - $PlanetData[$resource[$ID]];
+					{
+						$Fields	+= $level - $PlanetData[$resource[$ID]];
+					}
 					
-					$SQL	.= "`".$resource[$ID]."` = '".max(0, round(HTTP::_GP($resource[$ID], 0.0)))."', ";
+					$SQL	.= "`".$resource[$ID]."` = ".$level.", ";
 				}
+				
 				$SQL	.= "`metal` = ".max(0, round(HTTP::_GP('metal', 0.0))).", ";
 				$SQL	.= "`crystal` = ".max(0, round(HTTP::_GP('crystal', 0.0))).", ";
 				$SQL	.= "`deuterium` = ".max(0, round(HTTP::_GP('deuterium', 0.0))).", ";
@@ -156,7 +161,7 @@ function ShowQuickEditorPage()
 				$SQL	= "UPDATE ".USERS." SET ";
 				foreach($DataIDs as $ID)
 				{
-					$SQL	.= "`".$resource[$ID]."` = '".abs(HTTP::_GP($resource[$ID], 0))."', ";
+					$SQL	.= "`".$resource[$ID]."` = ".min(abs(HTTP::_GP($resource[$ID], 0)), 255).", ";
 				}
 				$SQL	.= "`darkmatter` = '".max(HTTP::_GP('darkmatter', 0), 0)."', ";
 				if(!empty($_POST['password']) && $ChangePW)

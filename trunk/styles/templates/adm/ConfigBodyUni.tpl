@@ -223,6 +223,10 @@
 	<td><input name="noobprotectionmulti" value="{$noobprot3}" type="text"></td>
 	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" data-tooltip-content="{$se_noob_protect_e3}"></td>
 </tr><tr>
+	<td>{$se_max_dm_missions}</td>
+	<td><input name="max_dm_missions" maxlength="3" size="3" value="{$max_dm_missions}" type="text"></td>
+	<td>&nbsp;</td>
+</tr><tr>
 	<th colspan="2">{$se_trader_head}</th><th>&nbsp;</th>
 </tr><tr>
     <td>{$se_trader_ships}</td>
