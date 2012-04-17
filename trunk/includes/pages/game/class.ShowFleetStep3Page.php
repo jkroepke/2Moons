@@ -259,10 +259,6 @@ class ShowFleetStep3Page extends AbstractPage
 				$StayDuration    = $stayTime * 3600;
 			break;
 			case 11:
-				if(!in_array($stayTime, $avalibleMissions['StayBlock'])) {
-					FleetFunctions::GotoFleetPage(2);
-				}
-				
 				$StayDuration    = 3600 / $CONF['halt_speed'];
 			break;
 			case 15:

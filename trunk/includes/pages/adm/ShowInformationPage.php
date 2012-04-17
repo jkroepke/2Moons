@@ -52,7 +52,7 @@ function ShowInformationPage()
 	
 	$template	= new template();
 	$template->assign_vars(array(
-		'info_information'	=> sprintf($LNG['info_information'], 'http://dev.2moons.cc/bugtracker'),
+		'info_information'	=> sprintf($LNG['info_information'], 'http://tracker.2moons.cc/'),
 		'info'				=> $_SERVER['SERVER_SOFTWARE'],
 		'vPHP'				=> PHP_VERSION,
 		'vAPI'				=> PHP_SAPI,
