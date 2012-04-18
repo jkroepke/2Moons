@@ -252,7 +252,7 @@ class ShowFleetStep3Page extends AbstractPage
 		switch($targetMission) 
 		{
 			case 5:
-				if(!in_array($stayTime, $avalibleMissions['StayBlock'])) {
+				if(!isset($avalibleMissions['StayBlock'][$stayTime])) {
 					FleetFunctions::GotoFleetPage(2);
 				}
 				
@@ -262,7 +262,7 @@ class ShowFleetStep3Page extends AbstractPage
 				$StayDuration    = 3600 / $CONF['halt_speed'];
 			break;
 			case 15:
-				if(!in_array($stayTime, $avalibleMissions['StayBlock'])) {
+				if(!isset($avalibleMissions['StayBlock'][$stayTime])) {
 					FleetFunctions::GotoFleetPage(2);
 				}
 				

@@ -167,10 +167,15 @@ class FleetFunctions
 		$stayBlock	= array();;
 		if (in_array(15, $Missions)) {
 			for($i = 1;$i <= $USER[$resource[124]];$i++) {	
-				$stayBlock[$i]	= $i / $CONF['halt_speed'];
+				$stayBlock[$i]	= round($i / $CONF['halt_speed'], 2);
 			}
 		}
-		elseif(in_array(5, $Missions)) {
+		elseif(in_array(11, $Missions)) 
+		{
+			$stayBlock = array(1 => 1);
+		}
+		elseif(in_array(5, $Missions)) 
+		{
 			$stayBlock = array(1 => 1, 2 => 2, 4 => 4, 8 => 8, 12 => 12, 16 => 16, 32 => 32);
 		}
 		
