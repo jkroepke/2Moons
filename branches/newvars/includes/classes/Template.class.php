@@ -77,18 +77,7 @@ class Template extends Smarty
 	{		
 		parent::assign($var, NULL, $nocache);
 	}
-	
-	private function adm_main()
-	{
-		global $LNG, $gameConfig;
-		$this->assign_vars(array(
-			'scripts'			=> $this->script,
-			'title'				=> $gameConfig['gameName'].' - '.$LNG['adm_cp_title'],
-			'fcm_info'			=> $LNG['fcm_info'],
-			'REV'				=> substr($gameConfig['version'], -4),
-		));
-	}
-	
+		
 	public function show($file)
 	{		
 		global $USER, $PLANET, $LNG, $THEME, $LANG;
@@ -100,9 +89,6 @@ class Template extends Smarty
 			
 		if(MODE === 'INSTALL') {
 			$this->setTemplateDir($tplDir[0].'install/');
-		} elseif(MODE === 'ADMIN') {
-			$this->setTemplateDir($tplDir[0].'adm/');
-			$this->adm_main();
 		}
 
 		$this->assign_vars(array(

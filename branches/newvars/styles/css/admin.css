@@ -2,17 +2,6 @@ body {
 	background-position:-217px -84px !important;
 }
 
-body#topnav {
-	background-position:-217px 0 !important;
-}
-
-body#menu {
-	background-position:0 0 !important;
-}
-body.standalone {
-	background-position:center center !important;
-}
-
 table{
 	margin: auto;
 }
@@ -27,6 +16,14 @@ table{
 	color:red;
 }
 
+#content{
+	padding-top:30px !important;
+}
+
+#content > h1{
+	text-align:center;
+}
+
 #menu{
 	padding: 0 !important;
 }
@@ -35,6 +32,17 @@ table{
 	margin:0 auto;
 	width:80%;
 	padding:0;
+}
+
+#header {
+	height:auto;
+}
+
+#header h1 {
+	font-size:22px;
+	font-weight:bold;
+	font-variant:small-caps;
+	text-align:center;
 }
 
 select#universe {
@@ -57,22 +65,23 @@ a.out, a.topn {
 	cursor: pointer;
 	text-align:center;
 	border: 1px #FFF solid;
-	color: #FFF;
+	color: #FFF !important;
+	padding:0px 3px;
 }
 
 a.topn:hover {
 	background: #FFF;
-	color: #000;
+	color: #000 !important;
 }
 
 a.out {
 	border: 1px #FF0000 solid;
-	color: #FF0000;
+	color: #FF0000 !important;
 }
 
 a.out:hover {
 	background: #FF0000;
-	color: #FFF;
+	color: #FFF !important;
 }
 
 #progressbar{border: 1px solid}

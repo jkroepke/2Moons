@@ -29,7 +29,6 @@
  * @link http://code.google.com/p/2moons/
  */
 
-
 class ShowChangelogPage extends AbstractPage
 {
 	public static $requireModule = 0;
