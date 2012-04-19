@@ -150,6 +150,7 @@ class FlyingFleetsTable
 			8 => 'harvest',
 			9 => 'destroy',
 			10 => 'missile',
+			11 => 'transport',
 			15 => 'transport',
 		);
 		
