@@ -70,7 +70,7 @@ class ShowRegisterPage extends AbstractPage
 			$errors[]	= array('username', $LNG['empty_user_field']);
 		}
 		
-		if(!PlayerUntl::isNameValid($userName)) {
+		if(!PlayerUtil::isNameValid($userName)) {
 			$errors[]	= array('username', $LNG['user_field_specialchar']);
 		}
 		
@@ -82,7 +82,7 @@ class ShowRegisterPage extends AbstractPage
 			$errors[]	= array('password_2', $LNG['different_passwords']);
 		}
 			
-		if(!PlayerUntl::isMailValid($mailAddress)) {
+		if(!PlayerUtil::isMailValid($mailAddress)) {
 			$errors[]	= array('email', $LNG['invalid_mail_adress']);
 		}
 			
@@ -172,7 +172,7 @@ class ShowRegisterPage extends AbstractPage
 				date = '".TIMESTAMP."',
 				cle = '".$clef."',
 				universe = ".$UNI.",
-				password = '".PlayerUntl::cryptPassword($password)."',
+				password = '".PlayerUtil::cryptPassword($password)."',
 				ip = '".$_SERVER['REMOTE_ADDR']."',
 				ref_id = ".$refferalID.";";
 				

@@ -37,12 +37,12 @@ $LANG->includeLang(array('ADMIN'));
 
 if(isset($_REQUEST['admin_pw']))
 {
-	$login = $GLOBALS['DATABASE']->getFirstRow("SELECT `id`, `username`, `dpath`, `authlevel`, `id_planet` FROM ".USERS." WHERE `id` = '1' AND `password` = '".PlayerUntl::cryptPassword($_REQUEST['admin_pw'])."';");
+	$login = $GLOBALS['DATABASE']->getFirstRow("SELECT `id`, `username`, `dpath`, `authlevel`, `id_planet` FROM ".USERS." WHERE `id` = '1' AND `password` = '".PlayerUtil::cryptPassword($_REQUEST['admin_pw'])."';");
 	if(isset($login)) {
 		session_start();
 		$SESSION       	= new Session();
 		$SESSION->CreateSession($login['id'], $login['username'], $login['id_planet'], $UNI, $login['authlevel'], $login['dpath']);
-		$_SESSION['admin_login']	= PlayerUntl::cryptPassword($_REQUEST['admin_pw']);
+		$_SESSION['admin_login']	= PlayerUtil::cryptPassword($_REQUEST['admin_pw']);
 		HTTP::redirectTo('admin.php');
 	}
 }

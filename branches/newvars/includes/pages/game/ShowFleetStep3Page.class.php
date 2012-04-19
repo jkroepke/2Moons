@@ -43,7 +43,7 @@ class ShowFleetStep3Page extends AbstractPage
 		global $USER, $PLANET, $resource, $uniConfig, $gameConfig, $LNG, $UNI;
 			
 		if (IsVacationMode($USER)) {
-			FleetUntl::GotoFleetPage(0);
+			FleetUtil::GotoFleetPage(0);
 		}
 		
 		$targetMission 			= HTTP::_GP('mission', 3);
@@ -54,12 +54,12 @@ class ShowFleetStep3Page extends AbstractPage
 		$token					= HTTP::_GP('token', '');
 		
 		if (!isset($_SESSION['fleet'][$token])) {
-			FleetUntl::GotoFleetPage();
+			FleetUtil::GotoFleetPage();
 		}
 			
 		if ($_SESSION['fleet'][$token]['time'] < TIMESTAMP - 600) {
 			unset($_SESSION['fleet'][$token]);
-			FleetUntl::GotoFleetPage();
+			FleetUtil::GotoFleetPage();
 		}
 		
 		$maxFleetSpeed	= $_SESSION['fleet'][$token]['speed'];
@@ -92,9 +92,9 @@ class ShowFleetStep3Page extends AbstractPage
 			$this->printMessage($LNG['fl_no_noresource']);
 		}
 		
-		$ActualFleets		= FleetUntl::GetCurrentFleets($USER['id']);
+		$ActualFleets		= FleetUtil::GetCurrentFleets($USER['id']);
 		
-		if (FleetUntl::GetMaxFleetSlots($USER) <= $ActualFleets)
+		if (FleetUtil::GetMaxFleetSlots($USER) <= $ActualFleets)
 		{
 			$this->printMessage($LNG['fl_no_slots']);
 		}
@@ -115,7 +115,7 @@ class ShowFleetStep3Page extends AbstractPage
 			}
 		}
 				
-		$ActualFleets 		= FleetUntl::GetCurrentFleets($USER['id']);
+		$ActualFleets 		= FleetUtil::GetCurrentFleets($USER['id']);
 		
 		$targetPlanetData  	= $GLOBALS['DATABASE']->getFirstRow("SELECT id, id_owner, der_metal, der_crystal, destruyed, ally_deposit FROM ".PLANETS." WHERE universe = ".$UNI." AND galaxy = ".$targetGalaxy." AND system = ".$targetSystem." AND planet = ".$targetPlanet." AND planet_type = '".($targetType == 2 ? 1 : $targetType)."';");
 
@@ -146,8 +146,8 @@ class ShowFleetStep3Page extends AbstractPage
 		
 		if ($targetMission == 11)
 		{
-			$activeExpedition	= FleetUntl::GetCurrentFleets($USER['id'], 11);
-			$maxExpedition		= FleetUntl::getDMMissionLimit($USER);
+			$activeExpedition	= FleetUtil::GetCurrentFleets($USER['id'], 11);
+			$maxExpedition		= FleetUtil::getDMMissionLimit($USER);
 
 			if ($activeExpedition >= $maxExpedition) {
 				$this->printMessage($LNG['fl_no_expedition_slot']);
@@ -155,8 +155,8 @@ class ShowFleetStep3Page extends AbstractPage
 		}
 		elseif ($targetMission == 15)
 		{		
-			$activeExpedition	= FleetUntl::GetCurrentFleets($USER['id'], 15);
-			$maxExpedition		= FleetUntl::getExpeditionLimit($USER);
+			$activeExpedition	= FleetUtil::GetCurrentFleets($USER['id'], 15);
+			$maxExpedition		= FleetUtil::getExpeditionLimit($USER);
 			
 			if ($activeExpedition >= $maxExpedition) {
 				$this->printMessage($LNG['fl_no_expedition_slot']);
@@ -196,7 +196,7 @@ class ShowFleetStep3Page extends AbstractPage
 		$MisInfo['IsAKS']		= $fleetGroup;
 		$MisInfo['Ship'] 		= $fleetArray;		
 		
-		$avalibleMissions		= FleetUntl::GetFleetMissions($USER, $MisInfo, $targetPlanetData);
+		$avalibleMissions		= FleetUtil::GetFleetMissions($USER, $MisInfo, $targetPlanetData);
 		
 		if (!in_array($targetMission, $avalibleMissions['MissionSelector'])) {
 			$this->printMessage($LNG['fl_invalid_mission']);
@@ -214,7 +214,7 @@ class ShowFleetStep3Page extends AbstractPage
 				$this->printMessage($LNG['fl_only_planets_colonizable']);
 			}
 			
-			$techLevel	= PlayerUntl::allowPlanetPosition($USER, $targetPlanet);
+			$techLevel	= PlayerUtil::allowPlanetPosition($USER, $targetPlanet);
 			
 			if($techLevel > $USER[$GLOBALS['VARS']['ELEMENT'][124]['name']])
 			{
@@ -229,7 +229,7 @@ class ShowFleetStep3Page extends AbstractPage
 		
 		if($targetMission == 1 || $targetMission == 2 || $targetMission == 9)
 		{
-			if(FleetUntl::CheckBash($targetPlanetData['id']))
+			if(FleetUtil::CheckBash($targetPlanetData['id']))
 			{
 				$this->printMessage($LNG['fl_bash_protection']);
 			}
@@ -275,37 +275,21 @@ class ShowFleetStep3Page extends AbstractPage
 			}
 		}
 
-		$fleetMaxSpeed 	= FleetUntl::GetFleetMaxSpeed($fleetArray, $USER);
-		$SpeedFactor    = FleetUntl::GetGameSpeedFactor();
-		$duration      	= FleetUntl::GetMissionDuration($fleetSpeed, $fleetMaxSpeed, $distance, $SpeedFactor, $USER);
-		$consumption   	= FleetUntl::GetFleetConsumption($fleetArray, $duration, $distance, $fleetMaxSpeed, $USER, $SpeedFactor);
+		$fleetMaxSpeed 	= FleetUtil::GetFleetMaxSpeed($fleetArray, $USER);
+		$SpeedFactor    = FleetUtil::GetGameSpeedFactor();
+		$duration      	= FleetUtil::GetMissionDuration($fleetSpeed, $fleetMaxSpeed, $distance, $SpeedFactor, $USER);
+		$consumption   	= FleetUtil::GetFleetConsumption($fleetArray, $duration, $distance, $fleetMaxSpeed, $USER, $SpeedFactor);
 		$duration		= $duration * (1 - $USER['factor']['FlyTime']);
 		
 		$StayDuration    = 0;
 		
-		switch($targetMission) 
+		if($targetMission == 5 || $targetMission == 11 || $targetMission == 15)
 		{
-			case 5:
-				if(!in_array($stayTime, $avalibleMissions['StayBlock'])) {
-					FleetUntl::GotoFleetPage(2);
-				}
-				
-				$StayDuration    = $stayTime * 3600;
-			break;
-			case 11:
-				if(!in_array($stayTime, $avalibleMissions['StayBlock'])) {
-					FleetUntl::GotoFleetPage(2);
-				}
-				
-				$StayDuration    = 3600 / $CONF['halt_speed'];
-			break;
-			case 15:
-				if(!in_array($stayTime, $avalibleMissions['StayBlock'])) {
-					FleetUntl::GotoFleetPage(2);
-				}
-				
-				$StayDuration    = (3600 * $stayTime) / $CONF['halt_speed'];
-			break;
+			if(!isset($avalibleMissions['StayBlock'][$stayTime])) {
+				FleetUtil::GotoFleetPage(2);
+			}
+			
+			$StayDuration    = round($avalibleMissions['StayBlock'][$stayTime] * 3600, 0);
 		}
 		
 		$fleetStorage		-= $consumption;
@@ -341,10 +325,10 @@ class ShowFleetStep3Page extends AbstractPage
 		$timeDifference		= max(0, $fleetStartTime - $ACSTime);
 		
 		if($fleetGroup != 0 && $timeDifference != 0) {
-			FleetUntl::setACSTime($timeDifference, $fleetGroup);
+			FleetUtil::setACSTime($timeDifference, $fleetGroup);
 		}
 		
-		FleetUntl::sendFleet($fleetArray, $targetMission, $USER['id'], $PLANET['id'], $PLANET['galaxy'], $PLANET['system'], $PLANET['planet'], $PLANET['planet_type'], $targetPlanetData['id_owner'], $targetPlanetData['id'], $targetGalaxy, $targetSystem, $targetPlanet, $targetType, $fleetRessource, $fleetStartTime, $fleetStayTime, $fleetEndTime, $fleetGroup);
+		FleetUtil::sendFleet($fleetArray, $targetMission, $USER['id'], $PLANET['id'], $PLANET['galaxy'], $PLANET['system'], $PLANET['planet'], $PLANET['planet_type'], $targetPlanetData['id_owner'], $targetPlanetData['id'], $targetGalaxy, $targetSystem, $targetPlanet, $targetType, $fleetRessource, $fleetStartTime, $fleetStayTime, $fleetEndTime, $fleetGroup);
 		
 		foreach ($fleetArray as $Ship => $Count)
 		{

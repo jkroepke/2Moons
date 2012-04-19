@@ -305,14 +305,9 @@ class ShowBuildingsPage extends AbstractPage
 			{
 				$BuildLevel	= $PLANET[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']];
 				$Need		= round(eval(ResourceUpdate::getProd($GLOBALS['VARS']['ELEMENT'][$elementID]['production'][911])));
-				
-				if($Need > 0)
-					$Need	= $Need * (1 + $USER['factor']['Energy']);
 					
 				$BuildLevel	+= 1;
 				$Prod		= round(eval(ResourceUpdate::getProd($GLOBALS['VARS']['ELEMENT'][$elementID]['production'][911])));
-				if($Prod > 0)
-					$Need	= $Need * (1 + $USER['factor']['Energy']);
 					
 				$requireEnergy	= $Prod - $Need;
 				

@@ -46,11 +46,11 @@ class MissionCaseColonisation extends MissionFunctions
 															 WHERE u.id = '".$this->_fleet['fleet_owner']."'
 															 GROUP BY p.id_owner;");
 		
-		$MaxPlanets		= PlayerUntl::maxPlanetCount($userData, $this->_fleet['fleet_universe']);
+		$MaxPlanets		= PlayerUtil::maxPlanetCount($userData, $this->_fleet['fleet_universe']);
 		
 		$LNG			= $LANG->GetUserLang($userData['lang']);
 		
-		if (PlayerUntl::isPositionFree($this->_fleet['fleet_universe'], $this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet']))
+		if (PlayerUtil::isPositionFree($this->_fleet['fleet_universe'], $this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet']))
 		{
 			$TheMessage = sprintf($LNG['sys_colo_notfree'], GetTargetAdressLink($this->_fleet));
 			$this->setState(FLEET_RETURN);
@@ -62,7 +62,7 @@ class MissionCaseColonisation extends MissionFunctions
 		}
 		else
 		{
-			$NewOwnerPlanet = PlayerUntl::createPlanet($this->_fleet['fleet_universe'], $this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet'], $this->_fleet['fleet_owner'], NULL, false, $userData['authlevel']);
+			$NewOwnerPlanet = PlayerUtil::createPlanet($this->_fleet['fleet_universe'], $this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet'], $this->_fleet['fleet_owner'], NULL, false, $userData['authlevel']);
 			
 			if($NewOwnerPlanet === false)
 			{

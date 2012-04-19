@@ -65,26 +65,26 @@ class ShowFleetStep1Page extends AbstractPage
 		
 		if (empty($fleet))
 		{
-			FleetUntl::GotoFleetPage();
+			FleetUtil::GotoFleetPage();
 		}
 		
-		$fleetSpeed	= FleetUntl::GetFleetMaxSpeed($fleet, $USER);
+		$fleetSpeed	= FleetUtil::GetFleetMaxSpeed($fleet, $USER);
 				
 		if (empty($fleetSpeed))
 		{
-			FleetUntl::GotoFleetPage();
+			FleetUtil::GotoFleetPage();
 		}		
 		
-		$fleetRoom	= FleetUntl::GetFleetRoom($fleet);		
+		$fleetRoom	= FleetUtil::GetFleetRoom($fleet);		
 		$fleetRoom	*= 1 + $USER['factor']['ShipStorage'];
 		
 		$fleetData	= array(
 			'fleetroom'			=> floattostring($fleetRoom),
-			'gamespeed'			=> FleetUntl::GetGameSpeedFactor(),
+			'gamespeed'			=> FleetUtil::GetGameSpeedFactor(),
 			'fleetspeedfactor'	=> 1 - $USER['factor']['FlyTime'],
 			'planet'			=> array('galaxy' => $PLANET['galaxy'], 'system' => $PLANET['system'], 'planet' => $PLANET['planet'], 'planet_type' => $PLANET['planet_type']),
 			'maxspeed'			=> $fleetSpeed,
-			'ships'				=> FleetUntl::GetFleetShipInfo($fleet, $USER),
+			'ships'				=> FleetUtil::GetFleetShipInfo($fleet, $USER),
 		);
 		
 		$token		= getRandomString();
@@ -121,7 +121,7 @@ class ShowFleetStep1Page extends AbstractPage
 			'system' 		=> $targetSystem,
 			'planet' 		=> $targetPlanet,
 			'type'			=> $targetType,
-			'speedSelect'	=> FleetUntl::$allowedSpeed,
+			'speedSelect'	=> FleetUtil::$allowedSpeed,
 			'typeSelect'   	=> array(1 => $LNG['type_planet'][1], 2 => $LNG['type_planet'][2], 3 => $LNG['type_planet'][3]),
 			'fleetdata'		=> $fleetData,
 		));
@@ -285,9 +285,9 @@ class ShowFleetStep1Page extends AbstractPage
 				$this->sendJSON($LNG['fl_multi_alarm']);
 			}
 		} else {
-			$activeExpedition	= FleetUntl::GetCurrentFleets($USER['id'], 15);
+			$activeExpedition	= FleetUtil::GetCurrentFleets($USER['id'], 15);
 
-			if ($activeExpedition >= FleetUntl::getExpeditionLimit($USER))
+			if ($activeExpedition >= FleetUtil::getExpeditionLimit($USER))
 			{
 				$this->sendJSON($LNG['fl_no_expedition_slot']);
 			}

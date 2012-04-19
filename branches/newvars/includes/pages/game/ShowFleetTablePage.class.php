@@ -102,7 +102,7 @@ class ShowFleetTablePage extends AbstractPage
 			
 		$acsName	= HTTP::_GP('acsName', '', UTF8_SUPPORT);
 		if(!empty($acsName)) {
-			if(!PlayerUntl::isNameValid($acsName)) {
+			if(!PlayerUtil::isNameValid($acsName)) {
 				exit($LNG['fl_acs_newname_alphanum']);
 			}
 			
@@ -168,7 +168,7 @@ class ShowFleetTablePage extends AbstractPage
 		{
 			switch($GetAction){
 				case "sendfleetback":
-					FleetUntl::SendFleetBack($USER, $elementID);
+					FleetUtil::SendFleetBack($USER, $elementID);
 				break;
 				case "acs":
 					$data	= $this->showACSPage($elementID);
@@ -181,8 +181,8 @@ class ShowFleetTablePage extends AbstractPage
 
 		if ($techExpedition >= 1)
 		{
-			$activeExpedition	= FleetUntl::GetCurrentFleets($USER['id'], 15);
-			$maxExpedition		= FleetUntl::getExpeditionLimit($USER);
+			$activeExpedition	= FleetUtil::GetCurrentFleets($USER['id'], 15);
+			$maxExpedition		= FleetUtil::getExpeditionLimit($USER);
 		}
 		else
 		{
@@ -190,7 +190,7 @@ class ShowFleetTablePage extends AbstractPage
 			$maxExpedition 		= 0;
 		}
 
-		$maxFleetSlots	= FleetUntl::GetMaxFleetSlots($USER);
+		$maxFleetSlots	= FleetUtil::GetMaxFleetSlots($USER);
 
 		$targetGalaxy	= HTTP::_GP('galaxy', $PLANET['galaxy']);
 		$targetSystem	= HTTP::_GP('system', $PLANET['system']);
@@ -248,7 +248,7 @@ class ShowFleetTablePage extends AbstractPage
 				
 			$FleetsOnPlanet[]	= array(
 				'id'	=> $elementID,
-				'speed'	=> FleetUntl::GetFleetMaxSpeed($elementID, $USER),
+				'speed'	=> FleetUtil::GetFleetMaxSpeed($elementID, $USER),
 				'count'	=> $PLANET[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']],
 			);
 		}

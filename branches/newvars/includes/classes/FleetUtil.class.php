@@ -29,7 +29,7 @@
  * @link http://code.google.com/p/2moons/
  */
 
-class FleetUntl 
+class FleetUtil 
 {
 	static $allowedSpeed	= array(10 => 100, 9 => 90, 8 => 80, 7 => 70, 6 => 60, 5 => 50, 4 => 40, 3 => 30, 2 => 20, 1 => 10);
 	
@@ -190,6 +190,9 @@ class FleetUntl
 				$stayBlock[$i]	= $i / $uniConfig['expeditionSpeed'];
 			}
 		}
+		elseif(in_array(11, $Missions)) {
+			$stayBlock = array(1 => 1);
+		}
 		elseif(in_array(5, $Missions)) {
 			$stayBlock = array(1 => 1, 2 => 2, 4 => 4, 8 => 8, 12 => 12, 16 => 16, 32 => 32);
 		}
@@ -199,7 +202,7 @@ class FleetUntl
 	
 	public static function GetACSDuration($FleetGroup)
 	{
-				if(empty($FleetGroup))
+		if(empty($FleetGroup))
 			return 0;
 			
 		$GetAKS 	= $GLOBALS['DATABASE']->countquery("SELECT ankunft FROM ".AKS." WHERE id = ".$FleetGroup.";");

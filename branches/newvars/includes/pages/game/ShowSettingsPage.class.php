@@ -216,7 +216,7 @@ class ShowSettingsPage extends AbstractPage
 		
 		if (!empty($username) && $USER['username'] != $username)
 		{
-			if (!PlayerUntl::isNameValid($username)) {
+			if (!PlayerUtil::isNameValid($username)) {
 				$errors[]	= $LNG['op_user_name_no_alphanumeric'];
 			} elseif($USER['uctime'] >= TIMESTAMP - USERNAME_CHANGETIME) {
 				$errors[]	= $LNG['op_change_name_pro_week'];
@@ -233,9 +233,9 @@ class ShowSettingsPage extends AbstractPage
 			}
 		}
 		
-		if (!empty($newpassword) && PlayerUntl::cryptPassword($password) == $USER["password"] && $newpassword == $newpassword2)
+		if (!empty($newpassword) && PlayerUtil::cryptPassword($password) == $USER["password"] && $newpassword == $newpassword2)
 		{
-			$newpass 	 = PlayerUntl::cryptPassword($newpassword);
+			$newpass 	 = PlayerUtil::cryptPassword($newpassword);
 			$SQL		.= "UPDATE ".USERS." SET password = '".$newpass."' WHERE id = ".$USER['id'].";";
 			$redirectTo	= 'index.php';
 			$SESSION->DestroySession();
@@ -243,7 +243,7 @@ class ShowSettingsPage extends AbstractPage
 
 		if (!empty($email) && $email != $USER['email'])
 		{
-			if(PlayerUntl::cryptPassword($newpassword) != $USER['password']) {
+			if(PlayerUtil::cryptPassword($newpassword) != $USER['password']) {
 				$errors[]	= $LNG['op_need_pass_mail'];
 			} elseif(!ValidateAddress($email)) {
 				$errors[]	= $LNG['op_not_vaild_mail'];

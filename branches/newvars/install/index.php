@@ -406,7 +406,7 @@ switch ($step) {
 		$gameConfig			= $CACHE->get('config');
 		$uniAllConfig		= $CACHE->get('configuni');
 		
-		$encryptPassword	= PlayerUntl::cryptPassword($AdminPassword);
+		$encryptPassword	= PlayerUtil::cryptPassword($AdminPassword);
 		
 		$template->assign(array(
 			'username'	=> $AdminUsername,
@@ -421,7 +421,7 @@ switch ($step) {
 			exit;
 		}
 		
-		list($userID, $planetID) = PlayerUntl::createPlayer(1, $AdminUsername, $encryptPassword, $AdminMail, 1, 1, 2, NULL, AUTH_ADM, $LANG->GetUser());
+		list($userID, $planetID) = PlayerUtil::createPlayer(1, $AdminUsername, $encryptPassword, $AdminMail, 1, 1, 2, NULL, AUTH_ADM, $LANG->GetUser());
 						
 		Session::Create($userID, $planetID);
 		

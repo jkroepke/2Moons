@@ -226,7 +226,7 @@ class MissionCaseAttack extends MissionFunctions
 		$FleetDebris		= $ShootMetal + $ShootCrystal;
 		$DerbisMetal		= $targetPlanet['der_metal'] + $ShootMetal;
 		$DerbisCrystal		= $targetPlanet['der_crystal'] + $ShootCrystal;		
-		$MoonChance       	= PlayerUntl::calculateMoonChance($FleetDebris, $this->_fleet['fleet_universe']);
+		$MoonChance       	= PlayerUtil::calculateMoonChance($FleetDebris, $this->_fleet['fleet_universe']);
 		$UserChance 		= mt_rand(1, 100);
 		
 		$INFO						= $this->_fleet;
@@ -241,7 +241,7 @@ class MissionCaseAttack extends MissionFunctions
 		
 		if ($targetPlanet['planet_type'] == 1 && $targetPlanet['id_luna'] == 0 && $MoonChance > 0 && $UserChance <= $MoonChance)
 		{		
-			if(PlayerUntl::createMoon($this->_fleet['fleet_universe'], $this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet'], $TargetUserID, $MoonChance))
+			if(PlayerUtil::createMoon($this->_fleet['fleet_universe'], $this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet'], $TargetUserID, $MoonChance))
 			{
 				$INFO['moon']['name'] 	= $targetPlanet['name'];
 				$INFO['end_galaxy']		= $this->_fleet['fleet_end_galaxy'];

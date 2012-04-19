@@ -29,7 +29,7 @@
  * @link http://code.google.com/p/2moons/
  */
 
-class PlayerUntl {
+class PlayerUtil {
 	
 	const POSITION_NOT_AVALIBLE = 0;
 	
@@ -354,7 +354,7 @@ class PlayerUntl {
 		$fleetData	= $GLOBALS['DATABASE']->query("SELECT fleet_id FROM ".FLEETS." WHERE fleet_target_owner = ".$userID.";");
 		
 		while($FleetID = $GLOBALS['DATABASE']->fetchArray($fleetData)) {
-			FleetUntl::SendFleetBack($userID, $FleetID['fleet_id']);
+			FleetUtil::SendFleetBack($userID, $FleetID['fleet_id']);
 		}
 		
 		$GLOBALS['DATABASE']->free_result($fleetData);
@@ -375,7 +375,7 @@ class PlayerUntl {
 		$fleetData	= $GLOBALS['DATABASE']->query("SELECT fleet_id FROM ".FLEETS." WHERE fleet_end_id = ".$planetID.";");
 		
 		while($FleetID = $GLOBALS['DATABASE']->fetchArray($fleetData)) {
-			FleetUntl::SendFleetBack($$planetID, $FleetID['fleet_id']);
+			FleetUtil::SendFleetBack($$planetID, $FleetID['fleet_id']);
 		}
 		
 		$GLOBALS['DATABASE']->free_result($fleetData);

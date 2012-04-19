@@ -62,7 +62,7 @@ class ShowVertifyPage extends AbstractPage
 		$UserUni 	= $userData['universe'];
 		$UserRID 	= $userData['ref_id'];
 		
-		list($userID, $planetID) = PlayerUntl::createPlayer(1, $userData['username'], $userData['password'], $userData['email']);
+		list($userID, $planetID) = PlayerUtil::createPlayer(1, $userData['username'], $userData['password'], $userData['email']);
 		
 		if($gameConfig['mailEnable'] == 1) {
 			$MailSubject	= sprintf($LNG['reg_mail_reg_done'], $gameConfig['gameName']);	

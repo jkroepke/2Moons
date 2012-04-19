@@ -74,7 +74,7 @@ function ShowCreatorPage()
 				if ($UserMail != $UserMail2)
 					$errors .= $LNG['different_mails'];
 					
-				if (!PlayerUntl::isNameValid($UserName))
+				if (!PlayerUtil::isNameValid($UserName))
 					$errors .= $LNG['user_field_specialchar'];				
 										
 				if ($ExistsUser != 0)
@@ -98,7 +98,7 @@ function ShowCreatorPage()
 				
 				$SQL = "INSERT INTO ".USERS." SET
 				username		= '".$GLOBALS['DATABASE']->sql_escape($UserName). "',
-				password		= '".PlayerUntl::cryptPassword($UserPass)."',
+				password		= '".PlayerUtil::cryptPassword($UserPass)."',
 				email			= '".$GLOBALS['DATABASE']->sql_escape($UserMail)."',
 				email_2			= '".$GLOBALS['DATABASE']->sql_escape($UserMail)."',
 				lang			= '".$GLOBALS['DATABASE']->sql_escape($UserLang)."',

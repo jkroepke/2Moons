@@ -110,7 +110,7 @@ class ShowBattleSimulatorPage extends AbstractPage
 		}
 		
 		$FleetDebris      	= $result['debree']['att'][0] + $result['debree']['def'][0] + $result['debree']['att'][1] + $result['debree']['def'][1];
-		$MoonChance       	= PlayerUntl::calculateMoonChance($FleetDebris, $UNI);
+		$MoonChance       	= PlayerUtil::calculateMoonChance($FleetDebris, $UNI);
 		$AllSteal			= array_sum($steal);
 		
 		$RaportInfo			= sprintf($LNG['bs_derbis_raport'], 
