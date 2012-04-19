@@ -53,7 +53,7 @@ if($USER['authlevel'] == AUTH_ADM)
 	$ADMINUNI	= $UNI;
 }
 
-$page 		= HTTP::_GP('page', 'overview');
+$page 		= HTTP::_GP('page', 'dashBoard');
 $mode 		= HTTP::_GP('mode', 'show');
 $mode		= str_replace(array('_', '\\', '/', '.', "\0"), '', $mode);
 $pageClass	= 'Show'.ucwords($page).'Page';
