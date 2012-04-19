@@ -91,7 +91,7 @@ class ShowOverviewPage extends AbstractPage
 				exit(json_encode(array('message' => $LNG['ov_abandon_planet_not_possible'])));
 			elseif ($USER['id_planet'] == $PLANET['id'])
 				exit(json_encode(array('message' => $LNG['ov_principal_planet_cant_abanone'])));
-			elseif (PlayerUntl::cryptPassword($password) != $USER['password'])
+			elseif (PlayerUtil::cryptPassword($password) != $USER['password'])
 				exit(json_encode(array('message' => $LNG['ov_wrong_pass'])));
 			else
 			{
@@ -247,7 +247,7 @@ class ShowOverviewPage extends AbstractPage
 		$newname        = HTTP::_GP('name', '', UTF8_SUPPORT);
 		if (!empty($newname))
 		{
-			if (!PlayerUntl::isNameValid($newname)) {
+			if (!PlayerUtil::isNameValid($newname)) {
 				$this->sendJSON(array('message' => $LNG['ov_newname_specialchar'], 'error' => true));
 			} else {
 				$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET name = '".$GLOBALS['DATABASE']->sql_escape($newname)."' WHERE id = ".$PLANET['id'].";");
@@ -280,7 +280,7 @@ class ShowOverviewPage extends AbstractPage
 				$this->sendJSON(array('message' => $LNG['ov_abandon_planet_not_possible']));
 			} elseif ($USER['id_planet'] == $PLANET['id']) {
 				$this->sendJSON(array('message' => $LNG['ov_principal_planet_cant_abanone']));
-			} elseif (PlayerUntl::cryptPassword($password) != $USER['password']) {
+			} elseif (PlayerUtil::cryptPassword($password) != $USER['password']) {
 				$this->sendJSON(array('message' => $LNG['ov_wrong_pass']));
 			} else {
 				if($PLANET['planet_type'] == 1) {

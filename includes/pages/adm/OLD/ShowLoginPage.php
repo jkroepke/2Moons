@@ -35,7 +35,7 @@ function ShowLoginPage()
 	
 	if(isset($_REQUEST['admin_pw']))
 	{
-		$password	= PlayerUntl::cryptPassword($_REQUEST['admin_pw']);
+		$password	= PlayerUtil::cryptPassword($_REQUEST['admin_pw']);
 
 		if ($password == $USER['password']) {
 			$_SESSION['admin_login']	= $password;

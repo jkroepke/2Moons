@@ -160,7 +160,7 @@ function ShowQuickEditorPage()
 				}
 				$SQL	.= "darkmatter = '".max(HTTP::_GP('darkmatter', 0), 0)."', ";
 				if(!empty($_POST['password']) && $ChangePW)
-					$SQL	.= "password = '".PlayerUntl::cryptPassword(HTTP::_GP('password', '', true))."', ";
+					$SQL	.= "password = '".PlayerUtil::cryptPassword(HTTP::_GP('password', '', true))."', ";
 				$SQL	.= "username = '".$GLOBALS['DATABASE']->sql_escape(HTTP::_GP('name', '', UTF8_SUPPORT))."', ";
 				$SQL	.= "authattack = '".($UserData['authlevel'] != AUTH_USR && HTTP::_GP('authattack', '') == 'on' ? $UserData['authlevel'] : 0)."' ";
 				$SQL	.= "WHERE id = '".$id."' AND universe = '".$_SESSION['adminuni']."';";

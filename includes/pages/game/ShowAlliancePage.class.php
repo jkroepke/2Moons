@@ -323,7 +323,7 @@ class ShowAlliancePage extends AbstractPage
 			$this->printMessage($LNG['al_name_required'], "?page=alliance&mode=create", 3);
 		}
 		
-		if (!PlayerUntl::isNameValid($aname) || !PlayerUntl::isNameValid($atag)) {
+		if (!PlayerUtil::isNameValid($aname) || !PlayerUtil::isNameValid($atag)) {
 			$this->printMessage($LNG['al_newname_specialchar'], "?page=alliance&mode=create", 3);
 		}
 		

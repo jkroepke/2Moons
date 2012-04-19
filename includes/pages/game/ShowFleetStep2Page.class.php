@@ -54,13 +54,13 @@ class ShowFleetStep2Page extends AbstractPage
 		$token						= HTTP::_GP('token', '');
 
 		if (!isset($_SESSION['fleet'][$token]))
-			FleetUntl::GotoFleetPage();
+			FleetUtil::GotoFleetPage();
 
 		$fleetArray    				= $_SESSION['fleet'][$token]['fleet'];
 		$targetPlanetData			= $GLOBALS['DATABASE']->getFirstRow("SELECT `id`, `id_owner`, `der_metal`, `der_crystal` FROM `".PLANETS."` WHERE `universe` = ".$UNI." AND `galaxy` = ".$targetGalaxy." AND `system` = ".$targetSystem." AND `planet` = ".$targetPlanet." AND `planet_type` = '1';");
 				
 		if($targetType == 2 && $targetPlanetData['der_metal'] == 0 && $targetPlanetData['der_crystal'] == 0) {
-			FleetUntl::GotoFleetPage(21);
+			FleetUtil::GotoFleetPage(21);
 		}
 			
 		$MisInfo		     		= array();		
@@ -71,25 +71,25 @@ class ShowFleetStep2Page extends AbstractPage
 		$MisInfo['IsAKS']			= $fleetGroup;
 		$MisInfo['Ship'] 			= $fleetArray;		
 		
-		$MissionOutput	 			= FleetUntl::GetFleetMissions($USER, $MisInfo, $targetPlanetData);
+		$MissionOutput	 			= FleetUtil::GetFleetMissions($USER, $MisInfo, $targetPlanetData);
 		
 		if(empty($MissionOutput['MissionSelector'])) {
-			FleetUntl::GotoFleetPage(22);
+			FleetUtil::GotoFleetPage(22);
 		}
 		
-		$GameSpeedFactor   		 	= FleetUntl::GetGameSpeedFactor();		
-		$MaxFleetSpeed 				= FleetUntl::GetFleetMaxSpeed($fleetArray, $USER);
-		$distance      				= FleetUntl::GetTargetDistance(array($PLANET['galaxy'], $PLANET['system'], $PLANET['planet']), array($targetGalaxy, $targetSystem, $targetPlanet));
-		$duration      				= FleetUntl::GetMissionDuration($fleetSpeed, $MaxFleetSpeed, $distance, $GameSpeedFactor, $USER);
-		$consumption				= FleetUntl::GetFleetConsumption($fleetArray, $duration, $distance, $MaxFleetSpeed, $USER, $GameSpeedFactor);
+		$GameSpeedFactor   		 	= FleetUtil::GetGameSpeedFactor();		
+		$MaxFleetSpeed 				= FleetUtil::GetFleetMaxSpeed($fleetArray, $USER);
+		$distance      				= FleetUtil::GetTargetDistance(array($PLANET['galaxy'], $PLANET['system'], $PLANET['planet']), array($targetGalaxy, $targetSystem, $targetPlanet));
+		$duration      				= FleetUtil::GetMissionDuration($fleetSpeed, $MaxFleetSpeed, $distance, $GameSpeedFactor, $USER);
+		$consumption				= FleetUtil::GetFleetConsumption($fleetArray, $duration, $distance, $MaxFleetSpeed, $USER, $GameSpeedFactor);
 		$duration					= $duration * (1 - $USER['factor']['FlyTime']);
 		
 		if($consumption > $PLANET['deuterium']) {
-			FleetUntl::GotoFleetPage(19); # No Deuterium
+			FleetUtil::GotoFleetPage(19); # No Deuterium
 		}
 		
-		if(!FleetUntl::CheckUserSpeed($fleetSpeed)) {
-			FleetUntl::GotoFleetPage();
+		if(!FleetUtil::CheckUserSpeed($fleetSpeed)) {
+			FleetUtil::GotoFleetPage();
 		}
 		
 		$_SESSION['fleet'][$token]['speed']			= $MaxFleetSpeed;

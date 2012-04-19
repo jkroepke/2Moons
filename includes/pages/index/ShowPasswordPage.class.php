@@ -51,7 +51,7 @@ class ShowLostPasswordPage extends AbstractPage
 		$username	= HTTP::_GP('username', '', UTF8_SUPPORT);
 		$eMail		= HTTP::_GP('email', '');
 		
-		if(empty($username) || empty($eMail) || !PlayerUntl::isMailValid($eMail)) {
+		if(empty($username) || empty($eMail) || !PlayerUtil::isMailValid($eMail)) {
 			echo json_encode(array('message' => $LNG['lost_empty'], 'error' => true));
 			exit;
 		}
