@@ -184,7 +184,7 @@ class MissionCaseExpedition extends MissionFunctions
 				
 				foreach($fleetArray as $ID => $Count)
 				{
-					if(!empty($Found[$ID])
+					if(!empty($Found[$ID]))
 					{
 						$NewFleetArray  	.= $ID.",".floattostring($Count + $Found[$ID]).';';
 					}
