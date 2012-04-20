@@ -183,8 +183,13 @@ class MissionCaseExpedition extends MissionFunctions
 				}
 				
 				foreach($fleetArray as $ID => $Count)
-					$NewFleetArray  	.= $ID.",".floattostring($Count + $Found[$ID]).";";
-					
+				{
+					if(!empty($Found[$ID])
+					{
+						$NewFleetArray  	.= $ID.",".floattostring($Count + $Found[$ID]).';';
+					}
+				}	
+				
 				$Message	.= $FoundShipMess;
 							
 				$this->UpdateFleet('fleet_array', $NewFleetArray);
