@@ -103,7 +103,10 @@ class ShowFleetAjaxPage extends AbstractPage
 				}
 				
 				$GRecycles	= (int) $_REQUEST['ship'][219];
+				$GRecycles	= min($GRecycles, $UserGRecycles);
+				
 				$Recycles	= (int) $_REQUEST['ship'][209];
+				$Recycles	= min($Recycles, $UserRecycles);
 				
 				if(empty($Recycles) && empty($GRecycles)) {
 					$this->sendData(611, $LNG['fa_no_recyclers']);
@@ -130,7 +133,7 @@ class ShowFleetAjaxPage extends AbstractPage
 										total_points, onlinetime, urlaubs_modus, banaday, authattack
 										FROM ".PLANETS." planet
 										INNER JOIN ".USERS." user ON planet.id_owner = user.id
-										INNER JOIN ".STATPOINTS." as stat ON stat.id_owner = user.id AND stat.stat_type = '1' 
+										LEFT JOIN ".STATPOINTS." as stat ON stat.id_owner = user.id AND stat.stat_type = '1' 
 										WHERE planet.id = ".$planetID.";");
 		if (empty($targetData)) {
 			$this->sendData(601, $LNG['fa_planet_not_exist']);
