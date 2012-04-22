@@ -114,9 +114,9 @@ function calculateAttack(&$attackers, &$defenders, $UNI)
 			$attackers[$fleetID]['techs'] = array($attTech, $defTech, $shieldTech);
 				
 			foreach ($attacker['detail'] as $elementID => $amount) {
-				$thisAtt	= $amount * ($GLOBALS['VARS']['ELEMENT'][$elementID]['combat']['attack']) * $attTech * (rand(80, 120) / 100); //attaque
-				$thisDef	= $amount * ($GLOBALS['VARS']['ELEMENT'][$elementID]['combat']['shield']) * $defTech ; //bouclier
-				$thisShield	= $amount * ($GLOBALS['VARS']['ELEMENT'][$elementID]['cost'][901] + $GLOBALS['VARS']['ELEMENT'][$elementID]['cost'][902]) / 10 * $shieldTech; //coque
+				$thisAtt	= $amount * $GLOBALS['VARS']['ELEMENT'][$elementID]['combat']['attack'] * $attTech * (rand(80, 120) / 100); //attaque
+				$thisDef	= $amount * $GLOBALS['VARS']['ELEMENT'][$elementID]['combat']['shield'] * $defTech ; //bouclier
+				$thisShield	= $amount * $GLOBALS['VARS']['ELEMENT'][$elementID]['combat']['structure'] * $shieldTech; //coque
 
 				$attArray[$fleetID][$elementID] = array('def' => $thisDef, 'shield' => $thisShield, 'att' => $thisAtt);
 
@@ -141,9 +141,9 @@ function calculateAttack(&$attackers, &$defenders, $UNI)
 			$defenders[$fleetID]['techs'] = array($attTech, $defTech, $shieldTech);
 
 			foreach ($defender['def'] as $elementID => $amount) {
-				$thisAtt	= $amount * ($GLOBALS['VARS']['ELEMENT'][$elementID]['combat']['attack']) * $attTech * (rand(80, 120) / 100); //attaque
-				$thisDef	= $amount * ($GLOBALS['VARS']['ELEMENT'][$elementID]['combat']['shield']) * $defTech ; //bouclier
-				$thisShield	= $amount * ($GLOBALS['VARS']['ELEMENT'][$elementID]['cost'][901] + $GLOBALS['VARS']['ELEMENT'][$elementID]['cost'][902]) / 10 * $shieldTech; //coque
+				$thisAtt	= $amount * $GLOBALS['VARS']['ELEMENT'][$elementID]['combat']['attack'] * $attTech * (rand(80, 120) / 100); //attaque
+				$thisDef	= $amount * $GLOBALS['VARS']['ELEMENT'][$elementID]['combat']['shield'] * $defTech ; //bouclier
+				$thisShield	= $amount * $GLOBALS['VARS']['ELEMENT'][$elementID]['combat']['structure'] * $shieldTech; //coque
 
 				if ($elementID == 407 || $elementID == 408 || $elementID == 409) $thisAtt = 0;
 

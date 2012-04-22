@@ -44,14 +44,14 @@ class MissionCaseExpedition extends MissionFunctions
 	
 	function EndStayEvent()
 	{
-		global $pricelist, $reslist, $LANG;
+		global $LANG;
 		$LNG			= $LANG->GetUserLang($this->_fleet['fleet_owner']);
 
         $expeditionPoints       = array();
 
-		foreach($reslist['fleet'] as $ID)
+		foreach($GLOBALS['VARS']['LIST'][ELEMENT_FLEET] as $elementID)
 		{
-			$expeditionPoints[$ID]	= ($GLOBALS['VARS']['ELEMENT'][$ID]['cost'][901] + $GLOBALS['VARS']['ELEMENT'][$ID]['cost'][902]) / 1000;
+			$expeditionPoints[$elementID]	= $GLOBALS['VARS']['ELEMENT'][$elementID]['combat']['structure'] / 100;
 		}
 		
 		$expeditionPoints[202] = 12;
@@ -72,7 +72,7 @@ class MissionCaseExpedition extends MissionFunctions
 
 			$Class 						= explode (",", $Group);
 			$fleetArray[$Class[0]]		= $Class[1];
-			$fleetCapacity 			   += $Class[1] * $pricelist[$Class[0]]['capacity'];
+			$fleetCapacity 			   += $Class[1] * $GLOBALS['VARS']['ELEMENT'][$Class[0]]['fleetData']['capacity'];
 			$fleetPoints   			   += $Class[1] * $expeditionPoints[$Class[0]];
 		}
 
@@ -164,7 +164,7 @@ class MissionCaseExpedition extends MissionFunctions
 
 				$LNG			+= $LANG->GetUserLang($this->_fleet['fleet_owner'], array('TECH'));
 				$Found			= array();
-				foreach($reslist['fleet'] as $ID) 
+				foreach($GLOBALS['VARS']['LIST'][ELEMENT_FLEET] as $ID) 
 				{
 					if(!isset($fleetArray[$ID]) || $ID == 208 || $ID == 209 || $ID == 214)
 						continue;
