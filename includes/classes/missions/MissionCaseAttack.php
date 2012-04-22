@@ -48,8 +48,8 @@ class MissionCaseAttack extends MissionFunctions
 		$targetUser['factor']				= getFactors($targetUser, 'basic', $this->_fleet['fleet_start_time']);
 		$PlanetRess 						= new ResourceUpdate();
 		list($targetUser, $targetPlanet)	= $PlanetRess->CalcResource($targetUser, $targetPlanet, true, $this->_fleet['fleet_start_time']);
-		$TargetUserID	= $targetUser['id'];
-		$attackFleets	= array();
+		$TargetUserID			= $targetUser['id'];
+		$attackFleets			= array();
 		$AttackerRow['id']		= array();
 		$AttackerRow['name']	= array();
 		$DefenderRow['id']		= array();
@@ -126,7 +126,7 @@ class MissionCaseAttack extends MissionFunctions
 		$defense[0]['user']['factor'] 	= getFactors($defense[0]['user'], 'attack', $this->_fleet['fleet_start_time']);		
 		$DefenderRow['id'][] 			= $defense[0]['user']['id'];
 		
-		foreach(array_merge($reslist['fleet'], $reslist['defense']) as $ID)
+		foreach(array_merge($GLOBALS['VARS']['LIST'][ELEMENT_FLEET], $GLOBALS['VARS']['LIST'][ELEMENT_DEFENSIVE]) as $ID)
 		{
 			if ($ID >= 500 || $targetPlanet[$GLOBALS['VARS']['ELEMENT'][$ID]['name']] == 0)
 				continue;

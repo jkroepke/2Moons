@@ -95,7 +95,8 @@ class MissionCaseDestruction extends MissionFunctions
 		$defense[0]['user'] = $targetUser;
 		$defense[0]['user']['factor'] 	= getFactors($defense[0]['user'], 'attack', $this->_fleet['fleet_start_time']);		
 		$DefenderRow['id'][] 	= $defense[0]['user']['id'];
-		for ($i = 200; $i < 500; $i++)
+		
+		foreach(array_merge($GLOBALS['VARS']['LIST'][ELEMENT_FLEET], $GLOBALS['VARS']['LIST'][ELEMENT_DEFENSIVE]) as $ID)
 		{
 			if (isset($GLOBALS['VARS']['ELEMENT'][$i]['name']) && isset($targetPlanet[$GLOBALS['VARS']['ELEMENT'][$i]['name']]))
 			{

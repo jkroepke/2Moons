@@ -336,7 +336,8 @@ class ShowFleetStep3Page extends AbstractPage
 		}
 	
 		$this->loadscript('flotten.js');
-		$this->gotoside('game.php?page=fleetTable');
+		$this->tplObj->gotoside('game.php?page=fleetTable');
+		
 		$this->assign(array(
 			'targetMission'		=> $targetMission,
 			'distance'			=> $distance,

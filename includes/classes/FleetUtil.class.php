@@ -371,8 +371,8 @@ class FleetUtil
 	
 	public static function CheckBash($Target)
 	{
-		global $USER;
-		if (!BASH_ON)
+		global $USER, $uniConfig;
+		if ($uniConfig['attackBashEnable'] != 1)
 		{
 			return false;
 		}
@@ -381,9 +381,9 @@ class FleetUtil
 		WHERE fleet_owner = ".$USER['id']." 
 		AND fleet_end_id = ".$Target." 
 		AND fleet_state != 2 
-		AND fleet_start_time > ".(TIMESTAMP - BASH_TIME)." 
+		AND fleet_start_time > ".(TIMESTAMP - $uniConfig['attackBashAllowAttack'])." 
 		AND fleet_mission IN (1,2,9);");
-		return $Count >= BASH_COUNT;
+		return $Count >= $uniConfig['attackBashInTime'];
 	}
 	
 	public static function sendFleet($fleetArray, $fleetMission, $fleetStartOwner, $fleetStartPlanetID, $fleetStartPlanetGalaxy, $fleetStartPlanetSystem, $fleetStartPlanetPlanet, $fleetStartPlanetType, $fleetTargetOwner, $fleetTargetPlanetID, $fleetTargetPlanetGalaxy, $fleetTargetPlanetSystem, $fleetTargetPlanetPlanet, $fleetTargetPlanetType, $fleetRessource, $fleetStartTime, $fleetStayTime, $fleetEndTime, $fleetGroup = 0, $missleTarget = 0)
