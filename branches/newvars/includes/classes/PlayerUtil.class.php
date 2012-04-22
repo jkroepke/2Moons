@@ -61,7 +61,7 @@ class PlayerUtil {
 		
 		$uniConfig	= $uniAllConfig[$universe];
 		
-		return min(round($FleetDebris / 100000 * $uniConfig['planetMoonCreateChanceFactor'], 0), $uniConfig['planetMoonCreateMaxChance']);
+		return min(round($FleetDebris / 100000 * $uniConfig['planetMoonCreateChanceFactor'], 0), $uniConfig['planetMoonCreateMaxFactor']);
 	}
 
 	static function isNameValid($name)

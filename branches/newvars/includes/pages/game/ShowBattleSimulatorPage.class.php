@@ -106,7 +106,7 @@ class ShowBattleSimulatorPage extends AbstractPage
 		}
 		else
 		{
-			$steal = array('metal' => 0, 'crystal' => 0, 'deuterium' => 0)
+			$steal = array('metal' => 0, 'crystal' => 0, 'deuterium' => 0);
 		}
 		
 		$FleetDebris      	= $result['debree']['att'][0] + $result['debree']['def'][0] + $result['debree']['att'][1] + $result['debree']['def'][1];

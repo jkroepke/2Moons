@@ -70,11 +70,13 @@
 												<th>{$LNG.bs_deffer}</th>
 											</tr>
 											{foreach $defensiveList as $id}
+											{if $id < 500}
 											<tr>
 												<td>{$LNG.tech.$id}:</td>
 												<td>-</td>
 												<td><input type="text" size="10" value="{if isset($battleinput.{$smarty.section.content.index}.1.$id)}{$battleinput.{$smarty.section.content.index}.1.$id}{else}0{/if}" name="battleinput[{$smarty.section.content.index}][1][{$id}]"></td>
 											</tr>
+											{/if}
 										{/foreach}
 										</table>
 									</td>

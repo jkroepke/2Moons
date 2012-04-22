@@ -421,6 +421,9 @@ switch ($step) {
 			exit;
 		}
 		
+		$CACHE->add('vars', 'VarsBuildCache');
+		$VARS         = $CACHE->get('vars');
+		
 		list($userID, $planetID) = PlayerUtil::createPlayer(1, $AdminUsername, $encryptPassword, $AdminMail, 1, 1, 2, NULL, AUTH_ADM, $LANG->GetUser());
 						
 		Session::Create($userID, $planetID);
