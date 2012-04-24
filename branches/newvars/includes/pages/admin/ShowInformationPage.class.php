@@ -31,6 +31,11 @@
 
 class ShowInformationPage extends AbstractPage
 {
+	function __construct() 
+	{
+		parent::__construct();
+	}
+	
 	function show()
 	{
 		global $LNG, $gameConfig, $USER;
