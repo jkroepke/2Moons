@@ -53,15 +53,18 @@ if($USER['authlevel'] == AUTH_ADM)
 	$ADMINUNI	= $UNI;
 }
 
-$page 		= HTTP::_GP('page', 'dashBoard');
-$mode 		= HTTP::_GP('mode', 'show');
-$mode		= str_replace(array('_', '\\', '/', '.', "\0"), '', $mode);
-$pageClass	= 'Show'.ucwords($page).'Page';
-
-if(!isset($_SESSION['admin_login']) || $_SESSION['admin_login'] != $USER['password'])
+if (!isset($_SESSION['adminLogin']) || $_SESSION['adminLogin'] != 1)
 {
 	$page	= 'login';
 }
+else
+{
+	$page 	= HTTP::_GP('page', 'dashBoard');
+}
+
+$mode 		= HTTP::_GP('mode', 'show');
+$mode		= str_replace(array('_', '\\', '/', '.', "\0"), '', $mode);
+$pageClass	= 'Show'.ucwords($page).'Page';
 
 if(!class_exists($pageClass)) {
 	ShowErrorPage::printError($LNG['page_doesnt_exist']);

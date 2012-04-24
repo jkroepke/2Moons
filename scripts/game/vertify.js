@@ -1,7 +1,7 @@
 $(function() {
 	$(".processbar").css("width", "1px");
 	$(".info").text("0%");
-	$.getJSON("?page=vertify&action=getFileList&"+document.location.search.split("&").pop(), startCompare);	
+	$.getJSON("?page=vertify&mode=getFileList&"+document.location.search.split("&").pop(), startCompare);	
 });
 
 function startCompare(Filelist) {
@@ -17,7 +17,7 @@ function compareFiles(Filelist, Pointer) {
 	var ELE		= $("<div />").text("File: "+File).appendTo('#result > td > div');
 	$("#result > td > div").scrollTop($("#result > td > div").scrollTop() + 14);
 	$.ajax({
-		url: "?page=vertify&action=check&file="+File,
+		url: "?page=vertify&mode=compareFile&file="+File,
 		success: function(TEXT) {
 			$(".processbar").css("width", (((Pointer + 1) / Filelist.length) * 100)+"%");
 			$(".info").text(Math.ceil(((Pointer + 1) / Filelist.length) * 100)+"%");
