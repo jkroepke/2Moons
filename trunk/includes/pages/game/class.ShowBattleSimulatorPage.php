@@ -172,9 +172,10 @@ class ShowBattleSimulatorPage extends AbstractPage
 		$this->tplObj->assign_vars(array(
 			'Slots'			=> $Slots,
 			'battleinput'	=> $BattleArray,
-			'reslist'		=> $reslist,
+			'fleetList'		=> $reslist['fleet'],
+			'defensiveList'	=> $reslist['defense'],
 		));
-				
+		
 		$this->display('page.battleSimulator.default.tpl');   
 	}
 }
