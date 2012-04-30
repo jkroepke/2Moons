@@ -36,12 +36,12 @@ class FacebookAuth extends Facebook {
 			HTTP::redirectTo('index.php?code=4');
 		}
 		
-		$ValidReg	= $GLOBALS['DATABASE']->countquery("SELECT cle FROM ".USERS_VALID." WHERE universe = ".$UNI." AND email = '".$GLOBALS['DATABASE']->sql_escape($me['email'])."';");
+		$ValidReg	= $GLOBALS['DATABASE']->countquery("SELECT cle FROM ".USERS_VALID." WHERE universe = ".$UNI." AND email = '".$GLOBALS['DATABASE']->escape($me['email'])."';");
 		if(!empty($ValidReg))
 			HTTP::redirectTo("index.php?uni=".$UNI."&page=reg&action=valid&clef=".$ValidReg);
 							
 		$GLOBALS['DATABASE']->query("INSERT INTO ".USERS_AUTH." SET
-		id = (SELECT id FROM ".USERS." WHERE email = '".$GLOBALS['DATABASE']->sql_escape($me['email'])."' OR email_2 = '".$GLOBALS['DATABASE']->sql_escape($me['email'])."'),
+		id = (SELECT id FROM ".USERS." WHERE email = '".$GLOBALS['DATABASE']->escape($me['email'])."' OR email_2 = '".$GLOBALS['DATABASE']->escape($me['email'])."'),
 		account = ".$uid.",
 		mode = 'facebook';");
 	}

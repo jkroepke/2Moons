@@ -89,7 +89,7 @@ function ShowQuickEditorPage()
 				$SQL	.= "field_max = ".$maxFields.", ";
 				$SQL	.= "temp_min = ".$minTempature.", ";
 				$SQL	.= "temp_max = ".$maxTempature.", ";
-				$SQL	.= "name = '".$GLOBALS['DATABASE']->sql_escape(HTTP::_GP('name', '', UTF8_SUPPORT))."', ";
+				$SQL	.= "name = '".$GLOBALS['DATABASE']->escape(HTTP::_GP('name', '', UTF8_SUPPORT))."', ";
 				$SQL	.= "eco_hash = '' ";
 				$SQL	.= "WHERE id = ".$id." AND universe = '".$_SESSION['adminuni']."';";
 					
@@ -161,7 +161,7 @@ function ShowQuickEditorPage()
 				$SQL	.= "darkmatter = '".max(HTTP::_GP('darkmatter', 0), 0)."', ";
 				if(!empty($_POST['password']) && $ChangePW)
 					$SQL	.= "password = '".PlayerUtil::cryptPassword(HTTP::_GP('password', '', true))."', ";
-				$SQL	.= "username = '".$GLOBALS['DATABASE']->sql_escape(HTTP::_GP('name', '', UTF8_SUPPORT))."', ";
+				$SQL	.= "username = '".$GLOBALS['DATABASE']->escape(HTTP::_GP('name', '', UTF8_SUPPORT))."', ";
 				$SQL	.= "authattack = '".($UserData['authlevel'] != AUTH_USR && HTTP::_GP('authattack', '') == 'on' ? $UserData['authlevel'] : 0)."' ";
 				$SQL	.= "WHERE id = '".$id."' AND universe = '".$_SESSION['adminuni']."';";
 				$GLOBALS['DATABASE']->query($SQL);
@@ -176,7 +176,7 @@ function ShowQuickEditorPage()
 				$old[921]			= $UserData[$GLOBALS['VARS']['ELEMENT'][921]['name']];
 				$new[921]			= abs(HTTP::_GP($GLOBALS['VARS']['ELEMENT'][921]['name'], 0));
 				$old['username']	= $UserData['username'];
-				$new['username']	= $GLOBALS['DATABASE']->sql_escape(HTTP::_GP('name', '', UTF8_SUPPORT));
+				$new['username']	= $GLOBALS['DATABASE']->escape(HTTP::_GP('name', '', UTF8_SUPPORT));
 				$old['authattack']	= $UserData['authattack'];
 				$new['authattack']	= ($UserData['authlevel'] != AUTH_USR && HTTP::_GP('authattack', '') == 'on' ? $UserData['authlevel'] : 0);
 				

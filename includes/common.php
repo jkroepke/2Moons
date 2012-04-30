@@ -28,7 +28,7 @@
  * @info $Id$
  * @link http://code.google.com/p/2moons/
  */
-
+ 
 // Magic Quotes work around.
 if (function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc() == 1)
 {

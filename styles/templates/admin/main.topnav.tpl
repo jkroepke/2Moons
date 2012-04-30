@@ -11,7 +11,7 @@
 		{if $authlevel == $smarty.const.AUTH_ADM}
 		<a href="admin.php?page=universe&amp;sid={$SID}" class="topn">{$LNG.mu_universe}</a>
 		<a href="admin.php?page=rights&amp;mode=rights&amp;sid={$SID}" class="topn">{$LNG.mu_moderation_page}</a>
-		<a href="admin.php?page=rights&amp;mode=users&amp;sid={$SID}" class="topn">{$LNG.ad_authlevel_title}</a>
+		<a href="admin.php?page=rights&amp;mode=users&amp;sid={$SID}" class="topn">{*$LNG.ad_authlevel_title*}</a>
 		{/if}
 		{if $userID == 1}
 		<a href="admin.php?page=reset&amp;sid={$SID}" class="topn">{$LNG.re_reset_universe}</a>

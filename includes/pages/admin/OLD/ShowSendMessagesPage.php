@@ -66,7 +66,7 @@ function ShowSendMessagesPage() {
 				$From    	= '<span class="'.$class.'">'.$LNG['user_level'][$USER['authlevel']].' '.$USER['username'].'</span>';
 				$Subject 	= '<span class="'.$class.'">'.$Subject.'</span>';
 				$Message 	= '<span class="'.$class.'">'.bbcode($Message).'</span>';
-				$USERS		= $GLOBALS['DATABASE']->query("SELECT `id` FROM ".USERS." WHERE `universe` = '".$_SESSION['adminuni']."'".(!empty($Lang) ? " AND `lang` = '".$GLOBALS['DATABASE']->sql_escape($Lang)."'": "").";");
+				$USERS		= $GLOBALS['DATABASE']->query("SELECT `id` FROM ".USERS." WHERE `universe` = '".$_SESSION['adminuni']."'".(!empty($Lang) ? " AND `lang` = '".$GLOBALS['DATABASE']->escape($Lang)."'": "").";");
 				while($UserData = $GLOBALS['DATABASE']->fetchArray($USERS)) {
 					SendSimpleMessage($UserData['id'], $USER['id'], TIMESTAMP, 50, $From, $Subject, $Message);
 				}
@@ -95,7 +95,7 @@ function ShowSendMessagesPage() {
 				$mail->Body   		= bbcode($Message);
 				$mail->SetFrom($CONF['smtp_sendmail'], $CONF['gameName']);
 				$mail->AddAddress($CONF['smtp_sendmail'], $CONF['gameName']);
-				$USERS	= $GLOBALS['DATABASE']->query("SELECT `username`, `email` FROM ".USERS." WHERE `universe` = '".$_SESSION['adminuni']."'".(!empty($Lang) ? " AND `lang` = '".$GLOBALS['DATABASE']->sql_escape($Lang)."'": "").";");
+				$USERS	= $GLOBALS['DATABASE']->query("SELECT `username`, `email` FROM ".USERS." WHERE `universe` = '".$_SESSION['adminuni']."'".(!empty($Lang) ? " AND `lang` = '".$GLOBALS['DATABASE']->escape($Lang)."'": "").";");
 				while($UserData = $GLOBALS['DATABASE']->fetchArray($USERS)) {
 					$mail->AddBCC($UserData['email'], $UserData['username']);
 				}

@@ -98,12 +98,12 @@ class ShowRegisterPage extends AbstractPage
 			SELECT COUNT(*) 
 			FROM ".USERS." 
 			WHERE universe = ".$UNI."
-			AND username = '".$GLOBALS['DATABASE']->sql_escape($userName)."'
+			AND username = '".$GLOBALS['DATABASE']->escape($userName)."'
 		) + (
 			SELECT COUNT(*)
 			FROM ".USERS_VALID."
 			WHERE universe = ".$UNI."
-			AND username = '".$GLOBALS['DATABASE']->sql_escape($userName)."'
+			AND username = '".$GLOBALS['DATABASE']->escape($userName)."'
 		);");
 		
 		$countMail		= $GLOBALS['DATABASE']->countquery("SELECT (
@@ -111,14 +111,14 @@ class ShowRegisterPage extends AbstractPage
 			FROM ".USERS."
 			WHERE universe = ".$UNI."
 			AND (
-				email = '".$GLOBALS['DATABASE']->sql_escape($mailAddress)."'
-				OR email_2 = '".$GLOBALS['DATABASE']->sql_escape($mailAddress)."'
+				email = '".$GLOBALS['DATABASE']->escape($mailAddress)."'
+				OR email_2 = '".$GLOBALS['DATABASE']->escape($mailAddress)."'
 			)
 		) + (
 			SELECT COUNT(*)
 			FROM ".USERS_VALID."
 			WHERE universe = ".$UNI."
-			AND email = '".$GLOBALS['DATABASE']->sql_escape($mailAddress)."'
+			AND email = '".$GLOBALS['DATABASE']->escape($mailAddress)."'
 		);");
 		
 		if($countUsername!= 0) {
@@ -165,9 +165,9 @@ class ShowRegisterPage extends AbstractPage
 		$clef		= uniqid('2m');
 	
 		$SQL = "INSERT INTO ".USERS_VALID." SET 
-				username = '".$GLOBALS['DATABASE']->sql_escape($userName)."',
-				email = '".$GLOBALS['DATABASE']->sql_escape($mailAddress)."',
-				lang = '".$GLOBALS['DATABASE']->sql_escape($language)."',
+				username = '".$GLOBALS['DATABASE']->escape($userName)."',
+				email = '".$GLOBALS['DATABASE']->escape($mailAddress)."',
+				lang = '".$GLOBALS['DATABASE']->escape($language)."',
 				planet = '',
 				date = '".TIMESTAMP."',
 				cle = '".$clef."',

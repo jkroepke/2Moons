@@ -112,16 +112,16 @@ function ShowSearchPage()
 	switch($SearchMethod)
 	{
 		case 'exacto':
-			$SpecifyWhere	= "= '".$GLOBALS['DATABASE']->sql_escape($SearchKey)."'";
+			$SpecifyWhere	= "= '".$GLOBALS['DATABASE']->escape($SearchKey)."'";
 		break;
 		case 'last':
-			$SpecifyWhere	= "LIKE '".$GLOBALS['DATABASE']->sql_escape($SearchKey, true)."%'";
+			$SpecifyWhere	= "LIKE '".$GLOBALS['DATABASE']->escape($SearchKey, true)."%'";
 		break;
 		case 'first':
-			$SpecifyWhere	= "LIKE '%".$GLOBALS['DATABASE']->sql_escape($SearchKey, true)."'";
+			$SpecifyWhere	= "LIKE '%".$GLOBALS['DATABASE']->escape($SearchKey, true)."'";
 		break;
 		default:
-			$SpecifyWhere	= "LIKE '%".$GLOBALS['DATABASE']->sql_escape($SearchKey, true)."%'";
+			$SpecifyWhere	= "LIKE '%".$GLOBALS['DATABASE']->escape($SearchKey, true)."%'";
 		break;
 	};
 

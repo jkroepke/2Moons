@@ -137,9 +137,9 @@ class PlayerUtil {
 		}
 		
 		$SQL = "INSERT INTO ".USERS." SET
-		username		= '".$GLOBALS['DATABASE']->sql_escape($UserName)."',
-		email			= '".$GLOBALS['DATABASE']->sql_escape($UserMail)."',
-		email_2			= '".$GLOBALS['DATABASE']->sql_escape($UserMail)."',
+		username		= '".$GLOBALS['DATABASE']->escape($UserName)."',
+		email			= '".$GLOBALS['DATABASE']->escape($UserMail)."',
+		email_2			= '".$GLOBALS['DATABASE']->escape($UserMail)."',
 		authlevel		= ".$authlevel.",
 		universe		= ".$Universe.",
 		lang			= '".$UserLang."',
@@ -238,7 +238,7 @@ class PlayerUtil {
 		}
 	
 		$SQL	= "INSERT INTO ".PLANETS." SET
-				   name = '".$GLOBALS['DATABASE']->sql_escape($PlanetName)."',
+				   name = '".$GLOBALS['DATABASE']->escape($PlanetName)."',
 				   universe = ".$Universe.",
 				   id_owner = ".$PlanetOwnerID.",
 				   galaxy = ".$Galaxy.",

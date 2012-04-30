@@ -97,7 +97,7 @@ class ShowOfficierPage extends AbstractPage
 		{
 			if(isModulAvalible(MODULE_OFFICIER) && ielementHasFlag($elementID, ELEMENT_OFFICIER)) {
 				$this->UpdateOfficier($updateID);
-			} elseif(isModulAvalible(MODULE_DMEXTRAS) && elementHasFlag($elementID, ELEMENT_BONUS)) {
+			} elseif(isModulAvalible(MODULE_DMEXTRAS) && elementHasFlag($elementID, ELEMENT_PREMIUM)) {
 				$this->UpdateExtra($updateID);
 			}
 		}
@@ -109,7 +109,7 @@ class ShowOfficierPage extends AbstractPage
 		
 		if(isModulAvalible(MODULE_DMEXTRAS)) 
 		{
-			foreach($GLOBALS['VARS']['LIST'][ELEMENT_BONUS] as $elementID)
+			foreach($GLOBALS['VARS']['LIST'][ELEMENT_PREMIUM] as $elementID)
 			{
 				if($USER[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']] > TIMESTAMP) {
 					$this->execscript("GetOfficerTime(".$elementID.", ".($USER[$GLOBALS['VARS']['ELEMENT'][$elementID]['name']] - TIMESTAMP).");");

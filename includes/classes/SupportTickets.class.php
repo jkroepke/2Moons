@@ -39,7 +39,7 @@ class SupportTickets
 	function createTicket($ownerID, $categoryID, $subject) {
 		global $UNI;
 		
-		$GLOBALS['DATABASE']->query("INSERT INTO ".TICKETS." SET ownerID = ".$ownerID.", universe = ".$UNI.", categoryID = ".$categoryID.", subject = '".$GLOBALS['DATABASE']->sql_escape($subject)."', time = ".TIMESTAMP.";");
+		$GLOBALS['DATABASE']->query("INSERT INTO ".TICKETS." SET ownerID = ".$ownerID.", universe = ".$UNI.", categoryID = ".$categoryID.", subject = '".$GLOBALS['DATABASE']->escape($subject)."', time = ".TIMESTAMP.";");
 		
 		return $GLOBALS['DATABASE']->GetInsertID();
 	}
@@ -48,9 +48,9 @@ class SupportTickets
 				
 		$GLOBALS['DATABASE']->query("INSERT INTO ".TICKETS_ANSWER." SET ticketID = ".$ticketID.",
 		ownerID = ".$ownerID.", 
-		ownerName = '".$GLOBALS['DATABASE']->sql_escape($ownerName)."', 
-		subject = '".$GLOBALS['DATABASE']->sql_escape($subject)."', 
-		message = '".$GLOBALS['DATABASE']->sql_escape($message)."', 
+		ownerName = '".$GLOBALS['DATABASE']->escape($ownerName)."', 
+		subject = '".$GLOBALS['DATABASE']->escape($subject)."', 
+		message = '".$GLOBALS['DATABASE']->escape($message)."', 
 		time = ".TIMESTAMP.";");
 		$GLOBALS['DATABASE']->query("UPDATE ".TICKETS." SET status = ".$status." WHERE ticketID = ".$ticketID.";");
 		

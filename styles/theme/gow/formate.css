@@ -354,10 +354,9 @@ th a,.res_current{
 
 .ui-tabs-nav {
 	padding: 0;
-	height: 30px;
+	height: 26px;
 }
 
 .ui-tabs {
 	border:1px solid #000;
-	background:transaprent;
 }

@@ -103,7 +103,7 @@ class ShowBuddyListPage extends AbstractPage
 		SET @buddyID = LAST_INSERT_ID();
 		INSERT INTO ".BUDDY_REQUEST." SET 
 		id = @buddyID, 
-		text = '".$GLOBALS['DATABASE']->sql_escape($text)."';");
+		text = '".$GLOBALS['DATABASE']->escape($text)."';");
 		
 		$this->printMessage($LNG['bu_request_send']);
 	}

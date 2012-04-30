@@ -46,6 +46,12 @@ table {
 	margin:0 auto
 }
 
+.full > #page > #content > table,
+.full > #page > #content > form > table
+{
+	width:760px;
+}
+
 td {
 	padding: 2px 3px;
 	vertical-align: middle;

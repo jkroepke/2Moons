@@ -56,8 +56,8 @@ function ShowCreatorPage()
 				$System 	= HTTP::_GP('system', 0);
 				$Planet 	= HTTP::_GP('planet', 0);
 					
-				$ExistsUser 	= $GLOBALS['DATABASE']->countquery("SELECT (SELECT COUNT(*) FROM ".USERS." WHERE universe = ".$_SESSION['adminuni']." AND username = '".$GLOBALS['DATABASE']->sql_escape($UserName)."') + (SELECT COUNT(*) FROM ".USERS_VALID." WHERE universe = ".$_SESSION['adminuni']." AND username = '".$GLOBALS['DATABASE']->sql_escape($UserName)."')");
-				$ExistsMails	= $GLOBALS['DATABASE']->countquery("SELECT (SELECT COUNT(*) FROM ".USERS." WHERE universe = ".$_SESSION['adminuni']." AND (email = '".$GLOBALS['DATABASE']->sql_escape($UserMail)."' OR email_2 = '".$GLOBALS['DATABASE']->sql_escape($UserMail)."')) + (SELECT COUNT(*) FROM ".USERS_VALID." WHERE universe = ".$_SESSION['adminuni']." AND email = '".$GLOBALS['DATABASE']->sql_escape($UserMail)."')");
+				$ExistsUser 	= $GLOBALS['DATABASE']->countquery("SELECT (SELECT COUNT(*) FROM ".USERS." WHERE universe = ".$_SESSION['adminuni']." AND username = '".$GLOBALS['DATABASE']->escape($UserName)."') + (SELECT COUNT(*) FROM ".USERS_VALID." WHERE universe = ".$_SESSION['adminuni']." AND username = '".$GLOBALS['DATABASE']->escape($UserName)."')");
+				$ExistsMails	= $GLOBALS['DATABASE']->countquery("SELECT (SELECT COUNT(*) FROM ".USERS." WHERE universe = ".$_SESSION['adminuni']." AND (email = '".$GLOBALS['DATABASE']->escape($UserMail)."' OR email_2 = '".$GLOBALS['DATABASE']->escape($UserMail)."')) + (SELECT COUNT(*) FROM ".USERS_VALID." WHERE universe = ".$_SESSION['adminuni']." AND email = '".$GLOBALS['DATABASE']->escape($UserMail)."')");
 								
 				if (!ValidateAddress($UserMail)) 
 					$errors .= $LNG['invalid_mail_adress'];
@@ -97,11 +97,11 @@ function ShowCreatorPage()
 				}
 				
 				$SQL = "INSERT INTO ".USERS." SET
-				username		= '".$GLOBALS['DATABASE']->sql_escape($UserName). "',
+				username		= '".$GLOBALS['DATABASE']->escape($UserName). "',
 				password		= '".PlayerUtil::cryptPassword($UserPass)."',
-				email			= '".$GLOBALS['DATABASE']->sql_escape($UserMail)."',
-				email_2			= '".$GLOBALS['DATABASE']->sql_escape($UserMail)."',
-				lang			= '".$GLOBALS['DATABASE']->sql_escape($UserLang)."',
+				email			= '".$GLOBALS['DATABASE']->escape($UserMail)."',
+				email_2			= '".$GLOBALS['DATABASE']->escape($UserMail)."',
+				lang			= '".$GLOBALS['DATABASE']->escape($UserLang)."',
 				authlevel		= ".$UserAuth.",
 				ip_at_reg		= '".$_SERVER['REMOTE_ADDR']."',
 				id_planet		= 0,
@@ -247,7 +247,7 @@ function ShowCreatorPage()
 					$SQL .= "field_max = '".$field_max."' ";
 			
 				if (!empty($name))
-					$SQL .= ", name = '".$GLOBALS['DATABASE']->sql_escape($name)."' ";
+					$SQL .= ", name = '".$GLOBALS['DATABASE']->escape($name)."' ";
 
 				$SQL .= "WHERE ";
 				$SQL .= "universe = '". $_SESSION['adminuni'] ."' AND ";

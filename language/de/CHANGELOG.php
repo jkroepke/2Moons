@@ -754,7 +754,7 @@ $LNG['changelog']   = array(
 - MOD: Bauschleifennachrichten pro User abschaltbar
 - MOD: Nutztung von mysqli::multi_query (5%)
 - MOD: $_GET und $_POST durch request_var ersetzt (70%)
-- MOD: Uservaris mit $db->sql_escape (mysqli_real_escape_string) verstzt (80%)
+- MOD: Uservaris mit $db->escape (mysqli_real_escape_string) verstzt (80%)
 - MOD: Neue EMail-Klasse
 - MOD: Bauzeit der aktuellen Forschung/des aktuellen Geb&auml;udes in der Titelleiste
 - MOD: autoload - Funktion

@@ -58,8 +58,8 @@ class ShowLostPasswordPage extends AbstractPage
 			
 		$UserID 	= $GLOBALS['DATABASE']->countquery("SELECT id FROM ".USERS." 
 		WHERE universe = ".$UNI." 
-		AND username = '".$GLOBALS['DATABASE']->sql_escape($username)."'
-		AND email_2 = '".$GLOBALS['DATABASE']->sql_escape($eMail)."';");
+		AND username = '".$GLOBALS['DATABASE']->escape($username)."'
+		AND email_2 = '".$GLOBALS['DATABASE']->escape($eMail)."';");
 		
 		if (!isset($UserID))
 		{

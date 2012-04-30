@@ -13,7 +13,6 @@
 		{if allowedTo('ShowUpdatePage')}<li><a href="?page=update">{$LNG.mu_update}</a></li>{/if}
 		{if allowedTo('ShowVertifyPage')}<li><a href="?page=vertify">{$LNG.mu_vertify}</a></li>{/if}
 		<li><a href="javascript:void(0);"><span style="color:lime">{$LNG.mu_users_settings}</span></a></li>
-		{if allowedTo('ShowCreatorPage')}<li><a href="?page=create">{$LNG.new_creator_title}</a></li>{/if}
 		{if allowedTo('ShowAccountEditorPage')}<li><a href="?page=accounteditor">{$LNG.mu_add_delete_resources}</a></li>{/if}
 		{if allowedTo('ShowBanPage')}<li><a href="?page=bans">{$LNG.mu_ban_options}</a></li>{/if}
 		{if allowedTo('ShowGiveawayPage')}<li><a href="?page=giveaway">{$LNG.mu_giveaway}</a></li>{/if}

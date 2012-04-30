@@ -59,14 +59,14 @@ class OpenIDAuth extends LightOpenID {
 			$username	= $user['namePerson'];
 		}
 		
-		$ValidReg	= $GLOBALS['DATABASE']->countquery("SELECT cle FROM ".USERS_VALID." WHERE universe = ".$UNI." AND email = '".$GLOBALS['DATABASE']->sql_escape($user['contact/email'])."';");
+		$ValidReg	= $GLOBALS['DATABASE']->countquery("SELECT cle FROM ".USERS_VALID." WHERE universe = ".$UNI." AND email = '".$GLOBALS['DATABASE']->escape($user['contact/email'])."';");
 		if(!empty($ValidReg))
 			HTTP::redirectTo("index.php?uni=".$UNI."&page=reg&action=valid&clef=".$ValidReg);
 					
 		$GLOBALS['DATABASE']->query("INSERT INTO ".USERS_AUTH." SET
-		id = (SELECT id FROM ".USERS." WHERE email = '".$GLOBALS['DATABASE']->sql_escape($me['email'])."' OR email_2 = '".$GLOBALS['DATABASE']->sql_escape($user['contact/email'])."'),
+		id = (SELECT id FROM ".USERS." WHERE email = '".$GLOBALS['DATABASE']->escape($me['email'])."' OR email_2 = '".$GLOBALS['DATABASE']->escape($user['contact/email'])."'),
 		account = '".$uid."',
-		mode = '".$GLOBALS['DATABASE']->sql_escape($_REQUEST['openid_identifier'])."';");
+		mode = '".$GLOBALS['DATABASE']->escape($_REQUEST['openid_identifier'])."';");
 	}
 	
 	function getLoginData()
@@ -83,6 +83,6 @@ class OpenIDAuth extends LightOpenID {
 		user.id, user.username, user.dpath, user.authlevel, user.id_planet 
 		FROM ".USERS_AUTH." auth 
 		INNER JOIN ".USERS." user ON auth.id = user.id AND user.universe = ".$UNI."
-		WHERE auth.account = '".$user['contact/email']."' AND mode = '".$GLOBALS['DATABASE']->sql_escape($_REQUEST['openid_identifier'])."';");
+		WHERE auth.account = '".$user['contact/email']."' AND mode = '".$GLOBALS['DATABASE']->escape($_REQUEST['openid_identifier'])."';");
 	}
 }

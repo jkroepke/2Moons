@@ -184,10 +184,10 @@ var Dialog	= {
 	}
 }
 
-function NotifyBox(text) {
+function NotifyBox(text, top) {
 	tip = $('#tooltip')
 	tip.html(text).css({
-		top : 200,
+		top : typeof top === "undefined" ? ($(window).height() / 2 - tip.outerHeight() / 2) : top,
 		left : (($(window).width() - $('#leftmenu').width()) / 2 - tip.outerWidth() / 2) + $('#leftmenu').width(),
 		padding: '20px'
 	}).show();

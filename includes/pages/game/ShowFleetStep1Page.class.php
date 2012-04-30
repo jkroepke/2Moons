@@ -148,7 +148,7 @@ class ShowFleetStep1Page extends AbstractPage
 				
 				$GLOBALS['DATABASE']->query("INSERT INTO ".SHORTCUTS." 
 				SET ownerID = ".$USER['id'].",
-				name = '".$GLOBALS['DATABASE']->sql_escape($Data['name'])."', 
+				name = '".$GLOBALS['DATABASE']->escape($Data['name'])."', 
 				galaxy = ".((int) $Data['galaxy']).", 
 				system = ".((int) $Data['system']).",
 				planet = ".((int) $Data['planet']).",
@@ -160,7 +160,7 @@ class ShowFleetStep1Page extends AbstractPage
 				$Data['shortcutID']		= $ID;
 				if($Data != $ShortcutUser[$ID]) {
 					$GLOBALS['DATABASE']->query("UPDATE ".SHORTCUTS." 
-					SET name = '".$GLOBALS['DATABASE']->sql_escape($Data['name'])."', 
+					SET name = '".$GLOBALS['DATABASE']->escape($Data['name'])."', 
 					galaxy = ".((int) $Data['galaxy']).", 
 					system = ".((int) $Data['system']).",
 					planet = ".((int) $Data['planet']).",

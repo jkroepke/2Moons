@@ -46,7 +46,7 @@ class ShowFleetTablePage extends AbstractPage
 		$acsCreator		= $USER['id'];
 
 		$GLOBALS['DATABASE']->query("INSERT INTO ".AKS." SET
-					name = '".$GLOBALS['DATABASE']->sql_escape($acsName)."',
+					name = '".$GLOBALS['DATABASE']->escape($acsName)."',
 					ankunft = ".$fleetData['fleet_start_time'].",
 					target = ".$fleetData['fleet_end_id'].";");
 		$acsID	= $GLOBALS['DATABASE']->GetInsertID();
@@ -106,7 +106,7 @@ class ShowFleetTablePage extends AbstractPage
 				exit($LNG['fl_acs_newname_alphanum']);
 			}
 			
-			$GLOBALS['DATABASE']->query("UPDATE ".AKS." SET name = '".$GLOBALS['DATABASE']->sql_escape($acsName)."' WHERE id = ".$acsData['id'].";");
+			$GLOBALS['DATABASE']->query("UPDATE ".AKS." SET name = '".$GLOBALS['DATABASE']->escape($acsName)."' WHERE id = ".$acsData['id'].";");
 			exit;
 		}
 		
@@ -127,7 +127,7 @@ class ShowFleetTablePage extends AbstractPage
 		$statusMessage	= "";
 		if(!empty($newUser))
 		{
-			$newUserID				= $GLOBALS['DATABASE']->countquery("SELECT id FROM ".USERS." WHERE universe = ".$UNI." AND username = '".$GLOBALS['DATABASE']->sql_escape($newUser)."';");
+			$newUserID				= $GLOBALS['DATABASE']->countquery("SELECT id FROM ".USERS." WHERE universe = ".$UNI." AND username = '".$GLOBALS['DATABASE']->escape($newUser)."';");
 				
 			if(empty($newUserID)) {
 				$statusMessage			= $LNG['fl_player']." ".$newUser." ".$LNG['fl_dont_exist'];
