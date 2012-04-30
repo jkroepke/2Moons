@@ -186,8 +186,10 @@ class MissionCaseExpedition extends MissionFunctions
 				{
 					if(!empty($Found[$ID]))
 					{
-						$NewFleetArray  	.= $ID.",".floattostring($Count + $Found[$ID]).';';
+						$Count	+= $Found[$ID];
 					}
+					
+					$NewFleetArray  	.= $ID.",".floattostring($Count).';';
 				}	
 				
 				$Message	.= $FoundShipMess;
@@ -337,7 +339,7 @@ class MissionCaseExpedition extends MissionFunctions
 
 				$MessageAtt = sprintf('<a href="CombatReport.php?raport=%s" target="_blank"><center><font color="%s">%s %s</font></a><br><br><font color="%s">%s: %s</font> <font color="%s">%s: %s</font><br>%s %s:<font color="#adaead">%s</font> %s:<font color="#ef51ef">%s</font> %s:<font color="#f77542">%s</font><br>%s %s:<font color="#adaead">%s</font> %s:<font color="#ef51ef">%s</font><br></center>', $rid, $ColorAtt, $LNG['sys_mess_attack_report'], sprintf($LNG['sys_adress_planet'], $this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet']), $ColorAtt, $LNG['sys_perte_attaquant'], pretty_number($result['lost']['att']), $ColorDef, $LNG['sys_perte_defenseur'], pretty_number($result['lost']['def']), $LNG['sys_gain'], $LNG['tech'][901], 0, $LNG['tech'][902], 0, $LNG['tech'][903], 0, $LNG['sys_debris'], $LNG['tech'][901], 0, $LNG['tech'][902], 0);
 			
-				SendSimpleMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_start_time'], 3, $LNG['sys_mess_tower'], $LNG['sys_mess_attack_report'], $MessageAtt);
+				SendSimpleMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_end_stay'], 3, $LNG['sys_mess_tower'], $LNG['sys_mess_attack_report'], $MessageAtt);
 			break;
 			case 5:
 				$this->KillFleet();
@@ -357,11 +359,12 @@ class MissionCaseExpedition extends MissionFunctions
 				$Wrapper[]	= 3;
 				$Wrapper[]	= 3;
 				$Wrapper[]	= 5;
+			
 				if($MoreTime < 75) {
-					$this->UpdateFleet('fleet_end_time', ($this->_fleet['fleet_end_time'] - $this->_fleet['fleet_end_stay']) + ($this->_fleet['fleet_end_stay'] - $this->_fleet['fleet_start_time']) * $Wrapper[mt_rand(0, 9)]);
+					$this->UpdateFleet('fleet_end_time', $this->_fleet['fleet_end_stay'] + (($this->_fleet['fleet_end_time'] - $this->_fleet['fleet_end_stay']) + ($this->_fleet['fleet_end_stay'] - $this->_fleet['fleet_start_time']) * $Wrapper[mt_rand(0, 9)]));
 					$Message = $LNG['sys_expe_time_slow_'.mt_rand(1,6)];
 				} else {
-					$this->UpdateFleet('fleet_end_time', max(1, ($this->_fleet['fleet_end_time'] - $this->_fleet['fleet_end_stay']) - ($this->_fleet['fleet_end_stay'] - $this->_fleet['fleet_start_time']) / 3 * $Wrapper[mt_rand(0, 9)]));
+					$this->UpdateFleet('fleet_end_time', $this->_fleet['fleet_end_stay'] + max(1, ($this->_fleet['fleet_end_time'] - $this->_fleet['fleet_end_stay']) - ($this->_fleet['fleet_end_stay'] - $this->_fleet['fleet_start_time']) / 3 * $Wrapper[mt_rand(0, 9)]));
 					$Message = $LNG['sys_expe_time_fast_'.mt_rand(1,3)];
 				}
 			break;
