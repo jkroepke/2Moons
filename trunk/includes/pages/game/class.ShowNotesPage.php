@@ -102,7 +102,7 @@ class ShowNotesPage extends AbstractPage
 		$text 		= !empty($text) ? $text : $LNG['nt_no_text'];
 		
 		if($id == 0) {
-			$SQL	= "INSERT INTO ".NOTES." SET owner = ".$USER['id'].", time = ".TIMESTAMP.", priority = ".$priority.", title = '".$GLOBALS['DATABASE']->sql_escape($title)."', text = '".$GLOBALS['DATABASE']->sql_escape($text)."';";		
+			$SQL	= "INSERT INTO ".NOTES." SET owner = ".$USER['id'].", time = ".TIMESTAMP.", priority = ".$priority.", title = '".$GLOBALS['DATABASE']->sql_escape($title)."', text = '".$GLOBALS['DATABASE']->sql_escape($text)."', universe = ".$UNI.";";		
 		} else {
 			$SQL	= "UPDATE ".NOTES." SET time = ".TIMESTAMP.", priority = ".$priority.", title = '".$GLOBALS['DATABASE']->sql_escape($title)."', text = '".$GLOBALS['DATABASE']->sql_escape($text)."' WHERE id = ".$id.";";
 		}
