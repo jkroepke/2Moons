@@ -249,25 +249,13 @@ class ShowFleetStep3Page extends AbstractPage
 		
 		$StayDuration    = 0;
 		
-		switch($targetMission) 
+		if($targetMission == 5 || $targetMission == 11 || $targetMission == 15)
 		{
-			case 5:
-				if(!isset($avalibleMissions['StayBlock'][$stayTime])) {
-					FleetFunctions::GotoFleetPage(2);
-				}
-				
-				$StayDuration    = $stayTime * 3600;
-			break;
-			case 11:
-				$StayDuration    = 3600 / $CONF['halt_speed'];
-			break;
-			case 15:
-				if(!isset($avalibleMissions['StayBlock'][$stayTime])) {
-					FleetFunctions::GotoFleetPage(2);
-				}
-				
-				$StayDuration    = (3600 * $stayTime) / $CONF['halt_speed'];
-			break;
+			if(!isset($avalibleMissions['StayBlock'][$stayTime])) {
+				FleetUtil::GotoFleetPage(2);
+			}
+			
+			$StayDuration    = round($avalibleMissions['StayBlock'][$stayTime] * 3600, 0);
 		}
 		
 		$fleetStorage		-= $consumption;
@@ -287,14 +275,14 @@ class ShowFleetStep3Page extends AbstractPage
 		if ($StorageNeeded > $fleetStorage) {
 			FleetFunctions::GotoFleetPage(20);
 		}
-				
+		
 		$PLANET[$resource[901]]	-= $fleetRessource[901];
 		$PLANET[$resource[902]]	-= $fleetRessource[902];
 		$PLANET[$resource[903]]	-= $fleetRessource[903] + $consumption;
 
 		if(connection_aborted())
 			exit;
-
+		
 		$fleetStartTime		= $duration + TIMESTAMP;
 		$fleetStayTime		= $fleetStartTime + $StayDuration;
 		$fleetEndTime		= $fleetStayTime + $duration;
