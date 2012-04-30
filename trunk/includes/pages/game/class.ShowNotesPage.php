@@ -93,7 +93,7 @@ class ShowNotesPage extends AbstractPage
 	
 	public function insert()
 	{
-		global $LNG, $USER;
+		global $LNG, $USER, $UNI;
 		$priority 	= HTTP::_GP('priority', 1);
 		$title 		= HTTP::_GP('title', '', true);
 		$text 		= HTTP::_GP('text', '', true);
