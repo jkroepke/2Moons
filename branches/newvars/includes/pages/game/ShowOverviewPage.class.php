@@ -250,7 +250,7 @@ class ShowOverviewPage extends AbstractPage
 			if (!PlayerUtil::isNameValid($newname)) {
 				$this->sendJSON(array('message' => $LNG['ov_newname_specialchar'], 'error' => true));
 			} else {
-				$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET name = '".$GLOBALS['DATABASE']->sql_escape($newname)."' WHERE id = ".$PLANET['id'].";");
+				$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET name = '".$GLOBALS['DATABASE']->escape($newname)."' WHERE id = ".$PLANET['id'].";");
 				$this->sendJSON(array('message' => $LNG['ov_newname_done'], 'error' => false));
 			}
 		}

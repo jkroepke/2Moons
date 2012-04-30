@@ -53,10 +53,10 @@ class ShowSearchPage extends AbstractPage
 				INNER JOIN ".PLANETS." as b ON b.id = a.id_planet 
 				LEFT JOIN ".STATPOINTS." as c ON c.id_owner = a.id AND c.stat_type = 1
 				LEFT JOIN ".ALLIANCE." as d ON d.id = a.ally_id
-				WHERE a.universe = ".$UNI." AND a.username LIKE '%".$GLOBALS['DATABASE']->sql_escape($searchText, true)."%'
+				WHERE a.universe = ".$UNI." AND a.username LIKE '%".$GLOBALS['DATABASE']->escape($searchText, true)."%'
 				ORDER BY (
-				  IF(a.username = '".$GLOBALS['DATABASE']->sql_escape($searchText, true)."', 1, 0)
-				  + IF(a.username LIKE '".$GLOBALS['DATABASE']->sql_escape($searchText, true)."%', 1, 0)
+				  IF(a.username = '".$GLOBALS['DATABASE']->escape($searchText, true)."', 1, 0)
+				  + IF(a.username LIKE '".$GLOBALS['DATABASE']->escape($searchText, true)."%', 1, 0)
 				) DESC, a.username ASC ".$Limit.";");
 				
 				while($searchRow = $GLOBALS['DATABASE']->fetchArray($searchResult))
@@ -86,10 +86,10 @@ class ShowSearchPage extends AbstractPage
 				INNER JOIN ".USERS." as b ON b.id = a.id_owner 
 				LEFT JOIN  ".STATPOINTS." as c ON c.id_owner = b.id AND c.stat_type = 1
 				LEFT JOIN ".ALLIANCE." as d ON d.id = b.ally_id
-				WHERE a.universe = ".$UNI." AND a.name LIKE '%".$GLOBALS['DATABASE']->sql_escape($searchText, true)."%'
+				WHERE a.universe = ".$UNI." AND a.name LIKE '%".$GLOBALS['DATABASE']->escape($searchText, true)."%'
 				ORDER BY (
-				  IF(a.name = '".$GLOBALS['DATABASE']->sql_escape($searchText, true)."', 1, 0)
-				  + IF(a.name LIKE '".$GLOBALS['DATABASE']->sql_escape($searchText, true)."%', 1, 0)
+				  IF(a.name = '".$GLOBALS['DATABASE']->escape($searchText, true)."', 1, 0)
+				  + IF(a.name LIKE '".$GLOBALS['DATABASE']->escape($searchText, true)."%', 1, 0)
 				) DESC, a.name ASC ".$Limit.";");
 				
 				while($searchRow = $GLOBALS['DATABASE']->fetchArray($searchResult))
@@ -114,10 +114,10 @@ class ShowSearchPage extends AbstractPage
 				a.id, a.ally_name, a.ally_tag, a.ally_members, 
 				c.total_points FROM ".ALLIANCE." as a 
 				LEFT JOIN ".STATPOINTS." as c ON c.stat_type = 1 AND c.id_owner = a.id 
-				WHERE a.ally_universe = ".$UNI." AND a.ally_tag LIKE '%".$GLOBALS['DATABASE']->sql_escape($searchText, true)."%'
+				WHERE a.ally_universe = ".$UNI." AND a.ally_tag LIKE '%".$GLOBALS['DATABASE']->escape($searchText, true)."%'
 				ORDER BY (
-				  IF(a.ally_tag = '".$GLOBALS['DATABASE']->sql_escape($searchText, true)."', 1, 0)
-				  + IF(a.ally_tag LIKE '".$GLOBALS['DATABASE']->sql_escape($searchText, true)."%', 1, 0)
+				  IF(a.ally_tag = '".$GLOBALS['DATABASE']->escape($searchText, true)."', 1, 0)
+				  + IF(a.ally_tag LIKE '".$GLOBALS['DATABASE']->escape($searchText, true)."%', 1, 0)
 				) DESC, a.ally_tag ASC ".$Limit.";");
 				while($searchRow = $GLOBALS['DATABASE']->fetchArray($searchResult))
 				{
@@ -136,10 +136,10 @@ class ShowSearchPage extends AbstractPage
 				a.ally_name, a.ally_tag, a.ally_members, 
 				b.total_points FROM ".ALLIANCE." as a
 				LEFT JOIN ".STATPOINTS." as b ON b.stat_type = 1 AND b.id_owner = a.id
-				WHERE a.ally_universe = ".$UNI." AND a.ally_name LIKE '%".$GLOBALS['DATABASE']->sql_escape($searchText, true)."%'
+				WHERE a.ally_universe = ".$UNI." AND a.ally_name LIKE '%".$GLOBALS['DATABASE']->escape($searchText, true)."%'
 				ORDER BY (
-				  IF(a.ally_name = '".$GLOBALS['DATABASE']->sql_escape($searchText, true)."', 1, 0)
-				  + IF(a.ally_name LIKE '".$GLOBALS['DATABASE']->sql_escape($searchText, true)."%', 1, 0)
+				  IF(a.ally_name = '".$GLOBALS['DATABASE']->escape($searchText, true)."', 1, 0)
+				  + IF(a.ally_name LIKE '".$GLOBALS['DATABASE']->escape($searchText, true)."%', 1, 0)
 				) DESC,a.ally_name ASC ".$Limit.";");
 				
 				while($searchRow = $GLOBALS['DATABASE']->fetchArray($searchResult))

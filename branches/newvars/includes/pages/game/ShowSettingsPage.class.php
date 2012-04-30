@@ -221,12 +221,12 @@ class ShowSettingsPage extends AbstractPage
 			} elseif($USER['uctime'] >= TIMESTAMP - USERNAME_CHANGETIME) {
 				$errors[]	= $LNG['op_change_name_pro_week'];
 			} else {
-				$Count 	= $GLOBALS['DATABASE']->countquery("SELECT (SELECT COUNT(*) FROM ".USERS." WHERE `universe` = ".$UNI." AND `username` = '".$GLOBALS['DATABASE']->sql_escape($username)."') + (SELECT COUNT(*) FROM ".USERS_VALID." WHERE `universe` = ".$UNI." AND `username` = '".$GLOBALS['DATABASE']->sql_escape($username)."')");
+				$Count 	= $GLOBALS['DATABASE']->countquery("SELECT (SELECT COUNT(*) FROM ".USERS." WHERE `universe` = ".$UNI." AND `username` = '".$GLOBALS['DATABASE']->escape($username)."') + (SELECT COUNT(*) FROM ".USERS_VALID." WHERE `universe` = ".$UNI." AND `username` = '".$GLOBALS['DATABASE']->escape($username)."')");
 				
 				if (!empty($Count)) {
 					$errors[]	= sprintf($LNG['op_change_name_exist'], $username);
 				} else {
-					$SQL		.= "UPDATE ".USERS." SET username = '".$GLOBALS['DATABASE']->sql_escape($username)."', uctime = ".TIMESTAMP." WHERE id = ".$USER['id'].";";
+					$SQL		.= "UPDATE ".USERS." SET username = '".$GLOBALS['DATABASE']->escape($username)."', uctime = ".TIMESTAMP." WHERE id = ".$USER['id'].";";
 					$redirectTo	= 'index.php';
 					$SESSION->DestroySession();
 				}
@@ -248,11 +248,11 @@ class ShowSettingsPage extends AbstractPage
 			} elseif(!ValidateAddress($email)) {
 				$errors[]	= $LNG['op_not_vaild_mail'];
 			} else {
-				$Count 	= $GLOBALS['DATABASE']->countquery("SELECT (SELECT COUNT(*) FROM ".USERS." WHERE id != ".$USER['id']." AND universe = ".$UNI." AND (email = '".$GLOBALS['DATABASE']->sql_escape($email)."' OR email_2 = '".$GLOBALS['DATABASE']->sql_escape($email)."')) + (SELECT COUNT(*) FROM ".USERS_VALID." WHERE universe = ".$UNI." AND email = '".$GLOBALS['DATABASE']->sql_escape($email)."')");
+				$Count 	= $GLOBALS['DATABASE']->countquery("SELECT (SELECT COUNT(*) FROM ".USERS." WHERE id != ".$USER['id']." AND universe = ".$UNI." AND (email = '".$GLOBALS['DATABASE']->escape($email)."' OR email_2 = '".$GLOBALS['DATABASE']->escape($email)."')) + (SELECT COUNT(*) FROM ".USERS_VALID." WHERE universe = ".$UNI." AND email = '".$GLOBALS['DATABASE']->escape($email)."')");
 				if (!empty($Count)) {
 					$errors[]	= sprintf($LNG['op_change_mail_exist'], $email);
 				} else {
-					$SQL	.= "UPDATE ".USERS." SET email = '".$GLOBALS['DATABASE']->sql_escape($email)."', setmail = ".(TIMESTAMP + 604800)." WHERE id = ".$USER['id'].";";
+					$SQL	.= "UPDATE ".USERS." SET email = '".$GLOBALS['DATABASE']->escape($email)."', setmail = ".(TIMESTAMP + 604800)." WHERE id = ".$USER['id'].";";
 				}
 			}
 		}		
@@ -291,7 +291,7 @@ class ShowSettingsPage extends AbstractPage
 		}
 		
 		$SQL	.=  "UPDATE ".USERS." SET
-					dpath = '".$GLOBALS['DATABASE']->sql_escape($theme)."',
+					dpath = '".$GLOBALS['DATABASE']->escape($theme)."',
 					timezone = '".$timezone."',
 					planet_sort = ".$planetSort.",
 					planet_sort_order = ".$planetOrder.",

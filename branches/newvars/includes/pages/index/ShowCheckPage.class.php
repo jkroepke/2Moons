@@ -45,16 +45,16 @@ class ShowScreensPage extends AbstractPage
 		$value	= HTTP::_GP('value', '', UTF8_SUPPORT);
 		switch($check) {
 			case 'username' :
-				$Count 	= $GLOBALS['DATABASE']->countquery("SELECT (SELECT COUNT(*) FROM ".USERS." WHERE universe = ".$UNI." AND username = '".$GLOBALS['DATABASE']->sql_escape($value)."') + (SELECT COUNT(*) FROM ".USERS_VALID." WHERE universe = ".$UNI." AND username = '".$GLOBALS['DATABASE']->sql_escape($value)."')");
+				$Count 	= $GLOBALS['DATABASE']->countquery("SELECT (SELECT COUNT(*) FROM ".USERS." WHERE universe = ".$UNI." AND username = '".$GLOBALS['DATABASE']->escape($value)."') + (SELECT COUNT(*) FROM ".USERS_VALID." WHERE universe = ".$UNI." AND username = '".$GLOBALS['DATABASE']->escape($value)."')");
 			break;
 			case 'email' :
-				$Count 	= $GLOBALS['DATABASE']->countquery("SELECT (SELECT COUNT(*) FROM ".USERS." WHERE universe = ".$UNI." AND (email = '".$GLOBALS['DATABASE']->sql_escape($value)."' OR email_2 = '".$GLOBALS['DATABASE']->sql_escape($value)."')) + (SELECT COUNT(*) FROM ".USERS_VALID." WHERE universe = ".$UNI." AND email = '".$GLOBALS['DATABASE']->sql_escape($value)."')");
+				$Count 	= $GLOBALS['DATABASE']->countquery("SELECT (SELECT COUNT(*) FROM ".USERS." WHERE universe = ".$UNI." AND (email = '".$GLOBALS['DATABASE']->escape($value)."' OR email_2 = '".$GLOBALS['DATABASE']->escape($value)."')) + (SELECT COUNT(*) FROM ".USERS_VALID." WHERE universe = ".$UNI." AND email = '".$GLOBALS['DATABASE']->escape($value)."')");
 			break;
 			case 'fbid' :
-				$Count 	= $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".USERS_AUTH." WHERE account = '".$GLOBALS['DATABASE']->sql_escape($value)."' AND mode = 'facebook';");
+				$Count 	= $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".USERS_AUTH." WHERE account = '".$GLOBALS['DATABASE']->escape($value)."' AND mode = 'facebook';");
 			break;
 			case 'ref' :
-				$Count 	= $GLOBALS['DATABASE']->countquery("SELECT universe FROM ".USERS." WHERE id = '".$GLOBALS['DATABASE']->sql_escape($value)."';");
+				$Count 	= $GLOBALS['DATABASE']->countquery("SELECT universe FROM ".USERS." WHERE id = '".$GLOBALS['DATABASE']->escape($value)."';");
 			break;
 		}
 		

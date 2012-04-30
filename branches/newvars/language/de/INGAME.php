@@ -6,6 +6,7 @@ $LNG['write_message']						= 'Schreibe eine Nachricht';
 $LNG['ready']								= 'Fertig';
 
 $LNG['loading']								= 'Lade ...';
+$LNG['button_send']							= 'Absenden';
 
 $LNG['invalid_action']						= 'Ungültige Aktion!';
 

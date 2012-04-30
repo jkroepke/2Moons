@@ -83,7 +83,7 @@ class BuildFunctions
 				$price[$resourceID]	*= pow($GLOBALS['VARS']['ELEMENT'][$elementID]['factor'], $elementLevel);
 			}
 			
-			if($forLevel && (elementHasFlag($elementID, ELEMENT_FLEET) || elementHasFlag($elementID, ELEMENT_BONUS))) {
+			if($forLevel && (elementHasFlag($elementID, ELEMENT_FLEET) || elementHasFlag($elementID, ELEMENT_PREMIUM))) {
 				$price[$resourceID]	*= $elementLevel;
 			}
 			

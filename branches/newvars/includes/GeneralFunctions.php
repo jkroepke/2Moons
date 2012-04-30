@@ -103,7 +103,7 @@ function getFactors($USER, $Type = 'basic', $TIME = NULL) {
 			continue;
 		}
 		
-		if(elementHasFlag($elementID, ELEMENT_BONUS)) {
+		if(elementHasFlag($elementID, ELEMENT_PREMIUM)) {
 			if(DMExtra($elementLevel, $TIME, false, true)) {
 				continue;
 			}
@@ -257,10 +257,10 @@ function setConfig($configArray, $UNI = NULL, $flushCache = true)
 		if(isset($uniConfig[$Name])) {
 			$uniConfig[$Name]			= $Value; 
 			$uniAllConfig[$UNI][$Name]	= $Value;
-			$GLOBALS['DATABASE']->query("UPDATE ".UNIVERSE_CONFIG." SET value = '".$GLOBALS['DATABASE']->sql_escape($Value)."' WHERE universe = ".$UNI." AND name = '".$Name."';");
+			$GLOBALS['DATABASE']->query("UPDATE ".UNIVERSE_CONFIG." SET value = '".$GLOBALS['DATABASE']->escape($Value)."' WHERE universe = ".$UNI." AND name = '".$Name."';");
 		} elseif(isset($gameConfig[$Name])) {
 			$gameConfig[$Name]			= $Value; 
-			$GLOBALS['DATABASE']->query("UPDATE ".CONFIG." SET value = '".$GLOBALS['DATABASE']->sql_escape($Value)."' WHERE name = '".$Name."';");
+			$GLOBALS['DATABASE']->query("UPDATE ".CONFIG." SET value = '".$GLOBALS['DATABASE']->escape($Value)."' WHERE name = '".$Name."';");
 		} else {
 			throw new Exception('Unknown config value: '.$Name);
 		}
@@ -452,9 +452,9 @@ function SendSimpleMessage($Owner, $Sender, $Time, $Type, $From, $Subject, $Mess
 	message_sender = ".(int) $Sender.", 
 	message_time = ".(int) $Time.", 
 	message_type = ".(int) $Type.", 
-	message_from = '".$GLOBALS['DATABASE']->sql_escape($From) ."', 
-	message_subject = '". $GLOBALS['DATABASE']->sql_escape($Subject) ."', 
-	message_text = '".$GLOBALS['DATABASE']->sql_escape($Message)."', 
+	message_from = '".$GLOBALS['DATABASE']->escape($From) ."', 
+	message_subject = '". $GLOBALS['DATABASE']->escape($Subject) ."', 
+	message_text = '".$GLOBALS['DATABASE']->escape($Message)."', 
 	message_unread = '1', 
 	message_universe = ".$GLOBALS['UNI'].";";
 

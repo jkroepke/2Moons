@@ -426,22 +426,22 @@ function ShowAccountEditorPage()
 				$PersonalQuery    =    "UPDATE ".USERS." SET ";
 
 				if(!empty($username) && $id != ROOT_USER) {
-					$PersonalQuery    .= "`username` = '".$GLOBALS['DATABASE']->sql_escape($username)."', ";
+					$PersonalQuery    .= "`username` = '".$GLOBALS['DATABASE']->escape($username)."', ";
 					$after['username'] = $username;
 				}
 				
 				if(!empty($email) && $id != ROOT_USER) {
-					$PersonalQuery    .= "`email` = '".$GLOBALS['DATABASE']->sql_escape($email)."', ";
+					$PersonalQuery    .= "`email` = '".$GLOBALS['DATABASE']->escape($email)."', ";
 					$after['email'] = $email;
 				}
 				
 				if(!empty($email_2) && $id != ROOT_USER) {
-					$PersonalQuery    .= "`email_2` = '".$GLOBALS['DATABASE']->sql_escape($email_2)."', ";
+					$PersonalQuery    .= "`email_2` = '".$GLOBALS['DATABASE']->escape($email_2)."', ";
 					$after['email_2'] = $email_2;
 				}
 
 				if(!empty($password) && $id != ROOT_USER) {
-					$PersonalQuery    .= "`password` = '".$GLOBALS['DATABASE']->sql_escape(PlayerUtil::cryptPassword($password))."', ";
+					$PersonalQuery    .= "`password` = '".$GLOBALS['DATABASE']->escape(PlayerUtil::cryptPassword($password))."', ";
 					$after['password'] = (PlayerUtil::cryptPassword($password) != $before['password']) ? 'CHANGED' : '';
 				}
 				$before['password'] = '';
@@ -562,7 +562,7 @@ function ShowAccountEditorPage()
 				$planet			= HTTP::_GP('p', 0);
 
 				if (!empty($name))
-					$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET `name` = '".$GLOBALS['DATABASE']->sql_escape($name)."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
+					$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET `name` = '".$GLOBALS['DATABASE']->escape($name)."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
 						
 				if ($buildings == 'on')
 				{

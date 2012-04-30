@@ -72,7 +72,7 @@ function ShowBanPage()
 	if(isset($_POST['panel']))
 	{
 		$Name					= HTTP::_GP('ban_name', '', true);
-		$BANUSER				= $GLOBALS['DATABASE']->getFirstRow("SELECT b.theme, b.longer, u.id, u.urlaubs_modus, u.banaday FROM ".USERS." as u LEFT JOIN ".BANNED." as b ON u.`username` = b.`who` WHERE u.`username` = '".$GLOBALS['DATABASE']->sql_escape($Name)."' AND u.`universe` = '".$_SESSION['adminuni']."';");
+		$BANUSER				= $GLOBALS['DATABASE']->getFirstRow("SELECT b.theme, b.longer, u.id, u.urlaubs_modus, u.banaday FROM ".USERS." as u LEFT JOIN ".BANNED." as b ON u.`username` = b.`who` WHERE u.`username` = '".$GLOBALS['DATABASE']->escape($Name)."' AND u.`universe` = '".$_SESSION['adminuni']."';");
 			
 		if ($BANUSER['banaday'] <= TIMESTAMP)
 		{
@@ -163,8 +163,8 @@ function ShowBanPage()
 		exit;
 	} elseif(isset($_POST['unban_name'])) {
 		$Name	= HTTP::_GP('unban_name', '', true);
-		$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET bana = '0', banaday = '0' WHERE username = '".$GLOBALS['DATABASE']->sql_escape($Name)."' AND `universe` = '".$_SESSION['adminuni']."';");
-		#DELETE FROM ".BANNED." WHERE who = '".$GLOBALS['DATABASE']->sql_escape($Name)."' AND `universe` = '".$_SESSION['adminuni']."';
+		$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET bana = '0', banaday = '0' WHERE username = '".$GLOBALS['DATABASE']->escape($Name)."' AND `universe` = '".$_SESSION['adminuni']."';");
+		#DELETE FROM ".BANNED." WHERE who = '".$GLOBALS['DATABASE']->escape($Name)."' AND `universe` = '".$_SESSION['adminuni']."';
 		$template->message($LNG['bo_the_player2'].$Name.$LNG['bo_unbanned'], '?page=bans');
 		exit;
 	}

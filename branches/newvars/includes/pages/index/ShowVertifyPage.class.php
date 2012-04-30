@@ -45,8 +45,8 @@ class ShowVertifyPage extends AbstractPage
 		$clef 		= HTTP::_GP('clef', '');
 		$admin 	 	= HTTP::_GP('admin', 0);
 		
-		$userData	= $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".USERS_VALID." WHERE cle = '".$GLOBALS['DATABASE']->sql_escape($clef)."' AND universe = ".$UNI.";");
-		$GLOBALS['DATABASE']->query("DELETE FROM ".USERS_VALID." WHERE cle = '".$GLOBALS['DATABASE']->sql_escape($clef)."' AND universe = ".$UNI.";");
+		$userData	= $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".USERS_VALID." WHERE cle = '".$GLOBALS['DATABASE']->escape($clef)."' AND universe = ".$UNI.";");
+		$GLOBALS['DATABASE']->query("DELETE FROM ".USERS_VALID." WHERE cle = '".$GLOBALS['DATABASE']->escape($clef)."' AND universe = ".$UNI.";");
 		
 		if(!isset($userData))
 		{

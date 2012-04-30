@@ -202,10 +202,10 @@ class ShowAlliancePage extends AbstractPage
 			$searchResult = $GLOBALS['DATABASE']->query("SELECT 
 			id, ally_name, ally_tag, ally_members
 			FROM ".ALLIANCE."
-			WHERE ally_universe = ".$UNI." AND ally_name LIKE '%".$GLOBALS['DATABASE']->sql_escape($searchText, true)."%'
+			WHERE ally_universe = ".$UNI." AND ally_name LIKE '%".$GLOBALS['DATABASE']->escape($searchText, true)."%'
 			ORDER BY (
-			  IF(ally_name = '".$GLOBALS['DATABASE']->sql_escape($searchText, true)."', 1, 0)
-			  + IF(ally_name LIKE '".$GLOBALS['DATABASE']->sql_escape($searchText, true)."%', 1, 0)
+			  IF(ally_name = '".$GLOBALS['DATABASE']->escape($searchText, true)."', 1, 0)
+			  + IF(ally_name LIKE '".$GLOBALS['DATABASE']->escape($searchText, true)."%', 1, 0)
 			) DESC,ally_name ASC LIMIT 25;");
 			
 			while($searchRow = $GLOBALS['DATABASE']->fetchArray($searchResult))
@@ -255,7 +255,7 @@ class ShowAlliancePage extends AbstractPage
 		{
 			$GLOBALS['DATABASE']->query("INSERT INTO ".ALLIANCE_REQUEST." SET 
 			allianceID = ".$allianceID.", 
-			text = '".$GLOBALS['DATABASE']->sql_escape($text)."', 
+			text = '".$GLOBALS['DATABASE']->escape($text)."', 
 			time = ".TIMESTAMP.", 
 			userID = ".$USER['id'].";");
 
@@ -327,15 +327,15 @@ class ShowAlliancePage extends AbstractPage
 			$this->printMessage($LNG['al_newname_specialchar'], "?page=alliance&mode=create", 3);
 		}
 		
-		$allianceCount = $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".ALLIANCE." WHERE ally_universe = ".$UNI." AND (ally_tag = '".$GLOBALS['DATABASE']->sql_escape($atag)."' OR ally_name = '".$GLOBALS['DATABASE']->sql_escape($aname)."');");
+		$allianceCount = $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".ALLIANCE." WHERE ally_universe = ".$UNI." AND (ally_tag = '".$GLOBALS['DATABASE']->escape($atag)."' OR ally_name = '".$GLOBALS['DATABASE']->escape($aname)."');");
 
 		if ($allianceCount != 0) {
 			$this->printMessage(sprintf($LNG['al_already_exists'], $aname), "?page=alliance&mode=create", 3);
 		}
 		
 		$GLOBALS['DATABASE']->multi_query("INSERT INTO ".ALLIANCE." SET
-						ally_name				= '".$GLOBALS['DATABASE']->sql_escape($aname)."',
-						ally_tag				= '".$GLOBALS['DATABASE']->sql_escape($atag)."' ,
+						ally_name				= '".$GLOBALS['DATABASE']->escape($aname)."',
+						ally_tag				= '".$GLOBALS['DATABASE']->escape($atag)."' ,
 						ally_owner				= ".$USER['id'].",
 						ally_owner_range		= '".$LNG['al_default_leader_name']."',
 						ally_members			= 1,
@@ -580,21 +580,21 @@ class ShowAlliancePage extends AbstractPage
 			switch($textMode)
 			{
 				case 'external':
-					$textSQL	= "ally_description = '".$GLOBALS['DATABASE']->sql_escape($text)."', ";
+					$textSQL	= "ally_description = '".$GLOBALS['DATABASE']->escape($text)."', ";
 				break;
 				case 'internal':
-					$textSQL	= "ally_text = '".$GLOBALS['DATABASE']->sql_escape($text)."', ";
+					$textSQL	= "ally_text = '".$GLOBALS['DATABASE']->escape($text)."', ";
 				break;
 				case 'apply':
-					$textSQL	= "ally_request = '".$GLOBALS['DATABASE']->sql_escape($text)."', ";
+					$textSQL	= "ally_request = '".$GLOBALS['DATABASE']->escape($text)."', ";
 				break;
 			}
 			
 			$GLOBALS['DATABASE']->query("UPDATE ".ALLIANCE." SET
 			".$textSQL."
-			ally_owner_range = '".$GLOBALS['DATABASE']->sql_escape($this->allianceData['ally_owner_range'])."',
-			ally_image = '".$GLOBALS['DATABASE']->sql_escape($this->allianceData['ally_image'])."',
-			ally_web = '".$GLOBALS['DATABASE']->sql_escape($this->allianceData['ally_web'])."',
+			ally_owner_range = '".$GLOBALS['DATABASE']->escape($this->allianceData['ally_owner_range'])."',
+			ally_image = '".$GLOBALS['DATABASE']->escape($this->allianceData['ally_image'])."',
+			ally_web = '".$GLOBALS['DATABASE']->escape($this->allianceData['ally_web'])."',
 			ally_request_notallow = ".$this->allianceData['ally_request_notallow'].",
 			ally_stats = ".$this->allianceData['ally_stats'].",
 			ally_diplo = ".$this->allianceData['ally_diplo']."
@@ -650,13 +650,13 @@ class ShowAlliancePage extends AbstractPage
 		$name = HTTP::_GP('newname', '', UTF8_SUPPORT);
 		
 		if(!empty($name) && $name != $this->allianceData['ally_tag']) {
-			$allianceCount = $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".ALLIANCE." WHERE ally_universe = ".$UNI." AND ally_tag = '".$GLOBALS['DATABASE']->sql_escape($name)."';");
+			$allianceCount = $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".ALLIANCE." WHERE ally_universe = ".$UNI." AND ally_tag = '".$GLOBALS['DATABASE']->escape($name)."';");
 
 			if ($allianceCount != 0) {
 				$this->printMessage(sprintf($LNG['al_already_exists'], $name));
 			}
 			
-			$GLOBALS['DATABASE']->query("UPDATE ".ALLIANCE." SET ally_tag = '".$GLOBALS['DATABASE']->sql_escape($name)."' WHERE id = ".$this->allianceData['id'].";");
+			$GLOBALS['DATABASE']->query("UPDATE ".ALLIANCE." SET ally_tag = '".$GLOBALS['DATABASE']->escape($name)."' WHERE id = ".$this->allianceData['id'].";");
 		}
 
 		$this->render('page.alliance.admin.rename.tag.tpl');
@@ -668,13 +668,13 @@ class ShowAlliancePage extends AbstractPage
 		$name = HTTP::_GP('newname', '', UTF8_SUPPORT);
 		
 		if(!empty($name) && $name != $this->allianceData['ally_name']) {
-			$allianceCount = $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".ALLIANCE." WHERE ally_universe = ".$UNI." AND ally_name = '".$GLOBALS['DATABASE']->sql_escape($name)."';");
+			$allianceCount = $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".ALLIANCE." WHERE ally_universe = ".$UNI." AND ally_name = '".$GLOBALS['DATABASE']->escape($name)."';");
 
 			if ($allianceCount != 0) {
 				$this->printMessage(sprintf($LNG['al_already_exists'], $name));
 			}
 			
-			$GLOBALS['DATABASE']->query("UPDATE ".ALLIANCE." SET ally_name = '".$GLOBALS['DATABASE']->sql_escape($name)."' WHERE id = ".$this->allianceData['id'].";");
+			$GLOBALS['DATABASE']->query("UPDATE ".ALLIANCE." SET ally_name = '".$GLOBALS['DATABASE']->escape($name)."' WHERE id = ".$this->allianceData['id'].";");
 		}
 
 		$this->render('page.alliance.admin.rename.name.tpl');
@@ -835,7 +835,7 @@ class ShowAlliancePage extends AbstractPage
 		$rankData	= HTTP::_GP('rank', array());
 		
 		if(!empty($newrank)) {
-			$GLOBALS['DATABASE']->query("INSERT INTO ".ALLIANCE_RANK." SET rankName = '".$GLOBALS['DATABASE']->sql_escape($newrank)."', allianceID = ".$this->allianceData['id'].";");
+			$GLOBALS['DATABASE']->query("INSERT INTO ".ALLIANCE_RANK." SET rankName = '".$GLOBALS['DATABASE']->escape($newrank)."', allianceID = ".$this->allianceData['id'].";");
 		}
 		
 		if(!empty($delete)) {
@@ -852,7 +852,7 @@ class ShowAlliancePage extends AbstractPage
 				$SQL[]	= $rankName." = ".(isset($rankRow[$rankName]) ? 1 : 0);
 			}
 			
-			$SQL[]	= "rankName = '".$GLOBALS['DATABASE']->sql_escape($rankRow['name'])."'";			
+			$SQL[]	= "rankName = '".$GLOBALS['DATABASE']->escape($rankRow['name'])."'";			
 			$GLOBALS['DATABASE']->query("UPDATE ".ALLIANCE_RANK." SET ".implode(", ", $SQL)." WHERE rankID = ".((int) $rankID)." AND allianceID = ".$this->allianceData['id'].";");
 		}
 		
@@ -1074,7 +1074,7 @@ class ShowAlliancePage extends AbstractPage
 		
 		$name	= HTTP::_GP('name', '', UTF8_SUPPORT);
 		
-		$targetAlliance	= $GLOBALS['DATABASE']->getFirstRow("SELECT id FROM ".ALLIANCE." WHERE ally_universe = ".$UNI." AND ally_name = '".$GLOBALS['DATABASE']->sql_escape($name)."';");
+		$targetAlliance	= $GLOBALS['DATABASE']->getFirstRow("SELECT id FROM ".ALLIANCE." WHERE ally_universe = ".$UNI." AND ally_name = '".$GLOBALS['DATABASE']->escape($name)."';");
 		
 		if(empty($targetAlliance)) {
 			$this->sendJSON(array(
@@ -1099,7 +1099,7 @@ class ShowAlliancePage extends AbstractPage
 		owner_2		= ".$targetAlliance['id'].", 
 		level		= ".$level.", 
 		accept		= 0, 
-		accept_text	= '".$GLOBALS['DATABASE']->sql_escape($text)."', 
+		accept_text	= '".$GLOBALS['DATABASE']->escape($text)."', 
 		universe	= ".$UNI.";");
 		
 		$this->sendJSON(array(

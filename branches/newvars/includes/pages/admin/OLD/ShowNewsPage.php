@@ -36,8 +36,8 @@ function ShowNewsPage(){
 
 	if($_GET['action'] == 'send') {
 		$edit_id 	= HTTP::_GP('id', 0);
-		$title 		= $GLOBALS['DATABASE']->sql_escape(HTTP::_GP('title', '', true));
-		$text 		= $GLOBALS['DATABASE']->sql_escape(HTTP::_GP('text', '', true));
+		$title 		= $GLOBALS['DATABASE']->escape(HTTP::_GP('title', '', true));
+		$text 		= $GLOBALS['DATABASE']->escape(HTTP::_GP('text', '', true));
 		$query		= ($_GET['mode'] == 2) ? "INSERT INTO ".NEWS." (`id` ,`user` ,`date` ,`title` ,`text`) VALUES ( NULL , '".$USER['username']."', '".TIMESTAMP."', '".$title."', '".$text."');" : "UPDATE ".NEWS." SET `title` = '".$title."', `text` = '".$text."', `date` = '".TIMESTAMP."' WHERE `id` = '".$edit_id."' LIMIT 1;";
 		
 		$GLOBALS['DATABASE']->query($query);
@@ -61,7 +61,7 @@ function ShowNewsPage(){
 
 
 	if($_GET['action'] == 'edit' && isset($_GET['id'])) {
-		$News = $GLOBALS['DATABASE']->getFirstRow("SELECT id, title, text FROM ".NEWS." WHERE id = '".$GLOBALS['DATABASE']->sql_escape($_GET['id'])."';");
+		$News = $GLOBALS['DATABASE']->getFirstRow("SELECT id, title, text FROM ".NEWS." WHERE id = '".$GLOBALS['DATABASE']->escape($_GET['id'])."';");
 		$template->assign(array(	
 			'mode'			=> 1,
 			'nws_head'		=> sprintf($LNG['nws_head_edit'], $News['title']),

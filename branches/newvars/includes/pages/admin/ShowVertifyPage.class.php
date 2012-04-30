@@ -43,13 +43,6 @@ class ShowVertifyPage extends AbstractPage
 	
 	function vertify()
 	{
-	$Files	= array();
-		foreach(new RegexIterator(new RecursiveIterator(new DirectoryIterator(ROOT_PATH.'/')), '/^.+\.('.$EXT.')$/i', RecursiveRegexIterator::GET_MATCH) as $File)
-		{
-			$Files[]	= $File;
-		}
-		car_dump($Files);
-		exit;
 		$this->loadscript('vertify.js');
 		$this->render('page.vertify.vertify.tpl');
 	}
@@ -61,10 +54,9 @@ class ShowVertifyPage extends AbstractPage
 		
 		$REV		= explode('.', $gameConfig['version']);
 		$REV		= $REV[2];
-		
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_AUTOREFERER, true);
-		curl_setopt($ch, CURLOPT_URL, 'http://2moons.googlecode.com/svn-history/r'.$REV.'/trunk/'.$file);
+		curl_setopt($ch, CURLOPT_URL, 'http://2moons.googlecode.com/svn-history/r'.$REV.'/branches/newvars/'.$file);
 		curl_setopt($ch, CURLOPT_HEADER, false);
 		curl_setopt($ch, CURLOPT_USERAGENT, '2Moons Update API');
 		curl_setopt($ch, CURLOPT_CRLF, true);
@@ -72,7 +64,7 @@ class ShowVertifyPage extends AbstractPage
 		
 		$FILE		= curl_exec($ch);
 		
-		$SVNHASH	= crc32(preg_replace(array('/(\r\n)|(\r)/', '/(\\/\\*[\\d\\D]*?\\*\\/)/', '/\$I'.'d[^\$]+\$/'), array('\n', '', ''), $FILE));
+		$SVNHASH	= crc32(preg_replace(array('/(\r\n)|(\r)/', '/(\\/\\*[\\d\\D]*?\\*\\/)/', '/\$I'.'d[^\$]+\$/'), array("\n", '', ''), $FILE));
 		
 		if(curl_getinfo($ch, CURLINFO_HTTP_CODE) == 404)
 		{
@@ -86,7 +78,7 @@ class ShowVertifyPage extends AbstractPage
 		
 		curl_close($ch);
 		$FILE2		= file_get_contents(ROOT_PATH.$file);
-		$LOCALHASH	= crc32(preg_replace(array('/(\r\n)|(\r)/', '/(\\/\\*[\\d\\D]*?\\*\\/)/', '/\$I'.'d[^\$]+\$/'), array('\n', '', ''), $FILE2));
+		$LOCALHASH	= crc32(preg_replace(array('/(\r\n)|(\r)/', '/(\\/\\*[\\d\\D]*?\\*\\/)/', '/\$I'.'d[^\$]+\$/'), array("\n", '', ''), $FILE2));
 		
 		if($SVNHASH == $LOCALHASH)
 		{
@@ -104,29 +96,17 @@ class ShowVertifyPage extends AbstractPage
 		$EXT	= str_replace('\\|', '|', preg_quote($EXT));
 		
 		$Files		= array();
-		foreach(new RegexIterator(new RecursiveIteratorIterator(new RecursiveDirectoryIterator(ROOT_PATH.'/includes/')), '/^.+\.('.$EXT.')$/i', RecursiveRegexIterator::GET_MATCH) as $File)
+		foreach(new RegexIterator(new DirectoryIterator(ROOT_PATH.'/'), '/^.+\.('.$EXT.')$/i', RecursiveRegexIterator::GET_MATCH) as $File)
 		{
-			$Files[]	= str_replace(array('\\', ROOT_PATH), array('/', ''), $File[0]);
+			$Files[]	= str_replace(array('\\', ROOT_PATH), '', $File[0]);
 		}
 		
-		foreach(new RegexIterator(new RecursiveIteratorIterator(new RecursiveDirectoryIterator(ROOT_PATH.'/install/')), '/^.+\.('.$EXT.')$/i', RecursiveRegexIterator::GET_MATCH) as $File)
-		{
-			$Files[]	= str_replace(array('\\', ROOT_PATH), array('/', ''), $File[0]);
-		}
-		
-		foreach(new RegexIterator(new RecursiveIteratorIterator(new RecursiveDirectoryIterator(ROOT_PATH.'/language/')), '/^.+\.('.$EXT.')$/i', RecursiveRegexIterator::GET_MATCH) as $File)
-		{
-			$Files[]	= str_replace(array('\\', ROOT_PATH), array('/', ''), $File[0]);
-		}
-		
-		foreach(new RegexIterator(new RecursiveIteratorIterator(new RecursiveDirectoryIterator(ROOT_PATH.'/scripts/')), '/^.+\.('.$EXT.')$/i', RecursiveRegexIterator::GET_MATCH) as $File)
-		{
-			$Files[]	= str_replace(array('\\', ROOT_PATH), array('/', ''), $File[0]);
-		}
-		
-		foreach(new RegexIterator(new RecursiveIteratorIterator(new RecursiveDirectoryIterator(ROOT_PATH.'/styles/')), '/^.+\.('.$EXT.')$/i', RecursiveRegexIterator::GET_MATCH) as $File)
-		{
-			$Files[]	= str_replace(array('\\', ROOT_PATH), array('/', ''), $File[0]);
+		foreach(array('includes', 'install', 'language', 'scripts', 'styles') as $dir)
+		{		
+			foreach(new RegexIterator(new RecursiveIteratorIterator(new RecursiveDirectoryIterator(ROOT_PATH.'/'.$dir.'/')), '/^.+\.('.$EXT.')$/i', RecursiveRegexIterator::GET_MATCH) as $File)
+			{
+				$Files[]	= str_replace(array('\\', ROOT_PATH.'/'), array('/', ''), $File[0]);
+			}
 		}
 		
 		$this->sendJSON($Files);

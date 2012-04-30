@@ -195,7 +195,7 @@ function CheckTarget()
 		if(data === true) {
 			document.getElementById('form').submit();
 		} else {
-			NotifyBox(data);
+			NotifyBox(data, 200);
 		}
 	});
 	return false;
@@ -294,7 +294,7 @@ function SaveShortcuts(reedit) {
 		$('.shortcut-row:has(td:not(.shortcut-isset) + td)').remove();
 			
 		if(typeof reedit === "undefinded" || reedit !== true) {
-			NotifyBox(res);
+			NotifyBox(res, 200);
 		} else {
 			if($(".shortcut-isset").length) {
 				EditShortcuts();

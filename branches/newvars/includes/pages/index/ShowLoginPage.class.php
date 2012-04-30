@@ -48,7 +48,7 @@ class ShowLoginPage extends AbstractPage
 		
 		$username = HTTP::_GP('username', '', UTF8_SUPPORT);
 		$password = HTTP::_GP('password', '', true);
-		$loginData = $GLOBALS['DATABASE']->getFirstRow("SELECT id, password FROM ".USERS." WHERE universe = ".$UNI." AND username = '".$GLOBALS['DATABASE']->sql_escape($username)."';");
+		$loginData = $GLOBALS['DATABASE']->getFirstRow("SELECT id, password FROM ".USERS." WHERE universe = ".$UNI." AND username = '".$GLOBALS['DATABASE']->escape($username)."';");
 			
 		if (isset($loginData)) {
 			if($loginData['password'] != PlayerUtil::cryptPassword($password)) {

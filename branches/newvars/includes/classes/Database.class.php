@@ -206,7 +206,7 @@ class Database extends mysqli
 	 * @return string Returns the escaped string, or false on error.
 	 */
 	
-    public function sql_escape($string, $flag = false)
+    public function escape($string, $flag = false)
     {
 		return ($flag === false) ? parent::escape_string($string): addcslashes(parent::escape_string($string), '%_');
     }

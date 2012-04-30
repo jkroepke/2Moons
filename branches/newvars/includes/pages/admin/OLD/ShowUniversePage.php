@@ -123,11 +123,11 @@ function ShowUniversePage() {
 		$Planet	= 2;
 				
 		$SQL = "INSERT INTO ".USERS." SET
-		username		= '".$GLOBALS['DATABASE']->sql_escape($USER['username']). "',
+		username		= '".$GLOBALS['DATABASE']->escape($USER['username']). "',
 		password		= '".$USER['password']."',
-		email			= '".$GLOBALS['DATABASE']->sql_escape($USER['email'])."',
-		email_2			= '".$GLOBALS['DATABASE']->sql_escape($USER['email_2'])."',
-		lang			= '".$GLOBALS['DATABASE']->sql_escape($USER['lang'])."',
+		email			= '".$GLOBALS['DATABASE']->escape($USER['email'])."',
+		email_2			= '".$GLOBALS['DATABASE']->escape($USER['email_2'])."',
+		lang			= '".$GLOBALS['DATABASE']->escape($USER['lang'])."',
 		authlevel		= ".$USER['authlevel'].",
 		ip_at_reg		= '".$_SERVER['REMOTE_ADDR']."',
 		id_planet		= 0,
