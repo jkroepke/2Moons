@@ -66,7 +66,7 @@ class ShowSettingsPage extends AbstractPage
 					), 
 					'Skins' => Theme::getAvalibleSkins(), 
 					'lang' => $LANG->getAllowedLangs(false)
-					),
+				),
 				'adminProtection'	=> $USER['authattack'],	
 				'userAuthlevel'		=> $USER['authlevel'],
 				'changeNickTime'	=> ($USER['uctime'] + $gameConfig['userAllowOneNameChangeInHour'] * 3600) - TIMESTAMP,
