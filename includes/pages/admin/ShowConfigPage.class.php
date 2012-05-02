@@ -244,7 +244,6 @@ class ShowConfigPage extends AbstractPage
 					'type' => 'int',
 				),
 			),
-				
 		),
 		'global' => array(
 			'general'	=> array(
@@ -258,42 +257,113 @@ class ShowConfigPage extends AbstractPage
 				'adminProtection' => array(
 					'type' => 'bool',
 				),
+				'language' => array(
+					'type' => 'array',
+					'selection' => array(Language::getAllowedLangs(false),
+				),
+				'timezone' => array(
+					'type' => 'array',
+					'selection' => array(DateUtil::getTimezones()),
+				),
+			),
+			'teamspeak'	=> array(
+				'teamspeakEnable' => array(
+					'type' => 'bool',
+				),
+				'teamspeakServerAdress' => array(
+					'type' => 'string',
+					'validate' => 'ip_dsn',
+				),
+				'teamspeakUDPPort' => array(
+					'type' => 'int',
+				),
+				'teamspeakServerQueryPort' => array(
+					'type' => 'int',
+				),
+				'teamspeakServerQueryUser' => array(
+					'type' => 'string',
+				),
+				'teamspeakServerQueryPassword' => array(
+					'type' => 'string',
+				),
+			),
+			'mail' => array(	
+				'mailEnable' => array(
+					'type' => 'bool',
+				),
+				'mailMethod' => array(
+					'type' => 'array',
+					'selection' => array(array('mail', 'smtp'), $LNG['se_mailSmtpSecure_values']),
+				),
+				'mailSmtpAdress' => array(
+					'type' => 'string',
+					'validate' => 'ip_dsn',
+				),
+				'mailSmtpPort' => array(
+					'type' => 'int',
+				),
+				'mailSmtpUser' => array(
+					'type' => 'string',
+				),
+				'mailSmtpPass' => array(
+					'type' => 'string',
+				),
+				'mailSmtpSecure' => array(
+					'type' => 'array',
+					'selection' => array(array('none', 'tls', 'ssl'), $LNG['se_mailSmtpSecure_values']),
+				),
+				'mailSenderMail' => array(
+					'type' => 'string',
+					'validate' => 'mail',
+				),
+			),
+			'captcha' => array(					
+				'recaptchaEnable' => array(
+					'type' => 'bool',
+				),
+				'recaptchaPublicKey' => array(
+					'type' => 'string',
+				),
+				'recaptchaPrivateKey' => array(
+					'type' => 'string',
+				),
+			),
+			'chat' => array(
+				'chatEnable' => array(
+					'type' => 'bool',
+				),
+				'chatAllowOwnChannel' => array(
+					'type' => 'bool',
+				),
+				'chatAllowPrivateMessage' => array(
+					'type' => 'bool',
+				),
+				'chatAllowDeleteOwnMessage' => array(
+					'type' => 'bool',
+				),
+				'chatEnableLog' => array(
+					'type' => 'bool',
+				),
+				'chatAllowNameChange' => array(
+					'type' => 'bool',
+				),
+				'chatBotName' => array(
+					'type' => 'string',
+				),
+				'chatChannelName' => array(
+					'type' => 'string',
+				),
 			)
 		)
 	);
 	
-	('language', NULL),
-	('teamspeakEnable', '0'),
-	('teamspeakServerAdress', '0.0.0.0'),
-	('teamspeakUDPPort', '0'),
-	('teamspeakServerQueryPort', '0'),
-	('teamspeakServerQueryUser', 'superadmin'),
-	('teamspeakServerQueryPassword', 'password'),
-	('recaptchaEnable', '0'),
-	('recaptchaPublicKey', ''),
-	('recaptchaPrivateKey', ''),
-	('mailEnable', '0'),
-	('mailMethod', '0'),
-	('mailSmtpAdress', ''),
-	('mailSmtpPort', '0'),
-	('mailSmtpUser', ''),
-	('mailSmtpPass', ''),
-	('mailSmtpSecure', ''),
-	('mailSenderMail', ''),
+	
 	('userVertification', '0'),
 	('facebookEnable', '0'),
 	('facebookAPIKey', ''),
 	('facebookSecureKey', ''),
 	('analyticsEnable', '0'),
 	('analyticsUID', ''),
-	('chatEnable', '1'),
-	('chatAllowOwnChannel', '1'),
-	('chatAllowPrivateMessage', '1'),
-	('chatAllowDeleteOwnMessage', '1'),
-	('chatEnableLog', '1'),
-	('chatAllowNameChange', '1'),
-	('chatBotName', '2Moons'),
-	('chatChannelName', '2Moons'),
 	('bannerFontFile', 'styles/fonts/DroidSansMono.ttf'),
 	('referralEnable', '0'),
 	('referralBonus', '1000'),
@@ -308,7 +378,6 @@ class ShowConfigPage extends AbstractPage
 	('disclamerAddress', ''),
 	('disclamerPhone', ''),
 	('disclamerMail', ''),
-	('timezone', ''),
 	('enableSimulatorLink', '1'),
 	('userAllowOneNameChangeInHour', '24'),
 	('userInactiveSinceDays', '7'),

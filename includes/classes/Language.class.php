@@ -36,6 +36,7 @@ class Language
 	* Move language into database
 	* clean language keys
 	*/
+	
 	public $Default	= '';
 	public $User	= '';
 	public static $Languages;
