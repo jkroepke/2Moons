@@ -48,7 +48,7 @@ class ShowNewsPage extends AbstractPage
 		while ($vewsRow = $GLOBALS['DATABASE']->fetchArray($newsResult)) {
 			$newsList[]	= array(
 				'title' => $vewsRow['title'],
-				'from' 	=> sprintf($LNG['news_from'], _date($LNG['php_tdformat'], $vewsRow['date']), $newsRow['user']),
+				'from' 	=> sprintf($LNG['news_from'], DateUtil::formatDate($LNG['php_tdformat'], $vewsRow['date']), $newsRow['user']),
 				'text' 	=> makebr($vewsRow['text']),
 			);
 		}

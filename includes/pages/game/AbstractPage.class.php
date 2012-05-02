@@ -117,8 +117,8 @@ abstract class AbstractPage
 		$this->assign(array(	
 			'PlanetSelect'		=> $PlanetSelect,
 			'new_message' 		=> $USER['messages'],
-			'vacation'			=> $USER['urlaubs_modus'] ? _date($LNG['php_tdformat'], $USER['urlaubs_until'], $USER['timezone']) : false,
-			'delete'			=> $USER['db_deaktjava'] ? sprintf($LNG['tn_delete_mode'], _date($LNG['php_tdformat'], $USER['db_deaktjava'] + ($CONF['del_user_manually'] * 86400)), $USER['timezone']) : false,
+			'vacation'			=> $USER['urlaubs_modus'] ? DateUtil::formatDate($LNG['php_tdformat'], $USER['urlaubs_until'], $USER['timezone']) : false,
+			'delete'			=> $USER['db_deaktjava'] ? sprintf($LNG['tn_delete_mode'], DateUtil::formatDate($LNG['php_tdformat'], $USER['db_deaktjava'] + ($CONF['del_user_manually'] * 86400)), $USER['timezone']) : false,
 			'darkmatter'		=> $USER['darkmatter'],
 			'current_pid'		=> $PLANET['id'],
 			'image'				=> $PLANET['image'],

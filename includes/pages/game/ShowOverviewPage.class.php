@@ -219,7 +219,7 @@ class ShowOverviewPage extends AbstractPage
 			'ref_minpoints'				=> $gameConfig['referralMinimumPoints'],
 			'RefLinks'					=> $RefLinks,
 			'chatOnline'				=> $chatOnline,
-			'servertime'				=> _date("M D d H:i:s", TIMESTAMP, $USER['timezone']),
+			'servertime'				=> DateUtil::formatDate("M D d H:i:s", TIMESTAMP, $USER['timezone']),
 			'path'						=> HTTP_PATH,
 		));
 		

@@ -57,8 +57,8 @@ class ShowBanListPage extends AbstractPage
 			$banList[]	= array(
 				'player'	=> $banRow['who'],
 				'theme'		=> $banRow['theme'],
-				'from'		=> _date($LNG['php_tdformat'], $banRow['time'], $gameConfig['timezone']),
-				'to'		=> _date($LNG['php_tdformat'], $banRow['longer'], $gameConfig['timezone']),
+				'from'		=> DateUtil::formatDate($LNG['php_tdformat'], $banRow['time'], $gameConfig['timezone']),
+				'to'		=> DateUtil::formatDate($LNG['php_tdformat'], $banRow['longer'], $gameConfig['timezone']),
 				'admin'		=> $banRow['author'],
 				'mail'		=> $banRow['email'],
 				'info'		=> sprintf($LNG['bn_writemail'], $banRow['author']),

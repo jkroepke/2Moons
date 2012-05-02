@@ -10,7 +10,7 @@
 		</tr>
 		<tr>
 			<th style="width:10%">{$LNG.nt_dlte_note}</th>
-			<th style="width:20%">{$LNG.nt_date_note}</th>
+			<th style="width:20%">{$LNG.ntDateUtil::formatDate_note}</th>
 			<th style="width:60%">{$LNG.nt_subject_note}</th>
 			<th style="width:10%">{$LNG.nt_size_note}</th>
 		</tr>

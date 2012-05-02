@@ -44,7 +44,7 @@ class ShowSettingsPage extends AbstractPage
 		if($USER['urlaubs_modus'] == 1)
 		{
 			$this->assign(array(	
-				'vacationUntil'			=> _date($LNG['php_tdformat'], $USER['urlaubs_until'], $USER['timezone']),
+				'vacationUntil'			=> DateUtil::formatDate($LNG['php_tdformat'], $USER['urlaubs_until'], $USER['timezone']),
 				'delete'				=> $USER['db_deaktjava'],
 				'canVacationDisbaled'	=> $USER['urlaubs_until'] < TIMESTAMP,
 			));

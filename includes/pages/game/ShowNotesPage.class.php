@@ -51,7 +51,7 @@ class ShowNotesPage extends AbstractPage
 		while($notesRow = $GLOBALS['DATABASE']->fetchArray($notesResult))
 		{
 			$notesList[$notesRow['id']]	= array(
-				'time'		=> _date($LNG['php_tdformat'], $notesRow['time'], $USER['timezone']),
+				'time'		=> DateUtil::formatDate($LNG['php_tdformat'], $notesRow['time'], $USER['timezone']),
 				'title'		=> $notesRow['title'],
 				'size'		=> strlen($notesRow['text']),
 				'priority'	=> $notesRow['priority'],

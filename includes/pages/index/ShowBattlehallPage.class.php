@@ -50,8 +50,8 @@ class ShowBattleHallPage extends AbstractPage
 			$banList[]	= array(
 				'player'	=> $banRow['who'],
 				'theme'		=> $banRow['theme'],
-				'from'		=> _date($LNG['php_tdformat'], $banRow['time']),
-				'to'		=> _date($LNG['php_tdformat'], $banRow['longer']),
+				'from'		=> DateUtil::formatDate($LNG['php_tdformat'], $banRow['time']),
+				'to'		=> DateUtil::formatDate($LNG['php_tdformat'], $banRow['longer']),
 				'admin'		=> $banRow['author'],
 				'mail'		=> $banRow['email'],
 				'info'		=> sprintf($LNG['bn_writemail'], $banRow['author']),

@@ -284,8 +284,8 @@ class ShowResearchPage extends AbstractPage
 				'time' 		=> $BuildArray[2], 
 				'resttime' 	=> ($BuildArray[3] - TIMESTAMP), 
 				'destroy' 	=> ($BuildArray[4] == 'destroy'), 
-				'endtime' 	=> _date('U', $BuildArray[3], $USER['timezone']),
-				'display' 	=> _date($LNG['php_tdformat'], $BuildArray[3], $USER['timezone']),
+				'endtime' 	=> DateUtil::formatDate('U', $BuildArray[3], $USER['timezone']),
+				'display' 	=> DateUtil::formatDate($LNG['php_tdformat'], $BuildArray[3], $USER['timezone']),
 				'planet'	=> $PlanetName,
 			);
 		}

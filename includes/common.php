@@ -71,15 +71,14 @@ ini_set('log_errors', 'On');
 ini_set('error_log', ROOT_PATH.'includes/error.log');
 
 require(ROOT_PATH.'includes/GeneralFunctions.php');
-set_exception_handler('exceptionHandler');
-set_error_handler('errorHandler');
-
-
 require(ROOT_PATH.'includes/classes/Cache.class.php');
 $CACHE = new Cache();
 
 require(ROOT_PATH.'includes/classes/Autoload.class.php');
-spl_autoload_register(array('Autoload', 'load'));
+spl_autoload_register('Autoload::load');
+set_exception_handler('ErrorUtil::exceptionHandler');
+set_error_handler('ErrorUtil::errorHandler');
+
 
 // Say Browsers to Allow ThirdParty Cookies (Thanks to morktadela)
 HTTP::sendHeader('P3P', 'CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"');

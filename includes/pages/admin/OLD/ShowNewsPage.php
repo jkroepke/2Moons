@@ -51,7 +51,7 @@ function ShowNewsPage(){
 		$NewsList[]	= array(
 			'id'		=> $u['id'],
 			'title'		=> $u['title'],
-			'date'		=> _date($LNG['php_tdformat'], $u['date'], $USER['timezone']),
+			'date'		=> DateUtil::formatDate($LNG['php_tdformat'], $u['date'], $USER['timezone']),
 			'user'		=> $u['user'],
 			'confirm'	=> sprintf($LNG['nws_confirm'], $u['title']),
 		);
@@ -83,7 +83,7 @@ function ShowNewsPage(){
 		'nws_news'		=> $LNG['nws_news'],
 		'nws_id'		=> $LNG['nws_id'],
 		'nws_title'		=> $LNG['nws_title'],
-		'nws_date'		=> $LNG['nws_date'],
+		'nwsDateUtil::formatDate'		=> $LNG['nwsDateUtil::formatDate'],
 		'nws_from'		=> $LNG['nws_from'],
 		'nws_del'		=> $LNG['nws_del'],
 		'nws_create'	=> $LNG['nws_create'],

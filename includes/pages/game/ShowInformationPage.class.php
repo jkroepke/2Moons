@@ -310,7 +310,7 @@ class ShowInformationPage extends AbstractPage
 			$this->loadscript('gate.js');
 			$nextTime	= self::getNextJumpWaitTime($PLANET['last_jump_time']);
 			$this->assign(array(
-				'nextTime'	=> _date($LNG['php_tdformat'], $nextTime, $USER['timezone']),
+				'nextTime'	=> DateUtil::formatDate($LNG['php_tdformat'], $nextTime, $USER['timezone']),
 				'restTime'	=> max(0, $nextTime - TIMESTAMP),
 				'startLink'	=> BuildPlanetAdressLink($PLANET),
 				'gateList' 	=> $this->getTargetGates(),

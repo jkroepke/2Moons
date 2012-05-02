@@ -26,7 +26,7 @@
 <tr>
 	<td>{$nws_id}</td>
 	<td>{$nws_title}</td>
-	<td>{$nws_date}</td>
+	<td>{$nwsDateUtil::formatDate}</td>
 	<td>{$nws_from}</td>
 	<td>{$nws_del}</td>
 </tr>

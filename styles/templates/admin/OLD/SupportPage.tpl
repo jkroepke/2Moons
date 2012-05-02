@@ -47,7 +47,7 @@
 		<td>{$t_username}</td>
 		<td>{$t_subject}</a></td>
 		<td>{$t_statustext}</td>
-		<td>{$t_date}</td></tr>
+		<td>{$tDateUtil::formatDate}</td></tr>
 </table>
 
 

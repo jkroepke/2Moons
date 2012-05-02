@@ -135,7 +135,7 @@ function ShowMessageListPage()
 			'to'		=> ($Selected != 50) ? $row['username'].' (ID:&nbsp;'.$row['message_owner'].')' : 'Universe',
 			'subject'	=> $row['message_subject'],
 			'text'		=> $row['message_text'],
-			'time'		=> str_replace(' ', '&nbsp;', _date($LNG['php_tdformat'], $row['message_time']), $USER['timezone']),
+			'time'		=> str_replace(' ', '&nbsp;', DateUtil::formatDate($LNG['php_tdformat'], $row['message_time']), $USER['timezone']),
 		);
 	}	
 
@@ -157,7 +157,7 @@ function ShowMessageListPage()
 		'button_des_se'				=> $LNG['button_des_se'],
 		'ml_select_all_messages'	=> $LNG['ml_select_all_messages'],
 		'input_id'					=> $LNG['input_id'],
-		'ml_date'					=> $LNG['ml_date'],
+		'mlDateUtil::formatDate'					=> $LNG['mlDateUtil::formatDate'],
 		'ml_from'					=> $LNG['ml_from'],
 		'ml_to'						=> $LNG['ml_to'],
 		'ml_subject'				=> $LNG['ml_subject'],

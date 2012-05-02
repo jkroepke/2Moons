@@ -54,7 +54,7 @@ class ShowErrorPage extends AbstractPage
 		
 		$pageObj	= new self;
 		$pageObj->tplObj->assign(array(	
-			'banMessage'	=> sprintf($LNG['css_account_banned_expire'], _date($LNG['php_tdformat'], $USER['banaday'], $USER['timezone'])),
+			'banMessage'	=> sprintf($LNG['css_account_banned_expire'], DateUtil::formatDate($LNG['php_tdformat'], $USER['banaday'], $USER['timezone'])),
 
 		));
 		
