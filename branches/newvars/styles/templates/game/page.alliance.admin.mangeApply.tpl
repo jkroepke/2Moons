@@ -6,7 +6,7 @@
 	</tr>
 	<tr>
 		<th>{$LNG.al_candidate}</th>
-		<th>{$LNG.al_request_date}</th>
+		<th>{$LNG.al_requestDateUtil::formatDate}</th>
 	</tr>
 	{foreach $applyList as $applyRow}
 	<tr>

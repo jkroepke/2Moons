@@ -27,7 +27,7 @@
 		<td>{$mvc_update_version}:</td><td>{$Mod.udetails.version}</td>
     </tr>
 	<tr>
-		<td>{$mvc_update_date}:</td><td>{$Mod.udetails.date}</td>
+		<td>{$mvc_updateDateUtil::formatDate}:</td><td>{$Mod.udetails.date}</td>
     </tr>
     <tr>
 		<td>{$mvc_download}:</td><td><a href="{$Mod.udetails.download}" target="_blank">{$Mod.udetails.download}</a></td>

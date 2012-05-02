@@ -3,7 +3,7 @@
 <form name="stats" id="stats" method="post" action="">
 	<table class="table519">
 		<tr>
-			<th>{$LNG.st_statistics} ({$LNG.st_updated}: {$stat_date})</th>
+			<th>{$LNG.st_statistics} ({$LNG.st_updated}: {$statDateUtil::formatDate})</th>
 		</tr>
 		<tr>
 			<td>

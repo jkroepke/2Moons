@@ -72,7 +72,7 @@ class ShowRaportPage extends AbstractPage
 		}
 		
 		$CombatRaport			= unserialize($Raport['raport']);
-		$CombatRaport['time']	= _date($LNG['php_tdformat'], $CombatRaport['time'], $USER['timezone']);
+		$CombatRaport['time']	= DateUtil::formatDate($LNG['php_tdformat'], $CombatRaport['time'], $USER['timezone']);
 
 		$this->assign(array(
 			'Raport'	=> $CombatRaport,
@@ -99,7 +99,7 @@ class ShowRaportPage extends AbstractPage
 
 		
 		$CombatRaport	= unserialize($Raport);
-		$CombatRaport['time']	= _date($LNG['php_tdformat'], $CombatRaport['time'], (isset($USER['timezone']) ? $USER['timezone'] : $CONF['timezone']));
+		$CombatRaport['time']	= DateUtil::formatDate($LNG['php_tdformat'], $CombatRaport['time'], (isset($USER['timezone']) ? $USER['timezone'] : $CONF['timezone']));
 
 		$this->assign(array(
 			'Raport'	=> $CombatRaport,

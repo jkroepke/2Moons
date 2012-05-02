@@ -166,7 +166,7 @@ function GetLogs($fromRev) {
 				foreach($value['children'] as $entry) {
 					if ($entry['name'] == 'D:VERSION-NAME') $array['version'] = $entry['tagData'];
 					if ($entry['name'] == 'D:CREATOR-DISPLAYNAME') $array['author'] = $entry['tagData'];
-					if ($entry['name'] == 'S:DATE') $array['date'] = _date($LNG['php_tdformat'], strtotime($entry['tagData']), $USER['timezone']);
+					if ($entry['name'] == 'S:DATE') $array['date'] = DateUtil::formatDate($LNG['php_tdformat'], strtotime($entry['tagData']), $USER['timezone']);
 					if ($entry['name'] == 'D:COMMENT') $array['comment'] = makebr($entry['tagData']);
 
 					if (($entry['name'] == 'S:ADDED-PATH') || ($entry['name'] == 'S:MODIFIED-PATH') || ($entry['name'] == 'S:DELETED-PATH')) {

@@ -62,8 +62,8 @@ function ShowAccountDataPage()
 			$UserQuery 	= 	$GLOBALS['DATABASE']->getFirstRow("SELECT ".$SpecifyItemsU." FROM ".USERS." as u LEFT JOIN ".SESSION." as s ON s.userID = u.id LEFT JOIN ".ALLIANCE." a ON a.id = u.ally_id WHERE u.`id` = '".$id_u."';");
 
 			
-			$reg_time		= _date($LNG['php_tdformat'], $UserQuery['register_time'], $USER['timezone']);
-			$onlinetime		= _date($LNG['php_tdformat'], $UserQuery['onlinetime'], $USER['timezone']);
+			$reg_time		= DateUtil::formatDate($LNG['php_tdformat'], $UserQuery['register_time'], $USER['timezone']);
+			$onlinetime		= DateUtil::formatDate($LNG['php_tdformat'], $UserQuery['onlinetime'], $USER['timezone']);
 			$id				= $UserQuery['id'];
 			$nombre			= $UserQuery['username'];
 			$email_1		= $UserQuery['email'];
@@ -107,8 +107,8 @@ function ShowAccountDataPage()
 				$BannedQuery	= $GLOBALS['DATABASE']->getFirstRow("SELECT theme,time,longer,author FROM ".BANNED." WHERE `who` = '".$UserQuery['username']."';");
 				
 				
-				$sus_longer	= _date($LNG['php_tdformat'], $BannedQuery['longer'], $USER['timezone']);
-				$sus_time	= _date($LNG['php_tdformat'], $BannedQuery['time'], $USER['timezone']);
+				$sus_longer	= DateUtil::formatDate($LNG['php_tdformat'], $BannedQuery['longer'], $USER['timezone']);
+				$sus_time	= DateUtil::formatDate($LNG['php_tdformat'], $BannedQuery['time'], $USER['timezone']);
 				$sus_reason	= $BannedQuery['theme'];
 				$sus_author	= $BannedQuery['author'];
 				
@@ -173,7 +173,7 @@ function ShowAccountDataPage()
 				$tag					= $AllianceQuery['ally_tag'];
 				$ali_nom				= $AllianceQuery['ally_name'];
 				$ali_cant				= $AllianceQuery['ally_members'];
-				$ally_register_time		= _date($LNG['php_tdformat'], $AllianceQuery['ally_register_time'], $USER['timezone']);
+				$ally_register_time		= DateUtil::formatDate($LNG['php_tdformat'], $AllianceQuery['ally_register_time'], $USER['timezone']);
 				$ali_lider				= $AllianceQuery['ally_owner'];
 				$ali_web				= $AllianceQuery['ally_web'] != NULL ? "<a href=".$AllianceQuery['ally_web']." target=_blank>".$AllianceQuery['ally_web']."</a>" : $LNG['ac_no_web'];
 										

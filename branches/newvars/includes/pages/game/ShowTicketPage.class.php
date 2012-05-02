@@ -50,7 +50,7 @@ class ShowTicketPage extends AbstractPage
 		$ticketList		= array();
 		
 		while($ticketRow = $GLOBALS['DATABASE']->fetchArray($ticketResult)) {
-			$ticketRow['time']	= _date($LNG['php_tdformat'], $ticketRow['time'], $USER['timezone']);
+			$ticketRow['time']	= DateUtil::formatDate($LNG['php_tdformat'], $ticketRow['time'], $USER['timezone']);
 
 			$ticketList[$ticketRow['ticketID']]	= $ticketRow;
 		}
@@ -118,7 +118,7 @@ class ShowTicketPage extends AbstractPage
 		}
 		
 		while($answerRow = $GLOBALS['DATABASE']->fetchArray($answerResult)) {
-			$answerRow['time']	= _date($LNG['php_tdformat'], $answerRow['time'], $USER['timezone']);
+			$answerRow['time']	= DateUtil::formatDate($LNG['php_tdformat'], $answerRow['time'], $USER['timezone']);
 			$answerList[$answerRow['answerID']]	= $answerRow;
 			if (empty($ticket_status))
 				$ticket_status = $answerRow['status'];

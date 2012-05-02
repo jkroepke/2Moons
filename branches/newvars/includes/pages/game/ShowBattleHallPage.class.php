@@ -61,7 +61,7 @@ class ShowBattleHallPage extends AbstractPage
 		while($data = $GLOBALS['DATABASE']->fetchArray($top)) {
 			$TopKBList[]	= array(
 				'result'	=> $data['result'],
-				'date'		=> _date($LNG['php_tdformat'], $data['time'], $USER['timezone']),
+				'date'		=> DateUtil::formatDate($LNG['php_tdformat'], $data['time'], $USER['timezone']),
 				'time'		=> TIMESTAMP - $data['time'],
 				'units'		=> $data['units'],
 				'rid'		=> $data['rid'],

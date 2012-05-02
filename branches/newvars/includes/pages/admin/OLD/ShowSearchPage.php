@@ -369,8 +369,8 @@ function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialS
 		{
 			$Search['LIST']	 .= "<tr>";
 			if ($Table == "users"){				
-				$WhileResult[3] = $_GET['search'] == "online" ? pretty_time( TIMESTAMP - $WhileResult[3] ) : _date($LNG['php_tdformat'], $WhileResult[3] , $USER['timezone']);
-				$WhileResult[4]	= _date($LNG['php_tdformat'], $WhileResult[4], $USER['timezone']);
+				$WhileResult[3] = $_GET['search'] == "online" ? pretty_time( TIMESTAMP - $WhileResult[3] ) : DateUtil::formatDate($LNG['php_tdformat'], $WhileResult[3] , $USER['timezone']);
+				$WhileResult[4]	= DateUtil::formatDate($LNG['php_tdformat'], $WhileResult[4], $USER['timezone']);
 				
 				$WhileResult[6]	= $LNG['rank'][$WhileResult[6]];
 				(($WhileResult[7] == '1')	? $WhileResult[7] = "<font color=lime>".$LNG['one_is_yes'][1]."</font>" : $WhileResult[7] = $LNG['one_is_yes'][0]);
@@ -378,12 +378,12 @@ function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialS
 			}
 			
 			if ($Table == "banned"){
-				$WhileResult[2]	= _date($LNG['php_tdformat'], $WhileResult[2], $USER['timezone']);
-				$WhileResult[3]	= _date($LNG['php_tdformat'], $WhileResult[3], $USER['timezone']);
+				$WhileResult[2]	= DateUtil::formatDate($LNG['php_tdformat'], $WhileResult[2], $USER['timezone']);
+				$WhileResult[3]	= DateUtil::formatDate($LNG['php_tdformat'], $WhileResult[3], $USER['timezone']);
 			}
 			
 			if ($Table == "alliance")
-				$WhileResult[4]	= _date($LNG['php_tdformat'], $WhileResult[4], $USER['timezone']);
+				$WhileResult[4]	= DateUtil::formatDate($LNG['php_tdformat'], $WhileResult[4], $USER['timezone']);
 				
 			if ($Table == "planets p") {
 				$WhileResult[3]	= pretty_time(TIMESTAMP - $WhileResult[3]);

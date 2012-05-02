@@ -57,7 +57,7 @@ class ShowSupportPage
 		$ticketList		= array();
 		
 		while($ticketRow = $GLOBALS['DATABASE']->fetchArray($ticketResult)) {
-			$ticketRow['time']	= _date($LNG['php_tdformat'], $ticketRow['time'], $USER['timezone']);
+			$ticketRow['time']	= DateUtil::formatDate($LNG['php_tdformat'], $ticketRow['time'], $USER['timezone']);
 
 			$ticketList[$ticketRow['ticketID']]	= $ticketRow;
 		}
@@ -110,7 +110,7 @@ class ShowSupportPage
 		while($answerRow = $GLOBALS['DATABASE']->fetchArray($answerResult)) {
 			if (empty($ticket_status))
 				$ticket_status = $answerRow['status'];
-			$answerRow['time']	= _date($LNG['php_tdformat'], $answerRow['time'], $USER['timezone']);
+			$answerRow['time']	= DateUtil::formatDate($LNG['php_tdformat'], $answerRow['time'], $USER['timezone']);
 			
 			$answerList[$answerRow['answerID']]	= $answerRow;
 		}

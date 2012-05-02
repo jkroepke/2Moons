@@ -40,8 +40,8 @@ function ShowMultiIPPage()
 		if(!isset($IPs[$Data['user_lastip']]))
 			$IPs[$Data['user_lastip']]	= array();
 		
-		$Data['register_time']	= _date($LNG['php_tdformat'], $Data['register_time']);
-		$Data['onlinetime']		= _date($LNG['php_tdformat'], $Data['onlinetime']);
+		$Data['register_time']	= DateUtil::formatDate($LNG['php_tdformat'], $Data['register_time']);
+		$Data['onlinetime']		= DateUtil::formatDate($LNG['php_tdformat'], $Data['onlinetime']);
 		
 		$IPs[$Data['user_lastip']][$Data['id']]	= $Data;
 	}

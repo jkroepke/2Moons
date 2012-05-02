@@ -9,7 +9,7 @@
 	</tr>
 	<tr style="height: 20px;">
 		<td>{$LNG.mg_action}</td>
-		<td>{$LNG.mg_date}</td>
+		<td>{$LNG.mgDateUtil::formatDate}</td>
 		<td>{if $MessID != 999}{$LNG.mg_from}{else}{$LNG.mg_to}{/if}</td>
 		<td>{$LNG.mg_subject}</td>
 	</tr>

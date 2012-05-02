@@ -344,8 +344,8 @@ class ShowFleetStep3Page extends AbstractPage
 			'consumption'		=> $consumption,
 			'from'				=> $PLANET['galaxy'] .":". $PLANET['system']. ":". $PLANET['planet'],
 			'destination'		=> $targetGalaxy .":". $targetSystem .":". $targetPlanet,
-			'fleetStartTime'	=> _date($LNG['php_tdformat'], $fleetStartTime, $USER['timezone']),
-			'fleetEndTime'		=> _date($LNG['php_tdformat'], $fleetEndTime, $USER['timezone']),
+			'fleetStartTime'	=> DateUtil::formatDate($LNG['php_tdformat'], $fleetStartTime, $USER['timezone']),
+			'fleetEndTime'		=> DateUtil::formatDate($LNG['php_tdformat'], $fleetEndTime, $USER['timezone']),
 			'MaxFleetSpeed'		=> $fleetMaxSpeed,
 			'FleetList'			=> $fleetArray,
 		));

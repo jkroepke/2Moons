@@ -304,7 +304,7 @@ $LNG['nws_head_create']					= 'News erstellen';
 $LNG['nws_head_edit']					= 'News %s bearbeiten';
 $LNG['nws_id']							= 'ID';
 $LNG['nws_title']						= 'Titel';
-$LNG['nws_date']						= 'Datum';
+$LNG['nwsDateUtil::formatDate']						= 'Datum';
 $LNG['nws_from']						= 'Von';
 $LNG['nws_del']							= 'Del';
 $LNG['nws_confirm']						= 'Bist du sicher, dass du die Nachricht %s entfernen willst?';
@@ -394,6 +394,16 @@ $LNG['ed_fieldused']					= 'Felder (belegt)';
 $LNG['ed_fieldmax']						= 'Felder (total/incl. Terraformer)';
 $LNG['ed_tempmin']						= 'min. Temperatur';
 $LNG['ed_tempmax']						= 'max. Temperatur';
+
+// Settings
+
+$LNG['se_highscoreAdminEnable_values'][0]	= 'Zeige Administratoren';
+$LNG['se_highscoreAdminEnable_values'][1]	= 'Zeige Administratoren mit 0 Punkten';
+$LNG['se_highscoreAdminEnable_values'][2]	= 'Verstecke Administratoren';
+
+$LNG['se_mailSmtpSecure_values']['none']	= 'Keine';
+$LNG['se_mailSmtpSecure_values']['ssl']		= 'SSL 3.0';
+$LNG['se_mailSmtpSecure_values']['tls']		= 'TLS 1.0';
 
 
 

@@ -73,7 +73,7 @@ class ShowMessagesPage extends AbstractPage
 			
 			$MessageList[]	= array(
 				'id'		=> $MessageRow['message_id'],
-				'time'		=> _date($LNG['php_tdformat'], $MessageRow['message_time'], $USER['timezone']),
+				'time'		=> DateUtil::formatDate($LNG['php_tdformat'], $MessageRow['message_time'], $USER['timezone']),
 				'from'		=> $MessageRow['message_from'],
 				'subject'	=> $MessageRow['message_subject'],
 				'sender'	=> $MessageRow['message_sender'],
