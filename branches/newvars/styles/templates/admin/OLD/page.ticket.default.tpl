@@ -8,7 +8,7 @@
 		<th style="width:10%">{$LNG.ti_username}</td>
 		<th style="width:40%">{$LNG.ti_subject}</td>
 		<th style="width:10%">{$LNG.ti_answers}</td>
-		<th style="width:15%">{$LNG.tiDateUtil::formatDate}</td>
+		<th style="width:15%">{$LNG.ti_date}</td>
 		<th style="width:15%">{$LNG.ti_status}</td>
 	</tr>
 	{foreach $ticketList as $TicketID => $TicketInfo}	
@@ -31,7 +31,7 @@
 		<th style="width:10%">{$LNG.ti_username}</td>
 		<th style="width:40%">{$LNG.ti_subject}</td>
 		<th style="width:10%">{$LNG.ti_answers}</td>
-		<th style="width:15%">{$LNG.tiDateUtil::formatDate}</td>
+		<th style="width:15%">{$LNG.ti_date}</td>
 		<th style="width:15%">{$LNG.ti_status}</td>
 	</tr>
 	{foreach $ticketList as $TicketID => $TicketInfo}	

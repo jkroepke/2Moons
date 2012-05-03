@@ -173,7 +173,7 @@ class ShowStatisticsPage extends AbstractPage
             'RangeList'				=> $RangeList,
             'CUser_ally'			=> $USER['ally_id'],
             'CUser_id'				=> $USER['id'],
-            'statDateUtil::formatDate'				=> DateUtil::formatDate($LNG['php_tdformat'], $CONF['stat_last_update'], $USER['timezone']),
+            'stat_date'				=> DateUtil::formatDate($LNG['php_tdformat'], $CONF['stat_last_update'], $USER['timezone']),
         ));
 
         $this->render('page.statistics.default.tpl');
