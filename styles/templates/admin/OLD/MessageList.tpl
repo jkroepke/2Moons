@@ -52,7 +52,7 @@ function checkedAll (frm1) {
 		<tr align="center">
 			<th><input title="{$button_des_se}" type="checkbox" name="checkall" onClick="checkedAll(select_all);" value="{$ml_select_all_messages}"></th>
 			<th>{$input_id}</th>
-			<th>{$mlDateUtil::formatDate}</th>
+			<th>{$ml_date}</th>
 			<th>{$ml_from}</th>
 			<th>{$ml_to}</th>
 			<th width="15%">{$ml_subject}</th>

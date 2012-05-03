@@ -31,29 +31,7 @@
 
 class DateUtil
 {
-	static function getTimezones()
-	{
-		global $LNG;
-		
-		// New Timezone Selector, better support for changes in tzdata (new russian timezones, e.g.)
-		// http://www.php.net/manual/en/datetimezone.listidentifiers.php
-		
-		$timezones = array();
-		$timezone_identifiers = DateTimeZone::listIdentifiers();
-
-		foreach($timezone_identifiers as $value)
-		{
-			if (preg_match('/^(America|Antartica|Arctic|Asia|Atlantic|Europe|Indian|Pacific)\//', $value ) )
-			{
-				$ex = explode('/',$value); //obtain continent,city
-				$city = isset($ex[2])? $ex[1].' - '.$ex[2]:$ex[1]; //in case a timezone has more than one
-				$timezones[$ex[0]][$value] = str_replace('_', ' ', $city);
-			}
-		}
-		return $timezones; 
-	}
-
-	static function formateDateLocale($format, $time, $LNG = NULL)
+	static function localeNamesDateFormat($format, $time, $LNG = NULL)
 	{
 		//Workaound for locale Names.
 
@@ -71,10 +49,9 @@ class DateUtil
 		return $format;
 	}
 
-	static function formatDate($format, $time = null, $toTimeZone = null, $LNG = NULL)
+	static function format($format, $time = null, $toTimeZone = null, $LNG = NULL)
 	{
-		if(!isset($time))
-		{
+		if(!isset($time)) {
 			$time	= TIMESTAMP;
 		}
 		
@@ -100,7 +77,28 @@ class DateUtil
 			$time	+= $date->getOffset();
 		}
 		
-		$format	= self::formateDateLocale($format, $time, $LNG);
+		$format	= locale_date_format($format, $time, $LNG);
 		return date($format, $time);
+	}
+	
+	static function getTimezones() {
+		global $LNG;
+		
+		// New Timezone Selector, better support for changes in tzdata (new russian timezones, e.g.)
+		// http://www.php.net/manual/en/datetimezone.listidentifiers.php
+		
+		$timezones = array();
+		$timezone_identifiers = DateTimeZone::listIdentifiers();
+
+		foreach($timezone_identifiers as $value)
+		{
+			if (preg_match('/^(America|Antartica|Arctic|Asia|Atlantic|Europe|Indian|Pacific)\//', $value ) )
+			{
+				$ex = explode('/',$value); //obtain continent,city
+				$city = isset($ex[2])? $ex[1].' - '.$ex[2]:$ex[1]; //in case a timezone has more than one
+				$timezones[$ex[0]][$value] = str_replace('_', ' ', $city);
+			}
+		}
+		return $timezones; 
 	}
 }

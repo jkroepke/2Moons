@@ -157,7 +157,7 @@ function ShowMessageListPage()
 		'button_des_se'				=> $LNG['button_des_se'],
 		'ml_select_all_messages'	=> $LNG['ml_select_all_messages'],
 		'input_id'					=> $LNG['input_id'],
-		'mlDateUtil::formatDate'					=> $LNG['mlDateUtil::formatDate'],
+		'ml_date'					=> $LNG['ml_date'],
 		'ml_from'					=> $LNG['ml_from'],
 		'ml_to'						=> $LNG['ml_to'],
 		'ml_subject'				=> $LNG['ml_subject'],

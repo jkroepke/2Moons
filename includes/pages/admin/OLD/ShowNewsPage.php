@@ -83,7 +83,7 @@ function ShowNewsPage(){
 		'nws_news'		=> $LNG['nws_news'],
 		'nws_id'		=> $LNG['nws_id'],
 		'nws_title'		=> $LNG['nws_title'],
-		'nwsDateUtil::formatDate'		=> $LNG['nwsDateUtil::formatDate'],
+		'nws_date'		=> $LNG['nws_date'],
 		'nws_from'		=> $LNG['nws_from'],
 		'nws_del'		=> $LNG['nws_del'],
 		'nws_create'	=> $LNG['nws_create'],

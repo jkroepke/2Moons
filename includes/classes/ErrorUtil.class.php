@@ -67,75 +67,75 @@ class ErrorUtil
 		$VERSION	= isset($CONF['VERSION']) ? $CONF['VERSION'] : 'UNKNOWN';
 		$DIR		= MODE == 'INSTALL' ? '..' : '.';
 		echo '<!DOCTYPE html>
-<!--[if lt IE 7 ]> <html lang="de" class="no-js ie6"> <![endif]-->
-<!--[if IE 7 ]>    <html lang="de" class="no-js ie7"> <![endif]-->
-<!--[if IE 8 ]>    <html lang="de" class="no-js ie8"> <![endif]-->
-<!--[if IE 9 ]>    <html lang="de" class="no-js ie9"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--> <html lang="de" class="no-js"> <!--<![endif]-->
-<head>
-	<title>'.(isset($gameConfig['gameName']) ? $gameConfig['gameName'].' - ' : '').$errorType[$errno].'</title>
-	<meta name="generator" content="2Moons '.$VERSION.'">
-	<!-- 
-		This website is powered by 2Moons '.$VERSION.'
-		2Moons is a free Space Browsergame initially created by Jan and licensed under GNU/GPL.
-		2Moons is copyright 2009-2012 of Jan. Extensions are copyright of their respective owners.
-		Information and contribution at http://2moons.cc/
-	-->
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-	<link rel="stylesheet" type="text/css" href="'.$DIR.'/styles/css/boilerplate.css?v='.$VERSION.'">
-	<link rel="stylesheet" type="text/css" href="'.$DIR.'/styles/css/ingame.css?v='.$VERSION.'">
-	<link rel="stylesheet" type="text/css" href="'.$DIR.'/styles/theme/gow/formate.css?v='.$VERSION.'">
-	<link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
-	<script type="text/javascript">
-	var ServerTimezoneOffset = -3600;
-	var serverTime 	= new Date(2012, 2, 12, 14, 43, 36);
-	var startTime	= serverTime.getTime();
-	var localTime 	= serverTime;
-	var localTS 	= startTime;
-	var Gamename	= document.title;
-	var Ready		= "Fertig";
-	var Skin		= "'.$DIR.'/styles/theme/gow/";
-	var Lang		= "de";
-	var head_info	= "Information";
-	var auth		= 3;
-	var days 		= ["So","Mo","Di","Mi","Do","Fr","Sa"] 
-	var months 		= ["Jan","Feb","Mar","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez"] ;
-	var tdformat	= "[M] [D] [d] [H]:[i]:[s]";
-	var queryString	= "";
+	<!--[if lt IE 7 ]> <html lang="de" class="no-js ie6"> <![endif]-->
+	<!--[if IE 7 ]>    <html lang="de" class="no-js ie7"> <![endif]-->
+	<!--[if IE 8 ]>    <html lang="de" class="no-js ie8"> <![endif]-->
+	<!--[if IE 9 ]>    <html lang="de" class="no-js ie9"> <![endif]-->
+	<!--[if (gt IE 9)|!(IE)]><!--> <html lang="de" class="no-js"> <!--<![endif]-->
+	<head>
+		<title>'.(isset($gameConfig['gameName']) ? $gameConfig['gameName'].' - ' : '').$errorType[$errno].'</title>
+		<meta name="generator" content="2Moons '.$VERSION.'">
+		<!-- 
+			This website is powered by 2Moons '.$VERSION.'
+			2Moons is a free Space Browsergame initially created by Jan and licensed under GNU/GPL.
+			2Moons is copyright 2009-2012 of Jan. Extensions are copyright of their respective owners.
+			Information and contribution at http://2moons.cc/
+		-->
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<link rel="stylesheet" type="text/css" href="'.$DIR.'/styles/css/boilerplate.css?v='.$VERSION.'">
+		<link rel="stylesheet" type="text/css" href="'.$DIR.'/styles/css/ingame.css?v='.$VERSION.'">
+		<link rel="stylesheet" type="text/css" href="'.$DIR.'/styles/theme/gow/formate.css?v='.$VERSION.'">
+		<link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+		<script type="text/javascript">
+		var ServerTimezoneOffset = -3600;
+		var serverTime 	= new Date(2012, 2, 12, 14, 43, 36);
+		var startTime	= serverTime.getTime();
+		var localTime 	= serverTime;
+		var localTS 	= startTime;
+		var Gamename	= document.title;
+		var Ready		= "Fertig";
+		var Skin		= "'.$DIR.'/styles/theme/gow/";
+		var Lang		= "de";
+		var head_info	= "Information";
+		var auth		= 3;
+		var days 		= ["So","Mo","Di","Mi","Do","Fr","Sa"] 
+		var months 		= ["Jan","Feb","Mar","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez"] ;
+		var tdformat	= "[M] [D] [d] [H]:[i]:[s]";
+		var queryString	= "";
 
-	setInterval(function() {
-		serverTime.setSeconds(serverTime.getSeconds()+1);
-	}, 1000);
-	</script>
-	<script type="text/javascript" src="'.$DIR.'/scripts/base/jquery.js?v=2123"></script>
-	<script type="text/javascript" src="'.$DIR.'/scripts/base/jquery.ui.js?v=2123"></script>
-	<script type="text/javascript" src="'.$DIR.'/scripts/base/jquery.cookie.js?v=2123"></script>
-	<script type="text/javascript" src="'.$DIR.'/scripts/base/jquery.fancybox.js?v=2123"></script>
-	<script type="text/javascript" src="'.$DIR.'/scripts/base/jquery.validationEngine.js?v=2123"></script>
-	<script type="text/javascript" src="'.$DIR.'/scripts/base/tooltip.js?v=2123"></script>
-	<script type="text/javascript" src="'.$DIR.'/scripts/game/base.js?v=2123"></script>
-</head>
-<body id="overview" class="full">
-<table width="960">
-	<tr>
-		<th>'.$errorType[$errno].'</th>
-	</tr>
-	<tr>
-		<td class="left">
-			<b>Message: </b>'.$exception->getMessage().'<br>
-			<b>File: </b>'.$exception->getFile().'<br>
-			<b>Line: </b>'.$exception->getLine().'<br>
-			<b>URL: </b>'.PROTOCOL.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].(!empty($_SERVER['QUERY_STRING']) ? '?'.$_SERVER['QUERY_STRING']: '').'<br>
-			<b>PHP-Version: </b>'.PHP_VERSION.'<br>
-			<b>PHP-API: </b>'.php_sapi_name().'<br>
-			<b>MySQL-Cleint-Version: </b>'.mysqli_get_client_info().'<br>
-			<b>2Moons Version: </b>'.(isset($gameConfig['version']) ? $gameConfig['version'] : file_get_contents(ROOT_PATH.'install/VERSION').' (INSTALL-VERSION)').'<br>
-			<b>Debug Backtrace:</b><br>'.makebr(str_replace($_SERVER['DOCUMENT_ROOT'], '.', htmlspecialchars($exception->getTraceAsString()))).'
-		</td>
-	</tr>
-</table>
-</body>
-</html>';
+		setInterval(function() {
+			serverTime.setSeconds(serverTime.getSeconds()+1);
+		}, 1000);
+		</script>
+		<script type="text/javascript" src="'.$DIR.'/scripts/base/jquery.js?v=2123"></script>
+		<script type="text/javascript" src="'.$DIR.'/scripts/base/jquery.ui.js?v=2123"></script>
+		<script type="text/javascript" src="'.$DIR.'/scripts/base/jquery.cookie.js?v=2123"></script>
+		<script type="text/javascript" src="'.$DIR.'/scripts/base/jquery.fancybox.js?v=2123"></script>
+		<script type="text/javascript" src="'.$DIR.'/scripts/base/jquery.validationEngine.js?v=2123"></script>
+		<script type="text/javascript" src="'.$DIR.'/scripts/base/tooltip.js?v=2123"></script>
+		<script type="text/javascript" src="'.$DIR.'/scripts/game/base.js?v=2123"></script>
+	</head>
+	<body id="overview" class="full">
+	<table width="960">
+		<tr>
+			<th>'.$errorType[$errno].'</th>
+		</tr>
+		<tr>
+			<td class="left">
+				<b>Message: </b>'.$exception->getMessage().'<br>
+				<b>File: </b>'.$exception->getFile().'<br>
+				<b>Line: </b>'.$exception->getLine().'<br>
+				<b>URL: </b>'.PROTOCOL.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].(!empty($_SERVER['QUERY_STRING']) ? '?'.$_SERVER['QUERY_STRING']: '').'<br>
+				<b>PHP-Version: </b>'.PHP_VERSION.'<br>
+				<b>PHP-API: </b>'.php_sapi_name().'<br>
+				<b>MySQL-Cleint-Version: </b>'.mysqli_get_client_info().'<br>
+				<b>2Moons Version: </b>'.(isset($gameConfig['version']) ? $gameConfig['version'] : file_get_contents(ROOT_PATH.'install/VERSION').' (INSTALL-VERSION)').'<br>
+				<b>Debug Backtrace:</b><br>'.makebr(str_replace($_SERVER['DOCUMENT_ROOT'], '.', htmlspecialchars($exception->getTraceAsString()))).'
+			</td>
+		</tr>
+	</table>
+	</body>
+	</html>';
 		if($errno === 0) {
 			ini_set('display_errors', 0);
 			trigger_error("Exception: ".str_replace("<br>", "\r\n", $errstr)."\r\n\r\n".str_replace($_SERVER['DOCUMENT_ROOT'], '.', $exception->getTraceAsString()), E_USER_ERROR);

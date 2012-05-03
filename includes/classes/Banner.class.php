@@ -61,7 +61,7 @@ class Banner {
 		global $LNG, $LANG;
 		
 		$image  		= imagecreatefromjpeg($this->source);
-		$date  			= DateUtil::formatDate($LNG['phpDateUtil::formatDateformat'], TIMESTAMP);
+		$date  			= DateUtil::formatDate($LNG['php_dateformat'], TIMESTAMP);
 		
 		$gameConfig		= $GLOBALS['CACHE']->get('config');
 		

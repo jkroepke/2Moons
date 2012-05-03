@@ -544,7 +544,7 @@
 
                         //if one entry out of the pair has value then proceed to run through validation
                         if (firstOfGroup[0].value || secondOfGroup[0].value) {
-                            errorMsg = methods.DateUtil::formatDateRange(firstOfGroup, secondOfGroup, rules, i, options);
+                            errorMsg = methods._dateRange(firstOfGroup, secondOfGroup, rules, i, options);
                         }
                         if (errorMsg) required = true;
                         options.showArrow = false;
@@ -557,7 +557,7 @@
 
                         //if one entry out of the pair has value then proceed to run through validation
                         if (firstOfGroup[0].value || secondOfGroup[0].value) {
-                            errorMsg = methods.DateUtil::formatDateTimeRange(firstOfGroup, secondOfGroup, rules, i, options);
+                            errorMsg = methods._dateTimeRange(firstOfGroup, secondOfGroup, rules, i, options);
                         }
                         if (errorMsg) required = true;
                         options.showArrow = false;
@@ -851,8 +851,8 @@
 
             if (vdate > pdate ) {
                 var rule = options.allrules.past;
-                if (rule.alertText2) return rule.alertText + methods.DateUtil::formatDateToString(pdate) + rule.alertText2;
-                return rule.alertText + methods.DateUtil::formatDateToString(pdate);
+                if (rule.alertText2) return rule.alertText + methods._dateToString(pdate) + rule.alertText2;
+                return rule.alertText + methods._dateToString(pdate);
             }
         },
         /**
@@ -873,8 +873,8 @@
 
             if (vdate < pdate ) {
                 var rule = options.allrules.future;
-                if (rule.alertText2) return rule.alertText + methods.DateUtil::formatDateToString(pdate) + rule.alertText2;
-                return rule.alertText + methods.DateUtil::formatDateToString(pdate);
+                if (rule.alertText2) return rule.alertText + methods._dateToString(pdate) + rule.alertText2;
+                return rule.alertText + methods._dateToString(pdate);
             }
         },
         /**
@@ -905,7 +905,7 @@
         },
         //Checks if the start date is before the end date
         //returns true if end is later than start
-        DateUtil::formatDateCompare: function (start, end) {
+        _dateCompare: function (start, end) {
             return (new Date(start.toString()) < new Date(end.toString()));
         },
         /**
@@ -915,7 +915,7 @@
         * @param {jqObject} second field name
         * @return an error string if validation failed
         */
-        DateUtil::formatDateRange: function (first, second, rules, i, options) {
+        _dateRange: function (first, second, rules, i, options) {
             //are not both populated
             if ((!first[0].value && second[0].value) || (first[0].value && !second[0].value)) {
                 return options.allrules[rules[i]].alertText + options.allrules[rules[i]].alertText2;
@@ -927,7 +927,7 @@
             }
 
             //are both dates but range is off
-            if (!methods.DateUtil::formatDateCompare(first[0].value, second[0].value)) {
+            if (!methods._dateCompare(first[0].value, second[0].value)) {
                 return options.allrules[rules[i]].alertText + options.allrules[rules[i]].alertText2;
             }
         },
@@ -940,7 +940,7 @@
         * @param {jqObject} second field name
         * @return an error string if validation failed
         */
-        DateUtil::formatDateTimeRange: function (first, second, rules, i, options) {
+        _dateTimeRange: function (first, second, rules, i, options) {
             //are not both populated
             if ((!first[0].value && second[0].value) || (first[0].value && !second[0].value)) {
                 return options.allrules[rules[i]].alertText + options.allrules[rules[i]].alertText2;
@@ -950,7 +950,7 @@
                 return options.allrules[rules[i]].alertText + options.allrules[rules[i]].alertText2;
             }
             //are both dates but range is off
-            if (!methods.DateUtil::formatDateCompare(first[0].value, second[0].value)) {
+            if (!methods._dateCompare(first[0].value, second[0].value)) {
                 return options.allrules[rules[i]].alertText + options.allrules[rules[i]].alertText2;
             }
         },
@@ -1153,7 +1153,7 @@
          *
          * @param {Object} date
          */
-        DateUtil::formatDateToString: function(date) {
+        _dateToString: function(date) {
 
             return date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
         },
