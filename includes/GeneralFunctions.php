@@ -426,6 +426,15 @@ function GetCrons()
 	return '';
 }
 
+
+function isactiveDMExtra($Extra, $Time) {
+	return $Time - $Extra <= 0;
+}
+
+function DMExtra($Extra, $Time, $true, $false) {
+	return isactiveDMExtra($Extra, $Time) ? $true : $false;
+}
+
 function allowedTo($side)
 {
 	global $USER;
