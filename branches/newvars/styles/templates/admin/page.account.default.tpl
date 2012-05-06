@@ -20,7 +20,7 @@
 		</select></td>
 	</tr>
 	<tr>
-		<td><input type="submit" value="{$LNG.button_send}"></td>
+		<td><input type="submit" value="{$LNG.common_submit}"></td>
 	</tr>
 </table>
 </form>

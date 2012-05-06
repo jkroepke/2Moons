@@ -1,12 +1,14 @@
 <?php
 
-$LNG['Messages']							= 'Nachrichten';
 $LNG['write_message']						= 'Schreibe eine Nachricht';
 
-$LNG['ready']								= 'Fertig';
+$LNG['common_submit']						= 'Absenden';
+$LNG['common_reset']						= 'Zurücksetzten';
 
-$LNG['loading']								= 'Lade ...';
-$LNG['button_send']							= 'Absenden';
+$LNG['common_ready']						= 'Fertig';
+
+$LNG['common_yes']							= 'Ja';
+$LNG['common_no']							= 'Nein';
 
 $LNG['invalid_action']						= 'Ungültige Aktion!';
 
@@ -525,6 +527,7 @@ $LNG['mg_empty_text']						= 'Gebe ein Text ein!';
 $LNG['mg_answer_to']						= 'Antwort an:';
 $LNG['mg_write_mail_to_ops']				= 'Schreibe eine E-Mail an';
 $LNG['mg_page']								= 'Seite';
+$LNG['mg_loading']							= 'Lade ...';
 
 //----------------------------------------------------------------------------//
 //ALLIANCE

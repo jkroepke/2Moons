@@ -798,6 +798,7 @@ INSERT INTO `$PREFIX$config` VALUES
 ('userAllowOneNameChangeInHour', '24'),
 ('userInactiveSinceDays', '7'),
 ('userInactiveLongSinceDays', '21'),
+('userVacationEnable', '1'),
 ('userMinVacationTime', '3'),
 ('userMaxVacationTime', '30');
 

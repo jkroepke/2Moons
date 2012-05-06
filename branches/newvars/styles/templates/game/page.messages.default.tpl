@@ -2,7 +2,7 @@
 {block name="content"}
 <table style="width:760px;table-layout:fixed;">
 	<tr>
-		<th colspan="6">{$LNG.mg_overview}<span id="loading" style="display:none;"> ({$LNG.loading})</span></th>
+		<th colspan="6">{$LNG.mg_overview}<span id="loading" style="display:none;"> ({$LNG.mg_loading})</span></th>
 	</tr>
 		{foreach $CategoryList as $CategoryID => $CategoryRow}
 		{if ($CategoryRow@iteration % 6) === 1}<tr>{/if}
