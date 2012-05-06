@@ -31,7 +31,7 @@
 
 class DateUtil
 {
-	static function localeNamesDateFormat($format, $time, $LNG = NULL)
+	static function formatL18nDate($format, $time, $LNG = NULL)
 	{
 		//Workaound for locale Names.
 
@@ -49,7 +49,7 @@ class DateUtil
 		return $format;
 	}
 
-	static function format($format, $time = null, $toTimeZone = null, $LNG = NULL)
+	static function formatDate($format, $time = null, $toTimeZone = null, $LNG = NULL)
 	{
 		if(!isset($time)) {
 			$time	= TIMESTAMP;
@@ -77,7 +77,7 @@ class DateUtil
 			$time	+= $date->getOffset();
 		}
 		
-		$format	= locale_date_format($format, $time, $LNG);
+		$format	= self::formatL18nDate($format, $time, $LNG);
 		return date($format, $time);
 	}
 	

@@ -183,7 +183,7 @@ class ResourceUpdate
 	{
 		$ressIDs	= array_merge($GLOBALS['VARS']['LIST'][ELEMENT_PLANET_RESOURCE], $GLOBALS['VARS']['LIST'][ELEMENT_ENERGY]);
 		
-		$temp		= combineArrayWithSingleElement($ressIDs, array(
+		$temp		= ArrayUtil::combineArrayWithSingleElement($ressIDs, array(
 			'max'	=> 0,
 			'plus'	=> 0,
 			'minus'	=> 0,

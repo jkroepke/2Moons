@@ -32,7 +32,7 @@
 	var localTime 	= serverTime;
 	var localTS 	= startTime;
 	var Gamename	= document.title;
-	var Ready		= "{$LNG.ready}";
+	var Ready		= "{$LNG.common_ready}";
 	var Skin		= "{$dpath}";
 	var Lang		= "{$lang}";
 	var head_info	= "{$LNG.fcm_info}";

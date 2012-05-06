@@ -8,10 +8,14 @@
         </tr>
 		<tr>
             <td>
-				<div><p>{$LNG.lo_info}</p></div>
-				<div><label style="display:inline-block;width:100px;" for="username">{$LNG.lo_username}:</label><input type="text" readonly value="{$username}" id="username"></div>
-				<div><label style="display:inline-block;width:100px;" for="password">{$LNG.lo_password}:</label><input type="password" name="password" id="password"></div>
-				<div><input type="submit" value="{$LNG.button_send}"></div>
+				<div>
+					<p>{$LNG.lo_info}</p>
+					<p>
+						<label style="display:inline-block;width:100px;" for="username">{$LNG.lo_username}:</label><input type="text" readonly value="{$username}" id="username"><br>
+						<label style="display:inline-block;width:100px;" for="password">{$LNG.lo_password}:</label><input type="password" name="password" id="password">
+					</p>
+					<p><input type="submit" value="{$LNG.common_submit}"></p>
+				</div>
 			</td>
         </tr>
     </table>

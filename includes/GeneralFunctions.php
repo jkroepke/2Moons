@@ -424,27 +424,7 @@ function GetCrons()
 {
 	//Needs rewrited ...
 	return '';
-	
-	global $CONF;
-	$Crons	= '';
-	$Crons .= TIMESTAMP >= ($CONF['stat_last_update'] + (60 * $CONF['stat_update_time'])) ? '<img src="./cronjobs.php?cron=stats" alt="" height="1" width="1">' : '';
-	
-	$Crons .= $CONF['ts_modon'] == 1 && TIMESTAMP >= ($CONF['ts_cron_last'] + 60 * $CONF['ts_cron_interval']) ? '<img src="./cronjobs.php?cron=teamspeak" alt="" height="1" width="1">' : '';
-	
-	$Crons .= TIMESTAMP >= ($CONF['stat_last_db_update'] + 86400) ? '<img src="./cronjobs.php?cron=daily" alt="" height="1" width="1">' : ''; //Daily Cronjob
-	
-	return $Crons;
 }
-
-function r_implode($glue, $pieces)
-{
-	$retVal	= array();
-	foreach($pieces as $r_pieces)
-	{
-		$retVal[] = is_array($r_pieces) ? r_implode($glue, $r_pieces) : $r_pieces;
-	}
-	return implode($glue, $retVal);
-} 
 
 function allowedTo($side)
 {
@@ -452,25 +432,8 @@ function allowedTo($side)
 	return ($USER['authlevel'] == AUTH_ADM || (isset($USER['rights']) && $USER['rights'][$side] == 1));
 }
 
-function isactiveDMExtra($Extra, $Time) {
-	return $Time - $Extra <= 0;
-}
-
-function DMExtra($Extra, $Time, $true, $false) {
-	return isactiveDMExtra($Extra, $Time) ? $true : $false;
-}
-
 function getRandomString() {
 	return md5(uniqid());
-}
-
-function isVacationMode($USER)
-{
-	return ($USER['urlaubs_modus'] == 1) ? true : false;
-}
-
-function combineArrayWithSingleElement($keys, $var) {
-	return array_combine($keys, array_fill(0, count($keys), $var));
 }
 
 function clearGIF() {

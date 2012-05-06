@@ -29,37 +29,26 @@
  * @link http://code.google.com/p/2moons/
  */
 
-class ShowDashboardPage extends AbstractPage{
-		
-	function show()
-	{
-		global $LNG, $USER;
-		
-		$Message	= array();
-
-		if ($USER['authlevel'] >= AUTH_ADM)
+class ArrayUtil
+{
+	function combineArrayWithSingleElement($keys, $var) {
+		return array_combine($keys, array_fill(0, count($keys), $var));
+	}
+	
+	function combineArrayWithKeyElements($keys, $var) {
+		$temp	= array();
+		foreach($keys as $key)
 		{
-			if(file_exists(ROOT_PATH.'update.php'))
-				$Message[]	= sprintf($LNG['ow_file_detected'], 'update.php');
-				
-			if(file_exists(ROOT_PATH.'webinstall.php'))
-				$Message[]	= sprintf($LNG['ow_file_detected'], 'webinstall.php');
-				
-			if(file_exists(ROOT_PATH.'includes/ENABLE_INSTALL_TOOL'))
-				$Message[]	= sprintf($LNG['ow_file_detected'], 'includes/ENABLE_INSTALL_TOOL');
-						
-			if(!is_writable(ROOT_PATH.'cache'))
-				$Message[]	= sprintf($LNG['ow_dir_not_writable'], 'cache');
-				
-			if(!is_writable(ROOT_PATH.'includes'))
-				$Message[]	= sprintf($LNG['ow_dir_not_writable'], 'includes');
+			if(isset($var[$key]))
+			{
+				$temp[$key]	= $var[$key];
+			}
+			else
+			{
+				$temp[$key]	= $key;
+			}
 		}
 		
-		$this->assign(array(
-			'Messages'			=> $Message,
-			'date'				=> date('m\_Y', TIMESTAMP),
-		));
-		
-		$this->render('page.dashboard.default.tpl');
+		return $temp;
 	}
 }

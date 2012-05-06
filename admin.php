@@ -59,7 +59,7 @@ if (!isset($_SESSION['adminLogin']) || $_SESSION['adminLogin'] != 1)
 }
 else
 {
-	$page 	= HTTP::_GP('page', 'dashBoard');
+	$page 	= HTTP::_GP('page', 'dashboard');
 }
 
 $mode 		= HTTP::_GP('mode', 'show');

@@ -88,7 +88,7 @@ class ShowResourcesPage extends AbstractPage
 			}
 		}
 		
-		$temp		= combineArrayWithSingleElement($ressIDs, array(
+		$temp		= ArrayUtil::combineArrayWithSingleElement($ressIDs, array(
 			'plus'	=> 0,
 			'minus'	=> 0,
 		));
