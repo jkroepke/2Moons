@@ -1,4 +1,3 @@
-{extends file="index.tpl"}
 {block name="title" prepend}{$LNG.menu_index}{/block}
 {block name="content"}
 <section>

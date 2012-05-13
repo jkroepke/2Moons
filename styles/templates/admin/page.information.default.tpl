@@ -1,4 +1,4 @@
-{block name="title" prepend}{$LNG.mu_game_info}{/block}
+{block name="title" prepend}{$LNG.mu_support}{/block}
 {block name="content"}
 <table style="width:760px">
     <tr>

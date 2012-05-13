@@ -261,6 +261,9 @@ textarea.tinymce{
 	vertical-align:top
 }
 
+.middle{
+	vertical-align:middle
+}
 
 .tooltip, .tooltip_sticky {
 	cursor: pointer;

@@ -452,7 +452,7 @@ var ajaxChat = {
 				+'height="1" width="1">'
 				+'<param name="flashvars" value="bridgeName=ajaxChat"/>'
 				+'<param name="src" value="'+this.dirs['flash']+'FABridge.swf"/>'
-				+'<embed name="ajaxChatFlashInterface" pluginspage="'
+				+'<embed name="ajaxChatFlashInterface" type="application/x-shockwave-flash" pluginspage="'
 				+ window.location.protocol
 				+'//www.macromedia.com/go/getflashplayer" '
 				+'src="'+this.dirs['flash']+'FABridge.swf" height="1" width="1" flashvars="bridgeName=ajaxChat"/>'
@@ -1111,7 +1111,10 @@ var ajaxChat = {
 						+ '</a></li>';
 			}
 		} else {
-			menu 	= '<li><a href="javascript:ajaxChat.sendMessageWrapper(\'/who\');">'
+			menu 	= '<li><a href="javascript:ajaxChat.sendMessageWrapper(\'/quit\');">'
+					+ this.lang['userMenuLogout']
+					+ '</a></li>'
+					+ '<li><a href="javascript:ajaxChat.sendMessageWrapper(\'/who\');">'
 					+ this.lang['userMenuWho']
 					+ '</a></li>'
 					+ '<li><a href="javascript:ajaxChat.sendMessageWrapper(\'/ignore\');">'

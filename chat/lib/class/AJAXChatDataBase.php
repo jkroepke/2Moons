@@ -51,7 +51,7 @@ class AJAXChatDataBase {
 	}
 	
 	// Method to return the connection identifier:
-	function getConnectionID() {
+	function &getConnectionID() {
 		return $this->_db->getConnectionID();
 	}
 	
@@ -78,3 +78,4 @@ class AJAXChatDataBase {
 	}
 
 }
+?>

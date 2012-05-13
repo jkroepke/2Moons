@@ -37,8 +37,7 @@ class ShowConfigPage extends AbstractPage
 		global $LNG;
 		parent::__construct();
 		
-		$this->configArray = array(
-			'teamspeak'	=> 'checkTeamSpeak',
+		$this->validates = array(
 			'teamspeak'	=> 'checkTeamSpeak',
 			'mail'		=> 'checkSiteMail',
 			'captcha'	=> 'checkSiteReCaptcha',
@@ -326,8 +325,8 @@ class ShowConfigPage extends AbstractPage
 				'referralEnable' => array(
 					'type' => 'bool',
 				),
-				'referralBonus' => array(
-					'type' => 'bool',
+				'referralBonus'  => array(
+					'type' => 'int',
 				),
 				'referralMinimumPoints' => array(
 					'type' => 'int',
@@ -379,7 +378,7 @@ class ShowConfigPage extends AbstractPage
 				),
 				'mailMethod' => array(
 					'type' => 'array',
-					'selection' => ArrayUtil::combineArrayWithKeyElements(array('mail', 'smtp'), $LNG['se_mailSmtpSecure_values']),
+					'selection' => ArrayUtil::combineArrayWithKeyElements(array('mail', 'smtp'), $LNG['se_values_mailMethod']),
 				),
 				'mailSmtpAdress' => array(
 					'type' => 'string',
@@ -396,7 +395,7 @@ class ShowConfigPage extends AbstractPage
 				),
 				'mailSmtpSecure' => array(
 					'type' => 'array',
-					'selection' => ArrayUtil::combineArrayWithKeyElements(array('none', 'tls', 'ssl'), $LNG['se_mailSmtpSecure_values']),
+					'selection' => ArrayUtil::combineArrayWithKeyElements(array('none', 'tls', 'ssl'), $LNG['se_values_mailSmtpSecure']),
 				),
 				'mailSenderMail' => array(
 					'type' => 'string',
@@ -458,9 +457,24 @@ class ShowConfigPage extends AbstractPage
 				'analyticsUID' => array(
 					'type' => 'string',
 				),
+			),
+			'disclamer' => array(
+				'disclamerAddress' => array(
+					'type' => 'textarea',
+				),
+				'disclamerPhone' => array(
+					'type' => 'string',
+				),
+				'disclamerMail' => array(
+					'type' => 'string',
+				),
+				'disclamerNotice' => array(
+					'type' => 'textarea',
+				),
 			)
 		);
 	}
+	
 	function show()
 	{
 		global $LNG, $uniConfig, $gameConfig;

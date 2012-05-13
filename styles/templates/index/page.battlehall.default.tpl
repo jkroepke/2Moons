@@ -1,4 +1,3 @@
-{extends file="index.tpl"}
 {block name="title" prepend}{$LNG.menu_battlehall}{/block}
 {block name="content"}
 <select onchange="changeUni($(this).val());">{html_options options=$AvailableUnis selected=$UNI}</select><br>

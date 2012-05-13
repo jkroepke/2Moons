@@ -123,3 +123,4 @@ $LNG['disclamer_info']				= 'Angaben gemäß § 5 TMG:';
 $LNG['disclamer_address']			= 'Adresse';
 $LNG['disclamer_tel']				= 'Telefon Nr.';
 $LNG['disclamer_email']				= 'E-Mail Adresse';
+$LNG['disclamer_notice']			= 'Weitere Informationen';

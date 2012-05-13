@@ -1,34 +1,10 @@
+
+
 table{
-	margin: auto;
-}
-
-.yes{
-	color:lime;
-}
-.ok{
-	color:yellow;
-}
-.no{
-	color:red;
-}
-
-#content{
-	padding-top:30px !important;
-}
-
-#content > h1{
-	text-align:center;
-}
-
-#menu{
-	padding: 0 !important;
-}
-
-#content{
 	margin:0 auto;
-	width:80%;
-	padding:0;
 }
+
+/** Header **/
 
 #header {
 	height:auto;
@@ -40,6 +16,81 @@ table{
 	font-variant:small-caps;
 	text-align:center;
 }
+
+/** Menu **/
+
+#menu{
+	padding: 0 !important;
+}
+
+/** Content **/
+
+#content{
+	margin:0 auto;
+	width:80%;
+	padding:30px 0 0 0;
+}
+
+#content > h1{
+	text-align:center;
+}
+
+/** Config */
+.configTable {
+	background:transparent;
+	width:100%;
+	table-layout:fixed;
+}
+
+.configRow > td {
+	border:0 none;
+	background:transparent;
+	padding:5px 2px;
+	width:30%;
+}
+
+.configRow > td.textarea {
+	width:100%;
+}
+
+.configRow > td:first-child {
+	text-align:left;
+	width:70%;
+}
+
+.configRow input[type="text"] {
+	min-width:150px
+}
+
+.configRow textarea {
+	width: 735px;
+	max-height:250px;
+	resize: none;
+}
+
+
+
+
+
+
+
+
+
+/* OLD */
+
+
+
+
+.yes{
+	color:lime;
+}
+.ok{
+	color:yellow;
+}
+.no{
+	color:red;
+}
+
 
 select#universe {
 	border: 1px #FFF solid;
