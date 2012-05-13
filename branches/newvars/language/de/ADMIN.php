@@ -40,6 +40,9 @@ $LNG['lo_password']								= 'Passwort';
 $LNG['lo_info']									= 'Gebe dein Passwort ein, um dich zu vertifizeren!';
 $LNG['adm_bad_password']						= 'Falsches Passwort!';
 
+// Support Informationen
+$LNG['info_information']	= 'Informations-Vorlage zum Posten eines Bugs im <a href="%s" target="tracker">2Moons Board</a><br>Ohne diese Vorlage gibt es keinen Support!';
+
 
 // Global Message
 $LNG['ma_message_sended']						= 'Ihre Nachricht wurde versendet!';
@@ -123,12 +126,20 @@ $LNG['mu_config_captcha']						= 'Captcha';
 $LNG['mu_config_chat']							= 'Chat';
 $LNG['mu_config_facebook']						= 'Facebook';
 $LNG['mu_config_analytics']						= 'Google Analytics';
+$LNG['mu_config_disclamer']						= 'Impressum';
 $LNG['mu_config_head_universe']					= 'Universum-Einstellungen';
+$LNG['mu_config_universe']						= 'Allgemein';
+$LNG['mu_config_economy']						= 'Wirtschaft';
+$LNG['mu_config_planet']						= 'Planeten';
+$LNG['mu_config_fleet']							= 'Flotten';
+$LNG['mu_config_trader']						= 'Händler';
 $LNG['mu_config_highscore']						= 'Statistik';
+$LNG['mu_player_mange']							= 'Spieler';
+$LNG['mu_account']								= 'Accountverwaltung';
+$LNG['mu_extras']								= 'Extras';
+$LNG['mu_vertify']								= 'Dateivalidation';
 
-
-/* array
-  0 => string  (length=6) */
+// Game File Vaildation
 
 $LNG['vt_error']								= 'HashFile ist nicht verfügbar! - Update durchführen!';
 $LNG['vt_fail']									= 'Geänderte Dateien';
@@ -189,37 +200,11 @@ $LNG['re_reset_excess']							= 'Options restarted successfully';
 
 
 // Support
-
 $LNG['sp_admin_answer']							= '%s (Admin) schreib am %s<br><br><font color="red">%s</font>';
 $LNG['sp_answer_message_title']					= 'Support Ticket #%d';
 $LNG['sp_answer_message']						= 'Es wurde auf Ihr Ticket #%d eine Antwort geschrieben!';
 $LNG['sp_admin_closed']							= '%s (Admin) hat das Ticket am %s geschlossen!';
 $LNG['sp_admin_open']							= '%s (Admin) hat das Ticket am %s geöffnet!';
-
-
-//----------------------------------------------------------------------------//
-//TeamSpeakSettingPage.php
-$LNG['ts_settings']								= 'Teamspeak Einstellungen';
-$LNG['ts_active']								= 'Teamspeak-Mod aktivieren?';
-$LNG['ts_version']								= 'Server-Version:';
-$LNG['ts_udpport']								= 'TCP Port';
-$LNG['ts_tcpport']								= 'UDP Port';
-$LNG['ts_serverip']								= 'Server-IP';
-$LNG['ts_timeout']								= 'Timeout'; 
-$LNG['ts_server_query']							= 'ServerQuery Port'; 
-$LNG['ts_login']								= 'ServerQuery Login'; 
-$LNG['ts_pass']									= 'ServerQuery Password'; 
-$LNG['ts_cron']									= 'Update Rate'; 
-
-//----------------------------------------------------------------------------//
-//FacebookSettingPage.php
-$LNG['fb_settings']								= 'Facebook Connect Einstellungen';
-$LNG['fb_active']								= 'Facebook Connect aktivieren?';
-$LNG['fb_api_key']								= 'Facebook App ID';
-$LNG['fb_secrectkey']							= 'Facebook Geheim Key';
-$LNG['fb_info']									= 'Mit Facebook Connect können User, die bei Facebook angemeldet sind, mit meinem Klick sich einloggen bzw. sich registrieren.<br><br>Um diese Funktion zu nutzen, musst du selbst bei Faceebok registriert sein. Zudem musst du eine Application erstellen. Dies kannst du auf <a href="http://www.facebook.com/developers/">http://www.facebook.com/developers/</a> erledigen. Als Connect URL musst du den URL zum Game eingeben. Dann trägst du hier die Keys ein und dein Game sollte Facebook bereit sein.<br><br><font color="red">Für FB Connect muss der Mail Versand verfügbar sein! (SMTP Settings)</font>';
-$LNG['fb_curl_yes']								= '<span style="color:green">Auf dem Server ist cURL installiert!</span>';
-$LNG['fb_curl_no']								= '<span style="color:red">Auf dem Server ist cURL nicht installiert! Facebook benötigt cURL Extension, damit es funktioniert!</span>';
 
 //----------------------------------------------------------------------------//
 //GameModule.php
@@ -429,9 +414,8 @@ $LNG['se_info_referralMinimumPoints']			= 'Die geworbenen Spieler müssen mindes
 $LNG['se_label_referralLimit']					= 'Refferal-Limit';
 $LNG['se_info_referralLimit']					= 'Die Anzahl an Boni durch geworbene Spieler kann hier begrenzt werden.';
 
-$LNG['se_head_highscore']						= 'Statistik-Einstellungen';
+$LNG['se_head_highscore']						= 'Highscore Konfiguration';
 $LNG['se_info_highscore']						= 'Hier kannst du sämtliche Einstellungen für Statistiken einstellen, viele Rohstoffe Punkte sind, ob Administatoren angezeigt werden sollen und vieles mehr.';
-
 $LNG['se_label_highscoreAdminEnable']			= 'Verberge Administatoren';
 $LNG['se_info_highscoreAdminEnable']			= 'Falls du selbst dir Einheiten hinzufügen möchtest, kannst du einstellen, ob alle Administatoren 0 Punkte oder ausgeblendet werden sollen. Alternativ können Administatoren auch wie normale Spieler behandelt werden, was nicht zu empfehlen ist.';
 $LNG['se_values_highscoreAdminEnable'][0]		= 'Zeige Administratoren';
@@ -444,9 +428,99 @@ $LNG['se_info_highscoreBannedEnable']			= 'Zeige gespeerte Spieler mit 0 Punkten
 $LNG['se_label_highscorePointsPerResource']		= 'verbaute Resourcen pro Punkt';
 $LNG['se_info_highscorePointsPerResource']		= 'Pro X verbaute Ressorucen gibt es einen Punkt. Deuteriumverbrauch erzeugen keine Punkte.';
 
-$LNG['se_mailSmtpSecure_values']['none']		= 'Keine';
-$LNG['se_mailSmtpSecure_values']['ssl']			= 'SSL 3.0';
-$LNG['se_mailSmtpSecure_values']['tls']			= 'TLS 1.0';
+$LNG['se_head_teamspeak']						= 'TeamspeakViewer Konfiguration';
+$LNG['se_info_teamspeak']						= 'Falls du einen Teamspeak-Server hast, kannst dir die aktuellen Daten wie Anzahl der Channel, Anzahl der verbundenen Clients auf der Startseite anzeigen lassen.<br><br><b>Vorraussetztung: Teamspeak 3 + ServerQuery Account';
+$LNG['se_label_teamspeakEnable']				= 'Aktiviere TeamspeakViewer';
+$LNG['se_info_teamspeakEnable']					= '';
+$LNG['se_label_teamspeakServerAdress']			= 'Server IP oder Host';
+$LNG['se_info_teamspeakServerAdress']			= 'Die Adresse des Teamspeak Server wie 111.222.333.444 oder ts.example.com';
+$LNG['se_label_teamspeakUDPPort']				= 'Server Port (UDP)';
+$LNG['se_info_teamspeakUDPPort']				= 'Der Port ist die Zahl hinter dem Doppelpunkt einer Adresse. Wenn nicht anders angegeben, ist der Port in der Regel 9987.';
+$LNG['se_label_teamspeakServerQueryPort']		= 'ServerQuery Port (TCP)';
+$LNG['se_info_teamspeakServerQueryPort']		= 'Wenn du nicht den Port weißt, frage bei deinem Admin, bzw. Anbieter nach. In der Regler ist der Port 10011.';
+$LNG['se_label_teamspeakServerQueryUser']		= 'ServerQuery Benutzername';
+$LNG['se_info_teamspeakServerQueryUser']		= 'Wenn du die Logindaten nicht weißt, frage bei deinem Admin, bzw. Anbieter nach. Falls du selbst Administrator bist, kann du dir im Teamspeak-Client unter Extras > ServerQuery Login einen entsprechenden Account erstellen. Ein ServerQuery Admin Account wird hier nicht benötigt.';
+$LNG['se_label_teamspeakServerQueryPassword']	= 'ServerQuery Passwort';
+$LNG['se_info_teamspeakServerQueryPassword']	= 'Wenn du die Logindaten nicht weißt, frage bei deinem Admin, bzw. Anbieter nach.';
+
+$LNG['se_head_mail']							= 'Mail-Konfiguration';
+$LNG['se_info_mail']							= '2Moons kann auf vielen verschiedenen Wegen E-Mail versenden.<br>Benötigt wird der Mail-Versand, wenn angemeldete Spieler sich verifizieren sollen.';
+$LNG['se_label_mailEnable']						= 'Aktiviere Mailfunktionen';
+$LNG['se_info_mailEnable']						= '';
+$LNG['se_label_mailMethod']						= 'Mailversand Methode';
+$LNG['se_info_mailMethod']						= 'Standardmäßig wird die interne mail()-Funktion von PHP genutzt. Allerding ist warscheinlichkeit hoch, dass diese Mails nicht ankommen oder in SPAM Ordner des Empfänger landen. Am besten nutzt man einen eigenen SMTP-Server. Solltest du keinen eigenen Server besitzen, kannst du auch einen externen von z.B.: Google Mail nutzten. Einen Liste mit Einstellungen von externen Anbietern findest du <a href="http://www.patshaping.de/hilfen_ta/pop3_smtp.htm" target="_blank">hier</a>'; // Translators maybe add a own link in own language or remove it.
+$LNG['se_values_mailMethod']['mail']			= 'mail()-Funktion';
+$LNG['se_values_mailMethod']['smtp']			= 'SMTP-Server';
+$LNG['se_label_mailSmtpAdress']					= 'SMTP-Adresse';
+$LNG['se_info_mailSmtpAdress']					= 'Adresse des SMTP-Server. In der Regel 127.0.0.1 oder mail.deineadresse.de.<br>Diese Einstellung brauchst du ausfüllen, wenn du "SMTP-Server" bei "Mailversand Methode" ausgewählt hast!';
+$LNG['se_label_mailSmtpPort']					= 'SMTP-Port';
+$LNG['se_info_mailSmtpPort']					= 'Port des SMTP-Server. Standardmäßig 25.<br>Diese Einstellung brauchst du ausfüllen, wenn du "SMTP-Server" bei "Mailversand Methode" ausgewählt hast!';
+$LNG['se_label_mailSmtpUser']					= 'SMTP-Username';
+$LNG['se_info_mailSmtpUser']					= 'Benutzername für den Login des SMTP-Server.<br>Diese Einstellung brauchst du ausfüllen, wenn du "SMTP-Server" bei "Mailversand Methode" ausgewählt hast!';
+$LNG['se_label_mailSmtpPass']					= 'SMTP-Passwort';
+$LNG['se_info_mailSmtpPass']					= 'Passwort für den Login des SMTP-Server.<br>Diese Einstellung brauchst du ausfüllen, wenn du "SMTP-Server" bei "Mailversand Methode" ausgewählt hast!';
+$LNG['se_label_mailSmtpSecure']					= 'SMTP-Verschlüsselung';
+$LNG['se_info_mailSmtpSecure']					= 'In der Regel wird keine Verschlüsselung verwendet.<br>Diese Einstellung brauchst du ausfüllen, wenn du "SMTP-Server" bei "Mailversand Methode" ausgewählt hast!';
+$LNG['se_values_mailSmtpSecure']['none']		= 'Keine';
+$LNG['se_values_mailSmtpSecure']['ssl']			= 'SSL 3.0';
+$LNG['se_values_mailSmtpSecure']['tls']			= 'TLS 1.0';
+$LNG['se_label_mailSenderMail']					= 'Absenderadresse';
+$LNG['se_info_mailSenderMail']					= 'E-Mail Adressse, im Von Feld bei versendeten Mails stehen soll.<br>Zur Info: Hier kannst du einen belibige Mail-Adresse. Die Mail wird nicht von diese Mail-Adresse versendet, wird aber beim Empfänger so angezeigt.';
+
+$LNG['se_head_captcha']							= 'reCAPTCHA-Konfiguration';
+$LNG['se_info_captcha']							= '2Moons verwendet für die Anzeige von captchas den kostenlosen Diest von reCAPTCHA. Alles, was du benötigt, ist einen Public-Key, Private-Key und ein Google Konto. Weitere Informationen erhälst du <a href="http://www.google.com/recaptcha" target="_blank">hier</a>.';
+$LNG['se_label_recaptchaEnable']				= 'Aktiviere reCAPTCHA-Konfiguration';
+$LNG['se_info_recaptchaEnable']					= '';
+$LNG['se_label_recaptchaPublicKey']				= 'reCAPTCHA-Publickey';
+$LNG['se_info_recaptchaPublicKey']				= '';
+$LNG['se_label_recaptchaPrivateKey']			= 'reCAPTCHA-Privatekey';
+$LNG['se_info_recaptchaPrivateKey']				= '';
+
+$LNG['se_head_chat']							= 'Chat Einstellungen';
+$LNG['se_info_chat']							= '2Moons nutzt den Chat von <a href="https://blueimp.net/ajax/" target="_blank">blueimp.net</a>. Der Chat kann auf dieser Seite konfiguriert werden.';
+$LNG['se_label_chatEnable']						= 'Chat aktivieren';
+$LNG['se_info_chatEnable']						= '';
+$LNG['se_label_chatAllowOwnChannel']			= 'Erlaube Userchannel';
+$LNG['se_info_chatAllowOwnChannel']				= 'Erlaubt Spielern, im Chat private Channel sich anzulegen.';
+$LNG['se_label_chatAllowPrivateMessage']		= 'Erlaube Private Nachrichten';
+$LNG['se_info_chatAllowPrivateMessage']			= 'Erlaubt Spielern private Nachrichten im Chat zu schreiben. Betrifft nicht die PN-Funktion im 2Moons selbst!';
+$LNG['se_label_chatAllowDeleteOwnMessage']		= 'Erlaube löschen der eigenden Nachrichten';
+$LNG['se_info_chatAllowDeleteOwnMessage']		= 'Erlaubt Spielern, ihr eigenen Nachrichten zu löschen!';
+$LNG['se_label_chatEnableLog']					= 'Aktiviere Chat Log';
+$LNG['se_info_chatEnableLog']					= 'Speichert alle Chatnachrichten, die später von den Admins nochmal durchgeschaut werden können.';
+$LNG['se_label_chatAllowNameChange']			= 'Erlaube Umbenennen';
+$LNG['se_info_chatAllowNameChange']				= 'Erlaubt Spielern, sich im Chat umzunennen. Der Accountname in 2Moons wird nicht umbenannt.';
+$LNG['se_label_chatBotName']					= 'Bot Name';
+$LNG['se_info_chatBotName']						= 'Der Name des Chatbot. Der Bot selbst schreibt Statusnachrichten in der Chat, wenn z.B.: Ein Spieler den Chat betreten hat.';
+$LNG['se_label_chatChannelName']				= 'Channelname';
+$LNG['se_info_chatChannelName']					= 'Der Name des Standardchannel, wo neue Spieler automatisch hineinkommen, wenn sie den Chat betreten.';
+
+$LNG['se_head_facebook']						= 'Facebook Einstellungen';
+$LNG['se_info_facebook']						= 'Die "Connect with Facebook" Einstellungen können auf dieser Seite konfiguriert werden. Mit "Connect with Facebook" können Nutzer, die bei Facebook registriert sind, ihren Facebook Account mit dem 2Moons Account verbinden und einloggen. Um diese Funktion zu aktivieren, muss die curl Extension installiert sein. Außerdem wird eine Facebook Anwendungen benötigt, die man sich unter der Adresse <a href="https://developers.facebook.com/apps" target="_blank">https://developers.facebook.com/apps</a> erstellen kann. Weiter Informationen findest du <a href="https://developers.facebook.com/" target="_blank">hier</a>.';
+$LNG['se_label_facebookEnable']					= 'Aktiviere "Connect with Facebook"';
+$LNG['se_info_facebookEnable']					= '';
+$LNG['se_label_facebookAPIKey']					= 'App-ID/API-Schlüssel';
+$LNG['se_info_facebookAPIKey']					= 'Zu finden auf der Anwendungens-Übersicht unter Zusammenfassung.';
+$LNG['se_label_facebookSecureKey']				= 'Anwendungs-Geheimcode';
+$LNG['se_info_facebookSecureKey']				= 'Zu finden auf der Anwendungens-Übersicht unter Zusammenfassung.';
+
+$LNG['se_head_analytics']						= 'Google Analytics Einstellungen';
+$LNG['se_info_analytics']						= 'Google Analytics erstellt eine umfassende Statistik deiner Webseite. Weitere Informationen findest du auf <a href="http://www.google.com/intl/de/analytics/" target="_blank">http://www.google.com/intl/de/analytics/</a>.';
+$LNG['se_label_analyticsEnable']				= 'Aktiviere Google Analytics';
+$LNG['se_info_analyticsEnable']					= '';
+$LNG['se_label_analyticsUID']					= 'Tracker UID:';
+$LNG['se_info_analyticsUID']					= 'Die UID deine Profil im Format: UA-XXXXXXXX-X';
+
+$LNG['se_head_disclamer']						= 'Impressum';
+$LNG['se_info_disclamer']						= 'Auf dieser Seiter kannst du dein Impressum ausfüllen. Beachte, dass du in Deutschland Impressumspflicht besteht.<br>Außerdem muss du im Impressum darauf inweisen, dass Cookie gespeichert werden und etv. Daten gesamment werden. Eine gute Vorlange kannst du <a href="http://www.e-recht24.de/muster-disclaimer.htm">hier</a>.';
+$LNG['se_label_disclamerAddress']				= 'Name und Anschrift';
+$LNG['se_info_disclamerAddress']				= 'Geben Sie hier den Namen und die komplette Anschrift des Inhabers der Seite ein. Bei juristischen Personen muss die Rechtsform mit angegeben werden (z.B. »GmbH«).';
+$LNG['se_label_disclamerPhone']					= 'Telefonnummer';
+$LNG['se_info_disclamerPhone']					= 'Die Angabe der Telefon-Nummer im Impressum ist gesetzlich vorgeschrieben.';
+$LNG['se_label_disclamerMail']					= 'E-Mail-Adresse';
+$LNG['se_info_disclamerMail']					= 'Die Angabe der E-Mail-Adresse im Impressum ist gesetzlich vorgeschrieben.';
+$LNG['se_label_disclamerNotice']				= 'Weitere Informationen';
+$LNG['se_info_disclamerNotice']					= 'Optional können Sie hier weitere Informationen Ihrem Impressum hinzufügen.';
 
 $LNG['se_unit_day']								= 'Tagen';
 $LNG['se_unit_hour']							= 'Stunden';

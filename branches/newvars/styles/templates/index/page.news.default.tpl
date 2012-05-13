@@ -1,4 +1,3 @@
-{extends file="index.tpl"}
 {block name="title" prepend}{$LNG.menu_news}{/block}
 {block name="content"}
 {foreach $newsList as $newsRow}

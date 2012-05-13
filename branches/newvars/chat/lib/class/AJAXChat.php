@@ -232,8 +232,16 @@ class AJAXChat {
 			$time += $this->getConfig('timeZoneOffset');
 		}
 		// Check the opening hours:
-		if(($this->getConfig('openingHour') > date('G', $time)) || ($this->getConfig('closingHour') <= date('G', $time)))
-			return false;
+		if($this->getConfig('openingHour') < $this->getConfig('closingHour'))
+		{
+			if(($this->getConfig('openingHour') > date('G', $time)) || ($this->getConfig('closingHour') <= date('G', $time)))
+				return false;
+		}
+		else
+		{
+			if(($this->getConfig('openingHour') > date('G', $time)) && ($this->getConfig('closingHour') <= date('G', $time)))
+				return false;
+		}
 		// Check the opening weekdays:
 		if(!in_array(date('w', $time), $this->getConfig('openingWeekDays')))
 			return false;
@@ -2357,7 +2365,6 @@ class AJAXChat {
 		if($this->_requestVars && isset($this->_requestVars[$key])) {
 			return $this->_requestVars[$key];
 		}
-		
 		return null;
 	}
 	
@@ -3295,7 +3302,7 @@ class AJAXChat {
 	// Override:
 	// Store the channels the current user has access to
 	// Make sure channel names don't contain any whitespace
-	function getChannels() {
+	function &getChannels() {
 		if($this->_channels === null) {
 			$this->_channels = $this->getAllChannels();
 		}
@@ -3305,7 +3312,7 @@ class AJAXChat {
 	// Override:
 	// Store all existing channels
 	// Make sure channel names don't contain any whitespace
-	function getAllChannels() {
+	function &getAllChannels() {
 		if($this->_allChannels === null) {
 			$this->_allChannels = array();
 			

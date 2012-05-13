@@ -793,6 +793,7 @@ INSERT INTO `$PREFIX$config` VALUES
 ('disclamerAddress', ''),
 ('disclamerPhone', ''),
 ('disclamerMail', ''),
+('disclamerNotice', ''),
 ('timezone', ''),
 ('enableSimulatorLink', '1'),
 ('userAllowOneNameChangeInHour', '24'),

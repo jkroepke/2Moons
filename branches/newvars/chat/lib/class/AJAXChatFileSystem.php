@@ -10,7 +10,7 @@
 // Class to provide methods for file system access:
 class AJAXChatFileSystem {
 
-	static function getFileContents($file) {
+	function getFileContents($file) {
 		if(function_exists('file_get_contents')) {
 			return file_get_contents($file);
 		} else {
@@ -19,3 +19,4 @@ class AJAXChatFileSystem {
 	}
 
 }
+?>

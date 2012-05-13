@@ -1,4 +1,3 @@
-{extends file="index.tpl"}
 {block name="title" prepend}{$LNG.menu_banlist}{/block}
 {block name="content"}
 <select onchange="changeUni($(this).val())">

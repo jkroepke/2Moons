@@ -47,6 +47,7 @@ class ShowDisclamerPage extends AbstractPage
 			'disclamerAddress' => $gameConfig['disclamerAddress'],
 			'disclamerPhone' => $gameConfig['disclamerPhone'],
 			'disclamerMail' => $gameConfig['disclamerMail'],
+			'disclamerNotice' => $gameConfig['disclamerNotice'],
 		));
 		$this->render('page.disclamer.default.tpl');
 	}

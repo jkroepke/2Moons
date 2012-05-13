@@ -99,3 +99,4 @@ class AJAXChatLanguage {
 	}
 	
 }
+?>
