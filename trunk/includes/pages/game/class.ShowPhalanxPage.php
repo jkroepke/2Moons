@@ -58,17 +58,18 @@ class ShowPhalanxPage extends AbstractPage
 	
 	function show()
 	{
-		global $USER, $PLANET, $LNG, $UNI;
-
+		global $USER, $PLANET, $LNG, $UNI, $resource;
+		require_once(ROOT_PATH.'includes/classes/class.FlyingFleetsTable.php');
+		
 		$FlyingFleetsTable 	= new FlyingFleetsTable();
-
+		$this->initTemplate();
 		$this->setWindow('popup');
-
 		$this->tplObj->loadscript('phalanx.js');
 		
 		$PhRange 		 	= self::GetPhalanxRange($PLANET[$resource[43]]);
-		$Galaxy 			= HTTP::_GP('id', 0);
-		
+		$Galaxy 			= HTTP::_GP('galaxy', 0);
+		$System 			= HTTP::_GP('system', 0);
+		$Planet 			= HTTP::_GP('planet', 0);
 		if($Galaxy != $PLANET['galaxy'] || $System > ($PLANET['system'] + $PhRange) || $System < max(1, $PLANET['system'] - $PhRange))
 		{
 			$this->printMessage($LNG['px_out_of_range']);
@@ -100,7 +101,7 @@ class ShowPhalanxPage extends AbstractPage
 			'system'  		=> $System,
 			'planet'   		=> $Planet,
 			'name'    		=> $TargetInfo['name'],
-			'fleetTables'	=> $fleetTable,
+			'fleetTable'	=> $fleetTable,
 		));
 		
 		$this->display('page.phalanx.default.tpl');			

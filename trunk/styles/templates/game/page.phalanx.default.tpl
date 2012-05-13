@@ -1,4 +1,5 @@
-{include file="overall_header.tpl"}
+{block name="title" prepend}{$LNG.lm_playercard}{/block}
+{block name="content"}
 <table width="90%">
 <tr>
     <th colspan="2">{$LNG.px_scan_position} [{$galaxy}:{$system}:{$planet}] ({$name})</th>
@@ -11,7 +12,6 @@
 		<td id="fleettime_{$index}" class="fleets" data-fleet-end-time="{$fleet.returntime}" data-fleet-time="{$fleet.resttime}">-</td>
 		<td colspan="2">{$fleet.text}</td>
 	</tr>
-	{/foreach}
 	{foreachelse}
 		<tr><td colspan="2">{$LNG.px_no_fleet}</td></tr>
 	{/foreach}
