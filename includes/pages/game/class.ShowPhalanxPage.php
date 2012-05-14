@@ -75,7 +75,7 @@ class ShowPhalanxPage extends AbstractPage
 			$this->printMessage($LNG['px_out_of_range']);
 		}
 		
-		if ($PLANET[$resource[903]] == PHALANX_DEUTERIUM)
+		if ($PLANET[$resource[903]] < PHALANX_DEUTERIUM)
 		{
 			$this->printMessage($LNG['px_no_deuterium']);
 		}
