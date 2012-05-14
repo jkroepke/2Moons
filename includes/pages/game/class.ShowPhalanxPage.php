@@ -66,11 +66,11 @@ class ShowPhalanxPage extends AbstractPage
 		$this->setWindow('popup');
 		$this->tplObj->loadscript('phalanx.js');
 		
-		$PhRange 		 	= self::GetPhalanxRange($PLANET[$resource[43]]);
 		$Galaxy 			= HTTP::_GP('galaxy', 0);
 		$System 			= HTTP::_GP('system', 0);
 		$Planet 			= HTTP::_GP('planet', 0);
-		if($Galaxy != $PLANET['galaxy'] || $System > ($PLANET['system'] + $PhRange) || $System < max(1, $PLANET['system'] - $PhRange))
+		
+		if($this->allowPhalanx($Galaxy, $System))
 		{
 			$this->printMessage($LNG['px_out_of_range']);
 		}
