@@ -70,7 +70,7 @@ class ShowPhalanxPage extends AbstractPage
 		$System 			= HTTP::_GP('system', 0);
 		$Planet 			= HTTP::_GP('planet', 0);
 		
-		if($this->allowPhalanx($Galaxy, $System))
+		if(!$this->allowPhalanx($Galaxy, $System))
 		{
 			$this->printMessage($LNG['px_out_of_range']);
 		}
