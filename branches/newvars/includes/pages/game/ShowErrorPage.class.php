@@ -67,7 +67,7 @@ class ShowErrorPage extends AbstractPage
 		
 		$pageObj	= new self;
 		$pageObj->tplObj->assign(array(	
-			'closeReason'	=> $uniConfig['enableReason'],
+			'closeReason'	=> $uniConfig['disableReason'],
 		));
 		
 		$pageObj->display('error.closed.tpl');

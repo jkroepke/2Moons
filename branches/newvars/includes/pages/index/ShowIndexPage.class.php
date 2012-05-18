@@ -43,8 +43,8 @@ class ShowIndexPage extends AbstractPage
 			
 		foreach($uniAllConfig as $uniID => $config)
 		{
-			$AvailableUnis[$uniID]	= $config['uniName'].($config['enable'] == 0 ? $LNG['uni_closed'] : '');
-			$RegClosed[$uniID]		= $config['enableRegistration'];
+			$AvailableUnis[$uniID]	= $config['uniName'].($config['disabled'] == 1 ? $LNG['uni_closed'] : '');
+			$RegClosed[$uniID]		= $config['disableRegistration'];
 		}
 		ksort($AvailableUnis);
 		

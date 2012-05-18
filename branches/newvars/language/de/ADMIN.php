@@ -522,8 +522,99 @@ $LNG['se_info_disclamerMail']					= 'Die Angabe der E-Mail-Adresse im Impressum 
 $LNG['se_label_disclamerNotice']				= 'Weitere Informationen';
 $LNG['se_info_disclamerNotice']					= 'Optional können Sie hier weitere Informationen Ihrem Impressum hinzufügen.';
 
+$LNG['se_head_universe']						= 'Universum-Einstellungen';
+$LNG['se_info_universe']						= 'Die Einstellungen betriffen nur das aktuelle Universum, so kann man mehere Universen individuell konfigurieren.';
+$LNG['se_label_uniName']						= 'Name';
+$LNG['se_info_uniName']							= 'Name des Universum';
+$LNG['se_label_disabled']						= 'Universum deaktivieren';
+$LNG['se_info_disabled']						= 'Hier kann das Universum vorübergehend deaktiviert werden (z.B. für Wartungsarbeiten).';
+$LNG['se_label_disableReason']					= 'Deaktivierungshinweis';
+$LNG['se_info_disableReason']					= 'Gib eine Meldung oder einen Hinweis ein, die angezeigt wird, solange sich das Universum im Wartungsmodus befindet.';
+$LNG['se_label_disableRegistration']			= 'Registrierung deaktivieren';
+$LNG['se_info_disableRegistration']				= 'Deaktiviert die Registrierungen und Mailaktivierungen für Nicht-Admins';
+$LNG['se_label_planetMaxGalaxy']				= 'Galaxien';
+$LNG['se_info_planetMaxGalaxy']					= 'Anzahl der Galaxien im Universum.';
+$LNG['se_label_planetMaxSystem']				= 'Systeme';
+$LNG['se_info_planetMaxSystem']					= 'Anzahl der Systeme im Universum.';
+$LNG['se_label_planetMaxPosition']				= 'Positionen';
+$LNG['se_info_planetMaxPosition']				= 'Anzahl der Systeme im Universum. Die unendlichen Weiteen des Universum (Expedition) befindest sich immer hinter der letzten Position.';
+$LNG['se_label_gameSpeed']						= 'Gamefaktor';
+$LNG['se_info_gameSpeed']						= 'Der Gamefaktorwirkt sich auf die Bau- und Forschungszeiten aus.';
+$LNG['se_label_fleetSpeed']						= 'Flottenfaktor';
+$LNG['se_info_fleetSpeed']						= 'Der Flottenfaktor wirkt sich auf die Geschwindigkeit der Flüge aus.';
+$LNG['se_label_ecoSpeed']						= 'Rohstofffaktor';
+$LNG['se_info_ecoSpeed']						= 'Der Rohstofffaktor wirkt sich auf die Produktion von Rohstoffen aus.';
+$LNG['se_label_storageFactor']					= 'Speicherfaktor';
+$LNG['se_info_storageFactor']					= 'Der Speicherfaktor wirkt sich auf die maximale Speicherung von Rohstoffen.';
+$LNG['se_label_expeditionSpeed']				= 'Expeditionsfaktor';
+$LNG['se_info_expeditionSpeed']					= 'Der Expeditionsfaktor wirkt sich auf die Dauer einer Expedition (nicht DM-Mission) aus.';
+$LNG['se_label_newsEnable']						= 'Aktiviere News';
+$LNG['se_info_newsEnable']						= 'Die News erscheinenen auf der Übersicht.';
+$LNG['se_label_newsText']						= 'News-Text';
+$LNG['se_info_newsText']						= 'In dem News-Text sind BB-Codes erlaubt.';
+
+$LNG['se_head_economy']							= 'Wirtschaftseinstellungen';
+$LNG['se_info_economy']							= 'Sämtliche EInstellungen rund um die Wirtschaft können auf dieser Seite vorgenommen werden.';
+
+$LNG['se_label_planetResource901BasicIncome']	= 'Basiseinkommen Metal';
+$LNG['se_info_planetResource901BasicIncome']	= '';
+$LNG['se_label_planetResource902BasicIncome']	= 'Basiseinkommen Kristall';
+$LNG['se_info_planetResource902BasicIncome']	= '';
+$LNG['se_label_planetResource903BasicIncome']	= 'Basiseinkommen Deuterium';
+$LNG['se_info_planetResource903BasicIncome']	= '';
+$LNG['se_label_planetResource911BasicIncome']	= 'Basiseinkommen Energie';
+$LNG['se_info_planetResource911BasicIncome']	= '';
+$LNG['se_label_planetResource921BasicIncome']	= 'Basiseinkommen Dunkle Materie';
+$LNG['se_info_planetResource921BasicIncome']	= '';
+$LNG['se_label_planetResource901Start']			= 'Basiseinkommen Metal';
+$LNG['se_info_planetResource901Start']			= '';
+$LNG['se_label_planetResource902Start']			= 'Startrohstoff Kristall';
+$LNG['se_info_planetResource902Start']			= '';
+$LNG['se_label_planetResource903Start']			= 'Startrohstoff Deuterium';
+$LNG['se_info_planetResource903Start']			= '';
+$LNG['se_label_planetResource911Start']			= 'Startrohstoff Energie';
+$LNG['se_info_planetResource911Start']			= '';
+$LNG['se_label_planetResource921Start']			= 'Startrohstoff Dunkle Materie';
+$LNG['se_info_planetResource921Start']			= '';
+
+$LNG['se_label_listMaxBuilds']					= 'Aüftrage in der Bauschleife';
+$LNG['se_info_listMaxBuilds']					= 'Maximale Anzahl an Aüftragen in der Bauschleife von Gebäude.';
+$LNG['se_label_listMaxResearch']				= 'Aüftrage in der Forschungsschleife';
+$LNG['se_info_listMaxResearch']					= 'Maximale Anzahl an Aüftragen in der Forschungsschleife.';
+$LNG['se_label_listMaxShipyard']				= 'Aüftrage in der Schiffswerft';
+$LNG['se_info_listMaxShipyard']					= 'Maximale Anzahl an Einheiten in der Schiffswerft.';
+$LNG['se_label_listMaxUnits']					= 'Einheiten pro Schiffswerftsauftrag';
+$LNG['se_info_listMaxUnits']					= 'Maximale Anzahl an Einheiten pro Auftrag in der Schiffswerft.';
+$LNG['se_label_ecoResourceOverflow']			= 'Rohstoffüberlauf';
+$LNG['se_info_ecoResourceOverflow']				= 'Erlaubt eine bestimmte Anzahl an Rohstoffen zu produzieren, wenn die Lager von Sind. 1.0 = Kein Überlauf. 1.1 = 10% des Rohstoffspeichers können mehr produziert werden.';
+$LNG['se_label_buildMinBuildTime']				= 'Minimale Bauzeit';
+$LNG['se_info_buildMinBuildTime']				= 'Setzt die minimale Bauzeit von Forschungen, Gebäude und Schiffen auf den eingetragenen Wert unabhängig von Speed. = deaktivert die Minimale Bauzeit, kann aber zu einer erhöhten Last des Servers füren.';
+$LNG['se_label_shipyardCancelCharge']			= 'Abbruchgebüren in der Schiffswerft';
+$LNG['se_info_shipyardCancelCharge']			= 'Gebüren bei Abbruch einer Auftrages in der Schiffwerfts anteilig an dem Kosten des Auftrages';
+
+$LNG['se_head_planet']							= 'Planeteneinstellungen';
+$LNG['se_info_planet']							= 'Hier kannst du die Planten der Spieler konfigurieren.';
+$LNG['se_label_rocketStorageFactor']			= 'Raketenspeicherfaktor';
+$LNG['se_info_rocketStorageFactor']				= 'Der Raketenspeicherfaktor wirkt sich auf die maximale Speicherung von Rakten aus.';
+$LNG['se_label_planetColonizeSizeFactor']		= 'Koloniefelderfaktor';
+$LNG['se_info_planetColonizeSizeFactor']		= 'Der Koloniefelderfaktor wirkt sich auf die Felderanzahl von Kolonien aus. Die minimalen und maximalen Größen von Kolonieren, sowie die Temperatur können seperat in der Datei ./includes/PlanetData.php eingestellt werden.';
+$LNG['se_label_planetFieldsMainPlanet']			= 'Hauptplanetfelder';
+$LNG['se_info_planetFieldsMainPlanet']			= 'Damit jeder Spieler die selben Chacen hat, ist die Feldanzahl von Hauptplaneten konstant.';
+$LNG['se_label_planetMoonSizeFactor']			= 'Mondgrößefaktor';
+$LNG['se_info_planetMoonSizeFactor']			= 'Der Mondgrößefaktor wirkt sich auf die Größe (nicht Felder) eines Mondes aus. Je größer ein Mond ist, desto schwieriger ist dieser zu zerstören.';
+$LNG['se_label_planetMoonCreateChanceFactor']	= 'Mondentstehungsfaktor';
+$LNG['se_info_planetMoonCreateChanceFactor']	= 'Der Mondentstehungsfaktor wirkt sich auf die Warscheinlichkeit zur Entstehung eines Mondes aus.';
+$LNG['se_label_planetMoonCreateMaxFactor']		= 'Maximale Mondwarscheinlich';
+$LNG['se_info_planetMoonCreateMaxFactor']		= 'Hier kannst du die maximale Mondentstehungswarscheinlichkeit bestimmen.';
+$LNG['se_label_planetHoldDebrisOnMoonCreate']	= 'Trümmerfeld bei Mondentstehung';
+$LNG['se_info_planetHoldDebrisOnMoonCreate']	= 'Hier kannst du einstellen, ob nach eine Mondentstehnung das Trümmerfeld gelöscht oder beibehalten werden soll.';
+$LNG['se_label_planetJumpWaitTime']				= 'Aufladezeit von Sprungtoren';
+$LNG['se_info_planetJumpWaitTime']				= 'Die Zeit, in der Spieler das Sprungtur nach einen Sprung nicht nutzten können.';
+
+
 $LNG['se_unit_day']								= 'Tagen';
 $LNG['se_unit_hour']							= 'Stunden';
+$LNG['se_unit_percent']							= '%';
 
 
 

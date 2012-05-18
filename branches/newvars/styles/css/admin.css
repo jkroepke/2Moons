@@ -64,8 +64,13 @@ table{
 
 .configRow textarea {
 	width: 735px;
+	min-height:35px;
 	max-height:250px;
 	resize: none;
+}
+
+.configRow select {
+	max-width: 90%;
 }
 
 

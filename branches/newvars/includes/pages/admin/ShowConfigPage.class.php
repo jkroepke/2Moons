@@ -49,14 +49,23 @@ class ShowConfigPage extends AbstractPage
 				'uniName' => array(
 					'type' => 'string',
 				),
-				'enable' => array(
+				'disabled' => array(
 					'type' => 'bool',
 				),
-				'enableReason' => array(
-					'type' => 'string',
+				'disableReason' => array(
+					'type' => 'textarea',
 				),
-				'enableRegistration' => array(
+				'disableRegistration' => array(
 					'type' => 'bool',
+				),
+				'planetMaxGalaxy' => array(
+					'type' => 'int',
+				),
+				'planetMaxSystem' => array(
+					'type' => 'int',
+				),
+				'planetMaxPosition' => array(
+					'type' => 'int',
 				),
 				'gameSpeed' => array(
 					'type' => 'int',
@@ -70,11 +79,14 @@ class ShowConfigPage extends AbstractPage
 				'expeditionSpeed' => array(
 					'type' => 'int',
 				),
+				'storageFactor' => array(
+					'type' => 'int',
+				),
 				'newsEnable' => array(
 					'type' => 'bool',
 				),
 				'newsText' => array(
-					'type' => 'string',
+					'type' => 'textarea',
 				),
 			),
 			'economy' => array(
@@ -120,18 +132,18 @@ class ShowConfigPage extends AbstractPage
 				'listMaxUnits' => array(
 					'type' => 'int',
 				),
-				'storageFactor' => array(
-					'type' => 'int',
-				),
 				'ecoResourceOverflow' => array(
-					'type' => 'float',
+					'type' => 'int',
+					'max' => 100,
+					'unit' => 'se_unit_percent'
 				),
 				'buildMinBuildTime' => array(
 					'type' => 'int',
 				),
 				'shipyardCancelCharge' => array(
 					'type' => 'int',
-					'max' => 100
+					'max' => 100,
+					'unit' => 'se_unit_percent'
 				),
 			),
 			'planet' => array(
@@ -152,17 +164,10 @@ class ShowConfigPage extends AbstractPage
 				),
 				'planetMoonCreateMaxFactor' => array(
 					'type' => 'int',
+					'max' => 100,
+					'unit' => 'se_unit_percent'
 				),
 				'planetHoldDebrisOnMoonCreate' => array(
-					'type' => 'int',
-				),
-				'planetMaxGalaxy' => array(
-					'type' => 'int',
-				),
-				'planetMaxSystem' => array(
-					'type' => 'int',
-				),
-				'planetMaxPosition' => array(
 					'type' => 'int',
 				),
 				'planetJumpWaitTime' => array(

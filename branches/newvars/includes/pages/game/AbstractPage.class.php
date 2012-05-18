@@ -137,7 +137,7 @@ abstract class AbstractPage
 			'js_crystal_hr'		=> $PLANET['crystal_perhour'] + $uniConfig['planetResource902BasicIncome'] * $uniConfig['ecoSpeed'],
 			'js_deuterium_hr'	=> $PLANET['deuterium_perhour'] + $uniConfig['planetResource903BasicIncome'] * $uniConfig['ecoSpeed'],
 			'shortlyNumber'		=> false,
-			'closed'			=> !$uniConfig['enable'] ? $LNG['ov_closed'] : false,
+			'closed'			=> $uniConfig['disabled'] == 1? $LNG['ov_closed'] : false,
 			'forum_url'			=> $gameConfig['boardAddress'],
 			'hasAdminAccess'	=> isset($_SESSION['admin_login']),
 		));

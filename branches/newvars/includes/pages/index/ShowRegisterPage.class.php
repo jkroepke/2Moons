@@ -39,7 +39,7 @@ class ShowRegisterPage extends AbstractPage
 	function send() 
 	{
 		global $uniConfig, $gameConfig, $LNG, $UNI;
-		if($uniConfig['enableRegistration'] == 0) {
+		if($uniConfig['disableRegistration'] == 0) {
 			$this->sendJSON(array('error' => true, 'message' => array(array('universe', $LNG['register_closed']))));
 		}
 			
