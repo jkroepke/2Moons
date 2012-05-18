@@ -352,7 +352,7 @@ switch ($step) {
 				'newsEnable	'	=> '',
 				'newsText'		=> '',
 				'uniName'		=> '',
-				'enableReason'	=> '',
+				'disableReason'	=> '',
 			);
 			
 			setConfig(array(
@@ -362,7 +362,7 @@ switch ($step) {
 				'newsEnable	'	=> 1,
 				'newsText'		=> $LNG['sql_welcome'].'1.7',
 				'uniName'		=> $LNG['fcm_universe'].' 1',
-				'enableReason'	=> $LNG['sql_close_reason'],
+				'disableReason'	=> $LNG['sql_close_reason'],
 			), 1);
 			
 			HTTP::redirectTo('index.php?step=7');

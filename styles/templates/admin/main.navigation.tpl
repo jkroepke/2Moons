@@ -22,9 +22,9 @@
 		<li><a href="admin.php?page=config&amp;section=trader">{$LNG.mu_config_trader}</a></li>
 		<li><a href="admin.php?page=config&amp;section=highscore">{$LNG.mu_config_highscore}</a></li>
 		<li><a href="javascript:void(0);"><span style="color:lime">{$LNG.mu_player_mange}</span></a></li>
-		<li><a href="admin.php?page=config&amp;section=account">{$LNG.mu_account}</a></li>
+		<li><a href="admin.php?page=account">{$LNG.mu_account}</a></li>
 		<li><a href="javascript:void(0);"><span style="color:lime">{$LNG.mu_extras}</span></a></li>
-		<li><a href="admin.php?page=config&amp;section=vertify">{$LNG.mu_vertify}</a></li>
+		<li><a href="admin.php?page=vertify">{$LNG.mu_vertify}</a></li>
 		<li style="background-image: url('./styles/theme/gow/img/menu-foot.png');height:30px;"></li>
 	</ul>
 	<div id="disclamer"><a href="index.php?page=disclamer" target="_blank">{$LNG.lm_disclamer}</a></div>

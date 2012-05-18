@@ -15,7 +15,7 @@ define('ROOT_PATH', str_replace('\\', '/', dirname(AJAX_CHAT_PATH)).'/');
 
 require(ROOT_PATH.'includes/common.php');
 
-if(!$SESSION->IsUserLogin() || ($uniConfig['enable'] == 0 && $USER['authlevel'] != AUTH_ADM)) {
+if(!$SESSION->IsUserLogin() || ($uniConfig['enabled'] == 0 && $USER['authlevel'] != AUTH_ADM)) {
 	HTTP::redirectTo('index.php?code=3');
 }
 

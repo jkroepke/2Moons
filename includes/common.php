@@ -167,7 +167,7 @@ if (MODE !== 'INSTALL')
 		
 		$THEME->setUserTheme($USER['dpath']);
 		
-		if ($uniConfig['enable'] == 0 && $USER['authlevel'] != AUTH_ADM)
+		if ($uniConfig['disabled'] == 0 && $USER['authlevel'] != AUTH_ADM)
 		{
 			ShowErrorPage::printGameClosedMessage();
 		}

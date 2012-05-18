@@ -13,7 +13,7 @@
 			<table class="configTable">
 			{foreach $configArray as $configKey => $inputSettings}
 				<tr class="configRow">
-					<td><label{if $inputSettings.type != 'bool'} for="{$configKey}"{/if}><b>{$LNG.{"se_label_$configKey"}}</b>{if !empty($LNG.{"se_info_$configKey"})}<br><i>{$LNG.{"se_info_$configKey"}}</i>{/if}</label></td>
+					<td><label{if $inputSettings.type != 'bool'} for="{$configKey}"{/if}><b>{$LNG.{"se_label_$configKey"}}</b>{if strlen($LNG.{"se_info_$configKey"}) != 0}<br><i>{$LNG.{"se_info_$configKey"}}</i>{/if}</label></td>
 					<td>{if $inputSettings.type == 'int'}<input name="{$configKey}" id="{$configKey}" type="text" pattern="[0-9]+" value="{$configValues.$configKey|escape:'html'}" required>
 					{elseif $inputSettings.type == 'string'}<input name="{$configKey}" id="{$configKey}" type="text" value="{$configValues.$configKey|escape:'html'}">
 					{elseif $inputSettings.type == 'bool'}<label for="{$configKey}_yes">{$LNG.common_yes}</label>&nbsp;<input name="{$configKey}" id="{$configKey}_yes" type="radio"{if $configValues.$configKey == true} checked{/if}>&nbsp;&nbsp;<label for="{$configKey}_no">{$LNG.common_no}</label>&nbsp;<input name="{$configKey}" id="{$configKey}_no" type="radio"{if $configValues.$configKey == false} checked{/if}>
