@@ -182,7 +182,18 @@ class BuildFunctions
 		
 		foreach($elementPrice as $resourceID => $price)
 		{
-			$maxElement[]	= floor($PLANET[$resource[$resourceID]] / $price);
+			if(isset($PLANET[$resource[$resourceID]]))
+			{
+				$maxElement[]	= floor($PLANET[$resource[$resourceID]] / $price);
+			}
+			elseif(isset($USER[$resource[$resourceID]]))
+			{
+				$maxElement[]	= floor($USER[$resource[$resourceID]] / $price);
+			}
+			else
+			{
+				throw new Exception("Unknown Ressource ".$resourceID." at element ".$Element.".");
+			}
 		}
 		
 		if(in_array($Element, $reslist['one'])) {
