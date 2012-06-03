@@ -87,7 +87,10 @@ class CustomAJAXChat extends AJAXChat {
 			$userData['userRole'] = AJAX_CHAT_USER;
 		
 		if($this->getRequestVar('action') == 'alliance') {
-			$this->setConfig('defaultChannelID', false, $userData['userAlly']);
+			$this->setConfig('defaultChannelID', false, 100 + $userData['userAlly']);
+			$this->setChannel(100 + $userData['userAlly']);
+		} else {
+			$this->setChannel(0);
 		}
 			
 		return $userData;
@@ -128,7 +131,8 @@ class CustomAJAXChat extends AJAXChat {
 			$defaultChannelFound = false;
 
 			while($row = $result->fetch()) {
-				$this->_allChannels[$this->trimChannelName($row['ally_name'])] = $row['id'];
+				$row['id'] = $row['id'] + 100;
+				$this->_allChannels[$this->trimChannelName('+'.$row['ally_name'])] = $row['id'];
 				if($this->getConfig('defaultChannelID') == $row['id'])
 					$this->setConfig('defaultChannelName', false, $this->trimChannelName($row['ally_name']));
 					
