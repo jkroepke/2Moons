@@ -33,29 +33,6 @@
 	<td>{$ch_closed}</td>
 	<td><input name="chat_closed"{if $chat_closed == '1'} checked="checked"{/if} type="checkbox"></td>
 	<td>&nbsp;</td>
-</tr><tr>
-	<th colspan="2">{$ch_socket}</th>
-	<th>&nbsp;</th>
-</tr><tr>
-	<td>{$ch_socket_active}</td>
-	<td><input name="chat_socket_active"{if $chat_socket_active == '1'} checked="checked"{/if} type="checkbox"></td>
-	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" onclick="window.open('http://sourceforge.net/apps/mediawiki/ajax-chat/index.php?title=Socket_Server');"></td>
-</tr><tr>
-	<td>{$ch_socket_host}</td>
-	<td><input name="chat_socket_host" value="{$chat_socket_host}" type="text"></td>
-	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" data-tooltip-content="{$ch_socket_host_info}"></td>
-</tr><tr>
-	<td>{$ch_socket_ip}</td>
-	<td><input name="chat_socket_ip" value="{$chat_socket_ip}" type="text"></td>
-	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" data-tooltip-content="{$ch_socket_ip_info}"></td>
-</tr><tr>
-	<td>{$ch_socket_port}</td>
-	<td><input name="chat_socket_port" value="{$chat_socket_port}" type="text"></td>
-	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" data-tooltip-content="{$ch_socket_port_info}"></td>
-</tr><tr>
-	<td>{$ch_socket_chatid}</td>
-	<td><input name="chat_socket_port" value="{$chat_socket_chatid}" type="text"></td>
-	<td><img src="./styles/images/Adm/i.gif" width="16" height="16" alt="" class="tooltip" data-tooltip-content="{$ch_socket_chatid_info}"></td>
 </tr>
 <tr>
 	<td colspan="3"><input value="{$se_save_parameters}" type="submit"></td>

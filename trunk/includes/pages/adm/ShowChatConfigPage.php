@@ -43,25 +43,15 @@ function ShowChatConfigPage()
 			'chat_nickchange'		=> $CONF['chat_nickchange'],
 			'chat_botname'			=> $CONF['chat_botname'],
 			'chat_channelname'		=> $CONF['chat_channelname'],
-			'chat_socket_chatid'	=> $CONF['chat_socket_chatid'],
-			'chat_socket_port'		=> $CONF['chat_socket_port'],
-			'chat_socket_ip'		=> $CONF['chat_socket_ip'],
-			'chat_socket_host'		=> $CONF['chat_socket_host'],
-			'chat_socket_active'	=> $CONF['chat_socket_active'],
 		);
 		
 		$CONF['chat_allowchan']			= isset($_POST['chat_allowchan']) && $_POST['chat_allowchan'] == 'on' ? 1 : 0;
 		$CONF['chat_allowmes']			= isset($_POST['chat_allowmes']) && $_POST['chat_allowmes'] == 'on' ? 1 : 0;
 		$CONF['chat_allowdelmes']		= isset($_POST['chat_allowdelmes']) && $_POST['chat_allowdelmes'] == 'on' ? 1 : 0;
 		$CONF['chat_logmessage']		= isset($_POST['chat_logmessage']) && $_POST['chat_logmessage'] == 'on' ? 1 : 0;
-		$CONF['chat_socket_active']		= isset($_POST['chat_socket_active']) && $_POST['chat_socket_active'] == 'on' ? 1 : 0;
 		$CONF['chat_nickchange']		= isset($_POST['chat_nickchange']) && $_POST['chat_nickchange'] == 'on' ? 1 : 0;
 		$CONF['chat_closed']			= isset($_POST['chat_closed']) && $_POST['chat_closed'] == 'on' ? 1 : 0;
 		
-		$CONF['chat_socket_host']		= HTTP::_GP('chat_socket_host', '', true);
-		$CONF['chat_socket_ip']			= HTTP::_GP('chat_socket_ip', '');
-		$CONF['chat_socket_port']		= HTTP::_GP('chat_socket_port', '', 0);
-		$CONF['chat_socket_chatid']		= HTTP::_GP('chat_socket_chatid', 0);
 		$CONF['chat_channelname']		= HTTP::_GP('chat_channelname', '', true);
 		$CONF['chat_botname']			= HTTP::_GP('chat_botname', '', true);
 		
@@ -74,11 +64,6 @@ function ShowChatConfigPage()
 			'chat_nickchange'		=> $CONF['chat_nickchange'],
 			'chat_botname'			=> $CONF['chat_botname'],
 			'chat_channelname'		=> $CONF['chat_channelname'],
-			'chat_socket_chatid'	=> $CONF['chat_socket_chatid'],
-			'chat_socket_port'		=> $CONF['chat_socket_port'],
-			'chat_socket_ip'		=> $CONF['chat_socket_ip'],
-			'chat_socket_host'		=> $CONF['chat_socket_host'],
-			'chat_socket_active'	=> $CONF['chat_socket_active'],
 		);
 		
 		update_config($config_after);
@@ -94,11 +79,6 @@ function ShowChatConfigPage()
 	$template	= new template();
 
 	$template->assign_vars(array(
-		'chat_socket_chatid'	=> $CONF['chat_socket_chatid'],
-		'chat_socket_port'		=> $CONF['chat_socket_port'],
-		'chat_socket_ip'		=> $CONF['chat_socket_ip'],
-		'chat_socket_host'		=> $CONF['chat_socket_host'],
-		'chat_socket_active'	=> $CONF['chat_socket_active'],
 		'chat_closed'			=> $CONF['chat_closed'],
 		'chat_allowchan'		=> $CONF['chat_allowchan'],
 		'chat_allowmes'			=> $CONF['chat_allowmes'],
@@ -108,16 +88,6 @@ function ShowChatConfigPage()
 		'chat_channelname'		=> $CONF['chat_channelname'],
 		'se_server_parameters'	=> $LNG['se_server_parameters'],
 		'se_save_parameters'	=> $LNG['se_save_parameters'],
-		'ch_socket_chatid_info'	=> $LNG['ch_socket_chatid_info'],
-		'ch_socket_port_info'	=> $LNG['ch_socket_port_info'],
-		'ch_socket_ip_info'		=> $LNG['ch_socket_ip_info'],
-		'ch_socket_host_info'	=> $LNG['ch_socket_host_info'],
-		'ch_socket_chatid'		=> $LNG['ch_socket_chatid'],
-		'ch_socket_port'		=> $LNG['ch_socket_port'],
-		'ch_socket_ip'			=> $LNG['ch_socket_ip'],
-		'ch_socket_host'		=> $LNG['ch_socket_host'],
-		'ch_socket_active'		=> $LNG['ch_socket_active'],
-		'ch_socket'				=> $LNG['ch_socket'],
 		'ch_closed'				=> $LNG['ch_closed'],
 		'ch_allowchan'			=> $LNG['ch_allowchan'],
 		'ch_allowmes'			=> $LNG['ch_allowmes'],
