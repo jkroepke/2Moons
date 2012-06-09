@@ -267,7 +267,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%config` (
   `max_dm_missions` tinyint(3) unsigned NOT NULL DEFAULT '1',
   `max_overflow` float(2,1) NOT NULL DEFAULT '1.0',
   `moon_factor` float(2,1) NOT NULL DEFAULT '1.0',
-  `moon_chance` tinyint(3) unsigned NOT NULL DEFAULT '1',
+  `moon_chance` tinyint(3) unsigned NOT NULL DEFAULT '20',
   `darkmatter_cost_trader` int(11) unsigned NOT NULL DEFAULT '750',
   `factor_university` tinyint(3) unsigned NOT NULL DEFAULT '8',
   `max_fleets_per_acs` tinyint(3) unsigned NOT NULL DEFAULT '16',
