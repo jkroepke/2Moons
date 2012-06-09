@@ -462,8 +462,8 @@ class AJAXChat {
 				// channelName might need encoding conversion:
 				if($channelID === null) {
 					$channelID = $this->getChannelIDFromChannelName(
-									$this->trimChannelName($channelName, $this->getConfig('contentEncoding'))
-								);
+						$this->trimChannelName($channelName, $this->getConfig('contentEncoding'))
+					);
 				}
 			}
 		}
