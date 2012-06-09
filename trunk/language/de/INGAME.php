@@ -427,11 +427,8 @@ $LNG['of_update']							= 'Erneuern';
 //----------------------------------------------------------------------------//
 //TRADER
 
-$LNG['tr_empty_darkmatter']					= 'Sie haben nicht genug %s!';
 $LNG['tr_cost_dm_trader']					= 'Die Händlergebühren betragen %s %s!';
-$LNG['tr_not_enought_metal']				= 'Sie haben nicht genügend Metall.';
-$LNG['tr_not_enought_crystal']				= 'Sie haben nicht genügend Kristall.';
-$LNG['tr_not_enought_deuterium']			= 'Sie haben nicht genügend Deuterium.';
+$LNG['tr_not_enought']						= 'Du hast nicht genug %s.';
 $LNG['tr_exchange_done']					= 'Erfolgreich umgetauscht';
 $LNG['tr_exchange_error']					= 'Zu wenig verfügbare Einheiten oder falscher Typ';
 $LNG['tr_call_trader']						= 'Rufe einen Händler';
