@@ -103,30 +103,52 @@ class ShowBuddyListPage extends AbstractPage
 		id = @buddyID, 
 		text = '".$GLOBALS['DATABASE']->sql_escape($text)."';");
 		
+		$username	= $GLOBALS['DATABASE']->countquery("SELECT username FROM ".USERS." WHERE id = ".$id.";");
+		
+		SendSimpleMessage($id, $USER['id'], TIMESTAMP, 4, $USER['username'], $LNG['bu_new_request_title'], sprintf($LNG['bu_new_request_body'], $username, $USER['username']));
+
 		$this->printMessage($LNG['bu_request_send']);
 	}
 	
 	function delete()
 	{
-		global $USER;
+		global $USER, $LNG;
 		
 		$id	= HTTP::_GP('id', 0);
-		$GLOBALS['DATABASE']->query("DELETE b.*, r.*
-					FROM ".BUDDY." b
-					LEFT JOIN ".BUDDY_REQUEST." r
-					USING (id)
-					WHERE b.id = ".$id." AND (sender = ".$USER['id']." OR owner = ".$USER['id'].")");
-		$this->redirectTo("game.php?page=buddyList");
 		
+		$isAllowed = $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".BUDDY." WHERE id = ".$id." AND (sender = ".$USER['id']." OR owner = ".$USER['id'].");");
+		
+		if($isAllowed)
+		{
+			$isRequest = $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".BUDDY_REQUEST." WHERE ".$id.";");
+			
+			if($isRequest)
+			{
+				$reuqestData = $GLOBALS['DATABASE']->uniquequery("SELECT
+				u.username, u.id
+				FROM ".BUDDY." b
+				INNER JOIN ".USERS." u ON u.id = IF(b.sender = ".$USER['id'].",b.owner,b.sender)
+				WHERE b.id = ".$id.";");
+				
+				SendSimpleMessage($reuqestData['id'], $USER['id'], TIMESTAMP, 4, $USER['username'], $LNG['bu_rejected_request_title'], sprintf($LNG['bu_rejected_request_body'], $reuqestData['username'], $USER['username']));
+			}
+			
+			$GLOBALS['DATABASE']->query("DELETE b.*, r.* FROM ".BUDDY." b LEFT JOIN ".BUDDY_REQUEST." r USING (id) WHERE b.id = ".$id.";");
+		}			
+		$this->redirectTo("game.php?page=buddyList");
 	}
 	
 	function accept()
 	{
-		global $USER;
+		global $USER, $LNG;
 		
 		$id	= HTTP::_GP('id', 0);
 		
 		$GLOBALS['DATABASE']->query("DELETE FROM ".BUDDY_REQUEST." WHERE id = ".$id.";");
+		
+		$sender	= $GLOBALS['DATABASE']->uniquequery("SELECT sender, u.username FROM ".BUDDY." b INNER JOIN ".USERS." u ON sender = u.id WHERE b.id = ".$id.";");
+		SendSimpleMessage($sender['sender'], $USER['id'], TIMESTAMP, 4, $USER['username'], $LNG['bu_accepted_request_title'], sprintf($LNG['bu_accepted_request_body'], $sender['username'], $USER['username']));
+		
 		$this->redirectTo("game.php?page=buddyList");
 	}
 	

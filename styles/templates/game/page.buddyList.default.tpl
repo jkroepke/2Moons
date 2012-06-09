@@ -1,8 +1,9 @@
 {block name="title" prepend}{$LNG.lm_buddylist}{/block}
 {block name="content"}
 <table class="table569">
-<tr><th colspan="6">{$LNG.bu_buddy_list}</th></tr>
-<tr><th colspan="6" style="text-align:center">{$LNG.bu_requests}</th></tr>
+<tr><th colspan="5">{$LNG.bu_buddy_list}</th></tr>
+{if !empty($otherRequestList)}
+<tr><th colspan="5" style="text-align:center">{$LNG.bu_requests}</th></tr>
 <tr>
 	<th>{$LNG.bu_player}</th>
 	<th>{$LNG.bu_alliance}</th>
@@ -16,13 +17,14 @@
 	<td>{if {$otherRequestRow.ally_name}}<a href="game.php?page=alliance&amp;mode=info&amp;id={$otherRequestRow.ally_id}">{$otherRequestRow.ally_name}</a>{else}-{/if}</td>
 	<td><a href="game.php?page=galaxy&amp;galaxy={$otherRequestRow.galaxy}&amp;system={$otherRequestRow.system}">[{$otherRequestRow.galaxy}:{$otherRequestRow.system}:{$otherRequestRow.planet}]</a></td>
 	<td>{$otherRequestRow.text}</td>
-	<td><a href="game.php?page=buddyList&amp;mode=accept&amp;id={$otherRequestID}">{$LNG.bu_accept}</a>
-	<br><a href="game.php?page=buddyList&amp;mode=delete&amp;id={$otherRequestID}">{$LNG.bu_decline}</a></td>
+	<td><a href="game.php?page=buddyList&amp;mode=accept&amp;id={$otherRequestID}"><img src="styles/images/true.png" alt="{$LNG.bu_accept}" title="{$LNG.bu_accept}"></a><a href="game.php?page=buddyList&amp;mode=delete&amp;id={$otherRequestID}"><img src="styles/images/false.png" alt="{$LNG.bu_decline}" title="{$LNG.bu_decline}"></a></td>
 </tr>
 {foreachelse}
-<tr><td colspan="6">{$LNG.bu_no_request}</td></tr>
+<tr><td colspan="5">{$LNG.bu_no_request}</td></tr>
 {/foreach}
-<tr><th colspan="6" style="text-align:center">{$LNG.bu_my_requests}</th></tr>
+{/if}
+{if !empty($myRequestList)}
+<tr><th colspan="5" style="text-align:center">{$LNG.bu_my_requests}</th></tr>
 <tr>
 	<th>{$LNG.bu_player}</th>
 	<th>{$LNG.bu_alliance}</th>
@@ -36,12 +38,13 @@
 	<td>{if {$myRequestRow.ally_name}}<a href="game.php?page=alliance&amp;mode=info&amp;id={$myRequestRow.ally_id}">{$myRequestRow.ally_name}</a>{else}-{/if}</td>
 	<td><a href="game.php?page=galaxy&amp;galaxy={$myRequestRow.galaxy}&amp;system={$myRequestRow.system}">[{$myRequestRow.galaxy}:{$myRequestRow.system}:{$myRequestRow.planet}]</a></td>
 	<td>{$myRequestRow.text}</td>
-	<td><a href="game.php?page=buddyList&amp;mode=delete&amp;id={$myRequestID}">{$LNG.bu_cancel_request}</a></td>
+	<td><a href="game.php?page=buddyList&amp;mode=delete&amp;id={$myRequestID}"><img src="styles/images/false.png" alt="{$LNG.bu_cancel_request}" title="{$LNG.bu_cancel_request}"></a></td>
 </tr>
 {foreachelse}
-<tr><td colspan="6">{$LNG.bu_no_request}</td></tr>
+<tr><td colspan="5">{$LNG.bu_no_request}</td></tr>
 {/foreach}
-<tr><th colspan="6" style="text-align:center">{$LNG.bu_partners}</th></tr>
+{/if}
+<tr><th colspan="5" style="text-align:center">{$LNG.bu_partners}</th></tr>
 	<tr>
 	<th>{$LNG.bu_player}</td>
 	<th>{$LNG.bu_alliance}</th>
@@ -63,10 +66,10 @@
 	<span style="color:red">{$LNG.bu_disconnected}</span>
 	{/if}
 	</td>
-	<td><a href="game.php?page=buddyList&amp;mode=delete&amp;id={$myBuddyID}">{$LNG.bu_delete}</a></td>
+	<td><a href="game.php?page=buddyList&amp;mode=delete&amp;id={$myBuddyID}"><img src="styles/images/false.png" alt="{$LNG.bu_delete}" title="{$LNG.bu_delete}"></a></td>
 </tr>
 {foreachelse}
-<tr><td colspan="6">{$LNG.bu_no_buddys}</td></tr>
+<tr><td colspan="5">{$LNG.bu_no_buddys}</td></tr>
 {/foreach}
 </table>
 {/block}

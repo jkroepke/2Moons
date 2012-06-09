@@ -759,6 +759,12 @@ $LNG['bu_delete']							= 'Löschen';
 $LNG['bu_no_request']						= 'Keine Anfragen vorhanden!';
 $LNG['bu_no_buddys']						= 'Keine Buddys vorhanden!';
 $LNG['bu_request_send']						= 'Anfrage gesendet!';
+$LNG['bu_new_request_title']				= 'Neue Buddylist-Anfrage!';
+$LNG['bu_new_request_body']					= 'Hallo %s,<br>%s hat dir eine Buddylist-Anfrage gesendet!';
+$LNG['bu_accepted_request_title']			= 'Buddylist-Anfrage akzeptiert!';
+$LNG['bu_accepted_request_body']			= 'Hallo %s,<br>%s hat deine Buddylistanfrage angenommen!';
+$LNG['bu_rejected_request_title']			= 'Buddylist-Anfrage abgelehnt!';
+$LNG['bu_rejected_request_body']			= 'Hallo %s,<br>%s hat deine Buddylistanfrage abgelehnt!';
 
 //----------------------------------------------------------------------------//
 //NOTES

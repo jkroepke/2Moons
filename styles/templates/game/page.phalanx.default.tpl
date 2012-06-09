@@ -9,8 +9,8 @@
 </tr>
 	{foreach $fleetTable as $index => $fleet}
 	<tr>
-		<td id="fleettime_{$index}" class="fleets" data-fleet-end-time="{$fleet.returntime}" data-fleet-time="{$fleet.resttime}">-</td>
-		<td colspan="2">{$fleet.text}</td>
+		<td id="fleettime_{$index}" class="fleets" data-fleet-end-time="{$fleet.returntime}" data-fleet-time="{$fleet.resttime}">00:00:00</td>
+		<td>{$fleet.text}</td>
 	</tr>
 	{foreachelse}
 		<tr><td colspan="2">{$LNG.px_no_fleet}</td></tr>
