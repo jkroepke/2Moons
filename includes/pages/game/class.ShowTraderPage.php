@@ -50,9 +50,9 @@ class ShowTraderPage extends AbstractPage
 		$this->tplObj->assign_vars(array(
 			'tr_cost_dm_trader'		=> sprintf($LNG['tr_cost_dm_trader'], pretty_number($CONF['darkmatter_cost_trader']), $LNG['tech'][921]),
 			'charge'				=> self::$Charge,
-			'requiredDarkMatter'	=> $USER['darkmatter'] < $CONF['darkmatter_cost_trader'] ? sprintf($LNG['tr_empty_darkmatter'], $LNG['tech'][921]) : false,
+			'requiredDarkMatter'	=> $USER['darkmatter'] < $CONF['darkmatter_cost_trader'] ? sprintf($LNG['tr_not_enought'], $LNG['tech'][921]) : false,
 		));
-
+		
 		$this->display("page.trader.default.tpl");
 	}
 		
@@ -102,11 +102,19 @@ class ShowTraderPage extends AbstractPage
 		$tradeSum 			= 0;
 		
 		foreach($tradeResources as $tradeRessID) {
-			$tradeAmount	= min(max(0, round((float) $getTradeResources[$tradeRessID])), $PLANET[$resource[$tradeRessID]]);
-			$tradeSum	   += $tradeAmount;
-			if(empty($tradeAmount)) {
+			$tradeAmount	= max(0, round((float) $getTradeResources[$tradeRessID]));
+			
+			if(empty($tradeAmount))
+			{
 				continue;  
 			}
+			
+			if($tradeAmount > $PLANET[$resource[$tradeRessID]])
+			{
+				$this->printMessage(sprintf($LNG['tr_not_enought'], $LNG['tech'][$tradeRessID]), array("game.php?page=trader", 3));
+			}
+			
+			$tradeSum	   += $tradeAmount;
 			
 			$PLANET[$resource[$resourceID]]		-= $tradeAmount * self::$Charge[$resourceID][$tradeRessID];			
 			$PLANET[$resource[$tradeRessID]]	+= $tradeAmount;
