@@ -96,7 +96,7 @@ class MissionCaseSpy extends MissionFunctions
 		
 		$template->caching		= true;
 		$template->compile_id	= $ownUser['lang'];
-		#$template->loadFilter('output', 'trimwhitespace');
+		$template->loadFilter('output', 'trimwhitespace');
 		list($tplDir)	= $template->getTemplateDir();
 		$template->setTemplateDir($tplDir.'game/');
 		$template->assign_vars(array(
