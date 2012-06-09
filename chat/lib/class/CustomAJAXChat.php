@@ -47,22 +47,29 @@ class CustomAJAXChat extends AJAXChat {
 		$this->setConfig('showChannelMessages', false, (bool) $CONF['chat_logmessage']);
 		$this->setConfig('langAvailable', false, Language::getAllowedLangs());
 		$this->setConfig('langNames', false, Language::getAllowedLangs(false));
+		$this->setConfig('forceAutoLogin', false, true);
 	}
-
+	
+	function initCustomSession() {
+		if(!$this->getRequestVar('ajax'))
+		{
+			$this->getAllChannels();
+			$this->switchChannel($this->getConfig('defaultChannelName'));
+		}
+	}
+	
 	function initCustomRequestVars() {
-		$this->setRequestVar('login', true);
 		$this->setRequestVar('action', isset($_REQUEST['action']) ? $_REQUEST['action'] : '');
 	}
 
 	function revalidateUserID() {
-		global $user;
-		
 		if($this->getUserID() === $_SESSION['id']) {
 			return true;
 		}
+		
 		return false;
 	}
-
+	
 	function getValidLoginUserData() {
 		global $auth, $user;
 		
@@ -86,71 +93,34 @@ class CustomAJAXChat extends AJAXChat {
 		else
 			$userData['userRole'] = AJAX_CHAT_USER;
 		
-		if($this->getRequestVar('action') == 'alliance') {
-			$this->setConfig('defaultChannelID', false, 100 + $userData['userAlly']);
-			$this->setChannel(100 + $userData['userAlly']);
-		} else {
-			$this->setChannel(0);
-		}
-			
 		return $userData;
-	}
-
-	// Store the channels the current user has access to
-	// Make sure channel names don't contain any whitespace
-	function getChannels() {
-		if($this->_channels === null) {
-			global $auth;
-
-			$this->_channels = array();
-
-			$allChannels = $this->getAllChannels();
-
-			foreach($allChannels as $key=>$value) {
-				// Check if we have to limit the available channels:
-				if($this->getConfig('limitChannelList') && !in_array($value, $this->getConfig('limitChannelList'))) {
-					continue;
-				}
-
-				// Add the valid channels to the channel list (the defaultChannelID is always valid):
-				if($value == $this->getConfig('defaultChannelID') || $this->getUserRole() == AJAX_CHAT_ADMIN) {
-					$this->_channels[$key] = $value;
-				}
-			}
-		}
-		return $this->_channels;
 	}
 
 	// Store all existing channels
 	// Make sure channel names don't contain any whitespace
 	function getAllChannels() {
 		if($this->_allChannels === null) {
-			$this->_allChannels = array();
-			$result = $this->db->sqlQuery("SELECT `id`, `ally_name` FROM ".ALLIANCE.";");
+			$this->_allChannels = array(
+				$this->trimChannelName($this->getConfig('defaultChannelName')) => $this->getConfig('defaultChannelID')
+			);
+			
+			$result = $this->db->sqlQuery("SELECT id, ally_name FROM ".ALLIANCE.";");
+			$userAlly = $this->db->sqlQuery("SELECT ally_id as id FROM ".USERS." WHERE id = ".$_SESSION['id'].";")->fetch();
 
 			$defaultChannelFound = false;
 
 			while($row = $result->fetch()) {
 				$row['id'] = $row['id'] + 100;
 				$this->_allChannels[$this->trimChannelName('+'.$row['ally_name'])] = $row['id'];
-				if($this->getConfig('defaultChannelID') == $row['id'])
-					$this->setConfig('defaultChannelName', false, $this->trimChannelName($row['ally_name']));
-					
-				if(!$defaultChannelFound && $this->getRequestVar('action') == 'alliance' && $row['id'] == $this->getConfig('defaultChannelID')) {
+				if(!$defaultChannelFound && $this->getRequestVar('action') == 'alliance' && ($userAlly['id'] + 100) == $row['id'])
+				{
+					$this->setConfig('defaultChannelName', false, $this->trimChannelName('+'.$row['ally_name']));
+					$this->setConfig('defaultChannelID', false, $row['id']);
 					$defaultChannelFound = true;
 				}
 			}
-
-			if(!$defaultChannelFound) {
-				// Add the default channel as first array element to the channel list:
-				$this->_allChannels = array_merge(
-					array(
-						$this->trimChannelName($this->getConfig('defaultChannelName'))=>$this->getConfig('defaultChannelID')
-					),
-					$this->_allChannels
-				);
-			}
 		}
+		
 		return $this->_allChannels;
 	}
 }
