@@ -55,14 +55,18 @@ class ShowResourcesPage extends AbstractPage
 				$updateSQL[]	= $FieldName." = '".((int) $Value)."'";
 				
 				$PLANET[$FieldName]	= $Value;
+				$this->ecoObj->PLANET[$FieldName]	= $Value;
 			}
 
 			if(!empty($updateSQL))
 			{
 				$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET ".implode(", ", $updateSQL)." WHERE `id` = ".$PLANET['id'] .";");
-			}	
+				
+				$this->ecoObj->ReBuildCache();
+				$this->ecoObj->PLANET['eco_hash'] = $this->ecoObj->CreateHash();
+				$PLANET = $this->ecoObj->PLANET;
+			}
 		}
-		
 		$this->save();
 		$this->redirectTo('game.php?page=resources');
 	}
