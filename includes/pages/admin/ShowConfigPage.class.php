@@ -44,6 +44,25 @@ class ShowConfigPage extends AbstractPage
 			'facebook'	=> 'checkSiteFacebook',
 		);
 		
+		$this->mode = array(
+			'universe'	=> 'uniConfig',
+			'economy'	=> 'uniConfig',
+			'planet'	=> 'uniConfig',
+			'fleet'		=> 'uniConfig',
+			'trader'	=> 'uniConfig',
+			'highscore'	=> 'uniConfig',
+		
+			'general'	=> 'gameConfig',
+			'user'		=> 'gameConfig',
+			'teamspeak'	=> 'gameConfig',
+			'mail'		=> 'gameConfig',
+			'captcha'	=> 'gameConfig',
+			'chat'		=> 'gameConfig',
+			'facebook'	=> 'gameConfig',
+			'analytics'	=> 'gameConfig',
+			'disclamer'	=> 'gameConfig',
+		);
+		
 		$this->configArray = array(
 			'universe' => array(
 				'uniName' => array(
@@ -309,7 +328,7 @@ class ShowConfigPage extends AbstractPage
 				),
 				'inactiveMailEnable' => array(
 					'type' => 'bool',
-					'validate' => 'checkIfMailActive'
+					'validate' => 'mailActive'
 				),
 				'inactiveMailAfterDays' => array(
 					'type' => 'int',
@@ -328,7 +347,7 @@ class ShowConfigPage extends AbstractPage
 				),
 				'userVertification' => array(
 					'type' => 'bool',
-					'validate' => 'checkIfMailActive'
+					'validate' => 'mailActive'
 				),
 				'referralEnable' => array(
 					'type' => 'bool',
@@ -365,7 +384,7 @@ class ShowConfigPage extends AbstractPage
 				),
 				'teamspeakServerAdress' => array(
 					'type' => 'string',
-					'validate' => 'ip_dsn',
+					'validate' => 'ipOrDsn',
 				),
 				'teamspeakUDPPort' => array(
 					'type' => 'int',
@@ -390,7 +409,7 @@ class ShowConfigPage extends AbstractPage
 				),
 				'mailSmtpAdress' => array(
 					'type' => 'string',
-					'validate' => 'ip_dsn',
+					'validate' => 'ipOrDsn',
 				),
 				'mailSmtpPort' => array(
 					'type' => 'int',
@@ -499,9 +518,228 @@ class ShowConfigPage extends AbstractPage
 			'configArray'	=> $this->configArray[$section],
 			'section'		=> $section,
 			'mode'			=> $mode,
-			'configValues'	=> $mode == 'universe' ? $uniConfig : $gameConfig,
+			'configValues'	=> ${$this->mode[$section]},
 		));
 		
 		$this->render('page.config.default.tpl');
+	}
+
+	function update()
+	{
+		global $LNG, $uniConfig, $gameConfig;
+		
+		$section	= HTTP::_GP('section', '');
+		if(!isset($this->configArray[$section]))
+		{
+			$this->printMessage($LNG['page_doesnt_exist']);
+		}
+		
+		foreach($this->configArray[$section] as $configKey => $keySettings)
+		{
+			switch($keySettings['type'])
+			{
+				case 'bool':
+					$value	= min(1, max(0, HTTP::_GP($configKey, 0)));
+				break;
+				case 'int':
+					$value	= HTTP::_GP($configKey, 0);
+					
+					if(isset($keySettings['min']))
+					{
+						$value	= max($keySettings['min'], $value);
+					}
+					
+					if(isset($keySettings['max']))
+					{
+						$value	= max($keySettings['max'], $value);
+					}
+				break;
+				case 'float':
+					$value	= HTTP::_GP($configKey, 0.0);
+					
+					if(isset($keySettings['min']))
+					{
+						$value	= max($keySettings['min'], $value);
+					}
+					
+					if(isset($keySettings['max']))
+					{
+						$value	= max($keySettings['max'], $value);
+					}
+				break;
+				case 'string':
+				case 'textarea':
+					$value	= HTTP::_GP($configKey, '', true);
+				break;
+				case 'array':
+					$value	= HTTP::_GP($configKey, '', true);
+					
+					if(!ArrayUtil::arrayKeyExistsRecrusive($value, $keySettings['selection']))
+					{
+						throw new Exception('Invalid value "'.htmlspecialchars($value, ENT_QUOTES).'" for '.$configKey);
+					}
+				break;
+				case 'multi':
+					$values	= HTTP::_GP($configKey, array());
+					
+					foreach($values as $value)
+					{
+						if(!ArrayUtil::arrayKeyExistsRecrusive($value, $keySettings['selection']))
+						{
+							throw new Exception('Invalid value "'.htmlspecialchars($value, ENT_QUOTES).'" for '.$configKey);
+						}
+					}
+					
+					$value	= serialize($values);
+				break;
+			}
+		
+			if(isset($keySettings['validate']))
+			{
+				$validator	= 'checkFieldIs'.ucwords($keySettings['validate']);
+				if(method_exists($this, $validator))
+				{
+					$errorMessage	= $this->{$validator}($value);
+					
+					if($errorMessage !== true)
+					{
+						$this->printMessage(sprintf($LNG['se_vaildation_field'], $LNG['se_label_'.$configKey], $errorMessage), NULL, array($LNG['common_back'] => 'javascript:history.go(-1)'));
+					}
+				}
+				else
+				{
+					throw new Exception('Missing validator '.$validator);
+				}
+			}
+			
+			$newConfig[$configKey]	= $value;
+		}
+		
+		if(isset($this->validates[$section]))
+		{
+			$validator	= $this->validates[$section];
+			if(method_exists($this, $validator))
+			{
+				$errorMessage	= $this->{$validator}($newConfig);
+			
+				if($errorMessage !== true)
+				{
+					$this->printMessage($errorMessage, NULL, array($LNG['common_back'] => 'javascript:history.go(-1)'));
+				}
+			}
+			else
+			{
+				throw new Exception('Missing validator '.$this->validates[$section]);
+			}
+		}
+		
+		setConfig($newConfig);
+			
+		$this->printMessage($LNG['se_saved'], NULL, array($LNG['common_continue'] => 'admin.php?page=config&section='.$section));
+	}
+
+	function checkFieldIsUrl($value)
+	{
+		global $LNG;
+		
+		if(!empty($value) && !filter_var($value, FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED))
+		{
+			return $LNG['se_vaildation_url_missing_scheme'];
+		}
+		
+		return true;
+	}
+
+	function checkFieldIsMailActive($value)
+	{
+		global $LNG, $gameConfig;
+		
+		if($value == 1 && $gameConfig['mailEnable'] != 1)
+		{
+			return $LNG['se_vaildation_actice_mail_not'];
+		}
+		
+		return true;
+	}
+
+	function checkFieldIsValidateTTF($value)
+	{
+		global $LNG;
+		
+		if(!isModulAvalible(MODULE_BANNER))
+		{
+			return true;
+		}
+		
+		if(!file_exists(ROOT_PATH.$value))
+		{
+			return $LNG['se_vaildation_ttf_missing'];
+		}
+		
+		ob_start();
+		try {
+			$im = imagecreate (1, 1);
+			ImageTTFText($im, 20, 0, 10, 20, ImageColorAllocate($im, 255, 255, 255), ROOT_PATH.$value, 'Test');
+			imagedestroy($im);
+		} catch(Exception $e) {
+			echo $e->getMessage();
+		}
+		$buffer	= ob_get_clean();
+		
+		if(!empty($buffer))
+		{
+			return $LNG['se_vaildation_ttf_gd_error'].$buffer;
+		}
+		
+		return true;
+	}
+
+	function checkFieldIsIpOrDsn($value)
+	{
+		global $LNG;
+		if(!filter_var($value, FILTER_VALIDATE_IP) && !filter_var($value, FILTER_VALIDATE_URL))
+		{
+			return $LNG['se_vaildation_ip_dsn_invalid'];
+		}
+		
+		return true;
+	}
+
+	function checkTeamSpeak($config)
+	{
+		global $LNG;
+		if($config['teamspeakEnable'] == 0)
+		{
+			return true;
+		}
+		
+		$tsAdmin = new ts3admin($config['teamspeakServerAdress'], $config['teamspeakServerQueryPort']);
+		
+		$connectData	= $tsAdmin->connect();
+		
+		if(!$tsAdmin->getElement('success', $connectData))
+		{
+			$error	= $tsAdmin->getElement('errors', $connectData);
+			return $LNG['se_vaildation_ts_cant_connect'].$error[0];
+		}
+		
+		if(!$tsAdmin->login($config['teamspeakServerQueryUser'], $config['teamspeakServerQueryPassword']))
+		{
+			return $LNG['se_vaildation_ts_cant_login'];
+		}
+
+		if(!$tsAdmin->selectServer($config['teamspeakUDPPort']))
+		{
+			return $LNG['se_vaildation_ts_wrong_server'];
+		}
+
+		$serverInfoData	= $tsAdmin->serverInfo();
+		if(!$tsAdmin->getElement('success', $serverInfoData))
+		{
+			$error	= $tsAdmin->getElement('errors', $serverInfoData);
+			return $LNG['se_vaildation_ts_cant_get_info'].$error[0];
+		}
+		
+		return true;
 	}
 }

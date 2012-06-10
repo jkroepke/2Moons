@@ -4,8 +4,10 @@ $LNG['write_message']						= 'Schreibe eine Nachricht';
 
 $LNG['common_submit']						= 'Absenden';
 $LNG['common_reset']						= 'Zurücksetzten';
+$LNG['common_continue']						= 'Weiter';
 
 $LNG['common_ready']						= 'Fertig';
+$LNG['common_back']							= 'Zurück';
 
 $LNG['common_yes']							= 'Ja';
 $LNG['common_no']							= 'Nein';

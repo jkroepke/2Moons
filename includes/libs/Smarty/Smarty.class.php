@@ -23,12 +23,12 @@
  * smarty-discussion-subscribe@googlegroups.com
  *
  * @link http://www.smarty.net/
-  * @copyright 2008 New Digital Group, Inc.
+ * @copyright 2008 New Digital Group, Inc.
  * @author Monte Ohrt <monte at ohrt dot com>
  * @author Uwe Tews
  * @author Rodney Rehm
  * @package Smarty
- * @version 3.1.8
+ * @version 3.1.10
  */
 
 /**
@@ -113,7 +113,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     /**
      * smarty version
      */
-    const SMARTY_VERSION = 'Smarty-3.1.8';
+    const SMARTY_VERSION = 'Smarty-3.1.10';
 
     /**
      * define variable scopes
@@ -190,6 +190,10 @@ class Smarty extends Smarty_Internal_TemplateBase {
      */
     public static $_UTF8_MODIFIER = 'u';
     
+    /**
+     * Flag denoting if operating system is windows
+     */
+    public static $_IS_WINDOWS = false;
     
     /**#@+
      * variables
@@ -1463,6 +1467,9 @@ class Smarty extends Smarty_Internal_TemplateBase {
         restore_error_handler();
     }
 }
+
+// Check if we're running on windows
+Smarty::$_IS_WINDOWS = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
 
 // let PCRE (preg_*) treat strings as ISO-8859-1 if we're not dealing with UTF-8
 if (Smarty::$_CHARSET !== 'UTF-8') {

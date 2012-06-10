@@ -41,8 +41,7 @@ $LNG['lo_info']									= 'Gebe dein Passwort ein, um dich zu vertifizeren!';
 $LNG['adm_bad_password']						= 'Falsches Passwort!';
 
 // Support Informationen
-$LNG['info_information']	= 'Informations-Vorlage zum Posten eines Bugs im <a href="%s" target="tracker">2Moons Board</a><br>Ohne diese Vorlage gibt es keinen Support!';
-
+$LNG['info_information']						= 'Informations-Vorlage zum Posten eines Bugs im <a href="%s" target="tracker">2Moons Board</a><br>Ohne diese Vorlage gibt es keinen Support!';
 
 // Global Message
 $LNG['ma_message_sended']						= 'Ihre Nachricht wurde versendet!';
@@ -335,7 +334,7 @@ $LNG['ga_no_inactives']							= 'Inaktive Spieler ausschließen';
 
 $LNG['ed_saved']								= 'Gespeichert';
 $LNG['ed_user_head']							= 'Accounteditor';
-$LNG['ed_user_info']							= 'Wähle den zu bearbeiteten Spiel aus. Als Hilfe kannst du auch die Suchbox nutzten oder die SpielerID direkt eingeben.';
+$LNG['ed_user_info']							= 'Wähle den zu bearbeiteten Spiel aus. Als Hilfe kannst du auch die Suchbox nutzten oder die #SpielerID direkt eingeben.';
 $LNG['ed_edit']									= 'Bearbeite';
 $LNG['ed_userid']								= 'Spieler ID';
 $LNG['ed_username']								= 'Spielername';
@@ -664,8 +663,18 @@ $LNG['se_unit_hour']							= 'Stunden';
 $LNG['se_unit_percent']							= '%';
 $LNG['se_unit_points']							= 'Punkte';
 
+$LNG['se_saved']								= 'Deine Einstellungen wurden gespeichert!';
 
-
+$LNG['se_vaildation_field']						= 'Fehler bei "%s":<br>%s';
+$LNG['se_vaildation_url_missing_scheme']		= 'Die Adresse muss mit http:// oder https:// beginnen.';
+$LNG['se_vaildation_ttf_missing']				= 'Das System kann die angegebene Datei nicht finden.  .';
+$LNG['se_vaildation_ttf_gd_error']				= 'GD-LIB-Fehler: ';
+$LNG['se_vaildation_actice_mail_not']			= 'Diese Funktion kann nur aktiviert werden, wenn die Mail-Funktionen aktiv sind.';
+$LNG['se_vaildation_ip_dsn_invalid']			= 'Keine gültige IP-Adresse oder gültigen Hostname angegeben.';
+$LNG['se_vaildation_ts_cant_connect']			= 'Kann keine Verbindung zum Teamspeak-Server aufbauen.<hr>Fehlerinformationen:<br>';
+$LNG['se_vaildation_ts_cant_login']				= 'Authentifikationsfehler: Inkorrekte Logindaten.';
+$LNG['se_vaildation_ts_wrong_server']			= 'Fehler: Kann Teamspeak-Server nicht finden. UDP-Port korrekt?';
+$LNG['se_vaildation_ts_cant_get_info']			= 'Konnte nicht auf Serverinformationen zugreifen.<hr>Fehlerinformationen:<br>';
 
 
 

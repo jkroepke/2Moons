@@ -125,7 +125,7 @@ class ErrorUtil
 				<b>Message: </b>'.$exception->getMessage().'<br>
 				<b>File: </b>'.$exception->getFile().'<br>
 				<b>Line: </b>'.$exception->getLine().'<br>
-				<b>URL: </b>'.PROTOCOL.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].(!empty($_SERVER['QUERY_STRING']) ? '?'.$_SERVER['QUERY_STRING']: '').'<br>
+				<b>URL: </b>'.htmlentities(PROTOCOL.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].(!empty($_SERVER['QUERY_STRING']) ? '?'.$_SERVER['QUERY_STRING']: '')).'<br>
 				<b>PHP-Version: </b>'.PHP_VERSION.'<br>
 				<b>PHP-API: </b>'.php_sapi_name().'<br>
 				<b>MySQL-Cleint-Version: </b>'.mysqli_get_client_info().'<br>
