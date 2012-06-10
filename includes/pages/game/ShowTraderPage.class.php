@@ -102,12 +102,21 @@ class ShowTraderPage extends AbstractPage
 		$tradeResources		= array_values(array_diff($reslist['resstype'][1], array($resourceID)));
 		$tradeSum 			= 0;
 		
-		foreach($tradeResources as $tradeRessID) {
-			$tradeAmount	= min(max(0, round((float) $getTradeResources[$tradeRessID])), $PLANET[$GLOBALS['VARS']['ELEMENT'][$tradeRessID]['name']]);
-			$tradeSum	   += $tradeAmount;
-			if(empty($tradeAmount)) {
+		foreach($tradeResources as $tradeRessID)
+		{
+			$tradeAmount	= max(0, round((float) $getTradeResources[$tradeRessID]));
+			
+			if(empty($tradeAmount))
+			{
 				continue;  
 			}
+			
+			if($tradeAmount > $PLANET[$resource[$tradeRessID]])
+			{
+				$this->printMessage(sprintf($LNG['tr_not_enought'], $LNG['tech'][$tradeRessID]), array("game.php?page=trader", 3));
+			}
+			
+			$tradeSum	   += $tradeAmount;
 			
 			$PLANET[$GLOBALS['VARS']['ELEMENT'][$resourceID]['name']]	-= $tradeAmount * self::$Charge[$resourceID][$tradeRessID];			
 			$PLANET[$GLOBALS['VARS']['ELEMENT'][$tradeRessID]['name']]	+= $tradeAmount * (1 - $uniConfig['traderResourceCharge']);

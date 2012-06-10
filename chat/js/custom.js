@@ -14,4 +14,3 @@ ajaxChat.replaceCustomCommands = function(text, textParts) {
 	return text;
 }
  */
- 

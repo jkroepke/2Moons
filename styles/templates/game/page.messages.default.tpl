@@ -7,7 +7,7 @@
 		{foreach $CategoryList as $CategoryID => $CategoryRow}
 		{if ($CategoryRow@iteration % 6) === 1}<tr>{/if}
 		{if $CategoryRow@last && ($CategoryRow@iteration % 6) !== 0}<td>&nbsp;</td>{/if}
-		<td style="color:{$CategoryRow.color};"><a href="#" onclick="Message.getMessages({$CategoryID});return false;" style="color:{$CategoryRow.color};">{$LNG.mg_type.{$CategoryID}}</a>
+		<td style="word-wrap: break-word;color:{$CategoryRow.color};"><a href="#" onclick="Message.getMessages({$CategoryID});return false;" style="color:{$CategoryRow.color};">{$LNG.mg_type.{$CategoryID}}</a>
 		<br><span id="unread_{$CategoryID}">{$CategoryRow.unread}</span>/<span id="total_{$CategoryID}">{$CategoryRow.total}</span>
 		</td>
 		{if $CategoryRow@last || ($CategoryRow@iteration % 6) === 0}</tr>{/if}
