@@ -24,7 +24,7 @@
  * @copyright 2009 Lucky (XGProyecto)
  * @copyright 2012 Jan <info@2moons.cc> (2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.7.0 (2012-05-31)
+ * @version 2.0.$Revision$ (2012-11-31)
  * @info $Id$
  * @link http://code.google.com/p/2moons/
  */
