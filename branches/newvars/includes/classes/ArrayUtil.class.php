@@ -51,4 +51,30 @@ class ArrayUtil
 		
 		return $temp;
 	}
+	
+	// http://www.php.net/manual/en/function.array-key-exists.php#81659
+	function arrayKeyExistsRecrusive($needle, $haystack)
+	{
+		$result = array_key_exists($needle, $haystack);
+		
+		if ($result)
+		{
+			return $result;
+		}
+		
+		foreach ($haystack as $v)
+		{
+			if (is_array($v))
+			{
+				$result = self::arrayKeyExistsRecrusive($needle, $v);
+			}
+			
+			if ($result)
+			{
+				return $result;
+			}
+		}
+		
+		return $result;
+	}
 }

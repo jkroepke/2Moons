@@ -180,9 +180,11 @@ abstract class AbstractPage
 		));
 	}
 	
-	protected function printMessage($Message, $fullSide = true, $redirect = NULL) {
+	protected function printMessage($message, $redirect = NULL, $redirectButtons = NULL, $fullSide = true)
+	{
 		$this->assign(array(
-			'mes'		=> $Message,
+			'message'			=> $message,
+			'redirectButtons'	=> $redirectButtons,
 		));
 		
 		if(isset($redirect)) {
