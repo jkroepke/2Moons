@@ -28,7 +28,7 @@
  * @author Uwe Tews
  * @package Smarty
  * @subpackage PluginsInternal
- * @version 3-SVN$Rev: 131 $
+ * @version 3-SVN$Rev$
  */
 
 
