@@ -425,11 +425,8 @@ $LNG['of_update']							= 'Erneuern';
 //----------------------------------------------------------------------------//
 //TRADER
 
-$LNG['tr_empty_darkmatter']					= 'Sie haben nicht genug %s!';
 $LNG['tr_cost_dm_trader']					= 'Die Händlergebühren betragen %s %s!';
-$LNG['tr_not_enought_metal']				= 'Sie haben nicht genügend Metall.';
-$LNG['tr_not_enought_crystal']				= 'Sie haben nicht genügend Kristall.';
-$LNG['tr_not_enought_deuterium']			= 'Sie haben nicht genügend Deuterium.';
+$LNG['tr_not_enought']						= 'Du hast nicht genug %s.';
 $LNG['tr_exchange_done']					= 'Erfolgreich umgetauscht';
 $LNG['tr_exchange_error']					= 'Zu wenig verfügbare Einheiten oder falscher Typ';
 $LNG['tr_call_trader']						= 'Rufe einen Händler';
@@ -758,6 +755,12 @@ $LNG['bu_delete']							= 'Löschen';
 $LNG['bu_no_request']						= 'Keine Anfragen vorhanden!';
 $LNG['bu_no_buddys']						= 'Keine Buddys vorhanden!';
 $LNG['bu_request_send']						= 'Anfrage gesendet!';
+$LNG['bu_new_request_title']				= 'Neue Buddylist-Anfrage!';
+$LNG['bu_new_request_body']					= 'Hallo %s,<br>%s hat dir eine Buddylist-Anfrage gesendet!';
+$LNG['bu_accepted_request_title']			= 'Buddylist-Anfrage akzeptiert!';
+$LNG['bu_accepted_request_body']			= 'Hallo %s,<br>%s hat deine Buddylistanfrage angenommen!';
+$LNG['bu_rejected_request_title']			= 'Buddylist-Anfrage abgelehnt!';
+$LNG['bu_rejected_request_body']			= 'Hallo %s,<br>%s hat deine Buddylistanfrage abgelehnt!';
 
 //----------------------------------------------------------------------------//
 //NOTES

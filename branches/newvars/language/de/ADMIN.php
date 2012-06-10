@@ -590,7 +590,7 @@ $LNG['se_info_ecoResourceOverflow']				= 'Erlaubt eine bestimmte Anzahl an Rohst
 $LNG['se_label_buildMinBuildTime']				= 'Minimale Bauzeit';
 $LNG['se_info_buildMinBuildTime']				= 'Setzt die minimale Bauzeit von Forschungen, Gebäude und Schiffen auf den eingetragenen Wert unabhängig von Speed. = deaktivert die Minimale Bauzeit, kann aber zu einer erhöhten Last des Servers füren.';
 $LNG['se_label_shipyardCancelCharge']			= 'Abbruchgebüren in der Schiffswerft';
-$LNG['se_info_shipyardCancelCharge']			= 'Gebüren bei Abbruch einer Auftrages in der Schiffwerfts anteilig an dem Kosten des Auftrages';
+$LNG['se_info_shipyardCancelCharge']			= 'Gebüren bei Abbruch einer Auftrages in der Schiffwerfts anteilig an dem Kosten des Auftrages.';
 
 $LNG['se_head_planet']							= 'Planeteneinstellungen';
 $LNG['se_info_planet']							= 'Hier kannst du die Planten der Spieler konfigurieren.';
@@ -610,13 +610,59 @@ $LNG['se_label_planetHoldDebrisOnMoonCreate']	= 'Trümmerfeld bei Mondentstehung
 $LNG['se_info_planetHoldDebrisOnMoonCreate']	= 'Hier kannst du einstellen, ob nach eine Mondentstehnung das Trümmerfeld gelöscht oder beibehalten werden soll.';
 $LNG['se_label_planetJumpWaitTime']				= 'Aufladezeit von Sprungtoren';
 $LNG['se_info_planetJumpWaitTime']				= 'Die Zeit, in der Spieler das Sprungtur nach einen Sprung nicht nutzten können.';
+$LNG['se_label_planetAddFieldsByMoonBase']		= 'Felderbouns Mondbasis';
+$LNG['se_info_planetAddFieldsByMoonBase']		= 'Hier kannst du einstellen, wieviele Felder pro Ausbau der Mondbasis hinzugefügt werden soll.';
+$LNG['se_label_planetAddFieldsByTerraFormer']	= 'Felderbouns Terraformer';
+$LNG['se_info_planetAddFieldsByTerraFormer']	= 'Hier kannst du einstellen, wieviele Felder pro Ausbau des Terraformers hinzugefügt werden soll.';
+$LNG['se_label_userMinPlanets']					= 'Kolonien beim Start';
+$LNG['se_info_userMinPlanets']					= 'Anzahl an Koloniene, der der User vom Start an besiedeln kann.';
+$LNG['se_label_userMaxPlanets']					= 'Maximale Anzahl an Kolonien';
+$LNG['se_info_userMaxPlanets']					= 'Maximale Anzahl an Kolonien, die der Spieler unabhöngig vom Bonus oder Forschungen haben kann. -1 deaktiviert das Limit.';
+$LNG['se_label_galaxyNavigationDeuterium']		= 'Gebüren Galaxieansicht';
+$LNG['se_info_galaxyNavigationDeuterium']		= 'Deuteriumkosten pro Aufruf der Galaxieseite. Es fallen keine Gebüren an, die Seite aufgerufen wird, wo der aktive Planet sich befindet.';
+$LNG['se_label_phalanxCost']					= 'Phalanx Gebüren';
+$LNG['se_info_phalanxCost']						= 'Deuteriumkosten pro Nutzung des Phalanx.';
 
+$LNG['se_head_fleet']							= 'Flotteneinstellungen';
+$LNG['se_info_fleet']							= 'Auf dieser Seite findest du Einstellungen rund um Flottenversand und -missionen.';
+$LNG['se_label_attackBashEnable']				= 'Bash-Schutz';
+$LNG['se_info_attackBashEnable']				= 'Damit Spieler nicht zu tode angegriffen werden, kann hier an Angrifflimit gesetzt werden. Dann kann ein Spieler einen anderen Spieler nur in einer gewissen Zeit eine bestimme Anzahl an Angriffen durführen.';
+$LNG['se_label_attackBashAllowAttack']			= 'Bash-Schutz: Anzahl der Angriffe';
+$LNG['se_info_attackBashAllowAttack']			= '';
+$LNG['se_label_attackBashInTime']				= 'Bash-Schutz: Zeitrahmen';
+$LNG['se_info_attackBashInTime']				= '';
+$LNG['se_label_attackMaxRounds']				= 'Maximale Kampfrunden';
+$LNG['se_info_attackMaxRounds']					= 'Damit Kämpfe nicht ins unendliche gehen, kannst man hier das Limit der Runden einstellen. Ist das Limit erreicht, geht das Kampf unendschieden aus.';
+$LNG['se_label_fleetToDebris']					= 'Flotte ins Trümmerfeld';
+$LNG['se_info_fleetToDebris']					= 'Prozentualer Anteil der Rohstoffe der zerstörten Flotte, die ins das Trümmerfeld wandern.';
+$LNG['se_label_defenseToDebris']				= 'Verteidigung ins Trümmerfeld';
+$LNG['se_info_defenseToDebris']					= 'Prozentualer Anteil der Rohstoffe der zerstörten Verteidigung, die ins das Trümmerfeld wandern.';
+$LNG['se_label_fleetLimitDMMissions']			= 'Maximale parallele DM-Expeditionen';
+$LNG['se_info_fleetLimitDMMissions']			= 'Die Anzahl, die ein Spieler an gleichzeitgen DM-Expeditionen starten kann. DM-Expeditionen sind Expeditionen zum eigenen Mond. Diese Einstellung betrifft nicht die Standardexpedition.';
+$LNG['se_label_fleetMaxUsersPerACS']			= 'Maximale Flottenzüge beim Verbund';
+$LNG['se_info_fleetMaxUsersPerACS']				= 'Die Anzahl an Flottenzügen, die im Verbund (AKS) gegen einen Spieler gesendet werden können.';
+$LNG['se_label_noobProtectionEnable']			= 'Noobschutz aktiv';
+$LNG['se_info_noobProtectionEnable']			= 'Noobschutz verhindert, dass Spieler von starkeren Spieler angegriffen werden.';
+$LNG['se_label_noobProtectionAllowStrong']		= 'Angriff auf starke Spieler';
+$LNG['se_info_noobProtectionAllowStrong']		= 'Erlaubt Spieler im Noobschutz, stärke Spieler anzugreifen. Spieler, die dies tun werden vogelfrei für eine bestimmte Zeit und verlieren den Noobschutz. (FIX ME!)';
+$LNG['se_label_noobProtectionToPoints']			= 'Schutz bis';
+$LNG['se_info_noobProtectionToPoints']			= 'Wenn diese Punktezahl erreicht wurde, verliert man den aktiven Noobschutz.';
+$LNG['se_label_noobProtectionRange']			= 'Noobschutzfaktor';
+$LNG['se_info_noobProtectionRange']				= 'Der Faktor gibt an, in welchem Punktebereicht die Spiler angreifen bzw. angegriffen werden können.';
+
+$LNG['se_head_trader']							= 'Händlereinstellungen';
+$LNG['se_info_trader']							= 'Auf dieser Seite kannst du Händler und Schrotthändler konfigurieren.';
+$LNG['se_label_traderFleetCharge']				= 'Gebühren Schrotthändler';
+$LNG['se_info_traderFleetCharge']				= 'Gebühren beim Verkauf der Schiffe anteilig an dem Kosten.';
+$LNG['se_label_traderResourceCost']				= 'Gebühren Rohstoffhändler';
+$LNG['se_info_traderResourceCost']				= 'Gebühren beim Tauschen mit dem Händler.';
+$LNG['se_label_traderFleetData']				= 'Verkaufbare Schiffe';
+$LNG['se_info_traderFleetData']					= 'Hier kannst du die Schiffe auswähle, die verkauf werden können.';
 
 $LNG['se_unit_day']								= 'Tagen';
 $LNG['se_unit_hour']							= 'Stunden';
 $LNG['se_unit_percent']							= '%';
-
-
+$LNG['se_unit_points']							= 'Punkte';
 
 
 

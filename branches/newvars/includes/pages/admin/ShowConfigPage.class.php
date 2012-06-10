@@ -201,18 +201,18 @@ class ShowConfigPage extends AbstractPage
 				),
 				'attackBashInTime' => array(
 					'type' => 'int',
+					'unit' => 'se_unit_hour',
 				),
 				'attackMaxRounds' => array(
 					'type' => 'int',
 				),
-				'attackAllowAdmin' => array(
-					'type' => 'int',
-				),
 				'fleetToDebris' => array(
 					'type' => 'int',
+					'unit' => 'se_unit_percent',
 				),
 				'defenseToDebris' => array(
 					'type' => 'int',
+					'unit' => 'se_unit_percent',
 				),
 				'fleetLimitDMMissions' => array(
 					'type' => 'int',
@@ -228,23 +228,26 @@ class ShowConfigPage extends AbstractPage
 				),
 				'noobProtectionToPoints' => array(
 					'type' => 'int',
+					'unit' => 'se_unit_points',
 				),
 				'noobProtectionRange' => array(
-					'type' => 'int',
+					'type' => 'float',
 				),
 			),
 			'trader' => array(
 				'traderFleetCharge' => array(
 					'type' => 'int',
+					'unit' => 'se_unit_percent',
 				),
 				'traderResourceCost' => array(
 					'type' => 'int',
+					'unit' => 'tech.921',
 				),
-				'traderResourceCharge' => array(
+				/* 'traderResourceCharge' => array(
 					'type' => 'int',
-				),
+				), */
 				'traderFleetData' => array(
-					'type' => 'array',
+					'type' => 'multi',
 					'selection' => ArrayUtil::combineArrayWithKeyElements(array_merge($GLOBALS['VARS']['LIST'][ELEMENT_FLEET], $GLOBALS['VARS']['LIST'][ELEMENT_DEFENSIVE]), $LNG['tech']),
 				),
 			),

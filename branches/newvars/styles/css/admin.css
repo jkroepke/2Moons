@@ -46,16 +46,25 @@ table{
 	border:0 none;
 	background:transparent;
 	padding:5px 2px;
-	width:30%;
+	vertical-align: top;
+}
+
+.configRow > td.descRow {
+	text-align:left;
+	width:528px;
+}
+
+.configRow > td.inputRow {
+	width:160px;
+}
+
+.configRow > td.unitRow {
+	width:50px;
+	text-align:left;
 }
 
 .configRow > td.textarea {
 	width:100%;
-}
-
-.configRow > td:first-child {
-	text-align:left;
-	width:70%;
 }
 
 .configRow input[type="text"] {
@@ -70,7 +79,8 @@ table{
 }
 
 .configRow select {
-	max-width: 90%;
+	width:152px;
+	padding:1px;
 }
 
 

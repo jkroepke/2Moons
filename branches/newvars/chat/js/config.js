@@ -15,7 +15,7 @@ var ajaxChatConfig = {
 	loginChannelName: null,	
 	
 	// The time in ms between update calls to retrieve new chat messages:
-	timerRate: 2000,
+	timerRate: 5000,
 	
 	// The URL to retrieve the XML chat messages (must at least contain one parameter):
 	ajaxURL: './?ajax=true',
