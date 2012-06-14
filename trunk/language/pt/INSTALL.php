@@ -16,7 +16,7 @@ $LNG['menu_license']			= 'Licença';
 $LNG['title_install']			= 'Instalação';
 
 $LNG['intro_lang']				= 'Idioma';
-$LNG['intro_instal']			= 'Para Instalação';
+$LNG['intro_install']			= 'Para Instalação';
 $LNG['intro_welcome']			= 'Olá utilizador de 2Moons!';
 $LNG['intro_text']				= 'O 2Moons é um dos melhores projectos de OGame.<br>O 2Moons é a versão mais recente e mais estável do XNova actualmente desenvolvido. 2Moons é notável por sua facilidade de estabilidade, flexibilidade, dinamismo, qualidade e utilização. Nós sempre esperamos ser melhor do que as tuas expectativas.<br><br>O sistema de instalação irá guiar-te através da instalação ou atualizar de uma versão anterior para a mais recente. Cada questão, um problema, por favor não hesites em pedir ao nosso desenvolvimento e suporte em caso de duvidas!<br><br>O 2Moons é um projeto em Open Source, lincenciado sob GNU GPL v3. Para que esta seja verificado, por favor clica no link acima onde se refera a "Lincença"<br><br>Antes da instalação pode ser iniciado um pequeno teste para verificar se o teu Plano/Dominio tem todos os requesitos para suportar o 2Moons';
 
@@ -71,6 +71,7 @@ $LNG['step2_db_too_long']		= 'O prefixo de tabela é muito longo. Deve conter no
 $LNG['step2_db_con_fail']		= 'Existe um erro na ligação à Base de Dados. Os detalhes serão exibidos abaixo';
 $LNG['step2_conf_op_fail']		= 'config.php não pode ser gravado!';
 $LNG['step2_conf_create']		= 'config.php criado com sucesso!';
+$LNG['step2_config_exists']		= 'config.php já existe!';
 $LNG['step2_db_done']			= 'A conexão à Base de Dados foi bem-sucedida!';
 
 $LNG['step3_head']				= 'Criar tabelas de Base de Dados';
@@ -89,7 +90,6 @@ $LNG['step6_desc']				= 'Instalaste com sucesso o sistema 2Moons';
 $LNG['step6_info_head']			= 'Começe a utilizar o 2Moons agora!';
 $LNG['step6_info_additional']	= 'Se clicares no botão abaixo, serás redireccionado para a página de Administração. Ai será um bom partido para começares a explorar as ferramentas de Administrador de 2Moons.<br/><br/><strong>Por favor apaga o &raquo;includes/ENABLE_INSTALL_TOOL&laquo; ou modifica o nome do ficheiro. Com a existência deste ficheiro, pode causar o teu jogo em risco, ao permitir que alguem reescreva a instalação!</strong>';
 
-$LNG['sql_universe']			= 'Universo';
 $LNG['sql_close_reason']		= 'O jogo encontra-se fechado';
 $LNG['sql_welcome']				= 'Bem vindo ao 2Moons v';
 ?>
