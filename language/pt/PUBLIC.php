@@ -40,6 +40,7 @@ $LNG['server_infos']                   	= array(
 $LNG['login_error_1']					= 'Usuário/Password Incorreto!';
 $LNG['login_error_2']					= 'A tua sessão expirou ou alguem entror desde outro computador!';
 $LNG['login_error_3']					= 'A tua sessão expirou!';
+$LNG['login_error_4']					= 'Houve um erro de autorização da sessão. Tente outra vez!';
 $LNG['screenshots']                    	= 'Imagens';
 $LNG['universe']                       	= 'Universo';
 $LNG['chose_a_uni']                    	= 'Escolhe o universo';
@@ -75,10 +76,8 @@ $LNG['reg_mail_reg_done']              = 'Bem-vindo ao Mundo %s!';
 $LNG['invalid_mail_adress']            = 'Este E-mail não e válido!<br>';
 $LNG['empty_user_field']               = 'Por favor, preencha os campos todos!<br>';
 $LNG['password_lenght_error']          = 'A password tem de conter pelo menos um minimo de 4 carateres!<br>';
-$LNG['user_field_no_alphanumeric']     = 'Por favor, insere o nome do usuário apenas com carateres alfanuméricos!<br>';
-$LNG['user_field_no_space']            = 'Por favor, não insira o nome de usuário com espaços ou em branco !<br>';
-$LNG['planet_field_no']                = 'Não inseris-te o nome do planeta!';
-$LNG['planet_field_no_alphanumeric']   = 'Por favor insira só carateres alphanumericos!<br>';
+$LNG['user_field_specialchar']     = 'Por favor, insere o nome do usuário apenas com carateres alfanuméricos!<br>';
+$LNG['planet_field_specialchar']   = 'Por favor insira só carateres alphanumericos!';
 $LNG['planet_field_no_space']	       = 'Por favor não deixes o nome do planeta em branco!<br>';
 $LNG['terms_and_conditions']           = 'Aceito os <a href="index.php?page=agb">T&C</a> e as <a href="index.php?page=rules>Régras</a> de jogo!<br>';
 $LNG['user_already_exists']            = 'O Nome do Usuário que escolheu já existe!<br>';
@@ -117,11 +116,7 @@ $LNG['user_active']		       		   = 'Usuários %s ativos!';
 
 //Rules
 $LNG['rules_overview']                 = "Regras";
-$LNG['rules_info1']                    = "Mais informações podem ser encontradas no <a href=\"jogo\" target=\"_blank\">Fórum</a> ou se tiveres dúvidas também as podes expor lá ...";
-         
-//Facebook Connect         
-         
-$LNG['fb_perm']						   = 'Acesso proibido. Precisas de todos os direitos para fazeres o login com a conta do Facebook.Logo a seguir, poderás fazer o login sem a conta do Facebook!';         
+$LNG['rules_info1']                    = "Mais informações podem ser encontradas no <a href=\"jogo\" target=\"_blank\">Fórum</a> ou se tiveres dúvidas também as podes expor lá ...";     
          
 //NEWS
 

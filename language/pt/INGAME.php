@@ -358,6 +358,7 @@ $LNG['bd_cancel']							= 'Cancelar';
 $LNG['bd_working']							= 'Ocupado';
 $LNG['bd_build']							= 'Construir';
 $LNG['bd_build_next_level']					= 'Construir para o proximo nível ';
+$LNG['bd_research']							= 'Pesquisar';
 $LNG['bd_tech']								= 'Pesquisa';
 $LNG['bd_tech_next_level']					= 'Pesquisar para o proximo nível ';
 $LNG['bd_add_to_list']				        = 'Adicionar a lista';
