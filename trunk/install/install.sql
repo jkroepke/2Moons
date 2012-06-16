@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%alliance_request` (
   `time` int(11) NOT NULL,
   PRIMARY KEY (`applyID`),
   KEY `allianceID` (`allianceID`,`userID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%aks` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%aks` (
   `target` int(11) unsigned NOT NULL,
   `ankunft` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%alliance` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%alliance` (
   KEY `ally_tag` (`ally_tag`),
   KEY `ally_name` (`ally_name`),
   KEY `ally_universe` (`ally_universe`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%alliance_ranks` (
   `rankID` int(11) NOT NULL AUTO_INCREMENT,
@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%alliance_ranks` (
   `MANAGEUSERS` tinyint(3) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`rankID`),
   KEY `allianceID` (`allianceID`,`rankID`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%alliance_request` (
   `applyID` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%alliance_request` (
   `time` int(11) NOT NULL,
   PRIMARY KEY (`applyID`),
   KEY `allianceID` (`allianceID`,`userID`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%banned` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -115,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%banned` (
   `universe` tinyint(3) unsigned NOT NULL,
   KEY `ID` (`id`),
   KEY `universe` (`universe`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%buddy` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -125,7 +125,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%buddy` (
   PRIMARY KEY (`id`),
   KEY `universe` (`universe`),
   KEY `sender` (`sender`,`owner`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%buddy_request` (
   `id` int(11) unsigned NOT NULL,
@@ -156,7 +156,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%chat_messages` (
   `ip` varbinary(16) NOT NULL,
   `text` text CHARACTER SET utf8 COLLATE utf8_bin,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%chat_online` (
   `userID` int(11) NOT NULL,
@@ -292,7 +292,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%config` (
   `timezone` varchar(32) NOT NULL DEFAULT 'Europe/London',
   `dst` enum('0','1','2') NOT NULL DEFAULT '2',
   PRIMARY KEY (`uni`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%diplo` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -305,7 +305,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%diplo` (
   PRIMARY KEY (`id`),
   KEY `owner_1` (`owner_1`,`owner_2`),
   KEY `universe` (`universe`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%fleets` (
   `fleet_id` bigint(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -341,7 +341,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%fleets` (
   KEY `fleet_target_owner` (`fleet_target_owner`,`fleet_mission`),
   KEY `fleet_owner` (`fleet_owner`,`fleet_mission`),
   KEY `fleet_group` (`fleet_group`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%fleet_event` (
   `fleetID` int(11) NOT NULL,
@@ -361,7 +361,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%log` (
   `universe` tinyint(3) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `mode` (`mode`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%log_fleets` (
   `fleet_id` bigint(11) unsigned NOT NULL,
@@ -412,7 +412,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%messages` (
   PRIMARY KEY (`message_id`),
   KEY `message_sender` (`message_sender`),
   KEY `message_owner` (`message_owner`,`message_type`,`message_unread`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%news` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -421,7 +421,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%news` (
   `title` varchar(64) NOT NULL,
   `text` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%notes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -434,18 +434,14 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%notes` (
   PRIMARY KEY (`id`),
   KEY `universe` (`universe`),
   KEY `owner` (`owner`,`time`,`priority`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `%PREFIX%pay` (
-  `key` varchar(32) NOT NULL,
-  `userID` int(11) NOT NULL,
-  `amount` int(11) NOT NULL,
-  `method` varchar(15) NOT NULL,
-  `timestamp` int(11) NOT NULL,
-  `state` tinyint(4) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`key`),
-  KEY `key` (`key`,`method`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `%PREFIX%multi` (
+ `multiID` int(11) NOT NULL AUTO_INCREMENT,
+ `userID` int(11) NOT NULL,
+ PRIMARY KEY (`multiID`),
+ KEY `userID` (`userID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%planets` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -547,7 +543,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%planets` (
   KEY `id_owner` (`id_owner`),
   KEY `destruyed` (`destruyed`),
   KEY `universe` (`universe`,`galaxy`,`system`,`planet`,`planet_type`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%raports` (
   `rid` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -555,7 +551,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%raports` (
   `time` int(11) NOT NULL,
   PRIMARY KEY (`rid`),
   KEY `time` (`time`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%records` (
   `userID` int(10) unsigned NOT NULL,
@@ -581,7 +577,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%shortcuts` (
   `type` tinyint(1) unsigned NOT NULL,
   PRIMARY KEY (`shortcutID`),
   KEY `ownerID` (`ownerID`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%statpoints` (
   `id_owner` int(11) unsigned NOT NULL DEFAULT '0',
@@ -624,7 +620,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%ticket` (
   PRIMARY KEY (`ticketID`),
   KEY `ownerID` (`ownerID`),
   KEY `universe` (`universe`,`status`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%ticket_answer` (
   `answerID` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -635,13 +631,13 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%ticket_answer` (
   `subject` varchar(255) NOT NULL,
   `message` mediumtext NOT NULL,
   PRIMARY KEY (`answerID`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%ticket_category` (
   `categoryID` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
   PRIMARY KEY (`categoryID`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%topkb` (
   `rid` int(11) unsigned NOT NULL,
@@ -752,7 +748,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%users` (
   KEY `ref_bonus` (`ref_bonus`),
   KEY `universe` (`universe`,`username`,`password`,`onlinetime`,`authlevel`),
   KEY `ally_id` (`ally_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%users_to_acs` (
   `userID` int(10) unsigned NOT NULL,
@@ -791,7 +787,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%users_valid` (
   `ref_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `cle` (`cle`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%vars` (
   `elementID` smallint(5) unsigned NOT NULL,

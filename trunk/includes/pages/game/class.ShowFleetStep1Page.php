@@ -246,8 +246,10 @@ class ShowFleetStep1Page extends AbstractPage
 				exit($LNG['fl_error_not_avalible']);
 			elseif($TargetPlanettype == 2 && $Data['der_metal'] == 0 && $Data['der_crystal'] == 0)
 				exit($LNG['fl_error_empty_derbis']);
-			elseif($USER['id'] != $Data['id'] && $USER['user_lastip'] == $Data['user_lastip'])
+			elseif(ENABLE_MULTIALERT && $USER['id'] != $Data['id'] && $USER['user_lastip'] == $Data['user_lastip'] && $GLOBALS['DATABASE']->countquery("SELECT (SELECT COUNT(*) FROM ".MULTI." WHERE userID = ".$USER['id'].") + (SELECT COUNT(*) FROM ".MULTI." WHERE userID = ".$Data['id'].")") != 2)
+			{
 				exit($LNG['fl_multi_alarm']);
+			}
 		} else {
 			if ($USER[$resource[124]] == 0)
 				exit($LNG['fl_send_error'][10]);

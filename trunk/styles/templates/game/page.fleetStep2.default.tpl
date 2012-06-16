@@ -10,8 +10,8 @@
 			<th>{$LNG.fl_mission}</th>
         	<th>{$LNG.fl_resources}</th>
         </tr>
-		<tr class="left top">
-			<td style="width:50%;margin:0;padding:0;"{if $StaySelector} rowspan="3"{/if}>
+		<tr>
+			<td class="left top" style="width:50%;margin:0;padding:0;"{if $StaySelector} rowspan="3"{/if}>
         		<table border="0" cellpadding="0" cellspacing="0" width="259" style="margin:0;padding:0;">
         			{foreach $MissionSelector as $MissionID} 
 					<tr style="height:20px;">

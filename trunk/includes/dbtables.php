@@ -54,6 +54,7 @@ define('LOG_FLEETS'			, DB_PREFIX.'log_fleets');
 define('NEWS'				, DB_PREFIX.'news');
 define('NOTES'				, DB_PREFIX.'notes');
 define('MESSAGES'			, DB_PREFIX.'messages');
+define('MULTI'				, DB_PREFIX.'multi');
 define('PLANETS'            , DB_PREFIX.'planets');
 define('RW'		            , DB_PREFIX.'raports');
 define('RECORDS'		    , DB_PREFIX.'records');

@@ -984,6 +984,7 @@ $LNG['qe_change']						= 'Ändern';
 $LNG['qe_authattack']					= 'Admin Angriffschutz';
 $LNG['qe_submit']						= 'Absenden';
 $LNG['qe_resetr']						= 'Zurücksetzten';
+$LNG['qe_allowmulti']					= 'Erlaube Multi';
 	
 //----------------------------------------------------------------------------//
 //TeamSpeakSettingPage.php
@@ -1174,6 +1175,7 @@ $LNG['ap_nicht_aktivierte_user']		= 'Nicht aktivierte User';
 //MultiIPPage
 $LNG['mip_ip']							= 'IP';
 $LNG['mip_user']						= 'User';
+$LNG['mip_known']						= 'Genehmigt?';
 
 //Admin Log
 $LNG['log_log']                         = 'Log';
