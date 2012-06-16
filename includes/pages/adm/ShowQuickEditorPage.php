@@ -173,6 +173,7 @@ function ShowQuickEditorPage()
 				
 				$old = array();
 				$new = array();
+				$multi	=  HTTP::_GP('multi', 0);
 				foreach($DataIDs as $IDs)
                 {
                     $old[$IDs]    = $UserData[$resource[$IDs]];
@@ -184,6 +185,20 @@ function ShowQuickEditorPage()
 				$new['username']	= $GLOBALS['DATABASE']->sql_escape(HTTP::_GP('name', '', UTF8_SUPPORT));
 				$old['authattack']	= $UserData['authattack'];
 				$new['authattack']	= ($UserData['authlevel'] != AUTH_USR && HTTP::_GP('authattack', '') == 'on' ? $UserData['authlevel'] : 0);
+				$old['multi']		= $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".MULTI." WHERE userID = ".$id.";");
+				$new['authattack']	= $multi;
+			
+				if($old['multi'] != $multi)
+				{
+					if($multi == 0)
+					{
+						$GLOBALS['DATABASE']->query("DELETE FROM ".MULTI." WHERE userID = ".((int) $id).";");
+					}
+					elseif($multi == 1)
+					{
+						$GLOBALS['DATABASE']->query("INSERT INTO ".MULTI." SET userID = ".((int) $id).";");
+					}
+				}
 				
 				$LOG = new Log(1);
 				$LOG->target = $id;
@@ -230,6 +245,7 @@ function ShowQuickEditorPage()
 				'planet'		=> $UserData['planet'],
 				'authlevel'		=> $UserData['authlevel'],
 				'authattack'	=> $UserData['authattack'],
+				'multi'			=> $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".MULTI." WHERE userID = ".$id.";"),
 				'ChangePW'		=> $ChangePW,
 				'darkmatter'	=> floattostring($UserData['darkmatter']),
 				'darkmatter_c'	=> pretty_number($UserData['darkmatter']),

@@ -23,6 +23,9 @@ function check(){
 {if $ChangePW}
 <tr style="height:26px;"><td width="50%">{$LNG.qe_password}:</td><td width="50%"><a href="#" onclick="$('#password').css('display', '');$(this).css('display', 'none');return false">{$qe_change}</a><input style="display:none;" id="password" name="password" type="password" size="15" value="" autocomplete="off"></td></tr>
 {/if}
+{if $ChangePW}
+<tr style="height:26px;"><td width="50%">{$LNG.qe_allowmulti}:</td><td width="50%">{html_options name="multi" options=$LNG.one_is_yes selected=$multi}</td></tr>
+{/if}
 </table>
 <table width="100%" style="color:#FFFFFF">
 <tr>

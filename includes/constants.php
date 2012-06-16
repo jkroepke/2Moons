@@ -106,6 +106,9 @@ define('ENABLE_SIMULATOR_LINK'		, true);
 // Max. User Session in Seconds
 define('SESSION_LIFETIME'			, 43200);
 
+// ENABLE Mutlialert on sending fleets
+define('ENABLE_MULTIALERT'			, true);
+
 // DISCLAMER INFOS
 define('DICLAMER_NAME'				, "Edit constans.php!");
 define('DICLAMER_ADRESS1'			, "Edit constans.php!");

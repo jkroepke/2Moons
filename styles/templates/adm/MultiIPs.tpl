@@ -7,8 +7,9 @@
 		<th>{$LNG.se_email}</th>
 		<th>{$LNG.ac_register_time}</th>
 		<th>{$LNG.ac_act_time}</th>
+		<th>{$LNG.mip_known}</th>
 	</tr>
-	{foreach $IPs as $IP => $Users}
+	{foreach $multiGroups as $IP => $Users}
 	<tr>
 		<td rowspan="{count($Users)}">{$IP}</td>
 		{foreach $Users as $ID => $User}
@@ -17,6 +18,7 @@
 		<td class="left" style="padding:3px;">{$User.email}</td>
 		<td class="left" style="padding:3px;">{$User.register_time}</td>
 		<td class="left" style="padding:3px;">{$User.onlinetime}</td>
+		<td class="center" style="padding:3px;">{if ($User.isKnown != 0)}<a href="admin.php?page=multiips&amp;action=unknown&amp;id={$ID}"><img src="styles/images/true.png"></a>{else}<a href="admin.php?page=multiips&amp;action=known&amp;id={$ID}"><img src="styles/images/false.png"></a>{/if}</td>
 		</tr>{if !$User@last}<tr>{/if}
 		{/foreach}
 	{/foreach}
