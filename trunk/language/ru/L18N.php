@@ -13,6 +13,10 @@ $LNG['js_tdformat']    = '[M] [D] [d] [H]:[i]:[s]';
 $LNG['php_timeformat'] = 'H:i:s';
 $LNG['php_dateformat'] = 'd. M Y';
 $LNG['php_tdformat']   = 'd. M Y, H:i:s';
+$LNG['short_day']      = 'd';
+$LNG['short_hour']     = 'h';
+$LNG['short_minute']   = 'm';
+$LNG['short_second']   = 's';
 
 $LNG['timezones'] = array(
 	'-12'	=> '[UTC − 12] Меридиан смены дат (запад)',
