@@ -29,8 +29,8 @@
  * @link http://code.google.com/p/2moons/
  */
 
-class ShowDashboardPage extends AbstractPage{
-		
+class ShowDashboardPage extends AbstractPage
+{
 	function show()
 	{
 		global $LNG, $USER;
@@ -55,9 +55,17 @@ class ShowDashboardPage extends AbstractPage{
 				$Message[]	= sprintf($LNG['ow_dir_not_writable'], 'includes');
 		}
 		
+		$httpRequest	= new HTTPRequest("http://code.google.com/feeds/p/2moons/svnchanges/basic");
+		$feedCode		= $httpRequest->getResponse();
+		
+		$httpRequest	= new HTTPRequest("http://www.facebook.com/feeds/page.php?id=129282307106646&format=json");
+		$feedFacebook	= $httpRequest->getResponse();
+		
 		$this->assign(array(
 			'Messages'			=> $Message,
 			'date'				=> date('m\_Y', TIMESTAMP),
+			'feedCode'			=> new SimpleXMLElement($feedCode),
+			'feedFacebook'		=> $feedFacebook,
 		));
 		
 		$this->render('page.dashboard.default.tpl');

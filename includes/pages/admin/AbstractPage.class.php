@@ -92,6 +92,17 @@ abstract class AbstractPage
 			$this->getNavigationData();
 		}
 		
+		$dateTimeServer		= new DateTime("now");
+		if(isset($USER['timezone'])) {
+			try {
+				$dateTimeUser	= new DateTime("now", new DateTimeZone($USER['timezone']));
+			} catch (Exception $e) {
+				$dateTimeUser	= $dateTimeServer;
+			}
+		} else {
+			$dateTimeUser	= $dateTimeServer;
+		}
+		
 		$this->assign(array(
 			'date'		=> explode("|", date('Y\|n\|j\|G\|i\|s\|Z', TIMESTAMP)),
 			'authlevel'	=> $USER['authlevel'],
@@ -100,6 +111,7 @@ abstract class AbstractPage
             'uni_name'	=> $uniConfig['uniName'],
 			'VERSION'	=> $gameConfig['version'],
 			'REV'		=> substr($gameConfig['version'], -4),
+			'Offset'	=> $dateTimeUser->getOffset() - $dateTimeServer->getOffset(),
 			'UNI'		=> $ADMINUNI,
 		));
 	}
@@ -112,7 +124,7 @@ abstract class AbstractPage
 		));
 		
 		if(isset($redirect)) {
-			$this->gotoside($redirect[0], $redirect[1]);
+			$this->tplObj->gotoside($redirect[0], $redirect[1]);
 		}
 		
 		if(!$fullSide) {

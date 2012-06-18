@@ -67,7 +67,8 @@ table{
 	width:100%;
 }
 
-.configRow input[type="text"] {
+.configRow input[type="text"],
+.configRow input[type="password"] {
 	min-width:150px
 }
 

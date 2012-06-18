@@ -356,3 +356,7 @@ th a,.res_current{
 .ui-tabs {
 	border:1px solid #000;
 }
+
+.ui-state-active.ui-button{
+	background: #212428 !important;
+}

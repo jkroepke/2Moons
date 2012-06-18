@@ -42,6 +42,7 @@ class ShowConfigPage extends AbstractPage
 			'mail'		=> 'checkSiteMail',
 			'captcha'	=> 'checkSiteReCaptcha',
 			'facebook'	=> 'checkSiteFacebook',
+			'analytics'	=> 'checkSiteAnalytics',
 		);
 		
 		$this->mode = array(
@@ -409,7 +410,6 @@ class ShowConfigPage extends AbstractPage
 				),
 				'mailSmtpAdress' => array(
 					'type' => 'string',
-					'validate' => 'ipOrDsn',
 				),
 				'mailSmtpPort' => array(
 					'type' => 'int',
@@ -418,7 +418,7 @@ class ShowConfigPage extends AbstractPage
 					'type' => 'string',
 				),
 				'mailSmtpPass' => array(
-					'type' => 'string',
+					'type' => 'password',
 				),
 				'mailSmtpSecure' => array(
 					'type' => 'array',
@@ -426,7 +426,6 @@ class ShowConfigPage extends AbstractPage
 				),
 				'mailSenderMail' => array(
 					'type' => 'string',
-					'validate' => 'mail',
 				),
 			),
 			'captcha' => array(					
@@ -526,7 +525,7 @@ class ShowConfigPage extends AbstractPage
 
 	function update()
 	{
-		global $LNG, $uniConfig, $gameConfig;
+		global $LNG, $uniConfig, $gameConfig, $ADMINUNI;
 		
 		$section	= HTTP::_GP('section', '');
 		if(!isset($this->configArray[$section]))
@@ -571,6 +570,15 @@ class ShowConfigPage extends AbstractPage
 				case 'textarea':
 					$value	= HTTP::_GP($configKey, '', true);
 				break;
+				case 'password':
+					$value		= HTTP::_GP($configKey, '', true);
+					$oldValue	= isset($gameConfig[$configKey]) ? $gameConfig[$configKey] : $uniConfig[$configKey];
+					
+					if($value == str_repeat("*", strlen($oldValue)))
+					{
+						$value	= $oldValue;
+					}
+				break;
 				case 'array':
 					$value	= HTTP::_GP($configKey, '', true);
 					
@@ -592,6 +600,9 @@ class ShowConfigPage extends AbstractPage
 					
 					$value	= serialize($values);
 				break;
+				default:
+					throw new Exception('Unkwon type "'.$keySettings['type'].'" for '.$configKey);
+				break;
 			}
 		
 			if(isset($keySettings['validate']))
@@ -600,10 +611,9 @@ class ShowConfigPage extends AbstractPage
 				if(method_exists($this, $validator))
 				{
 					$errorMessage	= $this->{$validator}($value);
-					
-					if($errorMessage !== true)
+					if($errorMessage[0] !== true)
 					{
-						$this->printMessage(sprintf($LNG['se_vaildation_field'], $LNG['se_label_'.$configKey], $errorMessage), NULL, array($LNG['common_back'] => 'javascript:history.go(-1)'));
+						$this->printMessage(sprintf($LNG['se_vaildation_field'], $LNG['se_label_'.$configKey], $errorMessage[1]), NULL, array($LNG['common_back'] => 'javascript:history.go(-1)'));
 					}
 				}
 				else
@@ -622,9 +632,9 @@ class ShowConfigPage extends AbstractPage
 			{
 				$errorMessage	= $this->{$validator}($newConfig);
 			
-				if($errorMessage !== true)
+				if($errorMessage[0] !== true)
 				{
-					$this->printMessage($errorMessage, NULL, array($LNG['common_back'] => 'javascript:history.go(-1)'));
+					$this->printMessage($errorMessage[1], NULL, array($LNG['common_back'] => 'javascript:history.go(-1)'));
 				}
 			}
 			else
@@ -633,9 +643,18 @@ class ShowConfigPage extends AbstractPage
 			}
 		}
 		
-		setConfig($newConfig);
-			
-		$this->printMessage($LNG['se_saved'], NULL, array($LNG['common_continue'] => 'admin.php?page=config&section='.$section));
+		setConfig($newConfig, $ADMINUNI, true);
+		
+		if(!is_null($errorMessage[1]))
+		{
+			$message	= $errorMessage[1];
+		}
+		else
+		{
+			$message	= $LNG['se_saved'];
+		}
+		
+		$this->printMessage($message, NULL, array($LNG['common_continue'] => 'admin.php?page=config&section='.$section));
 	}
 
 	function checkFieldIsUrl($value)
@@ -644,10 +663,10 @@ class ShowConfigPage extends AbstractPage
 		
 		if(!empty($value) && !filter_var($value, FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED))
 		{
-			return $LNG['se_vaildation_url_missing_scheme'];
+			return array(false, $LNG['se_vaildation_url_missing_scheme']);
 		}
 		
-		return true;
+		return array(true, NULL);
 	}
 
 	function checkFieldIsMailActive($value)
@@ -656,10 +675,10 @@ class ShowConfigPage extends AbstractPage
 		
 		if($value == 1 && $gameConfig['mailEnable'] != 1)
 		{
-			return $LNG['se_vaildation_actice_mail_not'];
+			return array(false, $LNG['se_vaildation_actice_mail_not']);
 		}
 		
-		return true;
+		return array(true, NULL);
 	}
 
 	function checkFieldIsValidateTTF($value)
@@ -668,12 +687,12 @@ class ShowConfigPage extends AbstractPage
 		
 		if(!isModulAvalible(MODULE_BANNER))
 		{
-			return true;
+			return array(true, NULL);
 		}
 		
 		if(!file_exists(ROOT_PATH.$value))
 		{
-			return $LNG['se_vaildation_ttf_missing'];
+			return array(false, $LNG['se_vaildation_ttf_missing']);
 		}
 		
 		ob_start();
@@ -684,25 +703,26 @@ class ShowConfigPage extends AbstractPage
 		} catch(Exception $e) {
 			echo $e->getMessage();
 		}
+		
 		$buffer	= ob_get_clean();
 		
 		if(!empty($buffer))
 		{
-			return $LNG['se_vaildation_ttf_gd_error'].$buffer;
+			return array(false, $LNG['se_vaildation_ttf_gd_error'].$buffer);
 		}
 		
-		return true;
+		return array(true, NULL);
 	}
 
 	function checkFieldIsIpOrDsn($value)
 	{
 		global $LNG;
-		if(!filter_var($value, FILTER_VALIDATE_IP) && !filter_var($value, FILTER_VALIDATE_URL))
+		if(!filter_var($value, FILTER_VALIDATE_IP) && !preg_match('/^([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)*[a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?$/', $value))
 		{
-			return $LNG['se_vaildation_ip_dsn_invalid'];
+			return array(false, $LNG['se_vaildation_ip_dsn_invalid']);
 		}
 		
-		return true;
+		return array(true, NULL);
 	}
 
 	function checkTeamSpeak($config)
@@ -710,7 +730,7 @@ class ShowConfigPage extends AbstractPage
 		global $LNG;
 		if($config['teamspeakEnable'] == 0)
 		{
-			return true;
+			return array(true, NULL);
 		}
 		
 		$tsAdmin = new ts3admin($config['teamspeakServerAdress'], $config['teamspeakServerQueryPort']);
@@ -720,26 +740,216 @@ class ShowConfigPage extends AbstractPage
 		if(!$tsAdmin->getElement('success', $connectData))
 		{
 			$error	= $tsAdmin->getElement('errors', $connectData);
-			return $LNG['se_vaildation_ts_cant_connect'].$error[0];
+			return array(false, $LNG['se_vaildation_ts_cant_connect'].$error[0]);
 		}
 		
 		if(!$tsAdmin->login($config['teamspeakServerQueryUser'], $config['teamspeakServerQueryPassword']))
 		{
-			return $LNG['se_vaildation_ts_cant_login'];
+			return array(false, $LNG['se_vaildation_ts_cant_login']);
 		}
 
 		if(!$tsAdmin->selectServer($config['teamspeakUDPPort']))
 		{
-			return $LNG['se_vaildation_ts_wrong_server'];
+			return array(false, $LNG['se_vaildation_ts_wrong_server']);
 		}
 
 		$serverInfoData	= $tsAdmin->serverInfo();
 		if(!$tsAdmin->getElement('success', $serverInfoData))
 		{
 			$error	= $tsAdmin->getElement('errors', $serverInfoData);
-			return $LNG['se_vaildation_ts_cant_get_info'].$error[0];
+			return array(false, $LNG['se_vaildation_ts_cant_get_info'].$error[0]);
 		}
 		
-		return true;
+		return array(true, NULL);
+	}
+	
+	function checkSiteAnalytics($config)
+	{
+		global $LNG;
+		if($config['analyticsEnable'] == 0)
+		{
+			return array(true, NULL);
+		}
+		
+		if(empty($config['analyticsUID']) || substr($config['analyticsUID'], 0, 3) !== "UA-")
+		{
+			return array(false, $LNG['se_vaildation_analytics_invalid']);
+		}
+		
+		return array(true, NULL);
+	}
+	
+	function checkSiteReCaptcha($config)
+	{
+		global $LNG;
+		if($config['recaptchaEnable'] == 0)
+		{
+			return array(true, NULL);
+		}
+		
+		require(ROOT_PATH.'/includes/libs/reCAPTCHA/recaptchalib.php');
+
+		$response	= new HTTPRequest(RECAPTCHA_API_SERVER."/noscript?k=".$config['recaptchaPublicKey']);
+
+		if(strpos($response->getResponse(), "Format of site key was invalid") !== false)
+		{
+			return array(false, $LNG['se_vaildation_captcha_public_invalid']);
+		}
+
+		$response	= new HTTPRequest(RECAPTCHA_VERIFY_SERVER."/recaptcha/api/verify?privatekey=".$config['recaptchaPrivateKey']);
+
+		if(strpos($response->getResponse(), "invalid-site-private-key") !== false)
+		{
+			return array(false, $LNG['se_vaildation_captcha_private_invalid']);
+		}
+		
+		return array(true, NULL);
+	}
+	
+	function checkSiteFacebook($config)
+	{
+		global $LNG, $gameConfig;
+		if($config['facebookEnable'] == 0)
+		{
+			return array(true, NULL);
+		}
+		
+		if($gameConfig['mailEnable'] != 1)
+		{
+			return array(false, $LNG['se_vaildation_actice_mail_not']);
+		}
+		
+		require(ROOT_PATH.'/includes/libs/facebook/facebook.php');
+		
+		$httpRequest	= new HTTPRequest("http://www.facebook.com/apps/application.php?id=".$config['facebookAPIKey']);
+		
+		if(strpos($httpRequest->getResponse(), "You are being redirected to the") === false)
+		{
+			return array(false, $LNG['se_vaildation_fb_appid_invalid']);
+		}
+
+		$facebook = new Facebook(array(
+			'appId'  => $config['facebookAPIKey'],
+			'secret' => $config['facebookSecureKey'],
+			'cookie' => false,
+		));	
+
+		try {
+			$facebook->api('/me');
+		} catch (FacebookApiException $e) {
+			return array(false, $LNG['se_vaildation_fb_secret_invalid']);
+		}
+		
+		return array(true, NULL);
+	}
+	
+	function checkSiteMail($config)
+	{
+		global $LNG, $gameConfig, $USER;
+		if($config['mailEnable'] == 0)
+		{
+			return array(true, NULL);
+		}
+		
+		if(!PlayerUtil::isMailValid($config['mailSenderMail']))
+		{
+			return array(false, $LNG['se_vaildation_mail_invalid_sender_mail']);
+		}
+		
+		$isValidAddress	= $this->checkFieldIsIpOrDsn($config['mailSmtpAdress']);
+		if($isValidAddress[0] === false && $config['mailMethod'] == 'smtp')
+		{
+			return array(false, $LNG['se_vaildation_ip_dsn_invalid']);
+		}
+		
+		require(ROOT_PATH.'/includes/libs/swift/swift_required.php');
+		
+		try
+		{
+			if($config['mailMethod'] == 'smtp')
+			{
+				$transport = Swift_SmtpTransport::newInstance($config['mailSmtpAdress'], $config['mailSmtpPort']);
+				
+				if($config['mailSmtpUser'] == 'ssl' || $config['mailSmtpUser'] == 'tls')
+				{
+					$transport->setEncryption($config['mailSmtpSecure']);
+				}
+				
+				if(!empty($config['mailSmtpUser']))
+				{
+					$transport->setUsername($config['mailSmtpUser']);
+					$transport->setPassword($config['mailSmtpPass']);
+				}
+			}
+			elseif($config['mailMethod'] == 'mail')
+			{
+				$transport = Swift_MailTransport::newInstance();
+			}
+			
+			$mailer = Swift_Mailer::newInstance($transport);
+			
+			#$logger = new Swift_Plugins_Loggers_ArrayLogger();
+			#$mailer->registerPlugin(new Swift_Plugins_LoggerPlugin($logger));
+			
+			$mail = Swift_Message::newInstance();
+			$mail->setSubject('Test Mail // '.$gameConfig['gameName']);
+			$mail->setFrom(array($config['mailSenderMail'] => $gameConfig['gameName']));
+			$mail->setTo(array($USER['email'] => $USER['username']));
+			$mail->setBody('Test Mail');
+			$mail->addPart('<i>Test Mail</i>', 'text/html');
+		
+			$mailer->send($mail);
+		} 
+		catch (Swift_RfcComplianceException $e)
+		{
+			return array(false, $LNG['se_vaildation_mail_send_error'].$e->getMessage());
+		}
+		catch (Swift_TransportException $e)
+		{
+			return array(false, $LNG['se_vaildation_mail_connection_error'].$e->getMessage());
+		}
+		catch (Exception $e)
+		{
+			return array(false, $LNG['se_vaildation_mail_send_error'].$e->getMessage());
+		} 
+		return array(true, NULL);
+			
+	/* 		
+			if(!empty($debug))
+			{
+				$debug	= '<hr><b>'.$LNG['se_vaildation_mail_smtp_debug'].'</b><br><br><pre class="left">'.strip_tags($debug).'</pre>';
+			}
+			
+			if(!$hasSend)
+			{
+				return array(false, $LNG['se_vaildation_mail_send_unkown_error'].$debug);
+			}
+			else
+			{
+				return array(true, sprintf($LNG['se_vaildation_mail_send_mail'], $USER['email']).$debug);
+			}
+		}
+		catch (phpmailerException $e)
+		{
+			$debug	= $logger->dump();
+			if(!empty($debug))
+			{
+				$debug	= '<hr><b>'.$LNG['se_vaildation_mail_smtp_debug'].'</b><br><br><pre class="left">'.strip_tags($debug).'</pre>';
+			}
+			
+			return array(false, $LNG['se_vaildation_mail_send_error'].$e->errorMessage().$debug);
+		}
+		catch (Exception $e)
+		{
+			$debug	= ob_get_clean();
+			if(!empty($debug))
+			{
+				$debug	= '<hr><b>'.$LNG['se_vaildation_mail_smtp_debug'].'</b><br><br><pre class="left">'.strip_tags($debug).'</pre>';
+			}
+			
+			return array(false, $LNG['se_vaildation_mail_send_error'].$e->getMessage().$debug);
+		} */
+					
+		return array(true, NULL);
 	}
 }

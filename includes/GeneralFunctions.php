@@ -197,7 +197,7 @@ function setConfig($configArray, $UNI = NULL, $flushCache = true)
 	
 	if($flushCache) {
 		$GLOBALS['CACHE']->flush('config');
-		$GLOBALS['CACHE']->flush('universe');
+		$GLOBALS['CACHE']->flush('configuni');
 	}
 }
 

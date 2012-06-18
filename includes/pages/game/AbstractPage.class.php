@@ -188,7 +188,7 @@ abstract class AbstractPage
 		));
 		
 		if(isset($redirect)) {
-			$this->gotoside($redirect[0], $redirect[1]);
+			$this->tplObj->gotoside($redirect[0], $redirect[1]);
 		}
 		
 		if(!$fullSide) {
