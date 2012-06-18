@@ -177,15 +177,52 @@
         </td>
     </tr>
 </table>
-<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+{/block}
+{block name="script" prepend}
 <script type="text/javascript">
-google.load("feeds", "1");
-google.setOnLoadCallback(function() {
-	var feedControl = new google.feeds.FeedControl();
-	feedControl.addFeed("http://code.google.com/feeds/p/2moons/svnchanges/basic", "");
-	feedControl.draw(document.getElementById("feed"));
-	var feedControl = new google.feeds.FeedControl();
-	feedControl.addFeed("https://www.facebook.com/feeds/page.php?id=129282307106646&format=rss20", "");
-	feedControl.draw(document.getElementById("news"));
+var feedCode		= {$feedCode|json};
+var feedFacebook	= {$feedFacebook|default:'[]'};
+$(function() {
+	var HTML = "",
+	    data = "";
+	
+	data	= feedCode.entry[0];
+	HTML	+= '<div>';
+	HTML	+= '<a href="'+data.link+'" target="_blank">'+data.title+'</a><br><span class="detail">'+data.author.name+' - '+getFormatedDate(new Date(data.updated).getTime(), '[d].[m].[Y]')+'</span><br>';
+	HTML	+= '</div>';
+	data	= feedCode.entry[1];
+	HTML	+= '<div>';
+	HTML	+= '<a href="'+data.link+'" target="_blank">'+data.title+'</a><br><span class="detail">'+data.author.name+' - '+getFormatedDate(new Date(data.updated).getTime(), '[d].[m].[Y]')+'</span><br>';
+	HTML	+= '</div>';
+	data	= feedCode.entry[2];
+	HTML	+= '<div>';
+	HTML	+= '<a href="'+data.link+'" target="_blank">'+data.title+'</a><br><span class="detail">'+data.author.name+' - '+getFormatedDate(new Date(data.updated).getTime(), '[d].[m].[Y]')+'</span><br>';
+	HTML	+= '</div>';
+	data	= feedCode.entry[3];
+	HTML	+= '<div>';
+	HTML	+= '<a href="'+data.link+'" target="_blank">'+data.title+'</a><br><span class="detail">'+data.author.name+' - '+getFormatedDate(new Date(data.updated).getTime(), '[d].[m].[Y]')+'</span><br>';
+	HTML	+= '</div>';
+	$('#feed').html(HTML);
+	
+	HTML	= "";
+	
+	data	= feedFacebook.entries[0];
+	HTML	+= '<div>';
+	HTML	+= '<a href="'+data.alternate+'" target="_blank">'+data.title+'</a><br><span class="detail">'+data.author.name+' - '+getFormatedDate(new Date(data.updated).getTime(), '[d].[m].[Y]')+'</span><br>';
+	HTML	+= '</div>';
+	data	= feedFacebook.entries[1];
+	HTML	+= '<div>';
+	HTML	+= '<a href="'+data.alternate+'" target="_blank">'+data.title+'</a><br><span class="detail">'+data.author.name+' - '+getFormatedDate(new Date(data.updated).getTime(), '[d].[m].[Y]')+'</span><br>';
+	HTML	+= '</div>';
+	data	= feedFacebook.entries[2];
+	HTML	+= '<div>';
+	HTML	+= '<a href="'+data.alternate+'" target="_blank">'+data.title+'</a><br><span class="detail">'+data.author.name+' - '+getFormatedDate(new Date(data.updated).getTime(), '[d].[m].[Y]')+'</span><br>';
+	HTML	+= '</div>';
+	data	= feedFacebook.entries[3];
+	HTML	+= '<div>';
+	HTML	+= '<a href="'+data.alternate+'" target="_blank">'+data.title+'</a><br><span class="detail">'+data.author.name+' - '+getFormatedDate(new Date(data.updated).getTime(), '[d].[m].[Y]')+'</span><br>';
+	HTML	+= '</div>';
+	$('#news').html(HTML);
 });
+</script>
 {/block}

@@ -27,11 +27,15 @@
 	<link rel="stylesheet" type="text/css" href="{$dpath}formate.css?v={$REV}">
 	<link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
 	<script type="text/javascript">
+	var ServerTimezoneOffset = {$Offset};
 	var serverTime 	= new Date({$date.0}, {$date.1 - 1}, {$date.2}, {$date.3}, {$date.4}, {$date.5});
 	var startTime	= serverTime.getTime();
 	var localTime 	= serverTime;
 	var localTS 	= startTime;
 	var Gamename	= document.title;
+	var days 		= {$LNG.week_day|json|default:'[]'} 
+	var months 		= {$LNG.months|json|default:'[]'} ;
+	var tdformat	= "{$LNG.js_tdformat}";
 	setInterval(function() {
 		serverTime.setSeconds(serverTime.getSeconds()+1);
 	}, 1000);

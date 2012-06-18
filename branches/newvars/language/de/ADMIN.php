@@ -675,9 +675,16 @@ $LNG['se_vaildation_ts_cant_connect']			= 'Kann keine Verbindung zum Teamspeak-S
 $LNG['se_vaildation_ts_cant_login']				= 'Authentifikationsfehler: Inkorrekte Logindaten.';
 $LNG['se_vaildation_ts_wrong_server']			= 'Fehler: Kann Teamspeak-Server nicht finden. UDP-Port korrekt?';
 $LNG['se_vaildation_ts_cant_get_info']			= 'Konnte nicht auf Serverinformationen zugreifen.<hr>Fehlerinformationen:<br>';
-
-
-
+$LNG['se_vaildation_analytics_invalid']			= 'Um Google Analytics nutzten zu können, muss du eine gültige Tracker UID eintragen.';
+$LNG['se_vaildation_captcha_public_invalid']	= 'Der reCAPTCHA-Publickey ist ungültig!';
+$LNG['se_vaildation_captcha_private_invalid']	= 'Der reCAPTCHA-Privatekey ist ungültig!';
+$LNG['se_vaildation_fb_appid_invalid']			= 'Die App-ID/API-Schlüssel ist ungültig!';
+$LNG['se_vaildation_fb_secret_invalid']			= 'Der Anwendungs-Geheimcode ist ungültig!';
+$LNG['se_vaildation_mail_send_error']			= 'Fehler beim Test-Versand:<br>';
+$LNG['se_vaildation_mail_connection_error']		= 'Fehler beim Test-Versand:<br>';
+$LNG['se_vaildation_mail_send_unkown_error']	= 'Unbekannter Fehler beim Test-Versand!';
+$LNG['se_vaildation_mail_smtp_debug']			= 'Debug:';
+$LNG['se_vaildation_mail_invalid_sender_mail']	= 'Du hast keine gültige Absendeadresse eingegeben!';
 
 
 

@@ -14,9 +14,10 @@
 			{foreach $configArray as $configKey => $inputSettings}
 				<tr class="configRow">
 					<td class="descRow"><label{if $inputSettings.type != 'bool'} for="{$configKey}"{/if}><b>{$LNG.{"se_label_$configKey"}}</b>{if strlen($LNG.{"se_info_$configKey"}) != 0}<br><i>{$LNG.{"se_info_$configKey"}}</i>{/if}</label></td>
-					<td class="inputRow">{if $inputSettings.type == 'int'}<input name="{$configKey}" id="{$configKey}" type="text" pattern="[0-9]+" value="{$configValues.$configKey|escape:'html'}" required>
+					<td class="inputRow inputRow{ucwords($inputSettings.type)}">{if $inputSettings.type == 'int'}<input name="{$configKey}" id="{$configKey}" type="text" pattern="[0-9]+" value="{$configValues.$configKey|escape:'html'}" required>
 					{elseif $inputSettings.type == 'float'}<input name="{$configKey}" id="{$configKey}" type="text" pattern="[0-9]+[\.|,]?[0-9]*" value="{$configValues.$configKey|escape:'html'}" required>
 					{elseif $inputSettings.type == 'string'}<input name="{$configKey}" id="{$configKey}" type="text" value="{$configValues.$configKey|escape:'html'}">
+					{elseif $inputSettings.type == 'password'}<input name="{$configKey}" id="{$configKey}" type="password" value="{str_repeat("*", strlen($configValues.$configKey))}" autocomplete="off">
 					{elseif $inputSettings.type == 'bool'}<label for="{$configKey}_yes">{$LNG.common_yes}</label>&nbsp;<input value="1" name="{$configKey}" id="{$configKey}_yes" type="radio"{if $configValues.$configKey == true} checked{/if}>&nbsp;&nbsp;<label for="{$configKey}_no">{$LNG.common_no}</label>&nbsp;<input value="0" name="{$configKey}" id="{$configKey}_no" type="radio"{if $configValues.$configKey == false} checked{/if}>
 					{elseif $inputSettings.type == 'array'}{html_options name=$configKey id=$configKey options=$inputSettings.selection selected=$configValues.$configKey}
 					{elseif $inputSettings.type == 'multi'}{html_options multiple="multiple" size="7" name=$configKey id=$configKey options=$inputSettings.selection selected=$configValues.$configKey}
@@ -38,5 +39,6 @@
 <script src="./scripts/base/jquery.autosize.js"></script>
 <script>$(function() {
 	$('textarea').autosize();
+	$('.inputRowBool').buttonset()
 });</script>
 {/block}
