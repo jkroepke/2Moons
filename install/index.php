@@ -419,9 +419,8 @@ switch ($step) {
 		
 		$PlanetID		= CreateOnePlanetRecord(1, 1, 1, 1, 1, '', true, AUTH_ADM);
 		$SESSION       	= new Session();
-		$SESSION->CreateSession(1, $AdminUsername, $PlanetID, $UNI, 3, DEFAULT_THEME);
-		
-		$_SESSION['admin_login']	= cryptPassword($MD5Password);
+		$SESSION->CreateSession(1, $AdminUsername, $PlanetID, 1, 3, DEFAULT_THEME);
+		$_SESSION['admin_login']	= $MD5Password;
 		
 		@unlink($enableInstallToolFile);
 		$template->show('ins_step8.tpl');
