@@ -1,5 +1,10 @@
 <?php
 
+// Traduzido por QwataKayean. Todos os Direitos Reservados © 2010-2012
+// Texto escrito conforme o Acordo Ortográfico a ser inserido em 2011 pelo Ministério da Educação de Portugal - convertido pelo Lince.         
+
+// 2Moons - Copyright (C) 2010-2012 Slaver 
+
 $LNG['Messages']							= 'Mensagens';
 $LNG['write_message']						= 'Escrever mensagem';
 
@@ -159,7 +164,7 @@ $LNG['gl_fleets']							= 'Slots de Fleet';
 $LNG['gl_avaible_grecyclers']				= 'Reciclador de Batalha';
 $LNG['gl_avaible_recyclers']				= 'Reciclador';
 $LNG['gl_avaible_spyprobes']				= 'Sondas de Espionagem';
-$LNG['gl_missil_launch']					= 'Lanças Misseis';
+$LNG['gl_missil_launch']					= 'Lançar Misseis';
 $LNG['gl_missil_to_launch']					= 'Número de Misseis (<b>%d</b> disp.):';
 $LNG['gl_all_defenses']						= 'Todas as defesas';
 $LNG['gl_objective']						= 'Objetivo Principal';
@@ -295,13 +300,13 @@ $LNG['fl_dm_alert_message']                 = 'Tem cuidado, se em %s %s foi enco
 $LNG['fl_vacation_mode_active']			    = 'Modo de férias ativo';
 $LNG['fl_expedition_fleets_limit']		    = 'Sem slots de exploração espacial desponiveis!';
 $LNG['fl_week_player']						= 'O jogador está sob a proteção de jogador fraco';
-$LNG['fl_strong_player']					= 'O jogador é demasiado forte. És suicida?';
+$LNG['fl_strong_player']					= 'O jogador é demasiado forte.';
 $LNG['fl_in_vacation_player']				= 'O jogador encontra-se em modo de férias';
 $LNG['fl_no_slots']							= 'Sem slots desponiveis';
 $LNG['fl_planet_populed']					= 'Este planeta está ocupado!';
 $LNG['fl_no_same_alliance']				    = 'O jogador do planeta de destino deve ser da tua aliança ou estar na tua lista de amigos!';
 $LNG['fl_not_ally_deposit']				    = 'Não tens Depósito de Alianca';
-$LNG['fl_deploy_only_your_planets']			= 'Sie können nur Flotten auf Ihren eigenen Planeten stationieren!';
+$LNG['fl_deploy_only_your_planets']			= 'Só podes transferir naves nos teus próprios planetas!';
 $LNG['fl_fleet_sended']						= 'Frota enviada';
 $LNG['fl_from']								= 'De';
 $LNG['fl_arrival_time']						= 'Tempo de Destino';
@@ -380,7 +385,7 @@ $LNG['bd_completed']						= 'Completo';
 $LNG['bd_operating']						= '(Em Construção)';
 $LNG['bd_continue']							= 'Continuar';
 $LNG['bd_price_for_destroy']				= 'Custo para destruir:';
-$LNG['bd_ready']							= 'Acabado';
+$LNG['bd_ready']							= 'Pronto';
 $LNG['bd_finished']							= 'Acabou';
 $LNG['bd_maxlevel']                         = 'Nível máximo atingido';
 $LNG['bd_on']                               = 'ligado';
@@ -394,7 +399,7 @@ $LNG['bd_cancel_send']                      = 'Cancelar Construção';
 $LNG['bd_destroy_time'] 					= 'Duração';
 $LNG['bd_max_ships']                                            = 'max';
 $LNG['bd_max_ships_long']                                       = 'Máximo de unidades possiveis para construir';
-$LNG['sys_notenough_money'] 				= 'Não tens recursos desponíveis no %s <a href="./game.php?page=buildings&amp;cp=%d&amp;re=0">[%d:%d:%d]</a> para a construção que querias efetuar. <br>Recursos disponíveis para a construção da %s %s , %s %s e %s %s. <br>O custo de construção %s %s , %s %s e %s %s.';
+$LNG['sys_notenough_money'] 				= 'Não tens recursos desponíveis no %s <a href="./game.php?page=buildings&amp;cp=%d&amp;re=0">[%d:%d:%d]</a> para a construção que querias efetuar. <br>Os recursos disponiveis são %s %s , %s %s e %s %s. <br>O custo de construção é %s %s , %s %s e %s %s.';
 $LNG['sys_nomore_level'] 					= 'Estás a tentar destruir um edifício que já não tens ( %s ).';
 $LNG['sys_buildlist'] 						= "Lista de construção";
 $LNG['sys_techlist'] 						= 'Lista de Pesquisa';
@@ -420,7 +425,7 @@ $LNG['of_max_lvl']							= 'Nivel Max.';
 $LNG['of_offi']								= 'Oficial';
 $LNG['of_lvl']								= 'Nivel';
 $LNG['of_dm_trade']							= '%s - Loja';
-$LNG['of_still']							= 'Continya';
+$LNG['of_still']							= 'Continua';
 $LNG['of_active']							= 'ativo';
 $LNG['of_bonus']							= 'Bonus';
 $LNG['of_update']							= 'Aumentar';
@@ -458,7 +463,7 @@ $LNG['in_jump_gate_available']				= 'Disponível';
 $LNG['in_rf_again']    			            = 'Rapidfire contra';
 $LNG['in_rf_from']     			            = 'Rapidfire de';
 $LNG['in_level']       				        = 'Nível';
-$LNG['in_storage'] 							= 'Amrazém';
+$LNG['in_storage'] 							= 'Armazém';
 $LNG['in_prod_p_hour'] 						= 'Prod. por h';
 $LNG['in_difference']  						= 'Diferença';
 $LNG['in_range']       						= 'Alcance de Sensores';
@@ -532,7 +537,7 @@ $LNG['mg_page']								= 'Página';
 // Aliança
 
 $LNG['al_not_exists']					= 'A Aliança deixou de existir';
-$LNG['al_newname_specialchar']				= 'Im Allianzname und -tag sind nur Zahlen, Buchstaben, Leerzeichen, _, -, . erlaubt!';
+$LNG['al_newname_specialchar']				= 'O TAG e o Nome de Aliança aceitam apenas caracteres alfanumericos, _, -, . !';
 $LNG['al_description_message']		        = 'Mensagem de descrição da aliança';
 $LNG['al_web_text']							= 'Web site da aliança';
 $LNG['al_request']					        = 'Aplicação';
@@ -576,7 +581,7 @@ $LNG['al_has_declined']						= '</b> A aliança rejeitou a tua aplicação <br>M
 $LNG['al_no_requests']						= 'Sem pedidos';
 $LNG['al_request_from']						= 'Pedido de "%s"';
 $LNG['al_no_request_pending']				= 'Estão %n aplicações pendentes';
-$LNG['al_name']								= 'Aterar nome de Aliança';
+$LNG['al_name']								= 'Alterar nome de Aliança';
 $LNG['al_new_name']							= 'Alterar Nome (3-30 caracters)';
 $LNG['al_tag']								= 'Alterar Tag de Aliança';
 $LNG['al_new_tag']							= 'Alterar Tag (3-8 caracters)';
@@ -612,8 +617,8 @@ $LNG['al_request_list']						= 'Lista de pedidos';
 $LNG['al_candidate']						= 'Candidato';
 $LNG['al_request_date']						= 'Data da aplicação';
 $LNG['al_transfer_alliance']				= 'Abdicar /aceitar aliança?';
-$LNG['al_transfer_to']						= 'Transfere para';
-$LNG['al_transfer_submit']					= 'Transfere';
+$LNG['al_transfer_to']						= 'Transferir para';
+$LNG['al_transfer_submit']					= 'Transferir';
 $LNG['al_ally_information']				    = 'Informação da aliança';
 $LNG['al_ally_info_tag']					= 'Tag';
 $LNG['al_ally_info_name']					= 'Name';
@@ -708,7 +713,7 @@ $LNG['al_diplo_ground']                     = 'Motivos:';
 $LNG['al_diplo_ask']                        = 'Pacto de Inquérito';
 $LNG['al_diplo_ask_mes']                    = 'O (%s) entre as alianças %s e %s.<br>Motivos: %s';
 $LNG['al_diplo_war']                        = 'Declaração de guerra';
-$LNG['al_diplo_war_mes']                    = 'A aliança %s e a aliança %s soebend den %s declarou.<br>Motivo:<br>%s<br><br>Informações:  A guerra é válida por 24 horas. Somente após as 24 horas a guerra e dada como terminada. <br>Mais informações consulta as <a href="index.php?page=rules" target="_blank">Regras</a>.';
+$LNG['al_diplo_war_mes']                    = 'A aliança %s e a aliança %s apenas %s declarou.<br>Motivo:<br>%s<br><br>Informações:  A guerra é válida por 24 horas. Somente após as 24 horas a guerra e dada como terminada. <br>Mais informações consulta as <a href="index.php?page=rules" target="_blank">Regras</a>.';
 $LNG['al_diplo_head']						= 'Gestão de Diplomacia';
 $LNG['al_diplo_same_alliance']				= 'Não podes fazer um pacto com a tua própria aliança!';
 $LNG['al_diplo_no_alliance']				= 'Não existe aliança com o nome de %s!';
@@ -870,10 +875,10 @@ $LNG['op_dlte_account']						= 'Apagar conta';
 $LNG['op_email_adress_descrip']				= 'Podes alterar este endereço de email, em qualquer altura. Tornar-se-á o email permanente após 7 dias, sem alterações.';
 $LNG['op_deactivate_ipcheck_descrip']		= 'Verificação de IP significa que o logout de segurança ocorre automaticamente quando o IP muda ou duas pessoas são registrados em uma conta de IPs diferentes. Desativando a verificação de IP pode representar um risco à segurança!';
 $LNG['op_spy_probes_number_descrip']		= 'Numero de sondas que podes mandar diretamente da vista da Galaxia.';
-$LNG['op_activate_vacation_mode_descrip']	= 'O modo de férias proteje a tua conta durante o tempo que estiveres ausente do jogo. Mas só poderás ativá-lo se nao tiveres nada em construção (frota, edifícios, ou defesa), e nada a ser pesquisado, e tanbém nenhuma das tuas frotas em vôo. Assim que for ativado, estás protejido contra ataques. Ataques que já tivessem sido lançados antes continuarão. Durante o modo de férias, a produção é posta a 0% assim que desativares o modo de férias deves repor a produção a 100%. Assim que ativares o modo de férias és obrigado a permanecer assim por um tempo mínimo de 48 horas. Só depois poderá ser desativado.';
+$LNG['op_activate_vacation_mode_descrip']	= 'O modo de férias proteje a tua conta durante o tempo que estiveres ausente do jogo. Mas só poderás ativá-lo se nao tiveres nada em construção (frota, edifícios, ou defesa), e nada a ser pesquisado, e tanbém nenhuma das tuas frotas em vôo. Assim que for ativado, estás protegido contra ataques. Ataques que já tivessem sido lançados antes continuarão. Durante o modo de férias, a produção é posta a 0% assim que desativares o modo de férias deves repor a produção a 100%. Assim que ativares o modo de férias és obrigado a permanecer assim por um tempo mínimo de 48 horas. Só depois poderá ser desativado.';
 $LNG['op_dlte_account_descrip']			    = 'Se escolheres esta opcção a tua conta será apagada após 7 dias.';
 $LNG['op_need_pass_mail']                   = 'Para alterar o seu endereço de e-mail é preciso digitar a senha na caixa!';
-$LNG['op_not_vaild_mail']					= 'Não intruduziste um E-Mail válido!';
+$LNG['op_not_vaild_mail']					= 'Não introduziste um E-Mail válido!';
 $LNG['op_change_mail_exist']				= 'O E-Mail intruduzido %s já esta em uso!';
 $LNG['op_sort_normal']                      = 'Por Colonização';
 $LNG['op_sort_koords']                      = 'Por Coordenadas';
@@ -884,7 +889,7 @@ $LNG['op_user_name_no_alphanumeric']        = 'Por favor, digite o nome do usuá
 $LNG['op_change_name_pro_week']             = 'Só podes alterar o nome de usuário uma vez por cada 7 dias!';
 $LNG['op_change_name_exist']                = 'O nome escolhido %s já existe';
 $LNG['op_active_build_messages']            = 'Ativar mensagens de construção';
-$LNG['op_dst_mode']							= 'Daylight Saving Time? (';
+$LNG['op_dst_mode']							= 'Daylight Saving Time?';
 $LNG['op_dst_mode_sel'][0]					= 'Sim';
 $LNG['op_dst_mode_sel'][1]					= 'Não';
 $LNG['op_dst_mode_sel'][2]					= 'Automático';
@@ -917,7 +922,6 @@ $LNG['css_server_maintrace']                = 'Manutenção do Servidor<br><br>O
 
 $LNG['cff_aproaching']						= 'A frota é composta por ';
 $LNG['cff_ships']							= ' unidades';
-$LNG['cff_no_fleet_data']					= 'Keine Schiffsinformationen';
 $LNG['cff_no_fleet_data']					= 'Sem dados de frota';
 $LNG['cff_fleet_own']						= 'Frota';
 $LNG['cff_fleet_target']					= 'Frotas';
@@ -1078,7 +1082,7 @@ $LNG['ti_submit']							= 'Enviar';
 $LNG['ti_read']								= 'Ticket a ler';
 $LNG['ti_answer']							= 'Responder';
 $LNG['ti_create']							= 'Ticket criado em ';
-$LNG['ti_not_exist']						= 'Das Ticket #%d existiert nicht!';
+$LNG['ti_not_exist']						= 'O ticket #%d não existe!';
 $LNG['ti_from']								= 'por';
 $LNG['ti_re']								= 'RE:';
 
@@ -1126,8 +1130,5 @@ $LNG['lo_notify']							= 'Serás redirecionado em <span id="seconds">5</span> s
 $LNG['lo_continue']							= 'Clica aqui para não esperar';
 
 //----------------------------------------------------------------------------//
-
-
-// Translated into Portuguese by QwataKayean . All rights reversed (C) 2012
 
 ?>
