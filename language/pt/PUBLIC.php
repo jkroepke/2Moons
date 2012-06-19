@@ -131,6 +131,3 @@ $LNG['disclamer_name']                 = "Nome";
 $LNG['disclamer_adress']               = "Morrada";
 $LNG['disclamer_tel']                  = "Telefone:";
 $LNG['disclamer_email']                = "E-Mail";
-
-
-?>
