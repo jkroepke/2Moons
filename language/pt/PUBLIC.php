@@ -1,9 +1,9 @@
 <?php
 
-// Traduzido por QwataKayean. Todos os Direitos Reservados © 2010-2012
+// Traduzido por QwataKayean. Todos os Direitos Reservados © 2010-2011
 // Texto escrito conforme o Acordo Ortográfico a ser inserido em 2011 pelo Ministério da Educação de Portugal - convertido pelo Lince.         
 
-// 2Moons - Copyright (C) 2010-2012 Slaver 
+// 2Moons - Copyright (C) 2011  Slaver
 
 // Recuperação de Senha
 $LNG['lost_empty']                   = 'Deves preencher todos os campos!';
@@ -131,3 +131,6 @@ $LNG['disclamer_name']                 = "Nome";
 $LNG['disclamer_adress']               = "Morrada";
 $LNG['disclamer_tel']                  = "Telefone:";
 $LNG['disclamer_email']                = "E-Mail";
+
+
+?>

@@ -28,7 +28,6 @@
  * @link http://code.google.com/p/2moons/
  */
  
- 
 $LNG['Version']     = 'Version';
 $LNG['Description'] = 'Beschreibung';
 
