@@ -1,9 +1,9 @@
-<?php
+_<?php
 
-// Traduzido por QwataKayean. Todos os Direitos Reservados © 2010-2011
+// Traduzido por QwataKayean. Todos os Direitos Reservados © 2010-2012
 // Texto escrito conforme o Acordo Ortográfico a ser inserido em 2011 pelo Ministério da Educação de Portugal - convertido pelo Lince.         
 
-// 2Moons - Copyright (C) 2011  Slaver
+// 2Moons - Copyright (C) 2010-2012 Slaver 
 
 // Recuperação de Senha
 $LNG['lost_empty']                   = 'Deves preencher todos os campos!';
@@ -78,7 +78,7 @@ $LNG['empty_user_field']               = 'Por favor, preencha os campos todos!<b
 $LNG['password_lenght_error']          = 'A password tem de conter pelo menos um minimo de 4 carateres!<br>';
 $LNG['user_field_specialchar']     = 'Por favor, insere o nome do usuário apenas com carateres alfanuméricos!<br>';
 $LNG['planet_field_specialchar']   = 'Por favor insira só carateres alphanumericos!';
-$LNG['planet_field_no_space']	       = 'Por favor não deixes o nome do planeta em branco!<br>';
+$LNG['planet_field_no']	       = 'Por favor não deixes o nome do planeta em branco!<br>';
 $LNG['terms_and_conditions']           = 'Aceito os <a href="index.php?page=agb">T&C</a> e as <a href="index.php?page=rules>Régras</a> de jogo!<br>';
 $LNG['user_already_exists']            = 'O Nome do Usuário que escolheu já existe!<br>';
 $LNG['mail_already_exists']            = 'Este E-mail já existe!<br>';

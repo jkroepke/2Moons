@@ -1,10 +1,9 @@
 <?php
 
-// Traduzido por QwataKayean. Todos os Direitos Reservados © 2010-2011
+// Traduzido por QwataKayean. Todos os Direitos Reservados © 2010-2012
 // Texto escrito conforme o Acordo Ortográfico a ser inserido em 2011 pelo Ministério da Educação de Portugal - convertido pelo Lince.         
 
-// 2Moons - Copyright (C) 2011  Slaver
-
+// 2Moons - Copyright (C) 2010-2012 Slaver 
 
 //----------------------------------------------------------------------------//
 //Outros

@@ -1,32 +1,10 @@
 <?php
 
-/**
- *  2Moons
- *  Copyright (C) 2011  Slaver
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
- * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
- * @info $Id$
- * @link http://code.google.com/p/2moons/
- */
+// Traduzido por QwataKayean. Todos os Direitos Reservados © 2010-2012
+// Texto escrito conforme o Acordo Ortográfico a ser inserido em 2011 pelo Ministério da Educação de Portugal - convertido pelo Lince.         
 
+// 2Moons - Copyright (C) 2010-2012 Slaver 
+ 
 //---------------	Geral	------------------------// 
 $LNG['adm_login']			= 'Login';
 $LNG['adm_username']		= 'Username';
@@ -417,7 +395,7 @@ $LNG['se_ref_max_referals']				= 'Máximo de Referência';
 $LNG['se_ref_max_referals_info']		= 'O número máximo de recrutar jogadores por usuário.';
 $LNG['se_silo_factor']					= 'Silo de Misseis';
 $LNG['se_silo_factor_info']				= 'Fator do tamanho do silo.';
-$LNG['se_min_build_time_info']          = 'Aqui poderás por um tempo minimo para construção. Esta pré defenido para 1 segundo.<br>Se alterares para 0, será desativado<br><font color=orange>Então ai é que os bugs começam!</font>';
+$LNG['se_min_build_time_info']          = 'Aqui poderás por um tempo minimo para construção. Esta pré defenido para 1 segundo.<br>Se alterares para 0, será desativado<br>';
 $LNG['se_news_head']                    = 'Configurações das Notícias';
 $LNG['se_news_active']                  = 'Ativar Notícias';
 $LNG['se_news_limit']                   = 'Máx 255 carateres!';
@@ -463,8 +441,8 @@ $LNG['se_ttf_file']                     = 'Pfad do ficheiro TTF';
 $LNG['se_ttf_file_info']                = 'O TTF é necessária para exibir o banner estatísticas cirílico ou chinês';
 $LNG['se_deuterium_cost_galaxy']		= 'Custo de Deutério';
 $LNG['se_deuterium_cost_galaxy_info']	= 'Custo de Deutério por Sistema Solar (Defeito : 10)';
-$LNG['se_max_galaxy']                   = 'Max. Galaxias';
-$LNG['se_max_galaxy_info']              = 'Máximo de Galaxias no Universo';
+$LNG['se_max_galaxy']                   = 'Max. Galáxias';
+$LNG['se_max_galaxy_info']              = 'Máximo de Galáxias no Universo';
 $LNG['se_max_system']                   = 'Max. Sistemas Solares';
 $LNG['se_max_system_info']              = 'Máximo de Sistemas Solares por cada Galáxia';
 $LNG['se_max_planets']                  = 'Max. Planetas';
@@ -666,7 +644,7 @@ $LNG['re_buildings_pl'] 				= 'Reiniciar edifios planetários';
 $LNG['re_buildings_lu'] 				= 'Reiniciar edificios lunares';
 $LNG['re_reset_buldings'] 				= 'Reiniciar edificios em fila';
 $LNG['re_inve_ofis'] 					= 'Pesquisa e Oficiais';
-$LNG['re_ofici'] 						= 'Fontes';
+$LNG['re_ofici'] 						= 'Oficiais';
 $LNG['re_investigations']				= 'Reiniciar as Pesquisas';
 $LNG['re_reset_invest']					= 'Reiniciar as Pesquisas em Fila';
 $LNG['re_resources']					= 'Recursos';
@@ -768,9 +746,9 @@ $LNG['ac_ali_logo_11']                  = 'Log da aliança';
 $LNG['ac_ali_idid']                     = 'ID:';
 $LNG['ac_suspended_title']              = 'Ver suspensão';
 $LNG['ac_suspended_time']               = 'Suspendido';
-$LNG['ac_suspended_longer']             = 'Ate';
+$LNG['ac_suspended_longer']             = 'Até';
 $LNG['ac_suspended_reason']             = 'Razão';
-$LNG['ac_suspended_autor']              = 'Suapenso por';
+$LNG['ac_suspended_autor']              = 'Suspenso por';
 $LNG['ac_note_k']                       = '<table><tr><th width=10%><font color=lime>T+</font></th><th>Mais que o trilião</th></tr><tr><th width=10%><font color=lime>T</font></th><th>Mais ou o mesmo que o trilião</th></tr><tr><th width=10%><font color=lime>B</font></th><th>Mais ou o mesmo que o bilião</th></tr><tr><th width=10%><font color=lime>M</font></th><th>Mais ou o mesmo que o milhão</th></tr><tr><th width=10%><font color=lime>K</font></th><th>Mais ou o mesmo que o milhar</th></tr></table>';
 $LNG['ac_leyend']                       = '[ Legenda ]';
 $LNG['ac_no_rank_level']                = 'Não tem permisões suficientes para ver informações acerca deste jogador!';
@@ -797,23 +775,23 @@ $LNG['se_type_first']                   = 'Acaba com qualquer palavra ou letra';
 $LNG['se_search'] 						= 'Procurar';
 $LNG['se_name'] 						= 'Nome';
 $LNG['se_id_owner'] 					= 'Proprietário do ID';
-$LNG['se_galaxy'] 						= 'Galaxia';
+$LNG['se_galaxy'] 						= 'Galáxia';
 $LNG['se_system'] 						= 'Sistema';
 $LNG['se_planet'] 						= 'Planeta';
 $LNG['se_tag'] 							= 'TAG';
 $LNG['se_email'] 						= 'E-mail';
-$LNG['se_auth'] 						= 'Psição';
+$LNG['se_auth'] 						= 'Posição';
 $LNG['se_activity'] 					= 'Ultima atividade';
 $LNG['se_ban'] 							= 'Suspendido?';
 $LNG['se_vacat'] 						= 'Férias?';
 $LNG['se_ban_reason'] 					= 'Razão';
 $LNG['se_ban_time'] 					= 'suspendido';
-$LNG['se_ban_limit'] 					= 'Up';
+$LNG['se_ban_limit'] 					= 'Regresso';
 $LNG['se_ban_author'] 					= 'Suspenso por';
 $LNG['se_search_title'] 				= 'Pesquisa Avançada';
 $LNG['se_order_list_now']	            = 'Ordenar Procura';
 $LNG['se_input_name'] 					= 'Nome';
-$LNG['se_input_g'] 						= 'Galaxia';
+$LNG['se_input_g'] 						= 'Galáxia';
 $LNG['se_input_s'] 						= 'Sistema';
 $LNG['se_input_p'] 						= 'Planeta';
 $LNG['se_input_inacti'] 				= 'Inatividade';
@@ -878,7 +856,7 @@ $LNG['se_search_planets'][0]			=	'ID';
 $LNG['se_search_planets'][1]			=	'Nome';
 $LNG['se_search_planets'][2]			=	"Dono";
 $LNG['se_search_planets'][3]			=	"Ultima atividade";
-$LNG['se_search_planets'][4]			=	"Galaxia";
+$LNG['se_search_planets'][4]			=	"Galáxia";
 $LNG['se_search_planets'][5]			=	"Sistema";
 $LNG['se_search_planets'][6]			=	"Planeta";
 $LNG['se_search_planets'][7]			=	"Tem Lua?";
@@ -886,7 +864,7 @@ $LNG['se_search_planets'][7]			=	"Tem Lua?";
 // Pesquisa na tabela de Jogadores banidos
 $LNG['se_search_banned'][0]				=	'ID';
 $LNG['se_search_banned'][1]				=	'Nome';
-$LNG['se_search_banned'][2]				=	"Data de suspensãoo";
+$LNG['se_search_banned'][2]				=	"Data de suspensão";
 $LNG['se_search_banned'][3]				=	"Data de reativação";
 $LNG['se_search_banned'][4]				=	"Razão";
 $LNG['se_search_banned'][5]				=	"Autor";
@@ -922,7 +900,7 @@ $LNG['new_pass']			= 'Password';
 $LNG['new_name']			= 'Nome';
 
 //	Planetas
-$LNG['po_galaxy']					= 'Galaxia';
+$LNG['po_galaxy']					= 'Galáxia';
 $LNG['po_system']					= 'Sistema';
 $LNG['po_planet']					= 'Planetas';
 $LNG['po_colony']					= 'Colónia';
@@ -985,6 +963,7 @@ $LNG['qe_change']						= 'Mudar';
 $LNG['qe_authattack']					= 'Proteção de Administrador';
 $LNG['qe_submit']						= 'Enviar';
 $LNG['qe_resetr']						= 'Redefinir';
+$LNG['qe_allowmulti']					= 'Permitir Multi IP';
 	
 //----------------------------------------------------------------------------//
 // Configuração do TeamSpeak
@@ -1023,7 +1002,7 @@ $LNG['modul'][7]                        = 'Chat';
 $LNG['modul'][8]                        = 'Pagamentos de MN';
 $LNG['modul'][9]                        = 'Frota';
 $LNG['modul'][10]                       = 'Controlo - Frota';
-$LNG['modul'][11]                       = 'Galaxia';
+$LNG['modul'][11]                       = 'Galáxia';
 $LNG['modul'][12]                       = 'Fama';
 $LNG['modul'][13]                       = 'Controlo';
 $LNG['modul'][14]                       = 'Infos';
@@ -1127,7 +1106,7 @@ $LNG['up_edit']							= 'Editado em:';
 $LNG['up_del']							= 'Apagado em:';
 $LNG['up_submit']						= 'Enviar';
 $LNG['up_version']						= 'Versão';
-$LNG['up_chmod_error']					= "Keine Schreibrechte für Ordner:\n\n";
+$LNG['up_chmod_error']					= "Não existe permissão para os ficheiros:\n\n";
 $LNG['up_need_curl']					= 'Erro: O CURL não está presente.<br />A atualização do 2Moons requer cURL para executar download dos ficheiros.';
 $LNG['up_no_xml_ext']					= 'Erro: XML Parser não está presente.<br />A atualização do 2Moons requer XML Parser para processar os ficheiros presentes.';
 $LNG['up_offline']						= 'Atualização do servidor indisponivel';
@@ -1162,7 +1141,7 @@ $LNG['ap_ip']							= 'IP';
 $LNG['ap_aktivieren']					= 'Ativar';
 $LNG['ap_status']						= 'Estado';
 $LNG['ap_del']							= 'Excluir';
-$LNG['ap_sicher']						= 'Tem cerqueza que você';
+$LNG['ap_sicher']						= 'Tens a certeza de';
 $LNG['ap_entfernen']					= 'deseja remover';
 $LNG['ap_insgesamt']					= 'Geral';
 $LNG['ap_nicht_aktivierte']				= 'Não foi ativado pelo usuário';
@@ -1172,6 +1151,7 @@ $LNG['ap_nicht_aktivierte_user']		= 'Usuário não ativado';
 // Página de Multi IP
 $LNG['mip_ip']							= 'IP';
 $LNG['mip_user']						= 'Jogador';
+$LNG['mip_known']						= 'Aprovado?';
 
 // LOG de Administrador
 $LNG['log_log']                         = 'Log';
@@ -1224,7 +1204,7 @@ $LNG['answer_new'] 							= 'Deixar resposta:';
 $LNG['text'] 								= 'Detalhes';
 $LNG['message_a'] 							= 'Estado da mensagem:';
 $LNG['sendit_a'] 							= 'O envio da mensagem foi inserido.';
-$LNG['message_t'] 							= 'Estado dos Ticketsol:';
+$LNG['message_t'] 							= 'Estado dos Ticket:';
 $LNG['supp_send'] 							= 'Enviar';
 $LNG['sendit_t'] 							= 'O Ticket foi enviado.';
 $LNG['close_t'] 							= 'O Ticket foi fechado.';

@@ -1,0 +1,64 @@
+<ul id="rules">
+	<li>
+		<h1>1. Accounts</h1>
+		<p>Each player is allowed to control a single account. Each account is entitled to be played by a single player at a time, account sitting being the only exception.
+Account sitting entitles a given player to have his account watched over under the following regulations:
+<br />
+<br />- Support must be informed before the sitting takes place, by opening a ticket.
+<br />- No Fleet movements are allowed while the account is being sat unless an attack that may raid or crash the account is incoming, in which case you may save your fleet(s) by deploying or transporting to a planet or to a moon owned by the account being sat. You may not ninja an incoming attack in cases where you would need to move a fleet for it.
+<br />- An account may only be sat for a maximum period of 48 continuous hours (admin permission needs to be obtained in cases where a time extension is needed).
+<br /><br />The sitter may, on the account being sat and while the sitting period lasts:
+
+<br />- Spend Resources on buildings or researches.
+<br />- Fleetsave any ship that imminently endangered by an incoming attacking fleet, only with a deployment or transport mission to one of the accounts own planets.
+<br />- Place an account into vacation mode.
+
+<br /><br />The sitter may not:
+
+<br />- Transport resources, neither between planets/moons of the account being sat, nor to any other planet/moon.
+<br />- Spend Resources on defensive structures or ships.
+<br />- Sit an account if he sat another one within the previous 7 days.
+<br />- Sit an account that was sat within the previous 7 days.
+<br />- Remove an account from vacation mode.</p>
+	</li>
+	<li>
+		<h1>2. Pushing</h1>
+		<p>It is not allowed for any account to obtain unfair profit out of a lower ranked account in a matter of resources.
+This includes but is not limited to:
+
+<br />- Resources sent from a lower ranked account to a higher ranked one with nothing tangible in return.
+<br />- A player crashing his fleet into a higher ranked one for the higher ranked one to keep the Debris Field, and thus profiting from it.
+<br />- Loans that are not returned within 48 hours.
+<br />- Trades in which the higher ranked player does not return the resources within 48 hours.
+<br />- Players answering to a higher ranked player extortion by paying resources.
+<br />- Trades that mean an unfair profit to the higher ranked player by falling outside the following range of ratios:
+<br />
+<br />3:2:1 Where each unit of deuterium is worth 2 units of crystal or 3 units of metal.
+<br />2:1:1 Where each unit of deuterium is worth 1 unit of crystal or 2 units of metal.</p>
+	</li>
+	<li>
+		<h1>3. Bashing</h1>
+		<p>It is not allowed to attack any given planet or moon owned by a player over 6 times in a single 24 hours period.
+Bashing is only allowed when your Alliance is at war with another Alliance. The war must be announced in the forum and both leaders must agree to the terms.
+The bashing rule only applies for active users and excludes misile attacks and espionage missions.</p>
+	</li>
+	<li>
+		<h1>4. Bugusing</h1>
+		<p>Using a bug for anyones profit intentionally or not reporting a bug intentionally is strictly forbidden.</p>
+	</li>
+	<li>
+		<h1>5. Forbidden content</h1>
+		<p>Implying that you are going to locate and harm another player, is forbidden.
+<br />Also spam, mass sending messages, and advertisements of foreign games/products arent allowed.</p>
+	</li>
+	<li>
+		<h1>6. Wars</h1>
+		<p>After the Leaders of the alliances both agree to the war, it is officially on. And will continue until one of the alliances cancels it. To officially cancel the war they need to cancel the war pact from in-game, and announce it in the thread they started initially.
+While the war is on, the bashing rule between the alliances involved does not count. Meaning any members belonging to the alliances in said war can be attack an infinite amount of times with out punishment.
+If either alliance gives up and cancels the war, the bashing rule will take effect again, and any members breaking it after the war has ended with be punished with a 1 day ban, More if the degree of attack is extremely high.
+<br />
+If the opposing alliance has a fleet in flight. And the war is canceled before they arrive. They will NOT be punished for that attack. But any fleet sent after the war cancellation will count toward the bashing rule.
+<br /><br />For New Wars one of the leaders need to create a new thread in the war/diplomacy section.
+There they can set any specific rules or terms, they want for the war. Any rules set in place, and are agreed to by the opposing alliance must be fallowed, and must not contradict any rules set here.</p>
+	</li>
+</ul>
