@@ -441,7 +441,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%multi` (
  `userID` int(11) NOT NULL,
  PRIMARY KEY (`multiID`),
  KEY `userID` (`userID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%planets` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -859,7 +859,7 @@ INSERT INTO `%PREFIX%config` (`uni`, `VERSION`, `uni_name`, `game_name`, `close_
 INSERT INTO `%PREFIX%ticket_category` (`categoryID`, `name`) VALUES
 (1, 'Support');
 
-INSERT INTO %PREFIX%vars (elementID, `name`, class, onPlanetType, onePerPlanet, factor, maxLevel, cost901, cost902, cost903, cost911, cost921, consumption1, consumption2, speedTech, speed1, speed2, capacity, attack, defend, timeBonus, bonusAttack, bonusDefensive, bonusShield, bonusBuildTime, bonusResearchTime, bonusShipTime, bonusDefensiveTime, bonusResource, bonusEnergy, bonusResourceStorage, bonusShipStorage, bonusFlyTime, bonusFleetSlots, bonusPlanets, production901, production902, production903, production911, production921, storage901, storage902, storage903) VALUES
+INSERT INTO `%PREFIX%vars` (elementID, `name`, class, onPlanetType, onePerPlanet, factor, maxLevel, cost901, cost902, cost903, cost911, cost921, consumption1, consumption2, speedTech, speed1, speed2, capacity, attack, defend, timeBonus, bonusAttack, bonusDefensive, bonusShield, bonusBuildTime, bonusResearchTime, bonusShipTime, bonusDefensiveTime, bonusResource, bonusEnergy, bonusResourceStorage, bonusShipStorage, bonusFlyTime, bonusFleetSlots, bonusPlanets, production901, production902, production903, production911, production921, storage901, storage902, storage903) VALUES
 (1, 'metal_mine', 0, '1', 0, 1.50, 255, 60, 15, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, '(30 * $BuildLevel * pow((1.1), $BuildLevel)) * (0.1 * $BuildLevelFactor)', NULL, NULL, '-(10 * $BuildLevel * pow((1.1), $BuildLevel)) * (0.1 * $BuildLevelFactor)', NULL, NULL, NULL, NULL),
 (2, 'crystal_mine', 0, '1', 0, 1.50, 255, 48, 24, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, NULL, '(20 * $BuildLevel * pow((1.1), $BuildLevel)) * (0.1 * $BuildLevelFactor)', NULL, '-(10 * $BuildLevel * pow((1.1), $BuildLevel)) * (0.1 * $BuildLevelFactor);', NULL, NULL, NULL, NULL),
 (3, 'deuterium_sintetizer', 0, '1', 0, 1.50, 255, 225, 75, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, NULL, NULL, '(10 * $BuildLevel * pow((1.1), $BuildLevel) * (-0.002 * $BuildTemp + 1.28) * (0.1 * $BuildLevelFactor))', '- (30 * $BuildLevel * pow((1.1), $BuildLevel)) * (0.1 * $BuildLevelFactor)', NULL, NULL, NULL, NULL),
