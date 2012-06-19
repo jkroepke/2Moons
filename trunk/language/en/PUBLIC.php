@@ -113,10 +113,6 @@ $LNG['user_active']                	= 'User %s has been activated!';
 $LNG['rules_overview']				= "Rules";
 $LNG['rules_info1']				= "You are informed about this at the <a href=\"%s\" target=\"_blank\">Forum</a> and on the homepage of the game...";
 
-//Facebook Connect
-
-$LNG['fb_perm']                	= 'Access prohibited. %s needs all the rights so you can login with your Facebook account. \n Alternatively, you can login without a Facebook account!';
-
 //NEWS
 
 $LNG['news_overview']			= "News";

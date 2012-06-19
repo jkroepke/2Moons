@@ -3,13 +3,7 @@
 // Translated into English by QwataKayean . All rights reversed (C) 2012
 // 2Moons - Copyright (C) 2010-2012 Slaver
 
-
-$LNG['Metal']								= 'Metal';
-$LNG['Crystal']								= 'Crystal';
-$LNG['Deuterium']							= 'Deuterium';
-$LNG['Darkmatter']							= 'Dark matter';
-$LNG['Energy']								= 'Energy';
-
+$LNG['and']							= 'and';
 
 //----------------------------------------------------------------------------//
 //SYSTEM
