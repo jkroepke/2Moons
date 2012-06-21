@@ -194,6 +194,12 @@ function NotifyBox(text, top) {
 	window.setTimeout(function(){tip.fadeOut(1000)}, 500);
 }
 
+	
+function UhrzeitAnzeigen() {
+   $(".servertime").text(getFormatedDate(serverTime.getTime(), tdformat));
+}
+
+
 $.widget("custom.catcomplete", $.ui.autocomplete, {
 	_renderMenu: function( ul, items ) {
 		var self = this,
@@ -206,7 +212,7 @@ $.widget("custom.catcomplete", $.ui.autocomplete, {
 			self._renderItem( ul, item );
 		});
 	}
-});
+});	
 
 $(function() {
 	$('#drop-admin').on('click', function() {
@@ -224,4 +230,7 @@ $(function() {
 	$('#planetSelector').on('change', function() {
 		document.location = '?'+queryString+'&cp='+$(this).val();
 	});
+
+	UhrzeitAnzeigen();
+	setInterval(UhrzeitAnzeigen, 1000);
 });
