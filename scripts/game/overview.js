@@ -24,10 +24,3 @@ function FleetTime() {
 	});
 	window.setTimeout('FleetTime()', 1000);
 }
-
-function UhrzeitAnzeigen() {
-   $(".servertime").text(getFormatedDate(serverTime.getTime(), tdformat));
-}
-
-UhrzeitAnzeigen();
-setInterval(UhrzeitAnzeigen, 1000);
