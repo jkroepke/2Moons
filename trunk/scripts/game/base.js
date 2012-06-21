@@ -194,6 +194,12 @@ function NotifyBox(text) {
 	window.setTimeout(function(){tip.fadeOut(1000)}, 500);
 }
 
+
+function UhrzeitAnzeigen() {
+   $(".servertime").text(getFormatedDate(serverTime.getTime(), tdformat));
+}
+
+
 $.widget("custom.catcomplete", $.ui.autocomplete, {
 	_renderMenu: function( ul, items ) {
 		var self = this,
@@ -224,4 +230,7 @@ $(function() {
 	$('#planetSelector').on('change', function() {
 		document.location = '?'+queryString+'&cp='+$(this).val();
 	});
+
+	UhrzeitAnzeigen();
+	setInterval(UhrzeitAnzeigen, 1000);
 });
