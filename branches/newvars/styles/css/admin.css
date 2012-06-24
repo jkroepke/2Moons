@@ -35,7 +35,16 @@ table{
 	text-align:center;
 }
 
-/** Config */
+/** Additional **/
+.floatleft {
+	float:left;
+}
+
+.floatright {
+	float:right;
+}
+
+/** Config **/
 .configTable {
 	background:transparent;
 	width:100%;
@@ -84,7 +93,13 @@ table{
 	padding:1px;
 }
 
+#filterTable input {
+	width:150px;
+}
 
+#filterTable select{
+	width:152px;
+}
 
 
 

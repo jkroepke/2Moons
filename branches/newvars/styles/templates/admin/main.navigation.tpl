@@ -21,6 +21,8 @@
 		<li><a href="admin.php?page=config&amp;section=fleet">{$LNG.mu_config_fleet}</a></li>
 		<li><a href="admin.php?page=config&amp;section=trader">{$LNG.mu_config_trader}</a></li>
 		<li><a href="admin.php?page=config&amp;section=highscore">{$LNG.mu_config_highscore}</a></li>
+		<li><a href="javascript:void(0);"><span style="color:lime">{$LNG.mu_game_overview}</span></a></li>
+		<li><a href="admin.php?page=message">{$LNG.mu_messages}</a></li>
 		<li><a href="javascript:void(0);"><span style="color:lime">{$LNG.mu_player_mange}</span></a></li>
 		<li><a href="admin.php?page=account">{$LNG.mu_account}</a></li>
 		<li><a href="javascript:void(0);"><span style="color:lime">{$LNG.mu_extras}</span></a></li>

@@ -133,6 +133,8 @@ $LNG['mu_config_planet']						= 'Planeten';
 $LNG['mu_config_fleet']							= 'Flotten';
 $LNG['mu_config_trader']						= 'Händler';
 $LNG['mu_config_highscore']						= 'Statistik';
+$LNG['mu_game_overview']						= 'Spielinformationen';
+$LNG['mu_messages']								= 'Nachrichtenübersicht';
 $LNG['mu_player_mange']							= 'Spieler';
 $LNG['mu_account']								= 'Accountverwaltung';
 $LNG['mu_extras']								= 'Extras';
@@ -686,5 +688,24 @@ $LNG['se_vaildation_mail_send_unkown_error']	= 'Unbekannter Fehler beim Test-Ver
 $LNG['se_vaildation_mail_smtp_debug']			= 'Debug:';
 $LNG['se_vaildation_mail_invalid_sender_mail']	= 'Du hast keine gültige Absendeadresse eingegeben!';
 
+// Message List
 
+$LNG['ml_title']								= 'Nachrichtenübersicht';
+$LNG['ml_filter']								= 'Filter';
+$LNG['ml_filter']								= 'Filter';
+$LNG['ml_filter_id']							= 'Nachrichten ID';
+$LNG['ml_filter_owner']							= 'Empfänger';
+$LNG['ml_filter_sender']						= 'Sender';
+$LNG['ml_filter_time']							= 'Datum';
+$LNG['ml_filter_type']							= 'Nachrichtentyp';
+$LNG['ml_filter_subject']						= 'Titel';
+$LNG['ml_table_head_id']						= '#ID';
+$LNG['ml_table_head_sender']					= 'Sender';
+$LNG['ml_table_head_owner']						= 'Empfänger';
+$LNG['ml_table_head_time']						= 'Datum';
+$LNG['ml_table_head_subject']					= 'Betreff';
+$LNG['ml_table_show']							= 'Anzeigen';
+$LNG['ml_table_side']							= 'Seite';
+$LNG['ml_delete']								= 'Nachricht löschen';
+$LNG['ml_warn']									= 'Bitte beachte, dass das Lesen von privaten Nachrichten nicht im jeden Land erlaubt ist. Eine Stellungnahme zur Lage Deutschland findest du von Law Podcasting <a href="http://www.law-podcasting.de/darf-ein-foren-admin-die-privaten-nachrichten-der-user-lesen" target="_blank">hier</a>.';
 

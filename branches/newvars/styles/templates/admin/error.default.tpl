@@ -5,7 +5,7 @@
 		<th>{$LNG.fcm_info}</th>
 	</tr>
 	<tr>
-		<td><p>{$messages}</p>{if !empty($redirectButtons)}<p>{foreach $redirectButtons as $label => $url}<a href="{$url}"><button>{$label}</button></a>{/foreach}</p>{/if}</td>
+		<td><p>{$message}</p>{if !empty($redirectButtons)}<p>{foreach $redirectButtons as $label => $url}<a href="{$url}"><button>{$label}</button></a>{/foreach}</p>{/if}</td>
 	</tr>
 </table>
 {/block}
