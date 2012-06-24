@@ -801,8 +801,8 @@ INSERT INTO `$PREFIX$config` VALUES
 ('userInactiveLongSinceDays', '21'),
 ('userVacationEnable', '1'),
 ('userMinVacationTime', '3'),
-('userMaxVacationTime', '30');
-
+('userMaxVacationTime', '30'),
+('lockMessagelist', '1');
 INSERT INTO `$PREFIX$module` VALUES
 (1, 1),
 (2, 1),

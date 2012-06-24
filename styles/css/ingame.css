@@ -70,6 +70,14 @@ th {
 	padding:4px 6px;
 }
 
+#content p a {
+	text-decoration:underline;
+}
+
+#content p a:hover {
+	text-decoration:none;
+}
+
 textarea {
 	width:97%
 }
@@ -416,4 +424,10 @@ table.tablesorter thead tr .headerSortDown {
 	#resourceTable td{
 		min-width: 100px;
 	}
+}
+
+/* Tabellen Klassen */
+
+.twocol {
+	width:50%;
 }
