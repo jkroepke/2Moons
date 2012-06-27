@@ -107,8 +107,8 @@ class CustomAJAXChat extends AJAXChat {
 				$this->trimChannelName($this->getConfig('defaultChannelName')) => $this->getConfig('defaultChannelID')
 			);
 			
-			$result = $this->db->sqlQuery("SELECT id, ally_name FROM ".ALLIANCE.";");
 			$userAlly = $this->db->sqlQuery("SELECT ally_id as id FROM ".USERS." WHERE id = ".$_SESSION['id'].";")->fetch();
+			$result = $this->db->sqlQuery("SELECT id, ally_name FROM ".ALLIANCE." WHERE id = ".$userAlly['id'].";");
 
 			$defaultChannelFound = false;
 

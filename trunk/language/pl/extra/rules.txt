@@ -1,0 +1,62 @@
+<ul id="rules">
+	<li>
+		<h1>1. Konto</h1>
+		<p>Każdy gracz może mieć tylko jedno konto! Dozwolone jest by ktoś zastąpił Cię podczas gry logując się na twoje konto. Ale podając
+	dane dostępowe do twojego konta możesz je stracić. Podczas gdy ktoś Cię zastępuje, nie może ta osoba wysyłać ataków !!!. Natomiast może bodować jednostki,
+	jak i nowe budynki. Może rownież uciekać flotą przed atakami(fleetsave).
+	</p>
+	</li>
+	<li>
+		<h1>2. Konto zasępstwo</h1>
+		<p>Nim ktoś Cie zasąpi podczas gry powinieneś uprzedzić o tym admina, podając czas zastępstwa, który jednak nie powinien przekraczać 24h, w innym 
+	wypadku, jeśli czas twojej nieobecności jest dłuższy, zaleca się aktywowanie trybu Urlop w panelu opcji!!!</p>
+	</li>
+	<li>
+		<h1>3. Pushing</h1>
+		<p>Jest w żadnym wypadku niedozwolony, a jego stosowanie grozi banem !!!!,
+	do Pushingu zaczlicza się:
+		- atak na gracza słabszą flotą,(powtarzany często w krótkim okresie czasu), a potem zbieranie złomu !!
+		- wymiana handlowa nie trzymająca się ustalonego kursu wymiany czyli :
+		1. Każda jednosta deuterium jest warta 2 jednostki kryształu lub 3 jednostki metalu !!!
+		2. Każda jednostka kryształu jest warta 0.5 jednostki deuterium, lub 2 jednostki metalu !!!</p>
+	</li>
+	<li>
+		<h1>4. Bashing</h1>
+		<p>Nie możesz atakować jednej planety więcej niż 6x w ciągu 24h !!!</p>
+		<p>Wojny muszą zostać uzgodnione przez liderów sojuszy, muszą zostać zadeklarowane na forum, i jasno opisane zasady do których oba sojusze będą się stosować
+  		1. Wojna się kończy conajmniej po 24h od rozpoczęcia,
+ 		2. Brak limitów ataków na członków wrogiego sojuszu
+	    3. Po zakonbczeniu działań wojennych kategoryczny zakaz atakowania(nie dotyczy ataków wysłanych przed zakończeniem wojny czyli będących w trakcie)</p>
+	</li>
+	<li>
+		<h1>5. Atak rakietami</h1>
+		<p>Na 24h jedną planetę możesz zaatakować maksymalnie 1000 rakiet !</p>
+	</li>
+	<li>
+		<h1>6. Bugusing</h1>
+		<p>Używanie, wykorzystywanie w jakikolwiek sposób znalezionego bugu, bugu o którym dowiedziałeś się od innego gracza
+	jest absolutnie zabronione !!! Każdy bug należy natychmiast zgłosić !!! Inaczej narażasz się na bana permamętnego. Jeśli ktokolwiek zostanie
+	złapany na wykorzystywaniu bugów akcja jest tylko jedna !</p>
+	</li>
+	<li>
+		<h1>7. Język w grze</h1>
+		<p>W całej grze oficjalnym językiem jest Polski. Natomiast można używać 2 dodatkowych języków czyli niemieckiego i angielskiego o ile istnieje taka potrzeba</p>
+	</li>
+	<li>
+		<h1>8. Poza grą</h1>
+		<p>Pamiętaj to tylko gra, przenoszenie emocji do świata realnego, czy to poprzez czat, czy forum, jakiekolwiek grośby,
+	wyzywanie itp .. itd... jest niedozwolone !!! Kultura przedewszystkim, nie psuj zabawy innym swoim hamskim zachowaniem !</p>
+	</li>
+	<li>
+		<h1>9. Spam</h1>
+		<p>Spamowanie zabronione obojętnie w jakiej formie np :
+	- czat
+	- forum
+	- prywatne wiadomości
+	Ktoś cie spamuje, daj znać adminowi!! Lub wyślij ticket!</p>
+	</li>
+	<li>
+		<h1>10. Regulamin</h1>
+		<p>Regulamin dotyczy każdego użytkownika!</p>
+	</li>
+</ul>
