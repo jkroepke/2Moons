@@ -1,0 +1,12 @@
+﻿Witaj %1$s,
+
+
+Dziękujemy za rejstracje na %2$s
+
+
+Cieszymy się iż postanowiłeś dołączyć do naszej spoleczności.
+
+
+Pozdrowienia,
+
+%2$s - Team
