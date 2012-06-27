@@ -135,6 +135,7 @@ class statbuilder
 			krsort($elementArray, SORT_NUMERIC);
 			$userWinner		= reset($elementArray);
 			$maxAmount		= key($elementArray);
+			$userWinner		= array_unique($userWinner);
 			foreach($userWinner as $userID) {
 				$QueryData[]	= "(".$userID.",".$elementID.",".$maxAmount.")";
 			}
