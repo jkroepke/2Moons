@@ -286,7 +286,7 @@ class ShowFleetStep3Page extends AbstractPage
 		$fleetStartTime		= $duration + TIMESTAMP;
 		$fleetStayTime		= $fleetStartTime + $StayDuration;
 		$fleetEndTime		= $fleetStayTime + $duration;
-		$timeDifference		= max(0, $fleetStartTime - $ACSTime);
+		$timeDifference		= round(max(0, $fleetStartTime - $ACSTime));
 		
 		if($fleetGroup != 0 && $timeDifference != 0) {
 			FleetFunctions::setACSTime($timeDifference, $fleetGroup);
