@@ -48,7 +48,7 @@ class ShowFleetMissilePage extends AbstractPage
 		$targetPlanet 		= HTTP::_GP('planet', 0);
 		$targetType 		= HTTP::_GP('type', 0);
 		$anz 				= min(HTTP::_GP('SendMI',0), $iraks);
-		$pziel 				= HTTP::_GP('Target',"");
+		$pziel 				= HTTP::_GP('Target', 0);
 		
 		$target 			= $GLOBALS['DATABASE']->uniquequery("SELECT `id`, `id_owner` FROM ".PLANETS." WHERE `universe` = '".$UNI."' AND  `galaxy` = '".$targetGalaxy."' AND `system` = '".$targetSystem."' AND `planet` = '".$targetPlanet."' AND `planet_type` = ".$targetType.";");
 		
