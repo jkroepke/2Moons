@@ -204,9 +204,7 @@ class ShowSettingsPage extends AbstractPage
 		$adminprotection	= ($adminprotection == 1 && $USER['authlevel'] != AUTH_USR) ? $USER['authlevel'] : 0;
 		$spycount			= max($spycount, 1);
 		$language			= array_key_exists($language, $LANG->getAllowedLangs(false)) ? $language : $LANG->getUser();		
-		$theme				= array_key_exists($theme, Theme::getAvalibleSkins()) ? $theme : $THEME->getThemeName();	
-		
-		$errors				= array();
+		$theme				= array_key_exists($theme, Theme::getAvalibleSkins()) ? $theme : $THEME->getThemeName();
 		
 		$SQL				= "";
 		
@@ -215,14 +213,14 @@ class ShowSettingsPage extends AbstractPage
 		if (!empty($username) && $USER['username'] != $username)
 		{
 			if (!CheckName($username)) {
-				$errors[]	= $LNG['op_user_name_no_alphanumeric'];
+				$this->printMessage($LNG['op_user_name_no_alphanumeric']);
 			} elseif($USER['uctime'] >= TIMESTAMP - USERNAME_CHANGETIME) {
-				$errors[]	= $LNG['op_change_name_pro_week'];
+				$this->printMessage($LNG['op_change_name_pro_week']);
 			} else {
 				$Count 	= $GLOBALS['DATABASE']->countquery("SELECT (SELECT COUNT(*) FROM ".USERS." WHERE `universe` = ".$UNI." AND `username` = '".$GLOBALS['DATABASE']->sql_escape($username)."') + (SELECT COUNT(*) FROM ".USERS_VALID." WHERE `universe` = ".$UNI." AND `username` = '".$GLOBALS['DATABASE']->sql_escape($username)."')");
 				
 				if (!empty($Count)) {
-					$errors[]	= sprintf($LNG['op_change_name_exist'], $username);
+					$this->printMessage(sprintf($LNG['op_change_name_exist'], $username));
 				} else {
 					$SQL		.= "UPDATE ".USERS." SET username = '".$GLOBALS['DATABASE']->sql_escape($username)."', uctime = ".TIMESTAMP." WHERE id = ".$USER['id'].";";
 					$redirectTo	= 'index.php';
@@ -242,13 +240,13 @@ class ShowSettingsPage extends AbstractPage
 		if (!empty($email) && $email != $USER['email'])
 		{
 			if(cryptPassword($newpassword) != $USER['password']) {
-				$errors[]	= $LNG['op_need_pass_mail'];
+				$this->printMessage($LNG['op_need_pass_mail']);
 			} elseif(!ValidateAddress($email)) {
-				$errors[]	= $LNG['op_not_vaild_mail'];
+				$this->printMessage($LNG['op_not_vaild_mail']);
 			} else {
 				$Count 	= $GLOBALS['DATABASE']->countquery("SELECT (SELECT COUNT(*) FROM ".USERS." WHERE id != ".$USER['id']." AND universe = ".$UNI." AND (email = '".$GLOBALS['DATABASE']->sql_escape($email)."' OR email_2 = '".$GLOBALS['DATABASE']->sql_escape($email)."')) + (SELECT COUNT(*) FROM ".USERS_VALID." WHERE universe = ".$UNI." AND email = '".$GLOBALS['DATABASE']->sql_escape($email)."')");
 				if (!empty($Count)) {
-					$errors[]	= sprintf($LNG['op_change_mail_exist'], $email);
+					$this->printMessage(sprintf($LNG['op_change_mail_exist'], $email));
 				} else {
 					$SQL	.= "UPDATE ".USERS." SET email = '".$GLOBALS['DATABASE']->sql_escape($email)."', setmail = ".(TIMESTAMP + 604800)." WHERE id = ".$USER['id'].";";
 				}
@@ -260,8 +258,10 @@ class ShowSettingsPage extends AbstractPage
 		{
 			if(!$this->CheckVMode())
 			{
-				$errors[]	= $LNG['op_cant_activate_vacation_mode'];
-			} else {
+				$this->printMessage($LNG['op_cant_activate_vacation_mode']);
+			}
+			else
+			{
 				$SQL	.= "UPDATE ".USERS." SET 
 							urlaubs_modus = '1',
 							urlaubs_until = ".(TIMESTAMP + $CONF['vmode_min_time'])."
@@ -306,13 +306,7 @@ class ShowSettingsPage extends AbstractPage
 		
 		$GLOBALS['DATABASE']->multi_query($SQL);
 		
-		if(empty($errors)) {
-			$errorString	= "";
-		} else {
-			$errorString	= $LNG['op_error']."<br>".implode("<br>", $errors);
-		}
-		
-		$this->printMessage($LNG['op_options_changed'], array($redirectTo, 3));
+		$this->printMessage($LNG['op_options_changed']);
 	}
 }
 ?>
