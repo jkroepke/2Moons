@@ -322,7 +322,7 @@ class MissionCaseDestruction extends MissionFunctions
 		$SQL .= "`der_metal` = `der_metal` + ".$ShootMetal.", ";
 		$SQL .= "`der_crystal` = `der_crystal` + ".$ShootCrystal." ";
 		$SQL .= "WHERE ";
-		$SQL .= "`id_luna` = ".$EndPlanet['id'].";";
+		$SQL .= "`id` = ".$EndPlanet['id'].";";
 		$SQL .= "INSERT INTO ".TOPKB." SET ";
 		$SQL .= "`units` = '".($result['lost']['att'] + $result['lost']['def'])."', ";
 		$SQL .= "`rid` = ".$rid.", ";
