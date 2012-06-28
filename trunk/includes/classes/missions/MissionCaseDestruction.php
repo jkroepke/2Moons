@@ -189,13 +189,13 @@ class MissionCaseDestruction extends MissionFunctions
 		$GLOBALS['DATABASE']->multi_query($SQL);
 		$INFO						= $this->_fleet;
 		$INFO['steal']				= $steal;
-		$INFO['moon']				= array(
-			'desfail'	=> 1,
-			'chance'	=> 0,
-			'chance2'	=> 0,
-			'fleetfail'	=> 0,
-			'des'		=> 1
-		);
+		$INFO['moon']['des']		= 0;
+		$INFO['moon']['desfail']	= false;
+		$INFO['moon']['chance2']	= false;
+		$INFO['moon']['fleetfail']	= false;
+		
+		$INFO['moon']['chance'] 	= $MoonChance;
+		$INFO['moon']['name']		= "";
 		
 		$EndPlanet		= $GLOBALS['DATABASE']->uniquequery("SELECT `id` FROM ".PLANETS." WHERE `id_luna` = '".$this->_fleet['fleet_end_id']."';");
 
@@ -322,7 +322,7 @@ class MissionCaseDestruction extends MissionFunctions
 		$SQL .= "`der_metal` = `der_metal` + ".$ShootMetal.", ";
 		$SQL .= "`der_crystal` = `der_crystal` + ".$ShootCrystal." ";
 		$SQL .= "WHERE ";
-		$SQL .= "`id_luna` = ".$EndPlanet.";";
+		$SQL .= "`id_luna` = ".$EndPlanet['id'].";";
 		$SQL .= "INSERT INTO ".TOPKB." SET ";
 		$SQL .= "`units` = '".($result['lost']['att'] + $result['lost']['def'])."', ";
 		$SQL .= "`rid` = ".$rid.", ";
@@ -350,7 +350,6 @@ class MissionCaseDestruction extends MissionFunctions
         $SQL .= "WHERE ";
         $SQL .= substr($WhereDef, 0, -4).";";
 		$GLOBALS['DATABASE']->multi_query($SQL);
-		
 		
 		$this->setState(FLEET_RETURN);
 		$this->SaveFleet();
