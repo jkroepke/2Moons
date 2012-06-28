@@ -156,7 +156,7 @@ class ShowInformationPage extends AbstractPage
         }
 				
 				
-        $moonResult	= $GLOBALS['DATABASE']->query("SELECT id, galaxy, system, planet, last_jump_time, ".$resource[43]." FROM ".PLANETS." WHERE id != ".$PLANET['id']." AND id_owner = ". $USER['id'] ." AND planet_type = '3' AND ".$resource[43]." > 0 ORDER BY ".$OrderBy.";");
+        $moonResult	= $GLOBALS['DATABASE']->query("SELECT id, name, galaxy, system, planet, last_jump_time, ".$resource[43]." FROM ".PLANETS." WHERE id != ".$PLANET['id']." AND id_owner = ". $USER['id'] ." AND planet_type = '3' AND ".$resource[43]." > 0 ORDER BY ".$OrderBy.";");
         $moonList	= array();
 
         while($moonRow = $GLOBALS['DATABASE']->fetch_array($moonResult)) {
