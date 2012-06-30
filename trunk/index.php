@@ -352,8 +352,6 @@ switch ($page) {
 		$template->assign_vars(array(
 			'contentbox'		=> true,
 			'rules'				=> $LANG->getExtra('rules'),
-			'rules_overview'	=> $LNG['rules_overview'],
-			'rules_info1'		=> sprintf($LNG['rules_info1'], $CONF['forum_url']),
 		));
 		$template->show('index_rules.tpl');
 		break;

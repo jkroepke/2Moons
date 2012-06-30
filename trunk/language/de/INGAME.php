@@ -69,7 +69,6 @@ $LNG['lm_statistics']						= 'Statistik';
 $LNG['lm_search']							= 'Suche';
 $LNG['lm_options']							= 'Einstellungen';
 $LNG['lm_banned']							= 'Pranger';
-$LNG['lm_contact']							= 'Kontakt';
 $LNG['lm_forums']							= 'Forum';
 $LNG['lm_logout']							= 'Logout';
 $LNG['lm_administration']					= 'Administration';
