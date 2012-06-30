@@ -27,13 +27,21 @@
 	<link rel="stylesheet" type="text/css" href="./styles/theme/gow/formate.css?v={$REV}">
 	<link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
 	<script type="text/javascript">
+	var ServerTimezoneOffset = {$Offset};
+	var serverTime 	= new Date({$date.0}, {$date.1 - 1}, {$date.2}, {$date.3}, {$date.4}, {$date.5});
 	var xsize 	= screen.width;
 	var ysize 	= screen.height;
 	var breite	= 720;
 	var hoehe	= 300;
 	var xpos	= (xsize-breite) / 2;
 	var ypos	= (ysize-hoehe) / 2;
-	var head_info	= "{$fcm_info}";
+	var Ready		= "{$LNG.ready}";
+	var Skin		= "{$dpath}";
+	var Lang		= "{$lang}";
+	var head_info	= "{$LNG.fcm_info}";
+	var days 		= {$LNG.week_day|json|default:'[]'} 
+	var months 		= {$LNG.months|json|default:'[]'} ;
+	var tdformat	= "{$LNG.js_tdformat}";
 	function openEdit(id, type) {
 		var editlist = window.open("?page=qeditor&edit="+type+"&id="+id, "edit", "scrollbars=yes,statusbar=no,toolbar=no,location=no,directories=no,resizable=no,menubar=no,width=850,height=600,screenX="+((xsize-600)/2)+",screenY="+((ysize-850)/2)+",top="+((ysize-600)/2)+",left="+((xsize-850)/2));
 		editlist.focus();
