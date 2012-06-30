@@ -550,7 +550,9 @@ class ResourceUpdate
 			$BuildEndTime       = $this->USER['b_tech'] + $BuildTime;
 			$CurrentQueue[0]	= array($Element, $Level, $BuildTime, $BuildEndTime, $PLANET['id']);
 			
-			if($ListIDArray[4] != $this->PLANET['id']) {
+			$isAnotherPlanet	= $ListIDArray[4] != $this->PLANET['id'];
+			
+			if($isAnotherPlanet) {
 				$IsHash			= !in_array($Element, array(131, 132, 133));
 				$RPLANET 		= new ResourceUpdate(true, false);
 				list(, $PLANET)	= $RPLANET->CalcResource($this->USER, $PLANET, false, $this->USER['b_tech'], $IsHash);
@@ -600,7 +602,7 @@ class ResourceUpdate
 				}
 			}
 				
-			if($ListIDArray[4] != $this->PLANET['id'])
+			if($isAnotherPlanet)
 				$RPLANET->SavePlanetToDB($this->USER, $PLANET);
 			else
 				$this->PLANET		= $PLANET;
