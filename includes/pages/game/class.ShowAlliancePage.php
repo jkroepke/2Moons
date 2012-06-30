@@ -314,21 +314,21 @@ class ShowAlliancePage extends AbstractPage
 		$aname	= HTTP::_GP('aname', '', UTF8_SUPPORT);
 		
 		if (empty($atag)) {
-			$this->printMessage($LNG['al_tag_required'], "?page=alliance&mode=create", 3);
+			$this->printMessage($LNG['al_tag_required'], true, array("?page=alliance&mode=create", 3));
 		}
 		
 		if (empty($aname)) {
-			$this->printMessage($LNG['al_name_required'], "?page=alliance&mode=create", 3);
+			$this->printMessage($LNG['al_name_required'], true, array("?page=alliance&mode=create", 3));
 		}
 		
 		if (!CheckName($aname) || !CheckName($atag)) {
-			$this->printMessage($LNG['al_newname_specialchar'], "?page=alliance&mode=create", 3);
+			$this->printMessage($LNG['al_newname_specialchar'], true, array("?page=alliance&mode=create", 3));
 		}
 		
 		$allianceCount = $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".ALLIANCE." WHERE ally_universe = ".$UNI." AND (ally_tag = '".$GLOBALS['DATABASE']->sql_escape($atag)."' OR ally_name = '".$GLOBALS['DATABASE']->sql_escape($aname)."');");
 
 		if ($allianceCount != 0) {
-			$this->printMessage(sprintf($LNG['al_already_exists'], $aname), "?page=alliance&mode=create", 3);
+			$this->printMessage(sprintf($LNG['al_already_exists'], $aname), true, array("?page=alliance&mode=create", 3));
 		}
 		
 		$GLOBALS['DATABASE']->multi_query("INSERT INTO ".ALLIANCE." SET
@@ -348,7 +348,7 @@ class ShowAlliancePage extends AbstractPage
 						id_ally 				= @allianceID
 						WHERE id_owner = ".$USER['id'].";");
 						
-		$this->printMessage(sprintf($LNG['al_created'], $aname.' ['.$atag.']'), "?page=alliance", 3);
+		$this->printMessage(sprintf($LNG['al_created'], $aname.' ['.$atag.']'), true, array("?page=alliance", 3));
 	}
 	
 	private function getDiplomatic()
