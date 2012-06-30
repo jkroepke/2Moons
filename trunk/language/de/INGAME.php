@@ -421,8 +421,6 @@ $LNG['of_lvl']								= 'Level';
 $LNG['of_dm_trade']							= '%s - Bank';
 $LNG['of_still']							= 'Noch';
 $LNG['of_active']							= 'aktiv';
-$LNG['of_bonus']							= 'Bonus';
-$LNG['of_update']							= 'Erneuern';
 
 //----------------------------------------------------------------------------//
 //TRADER
