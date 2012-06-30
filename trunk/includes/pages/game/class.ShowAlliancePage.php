@@ -1065,14 +1065,14 @@ class ShowAlliancePage extends AbstractPage
 	
 	private function adminDiplomacyCreateProcessor()
 	{
-		global $UNI, $LNG;
+		global $UNI, $LNG, $USER;
 		if (!$this->rights['DIPLOMATIC']) {
 			$this->redirectToHome();
 		}
 		
 		$name	= HTTP::_GP('name', '', UTF8_SUPPORT);
 		
-		$targetAlliance	= $GLOBALS['DATABASE']->uniquequery("SELECT id FROM ".ALLIANCE." WHERE ally_universe = ".$UNI." AND ally_name = '".$GLOBALS['DATABASE']->sql_escape($name)."';");
+		$targetAlliance	= $GLOBALS['DATABASE']->uniquequery("SELECT id, ally_owner, ally_tag FROM ".ALLIANCE." WHERE ally_universe = ".$UNI." AND ally_name = '".$GLOBALS['DATABASE']->sql_escape($name)."';");
 		
 		if(empty($targetAlliance)) {
 			$this->sendJSON(array(
@@ -1091,6 +1091,15 @@ class ShowAlliancePage extends AbstractPage
 		
 		$level	= HTTP::_GP('level', 0);
 		$text	= HTTP::_GP('text', '', true);
+		
+		if($level == 6)
+		{
+			SendSimpleMessage($targetAlliance['ally_owner'], $USER['id'], 0, 1, $LNG['al_circular_alliance'].$this->allianceData['ally_tag'], $LNG['al_diplo_war'], sprintf($LNG['al_diplo_war_mes'], $this->allianceData['ally_tag'], $targetAlliance['ally_tag'], $LNG['al_diplo_level'][$level], $text));
+		}
+		else
+		{
+			SendSimpleMessage($targetAlliance['ally_owner'], $USER['id'], 0, 1, $LNG['al_circular_alliance'].$this->allianceData['ally_tag'], $LNG['al_diplo_ask'], sprintf($LNG['al_diplo_ask_mes'], $LNG['al_diplo_level'][$level], $this->allianceData['ally_tag'], $targetAlliance['ally_tag'], $text));
+		}
 		
 		$GLOBALS['DATABASE']->query("INSERT INTO ".DIPLO." SET 
 		owner_1		= ".$this->allianceData['id'].",
