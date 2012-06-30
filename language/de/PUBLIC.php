@@ -105,7 +105,6 @@ $LNG['user_active']					= 'User %s wurde aktiviert!';
 
 //Rules
 $LNG['rules_overview']				= "Regelwerk";
-$LNG['rules_info1']					= "Es wird aber im <a href=\"%s\" target=\"_blank\">Forum</a> und über die Startseite im Game darüber Informiert ...";
 
 
 //NEWS
