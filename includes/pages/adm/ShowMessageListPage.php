@@ -54,23 +54,23 @@ function ShowMessageListPage()
 	}
 
 	if ($Selected < 100)
-		$Mess      = $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".MESSAGES." WHERE message_type = '".$Selected."' AND message_universe = '".$_SESSION['adminuni']."';;");
+		$Mess      = max(1, $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".MESSAGES." WHERE message_type = '".$Selected."' AND message_universe = '".$_SESSION['adminuni']."';"));
 	elseif ($Selected == 100)
-		$Mess      = $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".MESSAGES." WHERE message_universe = '".$_SESSION['adminuni']."';;");
+		$Mess      = max(1, $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".MESSAGES." WHERE message_universe = '".$_SESSION['adminuni']."';"));
 	
 	
 	$MaxPage   = ceil($Mess / 25);
 
-	if($Prev   == true)
+	if($Prev == true)
 	{
-		$CurrPage -= 1;
-		$ViewPage = $CurrPage >= 1 ? $CurrPage : 1;
+		$CurrPage = $CurrPage - 1;
 	}
-	elseif ($Next   == true && $_POST['page'])
+	elseif ($Next == true)
 	{
-		$CurrPage += 1;
-		$ViewPage = $CurrPage <= $MaxPage ? $CurrPage : $MaxPage;
+		$CurrPage = $CurrPage + 1;
 	}
+	
+	$ViewPage = min(max($CurrPage, 1), $MaxPage);
 	
 	if ($_POST['delsel'] && is_array($_POST['sele']))
 	{
@@ -81,6 +81,7 @@ function ShowMessageListPage()
 				if ($Value = "on")
 					$GLOBALS['DATABASE']->query("DELETE FROM ".MESSAGES." WHERE message_id = '". $MessId ."';");
 			}
+			$CurrPage = 1;
 		}
 	}
 	
@@ -94,12 +95,13 @@ function ShowMessageListPage()
 		{
 			$GLOBALS['DATABASE']->multi_query("DELETE FROM ".MESSAGES." WHERE message_time <= '".$LimitDate."';DELETE FROM ".RW." WHERE time <= '".$LimitDate ."';");
 		}
+		$CurrPage = 1;
 	}
 
 	$data = $MessagesList = array();
 	unset($LNG['mg_type'][999]);
 	$Selector['type']	= $LNG['mg_type'];
-
+	
 	for($cPage = 1; $cPage <= $MaxPage; $cPage++) {
 		$Selector['pages'][$cPage]	= $cPage.'/'.$MaxPage;
 	}
