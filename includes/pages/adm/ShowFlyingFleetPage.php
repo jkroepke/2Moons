@@ -82,7 +82,7 @@ function ShowFlyingFleetPage()
 			'lock'					=> !empty($fleetRow['lock']),
 			'count'					=> $fleetRow['fleet_amount'],
 			'error'					=> !$fleetRow['error'],
-			'ships'					=> $fleetList,
+			'ships'					=> $shipList,
 			'state'					=> $fleetRow['fleet_mess'],
 			'starttime'				=> _date($LNG['php_tdformat'], $fleetRow['start_time'], $USER['timezone']),
 			'arrivaltime'			=> _date($LNG['php_tdformat'], $fleetRow['fleet_start_time'], $USER['timezone']),
