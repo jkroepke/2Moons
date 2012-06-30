@@ -79,12 +79,27 @@ class template extends Smarty
 	
 	private function adm_main()
 	{
-		global $LNG, $CONF;
+		global $LNG, $CONF, $LANG, $USER;
+		
+		$dateTimeServer		= new DateTime("now");
+		if(isset($USER['timezone'])) {
+			try {
+				$dateTimeUser	= new DateTime("now", new DateTimeZone($USER['timezone']));
+			} catch (Exception $e) {
+				$dateTimeUser	= $dateTimeServer;
+			}
+		} else {
+			$dateTimeUser	= $dateTimeServer;
+		}
+		
 		$this->assign_vars(array(
 			'scripts'			=> $this->script,
 			'title'				=> $CONF['game_name'].' - '.$LNG['adm_cp_title'],
 			'fcm_info'			=> $LNG['fcm_info'],
+            'lang'    			=> $LANG->getUser(),
 			'REV'				=> substr($CONF['VERSION'], -4),
+			'date'				=> explode("|", date('Y\|n\|j\|G\|i\|s\|Z', TIMESTAMP)),
+			'Offset'			=> $dateTimeUser->getOffset() - $dateTimeServer->getOffset(),
 		));
 	}
 	
