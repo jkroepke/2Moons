@@ -48,7 +48,7 @@ class ShowInformationPage extends AbstractPage
 
 	public function sendFleet()
 	{
-		global $PLANET, $resource, $LNG, $reslist;
+		global $PLANET, $USER, $resource, $LNG, $reslist;
 
 		$NextJumpTime = self::getNextJumpWaitTime($PLANET['last_jump_time']);
 		
@@ -72,22 +72,28 @@ class ShowInformationPage extends AbstractPage
 		$ShipArray		= array();
 		$SubQueryOri	= "";
 		$SubQueryDes	= "";
-		$Ships			= request_outofinf('ship', array());
+		$Ships			= HTTP::_GP('ship', array());
 		
 		foreach($reslist['fleet'] as $Ship)
 		{
+			if(!isset($Ships[$Ship]) || $Ship == 212)
+				continue;
+				
 			$ShipArray[$Ship]	= max(0, min($Ships[$Ship], $PLANET[$resource[$Ship]]));
-			if($Ship == 212 || $ShipArray[$Ship] <= 0)
+					
+			if(empty($ShipArray[$Ship]))
 				continue;
 								
-			$SubQueryOri 		.= $resource[$Ship]." = ".$resource[$Ship]." - ".$ShipArray[$Ship]."', ";
-			$SubQueryDes 		.= $resource[$Ship]." = ".$resource[$Ship]." + ".$ShipArray[$Ship]."', ";
+			$SubQueryOri 		.= $resource[$Ship]." = ".$resource[$Ship]." - ".$ShipArray[$Ship].", ";
+			$SubQueryDes 		.= $resource[$Ship]." = ".$resource[$Ship]." + ".$ShipArray[$Ship].", ";
 			$PLANET[$resource[$Ship]] -= $ShipArray[$Ship];
 		}
 
 		if (empty($SubQueryOri)) {
 			$this->sendJSON(array('message' => $LNG['in_jump_gate_error_data'], 'error' => true));
 		}
+		
+		$JumpTime	= TIMESTAMP;
 
 		$SQL  = "UPDATE ".PLANETS." SET ";
 		$SQL .= $SubQueryOri;
@@ -161,7 +167,7 @@ class ShowInformationPage extends AbstractPage
 
         while($moonRow = $GLOBALS['DATABASE']->fetch_array($moonResult)) {
 			$NextJumpTime				= self::getNextJumpWaitTime($moonRow['last_jump_time']);
-			$moonList[$PLANET['id']]	= '['.$moonRow['galaxy'].':'.$moonRow['system'].':'.$moonRow['planet'].'] '.$moonRow['name'].(TIMESTAMP < $NextJumpTime ? ' ('.pretty_time($NextJumpTime - TIMESTAMP).')':'');
+			$moonList[$moonRow['id']]	= '['.$moonRow['galaxy'].':'.$moonRow['system'].':'.$moonRow['planet'].'] '.$moonRow['name'].(TIMESTAMP < $NextJumpTime ? ' ('.pretty_time($NextJumpTime - TIMESTAMP).')':'');
 		}
 		
 		$GLOBALS['DATABASE']->free_result($moonResult);
@@ -299,7 +305,7 @@ class ShowInformationPage extends AbstractPage
 			$this->tplObj->assign_vars(array(
 				'nextTime'	=> _date($LNG['php_tdformat'], $nextTime, $USER['timezone']),
 				'restTime'	=> max(0, $nextTime - TIMESTAMP),
-				'startLink'	=> BuildPlanetAdressLink($PLANET),
+				'startLink'	=> strip_tags(BuildPlanetAdressLink($PLANET)),
 				'gateList' 	=> $this->getTargetGates(),
 				'fleetList'	=> $this->getAvalibleFleets(),
 			));
