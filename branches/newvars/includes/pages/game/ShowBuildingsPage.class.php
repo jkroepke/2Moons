@@ -323,6 +323,7 @@ class ShowBuildingsPage extends AbstractPage
 			$elementTime    	= BuildFunctions::getBuildingTime($USER, $PLANET, $elementID, $costRessources);
 			$destroyRessources	= BuildFunctions::getElementPrice($USER, $PLANET, $elementID, true);
 			$destroyTime		= BuildFunctions::getBuildingTime($USER, $PLANET, $elementID, $destroyRessources);
+			$destroyOverflow	= BuildFunctions::getRestPrice($USER, $PLANET, $Element, $destroyRessources);
 			$buyable			= $QueueCount != 0 || BuildFunctions::isElementBuyable($USER, $PLANET, $elementID, $costRessources);
 
 			$BuildInfoList[$elementID]	= array(
@@ -334,6 +335,7 @@ class ShowBuildingsPage extends AbstractPage
 				'elementTime'    	=> $elementTime,
 				'destroyRessources'	=> array_filter($destroyRessources),
 				'destroyTime'		=> $destroyTime,
+				'destroyOverflow'	=> $destroyOverflow,
 				'buyable'			=> $buyable,
 			);
 		}

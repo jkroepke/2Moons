@@ -1,28 +1,28 @@
 {block name="content"}
 <form action="game.php?page=messages&amp;mode=delete&amp;messcat={$MessID}&amp;ajax=1" method="post">
-<table id="messagestable" style="width:760px;">
+<table id="messagestable" style="width:760px;" data-category="{$MessID}">
 	<tr>
 		<th colspan="4">{$LNG.mg_message_title}</th>
 	</tr>
-	<tr style="height: 20px;">
-		<td class="right" colspan="4">{$LNG.mg_page}: {if $page != 1}<a href="#" onclick="Message.getMessages({$MessID}, {$page - 1});return false;">&laquo;</a>&nbsp;{/if}{for $site=1 to $maxPage}<a href="#" onclick="Message.getMessages({$MessID}, {$site});return false;">{if $site == $page}<b>[{$site}]</b>{else}[{$site}]{/if}</a>{if $site != $maxPage}&nbsp;{/if}{/for}{if $page != $maxPage}&nbsp;<a href="#" onclick="Message.getMessages({$MessID}, {$page + 1});return false;">&raquo;</a>{/if}</td>
+	<tr class="highRow">
+		<td class="right" colspan="4">{$LNG.mg_page}:&nbsp;{if $maxSite > 1}<a href="#" class="pageLink" data-page="1">&laquo;&laquo;</a>&nbsp;{/if}{if $site > 1}<a href="#" class="pageLink" data-page="{$site - 1}">&laquo;</a>&nbsp;{/if}{for $page=1 to $maxSite}<a href="#" class="pageLink" data-page="{$page}">{if $site == $page}<b>[{$page}]</b>{else}[{$page}]{/if}</a>{if $page != $maxSite}&nbsp;{/if}{/for}{if $site < $maxSite}&nbsp;<a href="#" class="pageLink" data-page="{$site + 1}">&raquo;</a>{/if}{if $maxSite > 1}&nbsp;<a href="#" class="pageLink" data-page="{$maxPage}">&raquo;&raquo;</a>{/if}</td>
 	</tr>
-	<tr style="height: 20px;">
-		<td>{$LNG.mg_action}</td>
-		<td>{$LNG.mg_date}</td>
-		<td>{if $MessID != 999}{$LNG.mg_from}{else}{$LNG.mg_to}{/if}</td>
-		<td>{$LNG.mg_subject}</td>
+	<tr class="highRow">
+		<td style="width:48px;">{$LNG.mg_action}</td>
+		<td style="width:295px;">{$LNG.mg_date}</td>
+		<td style="width:205px;">{if $MessID != 999}{$LNG.mg_from}{else}{$LNG.mg_to}{/if}</td>
+		<td style="width:202px;">{$LNG.mg_subject}</td>
 	</tr>
 	{foreach $MessageList as $Message}
 	<tr id="message_{$Message.id}" class="message_head{if $MessID != 999 && $Message.unread == 1} mes_unread{/if}">
-		<td style="width:40px;" rowspan="2">
+		<td rowspan="2">
 		{if $MessID != 999}<input name="delmes[{$Message.id}]" type="checkbox">{/if}
 		</td>
 		<td>{$Message.time}</td>
 		<td>{$Message.from}</td>
 		<td>{$Message.subject}
-		{if $Message.type == 1}
-		<a href="#" onclick="return Dialog.PM({$Message.sender}, Message.CreateAnswer('{$Message.subject}'));" title="{$LNG.mg_answer_to} {strip_tags($Message.from)}"><img src="{$dpath}img/m.gif" border="0"></a>
+		{if $Message.sender != 0 && $MessID != 999}
+			<a href="#" onclick="return Dialog.PM({$Message.sender}, {$Message.id});" title="{$LNG.mg_answer_to} {strip_tags($Message.from)}"><img src="{$dpath}img/m.gif" border="0"></a>
 		{/if}
 		</td>
 	</tr>
@@ -32,8 +32,8 @@
 		</td>
 	</tr>
 	{/foreach}
-	<tr style="height: 20px;">
-		<td class="right" colspan="4">{$LNG.mg_page}: {if $page != 1}<a href="#" onclick="Message.getMessages({$MessID}, 1);return false;">&laquo;</a>&nbsp;{/if}{for $site=1 to $maxPage}<a href="#" onclick="Message.getMessages({$MessID}, {$site});return false;">{if $site == $page}<b>[{$site}]</b>{else}[{$site}]{/if}</a>{if $site != $maxPage}&nbsp;{/if}{/for}{if $page != $maxPage}&nbsp;<a href="#" onclick="Message.getMessages({$MessID}, {$maxPage});return false;">&raquo;</a>{/if}</td>
+	<tr class="highRow">
+		<td class="right" colspan="4">{$LNG.mg_page}:&nbsp;{if $maxSite > 1}<a href="#" class="pageLink" data-page="1">&laquo;&laquo;</a>&nbsp;{/if}{if $site > 1}<a href="#" class="pageLink" data-page="{$site - 1}">&laquo;</a>&nbsp;{/if}{for $page=1 to $maxSite}<a href="#" class="pageLink" data-page="{$page}">{if $site == $page}<b>[{$page}]</b>{else}[{$page}]{/if}</a>{if $page != $maxSite}&nbsp;{/if}{/for}{if $site < $maxSite}&nbsp;<a href="#" class="pageLink" data-page="{$site + 1}">&raquo;</a>{/if}{if $maxSite > 1}&nbsp;<a href="#" class="pageLink" data-page="{$maxPage}">&raquo;&raquo;</a>{/if}</td>
 	</tr>
 	{if $MessID != 999}
 	<tr>

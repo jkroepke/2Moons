@@ -4,10 +4,10 @@
 	<input type="hidden" name="token" value="{$token}">
 	<input type="hidden" name="fleet_group" value="0">
 	<table class="table519" style="table-layout: fixed;">
-		<tr style="height:20px;">
+		<tr class="highRow">
 			<th colspan="2">{$LNG.fl_send_fleet}</th>
 		</tr>
-		<tr style="height:20px;">
+		<tr class="highRow">
 			<td style="width:50%">{$LNG.fl_destiny}</td>
 			<td>
 				<input type="text" id="galaxy" name="galaxy" size="3" maxlength="2" onkeyup="updateVars()" value="{$galaxy}">
@@ -18,7 +18,7 @@
 				</select>
 			</td>
 		</tr>
-		<tr style="height:20px;">
+		<tr class="highRow">
 			<td>{$LNG.fl_fleet_speed}</td>
 			<td>
 				<select id="speed" name="speed" onChange="updateVars()">
@@ -26,38 +26,38 @@
 				</select> %
 			</td>
 		</tr>
-		<tr style="height:20px;">
+		<tr class="highRow">
 			<td>{$LNG.fl_distance}</td>
 			<td id="distance">-</td>
 		</tr>
-		<tr style="height:20px;">
+		<tr class="highRow">
 			<td>{$LNG.fl_flying_time}</th>
 			<td id="duration">-</td>
 		</tr>
-		<tr style="height:20px;">
+		<tr class="highRow">
 			<td>{$LNG.fl_flying_arrival}</th>
 			<td id="arrival">-</td>
 		</tr>
-		<tr style="height:20px;">
+		<tr class="highRow">
 			<td>{$LNG.fl_flying_return}</th>
 			<td id="return">-</td>
 		</tr>
-		<tr style="height:20px;">
+		<tr class="highRow">
 			<td>{$LNG.fl_fuel_consumption}</td>
 			<td id="consumption">-</td>
 		</tr>
-		<tr style="height:20px;">
+		<tr class="highRow">
 			<td>{$LNG.fl_max_speed}</td>
 			<td id="maxspeed">-</td>
 		</tr>
-		<tr style="height:20px;">
+		<tr class="highRow">
 			<td>{$LNG.fl_cargo_capacity}</td>
 			<td id="storage">-</td>
 		</tr>
 	</table>
 	{if isModulAvalible($smarty.const.MODULE_SHORTCUTS)}
 	<table class="table519 shortcut" style="table-layout: fixed;">
-		<tr style="height:20px;">
+		<tr class="highRow">
 			<th colspan="{$themeSettings.SHORTCUT_ROWS_ON_FLEET1}">{$LNG.fl_shortcut} (<a href="#" onclick="EditShortcuts();return false" class="shortcut-link-edit shortcut-link">{$LNG.fl_shortcut_edition}</a><a href="#" onclick="SaveShortcuts();return false" class="shortcut-edit">{$LNG.fl_shortcut_save}</a>)</th>
 		</tr>
 		{foreach $shortcutList as $shortcutID => $shortcutRow}
@@ -114,11 +114,11 @@
 	</table>
 	{/if}
 	<table class="table519" style="table-layout: fixed;">
-		<tr style="height:20px;">
+		<tr class="highRow">
 			<th colspan="{$themeSettings.COLONY_ROWS_ON_FLEET1}">{$LNG.fl_my_planets}</th>
 		</tr>
 		{foreach $colonyList as $ColonyRow}
-		{if ($ColonyRow@iteration % $themeSettings.COLONY_ROWS_ON_FLEET1) === 1}<tr style="height:20px;">{/if}
+		{if ($ColonyRow@iteration % $themeSettings.COLONY_ROWS_ON_FLEET1) === 1}<tr class="highRow">{/if}
 		<td>
 			<a href="javascript:setTarget({$ColonyRow.galaxy},{$ColonyRow.system},{$ColonyRow.planet},{$ColonyRow.type});updateVars();">{$ColonyRow.name}{if $ColonyRow.type == 3}{$LNG.fl_moon_shortcut}{/if} [{$ColonyRow.galaxy}:{$ColonyRow.system}:{$ColonyRow.planet}]</a>
 		</td>
@@ -128,19 +128,19 @@
 		{/if}
 		{if ($ColonyRow@iteration % $themeSettings.COLONY_ROWS_ON_FLEET1) === 0}</tr>{/if}
 		{foreachelse}
-		<tr style="height:20px;">
+		<tr class="highRow">
 			<td colspan="{$themeSettings.COLONY_ROWS_ON_FLEET1}">{$LNG.fl_no_colony}</td>
 		</tr>
 		{/foreach}	
 	</table>
 	{if $ACSList}
 	<table class="table519" style="table-layout: fixed;">
-		<tr style="height:20px;">
+		<tr class="highRow">
 			<th colspan="{$themeSettings.COLONY_ROWS_ON_FLEET1}">{$LNG.fl_acs_title}</th>
 		</tr>
 		{foreach $ACSList as $ACSRow}
-		{if ($ACSRow@iteration % $themeSettings.ACS_ROWS_ON_FLEET1) === 1}<tr style="height:20px;">{/if}
-		<tr style="height:20px;">
+		{if ($ACSRow@iteration % $themeSettings.ACS_ROWS_ON_FLEET1) === 1}<tr class="highRow">{/if}
+		<tr class="highRow">
 			<td><a href="javascript:setACSTarget({$ACSRow.galaxy},{$ACSRow.system},{$ACSRow.planet},{$ACSRow.planet_type},{$ACSRow.id});">{$ACSRow.name} - [{$ACSRow.galaxy}:{$ACSRow.system}:{$ACSRow.planet}]</a></td>
 		</tr>
 		{if $ACSRow@last && ($ACSRow@iteration % $themeSettings.ACS_ROWS_ON_FLEET1) !== 0}
@@ -152,7 +152,7 @@
 	</table>
 	{/if}
 	<table class="table519" style="table-layout: fixed;">
-		<tr style="height:20px;">
+		<tr class="highRow">
 			<td><input type="submit" value="{$LNG.fl_continue}"></td>
 		</tr>
 	</table>

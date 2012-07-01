@@ -5,10 +5,11 @@ var Gate	= {
 	
 	submit: function() {
 		$.getJSON('?page=information&mode=sendFleet&'+$('.jumpgate').serialize(), function(data) {
-			if(data.error)
-				Dialog.alert(data.message);
-			else
-				Dialog.alert(data.message, Dialog.close);
+			alert(data.message);
+			if(!data.error)
+			{
+				parent.$.fancybox.close();
+			}
 		});		
 	}
 }

@@ -111,7 +111,7 @@ class ShowTraderPage extends AbstractPage
 				continue;  
 			}
 			
-			if($tradeAmount > $PLANET[$resource[$tradeRessID]])
+			if($tradeAmount * self::$Charge[$resourceID][$tradeRessID] > $PLANET[$GLOBALS['VARS']['ELEMENT'][$resourceID]['name']])
 			{
 				$this->printMessage(sprintf($LNG['tr_not_enought'], $LNG['tech'][$tradeRessID]), array("game.php?page=trader", 3));
 			}

@@ -1,3 +1,9 @@
+$(function() {
+	$.postJSON = function(url, data, callback) {
+		$.post(url, data, callback, "json");
+	};
+});
+
 function number_format (number, decimals) {
     number = (number + '').replace(/[^0-9+\-Ee.]/g, '');
     var n = !isFinite(+number) ? 0 : +number,
@@ -72,6 +78,7 @@ function getFormatedDate(timestamp, format) {
 	str = str.replace('[s]', dezInt(currTime.getSeconds(), 2));
 	return str;
 }
+
 function dezInt(num, size, prefix) {
 	prefix = (prefix) ? prefix : "0";
 	var minus = (num < 0) ? "-" : "", 
@@ -148,11 +155,13 @@ var Dialog	= {
 		}
 	},
 	
-	PM: function(ID, Subject, Message) {
-		if(typeof Subject !== 'string')
-			Subject	= '';
-
-		return Dialog.open('game.php?page=messages&mode=write&id='+ID+'&subject='+encodeURIComponent(Subject)+'&message='+encodeURIComponent(Subject), 650, 350);
+	PM: function(userID, parentID) {
+		if(typeof parentID === "undefined")
+		{
+			parentID = 0;
+		}
+		
+		return Dialog.open('game.php?page=messages&mode=write&userID='+userID+'&parentID='+parentID, 650, 350);
 	},
 	
 	Playercard: function(ID) {
@@ -177,7 +186,13 @@ var Dialog	= {
 			padding: 0,
 			height: height,
 			type: 'iframe',
-			href: url
+			href: url,
+			onComplete: function() {
+				$('#fancybox-frame').load(function() {
+					$('#fancybox-content').height($(this).contents().find('body').height()+35);
+					$.fancybox.center(0);
+				});
+			}
 		});
 		
 		return false;

@@ -70,3 +70,11 @@ Message	= {
 		return IDs;
 	}
 }
+
+$(function() {
+	$('.pageLink').live('click', function(e) {
+		e.preventDefault();
+		Message.getMessages($('#messagestable').data('category'), $(this).data('page'));
+		return false;
+	});
+});
