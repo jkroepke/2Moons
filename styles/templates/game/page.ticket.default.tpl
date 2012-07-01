@@ -4,7 +4,7 @@
 	<tr>
 		<th colspan="5">{$LNG.ti_header}</th>
 	</tr>
-	<tr style="height:20px;">
+	<tr class="highRow">
 		<td colspan="5"><a href="game.php?page=ticket&amp;mode=create">{$LNG.ti_new}</a></td>
 	</tr>
 	<tr>

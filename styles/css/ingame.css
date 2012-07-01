@@ -137,6 +137,10 @@ textarea.tinymce{
 	clear:both;
 }
 
+.highRow {
+	height:20px;
+}
+
 /** HEADER **/
 #header {
 	padding:5px 10px;

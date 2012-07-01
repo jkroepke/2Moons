@@ -50,7 +50,7 @@ class ShowInformationPage extends AbstractPage
 
 	public function sendFleet()
 	{
-		global $PLANET, $LNG;
+		global $PLANET, $USER, $LNG;
 
 		$NextJumpTime = self::getNextJumpWaitTime($PLANET['last_jump_time']);
 		
@@ -78,18 +78,24 @@ class ShowInformationPage extends AbstractPage
 		
 		foreach($reslist['fleet'] as $Ship)
 		{
-			$ShipArray[$Ship]	= max(0, min($Ships[$Ship], $PLANET[$GLOBALS['VARS']['ELEMENT'][$Ship]['name']]));
-			if($Ship == 212 || $ShipArray[$Ship] <= 0)
+			if(!isset($Ships[$Ship]) || $Ship == 212)
 				continue;
-								
-			$SubQueryOri 		.= $GLOBALS['VARS']['ELEMENT'][$Ship]['name']." = ".$GLOBALS['VARS']['ELEMENT'][$Ship]['name']." - ".$ShipArray[$Ship]."', ";
-			$SubQueryDes 		.= $GLOBALS['VARS']['ELEMENT'][$Ship]['name']." = ".$GLOBALS['VARS']['ELEMENT'][$Ship]['name']." + ".$ShipArray[$Ship]."', ";
+				
+			$ShipArray[$Ship]	= max(0, min($Ships[$Ship], $PLANET[$GLOBALS['VARS']['ELEMENT'][$Ship]['name']]));
+					
+			if(empty($ShipArray[$Ship]))
+				continue;
+				
+			$SubQueryOri 		.= $GLOBALS['VARS']['ELEMENT'][$Ship]['name']." = ".$GLOBALS['VARS']['ELEMENT'][$Ship]['name']." - ".$ShipArray[$Ship].", ";
+			$SubQueryDes 		.= $GLOBALS['VARS']['ELEMENT'][$Ship]['name']." = ".$GLOBALS['VARS']['ELEMENT'][$Ship]['name']." + ".$ShipArray[$Ship].", ";
 			$PLANET[$GLOBALS['VARS']['ELEMENT'][$Ship]['name']] -= $ShipArray[$Ship];
 		}
 
 		if (empty($SubQueryOri)) {
 			$this->sendJSON(array('message' => $LNG['in_jump_gate_error_data'], 'error' => true));
 		}
+		
+		$JumpTime	= TIMESTAMP;
 
 		$SQL  = "UPDATE ".PLANETS." SET ";
 		$SQL .= $SubQueryOri;
@@ -160,12 +166,12 @@ class ShowInformationPage extends AbstractPage
         }
 				
 				
-        $moonResult	= $GLOBALS['DATABASE']->query("SELECT id, galaxy, system, planet, last_jump_time, ".$GLOBALS['VARS']['ELEMENT'][43]['name']." FROM ".PLANETS." WHERE id != ".$PLANET['id']." AND id_owner = ". $USER['id'] ." AND planet_type = '3' AND ".$GLOBALS['VARS']['ELEMENT'][43]['name']." > 0 ORDER BY ".$OrderBy.";");
+        $moonResult	= $GLOBALS['DATABASE']->query("SELECT id, name, galaxy, system, planet, last_jump_time, ".$GLOBALS['VARS']['ELEMENT'][43]['name']." FROM ".PLANETS." WHERE id != ".$PLANET['id']." AND id_owner = ". $USER['id'] ." AND planet_type = '3' AND ".$GLOBALS['VARS']['ELEMENT'][43]['name']." > 0 ORDER BY ".$OrderBy.";");
         $moonList	= array();
 
         while($moonRow = $GLOBALS['DATABASE']->fetchArray($moonResult)) {
 			$NextJumpTime				= self::getNextJumpWaitTime($moonRow['last_jump_time']);
-			$moonList[$PLANET['id']]	= '['.$moonRow['galaxy'].':'.$moonRow['system'].':'.$moonRow['planet'].'] '.$moonRow['name'].(TIMESTAMP < $NextJumpTime ? ' ('.pretty_time($NextJumpTime - TIMESTAMP).')':'');
+			$moonList[$moonRow['id']]	= '['.$moonRow['galaxy'].':'.$moonRow['system'].':'.$moonRow['planet'].'] '.$moonRow['name'].(TIMESTAMP < $NextJumpTime ? ' ('.pretty_time($NextJumpTime - TIMESTAMP).')':'');
 		}
 		
 		$GLOBALS['DATABASE']->free_result($moonResult);

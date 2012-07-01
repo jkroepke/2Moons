@@ -145,12 +145,12 @@ if (MODE !== 'INSTALL')
 		user.*, 
 		stat.total_points, 
 		stat.total_rank,
-		COUNT(message.message_id) as messages
+		COUNT(message.hasRead) as messages
 		FROM ".USERS." as user 
 		LEFT JOIN ".STATPOINTS." as stat ON stat.id_owner = user.id AND stat.stat_type = '1' 
-		LEFT JOIN ".MESSAGES." as message ON message.message_owner = user.id AND message.message_unread = '1'
+		LEFT JOIN ".MESSAGES." as message ON message.userID = user.id AND message.hasRead = 0
 		WHERE user.id = ".$_SESSION['id']."
-		GROUP BY message.message_owner;");
+		GROUP BY message.userID;");
 		
 		if (empty($USER))
 		{

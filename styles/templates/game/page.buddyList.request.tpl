@@ -6,7 +6,7 @@
     <tr>
         <th colspan="2">{$LNG.bu_request_message}</th>
     </tr>
-	<tr style="height:20px;">
+	<tr class="highRow">
         <td>{$LNG.bu_player}</td>
         <td><input type="text" value="{$username} [{$galaxy}:{$system}:{$planet}]" size="40" readonly></td>
     </tr>

@@ -28,7 +28,7 @@
 		<br><a title="{$LNG.fl_onway}">{$LNG.fl_a}</a>
 	{/if}
 	</td>
-	<td><a class="tooltip_sticky" name="<table width='100%'><tr><th colspan='2' style='text-align:center;'>{$LNG.fl_info_detail}</th></tr>{foreach $FlyingFleetRow.FleetList as $shipID => $shipCount}<tr><td class='transparent'>{$LNG.tech.{$shipID}}:</td><td class='transparent'>{$shipCount}</td></tr>{/foreach}</table>">{$FlyingFleetRow.amount}</a></td>
+	<td><a class="tooltip_sticky" data-tooltip-content="<table width='100%'><tr><th colspan='2' style='text-align:center;'>{$LNG.fl_info_detail}</th></tr>{foreach $FlyingFleetRow.FleetList as $shipID => $shipCount}<tr><td class='transparent'>{$LNG.tech.{$shipID}}:</td><td class='transparent'>{$shipCount}</td></tr>{/foreach}</table>">{$FlyingFleetRow.amount}</a></td>
 	<td><a href="game.php?page=galaxy&amp;galaxy={$FlyingFleetRow.startGalaxy}&amp;system={$FlyingFleetRow.startSystem}">[{$FlyingFleetRow.startGalaxy}:{$FlyingFleetRow.startSystem}:{$FlyingFleetRow.startPlanet}]</a></td>
 	<td>{$FlyingFleetRow.startTime}</td>
 	<td><a href="game.php?page=galaxy&amp;galaxy={$FlyingFleetRow.endGalaxy}&amp;system={$FlyingFleetRow.endSystem}">[{$FlyingFleetRow.endGalaxy}:{$FlyingFleetRow.endSystem}:{$FlyingFleetRow.endPlanet}]</a></td>
@@ -81,14 +81,14 @@
 	<tr>
 		<th colspan="4">{$LNG.fl_new_mission_title}</th>
 	</tr>
-	<tr style="height:20px;">
+	<tr class="highRow">
 		<td>{$LNG.fl_ship_type}</td>
 		<td>{$LNG.fl_ship_available}</td>
 		<td>-</td>
 		<td>-</td>
 	</tr>
 	{foreach name=Fleets item=FleetRow from=$FleetsOnPlanet}
-	<tr style="height:20px;">
+	<tr class="highRow">
 		<td>{if $FleetRow.speed != 0} <a title="{$LNG.fl_speed_title} {$FleetRow.speed}">{$LNG.tech.{$FleetRow.id}}</a>{else}{$LNG.tech.{$FleetRow.id}}{/if}</td>
 		<td id="ship{$FleetRow.id}_value">{$FleetRow.count|number}</td>
 		{if $FleetRow.speed != 0}
@@ -100,7 +100,7 @@
 		{/if}
 	</tr>
 	{/foreach}
-	<tr style="height:20px;">
+	<tr class="highRow">
 	{if $smarty.foreach.Fleets.total == 0}
 	<td colspan="4">{$LNG.fl_no_ships}</td>
 	{else}
@@ -109,7 +109,7 @@
 	{/if}
 	</tr>
 	{if $maxFleetSlots != $activeFleetSlots}
-	<tr style="height:20px;"><td colspan="4"><input type="submit" value="{$LNG.fl_continue}"></td>
+	<tr class="highRow"><td colspan="4"><input type="submit" value="{$LNG.fl_continue}"></td>
 	{/if}
 </table>	
 </form>

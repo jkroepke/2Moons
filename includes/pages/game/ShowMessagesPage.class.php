@@ -43,7 +43,7 @@ class ShowMessagesPage extends AbstractPage
 		global $THEME, $LNG, $USER;
 		$MessCategory  	= HTTP::_GP('messcat', 100);
 		
-		$page  			= HTTP::_GP('site', 1);
+		$site  			= HTTP::_GP('site', 1);
 		
 		$this->initTemplate();
 		$this->setWindow('ajax');
@@ -52,39 +52,39 @@ class ShowMessagesPage extends AbstractPage
 		$MesagesID		= array();
 		
 		if($MessCategory == 999)  {
-			$MessageCount	= $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".MESSAGES." WHERE message_sender = ".$USER['id']." AND message_type != 50;");
+			$MessageCount	= $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".MESSAGES." WHERE userID = ".$USER['id']." AND messageType != 50;");
 			
-			$maxPage	= ceil($MessageCount / MESSAGES_PER_PAGE);
-			$page		= max(1, min($page, $maxPage));
+			$maxSite	= max(1, ceil($MessageCount / MESSAGES_PER_PAGE));
+			$site		= min($site, $maxSite);
 			
-			$MessageResult	= $GLOBALS['DATABASE']->query("SELECT message_id, message_time, CONCAT(username, ' [',galaxy, ':', system, ':', planet,']') as message_from, message_subject, message_sender, message_type, message_unread, message_text FROM ".MESSAGES." INNER JOIN ".USERS." ON id = message_owner WHERE message_sender = ".$USER['id']." AND message_type != 50 ORDER BY message_time DESC LIMIT ".(($page - 1) * MESSAGES_PER_PAGE).", ".MESSAGES_PER_PAGE.";");
+			$MessageResult	= $GLOBALS['DATABASE']->query("SELECT messageID, time, username as senderName, subject, senderID, messageType, hasRead, text FROM ".MESSAGES." INNER JOIN ".USERS." ON id = userID WHERE senderID = ".$USER['id']." AND messageType != 50 ORDER BY time DESC LIMIT ".(($site - 1) * MESSAGES_PER_PAGE).", ".MESSAGES_PER_PAGE.";");
 		} else {
-			$MessageCount 	= $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".MESSAGES." WHERE message_owner = ".$USER['id'].($MessCategory != 100 ? " AND message_type = ".$MessCategory : "").";");
+			$MessageCount 	= $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".MESSAGES." WHERE userID = ".$USER['id'].($MessCategory != 100 ? " AND messageType = ".$MessCategory : "").";");
 			
-			$maxPage	= ceil($MessageCount / MESSAGES_PER_PAGE);
-			$page		= max(1, min($page, $maxPage));
+			$maxSite	= max(1, ceil($MessageCount / MESSAGES_PER_PAGE));
+			$site		= min($site, $maxSite);
 			
-			$MessageResult	= $GLOBALS['DATABASE']->query("SELECT message_id, message_time, message_from, message_subject, message_sender, message_type, message_unread, message_text FROM ".MESSAGES." WHERE message_owner = ".$USER['id'].($MessCategory != 100 ? " AND message_type = ".$MessCategory:"")." ORDER BY message_time DESC LIMIT ".(($page - 1) * MESSAGES_PER_PAGE).", ".MESSAGES_PER_PAGE.";");
+			$MessageResult	= $GLOBALS['DATABASE']->query("SELECT messageID, time, senderName, subject, senderID, messageType, hasRead, text FROM ".MESSAGES." WHERE userID = ".$USER['id'].($MessCategory != 100 ? " AND messageType = ".$MessCategory:"")." ORDER BY time DESC LIMIT ".(($site - 1) * MESSAGES_PER_PAGE).", ".MESSAGES_PER_PAGE.";");
 		}
-
+		
 		while ($MessageRow = $GLOBALS['DATABASE']->fetchArray($MessageResult))
 		{
-			$MesagesID[]	= $MessageRow['message_id'];
+			$MesagesID[]	= $MessageRow['messageID'];
 			
 			$MessageList[]	= array(
-				'id'		=> $MessageRow['message_id'],
-				'time'		=> DateUtil::formatDate($LNG['php_tdformat'], $MessageRow['message_time'], $USER['timezone']),
-				'from'		=> $MessageRow['message_from'],
-				'subject'	=> $MessageRow['message_subject'],
-				'sender'	=> $MessageRow['message_sender'],
-				'type'		=> $MessageRow['message_type'],
-				'unread'	=> $MessageRow['message_unread'],
-				'text'		=> $MessageRow['message_text'],
+				'id'		=> $MessageRow['messageID'],
+				'time'		=> DateUtil::formatDate($LNG['php_tdformat'], $MessageRow['time'], $USER['timezone']),
+				'from'		=> $MessageRow['senderName'],
+				'subject'	=> $MessageRow['subject'],
+				'sender'	=> $MessageRow['senderID'],
+				'type'		=> $MessageRow['messageType'],
+				'unread'	=> $MessageRow['hasRead'],
+				'text'		=> $MessageRow['text'],
 			);
 		}
 		
 		if(!empty($MesagesID) && $MessCategory != 999) {
-			$GLOBALS['DATABASE']->query("UPDATE ".MESSAGES." SET message_unread = 0 WHERE message_id IN (".implode(',', $MesagesID).") AND message_owner = ".$USER['id'].";");
+			$GLOBALS['DATABASE']->query("UPDATE ".MESSAGES." SET hasRead = 1 WHERE userID = ".$USER['id']." AND messageID IN (".implode(',', $MesagesID).");");
 		}
 		
 		$GLOBALS['DATABASE']->free_result($MessageResult);		
@@ -93,13 +93,12 @@ class ShowMessagesPage extends AbstractPage
 			'MessID'		=> $MessCategory,
 			'MessageCount'	=> $MessageCount,
 			'MessageList'	=> $MessageList,
-			'page'			=> $page,
-			'maxPage'		=> $maxPage,
+			'site'			=> $site,
+			'maxSite'		=> $maxSite,
 		));
 		
 		$this->render('page.messages.view.tpl');
 	}
-	
 	
 	function delete()
 	{
@@ -117,10 +116,10 @@ class ShowMessagesPage extends AbstractPage
 		switch($DeleteWhat)
 		{
 			case 'deleteall':
-				$GLOBALS['DATABASE']->query("DELETE FROM ".MESSAGES." WHERE message_owner = ".$USER['id'].";");
+				$GLOBALS['DATABASE']->query("DELETE FROM ".MESSAGES." WHERE userID = ".$USER['id'].";");
 			break;
 			case 'deletetypeall':
-				$GLOBALS['DATABASE']->query("DELETE FROM ".MESSAGES." WHERE message_owner = ".$USER['id']." AND message_type = ".$MessCategory.";");
+				$GLOBALS['DATABASE']->query("DELETE FROM ".MESSAGES." WHERE userID = ".$USER['id']." AND messageType = ".$MessCategory.";");
 			case 'deletemarked':
 				$SQLWhere = array();
 				if(empty($_REQUEST['delmes']) || !is_array($_REQUEST['delmes']))
@@ -128,10 +127,10 @@ class ShowMessagesPage extends AbstractPage
 					
 				foreach($_REQUEST['delmes'] as $MessID => $b)
 				{
-					$SQLWhere[] = "message_id = '".(int) $MessID."'";
+					$SQLWhere[] = "messageID = '".(int) $MessID."'";
 				}
 				
-				$GLOBALS['DATABASE']->query("DELETE FROM ".MESSAGES." WHERE (".implode(" OR ",$SQLWhere).") AND message_owner = ".$USER['id'].(($MessCategory != 100)? " AND message_type = ".$MessCategory." ":"").";");
+				$GLOBALS['DATABASE']->query("DELETE FROM ".MESSAGES." WHERE (".implode(" OR ",$SQLWhere).") AND userID = ".$USER['id'].(($MessCategory != 100)? " AND messageType = ".$MessCategory." ":"").";");
 			break;
 			case 'deleteunmarked':
 				if(!empty($_REQUEST['delmes']) && is_array($_REQUEST['delmes']))
@@ -139,10 +138,10 @@ class ShowMessagesPage extends AbstractPage
 					$SQLWhere = array();
 					foreach($_REQUEST['delmes'] as $MessID => $b)
 					{
-						$SQLWhere[] = "message_id != '".(int) $MessID."'";
+						$SQLWhere[] = "messageID != '".(int) $MessID."'";
 					}
 					
-					$GLOBALS['DATABASE']->query("DELETE FROM ".MESSAGES." WHERE (".implode(" AND ",$SQLWhere).") AND message_owner = '".$USER['id']."'".(($MessCategory != 100)? " AND message_type = '".$MessCategory."' ":"").";");
+					$GLOBALS['DATABASE']->query("DELETE FROM ".MESSAGES." WHERE (".implode(" AND ",$SQLWhere).") AND userID = '".$USER['id']."'".(($MessCategory != 100)? " AND messageType = '".$MessCategory."' ":"").";");
 				}
 			break;
 		}
@@ -152,21 +151,44 @@ class ShowMessagesPage extends AbstractPage
 	function send() 
 	{
 		global $USER, $LNG;
-		$OwnerID	= HTTP::_GP('id', 0);
+		$userID		= HTTP::_GP('userID', 0);
+		$parentID	= HTTP::_GP('parentID', 0);
 		$Subject 	= HTTP::_GP('subject', $LNG['mg_no_subject'], true);
-		$Message 	= makebr(HTTP::_GP('text', '', true));
-		$From    	= $USER['username'].' ['.$USER['galaxy'].':'.$USER['system'].':'.$USER['planet'].']';
+		$Message 	= HTTP::_GP('text', '', true);
+				
+		require_once(ROOT_PATH.'includes/functions/BBCode.php');
+		
+		$Message	= bbcode(makebr($Message));
+		
+		$senderName	= $USER['username'].' ['.$USER['galaxy'].':'.$USER['system'].':'.$USER['planet'].']';
 
-		if (empty($OwnerID) || empty($Message) || !isset($_SESSION['messtoken']) || $_SESSION['messtoken'] != md5($USER['id'].'|'.$OwnerID))
-			exit($LNG['mg_error']);
+		if ($_SESSION['messtoken'] != md5($USER['id'].'|'.$userID))
+		{
+			$this->printMessage($LNG['mg_error_token'], NULL, array($LNG['common_continue'] => 'javascript:parent.$.fancybox.close()'), false);
+		}
 		
 		unset($_SESSION['messtoken']);
 		
+		$userExists	= $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".USERS." WHERE id = ".$userID.";");
+		
+		if (empty($userExists))
+		{
+			$this->printMessage($LNG['mg_error_user'], NULL, array($LNG['common_continue'] => 'javascript:parent.$.fancybox.close()'), false);
+		}
+		
+		if (empty($Message))
+		{
+			$this->printMessage($LNG['mg_error_text'], NULL, array($LNG['common_continue'] => 'javascript:history.back()'), false);
+		}
+		
 		if (empty($Subject))
-			$Subject	= $LNG['mg_no_subject'];
+		{
+			$this->printMessage($LNG['mg_error_subject'], NULL, array($LNG['common_continue'] => 'javascript:history.back()'), false);
+		}
 			
-		SendSimpleMessage($OwnerID, $USER['id'], TIMESTAMP, 1, $From, $Subject, $Message);
-		exit($LNG['mg_message_send']);
+		PlayerUtil::sendMessage($userID, $USER['id'], $senderName, 1, $Subject, $Message, TIMESTAMP, $parentID);
+		
+		$this->printMessage($LNG['mg_message_send'], NULL, array($LNG['common_continue'] => 'javascript:parent.$.fancybox.close()'), false);
 	}
 	
 	function write() 
@@ -174,19 +196,25 @@ class ShowMessagesPage extends AbstractPage
 		global $LNG, $USER;
 		$this->setWindow('popup');
 		$this->initTemplate();
-		$OwnerID       	= HTTP::_GP('id', 0);
-		$Subject 		= HTTP::_GP('subject', $LNG['mg_no_subject'], true);
-		$OwnerRecord 	= $GLOBALS['DATABASE']->getFirstRow("SELECT a.galaxy, a.system, a.planet, b.username, b.id_planet FROM ".PLANETS." as a, ".USERS." as b WHERE b.id = '".$OwnerID."' AND a.id = b.id_planet;");
+		
+		$userID 	= HTTP::_GP('userID', 0);
+		$parentID	= HTTP::_GP('parentID', 0);
+		$Subject	= HTTP::_GP('subject', $LNG['mg_no_subject'], true);
+		
+		$owner		= $GLOBALS['DATABASE']->getFirstRow("SELECT a.galaxy, a.system, a.planet, b.username, b.id_planet FROM ".PLANETS." as a, ".USERS." as b WHERE b.id = '".$userID."' AND a.id = b.id_planet;");
 
-		if (!$OwnerRecord)
-			exit($LNG['mg_error']);
+		if (empty($owner))
+		{
+			$this->printMessage($LNG['mg_error'], NULL, array($LNG['common_continue'] => 'javascript:parent.$.fancybox.close()'), false);
+		}
 			
-		$_SESSION['messtoken'] = md5($USER['id'].'|'.$OwnerID);
+		$_SESSION['messtoken'] = md5($USER['id'].'|'.$userID);
 		
 		$this->assign(array(	
-			'subject'		=> $Subject,
-			'id'			=> $OwnerID,
-			'OwnerRecord'	=> $OwnerRecord,
+			'subject'	=> $Subject,
+			'userID'	=> $userID,
+			'parentID'	=> $parentID,
+			'owner'		=> $owner
 		));
 		
 		$this->render('page.messages.write.tpl');
@@ -196,14 +224,12 @@ class ShowMessagesPage extends AbstractPage
 	{
 		global $USER, $PLANET, $CONF, $UNI;
 		
-		$CategoryType   = array ( 0, 1, 2, 3, 4, 5, 15, 50, 99, 100, 999);
-		$TitleColor    	= array ( 0 => '#FFFF00', 1 => '#FF6699', 2 => '#FF3300', 3 => '#FF9900', 4 => '#773399', 5 => '#009933', 15 => '#6495ed', 50 => '#666600', 99 => '#007070', 100 => '#ABABAB', 999 => '#CCCCCC');
-		
-		$MessOut		= $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".MESSAGES." WHERE message_sender = ".$USER['id']." AND message_type != 50;");
+		$CategoryType   = array(0, 1, 2, 3, 4, 5, 15, 50, 99, 100, 999);
+		$TitleColor    	= array(0 => '#FFFF00', 1 => '#FF6699', 2 => '#FF3300', 3 => '#FF9900', 4 => '#773399', 5 => '#009933', 15 => '#6495ed', 50 => '#666600', 99 => '#007070', 100 => '#ABABAB', 999 => '#CCCCCC');
 		
 		$OperatorList	= array();
-		$Total			= array(0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 15 => 0, 50 => 0, 99 => 0, 100 => 0, 999 => 0);
 		$UnRead			= array(0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 15 => 0, 50 => 0, 99 => 0, 100 => 0, 999 => 0);
+		$Total			= $UnRead;
 		
 		$OperatorResult 	= $GLOBALS['DATABASE']->query("SELECT username, email FROM ".USERS." WHERE universe = ".$UNI." AND authlevel != ".AUTH_USR." ORDER BY username ASC;");		
 		while($OperatorRow = $GLOBALS['DATABASE']->fetchArray($OperatorResult))
@@ -213,15 +239,17 @@ class ShowMessagesPage extends AbstractPage
 		
 		$GLOBALS['DATABASE']->free_result($OperatorResult);
 
-		$CategoryResult 	= $GLOBALS['DATABASE']->query("SELECT message_type, SUM(message_unread) as message_unread, COUNT(*) as count FROM ".MESSAGES." WHERE message_owner = ".$USER['id']." GROUP BY message_type;");	
+		$CategoryResult 	= $GLOBALS['DATABASE']->query("SELECT messageType, COUNT(messageID) - SUM(hasRead) as unRead, COUNT(messageID) as count FROM ".MESSAGES." WHERE userID = ".$USER['id']." GROUP BY messageType;");	
 		while ($CategoryRow = $GLOBALS['DATABASE']->fetchArray($CategoryResult))
 		{
-			$UnRead[$CategoryRow['message_type']]	= $CategoryRow['message_unread'];
-			$Total[$CategoryRow['message_type']]	= $CategoryRow['count'];
+			$UnRead[$CategoryRow['messageType']]	= $CategoryRow['unRead'];
+			$Total[$CategoryRow['messageType']]		= $CategoryRow['count'];
 		}
 		
 		$GLOBALS['DATABASE']->free_result($CategoryResult);
 		
+		$MessOut		= $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".MESSAGES." WHERE userID = ".$USER['id']." AND messageType != 50;");
+				
 		$UnRead[100]	= array_sum($UnRead);
 		$Total[100]		= array_sum($Total);
 		$Total[999]		= $MessOut;

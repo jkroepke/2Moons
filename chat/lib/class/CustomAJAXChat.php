@@ -51,7 +51,10 @@ class CustomAJAXChat extends AJAXChat {
 		if(!$this->getRequestVar('ajax'))
 		{
 			$this->getAllChannels();
-			$this->switchChannel($this->getConfig('defaultChannelName'));
+			if(!is_null($this->getChannel()))
+			{
+				$this->switchChannel($this->getConfig('defaultChannelName'));
+			}
 		}
 	}
 	

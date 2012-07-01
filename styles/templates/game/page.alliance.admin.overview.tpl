@@ -101,6 +101,7 @@
 {block name="script" append}
 <script type="text/javascript" src="scripts/base/tinymce/tiny_mce_gzip.js"></script>
 <script type="text/javascript">
+tinyMCE = null;
 $(function() {
 	tinyMCE_GZ.init({
 		plugins : 'bbcode,fullscreen"',

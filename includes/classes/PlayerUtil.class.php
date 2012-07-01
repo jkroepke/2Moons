@@ -426,4 +426,22 @@ class PlayerUtil {
 			break;
 		}
 	}
+
+	static function sendMessage($userID, $senderID, $senderName, $messageType, $subject, $text, $time, $parentID = NULL, $hasRead = 0, $universe = NULL)
+	{
+		global $UNI;
+		$SQL	= "INSERT INTO ".MESSAGES." SET 
+				   parentMessageID	= ".(empty($parentID) ? "messageID" : $parentID).",
+				   senderID			= ".$senderID.",
+				   senderName		= '".$GLOBALS['DATABASE']->escape($senderName)."',
+				   userID			= ".$userID.",
+				   time				= ".$time.",
+				   messageType		= ".$messageType.",
+				   subject			= '".$GLOBALS['DATABASE']->escape($subject)."',
+				   text				= '".$GLOBALS['DATABASE']->escape($text)."',
+				   hasRead			= ".$hasRead.",
+				   universe			= ".$UNI.";";
+		
+		$GLOBALS['DATABASE']->query($SQL);
+	}
 }
