@@ -105,7 +105,8 @@ abstract class AbstractPage
 			$PlanetSelect[$PlanetQuery['id']]	= $PlanetQuery['name'].(($PlanetQuery['planet_type'] == 3) ? " (" . $LNG['fcm_moon'] . ")":"")." [".$PlanetQuery['galaxy'].":".$PlanetQuery['system'].":".$PlanetQuery['planet']."]";
 		}
 		
-		if($USER['urlaubs_modus'] == 1) {
+		if($USER['urlaubs_modus'] == 1 || $PLANET['planet_type'] != 1)
+		{
 			$CONF['metal_basic_income']     = 0;
 			$CONF['crystal_basic_income']   = 0;
 			$CONF['deuterium_basic_income'] = 0;
