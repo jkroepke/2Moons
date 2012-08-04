@@ -38,7 +38,7 @@ function ShowModulePage()
 		$CONF['moduls']		= explode(";", $CONF['moduls']);
 	}
 	
-	$IDs	= range(0, MODULE_AMOUNT);
+	$IDs	= range(0, MODULE_AMOUNT - 1);
 	foreach($IDs as $ID => $Name) {
 		$Modules[$ID]	= array(
 			'name'	=> $LNG['modul'][$ID], 
