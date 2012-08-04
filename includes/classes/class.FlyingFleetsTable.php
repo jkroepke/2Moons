@@ -54,14 +54,14 @@ class FlyingFleetsTable
 		global $USER, $resource;
 		
 		if($this->IsPhalanx) {
-			$SQLWhere	= "`fleet_start_id` = ".$this->PlanetID;
+			$SQLWhere	= "fleet_start_id = ".$this->PlanetID." OR (fleet_end_id = ".$this->PlanetID." AND fleet_mess IN (0, 2))";
 		} elseif(!empty($acsID)) {
-			$SQLWhere	= "`fleet_group` = ".$acsID;
+			$SQLWhere	= "fleet_group = ".$acsID;
 		} else {
-			$SQLWhere	= "`fleet_owner` = ".$this->UserID;
+			$SQLWhere	= "fleet_owner = ".$this->UserID;
 			
 			if($USER[$resource[106]] >= 2) {
-				$SQLWhere	.= " OR (`fleet_target_owner` = ".$this->UserID." AND fleet_mission != 8)";
+				$SQLWhere	.= " OR (fleet_target_owner = ".$this->UserID." AND fleet_mission != 8)";
 			}
 		}
 		return $GLOBALS['DATABASE']->query("SELECT DISTINCT fleet.*, ownuser.username as own_username, targetuser.username as target_username, ownplanet.name as own_planetname, targetplanet.name as target_planetname 
@@ -69,7 +69,7 @@ class FlyingFleetsTable
 		LEFT JOIN ".USERS." ownuser ON (ownuser.id = fleet.fleet_owner)
 		LEFT JOIN ".USERS." targetuser ON (targetuser.id = fleet.fleet_target_owner)
 		LEFT JOIN ".PLANETS." ownplanet ON (ownplanet.id = fleet.fleet_start_id)
-		LEFT JOIN ".PLANETS." targetplanet ON (targetplanet.`id` = fleet.fleet_end_id)
+		LEFT JOIN ".PLANETS." targetplanet ON (targetplanet.id = fleet.fleet_end_id)
 		WHERE ".$SQLWhere.";");
 	}
 	
