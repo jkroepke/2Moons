@@ -313,25 +313,25 @@ function pretty_time($seconds)
 	
 	$time  = '';
 	
-	if($day > 10) {
+	if($day >= 10) {
 		$time .= $day.$LNG['short_day'].' ';
 	} elseif($day > 0) {
 		$time .= '0'.$day.$LNG['short_day'].' ';
 	}
 	
-	if($hour > 10) {
+	if($hour >= 10) {
 		$time .= $hour.$LNG['short_hour'].' ';
 	} else {
 		$time .= '0'.$hour.$LNG['short_hour'].' ';
 	}
 	
-	if($minute > 10) {
+	if($minute >= 10) {
 		$time .= $minute.$LNG['short_minute'].' ';
 	} else {
 		$time .= '0'.$minute.$LNG['short_minute'].' ';
 	}
 	
-	if($second > 10) {
+	if($second >= 10) {
 		$time .= $second.$LNG['short_second'].' ';
 	} else {
 		$time .= '0'.$second.$LNG['short_second'].' ';
@@ -680,8 +680,8 @@ function exceptionHandler($exception)
 	<meta name="generator" content="2Moons '.$VERSION.'">
 	<!-- 
 		This website is powered by 2Moons '.$VERSION.'
-		2Moons is a free Space Browsergame initially created by Jan Kröpke and licensed under GNU/GPL.
-		2Moons is copyright 2009-2012 of Jan Kröpke. Extensions are copyright of their respective owners.
+		2Moons is a free Space Browsergame initially created by Jan Krï¿½pke and licensed under GNU/GPL.
+		2Moons is copyright 2009-2012 of Jan Krï¿½pke. Extensions are copyright of their respective owners.
 		Information and contribution at http://2moons.cc/
 	-->
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
