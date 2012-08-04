@@ -13,7 +13,7 @@
 					<td class="transparent left"><p>{$LNG.longDescription.$elementID}</p>
 					{if !empty($Bonus)}<p>
 					{foreach $Bonus as $BonusName => $elementBouns}
-					{$LNG.bonus.$BonusName|replace:'%f%':{$elementBouns * 100}}<br>{/foreach}
+					{$LNG.bonus.$BonusName|replace:'%f%':{abs($elementBouns * 100)}}<br>{/foreach}
 					</p>{/if}	
 					{if !empty($FleetInfo)}
 					{if !empty($FleetInfo.rapidfire.to)}<p>
