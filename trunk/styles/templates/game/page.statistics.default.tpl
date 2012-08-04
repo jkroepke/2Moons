@@ -1,4 +1,4 @@
-{block name="title" prepend}{$LNG.lm_research}{/block}
+{block name="title" prepend}{$LNG.lm_statistics}{/block}
 {block name="content"}
 <form name="stats" id="stats" method="post" action="">
 	<table class="table519">
