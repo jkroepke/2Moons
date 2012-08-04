@@ -351,6 +351,7 @@ switch ($step) {
 				'OverviewNewsText'	=> '',
 				'uni_name'			=> '',
 				'close_reason'		=> '',
+				'moduls'			=> '',
 			);
 			
 			update_config(array(
