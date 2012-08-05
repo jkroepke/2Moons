@@ -40,12 +40,8 @@ function calculateMIPAttack($TargetDefTech, $OwnerAttTech, $missiles, $targetDef
 	
 	$destroyShips		= array();
 	
-	// Attack / Defensive bonus
-	
-	$attackFactor		= 1 + $OwnerAttTech * 10 - $TargetDefTech * 10;
-	
 	// kill destroyed missiles
-	$totalAttack		= ($missiles - $defenseMissles) * $CombatCaps[503]['attack'] * $attackFactor * 10;
+	$totalAttack		= ($missiles - $defenseMissles) * $CombatCaps[503]['attack'] * (1 + $OwnerAttTech / 10);
 	
 	$firstTargetData	= array($firstTarget => $targetDefensive[$firstTarget]);
 	unset($targetDefensive[$firstTarget]);
@@ -54,12 +50,11 @@ function calculateMIPAttack($TargetDefTech, $OwnerAttTech, $missiles, $targetDef
 	
 	foreach($targetDefensive as $element => $count)
 	{
-		$destroyCount	= floor($totalAttack / ($pricelist[$element]['cost'][901] + $pricelist[$element]['cost'][902]));
-		$destroyCount	= min($destroyCount, $count);
+		$elementDefensive		= ($pricelist[$element]['cost'][901] + $pricelist[$element]['cost'][902]) * (1 + $TargetDefTech / 10);
+		$destroyCount			= floor($totalAttack / $elementDefensive);
+		$destroyCount			= min($destroyCount, $count);
 		
-		$costAttack		= $destroyCount * ($pricelist[$element]['cost'][901] + $pricelist[$element]['cost'][902]);
-		
-		$totalAttack	-= $costAttack;
+		$totalAttack			-= $destroyCount * $elementDefensive;
 		
 		$destroyShips[$element]	= $destroyCount;
 	}
