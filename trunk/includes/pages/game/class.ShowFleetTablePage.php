@@ -196,7 +196,7 @@ class ShowFleetTablePage extends AbstractPage
 		$targetGalaxy	= HTTP::_GP('galaxy', $PLANET['galaxy']);
 		$targetSystem	= HTTP::_GP('system', $PLANET['system']);
 		$targetPlanet	= HTTP::_GP('planet', $PLANET['planet']);
-		$targetType		= HTTP::_GP('type', $PLANET['planet_type']);
+		$targetType	= HTTP::_GP('planettype', $PLANET['planet_type']);
 		$targetMission	= HTTP::_GP('mission', 0);
 		
 		$fleetResult 		= $GLOBALS['DATABASE']->query("SELECT * FROM ".FLEETS." WHERE fleet_owner = ".$USER['id']." AND fleet_mission <> 10 ORDER BY fleet_end_time ASC;");
