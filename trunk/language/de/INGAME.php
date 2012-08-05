@@ -295,6 +295,7 @@ $LNG['fl_expedition_fleets_limit']			= 'Sie können nicht mehr Expeditionen star
 $LNG['fl_week_player']						= 'Spieler ist zu schwach für sie!';
 $LNG['fl_strong_player']					= 'Spieler ist zu stark für sie!';
 $LNG['fl_in_vacation_player']				= 'Spieler befindet sich im Urlaubsmodus';
+$LNG['fl_admins_cannot_be_attacked']			= 'Die Admins können nicht angegriffen werden';
 $LNG['fl_multi_alarm']						= 'Multi-Alarm!';
 $LNG['fl_no_slots']							= 'Keine Slots mehr verfügbar!';
 $LNG['fl_planet_populed']					= 'Planet besiedelt!';
