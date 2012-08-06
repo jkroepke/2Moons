@@ -181,7 +181,7 @@ class MissionCaseDestruction extends MissionFunctions
 				$SQL .= $fleetArray;
 				$SQL .= "metal = metal - ".$steal['metal'].",
 				         crystal = crystal - ".$steal['crystal'].",
-				         deuterium` = deuterium - ".$steal['deuterium']."
+				         deuterium = deuterium - ".$steal['deuterium']."
 				         WHERE `id` = ".$this->_fleet['fleet_end_id'].";";
 			}
 		}
