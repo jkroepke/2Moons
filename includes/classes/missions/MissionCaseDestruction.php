@@ -194,7 +194,7 @@ class MissionCaseDestruction extends MissionFunctions
 		$INFO['moon']['chance2']	= false;
 		$INFO['moon']['fleetfail']	= false;
 		
-		$INFO['moon']['chance'] 	= $MoonChance;
+		$INFO['moon']['chance'] 	= 0;
 		$INFO['moon']['name']		= "";
 		
 		$EndPlanet		= $GLOBALS['DATABASE']->uniquequery("SELECT `id` FROM ".PLANETS." WHERE `id_luna` = '".$this->_fleet['fleet_end_id']."';");
