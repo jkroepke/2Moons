@@ -3,6 +3,7 @@
 <form action="game.php?page=fleetStep2" method="post" onsubmit="return CheckTarget()" id="form">
 	<input type="hidden" name="token" value="{$token}">
 	<input type="hidden" name="fleet_group" value="0">
+	<input type="hidden" name="target_mission" value="{$mission}">
 	<table class="table519" style="table-layout: fixed;">
 		<tr style="height:20px;">
 			<th colspan="2">{$LNG.fl_send_fleet}</th>
