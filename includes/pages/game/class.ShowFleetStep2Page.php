@@ -48,7 +48,7 @@ class ShowFleetStep2Page extends AbstractPage
 		$targetSystem   			= HTTP::_GP('system', 0);
 		$targetPlanet   			= HTTP::_GP('planet', 0);
 		$targetType 				= HTTP::_GP('type', 0);
-		$targetMission 				= HTTP::_GP('mission', 0);
+		$targetMission 				= HTTP::_GP('target_mission', 0);
 		$fleetSpeed  				= HTTP::_GP('speed', 0);		
 		$fleetGroup 				= HTTP::_GP('fleet_group', 0);
 		$token						= HTTP::_GP('token', '');

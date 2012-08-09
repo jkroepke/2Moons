@@ -81,7 +81,7 @@
 <input type="hidden" name="system" value="{$targetSystem}">
 <input type="hidden" name="planet" value="{$targetPlanet}">
 <input type="hidden" name="type" value="{$targetType}">
-<input type="hidden" name="mission" value="{$targetMission}">
+<input type="hidden" name="target_mission" value="{$targetMission}">
 <table class="table519">
 	<tr>
 		<th colspan="4">{$LNG.fl_new_mission_title}</th>
