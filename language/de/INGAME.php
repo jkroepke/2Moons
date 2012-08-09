@@ -1073,6 +1073,7 @@ $LNG['ti_submit']							= 'Absenden';
 $LNG['ti_read']								= 'Ticket lesen';
 $LNG['ti_answer']							= 'Antwort schreiben';
 $LNG['ti_create']							= 'Ticket erstellt am';
+$LNG['ti_responded']							= 'Ticket antworteten am ';
 $LNG['ti_not_exist']						= 'Das Ticket #%d existiert nicht!';
 $LNG['ti_from']								= 'von';
 $LNG['ti_re']								= 'RE:';

@@ -79,7 +79,7 @@ class ShowSupportPage
 		$change		= HTTP::_GP('change_status', '', true);
 		
 		$ticketDetail	= $GLOBALS['DATABASE']->uniquequery("SELECT ownerID, subject, status FROM ".TICKETS." WHERE ticketID = ".$ticketID.";");
-		$status = ($change ? ($ticketDetail['status'] <= 1 ? 2 : 1) : $ticketDetail['status']);
+		$status = ($change ? ($ticketDetail['status'] <= 1 ? 2 : 1) : ($ticketDetail['status'] == 0 ? 1 : 1));
 		if(empty($message)) {
 			if ($status == 2 && $change) {
 				$message = $LNG['ti_admin_close'];
@@ -94,7 +94,7 @@ class ShowSupportPage
 		$this->ticketObj->createAnswer($ticketID, $USER['id'], $USER['username'], $subject, $message, $status);
 		
 		SendSimpleMessage($ticketDetail['ownerID'], $USER['id'], TIMESTAMP, 4, $USER['username'], sprintf($LNG['sp_answer_message_title'], $ticketID), sprintf($LNG['sp_answer_message'], $ticketID)); 
-		HTTP::redirectTo('admin.php?page=support&mode=view&id='.$ticketID);
+		HTTP::redirectTo('admin.php?page=support');
 	}
 	
 	function view() 

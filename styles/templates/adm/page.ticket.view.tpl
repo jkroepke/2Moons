@@ -15,9 +15,10 @@
 		<td class="left" colspan="2">
 			<p>{if !$answerRow@first}
 				<b>{$LNG.ti_subject}: {$answerRow.subject}</b><br>
+			{$LNG.ti_responded}: <b>{$answerRow.time}</b> {$LNG.ti_from} <b>{$answerRow.ownerName}</b>
 			{/if}
-			{$LNG.ti_create}: <b>{$answerRow.time}</b> {$LNG.ti_from} <b>{$answerRow.ownerName}</b>
 			{if $answerRow@first}
+			{$LNG.ti_create}: <b>{$answerRow.time}</b> {$LNG.ti_from} <b>{$answerRow.ownerName}</b>
 				<br>{$LNG.ti_category}: {$categoryList[$answerRow.categoryID]}
 			{/if}
 			</p>
@@ -40,7 +41,7 @@
 		<td style="width:70%"><input type="checkbox" name="change_status"></td>
 	</tr>	
 	<tr>
-		<td colspan="2"><input type="submit" value="{$LNG.ti_submit}"></td>
+		<td colspan="2"><input type="submit" value="{$LNG.ti_submit}" onclick="parent.rightFrame.document.location.reload();"></td>
 	</tr>
 </table>
 </form>
