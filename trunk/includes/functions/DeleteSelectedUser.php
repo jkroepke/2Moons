@@ -43,16 +43,16 @@ function DeleteSelectedUser($userID)
 	if ($userData['ally_id'] != 0)
 	{
 		$memberCount =  $GLOBALS['DATABASE']->countquery("SELECT ally_members FROM ".ALLIANCE." WHERE id = ".$userData['ally_id'].";");
-		
-		if ($memberCount == 1)
+
+		if ($memberCount >= 2)
 		{
 			$SQL .= "UPDATE ".ALLIANCE." SET ally_members = ally_members - 1 WHERE id = ".$userData['ally_id'].";";
 		}
 		else
 		{
 			$SQL .= "DELETE FROM ".ALLIANCE." WHERE id = ".$userData['ally_id'].";";
-			$SQL .= "DELETE FROM ".STATPOINTS." WHERE stat_type = '2' AND id_owner = ".$userData['ally_id'].";";
-			$SQL .= "UPDATE ".STATPOINTS." WHERE id_ally = 0 AND id_ally = ".$userData['ally_id'].";";
+			$SQL .= "DELETE FROM ".STATPOINTS." WHERE stat_type = '2' AND id_owner = ".$userData['id'].";";
+			$SQL .= "UPDATE ".STATPOINTS." SET id_ally = 0 WHERE id_ally = ".$userData['ally_id'].";";
 		}
 	}
 	
