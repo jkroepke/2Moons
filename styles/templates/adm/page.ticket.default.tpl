@@ -19,7 +19,7 @@
 		<td><a href="admin.php?page=support&amp;mode=view&amp;id={$TicketID}">{$TicketInfo.subject}</a></td>
 		<td>{$TicketInfo.answer - 1}</td>
 		<td>{$TicketInfo.time}</td>
-		<td>{if $TicketInfo.status == 0}<span style="color:green">{$LNG.ti_status_open}</span>{elseif $TicketInfo.status == 1}<span style="color:orange">{$LNG.ti_status_answer}</span>{else}<span style="color:red">{$LNG.ti_status_closed}</span>{/if}</td>
+		<td>{if $TicketInfo.status == 0}<span style="color:green">{$LNG.ti_status_open}</span>{elseif $TicketInfo.status == 1}<span style="color:orange">{$LNG.ti_status_answer}</span>{/if}</td>
 	</tr>
 	{/if}
 	{/foreach}
@@ -42,7 +42,7 @@
 		<td><a href="admin.php?page=support&amp;mode=view&amp;id={$TicketID}">{$TicketInfo.subject}</a></td>
 		<td>{$TicketInfo.answer - 1}</td>
 		<td>{$TicketInfo.time}</td>
-		<td>{if $TicketInfo.status == 0}<span style="color:green">{$LNG.ti_status_open}</span>{elseif $TicketInfo.status == 1}<span style="color:orange">{$LNG.ti_status_answer}</span>{else}<span style="color:red">{$LNG.ti_status_closed}</span>{/if}</td>
+		<td><span style="color:red">{$LNG.ti_status_closed}</span></td>
 	</tr>
 	{/if}
 	{/foreach}
