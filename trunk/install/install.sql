@@ -564,7 +564,8 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%session` (
   `userID` int(10) unsigned NOT NULL,
   `userIP` varchar(40) NOT NULL,
   `lastonline` int(11) NOT NULL,
-  PRIMARY KEY (`sessionID`,`userID`)
+  PRIMARY KEY (`userID`),
+  KEY `sessionID` (`sessionID`)
 ) ENGINE=MEMORY DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%shortcuts` (
