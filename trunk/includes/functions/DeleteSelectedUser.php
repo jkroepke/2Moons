@@ -51,7 +51,7 @@ function DeleteSelectedUser($userID)
 		else
 		{
 			$SQL .= "DELETE FROM ".ALLIANCE." WHERE id = ".$userData['ally_id'].";";
-			$SQL .= "DELETE FROM ".STATPOINTS." WHERE stat_type = '2' AND id_owner = ".$userData['id'].";";
+			$SQL .= "DELETE FROM ".STATPOINTS." WHERE stat_type = '2' AND id_owner = ".$userID.";";
 			$SQL .= "UPDATE ".STATPOINTS." SET id_ally = 0 WHERE id_ally = ".$userData['ally_id'].";";
 		}
 	}
