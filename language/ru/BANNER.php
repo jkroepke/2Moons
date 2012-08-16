@@ -8,6 +8,6 @@ $LNG['ub_researh']   = 'Исследования';
 $LNG['ub_buildings'] = 'Постройки';
 $LNG['ub_defenses']  = 'Оборона';
 $LNG['ub_fights']    = 'Битвы';
-$LNG['ub_quote']     = 'Девиз';
+$LNG['ub_quote']     = 'Победы';
 $LNG['ub_rank']      = 'Позиция';
 ?>
