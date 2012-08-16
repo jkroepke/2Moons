@@ -2,7 +2,7 @@
 
 // Translated into Russian by InquisitorEA (SporeEA@yandex.ru). All rights reserved © 2010-2012
 
-$LNG['faq_overview']             = "Туториал";
+$LNG['faq_overview']             = 'Туториал';
 
 $LNG['questions']                = array();
 $LNG['questions'][1]['category'] = 'Советы для начинающих';
