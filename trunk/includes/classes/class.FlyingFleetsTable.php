@@ -221,7 +221,8 @@ class FlyingFleetsTable
 	
     private function BuildHostileFleetPlayerLink($fleetRow, $fleetRow)
     {
-		return $fleetRow['own_username'].' <a href="#" onclick="return Dialog.PM('.$fleetRow['fleet_owner'].')">[PM]</a>';
+		global $LNG;
+		return $fleetRow['own_username'].' <a href="#" onclick="return Dialog.PM('.$fleetRow['fleet_owner'].')">'.$LNG['PM'].'</a>';
 	}
 
 	private function CreateFleetPopupedMissionLink($fleetRow, $Texte, $FleetType)
