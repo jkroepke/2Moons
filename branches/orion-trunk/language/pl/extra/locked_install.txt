@@ -1,0 +1,6 @@
+﻿<h2>Instalator zablokowany</h2>
+<p>Do aktywacji instqalacji, Musisz ustawić ENABLE_INSTALL_TOOL </p>
+<ul>
+    <li>W katalogu includes/ , ustaw ENABLE_INSTALL_TOOL. Musisz to wypełnić w całości dużymi literami. Lub mogą zostać puste</li>
+</ul>
+<p>Z powodów bezpieczeństwa, Dane te powinny zostać usunięte po zakończeniu instalacji</p>

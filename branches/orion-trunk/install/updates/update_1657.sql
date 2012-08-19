@@ -1,0 +1,1 @@
+ALTER TABLE prefix_config ADD `uni_name` VARCHAR( 30 ) NOT NULL AFTER `game_name`;
