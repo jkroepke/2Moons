@@ -87,7 +87,6 @@ $LNG['step1_mysql_dbname']		= 'Name der Datenbank';
 $LNG['step1_mysql_prefix']		= 'Tabellenprefix:';
 
 $LNG['step2_prefix_invalid']	= 'Der DB-Prefix darf nur alphanumerische Zeichen und Unterstriche enthalten.';
-$LNG['step2_db_error']			= 'Fehler beim Erstellen der Datenbank-Tabellen:';
 $LNG['step2_db_no_dbname']		= 'Kein Datenbank-Name angegeben.';
 $LNG['step2_db_too_long']		= 'Das angegebene Tabellen-Präfix ist zu lang. Die maximale Länge beträgt 36 Zeichen.';
 $LNG['step2_db_con_fail']		= 'Es kann keine Verbindung zur Datenbank aufgebaut werden. Details stehen in unten angezeigter Fehlermeldung.';
@@ -98,6 +97,7 @@ $LNG['step2_db_done']			= 'Verbindung zur Datenbank war erfolgreich!';
 
 $LNG['step3_head']				= 'Datenbank-Tabellen erstellen';
 $LNG['step3_desc']				= 'Die von 2Moons genutzten Datenbank-Tabellen wurden nun erstellt und mit einigen Ausgangswerten gefüllt. Geh weiter zum nächsten Schritt, um die Installation von 2Moons abzuschließen.';
+$LNG['step3_db_error']			= 'Fehler beim Erstellen der Datenbank-Tabellen:';
 
 $LNG['step4_head']				= 'Administrator erstellen';
 $LNG['step4_desc']				= 'Der Installationsassistent erstellt nun ein Administrator-Konto für Sie. Bitte geben Sie dazu einen Benutzernamen, eine E-Mail-Adresse und ein Kennwort ein.';
