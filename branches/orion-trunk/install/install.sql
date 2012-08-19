@@ -564,8 +564,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%session` (
   `userID` int(10) unsigned NOT NULL,
   `userIP` varchar(40) NOT NULL,
   `lastonline` int(11) NOT NULL,
-  PRIMARY KEY (`userID`),
-  KEY `sessionID` (`sessionID`)
+  PRIMARY KEY (`userID`)
 ) ENGINE=MEMORY DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%shortcuts` (
@@ -855,7 +854,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%vars_requriements` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO `%PREFIX%config` (`uni`, `VERSION`, `uni_name`, `game_name`, `close_reason`, `OverviewNewsText`, `moduls`) VALUES
-(1, '%VERSION%', '', '2Moons', '', '');
+(1, '%VERSION%', '', '2Moons', '', '', '');
 
 INSERT INTO `%PREFIX%ticket_category` (`categoryID`, `name`) VALUES
 (1, 'Support');

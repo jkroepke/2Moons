@@ -277,12 +277,15 @@ switch ($step) {
 		}
 		
 		if (is_file(ROOT_PATH."includes/config.php") && filesize(ROOT_PATH."includes/config.php") != 0) {
-			$template->assign(array(
-				'class'		=> 'fatalerror',
-				'message'	=> $LNG['step2_config_exists'],
-			));
-			$template->show('ins_step4.tpl');
+			unlink(ROOT_PATH."includes/config.php");
+			if (is_file(ROOT_PATH."includes/config.php") && filesize(ROOT_PATH."includes/config.php") != 0) {
+				$template->assign(array(
+					'class'		=> 'fatalerror',
+					'message'	=> $LNG['step2_config_exists'],
+				));
+				$template->show('ins_step4.tpl');
 			exit;
+			}
 		}
 
 		@touch(ROOT_PATH."includes/config.php");
@@ -335,6 +338,14 @@ switch ($step) {
 		require_once(ROOT_PATH . 'includes/config.php');
 		require_once(ROOT_PATH . 'includes/dbtables.php');	
 		require_once(ROOT_PATH . 'includes/classes/class.Database.php');
+		
+				$template->assign(array(
+				'host'		=> $database['host'],
+				'port'		=> $database['port'],
+				'user'		=> $database['user'],
+				'dbname'	=> $database['databasename'],
+				'prefix'	=> $database['tableprefix'],
+			));
 		$GLOBALS['DATABASE']	= new Database();
 		try {
 			$GLOBALS['DATABASE']->multi_query(str_replace(
