@@ -360,11 +360,17 @@ switch ($step) {
 				'OverviewNewsText'	=> $LNG['sql_welcome'].'1.7',
 				'uni_name'			=> $LNG['fcm_universe'].' 1',
 				'close_reason'		=> $LNG['sql_close_reason'],
-				'moduls'			=> implode(';', array_fill(0, MODULE_AMOUNT, 1))
+				'moduls'			=> implode(';', array_fill(0, MODULE_AMOUNT - 1, 1))
 			), 1);
 			HTTP::redirectTo('index.php?step=7');
 		} catch (Exception $e) {
-				$template->assign(array(
+			unlink(ROOT_PATH."includes/config.php");
+			$template->assign(array(
+				'host'		=> $database['host'],
+				'port'		=> $database['port'],
+				'user'		=> $database['user'],
+				'dbname'	=> $database['databasename'],
+				'prefix'	=> $database['tableprefix'],
 				'class'		=> 'fatalerror',
 				'message'	=> $LNG['step3_db_error'].'</p><p>'.$GLOBALS['DATABASE']->error,
 			));
