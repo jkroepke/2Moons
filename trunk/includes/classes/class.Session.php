@@ -74,9 +74,11 @@ class Session
 		}
 		
 		$Path					= $this->GetPath();
-		$GLOBALS['DATABASE']->query("REPLACE INTO ".SESSION." SET
-		sessionID = '".session_id()."',
+		
+		$GLOBALS['DATABASE']->query("DELETE FROM ".SESSION." WHERE userID = ".$ID." OR sessionID = '".session_id()."';");		
+		$GLOBALS['DATABASE']->query("INSERT INTO ".SESSION." SET
 		userID = ".$ID.",
+		sessionID = '".session_id()."',
 		lastonline = ".TIMESTAMP.",
 		userIP = '".$_SERVER['REMOTE_ADDR']."';");
 		$_SESSION['id']			= $ID;
