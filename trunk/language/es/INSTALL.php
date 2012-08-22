@@ -88,7 +88,6 @@ $LNG['step1_mysql_dbuser'] = 'Usuario MySQL: <br> Ej.: root';
 $LNG['step1_mysql_dbpass'] = 'Contraseña MySQL: <br> Ej.: 12345';
 $LNG['step1_mysql_prefix'] = 'Prefijo Tablas BD MySQL: <br> Ej.: uni1_';
 
-$LNG['step2_db_error'] = "Error al crear la tabla de base de datos(s): \n%s";
 $LNG['step2_db_no_dbname']		= 'No se especifica el nombre de la base de datos.';
 $LNG['step2_db_too_long']		= 'El prefijo de la tabla especificada es demasiado larga. La longitud máxima es de 36 caracteres.';
 $LNG['step2_db_con_fail'] = "No hay conexi&oacute;n con la base de datos.<br> %s";
@@ -100,6 +99,7 @@ $LNG['step2_db_done']			= 'La conexión a la base de datos tuvo éxito!';
 
 $LNG['step3_head']				= 'Crear tablas de base de datos';
 $LNG['step3_desc']				= 'La base de datos utilizado por las tablas 2Moons se han creado y rellenado con unos valores iniciales. Ir al siguiente paso para completar la instalación de 2Moons.';
+$LNG['step3_db_error']			= 'No se ha podido crear las tablas de base de datos:';
 
 $LNG['step4_head']				= 'Puede crear la cuenta administrador';
 $LNG['step4_desc']				= 'El asistente de instalación ahora va a crear una cuenta de administrador para usted. Por favor, introduzca un nombre de usuario, una dirección de correo electrónico y contraseña.';
