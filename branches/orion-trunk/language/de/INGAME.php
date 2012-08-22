@@ -3,6 +3,7 @@
 $LNG['Messages']							= 'Nachrichten';
 $LNG['write_message']						= 'Schreibe eine Nachricht';
 
+$LNG['PM']									= '[PN]';
 $LNG['ready']								= 'Fertig';
 
 $LNG['loading']								= 'Lade ...';
