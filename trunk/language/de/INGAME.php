@@ -3,6 +3,7 @@
 $LNG['Messages']							= 'Nachrichten';
 $LNG['write_message']						= 'Schreibe eine Nachricht';
 
+$LNG['PM']									= '[PN]';
 $LNG['ready']								= 'Fertig';
 
 $LNG['loading']								= 'Lade ...';
@@ -1123,6 +1124,6 @@ $LNG['lo_continue']							= 'Klicken Sie hier, um nicht zu warten';
 //----------------------------------------------------------------------------//
 
 
-// Translated into German by Slaver . All rights reversed (C) 2011
+// Translated into German by Jan . All rights reversed (C) 2011
 
 ?>
