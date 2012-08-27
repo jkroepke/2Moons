@@ -52,6 +52,25 @@ class MissionCaseSpy extends MissionFunctions
 		$targetUser['factor']				= getFactors($targetUser, 'basic', $this->_fleet['fleet_start_time']);
 		$PlanetRess 						= new ResourceUpdate();
 		list($targetUser, $targetPlanet)	= $PlanetRess->CalcResource($targetUser, $targetPlanet, true, $this->_fleet['fleet_start_time']);
+
+		$targetStayFleets	= $GLOBALS['DATABASE']->query("SELECT * FROM ".FLEETS." WHERE fleet_end_id = ".$this->_fleet['fleet_end_id']." AND fleet_mission = 5 AND fleet_end_stay > ".$this->_fleet['fleet_start_time'].";");
+		
+		while($fleetRow = $GLOBALS['DATABASE']->fetch_array($targetStayFleets))
+		{
+			$temp = explode(';', $fleetRow['fleet_array']);
+			foreach ($temp as $temp2)
+			{
+				$temp2 = explode(',', $temp2);
+				if (!isset($targetPlanet[$resource[$temp2[0]]]))
+				{
+					$targetPlanet[$resource[$temp2[0]]] = 0;
+				}
+				
+				$targetPlanet[$resource[$temp2[0]]] += $temp2[1];
+			}
+		}
+		
+		$GLOBALS['DATABASE']->free_result($targetStayFleets);
 		
 		$fleetAmount	= $this->_fleet['fleet_amount'];
 		
