@@ -110,13 +110,18 @@ class MissionCaseAttack extends MissionFunctions
 				if ($Element[0] < 100) continue;
 
 				if (!isset($defense[$defRow['fleet_id']]['def'][$Element[0]]))
-					$defense[$defRow['fleet_id']][$Element[0]] = 0;
+					$defense[$defRow['fleet_id']]['def'][$Element[0]] = 0;
 
 				$defense[$defRow['fleet_id']]['def'][$Element[0]] += $Element[1];
 			}
 			$DefenderRow['id'][] 	= $defense[$defRow['fleet_id']]['user']['id'];
-		}
+			$defense[$defRow['fleet_id']]['user']['factor'] 	= getFactors($defense[$defRow['fleet_id']]['user'], 'attack', $this->_fleet['fleet_start_time']);		
+			$defense[$defRow['fleet_id']]['fleet']['fleet_start_galaxy'] = 	$defRow['fleet_start_galaxy'];		
+			$defense[$defRow['fleet_id']]['fleet']['fleet_start_system'] = 	$defRow['fleet_start_system'];		
+			$defense[$defRow['fleet_id']]['fleet']['fleet_start_planet'] = 	$defRow['fleet_start_planet'];
 
+		}
+		
 		$defense[0]['def'] 				= array();
 		$defense[0]['user'] 			= $targetUser;
 		$defense[0]['user']['factor'] 	= getFactors($defense[0]['user'], 'attack', $this->_fleet['fleet_start_time']);		
