@@ -27,7 +27,7 @@
  * @link http://code.google.com/p/2moons/
  */
 
-class MissionCaseAttack extends MissionFunctions
+class MissionCaseDestruction extends MissionFunctions
 {
 	function __construct($Fleet)
 	{
