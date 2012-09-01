@@ -53,6 +53,7 @@ $template->assign(array(
 	'menu_intro'	=> $LNG['menu_intro'],
 	'menu_install'	=> $LNG['menu_install'],
 	'menu_license'	=> $LNG['menu_license'],
+	'canUpgrade'	=> file_exists(ROOT_PATH."includes/config.php") && filesize(ROOT_PATH."includes/config.php") !== 0,
 ));
 
 $enableInstallToolFile	= ROOT_PATH.'includes/ENABLE_INSTALL_TOOL';
@@ -431,6 +432,14 @@ switch ($step) {
 		
 		@unlink($enableInstallToolFile);
 		$template->show('ins_step8.tpl');
+	break;
+	case 'upgrade':
+		$template->assign(array(
+			'intro_text'	=> $LNG['intro_text'],
+			'intro_welcome'	=> $LNG['intro_welcome'],
+			'intro_install'	=> $LNG['intro_install'],
+		));
+		$template->show('ins_upgrade.tpl');
 	break;
 	default:
 		$template->assign(array(

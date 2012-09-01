@@ -634,6 +634,29 @@ function clearGIF() {
 	exit;
 }
 
+function fleetAmountToArray($fleetAmount)
+{
+	$fleetTyps		= explode(';', $fleetAmount);
+	
+	$fleetAmount	= array();
+	
+	foreach ($fleetTyps as $fleetTyp)
+	{
+		$temp = explode(',', $fleetTyp);
+		
+		if (empty($temp[0])) continue;
+
+		if (!isset($fleetAmount[$temp[0]]))
+		{
+			$fleetAmount[$temp[0]] = 0;
+		}
+		
+		$fleetAmount[$temp[0]] += $temp[1];
+	}
+	
+	return $fleetAmount;
+}
+
 function exceptionHandler($exception) 
 {
 	global $CONF;
