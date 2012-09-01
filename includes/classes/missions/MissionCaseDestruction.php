@@ -298,7 +298,7 @@ HTML;
 		switch($combatResult['won'])
 		{
 			case "a":
-				$moonDestroyChance	= round((100 - sqrt($targetPlanet['diameter'])) * sqrt($attackFleets[$this->_fleet['fleet_id']]['detail'][214]), 1);
+				$moonDestroyChance	= round((100 - sqrt($targetPlanet['diameter'])) * sqrt($userAttack[$this->_fleet['fleet_id']]['unit'][214]), 1);
 				
 				// Max 100%
 				$moonDestroyChance	= min($moonDestroyChance, 100);
