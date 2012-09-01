@@ -155,7 +155,7 @@
 	{if $Raport.moon.moonDestroySuccess == -1}
 		{$LNG.sys_destruc_stop}<br>
 	{else}
-		{sprintf($LNG.sys_destruc_lune, "{$Raport.moon.moonChance}")}<br>{$LNG.sys_destruc_mess1}
+		{sprintf($LNG.sys_destruc_lune, "{$Raport.moon.moonDestroyChance}")}<br>{$LNG.sys_destruc_mess1}
 		{if $Raport.moon.moonDestroySuccess == 1}
 			{$LNG.sys_destruc_reussi}
 		{elseif $Raport.moon.moonDestroySuccess == 0}
