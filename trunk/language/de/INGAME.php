@@ -330,7 +330,6 @@ $LNG['fl_acs_change_name']					= 'Geben sie einen neuen Namen ein';
 $LNG['fl_error_not_avalible']				= 'Auf diesen Koordinaten befinden sich kein Planet!';
 $LNG['fl_error_empty_derbis']				= 'Kein Trümmerfeld vorhanden!';
 $LNG['fl_error_no_moon']					= 'Kein Mond vorhanden!';
-$LNG['fl_error_same_planet']				= 'Start- und Zielplanet sind identisch!';
 $LNG['fl_send_error'][3]					= 'Start- und Zielplanet sind identisch.';
 $LNG['fl_send_error'][4]					= 'Kein gültiges Ziel';
 $LNG['fl_send_error'][5]					= 'Keine Rohstoffe geladen!';
