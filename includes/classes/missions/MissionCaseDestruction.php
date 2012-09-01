@@ -267,24 +267,11 @@ HTML;
 		
 		$debrisTotal		= array_sum($debris);
 		
-		$moonFactor			= $GLOBALS['CONFIG'][$this->_fleet['fleet_universe']]['moon_factor'];
-		$maxMoonChance		= $GLOBALS['CONFIG'][$this->_fleet['fleet_universe']]['moon_chance'];
-		
-		if($targetPlanet['id_luna'] == 0 && $targetPlanet['planet_type'] == 1)
-		{
-			$chanceCreateMoon	= round($debrisTotal / 100000 * $moonFactor);
-			$chanceCreateMoon	= min($chanceCreateMoon, $maxMoonChance);
-		}
-		else
-		{
-			$chanceCreateMoon	= 0;
-		}
-
 		$raportInfo	= array(
 			'thisFleet'				=> $this->_fleet,
 			'debris'				=> $debris,
 			'stealResource'			=> $stealResource,
-			'moonChance'			=> $chanceCreateMoon,
+			'moonChance'			=> null,
 			'moonDestroy'			=> true,
 			'moonName'				=> null,
 			'moonDestroyChance'		=> null,
@@ -298,16 +285,16 @@ HTML;
 		switch($combatResult['won'])
 		{
 			case "a":
-				$moonDestroyChance	= round((100 - sqrt($targetPlanet['diameter'])) * sqrt($userAttack[$this->_fleet['fleet_id']]['unit'][214]), 1);
+				$moonDestroyChance	= round((100 - sqrt($targetPlanet['diameter'])) * sqrt($fleetAttack[$this->_fleet['fleet_id']]['unit'][214]), 1);
 				
 				// Max 100%
 				$moonDestroyChance	= min($moonDestroyChance, 100);
 				
 				$randChance	= mt_rand(0, 100);
-				if ($randChance <= $chanceCreateMoon)
+				if ($randChance <= $moonDestroyChance)
 				{
+					$planetID	= $GLOBALS['DATABASE']->countquery("SELECT id FROM ".PLANETS." WHERE id_luna = ".$targetPlanet['id'].";");
 					$GLOBALS['DATABASE']->multi_query("
-					SET @planetID = SELECT id FROM ".PLANETS." WHERE id_luna = ".$targetPlanet['id'].";
 					DELETE FROM ".PLANETS." 
 					WHERE id = ".$targetPlanet['id'].";
 					UPDATE ".PLANETS." 
@@ -315,11 +302,11 @@ HTML;
 					WHERE id_luna = ".$targetPlanet['id'].";
 					UPDATE ".FLEETS." SET 
 					fleet_start_type = 1, 
-					fleet_start_id = @planetID
+					fleet_start_id = ".$planetID."
 					WHERE fleet_start_id = ".$targetPlanet['id'].";
 					UPDATE ".FLEETS." SET 
 					fleet_end_type = 1, 
-					fleet_end_id = @planetID,
+					fleet_end_id = ".$planetID."
 					fleet_mission = IF(fleet_mission = 9, 1, fleet_mission) 
 					WHERE fleet_end_id = ".$this->_fleet['fleet_end_id']."
 					AND fleet_id != ".$this->_fleet['fleet_id'].";");
@@ -343,7 +330,7 @@ HTML;
 				}
 			
 			
-				$raportInfo['moonDestroyChance']	= $chanceCreateMoon;
+				$raportInfo['moonDestroyChance']	= $moonDestroyChance;
 				$raportInfo['fleetDestroyChance']	= $fleetDestroyChance;
 				
 				$attackStatus	= 'wons';

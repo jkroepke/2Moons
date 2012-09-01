@@ -42,6 +42,7 @@ function GenerateReport($combatResult, $raportInfo)
 	$DATA['moon']	= array(
 		'moonName'				=> $raportInfo['moonName'],
 		'moonChance'			=> (int) $raportInfo['moonChance'],
+		'moonDestroyChance'		=> (int) $raportInfo['moonDestroyChance'],
 		'moonDestroySuccess'	=> (int) $raportInfo['moonDestroySuccess'],
 		'fleetDestroyChance'	=> (int) $raportInfo['fleetDestroyChance'],
 		'fleetDestroySuccess'	=> (int) $raportInfo['fleetDestroySuccess']
