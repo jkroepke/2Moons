@@ -27,9 +27,9 @@
  * @link http://code.google.com/p/2moons/
  */
 
-function CreateOneMoonRecord($Galaxy, $System, $Planet, $Universe, $Owner, $MoonID, $MoonName, $Chance, $Size = 0)
+function CreateOneMoonRecord($Galaxy, $System, $Planet, $Universe, $Owner, $MoonName, $Chance, $Size = 0)
 {
-	global $LNG, $USER;
+	global $USER;
 
 	$SQL  = "SELECT id_luna,planet_type,id,name,temp_max,temp_min FROM ".PLANETS." ";
 	$SQL .= "WHERE ";
@@ -78,7 +78,7 @@ function CreateOneMoonRecord($Galaxy, $System, $Planet, $Universe, $Owner, $Moon
 					  WHERE
 					  id = ".$MoonPlanet['id'].";");
 
-	return $MoonPlanet['name'];
+	return true;
 }
 
 ?>

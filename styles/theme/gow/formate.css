@@ -295,7 +295,7 @@ select {
 	vertical-align:top
 }
 
-.transparent,#header td, .tip td, .tip th {
+.transparent,#header td, .tip td, .tip th, .raportMessage td {
 	background: transparent;
 	border:none;
 	filter: none !important;
@@ -321,6 +321,14 @@ th a,.res_current{
 	background: transparent;
 	background-image: none;
 	border: 0 none
+}
+
+.raportWin {
+	color:lime;
+}
+
+.raportLose {
+	color:red;
 }
 
 .ui-progressbar-value {

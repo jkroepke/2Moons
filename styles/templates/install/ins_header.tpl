@@ -49,5 +49,5 @@
 <div><p>&nbsp;</p></div>
 <table width="960">
 <tr>
-	<th colspan="3">{$menu_install}</th>
+	<th colspan="3">{$LNG.menu_install}</th>
 </tr>

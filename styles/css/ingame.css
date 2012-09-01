@@ -368,6 +368,18 @@ div#trader + div {
 	padding-top:8px;
 }
 
+.raportMessage {
+	text-align:center;
+}
+
+.raportMessage tr:first-child td {
+	text-align:center;
+}
+
+.raportMessage td {
+	text-align:left;
+}
+
 table.tablesorter thead {
 	position:relative;
 }
