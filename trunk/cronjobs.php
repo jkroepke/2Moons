@@ -106,7 +106,7 @@ switch($cron)
 			
 			$Universe	= array($CONF['uni']);
 			$Query		= $GLOBALS['DATABASE']->query("SELECT uni FROM ".CONFIG." WHERE uni != '".$CONF['uni']."' ORDER BY uni ASC;");
-			while($Uni = $GLOBALS['DATABASE']->fetch_array($Universe)) {
+			while($Uni = $GLOBALS['DATABASE']->fetch_array($Query)) {
 				$Universe[]	= $Uni['uni'];
 			}
 			
