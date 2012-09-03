@@ -3,7 +3,7 @@
 	<td class="left">
 		<h2>{$LNG.step1_head}</h2>
 		<p>{$LNG.step1_desc}</p>
-		<form action="index.php?step=4" method="post"> 
+		<form action="index.php?mode=install&step=4" method="post"> 
 		<input type="hidden" name="post" value="1">
 		<table class="req">
 			<tr>
