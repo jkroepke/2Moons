@@ -295,11 +295,6 @@ HTML;
 				{
 					$planetID	= $GLOBALS['DATABASE']->countquery("SELECT id FROM ".PLANETS." WHERE id_luna = ".$targetPlanet['id'].";");
 					$GLOBALS['DATABASE']->multi_query("
-					DELETE FROM ".PLANETS." 
-					WHERE id = ".$targetPlanet['id'].";
-					UPDATE ".PLANETS." 
-					SET id_luna = 0
-					WHERE id_luna = ".$targetPlanet['id'].";
 					UPDATE ".FLEETS." SET 
 					fleet_start_type = 1, 
 					fleet_start_id = ".$planetID."
@@ -309,7 +304,12 @@ HTML;
 					fleet_end_id = ".$planetID."
 					fleet_mission = IF(fleet_mission = 9, 1, fleet_mission) 
 					WHERE fleet_end_id = ".$this->_fleet['fleet_end_id']."
-					AND fleet_id != ".$this->_fleet['fleet_id'].";");
+					AND fleet_id != ".$this->_fleet['fleet_id'].";
+					UPDATE ".PLANETS." 
+					SET id_luna = 0
+					WHERE id_luna = ".$targetPlanet['id'].";
+					DELETE FROM ".PLANETS." 
+					WHERE id = ".$targetPlanet['id'].";");
 					
 					$raportInfo['moonDestroySuccess'] = 0;
 				} else {
