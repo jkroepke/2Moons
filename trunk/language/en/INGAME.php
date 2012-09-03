@@ -6,6 +6,8 @@
 
 
 $LNG['Messages']							= 'Messages';
+
+$LNG['PM']									= '[PM]';
 $LNG['write_message']						= 'Write message';
 
 $LNG['ready']								= 'Ready';
@@ -74,7 +76,6 @@ $LNG['lm_statistics']						= 'Statistics';
 $LNG['lm_search']							= 'Search';
 $LNG['lm_options']							= 'Options';
 $LNG['lm_banned']							= 'Banned';
-$LNG['lm_contact']							= 'Contacts';
 $LNG['lm_forums']							= 'Forum';
 $LNG['lm_logout']							= 'Logout';
 $LNG['lm_administration']					= 'Administration';
@@ -294,6 +295,7 @@ $LNG['fl_hours']                            = 'Hours';
 $LNG['fl_resources_left']				    = 'Capacity avaliable';
 $LNG['fl_all_resources']			        = 'All resources';
 $LNG['fl_multi_alarm']						= 'Multi alarm!';
+$LNG['fl_admins_cannot_be_attacked']			= 'The Admins can not be attacked';
 $LNG['fl_empty_target']						= 'Without mission available (the planet exist?)';
 $LNG['fl_expedition_alert_message']		    = 'Attention! Explorations are dangerous missions, you can lose your fleet!';
 $LNG['fl_dm_alert_message']                 = 'Beware, if in %s %s was found, destroyed the fleets!';
@@ -334,7 +336,6 @@ $LNG['fl_acs_change_name']					= 'Type the new name';
 $LNG['fl_error_not_avalible']				= 'These coordinates do not have any planet';
 $LNG['fl_error_empty_derbis']				= "Don't have any debris fields!";
 $LNG['fl_error_no_moon']					= 'Does not have any moon in these coordinates!';
-$LNG['fl_error_same_planet']				= 'The departure and the destination is the same planet';
 $LNG['fl_send_error'][3]					= 'The departure and the destination is the same planet';
 $LNG['fl_send_error'][4]					= 'The target is not valid';
 $LNG['fl_send_error'][5]					= 'Without resources to transport';
@@ -427,8 +428,6 @@ $LNG['of_lvl']								= 'Level';
 $LNG['of_dm_trade']							= '%s - Shop';
 $LNG['of_still']							= 'Continua';
 $LNG['of_active']							= 'active';
-$LNG['of_bonus']							= 'Bonus';
-$LNG['of_update']							= 'Upgrade';
 
 //----------------------------------------------------------------------------//
 // Mercado
@@ -1082,6 +1081,7 @@ $LNG['ti_submit']							= 'Send';
 $LNG['ti_read']								= 'Ticket to read';
 $LNG['ti_answer']							= 'Respond';
 $LNG['ti_create']							= 'Ticket created on ';
+$LNG['ti_responded']							= 'Ticket replied on ';
 $LNG['ti_not_exist']						= 'The ticket #%d dont exist!';
 $LNG['ti_from']								= 'by';
 $LNG['ti_re']								= 'FW:';

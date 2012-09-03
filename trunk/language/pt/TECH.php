@@ -1,6 +1,6 @@
 <?php
 
-//SHORT NAMES FOR COMBAT REPORTS
+// Nomes para Relatório de Combate
 
 $LNG['shortNames'] = array (
 	202 => 'Cg.Pequeno',
@@ -52,7 +52,10 @@ $LNG['bonus'] = array(
 	'FleetSlots'		=> '+%f%% Slots de Fleet',
 	'Planets'			=> '+%f%% Planetas',
 );
-					
+
+
+// Nomes a aparecer no jogo
+
 $LNG['tech'] = array(
  	0 => "Edifícios",
  	1 => "Mina de metal",
@@ -169,6 +172,8 @@ $LNG['tech'] = array(
 	921 => 'Matéria Negra',
 );
 
+// Pequena Descrição
+
 $LNG['shortDescription'] = array(
 	1 => "As minas de metal constituem o principal produtor de matéria-prima para a construção de edifícios e de naves espaciais.",
 	2 => "As minas de cristal constituem o principal produtor de matéria-prima para a elaboração de circuitos elétricos e na estrutura dos componentes de ligas.",
@@ -269,6 +274,8 @@ $LNG['shortDescription'] = array(
 	706 => 'Este bonus diminui o tempo de pesquisas.',
 	707 => 'Este bonus diminui o tempo de voo.',
 );
+
+// Longa Descrição
 
 $LNG['longDescription'] = array(
 	1 => "As minas de metal constituem o principal produtor de matéria-prima para a construção de edifícios e de naves espaciais.",

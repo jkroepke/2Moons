@@ -1,9 +1,9 @@
 <?php
 
-// Traduzido por QwataKayean. Todos os Direitos Reservados © 2010-2011
+// Traduzido por QwataKayean. Todos os Direitos Reservados © 2010-2012
 // Texto escrito conforme o Acordo Ortográfico a ser inserido em 2011 pelo Ministério da Educação de Portugal - convertido pelo Lince.         
 
-// 2Moons - Copyright (C) 2011  Slaver
+// 2Moons - Copyright (C) 2012  Jan Kröpke
 
 // Recuperação de Senha
 $LNG['lost_empty']                   = 'Deves preencher todos os campos!';
@@ -115,8 +115,7 @@ $LNG['captcha_get_audio']              = 'Som-CAPTCHA';
 $LNG['user_active']		       		   = 'Usuários %s ativos!';
 
 //Rules
-$LNG['rules_overview']                 = "Regras";
-$LNG['rules_info1']                    = "Mais informações podem ser encontradas no <a href=\"jogo\" target=\"_blank\">Fórum</a> ou se tiveres dúvidas também as podes expor lá ...";     
+$LNG['rules_overview']                 = "Regras";  
          
 //NEWS
 
