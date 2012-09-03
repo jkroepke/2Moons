@@ -111,7 +111,6 @@ $LNG['user_active']                	= 'User %s has been activated!';
 
 //Rules
 $LNG['rules_overview']				= "Rules";
-$LNG['rules_info1']				= "You are informed about this at the <a href=\"%s\" target=\"_blank\">Forum</a> and on the homepage of the game...";
 
 //NEWS
 

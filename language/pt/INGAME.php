@@ -1,8 +1,14 @@
 <?php
 
+// Traduzido por QwataKayean. Todos os Direitos Reservados © 2010-2012
+// Texto escrito conforme o Acordo Ortográfico a ser inserido em 2011 pelo Ministério da Educação de Portugal - convertido pelo Lince.         
+
+// 2Moons - Copyright (C) 2012  Jan Kröpke
+
 $LNG['Messages']							= 'Mensagens';
 $LNG['write_message']						= 'Escrever mensagem';
 
+$LNG['PM']									= '[MP]';
 $LNG['ready']								= 'Pronto';
 
 $LNG['loading']								= 'A carregar ...';
@@ -69,7 +75,6 @@ $LNG['lm_statistics']						= 'Estatisticas';
 $LNG['lm_search']							= 'Procurar';
 $LNG['lm_options']							= 'Opções';
 $LNG['lm_banned']							= 'Banidos';
-$LNG['lm_contact']							= 'Contactos';
 $LNG['lm_forums']							= 'Forum';
 $LNG['lm_logout']							= 'Logout';
 $LNG['lm_administration']					= 'Administração';
@@ -289,6 +294,7 @@ $LNG['fl_hours']                            = 'Horas';
 $LNG['fl_resources_left']				    = 'Capacidade Desponível';
 $LNG['fl_all_resources']			        = 'Todos os recursos';
 $LNG['fl_multi_alarm']						= 'Multi alarme!';
+$LNG['fl_admins_cannot_be_attacked']			= 'Os administradores não podem ser atacados';
 $LNG['fl_empty_target']						= 'Sem missão disponivel (o planeta existe?)';
 $LNG['fl_expedition_alert_message']		    = 'Atenção ! Exploração espacial são missões perigosas, podes perder a tua frota!';
 $LNG['fl_dm_alert_message']                 = 'Tem cuidado, se em %s %s foi encontrada, destruiu as frotas!';
@@ -329,7 +335,6 @@ $LNG['fl_acs_change_name']					= 'Escreve o novo nome';
 $LNG['fl_error_not_avalible']				= 'Estas coordenadas não possui qualquer planeta';
 $LNG['fl_error_empty_derbis']				= 'Não possui qualquer campo de destroços!';
 $LNG['fl_error_no_moon']					= 'Não possui qualquer lua nestas coordenadas!';
-$LNG['fl_error_same_planet']				= 'O partida e destino no mesmo planeta!';
 $LNG['fl_send_error'][3]					= 'A partida e o destino é do mesmo planeta';
 $LNG['fl_send_error'][4]					= 'O alvo não é valido';
 $LNG['fl_send_error'][5]					= 'Sem recursos para transporte';
@@ -422,8 +427,6 @@ $LNG['of_lvl']								= 'Nivel';
 $LNG['of_dm_trade']							= '%s - Loja';
 $LNG['of_still']							= 'Continya';
 $LNG['of_active']							= 'ativo';
-$LNG['of_bonus']							= 'Bonus';
-$LNG['of_update']							= 'Aumentar';
 
 //----------------------------------------------------------------------------//
 // Mercado
@@ -1066,7 +1069,6 @@ $LNG['ti_status_closed'] 					= 'Fechado';
 $LNG['ti_status_answer'] 					= 'Resposta';
 $LNG['ti_admin_open'] 						= 'O ticket foi aberto!';
 $LNG['ti_admin_close'] 						= 'O ticket foi fechado!';
-
 $LNG['ti_create_info']						= '<p>Por favor, quando criares um Ticket de Suporte, descreve e explica qual é a sua questão com o máximo detalhe possível!</p>
 <p>Uma descrição detalhada do que pretendes perguntar, encurta a duração do tempo de resolução e evita a perda de tempo de ambos os lados</p>
 <p>Para questões relacionadas com contas, especificar facilita a atribuição do problema e também encurta o tempo.</p>';
@@ -1078,6 +1080,7 @@ $LNG['ti_submit']							= 'Enviar';
 $LNG['ti_read']								= 'Ticket a ler';
 $LNG['ti_answer']							= 'Responder';
 $LNG['ti_create']							= 'Ticket criado em ';
+$LNG['ti_responded']						= 'Ticket respondido em ';
 $LNG['ti_not_exist']						= 'Das Ticket #%d existiert nicht!';
 $LNG['ti_from']								= 'por';
 $LNG['ti_re']								= 'RE:';

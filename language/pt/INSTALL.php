@@ -1,17 +1,19 @@
 <?php
 
-// Traduzido por QwataKayean. Todos os Direitos Reservados © 2010-2011
+// Traduzido por QwataKayean. Todos os Direitos Reservados © 2010-2012
 // Texto escrito conforme o Acordo Ortográfico a ser inserido em 2011 pelo Ministério da Educação de Portugal - convertido pelo Lince.         
 
-// 2Moons - Copyright (C) 2011  Slaver
+// 2Moons - Copyright (C) 2012  Jan Kröpke
 
 $LNG['back']					= 'Voltar';
 $LNG['continue']				= 'Continuar';
+$LNG['continueUpgrade']			= 'Atualizar!';
 $LNG['login']					= 'Login';
 
 $LNG['menu_intro']				= 'Introdução';
 $LNG['menu_install']			= 'Instalação';
 $LNG['menu_license']			= 'Licença';
+$LNG['menu_upgrade']			= 'Atualizar';
 
 $LNG['title_install']			= 'Instalação';
 
@@ -19,6 +21,8 @@ $LNG['intro_lang']				= 'Idioma';
 $LNG['intro_install']			= 'Para Instalação';
 $LNG['intro_welcome']			= 'Olá utilizador de 2Moons!';
 $LNG['intro_text']				= 'O 2Moons é um dos melhores projectos de OGame.<br>O 2Moons é a versão mais recente e mais estável do XNova actualmente desenvolvido. 2Moons é notável por sua facilidade de estabilidade, flexibilidade, dinamismo, qualidade e utilização. Nós sempre esperamos ser melhor do que as tuas expectativas.<br><br>O sistema de instalação irá guiar-te através da instalação ou atualizar de uma versão anterior para a mais recente. Cada questão, um problema, por favor não hesites em pedir ao nosso desenvolvimento e suporte em caso de duvidas!<br><br>O 2Moons é um projeto em Open Source, lincenciado sob GNU GPL v3. Para que esta seja verificado, por favor clica no link acima onde se refera a "Lincença"<br><br>Antes da instalação pode ser iniciado um pequeno teste para verificar se o teu Plano/Dominio tem todos os requesitos para suportar o 2Moons';
+$LNG['intro_upgrade_head']		= '2Moons já instalado?';
+$LNG['intro_upgrade_text']		= '<p>Já instalaste o 2Moons e queres fácil actualização?</p><p>Aqui podes atualizar a base de dados antiga com apenas alguns cliques!</p>';
 
 $LNG['licence_head']			= 'Termos de Licença';
 $LNG['licence_desc']			= 'Por favor, leia os termos de licença a seguir. Usa a barra de scroll para poderes ver todo o conteudo do documento';
@@ -65,7 +69,6 @@ $LNG['step1_mysql_dbname']		= 'Nome da Base de Dados';
 $LNG['step1_mysql_prefix']		= 'Prefixo de tabelas:';
 
 $LNG['step2_prefix_invalid']	= 'O prefixo de Base de Dados deve conter caracteres alfanuméricos e sublinhado como ultimo caracter';
-$LNG['step2_db_error']			= 'Falha ao criar tabelas na Base de Dados:';
 $LNG['step2_db_no_dbname']		= 'Não especificaste o nome para a base de dados';
 $LNG['step2_db_too_long']		= 'O prefixo de tabela é muito longo. Deve conter no máximo 36 caracteres';
 $LNG['step2_db_con_fail']		= 'Existe um erro na ligação à Base de Dados. Os detalhes serão exibidos abaixo';
@@ -76,6 +79,7 @@ $LNG['step2_db_done']			= 'A conexão à Base de Dados foi bem-sucedida!';
 
 $LNG['step3_head']				= 'Criar tabelas de Base de Dados';
 $LNG['step3_desc']				= 'As tabelas necessárias para a base de dados do 2Moons já foram criadas e preenchidas com os valores por defeito. Ao ires para o próximo passo, concluirás a instalação do 2Moons';
+$LNG['step3_db_error']			= 'Falha ao criar tabelas na Base de Dados:';
 
 $LNG['step4_head']				= 'Conta do Administrador';
 $LNG['step4_desc']				= 'O assistente de instalação vai agora criar uma conta de administrador para ti. Escreve o nome de usário, a tua password e o teu email';
