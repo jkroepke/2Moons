@@ -635,7 +635,7 @@ copy of the Program in return for a fee.</p>
 
 <p>END OF TERMS AND CONDITIONS</p>
 </div>
-<form action="index.php?step=1" method="post">
+<form action="index.php?mode=install&step=1" method="post">
 <input type="hidden" name="post" value="1"> 
 <table style="width: 100%;max-width:100%;margin-top:10px">
 	<tr>

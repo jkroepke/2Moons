@@ -5,7 +5,7 @@
 		<div id="main" align="left">
 			<h2>{$LNG.intro_welcome}</h2>
 			<p>{$LNG.intro_text}</p>
-		</div><br><a href="index.php?step=1"><button style="cursor: pointer;">{$LNG.continue}</button></a>
+		</div><br><a href="index.php?mode=install&step=1"><button style="cursor: pointer;">{$LNG.continue}</button></a>
 	</td>
 </tr>
 {if $canUpgrade}
@@ -17,7 +17,7 @@
 		<div id="main" align="left">
 			<h2>{$LNG.intro_upgrade_head}</h2>
 			<p>{$LNG.intro_upgrade_text}</p>
-		</div><br><a href="index.php?step=upgrade"><button style="cursor: pointer;">{$LNG.continueUpgrade}</button></a>
+		</div><br><a href="index.php?mode=install&step=upgrade"><button style="cursor: pointer;">{$LNG.continueUpgrade}</button></a>
 	</td>
 </tr>
 {/if}
