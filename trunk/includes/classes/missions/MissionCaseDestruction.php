@@ -229,7 +229,6 @@ HTML;
 			else
 			{
 				$fleetArray = array();
-				$fleetDetail['unit']	= array_filter($fleetDetail['unit']);
 				foreach ($fleetDetail['unit'] as $elementID => $amount)
 				{				
 					$fleetArray[] = $resource[$elementID]." = ".$amount;
@@ -301,7 +300,7 @@ HTML;
 					WHERE fleet_start_id = ".$targetPlanet['id'].";
 					UPDATE ".FLEETS." SET 
 					fleet_end_type = 1, 
-					fleet_end_id = ".$planetID."
+					fleet_end_id = ".$planetID.",
 					fleet_mission = IF(fleet_mission = 9, 1, fleet_mission) 
 					WHERE fleet_end_id = ".$this->_fleet['fleet_end_id']."
 					AND fleet_id != ".$this->_fleet['fleet_id'].";

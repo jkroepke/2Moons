@@ -50,11 +50,8 @@ class ShowFleetAjaxPage extends AbstractPage
 	
 	public function show()
 	{
-		global $USER, $PLANET, $resource, $LNG, $CONF;
+		global $USER, $PLANET, $resource, $LNG, $CONF, $pricelist;
 		
-		$UserRecycles   = $PLANET[$resource[209]];
-		$UserSpyProbes  = $PLANET[$resource[210]];
-		$UserGRecycles  = $PLANET[$resource[219]];
 		$UserDeuterium  = $PLANET['deuterium'];
 		
 		$planetID 		= HTTP::_GP('planetID', 0);
@@ -64,9 +61,6 @@ class ShowFleetAjaxPage extends AbstractPage
 		$maxSlots		= FleetFunctions::GetMaxFleetSlots($USER);
 		
 		$this->returnData['slots']		= $activeSlots;
-		$this->returnData['ship'][209]	= $UserRecycles;
-		$this->returnData['ship'][210]	= $UserSpyProbes;
-		$this->returnData['ship'][219]	= $UserGRecycles;
 		
 		if (IsVacationMode($USER)) {
 			$this->sendData(620, $LNG['fa_vacation_mode_current']);
@@ -89,37 +83,52 @@ class ShowFleetAjaxPage extends AbstractPage
 					$this->sendData(699, $LNG['sys_module_inactive']);
 				}
 				
-				$SpyProbes	= (int) $_REQUEST['ship'][210];
-				$SpyProbes	= min($SpyProbes, $UserSpyProbes);
+				$ships	= min($USER['spio_anz'], $PLANET[$resource[210]]);
 				
-				if(empty($SpyProbes)) {
+				if(empty($ships)) {
 					$this->sendData(611, $LNG['fa_no_spios']);
 				}
-				$fleetArray = array(210 => $SpyProbes);
+				
+				$fleetArray = array(210 => $ships);
+				$this->returnData['ships'][210]	= $PLANET[$resource[210]] - $ships;
 			break;
 			case 8:
 				if(!isModulAvalible(MODULE_MISSION_RECYCLE)) {
 					$this->sendData(699, $LNG['sys_module_inactive']);
 				}
 				
-				$GRecycles	= (int) $_REQUEST['ship'][219];
-				$GRecycles	= min($GRecycles, $UserGRecycles);
+				$totalDebris	= $GLOBALS['DATABASE']->countquery("SELECT der_metal + der_crystal FROM ".PLANETS." WHERE id = ".$planetID.";");
+				$usedDebris		= 0;
 				
-				$Recycles	= (int) $_REQUEST['ship'][209];
-				$Recycles	= min($Recycles, $UserRecycles);
+				$recElementIDs	= array(219, 209);
 				
-				if(empty($Recycles) && empty($GRecycles)) {
+				$fleetArray		= array();
+				
+				foreach($recElementIDs as $elementID)
+				{
+					$shipsNeed 		= min(ceil($totalDebris / $pricelist[$elementID]['capacity']), $PLANET[$resource[$elementID]]);
+					$totalDebris	-= ($shipsNeed * $pricelist[$elementID]['capacity']);
+					
+					$fleetArray[$elementID]	= $shipsNeed;
+					$this->returnData['ships'][$elementID]	= $PLANET[$resource[$elementID]] - $shipsNeed;
+					
+					if($totalDebris <= 0)
+					{
+						break;
+					}
+				}
+				
+				if(empty($fleetArray))
+				{
 					$this->sendData(611, $LNG['fa_no_recyclers']);
 				}
-					
-				$fleetArray = array(209 => $Recycles, 219 => $GRecycles);
 				break;
 			default:
 				$this->sendData(610, $LNG['fa_not_enough_probes']);
 			break;
 		}
 		
-		$fleetArray	= array_filter($fleetArray);
+		$fleetArray						= array_filter($fleetArray);
 		
 		if(empty($fleetArray)) {
 			$this->sendData(610, $LNG['fa_not_enough_probes']);

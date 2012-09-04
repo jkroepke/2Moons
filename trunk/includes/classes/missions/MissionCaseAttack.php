@@ -157,7 +157,7 @@ HTML;
 		
 		$combatResult 		= calculateAttack($fleetAttack, $fleetDefend, $fleetIntoDebris, $defIntoDebris);
 		
-		$sqlQuery	= "";
+		$sqlQuery			= "";
 		
 		foreach ($fleetAttack as $fleetID => $fleetDetail)
 		{
@@ -230,7 +230,6 @@ HTML;
 			else
 			{
 				$fleetArray = array();
-				$fleetDetail['unit']	= array_filter($fleetDetail['unit']);
 				foreach ($fleetDetail['unit'] as $elementID => $amount)
 				{				
 					$fleetArray[] = $resource[$elementID]." = ".$amount;
