@@ -100,6 +100,7 @@ class template extends Smarty
 			'REV'				=> substr($CONF['VERSION'], -4),
 			'date'				=> explode("|", date('Y\|n\|j\|G\|i\|s\|Z', TIMESTAMP)),
 			'Offset'			=> $dateTimeUser->getOffset() - $dateTimeServer->getOffset(),
+			'VERSION'			=> $CONF['VERSION'],
 		));
 	}
 	
