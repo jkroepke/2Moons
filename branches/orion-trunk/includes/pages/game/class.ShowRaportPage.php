@@ -95,10 +95,21 @@ class ShowRaportPage extends AbstractPage
 			$this->printMessage($LNG['sys_raport_not_found']);
 		}
 
-		
 		$CombatRaport	= unserialize($Raport);
 		$CombatRaport['time']	= _date($LNG['php_tdformat'], $CombatRaport['time'], (isset($USER['timezone']) ? $USER['timezone'] : $CONF['timezone']));
-
+		
+		if(isset($INFO['moon']['desfail']))
+		{
+			// 2Moons BC r2321
+			$CombatRaport['moon']	= array(
+				'moonName'				=> $CombatRaport['moon']['name'],
+				'moonChance'			=> $CombatRaport['moon']['chance'],
+				'moonDestroySuccess'	=> !$CombatRaport['moon']['desfail'],
+				'fleetDestroyChance'	=> $CombatRaport['moon']['chance2'],
+				'fleetDestroySuccess'	=> !$INFO['moon']['fleetfail']
+			);
+		}
+		
 		$this->tplObj->assign_vars(array(
 			'Raport'	=> $CombatRaport,
 		));

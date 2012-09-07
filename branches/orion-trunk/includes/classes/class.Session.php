@@ -44,7 +44,10 @@ class Session
 		ini_set('session.cookie_httponly', true);
 		
 		//session_set_cookie_params(SESSION_LIFETIME, HTTP_ROOT, HTTP_HOST, HTTPS, true);
-		session_set_cookie_params(SESSION_LIFETIME, HTTP_ROOT, NULL, HTTPS, true);
+		
+		$HTTP_ROOT = MODE === 'INSTALL' ? dirname(HTTP_ROOT) : HTTP_ROOT;
+		
+		session_set_cookie_params(SESSION_LIFETIME, $HTTP_ROOT, NULL, HTTPS, true);
 		session_cache_limiter('nocache');
 		session_name('2Moons');
 	}
@@ -74,9 +77,11 @@ class Session
 		}
 		
 		$Path					= $this->GetPath();
-		$GLOBALS['DATABASE']->query("REPLACE INTO ".SESSION." SET
-		sessionID = '".session_id()."',
+		
+		$GLOBALS['DATABASE']->query("DELETE FROM ".SESSION." WHERE userID = ".$ID." OR sessionID = '".session_id()."';");		
+		$GLOBALS['DATABASE']->query("INSERT INTO ".SESSION." SET
 		userID = ".$ID.",
+		sessionID = '".session_id()."',
 		lastonline = ".TIMESTAMP.",
 		userIP = '".$_SERVER['REMOTE_ADDR']."';");
 		$_SESSION['id']			= $ID;

@@ -4,7 +4,7 @@
 		<div id="main" class="left">
 			<div class="fatalerror"><p>{$message}</p></div>
 			<div><p>
-				<a href="index.php?step=7&amp:username={$username}&amp;email={$email}"><button>{$LNG.back}</button></a>
+				<a href="index.php?mode=install&step=7&amp:username={$username}&amp;email={$email}"><button>{$LNG.back}</button></a>
 			</p></div>
 		</div>
 	</td>

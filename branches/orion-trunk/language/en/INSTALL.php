@@ -6,11 +6,13 @@
 
 $LNG['back']					= 'Back';
 $LNG['continue']				= 'Continue';
+$LNG['continueUpgrade']			= 'Upgrade!';
 $LNG['login']					= 'Login';
 
 $LNG['menu_intro']				= 'Introduction';
 $LNG['menu_install']			= 'Installation';
 $LNG['menu_license']			= 'License';
+$LNG['menu_upgrade']			= 'Upgrade';
 
 $LNG['title_install']			= 'Installation';
 
@@ -18,6 +20,8 @@ $LNG['intro_lang']				= 'Language';
 $LNG['intro_install']			= 'To installation';
 $LNG['intro_welcome']			= 'Hello user of 2Moons!';
 $LNG['intro_text']				= 'The 2Moons is one of the best projects of OGame.<br>The 2Moons is the newest and most stable of XNova currently developed. 2Moons is remarkable for its ease of stability, flexibility, dynamism, quality and utilization. we always expect to be better than your expectations.<br><br>The installation system will guide you through the installation or upgrading from a previous version to the latest one. Each question, a problem, please dont hesitate to ask our development and support in case of doubt!<br><br>The 2Moons is an Open Source project, licensed under the GNU GPL v3. For this to be verified, please click the link above where it refers to "lincense"<br><br>Before the installation can be started a small test to see if your plan/domain has all the requirements to support the 2Moons';
+$LNG['intro_upgrade_head']		= '2Moons already installed?';
+$LNG['intro_upgrade_text']		= '<p>You have already installed 2Moons and want easy updating?</p><p>Here you can update your old database with just a few clicks!</p>';
 
 $LNG['licence_head']			= 'License terms';
 $LNG['licence_desc']			= 'Please read the license terms below. Use the scroll bar to see all the contents of the document';
@@ -64,7 +68,6 @@ $LNG['step1_mysql_dbname']		= 'Database name';
 $LNG['step1_mysql_prefix']		= 'Table prefix:';
 
 $LNG['step2_prefix_invalid']	= 'The prefix of the database must contain alphanumeric characters and underscore as last character';
-$LNG['step2_db_error']			= 'Failed to create tables in the database:';
 $LNG['step2_db_no_dbname']		= 'You dont specified the name for the database';
 $LNG['step2_db_too_long']		= 'The table prefix is too long. Must contain at most 36 characters';
 $LNG['step2_db_con_fail']		= 'There is an error in the link to database. The details will be displayed below';
@@ -75,6 +78,7 @@ $LNG['step2_db_done']			= 'The connection to the database was successful!';
 
 $LNG['step3_head']				= 'Create database tables';
 $LNG['step3_desc']				= 'The tables needed for the 2Moons database already have been created and populated with default values. To go to the next step, conclude the installation of 2Moons';
+$LNG['step3_db_error']			= 'Failed to create the database tables:';
 
 $LNG['step4_head']				= 'Administrator account';
 $LNG['step4_desc']				= 'The installation wizard will now create an administrator account for you. Writes the name of use, your password and your email';

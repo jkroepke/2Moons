@@ -231,7 +231,9 @@ class ShowFleetStep1Page extends AbstractPage
 		$TargetPlanettype 				= HTTP::_GP('planet_type', 1);
 	
 		if($TargetGalaxy == $PLANET['galaxy'] && $TargetSystem == $PLANET['system'] && $TargetPlanet == $PLANET['planet'] && $TargetPlanettype == $PLANET['planet_type'])
-			exit($LNG['fl_error_same_planet']);
+		{
+			exit($LNG['fl_send_error'][3]);
+		}
 		
 		if ($TargetPlanet != $CONF['max_planets'] + 1) {
 			$Data	= $GLOBALS['DATABASE']->uniquequery("SELECT u.id, u.urlaubs_modus, u.user_lastip, u.authattack, p.destruyed, p.der_metal, p.der_crystal, p.destruyed FROM ".USERS." as u, ".PLANETS." as p WHERE p.universe = ".$UNI." AND p.galaxy = ".$TargetGalaxy." AND p.system = ".$TargetSystem." AND p.planet = ".$TargetPlanet."  AND p.planet_type = '".(($TargetPlanettype == 2) ? 1 : $TargetPlanettype)."' AND u.id = p.id_owner;");

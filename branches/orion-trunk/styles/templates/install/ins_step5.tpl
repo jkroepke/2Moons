@@ -5,7 +5,7 @@
 			<h2>{$LNG.step3_head}</h2>
 			<p>{$LNG.step3_desc}</p>
 			<div style="text-align:center;"><p>
-				<a href="index.php?step=6"><button>{$LNG.continue}</button></a>
+				<a href="index.php?mode=install&step=6"><button>{$LNG.continue}</button></a>
 			</p></div>
 		</div>
 	</td>

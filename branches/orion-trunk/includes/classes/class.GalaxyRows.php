@@ -238,18 +238,13 @@ class GalaxyRows
 
 	protected function getDebrisData()
 	{
-		global $PLANET, $pricelist, $resource;
 		$total		= $this->galaxyRow['der_metal'] + $this->galaxyRow['der_crystal'];
 		if($total == 0) {
 			$this->galaxyData[$this->galaxyRow['planet']]['debris']	= false;
 		} else {
-			$GRecNeeded = min(ceil($total / $pricelist[219]['capacity']), $PLANET[$resource[219]]);
-			$RecNeeded 	= min(ceil(max($total - ($GRecNeeded * $pricelist[219]['capacity']), 0) / $pricelist[209]['capacity']), $PLANET[$resource[209]]);
-
 			$this->galaxyData[$this->galaxyRow['planet']]['debris']	= array(
 				'metal'			=> $this->galaxyRow['der_metal'],
 				'crystal'		=> $this->galaxyRow['der_crystal'],
-				'shipsNeed'		=> array(209 => $RecNeeded, 219 => $GRecNeeded),
 			);
 		}
 	}

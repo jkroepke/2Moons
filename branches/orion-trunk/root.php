@@ -31,7 +31,7 @@ define('MODE', 'LOGIN');
 define('ROOT_PATH'	, str_replace('\\', '/',dirname(__FILE__)).'/');
 
 require(ROOT_PATH . 'includes/common.php');
-$LANG->includeLang(array('ADMIN'));
+$LANG->includeLang(array('L18N', 'INGAME', 'ADMIN'));
 
 if(isset($_REQUEST['admin_pw']))
 {
@@ -46,10 +46,18 @@ if(isset($_REQUEST['admin_pw']))
 }
 $template	= new template();
 
+$tplDir	= $template->getTemplateDir();
+$template->setTemplateDir($tplDir[0].'adm/');
 $template->assign_vars(array(	
-	'adm_login'			=> $LNG['adm_login'],
-	'adm_password'			=> $LNG['adm_password'],
-	'adm_absenden'			=> $LNG['adm_absenden'],
+	'lang' 		=> $LANG->getUser(),
+	'title'		=> $CONF['game_name'].' - '.$LNG['adm_cp_title'],
+	'REV'		=> substr($CONF['VERSION'], -4),
+	'date'		=> explode("|", date('Y\|n\|j\|G\|i\|s\|Z', TIMESTAMP)),
+	'Offset'	=> 0,
+	'VERSION'	=> $CONF['VERSION'],
+	'dpath'		=> 'gow',
+	'bodyclass'	=> 'popup',
+	'username'	=> 'root'
 ));
-$template->show('adm/LoginPage.tpl');
+$template->show('LoginPage.tpl');
 ?>

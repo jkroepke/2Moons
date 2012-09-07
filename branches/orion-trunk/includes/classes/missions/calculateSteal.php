@@ -27,70 +27,86 @@
  * @link http://code.google.com/p/2moons/
  */
 
-function calculateSteal($attackFleets, $defenderPlanet, $ForSim = false)
+function calculateSteal($attackFleets, $defenderPlanet, $simMode = false)
 {	
 	//Steal-Math by Slaver for 2Moons(http://www.2moons.cc) based on http://www.owiki.de/Beute
-	global $pricelist;
+	global $pricelist, $resource;
+	
+	$firstResource	= 901;
+	$secondResource	= 902;
+	$thirdResource	= 903;
 	
 	$SortFleets 	= array();
-	$Sumcapacity  	= 0;
-	$booty			= array('metal' => 0, 'crystal' => 0, 'deuterium' => 0);
+	$capacity  	= 0;
+	
+	$stealResource	= array(
+		$firstResource => 0,
+		$secondResource => 0,
+		$thirdResource => 0
+	);
+	
 	foreach($attackFleets as $FleetID => $Attacker)
 	{
 		$SortFleets[$FleetID]		= 0;
-		foreach($Attacker['detail'] as $Element => $amount)	
+		
+		foreach($Attacker['unit'] as $Element => $amount)	
 		{
 			$SortFleets[$FleetID]		+= $pricelist[$Element]['capacity'] * $amount;
 		}
 		
-		$SortFleets[$FleetID]	-= $Attacker['fleet']['fleet_resource_metal'];
-		$SortFleets[$FleetID]	-= $Attacker['fleet']['fleet_resource_crystal'];
-		$SortFleets[$FleetID]	-= $Attacker['fleet']['fleet_resource_deuterium'];
-		$Sumcapacity			+= $SortFleets[$FleetID];
+		$SortFleets[$FleetID]	-= $Attacker['fleetDetail']['fleet_resource_metal'];
+		$SortFleets[$FleetID]	-= $Attacker['fleetDetail']['fleet_resource_crystal'];
+		$SortFleets[$FleetID]	-= $Attacker['fleetDetail']['fleet_resource_deuterium'];
+		$capacity			+= $SortFleets[$FleetID];
 	}
 	
-	$AllCapacity		= $Sumcapacity;
+	$AllCapacity		= $capacity;
 	if($AllCapacity <= 0)
-		return $booty;
-		
+	{
+		return $stealResource;
+	}
+
+	
 	// Step 1
-	$booty['metal'] 	= min($Sumcapacity / 3, $defenderPlanet['metal'] / 2);
-	$Sumcapacity		-= $booty['metal'];
+	$stealResource[$firstResource]		= min($capacity / 3, $defenderPlanet[$resource[$firstResource]] / 2);
+	$capacity	-= $stealResource[$firstResource];
 	 
 	// Step 2
-	$booty['crystal'] 	= min($Sumcapacity / 2, $defenderPlanet['crystal'] / 2);
-	$Sumcapacity		-= $booty['crystal'];
+	$stealResource[$secondResource] 	= min($capacity / 2, $defenderPlanet[$resource[$secondResource]] / 2);
+	$capacity	-= $stealResource[$secondResource];
 	 
 	// Step 3
-	$booty['deuterium'] = min($Sumcapacity, $defenderPlanet['deuterium'] / 2);
-	$Sumcapacity		-= $booty['deuterium'];
+	$stealResource[$thirdResource] 		= min($capacity, $defenderPlanet[$resource[$thirdResource]] / 2);
+	$capacity	-= $stealResource[$thirdResource];
 		 
 	// Step 4
-	$oldMetalBooty  	= $booty['metal'];
-	$booty['metal'] 	+= min($Sumcapacity / 2, $defenderPlanet['metal'] / 2 - $booty['metal']);
-	$Sumcapacity		-= $booty['metal'] - $oldMetalBooty;
+	$oldMetalBooty  					= $stealResource[$firstResource];
+	$stealResource[$firstResource] 		+= min($capacity / 2, $defenderPlanet[$resource[$firstResource]] / 2 - $stealResource[$firstResource]);
+	$capacity	-= $stealResource[$firstResource] - $oldMetalBooty;
 		 
 	// Step 5
-	$booty['crystal'] 	+= min($Sumcapacity, $defenderPlanet['crystal'] / 2 - $booty['crystal']);
+	$stealResource[$secondResource] 	+= min($capacity, $defenderPlanet[$resource[$secondResource]] / 2 - $stealResource[$secondResource]);
 			
-	if($ForSim) 
-		return $booty;
-
-	$Qry	= "";
-
-	
-	foreach($SortFleets as $FleetID => $Capacity)
+	if($simMode)
 	{
-		$Factor			= $Capacity / $AllCapacity;
-		$Qry .= "UPDATE ".FLEETS." SET ";
-		$Qry .= "`fleet_resource_metal` = `fleet_resource_metal` + '".$booty['metal'] * $Factor."', ";
-		$Qry .= "`fleet_resource_crystal` = `fleet_resource_crystal` + '".$booty['crystal'] * $Factor."', ";
-		$Qry .= "`fleet_resource_deuterium` = `fleet_resource_deuterium` + '".$booty['deuterium'] * $Factor."' ";
-		$Qry .= "WHERE fleet_id = '".$FleetID."';";		
+		return $stealResource;
 	}
 	
-	$GLOBALS['DATABASE']->multi_query($Qry);
-	return $booty;
+	$sqlQuery	= "";
+	foreach($SortFleets as $FleetID => $Capacity)
+	{
+		$slotFactor	= $Capacity / $AllCapacity;
+		
+		$sqlQuery .= "UPDATE ".FLEETS." SET ";
+		$sqlQuery .= "`fleet_resource_metal` = `fleet_resource_metal` + '".($stealResource[$firstResource] * $slotFactor)."', ";
+		$sqlQuery .= "`fleet_resource_crystal` = `fleet_resource_crystal` + '".($stealResource[$secondResource] * $slotFactor)."', ";
+		$sqlQuery .= "`fleet_resource_deuterium` = `fleet_resource_deuterium` + '".($stealResource[$thirdResource] * $slotFactor)."' ";
+		$sqlQuery .= "WHERE fleet_id = '".$FleetID."';";		
+	}
+	
+	$GLOBALS['DATABASE']->multi_query($sqlQuery);
+	
+	return $stealResource;
 }
 	
 ?>

@@ -1,9 +1,9 @@
 <?php
 
-// Traduzido por QwataKayean. Todos os Direitos Reservados © 2010-2011
+// Traduzido por QwataKayean. Todos os Direitos Reservados © 2010-2012
 // Texto escrito conforme o Acordo Ortográfico a ser inserido em 2011 pelo Ministério da Educação de Portugal - convertido pelo Lince.         
 
-// 2Moons - Copyright (C) 2011  Slaver
+// 2Moons - Copyright (C) 2012  Jan Kröpke
 
 
 //----------------------------------------------------------------------------//
@@ -166,8 +166,7 @@ $LNG['sys_irak_def']                    = '%d dos teus misseis foram intercetado
 $LNG['sys_irak_mess']                   = '(%d) Misseis Interplanetários do planeta %s dirigemce para o planeta %s <br><br>';
 $LNG['sys_gain'] 				  		= 'Lucro';
 $LNG['sys_fleet_won'] 					= "Uma das tuas frotas volta do planeta %s %s e entrega %s de %s, %s de %s, e %s de %s";
-$LNG['sys_perte_attaquant'] 			= "Parte atacante";
-$LNG['sys_perte_defenseur'] 			= "Parte defensora";
+$LNG['sys_lost'] 							= 'Perdas';
 $LNG['sys_debris'] 						= "Destroços";
 $LNG['sys_destruc_title']    			= "Destruição de lua %s :";
 $LNG['sys_mess_destruc_report'] 		= "Relatório de destruição";

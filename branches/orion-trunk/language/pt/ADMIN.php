@@ -1,31 +1,9 @@
 <?php
 
-/**
- *  2Moons
- *  Copyright (C) 2011  Slaver
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
- * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
- * @info $Id$
- * @link http://code.google.com/p/2moons/
- */
+// Traduzido por QwataKayean. Todos os Direitos Reservados © 2010-2012
+// Texto escrito conforme o Acordo Ortográfico a ser inserido em 2011 pelo Ministério da Educação de Portugal - convertido pelo Lince.         
+
+// 2Moons - Copyright (C) 2012  Jan Kröpke
 
 //---------------	Geral	------------------------// 
 $LNG['adm_login']			= 'Login';
@@ -1028,6 +1006,7 @@ $LNG['modul'][12]                       = 'Fama';
 $LNG['modul'][13]                       = 'Controlo';
 $LNG['modul'][14]                       = 'Infos';
 $LNG['modul'][15]                       = 'Imperio';
+$LNG['modul'][42]						= 'Missão - ACS';
 $LNG['modul'][32]                       = 'Missão - Reduzir';
 $LNG['modul'][1]                        = 'Missão - Atacar';
 $LNG['modul'][31]                       = 'Missão - Exploração de MN';
@@ -1054,6 +1033,7 @@ $LNG['modul'][28]                       = 'Tecnologias';
 $LNG['modul'][38]						= 'Sucateiros : Comprador de Frota';
 $LNG['modul'][39]						= 'Simulador de batalha';
 $LNG['modul'][40]						= 'Atalhos de Frotas';
+$LNG['modul'][41]                       = 'Aplicação do Facebook';
 $LNG['mod_module']						= 'Modulos';
 $LNG['mod_info']						= 'Modulos no Jogo';
 $LNG['mod_active']						= 'Ativo';
