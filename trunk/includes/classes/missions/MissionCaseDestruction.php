@@ -274,7 +274,7 @@ HTML;
 			'moonDestroy'			=> true,
 			'moonName'				=> null,
 			'moonDestroyChance'		=> null,
-			'moonDestroySuccess'	=> false,
+			'moonDestroySuccess'	=> null,
 			'fleetDestroyChance'	=> null,
 			'fleetDestroySuccess'	=> false,
 		);
@@ -310,9 +310,9 @@ HTML;
 					DELETE FROM ".PLANETS." 
 					WHERE id = ".$targetPlanet['id'].";");
 					
-					$raportInfo['moonDestroySuccess'] = 0;
+					$raportInfo['moonDestroySuccess'] = 1;
 				} else {
-					$raportInfo['moonDestroySuccess'] = 2;
+					$raportInfo['moonDestroySuccess'] = 0;
 				}
 				
 				$fleetDestroyChance	= round(sqrt($targetPlanet['diameter']) / 2);
@@ -342,12 +342,14 @@ HTML;
 				$defendStatus	= 'draws';
 				$attackClass	= 'raportDraw';
 				$defendClass	= 'raportDraw';
+				$raportInfo['moonDestroySuccess'] = -1;
 			break;
 			case "r":
 				$attackStatus	= 'loos';
 				$defendStatus	= 'wons';
 				$attackClass	= 'raportLose';
 				$defendClass	= 'raportWin';
+				$raportInfo['moonDestroySuccess'] = -1;
 			break;
 		}
 		
