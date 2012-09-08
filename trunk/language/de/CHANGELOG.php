@@ -33,164 +33,192 @@ $LNG['Description'] = 'Beschreibung';
 
 $LNG['changelog']   = array(
 
-'v1.7' => 'Jan 28.03.2012
-[<a href="http://tracker.2moons.cc/browse/TMOONS-22">TMOONS-22</a>] - In admin panel issue
-[<a href="http://tracker.2moons.cc/browse/TMOONS-106">TMOONS-106</a>] - Werte des Atomkraftwerks bei Bonus kopiert (Deuterium)
-[<a href="http://tracker.2moons.cc/browse/TMOONS-137">TMOONS-137</a>] - Kein Login nach Update von Ref 2091 auf 2104 mehr möglich
-[<a href="http://tracker.2moons.cc/browse/TMOONS-154">TMOONS-154</a>] - Login doesn&#39;t work
-[<a href="http://tracker.2moons.cc/browse/TMOONS-157">TMOONS-157</a>] - Versatz und Fehler meldung bei Spionage
-[<a href="http://tracker.2moons.cc/browse/TMOONS-159">TMOONS-159</a>] - Regestrierung geht nicht!!
-[<a href="http://tracker.2moons.cc/browse/TMOONS-161">TMOONS-161</a>] - New versions errors!
-[<a href="http://tracker.2moons.cc/browse/TMOONS-163">TMOONS-163</a>] - Koloniesieren
-[<a href="http://tracker.2moons.cc/browse/TMOONS-165">TMOONS-165</a>] - Admin control panel, cannot create new player
-[<a href="http://tracker.2moons.cc/browse/TMOONS-166">TMOONS-166</a>] - IPM does not work
-[<a href="http://tracker.2moons.cc/browse/TMOONS-169">TMOONS-169</a>] - Konfiguration der Planeten in Galaxie
-[<a href="http://tracker.2moons.cc/browse/TMOONS-170">TMOONS-170</a>] - It&#39;s imposible sen fleets
-[<a href="http://tracker.2moons.cc/browse/TMOONS-173">TMOONS-173</a>] - Error in Flotten und in Technologie
-[<a href="http://tracker.2moons.cc/browse/TMOONS-174">TMOONS-174</a>] - Undefined constant in index.php
-[<a href="http://tracker.2moons.cc/browse/TMOONS-176">TMOONS-176</a>] - Undefined index: shipsNeed at game.php?page=galaxy
-[<a href="http://tracker.2moons.cc/browse/TMOONS-181">TMOONS-181</a>] - Kristall Fehlt :)
-[<a href="http://tracker.2moons.cc/browse/TMOONS-188">TMOONS-188</a>] - Statistik
-[<a href="http://tracker.2moons.cc/browse/TMOONS-189">TMOONS-189</a>] - Händler fehler
-[<a href="http://tracker.2moons.cc/browse/TMOONS-190">TMOONS-190</a>] - Die Aufgerufene Seite existiert nicht
-[<a href="http://tracker.2moons.cc/browse/TMOONS-191">TMOONS-191</a>] - System 500 error
-[<a href="http://tracker.2moons.cc/browse/TMOONS-196">TMOONS-196</a>] - Reports of failed construction
-[<a href="http://tracker.2moons.cc/browse/TMOONS-198">TMOONS-198</a>] - Rohstoffe Produktion einstellen
-[<a href="http://tracker.2moons.cc/browse/TMOONS-199">TMOONS-199</a>] - Händler 
-[<a href="http://tracker.2moons.cc/browse/TMOONS-205">TMOONS-205</a>] - Die Aufgerufene Seite existiert nicht
-[<a href="http://tracker.2moons.cc/browse/TMOONS-206">TMOONS-206</a>] - Technologie
-[<a href="http://tracker.2moons.cc/browse/TMOONS-207">TMOONS-207</a>] - User über Admin erstellen
-[<a href="http://tracker.2moons.cc/browse/TMOONS-208">TMOONS-208</a>] - Flotte verschicken
-[<a href="http://tracker.2moons.cc/browse/TMOONS-209">TMOONS-209</a>] - install Fehler
-[<a href="http://tracker.2moons.cc/browse/TMOONS-211">TMOONS-211</a>] - Gebäude Timer Overview
-[<a href="http://tracker.2moons.cc/browse/TMOONS-216">TMOONS-216</a>] - Error beim Flottenversand
-[<a href="http://tracker.2moons.cc/browse/TMOONS-218">TMOONS-218</a>] - Infos von Offizieren können nicht aufgerufen werden
-[<a href="http://tracker.2moons.cc/browse/TMOONS-219">TMOONS-219</a>] - Error Account-Information aus ACP
-[<a href="http://tracker.2moons.cc/browse/TMOONS-223">TMOONS-223</a>] - Fleet vanished
-[<a href="http://tracker.2moons.cc/browse/TMOONS-228">TMOONS-228</a>] - Error log #2
-[<a href="http://tracker.2moons.cc/browse/TMOONS-235">TMOONS-235</a>] - Date of block
-[<a href="http://tracker.2moons.cc/browse/TMOONS-236">TMOONS-236</a>] - Vacation and flying fleet
-[<a href="http://tracker.2moons.cc/browse/TMOONS-238">TMOONS-238</a>] - Error beim Aufruf der Galaxie über Koordinaten in Playercard / Siehe sceenshot 
-[<a href="http://tracker.2moons.cc/browse/TMOONS-239">TMOONS-239</a>] - Keine Flottendaten beim Versand / NUR IE8 !
-[<a href="http://tracker.2moons.cc/browse/TMOONS-240">TMOONS-240</a>] - Error in Flotten bei Mission Angriff 
-[<a href="http://tracker.2moons.cc/browse/TMOONS-245">TMOONS-245</a>] - Händler kann nicht gerufen werden
-[<a href="http://tracker.2moons.cc/browse/TMOONS-246">TMOONS-246</a>] - Support-Ticket kann weder gelöscht noch geschlossen werden.
-[<a href="http://tracker.2moons.cc/browse/TMOONS-247">TMOONS-247</a>] - Error in Flotten bei Mission Transport und maximalen Rohstoffen
-[<a href="http://tracker.2moons.cc/browse/TMOONS-248">TMOONS-248</a>] - Planetenauswahl zeigt immer ersten Planeten
-[<a href="http://tracker.2moons.cc/browse/TMOONS-249">TMOONS-249</a>] - Hall of Fame wird nicht angezeigt
-[<a href="http://tracker.2moons.cc/browse/TMOONS-250">TMOONS-250</a>] - Lösch-Icon /styles/images/r1.png nicht vorhanden
-[<a href="http://tracker.2moons.cc/browse/TMOONS-251">TMOONS-251</a>] - Double key
-[<a href="http://tracker.2moons.cc/browse/TMOONS-254">TMOONS-254</a>] - anflug auf Mond nicht möglich
-[<a href="http://tracker.2moons.cc/browse/TMOONS-256">TMOONS-256</a>] - User erstellen im Admin
-[<a href="http://tracker.2moons.cc/browse/TMOONS-257">TMOONS-257</a>] - Planetmenu (PlanetAction)
-[<a href="http://tracker.2moons.cc/browse/TMOONS-258">TMOONS-258</a>] - Error Allianz Rundmail
-[<a href="http://tracker.2moons.cc/browse/TMOONS-259">TMOONS-259</a>] - Errormeldung Login Versuch wenn Game gesperrt 
-[<a href="http://tracker.2moons.cc/browse/TMOONS-260">TMOONS-260</a>] - Schrotthändler, Schiffe werden nicht abgezogen, Ressourcenanzeige beim Schrotthändler falsch
-[<a href="http://tracker.2moons.cc/browse/TMOONS-261">TMOONS-261</a>] - Error bei Abbruch einer Bauschleife im Baumenü bei mehr als einen Eintrag
-[<a href="http://tracker.2moons.cc/browse/TMOONS-263">TMOONS-263</a>] - Error nach Sprachumstellung auf Russisch
-[<a href="http://tracker.2moons.cc/browse/TMOONS-264">TMOONS-264</a>] - The doubling of the fleet
-[<a href="http://tracker.2moons.cc/browse/TMOONS-265">TMOONS-265</a>] - Zeitzone kann im ACP nicht gespeicher/geändert werden
-[<a href="http://tracker.2moons.cc/browse/TMOONS-266">TMOONS-266</a>] - Error Allianz-Chat
-[<a href="http://tracker.2moons.cc/browse/TMOONS-267">TMOONS-267</a>] - Fleet-Points haben sich gigantisch vergrößert!
-[<a href="http://tracker.2moons.cc/browse/TMOONS-268">TMOONS-268</a>] - Aktuelle 1.7. Version - Fehler bei der Installation
-[<a href="http://tracker.2moons.cc/browse/TMOONS-269">TMOONS-269</a>] - Technologie trotz Erfüllung der Voraussetzungen, Farbanzeige rot
-[<a href="http://tracker.2moons.cc/browse/TMOONS-271">TMOONS-271</a>] - Gamespeed wirkt sich nicht auf Enegie-Produktion aus
-[<a href="http://tracker.2moons.cc/browse/TMOONS-272">TMOONS-272</a>] - Gebäude Produzieren nichts und lassen sich nicht ausbauen.
-[<a href="http://tracker.2moons.cc/browse/TMOONS-273">TMOONS-273</a>] - Spionageberichte unformatiert 
-[<a href="http://tracker.2moons.cc/browse/TMOONS-274">TMOONS-274</a>] - Ban-Panel Einträge werden nicht mehr gelöscht und Spielername und Adminname sind vertauscht
-[<a href="http://tracker.2moons.cc/browse/TMOONS-275">TMOONS-275</a>] - Error bei Changelog-Anzeige !
-[<a href="http://tracker.2moons.cc/browse/TMOONS-276">TMOONS-276</a>] - Doppelte Texte in Forschung
-[<a href="http://tracker.2moons.cc/browse/TMOONS-278">TMOONS-278</a>] - Schrotthändler, Kristall und Deuterium wird nicht richtig verbucht
-[<a href="http://tracker.2moons.cc/browse/TMOONS-281">TMOONS-281</a>] - Händler, Beträge werden falsch verbucht
-[<a href="http://tracker.2moons.cc/browse/TMOONS-282">TMOONS-282</a>] - Error in Error.log
-[<a href="http://tracker.2moons.cc/browse/TMOONS-283">TMOONS-283</a>] - Flotten, Verband, Error  - Die Aufgerufene Seite existiert nicht
-[<a href="http://tracker.2moons.cc/browse/TMOONS-284">TMOONS-284</a>] - Spielername ändern in Einstellungen
-[<a href="http://tracker.2moons.cc/browse/TMOONS-285">TMOONS-285</a>] - Error Planeten löschen im ACP
-[<a href="http://tracker.2moons.cc/browse/TMOONS-286">TMOONS-286</a>] - Error bei Abbruch von aktiver Forschung bei mehreren Einträgen
-[<a href="http://tracker.2moons.cc/browse/TMOONS-287">TMOONS-287</a>] - Error beim Auflösen einer Allianz
-[<a href="http://tracker.2moons.cc/browse/TMOONS-289">TMOONS-289</a>] - Allianz, Bewerbungen -&gt; Die Bewerbung existiert nicht.
-[<a href="http://tracker.2moons.cc/browse/TMOONS-291">TMOONS-291</a>] - Error bei Löschen einer Bauphase in Schiffswerft oder Verteidigung ohne Markierung eines Eintrags
-[<a href="http://tracker.2moons.cc/browse/TMOONS-292">TMOONS-292</a>] - Manually update
-[<a href="http://tracker.2moons.cc/browse/TMOONS-294">TMOONS-294</a>] - Lang keys change places
-[<a href="http://tracker.2moons.cc/browse/TMOONS-295">TMOONS-295</a>] - Lang key in page.notes.default.tpl
-[<a href="http://tracker.2moons.cc/browse/TMOONS-296">TMOONS-296</a>] - Shortcut name
-[<a href="http://tracker.2moons.cc/browse/TMOONS-299">TMOONS-299</a>] - Error bei laufender Forschung wenn Wechsel auf Planeten wo diese Art der Forschung noch nicht vorhanden
-[<a href="http://tracker.2moons.cc/browse/TMOONS-300">TMOONS-300</a>] - Schrotthändler Meldung immer &quot;erfolgreich umgetauscht&quot;
-[<a href="http://tracker.2moons.cc/browse/TMOONS-303">TMOONS-303</a>] - Passwortänderung wird nicht gespeichert
-[<a href="http://tracker.2moons.cc/browse/TMOONS-304">TMOONS-304</a>] - Gebäude Infos
-[<a href="http://tracker.2moons.cc/browse/TMOONS-305">TMOONS-305</a>] - Flotten, Schiffe werden bei Angriff nicht verschickt
-[<a href="http://tracker.2moons.cc/browse/TMOONS-306">TMOONS-306</a>] - Lang key in page.galaxy.default.tpl
-[<a href="http://tracker.2moons.cc/browse/TMOONS-307">TMOONS-307</a>] - ExtraDM description
-[<a href="http://tracker.2moons.cc/browse/TMOONS-309">TMOONS-309</a>] - Error.log in alpha 3
-[<a href="http://tracker.2moons.cc/browse/TMOONS-310">TMOONS-310</a>] - Page does not exist
-[<a href="http://tracker.2moons.cc/browse/TMOONS-313">TMOONS-313</a>] - Benötigte Ressourcen für Solarkraftwerk viel zu hoch.
-[<a href="http://tracker.2moons.cc/browse/TMOONS-314">TMOONS-314</a>] - Error Undefined variable: RPLANET 
-[<a href="http://tracker.2moons.cc/browse/TMOONS-315">TMOONS-315</a>] - Error.log gesammelte Einträge
-[<a href="http://tracker.2moons.cc/browse/TMOONS-316">TMOONS-316</a>] - Im ACP bei &quot;Fliegende Flotten&quot; fehlerhafte Stationszeit
-[<a href="http://tracker.2moons.cc/browse/TMOONS-318">TMOONS-318</a>] - topkb error
-[<a href="http://tracker.2moons.cc/browse/TMOONS-320">TMOONS-320</a>] - Statistik update fehler
-[<a href="http://tracker.2moons.cc/browse/TMOONS-321">TMOONS-321</a>] - Die unendlichen Weiten des Universums reisen
-[<a href="http://tracker.2moons.cc/browse/TMOONS-322">TMOONS-322</a>] - Create Planet
-[<a href="http://tracker.2moons.cc/browse/TMOONS-323">TMOONS-323</a>] - Angriff nicht möglich bei Revision 100
-[<a href="http://tracker.2moons.cc/browse/TMOONS-324">TMOONS-324</a>] - Expedition
-[<a href="http://tracker.2moons.cc/browse/TMOONS-325">TMOONS-325</a>] - Nach Angriff Metallmine auf Stufe 255
-[<a href="http://tracker.2moons.cc/browse/TMOONS-329">TMOONS-329</a>] - Installation Fehler neuste Version
-[<a href="http://tracker.2moons.cc/browse/TMOONS-330">TMOONS-330</a>] - SQL Fehler
-[<a href="http://tracker.2moons.cc/browse/TMOONS-332">TMOONS-332</a>] - Flotten senden mit &quot;Max Rohstoffe&quot;
-[<a href="http://tracker.2moons.cc/browse/TMOONS-335">TMOONS-335</a>] - .htaccess
-[<a href="http://tracker.2moons.cc/browse/TMOONS-336">TMOONS-336</a>] - Fehlerhafte Energieberechnung bei Solarkraftwerk + Ingenieur
-[<a href="http://tracker.2moons.cc/browse/TMOONS-339">TMOONS-339</a>] - Error, Reflink, HTML und BBCode, Undefined index
-[<a href="http://tracker.2moons.cc/browse/TMOONS-340">TMOONS-340</a>] - Nach der Installation kommt ein fehler
-[<a href="http://tracker.2moons.cc/browse/TMOONS-341">TMOONS-341</a>] - Fehler Useranmeldung
-[<a href="http://tracker.2moons.cc/browse/TMOONS-343">TMOONS-343</a>] - Allianz auflösen geht nicht; Rev 128
-[<a href="http://tracker.2moons.cc/browse/TMOONS-345">TMOONS-345</a>] - Cheat on the speed of the ships
-[<a href="http://tracker.2moons.cc/browse/TMOONS-348">TMOONS-348</a>] - Error.log nach login
-[<a href="http://tracker.2moons.cc/browse/TMOONS-349">TMOONS-349</a>] - SQL injection
-[<a href="http://tracker.2moons.cc/browse/TMOONS-352">TMOONS-352</a>] - SQL Error: Unknown column &#39;s.user_id&#39; in &#39;on clause&#39;
-[<a href="http://tracker.2moons.cc/browse/TMOONS-353">TMOONS-353</a>] - In Statistik ... /styles/theme/gow/img/m.gif  für Private Nachrichten nicht vorhanden
-[<a href="http://tracker.2moons.cc/browse/TMOONS-359">TMOONS-359</a>] - Plane namen ändern
-[<a href="http://tracker.2moons.cc/browse/TMOONS-360">TMOONS-360</a>] - ENABLE_INSTALL_TOOL
-[<a href="http://tracker.2moons.cc/browse/TMOONS-361">TMOONS-361</a>] - Colorful background in ACP
-[<a href="http://tracker.2moons.cc/browse/TMOONS-363">TMOONS-363</a>] - Installation Fehler
-[<a href="http://tracker.2moons.cc/browse/TMOONS-365">TMOONS-365</a>] - Disabling modules
-[<a href="http://tracker.2moons.cc/browse/TMOONS-366">TMOONS-366</a>] - Not used languages keys
-[<a href="http://tracker.2moons.cc/browse/TMOONS-367">TMOONS-367</a>] - Page vertify - white screen
-[<a href="http://tracker.2moons.cc/browse/TMOONS-368">TMOONS-368</a>] - New user from ACP
-[<a href="http://tracker.2moons.cc/browse/TMOONS-369">TMOONS-369</a>] - Double &quot;name&quot;
-[<a href="http://tracker.2moons.cc/browse/TMOONS-370">TMOONS-370</a>] - Untranslated word
-[<a href="http://tracker.2moons.cc/browse/TMOONS-372">TMOONS-372</a>] - Language mistake
-[<a href="http://tracker.2moons.cc/browse/TMOONS-373">TMOONS-373</a>] - Not displayed language key
-[<a href="http://tracker.2moons.cc/browse/TMOONS-374">TMOONS-374</a>] - Keine schnellauswahl in der Galaxieansicht
-[<a href="http://tracker.2moons.cc/browse/TMOONS-375">TMOONS-375</a>] - Changing the name of the planet
-[<a href="http://tracker.2moons.cc/browse/TMOONS-376">TMOONS-376</a>] - Template of the curve
-[<a href="http://tracker.2moons.cc/browse/TMOONS-380">TMOONS-380</a>] - Deleting messages by date
-[<a href="http://tracker.2moons.cc/browse/TMOONS-382">TMOONS-382</a>] - Uni Export funkioniert nicht
-[<a href="http://tracker.2moons.cc/browse/TMOONS-385">TMOONS-385</a>] - Cosmetic improvement in the language file
-[<a href="http://tracker.2moons.cc/browse/TMOONS-386">TMOONS-386</a>] - The filter of name
-[<a href="http://tracker.2moons.cc/browse/TMOONS-387">TMOONS-387</a>] - Advanced search in the ACP
-[<a href="http://tracker.2moons.cc/browse/TMOONS-388">TMOONS-388</a>] - List of universes
-[<a href="http://tracker.2moons.cc/browse/TMOONS-389">TMOONS-389</a>] - Resetting the universe
-[<a href="http://tracker.2moons.cc/browse/TMOONS-396">TMOONS-396</a>] - Spieler löschen im Admin
-[<a href="http://tracker.2moons.cc/browse/TMOONS-401">TMOONS-401</a>] - Produkltionsmaxiemierung (Forschung) funktioniert nicht
-[<a href="http://tracker.2moons.cc/browse/TMOONS-403">TMOONS-403</a>] - Can&#39;t destroy buildings
-[<a href="http://tracker.2moons.cc/browse/TMOONS-404">TMOONS-404</a>] - Fleet in overview page
-[<a href="http://tracker.2moons.cc/browse/TMOONS-405">TMOONS-405</a>] - search page
-[<a href="http://tracker.2moons.cc/browse/TMOONS-406">TMOONS-406</a>] - Problem beim rechte von Spieler ändern
-[<a href="http://tracker.2moons.cc/browse/TMOONS-407">TMOONS-407</a>] - Return time the mission Leave[<a href="http://tracker.2moons.cc/browse/TMOONS-193">TMOONS-193</a>] - Removing log_fleets
-[<a href="http://tracker.2moons.cc/browse/TMOONS-224">TMOONS-224</a>] - Page multiips
-[<a href="http://tracker.2moons.cc/browse/TMOONS-230">TMOONS-230</a>] - The intersection of the fleets
-[<a href="http://tracker.2moons.cc/browse/TMOONS-237">TMOONS-237</a>] - Button 100% production
-[<a href="http://tracker.2moons.cc/browse/TMOONS-297">TMOONS-297</a>] - Location shortcuts
-[<a href="http://tracker.2moons.cc/browse/TMOONS-298">TMOONS-298</a>] - Exchange
-[<a href="http://tracker.2moons.cc/browse/TMOONS-308">TMOONS-308</a>] - Banner
-[<a href="http://tracker.2moons.cc/browse/TMOONS-311">TMOONS-311</a>] - Backup the database
-[<a href="http://tracker.2moons.cc/browse/TMOONS-312">TMOONS-312</a>] - Pagination
-[<a href="http://tracker.2moons.cc/browse/TMOONS-331">TMOONS-331</a>] - The overall result of the empire
-[<a href="http://tracker.2moons.cc/browse/TMOONS-354">TMOONS-354</a>] - AKS module in ACP
-[<a href="http://tracker.2moons.cc/browse/TMOONS-356">TMOONS-356</a>] - Information about the storage capacity
-[<a href="http://tracker.2moons.cc/browse/TMOONS-381">TMOONS-381</a>] - ID sender message in the ACP
-[<a href="http://tracker.2moons.cc/browse/TMOONS-398">TMOONS-398</a>] - Engine of ships[<a href="http://tracker.2moons.cc/browse/TMOONS-301">TMOONS-301</a>] - Bei &quot;Passwort vergessen&quot; keine Info dass eMail-Versand durchgeführt worden ist.
-[<a href="http://tracker.2moons.cc/browse/TMOONS-346">TMOONS-346</a>] - The doubling of the fleet',
+'v1.7' => 'Jan 08.09.2012
+- 0000048: [Fleet missions] moon destruction (Jan) - resolved.
+- 0000051: [Fleet missions] Bei Angriffen werden keine Ressourcen abgezogen. (Jan) - resolved.
+- 0000013: [Eco system] Wrong cost (Jan) - resolved.
+- 0000047: [Fleet missions] Nach Angriff, beim Verlassen des ACP, Undefined index: USER (Jan) - resolved.
+- 0000045: [Installer] Installation Error (Jan) - resolved.
+- 0000046: [Statistical] cronjobs.php (Jan) - resolved.
+- 0000044: [User errors] The same lang keys (Jan) - resolved.
+- 0000043: [Fleet missions] Revision 2320: Spy support is Ok, but attack is bug ... (Jan) - resolved.
+- 0000042: [Fleet missions] Bug spy support (Jan) - resolved.
+- 0000027: [User errors] Additional language keys (Orion) - resolved.
+- 0000009: [User errors] Two players on one account (Orion) - resolved.
+- 0000005: [Time] Phalanx sometimes dont show times. (Orion) - resolved.
+- 0000030: [Admin Panal] Im ACP Suche in Spielerliste und Planetenliste nicht möglich (Orion) - resolved.
+- 0000034: [Fleet missions] BUG Mondzerstörung mit SQL-Error (Jan) - resolved.
+- 0000028: [Galaxy] The mission selected in galaxy dont apear in fleet mission selected (Orion) - resolved.
+- 0000017: [Admin Panal] Status of the ticket does not change (Orion) - resolved.
+- 0000020: [User errors] Wrong Type of parameter in database (Orion) - resolved.
+- 0000006: [Fleet missions] Missile attack report (Jan) - resolved.
+- 0000029: [Fleet missions] Interplanetarraketen Bug PRODUZIERT Raketenwerfer (Jan) - resolved.
+- 0000010: [User errors] SupportPage.tpl is unused (Jan) - resolved.
+- 0000007: [Galaxy] Type of planet in galaxy (Orion) - resolved.
+- 0000008: [Fleet missions] fl_admins_cannot_be_attacked absent in the language files (Orion) - resolved.
+- 0000026: [Officier] Incorrect wrapping of description (Orion) - resolved.
+- 0000019: [Statistical] Worng title of page (Orion) - resolved.
+- 0000021: [Admin Panal] In tooltip does not show text (Orion) - resolved.
+- 0000022: [Eco system] Counter resources on the moon rise (Orion) - resolved.
+- 0000025: [Officier] Two minus in description (Orion) - resolved.
+- 0000003: [Admin Panal] Modules (Orion) - closed.
+TMOONS-22 - In admin panel issue
+TMOONS-106 - Werte des Atomkraftwerks bei Bonus kopiert (Deuterium)
+TMOONS-137 - Kein Login nach Update von Ref 2091 auf 2104 mehr möglich
+TMOONS-154 - Login doesn&#39;t work
+TMOONS-157 - Versatz und Fehler meldung bei Spionage
+TMOONS-159 - Regestrierung geht nicht!!
+TMOONS-161 - New versions errors!
+TMOONS-163 - Koloniesieren
+TMOONS-165 - Admin control panel, cannot create new player
+TMOONS-166 - IPM does not work
+TMOONS-169 - Konfiguration der Planeten in Galaxie
+TMOONS-170 - It&#39;s imposible sen fleets
+TMOONS-173 - Error in Flotten und in Technologie
+TMOONS-174 - Undefined constant in index.php
+TMOONS-176 - Undefined index: shipsNeed at game.php?page=galaxy
+TMOONS-181 - Kristall Fehlt :)
+TMOONS-188 - Statistik
+TMOONS-189 - Händler fehler
+TMOONS-190 - Die Aufgerufene Seite existiert nicht
+TMOONS-191 - System 500 error
+TMOONS-196 - Reports of failed construction
+TMOONS-198 - Rohstoffe Produktion einstellen
+TMOONS-199 - Händler 
+TMOONS-205 - Die Aufgerufene Seite existiert nicht
+TMOONS-206 - Technologie
+TMOONS-207 - User über Admin erstellen
+TMOONS-208 - Flotte verschicken
+TMOONS-209 - install Fehler
+TMOONS-211 - Gebäude Timer Overview
+TMOONS-216 - Error beim Flottenversand
+TMOONS-218 - Infos von Offizieren können nicht aufgerufen werden
+TMOONS-219 - Error Account-Information aus ACP
+TMOONS-223 - Fleet vanished
+TMOONS-228 - Error log #2
+TMOONS-235 - Date of block
+TMOONS-236 - Vacation and flying fleet
+TMOONS-238 - Error beim Aufruf der Galaxie über Koordinaten in Playercard / Siehe sceenshot 
+TMOONS-239 - Keine Flottendaten beim Versand / NUR IE8 !
+TMOONS-240 - Error in Flotten bei Mission Angriff 
+TMOONS-245 - Händler kann nicht gerufen werden
+TMOONS-246 - Support-Ticket kann weder gelöscht noch geschlossen werden.
+TMOONS-247 - Error in Flotten bei Mission Transport und maximalen Rohstoffen
+TMOONS-248 - Planetenauswahl zeigt immer ersten Planeten
+TMOONS-249 - Hall of Fame wird nicht angezeigt
+TMOONS-250 - Lösch-Icon /styles/images/r1.png nicht vorhanden
+TMOONS-251 - Double key
+TMOONS-254 - anflug auf Mond nicht möglich
+TMOONS-256 - User erstellen im Admin
+TMOONS-257 - Planetmenu (PlanetAction)
+TMOONS-258 - Error Allianz Rundmail
+TMOONS-259 - Errormeldung Login Versuch wenn Game gesperrt 
+TMOONS-260 - Schrotthändler, Schiffe werden nicht abgezogen, Ressourcenanzeige beim Schrotthändler falsch
+TMOONS-261 - Error bei Abbruch einer Bauschleife im Baumenü bei mehr als einen Eintrag
+TMOONS-263 - Error nach Sprachumstellung auf Russisch
+TMOONS-264 - The doubling of the fleet
+TMOONS-265 - Zeitzone kann im ACP nicht gespeicher/geändert werden
+TMOONS-266 - Error Allianz-Chat
+TMOONS-267 - Fleet-Points haben sich gigantisch vergrößert!
+TMOONS-268 - Aktuelle 1.7. Version - Fehler bei der Installation
+TMOONS-269 - Technologie trotz Erfüllung der Voraussetzungen, Farbanzeige rot
+TMOONS-271 - Gamespeed wirkt sich nicht auf Enegie-Produktion aus
+TMOONS-272 - Gebäude Produzieren nichts und lassen sich nicht ausbauen.
+TMOONS-273 - Spionageberichte unformatiert 
+TMOONS-274 - Ban-Panel Einträge werden nicht mehr gelöscht und Spielername und Adminname sind vertauscht
+TMOONS-275 - Error bei Changelog-Anzeige !
+TMOONS-276 - Doppelte Texte in Forschung
+TMOONS-278 - Schrotthändler, Kristall und Deuterium wird nicht richtig verbucht
+TMOONS-281 - Händler, Beträge werden falsch verbucht
+TMOONS-282 - Error in Error.log
+TMOONS-283 - Flotten, Verband, Error  - Die Aufgerufene Seite existiert nicht
+TMOONS-284 - Spielername ändern in Einstellungen
+TMOONS-285 - Error Planeten löschen im ACP
+TMOONS-286 - Error bei Abbruch von aktiver Forschung bei mehreren Einträgen
+TMOONS-287 - Error beim Auflösen einer Allianz
+TMOONS-289 - Allianz, Bewerbungen -&gt; Die Bewerbung existiert nicht.
+TMOONS-291 - Error bei Löschen einer Bauphase in Schiffswerft oder Verteidigung ohne Markierung eines Eintrags
+TMOONS-292 - Manually update
+TMOONS-294 - Lang keys change places
+TMOONS-295 - Lang key in page.notes.default.tpl
+TMOONS-296 - Shortcut name
+TMOONS-299 - Error bei laufender Forschung wenn Wechsel auf Planeten wo diese Art der Forschung noch nicht vorhanden
+TMOONS-300 - Schrotthändler Meldung immer &quot;erfolgreich umgetauscht&quot;
+TMOONS-303 - Passwortänderung wird nicht gespeichert
+TMOONS-304 - Gebäude Infos
+TMOONS-305 - Flotten, Schiffe werden bei Angriff nicht verschickt
+TMOONS-306 - Lang key in page.galaxy.default.tpl
+TMOONS-307 - ExtraDM description
+TMOONS-309 - Error.log in alpha 3
+TMOONS-310 - Page does not exist
+TMOONS-313 - Benötigte Ressourcen für Solarkraftwerk viel zu hoch.
+TMOONS-314 - Error Undefined variable: RPLANET 
+TMOONS-315 - Error.log gesammelte Einträge
+TMOONS-316 - Im ACP bei &quot;Fliegende Flotten&quot; fehlerhafte Stationszeit
+TMOONS-318 - topkb error
+TMOONS-320 - Statistik update fehler
+TMOONS-321 - Die unendlichen Weiten des Universums reisen
+TMOONS-322 - Create Planet
+TMOONS-323 - Angriff nicht möglich bei Revision 100
+TMOONS-324 - Expedition
+TMOONS-325 - Nach Angriff Metallmine auf Stufe 255
+TMOONS-329 - Installation Fehler neuste Version
+TMOONS-330 - SQL Fehler
+TMOONS-332 - Flotten senden mit &quot;Max Rohstoffe&quot;
+TMOONS-335 - .htaccess
+TMOONS-336 - Fehlerhafte Energieberechnung bei Solarkraftwerk + Ingenieur
+TMOONS-339 - Error, Reflink, HTML und BBCode, Undefined index
+TMOONS-340 - Nach der Installation kommt ein fehler
+TMOONS-341 - Fehler Useranmeldung
+TMOONS-343 - Allianz auflösen geht nicht; Rev 128
+TMOONS-345 - Cheat on the speed of the ships
+TMOONS-348 - Error.log nach login
+TMOONS-349 - SQL injection
+TMOONS-352 - SQL Error: Unknown column &#39;s.user_id&#39; in &#39;on clause&#39;
+TMOONS-353 - In Statistik ... /styles/theme/gow/img/m.gif  für Private Nachrichten nicht vorhanden
+TMOONS-359 - Plane namen ändern
+TMOONS-360 - ENABLE_INSTALL_TOOL
+TMOONS-361 - Colorful background in ACP
+TMOONS-363 - Installation Fehler
+TMOONS-365 - Disabling modules
+TMOONS-366 - Not used languages keys
+TMOONS-367 - Page vertify - white screen
+TMOONS-368 - New user from ACP
+TMOONS-369 - Double &quot;name&quot;
+TMOONS-370 - Untranslated word
+TMOONS-372 - Language mistake
+TMOONS-373 - Not displayed language key
+TMOONS-374 - Keine schnellauswahl in der Galaxieansicht
+TMOONS-375 - Changing the name of the planet
+TMOONS-376 - Template of the curve
+TMOONS-380 - Deleting messages by date
+TMOONS-382 - Uni Export funkioniert nicht
+TMOONS-385 - Cosmetic improvement in the language file
+TMOONS-386 - The filter of name
+TMOONS-387 - Advanced search in the ACP
+TMOONS-388 - List of universes
+TMOONS-389 - Resetting the universe
+TMOONS-396 - Spieler löschen im Admin
+TMOONS-401 - Produkltionsmaxiemierung (Forschung) funktioniert nicht
+TMOONS-403 - Can&#39;t destroy buildings
+TMOONS-404 - Fleet in overview page
+TMOONS-405 - search page
+TMOONS-406 - Problem beim rechte von Spieler ändern
+TMOONS-407 - Return time the mission LeaveTMOONS-193 - Removing log_fleets
+TMOONS-224 - Page multiips
+TMOONS-230 - The intersection of the fleets
+TMOONS-237 - Button 100% production
+TMOONS-297 - Location shortcuts
+TMOONS-298 - Exchange
+TMOONS-308 - Banner
+TMOONS-311 - Backup the database
+TMOONS-312 - Pagination
+TMOONS-331 - The overall result of the empire
+TMOONS-354 - AKS module in ACP
+TMOONS-356 - Information about the storage capacity
+TMOONS-381 - ID sender message in the ACP
+TMOONS-398 - Engine of shipsTMOONS-301 - Bei &quot;Passwort vergessen&quot; keine Info dass eMail-Versand durchgeführt worden ist.
+TMOONS-346 - The doubling of the fleet',
 'v1.6.1' => 'Jan 19.11.11
 - 0000027: [Core] Phalanx (Slaver) - resolved.
 - 0000071: [Core] The list of the moon for teleportation (Slaver) - resolved.
