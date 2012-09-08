@@ -453,9 +453,9 @@ HTML;
 						WHERE
 						".$debrisType." = ".$this->_fleet['fleet_end_id'].";
 						UPDATE ".PLANETS." SET
-						metal = ".$stealResource[901].",
-						crystal = ".$stealResource[902].",
-						deuterium = ".$stealResource[903]."
+						metal = metal - ".$stealResource[901].",
+						crystal = crystal - ".$stealResource[902].",
+						deuterium = deuterium - ".$stealResource[903]."
 						WHERE
 						id = ".$this->_fleet['fleet_end_id'].";
 						INSERT INTO ".TOPKB." SET
