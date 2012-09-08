@@ -286,8 +286,9 @@ HTML;
 			case "a":
 				$moonDestroyChance	= round((100 - sqrt($targetPlanet['diameter'])) * sqrt($fleetAttack[$this->_fleet['fleet_id']]['unit'][214]), 1);
 				
-				// Max 100%
+				// Max 100% | Min 0%
 				$moonDestroyChance	= min($moonDestroyChance, 100);
+				$moonDestroyChance	= max($moonDestroyChance, 0);
 				
 				$randChance	= mt_rand(0, 100);
 				if ($randChance <= $moonDestroyChance)
