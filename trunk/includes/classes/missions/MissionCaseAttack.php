@@ -293,7 +293,7 @@ HTML;
 			'fleetDestroySuccess'	=> null,
 		);
 		
-		$randChance	= mt_rand(0, 100);
+		$randChance	= mt_rand(1, 100);
 		if ($randChance <= $chanceCreateMoon)
 		{		
 			require_once(ROOT_PATH.'includes/functions/CreateOneMoonRecord.php');
