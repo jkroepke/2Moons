@@ -290,7 +290,7 @@ HTML;
 				$moonDestroyChance	= min($moonDestroyChance, 100);
 				$moonDestroyChance	= max($moonDestroyChance, 0);
 				
-				$randChance	= mt_rand(0, 100);
+				$randChance	= mt_rand(1, 100);
 				if ($randChance <= $moonDestroyChance)
 				{
 					$planetID	= $GLOBALS['DATABASE']->countquery("SELECT id FROM ".PLANETS." WHERE id_luna = ".$targetPlanet['id'].";");
@@ -318,7 +318,7 @@ HTML;
 				
 				$fleetDestroyChance	= round(sqrt($targetPlanet['diameter']) / 2);
 				
-				$randChance	= mt_rand(0, 100);
+				$randChance	= mt_rand(1, 100);
 				if ($randChance <= $fleetDestroyChance)
 				{
 					$this->KillFleet();
