@@ -441,7 +441,7 @@ class ShowAlliancePage extends AbstractPage
 		{
 			if ($this->allianceData['ally_owner'] == $memberListRow['id'])
 				$memberListRow['ally_rankName'] = empty($this->allianceData['ally_owner_range']) ? $LNG['al_founder_rank_text'] : $this->allianceData['ally_owner_range'];
-			elseif ($memberListRow['ally_rank_id'] != 0)
+			elseif ($memberListRow['ally_rank_id'] != 0 && $rankList[$memberListRow['ally_rank_id']])
 				$memberListRow['ally_rankName'] = $rankList[$memberListRow['ally_rank_id']];
 			else
 				$memberListRow['ally_rankName'] = $LNG['al_new_member_rank_text'];
@@ -838,6 +838,7 @@ class ShowAlliancePage extends AbstractPage
 		
 		if(!empty($delete)) {
 			$GLOBALS['DATABASE']->query("DELETE FROM ".ALLIANCE_RANK." WHERE rankID = ".$delete." AND allianceID = ".$this->allianceData['id'].";");
+			$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET ally_rank_id = 0 WHERE rankID = ".$delete." AND ally_id = ".$this->allianceData['id'].";");
 		}
 		
 		foreach($rankData as $rankID => $rankRow) {
@@ -942,7 +943,7 @@ class ShowAlliancePage extends AbstractPage
 					continue;
 			}
 			
-			$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET ally_rank_id = ".((int) $rankID)." WHERE id = ".((int) $userID).";");
+			$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET ally_rank_id = ".((int) $rankID)." WHERE id = ".((int) $userID)." AND ally_id = ".$this->allianceData['id'].";");
 		}
 		
 		$this->redirectTo('game.php?page=alliance&mode=admin&action=members');
