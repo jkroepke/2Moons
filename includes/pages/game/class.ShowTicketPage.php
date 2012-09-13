@@ -106,7 +106,9 @@ class ShowTicketPage extends AbstractPage
 	function view() 
 	{
 		global $USER, $LNG;
-				
+		
+		require_once(ROOT_PATH.'includes/functions/BBCode.php');
+		
 		$ticketID			= HTTP::_GP('id', 0);
 		$answerResult		= $GLOBALS['DATABASE']->query("SELECT a.*, t.categoryID, t.status FROM ".TICKETS_ANSWER." a INNER JOIN ".TICKETS." t USING(ticketID) WHERE a.ticketID = ".$ticketID." ORDER BY a.answerID;");
 		$answerList			= array();
@@ -117,6 +119,7 @@ class ShowTicketPage extends AbstractPage
 		
 		while($answerRow = $GLOBALS['DATABASE']->fetch_array($answerResult)) {
 			$answerRow['time']	= _date($LNG['php_tdformat'], $answerRow['time'], $USER['timezone']);
+			$answerRow['message']	= bbcode($answerRow['message']);
 			$answerList[$answerRow['answerID']]	= $answerRow;
 			if (empty($ticket_status))
 				$ticket_status = $answerRow['status'];
