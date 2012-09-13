@@ -521,7 +521,7 @@ switch ($page) {
 			
 		$luser = HTTP::_GP('username', '', UTF8_SUPPORT);
 		$lpass = HTTP::_GP('password', '', true);
-		$login = $GLOBALS['DATABASE']->uniquequery("SELECT id, username, password, dpath, authlevel, id_planet FROM ".USERS." WHERE universe = ".$UNI." AND username = '".$GLOBALS['DATABASE']->sql_escape($luser)."';");
+		$login = $GLOBALS['DATABASE']->uniquequery("SELECT id, username, password, dpath, authlevel, id_planet, banaday FROM ".USERS." WHERE universe = ".$UNI." AND username = '".$GLOBALS['DATABASE']->sql_escape($luser)."';");
 			
 		if (isset($login)) {
 			if($login['password'] != cryptPassword($lpass)) {
@@ -531,6 +531,10 @@ switch ($page) {
 				} else {
 					HTTP::redirectTo('index.php?code=1');	
 				}
+			}
+			
+			if ($login['banaday'] <= TIMESTAMP) {
+				$db->query("UPDATE " . USERS . " SET `banaday` = '0', `bana` = '0' WHERE `username` = '" . $login ['username'] . "';");
 			}
 			
 			$SESSION       	= new Session();
