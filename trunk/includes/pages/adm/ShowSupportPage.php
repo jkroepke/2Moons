@@ -100,6 +100,8 @@ class ShowSupportPage
 	function view() 
 	{
 		global $USER, $LNG;
+		
+		require_once(ROOT_PATH.'includes/functions/BBCode.php');
 				
 		$ticketID			= HTTP::_GP('id', 0);
 		$answerResult		= $GLOBALS['DATABASE']->query("SELECT a.*, t.categoryID, t.status FROM ".TICKETS_ANSWER." a INNER JOIN ".TICKETS." t USING(ticketID) WHERE a.ticketID = ".$ticketID." ORDER BY a.answerID;");
@@ -110,6 +112,7 @@ class ShowSupportPage
 				$ticket_status = $answerRow['status'];
 			$answerRow['time']	= _date($LNG['php_tdformat'], $answerRow['time'], $USER['timezone']);
 			
+			$answerRow['message']	= bbcode($answerRow['message']);
 			$answerList[$answerRow['answerID']]	= $answerRow;
 		}
 		
