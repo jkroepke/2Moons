@@ -73,8 +73,14 @@ class ShowFleetStep3Page extends AbstractPage
 		$fleetStorage	= $_SESSION['fleet'][$token]['fleetRoom'];
 		$fleetSpeed		= $_SESSION['fleet'][$token]['fleetSpeed'];
 		unset($_SESSION['fleet'][$token]);
+		
+		if($targetMission != 2)
+		{
+			$fleetGroup	= 0;
+		}
 			
-		if ($PLANET['galaxy'] == $targetGalaxy && $PLANET['system'] == $targetSystem && $PLANET['planet'] == $targetPlanet && $PLANET['planet_type'] == $targetType) {
+		if ($PLANET['galaxy'] == $targetGalaxy && $PLANET['system'] == $targetSystem && $PLANET['planet'] == $targetPlanet && $PLANET['planet_type'] == $targetType)
+		{
 			FleetFunctions::GotoFleetPage(3);
 		}
 
@@ -85,19 +91,21 @@ class ShowFleetStep3Page extends AbstractPage
 			FleetFunctions::GotoFleetPage(4);
 		}
 
-		if ($targetMission == 3 && $TransportMetal + $TransportCrystal + $TransportDeuterium < 1) {
+		if ($targetMission == 3 && $TransportMetal + $TransportCrystal + $TransportDeuterium < 1)
+		{
 			FleetFunctions::GotoFleetPage(5);
 		}
 		
 		$ActualFleets		= FleetFunctions::GetCurrentFleets($USER['id']);
 		
-		if (FleetFunctions::GetMaxFleetSlots($USER) <= $ActualFleets) {
+		if (FleetFunctions::GetMaxFleetSlots($USER) <= $ActualFleets)
+		{
 			FleetFunctions::GotoFleetPage(6);
 		}
 		
 		$ACSTime = 0;
 		
-		if(!empty($fleetGroup) && $targetMission == 2)
+		if(!empty($fleetGroup))
 		{
 			$ACSTime = $GLOBALS['DATABASE']->countquery("SELECT ankunft
 			FROM ".USERS_ACS." 
@@ -284,13 +292,22 @@ class ShowFleetStep3Page extends AbstractPage
 			exit;
 		
 		$fleetStartTime		= $duration + TIMESTAMP;
-		$fleetStayTime		= $fleetStartTime + $StayDuration;
-		$fleetEndTime		= $fleetStayTime + $duration;
 		$timeDifference		= round(max(0, $fleetStartTime - $ACSTime));
 		
-		if($fleetGroup != 0 && $timeDifference != 0) {
-			FleetFunctions::setACSTime($timeDifference, $fleetGroup);
+		if($fleetGroup != 0)
+		{
+			if($timeDifference != 0)
+			{
+				FleetFunctions::setACSTime($timeDifference, $fleetGroup);
+			}
+			else
+			{
+				$fleetStartTime		= $ACSTime;
+			}
 		}
+		
+		$fleetStayTime		= $fleetStartTime + $StayDuration;
+		$fleetEndTime		= $fleetStayTime + $duration;
 		
 		FleetFunctions::sendFleet($fleetArray, $targetMission, $USER['id'], $PLANET['id'], $PLANET['galaxy'], $PLANET['system'], $PLANET['planet'], $PLANET['planet_type'], $targetPlanetData['id_owner'], $targetPlanetData['id'], $targetGalaxy, $targetSystem, $targetPlanet, $targetType, $fleetRessource, $fleetStartTime, $fleetStayTime, $fleetEndTime, $fleetGroup);
 		
