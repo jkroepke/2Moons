@@ -292,6 +292,12 @@ class ShowFleetStep3Page extends AbstractPage
 			FleetFunctions::setACSTime($timeDifference, $fleetGroup);
 		}
 		
+		if($fleetGroup != 0 && $timeDifference == 0) {
+			$fleetStartTime		= $ACSTime;
+			$fleetStayTime		= $fleetStartTime + $StayDuration;
+			$fleetEndTime		= $fleetStayTime + $duration;
+		}
+		
 		FleetFunctions::sendFleet($fleetArray, $targetMission, $USER['id'], $PLANET['id'], $PLANET['galaxy'], $PLANET['system'], $PLANET['planet'], $PLANET['planet_type'], $targetPlanetData['id_owner'], $targetPlanetData['id'], $targetGalaxy, $targetSystem, $targetPlanet, $targetType, $fleetRessource, $fleetStartTime, $fleetStayTime, $fleetEndTime, $fleetGroup);
 		
 		foreach ($fleetArray as $Ship => $Count)
