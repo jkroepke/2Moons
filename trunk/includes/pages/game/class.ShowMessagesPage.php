@@ -52,14 +52,14 @@ class ShowMessagesPage extends AbstractPage
 		if($MessCategory == 999)  {
 			$MessageCount	= $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".MESSAGES." WHERE message_sender = ".$USER['id']." AND message_type != 50;");
 			
-			$maxPage	= ceil($MessageCount / MESSAGES_PER_PAGE);
+			$maxPage	= max(1, ceil($MessageCount / MESSAGES_PER_PAGE));
 			$page		= max(1, min($page, $maxPage));
 			
 			$MessageResult	= $GLOBALS['DATABASE']->query("SELECT message_id, message_time, CONCAT(username, ' [',galaxy, ':', system, ':', planet,']') as message_from, message_subject, message_sender, message_type, message_unread, message_text FROM ".MESSAGES." INNER JOIN ".USERS." ON id = message_owner WHERE message_sender = ".$USER['id']." AND message_type != 50 ORDER BY message_time DESC LIMIT ".(($page - 1) * MESSAGES_PER_PAGE).", ".MESSAGES_PER_PAGE.";");
 		} else {
 			$MessageCount 	= $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".MESSAGES." WHERE message_owner = ".$USER['id'].($MessCategory != 100 ? " AND message_type = ".$MessCategory : "").";");
 			
-			$maxPage	= ceil($MessageCount / MESSAGES_PER_PAGE);
+			$maxPage	= max(1, ceil($MessageCount / MESSAGES_PER_PAGE));
 			$page		= max(1, min($page, $maxPage));
 			
 			$MessageResult	= $GLOBALS['DATABASE']->query("SELECT message_id, message_time, message_from, message_subject, message_sender, message_type, message_unread, message_text FROM ".MESSAGES." WHERE message_owner = ".$USER['id'].($MessCategory != 100 ? " AND message_type = ".$MessCategory:"")." ORDER BY message_time DESC LIMIT ".(($page - 1) * MESSAGES_PER_PAGE).", ".MESSAGES_PER_PAGE.";");
@@ -99,52 +99,86 @@ class ShowMessagesPage extends AbstractPage
 	}
 	
 	
-	function delete()
+	function action()
 	{
 		global $USER;
-		$DeleteWhat 	= HTTP::_GP('deletemessages','');
+		
 		$MessCategory  	= HTTP::_GP('messcat', 100);
+		$action		 	= HTTP::_GP('action', '');
+		$page		 	= HTTP::_GP('page', 1);
 		
-		if($DeleteWhat == 'deleteunmarked' && (empty($_REQUEST['delmes']) || !is_array($_REQUEST['delmes'])))
-			$DeleteWhat	= 'deletetypeall';
+		if($action == 'deleteunmarked' && (empty($_REQUEST['delmes']) || !is_array($_REQUEST['delmes'])))
+			$action	= 'deletetypeall';
 		
-		if($DeleteWhat == 'deletetypeall' && $MessCategory == 100)
-			$DeleteWhat	= 'deleteall';
+		if($action == 'deletetypeall' && $MessCategory == 100)
+			$action	= 'deleteall';
 		
+		if($action == 'readtypeall' && $MessCategory == 100)
+			$action	= 'readall';
 		
-		switch($DeleteWhat)
+		$redirectUrl	= 'game.php?page=messages&category='.$MessCategory.'&side='.$page;
+		
+		switch($action)
 		{
+			case 'readall':
+				$GLOBALS['DATABASE']->query("UPDATE ".MESSAGES." SET message_unread = 0 WHERE message_owner = ".$USER['id'].";");
+			break;
+			case 'readtypeall':
+				$GLOBALS['DATABASE']->query("UPDATE ".MESSAGES." SET message_unread = 0 WHERE message_owner = ".$USER['id']." AND message_type = ".$MessCategory.";");
+			break;
+			case 'readmarked':
+				if(empty($_REQUEST['delmes']) || !is_array($_REQUEST['delmes']))
+				{
+					$this->redirectTo($redirectUrl);
+				}	
+				
+				$messageIDs	= array_filter($_REQUEST['delmes'], 'is_numeric');
+				
+				if(empty($messageIDs))
+				{
+					$this->redirectTo($redirectUrl);
+				}
+				
+				$GLOBALS['DATABASE']->query("UPDATE ".MESSAGES." SET message_unread = 0 message_id IN (".implode(',', $messageIDs).") AND message_owner = ".$USER['id'].";");
+			break;
 			case 'deleteall':
 				$GLOBALS['DATABASE']->query("DELETE FROM ".MESSAGES." WHERE message_owner = ".$USER['id'].";");
 			break;
 			case 'deletetypeall':
 				$GLOBALS['DATABASE']->query("DELETE FROM ".MESSAGES." WHERE message_owner = ".$USER['id']." AND message_type = ".$MessCategory.";");
+			break;
 			case 'deletemarked':
-				$SQLWhere = array();
 				if(empty($_REQUEST['delmes']) || !is_array($_REQUEST['delmes']))
-					$this->redirectTo('game.php?page=messages');
-					
-				foreach($_REQUEST['delmes'] as $MessID => $b)
 				{
-					$SQLWhere[] = "message_id = '".(int) $MessID."'";
+					$this->redirectTo($redirectUrl);
+				}	
+				
+				$messageIDs	= array_filter($_REQUEST['delmes'], 'is_numeric');
+				
+				if(empty($messageIDs))
+				{
+					$this->redirectTo($redirectUrl);
 				}
 				
-				$GLOBALS['DATABASE']->query("DELETE FROM ".MESSAGES." WHERE (".implode(" OR ",$SQLWhere).") AND message_owner = ".$USER['id'].(($MessCategory != 100)? " AND message_type = ".$MessCategory." ":"").";");
+				$GLOBALS['DATABASE']->query("DELETE FROM ".MESSAGES." WHERE message_id IN (".implode(',', $messageIDs).") AND message_owner = ".$USER['id'].";");
 			break;
 			case 'deleteunmarked':
-				if(!empty($_REQUEST['delmes']) && is_array($_REQUEST['delmes']))
+				if(empty($_REQUEST['delmes']) || !is_array($_REQUEST['delmes']))
 				{
-					$SQLWhere = array();
-					foreach($_REQUEST['delmes'] as $MessID => $b)
-					{
-						$SQLWhere[] = "message_id != '".(int) $MessID."'";
-					}
-					
-					$GLOBALS['DATABASE']->query("DELETE FROM ".MESSAGES." WHERE (".implode(" AND ",$SQLWhere).") AND message_owner = '".$USER['id']."'".(($MessCategory != 100)? " AND message_type = '".$MessCategory."' ":"").";");
+					$this->redirectTo($redirectUrl);
+				}	
+				
+				$messageIDs	= array_filter($_REQUEST['delmes'], 'is_numeric');
+				
+				if(empty($messageIDs))
+				{
+					$this->redirectTo($redirectUrl);
 				}
+				
+				$GLOBALS['DATABASE']->query("DELETE FROM ".MESSAGES." WHERE message_id NOT IN (".implode(',', $messageIDs).") AND message_owner = ".$USER['id'].";");
 			break;
 		}
-		$this->redirectTo('game.php?page=messages');
+		$this->redirectTo($redirectUrl);
 	}
 	
 	function send() 
@@ -194,6 +228,9 @@ class ShowMessagesPage extends AbstractPage
 	{
 		global $USER, $PLANET, $CONF, $UNI;
 		
+		$category      	= HTTP::_GP('category', 0);
+		$side			= HTTP::_GP('side', 1);
+		
 		$CategoryType   = array ( 0, 1, 2, 3, 4, 5, 15, 50, 99, 100, 999);
 		$TitleColor    	= array ( 0 => '#FFFF00', 1 => '#FF6699', 2 => '#FF3300', 3 => '#FF9900', 4 => '#773399', 5 => '#009933', 15 => '#6495ed', 50 => '#666600', 99 => '#007070', 100 => '#ABABAB', 999 => '#CCCCCC');
 		
@@ -238,6 +275,8 @@ class ShowMessagesPage extends AbstractPage
 		$this->tplObj->assign_vars(array(	
 			'CategoryList'	=> $CategoryList,
 			'OperatorList'	=> $OperatorList,
+			'category'		=> $category,
+			'side'			=> $side,
 		));
 		
 		$this->display('page.messages.default.tpl');
