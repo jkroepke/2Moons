@@ -4,7 +4,7 @@
 	</div>
 	{foreach $classIDs as $Class => $elementIDs}
 	<div class="spyRaportContainer">
-	<div class="spyRaportContainerHead">{$LNG.tech.$Class}</div>
+	<div class="spyRaportContainerHead spyRaportContainerHeadClass{$Class}">{$LNG.tech.$Class}</div>
 	{foreach $elementIDs as $elementID}
 	{if ($elementID@iteration % 2) === 1}<div class="spyRaportContainerRow clearfix">{/if}
 		<div class="spyRaportContainerCell">{$LNG.tech.$elementID}</div>
