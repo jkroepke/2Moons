@@ -78,7 +78,7 @@
 					<tr>
 						<td class="transparent left" style="width:90%;padding:0px 10px 10px 10px;">
 							<p>{$LNG.shortDescription.{$ID}}</p>
-							<p>{foreach $Element.elementBonus as $BonusName => $Bonus}{$LNG.bonus.$BonusName|replace:'%f%':{abs($Bonus * 100)}}<br>{/foreach}</p>
+							<p>{foreach $Element.elementBonus as $BonusName => $Bonus}{if $ID != 611}{$LNG.bonus.$BonusName|replace:'%f%':{abs($Bonus * 100)}}{else}{$LNG.bonus.$BonusName|replace:'%f%%':{abs($Bonus)}}{/if}<br>{/foreach}</p>
 							<p>{foreach $Element.costRessources as $RessID => $RessAmount}{$LNG.tech.{$RessID}}: <b><span style="color:{if $Element.costOverflow[$RessID] == 0}lime{else}red{/if}">{$RessAmount|number}</span></b>{/foreach}</p>
 						</td>
 						<td class="transparent" style="vertical-align:middle;width:100px">
