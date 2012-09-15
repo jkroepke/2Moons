@@ -534,7 +534,7 @@ switch ($page) {
 			}
 			
 			if ($login['banaday'] <= TIMESTAMP) {
-				$db->query("UPDATE " . USERS . " SET `banaday` = '0', `bana` = '0' WHERE `username` = '" . $login ['username'] . "';");
+				$GLOBALS['DATABASE']->query("UPDATE " . USERS . " SET `banaday` = '0', `bana` = '0' WHERE `username` = '" . $login ['username'] . "';");
 			}
 			
 			$SESSION       	= new Session();
