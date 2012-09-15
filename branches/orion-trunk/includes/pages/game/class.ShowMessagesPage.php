@@ -117,8 +117,10 @@ class ShowMessagesPage extends AbstractPage
 		if($action == 'readtypeall' && $MessCategory == 100)
 			$action	= 'readall';
 
-		foreach($_REQUEST['delmes'] as $MessID => $b)
-			$messageIDs[] = $MessID;
+		if(!empty($_REQUEST['delmes'])){
+			foreach($_REQUEST['delmes'] as $MessID => $b)
+				$messageIDs[] = $MessID;
+		}
 
 		$redirectUrl	= 'game.php?page=messages&category='.$MessCategory.'&side='.$page;
 		
