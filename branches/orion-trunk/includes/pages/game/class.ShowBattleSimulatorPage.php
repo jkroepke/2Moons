@@ -246,7 +246,9 @@ class ShowBattleSimulatorPage extends AbstractPage
 	function show()
 	{
 		global $USER, $PLANET, $reslist, $pricelist, $resource, $LNG, $LANG, $CONF;
-	
+		
+		require_once(ROOT_PATH.'includes/classes/class.FleetFunctions.php');
+		
 		$action			= HTTP::_GP('action', '');
 		$Slots			= HTTP::_GP('slots', 1);
 		
@@ -257,7 +259,11 @@ class ShowBattleSimulatorPage extends AbstractPage
 
 		foreach($reslist['fleet'] as $ID)
 		{
-			$BattleArray[0][0][$ID]	= $PLANET[$resource[$ID]];
+			if(FleetFunctions::GetFleetMaxSpeed($ID, $USER) > 0)
+			{
+				// Add just flyable elements
+				$BattleArray[0][0][$ID]	= $PLANET[$resource[$ID]];
+			}
 		}
 		
 		if(isset($_REQUEST['im']))

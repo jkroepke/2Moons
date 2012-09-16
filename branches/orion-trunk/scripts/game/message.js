@@ -17,7 +17,7 @@ Message	= {
 			var count = parseInt($('#unread_'+Message.MessID).text());
 			var lmnew = parseInt($('#newmesnum').text());
 				
-			$('#unread_'+Message.MessID).text('0');
+			$('#unread_'+Message.MessID).text(Math.max(0, $('#unread_100').text() - 10));
 			if(Message.MessID != 999) {
 				$('#unread_100').text($('#unread_100').text() - count);
 			}

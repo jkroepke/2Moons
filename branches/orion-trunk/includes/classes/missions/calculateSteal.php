@@ -54,10 +54,12 @@ function calculateSteal($attackFleets, $defenderPlanet, $simMode = false)
 			$SortFleets[$FleetID]		+= $pricelist[$Element]['capacity'] * $amount;
 		}
 		
+		$SortFleets[$FleetID]	*= (1 + $Attacker['player']['factor']['ShipStorage']);
+		
 		$SortFleets[$FleetID]	-= $Attacker['fleetDetail']['fleet_resource_metal'];
 		$SortFleets[$FleetID]	-= $Attacker['fleetDetail']['fleet_resource_crystal'];
 		$SortFleets[$FleetID]	-= $Attacker['fleetDetail']['fleet_resource_deuterium'];
-		$capacity			+= $SortFleets[$FleetID];
+		$capacity				+= $SortFleets[$FleetID];
 	}
 	
 	$AllCapacity		= $capacity;
@@ -65,7 +67,6 @@ function calculateSteal($attackFleets, $defenderPlanet, $simMode = false)
 	{
 		return $stealResource;
 	}
-
 	
 	// Step 1
 	$stealResource[$firstResource]		= min($capacity / 3, $defenderPlanet[$resource[$firstResource]] / 2);

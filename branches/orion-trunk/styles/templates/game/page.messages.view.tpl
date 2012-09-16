@@ -1,5 +1,9 @@
 {block name="content"}
-<form action="game.php?page=messages&amp;mode=delete&amp;messcat={$MessID}&amp;ajax=1" method="post">
+<form action="game.php?page=messages" method="post">
+<input type="hidden" name="mode" value="action">
+<input type="hidden" name="ajax" value="1">
+<input type="hidden" name="messcat" value="{$MessID}">
+<input type="hidden" name="side" value="{$page}">
 <table id="messagestable" style="width:760px;">
 	<tr>
 		<th colspan="4">{$LNG.mg_message_title}</th>
@@ -38,13 +42,16 @@
 	{if $MessID != 999}
 	<tr>
 		<td colspan="4">
-			<select name="deletemessages">
+			<select name="action">
+				<option value="readmarked">{$LNG.mg_read_marked}</option>
+				<option value="readtypeall">{$LNG.mg_read_type_all}</option>
+				<option value="readall">{$LNG.mg_read_all}</option>
 				<option value="deletemarked">{$LNG.mg_delete_marked}</option>
 				<option value="deleteunmarked">{$LNG.mg_delete_unmarked}</option>
 				<option value="deletetypeall">{$LNG.mg_delete_type_all}</option>
 				<option value="deleteall">{$LNG.mg_delete_all}</option>
 			</select>
-			<input value="{$LNG.mg_confirm_delete}" type="submit">
+			<input value="{$LNG.mg_confirm}" type="submit">
 		</td>
 	</tr>
 	{/if}

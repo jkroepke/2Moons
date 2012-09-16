@@ -293,7 +293,7 @@ HTML;
 			'fleetDestroySuccess'	=> null,
 		);
 		
-		$randChance	= mt_rand(0, 100);
+		$randChance	= mt_rand(1, 100);
 		if ($randChance <= $chanceCreateMoon)
 		{		
 			require_once(ROOT_PATH.'includes/functions/CreateOneMoonRecord.php');
@@ -452,6 +452,12 @@ HTML;
 						der_crystal = ".$planetDebris[902]."
 						WHERE
 						".$debrisType." = ".$this->_fleet['fleet_end_id'].";
+						UPDATE ".PLANETS." SET
+						metal = metal - ".$stealResource[901].",
+						crystal = crystal - ".$stealResource[902].",
+						deuterium = deuterium - ".$stealResource[903]."
+						WHERE
+						id = ".$this->_fleet['fleet_end_id'].";
 						INSERT INTO ".TOPKB." SET
 						units = ".($combatResult['unitLost']['attacker'] + $combatResult['unitLost']['defender']).",
 						rid = ".$raportID.",

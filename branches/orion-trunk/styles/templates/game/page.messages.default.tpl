@@ -24,3 +24,10 @@
 	{/foreach}
 </table>
 {/block}
+{block name="script" append}
+{if !empty($category)}
+<script>$(function() {
+	Message.getMessages({$category}, {$side});
+})</script>
+{/if}
+{/block}

@@ -78,10 +78,11 @@ class ShowResearchPage extends AbstractPage
 		} else {
 			$SQL	= "UPDATE ".PLANETS." SET ";
 			
-			if(isset($costRessources[901])) { $SQL	.= $resource[901]." = ".$resource[901]." + ".$costRessources[901]." "; }
-			if(isset($costRessources[902])) { $SQL	.= $resource[902]." = ".$resource[902]." + ".$costRessources[902]." "; }
-			if(isset($costRessources[903])) { $SQL	.= $resource[903]." = ".$resource[903]." + ".$costRessources[903]." "; }
+			if(isset($costRessources[901])) { $SQL	.= $resource[901]." = ".$resource[901]." + ".$costRessources[901].", "; }
+			if(isset($costRessources[902])) { $SQL	.= $resource[902]." = ".$resource[902]." + ".$costRessources[902].", "; }
+			if(isset($costRessources[903])) { $SQL	.= $resource[903]." = ".$resource[903]." + ".$costRessources[903].", "; }
 			
+			$SQL	= substr($SQL, 0, -2);
 			$SQL	.= " WHERE `id` = ".$USER['b_tech_planet'].";";
 			
 			$GLOBALS['DATABASE']->query($SQL);

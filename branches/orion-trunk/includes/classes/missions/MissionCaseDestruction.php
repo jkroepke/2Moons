@@ -274,7 +274,7 @@ HTML;
 			'moonDestroy'			=> true,
 			'moonName'				=> null,
 			'moonDestroyChance'		=> null,
-			'moonDestroySuccess'	=> false,
+			'moonDestroySuccess'	=> null,
 			'fleetDestroyChance'	=> null,
 			'fleetDestroySuccess'	=> false,
 		);
@@ -286,10 +286,11 @@ HTML;
 			case "a":
 				$moonDestroyChance	= round((100 - sqrt($targetPlanet['diameter'])) * sqrt($fleetAttack[$this->_fleet['fleet_id']]['unit'][214]), 1);
 				
-				// Max 100%
+				// Max 100% | Min 0%
 				$moonDestroyChance	= min($moonDestroyChance, 100);
+				$moonDestroyChance	= max($moonDestroyChance, 0);
 				
-				$randChance	= mt_rand(0, 100);
+				$randChance	= mt_rand(1, 100);
 				if ($randChance <= $moonDestroyChance)
 				{
 					$planetID	= $GLOBALS['DATABASE']->countquery("SELECT id FROM ".PLANETS." WHERE id_luna = ".$targetPlanet['id'].";");
@@ -310,14 +311,14 @@ HTML;
 					DELETE FROM ".PLANETS." 
 					WHERE id = ".$targetPlanet['id'].";");
 					
-					$raportInfo['moonDestroySuccess'] = 0;
+					$raportInfo['moonDestroySuccess'] = 1;
 				} else {
-					$raportInfo['moonDestroySuccess'] = 2;
+					$raportInfo['moonDestroySuccess'] = 0;
 				}
 				
 				$fleetDestroyChance	= round(sqrt($targetPlanet['diameter']) / 2);
 				
-				$randChance	= mt_rand(0, 100);
+				$randChance	= mt_rand(1, 100);
 				if ($randChance <= $fleetDestroyChance)
 				{
 					$this->KillFleet();
@@ -342,12 +343,14 @@ HTML;
 				$defendStatus	= 'draws';
 				$attackClass	= 'raportDraw';
 				$defendClass	= 'raportDraw';
+				$raportInfo['moonDestroySuccess'] = -1;
 			break;
 			case "r":
 				$attackStatus	= 'loos';
 				$defendStatus	= 'wons';
 				$attackClass	= 'raportLose';
 				$defendClass	= 'raportWin';
+				$raportInfo['moonDestroySuccess'] = -1;
 			break;
 		}
 		
@@ -461,6 +464,12 @@ HTML;
 						der_crystal = ".$planetDebris[902]."
 						WHERE
 						".$debrisType." = ".$this->_fleet['fleet_end_id'].";
+						UPDATE ".PLANETS." SET
+						metal = metal - ".$stealResource[901].",
+						crystal = crystal - ".$stealResource[902].",
+						deuterium = deuterium - ".$stealResource[903]."
+						WHERE
+						id = ".$this->_fleet['fleet_end_id'].";
 						INSERT INTO ".TOPKB." SET
 						units = ".($combatResult['unitLost']['attacker'] + $combatResult['unitLost']['defender']).",
 						rid = ".$raportID.",
