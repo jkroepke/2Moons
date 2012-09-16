@@ -3,6 +3,7 @@
 $LNG['Messages']							= 'Mensajes';
 $LNG['write_message']						= 'Escribir mensaje';
 
+$LNG['PM']									= '[MP]';
 $LNG['ready']								= 'Listo';
 
 $LNG['loading']								= 'Cargando ...';
@@ -330,7 +331,6 @@ $LNG['fl_acs_change_name']					= 'Enscribir un nuevo nombre';
 $LNG['fl_error_not_avalible']				= '¡No se puede hacer nada con este planeta!';
 $LNG['fl_error_empty_derbis']				= 'No hay escombros.';
 $LNG['fl_error_no_moon']					= 'No hay luna.';
-$LNG['fl_error_same_planet']				= 'El origen y el destino no pueden ser el mismo planeta!';
 $LNG['fl_send_error'][3]					= 'Planeta objetivo y de lanzamiento son el mismo.';
 $LNG['fl_send_error'][4]					= 'Objetivo no válido';
 $LNG['fl_send_error'][5]					= 'No hay materia prima cargada!';
@@ -497,9 +497,12 @@ $LNG['mg_type'][999]						= 'Bandeja de Salida';
 $LNG['mg_no_subject']						= 'Sin asunto';
 $LNG['mg_no_text']							= 'Falta el mensaje';
 $LNG['mg_msg_sended']						= '¡Mensaje enviado!';
+$LNG['mg_read_marked']						= 'Marcar los mensajes señalados como leídos';
 $LNG['mg_delete_marked']					= 'Borrar mensajes marcados';
+$LNG['mg_read_type_all']					= 'Marcar todos los mensajes de este tipo como leídos';
 $LNG['mg_delete_type_all']					= 'Borrar todos los mensajes de este tipo';
 $LNG['mg_delete_unmarked']					= 'Borrar todos los mensajes sin marcar';
+$LNG['mg_read_all']							= 'Marcar todos los mensajes como leídos';
 $LNG['mg_delete_all']						= 'Borrar todos los mensajes';
 $LNG['mg_show_only_header_spy_reports']		= 'Mostrar sólo el encabezado de los informes de espionaje';
 $LNG['mg_action']							= 'Acción';
@@ -507,7 +510,7 @@ $LNG['mg_date']								= 'Fecha';
 $LNG['mg_from']								= 'De';
 $LNG['mg_to']								= 'a';
 $LNG['mg_subject']							= 'asunto';
-$LNG['mg_confirm_delete']					= 'Confirmar';
+$LNG['mg_confirm']							= 'Confirmar';
 $LNG['mg_message_title']					= 'Mensajes';
 $LNG['mg_message_type']						= 'Tipo del mensaje';
 $LNG['mg_total']							= 'Total';
