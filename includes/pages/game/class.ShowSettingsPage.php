@@ -80,6 +80,7 @@ class ShowSettingsPage extends AbstractPage
 				'timezone'			=> $USER['timezone'],
 				'delete'			=> $USER['db_deaktjava'],
 				'queueMessages'		=> $USER['hof'],
+				'spyMessagesMode'	=> $USER['spyMessagesMode'],
 				'galaxySpy' 		=> $USER['settings_esp'],
 				'galaxyBuddyList' 	=> $USER['settings_bud'],
 				'galaxyMissle' 		=> $USER['settings_mis'],
@@ -187,7 +188,8 @@ class ShowSettingsPage extends AbstractPage
 		$theme				= HTTP::_GP('theme', $THEME->getThemeName());	
 	
 		$queueMessages		= HTTP::_GP('queueMessages', 0);	
-		
+		$spyMessagesMode	= HTTP::_GP('spyMessagesMode', 0);
+
 		$spycount			= HTTP::_GP('spycount', 1);	
 		$fleetactions		= HTTP::_GP('fleetactions', 5);	
 		
@@ -301,7 +303,8 @@ class ShowSettingsPage extends AbstractPage
 					settings_mis = ".$galaxyMissle.",
 					authattack = ".$adminprotection.",
 					lang = '".$language."',
-					hof = ".$queueMessages."
+					hof = ".$queueMessages.",
+					spyMessagesMode = ".$spyMessagesMode."
 					WHERE id = '".$USER["id"]."';";
 		
 		$GLOBALS['DATABASE']->multi_query($SQL);

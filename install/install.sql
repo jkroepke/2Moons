@@ -726,6 +726,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%users` (
   `bana` tinyint(1) NOT NULL DEFAULT '0',
   `banaday` int(11) NOT NULL DEFAULT '0',
   `hof` tinyint(1) NOT NULL DEFAULT '1',
+  `spyMessagesMode` tinyint(1) NOT NULL DEFAULT '0',
   `wons` int(11) unsigned NOT NULL DEFAULT '0',
   `loos` int(11) unsigned NOT NULL DEFAULT '0',
   `draws` int(11) unsigned NOT NULL DEFAULT '0',

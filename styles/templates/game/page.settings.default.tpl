@@ -69,6 +69,10 @@
 			<td><input name="queueMessages" type="checkbox" value="1" {if $queueMessages == 1}checked="checked"{/if}></td>
 		</tr>
 		<tr>
+			<td>{$LNG.op_active_spy_messages_mode}</td>
+			<td><input name="spyMessagesMode" type="checkbox" value="1" {if $spyMessagesMode == 1}checked="checked"{/if}></td>
+		</tr>
+		<tr>
 			<th colspan="2">{$LNG.op_galaxy_settings}</th>
 		</tr>
 		<tr>
