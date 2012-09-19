@@ -83,7 +83,7 @@ function bbcode($text) {
 	}
 
 
-	return makebr($bbcode->parse($text));
+	return str_replace('&amp;amp;', '&amp;', makebr($bbcode->parse($text)));
 }
 
 function convertlinebreaks ($text) {
