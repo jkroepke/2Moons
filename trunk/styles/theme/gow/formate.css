@@ -60,7 +60,7 @@ input,button {
 	text-align:center
 }
 
-th, .ui-widget-header  {
+th, .ui-widget-header {
 	background-image:url("img/bkd_title.png");
 	color:#FFF;
 	font-weight:700;
@@ -337,8 +337,20 @@ th a,.res_current{
 	border-color:#000;
 }
 
+.spyRaportContainerHead {
+	background: #212428;
+	color: white;
+	font-weight: 700;
+	text-align: left;
+	margin: 3px 0;
+	padding: 3px;
+}
+
 .spyRaportContainerRow {
-	border-bottom:1px solid #DDD;
+	border-top:1px solid #DDD;
+}
+.spyRaportContainerHead + .spyRaportContainerRow {
+	border-top:0 none;
 }
 
 .ui-autocomplete, .ui-state-hover, .ui-state-default, .ui-tabs-nav, .ui-tabs, .ui-progressbar, .ui-progressbar-value {
