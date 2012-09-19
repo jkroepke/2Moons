@@ -39,7 +39,10 @@ class ShowBattleHallPage extends AbstractPage
 	{
 		global $USER, $PLANET, $LNG, $UNI, $LANG;
 		$mode = HTTP::_GP('mode','');
-
+		$order = HTTP::_GP('order', 'units');
+		$sort = HTTP::_GP('sort', 'asc');
+		$sort = strtoupper($sort);
+		
 		$top = $GLOBALS['DATABASE']->query("SELECT *, (
 			SELECT DISTINCT
 			GROUP_CONCAT(username SEPARATOR ' & ') as attacker
@@ -55,9 +58,25 @@ class ShowBattleHallPage extends AbstractPage
 		FROM ".TOPKB." WHERE `universe` = '".$UNI."' ORDER BY units DESC LIMIT 100;");
 		
 		$TopKBList	= array();
-		
-		while($data = $GLOBALS['DATABASE']->fetch_array($top)) {
-			$TopKBList[]	= array(
+		$i = 1;
+		while($data = $GLOBALS['DATABASE']->fetch_array($top))
+		{
+			switch($order)
+			{
+				case 'date':
+					$key = $data['time'].$data['rid'];
+				break;
+				case 'owner':
+					$key = $data['attacker'].$data['rid'];
+				break;
+				case 'units':
+				default:
+					$key = $data['units'].$data['rid'];
+				break;
+			}
+			
+			$TopKBList[$key]	= array(
+				'rank'		=> $i++,
 				'result'	=> $data['result'],
 				'date'		=> _date($LNG['php_tdformat'], $data['time'], $USER['timezone']),
 				'time'		=> TIMESTAMP - $data['time'],
@@ -68,10 +87,23 @@ class ShowBattleHallPage extends AbstractPage
 			);
 		}
 		
+		ksort($TopKBList);
+
+		if($sort === "DESC")
+		{
+			$TopKBList	= array_reverse($TopKBList);
+		}
+		else
+		{	
+			$sort = "ASC";
+		}
+		
 		$GLOBALS['DATABASE']->free_result($top);
 
 		$this->tplObj->assign_vars(array(
 			'TopKBList'		=> $TopKBList,
+			'sort'			=> $sort,
+			'order'			=> $order,
 		));
 		
 		$this->display('page.battlehall.default.tpl');

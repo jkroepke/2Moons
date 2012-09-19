@@ -10,13 +10,13 @@
 </tr>
 <tr>
     <td>{$LNG.tkb_platz}</td>
-	<td>{$LNG.tkb_owners}</td>
-    <td>{$LNG.tkb_datum}</td>
-	<td>{$LNG.tkb_units}</td>
+	<td><a href="?page=battleHall&order=owner&sort={if $sort == "ASC"}DESC{else}ASC{/if}"{if $order == "owner"} style="font-weight:bold;"{/if}>{$LNG.tkb_owners}</a></td>
+    <td><a href="?page=battleHall&order=date&sort={if $sort == "ASC"}DESC{else}ASC{/if}"{if $order == "date"} style="font-weight:bold;"{/if}>{$LNG.tkb_datum}</a></td>
+	<td><a href="?page=battleHall&order=units&sort={if $sort == "ASC"}DESC{else}ASC{/if}"{if $order == "units"} style="font-weight:bold;"{/if}>{$LNG.tkb_units}</a></td>
 </tr>
 {foreach item=RowInfo key=RowNR from=$TopKBList}
 <tr class="day{floor($RowInfo.date / 86400)} week{floor($RowInfo.date / 604800)}">
-    <td>{$RowNR + 1}</td>
+    <td>{$RowInfo.rank}</td>
     <td><a href="CombatReport.php?mode=battlehall&amp;raport={$RowInfo.rid}" target="_blank">
 	{if $RowInfo.result == "a"}
 	<span style="color:#00FF00">{$RowInfo.attacker}</span> VS <span style="color:#FF0000">{$RowInfo.defender}</span>
