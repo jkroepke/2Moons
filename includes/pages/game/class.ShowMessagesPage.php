@@ -107,7 +107,7 @@ class ShowMessagesPage extends AbstractPage
 		$action		 	= HTTP::_GP('action', '');
 		$page		 	= HTTP::_GP('page', 1);
 		
-		if($action == 'deleteunmarked' && (empty($_REQUEST['delmes']) || !is_array($_REQUEST['delmes'])))
+		if($action == 'deleteunmarked' && (empty($messageIDs) || !is_array($messageIDs)))
 			$action	= 'deletetypeall';
 		
 		if($action == 'deletetypeall' && $MessCategory == 100)
@@ -118,6 +118,8 @@ class ShowMessagesPage extends AbstractPage
 		
 		$redirectUrl	= 'game.php?page=messages&category='.$MessCategory.'&side='.$page;
 		
+		$messageIDs		= HTTP::_GP('messageID', array());
+		
 		switch($action)
 		{
 			case 'readall':
@@ -127,19 +129,19 @@ class ShowMessagesPage extends AbstractPage
 				$GLOBALS['DATABASE']->query("UPDATE ".MESSAGES." SET message_unread = 0 WHERE message_owner = ".$USER['id']." AND message_type = ".$MessCategory.";");
 			break;
 			case 'readmarked':
-				if(empty($_REQUEST['delmes']) || !is_array($_REQUEST['delmes']))
+				if(empty($messageIDs))
 				{
 					$this->redirectTo($redirectUrl);
 				}	
 				
-				$messageIDs	= array_filter($_REQUEST['delmes'], 'is_numeric');
+				$messageIDs	= array_filter($messageIDs, 'is_numeric');
 				
 				if(empty($messageIDs))
 				{
 					$this->redirectTo($redirectUrl);
 				}
 				
-				$GLOBALS['DATABASE']->query("UPDATE ".MESSAGES." SET message_unread = 0 message_id IN (".implode(',', $messageIDs).") AND message_owner = ".$USER['id'].";");
+				$GLOBALS['DATABASE']->query("UPDATE ".MESSAGES." SET message_unread = 0 WHERE message_id IN (".implode(',', array_keys($messageIDs)).") AND message_owner = ".$USER['id'].";");
 			break;
 			case 'deleteall':
 				$GLOBALS['DATABASE']->query("DELETE FROM ".MESSAGES." WHERE message_owner = ".$USER['id'].";");
@@ -148,34 +150,34 @@ class ShowMessagesPage extends AbstractPage
 				$GLOBALS['DATABASE']->query("DELETE FROM ".MESSAGES." WHERE message_owner = ".$USER['id']." AND message_type = ".$MessCategory.";");
 			break;
 			case 'deletemarked':
-				if(empty($_REQUEST['delmes']) || !is_array($_REQUEST['delmes']))
+				if(empty($messageIDs))
 				{
 					$this->redirectTo($redirectUrl);
 				}	
 				
-				$messageIDs	= array_filter($_REQUEST['delmes'], 'is_numeric');
+				$messageIDs	= array_filter($messageIDs, 'is_numeric');
 				
 				if(empty($messageIDs))
 				{
 					$this->redirectTo($redirectUrl);
 				}
 				
-				$GLOBALS['DATABASE']->query("DELETE FROM ".MESSAGES." WHERE message_id IN (".implode(',', $messageIDs).") AND message_owner = ".$USER['id'].";");
+				$GLOBALS['DATABASE']->query("DELETE FROM ".MESSAGES." WHERE message_id IN (".implode(',', array_keys($messageIDs)).") AND message_owner = ".$USER['id'].";");
 			break;
 			case 'deleteunmarked':
-				if(empty($_REQUEST['delmes']) || !is_array($_REQUEST['delmes']))
+				if(empty($messageIDs) || !is_array($messageIDs))
 				{
 					$this->redirectTo($redirectUrl);
 				}	
 				
-				$messageIDs	= array_filter($_REQUEST['delmes'], 'is_numeric');
+				$messageIDs	= array_filter($messageIDs, 'is_numeric');
 				
 				if(empty($messageIDs))
 				{
 					$this->redirectTo($redirectUrl);
 				}
 				
-				$GLOBALS['DATABASE']->query("DELETE FROM ".MESSAGES." WHERE message_id NOT IN (".implode(',', $messageIDs).") AND message_owner = ".$USER['id'].";");
+				$GLOBALS['DATABASE']->query("DELETE FROM ".MESSAGES." WHERE message_id NOT IN (".implode(',', array_keys($messageIDs)).") AND message_owner = ".$USER['id'].";");
 			break;
 		}
 		$this->redirectTo($redirectUrl);
