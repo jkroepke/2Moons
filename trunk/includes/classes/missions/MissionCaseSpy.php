@@ -107,6 +107,26 @@ class MissionCaseSpy extends MissionFunctions
 		$targetChance 	= mt_rand(0, min(($fleetAmount/4) * ($targetSpyLvl / $ownSpyLvl), 100));
 		$spyChance  	= mt_rand(0, 100);
 		
+		foreach($classIDs as $classID => $elementIDs)
+		{
+			foreach($elementIDs as $elementID)
+			{
+				if($classID == 100)
+				{
+					$spyData[$classID][$elementID]	= $targetUser[$resource[$elementID]];
+				}
+				else 
+				{
+					$spyData[$classID][$elementID]	= $targetPlanet[$resource[$elementID]];
+				}
+			}
+		
+			if($ownUser['spyMessagesMode'] == 1)
+			{
+				$spyData[$classID]	= array_filter($spyData[$classID]);
+			}
+		}
+		
 		// I'm use template class here, because i want to exclude HTML in PHP.
 		
 		require_once(ROOT_PATH.'includes/classes/class.template.php');
@@ -119,12 +139,10 @@ class MissionCaseSpy extends MissionFunctions
 		list($tplDir)	= $template->getTemplateDir();
 		$template->setTemplateDir($tplDir.'game/');
 		$template->assign_vars(array(
-			'targetUser'	=> $targetUser,
+			'spyData'		=> $spyData,
 			'targetPlanet'	=> $targetPlanet,
 			'targetChance'	=> $targetChance,
 			'spyChance'		=> $spyChance,
-			'classIDs'		=> $classIDs,
-			'resource'		=> $resource,
 			'isBattleSim'	=> ENABLE_SIMULATOR_LINK == true && isModulAvalible(MODULE_SIMULATOR),
 			'title'			=> sprintf($LNG['sys_mess_head'], $targetPlanet['name'], $targetPlanet['galaxy'], $targetPlanet['system'], $targetPlanet['planet'], _date($LNG['php_tdformat'], $this->_fleet['fleet_end_time'], $targetUser['timezone'], $LNG)),
 		));

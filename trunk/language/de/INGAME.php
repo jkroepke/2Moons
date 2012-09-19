@@ -884,6 +884,7 @@ $LNG['op_user_name_no_alphanumeric']		= 'Bitte beim Username nur alphanumerische
 $LNG['op_change_name_pro_week']				= 'Sie Können ihren Usernamen nur 1x pro Woche ändern';
 $LNG['op_change_name_exist']				= 'Der Name %s existiert bereits';
 $LNG['op_active_build_messages']			= 'Baulistennachrichten aktivieren';
+$LNG['op_active_spy_messages_mode']			= 'Spioangeberechte zusammenfassen';
 $LNG['op_dst_mode']							= 'Sommerzeit?';
 $LNG['op_dst_mode_sel'][0]					= 'Nein';
 $LNG['op_dst_mode_sel'][1]					= 'Ja';
