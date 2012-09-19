@@ -281,6 +281,15 @@ switch($mode)
 					exit;
 				}
 				
+				if (preg_match($prefix, '^[0-9]') !== 0) {
+					$template->assign(array(
+						'class'		=> 'fatalerror',
+						'message'	=> $LNG['step2_prefix_invalid'],
+					));
+					$template->show('ins_step4.tpl');
+					exit;
+				}
+				
 				if (is_file(ROOT_PATH."includes/config.php") && filesize(ROOT_PATH."includes/config.php") != 0) {
 					$template->assign(array(
 						'class'		=> 'fatalerror',
