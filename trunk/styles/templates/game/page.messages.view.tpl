@@ -20,7 +20,7 @@
 	{foreach $MessageList as $Message}
 	<tr id="message_{$Message.id}" class="message_head{if $MessID != 999 && $Message.unread == 1} mes_unread{/if}">
 		<td style="width:40px;" rowspan="2">
-		{if $MessID != 999}<input name="delmes[{$Message.id}]" type="checkbox">{/if}
+		{if $MessID != 999}<input name="messageID[{$Message.id}]" value="1" type="checkbox">{/if}
 		</td>
 		<td>{$Message.time}</td>
 		<td>{$Message.from}</td>
