@@ -281,7 +281,7 @@ switch($mode)
 					exit;
 				}
 				
-				if (preg_match($prefix, '!^[0-9]!') !== 0) {
+				if (preg_match('!^[0-9]!', $prefix) !== 0) {
 					$template->assign(array(
 						'class'		=> 'fatalerror',
 						'message'	=> $LNG['step2_prefix_invalid'],
