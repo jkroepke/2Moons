@@ -40,7 +40,7 @@ class ShowBattleHallPage extends AbstractPage
 		global $USER, $PLANET, $LNG, $UNI, $LANG;
 		$mode = HTTP::_GP('mode','');
 		$order = HTTP::_GP('order', 'units');
-		$sort = HTTP::_GP('sort', 'asc');
+		$sort = HTTP::_GP('sort', 'desc');
 		$sort = strtoupper($sort);
 		
 		$top = $GLOBALS['DATABASE']->query("SELECT *, (
