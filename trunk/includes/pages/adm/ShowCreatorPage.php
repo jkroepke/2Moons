@@ -189,7 +189,12 @@ function ShowCreatorPage()
 			
 				require_once(ROOT_PATH.'includes/functions/CreateOneMoonRecord.php');
 				
-				if(CreateOneMoonRecord($MoonPlanet['galaxy'], $MoonPlanet['system'], $MoonPlanet['planet'], $_SESSION['adminuni'], $MoonPlanet['id_owner'], 0, $MoonName, 20, (($_POST['diameter_check'] == 'on') ? 0: $Diameter)) !== false)
+				if(empty($MoonName))
+				{
+					$MoonName = $LNG['type_planet'][3];
+				}
+				
+				if(CreateOneMoonRecord($MoonPlanet['galaxy'], $MoonPlanet['system'], $MoonPlanet['planet'], $_SESSION['adminuni'], $MoonPlanet['id_owner'], $MoonName, 20, TIMESTAMP, (($_POST['diameter_check'] == 'on') ? 0: $Diameter)) !== false)
 					$template->message($LNG['mo_moon_added'], '?page=create&mode=moon', 3, true);
 				else
 					$template->message($LNG['mo_moon_unavaible'], '?page=create&mode=moon', 3, true);
