@@ -27,7 +27,7 @@
  * @link http://code.google.com/p/2moons/
  */
 
-function CreateOneMoonRecord($Galaxy, $System, $Planet, $Universe, $Owner, $MoonName, $Chance, $Size = 0)
+function CreateOneMoonRecord($Galaxy, $System, $Planet, $Universe, $Owner, $MoonName, $Chance, $time = 0, $Size = 0)
 {
 	global $USER;
 

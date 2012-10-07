@@ -308,8 +308,8 @@ HTML;
 				$this->_fleet['fleet_universe'],
 				$targetUser['id'],
 				$raportInfo['moonName'],
-				$this->_fleet['fleet_start_time'],
-				$chanceCreateMoon
+				$chanceCreateMoon,
+				$this->_fleet['fleet_start_time']
 			);
 			
 			if($GLOBALS['CONFIG'][$this->_fleet['fleet_universe']]['debris_moon'] == 1)
