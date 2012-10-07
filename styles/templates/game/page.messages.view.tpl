@@ -8,6 +8,22 @@
 	<tr>
 		<th colspan="4">{$LNG.mg_message_title}</th>
 	</tr>
+	{if $MessID != 999}
+	<tr>
+		<td colspan="4">
+			<select name="action">
+				<option value="readmarked">{$LNG.mg_read_marked}</option>
+				<option value="readtypeall">{$LNG.mg_read_type_all}</option>
+				<option value="readall">{$LNG.mg_read_all}</option>
+				<option value="deletemarked">{$LNG.mg_delete_marked}</option>
+				<option value="deleteunmarked">{$LNG.mg_delete_unmarked}</option>
+				<option value="deletetypeall">{$LNG.mg_delete_type_all}</option>
+				<option value="deleteall">{$LNG.mg_delete_all}</option>
+			</select>
+			<input value="{$LNG.mg_confirm}" type="submit">
+		</td>
+	</tr>
+	{/if}
 	<tr style="height: 20px;">
 		<td class="right" colspan="4">{$LNG.mg_page}: {if $page != 1}<a href="#" onclick="Message.getMessages({$MessID}, {$page - 1});return false;">&laquo;</a>&nbsp;{/if}{for $site=1 to $maxPage}<a href="#" onclick="Message.getMessages({$MessID}, {$site});return false;">{if $site == $page}<b>[{$site}]</b>{else}[{$site}]{/if}</a>{if $site != $maxPage}&nbsp;{/if}{/for}{if $page != $maxPage}&nbsp;<a href="#" onclick="Message.getMessages({$MessID}, {$page + 1});return false;">&raquo;</a>{/if}</td>
 	</tr>
