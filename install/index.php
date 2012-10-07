@@ -399,7 +399,11 @@ switch($mode)
 				$AdminUsername	= HTTP::_GP('username', '', UTF8_SUPPORT);
 				$AdminPassword	= HTTP::_GP('password', '', UTF8_SUPPORT);
 				$AdminMail		= HTTP::_GP('email', '');
-				$MD5Password	= cryptPassword($AdminPassword);
+				
+				// Get Salt.
+				require_once(ROOT_PATH . 'includes/config.php');
+
+				$hashPassword	= cryptPassword($AdminPassword);
 				
 				$template->assign(array(
 					'username'	=> $AdminUsername,
@@ -414,13 +418,12 @@ switch($mode)
 					exit;
 				}
 					
-				require_once(ROOT_PATH . 'includes/config.php');
 				require_once(ROOT_PATH . 'includes/dbtables.php');
 				$DATABASE	= new Database();
 								
 				$SQL  = "INSERT INTO ".USERS." SET ";
 				$SQL .= "username		= '".$DATABASE->sql_escape($AdminUsername)."', ";
-				$SQL .= "password		= '".$DATABASE->sql_escape($MD5Password)."', ";
+				$SQL .= "password		= '".$DATABASE->sql_escape($hashPassword)."', ";
 				$SQL .= "email			= '".$DATABASE->sql_escape($AdminMail)."', ";
 				$SQL .= "email_2		= '".$DATABASE->sql_escape($AdminMail)."', ";
 				$SQL .= "ip_at_reg		= '".$_SERVER['REMOTE_ADDR']."', ";
@@ -442,7 +445,7 @@ switch($mode)
 				$SESSION       	= new Session();
 				$SESSION->DestroySession();
 				$SESSION->CreateSession(1, $AdminUsername, $PlanetID, 1, 3, DEFAULT_THEME);
-				$_SESSION['admin_login']	= $MD5Password;
+				$_SESSION['admin_login']	= $hashPassword;
 				
 				@unlink($enableInstallToolFile);
 				$template->show('ins_step8.tpl');
