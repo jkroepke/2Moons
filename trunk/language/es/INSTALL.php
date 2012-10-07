@@ -30,11 +30,13 @@
 
 $LNG['back']					= 'Atras';
 $LNG['continue'] = 'Continuar';
+$LNG['continueUpgrade']			= 'Actualización!';
 $LNG['login']					= 'Login';
 
 $LNG['menu_intro'] = 'Intro';
 $LNG['menu_install'] = 'Instalar';
 $LNG['menu_license'] = 'Licencia';
+$LNG['menu_upgrade']			= 'Actualizar';
 
 $LNG['title_install'] = 'Instalador';
 
@@ -42,6 +44,9 @@ $LNG['intro_lang'] = 'Idioma';
 $LNG['intro_install'] = 'Instalación';
 $LNG['intro_welcome'] = 'Bienvenido a 2Moons!';
 $LNG['intro_text'] = '2Moons es uno de los mejores clones de OGame. <br> 2Moons es la última y más estable versión de un servidor basado en Xnova que ah sido desarrollada. Los puntos clave de 2Moons son su facilidad, estabilidad, flexibilidad, dinamismo y calidad. En 2Moons siempre esperamos a ser más que sus expectativas. <br> El sistema de instalación le guiará a través de la instalación o la actualización de una versión previa a la última. <br>  Si tiene preguntas o problemas, por favor, no dude en comunicarse en nuestro foro de desarrollo y soporte. <br> 2Moons es un proyecto de código abierto y está bajo licencia GNU GPL v3. Para conocer la licencia, por favor haga click en la opción del menú correspondiente. <br> Antes de comenzar la instalación se lleva a cabo una prueba para saber si el servidor cumple los requisitos mínimos.';
+$LNG['intro_upgrade_head']		= '2Moons ya instalado?';
+$LNG['intro_upgrade_text']		= '<p>2Moons ya está instalado y sólo desea actualizarlo?</p>Aquí usted puede actualizar su base de datos antigua con unos pocos clics</p>';
+
 
 $LNG['licence_head']			= 'Lizenzbestimmungen';
 $LNG['licence_desc']			= 'Bitte lesen Sie die folgenden Lizenzbestimmungen. Verwenden Sie die Bildlaufleiste, um das gesamte Dokument anzuzeigen.';

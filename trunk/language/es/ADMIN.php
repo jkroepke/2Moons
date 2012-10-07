@@ -874,7 +874,6 @@ $LNG['se_search_users'][5]	=	'Última IP';
 $LNG['se_search_users'][6]	=	'Autoridad';
 $LNG['se_search_users'][7]	=	'¿Suspendido?';
 $LNG['se_search_users'][8]	=	'¿Vacaciones?';
-$LNG['se_search_users'][9]	=	'¿En Borrado?';
 
 // BÚSQUEDA EN TABLA DE PLANETAS
 $LNG['se_search_planets'][0]	=	$SE_ID;
