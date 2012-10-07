@@ -760,6 +760,9 @@ class ShowAlliancePage extends AbstractPage
 			$this->printMessage($LNG['al_apply_not_exists']);
 		}
 		
+		require_once(ROOT_PATH.'includes/functions/BBCode.php');
+		$applyDetail['text']	= bbcode($applyDetail['text']);
+		
 		$this->tplObj->assign_vars(array(
 			'applyDetail'		=> $applyDetail,
 		));
