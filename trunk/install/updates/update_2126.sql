@@ -563,3 +563,5 @@ ALTER TABLE prefix_planets CHANGE  `b_hangar_id`  `b_hangar_id` TEXT CHARACTER S
 ALTER TABLE prefix_users CHANGE  `b_tech_queue`  `b_tech_queue` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;
 
 ALTER TABLE prefix_users CHANGE  `rights`  `rights` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;
+
+UPDATE prefix_diplo SET level = level + 1;
