@@ -199,6 +199,7 @@ class ShowOverviewPage extends AbstractPage
 			'galaxy'					=> $PLANET['galaxy'],
 			'system'					=> $PLANET['system'],
 			'planet'					=> $PLANET['planet'],
+			'planet_type'				=> $PLANET['planet_type'],
 			'buildtime'					=> $Buildtime,
 			'username'					=> $USER['username'],
 			'userid'					=> $USER['id'],
