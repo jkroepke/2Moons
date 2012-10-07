@@ -7,7 +7,7 @@ buildEndTime	= {$buildtime};
 {block name="content"}
 <table class="table519">
 	<tr>
-		<th colspan="3"><a href="#" onclick="return Dialog.PlanetAction();" title="{$LNG.ov_planetmenu}">{$LNG.ov_planet} "<span class="planetname">{$planetname}</span>"</a> ({$username})</th>
+		<th colspan="3"><a href="#" onclick="return Dialog.PlanetAction();" title="{$LNG.ov_planetmenu}">{$LNG.type_planet.$planet_type} "<span class="planetname">{$planetname}</span>"</a> ({$username})</th>
 	</tr>
 	{if $messages}
 	<tr>
