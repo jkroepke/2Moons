@@ -82,7 +82,7 @@ class ShowAlliancePage extends AbstractPage
 			{
 				$this->tplObj->assign_vars(array(
 					'rights'		=> $this->rights,
-					'AllianceOwner'	=> $USER['ally_rank_id'] == 0,
+					'AllianceOwner'	=> $this->allianceData['ally_owner'] == $USER['id'],
 				));
 			}
 		}
@@ -342,6 +342,7 @@ class ShowAlliancePage extends AbstractPage
 						SET @allianceID = LAST_INSERT_ID();
 						UPDATE ".USERS." SET
 						ally_id					= @allianceID,
+						ally_rank_id			= 0,
 						ally_register_time 		= ".TIMESTAMP."
 						WHERE id = ".$USER['id'].";
 						UPDATE ".STATPOINTS." SET
