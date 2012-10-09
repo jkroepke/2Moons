@@ -305,7 +305,7 @@ class ShowInformationPage extends AbstractPage
 			$this->tplObj->assign_vars(array(
 				'nextTime'	=> _date($LNG['php_tdformat'], $nextTime, $USER['timezone']),
 				'restTime'	=> max(0, $nextTime - TIMESTAMP),
-				'startLink'	=> strip_tags(BuildPlanetAdressLink($PLANET)),
+				'startLink'	=> $PLANET['name'].' '.strip_tags(BuildPlanetAdressLink($PLANET)),
 				'gateList' 	=> $this->getTargetGates(),
 				'fleetList'	=> $this->getAvalibleFleets(),
 			));
