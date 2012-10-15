@@ -11,7 +11,7 @@
 	{if $MessID != 999}
 	<tr>
 		<td colspan="4">
-			<select name="action">
+			<select name="actionTop">
 				<option value="readmarked">{$LNG.mg_read_marked}</option>
 				<option value="readtypeall">{$LNG.mg_read_type_all}</option>
 				<option value="readall">{$LNG.mg_read_all}</option>
@@ -20,7 +20,7 @@
 				<option value="deletetypeall">{$LNG.mg_delete_type_all}</option>
 				<option value="deleteall">{$LNG.mg_delete_all}</option>
 			</select>
-			<input value="{$LNG.mg_confirm}" type="submit">
+			<input value="{$LNG.mg_confirm}" type="submit" name="submitTop">
 		</td>
 	</tr>
 	{/if}
@@ -58,7 +58,7 @@
 	{if $MessID != 999}
 	<tr>
 		<td colspan="4">
-			<select name="action">
+			<select name="actionBottom">
 				<option value="readmarked">{$LNG.mg_read_marked}</option>
 				<option value="readtypeall">{$LNG.mg_read_type_all}</option>
 				<option value="readall">{$LNG.mg_read_all}</option>
@@ -67,7 +67,7 @@
 				<option value="deletetypeall">{$LNG.mg_delete_type_all}</option>
 				<option value="deleteall">{$LNG.mg_delete_all}</option>
 			</select>
-			<input value="{$LNG.mg_confirm}" type="submit">
+			<input value="{$LNG.mg_confirm}" type="submit" name="submitBottom">
 		</td>
 	</tr>
 	{/if}
