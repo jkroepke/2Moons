@@ -104,8 +104,23 @@ class ShowMessagesPage extends AbstractPage
 		global $USER;
 		
 		$MessCategory  	= HTTP::_GP('messcat', 100);
-		$action		 	= HTTP::_GP('action', '');
 		$page		 	= HTTP::_GP('page', 1);
+		
+		
+		$redirectUrl	= 'game.php?page=messages&category='.$MessCategory.'&side='.$page;
+		
+		if(isset($_POST['submitTop']))
+		{
+			$action	= HTTP::_GP('actionTop', '');
+		}
+		elseif(isset($_POST['submitButtom']))
+		{
+			$action	= HTTP::_GP('actionBottom', '');
+		}
+		else
+		{
+			$this->redirectTo($redirectUrl);
+		}
 		
 		if($action == 'deleteunmarked' && (empty($messageIDs) || !is_array($messageIDs)))
 			$action	= 'deletetypeall';
@@ -115,8 +130,6 @@ class ShowMessagesPage extends AbstractPage
 		
 		if($action == 'readtypeall' && $MessCategory == 100)
 			$action	= 'readall';
-		
-		$redirectUrl	= 'game.php?page=messages&category='.$MessCategory.'&side='.$page;
 		
 		$messageIDs		= HTTP::_GP('messageID', array());
 		
