@@ -442,7 +442,7 @@ class ShowAlliancePage extends AbstractPage
 		{
 			if ($this->allianceData['ally_owner'] == $memberListRow['id'])
 				$memberListRow['ally_rankName'] = empty($this->allianceData['ally_owner_range']) ? $LNG['al_founder_rank_text'] : $this->allianceData['ally_owner_range'];
-			elseif ($memberListRow['ally_rank_id'] != 0 && $rankList[$memberListRow['ally_rank_id']])
+			elseif ($memberListRow['ally_rank_id'] != 0 && isset($rankList[$memberListRow['ally_rank_id']]))
 				$memberListRow['ally_rankName'] = $rankList[$memberListRow['ally_rank_id']];
 			else
 				$memberListRow['ally_rankName'] = $LNG['al_new_member_rank_text'];
