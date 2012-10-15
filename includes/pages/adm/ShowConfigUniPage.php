@@ -264,6 +264,8 @@ function ShowConfigUniPage()
 	}
 	
 	$template	= new template();
+	$template->loadscript('../base/jquery.autosize-min.js');
+	$template->execscript('$(\'textarea\').autosize();');
 
 	$template->assign_vars(array(
 		'se_server_parameters'			=> $LNG['se_server_parameters'],
