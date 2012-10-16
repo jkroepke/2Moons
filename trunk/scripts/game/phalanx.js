@@ -1,3 +1,7 @@
+$(document).ready(function(){
+	FleetTime();
+});
+
 function FleetTime() {
 	$('.fleets').each(function() {
 		var s		= $(this).data('fleet-time') - (serverTime.getTime() - startTime) / 1000;
@@ -9,5 +13,3 @@ function FleetTime() {
 	});
 	window.setTimeout('FleetTime()', 1000);
 }
-
-FleetTime();
