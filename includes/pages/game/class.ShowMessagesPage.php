@@ -113,7 +113,7 @@ class ShowMessagesPage extends AbstractPage
 		{
 			$action	= HTTP::_GP('actionTop', '');
 		}
-		elseif(isset($_POST['submitButtom']))
+		elseif(isset($_POST['submitBottom']))
 		{
 			$action	= HTTP::_GP('actionBottom', '');
 		}
