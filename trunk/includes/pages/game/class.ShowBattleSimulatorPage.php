@@ -256,14 +256,22 @@ class ShowBattleSimulatorPage extends AbstractPage
 		$BattleArray[0][0][109]	= $USER[$resource[109]];
 		$BattleArray[0][0][110]	= $USER[$resource[110]];
 		$BattleArray[0][0][111]	= $USER[$resource[111]];
-
-		foreach($reslist['fleet'] as $ID)
+		
+		if(empty($_REQUEST['battleinput']))
 		{
-			if(FleetFunctions::GetFleetMaxSpeed($ID, $USER) > 0)
+			foreach($reslist['fleet'] as $ID)
 			{
-				// Add just flyable elements
-				$BattleArray[0][0][$ID]	= $PLANET[$resource[$ID]];
+				if(FleetFunctions::GetFleetMaxSpeed($ID, $USER) > 0)
+				{
+					// Add just flyable elements
+					$BattleArray[0][0][$ID]	= $PLANET[$resource[$ID]];
+				}
 			}
+		}
+		
+		if($_REQUEST['battleinput'])
+		{
+			$BattleArray	= $_REQUEST['battleinput'];
 		}
 		
 		if(isset($_REQUEST['im']))
