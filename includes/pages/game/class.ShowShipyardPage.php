@@ -114,12 +114,15 @@ class ShowShipyardPage extends AbstractPage
 			} elseif(in_array($Element, $reslist['one'])) {
 				$InBuild	= false;
 				foreach($BuildArray as $ElementArray) {
-					if($ElementArray[1] == $Element) {
+					if($ElementArray[0] == $Element) {
 						$InBuild	= true;
 						break;
 					}
 				}
 				
+				if ($InBuild)
+					continue;
+
 				if($Count != 0 && $PLANET[$resource[$Element]] == 0 && $InBuild === false)
 					$Count =  1;
 			}
@@ -184,6 +187,37 @@ class ShowShipyardPage extends AbstractPage
 			}
 		}
 		
+		
+		$elementInQueue	= array();
+		$ElementQueue 	= unserialize($PLANET['b_hangar_id']);
+		$Buildlist		= array();
+		if(!empty($ElementQueue))
+		{
+			$Shipyard		= array();
+			$QueueTime		= 0;
+			foreach($ElementQueue as $Element)
+			{
+				if (empty($Element))
+					continue;
+					
+				$elementInQueue[$Element[0]]	= true;
+				$ElementTime  	= BuildFunctions::getBuildingTime($USER, $PLANET, $Element[0]);
+				$QueueTime   	+= $ElementTime * $Element[1];
+				$Shipyard[]		= array($LNG['tech'][$Element[0]], $Element[1], $ElementTime, $Element[0]);		
+			}
+
+			$this->tplObj->loadscript('bcmath.js');
+			$this->tplObj->loadscript('shipyard.js');
+			$this->tplObj->execscript('ShipyardInit();');
+			
+			$Buildlist	= array(
+				'Queue' 				=> $Shipyard,
+				'b_hangar_id_plus' 		=> $PLANET['b_hangar'],
+				'pretty_time_b_hangar' 	=> pretty_time(max($QueueTime - $PLANET['b_hangar'],0)),
+			);
+		}
+		
+		
 		$mode		= HTTP::_GP('mode', 'fleet');
 		
 		if($mode == 'defense') {
@@ -214,7 +248,7 @@ class ShowShipyardPage extends AbstractPage
 				$maxBuildable	= min($maxBuildable, $MaxMissiles[$Element]);
 			}
 			
-			$AlreadyBuild		= in_array($Element, $reslist['one']) && (strpos($PLANET['b_hangar_id'], $Element.",") !== false || $PLANET[$resource[$Element]] != 0);
+			$AlreadyBuild		= in_array($Element, $reslist['one']) && (isset($elementInQueue[$Element]) || $PLANET[$resource[$Element]] != 0);
 			
 			$elementList[$Element]	= array(
 				'id'				=> $Element,
@@ -225,34 +259,6 @@ class ShowShipyardPage extends AbstractPage
 				'buyable'			=> $buyable,
 				'maxBuildable'		=> floattostring($maxBuildable),
 				'AlreadyBuild'		=> $AlreadyBuild,
-			);
-		}
-		
-		
-		$ElementQueue 	= unserialize($PLANET['b_hangar_id']);
-		$Buildlist		= array();
-		if(!empty($ElementQueue))
-		{
-			$Shipyard		= array();
-			$QueueTime		= 0;
-			foreach($ElementQueue as $Element)
-			{
-				if (empty($Element))
-					continue;
-					
-				$ElementTime  	= BuildFunctions::getBuildingTime( $USER, $PLANET, $Element[0]);
-				$QueueTime   	+= $ElementTime * $Element[1];
-				$Shipyard[]		= array($LNG['tech'][$Element[0]], $Element[1], $ElementTime, $Element[0]);		
-			}
-
-			$this->tplObj->loadscript('bcmath.js');
-			$this->tplObj->loadscript('shipyard.js');
-			$this->tplObj->execscript('ShipyardInit();');
-			
-			$Buildlist	= array(
-				'Queue' 				=> $Shipyard,
-				'b_hangar_id_plus' 		=> $PLANET['b_hangar'],
-				'pretty_time_b_hangar' 	=> pretty_time(max($QueueTime - $PLANET['b_hangar'],0)),
 			);
 		}
 		
