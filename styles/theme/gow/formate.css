@@ -117,6 +117,18 @@ select {
 	font-weight:700
 }
 
+.galaxy-alliance-member {
+	color:#99FF66;
+}
+
+.galaxy-alliance-friend {
+	color:#99FFFF;
+}
+
+.galaxy-alliance-enemy {
+	color:#FF0000;
+}
+
 .galaxy-short-noob,
 .galaxy-username-noob{
 	color:#a0ffa0
