@@ -3,7 +3,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,12 +20,11 @@
  *
  * @package 2Moons
  * @author Jan <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
  * @copyright 2011 Jan <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-12-31)
  * @info $Id$
- * @link http://code.google.com/p/2moons/
+ * @link http://2moons.cc/
  */
  
 $LNG['Version']     = 'Version';
@@ -106,7 +105,7 @@ TMOONS-246 - Support-Ticket kann weder gelöscht noch geschlossen werden.
 TMOONS-247 - Error in Flotten bei Mission Transport und maximalen Rohstoffen
 TMOONS-248 - Planetenauswahl zeigt immer ersten Planeten
 TMOONS-249 - Hall of Fame wird nicht angezeigt
-TMOONS-250 - Lösch-Icon /styles/images/r1.png nicht vorhanden
+TMOONS-250 - Lösch-Icon /styles/resource/images/r1.png nicht vorhanden
 TMOONS-251 - Double key
 TMOONS-254 - anflug auf Mond nicht möglich
 TMOONS-256 - User erstellen im Admin

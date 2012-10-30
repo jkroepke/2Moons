@@ -963,6 +963,8 @@ $LNG['qe_change']						= 'Mudar';
 $LNG['qe_authattack']					= 'Proteção de Administrador';
 $LNG['qe_submit']						= 'Enviar';
 $LNG['qe_resetr']						= 'Redefinir';
+$LNG['qe_allowmulti']					='Permitir Multi IPs';
+
 	
 //----------------------------------------------------------------------------//
 // Configuração do TeamSpeak
@@ -1152,6 +1154,7 @@ $LNG['ap_nicht_aktivierte_user']		= 'Usuário não ativado';
 // Página de Multi IP
 $LNG['mip_ip']							= 'IP';
 $LNG['mip_user']						= 'Jogador';
+$LNG['mip_known']						='Aprovado?';
 
 // LOG de Administrador
 $LNG['log_log']                         = 'Log';

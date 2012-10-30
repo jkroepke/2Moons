@@ -3,7 +3,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,12 +20,11 @@
  *
  * @package 2Moons
  * @author Jan <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
  * @copyright 2011 Jan <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-12-31)
  * @info $Id$
- * @link http://code.google.com/p/2moons/
+ * @link http://2moons.cc/
  */
  
 $LNG['Version']     = 'Version';
@@ -78,7 +77,7 @@ $LNG['changelog']   = array(
 [<a href="http://tracker.2moons.cc/browse/TMOONS-247">TMOONS-247</a>] - Error in Flotten bei Mission Transport und maximalen Rohstoffen
 [<a href="http://tracker.2moons.cc/browse/TMOONS-248">TMOONS-248</a>] - Planetenauswahl zeigt immer ersten Planeten
 [<a href="http://tracker.2moons.cc/browse/TMOONS-249">TMOONS-249</a>] - Hall of Fame wird nicht angezeigt
-[<a href="http://tracker.2moons.cc/browse/TMOONS-250">TMOONS-250</a>] - Lösch-Icon /styles/images/r1.png nicht vorhanden
+[<a href="http://tracker.2moons.cc/browse/TMOONS-250">TMOONS-250</a>] - Lösch-Icon /styles/resource/images/r1.png nicht vorhanden
 [<a href="http://tracker.2moons.cc/browse/TMOONS-251">TMOONS-251</a>] - Double key
 [<a href="http://tracker.2moons.cc/browse/TMOONS-254">TMOONS-254</a>] - anflug auf Mond nicht möglich
 [<a href="http://tracker.2moons.cc/browse/TMOONS-256">TMOONS-256</a>] - User erstellen im Admin
