@@ -513,7 +513,6 @@ $LNG['mg_date']					        	= 'Date';
 $LNG['mg_from']					            = 'From';
 $LNG['mg_to']                               = 'To';
 $LNG['mg_subject']					        = 'Subject';
-$LNG['mg_confirm_delete']					= 'Confirm';
 $LNG['mg_message_title']					= 'Messages';
 $LNG['mg_message_type']			            = 'Message type';
 $LNG['mg_total']				            = 'Total';
@@ -531,6 +530,10 @@ $LNG['mg_empty_text']				        = 'Enter Text';
 $LNG['mg_answer_to']						= 'Reply to:';
 $LNG['mg_write_mail_to_ops']                = 'Write an email to';
 $LNG['mg_page']								= 'Page';
+$LNG['mg_read_marked']						= 'Mark selected messages as read';
+$LNG['mg_read_type_all']					= 'Mark all messages of this type as read';
+$LNG['mg_read_all']							= 'Mark all messages as read';
+$LNG['mg_confirm']							= 'Confirm';
 
 //----------------------------------------------------------------------------//
 // Aliança
@@ -888,6 +891,7 @@ $LNG['op_user_name_no_alphanumeric']        = 'Please enter the user name only a
 $LNG['op_change_name_pro_week']             = 'Only you can change your username once every 7 days!';
 $LNG['op_change_name_exist']                = 'The name chosen %s already exists';
 $LNG['op_active_build_messages']            = 'Enable messages of building';
+$LNG['op_active_spy_messages_mode']			= 'Enable Summarized Spy Reports';
 $LNG['op_dst_mode']							= 'Daylight Saving Time?';
 $LNG['op_dst_mode_sel'][0]					= 'Yes';
 $LNG['op_dst_mode_sel'][1]					= 'No';
