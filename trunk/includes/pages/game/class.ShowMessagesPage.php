@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-12-31)
  * @info $Id$
- * @link http://code.google.com/p/2moons/
+ * @link http://2moons.cc/
  */
 
 class ShowMessagesPage extends AbstractPage
@@ -50,14 +49,14 @@ class ShowMessagesPage extends AbstractPage
 		$MesagesID		= array();
 		
 		if($MessCategory == 999)  {
-			$MessageCount	= $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".MESSAGES." WHERE message_sender = ".$USER['id']." AND message_type != 50;");
+			$MessageCount	= $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".MESSAGES." WHERE message_sender = ".$USER['id']." AND message_type != 50;");
 			
 			$maxPage	= max(1, ceil($MessageCount / MESSAGES_PER_PAGE));
 			$page		= max(1, min($page, $maxPage));
 			
 			$MessageResult	= $GLOBALS['DATABASE']->query("SELECT message_id, message_time, CONCAT(username, ' [',galaxy, ':', system, ':', planet,']') as message_from, message_subject, message_sender, message_type, message_unread, message_text FROM ".MESSAGES." INNER JOIN ".USERS." ON id = message_owner WHERE message_sender = ".$USER['id']." AND message_type != 50 ORDER BY message_time DESC LIMIT ".(($page - 1) * MESSAGES_PER_PAGE).", ".MESSAGES_PER_PAGE.";");
 		} else {
-			$MessageCount 	= $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".MESSAGES." WHERE message_owner = ".$USER['id'].($MessCategory != 100 ? " AND message_type = ".$MessCategory : "").";");
+			$MessageCount 	= $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".MESSAGES." WHERE message_owner = ".$USER['id'].($MessCategory != 100 ? " AND message_type = ".$MessCategory : "").";");
 			
 			$maxPage	= max(1, ceil($MessageCount / MESSAGES_PER_PAGE));
 			$page		= max(1, min($page, $maxPage));
@@ -105,7 +104,7 @@ class ShowMessagesPage extends AbstractPage
 		
 		$MessCategory  	= HTTP::_GP('messcat', 100);
 		$page		 	= HTTP::_GP('page', 1);
-		
+		$messageIDs		= HTTP::_GP('messageID', array());
 		
 		$redirectUrl	= 'game.php?page=messages&category='.$MessCategory.'&side='.$page;
 		
@@ -122,7 +121,7 @@ class ShowMessagesPage extends AbstractPage
 			$this->redirectTo($redirectUrl);
 		}
 		
-		if($action == 'deleteunmarked' && (empty($messageIDs) || !is_array($messageIDs)))
+		if($action == 'deleteunmarked' && empty($messageIDs))
 			$action	= 'deletetypeall';
 		
 		if($action == 'deletetypeall' && $MessCategory == 100)
@@ -130,8 +129,6 @@ class ShowMessagesPage extends AbstractPage
 		
 		if($action == 'readtypeall' && $MessCategory == 100)
 			$action	= 'readall';
-		
-		$messageIDs		= HTTP::_GP('messageID', array());
 		
 		switch($action)
 		{
@@ -223,7 +220,7 @@ class ShowMessagesPage extends AbstractPage
 		$this->initTemplate();
 		$OwnerID       	= HTTP::_GP('id', 0);
 		$Subject 		= HTTP::_GP('subject', $LNG['mg_no_subject'], true);
-		$OwnerRecord 	= $GLOBALS['DATABASE']->uniquequery("SELECT a.galaxy, a.system, a.planet, b.username, b.id_planet FROM ".PLANETS." as a, ".USERS." as b WHERE b.id = '".$OwnerID."' AND a.id = b.id_planet;");
+		$OwnerRecord 	= $GLOBALS['DATABASE']->getFirstRow("SELECT a.galaxy, a.system, a.planet, b.username, b.id_planet FROM ".PLANETS." as a, ".USERS." as b WHERE b.id = '".$OwnerID."' AND a.id = b.id_planet;");
 
 		if (!$OwnerRecord)
 			exit($LNG['mg_error']);
@@ -249,7 +246,7 @@ class ShowMessagesPage extends AbstractPage
 		$CategoryType   = array ( 0, 1, 2, 3, 4, 5, 15, 50, 99, 100, 999);
 		$TitleColor    	= array ( 0 => '#FFFF00', 1 => '#FF6699', 2 => '#FF3300', 3 => '#FF9900', 4 => '#773399', 5 => '#009933', 15 => '#6495ed', 50 => '#666600', 99 => '#007070', 100 => '#ABABAB', 999 => '#CCCCCC');
 		
-		$MessOut		= $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".MESSAGES." WHERE message_sender = ".$USER['id']." AND message_type != 50;");
+		$MessOut		= $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".MESSAGES." WHERE message_sender = ".$USER['id']." AND message_type != 50;");
 		
 		$OperatorList	= array();
 		$Total			= array(0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 15 => 0, 50 => 0, 99 => 0, 100 => 0, 999 => 0);
