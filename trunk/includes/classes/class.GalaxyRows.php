@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-12-31)
  * @info $Id$
- * @link http://code.google.com/p/2moons/
+ * @link http://2moons.cc/
  */
 
 require_once(ROOT_PATH . 'includes/classes/class.FleetFunctions.php');
@@ -64,15 +63,16 @@ class GalaxyRows
 		s.total_points, s.total_rank, 
 		a.id as allyid, a.ally_tag, a.ally_web, a.ally_members, a.ally_name, 
 		allys.total_rank as ally_rank,
-		COUNT(buddy.id) as buddy
+		COUNT(buddy.id) as buddy,
+		d.level as diploLevel
 		FROM ".PLANETS." p 
 		LEFT JOIN ".USERS." u ON p.id_owner = u.id 
 		LEFT JOIN ".PLANETS." m ON m.id = p.id_luna
 		LEFT JOIN ".STATPOINTS." s ON s.id_owner = u.id AND s.stat_type = '1'	
 		LEFT JOIN ".ALLIANCE." a ON a.id = u.ally_id 
+		LEFT JOIN ".DIPLO." as d ON (d.owner_1 = 1 AND d.owner_2 = a.id) OR (d.owner_1 = a.id AND d.owner_2 = 1) AND d.accept = 1
 		LEFT JOIN ".STATPOINTS." allys ON allys.stat_type = '2' AND allys.id_owner = a.id
-		LEFT JOIN ".BUDDY." buddy ON (buddy.sender = 1 AND buddy.owner = 2) OR (buddy.sender = 2 AND buddy.owner = 1)
-		
+		LEFT JOIN ".BUDDY." buddy ON (buddy.sender = 1 AND buddy.owner = u.id ) OR (buddy.sender = u.id AND buddy.owner = 1)
 		WHERE p.universe = ".$UNI." AND p.galaxy = ".$this->Galaxy." AND p.system = ".$this->System." AND p.planet_type = '1'
 		GROUP BY p.id;");
 
@@ -206,7 +206,7 @@ class GalaxyRows
 		{
 			$Class		 	= array('strong');
 		}
-
+		
         $this->galaxyData[$this->galaxyRow['planet']]['user']	= array(
 			'id'			=> $this->galaxyRow['userid'],
 			'username'		=> htmlspecialchars($this->galaxyRow['username'], ENT_QUOTES, "UTF-8"),
@@ -224,14 +224,34 @@ class GalaxyRows
 		if(empty($this->galaxyRow['allyid'])) {
 			$this->galaxyData[$this->galaxyRow['planet']]['alliance']	= false;
 		} else {
+			$Class	= array();
+			switch($this->galaxyRow['diploLevel'])
+			{
+				case 1:
+				case 2:
+					$Class	= array('member');
+				break;
+				case 4:
+					$Class	= array('friend');
+				break;
+				case 5:
+					$Class	= array('enemy');
+				break;
+			}
+			
+			if($USER['ally_id'] == $this->galaxyRow['ally_id'])
+			{
+				$Class	= array('member');
+			}
+			
 			$this->galaxyData[$this->galaxyRow['planet']]['alliance']	= array(
 				'id'		=> $this->galaxyRow['allyid'],
 				'name'		=> htmlspecialchars($this->galaxyRow['ally_name'], ENT_QUOTES, "UTF-8"),
 				'member'	=> sprintf(($this->galaxyRow['ally_members'] == 1) ? $LNG['gl_member_add'] : $LNG['gl_member'], $this->galaxyRow['ally_members']),
 				'web'		=> $this->galaxyRow['ally_web'],
-				'inally'	=> $USER['ally_id'] == $this->galaxyRow['ally_id'],
 				'tag'		=> $this->galaxyRow['ally_tag'],
 				'rank'		=> $this->galaxyRow['ally_rank'],
+				'class'		=> $Class,
 			);
 		}
 	}
