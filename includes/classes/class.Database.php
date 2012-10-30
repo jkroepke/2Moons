@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-12-31)
  * @info $Id$
- * @link http://code.google.com/p/2moons/
+ * @link http://2moons.cc/
  */
  
 class Database extends mysqli
@@ -82,13 +81,11 @@ class Database extends mysqli
 		}
         return false;
 	}
-	/**
-	 * Purpose a query on selected database.
-	 *
-	 * @param string	The SQL query
-	 *
-	 * @return resource	Results of the query
-	 */
+
+	public function getFirstRow($resource)
+	{		
+		return $this->uniquequery($resource);
+	}
 
 	public function uniquequery($resource)
 	{		
@@ -106,6 +103,10 @@ class Database extends mysqli
 	 * @return resource	Results of the query
 	 */
 
+	public function getFirstCell($resource)
+	{		
+		return $this->countquery($resource);
+	}
 	public function countquery($resource)
 	{		
 		$result = $this->query($resource);
@@ -144,6 +145,11 @@ class Database extends mysqli
 	 *
 	 * @return array	The data of a row
 	 */
+	public function fetchArray($result)
+	{
+		return $result->fetch_array(MYSQLI_ASSOC);
+	}
+	
 	public function fetch_array($result)
 	{
 		return $result->fetch_array(MYSQLI_ASSOC);
@@ -197,6 +203,11 @@ class Database extends mysqli
 	 *
 	 * @return string Returns the escaped string, or false on error.
 	 */
+	
+    public function escape($string, $flag = false)
+    {
+		return $this->sql_escape($string, $flag);
+    }
 	
     public function sql_escape($string, $flag = false)
     {
