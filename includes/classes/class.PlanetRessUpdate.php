@@ -270,7 +270,7 @@ class ResourceUpdate
 		$this->PLANET['crystal_max']		= $temp[902]['max'] * $this->CONF['resource_multiplier'] * STORAGE_FACTOR * (1 + $this->USER['factor']['ResourceStorage']);
 		$this->PLANET['deuterium_max']		= $temp[903]['max'] * $this->CONF['resource_multiplier'] * STORAGE_FACTOR * (1 + $this->USER['factor']['ResourceStorage']);
 
-		$this->PLANET['energy']				= round($temp[911]['plus'] * $this->CONF['energySpeed'] * (1 + $this->USER['factor']['Energy']));
+		$this->PLANET['energy']				= round($temp[911]['plus']/*  * $this->CONF['energySpeed'] */ * (1 + $this->USER['factor']['Energy']));
 		$this->PLANET['energy_used']		= $temp[911]['minus'];
 		if($this->PLANET['energy_used'] == 0) {
 			$this->PLANET['metal_perhour']		= 0;
