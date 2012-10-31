@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-12-31)
  * @info $Id$
- * @link http://code.google.com/p/2moons/
+ * @link http://2moons.cc/
  */
 
 function getUniverse()
@@ -57,6 +56,38 @@ function getUniverse()
 	}
 	
 	return $UNI;
+}
+
+function t($key)
+{
+	global $LNG;
+	
+	if(strpos($key, '.') === false)
+	{
+		$text = $LNG[$key];
+	}
+	else
+	{
+		$keys = explode('.', $key);
+		$text = $LNG[$keys[0]][$keys[1]];
+	}
+	
+	$args = func_get_args();
+	array_shift($args);
+	
+	switch (count($args)) {
+		case 0: return $text; break;
+		case 1: return sprintf($text, $args[0]); break;
+		case 2: return sprintf($text, $args[0], $args[1]); break;
+		case 3: return sprintf($text, $args[0], $args[1], $args[2]); break;
+		case 4: return sprintf($text, $args[0], $args[1], $args[2], $args[3]); break;
+		case 5: return sprintf($text, $args[0], $args[1], $args[2], $args[3], $args[4]); break;
+		case 6: return sprintf($text, $args[0], $args[1], $args[2], $args[3], $args[4], $args[5]); break;
+		case 7: return sprintf($text, $args[0], $args[1], $args[2], $args[3], $args[4], $args[5], $args[6]); break;
+		case 8: return sprintf($text, $args[0], $args[1], $args[2], $args[3], $args[4], $args[5], $args[6], $args[7]); break;
+		case 9: return sprintf($text, $args[0], $args[1], $args[2], $args[3], $args[4], $args[5], $args[6], $args[7], $args[8]); break;
+		case 10: return call_user_func_array('sprintf', $args); break;
+	}
 }
 
 function getFactors($USER, $Type = 'basic', $TIME = NULL) {
@@ -264,7 +295,7 @@ function getConfig($UNI) {
 		return $GLOBALS['CONFIG'][$UNI];
 	}
 	
-	$CONF = $GLOBALS['DATABASE']->uniquequery("SELECT HIGH_PRIORITY * FROM ".CONFIG." WHERE uni = '".$UNI."';");
+	$CONF = $GLOBALS['DATABASE']->getFirstRow("SELECT HIGH_PRIORITY * FROM ".CONFIG." WHERE uni = '".$UNI."';");
 	if(!isset($CONF))
 		HTTP::redirectTo('index.php');
 		
@@ -373,7 +404,7 @@ function GetUserByID($UserID, $GetInfo = "*")
 	else
 		$GetOnSelect = $GetInfo;
 	
-	$User = $GLOBALS['DATABASE']->uniquequery("SELECT ".$GetOnSelect." FROM ".USERS." WHERE id = '". $UserID ."';");
+	$User = $GLOBALS['DATABASE']->getFirstRow("SELECT ".$GetOnSelect." FROM ".USERS." WHERE id = '". $UserID ."';");
 	return $User;
 }
 
@@ -416,7 +447,7 @@ function makebr($text)
 
 function CheckPlanetIfExist($Galaxy, $System, $Planet, $Universe, $Planettype = 1)
 {
-	$QrySelectGalaxy = $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".PLANETS." WHERE universe = '".$Universe."' AND galaxy = '".$Galaxy."' AND system = '".$System."' AND planet = '".$Planet."' AND planet_type = '".$Planettype."';");
+	$QrySelectGalaxy = $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".PLANETS." WHERE universe = '".$Universe."' AND galaxy = '".$Galaxy."' AND system = '".$System."' AND planet = '".$Planet."' AND planet_type = '".$Planettype."';");
 	return $QrySelectGalaxy ? true : false;
 }
 

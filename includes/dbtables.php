@@ -24,7 +24,7 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.5 (2011-07-31)
  * @info $Id$
- * @link http://code.google.com/p/2moons/
+ * @link http://2moons.cc/
  */
 
 // Global configkeys
@@ -46,6 +46,7 @@ define('CHAT_INV'			, DB_PREFIX.'chat_invitations');
 define('CHAT_MES'			, DB_PREFIX.'chat_messages');
 define('CHAT_ON'			, DB_PREFIX.'chat_online');
 define('CONFIG'				, DB_PREFIX.'config');
+define('CRONJOBS'			, DB_PREFIX.'cronjobs');
 define('DIPLO'				, DB_PREFIX.'diplo');
 define('FLEETS'				, DB_PREFIX.'fleets');
 define('FLEETS_EVENT'		, DB_PREFIX.'fleet_event');

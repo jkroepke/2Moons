@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-12-31)
  * @info $Id$
- * @link http://code.google.com/p/2moons/
+ * @link http://2moons.cc/
  */
 
 class Language
@@ -143,11 +142,14 @@ class Language
 	function includeLang($Files)
 	{
 		global $LNG;
-
 		// Fixed BOM problems.
 		ob_start();
         foreach($Files as $File) {
-			require(ROOT_PATH . "language/de/".$File.'.php'); // Fixed Notice errors, if language is incomplete
+			if(file_exists(ROOT_PATH . "language/de/".$File.'.php'))
+			{
+				require(ROOT_PATH . "language/de/".$File.'.php'); // Fixed Notice errors, if language is incomplete
+			}
+			
 			require(ROOT_PATH . "language/".$this->User."/".$File.'.php');
 		}
 		ob_end_clean();
@@ -172,7 +174,7 @@ class Language
 	function GetUserLang($ID, $Files = array())
 	{
 		
-		$LANGUAGE = is_numeric($ID) && !in_array($ID, self::getAllowedLangs()) ? $GLOBALS['DATABASE']->countquery("SELECT `lang` FROM ".USERS." WHERE `id` = '".$ID."';") : $ID;
+		$LANGUAGE = is_numeric($ID) && !in_array($ID, self::getAllowedLangs()) ? $GLOBALS['DATABASE']->getFirstCell("SELECT `lang` FROM ".USERS." WHERE `id` = '".$ID."';") : $ID;
 	
 		if(!in_array($LANGUAGE, self::getAllowedLangs()))
 			$LANGUAGE	= $this->Default;
@@ -183,7 +185,10 @@ class Language
 		foreach($Files as $File) {
 			// Fixed BOM problems.
 			ob_start();
-			require(ROOT_PATH . "language/de/".$File.'.php'); // Fixed Notice errors, if language is incomplete
+			if(file_exists(ROOT_PATH . "language/de/".$File.'.php'))
+			{
+				require(ROOT_PATH . "language/de/".$File.'.php'); // Fixed Notice errors, if language is incomplete
+			}
 			require(ROOT_PATH . "language/".$LANGUAGE."/".$File.'.php');
 			ob_end_clean();
 		}
