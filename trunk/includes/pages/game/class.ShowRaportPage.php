@@ -81,8 +81,31 @@ class ShowRaportPage extends AbstractPage
 				'fleetDestroyChance'	=> $CombatRaport['moon']['chance2'],
 				'fleetDestroySuccess'	=> !$INFO['moon']['fleetfail']
 			);
+			
 		}
-
+	
+		if(isset($CombatRaport['simu']))
+		{
+			$CombatRaport['additionalInfo'] = $CombatRaport['simu'];
+		}
+		
+		if(isset($CombatRaport['debris'][0]))
+		{
+            $CombatRaport['debris'] = array(
+                901	=> $CombatRaport['debris'][0],
+                902	=> $CombatRaport['debris'][1]
+            );
+		}
+		
+		if ($CombatRaport['result'] == "a")
+		{
+			$CombatRaport['steal'] = array(
+				'901'	=> $CombatRaport['steal'][0],
+				'902'	=> $CombatRaport['steal'][1],
+				'903'	=> $CombatRaport['steal'][2]
+			);
+		}
+		
 		$this->tplObj->assign_vars(array(
 			'Raport'	=> $CombatRaport,
 			'Info'		=> $Info,
@@ -118,6 +141,29 @@ class ShowRaportPage extends AbstractPage
 				'moonDestroySuccess'	=> !$CombatRaport['moon']['desfail'],
 				'fleetDestroyChance'	=> $CombatRaport['moon']['chance2'],
 				'fleetDestroySuccess'	=> !$INFO['moon']['fleetfail']
+			);
+			
+		}
+	
+		if(isset($CombatRaport['simu']))
+		{
+			$CombatRaport['additionalInfo'] = $CombatRaport['simu'];
+		}
+		
+		if(isset($CombatRaport['debris'][0]))
+		{
+            $CombatRaport['debris'] = array(
+                901	=> $CombatRaport['debris'][0],
+                902	=> $CombatRaport['debris'][1]
+            );
+		}
+		
+		if ($CombatRaport['result'] == "a")
+		{
+			$CombatRaport['steal'] = array(
+				'901'	=> $CombatRaport['steal'][0],
+				'902'	=> $CombatRaport['steal'][1],
+				'903'	=> $CombatRaport['steal'][2]
 			);
 		}
 		
