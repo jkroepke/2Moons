@@ -59,6 +59,16 @@ class Session
 		return self::$obj;
 	}
 	
+	function CreateSession($userID, $userName, $planetID = 0)
+	{
+		self::create($userID, $planetID = 0);
+	}
+	
+	function IsUserLogin()
+	{
+		return $this->isActiveSession();
+	}
+		
 	function isActiveSession()
 	{
 		if(!isset($_SESSION)) {
@@ -150,4 +160,6 @@ class Session
 		$GLOBALS['DATABASE']->query("DELETE FROM ".SESSION." WHERE sessionID = '".session_id()."';"); 
 		@session_destroy();
 	}
+	
+	
 }
