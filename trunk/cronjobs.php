@@ -67,7 +67,7 @@ switch($cron)
 				
 				if($compprefix[0].'_' == DB_PREFIX && $compprefix[1] != 'session')
 				{
-					$table .= "`".$pru["Name"]."`, ";
+					$table .= "".$pru["Name"].", ";
 				}
 			}
 			$GLOBALS['DATABASE']->query("OPTIMIZE TABLE ".substr($table, 0, -2).";");
@@ -122,25 +122,27 @@ switch($cron)
 			
 			// Set Bonus for RefLink
 			if($CONF['ref_active'] == 1) {
-				$Users	= $GLOBALS['DATABASE']->query("SELECT `username`, `ref_id`, `id` FROM ".USERS." WHERE `ref_bonus` = 1 AND (SELECT `total_points` FROM ".STATPOINTS." as s WHERE s.`id_owner` = `id` AND s.`stat_type` = '1') >= ".$CONF['ref_minpoints'].";");
+				$Users	= $GLOBALS['DATABASE']->query("SELECT username, ref_id, id FROM ".USERS." WHERE ref_bonus = 1 AND (SELECT total_points FROM ".STATPOINTS." as s WHERE s.id_owner = id AND s.stat_type = '1') >= ".$CONF['ref_minpoints'].";");
 				$LANG->setDefault($CONF['lang']);
 				while($User	= $GLOBALS['DATABASE']->fetch_array($Users)) {
 					$LANG->setUser($User['lang']);	
 					$LANG->includeLang(array('INGAME', 'TECH'));
-					$GLOBALS['DATABASE']->multi_query("UPDATE ".USERS." SET `darkmatter` = `darkmatter` + '".$CONF['ref_bonus']."' WHERE `id` = '".$User['ref_id']."';UPDATE ".USERS." SET `ref_bonus` = `ref_bonus` = '0' WHERE `id` = '".$User['id']."';");
+					$GLOBALS['DATABASE']->multi_query("UPDATE ".USERS." SET darkmatter = darkmatter + ".$CONF['ref_bonus']." WHERE id = ".$User['ref_id'].";
+													   UPDATE ".USERS." SET ref_bonus = '0' WHERE id = ".$User['id'].";");
 					$Message	= sprintf($LNG['sys_refferal_text'], $User['username'], pretty_number($CONF['ref_minpoints']), $CONF['ref_bonus'],$LNG['tech'][921]);
 					SendSimpleMessage($User['ref_id'], '', TIMESTAMP, 4, $LNG['sys_refferal_from'], sprintf($LNG['sys_refferal_title'], $User['username']), $Message);
 				}
 			}
+			
 			// Send inactive Players Mails
 			if($CONF['sendmail_inactive'] == 1 && $CONF['mail_active'] == 1) {
-				$Users	= $GLOBALS['DATABASE']->query("SELECT `id`, `username`, `lang`, `email`, `onlinetime` FROM ".USERS." WHERE `inactive_mail` = '0' AND `onlinetime` < '".(TIMESTAMP - $CONF['del_user_sendmail'])."';");
+				$Users	= $GLOBALS['DATABASE']->query("SELECT id, username, lang, email, onlinetime FROM ".USERS." WHERE inactive_mail = '0' AND onlinetime < '".(TIMESTAMP - 86400 * $CONF['del_user_sendmail'])."';");
 				while($User	= $GLOBALS['DATABASE']->fetch_array($Users)) {
 					$MailSubject	= sprintf($LNG['reg_mail_reg_done'], $CONF['game_name']);
 					$MailRAW		= file_get_contents("./language/".$User['lang']."/email/email_inactive.txt");
 					$MailContent	= sprintf($MailRAW, $User['username'], $CONF['game_name'].' - '.$CONF['uni_name'], date($LNG['php_tdformat'], $User['onlinetime']), PROTOCOL.$_SERVER['HTTP_HOST'].HTTP_ROOT);	
 					MailSend($User['email'], $User['username'], $MailSubject, $MailContent);
-					$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET `inactive_mail` = '1' WHERE `id` = '".$User['id']."';");
+					$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET inactive_mail = '1' WHERE id = '".$User['id']."';");
 				}
 			}
 			
