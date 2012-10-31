@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-12-31)
  * @info $Id$
- * @link http://code.google.com/p/2moons/
+ * @link http://2moons.cc/
  */
 
 class MissionCaseExpedition extends MissionFunctions
@@ -98,7 +97,7 @@ class MissionCaseExpedition extends MissionFunctions
 					$Message	= $LNG['sys_expe_found_ress_3_'.mt_rand(1,2)];
 				}
 
-				$StatFactor = $GLOBALS['DATABASE']->uniquequery("SELECT MAX(total_points) as total FROM `".STATPOINTS."` WHERE `stat_type` = 1 AND `universe` = '".$this->_fleet['fleet_universe']."';");
+				$StatFactor = $GLOBALS['DATABASE']->getFirstRow("SELECT MAX(total_points) as total FROM `".STATPOINTS."` WHERE `stat_type` = 1 AND `universe` = '".$this->_fleet['fleet_universe']."';");
 
 				$MaxPoints	= ($StatFactor['total'] < 5000000) ? 9000 : 12000;
 				$Size		= min($Factor * MAX(MIN($fleetPoints / 1000, $MaxPoints), 200), $fleetCapacity);
@@ -151,7 +150,7 @@ class MissionCaseExpedition extends MissionFunctions
 					$Message	= $LNG['sys_expe_found_ships_3_'.mt_rand(1,2)];
 				}
 
-				$StatFactor 	= $GLOBALS['DATABASE']->countquery("SELECT MAX(total_points) FROM `".STATPOINTS."` WHERE `stat_type` = 1 AND `universe` = '".$this->_fleet['fleet_universe']."';");
+				$StatFactor 	= $GLOBALS['DATABASE']->getFirstCell("SELECT MAX(total_points) FROM `".STATPOINTS."` WHERE `stat_type` = 1 AND `universe` = '".$this->_fleet['fleet_universe']."';");
 
 				$MaxPoints 		= ($StatFactor < 5000000) ? 4500 : 6000;
 
@@ -260,7 +259,7 @@ HTML;
 					$DefenderFleetArray	.= $ID.",".round($count * $maxAttack).";";
 				}
 
-				$AttackerTechno	= $GLOBALS['DATABASE']->uniquequery("SELECT * FROM ".USERS." WHERE id = ".$this->_fleet['fleet_owner'].";");
+				$AttackerTechno	= $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".USERS." WHERE id = ".$this->_fleet['fleet_owner'].";");
 				$DefenderTechno	= array(
 					'id' => 0,
 					'username' => $Name,
