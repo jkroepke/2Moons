@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2012 Jan Kröpke
+ *  Copyright (C) 2011  Slaver
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,12 +18,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Jan Kröpke <info@2moons.cc>
- * @copyright 2012 Jan Kröpke <info@2moons.cc>
+ * @author Slaver <slaver7@gmail.com>
+ * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
+ * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.7.0 (2012-12-31)
+ * @version 1.6.1 (2011-11-19)
  * @info $Id$
- * @link http://2moons.cc/
+ * @link http://code.google.com/p/2moons/
  */
 
 require(ROOT_PATH.'includes/libs/Smarty/Smarty.class.php');
@@ -103,6 +104,31 @@ class template extends Smarty
 		));
 	}
 	
+	public function login_main()
+	{
+		global $USER, $CONF, $LNG, $LANG, $UNI;
+		$this->assign_vars(array(
+			'cappublic'			=> $CONF['cappublic'],
+			'servername' 		=> $CONF['game_name'],
+			'forum_url' 		=> $CONF['forum_url'],
+			'fb_active'			=> $CONF['fb_on'],
+			'fb_key' 			=> $CONF['fb_apikey'],
+			'mail_active'		=> $CONF['mail_active'],
+			'game_captcha'		=> $CONF['capaktiv'],
+			'reg_close'			=> $CONF['reg_closed'],
+			'ref_active'		=> $CONF['ref_active'],
+			'ga_active'			=> $CONF['ga_active'],
+			'ga_key'			=> $CONF['ga_key'],
+			'getajax'			=> HTTP::_GP('getajax', 0),
+			'lang'				=> $LANG->getUser(),
+			'UNI'				=> $UNI,
+			'VERSION'			=> $CONF['VERSION'],
+			'REV'				=> substr($CONF['VERSION'], -4),
+			'langs'				=> json_encode(Language::getAllowedLangs(false)),
+			'htaccess'			=> (int) (UNIS_HTACCESS === true),
+		));
+	}
+	
 	public function show($file)
 	{		
 		global $USER, $PLANET, $CONF, $LNG, $THEME, $LANG;
@@ -117,6 +143,9 @@ class template extends Smarty
 		} elseif(MODE === 'ADMIN') {
 			$this->setTemplateDir($tplDir[0].'adm/');
 			$this->adm_main();
+		} elseif(MODE === 'INDEX') {
+			$this->setTemplateDir($tplDir[0].'index/');
+			$this->login_main();
 		}
 
 		$this->assign_vars(array(
