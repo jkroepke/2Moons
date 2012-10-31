@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,41 +18,48 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan <info@2moons.cc>
+ * @copyright 2006 Perberos <ugamela@perberos.com.ar> (UGamela)
+ * @copyright 2008 Chlorel (XNova)
+ * @copyright 2012 Jan <info@2moons.cc> (2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 2.0 (2012-11-31)
  * @info $Id$
- * @link http://code.google.com/p/2moons/
+ * @link http://2moons.cc/
  */
 
 class Session
 {
-	function __construct()
+	private static $obj;
+	
+	
+	static function redirectCode($Code)
 	{
-		ini_set('session.use_cookies', '1');
-		ini_set('session.use_only_cookies', '1');
-		ini_set('session.use_trans_sid', 0);
-		ini_set('session.auto_start', '0');
-		ini_set('session.serialize_handler', 'php');  
-		ini_set('session.gc_maxlifetime', SESSION_LIFETIME);
-		ini_set('session.gc_probability', '1');
-		ini_set('session.gc_divisor', '1000');
-		ini_set('session.bug_compat_warn', '0');
-		ini_set('session.bug_compat_42', '0');
-		ini_set('session.cookie_httponly', true);
-		
-		//session_set_cookie_params(SESSION_LIFETIME, HTTP_ROOT, HTTP_HOST, HTTPS, true);
-		
-		$HTTP_ROOT = MODE === 'INSTALL' ? dirname(HTTP_ROOT) : HTTP_ROOT;
-		
-		session_set_cookie_params(SESSION_LIFETIME, $HTTP_ROOT, NULL, HTTPS, true);
-		session_cache_limiter('nocache');
-		session_name('2Moons');
+		HTTP::redirectTo('index.php?code='.$Code);
 	}
 	
-	function IsUserLogin()
+	static function create($userID, $planetID = 0)
+	{
+		self::$obj	= new self;
+		
+		if(!isset($_SESSION)) {
+			session_start();
+		}
+		
+		$GLOBALS['DATABASE']->query("REPLACE INTO ".SESSION." SET
+		sessionID = '".session_id()."',
+		userID = ".$userID.",
+		lastonline = ".TIMESTAMP.",
+		userIP = '".$_SERVER['REMOTE_ADDR']."';");
+		
+		$_SESSION['id']			= $userID;
+		$_SESSION['agent']		= $_SERVER['HTTP_USER_AGENT'];
+		$_SESSION['planet']		= $planetID;
+		
+		return self::$obj;
+	}
+	
+	function isActiveSession()
 	{
 		if(!isset($_SESSION)) {
 			session_start();
@@ -62,36 +69,7 @@ class Session
 	
 	function GetSessionFromDB()
 	{
-		return $GLOBALS['DATABASE']->uniquequery("SELECT * FROM ".SESSION." WHERE sessionID = '".session_id()."' AND userID = ".$_SESSION['id'].";");
-	}
-	
-	function ErrorMessage($Code)
-	{
-		HTTP::redirectTo('index.php?code='.$Code);
-	}
-	
-	function CreateSession($ID, $Username, $MainPlanet, $Universe, $Authlevel = 0, $dpath = DEFAULT_THEME)
-	{
-		if(!isset($_SESSION)) {
-			session_start();
-		}
-		
-		$Path					= $this->GetPath();
-		
-		$GLOBALS['DATABASE']->query("DELETE FROM ".SESSION." WHERE userID = ".$ID." OR sessionID = '".session_id()."';");		
-		$GLOBALS['DATABASE']->query("INSERT INTO ".SESSION." SET
-		userID = ".$ID.",
-		sessionID = '".session_id()."',
-		lastonline = ".TIMESTAMP.",
-		userIP = '".$_SERVER['REMOTE_ADDR']."';");
-		$_SESSION['id']			= $ID;
-		$_SESSION['username']	= $Username;
-		$_SESSION['authlevel']	= $Authlevel;	
-		$_SESSION['path']		= $Path;
-		$_SESSION['dpath']		= $dpath;
-		$_SESSION['planet']		= $MainPlanet;
-		$_SESSION['uni']		= $Universe;
-		$_SESSION['agent']		= $_SERVER['HTTP_USER_AGENT'];
+		return $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".SESSION." WHERE sessionID = '".session_id()."' AND userID = ".$_SESSION['id'].";");
 	}
 	
 	function GetPath()
@@ -99,33 +77,31 @@ class Session
 		return basename($_SERVER['SCRIPT_NAME']).(!empty($_SERVER['QUERY_STRING']) ? '?'.$_SERVER['QUERY_STRING'] : '');
 	}
 	
-	function UpdateSession()
-	{
-		global $CONF;
-		
-		if(HTTP::_GP('ajax', 0) == 1)
-			return true;
-			
+	function updateSession()
+	{		
 		$_SESSION['last']	= $this->GetSessionFromDB();
-		if(empty($_SESSION['last']) || !$this->CompareIPs($_SESSION['last']['userIP'])) {
+		if(empty($_SESSION['last']) || !$this->CompareIPs($_SESSION['last']['userIP']))
+		{
 			$this->DestroySession();
-			$this->ErrorMessage(2);
+			self::redirectCode(2);
 		}
 		
 		$SelectPlanet  		= HTTP::_GP('cp',0);
+		
 		if(!empty($SelectPlanet))
-			$IsPlanetMine 	=	$GLOBALS['DATABASE']->uniquequery("SELECT id FROM ".PLANETS." WHERE id = '".$SelectPlanet."' AND id_owner = '".$_SESSION['id']."';");
-			
+		{
+			$IsPlanetMine 	=	$GLOBALS['DATABASE']->getFirstRow("SELECT id FROM ".PLANETS." WHERE id = '".$SelectPlanet."' AND id_owner = '".$_SESSION['id']."';");
+		}	
 		$_SESSION['path']		= $this->GetPath();
 		$_SESSION['planet']		= !empty($IsPlanetMine['id']) ? $IsPlanetMine['id'] : $_SESSION['planet'];
 
-		$GLOBALS['DATABASE']->query("UPDATE ".USERS.", ".SESSION." SET 
-		onlinetime = ".TIMESTAMP.",
-		lastonline = ".TIMESTAMP.",
-		user_lastip = '".$_SERVER['REMOTE_ADDR']."',
-		userIP = '".$_SERVER['REMOTE_ADDR']."'
+		$GLOBALS['DATABASE']->query("UPDATE ".USERS." u, ".SESSION." s SET 
+		u.onlinetime = ".TIMESTAMP.",
+		s.lastonline = ".TIMESTAMP.",
+		u.user_lastip = '".$_SERVER['REMOTE_ADDR']."',
+		s.userIP = '".$_SERVER['REMOTE_ADDR']."'
 		WHERE
-		sessionID = '".session_id()."' AND id = userID;");
+		sessionID = '".session_id()."' AND u.id = s.userID;");
 		return true;
 	}
 	
@@ -175,4 +151,3 @@ class Session
 		@session_destroy();
 	}
 }
-?>
