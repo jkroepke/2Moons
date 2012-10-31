@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-12-31)
  * @info $Id$
- * @link http://code.google.com/p/2moons/
+ * @link http://2moons.cc/
  */
 
 class ShowRaportPage extends AbstractPage
@@ -44,9 +43,9 @@ class ShowRaportPage extends AbstractPage
 		
 		$this->setWindow('popup');
 		
-		$RID		= HTTP::_GP('raport', 0);
+		$RID		= HTTP::_GP('raport', '');
 		
-		$Raport		= $GLOBALS['DATABASE']->uniquequery("SELECT 
+		$Raport		= $GLOBALS['DATABASE']->getFirstRow("SELECT 
 		raport, time,
 		(
 			SELECT 
@@ -61,7 +60,7 @@ class ShowRaportPage extends AbstractPage
 			WHERE id IN (SELECT uid FROM ".TOPKB_USERS." WHERE ".TOPKB_USERS.".rid = ".RW.".rid AND role = 2)
 		) as defender
 		FROM ".RW."
-		WHERE rid = ".$RID.";");
+		WHERE rid = '".$RID."';");
 		
 		$Info		= array($Raport["attacker"], $Raport["defender"]);
 		
@@ -71,6 +70,18 @@ class ShowRaportPage extends AbstractPage
 		
 		$CombatRaport			= unserialize($Raport['raport']);
 		$CombatRaport['time']	= _date($LNG['php_tdformat'], $CombatRaport['time'], $USER['timezone']);
+		
+		if(isset($INFO['moon']['desfail']))
+		{
+			// 2Moons BC r2321
+			$CombatRaport['moon']	= array(
+				'moonName'				=> $CombatRaport['moon']['name'],
+				'moonChance'			=> $CombatRaport['moon']['chance'],
+				'moonDestroySuccess'	=> !$CombatRaport['moon']['desfail'],
+				'fleetDestroyChance'	=> $CombatRaport['moon']['chance2'],
+				'fleetDestroySuccess'	=> !$INFO['moon']['fleetfail']
+			);
+		}
 
 		$this->tplObj->assign_vars(array(
 			'Raport'	=> $CombatRaport,
@@ -86,9 +97,9 @@ class ShowRaportPage extends AbstractPage
 		
 		$this->setWindow('popup');
 		
-		$RID		= HTTP::_GP('raport', 0);
+		$RID		= HTTP::_GP('raport', '');
 		
-		$Raport		= $GLOBALS['DATABASE']->countquery("SELECT raport FROM ".RW." WHERE rid = ".$RID.";");
+		$Raport		= $GLOBALS['DATABASE']->getFirstCell("SELECT raport FROM ".RW." WHERE rid = '".$RID."';");
 		$Info		= array();
 		
 		if(!isset($Raport)) {
