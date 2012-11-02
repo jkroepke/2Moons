@@ -51,7 +51,7 @@ class MissionCaseRecycling extends MissionFunctions
 		}
 		
 		$targetData	= $GLOBALS['DATABASE']->getFirstRow("SELECT ".implode(',', $resQuery).", (".implode(' + ', $resQuery).") as total FROM ".PLANETS." WHERE id = ".$this->_fleet['fleet_end_id'].";");
-		if(isset($targetData))
+		if(!empty($targetData['total']))
 		{
 			$targetUser			= $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".USERS." WHERE id = ".$this->_fleet['fleet_owner'].";");
 			$targetUserFactors	= getFactors($targetUser);
