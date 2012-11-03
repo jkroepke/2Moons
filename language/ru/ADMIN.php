@@ -299,6 +299,7 @@ $LNG['se_general_speed']               = 'Скорость игры';
 $LNG['se_fleet_speed']                 = 'Скорость флота';
 $LNG['se_resources_producion_speed']   = 'Скорость производства ресурсов';
 $LNG['se_halt_speed']                  = 'Скорость экспедиции';
+$LNG['se_energy_speed']                = 'Скорость энергии';
 $LNG['se_forum_link']                  = 'Адрес форума';
 $LNG['se_server_op_close']             = 'Включить игру';
 $LNG['se_server_status_message']       = 'Причина отключения';
