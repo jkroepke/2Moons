@@ -12,8 +12,8 @@
 					<td class="transparent" style="width:120px"><img width="120" height="120" src="{$dpath}gebaeude/{$elementID}.{if $elementID >=600 && $elementID <= 699}jpg{else}gif{/if}" alt=""></td>
 					<td class="transparent left"><p>{$LNG.longDescription.$elementID}</p>
 					{if !empty($Bonus)}<p>
-					{foreach $Bonus as $BonusName => $elementBouns}
-					{$LNG.bonus.$BonusName|replace:'%f%':{abs($elementBouns * 100)}}<br>{/foreach}
+					<b>{$LNG.in_bonus}</b><br>
+					{foreach $Bonus as $BonusName => $elementBouns}{if $elementBouns[0] < 0}-{else}+{/if}{if $elementBouns[1] == 0}{abs($elementBouns[0] * 100)}%{else}{floatval($elementBouns[0])}{/if} {$LNG.bonus.$BonusName}<br>{/foreach}
 					</p>{/if}	
 					{if !empty($FleetInfo)}
 					{if !empty($FleetInfo.rapidfire.to)}<p>

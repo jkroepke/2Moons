@@ -133,23 +133,9 @@ function getFactors($USER, $Type = 'basic', $TIME = NULL) {
 	global $CONF, $resource, $pricelist, $reslist;
 	if(empty($TIME))
 		$TIME	= TIMESTAMP;
-		
-	$factor	= array(
-		'Attack'			=> 0,
-		'Defensive'			=> 0,
-		'Shield'			=> 0,
-		'BuildTime'			=> 0,
-		'ResearchTime'		=> 0,
-		'ShipTime'			=> 0,
-		'DefensiveTime'		=> 0,
-		'Resource'			=> 0,
-		'Energy'			=> 0,
-		'ResourceStorage'	=> 0,
-		'ShipStorage'		=> 0,
-		'FlyTime'			=> 0,
-		'FleetSlots'		=> 0,
-		'Planets'			=> 0,
-	);
+	
+	$bonusList	= BuildFunctions::getBonusList();
+	$factor		= ArrayUtil::combineArrayWithSingleElement($bonusList, 0);
 	
 	foreach($reslist['bonus'] as $elementID) {
 		$bonus = $pricelist[$elementID]['bonus'];
@@ -167,35 +153,15 @@ function getFactors($USER, $Type = 'basic', $TIME = NULL) {
 				continue;
 			}
 			
-			$factor['Attack']			+= $bonus['Attack'];
-			$factor['Defensive']		+= $bonus['Defensive'];
-			$factor['Shield']			+= $bonus['Shield'];
-			$factor['BuildTime']		+= $bonus['BuildTime'];
-			$factor['ResearchTime']		+= $bonus['ResearchTime'];
-			$factor['ShipTime']			+= $bonus['ShipTime'];
-			$factor['DefensiveTime']	+= $bonus['DefensiveTime'];
-			$factor['Resource']			+= $bonus['Resource'];
-			$factor['Energy']			+= $bonus['Energy'];
-			$factor['ResourceStorage']	+= $bonus['ResourceStorage'];
-			$factor['ShipStorage']		+= $bonus['ShipStorage'];
-			$factor['FlyTime']			+= $bonus['FlyTime'];
-			$factor['FleetSlots']		+= $bonus['FleetSlots'];
-			$factor['Planets']			+= $bonus['Planets'];
+			foreach($bonusList as $bonusKey)
+			{
+				$factor[$bonusKey]	+= $bonus[$bonusKey][0];
+			}
 		} else {
-			$factor['Attack']			+= $elementLevel * $bonus['Attack'];
-			$factor['Defensive']		+= $elementLevel * $bonus['Defensive'];
-			$factor['Shield']			+= $elementLevel * $bonus['Shield'];
-			$factor['BuildTime']		+= $elementLevel * $bonus['BuildTime'];
-			$factor['ResearchTime']		+= $elementLevel * $bonus['ResearchTime'];
-			$factor['ShipTime']			+= $elementLevel * $bonus['ShipTime'];
-			$factor['DefensiveTime']	+= $elementLevel * $bonus['DefensiveTime'];
-			$factor['Resource']			+= $elementLevel * $bonus['Resource'];
-			$factor['Energy']			+= $elementLevel * $bonus['Energy'];
-			$factor['ResourceStorage']	+= $elementLevel * $bonus['ResourceStorage'];
-			$factor['ShipStorage']		+= $elementLevel * $bonus['ShipStorage'];
-			$factor['FlyTime']			+= $elementLevel * $bonus['FlyTime'];
-			$factor['FleetSlots']		+= $elementLevel * $bonus['FleetSlots'];
-			$factor['Planets']			+= $elementLevel * $bonus['Planets'];
+			foreach($bonusList as $bonusKey)
+			{
+				$factor[$bonusKey]	+= $elementLevel * $bonus[$bonusKey][0];
+			}
 		}
 	}
 	
@@ -556,12 +522,6 @@ function ClearCache()
 			unlink(ROOT_PATH.$DIR.$FILE);
 		}
 	}
-}
-
-function MaxPlanets($Level, $Universe)
-{
-	// http://owiki.de/index.php/Astrophysik#.C3.9Cbersicht
-	return min($GLOBALS['CONFIG'][$Universe]['min_player_planets'] + ceil($Level / 2) * PLANETS_PER_TECH, $GLOBALS['CONFIG'][$Universe]['max_player_planets']);
 }
 
 function allowPlanetPosition($Pos, $techLevel)

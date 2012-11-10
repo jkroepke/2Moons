@@ -508,6 +508,7 @@ $LNG['in_dest_durati'] 						= 'Dauer';
 $LNG['in_missilestype'] 					= 'Raketentyp';
 $LNG['in_missilesamount'] 					= 'Vorhanden';
 $LNG['in_engine'] 							= 'Antrieb';
+$LNG['in_bonus'] 							= 'Bonus:';
 
 //----------------------------------------------------------------------------//
 //MESSAGES

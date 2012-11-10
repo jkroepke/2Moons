@@ -58,9 +58,12 @@ class ShowFleetStep2Page extends AbstractPage
 		$fleetArray    				= $_SESSION['fleet'][$token]['fleet'];
 		$targetPlanetData			= $GLOBALS['DATABASE']->getFirstRow("SELECT `id`, `id_owner`, `der_metal`, `der_crystal` FROM `".PLANETS."` WHERE `universe` = ".$UNI." AND `galaxy` = ".$targetGalaxy." AND `system` = ".$targetSystem." AND `planet` = ".$targetPlanet." AND `planet_type` = '1';");
 				
-		if($targetType == 2 && $targetPlanetData['der_metal'] == 0 && $targetPlanetData['der_crystal'] == 0) {
-			FleetFunctions::GotoFleetPage(21);
+		if($targetType == 2 && $targetPlanetData['der_metal'] == 0 && $targetPlanetData['der_crystal'] == 0)
+		{
+			$this->printMessage($LNG['fl_error_empty_derbis']);
 		}
+		
+		##PlayerUnit::maxPlanetCount
 			
 		$MisInfo		     		= array();		
 		$MisInfo['galaxy']     		= $targetGalaxy;		
@@ -72,8 +75,9 @@ class ShowFleetStep2Page extends AbstractPage
 		
 		$MissionOutput	 			= FleetFunctions::GetFleetMissions($USER, $MisInfo, $targetPlanetData);
 		
-		if(empty($MissionOutput['MissionSelector'])) {
-			FleetFunctions::GotoFleetPage(22);
+		if(empty($MissionOutput['MissionSelector']))
+		{
+			$this->printMessage($LNG['fl_empty_target']);
 		}
 		
 		$GameSpeedFactor   		 	= FleetFunctions::GetGameSpeedFactor();		
@@ -83,7 +87,7 @@ class ShowFleetStep2Page extends AbstractPage
 		$consumption				= FleetFunctions::GetFleetConsumption($fleetArray, $duration, $distance, $MaxFleetSpeed, $USER, $GameSpeedFactor);
 		
 		if($consumption > $PLANET['deuterium']) {
-			FleetFunctions::GotoFleetPage(19); # No Deuterium
+			$this->printMessage($LNG['fl_not_enough_deuterium']);
 		}
 		
 		if(!FleetFunctions::CheckUserSpeed($fleetSpeed)) {

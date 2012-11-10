@@ -63,20 +63,24 @@ $LNG['shortNames'] = array (
 );
 
 $LNG['bonus'] = array(
-	'Attack'			=> '%f%% Angriff',
-	'Defensive'			=> '%f%% Verteidigung',
-	'Shield'			=> '%f%% Schild',
-	'BuildTime'			=> '%f%% Bauzeit',
-	'ResearchTime'		=> '%f%% Forschungszeit',
-	'ShipTime'			=> '%f%% Schiffbauzeit',
-	'DefensiveTime'		=> '%f%% Verteidungsbauzeit',
-	'Resource'			=> '%f%% Mienenertrag',
-	'Energy'			=> '%f%% Energieerzeugung',
-	'ResourceStorage'	=> '%f%% Speicher',
-	'ShipStorage'		=> '%f%% Flottenkapazität',
-	'FlyTime'			=> '%f%% Flugzeit',
-	'FleetSlots'		=> '%f%% Flottenslots',
-	'Planets'			=> '%f%% Planeten',
+	'Attack'			=> 'Angriff',
+	'Defensive'			=> 'Verteidigung',
+	'Shield'			=> 'Schild',
+	'BuildTime'			=> 'Bauzeit',
+	'ResearchTime'		=> 'Forschungszeit',
+	'ShipTime'			=> 'Schiffbauzeit',
+	'DefensiveTime'		=> 'Verteidungsbauzeit',
+	'Resource'			=> 'Mienenertrag',
+	'Energy'			=> 'Energieerzeugung',
+	'ResourceStorage'	=> 'Speicher',
+	'ShipStorage'		=> 'Flottenkapazität',
+	'FlyTime'			=> 'Flugzeit',
+	'FleetSlots'		=> 'Flottenslots',
+	'Planets'			=> 'Planeten',
+	'SpyPower'			=> 'Spionagepower',
+	'Expedition'		=> 'Expeditionen',
+	'GateCoolTime'		=> 'Sprungtoraufladungszeit',
+	'MoreFound'			=> 'Expeditionsfund',
 );
 					
 $LNG['tech'] = array(

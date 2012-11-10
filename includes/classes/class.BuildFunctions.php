@@ -28,6 +28,33 @@
 
 class BuildFunctions
 {
+	
+	static $bonusList	= array(
+		'Attack',
+		'Defensive',
+		'Shield',
+		'BuildTime',
+		'ResearchTime',
+		'ShipTime',
+		'DefensiveTime',
+		'Resource',
+		'Energy',
+		'ResourceStorage',
+		'ShipStorage',
+		'FlyTime',
+		'FleetSlots',
+		'Planets',
+		'SpyPower',
+		'Expedition',
+		'GateCoolTime',
+		'MoreFound',
+	);
+
+	public static function getBonusList()
+	{
+		return self::$bonusList;
+	}
+	
 	public static function getRestPrice($USER, $PLANET, $Element, $elementPrice = NULL)
 	{
 		global $resource;
@@ -233,17 +260,17 @@ class BuildFunctions
 	{
 		global $pricelist;
 			
-		$avalibleBonus	= array('Attack', 'Defensive', 'Shield'	, 'BuildTime', 'ResearchTime', 'ShipTime', 'DefensiveTime', 'Resource', 'Energy', 'ResourceStorage', 'ShipStorage', 'FlyTime', 'FleetSlots', 'Planets');
 		$elementBonus	= array();
 		
-		foreach($avalibleBonus as $bonus) {
-			if(empty($pricelist[$Element]['bonus'][$bonus]))
+		foreach(self::$bonusList as $bonus)
+		{
+			$temp	= (float) $pricelist[$Element]['bonus'][$bonus][0];
+			if(empty($temp))
+			{
 				continue;
-				
-			$tmp	= (float) $pricelist[$Element]['bonus'][$bonus];
-			if(!empty($tmp)) {
-				$elementBonus[$bonus]	= $tmp;
 			}
+			
+			$elementBonus[$bonus]	= $pricelist[$Element]['bonus'][$bonus];
 		}
 		
 		return $elementBonus;
