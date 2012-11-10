@@ -28,9 +28,16 @@
 
 class HTTP {
 	
-	static public function redirectTo($URL)
+	static public function redirectTo($URL, $external = false)
 	{
-		self::sendHeader('Location', HTTP_PATH.$URL);
+		if($external)
+		{
+			self::sendHeader('Location', $URL);
+		}
+		else
+		{
+			self::sendHeader('Location', HTTP_PATH.$URL);
+		}
 		exit;
 	}
 	

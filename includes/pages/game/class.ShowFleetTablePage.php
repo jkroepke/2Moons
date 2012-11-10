@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-12-31)
  * @info $Id$
- * @link http://code.google.com/p/2moons/
+ * @link http://2moons.cc/
  */
 
 require_once(ROOT_PATH . 'includes/classes/class.FleetFunctions.php');
@@ -128,7 +127,7 @@ class ShowFleetTablePage extends AbstractPage
 		$statusMessage	= "";
 		if(!empty($newUser))
 		{
-			$newUserID				= $GLOBALS['DATABASE']->countquery("SELECT id FROM ".USERS." WHERE universe = ".$UNI." AND username = '".$GLOBALS['DATABASE']->sql_escape($newUser)."';");
+			$newUserID				= $GLOBALS['DATABASE']->getFirstCell("SELECT id FROM ".USERS." WHERE universe = ".$UNI." AND username = '".$GLOBALS['DATABASE']->sql_escape($newUser)."';");
 				
 			if(empty($newUserID)) {
 				$statusMessage			= $LNG['fl_player']." ".$newUser." ".$LNG['fl_dont_exist'];
@@ -267,12 +266,12 @@ class ShowFleetTablePage extends AbstractPage
 			'targetType'			=> $targetType,
 			'targetMission'			=> $targetMission,
 			'isVacation'			=> IsVacationMode($USER),
-			'bonusAttack'			=> $USER[$resource[109]] * 10 + (1 + $USER['factor']['Attack']) * 100,
-			'bonusDefensive'		=> $USER[$resource[110]] * 10 + (1 + $USER['factor']['Defensive']) * 100,
-			'bonusShield'			=> $USER[$resource[111]] * 10 + (1 + $USER['factor']['Shield']) * 100,
-			'bonusCombustion'		=> $USER[$resource[115]] * 10 + (1 + $USER['factor']['FlyTime']) * 100 - 100,
-			'bonusImpulse'			=> $USER[$resource[117]] * 20 + (1 + $USER['factor']['FlyTime']) * 100 - 100,
-			'bonusHyperspace'		=> $USER[$resource[118]] * 30 + (1 + $USER['factor']['FlyTime']) * 100 - 100,
+			'bonusAttack'			=> $USER[$resource[109]] * 10 + (1 + abs($USER['factor']['Attack'])) * 100,
+			'bonusDefensive'		=> $USER[$resource[110]] * 10 + (1 + abs($USER['factor']['Defensive'])) * 100,
+			'bonusShield'			=> $USER[$resource[111]] * 10 + (1 + abs($USER['factor']['Shield'])) * 100,
+			'bonusCombustion'		=> $USER[$resource[115]] * 10,
+			'bonusImpulse'			=> $USER[$resource[117]] * 20,
+			'bonusHyperspace'		=> $USER[$resource[118]] * 30,
 		));
 		
 		$this->display('page.fleetTable.default.tpl');

@@ -2,7 +2,7 @@
 <br><div style="font-size:22px;font-weight:bolder;font-variant:small-caps;text-align:center;width:100%;">{$adm_cp_title}</div><br>
 <div align="right">
 {if $authlevel == $smarty.const.AUTH_ADM}
-<select id="universe" onchange="top.location = 'admin.php?uni='+$(this).val();">
+<select id="universe">
 {html_options options=$AvailableUnis selected=$UNI}
 </select>
 {/if}
@@ -17,4 +17,12 @@
 {/if}
 <a href="javascript:top.location.href='game.php';" target="_top" class="out">&nbsp;{$adm_cp_logout}&nbsp;</a>
 </div>
+<script>
+$(function() {
+	$('#universe').on('change', function(e) {
+		parent.frames['Hauptframe'].location.href = parent.frames['Hauptframe'].location.href+'&uni='+$(this).val();
+		parent.frames['rightFrame'].location.reload();
+	});
+});
+</script>
 {include file="overall_footer.tpl"}

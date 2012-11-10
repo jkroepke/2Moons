@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-12-31)
  * @info $Id$
- * @link http://code.google.com/p/2moons/
+ * @link http://2moons.cc/
  */
 
 
@@ -48,7 +47,7 @@ class ShowPlayerCardPage extends AbstractPage
 		
 		$PlayerID 	= HTTP::_GP('id', 0);
 			
-		$query 		= $GLOBALS['DATABASE']->uniquequery("SELECT 
+		$query 		= $GLOBALS['DATABASE']->getFirstRow("SELECT 
 						u.username, u.galaxy, u.system, u.planet, u.wons, u.loos, u.draws, u.kbmetal, u.kbcrystal, u.lostunits, u.desunits, u.ally_id, 
 						p.name, 
 						s.tech_rank, s.tech_points, s.build_rank, s.build_points, s.defs_rank, s.defs_points, s.fleet_rank, s.fleet_points, s.total_rank, s.total_points, 

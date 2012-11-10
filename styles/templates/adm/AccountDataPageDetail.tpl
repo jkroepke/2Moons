@@ -16,7 +16,7 @@ a.ccc:hover{
 font-size:15px;color:aqua
 ;}
 table.tableunique{
-border:0px;background:url(./styles/images/Adm/blank.gif);width:100%;
+border:0px;background:url(./styles/resource/images/admin/blank.gif);width:100%;
 }
 td.unico{
 border:0px;text-align:left;
@@ -28,18 +28,18 @@ td{
 color:#FFFFFF;font-size:10px;font-variant:normal;
 }
 td.blank{
-border:0px;background:url(./styles/images/Adm/blank.gif);text-align:right;padding-right:80px;font-size:15px;
+border:0px;background:url(./styles/resource/images/admin/blank.gif);text-align:right;padding-right:80px;font-size:15px;
 }
 </style>
 
 
 <table class="tableunique">
 	<tr>
-		<td class="blank"><a class="tooltip" data-tooltip-content="{$ac_note_k}">{$ac_leyend}&nbsp; <img src="./styles/images/Adm/i.gif" height="12" width="12"></a></td>
+		<td class="blank"><a class="tooltip" data-tooltip-content="{$ac_note_k}">{$ac_leyend}&nbsp; <img src="./styles/resource/images/admin/i.gif" height="12" width="12"></a></td>
 	</tr>
 	<tr>
 		<td class="unico transparent"><a href="#" onclick="$('#datos').slideToggle();return false" class="link">
-		<img src="./styles/images/Adm/arrowright.png" width="16" height="10"> {$ac_account_data}</a></td>
+		<img src="./styles/resource/images/admin/arrowright.png" width="16" height="10"> {$ac_account_data}</a></td>
 	</tr><tr>
 		<td class="unico transparent">
 			<div id="datos">
@@ -165,7 +165,7 @@ border:0px;background:url(./styles/images/Adm/blank.gif);text-align:right;paddin
 		</td>
 	</tr><tr>
 		<td class="unico transparent"><a href="#" onclick="$('#pla').slideToggle();return false" class="link">
-		<img src="./styles/images/Adm/arrowright.png" width="16" height="10"> {$ac_id_names_coords}</a></td>
+		<img src="./styles/resource/images/admin/arrowright.png" width="16" height="10"> {$ac_id_names_coords}</a></td>
 	</tr><tr>
 		<td class="unico transparent">
 			<div id="pla" style="display:none">
@@ -185,7 +185,7 @@ border:0px;background:url(./styles/images/Adm/blank.gif);text-align:right;paddin
 		</td>
 	</tr><tr>
 		<td class="unico transparent"><a href="#" onclick="$('#recursos').slideToggle();return false" class="link">
-		<img src="./styles/images/Adm/arrowright.png" width="16" height="10"> {$resources_title}</a></td>
+		<img src="./styles/resource/images/admin/arrowright.png" width="16" height="10"> {$resources_title}</a></td>
 	</tr><tr>
 		<td class="unico transparent">
 			<div id="recursos" style="display:none">
@@ -207,7 +207,7 @@ border:0px;background:url(./styles/images/Adm/blank.gif);text-align:right;paddin
 		</td>
 	</tr><tr>
 		<td class="unico transparent"><a href="#" onclick="$('#edificios').slideToggle();return false" class="link">
-		<img src="./styles/images/Adm/arrowright.png" width="16" height="10"> {$buildings_title}</a></td>
+		<img src="./styles/resource/images/admin/arrowright.png" width="16" height="10"> {$buildings_title}</a></td>
 	</tr><tr>
 		<td class="unico transparent">
 			<div id="edificios" style="display:none">
@@ -220,7 +220,7 @@ border:0px;background:url(./styles/images/Adm/blank.gif);text-align:right;paddin
 		</td>
 	</tr><tr>
 		<td class="unico transparent"><a href="#" onclick="$('#naves').slideToggle();return false" class="link">
-		<img src="./styles/images/Adm/arrowright.png" width="16" height="10"> {$ships_title}</a></td>
+		<img src="./styles/resource/images/admin/arrowright.png" width="16" height="10"> {$ships_title}</a></td>
 	</tr><tr>
 		<td class="unico transparent">
 			<div id="naves" style="display:none">
@@ -233,7 +233,7 @@ border:0px;background:url(./styles/images/Adm/blank.gif);text-align:right;paddin
 		</td>
 	</tr><tr>
 		<td class="unico transparent"><a href="#" onclick="$('#defensa').slideToggle();return false" class="link">
-		<img src="./styles/images/Adm/arrowright.png" width="16" height="10"> {$defenses_title}</a></td>
+		<img src="./styles/resource/images/admin/arrowright.png" width="16" height="10"> {$defenses_title}</a></td>
 	</tr><tr>
 		<td class="unico transparent">
 			<div id="defensa" style="display:none">
@@ -246,7 +246,7 @@ border:0px;background:url(./styles/images/Adm/blank.gif);text-align:right;paddin
 		</td>
 	</tr><tr>
 		<td class="unico transparent"><a href="#" onclick="$('#inves').slideToggle();return false" class="link">
-		<img src="./styles/images/Adm/arrowright.png" width="16" height="10"> {$ac_officier_research}</a></td>
+		<img src="./styles/resource/images/admin/arrowright.png" width="16" height="10"> {$ac_officier_research}</a></td>
 	</tr><tr>
 		<td class="unico transparent">
 			<div id="inves" style="display:none">
@@ -263,8 +263,8 @@ border:0px;background:url(./styles/images/Adm/blank.gif);text-align:right;paddin
 	</tr><tr>
 		<td class="unico transparent">
 			{if $DestruyeD != 0}<a href="#" onclick="$('#destr').slideToggle();return false" class="link">
-			<img src="./styles/images/Adm/arrowright.png" width="16" height="10"> {$ac_recent_destroyed_planets}</a>
-			{else}<span class="no_moon"><img src="./styles/images/Adm/arrowright.png" width="16" height="10"> 
+			<img src="./styles/resource/images/admin/arrowright.png" width="16" height="10"> {$ac_recent_destroyed_planets}</a>
+			{else}<span class="no_moon"><img src="./styles/resource/images/admin/arrowright.png" width="16" height="10"> 
 			{$ac_recent_destroyed_planets}&nbsp;{$ac_isnodestruyed}</span>{/if}
 		</td>
 	</tr><tr>

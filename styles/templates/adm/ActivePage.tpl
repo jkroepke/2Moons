@@ -29,7 +29,7 @@
 	<td>{$User.email}</td>
 	<td>{$User.ip}</td>
 	<td><a href="javascript:ajax('./index.php?&uni={$uni}&page=reg&action=valid&clef={$User.cle}&admin=1');">{$LNG.ap_aktivieren}</a></td>
-	<td><a href="?page=active&amp;action=delete&id={$User.id}" onclick="return confirm('{$LNG.ap_sicher}{$User.username} {$LNG.ap_entfernen}');"><img border="0" src="./styles/images/alliance/CLOSE.png" width="16" height="16"></a></td>
+	<td><a href="?page=active&amp;action=delete&id={$User.id}" onclick="return confirm('{$LNG.ap_sicher}{$User.username} {$LNG.ap_entfernen}');"><img border="0" src="./styles/resource/images/alliance/CLOSE.png" width="16" height="16"></a></td>
 </tr>
 {/foreach}	
 <tr><td colspan="8">{$LNG.ap_insgesamt} {$smarty.foreach.User.total} {$LNG.ap_nicht_aktivierte}</td></tr>

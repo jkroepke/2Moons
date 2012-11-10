@@ -186,12 +186,10 @@ var Dialog	= {
 
 function NotifyBox(text) {
 	tip = $('#tooltip')
-	tip.html(text).css({
-		top : 200,
+	tip.html(text).addClass('notify').css({
 		left : (($(window).width() - $('#leftmenu').width()) / 2 - tip.outerWidth() / 2) + $('#leftmenu').width(),
-		padding: '20px'
 	}).show();
-	window.setTimeout(function(){tip.fadeOut(1000)}, 500);
+	window.setTimeout(function(){tip.fadeOut(1000, function() {tip.removeClass('notify')})}, 500);
 }
 
 

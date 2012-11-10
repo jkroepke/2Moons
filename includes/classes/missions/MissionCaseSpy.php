@@ -169,11 +169,11 @@ class MissionCaseSpy extends MissionFunctions
 
 		if ($targetChance >= $spyChance)
 		{
-			$CONF		= getConfig($this->_fleet['fleet_universe']);
+			$CONF		= Config::getAll(NULL, $this->_fleet['fleet_universe']);
 			$WhereCol	= $this->_fleet['fleet_end_type'] == 3 ? "id_luna" : "id";		
 			$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET
-			der_metal = der_metal + ".($fleetAmount * $pricelist[210]['cost'][901] * ($CONF['Fleet_Cdr'] / 100)).", 
-			der_crystal = der_crystal + ".($fleetAmount * $pricelist[210]['cost'][902] * ($CONF['Fleet_Cdr'] / 100))." 
+			der_metal = der_metal + ".($fleetAmount * $pricelist[210]['cost'][901] * (Config::get('Fleet_Cdr') / 100)).", 
+			der_crystal = der_crystal + ".($fleetAmount * $pricelist[210]['cost'][902] * (Config::get('Fleet_Cdr') / 100))." 
 			WHERE ".$WhereCol." = ".$this->_fleet['fleet_end_id'].";");
 			$this->KillFleet();
 		}

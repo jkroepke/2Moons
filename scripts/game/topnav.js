@@ -17,12 +17,12 @@ function resourceTicker(config, init) {
 	{
 		if (nrResource >= config.limit[1])
 			element.className = element.className+" res_current_max";
-		else if (nrResource >= config.limit[1] * 0.9)
+		else if (element.className.match(/res_current_warn/) === null && nrResource >= config.limit[1] * 0.9)
 			element.className = element.className+" res_current_warn";
 		
-		if(shortlyNumber) {
+		if(shortly_number) {
 			element.innerHTML	= shortly_number(nrResource);
-			element.name		= NumberGetHumanReadable(nrResource);
+			element.data('tooltipContent', NumberGetHumanReadable(nrResource));
 		} else {
 			element.innerHTML	= NumberGetHumanReadable(nrResource);
 		}
@@ -32,9 +32,5 @@ function resourceTicker(config, init) {
 }
 
 function getRessource(name) {
-	if(shortlyNumber) {
-		return parseInt($('#current_'+name).attr('name').replace(/\./g, ''));
-	} else {
-		return parseInt($('#current_'+name).text().replace(/\./g, ''));
-	}
+	return parseInt($('#current_'+name).data('real'));
 }

@@ -79,8 +79,8 @@ class ResourceUpdate
 		$this->USER		= $this->GLOBALS ? $GLOBALS['USER'] : $USER;
 		$this->PLANET	= $this->GLOBALS ? $GLOBALS['PLANET'] : $PLANET;
 		$this->TIME		= is_null($TIME) ? TIMESTAMP : $TIME;
-		$this->CONF		= getConfig($this->USER['universe']);
-		$this->CONF['energySpeed']	= 1;
+		$this->CONF		= Config::getAll(NULL, $this->USER['universe']);
+#		$this->CONF['energySpeed']	= 1;
 		
 		if($this->USER['urlaubs_modus'] == 1)
 			return $this->ReturnVars();

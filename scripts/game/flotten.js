@@ -190,8 +190,8 @@ function CheckTarget()
 {
 	kolo	= (typeof data.ships[208] == "object") ? 1 : 0;
 		
-	$.get('game.php?page=fleetStep1&mode=checkTarget&galaxy='+document.getElementsByName("galaxy")[0].value+'&system='+document.getElementsByName("system")[0].value+'&planet='+document.getElementsByName("planet")[0].value+'&planet_type='+document.getElementsByName("type")[0].value+'&lang='+Lang+'&kolo='+kolo, function(data) {
-		if($.trim(data) == "OK") {
+	$.getJSON('game.php?page=fleetStep1&mode=checkTarget&galaxy='+document.getElementsByName("galaxy")[0].value+'&system='+document.getElementsByName("system")[0].value+'&planet='+document.getElementsByName("planet")[0].value+'&planet_type='+document.getElementsByName("type")[0].value+'&lang='+Lang+'&kolo='+kolo, function(data) {
+		if(data == "OK") {
 			document.getElementById('form').submit();
 		} else {
 			NotifyBox(data);

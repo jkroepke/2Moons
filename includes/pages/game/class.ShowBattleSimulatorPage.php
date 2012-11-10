@@ -137,7 +137,7 @@ class ShowBattleSimulatorPage extends AbstractPage
 		require_once(ROOT_PATH.'includes/classes/missions/calculateSteal.php');
 		require_once(ROOT_PATH.'includes/classes/missions/GenerateReport.php');
 		
-		$combatResult	= calculateAttack($attackers, $defenders, $CONF['Fleet_Cdr'], $CONF['Defs_Cdr']);
+		$combatResult	= calculateAttack($attackers, $defenders, Config::get('Fleet_Cdr'), Config::get('Defs_Cdr'));
 		
 		if($combatResult['won'] == "a")
 		{
@@ -165,8 +165,8 @@ class ShowBattleSimulatorPage extends AbstractPage
 		
 		$debrisTotal		= array_sum($debris);
 		
-		$moonFactor			= $CONF['moon_factor'];
-		$maxMoonChance		= $CONF['moon_chance'];
+		$moonFactor			= Config::get('moon_factor');
+		$maxMoonChance		= Config::get('moon_chance');
 		
 		$chanceCreateMoon	= round($debrisTotal / 100000 * $moonFactor);
 		$chanceCreateMoon	= min($chanceCreateMoon, $maxMoonChance);
@@ -234,10 +234,10 @@ class ShowBattleSimulatorPage extends AbstractPage
 		);
 		
 		$raportData	= GenerateReport($combatResult, $raportInfo);
-			
-		$sqlQuery	= "INSERT INTO ".RW." SET raport = '".$GLOBALS['DATABASE']->sql_escape(serialize($raportData))."', time = ".TIMESTAMP.";";
+		
+		$raportID	= md5(uniqid('', true).TIMESTAMP);
+		$sqlQuery	= "INSERT INTO ".RW." SET rid = '".$raportID."', raport = '".$GLOBALS['DATABASE']->sql_escape(serialize($raportData))."', time = ".TIMESTAMP.";";
 		$GLOBALS['DATABASE']->query($sqlQuery);
-		$raportID	= $GLOBALS['DATABASE']->GetInsertID();
 		
 		$this->sendJSON($raportID);
 	}

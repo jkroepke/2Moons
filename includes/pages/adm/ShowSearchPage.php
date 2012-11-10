@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,16 +18,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-12-31)
  * @info $Id$
- * @link http://code.google.com/p/2moons/
+ * @link http://2moons.cc/
  */
 
-if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__))) exit;
+if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__))) throw new Exception("Permission error!");
 
 require_once(ROOT_PATH . 'includes/functions/DeleteSelectedUser.php');
 
@@ -299,7 +298,7 @@ function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialS
 	$QueryCSearch	 = "SELECT COUNT(".$ArrayEx[0].") AS total FROM ".DB_PREFIX.$Table." ";
 	$QueryCSearch	.= $WhereItem." ";
 	$QueryCSearch	.= $SpecifyWhere." ".$SpecialSpecify." ";
-	$CountQuery		= $GLOBALS['DATABASE']->uniquequery($QueryCSearch);
+	$CountQuery		= $GLOBALS['DATABASE']->getFirstRow($QueryCSearch);
 	
 	if ($CountQuery['total'] > 0)
 	{
@@ -325,10 +324,10 @@ function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialS
 			}
 
 			if(($Page - 1) > 0) 
-				$BEFORE	= "<a href='".$UrlForPage."&amp;side=".$BeforePage.$Minimize."'><img src=\"./styles/images/Adm/arrowleft.png\" title=".$LNG['se__before']." height=10 width=14></a> ";
+				$BEFORE	= "<a href='".$UrlForPage."&amp;side=".$BeforePage.$Minimize."'><img src=\"./styles/resource/images/admin/arrowleft.png\" title=".$LNG['se__before']." height=10 width=14></a> ";
 		
 			if(($Page + 1) <= $NumberOfPages) 
-				$NEXT	= "<a href='".$UrlForPage."&amp;side=".$NextPage.$Minimize."'><img src=\"./styles/images/Adm/arrowright.png\" title=".$LNG['se__next']." height=10 width=14></a>";
+				$NEXT	= "<a href='".$UrlForPage."&amp;side=".$NextPage.$Minimize."'><img src=\"./styles/resource/images/admin/arrowright.png\" title=".$LNG['se__next']." height=10 width=14></a>";
 		
 
 			$Search['PAGES']	= '<tr><td colspan="3" style="color:#00CC33;border: 1px lime solid;text-align:center;">'.$BEFORE.'&nbsp;'.$PAGEE.'&nbsp;'.$NEXT.'</td></tr>';
@@ -395,11 +394,11 @@ function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialS
 			if ($Table == "users")
 			{
 				if (allowedTo('ShowQuickEditorPage'))
-					$Search['LIST']	.= "<td><a href=\"javascript:openEdit('".$WhileResult[0]."', 'player');\" border=\"0\"><img title=\"".$WhileResult[1]."\" src=\"./styles/images/Adm/GO.png\"></a></d>";
+					$Search['LIST']	.= "<td><a href=\"javascript:openEdit('".$WhileResult[0]."', 'player');\" border=\"0\"><img title=\"".$WhileResult[1]."\" src=\"./styles/resource/images/admin/GO.png\"></a></d>";
 			
 				if ($USER['authlevel'] == AUTH_ADM)
 				{
-					$DELETEBUTTON = $WhileResult[0] != $USER['id'] || $WhileResult[0] != ROOT_USER ? '<a href="?page=search&amp;delete=user&amp;user='.$WhileResult[0].'" border="0" onclick="return confirm(\''.$LNG['ul_sure_you_want_dlte'].' '.$WhileResult[1].'?\');"><img src="./styles/images/alliance/CLOSE.png" width="16" height="16" title='.$WhileResult[1].'></a>' : '-';
+					$DELETEBUTTON = $WhileResult[0] != $USER['id'] || $WhileResult[0] != ROOT_USER ? '<a href="?page=search&amp;delete=user&amp;user='.$WhileResult[0].'" border="0" onclick="return confirm(\''.$LNG['ul_sure_you_want_dlte'].' '.$WhileResult[1].'?\');"><img src="./styles/resource/images/alliance/CLOSE.png" width="16" height="16" title='.$WhileResult[1].'></a>' : '-';
 					
 					$Search['LIST']	.= "<td>".$DELETEBUTTON."</td>";
 				}
@@ -408,10 +407,10 @@ function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialS
 			if ($Table == "planets p"){
 			
 				if (allowedTo('ShowQuickEditorPage'))
-					$Search['LIST']	.= "<td><a href=\"javascript:openEdit('".$WhileResult[0]."', 'planet');\" border=\"0\"><img src=\"./styles/images/Adm/GO.png\" title=".$LNG['se_search_edit']."></a></td>";
+					$Search['LIST']	.= "<td><a href=\"javascript:openEdit('".$WhileResult[0]."', 'planet');\" border=\"0\"><img src=\"./styles/resource/images/admin/GO.png\" title=".$LNG['se_search_edit']."></a></td>";
 					
 				if ($USER['authlevel'] == AUTH_ADM)
-					$Search['LIST']	.= '<td><a href="?page=search&amp;delete=planet&amp;planet='.$WhileResult[0].'" border="0" onclick="return confirm(\''.$LNG['se_confirm_planet'].' '.$WhileResult[1].'\');"><img src="./styles/images/alliance/CLOSE.png" width="16" height="16" title='.$LNG['button_delete'].'></a></td>';
+					$Search['LIST']	.= '<td><a href="?page=search&amp;delete=planet&amp;planet='.$WhileResult[0].'" border="0" onclick="return confirm(\''.$LNG['se_confirm_planet'].' '.$WhileResult[1].'\');"><img src="./styles/resource/images/alliance/CLOSE.png" width="16" height="16" title='.$LNG['button_delete'].'></a></td>';
 			}
 			
 			$Search['LIST']	.= "</tr>";

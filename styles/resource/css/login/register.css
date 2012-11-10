@@ -1,0 +1,88 @@
+.rowForm {
+	display:block;
+	text-align:left;
+	padding:5px 30px;
+}
+
+.rowForm:first-child {
+	padding-top:15px;
+}
+
+.rowForm select {
+	width:262px;
+}
+
+.rowForm #rules {
+	margin:7px 0 2px 0;
+	padding:0;
+}
+
+.rowForm input[type="text"],
+.rowForm input[type="password"],
+.rowForm input[type="email"] {
+	width:250px;
+}
+
+.rowForm label {
+	display:block;
+	float:left;
+	width:140px;
+	margin:6px 0 7px;
+	text-align:left;
+}
+
+.rowForm span.text {
+	display:block;
+	margin:6px 0 7px;
+	text-align:left;
+}
+
+.rowForm .fbname {
+	background:url(https://b.s-static.ak.facebook.com/images/connect_sprite.png) scroll no-repeat 0 0 transparent;
+	overflow: hidden;
+	padding-left: 20px;
+	background-position: -2px -252px;
+	height: 16px;
+	margin: 6px 0 5px !important;
+}
+
+#captchaRow label {
+	margin-bottom:70px;
+}
+
+.rowForm .inputDesc{
+	display:block;
+	font-size:11px;
+	padding:1px 0 0 2px;
+	overflow:hidden;
+}
+
+.rowForm label + .inputDesc{
+	padding-top:5px;
+}
+
+#recaptcha_image > img{
+	background:#FFF;
+	color:#FFF;
+	border: 2px solid  #9EB4CB;
+}
+
+#recaptcha_image {
+	float: left;
+	padding: 10px 2px;
+}
+
+#recaptcha_input_wrap {
+	clear:both;
+	width:436px;
+}
+
+#recaptcha_response_field {
+	float:left;
+	display:block;
+	margin-left:141px;
+}
+
+.captchaButtons{
+	font-size:11px;
+}

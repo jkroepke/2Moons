@@ -515,6 +515,10 @@ $LNG['se_dst_sel'][0]					= 'Nein';
 $LNG['se_dst_sel'][1]					= 'Ja';
 $LNG['se_dst_sel'][2]					= 'Automatisch';
 $LNG['se_max_dm_missions']				= 'Max. Anzahl an parralell laufenden DM-Such Missionen';
+$LNG['se_disclamerAddress']				= 'Adresse';
+$LNG['se_disclamerPhone']				= 'Telefonnummer';
+$LNG['se_disclamerMail']				= 'E-Mail-Adresse';
+$LNG['se_disclamerNotice']				= 'Weitere Informationen';
 
 //###########################################################//
 
@@ -552,13 +556,13 @@ $LNG['ff_fleetid']				= "ID";
 $LNG['ff_mission']				= "Mission";
 $LNG['ff_starttime']			= "Startzeit";
 $LNG['ff_ships']				= "Schiffe";
-$LNG['ff_startuser']			= "Start User";
-$LNG['ff_startplanet']			= "Start Planet";
-$LNG['ff_arrivaltime']			= "Ankunftszeit";
-$LNG['ff_targetuser']			= "Ziel User";
-$LNG['ff_targetplanet']			= "Ziel Planet";
-$LNG['ff_endtime']				= "Rückkehrzeit";
-$LNG['ff_holdtime']				= "Stationszeit";
+$LNG['ff_startuser']			= "Startuser";
+$LNG['ff_startplanet']			= "Startplanet";
+$LNG['ff_arrivaltime']			= "Ankunft";
+$LNG['ff_targetuser']			= "Zieluser";
+$LNG['ff_targetplanet']			= "Zielplanet";
+$LNG['ff_endtime']				= "Rückkehr";
+$LNG['ff_holdtime']				= "Ende Haltezeit";
 $LNG['ff_del']					= "Event deleted";
 $LNG['ff_lock']					= "Lock";
 $LNG['ff_unlock']				= "Unlock";
@@ -615,7 +619,6 @@ $LNG['mu_planets_options']			= 'Options Planets';
 $LNG['mu_user_logs']				= 'Log';
 $LNG['mu_support']                 	= 'Support-Tickets';
 $LNG['mu_module']                 	= 'Module';
-$LNG['mu_update']                 	= 'Game-Updates';
 $LNG['mu_mod_update']              	= 'Mod Versions Control';
 $LNG['mu_fb_options'] 				= 'Facebook Connect';
 $LNG['mu_ts_options'] 				= 'Teamspeak Optionen';
@@ -625,8 +628,10 @@ $LNG['mu_news']						= 'News';
 $LNG['mu_multiip_page']				= 'MultiIP'; 
 $LNG['mu_clear_cache']				= 'Lösche Cache'; 
 $LNG['mu_vertify']					= 'Vertify Game Content'; 
+$LNG['mu_cronjob']					= 'Cronjobs'; 
 $LNG['mu_logs']						= 'Admin-Log';
-$LNG['mu_giveaway']					= 'Geschenke';
+$LNG['mu_giveaway']					= 'Giveaways';
+$LNG['mu_disclamer']				= 'Impressum-Einstellungen';
 
 
 $LNG['vt_error']					= 'HashFile ist nicht verfügbar! - Update durchführen!';
@@ -1097,8 +1102,8 @@ $LNG['mvc_desc']						= 'Beschreibung';
 //Universe Page
 $LNG['uvs_id']							= 'Universum ID';
 $LNG['uvs_name']						= 'Name';
-$LNG['uvs_speeds']						= 'Spiel Faktoren (G/F/R/E)'; // (Game/Fleet/Resource/Expedition)
-$LNG['uvs_speeds_full']					= 'Spiel Faktoren (Game/Fleet/Resource/Expedition)';
+$LNG['uvs_speeds']						= 'Spiel Faktoren (G/F/R/E/E)'; // (Game/Fleet/Resource/Expedition/Energy)
+$LNG['uvs_speeds_full']					= 'Spiel Faktoren (Game/Fleet/Resource/Expedition/Energy)';
 $LNG['uvs_players']						= 'Spieler';
 $LNG['uvs_inactive']					= 'Inaktive Spieler';
 $LNG['uvs_open']						= 'Status';
@@ -1111,6 +1116,8 @@ $LNG['uvs_new']							= 'Universum hinzufügen';
 $LNG['uvs_planets']						= 'Planeten';
 $LNG['uvs_upload']						= 'Hochladen';
 $LNG['uvs_error']						= 'Ungültige oder Fehlerhafte Importfile!';
+$LNG['uvs_reload']						= 'Neuladen';
+$LNG['uvs_back']						= 'Zurück';
 
 //Update Page
 $LNG['up_weiter']						= 'Weiter';
@@ -1202,8 +1209,55 @@ $LNG['log_usettings']					= 'Uni Konfiguration';
 $LNG['log_statsettings']				= 'Statistik-Optionen';
 $LNG['log_chatsettings']				= 'Chat-Optionen';
 $LNG['log_tssettings']					= 'Teamspeak-Konfiguration';
+$LNG['log_disclamersettings']			= 'Impressum';
 $LNG['log_uni_short']					= 'Uni';
 $LNG['log_universe']					= 'Universum';
+
+
+//Cronjobs
+$LNG['cronName']['referral']		= 'Referral-Bonus';
+$LNG['cronName']['statistic']		= 'Statistiken';
+$LNG['cronName']['daily']			= 'Tägliche Aufhaben';
+$LNG['cronName']['cleaner']			= 'Alte Daten löschen';
+$LNG['cronName']['inactive']		= 'Inaktive löschen';
+$LNG['cronName']['teamspeak']		= 'Teamspeakdaten aktualisieren';
+
+
+$LNG['cronjob_id']					= 'ID';
+$LNG['cronjob_name']				= 'Name';
+$LNG['cronjob_min']					= 'Minute';
+$LNG['cronjob_hours']				= 'Stunde';
+$LNG['cronjob_dom']					= 'Tag';
+$LNG['cronjob_month']				= 'Monat';
+$LNG['cronjob_dow']					= 'Wochentag';
+$LNG['cronjob_class']				= 'class';
+$LNG['cronjob_nextTime']			= 'Nächste Ausführung';
+$LNG['cronjob_inActive']			= 'Aktiv';
+$LNG['cronjob_lock']				= 'locked';
+$LNG['cronjob_edit']				= 'Bearbeiten';
+$LNG['cronjob_delete']				= 'Löschen';
+$LNG['cronjob_headline']			= 'Cronjob ID';
+$LNG['cronjob_new']					= 'Neuen Cronjob erstellen';
+
+$LNG['cronjob_desc']				= 'Hier folgt die Eingabe der Aufrufezeiten des Cronjobs. Die Bedingungen sind UND-verknüpft, das heißt dass der Cronjob nur ausgeführt wird wenn alle Bedingungen erfüllt sind. Die gleichzeitige Auswahl von einzelnen Werten in \'Wochentag\' und \'Tag\' kann unter Umständen dazu führen dass der Cronjob unregelmäßig ausgeführt wird, hier sollte bei mindestens einer Bedingung die Option \'Alle\' gewählt werden.<br>\'Alle\' wird vorrangig behandelt und überschreibt die Einstellungen der Auswahllisten.';
+$LNG['cronjob_desc_name']			= 'Frei wählbarer Namen zum Identifizieren des Cronjobs.';
+$LNG['cronjob_desc_class']			= 'Eingabe der aufzurufenden Klasse. Soll includes/classes/cronjobs/foo.class.php aufgerufen werden, muss \'foo\' eingetragen werden.';
+
+$LNG['cronjob_error_name']			= 'Es wurde kein Name eingeben!';
+$LNG['cronjob_error_min']			= 'Es wurden keine Minuten definiert!';
+$LNG['cronjob_error_hours']			= 'Es wurden keine Stunden definiert!';
+$LNG['cronjob_error_month']			= 'Es wurden keine Monate definiert!';
+$LNG['cronjob_error_dow']			= 'Es wurden keine Wochentage definiert!';
+$LNG['cronjob_error_dom']			= 'Es wurden keine Tage definiert!';
+$LNG['cronjob_error_class']			= 'Es wurde keine Class angegeben!';
+$LNG['cronjob_error_filenotfound']	= 'Die angegebene Datei wurde nicht gefunden: ';
+$LNG['cronjob_selectall']			= 'Alle';
+
+$LNG['cronjob_lock']				= 'Lock';
+$LNG['cronjob_unlock']				= 'Unlock';
+
+$LNG['cronjob_inactive']			= 'Aktiv';
+$LNG['cronjob_active']				= 'Inaktiv';
 
 // Giveaway
 $LNG['ga_success']						= 'Erfolgreich!';

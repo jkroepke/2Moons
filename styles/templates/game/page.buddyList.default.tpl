@@ -17,7 +17,7 @@
 	<td>{if {$otherRequestRow.ally_name}}<a href="game.php?page=alliance&amp;mode=info&amp;id={$otherRequestRow.ally_id}">{$otherRequestRow.ally_name}</a>{else}-{/if}</td>
 	<td><a href="game.php?page=galaxy&amp;galaxy={$otherRequestRow.galaxy}&amp;system={$otherRequestRow.system}">[{$otherRequestRow.galaxy}:{$otherRequestRow.system}:{$otherRequestRow.planet}]</a></td>
 	<td>{$otherRequestRow.text}</td>
-	<td><a href="game.php?page=buddyList&amp;mode=accept&amp;id={$otherRequestID}"><img src="styles/images/true.png" alt="{$LNG.bu_accept}" title="{$LNG.bu_accept}"></a><a href="game.php?page=buddyList&amp;mode=delete&amp;id={$otherRequestID}"><img src="styles/images/false.png" alt="{$LNG.bu_decline}" title="{$LNG.bu_decline}"></a></td>
+	<td><a href="game.php?page=buddyList&amp;mode=accept&amp;id={$otherRequestID}"><img src="styles/resource/images/true.png" alt="{$LNG.bu_accept}" title="{$LNG.bu_accept}"></a><a href="game.php?page=buddyList&amp;mode=delete&amp;id={$otherRequestID}"><img src="styles/resource/images/false.png" alt="{$LNG.bu_decline}" title="{$LNG.bu_decline}"></a></td>
 </tr>
 {foreachelse}
 <tr><td colspan="5">{$LNG.bu_no_request}</td></tr>
@@ -38,7 +38,7 @@
 	<td>{if {$myRequestRow.ally_name}}<a href="game.php?page=alliance&amp;mode=info&amp;id={$myRequestRow.ally_id}">{$myRequestRow.ally_name}</a>{else}-{/if}</td>
 	<td><a href="game.php?page=galaxy&amp;galaxy={$myRequestRow.galaxy}&amp;system={$myRequestRow.system}">[{$myRequestRow.galaxy}:{$myRequestRow.system}:{$myRequestRow.planet}]</a></td>
 	<td>{$myRequestRow.text}</td>
-	<td><a href="game.php?page=buddyList&amp;mode=delete&amp;id={$myRequestID}"><img src="styles/images/false.png" alt="{$LNG.bu_cancel_request}" title="{$LNG.bu_cancel_request}"></a></td>
+	<td><a href="game.php?page=buddyList&amp;mode=delete&amp;id={$myRequestID}"><img src="styles/resource/images/false.png" alt="{$LNG.bu_cancel_request}" title="{$LNG.bu_cancel_request}"></a></td>
 </tr>
 {foreachelse}
 <tr><td colspan="5">{$LNG.bu_no_request}</td></tr>
@@ -66,7 +66,7 @@
 	<span style="color:red">{$LNG.bu_disconnected}</span>
 	{/if}
 	</td>
-	<td><a href="game.php?page=buddyList&amp;mode=delete&amp;id={$myBuddyID}"><img src="styles/images/false.png" alt="{$LNG.bu_delete}" title="{$LNG.bu_delete}"></a></td>
+	<td><a href="game.php?page=buddyList&amp;mode=delete&amp;id={$myBuddyID}"><img src="styles/resource/images/false.png" alt="{$LNG.bu_delete}" title="{$LNG.bu_delete}"></a></td>
 </tr>
 {foreachelse}
 <tr><td colspan="5">{$LNG.bu_no_buddys}</td></tr>

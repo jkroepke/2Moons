@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-12-31)
  * @info $Id$
- * @link http://code.google.com/p/2moons/
+ * @link http://2moons.cc/
  */
  
 
@@ -101,7 +100,7 @@ class ShowShipyardPage extends AbstractPage
 			
 			$MaxElements 	= BuildFunctions::getMaxConstructibleElements($USER, $PLANET, $Element);
 			$Count			= is_numeric($Count) ? round($Count) : 0;
-			$Count 			= max(min($Count, $CONF['max_fleet_per_build']), 0);
+			$Count 			= max(min($Count, Config::get('max_fleet_per_build')), 0);
 			$Count 			= min($Count, $MaxElements);
 			
 			$BuildArray    	= !empty($PLANET['b_hangar_id']) ? unserialize($PLANET['b_hangar_id']) : array();
@@ -175,8 +174,8 @@ class ShowShipyardPage extends AbstractPage
 			
 		if($USER['urlaubs_modus'] == 0) {
 			if (!empty($fmenge) && $NotBuilding == true) {
-				if ($CONF['max_elements_ships'] != 0 && $Count >= $CONF['max_elements_ships']) {
-					$this->printMessage(sprintf($LNG['bd_max_builds'], $CONF['max_elements_ships']));
+				if (Config::get('max_elements_ships') != 0 && $Count >= Config::get('max_elements_ships')) {
+					$this->printMessage(sprintf($LNG['bd_max_builds'], Config::get('max_elements_ships')));
 					exit;
 				}
 				$this->BuildAuftr($fmenge);
@@ -266,7 +265,7 @@ class ShowShipyardPage extends AbstractPage
 			'elementList'	=> $elementList,
 			'NotBuilding'	=> $NotBuilding,
 			'BuildList'		=> $Buildlist,
-			'maxlength'		=> strlen($CONF['max_fleet_per_build']),
+			'maxlength'		=> strlen(Config::get('max_fleet_per_build')),
 			'mode'			=> $mode,
 		));
 

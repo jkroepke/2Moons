@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-12-31)
  * @info $Id$
- * @link http://code.google.com/p/2moons/
+ * @link http://2moons.cc/
  */
 
 class ShowSettingsPage extends AbstractPage
@@ -86,7 +85,7 @@ class ShowSettingsPage extends AbstractPage
 				'galaxyMissle' 		=> $USER['settings_mis'],
 				'galaxyMessage' 	=> $USER['settings_wri'],
 				'userid'		 	=> $USER['id'],
-				'ref_active'		=> $CONF['ref_active'],
+				'ref_active'		=> Config::get('ref_active'),
 			));
 			
 			$this->display('page.settings.default.tpl');
@@ -219,7 +218,7 @@ class ShowSettingsPage extends AbstractPage
 			} elseif($USER['uctime'] >= TIMESTAMP - USERNAME_CHANGETIME) {
 				$this->printMessage($LNG['op_change_name_pro_week']);
 			} else {
-				$Count 	= $GLOBALS['DATABASE']->countquery("SELECT (SELECT COUNT(*) FROM ".USERS." WHERE `universe` = ".$UNI." AND `username` = '".$GLOBALS['DATABASE']->sql_escape($username)."') + (SELECT COUNT(*) FROM ".USERS_VALID." WHERE `universe` = ".$UNI." AND `username` = '".$GLOBALS['DATABASE']->sql_escape($username)."')");
+				$Count 	= $GLOBALS['DATABASE']->getFirstCell("SELECT (SELECT COUNT(*) FROM ".USERS." WHERE `universe` = ".$UNI." AND `username` = '".$GLOBALS['DATABASE']->sql_escape($username)."') + (SELECT COUNT(*) FROM ".USERS_VALID." WHERE `universe` = ".$UNI." AND `username` = '".$GLOBALS['DATABASE']->sql_escape($username)."')");
 				
 				if (!empty($Count)) {
 					$this->printMessage(sprintf($LNG['op_change_name_exist'], $username));
@@ -241,12 +240,12 @@ class ShowSettingsPage extends AbstractPage
 
 		if (!empty($email) && $email != $USER['email'])
 		{
-			if(cryptPassword($newpassword) != $USER['password']) {
+			if(cryptPassword($password) != $USER['password']) {
 				$this->printMessage($LNG['op_need_pass_mail']);
 			} elseif(!ValidateAddress($email)) {
 				$this->printMessage($LNG['op_not_vaild_mail']);
 			} else {
-				$Count 	= $GLOBALS['DATABASE']->countquery("SELECT (SELECT COUNT(*) FROM ".USERS." WHERE id != ".$USER['id']." AND universe = ".$UNI." AND (email = '".$GLOBALS['DATABASE']->sql_escape($email)."' OR email_2 = '".$GLOBALS['DATABASE']->sql_escape($email)."')) + (SELECT COUNT(*) FROM ".USERS_VALID." WHERE universe = ".$UNI." AND email = '".$GLOBALS['DATABASE']->sql_escape($email)."')");
+				$Count 	= $GLOBALS['DATABASE']->getFirstCell("SELECT (SELECT COUNT(*) FROM ".USERS." WHERE id != ".$USER['id']." AND universe = ".$UNI." AND (email = '".$GLOBALS['DATABASE']->sql_escape($email)."' OR email_2 = '".$GLOBALS['DATABASE']->sql_escape($email)."')) + (SELECT COUNT(*) FROM ".USERS_VALID." WHERE universe = ".$UNI." AND email = '".$GLOBALS['DATABASE']->sql_escape($email)."')");
 				if (!empty($Count)) {
 					$this->printMessage(sprintf($LNG['op_change_mail_exist'], $email));
 				} else {
@@ -266,7 +265,7 @@ class ShowSettingsPage extends AbstractPage
 			{
 				$SQL	.= "UPDATE ".USERS." SET 
 							urlaubs_modus = '1',
-							urlaubs_until = ".(TIMESTAMP + $CONF['vmode_min_time'])."
+							urlaubs_until = ".(TIMESTAMP + Config::get('vmode_min_time'))."
 							WHERE id = ".$USER["id"].";							
 							UPDATE ".PLANETS." SET
 							energy_used = '0',

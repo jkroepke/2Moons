@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-12-31)
  * @info $Id$
- * @link http://code.google.com/p/2moons/
+ * @link http://2moons.cc/
  */
 
 class ShowBuddyListPage extends AbstractPage
@@ -50,14 +49,14 @@ class ShowBuddyListPage extends AbstractPage
 			$this->printMessage($LNG['bu_cannot_request_yourself']);
 		}
 		
-		$exists	= $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".BUDDY." WHERE (sender = ".$USER['id']." AND owner = ".$id.") OR (owner = ".$USER['id']." AND sender = ".$id.");");
+		$exists	= $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".BUDDY." WHERE (sender = ".$USER['id']." AND owner = ".$id.") OR (owner = ".$USER['id']." AND sender = ".$id.");");
 		
 		if($exists != 0)
 		{
 			$this->printMessage($LNG['bu_request_exists']);
 		}
 		
-		$userData	= $GLOBALS['DATABASE']->uniquequery("SELECT username, galaxy, system, planet FROM ".USERS." WHERE id = ".$id.";");
+		$userData	= $GLOBALS['DATABASE']->getFirstRow("SELECT username, galaxy, system, planet FROM ".USERS." WHERE id = ".$id.";");
 
 		$this->tplObj->assign_vars(array(
 			'username'	=> $userData['username'],
@@ -80,14 +79,14 @@ class ShowBuddyListPage extends AbstractPage
 		
 		$id		= HTTP::_GP('id', 0);
 		$text	= HTTP::_GP('text', '', UTF8_SUPPORT);
-		$test 	= $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".BUDDY." WHERE (sender = ".$USER['id']." AND owner = ".$id.") OR (owner = ".$USER['id']." AND sender = ".$id.");");
+		$test 	= $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".BUDDY." WHERE (sender = ".$USER['id']." AND owner = ".$id.") OR (owner = ".$USER['id']." AND sender = ".$id.");");
 		
 		if($id == $USER['id'])
 		{
 			$this->printMessage($LNG['bu_cannot_request_yourself']);
 		}
 		
-		$exists	= $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".BUDDY." WHERE (sender = ".$USER['id']." AND owner = ".$id.") OR (owner = ".$USER['id']." AND sender = ".$id.");");
+		$exists	= $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".BUDDY." WHERE (sender = ".$USER['id']." AND owner = ".$id.") OR (owner = ".$USER['id']." AND sender = ".$id.");");
 		
 		if($exists != 0)
 		{
@@ -103,7 +102,7 @@ class ShowBuddyListPage extends AbstractPage
 		id = @buddyID, 
 		text = '".$GLOBALS['DATABASE']->sql_escape($text)."';");
 		
-		$username	= $GLOBALS['DATABASE']->countquery("SELECT username FROM ".USERS." WHERE id = ".$id.";");
+		$username	= $GLOBALS['DATABASE']->getFirstCell("SELECT username FROM ".USERS." WHERE id = ".$id.";");
 		
 		SendSimpleMessage($id, $USER['id'], TIMESTAMP, 4, $USER['username'], $LNG['bu_new_request_title'], sprintf($LNG['bu_new_request_body'], $username, $USER['username']));
 
@@ -116,15 +115,15 @@ class ShowBuddyListPage extends AbstractPage
 		
 		$id	= HTTP::_GP('id', 0);
 		
-		$isAllowed = $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".BUDDY." WHERE id = ".$id." AND (sender = ".$USER['id']." OR owner = ".$USER['id'].");");
+		$isAllowed = $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".BUDDY." WHERE id = ".$id." AND (sender = ".$USER['id']." OR owner = ".$USER['id'].");");
 		
 		if($isAllowed)
 		{
-			$isRequest = $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".BUDDY_REQUEST." WHERE ".$id.";");
+			$isRequest = $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".BUDDY_REQUEST." WHERE ".$id.";");
 			
 			if($isRequest)
 			{
-				$reuqestData = $GLOBALS['DATABASE']->uniquequery("SELECT
+				$reuqestData = $GLOBALS['DATABASE']->getFirstRow("SELECT
 				u.username, u.id
 				FROM ".BUDDY." b
 				INNER JOIN ".USERS." u ON u.id = IF(b.sender = ".$USER['id'].",b.owner,b.sender)
@@ -146,7 +145,7 @@ class ShowBuddyListPage extends AbstractPage
 		
 		$GLOBALS['DATABASE']->query("DELETE FROM ".BUDDY_REQUEST." WHERE id = ".$id.";");
 		
-		$sender	= $GLOBALS['DATABASE']->uniquequery("SELECT sender, u.username FROM ".BUDDY." b INNER JOIN ".USERS." u ON sender = u.id WHERE b.id = ".$id.";");
+		$sender	= $GLOBALS['DATABASE']->getFirstRow("SELECT sender, u.username FROM ".BUDDY." b INNER JOIN ".USERS." u ON sender = u.id WHERE b.id = ".$id.";");
 		SendSimpleMessage($sender['sender'], $USER['id'], TIMESTAMP, 4, $USER['username'], $LNG['bu_accepted_request_title'], sprintf($LNG['bu_accepted_request_body'], $sender['username'], $USER['username']));
 		
 		$this->redirectTo("game.php?page=buddyList");

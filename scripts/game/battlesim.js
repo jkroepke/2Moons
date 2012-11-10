@@ -10,11 +10,11 @@ function check(){
 	$("#submit:visible").removeAttr('style').hide().fadeOut();
 	$("#wait:hidden").removeAttr('style').hide().fadeIn();
 	$.post('game.php?page=battleSimulator&mode=send', $('#form').serialize(), function(data){
-		data	= $.trim(data);
-		if(data == parseInt(data) && data != 0) {
+		try{ 
+			data	= $.parseJSON(data);
 			kb.focus();
 			kb.location.href = 'CombatReport.php?raport='+data;
-		} else {
+		} catch(e) {
 			kb.window.close();
 			Dialog.alert(data);
 		}

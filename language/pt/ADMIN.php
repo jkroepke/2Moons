@@ -330,6 +330,7 @@ $LNG['se_normal_speed']					= 'Velocidade normal: 1';
 $LNG['se_normal_speed_resoruces']		= 'Velocidade normal: 1';
 $LNG['se_normal_speed_fleet']			= 'Velocidade normal: 1';
 $LNG['se_normal_speed_halt']			= 'Velocidade normal: 1';
+$LNG['se_energy_speed']		= 'Fator de Energia';
 $LNG['se_fleet_speed']					= 'Velocidade de Frota';
 $LNG['se_resources_producion_speed']	= 'Velocidade de produção de recursos';
 $LNG['se_halt_speed']					= 'Velocidade de expedição';

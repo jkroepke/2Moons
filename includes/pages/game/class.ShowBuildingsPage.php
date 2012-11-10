@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-12-31)
  * @info $Id$
- * @link http://code.google.com/p/2moons/
+ * @link http://2moons.cc/
  */
 
 class ShowBuildingsPage extends AbstractPage
@@ -151,7 +150,7 @@ class ShowBuildingsPage extends AbstractPage
 		
 		$CurrentMaxFields  	= CalculateMaxPlanetFields($PLANET);
 		
-		if (($CONF['max_elements_build'] != 0 && $ActualCount == $CONF['max_elements_build']) || ($AddMode && $PLANET["field_current"] >= ($CurrentMaxFields - $ActualCount)))
+		if ((Config::get('max_elements_build') != 0 && $ActualCount == Config::get('max_elements_build')) || ($AddMode && $PLANET["field_current"] >= ($CurrentMaxFields - $ActualCount)))
 			return;
 	
 		$BuildMode 			= $AddMode ? 'build' : 'destroy';
@@ -269,7 +268,7 @@ class ShowBuildingsPage extends AbstractPage
 		
 		$Queue	 			= $this->getQueueData();
 		$QueueCount			= count($Queue);
-		$CanBuildElement 	= isVacationMode($USER) || $CONF['max_elements_build'] == 0 || $QueueCount < $CONF['max_elements_build'];
+		$CanBuildElement 	= isVacationMode($USER) || Config::get('max_elements_build') == 0 || $QueueCount < Config::get('max_elements_build');
 		$CurrentMaxFields   = CalculateMaxPlanetFields($PLANET);
 		
 		$RoomIsOk 			= $PLANET['field_current'] < ($CurrentMaxFields - $QueueCount);

@@ -94,13 +94,15 @@ class template extends Smarty
 		
 		$this->assign_vars(array(
 			'scripts'			=> $this->script,
-			'title'				=> $CONF['game_name'].' - '.$LNG['adm_cp_title'],
+			'title'				=> Config::get('game_name').' - '.$LNG['adm_cp_title'],
 			'fcm_info'			=> $LNG['fcm_info'],
             'lang'    			=> $LANG->getUser(),
-			'REV'				=> substr($CONF['VERSION'], -4),
+			'REV'				=> substr(Config::get('VERSION'), -4),
 			'date'				=> explode("|", date('Y\|n\|j\|G\|i\|s\|Z', TIMESTAMP)),
 			'Offset'			=> $dateTimeUser->getOffset() - $dateTimeServer->getOffset(),
-			'VERSION'			=> $CONF['VERSION'],
+			'VERSION'			=> Config::get('VERSION'),
+			'dpath'				=> 'styles/theme/gow/',
+			'bodyclass'			=> 'full'
 		));
 	}
 	
@@ -125,7 +127,6 @@ class template extends Smarty
 			'VERSION'			=> $CONF['VERSION'],
 			'REV'				=> substr($CONF['VERSION'], -4),
 			'langs'				=> json_encode(Language::getAllowedLangs(false)),
-			'htaccess'			=> (int) (UNIS_HTACCESS === true),
 		));
 	}
 	
@@ -161,6 +162,14 @@ class template extends Smarty
 		
 		parent::display($file);
 	}
+	
+	public function display($file)
+	{
+		global $LANG;
+		$this->compile_id	= $LANG->getUser();
+		parent::display($file);
+	}
+	
 	
 	public function gotoside($dest, $time = 3)
 	{

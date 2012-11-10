@@ -28,11 +28,14 @@
 
 //SET TIMEZONE (if Server Timezone are not correct)
 //date_default_timezone_set('America/Chicago');
+
 //TEMPLATES DEFAULT SETTINGS
 define('DEFAULT_THEME'	 		    , 'gow');
 define('HTTPS'						, isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"]  == 'on');
 define('PROTOCOL'					, HTTPS ? 'https://' : 'http://');
+define('HTTP_BASE'					, str_replace('\\', '/', str_replace(basename($_SERVER['SCRIPT_FILENAME']), '', parse_url($_SERVER['SCRIPT_NAME'], PHP_URL_PATH))));
 define('HTTP_ROOT'					, str_replace('\\', '/', str_replace(basename($_SERVER['SCRIPT_FILENAME']), '', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH))));
+define('HTTP_FILE'					, str_replace(HTTP_ROOT, '', $_SERVER['REQUEST_URI']));
 define('HTTP_HOST'					, $_SERVER['HTTP_HOST']);
 define('HTTP_PATH'					, PROTOCOL.HTTP_HOST.HTTP_ROOT);
 
@@ -50,9 +53,6 @@ define('DEFAULT_LANG'				, 'de');
 // SUPPORT WILDCAST DOMAINS
 define('UNIS_WILDCAST'				, false);
 
-// SUPPORT MULTIPLY UNIVERSE VIA HTACCESS (BETA; COMMENT OUT THE REWRITE SELECTION)
-define('UNIS_HTACCESS'				, false);
-
 // FIELDS FOR EACH LEVEL OF THE LUNAR BASE
 define('FIELDS_BY_MOONBASIS_LEVEL'	, 3);
 
@@ -69,7 +69,7 @@ define('INACTIVE_LONG'				, 2419200);
 define('FACTOR_CANCEL_SHIPYARD'		, 0.6);
 
 // ADDED PLANET PRO 2 TECH LEVELS
-define('PLANETS_PER_TECH'			, 1);	
+define('PLANETS_PER_TECH'			, 2);	
 
 // MINIMUM FLEET TIME
 define('MIN_FLEET_TIME'				, 5);	
@@ -107,13 +107,6 @@ define('SESSION_LIFETIME'			, 43200);
 
 // ENABLE Mutlialert on sending fleets
 define('ENABLE_MULTIALERT'			, true);
-
-// DISCLAMER INFOS
-define('DICLAMER_NAME'				, "Edit constans.php!");
-define('DICLAMER_ADRESS1'			, "Edit constans.php!");
-define('DICLAMER_ADRESS2'			, "Edit constans.php!");
-define('DICLAMER_TEL'				, "Edit constans.php!");
-define('DICLAMER_EMAIL'				, "Edit constans.php!");
 
 // UTF-8 support for names (required for non-english chars!)
 define('UTF8_SUPPORT'				, true);

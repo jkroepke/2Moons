@@ -219,22 +219,22 @@ class MissionCaseExpedition extends MissionFunctions
 				$LNG        += $LANG->GetUserLang($this->_fleet['fleet_owner'], array('L18N'));
 			
 				$messageHTML	= <<<HTML
-				<div class="raportMessage">
-				<table>
-				<tr>
-				<td colspan="2"><a href="CombatReport.php?raport=%s" target="_blank"><span class="%s">%s %s</span></a></td>
-				</tr>
-				<tr>
-				<td>%s</td><td><span class="%s">%s: %s</span>&nbsp;<span class="%s">%s: %s</span></td>
-				</tr>
-				<tr>
-				<td>%s</td><td><span>%s:&nbsp;<span class="raportSteal element901">%s</span>&nbsp;</span><span>%s:&nbsp;<span class="raportSteal element902">%s</span>&nbsp;</span><span>%s:&nbsp;<span class="raportSteal element903">%s</span></span></td>
-				</tr>
-				<tr>
-				<td>%s</td><td><span>%s:&nbsp;<span class="raportDebris element901">%s</span>&nbsp;</span><span>%s:&nbsp;<span class="raportDebris element902">%s</span></span></td>
-				</tr>
-				</table>
-				</div>
+<div class="raportMessage">
+<table>
+<tr>
+<td colspan="2"><a href="CombatReport.php?raport=%s" target="_blank"><span class="%s">%s %s</span></a></td>
+</tr>
+<tr>
+<td>%s</td><td><span class="%s">%s: %s</span>&nbsp;<span class="%s">%s: %s</span></td>
+</tr>
+<tr>
+<td>%s</td><td><span>%s:&nbsp;<span class="raportSteal element901">%s</span>&nbsp;</span><span>%s:&nbsp;<span class="raportSteal element902">%s</span>&nbsp;</span><span>%s:&nbsp;<span class="raportSteal element903">%s</span></span></td>
+</tr>
+<tr>
+<td>%s</td><td><span>%s:&nbsp;<span class="raportDebris element901">%s</span>&nbsp;</span><span>%s:&nbsp;<span class="raportDebris element902">%s</span></span></td>
+</tr>
+</table>
+</div>
 HTML;
 				//Minize HTML
 				$messageHTML	= str_replace(array("\n", "\t", "\r"), "", $messageHTML);
@@ -380,29 +380,23 @@ HTML;
 				
 				$raportData	= GenerateReport($combatResult, $raportInfo);
 			
-				$sqlQuery = "INSERT INTO ".RW." SET raport = '".serialize($raportData)."', time = '".$this->_fleet['fleet_start_time']."';";
+				$raportID	= md5(uniqid('', true).TIMESTAMP);
+				$sqlQuery	= "INSERT INTO ".RW." SET rid = '".$raportID."', raport = '".serialize($raportData)."', time = '".$this->_fleet['fleet_start_time']."';";
 				$GLOBALS['DATABASE']->query($sqlQuery);
-				$raportID	= $GLOBALS['DATABASE']->GetInsertID();
 			
 				switch($combatResult['won'])
 				{
 					case "a":
-					$attackStatus	= 'wons';
-					$defendStatus	= 'loos';
-					$attackClass	= 'raportWin';
-					$defendClass	= 'raportLose';
+						$attackClass	= 'raportWin';
+						$defendClass	= 'raportLose';
 					break;
 					case "w":
-					$attackStatus	= 'draws';
-					$defendStatus	= 'draws';
-					$attackClass	= 'raportDraw';
-					$defendClass	= 'raportDraw';
+						$attackClass	= 'raportDraw';
+						$defendClass	= 'raportDraw';
 					break;
 					case "r":
-					$attackStatus	= 'loos';
-					$defendStatus	= 'wons';
-					$attackClass	= 'raportLose';
-					$defendClass	= 'raportWin';
+						$attackClass	= 'raportLose';
+						$defendClass	= 'raportWin';
 					break;
 				}
 
