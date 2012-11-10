@@ -40,8 +40,8 @@ CREATE TABLE prefix_lostpassword (
  time int(10) unsigned NOT NULL,
  hasChanged tinyint(1) NOT NULL DEFAULT '0',
  fromIP varchar(40) NOT NULL,
- PRIMARY KEY (key),
- UNIQUE KEY userID (userID,key,time,hasChanged),
+ PRIMARY KEY (`key`),
+ UNIQUE KEY userID (userID,`key`,time,hasChanged),
  KEY time (time)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -66,7 +66,7 @@ INSERT INTO prefix_cronjobs (`cronjobID`, `name`, `isActive`, `min`, `hours`, `d
 (2, 'statistic', 1, '0,30', '*', '*', '*', '*', 'StatisticCronjob', 1352331040, NULL),
 (3, 'daily', 1, '25', '2', '*', '*', '*', 'DailyCronjob', 1352337940, NULL),
 (4, 'cleaner', 1, '45', '2', '6', '*', '*', 'CleanerCronjob', 1354758340, NULL),
-(5, 'inactive', 1, '30', '1', '0,3,6', '*', '*', 'InactiveMailCronjob', 1354494640, NULL),
+(5, 'inactive', 1, '30', '1', '*', '*', '0,3,6', 'InactiveMailCronjob', 1354494640, NULL),
 (6, 'teamspeak', 0, '*/3', '*', '*', '*', '*', 'TeamSpeakCronjob', 1352329420, NULL);
 
 ALTER TABLE prefix_raports CHANGE rid  rid VARCHAR( 32 ) NOT NULL;
