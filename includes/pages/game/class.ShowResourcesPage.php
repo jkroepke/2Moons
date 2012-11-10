@@ -156,10 +156,10 @@ class ShowResourcesPage extends AbstractPage
 		);
 		
 		$basicProduction	= array(
-			901 => Config::get($resource[901).'_basic_income'] * Config::get('resource_multiplier'),
-			902 => Config::get($resource[902).'_basic_income'] * Config::get('resource_multiplier'),
-			903	=> Config::get($resource[903).'_basic_income'] * Config::get('resource_multiplier'),
-			911	=> Config::get($resource[911).'_basic_income'] * Config::get('energySpeed'),
+			901 => Config::get($resource[901].'_basic_income') * Config::get('resource_multiplier'),
+			902 => Config::get($resource[902].'_basic_income') * Config::get('resource_multiplier'),
+			903	=> Config::get($resource[903].'_basic_income') * Config::get('resource_multiplier'),
+			911	=> Config::get($resource[911].'_basic_income') * Config::get('energySpeed'),
 		);
 		
 		$totalProduction	= array(
