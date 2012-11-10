@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-12-31)
  * @info $Id$
- * @link http://code.google.com/p/2moons/
+ * @link http://2moons.cc/
  */
 
 require_once(ROOT_PATH . 'includes/classes/class.FleetFunctions.php');
@@ -97,7 +96,7 @@ class ShowFleetAjaxPage extends AbstractPage
 					$this->sendData(699, $LNG['sys_module_inactive']);
 				}
 				
-				$totalDebris	= $GLOBALS['DATABASE']->countquery("SELECT der_metal + der_crystal FROM ".PLANETS." WHERE id = ".$planetID.";");
+				$totalDebris	= $GLOBALS['DATABASE']->getFirstCell("SELECT der_metal + der_crystal FROM ".PLANETS." WHERE id = ".$planetID.";");
 				$usedDebris		= 0;
 				
 				$recElementIDs	= array(219, 209);
@@ -134,7 +133,7 @@ class ShowFleetAjaxPage extends AbstractPage
 			$this->sendData(610, $LNG['fa_not_enough_probes']);
 		}
 		
-		$targetData	= $GLOBALS['DATABASE']->uniquequery("SELECT planet.id_owner as id_owner, 
+		$targetData	= $GLOBALS['DATABASE']->getFirstRow("SELECT planet.id_owner as id_owner, 
 										planet.galaxy as galaxy, 
 										planet.system as system, 
 										planet.planet as planet,
@@ -150,7 +149,7 @@ class ShowFleetAjaxPage extends AbstractPage
 		
 		if($targetMission == 6)
 		{
-			if($CONF['adm_attack'] == 1 && $targetData['authattack'] > $USER['authlevel']) {
+			if(Config::get('adm_attack') == 1 && $targetData['authattack'] > $USER['authlevel']) {
 				$this->sendData(619, $LNG['fa_action_not_allowed']);
 			}
 			
@@ -178,7 +177,6 @@ class ShowFleetAjaxPage extends AbstractPage
 		$SpeedAllMin		= FleetFunctions::GetFleetMaxSpeed($fleetArray, $USER);
 		$Duration			= FleetFunctions::GetMissionDuration(10, $SpeedAllMin, $Distance, $SpeedFactor, $USER);
 		$consumption		= FleetFunctions::GetFleetConsumption($fleetArray, $Duration, $Distance, $SpeedAllMin, $USER, $SpeedFactor);
-		$Duration			= $Duration * (1 - $USER['factor']['FlyTime']);
 
 		$UserDeuterium   	-= $consumption;
 

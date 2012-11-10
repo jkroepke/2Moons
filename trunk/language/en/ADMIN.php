@@ -327,6 +327,7 @@ $LNG['se_game_name'] ='Set name';
 $LNG['se_uni_name'] ='Name of the Universe';
 $LNG['se_lang'] ='Language';
 $LNG['se_general_speed'] ='Game speed';
+$LNG['se_energy_speed']		= 'Energy Factor';
 $LNG['se_normal_speed'] ='Normal speed: 1';
 $LNG['se_normal_speed_resoruces'] ='Normal speed: 1';
 $LNG['se_normal_speed_fleet'] ='Normal speed: 1';

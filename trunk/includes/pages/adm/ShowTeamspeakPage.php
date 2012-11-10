@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,19 +18,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-12-31)
  * @info $Id$
- * @link http://code.google.com/p/2moons/
+ * @link http://2moons.cc/
  */
 
-if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__))) exit;
+if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__))) throw new Exception("Permission error!");
 
 function ShowTeamspeakPage() {
-	global $CONF, $LNG, $USER;
+	global $LNG, $USER;
+	
+	$CONF	= Config::getAll(NULL, $_SESSION['adminuni']);
 
 	if ($_POST)
 	{
@@ -46,29 +47,30 @@ function ShowTeamspeakPage() {
 			'ts_cron_interval'	=> $CONF['ts_cron_interval']
 		);
 		
-		$CONF['ts_modon'] 			= isset($_POST['ts_on']) && $_POST['ts_on'] == 'on' ? 1 : 0;		
-		$CONF['ts_server']			= HTTP::_GP('ts_ip', '');
-		$CONF['ts_tcpport']			= HTTP::_GP('ts_tcp', 0);
-		$CONF['ts_udpport']			= HTTP::_GP('ts_udp', 0);
-		$CONF['ts_timeout']			= HTTP::_GP('ts_to', 0);
-		$CONF['ts_version']			= HTTP::_GP('ts_v', 0);
-		$CONF['ts_login']			= HTTP::_GP('ts_login', '');
-		$CONF['ts_password']		= HTTP::_GP('ts_password', '', true);
-		$CONF['ts_cron_interval']	= HTTP::_GP('ts_cron', 0);
+		$ts_modon 			= isset($_POST['ts_on']) && $_POST['ts_on'] == 'on' ? 1 : 0;		
+		$ts_server			= HTTP::_GP('ts_ip', '');
+		$ts_tcpport			= HTTP::_GP('ts_tcp', 0);
+		$ts_udpport			= HTTP::_GP('ts_udp', 0);
+		$ts_timeout			= HTTP::_GP('ts_to', 0);
+		$ts_version			= HTTP::_GP('ts_v', 0);
+		$ts_login			= HTTP::_GP('ts_login', '');
+		$ts_password		= HTTP::_GP('ts_password', '', true);
+		$ts_cron_interval	= HTTP::_GP('ts_cron', 0);
 		
 		$config_after = array(
-			'ts_timeout'		=> $CONF['ts_timeout'],
-			'ts_modon'			=> $CONF['ts_modon'],
-			'ts_server'			=> $CONF['ts_server'],
-			'ts_tcpport'		=> $CONF['ts_tcpport'],
-			'ts_udpport'		=> $CONF['ts_udpport'],
-			'ts_version'		=> $CONF['ts_version'],
-			'ts_login'			=> $CONF['ts_login'],
-			'ts_password'		=> $CONF['ts_password'],
-			'ts_cron_interval'	=> $CONF['ts_cron_interval']
+			'ts_timeout'		=> $ts_timeout,
+			'ts_modon'			=> $ts_modon,
+			'ts_server'			=> $ts_server,
+			'ts_tcpport'		=> $ts_tcpport,
+			'ts_udpport'		=> $ts_udpport,
+			'ts_version'		=> $ts_version,
+			'ts_login'			=> $ts_login,
+			'ts_password'		=> $ts_password,
+			'ts_cron_interval'	=> $ts_cron_interval
 		);
 		
-		update_config($config_after);
+		Config::update($config_after);
+		$CONF	= Config::getAll(NULL, $_SESSION['adminuni']);
 		
 		$LOG = new Log(3);
 		$LOG->target = 4;

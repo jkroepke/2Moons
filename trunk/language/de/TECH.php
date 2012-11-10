@@ -63,20 +63,20 @@ $LNG['shortNames'] = array (
 );
 
 $LNG['bonus'] = array(
-	'Attack'			=> '+%f%% Angriff',
-	'Defensive'			=> '+%f%% Verteidigung',
-	'Shield'			=> '+%f%% Schild',
-	'BuildTime'			=> '-%f%% Bauzeit',
-	'ResearchTime'		=> '-%f%% Forschungszeit',
-	'ShipTime'			=> '-%f%% Schiffbauzeit',
-	'DefensiveTime'		=> '-%f%% Verteidungsbauzeit',
-	'Resource'			=> '+%f%% Mienenertrag',
-	'Energy'			=> '+%f%% Energieerzeugung',
-	'ResourceStorage'	=> '+%f%% Speicher',
-	'ShipStorage'		=> '+%f%% Flottenkapazität',
-	'FlyTime'			=> '+%f%% Flugzeit',
-	'FleetSlots'		=> '+%f%% Flottenslots',
-	'Planets'			=> '+%f%% Planeten',
+	'Attack'			=> '%f%% Angriff',
+	'Defensive'			=> '%f%% Verteidigung',
+	'Shield'			=> '%f%% Schild',
+	'BuildTime'			=> '%f%% Bauzeit',
+	'ResearchTime'		=> '%f%% Forschungszeit',
+	'ShipTime'			=> '%f%% Schiffbauzeit',
+	'DefensiveTime'		=> '%f%% Verteidungsbauzeit',
+	'Resource'			=> '%f%% Mienenertrag',
+	'Energy'			=> '%f%% Energieerzeugung',
+	'ResourceStorage'	=> '%f%% Speicher',
+	'ShipStorage'		=> '%f%% Flottenkapazität',
+	'FlyTime'			=> '%f%% Flugzeit',
+	'FleetSlots'		=> '%f%% Flottenslots',
+	'Planets'			=> '%f%% Planeten',
 );
 					
 $LNG['tech'] = array(

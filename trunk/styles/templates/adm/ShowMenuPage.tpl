@@ -10,9 +10,10 @@
 		{if allowedTo('ShowTeamspeakPage')}<li><a href="?page=teamspeak" target="Hauptframe">{$LNG.mu_ts_options}</a></li>{/if}
 		{if allowedTo('ShowFacebookPage')}<li><a href="?page=facebook" target="Hauptframe">{$LNG.mu_fb_options}</a></li>{/if}
 		{if allowedTo('ShowModulePage')}<li><a href="?page=module" target="Hauptframe">{$LNG.mu_module}</a></li>{/if}
+		{if allowedTo('ShowDisclamerPage')}<li><a href="?page=disclamer" target="Hauptframe">{$LNG.mu_disclamer}</a></li>{/if}
 		{if allowedTo('ShowStatsPage')}<li><a href="?page=statsconf" target="Hauptframe">{$LNG.mu_stats_options}</a></li>{/if}
-		{if allowedTo('ShowUpdatePage')}<li><a href="?page=update" target="Hauptframe">{$LNG.mu_update}</a></li>{/if}
 		{if allowedTo('ShowVertifyPage')}<li><a href="?page=vertify" target="Hauptframe">{$LNG.mu_vertify}</a></li>{/if}
+		{if allowedTo('ShowCronjobPage')}<li><a href="?page=cronjob" target="Hauptframe">{$LNG.mu_cronjob}</a></li>{/if}
 		<li><a href="javascript:void(0);"><span style="color:lime">{$LNG.mu_users_settings}</span></a></li>
 		{if allowedTo('ShowCreatorPage')}<li><a href="?page=create" target="Hauptframe">{$LNG.new_creator_title}</a></li>{/if}
 		{if allowedTo('ShowAccountEditorPage')}<li><a href="?page=accounteditor" target="Hauptframe">{$LNG.mu_add_delete_resources}</a></li>{/if}

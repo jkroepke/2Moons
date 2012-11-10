@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-12-31)
  * @info $Id$
- * @link http://code.google.com/p/2moons/
+ * @link http://2moons.cc/
  */
 
 
@@ -84,7 +83,7 @@ class ShowStatisticsPage extends AbstractPage
         switch($who)
         {
             case 1:
-                $MaxUsers 	= $CONF['users_amount'];
+                $MaxUsers 	= Config::get('users_amount');
                 $range		= min($range, $MaxUsers);
                 $LastPage 	= max(1, ceil($MaxUsers / 100));
 
@@ -100,7 +99,7 @@ class ShowStatisticsPage extends AbstractPage
                 $stats_sql	=	'SELECT DISTINCT s.*, u.id, u.username, u.ally_id, a.ally_name FROM '.STATPOINTS.' as s
                 INNER JOIN '.USERS.' as u ON u.id = s.id_owner
                 LEFT JOIN '.ALLIANCE.' as a ON a.id = s.id_ally
-                WHERE s.`universe` = '.$UNI.' AND s.`stat_type` = 1 '.(($CONF['stat'] == 2)?'AND u.`authlevel` < '.$CONF['stat_level'].' ':'').'
+                WHERE s.`universe` = '.$UNI.' AND s.`stat_type` = 1 '.((Config::get('stat') == 2)?'AND u.`authlevel` < '.Config::get('stat_level').' ':'').'
                 ORDER BY `'. $Order .'` ASC LIMIT '. $start .',100;';
 
                 $query = $GLOBALS['DATABASE']->query($stats_sql);
@@ -123,7 +122,7 @@ class ShowStatisticsPage extends AbstractPage
                 $GLOBALS['DATABASE']->free_result($query);
             break;
             case 2:
-                $MaxAllys 	= $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".ALLIANCE." WHERE `ally_universe` = '".$UNI."';");
+                $MaxAllys 	= $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".ALLIANCE." WHERE `ally_universe` = '".$UNI."';");
                 $range		= min($range, $MaxAllys);
                 $LastPage 	= max(1, ceil($MaxAllys / 100));
 				
@@ -171,7 +170,7 @@ class ShowStatisticsPage extends AbstractPage
             'RangeList'				=> $RangeList,
             'CUser_ally'			=> $USER['ally_id'],
             'CUser_id'				=> $USER['id'],
-            'stat_date'				=> _date($LNG['php_tdformat'], $CONF['stat_last_update'], $USER['timezone']),
+            'stat_date'				=> _date($LNG['php_tdformat'], Config::get('stat_last_update'), $USER['timezone']),
         ));
 
         $this->display('page.statistics.default.tpl');

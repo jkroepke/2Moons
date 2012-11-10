@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-12-31)
  * @info $Id$
- * @link http://code.google.com/p/2moons/
+ * @link http://2moons.cc/
  */
 
 
@@ -48,9 +47,9 @@ class ShowTraderPage extends AbstractPage
 		global $LNG, $CONF, $USER;
 		
 		$this->tplObj->assign_vars(array(
-			'tr_cost_dm_trader'		=> sprintf($LNG['tr_cost_dm_trader'], pretty_number($CONF['darkmatter_cost_trader']), $LNG['tech'][921]),
+			'tr_cost_dm_trader'		=> sprintf($LNG['tr_cost_dm_trader'], pretty_number(Config::get('darkmatter_cost_trader')), $LNG['tech'][921]),
 			'charge'				=> self::$Charge,
-			'requiredDarkMatter'	=> $USER['darkmatter'] < $CONF['darkmatter_cost_trader'] ? sprintf($LNG['tr_not_enought'], $LNG['tech'][921]) : false,
+			'requiredDarkMatter'	=> $USER['darkmatter'] < Config::get('darkmatter_cost_trader') ? sprintf($LNG['tr_not_enought'], $LNG['tech'][921]) : false,
 		));
 		
 		$this->display("page.trader.default.tpl");
@@ -60,7 +59,7 @@ class ShowTraderPage extends AbstractPage
 	{
 		global $USER, $LNG, $CONF, $reslist;
 		
-		if ($USER['darkmatter'] < $CONF['darkmatter_cost_trader']) {
+		if ($USER['darkmatter'] < Config::get('darkmatter_cost_trader')) {
 			$this->redirectTo('game.php?page=trader');
 		}
 		
@@ -86,7 +85,7 @@ class ShowTraderPage extends AbstractPage
 	{
 		global $USER, $PLANET, $LNG, $CONF, $reslist, $resource;
 		
-		if ($USER['darkmatter'] < $CONF['darkmatter_cost_trader']) {
+		if ($USER['darkmatter'] < Config::get('darkmatter_cost_trader')) {
 			$this->redirectTo('game.php?page=trader');
 		}
 		
@@ -121,7 +120,7 @@ class ShowTraderPage extends AbstractPage
 		}
 		
 		if ($tradeSum > 0)
-			$USER[$resource[921]]	-= $CONF['darkmatter_cost_trader'];
+			$USER[$resource[921]]	-= Config::get('darkmatter_cost_trader');
 
 		$this->printMessage($LNG['tr_exchange_done'], array("game.php?page=trader", 3));
 	}

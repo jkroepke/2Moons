@@ -101,7 +101,7 @@
 						<tr>
 							<td class="transparent">
 								<a href="https://2moons.cc/user/5-jan/" style="color:red">Jan</a><br>
-								<a href="https://2moons.cc/user/64-orion/" style="color:red">Orion</a>
+								<a href="https://2moons.cc/user/64-orion/" style="color:red">Orion</a><br>
 								<a href="https://2moons.cc/user/88-fc92/" style="color:red">FC92</a>
 							</td>
 						</tr>
@@ -120,7 +120,7 @@
 										<a href="https://2moons.cc/user/100-qwatakayean/" target="_blank">QwataKayean</a>
 									</td>
 									<td class="transparent">
-										<img src="styles/images/login/flags/us.png" alt="(english)">
+										<img src="styles/resource/images/login/flags/us.png" alt="(english)">
 									</td>
 								</tr>
 								<tr>
@@ -128,7 +128,7 @@
 										<a href="https://2moons.cc/user/529-haloraptor33/" target="_blank">HaloRaptor33</a> / <a href="http://2moons.cc/user/1231-scofield06/">scofield06</a>
 									</td>
 									<td class="transparent">
-										<img src="styles/images/login/flags/fr.png" alt="(french)">
+										<img src="styles/resource/images/login/flags/fr.png" alt="(french)">
 									</td>
 								</tr>
 								<tr>
@@ -136,7 +136,7 @@
 										<a href="https://2moons.cc/user/205-idro/" target="_blank">Idro</a>
 									</td>
 									<td class="transparent">
-										<img src="styles/images/login/flags/it.png" alt="(italia)">
+										<img src="styles/resource/images/login/flags/it.png" alt="(italia)">
 									</td>
 								</tr>
 								<tr>
@@ -144,7 +144,7 @@
 										<a href="https://2moons.cc/user/100-qwatakayean/" target="_blank">QwataKayean</a>
 									</td>
 									<td class="transparent">
-										<img src="styles/images/login/flags/pt.png" alt="(portuguese)">
+										<img src="styles/resource/images/login/flags/pt.png" alt="(portuguese)">
 									</td>
 								</tr>
 								<tr>
@@ -152,15 +152,15 @@
 										<a href="https://2moons.cc/user/98-inquisitorea/" target="_blank">InquisitorEA</a>
 									</td>
 									<td class="transparent">
-										<img src="styles/images/login/flags/ru.png" alt="(russian)">
+										<img src="styles/resource/images/login/flags/ru.png" alt="(russian)">
 									</td>
 								</tr>
 								<tr>
 									<td class="transparent">
-										<a href="http://2moons.cc/user/750-angelus-ira/" target="_blank">angelus_ira</a> / <a href="http://2moons.cc/user/1231-scofield06/">scofield06</a>
+										<a href="https://2moons.cc/user/64-orion/" style="color:red">Orion</a>
 									</td>
 									<td class="transparent">
-										<img src="styles/images/login/flags/es.png" alt="(spanish)">
+										<img src="styles/resource/images/login/flags/es.png" alt="(spanish)">
 									</td>
 								</tr>
 								<tr>
@@ -168,7 +168,7 @@
 										<a href="http://2moons.cc/user/853-pandorax/" target="_blank">_pandorax_ </a>
 									</td>
 									<td class="transparent">
-										<img src="styles/images/login/flags/si.png" alt="(slovenian)">
+										<img src="styles/resource/images/login/flags/si.png" alt="(slovenian)">
 									</td>
 								</tr>
 								</table>

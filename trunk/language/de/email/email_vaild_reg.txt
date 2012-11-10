@@ -1,5 +1,5 @@
-Hallo %1$s,
-vielen Dank, dass Sie sich in unserem Game %2$s registriert haben. 
+Hallo {USERNAME},
+vielen Dank, dass Sie sich in unserem Game {GAMENAME} registriert haben. 
 Bevor Ihr Benutzerkonto aktiviert und Ihre Registrierung abgeschlossen 
 werden kann, müssen Sie noch einen letzten Schritt unternehmen.
 
@@ -10,17 +10,17 @@ ein einziges Mal aufrufen, um Ihr Benutzerkonto zu aktivieren.
 Um Ihre Registrierung abzuschließen, klicken Sie bitte auf folgenden 
 Link:
 
-%3$s?page=reg&action=valid&uni=%7$s&clef=%4$s
+{VERTIFYURL}
 
 Ihre Logindaten:
 
-Username : %1$s
-Passwort : %5$s
+Username : {USERNAME}
+Passwort : {PASSWORD}
 
 Sollten Sie immer noch Probleme mit der Registrierung haben, 
 kontaktieren Sie bitte den Webmaster unter dieser E-Mail-Adresse: 
-mailto:%6$s
+{GAMEMAIL}
 
-Mit freundlichen Grüßen,
+Mit freundlichen Grüßen
 
-%2$s - Team
+{GAMENAME}

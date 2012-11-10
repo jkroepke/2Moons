@@ -1,6 +1,7 @@
 {block name="title" prepend}{$LNG.lm_options}{/block}
 {block name="content"}
-<form action="?page=settings&amp;mode=send" method="post">
+<form action="game.php?page=settings" method="post">
+<input type="hidden" name="mode" value="send">
 	<table style="width:760px;">
 	<tbody>
 		{if $userAuthlevel > 0}
@@ -46,10 +47,12 @@
 			<td>{$LNG.op_timezone}</td>
 			<td>{html_options name=timezone options=$Selectors.timezones selected=$timezone}</td>
 		</tr>
+		{if count($Selectors.lang) > 1}
 		<tr>
 			<td>{$LNG.op_lang}</td>
 			<td>{html_options name=language options=$Selectors.lang selected=$userLang}</td>
 		</tr>
+		{/if}
 		<tr>
 			<td>{$LNG.op_sort_planets_by}</td>
 			<td>{html_options name=planetSort options=$Selectors.Sort selected=$planetSort}</td>
@@ -60,10 +63,12 @@
 				{html_options name=planetOrder options=$Selectors.SortUpDown selected=$planetOrder}
 			</td>
 		</tr>
+		{if count($Selectors.Skins) > 1}
 		<tr>
 			<td>{$LNG.op_skin_example}</td>
 			<td>{html_options options=$Selectors.Skins selected=$theme name="theme" id="theme"}</td>
 		</tr>
+		{/if}
 		<tr>
 			<td>{$LNG.op_active_build_messages}</td>
 			<td><input name="queueMessages" type="checkbox" value="1" {if $queueMessages == 1}checked="checked"{/if}></td>

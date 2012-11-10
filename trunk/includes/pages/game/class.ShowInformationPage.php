@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-12-31)
  * @info $Id$
- * @link http://code.google.com/p/2moons/
+ * @link http://2moons.cc/
  */
 
 
@@ -43,7 +42,7 @@ class ShowInformationPage extends AbstractPage
 	{
 		global $CONF;
 		
-		return $lastTime + $CONF['gate_wait_time'];
+		return $lastTime + Config::get('gate_wait_time');
 	}
 
 	public function sendFleet()
@@ -57,7 +56,7 @@ class ShowInformationPage extends AbstractPage
 		}
 		
 		$TargetPlanet = HTTP::_GP('jmpto', $PLANET['id']);
-		$TargetGate   = $GLOBALS['DATABASE']->uniquequery("SELECT id, last_jump_time FROM ".PLANETS." WHERE id = ".$TargetPlanet." AND id_owner = ".$USER['id']." AND sprungtor > 0;");
+		$TargetGate   = $GLOBALS['DATABASE']->getFirstRow("SELECT id, last_jump_time FROM ".PLANETS." WHERE id = ".$TargetPlanet." AND id_owner = ".$USER['id']." AND sprungtor > 0;");
 
 		if (!isset($TargetGate) || $TargetPlanet == $PLANET['id']) {
 			$this->sendJSON(array('message' => $LNG['in_jump_gate_doesnt_have_one'], 'error' => true));
@@ -211,7 +210,7 @@ class ShowInformationPage extends AbstractPage
 					$Production	= eval(ResourceUpdate::getProd($ProdGrid[$elementID]['production'][$ID]));
 					
 					if($ID != 911) {
-						$Production	*= $CONF['resource_multiplier'];
+						$Production	*= Config::get('resource_multiplier');
 					}
 					
 					$productionTable['production'][$BuildLevel][$ID]	= $Production;
@@ -236,7 +235,7 @@ class ShowInformationPage extends AbstractPage
 					if(!isset($ProdGrid[$elementID]['storage'][$ID]))
 						continue;
 						
-					$productionTable['storage'][$BuildLevel][$ID]	= round(eval(ResourceUpdate::getProd($ProdGrid[$elementID]['storage'][$ID]))) * $CONF['resource_multiplier'] * STORAGE_FACTOR;
+					$productionTable['storage'][$BuildLevel][$ID]	= round(eval(ResourceUpdate::getProd($ProdGrid[$elementID]['storage'][$ID]))) * Config::get('resource_multiplier') * STORAGE_FACTOR;
 				}
 			}
 			

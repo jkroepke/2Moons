@@ -325,7 +325,7 @@ $LNG['fl_expedition_fleets_limit']			= 'Sie können nicht mehr Expeditionen star
 $LNG['fl_week_player']						= 'Spieler ist zu schwach für sie!';
 $LNG['fl_strong_player']					= 'Spieler ist zu stark für sie!';
 $LNG['fl_in_vacation_player']				= 'Spieler befindet sich im Urlaubsmodus';
-$LNG['fl_admins_cannot_be_attacked']			= 'Die Admins können nicht angegriffen werden';
+$LNG['fl_admins_cannot_be_attacked']		= 'Die Admins können nicht angegriffen werden';
 $LNG['fl_multi_alarm']						= 'Multi-Alarm!';
 $LNG['fl_no_slots']							= 'Keine Slots mehr verfügbar!';
 $LNG['fl_planet_populed']					= 'Planet besiedelt!';
@@ -359,25 +359,25 @@ $LNG['fl_acs_change_name']					= 'Geben sie einen neuen Namen ein';
 $LNG['fl_error_not_avalible']				= 'Auf diesen Koordinaten befinden sich kein Planet!';
 $LNG['fl_error_empty_derbis']				= 'Kein Trümmerfeld vorhanden!';
 $LNG['fl_error_no_moon']					= 'Kein Mond vorhanden!';
-$LNG['fl_send_error'][3]					= 'Start- und Zielplanet sind identisch.';
-$LNG['fl_send_error'][4]					= 'Kein gültiges Ziel';
-$LNG['fl_send_error'][5]					= 'Keine Rohstoffe geladen!';
-$LNG['fl_send_error'][6]					= 'Keine Slots mehr verfügbar!';
-$LNG['fl_send_error'][7]					= 'Kein Zielplanet vorhanden';
-$LNG['fl_send_error'][8]					= 'Nicht alle Schiffe vorhanden.';
-$LNG['fl_send_error'][9]					= 'Sie können nicht mehr Expeditionen starten!';
-$LNG['fl_send_error'][10]					= 'Sie haben nicht die nötige Expeditions Technologie!';
-$LNG['fl_send_error'][12]					= 'Spieler befindet sich im Urlaubsmodus!';
-$LNG['fl_send_error'][13]					= 'Bash-Schutz';
-$LNG['fl_send_error'][14]					= 'Du kannst keine Administratoren angreifen';
-$LNG['fl_send_error'][15]					= 'Spieler befindest sich im Noobschutz';
-$LNG['fl_send_error'][16]					= 'Spieler ist zu stark!';
-$LNG['fl_send_error'][17]					= 'Am Ziel befindet sich kein Allianzdepot.';
-$LNG['fl_send_error'][18]					= 'Der Spieler vom Zielplanet muss in deiner Allianz oder Buddyliste sein!';
-$LNG['fl_send_error'][19]					= 'Nicht genügend Deuterium vorhanden.';
-$LNG['fl_send_error'][20]					= 'Sie haben nicht genügend Laderaum vorhanden.';
-$LNG['fl_send_error'][21]					= 'Trümmerfeld existiert nicht!';
-$LNG['fl_send_error'][22]					= 'Keine Missionen vorhanden (Planet vorhanden?)';
+$LNG['fl_error_same_planet']				= 'Start- und Zielplanet sind identisch!';
+$LNG['fl_invalid_target']					= 'Kein gültiges Ziel';
+$LNG['fl_no_noresource']					= 'Keine Rohstoffe geladen!';
+$LNG['fl_no_target']						= 'Kein Zielplanet vorhanden';
+$LNG['fl_not_all_ship_avalible']			= 'Nicht alle Schiffe vorhanden.';
+$LNG['fl_no_expedition_slot']				= 'Sie können nicht mehr Expeditionen starten!';
+$LNG['fl_invalid_mission']					= 'Ungültige Mission';
+$LNG['fl_bash_protection']					= 'Bash-Schutz';
+$LNG['fl_admin_attack']						= 'Du kannst keine Administratoren angreifen';
+$LNG['fl_target_exists']					= 'Zielplanet existiert';
+$LNG['fl_target_not_exists']				= 'Zielplanet existiert nicht!';
+$LNG['fl_only_planets_colonizable']			= 'Nur Planeten können kolonisiert werden!';
+$LNG['fl_player_is_noob']					= 'Spieler befindest sich im Noobschutz!';
+$LNG['fl_player_is_strong']					= 'Spieler ist zu stark!';
+$LNG['fl_tech_for_position_required']		= 'Du brauchst %s Stufe %d, um diese Position zu besiedeln zu können!';
+$LNG['fl_no_hold_depot']					= 'Am Ziel befindet sich kein Allianzdepot.';
+$LNG['fl_not_enough_deuterium']				= 'Nicht genügend Deuterium vorhanden.';
+$LNG['fl_not_enough_space']					= 'Sie haben nicht genügend Laderaum vorhanden.';
+$LNG['fl_hold_time_not_exists']				= 'Ungültige Haltezeit.';
 
 //----------------------------------------------------------------------------//
 //BUILDINGS - RESEARCH - SHIPYARD - DEFENSES
@@ -968,6 +968,7 @@ $LNG['cff_mission_target_mip']				= 'Raketenangriff (%d) vom Spieler %s vom %s %
 //----------------------------------------------------------------------------//
 // EXTRA LANGUAGE FUNCTIONS
 $LNG['fcm_universe']						= 'Universum';
+$LNG['fcm_mainplanet']						= 'Hauptplanet';
 $LNG['fcm_planet']							= 'Planet';
 $LNG['fcm_moon']							= 'Mond';
 $LNG['fcm_info']							= 'Information';
@@ -979,6 +980,7 @@ $LNG['sys_refferal_from']        	 		= 'System';
 $LNG['sys_refferal_title']        	 		= 'Bonus für Spieler %s';
 $LNG['sys_refferal_text']        	 		= 'Der von dir geworbene Spieler %s hat nun %s Punkte erreicht.<br><br>Als Dankeschön, dass du einen aktiven Spieler geworben hast, erhältst du %s %s';
 $LNG['sys_closed_game']        	 			= 'Das Universum ist zur Zeit nicht verfügbar:';
+$LNG['spec_mail_inactive_title']  			= '%s - Erinnerung';
 
 //----------------------------------------------------------------------------//
 // CombatReport.php

@@ -27,12 +27,11 @@
  * @link http://2moons.cc/
  */
 
-if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__))) exit;
+if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__))) throw new Exception("Permission error!");
 
 
 function ShowSendMessagesPage() {
 	global $USER, $LNG, $CONF, $LANG;
-
 	
 	$ACTION	= HTTP::_GP('action', '');
 	if ($ACTION == 'send')
@@ -61,42 +60,29 @@ function ShowSendMessagesPage() {
 			if($Mode == 0 || $Mode == 2) {
 				$Time    	= TIMESTAMP;
 				$From    	= '<span class="'.$class.'">'.$LNG['user_level'][$USER['authlevel']].' '.$USER['username'].'</span>';
-				$Subject 	= '<span class="'.$class.'">'.$Subject.'</span>';
-				$Message 	= '<span class="'.$class.'">'.bbcode($Message).'</span>';
-				$USERS		= $GLOBALS['DATABASE']->query("SELECT `id` FROM ".USERS." WHERE `universe` = '".$_SESSION['adminuni']."'".(!empty($Lang) ? " AND `lang` = '".$GLOBALS['DATABASE']->sql_escape($Lang)."'": "").";");
-				while($UserData = $GLOBALS['DATABASE']->fetch_array($USERS)) {
-					SendSimpleMessage($UserData['id'], $USER['id'], TIMESTAMP, 50, $From, $Subject, $Message);
+				$pmSubject 	= '<span class="'.$class.'">'.$Subject.'</span>';
+				$pmMessage 	= '<span class="'.$class.'">'.bbcode($Message).'</span>';
+				$USERS		= $GLOBALS['DATABASE']->query("SELECT `id`, `username` FROM ".USERS." WHERE `universe` = '".$_SESSION['adminuni']."'".(!empty($Lang) ? " AND `lang` = '".$GLOBALS['DATABASE']->sql_escape($Lang)."'": "").";");
+				while($UserData = $GLOBALS['DATABASE']->fetch_array($USERS))
+				{
+					$sendMessage = str_replace('{USERNAME}', $UserData['username'], $pmMessage);
+					SendSimpleMessage($UserData['id'], $USER['id'], TIMESTAMP, 50, $From, $pmSubject, $sendMessage);
 				}
 			}
 			if($Mode == 1 || $Mode == 2) {
-				require_once(ROOT_PATH.'includes/classes/class.phpmailer.php');
-				$mail             	= new PHPMailer(true);
-				$mail->IsHTML(true);
-				if($CONF['mail_use'] == 2) {
-					$mail->IsSMTP();  
-					$mail->SMTPAuth   	= true; 
-					$mail->SMTPSecure 	= $CONF['smtp_ssl'];  						
-					$mail->Host      	= $CONF['smtp_host'];
-					$mail->Port      	= $CONF['smtp_port'];
-					$mail->Username  	= $CONF['smtp_user'];
-					$mail->Password  	= $CONF['smtp_pass'];
-					$mail->SMTPDebug  	= ($CONF['debug'] == 1) ? 2 : 0;   
-				} elseif($CONF['mail_use'] == 1) {
-					$mail->IsSendmail();
-					$mai->Sendmail		= $CONF['smail_path'];
-				} else {
-					$mail->IsMail();
+				require ROOT_PATH.'includes/classes/Mail.class.php';
+				$userList	= array();
+				
+				$USERS		= $GLOBALS['DATABASE']->query("SELECT `email`, `username` FROM ".USERS." WHERE `universe` = '".$_SESSION['adminuni']."'".(!empty($Lang) ? " AND `lang` = '".$GLOBALS['DATABASE']->sql_escape($Lang)."'": "").";");
+				while($UserData = $GLOBALS['DATABASE']->fetch_array($USERS))
+				{				
+					$userList[$UserData['email']]	= array(
+						'username'	=> $UserData['username'],
+						'body'		=> bbcode(str_replace('{USERNAME}', $UserData['username'], $Message))
+					);
 				}
-				$mail->CharSet		= 'UTF-8';		
-				$mail->Subject   	= strip_tags($Subject);
-				$mail->Body   		= bbcode($Message);
-				$mail->SetFrom($CONF['smtp_sendmail'], $CONF['game_name']);
-				$mail->AddAddress($CONF['smtp_sendmail'], $CONF['game_name']);
-				$USERS	= $GLOBALS['DATABASE']->query("SELECT `username`, `email` FROM ".USERS." WHERE `universe` = '".$_SESSION['adminuni']."'".(!empty($Lang) ? " AND `lang` = '".$GLOBALS['DATABASE']->sql_escape($Lang)."'": "").";");
-				while($UserData = $GLOBALS['DATABASE']->fetch_array($USERS)) {
-					$mail->AddBCC($UserData['email'], $UserData['username']);
-				}
-				$mail->Send();
+				
+				Mail::multiSend($userList, strip_tags($Subject));
 			}
 			exit($LNG['ma_message_sended']);
 		} else {

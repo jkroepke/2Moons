@@ -6,4 +6,4 @@ Solltest du dein Passwort vergessen haben, dann gehe auf %4$s und klicke "Passwo
 
 Mit freundlichen Grüßen
 
-dein %3$s Team
+Dein %3$s Team

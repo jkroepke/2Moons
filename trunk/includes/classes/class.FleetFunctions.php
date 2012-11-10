@@ -75,6 +75,16 @@ class FleetFunctions
 		return $speed;
 	}
 	
+	public static function getExpeditionLimit($USER)
+	{
+		return floor(sqrt($USER[$GLOBALS['resoruce'][124]]));
+	}
+	
+	public static function getDMMissionLimit($USER)
+	{
+		return Config::get('max_dm_missions');
+	}
+	
 	public static function getMissileRange($Level)
 	{
 		return max(($Level * 5) - 1, 0);
@@ -105,6 +115,11 @@ class FleetFunctions
 		$SpeedFactor	*= pow($Distance * 10 / $MaxFleetSpeed, 0.5);
 		$SpeedFactor	+= 10;
 		$SpeedFactor	/= $GameSpeed;
+		
+		if(isset($USER['factor']['FlyTime']))
+		{
+			$SpeedFactor	*= max(0, 1 + $USER['factor']['FlyTime']);
+		}
 		
 		return max($SpeedFactor, MIN_FLEET_TIME);
 	}
@@ -166,7 +181,7 @@ class FleetFunctions
 		$stayBlock	= array();;
 		if (in_array(15, $Missions)) {
 			for($i = 1;$i <= $USER[$resource[124]];$i++) {	
-				$stayBlock[$i]	= round($i / $CONF['halt_speed'], 2);
+				$stayBlock[$i]	= round($i / Config::get('halt_speed'), 2);
 			}
 		}
 		elseif(in_array(11, $Missions)) 
@@ -284,7 +299,7 @@ class FleetFunctions
 		$UsedPlanet				= (!empty($GetInfoPlanet['id_owner'])) ? true : false;
 		$avalibleMissions		= array();
 		
-		if ($MissionInfo['planet'] == ($CONF['max_planets'] + 1) && isModulAvalible(MODULE_MISSION_EXPEDITION))
+		if ($MissionInfo['planet'] == (Config::get('max_planets') + 1) && isModulAvalible(MODULE_MISSION_EXPEDITION))
 			$avalibleMissions[]	= 15;	
 		elseif ($MissionInfo['planettype'] == 2) {
 			if ((isset($MissionInfo['Ship'][209]) || isset($MissionInfo['Ship'][219])) && isModulAvalible(MODULE_MISSION_RECYCLE) && !($GetInfoPlanet['der_metal'] == 0 && $GetInfoPlanet['der_crystal'] == 0))

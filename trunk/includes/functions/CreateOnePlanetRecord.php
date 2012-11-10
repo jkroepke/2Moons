@@ -30,17 +30,16 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $Universe, $PlanetOw
 {
 	global $LNG;
 
-	$CONF	= getConfig($Universe);
-
-	if ($CONF['max_galaxy'] < $Galaxy || 1 > $Galaxy) {
+	$CONF	= Config::getAll(NULL, $Universe);
+	if (Config::get('max_galaxy') < $Galaxy || 1 > $Galaxy) {
 		throw new Exception("Access denied for CreateOnePlanetRecord.php.<br>Try to create a planet at position:".$Galaxy.":".$System.":".$Position);
 	}	
 	
-	if ($CONF['max_system'] < $System || 1 > $System) {
+	if (Config::get('max_system') < $System || 1 > $System) {
 		throw new Exception("Access denied for CreateOnePlanetRecord.php.<br>Try to create a planet at position:".$Galaxy.":".$System.":".$Position);
 	}	
 	
-	if ($CONF['max_planets'] < $Position || 1 > $Position) {
+	if (Config::get('max_planets') < $Position || 1 > $Position) {
 		throw new Exception("Access denied for CreateOnePlanetRecord.php.<br>Try to create a planet at position:".$Galaxy.":".$System.":".$Position);
 	}
 	
@@ -48,12 +47,12 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $Universe, $PlanetOw
 		return false;
 	}
 
-	$FieldFactor		= $CONF['planet_factor'];
+	$FieldFactor		= Config::get('planet_factor');
 	require(ROOT_PATH.'includes/PlanetData.php');
-	$Pos                = ceil($Position / ($CONF['max_planets'] / count($PlanetData))); 
+	$Pos                = ceil($Position / (Config::get('max_planets') / count($PlanetData))); 
 	$TMax				= $PlanetData[$Pos]['temp'];
 	$TMin				= $TMax - 40;
-	$Fields				= $PlanetData[$Pos]['fields'] * $CONF['planet_factor'];
+	$Fields				= $PlanetData[$Pos]['fields'] * Config::get('planet_factor');
 	$Types				= array_keys($PlanetData[$Pos]['image']);
 	$Type				= $Types[array_rand($Types)];
 	$Class				= $Type.'planet'.($PlanetData[$Pos]['image'][$Type] < 10 ? '0' : '').$PlanetData[$Pos]['image'][$Type];
@@ -70,15 +69,15 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $Universe, $PlanetOw
 				planet_type = '1',
 				image = '".$Class."',
 				diameter = ".floor(1000 * sqrt($Fields)).",
-				field_max = ".(($HomeWorld) ? $CONF['initial_fields'] : floor($Fields)).",
+				field_max = ".(($HomeWorld) ? Config::get('initial_fields') : floor($Fields)).",
 				temp_min = ".$TMin.",
 				temp_max = ".$TMax.",
-				metal = ".$CONF['metal_start'].",
-				metal_perhour = ".$CONF['metal_basic_income'].",
-				crystal = ".$CONF['crystal_start'].",
-				crystal_perhour = ".$CONF['crystal_basic_income'].",
-				deuterium = ".$CONF['deuterium_start'].",
-				deuterium_perhour = ".$CONF['deuterium_basic_income'].";");
+				metal = ".Config::get('metal_start').",
+				metal_perhour = ".Config::get('metal_basic_income').",
+				crystal = ".Config::get('crystal_start').",
+				crystal_perhour = ".Config::get('crystal_basic_income').",
+				deuterium = ".Config::get('deuterium_start').",
+				deuterium_perhour = ".Config::get('deuterium_basic_income').";");
 
 	return $GLOBALS['DATABASE']->GetInsertID();
 }

@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-12-31)
  * @info $Id$
- * @link http://code.google.com/p/2moons/
+ * @link http://2moons.cc/
  */
 
 class ShowResourcesPage extends AbstractPage
@@ -76,9 +75,9 @@ class ShowResourcesPage extends AbstractPage
 		
 		if ($PLANET['planet_type'] == 3)
 		{
-			$CONF['metal_basic_income']     	= 0;
-			$CONF['crystal_basic_income']   	= 0;
-			$CONF['deuterium_basic_income'] 	= 0;
+			Config::get('metal_basic_income')     	= 0;
+			Config::get('crystal_basic_income')   	= 0;
+			Config::get('deuterium_basic_income') 	= 0;
 		}
 		
 		$temp	= array(
@@ -129,8 +128,13 @@ class ShowResourcesPage extends AbstractPage
 					
 				$Production	= eval(ResourceUpdate::getProd($ProdGrid[$ProdID]['production'][$ID]));
 				
-				if($ID != 911) {
-					$Production	*= $prodLevel * $CONF['resource_multiplier'];
+				if($ID != 911)
+				{
+					$Production	*= $prodLevel * Config::get('resource_multiplier');
+				}
+				else
+				{
+					$Production	*= Config::get('energySpeed');
 				}
 				
 				$productionList[$ProdID]['production'][$ID]	= $Production;
@@ -152,10 +156,10 @@ class ShowResourcesPage extends AbstractPage
 		);
 		
 		$basicProduction	= array(
-			901 => $CONF[$resource[901].'_basic_income'] * $CONF['resource_multiplier'],
-			902 => $CONF[$resource[902].'_basic_income'] * $CONF['resource_multiplier'],
-			903	=> $CONF[$resource[903].'_basic_income'] * $CONF['resource_multiplier'],
-			911	=> $CONF[$resource[911].'_basic_income'] * $CONF['resource_multiplier'],
+			901 => Config::get($resource[901).'_basic_income'] * Config::get('resource_multiplier'),
+			902 => Config::get($resource[902).'_basic_income'] * Config::get('resource_multiplier'),
+			903	=> Config::get($resource[903).'_basic_income'] * Config::get('resource_multiplier'),
+			911	=> Config::get($resource[911).'_basic_income'] * Config::get('energySpeed'),
 		);
 		
 		$totalProduction	= array(

@@ -24,12 +24,10 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.7.0 (2011-12-10)
  * @info $Id$
- * @link http://code.google.com/p/2moons/
+ * @link http://2moons.cc/
  */
 
-if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__))) exit;
-
-
+if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__))) throw new Exception("Permission error!");
 
 function ShowVertify() 
 {
@@ -41,7 +39,7 @@ function ShowVertify()
 	
 	switch($action) {
 		case 'check':
-			$REV	= explode(".", $CONF["VERSION"]);
+			$REV	= explode(".", Config::get("VERSION"));
 			$REV	= $REV[2];
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_AUTOREFERER, true);

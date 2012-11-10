@@ -24,7 +24,7 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.5 (2011-07-31)
  * @info $Id$
- * @link http://code.google.com/p/2moons/
+ * @link http://2moons.cc/
  */
 
 if(!function_exists('spl_autoload_register')) {
@@ -359,16 +359,9 @@ switch($mode)
 						$database['tableprefix'],
 						file_get_contents('VERSION'),
 					), file_get_contents('install.sql')));
-					$GLOBALS['CONF']	= array(
-						'timezone'			=> 0,
-						'lang'				=> '',
-						'OverviewNewsText'	=> '',
-						'uni_name'			=> '',
-						'close_reason'		=> '',
-						'moduls'			=> '',
-					);
 					
-					update_config(array(
+					Config::init();
+					Config::update(array(
 						'timezone'			=> @date_default_timezone_get(),
 						'lang'				=> $LANG->GetUser(),
 						'OverviewNewsText'	=> $LNG['sql_welcome'].'1.7',
@@ -376,9 +369,15 @@ switch($mode)
 						'close_reason'		=> $LNG['sql_close_reason'],
 						'moduls'			=> implode(';', array_fill(0, MODULE_AMOUNT - 1, 1))
 					), 1);
+					
 					HTTP::redirectTo('index.php?mode=install&step=7');
 				} catch (Exception $e) {
 					unlink(ROOT_PATH."includes/config.php");
+					$error	= $GLOBALS['DATABASE']->error;
+					if(empty($error))
+					{
+						$error	= $e->getMessage();
+					}
 					$template->assign(array(
 						'host'		=> $database['host'],
 						'port'		=> $database['port'],
@@ -386,7 +385,7 @@ switch($mode)
 						'dbname'	=> $database['databasename'],
 						'prefix'	=> $database['tableprefix'],
 						'class'		=> 'fatalerror',
-						'message'	=> $LNG['step3_db_error'].'</p><p>'.$GLOBALS['DATABASE']->error,
+						'message'	=> $LNG['step3_db_error'].'</p><p>'.$error,
 					));
 					$template->show('ins_step4.tpl');
 					exit;
@@ -420,6 +419,7 @@ switch($mode)
 					
 				require_once(ROOT_PATH . 'includes/dbtables.php');
 				$DATABASE	= new Database();
+				Config::init();
 								
 				$SQL  = "INSERT INTO ".USERS." SET ";
 				$SQL .= "username		= '".$DATABASE->sql_escape($AdminUsername)."', ";

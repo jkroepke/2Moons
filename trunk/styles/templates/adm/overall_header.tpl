@@ -18,12 +18,12 @@
 	<meta http-equiv="refresh" content="{$gotoinsec};URL={$goto}">
 	{/if}
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-	<link rel="stylesheet" type="text/css" href="./styles/css/boilerplate.css?v={$REV}">
-	<link rel="stylesheet" type="text/css" href="./styles/css/ingame.css?v={$REV}">
-	<link rel="stylesheet" type="text/css" href="./styles/css/admin.css?v={$REV}">
-	<link rel="stylesheet" type="text/css" href="./styles/css/jquery.css?v={$REV}">
-	<link rel="stylesheet" type="text/css" href="./styles/css/jquery.fancybox.css?v={$REV}">
-	<link rel="stylesheet" type="text/css" href="./styles/css/validationEngine.jquery.css?v={$REV}">
+	<link rel="stylesheet" type="text/css" href="./styles/resource/css/base/boilerplate.css?v={$REV}">
+	<link rel="stylesheet" type="text/css" href="./styles/resource/css/ingame/main.css?v={$REV}">
+	<link rel="stylesheet" type="text/css" href="./styles/resource/css/admin/main.css?v={$REV}">
+	<link rel="stylesheet" type="text/css" href="./styles/resource/css/base/jquery.css?v={$REV}">
+	<link rel="stylesheet" type="text/css" href="./styles/resource/css/base/jquery.fancybox.css?v={$REV}">
+	<link rel="stylesheet" type="text/css" href="./styles/resource/css/base/validationEngine.jquery.css?v={$REV}">
 	<link rel="stylesheet" type="text/css" href="./styles/theme/gow/formate.css?v={$REV}">
 	<link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
 	<script type="text/javascript">

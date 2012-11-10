@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-12-31)
  * @info $Id$
- * @link http://code.google.com/p/2moons/
+ * @link http://2moons.cc/
  */
 
 require_once(ROOT_PATH . 'includes/classes/class.FleetFunctions.php');
@@ -69,7 +68,7 @@ class ShowFleetStep1Page extends AbstractPage
 		$FleetData	= array(
 			'fleetroom'			=> floattostring($FleetRoom),
 			'gamespeed'			=> FleetFunctions::GetGameSpeedFactor(),
-			'fleetspeedfactor'	=> 1 - $USER['factor']['FlyTime'],
+			'fleetspeedfactor'	=> max(0, 1 + $USER['factor']['FlyTime']),
 			'planet'			=> array('galaxy' => $PLANET['galaxy'], 'system' => $PLANET['system'], 'planet' => $PLANET['planet'], 'planet_type' => $PLANET['planet_type']),
 			'maxspeed'			=> FleetFunctions::GetFleetMaxSpeed($Fleet, $USER),
 			'ships'				=> FleetFunctions::GetFleetShipInfo($Fleet, $USER),
@@ -209,7 +208,7 @@ class ShowFleetStep1Page extends AbstractPage
 		FROM ".USERS_ACS."
 		INNER JOIN ".AKS." acs ON acsID = acs.id
 		INNER JOIN ".PLANETS." planet ON planet.id = acs.target 
-		WHERE userID = ".$USER['id']." AND ".$CONF['max_fleets_per_acs']." > (SELECT COUNT(*) FROM ".FLEETS." WHERE fleet_group = acsID);");
+		WHERE userID = ".$USER['id']." AND ".Config::get('max_fleets_per_acs')." > (SELECT COUNT(*) FROM ".FLEETS." WHERE fleet_group = acsID);");
 		
 		$ACSList	= array();
 		
@@ -232,36 +231,40 @@ class ShowFleetStep1Page extends AbstractPage
 	
 		if($TargetGalaxy == $PLANET['galaxy'] && $TargetSystem == $PLANET['system'] && $TargetPlanet == $PLANET['planet'] && $TargetPlanettype == $PLANET['planet_type'])
 		{
-			exit($LNG['fl_send_error'][3]);
+			$this->sendJSON($LNG['fl_error_same_planet']);
 		}
 		
-		if ($TargetPlanet != $CONF['max_planets'] + 1) {
-			$Data	= $GLOBALS['DATABASE']->uniquequery("SELECT u.id, u.urlaubs_modus, u.user_lastip, u.authattack, p.destruyed, p.der_metal, p.der_crystal, p.destruyed FROM ".USERS." as u, ".PLANETS." as p WHERE p.universe = ".$UNI." AND p.galaxy = ".$TargetGalaxy." AND p.system = ".$TargetSystem." AND p.planet = ".$TargetPlanet."  AND p.planet_type = '".(($TargetPlanettype == 2) ? 1 : $TargetPlanettype)."' AND u.id = p.id_owner;");
+		if ($TargetPlanet != Config::get('max_planets') + 1) {
+			$Data	= $GLOBALS['DATABASE']->getFirstRow("SELECT u.id, u.urlaubs_modus, u.user_lastip, u.authattack, p.destruyed, p.der_metal, p.der_crystal, p.destruyed FROM ".USERS." as u, ".PLANETS." as p WHERE p.universe = ".$UNI." AND p.galaxy = ".$TargetGalaxy." AND p.system = ".$TargetSystem." AND p.planet = ".$TargetPlanet."  AND p.planet_type = '".(($TargetPlanettype == 2) ? 1 : $TargetPlanettype)."' AND u.id = p.id_owner;");
 
 			if ($TargetPlanettype == 3 && !isset($Data))
-				exit($LNG['fl_error_no_moon']);
+				$this->sendJSON($LNG['fl_error_no_moon']);
 			elseif ($TargetPlanettype != 2 && $Data['urlaubs_modus'])
-				exit($LNG['fl_in_vacation_player']);
-			elseif ($CONF['adm_attack'] == 1 && $Data['authattack'] > $USER['authlevel'])
-				exit($LNG['fl_admins_cannot_be_attacked']);
+				$this->sendJSON($LNG['fl_in_vacation_player']);
+			elseif (Config::get('adm_attack') == 1 && $Data['authattack'] > $USER['authlevel'])
+				$this->sendJSON($LNG['fl_admins_cannot_be_attacked']);
 			elseif ($Data['destruyed'] != 0)
-				exit($LNG['fl_error_not_avalible']);
+				$this->sendJSON($LNG['fl_error_not_avalible']);
 			elseif($TargetPlanettype == 2 && $Data['der_metal'] == 0 && $Data['der_crystal'] == 0)
-				exit($LNG['fl_error_empty_derbis']);
-			elseif(ENABLE_MULTIALERT && $USER['id'] != $Data['id'] && $USER['user_lastip'] == $Data['user_lastip'] && $GLOBALS['DATABASE']->countquery("SELECT (SELECT COUNT(*) FROM ".MULTI." WHERE userID = ".$USER['id'].") + (SELECT COUNT(*) FROM ".MULTI." WHERE userID = ".$Data['id'].")") != 2)
+				$this->sendJSON($LNG['fl_error_empty_derbis']);
+			elseif(ENABLE_MULTIALERT && $USER['id'] != $Data['id'] && $USER['authlevel'] == AUTH_ADM && $USER['user_lastip'] == $Data['user_lastip'] && $GLOBALS['DATABASE']->getFirstCell("SELECT (SELECT COUNT(*) FROM ".MULTI." WHERE userID = ".$USER['id'].") + (SELECT COUNT(*) FROM ".MULTI." WHERE userID = ".$Data['id'].")") != 2)
 			{
-				exit($LNG['fl_multi_alarm']);
+				$this->sendJSON($LNG['fl_multi_alarm']);
 			}
 		} else {
 			if ($USER[$resource[124]] == 0)
-				exit($LNG['fl_send_error'][10]);
+			{
+				$this->sendJSON($LNG['fl_target_not_exists']);
+			}
 			
-			$ActualFleets = $GLOBALS['DATABASE']->countquery("SELECT COUNT(*) FROM ".FLEETS." WHERE fleet_owner = ".$USER['id']." AND fleet_mission = '15';");
+			$activeExpedition	= FleetFunctions::GetCurrentFleets($USER['id'], 15);
 
-			if ($ActualFleets['state'] >= floor(sqrt($USER[$resource[124]])))
-				exit($LNG['fl_send_error'][9]);
+			if ($activeExpedition >= FleetFunctions::getExpeditionLimit($USER))
+			{
+				$this->sendJSON($LNG['fl_no_expedition_slot']);
+			}
 		}
-		exit('OK');	
+		$this->sendJSON('OK');	
 	}
 }
 ?>

@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-12-31)
  * @info $Id$
- * @link http://code.google.com/p/2moons/
+ * @link http://2moons.cc/
  */
 
 require_once(ROOT_PATH . 'includes/classes/class.FleetFunctions.php');
@@ -57,7 +56,7 @@ class ShowFleetStep2Page extends AbstractPage
 			FleetFunctions::GotoFleetPage();
 
 		$fleetArray    				= $_SESSION['fleet'][$token]['fleet'];
-		$targetPlanetData			= $GLOBALS['DATABASE']->uniquequery("SELECT `id`, `id_owner`, `der_metal`, `der_crystal` FROM `".PLANETS."` WHERE `universe` = ".$UNI." AND `galaxy` = ".$targetGalaxy." AND `system` = ".$targetSystem." AND `planet` = ".$targetPlanet." AND `planet_type` = '1';");
+		$targetPlanetData			= $GLOBALS['DATABASE']->getFirstRow("SELECT `id`, `id_owner`, `der_metal`, `der_crystal` FROM `".PLANETS."` WHERE `universe` = ".$UNI." AND `galaxy` = ".$targetGalaxy." AND `system` = ".$targetSystem." AND `planet` = ".$targetPlanet." AND `planet_type` = '1';");
 				
 		if($targetType == 2 && $targetPlanetData['der_metal'] == 0 && $targetPlanetData['der_crystal'] == 0) {
 			FleetFunctions::GotoFleetPage(21);
@@ -82,7 +81,6 @@ class ShowFleetStep2Page extends AbstractPage
 		$distance      				= FleetFunctions::GetTargetDistance(array($PLANET['galaxy'], $PLANET['system'], $PLANET['planet']), array($targetGalaxy, $targetSystem, $targetPlanet));
 		$duration      				= FleetFunctions::GetMissionDuration($fleetSpeed, $MaxFleetSpeed, $distance, $GameSpeedFactor, $USER);
 		$consumption				= FleetFunctions::GetFleetConsumption($fleetArray, $duration, $distance, $MaxFleetSpeed, $USER, $GameSpeedFactor);
-		$duration					= $duration * (1 - $USER['factor']['FlyTime']);
 		
 		if($consumption > $PLANET['deuterium']) {
 			FleetFunctions::GotoFleetPage(19); # No Deuterium

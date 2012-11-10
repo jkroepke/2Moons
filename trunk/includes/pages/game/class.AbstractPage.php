@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-12-31)
  * @info $Id$
- * @link http://code.google.com/p/2moons/
+ * @link http://2moons.cc/
  */
 
 abstract class AbstractPage 
@@ -84,9 +83,18 @@ abstract class AbstractPage
 		return http_build_query($queryString);
 	}
 	
+	protected function getCronjobsTodo()
+	{
+		require ROOT_PATH.'includes/classes/Cronjob.class.php';
+		
+		$this->tplObj->assign_vars(array(	
+			'cronjobs'		=> Cronjob::getNeedTodoExecutedJobs()
+		));
+	}
+	
 	protected function getNavigationData() 
     {
-		global $PLANET, $LNG, $USER, $CONF, $resource;
+		global $PLANET, $LNG, $USER, $resource, $reslist;
 		
 		if($PLANET[$resource[43]] > 0) {
 			$this->tplObj->loadscript("gate.js");
@@ -105,48 +113,59 @@ abstract class AbstractPage
 			$PlanetSelect[$PlanetQuery['id']]	= $PlanetQuery['name'].(($PlanetQuery['planet_type'] == 3) ? " (" . $LNG['fcm_moon'] . ")":"")." [".$PlanetQuery['galaxy'].":".$PlanetQuery['system'].":".$PlanetQuery['planet']."]";
 		}
 		
-		if($USER['urlaubs_modus'] == 1 || $PLANET['planet_type'] != 1)
+		$resourceTable	= array();
+		$resourceSpeed	= Config::get('resource_multiplier');
+		foreach($reslist['resstype'][1] as $resourceID)
 		{
-			$CONF['metal_basic_income']     = 0;
-			$CONF['crystal_basic_income']   = 0;
-			$CONF['deuterium_basic_income'] = 0;
+			$resourceTable[$resourceID]['name']			= $resource[$resourceID];
+			$resourceTable[$resourceID]['current']		= $PLANET[$resource[$resourceID]];
+			$resourceTable[$resourceID]['max']			= $PLANET[$resource[$resourceID].'_max'];
+			if($USER['urlaubs_modus'] == 1 || $PLANET['planet_type'] != 1)
+			{
+				$resourceTable[$resourceID]['production']	= $PLANET[$resource[$resourceID].'_perhour'];
+			}
+			else
+			{
+				$resourceTable[$resourceID]['production']	= $PLANET[$resource[$resourceID].'_perhour'] + Config::get($resource[$resourceID].'_basic_income') * $resourceSpeed;
+			}
 		}
+
+		foreach($reslist['resstype'][2] as $resourceID)
+		{
+			$resourceTable[$resourceID]['name']			= $resource[$resourceID];
+			$resourceTable[$resourceID]['used']			= $PLANET[$resource[$resourceID].'_used'];
+			$resourceTable[$resourceID]['max']			= $PLANET[$resource[$resourceID]];
+		}
+
+		foreach($reslist['resstype'][3] as $resourceID)
+		{
+			$resourceTable[$resourceID]['name']			= $resource[$resourceID];
+			$resourceTable[$resourceID]['current']		= $USER[$resource[$resourceID]];
+		}
+
 		
 		$this->tplObj->assign_vars(array(	
 			'PlanetSelect'		=> $PlanetSelect,
 			'new_message' 		=> $USER['messages'],
 			'vacation'			=> $USER['urlaubs_modus'] ? _date($LNG['php_tdformat'], $USER['urlaubs_until'], $USER['timezone']) : false,
-			'delete'			=> $USER['db_deaktjava'] ? sprintf($LNG['tn_delete_mode'], _date($LNG['php_tdformat'], $USER['db_deaktjava'] + ($CONF['del_user_manually'] * 86400)), $USER['timezone']) : false,
+			'delete'			=> $USER['db_deaktjava'] ? sprintf($LNG['tn_delete_mode'], _date($LNG['php_tdformat'], $USER['db_deaktjava'] + (Config::get('del_user_manually') * 86400)), $USER['timezone']) : false,
 			'darkmatter'		=> $USER['darkmatter'],
 			'current_pid'		=> $PLANET['id'],
 			'image'				=> $PLANET['image'],
-			'metal'				=> $PLANET[$resource[901]],
-			'crystal'			=> $PLANET[$resource[902]],
-			'deuterium'			=> $PLANET[$resource[903]],
-			'energy'			=> $PLANET[$resource[911]],
-			'energy_used'		=> $PLANET['energy_used'],
-			'metal_max'			=> $PLANET[$resource[901].'_max'],
-			'crystal_max'		=> $PLANET[$resource[902].'_max'],
-			'deuterium_max' 	=> $PLANET[$resource[903].'_max'],
-			'js_metal_max'		=> $PLANET['metal_max'],
-			'js_crystal_max'	=> $PLANET['crystal_max'],
-			'js_deuterium_max' 	=> $PLANET['deuterium_max'],
-			'js_metal_hr'		=> $PLANET['metal_perhour'] + $CONF['metal_basic_income'] * $CONF['resource_multiplier'],
-			'js_crystal_hr'		=> $PLANET['crystal_perhour'] + $CONF['crystal_basic_income'] * $CONF['resource_multiplier'],
-			'js_deuterium_hr'	=> $PLANET['deuterium_perhour'] + $CONF['deuterium_basic_income'] * $CONF['resource_multiplier'],
+			'resourceTable'		=> $resourceTable,
 			'shortlyNumber'		=> false,
-			'closed'			=> !$CONF['game_disable'] ? $LNG['ov_closed'] : false,
-			'forum_url'			=> $CONF['forum_url'],
+			'closed'			=> !Config::get('game_disable') ? $LNG['ov_closed'] : false,
 			'hasAdminAccess'	=> isset($_SESSION['admin_login']),
 		));
 	}
 	
 	protected function getPageData() 
     {
-		global $USER, $CONF, $LANG, $LNG, $THEME;
+		global $USER, $LANG, $THEME;
 		
 		if($this->getWindow() === 'full') {
 			$this->getNavigationData();
+			$this->getCronjobsTodo();
 		}
 		
 		$dateTimeServer		= new DateTime("now");
@@ -159,19 +178,20 @@ abstract class AbstractPage
 		} else {
 			$dateTimeUser	= $dateTimeServer;
 		}
+		
         $this->tplObj->assign_vars(array(
             'vmode'				=> $USER['urlaubs_modus'],
 			'authlevel'			=> $USER['authlevel'],
 			'userID'			=> $USER['id'],
-            'game_name'			=> $CONF['game_name'],
-            'uni_name'			=> $CONF['uni_name'],
-			'ga_active'			=> $CONF['ga_active'],
-			'ga_key'			=> $CONF['ga_key'],
-			'debug'				=> $CONF['debug'],
-			'VERSION'			=> $CONF['VERSION'],
+            'game_name'			=> Config::get('game_name'),
+            'uni_name'			=> Config::get('uni_name'),
+			'ga_active'			=> Config::get('ga_active'),
+			'ga_key'			=> Config::get('ga_key'),
+			'debug'				=> Config::get('debug'),
+			'VERSION'			=> Config::get('VERSION'),
 			'date'				=> explode("|", date('Y\|n\|j\|G\|i\|s\|Z', TIMESTAMP)),
 			'cron'				=> GetCrons(),
-			'REV'				=> substr($CONF['VERSION'], -4),
+			'REV'				=> substr(Config::get('VERSION'), -4),
 			'Offset'			=> $dateTimeUser->getOffset() - $dateTimeServer->getOffset(),
 			'queryString'		=> $this->getQueryString(),
 			'themeSettings'		=> $THEME->getStyleSettings(),
@@ -201,7 +221,7 @@ abstract class AbstractPage
 	}
 	
 	protected function display($file) {
-		global $LNG, $LANG, $THEME;
+		global $LANG, $THEME, $LNG;
 		
 		$this->save();
 		
@@ -214,6 +234,7 @@ abstract class AbstractPage
             'dpath'			=> $THEME->getTheme(),
 			'scripts'		=> $this->tplObj->jsscript,
 			'execscript'	=> implode("\n", $this->tplObj->script),
+			'basepath'		=> PROTOCOL.HTTP_HOST.HTTP_BASE,
 		));
 
 		$this->tplObj->assign_vars(array(

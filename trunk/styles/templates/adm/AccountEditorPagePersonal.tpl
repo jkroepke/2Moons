@@ -3,7 +3,7 @@
 <table width="45%">
 <tr>
 <td colspan="3" align="left"><a href="?page=accounteditor">
-<img src="./styles/images/Adm/arrowright.png" width="16" height="10"> {$LNG.ad_back_to_menu}</a></td>
+<img src="./styles/resource/images/admin/arrowright.png" width="16" height="10"> {$LNG.ad_back_to_menu}</a></td>
 </tr><tr>
 	<th colspan="7">{$LNG.ad_personal_title}</th>
 </tr><tr>

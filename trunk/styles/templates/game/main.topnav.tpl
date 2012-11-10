@@ -15,48 +15,55 @@
 						<table id="resourceTable">
 							<tbody>
 								<tr>
-									<td><img src="{$dpath}images/metall.gif" alt=""></td>
-									<td><img src="{$dpath}images/kristall.gif" alt=""></td>
-									<td><img src="{$dpath}images/deuterium.gif" alt=""></td>
-									<td><img src="{$dpath}images/darkmatter.gif" alt=""></td>
-									<td><img src="{$dpath}images/energie.gif" alt=""></td>
+									{foreach $resourceTable as $resourceID => $resouceData}
+									<td><img src="{$dpath}images/{$resouceData.name}.gif" alt=""></td>
+									{/foreach}
 								</tr>
 								<tr>
-									<td class="res_name">{$LNG.tech.901}</td>
-									<td class="res_name">{$LNG.tech.902}</td>
-									<td class="res_name">{$LNG.tech.903}</td>
-									<td class="res_name">{$LNG.tech.921}</td>
-									<td class="res_name">{$LNG.tech.911}</td>
+									{foreach $resourceTable as $resourceID => $resouceData}
+									<td class="res_name">{$LNG.tech.$resourceID}</td>
+									{/foreach}
 								</tr>
 								{if $shortlyNumber}
 								<tr>
-									<td class="res_current tooltip" name="{$metal|number}" id="current_metal">{shortly_number($metal)}</td>
-									<td class="res_current tooltip" name="{$crystal|number}" id="current_crystal">{shortly_number($crystal)}</td>
-									<td class="res_current tooltip" name="{$deuterium|number}" id="current_deuterium">{shortly_number($deuterium)}</td>
-									<td class="res_current tooltip" name="{$darkmatter|number}" id="current_darkmatter">{shortly_number($darkmatter)} </td>
-									<td class="res_current tooltip" name="{($energy + $energy_used)|number}&nbsp;/&nbsp;{$energy|number}"><span{if $energy + $energy_used < 0} style="color:red"{/if}>{shortly_number($energy + $energy_used)}&nbsp;/&nbsp;{shortly_number($energy)}</span></td>
+									{foreach $resourceTable as $resourceID => $resouceData}
+									{if !isset($resouceData.current)}
+									{$resouceData.current = $resouceData.max + $resouceData.used}
+									<td class="res_current tooltip" data-tooltop-content="{$resouceData.current|number}&nbsp;/&nbsp;{$resouceData.max|number}"><span{if $resouceData.current < 0} style="color:red"{/if}>{shortly_number($resouceData.current)}&nbsp;/&nbsp;{shortly_number($resouceData.max)}</span></td>
+									{else}
+									<td class="res_current tooltip" id="current_{$resouceData.name}" data-real="{$resouceData.current}" data-tooltop-content="{$resouceData.current|number}">{shortly_number($resouceData.current)}</td>
+									{/if}
+									{/foreach}
 								</tr>
 								<tr>
-									<td class="res_max tooltip" name="{$metal_max|number}" id="max_metal">{shortly_number($metal_max)}</td>
-									<td class="res_max tooltip" name="{$crystal_max|number}" id="max_crystal">{shortly_number($crystal_max)}</td>
-									<td class="res_max tooltip" name="{$deuterium_max|number}" id="max_deuterium">{shortly_number($deuterium_max)}</td>
+									{foreach $resourceTable as $resourceID => $resouceData}
+									{if !isset($resouceData.current) || !isset($resouceData.max)}
 									<td>&nbsp;</td>
+									{else}
+									<td class="res_max tooltip" id="max_{$resouceData.name}" data-real="{$resouceData.max}" data-tooltip-content="{$resouceData.max|number}">{shortly_number($resouceData.max)}</td>
 									<td>&nbsp;</td>
+									{/if}
+									{/foreach}
 								</tr>
 								{else}
 								<tr>
-									<td class="res_current" id="current_metal">{$metal|number}</td>
-									<td class="res_current" id="current_crystal">{$crystal|number}</td>
-									<td class="res_current" id="current_deuterium">{$deuterium|number}</td>
-									<td class="res_current" id="current_darkmatter">{$darkmatter|number} </td>
-									<td class="res_current"><span{if $energy + $energy_used < 0} style="color:red"{/if}>{($energy + $energy_used)|number}&nbsp;/&nbsp;{$energy|number}</span></td>
+									{foreach $resourceTable as $resourceID => $resouceData}
+									{if !isset($resouceData.current)}
+									{$resouceData.current = $resouceData.max + $resouceData.used}
+									<td class="res_current"><span{if $resouceData.current < 0} style="color:red"{/if}>{$resouceData.current|number}&nbsp;/&nbsp;{$resouceData.max|number}</span></td>
+									{else}
+									<td class="res_current" id="current_{$resouceData.name}" data-real="{$resouceData.current}">{$resouceData.current|number}</td>
+									{/if}
+									{/foreach}
 								</tr>
 								<tr>
-									<td class="res_max" id="max_metal">{$metal_max|number}</td>
-									<td class="res_max" id="max_crystal">{$crystal_max|number}</td>
-									<td class="res_max" id="max_deuterium">{$deuterium_max|number}</td>
+									{foreach $resourceTable as $resourceID => $resouceData}
+									{if !isset($resouceData.current) || !isset($resouceData.max)}
 									<td>&nbsp;</td>
-									<td>&nbsp;</td>
+									{else}
+									<td class="res_max" id="max_{$resouceData.name}" data-real="{$resouceData.current}">{$resouceData.max|number}</td>
+									{/if}
+									{/foreach}
 								</tr>
 								{/if}
 							</tbody>
@@ -65,34 +72,22 @@
 				</tr>
 			</tbody>
 		</table>
+		{if !$vmode}
 		<script type="text/javascript">
-		var resourceTickerMetal = {
-			available: {$metal},
-			limit: [0, {$js_metal_max}],
-			production: {$js_metal_hr},
-			valueElem: "current_metal"
-		};
-		var resourceTickerCrystal = {
-			available: {$crystal},
-			limit: [0, {$js_crystal_max}],
-			production: {$js_crystal_hr},
-			valueElem: "current_crystal"
-		};
-		var resourceTickerDeuterium = {
-			available: {$deuterium},
-			limit: [0, {$js_deuterium_max}],
-			production: {$js_deuterium_hr},
-			valueElem: "current_deuterium"
-		};
-		
-		var shortlyNumber	= {$shortlyNumber|json}
-		var vacation = {$vmode};
-		if (!vacation) {
-			resourceTicker(resourceTickerMetal, true);
-			resourceTicker(resourceTickerCrystal, true);
-			resourceTicker(resourceTickerDeuterium, true);
-		}
+		var shortly_number	= {$shortlyNumber|json}
+		var vacation		= {$vmode};
+		{foreach $resourceTable as $resourceID => $resouceData}
+		{if isset($resouceData.production)}
+		resourceTicker({
+			available: {$resouceData.current|json},
+			limit: [0, {$resouceData.max|json}],
+			production: {$resouceData.production|json},
+			valueElem: "current_{$resouceData.name}"
+		}, true);
+		{/if}
+		{/foreach}
 		</script>
+		{/if}
 	</div>
 	{if $closed}
 	<div class="infobox">{$closed}</div>

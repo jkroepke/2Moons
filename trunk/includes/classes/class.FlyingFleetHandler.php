@@ -94,7 +94,7 @@ class FlyingFleetHandler
 	
 	function IfFleetBusy($FleetID)
 	{
-				$FleetInfo	= $GLOBALS['DATABASE']->getFirstRow("SELECT fleet_busy FROM ".FLEETS." WHERE `fleet_id` = '".$FleetID."';");
+		$FleetInfo	= $GLOBALS['DATABASE']->getFirstRow("SELECT fleet_busy FROM ".FLEETS." WHERE `fleet_id` = '".$FleetID."';");
 		if($FleetInfo['fleet_busy'] == 1) {
 			return false;
 		} else {

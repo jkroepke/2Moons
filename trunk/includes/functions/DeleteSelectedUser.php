@@ -73,7 +73,7 @@ function DeleteSelectedUser($userID)
 	
 	$GLOBALS['DATABASE']->free_result($fleetData);
 	
-	update_config(array('users_amount' => $CONF['users_amount'] - 1), $userData['universe']);
+	Config::update(array('users_amount' => Config::get('users_amount') - 1), $userData['universe']);
 }
 
 function DeleteSelectedPlanet($planetID)

@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-12-31)
  * @info $Id$
- * @link http://code.google.com/p/2moons/
+ * @link http://2moons.cc/
  */
 
 
@@ -43,14 +42,14 @@ class ShowFleetDealerPage extends AbstractPage
 		
 		$shipID			= HTTP::_GP('shipID', 0);
 		$Count			= max(0, round(HTTP::_GP('count', 0.0)));
-		$allowedShipIDs	= explode(',', $CONF['trade_allowed_ships']);
+		$allowedShipIDs	= explode(',', Config::get('trade_allowed_ships'));
 		
 		if(!empty($shipID) && in_array($shipID, $allowedShipIDs) && $PLANET[$resource[$shipID]] >= $Count)
 		{
-			$PLANET[$resource[901]]			+= $Count * $pricelist[$shipID]['cost'][901] * (1 - ($CONF['trade_charge'] / 100));
-			$PLANET[$resource[902]]			+= $Count * $pricelist[$shipID]['cost'][902] * (1 - ($CONF['trade_charge'] / 100));
-			$PLANET[$resource[903]]			+= $Count * $pricelist[$shipID]['cost'][903] * (1 - ($CONF['trade_charge'] / 100));
-			$USER[$resource[921]]			+= $Count * $pricelist[$shipID]['cost'][921] * (1 - ($CONF['trade_charge'] / 100));
+			$PLANET[$resource[901]]			+= $Count * $pricelist[$shipID]['cost'][901] * (1 - (Config::get('trade_charge') / 100));
+			$PLANET[$resource[902]]			+= $Count * $pricelist[$shipID]['cost'][902] * (1 - (Config::get('trade_charge') / 100));
+			$PLANET[$resource[903]]			+= $Count * $pricelist[$shipID]['cost'][903] * (1 - (Config::get('trade_charge') / 100));
+			$USER[$resource[921]]			+= $Count * $pricelist[$shipID]['cost'][921] * (1 - (Config::get('trade_charge') / 100));
 			
 			$PLANET[$resource[$shipID]]		-= $Count;
 			
@@ -70,7 +69,7 @@ class ShowFleetDealerPage extends AbstractPage
 		
 		$Cost		= array();
 		
-		$allowedShipIDs	= explode(',', $CONF['trade_allowed_ships']);
+		$allowedShipIDs	= explode(',', Config::get('trade_allowed_ships'));
 		
 		foreach($allowedShipIDs as $shipID)
 		{
@@ -88,7 +87,7 @@ class ShowFleetDealerPage extends AbstractPage
 		$this->tplObj->assign_vars(array(
 			'shipIDs'	=> $allowedShipIDs,
 			'CostInfos'	=> $Cost,
-			'Charge'	=> $CONF['trade_charge'],
+			'Charge'	=> Config::get('trade_charge'),
 		));
 		
 		$this->display('page.fleetDealer.default.tpl');

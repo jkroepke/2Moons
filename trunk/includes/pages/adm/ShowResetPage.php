@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.6.1 (2011-11-19)
+ * @version 1.7.0 (2012-12-31)
  * @info $Id$
- * @link http://code.google.com/p/2moons/
+ * @link http://2moons.cc/
  */
 
 if ($USER['id'] != ROOT_USER || $_GET['sid'] != session_id()) exit;
@@ -33,7 +32,8 @@ function ShowResetPage()
 {
 	global $LNG, $reslist, $resource;
 	$template	= new template();
-
+	$CONF	= Config::getAll(NULL, ROOT_UNI);
+	
 	if ($_POST)
 	{		
 		foreach($reslist['build'] as $ID)
@@ -55,15 +55,32 @@ function ShowResetPage()
 		{
 			$dbcol['defense'][$ID]	= "`".$resource[$ID]."` = '0'";
 		}
+		
 		foreach($reslist['officier'] as $ID)
 		{
 			$dbcol['officier'][$ID]	= "`".$resource[$ID]."` = '0'";
 		}
 		
+		foreach($reslist['resstype'][1] as $ID)
+		{
+			if(isset($CONF[$resource[$ID].'_start']))
+			{
+				$dbcol['resource_planet_start'][$ID]	= "`".$resource[$ID]."` = ".$CONF[$resource[$ID].'_start'];
+			}
+		}
+		
+		foreach($reslist['resstype'][3] as $ID)
+		{
+			if(isset($CONF[$resource[$ID].'_start']))
+			{
+				$dbcol['resource_user_start'][$ID]	= "`".$resource[$ID]."` = ".$CONF[$resource[$ID].'_start'];
+			}
+		}
+		
 		// Players and Planets
 		
 		if ($_POST['players'] == 'on'){
-			$ID	= $GLOBALS['DATABASE']->countquery("SELECT `id_owner` FROM ".PLANETS." WHERE `universe` = ".$_SESSION['adminuni']." AND `galaxy` = '1' AND `system` = '1' AND `planet` = '1';");
+			$ID	= $GLOBALS['DATABASE']->getFirstCell("SELECT `id_owner` FROM ".PLANETS." WHERE `universe` = ".$_SESSION['adminuni']." AND `galaxy` = '1' AND `system` = '1' AND `planet` = '1';");
 			$GLOBALS['DATABASE']->multi_query("DELETE FROM ".USERS." WHERE `universe` = ".$_SESSION['adminuni']." AND `id` != '".$ID."';DELETE FROM ".PLANETS." WHERE `universe` = ".$_SESSION['adminuni']." AND `id_owner` != '".$ID."';");
 		}
 		
@@ -108,10 +125,10 @@ function ShowResetPage()
 	
 		// RECURSOS
 		if ($_POST['dark']	==	'on')
-			$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET `darkmatter` = '0' WHERE `universe` = ".$_SESSION['adminuni'].";");
+			$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET ".implode(", ",$dbcol['resource_user_start'])." WHERE `universe` = ".$_SESSION['adminuni'].";");
 	
 		if ($_POST['resources']	==	'on')
-			$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET `metal` = '".$GLOBALS['CONF'][$_SESSION['adminuni']]['metal_start']."', `crystal` = '".$GLOBALS['CONF'][$_SESSION['adminuni']]['crystal_start']."', `deuterium` = '".$GLOBALS['CONF'][$_SESSION['adminuni']]['deuterium_start']."' WHERE `universe` = ".$_SESSION['adminuni'].";");
+			$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET ".implode(", ",$dbcol['resource_planet_start'])." WHERE `universe` = ".$_SESSION['adminuni'].";");
 	
 		// GENERAL
 		if ($_POST['notes']	==	'on')

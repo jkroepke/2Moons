@@ -60,7 +60,7 @@ class ShowRaportPage extends AbstractPage
 			WHERE id IN (SELECT uid FROM ".TOPKB_USERS." WHERE ".TOPKB_USERS.".rid = ".RW.".rid AND role = 2)
 		) as defender
 		FROM ".RW."
-		WHERE rid = '".$RID."';");
+		WHERE rid = '".$GLOBALS['DATABASE']->escape($RID)."';");
 		
 		$Info		= array($Raport["attacker"], $Raport["defender"]);
 		
@@ -71,7 +71,7 @@ class ShowRaportPage extends AbstractPage
 		$CombatRaport			= unserialize($Raport['raport']);
 		$CombatRaport['time']	= _date($LNG['php_tdformat'], $CombatRaport['time'], $USER['timezone']);
 		
-		if(isset($INFO['moon']['desfail']))
+		if(isset($CombatRaport['moon']['desfail']))
 		{
 			// 2Moons BC r2321
 			$CombatRaport['moon']	= array(
@@ -79,7 +79,7 @@ class ShowRaportPage extends AbstractPage
 				'moonChance'			=> $CombatRaport['moon']['chance'],
 				'moonDestroySuccess'	=> !$CombatRaport['moon']['desfail'],
 				'fleetDestroyChance'	=> $CombatRaport['moon']['chance2'],
-				'fleetDestroySuccess'	=> !$INFO['moon']['fleetfail']
+				'fleetDestroySuccess'	=> !$CombatRaport['moon']['fleetfail']
 			);
 			
 		}
@@ -96,13 +96,13 @@ class ShowRaportPage extends AbstractPage
                 902	=> $CombatRaport['debris'][1]
             );
 		}
-		
-		if ($CombatRaport['result'] == "a")
+				
+		if (!empty($CombatRaport['steal']['metal']))
 		{
 			$CombatRaport['steal'] = array(
-				'901'	=> $CombatRaport['steal'][0],
-				'902'	=> $CombatRaport['steal'][1],
-				'903'	=> $CombatRaport['steal'][2]
+				901	=> $CombatRaport['steal']['metal'],
+				902	=> $CombatRaport['steal']['crystal'],
+				903	=> $CombatRaport['steal']['deuterium']
 			);
 		}
 		
@@ -122,17 +122,16 @@ class ShowRaportPage extends AbstractPage
 		
 		$RID		= HTTP::_GP('raport', '');
 		
-		$Raport		= $GLOBALS['DATABASE']->getFirstCell("SELECT raport FROM ".RW." WHERE rid = '".$RID."';");
-		$Info		= array();
-		
-		if(!isset($Raport)) {
+		$raportData		= $GLOBALS['DATABASE']->getFirstCell("SELECT raport FROM ".RW." WHERE rid = '".$GLOBALS['DATABASE']->escape($RID)."';");
+
+		if(empty($raportData)) {
 			$this->printMessage($LNG['sys_raport_not_found']);
 		}
 
-		$CombatRaport	= unserialize($Raport);
-		$CombatRaport['time']	= _date($LNG['php_tdformat'], $CombatRaport['time'], (isset($USER['timezone']) ? $USER['timezone'] : $CONF['timezone']));
+		$CombatRaport			= unserialize($raportData);
+		$CombatRaport['time']	= _date($LNG['php_tdformat'], $CombatRaport['time'], (isset($USER['timezone']) ? $USER['timezone'] : Config::get('timezone')));
 		
-		if(isset($INFO['moon']['desfail']))
+		if(isset($CombatRaport['moon']['desfail']))
 		{
 			// 2Moons BC r2321
 			$CombatRaport['moon']	= array(
@@ -140,7 +139,7 @@ class ShowRaportPage extends AbstractPage
 				'moonChance'			=> $CombatRaport['moon']['chance'],
 				'moonDestroySuccess'	=> !$CombatRaport['moon']['desfail'],
 				'fleetDestroyChance'	=> $CombatRaport['moon']['chance2'],
-				'fleetDestroySuccess'	=> !$INFO['moon']['fleetfail']
+				'fleetDestroySuccess'	=> !$CombatRaport['moon']['fleetfail']
 			);
 			
 		}
@@ -158,12 +157,12 @@ class ShowRaportPage extends AbstractPage
             );
 		}
 		
-		if ($CombatRaport['result'] == "a")
+		if (!empty($CombatRaport['steal']['metal']))
 		{
 			$CombatRaport['steal'] = array(
-				'901'	=> $CombatRaport['steal'][0],
-				'902'	=> $CombatRaport['steal'][1],
-				'903'	=> $CombatRaport['steal'][2]
+				901	=> $CombatRaport['steal']['metal'],
+				902	=> $CombatRaport['steal']['crystal'],
+				903	=> $CombatRaport['steal']['deuterium']
 			);
 		}
 		

@@ -28,30 +28,69 @@
 
 function getUniverse()
 {
-	if(defined('IN_ADMIN') && isset($_SESSION['adminuni'])) {
+	$gameConfig	= Config::getAll(NULL);
+	
+	if(MODE == 'ADMIN' && isset($_SESSION['adminuni']))
+	{
 		$UNI	= (int) $_SESSION['adminuni'];
-	} elseif(defined('LOGIN') && isset($_REQUEST['uni'])) {
-		$UNI	= (int) $_REQUEST['uni'];
-	} elseif(defined('LOGIN') && isset($_COOKIE['uni'])) {
-		$UNI	= (int) $_COOKIE['uni'];
-	} elseif(UNIS_HTACCESS === true) {
-		// Enable htaccess
-		if(isset($_SERVER["REDIRECT_UNI"])) {
-			$UNI	= $_SERVER["REDIRECT_UNI"];
-		} elseif(isset($_SERVER["REDIRECT_REDIRECT_UNI"])) {
-			// Patch for www.top-hoster.de - Hoster
-			$UNI	= $_SERVER["REDIRECT_REDIRECT_UNI"];
-		} else {
-			HTTP::redirectTo("uni".ROOT_UNI."/".basename($_SERVER['SCRIPT_FILENAME']).(!empty($_SERVER["QUERY_STRING"]) ? "?".$_SERVER["QUERY_STRING"]: ""));
+	}
+	elseif(MODE == 'LOGIN')
+	{
+		if(isset($_COOKIE['uni']))
+		{
+			$UNI	= (int) $_COOKIE['uni'];
 		}
-	} else {
+
+		if(isset($_REQUEST['uni']))
+		{
+			$UNI	= (int) $_REQUEST['uni'];
+		}
+	}
+	
+	if(!isset($UNI))
+	{
 		if(UNIS_WILDCAST === true) {
 			$UNI	= explode('.', $_SERVER['HTTP_HOST']);
 			$UNI	= substr($UNI[0], 3);
 			if(!is_numeric($UNI))
+			{
 				$UNI	= ROOT_UNI;
+			}
 		} else {
-			$UNI	= ROOT_UNI;
+			if(count($gameConfig) == 1)
+			{
+				if(HTTP_ROOT != HTTP_BASE)
+				{
+					HTTP::redirectTo(PROTOCOL.HTTP_HOST.HTTP_BASE.HTTP_FILE, true);
+				}
+				
+				$UNI = ROOT_UNI;
+			}
+			else
+			{
+				if(isset($_SERVER['REDIRECT_UNI'])) {
+					// Apache - faster then preg_match
+					$UNI	= $_SERVER["REDIRECT_UNI"];
+				}
+				elseif(isset($_SERVER['REDIRECT_REDIRECT_UNI']))
+				{
+					// Patch for www.top-hoster.de - Hoster
+					$UNI	= $_SERVER["REDIRECT_REDIRECT_UNI"];
+				}
+				elseif(strpos($_SERVER['SERVER_SOFTWARE'], 'Apache/') === false)
+				{
+					preg_match('!/uni([0-9]+)/!', HTTP_PATH, $match);
+					if(isset($match[1]))
+					{
+						$UNI	= $match[1];
+					}
+				}
+				
+				if(!isset($UNI) || !isset($gameConfig[$UNI]))
+				{
+					HTTP::redirectTo(PROTOCOL.HTTP_HOST.HTTP_BASE."uni".ROOT_UNI."/".HTTP_FILE, true);
+				}
+			}
 		}
 	}
 	
@@ -182,6 +221,8 @@ function getPlanets($USER)
 
 	$PlanetRAW = $GLOBALS['DATABASE']->query($QryPlanets);
 	
+	$Planets	= array();
+	
 	while($Planet = $GLOBALS['DATABASE']->fetch_array($PlanetRAW))
 		$Planets[$Planet['id']]	= $Planet;
 
@@ -259,51 +300,6 @@ function _date($format, $time = null, $toTimeZone = null, $LNG = NULL) {
 	
 	$format	= locale_date_format($format, $time, $LNG);
 	return date($format, $time);
-}
-
-function update_config($Values, $UNI = NULL)
-{
-	global $CONF;
-	$SQLBASE	= "";
-	$SQLUNI		= "";
-	$UNI		= (empty($UNI)) ? $GLOBALS['UNI'] : $UNI;
-	
-	foreach($Values as $Name => $Value) {
-		if(!isset($CONF[$Name]))
-			continue;
-			
-		$GLOBALS['CONFIG'][$UNI][$Name]	= $Value;
-		$GLOBALS['CONF'][$Name]			= $Value;
-		
-		if(in_array($Name, $GLOBALS['BASICCONFIG'])) {
-			$SQLBASE	.= $Name." = '".$GLOBALS['DATABASE']->sql_escape($Value)."', ";
-		} else {
-			$SQLUNI		.= $Name." = '".$GLOBALS['DATABASE']->sql_escape($Value)."', ";
-		}
-	}
-
-	if(!empty($SQLBASE))
-		$GLOBALS['DATABASE']->query("UPDATE ".CONFIG." SET ".substr($SQLBASE, 0, -2).";");
-	
-	if(!empty($SQLUNI))
-		$GLOBALS['DATABASE']->query("UPDATE ".CONFIG." SET ".substr($SQLUNI, 0, -2)." WHERE uni = '".$UNI."';");
-	
-}
-
-function getConfig($UNI) {
-	if(isset($GLOBALS['CONFIG'][$UNI])) {
-		return $GLOBALS['CONFIG'][$UNI];
-	}
-	
-	$CONF = $GLOBALS['DATABASE']->getFirstRow("SELECT HIGH_PRIORITY * FROM ".CONFIG." WHERE uni = '".$UNI."';");
-	if(!isset($CONF))
-		HTTP::redirectTo('index.php');
-		
-	$CONF['moduls']			= explode(";", $CONF['moduls']);
-
-	
-	$GLOBALS['CONFIG'][$UNI]	= $CONF;
-	return $CONF;
 }
 
 function ValidateAddress($address) {
@@ -413,25 +409,25 @@ function MailSend($MailTarget, $MailTargetName, $MailSubject, $MailContent)
 	global $CONF;
 	require_once('./includes/classes/class.phpmailer.php');
 	$mail             	= new PHPMailer(true);
-	if($CONF['mail_use'] == 2) {
+	if(Config::get('mail_use') == 2) {
 		$mail->IsSMTP();  
 		$mail->SMTPAuth   	= true; 
-		$mail->SMTPSecure 	= $CONF['smtp_ssl'];  						
-		$mail->Host      	= $CONF['smtp_host'];
-		$mail->Port      	= $CONF['smtp_port'];
-		$mail->Username  	= $CONF['smtp_user'];
-		$mail->Password  	= $CONF['smtp_pass'];
-		$mail->SMTPDebug  	= ($CONF['debug'] == 1) ? 2 : 0;   
-	} elseif($CONF['mail_use'] == 1) {
+		$mail->SMTPSecure 	= Config::get('smtp_ssl');  						
+		$mail->Host      	= Config::get('smtp_host');
+		$mail->Port      	= Config::get('smtp_port');
+		$mail->Username  	= Config::get('smtp_user');
+		$mail->Password  	= Config::get('smtp_pass');
+		$mail->SMTPDebug  	= (Config::get('debug') == 1) ? 2 : 0;   
+	} elseif(Config::get('mail_use') == 1) {
 		$mail->IsSendmail();
-		$mai->Sendmail		= $CONF['smail_path'];
+		$mai->Sendmail		= Config::get('smail_path');
 	} else {
 		$mail->IsMail();
 	}
 	$mail->CharSet		= 'UTF-8';		
 	$mail->Subject   	= $MailSubject;
 	$mail->Body   		= $MailContent;
-	$mail->SetFrom($CONF['smtp_sendmail'], $CONF['game_name']);
+	$mail->SetFrom(Config::get('smtp_sendmail'), Config::get('game_name'));
 	$mail->AddAddress($MailTarget, $MailTargetName);
 	$mail->Send();	
 }
@@ -455,9 +451,9 @@ function CheckNoobProtec($OwnerPlayer, $TargetPlayer, $Player)
 {	
 	global $CONF;
 	if(
-		$CONF['noobprotection'] == 0 
-		|| $CONF['noobprotectiontime'] == 0 
-		|| $CONF['noobprotectionmulti'] == 0 
+		Config::get('noobprotection') == 0 
+		|| Config::get('noobprotectiontime') == 0 
+		|| Config::get('noobprotectionmulti') == 0 
 		|| $Player['banaday'] > TIMESTAMP
 		|| $Player['onlinetime'] < TIMESTAMP - INACTIVE
 	) {
@@ -472,16 +468,16 @@ function CheckNoobProtec($OwnerPlayer, $TargetPlayer, $Player)
 				ODER weniger als 5.000 hat.
 			*/
 			// Addional Comment: Letzteres ist eigentlich sinnfrei, bitte testen.a
-			($TargetPlayer['total_points'] <= $CONF['noobprotectiontime']) && // Default: 25.000
-			($OwnerPlayer['total_points'] > $TargetPlayer['total_points'] * $CONF['noobprotectionmulti'])
+			($TargetPlayer['total_points'] <= Config::get('noobprotectiontime')) && // Default: 25.000
+			($OwnerPlayer['total_points'] > $TargetPlayer['total_points'] * Config::get('noobprotectionmulti'))
 		), 
 		'StrongPlayer' => (
 			/* WAHR: 
 				Wenn Spieler weniger als 5000 Punkte hat UND
 				Mehr als das funfache der eigende Punkte hat
 			*/
-			($OwnerPlayer['total_points'] < $CONF['noobprotectiontime']) && // Default: 5.000
-			($OwnerPlayer['total_points'] * $CONF['noobprotectionmulti'] < $TargetPlayer['total_points'])
+			($OwnerPlayer['total_points'] < Config::get('noobprotectiontime')) && // Default: 5.000
+			($OwnerPlayer['total_points'] * Config::get('noobprotectionmulti') < $TargetPlayer['total_points'])
 		),
 	);
 }
@@ -545,7 +541,7 @@ function isModulAvalible($ID)
 	if(!isset($GLOBALS['CONF']['moduls'][$ID])) 
 		$GLOBALS['CONF']['moduls'][$ID] = 1;
 	
-	return $GLOBALS['CONF']['moduls'][$ID] == 1 || (isset($_SESSION) && $_SESSION['authlevel'] > AUTH_USR);
+	return $GLOBALS['CONF']['moduls'][$ID] == 1 || (isset($USER['authlevel']) && $USER['authlevel'] > AUTH_USR);
 }
 
 function ClearCache()
@@ -598,11 +594,11 @@ function GetCrons()
 {
 	global $CONF;
 	$Crons	= '';
-	$Crons .= TIMESTAMP >= ($CONF['stat_last_update'] + (60 * $CONF['stat_update_time'])) ? '<img src="./cronjobs.php?cron=stats" alt="" height="1" width="1">' : '';
+	$Crons .= TIMESTAMP >= (Config::get('stat_last_update') + (60 * Config::get('stat_update_time'))) ? '<img src="./cronjobs.php?cron=stats" alt="" height="1" width="1">' : '';
 	
-	$Crons .= $CONF['ts_modon'] == 1 && TIMESTAMP >= ($CONF['ts_cron_last'] + 60 * $CONF['ts_cron_interval']) ? '<img src="./cronjobs.php?cron=teamspeak" alt="" height="1" width="1">' : '';
+	$Crons .= Config::get('ts_modon') == 1 && TIMESTAMP >= (Config::get('ts_cron_last') + 60 * Config::get('ts_cron_interval')) ? '<img src="./cronjobs.php?cron=teamspeak" alt="" height="1" width="1">' : '';
 	
-	$Crons .= TIMESTAMP >= ($CONF['stat_last_db_update'] + 86400) ? '<img src="./cronjobs.php?cron=daily" alt="" height="1" width="1">' : ''; //Daily Cronjob
+	$Crons .= TIMESTAMP >= (Config::get('stat_last_db_update') + 86400) ? '<img src="./cronjobs.php?cron=daily" alt="" height="1" width="1">' : ''; //Daily Cronjob
 	
 	return $Crons;
 }
@@ -721,7 +717,35 @@ function exceptionHandler($exception)
 		E_RECOVERABLE_ERROR	=> 'RECOVERABLE ERROR'
 	);
 	
-	$VERSION	= isset($CONF['VERSION']) ? $CONF['VERSION'] : 'UNKNOWN';
+	try
+	{
+		if(!class_exists('Config', false))
+		{
+			throw new Exception("No config class");
+		}
+		$VERSION	= Config::get('VERSION');
+	} catch(Exception $e) {
+		if(file_exists(ROOT_PATH.'install/VERSION'))
+		{
+			$VERSION	= file_get_contents(ROOT_PATH.'install/VERSION').' (FILE)';
+		}
+		else
+		{
+			$VERSION	= 'UNKNOWN';
+		}
+	}
+	
+	try
+	{
+		if(!class_exists('Config', false))
+		{
+			throw new Exception("No config class");
+		}
+		$gameName	= Config::get('game_name');
+	} catch(Exception $e) {
+		$gameName	= '-';
+	}
+	
 	$DIR		= MODE == 'INSTALL' ? '..' : '.';
 	echo '<!DOCTYPE html>
 <!--[if lt IE 7 ]> <html lang="de" class="no-js ie6"> <![endif]-->
@@ -730,17 +754,18 @@ function exceptionHandler($exception)
 <!--[if IE 9 ]>    <html lang="de" class="no-js ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html lang="de" class="no-js"> <!--<![endif]-->
 <head>
-	<title>'.(isset($CONF['game_name']) ? $CONF['game_name'].' - ' : '').$errorType[$errno].'</title>
+	<title>'.$gameName.' - '.$errorType[$errno].'</title>
 	<meta name="generator" content="2Moons '.$VERSION.'">
 	<!-- 
 		This website is powered by 2Moons '.$VERSION.'
 		2Moons is a free Space Browsergame initially created by Jan Kr�pke and licensed under GNU/GPL.
-		2Moons is copyright 2009-2012 of Jan Kr�pke. Extensions are copyright of their respective owners.
+		2Moons is copyright 2009-2012 of Jan Kröpke. Extensions are copyright of their respective owners.
 		Information and contribution at http://2moons.cc/
 	-->
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-	<link rel="stylesheet" type="text/css" href="'.$DIR.'/styles/css/boilerplate.css?v='.$VERSION.'">
-	<link rel="stylesheet" type="text/css" href="'.$DIR.'/styles/css/ingame.css?v='.$VERSION.'">
+	<link rel="stylesheet" type="text/css" href="'.$DIR.'/styles/resource/css/base/boilerplate.css?v='.$VERSION.'">
+	<link rel="stylesheet" type="text/css" href="'.$DIR.'/styles/resource/css/ingame/main.css?v='.$VERSION.'">
+	<link rel="stylesheet" type="text/css" href="'.$DIR.'/styles/resource/css/base/jquery.css?v='.$VERSION.'">
 	<link rel="stylesheet" type="text/css" href="'.$DIR.'/styles/theme/gow/formate.css?v='.$VERSION.'">
 	<link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
 	<script type="text/javascript">
@@ -782,22 +807,28 @@ function exceptionHandler($exception)
 			<b>Message: </b>'.$exception->getMessage().'<br>
 			<b>File: </b>'.$exception->getFile().'<br>
 			<b>Line: </b>'.$exception->getLine().'<br>
-			<b>URL: </b>'.PROTOCOL.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].(!empty($_SERVER['QUERY_STRING']) ? '?'.$_SERVER['QUERY_STRING']: '').'<br>
+			<b>URL: </b>'.PROTOCOL.HTTP_HOST.$_SERVER['REQUEST_URI'].'<br>
 			<b>PHP-Version: </b>'.PHP_VERSION.'<br>
 			<b>PHP-API: </b>'.php_sapi_name().'<br>
 			<b>MySQL-Cleint-Version: </b>'.mysqli_get_client_info().'<br>
-			<b>2Moons Version: </b>'.$CONF['VERSION'].'<br>
-			<b>Debug Backtrace:</b><br>'.makebr(str_replace($_SERVER['DOCUMENT_ROOT'], '.', htmlspecialchars($exception->getTraceAsString()))).'
+			<b>2Moons Version: </b>'.$VERSION.'<br>
+			<b>Debug Backtrace:</b><br>'.makebr(str_replace(ROOT_PATH, '/', htmlspecialchars(str_replace('\\', '/',$exception->getTraceAsString())))).'
 		</td>
 	</tr>
 </table>
 </body>
 </html>';
-	if($errno === 0) {
-		ini_set('display_errors', 0);
-		trigger_error("Exception: ".str_replace("<br>", "\r\n", $errstr)."\r\n\r\n".str_replace($_SERVER['DOCUMENT_ROOT'], '.', $exception->getTraceAsString()), E_USER_ERROR);
+	
+	$errorText	= date("[d-M-Y H:i:s]", TIMESTAMP).' '.$errorType[$errno].': "'.strip_tags($exception->getMessage())."\"\r\n";
+	$errorText	.= 'File: '.$exception->getFile().' | Line: '.$exception->getLine()."\r\n";
+	$errorText	.= 'URL: '.PROTOCOL.HTTP_HOST.$_SERVER['REQUEST_URI'].' | Version: '.$VERSION."\r\n";
+	$errorText	.= "Stack trace:\r\n";
+	$errorText	.= str_replace(ROOT_PATH, '/', htmlspecialchars(str_replace('\\', '/',$exception->getTraceAsString())))."\r\n";
+	
+	if(is_writable(ROOT_PATH.'includes/error.log'))
+	{
+		file_put_contents(ROOT_PATH.'includes/error.log', $errorText, FILE_APPEND);
 	}
-	exit;
 }
 
 function errorHandler($errno, $errstr, $errfile, $errline)
@@ -808,4 +839,3 @@ function errorHandler($errno, $errstr, $errfile, $errline)
 	
 	throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
 }
-?>

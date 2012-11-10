@@ -2,109 +2,143 @@
 
 // Translated into Russian by InquisitorEA (SporeEA@yandex.ru). All rights reserved © 2010-2012
 
-// Общее
-$LNG['index']                        = 'Главная';
-$LNG['register']                     = 'Зарегистрироваться';
-$LNG['forum']                        = 'Форум';
-$LNG['send']                         = 'Отправить';
-$LNG['menu_index']                   = 'Главная';
-$LNG['menu_news']                    = 'Новости';
-$LNG['menu_rules']                   = 'Правила';
-$LNG['menu_pranger']                 = 'Заблокированные';
-$LNG['menu_top100']                  = 'Зал славы';
-$LNG['menu_disclamer']               = 'Контакты';
-$LNG['uni_closed']                   = '(отключена)';
+// Заголовки
+$LNG['siteTitleIndex']				= 'Главная';
+$LNG['siteTitleRegister']			= 'Регистрация';
+$LNG['siteTitleScreens']			= 'Скриншоты';
+$LNG['siteTitleBanList']			= 'Заблокированные';
+$LNG['siteTitleBattleHall']			= 'Зал славы';
+$LNG['siteTitleRules']				= 'Правила';
+$LNG['siteTitleNews']				= 'Новости';
+$LNG['siteTitleDisclamer']			= 'Контакты';
+$LNG['siteTitleLostPassword']		= 'Восстановление пароля';
 
-// Восстановление пароля
-$LNG['lost_pass_title']              = 'Восстановление пароля';
-$LNG['lost_empty']                   = 'Вы должны заполнить все поля.';
-$LNG['lost_not_exists']              = 'Аккаунта с таким адресом электронной почты не существует.';
-$LNG['lost_mail_title']              = 'Новый пароль';
-$LNG['mail_sended']                  = 'Новый пароль отправлен на Вашу электронную почту %s.';
+// Меню
+$LNG['forum']						= 'Форум';
+$LNG['menu_index']					= 'Главная';
+$LNG['menu_news']					= 'Новости';
+$LNG['menu_rules']					= 'Правила';
+$LNG['menu_banlist']				= 'Заблокированные';
+$LNG['menu_battlehall']				= 'Зал славы';
+$LNG['menu_disclamer']				= 'Контакты';
+$LNG['menu_register']				= 'Регистрация';
 
-$LNG['server_infos']                 = array(
+// Выбор вселенной
+$LNG['chose_a_uni']					= 'Выбрать...';
+$LNG['universe']					= 'Вселенная';
+$LNG['uni_closed']					= ' (отключена)';
+
+// Кнопки
+$LNG['buttonRegister']				= 'Зарегистрироваться';
+$LNG['buttonScreenshot']			= 'Скриншоты';
+$LNG['buttonLostPassword']			= 'Забыли пароль?';
+
+// Описание
+$LNG['gameInformations']			= array(
 	"Создайте экономическую и военную инфраструктуру.",
 	"Исследуйте новейшие технологии.",
 	"Создавайте альянсы и ведите переговоры с другими императорами.",
 	"Постройте непобедимый флот или планетарную оборону.",
 );
 
-$LNG['login_error_1']                = 'Неправильный логин или пароль.';
-$LNG['login_error_2']                = 'Ваш текущий IP адрес отличается от IP адреса последней незавершённой сессии.';
-$LNG['login_error_3']                = 'Ваша сессия завершена.';
-$LNG['login_error_4']                = 'Произошла ошибка во внешней авторизации. Попробуйте ещё раз позже.';
-$LNG['screenshots']                  = 'Скриншоты';
-$LNG['universe']                     = 'Вселенная';
-$LNG['chose_a_uni']                  = 'Выбрать...';
-
 // Авторизация
-$LNG['user']                         = 'Логин';
-$LNG['pass']                         = 'Пароль';
-$LNG['remember_pass']                = 'Запомнить';
-$LNG['lostpassword']                 = 'Забыли пароль?';
-$LNG['welcome_to']                   = 'Добро пожаловать в';
-$LNG['server_description']           = '%s - это стратегический космический симулятор в реальном времени. Сражайтесь с тысячами игроков во всём мире одновременно, чтобы стать лучшим.';
-$LNG['server_register']              = 'Регистрация';
-$LNG['server_message']               = 'Присоединяйтесь и станьте частью невероятного мира';
-$LNG['login']                        = 'Вход';
-$LNG['disclamer']                    = 'Контакты';
-$LNG['login_info']                   = 'Со входом в игру я принимаю <a href="index.php?page=rules">Правила</a>';
+$LNG['loginHeader']					= 'Авторизация';
+$LNG['loginUsername']				= 'Логин';
+$LNG['loginPassword']				= 'Пароль';
+$LNG['loginButton']					= 'Войти';
+$LNG['loginInfo']					= 'Со входом в игру я принимаю %s.';
+$LNG['loginWelcome']				= 'Добро пожаловать в %s';
+$LNG['loginServerDesc']				= '%s - это стратегический космический симулятор в реальном времени. Сражайтесь с тысячами игроков во всём мире одновременно, чтобы стать лучшим.';
 
 // Регистрация
-$LNG['register_closed']              = 'Регистрация закрыта.';
-$LNG['register_at']                  = 'Регистрация в ';
-$LNG['reg_mail_message_pass']        = 'Вам осталось активировать аккаунт';
-$LNG['reg_mail_reg_done']            = 'Добро пожаловать в %s!';
-$LNG['invalid_mail_adress']          = 'Недействительный адрес электронной почты.';
-$LNG['empty_user_field']             = 'Вы не ввели логин.';
-$LNG['password_lenght_error']        = 'Пароль должен состоять как минимум из 6 символов.';
-$LNG['user_field_specialchar']       = 'Логин может состоять только из букв, цифр, пробелов и символов "_", "-", "."';
-$LNG['planet_field_no']              = 'Вы не ввели название планеты.';
-$LNG['planet_field_specialchar']     = 'Название планеты может состоять только из букв, цифр, пробелов и символов "_", "-", "."';
-$LNG['terms_and_conditions']         = 'Я принимаю <a href="index.php?page=rules">Правила</a>';
-$LNG['user_already_exists']          = 'Выбранный логин уже существует.';
-$LNG['mail_already_exists']          = 'Введённый адрес электронной почты уже существует.';
-$LNG['wrong_captcha']                = 'Неверный защитный код.';
-$LNG['different_passwords']          = 'Пароль не совпадает.';
-$LNG['different_mails']              = 'Адрес электронной почты не совпадает.';
-$LNG['welcome_message_from']         = 'Администрация';
-$LNG['welcome_message_sender']       = 'Администрация';
-$LNG['welcome_message_subject']      = 'Добро пожаловать';
-$LNG['welcome_message_content']      = 'Добро пожаловать в %s! Для начала постройте шахту металла. Для этого пройдите в меню Постройки и нажмите Строить справа от изображения шахты металла. Теперь у Вас есть некоторое время, чтобы узнать больше об игре. Помощь новичкам: на нашем <a href=\"http://2moons.cc/" target=\"_blank\">Форуме</a>. Теперь постройка Вашего месторождения должна быть завершена. Так как месторождения ничего не производят без энергии, Вы должны построить солнечную электростанцию, вернитесь в меню Постройки, и выберите строить солнечную электростанцию. Чтобы видеть все виды кораблей, оборонных сооружений, зданий и исследований, которые есть в игре, Вам нужно пройти в меню Технологии. Теперь Вы можете начать завоевание вселенной. Удачи!';
-$LNG['reg_completed']                = 'Спасибо за регистрацию! Вы получите письмо на электронную почту с ссылкой на активацию аккаунта. Иногда письмо попадает в спам.';
-$LNG['planet_already_exists']        = 'Планета уже существует.';
-$LNG['server_message_reg']           = 'Присоединяйтесь и станьте частью невероятного мира';
-$LNG['register_at_reg']              = 'Регистрация в ';
-$LNG['uni_reg']                      = 'Вселенная';
-$LNG['user_reg']                     = 'Логин';
-$LNG['pass_reg']                     = 'Пароль';
-$LNG['pass2_reg']                    = 'Подтвердить пароль';
-$LNG['email_reg']                    = 'Электронная почта';
-$LNG['email2_reg']                   = 'Подтвердить электронную почту';
-$LNG['planet_reg']                   = 'Название главной планеты';
-$LNG['ref_reg']                      = 'Привлечён игроком';
-$LNG['lang_reg']                     = 'Язык';
-$LNG['register_now']                 = 'Регистрация';
-$LNG['captcha_reg']                  = 'Слова с картинки';
-$LNG['accept_terms_and_conditions']  = 'Я принимаю <a href="index.php?page=rules">Правила</a>';
-$LNG['captcha_help']                 = 'Помощь';
-$LNG['captcha_get_image']            = 'Визуальная картинка';
-$LNG['captcha_reload']               = 'Обновить картинку';
-$LNG['captcha_get_audio']            = 'Звуковой код';
-$LNG['user_active']                  = 'Аккаунт %s активирован.';
+$LNG['registerFacebookAccount']		= 'Аккаунт Facebook';
+$LNG['registerUsername']			= 'Логин';
+$LNG['registerUsernameDesc']		= 'Логин должен содержать от 3 до 25 символов и состоять только из букв, цифр, пробелов и символов "_", "-", "."';
+$LNG['registerPassword']			= 'Пароль';
+$LNG['registerPasswordDesc']		= 'Пароль должен содержать не менее 8 символов.';
+$LNG['registerPasswordReplay']		= 'Подтвердить пароль';
+$LNG['registerPasswordReplayDesc']	= 'Пожалуйста, повторите ввод пароля';
+$LNG['registerEmail']				= 'Электронная почта';
+$LNG['registerEmailDesc']			= 'Пожалуйста, введите адрес электронной почты.';
+$LNG['registerEmailReplay']			= 'Подтвердить электронную почту';
+$LNG['registerEmailReplayDesc']		= 'Пожалуйста, повторите ввод адреса электронной почты.';
+$LNG['registerLanguage']			= 'Язык';
+$LNG['registerReferral']			= 'Пригласил';
+$LNG['registerCaptcha']				= 'Защитный код';
+$LNG['registerCaptchaDesc']			= 'Пожалуйста, введите ниже буквы, которые показаны на картинке. Верхний и нижний регистр букв нужно соблюдать. Если вы не разобрали буквы на изображении даже после многократных обновлений кода, пожалуйста, свяжитесь с администратором игры.';
+$LNG['registerCaptchaReload']		= 'Обновить код.';
+$LNG['registerRules']				= 'Правила';
+$LNG['registerRulesDesc']			= 'Я согласен и принимаю %s.';
+
+$LNG['registerBack']				= 'Назад';
+$LNG['registerNext']				= 'Далее';
+
+$LNG['registerErrorUniClosed']		= 'Регистрация в данной вселенной закрыта.';
+$LNG['registerErrorUsernameEmpty']	= 'Вы не ввели логин.';
+$LNG['registerErrorUsernameChar']	= 'Логин может состоять только из букв, цифр, пробелов и символов "_", "-", "."';
+$LNG['registerErrorUsernameExist']	= 'Указанный логин уже зарегистрирован.';
+$LNG['registerErrorPasswordLength']	= 'Пароль должен содержать не менее 6 символов.';
+$LNG['registerErrorPasswordSame']	= 'Указанные пароли не совпадают.';
+$LNG['registerErrorMailEmpty']		= 'Вы не ввели адрес электронной почты.';
+$LNG['registerErrorMailInvalid']	= 'Адрес электронной почты введён неправильно.';
+$LNG['registerErrorMailSame']		= 'Указанные адреса электронной почты не совпадают.';
+$LNG['registerErrorMailExist']		= 'Указанный адрес электронной почты уже зарегистрирован.';
+$LNG['registerErrorRules']			= 'Вы не приняли правила игры.';
+$LNG['registerErrorCaptcha']		= 'Защитный код введён неправильно.';
+
+$LNG['registerMailVertifyTitle']	= 'Активация аккаунта на сайте %s';
+$LNG['registerMailVertifyError']	= 'Не удалось отправить сообщение на электронную почту %s';
+
+$LNG['registerMailCompleteTitle']	= 'Добро пожаловать в %s!';
+
+$LNG['registerSendComplete']		= 'Спасибо за регистрацию. В ближайшее время Вы получите по электронной почте письмо с дополнительной информацией.';
+
+$LNG['registerWelcomePMSenderName']	= 'Администратор';
+$LNG['registerWelcomePMSubject']	= 'Добро пожаловать';
+$LNG['registerWelcomePMText']		= 'Добро пожаловать в %s! Первым делом постройте солнечную электростанцию​​, потому что энергия необходима для последующего производства ресурсов. Для этого нажмите кнопку "Постройки" в левом меню. Затем постройте четвёртое здание сверху. Теперь у Вас есть энергия, Вы можете начать строить шахты. Вернитесь в меню "Постройки" и постройте шахту металла, затем шахту кристалла. Чтобы строить корабли Вам нужно сначала построить Верфь. Что для этого нужно Вы найдёте в левом меню "Технологии". Команда проекта желает вам много удовольствия в исследовании Вселенной!';
+
+// Активация учётной записи
+$LNG['vertifyNoUserFound']			= 'Неверный запрос.';
+$LNG['vertifyAdminMessage']			= 'Учётная запись "%s" активирована.';
+
+// Восстановление пароля
+$LNG['passwordInfo']				= 'Если Вы забыли свой ​​пароль, Вам нужно знать логин и адрес электронной почты, связанный с Вашим аккаунтом. Если Вы не знаете их, пожалуйста, свяжитесь с администратором игры.';
+$LNG['passwordUsername']			= 'Логин';
+$LNG['passwordMail']				= 'Электронная почта';
+$LNG['passwordCaptcha']				= 'Защитный код';
+$LNG['passwordSubmit']				= 'Отправить';
+$LNG['passwordErrorUsernameEmpty']	= 'Вы не указали логин.';
+$LNG['passwordErrorMailEmpty']		= 'Вы не указали электронную почту.';
+$LNG['passwordErrorUnknown']		= 'Указанная учётная запись не найдена.';
+$LNG['passwordErrorOnePerDay']		= 'Запрос на восстановление пароля к этой учётной записи уже был произведён один раз за последние 24 часа. По соображениям безопасности пароль пользователя можно восстановить только один раз в день. Вы можете восстановить пароль для этой учётной записи снова через 24 часа.';
+
+$LNG['passwordValidMailTitle']		= 'Восстановление пароля на сайте %s';
+$LNG['passwordValidMailSend']		= 'В ближайшее время Вы получите по электронной почте письмо с дополнительной информацией.';
+
+$LNG['passwordValidInValid']		= 'Неверный запрос.';
+$LNG['passwordChangedMailSend']		= 'В ближайшее время Вы получите по электронной почте письмо с Вашим новым паролем.';
+$LNG['passwordChangedMailTitle']	= 'Новый пароль на сайте %s';
+
+$LNG['passwordBack']				= 'Назад';
+$LNG['passwordNext']				= 'Далее';
+
+// Ошибки авторизации
+$LNG['login_error_1']				= 'Неправильный логин или пароль.';
+$LNG['login_error_2']				= 'Ваш текущий IP адрес отличается от IP адреса последней незавершённой сессии.';
+$LNG['login_error_3']				= 'Ваша сессия завершена.';
+$LNG['login_error_4']				= 'Произошла ошибка во внешней авторизации. Попробуйте ещё раз позже.';
 
 // Правила
-$LNG['rules_overview']               = 'Правила';
+$LNG['rulesHeader']					= 'Правила';
 
 // Новости
-$LNG['news_overview']                = 'Новости';
-$LNG['news_from']                    = '%s от %s';
-$LNG['news_does_not_exist']          = 'Нет новостей';
+$LNG['news_overview']				= 'Новости';
+$LNG['news_from']					= '%s от %s';
+$LNG['news_does_not_exist']			= 'Нет новостей';
 
 // Контакты
-$LNG['disclamer']                    = 'Условия использования';
-$LNG['disclamer_name']               = 'Имя';
-$LNG['disclamer_adress']             = 'Адрес';
-$LNG['disclamer_tel']                = 'Телефон';
-$LNG['disclamer_email']              = 'Электронная почта';
+$LNG['disclamerLabelAddress']		= 'Адрес:';
+$LNG['disclamerLabelPhone']			= 'Телефон:';
+$LNG['disclamerLabelMail']			= 'Электронная почта:';
+$LNG['disclamerLabelNotice']		= 'Дополнительная информация';
 ?>

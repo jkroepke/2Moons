@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,15 +18,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
+ * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2009 Lucky <douglas@crockford.com> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.3 (2011-01-21)
- * @link http://code.google.com/p/2moons/
+ * @link http://2moons.cc/
  */
 
-if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__))) exit;
+if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__))) throw new Exception("Permission error!");
 function ShowLog()
 {
 	global $LNG, $resources;
@@ -44,6 +44,7 @@ function ShowLog()
 	#	target 2 => Stat-Settings
 	#	target 3 => Chat-Settings
 	#	target 4 => TeamSpeak-Settings
+	#	target 5 => Impressum-Settings
 	# 4 => Presents
 	#
 	# TODO: LOG Search
@@ -79,7 +80,7 @@ function ShowLogOverview() {
 function ShowLogDetail() {
 	global $LNG;
 	$logid = HTTP::_GP('id', 0);
-	$result   	= $GLOBALS['DATABASE']->uniquequery("SELECT l.*, u_a.username as admin_username FROM ".LOG." as l LEFT JOIN ".USERS." as u_a ON  u_a.id = l.admin  WHERE l.id = ".$logid."");
+	$result   	= $GLOBALS['DATABASE']->getFirstRow("SELECT l.*, u_a.username as admin_username FROM ".LOG." as l LEFT JOIN ".USERS." as u_a ON  u_a.id = l.admin  WHERE l.id = ".$logid."");
 	
 	$data = unserialize($result['data']);
 	$conf_before	= array();
@@ -188,7 +189,15 @@ function ShowLogSettingsList() {
 	if(!$result)
 		$template->message($LNG['log_no_data']);
 	
-	$targetkey = array(0 => $LNG['log_ssettings'], 1 => $LNG['log_usettings'], 2 => $LNG['log_statsettings'], 3 => $LNG['log_chatsettings'], 4 => $LNG['log_tssettings']);
+	$targetkey = array(
+		0 => $LNG['log_ssettings'],
+		1 => $LNG['log_usettings'],
+		2 => $LNG['log_statsettings'],
+		3 => $LNG['log_chatsettings'],
+		4 => $LNG['log_tssettings'],
+		5 => $LNG['log_disclamersettings']
+	);
+	
 	while ($LogRow = $GLOBALS['DATABASE']->fetch_array($result))
 	{			
 		$LogArray[]	= array(

@@ -24,19 +24,19 @@
 				{if !$requiredDarkMatter}<form action="game.php?page=trader" method="post">
 				<input type="hidden" name="mode" value="trade">
 				<input type="hidden" name="resource" value="901">
-				<input type="image" id="trader_metal" src="{$dpath}images/metall.gif" title="{$LNG.tech.901}" border="0" height="32" width="52"><br>
+				<input type="image" id="trader_metal" src="{$dpath}images/metal.gif" title="{$LNG.tech.901}" border="0" height="32" width="52"><br>
 				<label for="trader_metal">{$LNG.tech.901}</label>
 				</form>
-				{else}<img src="{$dpath}images/metall.gif" title="{$LNG.tech.901}" border="0" height="32" width="52" style="margin: 3px;"><br>{$LNG.tech.901}{/if}
+				{else}<img src="{$dpath}images/metal.gif" title="{$LNG.tech.901}" border="0" height="32" width="52" style="margin: 3px;"><br>{$LNG.tech.901}{/if}
 			</div>
 			<div class="trader_col">
 				{if !$requiredDarkMatter}<form action="game.php?page=trader" method="post">
 				<input type="hidden" name="mode" value="trade">
 				<input type="hidden" name="resource" value="902">
-				<input type="image" id="trader_crystal" src="{$dpath}images/kristall.gif" title="{$LNG.tech.902}" border="0" height="32" width="52"><br>
+				<input type="image" id="trader_crystal" src="{$dpath}images/crystal.gif" title="{$LNG.tech.902}" border="0" height="32" width="52"><br>
 				<label for="trader_crystal">{$LNG.tech.902}</label>
 				</form>
-				{else}<img src="{$dpath}images/kristall.gif" title="{$LNG.tech.902}" border="0" height="32" width="52" style="margin: 3px;"><br>{$LNG.tech.902}{/if}
+				{else}<img src="{$dpath}images/crystal.gif" title="{$LNG.tech.902}" border="0" height="32" width="52" style="margin: 3px;"><br>{$LNG.tech.902}{/if}
 			</div>
 			<div class="trader_col">
 				{if !$requiredDarkMatter}<form action="game.php?page=trader" method="post">

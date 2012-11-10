@@ -18,12 +18,12 @@
 	<meta http-equiv="refresh" content="{$gotoinsec};URL={$goto}">
 	{/if}
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-	<link rel="stylesheet" type="text/css" href="../styles/css/boilerplate.css">
-	<link rel="stylesheet" type="text/css" href="../styles/css/ingame.css">
-	<link rel="stylesheet" type="text/css" href="../styles/css/install.css">
-	<link rel="stylesheet" type="text/css" href="../styles/css/jquery.css">
-	<link rel="stylesheet" type="text/css" href="../styles/css/jquery.fancybox.css">
-	<link rel="stylesheet" type="text/css" href="../styles/css/validationEngine.jquery.css">
+	<link rel="stylesheet" type="text/css" href="../styles/resource/css/base/boilerplate.css">
+	<link rel="stylesheet" type="text/css" href="../styles/resource/css/ingame/main.css">
+	<link rel="stylesheet" type="text/css" href="../styles/resource/css/install/main.css">
+	<link rel="stylesheet" type="text/css" href="../styles/resource/css/base/jquery.css">
+	<link rel="stylesheet" type="text/css" href="../styles/resource/css/base/jquery.fancybox.css">
+	<link rel="stylesheet" type="text/css" href="../styles/resource/css/base/validationEngine.jquery.css">
 	<link rel="stylesheet" type="text/css" href="../styles/theme/gow/formate.css">
 	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
 	<script type="text/javascript" src="../scripts/base/jquery.js"></script>

@@ -1,6 +1,5 @@
 <div class="clear"></div>
 <div id="footer">
-	{$cron}
 	{if $ga_active}
 	<script type="text/javascript">
 	var _gaq = _gaq || [];

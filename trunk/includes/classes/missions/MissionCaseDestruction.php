@@ -56,9 +56,6 @@ class MissionCaseDestruction extends MissionFunctions
 		
 		$debrisRessource	= array(901, 902);
 		
-		$userAttack		= array();
-		$userDefend		= array();
-		
 		$messageHTML	= <<<HTML
 <div class="raportMessage">
 	<table>
@@ -356,10 +353,9 @@ HTML;
 		require_once('GenerateReport.php');
 		$raportData	= GenerateReport($combatResult, $raportInfo);
 		
-		
-		$sqlQuery = "INSERT INTO ".RW." SET raport = '".serialize($raportData)."', time = '".$this->_fleet['fleet_start_time']."';";
+		$raportID	= md5(uniqid('', true).TIMESTAMP);
+		$sqlQuery	= "INSERT INTO ".RW." SET rid = '".$raportID."', raport = '".serialize($raportData)."', time = '".$this->_fleet['fleet_start_time']."';";
 		$GLOBALS['DATABASE']->query($sqlQuery);
-		$raportID	= $GLOBALS['DATABASE']->GetInsertID();
 		
 		$sqlQuery		= "";
 		foreach($userAttack as $userID => $userName)
@@ -400,8 +396,9 @@ HTML;
 			SendSimpleMessage($userID, 0, $this->_fleet['fleet_start_time'], 3, $LNG['sys_mess_tower'], $LNG['sys_mess_attack_report'], $message);
 			
 			$sqlQuery	.= "INSERT INTO ".TOPKB_USERS." SET ";
-			$sqlQuery	.= "rid = ".$raportID.", ";
+			$sqlQuery	.= "rid = '".$raportID."', ";
 			$sqlQuery	.= "role = 1, ";
+			$sqlQuery	.= "username = '".$GLOBALS['DATABASE']->escape($userName)."', ";
 			$sqlQuery	.= "uid = ".$userID.";";
 		}
 		
@@ -444,8 +441,9 @@ HTML;
 			SendSimpleMessage($userID, 0, $this->_fleet['fleet_start_time'], 3, $LNG['sys_mess_tower'], $LNG['sys_mess_attack_report'], $message);
 			
 			$sqlQuery	.= "INSERT INTO ".TOPKB_USERS." SET ";
-			$sqlQuery	.= "rid = ".$raportID.", ";
+			$sqlQuery	.= "rid = '".$raportID."', ";
 			$sqlQuery	.= "role = 2, ";
+			$sqlQuery	.= "username = '".$GLOBALS['DATABASE']->escape($userName)."', ";
 			$sqlQuery	.= "uid = ".$userID.";";
 		}
 		
@@ -471,7 +469,7 @@ HTML;
 						id = ".$this->_fleet['fleet_end_id'].";
 						INSERT INTO ".TOPKB." SET
 						units = ".($combatResult['unitLost']['attacker'] + $combatResult['unitLost']['defender']).",
-						rid = ".$raportID.",
+						rid = '".$raportID."',
 						time = ".$this->_fleet['fleet_start_time'].",
 						universe = ".$this->_fleet['fleet_universe'].",
 						result = '".$combatResult['won'] ."';
@@ -490,7 +488,7 @@ HTML;
 						lostunits = lostunits + ".$combatResult['unitLost']['attacker'].",
 						desunits = desunits + ".$combatResult['unitLost']['defender']."
 						WHERE
-						id IN (".implode(',', array_keys($userAttack)).");";
+						id IN (".implode(',', array_keys($userDefend)).");";
 						
 		$GLOBALS['DATABASE']->multi_query($sqlQuery);
 		
