@@ -122,10 +122,25 @@ class ShowFleetStep3Page extends AbstractPage
 		
 		$targetPlanetData  	= $GLOBALS['DATABASE']->getFirstRow("SELECT id, id_owner, der_metal, der_crystal, destruyed, ally_deposit FROM ".PLANETS." WHERE universe = ".$UNI." AND galaxy = ".$targetGalaxy." AND system = ".$targetSystem." AND planet = ".$targetPlanet." AND planet_type = '".($targetType == 2 ? 1 : $targetType)."';");
 		
-		if ($targetMission == 7 && isset($targetPlanetData)) {
-			$this->printMessage($LNG['fl_target_exists']);
+		
+		if ($targetMission == 7)
+		{
+			if (isset($targetPlanetData)) {
+				$this->printMessage($LNG['fl_target_exists']);
+			}
+			
+			if ($targetType != 1) {
+				$this->printMessage($LNG['fl_only_planets_colonizable']);
+			}
+			
+			$techLevel	= PlayerUtil::allowPlanetPosition($targetPlanet);
+			
+			if($techLevel > $USER[$resource[124]]) {
+				$this->printMessage(sprintf($LNG['fl_tech_for_position_required'], $LNG['tech'][124], $techLevel));
+			}
 		}
-		elseif ($targetMission == 7 || $targetMission == 15) {
+		
+		if ($targetMission == 7 || $targetMission == 15) {
 			$targetPlanetData	= array('id' => 0, 'id_owner' => 0, 'planettype' => 1);
 		}
 		else {
@@ -207,19 +222,6 @@ class ShowFleetStep3Page extends AbstractPage
 			$this->printMessage($LNG['fl_target_exists']);
 		}
 		
-		
-		if ($targetMission == 7) {
-			if ($targetType != 1) {
-				$this->printMessage($LNG['fl_only_planets_colonizable']);
-			}
-			
-			$techLevel	= PlayerUtil::allowPlanetPosition($USER, $targetPlanet);
-			
-			if($techLevel > $USER[$GLOBALS['VARS']['ELEMENT'][124]['name']]) {
-				$this->printMessage(sprintf($LNG['fl_tech_for_position_required'], $LNG['tech'][124], $techLevel));
-			}
-		}
-		
 		if($targetMission == 1 || $targetMission == 2 || $targetMission == 9) {
 			if(FleetFunctions::CheckBash($targetPlanetData['id'])) {
 				$this->printMessage($LNG['fl_bash_protection']);
@@ -257,7 +259,6 @@ class ShowFleetStep3Page extends AbstractPage
 					$this->printMessage($LNG['fl_no_hold_depot']);
 				}
 			}
-			ally_deposit
 					
 			if($targetPlayerData['ally_id'] != $USER['ally_id']) {
 				$buddy	= $GLOBALS['DATABASE']->getFirstCell("

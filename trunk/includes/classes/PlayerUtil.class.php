@@ -373,24 +373,23 @@ class PlayerUtil {
 		}
 	}
 	
-	static function maxPlanetCount($USER, $Universe)
+	static function maxPlanetCount($USER, $PLANET)
 	{
-		$CONF	= Config::getAll('universe', $Universe);
+		global $resource;
+		$CONF	= Config::getAll('universe', $USER['universe']);
 		
-		if(empty($uniConfig['userMaxPlanets']))
+		if(empty($CONF['max_player_planets']))
 		{
 			return 0;
 		}
 
 		// http://owiki.de/index.php/Astrophysik#.C3.9Cbersicht
-		return min($uniConfig['userMinPlanets'] + ceil($Level / 2) * PLANETS_PER_TECH, $uniConfig['userMaxPlanets']);
+		return min($CONF['min_player_planets'] + ceil($USER[$resource[124]] / 2) * PLANETS_PER_TECH * $USER['factor']['Planets'], $CONF['max_player_planets']);
 	}
 
-	static function allowPlanetPosition($USER, $planetPosition)
+	static function allowPlanetPosition($planetPosition)
 	{
 		// http://owiki.de/index.php/Astrophysik#.C3.9Cbersicht
-		
-		$techLevel	= $USER[$GLOBALS['VARS']['ELEMENT'][124]['name']];
 		
 		switch($planetPosition) {
 			case 1:

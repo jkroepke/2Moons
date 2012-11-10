@@ -72,6 +72,7 @@ require(ROOT_PATH . 'includes/classes/class.theme.php');
 require(ROOT_PATH . 'includes/classes/class.Session.php');
 require(ROOT_PATH . 'includes/classes/class.template.php');
 require(ROOT_PATH . 'includes/classes/Config.class.php');
+require(ROOT_PATH . 'includes/classes/ArrayUtil.class.php');
 require(ROOT_PATH . 'includes/classes/HTTP.class.php');
 require(ROOT_PATH . 'includes/classes/PlayerUtil.class.php');
 

@@ -241,7 +241,7 @@ class ShowFleetStep1Page extends AbstractPage
 				$this->sendJSON($LNG['fl_error_no_moon']);
 			elseif ($TargetPlanettype != 2 && $Data['urlaubs_modus'])
 				$this->sendJSON($LNG['fl_in_vacation_player']);
-			elseif (Config::get('adm_attack') == 1 && $Data['authattack'] > $USER['authlevel'])
+			elseif ($Data['id'] != $USER['id'] && Config::get('adm_attack') == 1 && $Data['authattack'] > $USER['authlevel'])
 				$this->sendJSON($LNG['fl_admins_cannot_be_attacked']);
 			elseif ($Data['destruyed'] != 0)
 				$this->sendJSON($LNG['fl_error_not_avalible']);

@@ -37,11 +37,12 @@ class MissionCaseSpy extends MissionFunctions
 	function TargetEvent()
 	{
 		global $pricelist, $reslist, $resource, $LANG;		
-		$ownUser		= $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".USERS." WHERE id = ".$this->_fleet['fleet_owner'].";");
-		$ownPlanet		= $GLOBALS['DATABASE']->getFirstRow("SELECT name, galaxy, system, planet FROM ".PLANETS." WHERE id = ".$this->_fleet['fleet_start_id'].";");
-		$ownSpyLvl		= max($ownUser['spy_tech'], 1);
+		$senderUser		= $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".USERS." WHERE id = ".$this->_fleet['fleet_owner'].";");
+		$senderPlanet	= $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".PLANETS." WHERE id = ".$this->_fleet['fleet_start_id'].";");
+		$senderUser['factor']	= getFactors($senderUser, 'basic', $this->_fleet['fleet_start_time']);
+		$ownSpyLvl		= max($senderUser['spy_tech'], 1);
 		
-		$LNG			= $LANG->GetUserLang($ownUser['lang']);
+		$LNG			= $LANG->GetUserLang($senderUser['lang']);
 		
 		$targetUser		= $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".USERS." WHERE id = ".$this->_fleet['fleet_target_owner'].";");
 		$targetPlanet	= $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".PLANETS." WHERE id = ".$this->_fleet['fleet_end_id'].";");
@@ -74,7 +75,7 @@ class MissionCaseSpy extends MissionFunctions
 		$fleetAmount	= $this->_fleet['fleet_amount'];
 		
 		$Diffence		= abs($ownSpyLvl - $targetSpyLvl);
-		$MinAmount		= $ownSpyLvl > $targetSpyLvl ? -1 * pow($Diffence, 2) : pow($Diffence, 2);
+		$MinAmount		= ($ownSpyLvl > $targetSpyLvl ? -1 * pow($Diffence, 2) : pow($Diffence, 2)) - (1 * $senderUser['factor']['SpyPower']);
 		$SpyFleet		= $fleetAmount >= $MinAmount;
 		$SpyDef			= $fleetAmount >= $MinAmount + 1;
 		$SpyBuild		= $fleetAmount >= $MinAmount + 3;
@@ -120,7 +121,7 @@ class MissionCaseSpy extends MissionFunctions
 				}
 			}
 		
-			if($ownUser['spyMessagesMode'] == 1)
+			if($senderUser['spyMessagesMode'] == 1)
 			{
 				$spyData[$classID]	= array_filter($spyData[$classID]);
 			}
@@ -133,7 +134,7 @@ class MissionCaseSpy extends MissionFunctions
 		$template	= new template;
 		
 		$template->caching		= true;
-		$template->compile_id	= $ownUser['lang'];
+		$template->compile_id	= $senderUser['lang'];
 		$template->loadFilter('output', 'trimwhitespace');
 		list($tplDir)	= $template->getTemplateDir();
 		$template->setTemplateDir($tplDir.'game/');
@@ -155,13 +156,13 @@ class MissionCaseSpy extends MissionFunctions
 		SendSimpleMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_start_time'], 0, $LNG['sys_mess_qg'], $LNG['sys_mess_spy_report'], $spyRaport);
 		
 		$LNG		    = $LANG->GetUserLang($targetUser['lang']);
-		$targetMessage  = $LNG['sys_mess_spy_ennemyfleet'] ." ". $ownPlanet['name'];
+		$targetMessage  = $LNG['sys_mess_spy_ennemyfleet'] ." ". $senderPlanet['name'];
 
 		if($this->_fleet['fleet_start_type'] == 3)
 			$targetMessage .= $LNG['sys_mess_spy_report_moon'].' ';
 
-		$targetMessage .= '<a href="game.php?page=galaxy&amp;galaxy='.$ownPlanet["galaxy"].'&amp;system='.$ownPlanet["system"].'">'.
-						  '['.$ownPlanet['galaxy'].':'.$ownPlanet['system'].':'.$ownPlanet['planet'].']</a> '.
+		$targetMessage .= '<a href="game.php?page=galaxy&amp;galaxy='.$senderPlanet["galaxy"].'&amp;system='.$senderPlanet["system"].'">'.
+						  '['.$senderPlanet['galaxy'].':'.$senderPlanet['system'].':'.$senderPlanet['planet'].']</a> '.
 						  $LNG['sys_mess_spy_seen_at'].' '.$targetPlanet['name'].
 						  ' ['. $targetPlanet['galaxy'].':'.$targetPlanet['system'].':'.$targetPlanet['planet'].'] '.$LNG['sys_mess_spy_seen_at2'].'.';
 

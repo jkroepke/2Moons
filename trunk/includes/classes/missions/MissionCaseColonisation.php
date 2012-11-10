@@ -36,11 +36,15 @@ class MissionCaseColonisation extends MissionFunctions
 	function TargetEvent()
 	{	
 		global $resource, $LANG;
-		$iPlanetCount 	= $GLOBALS['DATABASE']->getFirstCell("SELECT count(*) FROM ".PLANETS." WHERE `id_owner` = '". $this->_fleet['fleet_owner'] ."' AND `planet_type` = '1' AND `destruyed` = '0';");
-		$iGalaxyPlace 	= $GLOBALS['DATABASE']->getFirstCell("SELECT count(*) AS plani FROM ".PLANETS." WHERE `id` = '".$this->_fleet['fleet_end_id']."';");
-		$Player			= $GLOBALS['DATABASE']->getFirstRow("SELECT `lang`, `authlevel`, `".$resource[124]."` FROM ".USERS." WHERE `id` = '".$this->_fleet['fleet_owner']."';");
-		$LNG			= $LANG->GetUserLang($Player['lang']);
-		$MaxPlanets		= MaxPlanets($Player[$resource[124]], $this->_fleet['fleet_universe']);
+		$iPlanetCount 	= $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".PLANETS." WHERE `id_owner` = '". $this->_fleet['fleet_owner'] ."' AND `planet_type` = '1' AND `destruyed` = '0';");
+		$iGalaxyPlace 	= $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".PLANETS." WHERE `id` = '".$this->_fleet['fleet_end_id']."';");
+		$senderUser		= $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".USERS." WHERE `id` = '".$this->_fleet['fleet_owner']."';");
+		$senderPlanet	= $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".PLANETS." WHERE `id` = '".$this->_fleet['fleet_start_id']."';");
+		$senderUser['factor']	= getFactors($senderUser, 'basic', $this->_fleet['fleet_start_time']);
+		$LNG			= $LANG->GetUserLang($senderUser['lang']);
+		
+		$MaxPlanets		= PlayerUtil::maxPlanetCount($senderUser, $senderPlanet);
+		
 		if ($iGalaxyPlace != 0)
 		{
 			$TheMessage = sprintf($LNG['sys_colo_notfree'], GetTargetAdressLink($this->_fleet, ''));
@@ -54,7 +58,7 @@ class MissionCaseColonisation extends MissionFunctions
 		else
 		{
 			require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.php');
-			$NewOwnerPlanet = CreateOnePlanetRecord($this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet'], $this->_fleet['fleet_universe'], $this->_fleet['fleet_owner'], $LNG['fcp_colony'], false, $Player['authlevel']);
+			$NewOwnerPlanet = CreateOnePlanetRecord($this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet'], $this->_fleet['fleet_universe'], $this->_fleet['fleet_owner'], $LNG['fcp_colony'], false, $senderUser['authlevel']);
 			if($NewOwnerPlanet === false)
 			{
 				$TheMessage = sprintf($LNG['sys_colo_badpos'], GetTargetAdressLink($this->_fleet, ''));
