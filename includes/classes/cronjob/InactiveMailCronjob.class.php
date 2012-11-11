@@ -43,7 +43,7 @@ class InactiveMailCronjob
 				$LANG->includeLang(array('L18N', 'INGAME', 'PUBLIC'));
 				$MailSubject	= sprintf($LNG['spec_mail_inactive_title'], $CONF['game_name'].' - '.$CONFIG[$User['universe']]['uni_name']);
 				$MailRAW		= file_get_contents("./language/".$User['lang']."/email/email_inactive.txt");
-				$MailContent	= sprintf($MailRAW, $User['username'], $CONF['game_name'].' - '.$CONFIG[$User['universe']]['uni_name'], tz_date($User['onlinetime']), PROTOCOL.$_SERVER['HTTP_HOST'].HTTP_ROOT);	
+				$MailContent	= sprintf($MailRAW, $User['username'], $CONF['game_name'].' - '.$CONFIG[$User['universe']]['uni_name'], _date($LNG['php_tdformat'], $User['onlinetime']), PROTOCOL.$_SERVER['HTTP_HOST'].HTTP_ROOT);	
 				
 				require ROOT_PATH.'includes/classes/Mail.class.php';		
 				Mail::send($User['email'], $User['username'], $MailSubject, $MailContent);
