@@ -60,7 +60,7 @@ class ShowLostPasswordPage extends AbstractPage
 		$userID			= HTTP::_GP('u', 0);
 		$validationKey	= HTTP::_GP('k', '');
 		
-		$isValid	= $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".LOSTPASSWORD." WHERE userID = ".$userID." AND `key` = '".$validationKey."' AND time > ".(TIMESTAMP - 1800)." AND hasChanged = 0;");
+		$isValid	= $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".LOSTPASSWORD." WHERE userID = ".$userID." AND `key` = '".$GLOBALS['DATABASE']->escape($validationKey)."' AND time > ".(TIMESTAMP - 1800)." AND hasChanged = 0;");
 		
 		if(empty($isValid))
 		{
@@ -82,7 +82,7 @@ class ShowLostPasswordPage extends AbstractPage
 		require ROOT_PATH.'includes/classes/Mail.class.php';		
 		Mail::send($userData['mail'], $userData['username'], t('passwordChangedMailTitle', Config::get('game_name')), $MailContent);
 		
-		$GLOBALS['DATABASE']->query("UPDATE ".LOSTPASSWORD." SET hasChanged = 1 WHERE userID = ".$userID." AND `key` = '".$validationKey."';");
+		$GLOBALS['DATABASE']->query("UPDATE ".LOSTPASSWORD." SET hasChanged = 1 WHERE userID = ".$userID." AND `key` = '".$GLOBALS['DATABASE']->escape($validationKey)."';");
 		$this->printMessage(t('passwordChangedMailSend'), NULL, array(array(
 			'label'	=> t('passwordNext'),
 			'url'	=> 'index.php',
