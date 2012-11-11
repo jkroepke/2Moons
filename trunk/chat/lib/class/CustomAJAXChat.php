@@ -29,13 +29,7 @@
 class CustomAJAXChat extends AJAXChat {
 
 	function initCustomConfig() {
-		global $CONF;
 		$this->setConfig('dbConnection', 'link', $GLOBALS['DATABASE']);
-		$this->setConfig('socketServerEnabled', false, (bool)Config::get('chat_socket_active'));
-		$this->setConfig('socketServerHost', false, empty(Config::get('chat_socket_host')) ? NULL : Config::get('chat_socket_host'));
-		$this->setConfig('socketServerIP', false, Config::get('chat_socket_ip'));
-		$this->setConfig('socketServerPort', false, Config::get('chat_socket_port'));
-		$this->setConfig('socketServerChatID', false, Config::get('chat_socket_chatid'));
 		$this->setConfig('chatBotName', false, Config::get('chat_botname'));
 		$this->setConfig('allowUserMessageDelete', false, (bool) Config::get('chat_allowdelmes'));
 		$this->setConfig('allowNickChange', false, (bool) Config::get('chat_nickchange'));
