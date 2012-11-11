@@ -45,9 +45,15 @@ function ShowInformationPage()
 		$dateTimeZoneUser	= null;
 	}
 	
+	try {
+		$dateTimeZonePHP	= new DateTimeZone(ini_get('date.timezone'));
+	} catch (Exception $e) {
+		$dateTimeZonePHP	= null;
+	}
+	
 	$dateTimeServer		= new DateTime("now", $dateTimeZoneServer);
 	$dateTimeUser		= new DateTime("now", $dateTimeZoneUser);
-	$dateTimePHP		= new DateTime("now", new DateTimeZone(ini_get('date.timezone')));
+	$dateTimePHP		= new DateTime("now", $dateTimeZonePHP);
 	
 	$template	= new template();
 	$template->assign_vars(array(
