@@ -89,8 +89,8 @@ class ShowVertifyPage extends AbstractPage
 		{
 			$GLOBALS['DATABASE']->query("INSERT INTO ".USERS_AUTH." SET
 			`id`		= ".$userID.",
-			`account`	= '".$userData['externalAuthUID']."',
-			`mode`		= '".$userData['externalAuthMethod']."';");
+			`account`	= '".$GLOBALS['DATABASE']->escape($userData['externalAuthUID'])."',
+			`mode`		= '".$GLOBALS['DATABASE']->escape($userData['externalAuthMethod'])."';");
 		}
 		
 		$nameSender = t('registerWelcomePMSenderName');

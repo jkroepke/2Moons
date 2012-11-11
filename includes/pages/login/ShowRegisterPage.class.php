@@ -261,7 +261,7 @@ class ShowRegisterPage extends AbstractPage
 				`language` = '".$GLOBALS['DATABASE']->escape($language)."',
 				`universe` = ".$GLOBALS['UNI'].",
 				`referralID` = ".$referralID.",
-				`externalAuthUID` = '".$externalAuthUID."',
+				`externalAuthUID` = '".$GLOBALS['DATABASE']->escape($externalAuthUID)."',
 				`externalAuthMethod` = '".$externalAuthMethod."';";
 				
 		$GLOBALS['DATABASE']->query($SQL);
