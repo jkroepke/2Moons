@@ -73,11 +73,19 @@ class ShowResourcesPage extends AbstractPage
 	{
 		global $LNG, $ProdGrid, $resource, $reslist, $CONF, $pricelist, $USER, $PLANET;
 		
-		if ($PLANET['planet_type'] == 3)
+		if($USER['urlaubs_modus'] == 1 || $PLANET['planet_type'] != 1)
 		{
-			Config::get('metal_basic_income')     	= 0;
-			Config::get('crystal_basic_income')   	= 0;
-			Config::get('deuterium_basic_income') 	= 0;
+			$basicIncome[901]	= 0;
+			$basicIncome[902]	= 0;
+			$basicIncome[903]	= 0;
+			$basicIncome[911]	= 0;
+		}
+		else
+		{		
+			$basicIncome[901]	= Config::get($resource[901].'_basic_income');
+			$basicIncome[902]	= Config::get($resource[902].'_basic_income');
+			$basicIncome[903]	= Config::get($resource[903].'_basic_income');
+			$basicIncome[911]	= Config::get($resource[911].'_basic_income');
 		}
 		
 		$temp	= array(
@@ -156,10 +164,10 @@ class ShowResourcesPage extends AbstractPage
 		);
 		
 		$basicProduction	= array(
-			901 => Config::get($resource[901].'_basic_income') * Config::get('resource_multiplier'),
-			902 => Config::get($resource[902].'_basic_income') * Config::get('resource_multiplier'),
-			903	=> Config::get($resource[903].'_basic_income') * Config::get('resource_multiplier'),
-			911	=> Config::get($resource[911].'_basic_income') * Config::get('energySpeed'),
+			901 => $basicIncome[901] * Config::get('resource_multiplier'),
+			902 => $basicIncome[902] * Config::get('resource_multiplier'),
+			903	=> $basicIncome[903] * Config::get('resource_multiplier'),
+			911	=> $basicIncome[911] * Config::get('energySpeed'),
 		);
 		
 		$totalProduction	= array(

@@ -37,7 +37,7 @@ define('PROTOCOL'					, HTTPS ? 'https://' : 'http://');
 define('HTTP_BASE'					, str_replace(array('\\', '//'), '/', dirname($_SERVER['SCRIPT_NAME']).'/'));
 define('HTTP_ROOT'					, str_replace(basename($_SERVER['SCRIPT_FILENAME']), '', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)));
 
-define('HTTP_FILE'					, basename($_SERVER['REQUEST_URI']));
+define('HTTP_FILE'					, basename($_SERVER['SCRIPT_NAME']));
 define('HTTP_HOST'					, $_SERVER['HTTP_HOST']);
 define('HTTP_PATH'					, PROTOCOL.HTTP_HOST.HTTP_ROOT);
 
