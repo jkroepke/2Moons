@@ -1217,7 +1217,7 @@ $LNG['log_universe']					= 'Universum';
 //Cronjobs
 $LNG['cronName']['referral']		= 'Referral-Bonus';
 $LNG['cronName']['statistic']		= 'Statistiken';
-$LNG['cronName']['daily']			= 'Tägliche Aufhaben';
+$LNG['cronName']['daily']			= 'Tägliche Aufgaben';
 $LNG['cronName']['cleaner']			= 'Alte Daten löschen';
 $LNG['cronName']['inactive']		= 'Inaktive löschen';
 $LNG['cronName']['teamspeak']		= 'Teamspeakdaten aktualisieren';
