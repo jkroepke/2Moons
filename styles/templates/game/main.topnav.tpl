@@ -29,9 +29,9 @@
 									{foreach $resourceTable as $resourceID => $resouceData}
 									{if !isset($resouceData.current)}
 									{$resouceData.current = $resouceData.max + $resouceData.used}
-									<td class="res_current tooltip" data-tooltop-content="{$resouceData.current|number}&nbsp;/&nbsp;{$resouceData.max|number}"><span{if $resouceData.current < 0} style="color:red"{/if}>{shortly_number($resouceData.current)}&nbsp;/&nbsp;{shortly_number($resouceData.max)}</span></td>
+									<td class="res_current tooltip" data-tooltip-content="{$resouceData.current|number}&nbsp;/&nbsp;{$resouceData.max|number}"><span{if $resouceData.current < 0} style="color:red"{/if}>{shortly_number($resouceData.current)}&nbsp;/&nbsp;{shortly_number($resouceData.max)}</span></td>
 									{else}
-									<td class="res_current tooltip" id="current_{$resouceData.name}" data-real="{$resouceData.current}" data-tooltop-content="{$resouceData.current|number}">{shortly_number($resouceData.current)}</td>
+									<td class="res_current tooltip" id="current_{$resouceData.name}" data-real="{$resouceData.current}" data-tooltip-content="{$resouceData.current|number}">{shortly_number($resouceData.current)}</td>
 									{/if}
 									{/foreach}
 								</tr>
@@ -41,7 +41,6 @@
 									<td>&nbsp;</td>
 									{else}
 									<td class="res_max tooltip" id="max_{$resouceData.name}" data-real="{$resouceData.max}" data-tooltip-content="{$resouceData.max|number}">{shortly_number($resouceData.max)}</td>
-									<td>&nbsp;</td>
 									{/if}
 									{/foreach}
 								</tr>
