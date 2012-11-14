@@ -86,6 +86,7 @@ class Theme
 			'SHORTCUT_ROWS_ON_FLEET1' => 2,
 			'COLONY_ROWS_ON_FLEET1' => 2,
 			'ACS_ROWS_ON_FLEET1' => 1,
+			'TOPNAV_SHORTLY_NUBMER' => 0,
 		), $THEMESETTINGS);
 	}
 	

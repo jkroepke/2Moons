@@ -94,7 +94,7 @@ abstract class AbstractPage
 	
 	protected function getNavigationData() 
     {
-		global $PLANET, $LNG, $USER, $resource, $reslist;
+		global $PLANET, $LNG, $USER, $THEME, $resource, $reslist;
 		
 		if($PLANET[$resource[43]] > 0) {
 			$this->tplObj->loadscript("gate.js");
@@ -143,6 +143,7 @@ abstract class AbstractPage
 			$resourceTable[$resourceID]['current']		= $USER[$resource[$resourceID]];
 		}
 
+		$themeSettings	= $THEME->getStyleSettings();
 		
 		$this->tplObj->assign_vars(array(	
 			'PlanetSelect'		=> $PlanetSelect,
@@ -153,7 +154,7 @@ abstract class AbstractPage
 			'current_pid'		=> $PLANET['id'],
 			'image'				=> $PLANET['image'],
 			'resourceTable'		=> $resourceTable,
-			'shortlyNumber'		=> false,
+			'shortlyNumber'		=> $themeSettings['TOPNAV_SHORTLY_NUBMER'],
 			'closed'			=> !Config::get('game_disable') ? $LNG['ov_closed'] : false,
 			'hasAdminAccess'	=> isset($_SESSION['admin_login']),
 		));

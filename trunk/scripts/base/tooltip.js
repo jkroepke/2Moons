@@ -11,7 +11,7 @@ $(document).ready(function () {
 	$(".tooltip").live({
 		mouseenter : function (e) {
 			var tip = $('#tooltip');
-			tip.html($(this).data('tooltipContent'));
+			tip.html($(this).attr('data-tooltip-content'));
 			tip.show();
 		},
 		mouseleave : function () {
@@ -40,7 +40,7 @@ $(document).ready(function () {
 	});
 	$(".tooltip_sticky").live('mouseenter', function (e) {
 		var tip = $('#tooltip');
-		tip.html($(this).data('tooltipContent'));
+		tip.html($(this).attr('data-tooltip-content'));
 		tip.addClass('tooltip_sticky_div');
 		tip.css({
 			top : e.pageY - tip.outerHeight() / 2,
