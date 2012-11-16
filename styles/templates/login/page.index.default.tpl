@@ -30,7 +30,7 @@
 						<input type="submit" value="{$LNG.loginButton}">
 					</div>
 				</form>
-				{if $facebookEnable}<a href="index.php?page=externalAuth&method=facebook" class="fb_login"><img src="styles/resource/images/facebook/fb-login.gif" alt=""></a>{/if}<!-- http://b.static.ak.fbcdn.net/rsrc.php/zB6N8/hash/4li2k73z.gif -->
+				{if $facebookEnable}<a href="#" data-href="index.php?page=externalAuth&method=facebook" class="fb_login"><img src="styles/resource/images/facebook/fb-connect-large.png" alt=""></a>{/if}<!-- http://b.static.ak.fbcdn.net/rsrc.php/zB6N8/hash/4li2k73z.gif -->
 				<br><span class="small">{$loginInfo}</span>
 			</td><td class="contentbox-content-right"></td>
 		</tr>
