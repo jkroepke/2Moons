@@ -18,10 +18,16 @@ $(function() {
 			$this.parents('form').attr('action', function(i, old) {
 				return LoginConfig.basePath+'uni'+$this.val()+'/'+$(this).data('action');
 			});
+			$('.fb_login').attr('href', function(i, old) {
+				return LoginConfig.basePath+'uni'+$this.val()+'/'+$(this).data('href');
+			});
 		}).on('change', function() {
 			var $this	= $(this);
 			$this.parents('form').attr('action', function(i, old) {
 				return LoginConfig.basePath+'uni'+$this.val()+'/'+$(this).data('action');
+			});
+			$('.fb_login').attr('href', function(i, old) {
+				return LoginConfig.basePath+'uni'+$this.val()+'/'+$(this).data('href');
 			});
 		});
 		

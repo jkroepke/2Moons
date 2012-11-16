@@ -1,9 +1,6 @@
 {block name="title" prepend}{$LNG.siteTitleRegister}{/block}
 {block name="content"}
 <div id="registerFormWrapper">
-{if empty($referralData.id) && empty($externalAuth.account)}
-{if $facebookEnable}<a href="index.php?page=externalAuth&method=facebook" class="fb_login"><img src="styles/resource/images/facebook/fb-login.gif" alt=""></a>{/if}
-{/if}
 <form id="registerForm" method="post" action="index.php?page=register" data-action="index.php?page=register">
 <input type="hidden" value="send" name="mode">
 <input type="hidden" value="{$externalAuth.account}" name="externalAuth[account]">
@@ -19,6 +16,13 @@
 	<div class="rowForm">
 		<label>{$LNG.registerFacebookAccount}</label>
 		<span class="text fbname">{$accountName}</span>
+	</div>
+	{/if}
+	{elseif empty($referralData.id)}
+	{if $facebookEnable}
+	<div class="rowForm">
+		<label>{$LNG.registerFacebookAccount}</label>
+		<a href="#" data-href="index.php?page=externalAuth&method=facebook" class="fb_login"><img src="styles/resource/images/facebook/fb-connect-large.png" alt=""></a>
 	</div>
 	{/if}
 	{/if}
