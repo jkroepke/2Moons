@@ -25,9 +25,12 @@
  * @info $Id$
  * @link http://2moons.cc/
  */
+
  
 function ShowLogoutPage()
 {
 	unset($_SESSION['admin_login']);
 }
+
+
 ?>
