@@ -44,7 +44,7 @@ class template extends Smarty
 	function smartySettings()
 	{	
 		$this->force_compile 			= false;
-		$this->caching 					= false; #Set true for production!
+		$this->caching 					= true; #Set true for production!
 		$this->merge_compiled_includes	= true;
 		$this->compile_check			= true; #Set false for production!
 		$this->php_handling				= Smarty::PHP_REMOVE;
