@@ -34,7 +34,7 @@ function ShowClearCachePage()
 	ClearCache();
 	require ROOT_PATH.'includes/classes/Cronjob.class.php';
 	Cronjob::reCalculateCronjobs();
-	$GLOBALS['DATABASE']->query("UPDATE uni1_planets SET eco_hash = '';");
+	$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET eco_hash = '';");
 	$template = new template();
 	$template->message($LNG['cc_cache_clear']);
 }
