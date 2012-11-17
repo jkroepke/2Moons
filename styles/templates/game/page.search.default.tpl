@@ -2,7 +2,7 @@
 {block name="content"}
 <table style="width:760px">
 	<tr>
-		<th>{$LNG.sh_search_in_the_universe}</th>
+		<th>{$LNG.sh_search_in_the_universe} <span id="loading" style="display:none;">{$LNG.sh_loading}</span></th>
 	</tr>
 	<tr>
 		<td>

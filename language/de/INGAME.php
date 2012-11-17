@@ -854,6 +854,7 @@ $LNG['sh_alliance']							= 'Allianz';
 $LNG['sh_planet']							= 'Planet';
 $LNG['sh_coords']							= 'Koordinaten';
 $LNG['sh_position']							= 'Rank';
+$LNG['sh_loading']							= '(Lade ...)';
 
 //----------------------------------------------------------------------------//
 //OPTIONS
