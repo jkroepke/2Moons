@@ -42,12 +42,12 @@ class ShowNewsPage extends AbstractPage
 		$newsResult	= $GLOBALS['DATABASE']->query("SELECT date, title, text, user FROM ".NEWS." ORDER BY id DESC;");
 		$newsList	= array();
 		
-		while ($vewsRow = $GLOBALS['DATABASE']->fetchArray($newsResult))
+		while ($newsRow = $GLOBALS['DATABASE']->fetchArray($newsResult))
 		{
 			$newsList[]	= array(
-				'title' => $vewsRow['title'],
-				'from' 	=> t('news_from', _date(t('php_tdformat'), $vewsRow['date']), $newsRow['user']),
-				'text' 	=> makebr($vewsRow['text']),
+				'title' => $newsRow['title'],
+				'from' 	=> t('news_from', _date(t('php_tdformat'), $newsRow['date']), $newsRow['user']),
+				'text' 	=> makebr($newsRow['text']),
 			);
 		}
 		
