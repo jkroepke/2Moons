@@ -289,17 +289,19 @@ $LNG['er_data']			= 'Datum';
 
 //---------------	LISTA DE MENSAJES - MESSAGES LIST	------------------------//
 $LNG['ml_message_list']			= 'Nachrichtenliste';
-$LNG['ml_page']					= 'Seite';
-$LNG['ml_type']					= 'Type';
-$LNG['ml_dlte_selection']		= 'Lösche Markierte';
-$LNG['ml_dlte_since']			= 'Löschen von';
-$LNG['ml_dlte_since_button']	= 'Löschen von';
+$LNG['ml_type_submit']			= 'Absenden';
+$LNG['ml_id']					= '#ID';
+$LNG['ml_sender']				= 'Absender';
+$LNG['ml_receiver']				= 'Empfänger';
 $LNG['ml_date']					= 'Datum';
-$LNG['ml_from']					= 'Von';
-$LNG['ml_to']					= 'Zu';
+$LNG['ml_type']					= 'Nachrichtentyp';
 $LNG['ml_subject']				= 'Betreff';
-$LNG['ml_content']				= 'Inhalt';
-$LNG['ml_see_all_messages']		= 'Sehe alle Nachrichten';
+$LNG['ml_date_range']			= 'Zeitraum';
+
+
+$LNG['ml_page']					= 'Seite';
+
+
 //###########################################################//
 
 
@@ -1253,11 +1255,12 @@ $LNG['cronjob_error_class']			= 'Es wurde keine Class angegeben!';
 $LNG['cronjob_error_filenotfound']	= 'Die angegebene Datei wurde nicht gefunden: ';
 $LNG['cronjob_selectall']			= 'Alle';
 
-$LNG['cronjob_lock']				= 'Lock';
-$LNG['cronjob_unlock']				= 'Unlock';
+$LNG['cronjob_lock']				= 'Locked';
+$LNG['cronjob_is_lock']				= 'Ja';
+$LNG['cronjob_is_unlock']			= 'Nein';
 
-$LNG['cronjob_inactive']			= 'Aktiv';
-$LNG['cronjob_active']				= 'Inaktiv';
+$LNG['cronjob_inactive']			= 'Ja';
+$LNG['cronjob_active']				= 'Nein';
 
 // Giveaway
 $LNG['ga_success']						= 'Erfolgreich!';
