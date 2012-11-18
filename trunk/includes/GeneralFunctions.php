@@ -370,34 +370,6 @@ function GetUserByID($UserID, $GetInfo = "*")
 	return $User;
 }
 
-function MailSend($MailTarget, $MailTargetName, $MailSubject, $MailContent)
-{
-	global $CONF;
-	require_once('./includes/classes/class.phpmailer.php');
-	$mail             	= new PHPMailer(true);
-	if(Config::get('mail_use') == 2) {
-		$mail->IsSMTP();  
-		$mail->SMTPAuth   	= true; 
-		$mail->SMTPSecure 	= Config::get('smtp_ssl');  						
-		$mail->Host      	= Config::get('smtp_host');
-		$mail->Port      	= Config::get('smtp_port');
-		$mail->Username  	= Config::get('smtp_user');
-		$mail->Password  	= Config::get('smtp_pass');
-		$mail->SMTPDebug  	= (Config::get('debug') == 1) ? 2 : 0;   
-	} elseif(Config::get('mail_use') == 1) {
-		$mail->IsSendmail();
-		$mai->Sendmail		= Config::get('smail_path');
-	} else {
-		$mail->IsMail();
-	}
-	$mail->CharSet		= 'UTF-8';		
-	$mail->Subject   	= $MailSubject;
-	$mail->Body   		= $MailContent;
-	$mail->SetFrom(Config::get('smtp_sendmail'), Config::get('game_name'));
-	$mail->AddAddress($MailTarget, $MailTargetName);
-	$mail->Send();	
-}
-
 function makebr($text)
 {
     // XHTML FIX for PHP 5.3.0
@@ -511,7 +483,7 @@ function isModulAvalible($ID)
 
 function ClearCache()
 {
-	$DIRS	= array('cache/');
+	$DIRS	= array('cache/', 'cache/templates/');
 	foreach($DIRS as $DIR) {
 		$FILES = array_diff(scandir($DIR), array('..', '.', '.htaccess'));
 		foreach($FILES as $FILE) {
