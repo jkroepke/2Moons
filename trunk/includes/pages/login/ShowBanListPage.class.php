@@ -41,8 +41,7 @@ class ShowBanListPage extends AbstractPage
 	{		
 		$universeSelect	= array();
 		
-		$page  		= HTTP::_GP('site', 1);
-		
+		$page  		= HTTP::_GP('side', 1);
 		$banCount	= $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".BANNED." WHERE universe = ".$GLOBALS['UNI']." ORDER BY time DESC;");
 		
 		$maxPage	= ceil($banCount / BANNED_USERS_PER_PAGE);
