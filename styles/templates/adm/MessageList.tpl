@@ -32,7 +32,7 @@
 			<th colspan="{if $Selected == 100}7{else}6{/if}">{$LNG.ml_message_list}</th>
 		</tr>
 		<tr style="height: 20px;">
-			<td class="right" colspan="{if $Selected == 100}7{else}6{/if}">{$LNG.mg_page}: {if $page != 1}<a href="#" onclick="gotoPage({$page - 1});return false;">&laquo;</a>&nbsp;{/if}{for $site=1 to $maxPage}<a href="#" onclick="gotoPage({$site});return false;">{if $site == $page}<b>[{$site}]</b>{else}[{$site}]{/if}</a>{if $site != $maxPage}&nbsp;{/if}{/for}{if $page != $maxPage}&nbsp;<a href="#" onclick="gotoPage({$page + 1});return false;">&raquo;</a>{/if}</td>
+			<td class="right" colspan="{if $Selected == 100}7{else}6{/if}">{$LNG.mg_page}: {if $page != 1}<a href="#" onclick="gotoPage({$page - 1});return false;">&laquo;</a> {/if}{for $site=1 to $maxPage}<a href="#" onclick="gotoPage({$site});return false;">{if $site == $page}<b>[{$site}]</b>{else}[{$site}]{/if}</a>{if $site != $maxPage} {/if}{/for}{if $page != $maxPage} <a href="#" onclick="gotoPage({$page + 1});return false;">&raquo;</a>{/if}</td>
 		</tr>
 		<tr>
 			<th style="width:3%;"><input title="{$ml_select_all_messages}" type="checkbox" onClick="checkedAll(select_all);"></th>
