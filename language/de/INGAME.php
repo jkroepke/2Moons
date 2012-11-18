@@ -104,6 +104,7 @@ $LNG['lm_topkb']							= 'Hall of Fame';
 $LNG['lm_faq']								= 'FAQ';
 $LNG['lm_records']							= 'Rekorde';
 $LNG['lm_chat']								= 'Chat';
+$LNG['lm_changelog']						= 'Changelog';
 $LNG['lm_support']							= 'Support';
 $LNG['lm_rules']							= 'Regeln';
 $LNG['lm_battlesim']						= 'Kampfsimulator';

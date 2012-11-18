@@ -1,6 +1,6 @@
 <div id="leftmenu">
 	<ul id="menu">
-		<li class="menu-head"><a href="game.php?page=changelog">Changelog</a></li>
+		<li class="menu-head"><a href="game.php?page=changelog">{$LNG.lm_changelog}</a></li>
 		<li class="menucat1-head"></li>
 		<li><a href="game.php?page=overview">{$LNG.lm_overview}</a></li>
 		{if isModulAvalible($smarty.const.MODULE_IMPERIUM)}<li><a href="game.php?page=imperium">{$LNG.lm_empire}</a></li>{/if}
