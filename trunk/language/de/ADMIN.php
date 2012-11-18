@@ -1235,7 +1235,6 @@ $LNG['cronjob_dow']					= 'Wochentag';
 $LNG['cronjob_class']				= 'class';
 $LNG['cronjob_nextTime']			= 'Nächste Ausführung';
 $LNG['cronjob_inActive']			= 'Aktiv';
-$LNG['cronjob_lock']				= 'locked';
 $LNG['cronjob_edit']				= 'Bearbeiten';
 $LNG['cronjob_delete']				= 'Löschen';
 $LNG['cronjob_headline']			= 'Cronjob ID';
