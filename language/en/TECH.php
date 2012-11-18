@@ -39,20 +39,24 @@ $LNG['shortNames'] = array (
 );
 
 $LNG['bonus'] = array(
-	'Attack'			=> '+%f%% Attack',
-	'Defensive'			=> '+%f%% Defence',
-	'Shield'			=> '+%f%% Shield',
-	'BuildTime'			=> '-%f%% Construction Time',
-	'ResearchTime'		=> '-%f%% Research time',
-	'ShipTime'			=> '-%f%% Ship Building time',
-	'DefensiveTime'		=> '-%f%% Defense Building time',
-	'Resource'			=> '+%f%% Production of Resources',
-	'Energy'			=> '+%f%% Production of Energy',
-	'ResourceStorage'	=> '+%f%% Resource storage',
-	'ShipStorage'		=> '+%f%% Ships storage',
-	'FlyTime'			=> '+%f%% Flying time',
-	'FleetSlots'		=> '+%f%% Fleet Slots',
-	'Planets'			=> '+%f%% Planets',
+	'Attack'			=> 'Attack',
+	'Defensive'			=> 'Defence',
+	'Shield'			=> 'Shield',
+	'BuildTime'			=> 'Construction Time',
+	'ResearchTime'		=> 'Research time',
+	'ShipTime'			=> 'Ship Building time',
+	'DefensiveTime'		=> 'Defense Building time',
+	'Resource'			=> 'Production of Resources',
+	'Energy'			=> 'Production of Energy',
+	'ResourceStorage'	=> 'Resource storage',
+	'ShipStorage'		=> 'Ships storage',
+	'FlyTime'			=> 'Flying time',
+	'FleetSlots'		=> 'Fleet Slots',
+	'Planets'			=> 'Planets',
+	'SpyPower'			=> 'Espionage power',
+	'Expedition'		=> 'Expeditions',
+	'GateCoolTime'		=> 'Jump gate charging time',
+	'MoreFound'			=> 'Expedition Found',
 );
 					
 $LNG['tech'] = array(

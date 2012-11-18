@@ -339,25 +339,25 @@ $LNG['fl_acs_change_name']					= 'Type the new name';
 $LNG['fl_error_not_avalible']				= 'These coordinates do not have any planet';
 $LNG['fl_error_empty_derbis']				= "Don't have any debris fields!";
 $LNG['fl_error_no_moon']					= 'Does not have any moon in these coordinates!';
-$LNG['fl_send_error'][3]					= 'The departure and the destination is the same planet';
-$LNG['fl_send_error'][4]					= 'The target is not valid';
-$LNG['fl_send_error'][5]					= 'Without resources to transport';
-$LNG['fl_send_error'][6]					= 'Without free slots!';
-$LNG['fl_send_error'][7]					= 'The planet to destination, dont exists';
-$LNG['fl_send_error'][8]					= 'The ships are not all present';
-$LNG['fl_send_error'][9]					= 'You can not do more expeditions';
-$LNG['fl_send_error'][10]					= "Dont achieved the needed level of expedition research";
-$LNG['fl_send_error'][12]					= 'The player is in vacation mode!';
-$LNG['fl_send_error'][13]					= 'Bash protection';
-$LNG['fl_send_error'][14]					= 'You can not attack administrators';
-$LNG['fl_send_error'][15]					= 'The player is weak!';
-$LNG['fl_send_error'][16]					= 'The player is strong!';
-$LNG['fl_send_error'][17]					= 'There is no Deposit of Alliance';
-$LNG['fl_send_error'][18]					= 'The player is in your Alliance or on your friends list!';
-$LNG['fl_send_error'][19]					= "Don't have enough deuterium, you have %s. It's required %s %s!";
-$LNG['fl_send_error'][20]					= 'Does not have available capacity. Available:';
-$LNG['fl_send_error'][21]					= 'The debris does not exist!';
-$LNG['fl_send_error'][22]					= 'There is no missions (Planet available?)';
+$LNG['fl_error_same_planet']				= 'Start and destination planet are identical!';
+$LNG['fl_invalid_target']					= 'No valid target';
+$LNG['fl_no_noresource']					= 'No raw materials loaded!';
+$LNG['fl_no_target']						= 'No available target planet';
+$LNG['fl_not_all_ship_avalible']			= 'Not all ships present.';
+$LNG['fl_no_expedition_slot']				= 'You cant start more expeditions!';
+$LNG['fl_invalid_mission']					= 'Invalid mission';
+$LNG['fl_bash_protection']					= 'Bash Rule';
+$LNG['fl_admin_attack']						= 'You can attack the administrators';
+$LNG['fl_target_exists']					= 'Target planet';
+$LNG['fl_target_not_exists']				= 'Target planet does not exist!';
+$LNG['fl_only_planets_colonizable']			= 'Only planets can be colonized.';
+$LNG['fl_player_is_noob']					= 'Player is in the Noob Protection!';
+$LNG['fl_player_is_strong']					= 'Player is too strong!';
+$LNG['fl_tech_for_position_required']		= 'You need %s level %d, in order to occupy this position!';
+$LNG['fl_no_hold_depot']					= 'No Alliance Depot is located on the target.';
+$LNG['fl_not_enough_deuterium']				= 'Not enough deuterium available.';
+$LNG['fl_not_enough_space']					= 'You have not enough cargo space available.';
+$LNG['fl_hold_time_not_exists']				= 'Invalid retention time.';
 
 //----------------------------------------------------------------------------//
 // Edificios
@@ -489,6 +489,7 @@ $LNG['in_dest_durati'] 			            = 'Time to the destruction';
 $LNG['in_missilestype']   					= 'Missile type';
 $LNG['in_missilesamount']    				= 'Number of Missiles avaliable';
 $LNG['in_engine'] 							= 'Engine';
+$LNG['in_bonus'] 							= 'Bonus:';
 
 //----------------------------------------------------------------------------//
 // Mensagens
@@ -834,6 +835,7 @@ $LNG['sh_alliance']							= 'Alliance';
 $LNG['sh_planet']							= 'Planet';
 $LNG['sh_coords']							= 'Position';
 $LNG['sh_position']							= 'Rank';
+$LNG['sh_loading']							= '(Loading ...)';
 
 //----------------------------------------------------------------------------//
 //OPTIONS
@@ -950,6 +952,7 @@ $LNG['cff_mission_target_mip']				= 'Missile attack (%d) from player %s from %s 
 //----------------------------------------------------------------------------//
 // Funções Extras
 $LNG['fcm_universe']						= 'Universe';
+$LNG['fcm_mainplanet']						= 'Main Planet';
 $LNG['fcm_planet']							= 'Planet';
 $LNG['fcm_moon']							= 'Moon';
 $LNG['fcm_info']							= 'Info';
@@ -961,7 +964,7 @@ $LNG['sys_refferal_from']        	 		= 'System';
 $LNG['sys_refferal_title']        	 		= 'Player Bonus %s';
 $LNG['sys_refferal_text']        	 		= 'The player %s recruited by you reached %s points.<br><br>You invite a player active, will be rewarded %s %s';
 $LNG['sys_closed_game']        	 			= 'The game is currently not available:';
-
+$LNG['spec_mail_inactive_title']  			= '%s - Reminder';
 //----------------------------------------------------------------------------//
 // Relatório de Combate
 $LNG['cr_lost_contact']                     = 'Lost touch with your fleet.';
