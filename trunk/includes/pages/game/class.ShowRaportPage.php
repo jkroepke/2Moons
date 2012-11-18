@@ -74,14 +74,13 @@ class ShowRaportPage extends AbstractPage
 		if(isset($CombatRaport['moon']['desfail']))
 		{
 			// 2Moons BC r2321
-			$CombatRaport['moon']	= array(
+			$CombatRaport	= array_merge($CombatRaport, array(
 				'moonName'				=> $CombatRaport['moon']['name'],
 				'moonChance'			=> $CombatRaport['moon']['chance'],
 				'moonDestroySuccess'	=> !$CombatRaport['moon']['desfail'],
 				'fleetDestroyChance'	=> $CombatRaport['moon']['chance2'],
 				'fleetDestroySuccess'	=> !$CombatRaport['moon']['fleetfail']
-			);
-			
+			));
 		}
 	
 		if(isset($CombatRaport['simu']))
@@ -134,13 +133,13 @@ class ShowRaportPage extends AbstractPage
 		if(isset($CombatRaport['moon']['desfail']))
 		{
 			// 2Moons BC r2321
-			$CombatRaport['moon']	= array(
+			$CombatRaport	= array_merge($CombatRaport, array(
 				'moonName'				=> $CombatRaport['moon']['name'],
 				'moonChance'			=> $CombatRaport['moon']['chance'],
 				'moonDestroySuccess'	=> !$CombatRaport['moon']['desfail'],
 				'fleetDestroyChance'	=> $CombatRaport['moon']['chance2'],
 				'fleetDestroySuccess'	=> !$CombatRaport['moon']['fleetfail']
-			);
+			));
 			
 		}
 	
