@@ -1,0 +1,2 @@
+ALTER TABLE prefix_messages CHANGE message_subject message_subject VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;
+ALTER TABLE prefix_ticket CHANGE subject subject VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;

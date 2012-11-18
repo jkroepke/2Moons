@@ -1,0 +1,12 @@
+<div class="left">
+<h2>Informationen für Multiuniverse-Support</h2>
+<p>Damit 2Moons mit Multiuniverse-Support fehlerfrei unterstützen kann, muss der Webserver entsprechend konfiguriert werden.</p>
+<p>Was du für ein Server hast, kannst du bei "Server Infos" unter "Informationen" herausfinden. Wenn dir nicht sicher best, frage bei deinem Hoster nach.</p>
+<h3>Apache</h3>
+<p>Wenn man bei ein Apache-Server als Backendserver läuft, musst du nur die Zeilen 48-51 in der .htacces Datei im Hauptverzeichen auskommentieren (die Route entfernen).<br>
+Außerdem wird mod_rewrite benötigt.</p>
+<h3>nginx</h3>
+<p>Wenn man bei ein nginx-Server als Backendserver läuft, die vhost Konfiguration direkt um rewrite Regel erweitern:</p>
+<p><code>{NGINX-CODE}</code></p>
+<p>Einfachsten den Codeschnipsel unter die Zeile mit "server_name" einfügen.</p>
+</div>
