@@ -176,7 +176,7 @@ if (MODE === 'INGAME' || MODE === 'ADMIN' || MODE === 'CHAT')
 		error_reporting(E_ERROR | E_WARNING | E_PARSE);
 		
 		$USER['rights']		= unserialize($USER['rights']);
-		$LANG->includeLang(array('ADMIN'));
+		$LANG->includeLang(array('ADMIN', 'CUSTOM'));
 	}
 }
 elseif(MODE === 'LOGIN')
