@@ -493,8 +493,7 @@ function shortly_number($number, $decial = NULL)
 		$number = $number / 1000;
 	}
 	
-	$decial	= !is_numeric($decial) ? ((int) ($number != 0 && $number < 100)) : $decial;
-	
+	$decial	= !is_numeric($decial) ? ((int) (((int)$number != $number) && $key != 0 && $number != 0 && $number < 100)) : $decial;
 	return pretty_number($negate * $number, $decial).'&nbsp;'.$unit[$key];
 }
 
