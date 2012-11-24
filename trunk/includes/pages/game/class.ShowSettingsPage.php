@@ -98,7 +98,12 @@ class ShowSettingsPage extends AbstractPage
 
 		if(!empty($USER['b_tech']) || !empty($PLANET['b_building']) || !empty($PLANET['b_hangar']))
 			return false;
-					
+		
+
+		$fleets = $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".FLEETS." WHERE `fleet_owner` = ".$USER['id'].";");
+		if($fleets != 0)
+			return false;
+						
 		$query = $GLOBALS['DATABASE']->query("SELECT * FROM ".PLANETS." WHERE id_owner = ".$USER['id']." AND id != ".$PLANET['id']." AND destruyed = 0;");
 		
 		while($CPLANET = $GLOBALS['DATABASE']->fetch_array($query))
