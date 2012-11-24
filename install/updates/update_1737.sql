@@ -1,1 +1,0 @@
-ALTER TABLE `prefix_config` CHANGE `moon_chance` `moon_chance` tinyint(3) unsigned NOT NULL DEFAULT '20';

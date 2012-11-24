@@ -1,1 +1,0 @@
-ALTER TABLE `prefix_users` ADD `inactive_mail` tinyint(1) unsigned NOT NULL DEFAULT '0';

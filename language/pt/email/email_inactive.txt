@@ -1,9 +1,0 @@
-Hallo %1$s,
-
-du hast dich das letzte Mal am %2$s bei %3$s eingeloggt. Wenn du weiterhin Mitglied der Community bleiben möchtest, logge dich bitte mit deinen Daten wieder ein damit dein Account nicht verfällt.
-
-Solltest du dein Passwort vergessen haben, dann gehe auf %4$s und klicke "Passwort vergessen" an. Du bekommst innerhalb von wenigen Minuten eine E-mail mit deinem neuen Passwort.
-
-Mit freundlichen Grüßen
-
-dein %3$s Team
