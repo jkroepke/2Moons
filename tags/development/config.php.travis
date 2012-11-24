@@ -6,4 +6,3 @@ define('TEST_MYSQL_USER'	, 'root');
 define('TEST_MYSQL_PASSWORD', '');
 define('TEST_MYSQL_DATABASE', '2moons');
 define('TEST_SERVER'		, 'http://localhost:8000/');
-
