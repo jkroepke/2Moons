@@ -35,6 +35,9 @@ class StatisticCronjob
 		require_once(ROOT_PATH.'includes/classes/class.statbuilder.php');
 		$stat			= new Statbuilder();
 		$result			= $stat->MakeStats();
+		Config::update(array(
+			'stat_last_update'	=> TIMESTAMP			
+		));
 	}
 }
 ?>
