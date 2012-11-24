@@ -40,7 +40,6 @@ AddCharset utf-8 .css .js .xml .json .rss .atom
   Satisfy All
 </FilesMatch>
 
-
 # ----------------------------------------------------------------------
 # 2Moons: Multiuniverse support
 # ----------------------------------------------------------------------
