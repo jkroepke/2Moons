@@ -38,7 +38,7 @@ class MissionCaseSpy extends MissionFunctions
 	{
 		global $pricelist, $reslist, $resource, $LANG;		
 		$senderUser		= $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".USERS." WHERE id = ".$this->_fleet['fleet_owner'].";");
-		$senderPlanet	= $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".PLANETS." WHERE id = ".$this->_fleet['fleet_start_id'].";");
+		$senderPlanet	= $GLOBALS['DATABASE']->getFirstRow("SELECT galaxy, system, planet, name FROM ".PLANETS." WHERE id = ".$this->_fleet['fleet_start_id'].";");
 		$senderUser['factor']	= getFactors($senderUser, 'basic', $this->_fleet['fleet_start_time']);
 		$ownSpyLvl		= max($senderUser['spy_tech'], 1);
 		
@@ -75,11 +75,11 @@ class MissionCaseSpy extends MissionFunctions
 		$fleetAmount	= $this->_fleet['fleet_amount'];
 		
 		$Diffence		= abs($ownSpyLvl - $targetSpyLvl);
-		$MinAmount		= ($ownSpyLvl > $targetSpyLvl ? -1 * pow($Diffence, 2) : pow($Diffence, 2)) - (1 * $senderUser['factor']['SpyPower']);
+		$MinAmount		= ($ownSpyLvl > $targetSpyLvl ? -1 * pow($Diffence, 2) : pow($Diffence, 2)) - (100 * $senderUser['factor']['SpyPower']);
 		$SpyFleet		= $fleetAmount >= $MinAmount;
-		$SpyDef			= $fleetAmount >= $MinAmount + 1;
-		$SpyBuild		= $fleetAmount >= $MinAmount + 3;
-		$SpyTechno		= $fleetAmount >= $MinAmount + 5;
+		$SpyDef			= $fleetAmount >= $MinAmount + 1 * SPY_VIEW_FACTOR;
+		$SpyBuild		= $fleetAmount >= $MinAmount + 3 * SPY_VIEW_FACTOR;
+		$SpyTechno		= $fleetAmount >= $MinAmount + 5 * SPY_VIEW_FACTOR;
 			
 
 		$classIDs[900]	= array_merge($reslist['resstype'][1], $reslist['resstype'][2]);
