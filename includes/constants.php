@@ -113,6 +113,17 @@ define('ENABLE_MULTIALERT'			, true);
 // UTF-8 support for names (required for non-english chars!)
 define('UTF8_SUPPORT'				, true);
 
+// Define, how its more hard to spy all inforation
+/*
+	min amount of spies = see MissionCaseSpy.php#78
+
+	To see Fleet		= {min amount of spies}
+	To see Defense		= {min amount of spies} + 1 * SPY_VIEW_FACTOR
+	To see Buildings	= {min amount of spies} + 3 * SPY_VIEW_FACTOR
+	To see Technology	= {min amount of spies} + 5 * SPY_VIEW_FACTOR
+*/
+define('SPY_VIEW_FACTOR'			, 1);
+
 // Bash Settings
 define('BASH_ON'					, false);	
 define('BASH_COUNT'					, 6);	
