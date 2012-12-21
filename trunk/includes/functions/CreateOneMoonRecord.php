@@ -79,5 +79,3 @@ function CreateOneMoonRecord($Galaxy, $System, $Planet, $Universe, $Owner, $Moon
 
 	return true;
 }
-
-?>

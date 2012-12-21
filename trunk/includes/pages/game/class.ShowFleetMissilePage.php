@@ -122,4 +122,3 @@ class ShowFleetMissilePage extends AbstractPage
 		$this->printMessage("<b>".$anz."</b>". $LNG['ma_missiles_sended'] .$DefenseLabel, "game.php?page=overview", 3);
 	}
 }
-?>

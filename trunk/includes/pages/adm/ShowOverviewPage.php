@@ -71,5 +71,3 @@ function ShowOverviewPage()
 	
 	$template->show('OverviewBody.tpl');
 }
-
-?>

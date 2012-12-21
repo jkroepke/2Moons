@@ -520,5 +520,3 @@ class statbuilder
 		return $this->SomeStatsInfos();
 	}
 }
-
-?>

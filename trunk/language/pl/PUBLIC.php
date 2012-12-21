@@ -119,4 +119,3 @@ $LNG['disclamer_name']				= "Nazwa:";
 $LNG['disclamer_adress']			= "Adres:";
 $LNG['disclamer_tel']				= "Telefon Nr.:";
 $LNG['disclamer_email']				= "E-Mail Adress:";
-?>

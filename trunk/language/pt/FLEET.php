@@ -197,4 +197,3 @@ $LNG['type_mission'][11] 				= 'Exploração M.N.';
 $LNG['type_mission'][15] 				= 'Exploração Espacial';
 
 
-?>

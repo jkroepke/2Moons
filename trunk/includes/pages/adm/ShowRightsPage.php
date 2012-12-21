@@ -178,4 +178,3 @@ function prepare($val)
 {
 	return str_replace('.php', '', $val);
 }
-?>

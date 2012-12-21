@@ -431,5 +431,3 @@ function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialS
 		return $Result;
 	}
 }
-
-?>

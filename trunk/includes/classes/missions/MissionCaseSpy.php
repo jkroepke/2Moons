@@ -195,5 +195,3 @@ class MissionCaseSpy extends MissionFunctions
 		$this->RestoreFleet();
 	}
 }
-
-?>

@@ -87,4 +87,3 @@ function ShowStatsPage()
 		
 	$template->show('StatsPage.tpl');
 }
-?>

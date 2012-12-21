@@ -54,4 +54,3 @@ function ShowTopnavPage()
 	
 	$template->show('ShowTopnavPage.tpl');
 }
-?>

@@ -74,4 +74,3 @@ class ShowBanListPage extends AbstractPage
 		$this->display('page.banList.default.tpl');
 	}
 }
-?>

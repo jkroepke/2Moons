@@ -68,5 +68,3 @@ class SupportTickets
 		return $categoryList;
 	}
 }
-
-?>

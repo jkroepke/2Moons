@@ -81,4 +81,3 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $Universe, $PlanetOw
 
 	return $GLOBALS['DATABASE']->GetInsertID();
 }
-?>

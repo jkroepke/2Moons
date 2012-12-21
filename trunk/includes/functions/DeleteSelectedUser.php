@@ -98,5 +98,3 @@ function DeleteSelectedPlanet($planetID)
 		$GLOBALS['DATABASE']->query("DELETE FROM ".PLANETS." WHERE id = ".$planetID." OR id_luna = ".$planetID.";");
 	}
 }
-
-?>

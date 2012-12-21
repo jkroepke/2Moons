@@ -63,4 +63,3 @@ class ShowQuestionsPage extends AbstractPage
 		$this->display('page.questions.single.tpl');
 	}
 }
-?>

@@ -1130,5 +1130,3 @@ $LNG['lo_continue']							= 'Pulsa aquí si no redirecciona tu navegador.';
 
 
 // Translated into Spanish by Angelus_ira . All rights reversed (C) 2011
-
-?>

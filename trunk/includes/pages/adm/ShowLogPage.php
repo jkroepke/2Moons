@@ -321,4 +321,3 @@ function ShowLogPresent() {
 	));
 	$template->show("LogList.tpl");
 }
-?>

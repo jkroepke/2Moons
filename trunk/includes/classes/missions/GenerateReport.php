@@ -134,4 +134,3 @@ function GenerateReport($combatResult, $raportInfo)
 	return $DATA;
 }
 	
-?>

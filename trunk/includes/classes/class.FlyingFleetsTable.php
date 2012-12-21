@@ -281,4 +281,3 @@ class FlyingFleetsTable
 		return $FleetPopup;
 	}	
 }
-?>

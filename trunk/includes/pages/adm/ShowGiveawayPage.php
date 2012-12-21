@@ -99,5 +99,3 @@ function ShowGiveaway()
 	$template->show("giveaway.tpl");
 }
 
-
-?>

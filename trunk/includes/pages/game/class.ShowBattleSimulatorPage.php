@@ -293,5 +293,3 @@ class ShowBattleSimulatorPage extends AbstractPage
 		$this->display('page.battleSimulator.default.tpl');   
 	}
 }
-
-?>

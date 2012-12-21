@@ -97,4 +97,3 @@ function ShowSendMessagesPage() {
 	));
 	$template->show('SendMessagesPage.tpl');
 }
-?>

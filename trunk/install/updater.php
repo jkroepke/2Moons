@@ -441,4 +441,3 @@ switch ($step) {
 		$template->show('ins_intro.tpl');
 	break;
 }
-?>

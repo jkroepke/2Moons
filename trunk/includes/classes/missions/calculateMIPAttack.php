@@ -61,4 +61,3 @@ function calculateMIPAttack($TargetDefTech, $OwnerAttTech, $missiles, $targetDef
 	return $destroyShips;
 }
 	
-?>

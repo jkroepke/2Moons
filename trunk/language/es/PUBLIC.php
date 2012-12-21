@@ -117,4 +117,3 @@ $LNG['disclamer_tel'] = "Telefono:";
 $LNG['disclamer_email'] = "Correo Electrónico:";
 
 // Translated into Spanish by Scofield06 . All rights reversed (C) 2011
-?>

@@ -427,4 +427,3 @@ class FleetFunctions
 		$GLOBALS['DATABASE']->multi_query($SQL);
 	}
 }
-?>

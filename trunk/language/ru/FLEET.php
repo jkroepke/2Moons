@@ -181,4 +181,3 @@ $LNG['type_mission'][8]               = 'Переработать';
 $LNG['type_mission'][9]               = 'Уничтожить';
 $LNG['type_mission'][11]              = 'Поиск ТМ';
 $LNG['type_mission'][15]              = 'Экспедиция';
-?>

@@ -107,4 +107,3 @@ class MissionCaseColonisation extends MissionFunctions
 		$this->RestoreFleet();
 	}
 }
-?>

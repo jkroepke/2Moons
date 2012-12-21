@@ -75,4 +75,3 @@ while($raport = $db->fetch_array($RW)) {
 	$db->query("UPDATE ".RW." SET raport = '".serialize($NEW)."' WHERE rid = ".$raport['rid'].";");
 }
 	exit("Done");
-?>

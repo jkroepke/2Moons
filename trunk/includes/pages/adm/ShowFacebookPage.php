@@ -62,5 +62,3 @@ function ShowFacebookPage() {
 	));
 	$template->show('FacebookPage.tpl');
 }
-
-?>

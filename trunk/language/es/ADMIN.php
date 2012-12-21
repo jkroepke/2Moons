@@ -1245,5 +1245,3 @@ $LNG['supp_open'] 							= 'Abierto';
 $LNG['supp_admin_answer'] 					= 'Respuesta-Admin';
 $LNG['supp_player_write'] 					= '%s sigue leyendo %s';
 $LNG['supp_player_answer'] 					= 'Respuesta-Usuario';
-
-?>

@@ -316,4 +316,3 @@ class ShowSettingsPage extends AbstractPage
 		$this->printMessage($LNG['op_options_changed']);
 	}
 }
-?>

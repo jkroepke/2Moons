@@ -187,5 +187,3 @@ $LNG['type_mission'][8]  					= 'Reciclar';
 $LNG['type_mission'][9]  					= 'Destruir';
 $LNG['type_mission'][11]  					= 'Investigación DM';
 $LNG['type_mission'][15] 					= 'Expedición';
-
-?>

@@ -53,4 +53,3 @@ function ShowLoginPage()
 	));
 	$template->show('LoginPage.tpl');
 }
-?>

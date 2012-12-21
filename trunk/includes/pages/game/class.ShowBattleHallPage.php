@@ -110,4 +110,3 @@ class ShowBattleHallPage extends AbstractPage
 		$this->display('page.battlehall.default.tpl');
 	}
 }
-?>

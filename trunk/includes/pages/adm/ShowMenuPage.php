@@ -37,5 +37,3 @@ function ShowMenuPage()
 	
 	$template->show('ShowMenuPage.tpl');
 }
-
-?>

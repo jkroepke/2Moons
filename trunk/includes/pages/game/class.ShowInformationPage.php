@@ -329,4 +329,3 @@ class ShowInformationPage extends AbstractPage
 		$this->display('page.infomation.default.tpl');
 	}
 }
-?>

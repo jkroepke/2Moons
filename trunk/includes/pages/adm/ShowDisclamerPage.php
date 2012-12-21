@@ -83,5 +83,3 @@ function ShowDisclamerPage()
 	
 	$template->show('DisclamerConfigBody.tpl');
 }
-
-?>

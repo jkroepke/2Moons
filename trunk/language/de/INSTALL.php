@@ -119,5 +119,3 @@ $LNG['step6_info_additional']	= 'Wenn du unten auf die Schaltfläche klickst, wi
 
 $LNG['sql_close_reason']		= 'Game ist zurzeit geschlossen';
 $LNG['sql_welcome']				= 'Herzlich Willkommen zu 2Moons v';
-
-?>

@@ -460,5 +460,3 @@ function ShowConfigUniPage()
 		'silo_factor'					=> $CONF['silo_factor'],
 		'max_dm_missions'				=> $CONF['max_dm_missions'],
 		'alliance_create_min_points' 	=> $CONF['alliance_create_min_points']}
-
-?>

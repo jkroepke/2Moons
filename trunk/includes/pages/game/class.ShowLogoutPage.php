@@ -45,4 +45,3 @@ class ShowLogoutPage extends AbstractPage
 		$this->display('page.logout.default.tpl');
 	}
 }
-?>

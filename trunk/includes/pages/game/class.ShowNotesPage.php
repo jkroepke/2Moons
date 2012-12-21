@@ -127,4 +127,3 @@ class ShowNotesPage extends AbstractPage
 	}
 
 }
-?>

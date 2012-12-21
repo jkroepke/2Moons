@@ -476,5 +476,3 @@ HTML;
 		$this->RestoreFleet();
 	}
 }
-
-?>

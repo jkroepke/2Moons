@@ -344,4 +344,3 @@ class ShowBuildingsPage extends AbstractPage
 		$this->display('page.buildings.default.tpl');
 	}
 }
-?>

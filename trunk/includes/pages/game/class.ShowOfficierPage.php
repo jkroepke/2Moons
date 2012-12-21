@@ -160,4 +160,3 @@ class ShowOfficierPage extends AbstractPage
 		$this->display('page.officier.default.tpl');
 	}
 }
-?>

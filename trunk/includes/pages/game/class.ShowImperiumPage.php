@@ -113,4 +113,3 @@ class ShowImperiumPage extends AbstractPage
 		$this->display('page.empire.default.tpl');
 	}
 }
-?>

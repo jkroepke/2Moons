@@ -174,4 +174,3 @@ function ShowBanPage()
 	
 	$template->show('BanPage.tpl');
 }
-?>

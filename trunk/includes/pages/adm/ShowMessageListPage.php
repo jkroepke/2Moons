@@ -144,4 +144,3 @@ function ShowMessageListPage()
 				
 	$template->show('MessageList.tpl');
 }
-?>

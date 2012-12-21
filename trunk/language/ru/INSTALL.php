@@ -93,4 +93,3 @@ $LNG['step6_info_additional'] = 'Если Вы нажмёте на кнопку 
 
 $LNG['sql_close_reason']      = 'Сервер в данный момент недоступен';
 $LNG['sql_welcome']           = 'Добро пожаловать в 2Moons v';
-?>

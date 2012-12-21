@@ -125,4 +125,3 @@ class ShowTraderPage extends AbstractPage
 		$this->printMessage($LNG['tr_exchange_done'], array("game.php?page=trader", 3));
 	}
 }
-?>

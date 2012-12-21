@@ -59,4 +59,3 @@ function ShowActivePage()
 	
 	$template->show('ActivePage.tpl');
 }
-?>

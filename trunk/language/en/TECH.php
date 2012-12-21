@@ -377,5 +377,3 @@ $LNG['longDescription'] = array(
 706 => 'Shortens research time',
 707 => 'Shortens flying time. Does not affect Expeditions.',
 );
-
-?>

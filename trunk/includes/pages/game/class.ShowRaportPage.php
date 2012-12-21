@@ -172,4 +172,3 @@ class ShowRaportPage extends AbstractPage
 		$this->display('shared.mission.raport.tpl');
 	}
 }
-?>

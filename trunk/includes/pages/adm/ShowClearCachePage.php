@@ -38,4 +38,3 @@ function ShowClearCachePage()
 	$template = new template();
 	$template->message($LNG['cc_cache_clear']);
 }
-?>

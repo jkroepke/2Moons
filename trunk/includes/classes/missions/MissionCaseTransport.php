@@ -75,4 +75,3 @@ class MissionCaseTransport extends MissionFunctions
 		$this->RestoreFleet();
 	}
 }
-?>
