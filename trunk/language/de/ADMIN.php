@@ -517,6 +517,7 @@ $LNG['se_dst_sel'][0]					= 'Nein';
 $LNG['se_dst_sel'][1]					= 'Ja';
 $LNG['se_dst_sel'][2]					= 'Automatisch';
 $LNG['se_max_dm_missions']				= 'Max. Anzahl an parralell laufenden DM-Such Missionen';
+$LNG['se_alliance_create_min_points']   = 'Mindestpunktzahl, um eine Allianz gründen zu können';
 $LNG['se_disclamerAddress']				= 'Adresse';
 $LNG['se_disclamerPhone']				= 'Telefonnummer';
 $LNG['se_disclamerMail']				= 'E-Mail-Adresse';
