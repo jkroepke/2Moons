@@ -98,6 +98,7 @@ function ShowConfigUniPage()
 			'ref_max_referals'		=> $CONF['ref_max_referals'],
 			'silo_factor'			=> $CONF['silo_factor'],
 			'max_dm_missions'		=> $CONF['max_dm_missions'],
+			'alliance_create_min_points' => $CONF['alliance_create_min_points']
 		);
 		
 		$game_disable			= isset($_POST['closed']) && $_POST['closed'] == 'on' ? 1 : 0;
@@ -159,6 +160,7 @@ function ShowConfigUniPage()
 		$silo_factor			= HTTP::_GP('silo_factor', 0);
 		$ref_max_referals		= HTTP::_GP('ref_max_referals', 0);
 		$max_dm_missions		= HTTP::_GP('max_dm_missions', 1);
+		$alliance_create_min_points = HTTP::_GP('alliance_create_min_points', 0);
 			
 		$config_after = array(
 			'noobprotectiontime'	=> $noobprotectiontime,
@@ -218,6 +220,7 @@ function ShowConfigUniPage()
 			'ref_max_referals'		=> $ref_max_referals,
 			'silo_factor'			=> $silo_factor,
 			'max_dm_missions'		=> $max_dm_missions,
+			'alliance_create_min_points' => $alliance_create_min_points
 		);
 		
 		Config::update($config_after, $_SESSION['adminuni']);
@@ -379,6 +382,7 @@ function ShowConfigUniPage()
 		'se_silo_factor'				=> $LNG['se_silo_factor'],
 		'se_silo_factor_info'			=> $LNG['se_silo_factor_info'],
 		'se_max_dm_missions'			=> $LNG['se_max_dm_missions'],
+		'se_alliance_create_min_points' => $LNG['se_alliance_create_min_points'],
 		'game_name'						=> $CONF['game_name'],
 		'uni_name'						=> $CONF['uni_name'],
 		'game_speed'					=> ($CONF['game_speed'] / 2500),
@@ -455,9 +459,6 @@ function ShowConfigUniPage()
 		'ref_max_referals'				=> $CONF['ref_max_referals'],
 		'silo_factor'					=> $CONF['silo_factor'],
 		'max_dm_missions'				=> $CONF['max_dm_missions'],
-	));
-	
-	$template->show('ConfigBodyUni.tpl');
-}
+		'alliance_create_min_points' 	=> $CONF['alliance_create_min_points']}
 
 ?>

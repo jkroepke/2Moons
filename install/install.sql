@@ -53,11 +53,14 @@ CREATE TABLE `%PREFIX%alliance` (
   `ally_image` varchar(255) DEFAULT '',
   `ally_request` varchar(1000) DEFAULT NULL,
   `ally_request_notallow` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `ally_request_min_points` bigint(20) unsigned NOT NULL DEFAULT '0',
   `ally_owner_range` varchar(32) DEFAULT '',
   `ally_members` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `ally_stats` tinyint(1) unsigned NOT NULL DEFAULT '1',
   `ally_diplo` tinyint(1) unsigned NOT NULL DEFAULT '1',
   `ally_universe` tinyint(3) unsigned NOT NULL,
+  `ally_max_members` int(5) unsigned NOT NULL DEFAULT 20,
+  `ally_events` varchar(55) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `ally_tag` (`ally_tag`),
   KEY `ally_name` (`ally_name`),
@@ -79,9 +82,11 @@ CREATE TABLE `%PREFIX%alliance_ranks` (
   `DIPLOMATIC` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `RANKS` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `MANAGEUSERS` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `EVENTS` tinyint(3) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`rankID`),
   KEY `allianceID` (`allianceID`,`rankID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 
 CREATE TABLE `%PREFIX%alliance_request` (
   `applyID` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -285,6 +290,7 @@ CREATE TABLE `%PREFIX%config` (
   `disclamerPhone` text NOT NULL,
   `disclamerMail` text NOT NULL,
   `disclamerNotice` text NOT NULL,
+  `alliance_create_min_points` BIGINT UNSIGNED NOT NULL DEFAULT 0,
   PRIMARY KEY (`uni`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 

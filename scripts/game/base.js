@@ -232,3 +232,19 @@ $(function() {
 	UhrzeitAnzeigen();
 	setInterval(UhrzeitAnzeigen, 1000);
 });
+
+$(function() 
+{
+	$("button#create_new_alliance_rank").click(function() 
+	{
+		$("div#new_alliance_rank").dialog(
+		{
+			draggable: false,
+			resizable: false,
+			modal: true,
+			width: 760
+		});
+
+		return false;
+	});
+});

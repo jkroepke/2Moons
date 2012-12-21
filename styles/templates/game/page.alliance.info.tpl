@@ -21,12 +21,16 @@
 </tr>
 <tr>
 	<td>{$LNG.al_ally_info_members}</td>
-	<td>{$ally_member_scount}</td>
+	<td>{$ally_member_scount} / {$ally_max_members}</td>
 </tr>
 {if $ally_request}
 <tr>
 	<td>{$LNG.al_request}</td>
+	{if $ally_request_min_points}
 	<td><a href="game.php?page=alliance&amp;mode=apply&amp;id={$ally_id}">{$LNG.al_click_to_send_request}</a></td>
+	{else}
+		<td>{$ally_request_min_points_info}
+	{/if}
 </tr>
 {/if}
 <tr>
@@ -44,15 +48,16 @@
 </tr>
 <tr>
 	<td colspan="2">
+	{if $DiploInfo}
 	{if !empty($DiploInfo.0)}<b><u>{$LNG.al_diplo_level.0}</u></b><br><br>{foreach item=PaktInfo from=$DiploInfo.0}<a href="?page=alliance&mode=info&amp;id={$PaktInfo.1}">{$PaktInfo.0}</a><br>{/foreach}<br>{/if}
 	{if !empty($DiploInfo.1)}<b><u>{$LNG.al_diplo_level.1}</u></b><br><br>{foreach item=PaktInfo from=$DiploInfo.1}<a href="?page=alliance&mode=info&amp;id={$PaktInfo.1}">{$PaktInfo.0}</a><br>{/foreach}<br>{/if}
 	{if !empty($DiploInfo.2)}<b><u>{$LNG.al_diplo_level.2}</u></b><br><br>{foreach item=PaktInfo from=$DiploInfo.2}<a href="?page=alliance&mode=info&amp;id={$PaktInfo.1}">{$PaktInfo.0}</a><br>{/foreach}<br>{/if}
 	{if !empty($DiploInfo.3)}<b><u>{$LNG.al_diplo_level.3}</u></b><br><br>{foreach item=PaktInfo from=$DiploInfo.3}<a href="?page=alliance&mode=info&amp;id={$PaktInfo.1}">{$PaktInfo.0}</a><br>{/foreach}<br>{/if}
-	{if !empty($DiploInfo.4)}<b><u>{$LNG.al_diplo_level.4}</u></b><br><br>{foreach item=PaktInfo from=$DiploInfo.4}<a href="?page=alliance&mode=info&amp;id={$PaktInfo.1}">{$PaktInfo.0}</a><br>{/foreach}<br>{/if}</td>
-</tr>
-{/if}
-{if $ally_stats}
-<tr>
+		{if !empty($DiploInfo.4)}<b><u>{$LNG.al_diplo_level.4}</u></b><br><br>{foreach item=PaktInfo from=$DiploInfo.4}<a href="?page=alliance&mode=info&amp;id={$PaktInfo.1}">{$PaktInfo.0}</a><br>{/foreach}<br>{/if}
+	{else}
+		{$LNG.al_no_diplo}
+	{/if}
+	</td><tr>
 	<th colspan="2">{$LNG.pl_fightstats}</th>
 </tr>
 <tr>

@@ -19,7 +19,7 @@
 	</tr>
 	<tr>
 		<td>{$LNG.al_ally_info_members}</td>
-		<td>{$ally_members}{if $rights.MEMBERLIST} (<a href="?page=alliance&amp;mode=memberList">{$LNG.al_user_list}</a>){/if}</td>
+		<td>{$ally_max_members} / {$ally_members}{if $rights.MEMBERLIST} (<a href="?page=alliance&amp;mode=memberList">{$LNG.al_user_list}</a>){/if}</td>
 	</tr>
 	<tr>
 		<td>{$LNG.al_rank}</td>
@@ -38,6 +38,28 @@
 		<td>{$LNG.al_circular_message}</td><td><a href="game.php?page=alliance&mode=circular" onclick="return Dialog.open(this.href, 650, 300);">{$LNG.al_send_circular_message}</a></td>
 	</tr>
 	{/if}
+	{if $rights.EVENTS}
+	<tr>
+			<th colspan="2">{$LNG.al_events}</th>
+		</tr>
+		{if $ally_events}
+			{foreach $ally_events as $member => $events}
+				<tr>
+					<td colspan="2">{$member}</td>
+				</tr>
+				{foreach $events as $index => $fleet}
+				<tr>
+					<td id="fleettime_{$index}" class="fleets" data-fleet-end-time="{$fleet.returntime}" data-fleet-time="{$fleet.resttime}">-</td>
+					<td colspan="2">{$fleet.text}</td>
+				</tr>
+				{/foreach}
+			{/foreach}
+		{else}
+			<tr>
+				<td colspan="2">{$LNG.al_no_events}</td>
+			</tr>
+		{/if}
+	{/if}
 	<tr>
 		<td colspan="2" style="height:100px" class="bbcode">{if $ally_description}{$ally_description}{else}{$LNG.al_description_message}{/if}</td>
 	</tr>
@@ -53,22 +75,22 @@
 	<tr>
 		<td colspan="2" height="100" class="bbcode">{$ally_text}</td>
 	</tr>
-	{if $DiploInfo}
 	<tr>
 		<th colspan="2">{$LNG.al_diplo}</th>
 	</tr>
 	<tr>
-		<td colspan="2">{if !empty($DiploInfo.0)}<b><u>{$LNG.al_diplo_level.0}</u></b><br><br>{foreach item=PaktInfo from=$DiploInfo.0}<a href="?page=alliance&mode=info&amp;id={$PaktInfo.1}">{$PaktInfo.0}</a><br>{/foreach}<br>{/if}
+		<td colspan="2">
+		{if $DiploInfo}
+			{if !empty($DiploInfo.0)}<b><u>{$LNG.al_diplo_level.0}</u></b><br><br>{foreach item=PaktInfo from=$DiploInfo.0}<a href="?page=alliance&mode=info&amp;id={$PaktInfo.1}">{$PaktInfo.0}</a><br>{/foreach}<br>{/if}
 		{if !empty($DiploInfo.1)}<b><u>{$LNG.al_diplo_level.1}</u></b><br><br>{foreach item=PaktInfo from=$DiploInfo.1}<a href="?page=alliance&mode=info&amp;id={$PaktInfo.1}">{$PaktInfo.0}</a><br>{/foreach}<br>{/if}
 		{if !empty($DiploInfo.2)}<b><u>{$LNG.al_diplo_level.2}</u></b><br><br>{foreach item=PaktInfo from=$DiploInfo.2}<a href="?page=alliance&mode=info&amp;id={$PaktInfo.1}">{$PaktInfo.0}</a><br>{/foreach}<br>{/if}
 		{if !empty($DiploInfo.3)}<b><u>{$LNG.al_diplo_level.3}</u></b><br><br>{foreach item=PaktInfo from=$DiploInfo.3}<a href="?page=alliance&mode=info&amp;id={$PaktInfo.1}">{$PaktInfo.0}</a><br>{/foreach}<br>{/if}
-		{if !empty($DiploInfo.4)}<b><u>{$LNG.al_diplo_level.4}</u></b><br><br>{foreach item=PaktInfo from=$DiploInfo.4}<a href="?page=alliance&mode=info&amp;id={$PaktInfo.1}">{$PaktInfo.0}</a><br>{/foreach}<br>{/if}</td>
-	</tr>
+			{if !empty($DiploInfo.4)}<b><u>{$LNG.al_diplo_level.4}</u></b><br><br>{foreach item=PaktInfo from=$DiploInfo.4}<a href="?page=alliance&mode=info&amp;id={$PaktInfo.1}">{$PaktInfo.0}</a><br>{/foreach}<br>{/if}
+		{else}
+			{$LNG.al_no_diplo}
 	{/if}
-	<tr>
-		<th colspan="2">{$LNG.pl_fightstats}</th>
-	</tr>
-	<tr>
+		</td>
+	</tr>	<tr>
 		<td>{$LNG.pl_totalfight}</td><td>{$totalfight|number}</td>
 	</tr>
 	<tr>

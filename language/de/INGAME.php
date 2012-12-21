@@ -625,6 +625,8 @@ $LNG['al_ok']								= 'OK';
 $LNG['al_num']								= 'ID';
 $LNG['al_member']							= 'Name';
 $LNG['al_request_from_user']				= 'Bewerbung von Spieler';
+$LNG['al_request_register_time']            = 'Registriert am';
+$LNG['al_request_last_onlinetime']          = 'Letzte AktivitÃ¤t';
 $LNG['al_message']							= 'Nachricht';
 $LNG['al_position']							= 'Rang';
 $LNG['al_points']							= 'Punkte';
@@ -699,6 +701,7 @@ $LNG['al_legend_see_connected_users']		= 'Online-Status sehen';
 $LNG['al_legend_create_circular']			= 'Rundmails schreiben';
 $LNG['al_legend_right_hand']				= 'Rechte Hand';
 $LNG['al_requests']							= 'Bewerbungen';
+$LNG['al_requests_min_points']              = 'ab %s Punkte';
 $LNG['al_circular_message']					= 'Rundmail';
 $LNG['al_leave_alliance']					= 'Diese Allianz verlassen';
 $LNG['al_unitsshut']    					= 'Geschossene Units';
@@ -758,6 +761,7 @@ $LNG['al_rank_desc']['KICK']				= 'Kann Mitglieder entfernen';
 $LNG['al_rank_desc']['DIPLOMATIC']			= 'Kann Diplomatie verwalten';
 $LNG['al_rank_desc']['RANKS']				= 'Rangverwaltung';
 $LNG['al_rank_desc']['MANAGEUSERS']			= 'Kann Mitglieder verwalten';
+$LNG['al_rank_desc']['EVENTS']				= 'Kann Ereignisse im internen Bereich sehen';$LNG['bu_request_exists']					= 'Spieler bereits in der Buddyliste!';
 
 //----------------------------------------------------------------------------//
 //BUDDY

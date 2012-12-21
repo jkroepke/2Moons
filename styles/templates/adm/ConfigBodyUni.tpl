@@ -231,6 +231,10 @@
 	<td><input name="max_dm_missions" maxlength="3" size="3" value="{$max_dm_missions}" type="text"></td>
 	<td>&nbsp;</td>
 </tr><tr>
+	<td>{$se_alliance_create_min_points}</td>
+	<td><input name="alliance_create_min_points" maxlength="20" size="25" value="{$alliance_create_min_points}" type="text"></td>
+	<td>&nbsp;</td>
+</tr><tr>
 	<th colspan="2">{$se_trader_head}</th><th>&nbsp;</th>
 </tr><tr>
     <td>{$se_trader_ships}</td>
