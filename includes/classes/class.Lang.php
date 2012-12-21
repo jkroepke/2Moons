@@ -196,5 +196,3 @@ class Language
 		return $LNG;
 	}
 }
-
-?>

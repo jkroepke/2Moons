@@ -1279,5 +1279,3 @@ $LNG['supp_open'] 							='Open';
 $LNG['supp_admin_answer'] 					='Administrator response';
 $LNG['supp_player_write'] 					='%s written on %s';
 $LNG['supp_player_answer'] 					='Player response';
-
-?>

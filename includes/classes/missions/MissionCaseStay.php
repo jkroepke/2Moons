@@ -62,4 +62,3 @@ class MissionCaseStay extends MissionFunctions
 		$this->RestoreFleet();
 	}
 }
-?>

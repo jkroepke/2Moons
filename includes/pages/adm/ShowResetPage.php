@@ -197,5 +197,3 @@ function ShowResetPage()
 	
 	$template->show('ResetPage.tpl');
 }
-
-?>

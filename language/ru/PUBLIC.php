@@ -141,4 +141,3 @@ $LNG['disclamerLabelAddress']		= 'Адрес:';
 $LNG['disclamerLabelPhone']			= 'Телефон:';
 $LNG['disclamerLabelMail']			= 'Электронная почта:';
 $LNG['disclamerLabelNotice']		= 'Дополнительная информация';
-?>

@@ -70,4 +70,3 @@ class CleanerCronjob
 		$GLOBALS['DATABASE']->query("UNLOCK TABLES;");
 	}
 }
-?>

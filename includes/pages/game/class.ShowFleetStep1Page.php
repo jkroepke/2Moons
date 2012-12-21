@@ -267,4 +267,3 @@ class ShowFleetStep1Page extends AbstractPage
 		$this->sendJSON('OK');	
 	}
 }
-?>

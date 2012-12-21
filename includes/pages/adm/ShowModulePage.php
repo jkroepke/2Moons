@@ -63,4 +63,3 @@ function ShowModulePage()
 	
 	$template->show('ModulePage.tpl');
 }
-?>

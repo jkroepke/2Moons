@@ -882,4 +882,3 @@ $LNG['changelog']   = array(
 Based on XG Proyect 2.8 on 11.10.09
 ',
 );
-?>

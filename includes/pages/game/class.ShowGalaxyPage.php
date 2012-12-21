@@ -127,4 +127,3 @@ class ShowGalaxyPage extends AbstractPage
 		$this->display('page.galaxy.default.tpl');
 	}
 }
-?>

@@ -129,4 +129,3 @@ class ShowSupportPage
 		$this->tplObj->show('page.ticket.view.tpl');		
 	}
 }	
-?>

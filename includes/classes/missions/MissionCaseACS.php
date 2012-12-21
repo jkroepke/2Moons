@@ -58,5 +58,3 @@ class MissionCaseACS extends MissionFunctions
 		$this->RestoreFleet();
 	}
 }
-
-?>

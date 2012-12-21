@@ -62,5 +62,3 @@ function ShowMultiIPPage()
 	$template->show('MultiIPs.tpl');
 }
 
-
-?>

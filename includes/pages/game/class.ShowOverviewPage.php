@@ -294,4 +294,3 @@ class ShowOverviewPage extends AbstractPage
 		}
 	}
 }
-?>

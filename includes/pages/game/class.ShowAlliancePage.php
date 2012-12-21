@@ -1238,4 +1238,3 @@ class ShowAlliancePage extends AbstractPage
 		));
 	}
 }
-?>

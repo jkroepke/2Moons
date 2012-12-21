@@ -46,5 +46,3 @@ class ShowBoardPage extends AbstractPage
 		}
 	}
 }
-
-?>

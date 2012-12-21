@@ -300,4 +300,3 @@ function ShowCreatorPage()
 		break;	
 	}
 }
-?>

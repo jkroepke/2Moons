@@ -153,5 +153,3 @@ class Config
 		$GLOBALS['CONF']	= self::$config[$GLOBALS['UNI']];
 	}
 }
-
-?>

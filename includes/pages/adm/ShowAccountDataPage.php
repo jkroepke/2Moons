@@ -534,4 +534,3 @@ function ShowAccountDataPage()
 	));					
 	$template->show('AccountDataPageIntro.tpl');
 }
-?>

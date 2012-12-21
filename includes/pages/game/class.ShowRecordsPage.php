@@ -70,5 +70,4 @@ class ShowRecordsPage extends AbstractPage
 		$this->display('page.records.default.tpl');
 	}
 }
-
-?> 
+ 

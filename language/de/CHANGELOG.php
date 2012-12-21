@@ -909,4 +909,3 @@ TMOONS-346 - The doubling of the fleet',
 Based on XG Proyect 2.8 on 11.10.09
 ',
 );
-?>

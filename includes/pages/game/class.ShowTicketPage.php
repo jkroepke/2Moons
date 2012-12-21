@@ -137,4 +137,3 @@ class ShowTicketPage extends AbstractPage
 		$this->display('page.ticket.view.tpl');		
 	}
 }
-?>

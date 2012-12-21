@@ -125,4 +125,3 @@ function ShowFlyingFleetPage()
 	));
 	$template->show('FlyingFleetPage.tpl');
 }
-?>

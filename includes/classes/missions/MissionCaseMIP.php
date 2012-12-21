@@ -130,5 +130,3 @@ class MissionCaseMIP extends MissionFunctions
 		return;
 	}
 }
-
-?>

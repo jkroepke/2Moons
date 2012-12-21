@@ -106,4 +106,3 @@ class ShowPhalanxPage extends AbstractPage
 		$this->display('page.phalanx.default.tpl');			
 	}
 }
-?>

@@ -102,5 +102,3 @@ function ShowChatConfigPage()
 	
 	$template->show('ChatConfigBody.tpl');
 }
-
-?>

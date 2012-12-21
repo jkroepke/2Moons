@@ -1134,5 +1134,3 @@ $LNG['lo_continue']						= 'Kliknij tutaj jeśli niechcesz zostać przniesiony';
 
 
 // Translated into Polish by Sirgomo . All rights reversed (C) 2012
-
-?>

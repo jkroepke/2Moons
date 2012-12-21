@@ -157,5 +157,3 @@ function ShowConfigBasicPage()
 	
 	$template->show('ConfigBasicBody.tpl');
 }
-
-?>

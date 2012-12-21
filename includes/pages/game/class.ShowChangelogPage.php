@@ -50,4 +50,3 @@ class ShowChangelogPage extends AbstractPage
 		$this->display('page.changelog.default.tpl');
 	}
 }
-?>

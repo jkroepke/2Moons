@@ -108,4 +108,3 @@ function ShowTeamspeakPage() {
 	$template->show('TeamspeakPage.tpl');
 
 }
-?>

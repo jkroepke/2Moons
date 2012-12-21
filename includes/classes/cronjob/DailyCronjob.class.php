@@ -66,5 +66,3 @@ class DailyCronJob
 		$GLOBALS['DATABASE']->query("UPDATE uni1_planets SET eco_hash = '';");
 	}
 }
-
-?>

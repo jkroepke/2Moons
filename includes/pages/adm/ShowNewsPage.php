@@ -89,4 +89,3 @@ function ShowNewsPage(){
 	
 	$template->show('NewsPage.tpl');
 }
-?>

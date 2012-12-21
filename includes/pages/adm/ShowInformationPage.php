@@ -83,5 +83,3 @@ function ShowInformationPage()
 
 	$template->show('ShowInformationPage.tpl');
 }
-
-?>

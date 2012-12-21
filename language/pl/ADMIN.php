@@ -1244,4 +1244,3 @@ $LNG['supp_player_write'] 					= '%s napisał o %s';
 $LNG['supp_player_answer'] 					= 'Odpowiedź gracza';
 
 // Translated into Polish by Sirgomo . All rights reversed (C) 2012
-?>

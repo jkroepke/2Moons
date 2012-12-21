@@ -117,5 +117,3 @@ class Theme
 		return self::$Themes;
 	}
 }
-
-?>

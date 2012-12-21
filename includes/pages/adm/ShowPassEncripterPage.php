@@ -46,4 +46,3 @@ function ShowPassEncripterPage()
 	
 	$template->show('PassEncripterPage.tpl');
 }
-?>

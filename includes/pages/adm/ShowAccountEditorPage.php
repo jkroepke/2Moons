@@ -698,4 +698,3 @@ function ShowAccountEditorPage()
 		break;
 	}
 }
-?>

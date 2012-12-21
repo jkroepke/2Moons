@@ -134,4 +134,3 @@ class MissionCaseRecycling extends MissionFunctions
 		$this->RestoreFleet();
 	}
 }
-?>

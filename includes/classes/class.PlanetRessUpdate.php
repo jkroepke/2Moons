@@ -676,4 +676,3 @@ class ResourceUpdate
 		return array($USER, $PLANET);
 	}
 }
-?>

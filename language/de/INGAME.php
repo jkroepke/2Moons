@@ -1166,5 +1166,3 @@ $LNG['lo_continue']							= 'Klicken Sie hier, um nicht zu warten';
 
 
 // Translated into German by Jan . All rights reversed (C) 2011
-
-?>

@@ -38,4 +38,3 @@ function ShowIndexPage()
 	
 	$template->display('adm/ShowIndexPage.tpl');
 }
-?>

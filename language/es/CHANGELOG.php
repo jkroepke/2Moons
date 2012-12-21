@@ -617,4 +617,3 @@ Based on XG Proyect 2.8 on 11.10.09
 ', );
 
 // Translated into Spanish by Scofield06 . All rights reversed (C) 2011
-?>

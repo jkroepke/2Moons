@@ -378,4 +378,3 @@ $LNG['longDescription'] = array(
 );
 
 // Translated into Polish by Sirgomo . All rights reversed (C) 2012
-?>

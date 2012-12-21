@@ -196,4 +196,3 @@ $LNG['type_mission'][15] 					= 'Ekspedycja';
 
 
 // Translated into Polish by Sirgomo . All rights reversed (C) 2012
-?>

@@ -272,4 +272,3 @@ class ShowShipyardPage extends AbstractPage
 		$this->display('page.shipyard.default.tpl');
 	}
 }
-?>

@@ -109,4 +109,3 @@ function calculateSteal($attackFleets, $defenderPlanet, $simMode = false)
 	return $stealResource;
 }
 	
-?>

@@ -277,4 +277,3 @@ class ShowFleetTablePage extends AbstractPage
 		$this->display('page.fleetTable.default.tpl');
 	}
 }
-?>

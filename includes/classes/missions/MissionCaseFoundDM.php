@@ -75,5 +75,3 @@ class MissionCaseFoundDM extends MissionFunctions
 		$this->RestoreFleet();
 	}
 }
-
-?>

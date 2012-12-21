@@ -70,4 +70,3 @@ class ShowTechtreePage extends AbstractPage
 		$this->display('page.techtree.default.tpl');
 	}
 }
-?>

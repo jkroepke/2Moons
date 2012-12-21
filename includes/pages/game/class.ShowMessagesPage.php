@@ -294,4 +294,3 @@ class ShowMessagesPage extends AbstractPage
 		$this->display('page.messages.default.tpl');
 	}
 }
-?>

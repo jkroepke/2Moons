@@ -93,4 +93,3 @@ class ShowFleetDealerPage extends AbstractPage
 		$this->display('page.fleetDealer.default.tpl');
 	}
 }
-?>

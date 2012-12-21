@@ -209,4 +209,3 @@ function bbcode_bgcolor($action, $attributes, $content, $params, $node_object) {
 	if ($action == 'validate') return true;
 	return '<span style="background: '.htmlspecialchars($attributes["default"]).'">'.$content.'</span>';
 }
-?>

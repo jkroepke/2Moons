@@ -241,5 +241,3 @@ class xml2Array {
 		array_pop($this->arrOutput);
 	}
 }
-
-?>

@@ -1,8 +1,8 @@
-<?php
+ï»¿<?php
 
 /**
  *  2Moons
- *  Copyright (C) 2012 Jan Kröpke
+ *  Copyright (C) 2012 Jan KrÃ¶pke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Jan Kröpke <info@2moons.cc>
- * @copyright 2012 Jan Kröpke <info@2moons.cc>
+ * @author Jan KrÃ¶pke <info@2moons.cc>
+ * @copyright 2012 Jan KrÃ¶pke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.7.0 (2012-12-31)
  * @info $Id$
@@ -59,4 +59,3 @@ $template->assign_vars(array(
 	'username'	=> 'root'
 ));
 $template->show('LoginPage.tpl');
-?>

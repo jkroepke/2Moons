@@ -198,4 +198,3 @@ class ShowBuddyListPage extends AbstractPage
 		$this->display('page.buddyList.default.tpl');
 	}
 }
-?>

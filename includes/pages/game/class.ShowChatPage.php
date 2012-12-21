@@ -46,5 +46,3 @@ class ShowChatPage extends AbstractPage
 		$this->display('page.chat.default.tpl');
 	}
 }
-
-?>

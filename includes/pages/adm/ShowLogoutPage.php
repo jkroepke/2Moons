@@ -32,5 +32,3 @@ function ShowLogoutPage()
 	unset($_SESSION['admin_login']);
 }
 
-
-?>

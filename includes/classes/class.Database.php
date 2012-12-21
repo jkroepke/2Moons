@@ -280,5 +280,3 @@ class Database extends mysqli
 		return $this->queryCount;
 	}
 }
-
-?>

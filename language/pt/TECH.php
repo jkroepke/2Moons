@@ -377,5 +377,3 @@ $LNG['longDescription'] = array(
 	706 => 'Este bonus diminui o tempo de pesquisas.',
 	707 => 'Este bonus diminui o tempo de voo.',
 );
-
-?>

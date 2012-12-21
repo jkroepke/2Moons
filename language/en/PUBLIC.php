@@ -145,5 +145,3 @@ $LNG['disclamerLabelAddress']		= 'Game Address:';
 $LNG['disclamerLabelPhone']			= 'Telephone Nr.:';
 $LNG['disclamerLabelMail']			= 'Support Email:';
 $LNG['disclamerLabelNotice']		= 'More information';
-
-?>

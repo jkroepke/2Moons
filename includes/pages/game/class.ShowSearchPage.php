@@ -240,4 +240,3 @@ class ShowSearchPage extends AbstractPage
 		$this->display('page.search.default.tpl');
 	}
 }
-?>

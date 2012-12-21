@@ -130,4 +130,3 @@ class ShowFleetStep2Page extends AbstractPage
 		$this->display('page.fleetStep2.default.tpl');
 	}
 }
-?>

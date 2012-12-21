@@ -96,4 +96,3 @@ $LNG['step6_info_additional']	= 'Se clicares no botão abaixo, serás redireccio
 
 $LNG['sql_close_reason']		= 'O jogo encontra-se fechado';
 $LNG['sql_welcome']				= 'Bem vindo ao 2Moons v';
-?>

@@ -319,4 +319,3 @@ function calculateAttack(&$attackers, &$defenders, $FleetTF, $DefTF)
 
 	return array('won' => $won, 'debris' => array('attacker' => array(901 => $debAttMet, 902 => $debAttCry), 'defender' => array(901 => $debDefMet, 902 => $debDefCry)), 'rw' => $ROUND, 'unitLost' => $totalLost);
 }
-?>

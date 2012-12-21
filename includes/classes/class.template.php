@@ -242,5 +242,3 @@ class template extends Smarty
         }
     }
 }
-
-?>

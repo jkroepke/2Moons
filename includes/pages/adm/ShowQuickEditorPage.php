@@ -253,4 +253,3 @@ function ShowQuickEditorPage()
 		break;
 	}
 }
-?>

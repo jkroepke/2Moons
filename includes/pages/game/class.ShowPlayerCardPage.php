@@ -107,4 +107,3 @@ class ShowPlayerCardPage extends AbstractPage
 		$this->display('page.playerCard.default.tpl');
 	}
 }
-?>

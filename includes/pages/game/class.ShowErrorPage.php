@@ -50,5 +50,3 @@ class ShowErrorPage extends AbstractPage
 		
 	}
 }
-
-?>

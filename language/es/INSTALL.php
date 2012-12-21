@@ -122,4 +122,3 @@ $LNG['sql_close_reason'] = 'El juego está actualmente cerrado';
 $LNG['sql_welcome'] = 'Bienvenido a ';
 
 // Translated into Spanish by Scofield06 . All rights reversed (C) 2011
-?>

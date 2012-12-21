@@ -219,5 +219,3 @@ class ShowResourcesPage extends AbstractPage
 		$this->display('page.resources.default.tpl');
 	}
 }
-
-?>

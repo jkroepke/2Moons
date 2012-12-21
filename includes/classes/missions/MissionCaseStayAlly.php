@@ -76,4 +76,3 @@ class MissionCaseStayAlly extends MissionFunctions
 		$this->RestoreFleet();
 	}
 }
-?>

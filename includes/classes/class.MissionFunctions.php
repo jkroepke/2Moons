@@ -125,4 +125,3 @@ class MissionFunctions
 		DELETE FROM ".FLEETS_EVENT." WHERE `fleetID` = ".$this->_fleet['fleet_id'].";");
 	}	
 }
-?>
