@@ -163,6 +163,7 @@ $LNG['sys_expe_attack_2_2_2'] 				= 'Deine Expeditionsflotte hat anscheinend das
 $LNG['sys_expe_attack_2_2_3'] 				= 'Die Verbindung zu unserer Expeditionsflotte wurde kurzfristig gestört. Soweit wir die letzte Botschaft richtig entschlüsselt haben, steht die Flotte unter schwerem Feuer – die Aggressoren konnten nicht identifiziert werden.';
 $LNG['sys_expe_attack_2_3_1'] 				= 'Deine Expedition ist in eine Alien-Invasions-Flotte geraten und meldet schwere Gefechte!';
 $LNG['sys_expe_attack_2_3_2'] 				= 'Ein großer Verband kristalliner Schiffe unbekannter Herkunft hält direkten Kollisionskurs mit unserer Expeditionsflotte. Wir müssen nun wohl vom Schlimmsten ausgehen.';
+$LNG['sys_expe_found_ships_nothing']		= '- Es konnten keine Schiffe repariert werden.';
 $LNG['sys_expe_attackname_1']				= 'Piraten'; 	
 $LNG['sys_expe_attackname_2'] 				= 'Aliens'; 	
 $LNG['sys_expe_back_home'] 					= 'Deine Flotte ist von der Expedition wieder zurükgekehrt.<br>Sie haben %s %s, %s %s, %s %s und %s %s mitgebracht.';
