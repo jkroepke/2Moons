@@ -181,6 +181,10 @@ class MissionCaseExpedition extends MissionFunctions
 						break;
 				}
 				
+				if (empty($Found)) {
+					$FoundShipMess .= '<br><br>'.$LNG['sys_expe_found_ships_nothing'];
+				}
+
 				foreach($fleetArray as $ID => $Count)
 				{
 					if(!empty($Found[$ID]))
