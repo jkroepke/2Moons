@@ -73,7 +73,7 @@ class ShowTraderPage extends AbstractPage
 		
 		$this->tplObj->loadscript("trader.js");
 		$this->tplObj->assign_vars(array(
-			'resourceID'		=> $resourceID,
+			'tradeResourceID'	=> $resourceID,
 			'tradeRessources'	=> $tradeResources,
 			'charge' 			=> self::$Charge[$resourceID],
 		));
