@@ -459,4 +459,8 @@ function ShowConfigUniPage()
 		'ref_max_referals'				=> $CONF['ref_max_referals'],
 		'silo_factor'					=> $CONF['silo_factor'],
 		'max_dm_missions'				=> $CONF['max_dm_missions'],
-		'alliance_create_min_points' 	=> $CONF['alliance_create_min_points']}
+		'alliance_create_min_points' 	=> $CONF['alliance_create_min_points']
+	));
+	
+	$template->show('ConfigBodyUni.tpl');
+}
