@@ -2,10 +2,10 @@
 {block name="content"}
 <form id="trader" action="" method="post">
 	<input type="hidden" name="mode" value="send">
-	<input type="hidden" name="resource" value="{$resourceID}">
+	<input type="hidden" name="resource" value="{$tradeResourceID}">
 	<table class="table569">
 	<tr>
-		<th colspan="3">{$LNG.tr_sell} {$LNG.tech.$resourceID}</th>
+		<th colspan="3">{$LNG.tr_sell} {$LNG.tech.$tradeResourceID}</th>
 	</tr>
 	<tr>
 		<td>{$LNG.tr_resource}</td>
@@ -13,7 +13,7 @@
 		<td>{$LNG.tr_quota_exchange}</td>
 	</tr>
 	<tr>
-		<td>{$LNG.tech.$resourceID}</td>
+		<td>{$LNG.tech.$tradeResourceID}</td>
 		<td><span id="ress">0</span></td>
 		<td>1</td>
 	</tr>
