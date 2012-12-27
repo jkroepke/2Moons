@@ -146,12 +146,12 @@ class ShowFleetTablePage extends AbstractPage
 			}
 		}
 		
-		return array(
+		$this->tplObj->assign_vars(array(
 			'invitedUsers'	=> $invitedUsers,
 			'acsName'		=> $acsData['name'],
-			'fleetID'		=> $fleetID,
+			'mainFleetID'	=> $fleetID,
 			'statusMessage'	=> $statusMessage,
-		);
+		));
 	}
 	
 	public function show()
@@ -171,8 +171,7 @@ class ShowFleetTablePage extends AbstractPage
 					FleetFunctions::SendFleetBack($USER, $FleetID);
 				break;
 				case "acs":
-					$data	= $this->showACSPage($FleetID);
-					$this->tplObj->assign_vars($data);
+					$this->showACSPage($FleetID);
 				break;
 			}
 		}
@@ -252,7 +251,6 @@ class ShowFleetTablePage extends AbstractPage
 				'count'	=> $PLANET[$resource[$FleetID]],
 			);
 		}
-		
 		$this->tplObj->assign_vars(array(
 			'FleetsOnPlanet'		=> $FleetsOnPlanet,
 			'FlyingFleetList'		=> $FlyingFleetList,
