@@ -40,13 +40,13 @@ function ShowActivePage()
 	$Users	= array();
 	while ($User = $GLOBALS['DATABASE']->fetch_array($query)) {
 		$Users[]	= array(
-			'id'		=> $User['validationID'],
-			'name'		=> $User['userName'],
-			'date'		=> _date($LNG['php_tdformat'], $User['date'], $USER['timezone']),
-			'email'		=> $User['email'],
-			'ip'		=> $User['ip'],
-			'password'	=> $User['password'],
-			'cle'		=> $User['cle'],
+			'id'			=> $User['validationID'],
+			'name'			=> $User['userName'],
+			'date'			=> _date($LNG['php_tdformat'], $User['date'], $USER['timezone']),
+			'email'			=> $User['email'],
+			'ip'			=> $User['ip'],
+			'password'		=> $User['password'],
+			'validationKey'	=> $User['validationKey'],
 		);
 	}
 
