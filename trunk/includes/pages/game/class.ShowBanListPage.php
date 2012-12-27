@@ -39,7 +39,7 @@ class ShowBanListPage extends AbstractPage
 	{
 		global $USER, $PLANET, $LNG, $UNI;
 		
-		$page  		= HTTP::_GP('site', 1);
+		$page  		= HTTP::_GP('side', 1);
 		
 		$banCount	= $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".BANNED." WHERE universe = ".$UNI." ORDER BY time DESC;");
 		
