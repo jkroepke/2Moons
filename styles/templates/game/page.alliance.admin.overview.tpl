@@ -94,7 +94,7 @@
 		<th colspan="2">{$LNG.al_manage_requests}</th>
 	</tr>
 	<tr>
-		<td>{$LNG.al_requests_title}</td>
+		<td>{$LNG.al_manage_requests}</td>
 		<td>{html_options name=request_notallow options=$RequestSelector selected=$ally_request_notallow}</td>
 	</tr>
 	<tr>
