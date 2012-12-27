@@ -73,9 +73,9 @@
 	<tr><td colspan="9">{$LNG.fl_no_more_slots}</td></tr>
 	{/if}
 </table>
-{if isset($acsName)}
+{nocache}{if isset($mainFleetID)}
 {include file="shared.fleetTable.acsTable.tpl"}
-{/if}
+{/if}{/nocache}
 <form action="?page=fleetStep1" method="post">
 <input type="hidden" name="galaxy" value="{$targetGalaxy}">
 <input type="hidden" name="system" value="{$targetSystem}">
@@ -92,7 +92,7 @@
 		<td>-</td>
 		<td>-</td>
 	</tr>
-	{foreach name=Fleets item=FleetRow from=$FleetsOnPlanet}
+	{foreach $FleetsOnPlanet as $FleetRow}
 	<tr style="height:20px;">
 		<td>{if $FleetRow.speed != 0} <a title="{$LNG.fl_speed_title} {$FleetRow.speed}">{$LNG.tech.{$FleetRow.id}}</a>{else}{$LNG.tech.{$FleetRow.id}}{/if}</td>
 		<td id="ship{$FleetRow.id}_value">{$FleetRow.count|number}</td>
@@ -106,7 +106,7 @@
 	</tr>
 	{/foreach}
 	<tr style="height:20px;">
-	{if $smarty.foreach.Fleets.total == 0}
+	{if count($FleetsOnPlanet) == 0}
 	<td colspan="4">{$LNG.fl_no_ships}</td>
 	{else}
 	<td colspan="2"><a href="javascript:noShips();">{$LNG.fl_remove_all_ships}</a></td>
