@@ -1,11 +1,11 @@
 {include file="overall_header.tpl"}
 <script type="text/javascript">
-	function ajax(url) {
-		$.get(url, function(data){
-			Dialog.alert(data, function(){
-				parent.frames['Hauptframe'].location.reload()			
-			});
+	function activeUser(validationID, validationKey) {
+		$.get('index.php?page=vertify&i='+validationID+'&k='+validationKey, function(data){
+			alert(data);
+			parent.frames['Hauptframe'].location.reload();
 		});
+		return false;
 	}
 </script>
 <table width="450">
@@ -28,7 +28,7 @@
 	<td><nobr>{$User.date}</nobr></td>
 	<td>{$User.email}</td>
 	<td>{$User.ip}</td>
-	<td><a href="javascript:ajax('./index.php?&uni={$uni}&page=reg&action=valid&clef={$User.cle}&admin=1');">{$LNG.ap_aktivieren}</a></td>
+	<td><a href="#" onlick="return activeUser({$User.id},{$User.validationKey});">{$LNG.ap_aktivieren}</a></td>
 	<td><a href="?page=active&amp;action=delete&id={$User.id}" onclick="return confirm('{$LNG.ap_sicher}{$User.username} {$LNG.ap_entfernen}');"><img border="0" src="./styles/resource/images/alliance/CLOSE.png" width="16" height="16"></a></td>
 </tr>
 {/foreach}	
