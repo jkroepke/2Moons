@@ -614,19 +614,20 @@ $LNG['mu_planets_options']			= 'Opcje Planet';
 $LNG['mu_user_logs']				= 'Log';
 $LNG['mu_support']                 	= 'Pomoc techniczna';
 $LNG['mu_module']                 	= 'Moduły';
-$LNG['mu_update']                 	= 'Aktualizacje gry';
 $LNG['mu_mod_update']              	= 'Wersja kontrolna';
 $LNG['mu_fb_options'] 				= 'Przyłącz do Facebooka';
+
 $LNG['mu_ts_options'] 				= 'Teamspeak Optionen';
 $LNG['mu_game_info'] 				= 'Informacje';
 $LNG['mu_vaild_users']				= 'Aktywni użytkownicy'; 
 $LNG['mu_news']						= 'Nowości'; 
 $LNG['mu_multiip_page']				= 'MultiIP'; 
 $LNG['mu_clear_cache']				= 'Usuń cache'; 
-$LNG['mu_vertify']					= 'Sprawdź pliki gry!'; 
+$LNG['mu_vertify']					= 'Sprawdź pliki gry!';
+$LNG['mu_cronjob']					= 'Cronjobs'; 
 $LNG['mu_logs']						= 'Admin-Log';
 $LNG['mu_giveaway']					= 'Bonusy';
-
+$LNG['mu_disclamer']				= 'Ustawienia prawne';
 
 $LNG['vt_error']					= 'Błąd plików - wymagana aktualizacja!';
 $LNG['vt_fail']						= 'Zmienione Pliki';
@@ -647,7 +648,7 @@ $LNG['vt_loadfile']					= 'Szczegóły';
 
 //###########################################################//
 
-$LNG['cc_cache_clear']				= 'Usunięto'; 
+$LNG['cc_cache_clear']				= 'Cache Usunięto'; 
 
 //---------------	REINICIO DE UNIVERSO - RESET UNIVERSE - RESET UNIVERSUM	------------------------//
 $LNG['re_reset_universe']				= 'Reset Universum';
@@ -908,7 +909,13 @@ $LNG['new_creator_title_l']	= 'Stwórz księżyc';
 $LNG['new_creator_coor']	= 'Koordyaty';
 $LNG['new_creator_go_back']	= '[ Wróć do menu ]';
 $LNG['new_creator_refresh']	= '[ Od nowa ]';
-
+$LNG['uni_reg']				= 'Universum';
+$LNG['user_reg']			= 'Nazwa Gracza';
+$LNG['pass_reg']			= 'Hasło';
+$LNG['pass2_reg']			= 'Powtórz hasło';
+$LNG['email_reg']			= 'E-Mail';
+$LNG['email2_reg']			= 'Powtórz E-Mail';
+$LNG['lang_reg']			= 'Język';
 //	CREADOR DE USUARIOS - USERS MAKER
 $LNG['new_title']			= 'Nowy gracz';
 $LNG['new_user_success']	= 'Dodano nowego gracza!';
@@ -1110,6 +1117,8 @@ $LNG['uvs_new']							= 'Nowe uniwersum';
 $LNG['uvs_planets']						= 'Planety';
 $LNG['uvs_upload']						= 'Załaduj';
 $LNG['uvs_error']						= 'Niepoprawny lub błędny plik!';
+$LNG['uvs_reload']						= 'Neuladen';
+$LNG['uvs_back']						= 'Powrót';
 
 //Update Page
 $LNG['up_weiter']						= 'Dalej';
@@ -1204,6 +1213,50 @@ $LNG['log_tssettings']					= 'Teamspeak-Konfiguration';
 $LNG['log_uni_short']					= 'Uni';
 $LNG['log_universe']					= 'Universum';
 
+//Cronjobs
+$LNG['cronName']['referral']		= 'Bonus dla poleconych';
+$LNG['cronName']['statistic']		= 'Statystyka';
+$LNG['cronName']['daily']			= 'Zadania dzienne';
+$LNG['cronName']['cleaner']			= 'Usuń przestarzałe dane';
+$LNG['cronName']['inactive']		= 'Usuń nie aktywnych';
+$LNG['cronName']['teamspeak']		= 'Aktualizacja ustawień Teamspeak';
+
+
+$LNG['cronjob_id']					= 'ID';
+$LNG['cronjob_name']				= 'Nazwa';
+$LNG['cronjob_min']					= 'Minuty';
+$LNG['cronjob_hours']				= 'Godziny';
+$LNG['cronjob_dom']					= 'Dni';
+$LNG['cronjob_month']				= 'Miesiące';
+$LNG['cronjob_dow']					= 'Tygodnie';
+$LNG['cronjob_class']				= 'Klasa';
+$LNG['cronjob_nextTime']			= 'Następne wykonanie';
+$LNG['cronjob_inActive']			= 'Aktywne';
+$LNG['cronjob_edit']				= 'Edytuj';
+$LNG['cronjob_delete']				= 'Usuń';
+$LNG['cronjob_headline']			= 'Cronjob ID';
+$LNG['cronjob_new']					= 'Ustaw nowe zadanie';
+
+$LNG['cronjob_desc']				= 'Tutaj możesz podejrzeć zadanie wykonywane przez Crona, jak również je ustawiać i modyfikować. Uwaga! Możesz tu zmienić wszystko - Ostrożnie!';
+$LNG['cronjob_desc_name']			= 'Nazwa dla zadania.';
+$LNG['cronjob_desc_class']			= 'Eingabe der aufzurufenden Klasse. Soll includes/classes/cronjobs/foo.class.php aufgerufen werden, muss \'foo\' eingetragen werden.';
+
+$LNG['cronjob_error_name']			= 'Nie podałeś nazwy!';
+$LNG['cronjob_error_min']			= 'Nie zdefiniowałeś minut!';
+$LNG['cronjob_error_hours']			= 'Nie zdefiniowałeś godzin!';
+$LNG['cronjob_error_month']			= 'Nie podałeś miesięcy!';
+$LNG['cronjob_error_dow']			= 'Nie podałeś tygodni!';
+$LNG['cronjob_error_dom']			= 'Nie podałeś dni!';
+$LNG['cronjob_error_class']			= 'Nie ustawiłeś klasy!';
+$LNG['cronjob_error_filenotfound']	= 'Nie znaleziono pliku: ';
+$LNG['cronjob_selectall']			= 'Wszystkie';
+
+$LNG['cronjob_lock']				= 'Zablokowane';
+$LNG['cronjob_is_lock']				= 'Tak';
+$LNG['cronjob_is_unlock']			= 'Nie';
+
+$LNG['cronjob_inactive']			= 'Tak';
+$LNG['cronjob_active']				= 'Nie';
 // Giveaway
 $LNG['ga_success']						= 'Udane!';
 $LNG['ga_selectplanettype']				= 'Wybierz conajmniej jedną planetę!';
